@@ -21,7 +21,6 @@
 	    blank
 	    circle
 	    dot
-	    beam
 	    dashed-slur
 	    char
 	    setcolor
@@ -72,11 +71,6 @@
 ;;;
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
 ;;;
-
-;;; Output-interface functions
-(define (beam width slope thick blot)
-  (string-append
-   (ly:numbers->string (list slope width thick blot)) " draw_beam" ))
 
 ;; two beziers
 (define (bezier-sandwich lst thick)

@@ -185,64 +185,6 @@
   "")
 
 
-(define (rect-beam width slope thick blot-diameter)
-  (let* ((x width)
-	 (y (* slope width))
-	 (z (/ y x)))
-    (entity 'rect ""
-	    ;; The stroke will stick out.  To use stroke,
-	    ;; the stroke-width must be subtracted from all other dimensions.
-	    ;;'(stroke-linejoin . "round")
-	    ;;'(stroke-linecap . "round")
-	    ;;`(stroke-width . ,blot-diameter)
-	    ;;'(stroke . "red")
-	    ;;'(fill . "orange")
-
-	    `(x . 0)
-	    `(y . ,(- (/ thick 2)))
-	    `(width . ,width)
-	    `(height . ,(+ thick (* (abs z) (/ thick 2))))
-	    `(rx . ,(/ blot-diameter 2))
-	    `(transform . ,(format #f "matrix (1, ~f, 0, 1, 0, 0)"  z)
-			))))
-
-(define (beam width slope thick blot-diameter)
-  (let* ((b blot-diameter)
-	 (t (- thick b))
-	 (w (- width b))
-	 (h (* w slope)))
-    (entity 'polygon ""
-	    '(stroke-linejoin . "round")
-	    '(stroke-linecap . "round")
-	    `(stroke-width . ,blot-diameter)
-	    '(stroke . "currentColor")
-	    '(fill . "currentColor")
-	    `(points . ,(string-join
-			 (map offset->point
-			      (list (cons (/ b 2) (/ t 2))
-				    (cons (+ w (/ b 2)) (+ h (/ t 2)))
-				    (cons (+ w (/ b 2)) (+ h (- (/ t 2))))
-				    (cons (/ b 2) (- (/ t 2)))))))
-	    )))
-
-(define (path-beam width slope thick blot-diameter)
-  (let* ((b blot-diameter)
-	 (t (- thick b))
-	 (w (- width b))
-	 (h (* w slope)))
-    (entity 'path ""
-	    '(stroke-linejoin . "round")
-	    '(stroke-linecap . "round")
-	    `(stroke-width . ,blot-diameter)
-	    '(stroke . "currentColor")
-	    '(fill . "currentColor")
-	    `(d . ,(format #f "M ~S,~S l ~S,~S l ~S,~S l ~S,~S l ~S,~S"
-			   (/ b 2) (/ t 2)
-			   w (- h)
-			   0 (- t)
-			   (- w) h
-			   0 t))
-	    )))
 
 (define (bezier-sandwich lst thick)
   (let* ((first (list-tail lst 4))
@@ -290,6 +232,7 @@
 
 (define (placebox x y expr)
   (entity 'g
+	  
 	  ;; FIXME -- JCN
 	  ;;(dispatch expr)
 	  expr

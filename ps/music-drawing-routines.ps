@@ -149,33 +149,6 @@ bind def
 	} ifelse
 } bind def
 
-% Nice beam with rounded corners
-/draw_beam % slope width thick  blot
-{
-	/blot exch def
-	blot setlinewidth
-
- 	0 setlinecap
-	1 setlinejoin
-
-	blot sub /t exch def
-	blot sub /w exch def
-	w mul /h exch def
-
-	blot 2 div t 2 div neg moveto
-	w h rlineto
-	0 t rlineto
-	w neg h neg rlineto
-	0 t neg rlineto
-
-	currentdict /testing known {
-		%% outline only, for testing:
-		stroke
-	}{
-		closepath gsave stroke grestore fill
-	} ifelse
-} bind def
-
 /draw_polygon % x(n) y(n) x(n-1) y(n-1) ... x(1) y(1) n blot fill
 {
 	/fillp exch def
