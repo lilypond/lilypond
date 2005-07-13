@@ -11,18 +11,21 @@ class Notation_canvas (gnomecanvas.Canvas):
 					     )
 		w,h = 800,400
 		self.set_size_request (w, h) 
-		self.set_scroll_region(0, 0, w, h)
-		root = self.root()
+		self.set_scroll_region (0, 0, w, h)
+		root = self.root ()
 		root.affine_relative ((1,0,0,-1,0,0))
 		self.pixel_scale = 10
 		self.set_pixels_per_unit (self.pixel_scale)
+		i = root.add (gnomecanvas.CanvasRect, x2 = w, y2 = -h,
+			      fill_color = 'white', outline_color = 'white')
+		i.notation_item = None
 		self.create_cursor ()
 		
 	def create_cursor (self):
 		type = gnomecanvas.CanvasRect
-		w = self.root().add (type,
-				     fill_color = 'None',
-				     outline_color = 'blue')
+		w = self.root ().add (type,
+				      fill_color = 'None',
+				      outline_color = 'blue')
 		w.notation_item = None
 		
 		self.cursor_widget = w

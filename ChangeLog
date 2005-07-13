@@ -1,0 +1,6 @@
+2005-07-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* ikebana/notationcanvas.py (Notation_canvas.__init__): White
+	background.
+
+	* New file.
