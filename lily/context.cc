@@ -562,6 +562,9 @@ Context::implementation () const
 void
 Context::clear_key_disambiguations ()
 {
+  if (!use_object_keys)
+    return;
+  
   grob_counts_.clear ();
   context_counts_.clear ();
   for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))

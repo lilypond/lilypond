@@ -68,7 +68,8 @@ void internal_set_option (SCM var, SCM val)
     }
   else if (var == ly_symbol2scm ("object-keys"))
     {
-      use_object_keys = scm_from_bool (to_boolean (val));
+      use_object_keys = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
     }
 }
 
