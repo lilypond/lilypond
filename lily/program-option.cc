@@ -20,6 +20,7 @@
 
 /* Write midi as formatted ascii stream? */
 bool do_midi_debugging_global;
+bool use_object_keys;
 
 /*
   Backwards compatibility.
@@ -64,6 +65,10 @@ void internal_set_option (SCM var, SCM val)
       /*  Needs to be reset for each file that uses this option.  */
       lily_1_8_compatibility_used = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("object-keys"))
+    {
+      use_object_keys = scm_from_bool (to_boolean (val));
     }
 }
 

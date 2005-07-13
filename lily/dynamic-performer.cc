@@ -7,7 +7,9 @@
 */
 
 #include "performer.hh"
+
 #include "audio-item.hh"
+#include "music.hh"
 
 /*
   TODO:

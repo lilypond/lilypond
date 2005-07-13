@@ -17,6 +17,7 @@
 #include "item.hh"
 #include "spanner.hh"
 #include "context.hh"
+#include "duration.hh"
 
 class Beam_engraver : public Engraver
 {

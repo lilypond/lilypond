@@ -9,6 +9,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
+#include "moment.hh"
 
 class Grid_point_engraver : public Engraver
 {

@@ -8,6 +8,8 @@
 
 #include "music.hh"
 #include "music-wrapper.hh"
+#include "moment.hh"
+
 
 class Grace_music
 {

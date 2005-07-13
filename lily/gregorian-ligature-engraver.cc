@@ -13,6 +13,7 @@
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 #include "paper-column.hh"
+#include "pitch.hh"
 
 /*
  * This abstract class is the common superclass for all ligature

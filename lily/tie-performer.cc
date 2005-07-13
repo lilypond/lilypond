@@ -6,10 +6,13 @@
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "performer.hh"
+
+#include "music.hh"
 #include "context.hh"
 #include "audio-item.hh"
 #include "pqueue.hh"
-#include "performer.hh"
+
 
 class Tie_performer : public Performer
 {

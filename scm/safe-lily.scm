@@ -67,7 +67,7 @@
    ly:item-break-dir
    ly:item?
    ly:iterator?
-   ly:make-bare-music
+   ly:make-music
    ly:make-duration
    ly:make-moment
    ly:make-music-function

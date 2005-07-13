@@ -9,7 +9,7 @@
 #ifndef ENGRAVER_HH
 #define ENGRAVER_HH
 
-#include "event.hh"
+#include "music.hh"
 #include "grob-info.hh"
 #include "translator.hh"
 

@@ -7,7 +7,7 @@
 */
 
 #include "translator.hh"
-#include "event.hh"
+#include "music.hh"
 
 class Skip_event_swallow_translator : public virtual Translator
 {

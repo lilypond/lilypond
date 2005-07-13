@@ -6,8 +6,11 @@
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "audio-item.hh"
 #include "performer.hh"
+
+#include "audio-item.hh"
+#include "music.hh"
+#include "duration.hh"
 
 class Tempo_performer : public Performer
 {
@@ -41,7 +44,6 @@ Tempo_performer::create_audio_elements ()
 {
   if (tempo_req_)
     {
-
       SCM met = tempo_req_->get_property ("metronome-count");
       Duration *d = unsmob_duration (tempo_req_->get_property ("tempo-unit"));
 

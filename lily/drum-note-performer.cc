@@ -11,6 +11,8 @@
 #include "audio-column.hh"
 #include "global-context.hh"
 #include "warn.hh"
+#include "pitch.hh"
+#include "music.hh"
 
 class Drum_note_performer : public Performer
 {

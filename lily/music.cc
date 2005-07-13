@@ -53,6 +53,11 @@ Music::Music (SCM init)
   smobify_self ();
 
   length_callback_ = get_property ("length-callback");
+  if (!ly_is_procedure (length_callback_))
+    {
+      length_callback_ = duration_length_callback_proc;
+    }
+  
   start_callback_ = get_property ("start-callback");
 }
 
@@ -76,7 +81,6 @@ Music::~Music ()
 {
 }
 
-ADD_MUSIC (Music);
 
 SCM
 Music::get_property_alist (bool m) const
@@ -297,7 +301,6 @@ Music::origin () const
   return ip ? ip : &dummy_input_global;
 }
 
-
 Music *
 make_music_by_name (SCM sym)
 {
@@ -307,4 +310,20 @@ make_music_by_name (SCM sym)
   /* UGH. */
   scm_gc_protect_object (rv);
   return unsmob_music (rv);
+}
+
+
+MAKE_SCHEME_CALLBACK (Music, duration_length_callback, 1);
+SCM
+Music::duration_length_callback (SCM m)
+{
+  Music *me = unsmob_music (m);
+  Duration *d = unsmob_duration (me->get_property ("duration"));
+
+  Moment mom;
+  if (d)
+    {
+      mom = d->get_length ();
+    }
+  return mom.smobbed_copy ();
 }

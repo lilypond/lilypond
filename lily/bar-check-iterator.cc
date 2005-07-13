@@ -7,8 +7,9 @@
 */
 
 #include "simple-music-iterator.hh"
-#include "event.hh"
+#include "music.hh"
 #include "context.hh"
+#include "input.hh"
 
 /*
   Check bar checks. We do this outside the engravers so that you can

@@ -35,6 +35,7 @@ extern bool is_pango_format_global;
 extern bool is_TeX_format_global;
 extern bool point_and_click_global;
 extern String prefix_directory;
+extern bool use_object_keys;
 
 /*
   todo: collect in Output_option struct?

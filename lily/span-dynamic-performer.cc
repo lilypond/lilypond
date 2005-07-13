@@ -8,6 +8,7 @@
 
 #include "performer.hh"
 #include "audio-item.hh"
+#include "music.hh"
 
 /*
   TODO: fold this into 1 engraver: \< and \> should also stop when

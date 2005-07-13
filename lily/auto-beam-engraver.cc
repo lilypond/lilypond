@@ -16,6 +16,8 @@
 #include "item.hh"
 #include "spanner.hh"
 #include "context.hh"
+#include "duration.hh"
+
 
 class Auto_beam_engraver : public Engraver
 {

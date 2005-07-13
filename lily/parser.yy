@@ -28,7 +28,7 @@ FIXME:
 #include "book.hh"
 #include "context-def.hh"
 #include "dimensions.hh"
-#include "event.hh"
+#include "music.hh"
 #include "file-path.hh"
 #include "input-smob.hh"
 #include "input.hh"
@@ -45,6 +45,7 @@ FIXME:
 #include "score.hh"
 #include "text-interface.hh"
 #include "warn.hh"
+#include "music.hh"
 
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
@@ -2693,8 +2694,11 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		*destination = mus->self_scm ();
 		unsmob_music (*destination)->
 			set_property ("origin", make_input (last_input_));
-		return dynamic_cast<Event*> (mus)
-			? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
+
+		bool is_event = scm_memq (ly_symbol2scm ("event"), mus->get_property ("types"))
+			!= SCM_BOOL_F;
+
+		return is_event ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
 	} else if (unsmob_duration (sid)) {
 		*destination = unsmob_duration (sid)->smobbed_copy ();
 		return DURATION_IDENTIFIER;

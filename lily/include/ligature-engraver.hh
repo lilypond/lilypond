@@ -9,6 +9,8 @@
 #define LIGATURE_ENGRAVER_HH
 
 #include "engraver.hh"
+#include "moment.hh"
+
 
 /*
  * FIXME: Spanner *create_ligature_spanner () and virtual void

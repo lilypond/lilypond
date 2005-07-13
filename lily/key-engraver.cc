@@ -13,6 +13,7 @@
 #include "engraver.hh"
 #include "protected-scm.hh"
 #include "clef.hh"
+#include "pitch.hh"
 
 /*
   TODO: The representation  of key sigs is all fucked.

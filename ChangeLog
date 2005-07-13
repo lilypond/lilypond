@@ -1,5 +1,25 @@
 2005-07-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/event.hh: remove file.
+
+	* lily/include/music-constructor.hh: remove file.
+
+	* lily/parser.yy (Lily_lexer): check EVENT_IDENTIFIER using 'event
+	in 'types property.
+
+	* lily/music.cc (duration_length_callback): new function.
+
+	* lily/event.cc: remove file.
+
+	* lily/music-constructor.cc: remove file.
+
+	* lily/music-scheme.cc (LY_DEFINE): rename to ly:make-music
+
+	* lily/context.cc (get_grob_key): nop if use_object_keys not set.
+	(get_context_key): idem.
+
+	* scm/lily.scm (lambda): new option object-keys (default to #f)
+
 	* scm/output-svg.scm (utf-8-string): rename  from utf8-string.
 
 	* scm/output-gnome.scm: remove beam routine.

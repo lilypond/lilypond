@@ -63,7 +63,8 @@ Grob::Grob (SCM basicprops,
   /*
     We always get a new key object for a new grob.
   */
-  scm_gc_unprotect_object (key_->self_scm ());
+  if (key_)
+    scm_gc_unprotect_object (key_->self_scm ());
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
     {
@@ -123,7 +124,7 @@ Grob::Grob (SCM basicprops,
 Grob::Grob (Grob const &s, int copy_index)
   : dim_cache_ (s.dim_cache_)
 {
-  key_ = new Copied_key (s.key_, copy_index);
+  key_ = (use_object_keys) ? new Copied_key (s.key_, copy_index) : 0;
   original_ = (Grob *) & s;
   self_scm_ = SCM_EOL;
 
@@ -645,7 +646,9 @@ Grob::mark_smob (SCM ses)
 {
   Grob *s = (Grob *) SCM_CELL_WORD_1 (ses);
   scm_gc_mark (s->immutable_property_alist_);
-  scm_gc_mark (s->key_->self_scm ());
+
+  if (s->key_)
+    scm_gc_mark (s->key_->self_scm ());
   for (int a = 0; a < 2; a++)
     {
       scm_gc_mark (s->dim_cache_[a].offset_callbacks_);

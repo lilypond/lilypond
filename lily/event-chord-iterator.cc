@@ -10,7 +10,10 @@
 
 #include "context.hh"
 #include "warn.hh"
-#include "event.hh"
+#include "music.hh"
+#include "input.hh"
+#include "pitch.hh"
+#include "duration.hh"
 
 Event_chord_iterator::Event_chord_iterator ()
 {
@@ -32,12 +35,6 @@ Event_chord_iterator::construct_children ()
 {
   Simple_music_iterator::construct_children ();
   get_bottom_context ();
-}
-
-Event_chord *
-Event_chord_iterator::get_elt () const
-{
-  return (Event_chord *) get_music ();
 }
 
 void

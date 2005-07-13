@@ -8,7 +8,7 @@
 
 #include "grob-pitch-tuple.hh"
 
-#include "event.hh"
+#include "music.hh"
 
 int compare (Grob_pitch_tuple const &a, Grob_pitch_tuple const &b)
 {

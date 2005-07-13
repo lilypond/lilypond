@@ -16,6 +16,7 @@
 #include "staff-symbol-referencer.hh"
 #include "stem-tremolo.hh"
 #include "stem.hh"
+#include "duration.hh"
 
 /**
    Make stems upon receiving noteheads.
