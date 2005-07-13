@@ -137,7 +137,8 @@ Grob::Grob (Grob const &s, int copy_index)
   pscore_ = 0;
 
   smobify_self ();
-  scm_gc_unprotect_object (key_->self_scm ());
+  if (key_)
+    scm_gc_unprotect_object (key_->self_scm ());
 }
 
 Grob::~Grob ()

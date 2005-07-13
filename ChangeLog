@@ -1,5 +1,8 @@
 2005-07-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-music-types.scm (music-descriptions): remove
+	internal-class-name properties.
+
 	* lily/include/event.hh: remove file.
 
 	* lily/include/music-constructor.hh: remove file.
