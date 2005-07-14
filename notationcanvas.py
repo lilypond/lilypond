@@ -131,7 +131,10 @@ class Notation_canvas_controller:
 			self.notation.change_duration_log (1)
 		elif name == 'asterisk':
 			self.notation.change_duration_log (-1)
-		
+		elif name == 'p':
+			self.notation.print_score()
+		elif name == 'q':
+			gtk.main_quit()
 		elif name == 'r':
 			self.notation.ensure_rest ()
 		elif len (name) == 1 and name in 'abcdefg':
@@ -142,6 +145,7 @@ class Notation_canvas_controller:
 			print 'Unknown key %s' % name
 			return False
 		
+		self.notation.ensure_cursor_visible ()
 		self.notation.notation_controller.update_notation ()
 		self.notation.paint_on_canvas (self.canvas)
 		return True

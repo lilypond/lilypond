@@ -26,6 +26,11 @@ class Duration:
 		d.duration_log = self.duration_log
 		d.factor = self.factor
 		return d
+
+	def length (self):
+		dot_fact = ((1 << (1 + self.dots))-1.0)/ (1 << self.dots)
+		
+		return 1.0/(1 << self.duration_log) * dot_fact * self.factor[0]/self.factor[1]
 	
 class Pitch:
 	def __init__ (self):
@@ -52,9 +57,9 @@ class Pitch:
 
 		str = 'cdefgab'[self.step]
 		if self.alteration > 0:
-			str += 'is'* self.alteration
+			str += 'is'* (self.alteration/2)
 		elif self.alteration < 0:
-			str += 'is'* (-self.alteration)
+			str += 'es'* (-self.alteration/2)
 
 		if self.octave >= 0:
 			str += "'" * (self.octave + 1) 
@@ -67,8 +72,12 @@ class Music:
 	def __init__ (self):
 		self.tag = None
 		self.parent = None
+		self.start = 0.0
 		pass
 
+	def length(self):
+		return 0.0
+	
 	def set_tag (self, counter, tag_dict):
 		self.tag = counter
 		tag_dict [counter] = self
@@ -84,8 +93,13 @@ class Music:
 			tag = "'input-tag %d" % self.tag
 
 		props = self.get_properties ()
+#		props += 'start %f ' % self.start
 		
 		return "(make-music '%s %s %s)" % (name, tag,  props)
+
+	def set_start (self, start):
+		start = round (start * 384) / 384.0
+		self.start = start
 
 	def find_first (self, predicate):
 		if predicate (self):
@@ -97,10 +111,12 @@ class Music_document:
 		self.music = test_expr ()
 		self.tag_dict = {}
 		
-	def reset_tags (self):
+	def recompute (self):
+		print 'recop'
 		self.tag_dict = {}
 		self.music.set_tag (0, self.tag_dict)
-
+		self.music.set_start (0.0)
+		
 class NestedMusic(Music):
 	def __init__ (self):
 		Music.__init__ (self)
@@ -111,7 +127,7 @@ class NestedMusic(Music):
 		for e in self.elements :
 			counter = e.set_tag (counter, dict)
 		return counter
-	
+
 	def insert_around (self, succ, elt, dir):
 		assert elt.parent == None
 		assert succ == None or succ in self.elements
@@ -135,6 +151,11 @@ class NestedMusic(Music):
 		return ("'elements (list %s)"
 			% string.join (map (lambda x: x.lisp_expression(),
 					    self.elements)))
+
+	def get_subset_properties (self, predicate):
+		return ("'elements (list %s)"
+			% string.join (map (lambda x: x.lisp_expression(),
+					    filter ( predicate,  self.elements))))
 	def get_neighbor (self, music, dir):
 		assert music.parent == self
 		idx = self.elements.index (music)
@@ -150,6 +171,11 @@ class NestedMusic(Music):
 		self.elements.remove (element)
 		element.parent = None
 		
+	def set_start (self, start):
+		self.start = start
+		for e in self.elements:
+			e.set_start (start)
+
 	def find_first (self, predicate):
 		r = Music.find_first (self, predicate)
 		if r:
@@ -168,11 +194,32 @@ class SequentialMusic (NestedMusic):
 	def ly_expression (self):
 		return '{ %s }' % string.join (map (lambda x:x.ly_expression(),
 						    self.elements)) 
+	def lisp_sub_expression (self, pred):
+		name = self.name()
+		tag = ''
+		if self.tag:
+			tag = "'input-tag %d" % self.tag
 
 
+		props = self.get_subset_properties (pred)
+		
+		return "(make-music '%s %s %s)" % (name, tag,  props)
+	
+	def set_start (self, start):
+		for e in self.elements:
+			e.set_start (start)
+			start += e.length()
+			
 class EventChord(NestedMusic):
 	def name(self):
 		return "EventChord"
+
+	def length (self):
+		l = 0.0
+		for e in self.elements:
+			l = max(l, e.length())
+		return l
+	
 	def ly_expression (self):
 		str = string.join (map (lambda x: x.ly_expression(),
 					self.elements))
@@ -192,6 +239,9 @@ class RhythmicEvent(Event):
 	def __init__ (self):
 		Event.__init__ (self)
 		self.duration = Duration()
+		
+	def length (self):
+		return self.duration.length()
 		
 	def get_properties (self):
 		return ("'duration %s"
@@ -225,9 +275,25 @@ class NoteEvent(RhythmicEvent):
 
 def test_expr ():
 	m = SequentialMusic()
+	l =2 
+	evc = EventChord()
+	n = NoteEvent()
+	n.duration.duration_log = l
+	n.pitch.step = 1
+	evc.insert_around (None, n, 0)
+	m.insert_around (None, evc, 0)
+
+ 	evc = EventChord()
+	n = NoteEvent()
+	n.duration.duration_log = l
+	n.pitch.step = 2 
+	evc.insert_around (None, n, 0)
+	m.insert_around (None, evc, 0)
 
 	evc = EventChord()
 	n = NoteEvent()
+	n.duration.duration_log = l
+	n.pitch.step = 3
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)
 
@@ -236,6 +302,13 @@ def test_expr ():
 
 if __name__ == '__main__':
 	expr = test_expr()
-	print expr.lisp_expression()
-	print expr.ly_expression()
+	expr.set_start (0.0)
+
+	start = 0.25
+	stop = 0.5
+	def sub(x, start=start, stop=stop):
+		ok = x.start >= start and x.start +x.length() <= stop
+		return ok
+	
+	print expr.lisp_sub_expression(sub)
 

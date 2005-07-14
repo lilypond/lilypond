@@ -33,7 +33,7 @@ class NotationApplication:
         canvas = self.notation_canvas_controller.canvas
         canvas.show ()
         win.add (canvas)
-        win.show ()
+        win.show()
         
         return win
         

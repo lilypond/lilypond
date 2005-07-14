@@ -6,6 +6,7 @@ import os
 import socket
 import music
 import pango
+import math
 
 def talk_to_lilypond (expression_str):
     """Send a LISP expression to LilyPond, wait for return value."""
@@ -26,6 +27,11 @@ def talk_to_lilypond (expression_str):
 
     return retval
 
+def set_measure_number (str, num):
+    return """(make-music 'SequentialMusic 'elements (list
+      (context-spec-music
+       (make-property-set 'currentBarNumber %d) 'Score)
+    %s))""" % (num,str)
 
 class Lilypond_socket_parser:
     """Maintain state of reading multi-line lilypond output for socket transport."""
@@ -71,20 +77,36 @@ class Notation_controller:
         
         self.notation = Notation (self)
         self.parser = Lilypond_socket_parser (self.interpret_line)
+        self.start_moment = 0.0
+        self.stop_moment = 3.0
 
     def interpret_line (self, offset, cause, bbox, fields):
 	notation_item = self.notation.add_item (offset, cause, bbox, fields)
     
     def update_notation(self):
 	doc = self.document
-	doc.reset_tags()
+	doc.recompute()
 	
 	expr = doc.music
+        print 'subexp', self.start_moment, self.stop_moment
 
-	str = expr.lisp_expression()
+       	def sub(x):
+		ok = (x.start >= self.start_moment and
+                      x.start +x.length() <= self.stop_moment)
+		return ok
+
+        
+	str = expr.lisp_sub_expression (sub)
+        str = set_measure_number (str, int (self.start_moment) + 1)
+        print str
 	str = talk_to_lilypond (str)
         self.parse_socket_file (str)
-        
+
+    def ensure_visible (self, when):
+        print when
+        self.start_moment = max (math.floor (when - 1.0), 0.0)
+        self.stop_moment = self.start_moment + 3.0
+       
     def parse_socket_file (self, str):
         self.notation.clear ()
         lines = string.split (str, '\n')
@@ -209,7 +231,6 @@ class Notation:
         self.items = []
 	self.notation_controller = controller
 
-
         toplevel = controller.document.music
         self.music_cursor = toplevel.find_first (lambda x: x.name()== "NoteEvent") 
         
@@ -252,7 +273,7 @@ class Notation:
         mus = mus.parent.get_neighbor (mus, dir)
         mus = mus.find_first (lambda x: x.name() in ('NoteEvent', 'RestEvent'))
         self.music_cursor = mus
-
+        
     def insert_at_cursor (self, music, dir):
         mus = self.music_cursor
         if mus.parent.name() == 'EventChord':
@@ -329,7 +350,10 @@ class Notation:
             elif p.dots == 0:
                 p.dots = 1
             
-        
+    def ensure_cursor_visible(self):
+        self.notation_controller.document.recompute()
+        self.notation_controller.ensure_visible (self.music_cursor.start)
+
     def change_alteration (self, dir):
         if self.music_cursor.name() == 'NoteEvent':
             p = self.music_cursor.pitch
@@ -338,4 +362,7 @@ class Notation:
             if abs (new_alt) <= 4: 
                 p.alteration = new_alt
 
-                
+    def print_score(self):
+        doc = self.notation_controller.document
+        ly = doc.music.ly_expression()
+        print ly
