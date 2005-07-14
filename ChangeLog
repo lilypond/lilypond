@@ -1,3 +1,10 @@
+2005-07-13  Graham Percival  <gperlist@shaw.ca>
+
+	* python/convertrules.py: add exc -> ecc rule.
+
+	* scripts/convert-ly.py: add location of convertrules.py
+	in a comment.
+
 2005-07-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/lily-parser-scheme.cc (LY_DEFINE): Guile 1.6 fix.
