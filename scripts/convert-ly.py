@@ -6,6 +6,9 @@
 #
 # (c) 1998--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
+#
+# converting rules are found in python/convertrules.py
+#
 
 import os
 import sys

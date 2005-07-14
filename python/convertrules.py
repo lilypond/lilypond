@@ -2517,6 +2517,9 @@ def conv (str):
 conversions.append (((2, 7, 0), conv,
 		     'ly:parser-define -> ly:parser-define!'))
 
+def conv (str):
+	return re.sub('excentricity', 'eccentricity', str)
+
 ################################################################
 
 def str_to_tuple (s):
