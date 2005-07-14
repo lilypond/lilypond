@@ -112,7 +112,6 @@ class Music_document:
 		self.tag_dict = {}
 		
 	def recompute (self):
-		print 'recop'
 		self.tag_dict = {}
 		self.music.set_tag (0, self.tag_dict)
 		self.music.set_start (0.0)

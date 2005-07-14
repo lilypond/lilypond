@@ -88,7 +88,6 @@ class Notation_controller:
 	doc.recompute()
 	
 	expr = doc.music
-        print 'subexp', self.start_moment, self.stop_moment
 
        	def sub(x):
 		ok = (x.start >= self.start_moment and
@@ -98,12 +97,10 @@ class Notation_controller:
         
 	str = expr.lisp_sub_expression (sub)
         str = set_measure_number (str, int (self.start_moment) + 1)
-        print str
 	str = talk_to_lilypond (str)
         self.parse_socket_file (str)
 
     def ensure_visible (self, when):
-        print when
         self.start_moment = max (math.floor (when - 1.0), 0.0)
         self.stop_moment = self.start_moment + 3.0
        
@@ -220,10 +217,8 @@ class Notation_item:
 	    print 'no such key', self.tag
 	    
 	return citem
-
 	    
 class Notation:
-
     """A complete line/system/page of LilyPond output. Consists of a
     number of Notation_items"""
     
