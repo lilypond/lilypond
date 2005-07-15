@@ -1,3 +1,27 @@
+2005-07-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/include/beam.hh: new struct, softcode beam quanting parameters
+
+	* lily/include/grob.hh (class Grob): add interfaces_ member.
+
+	* lily/bezier.cc (init_polynomial_cache): new function: cache
+	binom(3,j) t^j (1-t)^{3-j}
+	(curve_point): opps, actually use the cache for t^j , (1-t)^j! 
+
+	* lily/*.cc: substitution throughout.
+
+	* lily/grob-property.cc (internal_get_object): new routine.
+	(internal_set_object): idem. Store grob refrences in separate
+	alist. This saves processing time, since properties aren't
+	break-substituted, and the per grob namespace is smaller, both for
+	grobs and non-grob properties.
+	
+
+	* scm/define-grob-properties.scm (all-internal-grob-properties):
+	remove center-element.
+
+	* lily/grob.cc: remove tweak-count, tweak-rank.
+
 2005-07-13  Graham Percival  <gperlist@shaw.ca>
 
 	* python/convertrules.py: add exc -> ecc rule.
