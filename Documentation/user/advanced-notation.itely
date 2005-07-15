@@ -2243,40 +2243,104 @@ problematic notes.
 In normal time signatures, automatic beams can start on any note but can
 only end in a few positions within the measure: beams can end on a beat,
 or at durations specified by the properties in
-@code{autoBeamSettings}.  The defaults for @code{autoBeamSettings}
-are defined in @file{scm/@/auto@/-beam@/.scm}.
+@code{autoBeamSettings}.  The properties in @code{autoBeamSettings}
+consist of a list of rules for where beams can begin and end.  The
+default @code{autoBeamSettings} rules are defined in
+@file{scm/@/auto@/-beam@/.scm}.
 
-The value of @code{autoBeamSettings} is changed with three functions,
+In order to add a rule to the list, use
 @example
-#(override-auto-beam-setting
-   '(@var{be} @var{p} @var{q} @var{n} @var{m}) @var{a} @var{b}
-   [@var{context}])
-#(score-override-auto-beam-setting
-   '(@var{be} @var{p} @var{q} @var{n} @var{m}) @var{a} @var{b})
-#(revert-auto-beam-setting '(@var{be} @var{p} @var{q} @var{n} @var{m})
-   [@var{context}])
+#(override-auto-beam-setting '(be p q n m) a b [context])
 @end example
-Here, @var{be} is the symbol @code{begin} or @code{end}, and
-@var{context} is an optional context (default: @code{'Voice}).  It
-determines whether the rule applies to begin or end-points.  The
-quantity @var{p}/@var{q} refers to the length of the beamed notes (and
-`@code{* *}' designates notes of any length), @var{n}/@var{M} refers
-to a time signature (wildcards `@code{* *}' may be entered to
-designate all time signatures), @var{a}/@var{b} is a duration.  By
-default, this command changes settings for the current voice.  It is
-also possible to adjust settings at higher contexts, by adding a
-@var{context} argument.  @code{score-override-auto-beam-setting} is
-equal to @code{override-auto-beam-setting} with the argument
-@var{context} set to @code{'Score}.
 
-For example, if automatic beams should end on the first quarter note, use
-the following
+@itemize @bullet
+
+@item @code{be} is either "begin" or "end".
+
+@item @code{b/q} is the duration of the note for which you want
+to add a rule.  A beam is considered to have the duration of its
+shortest note.  Set @code{p} and @code{q} to @code{'*'} to
+have this apply to any beam.
+
+@item @code{n/m} is the position in the time signature to which
+this rule should apply.  Set @code{n} and @code{m} to @code{'*'}
+to have this apply in any time signature.
+
+@item @code{a/b} is the position in the bar at which the beam should end.
+
+@item @code{context} is optional, and it specifies the context at which
+the change should be made.  The default is @code{'Voice}.
+@code{#(score-override-auto-beam-setting '(A B C D) E F)} is equivalent to
+@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}.
+
+@end itemize
+
+For example, if automatic beams should always end on the first quarter
+node, use
+
 @example
-#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 1 4)
 @end example
-Since the duration of a quarter note is 1/4 of a whole note, it is
-entered as @code{(ly:make-moment 1 4)}.
 
+You can force the beam settings to only take effect on beams whose shortest
+note is a certain duration
+
+@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+\time 2/4
+#(override-auto-beam-setting '(end 1 16 * *) 1 16)
+a16 a a a a a a a |
+a32 a a a a16 a a a a a |
+#(override-auto-beam-setting '(end 1 32 * *) 1 16)
+a32 a a a a16 a a a a a |
+@end lilypond
+
+You can force the beam settings to only take effect in certain time
+signatures
+
+@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+\time 5/8
+#(override-auto-beam-setting '(end * * 5 8) 2 8)
+c8 c d d d
+\time 4/4
+e8 e f f e e d d
+\time 5/8
+c8 c d d d
+@end lilypond
+
+You can also remove a previously set beam-ending rule by using
+
+@example
+#(revert-auto-beam-setting '(be p q n m) a b [context])
+@end example
+
+@noindent
+be, p, q, n, m, a, b and context are the same as above.  Note that the
+default rules are specified in @file{scm/@/auto@/-beam@/.scm},
+so you can revert rules that you did not explicitly create.
+
+@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+\time 4/4
+a16 a a a a a a a a a a a a a a a
+#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
+a16 a a a a a a a a a a a a a a a
+@end lilypond
+
+The rule in a revert-auto-beam-setting statement must exactly match the
+original rule.  That is, no wildcard expansion is taken into account.
+
+@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+\time 1/4
+#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
+a16 a a a
+#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % this won't revert it!
+a a a a
+#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
+a a a a
+@end lilypond
+
+
+
+@c TODO:  old material -- not covered by above stuff, I think.
 If automatic beams should end on every quarter in 5/4 time, specify
 all endings
 @example
@@ -2298,40 +2362,14 @@ In 4/4 time signature, this means that automatic beams could end only on
 3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
 3/8, has passed within the measure).
 
-Rules can also be restricted to specific time signatures.  A rule that
-should only be applied in @var{N}/@var{M} time signature is formed by
-replacing the second asterisks by @var{N} and @var{M}.  For example, a
-rule for 6/8 time exclusively looks like
-@example
-#(override-auto-beam-setting '(begin * * 6 8) @dots{})
-@end example
-
-If a rule should be to applied only to certain types of beams, use the
-first pair of asterisks.  Beams are classified according to the
-shortest note they contain.  For a beam ending rule that only applies
-to beams with 32nd notes (and no shorter notes), use @code{(end 1 32 *
-*)}.
-
-For example,
-
-@lilypond[quote,raggedright,relative=2,fragment,verbatim]
-\time 5/8
-#(override-auto-beam-setting '(end * * 5 8) 2 8)
-c8 c d d d
-\time 4/4
-e8 e f f e e d d
-\time 5/8
-c8 c d d d
-@end lilypond
-
 @cindex automatic beam generation
 @cindex autobeam
 @cindex @code{autoBeaming}
 @cindex lyrics
 
 If beams are used to indicate melismata in songs, then automatic
-beaming should be switched off.  This is done by setting
-@code{autoBeaming} to @code{#f}.
+beaming should be switched off with @code{\autoBeamOff}.
+
 
 @refcommands
 
