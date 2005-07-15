@@ -1065,15 +1065,14 @@ tuned.
 
 @cindex interface, layout
 @cindex layout interface
+@cindex grob
 
 The HTML page that we found in the previous section, describes the
 layout object called @internalsref{Fingering}.  Such an object is a
 symbol within the score.  It has properties that store numbers (like
 thicknesses and directions), but also pointers to related objects.  A
-layout object is also called @emph{grob},
-@cindex grob
-which is short for Graphical Object.
-
+layout object is also called a @emph{Grob}, which is short for Graphical
+Object.  For more details about Grobs, see @internalsref{grob-interface}.
 
 The page for @code{Fingering} lists the definitions for the
 @code{Fingering} object.  For example, the page says

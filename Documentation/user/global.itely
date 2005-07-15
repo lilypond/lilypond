@@ -464,7 +464,7 @@ considered to have systems, so setting @code{betweensystemspace}
 will be much more useful than changing @code{minimumVerticalExtent}.
 
 @example
-\layout @{
+\paper @{
   betweensystemspace = 10\mm
 @}
 @end example
@@ -867,14 +867,23 @@ Name of the opus, flush-right below the composer.
 Name of the arranger, flush-right below the opus.
 
 @item instrument
-Name of the instrument, centered below the arranger.
+Name of the instrument, centered below the arranger.  Also
+centered at the top of pages (other than the first page).
 
 @item piece
 Name of the piece, flush-left below the instrument.
 
 @cindex page breaks, forcing
 @item breakbefore
-  This forces the title to start on a new page (set to ##t or ##f).
+This forces the title to start on a new page (set to ##t or ##f).
+
+@item copyright
+Copyright notice, centered at the bottom of the first page.  To
+insert the copyright symbol, see @ref{Text encoding}.
+
+@item tagline
+Centered at the bottom of the last page.
+
 @end table
 
 Here is a demonstration of the fields available.  Note that you
@@ -903,21 +912,21 @@ may use any @ref{Text markup} commands in the header.
   }
 
   \score {
+    { c'1 }
     \header {
       piece = "piece1"
       opus = "opus1" 
     }
-    { c'1 }
   }
   \markup {
       and now...
   }
   \score {
+    { c'1 }
     \header {
       piece = "piece2"
       opus = "opus2" 
     }
-    { c'1 }
   }
 }
 @end lilypond
