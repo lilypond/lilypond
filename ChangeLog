@@ -1,3 +1,10 @@
+2005-07-15  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* Documentation/user/global.itely (Creating titles):	
+	* Documentation/user/examples.itely (All headers): change the
+	place of \header in \score blocks (after music block) to make
+	examples compile (cf. changes on parser.yy on 2005-07-10)
+
 2005-07-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/include/beam.hh: new struct, softcode beam quanting parameters

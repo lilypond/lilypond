@@ -912,21 +912,21 @@ may use any @ref{Text markup} commands in the header.
   }
 
   \score {
+    { c'1 }
     \header {
       piece = "piece1"
       opus = "opus1" 
     }
-    { c'1 }
   }
   \markup {
       and now...
   }
   \score {
+    { c'1 }
     \header {
       piece = "piece2"
       opus = "opus2" 
     }
-    { c'1 }
   }
 }
 @end lilypond
