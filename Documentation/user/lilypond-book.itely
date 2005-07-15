@@ -62,6 +62,7 @@ text, so we will not comment on it further.
 @quotation
 @verbatim
 \documentclass[a4paper]{article}
+\usepackage{graphics}
 \begin{document}
 
 Documents for @command{lilypond-book} may freely mix music and text.
