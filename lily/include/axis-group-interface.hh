@@ -9,19 +9,20 @@
 #ifndef AXIS_GROUP_INTERFACE_HH
 #define AXIS_GROUP_INTERFACE_HH
 
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 
 /**
  */
 struct Axis_group_interface
 {
   DECLARE_SCHEME_CALLBACK (group_extent_callback, (SCM smob, SCM axis));
-  static Interval relative_group_extent (SCM list, Grob *common, Axis);
+  static Interval relative_group_extent (Link_array<Grob> const &list,
+					 Grob *common, Axis);
 
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);
-  static Link_array<Grob> get_children (Grob *);
+  static void get_children (Grob *, Link_array<Grob> *);
   static bool has_interface (Grob *);
 };
 

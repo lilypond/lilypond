@@ -15,7 +15,7 @@
 #include "pitch.hh"
 #include "warn.hh"
 #include "note-column.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "note-collision.hh"
 #include "accidental-interface.hh"
 
@@ -53,7 +53,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
 
   int n = p->get_notename ();
 
-  SCM accs = me->get_property ("accidental-grobs");
+  SCM accs = me->get_object ("accidental-grobs");
   SCM key = scm_int2num (n);
   SCM entry = scm_assq (key, accs);
   if (entry == SCM_BOOL_F)
@@ -67,7 +67,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
 
   accs = scm_assq_set_x (accs, key, entry);
 
-  me->set_property ("accidental-grobs", accs);
+  me->set_object ("accidental-grobs", accs);
 }
 
 /*
@@ -78,13 +78,13 @@ Accidental_placement::split_accidentals (Grob *accs,
 					 Link_array<Grob> *break_reminder,
 					 Link_array<Grob> *real_acc)
 {
-  for (SCM acs = accs->get_property ("accidental-grobs"); scm_is_pair (acs);
+  for (SCM acs = accs->get_object ("accidental-grobs"); scm_is_pair (acs);
        acs = scm_cdr (acs))
     for (SCM s = scm_cdar (acs); scm_is_pair (s); s = scm_cdr (s))
       {
 	Grob *a = unsmob_grob (scm_car (s));
 
-	if (unsmob_grob (a->get_property ("tie")))
+	if (unsmob_grob (a->get_object ("tie")))
 	  break_reminder->push (a);
 	else
 	  real_acc->push (a);
@@ -237,7 +237,7 @@ Accidental_placement::position_accidentals (Grob *me)
   if (!me->is_live ())
     return SCM_UNSPECIFIED;
 
-  SCM accs = me->get_property ("accidental-grobs");
+  SCM accs = me->get_object ("accidental-grobs");
   if (!scm_is_pair (accs))
     return SCM_UNSPECIFIED;
 
@@ -295,8 +295,7 @@ Accidental_placement::position_accidentals (Grob *me)
       Grob *c = note_cols[i]->get_parent (X_AXIS);
       if (Note_collision_interface::has_interface (c))
 	{
-	  Link_array<Grob> gs
-	    = extract_grob_array (c, ly_symbol2scm ("elements"));
+	  extract_grob_set (c, "elements", gs);
 
 	  note_cols.concat (gs);
 	}
@@ -304,8 +303,9 @@ Accidental_placement::position_accidentals (Grob *me)
 
   for (int i = note_cols.size (); i--;)
     {
-      heads.concat (extract_grob_array (note_cols[i], ly_symbol2scm ("note-heads")));
+      heads.concat (extract_grob_array (note_cols[i], "note-heads"));
     }
+
   heads.default_sort ();
   heads.uniq ();
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);

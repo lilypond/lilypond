@@ -27,7 +27,7 @@
 bool
 Note_column::has_rests (Grob *me)
 {
-  return unsmob_grob (me->get_property ("rest"));
+  return unsmob_grob (me->get_object ("rest"));
 }
 
 int
@@ -44,7 +44,7 @@ Note_column::shift_compare (Grob *const &p1, Grob *const &p2)
 Item *
 Note_column::get_stem (Grob *me)
 {
-  SCM s = me->get_property ("stem");
+  SCM s = me->get_object ("stem");
   return unsmob_item (s);
 }
 
@@ -55,10 +55,10 @@ Note_column::head_positions_interval (Grob *me)
 
   iv.set_empty ();
 
-  SCM h = me->get_property ("note-heads");
-  for (; scm_is_pair (h); h = scm_cdr (h))
+  extract_grob_set (me, "note-heads", heads);
+  for (int i = 0; i < heads.size(); i++) 
     {
-      Grob *se = unsmob_grob (scm_car (h));
+      Grob *se = heads[i];
 
       int j = Staff_symbol_referencer::get_rounded_position (se);
       iv.unite (Slice (j, j));
@@ -69,10 +69,10 @@ Note_column::head_positions_interval (Grob *me)
 Direction
 Note_column::dir (Grob *me)
 {
-  Grob *stem = unsmob_grob (me->get_property ("stem"));
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (stem && Stem::has_interface (stem))
     return Stem::get_direction (stem);
-  else if (scm_is_pair (me->get_property ("note-heads")))
+  else if (scm_is_pair (me->get_object ("note-heads")))
     return (Direction)sign (head_positions_interval (me).center ());
 
   programming_error ("note column without heads and stem");
@@ -82,7 +82,7 @@ Note_column::dir (Grob *me)
 void
 Note_column::set_stem (Grob *me, Grob *stem)
 {
-  me->set_property ("stem", stem->self_scm ());
+  me->set_object ("stem", stem->self_scm ());
   me->add_dependency (stem);
   Axis_group_interface::add_element (me, stem);
 }
@@ -90,7 +90,7 @@ Note_column::set_stem (Grob *me, Grob *stem)
 Grob *
 Note_column::get_rest (Grob *me)
 {
-  return unsmob_grob (me->get_property ("rest"));
+  return unsmob_grob (me->get_object ("rest"));
 }
 
 void
@@ -99,14 +99,15 @@ Note_column::add_head (Grob *me, Grob *h)
   bool both = false;
   if (Rest::has_interface (h))
     {
-      if (scm_is_pair (me->get_property ("note-heads")))
+      extract_grob_set (me, "note-heads", heads);
+      if (heads.size ())
 	both = true;
       else
-	me->set_property ("rest", h->self_scm ());
+	me->set_object ("rest", h->self_scm ());
     }
   else if (Note_head::has_interface (h))
     {
-      if (unsmob_grob (me->get_property ("rest")))
+      if (unsmob_grob (me->get_object ("rest")))
 	both = true;
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), h);
     }
@@ -124,7 +125,7 @@ Note_column::add_head (Grob *me, Grob *h)
 void
 Note_column::translate_rests (Grob *me, int dy)
 {
-  Grob *r = unsmob_grob (me->get_property ("rest"));
+  Grob *r = unsmob_grob (me->get_object ("rest"));
   if (r && !scm_is_number (r->get_property ("staff-position")))
     {
       r->translate_axis (dy * Staff_symbol_referencer::staff_space (r) / 2.0, Y_AXIS);
@@ -152,12 +153,12 @@ Note_column::first_head (Grob *me)
 Grob *
 Note_column::accidentals (Grob *me)
 {
-  SCM heads = me->get_property ("note-heads");
+  extract_grob_set (me, "note-heads", heads);
   Grob *acc = 0;
-  for (;scm_is_pair (heads); heads = scm_cdr (heads))
+  for (int i = 0; i < heads.size(); i++) 
     {
-      Grob *h = unsmob_grob (scm_car (heads));
-      acc = h ? unsmob_grob (h->get_property ("accidental-grob")) : 0;
+      Grob *h = heads[i];
+      acc = h ? unsmob_grob (h->get_object ("accidental-grob")) : 0;
       if (acc)
 	break;
     }

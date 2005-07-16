@@ -227,7 +227,7 @@ check_meshing_chords (Grob *me,
 
       if (dot_wipe_head)
 	{
-	  if (Grob *d = unsmob_grob (dot_wipe_head->get_property ("dot")))
+	  if (Grob *d = unsmob_grob (dot_wipe_head->get_object ("dot")))
 	    d->suicide ();
 	}
 
@@ -260,7 +260,7 @@ check_meshing_chords (Grob *me,
       && Rhythmic_head::dot_count (nd) > Rhythmic_head::dot_count (nu)
       && (full_collide || close_half_collide))
     {
-      Grob *d = unsmob_grob (nd->get_property ("dot"));
+      Grob *d = unsmob_grob (nd->get_object ("dot"));
       Grob *parent = d->get_parent (X_AXIS);
 
       /*
@@ -341,17 +341,15 @@ Note_collision_interface::do_shifts (Grob *me)
     }
 }
 
-Drul_array < Link_array<Grob>
-> Note_collision_interface::get_clash_groups (Grob *me)
+Drul_array < Link_array<Grob> >
+Note_collision_interface::get_clash_groups (Grob *me)
 {
   Drul_array<Link_array<Grob> > clash_groups;
 
-  SCM s = me->get_property ("elements");
-  for (; scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "elements", elements);
+  for (int i = 0; i < elements.size (); i++)
     {
-      SCM car = scm_car (s);
-
-      Grob *se = unsmob_grob (car);
+      Grob *se = elements[i];
       if (Note_column::has_interface (se))
 	clash_groups[Note_column::dir (se)].push (se);
     }
@@ -470,10 +468,10 @@ Note_collision_interface::forced_shift (Grob *me)
 {
   SCM tups = SCM_EOL;
 
-  SCM s = me->get_property ("elements");
-  for (; scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "elements", elements);
+  for (int i = 0;  i < elements.size (); i++)
     {
-      Grob *se = unsmob_grob (scm_car (s));
+      Grob *se = elements[i];
 
       SCM force = se->get_property ("force-hshift");
       if (scm_is_number (force))

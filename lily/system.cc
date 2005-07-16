@@ -24,18 +24,32 @@
 #include "paper-book.hh"
 #include "paper-system.hh"
 #include "tweak-registration.hh"
+#include "grob-array.hh"
 
 System::System (System const &src, int count)
   : Spanner (src, count)
 {
+  all_elements_ = 0;
   rank_ = 0;
+  init_elements (); 
 }
 
 System::System (SCM s, Object_key const *key)
   : Spanner (s, key)
 {
+  all_elements_ = 0;
   rank_ = 0;
+  init_elements (); 
 }
+
+void
+System::init_elements ()
+{
+  SCM scm_arr = Grob_array::make_array ();
+  all_elements_ = unsmob_grob_array (scm_arr);
+  set_object ("all-elements", scm_arr);
+}
+
 
 Grob *
 System::clone (int count) const
@@ -46,15 +60,15 @@ System::clone (int count) const
 int
 System::element_count () const
 {
-  return scm_ilength (get_property ("all-elements"));
+  return all_elements_->size ();
 }
 
 int
 System::spanner_count () const
 {
   int k = 0;
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
-    if (dynamic_cast<Spanner *> (unsmob_grob (scm_car (s))))
+  for (int i = all_elements_->size(); i--;)
+    if (dynamic_cast<Spanner *> (all_elements_->grob (i)))
       k++;
   return k;
 }
@@ -67,27 +81,42 @@ System::typeset_grob (Grob *elem)
   else
     {
       elem->pscore_ = pscore_;
-      Pointer_group_interface::add_grob (this, ly_symbol2scm ("all-elements"), elem);
+      all_elements_->add (elem);
       scm_gc_unprotect_object (elem->self_scm ());
     }
 }
 
-// todo: use map.
-static void
-fixup_refpoints (SCM s)
+SCM
+System::do_derived_mark () const
 {
-  for (; scm_is_pair (s); s = scm_cdr (s))
+  if (!all_elements_->is_empty ())
     {
-      Grob::fixup_refpoint (scm_car (s));
+      Grob **ptr = &all_elements_->array_reference ().elem_ref (0);
+      Grob **end = ptr + all_elements_->size ();
+      while (ptr < end)
+	{
+	  scm_gc_mark ((*ptr)->self_scm ());
+	  ptr ++;
+	}
+    }
+  return Spanner::do_derived_mark ();
+}
+
+static void
+fixup_refpoints (Link_array<Grob> const &grobs)
+{
+  for (int i = grobs.size (); i--; )
+    {
+      grobs[i]->fixup_refpoint ();
     }
 }
 
 SCM
 System::get_paper_systems ()
 {
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0; i < all_elements_->size(); i++)
     {
-      Grob *g = unsmob_grob (scm_car (s));
+      Grob *g = all_elements_->grob (i);
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
 	{
 	  /*
@@ -112,21 +141,27 @@ System::get_paper_systems ()
   for (int i = 0; i < broken_intos_.size (); i++)
     {
       Grob *se = broken_intos_[i];
-      SCM all = se->get_property ("all-elements");
-      for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
-	fixup_refpoint (scm_car (s));
-      count += scm_ilength (all);
+      
+      extract_grob_set (se, "all-elements", all_elts);
+      for (int j = 0; j < all_elts.size(); j++)
+	{
+	  Grob *g = all_elts[j];
+	  g->fixup_refpoint ();
+	}
+      
+      count += all_elts.size ();
     }
 
   /*
     needed for doing items.
   */
-  fixup_refpoints (get_property ("all-elements"));
+  fixup_refpoints (all_elements_->array ());
+  
+  for (int i = 0 ; i < all_elements_->size(); i++)
+    all_elements_->grob (i)->handle_broken_dependencies ();
 
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
-    unsmob_grob (scm_car (s))->handle_broken_dependencies ();
   handle_broken_dependencies ();
-
+  
 #if 0  /* don't do this: strange side effects.  */
 
   /* Because the this->get_property (all-elements) contains items in 3
@@ -136,7 +171,7 @@ System::get_paper_systems ()
      makes sure that no duplicates are in the list.  */
   for (int i = 0; i < line_count; i++)
     {
-      SCM all = broken_intos_[i]->get_property ("all-elements");
+      SCM all = broken_intos_[i]->get_object ("all-elements");
       all = ly_list_qsort_uniq_x (all);
     }
 #endif
@@ -189,14 +224,21 @@ void
 System::add_column (Paper_column *p)
 {
   Grob *me = this;
-  SCM cs = me->get_property ("columns");
-  Grob *prev = scm_is_pair (cs) ? unsmob_grob (scm_car (cs)) : 0;
+  Grob_array *ga = unsmob_grob_array (me->get_object ("columns"));
+  if (!ga)
+    {
+      SCM scm_ga = Grob_array::make_array ();
+      me->set_object ("columns", scm_ga);
+      ga = unsmob_grob_array (scm_ga);
+    }
 
-  p->rank_ = prev ? Paper_column::get_rank (prev) + 1 : 0;
-
-  me->set_property ("columns", scm_cons (p->self_scm (), cs));
-
-  Axis_group_interface::add_element (me, p);
+  p->rank_
+    = ga->size()
+    ? Paper_column::get_rank (ga->array ().top ()) + 1
+    : 0;
+    
+  ga->add (p);
+  Axis_group_interface::add_element (this, p);
 }
 
 void
@@ -217,31 +259,36 @@ apply_tweaks (Grob *g, bool broken)
 void
 System::pre_processing ()
 {
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
-    unsmob_grob (scm_car (s))->discretionary_processing ();
+  for (int i = 0 ;  i < all_elements_->size(); i ++)
+    all_elements_->grob (i)->discretionary_processing ();
+  
 
   if (be_verbose_global)
     message (_f ("Grob count %d", element_count ()));
 
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
-    unsmob_grob (scm_car (s))->handle_prebroken_dependencies ();
+  /*
+    order is significant: broken grobs are added to the end of the
+    array, and should be processed before the original is potentially
+    killed.
+  */
+  for (int i = all_elements_->size(); i --; )
+    all_elements_->grob (i)->handle_prebroken_dependencies ();
 
-  fixup_refpoints (get_property ("all-elements"));
+  fixup_refpoints (all_elements_->array ());
 
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
-    apply_tweaks (unsmob_grob (scm_car (s)), false);
+  for (int i = 0 ;  i < all_elements_->size(); i ++)
+    apply_tweaks (all_elements_->grob (i), false);
 
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
-    {
-      Grob *sc = unsmob_grob (scm_car (s));
-      sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
-    }
+  for (int i = 0 ;  i < all_elements_->size(); i ++)
+    all_elements_->grob (i)->calculate_dependencies (PRECALCED, PRECALCING,
+						     ly_symbol2scm ("before-line-breaking-callback"));
 
   message (_ ("Calculating line breaks..."));
   progress_indication (" ");
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
+  
+  for (int i = 0 ;  i < all_elements_->size(); i ++)
     {
-      Grob *e = unsmob_grob (scm_car (s));
+      Grob *e =    all_elements_->grob (i);
       SCM proc = e->get_property ("spacing-procedure");
       if (ly_is_procedure (proc))
 	scm_call_1 (proc, e->self_scm ());
@@ -251,12 +298,11 @@ System::pre_processing ()
 void
 System::post_processing ()
 {
-  for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0 ;  i < all_elements_->size(); i ++)
     {
-      Grob *g = unsmob_grob (scm_car (s));
+      Grob *g = all_elements_->grob (i);
 
       apply_tweaks (g, true);
-
       g->calculate_dependencies (POSTCALCED, POSTCALCING,
 				 ly_symbol2scm ("after-line-breaking-callback"));
     }
@@ -270,13 +316,15 @@ System::post_processing ()
   /* Generate all stencils to trigger font loads.
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
-  SCM all = get_property ("all-elements");
-  all = ly_list_qsort_uniq_x (all);
 
+
+  Link_array<Grob> all_elts_sorted (all_elements_->array ());
+  all_elts_sorted.default_sort ();
+  all_elts_sorted.uniq ();
   this->get_stencil ();
-  for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
+  for (int i = all_elts_sorted.size (); i--;)
     {
-      Grob *g = unsmob_grob (scm_car (s));
+      Grob *g = all_elts_sorted[i];
       g->get_stencil ();
     }
 }
@@ -290,12 +338,10 @@ System::get_paper_system ()
   SCM *tail = &exprs;
 
   /* Output stencils in three layers: 0, 1, 2.  Default layer: 1. */
-  SCM all = get_property ("all-elements");
-
   for (int i = 0; i < LAYER_COUNT; i++)
-    for (SCM s = all; scm_is_pair (s); s = scm_cdr (s))
+    for (int j = all_elements_->size (); j --;)
       {
-	Grob *g = unsmob_grob (scm_car (s));
+	Grob *g = all_elements_->grob (j);
 	Stencil *stil = g->get_stencil ();
 
 	/* Skip empty stencils and grobs that are not in this layer.  */
@@ -331,10 +377,10 @@ System::get_paper_system ()
 
   Interval staff_refpoints;
   staff_refpoints.set_empty ();
-  for (SCM s = get_property ("spaceable-staves");
-       scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (this, "spaceable-staves", staves);
+  for (int i = staves.size (); i--; )
     {
-      Grob *g = unsmob_grob (scm_car (s));
+      Grob *g = staves[i];
       staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
     }
 
@@ -354,24 +400,25 @@ System::broken_col_range (Item const *left, Item const *right) const
 
   left = left->get_column ();
   right = right->get_column ();
-  SCM s = get_property ("columns");
 
-  while (scm_is_pair (s) && scm_car (s) != right->self_scm ())
-    s = scm_cdr (s);
+  extract_grob_set (this, "columns", cols);
+  int i = 0;
+  while (i < cols.size()
+	 && cols[i] != left)
+    i++;
 
-  if (scm_is_pair (s))
-    s = scm_cdr (s);
-
-  while (scm_is_pair (s) && scm_car (s) != left->self_scm ())
+  if (i < cols.size())
+    i ++;
+  
+  while (i < cols.size()
+	 && cols[i] != right)
     {
-      Paper_column *c = dynamic_cast<Paper_column *> (unsmob_grob (scm_car (s)));
+      Paper_column *c = dynamic_cast<Paper_column *> (cols[i]);
       if (Item::is_breakable (c) && !c->system_)
 	ret.push (c);
-
-      s = scm_cdr (s);
+      i++;      
     }
 
-  ret.reverse ();
   return ret;
 }
 
@@ -380,12 +427,13 @@ System::broken_col_range (Item const *left, Item const *right) const
 Link_array<Grob>
 System::columns () const
 {
-  Link_array<Grob> acs
-    = extract_grob_array (this, ly_symbol2scm ("columns"));
+  extract_grob_set (this, "columns", ro_columns);
+  Link_array<Grob> columns (ro_columns);
+  
   bool found = false;
-  for (int i = acs.size (); i--;)
+  for (int i = columns.size (); i--;)
     {
-      bool brb = Item::is_breakable (acs[i]);
+      bool brb = Item::is_breakable (columns[i]);
       found = found || brb;
 
       /*
@@ -393,12 +441,17 @@ System::columns () const
 	seem empty. We need to retain breakable columns, in case
 	someone forced a breakpoint.
       */
-      if (!found || !Paper_column::is_used (acs[i]))
-	acs.del (i);
+      if (!found || !Paper_column::is_used (columns[i]))
+	columns.del (i);
     }
-  return acs;
+  return columns;
 }
 
+int
+System::get_rank () const
+{
+  return rank_;
+}
 
 ADD_INTERFACE (System, "system-interface",
 	       "This is the toplevel object: each object in a score "

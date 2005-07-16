@@ -15,6 +15,7 @@
 #include "note-spacing.hh"
 #include "accidental-placement.hh"
 #include "context.hh"
+#include "grob-array.hh"
 
 struct Spacings
 {
@@ -141,7 +142,8 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	{
 	  Item *it = make_item ("StaffSpacing", SCM_EOL);
 	  current_spacings_.staff_spacing_ = it;
-	  it->set_property ("left-items", scm_cons (break_item_->self_scm (), SCM_EOL));
+	  Pointer_group_interface::add_grob (it,  ly_symbol2scm ("left-items"),
+					     break_item_);
 
 	  if (int i = last_spacings_.note_spacings_.size ())
 	    {
@@ -152,8 +154,17 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	    }
 	  else if (last_spacings_.staff_spacing_)
 	    {
-	      last_spacings_.staff_spacing_->set_property ("right-items",
-							   scm_cons (break_item_->self_scm (), SCM_EOL));
+	      SCM ri = last_spacings_.staff_spacing_->get_object ("right-items");
+	      Grob_array *ga  = unsmob_grob_array (ri);
+	      if (!ga)
+		{
+		  SCM ga_scm = Grob_array::make_array ();
+		  last_spacings_.staff_spacing_->set_object ("right-items", ga_scm);
+		  ga = unsmob_grob_array (ga_scm);
+		}
+
+	      ga->clear ();
+	      ga->add (break_item_);
 	    }
 	}
     }

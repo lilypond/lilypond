@@ -10,7 +10,7 @@
 
 #include "paper-column.hh"
 #include "warn.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "accidental-placement.hh"
 
 void
@@ -39,13 +39,10 @@ Separation_item::conditional_width (Grob *me, Grob *left)
   Item *item = dynamic_cast<Item *> (me);
   Paper_column *pc = item->get_column ();
 
-  for (SCM s = me->get_property ("conditional-elements"); scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "conditional-elements", elts);
+  for (int i = 0; i < elts.size (); i++)
     {
-      SCM elt = scm_car (s);
-      if (!unsmob_grob (elt))
-	continue;
-
-      Item *il = unsmob_item (elt);
+      Item *il = dynamic_cast<Item*> (elts[i]);
       if (pc != il->get_column ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
@@ -83,13 +80,10 @@ Separation_item::width (Grob *me)
   Paper_column *pc = item->get_column ();
   Interval w;
 
-  for (SCM s = me->get_property ("elements"); scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "elements", elts);
+  for (int i = 0; i < elts.size (); i++)
     {
-      SCM elt = scm_car (s);
-      if (!unsmob_grob (elt))
-	continue;
-
-      Item *il = unsmob_item (elt);
+      Item *il = dynamic_cast<Item*> (elts[i]);
       if (pc != il->get_column ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
@@ -131,17 +125,18 @@ Separation_item::relative_width (Grob *me, Grob *common)
   sticking out at direction D. The x size is put in LAST_EXT
 */
 Grob *
-Separation_item::extremal_break_aligned_grob (Grob *separation_item, Direction d,
+Separation_item::extremal_break_aligned_grob (Grob *me,
+					      Direction d,
 					      Interval *last_ext)
 {
-  Grob *col = dynamic_cast<Item *> (separation_item)->get_column ();
+  Grob *col = dynamic_cast<Item *> (me)->get_column ();
   last_ext->set_empty ();
   Grob *last_grob = 0;
-  for (SCM s = separation_item->get_property ("elements");
-       scm_is_pair (s); s = scm_cdr (s))
+  
+  extract_grob_set (me, "elements", elts);
+  for (int i = elts.size (); i--; )
     {
-      Grob *break_item = unsmob_grob (scm_car (s));
-
+      Grob *break_item = elts[i];
       if (!scm_is_symbol (break_item->get_property ("break-align-symbol")))
 	continue;
 
@@ -149,6 +144,7 @@ Separation_item::extremal_break_aligned_grob (Grob *separation_item, Direction d
 
       if (ext.is_empty ())
 	continue;
+
       if (!last_grob
 	  || (last_grob && d * (ext[d]- (*last_ext)[d]) > 0))
 	{

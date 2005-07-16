@@ -100,8 +100,8 @@ Stem_engraver::make_stem (Grob_info gi)
 	     tremolo-type minus the number of flags of the note itself.  */
 	  tremolo_->set_property ("flag-count", scm_int2num (tremolo_flags));
 	  tremolo_->set_parent (stem_, X_AXIS);
-	  stem_->set_property ("tremolo-flag", tremolo_->self_scm ());
-	  tremolo_->set_property ("stem", stem_->self_scm ());
+	  stem_->set_object ("tremolo-flag", tremolo_->self_scm ());
+	  tremolo_->set_object ("stem", stem_->self_scm ());
 	}
     }
 }

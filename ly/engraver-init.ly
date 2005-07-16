@@ -613,9 +613,6 @@ AncientRemoveEmptyStaffContext = \context {
   \remove "New_fingering_engraver"
 
   \description "Context for drawing notes in a Tab staff. "
-  \override Slur #'font-family    = #'roman
-  \override Slur #'print-function = #hammer-print-function
-  \override Slur #'direction = #-1
 
   %% Draws all stems/beams out of the staff (and not in the middle of the staff !)
   %% This feature is now disabled because most of the tab does not use it.

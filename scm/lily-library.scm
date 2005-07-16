@@ -395,6 +395,9 @@ possibly turned off."
 (define-public (symbol<? lst r)
   (string<? (symbol->string lst) (symbol->string r)))
 
+(define-public (symbol-key<? lst r)
+  (string<? (symbol->string (car lst)) (symbol->string (car r))))
+
 ;;
 ;; don't confuse users with #<procedure .. > syntax. 
 ;; 

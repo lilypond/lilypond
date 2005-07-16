@@ -10,7 +10,7 @@
 #include "engraver.hh"
 
 #include "dots.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "axis-group-interface.hh"
 #include "context.hh"
 #include "note-head.hh"
@@ -109,7 +109,7 @@ Pitched_trill_engraver::make_trill (Music *mus)
       // fixme: naming -> alterations
       trill_accidental_->set_property ("accidentals", scm_list_1 (scm_from_int (p->get_alteration ())));
       Side_position_interface::add_support (trill_accidental_, trill_head_);
-      trill_head_->set_property ("accidental-grob", trill_accidental_->self_scm ());
+      trill_head_->set_object ("accidental-grob", trill_accidental_->self_scm ());
       trill_group_->set_parent (trill_head_, Y_AXIS);
       Axis_group_interface::add_element (trill_group_, trill_accidental_);
       trill_accidental_->set_parent (trill_head_, Y_AXIS);

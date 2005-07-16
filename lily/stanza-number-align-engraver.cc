@@ -11,7 +11,7 @@
 #include "engraver.hh"
 #include "note-head.hh"
 #include "lyric-extender.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 
 class Stanza_number_align_engraver : public Engraver

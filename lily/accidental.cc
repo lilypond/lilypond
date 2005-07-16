@@ -37,7 +37,7 @@ SCM
 Accidental_interface::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *tie = unsmob_grob (me->get_property ("tie"));
+  Grob *tie = unsmob_grob (me->get_object ("tie"));
 
   if (tie && !tie->original_)
     me->suicide ();

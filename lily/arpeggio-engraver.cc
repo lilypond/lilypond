@@ -7,7 +7,8 @@
 */
 
 #include "engraver.hh"
-#include "group-interface.hh"
+
+#include "pointer-group-interface.hh"
 #include "arpeggio.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
@@ -70,7 +71,7 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
 	}
       else if (Note_column::has_interface (info.grob ()))
 	{
-	  info.grob ()->set_property ("arpeggio", arpeggio_->self_scm ());
+	  info.grob ()->set_object ("arpeggio", arpeggio_->self_scm ());
 	}
     }
 }

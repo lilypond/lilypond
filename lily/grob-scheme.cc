@@ -45,6 +45,21 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
   return sc->internal_get_property (sym);
 }
 
+LY_DEFINE (ly_grob_object, "ly:grob-object",
+	   2, 0, 0, (SCM grob, SCM sym),
+	   "Return the value of a pointer in grob @var{g} of property @var{sym}. "
+	   "It will return @code{' ()} (end-of-list) "
+	   "if  @var{sym} is undefined in @var{g}."
+	   "\n\n")
+{
+  Grob *sc = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+
+  return sc->internal_get_object (sym);
+}
+
+
 LY_DEFINE (ly_spanner_get_bound, "ly:spanner-get-bound",
 	   2, 0, 0, (SCM slur, SCM dir),
 	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "

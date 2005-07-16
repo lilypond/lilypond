@@ -19,6 +19,7 @@
 #include "lookup.hh"
 #include "output-def.hh"
 #include "warn.hh"
+#include "pointer-group-interface.hh"
 
 /*
   TODO: Add support for cubic spline segments.
@@ -137,9 +138,9 @@ Cluster::print (SCM smob)
   Item *right_bound = spanner->get_bound (RIGHT);
 
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
-  SCM cols = me->get_property ("columns");
 
-  if (!scm_is_pair (cols))
+  Link_array<Grob> const &cols = extract_grob_array (me, "columns");
+  if (cols.is_empty ())
     {
       me->warning (_ ("junking empty cluster"));
       me->suicide ();
@@ -147,8 +148,8 @@ Cluster::print (SCM smob)
       return SCM_EOL;
     }
 
-  commonx = common_refpoint_of_list (cols, commonx, X_AXIS);
-  Grob *commony = common_refpoint_of_list (cols, me, Y_AXIS);
+  commonx = common_refpoint_of_array (cols, commonx, X_AXIS);
+  Grob *commony = common_refpoint_of_array (cols, me, Y_AXIS);
   Array<Offset> bottom_points;
   Array<Offset> top_points;
 
@@ -159,9 +160,10 @@ Cluster::print (SCM smob)
     line with the center of the note heads?
 
   */
-  for (SCM s = cols; scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0; i < cols.size ();  i++) 
     {
-      Grob *col = unsmob_grob (scm_car (s));
+      Grob *col = cols[i];
+      
       Interval yext = col->extent (commony, Y_AXIS);
 
       Real x = col->relative_coordinate (commonx, X_AXIS) - left_coord;
@@ -179,11 +181,11 @@ Cluster::print (SCM smob)
       if (spanner->get_break_index () < orig->broken_intos_.size () - 1)
 	{
 	  Spanner *next = orig->broken_intos_[spanner->get_break_index () + 1];
-	  SCM cols = next->get_property ("columns");
-	  if (scm_is_pair (cols))
+	  Link_array<Grob> const &next_cols = extract_grob_array (next, "columns");
+	  if (next_cols.size() > 0)
 	    {
-	      Grob *next_commony = common_refpoint_of_list (cols, next, Y_AXIS);
-	      Grob *col = unsmob_grob (scm_car (scm_last_pair (cols)));
+	      Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);
+	      Grob *col = next_cols[0];
 
 	      Interval v = col->extent (next_commony, Y_AXIS);
 	      Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;

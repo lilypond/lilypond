@@ -13,6 +13,7 @@
 #include "spanner.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
+#include "pointer-group-interface.hh"
 
 /*
  * This abstract class serves as common superclass for all ligature
@@ -127,11 +128,12 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
       // Change column not only for targeted item (NoteColumn), but
       // also for all associated grobs (NoteSpacing, SeparationItem).
       Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
-      for (SCM tail = parent->get_property ("elements");
-	   scm_is_pair (tail);
-	   tail = scm_cdr (tail))
+
+      extract_item_set (parent, "elements", elements);
+      
+      for (int i = elements.size (); i--;)
 	{
-	  Item *sibling = unsmob_item (scm_car (tail));
+	  Item *sibling = elements[i];
 	  if ((sibling)
 	      && (Staff_symbol_referencer::get_staff_symbol (sibling) == sl))
 	    {

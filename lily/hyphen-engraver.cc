@@ -8,10 +8,12 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "engraver.hh"
+
 #include "warn.hh"
 #include "item.hh"
-#include "engraver.hh"
 #include "spanner.hh"
+#include "pointer-group-interface.hh"
 
 class Hyphen_engraver : public Engraver
 {
@@ -67,12 +69,10 @@ completize_hyphen (Spanner *sp)
 {
   if (!sp->get_bound (RIGHT))
     {
-      SCM heads = sp->get_property ("heads");
-      if (scm_is_pair (heads))
+      extract_item_set (sp, "heads", heads);
+      if (heads.size ())
 	{
-	  Item *it = dynamic_cast<Item *> (unsmob_grob (scm_car (heads)));
-	  if (it)
-	    sp->set_bound (RIGHT, it);
+	  sp->set_bound (RIGHT, heads.top ());
 	}
     }
 }

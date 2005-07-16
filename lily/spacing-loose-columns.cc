@@ -6,10 +6,12 @@
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+
 #include "system.hh"
 #include "paper-column.hh"
 #include "column-x-positions.hh"
 #include "staff-spacing.hh"
+#include "pointer-group-interface.hh"
 
 /* Find the loose columns in POSNS, and drape them around the columns
    specified in BETWEEN-COLS.  */
@@ -30,7 +32,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       Item *right = 0;
       while (1)
 	{
-	  SCM between = loose->get_property ("between-cols");
+	  SCM between = loose->get_object ("between-cols");
 	  if (!scm_is_pair (between))
 	    break;
 
@@ -59,9 +61,11 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       int count = 0;
       Real total_space = 0.0;
       Real total_fixed = 0.0;
-      for (SCM wish = col->get_property ("spacing-wishes"); scm_is_pair (wish); wish = scm_cdr (wish))
+
+      extract_grob_set (col, "spacing-wishes", wishes);
+      for (int i = 0; i < wishes.size (); i++)
 	{
-	  Grob *spacing = unsmob_grob (scm_car (wish));
+	  Grob *spacing = wishes[i];
 	  if (Staff_spacing::has_interface (spacing))
 	    {
 	      Real space = 0.0;

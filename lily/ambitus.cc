@@ -15,7 +15,7 @@
 #include "font-interface.hh"
 #include "output-def.hh"
 #include "lookup.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Ambitus, print, 1);
 SCM
@@ -25,7 +25,7 @@ Ambitus::print (SCM smob)
   Stencil stencil;
 
   // join heads
-  Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("note-heads")));
+  extract_grob_set (me, "note-heads", heads);
   if (to_boolean (me->get_property ("join-heads"))
       && heads.size () > 1)
     {

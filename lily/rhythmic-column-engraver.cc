@@ -11,7 +11,7 @@
 #include "stem.hh"
 #include "note-column.hh"
 #include "dot-column.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 
 /*
   this engraver  glues together stems, rests and note heads into a NoteColumn
@@ -75,7 +75,7 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 	  note_column_ = make_item ("NoteColumn", rheads_[0]->self_scm ());
 
 	  spacing_ = make_item ("NoteSpacing", SCM_EOL);
-	  spacing_->set_property ("left-items", scm_cons (note_column_->self_scm (), SCM_EOL));
+	  spacing_->set_object ("left-items", scm_cons (note_column_->self_scm (), SCM_EOL));
 
 	  if (last_spacing_)
 	    {

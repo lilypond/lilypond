@@ -60,7 +60,7 @@ Note_head::brew_ez_stencil (SCM smob)
 
   Real radius = (ss + lt) / 2.0;
   Real stem_thick = 1.3 * lt; 
-  if (Grob *stem = unsmob_grob (me->get_property ("stem")))
+  if (Grob *stem = unsmob_grob (me->get_object ("stem")))
     {
       stem_thick = Stem::thickness (stem);
     }

@@ -16,7 +16,7 @@
 #include "rhythmic-head.hh"
 #include "output-def.hh"
 #include "rest.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "duration.hh"
 #include "directional-element-interface.hh"
@@ -31,7 +31,7 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 
   if (Note_column::has_rests (them))
     {
-      Grob *rc = unsmob_grob (them->get_property ("rest-collision"));
+      Grob *rc = unsmob_grob (them->get_object ("rest-collision"));
 
       if (rc && !to_boolean (rc->get_property ("positioning-done")))
 	{
@@ -69,9 +69,9 @@ Rest_collision::add_column (Grob *me, Grob *p)
     (not?)
   */
   p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
-  p->set_property ("rest-collision", me->self_scm ());
+  p->set_object ("rest-collision", me->self_scm ());
 
-  Grob *rest = unsmob_grob (p->get_property ("rest"));
+  Grob *rest = unsmob_grob (p->get_object ("rest"));
   if (rest)
     {
       rest->add_offset_callback (Rest_collision::force_shift_callback_rest_proc,
@@ -86,7 +86,7 @@ Rest_collision::add_column (Grob *me, Grob *p)
 SCM
 Rest_collision::do_shift (Grob *me)
 {
-  SCM elts = me->get_property ("elements");
+  SCM elts = me->get_object ("elements");
 
   Link_array<Grob> rests;
   Link_array<Grob> notes;
@@ -94,13 +94,13 @@ Rest_collision::do_shift (Grob *me)
   for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
     {
       Grob *e = unsmob_grob (scm_car (s));
-      if (unsmob_grob (e->get_property ("rest")))
+      if (unsmob_grob (e->get_object ("rest")))
 	{
 	  /*
 	    Ignore rests under beam.
 	  */
-	  Grob *st = unsmob_grob (e->get_property ("stem"));
-	  if (st && unsmob_grob (st->get_property ("beam")))
+	  Grob *st = unsmob_grob (e->get_object ("stem"));
+	  if (st && unsmob_grob (st->get_object ("beam")))
 	    continue;
 
 	  rests.push (e);

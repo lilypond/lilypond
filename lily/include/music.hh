@@ -28,6 +28,8 @@ public:
 
   SCM internal_get_property (SCM) const;
   void internal_set_property (SCM, SCM val);
+  SCM internal_get_object (SCM) const;
+  void internal_set_object (SCM, SCM val);
   SCM get_property_alist (bool mutble) const;
   bool internal_is_music_type (SCM) const;
 

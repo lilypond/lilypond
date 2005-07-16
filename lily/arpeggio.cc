@@ -15,6 +15,7 @@
 #include "warn.hh"
 #include "font-interface.hh"
 #include "lookup.hh"
+#include "pointer-group-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Arpeggio, print, 1);
 SCM
@@ -23,9 +24,11 @@ Arpeggio::print (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   Grob *common = me;
-  for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
+
+  extract_grob_set (me, "stems", stems);
+  for (int i = 0;  i < stems.size(); i++)
     {
-      Grob *stem = unsmob_grob (scm_car (s));
+      Grob *stem = stems[i];
       common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
 					Y_AXIS);
     }
@@ -41,9 +44,9 @@ Arpeggio::print (SCM smob)
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
 
-  for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0;  i < stems.size(); i++)
     {
-      Grob *stem = unsmob_grob (scm_car (s));
+      Grob *stem = stems[i];
       Grob *ss = Staff_symbol_referencer::get_staff_symbol (stem);
       Interval iv = Stem::head_positions (stem);
       iv *= Staff_symbol::staff_space (ss) / 2.0;
@@ -102,9 +105,12 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   Grob *common = me;
-  for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
+
+  
+  extract_grob_set (me, "stems", stems);
+  for (int i = 0;  i < stems.size(); i++)
     {
-      Grob *stem = unsmob_grob (scm_car (s));
+      Grob *stem = stems[i];
       common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
 					Y_AXIS);
     }
@@ -112,9 +118,9 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
 
-  for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0;  i < stems.size(); i++)
     {
-      Grob *stem = unsmob_grob (scm_car (s));
+      Grob *stem = stems[i];
       Grob *ss = Staff_symbol_referencer::get_staff_symbol (stem);
       Interval iv = Stem::head_positions (stem);
       iv *= Staff_symbol::staff_space (ss) / 2.0;

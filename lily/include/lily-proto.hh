@@ -59,6 +59,7 @@ class Grace_fixup;
 class Grace_iterator;
 class Grace_music;
 class Grob;
+class Grob_array;
 class Hara_kiri_engraver;
 class Hara_kiri_line_group_engraver;
 class Includable_lexer;

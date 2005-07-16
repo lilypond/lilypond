@@ -1,15 +1,36 @@
-2005-07-15  Graham Percival  <gperlist@shaw.ca>
+2005-07-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* Documentation/user/lilypond-book.itely: fixes example.
+	* lily/system.cc (do_derived_mark): don't mark from object_alist_
+	anymore, but do it centrally.  Speedup: approximately 3-5 %.
 
-2005-07-15  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
+	hammer hack.
 
-	* Documentation/user/global.itely (Creating titles):	
-	* Documentation/user/examples.itely (All headers): change the
-	place of \header in \score blocks (after music block) to make
-	examples compile (cf. changes on parser.yy on 2005-07-10)
+	* lily/grob-scheme.cc (LY_DEFINE): new function ly:grob-object
 
-2005-07-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+	* scm/output-lib.scm: remove hammer-print-function.
+
+	* lily/include/pointer-group-interface.hh (extract_grob_set): new
+	macro. Declare a Link_array<Grob> and fill it from a grob.
+	(extract_item_set): idem for item.
+
+	* lily/break-substitution.cc: add header.
+	(fast_substitute_grob_array): rewrite for Grob_arrays.
+	(substitute_grob_array): idem.
+
+	* lily/group-interface.cc (add_thing): remove file.
+
+	* flower/include/parray.hh (class Link_array): slice() is const.
+
+	* lily/include/grob-array.hh: new file.
+
+	* lily/grob-array.cc (spanner): new file.
+
+	* lily/beam-quanting.cc (fill): read details property from beam.
+
+	* lily/beam.cc: support details property.
+
+	* total speedups below: approx 10%.
 
 	* lily/include/beam.hh: new struct, softcode beam quanting parameters
 
@@ -26,12 +47,22 @@
 	alist. This saves processing time, since properties aren't
 	break-substituted, and the per grob namespace is smaller, both for
 	grobs and non-grob properties.
-	
 
 	* scm/define-grob-properties.scm (all-internal-grob-properties):
 	remove center-element.
 
 	* lily/grob.cc: remove tweak-count, tweak-rank.
+
+2005-07-15  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/lilypond-book.itely: fixes example.
+
+2005-07-15  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* Documentation/user/global.itely (Creating titles):	
+	* Documentation/user/examples.itely (All headers): change the
+	place of \header in \score blocks (after music block) to make
+	examples compile (cf. changes on parser.yy on 2005-07-10)
 
 2005-07-13  Graham Percival  <gperlist@shaw.ca>
 

@@ -14,7 +14,7 @@
 #include "staff-symbol.hh"
 #include "lookup.hh"
 #include "spanner.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "paper-column.hh"
 
 struct Ledger_line_spanner
@@ -120,8 +120,6 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
   if (!staff)
     return SCM_EOL;
 
-  SCM heads = me->get_property ("note-heads");
-
   Real min_length_fraction
     = robust_scm2double (me->get_property ("minimum-length-fraction"), 0.15);
 
@@ -130,14 +128,16 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
   Item *previous_column = 0;
   Item *current_column = 0;
 
+  int interspaces = Staff_symbol::line_count (staff) - 1;
+
   /*
-    Run through heads using a loop. Since Legder_line_spanner can
+    Run through heads using a loop. Since Ledger_line_spanner can
     contain a lot of noteheads, superlinear performance is too slow.
   */
-  int interspaces = Staff_symbol::line_count (staff) - 1;
-  for (SCM hp = heads; scm_is_pair (hp); hp = scm_cdr (hp))
+  extract_item_set (me, "note-heads", heads);
+  for (int i = heads.size(); i --; )
     {
-      Item *h = dynamic_cast<Item *> (unsmob_grob (scm_car (hp)));
+      Item *h = heads[i];
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
       if (abs (pos) <= interspaces)
@@ -199,7 +199,8 @@ SCM
 Ledger_line_spanner::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
-  Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("note-heads")));
+
+  extract_grob_set (me, "note-heads", heads);
 
   if (heads.is_empty ())
     return SCM_EOL;
@@ -222,7 +223,7 @@ Ledger_line_spanner::print (SCM smob)
       Axis a = Axis (i);
       common[a] = common_refpoint_of_array (heads, me, a);
       for (int i = heads.size (); i--;)
-	if (Grob *g = unsmob_grob (me->get_property ("accidental-grob")))
+	if (Grob *g = unsmob_grob (me->get_object ("accidental-grob")))
 	  common[a] = common[a]->common_refpoint (g, a);
     }
 
@@ -310,7 +311,7 @@ Ledger_line_spanner::print (SCM smob)
 
 	  ledger_size.intersect (max_size);
 	  Real left_shorten = 0.0;
-	  if (Grob *g = unsmob_grob (h->get_property ("accidental-grob")))
+	  if (Grob *g = unsmob_grob (h->get_object ("accidental-grob")))
 	    {
 	      Interval accidental_size = g->extent (common[X_AXIS], X_AXIS);
 	      Real d

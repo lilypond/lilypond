@@ -14,7 +14,7 @@
 #include "slur-configuration.hh"
 #include "beam.hh"
 #include "directional-element-interface.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "slur.hh"
 #include "note-column.hh"
 #include "output-def.hh"
@@ -177,7 +177,7 @@ Slur_score_state::set_next_direction ()
 Encompass_info
 Slur_score_state::get_encompass_info (Grob *col) const
 {
-  Grob *stem = unsmob_grob (col->get_property ("stem"));
+  Grob *stem = unsmob_grob (col->get_object ("stem"));
   Encompass_info ei;
 
   if (!stem)
@@ -283,7 +283,7 @@ Slur_score_state::fill (Grob *me)
 {
   slur_ = dynamic_cast<Spanner *> (me);
   columns_
-    = extract_grob_array (me, ly_symbol2scm ("note-columns"));
+    = internal_extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
   if (columns_.is_empty ())
     {
@@ -298,15 +298,16 @@ Slur_score_state::fill (Grob *me)
   dir_ = get_grob_direction (me);
   parameters_.fill (me);
 
-  SCM eltlist = me->get_property ("note-columns");
-  SCM extra_list = me->get_property ("encompass-objects");
+  extract_grob_set (me, "note-columns", columns);
+  extract_grob_set (me, "encompass-objects", extra_objects);
+
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
   for (int i = X_AXIS; i < NO_AXES; i++)
     {
       Axis a = (Axis)i;
-      common_[a] = common_refpoint_of_list (eltlist, me, a);
-      common_[a] = common_refpoint_of_list (extra_list, common_[a], a);
+      common_[a] = common_refpoint_of_array (columns, me, a);
+      common_[a] = common_refpoint_of_array (extra_objects, common_[a], a);
 
       Direction d = LEFT;
       do
@@ -644,8 +645,7 @@ Slur_score_state::generate_avoid_offsets () const
       avoid.push (Offset (inf.x_, y + dir_ * parameters_.free_head_distance_));
     }
   
-  Link_array<Grob> extra_encompasses
-    = extract_grob_array (slur_, ly_symbol2scm ("encompass-objects"));
+  extract_grob_set (slur_, "encompass-objects", extra_encompasses);
   for (int i = 0; i < extra_encompasses.size (); i++)
     if (Slur::has_interface (extra_encompasses[i]))
       {
@@ -767,8 +767,7 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 Array<Extra_collision_info>
 Slur_score_state::get_extra_encompass_infos () const
 {
-  Link_array<Grob> encompasses
-    = extract_grob_array (slur_, ly_symbol2scm ("encompass-objects"));
+  extract_grob_set (slur_, "encompass-objects", encompasses);
   Array<Extra_collision_info> collision_infos;
   for (int i = encompasses.size (); i--;)
     {

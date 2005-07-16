@@ -18,7 +18,7 @@
 #include "paper-column.hh"
 #include "lookup.hh"
 #include "text-interface.hh"
-
+#include "pointer-group-interface.hh"
 
 MAKE_SCHEME_CALLBACK(Hairpin,after_line_breaking,1);
 SCM
@@ -96,8 +96,8 @@ Hairpin::print (SCM smob)
 	  else
 	    {
 	      bool neighbor_found = false;
-	      for (SCM adj = me->get_property ("adjacent-hairpins");
-		   scm_is_pair (adj); adj = scm_cdr (adj))
+	      extract_grob_set (me, "adjacent-hairpins", pins);
+	      for (int i = 0; i < pins.size(); i++)
 		{
 		  /*
 		    FIXME: this will fuck up in case of polyphonic
@@ -105,7 +105,7 @@ Hairpin::print (SCM smob)
 		    in the current staff/voice.
 		  */
 
-		  Spanner *pin = unsmob_spanner (scm_car (adj));
+		  Spanner *pin = dynamic_cast<Spanner*> (pins[i]);
 		  if (pin
 		      && (pin->get_bound (LEFT)->get_column () == b->get_column ()
 			  || pin->get_bound (RIGHT)->get_column () == b->get_column ()))

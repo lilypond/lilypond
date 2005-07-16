@@ -159,7 +159,7 @@ public:
     return (T *) Array<void *>::get (i);
   }
   Link_array<T>
-  slice (int l, int u)
+  slice (int l, int u) const
   {
     return Array<void *>::slice (l, u);
   }

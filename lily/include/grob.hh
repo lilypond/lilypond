@@ -14,9 +14,6 @@
 #include "grob-interface.hh"
 #include "object-key.hh"
 
-/**
-   for administration of what was done already
-*/
 enum Grob_status
   {
     ORPHAN = 0, // not yet added to Paper_score
@@ -28,14 +25,6 @@ enum Grob_status
 
 typedef void (Grob:: *Grob_method_pointer) (void);
 
-// looking at gtk+/pango docstrings .. WIP
-
-/**
- * Grob:
- * @internal_get_property: get property #NAME.
- *
- * Class structure for #Grob.
- **/
 class Grob
 {
 private:
@@ -45,13 +34,22 @@ protected:
   Object_key const *key_;
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
+  SCM object_alist_;
 
+  /*
+    If this is a property, it accounts for 25% of the property
+    lookups.
+   */
+  SCM interfaces_;
+
+  
+  
   /* BARF */
   friend class Spanner;
   friend SCM ly_grob_properties (SCM);
   friend SCM ly_grob_basic_properties (SCM);
-
-  void substitute_mutable_properties (SCM, SCM);
+  friend void check_interfaces_for_property  (Grob const*, SCM);
+  void substitute_object_links (SCM, SCM);
   char status_;
 
 public:
@@ -75,8 +73,16 @@ public:
     Properties
   */
   SCM internal_get_property (SCM) const;
-  void internal_set_property (SCM, SCM val);
+  SCM internal_get_object (SCM) const;
+
+  void internal_set_property (SCM sym, SCM val);
+  void internal_set_object (SCM sym, SCM val);
+
+  /*
+    JUNKME.
+   */
   void add_to_list_property (SCM, SCM);
+  void add_to_object_list (SCM sym, SCM thing);
 
   SCM get_property_alist_chain (SCM) const;
   static SCM ly_grob_set_property (SCM, SCM, SCM);
@@ -128,7 +134,7 @@ public:
 
   // URG
   Grob *get_parent (Axis a) const;
-  DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
+  void fixup_refpoint ();
 };
 
 DECLARE_UNSMOB (Grob, grob);
@@ -139,7 +145,7 @@ Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
 Grob *common_refpoint_of_array (Link_array<Grob> const &, Grob *, Axis a);
 
 void set_break_subsititution (SCM criterion);
-SCM substitute_mutable_property_alist (SCM alist);
+SCM substitute_object_alist (SCM alist, SCM dest);
 
 Link_array<Grob> ly_scm2grobs (SCM ell);
 SCM ly_grobs2scm (Link_array<Grob> a);

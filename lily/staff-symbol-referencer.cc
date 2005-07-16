@@ -44,7 +44,7 @@ Staff_symbol_referencer::get_staff_symbol (Grob *me)
   if (Staff_symbol::has_interface (me))
     return me;
 
-  SCM st = me->get_property ("staff-symbol");
+  SCM st = me->get_object ("staff-symbol");
   return unsmob_grob (st);
 }
 

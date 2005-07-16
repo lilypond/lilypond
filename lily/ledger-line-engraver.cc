@@ -6,7 +6,7 @@
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "spanner.hh"
 #include "engraver.hh"
 #include "staff-symbol.hh"

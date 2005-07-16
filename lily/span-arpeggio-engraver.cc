@@ -10,7 +10,7 @@
 
 #include "engraver.hh"
 #include "arpeggio.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 
@@ -74,20 +74,23 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	we do this very late, to make sure we also catch `extra'
 	side-pos support like accidentals.
       */
-      for (int i = 0; i < arpeggios_.size (); i++)
+      for (int j = 0; j < arpeggios_.size (); j++)
 	{
-	  for (SCM s = arpeggios_[i]->get_property ("stems");
-	       scm_is_pair (s); s = scm_cdr (s))
-	    Group_interface::add_thing (span_arpeggio_, ly_symbol2scm ("stems"), scm_car (s));
-	  for (SCM s = arpeggios_[i]->get_property ("side-support-elements");
-	       scm_is_pair (s); s = scm_cdr (s))
-	    Group_interface::add_thing (span_arpeggio_, ly_symbol2scm ("side-support-elements"), scm_car (s));
+	  extract_grob_set (arpeggios_[j], "stems", stems);
+	  for (int i = stems.size() ; i--;)
+	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("stems"),
+					       stems[i]);
+
+	  extract_grob_set (arpeggios_[j], "side-support-elements", sses);
+	  for (int i = sses.size() ; i--;)
+	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("side-support-elements"),
+					       sses[i]);
 
 	  /*
 	    we can't kill the children, since we don't want to the
 	    previous note to bump into the span arpeggio; so we make
 	    it transparent.  */
-	  arpeggios_[i]->set_property ("print-function", SCM_EOL);
+	  arpeggios_[j]->set_property ("print-function", SCM_EOL);
 	}
 
       span_arpeggio_ = 0;

@@ -102,7 +102,7 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
 	  if (slur)
 	    {
 	      e->add_offset_callback (Slur::outside_slur_callback_proc, Y_AXIS);
-	      e->set_property ("slur", slur->self_scm ());
+	      e->set_object ("slur", slur->self_scm ());
 	    }
 	}
     }

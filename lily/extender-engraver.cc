@@ -10,7 +10,7 @@
 
 #include "context.hh"
 #include "engraver.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "item.hh"
 #include "lyric-extender.hh"
 #include "note-head.hh"
@@ -73,7 +73,7 @@ Extender_engraver::acknowledge_grob (Grob_info i)
 
       if (pending_extender_)
 	{
-	  pending_extender_->set_property ("next", item->self_scm ());
+	  pending_extender_->set_object ("next", item->self_scm ());
 	  completize_extender (pending_extender_);
 	  pending_extender_ = 0;
 	}
@@ -118,12 +118,10 @@ completize_extender (Spanner *sp)
 {
   if (!sp->get_bound (RIGHT))
     {
-      SCM heads = sp->get_property ("heads");
-      if (scm_is_pair (heads))
+      extract_item_set (sp, "heads", heads);
+      if (heads.size ())
 	{
-	  Item *it = dynamic_cast<Item *> (unsmob_grob (scm_car (heads)));
-	  if (it)
-	    sp->set_bound (RIGHT, it);
+	  sp->set_bound (RIGHT, heads.top());
 	}
     }
 }

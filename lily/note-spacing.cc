@@ -8,6 +8,7 @@
 
 #include "note-spacing.hh"
 
+#include "grob-array.hh"
 #include "paper-column.hh"
 #include "moment.hh"
 #include "note-column.hh"
@@ -17,6 +18,8 @@
 #include "staff-spacing.hh"
 #include "accidental-placement.hh"
 #include "output-def.hh"
+#include "pointer-group-interface.hh"
+
 
 /*
   TODO: detect hshifts due to collisions, and account for them in
@@ -27,9 +30,8 @@ void
 Note_spacing::get_spacing (Grob *me, Item *right_col,
 			   Real base_space, Real increment, Real *space, Real *fixed)
 {
-
-  Drul_array<SCM> props (me->get_property ("left-items"),
-			 me->get_property ("right-items"));
+  Drul_array<SCM> props (me->get_object ("left-items"),
+			 me->get_object ("right-items"));
   Direction d = LEFT;
   Direction col_dir = right_col->break_status_dir ();
   Drul_array<Interval> extents;
@@ -37,9 +39,10 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   Interval left_head_wid;
   do
     {
-      for (SCM s = props[d]; scm_is_pair (s); s = scm_cdr (s))
+      Link_array<Grob> const &items (ly_scm2link_array (props [d]));
+      for (int i = items.size (); i--;)
 	{
-	  Item *it = dynamic_cast<Item *> (unsmob_grob (scm_car (s)));
+	  Item *it = dynamic_cast<Item *> (items[i]);
 
 	  if (d == RIGHT && it->break_status_dir () != col_dir)
 	    {
@@ -64,7 +67,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
 	  if (d == LEFT)
 	    {
-	      SCM r = it->get_property ("rest");
+	      SCM r = it->get_object ("rest");
 	      Grob *g = unsmob_grob (r);
 	      if (!g)
 		g = Note_column::first_head (it);
@@ -176,15 +179,15 @@ Note_spacing::right_column (Grob *me)
   if (!me->is_live ())
     return 0;
 
-  SCM right = me->get_property ("right-items");
+  Grob_array * a = unsmob_grob_array (me->get_object ("right-items"));
   Item *mincol = 0;
   int min_rank = INT_MAX;
   bool prune = false;
-  for (SCM s = right; scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0; a && i <  a->size (); i++) 
     {
-      Item *ri = unsmob_item (scm_car (s));
-
+      Item *ri = a->item (i);
       Item *col = ri->get_column ();
+
       int rank = Paper_column::get_rank (col);
 
       if (rank < min_rank)
@@ -197,26 +200,18 @@ Note_spacing::right_column (Grob *me)
 	}
     }
 
-  if (prune)
+  if (prune && a)
     {
-      // I'm a lazy bum. We could do this in-place.
-      SCM newright = SCM_EOL;
-      for (SCM s = right; scm_is_pair (s); s = scm_cdr (s))
+      Link_array<Grob> & right = a->array_reference ();
+      for (int i = right.size(); i--;)  
 	{
-	  if (unsmob_item (scm_car (s))->get_column () == mincol)
-	    newright = scm_cons (scm_car (s), newright);
+	  if (dynamic_cast<Item*> (right[i])->get_column () != mincol)
+	    right.del (i);
 	}
-
-      me->set_property ("right-items", newright);
     }
 
   if (!mincol)
     {
-      /*
-	int r = Paper_column::get_rank (dynamic_cast<Item*>(me)->get_column ());
-	programming_error (_f ("Spacing wish column %d has no right item.", r));
-      */
-
       return 0;
     }
 
@@ -238,8 +233,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   Drul_array<Direction> stem_dirs (CENTER, CENTER);
   Drul_array<Interval> stem_posns;
   Drul_array<Interval> head_posns;
-  Drul_array<SCM> props (me->get_property ("left-items"),
-			 me->get_property ("right-items"));
+  Drul_array<SCM> props (me->get_object ("left-items"),
+			 me->get_object ("right-items"));
 
   Drul_array<Spanner *> beams_drul (0, 0);
   Drul_array<Grob *> stems_drul (0, 0);
@@ -255,9 +250,10 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 
   do
     {
-      for (SCM s = props[d]; scm_is_pair (s); s = scm_cdr (s))
+      Link_array<Grob> const &items (ly_scm2link_array (props [d]));
+      for (int i = 0; i < items.size(); i++)
 	{
-	  Item *it = dynamic_cast<Item *> (unsmob_grob (scm_car (s)));
+	  Item *it = dynamic_cast<Item *> (items[i]);
 
 	  if (d == RIGHT)
 	    acc_right = acc_right || Note_column::accidentals (it);

@@ -17,7 +17,7 @@
 #include "warn.hh"
 #include "dimensions.hh"
 #include "staff-symbol-referencer.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "string-convert.hh"
@@ -44,7 +44,7 @@ Side_position_interface::get_direction (Grob *me)
       relative_dir = to_dir (reldir);
     }
 
-  SCM other_elt = me->get_property ("direction-source");
+  SCM other_elt = me->get_object ("direction-source");
   Grob *e = unsmob_grob (other_elt);
   if (e)
     {
@@ -70,8 +70,10 @@ SCM
 Side_position_interface::general_side_position (Grob *me, Axis a, bool use_extents)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
-  SCM support = me->get_property ("side-support-elements");
-  Grob *common = common_refpoint_of_list (support, me->get_parent (a), a);
+
+  extract_grob_set (me, "side-support-elements", support);
+
+  Grob *common = common_refpoint_of_array (support, me->get_parent (a), a);
   Grob *st = Staff_symbol_referencer::get_staff_symbol (me);
   bool include_staff = (st
 			&& a == Y_AXIS
@@ -84,9 +86,9 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
       dim = st->extent (common, Y_AXIS);
     }
 
-  for (SCM s = support; s != SCM_EOL; s = scm_cdr (s))
+  for (int i = 0; i < support.size (); i++)
     {
-      Grob *e = unsmob_grob (scm_car (s));
+      Grob *e = support[i];
       if (e)
 	if (use_extents)
 	  dim.unite (e->extent (common, a));

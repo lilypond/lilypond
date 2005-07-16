@@ -17,6 +17,8 @@
 #include "lookup.hh"
 #include "font-interface.hh"
 #include "output-def.hh"
+#include "pointer-group-interface.hh"
+#include "grob-array.hh"
 
 Grob *
 Paper_column::clone (int count) const
@@ -103,8 +105,14 @@ Paper_column::is_musical (Grob *me)
 bool
 Paper_column::is_used (Grob *me)
 {
-  return scm_is_pair (me->get_property ("elements")) || Item::is_breakable (me)
-    || scm_is_pair (me->get_property ("bounded-by-me"));
+  extract_grob_set (me ,"elements", elts);
+  if (elts.size())
+    return true;
+  
+  extract_grob_set (me ,"bounded-by-me", bbm);
+  if (bbm.size())
+    return true;
+  return Item::is_breakable (me);
 }
 
 /*
@@ -145,7 +153,8 @@ Paper_column::print (SCM p)
 /*
   This is all too hairy. We use bounded-by-me to make sure that some
   columns are kept "alive". Unfortunately, when spanners are suicided,
-  this falls apart again. (sigh.)
+  this falls apart again, because suicided spanners are still in
+  bounded-by-me
 
   THIS IS BROKEN KLUDGE. WE SHOULD INVENT SOMETHING BETTER.
 */
@@ -155,23 +164,22 @@ Paper_column::before_line_breaking (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
 
-  SCM c = me->get_property ("bounded-by-me");
-  SCM *ptrptr = &c;
-
-  while (scm_is_pair (*ptrptr))
+  SCM bbm = me->get_object ("bounded-by-me");
+  Grob_array * ga = unsmob_grob_array (bbm);
+  if (!ga)
+    return SCM_UNSPECIFIED;
+   
+  Link_array<Grob> &array (ga->array_reference ());
+  
+  for (int i = array.size(); i--; )
     {
-      Grob *g = unsmob_grob (scm_car (*ptrptr));
+      Grob *g = array[i];
 
       if (!g || !g->is_live ())
-	{
-	  *ptrptr = scm_cdr (*ptrptr);
-	}
-      else
-	{
-	  ptrptr = SCM_CDRLOC (*ptrptr);
+	{			// UGH . potentially quadratic.
+	  array.del (i);
 	}
     }
 
-  me->set_property ("bounded-by-me", c);
   return SCM_UNSPECIFIED;
 }

@@ -47,7 +47,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
     {
       Grob *mc = unsmob_grob (get_property ("currentMusicalColumn"));
       text_->set_parent (mc, X_AXIS);
-      text_->set_property ("side-support-elements", get_property ("stavesFound"));
+      text_->set_object ("side-support-elements", get_property ("stavesFound"));
 
       text_ = 0;
     }

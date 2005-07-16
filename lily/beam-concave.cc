@@ -4,7 +4,7 @@
 
 #include <math.h>
 
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "array.hh"
 #include "stem.hh"
 #include "beam.hh"
@@ -88,7 +88,7 @@ Beam::check_concave (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+    = extract_grob_array (me, "stems");
 
   if (is_knee (me))
     return SCM_UNSPECIFIED;

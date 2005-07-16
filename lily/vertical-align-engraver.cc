@@ -13,6 +13,8 @@
 #include "axis-group-interface.hh"
 #include "engraver.hh"
 #include "spanner.hh"
+#include "pointer-group-interface.hh"
+#include "grob-array.hh"
 
 class Vertical_align_engraver : public Engraver
 {
@@ -107,34 +109,29 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
       SCM before = scm_hash_ref (id_to_group_hashtab_,  before_id, SCM_BOOL_F);
       SCM after = scm_hash_ref (id_to_group_hashtab_,  after_id, SCM_BOOL_F);
 
-
+      Grob * before_grob = unsmob_grob (before);
+      Grob * after_grob = unsmob_grob (after);
+      
       Align_interface::add_element (valign_, i.grob (),
 				    get_property ("verticalAlignmentChildCallback"));
 
-      if (unsmob_grob (before) || unsmob_grob (after))
+      if (before_grob || after_grob)
 	{
-	  SCM elts = valign_->get_property ("elements");
-	  SCM new_order = scm_cdr (elts);
-	  SCM *current = &new_order;
-
-	  for (SCM s = new_order;  scm_is_pair (s); s = scm_cdr (s))
+	  Grob_array * ga = unsmob_grob_array (valign_->get_object ("elements"));
+	  Link_array<Grob> &arr = ga->array_reference ();
+	  
+	  Grob *added = arr.pop();
+	  for (int i = 0 ; i < arr.size (); i++)
 	    {
-	      if (scm_car (s) == after)
+	      if (arr[i] == before_grob)
 		{
-		  *current = scm_cons (i.grob ()->self_scm(), s);
-		  break;
+		  arr.insert (added, i);
 		}
-	      else if (scm_car (s) == before)
+	      else if (arr[i] == after_grob)
 		{
-		  scm_set_cdr_x (s, scm_cons (i.grob ()->self_scm (),
-					      scm_cdr (s)));
-		  break;
+		  arr.insert (added, i + 1);
 		}
-
-	      current = SCM_CDRLOC (s);
 	    }
-
-	  valign_->set_property ("elements", new_order);
 	}
     }
 }

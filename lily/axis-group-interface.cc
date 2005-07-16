@@ -8,6 +8,7 @@
 
 #include "axis-group-interface.hh"
 
+#include "grob.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "warn.hh"
 
@@ -25,10 +26,10 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
       if (!e->get_parent (a))
 	e->set_parent (me, a);
 
-      e->internal_set_property ((a == X_AXIS)
-				? ly_symbol2scm ("axis-group-parent-X")
+      e->internal_set_object ((a == X_AXIS)
+			      ? ly_symbol2scm ("axis-group-parent-X")
 				: ly_symbol2scm ("axis-group-parent-Y"),
-				me->self_scm ());
+			      me->self_scm ());
     }
 
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), e);
@@ -46,12 +47,13 @@ Axis_group_interface::has_axis (Grob *me, Axis a)
 }
 
 Interval
-Axis_group_interface::relative_group_extent (SCM elts, Grob *common, Axis a)
+Axis_group_interface::relative_group_extent (Link_array<Grob> const &elts,
+					     Grob *common, Axis a)
 {
   Interval r;
-  for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0; i < elts.size(); i++)
     {
-      Grob *se = unsmob_grob (scm_car (s));
+      Grob *se = elts[i];
       Interval dims = se->extent (common, a);
       if (!dims.is_empty ())
 	r.unite (dims);
@@ -68,8 +70,8 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) scm_to_int (scm_axis);
 
-  SCM elts = me->get_property ("elements");
-  Grob *common = common_refpoint_of_list (elts, me, a);
+  extract_grob_set (me, "elements", elts);
+  Grob *common = common_refpoint_of_array (elts, me, a);
 
   Real my_coord = me->relative_coordinate (common, a);
   Interval r (relative_group_extent (elts, common, a));
@@ -109,23 +111,20 @@ Axis_group_interface::set_axes (Grob *me, Axis a1, Axis a2)
     me->set_extent_callback (Axis_group_interface::group_extent_callback_proc, a2);
 }
 
-Link_array<Grob>
-Axis_group_interface::get_children (Grob *me)
+void
+Axis_group_interface::get_children (Grob *me, Link_array<Grob> *found)
 {
-  Link_array<Grob> childs;
-  childs.push (me);
+  found->push (me);
 
   if (!has_interface (me))
-    return childs;
+    return;
 
-  for (SCM ep = me->get_property ("elements"); scm_is_pair (ep); ep = scm_cdr (ep))
+  extract_grob_set (me, "elements", elements);
+  for (int i = 0; i < elements.size (); i++)
     {
-      Grob *e = unsmob_grob (scm_car (ep));
-      if (e)
-	childs.concat (Axis_group_interface::get_children (e));
+      Grob *e = elements[i];
+      Axis_group_interface::get_children (e, found);
     }
-
-  return childs;
 }
 
 ADD_INTERFACE (Axis_group_interface, "axis-group-interface",

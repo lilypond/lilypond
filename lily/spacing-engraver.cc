@@ -11,7 +11,7 @@
 #include "pqueue.hh"
 #include "note-spacing.hh"
 #include "staff-spacing.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "spanner.hh"
 
 struct Rhythmic_tuple

@@ -38,44 +38,6 @@
 			(+ fret 5))
 		       (else fret)))))))
 
-(define-public (hammer-print-function grob)
-  (let* ((note-collums (ly:grob-property grob 'note-columns))
-         (note-column1 (cadr note-collums))
-         (note-column2 (car  note-collums))
-         (note1 (car (ly:grob-property note-column1 'note-heads)))
-         (note2 (car (ly:grob-property note-column2 'note-heads)))
-	 (text1 (ly:grob-property note1 'text))
-	 (text2 (ly:grob-property note2 'text))
-         (fret1 (if (string? text1) (string->number text1) 0))
-         (fret2 (if (string? text2) (string->number text2) 0))
-         (letter (cond
-		  ((< fret1 fret2) "H")
-		  ((> fret1 fret2) "P")
-		  (else ""))))
-    (let* ((slur
-	    ;; (Slur::print grob)
-
-	    ;; 
-	    ;; FIXME: a hammer is not a slur.
-	    ;; 
-	    (ly:make-stencil '() '(0 . 0) '(0 . 0)))
-	   (layout (ly:grob-layout grob))
-	   (text (interpret-markup
-		  layout
-		  (ly:grob-alist-chain grob (ly:output-def-lookup layout 'text-font-defaults))
-		  letter)))
-      
-      (let ((x (/ (- (cdr (ly:stencil-extent slur 0)) 
-                     (/ (cdr (ly:stencil-extent text 0)) 2.0))
-                  -2.0)))
-
-	(set! text
-	      (ly:make-stencil (ly:stencil-expr text)
-			       (cons x x)
-			       (ly:stencil-extent text Y)))
-	
-        (ly:stencil-aligned-to text X RIGHT)))))
-
 
 (define-public guitar-tuning '(4 -1 -5 -10 -15 -20))
 (define-public bass-tuning '(-17 -22 -27 -32))
@@ -288,7 +250,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define (parenthesize-elements grob)
   (let*
-      ((elts (ly:grob-property grob 'elements))
+      ((elts (ly:grob-object grob 'elements))
        (x-ext (ly:relative-group-extent elts grob X))
        (font (ly:grob-default-font grob))
        (lp (ly:font-get-glyph font "accidentals.leftparen"))

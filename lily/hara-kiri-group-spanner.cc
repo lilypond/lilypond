@@ -30,8 +30,9 @@ void
 Hara_kiri_group_spanner::consider_suicide (Grob *me)
 {
   Spanner *sp = dynamic_cast<Spanner *> (me);
-  SCM worth = me->get_property ("items-worth-living");
-  if (scm_is_pair (worth))
+
+  extract_grob_set (me,"items-worth-living", worth);
+  if (worth.size ())
     return;
 
   if (!to_boolean (me->get_property ("remove-first"))
@@ -40,7 +41,8 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
       return;
     }
 
-  Link_array<Grob> childs = Axis_group_interface::get_children (me);
+  Link_array<Grob> childs;
+  Axis_group_interface::get_children (me, &childs);
   for (int i = 0; i < childs.size (); i++)
     childs[i]->suicide ();
 

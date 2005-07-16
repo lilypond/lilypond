@@ -77,9 +77,11 @@ Bezier::get_other_coordinate (Axis a, Real x) const
 
   Offset c = curve_point (ts[0]);
 
+#ifdef PARANOID
   if (fabs (c[a] - x) > 1e-8)
     programming_error ("bezier intersection not correct?");
-
+#endif
+  
   return c[other];
 }
 
@@ -87,17 +89,20 @@ Offset
 Bezier::curve_point (Real t) const
 {
   Real tj = 1;
-  Real one_min_tj = (1 - t) * (1 - t) * (1 - t);
+  Real one_min_tj[4];
+  one_min_tj[0] = 1;
+  for (int i = 1; i < 4; i++)
+    {
+      one_min_tj[i] = one_min_tj[i-1] * (1-t);
+    }
 
   Offset o;
   for (int j = 0; j < 4; j++)
     {
       o += control_[j] * binomial_coefficient_3[j]
-	* pow (t, j) * pow (1 - t, 3 - j);
+	* tj * one_min_tj[3-j];
 
       tj *= t;
-      if (1 - t)
-	one_min_tj /= (1 - t);
     }
 
 #ifdef PARANOID
@@ -108,16 +113,36 @@ Bezier::curve_point (Real t) const
   return o;
 }
 
+/*
+  Cache binom(3,j) t^j (1-t)^{3-j}
+*/
+static struct Polynomial bezier_term_cache[4];
+static bool  done_cache_init;
+
+void
+init_polynomial_cache ()
+{
+  for (int j = 0; j <= 3;  j++)
+    bezier_term_cache[j] =
+      binomial_coefficient_3[j]
+      * Polynomial::power (j, Polynomial (0, 1))
+      * Polynomial::power (3 - j, Polynomial (1, -1));
+  done_cache_init = true;
+}
+
 Polynomial
 Bezier::polynomial (Axis a) const
 {
+  if (!done_cache_init)
+    init_polynomial_cache ();
+  
   Polynomial p (0.0);
+  Polynomial q ;
   for (int j = 0; j <= 3; j++)
     {
-      p
-	+= (control_[j][a] * binomial_coefficient_3[j])
-	* Polynomial::power (j, Polynomial (0, 1))
-	* Polynomial::power (3 - j, Polynomial (1, -1));
+      q = bezier_term_cache[j];
+      q *= control_[j][a];
+      p += q;
     }
 
   return p;

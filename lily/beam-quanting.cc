@@ -16,24 +16,39 @@
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "output-def.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "align-interface.hh"
 
-const int INTER_QUANT_PENALTY = 1000;
-const Real SECONDARY_BEAM_DEMERIT = 10.0;
-const int STEM_LENGTH_DEMERIT_FACTOR = 5;
+Real
+get_detail (SCM alist, SCM sym, Real def)
+{
+  SCM entry = scm_assq (sym, alist);
+  
+  if (scm_is_pair (entry))
+    {
+      return robust_scm2double (scm_cdr (entry), def);
+    }
+  return def;
+}
 
-/*
-  threshold to combat rounding errors.
-*/
-const Real BEAM_EPS = 1e-3;
+void
+Beam_quant_parameters::fill (Grob *him)
+{
+  SCM details = him->get_property ("details");
+  
+  INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("inter-quant-penalty"), 1000.0);
+  SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0);
+  STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
+  REGION_SIZE = get_detail (details, ly_symbol2scm ("region-size"), 2);
+  BEAM_EPS = get_detail (details, ly_symbol2scm ("beam-eps"), 1e-3);
 
-// possibly ridiculous, but too short stems just won't do
-const int STEM_LENGTH_LIMIT_PENALTY = 5000;
-const int DAMPING_DIRECTION_PENALTY = 800;
-const int MUSICAL_DIRECTION_FACTOR = 400;
-const int IDEAL_SLOPE_FACTOR = 10;
-const Real ROUND_TO_ZERO_SLOPE = 0.02;
+  // possibly ridiculous, but too short stems just won't do
+  STEM_LENGTH_LIMIT_PENALTY = get_detail (details, ly_symbol2scm ("stem-length-limit-penalty"), 5000);
+  DAMPING_DIRECTION_PENALTY = get_detail (details, ly_symbol2scm ("damping-direction-penalty"), 800);
+  MUSICAL_DIRECTION_FACTOR = get_detail (details, ly_symbol2scm ("musical-direction-factor"), 400);
+  IDEAL_SLOPE_FACTOR = get_detail (details, ly_symbol2scm ("ideal-slope-factor"), 10);
+  ROUND_TO_ZERO_SLOPE = get_detail (details, ly_symbol2scm ("round-to-zero-slope"), 0.02);
+}
 
 static Real
 shrink_extra_weight (Real x, Real fac)
@@ -86,6 +101,10 @@ Beam::quanting (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
+
+  Beam_quant_parameters parameters;
+  parameters.fill (me);
+  
   SCM s = me->get_property ("positions");
   Real yl = scm_to_double (scm_car (s));
   Real yr = scm_to_double (scm_cdr (s));
@@ -124,7 +143,7 @@ Beam::quanting (SCM smob)
     precompute for every stem 2 factors.
   */
   Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+    = extract_grob_array (me, "stems");
   Array<Stem_info> stem_infos;
   Array<Real> base_lengths;
   Array<Real> stem_xposns;
@@ -175,7 +194,8 @@ Beam::quanting (SCM smob)
   Direction rdir = Direction (stem_infos.top ().dir_);
   bool is_knee = dirs_found[LEFT] && dirs_found[RIGHT];
 
-  int region_size = REGION_SIZE;
+  int region_size = (int) parameters.REGION_SIZE;
+  
   /*
     Knees are harder, lets try some more possibilities for knees.
   */
@@ -214,7 +234,7 @@ Beam::quanting (SCM smob)
       Real d = score_slopes_dy (qscores[i].yl, qscores[i].yr,
 				dy_mus, yr- yl,
 				xr - xl,
-				xstaff);
+				xstaff, &parameters);
       qscores[i].demerits += d;
 
 #if DEBUG_QUANTING
@@ -235,7 +255,7 @@ Beam::quanting (SCM smob)
       {
 	Real d = score_forbidden_quants (qscores[i].yl, qscores[i].yr,
 					 rad, slt, thickness, beam_translation,
-					 edge_beam_counts, ldir, rdir);
+					 edge_beam_counts, ldir, rdir, &parameters);
 	qscores[i].demerits += d;
 
 #if DEBUG_QUANTING
@@ -250,7 +270,7 @@ Beam::quanting (SCM smob)
 				     base_lengths, stem_xposns,
 				     xl, xr,
 				     is_knee,
-				     qscores[i].yl, qscores[i].yr);
+				     qscores[i].yl, qscores[i].yr, &parameters);
 	qscores[i].demerits += d;
 
 #if DEBUG_QUANTING
@@ -314,9 +334,12 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
 			  Array<Real> const &stem_xs,
 			  Real xl, Real xr,
 			  bool knee,
-			  Real yl, Real yr)
+			  Real yl, Real yr,
+
+			  Beam_quant_parameters const*parameters
+			  )
 {
-  Real limit_penalty = STEM_LENGTH_LIMIT_PENALTY;
+  Real limit_penalty = parameters->STEM_LENGTH_LIMIT_PENALTY;
   Drul_array<Real> score (0, 0);
   Drul_array<int> count (0, 0);
 
@@ -330,7 +353,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
       Real dx = xr - xl;
       Real beam_y = dx ? yr * (x - xl) / dx + yl * (xr - x) / dx : (yr + yl) / 2;
       Real current_y = beam_y + base_stem_ys[i];
-      Real length_pen = STEM_LENGTH_DEMERIT_FACTOR;
+      Real length_pen = parameters->STEM_LENGTH_DEMERIT_FACTOR;
 
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
@@ -365,7 +388,9 @@ Real
 Beam::score_slopes_dy (Real yl, Real yr,
 		       Real dy_mus, Real dy_damp,
 		       Real dx,
-		       bool xstaff)
+		       bool xstaff,
+		       
+		       Beam_quant_parameters const*parameters)
 {
   Real dy = yr - yl;
   Real dem = 0.0;
@@ -377,15 +402,15 @@ Beam::score_slopes_dy (Real yl, Real yr,
     TODO: find a way to incorporate the complexity of the beam in this
     penalty.
   */
-  if (fabs (dy / dx) > ROUND_TO_ZERO_SLOPE
+  if (fabs (dy / dx) > parameters->ROUND_TO_ZERO_SLOPE
       && sign (dy_damp) != sign (dy))
     {
-      dem += DAMPING_DIRECTION_PENALTY;
+      dem += parameters->DAMPING_DIRECTION_PENALTY;
     }
 
-  dem += MUSICAL_DIRECTION_FACTOR * max (0.0, (fabs (dy) - fabs (dy_mus)));
+  dem += parameters->MUSICAL_DIRECTION_FACTOR * max (0.0, (fabs (dy) - fabs (dy_mus)));
 
-  Real slope_penalty = IDEAL_SLOPE_FACTOR;
+  Real slope_penalty = parameters->IDEAL_SLOPE_FACTOR;
 
   /* Xstaff beams tend to use extreme slopes to get short stems. We
      put in a penalty here. */
@@ -416,16 +441,19 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 			      Real slt,
 			      Real thickness, Real beam_translation,
 			      Drul_array<int> beam_counts,
-			      Direction ldir, Direction rdir)
+			      Direction ldir, Direction rdir,
+			      
+			      Beam_quant_parameters const*parameters)
 {
   Real dy = yr - yl;
   Drul_array<Real> y (yl, yr);
   Drul_array<Direction> dirs (ldir, rdir);
 
-  Real extra_demerit = SECONDARY_BEAM_DEMERIT / (max (beam_counts[LEFT], beam_counts[RIGHT]));
+  Real extra_demerit = parameters->SECONDARY_BEAM_DEMERIT / (max (beam_counts[LEFT], beam_counts[RIGHT]));
 
   Direction d = LEFT;
   Real dem = 0.0;
+  Real eps = parameters->BEAM_EPS;
 
   do
     {
@@ -447,7 +475,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	  gap.add_point (gap2);
 
 	  for (Real k = -radius;
-	       k <= radius + BEAM_EPS; k += 1.0)
+	       k <= radius + eps; k += 1.0)
 	    if (gap.contains (k))
 	      {
 		Real dist = min (fabs (gap[UP] - k), fabs (gap[DOWN] - k));
@@ -478,24 +506,24 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	  if (beam_counts[d] >= 2
 	      && fabs (y[d] - dirs[d] * beam_translation) < radius + inter)
 	    {
-	      if (dirs[d] == UP && dy <= BEAM_EPS
-		  && fabs (my_modf (y[d]) - sit) < BEAM_EPS)
+	      if (dirs[d] == UP && dy <= eps
+		  && fabs (my_modf (y[d]) - sit) < eps)
 		dem += extra_demerit;
 
-	      if (dirs[d] == DOWN && dy >= BEAM_EPS
-		  && fabs (my_modf (y[d]) - hang) < BEAM_EPS)
+	      if (dirs[d] == DOWN && dy >= eps
+		  && fabs (my_modf (y[d]) - hang) < eps)
 		dem += extra_demerit;
 	    }
 
 	  if (beam_counts[d] >= 3
 	      && fabs (y[d] - 2 * dirs[d] * beam_translation) < radius + inter)
 	    {
-	      if (dirs[d] == UP && dy <= BEAM_EPS
-		  && fabs (my_modf (y[d]) - straddle) < BEAM_EPS)
+	      if (dirs[d] == UP && dy <= eps
+		  && fabs (my_modf (y[d]) - straddle) < eps)
 		dem += extra_demerit;
 
-	      if (dirs[d] == DOWN && dy >= BEAM_EPS
-		  && fabs (my_modf (y[d]) - straddle) < BEAM_EPS)
+	      if (dirs[d] == DOWN && dy >= eps
+		  && fabs (my_modf (y[d]) - straddle) < eps)
 		dem += extra_demerit;
 	    }
 	}

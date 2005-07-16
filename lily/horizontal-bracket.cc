@@ -8,7 +8,7 @@
 
 #include "side-position-interface.hh"
 #include "lookup.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
@@ -34,8 +34,8 @@ Horizontal_bracket::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner *> (me);
-  Link_array<Grob> gs = extract_grob_array (me, ly_symbol2scm ("columns"));
-
+  
+  extract_grob_set (me, "columns", gs);
   if (!gs.size ())
     {
       me->suicide ();

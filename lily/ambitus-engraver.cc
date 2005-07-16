@@ -55,7 +55,7 @@ Ambitus_engraver::create_ambitus ()
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
       accidentals_[d]->set_parent (heads_[d], Y_AXIS);
-      heads_[d]->set_property ("accidental-grob",
+      heads_[d]->set_object ("accidental-grob",
 			       accidentals_[d]->self_scm ());
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
@@ -157,7 +157,7 @@ Ambitus_engraver::finalize ()
 	  if (sig_alter == p.get_alteration ())
 	    {
 	      accidentals_[d]->suicide ();
-	      heads_[d]->set_property ("accidental-grob", SCM_EOL);
+	      heads_[d]->set_object ("accidental-grob", SCM_EOL);
 	    }
 	  else
 	    {
@@ -168,7 +168,7 @@ Ambitus_engraver::finalize ()
 	}
       while (flip (&d) != DOWN);
 
-      ambitus_->set_property ("note-heads", scm_list_2 (heads_[DOWN]->self_scm (),
+      ambitus_->set_object ("note-heads", scm_list_2 (heads_[DOWN]->self_scm (),
 							heads_[UP]->self_scm ()));
     }
   else

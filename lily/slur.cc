@@ -15,7 +15,7 @@
 #include "bezier.hh"
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "lookup.hh"
 #include "main.hh"		// DEBUG_SLUR_SCORING
 #include "note-column.hh"
@@ -51,7 +51,8 @@ SCM
 Slur::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  if (!scm_ilength (me->get_property ("note-columns")))
+  extract_grob_set (me, "note-columns", encompasses);
+  if (encompasses.is_empty ())
     {
       me->suicide ();
       return SCM_EOL;
@@ -131,7 +132,7 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   (void) a; 
   assert (a == Y_AXIS);
 
-  Grob *slur = unsmob_grob (script->get_property ("slur"));
+  Grob *slur = unsmob_grob (script->get_object ("slur"));
 
   if (!slur)
     return scm_from_int (0);
@@ -198,8 +199,7 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 static Direction
 get_default_dir (Grob *me)
 {
-  Link_array<Grob> encompasses
-    = extract_grob_array (me, ly_symbol2scm ("note-columns"));
+  extract_grob_set (me, "note-columns", encompasses);
 
   Direction d = DOWN;
   for (int i = 0; i < encompasses.size (); i++)
@@ -218,7 +218,8 @@ SCM
 Slur::after_line_breaking (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
-  if (!scm_ilength (me->get_property ("note-columns")))
+  extract_grob_set (me, "note-columns", encompasses);
+  if (encompasses.is_empty ())
     {
       me->suicide ();
       return SCM_UNSPECIFIED;

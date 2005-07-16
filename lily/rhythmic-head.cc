@@ -17,14 +17,14 @@
 Item *
 Rhythmic_head::get_dots (Grob *me)
 {
-  SCM s = me->get_property ("dot");
+  SCM s = me->get_object ("dot");
   return unsmob_item (s);
 }
 
 Item *
 Rhythmic_head::get_stem (Grob *me)
 {
-  SCM s = me->get_property ("stem");
+  SCM s = me->get_object ("stem");
   return unsmob_item (s);
 }
 
@@ -38,7 +38,7 @@ Rhythmic_head::dot_count (Grob *me)
 void
 Rhythmic_head::set_dots (Grob *me, Item *dot)
 {
-  me->set_property ("dot", dot->self_scm ());
+  me->set_object ("dot", dot->self_scm ());
 }
 
 int
