@@ -367,7 +367,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 	    WTF is pedal-text not the bound of the object? --hwn
 	  */
 	  if (p->item_)
-	    p->bracket_->set_property ("pedal-text", p->item_->self_scm ());
+	    p->bracket_->set_object ("pedal-text", p->item_->self_scm ());
 	}
 
       /*

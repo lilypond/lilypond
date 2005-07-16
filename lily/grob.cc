@@ -14,7 +14,7 @@
 #include "main.hh"
 #include "input-smob.hh"
 #include "warn.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"
 #include "stencil.hh"
@@ -52,9 +52,12 @@ Grob::Grob (SCM basicprops,
   pscore_ = 0;
   status_ = 0;
   original_ = 0;
+  interfaces_ = SCM_EOL;
   immutable_property_alist_ = basicprops;
   mutable_property_alist_ = SCM_EOL;
+  object_alist_ = SCM_EOL;
 
+  
   /* We do smobify_self () as the first step.  Since the object lives
      on the heap, none of its SCM variables are protected from
      GC. After smobify_self (), they are.  */
@@ -68,13 +71,7 @@ Grob::Grob (SCM basicprops,
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
     {
-      SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
-
-      /* Switch off interface checks for the moment.  */
-      bool itc = do_internal_type_checking_global;
-      do_internal_type_checking_global = false;
-      internal_set_property (ly_symbol2scm ("interfaces"), scm_cdr (ifs));
-      do_internal_type_checking_global = itc;
+      interfaces_ = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
     }
 
   /* TODO:
@@ -129,8 +126,10 @@ Grob::Grob (Grob const &s, int copy_index)
   self_scm_ = SCM_EOL;
 
   immutable_property_alist_ = s.immutable_property_alist_;
-  mutable_property_alist_ = SCM_EOL;
-
+  mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
+  interfaces_ = s.interfaces_;
+  object_alist_ = SCM_EOL;
+  
   /* No properties are copied.  That is the job of
      handle_broken_dependencies.  */
   status_ = s.status_;
@@ -196,9 +195,9 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 
   status_ = busy;
 
-  for (SCM d = get_property ("dependencies"); scm_is_pair (d);
-       d = scm_cdr (d))
-    unsmob_grob (scm_car (d))->calculate_dependencies (final, busy, funcname);
+  extract_grob_set (this, "dependencies", deps);
+  for (int i = 0; i < deps.size (); i++)
+    deps[i]->calculate_dependencies (final, busy, funcname);
 
   SCM proc = internal_get_property (funcname);
   if (ly_is_procedure (proc))
@@ -299,19 +298,20 @@ Grob::handle_broken_dependencies ()
     /* THIS, SP is the original spanner.  We use a special function
        because some Spanners have enormously long lists in their
        properties, and a special function fixes FOO  */
-    for (SCM s = mutable_property_alist_; scm_is_pair (s); s = scm_cdr (s))
-      sp->substitute_one_mutable_property (scm_caar (s), scm_cdar (s));
+    {
+      for (SCM s = object_alist_; scm_is_pair (s); s = scm_cdr (s))
+	sp->substitute_one_mutable_property (scm_caar (s), scm_cdar (s));
 
+    }
   System *system = get_system ();
 
   if (is_live ()
-      && system && common_refpoint (system, X_AXIS)
+      && system
+      && common_refpoint (system, X_AXIS)
       && common_refpoint (system, Y_AXIS))
-    substitute_mutable_properties (system
-				   ? system->self_scm () : SCM_UNDEFINED,
-				   mutable_property_alist_);
+    substitute_object_links (system->self_scm (), object_alist_);
   else if (dynamic_cast<System *> (this))
-    substitute_mutable_properties (SCM_UNDEFINED, mutable_property_alist_);
+    substitute_object_links (SCM_UNDEFINED, object_alist_);
   else
     /* THIS element is `invalid'; it has been removed from all
        dependencies, so let's junk the element itself.
@@ -333,8 +333,10 @@ Grob::suicide ()
     return;
 
   mutable_property_alist_ = SCM_EOL;
+  object_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
-
+  interfaces_ = SCM_EOL;
+  
   set_extent (SCM_EOL, Y_AXIS);
   set_extent (SCM_EOL, X_AXIS);
 
@@ -352,12 +354,12 @@ void
 Grob::handle_prebroken_dependencies ()
 {
   /* Don't do this in the derived method, since we want to keep access to
-     mutable_property_alist_ centralized.  */
+     object_alist_ centralized.  */
   if (original_)
     {
       Item *it = dynamic_cast<Item *> (this);
-      substitute_mutable_properties (scm_int2num (it->break_status_dir ()),
-				     original_->mutable_property_alist_);
+      substitute_object_links (scm_int2num (it->break_status_dir ()),
+			       original_->object_alist_);
     }
 }
 
@@ -578,26 +580,24 @@ Grob::set_parent (Grob *g, Axis a)
   dim_cache_[a].parent_ = g;
 }
 
-MAKE_SCHEME_CALLBACK (Grob, fixup_refpoint, 1);
-SCM
-Grob::fixup_refpoint (SCM smob)
+void
+Grob::fixup_refpoint ()
 {
-  Grob *me = unsmob_grob (smob);
   for (int a = X_AXIS; a < NO_AXES; a++)
     {
       Axis ax = (Axis)a;
-      Grob *parent = me->get_parent (ax);
+      Grob *parent = get_parent (ax);
 
       if (!parent)
 	continue;
 
-      if (parent->get_system () != me->get_system () && me->get_system ())
+      if (parent->get_system () != get_system () && get_system ())
 	{
-	  Grob *newparent = parent->find_broken_piece (me->get_system ());
-	  me->set_parent (newparent, ax);
+	  Grob *newparent = parent->find_broken_piece (get_system ());
+	  set_parent (newparent, ax);
 	}
 
-      if (Item *i = dynamic_cast<Item *> (me))
+      if (Item *i = dynamic_cast<Item *> (this))
 	{
 	  Item *parenti = dynamic_cast<Item *> (parent);
 
@@ -607,12 +607,11 @@ Grob::fixup_refpoint (SCM smob)
 	      if (my_dir != parenti->break_status_dir ())
 		{
 		  Item *newparent = parenti->find_prebroken_piece (my_dir);
-		  me->set_parent (newparent, ax);
+		  set_parent (newparent, ax);
 		}
 	    }
 	}
     }
-  return smob;
 }
 
 void
@@ -634,76 +633,16 @@ Grob::programming_error (String s) const
   s = _f ("programming error: %s", s);
   message (s);
 }
-
-/****************************************************
-  SMOB funcs
-****************************************************/
-
-IMPLEMENT_SMOBS (Grob);
-IMPLEMENT_DEFAULT_EQUAL_P (Grob);
-
-SCM
-Grob::mark_smob (SCM ses)
-{
-  Grob *s = (Grob *) SCM_CELL_WORD_1 (ses);
-  scm_gc_mark (s->immutable_property_alist_);
-
-  if (s->key_)
-    scm_gc_mark (s->key_->self_scm ());
-  for (int a = 0; a < 2; a++)
-    {
-      scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
-      scm_gc_mark (s->dim_cache_[a].dimension_);
-      scm_gc_mark (s->dim_cache_[a].dimension_callback_);
-
-      /* Do not mark the parents.  The pointers in the mutable
-	 property list form two tree like structures (one for X
-	 relations, one for Y relations).  Marking these can be done
-	 in limited stack space.  If we add the parents, we will jump
-	 between X and Y in an erratic manner, leading to much more
-	 recursion depth (and core dumps if we link to pthreads).  */
-    }
-
-  if (s->original_)
-    scm_gc_mark (s->original_->self_scm ());
-
-  if (s->pscore_)
-    scm_gc_mark (s->pscore_->self_scm ());
-
-  s->do_derived_mark ();
-  return s->mutable_property_alist_;
-}
-
-int
-Grob::print_smob (SCM s, SCM port, scm_print_state *)
-{
-  Grob *sc = (Grob *) SCM_CELL_WORD_1 (s);
-
-  scm_puts ("#<Grob ", port);
-  scm_puts ((char *) sc->name ().to_str0 (), port);
-
-  /* Do not print properties, that is too much hassle.  */
-  scm_puts (" >", port);
-  return 1;
-}
-
-SCM
-Grob::do_derived_mark () const
-{
-  return SCM_EOL;
-}
-
 void
 Grob::discretionary_processing ()
 {
+  
 }
 
 bool
 Grob::internal_has_interface (SCM k)
 {
-  SCM ifs = get_property ("interfaces");
-
-  return scm_c_memq (k, ifs) != SCM_BOOL_F;
+  return scm_c_memq (k, interfaces_) != SCM_BOOL_F;
 }
 
 Grob *
@@ -745,8 +684,6 @@ ly_grobs2scm (Link_array<Grob> a)
   return s;
 }
 
-IMPLEMENT_TYPE_P (Grob, "ly:grob?");
-
 ADD_INTERFACE (Grob, "grob-interface",
 	       "A grob represents a piece of music notation\n"
 	       "\n"
@@ -784,5 +721,5 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "axis-group-parent-X "
 	       "axis-group-parent-Y "
 	       "after-line-breaking-callback extra-Y-extent minimum-X-extent "
-	       "minimum-Y-extent transparent tweak-count tweak-rank");
+	       "minimum-Y-extent transparent");
 

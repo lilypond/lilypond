@@ -37,7 +37,7 @@ Rest::after_line_breaking (SCM smob)
       me->translate_axis (ss / 2, Y_AXIS);
     }
 
-  Grob *d = unsmob_grob (me->get_property ("dot"));
+  Grob *d = unsmob_grob (me->get_object ("dot"));
   if (d && bt > 4) // UGH.
     {
       d->set_property ("staff-position",

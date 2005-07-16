@@ -14,6 +14,7 @@
 #include "axis-group-interface.hh"
 #include "context.hh"
 #include "text-interface.hh"
+#include "grob-array.hh"
 
 class Instrument_name_engraver : public Engraver
 {
@@ -49,8 +50,8 @@ Instrument_name_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      text_->set_property ("side-support-elements",
-			   get_property ("instrumentSupport"));
+      text_->set_object ("side-support-elements",
+			 grob_list_to_grob_array (get_property ("instrumentSupport")));
       text_ = 0;
     }
   

@@ -9,7 +9,7 @@
 #include "system-start-delimiter.hh"
 #include "engraver.hh"
 #include "staff-symbol.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "spanner.hh"

@@ -70,11 +70,14 @@ Link_array<Grob>
 Break_align_interface::ordered_elements (Grob *grob)
 {
   Item *me = dynamic_cast<Item *> (grob);
-  SCM elts = me->get_property ("elements");
+  extract_grob_set (me, "elements", elts);
+  
   SCM order_vec = me->get_property ("break-align-orders");
   if (!scm_is_vector (order_vec)
       || scm_c_vector_length (order_vec) < 3)
-    return extract_grob_array (me, ly_symbol2scm ("elements"));
+    return elts;
+
+  Link_array<Grob> writable_elts (elts);
   SCM order = scm_vector_ref (order_vec,
 			      scm_int2num (me->break_status_dir () + 1));
 
@@ -86,16 +89,17 @@ Break_align_interface::ordered_elements (Grob *grob)
     {
       SCM sym = scm_car (order);
 
-      for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
+      for (int i = writable_elts.size(); i --; )
 	{
-	  Grob *g = unsmob_grob (scm_car (s));
+	  Grob *g = writable_elts[i];
 	  if (g && sym == g->get_property ("break-align-symbol"))
 	    {
 	      new_elts.push (g);
-	      elts = scm_delq (g->self_scm (), elts);
+	      writable_elts.del (i);
 	    }
 	}
     }
+  
   return new_elts;
 }
 
@@ -151,10 +155,11 @@ Break_align_interface::do_alignment (Grob *grob)
       /*
 	Find the first grob with a space-alist entry.
       */
-      for (SCM s = l->get_property ("elements");
-	   scm_is_pair (s); s = scm_cdr (s))
+      extract_grob_set (l, "elements", elts);
+      
+      for (int i = elts.size(); i--; )
 	{
-	  Grob *elt = unsmob_grob (scm_car (s));
+	  Grob *elt = elts[i];
 
 	  if (edge_idx < 0
 	      && elt->get_property ("break-align-symbol")
@@ -176,12 +181,15 @@ Break_align_interface::do_alignment (Grob *grob)
 	table, but that gets icky when that grob is suicided for some
 	reason.
       */
-      for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
-	   !scm_is_symbol (rsym) && scm_is_pair (s); s = scm_cdr (s))
+      if (r)
 	{
-	  Grob *elt = unsmob_grob (scm_car (s));
-
-	  rsym = elt->get_property ("break-align-symbol");
+	  extract_grob_set (r, "elements", elts);
+	  for (int i = elts.size();
+	       !scm_is_symbol (rsym) && i--;)
+	    {
+	      Grob *elt = elts[i];
+	      rsym = elt->get_property ("break-align-symbol");
+	    }
 	}
 
       if (rsym == ly_symbol2scm ("left-edge"))

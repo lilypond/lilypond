@@ -1,6 +1,16 @@
+/*
+  break-substitution.cc -- implement grob break substitution.
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2001--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
+
 #include <cstdio>
 #include <cstdlib>
 
+#include "grob-array.hh"
 #include "item.hh"
 #include "system.hh"
 
@@ -130,24 +140,28 @@ do_break_substitution (SCM src)
 /*
   Perform substitution on GROB_LIST using a constant amount of stack.
 */
-SCM
-substitute_grob_list (SCM grob_list)
+void
+substitute_grob_array (Grob_array *grob_arr, Grob_array * new_arr)
 {
-  SCM l = SCM_EOL;
-  SCM *tail = &l;
+  Link_array<Grob> &old_grobs (grob_arr->array_reference ());
+  Link_array<Grob> *new_grobs (new_arr == grob_arr
+			       ? new Link_array<Grob> 
+			       : &new_arr->array_reference ());
 
-  for (SCM s = grob_list; scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0; i < old_grobs.size (); i++)
     {
-      SCM n = substitute_grob (unsmob_grob (scm_car (s)));
-
-      if (n != SCM_UNDEFINED)
+      Grob * orig = old_grobs[i];
+      SCM new_grob = substitute_grob (orig);
+      if (new_grob != SCM_UNDEFINED)
 	{
-	  *tail = scm_cons (n, SCM_EOL);
-	  tail = SCM_CDRLOC (*tail);
+	  new_grobs->push (unsmob_grob (new_grob));
 	}
     }
 
-  return l;
+  if (new_arr == grob_arr)
+    {
+      new_arr->set_array (*new_grobs);
+    }
 }
 
 /*
@@ -207,13 +221,13 @@ spanner_system_range (Spanner *sp)
 
   if (System *st = sp->get_system ())
     {
-      rv = Slice (st->rank_, st->rank_);
+      rv = Slice (st->get_rank (), st->get_rank ());
     }
   else
     {
       if (sp->broken_intos_.size ())
-	rv = Slice (sp->broken_intos_[0]->get_system ()->rank_,
-		    sp->broken_intos_.top ()->get_system ()->rank_);
+	rv = Slice (sp->broken_intos_[0]->get_system ()->get_rank (),
+		    sp->broken_intos_.top ()->get_system ()->get_rank());
     }
   return rv;
 }
@@ -222,7 +236,7 @@ Slice
 item_system_range (Item *it)
 {
   if (System *st = it->get_system ())
-    return Slice (st->rank_, st->rank_);
+    return Slice (st->get_rank (), st->get_rank ());
 
   Slice sr;
   Direction d = LEFT;
@@ -230,7 +244,7 @@ item_system_range (Item *it)
     {
       Item *bi = it->find_prebroken_piece (d);
       if (bi && bi->get_system ())
-	sr.add_point (bi->get_system ()->rank_);
+	sr.add_point (bi->get_system ()->get_rank ());
     }
   while (flip (&d) != LEFT);
 
@@ -297,13 +311,13 @@ struct Substitution_entry
 };
 
 bool
-Spanner::fast_fubstitute_grob_list (SCM sym,
-				    SCM grob_list)
+Spanner::fast_substitute_grob_array (SCM sym,
+				     Grob_array *grob_array)
 {
-  int len = scm_ilength (grob_list);
+  int len = grob_array->size();
 
   /*
-    Only do this complicated thing for large lists. This has the added
+    Only do this complicated thing for large sets. This has the added
     advantage that we won't screw up the ordering for elements in
     alignments (which typically don't have more than 10 grobs.)
   */
@@ -312,7 +326,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
     return false;
 
   /*
-    TODO : should not free it some time?
+    We store items on the left, spanners on the right in this vector.
   */
   static Substitution_entry *vec;
   static int vec_room;
@@ -325,19 +339,12 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
 
   Slice system_range = spanner_system_range (this);
 
-  Array<Slice> it_indices;
-  Array<Slice> sp_indices;
-  for (int i = 0; i <= system_range.length (); i++)
+  int spanner_index = len;
+  int item_index = 0;
+  
+  for (int i = 0 ; i < grob_array->size (); i++)
     {
-      it_indices.push (Slice (len, 0));
-      sp_indices.push (Slice (len, 0));
-    }
-
-  int sp_index = len;
-  int it_index = 0;
-  for (SCM s = grob_list; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Grob *g = unsmob_grob (scm_car (s));
+      Grob *g = grob_array->grob (i);
 
       Slice sr = grob_system_range (g);
       sr.intersect (system_range);
@@ -345,41 +352,49 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
       int idx = 0;
       if (dynamic_cast<Spanner *> (g))
 	{
-	  idx =--sp_index;
+	  idx = --spanner_index;
 	}
       else if (dynamic_cast<Item *> (g))
 	{
-	  idx = it_index++;
+	  idx = item_index++;
 	}
 
       vec[idx].set (g, sr);
     }
 
-  qsort (vec, it_index,
+  qsort (vec, item_index,
 	 sizeof (Substitution_entry), &Substitution_entry::item_compare);
 
+  Array<Slice> item_indices;
+  Array<Slice> spanner_indices;
+  for (int i = 0; i <= system_range.length (); i++)
+    {
+      item_indices.push (Slice (len, 0));
+      spanner_indices.push (Slice (len, 0));
+    }
+  
   Array<Slice> *arrs[]
     = {
-    &it_indices, &sp_indices
+    &item_indices, &spanner_indices
   };
 
-  for (int i = 0; i < it_index;i++)
+  for (int i = 0; i < item_index;i++)
     {
       for (int j = vec[i].left_; j <= vec[i].right_; j++)
 	{
-	  it_indices[j - system_range[LEFT]].add_point (i);
+	  item_indices[j - system_range[LEFT]].add_point (i);
 	}
     }
 
   /*
-    sorting vec[sp_index.. len]
+    sorting vec[spanner_index.. len]
     is a waste of time -- the staff-spanners screw up the
     ordering, since they go across the entire score.
   */
-  for (int i = sp_indices.size (); i--;)
-    sp_indices[i] = Slice (sp_index, len - 1);
+  for (int i = spanner_indices.size (); i--;)
+    spanner_indices[i] = Slice (spanner_index, len - 1);
 
-  assert (it_index <= sp_index);
+  assert (item_index <= spanner_index);
 
   assert (broken_intos_.size () == system_range.length () + 1);
   for (int i = 0; i < broken_intos_.size (); i++)
@@ -388,43 +403,34 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
       System *l = sc->get_system ();
       set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
 
-      SCM newval = SCM_EOL;
-      SCM *tail = &newval;
-
+      SCM newval = sc->internal_get_object (sym);
+      if (!unsmob_grob_array (newval))
+	{
+	  newval = Grob_array::make_array ();
+	  sc->internal_set_object (sym, newval);
+	}
+      
+      Grob_array *new_array = unsmob_grob_array (newval);  
       for (int k = 0; k < 2;k++)
 	for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
 	  {
 	    SCM subs = substitute_grob (vec[j].grob_);
 	    if (subs != SCM_UNDEFINED)
 	      {
-		*tail = scm_cons (subs, SCM_EOL);
-
-		tail = SCM_CDRLOC (*tail);
+		new_array->add (unsmob_grob (subs));
 	      }
 	  }
 
 #ifdef PARANOIA
-
       printf ("%d (%d), sp %d (%d)\n",
-	      it_indices [i].length (), it_index,
-	      sp_indices[i].length (), len -sp_index);
+	      item_indices [i].length (), item_index,
+	      spanner_indices[i].length (), len -spanner_index);
 
       {
 	SCM l1 = substitute_grob_list (grob_list);
 	assert (scm_ilength (l1) == scm_ilength (newval));
       }
 #endif
-
-      /*
-	see below.
-      */
-      if (sym == ly_symbol2scm ("all-elements"))
-	sc->mutable_property_alist_
-	  = scm_assq_remove_x (sc->mutable_property_alist_,
-			       ly_symbol2scm ("all-elements"));
-
-      sc->mutable_property_alist_ = scm_acons (sym, newval,
-					       sc->mutable_property_alist_);
     }
 
   return true;
@@ -444,20 +450,28 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
   pthreads. pthreads impose small limits on the stack size.
 */
 SCM
-substitute_mutable_property_alist (SCM alist)
+substitute_object_alist (SCM alist, SCM dest)
 {
-  SCM grob_list_p = ly_lily_module_constant ("grob-list?");
-
   SCM l = SCM_EOL;
   SCM *tail = &l;
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
 
-      if (type == grob_list_p)
-	val = substitute_grob_list (val);
+      if (Grob_array * orig = unsmob_grob_array (val))
+	{
+	  SCM handle = scm_assq (sym, dest);
+	  SCM newval =
+	    (scm_is_pair (handle))
+	    ? scm_cdr (handle)
+	    : Grob_array::make_array ();
+	    
+	  Grob_array *new_arr = unsmob_grob_array (newval);
+
+	  substitute_grob_array (orig, new_arr);
+	  val = newval;
+	}
       else
 	val = do_break_substitution (val);
 
@@ -478,13 +492,12 @@ void
 Spanner::substitute_one_mutable_property (SCM sym,
 					  SCM val)
 {
-  SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
   Spanner *s = this;
 
   bool fast_done = false;
-  SCM grob_list_p = ly_lily_module_constant ("grob-list?");
-  if (type == grob_list_p)
-    fast_done = s->fast_fubstitute_grob_list (sym, val);
+  Grob_array * grob_array = unsmob_grob_array (val);
+  if (grob_array)
+    fast_done = s->fast_substitute_grob_array (sym, grob_array);
 
   if (!fast_done)
     for (int i = 0; i < s->broken_intos_.size (); i++)
@@ -493,29 +506,21 @@ Spanner::substitute_one_mutable_property (SCM sym,
 	System *l = sc->get_system ();
 	set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
 
-	SCM newval = (type == grob_list_p)
-	  ? substitute_grob_list (val)
-	  : do_break_substitution (val);
-
-	/*
-	  For the substitution of a single property, we tack the result onto
-	  mutable_property_alist_ ; mutable_property_alist_ is empty after
-	  Grob::Grob (Grob const&), except that System has all-elements set,
-	  as a side product of typeset_grob () on newly copied spanners.
-
-	  Here we clear that list explicitly to free some memory and
-	  counter some of the confusion I encountered while debugging
-	  another problem
-
-	  (hwn 4/2/04)
-	*/
-	if (sym == ly_symbol2scm ("all-elements"))
-	  sc->mutable_property_alist_
-	    = scm_assq_remove_x (sc->mutable_property_alist_,
-				 ly_symbol2scm ("all-elements"));
-
-	sc->mutable_property_alist_ = scm_cons (scm_cons (sym, newval),
-						sc->mutable_property_alist_);
+	if (grob_array)
+	  {
+	    SCM newval = sc->internal_get_object (sym);
+	    if (!unsmob_grob_array (newval))
+	      {
+		newval = Grob_array::make_array ();
+		sc->internal_set_object  (sym, newval);
+	      }
+	    substitute_grob_array (grob_array, unsmob_grob_array (newval));
+	  }
+	else
+	  {
+	    SCM newval = do_break_substitution (val);
+	    sc->internal_set_object (sym, newval);
+	  }
       }
 }
 

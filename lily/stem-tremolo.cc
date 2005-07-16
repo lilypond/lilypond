@@ -52,7 +52,7 @@ Stem_tremolo::height (SCM smob, SCM ax)
 Stencil
 Stem_tremolo::raw_stencil (Grob *me)
 {
-  Grob *stem = unsmob_grob (me->get_property ("stem"));
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
   Spanner *beam = Stem::get_beam (stem);
   Real dydx;
   if (beam)
@@ -112,7 +112,7 @@ SCM
 Stem_tremolo::print (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
-  Grob *stem = unsmob_grob (me->get_property ("stem"));
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (!stem)
     {
       programming_error ("no stem for stem-tremolo");

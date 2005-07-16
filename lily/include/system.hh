@@ -10,6 +10,7 @@
 
 #include "column-x-positions.hh"
 #include "spanner.hh"
+#include "grob-array.hh"
 
 /*
   If you keep following offset reference points, you will always end
@@ -18,15 +19,17 @@
 */
 class System : public Spanner
 {
-public:
   int rank_;
+  Grob_array *all_elements_;
+  void init_elements ();  
+public:
+  int get_rank () const;
   void post_processing ();
   SCM get_paper_system ();
   SCM get_paper_systems ();
 
   System (SCM, Object_key const *);
   System (System const &, int);
-  virtual Grob *clone (int count) const;
 
   int element_count () const;
   int spanner_count () const;
@@ -42,6 +45,8 @@ public:
   void pre_processing ();
 
 protected:
+  virtual SCM do_derived_mark () const;
+  virtual Grob *clone (int count) const;
 };
 
 void set_loose_columns (System *which, Column_x_positions const *posns);

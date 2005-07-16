@@ -19,6 +19,7 @@
 #include "directional-element-interface.hh"
 #include "tuplet-bracket.hh"
 #include "rhythmic-head.hh"
+#include "pointer-group-interface.hh"
 
 struct Ottava_bracket
 {
@@ -52,11 +53,11 @@ Ottava_bracket::print (SCM smob)
 
       if (Note_column::has_interface (b))
 	{
-	  SCM heads = b->get_property ("note-heads");
-	  common = common_refpoint_of_list (heads, common, X_AXIS);
-	  for (SCM s = heads; scm_is_pair (s); s = scm_cdr (s))
+	  extract_grob_set (b, "note-heads", heads);
+	  common = common_refpoint_of_array (heads, common, X_AXIS);
+	  for (int i = 0; i < heads.size (); i++)
 	    {
-	      Grob *h = unsmob_grob (scm_car (s));
+	      Grob *h = heads[i];
 	      Grob *dots = Rhythmic_head::get_dots (h);
 	      if (dots)
 		common = dots->common_refpoint (common, X_AXIS);
@@ -85,9 +86,10 @@ Ottava_bracket::print (SCM smob)
       Interval ext;
       if (Note_column::has_interface (b))
 	{
-	  for (SCM s = b->get_property ("note-heads"); scm_is_pair (s); s = scm_cdr (s))
+	  extract_grob_set (b, "note-heads", heads);
+	  for (int i = 0; i < heads.size (); i++)
 	    {
-	      Grob *h = unsmob_grob (scm_car (s));
+	      Grob *h = heads[i];
 	      ext.unite (h->extent (common, X_AXIS));
 	      Grob *dots = Rhythmic_head::get_dots (h);
 

@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "libc-extension.hh"
 #include "paper-column.hh"
 #include "paper-column.hh"
@@ -210,7 +210,7 @@ Spanner::Spanner (SCM s, Object_key const *key)
   spanned_drul_[LEFT] = 0;
   spanned_drul_[RIGHT] = 0;
 
-  Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("spanner-interface"));
+  interfaces_ = scm_cons (ly_symbol2scm ("spanner-interface"), interfaces_);
 }
 
 Spanner::Spanner (Spanner const &s, int count)
@@ -255,7 +255,7 @@ Spanner::find_broken_piece (System *l) const
 int
 Spanner::compare (Spanner *const &p1, Spanner *const &p2)
 {
-  return p1->get_system ()->rank_ - p2->get_system ()->rank_;
+  return p1->get_system ()->get_rank() - p2->get_system ()->get_rank();
 }
 
 bool
@@ -293,11 +293,13 @@ Spanner::get_broken_left_end_align () const
 SCM
 Spanner::do_derived_mark () const
 {
+#if 0
   /*
     We'd be fucked if this is called before spanned_drul_[] is inited.  */
   if (status_ == ORPHAN)
     return SCM_EOL;
-
+#endif
+  
   Direction d = LEFT;
   do
     if (spanned_drul_[d])

@@ -15,6 +15,7 @@
 #include "warn.hh"
 #include "axis-group-interface.hh"
 #include "bar-line.hh"
+#include "grob.hh"
 
 void
 Span_bar::add_bar (Grob *me, Grob *b)
@@ -28,7 +29,7 @@ MAKE_SCHEME_CALLBACK (Span_bar, print, 1);
 
 /* Limitations/Bugs:
 
-(1) Elements from 'me->get_property ("elements")' must be
+(1) Elements from 'me->get_object ("elements")' must be
 ordered according to their y coordinates relative to their common
 axis group parent.  Otherwise, the computation goes mad.
 
@@ -43,9 +44,9 @@ SCM
 Span_bar::print (SCM smobbed_me)
 {
   Grob *me = unsmob_grob (smobbed_me);
-  SCM elements = me->get_property ("elements");
+  extract_grob_set (me, "elements", elements);
+  Grob *refp = common_refpoint_of_array (elements, me, Y_AXIS);
 
-  Grob *refp = common_refpoint_of_list (elements, me, Y_AXIS);
   Span_bar::evaluate_glyph (me);
   SCM glyph = me->get_property ("glyph");
 
@@ -59,9 +60,9 @@ Span_bar::print (SCM smobbed_me)
   /* compose span_bar_mol */
   Array<Interval> extents;
   Grob *model_bar = 0;
-  for (SCM elts = elements; scm_is_pair (elts); elts = scm_cdr (elts))
+  for (int i = elements.size (); i--;)
     {
-      Grob *bar = unsmob_grob (scm_car (elts));
+      Grob *bar = elements[i];
       Interval ext = bar->extent (refp, Y_AXIS);
       if (ext.is_empty ())
 	continue;
@@ -168,7 +169,9 @@ Span_bar::evaluate_empty (Grob *me)
   /* TODO: filter all hara-kiried out of ELEMENS list, and then
      optionally do suicide. Call this cleanage function from
      center_on_spanned_callback () as well. */
-  if (!scm_is_pair (me->get_property ("elements")))
+
+  extract_grob_set (me, "elements", elements);
+  if (elements.is_empty ())
     {
       me->suicide ();
     }
@@ -182,11 +185,11 @@ Span_bar::evaluate_glyph (Grob *me)
   if (scm_is_string (gl))
     return;
 
-  for (SCM s = me->get_property ("elements");
-       !scm_is_string (gl) && scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "elements", elements);
+  for (int i = elements.size();
+       i-- && !scm_is_string (gl); )
     {
-      gl = unsmob_grob (scm_car (s))
-	->get_property ("glyph");
+      gl = elements[i]->get_property ("glyph");
     }
 
   if (!scm_is_string (gl))

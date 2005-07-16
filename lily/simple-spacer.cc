@@ -385,7 +385,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
   Link_array<Grob> cols (icols);
 
   for (int i = cols.size (); i--;)
-    if (scm_is_pair (cols[i]->get_property ("between-cols")))
+    if (scm_is_pair (cols[i]->get_object ("between-cols")))
       {
 	loose_cols_.push (cols[i]);
 	cols.del (i);
@@ -396,7 +396,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
     {
       Spring_smob *spring = 0;
 
-      for (SCM s = cols[i]->get_property ("ideal-distances");
+      for (SCM s = cols[i]->get_object ("ideal-distances");
 	   !spring && scm_is_pair (s);
 	   s = scm_cdr (s))
 	{

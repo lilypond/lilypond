@@ -11,6 +11,7 @@
 #include "spanner.hh"
 #include "item.hh"
 #include "axis-group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "hara-kiri-group-spanner.hh"
 
 MAKE_SCHEME_CALLBACK (Align_interface, alignment_callback, 2);
@@ -57,9 +58,10 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 
   Real dy = robust_scm2double (me->get_property ("forced-distance"), 0.0);
 
-  Link_array<Grob> elems
-    = extract_grob_array (me, ly_symbol2scm ("elements"));
+  extract_grob_set (me, "elements", elem_source);
 
+  Link_array<Grob> elems  (elem_source); // writable..
+  
   Real where_f = 0;
 
   Interval v;
@@ -141,8 +143,8 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   Array<Interval> dims;
 
   Link_array<Grob> elems;
-  Link_array<Grob> all_grobs
-    = extract_grob_array (me, ly_symbol2scm ("elements"));
+
+  extract_grob_set (me, "elements", all_grobs);
   for (int i = 0; i < all_grobs.size (); i++)
     {
       Interval y = all_grobs[i]->extent (me, a);
@@ -269,7 +271,7 @@ ADD_INTERFACE (Align_interface, "align-interface",
 	       "Order grobs from top to bottom, left to right, right to left or bottom"
 	       "to top.",
 	       "forced-distance stacking-dir align-dir threshold positioning-done "
-	       "center-element elements axes");
+	       "elements axes");
 
 struct Foobar
 {

@@ -40,7 +40,7 @@ Dot_column_engraver::stop_translation_timestep ()
     See [Ross, p 171]
   */
   if (stem_ && dotcol_)
-    dotcol_->set_property ("stem", stem_->self_scm ());
+    dotcol_->set_object ("stem", stem_->self_scm ());
 
   dotcol_ = 0;
   heads_.clear ();
@@ -50,7 +50,7 @@ Dot_column_engraver::stop_translation_timestep ()
 void
 Dot_column_engraver::acknowledge_grob (Grob_info info)
 {
-  Grob *d = unsmob_grob (info.grob ()->get_property ("dot"));
+  Grob *d = unsmob_grob (info.grob ()->get_object ("dot"));
   if (d)
     {
       if (!dotcol_)

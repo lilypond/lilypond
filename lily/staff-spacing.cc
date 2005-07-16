@@ -18,6 +18,7 @@
 #include "note-column.hh"
 #include "stem.hh"
 #include "accidental-placement.hh"
+#include "pointer-group-interface.hh"
 
 /*
   Insert some more space for the next note, in case it has a stem in
@@ -49,7 +50,7 @@ Staff_spacing::next_note_correction (Grob *me,
 
       max_corr = max (max_corr, (- v[LEFT]));
     }
-  if (Grob *a = unsmob_grob (g->get_property ("arpeggio")))
+  if (Grob *a = unsmob_grob (g->get_object ("arpeggio")))
     {
       max_corr = max (max_corr, - a->extent (col, X_AXIS)[LEFT]);
     }
@@ -123,15 +124,16 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
   Interval bar_size = bar_y_positions (last_grob);
   Real max_corr = 0.0;
 
-  for (SCM s = me->get_property ("right-items");
-       scm_is_pair (s); s = scm_cdr (s))
+
+  extract_grob_set (me, "right-items", right_items);
+  for (int i = right_items.size (); i--;)
     {
-      Grob *g = unsmob_grob (scm_car (s));
+      Grob *g = right_items[i];
 
       max_corr = max (max_corr, next_note_correction (me, g, bar_size));
-      for (SCM t = g->get_property ("elements");
-	   scm_is_pair (t); t = scm_cdr (t))
-	max_corr = max (max_corr, next_note_correction (me, unsmob_grob (scm_car (t)), bar_size));
+      extract_grob_set (g, "elements", elts);
+      for (int j  = elts.size(); j--;)
+	max_corr = max (max_corr, next_note_correction (me, elts[j], bar_size));
     }
 
   return max_corr;
@@ -146,10 +148,10 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
   Grob *separation_item = 0;
   Item *me_item = dynamic_cast<Item *> (me);
 
-  for (SCM s = me->get_property ("left-items");
-       scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "left-items", items);
+  for (int i = items.size(); i--;)
     {
-      Grob *cand = unsmob_grob (scm_car (s));
+      Grob *cand = items[i];
       if (cand && Separation_item::has_interface (cand))
 	separation_item = cand;
     }

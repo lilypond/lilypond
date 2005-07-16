@@ -14,7 +14,6 @@
 #include "paper-column.hh"
 #include "cpu-timer.hh"
 #include "simple-spacer.hh"
-#include "group-interface.hh"
 
 Array<int>
 Break_algorithm::find_break_indices () const

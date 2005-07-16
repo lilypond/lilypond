@@ -50,7 +50,7 @@ Dot_column::side_position (SCM element_smob, SCM axis)
   (void) axis;
   assert (scm_to_int (axis) == X_AXIS);
 
-  Grob *stem = unsmob_grob (me->get_property ("stem"));
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (stem
       && !Stem::get_beam (stem)
       && Stem::duration_log (stem) > 2
@@ -225,7 +225,7 @@ SCM
 Dot_column::do_shifts (Grob *me)
 {
   Link_array<Grob> dots
-    = extract_grob_array (me, ly_symbol2scm ("dots"));
+    = extract_grob_array (me, "dots");
 
   { /*
       Trigger note collision resolution first, since that may kill off
@@ -261,7 +261,7 @@ Dot_column::do_shifts (Grob *me)
       Grob *note = dots[i]->get_parent (Y_AXIS);
       if (note)
 	{
-	  Grob *stem = unsmob_grob (note->get_property ("stem"));
+	  Grob *stem = unsmob_grob (note->get_object ("stem"));
 	  if (stem)
 	    dp.extremal_head_ = Stem::first_head (stem) == note;
 	}
@@ -290,7 +290,7 @@ Dot_column::do_shifts (Grob *me)
 void
 Dot_column::add_head (Grob *me, Grob *rh)
 {
-  Grob *d = unsmob_grob (rh->get_property ("dot"));
+  Grob *d = unsmob_grob (rh->get_object ("dot"));
   if (d)
     {
       Side_position_interface::add_support (me, rh);

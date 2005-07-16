@@ -35,7 +35,7 @@
 #include "stem.hh"
 #include "output-def.hh"
 #include "lookup.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
 #include "spanner.hh"
@@ -54,7 +54,7 @@ Beam::add_stem (Grob *me, Grob *s)
   s->add_dependency (me);
 
   assert (!Stem::get_beam (s));
-  s->set_property ("beam", me->self_scm ());
+  s->set_object ("beam", me->self_scm ());
 
   add_bound_item (dynamic_cast<Spanner *> (me), dynamic_cast<Item *> (s));
 }
@@ -88,9 +88,11 @@ int
 Beam::get_beam_count (Grob *me)
 {
   int m = 0;
-  for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
+
+  extract_grob_set (me, "stems", stems);
+  for (int i = 0; i < stems.size(); i++)
     {
-      Grob *stem = unsmob_grob (scm_car (s));
+      Grob *stem = stems[i];
       m = max (m, (Stem::beam_multiplicity (stem).length () + 1));
     }
   return m;
@@ -139,17 +141,17 @@ Beam::before_line_breaking (SCM smob)
   int count = visible_stem_count (me);
   if (count < 2)
     {
-      SCM stems = me->get_property ("stems");
-      if (scm_ilength (stems) == 1)
+      extract_grob_set (me, "stems", stems);
+      if (stems.size () == 1)
 	{
 	  me->warning (_ ("removing beam with less than two stems"));
 
-	  unsmob_grob (scm_car (stems))->set_property ("beam", SCM_EOL);
+	  stems[0]->set_object ("beam", SCM_EOL);
 	  me->suicide ();
 
 	  return SCM_UNSPECIFIED;
 	}
-      else if (scm_ilength (stems) == 0)
+      else if (stems.size () == 0)
 	{
 	  me->suicide ();
 	  return SCM_UNSPECIFIED;
@@ -215,8 +217,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
 void
 Beam::connect_beams (Grob *me)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
 
   Slice last_int;
   last_int.set_empty ();
@@ -292,8 +293,7 @@ Beam::print (SCM grob)
   Spanner *me = unsmob_spanner (grob);
   position_beam (me);
 
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
   Grob *xcommon = common_refpoint_of_array (stems, me, X_AXIS);
 
   xcommon = me->get_bound (LEFT)->common_refpoint (xcommon, X_AXIS);
@@ -523,8 +523,7 @@ Beam::get_default_dir (Grob *me)
   count[UP] = count[DOWN] = 0;
   Direction d = DOWN;
 
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
 
   for (int i = 0; i < stems.size (); i++)
     do
@@ -563,8 +562,7 @@ Beam::get_default_dir (Grob *me)
 void
 Beam::set_stem_directions (Grob *me, Direction d)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
 
   for (int i = 0; i < stems.size (); i++)
     {
@@ -599,8 +597,7 @@ Beam::consider_auto_knees (Grob *me)
 
   gaps.set_full ();
 
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
 
   Grob *common = common_refpoint_of_array (stems, me, Y_AXIS);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -805,8 +802,7 @@ Beam::least_squares (SCM smob)
     }
 
   Array<Real> x_posns;
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);
 
@@ -915,8 +911,7 @@ Beam::shift_region_to_valid (SCM grob)
     Code dup.
   */
   Array<Real> x_posns;
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);
 
@@ -985,6 +980,7 @@ Beam::shift_region_to_valid (SCM grob)
     warning (_ ("no viable initial configuration found: may not find good beam slope"));
   else if (!feasible_left_point.contains (y))
     {
+      const int REGION_SIZE = 2; // UGH UGH
       if (isinf (feasible_left_point[DOWN]))
 	y = feasible_left_point[UP] - REGION_SIZE;
       else if (isinf (feasible_left_point[UP]))
@@ -1116,9 +1112,7 @@ Beam::calc_stem_y (Grob *me, Grob *s, Grob ** common,
 void
 Beam::set_stem_lengths (Grob *me)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
-
+  extract_grob_set (me, "stems", stems);
   if (!stems.size ())
     return;
 
@@ -1171,8 +1165,7 @@ Beam::set_stem_lengths (Grob *me)
 void
 Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
 
   Direction d = LEFT;
   for (int i = 0; i < stems.size (); i++)
@@ -1209,8 +1202,8 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 int
 Beam::forced_stem_count (Grob *me)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
+
   int f = 0;
   for (int i = 0; i < stems.size (); i++)
     {
@@ -1231,8 +1224,7 @@ Beam::forced_stem_count (Grob *me)
 int
 Beam::visible_stem_count (Grob *me)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
   int c = 0;
   for (int i = stems.size (); i--;)
     {
@@ -1245,8 +1237,7 @@ Beam::visible_stem_count (Grob *me)
 Grob *
 Beam::first_visible_stem (Grob *me)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
 
   for (int i = 0; i < stems.size (); i++)
     {
@@ -1259,8 +1250,8 @@ Beam::first_visible_stem (Grob *me)
 Grob *
 Beam::last_visible_stem (Grob *me)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
+
   for (int i = stems.size (); i--;)
     {
       if (!Stem::is_invisible (stems[i]))
@@ -1291,11 +1282,11 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 
   assert (scm_to_int (axis) == Y_AXIS);
 
-  Grob *st = unsmob_grob (rest->get_property ("stem"));
+  Grob *st = unsmob_grob (rest->get_object ("stem"));
   Grob *stem = st;
   if (!stem)
     return scm_make_real (0.0);
-  Grob *beam = unsmob_grob (stem->get_property ("beam"));
+  Grob *beam = unsmob_grob (stem->get_object ("beam"));
   if (!beam
       || !Beam::has_interface (beam)
       || !Beam::visible_stem_count (beam))
@@ -1366,9 +1357,10 @@ Beam::is_knee (Grob *me)
 
   bool knee = false;
   int d = 0;
-  for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "stems", stems);
+  for (int i = stems.size (); i--;)
     {
-      Direction dir = get_grob_direction (unsmob_grob (scm_car (s)));
+      Direction dir = get_grob_direction (stems[i]);
       if (d && d != dir)
 	{
 	  knee = true;
@@ -1385,8 +1377,7 @@ Beam::is_knee (Grob *me)
 int
 Beam::get_direction_beam_count (Grob *me, Direction d)
 {
-  Link_array<Grob> stems
-    = extract_grob_array (me, ly_symbol2scm ("stems"));
+  extract_grob_set (me, "stems", stems);
   int bc = 0;
 
   for (int i = stems.size (); i--;)
@@ -1408,6 +1399,6 @@ ADD_INTERFACE (Beam, "beam-interface",
 	       "knee positioning-done position-callbacks "
 	       "concaveness dir-function quant-score auto-knee-gap gap "
 	       "gap-count chord-tremolo beamed-stem-shorten shorten least-squares-dy "
-	       "damping inspect-quants flag-width-function neutral-direction positions space-function "
+	       "details damping inspect-quants flag-width-function neutral-direction positions space-function "
 	       "thickness");
 

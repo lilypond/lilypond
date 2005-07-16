@@ -10,7 +10,7 @@
 #include "engraver.hh"
 #include "side-position-interface.hh"
 #include "note-column.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 
 class Horizontal_bracket_engraver : public Engraver
 {

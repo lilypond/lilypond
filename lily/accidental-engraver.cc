@@ -375,7 +375,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      if (cautionary)
 		a->set_property ("cautionary", SCM_BOOL_T);
 
-	      support->set_property ("accidental-grob", a->self_scm ());
+	      support->set_object ("accidental-grob", a->self_scm ());
 
 	      a->set_property ("accidentals", accs);
 	      accidentals_[i].accidental_ = a;
@@ -410,7 +410,7 @@ Accidental_engraver::stop_translation_timestep ()
 	  {
 	    if (Grob *g = accidentals_[i].accidental_)
 	      {
-		g->set_property ("tie", ties_[j]->self_scm ());
+		g->set_object ("tie", ties_[j]->self_scm ());
 		accidentals_[i].tied_ = true;
 	      }
 	    ties_.del (j);

@@ -26,14 +26,5 @@ public:
   static void add_thing (Grob *, SCM, SCM);
 };
 
-struct Pointer_group_interface : public Group_interface
-{
-public:
-  static void add_grob (Grob *, SCM nm, Grob *e);
-};
-
-Link_array<Grob> extract_grob_array (Grob const *elt, SCM symbol);
-Link_array<Item> extract_item_array (Grob const *elt, SCM symbol);
-
 #endif /* GROUP_INTERFACE_HH */
 

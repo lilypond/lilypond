@@ -73,11 +73,12 @@ System_start_delimiter::after_line_breaking (SCM smob)
       /*
 	Get all coordinates, to trigger Hara kiri.
       */
-      SCM elts = me->get_property ("elements");
-      Grob *common = common_refpoint_of_list (elts, me, Y_AXIS);
-      for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
+      extract_grob_set (me, "elements", elts);
+      Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
+
+      for (int i = elts.size();  i--;)
 	{
-	  Spanner *staff = dynamic_cast<Spanner*> (unsmob_grob (scm_car (s)));
+	  Spanner *staff = dynamic_cast<Spanner*> (elts[i]);
 	  if (!staff || 
 	      staff->get_bound (LEFT)->get_column () != left_column)
 	    continue;
@@ -111,13 +112,14 @@ System_start_delimiter::print (SCM smob)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  SCM elts = me->get_property ("elements");
-  Grob *common = common_refpoint_of_list (elts, me, Y_AXIS);
+  extract_grob_set (me, "elements", elts);
+  Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
 
   Interval ext;
-  for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
+
+  for (int i = elts.size();  i--;)
     {
-      Spanner *sp = unsmob_spanner (scm_car (s));
+      Spanner *sp = dynamic_cast<Spanner*> (elts[i]);
       if (sp
 	  && sp->get_bound (LEFT) == me->get_bound (LEFT))
 	{

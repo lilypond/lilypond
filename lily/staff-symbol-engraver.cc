@@ -104,7 +104,7 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
   if (span_  || finished_span_ )
     {
       Spanner *my = span_ ? span_ : finished_span_;
-      s.grob ()->set_property ("staff-symbol", my->self_scm ());
+      s.grob ()->set_object ("staff-symbol", my->self_scm ());
     }
 }
 

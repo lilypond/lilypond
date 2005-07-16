@@ -40,7 +40,7 @@
 #include "text-interface.hh"
 #include "stem.hh"
 #include "note-column.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
@@ -75,7 +75,7 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   if (! (b1 && (b1 == b2) && !sp->is_broken ()))
     return 0;
 
-  Link_array<Grob> beam_stems = extract_grob_array (b1, ly_symbol2scm ("stems"));
+  extract_grob_set (b1, "stems", beam_stems);
   if (beam_stems.size () == 0)
     {
       programming_error ("beam under tuplet bracket has no stems");
@@ -99,8 +99,7 @@ Tuplet_bracket::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Stencil mol;
-  Link_array<Grob> columns
-    = extract_grob_array (me, ly_symbol2scm ("note-columns"));
+  extract_grob_set (me, "note-columns", columns);
 
   if (!columns.size ())
     return mol.smobbed_copy ();
@@ -301,12 +300,9 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
 void
 Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
 {
-  Link_array<Grob> columns
-    = extract_grob_array (me, ly_symbol2scm ("note-columns"));
-
-  SCM cols = me->get_property ("note-columns");
-  Grob *commony = common_refpoint_of_list (cols, me, Y_AXIS);
-  Grob *commonx = common_refpoint_of_list (cols, me, X_AXIS);
+  extract_grob_set (me, "note-columns", columns);
+  Grob *commony = common_refpoint_of_array (columns, me, Y_AXIS);
+  Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
 
   Interval staff;
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
@@ -406,8 +402,7 @@ SCM
 Tuplet_bracket::before_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Grob> columns
-    = extract_grob_array (me, ly_symbol2scm ("note-columns"));
+  extract_grob_set (me, "note-columns", columns);
 
   for (int i = columns.size (); i--;)
     {
@@ -425,8 +420,7 @@ SCM
 Tuplet_bracket::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Grob> columns
-    = extract_grob_array (me, ly_symbol2scm ("note-columns"));
+  extract_grob_set (me, "note-columns", columns);
 
   if (!columns.size ())
     {
@@ -503,9 +497,10 @@ Direction
 Tuplet_bracket::get_default_dir (Grob *me)
 {
   Drul_array<int> dirs (0, 0);
-  for (SCM s = me->get_property ("note-columns"); scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "note-columns", columns);
+  for (int i = 0 ; i < columns.size (); i++)
     {
-      Grob *nc = unsmob_grob (scm_car (s));
+      Grob *nc = columns[i];
       Direction d = Note_column::dir (nc);
       if (d)
 	dirs[d]++;

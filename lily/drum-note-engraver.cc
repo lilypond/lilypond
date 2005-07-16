@@ -129,7 +129,7 @@ Drum_notes_engraver::acknowledge_grob (Grob_info inf)
 	  Grob *e = scripts_[i];
 
 	  if (to_dir (e->get_property ("side-relative-direction")))
-	    e->set_property ("direction-source", inf.grob ()->self_scm ());
+	    e->set_object ("direction-source", inf.grob ()->self_scm ());
 
 	  /*
 	    add dep ?

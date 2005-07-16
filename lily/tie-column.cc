@@ -9,7 +9,7 @@
 #include "tie-column.hh"
 #include "paper-column.hh"
 #include "spanner.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "tie.hh"
 #include "directional-element-interface.hh"
 #include "rhythmic-head.hh"
@@ -69,9 +69,8 @@ tie_compare (Grob *const &s1,
 void
 Tie_column::werner_directions (Grob *me)
 {
-  Link_array<Grob> ties
-    = extract_grob_array (me, ly_symbol2scm ("ties"));
-
+  extract_grob_set (me, "ties", ro_ties);
+  Link_array<Grob> ties (ro_ties);
   if (!ties.size ())
     return;
 

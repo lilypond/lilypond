@@ -10,7 +10,7 @@
 #include "grid-line-interface.hh"
 
 #include "grob.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "stencil.hh"
@@ -21,15 +21,15 @@ SCM
 Grid_line_interface::print (SCM smobbed_me)
 {
   Grob *me = unsmob_grob (smobbed_me);
-  SCM first_elt = me->get_property ("elements");
 
+  extract_grob_set (me, "elements", elts);
   /* compute common refpoint of elements */
-  Grob *refp = common_refpoint_of_list (first_elt, me, Y_AXIS);
+  Grob *refp = common_refpoint_of_array (elts, me, Y_AXIS);
   Interval iv;
   
-  for (SCM elts = first_elt; scm_is_pair (elts); elts = scm_cdr (elts))
+  for (int i = 0; i < elts.size(); i++)
     {
-      Grob *point = unsmob_grob (scm_car (elts));
+      Grob *point = elts[i];
 
       iv.unite (point->extent (refp, Y_AXIS));
     }
@@ -43,7 +43,6 @@ Grid_line_interface::print (SCM smobbed_me)
   Real staffline = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
     * staffline;
-
 
   iv += - me->relative_coordinate (refp, Y_AXIS);
   Stencil st = Lookup::filled_box (Box (Interval (0, thick),

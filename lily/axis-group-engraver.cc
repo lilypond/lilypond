@@ -87,7 +87,7 @@ Axis_group_engraver::process_acknowledged_grobs ()
 
   for (int i = 0; i < elts_.size (); i++)
     {
-      if (!unsmob_grob (elts_[i]->get_property ("axis-group-parent-Y")))
+      if (!unsmob_grob (elts_[i]->get_object ("axis-group-parent-Y")))
 	{
 	  if (staffline_->get_parent (Y_AXIS)
 	      && staffline_->get_parent (Y_AXIS) == elts_[i])

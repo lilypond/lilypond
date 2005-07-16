@@ -12,10 +12,13 @@
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "dimensions.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 
 void
-Separating_group_spanner::find_rods (Item *r, SCM next, Real padding)
+Separating_group_spanner::find_rods (Item *r,
+				     Link_array<Grob> const &separators,
+				     int idx,
+				     Real padding)
 {
 
   /*
@@ -24,12 +27,9 @@ Separating_group_spanner::find_rods (Item *r, SCM next, Real padding)
     most cases, the interesting L will just be the first entry of
     NEXT, making it linear in most of the cases.
   */
-  if (Separation_item::width (r).is_empty ())
-    return;
-
-  for (; scm_is_pair (next); next = scm_cdr (next))
+  for (; idx >= 0; idx--)
     {
-      Item *l = dynamic_cast<Item *> (unsmob_grob (scm_car (next)));
+      Item *l = dynamic_cast<Item *> (separators[idx]);
       Item *lb = l->find_prebroken_piece (RIGHT);
 
       if (lb)
@@ -82,23 +82,23 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
   */
   Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
 
-  for (SCM s = me->get_property ("elements"); scm_is_pair (s) && scm_is_pair (scm_cdr (s)); s = scm_cdr (s))
+  extract_grob_set (me, "elements", elts);
+  for (int i = elts.size ();
+       i-- > 1; )
     {
-      /*
-	Order of elements is reversed!
-      */
-      SCM elt = scm_car (s);
-      Item *r = unsmob_item (elt);
-
+      Item *r = dynamic_cast<Item*> (elts[i]);
       if (!r)
+	continue;
+
+      if (Separation_item::width (r).is_empty ())
 	continue;
 
       Item *rb
 	= dynamic_cast<Item *> (r->find_prebroken_piece (LEFT));
 
-      find_rods (r, scm_cdr (s), padding);
+      find_rods (r, elts, i - 1, padding);
       if (rb)
-	find_rods (rb, scm_cdr (s), padding);
+	find_rods (rb, elts, i - 1, padding);
     }
 
   return SCM_UNSPECIFIED;

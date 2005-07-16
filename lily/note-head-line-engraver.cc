@@ -7,7 +7,7 @@
 */
 
 #include "engraver.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"

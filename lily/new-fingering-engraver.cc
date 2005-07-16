@@ -94,7 +94,7 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	  else if (m->is_mus_type ("harmonic-event"))
 	    {
 	      inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
-	      Grob *d = unsmob_grob (inf.grob ()->get_property ("dot"));
+	      Grob *d = unsmob_grob (inf.grob ()->get_object ("dot"));
 	      if (d)
 		d->suicide ();
 	    }
@@ -338,7 +338,7 @@ New_fingering_engraver::stop_translation_timestep ()
 	Side_position_interface::add_support (script, heads_[j]);
 
       if (stem_ && to_dir (script->get_property ("side-relative-direction")))
-	script->set_property ("direction-source", stem_->self_scm ());
+	script->set_object ("direction-source", stem_->self_scm ());
 
       if (stem_ && to_boolean (script->get_property ("add-stem-support")))
 	Side_position_interface::add_support (script, stem_);

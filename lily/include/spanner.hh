@@ -37,10 +37,12 @@ public:
   Link_array<Spanner> broken_intos_;
 
   int get_break_index () const;
+
   // todo: move to somewhere else.
   Real get_broken_left_end_align () const;
   void substitute_one_mutable_property (SCM sym, SCM val);
-  bool fast_fubstitute_grob_list (SCM sym, SCM grob_list);
+  bool fast_substitute_grob_array (SCM sym, Grob_array *);
+
   // TODO: make virtual and do this for Items as well.
   Interval_t<int> spanned_rank_iv ();
   void set_bound (Direction d, Grob *);

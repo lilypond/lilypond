@@ -89,7 +89,8 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	  align_ = make_item ("BreakAlignment", SCM_EOL);
 
 	  Context *origin = inf.origin_contexts (this)[0];
-	  left_edge_ = make_item_from_properties (dynamic_cast<Engraver *> (origin->implementation ()),
+	  left_edge_ = make_item_from_properties (dynamic_cast<Engraver *>
+						  (origin->implementation ()),
 						  ly_symbol2scm ("LeftEdge"),
 						  SCM_EOL,
 						  "LeftEdge");

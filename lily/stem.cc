@@ -28,7 +28,7 @@
 #include "misc.hh"
 #include "beam.hh"
 #include "rest.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "side-position-interface.hh"
 #include "dot-column.hh"
@@ -131,9 +131,10 @@ Stem::set_stemend (Grob *me, Real se)
 Grob *
 Stem::support_head (Grob *me)
 {
-  if (head_count (me) == 1)
-    /* UGH. */
-    return unsmob_grob (scm_car (me->get_property ("note-heads")));
+  extract_grob_set (me, "note-heads", heads);
+  if (heads.size () == 1)
+    return heads[0];
+  
   return first_head (me);
 }
 
@@ -178,10 +179,11 @@ Stem::extremal_heads (Grob *me)
   extpos[UP] = -inf;
 
   Drul_array<Grob *> exthead (0, 0);
-  for (SCM s = me->get_property ("note-heads"); scm_is_pair (s);
-       s = scm_cdr (s))
+  extract_grob_set (me, "note-heads", heads);
+  
+  for (int i = heads.size (); i--;)
     {
-      Grob *n = unsmob_grob (scm_car (s));
+      Grob *n = heads[i];
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
       Direction d = LEFT;
@@ -209,10 +211,11 @@ Array<int>
 Stem::note_head_positions (Grob *me)
 {
   Array<int> ps;
-  for (SCM s = me->get_property ("note-heads"); scm_is_pair (s);
-       s = scm_cdr (s))
+  extract_grob_set (me, "note-heads", heads);
+  
+  for (int i = heads.size (); i--;)
     {
-      Grob *n = unsmob_grob (scm_car (s));
+      Grob *n = heads[i];
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
       ps.push (p);
@@ -225,7 +228,7 @@ Stem::note_head_positions (Grob *me)
 void
 Stem::add_head (Grob *me, Grob *n)
 {
-  n->set_property ("stem", me->self_scm ());
+  n->set_object ("stem", me->self_scm ());
   n->add_dependency (me);
 
   if (Note_head::has_interface (n))
@@ -309,8 +312,8 @@ Stem::get_default_stem_end_position (Grob *me)
     }
 
   /* Tremolo stuff.  */
-  Grob *t_flag = unsmob_grob (me->get_property ("tremolo-flag"));
-  if (t_flag && !unsmob_grob (me->get_property ("beam")))
+  Grob *t_flag = unsmob_grob (me->get_object ("tremolo-flag"));
+  if (t_flag && !unsmob_grob (me->get_object ("beam")))
     {
       /* Crude hack: add extra space if tremolo flag is there.
 
@@ -391,9 +394,8 @@ Stem::position_noteheads (Grob *me)
   if (!head_count (me))
     return;
 
-  Link_array<Grob> heads
-    = extract_grob_array (me, ly_symbol2scm ("note-heads"));
-
+  extract_grob_set (me, "note-heads", ro_heads);
+  Link_array<Grob> heads (ro_heads);
   heads.sort (compare_position);
   Direction dir = get_direction (me);
 
@@ -608,7 +610,7 @@ Stem::width_callback (SCM e, SCM ax)
     {
       r.set_empty ();
     }
-  else if (unsmob_grob (me->get_property ("beam")) || abs (duration_log (me)) <= 2)
+  else if (unsmob_grob (me->get_object ("beam")) || abs (duration_log (me)) <= 2)
     {
       r = Interval (-1, 1);
       r *= thickness (me) / 2;
@@ -744,10 +746,10 @@ Stem::offset_callback (SCM element_smob, SCM)
     }
   else
     {
-      SCM rests = me->get_property ("rests");
-      if (scm_is_pair (rests))
+      extract_grob_set (me, "rests", rests);
+      if (rests.size ())
 	{
-	  Grob *rest = unsmob_grob (scm_car (rests));
+	  Grob *rest = rests.top ();
 	  r = rest->extent (rest, X_AXIS).center ();
 	}
     }
@@ -757,7 +759,7 @@ Stem::offset_callback (SCM element_smob, SCM)
 Spanner *
 Stem::get_beam (Grob *me)
 {
-  SCM b = me->get_property ("beam");
+  SCM b = me->get_object ("beam");
   return dynamic_cast<Spanner *> (unsmob_grob (b));
 }
 
@@ -878,7 +880,7 @@ Stem::calc_stem_info (Grob *me)
     /* stem only extends to center of beam */
     - 0.5 * beam_thickness;
 
-  if (Grob *tremolo = unsmob_grob (me->get_property ("tremolo-flag")))
+  if (Grob *tremolo = unsmob_grob (me->get_object ("tremolo-flag")))
     {
       Interval y_ext = tremolo->extent (tremolo, Y_AXIS);
       y_ext.widen (0.5);	// FIXME. Should be tunable? 

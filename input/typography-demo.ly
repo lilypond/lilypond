@@ -127,7 +127,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	       \context Staff #(set-accidental-style 'modern)
 	       \melody >>
 	   \lyricsto "singer" \new Lyrics \firstVerse
-	   \lyricsto "singer" \new Lyrics \secondVerse
+%	   \lyricsto "singer" \new Lyrics \secondVerse
 	   \new PianoStaff << 
 	       \set PianoStaff.instrument = \markup {
 		   \bold

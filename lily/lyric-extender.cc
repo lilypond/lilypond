@@ -15,7 +15,7 @@
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "note-head.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1)
   SCM
@@ -23,7 +23,7 @@ Lyric_extender::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
   Item *left_edge = me->get_bound (LEFT);
-  Item *right_text = unsmob_item (me->get_property ("next"));
+  Item *right_text = unsmob_item (me->get_object ("next"));
 
   Grob *common = left_edge;
 
@@ -32,7 +32,8 @@ Lyric_extender::print (SCM smob)
 
   common = common->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   Real sl = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
-  Link_array<Grob> heads (extract_grob_array (me, ly_symbol2scm ("heads")));
+
+  extract_grob_set (me, "heads", heads);
 
   if (!heads.size ())
     return SCM_EOL;

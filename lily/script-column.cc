@@ -10,7 +10,7 @@
 
 #include "side-position-interface.hh"
 #include "warn.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 
 void
 Script_column::add_staff_sided (Grob *me, Item *i)

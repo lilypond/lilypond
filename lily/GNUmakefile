@@ -6,7 +6,7 @@ SUBDIRS = include
 
 MODULE_LIBS=  $(depth)/flower   $(depth)/kpath-guile 
 MODULE_INCLUDES= $(depth)/flower/include 
-MODULE_CXXFLAGS=
+MODULE_CXXFLAGS= -Wno-pmf-conversions
 
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES=c c++ executable po help2man

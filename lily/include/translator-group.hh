@@ -9,6 +9,8 @@
 #ifndef TRANSLATOR_GROUP_HH
 #define TRANSLATOR_GROUP_HH
 
+
+
 #include "translator.hh"
 #include "parray.hh"
 
@@ -26,6 +28,7 @@ public:
 
 protected:
   SCM simple_trans_list_;
+
   friend class Context_def;
   virtual void derived_mark () const;
 };

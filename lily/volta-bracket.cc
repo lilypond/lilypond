@@ -15,7 +15,7 @@
 #include "output-def.hh"
 #include "text-interface.hh"
 #include "volta-bracket.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
 #include "lookup.hh"
@@ -42,8 +42,9 @@ Volta_bracket_interface::print (SCM smob)
 
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
-  SCM s = me->get_property ("bars");
-  Grob *endbar = scm_is_pair (s) ? unsmob_grob (scm_car (s)) : 0;
+
+  extract_grob_set (me, "bars", bars);
+  Grob *endbar = bars.size() ? bars.top () : 0;
   SCM glyph = endbar ? endbar->get_property ("glyph") : SCM_EOL;
 
   String str;

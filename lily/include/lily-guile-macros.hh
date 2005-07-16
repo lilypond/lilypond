@@ -147,6 +147,8 @@ ly_add_function_documentation (SCM proc, char const *fname,
 			  VAR, ARGLIST, DOCSTRING)
 
 #define get_property(x) internal_get_property (ly_symbol2scm (x))
+#define get_object(x) internal_get_object (ly_symbol2scm (x))
 #define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
+#define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)
 
 #endif /* LILY_GUILE_MACROS_HH */

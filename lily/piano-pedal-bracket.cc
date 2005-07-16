@@ -34,7 +34,7 @@ Piano_pedal_bracket::print (SCM smob)
 
   Grob *common = me->get_bound (LEFT)
     ->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Grob *textbit = unsmob_grob (me->get_property ("pedal-text"));
+  Grob *textbit = unsmob_grob (me->get_object ("pedal-text"));
 
   if (textbit)
     common = common->common_refpoint (textbit, X_AXIS);

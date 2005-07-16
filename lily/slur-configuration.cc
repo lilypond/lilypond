@@ -14,7 +14,7 @@
 #include "warn.hh"
 #include "misc.hh"
 #include "item.hh"
-#include "group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "slur.hh"
 #include "slur-scoring.hh"
 #include "spanner.hh"

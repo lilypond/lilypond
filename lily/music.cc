@@ -278,6 +278,19 @@ Music::internal_get_property (SCM sym) const
   return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
 }
 
+
+SCM
+Music::internal_get_object (SCM s) const
+{
+  return internal_get_property (s);
+}
+
+void
+Music::internal_set_object (SCM s, SCM v)
+{
+  return internal_set_property (s,v);
+}
+
 void
 Music::internal_set_property (SCM s, SCM v)
 {

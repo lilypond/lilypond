@@ -382,10 +382,11 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 
       if (script_ && !script_->get_parent (X_AXIS))
 	{
-	  SCM head = scm_last_pair (info.grob ()->get_property ("note-heads"));
-	  if (scm_is_pair (head))
+	  extract_grob_set (info.grob (), "note-heads", heads);
+	  if (heads.size())
 	    {
-	      script_->set_parent (unsmob_grob (scm_car (head)), X_AXIS);
+	      Grob *head = heads[0];
+	      script_->set_parent (head, X_AXIS);
 	      script_->add_offset_callback (Self_alignment_interface::centered_on_parent_proc,
 					    X_AXIS);
 

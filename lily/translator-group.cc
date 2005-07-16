@@ -97,15 +97,13 @@ Translator_group::get_simple_trans_list ()
   return simple_trans_list_;
 }
 
+			    
 void
 recurse_over_translators (Context *c, Translator_method ptr, Direction dir)
 {
   Translator_group *tg
     = dynamic_cast<Translator_group *> (c->implementation ());
-
-  /*
-    Top down:
-  */
+  
   if (dir == DOWN)
     {
       translator_each (tg->get_simple_trans_list (),
