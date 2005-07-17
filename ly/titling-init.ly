@@ -22,6 +22,11 @@ tagline = \markup {
   }
 }
 
+#(define (print-all-headers layout props arg)
+  (if (eq? (ly:output-def-lookup layout 'printallheaders) #t)
+   (interpret-markup layout props arg)
+   empty-stencil))
+
 bookTitleMarkup = \markup {
   \override #'(baseline-skip . 3.5)
   \column {
@@ -53,11 +58,13 @@ bookTitleMarkup = \markup {
   }
 }
 
-scoreTitleMarkup = \markup {
+scoreTitleMarkup = \markup { \column {
+  \on-the-fly #print-all-headers \bookTitleMarkup
   \fill-line {
     \fromproperty #'header:piece
     \fromproperty #'header:opus
   }
+}
 }
 
 #(define (first-page layout props arg)

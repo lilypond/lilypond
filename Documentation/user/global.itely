@@ -326,6 +326,10 @@ title of the next.
 Amount of space between consecutive titles (e.g., the title of the
 book and the title of a piece).
 
+@item printallheaders
+Setting this to #t will print all headers for each \score in a
+\book.  Normally only the piece and opus \headers are printed.
+
 @item systemSeparatorMarkup
 This contains a markup object, which will be inserted between
 systems.  This is often used for orchestral scores.
