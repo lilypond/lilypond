@@ -23,9 +23,9 @@ class Rest_engraver : public Engraver
   Grob *rest_;
 protected:
   virtual bool try_music (Music *);
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
 public:
   TRANSLATOR_DECLARATIONS (Rest_engraver);
@@ -105,6 +105,8 @@ Rest_engraver::try_music (Music *m)
     }
   return false;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Rest_engraver,
 		/* descr */ "",

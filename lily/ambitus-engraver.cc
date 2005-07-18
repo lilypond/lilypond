@@ -16,13 +16,15 @@
 #include "axis-group-interface.hh"
 #include "side-position-interface.hh"
 
+#include "translator.icc"
+
 class Ambitus_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ambitus_engraver);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
   virtual void derived_mark () const;
 
@@ -184,6 +186,8 @@ Ambitus_engraver::finalize ()
       ambitus_->suicide ();
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Ambitus_engraver,
 		/* descr */ "",

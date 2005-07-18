@@ -1,3 +1,52 @@
+2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/include/translator.icc: new file. 
+
+	* lily/paper-column-engraver.cc (process_music): new
+	file. Separate Paper_column factory from Score_engraver.
+
+	* lily/vertically-spaced-context-engraver.cc: administer
+	spaceable-staves property of System.
+
+	* lily/translator-group-ctors.cc: new file.
+
+	* lily/context-property.cc (make_grob_from_properties): construct
+	the right Grob class programmatically, looking at the class entry
+	for the meta property.
+
+	* lily/break-align-engraver.cc (stop_translation_timestep): call
+	Break_align_interface::add_element() directly.
+
+	* lily/context.cc (measure_position): measure_position() is now a
+	normal function.
+
+	* lily/include/translator.hh (class Translator): rename
+	process_acknowledged_grobs() to process_acknowledged() and move to
+	Translator.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add a 'class meta
+	field for each grob description.
+
+	* lily/include/translator-group.hh (class Translator_group):
+	change to base class. Separate class from Translator. This gets
+	rid of virtual inheritance for Engravers/Performers.
+
+	* lily/staff-performer.cc (class Staff_performer): derive
+	Staff_performer from Performer, not Performer_group_performer 
+
+	* Lily/translator-group.cc (precomputed_recurse_over_translators):
+	new function.
+	(precompute_method_bindings): new function. Precompute lists of
+	Translators, so we only call methods (process_music,
+	start_translation_timestep, etc.) for Translators needing
+	it. Also: dispose of pointer-to-member-function calls.
+
+	* lily/engraver-group-engraver.cc: remove engraver_each,
+	recurse_down_engravers ()
+
+	* lily/note-head.cc (internal_print): only call
+	glyph-name-procedure if  style != default. 3 %  speed increase (wtk2-fugue1).
+
 2005-07-16  Graham Percival  <gperlist@shaw.ca>
 
 	* ly/titling-init.ly: add printallheaders option.

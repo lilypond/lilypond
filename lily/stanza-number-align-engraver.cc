@@ -23,7 +23,7 @@ protected:
   Link_array<Grob> lyrics_;
   Link_array<Grob> stanza_numbers_;
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Stanza_number_align_engraver::Stanza_number_align_engraver ()
@@ -51,6 +51,8 @@ Stanza_number_align_engraver::stop_translation_timestep ()
   stanza_numbers_.clear ();
   lyrics_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Stanza_number_align_engraver,
 		"This engraver ensures that stanza numbers are neatly aligned. ",

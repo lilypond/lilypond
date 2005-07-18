@@ -19,6 +19,8 @@
 #include "music.hh"
 #include "pitch.hh"
 
+#include "translator.icc"
+
 class Accidental_entry
 {
 public:
@@ -51,11 +53,11 @@ public:
 
 protected:
   TRANSLATOR_DECLARATIONS (Accidental_engraver);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void initialize ();
-  virtual void process_acknowledged_grobs ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
   virtual void finalize ();
 
   virtual void derived_mark () const;
@@ -301,7 +303,7 @@ Accidental_engraver::get_bar_number ()
 }
 
 void
-Accidental_engraver::process_acknowledged_grobs ()
+Accidental_engraver::process_acknowledged ()
 {
   if (accidentals_.size () && !accidentals_.top ().done_)
     {

@@ -20,7 +20,7 @@ public:
 
 protected:
   virtual void finalize ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
 
   void start_spanner ();
@@ -85,6 +85,8 @@ Ledger_line_engraver::acknowledge_grob (Grob_info s)
 					   s.grob ());
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Ledger_line_engraver,
 		"Creates the spanner to draw ledger lines, and notices objects that need ledger lines",

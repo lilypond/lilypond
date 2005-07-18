@@ -217,6 +217,8 @@ Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
   collect_accidentals (ligature, primitives);
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Coherent_ligature_engraver,
 		/* descr */ "This is an abstract class.  Subclasses such as Gregorian_ligature_engraver handle ligatures by glueing special ligature heads together.",
 		/* creats*/ "",

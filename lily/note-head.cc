@@ -41,8 +41,9 @@ internal_print (Grob *me, String *font_char)
   SCM log = scm_int2num (Note_head::get_balltype (me));
   SCM proc = me->get_property ("glyph-name-procedure");
 
-  String suffix =  to_string (robust_scm2int (me->get_property ("duration-log"), 2));
-  if (ly_is_procedure (proc))
+  String suffix =  to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
+  if (style != ly_symbol2scm ("default")
+      && ly_is_procedure (proc))
     suffix = ly_scm2string (scm_call_2 (proc, log, style));
   
   Font_metric *fm = Font_interface::get_default_font (me);

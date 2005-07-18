@@ -21,10 +21,10 @@ class Axis_group_engraver : public Engraver
 protected:
   Spanner *staffline_;
   Link_array<Grob> elts_;
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
   virtual Spanner *get_spanner ();
   virtual void add_element (Grob *);
 public:

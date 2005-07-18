@@ -18,19 +18,21 @@
 #include "context.hh"
 #include "duration.hh"
 
+#include "translator.icc"
+
 
 class Auto_beam_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);
 
 protected:
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual bool try_music (Music *);
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
 
 private:
   bool test_moment (Direction, Moment);
@@ -367,7 +369,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Auto_beam_engraver::process_acknowledged_grobs ()
+Auto_beam_engraver::process_acknowledged ()
 {
   if (extend_mom_ > now_mom ())
     return ; 

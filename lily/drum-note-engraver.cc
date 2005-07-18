@@ -27,9 +27,9 @@ public:
 
 protected:
   virtual bool try_music (Music *ev);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Drum_notes_engraver::Drum_notes_engraver ()
@@ -162,6 +162,8 @@ Drum_notes_engraver::stop_translation_timestep ()
 
   events_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* descr */ "Generate noteheads.",

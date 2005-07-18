@@ -25,6 +25,7 @@
 #include "paper-system.hh"
 #include "tweak-registration.hh"
 #include "grob-array.hh"
+#include "pointer-group-interface.hh"
 
 System::System (System const &src, int count)
   : Spanner (src, count)
@@ -428,22 +429,22 @@ Link_array<Grob>
 System::columns () const
 {
   extract_grob_set (this, "columns", ro_columns);
-  Link_array<Grob> columns (ro_columns);
-  
-  bool found = false;
-  for (int i = columns.size (); i--;)
-    {
-      bool brb = Item::is_breakable (columns[i]);
-      found = found || brb;
 
-      /*
-	the last column should be breakable. Weed out any columns that
-	seem empty. We need to retain breakable columns, in case
-	someone forced a breakpoint.
-      */
-      if (!found || !Paper_column::is_used (columns[i]))
-	columns.del (i);
+  int last_breakable = ro_columns.size ();
+
+  while  (last_breakable --)
+    {
+      if (Item::is_breakable (ro_columns [last_breakable]))
+	break;
     }
+
+  Link_array<Grob> columns;
+  for (int i = 0; i <= last_breakable; i++)
+    {
+      if (Paper_column::is_used (ro_columns[i]))
+	columns.push (ro_columns[i]);
+    }
+
   return columns;
 }
 

@@ -21,7 +21,8 @@ public:
   static bool has_interface (Grob *);
 
   static String get_fontcharname (String style, int alteration);
-  static Array<Box> Accidental_interface::accurate_boxes (Grob *me, Grob **common);
+  static Array<Box> Accidental_interface::accurate_boxes (Grob *me,
+							  Grob **common);
 };
 
 #endif

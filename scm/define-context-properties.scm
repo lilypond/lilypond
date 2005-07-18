@@ -177,7 +177,7 @@ every bar line.
      (defaultBarType ,string? "Sets the default type of bar line.
 See @code{whichBar} for information on available bar types.
 
-This variable is  read by @internalsref{Timing_engraver} at
+This variable is  read by @internalsref{Timing_translator} at
 @internalsref{Score} level.
 ")
 
@@ -300,13 +300,11 @@ sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
      (printKeyCancellation ,boolean? "Print restoration alterations before a key signature change. ")
      (printPartCombineTexts ,boolean? "set Solo/A due texts in the part combiner?")
      (printOctaveNames ,boolean? "Print octave marks for the NoteNames context.")
-     (recordEventSequence ,procedure? "When
-@internalsref{Recording_group_engraver} is in this context, then upon
-termination of the context, this function is called with current
-context and a list of music objects.  The list of contains entries
-with start times, music objects and whether they are processed in this
-context.")
-     
+     (recordEventSequence ,procedure? "When Recording_group_engraver
+is in this context, then upon termination of the context, this
+function is called with current context and a list of music objects.
+The list of contains entries with start times, music objects and
+whether they are processed in this context.")
 
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
      (repeatCommands ,list? "This property is read to find any command of the form @code{(volta . @var{x})}, where @var{x} is a string or @code{#f}")

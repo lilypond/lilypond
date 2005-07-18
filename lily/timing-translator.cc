@@ -28,7 +28,7 @@ Timing_translator::stop_translation_timestep ()
   bool timb = to_boolean (tim);
   if (timb && allbars)
     {
-      Moment barleft = (measure_length () - measure_position ());
+      Moment barleft = (measure_length () - measure_position (context ()));
       Moment now = now_mom ();
 
       if (barleft > Moment (0)
@@ -76,21 +76,6 @@ Timing_translator::Timing_translator ()
 {
 }
 
-Moment
-Timing_translator::measure_position () const
-{
-  SCM sm = get_property ("measurePosition");
-
-  Moment m = 0;
-  if (unsmob_moment (sm))
-    {
-      m = *unsmob_moment (sm);
-      while (m.main_part_ < Rational (0))
-	m.main_part_ += measure_length ();
-    }
-
-  return m;
-}
 
 void
 Timing_translator::start_translation_timestep ()
@@ -150,8 +135,17 @@ Timing_translator::start_translation_timestep ()
   context ()->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Timing_translator,
 		"This engraver adds the alias "
-		"@code{Timing} to its containing context.",
+		"@code{Timing} to its containing context."
+		"Responsible for synchronizing timing information from staves.  "
+		"Normally in @code{Score}.  In order to create polyrhythmic music, "
+		"this engraver should be removed from @code{Score} and placed in "
+		"@code{Staff}. "
+		"\n\nThis engraver adds the alias @code{Timing} to its containing context."
+
+		,
 
 		"", "", "", "", "");

@@ -15,6 +15,8 @@
 #include "warn.hh"
 #include "staff-symbol.hh"
 
+#include "translator.icc"
+
 /*
   Create Volta spanners, by reading repeatCommands  property, usually
   set by Unfolded_repeat_iterator.
@@ -27,8 +29,8 @@ protected:
 
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
   Moment started_mom_;
   Spanner *volta_span_;

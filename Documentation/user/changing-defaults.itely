@@ -436,27 +436,30 @@ sophisticated method of blanking objects is shown in @ref{Common tweaks}.
 
 The next example shows a practical application.  Bar lines and time
 signatures are normally synchronized across the score.  This is done
-by the @code{Timing_engraver}.  This plug-in keeps an administration of
-time signature, location within the measure, etc.  By moving the
-@code{Timing_engraver} engraver from @code{Score} to @code{Staff}
-context, we can have a score where each staff has its own time
-signature.
+by the @code{Timing_translator} and @code{Default_bar_line_engraver}.
+This plug-in keeps an administration of time signature, location
+within the measure, etc.  By moving thes engraver from @code{Score} to
+@code{Staff} context, we can have a score where each staff has its own
+time signature.
 
 @cindex polymetric scores
 @cindex Time signatures, multiple
 
 @lilypond[quote,relative=1,raggedright,verbatim,fragment]
 \new Score \with {
-  \remove "Timing_engraver"
+  \remove "Timing_translator"
+  \remove "Default_bar_line_engraver"
 } <<
   \new Staff \with {
-    \consists "Timing_engraver"
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
   } {
       \time 3/4
       c4 c c c c c
   }
   \new Staff \with {
-    \consists "Timing_engraver"
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
   } {
        \time 2/4
        c4 c c c c c

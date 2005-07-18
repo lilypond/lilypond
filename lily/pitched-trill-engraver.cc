@@ -27,9 +27,9 @@ public:
   
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual bool try_music (Music*);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 private:
   Item *trill_head_;
   Item *trill_group_;
@@ -141,6 +141,8 @@ Pitched_trill_engraver::try_music (Music *)
 {
   return false;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Pitched_trill_engraver,
 		/* descr */ "Print the bracketed notehead after a notehead with trill.",

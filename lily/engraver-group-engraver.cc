@@ -18,7 +18,13 @@ void
 Engraver_group_engraver::announce_grob (Grob_info info)
 {
   announce_infos_.push (info);
-  get_daddy_engraver ()->announce_grob (info);
+
+  Engraver_group_engraver * dad_eng =
+    context_->get_parent_context ()
+    ? dynamic_cast<Engraver_group_engraver*> (context_->get_parent_context ()->implementation ())
+    : 0;
+  if (dad_eng)
+    dad_eng->announce_grob (info);
 }
 
 SCM find_acknowledge_engravers (SCM gravlist, SCM meta);
@@ -30,7 +36,7 @@ Engraver_group_engraver::acknowledge_grobs ()
   if (!announce_infos_.size ())
     return;
 
-  SCM tab = get_property ("acknowledgeHashTable");
+  SCM tab = context_->get_property ("acknowledgeHashTable");
   SCM name_sym = ly_symbol2scm ("name");
   SCM meta_sym = ly_symbol2scm ("meta");
 
@@ -59,7 +65,7 @@ Engraver_group_engraver::acknowledge_grobs ()
       SCM acklist = scm_hashq_ref (tab, nm, SCM_UNDEFINED);
       if (acklist == SCM_BOOL_F)
 	{
-	  acklist = find_acknowledge_engravers (scm_cons (self_scm (), get_simple_trans_list ()), meta);
+	  acklist = find_acknowledge_engravers (get_simple_trans_list (), meta);
 	  scm_hashq_set_x (tab, nm, acklist);
 	}
 
@@ -81,7 +87,7 @@ int
 Engraver_group_engraver::pending_grob_count () const
 {
   int count = announce_infos_.size ();
-  for (SCM s = context ()->children_contexts ();
+  for (SCM s = context_->children_contexts ();
        scm_is_pair (s); s = scm_cdr (s))
     {
       Context *c = unsmob_context (scm_car (s));
@@ -111,9 +117,7 @@ Engraver_group_engraver::do_announces ()
 
       while (1)
 	{
-	  engraver_each (get_simple_trans_list (),
-			 &Engraver::process_acknowledged_grobs);
-
+	  precomputed_translator_foreach (PROCESS_ACKNOWLEDGED);
 	  if (announce_infos_.size () == 0)
 	    break;
 
@@ -133,17 +137,20 @@ Engraver_group_engraver::initialize ()
   Translator_group::initialize ();
 }
 
-Engraver_group_engraver::Engraver_group_engraver () {}
+Engraver_group_engraver::Engraver_group_engraver ()
+{
+}
 
-ADD_TRANSLATOR (Engraver_group_engraver,
-		/* descr */ "A group of engravers taken together",
-		/* creats*/ "",
-		/* accepts */ "",
-		/* acks  */ "",
-		/* reads */ "",
-		/* write */ "");
+#include "translator.icc"
 
-/*****************/
+ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
+		      /* descr */ "A group of engravers taken together",
+		      /* creats*/ "",
+		      /* accepts */ "",
+		      /* acks  */ "",
+		      /* reads */ "",
+		      /* write */ "");
+
 
 bool
 engraver_valid (Translator *tr, SCM ifaces)
@@ -171,44 +178,4 @@ find_acknowledge_engravers (SCM gravlist, SCM meta_alist)
   l = scm_reverse_x (l, SCM_EOL);
 
   return l;
-}
-
-/* c&p engraver-group.cc */
-void
-recurse_down_engravers (Context *c, Engraver_method ptr, bool context_first)
-{
-  Engraver_group_engraver *tg
-    = dynamic_cast<Engraver_group_engraver *> (c->implementation ());
-
-  if (!context_first)
-    {
-      engraver_each (tg->get_simple_trans_list (),
-		     ptr);
-
-      (tg->*ptr) ();
-    }
-
-  for (SCM s = c->children_contexts (); scm_is_pair (s);
-       s = scm_cdr (s))
-    {
-      recurse_down_engravers (unsmob_context (scm_car (s)), ptr, context_first);
-    }
-
-  if (context_first)
-    {
-      engraver_each (tg->get_simple_trans_list (),
-		     ptr);
-      (tg->*ptr) ();
-    }
-}
-
-void
-engraver_each (SCM list, Engraver_method method)
-{
-  for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
-    {
-      Engraver *e = dynamic_cast<Engraver *> (unsmob_translator (scm_car (p)));
-      if (e)
-	(e->*method) ();
-    }
 }

@@ -28,9 +28,9 @@ class Phrasing_slur_engraver : public Engraver
 protected:
   virtual bool try_music (Music *);
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
@@ -143,6 +143,8 @@ Phrasing_slur_engraver::stop_translation_timestep ()
   end_slurs_.clear ();
   events_[START] = events_[STOP] = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,
 		/* descr */ "Print phrasing slurs. Similar to @ref{Slur_engraver}",

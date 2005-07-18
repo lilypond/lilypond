@@ -18,8 +18,8 @@ public:
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void derived_mark () const;
 private:
   Spanner *span_;
@@ -120,6 +120,8 @@ Ottava_spanner_engraver::finalize ()
   typeset_all ();
   last_ottavation_ = SCM_EOL;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,
 		/* descr */ "Create a text spanner when the ottavation property changes..",

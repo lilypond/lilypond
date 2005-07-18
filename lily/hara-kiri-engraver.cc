@@ -18,7 +18,7 @@ protected:
   virtual Spanner *get_spanner ();
   virtual void acknowledge_grob (Grob_info);
   virtual void add_element (Grob *e);
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
 
   SCM interesting_;
 public:
@@ -65,6 +65,8 @@ Hara_kiri_engraver::Hara_kiri_engraver ()
 {
   interesting_ = SCM_EOL;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Hara_kiri_engraver,
 		/* descr */ "Like Axis_group_engraver, but make a hara-kiri spanner, and add "

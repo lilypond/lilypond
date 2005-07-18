@@ -16,6 +16,8 @@
 #include "output-def.hh"
 #include "paper-column.hh"
 
+#include "translator.icc"
+
 /*
  * This class implements the notation specific aspects of Vaticana
  * style ligatures for Gregorian chant notation.

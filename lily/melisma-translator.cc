@@ -19,8 +19,8 @@ public:
   TRANSLATOR_DECLARATIONS (Melisma_translator);
 protected:
   virtual bool try_music (Music *);
-  virtual void process_music ();
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   Music *event_;
 };
 
@@ -64,6 +64,8 @@ Melisma_translator::Melisma_translator ()
 {
   event_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Melisma_translator,
 		/* descr */ "This translator collects melisma information about ties, beams, and user settings (@code{melismaBusy}, and signals it to the @code{\addlyrics} code.  ",

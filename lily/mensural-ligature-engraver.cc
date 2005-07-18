@@ -383,6 +383,8 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
   fold_up_primitives (primitives);
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Mensural_ligature_engraver,
 		/* descr */ "Handles Mensural_ligature_events by glueing special ligature heads together.",
 		/* creats*/ "MensuralLigature",

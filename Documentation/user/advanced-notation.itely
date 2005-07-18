@@ -1455,13 +1455,21 @@ tsMarkup =\markup {
 @end lilypond
 
 Each staff can also have its own time signature.  This is done by
-moving the @internalsref{Timing_engraver} to the @internalsref{Staff}
+moving the @internalsref{Timing_translator} to the @internalsref{Staff}
 context.
 
 @example
 \layout @{
-  \context @{ \Score \remove "Timing_engraver" @}
-  \context @{ \Staff \consists "Timing_engraver" @}
+  \context @{ \Score
+     \remove "Timing_translator"
+     \remove "Default_bar_line_engraver"
+  @}
+  \context @{
+    \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  @}
+    
 @}
 @end example
 
@@ -1486,8 +1494,15 @@ Now, each staff has its own time signature.
 
 @lilypond[quote,raggedright]
 \layout{
-  \context{ \Score \remove "Timing_engraver" }
-  \context{ \Staff \consists "Timing_engraver" }
+  \context{
+     \Score
+     \remove "Timing_translator"
+     \remove "Default_bar_line_engraver"
+    }
+  \context{ \Staff
+    \consists "Timing_translator"
+    \consist  "Default_bar_line_engraver"
+  }
 }
 
 \relative c' <<

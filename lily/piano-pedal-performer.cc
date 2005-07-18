@@ -30,8 +30,8 @@ protected:
   virtual void initialize ();
   virtual bool try_music (Music *);
   virtual void create_audio_elements ();
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
 
 private:
   Link_array<Audio_piano_pedal> audios_;
@@ -140,6 +140,8 @@ Piano_pedal_performer::try_music (Music *r)
     }
   return false;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Piano_pedal_performer, "", "",
 		"pedal-event",

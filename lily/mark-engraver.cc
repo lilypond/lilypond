@@ -26,11 +26,11 @@ public:
 protected:
   Item *text_;
 protected:
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   void create_items (Music *);
   virtual bool try_music (Music *ev);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
 private:
   Music *mark_ev_;
@@ -129,6 +129,8 @@ Mark_engraver::process_music ()
 	warning (_ ("mark label must be a markup object"));
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Mark_engraver,
 		/* descr */ "This engraver will create RehearsalMark objects. "

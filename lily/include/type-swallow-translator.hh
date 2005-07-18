@@ -14,7 +14,7 @@
 /** eat a certain type of event
     (Duh, it's good for your skin)
 */
-class Type_swallow_translator : public virtual Translator
+class Type_swallow_translator : public Translator
 {
 protected:
   String swallow_string_;

@@ -13,7 +13,9 @@
 #include "audio-element.hh"
 #include "warn.hh"
 
-ADD_TRANSLATOR (Performer_group_performer,
+#include "translator.icc"
+
+ADD_TRANSLATOR_GROUP (Performer_group_performer,
 		/* descr */ "",
 		/* creats*/ "",
 		/* accepts */ "",
@@ -25,7 +27,7 @@ void
 Performer_group_performer::announce_element (Audio_element_info info)
 {
   announce_infos_.push (info);
-  Translator *t
+  Translator_group *t
     = context ()->get_parent_context ()->implementation ();
 
   if (Performer_group_performer *eg = dynamic_cast<Performer_group_performer *> (t))
@@ -50,11 +52,21 @@ Performer_group_performer::acknowledge_audio_elements ()
 }
 
 void
+performer_each (SCM list, Performer_method method)
+{
+  for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
+    {
+      Performer *e = dynamic_cast<Performer *> (unsmob_translator (scm_car (p)));
+      if (e)
+	(e->*method) ();
+    }
+}
+
+void
 Performer_group_performer::do_announces ()
 {
   while (1)
     {
-      create_audio_elements ();
       performer_each (get_simple_trans_list (),
 		      &Performer::create_audio_elements);
 
@@ -66,17 +78,27 @@ Performer_group_performer::do_announces ()
     }
 }
 
-Performer_group_performer::Performer_group_performer ()
-{
-}
 
 void
-performer_each (SCM list, Performer_method method)
+Performer_group_performer::play_element (Audio_element *e)
 {
-  for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
+  Context *c = context_->get_parent_context ();
+  if (c)
     {
-      Performer *e = dynamic_cast<Performer *> (unsmob_translator (scm_car (p)));
-      if (e)
-	(e->*method) ();
+      Performer_group_performer *pgp = dynamic_cast<Performer_group_performer*> (c->implementation ());
+      pgp->play_element (e);
     }
 }
+
+int
+Performer_group_performer::get_tempo () const
+{
+  Context *c = context_->get_parent_context ();
+  if (c)
+    {
+      Performer_group_performer *pgp = dynamic_cast<Performer_group_performer*> (c->implementation ());
+      return pgp->get_tempo ();
+    }
+  return 60;
+}
+  

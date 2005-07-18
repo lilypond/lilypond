@@ -273,6 +273,8 @@ Gregorian_ligature_engraver::stop_translation_timestep ()
   pes_or_flexa_req_ = 0;
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Gregorian_ligature_engraver,
 		/* descr */ "This is an abstract class.  Subclasses such as Vaticana_ligature_engraver handle ligatures by glueing special ligature heads together.",
 		/* creats*/ "",

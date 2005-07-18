@@ -24,7 +24,7 @@ public:
 protected:
   virtual bool try_music (Music *ev);
 
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
@@ -87,6 +87,8 @@ Note_performer::try_music (Music *ev)
 
   return false;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Note_performer, "", "",
 		"note-event busy-playing-event", "", "", "");

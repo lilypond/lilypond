@@ -49,7 +49,7 @@ class New_fingering_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
 protected:
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   void add_fingering (Grob *, Music *, Music *);
   void add_script (Grob *, Music *, Music *);
@@ -359,6 +359,8 @@ New_fingering_engraver::New_fingering_engraver ()
 {
   stem_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (New_fingering_engraver,
 		/* descr */ "Create fingering-scripts for notes in a new chord.  "

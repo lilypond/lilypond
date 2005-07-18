@@ -24,8 +24,8 @@ public:
 
 protected:
   virtual bool try_music (Music *req);
-  virtual void process_acknowledged_grobs ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
 private:
   Music *breathing_sign_req_;
@@ -46,7 +46,7 @@ Breathing_sign_engraver::try_music (Music *r)
 }
 
 void
-Breathing_sign_engraver::process_acknowledged_grobs ()
+Breathing_sign_engraver::process_acknowledged ()
 {
   if (breathing_sign_req_ && ! breathing_sign_)
     {
@@ -61,6 +61,8 @@ Breathing_sign_engraver::stop_translation_timestep ()
   breathing_sign_ = 0;
   breathing_sign_req_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Breathing_sign_engraver,
 		/* descr */ "",

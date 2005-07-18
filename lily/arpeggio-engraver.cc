@@ -15,6 +15,8 @@
 #include "side-position-interface.hh"
 #include "note-column.hh"
 
+#include "translator.icc"
+
 class Arpeggio_engraver : public Engraver
 {
 public:
@@ -22,8 +24,8 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
 private:
   Item *arpeggio_;

@@ -12,6 +12,8 @@
 #include "warn.hh"
 #include "item.hh"
 
+#include "translator.icc"
+
 /*
   generate bars. Either user ("|:"), or default (new measure)
 */
@@ -23,8 +25,8 @@ public:
 
 protected:
   virtual void finalize ();
-  virtual void stop_translation_timestep ();
-  virtual void process_acknowledged_grobs ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
 
 private:
   void typeset_bar ();
@@ -63,12 +65,12 @@ Bar_engraver::finalize ()
   This is a little hairy : whichBar may be set by
   Repeat_acknowledge_engraver::process_music, which is at score
   context. This means that grobs could should be created after
-  process_music. We do stuff process_acknowledged_grobs (), just to be
+  process_music. We do stuff process_acknowledged (), just to be
   on the safe side.
 */
 
 void
-Bar_engraver::process_acknowledged_grobs ()
+Bar_engraver::process_acknowledged ()
 {
   if (!bar_ && scm_is_string (get_property ("whichBar")))
     create_bar ();

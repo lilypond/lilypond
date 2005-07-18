@@ -17,6 +17,8 @@
 #include "side-position-interface.hh"
 #include "engraver.hh"
 
+#include "translator.icc"
+
 class Trill_spanner_engraver : public Engraver
 {
 public:
@@ -25,8 +27,8 @@ protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
 private:
   Spanner *span_;

@@ -53,12 +53,12 @@ class Tie_engraver : public Engraver
   Spanner *tie_column_;
 
 protected:
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void derived_mark () const;
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   void typeset_tie (Grob *);
 public:
   TRANSLATOR_DECLARATIONS (Tie_engraver);
@@ -207,6 +207,8 @@ Tie_engraver::typeset_tie (Grob *her)
   index_set_cell (her->get_property ("head-pair"), LEFT, new_head_drul[LEFT]->self_scm ());
   index_set_cell (her->get_property ("head-pair"), RIGHT, new_head_drul[RIGHT]->self_scm ());
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Tie_engraver,
 		/* descr */ "Generate ties between noteheads of equal pitch.",

@@ -14,7 +14,7 @@ class Grace_engraver : public Engraver
 {
   void consider_change_grace_settings ();
 protected:
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   virtual void derived_mark () const;
   virtual void initialize (); 
 
@@ -104,6 +104,8 @@ Grace_engraver::start_translation_timestep ()
 {
   consider_change_grace_settings ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Grace_engraver,
 		/* descr */ "Set font size and other properties for grace notes.",

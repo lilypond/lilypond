@@ -26,10 +26,10 @@ class Custos_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
 
 private:
@@ -89,7 +89,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Custos_engraver::process_acknowledged_grobs ()
+Custos_engraver::process_acknowledged ()
 {
   if (scm_is_string (get_property ("whichBar")))
     custos_permitted = true;
@@ -132,6 +132,8 @@ Custos_engraver::finalize ()
     }
   custodes_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Custos_engraver,
 		/* descr */ "",

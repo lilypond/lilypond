@@ -36,9 +36,9 @@ public:
 
 protected:
   virtual bool try_music (Music *event);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Tab_note_heads_engraver::Tab_note_heads_engraver ()
@@ -164,6 +164,8 @@ Tab_note_heads_engraver::stop_translation_timestep ()
   note_events_.clear ();
   tabstring_events_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
 		/* descr */ "Generate one or more tablature noteheads from Music of type NoteEvent.",

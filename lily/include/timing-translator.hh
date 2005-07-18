@@ -14,18 +14,19 @@
 
 #include "parray.hh"
 
-class Timing_translator : public virtual Translator
+class Timing_translator : public Translator
 {
 public:
   TRANSLATOR_DECLARATIONS (Timing_translator);
 
 protected:
   virtual void initialize ();
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
 
 public:
-  Moment measure_position () const;
   Rational measure_length () const;
 };
+
+
 #endif // TIMING_TRANSLATOR_HH

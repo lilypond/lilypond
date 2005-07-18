@@ -13,6 +13,8 @@
 #include "context.hh"
 #include "translator-group.hh"
 
+#include "translator.icc"
+
 class Break_align_engraver : public Engraver
 {
   Item *align_;
@@ -22,29 +24,15 @@ class Break_align_engraver : public Engraver
   void add_to_group (SCM, Item *);
 protected:
   virtual void acknowledge_grob (Grob_info i);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void derived_mark () const;
-  void add_column (SCM);
-
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
 };
 
 void
-Break_align_engraver::add_column (SCM smob)
-{
-  Grob *e = unsmob_grob (smob);
-  Break_align_interface::add_element (align_, e);
-}
-
-void
 Break_align_engraver::stop_translation_timestep ()
 {
-  for (SCM p = column_alist_; scm_is_pair (p); p = scm_cdr (p))
-    {
-      SCM pair = scm_car (p);
-      add_column (scm_cdr (pair));
-    }
   column_alist_ = SCM_EOL;
 
   align_ = 0;
@@ -89,8 +77,14 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	  align_ = make_item ("BreakAlignment", SCM_EOL);
 
 	  Context *origin = inf.origin_contexts (this)[0];
-	  left_edge_ = make_item_from_properties (dynamic_cast<Engraver *>
-						  (origin->implementation ()),
+
+	  Translator_group *tg = origin ->implementation ();
+	  Engraver *random_source =  dynamic_cast<Engraver*> (unsmob_translator (scm_car (tg->get_simple_trans_list ())));
+
+	  /*
+	    Make left edge appear to come from same context as clef/bar-line etc.
+	   */
+	  left_edge_ = make_item_from_properties (random_source,
 						  ly_symbol2scm ("LeftEdge"),
 						  SCM_EOL,
 						  "LeftEdge");
@@ -121,6 +115,8 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
       group->set_parent (align_, Y_AXIS);
 
       column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
+
+      Break_align_interface::add_element (align_, group);
     }
   Axis_group_interface::add_element (group, item);
 }

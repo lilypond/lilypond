@@ -57,9 +57,9 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music *);
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver ()
@@ -206,6 +206,8 @@ Chord_tremolo_engraver::stop_translation_timestep ()
 
   typeset_beam ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Chord_tremolo_engraver,
 		/* descr */ "Generates beams for  tremolo repeats.",

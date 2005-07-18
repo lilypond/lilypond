@@ -16,7 +16,7 @@
 /** Perform a staff. Individual notes should have their instrument
     (staff-wide) set, so we override play_element ()
 */
-class Staff_performer : public Performer_group_performer
+class Staff_performer : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Staff_performer);
@@ -26,11 +26,11 @@ public:
   String instrument_string_;
 
 protected:
-  virtual void play_element (Audio_element *p);
+  virtual void acknowledge_audio_element (Audio_element *p);
   virtual void finalize ();
   virtual void initialize ();
   virtual void create_audio_elements ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
 private:
   Audio_staff *audio_staff_;
@@ -39,6 +39,8 @@ private:
   Audio_text *name_;
   Audio_tempo *tempo_;
 };
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Staff_performer, "", "",
 		"",
@@ -68,8 +70,6 @@ Staff_performer::initialize ()
 
   tempo_ = new Audio_tempo (get_tempo ());
   announce_element (Audio_element_info (tempo_, 0));
-
-  Performer_group_performer::initialize ();
 }
 
 void
@@ -89,7 +89,6 @@ Staff_performer::create_audio_elements ()
       play_element (instrument_);
       play_element (instrument_name_);
     }
-  Performer_group_performer::create_audio_elements ();
 }
 
 void
@@ -111,13 +110,11 @@ Staff_performer::stop_translation_timestep ()
     }
   instrument_name_ = 0;
   instrument_ = 0;
-  Performer_group_performer::stop_translation_timestep ();
 }
 
 void
 Staff_performer::finalize ()
 {
-  Performer_group_performer::finalize ();
   Performer::play_element (audio_staff_);
   audio_staff_ = 0;
 }
@@ -138,12 +135,11 @@ Staff_performer::new_instrument_string ()
 }
 
 void
-Staff_performer::play_element (Audio_element *p)
+Staff_performer::acknowledge_audio_element (Audio_element *p)
 {
   if (Audio_item *ai = dynamic_cast<Audio_item *> (p))
     {
       audio_staff_->add_audio_item (ai);
     }
-  Performer::play_element (p);
 }
 

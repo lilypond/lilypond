@@ -42,6 +42,8 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
     }
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Font_size_engraver,
 		/* descr */ "Puts fontSize into font-relative-size grob property.",
 		/* creats*/ "",

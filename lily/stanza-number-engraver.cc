@@ -21,8 +21,8 @@ class Stanza_number_engraver : public Engraver
   SCM last_stanza_;
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
 };
 
@@ -66,6 +66,8 @@ Stanza_number_engraver::stop_translation_timestep ()
 {
   text_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Stanza_number_engraver,
 		/* descr */ "",

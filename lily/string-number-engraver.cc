@@ -32,6 +32,8 @@ String_number_engraver::String_number_engraver ()
   engraver should provide this functionality.
 */
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (String_number_engraver,
 		/* descr */ "Swallow string-number-events - the purpose of this engraver is to"
 		" process tab for normal notation. To provent warnings for unprocessed "

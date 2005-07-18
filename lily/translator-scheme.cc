@@ -30,13 +30,3 @@ LY_DEFINE (ly_translator_description, "ly:translator-description",
   return tr->translator_description ();
 }
 
-int
-Translator::print_smob (SCM s, SCM port, scm_print_state *)
-{
-  Translator *me = (Translator *) SCM_CELL_WORD_1 (s);
-  scm_puts ("#<Translator ", port);
-  scm_puts (classname (me), port);
-  scm_puts (" >", port);
-  return 1;
-}
-

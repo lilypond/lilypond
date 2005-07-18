@@ -19,6 +19,7 @@
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
 #include "stem.hh"
+#include "pointer-group-interface.hh"
 
 /*
   TODO: let Dot_column communicate with stem via Note_column.

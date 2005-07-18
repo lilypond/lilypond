@@ -418,14 +418,17 @@ AncientRemoveEmptyStaffContext = \context {
     not contained in any other context).  It is instantiated
     automatically when an output definition (a @code{\score} or
     @code{\layout} block) is processed."
-  
+
+
+  \consists "Paper_column_engraver"
+  \consists "Vertically_spaced_contexts_engraver"
   \consists "Repeat_acknowledge_engraver"
   \consists "Staff_collecting_engraver"
 
   %% move the alias along with the engraver.
 
-  \consists "Timing_engraver"
-  
+  \consists "Timing_translator"
+  \consists "Default_bar_line_engraver"
   \consists "Output_property_engraver"
   \consists "System_start_delimiter_engraver"
   \consists "Mark_engraver"	

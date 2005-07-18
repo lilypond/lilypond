@@ -9,11 +9,11 @@
 #include "axis-group-engraver.hh"
 
 #include "spanner.hh"
-#include "paper-column.hh"
 #include "axis-group-interface.hh"
-#include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "context.hh"
+
+#include "translator.icc"
 
 Axis_group_engraver::Axis_group_engraver ()
 {
@@ -80,7 +80,7 @@ Axis_group_engraver::acknowledge_grob (Grob_info i)
   cyclic parent relationship if we have two Axis_group_engravers in
   the context.  */
 void
-Axis_group_engraver::process_acknowledged_grobs ()
+Axis_group_engraver::process_acknowledged ()
 {
   if (!staffline_)
     return;

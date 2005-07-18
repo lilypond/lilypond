@@ -25,7 +25,6 @@ Item::Item (SCM s, Object_key const *key)
   : Grob (s, key)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
-  interfaces_ = scm_cons (ly_symbol2scm ("item-interface"), interfaces_);
 }
 
 /**

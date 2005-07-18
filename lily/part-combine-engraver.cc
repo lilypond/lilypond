@@ -21,8 +21,8 @@ class Part_combine_engraver : public Engraver
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
 private:
   Item *text_;
@@ -91,6 +91,8 @@ Part_combine_engraver::stop_translation_timestep ()
   text_ = 0;
   event_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Part_combine_engraver,
 		/* descr */ "Part combine engraver for orchestral scores:		"

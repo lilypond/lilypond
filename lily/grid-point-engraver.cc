@@ -16,7 +16,7 @@ class Grid_point_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Grid_point_engraver);
 protected:
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 };
 
 void
@@ -37,6 +37,8 @@ Grid_point_engraver::process_music ()
 Grid_point_engraver::Grid_point_engraver ()
 {
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Grid_point_engraver,
 		/* descr */ "generate grid points.",

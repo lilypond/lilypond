@@ -34,7 +34,7 @@ protected:
   void make_stem (Grob_info);
 
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
 };
 
@@ -170,6 +170,8 @@ Stem_engraver::try_music (Music *m)
     }
   return false;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Stem_engraver,
 		/* descr */ "Create stems and single-stem tremolos.  It also works together with "

@@ -39,8 +39,8 @@ class Script_engraver : public Engraver
 
 protected:
   virtual bool try_music (Music *);
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
 
 public:
@@ -236,6 +236,8 @@ Script_engraver::stop_translation_timestep ()
 
   scripts_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Script_engraver,
 		/* descr */ "Handles note scripted articulations.",

@@ -21,8 +21,8 @@ protected:
   Grob *figure_;
 
   virtual bool try_music (Music *);
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 };
 
 Figured_bass_engraver::Figured_bass_engraver ()
@@ -82,6 +82,8 @@ Figured_bass_engraver::process_music ()
 	}
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Figured_bass_engraver,
 		/* descr */ "Make figured bass numbers.",

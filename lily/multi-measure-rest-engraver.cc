@@ -22,9 +22,9 @@ public:
 
 protected:
   virtual bool try_music (Music *);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   virtual void finalize ();
 
 private:
@@ -245,6 +245,8 @@ void
 Multi_measure_rest_engraver::finalize ()
 {
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		/* descr */

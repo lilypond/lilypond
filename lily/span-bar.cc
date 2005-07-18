@@ -16,6 +16,8 @@
 #include "axis-group-interface.hh"
 #include "bar-line.hh"
 #include "grob.hh"
+#include "pointer-group-interface.hh"
+
 
 void
 Span_bar::add_bar (Grob *me, Grob *b)

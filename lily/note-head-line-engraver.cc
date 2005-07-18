@@ -27,8 +27,8 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
 private:
   Spanner *line_;
@@ -71,7 +71,7 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Note_head_line_engraver::process_acknowledged_grobs ()
+Note_head_line_engraver::process_acknowledged ()
 {
   if (!line_ && follow_ && last_head_ && head_)
     {
@@ -98,6 +98,8 @@ Note_head_line_engraver::stop_translation_timestep ()
     last_head_ = head_;
   head_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Note_head_line_engraver,
 		/* descr */ "Engrave a line between two note heads, for example a glissando.  If "

@@ -107,7 +107,8 @@
 
 (define (document-engraver-by-name name)
   "NAME is a symbol."
-  (let* ((eg (find-engraver-by-name name )))
+  
+  (let* ((eg (find-engraver-by-name name)))
 
     (cons (string-append "@code{" (ref-ify (symbol->string name)) "}")
 	  (engraver-doc-string eg #f))))
@@ -149,12 +150,7 @@
 		   (cdr desc-handle) "(not documented)"))
 	 
 	 (accepts (cdr (assoc 'accepts context-desc)))
-	 (group (assq-ref context-desc 'group-type))
-
-	 (consists (append
-		    (if group (list group)
-			'())
-		    (cdr (assoc 'consists context-desc))))
+	 (consists (cdr (assoc 'consists context-desc)))
 	 (props (cdr (assoc 'property-ops context-desc)))
 	 (grobs  (context-grobs context-desc))
 	 (grob-refs (map (lambda (x) (ref-ify x)) grobs)))

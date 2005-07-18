@@ -13,6 +13,7 @@
 #include "main.hh"
 #include "spanner.hh"
 #include "warn.hh"
+#include "paper-column.hh"
 
 /*
   Grob descriptions (ie. alists with layout properties) are
@@ -191,30 +192,51 @@ updated_grob_properties (Context *tg, SCM sym)
     }
 }
 
-Item *
-make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char *name)
+Grob *
+make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, const char *name)
 {
   Context *context = tr->context ();
 
-  SCM props = updated_grob_properties (context, x);
+  SCM props = updated_grob_properties (context, symbol);
 
   Object_key const *key = context->get_grob_key (name);
-  Item *it = new Item (props, key);
+  Grob *grob = 0;
+  
+  SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
+  SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
+  
+  if (klass == ly_symbol2scm ("Item"))
+    grob = new Item (props, key);
+  else if (klass == ly_symbol2scm ("Spanner"))
+    grob = new Spanner (props, key);
+  else if (klass == ly_symbol2scm ("Paper_column"))
+    grob = new Paper_column (props, key);
 
-  dynamic_cast<Engraver *> (tr)->announce_grob (it, cause);
+  assert (grob);
+  dynamic_cast<Engraver *> (tr)->announce_grob (grob, cause);
 
+  return grob;
+}
+
+Item *
+make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char *name)
+{
+  Item *it = dynamic_cast<Item*> (make_grob_from_properties (tr, x, cause, name));
+  assert (it);
   return it;
 }
+
+Paper_column *
+make_paper_column_from_properties (Engraver *tr, SCM x, const char *name)
+{
+  return dynamic_cast<Paper_column*> (make_grob_from_properties (tr, x, SCM_EOL, name));
+}
+
 
 Spanner *
 make_spanner_from_properties (Engraver *tr, SCM x, SCM cause, const char *name)
 {
-  Context *context = tr->context ();
-
-  SCM props = updated_grob_properties (context, x);
-  Spanner *it = new Spanner (props, context->get_grob_key (name));
-
-  dynamic_cast<Engraver *> (tr)->announce_grob (it, cause);
-
-  return it;
+  Spanner* sp = dynamic_cast<Spanner*> (make_grob_from_properties (tr, x, cause, name));
+  assert (sp);
+  return sp;
 }

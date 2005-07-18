@@ -18,6 +18,7 @@
 #include "rest.hh"
 #include "note-head.hh"
 #include "accidental-placement.hh"
+#include "pointer-group-interface.hh"
 
 /*
   TODO: figure out if we can prune this class. This is just an

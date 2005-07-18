@@ -22,7 +22,9 @@
    (lambda (page)
      (display
        ";;;;;;;;;;;;;;;;;;;;;;;;;;\n;;;PAGE\n" file)
-     (pretty-print (ly:stencil-expr page) file))
+;     (pretty-print (ly:stencil-expr page) file)
+     (write (ly:stencil-expr page) file)
+     )
    (ly:paper-book-pages book))))
 
 (define-public output-classic-framework output-framework)

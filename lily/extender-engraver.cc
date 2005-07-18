@@ -31,8 +31,8 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
   virtual bool try_music (Music *);
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 };
 
 Extender_engraver::Extender_engraver ()
@@ -147,6 +147,8 @@ Extender_engraver::finalize ()
       pending_extender_ = 0;
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Extender_engraver,
 		/* descr */ "Create lyric extenders",

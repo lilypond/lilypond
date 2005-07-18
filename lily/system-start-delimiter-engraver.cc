@@ -22,7 +22,7 @@ public:
 protected:
   Spanner *delim_;
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
 };
 
@@ -81,6 +81,8 @@ System_start_delimiter_engraver::finalize ()
       delim_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,
 		/* descr */ "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",

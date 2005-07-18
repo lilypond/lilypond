@@ -28,7 +28,7 @@ public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Span_bar_engraver::Span_bar_engraver ()
@@ -71,6 +71,8 @@ Span_bar_engraver::stop_translation_timestep ()
     }
   bars_.set_size (0);
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Span_bar_engraver,
 		/* descr */ "This engraver makes cross-staff barlines: It catches all normal "

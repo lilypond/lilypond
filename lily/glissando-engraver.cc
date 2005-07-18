@@ -23,9 +23,9 @@ public:
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 private:
   Spanner *line_;
   Spanner *last_line_;
@@ -105,6 +105,8 @@ Glissando_engraver::finalize ()
       line_ = 0;
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Glissando_engraver,
 		/* descr */ "Engrave a glissandi",

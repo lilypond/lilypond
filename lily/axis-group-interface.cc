@@ -8,6 +8,7 @@
 
 #include "axis-group-interface.hh"
 
+#include "pointer-group-interface.hh"
 #include "grob.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "warn.hh"

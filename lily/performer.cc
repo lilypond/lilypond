@@ -45,5 +45,6 @@ Performer::announce_element (Audio_element_info i)
 {
   if (!i.origin_trans_)
     i.origin_trans_ = this;
+
   get_daddy_performer ()->announce_element (i);
 }

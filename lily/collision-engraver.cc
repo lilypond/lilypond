@@ -19,14 +19,14 @@ class Collision_engraver : public Engraver
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS (Collision_engraver);
 };
 
 void
-Collision_engraver::process_acknowledged_grobs ()
+Collision_engraver::process_acknowledged ()
 {
   if (col_ || note_columns_.size () < 2)
     return;
@@ -63,6 +63,8 @@ Collision_engraver::Collision_engraver ()
 {
   col_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Collision_engraver,
 		/* descr */ "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",
