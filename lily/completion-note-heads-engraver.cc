@@ -65,10 +65,10 @@ public:
 
 protected:
   virtual void initialize ();
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   virtual bool try_music (Music *req);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 void
@@ -311,6 +311,8 @@ Completion_heads_engraver::start_translation_timestep ()
 Completion_heads_engraver::Completion_heads_engraver ()
 {
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Completion_heads_engraver,
 		/* descr */ "This engraver replaces "

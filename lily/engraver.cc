@@ -41,7 +41,7 @@ Engraver::announce_grob (Grob *e, SCM cause)
 
   Grob_info i (this, e);
 
-  Engraver *g = get_daddy_engraver ();
+  Engraver_group_engraver *g = get_daddy_engraver ();
   if (g)
     g->announce_grob (i);
 }
@@ -55,6 +55,8 @@ Engraver::get_score_engraver () const
 {
   return dynamic_cast<Score_engraver *> (get_score_context ()->implementation ());
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Engraver,
 		"", "",

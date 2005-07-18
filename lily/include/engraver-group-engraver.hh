@@ -13,19 +13,18 @@
 #include "engraver.hh"
 #include "translator-group.hh"
 
-class Engraver_group_engraver : public virtual Engraver,
-				public virtual Translator_group
+class Engraver_group_engraver : public virtual Translator_group
 {
 protected:
   Array<Grob_info> announce_infos_;
 
 public:
-  TRANSLATOR_DECLARATIONS (Engraver_group_engraver);
+  VIRTUAL_COPY_CONSTRUCTOR ( Translator_group, Engraver_group_engraver);
+  Engraver_group_engraver ();
 
   virtual void initialize ();
-  virtual void do_announces ();
+  PRECOMPUTED_VIRTUAL void do_announces ();
   virtual void announce_grob (Grob_info);
-
   int pending_grob_count () const;
 private:
   virtual void acknowledge_grobs ();

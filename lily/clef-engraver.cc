@@ -25,8 +25,8 @@ public:
   Direction octave_dir_;
 
 protected:
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
 private:
   Item *clef_;
@@ -181,6 +181,8 @@ Clef_engraver::stop_translation_timestep ()
       octavate_ = 0;
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Clef_engraver,
 		/* descr */ "Determine and set reference point for pitches",

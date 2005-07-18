@@ -17,7 +17,7 @@ public:
 protected:
 
   virtual bool try_music (Music *req);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
@@ -67,5 +67,7 @@ Lyric_performer::try_music (Music *req)
     }
   return false;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Lyric_performer, "", "", "lyric-event", "", "", "");

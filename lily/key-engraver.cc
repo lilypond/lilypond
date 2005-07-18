@@ -37,9 +37,9 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
   virtual bool try_music (Music *ev);
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
 };
 
@@ -179,6 +179,8 @@ Key_engraver::initialize ()
   Pitch p (0, 0, 0);
   context ()->set_property ("tonic", p.smobbed_copy ());
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Key_engraver,
 		/* descr */ "",

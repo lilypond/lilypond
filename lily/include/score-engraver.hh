@@ -16,16 +16,12 @@ class Score_engraver : public virtual Score_translator,
 		       public virtual Engraver_group_engraver
 {
   System *system_;
-  int breaks_;			// used for stat printing
 
   Link_array<Grob> elems_;
-  Paper_column *command_column_;
-  Paper_column *musical_column_;
   Paper_score *pscore_;
 
-  void make_columns ();
-  void set_columns (Paper_column *, Paper_column *);
   void typeset_all ();
+
 protected:
   /* Score_translator */
   virtual void finish ();
@@ -34,19 +30,19 @@ protected:
 
   
   /* Engraver_group_engraver interface */
-  virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
   virtual void initialize ();
   virtual void finalize ();
   virtual void announce_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
   /*
     Translator interface
    */
   virtual void derived_mark () const;
+
 public:
-  TRANSLATOR_DECLARATIONS (Score_engraver);
+  Score_engraver ();
   void forbid_breaks ();
   virtual SCM get_output ();
 };

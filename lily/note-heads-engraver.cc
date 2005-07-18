@@ -28,8 +28,8 @@ public:
 
 protected:
   virtual bool try_music (Music *ev);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Note_heads_engraver::Note_heads_engraver ()
@@ -130,6 +130,8 @@ Note_heads_engraver::stop_translation_timestep ()
   dots_.clear ();
   note_evs_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Note_heads_engraver,
 		/* descr */ "Generate noteheads.",

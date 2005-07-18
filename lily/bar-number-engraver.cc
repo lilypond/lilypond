@@ -13,6 +13,8 @@
 #include "context.hh"
 #include "grob-array.hh"
 
+#include "translator.icc"
+
 /*
   TODO: detect the top staff (stavesFound), and acknowledge staff-group
   system-start-delims. If we find these, and the top staff is in the
@@ -24,9 +26,9 @@ class Bar_number_engraver : public Engraver
 protected:
   Item *text_;
 protected:
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   void create_items ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
 };

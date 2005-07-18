@@ -34,6 +34,8 @@ Staff_collecting_engraver::acknowledge_grob (Grob_info gi)
     }
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Staff_collecting_engraver,
 		/* descr */ "Maintain the stavesFound variable",
 

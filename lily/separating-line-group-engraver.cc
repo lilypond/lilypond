@@ -6,16 +6,18 @@
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "engraver.hh"
+
 #include "separating-group-spanner.hh"
 #include "separation-item.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
-#include "engraver.hh"
 #include "axis-group-interface.hh"
 #include "note-spacing.hh"
 #include "accidental-placement.hh"
 #include "context.hh"
 #include "grob-array.hh"
+#include "pointer-group-interface.hh"
 
 struct Spacings
 {
@@ -51,10 +53,10 @@ protected:
   Spanner *sep_span_;
 
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
@@ -216,6 +218,8 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
   musical_item_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Separating_line_group_engraver,
 		/* descr */ "Generates objects for computing spacing parameters.",

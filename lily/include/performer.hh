@@ -14,7 +14,7 @@
 
 /* Convert a music definition into a audio representation.
    A baseclass.  */
-class Performer : public virtual Translator
+class Performer : public Translator
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator, Performer);

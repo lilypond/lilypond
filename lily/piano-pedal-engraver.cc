@@ -64,9 +64,9 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
   virtual bool try_music (Music *);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
 private:
 
@@ -524,6 +524,8 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
       p->finished_line_spanner_ = 0;
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Piano_pedal_engraver,
 		/* descr */ "Engrave piano pedal symbols and brackets.",

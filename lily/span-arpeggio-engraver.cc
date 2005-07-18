@@ -25,8 +25,8 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
 private:
   Item *span_arpeggio_;
@@ -49,7 +49,7 @@ Span_arpeggio_engraver::acknowledge_grob (Grob_info info)
 }
 
 void
-Span_arpeggio_engraver::process_acknowledged_grobs ()
+Span_arpeggio_engraver::process_acknowledged ()
 {
   /*
     connectArpeggios is slightly brusque; we should really read a grob
@@ -97,6 +97,8 @@ Span_arpeggio_engraver::stop_translation_timestep ()
     }
   arpeggios_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Span_arpeggio_engraver,
 		/* descr */ "",

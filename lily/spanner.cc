@@ -209,8 +209,6 @@ Spanner::Spanner (SCM s, Object_key const *key)
   break_index_ = 0;
   spanned_drul_[LEFT] = 0;
   spanned_drul_[RIGHT] = 0;
-
-  interfaces_ = scm_cons (ly_symbol2scm ("spanner-interface"), interfaces_);
 }
 
 Spanner::Spanner (Spanner const &s, int count)

@@ -17,8 +17,8 @@ public:
   Link_array<Music> events_;
   Link_array<Item> texts_;
   virtual bool try_music (Music *m);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 bool
@@ -65,6 +65,8 @@ Note_name_engraver::stop_translation_timestep ()
 Note_name_engraver::Note_name_engraver ()
 {
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Note_name_engraver,
 		/* descr */ "",

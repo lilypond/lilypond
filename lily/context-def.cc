@@ -293,21 +293,18 @@ filter_engravers (SCM ell)
 Context *
 Context_def::instantiate (SCM ops, Object_key const *key)
 {
-  Context *tg = 0;
+  Context *context = 0;
 
   if (context_name_ == ly_symbol2scm ("Score"))
-    tg = new Score_context (key);
+    context = new Score_context (key);
   else
-    tg = new Context (key);
+    context = new Context (key);
 
-  tg->definition_ = self_scm ();
+  context->definition_ = self_scm ();
 
   SCM trans_names = get_translator_names (ops);
 
-  Translator_group *g = dynamic_cast<Translator_group *>
-    (get_translator (translator_group_type_));
-  g = dynamic_cast<Translator_group *> (g->clone ());
-
+  Translator_group *g = get_translator_group (translator_group_type_);
   SCM trans_list = SCM_EOL;
 
   for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
@@ -333,7 +330,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 	      trans_list = scm_cons (str, trans_list);
 	    }
 
-	  tr->daddy_context_ = tg;
+	  tr->daddy_context_ = context;
 	  scm_gc_unprotect_object (str);
 	}
     }
@@ -346,20 +343,20 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 
   g->simple_trans_list_ = trans_list;
 
-  tg->implementation_ = g->self_scm ();
+  context->implementation_ = g->self_scm ();
   if (dynamic_cast<Engraver *> (g))
     g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
   else if (dynamic_cast<Performer *> (g))
     g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
 
-  g->daddy_context_ = tg;
-  tg->aliases_ = context_aliases_;
+  g->context_ = context;
+  context->aliases_ = context_aliases_;
 
   scm_gc_unprotect_object (g->self_scm ());
 
-  tg->accepts_list_ = get_accepted (ops);
+  context->accepts_list_ = get_accepted (ops);
     
-  return tg;
+  return context;
 }
 
 SCM

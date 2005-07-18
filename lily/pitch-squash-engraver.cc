@@ -32,6 +32,8 @@ Pitch_squash_engraver::Pitch_squash_engraver ()
 {
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Pitch_squash_engraver,
 		/* descr */
 		"Set the vertical position of noteheads to "

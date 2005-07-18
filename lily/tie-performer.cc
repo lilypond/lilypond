@@ -24,11 +24,11 @@ class Tie_performer : public Performer
   bool ties_created_;
 
 protected:
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   virtual void acknowledge_audio_element (Audio_element_info);
   virtual bool try_music (Music *);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
 };
@@ -107,6 +107,8 @@ Tie_performer::stop_translation_timestep ()
   event_ = 0;
   now_heads_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Tie_performer,
 		/* descr */ "Generate ties between noteheads of equal pitch.",

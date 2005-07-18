@@ -31,6 +31,8 @@ Swallow_performer::try_music (Music *m)
 Swallow_performer::Swallow_performer ()
 {}
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Swallow_performer,
 		/* descr */ "",
 		/* creats*/ "",

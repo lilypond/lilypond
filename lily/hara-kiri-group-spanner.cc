@@ -9,6 +9,7 @@
 
 #include "hara-kiri-group-spanner.hh"
 
+#include "pointer-group-interface.hh"
 #include "axis-group-interface.hh"
 #include "spanner.hh"
 #include "warn.hh"

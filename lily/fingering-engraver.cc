@@ -23,9 +23,9 @@ public:
   TRANSLATOR_DECLARATIONS (Fingering_engraver);
 protected:
   virtual bool try_music (Music *m);
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
 
 private:
@@ -142,6 +142,8 @@ Fingering_engraver::start_translation_timestep ()
 Fingering_engraver::Fingering_engraver ()
 {
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Fingering_engraver,
 		/* descr */ "Create fingering-scripts",

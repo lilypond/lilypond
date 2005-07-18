@@ -20,6 +20,7 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 #include "self-alignment-interface.hh"
+#include "pointer-group-interface.hh"
 
 /*
   TODO:
@@ -62,8 +63,8 @@ protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *req);
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 };
 
 Dynamic_engraver::Dynamic_engraver ()
@@ -423,6 +424,8 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	Side_position_interface::add_support (line_spanner_, info.grob ());
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Dynamic_engraver,
 		/* descr */

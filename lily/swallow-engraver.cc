@@ -26,6 +26,8 @@ Swallow_engraver::Swallow_engraver ()
 {
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Swallow_engraver,
 		/* descr */ "This engraver swallows everything given to it silently. The purpose of "
 		"this is to prevent spurious \"event junked\" warnings.",

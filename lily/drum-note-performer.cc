@@ -21,13 +21,18 @@ public:
 
 protected:
   virtual bool try_music (Music *ev);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
   Link_array<Music> note_evs_;
   Link_array<Audio_note> notes_;
 };
+
+
+Drum_note_performer::Drum_note_performer ()
+{
+}
 
 void
 Drum_note_performer::create_audio_elements ()
@@ -85,10 +90,8 @@ Drum_note_performer::try_music (Music *ev)
   return false;
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Drum_note_performer,
 		"Play drum notes.", "",
 		"note-event busy-playing-event", "", "", "");
-
-Drum_note_performer::Drum_note_performer ()
-{
-}

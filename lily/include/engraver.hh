@@ -17,7 +17,7 @@
    a struct which processes events, and creates the #Grob#s.
    It may use derived classes.
 */
-class Engraver : public virtual Translator
+class Engraver : public Translator
 {
 
   friend class Engraver_group_engraver;
@@ -29,13 +29,6 @@ protected:
     Default: ignore the info
   */
   virtual void acknowledge_grob (Grob_info) {}
-
-  /** Do things with stuff found in acknowledge_grob. Ugh. Should
-      be looped with acknowledge_grob.
-
-  */
-  virtual void process_acknowledged_grobs () {}
-
   virtual void announce_grob (Grob_info);
   Engraver_group_engraver *get_daddy_engraver () const;
 
@@ -54,7 +47,9 @@ public:
 
 #define make_item(x, cause) make_item_from_properties (this, ly_symbol2scm (x), cause, x)
 #define make_spanner(x, cause) make_spanner_from_properties (this, ly_symbol2scm (x), cause, x)
+#define make_paper_column(x) make_paper_column_from_properties (this, ly_symbol2scm (x), x)
 Item *make_item_from_properties (Engraver *tg, SCM x, SCM cause, const char *name);
 Spanner *make_spanner_from_properties (Engraver *tg, SCM x, SCM cause, const char *name);
+Paper_column *make_paper_column_from_properties (Engraver *tg, SCM x, const char *name);
 
 #endif // ENGRAVER_HH

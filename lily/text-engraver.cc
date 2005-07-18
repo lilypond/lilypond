@@ -24,8 +24,8 @@ public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
 protected:
   virtual bool try_music (Music *m);
-  virtual void stop_translation_timestep ();
-  virtual void process_acknowledged_grobs ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
   virtual void acknowledge_grob (Grob_info);
 };
 
@@ -72,7 +72,7 @@ Text_engraver::acknowledge_grob (Grob_info inf)
 }
 
 void
-Text_engraver::process_acknowledged_grobs ()
+Text_engraver::process_acknowledged ()
 {
   if (texts_.size ())
     return;
@@ -118,6 +118,8 @@ Text_engraver::stop_translation_timestep ()
 Text_engraver::Text_engraver ()
 {
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Text_engraver,
 		/* descr */ "Create text-scripts",

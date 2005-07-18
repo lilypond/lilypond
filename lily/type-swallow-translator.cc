@@ -9,7 +9,9 @@
 #include "translator.hh"
 #include "music.hh"
 
-class Skip_event_swallow_translator : public virtual Translator
+#include "translator.icc"
+
+class Skip_event_swallow_translator : public Translator
 {
 protected:
   virtual bool try_music (Music *) { return true; }
@@ -18,7 +20,7 @@ public:
   TRANSLATOR_DECLARATIONS (Skip_event_swallow_translator);
 };
 
-class Rest_swallow_translator : public virtual Translator
+class Rest_swallow_translator : public Translator
 {
 protected:
   virtual bool try_music (Music *) { return true; }
@@ -48,7 +50,7 @@ ADD_TRANSLATOR (Rest_swallow_translator,
 
 		"");
 
-class Note_swallow_translator : public virtual Translator
+class Note_swallow_translator : public Translator
 {
 protected:
   virtual bool try_music (Music *) { return true; }
@@ -57,7 +59,9 @@ public:
   TRANSLATOR_DECLARATIONS (Note_swallow_translator);
 };
 
-Note_swallow_translator::Note_swallow_translator (){}
+Note_swallow_translator::Note_swallow_translator ()
+{
+}
 
 ADD_TRANSLATOR (Note_swallow_translator,
 		"Swallow notes",

@@ -11,6 +11,8 @@
 #include "context.hh"
 #include "repeated-music.hh"
 
+#include "translator.icc"
+
 /*
   Objective:
 
@@ -27,8 +29,8 @@ public:
 
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);
 protected:
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void initialize ();
 };
 
@@ -104,6 +106,7 @@ Repeat_acknowledge_engraver::process_music ()
 	}
     }
 }
+
 
 ADD_TRANSLATOR (Repeat_acknowledge_engraver,
 		/* descr */ "Acknowledge repeated music, and convert the contents of "

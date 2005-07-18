@@ -19,6 +19,8 @@
 #include "context.hh"
 #include "duration.hh"
 
+#include "translator.icc"
+
 class Beam_engraver : public Engraver
 {
 protected:
@@ -46,13 +48,13 @@ protected:
   void set_melisma (bool);
 
   Moment last_stem_added_at_;
-  virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   virtual void finalize ();
 
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
   virtual bool valid_start_point ();
   virtual bool valid_end_point ();

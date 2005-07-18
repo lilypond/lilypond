@@ -20,8 +20,8 @@ class Time_signature_engraver : public Engraver
   SCM last_time_fraction_;
 
 protected:
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
 };
@@ -67,6 +67,8 @@ Time_signature_engraver::stop_translation_timestep ()
 {
   time_signature_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Time_signature_engraver,
 		/* descr */ "Create a TimeSignature whenever @code{timeSignatureFraction} changes",

@@ -24,8 +24,8 @@ public:
 
 protected:
   virtual bool try_music (Music *ev);
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   void set_melisma (bool);
 private:
   Music *start_ev_;
@@ -88,6 +88,8 @@ Slur_performer::try_music (Music *m)
     }
   return false;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Slur_performer, "", "",
 		"slur-event", "", "", "");

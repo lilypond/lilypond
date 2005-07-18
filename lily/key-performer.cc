@@ -20,7 +20,7 @@ public:
 protected:
   virtual bool try_music (Music *ev);
   virtual void create_audio_elements ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
 private:
   Music *key_ev_;
@@ -95,6 +95,8 @@ Key_performer::try_music (Music *ev)
       
   return true;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Key_performer,
 		"", "",

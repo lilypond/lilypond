@@ -18,8 +18,8 @@ class Rest_collision_engraver : public Engraver
   Link_array<Grob> note_columns_;
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS (Rest_collision_engraver);
 };
@@ -31,7 +31,7 @@ Rest_collision_engraver::Rest_collision_engraver ()
 }
 
 void
-Rest_collision_engraver::process_acknowledged_grobs ()
+Rest_collision_engraver::process_acknowledged ()
 {
   if (rest_collision_
       || note_columns_.is_empty ()
@@ -64,6 +64,8 @@ Rest_collision_engraver::stop_translation_timestep ()
   note_columns_.clear ();
   rest_count_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Rest_collision_engraver,
 		/* descr */ "Handles collisions of rests.",

@@ -108,6 +108,8 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
     }
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Staff_symbol_engraver,
 		/* descr */ "Create the constellation of five (default) "
 		"staff lines.",

@@ -30,12 +30,12 @@
 class Ligature_engraver : public Engraver
 {
 protected:
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
 
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual Spanner *create_ligature_spanner (); /* abstract method */
   virtual void typeset_ligature (Spanner *ligature,
 				 Array<Grob_info> primitives); /* abstract method */

@@ -47,9 +47,9 @@ class Spacing_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void start_translation_timestep ();
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
 };
 
@@ -171,6 +171,8 @@ Spacing_engraver::start_translation_timestep ()
   while (playing_durations_.size () && playing_durations_.front ().end_ == now_)
     stopped_durations_.push (playing_durations_.get ());
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Spacing_engraver,
 		/* descr */ "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",

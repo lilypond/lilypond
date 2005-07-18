@@ -18,8 +18,8 @@ protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 
 private:
   Spanner *span_;
@@ -138,6 +138,8 @@ Text_spanner_engraver::finalize ()
       span_ = 0;
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Text_spanner_engraver,
 		/* descr */ "Create text spanner from a Music.",

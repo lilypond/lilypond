@@ -17,10 +17,11 @@
 class Score_performer : public Score_translator, public virtual Performer_group_performer
 {
 public:
-  TRANSLATOR_DECLARATIONS (Score_performer);
+  VIRTUAL_COPY_CONSTRUCTOR (Translator_group,Score_performer);
   ~Score_performer ();
   Performance *performance_;
 
+  Score_performer ();
 protected:
   virtual void prepare (Moment mom);
   virtual void finish ();

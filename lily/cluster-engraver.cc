@@ -19,9 +19,9 @@ class Cluster_spanner_engraver : public Engraver
 protected:
   TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
   virtual bool try_music (Music *);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
 private:
   Link_array<Music> cluster_notes_;
@@ -124,6 +124,8 @@ Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
       spanner_ = 0;
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Cluster_spanner_engraver,
 		/* descr */	"Engraves a cluster using Spanner notation ",

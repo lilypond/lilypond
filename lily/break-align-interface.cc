@@ -9,8 +9,9 @@
 #include <math.h>
 
 #include "break-align-interface.hh"
-#include "libc-extension.hh"	// isinf
 
+#include "libc-extension.hh"	// isinf
+#include "pointer-group-interface.hh"
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"

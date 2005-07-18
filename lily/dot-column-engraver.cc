@@ -22,7 +22,7 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Dot_column_engraver::Dot_column_engraver ()
@@ -65,6 +65,8 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
       stem_ = info.grob ();
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Dot_column_engraver,
 		/* descr */ "Engraves dots on dotted notes shifted to the right of the note.\n"

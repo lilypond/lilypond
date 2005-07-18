@@ -18,7 +18,7 @@ public:
 
 protected:
 
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void create_audio_elements ();
   virtual void derived_mark () const;
   SCM prev_fraction_;
@@ -68,5 +68,7 @@ Time_signature_performer::stop_translation_timestep ()
       audio_ = 0;
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Time_signature_performer, "", "", "", "", "", "");

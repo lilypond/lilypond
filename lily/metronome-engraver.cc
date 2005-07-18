@@ -29,9 +29,9 @@ protected:
 
   void create_items (Music *);
 protected:
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *ev);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 };
 
 Metronome_mark_engraver::Metronome_mark_engraver ()
@@ -84,6 +84,8 @@ Metronome_mark_engraver::process_music ()
       text_->set_property ("text", result);
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
 		/* descr */ "Engrave metro nome marking. This delegates the formatting work "

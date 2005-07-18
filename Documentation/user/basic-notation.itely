@@ -1072,7 +1072,7 @@ measure is subdivided in 2, 2, 2 and 3.  This is passed to
 
 @seealso
 
-Program reference: @internalsref{TimeSignature}, and @internalsref{Timing_engraver}.
+Program reference: @internalsref{TimeSignature}, and @internalsref{Timing_translator}.
 
 
 @refbugs

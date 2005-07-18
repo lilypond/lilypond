@@ -24,7 +24,7 @@ public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
   virtual bool try_music (Music *req);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
@@ -124,6 +124,8 @@ Dynamic_performer::try_music (Music *r)
     }
   return false;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Dynamic_performer,
 		/*descr*/		 "",

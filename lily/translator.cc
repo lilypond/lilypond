@@ -13,6 +13,7 @@
 #include "context-def.hh"
 #include "global-context.hh"
 
+#include "translator.icc"
 #include "ly-smobs.icc"
 
 Translator::~Translator ()
@@ -28,13 +29,14 @@ Translator::init ()
   smobify_self ();
 }
 
+
 void
-Translator::do_announces ()
+Translator::process_music ()
 {
 }
 
 void
-Translator::process_music ()
+Translator::process_acknowledged ()
 {
 }
 
@@ -156,3 +158,21 @@ void
 Translator::derived_mark () const
 {
 }
+
+void
+Translator::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])
+{
+  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
+    ptrs[i] = 0;
+}
+
+int
+Translator::print_smob (SCM s, SCM port, scm_print_state *)
+{
+  Translator *me = (Translator *) SCM_CELL_WORD_1 (s);
+  scm_puts ("#<Translator ", port);
+  scm_puts (classname (me), port);
+  scm_puts (" >", port);
+  return 1;
+}
+

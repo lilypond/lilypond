@@ -20,7 +20,7 @@ public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Grid_line_span_engraver::Grid_line_span_engraver ()
@@ -57,6 +57,8 @@ Grid_line_span_engraver::stop_translation_timestep ()
     }
   lines_.set_size (0);
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Grid_line_span_engraver,
 		/* descr */ "This engraver makes cross-staff linelines: It catches all normal "

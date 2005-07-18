@@ -28,8 +28,8 @@ protected:
   virtual void create_text ();
   virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   
 };
 
@@ -129,6 +129,8 @@ Instrument_name_engraver::process_music ()
     create_text ();
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Instrument_name_engraver,
 		/* descr */ " Prints the name of the instrument (specified by "
 		" @code{Staff.instrument} and @code{Staff.instr}) "
@@ -174,6 +176,8 @@ Vocal_name_engraver::create_text ()
   if (text_->get_property ("text") != txt)
     text_->set_property ("text", txt);
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Vocal_name_engraver,
 		/* descr */ " Prints the name of the a lyric voice (specified by "

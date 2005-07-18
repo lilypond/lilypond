@@ -10,6 +10,9 @@
 #include "script-column.hh"
 #include "side-position-interface.hh"
 
+#include "translator.icc"
+
+
 /**
    Find potentially colliding scripts, and put them in a
    Script_column, that will fix the collisions.  */
@@ -22,8 +25,8 @@ public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Script_column_engraver::Script_column_engraver ()
@@ -53,7 +56,7 @@ Script_column_engraver::acknowledge_grob (Grob_info inf)
 }
 
 void
-Script_column_engraver::process_acknowledged_grobs ()
+Script_column_engraver::process_acknowledged ()
 {
   if (!scol_ && scripts_.size () > 1)
     {

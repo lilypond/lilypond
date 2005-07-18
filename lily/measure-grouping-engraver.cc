@@ -20,7 +20,7 @@ protected:
   Spanner *grouping_;
   Rational stop_grouping_mom_;
 
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
 };
@@ -103,6 +103,8 @@ Measure_grouping_engraver::Measure_grouping_engraver ()
 {
   grouping_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Measure_grouping_engraver,
 		/* descr */ "Creates MeasureGrouping to indicate beat subdivision.",

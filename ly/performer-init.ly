@@ -4,10 +4,11 @@
 				% setup for Request->Element conversion. Guru-only
 				%
 \context {
-    \type "Staff_performer"
+    \type "Performer_group_performer"
     \name Staff
     \accepts Voice
-
+    
+    \consists "Staff_performer"
     \consists "Key_performer"
     \consists "Tempo_performer"
     \consists "Time_signature_performer"
@@ -119,7 +120,8 @@
 
 
 \context {
-    \type "Staff_performer" % Performer_group_performer ?
+    \type "Performer_group_performer"
+    \consists "Staff_performer" % Performer_group_performer ?
     \consists "Lyric_performer"
     \name Lyrics
     \consists "Time_signature_performer"

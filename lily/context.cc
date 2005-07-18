@@ -36,7 +36,9 @@ Context::check_removal ()
       trg->check_removal ();
       if (trg->is_removable ())
 	{
-	  recurse_over_translators (trg, &Translator::finalize, UP);
+	  recurse_over_translators (trg, &Translator::finalize,
+				    &Translator_group::finalize,
+				    UP);
 	  remove_context (trg);
 	}
     }
@@ -72,7 +74,10 @@ Context::add_context (Context *t)
 	 operations require that we are in the hierarchy.  */
       td->apply_default_property_operations (t);
 
-      recurse_over_translators (t, &Translator::initialize, DOWN);
+      recurse_over_translators (t,
+				&Translator::initialize,
+				&Translator_group::initialize,
+				DOWN);
     }
 }
 
@@ -485,10 +490,10 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
       scm_display (d->get_context_name (), port);
     }
 
-  if (Context *td = dynamic_cast<Context *> (sc))
+  if (!sc->id_string_.is_empty ())
     {
       scm_puts ("=", port);
-      scm_puts (td->id_string_.to_str0 (), port);
+      scm_puts (sc->id_string_.to_str0 (), port);
     }
 
   scm_puts (" ", port);
@@ -523,7 +528,7 @@ IMPLEMENT_TYPE_P (Context, "ly:context?");
 bool
 Context::try_music (Music *m)
 {
-  Translator *t = implementation ();
+  Translator_group *t = implementation ();
   if (!t)
     return false;
 
@@ -556,7 +561,7 @@ Context::get_parent_context () const
 Translator_group *
 Context::implementation () const
 {
-  return dynamic_cast<Translator_group *> (unsmob_translator (implementation_));
+  return dynamic_cast<Translator_group *> (unsmob_translator_group (implementation_));
 }
 
 void
@@ -571,4 +576,39 @@ Context::clear_key_disambiguations ()
     {
       unsmob_context (scm_car (s))->clear_key_disambiguations ();
     }
+}
+
+
+/*
+  Ugh. Where to put this? 
+*/
+Rational
+measure_length (Context const *context)
+{
+  SCM l = context->get_property ("measureLength");
+  Rational length (1); 
+  if (unsmob_moment (l))
+    length = unsmob_moment (l)->main_part_;
+  return length;
+}
+
+Moment
+measure_position (Context const *context)
+{
+  SCM sm = context->get_property ("measurePosition");
+
+  Moment m = 0;
+  if (unsmob_moment (sm))
+    {
+      m = *unsmob_moment (sm);
+
+      if (m.main_part_ < Rational (0))
+	{
+	  Rational length (measure_length (context));
+	  while (m.main_part_ < Rational (0))
+	    m.main_part_ += length;
+	}
+    }
+
+  return m;
 }

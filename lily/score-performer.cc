@@ -16,8 +16,9 @@
 #include "warn.hh"
 #include "context-def.hh"
 #include "output-def.hh"
+#include "context.hh"
 
-ADD_TRANSLATOR (Score_performer,
+ADD_TRANSLATOR_GROUP (Score_performer,
 		/* descr */ "",
 		/* creats*/ "",
 		/* accepts */ "",
@@ -55,21 +56,24 @@ Score_performer::prepare (Moment m)
 {
   audio_column_ = new Audio_column (m);
   play_element (audio_column_);
-  recurse_over_translators (context (), &Translator::start_translation_timestep, UP);
+  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, UP);
 }
 
 void
 Score_performer::finish ()
 {
-  recurse_over_translators (context (), &Translator::finalize, UP);
+  recurse_over_translators (context (),
+			    &Translator::finalize,
+			    &Translator_group::finalize,
+			    UP);
 }
 
 void
 Score_performer::one_time_step ()
 {
-  recurse_over_translators (context (), &Performer::process_music, UP);
-  recurse_over_translators (context (), &Performer::do_announces, UP);
-  recurse_over_translators (context (), &Translator::stop_translation_timestep, UP);
+  precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
+  do_announces ();
+  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
 }
 
 int
@@ -101,7 +105,7 @@ Score_performer::initialize ()
 {
   performance_ = new Performance;
   scm_gc_unprotect_object (performance_->self_scm ());
-  performance_->midi_ = get_output_def ();
+  performance_->midi_ = context ()->get_output_def ();
 
   Translator_group::initialize ();
 }

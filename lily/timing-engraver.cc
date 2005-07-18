@@ -1,81 +1,54 @@
 /*
-  timing-engraver.cc -- implement Timing_engraver
+  timing-engraver.cc -- implement Default_bar_line_engraver
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "timing-translator.hh"
 #include "engraver.hh"
-
 #include "context.hh"
 #include "multi-measure-rest.hh"
 #include "grob.hh"
 #include "warn.hh"
 
 
-class Timing_engraver : public Timing_translator, public Engraver
+class Default_bar_line_engraver : public Engraver
 {
 protected:
   /* Need to know whether we're advancing in grace notes, or not. */
   Moment last_moment_;
 
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
 public:
-  TRANSLATOR_DECLARATIONS (Timing_engraver);
+  TRANSLATOR_DECLARATIONS (Default_bar_line_engraver);
 };
 
-ADD_TRANSLATOR (Timing_engraver,
-		/* descr */ " Responsible for synchronizing timing information from staves.  "
-		"Normally in @code{Score}.  In order to create polyrhythmic music, "
-		"this engraver should be removed from @code{Score} and placed in "
-		"@code{Staff}. "
-		"\n\nThis engraver adds the alias @code{Timing} to its containing context.",
+#include "translator.icc"
+
+ADD_TRANSLATOR (Default_bar_line_engraver,
+		"This engraver determines what kind of automatic bar lines should be produced, "
+		"and sets @code{whichBar} accordingly. It should be at the same "
+		"level as @ref{Timing_translator}. ",  
 		/* creats*/ "",
 		/* accepts */ "",
 		/* acks  */ "",
-		/* reads */ "automaticBars whichBar barAlways defaultBarType "
-		"skipBars timing measureLength measurePosition currentBarNumber",
-		/* write */ "");
+		/* reads */
+		"measurePosition automaticBars whichBar barAlways defaultBarType "
+		"measureLength",
+		/* write */ "automaticBars");
 
 
-Timing_engraver::Timing_engraver ()
+Default_bar_line_engraver::Default_bar_line_engraver ()
 {
   last_moment_.main_part_ = Rational (-1);
 }
 
 void
-Timing_engraver::process_music ()
+Default_bar_line_engraver::start_translation_timestep ()
 {
-  Timing_translator::process_music ();
-
-  bool start_of_measure = (last_moment_.main_part_ != now_mom ().main_part_
-			   && !measure_position ().main_part_);
-
-  /*
-    We can't do this in start_translation_timestep(), since time sig
-    changes won't have happened by then.
-  */
-  if (start_of_measure)
-    {
-      Moment mlen = Moment (measure_length ());
-      Grob * column = unsmob_grob (get_property ("currentCommandColumn"));
-      if (column)
-	column->set_property ("measure-length", mlen.smobbed_copy ());
-      else
-	programming_error("No command column?");
-    }
-}
-
-void
-Timing_engraver::start_translation_timestep ()
-{
-  Timing_translator::start_translation_timestep ();
-
   SCM automatic_bars = get_property ("automaticBars");
   Moment now = now_mom ();
   SCM which = get_property ("whichBar");
@@ -84,7 +57,7 @@ Timing_engraver::start_translation_timestep ()
   if (!scm_is_string (which))
     which = SCM_EOL;
 
-  Moment mp = measure_position ();
+  Moment mp = measure_position (context ());
   bool start_of_measure = (last_moment_.main_part_ != now.main_part_
 			   && !mp.main_part_);
 
@@ -104,9 +77,8 @@ Timing_engraver::start_translation_timestep ()
 }
 
 void
-Timing_engraver::stop_translation_timestep ()
+Default_bar_line_engraver::stop_translation_timestep ()
 {
-  Timing_translator::stop_translation_timestep ();
   context ()->set_property ("whichBar", SCM_EOL);
   last_moment_ = now_mom ();
 }

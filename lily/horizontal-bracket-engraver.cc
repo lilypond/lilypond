@@ -22,10 +22,12 @@ public:
   int push_count_;
 
   virtual bool try_music (Music *);
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
 };
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Horizontal_bracket_engraver,
 		"Create horizontal brackets over notes for musical analysis purposes.",

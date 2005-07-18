@@ -31,8 +31,8 @@ public:
 protected:
   virtual bool try_music (Music *);
   virtual void acknowledge_audio_element (Audio_element_info);
-  virtual void process_music ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
 private:
   Audio_dynamic *audio_;
@@ -179,6 +179,8 @@ Span_dynamic_performer::try_music (Music *r)
     }
   return false;
 }
+#include "translator.icc"
+
 ADD_TRANSLATOR (Span_dynamic_performer,
 		"", "",
 		"crescendo-event decrescendo-event",

@@ -17,7 +17,7 @@ class Forbid_line_break_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Forbid_line_break_engraver);
-  virtual void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
 };
 
 Forbid_line_break_engraver::Forbid_line_break_engraver (){}
@@ -44,6 +44,8 @@ Forbid_line_break_engraver::start_translation_timestep ()
       busy = scm_cdr (busy);
     }
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Forbid_line_break_engraver,
 		/* descr */ "Forbid line breaks when note heads are still playing at some point.",

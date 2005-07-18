@@ -19,6 +19,7 @@
 #include "lookup.hh"
 #include "item.hh"
 
+#include "pointer-group-interface.hh"
 
 
 Stencil

@@ -110,5 +110,8 @@ Grob *get_current_note_head (Context *voice);
 Grob *get_current_rest (Context *voice);
 DECLARE_UNSMOB (Context, context);
 
+Moment measure_position (Context const *context);
+Rational measure_length (Context const *context);
+
 #endif /* CONTEXT_HH */
 

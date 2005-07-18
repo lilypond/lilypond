@@ -13,13 +13,16 @@
 
 typedef void (Performer:: *Performer_method) (void);
 
-class Performer_group_performer : public Performer, public virtual Translator_group
+class Performer_group_performer : public virtual Translator_group
 {
 public:
-  TRANSLATOR_DECLARATIONS (Performer_group_performer);
+  VIRTUAL_COPY_CONSTRUCTOR (Translator_group,Performer_group_performer);
 
-  virtual void do_announces ();
+  PRECOMPUTED_VIRTUAL void do_announces ();
   virtual void announce_element (Audio_element_info);
+  virtual void play_element (Audio_element *p);
+  virtual int get_tempo () const;
+  
 protected:
   Array<Audio_element_info> announce_infos_;
 

@@ -16,6 +16,8 @@
 #include "pointer-group-interface.hh"
 #include "grob-array.hh"
 
+#include "translator.icc"
+
 class Vertical_align_engraver : public Engraver
 {
   Spanner *valign_;
@@ -28,7 +30,7 @@ public:
 protected:
   virtual void derived_mark () const;
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
   virtual void initialize ();
 };

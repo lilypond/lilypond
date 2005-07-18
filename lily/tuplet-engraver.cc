@@ -12,6 +12,8 @@
 #include "engraver.hh"
 #include "spanner.hh"
 
+#include "translator.icc"
+
 struct Tuplet_description
 {
   Music *music_;
@@ -35,8 +37,8 @@ protected:
 
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *r);
-  virtual void start_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
 };
 
 bool

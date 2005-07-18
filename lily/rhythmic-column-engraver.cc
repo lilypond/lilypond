@@ -51,8 +51,8 @@ class Rhythmic_column_engraver : public Engraver
 protected:
 
   virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Rhythmic_column_engraver::Rhythmic_column_engraver ()
@@ -66,7 +66,7 @@ Rhythmic_column_engraver::Rhythmic_column_engraver ()
 }
 
 void
-Rhythmic_column_engraver::process_acknowledged_grobs ()
+Rhythmic_column_engraver::process_acknowledged ()
 {
   if (rheads_.size ())
     {
@@ -144,6 +144,8 @@ Rhythmic_column_engraver::stop_translation_timestep ()
   dotcol_ = 0;
   stem_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
 		/* descr */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",

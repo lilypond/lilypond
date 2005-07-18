@@ -22,8 +22,8 @@ class Chord_name_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_name_engraver);
 protected:
-  virtual void stop_translation_timestep ();
-  virtual void process_music ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void process_music ();
   virtual bool try_music (Music *);
   virtual void finalize ();
   virtual void derived_mark () const;
@@ -150,6 +150,8 @@ Chord_name_engraver::stop_translation_timestep ()
   The READs description is not strictly accurate:
   which properties are read depend on the chord naming function active.
 */
+#include "translator.icc"
+
 ADD_TRANSLATOR (Chord_name_engraver,
 		/* descr */ "Catch note-events "
 		"and generate the appropriate chordname.",

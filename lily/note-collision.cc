@@ -19,6 +19,7 @@
 #include "stem.hh"
 #include "side-position-interface.hh"
 #include "dot-column.hh"
+#include "pointer-group-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Note_collision_interface, force_shift_callback, 2);
 

@@ -18,8 +18,8 @@ public:
 protected:
   virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void start_translation_timestep ();
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
 Grob_pq_engraver::Grob_pq_engraver ()
@@ -108,6 +108,8 @@ Grob_pq_engraver::start_translation_timestep ()
   if (start_busy != busy)
     context ()->set_property ("busyGrobs", busy);
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Grob_pq_engraver,
 

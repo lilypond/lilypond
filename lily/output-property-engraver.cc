@@ -17,7 +17,7 @@ TRANSLATOR_DECLARATIONS (Output_property_engraver);
 protected:
   Link_array<Music> props_;
 
-  virtual void stop_translation_timestep ();
+  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
 };
@@ -78,6 +78,8 @@ Output_property_engraver::stop_translation_timestep ()
 Output_property_engraver::Output_property_engraver ()
 {
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Output_property_engraver,
 /* descr */       "Interpret Music of Output_property type, and apply a function "
