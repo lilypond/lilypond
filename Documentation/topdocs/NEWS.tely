@@ -33,6 +33,11 @@ See user manual, \NAME\
 
 @itemize @bullet
 @item
+The setting @code{whichBar} and time-bookkeeping is now split into a
+@code{Default_bar_line_engraver} and @code{Timing_translator}
+respectively.
+
+@item
 Explicit pitches may be added to trills,
 
 @lilypond[relative,verbatim,fragment]

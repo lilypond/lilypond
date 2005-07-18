@@ -1,5 +1,9 @@
 2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): add note about engravers.
+
+	* python/convertrules.py (conv): rule for Timing_translator. 
+
 	* lily/include/translator.icc: new file. 
 
 	* lily/paper-column-engraver.cc (process_music): new

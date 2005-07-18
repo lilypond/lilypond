@@ -2512,13 +2512,19 @@ conversions.append (((2, 7, 0), conv,
 		     'ly:get-default-font -> ly:grob-default-font'))
 
 def conv (str):
-	return re.sub('ly:parser-define', 'ly:parser-define!', str)
+	str = re.sub('ly:parser-define', 'ly:parser-define!', str)
+	str = re.sub('excentricity', 'eccentricity', str)
+	str = re.sub(r'\\(consists|remove) *"?Timing_engraver"?',
+		     r'\\\1 "Timing_translator" \\\1 "Default_bar_line_engraver"',
+		     str)
+	return str
 
-conversions.append (((2, 7, 0), conv,
-		     'ly:parser-define -> ly:parser-define!'))
+conversions.append (((2, 7, 1), conv,
+		     '''ly:parser-define -> ly:parser-define!
+excentricity -> eccentricity
+Timing_engraver -> Timing_translator + Default_bar_line_engraver
+'''))
 
-def conv (str):
-	return re.sub('excentricity', 'eccentricity', str)
 
 ################################################################
 
