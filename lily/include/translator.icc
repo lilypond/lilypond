@@ -29,7 +29,6 @@
   ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
 #define ADD_TRANSLATOR(classname, desc, grobs, accepted, acked, read, write) \
-  DEFINE_STATIC_METHODS(classname);\
   IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(classname); \
   ADD_THIS_TRANSLATOR (classname);					\
   SCM									\
@@ -59,25 +58,6 @@
     return static_properties;						\
   }
 
-
-/*
-  FIXME: should be able to cast statically to (T*) -iow.- remove
-  Translator as a virtual base class.
- */
-#define DEFINE_STATIC_METHOD(T, x) \
-void \
-T::x ## _static (Translator* tr) \
-{ \
-  T * t_ptr = (T*) (tr);	\
-  t_ptr->x ();\
-}
-
-#define DEFINE_STATIC_METHODS(T) \
-  DEFINE_STATIC_METHOD(T,start_translation_timestep)\
-  DEFINE_STATIC_METHOD(T,stop_translation_timestep)\
-  DEFINE_STATIC_METHOD(T,process_music)\
-  DEFINE_STATIC_METHOD(T,process_acknowledged)
-
 #define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T) \
 void \
 T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])\
@@ -86,22 +66,22 @@ T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])\
     ((Translator_void_method_ptr) &T::start_translation_timestep == \
      (Translator_void_method_ptr) &Translator::start_translation_timestep)	\
     ? 0									\
-    : &T::start_translation_timestep_static;				\
+    : (Translator_void_method_ptr) &T::start_translation_timestep;	\
 									\
   ptrs[STOP_TRANSLATION_TIMESTEP] =					\
     ((Translator_void_method_ptr) &T::stop_translation_timestep == (Translator_void_method_ptr) &Translator::stop_translation_timestep) \
     ? 0									\
-    : &T::stop_translation_timestep_static;				\
+    : (Translator_void_method_ptr) &T::stop_translation_timestep;	\
 									\
   ptrs[PROCESS_MUSIC] =							\
     ((Translator_void_method_ptr) &T::process_music == (Translator_void_method_ptr) &Translator::process_music)			\
     ? 0									\
-    : &T::process_music_static;						\
+    : (Translator_void_method_ptr) &T::process_music;		\
 									\
   ptrs[PROCESS_ACKNOWLEDGED] =						\
     ((Translator_void_method_ptr) &T::process_acknowledged == (Translator_void_method_ptr) &Translator::process_acknowledged)	\
     ? 0									\
-    : &T::process_acknowledged_static;						\
+    : (Translator_void_method_ptr) &T::process_acknowledged;		\
 }
 
 

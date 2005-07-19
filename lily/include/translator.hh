@@ -20,13 +20,8 @@
 
 typedef void (*Translator_void_method_ptr)(Translator*);
 
-#define DECLARE_STATIC_METHOD(x) static void x ## _static (Translator*)
 #define TRANSLATOR_DECLARATIONS(NAME)			\
   public:						\
-    DECLARE_STATIC_METHOD(start_translation_timestep);	\
-    DECLARE_STATIC_METHOD(stop_translation_timestep);	\
-    DECLARE_STATIC_METHOD(process_music);		\
-    DECLARE_STATIC_METHOD(process_acknowledged);	\
   NAME ();						\
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);		\
   static SCM static_description_;			\

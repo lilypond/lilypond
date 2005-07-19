@@ -45,7 +45,7 @@ public:
   void pre_processing ();
 
 protected:
-  virtual SCM do_derived_mark () const;
+  virtual void derived_mark () const;
   virtual Grob *clone (int count) const;
 };
 

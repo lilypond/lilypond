@@ -1,5 +1,12 @@
 2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/translator.icc
+	(IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS): directly jump into
+	Translator methods, without _static helper.
+ 
+	* lily/grob-smob.cc (derived_mark): rename from
+	do_derived_mark(). Don't return SCM.
+
 	* scm/define-context-properties.scm
 	(all-internal-translation-properties): remove tweakCount/tweakRank.
 

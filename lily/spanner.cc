@@ -288,16 +288,9 @@ Spanner::get_broken_left_end_align () const
   return 0.0;
 }
 
-SCM
-Spanner::do_derived_mark () const
+void
+Spanner::derived_mark () const
 {
-#if 0
-  /*
-    We'd be fucked if this is called before spanned_drul_[] is inited.  */
-  if (status_ == ORPHAN)
-    return SCM_EOL;
-#endif
-  
   Direction d = LEFT;
   do
     if (spanned_drul_[d])
@@ -307,8 +300,6 @@ Spanner::do_derived_mark () const
 
   for (int i = broken_intos_.size (); i--;)
     scm_gc_mark (broken_intos_[i]->self_scm ());
-
-  return SCM_EOL;
 }
 
 /*

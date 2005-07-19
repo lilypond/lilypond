@@ -56,7 +56,7 @@ public:
 
   static int compare (Spanner *const &, Spanner *const &);
   virtual Grob *find_broken_piece (System *) const;
-  virtual SCM do_derived_mark () const;
+  virtual void derived_mark () const;
   static bool has_interface (Grob *);
   virtual System *get_system () const;
 
