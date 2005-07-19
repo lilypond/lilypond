@@ -185,9 +185,9 @@ This variable is  read by @internalsref{Timing_translator} at
      (doubleSlurs ,boolean?
 		  "When set, two slurs are created for every slurred
 note, one above and one below the chord.")
-     (explicitClefVisibility ,procedure? "@samp{break-visibility} function for clef changes.")
+     (explicitClefVisibility ,vector? "@samp{break-visibility} function for clef changes.")
 
-     (explicitKeySignatureVisibility ,procedure?
+     (explicitKeySignatureVisibility ,vector?
 "@samp{break-visibility} function for explicit key
 changes. @samp{\\override} of the @code{break-visibility} property will set the
 visibility for normal (i.e. at the start of the line) key signatures.")
@@ -494,7 +494,7 @@ context.")
 
      (lastKeySignature ,list? "Last key signature before a key
 signature change.")
-
+     (rootSystem ,ly:grob? "The System object")
      (scriptDefinitions ,list? "Description of scripts. This is used by
 Script_engraver for typesetting note-super/subscripts. See
 @file{scm/script.scm} for more information
@@ -507,8 +507,6 @@ event types that should be duplicated for @code{\\quote} commands.")
      (instrumentSupport ,grob-list? "list of grobs to attach instrument name
 to.")
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
-     (tweakCount ,number? "Number of otherwise unique Contexts.")
-     (tweakRank ,number? "Identify otherwise unique Contexts.")
      )))
 
 (define-public all-translation-properties
