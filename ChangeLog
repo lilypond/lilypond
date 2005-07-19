@@ -98,7 +98,7 @@
 	recurse_down_engravers ()
 
 	* lily/note-head.cc (internal_print): only call
-	glyph-name-procedure if  style != default. 3 %  speed increase (wtk2-fugue1).
+	glyph-name-procedure if style != default. 
 
 2005-07-16  Graham Percival  <gperlist@shaw.ca>
 

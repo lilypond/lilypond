@@ -128,10 +128,12 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
 	      if (arr[i] == before_grob)
 		{
 		  arr.insert (added, i);
+		  break ; 
 		}
 	      else if (arr[i] == after_grob)
 		{
 		  arr.insert (added, i + 1);
+		  break ;
 		}
 	    }
 	}

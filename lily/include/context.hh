@@ -40,7 +40,7 @@ protected:
   SCM context_list_;
   SCM accepts_list_;
   SCM aliases_;
-  SCM implementation_;
+  Translator_group *implementation_;
   String id_string_;
 
   friend class Context_def;
