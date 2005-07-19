@@ -68,6 +68,7 @@ recording_engraver (Translator_group *tg)
 void
 Recording_group_engraver::fetch_precomputable_methods (Translator_group_void_method ptrs[])
 {
+  Translator_group::fetch_precomputable_methods (ptrs);
   ptrs[STOP_TRANSLATION_TIMESTEP] = &recording_engraver;
 }
 

@@ -137,7 +137,8 @@
 
 
 \context {
-    \type "Staff_performer"
+    \type "Performer_group_performer"
+    \consists "Staff_performer"
     \accepts ChordNameVoice
     \name ChordNames
 }
