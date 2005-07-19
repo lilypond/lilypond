@@ -343,7 +343,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 
   g->simple_trans_list_ = trans_list;
 
-  context->implementation_ = g->self_scm ();
+  context->implementation_ = g;
   if (dynamic_cast<Engraver *> (g))
     g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
   else if (dynamic_cast<Performer *> (g))

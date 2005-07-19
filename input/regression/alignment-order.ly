@@ -21,7 +21,10 @@ anywhere in the vertical alignment. "
       }
       \new Staff {
 	\set Staff.alignAboveContext = #"3"
-	c8^"this" d_"staff" e^"above" d_"last" e^"staff" f
+	\times 4/6 {
+	  \override TextScript #'padding = #3
+	  c8^"this" d_"staff" e^"above" d_"last" e^"staff" f
+	}
       }
     >> }
 >>

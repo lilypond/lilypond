@@ -94,7 +94,7 @@ Context::Context (Object_key const *key)
   init_ = false;
   aliases_ = SCM_EOL;
   iterator_count_ = 0;
-  implementation_ = SCM_EOL;
+  implementation_ = 0;
   properties_scm_ = SCM_EOL;
   accepts_list_ = SCM_EOL;
   context_list_ = SCM_EOL;
@@ -516,7 +516,8 @@ Context::mark_smob (SCM sm)
   scm_gc_mark (me->definition_);
   scm_gc_mark (me->properties_scm_);
   scm_gc_mark (me->accepts_list_);
-  scm_gc_mark (me->implementation_);
+  if (me->implementation_)
+    scm_gc_mark (me->implementation_->self_scm ());
 
   return me->properties_scm_;
 }
@@ -561,7 +562,7 @@ Context::get_parent_context () const
 Translator_group *
 Context::implementation () const
 {
-  return dynamic_cast<Translator_group *> (unsmob_translator_group (implementation_));
+  return implementation_;
 }
 
 void
