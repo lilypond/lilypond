@@ -1,5 +1,16 @@
 2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* configure.in (reloc_b): add --enable-static-gxx to statically
+	link to libstdc++
+
+	* lily/GNUmakefile (static-gxx-libs): new target
+	static-gxx-libs. Create  link to libstdc++.a
+
+	* lily/new-lyric-combine-music-iterator.cc: rename to Lyric_combine_music_iterator
+
+	* lily/lyric-combine-music-iterator.cc
+	(Old_lyric_combine_music_iterator): rename to Old_lyric_combine_music_iterator
+
 	* lily/*-engraver.cc (various): remove double use of
 	PRECOMPUTED_VIRTUAL function: only use
 	start_translation_timestep() and stop_translation_timestep(), not

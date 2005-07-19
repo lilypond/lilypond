@@ -72,8 +72,6 @@ Recording_group_engraver::fetch_precomputable_methods (Translator_group_void_met
   ptrs[STOP_TRANSLATION_TIMESTEP] = &recording_engraver;
 }
 
-#include "translator.icc"
-
 ADD_TRANSLATOR_GROUP (Recording_group_engraver,
 		"Engraver_group_engraver that records all music events "
 		"for this context. Calls the procedure "

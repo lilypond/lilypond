@@ -239,7 +239,7 @@ Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 	(types . (general-music lyric-combine-music))
 	(length-callback . ,Lyric_combine_music::length_callback)
 	(start-callback . ,Music_sequence::first_start_callback)
-	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
+	(iterator-ctor . ,Old_lyric_combine_music_iterator::constructor)
 	))
     
     (LyricCombineMusic
@@ -249,7 +249,7 @@ Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 Syntax @var{\\lyricsto }@var{voicename} @var{lyrics}.")
 	(length . ,(ly:make-moment 0 1))
 	(types . (general-music lyric-combine-music))
-	(iterator-ctor . ,New_lyric_combine_music_iterator::constructor)
+	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
 	))
 
     (LyricEvent

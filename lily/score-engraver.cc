@@ -164,8 +164,6 @@ Score_engraver::try_music (Music *m)
   return false;
 }
 
-#include "translator.icc"
-
 ADD_TRANSLATOR_GROUP (Score_engraver,
 		/* descr */ "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
 		"\n\n "
