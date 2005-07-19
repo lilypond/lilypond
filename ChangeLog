@@ -1,5 +1,8 @@
 2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-markup-commands.scm (beam): use polygon in beam
+	command.
+
 	* lily/grob-pq-engraver.cc (stop_translation_timestep): save up
 	all acknowledged grobs, and do potentially expensive merge and
 	write in one go.

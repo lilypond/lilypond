@@ -595,19 +595,19 @@ Syntax: @code{s}@var{duration}")
     (SustainEvent
      . (
 	(description . "Depress or release sustain pedal. ")
-	(types . (general-music pedal-event sustain-pedal-event))
+	(types . (general-music event pedal-event sustain-pedal-event))
 	))
     
     (SostenutoEvent
      . (
 	(description . "Depress or release sostenuto pedal. ")
-	(types . (general-music pedal-event sostenuto-pedal-event))
+	(types . (general-music event pedal-event sostenuto-pedal-event))
 	))
     
     (UnaCordaEvent
      . (
 	(description . "Depress or release una-corda pedal.")
-	(types . (general-music pedal-event una-corda-pedal-event))
+	(types . (general-music event pedal-event una-corda-pedal-event))
 	))
     
     (StringNumberEvent

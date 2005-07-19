@@ -8,9 +8,8 @@
 
 \relative c' {
     c4
-    \once \set Stem = #'()
+    \once \override Stem #'thickness = #5.0
     c4
-    \once \override Stem  #'thickness = #5.0
     c4
     c4
 }
