@@ -310,7 +310,9 @@ System::post_processing ()
 
   Interval iv (extent (this, Y_AXIS));
   if (iv.is_empty ())
-    programming_error ("system with zero extent");
+    {
+      programming_error ("system with empty extent");
+    }
   else
     translate_axis (-iv[MAX], Y_AXIS);
 

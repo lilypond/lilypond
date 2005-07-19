@@ -13,6 +13,8 @@
 #include "duration.hh"
 #include "moment.hh"
 
+#include "translator.icc"
+
 class Forbid_line_break_engraver : public Engraver
 {
 public:
@@ -20,7 +22,9 @@ public:
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
 };
 
-Forbid_line_break_engraver::Forbid_line_break_engraver (){}
+Forbid_line_break_engraver::Forbid_line_break_engraver ()
+{
+}
 
 void
 Forbid_line_break_engraver::start_translation_timestep ()
@@ -37,7 +41,7 @@ Forbid_line_break_engraver::start_translation_timestep ()
   while (scm_is_pair (busy))
     {
       Grob *g = unsmob_grob (scm_cdar (busy));
-      if (Rhythmic_head::has_interface (g))
+      if (g->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
 	{
 	  get_score_engraver ()->forbid_breaks ();
 	}
@@ -45,7 +49,6 @@ Forbid_line_break_engraver::start_translation_timestep ()
     }
 }
 
-#include "translator.icc"
 
 ADD_TRANSLATOR (Forbid_line_break_engraver,
 		/* descr */ "Forbid line breaks when note heads are still playing at some point.",
