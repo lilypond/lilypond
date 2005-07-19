@@ -1,5 +1,10 @@
 2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/*-engraver.cc (various): remove double use of
+	PRECOMPUTED_VIRTUAL function: only use
+	start_translation_timestep() and stop_translation_timestep(), not
+	both.
+
 	* lily/break-substitution.cc (fast_substitute_grob_array): do
 	fast_substitute_grob_array for all unordered grob_arrays.
 	(substitute_grob): return Grob *. Saves packing/unpacking SCMs.

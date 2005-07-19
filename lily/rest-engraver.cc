@@ -18,12 +18,11 @@
 
 class Rest_engraver : public Engraver
 {
-  Music *rest_req_;
+  Music *rest_event_;
   Item *dot_;
   Grob *rest_;
 protected:
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
 
@@ -36,7 +35,7 @@ public:
 */
 Rest_engraver::Rest_engraver ()
 {
-  rest_req_ = 0;
+  rest_event_ = 0;
   rest_ = 0;
   dot_ = 0;
 }
@@ -44,29 +43,25 @@ Rest_engraver::Rest_engraver ()
 void
 Rest_engraver::start_translation_timestep ()
 {
-  rest_req_ = 0;
-}
-
-void
-Rest_engraver::stop_translation_timestep ()
-{
+  rest_event_ = 0;
   rest_ = 0;
   dot_ = 0;
 }
 
+
 void
 Rest_engraver::process_music ()
 {
-  if (rest_req_ && !rest_)
+  if (rest_event_ && !rest_)
     {
-      rest_ = make_item ("Rest", rest_req_->self_scm ());
+      rest_ = make_item ("Rest", rest_event_->self_scm ());
 
-      int durlog = unsmob_duration (rest_req_->get_property ("duration"))->duration_log ();
+      int durlog = unsmob_duration (rest_event_->get_property ("duration"))->duration_log ();
 
       rest_->set_property ("duration-log",
 			   scm_int2num (durlog));
 
-      int dots = unsmob_duration (rest_req_->get_property ("duration"))->dot_count ();
+      int dots = unsmob_duration (rest_event_->get_property ("duration"))->dot_count ();
 
       if (dots)
 	{
@@ -77,7 +72,7 @@ Rest_engraver::process_music ()
 	  dot_->set_property ("dot-count", scm_int2num (dots));
 	}
 
-      Pitch *p = unsmob_pitch (rest_req_->get_property ("pitch"));
+      Pitch *p = unsmob_pitch (rest_event_->get_property ("pitch"));
 
       /*
 	This is ridiculous -- rests don't have pitch, but we act as if
@@ -100,7 +95,7 @@ Rest_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("rest-event"))
     {
-      rest_req_ = m;
+      rest_event_ = m;
       return true;
     }
   return false;

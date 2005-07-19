@@ -46,7 +46,6 @@ protected:
   Item *double_percent_;
 protected:
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
 };
@@ -111,13 +110,9 @@ Slash_repeat_engraver::start_translation_timestep ()
     {
       repeat_ = 0;
     }
-}
-
-void
-Slash_repeat_engraver::stop_translation_timestep ()
-{
   beat_slash_ = 0;
 }
+
 
 #include "translator.icc"
 
