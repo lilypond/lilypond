@@ -13,18 +13,11 @@
 
 #include "ly-smobs.icc"
 
-int
-Grob_array::size () const
-{
-  return grobs_.size();  
-}
-
 Item *
 Grob_array::item (int i)
 {
   return dynamic_cast<Item*> (grobs_.elem (i));
 }
-
 
 Spanner*
 Grob_array::spanner (int i)
@@ -32,16 +25,9 @@ Grob_array::spanner (int i)
   return dynamic_cast<Spanner*> (grobs_.elem (i));
 }
 
-Grob*
-Grob_array::grob (int i)
+Grob_array::Grob_array ()
 {
-  return grobs_.elem (i);
-}
-
-void
-Grob_array::add (Grob *grob)
-{
-  grobs_.push (grob);
+  ordered_ = false;
 }
 
 Link_array<Grob> &
@@ -61,6 +47,8 @@ Grob_array::array () const
 SCM
 Grob_array::mark_smob (SCM s)
 {
+  (void) s;
+  
 #if 0
   // see System::derived_mark()
   Grob_array *ga = unsmob_grob_array (s); 
@@ -113,6 +101,7 @@ Grob_array::set_array (Link_array<Grob> const &src)
 
 IMPLEMENT_SIMPLE_SMOBS (Grob_array);
 IMPLEMENT_TYPE_P (Grob_array, "ly:grob-array?");
+
 IMPLEMENT_DEFAULT_EQUAL_P (Grob_array);
 
 

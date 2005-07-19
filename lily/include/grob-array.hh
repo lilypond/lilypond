@@ -17,17 +17,21 @@
 class Grob_array
 {
   Link_array<Grob> grobs_;
+  bool ordered_;
   
   DECLARE_SIMPLE_SMOBS(Grob_array,);
 
+  Grob_array ();
 public:
+  bool ordered () const { return ordered_; }
+  void set_ordered (bool b) { ordered_ = b; }
   Item *item (int i);
   Spanner *spanner (int i);
-  Grob * grob (int i);
-  int size () const;
+  Grob * grob (int i) { return grobs_.elem (i); }
+  int size () const { return grobs_.size(); }
   bool is_empty () const;
   void clear ();  
-  void add (Grob *);
+  void add (Grob *x) { grobs_.push (x); }
   void set_array (Link_array<Grob> const &src);
   Link_array<Grob> &array_reference ();
   Link_array<Grob> const &array () const;

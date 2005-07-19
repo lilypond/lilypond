@@ -626,16 +626,8 @@ embedded_scm:
 
 lilypond_header_body:
 	{
-		SCM id = THIS->lexer_->lookup_identifier("$globalheader");
-		if ( ly_is_module(id) ){
-			// if the header exists, then comes here.
-			THIS->lexer_->add_scope(id);
-			$$ = id;
-		}else{	
-			/* org code */
-			$$ = ly_make_anonymous_module (be_safe_global);
-			THIS->lexer_->add_scope ($$);
-		}
+		$$ = ly_make_anonymous_module (be_safe_global);
+		THIS->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  {
 		

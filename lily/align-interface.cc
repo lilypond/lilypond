@@ -13,6 +13,7 @@
 #include "axis-group-interface.hh"
 #include "pointer-group-interface.hh"
 #include "hara-kiri-group-spanner.hh"
+#include "grob-array.hh"
 
 MAKE_SCHEME_CALLBACK (Align_interface, alignment_callback, 2);
 SCM
@@ -246,6 +247,17 @@ void
 Align_interface::set_axis (Grob *me, Axis a)
 {
   Axis_group_interface::set_axes (me, a, a);
+  SCM ga_scm = me->get_object ("elements");
+  Grob_array *ga = unsmob_grob_array (ga_scm);
+  if (!ga)
+    {
+      ga_scm = Grob_array::make_array ();
+      ga = unsmob_grob_array (ga_scm);
+      me->set_object ("elements", ga_scm);
+    }
+
+  ga->set_ordered (true);
+  
 }
 
 /*
