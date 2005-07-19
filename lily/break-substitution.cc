@@ -24,7 +24,7 @@ set_break_subsititution (SCM criterion)
 /*
   Perform the substitution for a single grob.
 */
-SCM
+Grob *
 substitute_grob (Grob *sc)
 {
   if (scm_is_integer (break_criterion))
@@ -34,7 +34,7 @@ substitute_grob (Grob *sc)
       if (i && i->break_status_dir () != d)
 	{
 	  Item *br = i->find_prebroken_piece (d);
-	  return (br) ? br->self_scm () : SCM_UNDEFINED;
+	  return br;
 	}
     }
   else
@@ -48,11 +48,11 @@ substitute_grob (Grob *sc)
 
       /* now: !sc || (sc && sc->get_system () == line) */
       if (!sc)
-	return SCM_UNDEFINED;
+	return 0;
 
       /* now: sc && sc->get_system () == line */
       if (!line)
-	return sc->self_scm ();
+	return sc;
 
       /*
 	We don't return SCM_UNDEFINED for
@@ -67,12 +67,12 @@ substitute_grob (Grob *sc)
       if (sc->common_refpoint (line, X_AXIS)
 	  && sc->common_refpoint (line, Y_AXIS))
 	{
-	  return sc->self_scm ();
+	  return sc;
 	}
-      return SCM_UNDEFINED;
+      return 0;
     }
 
-  return sc->self_scm ();
+  return sc;
 }
 
 /*
@@ -95,7 +95,10 @@ do_break_substitution (SCM src)
  again:
 
   if (unsmob_grob (src))
-    return substitute_grob (unsmob_grob (src));
+    {
+      Grob * new_ptr = substitute_grob (unsmob_grob (src));
+      return new_ptr ? new_ptr->self_scm () : SCM_UNDEFINED;
+    }
   else if (scm_is_vector (src))
     {
       int len = scm_c_vector_length (src);
@@ -140,24 +143,29 @@ do_break_substitution (SCM src)
 /*
   Perform substitution on GROB_LIST using a constant amount of stack.
 */
+Link_array<Grob> temporary_substition_array;
 void
 substitute_grob_array (Grob_array *grob_arr, Grob_array * new_arr)
 {
   Link_array<Grob> &old_grobs (grob_arr->array_reference ());
   Link_array<Grob> *new_grobs (new_arr == grob_arr
-			       ? new Link_array<Grob> 
+			       ? &temporary_substition_array
 			       : &new_arr->array_reference ());
-
+  
+  new_grobs->set_size (old_grobs.size ());
+  Grob **array =  (Grob**) new_grobs->accesses();
+  Grob **ptr = array; 
   for (int i = 0; i < old_grobs.size (); i++)
     {
-      Grob * orig = old_grobs[i];
-      SCM new_grob = substitute_grob (orig);
-      if (new_grob != SCM_UNDEFINED)
+      Grob *orig = old_grobs[i];
+      Grob *new_grob = substitute_grob (orig);
+      if (new_grob)
 	{
-	  new_grobs->push (unsmob_grob (new_grob));
+	  *ptr ++ = new_grob;
 	}
     }
 
+  new_grobs->set_size (ptr - array);  
   if (new_arr == grob_arr)
     {
       new_arr->set_array (*new_grobs);
@@ -316,13 +324,10 @@ Spanner::fast_substitute_grob_array (SCM sym,
 {
   int len = grob_array->size();
 
-  /*
-    Only do this complicated thing for large sets. This has the added
-    advantage that we won't screw up the ordering for elements in
-    alignments (which typically don't have more than 10 grobs.)
-  */
+  if (grob_array->ordered ())
+    return false;
 
-  if (len < 300)
+  if (len < 15)
     return false;
 
   /*
@@ -396,7 +401,8 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
   assert (item_index <= spanner_index);
 
-  assert (broken_intos_.size () == system_range.length () + 1);
+  assert ((broken_intos_.size () == system_range.length () + 1)
+	  || (broken_intos_.is_empty () && system_range.length () == 0));
   for (int i = 0; i < broken_intos_.size (); i++)
     {
       Grob *sc = broken_intos_[i];
@@ -414,10 +420,10 @@ Spanner::fast_substitute_grob_array (SCM sym,
       for (int k = 0; k < 2;k++)
 	for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
 	  {
-	    SCM subs = substitute_grob (vec[j].grob_);
-	    if (subs != SCM_UNDEFINED)
+	    Grob *substituted = substitute_grob (vec[j].grob_);
+	    if (substituted)
 	      {
-		new_array->add (unsmob_grob (subs));
+		new_array->add (substituted);
 	      }
 	  }
 
