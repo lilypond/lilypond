@@ -41,6 +41,7 @@ SCM
 ly_to_string (SCM scm)
 {
   return scm_call_3 (ly_lily_module_constant ("format"), SCM_BOOL_F,
+
 		     scm_makfrom0str ("~S"), scm);
 }
 

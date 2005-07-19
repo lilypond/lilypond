@@ -289,7 +289,7 @@ System::pre_processing ()
   
   for (int i = 0 ;  i < all_elements_->size(); i ++)
     {
-      Grob *e =    all_elements_->grob (i);
+      Grob *e = all_elements_->grob (i);
       SCM proc = e->get_property ("spacing-procedure");
       if (ly_is_procedure (proc))
 	scm_call_1 (proc, e->self_scm ());
