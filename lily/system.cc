@@ -87,8 +87,8 @@ System::typeset_grob (Grob *elem)
     }
 }
 
-SCM
-System::do_derived_mark () const
+void
+System::derived_mark () const
 {
   if (!all_elements_->is_empty ())
     {
@@ -100,7 +100,7 @@ System::do_derived_mark () const
 	  ptr ++;
 	}
     }
-  return Spanner::do_derived_mark ();
+  Spanner::derived_mark ();
 }
 
 static void

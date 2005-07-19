@@ -100,7 +100,7 @@ public:
   virtual void do_break_processing ();
   virtual Grob *find_broken_piece (System *) const;
   virtual void discretionary_processing ();
-  virtual SCM do_derived_mark () const;
+  virtual void derived_mark () const;
 
   Stencil *get_stencil () const;
   SCM get_uncached_stencil () const;

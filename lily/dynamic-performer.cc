@@ -10,6 +10,8 @@
 
 #include "audio-item.hh"
 #include "music.hh"
+#include "translator.icc"
+
 
 /*
   TODO:
@@ -23,25 +25,25 @@ class Dynamic_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *event);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
-  Music *script_req_;
+  Music *script_event_;
   Audio_dynamic *audio_;
 };
 
 Dynamic_performer::Dynamic_performer ()
 {
-  script_req_ = 0;
+  script_event_ = 0;
   audio_ = 0;
 }
 
 void
 Dynamic_performer::create_audio_elements ()
 {
-  if (script_req_)
+  if (script_event_)
     {
       SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
@@ -49,7 +51,7 @@ Dynamic_performer::create_audio_elements ()
       if (ly_is_procedure (proc))
 	{
 	  // urg
-	  svolume = scm_call_1 (proc, script_req_->get_property ("text"));
+	  svolume = scm_call_1 (proc, script_event_->get_property ("text"));
 	}
 
       Real volume = robust_scm2double (svolume, 0.5);
@@ -95,9 +97,9 @@ Dynamic_performer::create_audio_elements ()
 	}
 
       audio_ = new Audio_dynamic (volume);
-      Audio_element_info info (audio_, script_req_);
+      Audio_element_info info (audio_, script_event_);
       announce_element (info);
-      script_req_ = 0;
+      script_event_ = 0;
     }
 }
 
@@ -114,18 +116,16 @@ Dynamic_performer::stop_translation_timestep ()
 bool
 Dynamic_performer::try_music (Music *r)
 {
-  if (!script_req_)
+  if (!script_event_)
     {
       if (r->is_mus_type ("absolute-dynamic-event")) // fixme.
 	{
-	  script_req_ = r;
+	  script_event_ = r;
 	  return true;
 	}
     }
   return false;
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Dynamic_performer,
 		/*descr*/		 "",

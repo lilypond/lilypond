@@ -48,23 +48,18 @@ internal_print (Grob *me, String *font_char)
   
   Font_metric *fm = Font_interface::get_default_font (me);
 
-  Direction stem_dir = CENTER;
-  if (Grob *stem = unsmob_grob (me->get_object ("stem")))
-    {
-      stem_dir = get_grob_direction (stem);
-      if (stem_dir == CENTER)
-	programming_error ("must have stem dir for note head");
-    }
+  String idx = "noteheads.s" + suffix;
 
-  Stencil out;
-
-  String prefix = "noteheads.";
-  String idx
-    = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
-  out = fm->find_by_name (idx);
+  Stencil out = fm->find_by_name (idx);
   if (out.is_empty ())
     {
-      idx = prefix + "s" + suffix;
+      String prefix = "noteheads.";
+      Grob *stem = unsmob_grob (me->get_object ("stem"));
+      Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
+      
+      if (stem_dir == CENTER)
+	programming_error ("must have stem dir for note head");
+      String idx = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
       out = fm->find_by_name (idx);
     }
 

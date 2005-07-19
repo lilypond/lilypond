@@ -16,6 +16,7 @@
 
 IMPLEMENT_SMOBS (Grob);
 IMPLEMENT_DEFAULT_EQUAL_P (Grob);
+IMPLEMENT_TYPE_P (Grob, "ly:grob?");
 
 SCM
 Grob::mark_smob (SCM ses)
@@ -45,7 +46,7 @@ Grob::mark_smob (SCM ses)
   if (s->pscore_)
     scm_gc_mark (s->pscore_->self_scm ());
 
-  s->do_derived_mark ();
+  s->derived_mark ();
   scm_gc_mark (s->object_alist_);
   scm_gc_mark (s->interfaces_);
 
@@ -65,11 +66,7 @@ Grob::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
-SCM
-Grob::do_derived_mark () const
+void
+Grob::derived_mark () const
 {
-  return SCM_EOL;
 }
-
-IMPLEMENT_TYPE_P (Grob, "ly:grob?");
-
