@@ -1501,7 +1501,7 @@ Now, each staff has its own time signature.
     }
   \context{ \Staff
     \consists "Timing_translator"
-    \consist  "Default_bar_line_engraver"
+    \consists "Default_bar_line_engraver"
   }
 }
 
