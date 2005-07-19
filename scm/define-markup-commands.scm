@@ -82,10 +82,13 @@ the PDF backend."
 	 (half (/ thickness 2)))
 
     (ly:make-stencil
-     (list 'beam width
-	   slope
-	   thickness
-	   (ly:output-def-lookup layout 'blotdiameter))
+     `(polygon ',(list 
+		  0 (/ thickness -2)
+		    width (+ (* width slope)  (/ thickness -2))
+		    width (+ (* width slope)  (/ thickness 2))
+		    0 (/ thickness 2))
+	       ,(ly:output-def-lookup layout 'blotdiameter)
+	       #t)
      (cons 0 width)
      (cons (+ (- half) (car yext))
 	   (+ half (cdr yext))))))

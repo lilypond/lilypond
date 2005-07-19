@@ -13,7 +13,7 @@ At a line-break, there are no vertical endings.  " }
         \set Staff.pedalSustainStyle = #'bracket
 
         c4 d e \sustainDown b c c, \sustainUp \sustainDown  d8[ c]  e8[ 
-	    e \sustainUp \sustainDown] f4 d
+	    e \sustainUp \sustainDown]  f4 d
         \sustainUp g \sustainDown b b, \sustainUp c'
 
         \set Staff.pedalUnaCordaStyle = #'mixed
