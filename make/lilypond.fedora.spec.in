@@ -52,7 +52,8 @@ Documentation and example files of LilyPond.  An index is available at
 # In fact, do not take out the spaces between % and { in the above comment,
 # because RPM will gladly do a substitution anyway.
 
-./configure --without-kpathsea --disable-checking --prefix=%{_prefix} --enable-optimising
+# compile with static libstdc++ for better platform portability.
+./configure --enable-static-gxx --without-kpathsea --disable-checking --prefix=%{_prefix} --enable-optimising
 
 
 make all

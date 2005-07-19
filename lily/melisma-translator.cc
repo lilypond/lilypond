@@ -9,6 +9,7 @@
 #include "engraver.hh"
 #include "grob.hh"
 #include "context.hh"
+#include "translator.icc"
 
 /**
    Signal existence of melismas.
@@ -65,7 +66,6 @@ Melisma_translator::Melisma_translator ()
   event_ = 0;
 }
 
-#include "translator.icc"
 
 ADD_TRANSLATOR (Melisma_translator,
 		/* descr */ "This translator collects melisma information about ties, beams, and user settings (@code{melismaBusy}, and signals it to the @code{\addlyrics} code.  ",

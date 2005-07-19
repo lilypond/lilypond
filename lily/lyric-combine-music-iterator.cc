@@ -1,5 +1,5 @@
 /*
-  lyric-combine-music-iterator.cc -- implement Lyric_combine_music_iterator
+  lyric-combine-music-iterator.cc -- implement Old_lyric_combine_music_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -12,11 +12,11 @@
 #include "grob.hh"
 #include "music-iterator.hh"
 
-class Lyric_combine_music_iterator : public Music_iterator
+class Old_lyric_combine_music_iterator : public Music_iterator
 {
 public:
-  Lyric_combine_music_iterator ();
-  Lyric_combine_music_iterator (Lyric_combine_music_iterator const &src);
+  Old_lyric_combine_music_iterator ();
+  Old_lyric_combine_music_iterator (Old_lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   virtual void construct_children ();
@@ -29,7 +29,7 @@ protected:
   virtual void derived_mark () const;
   virtual void derived_substitute (Context *, Context *);
 private:
-  bool get_busy_status ()const;
+  bool get_busy_status () const;
   bool melisma_busy ();
   Music *get_combine_lyrics () const;
   Music *get_combine_music () const;
@@ -57,7 +57,7 @@ melisma_busy (Context *tr)
 Music *busy_req;
 Music *melisma_playing_req;
 
-Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
+Old_lyric_combine_music_iterator::Old_lyric_combine_music_iterator ()
 {
   music_iter_ = 0;
   lyric_iter_ = 0;
@@ -72,20 +72,20 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 }
 
 Moment
-Lyric_combine_music_iterator::pending_moment () const
+Old_lyric_combine_music_iterator::pending_moment () const
 {
   Moment musnext = music_iter_->pending_moment ();
   return musnext;
 }
 
 bool
-Lyric_combine_music_iterator::ok () const
+Old_lyric_combine_music_iterator::ok () const
 {
   return music_iter_->ok ();
 }
 
 void
-Lyric_combine_music_iterator::derived_mark ()const
+Old_lyric_combine_music_iterator::derived_mark ()const
 {
   if (music_iter_)
     scm_gc_mark (music_iter_->self_scm ());
@@ -94,7 +94,7 @@ Lyric_combine_music_iterator::derived_mark ()const
 }
 
 void
-Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
+Old_lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 {
   if (music_iter_)
     music_iter_->substitute_outlet (f, t);
@@ -103,7 +103,7 @@ Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 }
 
 Music *
-Lyric_combine_music_iterator::get_combine_music () const
+Old_lyric_combine_music_iterator::get_combine_music () const
 {
   SCM l = get_music ()->get_property ("elements");
   if (!scm_is_pair (l))
@@ -112,7 +112,7 @@ Lyric_combine_music_iterator::get_combine_music () const
 }
 
 Music *
-Lyric_combine_music_iterator::get_combine_lyrics () const
+Old_lyric_combine_music_iterator::get_combine_lyrics () const
 {
   SCM l = get_music ()->get_property ("elements");
   if (!scm_is_pair (l))
@@ -124,14 +124,14 @@ Lyric_combine_music_iterator::get_combine_lyrics () const
 }
 
 void
-Lyric_combine_music_iterator::construct_children ()
+Old_lyric_combine_music_iterator::construct_children ()
 {
   music_iter_ = unsmob_iterator (get_iterator (get_combine_music ()));
   lyric_iter_ = unsmob_iterator (get_iterator (get_combine_lyrics ()));
 }
 
 bool
-Lyric_combine_music_iterator::get_busy_status () const
+Old_lyric_combine_music_iterator::get_busy_status () const
 {
   /*
     We have to use both the event and the busyGrobs queue.  The
@@ -161,7 +161,7 @@ Lyric_combine_music_iterator::get_busy_status () const
 }
 
 bool
-Lyric_combine_music_iterator::melisma_busy ()
+Old_lyric_combine_music_iterator::melisma_busy ()
 {
   /* We cannot read the property, since music_iter_->get_outlet () might
      not be the context that sets the melisma properties, but rather a
@@ -170,7 +170,7 @@ Lyric_combine_music_iterator::melisma_busy ()
 }
 
 void
-Lyric_combine_music_iterator::process (Moment m)
+Old_lyric_combine_music_iterator::process (Moment m)
 {
   Moment my_next = music_iter_->pending_moment ();
   if (my_next > m)
@@ -186,7 +186,7 @@ Lyric_combine_music_iterator::process (Moment m)
 }
 
 void
-Lyric_combine_music_iterator::do_quit ()
+Old_lyric_combine_music_iterator::do_quit ()
 {
   if (music_iter_)
     music_iter_->quit ();
@@ -195,7 +195,7 @@ Lyric_combine_music_iterator::do_quit ()
 }
 
 Music_iterator *
-Lyric_combine_music_iterator::try_music_in_children (Music *m) const
+Old_lyric_combine_music_iterator::try_music_in_children (Music *m) const
 {
   Music_iterator *i = music_iter_->try_music (m);
   if (i)
@@ -204,4 +204,4 @@ Lyric_combine_music_iterator::try_music_in_children (Music *m) const
     return lyric_iter_->try_music (m);
 }
 
-IMPLEMENT_CTOR_CALLBACK (Lyric_combine_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Old_lyric_combine_music_iterator);

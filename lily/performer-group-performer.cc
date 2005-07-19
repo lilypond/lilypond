@@ -13,8 +13,6 @@
 #include "audio-element.hh"
 #include "warn.hh"
 
-#include "translator.icc"
-
 ADD_TRANSLATOR_GROUP (Performer_group_performer,
 		/* descr */ "",
 		/* creats*/ "",

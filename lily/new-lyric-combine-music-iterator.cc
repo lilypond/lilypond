@@ -1,5 +1,5 @@
 /*
-  new-lyric-combine-iterator.cc -- implement New_lyric_combine_music_iterator
+  new-lyric-combine-iterator.cc -- implement Lyric_combine_music_iterator
 
   source file of the GNU LilyPond music typesetter
 
@@ -12,11 +12,11 @@
 #include "music-iterator.hh"
 #include "input.hh"
 
-class New_lyric_combine_music_iterator : public Music_iterator
+class Lyric_combine_music_iterator : public Music_iterator
 {
 public:
-  New_lyric_combine_music_iterator ();
-  New_lyric_combine_music_iterator (New_lyric_combine_music_iterator const &src);
+  Lyric_combine_music_iterator ();
+  Lyric_combine_music_iterator (Lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   virtual void construct_children ();
@@ -48,7 +48,7 @@ static Music *busy_ev;
 static Music *start_ev;
 static Music *melisma_playing_ev;
 
-New_lyric_combine_music_iterator::New_lyric_combine_music_iterator ()
+Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
   music_found_ = false;
   made_association_ = false;
@@ -71,7 +71,7 @@ New_lyric_combine_music_iterator::New_lyric_combine_music_iterator ()
 }
 
 bool
-New_lyric_combine_music_iterator::start_new_syllable ()
+Lyric_combine_music_iterator::start_new_syllable ()
 {
   bool b = music_context_->try_music (busy_ev);
 
@@ -92,7 +92,7 @@ New_lyric_combine_music_iterator::start_new_syllable ()
 }
 
 Moment
-New_lyric_combine_music_iterator::pending_moment () const
+Lyric_combine_music_iterator::pending_moment () const
 {
   Moment m;
 
@@ -102,19 +102,19 @@ New_lyric_combine_music_iterator::pending_moment () const
 }
 
 bool
-New_lyric_combine_music_iterator::run_always () const
+Lyric_combine_music_iterator::run_always () const
 {
   return true;
 }
 
 bool
-New_lyric_combine_music_iterator::ok () const
+Lyric_combine_music_iterator::ok () const
 {
   return lyric_iter_ && lyric_iter_->ok ();
 }
 
 void
-New_lyric_combine_music_iterator::derived_mark ()const
+Lyric_combine_music_iterator::derived_mark ()const
 {
   if (lyric_iter_)
     scm_gc_mark (lyric_iter_->self_scm ());
@@ -125,7 +125,7 @@ New_lyric_combine_music_iterator::derived_mark ()const
 }
 
 void
-New_lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
+Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 {
   if (lyric_iter_)
     lyric_iter_->substitute_outlet (f, t);
@@ -136,7 +136,7 @@ New_lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 }
 
 void
-New_lyric_combine_music_iterator::construct_children ()
+Lyric_combine_music_iterator::construct_children ()
 {
   Music *m = unsmob_music (get_music ()->get_property ("element"));
   lyric_iter_ = unsmob_iterator (get_iterator (m));
@@ -157,7 +157,7 @@ New_lyric_combine_music_iterator::construct_children ()
 }
 
 void
-New_lyric_combine_music_iterator::find_voice ()
+Lyric_combine_music_iterator::find_voice ()
 {
   SCM voice_name = lyricsto_voice_name_;
   SCM running = lyrics_context_ ? lyrics_context_->get_property ("associatedVoice") : SCM_EOL;
@@ -199,7 +199,7 @@ New_lyric_combine_music_iterator::find_voice ()
 }
 
 void
-New_lyric_combine_music_iterator::process (Moment)
+Lyric_combine_music_iterator::process (Moment)
 {
   find_voice ();
   if (!music_context_)
@@ -228,7 +228,7 @@ New_lyric_combine_music_iterator::process (Moment)
 }
 
 void
-New_lyric_combine_music_iterator::do_quit ()
+Lyric_combine_music_iterator::do_quit ()
 {
   if (!music_found_)
     {
@@ -247,9 +247,9 @@ New_lyric_combine_music_iterator::do_quit ()
 }
 
 Music_iterator *
-New_lyric_combine_music_iterator::try_music_in_children (Music *m) const
+Lyric_combine_music_iterator::try_music_in_children (Music *m) const
 {
   return lyric_iter_->try_music (m);
 }
 
-IMPLEMENT_CTOR_CALLBACK (New_lyric_combine_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Lyric_combine_music_iterator);

@@ -32,6 +32,12 @@ AC_ARG_ENABLE(relocation,
     [  --enable-relocation     compile with dynamic relocation.  Default: off],
     [reloc_b=$enableval])
 
+AC_SUBST(LINK_GXX_STATICALLY)
+LINK_GXX_STATICALLY=no
+AC_ARG_ENABLE(static-gxx,
+    [  --enable-static-gxx     link libstdc++.a statically. Default: off],
+    [LINK_GXX_STATICALLY=$enableval])
+
 # must come before any header checks
 STEPMAKE_COMPILE
 
@@ -103,7 +109,7 @@ STEPMAKE_PERL(OPTIONAL)
 # New makeinfo for multi-page website docs Simply always require new
 # makeinfo should avoid bug reports; if people want to build lily
 # without the docs, they can find this comment and use an older
-# makeinfo -- but hopefully won't report makeinfo problems.
+# makeinfo--but hopefully won't report makeinfo problems.
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.7)
 
 if test "$optimise_b" = yes; then

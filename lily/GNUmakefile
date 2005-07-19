@@ -6,7 +6,10 @@ SUBDIRS = include
 
 MODULE_LIBS=  $(depth)/flower   $(depth)/kpath-guile 
 MODULE_INCLUDES= $(depth)/flower/include 
+
+# need this to convert between function pointers and member function pointers.
 MODULE_CXXFLAGS= -Wno-pmf-conversions
+
 
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES=c c++ executable po help2man
@@ -16,8 +19,12 @@ OUT_DIST_FILES=$(addprefix $(outdir)/,parser.cc parser.hh )
 include $(depth)/make/stepmake.make 
 
 ifeq ($(HAVE_LIBKPATHSEA_SO),no)
-MODULE_LDFLAGS+= $(KPATHSEA_LIBS)
+MODULE_LDFLAGS += $(KPATHSEA_LIBS)
 endif
+ifeq ($(LINK_GXX_STATICALLY),yes)
+MODULE_LDFLAGS += -L$(outdir) -static-libgcc
+endif
+
 
 
 # for profiling, link guile statically:
@@ -45,6 +52,14 @@ ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'
 ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'
 
 default:
+
+
+$(outdir)/libstdc++.a: 
+	ln -s `$(CXX) -print-file-name=libstdc++.a` $(outdir)/
+
+ifeq ($(LINK_GXX_STATICALLY),yes)
+$(outdir)/lilypond: $(outdir)/libstdc++.a
+endif
 
 # force these: Make can't know these have to be generated in advance
 $(outdir)/lily-parser.o: $(outdir)/parser.hh

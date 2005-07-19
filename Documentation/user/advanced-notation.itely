@@ -1354,7 +1354,7 @@ Cue notes have smaller font sizes.
  when the original part takes over again, this should be marked with
  the name of the original instrument.
 
- @c really?  Are you sure about that last point?  I'll check after 3.0 -gp
+@c really?  Are you sure about that last point?  I'll check after 3.0 -gp
 
 @c Yes, this is good practice.  Otherwise, the start of the original
 @c part can only be seen from the font size.  This is not good enough
@@ -1364,7 +1364,7 @@ Cue notes have smaller font sizes.
 @c -hwn
 
 
- any other changes introduced by the cued part should also be
+Any other changes introduced by the cued part should also be
 undone.  For example, if the cued instrument plays in a different clef,
 the original clef should be stated once again.
 
