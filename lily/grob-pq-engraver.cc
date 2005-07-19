@@ -11,6 +11,17 @@
 #include "grob.hh"
 #include "warn.hh"
 
+struct Grob_pq_entry
+{
+  Grob *grob_;
+  Moment end_;
+  static int compare (Grob_pq_entry const &a,
+		      Grob_pq_entry const &b)
+  {
+    return Moment::compare (a.end_, b.end_);
+  }
+};
+
 class Grob_pq_engraver : public Engraver
 {
 public:
@@ -20,6 +31,8 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+
+  Array<Grob_pq_entry> started_now_;
 };
 
 Grob_pq_engraver::Grob_pq_engraver ()
@@ -64,13 +77,12 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 	}
 
       Moment end = n + l;
-      SCM lst = scm_acons (end.smobbed_copy (),
-			   gi.grob ()->self_scm (),
-			   SCM_EOL);
 
-      SCM busy = get_property ("busyGrobs");
-      busy = scm_merge_x (lst, busy, ly_grob_pq_less_p_proc);
-      context ()->set_property ("busyGrobs", busy);
+      Grob_pq_entry e;
+      e.grob_ = gi.grob ();
+      e.end_ = end;
+      
+      started_now_.push (e);
     }
 }
 
@@ -85,8 +97,21 @@ Grob_pq_engraver::stop_translation_timestep ()
       busy = scm_cdr (busy);
     }
 
-  if (start_busy != busy)
-    context ()->set_property ("busyGrobs", busy);
+  started_now_.sort (Grob_pq_entry::compare);
+  SCM lst = SCM_EOL;
+  SCM *tail = &lst;
+  for (int i = 0; i < started_now_.size (); i++)
+    {
+      *tail = scm_acons (started_now_[i].end_.smobbed_copy (),
+			 started_now_[i].grob_->self_scm (),
+			 SCM_EOL);
+      tail = SCM_CDRLOC(*tail);
+    }
+  
+  busy = scm_merge_x (lst, busy, ly_grob_pq_less_p_proc);
+  context ()->set_property ("busyGrobs", busy);
+
+  started_now_.clear ();
 }
 
 void
@@ -113,13 +138,9 @@ Grob_pq_engraver::start_translation_timestep ()
 
 ADD_TRANSLATOR (Grob_pq_engraver,
 
-		/* descr */ "Administrate when certain grobs (eg. note heads) stop playing; this \
-engraver is a sort-of a failure, since it doesn't handle all sorts of \
-borderline cases very well. \
-",
-
-		/* creats*/ "",\
-		/* accepts */ "",\
-		/* acks  */ "grob-interface",\
-		/* reads */ "busyGrobs",\
+		/* descr */ "Administrate when certain grobs (eg. note heads) stop playing",
+		/* creats*/ "",
+		/* accepts */ "",
+		/* acks  */ "grob-interface",
+		/* reads */ "busyGrobs",
 		/* write */ "busyGrobs");

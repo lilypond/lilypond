@@ -1,5 +1,11 @@
 2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/grob-pq-engraver.cc (stop_translation_timestep): save up
+	all acknowledged grobs, and do potentially expensive merge and
+	write in one go.
+
+	* buildscripts/mf-to-table.py (write_fontlist): enforce noBreak.
+
 	* configure.in (reloc_b): add --enable-static-gxx to statically
 	link to libstdc++
 
