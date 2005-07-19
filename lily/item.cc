@@ -148,29 +148,14 @@ Item::handle_prebroken_dependencies ()
   /*
     Can't do this earlier, because try_visibility_lambda () might set
     the elt property transparent, which would then be copied.
-
-    TODO:
-
-    give the item to break-visibility itself, so the function can do
-    more complicated things.
   */
   SCM vis = get_property ("break-visibility");
-  if (ly_is_procedure (vis))
+  if (scm_is_vector (vis))
     {
-      SCM args = scm_list_n (scm_int2num (break_status_dir ()), SCM_UNDEFINED);
-      SCM result = scm_apply_0 (vis, args);
-      bool trans = ly_scm2bool (scm_car (result));
-      bool empty = ly_scm2bool (scm_cdr (result));
+      bool visible = to_boolean (scm_vector_ref (vis,  scm_from_int (break_status_dir () + 1)));
 
-      if (empty && trans)
+      if (!visible)
 	suicide ();
-      else if (empty)
-	{
-	  set_extent (SCM_EOL, X_AXIS);
-	  set_extent (SCM_EOL, Y_AXIS);
-	}
-      else if (trans)
-	set_property ("print-function", SCM_EOL);
     }
 }
 

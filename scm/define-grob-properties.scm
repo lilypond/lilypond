@@ -463,13 +463,8 @@ tuplet bracket.")
      (number-visibility ,boolean-or-symbol? "Like
 @code{bracket-visibility}, but for the number.")
 
-     ;; FIXME.
-     (break-visibility ,procedure? "A function that takes the break
-direction and returns a cons of booleans containing (@var{transparent}
-. @var{empty}).  The following variables are predefined:
-@code{all-visible}, @code{begin-of-line-visible},
-@code{end-of-line-visible}, @code{begin-of-line-invisible},
-@code{end-of-line-invisible}, @code{all-invisible}.")
+     (break-visibility ,vector? "A vector of 3 booleans, #(end-of-line unbroken begin-of-line).
+#t means visible, #f means killed.")
      (flag-count ,number? "The number of tremolo beams.")
 
      (when ,ly:moment? "Global time step associated with this column

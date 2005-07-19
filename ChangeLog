@@ -1,5 +1,11 @@
 2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-lib.scm (begin-of-line-invisible): use vectors for
+	predefined break-visibilities.
+
+	* lily/item.cc (handle_prebroken_dependencies): use a vector of 3
+	booleans for break-visibility.
+
 	* Documentation/topdocs/NEWS.tely (Top): add note about engravers.
 
 	* python/convertrules.py (conv): rule for Timing_translator. 
