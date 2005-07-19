@@ -16,7 +16,7 @@
 
 class Fingering_engraver : public Engraver
 {
-  Link_array<Music> reqs_;
+  Link_array<Music> events_;
   Link_array<Item> fingerings_;
 
 public:
@@ -24,7 +24,6 @@ public:
 protected:
   virtual bool try_music (Music *m);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
 
@@ -37,7 +36,7 @@ Fingering_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("fingering-event"))
     {
-      reqs_.push (m);
+      events_.push (m);
       return true;
     }
   return false;
@@ -68,10 +67,10 @@ Fingering_engraver::acknowledge_grob (Grob_info inf)
 void
 Fingering_engraver::process_music ()
 {
-  for (int i = reqs_.size (); i--;)
+  for (int i = events_.size (); i--;)
     {
-      SCM dir = reqs_[i]->get_property ("direction");
-      make_script (to_dir (dir), reqs_[i], i);
+      SCM dir = events_[i]->get_property ("direction");
+      make_script (to_dir (dir), events_[i], i);
     }
 }
 
@@ -131,12 +130,7 @@ Fingering_engraver::stop_translation_timestep ()
     return;
 
   fingerings_.clear ();
-}
-
-void
-Fingering_engraver::start_translation_timestep ()
-{
-  reqs_.clear ();
+  events_.clear ();
 }
 
 Fingering_engraver::Fingering_engraver ()

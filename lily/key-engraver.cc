@@ -38,7 +38,6 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music *ev);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual void acknowledge_grob (Grob_info);
 };
@@ -134,6 +133,7 @@ Key_engraver::stop_translation_timestep ()
   item_ = 0;
   context ()->set_property ("lastKeySignature", get_property ("keySignature"));
   cancellation_ = 0;
+  key_ev_ = 0;
 }
 
 void
@@ -162,12 +162,6 @@ Key_engraver::read_ev (Music const *r)
   context ()->set_property ("keySignature", accs);
   context ()->set_property ("tonic",
 			    r->get_property ("tonic"));
-}
-
-void
-Key_engraver::start_translation_timestep ()
-{
-  key_ev_ = 0;
 }
 
 void

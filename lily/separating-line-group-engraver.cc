@@ -181,8 +181,10 @@ void
 Separating_line_group_engraver::start_translation_timestep ()
 {
   if (break_item_)
-    context ()->unset_property (ly_symbol2scm ("breakableSeparationItem"));
-  break_item_ = 0;
+    {
+      context ()->unset_property (ly_symbol2scm ("breakableSeparationItem"));
+      break_item_ = 0;
+    }
 }
 
 void
