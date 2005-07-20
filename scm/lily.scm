@@ -388,7 +388,8 @@ The syntax is the same as `define*-public'."
     ;; If no TTY and not using safe, assume running from GUI.
     (cond
      ((eq? PLATFORM 'windows)
-      (if DOS #f
+      ;; Always write to .log file.
+      (if DOS #t
       ;; This only works for i586-mingw32msvc-gcc -mwindows
       (not (string-match "standard input"
 			 (format #f "~S" (current-input-port))))))

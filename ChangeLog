@@ -1,3 +1,8 @@
+2005-07-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/lily.scm (running-from-gui?): Always write to .log file on
+	dos-based windows.
+
 2005-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (main): Remove invalid handle kludge.
