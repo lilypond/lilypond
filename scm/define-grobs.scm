@@ -1296,6 +1296,7 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,tablature-stem-attachment-function)
 	(font-series . bold)
+	(font-size . -2)
 	(meta . ((interfaces
 		  . (rhythmic-head-interface
 		     font-interface 

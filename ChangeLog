@@ -1,3 +1,10 @@
+2005-07-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-lib.scm (tablature-stem-attachment-function): stem
+	attachment backport.
+	
+	* scm/define-grobs.scm (all-grob-descriptions): font size backport.
+
 2005-07-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily.scm (running-from-gui?): Always write to .log file on
