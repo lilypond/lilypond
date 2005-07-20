@@ -35,6 +35,7 @@ for a in sys.argv[1:]:
 <html>
 <head>
   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+  <style type="text/css"> body { width: 760px; } </style>
 </head>
 
 <body><pre>

@@ -17,8 +17,11 @@
 	* Documentation/topdocs/INSTALL.texi, configure.in: fix
 	version dependencies for fontforge and gs.
 
-	* Documentation/index.html.in, Documentation/texinfo.css: 
-	optimize for a 800x600 screen, increases printability
+	* Documentation/index.html.in, Documentation/texinfo.css,
+	stepmake/bin/text2html.py, buildscripts/mutopia-index.py,
+	Documentation/bibliography/index.html.in, 
+	Documentation/bibliography/html-long.bst: optimize width of
+	html for a 800x600 screen (width:760), increases printability
 	when 'fit to page' is not set and readability in wide screens.
 
 	* stepmake/bin/add-html-footer.py: add missing </p>.
