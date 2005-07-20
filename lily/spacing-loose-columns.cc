@@ -25,7 +25,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       Item *loose = dynamic_cast<Item *> (posns->loose_cols_[i]);
       Paper_column *col = dynamic_cast<Paper_column *> (loose);
 
-      if (col->system_)
+      if (col->get_system ())
 	continue;
 
       Item *left = 0;
@@ -94,17 +94,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  distance_to_next = my_extent[RIGHT] + 1.0;
 	  right_point = right->extent (common, X_AXIS)[LEFT];
 	}
-#if 0
-      Real left_point = left->extent (common, X_AXIS)[RIGHT];
 
-      Real space_left = ((right_point - left_point) >? 0.0)
-	- (my_extent.is_empty () ? 0.0 : my_extent.length ());
-
-      Real padding = (space_left / 2) <? 1.0;
-      /*
-	Put it just left of the right column, with a bit of extra space
-      */
-#endif
       Real my_offset = right_point - distance_to_next;
 
       col->system_ = which;

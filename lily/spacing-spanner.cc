@@ -510,7 +510,6 @@ void
 Spacing_spanner::do_measure (Rational global_shortest, Grob *me,
 			     Link_array<Grob> *cols)
 {
-
   Real headwid = robust_scm2double (me->get_property ("spacing-increment"), 1);
   for (int i = 0; i < cols->size () - 1; i++)
     {
@@ -520,32 +519,36 @@ Spacing_spanner::do_measure (Rational global_shortest, Grob *me,
       Paper_column *lc = dynamic_cast<Paper_column *> (l);
       Paper_column *rc = dynamic_cast<Paper_column *> (r);
 
-      if (!Paper_column::is_musical (l))
-	{
-	  breakable_column_spacing (me, l, r, global_shortest);
-
-	  /*
-	    The case that the right part is broken as well is rather
-	    rare, but it is possible, eg. with a single empty measure,
-	    or if one staff finishes a tad earlier than the rest.
-
-	  */
-	  Item *lb = l->find_prebroken_piece (RIGHT);
-	  Item *rb = r->find_prebroken_piece (LEFT);
-
-	  if (lb)
-	    breakable_column_spacing (me, lb, r, global_shortest);
-
-	  if (rb)
-	    breakable_column_spacing (me, l, rb, global_shortest);
-	  if (lb && rb)
-	    breakable_column_spacing (me, lb, rb, global_shortest);
-	}
-      else
+      if (Paper_column::is_musical (l))
 	{
 	  musical_column_spacing (me, lc, rc, headwid, global_shortest);
 	  if (Item *rb = r->find_prebroken_piece (LEFT))
 	    musical_column_spacing (me, lc, rb, headwid, global_shortest);
+	}
+      else
+	{
+	  /*
+	    The case that the right part is broken as well is rather
+	    rare, but it is possible, eg. with a single empty measure,
+	    or if one staff finishes a tad earlier than the rest.
+	  */
+	  Item *lb = l->find_prebroken_piece (RIGHT);
+	  Item *rb = r->find_prebroken_piece (LEFT);
+
+	  if (i == 0 && Paper_column::get_rank (l) == 0)
+	    l = 0;
+
+	  if (l && r)
+	    breakable_column_spacing (me, l, r, global_shortest);
+	  
+	  if (lb && r)
+	    breakable_column_spacing (me, lb, r, global_shortest);
+
+	  if (l && rb)
+	    breakable_column_spacing (me, l, rb, global_shortest);
+
+	  if (lb && rb)
+	    breakable_column_spacing (me, lb, rb, global_shortest);
 	}
     }
 }
@@ -564,16 +567,16 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc, Real incr
   Real compound_fixed_note_space = 0.0;
   int wish_count = 0;
 
-  SCM seq = lc->get_object ("right-neighbors");
+  extract_grob_set (lc, "right-neighbors", neighbors);
 
   /*
     We adjust the space following a note only if the next note
     happens after the current note (this is set in the grob
     property SPACING-SEQUENCE.
   */
-  for (SCM s = seq; scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0; i < neighbors.size (); i++)
     {
-      Grob *wish = unsmob_grob (scm_car (s));
+      Grob *wish = neighbors[i];
 
       Item *wish_rcol = Note_spacing::right_column (wish);
       if (Note_spacing::left_column (wish) != lc
@@ -728,10 +731,11 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r, Moment sh
 
   if (dt == Moment (0, 0))
     {
-      for (SCM s = l->get_object ("spacing-wishes");
-	   scm_is_pair (s); s = scm_cdr (s))
+      extract_grob_set (l, "spacing-wishes", wishes);
+
+      for (int i = 0; i < wishes.size (); i++)
 	{
-	  Item *spacing_grob = dynamic_cast<Item *> (unsmob_grob (scm_car (s)));
+	  Item *spacing_grob = dynamic_cast<Item *> (wishes[i]);
 
 	  if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
 	    continue;

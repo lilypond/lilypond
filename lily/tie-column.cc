@@ -162,8 +162,8 @@ Tie_column::before_line_breaking (SCM smob)
       Direction dir = LEFT;
       do
 	{
-	  if (dir * Paper_column::get_rank (tie->get_bound (dir)->get_column ())
-	      > dir * Paper_column::get_rank (me->get_bound (dir)->get_column ()))
+	  if (dir * tie->get_bound (dir)->get_column ()->get_rank ()
+	      > dir * me->get_bound (dir)->get_column ()->get_rank ())
 	    {
 	      me->set_bound (dir, Tie::head (tie, dir));
 	    }

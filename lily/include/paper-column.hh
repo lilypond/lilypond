@@ -14,11 +14,15 @@
 
 class Paper_column : public Item
 {
-public:
   int rank_;
   /// if lines are broken then this column is in #line#
   System *system_;
 
+
+  // ugh: friend declarations.
+  friend void set_loose_columns (System *which, Column_x_positions const *posns);
+  friend class System;
+public:
   Paper_column (SCM, Object_key const *);
   Paper_column (Paper_column const &, int count);
 
@@ -30,7 +34,8 @@ public:
   virtual System *get_system () const;
 
   static int get_rank (Grob *);
-
+  int get_rank () const { return rank_; }
+  
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 

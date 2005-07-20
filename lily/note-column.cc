@@ -73,9 +73,13 @@ Note_column::dir (Grob *me)
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (stem && Stem::has_interface (stem))
     return Stem::get_direction (stem);
-  else if (scm_is_pair (me->get_object ("note-heads")))
-    return (Direction)sign (head_positions_interval (me).center ());
-
+  else
+    {
+      extract_grob_set (me, "note-heads", heads);
+      if (heads.size ())
+	return (Direction)sign (head_positions_interval (me).center ());
+    }
+  
   programming_error ("note column without heads and stem");
   return CENTER;
 }
