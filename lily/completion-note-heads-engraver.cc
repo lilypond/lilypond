@@ -38,7 +38,7 @@
   longer than what's specified, than what is left to do and it should
   not cross barlines.
 
-  We copy the reqs into scratch note reqs, to make sure that we get
+  We copy the events into scratch note events, to make sure that we get
   all durations exactly right.
 */
 
@@ -49,8 +49,8 @@ class Completion_heads_engraver : public Engraver
   Link_array<Grob> ties_;
 
   Link_array<Item> dots_;
-  Link_array<Music> note_reqs_;
-  Link_array<Music> scratch_note_reqs_;
+  Link_array<Music> note_events_;
+  Link_array<Music> scratch_note_events_;
 
   Moment note_end_mom_;
   bool is_first_;
@@ -66,7 +66,7 @@ public:
 protected:
   virtual void initialize ();
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *event);
   PRECOMPUTED_VIRTUAL void process_music ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
@@ -82,7 +82,7 @@ Completion_heads_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-event"))
     {
-      note_reqs_.push (m);
+      note_events_.push (m);
 
       is_first_ = true;
       Moment musiclen = m->get_length ();
@@ -100,7 +100,7 @@ Completion_heads_engraver::try_music (Music *m)
     }
   else if (m->is_mus_type ("busy-playing-event"))
     {
-      return note_reqs_.size () && is_first_;
+      return note_events_.size () && is_first_;
     }
 
   return false;
@@ -178,7 +178,7 @@ Completion_heads_engraver::process_music ()
     }
   else
     {
-      orig = unsmob_duration (note_reqs_[0]->get_property ("duration"));
+      orig = unsmob_duration (note_events_[0]->get_property ("duration"));
       note_dur = *orig;
     }
   Moment nb = next_barline_moment ();
@@ -200,28 +200,28 @@ Completion_heads_engraver::process_music ()
 
   if (orig && note_dur.get_length () != orig->get_length ())
     {
-      if (!scratch_note_reqs_.size ())
-	for (int i = 0; i < note_reqs_.size (); i++)
+      if (!scratch_note_events_.size ())
+	for (int i = 0; i < note_events_.size (); i++)
 	  {
-	    Music *m = note_reqs_[i]->clone ();
-	    scratch_note_reqs_.push (m);
+	    Music *m = note_events_[i]->clone ();
+	    scratch_note_events_.push (m);
 	  }
     }
 
   for (int i = 0;
-       left_to_do_ && i < note_reqs_.size (); i++)
+       left_to_do_ && i < note_events_.size (); i++)
     {
-      Music *req = note_reqs_[i];
-      if (scratch_note_reqs_.size ())
+      Music *event = note_events_[i];
+      if (scratch_note_events_.size ())
 	{
-	  req = scratch_note_reqs_[i];
-	  SCM pits = note_reqs_[i]->get_property ("pitch");
-	  req->set_property ("pitch", pits);
+	  event = scratch_note_events_[i];
+	  SCM pits = note_events_[i]->get_property ("pitch");
+	  event->set_property ("pitch", pits);
 	}
 
-      req->set_property ("duration", note_dur.smobbed_copy ());
+      event->set_property ("duration", note_dur.smobbed_copy ());
 
-      Item *note = make_item ("NoteHead", req->self_scm ());
+      Item *note = make_item ("NoteHead", event->self_scm ());
       note->set_property ("duration-log",
 			  scm_int2num (note_dur.duration_log ()));
 
@@ -241,7 +241,7 @@ Completion_heads_engraver::process_music ()
 	  dots_.push (d);
 	}
 
-      Pitch *pit = unsmob_pitch (req->get_property ("pitch"));
+      Pitch *pit = unsmob_pitch (event->get_property ("pitch"));
 
       int pos = pit->steps ();
       SCM c0 = get_property ("middleCPosition");
@@ -289,12 +289,12 @@ Completion_heads_engraver::stop_translation_timestep ()
 
   dots_.clear ();
 
-  for (int i = scratch_note_reqs_.size (); i--;)
+  for (int i = scratch_note_events_.size (); i--;)
     {
-      scm_gc_unprotect_object (scratch_note_reqs_[i]->self_scm ());
+      scm_gc_unprotect_object (scratch_note_events_[i]->self_scm ());
     }
 
-  scratch_note_reqs_.clear ();
+  scratch_note_events_.clear ();
 }
 
 void
@@ -303,7 +303,7 @@ Completion_heads_engraver::start_translation_timestep ()
   Moment now = now_mom ();
   if (note_end_mom_.main_part_ <= now.main_part_)
     {
-      note_reqs_.clear ();
+      note_events_.clear ();
       prev_notes_.clear ();
     }
 }

@@ -28,7 +28,8 @@
 
 noclefs =  {
   s1
-  \override Staff.Clef #'break-visibility = #(lambda (dir) (cons #t #t))
+  \override Staff.Clef #'break-visibility =
+    #all-invisible
 }
 
 setMargins = {

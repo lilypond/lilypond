@@ -20,18 +20,18 @@ public:
 
 protected:
 
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *event);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
-  Music *tempo_req_;
+  Music *tempo_event_;
   Audio_tempo *audio_;
 };
 
 Tempo_performer::Tempo_performer ()
 {
-  tempo_req_ = 0;
+  tempo_event_ = 0;
   audio_ = 0;
 }
 
@@ -42,18 +42,18 @@ Tempo_performer::~Tempo_performer ()
 void
 Tempo_performer::create_audio_elements ()
 {
-  if (tempo_req_)
+  if (tempo_event_)
     {
-      SCM met = tempo_req_->get_property ("metronome-count");
-      Duration *d = unsmob_duration (tempo_req_->get_property ("tempo-unit"));
+      SCM met = tempo_event_->get_property ("metronome-count");
+      Duration *d = unsmob_duration (tempo_event_->get_property ("tempo-unit"));
 
       Rational r = (d->get_length () / Moment (Rational (1, 4)) * Moment (scm_to_int (met))).main_part_;
 
       audio_ = new Audio_tempo (int (r));
 
-      Audio_element_info info (audio_, tempo_req_);
+      Audio_element_info info (audio_, tempo_event_);
       announce_element (info);
-      tempo_req_ = 0;
+      tempo_event_ = 0;
     }
 }
 
@@ -68,12 +68,12 @@ Tempo_performer::stop_translation_timestep ()
 }
 
 bool
-Tempo_performer::try_music (Music *req)
+Tempo_performer::try_music (Music *event)
 {
-  if (tempo_req_)
+  if (tempo_event_)
     return false;
 
-  tempo_req_ = req;
+  tempo_event_ = event;
   return true;
 }
 

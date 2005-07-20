@@ -17,7 +17,7 @@
 
 /*
  * This abstract class provides the general framework for ligatures of
- * any kind.  It cares for handling start/stop ligatures requests and
+ * any kind.  It cares for handling start/stop ligatures events and
  * collecting all noteheads inbetween, but delegates creation of a
  * ligature spanner for each start/stop pair and typesetting of the
  * ligature spanner to a concrete subclass.
@@ -69,8 +69,8 @@ Ligature_engraver::Ligature_engraver ()
 {
   ligature_ = 0;
   finished_ligature_ = 0;
-  reqs_drul_[LEFT] = reqs_drul_[RIGHT] = 0;
-  prev_start_req_ = 0;
+  events_drul_[LEFT] = events_drul_[RIGHT] = 0;
+  prev_start_event_ = 0;
   last_bound_ = 0;
   brew_ligature_primitive_proc = SCM_EOL;
 }
@@ -81,7 +81,7 @@ Ligature_engraver::try_music (Music *m)
   if (m->is_mus_type ("ligature-event"))
     {
       Direction d = to_dir (m->get_property ("span-direction"));
-      reqs_drul_[d] = m;
+      events_drul_[d] = m;
       return true;
     }
   return false;
@@ -145,24 +145,24 @@ Ligature_engraver::revert_stencil_callback ()
 void
 Ligature_engraver::process_music ()
 {
-  if (reqs_drul_[STOP])
+  if (events_drul_[STOP])
     {
       if (!ligature_)
 	{
-	  reqs_drul_[STOP]->origin ()->warning (_ ("can't find start of ligature"));
+	  events_drul_[STOP]->origin ()->warning (_ ("can't find start of ligature"));
 	  return;
 	}
 
       if (!last_bound_)
 	{
-	  reqs_drul_[STOP]->origin ()->warning (_ ("no right bound"));
+	  events_drul_[STOP]->origin ()->warning (_ ("no right bound"));
 	}
       else
 	{
 	  ligature_->set_bound (RIGHT, last_bound_);
 	}
 
-      prev_start_req_ = 0;
+      prev_start_event_ = 0;
       finished_primitives_ = primitives_;
       finished_ligature_ = ligature_;
       primitives_.clear ();
@@ -177,15 +177,15 @@ Ligature_engraver::process_music ()
       get_score_engraver ()->forbid_breaks ();
     }
 
-  if (reqs_drul_[START])
+  if (events_drul_[START])
     {
       if (ligature_)
 	{
-	  reqs_drul_[START]->origin ()->warning (_ ("already have a ligature"));
+	  events_drul_[START]->origin ()->warning (_ ("already have a ligature"));
 	  return;
 	}
 
-      prev_start_req_ = reqs_drul_[START];
+      prev_start_event_ = events_drul_[START];
       ligature_ = create_ligature_spanner ();
       brew_ligature_primitive_proc
 	= ligature_->get_property ("ligature-primitive-callback");
@@ -197,7 +197,7 @@ Ligature_engraver::process_music ()
       Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
       if (!bound)
 	{
-	  reqs_drul_[START]->origin ()->warning (_ ("no left bound"));
+	  events_drul_[START]->origin ()->warning (_ ("no left bound"));
 	}
       else
 	{
@@ -207,7 +207,7 @@ Ligature_engraver::process_music ()
       ligature_start_mom_ = now_mom ();
 
       // TODO: dump cause into make_item/spanner. 
-      // announce_grob (ligature_, reqs_drul_[START]->self_scm ());
+      // announce_grob (ligature_, events_drul_[START]->self_scm ());
       override_stencil_callback ();
     }
 }
@@ -238,8 +238,8 @@ Ligature_engraver::stop_translation_timestep ()
       finished_ligature_ = 0;
     }
 
-  reqs_drul_[START] = 0;
-  reqs_drul_[STOP] = 0;
+  events_drul_[START] = 0;
+  events_drul_[STOP] = 0;
 }
 
 void
@@ -253,7 +253,7 @@ Ligature_engraver::finalize ()
     }
   if (ligature_)
     {
-      prev_start_req_->origin ()->warning (_ ("unterminated ligature"));
+      prev_start_event_->origin ()->warning (_ ("unterminated ligature"));
       ligature_->suicide ();
     }
 }
@@ -278,7 +278,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
       if (Rest::has_interface (info.grob ()))
 	{
 	  info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
-	  prev_start_req_->origin ()->warning (_ ("ligature was started here"));
+	  prev_start_event_->origin ()->warning (_ ("ligature was started here"));
 	  // TODO: maybe better should stop ligature here rather than
 	  // ignoring the rest?
 	}

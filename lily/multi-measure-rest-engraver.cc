@@ -58,18 +58,18 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 }
 
 bool
-Multi_measure_rest_engraver::try_music (Music *req)
+Multi_measure_rest_engraver::try_music (Music *event)
 {
-  if (req->is_mus_type ("multi-measure-rest-event"))
+  if (event->is_mus_type ("multi-measure-rest-event"))
     {
-      rest_ev_ = req;
+      rest_ev_ = event;
       stop_moment_ = now_mom () + rest_ev_->get_length ();
 
       return true;
     }
-  else if (req->is_mus_type ("multi-measure-text-event"))
+  else if (event->is_mus_type ("multi-measure-text-event"))
     {
-      text_events_.push (req);
+      text_events_.push (event);
       return true;
     }
   return false;

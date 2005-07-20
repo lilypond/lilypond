@@ -23,35 +23,35 @@ public:
   TRANSLATOR_DECLARATIONS (Breathing_sign_engraver);
 
 protected:
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *event);
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
 private:
-  Music *breathing_sign_req_;
+  Music *breathing_sign_event_;
   Grob *breathing_sign_;
 };
 
 Breathing_sign_engraver::Breathing_sign_engraver ()
 {
   breathing_sign_ = 0;
-  breathing_sign_req_ = 0;
+  breathing_sign_event_ = 0;
 }
 
 bool
 Breathing_sign_engraver::try_music (Music *r)
 {
-  breathing_sign_req_ = r;
+  breathing_sign_event_ = r;
   return true;
 }
 
 void
 Breathing_sign_engraver::process_acknowledged ()
 {
-  if (breathing_sign_req_ && ! breathing_sign_)
+  if (breathing_sign_event_ && ! breathing_sign_)
     {
-      breathing_sign_ = make_item ("BreathingSign", breathing_sign_req_->self_scm ());
-      breathing_sign_req_ = 0;
+      breathing_sign_ = make_item ("BreathingSign", breathing_sign_event_->self_scm ());
+      breathing_sign_event_ = 0;
     }
 }
 
@@ -59,7 +59,7 @@ void
 Breathing_sign_engraver::stop_translation_timestep ()
 {
   breathing_sign_ = 0;
-  breathing_sign_req_ = 0;
+  breathing_sign_event_ = 0;
 }
 
 #include "translator.icc"

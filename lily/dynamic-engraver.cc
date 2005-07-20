@@ -50,7 +50,7 @@ class Dynamic_engraver : public Engraver
   Music *script_ev_;
   Music *current_cresc_ev_;
 
-  Drul_array<Music *> accepted_spanreqs_drul_;
+  Drul_array<Music *> accepted_spanevents_drul_;
 
   Link_array<Note_column> pending_columns_;
   Link_array<Grob> pending_elements_;
@@ -62,7 +62,7 @@ class Dynamic_engraver : public Engraver
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *event);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
 };
@@ -77,8 +77,8 @@ Dynamic_engraver::Dynamic_engraver ()
   cresc_ = 0;
 
   script_ev_ = 0;
-  accepted_spanreqs_drul_[START] = 0;
-  accepted_spanreqs_drul_[STOP] = 0;
+  accepted_spanevents_drul_[START] = 0;
+  accepted_spanevents_drul_[STOP] = 0;
 }
 
 bool
@@ -97,9 +97,9 @@ Dynamic_engraver::try_music (Music *m)
     {
       Direction d = to_dir (m->get_property ("span-direction"));
 
-      accepted_spanreqs_drul_[d] = m;
+      accepted_spanevents_drul_[d] = m;
       if (current_cresc_ev_ && d == START)
-	accepted_spanreqs_drul_[STOP] = m;
+	accepted_spanevents_drul_[STOP] = m;
       return true;
     }
   return false;
@@ -108,11 +108,11 @@ Dynamic_engraver::try_music (Music *m)
 void
 Dynamic_engraver::process_music ()
 {
-  if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_ev_)
+  if (accepted_spanevents_drul_[START] || accepted_spanevents_drul_[STOP] || script_ev_)
     {
       if (!line_spanner_)
 	{
-	  Music *rq = accepted_spanreqs_drul_[START];
+	  Music *rq = accepted_spanevents_drul_[START];
 	  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm () : SCM_EOL);
 
 	  if (script_ev_)
@@ -145,10 +145,10 @@ Dynamic_engraver::process_music ()
       Axis_group_interface::add_element (line_spanner_, script_);
     }
 
-  Music *stop_ev = accepted_spanreqs_drul_ [STOP]
-    ? accepted_spanreqs_drul_[STOP] : script_ev_;
+  Music *stop_ev = accepted_spanevents_drul_ [STOP]
+    ? accepted_spanevents_drul_[STOP] : script_ev_;
 
-  if (accepted_spanreqs_drul_[STOP] || script_ev_)
+  if (accepted_spanevents_drul_[STOP] || script_ev_)
     {
       /*
 	finish side position alignment if the (de)cresc ends here, and
@@ -169,14 +169,14 @@ Dynamic_engraver::process_music ()
 	  cresc_ = 0;
 	  current_cresc_ev_ = 0;
 	}
-      else if (accepted_spanreqs_drul_[STOP])
+      else if (accepted_spanevents_drul_[STOP])
 	{
-	  accepted_spanreqs_drul_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
+	  accepted_spanevents_drul_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
 	  stop_ev = 0;
 	}
     }
 
-  if (accepted_spanreqs_drul_[START])
+  if (accepted_spanevents_drul_[START])
     {
       if (current_cresc_ev_)
 	{
@@ -184,12 +184,12 @@ Dynamic_engraver::process_music ()
 	  if (current_cresc_ev_->is_mus_type ("decrescendo-event"))
 	    msg = _ ("already have a crescendo");
 
-	  accepted_spanreqs_drul_[START]->origin ()->warning (msg);
+	  accepted_spanevents_drul_[START]->origin ()->warning (msg);
 	  current_cresc_ev_->origin ()->warning (_ ("cresc starts here"));
 	}
       else
 	{
-	  current_cresc_ev_ = accepted_spanreqs_drul_[START];
+	  current_cresc_ev_ = accepted_spanevents_drul_[START];
 
 	  if (Direction d = to_dir (current_cresc_ev_->get_property ("direction")))
 	    set_grob_direction (line_spanner_, d);
@@ -212,7 +212,7 @@ Dynamic_engraver::process_music ()
 	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
 	  if (!scm_is_symbol (s) || s == ly_symbol2scm ("hairpin"))
 	    {
-	      cresc_ = make_spanner ("Hairpin", accepted_spanreqs_drul_[START]->self_scm ());
+	      cresc_ = make_spanner ("Hairpin", accepted_spanevents_drul_[START]->self_scm ());
 	      if (finished_cresc_)
 		{
 		  Pointer_group_interface::add_grob (finished_cresc_,
@@ -235,7 +235,7 @@ Dynamic_engraver::process_music ()
 	  */
 	  else
 	    {
-	      cresc_ = make_spanner ("DynamicTextSpanner", accepted_spanreqs_drul_[START]->self_scm ());
+	      cresc_ = make_spanner ("DynamicTextSpanner", accepted_spanevents_drul_[START]->self_scm ());
 	      cresc_->set_property ("style", s);
 	      context ()->set_property ((start_type
 					 + "Spanner").to_str0 (), SCM_EOL);
@@ -282,8 +282,8 @@ Dynamic_engraver::stop_translation_timestep ()
     }
 
   script_ev_ = 0;
-  accepted_spanreqs_drul_[START] = 0;
-  accepted_spanreqs_drul_[STOP] = 0;
+  accepted_spanevents_drul_[START] = 0;
+  accepted_spanevents_drul_[STOP] = 0;
 }
 
 void
