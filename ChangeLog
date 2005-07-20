@@ -1,3 +1,10 @@
+2005-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/main.cc (main): Remove invalid handle kludge.
+
+	* scm/lily.scm (running-from-gui?): WINDOWS: check -dgui.
+	(lambda): add gui define.
+
 2005-07-15  Graham Percuval  <gperlist@shaw.ca>
 
 	* Documentation/user/ <various>: backported stuff.

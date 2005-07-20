@@ -24,6 +24,7 @@ similar to chord syntax")
 	    (preview-include-book-title #t "include book-titles in preview images.")
 	    (gs-font-load #f
 			  "load fonts via Ghostscript.")
+	    (gui #f "running from gui; redirect stderr to log file")
 	    (delete-intermediate-files #f
 				       "delete unusable PostScript files")
 	    (verbose #f "value for the --verbose flag")
@@ -114,6 +115,12 @@ similar to chord syntax")
   (string->symbol
    (string-downcase
     (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))
+
+(define-public DOS
+  (let ((platform (string-tokenize
+		   (vector-ref (uname) 0) char-set:letter+digit)))
+    (if (null? (cdr platform)) #f
+	(member (string-downcase (cadr platform)) '("95" "98" "me")))))
 
 (case PLATFORM
   ((windows)
@@ -381,9 +388,13 @@ The syntax is the same as `define*-public'."
     ;; If no TTY and not using safe, assume running from GUI.
     (cond
      ((eq? PLATFORM 'windows)
+      (if DOS #f
       ;; This only works for i586-mingw32msvc-gcc -mwindows
       (not (string-match "standard input"
-			 (format #f "~S" (current-input-port)))))
+			 (format #f "~S" (current-input-port))))))
+     ;; FIXME: using -dgui would be nice, but it does not work
+     ((eq? PLATFORM 'foo-windows)
+      (ly:get-option 'gui))
      ((eq? PLATFORM 'darwin) #f)
      (else
       (not have-tty?)))))
