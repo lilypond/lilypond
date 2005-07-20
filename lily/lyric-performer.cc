@@ -16,12 +16,12 @@ public:
   TRANSLATOR_DECLARATIONS (Lyric_performer);
 protected:
 
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *event);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
-  Link_array<Music> lreqs_;
+  Link_array<Music> events_;
   Audio_text *audio_;
 };
 
@@ -34,16 +34,16 @@ void
 Lyric_performer::create_audio_elements ()
 {
   // FIXME: won't work with fancy lyrics
-  if (lreqs_.size ()
-      && scm_is_string (lreqs_[0]->get_property ("text"))
-      && ly_scm2string (lreqs_[0]->get_property ("text")).length ())
+  if (events_.size ()
+      && scm_is_string (events_[0]->get_property ("text"))
+      && ly_scm2string (events_[0]->get_property ("text")).length ())
     {
       audio_ = new Audio_text (Audio_text::LYRIC,
-			       ly_scm2string (lreqs_[0]->get_property ("text")));
-      Audio_element_info info (audio_, lreqs_[0]);
+			       ly_scm2string (events_[0]->get_property ("text")));
+      Audio_element_info info (audio_, events_[0]);
       announce_element (info);
     }
-  lreqs_.clear ();
+  events_.clear ();
 }
 
 void
@@ -54,15 +54,15 @@ Lyric_performer::stop_translation_timestep ()
       play_element (audio_);
       audio_ = 0;
     }
-  lreqs_.clear ();
+  events_.clear ();
 }
 
 bool
-Lyric_performer::try_music (Music *req)
+Lyric_performer::try_music (Music *event)
 {
-  if (req->is_mus_type ("lyric-event"))
+  if (event->is_mus_type ("lyric-event"))
     {
-      lreqs_.push (req);
+      events_.push (event);
       return true;
     }
   return false;

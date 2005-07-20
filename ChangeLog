@@ -15,10 +15,12 @@
 	* lily/GNUmakefile (static-gxx-libs): new target
 	static-gxx-libs. Create  link to libstdc++.a
 
-	* lily/new-lyric-combine-music-iterator.cc: rename to Lyric_combine_music_iterator
+	* lily/new-lyric-combine-music-iterator.cc: rename to
+	Lyric_combine_music_iterator
 
 	* lily/lyric-combine-music-iterator.cc
-	(Old_lyric_combine_music_iterator): rename to Old_lyric_combine_music_iterator
+	(Old_lyric_combine_music_iterator): rename to
+	Old_lyric_combine_music_iterator
 
 	* lily/*-engraver.cc (various): remove double use of
 	PRECOMPUTED_VIRTUAL function: only use
@@ -112,7 +114,7 @@
 2005-07-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/system.cc (do_derived_mark): don't mark from object_alist_
-	anymore, but do it centrally.  Speedup: approximately 3-5 %.
+	anymore, but do it centrally.  
 
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
 	hammer hack.

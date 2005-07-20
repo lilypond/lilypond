@@ -18,6 +18,7 @@
 #include "axis-group-interface.hh"
 #include "warn.hh"
 
+#include "translator.icc"
 
 
 Paper_column_engraver::Paper_column_engraver ()
@@ -203,6 +204,7 @@ Paper_column_engraver::stop_translation_timestep ()
     }
 
   first_ = false;
+  break_event_ = 0;
 }
 
 void
@@ -217,7 +219,6 @@ Paper_column_engraver::start_translation_timestep ()
 
 
 
-#include "translator.icc"
 
 ADD_TRANSLATOR (Paper_column_engraver,
 		/* descr */ "Takes care of generating columns."

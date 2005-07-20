@@ -15,6 +15,13 @@ forcedLastBreak =  { \break }
 			     " systems (expecting " (number->string n))))))
             
 
+#(define (assert-system-count-override count)
+  (ly:export #{ \override NoteHead
+     #'after-line-breaking-callback
+       = #(lambda (smob) (assert-system-count smob $count))
+  #}))
+
+  
 \header {
   title = "Solo Cello Suite II"
   piece ="Sarabande"
@@ -50,7 +57,7 @@ sarabandeA =  \context Voice  \relative c {
   
   << { d8. e16 e4.\trill d16 e } \\
     { d4 a2 } >>
-  <d, a' f'>4.  e'8[ d c] |
+  <d, a' f'>4.  e'8[ d c] | 
   bes[ g'] f[
      e16(f] g[ a bes d,)] |
   cis4.\trill b8[ a g] |
@@ -120,9 +127,7 @@ sarabandeA =  \context Voice  \relative c {
   d'[ cis] |
   %%  d4 d,,2 |
   d4
-  \override NoteHead
-    #'after-line-breaking-callback
- = #(lambda (smob) (assert-system-count smob 6))
+  #(assert-system-count-override 6)
   d,,2 |
 }
 
@@ -147,18 +152,20 @@ sarabandeCelloStaff = \context Staff <<
   \sarabandeCelloScripts
 >>
 
-% size perversions
+%% size perversions
 smallerPaper = \layout {
-    \context { \Staff
-		  fontSize = #-1
-		  \override StaffSymbol  #'staff-space = #0.8
-		  }
-    \context { \Score
-		   \override SpacingSpanner #'spacing-increment = #0.96
-		}
-	
-    indent = 5.6 \mm
-    linewidth = 146.8 \mm
+  \context {
+    \Staff
+    fontSize = #-1
+    \override StaffSymbol  #'staff-space = #0.8
+  }
+  \context {
+    \Score
+    \override SpacingSpanner #'spacing-increment = #0.96
+  }
+  
+  indent = 5.6 \mm
+  linewidth = 146.8 \mm
 }
 
 \paper {

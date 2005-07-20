@@ -46,7 +46,7 @@ public:
   TRANSLATOR_DECLARATIONS (Ligature_engraver);
 
 private:
-  Drul_array<Music *> reqs_drul_;
+  Drul_array<Music *> events_drul_;
 
   Spanner *ligature_;
   Array<Grob_info> primitives_;
@@ -54,7 +54,7 @@ private:
   Spanner *finished_ligature_;
   Array<Grob_info> finished_primitives_;
 
-  Music *prev_start_req_;
+  Music *prev_start_event_;
 
   // moment where ligature started.
   Moment ligature_start_mom_;

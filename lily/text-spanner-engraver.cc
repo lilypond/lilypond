@@ -24,18 +24,18 @@ protected:
 private:
   Spanner *span_;
   Spanner *finished_;
-  Music *current_req_;
-  Drul_array<Music *> req_drul_;
+  Music *current_event_;
+  Drul_array<Music *> event_drul_;
   void typeset_all ();
 };
 
 Text_spanner_engraver::Text_spanner_engraver ()
 {
   finished_ = 0;
-  current_req_ = 0;
+  current_event_ = 0;
   span_ = 0;
-  req_drul_[START] = 0;
-  req_drul_[STOP] = 0;
+  event_drul_[START] = 0;
+  event_drul_[STOP] = 0;
 }
 
 bool
@@ -44,7 +44,7 @@ Text_spanner_engraver::try_music (Music *m)
   if (m->is_mus_type ("text-span-event"))
     {
       Direction d = to_dir (m->get_property ("span-direction"));
-      req_drul_[d] = m;
+      event_drul_[d] = m;
       return true;
     }
 
@@ -54,33 +54,33 @@ Text_spanner_engraver::try_music (Music *m)
 void
 Text_spanner_engraver::process_music ()
 {
-  if (req_drul_[STOP])
+  if (event_drul_[STOP])
     {
       if (!span_)
 	{
-	  req_drul_[STOP]->origin ()->warning (_ ("can't find start of text spanner"));
+	  event_drul_[STOP]->origin ()->warning (_ ("can't find start of text spanner"));
 	}
       else
 	{
 	  finished_ = span_;
 	  span_ = 0;
-	  current_req_ = 0;
+	  current_event_ = 0;
 	}
     }
 
-  if (req_drul_[START])
+  if (event_drul_[START])
     {
-      if (current_req_)
+      if (current_event_)
 	{
-	  req_drul_[START]->origin ()->warning (_ ("already have a text spanner"));
+	  event_drul_[START]->origin ()->warning (_ ("already have a text spanner"));
 	}
       else
 	{
-	  current_req_ = req_drul_[START];
-	  span_ = make_spanner ("TextSpanner", req_drul_[START]->self_scm ());
+	  current_event_ = event_drul_[START];
+	  span_ = make_spanner ("TextSpanner", event_drul_[START]->self_scm ());
 
 	  Side_position_interface::set_axis (span_, Y_AXIS);
-	  req_drul_[START] = 0;
+	  event_drul_[START] = 0;
 	}
     }
 }
@@ -123,8 +123,8 @@ Text_spanner_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
-  req_drul_[START] = 0;
-  req_drul_[STOP] = 0;
+  event_drul_[START] = 0;
+  event_drul_[STOP] = 0;
 }
 
 void
@@ -133,7 +133,7 @@ Text_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      current_req_->origin ()->warning (_ ("unterminated text spanner"));
+      current_event_->origin ()->warning (_ ("unterminated text spanner"));
       span_->suicide ();
       span_ = 0;
     }

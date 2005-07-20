@@ -18,8 +18,8 @@ class Piano_pedal_performer : public Performer
   struct Pedal_info
   {
     char const *name_;
-    Music *start_req_;
-    Drul_array<Music *> req_drul_;
+    Music *start_event_;
+    Drul_array<Music *> event_drul_;
   };
 
 public:
@@ -59,9 +59,9 @@ Piano_pedal_performer::initialize ()
   do
     {
       p->name_ = *np;
-      p->req_drul_[START] = 0;
-      p->req_drul_[STOP] = 0;
-      p->start_req_ = 0;
+      p->event_drul_[START] = 0;
+      p->event_drul_[STOP] = 0;
+      p->start_event_ = 0;
 
       p++;
     }
@@ -74,11 +74,11 @@ Piano_pedal_performer::create_audio_elements ()
   for (Pedal_info *p = info_alist_; p && p->name_; p++)
 
     {
-      if (p->req_drul_[STOP])
+      if (p->event_drul_[STOP])
 	{
-	  if (!p->start_req_)
+	  if (!p->start_event_)
 	    {
-	      p->req_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", String (p->name_)));
+	      p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", String (p->name_)));
 	    }
 	  else
 	    {
@@ -87,19 +87,19 @@ Piano_pedal_performer::create_audio_elements ()
 	      a->dir_ = STOP;
 	      audios_.push (a);
 	    }
-	  p->start_req_ = 0;
+	  p->start_event_ = 0;
 	}
 
-      if (p->req_drul_[START])
+      if (p->event_drul_[START])
 	{
-	  p->start_req_ = p->req_drul_[START];
+	  p->start_event_ = p->event_drul_[START];
 	  Audio_piano_pedal *a = new Audio_piano_pedal;
 	  a->type_string_ = String (p->name_);
 	  a->dir_ = START;
 	  audios_.push (a);
 	}
-      p->req_drul_[START] = 0;
-      p->req_drul_[STOP] = 0;
+      p->event_drul_[START] = 0;
+      p->event_drul_[STOP] = 0;
     }
 }
 
@@ -116,8 +116,8 @@ Piano_pedal_performer::start_translation_timestep ()
 {
   for (Pedal_info *p = info_alist_; p && p->name_; p++)
     {
-      p->req_drul_[STOP] = 0;
-      p->req_drul_[START] = 0;
+      p->event_drul_[STOP] = 0;
+      p->event_drul_[START] = 0;
     }
 }
 
@@ -133,7 +133,7 @@ Piano_pedal_performer::try_music (Music *r)
 			    scm_str2symbol (nm.to_str0 ())))
 	    {
 	      Direction d = to_dir (r->get_property ("span-direction"));
-	      p->req_drul_[d] = r;
+	      p->event_drul_[d] = r;
 	      return true;
 	    }
 	}
