@@ -25,7 +25,7 @@ Chord_name::after_line_breaking (SCM smob)
   SCM s = me->get_property ("begin-of-line-visible");
   if (to_boolean (s))
     {
-      if (Paper_column::get_rank (me->get_column ())
+      if (me->get_column ()->get_rank ()
 	  - me->get_system ()->spanned_rank_iv ()[LEFT] > 1)
 	me->suicide ();
     }

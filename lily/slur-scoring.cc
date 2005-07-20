@@ -498,8 +498,8 @@ spanner_less (Spanner *s1, Spanner *s2)
   Direction d = LEFT;
   do
     {
-      b1[d] = s1->get_bound (d)->get_column ()->rank_;
-      b2[d] = s2->get_bound (d)->get_column ()->rank_;
+      b1[d] = s1->get_bound (d)->get_column ()->get_rank ();
+      b2[d] = s2->get_bound (d)->get_column ()->get_rank ();
     }
   while (flip (&d) != LEFT);
 

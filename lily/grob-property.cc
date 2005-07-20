@@ -93,6 +93,7 @@ Grob::internal_set_property (SCM sym, SCM v)
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, sym, v);
 }
 
+#ifdef DEBUG_PROFILE_ACCESSES
 Protected_scm property_lookup_table;
 LY_DEFINE(ly_property_lookup_stats, "ly:property-lookup-stats",
 	  0,0,0, (),
@@ -100,7 +101,7 @@ LY_DEFINE(ly_property_lookup_stats, "ly:property-lookup-stats",
 {
   return (SCM) property_lookup_table;
 }
-
+#endif
 
 SCM
 Grob::internal_get_property (SCM sym) const
@@ -118,7 +119,7 @@ Grob::internal_get_property (SCM sym) const
     }
 #endif
 
-#if 0
+#ifdef DEBUG_PROFILE_ACCESSES
   /*
     Statistics: which properties are looked up? 
   */
@@ -136,7 +137,6 @@ Grob::internal_get_property (SCM sym) const
 
   scm_set_cdr_x (hashhandle, scm_from_int (scm_to_int (scm_cdr (hashhandle)) + 1));
 #endif
-  
   
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)

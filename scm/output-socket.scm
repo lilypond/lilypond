@@ -54,7 +54,7 @@
 
     (cond
      ((ly:music? cause) cause)
-     ((ly:grob? cause) (music-cause cause))
+;     ((ly:grob? cause) (music-cause cause))
      (else
       #f))))
 

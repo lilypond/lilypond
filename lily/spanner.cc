@@ -153,9 +153,9 @@ Spanner::spanned_rank_iv ()
   Interval_t<int> iv (0, 0);
 
   if (spanned_drul_[LEFT] && spanned_drul_[LEFT]->get_column ())
-    iv[LEFT] = Paper_column::get_rank (spanned_drul_[LEFT]->get_column ());
+    iv[LEFT] = spanned_drul_[LEFT]->get_column ()->get_rank ();
   if (spanned_drul_[RIGHT] && spanned_drul_[RIGHT]->get_column ())
-    iv[RIGHT] = Paper_column::get_rank (spanned_drul_[RIGHT]->get_column ());
+    iv[RIGHT] = spanned_drul_[RIGHT]->get_column ()->get_rank ();
   return iv;
 }
 

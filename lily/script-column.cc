@@ -42,12 +42,13 @@ SCM
 Script_column::before_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Drul_array<SCM> scripts (SCM_EOL, SCM_EOL);
+  Drul_array<SCM> scripts_drul (SCM_EOL, SCM_EOL);
   Link_array<Grob> staff_sided;
 
-  for (SCM s = me->get_property ("scripts"); scm_is_pair (s); s = scm_cdr (s))
+  extract_grob_set (me, "scripts", scripts);
+  for (int i = 0; i < scripts.size (); i++)
     {
-      Grob *sc = unsmob_grob (scm_car (s));
+      Grob *sc = scripts[i];
 
       /*
 	Don't want to consider scripts horizontally next to notes.
@@ -68,13 +69,13 @@ Script_column::before_line_breaking (SCM smob)
 	  g->set_property ("direction", scm_int2num (d));
 	}
 
-      scripts[d] = scm_cons (g->self_scm (), scripts[d]);
+      scripts_drul[d] = scm_cons (g->self_scm (), scripts_drul[d]);
     }
 
   Direction d = DOWN;
   do
     {
-      SCM ss = scm_reverse_x (scripts[d], SCM_EOL);
+      SCM ss = scm_reverse_x (scripts_drul[d], SCM_EOL);
       ss = scm_stable_sort_x (ss, ly_grob_script_priority_less_proc);
 
       Grob *last = 0;

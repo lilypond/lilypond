@@ -242,7 +242,7 @@ Ledger_line_spanner::print (SCM smob)
 	  ledger_extent.widen (length_fraction * head_extent.length ());
 
 	  Direction vdir = Direction (sign (pos));
-	  int rank = Paper_column::get_rank (h->get_column ());
+	  int rank = h->get_column ()->get_rank ();
 
 	  reqs[rank][vdir].ledger_extent_.unite (ledger_extent);
 	  reqs[rank][vdir].head_extent_.unite (head_extent);
@@ -307,7 +307,7 @@ Ledger_line_spanner::print (SCM smob)
 	  Interval ledger_size = head_size;
 	  ledger_size.widen (ledger_size.length () * length_fraction);
 
-	  Interval max_size = reqs[Paper_column::get_rank (h->get_column ())][Direction (sign (pos))].ledger_extent_;
+	  Interval max_size = reqs[h->get_column ()->get_rank ()][Direction (sign (pos))].ledger_extent_;
 
 	  ledger_size.intersect (max_size);
 	  Real left_shorten = 0.0;
