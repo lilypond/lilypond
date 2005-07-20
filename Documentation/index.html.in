@@ -7,6 +7,7 @@
           content="Top-level index to the standard documentation for
                    LilyPond @TOPLEVEL_VERSION@">
     <style type="text/css">
+      body { width: 760px; }
     .navigation         { background-color: #e8ffe8;
    	                  padding: 2; border: #c0ffc0 1px solid;
 			  text-align: center;

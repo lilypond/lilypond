@@ -52,6 +52,7 @@ This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
 </font>
 <address><font size="-1">
 Report errors to &lt;<a href="mailto:%(mail_address)s">%(mail_address)s</a>&gt;.</font></address>
+</p>
 </div>
 
 

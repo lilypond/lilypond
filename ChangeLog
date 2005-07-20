@@ -3,6 +3,12 @@
 	* Documentation/topdocs/INSTALL.texi, configure.in: fix
 	version dependencies for fontforge and gs.
 
+	* Documentation/index.html.in, Documentation/texinfo.css: 
+	optimize for a 800x600 screen, increases printability
+	when 'fit to page' is not set and readability in wide screens.
+
+	* stepmake/bin/add-html-footer.py: add missing </p>.
+
 2005-07-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-null.scm: new file, used for benchmarking.
