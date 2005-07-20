@@ -19,8 +19,8 @@
 
 @section Downloading
 
-Even numbered minor versions are `stable' (2.2, 2.4 etc), while odd
-version are development releases (2.3, 2.5, etc).  Building LilyPond
+Even numbered minor versions are `stable' (2.4, 2.6 etc), while odd
+version are development releases (2.5, 2.7, etc).  Building LilyPond
 is an involved process.  If possible
 @uref{http://lilypond.org/download,download a precompiled binary}
 for your platform.
@@ -70,7 +70,7 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @itemize
 
-@item @uref{http://fontforge.sf.net/,FontForge} 20050530 or newer.
+@item @uref{http://fontforge.sf.net/,FontForge} 20050624 or newer.
 
 @item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.9 or
 newer),
