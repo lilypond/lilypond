@@ -1524,15 +1524,6 @@ scalar: string {
 	}
 	| bare_number {
 		$$ = $1;
-/*		if (scm_integer_p ($1) == SCM_BOOL_T)
-		{
-			int k = scm_to_int (scm_inexact_to_exact ($1));
-			$$ = k;
-		} else
-		{
-			THIS->parser_error (@1, _ ("need integer number arg"));
-			$$ = 0;
-		}*/
 	}
         | embedded_scm {
 		$$ = $1;

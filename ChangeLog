@@ -1,3 +1,7 @@
+2005-07-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-null.scm: new file, used for benchmarking.
+
 2005-07-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-markup-commands.scm (beam): use polygon in beam
