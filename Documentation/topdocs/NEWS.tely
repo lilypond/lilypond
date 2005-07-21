@@ -33,6 +33,16 @@ See user manual, \NAME\
 
 @itemize @bullet
 @item
+The current bar number may be checked with @code{\barNumberCheck}, eg.
+
+@verbatim
+\barNumberCheck #22
+@end verbatim
+
+@noindent
+will print a warning if it doesn't happen in measure 22.
+ 
+@item
 If @code{skipLastLength} is set, only the last few measures of a piece
 are rendered, which speeds up correcting scores. For example, setting
 
@@ -44,8 +54,6 @@ showLastLength = R1*5
 @noindent
 will render only the last five measures (assuming 4/4 time signature)
 of a piece.
-
-
 
 @item
 Melismata can be specified simply in the lyrics now, eg.
