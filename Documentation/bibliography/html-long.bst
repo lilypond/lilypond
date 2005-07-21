@@ -1,7 +1,7 @@
 % BibTeX bibliography style `html-long'
 %   spits out HTML-formatted bibliography in place of bbl output
 % by David Kotz dfk@cs.dartmouth.edu
-% $Id: html-long.bst,v 1.3 2005/07/20 15:02:18 hjunes Exp $
+% $Id: html-long.bst,v 1.4 2005/07/21 21:29:50 hjunes Exp $
 %    modified from
 % BibTeX standard bibliography style `alpha'
 	% version 0.99a for BibTeX versions 0.99a or later, LaTeX version 2.09.
@@ -1352,7 +1352,7 @@ REVERSE {reverse.pass}
 FUNCTION {begin.bib}
 { "<HTML>" write$ newline$
   "<HEAD><TITLE> Bibliography </TITLE>" write$ newline$
-  "<style type='text/css'> body {width:760px;} </style></HEAD>" write$ newline$
+  "</HEAD>" write$ newline$
   "<BODY BGCOLOR=#EEEEEE>" write$ newline$
   "<DL>" write$ newline$
 }
