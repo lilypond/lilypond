@@ -1,5 +1,7 @@
 2005-07-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/basic-notation.itely (Barnumber check): add section.
+
 	* scm/music-functions.scm (skip-to-last): new function. Show only
 	last showLastLength part of the \score.
 

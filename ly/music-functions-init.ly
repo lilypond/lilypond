@@ -190,6 +190,20 @@ afterGrace =
 	(make-music 'GraceMusic
 		    'element grace)))))))
 
+
+barNumberCheck =
+#(def-music-function (parser location n) (integer?)
+   (make-music 'ApplyContext 
+	       'origin location
+	       'procedure 
+	       (lambda (c)
+		 (let*
+		     ((cbn (ly:context-property c 'currentBarNumber)))
+		   (if (not (= cbn n))
+		       (ly:input-message location "Barcheck failed got ~a expect ~a"
+					 cbn n))))))
+
+
 %{
 
 TODO:
@@ -204,3 +218,4 @@ with small syntax changes, we could also do
  *  ?
 
 %}
+

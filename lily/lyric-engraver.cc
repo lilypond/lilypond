@@ -40,6 +40,7 @@ private:
 Lyric_engraver::Lyric_engraver ()
 {
   text_ = 0;
+  last_text_ = 0;
   event_ = 0;
 }
 
