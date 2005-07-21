@@ -8,6 +8,10 @@
 
 2005-07-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/texinfo.css: revert 760px hack. 
+
+	* VERSION: release 2.7.2
+
 	* Documentation/topdocs/NEWS.tely (Top): mention barNumberCheck
 
 	* Documentation/user/basic-notation.itely (Barnumber check): add section.
