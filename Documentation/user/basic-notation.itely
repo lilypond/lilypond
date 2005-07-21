@@ -763,6 +763,7 @@ the last few measures. This is achieved by putting
 
 @verbatim
 showLastLength = R1*5
+\score { ... }
 @end verbatim
 
 @noindent
