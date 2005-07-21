@@ -125,7 +125,7 @@ Syntax @code{\\translator Staff = @var{new-id}}.")
      . (
 	(description .	"A note that is part of a cluster.")
 
-					; not a note-event, to ensure that Note_engraver doesn't eat it. 
+	;; not a note-event, to ensure that Note_engraver doesn't eat it. 
 	(types . (general-music cluster-note-event melodic-event rhythmic-event event))
 	))
     
@@ -346,7 +346,7 @@ SYNTAX
 
 ")
 	(types . (general-music layout-instruction))
-	(iterator-ctor . ,	Push_property_iterator::constructor)
+	(iterator-ctor . ,Push_property_iterator::constructor)
 	))
     (PartCombineMusic
      . (
@@ -362,7 +362,7 @@ as separate voices.")
 	(description . "Start or end phrasing slur. 
 
 Syntax NOTE \\(  and \\) NOTE")
-	(types . (general-music span-event phrasing-slur-event))
+	(types . (general-music span-event event phrasing-slur-event))
 	))
     
     (PropertySet
@@ -486,7 +486,7 @@ SYNTAX
 	(description . "Start or end slur. 
 
 Syntax NOTE(	 and )NOTE")
-	(types . (general-music span-event slur-event))
+	(types . (general-music span-event event slur-event))
 	))
     
     (StaffSpanEvent
@@ -504,13 +504,13 @@ Syntax NOTE(	 and )NOTE")
     (TextSpanEvent
      . (
 	(description . "Start a text spanner like 8va.....|")
-	(types . (general-music span-event text-span-event))
+	(types . (general-music span-event event text-span-event))
 	))
     
     (TrillSpanEvent
      . (
 	(description . "Start a trill spanner tr~~~")
-	(types . (general-music span-event trill-span-event))
+	(types . (general-music span-event event trill-span-event))
 	))
     
     (TimeScaledMusic
