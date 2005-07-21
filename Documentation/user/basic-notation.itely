@@ -490,6 +490,7 @@ website for more information.
 * Octave check::                
 * Transpose::                   
 * Bar check::                   
+* Barnumber check::             
 * Skipping corrected music::    
 * Automatic note splitting::    
 @end menu
@@ -747,6 +748,23 @@ pipeSymbol = \bar "||"
 
 { c'2 c' | c'2 c' }
 @end lilypond
+
+
+@node Barnumber check
+@subsection Barnumber check
+
+When copying large pieces of music, it can be helpful to check that
+the LilyPond bar number corresponds to the original that you are
+entering from.  This can be checked with @code{\barNumberCheck}, for
+example, 
+
+@verbatim
+\barNumberCheck #123
+@end verbatim
+
+@noindent
+will print a warning if the @code{currentBarNumber} is not 123 when it
+is processed.
 
 
 @node Skipping corrected music
