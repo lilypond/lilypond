@@ -36,10 +36,11 @@ See user manual, \NAME\
 Melismata can be specified simply in the lyrics now, eg.
 
 @lilypond[relative=1,verbatim,fragment]
-\relative {
+{
   c d( e) f e
-\addlyrics
- { Ky -- _ _ ri e }
+} \addlyrics {
+  Ky -- _ _ ri e
+}
 @end lilypond 
 
 This feature was sponsored by Nancho Alvarez 
