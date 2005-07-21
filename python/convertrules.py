@@ -2526,6 +2526,15 @@ Timing_engraver -> Timing_translator + Default_bar_line_engraver
 '''))
 
 
+def conv (str):
+	str = re.sub('ly:(add|mul|mod|div)-moment', r'ly:moment-\1', str)
+	return str
+
+conversions.append (((2, 7, 2), conv,
+		     '''ly:X-moment -> ly:moment-X'''))
+
+
+
 ################################################################
 
 def str_to_tuple (s):

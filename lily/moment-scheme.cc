@@ -42,7 +42,19 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
 		 Rational (grace_num, grace_den)).smobbed_copy ();
 }
 
-LY_DEFINE (ly_add_moment, "ly:add-moment",
+
+LY_DEFINE (ly_sub_moment, "ly:moment-sub",
+	   2, 0, 0, (SCM a, SCM b),
+	   "Subtract two moments.")
+{
+  Moment *ma = unsmob_moment (a);
+  Moment *mb = unsmob_moment (b);
+  SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
+  SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
+  return (*ma - *mb).smobbed_copy ();
+}
+
+LY_DEFINE (ly_moment_add, "ly:moment-add",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Add two moments.")
 {
@@ -53,7 +65,7 @@ LY_DEFINE (ly_add_moment, "ly:add-moment",
   return (*ma + *mb).smobbed_copy ();
 }
 
-LY_DEFINE (ly_mul_moment, "ly:mul-moment",
+LY_DEFINE (ly_moment_mul, "ly:moment-mul",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Multiply two moments.")
 {
@@ -64,7 +76,7 @@ LY_DEFINE (ly_mul_moment, "ly:mul-moment",
   return (*ma * * mb).smobbed_copy ();
 }
 
-LY_DEFINE (ly_div_moment, "ly:div-moment",
+LY_DEFINE (ly_moment_div, "ly:moment-div",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Divide two moments.")
 {
@@ -75,7 +87,7 @@ LY_DEFINE (ly_div_moment, "ly:div-moment",
   return (*ma / * mb).smobbed_copy ();
 }
 
-LY_DEFINE (ly_mod_moment, "ly:mod-moment",
+LY_DEFINE (ly_moment_mod, "ly:moment-mod",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Modulo of two moments.")
 {

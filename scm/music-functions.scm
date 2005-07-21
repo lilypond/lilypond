@@ -732,6 +732,39 @@ Syntax:
 	(ly:music-length music))
   music)
 
+(define (skip-to-last music parser)
+
+  "Replace MUSIC by
+
+<< { \\set skipTypesetting = ##t
+     LENGTHOF(\\showLastLength)
+     \\set skipTypesetting = ##t  }
+    MUSIC >>
+
+if appropriate.
+ "
+  (let*
+      ((show-last  (ly:parser-lookup parser 'showLastLength)))
+    
+    (if (ly:music? show-last)
+	(let*
+	    ((orig-length (ly:music-length music))
+	     (skip-length (ly:moment-sub orig-length (ly:music-length show-last))))
+
+	  (make-simultaneous-music
+	   (list
+	    (make-sequential-music
+	     (list
+	      (context-spec-music (make-property-set 'skipTypesetting #t) 'Score)
+	      (make-music 'SkipMusic 'duration
+			  (ly:make-duration 0 0
+					    (ly:moment-main-numerator skip-length)
+					    (ly:moment-main-denominator skip-length)))
+	      (context-spec-music (make-property-set 'skipTypesetting #f) 'Score)))
+	    music)))
+	music)))
+    
+
 (define-public toplevel-music-functions
   (list
    (lambda (music parser) (voicify-music music))
@@ -745,8 +778,9 @@ Syntax:
    ;; switch-on-debugging
    (lambda (x parser) (music-map cue-substitute x))
  
-
-   ))
+   (lambda (x parser)
+     (skip-to-last x parser)
+   )))
 
 ;;;;;;;;;;;;;;;;;
 ;; lyrics

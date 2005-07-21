@@ -199,7 +199,7 @@ a fresh copy of the list-head is made."
 	     (measure-pos (get 'measurePosition (ly:make-moment 0 1)))
 	     (settings (get 'autoBeamSettings '()))
 	     (function (list (if (= dir START) 'begin 'end)))
-	     (num-mom (ly:div-moment measure-length beat-length))
+	     (num-mom (ly:moment-div measure-length beat-length))
 	     (num (inexact->exact
 		   (round (/ (ly:moment-main-numerator num-mom)
 			     (ly:moment-main-denominator num-mom)))))
@@ -209,7 +209,7 @@ a fresh copy of the list-head is made."
 			 (ly:moment-main-denominator test)))
 	     (pos (if (>= (ly:moment-main-numerator measure-pos) 0)
 		      measure-pos
-		      (ly:add-moment measure-length measure-pos)))
+		      (ly:moment-add measure-length measure-pos)))
 	     (lst (list
 		   ;; Hmm, should junk user-override feature,
 		   ;; or split this in user-override and config section?
@@ -231,4 +231,4 @@ a fresh copy of the list-head is made."
 		;; end at any beat
 		(and (not (first-assoc lst settings))
 		     (= (ly:moment-main-denominator
-			 (ly:div-moment pos beat-length)) 1)))))))
+			 (ly:moment-div pos beat-length)) 1)))))))

@@ -9,7 +9,7 @@
    (set! safe-objects (cons (cons sym (primitive-eval sym))
                             safe-objects)))
  '(ly:add-interface
-   ly:add-moment
+   ly:moment-add
    ly:all-grob-interfaces
    ly:all-output-backend-commands
    ly:all-stencil-expressions
@@ -26,7 +26,7 @@
    ly:context?
    ly:dimension?
    ly:dir?
-   ly:div-moment
+   ly:moment-div
    ly:duration-dot-count
    ly:duration-factor
    ly:duration-log
@@ -75,7 +75,7 @@
    ly:make-stencil
    ly:moment<?
    ly:moment?
-   ly:mul-moment
+   ly:moment-mul
    ly:music-compress
    ly:music-deep-copy
    ly:music-duration-compress

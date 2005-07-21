@@ -838,15 +838,15 @@ the @code{LyricHyphen} grob.
 
 @lilypond[quote,verbatim,raggedright]
 \score {
-<<
+ <<
   \new Staff \relative c'' {
     \time 1/4 c16 c c c c16 c c c c16 c c c
-  } % closes notes
+  }
   \lyricmode { \new Lyrics
     \with {
-    \override SeparationItem #'padding = #0.0
+      \override SeparationItem #'padding = #0.0
       % Otherwise lyrics are so far apart that hyphens don't disappear
-    } % closes with
+    } 
     {
       An -- ti -- cons -- ti --
       tu -- tion -- nel -- le --
@@ -854,17 +854,17 @@ the @code{LyricHyphen} grob.
       \override LyricHyphen  #'spacing-procedure =
         #Hyphen_spanner::set_spacing_rods
       men -- taire -- ment. ouf~!
-    } % closes lyrics
-  } %closes lyricmode
->>
-\layout   {
+    }
+  }
+ >>
+ \layout   {
   indent = 0.0 \cm
   linewidth = 3.4 \cm
   \context {
     \Staff \remove "Time_signature_engraver"
-  } % closes context
-} % closes layout
-} % closes score
+  }
+ }
+}
 @end lilypond
 
 @seealso
@@ -1033,10 +1033,12 @@ inserted by hand.
 @node Flexibility in alignment
 @subsection Flexibility in alignment
 
-
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
 @code{\lyricsto}.
+
+@subsubsection Lyrics to multiple notes of a melisma 
+
 
 One possibility is that the text has a melisma in one stanza, but
 multiple syllables in another one.  One solution is to make the faster
@@ -1084,6 +1086,11 @@ For example,
   kle
 }
 @end lilypond
+
+
+@subsection Switching the melody associated with a lyrics line
+
+
 
 More complex variations in text underlay are possible.  It is possible
 to switch the melody for a line of lyrics during the text.  This is
@@ -1165,6 +1172,31 @@ The underlay is switched back to the starting situation by assigning
 @code{lahlah} to @code{associatedVoice}.
 
 
+
+@subsection Specifying melismata within the lyrics
+
+It is also possible to define melismata entirely in the lyrics. This
+can be done by entering @code{_} for every note that is part of the
+melisma. 
+
+@lilypond[relative=1,verbatim,fragment] 
+{ \set melismaBusyProperties = #'()
+  c d( e) f f( e) e e  }
+\addlyrics
+ { Ky -- _ _ ri __ _ _ _  e }
+@end lilypond
+
+In this case, you can also have ties and slurs in the melody, if you
+set @code{melismaBusyProperties}, as is done in the example above.
+
+@lilypond[relative=1,verbatim,fragment]
+{
+ \set melismaBusyProperties = #'()
+  c d( e) f f( e) e e
+}
+\addlyrics
+ { Ky -- _ _ ri __ _ _ _  e }
+@end lilypond
 
 
 @node More stanzas

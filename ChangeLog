@@ -1,3 +1,25 @@
+2005-07-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/music-functions.scm (skip-to-last): new function. Show only
+	last showLastLength part of the \score.
+
+	* lily/moment-scheme.cc (LY_DEFINE): new function ly:moment-sub
+
+	* python/convertrules.py (conv): add ly:x-moment rule
+
+	* lily/moment-scheme.cc (LY_DEFINE): rename ly:X-moment  -> ly:moment-X
+
+	* Documentation/topdocs/NEWS.tely (Top): add new feature.
+
+	* Documentation/user/instrument-notation.itely (Flexibility in
+	alignment): options in subsections.
+
+	* lily/lyric-engraver.cc (process_music): don't typeset text for _
+	syllable text. Instead, assume that the previous lyric text is a
+	melismated text.
+
+	* Documentation/index.html.in: revert 800x600 change.
+
 2005-07-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (main): Remove invalid handle kludge.

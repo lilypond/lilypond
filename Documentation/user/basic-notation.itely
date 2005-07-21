@@ -752,13 +752,28 @@ pipeSymbol = \bar "||"
 @node Skipping corrected music
 @subsection Skipping corrected music
 
-@cindex @code{skipTypesetting}
 
-The property @code{Score.skipTypesetting} can be used to switch on and
-off typesetting completely during the interpretation phase.  When
-typesetting is switched off, the music is processed much more
-quickly.  This can be used to skip over the parts of a score that
-have already been checked for errors
+@cindex @code{skipTypesetting}
+@cindex @code{showLastLength}
+
+When entering or copying music, only the music near the end (where you
+are adding notes) is interesting to view and correct.  To speed up
+this correction process, it is possible to skip typesetting of all but
+the last few measures. This is achieved by putting
+
+@verbatim
+showLastLength = R1*5
+@end verbatim
+
+@noindent
+in your source file. This will render only the last 5 measures
+(assuming 4/4 time signature) of every @code{\score} in the input
+file. For longer pieces, rendering only a small part is often an order
+of magnitude quicker than rendering it completely
+
+Skipping parts of a score can be controlled in a more fine-grained
+fashing with the property @code{Score.skipTypesetting}.  When it is
+set, no typesetting is performed at all.
 
 @lilypond[quote,fragment,raggedright,verbatim]
 \relative c'' {

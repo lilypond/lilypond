@@ -129,8 +129,7 @@ get_first_context_id (SCM type, Music *m)
 SCM
 make_simple_markup (SCM a)
 {
-	SCM simple = ly_lily_module_constant ("simple-markup");
-	return scm_list_2 (simple, a);
+	return a;
 }
 
 bool
@@ -2350,7 +2349,7 @@ lyric_element:
 		$$ = $1;
 	}
 	| LYRICS_STRING {
-		$$ = make_simple_markup ($1);
+		$$ = $1;
 	}
 	;
 
