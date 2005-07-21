@@ -6,33 +6,37 @@
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
-(for-each (lambda (x)
-	    (ly:add-option (car x) (cadr x) (caddr x)))
+(define (define-scheme-options)
+  (for-each (lambda (x)
+	      (ly:add-option (car x) (cadr x) (caddr x)))
 	  
-	  '((point-and-click #t "use point & click")
-	    (midi-debug #f "generate human readable MIDI")
-	    (internal-type-checking #f "check every property assignment for types")
-	    (parse-protect #t    "continue when finding errors in inline
+	    '((point-and-click #t "use point & click")
+	      (midi-debug #f "generate human readable MIDI")
+	      (internal-type-checking #f "check every property assignment for types")
+	      (parse-protect #t    "continue when finding errors in inline
 scheme are caught in the parser. If off, halt 
 on errors, and print a stack trace.")
-	    (old-relative #f
-			  "relative for simultaneous music works
+	      (old-relative #f
+			    "relative for simultaneous music works
 similar to chord syntax")
-	    (object-keys #f
-			 "experimental mechanism for remembering tweaks") 
-	    (resolution 101 "resolution for generating bitmaps")
-	    (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
-	    (preview-include-book-title #t "include book-titles in preview images.")
-	    (gs-font-load #f
-			  "load fonts via Ghostscript.")
-	    (delete-intermediate-files #f
-				       "delete unusable PostScript files")
-	    (verbose #f "value for the --verbose flag")
-	    (ttf-verbosity 0
+	      (object-keys #f
+			   "experimental mechanism for remembering tweaks")
+	      (resolution 101 "resolution for generating bitmaps")
+	      (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
+	      (preview-include-book-title #t "include book-titles in preview images.")
+	      (gs-font-load #f
+			    "load fonts via Ghostscript.")
+	      (gui #f "running from gui; redirect stderr to log file")
+	      (delete-intermediate-files #f
+					 "delete unusable PostScript files")
+	      (verbose #f "value for the --verbose flag")
+	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
-	    (debug-gc #f
-		      "dump GC protection info")))
+	      (debug-gc #f
+			"dump GC protection info"))))
 
+;; FIXME: stray statement
+(define-scheme-options)
 
 (if (defined? 'set-debug-cell-accesses!)
     (set-debug-cell-accesses! #f))
@@ -115,6 +119,12 @@ similar to chord syntax")
   (string->symbol
    (string-downcase
     (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))
+
+(define-public DOS
+  (let ((platform (string-tokenize
+		   (vector-ref (uname) 0) char-set:letter+digit)))
+    (if (null? (cdr platform)) #f
+	(member (string-downcase (cadr platform)) '("95" "98" "me")))))
 
 (case PLATFORM
   ((windows)
@@ -320,25 +330,20 @@ The syntax is the same as `define*-public'."
      outfile)
 
     (if (defined? 'gc-live-object-stats)
-	(let*
-	    ((stats #f))
-
+	(let* ((stats #f))
 	  (display "Live object statistics: GC'ing\n")
 	  (gc)
 	  (gc)
-
+	  
 	  (set! stats (gc-live-object-stats))
 	  (display "Dumping live object statistics.\n")
-
+	  
 	  (for-each
 	   (lambda (x)
 	     (format outfile "~a: ~a\n" (car x) (cdr x)))
 	   (sort (gc-live-object-stats)
 		 (lambda (x y)
-		   (string<? (car x) (car y)))))
-	   ))
-
-    ))
+		   (string<? (car x) (car y)))))))))
 
 (define-public (tweak-grob-property grob sym val)
   (set! (ly:grob-property grob sym) val))
@@ -387,9 +392,14 @@ The syntax is the same as `define*-public'."
     ;; If no TTY and not using safe, assume running from GUI.
     (cond
      ((eq? PLATFORM 'windows)
+      ;; Always write to .log file.
+      (if DOS #t
       ;; This only works for i586-mingw32msvc-gcc -mwindows
       (not (string-match "standard input"
-			 (format #f "~S" (current-input-port)))))
+			 (format #f "~S" (current-input-port))))))
+     ;; FIXME: using -dgui would be nice, but it does not work
+     ((eq? PLATFORM 'foo-windows)
+      (ly:get-option 'gui))
      ((eq? PLATFORM 'darwin) #f)
      (else
       (not have-tty?)))))
