@@ -47,6 +47,10 @@ class NotationApplication:
         
         win.add (vbox)
         toolbar.show ()
+
+        toolbar.add_button ('zoom out', 'minus', lambda: canvas.zoom (-1), 0)
+        toolbar.add_button ('zoom in', 'Shift+plus', lambda: canvas.zoom (1), 0)
+        
         win.show()
         
         return win

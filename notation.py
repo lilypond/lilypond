@@ -22,6 +22,9 @@ clefsetting = """
        (make-property-set 'middleCPosition 0) 'Staff)
 """
 
+server = 'maagd'
+# server = 'localhost'
+
 lilypond_input_log_file = open ("input.log", 'w')
 
 def talk_to_lilypond (expression_str):
@@ -31,7 +34,7 @@ def talk_to_lilypond (expression_str):
         lilypond_input_log_file.flush ()
     
     sock = socket.socket (socket.AF_INET)
-    address = ("localhost", 2904)
+    address = (server, 2904)
     sock.connect (address)
     sock.send (expression_str, socket.MSG_WAITALL)
 

@@ -1,3 +1,9 @@
+2005-07-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ikebana.py (NotationApplication.create_window): add zoom.
+
+	* notationcanvas.py (Notation_toolbar.__init__): multiple rows.
+
 2005-07-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* notationcanvas.py (Notation_toolbar.__init__): new class
