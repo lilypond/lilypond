@@ -48,6 +48,7 @@ public:
 #define make_item(x, cause) make_item_from_properties (this, ly_symbol2scm (x), cause, x)
 #define make_spanner(x, cause) make_spanner_from_properties (this, ly_symbol2scm (x), cause, x)
 #define make_paper_column(x) make_paper_column_from_properties (this, ly_symbol2scm (x), x)
+Grob *make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, const char *name);
 Item *make_item_from_properties (Engraver *tg, SCM x, SCM cause, const char *name);
 Spanner *make_spanner_from_properties (Engraver *tg, SCM x, SCM cause, const char *name);
 Paper_column *make_paper_column_from_properties (Engraver *tg, SCM x, const char *name);

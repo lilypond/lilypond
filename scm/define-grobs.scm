@@ -24,10 +24,26 @@
 	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)
 	(meta . ((class . Item)
-		 (interfaces . (accidental-interface
-					       font-interface))))
+		 (interfaces . (accidental-interface font-interface))))
 	))
-
+    
+    (AccidentalSuggestion
+     . ((print-function . ,Accidental_interface::print)
+	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
+			       ,Self_alignment_interface::aligned_on_self))
+	(self-alignment-X . ,CENTER)
+	(cautionary . #t)
+	(cautionary-style . smaller)
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(cautionary-style . parentheses)
+	(direction . ,UP)
+	(staff-padding . 0.25)
+	(script-priority . 0)
+	(meta . ((class . Item)
+		 (interfaces . (side-position-interface script-interface
+				accidental-suggestion-interface self-alignment-interface
+				font-interface))))
+	))
     (AccidentalPlacement
      . ((X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(left-padding . 0.2)
@@ -865,7 +881,8 @@
 	(staff-padding . 0.2)
 	(font-size . -4)
 	(meta . ((class . Item)
-		 (interfaces . (text-interface self-alignment-interface side-position-interface font-interface ))))
+		 (interfaces . (text-interface self-alignment-interface
+					       side-position-interface font-interface ))))
 	))
 
     (OttavaBracket

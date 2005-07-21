@@ -32,6 +32,18 @@ See user manual, \NAME\
 
 
 @itemize @bullet
+
+@item
+Suggested accidentals (for notating musica ficta) may be switched on
+with @code{suggestAccidentals}
+
+@lilypond[verbatim,fragment,relative=2]
+\set suggestAccidentals = ##t
+ais bis
+@end lilypond 
+
+This feature was sponsored by Nancho Alvarez.
+
 @item
 The setting @code{whichBar} and time-bookkeeping is now split into a
 @code{Default_bar_line_engraver} and @code{Timing_translator}
