@@ -1,3 +1,11 @@
+2005-07-22  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/index.html.in, Documentation/texinfo.css,
+	  stepmake/bin/text2html.py, buildscripts/mutopia-index.py,
+	  Documentation/bibliography/index.html.in,
+	  Documentation/bibliography/html-long.bst: revert css-width patch,
+	  it does not work with IE6.
+
 2005-07-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/NEWS.tely (Top): mention barNumberCheck

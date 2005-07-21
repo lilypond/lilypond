@@ -92,7 +92,6 @@ def gen_list (inputs, file_name):
 		list = sys.stdout
 	list.write ('''<html><head><title>Rendered Examples</title>
 <style type="text/css">
-body { width: 760px; }\n
 hr { border:0; height:1; color: #000000; background-color: #000000; }\n
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
