@@ -40,7 +40,7 @@
 	(staff-padding . 0.25)
 	(script-priority . 0)
 	(meta . ((class . Item)
-		 (interfaces . (side-position-interface script-interface
+		 (interfaces . (side-position-interface script-interface accidental-interface
 				accidental-suggestion-interface self-alignment-interface
 				font-interface))))
 	))
