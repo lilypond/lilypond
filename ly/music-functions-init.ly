@@ -147,7 +147,9 @@ pitchedTrill =
      (if (ly:pitch? trill-pitch)
 	 (for-each (lambda (m) (ly:music-set-property! m 'trill-pitch trill-pitch))
 		   trill-events)
-	 (ly:warning (_ "Second argument of \\pitchedTrill should be single note.")))
+	 (begin
+	   (ly:warning (_ "Second argument of \\pitchedTrill should be single note: "))
+	   (display sec-note-events)))
 
      main-note))
 
