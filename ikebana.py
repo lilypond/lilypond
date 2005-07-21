@@ -32,7 +32,21 @@ class NotationApplication:
 
         canvas = self.notation_canvas_controller.canvas
         canvas.show ()
-        win.add (canvas)
+
+        tb_type = notationcanvas.Notation_toolbar 
+        toolbar = tb_type (self.notation_canvas_controller.notation,
+                           self.notation_canvas_controller.check_update
+                           )
+
+        canvas.connect ("key-press-event", toolbar.keypress_callback)
+
+        vbox = gtk.VBox ()
+        vbox.pack_start (canvas, expand=True)
+        vbox.pack_start (toolbar, expand=False)
+        vbox.show ()
+        
+        win.add (vbox)
+        toolbar.show ()
         win.show()
         
         return win

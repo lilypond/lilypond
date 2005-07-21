@@ -29,8 +29,15 @@ class Duration:
 
 	def length (self):
 		dot_fact = ((1 << (1 + self.dots))-1.0)/ (1 << self.dots)
-		
-		return 1.0/(1 << self.duration_log) * dot_fact * self.factor[0]/self.factor[1]
+
+		log = abs (self.duration_log)
+		dur = 1 << log
+		if self.duration_log < 0:
+			base = 1.0 * dur
+		else:
+			base = 1.0 / dur
+
+		return base * dot_fact * self.factor[0]/self.factor[1]
 	
 class Pitch:
 	def __init__ (self):
@@ -110,6 +117,7 @@ class Music_document:
 	def __init__ (self):
 		self.music = test_expr ()
 		self.tag_dict = {}
+		self.touched = True
 		
 	def recompute (self):
 		self.tag_dict = {}

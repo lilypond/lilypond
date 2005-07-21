@@ -8,8 +8,28 @@ import music
 import pango
 import math
 
+
+copy_lilypond_input = 1
+time_sig = (4, 4)
+measure_length = (1.0 * time_sig[0]) / time_sig[1]
+scale = "'((0 . 0) (1 . 0) (2 . -2) (3 . 0) (4 . 0) (5 . -2) (6 . -2))"
+clefsetting = """
+      (context-spec-music
+       (make-property-set 'clefGlyph "clefs.C") 'Staff)
+      (context-spec-music
+       (make-property-set 'clefPosition 0) 'Staff)
+      (context-spec-music
+       (make-property-set 'middleCPosition 0) 'Staff)
+"""
+
+lilypond_input_log_file = open ("input.log", 'w')
+
 def talk_to_lilypond (expression_str):
     """Send a LISP expression to LilyPond, wait for return value."""
+    if copy_lilypond_input:
+        lilypond_input_log_file.write (expression_str)
+        lilypond_input_log_file.flush ()
+    
     sock = socket.socket (socket.AF_INET)
     address = ("localhost", 2904)
     sock.connect (address)
@@ -30,8 +50,37 @@ def talk_to_lilypond (expression_str):
 def set_measure_number (str, num):
     return """(make-music 'SequentialMusic 'elements (list
       (context-spec-music
+       (make-property-set 'timeSignatureFraction (cons %d %d)) 'Score)
+      (context-spec-music
+       (make-property-set 'measureLength (ly:make-moment %d %d)) 'Score)
+      (context-spec-music
+       (make-property-set 'beatLength (ly:make-moment 1 %d)) 'Score)
+      (context-spec-music
        (make-property-set 'currentBarNumber %d) 'Score)
-    %s))""" % (num,str)
+      (context-spec-music
+       (make-music 'EventChord
+        'elements
+        (list
+         (make-music 'KeyChangeEvent
+          'pitch-alist
+          %s)
+         ))
+       'Staff)
+       
+
+    %s))""" % (time_sig[0], time_sig[1], time_sig[0],
+               time_sig[1], time_sig[1], num, scale, str)
+
+def render_score (filename, ly):
+    print ly
+    str =  '''
+myNotes = %s
+\\score  { \myNotes }
+''' % ly
+    open (filename, 'w').write (str)
+    base = os.path.splitext (filename)[0] + '.ps'
+    os.system ('(lilypond %s && gv %s)&  ' % (filename, base))
+    
 
 class Lilypond_socket_parser:
     """Maintain state of reading multi-line lilypond output for socket transport."""
@@ -63,12 +112,13 @@ class Lilypond_socket_parser:
             return
         elif fields[0] == 'cause':
             self.cause_tag = string.atoi (fields[1])
-            self.name = fields[2]
+            self.name = fields[2][1:-1]
 	    self.bbox = tuple (map (string.atof, fields[3:]))
             return
 
         return self.interpret_socket_line (offset, self.cause_tag,
-					   self.bbox, fields)
+					   self.bbox, self.name,
+                                           fields)
 
 class Notation_controller:
     """Couple Notation and the music model. Stub for now. """
@@ -80,8 +130,9 @@ class Notation_controller:
         self.start_moment = 0.0
         self.stop_moment = 3.0
 
-    def interpret_line (self, offset, cause, bbox, fields):
+    def interpret_line (self, offset, cause, bbox, name, fields):
 	notation_item = self.notation.add_item (offset, cause, bbox, fields)
+        notation_item.name = name
     
     def update_notation(self):
 	doc = self.document
@@ -93,7 +144,6 @@ class Notation_controller:
 		ok = (x.start >= self.start_moment and
                       x.start +x.length() <= self.stop_moment)
 		return ok
-
         
 	str = expr.lisp_sub_expression (sub)
         str = set_measure_number (str, int (self.start_moment) + 1)
@@ -101,13 +151,21 @@ class Notation_controller:
         self.parse_socket_file (str)
 
     def ensure_visible (self, when):
-        self.start_moment = max (math.floor (when - 1.0), 0.0)
-        self.stop_moment = self.start_moment + 3.0
-       
+        new_start =  max (math.floor (when - measure_length), 0.0)
+        new_stop = new_start + 3 * measure_length
+
+        if new_start <> self.start_moment or new_stop <> self.stop_moment:
+            self.document.touched = True
+            
+        self.start_moment = new_start
+        self.stop_moment = new_stop
+
     def parse_socket_file (self, str):
         self.notation.clear ()
         lines = string.split (str, '\n')
         self.parse_lines (lines)
+        self.notation.touched = True
+        self.document.touched = False
         
     def parse_lines (self, lines):
         for l in lines:
@@ -120,6 +178,7 @@ class Notation_item:
         self.bbox = None
         self.offset = (0,0)
         self.tag = None
+        self.name = ''
         self.args = []
 	self.canvas_item = None
 	self.music_expression = None
@@ -172,6 +231,7 @@ class Notation_item:
         coords = self.args[2:]
         w = canvas.root ().add (type,
                                 fill_color = 'black',
+                                outline_color = 'black',
                                 width_units = blot,
                                 points = coords)
 
@@ -184,30 +244,26 @@ class Notation_item:
         magnification = 0.5
 
 #ugh: how to get pango_descr_from_string() in pygtk?
-
-	(fam,rest) = tuple (string.split (descr, ','))
+	
+	if descr.find (',') == -1:
+            (fam,rest) = tuple (string.split (descr, ' '))
+        else:
+            (fam,rest) = tuple (string.split (descr, ','))
         size = string.atof (rest)
         w = canvas.root().add (type,
                                fill_color = 'black',
                                family_set = True,
                                family = fam,
-                               anchor = gtk.ANCHOR_WEST,
-                               y_offset = 0.15,
-                               size_points = size  * canvas.pixel_scale * 0.75 * magnification,
+                               anchor = gtk.ANCHOR_SOUTH_WEST,
+                               y_offset = 0.75,
+                               size_points = size  * canvas.pixel_scale * 0.87  * magnification,
                                text = str)
         return w
         
     def create_canvas_item (self, canvas):
-	dispatch_table = {'draw_round_box' : Notation_item.create_round_box_canvas_item,
-			  'drawline': Notation_item.create_line_canvas_item,
-			  'glyphshow': Notation_item.create_glyph_item,
-                          'polygon': Notation_item.create_polygon_item,
-                          'utf-8' : Notation_item.create_text_item,
-			  }
-
 	citem = None
 	try:
-	    method = dispatch_table[self.tag]
+	    method = Notation_item.dispatch_table[self.tag]
 	    citem = method (self, canvas)
 	    citem.move (*self.offset)
 	    citem.notation_item = self
@@ -217,6 +273,13 @@ class Notation_item:
 	    print 'no such key', self.tag
 	    
 	return citem
+
+    dispatch_table = {'draw_round_box' : create_round_box_canvas_item,
+                       'drawline': create_line_canvas_item,
+                       'glyphshow':create_glyph_item,
+                       'polygon': create_polygon_item,
+                       'utf-8' : create_text_item,
+                       }
 	    
 class Notation:
     """A complete line/system/page of LilyPond output. Consists of a
@@ -225,7 +288,9 @@ class Notation:
     def __init__ (self, controller):
         self.items = []
 	self.notation_controller = controller
-
+        self.touched = True
+        self.cursor_touched = True
+        
         toplevel = controller.document.music
         self.music_cursor = toplevel.find_first (lambda x: x.name()== "NoteEvent") 
         
@@ -245,11 +310,11 @@ class Notation:
 	    item.bbox = bbox
 	    
 	    self.items.append (item)
-
-    
+            return item
+        
     def clear(self):
         self.items = [] 
-	
+            
     def paint_on_canvas (self,  canvas):
         for w in  canvas.root().item_list:
             if w.notation_item:
@@ -260,6 +325,11 @@ class Notation:
 
         canvas.set_cursor_to_music (self.music_cursor)
 
+    def set_cursor (self, music_expr):
+        self.music_cursor = music_expr
+        self.cursor_touched = True
+        self.ensure_cursor_visible ()
+        
     def cursor_move (self, dir):
         mus = self.music_cursor
         if mus.parent.name() == 'EventChord':
@@ -267,7 +337,7 @@ class Notation:
         
         mus = mus.parent.get_neighbor (mus, dir)
         mus = mus.find_first (lambda x: x.name() in ('NoteEvent', 'RestEvent'))
-        self.music_cursor = mus
+        self.set_cursor (mus)
         
     def insert_at_cursor (self, music, dir):
         mus = self.music_cursor
@@ -275,21 +345,31 @@ class Notation:
             mus = mus.parent
 
      	mus.parent.insert_around (mus, music, dir)
+        self.touch_document()
 
+    def touch_document (self):
+        self.get_document ().touched = True
+
+    def check_update (self):
+        if self.get_document().touched:
+            self.notation_controller.update_notation ()
+        
     def backspace (self):
         mus = self.music_cursor
-        if mus.parent.name() == 'EventChord':
+        if mus.parent.name() == 'EventChord' and len (mus.parent.elements) <= 1:
             mus = mus.parent
 
         neighbor = mus.parent.get_neighbor (mus, -1)
         mus.parent.delete_element (neighbor)
-
+        self.touch_document ()
     def change_octave (self, dir):
         if self.music_cursor.name() == 'NoteEvent':
             p = self.music_cursor.pitch
             p.octave += dir 
+        self.touch_document ()
 
-    def change_step (self, step):
+    def set_step (self, step):
+        self.ensure_note ()
         if self.music_cursor.name() == 'NoteEvent':
 
             # relative mode.
@@ -306,6 +386,57 @@ class Notation:
                     p1.octave += 1
                     
             self.music_cursor.pitch = p1
+            self.touch_document ()
+
+        else:
+            print 'not a NoteEvent'
+
+    def add_step (self, step):
+        self.ensure_note ()
+        if self.music_cursor.name() == 'NoteEvent':
+
+            # relative mode.
+            p = self.music_cursor.pitch
+            p1 = p.copy()
+            p1.step = step
+            
+            orig_steps = p.steps ()
+            new_steps = p1.steps ()
+            diff = new_steps - orig_steps
+            if diff >= 4:
+                    p1.octave -= 1
+            elif diff <= -4:
+                    p1.octave += 1
+
+            new_ev = music.NoteEvent()
+            new_ev.pitch = p1
+            new_ev.duration = self.music_cursor.duration.copy()
+
+            self.music_cursor.parent.insert_around (self.music_cursor,
+                                                    new_ev, 1)
+            self.music_cursor = new_ev
+            self.touch_document ()
+        else:
+            print 'not a NoteEvent'
+
+    def change_step (self, dstep):
+        self.ensure_note ()
+        if self.music_cursor.name() == 'NoteEvent':
+
+            # relative mode.
+            p = self.music_cursor.pitch
+            p1 = p.copy()
+            p1.step += dstep
+
+            if p1.step > 6:
+                p1.step -= 7
+                p1.octave += 1
+            elif p1.step < 0:
+                p1.step += 7
+                p1.octave -= 1
+                
+            self.music_cursor.pitch = p1
+            self.touch_document ()
 
         else:
             print 'not a NoteEvent'
@@ -319,7 +450,9 @@ class Notation:
             dl += dir
             if dl <= 6 and dl >= -3:
                 dur.duration_log = dl
-            
+                
+            self.touch_document ()
+
 
     def ensure_note (self):
         if self.music_cursor.name() == 'RestEvent':
@@ -328,6 +461,7 @@ class Notation:
             m.parent.insert_around (None, note, 1)
             m.parent.delete_element (m)
             self.music_cursor = note
+            self.touch_document ()
             
     def ensure_rest (self):
         if self.music_cursor.name() == 'NoteEvent':
@@ -336,6 +470,7 @@ class Notation:
             m.parent.insert_around (None, rest, 1)
             m.parent.delete_element (m)
             self.music_cursor = rest  
+            self.touch_document ()
             
     def change_dots (self):
         if self.music_cursor.name() == 'NoteEvent':
@@ -344,6 +479,7 @@ class Notation:
                 p.dots = 0
             elif p.dots == 0:
                 p.dots = 1
+            self.touch_document ()
             
     def ensure_cursor_visible(self):
         self.notation_controller.document.recompute()
@@ -356,8 +492,35 @@ class Notation:
             new_alt = p.alteration + dir
             if abs (new_alt) <= 4: 
                 p.alteration = new_alt
+            self.touch_document ()
 
     def print_score(self):
         doc = self.notation_controller.document
         ly = doc.music.ly_expression()
-        print ly
+        render_score('score.ly', ly) 
+
+    def add_note (self):
+        if self.music_cursor.name () == 'NoteEvent':
+            note = music.NoteEvent ()
+            note.pitch = self.music_cursor.pitch.copy()
+            note.duration = self.music_cursor.duration.copy()
+            
+            ch = music.EventChord ()
+            ch.insert_around (None, note, 0)
+            
+            self.insert_at_cursor (ch, 1)
+            self.cursor_move (1)
+            self.touch_document ()
+
+        elif self.music_cursor.name () == 'RestEvent':
+            rest = music.RestEvent ()
+            rest.duration = self.music_cursor.duration.copy()
+            
+            ch = music.EventChord ()
+            ch.insert_around (None, rest, 0)
+            
+            self.insert_at_cursor (ch, 1)
+            self.cursor_move (1)
+            self.touch_document ()
+            
+
