@@ -315,6 +315,14 @@ top-most of the next system.
 Increasing this will put systems whose bounding boxes almost touch
 farther apart.
 
+
+@item horizontalshift
+All systems (including titles and system separators) are shifted by
+this amount to the right. Page markup, such as headers and footers are
+not affected by this. The purpose of this variable is to make space
+for instrument names at the left.
+
+
 @item aftertitlespace
 Amount of space between the title and the first system.
 

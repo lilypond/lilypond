@@ -18,13 +18,15 @@ LY_DEFINE (ly_input, "ly:input-location?", 1, 0, 0,
   return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
-	   "Print @var{msg} as a GNU compliant error message, pointing to the"
-	   "location in @var{sip}.\n")
+LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
+	   "Print @var{msg} as a GNU compliant error message, pointing to the "
+	   "location in @var{sip}. @var{msg} is interpreted similar to @code{format}'s argument\n")
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
   SCM_ASSERT_TYPE (scm_is_string (msg), msg, SCM_ARG2, __FUNCTION__, "string");
+
+  msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
   String m = ly_scm2string (msg);
   ip->message (m);

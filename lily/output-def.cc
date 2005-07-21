@@ -114,7 +114,7 @@ Output_def::lookup_variable (SCM sym) const
   if (parent_)
     return parent_->lookup_variable (sym);
   
-  return SCM_EOL;
+  return SCM_UNDEFINED;
 }
 
 SCM

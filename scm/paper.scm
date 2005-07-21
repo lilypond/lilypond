@@ -8,7 +8,7 @@
   (module-define! mod 'dimension-variables
 		  '(pt mm cm in staffheight staff-space
 		       betweensystemspace betweensystempadding
-		       linewidth indent hsize vsize
+		       linewidth indent hsize vsize horizontalshift
 		       staffspace linethickness ledgerlinethickness
 		       blotdiameter interscoreline leftmargin rightmargin)))
 
