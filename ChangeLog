@@ -1,3 +1,19 @@
+2005-07-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/output-def-scheme.cc (LY_DEFINE): take default  argument.
+
+	* lily/output-def.cc (lookup_variable): return SCM_UNDEFINED if undefined.
+
+	* Documentation/user/global.itely (Page formatting): document
+	horizontalshift.
+
+	* scm/page-layout.scm (default-page-music-height):
+	horizontalshift: new variable, shift all systems by
+	horizontalshift to the right, to make space for instrument names.
+
+	* scm/paper.scm (set-paper-dimension-variables): add horizontalshift
+
+	* lily/input-scheme.cc (LY_DEFINE): take format commands.
 
 2005-07-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
@@ -10,6 +26,8 @@
 	* lily/include/paper-column.hh (class Paper_column): add
 	non-static get_rank() member.
 
+	* VERSION: release 2.7.1
+	
 	* scm/framework-null.scm: new file, used for benchmarking.
 
 2005-07-20  Heikki Junes  <hjunes@cc.hut.fi>

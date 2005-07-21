@@ -84,7 +84,8 @@ create offsets.
 
 	 (vsize (ly:output-def-lookup layout 'vsize))
 	 (hsize (ly:output-def-lookup layout 'hsize))
-
+	 
+	 (system-xoffset (ly:output-def-lookup layout 'horizontalshift 0.0))
 	 (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
 	 (system-separator-stencil (if (markup? system-separator-markup)
 				       (interpret-markup layout
@@ -93,53 +94,57 @@ create offsets.
 				       #f))
 	 (lmargin (ly:output-def-lookup layout 'leftmargin))
 	 (leftmargin (if lmargin
-		       lmargin
-		       (/ (- hsize
-			     (ly:output-def-lookup layout 'linewidth)) 2)))
+			 lmargin
+			 (/ (- hsize
+			       (ly:output-def-lookup layout 'linewidth)) 2)))
 
-       (rightmargin (ly:output-def-lookup layout 'rightmargin))
-       (bottom-edge (- vsize
-		       (ly:output-def-lookup layout 'bottommargin)))
+	 (rightmargin (ly:output-def-lookup layout 'rightmargin))
+	 (bottom-edge (- vsize
+			 (ly:output-def-lookup layout 'bottommargin)))
 
-       (head (page-headfoot layout scopes number 'make-header 'headsep UP last?))
-       (foot (page-headfoot layout scopes number 'make-footer 'footsep DOWN last?))
+	 (head (page-headfoot layout scopes number 'make-header 'headsep UP last?))
+	 (foot (page-headfoot layout scopes number 'make-footer 'footsep DOWN last?))
 
-       (head-height (if (ly:stencil? head)
-			(interval-length (ly:stencil-extent head Y))
-			0.0))
+	 (head-height (if (ly:stencil? head)
+			  (interval-length (ly:stencil-extent head Y))
+			  0.0))
 
-       (height-proc (ly:output-def-lookup layout 'page-music-height))
+	 (height-proc (ly:output-def-lookup layout 'page-music-height))
 
-       (page-stencil (ly:make-stencil '()
-				      (cons leftmargin hsize)
-				      (cons (- topmargin) 0)))
-       (last-system #f)
-       (last-y 0.0)
-       (add-to-page (lambda (stencil y)
-		      (set! page-stencil
-			    (ly:stencil-add page-stencil
-					    (ly:stencil-translate-axis stencil
-					     (- 0 head-height y topmargin) Y)))))
-       (add-system
-	(lambda (stencil-position)
-	  (let* ((system (car stencil-position))
-		 (stencil (ly:paper-system-stencil system))
-		 (y (cadr stencil-position))
-		 (is-title (ly:paper-system-title?
-			    (car stencil-position))))
-	    (add-to-page stencil y)
-	    (if (and (ly:stencil? system-separator-stencil)
-		     last-system
-		     (not (ly:paper-system-title? system))
-		     (not (ly:paper-system-title? last-system)))
-		(add-to-page
-		 system-separator-stencil
-		 (average (- last-y
-			     (car (ly:paper-system-staff-extents last-system)))
-			  (- y
-			     (cdr (ly:paper-system-staff-extents system))))))
-	    (set! last-system system)
-	    (set! last-y y)))))
+	 (page-stencil (ly:make-stencil '()
+					(cons leftmargin hsize)
+					(cons (- topmargin) 0)))
+	 (last-system #f)
+	 (last-y 0.0)
+	 (add-to-page (lambda (stencil y)
+			(set! page-stencil
+			      (ly:stencil-add page-stencil
+					      (ly:stencil-translate stencil
+								    (cons
+								     system-xoffset
+								     (- 0 head-height y topmargin))
+
+								    )))))
+	 (add-system
+	  (lambda (stencil-position)
+	    (let* ((system (car stencil-position))
+		   (stencil (ly:paper-system-stencil system))
+		   (y (cadr stencil-position))
+		   (is-title (ly:paper-system-title?
+			      (car stencil-position))))
+	      (add-to-page stencil y)
+	      (if (and (ly:stencil? system-separator-stencil)
+		       last-system
+		       (not (ly:paper-system-title? system))
+		       (not (ly:paper-system-title? last-system)))
+		  (add-to-page
+		   system-separator-stencil
+		   (average (- last-y
+			       (car (ly:paper-system-staff-extents last-system)))
+			    (- y
+			       (cdr (ly:paper-system-staff-extents system))))))
+	      (set! last-system system)
+	      (set! last-y y)))))
 
     (if #f
 	(display (list

@@ -93,9 +93,12 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
 
   if (global == SCM_UNDEFINED)
-    global
-      = sc->get_layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
-
+    {
+      global = sc->get_layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+      if (global == SCM_UNDEFINED)
+	global = SCM_EOL;
+    }
+  
   return sc->get_property_alist_chain (global);
 }
 
