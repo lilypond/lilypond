@@ -59,7 +59,11 @@ Engraver::get_score_engraver () const
 #include "translator.icc"
 
 ADD_TRANSLATOR (Engraver,
-		"", "",
+		"Base class for engravers. Does nothing, so it is not used.",
 		"",
-		"", "", "");
+		"",
+		"",
+		"",
+		"");
+
 

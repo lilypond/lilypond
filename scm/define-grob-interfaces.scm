@@ -17,6 +17,12 @@
     )
 
 (ly:add-interface
+ 'accidental-suggestion-interface
+   "An accidental, printed as a suggestion (typically: vertically over a note)"
+   '()
+    )
+
+(ly:add-interface
  'dynamic-interface
    "Any kind of loudness sign"
    '()

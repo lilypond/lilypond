@@ -354,6 +354,7 @@ one).")
 
      (subdivideBeams ,boolean? "If set, multiple beams will be subdivided
 at beat positions by only drawing one beam over the beat.")
+     (suggestAccidentals ,boolean? "If set, accidentals are typeset as cautionary suggestions over the note.")
 
      (systemStartDelimiter ,symbol? "Which grob to make for the start of
 the system/staff? Set to @code{SystemStartBrace},
