@@ -120,12 +120,6 @@ Translator::mark_smob (SCM sm)
   return SCM_EOL;
 }
 
-SCM
-Translator::translator_description () const
-{
-  return SCM_EOL;
-}
-
 Global_context *
 Translator::get_global_context () const
 {
@@ -136,12 +130,6 @@ Score_context *
 Translator::get_score_context () const
 {
   return daddy_context_->get_score_context ();
-}
-
-SCM
-Translator::static_translator_description ()const
-{
-  return SCM_EOL;
 }
 
 IMPLEMENT_SMOBS (Translator);
@@ -159,13 +147,6 @@ Translator::derived_mark () const
 {
 }
 
-void
-Translator::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])
-{
-  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
-    ptrs[i] = 0;
-}
-
 int
 Translator::print_smob (SCM s, SCM port, scm_print_state *)
 {
@@ -176,3 +157,41 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
+void
+add_acknowledger (Translator_void_method_ptr ptr,
+		  const char *func_name,
+		  Array<Acknowledge_information> *ack_array)
+{
+  Acknowledge_information inf;
+  inf.function_ = ptr;
+
+  String interface_name(func_name);
+
+  interface_name = interface_name.substitute ("acknowledge_", "");
+  interface_name = interface_name.substitute ('_', '-');
+  interface_name += "-interface";
+
+  inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.to_str0 ()));
+  ack_array->push (inf);
+}
+
+Translator_void_method_ptr 
+generic_get_acknowledger (SCM sym, Array<Acknowledge_information> const *ack_array)
+{
+  for (int i = 0; i < ack_array->size(); i++)
+    {
+      if (ack_array->elem (i).symbol_ == sym)
+	{
+	  return ack_array->elem(i).function_;
+	}
+    }
+  return 0;
+}
+
+ADD_TRANSLATOR(Translator,
+	       "Base class. Unused",
+	       "",
+	       "",
+	       "",
+	       "",
+	       "");

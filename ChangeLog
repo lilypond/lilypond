@@ -1,3 +1,16 @@
+2005-07-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-context-properties.scm
+	(all-internal-translation-properties): remove acceptHashTable,
+	acknowledgeHashTable
+
+	* lily/translator-group.cc (mark_smob): idem for acceptHashTable.
+
+	* lily/engraver-group-engraver.cc (Engraver_group_engraver):
+	change acknowledgeHashTable to C++ member. 
+
+	* lily/rest-collision.cc (do_shift): use extract_grob_set().
+
 2005-07-22  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/display-lily.scm: new file. Define a `display-lily-music'
@@ -40,7 +53,8 @@
 
 	* Documentation/topdocs/NEWS.tely (Top): mention barNumberCheck
 
-	* Documentation/user/basic-notation.itely (Barnumber check): add section.
+	* Documentation/user/basic-notation.itely (Barnumber check): add
+	section.
 
 	* scm/music-functions.scm (skip-to-last): new function. Show only
 	last showLastLength part of the \score.
@@ -76,15 +90,18 @@
 	* Documentation/user/instrument-notation.itely (Musica ficta
 	accidentals): add section Musica ficta accidentals
 
-	* lily/accidental-engraver.cc (make_suggested_accidental): new function.
+	* lily/accidental-engraver.cc (make_suggested_accidental): new
+	function.
 	(make_standard_accidental): move into new function.
 	(create_accidental): new function.
 
-	* scm/define-grobs.scm (all-grob-descriptions): new Grob AccidentalSuggestion
+	* scm/define-grobs.scm (all-grob-descriptions): new Grob
+	AccidentalSuggestion
 
 	* lily/output-def-scheme.cc (LY_DEFINE): take default  argument.
 
-	* lily/output-def.cc (lookup_variable): return SCM_UNDEFINED if undefined.
+	* lily/output-def.cc (lookup_variable): return SCM_UNDEFINED if
+	undefined.
 
 	* Documentation/user/global.itely (Page formatting): document
 	horizontalshift.

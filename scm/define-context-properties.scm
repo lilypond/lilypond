@@ -484,12 +484,6 @@ the grobs which are still busy (e.g. note heads, spanners, etc.)
 ")
      (barCheckLastFail ,ly:moment? "Where in the measure did the last barcheck fail?") 
      (associatedVoiceContext ,ly:context? "The context object of the Voice that has the melody for this Lyrics.")
-     (acceptHashTable ,vector? "Internal
-variable: store table with MusicName to Engraver entries.")
-     (acknowledgeHashTable ,vector?
-			   "Internal variable: store interface to engraver smob table for current
-context.")
-
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
      (dynamicAbsoluteVolumeFunction ,procedure? "[DOCUMENT-ME]")
 

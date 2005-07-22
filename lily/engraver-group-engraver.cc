@@ -36,7 +36,6 @@ Engraver_group_engraver::acknowledge_grobs ()
   if (!announce_infos_.size ())
     return;
 
-  SCM tab = context_->get_property ("acknowledgeHashTable");
   SCM name_sym = ly_symbol2scm ("name");
   SCM meta_sym = ly_symbol2scm ("meta");
 
@@ -62,11 +61,11 @@ Engraver_group_engraver::acknowledge_grobs ()
 	  continue;
 	}
 
-      SCM acklist = scm_hashq_ref (tab, nm, SCM_UNDEFINED);
+      SCM acklist = scm_hashq_ref (acknowledge_hash_table_, nm, SCM_UNDEFINED);
       if (acklist == SCM_BOOL_F)
 	{
 	  acklist = find_acknowledge_engravers (get_simple_trans_list (), meta);
-	  scm_hashq_set_x (tab, nm, acklist);
+	  scm_hashq_set_x (acknowledge_hash_table_, nm, acklist);
 	}
 
       for (SCM p = acklist; scm_is_pair (p); p = scm_cdr (p))
@@ -128,17 +127,11 @@ Engraver_group_engraver::do_announces ()
   while (pending_grob_count () > 0);
 }
 
-void
-Engraver_group_engraver::initialize ()
-{
-  SCM tab = scm_make_vector (scm_int2num (61), SCM_BOOL_F);
-  context ()->set_property ("acknowledgeHashTable", tab);
-
-  Translator_group::initialize ();
-}
 
 Engraver_group_engraver::Engraver_group_engraver ()
 {
+  acknowledge_hash_table_ = SCM_EOL;
+  acknowledge_hash_table_ = scm_c_make_hash_table (61);
 }
 
 #include "translator.icc"
@@ -178,4 +171,10 @@ find_acknowledge_engravers (SCM gravlist, SCM meta_alist)
   l = scm_reverse_x (l, SCM_EOL);
 
   return l;
+}
+
+void
+Engraver_group_engraver::derived_mark () const
+{
+  scm_gc_mark (acknowledge_hash_table_);
 }

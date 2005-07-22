@@ -86,14 +86,14 @@ Rest_collision::add_column (Grob *me, Grob *p)
 SCM
 Rest_collision::do_shift (Grob *me)
 {
-  SCM elts = me->get_object ("elements");
+  extract_grob_set (me, "elements", elts);
 
   Link_array<Grob> rests;
   Link_array<Grob> notes;
 
-  for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
+  for (int i = 0; i < elts.size (); i++)
     {
-      Grob *e = unsmob_grob (scm_car (s));
+      Grob *e = elts[i];
       if (unsmob_grob (e->get_object ("rest")))
 	{
 	  /*

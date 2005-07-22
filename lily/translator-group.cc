@@ -34,9 +34,6 @@ void
 Translator_group::initialize ()
 {
   precompute_method_bindings ();
-
-  SCM tab = scm_make_vector (scm_int2num (19), SCM_BOOL_F);
-  context ()->set_property ("acceptHashTable", tab);
 }
 
 void
@@ -74,7 +71,6 @@ find_accept_translators (SCM gravlist, SCM ifaces)
 bool
 Translator_group::try_music (Music *m)
 {
-  SCM tab = context ()->get_property ("acceptHashTable");
   SCM name = scm_sloppy_assq (ly_symbol2scm ("name"),
 			      m->get_property_alist (false));
 
@@ -82,12 +78,12 @@ Translator_group::try_music (Music *m)
     return false;
 
   name = scm_cdr (name);
-  SCM accept_list = scm_hashq_ref (tab, name, SCM_UNDEFINED);
+  SCM accept_list = scm_hashq_ref (accept_hash_table_, name, SCM_UNDEFINED);
   if (accept_list == SCM_BOOL_F)
     {
       accept_list = find_accept_translators (get_simple_trans_list (),
 					     m->get_property ("types"));
-      scm_hashq_set_x (tab, name, accept_list);
+      scm_hashq_set_x (accept_hash_table_, name, accept_list);
     }
 
   for (SCM p = accept_list; scm_is_pair (p); p = scm_cdr (p))
@@ -162,8 +158,11 @@ recurse_over_translators (Context *c, Translator_method ptr, Translator_group_me
 Translator_group::Translator_group ()
 {
   simple_trans_list_ = SCM_EOL;
+  accept_hash_table_ = SCM_EOL;
   context_ = 0;
   smobify_self ();
+
+  accept_hash_table_ = scm_c_make_hash_table (19);
 }
 
 void
@@ -248,7 +247,7 @@ Translator_group::mark_smob (SCM smob)
   Translator_group *me = (Translator_group*)SCM_CELL_WORD_1 (smob);
 
   me->derived_mark ();
-  
+  scm_gc_mark (me->accept_hash_table_);
   return me->simple_trans_list_;
 }
 
