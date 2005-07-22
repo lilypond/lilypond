@@ -43,7 +43,7 @@ The current bar number may be checked with @code{\barNumberCheck}, eg.
 will print a warning if it doesn't happen in measure 22.
  
 @item
-If @code{skipLastLength} is set, only the last few measures of a piece
+If @code{showLastLength} is set, only the last few measures of a piece
 are rendered, which speeds up correcting scores. For example, setting
 
 @verbatim
