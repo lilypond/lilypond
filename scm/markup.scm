@@ -221,43 +221,6 @@ Use `markup*' in a \\notes block."
         (else (values (car expr) (cdr expr)))))
 
 ;;;;;;;;;;;;;;;
-;;; Debugging utilities: print markup expressions in a friendly fashion
-
-(use-modules (ice-9 format))
-(define (markup->string markup-expr)
-  "Return a string describing, in LilyPond syntax, the given markup expression."
-  (define (proc->command proc)
-    (let ((cmd-markup (symbol->string (procedure-name proc))))
-      (substring cmd-markup 0 (- (string-length cmd-markup)
-                                 (string-length "-markup")))))
-  (define (arg->string arg)
-    (cond ((and (pair? arg) (pair? (car arg))) ;; markup list
-           (format #f "~{ ~a~}" (map markup->string arg)))
-          ((pair? arg)                         ;; markup
-           (markup->string arg))
-          ((string? arg)                       ;; scheme string argument
-           (format #f "#\"~a\"" arg))
-          (else                                ;; other scheme arg
-           (format #f "#~a" arg))))
-  (let ((cmd (car markup-expr))
-        (args (cdr markup-expr)))
-    (cond ((eqv? cmd simple-markup) ;; a simple string
-           (format #f "\"~a\"" (car args)))
-          ((eqv? cmd line-markup)   ;; { ... }
-           (format #f "{~a}" (arg->string (car args))))
-          ((eqv? cmd center-align-markup) ;; \center < ... >
-           (format #f "\\center-align <~a>" (arg->string (car args))))
-          ((eqv? cmd column-markup) ;; \column < ... >
-           (format #f "\\column <~a>" (arg->string (car args))))
-          (else                ;; \command ...
-           (format #f "\\~a~{ ~a~} " (proc->command cmd) (map arg->string args))))))
-
-(define-public (display-markup markup-expr)
-  "Print a LilyPond-syntax equivalent for the given markup expression."
-  (display "\\markup ")
-  (display (markup->string markup-expr)))
-
-;;;;;;;;;;;;;;;
 ;;; Utilities for storing and accessing markup commands signature
 ;;; and keyword.
 ;;; Examples:
