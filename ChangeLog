@@ -1,3 +1,25 @@
+2005-07-22  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/display-lily.scm: new file. Define a `display-lily-music'
+	function, that displays the music expression given as an argument,
+	using LilyPond notation.
+
+	* scm/define-music-display-methods.scm: new file. Implementation
+	of display methods for each music type.
+
+	* ly/music-functions-init.ly (displayLilyMusic): new function for
+	displaying music with LilyPond notation.
+
+	* input/regression/display-lily-tests.ly: new regression test file
+	for `display-lily-music'.
+
+	* scm/markup.scm: remove obsolete debugging code (for printing
+	markups with LilyPond notation).
+
+	* scm/define-music-types.scm (music-name-to-property-table):
+	* scm/clef.scm (supported-clefs): export, in order to be accessible
+	from the (scm display-lily) module.
+
 2005-07-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/NEWS.tely (Top): Typo.

@@ -9,7 +9,7 @@
 ;;
 ;; -- the name clefOctavation is misleading. The value 7 is 1 octave,
 ;; not 7 Octaves.
-(define supported-clefs
+(define-public supported-clefs
   '(("treble" . ("clefs.G" -2 0))
     ("violin" . ("clefs.G" -2 0))
     ("G" . ("clefs.G" -2 0))

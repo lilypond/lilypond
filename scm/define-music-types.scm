@@ -701,7 +701,7 @@ Syntax: @code{\\\\}")
 (set! music-descriptions
       (sort music-descriptions alist<?))
 
-(define music-name-to-property-table (make-vector 59 '()))
+(define-public music-name-to-property-table (make-vector 59 '()))
 
 ;; init hash table,
 ;; transport description to an object property.
