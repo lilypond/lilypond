@@ -10,6 +10,8 @@
 #ifndef TRANSLATOR_ICC
 #define TRANSLATOR_ICC
 
+#include "array.hh"
+
 /**
    A macro to automate administration of translators.
 */
@@ -29,8 +31,14 @@
   ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
 #define ADD_TRANSLATOR(classname, desc, grobs, accepted, acked, read, write) \
+  Array<Acknowledge_information> classname::acknowledge_static_array_;\
   IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(classname); \
   ADD_THIS_TRANSLATOR (classname);					\
+  Translator_void_method_ptr\
+  classname::static_get_acknowledger (SCM sym)				\
+  {\
+    return generic_get_acknowledger (sym, &acknowledge_static_array_);\
+  }\
   SCM									\
   classname::static_translator_description () const			\
   {									\
@@ -83,6 +91,18 @@ T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])\
     ? 0									\
     : (Translator_void_method_ptr) &T::process_acknowledged;		\
 }
+
+void add_acknowledger (Translator_void_method_ptr ptr, const char *func_name, Array<Acknowledge_information> *ack_array);
+Translator_void_method_ptr
+generic_get_acknowledger (SCM sym, Array<Acknowledge_information> const *ack_array);
+
+#define ADD_ACKNOWLEDGER(CLASS,NAME)		\
+void CLASS ## NAME ## _ack_adder () \
+{\
+  add_acknowledger ((Translator_void_method_ptr) &CLASS::NAME, #NAME, &CLASS::acknowledge_static_array_);\
+}\
+ADD_SCM_INIT_FUNC(CLASS ## NAME ## _ack_adder);\
+
 
 
 #endif /* TRANSLATOR_ICC */

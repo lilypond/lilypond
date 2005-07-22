@@ -20,15 +20,27 @@
 
 typedef void (*Translator_void_method_ptr)(Translator*);
 
+
+struct Acknowledge_information
+{
+  SCM symbol_;
+  Translator_void_method_ptr function_;
+};
+
+
 #define TRANSLATOR_DECLARATIONS(NAME)			\
   public:						\
   NAME ();						\
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);		\
   static SCM static_description_;			\
+  static Array<Acknowledge_information> acknowledge_static_array_; \
   virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]);\
   virtual SCM static_translator_description () const;	\
-  virtual SCM translator_description () const;
-
+  virtual SCM translator_description () const; \
+  virtual Translator_void_method_ptr get_acknowledger (SCM sym) { \
+    return static_get_acknowledger (sym);\
+  }\
+  static Translator_void_method_ptr static_get_acknowledger (SCM sym);
 
 enum Translator_precompute_index {
   START_TRANSLATION_TIMESTEP,
@@ -48,7 +60,7 @@ enum Translator_precompute_index {
 class Translator
 {
   void init ();
-
+  
 protected:
   bool must_be_last_;
 
@@ -73,7 +85,6 @@ public:
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
-
   
   Score_context *get_score_context () const;
   Global_context *get_global_context () const;

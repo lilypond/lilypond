@@ -194,6 +194,7 @@ of lines. "
   (define MAXPENALTY 1e9)
   (define paper (ly:paper-book-paper paper-book))
   (define scopes (ly:paper-book-scopes paper-book))
+  (define force-equalization-factor #f)
 
   (define (page-height page-number last?)
     (let ((p (ly:output-def-lookup paper 'page-music-height)))
@@ -218,14 +219,14 @@ is what have collected so far, and has ascending page numbers."
 			     0.0
 			     (node-penalty (car best-paths))))
 	 (inter-system-space (ly:output-def-lookup paper 'betweensystemspace))
-	 (force-equalization-factor 0.3)
 	 (relative-force (/ force inter-system-space))
 	 (abs-relative-force (abs relative-force)))
 
 
       (+ (* abs-relative-force (+ abs-relative-force 1))
 	 prev-penalty
-	 (* force-equalization-factor (/ (abs (- prev-force force)) inter-system-space))
+	 (* force-equalization-factor (/ (abs (- prev-force force))
+					 inter-system-space))
 	 user)))
 
   (define (space-systems page-height lines ragged?)
@@ -335,6 +336,7 @@ corresponding to DONE-LINES.
 
 CURRENT-BEST is the best result sofar, or #f."
 
+
     (let* ((this-page-num (if (null? best-paths)
                               (ly:output-def-lookup paper 'firstpagenumber)
                               (1+ (node-page-number (car best-paths)))))
@@ -382,6 +384,7 @@ CURRENT-BEST is the best result sofar, or #f."
 			   #:penalty total-penalty)
                          current-best)))
 
+;;      (display total-penalty) (newline)
       (if #f ;; debug
           (display
            (list
@@ -428,6 +431,8 @@ DONE."
     (ly:paper-system-number (car (node-lines node))))
 
   (ly:message (_ "Calculating page breaks..."))
+  (set! force-equalization-factor
+	(ly:output-def-lookup paper 'verticalequalizationfactor 0.3))
 
   (let* ((best-break-node (walk-lines '() '() lines))
 	 (break-nodes (get-path best-break-node '()))

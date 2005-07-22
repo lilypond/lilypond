@@ -72,6 +72,7 @@ public:
   Context * context () const { return context_; }
 protected:
   SCM simple_trans_list_;
+  SCM accept_hash_table_;
   Context *context_;
   
   friend class Context_def;

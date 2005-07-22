@@ -29,7 +29,9 @@ public:
   TRANSLATOR_DECLARATIONS (Rest_swallow_translator);
 };
 
-Skip_event_swallow_translator::Skip_event_swallow_translator (){}
+Skip_event_swallow_translator::Skip_event_swallow_translator ()
+{
+}
 
 ADD_TRANSLATOR (Skip_event_swallow_translator,
 		"Swallow \\skip.",
