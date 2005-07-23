@@ -27,9 +27,6 @@ Engraver_group_engraver::announce_grob (Grob_info info)
     dad_eng->announce_grob (info);
 }
 
-SCM find_acknowledge_engravers (SCM gravlist, SCM meta);
-SCM find_accept_engravers (SCM gravlist, SCM music_descr);
-
 void
 Engraver_group_engraver::acknowledge_grobs ()
 {
@@ -48,20 +45,9 @@ Engraver_group_engraver::acknowledge_grobs ()
       if (scm_is_pair (nm))
 	nm = scm_cdr (nm);
       else
-	{
-	  /*
-	    it's tempting to put an assert for
-	    immutable_property_alist_ == '(), but in fact, some
-	    engravers (clef-engraver) add some more information to the
-	    immutable_property_alist_ (after it has been '()-ed).
+	continue;
 
-	    We ignore the grob anyway. He who has no name, shall not
-	    be helped.  */
-
-	  continue;
-	}
-
-      SCM acklist = scm_hashq_ref (acknowledge_hash_table_, nm, SCM_UNDEFINED);
+      SCM acklist = scm_hashq_ref (acknowledge_hash_table_, nm, SCM_BOOL_F);
       Engraver_dispatch_list *dispatch
 	= Engraver_dispatch_list::unsmob (acklist);
 
@@ -70,13 +56,12 @@ Engraver_group_engraver::acknowledge_grobs ()
 	  SCM ifaces
 	    = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
 	  acklist = Engraver_dispatch_list::create (get_simple_trans_list (),
-						      ifaces);
+						    ifaces);
 
 	  dispatch
 	    = Engraver_dispatch_list::unsmob (acklist);
 
-	  if (dispatch)
-	    scm_hashq_set_x (acknowledge_hash_table_, nm, acklist);
+	  scm_hashq_set_x (acknowledge_hash_table_, nm, acklist);
 	}
 
 
@@ -84,25 +69,9 @@ Engraver_group_engraver::acknowledge_grobs ()
 	{
 	  dispatch->apply (info);
 	}
-      else
-	{
-	  if (acklist == SCM_BOOL_F)
-	    {
-	      acklist = find_acknowledge_engravers (get_simple_trans_list (),
-						    meta);
-	      scm_hashq_set_x (acknowledge_hash_table_, nm, acklist);
-	    }
-
-	  for (SCM p = acklist; scm_is_pair (p); p = scm_cdr (p))
-	    {
-	      Translator *t = unsmob_translator (scm_car (p));
-	      Engraver *eng = dynamic_cast<Engraver *> (t);
-	      if (eng && eng != info.origin_translator ())
-		eng->acknowledge_grob (info);
-	    }
-	}
     }
 }
+
 /*
   Ugh. This is slightly expensive. We could/should cache the value of
   the group count?
@@ -170,32 +139,6 @@ ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
 		      /* write */ "");
 
 
-bool
-engraver_valid (Translator *tr, SCM ifaces)
-{
-  SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"),
-			   tr->translator_description ());
-  ack_ifs = scm_cdr (ack_ifs);
-  for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
-    if (scm_c_memq (scm_car (s), ack_ifs) != SCM_BOOL_F)
-      return true;
-  return false;
-}
-
-SCM
-find_acknowledge_engravers (SCM gravlist, SCM ifaces)
-{
-  SCM l = SCM_EOL;
-  for (SCM s = gravlist; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Translator *tr = unsmob_translator (scm_car (s));
-      if (engraver_valid (tr, ifaces))
-	l = scm_cons (tr->self_scm (), l);
-    }
-  l = scm_reverse_x (l, SCM_EOL);
-
-  return l;
-}
 
 void
 Engraver_group_engraver::derived_mark () const

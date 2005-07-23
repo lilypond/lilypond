@@ -339,12 +339,29 @@ Context::where_defined (SCM sym) const
   return (daddy_context_) ? daddy_context_->where_defined (sym) : 0;
 }
 
+//#define PROFILE_PROPERTY_ACCESSES
+
+SCM context_property_lookup_table;
+LY_DEFINE(ly_context_property_lookup_stats, "ly:context-property-lookup-stats",
+	  0,0,0, (),
+	  "")
+{
+  return context_property_lookup_table ?  context_property_lookup_table
+    : scm_c_make_hash_table (1);
+}
+
+
 /*
   return SCM_EOL when not found.
 */
 SCM
 Context::internal_get_property (SCM sym) const
 {
+#ifdef PROFILE_PROPERTY_ACCESSES
+  extern void note_property_access (SCM *table, SCM sym);
+  note_property_access (&context_property_lookup_table, sym);
+#endif
+  
   SCM val = SCM_EOL;
   if (properties_dict ()->try_retrieve (sym, &val))
     return val;

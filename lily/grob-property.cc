@@ -93,49 +93,43 @@ Grob::internal_set_property (SCM sym, SCM v)
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, sym, v);
 }
 
-#ifdef DEBUG_PROFILE_ACCESSES
-Protected_scm property_lookup_table;
-LY_DEFINE(ly_property_lookup_stats, "ly:property-lookup-stats",
+//#define PROFILE_PROPERTY_ACCESSES
+
+SCM grob_property_lookup_table;
+LY_DEFINE(ly_property_lookup_stats, "ly:grob-property-lookup-stats",
 	  0,0,0, (),
 	  "")
 {
-  return (SCM) property_lookup_table;
+  return grob_property_lookup_table ?  grob_property_lookup_table :
+    scm_c_make_hash_table (1);
 }
-#endif
+
+void
+note_property_access (SCM *table, SCM sym)
+{
+  /*
+    Statistics: which properties are looked up? 
+  */
+  if (!*table)
+    *table = scm_permanent_object (scm_c_make_hash_table (259));
+  
+  SCM hashhandle = scm_hashq_get_handle (*table, sym);
+  if (hashhandle == SCM_BOOL_F)
+    {
+      scm_hashq_set_x (*table, sym, scm_from_int (0));
+      hashhandle = scm_hashq_get_handle (*table, sym);
+    }
+
+  int count = scm_to_int (scm_cdr (hashhandle)) + 1;  
+  scm_set_cdr_x (hashhandle, scm_from_int (count));
+}
+
 
 SCM
 Grob::internal_get_property (SCM sym) const
 {
-#ifndef NDEBUG
-  SCM grob_p = ly_lily_module_constant ("ly:grob?");
-  SCM grob_list_p = ly_lily_module_constant ("grob-list?");
-  SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
-  
-  if (type == grob_p
-      || type == grob_list_p)
-    {
-      scm_display (scm_list_2 (sym, type), scm_current_output_port());
-      assert (0);
-    }
-#endif
-
-#ifdef DEBUG_PROFILE_ACCESSES
-  /*
-    Statistics: which properties are looked up? 
-  */
-  if (scm_hash_table_p (property_lookup_table) != SCM_BOOL_T)
-    {
-      property_lookup_table = scm_c_make_hash_table (259);
-    }
-
-  SCM hashhandle = scm_hashq_get_handle (property_lookup_table, sym);
-  if (hashhandle == SCM_BOOL_F)
-    {
-      scm_hashq_set_x (property_lookup_table, sym, scm_from_int (0));
-      hashhandle = scm_hashq_get_handle (property_lookup_table, sym);
-    }
-
-  scm_set_cdr_x (hashhandle, scm_from_int (scm_to_int (scm_cdr (hashhandle)) + 1));
+#ifdef PROFILE_PROPERTY_ACCESSES
+  note_property_access (&grob_property_lookup_table, sym);
 #endif
   
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
@@ -171,6 +165,10 @@ Grob::internal_set_object (SCM s, SCM v)
 SCM
 Grob::internal_get_object (SCM sym) const
 {
+#ifdef PROFILE_PROPERTY_ACCESSES
+  note_property_access (&grob_property_lookup_table, sym);
+#endif
+
   SCM s = scm_sloppy_assq (sym, object_alist_);
 
   return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);

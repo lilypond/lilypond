@@ -100,13 +100,12 @@ Tuplet_engraver::start_translation_timestep ()
 {
   Moment now = now_mom ();
 
-  Moment tsd;
-  SCM s = get_property ("tupletSpannerDuration");
-  if (unsmob_moment (s))
-    tsd = unsmob_moment (s)->main_part_;
-
   for (int i = tuplets_.size (); i--;)
     {
+      Moment tsdmom = robust_scm2moment (get_property ("tupletSpannerDuration"), Moment (0));
+
+      Rational tsd = tsdmom.main_part_;
+
       if (now.main_part_ >= tuplets_[i].span_stop_)
 	{
 	  if (Spanner *sp = tuplets_[i].spanner_)
@@ -117,8 +116,8 @@ Tuplet_engraver::start_translation_timestep ()
 	      tuplets_[i].spanner_ = 0;
 	    }
 
-	  if (tsd.to_bool ())
-	    tuplets_[i].span_stop_ += tsd.main_part_;
+	  if (tsd)
+	    tuplets_[i].span_stop_ += tsd;
 	}
 
       if (now.main_part_ >= tuplets_[i].stop_)

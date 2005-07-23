@@ -60,7 +60,7 @@ Engraver_dispatch_list::create (SCM trans_list,
     }
 
   
-  return found ? retval : SCM_BOOL_F;
+  return found ? retval : SCM_EOL;
 }
 
 SCM
