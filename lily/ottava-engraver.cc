@@ -17,7 +17,9 @@ public:
   TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);
 protected:
   virtual void finalize ();
-  virtual void acknowledge_grob (Grob_info);
+ 
+  DECLARE_ACKNOWLEDGER(note_column);
+  
   PRECOMPUTED_VIRTUAL void process_music ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void derived_mark () const;
@@ -66,10 +68,10 @@ Ottava_spanner_engraver::process_music ()
 }
 
 void
-Ottava_spanner_engraver::acknowledge_grob (Grob_info info)
+Ottava_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
-  Item *it = dynamic_cast<Item *> (info.grob ());
-  if (span_ && it && Note_column::has_interface (info.grob ()))
+  Item *it = info.item();
+  if (span_ && it)
     {
       Side_position_interface::add_support (span_, it);
 
@@ -122,11 +124,11 @@ Ottava_spanner_engraver::finalize ()
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Ottava_spanner_engraver, note_column);
 ADD_TRANSLATOR (Ottava_spanner_engraver,
 		/* descr */ "Create a text spanner when the ottavation property changes..",
 		/* creats*/ "OttavaBracket",
 		/* accepts */ "",
-		/* acks  */ "note-column-interface",
+		/* acks  */ "",
 		/* reads */ "ottavation",
 		/* write */ "");

@@ -26,7 +26,7 @@ public:
   TRANSLATOR_DECLARATIONS (Note_head_line_engraver);
 
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(rhythmic_head);
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
@@ -48,24 +48,21 @@ Note_head_line_engraver::Note_head_line_engraver ()
 }
 
 void
-Note_head_line_engraver::acknowledge_grob (Grob_info info)
+Note_head_line_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
-  if (Rhythmic_head::has_interface (info.grob ()))
+  head_ = info.grob ();
+  if (to_boolean (get_property ("followVoice")))
     {
-      head_ = info.grob ();
-      if (to_boolean (get_property ("followVoice")))
-	{
-	  Context *tr = context ();
-	  while (tr && !tr->is_alias (ly_symbol2scm ("Staff")))
-	    tr = tr->get_parent_context ();
+      Context *tr = context ();
+      while (tr && !tr->is_alias (ly_symbol2scm ("Staff")))
+	tr = tr->get_parent_context ();
 
-	  if (tr
-	      && tr->is_alias (ly_symbol2scm ("Staff")) && tr != last_staff_)
-	    {
-	      if (last_head_)
-		follow_ = true;
-	      last_staff_ = tr;
-	    }
+      if (tr
+	  && tr->is_alias (ly_symbol2scm ("Staff")) && tr != last_staff_)
+	{
+	  if (last_head_)
+	    follow_ = true;
+	  last_staff_ = tr;
 	}
     }
 }
@@ -100,12 +97,12 @@ Note_head_line_engraver::stop_translation_timestep ()
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Note_head_line_engraver, rhythmic_head);
 ADD_TRANSLATOR (Note_head_line_engraver,
 		/* descr */ "Engrave a line between two note heads, for example a glissando.  If "
 		" followVoice is set, staff switches also generate a line.",
 		/* creats*/ "Glissando VoiceFollower",
 		/* accepts */ "glissando-event",
-		/* acks  */ "rhythmic-head-interface",
+		/* acks  */ "",
 		/* reads */ "followVoice",
 		/* write */ "");

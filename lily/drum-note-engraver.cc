@@ -28,7 +28,8 @@ public:
 protected:
   virtual bool try_music (Music *ev);
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER(note_column);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
@@ -120,35 +121,33 @@ Drum_notes_engraver::process_music ()
 }
 
 void
-Drum_notes_engraver::acknowledge_grob (Grob_info inf)
+Drum_notes_engraver::acknowledge_stem (Grob_info inf)
 {
-  if (Stem::has_interface (inf.grob ()))
+  for (int i = 0; i < scripts_.size (); i++)
     {
-      for (int i = 0; i < scripts_.size (); i++)
-	{
-	  Grob *e = scripts_[i];
+      Grob *e = scripts_[i];
 
-	  if (to_dir (e->get_property ("side-relative-direction")))
-	    e->set_object ("direction-source", inf.grob ()->self_scm ());
+      if (to_dir (e->get_property ("side-relative-direction")))
+	e->set_object ("direction-source", inf.grob ()->self_scm ());
 
-	  /*
-	    add dep ?
-	  */
-	  e->add_dependency (inf.grob ());
-	  Side_position_interface::add_support (e, inf.grob ());
-	}
+      /*
+	add dep ?
+      */
+      e->add_dependency (inf.grob ());
+      Side_position_interface::add_support (e, inf.grob ());
     }
-  else if (Note_column::has_interface (inf.grob ()))
+}
+void
+Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
+{
+  for (int i = 0; i < scripts_.size (); i++)
     {
-      for (int i = 0; i < scripts_.size (); i++)
-	{
-	  Grob *e = scripts_[i];
+      Grob *e = scripts_[i];
 
-	  if (!e->get_parent (X_AXIS)
-	      && Side_position_interface::get_axis (e) == Y_AXIS)
-	    {
-	      e->set_parent (inf.grob (), X_AXIS);
-	    }
+      if (!e->get_parent (X_AXIS)
+	  && Side_position_interface::get_axis (e) == Y_AXIS)
+	{
+	  e->set_parent (inf.grob (), X_AXIS);
 	}
     }
 }
@@ -165,11 +164,13 @@ Drum_notes_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Drum_notes_engraver, stem);
+ADD_ACKNOWLEDGER(Drum_notes_engraver,note_column);
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* descr */ "Generate noteheads.",
 		/* creats*/ "NoteHead Dots Script",
 		/* accepts */ "note-event busy-playing-event",
-		/* acks  */ "stem-interface note-column-interface",
+		/* acks  */ "",
 		/* reads */ "drumStyleTable",
 		/* write */ "");
 

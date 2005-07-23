@@ -60,6 +60,7 @@ class Grace_iterator;
 class Grace_music;
 class Grob;
 class Grob_array;
+class Grob_info;
 class Hara_kiri_engraver;
 class Hara_kiri_line_group_engraver;
 class Includable_lexer;
@@ -169,5 +170,12 @@ class Translator_group;
 class Transposed_music;
 class Type_swallow_translator;
 class yyFlexLexer;
+
+
+typedef void (*Engraver_void_function_engraver_grob_info)(Engraver*, Grob_info);
+typedef void (*Translator_void_method_ptr)(Translator*);
+
+
+
 
 #endif /* LILY_PROTO_HH */

@@ -27,7 +27,7 @@ protected:
   Item *text_;
 protected:
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(bar_line);
   void create_items (Music *);
   virtual bool try_music (Music *ev);
   PRECOMPUTED_VIRTUAL void process_music ();
@@ -43,10 +43,10 @@ Mark_engraver::Mark_engraver ()
 }
 
 void
-Mark_engraver::acknowledge_grob (Grob_info inf)
+Mark_engraver::acknowledge_bar_line (Grob_info inf)
 {
   Grob *s = inf.grob ();
-  if (text_ && Bar_line::has_interface (s))
+  if (text_)
     {
       /*
 	TODO: make this configurable. RehearsalMark cannot be
@@ -132,6 +132,7 @@ Mark_engraver::process_music ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Mark_engraver,bar_line);
 ADD_TRANSLATOR (Mark_engraver,
 		/* descr */ "This engraver will create RehearsalMark objects. "
 		"It puts them on top of all staves (which is taken from "
@@ -141,6 +142,6 @@ ADD_TRANSLATOR (Mark_engraver,
 		"end up on the same Y-location",
 		/* creats*/ "RehearsalMark",
 		/* accepts */ "mark-event",
-		/* acks  */ "bar-line-interface",
+		/* acks  */ "",
 		/* reads */ "rehearsalMark markFormatter stavesFound",
 		/* write */ "");

@@ -56,7 +56,7 @@ protected:
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void derived_mark () const;
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_head);
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void process_music ();
   void typeset_tie (Grob *);
@@ -99,47 +99,44 @@ Tie_engraver::process_music ()
 }
 
 void
-Tie_engraver::acknowledge_grob (Grob_info i)
+Tie_engraver::acknowledge_note_head (Grob_info i)
 {
-  if (Note_head::has_interface (i.grob ()))
+  Grob *h = i.grob ();
+  now_heads_.push (h);
+  for (int i = heads_to_tie_.size (); i--;)
     {
-      Grob *h = i.grob ();
-      now_heads_.push (h);
-      for (int i = heads_to_tie_.size (); i--;)
+      Grob *th = heads_to_tie_[i].head_;
+      Music *right_mus = unsmob_music (h->get_property ("cause"));
+      Music *left_mus = unsmob_music (th->get_property ("cause"));
+
+      /*
+	maybe should check positions too.
+      */
+      if (right_mus && left_mus
+	  && ly_is_equal (right_mus->get_property ("pitch"),
+			  left_mus->get_property ("pitch")))
 	{
-	  Grob *th = heads_to_tie_[i].head_;
-	  Music *right_mus = unsmob_music (h->get_property ("cause"));
-	  Music *left_mus = unsmob_music (th->get_property ("cause"));
+	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_,
+				 context ()->get_grob_key ("Tie"));
+	  announce_grob (p, heads_to_tie_[i].event_->self_scm ());
+	  Tie::set_interface (p); // cannot remove yet!
 
-	  /*
-	    maybe should check positions too.
-	  */
-	  if (right_mus && left_mus
-	      && ly_is_equal (right_mus->get_property ("pitch"),
-			       left_mus->get_property ("pitch")))
-	    {
-	      Grob *p = new Spanner (heads_to_tie_[i].tie_definition_,
-				     context ()->get_grob_key ("Tie"));
-	      announce_grob (p, heads_to_tie_[i].event_->self_scm ());
-	      Tie::set_interface (p); // cannot remove yet!
+	  Tie::set_head (p, LEFT, th);
+	  Tie::set_head (p, RIGHT, h);
 
-	      Tie::set_head (p, LEFT, th);
-	      Tie::set_head (p, RIGHT, h);
-
-	      ties_.push (p);
-	      heads_to_tie_.del (i);
-	    }
+	  ties_.push (p);
+	  heads_to_tie_.del (i);
 	}
-
-      if (ties_.size () && ! tie_column_)
-	{
-	  tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
-	}
-
-      if (tie_column_)
-	for (int i = ties_.size (); i--;)
-	  Tie_column::add_tie (tie_column_, ties_[i]);
     }
+
+  if (ties_.size () && ! tie_column_)
+    {
+      tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
+    }
+
+  if (tie_column_)
+    for (int i = ties_.size (); i--;)
+      Tie_column::add_tie (tie_column_, ties_[i]);
 }
 
 void
@@ -209,11 +206,11 @@ Tie_engraver::typeset_tie (Grob *her)
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Tie_engraver, note_head);
 ADD_TRANSLATOR (Tie_engraver,
 		/* descr */ "Generate ties between noteheads of equal pitch.",
 		/* creats*/ "Tie TieColumn",
 		/* accepts */ "tie-event",
-		/* acks  */ "rhythmic-head-interface",
+		/* acks  */ "",
 		/* reads */ "tieMelismaBusy",
 		/* write */ "");

@@ -27,7 +27,16 @@ class Phrasing_slur_engraver : public Engraver
 
 protected:
   virtual bool try_music (Music *);
-  virtual void acknowledge_grob (Grob_info);
+
+  void acknowledge_extra_object (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER(accidental);
+  DECLARE_ACKNOWLEDGER(fingering);
+  DECLARE_ACKNOWLEDGER(script);
+  DECLARE_ACKNOWLEDGER(tie);
+  DECLARE_ACKNOWLEDGER(text_script);
+  DECLARE_ACKNOWLEDGER(slur);
+  
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
   PRECOMPUTED_VIRTUAL void process_music ();
@@ -68,44 +77,78 @@ Phrasing_slur_engraver::try_music (Music *m)
 }
 
 void
-Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
+Phrasing_slur_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *e = info.grob ();
-  if (Note_column::has_interface (info.grob ()))
+  for (int i = slurs_.size (); i--;)
+    Slur::add_column (slurs_[i], e);
+  for (int i = end_slurs_.size (); i--;)
+    Slur::add_column (end_slurs_[i], e);
+}
+
+void
+Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
+{
+  Grob*e = info.grob ();
+  SCM inside = e->get_property ("inside-slur");
+  if (Tie::has_interface (e)
+      || to_boolean (inside))
     {
       for (int i = slurs_.size (); i--;)
-	Slur::add_column (slurs_[i], e);
+	Slur::add_extra_encompass (slurs_[i], e);
       for (int i = end_slurs_.size (); i--;)
-	Slur::add_column (end_slurs_[i], e);
+	Slur::add_extra_encompass (end_slurs_[i], e);
     }
-  else
+  else if (inside == SCM_BOOL_F)
     {
-      /*
-	ugh. cut & paste from slur-engraver.cc
-      */
-      SCM inside = e->get_property ("inside-slur");
-      if (Tie::has_interface (e)
-	  || Slur::has_interface (e)
-	  || to_boolean (inside))
-	{
-	  for (int i = slurs_.size (); i--;)
-	    Slur::add_extra_encompass (slurs_[i], e);
-	  for (int i = end_slurs_.size (); i--;)
-	    Slur::add_extra_encompass (end_slurs_[i], e);
-	}
-      else if (inside == SCM_BOOL_F)
-	{
-	  Grob *slur = slurs_.size () ? slurs_[0] : 0;
-	  slur = (end_slurs_.size () && !slur)
-	    ? end_slurs_[0] : slur;
+      Grob *slur = slurs_.size () ? slurs_[0] : 0;
+      slur = (end_slurs_.size () && !slur)
+	? end_slurs_[0] : slur;
 
-	  if (slur)
-	    {
-	      e->add_offset_callback (Slur::outside_slur_callback_proc, Y_AXIS);
-	      e->set_object ("slur", slur->self_scm ());
-	    }
+      if (slur)
+	{
+	  e->add_offset_callback (Slur::outside_slur_callback_proc, Y_AXIS);
+	  e->set_object ("slur", slur->self_scm ());
 	}
     }
+}
+
+void
+Phrasing_slur_engraver::acknowledge_accidental (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
+
+
+void
+Phrasing_slur_engraver::acknowledge_fingering (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
+
+void
+Phrasing_slur_engraver::acknowledge_script (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
+
+void
+Phrasing_slur_engraver::acknowledge_text_script (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
+
+void
+Phrasing_slur_engraver::acknowledge_tie (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
+
+
+void
+Phrasing_slur_engraver::acknowledge_slur (Grob_info info)
+{
+  acknowledge_extra_object (info);
 }
 
 void
@@ -146,10 +189,19 @@ Phrasing_slur_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+
+ADD_ACKNOWLEDGER(Phrasing_slur_engraver,note_column);
+ADD_ACKNOWLEDGER(Phrasing_slur_engraver,accidental);
+ADD_ACKNOWLEDGER(Phrasing_slur_engraver,fingering)
+ADD_ACKNOWLEDGER(Phrasing_slur_engraver,script);
+ADD_ACKNOWLEDGER(Phrasing_slur_engraver,tie);
+ADD_ACKNOWLEDGER(Phrasing_slur_engraver,text_script);
+ADD_ACKNOWLEDGER(Phrasing_slur_engraver,slur);
+
 ADD_TRANSLATOR (Phrasing_slur_engraver,
 		/* descr */ "Print phrasing slurs. Similar to @ref{Slur_engraver}",
 		/* creats*/ "PhrasingSlur",
 		/* accepts */ "phrasing-slur-event",
-		/* acks  */ "note-column-interface tie-interface fingering-interface script-interface slur-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

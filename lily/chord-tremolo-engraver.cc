@@ -19,6 +19,8 @@
 #include "stem-tremolo.hh"
 #include "math.h" // ceil
 
+#include "translator.icc"
+
 /**
 
 This acknowledges repeated music with "tremolo" style.  It typesets
@@ -56,10 +58,10 @@ protected:
 protected:
   virtual void finalize ();
   virtual bool try_music (Music *);
-  virtual void acknowledge_grob (Grob_info);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
+  DECLARE_ACKNOWLEDGER(stem);
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver ()
@@ -139,9 +141,9 @@ Chord_tremolo_engraver::typeset_beam ()
 }
 
 void
-Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
+Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 {
-  if (beam_ && Stem::has_interface (info.grob ()))
+  if (beam_)
     {
       Grob *s = info.grob ();
 
@@ -170,8 +172,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
     }
   else if (repeat_
 	   && flags_
-	   && !body_is_sequential_
-	   && Stem::has_interface (info.grob ()))
+	   && !body_is_sequential_)
     {
       stem_tremolo_ = make_item ("StemTremolo", repeat_->self_scm ());
       stem_tremolo_->set_property ("flag-count",
@@ -207,12 +208,12 @@ Chord_tremolo_engraver::stop_translation_timestep ()
   typeset_beam ();
 }
 
-#include "translator.icc"
 
+ADD_ACKNOWLEDGER(Chord_tremolo_engraver,stem);
 ADD_TRANSLATOR (Chord_tremolo_engraver,
 		/* descr */ "Generates beams for  tremolo repeats.",
 		/* creats*/ "Beam",
 		/* accepts */ "repeated-music",
-		/* acks  */ "stem-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

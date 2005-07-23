@@ -18,7 +18,7 @@ class Collision_engraver : public Engraver
   Link_array<Grob> note_columns_;
 
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_column);
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 public:
@@ -40,7 +40,7 @@ Collision_engraver::process_acknowledged ()
 }
 
 void
-Collision_engraver::acknowledge_grob (Grob_info i)
+Collision_engraver::acknowledge_note_column (Grob_info i)
 {
   if (Note_column::has_interface (i.grob ()))
     {
@@ -66,10 +66,12 @@ Collision_engraver::Collision_engraver ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Collision_engraver, note_column);
+
 ADD_TRANSLATOR (Collision_engraver,
 		/* descr */ "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",
 		/* creats*/ "NoteCollision",
 		/* accepts */ "",
-		/* acks  */ "note-column-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

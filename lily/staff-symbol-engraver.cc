@@ -109,12 +109,12 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Staff_symbol_engraver,grob);
 ADD_TRANSLATOR (Staff_symbol_engraver,
 		/* descr */ "Create the constellation of five (default) "
 		"staff lines.",
 		/* creats*/ "StaffSymbol",
 		/* accepts */ "staff-span-event",
-		/* acks  */ "grob-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

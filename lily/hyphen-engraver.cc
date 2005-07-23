@@ -24,7 +24,7 @@ public:
   TRANSLATOR_DECLARATIONS (Hyphen_engraver);
 
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(lyric_syllable);
   virtual void finalize ();
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
@@ -40,18 +40,14 @@ Hyphen_engraver::Hyphen_engraver ()
 }
 
 void
-Hyphen_engraver::acknowledge_grob (Grob_info i)
+Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
 {
-  Item *item = dynamic_cast<Item *> (i.grob ());
-  // -> Text_item
-  if (item && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
-    {
-      if (hyphen_)
-	hyphen_->set_bound (LEFT, item);
+  Item *item = i.item();
+  if (hyphen_)
+    hyphen_->set_bound (LEFT, item);
 
-      if (finished_hyphen_)
-	finished_hyphen_->set_bound (RIGHT, item);
-    }
+  if (finished_hyphen_)
+    finished_hyphen_->set_bound (RIGHT, item);
 }
 
 bool
@@ -138,10 +134,11 @@ Hyphen_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Hyphen_engraver,lyric_syllable);
 ADD_TRANSLATOR (Hyphen_engraver,
 		/* descr */ "Create lyric hyphens",
 		/* creats*/ "LyricHyphen",
 		/* accepts */ "hyphen-event",
-		/* acks  */ "lyric-syllable-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

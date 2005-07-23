@@ -26,22 +26,22 @@ class Vertical_align_engraver : public Engraver
   
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
+  DECLARE_ACKNOWLEDGER(axis_group);
 
 protected:
   virtual void derived_mark () const;
-  virtual void acknowledge_grob (Grob_info);
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
   virtual void initialize ();
 };
 
-
+ADD_ACKNOWLEDGER(Vertical_align_engraver, axis_group);
 ADD_TRANSLATOR (Vertical_align_engraver,
 		"Catch groups (staffs, lyrics lines, etc.) and stack "
 		"them vertically.",
 		/* creats*/ "VerticalAlignment",
 		/* accepts */ "",
-		/* acks  */ "axis-group-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");
 
@@ -95,7 +95,7 @@ Vertical_align_engraver::qualifies (Grob_info i) const
 }
 
 void
-Vertical_align_engraver::acknowledge_grob (Grob_info i)
+Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 {
   if (qualifies (i))
     {

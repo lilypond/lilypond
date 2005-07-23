@@ -13,6 +13,8 @@
 #include "dot-column.hh"
 #include "pointer-group-interface.hh"
 
+#include "translator.icc"
+
 /*
   this engraver  glues together stems, rests and note heads into a NoteColumn
   grob.
@@ -50,7 +52,9 @@ class Rhythmic_column_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
 
-  virtual void acknowledge_grob (Grob_info);
+DECLARE_ACKNOWLEDGER(dot_column);
+DECLARE_ACKNOWLEDGER(stem);
+DECLARE_ACKNOWLEDGER(rhythmic_head);
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
@@ -111,23 +115,21 @@ Rhythmic_column_engraver::process_acknowledged ()
 }
 
 void
-Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
+Rhythmic_column_engraver::acknowledge_stem (Grob_info i)
 {
-  Item *item = dynamic_cast<Item *> (i.grob ());
-  if (!item || item->get_parent (X_AXIS))
-    return;
-  if (Stem::has_interface (item))
-    {
-      stem_ = item;
-    }
-  else if (Rhythmic_head::has_interface (item))
-    {
-      rheads_.push (item);
-    }
-  else if (Dot_column::has_interface (item))
-    {
-      dotcol_ = item;
-    }
+  stem_ = i.grob();
+}
+
+void
+Rhythmic_column_engraver::acknowledge_rhythmic_head (Grob_info i)
+{
+  rheads_.push (i.grob ());
+}
+
+void
+Rhythmic_column_engraver::acknowledge_dot_column (Grob_info i)
+{
+  dotcol_ = i.grob ();
 }
 
 void
@@ -145,12 +147,15 @@ Rhythmic_column_engraver::stop_translation_timestep ()
   stem_ = 0;
 }
 
-#include "translator.icc"
+
+ADD_ACKNOWLEDGER(Rhythmic_column_engraver,dot_column);
+ADD_ACKNOWLEDGER(Rhythmic_column_engraver,stem);
+ADD_ACKNOWLEDGER(Rhythmic_column_engraver,rhythmic_head);
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
 		/* descr */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
 		/* creats*/ "NoteColumn NoteSpacing",
 		/* accepts */ "",
-		/* acks  */ "stem-interface rhythmic-head-interface dot-column-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

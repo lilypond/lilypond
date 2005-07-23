@@ -265,32 +265,34 @@ Ligature_engraver::current_ligature ()
 }
 
 void
-Ligature_engraver::acknowledge_grob (Grob_info info)
+Ligature_engraver::acknowledge_note_head (Grob_info info)
 {
   if (ligature_)
     {
-      if (Note_head::has_interface (info.grob ()))
-	{
-	  primitives_.push (info);
-	  info.grob ()->set_property ("print-function",
-				    brew_ligature_primitive_proc);
-	}
-      if (Rest::has_interface (info.grob ()))
-	{
-	  info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
-	  prev_start_event_->origin ()->warning (_ ("ligature was started here"));
-	  // TODO: maybe better should stop ligature here rather than
-	  // ignoring the rest?
-	}
+      primitives_.push (info);
+      info.grob ()->set_property ("print-function",
+				  brew_ligature_primitive_proc);
     }
 }
 
+void
+Ligature_engraver::acknowledge_rest (Grob_info info)
+{
+  info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
+  prev_start_event_->origin ()->warning (_ ("ligature was started here"));
+  // TODO: maybe better should stop ligature here rather than
+  // ignoring the rest?
+}
+
+
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Ligature_engraver, rest);
+ADD_ACKNOWLEDGER(Ligature_engraver, note_head);
 ADD_TRANSLATOR (Ligature_engraver,
 		/* descr */ "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
 		/* creats */ "",
 		/* accepts */ "ligature-event",
-		/* acks  */ "note-head-interface rest-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

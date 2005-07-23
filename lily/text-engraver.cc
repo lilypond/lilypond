@@ -26,7 +26,9 @@ protected:
   virtual bool try_music (Music *m);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER(rhythmic_head);
 };
 
 bool
@@ -41,33 +43,31 @@ Text_engraver::try_music (Music *m)
 }
 
 void
-Text_engraver::acknowledge_grob (Grob_info inf)
+Text_engraver::acknowledge_rhythmic_head (Grob_info inf)
 {
-  if (Rhythmic_head::has_interface (inf.grob ()))
+  for (int i = 0; i < texts_.size (); i++)
     {
-      for (int i = 0; i < texts_.size (); i++)
-	{
-	  Grob *t = texts_[i];
-	  Side_position_interface::add_support (t, inf.grob ());
+      Grob *t = texts_[i];
+      Side_position_interface::add_support (t, inf.grob ());
 
-	  /*
-	    ugh.
-	  */
-	  if (Side_position_interface::get_axis (t) == X_AXIS
-	      && !t->get_parent (Y_AXIS))
-	    t->set_parent (inf.grob (), Y_AXIS);
-	  else if (Side_position_interface::get_axis (t) == Y_AXIS
-		   && !t->get_parent (X_AXIS))
-	    t->set_parent (inf.grob (), X_AXIS);
-	}
+      /*
+	ugh.
+      */
+      if (Side_position_interface::get_axis (t) == X_AXIS
+	  && !t->get_parent (Y_AXIS))
+	t->set_parent (inf.grob (), Y_AXIS);
+      else if (Side_position_interface::get_axis (t) == Y_AXIS
+	       && !t->get_parent (X_AXIS))
+	t->set_parent (inf.grob (), X_AXIS);
     }
+}
 
-  if (Stem::has_interface (inf.grob ()))
+void
+Text_engraver::acknowledge_stem (Grob_info inf)
+{
+  for (int i = 0; i < texts_.size (); i++)
     {
-      for (int i = 0; i < texts_.size (); i++)
-	{
-	  Side_position_interface::add_support (texts_[i], inf.grob ());
-	}
+      Side_position_interface::add_support (texts_[i], inf.grob ());
     }
 }
 
@@ -121,10 +121,12 @@ Text_engraver::Text_engraver ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Text_engraver, stem);
+ADD_ACKNOWLEDGER(Text_engraver, rhythmic_head);
 ADD_TRANSLATOR (Text_engraver,
 		/* descr */ "Create text-scripts",
 		/* creats*/ "TextScript",
 		/* accepts */ "text-script-event",
-		/* acks  */ "rhythmic-head-interface stem-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

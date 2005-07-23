@@ -14,7 +14,7 @@ class Font_size_engraver : public Engraver
 
   TRANSLATOR_DECLARATIONS (Font_size_engraver);
 protected:
-  virtual void acknowledge_grob (Grob_info gi);
+  DECLARE_ACKNOWLEDGER(font);
 private:
 };
 
@@ -23,7 +23,7 @@ Font_size_engraver::Font_size_engraver ()
 }
 
 void
-Font_size_engraver::acknowledge_grob (Grob_info gi)
+Font_size_engraver::acknowledge_font (Grob_info gi)
 {
   SCM sz = get_property ("fontSize");
 
@@ -44,10 +44,11 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Font_size_engraver,font);
 ADD_TRANSLATOR (Font_size_engraver,
 		/* descr */ "Puts fontSize into font-relative-size grob property.",
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "font-interface",
+		/* acks  */ "",
 		/* reads */ "fontSize",
 		/* write */ "");

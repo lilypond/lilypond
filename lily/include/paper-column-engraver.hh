@@ -27,7 +27,10 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
   virtual bool try_music (Music*);
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER(item);
+  DECLARE_ACKNOWLEDGER(note_spacing);
+  DECLARE_ACKNOWLEDGER(staff_spacing);
 
   System *system_;
   Music *break_event_;

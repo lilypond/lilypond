@@ -23,11 +23,12 @@ class Break_align_engraver : public Engraver
 
   void add_to_group (SCM, Item *);
 protected:
-  virtual void acknowledge_grob (Grob_info i);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void derived_mark () const;
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
+  DECLARE_ACKNOWLEDGER(break_aligned);
+
 };
 
 void
@@ -53,7 +54,7 @@ Break_align_engraver::derived_mark () const
 }
 
 void
-Break_align_engraver::acknowledge_grob (Grob_info inf)
+Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
 {
   if (Item *item = dynamic_cast<Item *> (inf.grob ()))
     {
@@ -120,13 +121,13 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
     }
   Axis_group_interface::add_element (group, item);
 }
-
+ADD_ACKNOWLEDGER(Break_align_engraver, break_aligned);
 ADD_TRANSLATOR (Break_align_engraver,
 		"Align grobs with corresponding @code{break-align-symbols} into "
 		"groups, and order the groups according to @code{breakAlignOrder}. "
 		"The left edge of the alignment gets a separate group, with a symbol @code{left-edge}. ",
 		/* creats*/ "BreakAlignment BreakAlignGroup LeftEdge",
 		/* accepts */ "",
-		/* acks  */ "break-aligned-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

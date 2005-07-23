@@ -33,7 +33,7 @@ protected:
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
   virtual ~Staff_symbol_engraver ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(grob);
   virtual void finalize ();
   PRECOMPUTED_VIRTUAL void process_music ();
 };

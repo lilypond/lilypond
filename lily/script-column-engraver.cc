@@ -24,7 +24,7 @@ class Script_column_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(side_position);
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
@@ -42,10 +42,10 @@ Script_column_engraver::stop_translation_timestep ()
 }
 
 void
-Script_column_engraver::acknowledge_grob (Grob_info inf)
+Script_column_engraver::acknowledge_side_position (Grob_info inf)
 {
   Item *thing = dynamic_cast<Item *> (inf.grob ());
-  if (thing && Side_position_interface::has_interface (inf.grob ())) // ugh FIXME
+  if (thing)
     {
       if (!Item::is_breakable (thing)
 	  && Side_position_interface::get_axis (inf.grob ()) == Y_AXIS)
@@ -70,11 +70,11 @@ Script_column_engraver::process_acknowledged ()
       scripts_.clear ();
     }
 }
-
+ADD_ACKNOWLEDGER(Script_column_engraver, side_position);
 ADD_TRANSLATOR (Script_column_engraver,
 		/* descr */ "",
 		/* creats*/ "ScriptColumn",
 		/* accepts */ "",
-		/* acks  */ "side-position-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

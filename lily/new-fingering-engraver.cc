@@ -15,6 +15,8 @@
 #include "script-interface.hh"
 #include "stem.hh"
 
+#include "translator.icc"
+
 struct Finger_tuple
 {
   Grob *head_;
@@ -50,7 +52,8 @@ public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
 protected:
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER(stem);
   void add_fingering (Grob *, Music *, Music *);
   void add_script (Grob *, Music *, Music *);
   void add_string (Grob *, Music *, Music *);
@@ -58,54 +61,53 @@ protected:
 };
 
 void
-New_fingering_engraver::acknowledge_grob (Grob_info inf)
+New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 {
-  if (Rhythmic_head::has_interface (inf.grob ()))
+  Music *note_ev = inf.music_cause ();
+  if (!note_ev)
+    return;
+
+  SCM arts = note_ev->get_property ("articulations");
+
+  for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
     {
-      Music *note_ev = inf.music_cause ();
-      if (!note_ev)
-	return;
+      Music *m = unsmob_music (scm_car (s));
 
-      SCM arts = note_ev->get_property ("articulations");
+      if (!m)
+	continue;
 
-      for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
+      if (m->is_mus_type ("fingering-event"))
 	{
-	  Music *m = unsmob_music (scm_car (s));
-
-	  if (!m)
-	    continue;
-
-	  if (m->is_mus_type ("fingering-event"))
-	    {
-	      add_fingering (inf.grob (), m, note_ev);
-	    }
-	  else if (m->is_mus_type ("text-script-event"))
-	    {
-	      m->origin ()->warning (_ ("can't add text scripts to individual note heads"));
-	    }
-	  else if (m->is_mus_type ("script-event"))
-	    {
-	      add_script (inf.grob (), m, note_ev);
-	    }
-	  else if (m->is_mus_type ("string-number-event"))
-	    {
-	      add_string (inf.grob (), m, note_ev);
-	    }
-	  else if (m->is_mus_type ("harmonic-event"))
-	    {
-	      inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
-	      Grob *d = unsmob_grob (inf.grob ()->get_object ("dot"));
-	      if (d)
-		d->suicide ();
-	    }
+	  add_fingering (inf.grob (), m, note_ev);
 	}
+      else if (m->is_mus_type ("text-script-event"))
+	{
+	  m->origin ()->warning (_ ("can't add text scripts to individual note heads"));
+	}
+      else if (m->is_mus_type ("script-event"))
+	{
+	  add_script (inf.grob (), m, note_ev);
+	}
+      else if (m->is_mus_type ("string-number-event"))
+	{
+	  add_string (inf.grob (), m, note_ev);
+	}
+      else if (m->is_mus_type ("harmonic-event"))
+	{
+	  inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
+	  Grob *d = unsmob_grob (inf.grob ()->get_object ("dot"));
+	  if (d)
+	    d->suicide ();
+	}
+    }
 
-      heads_.push (inf.grob ());
-    }
-  else if (Stem::has_interface (inf.grob ()))
-    {
-      stem_ = inf.grob ();
-    }
+  heads_.push (inf.grob ());
+}
+
+void
+New_fingering_engraver::acknowledge_stem (Grob_info inf)
+{
+  stem_ = inf.grob ();
 }
 
 void
@@ -359,8 +361,8 @@ New_fingering_engraver::New_fingering_engraver ()
 {
   stem_ = 0;
 }
-
-#include "translator.icc"
+ADD_ACKNOWLEDGER(New_fingering_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER(New_fingering_engraver, stem);
 
 ADD_TRANSLATOR (New_fingering_engraver,
 		/* descr */ "Create fingering-scripts for notes in a new chord.  "

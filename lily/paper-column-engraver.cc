@@ -73,29 +73,24 @@ Paper_column_engraver::initialize ()
 }
 
 void
-Paper_column_engraver::acknowledge_grob (Grob_info gi)
+Paper_column_engraver::acknowledge_item (Grob_info gi)
 {
-  Item *item = dynamic_cast<Item *> (gi.grob ());
-  if (!item)
-    {
-      programming_error ("Spanner found in Paper_column_engraver::acknowledge_grob()"); 
-      return;
-    }
-  
-  items_.push (item);
-  
-  if (Staff_spacing::has_interface (item))
-    {
-      Pointer_group_interface::add_grob (command_column_,
-					 ly_symbol2scm ("spacing-wishes"),
-					 gi.grob ());
-    }
-  if (Note_spacing::has_interface (item))
-    {
-      Pointer_group_interface::add_grob (musical_column_,
-					 ly_symbol2scm ("spacing-wishes"),
-					 gi.grob ());
-    }
+  items_.push (gi.item ());
+}
+
+void
+Paper_column_engraver::acknowledge_staff_spacing (Grob_info gi)
+{
+  Pointer_group_interface::add_grob (command_column_,
+				     ly_symbol2scm ("spacing-wishes"),
+				     gi.grob ());
+}
+void
+Paper_column_engraver::acknowledge_note_spacing (Grob_info gi)
+{
+  Pointer_group_interface::add_grob (musical_column_,
+				     ly_symbol2scm ("spacing-wishes"),
+				     gi.grob ());
 }
 
 void
@@ -217,7 +212,9 @@ Paper_column_engraver::start_translation_timestep ()
     make_columns ();
 }
 
-
+ADD_ACKNOWLEDGER(Paper_column_engraver,item);
+ADD_ACKNOWLEDGER(Paper_column_engraver,note_spacing);
+ADD_ACKNOWLEDGER(Paper_column_engraver,staff_spacing);
 
 
 ADD_TRANSLATOR (Paper_column_engraver,
@@ -231,6 +228,6 @@ ADD_TRANSLATOR (Paper_column_engraver,
 		"that there are no beams or notes that prevent a breakpoint.) ",
 		/* creats*/ "PaperColumn NonMusicalPaperColumn",
 		/* accepts */ "break-event",
-		/* acks  */ "item-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "currentCommandColumn currentMusicalColumn");

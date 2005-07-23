@@ -41,7 +41,11 @@ protected:
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER( slur);
+  DECLARE_ACKNOWLEDGER( rhythmic_head);
+  DECLARE_ACKNOWLEDGER( stem);
+  DECLARE_ACKNOWLEDGER( note_column);
 
 public:
   TRANSLATOR_DECLARATIONS (Script_engraver);
@@ -61,8 +65,8 @@ Script_engraver::try_music (Music *m)
       int script_count = scripts_.size ();
       for (int i = 0; i < script_count; i++)
 	if (ly_is_equal (scripts_[i].event_
-			  ->get_property ("articulation-type"),
-			  m->get_property ("articulation-type")))
+			 ->get_property ("articulation-type"),
+			 m->get_property ("articulation-type")))
 	  return true;
 
       Script_tuple t;
@@ -147,9 +151,8 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
 void
 Script_engraver::process_music ()
 {
-  int script_count = scripts_.size ();
-  for (int i = 0; i < script_count; i++)
-    {
+  for (int i = 0; i < scripts_.size(); i++)
+     {
       Music *m = scripts_[i].event_;
 
       Grob *p = make_item ("Script", m->self_scm ());
@@ -166,29 +169,31 @@ Script_engraver::process_music ()
     }
 }
 
+
 void
-Script_engraver::acknowledge_grob (Grob_info info)
+Script_engraver::acknowledge_stem (Grob_info info)
 {
   int script_count = scripts_.size ();
-  if (Stem::has_interface (info.grob ()))
+  for (int i = 0; i < script_count; i++)
     {
-      for (int i = 0; i < script_count; i++)
-	{
-	  Grob *e = scripts_[i].script_;
+      Grob *e = scripts_[i].script_;
 
-	  if (to_dir (e->get_property ("side-relative-direction")))
-	    e->set_object ("direction-source", info.grob ()->self_scm ());
+      if (to_dir (e->get_property ("side-relative-direction")))
+	e->set_object ("direction-source", info.grob ()->self_scm ());
 
-	  /* FIXME: add dependency */
-	  e->add_dependency (info.grob ());
-	  Side_position_interface::add_support (e, info.grob ());
-	}
+      /* FIXME: add dependency */
+      e->add_dependency (info.grob ());
+      Side_position_interface::add_support (e, info.grob ());
     }
-  else if (Rhythmic_head::has_interface (info.grob ())
-	   && info.music_cause ())
+}
+
+void
+Script_engraver::acknowledge_rhythmic_head (Grob_info info)
+{
+  if(info.music_cause ())
     {
-      for (int i = 0; i < script_count; i++)
-	{
+     for (int i = 0; i < scripts_.size(); i++)
+ 	{
 	  Grob *e = scripts_[i].script_;
 
 	  if (Side_position_interface::get_axis (e) == X_AXIS
@@ -200,25 +205,32 @@ Script_engraver::acknowledge_grob (Grob_info info)
 	  Side_position_interface::add_support (e, info.grob ());
 	}
     }
-  else if (Note_column::has_interface (info.grob ()))
+}
+
+void
+Script_engraver::acknowledge_note_column (Grob_info info)
+{
+  /* Make note column the parent of the script.  That is not
+     correct, but due to seconds in a chord, noteheads may be
+     swapped around horizontally.
+
+     As the note head to put it on is not known now, postpone this
+     decision to Script_interface::before_line_breaking ().  */
+  
+  for (int i = 0; i < scripts_.size(); i++)
     {
-      /* Make note column the parent of the script.  That is not
-	 correct, but due to seconds in a chord, noteheads may be
-	 swapped around horizontally.
+      Grob *e = scripts_[i].script_;
 
-	 As the note head to put it on is not known now, postpone this
-	 decision to Script_interface::before_line_breaking ().  */
-      for (int i = 0; i < script_count; i++)
-	{
-	  Grob *e = scripts_[i].script_;
-
-	  if (!e->get_parent (X_AXIS)
-	      && Side_position_interface::get_axis (e) == Y_AXIS)
-	    e->set_parent (info.grob (), X_AXIS);
-	}
+      if (!e->get_parent (X_AXIS)
+	  && Side_position_interface::get_axis (e) == Y_AXIS)
+	e->set_parent (info.grob (), X_AXIS);
     }
-  else if (Slur::has_interface (info.grob ()))
-    slur_ = dynamic_cast<Spanner *> (info.grob ());
+}
+ 
+void
+Script_engraver::acknowledge_slur (Grob_info info)
+{
+  slur_ = info.spanner ();
 }
 
 void
@@ -239,11 +251,15 @@ Script_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Script_engraver, slur);
+ADD_ACKNOWLEDGER(Script_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER(Script_engraver, stem);
+ADD_ACKNOWLEDGER(Script_engraver, note_column);
+
 ADD_TRANSLATOR (Script_engraver,
 		/* descr */ "Handles note scripted articulations.",
 		/* creats*/ "Script",
 		/* accepts */ "script-event articulation-event",
-		/* acks  */ "stem-interface rhythmic-head-interface "
-		"slur-interface note-column-interface",
+		/* acks  */ "",
 		/* reads */ "scriptDefinitions",
 		/* write */ "");

@@ -20,7 +20,7 @@ protected:
   TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_column);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
 private:
@@ -116,7 +116,7 @@ Cluster_spanner_engraver::stop_translation_timestep ()
 }
 
 void
-Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
+Cluster_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
   if (!beacon_ && Note_column::has_interface (info.grob ()))
     {
@@ -127,11 +127,12 @@ Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Cluster_spanner_engraver, note_column);
 ADD_TRANSLATOR (Cluster_spanner_engraver,
 		/* descr */	"Engraves a cluster using Spanner notation ",
 		/* creats*/	"ClusterSpanner ClusterSpannerBeacon",
 		/* accepts */	"cluster-note-event busy-playing-event",
-		/* acks  */	"note-column-interface",
+		/* acks  */	"",
 		/* reads */	"",
 		/* write */	"");
 

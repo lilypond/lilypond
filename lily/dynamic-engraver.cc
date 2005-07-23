@@ -22,6 +22,8 @@
 #include "self-alignment-interface.hh"
 #include "pointer-group-interface.hh"
 
+#include "translator.icc"
+
 /*
   TODO:
 
@@ -58,10 +60,12 @@ class Dynamic_engraver : public Engraver
   void typeset_all ();
 
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
+  DECLARE_ACKNOWLEDGER(script);
+  DECLARE_ACKNOWLEDGER(note_column);
+
 
 protected:
   virtual void finalize ();
-  virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *event);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
@@ -366,66 +370,69 @@ Dynamic_engraver::typeset_all ()
 }
 
 void
-Dynamic_engraver::acknowledge_grob (Grob_info info)
+Dynamic_engraver::acknowledge_note_column (Grob_info info)
 {
   if (!line_spanner_)
     return;
 
-  if (Note_column::has_interface (info.grob ()))
+  if (line_spanner_
+      /* Don't refill killed spanner */
+      && line_spanner_->is_live ())
     {
-      if (line_spanner_
-	  /* Don't refill killed spanner */
-	  && line_spanner_->is_live ())
-	{
-	  Side_position_interface::add_support (line_spanner_, info.grob ());
-	  add_bound_item (line_spanner_, dynamic_cast<Item *> (info.grob ()));
-	}
+      Side_position_interface::add_support (line_spanner_, info.grob ());
+      add_bound_item (line_spanner_, dynamic_cast<Item *> (info.grob ()));
+    }
 
-      if (script_ && !script_->get_parent (X_AXIS))
+  if (script_ && !script_->get_parent (X_AXIS))
+    {
+      extract_grob_set (info.grob (), "note-heads", heads);
+      if (heads.size())
 	{
-	  extract_grob_set (info.grob (), "note-heads", heads);
-	  if (heads.size())
-	    {
-	      Grob *head = heads[0];
-	      script_->set_parent (head, X_AXIS);
-	      script_->add_offset_callback (Self_alignment_interface::centered_on_parent_proc,
-					    X_AXIS);
+	  Grob *head = heads[0];
+	  script_->set_parent (head, X_AXIS);
+	  script_->add_offset_callback (Self_alignment_interface::centered_on_parent_proc,
+					X_AXIS);
 
-	    }
-	}
-
-      if (cresc_)
-	{
-	  if (!cresc_->get_bound (LEFT))
-	    {
-	      cresc_->set_bound (LEFT, info.grob ());
-	      add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
-	    }
-	}
-
-      if (finished_cresc_ && !finished_cresc_->get_bound (RIGHT))
-	{
-	  finished_cresc_->set_bound (RIGHT, info.grob ());
 	}
     }
-  
-  else if (Script_interface::has_interface (info.grob ()) && script_)
+
+  if (cresc_)
     {
-      SCM p = info.grob ()->get_property ("script-priority");
+      if (!cresc_->get_bound (LEFT))
+	{
+	  cresc_->set_bound (LEFT, info.grob ());
+	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
+	}
+    }
 
-      /*
-	UGH.
-
-	DynamicText doesn't really have a script-priority field.
-      */
-      if (scm_is_number (p)
-	  && scm_to_int (p)
-	  < scm_to_int (script_->get_property ("script-priority")))
-	Side_position_interface::add_support (line_spanner_, info.grob ());
+  if (finished_cresc_ && !finished_cresc_->get_bound (RIGHT))
+    {
+      finished_cresc_->set_bound (RIGHT, info.grob ());
     }
 }
 
-#include "translator.icc"
+void
+Dynamic_engraver::acknowledge_script (Grob_info info)
+{
+  if (!line_spanner_ || !script_)
+    return;
+
+  SCM p = info.grob ()->get_property ("script-priority");
+
+  /*
+    UGH.
+
+    DynamicText doesn't really have a script-priority field.
+  */
+  if (scm_is_number (p)
+      && scm_to_int (p)
+      < scm_to_int (script_->get_property ("script-priority")))
+    Side_position_interface::add_support (line_spanner_, info.grob ());
+}
+
+
+ADD_ACKNOWLEDGER(Dynamic_engraver,script);
+ADD_ACKNOWLEDGER(Dynamic_engraver,note_column);
 
 ADD_TRANSLATOR (Dynamic_engraver,
 		/* descr */

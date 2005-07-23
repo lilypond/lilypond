@@ -20,7 +20,9 @@ class Part_combine_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Part_combine_engraver);
 
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_head);
+  DECLARE_ACKNOWLEDGER(stem);
+  
   PRECOMPUTED_VIRTUAL void process_music ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
@@ -66,23 +68,23 @@ Part_combine_engraver::process_music ()
 }
 
 void
-Part_combine_engraver::acknowledge_grob (Grob_info i)
+Part_combine_engraver::acknowledge_note_head (Grob_info i)
 {
   if (text_)
     {
-      if (Note_head::has_interface (i.grob ()))
-	{
-	  Grob *t = text_;
-	  Side_position_interface::add_support (t, i.grob ());
-	  if (Side_position_interface::get_axis (t) == X_AXIS
-	      && !t->get_parent (Y_AXIS))
-	    t->set_parent (i.grob (), Y_AXIS);
-	}
-      if (Stem::has_interface (i.grob ()))
-	{
-	  Side_position_interface::add_support (text_, i.grob ());
-	}
+      Grob *t = text_;
+      Side_position_interface::add_support (t, i.grob ());
+      if (Side_position_interface::get_axis (t) == X_AXIS
+	  && !t->get_parent (Y_AXIS))
+	t->set_parent (i.grob (), Y_AXIS);
     }
+}
+
+void
+Part_combine_engraver::acknowledge_stem (Grob_info i)
+{
+  if (text_)
+      Side_position_interface::add_support (text_, i.grob ());
 }
 
 void
@@ -93,14 +95,14 @@ Part_combine_engraver::stop_translation_timestep ()
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Part_combine_engraver, note_head);
+ADD_ACKNOWLEDGER(Part_combine_engraver, stem);
 ADD_TRANSLATOR (Part_combine_engraver,
 		/* descr */ "Part combine engraver for orchestral scores:		"
 		"Print markings a2, Solo, Solo II, and unisono ",
 		/* creats*/ "CombineTextScript",
 		/* accepts */ "part-combine-event",
-		/* acks  */ "multi-measure-rest-interface "
-		"slur-interface stem-interface note-head-interface",
+		/* acks  */ "",
 		/* reads */ "printPartCombineTexts soloText soloIIText "
 		"aDueText",
 		/* write */ "");

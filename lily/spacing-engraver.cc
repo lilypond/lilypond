@@ -46,7 +46,9 @@ class Spacing_engraver : public Engraver
 
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(staff_spacing);
+  DECLARE_ACKNOWLEDGER(note_spacing);
+  DECLARE_ACKNOWLEDGER(rhythmic_head);
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
@@ -94,15 +96,22 @@ Spacing_engraver::finalize ()
 }
 
 void
-Spacing_engraver::acknowledge_grob (Grob_info i)
+Spacing_engraver::acknowledge_note_spacing (Grob_info i)
 {
-  if (Note_spacing::has_interface (i.grob ()) || Staff_spacing::has_interface (i.grob ()))
-    {
-      Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
-    }
+  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
+}
 
+void
+Spacing_engraver::acknowledge_staff_spacing (Grob_info i)
+{
+  Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
+}
+  
+void
+Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
+{
   if (i.grob ()->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
-      || i.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-event")))
+      || i.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
     return;
 
   /*
@@ -174,10 +183,14 @@ Spacing_engraver::start_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Spacing_engraver,staff_spacing);
+ADD_ACKNOWLEDGER(Spacing_engraver,note_spacing);
+ADD_ACKNOWLEDGER(Spacing_engraver,rhythmic_head);
+  
 ADD_TRANSLATOR (Spacing_engraver,
 		/* descr */ "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",
 		/* creats*/ "SpacingSpanner",
 		/* accepts */ "",
-		/* acks  */ "grob-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

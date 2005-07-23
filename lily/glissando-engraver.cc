@@ -21,7 +21,7 @@ public:
   TRANSLATOR_DECLARATIONS (Glissando_engraver);
 
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(rhythmic_head);
   virtual void finalize ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
@@ -59,17 +59,14 @@ Glissando_engraver::process_music ()
 }
 
 void
-Glissando_engraver::acknowledge_grob (Grob_info info)
+Glissando_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
-  if (Rhythmic_head::has_interface (info.grob ()))
-    {
-      Grob *g = info.grob ();
-      if (line_)
-	line_->set_bound (LEFT, g);
+  Grob *g = info.grob ();
+  if (line_)
+    line_->set_bound (LEFT, g);
 
-      if (last_line_)
-	last_line_->set_bound (RIGHT, g);
-    }
+  if (last_line_)
+    last_line_->set_bound (RIGHT, g);
 }
 
 void
@@ -108,10 +105,11 @@ Glissando_engraver::finalize ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Glissando_engraver,rhythmic_head);
 ADD_TRANSLATOR (Glissando_engraver,
 		/* descr */ "Engrave a glissandi",
 		/* creats*/ "Glissando",
 		/* accepts */ "glissando-event",
-		/* acks  */ "rhythmic-head-interface",
+		/* acks  */ "",
 		/* reads */ "followVoice",
 		/* write */ "");

@@ -34,7 +34,7 @@
   Array<Acknowledge_information> classname::acknowledge_static_array_;\
   IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(classname); \
   ADD_THIS_TRANSLATOR (classname);					\
-  Translator_void_method_ptr\
+  Engraver_void_function_engraver_grob_info\
   classname::static_get_acknowledger (SCM sym)				\
   {\
     return generic_get_acknowledger (sym, &acknowledge_static_array_);\
@@ -92,16 +92,21 @@ T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])\
     : (Translator_void_method_ptr) &T::process_acknowledged;		\
 }
 
-void add_acknowledger (Translator_void_method_ptr ptr, const char *func_name, Array<Acknowledge_information> *ack_array);
-Translator_void_method_ptr
-generic_get_acknowledger (SCM sym, Array<Acknowledge_information> const *ack_array);
+void add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
+		       const char *func_name,
+		       Array<Acknowledge_information> *ack_array);
+
+Engraver_void_function_engraver_grob_info
+generic_get_acknowledger (SCM sym,
+			  Array<Acknowledge_information> const *ack_array);
 
 #define ADD_ACKNOWLEDGER(CLASS,NAME)		\
 void CLASS ## NAME ## _ack_adder () \
 {\
-  add_acknowledger ((Translator_void_method_ptr) &CLASS::NAME, #NAME, &CLASS::acknowledge_static_array_);\
+  add_acknowledger ((Engraver_void_function_engraver_grob_info) &CLASS::acknowledge_ ## NAME, #NAME, &CLASS::acknowledge_static_array_);\
 }\
-ADD_SCM_INIT_FUNC(CLASS ## NAME ## _ack_adder);\
+  ADD_SCM_INIT_FUNC(CLASS ## NAME ## _ack_adder_initclass, CLASS ## NAME ## _ack_adder); \
+
 
 
 

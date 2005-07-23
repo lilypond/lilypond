@@ -16,7 +16,7 @@ class Hara_kiri_engraver : public Axis_group_engraver
 {
 protected:
   virtual Spanner *get_spanner ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(grob);
   virtual void add_element (Grob *e);
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
 
@@ -67,7 +67,7 @@ Hara_kiri_engraver::Hara_kiri_engraver ()
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Hara_kiri_engraver, grob);
 ADD_TRANSLATOR (Hara_kiri_engraver,
 		/* descr */ "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
 		"interesting items (ie. note heads, lyric syllables and normal rests) ",

@@ -37,11 +37,12 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Tab_staff_symbol_engraver,grob);
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
 		/* descr */ "Create a staff-symbol, but look at stringTunings for the number of lines."
 		"staff lines.",
 		/* creats*/ "StaffSymbol",
 		/* accepts */ "staff-span-event",
-		/* acks  */ "grob-interface",
+		/* acks  */ "",
 		/* reads */ "stringTunings",
 		/* write */ "");
