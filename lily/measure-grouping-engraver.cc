@@ -101,6 +101,7 @@ Measure_grouping_engraver::process_music ()
 	}
     }
 }
+
 Measure_grouping_engraver::Measure_grouping_engraver ()
 {
   grouping_ = 0;

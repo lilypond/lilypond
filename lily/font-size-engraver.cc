@@ -15,29 +15,36 @@ class Font_size_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Font_size_engraver);
 protected:
   DECLARE_ACKNOWLEDGER(font);
+  virtual void process_music ();
+  Real size;
 private:
 };
 
 Font_size_engraver::Font_size_engraver ()
 {
+  size = 0.0;
+}
+
+
+void
+Font_size_engraver::process_music ()
+{
+  size = robust_scm2double  (get_property ("fontSize"), 0.0);
 }
 
 void
 Font_size_engraver::acknowledge_font (Grob_info gi)
 {
-  SCM sz = get_property ("fontSize");
-
   /*
     We only want to process a grob once.
   */
   if (gi.context () != context ())
     return;
 
-  if (scm_is_number (sz) && scm_to_double (sz))
+  if (size)
     {
-      Real font_size = scm_to_double (sz);
-
-      font_size += robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
+      Real font_size = size
+	+ robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
       gi.grob ()->set_property ("font-size", scm_make_real (font_size));
     }
 }

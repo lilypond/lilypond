@@ -114,7 +114,7 @@ Auto_beam_engraver::process_music ()
 Auto_beam_engraver::Auto_beam_engraver ()
 {
   forbid_ = 0;
-process_acknowledged_count_ = 0;
+  process_acknowledged_count_ = 0;
   stems_ = 0;
   shortest_mom_ = Moment (Rational (1, 8));
   finished_beam_ = 0;
