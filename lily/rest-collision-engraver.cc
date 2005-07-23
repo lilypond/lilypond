@@ -17,7 +17,7 @@ class Rest_collision_engraver : public Engraver
   int rest_count_;
   Link_array<Grob> note_columns_;
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_column);
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 public:
@@ -47,14 +47,11 @@ Rest_collision_engraver::process_acknowledged ()
 }
 
 void
-Rest_collision_engraver::acknowledge_grob (Grob_info i)
+Rest_collision_engraver::acknowledge_note_column (Grob_info i)
 {
-  if (Note_column::has_interface (i.grob ()))
-    {
-      note_columns_.push (i.grob ());
-      if (Note_column::has_rests (i.grob ()))
-	rest_count_++;
-    }
+  note_columns_.push (i.grob ());
+  if (Note_column::has_rests (i.grob ()))
+    rest_count_++;
 }
 
 void
@@ -67,10 +64,11 @@ Rest_collision_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Rest_collision_engraver, note_column);
 ADD_TRANSLATOR (Rest_collision_engraver,
 		/* descr */ "Handles collisions of rests.",
 		/* creats*/ "RestCollision",
 		/* accepts */ "",
-		/* acks  */ "note-column-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

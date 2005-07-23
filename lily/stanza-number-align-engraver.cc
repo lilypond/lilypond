@@ -1,6 +1,5 @@
-
 /*
-  stanza-number-align-engraver.cc -- implement
+  stanza-number-align-engraver.cc -- implement Stanza_number_align_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -14,6 +13,8 @@
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 
+#include "translator.icc"
+
 class Stanza_number_align_engraver : public Engraver
 {
 public:
@@ -22,7 +23,9 @@ public:
 protected:
   Link_array<Grob> lyrics_;
   Link_array<Grob> stanza_numbers_;
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER(lyric_syllable);
+  DECLARE_ACKNOWLEDGER(stanza_number);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
@@ -31,14 +34,17 @@ Stanza_number_align_engraver::Stanza_number_align_engraver ()
 }
 
 void
-Stanza_number_align_engraver::acknowledge_grob (Grob_info gi)
+Stanza_number_align_engraver::acknowledge_lyric_syllable (Grob_info gi)
 {
   Grob *h = gi.grob ();
+  lyrics_.push (h);
+}
 
-  if (h->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
-    lyrics_.push (h);
-  else if (h->internal_has_interface (ly_symbol2scm ("stanza-number-interface")))
-    stanza_numbers_.push (h);
+void
+Stanza_number_align_engraver::acknowledge_stanza_number (Grob_info gi)
+{
+  Grob *h = gi.grob ();
+  stanza_numbers_.push (h);
 }
 
 void
@@ -52,13 +58,13 @@ Stanza_number_align_engraver::stop_translation_timestep ()
   lyrics_.clear ();
 }
 
-#include "translator.icc"
-
+ADD_ACKNOWLEDGER(Stanza_number_align_engraver,lyric_syllable);
+ADD_ACKNOWLEDGER(Stanza_number_align_engraver,stanza_number);
 ADD_TRANSLATOR (Stanza_number_align_engraver,
 		"This engraver ensures that stanza numbers are neatly aligned. ",
 		"",
 		"",
-		"stanza-number-interface lyric-syllable-interface ",
+		" ",
 		"",
 		"");
 

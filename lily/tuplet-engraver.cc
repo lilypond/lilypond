@@ -35,7 +35,7 @@ public:
 protected:
   Array<Tuplet_description> tuplets_;
 
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_column);
   virtual bool try_music (Music *r);
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
@@ -87,15 +87,12 @@ Tuplet_engraver::process_music ()
 }
 
 void
-Tuplet_engraver::acknowledge_grob (Grob_info i)
+Tuplet_engraver::acknowledge_note_column (Grob_info i)
 {
-  if (Note_column::has_interface (i.grob ()))
-    {
-      for (int j = 0; j < tuplets_.size (); j++)
-	if (tuplets_[j].spanner_)
-	  Tuplet_bracket::add_column (tuplets_[j].spanner_,
-				      dynamic_cast<Item *> (i.grob ()));
-    }
+  for (int j = 0; j < tuplets_.size (); j++)
+    if (tuplets_[j].spanner_)
+      Tuplet_bracket::add_column (tuplets_[j].spanner_,
+				  dynamic_cast<Item *> (i.grob ()));
 }
 
 void
@@ -134,11 +131,11 @@ Tuplet_engraver::start_translation_timestep ()
 Tuplet_engraver::Tuplet_engraver ()
 {
 }
-
+ADD_ACKNOWLEDGER(Tuplet_engraver,note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
 		/* descr */ "Catch Time_scaled_music and generate appropriate bracket  ",
 		/* creats*/ "TupletBracket",
 		/* accepts */ "time-scaled-music",
-		/* acks  */ "note-column-interface",
+		/* acks  */ "",
 		/* reads */ "tupletNumberFormatFunction tupletSpannerDuration",
 		/* write */ "");
