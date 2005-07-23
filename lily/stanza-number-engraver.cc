@@ -23,7 +23,7 @@ public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
   PRECOMPUTED_VIRTUAL void process_music ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(lyric_syllable);
 };
 
 /*
@@ -52,10 +52,9 @@ Stanza_number_engraver::process_music ()
 }
 
 void
-Stanza_number_engraver::acknowledge_grob (Grob_info inf)
+Stanza_number_engraver::acknowledge_lyric_syllable (Grob_info inf)
 {
-  if (text_
-      && inf.grob ()->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (text_)
     {
       Side_position_interface::add_support (text_, inf.grob ());
     }
@@ -69,10 +68,11 @@ Stanza_number_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Stanza_number_engraver,lyric_syllable);
 ADD_TRANSLATOR (Stanza_number_engraver,
 		/* descr */ "",
 		/* creats*/ "StanzaNumber",
 		/* accepts */ "",
-		/* acks  */ "lyric-syllable-interface",
+		/* acks  */ "",
 		/* reads */ "stanza",
 		/* write */ "");

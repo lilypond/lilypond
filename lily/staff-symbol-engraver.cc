@@ -93,10 +93,12 @@ Staff_symbol_engraver::finalize ()
   stop_spanner ();
 }
 
+/*
+  Todo: staff-symbol-referencer iface.
+ */
 void
 Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
-
   /*
     Perhaps should try to take SeparationItem as bound of the staff
     symbol?

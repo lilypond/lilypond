@@ -14,15 +14,14 @@ class Pitch_squash_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Pitch_squash_engraver);
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_head);
 };
 
 void
-Pitch_squash_engraver::acknowledge_grob (Grob_info i)
+Pitch_squash_engraver::acknowledge_note_head (Grob_info i)
 {
   SCM newpos = get_property ("squashedPosition");
-  if (scm_is_number (newpos)
-      && Note_head::has_interface (i.grob ()))
+  if (scm_is_number (newpos))
     {
       i.grob ()->set_property ("staff-position", newpos);
     }
@@ -33,7 +32,7 @@ Pitch_squash_engraver::Pitch_squash_engraver ()
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Pitch_squash_engraver,note_head);
 ADD_TRANSLATOR (Pitch_squash_engraver,
 		/* descr */
 		"Set the vertical position of noteheads to "
@@ -44,6 +43,6 @@ ADD_TRANSLATOR (Pitch_squash_engraver,
 
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "note-head-interface",
+		/* acks  */ "",
 		/* reads */ "squashedPosition",
 		/* write */ "");
