@@ -31,7 +31,12 @@ protected:
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual bool try_music (Music *);
   virtual void finalize ();
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER(rest);
+  DECLARE_ACKNOWLEDGER(beam);
+  DECLARE_ACKNOWLEDGER(bar_line);
+  DECLARE_ACKNOWLEDGER(stem);
+  
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
 
 private:
@@ -70,7 +75,25 @@ private:
   SCM beam_settings_;		// ugh. should protect ? 
 
   Beaming_info_list *finished_grouping_;
+
+  void check_bar_property ();
 };
+
+
+void
+Auto_beam_engraver::check_bar_property ()
+{
+  /* Duplicated from process_music (), since
+     Repeat_acknowledge_engraver::process_music () may also set whichBar.  */
+
+  Moment now = now_mom ();
+  if (scm_is_string (get_property ("whichBar"))
+      && beam_start_moment_ < now)
+    {
+      consider_end (shortest_mom_);
+      junk_beam ();
+    }
+}
 
 void
 Auto_beam_engraver::process_music ()
@@ -277,95 +300,96 @@ Auto_beam_engraver::finalize ()
     junk_beam ();
 }
 
+
+
+
 void
-Auto_beam_engraver::acknowledge_grob (Grob_info info)
+Auto_beam_engraver::acknowledge_beam (Grob_info info)
 {
-  /* Duplicated from process_music (), since
-     Repeat_acknowledge_engraver::process_music () may also set whichBar.  */
-
-  Moment now = now_mom ();
-  if (scm_is_string (get_property ("whichBar"))
-      && beam_start_moment_ < now)
-    {
-      consider_end (shortest_mom_);
-      junk_beam ();
-    }
-
+  check_bar_property ();
   if (stems_)
     {
-      if (Beam::has_interface (info.grob ()))
-	{
-	  end_beam ();
-	}
-      else if (Bar_line::has_interface (info.grob ()))
-	{
-	  end_beam ();
-	}
-      else if (Rest::has_interface (info.grob ()))
-	{
-	  end_beam ();
-	}
+      end_beam ();
     }
+}
+ 
+void
+Auto_beam_engraver::acknowledge_bar_line (Grob_info info)
+{
+  check_bar_property ();
+  if (stems_)
+    end_beam ();
+}
 
-  if (Stem::has_interface (info.grob ()))
+void
+Auto_beam_engraver::acknowledge_rest (Grob_info info)
+{
+  check_bar_property ();
+  if (stems_)
+    end_beam ();
+}
+
+void
+Auto_beam_engraver::acknowledge_stem (Grob_info info)
+{
+  check_bar_property ();
+  Item *stem = dynamic_cast<Item *> (info.grob ());
+  Music *m = info.music_cause ();
+  if (!m->is_mus_type ("rhythmic-event"))
     {
-      Item *stem = dynamic_cast<Item *> (info.grob ());
-      Music *m = info.music_cause ();
-      if (!m->is_mus_type ("rhythmic-event"))
-	{
-	  programming_error ("stem must have rhythmic structure");
-	  return;
-	}
-
-      /*
-	Don't (start) auto-beam over empty stems; skips or rests
-      */
-      if (!Stem::head_count (stem))
-	{
-	  if (stems_)
-	    end_beam ();
-	  return;
-	}
-
-      if (Stem::get_beam (stem))
-	{
-	  if (stems_)
-	    junk_beam ();
-	  return;
-	}
-
-      int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
-
-      if (durlog <= 2)
-	{
-	  if (stems_)
-	    end_beam ();
-	  return;
-	}
-
-      /*
-	ignore grace notes.
-      */
-      if (bool (beam_start_location_.grace_part_) != bool (now.grace_part_))
-	return;
-
-      Moment dur = unsmob_duration (m->get_property ("duration"))->get_length ();
-
-      consider_end (dur);
-      consider_begin (dur);
-
-      if (dur < shortest_mom_)
-	shortest_mom_ = dur;
-
-      if (!stems_)
-	return;
-
-      grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
-			   durlog - 2);
-      stems_->push (stem);
-      last_add_mom_ = now;
-      extend_mom_ = max (extend_mom_, now) + m->get_length ();
+      programming_error ("stem must have rhythmic structure");
+      return;
     }
+
+  /*
+    Don't (start) auto-beam over empty stems; skips or rests
+  */
+  if (!Stem::head_count (stem))
+    {
+      if (stems_)
+	end_beam ();
+      return;
+    }
+
+  if (Stem::get_beam (stem))
+    {
+      if (stems_)
+	junk_beam ();
+      return;
+    }
+
+  int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
+
+  if (durlog <= 2)
+    {
+      if (stems_)
+	end_beam ();
+      return;
+    }
+
+  /*
+    ignore grace notes.
+  */
+  Moment now = now_mom ();
+  if (bool (beam_start_location_.grace_part_) != bool (now.grace_part_))
+    return;
+
+  Moment dur = unsmob_duration (m->get_property ("duration"))->get_length ();
+
+  consider_end (dur);
+  consider_begin (dur);
+
+  if (dur < shortest_mom_)
+    shortest_mom_ = dur;
+
+  if (!stems_)
+    return;
+
+  grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
+		       durlog - 2);
+  stems_->push (stem);
+  last_add_mom_ = now;
+  extend_mom_ = max (extend_mom_, now) + m->get_length ();
 }
 
 void
@@ -399,6 +423,10 @@ Auto_beam_engraver::process_acknowledged ()
   process_acknowledged_count_++;
 }
 
+ADD_ACKNOWLEDGER(Auto_beam_engraver,stem);
+ADD_ACKNOWLEDGER(Auto_beam_engraver,bar_line);
+ADD_ACKNOWLEDGER(Auto_beam_engraver,beam);
+ADD_ACKNOWLEDGER(Auto_beam_engraver,rest);
 ADD_TRANSLATOR (Auto_beam_engraver,
 		/* descr */ "Generate beams based on measure characteristics and observed "
 		"Stems.  Uses beatLength, measureLength and measurePosition to decide "
@@ -407,6 +435,6 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 		"@code{stemRightBeamCount}. ",
 		/* creats*/ "Beam",
 		/* accepts */ "beam-forbid-event",
-		/* acks  */ "stem-interface rest-interface beam-interface bar-line-interface",
+		/* acks  */ "",
 		/* reads */ "autoBeaming autoBeamSettings beatLength subdivideBeams",
 		/* write */ "");

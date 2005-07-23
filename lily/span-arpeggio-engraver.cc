@@ -22,9 +22,9 @@ class Span_arpeggio_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);
+  DECLARE_ACKNOWLEDGER(arpeggio);
 
 protected:
-  virtual void acknowledge_grob (Grob_info);
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 
@@ -39,10 +39,9 @@ Span_arpeggio_engraver::Span_arpeggio_engraver ()
 }
 
 void
-Span_arpeggio_engraver::acknowledge_grob (Grob_info info)
+Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info info)
 {
-  if (Arpeggio::has_interface (info.grob ())
-      && info.origin_contexts (this).size ()) // huh? what's this test for? 
+  if (info.origin_contexts (this).size ()) // huh? what's this test for? 
     {
       arpeggios_.push (info.grob ());
     }
@@ -100,10 +99,11 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Span_arpeggio_engraver,arpeggio);
 ADD_TRANSLATOR (Span_arpeggio_engraver,
 		/* descr */ "",
 		/* creats*/ "Arpeggio",
 		/* accepts */ "",
-		/* acks  */ "arpeggio-interface",
+		/* acks  */ "",
 		/* reads */ "connectArpeggios",
 		/* write */ "");

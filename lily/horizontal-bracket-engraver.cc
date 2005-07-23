@@ -24,16 +24,16 @@ public:
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_column);
 };
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Horizontal_bracket_engraver,note_column);
 ADD_TRANSLATOR (Horizontal_bracket_engraver,
 		"Create horizontal brackets over notes for musical analysis purposes.",
 		"HorizontalBracket",
 		"note-grouping-event",
-		"note-column-interface",
+		"",
 		"",
 		"");
 
@@ -71,18 +71,15 @@ Horizontal_bracket_engraver::try_music (Music *m)
 }
 
 void
-Horizontal_bracket_engraver::acknowledge_grob (Grob_info gi)
+Horizontal_bracket_engraver::acknowledge_note_column (Grob_info gi)
 {
-  if (Note_column::has_interface (gi.grob ()))
+  for (int i = 0; i < bracket_stack_.size (); i++)
     {
-      for (int i = 0; i < bracket_stack_.size (); i++)
-	{
-	  Side_position_interface::add_support (bracket_stack_[i], gi.grob ());
-	  Pointer_group_interface::add_grob (bracket_stack_[i],
-					     ly_symbol2scm ("columns"), gi.grob ());
-	  add_bound_item (bracket_stack_[i],
-			  gi.grob ());
-	}
+      Side_position_interface::add_support (bracket_stack_[i], gi.grob ());
+      Pointer_group_interface::add_grob (bracket_stack_[i],
+					 ly_symbol2scm ("columns"), gi.grob ());
+      add_bound_item (bracket_stack_[i],
+		      gi.grob ());
     }
 }
 

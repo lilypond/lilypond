@@ -16,17 +16,11 @@
 #include "input.hh"
 #include "smobs.hh"
 
-
-
-typedef void (*Translator_void_method_ptr)(Translator*);
-
-
 struct Acknowledge_information
 {
   SCM symbol_;
-  Translator_void_method_ptr function_;
+  Engraver_void_function_engraver_grob_info function_;
 };
-
 
 #define TRANSLATOR_DECLARATIONS(NAME)			\
   public:						\
@@ -37,10 +31,12 @@ struct Acknowledge_information
   virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]);\
   virtual SCM static_translator_description () const;	\
   virtual SCM translator_description () const; \
-  virtual Translator_void_method_ptr get_acknowledger (SCM sym) { \
+  virtual Engraver_void_function_engraver_grob_info get_acknowledger (SCM sym) { \
     return static_get_acknowledger (sym);\
   }\
-  static Translator_void_method_ptr static_get_acknowledger (SCM sym);
+  static Engraver_void_function_engraver_grob_info static_get_acknowledger (SCM sym);
+
+#define DECLARE_ACKNOWLEDGER(x) public: void acknowledge_ ## x (Grob_info); protected:
 
 enum Translator_precompute_index {
   START_TRANSLATION_TIMESTEP,

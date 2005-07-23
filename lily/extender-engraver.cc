@@ -28,7 +28,7 @@ public:
   TRANSLATOR_DECLARATIONS (Extender_engraver);
 
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(lyric_syllable);
   virtual void finalize ();
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
@@ -61,22 +61,17 @@ Extender_engraver::process_music ()
 }
 
 void
-Extender_engraver::acknowledge_grob (Grob_info i)
+Extender_engraver::acknowledge_lyric_syllable (Grob_info i)
 {
-  Item *item = dynamic_cast<Item *> (i.grob ());
+  Item *item = i.item ();
+  if (extender_)
+    extender_->set_bound (LEFT, item);
 
-  if (item
-      && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (pending_extender_)
     {
-      if (extender_)
-	extender_->set_bound (LEFT, item);
-
-      if (pending_extender_)
-	{
-	  pending_extender_->set_object ("next", item->self_scm ());
-	  completize_extender (pending_extender_);
-	  pending_extender_ = 0;
-	}
+      pending_extender_->set_object ("next", item->self_scm ());
+      completize_extender (pending_extender_);
+      pending_extender_ = 0;
     }
 }
 
@@ -150,10 +145,11 @@ Extender_engraver::finalize ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Extender_engraver,lyric_syllable);
 ADD_TRANSLATOR (Extender_engraver,
 		/* descr */ "Create lyric extenders",
 		/* creats*/ "LyricExtender",
 		/* accepts */ "extender-event",
-		/* acks  */ "lyric-syllable-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

@@ -33,7 +33,7 @@ class Stem_engraver : public Engraver
 protected:
   void make_stem (Grob_info);
 
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(rhythmic_head);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
 };
@@ -107,33 +107,30 @@ Stem_engraver::make_stem (Grob_info gi)
 }
 
 void
-Stem_engraver::acknowledge_grob (Grob_info gi)
+Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
 {
-  if (Rhythmic_head::has_interface (gi.grob ()))
+  if (Rhythmic_head::get_stem (gi.grob ()))
+    return;
+
+  Music *cause = gi.music_cause ();
+  if (!cause)
+    return;
+  Duration *d = unsmob_duration (cause->get_property ("duration"));
+  if (!d)
+    return ;
+      
+  if (!stem_)
+    make_stem (gi);
+      
+  if (Stem::duration_log (stem_) != d->duration_log ())
     {
-      if (Rhythmic_head::get_stem (gi.grob ()))
-	return;
-
-      Music *cause = gi.music_cause ();
-      if (!cause)
-	return;
-      Duration *d = unsmob_duration (cause->get_property ("duration"));
-      if (!d)
-	return ;
-      
-      if (!stem_)
-	make_stem (gi);
-      
-      if (Stem::duration_log (stem_) != d->duration_log ())
-	{
-	  // FIXME: 
-	  gi.music_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
-						     1 << Stem::duration_log (stem_)));
-	  gi.music_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
-	}
-
-      Stem::add_head (stem_, gi.grob ());
+      // FIXME: 
+      gi.music_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
+						 1 << Stem::duration_log (stem_)));
+      gi.music_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
     }
+
+  Stem::add_head (stem_, gi.grob ());
 }
 
 void
@@ -172,12 +169,12 @@ Stem_engraver::try_music (Music *m)
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Stem_engraver,rhythmic_head);
 ADD_TRANSLATOR (Stem_engraver,
 		/* descr */ "Create stems and single-stem tremolos.  It also works together with "
 		"the beam engraver for overriding beaming.",
 		/* creats*/ "Stem StemTremolo",
 		/* accepts */ "tremolo-event",
-		/* acks  */ "rhythmic-head-interface",
+		/* acks  */ "",
 		/* reads */ "tremoloFlags stemLeftBeamCount stemRightBeamCount",
 		/* write */ "");

@@ -158,7 +158,7 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
 }
 
 void
-add_acknowledger (Translator_void_method_ptr ptr,
+add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
 		  const char *func_name,
 		  Array<Acknowledge_information> *ack_array)
 {
@@ -167,7 +167,6 @@ add_acknowledger (Translator_void_method_ptr ptr,
 
   String interface_name(func_name);
 
-  interface_name = interface_name.substitute ("acknowledge_", "");
   interface_name = interface_name.substitute ('_', '-');
   interface_name += "-interface";
 
@@ -175,7 +174,7 @@ add_acknowledger (Translator_void_method_ptr ptr,
   ack_array->push (inf);
 }
 
-Translator_void_method_ptr 
+Engraver_void_function_engraver_grob_info
 generic_get_acknowledger (SCM sym, Array<Acknowledge_information> const *ack_array)
 {
   for (int i = 0; i < ack_array->size(); i++)

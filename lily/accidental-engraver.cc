@@ -56,7 +56,12 @@ class Accidental_engraver : public Engraver
 protected:
   TRANSLATOR_DECLARATIONS (Accidental_engraver);
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+
+  void acknowledge_tie (Grob_info);
+  void acknowledge_arpeggio (Grob_info);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_finger (Grob_info);
+  
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void initialize ();
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
@@ -544,13 +549,11 @@ Accidental_engraver::stop_translation_timestep ()
 }
 
 void
-Accidental_engraver::acknowledge_grob (Grob_info info)
+Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
   Music *note = info.music_cause ();
-
   if (note
-      && note->is_mus_type ("note-event")
-      && Rhythmic_head::has_interface (info.grob ()))
+      && note->is_mus_type ("note-event"))
     {
       /*
 	String harmonics usually don't have accidentals.
@@ -568,13 +571,24 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 	  accidentals_.push (entry);
 	}
     }
-  else if (Tie::has_interface (info.grob ()))
-    ties_.push (dynamic_cast<Spanner *> (info.grob ()));
-  else if (Arpeggio::has_interface (info.grob ()))
-    left_objects_.push (info.grob ());
-  else if (info.grob ()
-	   ->internal_has_interface (ly_symbol2scm ("finger-interface")))
-    left_objects_.push (info.grob ());
+}
+
+void
+Accidental_engraver::acknowledge_tie (Grob_info info)
+{
+  ties_.push (dynamic_cast<Spanner *> (info.grob ()));
+}
+
+void
+Accidental_engraver::acknowledge_arpeggio (Grob_info info)
+{
+  left_objects_.push (info.grob ());
+}
+
+void
+Accidental_engraver::acknowledge_finger (Grob_info info)
+{
+  left_objects_.push (info.grob ());
 }
 
 void
@@ -587,6 +601,12 @@ Accidental_engraver::process_music ()
     update_local_key_signature ();
 }
 
+
+ADD_ACKNOWLEDGER(Accidental_engraver, arpeggio);
+ADD_ACKNOWLEDGER(Accidental_engraver, finger);
+ADD_ACKNOWLEDGER(Accidental_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER(Accidental_engraver, tie);
+
 ADD_TRANSLATOR (Accidental_engraver,
 		"Make accidentals.  "
 		"Catch note heads, ties and notices key-change events.  "
@@ -598,10 +618,7 @@ ADD_TRANSLATOR (Accidental_engraver,
 		"",
 		
 		/* acks */
-		"arpeggio-interface "
-		"finger-interface "
-		"rhythmic-head-interface "
-		"tie-interface ",
+		"",
 
 		"autoAccidentals "
 		"autoCautionaries "

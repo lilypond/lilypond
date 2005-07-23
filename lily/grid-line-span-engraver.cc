@@ -19,7 +19,7 @@ class Grid_line_span_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(grid_point);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
@@ -29,10 +29,10 @@ Grid_line_span_engraver::Grid_line_span_engraver ()
 }
 
 void
-Grid_line_span_engraver::acknowledge_grob (Grob_info i)
+Grid_line_span_engraver::acknowledge_grid_point (Grob_info i)
 {
   int depth = i.origin_contexts (this).size ();
-  if (depth && i.grob ()->internal_has_interface (ly_symbol2scm ("grid-point-interface")))
+  if (depth)
     {
       Item *it = dynamic_cast<Item *> (i.grob ());
       lines_.push (it);
@@ -59,12 +59,12 @@ Grid_line_span_engraver::stop_translation_timestep ()
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Grid_line_span_engraver, grid_point);
 ADD_TRANSLATOR (Grid_line_span_engraver,
 		/* descr */ "This engraver makes cross-staff linelines: It catches all normal "
 		"line lines, and draws a single span-line across them.",
 		/* creats*/ "GridLine",
 		/* accepts */ "",
-		/* acks  */ "grid-point-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

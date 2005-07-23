@@ -8,11 +8,11 @@
 
 #include "engraver-group-engraver.hh"
 
-#include "flower-proto.hh"
 #include "warn.hh"
 #include "paper-score.hh"
 #include "grob.hh"
 #include "context.hh"
+#include "translator-dispatch-list.hh"
 
 void
 Engraver_group_engraver::announce_grob (Grob_info info)
@@ -62,22 +62,47 @@ Engraver_group_engraver::acknowledge_grobs ()
 	}
 
       SCM acklist = scm_hashq_ref (acknowledge_hash_table_, nm, SCM_UNDEFINED);
+      Engraver_dispatch_list *dispatch
+	= Engraver_dispatch_list::unsmob (acklist);
+
       if (acklist == SCM_BOOL_F)
 	{
-	  acklist = find_acknowledge_engravers (get_simple_trans_list (), meta);
-	  scm_hashq_set_x (acknowledge_hash_table_, nm, acklist);
+	  SCM ifaces
+	    = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
+	  acklist = Engraver_dispatch_list::create (get_simple_trans_list (),
+						      ifaces);
+
+	  dispatch
+	    = Engraver_dispatch_list::unsmob (acklist);
+
+	  if (dispatch)
+	    scm_hashq_set_x (acknowledge_hash_table_, nm, acklist);
 	}
 
-      for (SCM p = acklist; scm_is_pair (p); p = scm_cdr (p))
+
+      if (dispatch)
 	{
-	  Translator *t = unsmob_translator (scm_car (p));
-	  Engraver *eng = dynamic_cast<Engraver *> (t);
-	  if (eng && eng != info.origin_translator ())
-	    eng->acknowledge_grob (info);
+	  dispatch->apply (info);
+	}
+      else
+	{
+	  if (acklist == SCM_BOOL_F)
+	    {
+	      acklist = find_acknowledge_engravers (get_simple_trans_list (),
+						    meta);
+	      scm_hashq_set_x (acknowledge_hash_table_, nm, acklist);
+	    }
+
+	  for (SCM p = acklist; scm_is_pair (p); p = scm_cdr (p))
+	    {
+	      Translator *t = unsmob_translator (scm_car (p));
+	      Engraver *eng = dynamic_cast<Engraver *> (t);
+	      if (eng && eng != info.origin_translator ())
+		eng->acknowledge_grob (info);
+	    }
 	}
     }
 }
-
 /*
   Ugh. This is slightly expensive. We could/should cache the value of
   the group count?
@@ -148,7 +173,8 @@ ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
 bool
 engraver_valid (Translator *tr, SCM ifaces)
 {
-  SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"), tr->translator_description ());
+  SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"),
+			   tr->translator_description ());
   ack_ifs = scm_cdr (ack_ifs);
   for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
     if (scm_c_memq (scm_car (s), ack_ifs) != SCM_BOOL_F)
@@ -157,10 +183,8 @@ engraver_valid (Translator *tr, SCM ifaces)
 }
 
 SCM
-find_acknowledge_engravers (SCM gravlist, SCM meta_alist)
+find_acknowledge_engravers (SCM gravlist, SCM ifaces)
 {
-  SCM ifaces = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta_alist));
-
   SCM l = SCM_EOL;
   for (SCM s = gravlist; scm_is_pair (s); s = scm_cdr (s))
     {

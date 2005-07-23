@@ -26,7 +26,10 @@ public:
   TRANSLATOR_DECLARATIONS(Pitched_trill_engraver);
   
 protected:
-  virtual void acknowledge_grob (Grob_info);
+ 
+  DECLARE_ACKNOWLEDGER( note_head);
+  DECLARE_ACKNOWLEDGER( dots);
+  DECLARE_ACKNOWLEDGER( text_spanner);
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual bool try_music (Music*);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
@@ -49,19 +52,24 @@ Pitched_trill_engraver::Pitched_trill_engraver ()
 }
 
 void
-Pitched_trill_engraver::acknowledge_grob (Grob_info info)
+Pitched_trill_engraver::acknowledge_dots (Grob_info info)
+{
+  heads_.push (info.grob ());
+}
+void
+Pitched_trill_engraver::acknowledge_note_head (Grob_info info)
+{
+  heads_.push (info.grob ());
+}
+ 
+void
+Pitched_trill_engraver::acknowledge_text_spanner (Grob_info info)
 {
   Music *mus = info.music_cause ();
-
-  if (Note_head::has_interface (info.grob ())
-      || Dots::has_interface (info.grob ()))
-    {
-      heads_.push (info.grob ());
-    }
-  else if (mus
-	   && mus->is_mus_type ("trill-span-event")
-	   && to_dir (mus->get_property ("span-direction")) == START
-	   && unsmob_pitch (mus->get_property ("trill-pitch")))
+  if (mus
+      && mus->is_mus_type ("trill-span-event")
+      && to_dir (mus->get_property ("span-direction")) == START
+      && unsmob_pitch (mus->get_property ("trill-pitch")))
     {
       make_trill (mus);
     }
@@ -143,11 +151,13 @@ Pitched_trill_engraver::try_music (Music *)
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Pitched_trill_engraver, note_head);
+ADD_ACKNOWLEDGER(Pitched_trill_engraver, dots);
+ADD_ACKNOWLEDGER(Pitched_trill_engraver, text_spanner);
 ADD_TRANSLATOR (Pitched_trill_engraver,
 		/* descr */ "Print the bracketed notehead after a notehead with trill.",
 		/* creats*/ "TrillPitchHead TrillPitchAccidental TrillPitchGroup",
 		/* accepts */ "",
-		/* acks  */ "script-interface text-spanner-interface dots-interface note-head-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

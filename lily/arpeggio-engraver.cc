@@ -22,8 +22,10 @@ class Arpeggio_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Arpeggio_engraver);
 
+  void acknowledge_stem (Grob_info);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_note_column (Grob_info);
 protected:
-  virtual void acknowledge_grob (Grob_info);
   PRECOMPUTED_VIRTUAL void process_music ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual bool try_music (Music *);
@@ -49,32 +51,38 @@ Arpeggio_engraver::try_music (Music *m)
 }
 
 void
-Arpeggio_engraver::acknowledge_grob (Grob_info info)
+Arpeggio_engraver::acknowledge_stem (Grob_info info)
 {
   if (arpeggio_)
     {
-      if (Stem::has_interface (info.grob ()))
-	{
-	  if (!arpeggio_->get_parent (Y_AXIS))
-	    arpeggio_->set_parent (info.grob (), Y_AXIS);
+      if (!arpeggio_->get_parent (Y_AXIS))
+	arpeggio_->set_parent (info.grob (), Y_AXIS);
 
-	  Pointer_group_interface::add_grob (arpeggio_,
-					     ly_symbol2scm ("stems"),
-					     info.grob ());
-	}
+      Pointer_group_interface::add_grob (arpeggio_,
+					 ly_symbol2scm ("stems"),
+					 info.grob ());
+    }
+}
+void
+Arpeggio_engraver::acknowledge_rhythmic_head (Grob_info info)
+{
+  if (arpeggio_)
 
-      /*
-	We can't catch local key items (accidentals) from Voice context,
-	see Local_key_engraver
-      */
-      else if (Rhythmic_head::has_interface (info.grob ()))
-	{
-	  Side_position_interface::add_support (arpeggio_, info.grob ());
-	}
-      else if (Note_column::has_interface (info.grob ()))
-	{
-	  info.grob ()->set_object ("arpeggio", arpeggio_->self_scm ());
-	}
+    /*
+      We can't catch local key items (accidentals) from Voice context,
+      see Local_key_engraver
+    */
+    {
+      Side_position_interface::add_support (arpeggio_, info.grob ());
+    }
+}
+ 
+void
+Arpeggio_engraver::acknowledge_note_column (Grob_info info)
+{
+  if (arpeggio_)
+    {
+      info.grob ()->set_object ("arpeggio", arpeggio_->self_scm ());
     }
 }
 
@@ -94,10 +102,14 @@ Arpeggio_engraver::stop_translation_timestep ()
   arpeggio_event_ = 0;
 }
 
+ADD_ACKNOWLEDGER(Arpeggio_engraver, stem)
+ADD_ACKNOWLEDGER(Arpeggio_engraver, rhythmic_head)
+ADD_ACKNOWLEDGER(Arpeggio_engraver, note_column)
+
 ADD_TRANSLATOR (Arpeggio_engraver,
 		/* descr */ "Generate an Arpeggio symbol",
 		/* creats*/ "Arpeggio",
 		/* accepts */ "arpeggio-event",
-		/* acks  */ "stem-interface rhythmic-head-interface note-column-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

@@ -27,8 +27,12 @@ public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
 protected:
 
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(staff_symbol);
+  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER(bar_line);
+  
   virtual void finalize ();
+
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
 
@@ -161,34 +165,32 @@ Volta_engraver::process_music ()
 }
 
 void
-Volta_engraver::acknowledge_grob (Grob_info i)
+Volta_engraver::acknowledge_note_column (Grob_info i)
 {
-  if (Item *item = dynamic_cast<Item *> (i.grob ()))
-    {
-      if (Note_column::has_interface (item))
-	{
-	  if (volta_span_)
-	    Volta_bracket_interface::add_column (volta_span_, item);
-	}
-      if (Bar_line::has_interface (item))
-	{
-	  if (volta_span_)
-	    Volta_bracket_interface::add_bar (volta_span_, item);
-	  if (end_volta_span_)
-	    Volta_bracket_interface::add_bar (end_volta_span_, item);
-	}
-    }
-  else if (Staff_symbol::has_interface (i.grob ()))
-    {
-      /*
-	We only want to know about a single staff: then we add to the
-	support.  */
-      if (staff_ != SCM_EOL)
-	staff_ = SCM_UNDEFINED;
+  if (volta_span_)
+    Volta_bracket_interface::add_column (volta_span_, i.grob());
+}
 
-      if (staff_ != SCM_UNDEFINED)
-	staff_ = i.grob ()->self_scm ();
-    }
+void
+Volta_engraver::acknowledge_bar_line (Grob_info i)
+{
+  if (volta_span_)
+    Volta_bracket_interface::add_bar (volta_span_, i.item ());
+  if (end_volta_span_)
+    Volta_bracket_interface::add_bar (end_volta_span_, i.item ());
+}
+ 
+void
+Volta_engraver::acknowledge_staff_symbol (Grob_info i)
+{
+  /*
+    We only want to know about a single staff: then we add to the
+    support.  */
+  if (staff_ != SCM_EOL)
+    staff_ = SCM_UNDEFINED;
+
+  if (staff_ != SCM_UNDEFINED)
+    staff_ = i.grob ()->self_scm ();
 }
 
 void
@@ -232,11 +234,13 @@ Volta_engraver::stop_translation_timestep ()
 /*
   TODO: should attach volta to paper-column if no bar is found.
 */
-
+ADD_ACKNOWLEDGER(Volta_engraver, staff_symbol);
+ADD_ACKNOWLEDGER(Volta_engraver, note_column);
+ADD_ACKNOWLEDGER(Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,
 		/* descr */ "Make volta brackets.",
 		/* creats*/ "VoltaBracket",
 		/* accepts */ "",
-		/* acks  */ "bar-line-interface staff-symbol-interface note-column-interface",
+		/* acks  */ "",
 		/* reads */ "repeatCommands voltaSpannerDuration stavesFound",
 		/* write */ "");

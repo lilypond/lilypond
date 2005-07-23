@@ -16,6 +16,8 @@
 #include "text-interface.hh"
 #include "grob-array.hh"
 
+#include "translator.icc"
+
 class Instrument_name_engraver : public Engraver
 {
   bool first_; 
@@ -27,7 +29,10 @@ protected:
 
   virtual void create_text ();
   virtual void initialize ();
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER(bar_line);
+  DECLARE_ACKNOWLEDGER(axis_group);
+  
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
   
@@ -81,13 +86,16 @@ Instrument_name_engraver::create_text ()
 }
 
 void
-Instrument_name_engraver::acknowledge_grob (Grob_info i)
+Instrument_name_engraver::acknowledge_bar_line (Grob_info i)
 {
-  if (Bar_line::has_interface (i.grob ()))
-    {
-      create_text ();
-    }
+  (void)i;
+  create_text ();
+}
 
+
+void
+Instrument_name_engraver::acknowledge_axis_group (Grob_info i)
+{
   /*
     Ugh - typechecking for pedal and dynamic sucks.
   */
@@ -131,6 +139,9 @@ Instrument_name_engraver::process_music ()
 
 #include "translator.icc"
 
+
+ADD_ACKNOWLEDGER(Instrument_name_engraver, bar_line);
+ADD_ACKNOWLEDGER(Instrument_name_engraver, axis_group);
 ADD_TRANSLATOR (Instrument_name_engraver,
 		/* descr */ " Prints the name of the instrument (specified by "
 		" @code{Staff.instrument} and @code{Staff.instr}) "
@@ -177,14 +188,14 @@ Vocal_name_engraver::create_text ()
     text_->set_property ("text", txt);
 }
 
-#include "translator.icc"
-
+ADD_ACKNOWLEDGER(Vocal_name_engraver, bar_line);
+ADD_ACKNOWLEDGER(Vocal_name_engraver, axis_group);
 ADD_TRANSLATOR (Vocal_name_engraver,
 		/* descr */ " Prints the name of the a lyric voice (specified by "
 		" @code{Staff.vocalName} and @code{Staff.vocNam}) "
 		"at the left of the staff. ",
 		/* creats*/ "VocalName",
 		/* accepts */ "",
-		/* acks  */ "bar-line-interface axis-group-interface",
+		/* acks  */ "",
 		/* reads */ "vocNam vocalName",
 		/* write */ "");

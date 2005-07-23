@@ -19,6 +19,8 @@
 #include "grob-array.hh"
 #include "pointer-group-interface.hh"
 
+#include "translator.icc"
+
 struct Spacings
 {
   Item *staff_spacing_;
@@ -52,7 +54,7 @@ protected:
 
   Spanner *sep_span_;
 
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(item);
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
@@ -106,7 +108,7 @@ Separating_line_group_engraver::finalize ()
 }
 
 void
-Separating_line_group_engraver::acknowledge_grob (Grob_info i)
+Separating_line_group_engraver::acknowledge_item (Grob_info i)
 {
   Item *it = dynamic_cast<Item *> (i.grob ());
   if (!it)
@@ -221,12 +223,11 @@ Separating_line_group_engraver::stop_translation_timestep ()
   musical_item_ = 0;
 }
 
-#include "translator.icc"
-
+ADD_ACKNOWLEDGER(Separating_line_group_engraver, item);
 ADD_TRANSLATOR (Separating_line_group_engraver,
 		/* descr */ "Generates objects for computing spacing parameters.",
 		/* creats*/ "SeparationItem SeparatingGroupSpanner StaffSpacing",
 		/* accepts */ "",
-		/* acks  */ "item-interface",
+		/* acks  */ "",
 		/* reads */ "createSpacing",
 		/* write */ "breakableSeparationItem");

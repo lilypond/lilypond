@@ -21,7 +21,9 @@ public:
 protected:
   virtual void finalize ();
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+ 
+  DECLARE_ACKNOWLEDGER(ledgered);
+  DECLARE_ACKNOWLEDGER(staff_symbol);
 
   void start_spanner ();
   void stop_spanner ();
@@ -65,20 +67,22 @@ Ledger_line_engraver::stop_spanner ()
 }
 
 void
-Ledger_line_engraver::acknowledge_grob (Grob_info s)
+Ledger_line_engraver::acknowledge_staff_symbol (Grob_info s)
 {
-  if (Staff_symbol::has_interface (s.grob ()))
-    {
-      Spanner *sym = dynamic_cast<Spanner*> (s.grob ());
+  Spanner *sym = dynamic_cast<Spanner*> (s.grob ());
 
-      if (!span_
-	  || span_->get_bound (LEFT) != sym->get_bound (LEFT))
-	{
-	  stop_spanner ();
-	  start_spanner ();
-	}
+  if (!span_
+      || span_->get_bound (LEFT) != sym->get_bound (LEFT))
+    {
+      stop_spanner ();
+      start_spanner ();
     }
-  else if (span_)
+}
+
+void
+Ledger_line_engraver::acknowledge_ledgered (Grob_info s)
+{
+  if (span_)
     {
       if (!to_boolean (s.grob ()->get_property ("no-ledgers")))
 	Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-heads"),
@@ -88,10 +92,12 @@ Ledger_line_engraver::acknowledge_grob (Grob_info s)
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Ledger_line_engraver,ledgered);
+ADD_ACKNOWLEDGER(Ledger_line_engraver,staff_symbol);
 ADD_TRANSLATOR (Ledger_line_engraver,
 		"Creates the spanner to draw ledger lines, and notices objects that need ledger lines",
 		/* creats*/ "LedgerLineSpanner",
 		/* accepts */ "",
-		/* acks  */ "staff-symbol-interface ledgered-interface", // ledgered-interface? 
+		/* acks  */ "", // ledgered-interface? 
 		/* reads */ "",
 		/* write */ "")

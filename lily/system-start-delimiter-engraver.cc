@@ -21,38 +21,38 @@ public:
 
 protected:
   Spanner *delim_;
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(system_start_delimiter);
+  DECLARE_ACKNOWLEDGER(staff_symbol);
+
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
 };
 
 void
-System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
+System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 {
-  if (Staff_symbol::has_interface (inf.grob ()))
-    {
-      /*
-	don't add as Axis_group_interface::add_element (delim_, ),
-	because that would set the parent as well */
+  /*
+    don't add as Axis_group_interface::add_element (delim_, ),
+    because that would set the parent as well */
 
-      Pointer_group_interface::add_grob (delim_, ly_symbol2scm ("elements"), inf.grob ());
-    }
-  else if (System_start_delimiter::has_interface (inf.grob ()))
-    {
-      SCM gl = inf.grob ()->get_property ("glyph");
-      SCM my_gl = delim_->get_property ("glyph");
+  Pointer_group_interface::add_grob (delim_, ly_symbol2scm ("elements"), inf.grob ());
+}
+void
+System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info inf)
+{
+  SCM gl = inf.grob ()->get_property ("glyph");
+  SCM my_gl = delim_->get_property ("glyph");
 
-      /*
-	UGH UGH
-      */
-      if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("brace"))
-	  && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
-	inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
-      else if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("bracket"))
-	       && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
-	{
-	  inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
-	}
+  /*
+    UGH UGH
+  */
+  if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("brace"))
+      && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
+    inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
+  else if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("bracket"))
+	   && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
+    {
+      inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
     }
 }
 
@@ -84,10 +84,13 @@ System_start_delimiter_engraver::finalize ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(System_start_delimiter_engraver, system_start_delimiter);
+ADD_ACKNOWLEDGER(System_start_delimiter_engraver, staff_symbol);
+
 ADD_TRANSLATOR (System_start_delimiter_engraver,
 		/* descr */ "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",
 		/* creats*/ "SystemStartBar SystemStartBrace SystemStartBracket",
 		/* accepts */ "",
-		/* acks  */ "system-start-delimiter-interface staff-symbol-interface",
+		/* acks  */ "",
 		/* reads */ "systemStartDelimiter",
 		/* write */ "");

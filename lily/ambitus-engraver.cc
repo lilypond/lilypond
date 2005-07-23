@@ -23,7 +23,7 @@ class Ambitus_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Ambitus_engraver);
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+  void acknowledge_note_head (Grob_info);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
   virtual void derived_mark () const;
@@ -115,20 +115,13 @@ Ambitus_engraver::stop_translation_timestep ()
 }
 
 void
-Ambitus_engraver::acknowledge_grob (Grob_info info)
+Ambitus_engraver::acknowledge_note_head (Grob_info info)
 {
-  Item *item = dynamic_cast<Item *> (info.grob ());
-  if (item)
+  Music *nr = info.music_cause ();
+  if (nr && nr->is_mus_type ("note-event"))
     {
-      if (Note_head::has_interface (info.grob ()))
-	{
-	  Music *nr = info.music_cause ();
-	  if (nr && nr->is_mus_type ("note-event"))
-	    {
-	      Pitch pitch = *unsmob_pitch (nr->get_property ("pitch"));
-	      pitch_interval_.add_point (pitch);
-	    }
-	}
+      Pitch pitch = *unsmob_pitch (nr->get_property ("pitch"));
+      pitch_interval_.add_point (pitch);
     }
 }
 
@@ -187,12 +180,12 @@ Ambitus_engraver::finalize ()
     }
 }
 
-#include "translator.icc"
 
+ADD_ACKNOWLEDGER(Ambitus_engraver, note_head);
 ADD_TRANSLATOR (Ambitus_engraver,
 		/* descr */ "",
 		/* creats*/ "Ambitus AmbitusLine AmbitusNoteHead AmbitusAccidental",
 		/* accepts */ "",
-		/* acks  */ "note-head-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

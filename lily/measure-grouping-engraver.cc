@@ -11,6 +11,8 @@
 #include "global-context.hh"
 #include "engraver.hh"
 
+#include "translator.icc"
+
 class Measure_grouping_engraver : public Engraver
 {
 public:
@@ -22,7 +24,7 @@ protected:
 
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual void finalize ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_column);
 };
 
 void
@@ -37,7 +39,7 @@ Measure_grouping_engraver::finalize ()
 }
 
 void
-Measure_grouping_engraver::acknowledge_grob (Grob_info gi)
+Measure_grouping_engraver::acknowledge_note_column (Grob_info gi)
 {
   if (grouping_)
     {
@@ -104,12 +106,11 @@ Measure_grouping_engraver::Measure_grouping_engraver ()
   grouping_ = 0;
 }
 
-#include "translator.icc"
-
+ADD_ACKNOWLEDGER(Measure_grouping_engraver, note_column);
 ADD_TRANSLATOR (Measure_grouping_engraver,
 		/* descr */ "Creates MeasureGrouping to indicate beat subdivision.",
 		/* creats*/ "MeasureGrouping",
 		/* accepts */ "",
-		/* acks  */ "note-column-interface",
+		/* acks  */ "",
 		/* reads */ "beatGrouping beatLength measurePosition currentMusicalColumn",
 		/* write */ "");

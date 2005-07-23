@@ -33,7 +33,9 @@ protected:
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
 
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER(rest);
+  DECLARE_ACKNOWLEDGER(note_head);
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void process_music ();
   virtual Spanner *create_ligature_spanner (); /* abstract method */

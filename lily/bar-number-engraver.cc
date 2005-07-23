@@ -27,7 +27,7 @@ protected:
   Item *text_;
 protected:
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(break_aligned);
   PRECOMPUTED_VIRTUAL void process_music ();
   void create_items ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
@@ -65,7 +65,7 @@ Bar_number_engraver::Bar_number_engraver ()
 }
 
 void
-Bar_number_engraver::acknowledge_grob (Grob_info inf)
+Bar_number_engraver::acknowledge_break_aligned (Grob_info inf)
 {
   Grob *s = inf.grob ();
   if (text_
@@ -108,6 +108,6 @@ ADD_TRANSLATOR (Bar_number_engraver,
 
 		/* creats*/ "BarNumber",
 		/* accepts */ "",
-		/* acks  */ "break-aligned-interface",
+		/* acks  */ "",
 		/* reads */ "currentBarNumber stavesFound barNumberVisibility",
 		/* write */ "");

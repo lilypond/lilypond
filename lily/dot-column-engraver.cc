@@ -11,6 +11,7 @@
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "stem.hh"
+#include "translator.icc"
 
 class Dot_column_engraver : public Engraver
 {
@@ -21,7 +22,10 @@ public:
   TRANSLATOR_DECLARATIONS (Dot_column_engraver);
 
 protected:
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
@@ -48,7 +52,7 @@ Dot_column_engraver::stop_translation_timestep ()
 }
 
 void
-Dot_column_engraver::acknowledge_grob (Grob_info info)
+Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
   Grob *d = unsmob_grob (info.grob ()->get_object ("dot"));
   if (d)
@@ -60,19 +64,22 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
 
       Dot_column::add_head (dotcol_, info.grob ());
     }
-  else if (Stem::has_interface (info.grob ()))
-    {
-      stem_ = info.grob ();
-    }
 }
 
-#include "translator.icc"
 
+void
+Dot_column_engraver::acknowledge_stem (Grob_info info)
+{
+  stem_ = info.grob ();
+}
+
+ADD_ACKNOWLEDGER(Dot_column_engraver, stem);
+ADD_ACKNOWLEDGER(Dot_column_engraver, rhythmic_head);
 ADD_TRANSLATOR (Dot_column_engraver,
 		/* descr */ "Engraves dots on dotted notes shifted to the right of the note.\n"
 		"If omitted, then dots appear on top of the notes.",
 		/* creats*/ "DotColumn",
 		/* accepts */ "",
-		/* acks  */ "rhythmic-head-interface dot-column-interface stem-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

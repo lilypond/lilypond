@@ -25,7 +25,8 @@ protected:
   virtual bool try_music (Music *m);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER(stem);
 
 private:
   void make_script (Direction, Music *, int);
@@ -43,24 +44,23 @@ Fingering_engraver::try_music (Music *m)
 }
 
 void
-Fingering_engraver::acknowledge_grob (Grob_info inf)
+Fingering_engraver::acknowledge_stem (Grob_info inf)
 {
-  if (Stem::has_interface (inf.grob ()))
+  for (int i = 0; i < fingerings_.size (); i++)
     {
-      for (int i = 0; i < fingerings_.size (); i++)
-	{
-	  Side_position_interface::add_support (fingerings_[i], inf.grob ());
-	}
+      Side_position_interface::add_support (fingerings_[i], inf.grob ());
     }
-  else if (Rhythmic_head::has_interface (inf.grob ()))
+}
+
+void
+Fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
+{
+  for (int i = 0; i < fingerings_.size (); i++)
     {
-      for (int i = 0; i < fingerings_.size (); i++)
-	{
-	  Grob *t = fingerings_[i];
-	  Side_position_interface::add_support (t, inf.grob ());
-	  if (!t->get_parent (X_AXIS))
-	    t->set_parent (inf.grob (), X_AXIS);
-	}
+      Grob *t = fingerings_[i];
+      Side_position_interface::add_support (t, inf.grob ());
+      if (!t->get_parent (X_AXIS))
+	t->set_parent (inf.grob (), X_AXIS);
     }
 }
 
@@ -139,6 +139,8 @@ Fingering_engraver::Fingering_engraver ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Fingering_engraver,rhythmic_head);
+ADD_ACKNOWLEDGER(Fingering_engraver,stem);
 ADD_TRANSLATOR (Fingering_engraver,
 		/* descr */ "Create fingering-scripts",
 		/* creats*/ "Fingering",

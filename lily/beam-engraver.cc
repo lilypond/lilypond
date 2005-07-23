@@ -23,6 +23,9 @@
 
 class Beam_engraver : public Engraver
 {
+public:
+  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER(rest);
 protected:
   Music *start_ev_;
 
@@ -52,7 +55,6 @@ protected:
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
   virtual void finalize ();
 
-  virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void process_music ();
 
@@ -216,66 +218,69 @@ Beam_engraver::finalize ()
 }
 
 void
-Beam_engraver::acknowledge_grob (Grob_info info)
+Beam_engraver::acknowledge_rest (Grob_info info)
+{
+  if (beam_)
+    info.grob ()->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
+}
+
+void
+Beam_engraver::acknowledge_stem (Grob_info info)
 {
   if (beam_)
     {
-      if (Rest::has_interface (info.grob ()))
+      Moment now = now_mom ();
+
+      if (!valid_start_point ())
+	return;
+
+      Item *stem = dynamic_cast<Item *> (info.grob ());
+      if (Stem::get_beam (stem))
+	return;
+
+      Music *m = info.music_cause ();
+      if (!m->is_mus_type ("rhythmic-event"))
 	{
-	  info.grob ()->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
+	  String s = _ ("stem must have Rhythmic structure");
+	  if (info.music_cause ())
+	    info.music_cause ()->origin ()->warning (s);
+	  else
+	    ::warning (s);
+
+	  return;
 	}
-      else if (Stem::has_interface (info.grob ()))
+
+      last_stem_added_at_ = now;
+      int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
+      if (durlog <= 2)
 	{
-	  Moment now = now_mom ();
+	  m->origin ()->warning (_ ("stem doesn't fit in beam"));
+	  prev_start_ev_->origin ()->warning (_ ("beam was started here"));
+	  /*
+	    don't return, since
 
-	  if (!valid_start_point ())
-	    return;
-
-	  Item *stem = dynamic_cast<Item *> (info.grob ());
-	  if (Stem::get_beam (stem))
-	    return;
-
-	  Music *m = info.music_cause ();
-	  if (!m->is_mus_type ("rhythmic-event"))
-	    {
-	      String s = _ ("stem must have Rhythmic structure");
-	      if (info.music_cause ())
-		info.music_cause ()->origin ()->warning (s);
-	      else
-		::warning (s);
-
-	      return;
-	    }
-
-	  last_stem_added_at_ = now;
-	  int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
-	  if (durlog <= 2)
-	    {
-	      m->origin ()->warning (_ ("stem doesn't fit in beam"));
-	      prev_start_ev_->origin ()->warning (_ ("beam was started here"));
-	      /*
-		don't return, since
-
-		[r4 c8] can just as well be modern notation.
-	      */
-	    }
-
-	  stem->set_property ("duration-log",
-			      scm_int2num (durlog));
-	  Moment stem_location = now - beam_start_mom_ + beam_start_location_;
-	  beam_info_->add_stem (stem_location,
-				max (durlog- 2, 0));
-	  Beam::add_stem (beam_, stem);
+	    [r4 c8] can just as well be modern notation.
+	  */
 	}
+
+      stem->set_property ("duration-log",
+			  scm_int2num (durlog));
+      Moment stem_location = now - beam_start_mom_ + beam_start_location_;
+      beam_info_->add_stem (stem_location,
+			    max (durlog- 2, 0));
+      Beam::add_stem (beam_, stem);
     }
 }
+
+ADD_ACKNOWLEDGER(Beam_engraver, stem);
+ADD_ACKNOWLEDGER(Beam_engraver, rest);
 
 ADD_TRANSLATOR (Beam_engraver,
 		/* descr */ "Handles Beam events by engraving Beams.    If omitted, then notes will be "
 		"printed with flags instead of beams.",
 		/* creats*/ "Beam",
 		/* accepts */ "beam-event",
-		/* acks  */ "stem-interface rest-interface",
+		/* acks  */ "",
 		/* reads */ "beamMelismaBusy beatLength subdivideBeams",
 		/* write */ "");
 
@@ -307,6 +312,8 @@ Grace_beam_engraver::valid_end_point ()
   return beam_ && valid_start_point ();
 }
 
+ADD_ACKNOWLEDGER(Grace_beam_engraver, stem);
+ADD_ACKNOWLEDGER(Grace_beam_engraver, rest);
 ADD_TRANSLATOR (Grace_beam_engraver,
 		/* descr */ "Handles Beam events by engraving Beams.  If omitted, then notes will "
 		"be printed with flags instead of beams. Only engraves beams when we "

@@ -21,7 +21,8 @@ class Ligature_bracket_engraver : public Ligature_engraver
 {
 protected:
   virtual Spanner *create_ligature_spanner ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(rest);
+  DECLARE_ACKNOWLEDGER(note_column);
 public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 };
@@ -37,25 +38,30 @@ Ligature_bracket_engraver::create_ligature_spanner ()
 }
 
 void
-Ligature_bracket_engraver::acknowledge_grob (Grob_info info)
+Ligature_bracket_engraver::acknowledge_note_column (Grob_info info)
 {
   if (current_ligature ())
     {
-      if (Note_column::has_interface (info.grob ()))
-	{
-	  Tuplet_bracket::add_column (current_ligature (),
-				      dynamic_cast<Item *> (info.grob ()));
-	}
-      else Ligature_engraver::acknowledge_grob (info);
+      Tuplet_bracket::add_column (current_ligature (),
+				  dynamic_cast<Item *> (info.grob ()));
     }
+}
+
+void
+Ligature_bracket_engraver::acknowledge_rest (Grob_info info)
+{
+  if (current_ligature ())
+    Ligature_engraver::acknowledge_rest (info);
 }
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Ligature_bracket_engraver, rest);
+ADD_ACKNOWLEDGER(Ligature_bracket_engraver, note_column);
 ADD_TRANSLATOR (Ligature_bracket_engraver,
 		/* descr */ "Handles Ligature_events by engraving Ligature brackets.",
 		/* creats*/ "TupletBracket",
 		/* accepts */ "ligature-event",
-		/* acks  */ "rest-interface note-column-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

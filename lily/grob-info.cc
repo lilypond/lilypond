@@ -11,6 +11,8 @@
 #include "music.hh"
 #include "translator-group.hh"
 #include "context.hh"
+#include "spanner.hh"
+#include "item.hh"
 
 
 Grob_info::Grob_info (Translator *t, Grob *g)
@@ -54,3 +56,14 @@ Grob_info::context () const
   return origin_trans_->context ();
 }
 
+Spanner*
+Grob_info::spanner () const
+{
+  return dynamic_cast<Spanner*> (grob_);
+}
+
+Item*
+Grob_info::item () const
+{
+  return dynamic_cast<Item*> (grob_);
+}

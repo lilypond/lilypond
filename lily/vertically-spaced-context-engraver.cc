@@ -17,11 +17,11 @@ class Vertically_spaced_contexts_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS(Vertically_spaced_contexts_engraver);
 protected:
-  virtual void acknowledge_grob (Grob_info);
   virtual void initialize ();
+  DECLARE_ACKNOWLEDGER(vertically_spaceable);
 
 private:
-  Grob * system_;
+  Grob *system_;
 };
 
 
@@ -38,10 +38,9 @@ Vertically_spaced_contexts_engraver::initialize ()
 }
 
 void
-Vertically_spaced_contexts_engraver::acknowledge_grob (Grob_info gi)
+Vertically_spaced_contexts_engraver::acknowledge_vertically_spaceable (Grob_info gi)
 {
-  if (Axis_group_interface::has_interface (gi.grob ())
-      && gi.grob ()->internal_has_interface (ly_symbol2scm ("vertically-spaceable-interface")))
+  if (Axis_group_interface::has_interface (gi.grob ()))
     {
       SCM spaceable = get_property ("verticallySpacedContexts");
       Context *orig = gi.origin_contexts (this)[0];
@@ -57,11 +56,11 @@ Vertically_spaced_contexts_engraver::acknowledge_grob (Grob_info gi)
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Vertically_spaced_contexts_engraver, vertically_spaceable);
 ADD_TRANSLATOR (Vertically_spaced_contexts_engraver,
 		/* descr */ "",
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "axis-group-interface",
+		/* acks  */ "",
 		/* reads */ "verticallySpacedContexts",
 		/* write */ "verticallySpacedContexts");

@@ -65,7 +65,7 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music *);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(note_column);
   PRECOMPUTED_VIRTUAL void process_music ();
 
 private:
@@ -127,22 +127,19 @@ Piano_pedal_engraver::~Piano_pedal_engraver ()
   I'm a script
 */
 void
-Piano_pedal_engraver::acknowledge_grob (Grob_info info)
+Piano_pedal_engraver::acknowledge_note_column (Grob_info info)
 {
   for (Pedal_info *p = info_list_; p && p->name_; p++)
     {
-      if (Note_column::has_interface (info.grob ()))
+      if (p->line_spanner_)
 	{
-	  if (p->line_spanner_)
-	    {
-	      Side_position_interface::add_support (p->line_spanner_, info.grob ());
-	      add_bound_item (p->line_spanner_, info.grob ());
-	    }
-	  if (p->bracket_)
-	    add_bound_item (p->bracket_, info.grob ());
-	  if (p->finished_bracket_)
-	    add_bound_item (p->finished_bracket_, info.grob ());
+	  Side_position_interface::add_support (p->line_spanner_, info.grob ());
+	  add_bound_item (p->line_spanner_, info.grob ());
 	}
+      if (p->bracket_)
+	add_bound_item (p->bracket_, info.grob ());
+      if (p->finished_bracket_)
+	add_bound_item (p->finished_bracket_, info.grob ());
     }
 }
 
@@ -526,12 +523,12 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Piano_pedal_engraver,note_column);
 ADD_TRANSLATOR (Piano_pedal_engraver,
 		/* descr */ "Engrave piano pedal symbols and brackets.",
 		/* creats*/ "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
 		/* accepts */ "pedal-event",
-		/* acks  */ "note-column-interface",
+		/* acks  */ "",
 		/* reads */ "currentCommandColumn "
 		"pedalSostenutoStrings pedalSustainStrings "
 		"pedalUnaCordaStrings pedalSostenutoStyle "

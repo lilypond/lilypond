@@ -19,9 +19,9 @@
 class Grob_info
 {
   Translator *origin_trans_;
-  friend class Engraver;
   Grob *grob_;
 
+  friend class Engraver;
 public:
   Grob *grob () const { return grob_; }
   Translator *origin_translator () const { return origin_trans_; } 
@@ -31,6 +31,9 @@ public:
   Link_array<Context> origin_contexts (Translator *) const;
   Grob_info (Translator *, Grob *);
   Grob_info ();
+
+  Item *item () const;
+  Spanner *spanner () const;
 };
 
 #endif // STAFFELEMINFO_HH

@@ -1,5 +1,16 @@
 2005-07-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+ 	* lily/engraver*cc: use throughout.
+	
+	* lily/include/translator.icc (ADD_ACKNOWLEDGER): new macro.
+
+	* lily/translator.cc (add_acknowledger): new file. Directly jump
+	into an Engraver::acknowledge_xxx () method based on a grobs
+	interface-list.
+
+	* lily/include/translator-dispatch-list.hh (class
+	Engraver_dispatch_list): new struct., new file.
+
 	* scm/define-context-properties.scm
 	(all-internal-translation-properties): remove acceptHashTable,
 	acknowledgeHashTable

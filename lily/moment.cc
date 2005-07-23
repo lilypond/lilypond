@@ -33,6 +33,7 @@ Moment::Moment (Rational m)
 }
 
 #include "ly-smobs.icc"
+
 IMPLEMENT_SIMPLE_SMOBS (Moment);
 IMPLEMENT_TYPE_P (Moment, "ly:moment?");
 

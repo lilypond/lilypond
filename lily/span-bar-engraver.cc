@@ -27,7 +27,7 @@ class Span_bar_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 protected:
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(bar_line);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
 };
 
@@ -37,7 +37,7 @@ Span_bar_engraver::Span_bar_engraver ()
 }
 
 void
-Span_bar_engraver::acknowledge_grob (Grob_info i)
+Span_bar_engraver::acknowledge_bar_line (Grob_info i)
 {
   int depth = i.origin_contexts (this).size ();
   if (depth && Bar_line::has_interface (i.grob ()))
@@ -74,11 +74,12 @@ Span_bar_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Span_bar_engraver, bar_line);
 ADD_TRANSLATOR (Span_bar_engraver,
 		/* descr */ "This engraver makes cross-staff barlines: It catches all normal "
 		"bar lines, and draws a single span-bar across them.",
 		/* creats*/ "SpanBar",
 		/* accepts */ "",
-		/* acks  */ "bar-line-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

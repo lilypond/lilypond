@@ -17,6 +17,8 @@
 #include "direction.hh"
 #include "side-position-interface.hh"
 
+#include "translator.icc"
+
 class Clef_engraver : public Engraver
 {
 public:
@@ -27,7 +29,7 @@ public:
 protected:
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(bar_line);
 private:
   Item *clef_;
   Item *octavate_;
@@ -69,14 +71,12 @@ Clef_engraver::set_glyph ()
    ie. a breakpoint)
 */
 void
-Clef_engraver::acknowledge_grob (Grob_info info)
+Clef_engraver::acknowledge_bar_line (Grob_info info)
 {
   Item *item = dynamic_cast<Item *> (info.grob ());
-  if (item)
+  if (item && scm_is_string (get_property ("clefGlyph")))
     {
-      if (Bar_line::has_interface (info.grob ())
-	  && scm_is_string (get_property ("clefGlyph")))
-	create_clef ();
+      create_clef ();
     }
 }
 
@@ -182,12 +182,11 @@ Clef_engraver::stop_translation_timestep ()
     }
 }
 
-#include "translator.icc"
-
+ADD_ACKNOWLEDGER(Clef_engraver, bar_line);
 ADD_TRANSLATOR (Clef_engraver,
 		/* descr */ "Determine and set reference point for pitches",
 		/* creats*/ "Clef OctavateEight",
 		/* accepts */ "",
-		/* acks  */ "bar-line-interface",
+		/* acks  */ "",
 		/* reads */ "clefPosition clefGlyph middleCPosition clefOctavation explicitClefVisibility forceClef",
 		/* write */ "");

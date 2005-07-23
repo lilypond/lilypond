@@ -15,6 +15,8 @@
 #include "warn.hh"
 #include "pitch.hh"
 
+#include "translator.icc"
+
 
 /*
  * This class implements an engraver for custos symbols.
@@ -27,21 +29,22 @@ class Custos_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);
   PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(bar);
+  DECLARE_ACKNOWLEDGER(note_head);
   PRECOMPUTED_VIRTUAL void process_acknowledged ();
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   virtual void finalize ();
 
 private:
   Item *create_custos ();
-  bool custos_permitted;
+  bool custos_permitted_;
   Link_array<Grob> custodes_;
   Array<Pitch> pitches_;
 };
 
 Custos_engraver::Custos_engraver ()
 {
-  custos_permitted = false;
+  custos_permitted_ = false;
 }
 
 void
@@ -52,7 +55,7 @@ Custos_engraver::stop_translation_timestep ()
   */
   pitches_.clear ();
 
-  custos_permitted = false;
+  custos_permitted_ = false;
 }
 
 void
@@ -62,29 +65,27 @@ Custos_engraver::start_translation_timestep ()
 }
 
 void
-Custos_engraver::acknowledge_grob (Grob_info info)
+Custos_engraver::acknowledge_bar (Grob_info info)
 {
-  Item *item = dynamic_cast<Item *> (info.grob ());
-  if (item)
+  custos_permitted_ = true;
+}
+
+void
+Custos_engraver::acknowledge_note_head (Grob_info info)
+{
+  Music *m = info.music_cause ();
+  if (m && m->is_mus_type ("note-event"))
     {
-      Music *m = info.music_cause ();
-      if (Bar_line::has_interface (info.grob ()))
-	custos_permitted = true;
-      else if (Note_head::has_interface (info.grob ())
-	       && m
-	       && m->is_mus_type ("note-event"))
-	{
 
-	  /*
-	    ideally, we'd do custos->set_parent (Y_AXIS, notehead),
-	    but since the note head lives on the other system, we can't
+      /*
+	ideally, we'd do custos->set_parent (Y_AXIS, notehead),
+	but since the note head lives on the other system, we can't
 
-	    So we copy the position from the note head pitch.  We
-	    don't look at the staff-position, since we can't be sure
-	    whether Clef_engraver already applied a vertical shift.
-	  */
-	  pitches_.push (*unsmob_pitch (m->get_property ("pitch")));
-	}
+	So we copy the position from the note head pitch.  We
+	don't look at the staff-position, since we can't be sure
+	whether Clef_engraver already applied a vertical shift.
+      */
+      pitches_.push (*unsmob_pitch (m->get_property ("pitch")));
     }
 }
 
@@ -92,9 +93,9 @@ void
 Custos_engraver::process_acknowledged ()
 {
   if (scm_is_string (get_property ("whichBar")))
-    custos_permitted = true;
+    custos_permitted_ = true;
 
-  if (custos_permitted)
+  if (custos_permitted_)
     {
       for (int i = pitches_.size (); i--;)
 	{
@@ -133,12 +134,14 @@ Custos_engraver::finalize ()
   custodes_.clear ();
 }
 
-#include "translator.icc"
+
+ADD_ACKNOWLEDGER(Custos_engraver,bar);
+ADD_ACKNOWLEDGER(Custos_engraver,note_head);
 
 ADD_TRANSLATOR (Custos_engraver,
 		/* descr */ "",
 		/* creats*/ "Custos",
 		/* accepts */ "",
-		/* acks  */ "bar-line-interface note-head-interface",
+		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

@@ -13,12 +13,12 @@
 
 class Output_property_engraver : public Engraver
 {
-TRANSLATOR_DECLARATIONS (Output_property_engraver);
+  TRANSLATOR_DECLARATIONS (Output_property_engraver);
 protected:
   Link_array<Music> props_;
+  DECLARE_ACKNOWLEDGER(grob)
 
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
 };
 
@@ -41,8 +41,6 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
     {
       Music * o = props_[i];
       SCM pred = o->get_property ("predicate");
-
-
 
       if (ly_is_procedure (pred))
 	{
@@ -80,12 +78,12 @@ Output_property_engraver::Output_property_engraver ()
 }
 
 #include "translator.icc"
-
+ADD_ACKNOWLEDGER(Output_property_engraver,grob)
 ADD_TRANSLATOR (Output_property_engraver,
 /* descr */       "Interpret Music of Output_property type, and apply a function "
 " to any Graphic objects that satisfies the predicate.",
 /* creats*/       "",
 /* accepts */     "layout-instruction",
-/* acks  */       "grob-interface",
+/* acks  */       "",
 /* reads */       "",
 /* write */       "");

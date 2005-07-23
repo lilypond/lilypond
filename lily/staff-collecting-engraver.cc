@@ -15,7 +15,7 @@ class Staff_collecting_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Staff_collecting_engraver);
-  virtual void acknowledge_grob (Grob_info);
+  DECLARE_ACKNOWLEDGER(staff_symbol);
 };
 
 Staff_collecting_engraver::Staff_collecting_engraver ()
@@ -23,24 +23,22 @@ Staff_collecting_engraver::Staff_collecting_engraver ()
 }
 
 void
-Staff_collecting_engraver::acknowledge_grob (Grob_info gi)
+Staff_collecting_engraver::acknowledge_staff_symbol (Grob_info gi)
 {
-  if (Staff_symbol::has_interface (gi.grob ()))
-    {
-      SCM staffs = get_property ("stavesFound");
-      staffs = scm_cons (gi.grob ()->self_scm (), staffs);
+  SCM staffs = get_property ("stavesFound");
+  staffs = scm_cons (gi.grob ()->self_scm (), staffs);
 
-      context ()->set_property ("stavesFound", staffs);
-    }
+  context ()->set_property ("stavesFound", staffs);
 }
 
 #include "translator.icc"
+ADD_ACKNOWLEDGER(Staff_collecting_engraver,staff_symbol);
 
 ADD_TRANSLATOR (Staff_collecting_engraver,
 		/* descr */ "Maintain the stavesFound variable",
 
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "staff-symbol-interface",
+		/* acks  */ "",
 		/* reads */ "stavesFound",
 		/* write */ "stavesFound");

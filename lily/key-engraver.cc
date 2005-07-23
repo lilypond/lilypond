@@ -39,7 +39,10 @@ protected:
   virtual bool try_music (Music *ev);
   PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
   PRECOMPUTED_VIRTUAL void process_music ();
-  virtual void acknowledge_grob (Grob_info);
+
+  DECLARE_ACKNOWLEDGER(clef);
+  DECLARE_ACKNOWLEDGER(bar_line);
+  
 };
 
 void
@@ -102,18 +105,19 @@ Key_engraver::try_music (Music *ev)
 }
 
 void
-Key_engraver::acknowledge_grob (Grob_info info)
+Key_engraver::acknowledge_clef (Grob_info info)
 {
-  if (Clef::has_interface (info.grob ()))
+  SCM c = get_property ("createKeyOnClefChange");
+  if (to_boolean (c))
     {
-      SCM c = get_property ("createKeyOnClefChange");
-      if (to_boolean (c))
-	{
-	  create_key (false);
-	}
+      create_key (false);
     }
-  else if (Bar_line::has_interface (info.grob ())
-	   && scm_is_pair (get_property ("keySignature")))
+}
+
+void
+Key_engraver::acknowledge_bar_line (Grob_info info)
+{
+  if (scm_is_pair (get_property ("keySignature")))
     {
       create_key (true);
     }
@@ -176,10 +180,12 @@ Key_engraver::initialize ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Key_engraver,clef);
+ADD_ACKNOWLEDGER(Key_engraver,bar_line);
 ADD_TRANSLATOR (Key_engraver,
 		/* descr */ "",
 		/* creats*/ "KeySignature",
 		/* accepts */ "key-change-event",
-		/* acks  */ "bar-line-interface clef-interface",
+		/* acks  */ "",
 		/* reads */ "keySignature printKeyCancellation lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
 		/* write */ "lastKeySignature tonic keySignature");
