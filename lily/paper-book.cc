@@ -239,7 +239,7 @@ Paper_book::add_score_title (SCM header)
     {
       Paper_system *ps = new Paper_system (title, true);
       systems_ = scm_cons (ps->self_scm (), systems_);
-      scm_gc_unprotect_object (ps->self_scm ());
+      ps->unprotect ();
       set_system_penalty (ps, header);
     }
 }
@@ -259,7 +259,7 @@ Paper_book::systems ()
       set_system_penalty (ps, header_);
 
       systems_ = scm_cons (ps->self_scm (), systems_);
-      scm_gc_unprotect_object (ps->self_scm ());
+      ps->unprotect ();
     }
 
   SCM page_properties
@@ -315,7 +315,7 @@ Paper_book::systems ()
 	  // FIXME: title=true?
 	  Paper_system *ps = new Paper_system (*unsmob_stencil (t), true);
 	  systems_ = scm_cons (ps->self_scm (), systems_);
-	  scm_gc_unprotect_object (ps->self_scm ());
+	  ps->unprotect ();
 	  // FIXME: figure out penalty.
 	  //set_system_penalty (ps, scores_[i].header_);
 	}

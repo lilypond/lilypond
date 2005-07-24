@@ -16,9 +16,7 @@ LY_DEFINE (ly_make_dumper, "ly:make-dumper",
 	   "Create a key dumper. ")
 {
   Object_key_dumper *u = new Object_key_dumper ();
-  SCM x = u->self_scm ();
-  scm_gc_unprotect_object (x);
-  return x;
+  return u->unprotect ();
 }
 
 LY_DEFINE (ly_dumper_definitions, "ly:dumper-definitions",

@@ -77,7 +77,7 @@ Score_engraver::initialize ()
     }
 
   pscore_ = new Paper_score (dynamic_cast<Output_def *> (context ()->get_output_def ()));
-  scm_gc_unprotect_object (pscore_->self_scm ()); 
+  pscore_->unprotect (); 
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 

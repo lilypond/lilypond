@@ -118,7 +118,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       parser->parse_file (init, file_name, out_file);
 
       bool error = parser->error_level_;
-      scm_gc_unprotect_object (parser->self_scm ());
+      parser->unprotect ();
       parser = 0;
       if (error)
 	/* TODO: pass renamed input file too.  */
@@ -139,7 +139,7 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   sources.set_path (&global_path);
   Lily_parser *parser = new Lily_parser (&sources);
   parser->parse_string (ly_scm2string (ly_code));
-  scm_gc_unprotect_object (parser->self_scm ());
+  parser->unprotect ();
   parser = 0;
 
   return SCM_UNSPECIFIED;
@@ -152,7 +152,7 @@ LY_DEFINE (ly_clone_parser, "ly:clone-parser",
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   Lily_parser *clone = new Lily_parser (*parser);
 
-  return scm_gc_unprotect_object (clone->self_scm ());
+  return clone->unprotect ();
 }
 
 LY_DEFINE (ly_parser_define, "ly:parser-define!",

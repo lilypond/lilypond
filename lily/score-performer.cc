@@ -103,7 +103,7 @@ void
 Score_performer::initialize ()
 {
   performance_ = new Performance;
-  scm_gc_unprotect_object (performance_->self_scm ());
+  performance_->unprotect ();
   performance_->midi_ = context ()->get_output_def ();
 
   Translator_group::initialize ();

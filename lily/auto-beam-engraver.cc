@@ -177,17 +177,13 @@ Auto_beam_engraver::create_beam ()
   if (to_boolean (get_property ("skipTypesetting")))
     return 0;
 
+  for (int i = 0; i < stems_->size (); i++)
+    if (Stem::get_beam ((*stems_)[i]))
+      return 0;
+
   Spanner *beam = new Spanner (beam_settings_, context ()->get_grob_key ("Beam"));
   for (int i = 0; i < stems_->size (); i++)
     {
-      /*
-	watch out for stem tremolos and abbreviation beams
-      */
-      if (Stem::get_beam ((*stems_)[i]))
-	{
-	  scm_gc_unprotect_object (beam->self_scm ());
-	  return 0;
-	}
       Beam::add_stem (beam, (*stems_)[i]);
     }
 
@@ -306,6 +302,7 @@ Auto_beam_engraver::finalize ()
 void
 Auto_beam_engraver::acknowledge_beam (Grob_info info)
 {
+  (void)info;
   check_bar_property ();
   if (stems_)
     {
@@ -316,6 +313,7 @@ Auto_beam_engraver::acknowledge_beam (Grob_info info)
 void
 Auto_beam_engraver::acknowledge_bar_line (Grob_info info)
 {
+  (void)info;
   check_bar_property ();
   if (stems_)
     end_beam ();
@@ -324,6 +322,7 @@ Auto_beam_engraver::acknowledge_bar_line (Grob_info info)
 void
 Auto_beam_engraver::acknowledge_rest (Grob_info info)
 {
+  (void)info;
   check_bar_property ();
   if (stems_)
     end_beam ();

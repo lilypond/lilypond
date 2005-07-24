@@ -320,8 +320,9 @@ make_music_by_name (SCM sym)
   SCM rv = scm_call_1 (make_music_proc, sym);
 
   /* UGH. */
-  scm_gc_protect_object (rv);
-  return unsmob_music (rv);
+  Music *m = unsmob_music (rv);
+  m->protect ();
+  return m;
 }
 
 

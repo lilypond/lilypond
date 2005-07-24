@@ -113,7 +113,7 @@ Folded_repeat_iterator::enter_alternative ()
       alternative_iter_ = s;
       alternative_iter_->construct_children ();
 
-      scm_gc_unprotect_object (s->self_scm ());
+      s->unprotect ();
     }
 }
 

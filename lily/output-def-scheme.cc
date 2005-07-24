@@ -59,9 +59,9 @@ LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 {
   Output_def *op = unsmob_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
-  SCM s = op->clone ()->self_scm ();
-  scm_gc_unprotect_object (s);
-  return s;
+
+  Output_def *clone =  op->clone ();
+  return clone->unprotect ();
 }
 
 LY_DEFINE (ly_output_description, "ly:output-description",
@@ -104,7 +104,7 @@ LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 	   "Make a output def.")
 {
   Output_def *bp = new Output_def ;
-  return scm_gc_unprotect_object (bp->self_scm ());
+  return bp->unprotect ();
 }
 
 LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,

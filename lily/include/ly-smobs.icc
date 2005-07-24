@@ -51,7 +51,7 @@
   {									\
     CL *s = (CL *) SCM_CELL_WORD_1 (ses);				\
     delete s;								\
-    scm_gc_unregister_collectable_memory (s, sizeof (CL), #CL " smob");	\
+    /*    scm_gc_unregister_collectable_memory (s, sizeof (CL), #CL " smob"); */ \
     return SMOB_FREE_RETURN_VAL (CL);					\
   }									\
 									\
@@ -64,20 +64,30 @@
     CL *ptr = new CL (*this);						\
     SCM s;								\
     s = scm_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (ptr));		\
-    scm_gc_register_collectable_memory ((CL *)this, sizeof (CL), #CL " smob"); \
+    /*    scm_gc_register_collectable_memory ((CL *)this, sizeof (CL), #CL " smob");*/ \
 									\
     return s;								\
   }
 
 #define IMPLEMENT_SMOBS(CL)						\
   IMPLEMENT_BASE_SMOBS (CL)						\
-    void								\
+  void								\
   CL::smobify_self ()							\
   {									\
-    SCM s = unprotected_smobify_self ();				\
-    scm_gc_protect_object (s);						\
+    self_scm_ = unprotected_smobify_self ();				\
+    protection_cons_ = SCM_EOL;\
+    protect();\
+  }\
+  void\
+  CL::protect(){					\
+    protect_smob (self_scm_, &protection_cons_);\
+  }\
+  SCM\
+  CL::unprotect ()\
+  {\
+    unprotect_smob (&protection_cons_);\
+    return self_scm_;\
   }									\
-									\
   SCM									\
   CL::unprotected_smobify_self ()					\
   {									\
@@ -92,7 +102,7 @@
     SCM s;								\
     SCM_NEWSMOB (s, CL::smob_tag_, this);				\
     self_scm_ = s;							\
-    scm_gc_register_collectable_memory (this, sizeof (CL), #CL " smob"); \
+    /* scm_gc_register_collectable_memory (this, sizeof (CL), #CL " smob");*/ \
     return s;								\
   }
 

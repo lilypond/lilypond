@@ -291,7 +291,7 @@ Completion_heads_engraver::stop_translation_timestep ()
 
   for (int i = scratch_note_events_.size (); i--;)
     {
-      scm_gc_unprotect_object (scratch_note_events_[i]->self_scm ());
+      scratch_note_events_[i]->unprotect ();
     }
 
   scratch_note_events_.clear ();

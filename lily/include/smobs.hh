@@ -120,7 +120,10 @@
   private:					\
   void smobify_self ();				\
   SCM self_scm_;				\
+  SCM protection_cons_; \
   public:					\
+  SCM unprotect();\
+  void protect();\
   SCM self_scm () const { return self_scm_; }	\
   private:
 
@@ -132,6 +135,9 @@
   }
 
 #define DECLARE_TYPE_P(CL) extern SCM CL ## _type_p_proc
+
+void protect_smob (SCM smob, SCM *prot_cons);
+void unprotect_smob (SCM *prot_cons);
 
 #endif /* SMOBS_HH */
 

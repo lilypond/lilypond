@@ -26,9 +26,7 @@ LY_DEFINE (ly_make_undumper, "ly:make-undumper",
 	   "Create a key undumper. ")
 {
   Object_key_undumper *u = new Object_key_undumper ();
-  SCM x = u->self_scm ();
-  scm_gc_unprotect_object (x);
-  return x;
+  return u->unprotect ();
 }
 
 LY_DEFINE (ly_undumper_lookup, "ly:undumper-lookup",

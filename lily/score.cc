@@ -74,14 +74,20 @@ Score::Score (Score const &s)
   smobify_self ();
 
   Music *m = unsmob_music (s.music_);
-  music_ = m ? m->clone ()->self_scm () : SCM_EOL;
-  scm_gc_unprotect_object (music_);
+  if (m)
+    {
+      Music *mclone =  m->clone ();
+      music_ = mclone->unprotect ();
+    }
+  else
+    music_ = SCM_EOL;
 
+  
   for (int i = 0, n = s.defs_.size (); i < n; i++)
     {
       Output_def * copy = s.defs_[i]->clone ();
       defs_.push (copy);
-      scm_gc_unprotect_object (copy->self_scm ());
+      copy->unprotect ();
     }
   header_ = ly_make_anonymous_module (false);
   if (ly_is_module (s.header_))
@@ -108,14 +114,14 @@ default_rendering (SCM music, SCM outdef,
       Real scale = scm_to_double (bpd->c_variable ("outputscale"));
 
       Output_def *def = scale_output_def (unsmob_output_def (outdef), scale);
+      Output_def *bdef = scale_output_def (bpd, scale);
+      def->parent_ = bdef;
+
       scaled_def = def->self_scm ();
+      scaled_bookdef = bdef->self_scm();
 
-      scaled_bookdef = scale_output_def (bpd, scale)->self_scm ();
-      unsmob_output_def (scaled_def)->parent_
-	= unsmob_output_def (scaled_bookdef);
-
-      scm_gc_unprotect_object (scaled_bookdef);
-      scm_gc_unprotect_object (scaled_def);
+      def->unprotect();
+      bdef->unprotect ();  
     }
 
   SCM context = ly_run_translator (music, scaled_def, key);
@@ -137,7 +143,7 @@ default_rendering (SCM music, SCM outdef,
       paper_book->add_score (systems);
 
       paper_book->classic_output (outname);
-      scm_gc_unprotect_object (paper_book->self_scm ());
+      paper_book->unprotect ();
     }
 
   scm_remember_upto_here_1 (scaled_def);
@@ -170,8 +176,7 @@ Score::book_rendering (Output_def *layoutbook,
   int outdef_count = defs_.size ();
 
   Object_key *key = new Lilypond_general_key (book_key, user_key_, 0);
-  SCM scm_key = key->self_scm ();
-  scm_gc_unprotect_object (scm_key);
+  SCM scm_key = key->unprotect ();
 
   for (int i = 0; !i || i < outdef_count; i++)
     {
@@ -182,8 +187,8 @@ Score::book_rendering (Output_def *layoutbook,
 	{
 	  def = scale_output_def (def, scale);
 	  def->parent_ = layoutbook;
-	  scaled = def->self_scm ();
-	  scm_gc_unprotect_object (scaled);
+
+	  scaled = def->unprotect ();
 	}
 
       /* TODO: fix or junk --no-layout.  */
@@ -217,7 +222,8 @@ Score::set_music (SCM music)
     {
       m->origin ()->error (_ ("errors found, ignoring music expression"));
 
-      this->error_found_ = this->error_found_ || to_boolean (m->get_property ("error-found"));
+      this->error_found_ = this->error_found_
+	|| to_boolean (m->get_property ("error-found"));
     }
 
   if (this->error_found_)

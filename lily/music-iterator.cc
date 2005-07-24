@@ -91,7 +91,7 @@ Music_iterator::get_static_get_iterator (Music *m)
 	p = new Simple_music_iterator;
 
       iter = p->self_scm ();
-      scm_gc_unprotect_object (iter);
+      p->unprotect ();
     }
 
   p->music_ = m;

@@ -331,7 +331,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 	    }
 
 	  tr->daddy_context_ = context;
-	  scm_gc_unprotect_object (str);
+	  tr->unprotect ();
 	}
     }
 
@@ -352,7 +352,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
   g->context_ = context;
   context->aliases_ = context_aliases_;
 
-  scm_gc_unprotect_object (g->self_scm ());
+  g->unprotect ();
 
   context->accepts_list_ = get_accepted (ops);
     
@@ -363,18 +363,14 @@ SCM
 Context_def::clone_scm () const
 {
   Context_def *t = new Context_def (*this);
-  SCM x = t->self_scm ();
-  scm_gc_unprotect_object (x);
-  return x;
+  return t->unprotect ();
 }
 
 SCM
 Context_def::make_scm ()
 {
   Context_def *t = new Context_def;
-  SCM x = t->self_scm ();
-  scm_gc_unprotect_object (x);
-  return x;
+  return t->unprotect ();
 }
 
 void

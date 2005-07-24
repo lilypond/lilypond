@@ -60,7 +60,7 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
   SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag);
 
   sizes = scm_acons (scm_make_real (lookup_mag), val, sizes);
-  scm_gc_unprotect_object (val);
+  unsmob_metrics (val)->unprotect ();
   scm_hashq_set_x (font_table, f->self_scm (), sizes);
   return unsmob_metrics (val);
 }
@@ -100,8 +100,9 @@ scale_output_def (Output_def *o, Real amount)
 {
   SCM proc = ly_lily_module_constant ("scale-layout");
   SCM new_pap = scm_call_2 (proc, o->self_scm (), scm_double2num (amount));
-  scm_gc_protect_object (new_pap);
 
-  return unsmob_output_def (new_pap);
+  o = unsmob_output_def (new_pap);
+  o->protect ();
+  return o;
 }
 

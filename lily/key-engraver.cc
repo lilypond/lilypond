@@ -107,6 +107,7 @@ Key_engraver::try_music (Music *ev)
 void
 Key_engraver::acknowledge_clef (Grob_info info)
 {
+  (void)info;
   SCM c = get_property ("createKeyOnClefChange");
   if (to_boolean (c))
     {
@@ -117,6 +118,7 @@ Key_engraver::acknowledge_clef (Grob_info info)
 void
 Key_engraver::acknowledge_bar_line (Grob_info info)
 {
+  (void)info;
   if (scm_is_pair (get_property ("keySignature")))
     {
       create_key (true);

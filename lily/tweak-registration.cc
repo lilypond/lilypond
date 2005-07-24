@@ -18,7 +18,7 @@ Tweak_registry::Tweak_registry ()
   undumper_ = 0;
   smobify_self ();
   undumper_ = new Object_key_undumper ();
-  scm_gc_unprotect_object (undumper_->self_scm ());
+  undumper_->unprotect ();
 }
 
 Tweak_registry::~Tweak_registry ()
@@ -30,7 +30,7 @@ Tweak_registry::clear ()
 {
   tweaks_.clear ();
   undumper_ = new Object_key_undumper ();
-  scm_gc_unprotect_object (undumper_->self_scm ());
+  undumper_->unprotect ();
 }
 
 void
