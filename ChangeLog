@@ -1,5 +1,8 @@
 2005-07-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/invoking.itely (Invoking lilypond): add
+	LILYPOND_GC_YIELD documentation.
+
 	* lily/*: cleanups: use scm_from_int iso. scm_int2num. Idem for
 	scm_from_real / scm_make_real.
 
