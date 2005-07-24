@@ -112,6 +112,5 @@ ADD_TRANSLATOR (Measure_grouping_engraver,
 		/* descr */ "Creates MeasureGrouping to indicate beat subdivision.",
 		/* creats*/ "MeasureGrouping",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "beatGrouping beatLength measurePosition currentMusicalColumn",
 		/* write */ "");

@@ -87,6 +87,7 @@ public:
 
   TRANSLATOR_DECLARATIONS (Translator);
   DECLARE_SMOBS (Translator, dummy);
+
 protected:			// should be private.
   Context *daddy_context_;
   virtual void derived_mark () const;

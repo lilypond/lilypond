@@ -72,6 +72,5 @@ ADD_TRANSLATOR (Note_name_engraver,
 		/* descr */ "",
 		/* creats*/ "NoteName",
 		/* accepts */ "note-event",
-		/* acks  */ "",
 		/* reads */ "printOctaveNames",
 		/* write */ "");

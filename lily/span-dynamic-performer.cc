@@ -184,4 +184,4 @@ Span_dynamic_performer::try_music (Music *r)
 ADD_TRANSLATOR (Span_dynamic_performer,
 		"", "",
 		"crescendo-event decrescendo-event",
-		"", "", "");
+		 "", "");

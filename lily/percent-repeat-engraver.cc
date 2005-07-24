@@ -204,6 +204,5 @@ ADD_TRANSLATOR (Percent_repeat_engraver,
 		/* descr */ "Make whole bar and double bar repeats.",
 		/* creats*/ "PercentRepeat DoublePercentRepeat",
 		/* accepts */ "repeated-music",
-		/* acks  */ "",
 		/* reads */ "measureLength currentCommandColumn",
 		/* write */ "");

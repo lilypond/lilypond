@@ -128,7 +128,9 @@ Accidental_engraver::update_local_key_signature ()
   Context *trans = context ()->get_parent_context ();
 
   /* Huh. Don't understand what this is good for. --hwn.  */
-  while (trans && trans->where_defined (ly_symbol2scm ("localKeySignature")))
+
+  SCM val;
+  while (trans && trans->where_defined (ly_symbol2scm ("localKeySignature"), &val))
     {
       trans->set_property ("localKeySignature", ly_deep_copy (last_keysig_));
       trans = trans->get_parent_context ();
@@ -504,13 +506,10 @@ Accidental_engraver::stop_translation_timestep ()
       int a = pitch->get_alteration ();
       SCM key = scm_cons (scm_int2num (o), scm_int2num (n));
 
+      SCM localsig = SCM_EOL;
       while (origin
-	     && origin->where_defined (ly_symbol2scm ("localKeySignature")))
+	     && origin->where_defined (ly_symbol2scm ("localKeySignature"), &localsig))
 	{
-	  /*
-	    huh? we set props all the way to the top?
-	  */
-	  SCM localsig = origin->get_property ("localKeySignature");
 	  bool change = false;
 	  if (accidentals_[i].tied_)
 	    {
@@ -615,9 +614,6 @@ ADD_TRANSLATOR (Accidental_engraver,
 		"so you can @code{\\override} them at @code{Voice}. ",
 		"Accidental AccidentalSuggestion",
 
-		"",
-		
-		/* acks */
 		"",
 
 		"autoAccidentals "

@@ -37,6 +37,5 @@ ADD_TRANSLATOR (Swallow_performer,
 		/* descr */ "",
 		/* creats*/ "",
 		/* accepts */ "general-music",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

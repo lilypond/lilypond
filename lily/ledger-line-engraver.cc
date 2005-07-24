@@ -98,6 +98,5 @@ ADD_TRANSLATOR (Ledger_line_engraver,
 		"Creates the spanner to draw ledger lines, and notices objects that need ledger lines",
 		/* creats*/ "LedgerLineSpanner",
 		/* accepts */ "",
-		/* acks  */ "", // ledgered-interface? 
 		/* reads */ "",
 		/* write */ "")

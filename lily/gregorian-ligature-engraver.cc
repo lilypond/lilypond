@@ -275,10 +275,11 @@ Gregorian_ligature_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Gregorian_ligature_engraver, rest);
+ADD_ACKNOWLEDGER(Gregorian_ligature_engraver, note_head);
 ADD_TRANSLATOR (Gregorian_ligature_engraver,
 		/* descr */ "This is an abstract class.  Subclasses such as Vaticana_ligature_engraver handle ligatures by glueing special ligature heads together.",
 		/* creats*/ "",
 		/* accepts */ "ligature-event",
-		/* acks  */ "note-head-interface rest-interface",
 		/* reads */ "",
 		/* write */ "");

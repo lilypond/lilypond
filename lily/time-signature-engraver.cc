@@ -74,6 +74,5 @@ ADD_TRANSLATOR (Time_signature_engraver,
 		/* descr */ "Create a TimeSignature whenever @code{timeSignatureFraction} changes",
 		/* creats*/ "TimeSignature",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

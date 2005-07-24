@@ -117,6 +117,5 @@ ADD_TRANSLATOR (Staff_symbol_engraver,
 		"staff lines.",
 		/* creats*/ "StaffSymbol",
 		/* accepts */ "staff-span-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

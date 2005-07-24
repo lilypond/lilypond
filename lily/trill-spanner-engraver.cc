@@ -151,6 +151,5 @@ ADD_TRANSLATOR (Trill_spanner_engraver,
 		/* descr */ "Create trill spanner from a Music.",
 		/* creats*/ "TrillSpanner",
 		/* accepts */ "trill-span-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

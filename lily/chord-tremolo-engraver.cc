@@ -214,6 +214,5 @@ ADD_TRANSLATOR (Chord_tremolo_engraver,
 		/* descr */ "Generates beams for  tremolo repeats.",
 		/* creats*/ "Beam",
 		/* accepts */ "repeated-music",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

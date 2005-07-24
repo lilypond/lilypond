@@ -97,7 +97,8 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
   SCM_ASSERT_TYPE (scm_is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
-  tr = tr->where_defined (name);
+  SCM val;
+  tr = tr->where_defined (name, &val);
   if (tr)
     return tr->self_scm ();
 

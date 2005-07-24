@@ -15,6 +15,7 @@
 #include "spring.hh"
 #include "pointer-group-interface.hh"
 #include "grob.hh"
+#include "paper-column.hh"
 
 SCM
 Spaceable_grob::get_minimum_distances (Grob *me)
@@ -47,6 +48,11 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
 	}
     }
 
+  if (Paper_column::get_rank (p) < Paper_column::get_rank (me))
+    {
+      programming_error ("Adding reverse rod");
+    }
+  
   mins = scm_cons (scm_cons (p->self_scm (), newdist), mins);
   me->set_object ("minimum-distances", mins);
 }
@@ -104,5 +110,5 @@ Spaceable_grob::remove_interface (Grob *me)
 ADD_INTERFACE (Spaceable_grob, "spaceable-grob-interface",
 	       "A layout object that takes part in the spacing problem. ",
 	       "measure-length spacing-wishes penalty minimum-distances ideal-distances "
-	       "allow-outside-line left-neighbors right-neighbors");
+	       "keep-inside-line left-neighbors right-neighbors");
 

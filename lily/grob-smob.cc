@@ -43,9 +43,6 @@ Grob::mark_smob (SCM ses)
   if (s->original_)
     scm_gc_mark (s->original_->self_scm ());
 
-  if (s->pscore_)
-    scm_gc_mark (s->pscore_->self_scm ());
-
   s->derived_mark ();
   scm_gc_mark (s->object_alist_);
   scm_gc_mark (s->interfaces_);

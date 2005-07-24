@@ -107,6 +107,5 @@ ADD_TRANSLATOR (Rest_engraver,
 		/* descr */ "",
 		/* creats*/ "Rest Dots",
 		/* accepts */ "rest-event",
-		/* acks  */ "",
 		/* reads */ "middleCPosition",
 		/* write */ "");

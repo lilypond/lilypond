@@ -528,7 +528,6 @@ ADD_TRANSLATOR (Piano_pedal_engraver,
 		/* descr */ "Engrave piano pedal symbols and brackets.",
 		/* creats*/ "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
 		/* accepts */ "pedal-event",
-		/* acks  */ "",
 		/* reads */ "currentCommandColumn "
 		"pedalSostenutoStrings pedalSustainStrings "
 		"pedalUnaCordaStrings pedalSostenutoStyle "

@@ -256,6 +256,5 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		"should use a whole rest or a breve rest to represent 1 measure ",
 		/* creats*/ "MultiMeasureRest MultiMeasureRestNumber MultiMeasureRestText",
 		/* accepts */ "multi-measure-rest-event multi-measure-text-event",
-		/* acks  */ "",
 		/* reads */ "currentBarNumber restNumberThreshold breakableSeparationItem currentCommandColumn measurePosition measureLength",
 		/* write */ "");

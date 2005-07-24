@@ -78,6 +78,5 @@ ADD_TRANSLATOR_GROUP (Recording_group_engraver,
 		"in @code{recordEventSequence} when finished.",
 		"",
 		"",
-		"",
 		"recordEventSequence",
 		"");

@@ -100,6 +100,5 @@ ADD_TRANSLATOR (Bar_engraver,
 		"@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point",
 		/* creats*/ "BarLine",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "whichBar",
 		/* write */ "");

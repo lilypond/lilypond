@@ -129,6 +129,5 @@ ADD_TRANSLATOR (Ottava_spanner_engraver,
 		/* descr */ "Create a text spanner when the ottavation property changes..",
 		/* creats*/ "OttavaBracket",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "ottavation",
 		/* write */ "");

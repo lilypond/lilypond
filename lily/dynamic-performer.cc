@@ -131,6 +131,5 @@ ADD_TRANSLATOR (Dynamic_performer,
 		/*descr*/		 "",
 		/* creats*/ "",
 		/* accepts */ "absolute-dynamic-event",
-		/* acks */ "",
 		/*reads */"dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer",
 		/*writes*/"");

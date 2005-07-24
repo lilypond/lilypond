@@ -241,6 +241,5 @@ ADD_TRANSLATOR (Volta_engraver,
 		/* descr */ "Make volta brackets.",
 		/* creats*/ "VoltaBracket",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "repeatCommands voltaSpannerDuration stavesFound",
 		/* write */ "");

@@ -139,6 +139,5 @@ ADD_TRANSLATOR (Hyphen_engraver,
 		/* descr */ "Create lyric hyphens",
 		/* creats*/ "LyricHyphen",
 		/* accepts */ "hyphen-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

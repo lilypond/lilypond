@@ -158,6 +158,5 @@ ADD_TRANSLATOR (Pitched_trill_engraver,
 		/* descr */ "Print the bracketed notehead after a notehead with trill.",
 		/* creats*/ "TrillPitchHead TrillPitchAccidental TrillPitchGroup",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

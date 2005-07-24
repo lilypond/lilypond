@@ -141,6 +141,5 @@ ADD_TRANSLATOR (Grob_pq_engraver,
 		/* descr */ "Administrate when certain grobs (eg. note heads) stop playing",
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "busyGrobs",
 		/* write */ "busyGrobs");

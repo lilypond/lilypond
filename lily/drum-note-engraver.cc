@@ -170,7 +170,6 @@ ADD_TRANSLATOR (Drum_notes_engraver,
 		/* descr */ "Generate noteheads.",
 		/* creats*/ "NoteHead Dots Script",
 		/* accepts */ "note-event busy-playing-event",
-		/* acks  */ "",
 		/* reads */ "drumStyleTable",
 		/* write */ "");
 

@@ -120,6 +120,5 @@ ADD_TRANSLATOR (Slash_repeat_engraver,
 		/* descr */ "Make beat repeats.",
 		/* creats*/ "RepeatSlash",
 		/* accepts */ "repeated-music",
-		/* acks  */ "",
 		/* reads */ "measureLength",
 		/* write */ "");

@@ -104,6 +104,5 @@ ADD_TRANSLATOR (Span_arpeggio_engraver,
 		/* descr */ "",
 		/* creats*/ "Arpeggio",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "connectArpeggios",
 		/* write */ "");

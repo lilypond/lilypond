@@ -95,6 +95,5 @@ ADD_TRANSLATOR (Metronome_mark_engraver,
 		"which is maintained by @code{@ref{Staff_collecting_engraver}}. ",
 		/* creats*/ "MetronomeMark",
 		/* accepts */ "metronome-change-event",
-		/* acks  */ "",
 		/* reads */ "stavesFound metronomeMarkFormatter",
 		/* write */ "");

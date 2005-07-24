@@ -110,6 +110,5 @@ ADD_TRANSLATOR (Glissando_engraver,
 		/* descr */ "Engrave a glissandi",
 		/* creats*/ "Glissando",
 		/* accepts */ "glissando-event",
-		/* acks  */ "",
 		/* reads */ "followVoice",
 		/* write */ "");

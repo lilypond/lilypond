@@ -71,6 +71,5 @@ ADD_TRANSLATOR (Melisma_translator,
 		/* descr */ "This translator collects melisma information about ties, beams, and user settings (@code{melismaBusy}, and signals it to the @code{\addlyrics} code.  ",
 		/* creats*/ "",
 		/* accepts */ "melisma-playing-event melisma-span-event",
-		/* acks  */ "",
 		/* reads */ "melismaBusy melismaBusyProperties slurMelismaBusy tieMelismaBusy beamMelismaBusy",
 		/* write */ "");

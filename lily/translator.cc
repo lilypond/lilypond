@@ -192,5 +192,4 @@ ADD_TRANSLATOR(Translator,
 	       "",
 	       "",
 	       "",
-	       "",
 	       "");

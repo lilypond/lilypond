@@ -70,4 +70,5 @@ Lyric_performer::try_music (Music *event)
 
 #include "translator.icc"
 
-ADD_TRANSLATOR (Lyric_performer, "", "", "lyric-event", "", "", "");
+ADD_TRANSLATOR (Lyric_performer, "", "", "lyric-event",
+		 "", "");

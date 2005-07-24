@@ -132,7 +132,6 @@ ADD_TRANSLATOR (Cluster_spanner_engraver,
 		/* descr */	"Engraves a cluster using Spanner notation ",
 		/* creats*/	"ClusterSpanner ClusterSpannerBeacon",
 		/* accepts */	"cluster-note-event busy-playing-event",
-		/* acks  */	"",
 		/* reads */	"",
 		/* write */	"");
 

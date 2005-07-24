@@ -186,6 +186,5 @@ ADD_TRANSLATOR (Key_engraver,
 		/* descr */ "",
 		/* creats*/ "KeySignature",
 		/* accepts */ "key-change-event",
-		/* acks  */ "",
 		/* reads */ "keySignature printKeyCancellation lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
 		/* write */ "lastKeySignature tonic keySignature");

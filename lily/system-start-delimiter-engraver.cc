@@ -91,6 +91,5 @@ ADD_TRANSLATOR (System_start_delimiter_engraver,
 		/* descr */ "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",
 		/* creats*/ "SystemStartBar SystemStartBrace SystemStartBracket",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "systemStartDelimiter",
 		/* write */ "");

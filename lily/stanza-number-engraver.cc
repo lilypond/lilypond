@@ -73,6 +73,5 @@ ADD_TRANSLATOR (Stanza_number_engraver,
 		/* descr */ "",
 		/* creats*/ "StanzaNumber",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "stanza",
 		/* write */ "");

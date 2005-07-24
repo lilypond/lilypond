@@ -85,7 +85,7 @@ void recurse_over_translators (Context *c, Translator_method ptr,
 void precomputed_recurse_over_translators (Context *c, Translator_precompute_index idx, Direction dir);
 Translator_group *get_translator_group (SCM sym);
 
-#define ADD_TRANSLATOR_GROUP(classname, desc, grobs, accepted, acked, read, write) \
+#define ADD_TRANSLATOR_GROUP(classname, desc, grobs, accepted, read, write) \
 
 DECLARE_UNSMOB (Translator_group, translator_group);
 

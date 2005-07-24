@@ -65,6 +65,5 @@ ADD_TRANSLATOR (Grid_line_span_engraver,
 		"line lines, and draws a single span-line across them.",
 		/* creats*/ "GridLine",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

@@ -171,7 +171,6 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
 		/* descr */ "Generate one or more tablature noteheads from Music of type NoteEvent.",
 		/* creats*/ "TabNoteHead Dots",
 		/* accepts */ "note-event string-number-event busy-playing-event",
-		/* acks  */ "",
 		/* reads */ "middleCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
 		/* write */ "");
 

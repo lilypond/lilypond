@@ -148,7 +148,6 @@ ADD_TRANSLATOR (Instrument_name_engraver,
 		"at the left of the staff. ",
 		/* creats*/ "InstrumentName",
 		/* accepts */ "",
-		/* acks  */ "bar-line-interface axis-group-interface",
 		/* reads */ "instrument instr",
 		/* write */ "");
 
@@ -196,6 +195,5 @@ ADD_TRANSLATOR (Vocal_name_engraver,
 		"at the left of the staff. ",
 		/* creats*/ "VocalName",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "vocNam vocalName",
 		/* write */ "");

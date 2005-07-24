@@ -260,6 +260,5 @@ ADD_TRANSLATOR (Script_engraver,
 		/* descr */ "Handles note scripted articulations.",
 		/* creats*/ "Script",
 		/* accepts */ "script-event articulation-event",
-		/* acks  */ "",
 		/* reads */ "scriptDefinitions",
 		/* write */ "");

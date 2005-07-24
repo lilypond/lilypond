@@ -44,7 +44,7 @@ private:
 
 ADD_TRANSLATOR (Staff_performer, "", "",
 		"",
-		"", "", "");
+		 "", "");
 
 Staff_performer::Staff_performer ()
 {

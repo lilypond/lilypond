@@ -329,17 +329,15 @@ Context::get_default_interpreter ()
   PROPERTIES
 */
 Context *
-Context::where_defined (SCM sym) const
+Context::where_defined (SCM sym, SCM *value) const
 {
-  if (properties_dict ()->contains (sym))
+  if (properties_dict ()->try_retrieve (sym, value))
     {
       return (Context *)this;
     }
 
-  return (daddy_context_) ? daddy_context_->where_defined (sym) : 0;
+  return (daddy_context_) ? daddy_context_->where_defined (sym, value) : 0;
 }
-
-//#define PROFILE_PROPERTY_ACCESSES
 
 SCM context_property_lookup_table;
 LY_DEFINE(ly_context_property_lookup_stats, "ly:context-property-lookup-stats",
@@ -357,9 +355,12 @@ LY_DEFINE(ly_context_property_lookup_stats, "ly:context-property-lookup-stats",
 SCM
 Context::internal_get_property (SCM sym) const
 {
-#ifdef PROFILE_PROPERTY_ACCESSES
-  extern void note_property_access (SCM *table, SCM sym);
-  note_property_access (&context_property_lookup_table, sym);
+#ifndef NDEBUG
+  if (profile_property_accesses)
+    {
+      extern void note_property_access (SCM *table, SCM sym);
+      note_property_access (&context_property_lookup_table, sym);
+    }
 #endif
   
   SCM val = SCM_EOL;
@@ -574,12 +575,6 @@ Context *
 Context::get_parent_context () const
 {
   return daddy_context_;
-}
-
-Translator_group *
-Context::implementation () const
-{
-  return implementation_;
 }
 
 void

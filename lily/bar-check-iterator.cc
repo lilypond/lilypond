@@ -53,7 +53,8 @@ Bar_check_iterator::process (Moment m)
 	  bool warn = true;
 	  if (to_boolean (sync))
 	    {
-	      tr = tr->where_defined (ly_symbol2scm ("measurePosition"));
+	      SCM mp; 
+	      tr = tr->where_defined (ly_symbol2scm ("measurePosition"), &mp);
 	      Moment zero;
 	      tr->set_property ("measurePosition", zero.smobbed_copy ());
 	    }

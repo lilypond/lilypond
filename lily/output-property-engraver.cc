@@ -84,6 +84,5 @@ ADD_TRANSLATOR (Output_property_engraver,
 " to any Graphic objects that satisfies the predicate.",
 /* creats*/       "",
 /* accepts */     "layout-instruction",
-/* acks  */       "",
 /* reads */       "",
 /* write */       "");

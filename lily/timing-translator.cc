@@ -148,4 +148,4 @@ ADD_TRANSLATOR (Timing_translator,
 
 		,
 
-		"", "", "", "", "");
+		"",  "", "", "");

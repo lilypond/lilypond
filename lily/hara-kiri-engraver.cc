@@ -12,6 +12,8 @@
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 
+#include "translator.icc"
+
 class Hara_kiri_engraver : public Axis_group_engraver
 {
 protected:
@@ -66,14 +68,13 @@ Hara_kiri_engraver::Hara_kiri_engraver ()
   interesting_ = SCM_EOL;
 }
 
-#include "translator.icc"
+
 ADD_ACKNOWLEDGER(Hara_kiri_engraver, grob);
 ADD_TRANSLATOR (Hara_kiri_engraver,
 		/* descr */ "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
 		"interesting items (ie. note heads, lyric syllables and normal rests) ",
 		/* creats*/ "RemoveEmptyVerticalGroup",
 		/* accepts */ "",
-		/* acks  */ "grob-interface",
 		/* reads */ "keepAliveInterfaces",
 		/* write */ "");
 

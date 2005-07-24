@@ -209,6 +209,5 @@ ADD_TRANSLATOR (Slur_engraver,
 		/* descr */ "Build slurs grobs from slur events",
 		/* creats*/ "Slur",
 		/* accepts */ "slur-event",
-		/* acks  */ "",
 		/* reads */ "slurMelismaBusy doubleSlurs",
 		/* write */ "");

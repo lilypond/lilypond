@@ -100,6 +100,10 @@ System::derived_mark () const
 	  ptr ++;
 	}
     }
+
+  if (pscore_)
+    scm_gc_mark (pscore_->self_scm ());
+  
   Spanner::derived_mark ();
 }
 

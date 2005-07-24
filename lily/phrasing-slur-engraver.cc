@@ -202,6 +202,5 @@ ADD_TRANSLATOR (Phrasing_slur_engraver,
 		/* descr */ "Print phrasing slurs. Similar to @ref{Slur_engraver}",
 		/* creats*/ "PhrasingSlur",
 		/* accepts */ "phrasing-slur-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

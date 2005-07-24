@@ -293,6 +293,5 @@ ADD_TRANSLATOR (Ligature_engraver,
 		/* descr */ "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
 		/* creats */ "",
 		/* accepts */ "ligature-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

@@ -33,6 +33,5 @@ ADD_TRANSLATOR (Swallow_engraver,
 		"this is to prevent spurious \"event junked\" warnings.",
 		/* creats*/ "",
 		/* accepts */ "general-music",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

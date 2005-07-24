@@ -261,7 +261,7 @@ unset, script and slur ignore each other ")
      (inspect-quants ,number-pair? "If debugging is set,
 set beam quant to this position, and print the respective scores.")
 
-     (allow-outside-line ,boolean? "If set, allow this column to
+     (keep-inside-line ,boolean? "If set, this column cannot have
 things sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add. For
 bar line, this is the amount of space after a thick line.")

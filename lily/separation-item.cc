@@ -18,7 +18,6 @@ Separation_item::add_item (Grob *s, Item *i)
 {
   assert (i);
   Pointer_group_interface::add_grob (s, ly_symbol2scm ("elements"), i);
-  s->add_dependency (i);
 }
 
 void

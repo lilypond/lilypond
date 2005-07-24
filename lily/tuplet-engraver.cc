@@ -135,6 +135,5 @@ ADD_TRANSLATOR (Tuplet_engraver,
 		/* descr */ "Catch Time_scaled_music and generate appropriate bracket  ",
 		/* creats*/ "TupletBracket",
 		/* accepts */ "time-scaled-music",
-		/* acks  */ "",
 		/* reads */ "tupletNumberFormatFunction tupletSpannerDuration",
 		/* write */ "");

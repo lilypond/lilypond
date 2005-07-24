@@ -12,6 +12,8 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 
+#include "translator.icc"
+
 class Horizontal_bracket_engraver : public Engraver
 {
 public:
@@ -27,13 +29,12 @@ public:
   DECLARE_ACKNOWLEDGER(note_column);
 };
 
-#include "translator.icc"
+
 ADD_ACKNOWLEDGER(Horizontal_bracket_engraver,note_column);
 ADD_TRANSLATOR (Horizontal_bracket_engraver,
 		"Create horizontal brackets over notes for musical analysis purposes.",
 		"HorizontalBracket",
 		"note-grouping-event",
-		"",
 		"",
 		"");
 

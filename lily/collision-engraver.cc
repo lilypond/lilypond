@@ -72,6 +72,5 @@ ADD_TRANSLATOR (Collision_engraver,
 		/* descr */ "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",
 		/* creats*/ "NoteCollision",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

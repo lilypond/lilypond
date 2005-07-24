@@ -191,6 +191,5 @@ ADD_TRANSLATOR (Spacing_engraver,
 		/* descr */ "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",
 		/* creats*/ "SpacingSpanner",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

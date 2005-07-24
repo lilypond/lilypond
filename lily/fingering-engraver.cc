@@ -145,6 +145,5 @@ ADD_TRANSLATOR (Fingering_engraver,
 		/* descr */ "Create fingering-scripts",
 		/* creats*/ "Fingering",
 		/* accepts */ "fingering-event",
-		/* acks  */ "rhythmic-head-interface stem-interface",
 		/* reads */ "",
 		/* write */ "");

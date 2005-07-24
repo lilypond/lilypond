@@ -370,6 +370,5 @@ ADD_TRANSLATOR (New_fingering_engraver,
 		"also takes care of articulations and harmonic note heads",
 		/* creats*/ "Fingering",
 		/* accepts */ "",
-		/* acks  */ "rhythmic-head-interface stem-interface",
 		/* reads */ "fingeringOrientations",
 		/* write */ "");

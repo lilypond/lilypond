@@ -134,7 +134,6 @@ ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
 		      /* descr */ "A group of engravers taken together",
 		      /* creats*/ "",
 		      /* accepts */ "",
-		      /* acks  */ "",
 		      /* reads */ "",
 		      /* write */ "");
 

@@ -38,15 +38,15 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
   /*
     We only want to process a grob once.
   */
-  if (gi.context () != context ())
-    return;
+  if (!size)
+    return ;
 
-  if (size)
-    {
-      Real font_size = size
-	+ robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
-      gi.grob ()->set_property ("font-size", scm_make_real (font_size));
-    }
+  if (gi.context () != context ())
+    return ;
+
+  Real font_size = size
+    + robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
+  gi.grob ()->set_property ("font-size", scm_make_real (font_size));
 }
 
 #include "translator.icc"
@@ -56,6 +56,5 @@ ADD_TRANSLATOR (Font_size_engraver,
 		/* descr */ "Puts fontSize into font-relative-size grob property.",
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "fontSize",
 		/* write */ "");

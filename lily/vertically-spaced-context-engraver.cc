@@ -61,6 +61,5 @@ ADD_TRANSLATOR (Vertically_spaced_contexts_engraver,
 		/* descr */ "",
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "verticallySpacedContexts",
 		/* write */ "verticallySpacedContexts");

@@ -111,6 +111,5 @@ ADD_TRANSLATOR (Grace_engraver,
 		/* descr */ "Set font size and other properties for grace notes.",
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "graceSettings",
 		/* write */ "");

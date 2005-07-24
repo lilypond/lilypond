@@ -15,6 +15,8 @@
 #include "item.hh"
 #include "misc.hh"
 #include "item.hh"
+#include "program-option.hh"
+
 
 SCM
 Grob::get_property_alist_chain (SCM def) const
@@ -128,8 +130,11 @@ note_property_access (SCM *table, SCM sym)
 SCM
 Grob::internal_get_property (SCM sym) const
 {
-#ifdef PROFILE_PROPERTY_ACCESSES
-  note_property_access (&grob_property_lookup_table, sym);
+#ifndef NDEBUG
+  if (profile_property_accesses)
+    {
+      note_property_access (&grob_property_lookup_table, sym);
+    }
 #endif
   
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);

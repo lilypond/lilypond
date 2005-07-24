@@ -29,6 +29,7 @@ public:
   Interval extent (Axis)const;
   Polynomial polynomial (Axis)const;
   Offset curve_point (Real t) const;
+  Real curve_coordinate (Real t, Axis) const;
 
   static const int CONTROL_COUNT = 4;
 
