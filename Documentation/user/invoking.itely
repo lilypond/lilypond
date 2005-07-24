@@ -270,57 +270,6 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 
 @section Environment variables
 
-@ignore
-For processing both the @TeX{} and the PostScript output, the
-appropriate environment variables must be set.  The following scripts
-do this:
-
-@itemize @bullet
-@item @file{buildscripts/@/out/@/lilypond@/-profile}
-(for SH shells)
-@item @file{buildscripts/@/out/@/lilypond@/-login} (for C-shells)
-@end itemize
-
-They should normally be sourced as part of the login process.  If these
-scripts are not run from the system wide login process, then you must
-run them yourself.
-
-@cindex installing LilyPond
-
-If you use sh, bash, or a similar shell, then add the following to
-your @file{.profile}:
-@example
-. @var{/the/path/to/}lilypond-profile
-@end example
-
-If you use csh, tcsh or a similar shell, then add the following to
-your @file{~/.login}:
-@example
-source @var{/the/path/to/}lilypond-login
-@end example
-
-Of course, in both cases, you should substitute the proper location of
-either script.
-
-These scripts set the following variables:
-@table @code
-@item TEXMF
-To make sure that @TeX{} and lilypond find data files (among
-others @file{.tex}, @file{.mf}, and @file{.tfm}),
-you have to set @code{TEXMF} to point to the lilypond data
-file tree.  A typical setting would be
-@example
-@{/usr/share/lilypond/2.4.0,@{!!/usr/share/texmf@}@}
-@end example
-
-@end table
-
-@cindex PostScript
-@cindex TEXMF
-@cindex printing postscript
-
-@end ignore
-
 
 @cindex LANG
 @cindex LILYPONDPREFIX
@@ -334,6 +283,13 @@ subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LANG
 This selects the language for the warning messages.
+
+@item LILYPOND_GC_YIELD
+With this variable the memory footprint and performance can be
+adjusted. It is a percentage tunes memory management behavior. With
+higher values, the program uses more memory, with smaller values, it
+uses more CPU time. The default value is @code{70}.
+
 @end table
 
 
