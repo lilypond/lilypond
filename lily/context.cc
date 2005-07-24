@@ -18,6 +18,8 @@
 #include "translator-group.hh"
 #include "warn.hh"
 #include "lilypond-key.hh"
+#include "profile.hh"
+
 
 bool
 Context::is_removable () const
@@ -336,6 +338,13 @@ Context::get_default_interpreter ()
 Context *
 Context::where_defined (SCM sym, SCM *value) const
 {
+#ifndef NDEBUG
+  if (profile_property_accesses)
+    {
+      note_property_access (&context_property_lookup_table, sym);
+    }
+#endif
+
   if (properties_dict ()->try_retrieve (sym, value))
     {
       return (Context *)this;
@@ -343,16 +352,6 @@ Context::where_defined (SCM sym, SCM *value) const
 
   return (daddy_context_) ? daddy_context_->where_defined (sym, value) : 0;
 }
-
-SCM context_property_lookup_table;
-LY_DEFINE(ly_context_property_lookup_stats, "ly:context-property-lookup-stats",
-	  0,0,0, (),
-	  "")
-{
-  return context_property_lookup_table ?  context_property_lookup_table
-    : scm_c_make_hash_table (1);
-}
-
 
 /*
   return SCM_EOL when not found.
@@ -363,7 +362,6 @@ Context::internal_get_property (SCM sym) const
 #ifndef NDEBUG
   if (profile_property_accesses)
     {
-      extern void note_property_access (SCM *table, SCM sym);
       note_property_access (&context_property_lookup_table, sym);
     }
 #endif

@@ -131,11 +131,7 @@ String::to_bytes () const
   return strh_.to_bytes ();
 }
 
-char const *
-String::to_str0 () const
-{
-  return strh_.to_str0 ();
-}
+
 
 Byte *
 String::get_bytes ()

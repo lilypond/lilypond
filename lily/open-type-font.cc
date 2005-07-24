@@ -127,11 +127,14 @@ Open_type_font::Open_type_font (FT_Face face)
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
   lily_subfonts_ = SCM_EOL;
-
+  lily_index_to_bbox_table_ = SCM_EOL;
+  
   lily_character_table_ = alist_to_hashq (load_scheme_table ("LILC", face_));
   lily_global_table_ = alist_to_hashq (load_scheme_table ("LILY", face_));
   lily_subfonts_ = load_scheme_table ("LILF", face_);
   index_to_charcode_map_ = make_index_to_charcode_map (face_);
+
+  lily_index_to_bbox_table_ = scm_c_make_hash_table (257);
 }
 
 void
@@ -140,6 +143,7 @@ Open_type_font::derived_mark () const
   scm_gc_mark (lily_character_table_);
   scm_gc_mark (lily_global_table_);
   scm_gc_mark (lily_subfonts_);
+  scm_gc_mark (lily_index_to_bbox_table_);
 }
 
 Offset
@@ -161,6 +165,14 @@ Open_type_font::attachment_point (String glyph_name) const
 Box
 Open_type_font::get_indexed_char (int signed_idx) const
 {
+  if (SCM_HASHTABLE_P (lily_index_to_bbox_table_))
+    {
+      SCM box = scm_hashq_ref (lily_index_to_bbox_table_, scm_from_int (signed_idx), SCM_BOOL_F);
+      Box * box_ptr = Box::unsmob (box);
+      if (box_ptr)
+	return *box_ptr;
+    }
+
   if (SCM_HASHTABLE_P (lily_character_table_))
     {
       const int len = 256;
@@ -187,6 +199,10 @@ Open_type_font::get_indexed_char (int signed_idx) const
 	  bbox = scm_cdr (bbox);
 
 	  b.scale (point_constant);
+
+	  scm_hashq_set_x (lily_index_to_bbox_table_,
+			   scm_from_int (signed_idx),
+			   b.smobbed_copy ());
 	  return b;
 	}
     }

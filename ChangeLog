@@ -1,6 +1,13 @@
 2005-07-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* lily/smobs.cc (protect_smob): experiment: O(1) GC (un)protection.
+	* lily/grob.cc (Grob): look properties up directly.
+
+	* lily/open-type-font.cc (get_indexed_char): cache index -> bbox
+	lookups.
+
+	* lily/include/box.hh (class Box): smob Box type.
+
+	* lily/smobs.cc (protect_smob): O(1) GC (un)protection.
 
 	* lily/include/smobs.hh (DECLARE_BASE_SMOBS): add methods
 	protect() and unprotect(). Use throughout.

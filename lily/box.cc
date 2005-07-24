@@ -6,6 +6,8 @@
   (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "ly-smobs.icc"
+
 #include "box.hh"
 #include "array.hh"
 
@@ -81,4 +83,24 @@ Box::widen (Real x, Real y)
 {
   interval_a_[X_AXIS].widen (x);
   interval_a_[Y_AXIS].widen (y);
+}
+
+
+IMPLEMENT_SIMPLE_SMOBS(Box);
+IMPLEMENT_TYPE_P (Box, "ly:box?");
+IMPLEMENT_DEFAULT_EQUAL_P(Box);
+
+SCM
+Box::mark_smob (SCM x) 
+{
+  (void)x;
+  return SCM_EOL;
+}
+
+int
+Box::print_smob (SCM x, SCM p, scm_print_state*)
+{
+  (void)x;
+  scm_puts ("#<Box>", p);
+  return 1;
 }
