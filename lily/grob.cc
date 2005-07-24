@@ -67,7 +67,9 @@ Grob::Grob (SCM basicprops,
     We always get a new key object for a new grob.
   */
   if (key_)
-    scm_gc_unprotect_object (key_->self_scm ());
+    {
+      ((Object_key*)key_)->unprotect ();
+    }
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
     {
@@ -137,7 +139,9 @@ Grob::Grob (Grob const &s, int copy_index)
 
   smobify_self ();
   if (key_)
-    scm_gc_unprotect_object (key_->self_scm ());
+    {
+      ((Object_key*)key_)->unprotect ();
+    }
 }
 
 Grob::~Grob ()

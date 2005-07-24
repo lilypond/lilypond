@@ -83,7 +83,7 @@ System::typeset_grob (Grob *elem)
     {
       elem->pscore_ = pscore_;
       all_elements_->add (elem);
-      scm_gc_unprotect_object (elem->self_scm ());
+      elem->unprotect ();
     }
 }
 
@@ -397,7 +397,7 @@ System::get_paper_system ()
   pl->break_before_penalty_
     = robust_scm2double (break_point->get_property ("page-penalty"), 0.0);
 
-  return scm_gc_unprotect_object (pl->self_scm ());
+  return pl->unprotect ();
 }
 
 Link_array<Item>

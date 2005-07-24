@@ -93,11 +93,10 @@ Book::process (Output_def *default_paper,
   Output_def *scaled_bookdef = scale_output_def (paper, scale);
 
   Object_key *key = new Lilypond_general_key (0, user_key_, 0);
-  SCM scm_key = key->self_scm ();
-  scm_gc_unprotect_object (scm_key);
-
+  SCM scm_key = key->unprotect ();
+  
   paper_book->paper_ = scaled_bookdef;
-  scm_gc_unprotect_object (scaled_bookdef->self_scm ());
+  scaled_bookdef->unprotect ();
 
   paper_book->header_ = header_;
 

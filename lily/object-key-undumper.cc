@@ -72,7 +72,7 @@ Object_key_undumper::parse_contents (SCM contents)
 
       Object_key *k = Object_key::undump (new_key);
       keys_[number] = k;
-      scm_gc_unprotect_object (k->self_scm ());
+      k->unprotect ();
     }
 }
 

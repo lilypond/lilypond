@@ -67,7 +67,7 @@ Context::add_context (Context *t)
     {
       t->init_ = true;
 
-      scm_gc_unprotect_object (ts);
+      t->unprotect ();
       Context_def *td = unsmob_context_def (t->definition_);
 
       /* This cannot move before add_context (), because \override
@@ -101,11 +101,16 @@ Context::Context (Object_key const *key)
   definition_ = SCM_EOL;
 
   smobify_self ();
-  properties_scm_ = (new Scheme_hash_table)->self_scm ();
-  scm_gc_unprotect_object (properties_scm_);
+  
+  Scheme_hash_table *tab = new Scheme_hash_table;
+  properties_scm_ =   tab->unprotect ();
 
+  /*
+   UGH UGH
+   const correctness.
+  */
   if (key_)
-    scm_gc_unprotect_object (key_->self_scm ());
+    ((Object_key*)key)->unprotect ();
 }
 
 /* TODO:  this shares code with find_create_context ().  */

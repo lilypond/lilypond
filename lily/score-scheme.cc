@@ -25,9 +25,7 @@ LY_DEFINE (ly_make_score, "ly:make-score",
   Score *score = new Score;
   score->set_music (music);
 
-  SCM self = score->self_scm ();
-  scm_gc_unprotect_object (self);
-  return self;
+  return score->unprotect ();
 }
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
@@ -58,8 +56,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
     return SCM_BOOL_F;
 
   score_def = score_def->clone ();
-  SCM prot = score_def->self_scm ();
-  scm_gc_unprotect_object (prot);
+  SCM prot = score_def->unprotect ();
 
   /* TODO: SCORE_DEF should be scaled according to OD->parent_ or OD
      itself. */
@@ -113,7 +110,7 @@ LY_DEFINE (ly_score_process, "ly:score-process",
 			 header, basename, key->self_scm ());
     }
 
-  scm_gc_unprotect_object (key->self_scm ());
+  key->unprotect ();
   return SCM_UNSPECIFIED;
 }
 

@@ -36,7 +36,7 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
   progress_indication ("\n");
   Paper_outputter *po = new Paper_outputter (port, f);
 
-  scm_gc_unprotect_object (po->self_scm ());
+  po->unprotect ();
   return po->self_scm ();
 }
 

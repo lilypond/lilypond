@@ -33,7 +33,7 @@ Lily_parser::Lily_parser (Sources *sources)
   smobify_self ();
 
   lexer_ = new Lily_lexer (sources_);
-  scm_gc_unprotect_object (lexer_->self_scm ());
+  lexer_->unprotect ();
 }
 
 Lily_parser::Lily_parser (Lily_parser const &src)
@@ -47,7 +47,7 @@ Lily_parser::Lily_parser (Lily_parser const &src)
   if (src.lexer_)
     lexer_ = new Lily_lexer (*src.lexer_);
 
-  scm_gc_unprotect_object (lexer_->self_scm ());
+  lexer_->unprotect ();
 }
 
 Lily_parser::~Lily_parser ()

@@ -43,12 +43,12 @@ All_font_metrics::All_font_metrics (String path)
 
 All_font_metrics::~All_font_metrics ()
 {
-  scm_gc_unprotect_object (afm_dict_->self_scm ());
-  scm_gc_unprotect_object (tfm_dict_->self_scm ());
-  scm_gc_unprotect_object (otf_dict_->self_scm ());
+  afm_dict_->unprotect ();
+  tfm_dict_->unprotect ();
+  otf_dict_->unprotect ();
 
 #if HAVE_PANGO_FT2
-  scm_gc_unprotect_object (pango_dict_->self_scm ());
+  pango_dict_->unprotect ();
   g_object_unref (pango_ft2_fontmap_);
 #endif
 }
@@ -83,7 +83,7 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
 				       output_scale);
       val = pf->self_scm ();
       pango_dict_->set (key, val);
-      scm_gc_unprotect_object (val);
+      pf->unprotect ();
 
       if (be_verbose_global)
 	progress_indication ("]");
@@ -158,7 +158,7 @@ All_font_metrics::find_afm (String name)
 	progress_indication ("]");
 
       afm_dict_->set (sname, val);
-      scm_gc_unprotect_object (val);
+      unsmob_metrics (val)->unprotect ();
 
       Adobe_font_metric *afm
 	= dynamic_cast<Adobe_font_metric *> (unsmob_metrics (val));
@@ -224,7 +224,7 @@ All_font_metrics::find_otf (String name)
       unsmob_metrics (val)->description_ = scm_cons (name_string,
 						     scm_make_real (1.0));
       otf_dict_->set (sname, val);
-      scm_gc_unprotect_object (val);
+      unsmob_metrics (val)->unprotect ();
     }
 
   return dynamic_cast<Open_type_font *> (unsmob_metrics (val));
@@ -266,7 +266,7 @@ All_font_metrics::find_tfm (String name)
       unsmob_metrics (val)->description_ = scm_cons (name_string,
 						     scm_make_real (1.0));
       tfm_dict_->set (sname, val);
-      scm_gc_unprotect_object (val);
+      unsmob_metrics (val)->unprotect ();
     }
 
   return dynamic_cast<Tex_font_metric *> (unsmob_metrics (val));

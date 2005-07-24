@@ -30,8 +30,9 @@ LY_DEFINE (ly_make_book, "ly:make-book",
 
   book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
 
+  
   SCM x = book->self_scm ();
-  scm_gc_unprotect_object (x);
+  book->unprotect ();
   return x;
 }
 
@@ -58,7 +59,7 @@ LY_DEFINE (ly_parser_print_book, "ly:book-process",
   if (pb)
     {
       pb->output (output);
-      scm_gc_unprotect_object (pb->self_scm ());
+      pb->unprotect ();
     }
 
   return SCM_UNSPECIFIED;

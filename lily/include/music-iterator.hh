@@ -97,9 +97,8 @@ bool is_child_context (Context *me, Context *child);
 			     (),					\
 			     "")					\
   {									\
-    SCM val = (new Class)->self_scm ();					\
-    scm_gc_unprotect_object (val);					\
-    return val;								\
+    Class *c = (new Class);\
+    return c->unprotect();\
   }
 
 DECLARE_UNSMOB (Music_iterator, iterator);

@@ -71,9 +71,7 @@ LY_DEFINE (ly_make_music, "ly:make-music",
 	   "for creating music objects. ")
 {
   Music *ms = new Music (props);
-  SCM s = ms->self_scm ();
-  scm_gc_unprotect_object (s);
-  return s;
+  return ms->unprotect ();
 }
 
 /* todo: property args */
@@ -112,8 +110,8 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
   SCM copy = m;
   if (unsmob_music (m))
     {
-      copy = unsmob_music (m)->clone ()->self_scm ();
-      scm_gc_unprotect_object (copy);
+      Music * mcopy = unsmob_music (m)->clone ();
+      copy = mcopy->unprotect ();
     }
   else if (scm_is_pair (m))
     copy = scm_cons (ly_music_deep_copy (scm_car (m)),
