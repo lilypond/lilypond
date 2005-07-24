@@ -60,13 +60,15 @@
 	  (else		 ;; a scheme argument
 	   (format #f "#~a" (scheme-expr->lily-string arg)))))
   (define (markup->lily-string-aux expr)
-    (let ((cmd (car expr))
-	  (args (cdr expr)))
-      (if (eqv? cmd simple-markup) ;; a simple string
-	  (format #f "~s" (car args))
-	  (format #f "\\~a~{ ~a~}" 
-		  (proc->command cmd)
-		  (map-in-order arg->string args)))))
+    (if (string? expr)
+	(format #f "~s" expr)
+	(let ((cmd (car expr))
+	      (args (cdr expr)))
+	  (if (eqv? cmd simple-markup) ;; a simple markup
+	      (format #f "~s" (car args))
+	      (format #f "\\~a~{ ~a~}" 
+		      (proc->command cmd)
+		      (map-in-order arg->string args))))))
   (cond ((string? markup-expr)
 	 (format #f "~s" markup-expr))
 	((eqv? (car markup-expr) simple-markup)
@@ -74,6 +76,7 @@
 	(else
 	 (format #f "\\markup ~a"
 		 (markup->lily-string-aux markup-expr)))))
+
 ;;;
 ;;; pitch names
 ;;;
