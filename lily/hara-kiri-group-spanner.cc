@@ -66,7 +66,7 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
   
   assert (scm_to_int (axis) == Y_AXIS);
   consider_suicide (me);
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_parent_callback, 2);
@@ -77,7 +77,7 @@ Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, S
   Axis a = (Axis) scm_to_int (axis);
   assert (a == Y_AXIS);
   force_hara_kiri_callback (daughter->get_parent (a)->self_scm (), axis);
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 void

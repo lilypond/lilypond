@@ -108,7 +108,7 @@ Custos_engraver::process_acknowledged ()
 	    p += scm_to_int (c0);
 
 	  c->set_property ("staff-position",
-			   scm_int2num (p));
+			   scm_from_int (p));
 	}
 
       pitches_.clear ();

@@ -61,8 +61,8 @@ interpret_stencil_expression (SCM expr,
 	{
 	  (*func) (func_arg,
 		   scm_list_4 (ly_symbol2scm ("placebox"),
-			       scm_make_real (o[X_AXIS]),
-			       scm_make_real (o[Y_AXIS]),
+			       scm_from_double (o[X_AXIS]),
+			       scm_from_double (o[Y_AXIS]),
 			       expr));
 	  return;
 	}

@@ -39,7 +39,7 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 	  do_shift (rc);
 	}
     }
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback_rest, 2);
@@ -53,7 +53,7 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM axis)
   if (Note_column::has_interface (parent))
     return force_shift_callback (parent->self_scm (), axis);
   else
-    return scm_make_real (0.0);
+    return scm_from_double (0.0);
 }
 
 void

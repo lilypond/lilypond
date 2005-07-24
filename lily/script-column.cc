@@ -66,7 +66,7 @@ Script_column::before_line_breaking (SCM smob)
 	{
 	  programming_error ("no direction for script");
 	  d = DOWN;
-	  g->set_property ("direction", scm_int2num (d));
+	  g->set_property ("direction", scm_from_int (d));
 	}
 
       scripts_drul[d] = scm_cons (g->self_scm (), scripts_drul[d]);

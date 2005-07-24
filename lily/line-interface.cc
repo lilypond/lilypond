@@ -39,11 +39,11 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
   Real off = dash_period - on;
 
   SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
-		       scm_make_real (thick),
-		       scm_make_real (on),
-		       scm_make_real (off),
-		       scm_make_real (to[X_AXIS] - from[X_AXIS]),
-		       scm_make_real (to[Y_AXIS] - from[Y_AXIS]),
+		       scm_from_double (thick),
+		       scm_from_double (on),
+		       scm_from_double (off),
+		       scm_from_double (to[X_AXIS] - from[X_AXIS]),
+		       scm_from_double (to[Y_AXIS] - from[Y_AXIS]),
 		       SCM_UNDEFINED);
 
   Box box;
@@ -62,11 +62,11 @@ Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-		       scm_make_real (th),
-		       scm_make_real (from[X_AXIS]),
-		       scm_make_real (from[Y_AXIS]),
-		       scm_make_real (to[X_AXIS]),
-		       scm_make_real (to[Y_AXIS]),
+		       scm_from_double (th),
+		       scm_from_double (from[X_AXIS]),
+		       scm_from_double (from[Y_AXIS]),
+		       scm_from_double (to[X_AXIS]),
+		       scm_from_double (to[Y_AXIS]),
 		       SCM_UNDEFINED);
 
   Box box;

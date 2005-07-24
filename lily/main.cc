@@ -726,11 +726,29 @@ parse_argv (int argc, char **argv)
     }
 }
 
+void
+setup_guile_env ()
+{
+  char * yield = getenv ("LILYPOND_GC_YIELD");
+  bool overwrite = true;
+  if (!yield)
+    {
+      yield = "70";
+      overwrite = false;
+    }
+  
+  setenv ("GUILE_MIN_YIELD_1", yield, overwrite);
+  setenv ("GUILE_MIN_YIELD_2", yield, overwrite);
+  setenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
+}
+
+
 int
 main (int argc, char **argv)
 {
   setup_localisation ();
   setup_paths (argv[0]);
+  setup_guile_env ();
   parse_argv (argc, argv);
   if (isatty (STDIN_FILENO))
     identify (stderr);

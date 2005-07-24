@@ -472,16 +472,16 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 
   if (scm_is_number (lp) && !scm_is_number (rp))
     {
-      rp = scm_make_real (scm_to_double (lp) + dy);
+      rp = scm_from_double (scm_to_double (lp) + dy);
     }
   else if (scm_is_number (rp) && !scm_is_number (lp))
     {
-      lp = scm_make_real (scm_to_double (rp) - dy);
+      lp = scm_from_double (scm_to_double (rp) - dy);
     }
   else if (!scm_is_number (rp) && !scm_is_number (lp))
     {
-      lp = scm_make_real (offset);
-      rp = scm_make_real (offset + dy);
+      lp = scm_from_double (offset);
+      rp = scm_from_double (offset + dy);
     }
 
   me->set_property ("left-position", lp);

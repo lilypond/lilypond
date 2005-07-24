@@ -127,7 +127,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 		(_f ("prime interval within ligature -> skipping"));
 	      at_beginning = true;
 	      primitive->set_property ("primitive",
-				       scm_int2num (MLP_NONE));
+				       scm_from_int (MLP_NONE));
 	      continue;
 	    }
 	}
@@ -138,7 +138,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 	  nr->origin ()->warning
 	    (_f ("mensural ligature: duration none of Mx, L, B, S -> skipping"));
 	  primitive->set_property ("primitive",
-				   scm_int2num (MLP_NONE));
+				   scm_from_int (MLP_NONE));
 	  at_beginning = true;
 	  continue;
 	}
@@ -154,7 +154,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 	  if (duration_log == 0)
 	    {
 	      primitive->set_property ("primitive",
-				       scm_int2num (MLP_UP | MLP_BREVIS));
+				       scm_from_int (MLP_UP | MLP_BREVIS));
 	      prev_semibrevis = prev_brevis_shape = true;
 	      general_case = false;
 	    }
@@ -167,7 +167,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 	      int left_stem = duration_log == -1 ? MLP_DOWN : 0;
 
 	      primitive->set_property ("primitive",
-				       scm_int2num (left_stem | MLP_BREVIS));
+				       scm_from_int (left_stem | MLP_BREVIS));
 	      prev_brevis_shape = true;
 	      prev_semibrevis = general_case = false;
 	    }
@@ -178,7 +178,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 	  prev_semibrevis = false;
 	  if (duration_log == 0)
 	    {
-	      primitive->set_property ("primitive", scm_int2num (MLP_BREVIS));
+	      primitive->set_property ("primitive", scm_from_int (MLP_BREVIS));
 	      general_case = false;
 	    }
 	  else
@@ -186,7 +186,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 	      nr->origin ()->warning
 		(_f ("semibrevis must be followed by another one -> skipping"));
 	      primitive->set_property ("primitive",
-				       scm_int2num (MLP_NONE));
+				       scm_from_int (MLP_NONE));
 	      at_beginning = true;
 	      continue;
 	    }
@@ -198,7 +198,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 	    (_f ("semibreves can only appear at the beginning of a ligature,\n"
 		 "and there may be only zero or two of them"));
 	  primitive->set_property ("primitive",
-				   scm_int2num (MLP_NONE));
+				   scm_from_int (MLP_NONE));
 	  at_beginning = true;
 	  continue;
 	}
@@ -212,11 +212,11 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 		{
 		  prev_primitive->set_property
 		    ("primitive",
-		     scm_int2num
+		     scm_from_int
 		     (MLP_FLEXA
 		      | (scm_to_int (prev_primitive->get_property ("primitive"))
 			 & MLP_DOWN)));
-		  primitive->set_property ("primitive", scm_int2num (MLP_NONE));
+		  primitive->set_property ("primitive", scm_from_int (MLP_NONE));
 		  break; // no more notes, no join
 		}
 	      else
@@ -226,14 +226,14 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 			 "when the last note is a descending brevis,\n"
 			 "the penultimate note must be another one,\n"
 			 "or the ligatura must be LB or SSB"));
-		  primitive->set_property ("primitive", scm_int2num (MLP_NONE));
+		  primitive->set_property ("primitive", scm_from_int (MLP_NONE));
 		  break;
 		}
 	    }
 	  // longa
 	  else if (duration_log == -2)
 	    {
-	      primitive->set_property ("primitive", scm_int2num (MLP_BREVIS));
+	      primitive->set_property ("primitive", scm_from_int (MLP_BREVIS));
 	      general_case = false;
 	    }
 	  // else maxima; fall through regular case below
@@ -244,7 +244,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 	  static int const shape[3] = {MLP_MAXIMA, MLP_LONGA, MLP_BREVIS};
 
 	  primitive->set_property ("primitive",
-				   scm_int2num (shape[duration_log + 3]));
+				   scm_from_int (shape[duration_log + 3]));
 	  prev_brevis_shape = duration_log == -1;
 	}
 
@@ -267,7 +267,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
 	      //  ("noteheads.s-2mensural").extent (Y_AXIS).length ()
 	    }
 	  prev_primitive->set_property ("join-right-amount",
-					scm_int2num (delta_pitch));
+					scm_from_int (delta_pitch));
 	  // perhaps set add-join as well
 	}
       at_beginning = false;
@@ -318,28 +318,28 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
       int output = scm_to_int (primitive->get_property ("primitive"));
       primitive->set_property ("thickness",
-			       scm_make_real (thickness));
+			       scm_from_double (thickness));
 
       switch (output & MLP_ANY)
 	{
 	case MLP_NONE:
 	  primitive->set_property ("head-width",
-				   scm_make_real (half_flexa_width));
+				   scm_from_double (half_flexa_width));
 	  break;
 	case MLP_BREVIS:
 	case MLP_LONGA:
 	  primitive->set_property ("head-width",
-				   scm_make_real (head_width));
+				   scm_from_double (head_width));
 	  break;
 	case MLP_MAXIMA:
 	  primitive->set_property ("head-width",
-				   scm_make_real (maxima_head_width));
+				   scm_from_double (maxima_head_width));
 	  break;
 	case MLP_FLEXA:
 	  primitive->set_property ("head-width",
-				   scm_make_real (half_flexa_width));
+				   scm_from_double (half_flexa_width));
 	  primitive->set_property ("flexa-width",
-				   scm_make_real (flexa_width));
+				   scm_from_double (flexa_width));
 	  break;
 	default:
 	  programming_error (_f ("unexpected case fall-through"));

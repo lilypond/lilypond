@@ -59,7 +59,7 @@ Rest_engraver::process_music ()
       int durlog = unsmob_duration (rest_event_->get_property ("duration"))->duration_log ();
 
       rest_->set_property ("duration-log",
-			   scm_int2num (durlog));
+			   scm_from_int (durlog));
 
       int dots = unsmob_duration (rest_event_->get_property ("duration"))->dot_count ();
 
@@ -69,7 +69,7 @@ Rest_engraver::process_music ()
 
 	  Rhythmic_head::set_dots (rest_, dot_);
 	  dot_->set_parent (rest_, Y_AXIS);
-	  dot_->set_property ("dot-count", scm_int2num (dots));
+	  dot_->set_property ("dot-count", scm_from_int (dots));
 	}
 
       Pitch *p = unsmob_pitch (rest_event_->get_property ("pitch"));
@@ -85,7 +85,7 @@ Rest_engraver::process_music ()
 	  if (scm_is_number (c0))
 	    pos += scm_to_int (c0);
 
-	  rest_->set_property ("staff-position", scm_int2num (pos));
+	  rest_->set_property ("staff-position", scm_from_int (pos));
 	}
     }
 }

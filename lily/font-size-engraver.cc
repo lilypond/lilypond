@@ -46,7 +46,7 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
 
   Real font_size = size
     + robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
-  gi.grob ()->set_property ("font-size", scm_make_real (font_size));
+  gi.grob ()->set_property ("font-size", scm_from_double (font_size));
 }
 
 #include "translator.icc"

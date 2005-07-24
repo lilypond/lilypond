@@ -192,15 +192,15 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
 
   SCM previous_alteration = SCM_BOOL_F;
 
-  SCM from_same_octave = ly_assoc_get (scm_cons (scm_int2num (o),
-						 scm_int2num (n)), sig, SCM_BOOL_F);
-  SCM from_key_signature = ly_assoc_get (scm_int2num (n), sig, SCM_BOOL_F);
+  SCM from_same_octave = ly_assoc_get (scm_cons (scm_from_int (o),
+						 scm_from_int (n)), sig, SCM_BOOL_F);
+  SCM from_key_signature = ly_assoc_get (scm_from_int (n), sig, SCM_BOOL_F);
   SCM from_other_octaves = SCM_BOOL_F;
   for (SCM s = sig; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       if (scm_is_pair (scm_car (entry))
-	  && scm_cdar (entry) == scm_int2num (n))
+	  && scm_cdar (entry) == scm_from_int (n))
 	from_other_octaves = scm_cdr (entry);
     }
 
@@ -386,12 +386,12 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
   else
     a = make_standard_accidental (note, support, entry->origin_engraver_);
  
-  SCM accs = scm_cons (scm_int2num (pitch->get_alteration ()),
+  SCM accs = scm_cons (scm_from_int (pitch->get_alteration ()),
 		       SCM_EOL);
   if (restore_natural)
     {
       if (to_boolean (get_property ("extraNatural")))
-	accs = scm_cons (scm_int2num (0), accs);
+	accs = scm_cons (scm_from_int (0), accs);
     }
   
   /* TODO: add cautionary option in accidental. */
@@ -504,7 +504,7 @@ Accidental_engraver::stop_translation_timestep ()
       int n = pitch->get_notename ();
       int o = pitch->get_octave ();
       int a = pitch->get_alteration ();
-      SCM key = scm_cons (scm_int2num (o), scm_int2num (n));
+      SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
 
       SCM localsig = SCM_EOL;
       while (origin
@@ -518,7 +518,7 @@ Accidental_engraver::stop_translation_timestep ()
 		that of the tied note and of the key signature.
 	      */
 	      localsig = ly_assoc_front_x
-		(localsig, key, scm_cons (SCM_BOOL_T, scm_int2num (barnum)));
+		(localsig, key, scm_cons (SCM_BOOL_T, scm_from_int (barnum)));
 
 	      change = true;
 	    }
@@ -529,8 +529,8 @@ Accidental_engraver::stop_translation_timestep ()
 		noteheads with the same notename.
 	      */
 	      localsig = ly_assoc_front_x (localsig, key,
-					   scm_cons (scm_int2num (a),
-						     scm_int2num (barnum)));
+					   scm_cons (scm_from_int (a),
+						     scm_from_int (barnum)));
 	      change = true;
 	    }
 

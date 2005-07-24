@@ -228,7 +228,7 @@ Dynamic_engraver::process_music ()
 						     finished_cresc_);
 		}
 	      cresc_->set_property ("grow-direction",
-				    scm_int2num ((start_type == "crescendo")
+				    scm_from_int ((start_type == "crescendo")
 						 ? BIGGER : SMALLER));
 	    }
 

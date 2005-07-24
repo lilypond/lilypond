@@ -133,7 +133,7 @@ Beam::check_concave (SCM smob)
 
       r /= Staff_symbol_referencer::staff_space (me);
       me->set_property ("positions", ly_interval2scm (Drul_array<Real> (r, r)));
-      me->set_property ("least-squares-dy", scm_make_real (0));
+      me->set_property ("least-squares-dy", scm_from_double (0));
     }
   else
     {

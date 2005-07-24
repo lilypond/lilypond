@@ -105,7 +105,7 @@ do_break_substitution (SCM src)
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
       for (int i = 0; i < len; i++)
 	{
-	  SCM si = scm_int2num (i);
+	  SCM si = scm_from_int (i);
 	  scm_vector_set_x (nv, si,
 			    do_break_substitution (scm_vector_ref (src, si)));
 	}

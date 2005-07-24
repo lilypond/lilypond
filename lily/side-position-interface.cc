@@ -125,7 +125,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
       programming_error (msg);
     }
-  return scm_make_real (total_off);
+  return scm_from_double (total_off);
 }
 
 /*
@@ -184,9 +184,9 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
 	  rp += d;
 	}
 
-      return scm_make_real ((rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0);
+      return scm_from_double ((rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0);
     }
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 /*
@@ -235,7 +235,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
       o += d * max (diff, 0.0);
     }
 
-  return scm_make_real (o);
+  return scm_from_double (o);
 }
 
 void

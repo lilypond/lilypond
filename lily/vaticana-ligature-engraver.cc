@@ -262,7 +262,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
        * Save the head's final x-offset.
        */
       primitive->set_property ("x-offset",
-			       scm_make_real (x_offset));
+			       scm_from_double (x_offset));
 
       /*
        * If the head is the 2nd head of a pes or flexa (but not a
@@ -389,7 +389,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	{
 	  context_info |= STACKED_HEAD;
 	  primitive->set_property ("context-info",
-				   scm_int2num (context_info));
+				   scm_from_int (context_info));
 	}
 
       /*
@@ -527,16 +527,16 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	  check_for_prefix_loss (prev_primitive);
 	  prev_glyph_name = "flexa";
 	  prev_primitive->set_property ("flexa-height",
-					scm_int2num (prev_delta_pitch));
+					scm_from_int (prev_delta_pitch));
 	  prev_primitive->set_property ("flexa-width",
-					scm_make_real (flexa_width));
+					scm_from_double (flexa_width));
 	  bool add_cauda = !(prev_prefix_set && PES_OR_FLEXA);
 	  prev_primitive->set_property ("add-cauda",
 					ly_bool2scm (add_cauda));
 	  check_for_prefix_loss (primitive);
 	  glyph_name = "";
 	  primitive->set_property ("flexa-width",
-				   scm_make_real (flexa_width));
+				   scm_from_double (flexa_width));
 	}
 
       /*
@@ -569,7 +569,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        * ligature grob's value for thickness to each ligature head (even
        * if not all of them need to know).
        */
-      primitive->set_property ("thickness", scm_make_real (thickness));
+      primitive->set_property ("thickness", scm_from_double (thickness));
 
       prev_primitive = primitive;
       prev_prefix_set = prefix_set;
@@ -592,7 +592,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 			     "setting `spacing-increment = %f': ptr =%ul",
 			     ligature_width, paper_column));
   paper_column->
-    set_property ("forced-spacing", scm_make_real (ligature_width));
+    set_property ("forced-spacing", scm_from_double (ligature_width));
 #endif
 }
 

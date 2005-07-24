@@ -40,7 +40,7 @@ Dot_column::force_shift_callback (SCM element_smob, SCM axis)
 
       do_shifts (me);
     }
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 MAKE_SCHEME_CALLBACK (Dot_column, side_position, 2);

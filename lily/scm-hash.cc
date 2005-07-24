@@ -35,7 +35,7 @@ Scheme_hash_table::Scheme_hash_table ()
 {
   hash_tab_ = SCM_EOL;
   smobify_self ();
-  hash_tab_ = scm_make_vector (scm_int2num (119), SCM_EOL);
+  hash_tab_ = scm_make_vector (scm_from_int (119), SCM_EOL);
   elt_count_ = 0;
 }
 
@@ -46,7 +46,7 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
   elt_count_ = 0;
   smobify_self ();
 
-  hash_tab_ = scm_make_vector (scm_int2num (max ((int) src.elt_count_, 11)), SCM_EOL);
+  hash_tab_ = scm_make_vector (scm_from_int (max ((int) src.elt_count_, 11)), SCM_EOL);
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
@@ -56,7 +56,7 @@ Scheme_hash_table::operator = (Scheme_hash_table const &src)
   if (&src == this)
     return;
 
-  hash_tab_ = scm_make_vector (scm_int2num (max ((int) src.elt_count_, 11)), SCM_EOL);
+  hash_tab_ = scm_make_vector (scm_from_int (max ((int) src.elt_count_, 11)), SCM_EOL);
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
@@ -117,7 +117,7 @@ Scheme_hash_table::set (SCM k, SCM v)
   */
   if (elt_count_ > 2 * scm_c_vector_length (hash_tab_))
     {
-      SCM nh = scm_make_vector (scm_int2num (3 * elt_count_ + 1), SCM_EOL);
+      SCM nh = scm_make_vector (scm_from_int (3 * elt_count_ + 1), SCM_EOL);
       elt_count_ = copy_scm_hashes (nh, hash_tab_);
       hash_tab_ = nh;
     }
@@ -146,7 +146,7 @@ Scheme_hash_table::to_alist () const
 {
   SCM lst = SCM_EOL;
   for (int i = scm_c_vector_length (hash_tab_); i--;)
-    for (SCM s = scm_vector_ref (hash_tab_, scm_int2num (i)); scm_is_pair (s);
+    for (SCM s = scm_vector_ref (hash_tab_, scm_from_int (i)); scm_is_pair (s);
 	 s = scm_cdr (s))
       lst = scm_acons (scm_caar (s), scm_cdar (s), lst);
   return lst;

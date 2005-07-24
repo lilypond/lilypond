@@ -223,7 +223,7 @@ Completion_heads_engraver::process_music ()
 
       Item *note = make_item ("NoteHead", event->self_scm ());
       note->set_property ("duration-log",
-			  scm_int2num (note_dur.duration_log ()));
+			  scm_from_int (note_dur.duration_log ()));
 
       int dots = note_dur.dot_count ();
       if (dots)
@@ -235,7 +235,7 @@ Completion_heads_engraver::process_music ()
 	    measly attempt to save an eeny-weenie bit of memory.
 	  */
 	  if (dots != scm_to_int (d->get_property ("dot-count")))
-	    d->set_property ("dot-count", scm_int2num (dots));
+	    d->set_property ("dot-count", scm_from_int (dots));
 
 	  d->set_parent (note, Y_AXIS);
 	  dots_.push (d);
@@ -248,7 +248,7 @@ Completion_heads_engraver::process_music ()
       if (scm_is_number (c0))
 	pos += scm_to_int (c0);
 
-      note->set_property ("staff-position", scm_int2num (pos));
+      note->set_property ("staff-position", scm_from_int (pos));
       notes_.push (note);
     }
 

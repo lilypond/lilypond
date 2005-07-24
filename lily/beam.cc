@@ -74,7 +74,7 @@ Beam::get_beam_translation (Grob *me)
 
   if (ly_is_procedure (func))
     {
-      SCM s = scm_call_2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
+      SCM s = scm_call_2 (func, me->self_scm (), scm_from_int (get_beam_count (me)));
       return scm_to_double (s);
     }
   else
@@ -115,7 +115,7 @@ Beam::space_function (SCM smob, SCM beam_count)
     ? (2 * staff_space + line - thickness) / 2.0
     : (3 * staff_space + line - thickness) / 3.0;
 
-  return scm_make_real (beam_translation);
+  return scm_from_double (beam_translation);
 }
 
 /* After pre-processing all directions should be set.
@@ -200,7 +200,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
       for (SCM s = scm_car (right_beaming); scm_is_pair (s); s = scm_cdr (s))
 	{
 	  int k = -right_dir * scm_to_int (scm_car (s)) + i;
-	  if (scm_c_memq (scm_int2num (k), left_beaming) != SCM_BOOL_F)
+	  if (scm_c_memq (scm_from_int (k), left_beaming) != SCM_BOOL_F)
 	    count++;
 	}
 
@@ -250,7 +250,7 @@ Beam::connect_beams (Grob *me)
 		    = start_point - this_dir * scm_to_int (scm_car (s));
 
 		  new_slice.add_point (new_beam_pos);
-		  scm_set_car_x (s, scm_int2num (new_beam_pos));
+		  scm_set_car_x (s, scm_from_int (new_beam_pos));
 		}
 	    }
 	  while (flip (&d) != LEFT);
@@ -265,7 +265,7 @@ Beam::connect_beams (Grob *me)
 	  for (; scm_is_pair (s); s = scm_cdr (s))
 	    {
 	      int np = -this_dir * scm_to_int (scm_car (s));
-	      scm_set_car_x (s, scm_int2num (np));
+	      scm_set_car_x (s, scm_from_int (np));
 	      last_int.add_point (np);
 	    }
 	}
@@ -438,7 +438,7 @@ Beam::print (SCM grob)
 	      int t = Stem::duration_log (st);
 
 	      SCM proc = me->get_property ("flag-width-function");
-	      SCM result = scm_call_1 (proc, scm_int2num (t));
+	      SCM result = scm_call_1 (proc, scm_from_int (t));
 	      nw_f = scm_to_double (result);
 	    }
 	  else
@@ -544,10 +544,10 @@ Beam::get_default_dir (Grob *me)
 
   SCM func = me->get_property ("dir-function");
   SCM s = scm_call_2 (func,
-		      scm_cons (scm_int2num (count[UP]),
-				scm_int2num (count[DOWN])),
-		      scm_cons (scm_int2num (total[UP]),
-				scm_int2num (total[DOWN])));
+		      scm_cons (scm_from_int (count[UP]),
+				scm_from_int (count[DOWN])),
+		      scm_cons (scm_from_int (total[UP]),
+				scm_from_int (total[DOWN])));
 
   if (scm_is_number (s) && scm_to_int (s))
     return to_dir (s);
@@ -675,7 +675,7 @@ Beam::consider_auto_knees (Grob *me)
 	  Direction d = (head_extents.center () < max_gap.center ())
 	    ? UP : DOWN;
 
-	  stem->set_property ("direction", scm_int2num (d));
+	  stem->set_property ("direction", scm_from_int (d));
 
 	  head_extents.intersect (max_gap);
 	  assert (head_extents.is_empty () || head_extents.length () < 1e-6);
@@ -720,7 +720,7 @@ Beam::set_stem_shorten (Grob *me)
   shorten_f *= forced_fraction;
 
   if (shorten_f)
-    me->set_property ("shorten", scm_make_real (shorten_f));
+    me->set_property ("shorten", scm_from_double (shorten_f));
 }
 
 /*  Call list of y-dy-callbacks, that handle setting of
@@ -860,7 +860,7 @@ Beam::least_squares (SCM smob)
 	where the second part goes.
       */
       me->set_property ("least-squares-dy",
-			scm_make_real (pos[RIGHT] - pos[LEFT]));
+			scm_from_double (pos[RIGHT] - pos[LEFT]));
     }
   else
     {
@@ -881,7 +881,7 @@ Beam::least_squares (SCM smob)
       dy = slope * dx;
 
       set_minimum_dy (me, &dy);
-      me->set_property ("least-squares-dy", scm_make_real (dy));
+      me->set_property ("least-squares-dy", scm_from_double (dy));
       pos = Interval (y, (y + dy));
     }
 
@@ -1278,19 +1278,19 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   (void) axis;
 
   if (scm_is_number (rest->get_property ("staff-position")))
-    return scm_int2num (0);
+    return scm_from_int (0);
 
   assert (scm_to_int (axis) == Y_AXIS);
 
   Grob *st = unsmob_grob (rest->get_object ("stem"));
   Grob *stem = st;
   if (!stem)
-    return scm_make_real (0.0);
+    return scm_from_double (0.0);
   Grob *beam = unsmob_grob (stem->get_object ("beam"));
   if (!beam
       || !Beam::has_interface (beam)
       || !Beam::visible_stem_count (beam))
-    return scm_make_real (0.0);
+    return scm_from_double (0.0);
 
   Drul_array<Real> pos (0, 0);
   SCM s = beam->get_property ("positions");
@@ -1345,7 +1345,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
       < rad)
     shift = ceil (fabs (shift)) * sign (shift);
 
-  return scm_make_real (staff_space * shift);
+  return scm_from_double (staff_space * shift);
 }
 
 bool

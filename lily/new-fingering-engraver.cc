@@ -159,7 +159,7 @@ New_fingering_engraver::add_fingering (Grob *head,
       */
       event->origin ()->warning (_ ("music for the martians."));
     }
-  SCM sstr = scm_number_to_string (scm_int2num (d), scm_int2num (10));
+  SCM sstr = scm_number_to_string (scm_from_int (d), scm_from_int (10));
   ft.script_->set_property ("text", sstr);
 
   ft.finger_event_ = event;
@@ -183,7 +183,7 @@ New_fingering_engraver::add_string (Grob *head,
 
   int d = scm_to_int (event->get_property ("string-number"));
 
-  SCM sstr = scm_number_to_string (scm_int2num (d), scm_int2num (10));
+  SCM sstr = scm_number_to_string (scm_from_int (d), scm_from_int (10));
   ft.script_->set_property ("text", sstr);
 
   ft.finger_event_ = event;
@@ -282,7 +282,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, Y_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS);
 
-      f->set_property ("direction", scm_int2num (hordir));
+      f->set_property ("direction", scm_from_int (hordir));
     }
 
   int finger_prio = 200;
@@ -292,12 +292,12 @@ New_fingering_engraver::position_scripts (SCM orientations,
       Grob *f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
-		       scm_int2num (finger_prio + ft.position_));
+		       scm_from_int (finger_prio + ft.position_));
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
 
-      f->set_property ("direction", scm_int2num (UP));
+      f->set_property ("direction", scm_from_int (UP));
     }
 
   for (int i = 0; i < down.size (); i++)
@@ -306,12 +306,12 @@ New_fingering_engraver::position_scripts (SCM orientations,
       Grob *f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
-		       scm_int2num (finger_prio + down.size () - ft.position_));
+		       scm_from_int (finger_prio + down.size () - ft.position_));
 
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
-      f->set_property ("direction", scm_int2num (DOWN));
+      f->set_property ("direction", scm_from_int (DOWN));
     }
 }
 

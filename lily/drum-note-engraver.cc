@@ -65,7 +65,7 @@ Drum_notes_engraver::process_music ()
 
       Duration dur = *unsmob_duration (ev->get_property ("duration"));
 
-      note->set_property ("duration-log", scm_int2num (dur.duration_log ()));
+      note->set_property ("duration-log", scm_from_int (dur.duration_log ()));
 
       if (dur.dot_count ())
 	{
@@ -74,7 +74,7 @@ Drum_notes_engraver::process_music ()
 
 	  if (dur.dot_count ()
 	      != robust_scm2int (d->get_property ("dot-count"), 0))
-	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
+	    d->set_property ("dot-count", scm_from_int (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
 

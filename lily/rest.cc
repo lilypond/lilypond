@@ -41,12 +41,12 @@ Rest::after_line_breaking (SCM smob)
   if (d && bt > 4) // UGH.
     {
       d->set_property ("staff-position",
-		       scm_int2num ((bt == 7) ? 4 : 3));
+		       scm_from_int ((bt == 7) ? 4 : 3));
     }
   if (d && bt >= -1 && bt <= 1) // UGH again.
     {
       d->set_property ("staff-position",
-		       scm_int2num ((bt == 0) ? -1 : 1));
+		       scm_from_int ((bt == 0) ? -1 : 1));
     }
   return SCM_UNSPECIFIED;
 }
@@ -175,14 +175,14 @@ Rest::polyphonic_offset_callback (SCM smob, SCM)
 {
   Grob *me = unsmob_grob (smob);
   if (scm_is_number (me->get_property ("staff-position")))
-    return scm_make_real (0);
+    return scm_from_double (0);
 
   Direction d = get_grob_direction (me);
   Real off = 2 * d;
   if (off)
     off *= Staff_symbol_referencer::staff_space (me);
 
-  return scm_make_real (off);
+  return scm_from_double (off);
 }
 
 ADD_INTERFACE (Rest, "rest-interface",

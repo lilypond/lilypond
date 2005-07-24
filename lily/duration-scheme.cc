@@ -71,7 +71,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
       compress = true;
     }
   else
-    num = scm_int2num (1);
+    num = scm_from_int (1);
 
   if (den != SCM_UNDEFINED)
     {
@@ -79,7 +79,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
       compress = true;
     }
   else
-    den = scm_int2num (1);
+    den = scm_from_int (1);
 
   Duration p (scm_to_int (length), dots);
   if (compress)
@@ -93,7 +93,7 @@ LY_DEFINE (ly_duration_log, "ly:duration-log",
 	   "Extract the duration log from @var{dur}")
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
-  return scm_int2num (unsmob_duration (dur)->duration_log ());
+  return scm_from_int (unsmob_duration (dur)->duration_log ());
 }
 
 LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
@@ -101,7 +101,7 @@ LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
 	   "Extract the dot count from @var{dur}")
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
-  return scm_int2num (unsmob_duration (dur)->dot_count ());
+  return scm_from_int (unsmob_duration (dur)->dot_count ());
 }
 
 LY_DEFINE (ly_intlog2, "ly:intlog2",
@@ -110,7 +110,7 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
 {
   SCM_ASSERT_TYPE (scm_is_number (d), d, SCM_ARG1, __FUNCTION__, "integer");
   int log = intlog2 (scm_to_int (d));
-  return scm_int2num (log);
+  return scm_from_int (log);
 }
 
 LY_DEFINE (ly_duration_factor, "ly:duration-factor",
@@ -119,5 +119,5 @@ LY_DEFINE (ly_duration_factor, "ly:duration-factor",
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   Rational r = unsmob_duration (dur)->factor ();
-  return scm_cons (scm_int2num (r.num ()), scm_int2num (r.den ()));
+  return scm_cons (scm_from_int (r.num ()), scm_from_int (r.den ()));
 }

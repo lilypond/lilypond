@@ -133,7 +133,7 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
 	     to the head.  */
 	  int prio = scm_to_int (val) + index;
 
-	  val = scm_int2num (prio);
+	  val = scm_from_int (prio);
 	}
       if (p->internal_get_property (sym) == SCM_EOL)
 	p->internal_set_property (sym, val);
@@ -142,7 +142,7 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
   if (!priority_found)
     {
       p->set_property ("script-priority",
-		       scm_int2num (index));
+		       scm_from_int (index));
     }
 
   Side_position_interface::set_axis (p, Y_AXIS);

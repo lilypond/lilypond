@@ -214,7 +214,7 @@ Accidental_interface::print (SCM smob)
       */
       ac = scm_cons (scm_list_1 (scm_cons
 				 (ly_symbol2scm ("font-size"),
-				  scm_int2num (-2))),
+				  scm_from_int (-2))),
 		     ac);
       fm = select_font (me->get_layout (), ac);
     }

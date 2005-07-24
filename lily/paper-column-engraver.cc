@@ -142,7 +142,7 @@ Paper_column_engraver::process_music ()
       if (scm_is_number (mpen))
 	total_penalty += scm_to_double (mpen);
 
-      command_column_->set_property ("penalty", scm_make_real (total_penalty));
+      command_column_->set_property ("penalty", scm_from_double (total_penalty));
 
       /* ugh.  arbitrary, hardcoded */
       if (total_penalty > 10000.0)
@@ -154,7 +154,7 @@ Paper_column_engraver::process_music ()
       if (scm_is_number (mpage_pen))
 	total_pp += scm_to_double (mpage_pen);
 
-      command_column_->set_property ("page-penalty", scm_make_real (total_pp));
+      command_column_->set_property ("page-penalty", scm_from_double (total_pp));
     }
 
 

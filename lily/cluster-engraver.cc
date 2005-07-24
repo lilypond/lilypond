@@ -92,8 +92,8 @@ Cluster_spanner_engraver::process_music ()
 
       beacon_ = make_item ("ClusterSpannerBeacon", cluster_notes_[0]->self_scm ());
       beacon_->set_property ("positions",
-			     scm_cons (scm_int2num (pmin),
-				       scm_int2num (pmax)));
+			     scm_cons (scm_from_int (pmin),
+				       scm_from_int (pmax)));
     }
 
   if (beacon_ && !spanner_)

@@ -154,7 +154,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 
       if (Stem::duration_log (s) != 1)
 	{
-	  beam_->set_property ("gap-count", scm_int2num (flags_ - total_duration_flags_));
+	  beam_->set_property ("gap-count", scm_from_int (flags_ - total_duration_flags_));
 	}
 
       if (info.music_cause ()->is_mus_type ("rhythmic-event"))
@@ -176,7 +176,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
     {
       stem_tremolo_ = make_item ("StemTremolo", repeat_->self_scm ());
       stem_tremolo_->set_property ("flag-count",
-				   scm_int2num (flags_));
+				   scm_from_int (flags_));
       stem_tremolo_->set_object ("stem",
 				   info.grob ()->self_scm ());
       stem_tremolo_->set_parent (info.grob (), X_AXIS);

@@ -96,7 +96,7 @@ LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 {
   Output_def *b = unsmob_output_def (bp);
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
-  return scm_make_real (output_scale (b));
+  return scm_from_double (output_scale (b));
 }
 
 LY_DEFINE (ly_make_output_def, "ly:make-output-def",
@@ -130,7 +130,7 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
   Output_def *layout = unsmob_output_def (layout_smob);
   SCM_ASSERT_TYPE (layout, layout_smob, SCM_ARG1,
 		   __FUNCTION__, "layout definition");
-  return scm_make_real (layout->get_dimension (name));
+  return scm_from_double (layout->get_dimension (name));
 }
 
 LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
