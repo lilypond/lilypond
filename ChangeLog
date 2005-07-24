@@ -6,8 +6,6 @@
 	* lily/bezier.cc (get_other_coordinate): use curve_coordinate
 	(curve_coordinate): new function
 
-	* flower/include/parray.hh (binsearch): add lo,hi range to arguments.
-
 	* lily/simple-spacer.cc (add_columns): only add rods between
 	column i and begin/end if keep-inside-line is set (this repleces
 	allow-outside-line as default)
@@ -29,7 +27,7 @@
 	interface-list.
 
 	* lily/include/translator-dispatch-list.hh (class
-	Engraver_dispatch_list): new struct., new file.
+	Engraver_dispatch_list): new struct, new file.
 
 	* scm/define-context-properties.scm
 	(all-internal-translation-properties): remove acceptHashTable,
