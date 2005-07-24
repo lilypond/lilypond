@@ -32,6 +32,18 @@ See user manual, \NAME\
 
 
 @itemize @bullet
+
+@item
+Music expressions can be displayed, in LilyPond notation, using the
+new @code{\displayLilyMusic} function. For instance:
+@verbatim
+\displayLilyMusic \transpose c a, { c d e f }
+@end verbatim
+will print:
+@verbatim
+{ a, b, cis d }
+@end verbatim
+
 @item
 The current bar number may be checked with @code{\barNumberCheck}, eg.
 
