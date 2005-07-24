@@ -70,6 +70,7 @@ Grob::Grob (SCM basicprops,
     {
       ((Object_key*)key_)->unprotect ();
     }
+  
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
     {
@@ -83,14 +84,23 @@ Grob::Grob (SCM basicprops,
   creation. Convenient eg. when using \override with
   StaffSymbol.  */
 
-  char const *onames[] = {"X-offset-callbacks", "Y-offset-callbacks"};
-  char const *xnames[] = {"X-extent", "Y-extent"};
-  char const *enames[] = {"X-extent-callback", "Y-extent-callback"};
+  SCM off_callbacks[] = {
+    get_property ("X-offset-callbacks"),
+    get_property ("Y-offset-callbacks")
+  };
+  SCM extents[] = {
+    get_property ("X-extent"),
+    get_property ("Y-extent")
+  };
+  SCM extent_callbacks[] = {
+    get_property ("X-extent-callback"),
+    get_property ("Y-extent-callback")
+  };
 
   for (int a = X_AXIS; a <= Y_AXIS; a++)
     {
-      SCM l = get_property (onames[a]);
-
+      SCM l = off_callbacks[a];
+	
       if (scm_ilength (l) >= 0)
 	{
 	  dim_cache_[a].offset_callbacks_ = l;
@@ -99,13 +109,13 @@ Grob::Grob (SCM basicprops,
       else
 	programming_error ("[XY]-offset-callbacks must be a list");
 
-      SCM cb = get_property (enames[a]);
+      SCM cb = extent_callbacks[a];
       if (cb == SCM_BOOL_F)
 	{
 	  dim_cache_[a].dimension_ = SCM_BOOL_F;
 	}
 
-      SCM xt = get_property (xnames[a]);
+      SCM xt = extents[a];
       if (is_number_pair (xt))
 	{
 	  dim_cache_[a].dimension_ = xt;

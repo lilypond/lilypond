@@ -7,10 +7,12 @@
 
 #include "interval.hh"
 #include "offset.hh"
+#include "smobs.hh"
 
 class Box
 {
   Interval interval_a_[NO_AXES];
+  DECLARE_SIMPLE_SMOBS(Box,);
 public:
   Interval &x () {return interval_a_[X_AXIS]; }
   Interval &y (){ return interval_a_[Y_AXIS]; }

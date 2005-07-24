@@ -17,6 +17,13 @@ to_string (String s)
   return s;
 }
 
+INLINE
+char const *
+String::to_str0 () const
+{
+  return strh_.to_str0 ();
+}
+
 // because char const* also has an operator ==, this is for safety:
 INLINE
 bool

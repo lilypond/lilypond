@@ -16,7 +16,7 @@
 #include "misc.hh"
 #include "item.hh"
 #include "program-option.hh"
-
+#include "profile.hh"
 
 SCM
 Grob::get_property_alist_chain (SCM def) const
@@ -97,34 +97,7 @@ Grob::internal_set_property (SCM sym, SCM v)
 
 //#define PROFILE_PROPERTY_ACCESSES
 
-SCM grob_property_lookup_table;
-LY_DEFINE(ly_property_lookup_stats, "ly:grob-property-lookup-stats",
-	  0,0,0, (),
-	  "")
-{
-  return grob_property_lookup_table ?  grob_property_lookup_table :
-    scm_c_make_hash_table (1);
-}
 
-void
-note_property_access (SCM *table, SCM sym)
-{
-  /*
-    Statistics: which properties are looked up? 
-  */
-  if (!*table)
-    *table = scm_permanent_object (scm_c_make_hash_table (259));
-  
-  SCM hashhandle = scm_hashq_get_handle (*table, sym);
-  if (hashhandle == SCM_BOOL_F)
-    {
-      scm_hashq_set_x (*table, sym, scm_from_int (0));
-      hashhandle = scm_hashq_get_handle (*table, sym);
-    }
-
-  int count = scm_to_int (scm_cdr (hashhandle)) + 1;  
-  scm_set_cdr_x (hashhandle, scm_from_int (count));
-}
 
 
 SCM
