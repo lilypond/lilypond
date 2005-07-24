@@ -19,7 +19,7 @@ class Forbid_line_break_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Forbid_line_break_engraver);
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void start_translation_timestep ();
 };
 
 Forbid_line_break_engraver::Forbid_line_break_engraver ()

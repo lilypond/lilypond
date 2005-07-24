@@ -34,7 +34,7 @@ protected:
   void make_stem (Grob_info);
 
   DECLARE_ACKNOWLEDGER(rhythmic_head);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual bool try_music (Music *);
 };
 

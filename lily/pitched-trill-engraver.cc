@@ -30,9 +30,9 @@ protected:
   DECLARE_ACKNOWLEDGER( note_head);
   DECLARE_ACKNOWLEDGER( dots);
   DECLARE_ACKNOWLEDGER( text_spanner);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   virtual bool try_music (Music*);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 private:
   Item *trill_head_;
   Item *trill_group_;

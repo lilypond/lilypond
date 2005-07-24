@@ -33,8 +33,8 @@ protected:
   DECLARE_ACKNOWLEDGER(bar_line);
   DECLARE_ACKNOWLEDGER(axis_group);
   
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void process_music ();
   
 };
 

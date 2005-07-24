@@ -25,8 +25,8 @@ public:
 
 protected:
   virtual void finalize ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  void stop_translation_timestep ();
+  void process_acknowledged ();
 
 private:
   void typeset_bar ();

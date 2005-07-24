@@ -24,11 +24,11 @@ class Tie_performer : public Performer
   bool ties_created_;
 
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
   virtual void acknowledge_audio_element (Audio_element_info);
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
 };

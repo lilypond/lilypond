@@ -18,7 +18,7 @@ class Performer_group_performer : public virtual Translator_group
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group,Performer_group_performer);
 
-  PRECOMPUTED_VIRTUAL void do_announces ();
+  void do_announces ();
   virtual void announce_element (Audio_element_info);
   virtual void play_element (Audio_element *p);
   virtual int get_tempo () const;

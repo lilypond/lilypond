@@ -51,7 +51,7 @@ class New_fingering_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER(rhythmic_head);
   DECLARE_ACKNOWLEDGER(stem);
   void add_fingering (Grob *, Music *, Music *);

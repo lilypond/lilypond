@@ -22,7 +22,7 @@ protected:
   Spanner *grouping_;
   Rational stop_grouping_mom_;
 
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER(note_column);
 };

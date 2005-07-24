@@ -23,8 +23,8 @@ public:
   TRANSLATOR_DECLARATIONS (Fingering_engraver);
 protected:
   virtual bool try_music (Music *m);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void process_music ();
   DECLARE_ACKNOWLEDGER(rhythmic_head);
   DECLARE_ACKNOWLEDGER(stem);
 

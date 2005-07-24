@@ -26,9 +26,9 @@ class Bar_number_engraver : public Engraver
 protected:
   Item *text_;
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER(break_aligned);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   void create_items ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
 };

@@ -24,8 +24,8 @@ public:
 
 protected:
   virtual bool try_music (Music *ev);
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void start_translation_timestep ();
+  void process_music ();
   void set_melisma (bool);
 private:
   Music *start_ev_;

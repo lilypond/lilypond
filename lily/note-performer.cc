@@ -24,7 +24,7 @@ public:
 protected:
   virtual bool try_music (Music *ev);
 
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:

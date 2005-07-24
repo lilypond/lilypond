@@ -20,7 +20,7 @@ public:
 
 protected:
   virtual void finalize ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
  
   DECLARE_ACKNOWLEDGER(ledgered);
   DECLARE_ACKNOWLEDGER(staff_symbol);

@@ -65,10 +65,10 @@ public:
 
 protected:
   virtual void initialize ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void start_translation_timestep ();
   virtual bool try_music (Music *event);
-  PRECOMPUTED_VIRTUAL void process_music ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_music ();
+  void stop_translation_timestep ();
 };
 
 void

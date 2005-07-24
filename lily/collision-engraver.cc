@@ -19,8 +19,8 @@ class Collision_engraver : public Engraver
 
 protected:
   DECLARE_ACKNOWLEDGER(note_column);
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_acknowledged ();
+  void stop_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS (Collision_engraver);
 };

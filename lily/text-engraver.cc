@@ -24,8 +24,8 @@ public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
 protected:
   virtual bool try_music (Music *m);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  void stop_translation_timestep ();
+  void process_acknowledged ();
 
   DECLARE_ACKNOWLEDGER(stem);
   DECLARE_ACKNOWLEDGER(rhythmic_head);

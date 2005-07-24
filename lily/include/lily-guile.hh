@@ -159,4 +159,17 @@ typedef SCM (*Scheme_function_1) (...);
 typedef SCM (*Scheme_function_2) (...);
 typedef SCM (*Scheme_function_3) (...);
 #endif
+
+
+#define scm_cdr ly_cdr 
+#define scm_car ly_car
+#define scm_is_pair ly_is_pair
+
+inline SCM ly_car (SCM x) { return SCM_CAR (x); }
+inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
+inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
+
+
+
+
 #endif /* LILY_GUILE_HH */

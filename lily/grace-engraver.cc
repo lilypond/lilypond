@@ -14,7 +14,7 @@ class Grace_engraver : public Engraver
 {
   void consider_change_grace_settings ();
 protected:
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void start_translation_timestep ();
   virtual void derived_mark () const;
   virtual void initialize (); 
 

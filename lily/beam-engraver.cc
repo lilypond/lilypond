@@ -51,12 +51,12 @@ protected:
   void set_melisma (bool);
 
   Moment last_stem_added_at_;
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
   virtual void finalize ();
 
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 
   virtual bool valid_start_point ();
   virtual bool valid_end_point ();

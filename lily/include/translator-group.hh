@@ -58,8 +58,8 @@ public:
   virtual void initialize ();
   virtual void finalize ();
 
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
   
   virtual void fetch_precomputable_methods (Translator_group_void_method[]);
   

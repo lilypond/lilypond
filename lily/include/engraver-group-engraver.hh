@@ -22,7 +22,7 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR ( Translator_group, Engraver_group_engraver);
   Engraver_group_engraver ();
   virtual void derived_mark () const;
-  PRECOMPUTED_VIRTUAL void do_announces ();
+  void do_announces ();
   virtual void announce_grob (Grob_info);
   int pending_grob_count () const;
 private:

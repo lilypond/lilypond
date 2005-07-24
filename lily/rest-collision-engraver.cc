@@ -18,8 +18,8 @@ class Rest_collision_engraver : public Engraver
   Link_array<Grob> note_columns_;
 protected:
   DECLARE_ACKNOWLEDGER(note_column);
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_acknowledged ();
+  void stop_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS (Rest_collision_engraver);
 };

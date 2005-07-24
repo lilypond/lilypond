@@ -25,8 +25,8 @@ public:
   DECLARE_ACKNOWLEDGER(arpeggio);
 
 protected:
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_acknowledged ();
+  void stop_translation_timestep ();
 
 private:
   Item *span_arpeggio_;

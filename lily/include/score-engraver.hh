@@ -34,7 +34,7 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
   virtual void announce_grob (Grob_info);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 
   /*
     Translator interface

@@ -18,7 +18,7 @@ protected:
   Link_array<Music> props_;
   DECLARE_ACKNOWLEDGER(grob)
 
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual bool try_music (Music*);
 };
 

@@ -22,7 +22,7 @@ protected:
   virtual void build_ligature (Spanner *ligature, Array<Grob_info> primitives);
   virtual void transform_heads (Spanner *ligature,
 				Array<Grob_info> primitives); /* abstract method */
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 };
 
 #endif // GREGORIAN_LIGATURE_ENGRAVER_HH

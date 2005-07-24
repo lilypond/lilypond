@@ -22,8 +22,8 @@ class Chord_name_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_name_engraver);
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void process_music ();
   virtual bool try_music (Music *);
   virtual void finalize ();
   virtual void derived_mark () const;

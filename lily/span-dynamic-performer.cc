@@ -31,8 +31,8 @@ public:
 protected:
   virtual bool try_music (Music *);
   virtual void acknowledge_audio_element (Audio_element_info);
-  PRECOMPUTED_VIRTUAL void process_music ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_music ();
+  void stop_translation_timestep ();
 
 private:
   Audio_dynamic *audio_;

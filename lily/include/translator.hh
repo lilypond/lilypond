@@ -46,10 +46,6 @@ enum Translator_precompute_index {
   TRANSLATOR_METHOD_PRECOMPUTE_COUNT,
 };
 
-/* nothing */
-#define PRECOMPUTED_VIRTUAL 
-
-
 /*
   Translate music into grobs.
 */
@@ -77,10 +73,10 @@ public:
   virtual void initialize ();
   virtual void finalize ();
 
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
+  void process_music ();
+  void process_acknowledged ();
   
   Score_context *get_score_context () const;
   Global_context *get_global_context () const;

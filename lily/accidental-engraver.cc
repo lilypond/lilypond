@@ -55,16 +55,16 @@ class Accidental_engraver : public Engraver
   
 protected:
   TRANSLATOR_DECLARATIONS (Accidental_engraver);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 
   void acknowledge_tie (Grob_info);
   void acknowledge_arpeggio (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_finger (Grob_info);
   
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual void initialize ();
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  void process_acknowledged ();
   virtual void finalize ();
   virtual void derived_mark () const;
 
