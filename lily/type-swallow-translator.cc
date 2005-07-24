@@ -38,7 +38,6 @@ ADD_TRANSLATOR (Skip_event_swallow_translator,
 		"",
 		"skip-event",
 		"",
-		"",
 		"");
 
 Rest_swallow_translator::Rest_swallow_translator (){}
@@ -48,8 +47,6 @@ ADD_TRANSLATOR (Rest_swallow_translator,
 		"",
 		"rest-event",
 		"",
-		"",
-
 		"");
 
 class Note_swallow_translator : public Translator
@@ -70,6 +67,6 @@ ADD_TRANSLATOR (Note_swallow_translator,
 		"",
 		"note-event",
 		"",
-		"",
+	
 		"");
 

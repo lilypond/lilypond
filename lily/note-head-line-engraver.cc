@@ -103,6 +103,5 @@ ADD_TRANSLATOR (Note_head_line_engraver,
 		" followVoice is set, staff switches also generate a line.",
 		/* creats*/ "Glissando VoiceFollower",
 		/* accepts */ "glissando-event",
-		/* acks  */ "",
 		/* reads */ "followVoice",
 		/* write */ "");

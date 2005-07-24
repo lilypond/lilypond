@@ -39,6 +39,5 @@ ADD_TRANSLATOR (Staff_collecting_engraver,
 
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "stavesFound",
 		/* write */ "stavesFound");

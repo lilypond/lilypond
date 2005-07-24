@@ -91,6 +91,8 @@ Slur_performer::try_music (Music *m)
 
 #include "translator.icc"
 
-ADD_TRANSLATOR (Slur_performer, "", "",
-		"slur-event", "", "", "");
+ADD_TRANSLATOR (Slur_performer,
+		"", "",
+		"slur-event",
+		"", "");
 

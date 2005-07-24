@@ -67,6 +67,7 @@ Custos_engraver::start_translation_timestep ()
 void
 Custos_engraver::acknowledge_bar (Grob_info info)
 {
+  (void) info;
   custos_permitted_ = true;
 }
 
@@ -142,6 +143,5 @@ ADD_TRANSLATOR (Custos_engraver,
 		/* descr */ "",
 		/* creats*/ "Custos",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

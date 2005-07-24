@@ -89,6 +89,5 @@ ADD_TRANSLATOR (Figured_bass_engraver,
 		/* descr */ "Make figured bass numbers.",
 		/* creats*/ "BassFigure",
 		/* accepts */ "rest-event bass-figure-event",
-		/* acks  */ "",
 		/* reads */ "bassFigureFormatFunction",
 		/* write */ "");

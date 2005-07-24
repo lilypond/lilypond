@@ -43,6 +43,5 @@ ADD_TRANSLATOR (Tab_staff_symbol_engraver,
 		"staff lines.",
 		/* creats*/ "StaffSymbol",
 		/* accepts */ "staff-span-event",
-		/* acks  */ "",
 		/* reads */ "stringTunings",
 		/* write */ "");

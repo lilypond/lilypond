@@ -63,9 +63,9 @@ void
 Volta_repeat_iterator::add_repeat_command (SCM what)
 {
   SCM reps = ly_symbol2scm ("repeatCommands");
-  SCM current_reps = get_outlet ()->internal_get_property (reps);
+  SCM current_reps = SCM_EOL;
+  Context *where = get_outlet ()->where_defined (reps, &current_reps);
 
-  Context *where = get_outlet ()->where_defined (reps);
   if (where
       && current_reps == SCM_EOL || scm_is_pair (current_reps))
     {

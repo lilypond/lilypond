@@ -102,7 +102,6 @@ ADD_TRANSLATOR (Part_combine_engraver,
 		"Print markings a2, Solo, Solo II, and unisono ",
 		/* creats*/ "CombineTextScript",
 		/* accepts */ "part-combine-event",
-		/* acks  */ "",
 		/* reads */ "printPartCombineTexts soloText soloIIText "
 		"aDueText",
 		/* write */ "");

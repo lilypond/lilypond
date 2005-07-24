@@ -90,5 +90,5 @@ Beam_performer::try_music (Music *m)
 }
 
 ADD_TRANSLATOR (Beam_performer, "", "",
-		"beam-event", "", "", "");
+		"beam-event", "",  "");
 

@@ -101,4 +101,4 @@ Key_performer::try_music (Music *ev)
 ADD_TRANSLATOR (Key_performer,
 		"", "",
 		"key-change-event",
-		"", "", "");
+		"", "");

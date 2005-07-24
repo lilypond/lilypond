@@ -228,6 +228,5 @@ ADD_TRANSLATOR (Separating_line_group_engraver,
 		/* descr */ "Generates objects for computing spacing parameters.",
 		/* creats*/ "SeparationItem SeparatingGroupSpanner StaffSpacing",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "createSpacing",
 		/* write */ "breakableSeparationItem");

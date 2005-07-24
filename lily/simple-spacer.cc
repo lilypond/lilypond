@@ -422,16 +422,15 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Grob *other = unsmob_grob (scm_caar (s));
-	  int oi = binsearch_links (cols, other, &compare_paper_column_rank);
-	  if (oi >= 0
-	      && cols[oi] == other)
+	  int j = binsearch_links (cols, other, &compare_paper_column_rank);
+	  if (j >= 0 && cols[j] == other)
 	    {
-	      spacer_->add_rod (i, oi, scm_to_double (scm_cdar (s)));
+	      spacer_->add_rod (i, j, scm_to_double (scm_cdar (s)));
 	    }
 	}
 
       if (i
-	  && !to_boolean (cols[i]->get_property ("allow-outside-line")))
+	  && to_boolean (cols[i]->get_property ("keep-inside-line")))
 	{
 	  Interval e = cols[i]->extent (cols[i], X_AXIS);
 	  if (!e.is_empty ())

@@ -94,4 +94,4 @@ Drum_note_performer::try_music (Music *ev)
 
 ADD_TRANSLATOR (Drum_note_performer,
 		"Play drum notes.", "",
-		"note-event busy-playing-event", "", "", "");
+		"note-event busy-playing-event", "", "");

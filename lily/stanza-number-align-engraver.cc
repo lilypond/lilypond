@@ -65,6 +65,5 @@ ADD_TRANSLATOR (Stanza_number_align_engraver,
 		"",
 		"",
 		" ",
-		"",
 		"");
 

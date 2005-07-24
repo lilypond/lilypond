@@ -93,8 +93,7 @@ Music::mark_smob (SCM m)
 {
   Music *mus = (Music *) SCM_CELL_WORD_1 (m);
   scm_gc_mark (mus->immutable_property_alist_);
-  scm_gc_mark (mus->mutable_property_alist_);
-  return SCM_EOL;
+  return mus->mutable_property_alist_;
 }
 
 Moment

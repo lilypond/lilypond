@@ -385,10 +385,11 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Mensural_ligature_engraver, rest);
+ADD_ACKNOWLEDGER(Mensural_ligature_engraver, note_head);
 ADD_TRANSLATOR (Mensural_ligature_engraver,
 		/* descr */ "Handles Mensural_ligature_events by glueing special ligature heads together.",
 		/* creats*/ "MensuralLigature",
 		/* accepts */ "ligature-event",
-		/* acks  */ "note-head-interface rest-interface",
 		/* reads */ "",
 		/* write */ "");

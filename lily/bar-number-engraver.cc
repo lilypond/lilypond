@@ -108,6 +108,5 @@ ADD_TRANSLATOR (Bar_number_engraver,
 
 		/* creats*/ "BarNumber",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "currentBarNumber stavesFound barNumberVisibility",
 		/* write */ "");

@@ -163,6 +163,5 @@ ADD_TRANSLATOR (Lyric_engraver,
 		/* descr */ "",
 		/* creats*/ "LyricText",
 		/* accepts */ "lyric-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

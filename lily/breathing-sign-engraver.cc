@@ -68,6 +68,5 @@ ADD_TRANSLATOR (Breathing_sign_engraver,
 		/* descr */ "",
 		/* creats*/ "BreathingSign",
 		/* accepts */ "breathing-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

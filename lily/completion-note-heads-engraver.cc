@@ -320,6 +320,5 @@ ADD_TRANSLATOR (Completion_heads_engraver,
 		"break long notes and automatically tie them into the next measure.",
 		/* creats*/ "NoteHead Dots Tie",
 		/* accepts */ "busy-playing-event note-event",
-		/* acks  */ "",
 		/* reads */ "middleCPosition measurePosition measureLength",
 		/* write */ "");

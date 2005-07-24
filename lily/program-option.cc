@@ -27,7 +27,7 @@ bool use_object_keys;
 */
 bool lily_1_8_relative = false;
 bool lily_1_8_compatibility_used = false;
-
+bool profile_property_accesses = false;
 /*
   crash if internally the wrong type is used for a grob property.
 */
@@ -38,8 +38,15 @@ Protected_scm option_hash_;
 void internal_set_option (SCM var, SCM val)
 {
   scm_hashq_set_x (option_hash_, var, val);
-  
-  if (var == ly_symbol2scm ("midi-debug"))
+
+  if (0)
+    ;
+  else if (var == ly_symbol2scm ("profile-property-accesses"))
+    {
+      profile_property_accesses = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("midi-debug"))
     {
       do_midi_debugging_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));

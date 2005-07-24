@@ -435,6 +435,5 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 		"@code{stemRightBeamCount}. ",
 		/* creats*/ "Beam",
 		/* accepts */ "beam-forbid-event",
-		/* acks  */ "",
 		/* reads */ "autoBeaming autoBeamSettings beatLength subdivideBeams",
 		/* write */ "");

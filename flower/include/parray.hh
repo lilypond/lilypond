@@ -232,12 +232,10 @@ template<class T>
 int
 binsearch (Array<T> const &arr, T t, int (*compare) (T const &, T const &))
 {
-  int lo;
-  int hi;
   int cmp;
   int result;
-  lo = 0;
-  hi = Array<T>::maxkey;
+  int lo = 0;
+  int hi = arr.size ();
 
   /* binary search */
   do
@@ -262,13 +260,12 @@ binsearch (Array<T> const &arr, T t, int (*compare) (T const &, T const &))
 template<class T>
 int
 binsearch_links (Link_array<T> const &arr, T *t,
-		 int (*compare) (T *const &, T *const &),
-		 int lo = 0, int hi = -1)
+		 int (*compare) (T *const &, T *const &))
 {
   int cmp;
   int result;
-  if (hi < 0)
-    hi = arr.size ();
+  int lo = 0;
+  int hi = arr.size ();
 
   if (hi == 0)
     return -1;

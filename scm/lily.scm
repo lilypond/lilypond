@@ -16,6 +16,7 @@
 	      (parse-protect #t    "continue when finding errors in inline
 scheme are caught in the parser. If off, halt 
 on errors, and print a stack trace.")
+	      (profile-property-accesses #f "keep statistics of get_property() calls.")
 	      (old-relative #f
 			    "relative for simultaneous music works
 similar to chord syntax")

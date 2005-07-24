@@ -69,6 +69,5 @@ ADD_TRANSLATOR (Rest_collision_engraver,
 		/* descr */ "Handles collisions of rests.",
 		/* creats*/ "RestCollision",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

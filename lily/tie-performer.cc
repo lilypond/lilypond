@@ -114,6 +114,5 @@ ADD_TRANSLATOR (Tie_performer,
 		/* descr */ "Generate ties between noteheads of equal pitch.",
 		/* creats*/ "",
 		/* accepts */ "tie-event",
-		/* acks  */ "",
 		/* reads */ "tieMelismaBusy",
 		/* write */ "");

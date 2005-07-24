@@ -110,6 +110,5 @@ ADD_TRANSLATOR (Arpeggio_engraver,
 		/* descr */ "Generate an Arpeggio symbol",
 		/* creats*/ "Arpeggio",
 		/* accepts */ "arpeggio-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

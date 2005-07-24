@@ -75,6 +75,5 @@ ADD_TRANSLATOR (Script_column_engraver,
 		/* descr */ "",
 		/* creats*/ "ScriptColumn",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

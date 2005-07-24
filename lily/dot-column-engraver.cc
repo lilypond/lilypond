@@ -80,6 +80,5 @@ ADD_TRANSLATOR (Dot_column_engraver,
 		"If omitted, then dots appear on top of the notes.",
 		/* creats*/ "DotColumn",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

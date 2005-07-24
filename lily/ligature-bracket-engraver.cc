@@ -62,6 +62,5 @@ ADD_TRANSLATOR (Ligature_bracket_engraver,
 		/* descr */ "Handles Ligature_events by engraving Ligature brackets.",
 		/* creats*/ "TupletBracket",
 		/* accepts */ "ligature-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

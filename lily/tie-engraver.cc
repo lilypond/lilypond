@@ -211,6 +211,5 @@ ADD_TRANSLATOR (Tie_engraver,
 		/* descr */ "Generate ties between noteheads of equal pitch.",
 		/* creats*/ "Tie TieColumn",
 		/* accepts */ "tie-event",
-		/* acks  */ "",
 		/* reads */ "tieMelismaBusy",
 		/* write */ "");

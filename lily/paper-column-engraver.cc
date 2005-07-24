@@ -228,6 +228,5 @@ ADD_TRANSLATOR (Paper_column_engraver,
 		"that there are no beams or notes that prevent a breakpoint.) ",
 		/* creats*/ "PaperColumn NonMusicalPaperColumn",
 		/* accepts */ "break-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "currentCommandColumn currentMusicalColumn");

@@ -137,6 +137,5 @@ ADD_TRANSLATOR (Note_heads_engraver,
 		/* descr */ "Generate noteheads.",
 		/* creats*/ "NoteHead Dots",
 		/* accepts */ "note-event busy-playing-event",
-		/* acks  */ "",
 		/* reads */ "middleCPosition",
 		/* write */ "");

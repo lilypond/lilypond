@@ -31,12 +31,12 @@ void
 execute_pushpop_property (Context *trg,
 			  SCM prop, SCM eltprop, SCM val)
 {
+  SCM prev = SCM_EOL;
   if (scm_is_symbol (prop) && scm_is_symbol (eltprop))
     {
       if (val != SCM_UNDEFINED)
 	{
-	  SCM prev = SCM_EOL;
-	  Context *where = trg->where_defined (prop);
+	  Context *where = trg->where_defined (prop, &prev);
 
 	  /*
 	    Don't mess with MIDI.
@@ -50,8 +50,6 @@ execute_pushpop_property (Context *trg,
 	      prev = scm_cons (base, base);
 	      trg->internal_set_property (prop, prev);
 	    }
-	  else
-	    prev = trg->internal_get_property (prop);
 
 	  if (!scm_is_pair (prev))
 	    {
@@ -76,9 +74,8 @@ execute_pushpop_property (Context *trg,
 	      // warning here.
 	    }
 	}
-      else if (trg->where_defined (prop) == trg)
+      else if (trg->where_defined (prop, &prev) == trg)
 	{
-	  SCM prev = trg->internal_get_property (prop);
 	  SCM prev_alist = scm_car (prev);
 	  SCM daddy = scm_cdr (prev);
 
@@ -151,7 +148,8 @@ updated_grob_properties (Context *tg, SCM sym)
 {
   assert (scm_is_symbol (sym));
 
-  tg = tg->where_defined (sym);
+  SCM props;
+  tg = tg->where_defined (sym, &props);
   if (!tg)
     return SCM_EOL;
 
@@ -159,8 +157,6 @@ updated_grob_properties (Context *tg, SCM sym)
     = (tg->get_parent_context ())
     ? updated_grob_properties (tg->get_parent_context (), sym)
     : SCM_EOL;
-
-  SCM props = tg->internal_get_property (sym);
 
   if (!scm_is_pair (props))
     {

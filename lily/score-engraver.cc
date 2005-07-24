@@ -175,6 +175,5 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
 		"that there are no beams or notes that prevent a breakpoint.) ",
 		/* creats*/ "System PaperColumn NonMusicalPaperColumn",
 		/* accepts */ "break-event",
-		/* acks  */ "note-spacing-interface staff-spacing-interface axis-group-interface",
 		/* reads */ "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
 		/* write */ "");

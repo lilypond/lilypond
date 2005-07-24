@@ -442,6 +442,5 @@ ADD_TRANSLATOR (Dynamic_engraver,
 
 		/* creats*/ "DynamicLineSpanner DynamicText Hairpin TextSpanner",
 		/* accepts */ "absolute-dynamic-event crescendo-event decrescendo-event",
-		/* acks  */ "note-column-interface script-interface",
 		/* reads */ "",
 		/* write */ "");

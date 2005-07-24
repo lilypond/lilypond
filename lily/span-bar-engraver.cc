@@ -80,6 +80,5 @@ ADD_TRANSLATOR (Span_bar_engraver,
 		"bar lines, and draws a single span-bar across them.",
 		/* creats*/ "SpanBar",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

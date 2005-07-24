@@ -11,6 +11,8 @@
 #include "item.hh"
 #include "moment.hh"
 
+#include "translator.icc"
+
 class Grid_point_engraver : public Engraver
 {
 public:
@@ -38,13 +40,11 @@ Grid_point_engraver::Grid_point_engraver ()
 {
 }
 
-#include "translator.icc"
 
 ADD_TRANSLATOR (Grid_point_engraver,
 		/* descr */ "generate grid points.",
 		/* creats*/ "GridPoint",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "gridInterval",
 		/* write */ "");
 

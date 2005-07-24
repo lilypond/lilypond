@@ -151,7 +151,8 @@ Clef_engraver::inspect_clef_properties ()
 
   if (to_boolean (force_clef))
     {
-      Context *w = context ()->where_defined (ly_symbol2scm ("forceClef"));
+      SCM prev;
+      Context *w = context ()->where_defined (ly_symbol2scm ("forceClef"), &prev);
       w->set_property ("forceClef", SCM_EOL);
     }
 }
@@ -187,6 +188,5 @@ ADD_TRANSLATOR (Clef_engraver,
 		/* descr */ "Determine and set reference point for pitches",
 		/* creats*/ "Clef OctavateEight",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "clefPosition clefGlyph middleCPosition clefOctavation explicitClefVisibility forceClef",
 		/* write */ "");

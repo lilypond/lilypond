@@ -219,10 +219,11 @@ Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
 
 #include "translator.icc"
 
+ADD_ACKNOWLEDGER(Coherent_ligature_engraver, note_head);
+ADD_ACKNOWLEDGER(Coherent_ligature_engraver, rest);
 ADD_TRANSLATOR (Coherent_ligature_engraver,
 		/* descr */ "This is an abstract class.  Subclasses such as Gregorian_ligature_engraver handle ligatures by glueing special ligature heads together.",
 		/* creats*/ "",
 		/* accepts */ "ligature-event",
-		/* acks  */ "note-head-interface rest-interface",
 		/* reads */ "",
 		/* write */ "");

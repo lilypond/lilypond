@@ -156,6 +156,5 @@ ADD_TRANSLATOR (Rhythmic_column_engraver,
 		/* descr */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
 		/* creats*/ "NoteColumn NoteSpacing",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

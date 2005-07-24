@@ -175,6 +175,5 @@ ADD_TRANSLATOR (Stem_engraver,
 		"the beam engraver for overriding beaming.",
 		/* creats*/ "Stem StemTremolo",
 		/* accepts */ "tremolo-event",
-		/* acks  */ "",
 		/* reads */ "tremoloFlags stemLeftBeamCount stemRightBeamCount",
 		/* write */ "");

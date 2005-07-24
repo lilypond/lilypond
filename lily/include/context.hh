@@ -56,7 +56,7 @@ public:
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
 
-  Translator_group *implementation () const;
+  Translator_group *implementation () const { return implementation_; }
   Context *get_parent_context () const;
   Context (Object_key const *);
 
@@ -65,7 +65,7 @@ public:
   SCM internal_get_property (SCM name_sym) const;
   SCM properties_as_alist () const;
   void internal_set_property (SCM var_sym, SCM value);
-  Context *where_defined (SCM name_sym) const;
+  Context *where_defined (SCM name_sym, SCM *value) const;
   void unset_property (SCM var_sym);
 
   Context *remove_context (Context *trans);

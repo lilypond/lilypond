@@ -280,7 +280,6 @@ ADD_TRANSLATOR (Beam_engraver,
 		"printed with flags instead of beams.",
 		/* creats*/ "Beam",
 		/* accepts */ "beam-event",
-		/* acks  */ "",
 		/* reads */ "beamMelismaBusy beatLength subdivideBeams",
 		/* write */ "");
 
@@ -320,7 +319,6 @@ ADD_TRANSLATOR (Grace_beam_engraver,
 		" are at grace points in time. ",
 		/* creats*/ "Beam",
 		/* accepts */ "beam-event",
-		/* acks  */ "stem-interface rest-interface",
 		/* reads */ "beamMelismaBusy beatLength allowBeamBreak subdivideBeams",
 		/* write */ "");
 

@@ -127,6 +127,5 @@ ADD_TRANSLATOR (Axis_group_engraver,
 		/* descr */ "Group all objects created in this context in a VerticalAxisGroup spanner.",
 		/* creats*/ "VerticalAxisGroup",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "verticalExtent minimumVerticalExtent extraVerticalExtent",
 		/* write */ "");

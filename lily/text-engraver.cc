@@ -127,6 +127,5 @@ ADD_TRANSLATOR (Text_engraver,
 		/* descr */ "Create text-scripts",
 		/* creats*/ "TextScript",
 		/* accepts */ "text-script-event",
-		/* acks  */ "",
 		/* reads */ "",
 		/* write */ "");

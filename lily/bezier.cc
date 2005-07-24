@@ -75,14 +75,37 @@ Bezier::get_other_coordinate (Axis a, Real x) const
       return 0.0;
     }
 
-  Offset c = curve_point (ts[0]);
 
 #ifdef PARANOID
+  Offset c = curve_point (ts[0]);
   if (fabs (c[a] - x) > 1e-8)
     programming_error ("bezier intersection not correct?");
 #endif
-  
-  return c[other];
+
+  return curve_coordinate (ts[0], other);
+}
+
+Real
+Bezier::curve_coordinate (Real t, Axis a) const
+{
+  Real tj = 1;
+  Real one_min_tj[4];
+  one_min_tj[0] = 1;
+  for (int i = 1; i < 4; i++)
+    {
+      one_min_tj[i] = one_min_tj[i-1] * (1-t);
+    }
+
+  Real r = 0.0;
+  for (int j = 0; j < 4; j++)
+    {
+      r += control_[j][a] * binomial_coefficient_3[j]
+	* tj * one_min_tj[3-j];
+
+      tj *= t;
+    }
+
+  return r;
 }
 
 Offset

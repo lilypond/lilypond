@@ -47,7 +47,8 @@ Repeat_acknowledge_engraver::Repeat_acknowledge_engraver ()
 void
 Repeat_acknowledge_engraver::start_translation_timestep ()
 {
-  Context *tr = context ()->where_defined (ly_symbol2scm ("repeatCommands"));
+  SCM rc;
+  Context *tr = context ()->where_defined (ly_symbol2scm ("repeatCommands"), &rc);
   if (!tr)
     tr = context ();
 
@@ -113,6 +114,5 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
 		"repeatCommands ainto an appropriate setting for whichBar.",
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "repeatCommands whichBar",
 		/* write */ "");

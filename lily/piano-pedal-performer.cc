@@ -145,4 +145,4 @@ Piano_pedal_performer::try_music (Music *r)
 
 ADD_TRANSLATOR (Piano_pedal_performer, "", "",
 		"pedal-event",
-		"", "", "");
+		 "", "");

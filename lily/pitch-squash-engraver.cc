@@ -43,6 +43,5 @@ ADD_TRANSLATOR (Pitch_squash_engraver,
 
 		/* creats*/ "",
 		/* accepts */ "",
-		/* acks  */ "",
 		/* reads */ "squashedPosition",
 		/* write */ "");
