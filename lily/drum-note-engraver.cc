@@ -27,10 +27,10 @@ public:
 
 protected:
   virtual bool try_music (Music *ev);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   DECLARE_ACKNOWLEDGER(stem);
   DECLARE_ACKNOWLEDGER(note_column);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 };
 
 Drum_notes_engraver::Drum_notes_engraver ()

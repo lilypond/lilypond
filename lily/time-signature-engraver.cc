@@ -20,8 +20,8 @@ class Time_signature_engraver : public Engraver
   SCM last_time_fraction_;
 
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
 };

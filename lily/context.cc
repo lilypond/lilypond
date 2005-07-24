@@ -495,7 +495,13 @@ Context::~Context ()
 Moment
 Context::now_mom () const
 {
-  return daddy_context_->now_mom ();
+  Context const *p = this;
+  while (p->daddy_context_)
+    {
+      p = p->daddy_context_;
+    }
+  
+  return p->now_mom ();
 }
 
 int

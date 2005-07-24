@@ -28,11 +28,11 @@ class Custos_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void start_translation_timestep ();
   DECLARE_ACKNOWLEDGER(bar);
   DECLARE_ACKNOWLEDGER(note_head);
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_acknowledged ();
+  void stop_translation_timestep ();
   virtual void finalize ();
 
 private:

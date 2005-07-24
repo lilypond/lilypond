@@ -17,10 +17,11 @@
 void 
 Engraver_dispatch_list::apply (Grob_info gi)
 {
+  Translator *origin = gi.origin_translator ();
   for (int i = 0; i < dispatch_entries_.size (); i++)
     {
       Engraver_dispatch_entry const &e (dispatch_entries_[i]);
-      if (e.engraver_ == gi.origin_translator ())
+      if (e.engraver_ == origin)
 	continue; 
 
       (*e.function_) (e.engraver_, gi);

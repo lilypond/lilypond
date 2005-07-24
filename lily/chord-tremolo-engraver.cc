@@ -58,9 +58,9 @@ protected:
 protected:
   virtual void finalize ();
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
+  void process_music ();
   DECLARE_ACKNOWLEDGER(stem);
 };
 

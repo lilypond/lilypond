@@ -36,9 +36,9 @@ public:
 
 protected:
   virtual bool try_music (Music *event);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 };
 
 Tab_note_heads_engraver::Tab_note_heads_engraver ()

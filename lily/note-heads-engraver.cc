@@ -28,8 +28,8 @@ public:
 
 protected:
   virtual bool try_music (Music *ev);
-  PRECOMPUTED_VIRTUAL void process_music ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_music ();
+  void stop_translation_timestep ();
 };
 
 Note_heads_engraver::Note_heads_engraver ()

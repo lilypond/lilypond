@@ -23,8 +23,8 @@ protected:
   DECLARE_ACKNOWLEDGER(note_head);
   DECLARE_ACKNOWLEDGER(stem);
   
-  PRECOMPUTED_VIRTUAL void process_music ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_music ();
+  void stop_translation_timestep ();
   virtual bool try_music (Music *);
 private:
   Item *text_;

@@ -26,11 +26,11 @@ public:
 protected:
   Item *text_;
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER(bar_line);
   void create_items (Music *);
   virtual bool try_music (Music *ev);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 
 private:
   Music *mark_ev_;

@@ -23,7 +23,7 @@ class Break_align_engraver : public Engraver
 
   void add_to_group (SCM, Item *);
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual void derived_mark () const;
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);

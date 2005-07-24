@@ -17,8 +17,8 @@ public:
   Link_array<Music> events_;
   Link_array<Item> texts_;
   virtual bool try_music (Music *m);
-  PRECOMPUTED_VIRTUAL void process_music ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_music ();
+  void stop_translation_timestep ();
 };
 
 bool

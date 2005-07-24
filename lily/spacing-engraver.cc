@@ -49,9 +49,9 @@ protected:
   DECLARE_ACKNOWLEDGER(staff_spacing);
   DECLARE_ACKNOWLEDGER(note_spacing);
   DECLARE_ACKNOWLEDGER(rhythmic_head);
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void process_music ();
   virtual void finalize ();
 };
 

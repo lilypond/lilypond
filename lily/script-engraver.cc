@@ -39,8 +39,8 @@ class Script_engraver : public Engraver
 
 protected:
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void process_music ();
 
   DECLARE_ACKNOWLEDGER( slur);
   DECLARE_ACKNOWLEDGER( rhythmic_head);

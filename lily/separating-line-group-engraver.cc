@@ -55,10 +55,10 @@ protected:
   Spanner *sep_span_;
 
   DECLARE_ACKNOWLEDGER(item);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   virtual void finalize ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };

@@ -23,9 +23,9 @@ public:
 protected:
   DECLARE_ACKNOWLEDGER(rhythmic_head);
   virtual void finalize ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 private:
   Spanner *line_;
   Spanner *last_line_;

@@ -67,8 +67,8 @@ class Dynamic_engraver : public Engraver
 protected:
   virtual void finalize ();
   virtual bool try_music (Music *event);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void process_music ();
 };
 
 Dynamic_engraver::Dynamic_engraver ()

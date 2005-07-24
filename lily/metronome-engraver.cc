@@ -29,9 +29,9 @@ protected:
 
   void create_items (Music *);
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual bool try_music (Music *ev);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 };
 
 Metronome_mark_engraver::Metronome_mark_engraver ()

@@ -64,9 +64,9 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER(note_column);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 
 private:
 

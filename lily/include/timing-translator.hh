@@ -21,8 +21,8 @@ public:
 
 protected:
   virtual void initialize ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
 
 public:
   Rational measure_length () const;

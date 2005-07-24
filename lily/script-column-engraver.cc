@@ -25,8 +25,8 @@ public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);
 protected:
   DECLARE_ACKNOWLEDGER(side_position);
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_acknowledged ();
+  void stop_translation_timestep ();
 };
 
 Script_column_engraver::Script_column_engraver ()

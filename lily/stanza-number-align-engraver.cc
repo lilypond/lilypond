@@ -26,7 +26,7 @@ protected:
 
   DECLARE_ACKNOWLEDGER(lyric_syllable);
   DECLARE_ACKNOWLEDGER(stanza_number);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 };
 
 Stanza_number_align_engraver::Stanza_number_align_engraver ()

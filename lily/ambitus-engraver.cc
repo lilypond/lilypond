@@ -22,9 +22,9 @@ class Ambitus_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ambitus_engraver);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   void acknowledge_note_head (Grob_info);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual void finalize ();
   virtual void derived_mark () const;
 

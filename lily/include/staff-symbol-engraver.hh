@@ -30,12 +30,12 @@ protected:
   virtual void start_spanner ();
   virtual void stop_spanner ();
 
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual bool try_music (Music *);
   virtual ~Staff_symbol_engraver ();
   DECLARE_ACKNOWLEDGER(grob);
   virtual void finalize ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 };
 
 #endif /* STAFF_SYMBOL_ENGRAVER_HH */

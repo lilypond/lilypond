@@ -27,8 +27,8 @@ public:
 
 protected:
   DECLARE_ACKNOWLEDGER(rhythmic_head);
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_acknowledged ();
+  void stop_translation_timestep ();
 
 private:
   Spanner *line_;

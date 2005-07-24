@@ -28,7 +28,7 @@ public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 protected:
   DECLARE_ACKNOWLEDGER(bar_line);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 };
 
 Span_bar_engraver::Span_bar_engraver ()

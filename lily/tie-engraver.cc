@@ -53,12 +53,12 @@ class Tie_engraver : public Engraver
   Spanner *tie_column_;
 
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual void derived_mark () const;
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void start_translation_timestep ();
   DECLARE_ACKNOWLEDGER(note_head);
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   void typeset_tie (Grob *);
 public:
   TRANSLATOR_DECLARATIONS (Tie_engraver);

@@ -37,9 +37,9 @@ protected:
   DECLARE_ACKNOWLEDGER(text_script);
   DECLARE_ACKNOWLEDGER(slur);
   
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual void finalize ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 
 public:
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);

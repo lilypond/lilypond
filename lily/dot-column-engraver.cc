@@ -26,7 +26,7 @@ protected:
   DECLARE_ACKNOWLEDGER(stem);
   DECLARE_ACKNOWLEDGER(rhythmic_head);
   
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 };
 
 Dot_column_engraver::Dot_column_engraver ()

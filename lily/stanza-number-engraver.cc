@@ -21,8 +21,8 @@ class Stanza_number_engraver : public Engraver
   SCM last_stanza_;
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
-  PRECOMPUTED_VIRTUAL void process_music ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_music ();
+  void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER(lyric_syllable);
 };
 

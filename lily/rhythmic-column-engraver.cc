@@ -55,8 +55,8 @@ protected:
 DECLARE_ACKNOWLEDGER(dot_column);
 DECLARE_ACKNOWLEDGER(stem);
 DECLARE_ACKNOWLEDGER(rhythmic_head);
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void process_acknowledged ();
+  void stop_translation_timestep ();
 };
 
 Rhythmic_column_engraver::Rhythmic_column_engraver ()

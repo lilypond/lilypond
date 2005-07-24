@@ -476,9 +476,9 @@ Grob::extent (Grob *refp, Axis a) const
 
   ext = ly_scm2interval (d->dimension_);
 
-  SCM extra = get_property (a == X_AXIS
-			    ? "extra-X-extent"
-			    : "extra-Y-extent");
+  SCM extra = (a == X_AXIS)
+    ? get_property ("extra-X-extent")
+    : get_property ("extra-Y-extent");
 
   /* Signs ?  */
   if (scm_is_pair (extra))
@@ -487,9 +487,10 @@ Grob::extent (Grob *refp, Axis a) const
       ext[SMALLER] += scm_to_double (scm_car (extra));
     }
 
-  extra = get_property (a == X_AXIS
-			? "minimum-X-extent"
-			: "minimum-Y-extent");
+  extra = (a == X_AXIS)
+    ? get_property ("minimum-X-extent")
+    : get_property ("minimum-Y-extent");
+  
   if (scm_is_pair (extra))
     ext.unite (Interval (scm_to_double (scm_car (extra)),
 			 scm_to_double (scm_cdr (extra))));

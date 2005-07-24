@@ -30,8 +30,8 @@ protected:
   virtual void initialize ();
   virtual bool try_music (Music *);
   virtual void create_audio_elements ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
 
 private:
   Link_array<Audio_piano_pedal> audios_;

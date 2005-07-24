@@ -30,7 +30,7 @@ protected:
   virtual void finalize ();
   virtual void initialize ();
   virtual void create_audio_elements ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 
 private:
   Audio_staff *audio_staff_;

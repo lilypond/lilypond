@@ -22,9 +22,9 @@
 class Lyric_engraver : public Engraver
 {
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 
 public:
   TRANSLATOR_DECLARATIONS (Lyric_engraver);

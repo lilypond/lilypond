@@ -20,7 +20,7 @@ protected:
   virtual Spanner *get_spanner ();
   DECLARE_ACKNOWLEDGER(grob);
   virtual void add_element (Grob *e);
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
+  void start_translation_timestep ();
 
   SCM interesting_;
 public:

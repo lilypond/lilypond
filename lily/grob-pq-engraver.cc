@@ -29,8 +29,8 @@ public:
 protected:
   virtual void initialize ();
   DECLARE_ACKNOWLEDGER(grob);
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void start_translation_timestep ();
+  void stop_translation_timestep ();
 
   Array<Grob_pq_entry> started_now_;
 };

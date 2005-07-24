@@ -20,7 +20,7 @@ public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
 protected:
   DECLARE_ACKNOWLEDGER(grid_point);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
 };
 
 Grid_line_span_engraver::Grid_line_span_engraver ()

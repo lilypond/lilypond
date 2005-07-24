@@ -19,9 +19,9 @@ class Cluster_spanner_engraver : public Engraver
 protected:
   TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
   virtual bool try_music (Music *);
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   DECLARE_ACKNOWLEDGER(note_column);
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void stop_translation_timestep ();
   virtual void finalize ();
 private:
   Link_array<Music> cluster_notes_;

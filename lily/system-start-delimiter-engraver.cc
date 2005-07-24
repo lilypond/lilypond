@@ -24,7 +24,7 @@ protected:
   DECLARE_ACKNOWLEDGER(system_start_delimiter);
   DECLARE_ACKNOWLEDGER(staff_symbol);
 
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   virtual void finalize ();
 };
 

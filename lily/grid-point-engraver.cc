@@ -18,7 +18,7 @@ class Grid_point_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Grid_point_engraver);
 protected:
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
 };
 
 void

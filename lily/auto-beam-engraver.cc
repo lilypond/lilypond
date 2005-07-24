@@ -26,9 +26,9 @@ class Auto_beam_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);
 
 protected:
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void start_translation_timestep ();
+  void process_music ();
   virtual bool try_music (Music *);
   virtual void finalize ();
 
@@ -37,7 +37,7 @@ protected:
   DECLARE_ACKNOWLEDGER(bar_line);
   DECLARE_ACKNOWLEDGER(stem);
   
-  PRECOMPUTED_VIRTUAL void process_acknowledged ();
+  void process_acknowledged ();
 
 private:
   bool test_moment (Direction, Moment);
