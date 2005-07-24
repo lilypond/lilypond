@@ -163,7 +163,10 @@ typedef SCM (*Scheme_function_3) (...);
 
 #define scm_cdr ly_cdr 
 #define scm_car ly_car
+
+#ifndef scm_is_pair
 #define scm_is_pair ly_is_pair
+#endif
 
 inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }

@@ -24,6 +24,7 @@ inline SCM scm_car (SCM x)
     abort ();
   return SCM_CAR (x);
 }
+#define SCM_I_CONSP(x) SCM_CONSP(x)
 inline SCM scm_caar (SCM x) { return SCM_CAAR (x); }
 inline SCM scm_cdar (SCM x) { return SCM_CDAR (x); }
 inline SCM scm_cadr (SCM x) { return SCM_CADR (x); }

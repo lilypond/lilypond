@@ -53,7 +53,7 @@ Bar_number_engraver::process_music ()
 	      create_items ();
 	      // guh.
 	      text_->set_property
-		("text", scm_makfrom0str (to_string (scm_to_int (bn)).to_str0 ()));
+		("text", scm_number_to_string (bn, scm_from_int (10)));
 	    }
 	}
     }
