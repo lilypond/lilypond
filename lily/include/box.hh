@@ -8,10 +8,10 @@
 #include "interval.hh"
 #include "offset.hh"
 
-struct Box
+class Box
 {
   Interval interval_a_[NO_AXES];
-
+public:
   Interval &x () {return interval_a_[X_AXIS]; }
   Interval &y (){ return interval_a_[Y_AXIS]; }
   Interval x () const{ return interval_a_[X_AXIS]; }

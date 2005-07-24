@@ -64,7 +64,7 @@
     CL *ptr = new CL (*this);						\
     SCM s;								\
     s = scm_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (ptr));		\
-    /*    scm_gc_register_collectable_memory ((CL *)this, sizeof (CL), #CL " smob");*/ \
+    scm_gc_register_collectable_memory ((CL *)this, sizeof (CL), #CL " smob"); \
 									\
     return s;								\
   }
@@ -102,7 +102,7 @@
     SCM s;								\
     SCM_NEWSMOB (s, CL::smob_tag_, this);				\
     self_scm_ = s;							\
-    /* scm_gc_register_collectable_memory (this, sizeof (CL), #CL " smob");*/ \
+    scm_gc_register_collectable_memory (this, sizeof (CL), #CL " smob"); \
     return s;								\
   }
 
