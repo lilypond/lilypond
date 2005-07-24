@@ -53,13 +53,13 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
 
   SCM font_table = get_font_table (mod);
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_EOL);
-  SCM handle = scm_assoc (scm_make_real (lookup_mag), sizes);
+  SCM handle = scm_assoc (scm_from_double (lookup_mag), sizes);
   if (scm_is_pair (handle))
     return unsmob_metrics (scm_cdr (handle));
 
   SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag);
 
-  sizes = scm_acons (scm_make_real (lookup_mag), val, sizes);
+  sizes = scm_acons (scm_from_double (lookup_mag), val, sizes);
   unsmob_metrics (val)->unprotect ();
   scm_hashq_set_x (font_table, f->self_scm (), sizes);
   return unsmob_metrics (val);

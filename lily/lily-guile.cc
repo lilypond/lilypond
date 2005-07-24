@@ -268,7 +268,7 @@ ly_scm2realdrul (SCM p)
 SCM
 ly_interval2scm (Drul_array<Real> i)
 {
-  return scm_cons (scm_make_real (i[LEFT]), scm_make_real (i[RIGHT]));
+  return scm_cons (scm_from_double (i[LEFT]), scm_from_double (i[RIGHT]));
 }
 
 bool
@@ -300,7 +300,7 @@ appendable_list_append (SCM l, SCM elt)
 SCM
 ly_offset2scm (Offset o)
 {
-  return scm_cons (scm_make_real (o[X_AXIS]), scm_make_real (o[Y_AXIS]));
+  return scm_cons (scm_from_double (o[X_AXIS]), scm_from_double (o[Y_AXIS]));
 }
 
 Offset
@@ -321,7 +321,7 @@ ly_deep_copy (SCM src)
       SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
       for (int i = 0;i < len; i++)
 	{
-	  SCM si = scm_int2num (i);
+	  SCM si = scm_from_int (i);
 	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
 	}
     }

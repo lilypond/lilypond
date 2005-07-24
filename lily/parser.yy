@@ -701,7 +701,7 @@ identifier_init:
 		$$ = $1;
 	}
 	| DIGIT {
-		$$ = scm_int2num ($1);
+		$$ = scm_from_int ($1);
 	}
 	;
 
@@ -911,7 +911,7 @@ tempo_event:
 	TEMPO steno_duration '=' bare_unsigned	{
 		$$ = MY_MAKE_MUSIC ("MetronomeChangeEvent");
 		$$->set_property ("tempo-unit", $2);
-		$$->set_property ("metronome-count", scm_int2num ( $4));
+		$$->set_property ("metronome-count", scm_from_int ( $4));
 	}
 	;
 
@@ -996,7 +996,7 @@ Repeated_music:
 			r-> set_property ("element", beg->self_scm ());
 			beg->unprotect ();
 			}
-		r->set_property ("repeat-count", scm_int2num (max (times, 1)));
+		r->set_property ("repeat-count", scm_from_int (max (times, 1)));
 
 		r-> set_property ("elements",alts);
 		if (ly_is_equal ($2, scm_makfrom0str ("tremolo"))) {
@@ -1021,7 +1021,7 @@ Repeated_music:
 				shift -= 1;
 				r->compress (Moment (Rational (1, list_len)));
 			}
-			scm_call_3 (func, r->self_scm (), scm_int2num (shift), scm_int2num (dots));
+			scm_call_3 (func, r->self_scm (), scm_from_int (shift), scm_from_int (dots));
 
 		}
 		r->set_spot (*$4->origin ());
@@ -1207,8 +1207,8 @@ Prefix_composite_music:
 
 		$$->set_property ("element", mp->self_scm ());
 		mp->unprotect();
-		$$->set_property ("numerator", scm_int2num (n));
-		$$->set_property ("denominator", scm_int2num (d));
+		$$->set_property ("numerator", scm_from_int (n));
+		$$->set_property ("denominator", scm_from_int (d));
 		$$->compress (Moment (Rational (n,d)));
 
 	}
@@ -1531,7 +1531,7 @@ scalar: string {
 		$$ = $1;
 	}
 	| DIGIT {
-		$$ = scm_int2num ($1);
+		$$ = scm_from_int ($1);
 	}
 	;
 
@@ -1646,7 +1646,7 @@ chord_body_element:
 		if (scm_is_number (check))
 		{
 			int q = scm_to_int (check);
-			n->set_property ("absolute-octave", scm_int2num (q-1));
+			n->set_property ("absolute-octave", scm_from_int (q-1));
 		}
 
 		
@@ -1698,7 +1698,7 @@ command_element:
 	}
 	| E_BRACKET_OPEN {
 		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
-		m->set_property ("span-direction", scm_int2num (START));
+		m->set_property ("span-direction", scm_from_int (START));
 		m->set_spot (@$);
 
 		$$ = MY_MAKE_MUSIC ("EventChord");
@@ -1708,7 +1708,7 @@ command_element:
 	}
 	| E_BRACKET_CLOSE {
 		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
-		m->set_property ("span-direction", scm_int2num (STOP));
+		m->set_property ("span-direction", scm_from_int (STOP));
 		m->set_spot (@$);
 
 		$$ = MY_MAKE_MUSIC ("EventChord");
@@ -1855,12 +1855,12 @@ post_event:
 	}
 	| script_dir direction_reqd_event {
 		if ($1)
-			$2->set_property ("direction", scm_int2num ($1));
+			$2->set_property ("direction", scm_from_int ($1));
 		$$ = $2;
 	}
 	| script_dir direction_less_event {
 		if ($1)
-			$2->set_property ("direction", scm_int2num ($1));
+			$2->set_property ("direction", scm_from_int ($1));
 		$$ = $2;
 	}
 	| string_number_event
@@ -1869,7 +1869,7 @@ post_event:
 string_number_event:
 	E_UNSIGNED {
 		Music *s = MY_MAKE_MUSIC ("StringNumberEvent");
-		s->set_property ("string-number", scm_int2num ($1));
+		s->set_property ("string-number", scm_from_int ($1));
 		s->set_spot (@$);
 		$$ = s;
 	}
@@ -1929,7 +1929,7 @@ direction_less_event:
 	| tremolo_type  {
                Music *a = MY_MAKE_MUSIC ("TremoloEvent");
                a->set_spot (@$);
-               a->set_property ("tremolo-type", scm_int2num ($1));
+               a->set_property ("tremolo-type", scm_from_int ($1));
                $$ = a;
         }
 	;	
@@ -1950,9 +1950,9 @@ direction_reqd_event:
 
 octave_check:
 	/**/ { $$ = SCM_EOL; }
-	| '='  { $$ = scm_int2num (0); }
-	| '=' sub_quotes { $$ = scm_int2num ($2); }
-	| '=' sup_quotes { $$ = scm_int2num ($2); }
+	| '='  { $$ = scm_from_int (0); }
+	| '=' sub_quotes { $$ = scm_from_int ($2); }
+	| '=' sup_quotes { $$ = scm_from_int ($2); }
 	;
 
 sup_quotes:
@@ -2038,7 +2038,7 @@ gen_text_def:
 	}
 	| DIGIT {
 		Music *t = MY_MAKE_MUSIC ("FingerEvent");
-		t->set_property ("digit", scm_int2num ($1));
+		t->set_property ("digit", scm_from_int ($1));
 		t->set_spot (@$);
 		$$ = t;
 	}
@@ -2133,7 +2133,7 @@ multiplied_duration:
 fraction:
 	FRACTION { $$ = $1; }
 	| UNSIGNED '/' UNSIGNED {
-		$$ = scm_cons (scm_int2num ($1), scm_int2num ($3));
+		$$ = scm_cons (scm_from_int ($1), scm_from_int ($3));
 	}
 	;
 
@@ -2159,12 +2159,12 @@ tremolo_type:
 
 bass_number:
 	DIGIT   {
-		$$ = scm_number_to_string (scm_int2num ($1), scm_int2num (10));
+		$$ = scm_number_to_string (scm_from_int ($1), scm_from_int (10));
 		$$ = scm_list_2 (ly_lily_module_constant ("number-markup"),
 				$$);
 	}
 	| UNSIGNED {
-		$$ = scm_number_to_string (scm_int2num ($1), scm_int2num (10));
+		$$ = scm_number_to_string (scm_from_int ($1), scm_from_int (10));
 		$$ = scm_list_2 (ly_lily_module_constant ("number-markup"),
 				$$);
 	}
@@ -2197,9 +2197,9 @@ bass_figure:
 			SCM salter = m->get_property ("alteration");
 			int alter = scm_is_number (salter) ? scm_to_int (salter) : 0;
 			m->set_property ("alteration",
-				scm_int2num (alter + $2));
+				scm_from_int (alter + $2));
 		} else {
-			m->set_property ("alteration", scm_int2num (0));
+			m->set_property ("alteration", scm_from_int (0));
 		}
 	}
 	;
@@ -2259,7 +2259,7 @@ simple_element:
 		if (scm_is_number ($4))
 		{
 			int q = scm_to_int ($4);
-			n->set_property ("absolute-octave", scm_int2num (q-1));
+			n->set_property ("absolute-octave", scm_from_int (q-1));
 		}
 
 		if ($3 % 2)
@@ -2456,7 +2456,7 @@ number_factor:
 
 bare_number:
 	UNSIGNED	{
-		$$ = scm_int2num ($1);
+		$$ = scm_from_int ($1);
 	}
 	| REAL		{
 		$$ = $1;
@@ -2465,10 +2465,10 @@ bare_number:
 		$$ = $1;
 	}
 	| REAL NUMBER_IDENTIFIER	{
-		$$ = scm_make_real (scm_to_double ($1) *scm_to_double ($2));
+		$$ = scm_from_double (scm_to_double ($1) *scm_to_double ($2));
 	}
 	| UNSIGNED NUMBER_IDENTIFIER	{
-		$$ = scm_make_real ($1 *scm_to_double ($2));
+		$$ = scm_from_double ($1 *scm_to_double ($2));
 	}
 	;
 

@@ -32,7 +32,7 @@ Accidental_placement::alignment_callback (SCM s, SCM)
       position_accidentals (par);
     }
 
-  return scm_int2num (0);
+  return scm_from_int (0);
 }
 
 void
@@ -54,7 +54,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
   int n = p->get_notename ();
 
   SCM accs = me->get_object ("accidental-grobs");
-  SCM key = scm_int2num (n);
+  SCM key = scm_from_int (n);
   SCM entry = scm_assq (key, accs);
   if (entry == SCM_BOOL_F)
     {

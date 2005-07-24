@@ -33,8 +33,8 @@ protected:
   
   virtual void finalize ();
 
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void stop_translation_timestep ();
+  void process_music ();
 
   Moment started_mom_;
   Spanner *volta_span_;

@@ -322,7 +322,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 	{
 	  SCM flare = p->bracket_->get_property ("bracket-flare");
 	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_car (flare),
-								scm_make_real (0)));
+								scm_from_double (0)));
 	}
 
       p->finished_bracket_ = p->bracket_;
@@ -345,7 +345,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->finished_bracket_)
 	{
 	  SCM flare = p->bracket_->get_property ("bracket-flare");
-	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_make_real (0), scm_cdr (flare)));
+	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_from_double (0), scm_cdr (flare)));
 	}
 
       /* Set this property for 'mixed style' pedals,    Ped._______/\ ,

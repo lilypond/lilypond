@@ -193,7 +193,7 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 	}
     }
 
-  return scm_make_real (offset);
+  return scm_from_double (offset);
 }
 
 static Direction

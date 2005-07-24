@@ -170,7 +170,7 @@ Bar_line::before_line_breaking (SCM smob)
   if (scm_is_string (g) && bsd)
     {
       SCM proc = me->get_property ("break-glyph-function");
-      g = scm_call_2 (proc, g, scm_int2num (bsd));
+      g = scm_call_2 (proc, g, scm_from_int (bsd));
     }
 
   if (!scm_is_string (g))
@@ -194,7 +194,7 @@ Bar_line::get_staff_bar_size (SCM smob)
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM size = me->get_property ("bar-size");
   if (scm_is_number (size))
-    return scm_make_real (scm_to_double (size) * ss);
+    return scm_from_double (scm_to_double (size) * ss);
   else if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       /*
@@ -204,9 +204,9 @@ Bar_line::get_staff_bar_size (SCM smob)
       */
       Real ysize = (Staff_symbol_referencer::line_count (me) -1);
       ysize = ysize * ss + Staff_symbol_referencer::line_thickness (me);
-      return scm_make_real (ysize);
+      return scm_from_double (ysize);
     }
-  return scm_int2num (0);
+  return scm_from_int (0);
 }
 
 ADD_INTERFACE (Bar_line, "bar-line-interface",

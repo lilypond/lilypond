@@ -186,7 +186,7 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
       /* all other combinations should be valid (unless I made a
 	 mistake) */
 
-      primitive->set_property ("prefix-set", scm_int2num (prefix_set));
+      primitive->set_property ("prefix-set", scm_from_int (prefix_set));
     }
 }
 
@@ -234,7 +234,7 @@ provide_context_info (Array<Grob_info> primitives)
 
       if (prev_primitive)
 	prev_primitive->set_property ("context-info",
-				      scm_int2num (prev_context_info));
+				      scm_from_int (prev_context_info));
       prev_primitive = primitive;
       prev_prefix_set = prefix_set;
       prev_context_info = context_info;
@@ -242,7 +242,7 @@ provide_context_info (Array<Grob_info> primitives)
     }
   if (prev_primitive)
     prev_primitive->set_property ("context-info",
-				  scm_int2num (prev_context_info));
+				  scm_from_int (prev_context_info));
 }
 
 void

@@ -373,10 +373,10 @@ Part_combine_iterator::construct_children ()
     {
       SCM sym = ly_symbol2scm (*p);
       execute_pushpop_property (one, sym,
-				ly_symbol2scm ("direction"), scm_int2num (1));
+				ly_symbol2scm ("direction"), scm_from_int (1));
 
       execute_pushpop_property (two, sym,
-				ly_symbol2scm ("direction"), scm_int2num (-1));
+				ly_symbol2scm ("direction"), scm_from_int (-1));
     }
 }
 

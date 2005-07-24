@@ -159,10 +159,10 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   if (i.is_empty ())
     {
       me->suicide ();
-      return scm_make_real (0.0);
+      return scm_from_double (0.0);
     }
 
-  return scm_make_real (i.center ());
+  return scm_from_double (i.center ());
 }
 
 void
@@ -224,7 +224,7 @@ Interval
 Span_bar::get_spanned_interval (Grob *me)
 {
   return ly_scm2interval (Axis_group_interface::group_extent_callback
-			  (me->self_scm (), scm_int2num (Y_AXIS)));
+			  (me->self_scm (), scm_from_int (Y_AXIS)));
 }
 
 MAKE_SCHEME_CALLBACK (Span_bar, get_bar_size, 1);
@@ -237,9 +237,9 @@ Span_bar::get_bar_size (SCM smob)
     {
       /* This happens if the bars are hara-kiried from under us. */
       me->suicide ();
-      return scm_make_real (-1);
+      return scm_from_double (-1);
     }
-  return scm_make_real (iv.length ());
+  return scm_from_double (iv.length ());
 }
 
 ADD_INTERFACE (Span_bar, "span-bar-interface",

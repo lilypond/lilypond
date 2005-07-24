@@ -82,8 +82,8 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 void
 Axis_group_interface::set_axes (Grob *me, Axis a1, Axis a2)
 {
-  SCM sa1 = scm_int2num (a1);
-  SCM sa2 = scm_int2num (a2);
+  SCM sa1 = scm_from_int (a1);
+  SCM sa2 = scm_from_int (a2);
 
   SCM axes = me->get_property ("axes");
 

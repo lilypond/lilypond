@@ -103,9 +103,9 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
   Real pos = Staff_symbol_referencer::get_position (g);
 
   if (fabs (rint (pos) -pos) < 1e-6) // ugh.
-    return scm_int2num ((int) my_round (pos));
+    return scm_from_int ((int) my_round (pos));
   else
-    return scm_make_real (pos);
+    return scm_from_double (pos);
 }
 
 /* should use offset callback!  */
@@ -121,10 +121,10 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
     {
       Real space = Staff_symbol_referencer::staff_space (me);
       off = scm_to_double (pos) * space / 2.0;
-      me->set_property ("staff-position", scm_int2num (0));
+      me->set_property ("staff-position", scm_from_int (0));
     }
 
-  return scm_make_real (off);
+  return scm_from_double (off);
 }
 
 /*  This sets the position relative to the center of the staff symbol.
@@ -146,10 +146,10 @@ Staff_symbol_referencer::set_position (Grob *me, Real p)
   if (st && me->common_refpoint (st, Y_AXIS))
     {
       Real oldpos = get_position (me);
-      me->set_property ("staff-position", scm_make_real (p - oldpos));
+      me->set_property ("staff-position", scm_from_double (p - oldpos));
     }
   else
-    me->set_property ("staff-position", scm_make_real (p));
+    me->set_property ("staff-position", scm_from_double (p));
 
   me->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
 }

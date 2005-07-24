@@ -26,7 +26,7 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
     {
       Align_interface::align_elements_to_extents (par, ax);
     }
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 MAKE_SCHEME_CALLBACK (Align_interface, fixed_distance_alignment_callback, 2);
@@ -40,7 +40,7 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
     {
       Align_interface::align_to_fixed_distance (par, ax);
     }
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 /*

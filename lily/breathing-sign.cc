@@ -183,7 +183,7 @@ Breathing_sign::offset_callback (SCM element_smob, SCM)
 
   Real inter_f = Staff_symbol_referencer::staff_space (me) / 2;
   int sz = Staff_symbol_referencer::line_count (me) - 1;
-  return scm_make_real (inter_f * sz * d);
+  return scm_from_double (inter_f * sz * d);
 }
 
 ADD_INTERFACE (Breathing_sign, "breathing-sign-interface",

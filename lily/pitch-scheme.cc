@@ -44,7 +44,7 @@ LY_DEFINE (ly_pitch_steps, "ly:pitch-steps", 1, 0, 0,
 {
   Pitch *pp = unsmob_pitch (p);
   SCM_ASSERT_TYPE (pp, p, SCM_ARG1, __FUNCTION__, "Pitch");
-  return scm_int2num (pp->steps ());
+  return scm_from_int (pp->steps ());
 }
 
 LY_DEFINE (ly_pitch_octave, "ly:pitch-octave",
@@ -54,7 +54,7 @@ LY_DEFINE (ly_pitch_octave, "ly:pitch-octave",
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->get_octave ();
-  return scm_int2num (q);
+  return scm_from_int (q);
 }
 
 LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
@@ -65,7 +65,7 @@ LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->get_alteration ();
 
-  return scm_int2num (q);
+  return scm_from_int (q);
 }
 
 LY_DEFINE (pitch_notename, "ly:pitch-notename",
@@ -75,7 +75,7 @@ LY_DEFINE (pitch_notename, "ly:pitch-notename",
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->get_notename ();
-  return scm_int2num (q);
+  return scm_from_int (q);
 }
 
 LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
@@ -85,7 +85,7 @@ LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->quartertone_pitch ();
-  return scm_int2num (q);
+  return scm_from_int (q);
 }
 
 LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
@@ -95,7 +95,7 @@ LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
   int q = p->semitone_pitch ();
-  return scm_int2num (q);
+  return scm_from_int (q);
 }
 
 LY_DEFINE (ly_pitch_less_p, "ly:pitch<?",

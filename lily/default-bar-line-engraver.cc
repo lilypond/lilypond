@@ -19,8 +19,8 @@ protected:
   /* Need to know whether we're advancing in grace notes, or not. */
   Moment last_moment_;
 
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void stop_translation_timestep ();
+  void start_translation_timestep ();
+  void stop_translation_timestep ();
 
 public:
   TRANSLATOR_DECLARATIONS (Default_bar_line_engraver);

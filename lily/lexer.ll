@@ -571,7 +571,7 @@ BOM_UTF8	\357\273\277
 	int cnv = sscanf (YYText (), "%lf", &r);
 	assert (cnv == 1);
 
-	yylval.scm = scm_make_real (r);
+	yylval.scm = scm_from_double (r);
 	return REAL;
 }
 
@@ -857,7 +857,7 @@ scan_fraction (String frac)
 
 	int n = String_convert::dec2int (left);
 	int d = String_convert::dec2int (right);
-	return scm_cons (scm_int2num (n), scm_int2num (d));
+	return scm_cons (scm_from_int (n), scm_from_int (d));
 }
 
 // Breaks for flex 2.5.31

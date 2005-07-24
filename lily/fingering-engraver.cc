@@ -107,18 +107,18 @@ Fingering_engraver::make_script (Direction d, Music *r, int i)
   /* See script-engraver.cc */
   priority += i;
 
-  fingering->set_property ("script-priority", scm_int2num (priority));
+  fingering->set_property ("script-priority", scm_from_int (priority));
 
   if (!is_direction (fingering->get_property ("direction")))
     {
       if (d)
-	fingering->set_property ("direction", scm_int2num (d));
+	fingering->set_property ("direction", scm_from_int (d));
       else
-	fingering->set_property ("direction", scm_int2num (RIGHT));
+	fingering->set_property ("direction", scm_from_int (RIGHT));
     }
 
   SCM dig = r->get_property ("digit");
-  fingering->set_property ("text", scm_number_to_string (dig, scm_int2num (10)));
+  fingering->set_property ("text", scm_number_to_string (dig, scm_from_int (10)));
 
   fingerings_.push (fingering);
 }

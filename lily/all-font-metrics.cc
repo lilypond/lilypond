@@ -89,7 +89,7 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
 	progress_indication ("]");
 
       pf->description_ = scm_cons (SCM_BOOL_F,
-				   scm_make_real (1.0));
+				   scm_from_double (1.0));
     }
   g_free (pango_fn);
   return dynamic_cast<Pango_font *> (unsmob_metrics (val));
@@ -152,7 +152,7 @@ All_font_metrics::find_afm (String name)
       unsmob_metrics (val)->file_name_ = file_name;
 
       unsmob_metrics (val)->description_ = scm_cons (name_string,
-						     scm_make_real (1.0));
+						     scm_from_double (1.0));
 
       if (be_verbose_global)
 	progress_indication ("]");
@@ -222,7 +222,7 @@ All_font_metrics::find_otf (String name)
 
       unsmob_metrics (val)->file_name_ = file_name;
       unsmob_metrics (val)->description_ = scm_cons (name_string,
-						     scm_make_real (1.0));
+						     scm_from_double (1.0));
       otf_dict_->set (sname, val);
       unsmob_metrics (val)->unprotect ();
     }
@@ -264,7 +264,7 @@ All_font_metrics::find_tfm (String name)
 
       unsmob_metrics (val)->file_name_ = file_name;
       unsmob_metrics (val)->description_ = scm_cons (name_string,
-						     scm_make_real (1.0));
+						     scm_from_double (1.0));
       tfm_dict_->set (sname, val);
       unsmob_metrics (val)->unprotect ();
     }

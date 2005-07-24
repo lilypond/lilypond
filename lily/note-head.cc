@@ -38,7 +38,7 @@ internal_print (Grob *me, String *font_char)
       style = ly_symbol2scm ("default");
     }
 
-  SCM log = scm_int2num (Note_head::get_balltype (me));
+  SCM log = scm_from_int (Note_head::get_balltype (me));
   String suffix =  to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
   if (style != ly_symbol2scm ("default"))
     {
@@ -115,7 +115,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   if (!ly_is_procedure (v))
     return 0.0;
 
-  SCM result = scm_call_2 (v, me->self_scm (), scm_int2num (a));
+  SCM result = scm_call_2 (v, me->self_scm (), scm_from_int (a));
   if (!scm_is_pair (result))
     return 0.0;
 

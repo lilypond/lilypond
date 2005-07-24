@@ -60,7 +60,7 @@ Stem_engraver::make_stem (Grob_info gi)
   Music *music = gi.music_cause ();
   Duration *dur = unsmob_duration (music->get_property ("duration"));
   
-  stem_->set_property ("duration-log", dur ? scm_int2num (dur->duration_log ()) : 0);
+  stem_->set_property ("duration-log", dur ? scm_from_int (dur->duration_log ()) : 0);
 
   if (tremolo_ev_)
     {
@@ -82,7 +82,7 @@ Stem_engraver::make_stem (Grob_info gi)
 	    requested_type = 8;
 	}
       else
-	context ()->set_property ("tremoloFlags", scm_int2num (requested_type));
+	context ()->set_property ("tremoloFlags", scm_from_int (requested_type));
 
       int tremolo_flags = intlog2 (requested_type) - 2
 	- (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
@@ -98,7 +98,7 @@ Stem_engraver::make_stem (Grob_info gi)
 
 	  /* The number of tremolo flags is the number of flags of the
 	     tremolo-type minus the number of flags of the note itself.  */
-	  tremolo_->set_property ("flag-count", scm_int2num (tremolo_flags));
+	  tremolo_->set_property ("flag-count", scm_from_int (tremolo_flags));
 	  tremolo_->set_parent (stem_, X_AXIS);
 	  stem_->set_object ("tremolo-flag", tremolo_->self_scm ());
 	  tremolo_->set_object ("stem", stem_->self_scm ());

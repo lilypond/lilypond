@@ -65,7 +65,7 @@ Lyric_engraver::process_music ()
       if (ly_is_equal (text, scm_makfrom0str (" ")))
 	{
 	  if (last_text_)
-	    last_text_->set_property ("self-alignment-X", scm_int2num (LEFT));
+	    last_text_->set_property ("self-alignment-X", scm_from_int (LEFT));
 	}
       else
 	{
@@ -147,7 +147,7 @@ Lyric_engraver::stop_translation_timestep ()
 	    {
 	      text_->set_parent (head, X_AXIS);
 	      if (melisma_busy (voice))
-		text_->set_property ("self-alignment-X", scm_int2num (LEFT));
+		text_->set_property ("self-alignment-X", scm_from_int (LEFT));
 	    }
 	}
 	  

@@ -47,7 +47,7 @@ Stem::set_beaming (Grob *me, int beam_count, Direction d)
 
   SCM lst = index_get_cell (pair, d);
   for (int i = 0; i < beam_count; i++)
-    lst = scm_cons (scm_int2num (i), lst);
+    lst = scm_cons (scm_from_int (i), lst);
   index_set_cell (pair, d, lst);
 }
 
@@ -92,7 +92,7 @@ Stem::stem_end_position (Grob *me)
   if (!scm_is_number (p))
     {
       pos = get_default_stem_end_position (me);
-      me->set_property ("stem-end-position", scm_make_real (pos));
+      me->set_property ("stem-end-position", scm_from_double (pos));
     }
   else
     pos = scm_to_double (p);
@@ -123,7 +123,7 @@ Stem::set_stemend (Grob *me, Real se)
   if (d && d * head_positions (me)[get_direction (me)] >= se * d)
     me->warning (_ ("weird stem size, check for narrow beams"));
 
-  me->set_property ("stem-end-position", scm_make_real (se));
+  me->set_property ("stem-end-position", scm_from_double (se));
 }
 
 /* Note head that determines hshift for upstems
@@ -753,7 +753,7 @@ Stem::offset_callback (SCM element_smob, SCM)
 	  r = rest->extent (rest, X_AXIS).center ();
 	}
     }
-  return scm_make_real (r);
+  return scm_from_double (r);
 }
 
 Spanner *
@@ -892,8 +892,8 @@ Stem::calc_stem_info (Grob *me)
   Real shortest_y = minimum_y * my_dir;
 
   me->set_property ("stem-info",
-		    scm_list_2 (scm_make_real (ideal_y),
-				scm_make_real (shortest_y)));
+		    scm_list_2 (scm_from_double (ideal_y),
+				scm_from_double (shortest_y)));
 }
 
 Slice

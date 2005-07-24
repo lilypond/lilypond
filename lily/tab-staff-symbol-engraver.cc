@@ -27,7 +27,7 @@ Tab_staff_symbol_engraver::start_spanner ()
     {
       int k = scm_ilength (get_property ("stringTunings"));
       if (k >= 0)
-	span_->set_property ("line-count", scm_int2num (k));
+	span_->set_property ("line-count", scm_from_int (k));
     }
 }
 

@@ -143,7 +143,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 					   "setting `spacing-increment="
 					   "0.01': ptr=%ul", parent));
 	      sibling_parent->set_property ("forced-spacing",
-					    scm_make_real (0.01));
+					    scm_from_double (0.01));
 #endif
 	      sibling->set_parent (column, X_AXIS);
 	    }
@@ -188,12 +188,12 @@ compute_delta_pitches (Array<Grob_info> primitives)
 	{
 	  delta_pitch = pitch - prev_pitch;
 	  prev_primitive->set_property ("delta-pitch",
-					scm_int2num (delta_pitch));
+					scm_from_int (delta_pitch));
 	}
       prev_pitch = pitch;
       prev_primitive = primitive;
     }
-  primitive->set_property ("delta-pitch", scm_int2num (0));
+  primitive->set_property ("delta-pitch", scm_from_int (0));
 }
 
 void

@@ -208,10 +208,10 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 
 	  orig = orig.transposed (*p);
 
-	  SCM key = scm_cons (scm_int2num (orig.get_octave ()),
-			      scm_int2num (orig.get_notename ()));
+	  SCM key = scm_cons (scm_from_int (orig.get_octave ()),
+			      scm_from_int (orig.get_notename ()));
 
-	  newlist = scm_cons (scm_cons (key, scm_int2num (orig.get_alteration ())),
+	  newlist = scm_cons (scm_cons (key, scm_from_int (orig.get_alteration ())),
 			      newlist);
 	}
       else if (scm_is_number (key))
@@ -219,8 +219,8 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 	  Pitch orig (0, scm_to_int (key), scm_to_int (alter));
 	  orig = orig.transposed (*p);
 
-	  key = scm_int2num (orig.get_notename ());
-	  alter = scm_int2num (orig.get_alteration ());
+	  key = scm_from_int (orig.get_notename ());
+	  alter = scm_from_int (orig.get_alteration ());
 	  newlist = scm_cons (scm_cons (key, alter), newlist);
 	}
     }

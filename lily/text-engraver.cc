@@ -95,7 +95,7 @@ Text_engraver::process_acknowledged ()
       /* see script-engraver.cc */
       priority += i;
 
-      text->set_property ("script-priority", scm_int2num (priority));
+      text->set_property ("script-priority", scm_from_int (priority));
 
       Direction dir = to_dir (r->get_property ("direction"));
       if (dir)

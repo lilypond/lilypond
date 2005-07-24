@@ -38,7 +38,7 @@ Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
       do_shifts (me);
     }
 
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 void
@@ -456,7 +456,7 @@ Note_collision_interface::automatic_shift (Grob *me,
     {
       for (int i = 0; i < clash_groups[d].size (); i++)
 	tups = scm_cons (scm_cons (clash_groups[d][i]->self_scm (),
-				   scm_make_real (offsets[d][i])),
+				   scm_from_double (offsets[d][i])),
 			 tups);
     }
   while (flip (&d) != UP);

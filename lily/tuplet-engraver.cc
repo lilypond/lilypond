@@ -37,8 +37,8 @@ protected:
 
   DECLARE_ACKNOWLEDGER(note_column);
   virtual bool try_music (Music *r);
-  PRECOMPUTED_VIRTUAL void start_translation_timestep ();
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void start_translation_timestep ();
+  void process_music ();
 };
 
 bool

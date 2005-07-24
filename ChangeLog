@@ -1,5 +1,12 @@
 2005-07-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/*: cleanups: use scm_from_int iso. scm_int2num. Idem for
+	scm_from_real / scm_make_real.
+
+	* lily/main.cc (setup_guile_env): new function. Set GC min_yields
+	higher. This increases memory footprint, but provides overall
+	speedup of 15 to 20%. 
+
 	* lily/include/translator.hh (class Translator): remove
 	PRECOMPUTED_VIRTUAL everywhere.
 

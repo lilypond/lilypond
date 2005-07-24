@@ -20,7 +20,7 @@ Self_alignment_interface::centered_on_parent (SCM element_smob, SCM axis)
   Grob *him = me->get_parent (a);
   Interval he = him->extent (him, a);
 
-  return scm_make_real (he.is_empty () ? 0.0 : he.center ());
+  return scm_from_double (he.is_empty () ? 0.0 : he.center ());
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_parent, 2);
@@ -37,7 +37,7 @@ Self_alignment_interface::aligned_on_parent (SCM element_smob, SCM axis)
   SCM align_prop (me->internal_get_property (sym));
 
   if (!scm_is_number (align_prop))
-    return scm_int2num (0);
+    return scm_from_int (0);
 
   Real x = 0.0;
   Real align = scm_to_double (align_prop);
@@ -51,7 +51,7 @@ Self_alignment_interface::aligned_on_parent (SCM element_smob, SCM axis)
   if (!he.is_empty ())
     x += he.linear_combination (align);
 
-  return scm_make_real (x);
+  return scm_from_double (x);
 }
 
 /* Position centered on parent. */
@@ -65,7 +65,7 @@ Self_alignment_interface::centered_on_other_axis_parent (SCM element_smob,
   Grob *him = me->get_parent (other_axis (a));
   Interval he = him->extent (him, a);
 
-  return scm_make_real (he.is_empty () ? 0.0 : he.center ());
+  return scm_from_double (he.is_empty () ? 0.0 : he.center ());
 }
 
 /** callback that centers the element on itself
@@ -87,9 +87,9 @@ Self_alignment_interface::aligned_on_self (SCM element_smob, SCM axis)
       if (ext.is_empty ())
 	programming_error ("can't align on self: empty element");
       else
-	return scm_make_real (- ext.linear_combination (scm_to_double (align)));
+	return scm_from_double (- ext.linear_combination (scm_to_double (align)));
     }
-  return scm_make_real (0.0);
+  return scm_from_double (0.0);
 }
 
 ADD_INTERFACE (Self_alignment_interface, "self-alignment-interface",

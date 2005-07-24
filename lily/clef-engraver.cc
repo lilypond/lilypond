@@ -102,7 +102,7 @@ Clef_engraver::create_clef ()
 	  int dir = sign (abs_oct);
 	  abs_oct = abs (abs_oct) + 1;
 
-	  SCM txt = scm_number_to_string (scm_int2num (abs_oct),
+	  SCM txt = scm_number_to_string (scm_from_int (abs_oct),
 					  scm_from_int (10));
 
 	  g->set_property ("text",
@@ -112,7 +112,7 @@ Clef_engraver::create_clef ()
 
 	  g->set_parent (clef_, Y_AXIS);
 	  g->set_parent (clef_, X_AXIS);
-	  g->set_property ("direction", scm_int2num (dir));
+	  g->set_property ("direction", scm_from_int (dir));
 	  octavate_ = g;
 	}
     }

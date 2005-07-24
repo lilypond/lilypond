@@ -238,7 +238,7 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
 {
   Item *me = dynamic_cast<Item *> (unsmob_grob (it));
   SCM_ASSERT_TYPE (me, it, SCM_ARG1, __FUNCTION__, "Item");
-  return scm_int2num (me->break_status_dir ());
+  return scm_from_int (me->break_status_dir ());
 }
 
 LY_DEFINE (ly_grob_key, "ly:grob-key",

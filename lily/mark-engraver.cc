@@ -113,7 +113,7 @@ Mark_engraver::process_music ()
 	      int mark_count = scm_to_int (m);
 	      mark_count++;
 	      context ()->set_property ("rehearsalMark",
-					scm_int2num (mark_count));
+					scm_from_int (mark_count));
 	    }
 
 	  if (scm_is_number (m))

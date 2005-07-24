@@ -60,7 +60,7 @@ Note_heads_engraver::process_music ()
 
       Duration dur = *unsmob_duration (ev->get_property ("duration"));
 
-      note->set_property ("duration-log", scm_int2num (dur.duration_log ()));
+      note->set_property ("duration-log", scm_from_int (dur.duration_log ()));
       if (dur.dot_count ())
 	{
 	  Item *d = make_item ("Dots", note->self_scm ());
@@ -68,7 +68,7 @@ Note_heads_engraver::process_music ()
 
 	  if (dur.dot_count ()
 	      != robust_scm2int (d->get_property ("dot-count"), 0))
-	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
+	    d->set_property ("dot-count", scm_from_int (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
 
@@ -92,7 +92,7 @@ Note_heads_engraver::process_music ()
       if (scm_is_number (c0))
 	pos += scm_to_int (c0);
 
-      note->set_property ("staff-position", scm_int2num (pos));
+      note->set_property ("staff-position", scm_from_int (pos));
 
       /*
 	Shaped note heads change on step of the scale.

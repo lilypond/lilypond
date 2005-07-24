@@ -112,7 +112,7 @@ Tab_note_heads_engraver::process_music ()
 
       Duration dur = *unsmob_duration (event->get_property ("duration"));
       note->set_property ("duration-log",
-			  scm_int2num (dur.duration_log ()));
+			  scm_from_int (dur.duration_log ()));
 
       if (dur.dot_count ())
 	{
@@ -121,7 +121,7 @@ Tab_note_heads_engraver::process_music ()
 
 	  if (dur.dot_count ()
 	      != scm_to_int (d->get_property ("dot-count")))
-	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
+	    d->set_property ("dot-count", scm_from_int (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
 
@@ -136,14 +136,14 @@ Tab_note_heads_engraver::process_music ()
       while (!string_found)
 	{
 	  int fret = unsmob_pitch (scm_pitch)->semitone_pitch ()
-	    - scm_to_int (scm_list_ref (stringTunings, scm_int2num (tab_string - 1)));
+	    - scm_to_int (scm_list_ref (stringTunings, scm_from_int (tab_string - 1)));
 	  if (fret < min_fret)
 	    tab_string += high_string_one ? 1 : -1;
 	  else
 	    string_found = true;
 	}
 
-      SCM text = scm_call_3 (proc, scm_int2num (tab_string), stringTunings, scm_pitch);
+      SCM text = scm_call_3 (proc, scm_from_int (tab_string), stringTunings, scm_pitch);
 
       int pos = 2 * tab_string - number_of_strings - 1; // No tab-note between the string !!!
       if (to_boolean (get_property ("stringOneTopmost")))
@@ -151,7 +151,7 @@ Tab_note_heads_engraver::process_music ()
 
       note->set_property ("text", text);
 
-      note->set_property ("staff-position", scm_int2num (pos));
+      note->set_property ("staff-position", scm_from_int (pos));
       notes_.push (note);
     }
 }

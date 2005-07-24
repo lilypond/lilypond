@@ -30,7 +30,7 @@ Note_head::brew_ez_stencil (SCM smob)
   SCM spitch = unsmob_music (cause)->get_property ("pitch");
   Pitch *pit = unsmob_pitch (spitch);
 
-  SCM idx = scm_int2num (pit->get_notename ());
+  SCM idx = scm_from_int (pit->get_notename ());
   SCM names = me->get_property ("note-names");
   SCM charstr = SCM_EOL;
   if (scm_is_vector (names))

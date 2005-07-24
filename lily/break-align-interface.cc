@@ -36,7 +36,7 @@ Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
       Break_align_interface::do_alignment (par);
     }
 
-  return scm_make_real (0);
+  return scm_from_double (0);
 }
 
 MAKE_SCHEME_CALLBACK (Break_align_interface, self_align_callback, 2);
@@ -51,7 +51,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   Direction bsd = item->break_status_dir ();
   if (bsd == LEFT)
     {
-      me->set_property ("self-alignment-X", scm_int2num (RIGHT));
+      me->set_property ("self-alignment-X", scm_from_int (RIGHT));
     }
 
   /*
@@ -80,7 +80,7 @@ Break_align_interface::ordered_elements (Grob *grob)
 
   Link_array<Grob> writable_elts (elts);
   SCM order = scm_vector_ref (order_vec,
-			      scm_int2num (me->break_status_dir () + 1));
+			      scm_from_int (me->break_status_dir () + 1));
 
   /*
     Copy in order specified in BREAK-ALIGN-ORDER.

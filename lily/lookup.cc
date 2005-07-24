@@ -27,9 +27,9 @@ Stencil
 Lookup::dot (Offset p, Real radius)
 {
   SCM at = (scm_list_n (ly_symbol2scm ("dot"),
-			scm_make_real (p[X_AXIS]),
-			scm_make_real (p[Y_AXIS]),
-			scm_make_real (radius),
+			scm_from_double (p[X_AXIS]),
+			scm_from_double (p[Y_AXIS]),
+			scm_from_double (radius),
 			SCM_UNDEFINED));
   Box box;
   box.add_point (p - Offset (radius, radius));
@@ -83,7 +83,7 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
   
   SCM expr = scm_list_n (ly_symbol2scm ("polygon"),
 			 ly_quote_scm (points),
-			 scm_make_real (blot),
+			 scm_from_double (blot),
 			 SCM_BOOL_T,
 			 SCM_UNDEFINED);
   
@@ -104,9 +104,9 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction)
     }
 
   SCM at = (scm_list_n (ly_symbol2scm ("dashed-slur"),
-			scm_make_real (thick),
-			scm_make_real (on),
-			scm_make_real (off),
+			scm_from_double (thick),
+			scm_from_double (on),
+			scm_from_double (off),
 			ly_quote_scm (l),
 			SCM_UNDEFINED));
 
@@ -118,11 +118,11 @@ Stencil
 Lookup::horizontal_line (Interval w, Real th)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
-		       scm_make_real (th),
-		       scm_make_real (w[LEFT]),
-		       scm_make_real (0),
-		       scm_make_real (w[RIGHT]),
-		       scm_make_real (0),
+		       scm_from_double (th),
+		       scm_from_double (w[LEFT]),
+		       scm_from_double (0),
+		       scm_from_double (w[RIGHT]),
+		       scm_from_double (0),
 		       SCM_UNDEFINED);
 
   Box box;
@@ -184,11 +184,11 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
     }
 
   SCM at = (scm_list_n (ly_symbol2scm ("round-filled-box"),
-			scm_make_real (-b[X_AXIS][LEFT]),
-			scm_make_real (b[X_AXIS][RIGHT]),
-			scm_make_real (-b[Y_AXIS][DOWN]),
-			scm_make_real (b[Y_AXIS][UP]),
-			scm_make_real (blotdiameter),
+			scm_from_double (-b[X_AXIS][LEFT]),
+			scm_from_double (b[X_AXIS][RIGHT]),
+			scm_from_double (-b[Y_AXIS][DOWN]),
+			scm_from_double (b[Y_AXIS][UP]),
+			scm_from_double (blotdiameter),
 			SCM_UNDEFINED));
 
   return Stencil (b, at);
@@ -314,14 +314,14 @@ Lookup::round_filled_polygon (Array<Offset> const &points,
   Box box;
   for (int i = 0; i < shrunk_points.size (); i++)
     {
-      SCM x = scm_make_real (shrunk_points[i][X_AXIS]);
-      SCM y = scm_make_real (shrunk_points[i][Y_AXIS]);
+      SCM x = scm_from_double (shrunk_points[i][X_AXIS]);
+      SCM y = scm_from_double (shrunk_points[i][Y_AXIS]);
       shrunk_points_scm = scm_cons (x, scm_cons (y, shrunk_points_scm));
       box.add_point (points[i]);
     }
   SCM polygon_scm = scm_list_n (ly_symbol2scm ("polygon"),
 				ly_quote_scm (shrunk_points_scm),
-				scm_make_real (blotdiameter),
+				scm_from_double (blotdiameter),
 				SCM_BOOL_T,
 				SCM_UNDEFINED);
 
@@ -390,7 +390,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 
   SCM at = (scm_list_n (ly_symbol2scm ("bezier-sandwich"),
 			ly_quote_scm (list),
-			scm_make_real (linethick),
+			scm_from_double (linethick),
 			SCM_UNDEFINED));
   Box b (curve.extent (X_AXIS),
 	 curve.extent (Y_AXIS));
@@ -442,7 +442,7 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
 
   SCM horizontal_bend = scm_list_n (ly_symbol2scm ("bezier-sandwich"),
 				    ly_quote_scm (list),
-				    scm_make_real (0.0),
+				    scm_from_double (0.0),
 				    SCM_UNDEFINED);
 
   Interval x_extent = top_curve.extent (X_AXIS);
@@ -671,9 +671,9 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   return Lookup::round_filled_polygon (points, blotdiameter);
 #endif
   
-  SCM wid = scm_make_real (w);
-  SCM sl = scm_make_real (s);
-  SCM thick = scm_make_real (t);
+  SCM wid = scm_from_double (w);
+  SCM sl = scm_from_double (s);
+  SCM thick = scm_from_double (t);
   SCM slashnodot = scm_list_n (ly_symbol2scm ("repeat-slash"),
 			       wid, sl, thick, SCM_UNDEFINED);
 

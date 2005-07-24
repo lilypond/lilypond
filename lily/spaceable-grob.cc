@@ -36,7 +36,7 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
     programming_error ("infinite rod");
 
   SCM mins = get_minimum_distances (me);
-  SCM newdist = scm_make_real (d);
+  SCM newdist = scm_from_double (d);
   for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM dist = scm_car (s);

@@ -21,6 +21,6 @@ get_grob_direction (Grob *me)
 void
 set_grob_direction (Grob *me, Direction d)
 {
-  SCM sd = scm_int2num (d);
+  SCM sd = scm_from_int (d);
   me->set_property ("direction", sd);
 }

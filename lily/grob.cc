@@ -372,7 +372,7 @@ Grob::handle_prebroken_dependencies ()
   if (original_)
     {
       Item *it = dynamic_cast<Item *> (this);
-      substitute_object_links (scm_int2num (it->break_status_dir ()),
+      substitute_object_links (scm_from_int (it->break_status_dir ()),
 			       original_->object_alist_);
     }
 }
@@ -419,8 +419,8 @@ Grob::get_offset (Axis a) const
   while (dim_cache_[a].offsets_left_)
     {
       int l = --me->dim_cache_[a].offsets_left_;
-      SCM cb = scm_list_ref (dim_cache_[a].offset_callbacks_, scm_int2num (l));
-      SCM retval = scm_call_2 (cb, self_scm (), scm_int2num (a));
+      SCM cb = scm_list_ref (dim_cache_[a].offset_callbacks_, scm_from_int (l));
+      SCM retval = scm_call_2 (cb, self_scm (), scm_from_int (a));
 
       Real r = scm_to_double (retval);
       if (isinf (r) || isnan (r))
@@ -467,7 +467,7 @@ Grob::extent (Grob *refp, Axis a) const
     ;
   else if (ly_is_procedure (d->dimension_callback_)
 	   && d->dimension_ == SCM_EOL)
-    d->dimension_ = scm_call_2 (d->dimension_callback_, self_scm (), scm_int2num (a));
+    d->dimension_ = scm_call_2 (d->dimension_callback_, self_scm (), scm_from_int (a));
   else
     return ext;
 

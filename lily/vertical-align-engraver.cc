@@ -30,7 +30,7 @@ public:
 
 protected:
   virtual void derived_mark () const;
-  PRECOMPUTED_VIRTUAL void process_music ();
+  void process_music ();
   virtual void finalize ();
   virtual void initialize ();
 };

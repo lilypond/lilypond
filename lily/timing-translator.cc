@@ -50,10 +50,10 @@ Timing_translator::initialize ()
   */
   context ()->add_alias (ly_symbol2scm ("Timing"));
   context ()->set_property ("timing", SCM_BOOL_T);
-  context ()->set_property ("currentBarNumber", scm_int2num (1));
+  context ()->set_property ("currentBarNumber", scm_from_int (1));
 
   context ()->set_property ("timeSignatureFraction",
-			    scm_cons (scm_int2num (4), scm_int2num (4)));
+			    scm_cons (scm_from_int (4), scm_from_int (4)));
   /*
     Do not init measurePosition; this should be done from global
     context.
@@ -131,7 +131,7 @@ Timing_translator::start_translation_timestep ()
       b++;
     }
 
-  context ()->set_property ("currentBarNumber", scm_int2num (b));
+  context ()->set_property ("currentBarNumber", scm_from_int (b));
   context ()->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 

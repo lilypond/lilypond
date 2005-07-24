@@ -34,7 +34,7 @@ LY_DEFINE (ly_paper_system_number, "ly:paper-system-number",
 {
   Paper_system *ps = unsmob_paper_system (system);
   SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  return scm_int2num (ps->number_);
+  return scm_from_int (ps->number_);
 }
 
 LY_DEFINE (ly_paper_system_break_before_penalty, "ly:paper-system-break-before-penalty",
@@ -43,7 +43,7 @@ LY_DEFINE (ly_paper_system_break_before_penalty, "ly:paper-system-break-before-p
 {
   Paper_system *ps = unsmob_paper_system (system);
   SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  return scm_int2num (int (ps->break_before_penalty ()));
+  return scm_from_int (int (ps->break_before_penalty ()));
 }
 
 LY_DEFINE (ly_paper_system_stencil, "ly:paper-system-stencil",

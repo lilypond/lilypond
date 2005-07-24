@@ -113,7 +113,7 @@ Multi_measure_rest_engraver::process_music ()
 	      Grob *last = 0;
 	      for (int i = 0; i < numbers_.size (); i++)
 		{
-		  if (scm_int2num (d) == numbers_[i]->get_property ("direction"))
+		  if (scm_from_int (d) == numbers_[i]->get_property ("direction"))
 		    {
 		      if (last)
 			Side_position_interface::add_support (numbers_[i], last);
@@ -207,7 +207,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	We can't plug a markup directly into the grob, since the
 	measure-count determines the formatting of the mmrest.
       */
-      last_rest_->set_property ("measure-count", scm_int2num (num));
+      last_rest_->set_property ("measure-count", scm_from_int (num));
 
       SCM sml = get_property ("measureLength");
       Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
@@ -232,7 +232,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	  else
 	    {
 	      SCM text
-		= scm_number_to_string (scm_int2num (num), scm_from_int (10));
+		= scm_number_to_string (scm_from_int (num), scm_from_int (10));
 	      last->set_property ("text", text);
 	    }
 	}

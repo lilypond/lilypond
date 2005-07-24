@@ -83,8 +83,8 @@ Pitched_trill_engraver::make_trill (Music *mus)
 
   SCM keysig = get_property ("localKeySignature");
 
-  SCM key = scm_cons (scm_int2num (p->get_octave ()),
-		      scm_int2num (p->get_notename ()));
+  SCM key = scm_cons (scm_from_int (p->get_octave ()),
+		      scm_from_int (p->get_notename ()));
 
   SCM handle = scm_assoc (key, keysig);
   bool print_acc =
