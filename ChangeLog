@@ -1,3 +1,9 @@
+2005-07-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/main.cc (sane_setenv)[!ARGV0_RELOCATION]: Also define.
+	(setup_guile_env): Use it instead of nonstandard setenv.  Fixes
+	mingw build.
+	
 2005-07-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/lily.scm (lilypond-all): clear anonymous modules after
