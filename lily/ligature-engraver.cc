@@ -15,6 +15,8 @@
 #include "warn.hh"
 #include "context.hh"
 
+#include "translator.icc"
+
 /*
  * This abstract class provides the general framework for ligatures of
  * any kind.  It cares for handling start/stop ligatures events and
@@ -278,14 +280,15 @@ Ligature_engraver::acknowledge_note_head (Grob_info info)
 void
 Ligature_engraver::acknowledge_rest (Grob_info info)
 {
-  info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
-  prev_start_event_->origin ()->warning (_ ("ligature was started here"));
-  // TODO: maybe better should stop ligature here rather than
-  // ignoring the rest?
+  if (ligature_)
+    {
+      info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
+      prev_start_event_->origin ()->warning (_ ("ligature was started here"));
+      // TODO: maybe better should stop ligature here rather than
+      // ignoring the rest?
+    }
 }
 
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER(Ligature_engraver, rest);
 ADD_ACKNOWLEDGER(Ligature_engraver, note_head);
