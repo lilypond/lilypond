@@ -14,12 +14,15 @@
 
 #define MODULE_GC_KLUDGE
 
+#ifdef MODULE_GC_KLUDGE
+Protected_scm anonymous_modules = SCM_EOL;
+#endif
+
 #define FUNC_NAME __FUNCTION__
 
-Protected_scm anonymous_modules = SCM_EOL;
 
 LY_DEFINE(ly_clear_anonymous_modules, "ly:clear-anonymous-modules",
-	  0,0,0,(),
+	  0, 0, 0, (),
 	  "Plug a GUILE 1.6 and 1.7 memory leak by breaking a weak reference "
 	  "pointer cycle explicitly."
 	  )
@@ -41,7 +44,6 @@ LY_DEFINE(ly_clear_anonymous_modules, "ly:clear-anonymous-modules",
     }
 
   anonymous_modules = SCM_EOL;
-
 #endif
 
   return SCM_UNSPECIFIED;
