@@ -23,7 +23,7 @@ public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
   void process_music ();
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER(lyric_syllable);
+  DECLARE_ACKNOWLEDGER (lyric_syllable);
 };
 
 /*
@@ -68,7 +68,7 @@ Stanza_number_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Stanza_number_engraver,lyric_syllable);
+ADD_ACKNOWLEDGER (Stanza_number_engraver,lyric_syllable);
 ADD_TRANSLATOR (Stanza_number_engraver,
 		/* descr */ "",
 		/* creats*/ "StanzaNumber",

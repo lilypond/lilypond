@@ -56,7 +56,7 @@ protected:
   void stop_translation_timestep ();
   virtual void derived_mark () const;
   void start_translation_timestep ();
-  DECLARE_ACKNOWLEDGER(note_head);
+  DECLARE_ACKNOWLEDGER (note_head);
   virtual bool try_music (Music *);
   void process_music ();
   void typeset_tie (Grob *);
@@ -206,7 +206,7 @@ Tie_engraver::typeset_tie (Grob *her)
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Tie_engraver, note_head);
+ADD_ACKNOWLEDGER (Tie_engraver, note_head);
 ADD_TRANSLATOR (Tie_engraver,
 		/* descr */ "Generate ties between noteheads of equal pitch.",
 		/* creats*/ "Tie TieColumn",

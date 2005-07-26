@@ -24,7 +24,7 @@ class Script_column_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER(side_position);
+  DECLARE_ACKNOWLEDGER (side_position);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
@@ -70,7 +70,7 @@ Script_column_engraver::process_acknowledged ()
       scripts_.clear ();
     }
 }
-ADD_ACKNOWLEDGER(Script_column_engraver, side_position);
+ADD_ACKNOWLEDGER (Script_column_engraver, side_position);
 ADD_TRANSLATOR (Script_column_engraver,
 		/* descr */ "",
 		/* creats*/ "ScriptColumn",

@@ -61,7 +61,7 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
   void process_music ();
-  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER (stem);
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver ()
@@ -209,7 +209,7 @@ Chord_tremolo_engraver::stop_translation_timestep ()
 }
 
 
-ADD_ACKNOWLEDGER(Chord_tremolo_engraver,stem);
+ADD_ACKNOWLEDGER (Chord_tremolo_engraver,stem);
 ADD_TRANSLATOR (Chord_tremolo_engraver,
 		/* descr */ "Generates beams for  tremolo repeats.",
 		/* creats*/ "Beam",

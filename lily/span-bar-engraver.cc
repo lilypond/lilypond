@@ -27,7 +27,7 @@ class Span_bar_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER(bar_line);
+  DECLARE_ACKNOWLEDGER (bar_line);
   void stop_translation_timestep ();
 };
 
@@ -74,7 +74,7 @@ Span_bar_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Span_bar_engraver, bar_line);
+ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
 ADD_TRANSLATOR (Span_bar_engraver,
 		/* descr */ "This engraver makes cross-staff barlines: It catches all normal "
 		"bar lines, and draws a single span-bar across them.",

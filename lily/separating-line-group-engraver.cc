@@ -54,7 +54,7 @@ protected:
 
   Spanner *sep_span_;
 
-  DECLARE_ACKNOWLEDGER(item);
+  DECLARE_ACKNOWLEDGER (item);
   void process_music ();
   virtual void finalize ();
   void stop_translation_timestep ();
@@ -223,7 +223,7 @@ Separating_line_group_engraver::stop_translation_timestep ()
   musical_item_ = 0;
 }
 
-ADD_ACKNOWLEDGER(Separating_line_group_engraver, item);
+ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
 ADD_TRANSLATOR (Separating_line_group_engraver,
 		/* descr */ "Generates objects for computing spacing parameters.",
 		/* creats*/ "SeparationItem SeparatingGroupSpanner StaffSpacing",

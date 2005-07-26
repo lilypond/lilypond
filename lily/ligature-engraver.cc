@@ -290,8 +290,8 @@ Ligature_engraver::acknowledge_rest (Grob_info info)
 }
 
 
-ADD_ACKNOWLEDGER(Ligature_engraver, rest);
-ADD_ACKNOWLEDGER(Ligature_engraver, note_head);
+ADD_ACKNOWLEDGER (Ligature_engraver, rest);
+ADD_ACKNOWLEDGER (Ligature_engraver, note_head);
 ADD_TRANSLATOR (Ligature_engraver,
 		/* descr */ "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
 		/* creats */ "",

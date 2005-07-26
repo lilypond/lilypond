@@ -49,12 +49,14 @@ class Rhythmic_column_engraver : public Engraver
   Grob *last_spacing_;
   Grob *spacing_;
 
+  void add_spacing_item (Grob*);
+  
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
 
-DECLARE_ACKNOWLEDGER(dot_column);
-DECLARE_ACKNOWLEDGER(stem);
-DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER (dot_column);
+  DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
@@ -70,6 +72,23 @@ Rhythmic_column_engraver::Rhythmic_column_engraver ()
 }
 
 void
+Rhythmic_column_engraver::add_spacing_item (Grob *g)
+{
+  if (spacing_)
+    {
+      Pointer_group_interface::add_grob (spacing_,
+					 ly_symbol2scm ("left-items"),
+					 g);
+
+      if (last_spacing_)
+	{
+	  Pointer_group_interface::add_grob (last_spacing_,
+					     ly_symbol2scm ("right-items"),
+					     g);
+	}
+    }
+}
+void
 Rhythmic_column_engraver::process_acknowledged ()
 {
   if (rheads_.size ())
@@ -79,14 +98,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 	  note_column_ = make_item ("NoteColumn", rheads_[0]->self_scm ());
 
 	  spacing_ = make_item ("NoteSpacing", SCM_EOL);
-	  spacing_->set_object ("left-items", scm_cons (note_column_->self_scm (), SCM_EOL));
-
-	  if (last_spacing_)
-	    {
-	      Pointer_group_interface::add_grob (last_spacing_,
-						 ly_symbol2scm ("right-items"),
-						 note_column_);
-	    }
+	  add_spacing_item (note_column_);
 	}
 
       for (int i = 0; i < rheads_.size (); i++)
@@ -148,9 +160,9 @@ Rhythmic_column_engraver::stop_translation_timestep ()
 }
 
 
-ADD_ACKNOWLEDGER(Rhythmic_column_engraver,dot_column);
-ADD_ACKNOWLEDGER(Rhythmic_column_engraver,stem);
-ADD_ACKNOWLEDGER(Rhythmic_column_engraver,rhythmic_head);
+ADD_ACKNOWLEDGER (Rhythmic_column_engraver, dot_column);
+ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
+ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
 		/* descr */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",

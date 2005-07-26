@@ -27,8 +27,8 @@ protected:
   void stop_translation_timestep ();
   void process_acknowledged ();
 
-  DECLARE_ACKNOWLEDGER(stem);
-  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
 };
 
 bool
@@ -121,8 +121,8 @@ Text_engraver::Text_engraver ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Text_engraver, stem);
-ADD_ACKNOWLEDGER(Text_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Text_engraver, stem);
+ADD_ACKNOWLEDGER (Text_engraver, rhythmic_head);
 ADD_TRANSLATOR (Text_engraver,
 		/* descr */ "Create text-scripts",
 		/* creats*/ "TextScript",

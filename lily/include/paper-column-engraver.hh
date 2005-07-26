@@ -28,9 +28,9 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music*);
 
-  DECLARE_ACKNOWLEDGER(item);
-  DECLARE_ACKNOWLEDGER(note_spacing);
-  DECLARE_ACKNOWLEDGER(staff_spacing);
+  DECLARE_ACKNOWLEDGER (item);
+  DECLARE_ACKNOWLEDGER (note_spacing);
+  DECLARE_ACKNOWLEDGER (staff_spacing);
 
   System *system_;
   Music *break_event_;

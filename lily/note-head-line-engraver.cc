@@ -26,7 +26,7 @@ public:
   TRANSLATOR_DECLARATIONS (Note_head_line_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
   void process_acknowledged ();
   void stop_translation_timestep ();
 
@@ -97,7 +97,7 @@ Note_head_line_engraver::stop_translation_timestep ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Note_head_line_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Note_head_line_engraver, rhythmic_head);
 ADD_TRANSLATOR (Note_head_line_engraver,
 		/* descr */ "Engrave a line between two note heads, for example a glissando.  If "
 		" followVoice is set, staff switches also generate a line.",

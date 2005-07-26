@@ -48,6 +48,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	    {
 	      it = it->find_prebroken_piece (col_dir);
 	    }
+	  
 	  /*
 	    some kind of mismatch, eg. a note column, that is behind a
 	    linebreak.
@@ -94,6 +95,12 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
 		  extents[d].unite (v);
 		}
+
+
+	      if (Grob *arpeggio = Note_column::arpeggio (it))
+		{
+		  extents[d].unite (arpeggio->extent (it_col, X_AXIS));
+		}
 	    }
 	}
 
@@ -124,9 +131,18 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	(extents[LEFT][RIGHT] - left_head_wid[RIGHT]) / 2))
 
     /*
-      What is sticking out of the right note:
+      What is sticking out on the left side of the right note:
     */
-    + (extents[RIGHT].is_empty () ? 0.0 : - extents[RIGHT][LEFT] / 2);
+    + (extents[RIGHT].is_empty ()
+       ? 0.0
+       : ((- extents[RIGHT][LEFT] / 2)
+
+	  /*
+	    Add that which sticks out a lot.
+	   */
+	  + max (0.0, -extents[RIGHT][LEFT] - (base_space - increment))));
+
+	
 
   /*
     We don't do complicated stuff: (base_space - increment) is the

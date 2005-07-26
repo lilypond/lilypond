@@ -102,9 +102,9 @@ Arpeggio_engraver::stop_translation_timestep ()
   arpeggio_event_ = 0;
 }
 
-ADD_ACKNOWLEDGER(Arpeggio_engraver, stem)
-ADD_ACKNOWLEDGER(Arpeggio_engraver, rhythmic_head)
-ADD_ACKNOWLEDGER(Arpeggio_engraver, note_column)
+ADD_ACKNOWLEDGER (Arpeggio_engraver, stem)
+ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head)
+ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column)
 
 ADD_TRANSLATOR (Arpeggio_engraver,
 		/* descr */ "Generate an Arpeggio symbol",

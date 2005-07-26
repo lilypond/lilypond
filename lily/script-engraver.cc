@@ -42,10 +42,10 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_ACKNOWLEDGER( slur);
-  DECLARE_ACKNOWLEDGER( rhythmic_head);
-  DECLARE_ACKNOWLEDGER( stem);
-  DECLARE_ACKNOWLEDGER( note_column);
+  DECLARE_ACKNOWLEDGER ( slur);
+  DECLARE_ACKNOWLEDGER ( rhythmic_head);
+  DECLARE_ACKNOWLEDGER ( stem);
+  DECLARE_ACKNOWLEDGER ( note_column);
 
 public:
   TRANSLATOR_DECLARATIONS (Script_engraver);
@@ -251,10 +251,10 @@ Script_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Script_engraver, slur);
-ADD_ACKNOWLEDGER(Script_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER(Script_engraver, stem);
-ADD_ACKNOWLEDGER(Script_engraver, note_column);
+ADD_ACKNOWLEDGER (Script_engraver, slur);
+ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Script_engraver, stem);
+ADD_ACKNOWLEDGER (Script_engraver, note_column);
 
 ADD_TRANSLATOR (Script_engraver,
 		/* descr */ "Handles note scripted articulations.",

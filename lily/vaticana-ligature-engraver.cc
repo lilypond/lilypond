@@ -596,8 +596,8 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 #endif
 }
 
-ADD_ACKNOWLEDGER(Vaticana_ligature_engraver, rest);
-ADD_ACKNOWLEDGER(Vaticana_ligature_engraver, note_head);
+ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
+ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, note_head);
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
 		/* descr */ "Handles ligatures by glueing special ligature heads together.",
 		/* creats*/ "VaticanaLigature",

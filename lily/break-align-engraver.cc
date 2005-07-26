@@ -27,7 +27,7 @@ protected:
   virtual void derived_mark () const;
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
-  DECLARE_ACKNOWLEDGER(break_aligned);
+  DECLARE_ACKNOWLEDGER (break_aligned);
 
 };
 
@@ -121,7 +121,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
     }
   Axis_group_interface::add_element (group, item);
 }
-ADD_ACKNOWLEDGER(Break_align_engraver, break_aligned);
+ADD_ACKNOWLEDGER (Break_align_engraver, break_aligned);
 ADD_TRANSLATOR (Break_align_engraver,
 		"Align grobs with corresponding @code{break-align-symbols} into "
 		"groups, and order the groups according to @code{breakAlignOrder}. "

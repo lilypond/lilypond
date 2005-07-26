@@ -24,7 +24,7 @@ public:
   TRANSLATOR_DECLARATIONS (Hyphen_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER(lyric_syllable);
+  DECLARE_ACKNOWLEDGER (lyric_syllable);
   virtual void finalize ();
   virtual bool try_music (Music *);
   void stop_translation_timestep ();
@@ -134,7 +134,7 @@ Hyphen_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Hyphen_engraver,lyric_syllable);
+ADD_ACKNOWLEDGER (Hyphen_engraver,lyric_syllable);
 ADD_TRANSLATOR (Hyphen_engraver,
 		/* descr */ "Create lyric hyphens",
 		/* creats*/ "LyricHyphen",

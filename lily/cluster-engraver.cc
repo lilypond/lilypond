@@ -20,7 +20,7 @@ protected:
   TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
   virtual bool try_music (Music *);
   void process_music ();
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (note_column);
   void stop_translation_timestep ();
   virtual void finalize ();
 private:
@@ -127,7 +127,7 @@ Cluster_spanner_engraver::acknowledge_note_column (Grob_info info)
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Cluster_spanner_engraver, note_column);
+ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
 ADD_TRANSLATOR (Cluster_spanner_engraver,
 		/* descr */	"Engraves a cluster using Spanner notation ",
 		/* creats*/	"ClusterSpanner ClusterSpannerBeacon",

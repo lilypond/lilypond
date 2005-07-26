@@ -24,8 +24,8 @@
 class Beam_engraver : public Engraver
 {
 public:
-  DECLARE_ACKNOWLEDGER(stem);
-  DECLARE_ACKNOWLEDGER(rest);
+  DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (rest);
 protected:
   Music *start_ev_;
 
@@ -272,8 +272,8 @@ Beam_engraver::acknowledge_stem (Grob_info info)
     }
 }
 
-ADD_ACKNOWLEDGER(Beam_engraver, stem);
-ADD_ACKNOWLEDGER(Beam_engraver, rest);
+ADD_ACKNOWLEDGER (Beam_engraver, stem);
+ADD_ACKNOWLEDGER (Beam_engraver, rest);
 
 ADD_TRANSLATOR (Beam_engraver,
 		/* descr */ "Handles Beam events by engraving Beams.    If omitted, then notes will be "
@@ -311,8 +311,8 @@ Grace_beam_engraver::valid_end_point ()
   return beam_ && valid_start_point ();
 }
 
-ADD_ACKNOWLEDGER(Grace_beam_engraver, stem);
-ADD_ACKNOWLEDGER(Grace_beam_engraver, rest);
+ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
+ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
 ADD_TRANSLATOR (Grace_beam_engraver,
 		/* descr */ "Handles Beam events by engraving Beams.  If omitted, then notes will "
 		"be printed with flags instead of beams. Only engraves beams when we "

@@ -18,7 +18,7 @@ public:
 protected:
   virtual void finalize ();
  
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (note_column);
   
   void process_music ();
   void stop_translation_timestep ();
@@ -124,7 +124,7 @@ Ottava_spanner_engraver::finalize ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Ottava_spanner_engraver, note_column);
+ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
 ADD_TRANSLATOR (Ottava_spanner_engraver,
 		/* descr */ "Create a text spanner when the ottavation property changes..",
 		/* creats*/ "OttavaBracket",

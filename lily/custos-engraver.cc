@@ -29,8 +29,8 @@ class Custos_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);
   void start_translation_timestep ();
-  DECLARE_ACKNOWLEDGER(bar);
-  DECLARE_ACKNOWLEDGER(note_head);
+  DECLARE_ACKNOWLEDGER (bar);
+  DECLARE_ACKNOWLEDGER (note_head);
   void process_acknowledged ();
   void stop_translation_timestep ();
   virtual void finalize ();
@@ -136,8 +136,8 @@ Custos_engraver::finalize ()
 }
 
 
-ADD_ACKNOWLEDGER(Custos_engraver,bar);
-ADD_ACKNOWLEDGER(Custos_engraver,note_head);
+ADD_ACKNOWLEDGER (Custos_engraver,bar);
+ADD_ACKNOWLEDGER (Custos_engraver,note_head);
 
 ADD_TRANSLATOR (Custos_engraver,
 		/* descr */ "",

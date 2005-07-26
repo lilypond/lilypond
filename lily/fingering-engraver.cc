@@ -25,8 +25,8 @@ protected:
   virtual bool try_music (Music *m);
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_ACKNOWLEDGER(rhythmic_head);
-  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_ACKNOWLEDGER (stem);
 
 private:
   void make_script (Direction, Music *, int);
@@ -139,8 +139,8 @@ Fingering_engraver::Fingering_engraver ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Fingering_engraver,rhythmic_head);
-ADD_ACKNOWLEDGER(Fingering_engraver,stem);
+ADD_ACKNOWLEDGER (Fingering_engraver,rhythmic_head);
+ADD_ACKNOWLEDGER (Fingering_engraver,stem);
 ADD_TRANSLATOR (Fingering_engraver,
 		/* descr */ "Create fingering-scripts",
 		/* creats*/ "Fingering",

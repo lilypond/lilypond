@@ -33,7 +33,7 @@ class Stem_engraver : public Engraver
 protected:
   void make_stem (Grob_info);
 
-  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
   void stop_translation_timestep ();
   virtual bool try_music (Music *);
 };
@@ -169,7 +169,7 @@ Stem_engraver::try_music (Music *m)
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Stem_engraver,rhythmic_head);
+ADD_ACKNOWLEDGER (Stem_engraver,rhythmic_head);
 ADD_TRANSLATOR (Stem_engraver,
 		/* descr */ "Create stems and single-stem tremolos.  It also works together with "
 		"the beam engraver for overriding beaming.",

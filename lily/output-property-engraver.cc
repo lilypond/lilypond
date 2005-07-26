@@ -16,7 +16,7 @@ class Output_property_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Output_property_engraver);
 protected:
   Link_array<Music> props_;
-  DECLARE_ACKNOWLEDGER(grob)
+  DECLARE_ACKNOWLEDGER (grob)
 
   void stop_translation_timestep ();
   virtual bool try_music (Music*);
@@ -78,7 +78,7 @@ Output_property_engraver::Output_property_engraver ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Output_property_engraver,grob)
+ADD_ACKNOWLEDGER (Output_property_engraver,grob)
 ADD_TRANSLATOR (Output_property_engraver,
 /* descr */       "Interpret Music of Output_property type, and apply a function "
 " to any Graphic objects that satisfies the predicate.",

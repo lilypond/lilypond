@@ -60,8 +60,8 @@ class Dynamic_engraver : public Engraver
   void typeset_all ();
 
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
-  DECLARE_ACKNOWLEDGER(script);
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (script);
+  DECLARE_ACKNOWLEDGER (note_column);
 
 
 protected:
@@ -431,8 +431,8 @@ Dynamic_engraver::acknowledge_script (Grob_info info)
 }
 
 
-ADD_ACKNOWLEDGER(Dynamic_engraver,script);
-ADD_ACKNOWLEDGER(Dynamic_engraver,note_column);
+ADD_ACKNOWLEDGER (Dynamic_engraver,script);
+ADD_ACKNOWLEDGER (Dynamic_engraver,note_column);
 
 ADD_TRANSLATOR (Dynamic_engraver,
 		/* descr */

@@ -18,7 +18,7 @@ class Vertically_spaced_contexts_engraver : public Engraver
   TRANSLATOR_DECLARATIONS(Vertically_spaced_contexts_engraver);
 protected:
   virtual void initialize ();
-  DECLARE_ACKNOWLEDGER(vertically_spaceable);
+  DECLARE_ACKNOWLEDGER (vertically_spaceable);
 
 private:
   Grob *system_;
@@ -56,7 +56,8 @@ Vertically_spaced_contexts_engraver::acknowledge_vertically_spaceable (Grob_info
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Vertically_spaced_contexts_engraver, vertically_spaceable);
+
+ADD_ACKNOWLEDGER (Vertically_spaced_contexts_engraver, vertically_spaceable);
 ADD_TRANSLATOR (Vertically_spaced_contexts_engraver,
 		/* descr */ "",
 		/* creats*/ "",

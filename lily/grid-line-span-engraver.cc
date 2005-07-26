@@ -19,7 +19,7 @@ class Grid_line_span_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER(grid_point);
+  DECLARE_ACKNOWLEDGER (grid_point);
   void stop_translation_timestep ();
 };
 
@@ -59,7 +59,7 @@ Grid_line_span_engraver::stop_translation_timestep ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Grid_line_span_engraver, grid_point);
+ADD_ACKNOWLEDGER (Grid_line_span_engraver, grid_point);
 ADD_TRANSLATOR (Grid_line_span_engraver,
 		/* descr */ "This engraver makes cross-staff linelines: It catches all normal "
 		"line lines, and draws a single span-line across them.",
