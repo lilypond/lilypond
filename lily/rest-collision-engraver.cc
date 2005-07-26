@@ -17,7 +17,7 @@ class Rest_collision_engraver : public Engraver
   int rest_count_;
   Link_array<Grob> note_columns_;
 protected:
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (note_column);
   void process_acknowledged ();
   void stop_translation_timestep ();
 public:
@@ -64,7 +64,7 @@ Rest_collision_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Rest_collision_engraver, note_column);
+ADD_ACKNOWLEDGER (Rest_collision_engraver, note_column);
 ADD_TRANSLATOR (Rest_collision_engraver,
 		/* descr */ "Handles collisions of rests.",
 		/* creats*/ "RestCollision",

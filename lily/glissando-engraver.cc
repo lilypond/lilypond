@@ -21,7 +21,7 @@ public:
   TRANSLATOR_DECLARATIONS (Glissando_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
   virtual void finalize ();
   void stop_translation_timestep ();
   virtual bool try_music (Music *);
@@ -105,7 +105,7 @@ Glissando_engraver::finalize ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Glissando_engraver,rhythmic_head);
+ADD_ACKNOWLEDGER (Glissando_engraver,rhythmic_head);
 ADD_TRANSLATOR (Glissando_engraver,
 		/* descr */ "Engrave a glissandi",
 		/* creats*/ "Glissando",

@@ -52,8 +52,8 @@ public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
 protected:
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER(rhythmic_head);
-  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_ACKNOWLEDGER (stem);
   void add_fingering (Grob *, Music *, Music *);
   void add_script (Grob *, Music *, Music *);
   void add_string (Grob *, Music *, Music *);
@@ -361,8 +361,8 @@ New_fingering_engraver::New_fingering_engraver ()
 {
   stem_ = 0;
 }
-ADD_ACKNOWLEDGER(New_fingering_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER(New_fingering_engraver, stem);
+ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
 
 ADD_TRANSLATOR (New_fingering_engraver,
 		/* descr */ "Create fingering-scripts for notes in a new chord.  "

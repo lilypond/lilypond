@@ -26,7 +26,7 @@ class Vertical_align_engraver : public Engraver
   
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
-  DECLARE_ACKNOWLEDGER(axis_group);
+  DECLARE_ACKNOWLEDGER (axis_group);
 
 protected:
   virtual void derived_mark () const;
@@ -35,7 +35,7 @@ protected:
   virtual void initialize ();
 };
 
-ADD_ACKNOWLEDGER(Vertical_align_engraver, axis_group);
+ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
 ADD_TRANSLATOR (Vertical_align_engraver,
 		"Catch groups (staffs, lyrics lines, etc.) and stack "
 		"them vertically.",

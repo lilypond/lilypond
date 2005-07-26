@@ -25,7 +25,7 @@ public:
   TRANSLATOR_DECLARATIONS (Trill_spanner_engraver);
 protected:
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (note_column);
   virtual bool try_music (Music *);
   void stop_translation_timestep ();
   void process_music ();
@@ -146,7 +146,7 @@ Trill_spanner_engraver::finalize ()
       span_ = 0;
     }
 }
-ADD_ACKNOWLEDGER(Trill_spanner_engraver,note_column);
+ADD_ACKNOWLEDGER (Trill_spanner_engraver,note_column);
 ADD_TRANSLATOR (Trill_spanner_engraver,
 		/* descr */ "Create trill spanner from a Music.",
 		/* creats*/ "TrillSpanner",

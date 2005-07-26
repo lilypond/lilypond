@@ -20,8 +20,8 @@ class Part_combine_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Part_combine_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER(note_head);
-  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER (note_head);
+  DECLARE_ACKNOWLEDGER (stem);
   
   void process_music ();
   void stop_translation_timestep ();
@@ -95,8 +95,8 @@ Part_combine_engraver::stop_translation_timestep ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Part_combine_engraver, note_head);
-ADD_ACKNOWLEDGER(Part_combine_engraver, stem);
+ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
+ADD_ACKNOWLEDGER (Part_combine_engraver, stem);
 ADD_TRANSLATOR (Part_combine_engraver,
 		/* descr */ "Part combine engraver for orchestral scores:		"
 		"Print markings a2, Solo, Solo II, and unisono ",

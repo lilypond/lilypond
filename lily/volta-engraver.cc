@@ -27,9 +27,9 @@ public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
 protected:
 
-  DECLARE_ACKNOWLEDGER(staff_symbol);
-  DECLARE_ACKNOWLEDGER(note_column);
-  DECLARE_ACKNOWLEDGER(bar_line);
+  DECLARE_ACKNOWLEDGER (staff_symbol);
+  DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_ACKNOWLEDGER (bar_line);
   
   virtual void finalize ();
 
@@ -234,9 +234,9 @@ Volta_engraver::stop_translation_timestep ()
 /*
   TODO: should attach volta to paper-column if no bar is found.
 */
-ADD_ACKNOWLEDGER(Volta_engraver, staff_symbol);
-ADD_ACKNOWLEDGER(Volta_engraver, note_column);
-ADD_ACKNOWLEDGER(Volta_engraver, bar_line);
+ADD_ACKNOWLEDGER (Volta_engraver, staff_symbol);
+ADD_ACKNOWLEDGER (Volta_engraver, note_column);
+ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,
 		/* descr */ "Make volta brackets.",
 		/* creats*/ "VoltaBracket",

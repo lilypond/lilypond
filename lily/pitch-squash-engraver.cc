@@ -14,7 +14,7 @@ class Pitch_squash_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Pitch_squash_engraver);
-  DECLARE_ACKNOWLEDGER(note_head);
+  DECLARE_ACKNOWLEDGER (note_head);
 };
 
 void
@@ -32,7 +32,7 @@ Pitch_squash_engraver::Pitch_squash_engraver ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Pitch_squash_engraver,note_head);
+ADD_ACKNOWLEDGER (Pitch_squash_engraver,note_head);
 ADD_TRANSLATOR (Pitch_squash_engraver,
 		/* descr */
 		"Set the vertical position of noteheads to "

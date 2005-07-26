@@ -27,7 +27,7 @@ protected:
   Item *text_;
 protected:
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER(break_aligned);
+  DECLARE_ACKNOWLEDGER (break_aligned);
   void process_music ();
   void create_items ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);

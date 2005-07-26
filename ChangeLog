@@ -1,3 +1,17 @@
+2005-07-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/accidental-engraver.cc: formatting fixes.
+
+	* lily/spacing-spanner.cc (prune_loose_columns): right-items is a
+	grob-array.
+
+	* lily/arpeggio.cc (print): suicide arpeggio for single notehead.
+
+	* lily/note-column.cc (arpeggio): new function.
+
+	* lily/note-spacing.cc (get_spacing): also take arpeggio into
+	account for spacing.
+
 2005-07-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (sane_setenv)[!ARGV0_RELOCATION]: Also define.
@@ -35,7 +49,7 @@
 
 	* lily/profile.cc: new file.
 
-	* lily/grob.cc (Grob): look properties up directly.
+	* lily/grob.cc (Grob::Grob): look properties up directly.
 
 	* lily/open-type-font.cc (get_indexed_char): cache index -> bbox
 	lookups.

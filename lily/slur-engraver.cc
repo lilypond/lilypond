@@ -30,12 +30,12 @@ class Slur_engraver : public Engraver
 protected:
   virtual bool try_music (Music *);
 
-  DECLARE_ACKNOWLEDGER(note_column);
-  DECLARE_ACKNOWLEDGER(accidental);
-  DECLARE_ACKNOWLEDGER(fingering);
-  DECLARE_ACKNOWLEDGER(script);
-  DECLARE_ACKNOWLEDGER(tie);
-  DECLARE_ACKNOWLEDGER(text_script);
+  DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_ACKNOWLEDGER (accidental);
+  DECLARE_ACKNOWLEDGER (fingering);
+  DECLARE_ACKNOWLEDGER (script);
+  DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_ACKNOWLEDGER (text_script);
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   virtual void finalize ();
@@ -199,12 +199,12 @@ Slur_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Slur_engraver,note_column);
-ADD_ACKNOWLEDGER(Slur_engraver,accidental);
-ADD_ACKNOWLEDGER(Slur_engraver,fingering)
-ADD_ACKNOWLEDGER(Slur_engraver,script);
-ADD_ACKNOWLEDGER(Slur_engraver,tie);
-ADD_ACKNOWLEDGER(Slur_engraver,text_script);
+ADD_ACKNOWLEDGER (Slur_engraver,note_column);
+ADD_ACKNOWLEDGER (Slur_engraver,accidental);
+ADD_ACKNOWLEDGER (Slur_engraver,fingering)
+ADD_ACKNOWLEDGER (Slur_engraver,script);
+ADD_ACKNOWLEDGER (Slur_engraver,tie);
+ADD_ACKNOWLEDGER (Slur_engraver,text_script);
 ADD_TRANSLATOR (Slur_engraver,
 		/* descr */ "Build slurs grobs from slur events",
 		/* creats*/ "Slur",

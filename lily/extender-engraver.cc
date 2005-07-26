@@ -28,7 +28,7 @@ public:
   TRANSLATOR_DECLARATIONS (Extender_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER(lyric_syllable);
+  DECLARE_ACKNOWLEDGER (lyric_syllable);
   virtual void finalize ();
   virtual bool try_music (Music *);
   void stop_translation_timestep ();
@@ -145,7 +145,7 @@ Extender_engraver::finalize ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Extender_engraver,lyric_syllable);
+ADD_ACKNOWLEDGER (Extender_engraver,lyric_syllable);
 ADD_TRANSLATOR (Extender_engraver,
 		/* descr */ "Create lyric extenders",
 		/* creats*/ "LyricExtender",

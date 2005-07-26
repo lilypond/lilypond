@@ -34,8 +34,8 @@ protected:
   virtual void finalize ();
 
 
-  DECLARE_ACKNOWLEDGER(rest);
-  DECLARE_ACKNOWLEDGER(note_head);
+  DECLARE_ACKNOWLEDGER (rest);
+  DECLARE_ACKNOWLEDGER (note_head);
   virtual bool try_music (Music *);
   void process_music ();
   virtual Spanner *create_ligature_spanner (); /* abstract method */

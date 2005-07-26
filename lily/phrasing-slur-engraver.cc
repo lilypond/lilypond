@@ -29,13 +29,13 @@ protected:
   virtual bool try_music (Music *);
 
   void acknowledge_extra_object (Grob_info);
-  DECLARE_ACKNOWLEDGER(note_column);
-  DECLARE_ACKNOWLEDGER(accidental);
-  DECLARE_ACKNOWLEDGER(fingering);
-  DECLARE_ACKNOWLEDGER(script);
-  DECLARE_ACKNOWLEDGER(tie);
-  DECLARE_ACKNOWLEDGER(text_script);
-  DECLARE_ACKNOWLEDGER(slur);
+  DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_ACKNOWLEDGER (accidental);
+  DECLARE_ACKNOWLEDGER (fingering);
+  DECLARE_ACKNOWLEDGER (script);
+  DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_ACKNOWLEDGER (text_script);
+  DECLARE_ACKNOWLEDGER (slur);
   
   void stop_translation_timestep ();
   virtual void finalize ();
@@ -190,13 +190,13 @@ Phrasing_slur_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 
-ADD_ACKNOWLEDGER(Phrasing_slur_engraver,note_column);
-ADD_ACKNOWLEDGER(Phrasing_slur_engraver,accidental);
-ADD_ACKNOWLEDGER(Phrasing_slur_engraver,fingering)
-ADD_ACKNOWLEDGER(Phrasing_slur_engraver,script);
-ADD_ACKNOWLEDGER(Phrasing_slur_engraver,tie);
-ADD_ACKNOWLEDGER(Phrasing_slur_engraver,text_script);
-ADD_ACKNOWLEDGER(Phrasing_slur_engraver,slur);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver,note_column);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver,accidental);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver,fingering)
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver,script);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver,tie);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver,text_script);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver,slur);
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,
 		/* descr */ "Print phrasing slurs. Similar to @ref{Slur_engraver}",

@@ -30,8 +30,8 @@ protected:
   virtual void create_text ();
   virtual void initialize ();
 
-  DECLARE_ACKNOWLEDGER(bar_line);
-  DECLARE_ACKNOWLEDGER(axis_group);
+  DECLARE_ACKNOWLEDGER (bar_line);
+  DECLARE_ACKNOWLEDGER (axis_group);
   
   void stop_translation_timestep ();
   void process_music ();
@@ -140,8 +140,8 @@ Instrument_name_engraver::process_music ()
 #include "translator.icc"
 
 
-ADD_ACKNOWLEDGER(Instrument_name_engraver, bar_line);
-ADD_ACKNOWLEDGER(Instrument_name_engraver, axis_group);
+ADD_ACKNOWLEDGER (Instrument_name_engraver, bar_line);
+ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
 ADD_TRANSLATOR (Instrument_name_engraver,
 		/* descr */ " Prints the name of the instrument (specified by "
 		" @code{Staff.instrument} and @code{Staff.instr}) "
@@ -187,8 +187,8 @@ Vocal_name_engraver::create_text ()
     text_->set_property ("text", txt);
 }
 
-ADD_ACKNOWLEDGER(Vocal_name_engraver, bar_line);
-ADD_ACKNOWLEDGER(Vocal_name_engraver, axis_group);
+ADD_ACKNOWLEDGER (Vocal_name_engraver, bar_line);
+ADD_ACKNOWLEDGER (Vocal_name_engraver, axis_group);
 ADD_TRANSLATOR (Vocal_name_engraver,
 		/* descr */ " Prints the name of the a lyric voice (specified by "
 		" @code{Staff.vocalName} and @code{Staff.vocNam}) "

@@ -181,10 +181,10 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols, Rational
 	    Either object can be non existent, if the score ends
 	    prematurely.
 	  */
-	  
-	  rns = scm_car (unsmob_grob (rns)->get_object ("right-items"));
+
+	  extract_grob_set (unsmob_grob (rns), "right-items", right_items);
 	  c->set_object ("between-cols", scm_cons (lns,
-						   rns));
+						   right_items[0]->self_scm ()));
 
 	  /*
 	    Set distance constraints for loose columns
@@ -290,7 +290,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> const &cols)
 	  if (right_rank <= min_rank)
 	    {
 	      if (right_rank < min_rank)
-		right_neighbors = SCM_EOL;
+		rn_arr->clear ();
 
 	      min_rank = right_rank;
 	      rn_arr->add (wish);

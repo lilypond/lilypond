@@ -178,7 +178,13 @@ Note_column::accidentals (Grob *me)
   return acc;
 }
 
+
+Grob *
+Note_column::arpeggio (Grob *me)
+{
+  return unsmob_grob (me->get_object ("arpeggio"));
+}
+
 ADD_INTERFACE (Note_column, "note-column-interface",
 	       "Stem and noteheads combined",
 	       "arpeggio note-heads rest-collision rest horizontal-shift stem accidentals force-hshift");
-

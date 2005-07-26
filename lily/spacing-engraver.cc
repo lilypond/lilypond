@@ -46,9 +46,9 @@ class Spacing_engraver : public Engraver
 
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER(staff_spacing);
-  DECLARE_ACKNOWLEDGER(note_spacing);
-  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER (staff_spacing);
+  DECLARE_ACKNOWLEDGER (note_spacing);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_music ();
@@ -183,9 +183,9 @@ Spacing_engraver::start_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Spacing_engraver,staff_spacing);
-ADD_ACKNOWLEDGER(Spacing_engraver,note_spacing);
-ADD_ACKNOWLEDGER(Spacing_engraver,rhythmic_head);
+ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
+ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
+ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
   
 ADD_TRANSLATOR (Spacing_engraver,
 		/* descr */ "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",

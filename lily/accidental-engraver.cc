@@ -601,10 +601,10 @@ Accidental_engraver::process_music ()
 }
 
 
-ADD_ACKNOWLEDGER(Accidental_engraver, arpeggio);
-ADD_ACKNOWLEDGER(Accidental_engraver, finger);
-ADD_ACKNOWLEDGER(Accidental_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER(Accidental_engraver, tie);
+ADD_ACKNOWLEDGER (Accidental_engraver, arpeggio);
+ADD_ACKNOWLEDGER (Accidental_engraver, finger);
+ADD_ACKNOWLEDGER (Accidental_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Accidental_engraver, tie);
 
 ADD_TRANSLATOR (Accidental_engraver,
 		"Make accidentals.  "

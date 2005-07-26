@@ -55,14 +55,10 @@ Arpeggio::print (SCM smob)
 		   - my_y);
     }
 
-  if (heads.is_empty ())
+  if (heads.is_empty () || heads.length () < 0.5)
     {
-      /*
-	Dumb blonde error
-
-	:-)
-      */
       programming_error ("no heads for arpeggio found?");
+      me->suicide ();
       return SCM_EOL;
     }
 
@@ -103,9 +99,7 @@ SCM
 Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-
   Grob *common = me;
-
   
   extract_grob_set (me, "stems", stems);
   for (int i = 0;  i < stems.size(); i++)

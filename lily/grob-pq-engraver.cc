@@ -28,7 +28,7 @@ public:
   TRANSLATOR_DECLARATIONS (Grob_pq_engraver);
 protected:
   virtual void initialize ();
-  DECLARE_ACKNOWLEDGER(grob);
+  DECLARE_ACKNOWLEDGER (grob);
   void start_translation_timestep ();
   void stop_translation_timestep ();
 
@@ -135,7 +135,7 @@ Grob_pq_engraver::start_translation_timestep ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Grob_pq_engraver, grob);
+ADD_ACKNOWLEDGER (Grob_pq_engraver, grob);
 ADD_TRANSLATOR (Grob_pq_engraver,
 
 		/* descr */ "Administrate when certain grobs (eg. note heads) stop playing",

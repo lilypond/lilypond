@@ -28,8 +28,8 @@ public:
 protected:
   virtual bool try_music (Music *ev);
   void process_music ();
-  DECLARE_ACKNOWLEDGER(stem);
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (note_column);
   void stop_translation_timestep ();
 };
 
@@ -164,8 +164,8 @@ Drum_notes_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Drum_notes_engraver, stem);
-ADD_ACKNOWLEDGER(Drum_notes_engraver,note_column);
+ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
+ADD_ACKNOWLEDGER (Drum_notes_engraver,note_column);
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* descr */ "Generate noteheads.",
 		/* creats*/ "NoteHead Dots Script",

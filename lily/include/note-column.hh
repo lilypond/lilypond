@@ -22,6 +22,7 @@ public:
   static int shift_compare (Grob *const &, Grob *const &);
   static Direction dir (Grob *me);
   static Grob *accidentals (Grob *me);
+  static Grob *arpeggio (Grob *me);
   static Slice head_positions_interval (Grob *me);
   static Direction static_dir (Grob *);
   static void translate_rests (Grob *me, int dy);

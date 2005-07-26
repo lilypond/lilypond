@@ -24,7 +24,7 @@ protected:
 
   void process_music ();
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (note_column);
 };
 
 void
@@ -107,7 +107,7 @@ Measure_grouping_engraver::Measure_grouping_engraver ()
   grouping_ = 0;
 }
 
-ADD_ACKNOWLEDGER(Measure_grouping_engraver, note_column);
+ADD_ACKNOWLEDGER (Measure_grouping_engraver, note_column);
 ADD_TRANSLATOR (Measure_grouping_engraver,
 		/* descr */ "Creates MeasureGrouping to indicate beat subdivision.",
 		/* creats*/ "MeasureGrouping",

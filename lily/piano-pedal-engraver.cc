@@ -65,7 +65,7 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music *);
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (note_column);
   void process_music ();
 
 private:
@@ -523,7 +523,7 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Piano_pedal_engraver,note_column);
+ADD_ACKNOWLEDGER (Piano_pedal_engraver,note_column);
 ADD_TRANSLATOR (Piano_pedal_engraver,
 		/* descr */ "Engrave piano pedal symbols and brackets.",
 		/* creats*/ "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",

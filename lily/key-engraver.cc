@@ -40,8 +40,8 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_ACKNOWLEDGER(clef);
-  DECLARE_ACKNOWLEDGER(bar_line);
+  DECLARE_ACKNOWLEDGER (clef);
+  DECLARE_ACKNOWLEDGER (bar_line);
   
 };
 
@@ -182,8 +182,8 @@ Key_engraver::initialize ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER(Key_engraver,clef);
-ADD_ACKNOWLEDGER(Key_engraver,bar_line);
+ADD_ACKNOWLEDGER (Key_engraver,clef);
+ADD_ACKNOWLEDGER (Key_engraver,bar_line);
 ADD_TRANSLATOR (Key_engraver,
 		/* descr */ "",
 		/* creats*/ "KeySignature",

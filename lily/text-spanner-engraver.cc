@@ -16,7 +16,7 @@ public:
   TRANSLATOR_DECLARATIONS (Text_spanner_engraver);
 protected:
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (note_column);
   virtual bool try_music (Music *);
   void stop_translation_timestep ();
   void process_music ();
@@ -140,7 +140,7 @@ Text_spanner_engraver::finalize ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER(Text_spanner_engraver,note_column);
+ADD_ACKNOWLEDGER (Text_spanner_engraver,note_column);
 ADD_TRANSLATOR (Text_spanner_engraver,
 		/* descr */ "Create text spanner from a Music.",
 		/* creats*/ "TextSpanner",

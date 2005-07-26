@@ -121,7 +121,7 @@ Axis_group_engraver::add_element (Grob *e)
   Axis_group_interface::add_element (staffline_, e);
 }
 
-ADD_ACKNOWLEDGER(Axis_group_engraver, grob);
+ADD_ACKNOWLEDGER (Axis_group_engraver, grob);
 
 ADD_TRANSLATOR (Axis_group_engraver,
 		/* descr */ "Group all objects created in this context in a VerticalAxisGroup spanner.",

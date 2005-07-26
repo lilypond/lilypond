@@ -212,9 +212,9 @@ Paper_column_engraver::start_translation_timestep ()
     make_columns ();
 }
 
-ADD_ACKNOWLEDGER(Paper_column_engraver,item);
-ADD_ACKNOWLEDGER(Paper_column_engraver,note_spacing);
-ADD_ACKNOWLEDGER(Paper_column_engraver,staff_spacing);
+ADD_ACKNOWLEDGER (Paper_column_engraver,item);
+ADD_ACKNOWLEDGER (Paper_column_engraver,note_spacing);
+ADD_ACKNOWLEDGER (Paper_column_engraver,staff_spacing);
 
 
 ADD_TRANSLATOR (Paper_column_engraver,

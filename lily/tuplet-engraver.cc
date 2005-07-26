@@ -35,7 +35,7 @@ public:
 protected:
   Array<Tuplet_description> tuplets_;
 
-  DECLARE_ACKNOWLEDGER(note_column);
+  DECLARE_ACKNOWLEDGER (note_column);
   virtual bool try_music (Music *r);
   void start_translation_timestep ();
   void process_music ();
@@ -130,7 +130,7 @@ Tuplet_engraver::start_translation_timestep ()
 Tuplet_engraver::Tuplet_engraver ()
 {
 }
-ADD_ACKNOWLEDGER(Tuplet_engraver,note_column);
+ADD_ACKNOWLEDGER (Tuplet_engraver,note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
 		/* descr */ "Catch Time_scaled_music and generate appropriate bracket  ",
 		/* creats*/ "TupletBracket",

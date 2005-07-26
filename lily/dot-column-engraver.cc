@@ -23,8 +23,8 @@ public:
 
 protected:
 
-  DECLARE_ACKNOWLEDGER(stem);
-  DECLARE_ACKNOWLEDGER(rhythmic_head);
+  DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
   
   void stop_translation_timestep ();
 };
@@ -73,8 +73,8 @@ Dot_column_engraver::acknowledge_stem (Grob_info info)
   stem_ = info.grob ();
 }
 
-ADD_ACKNOWLEDGER(Dot_column_engraver, stem);
-ADD_ACKNOWLEDGER(Dot_column_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Dot_column_engraver, stem);
+ADD_ACKNOWLEDGER (Dot_column_engraver, rhythmic_head);
 ADD_TRANSLATOR (Dot_column_engraver,
 		/* descr */ "Engraves dots on dotted notes shifted to the right of the note.\n"
 		"If omitted, then dots appear on top of the notes.",

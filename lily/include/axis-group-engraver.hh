@@ -23,7 +23,7 @@ protected:
   Link_array<Grob> elts_;
   void process_music ();
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER(grob);
+  DECLARE_ACKNOWLEDGER (grob);
   void process_acknowledged ();
   virtual Spanner *get_spanner ();
   virtual void add_element (Grob *);

@@ -32,10 +32,10 @@ protected:
   virtual bool try_music (Music *);
   virtual void finalize ();
 
-  DECLARE_ACKNOWLEDGER(rest);
-  DECLARE_ACKNOWLEDGER(beam);
-  DECLARE_ACKNOWLEDGER(bar_line);
-  DECLARE_ACKNOWLEDGER(stem);
+  DECLARE_ACKNOWLEDGER (rest);
+  DECLARE_ACKNOWLEDGER (beam);
+  DECLARE_ACKNOWLEDGER (bar_line);
+  DECLARE_ACKNOWLEDGER (stem);
   
   void process_acknowledged ();
 
@@ -422,10 +422,10 @@ Auto_beam_engraver::process_acknowledged ()
   process_acknowledged_count_++;
 }
 
-ADD_ACKNOWLEDGER(Auto_beam_engraver,stem);
-ADD_ACKNOWLEDGER(Auto_beam_engraver,bar_line);
-ADD_ACKNOWLEDGER(Auto_beam_engraver,beam);
-ADD_ACKNOWLEDGER(Auto_beam_engraver,rest);
+ADD_ACKNOWLEDGER (Auto_beam_engraver,stem);
+ADD_ACKNOWLEDGER (Auto_beam_engraver,bar_line);
+ADD_ACKNOWLEDGER (Auto_beam_engraver,beam);
+ADD_ACKNOWLEDGER (Auto_beam_engraver,rest);
 ADD_TRANSLATOR (Auto_beam_engraver,
 		/* descr */ "Generate beams based on measure characteristics and observed "
 		"Stems.  Uses beatLength, measureLength and measurePosition to decide "
