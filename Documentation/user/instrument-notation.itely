@@ -16,6 +16,7 @@ This chapter explains how to use notation for specific instruments.
 * Vocal music::                 
 * Rhythmic music::              
 * Guitar::                      
+* Bagpipe::                     
 * Ancient notation::            
 * Other instrument specific notation::  
 @end menu
@@ -1877,6 +1878,53 @@ touching the strings instead of fully pressing them.  This gives the sound a
 percussive noise-like sound that still maintains part of the original
 pitch.  It is notated with cross noteheads; this is
 demonstrated in @ref{Special noteheads}.
+
+
+@node Bagpipe
+@section Bagpipe
+
+@cindex Bagpipe
+
+@menu
+* Bagpipe definitions::         
+* Bagpipe example::             
+@end menu
+
+
+@node Bagpipe definitions
+@subsection Bagpipe definitions
+
+LilyPond contains special definitions for bagpipe music; to use them, add
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+at the top of your input file.  This lets you add the special flourishes
+common to bagpipe music with short commands.  For example, you could
+write @code{\taor} instead of
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+@code{bagpipe.ly} also contains pitch definitions for the bagpipe
+notes in the appropiate octaves, so you do not need to worry about
+@code{\relative} or @code{\transpose}.
+
+@ignore
+@lilypond[raggedright,verbatim,quote]
+\include "bagpipe.ly"
+{ G4 a b c d e f g A B C }
+@end lilypond
+@end ignore
+
+
+@node Bagpipe example
+@subsection Bagpipe example
+
+To be inserted soon.
 
 
 @node Ancient notation
