@@ -1,3 +1,10 @@
+2005-07-27  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/examples.itely: remove bagpipe template.
+
+	* Documentation/user/instrument-notation.itely: add bagpipe
+	section.
+
 2005-07-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/accidental-engraver.cc: formatting fixes.
