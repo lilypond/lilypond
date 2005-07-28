@@ -113,3 +113,12 @@
 	  (escape-string string)
 	  ))
 
+
+(define (bezier-sandwich lst thick)
+  (format
+   #f
+   "bezier_sandwich ~a [~a]"
+   thick
+   (string-append 
+    (string-join (map (lambda (x) (format "(~a,~a)" (car x) (cdr x)))
+		      lst) ","))))
