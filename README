@@ -12,6 +12,8 @@ USAGE:
 KEYS
 
 a..g	 	pitch
+A..G            add chord pitch
+up,down         move between chord notes
 , '		octave
 r	      	rest
 space		enter note
@@ -20,8 +22,13 @@ left,right	move
 * /		duration longer/shorter
 + -		alteration up/down
 backspace	delete note
-
-
+Ctrl+@          double flat
+@		flat
+!               natural 
+x               double sharp 
+#               sharp
+Shift+up,down   change pitch
+~               arpeggio
 
 CAVEAT
 

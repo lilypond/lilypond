@@ -51,7 +51,10 @@
                                 (sockaddr:addr client-details)))
                 (newline)
                 ;; Send back the greeting to the client port
-                (display "hello LilyPond 2.7.1\n" client)
+                (display (format
+			  "hello LilyPond ~a\n"
+			  (lilypond-version))
+			  client)
 
 	       (let* ((question (read client))
 		      (music (eval question (current-module))))

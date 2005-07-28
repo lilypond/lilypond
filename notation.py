@@ -18,11 +18,17 @@ def get_display_dpi():
         display_dpi = (string.atoi (m.group (2)) + string.atoi (m.group (2)))/2
 
 
+scale_alterations = [0, 0, -2, 0, 0,-2,-2]  
+
 copy_lilypond_input = 1
 time_sig = (4, 4)
 measure_length = Rational (time_sig[0], time_sig[1])
+measure_count = 4
 
-scale = "'((0 . 0) (1 . 0) (2 . -2) (3 . 0) (4 . 0) (5 . -2) (6 . -2))"
+scale_str = ("'(%s)" % 
+             string.join (['(%d . %d)' % (i , scale_alterations[i]) for i in range (0,7)], ' '))
+
+"'((0 . 0) (1 . 0) (2 . -2) (3 . 0) (4 . 0) (5 . -2) (6 . -2))"
 clefsetting = """
       (context-spec-music
        (make-property-set 'clefGlyph "clefs.C") 'Staff)
@@ -83,7 +89,7 @@ def set_measure_number (str, num):
        'Staff)
 
     %s))""" % (time_sig[0], time_sig[1], time_sig[0],
-               time_sig[1], time_sig[1], num, scale, str)
+               time_sig[1], time_sig[1], num, scale_str, str)
 
 def render_score (filename, ly):
     print ly
@@ -176,9 +182,6 @@ class Notation_controller:
         start_note = expr.find_first (sub2)
 
         start_skip = start_note.start - start_note.start.floor()
-
-        print 'start_skip = ' ,  start_skip
-        
         
 	str = expr.lisp_sub_expression (sub)
         str = add_start_skip (str, start_skip)
@@ -190,7 +193,7 @@ class Notation_controller:
 
     def ensure_visible (self, when):
         new_start =  max ((when - measure_length).floor(), Rational(0))
-        new_stop = new_start + Rational (3) * measure_length
+        new_stop = new_start + Rational (measure_count) * measure_length
 
         if new_start <> self.start_moment or new_stop <> self.stop_moment:
             print "render interval", new_start, new_stop
@@ -318,12 +321,15 @@ class Notation:
         
     def backspace (self):
         mus = self.music_cursor
-        if mus.parent.name() == 'EventChord' and len (mus.parent.elements) <= 1:
+        if (mus.parent.name() == 'EventChord'
+            and len (mus.parent.elements) <= 1):
+            
             mus = mus.parent
 
         neighbor = mus.parent.get_neighbor (mus, -1)
         mus.parent.delete_element (neighbor)
         self.touch_document ()
+        
     def change_octave (self, dir):
         if self.music_cursor.name() == 'NoteEvent':
             p = self.music_cursor.pitch
@@ -338,6 +344,7 @@ class Notation:
             p = self.music_cursor.pitch
             p1 = p.copy()
             p1.step = step
+            p1.alteration = scale_alterations [step]
             
             orig_steps = p.steps ()
             new_steps = p1.steps ()
@@ -396,6 +403,8 @@ class Notation:
             elif p1.step < 0:
                 p1.step += 7
                 p1.octave -= 1
+
+            p1.alteration = scale_alterations [p1.step]
                 
             self.music_cursor.pitch = p1
             self.touch_document ()
@@ -410,7 +419,7 @@ class Notation:
             dur = self.music_cursor.duration
             dl = dur.duration_log
             dl += dir
-            if dl <= 6 and dl >= -3:
+            if dl <= 6 and dl >= -2:
                 dur.duration_log = dl
                 
             self.touch_document ()
