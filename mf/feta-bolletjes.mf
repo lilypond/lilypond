@@ -1204,14 +1204,14 @@ fet_beginchar ("Whole fa down head", "u0fa");
 fet_endchar;
 
 
-fet_beginchar ("half fa up head", "d1fa");
+fet_beginchar ("half fa up head", "u1fa");
 	draw_fa_head (1.5);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Half fa down head", "u1fa");
+fet_beginchar ("Half fa down head", "d1fa");
 	draw_fa_head (1.5);
 	fill p_down_out;
 	unfill p_down_in;
