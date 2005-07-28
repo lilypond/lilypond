@@ -322,6 +322,13 @@ This example also shows that the chord printing routines do not try to
 be intelligent.  The last chord (@code{f bes d}) is not interpreted as
 an inversion.
 
+Note that the duration of chords must be specified outside the
+@code{<>}.
+
+@example
+<c e g>2
+@end example
+
 
 @node Chords mode
 @subsection Chords mode
@@ -1890,7 +1897,8 @@ demonstrated in @ref{Special noteheads}.
 @node Bagpipe definitions
 @subsection Bagpipe definitions
 
-LilyPond contains special definitions for bagpipe music; to use them, add
+LilyPond contains special definitions for music for the Scottish
+highland bagpipe; to use them, add
 
 @example
 \include "bagpipe.ly"
@@ -1912,7 +1920,7 @@ notes in the appropiate octaves, so you do not need to worry about
 @ignore
 @lilypond[raggedright,verbatim,quote]
 \include "bagpipe.ly"
-{ G4 a b c d e f g A B C }
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
 @end lilypond
 @end ignore
 
@@ -1920,7 +1928,13 @@ notes in the appropiate octaves, so you do not need to worry about
 @node Bagpipe example
 @subsection Bagpipe example
 
-To be inserted soon.
+This is what the well known tune Amazing Grace looks like in bagpipe
+notation.
+
+@ignore
+@lilypond[raggedright,verbatim,quote]
+@end lilypond
+@end ignore
 
 
 @node Ancient notation
