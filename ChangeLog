@@ -1,3 +1,17 @@
+2005-07-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/feta-bolletjes.mf: swap up and down fa head
+	
+2005-07-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/main.cc (setup_guile_env): backport: tweak GC settings to
+	improve performance.
+	(setup_guile_env): set init heap sizes to 16/1 mb. Decreases
+	number of segments.
+
+	* lily/ly-module.cc (LY_DEFINE): backport:
+	ly_clear_anonymous_modules(). Kludge to plug memory leak in GUILE. 
+
 2005-07-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-lib.scm (tablature-stem-attachment-function): stem

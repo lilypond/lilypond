@@ -19,6 +19,10 @@ ifeq ($(HAVE_LIBKPATHSEA_SO),no)
 MODULE_LDFLAGS+= $(KPATHSEA_LIBS)
 endif
 
+ifeq ($(LINK_GXX_STATICALLY),yes)
+MODULE_LDFLAGS += -L$(outdir) -static-libgcc
+endif
+
 
 # for profiling, link guile statically:
 #
@@ -45,6 +49,15 @@ ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'
 ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'
 
 default:
+
+
+$(outdir)/libstdc++.a: 
+	ln -s `$(CXX) -print-file-name=libstdc++.a` $(outdir)/
+
+ifeq ($(LINK_GXX_STATICALLY),yes)
+$(outdir)/lilypond: $(outdir)/libstdc++.a
+endif
+
 
 # force these: Make can't know these have to be generated in advance
 $(outdir)/lily-parser.o: $(outdir)/parser.hh
