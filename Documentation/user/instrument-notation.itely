@@ -779,20 +779,16 @@ property commands
 
 Any @code{_} character that appears in an unquoted word is converted
 to a space.  This provides a mechanism for introducing spaces into words
-without using quotes.  Quoted words can also be used in Lyrics mode to
-specify words that cannot be written with the above rules.  The
-following example incorporates double quotes
+without using quotes.
+
+To enter lyrics with characters from non-English languages, or with
+non-ascii characters (such as the heart symbol or slanted quotes),
+simply insert the characters directly into the input file and save
+it with utf-8 encoding.  See @ref{Text encoding} for more info.
 
 @example
-\lyricmode @{ He said: "\"Let" my peo ple "go\"" @}
+\lyricmode @{ He said: “Let my peo ple go”. @}
 @end example
-
-This example is slightly academic, since it gives better looking
-results using single quotes, @code{``} and @code{''}
-@example
-\lyricmode @{ He said: ``Let my peo ple go'' @}
-@end example
-
 
 The full definition of a word start in Lyrics mode is somewhat more
 complex.
