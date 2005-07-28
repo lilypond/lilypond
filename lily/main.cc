@@ -726,11 +726,35 @@ parse_argv (int argc, char **argv)
     }
 }
 
+void
+setup_guile_env ()
+{
+  char * yield = getenv ("LILYPOND_GC_YIELD");
+  bool overwrite = true;
+  if (!yield)
+    {
+      yield = "70";
+      overwrite = false;
+    }
+  
+  setenv ("GUILE_MIN_YIELD_1", yield, overwrite);
+  setenv ("GUILE_MIN_YIELD_2", yield, overwrite);
+  setenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
+
+
+  char *mb16 = "16777216";
+  char *mb1 = "1048576";
+  
+  setenv ("SCM_DEFAULT_INIT_HEAP_SIZE_1", mb16, 0);
+  setenv ("SCM_DEFAULT_INIT_HEAP_SIZE_2", mb1, 0);
+}
+
 int
 main (int argc, char **argv)
 {
   setup_localisation ();
   setup_paths (argv[0]);
+  setup_guile_env ();
   parse_argv (argc, argv);
   if (isatty (STDIN_FILENO))
     identify (stderr);

@@ -32,6 +32,13 @@ AC_ARG_ENABLE(relocation,
     [  --enable-relocation     compile with dynamic relocation.  Default: off],
     [reloc_b=$enableval])
 
+
+AC_SUBST(LINK_GXX_STATICALLY)
+LINK_GXX_STATICALLY=no
+AC_ARG_ENABLE(static-gxx,
+    [  --enable-static-gxx     link libstdc++.a statically. Default: off],
+    [LINK_GXX_STATICALLY=$enableval])
+    
 # must come before any header checks
 STEPMAKE_COMPILE
 

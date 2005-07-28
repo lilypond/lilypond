@@ -10,6 +10,44 @@
 #include "warn.hh"
 #include "main.hh"
 #include "string.hh"
+#include "protected-scm.hh"
+
+#define MODULE_GC_KLUDGE
+
+#ifdef MODULE_GC_KLUDGE
+Protected_scm anonymous_modules = SCM_EOL;
+
+#endif
+
+LY_DEFINE(ly_clear_anonymous_modules, "ly:clear-anonymous-modules",
+	  0, 0, 0, (),
+	  "Plug a GUILE 1.6 and 1.7 memory leak by breaking a weak reference "
+	  "pointer cycle explicitly."
+	  )
+{
+#ifdef MODULE_GC_KLUDGE
+  for (SCM s = anonymous_modules;
+       scm_is_pair (s);
+       s = scm_cdr (s))
+    {
+      SCM module = scm_car (s);
+      SCM closure = SCM_MODULE_EVAL_CLOSURE(module);
+      SCM prop = scm_procedure_property (closure, ly_symbol2scm ("module")); 
+
+      if (ly_is_module (prop))
+	{
+	  scm_set_procedure_property_x (closure, ly_symbol2scm ("module"),
+					SCM_BOOL_F);
+	}
+    }
+
+  anonymous_modules = SCM_EOL;
+#endif
+
+  return SCM_UNSPECIFIED;
+}
+
+
 
 #define FUNC_NAME __FUNCTION__
 
@@ -35,6 +73,11 @@ ly_make_anonymous_module (bool safe)
       SCM proc = ly_lily_module_constant ("make-safe-lilypond-module");
       mod = scm_call_0 (proc);
     }
+
+#ifdef MODULE_GC_KLUDGE
+  anonymous_modules = scm_cons (mod, anonymous_modules);
+#endif
+  
   return mod;
 }
 
