@@ -1,3 +1,13 @@
+2005-07-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* server.ly: use Completion_heads_engraver
+
+	* music.py (Music.set_start): use Rationals for lengths.
+
+	* rational.py (Rational.ceil): new class.
+
+	* notation.py (add_start_skip):  new function
+
 2005-07-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ikebana.py (NotationApplication.create_window): add zoom.

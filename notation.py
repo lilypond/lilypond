@@ -7,11 +7,21 @@ import socket
 import music
 import pango
 import math
+from rational import Rational
+
+display_dpi = 75
+
+def get_display_dpi():
+    str = os.popen ('xdpyinfo | grep "dots per inch"').read ()
+    m = re.match ('([0-9]+)x([0-9]+) dots')
+    if m:
+        display_dpi = (string.atoi (m.group (2)) + string.atoi (m.group (2)))/2
 
 
 copy_lilypond_input = 1
 time_sig = (4, 4)
-measure_length = (1.0 * time_sig[0]) / time_sig[1]
+measure_length = Rational (time_sig[0], time_sig[1])
+
 scale = "'((0 . 0) (1 . 0) (2 . -2) (3 . 0) (4 . 0) (5 . -2) (6 . -2))"
 clefsetting = """
       (context-spec-music
@@ -22,8 +32,10 @@ clefsetting = """
        (make-property-set 'middleCPosition 0) 'Staff)
 """
 
-server = 'maagd'
-# server = 'localhost'
+try:
+    server = os.environ['IKEBANASERVER']
+except KeyError:
+    server = 'localhost'
 
 lilypond_input_log_file = open ("input.log", 'w')
 
@@ -47,7 +59,7 @@ def talk_to_lilypond (expression_str):
 	    break
 	cont = len (data) > 0
 	retval += data
-
+ 
     return retval
 
 def set_measure_number (str, num):
@@ -69,7 +81,6 @@ def set_measure_number (str, num):
           %s)
          ))
        'Staff)
-       
 
     %s))""" % (time_sig[0], time_sig[1], time_sig[0],
                time_sig[1], time_sig[1], num, scale, str)
@@ -83,6 +94,15 @@ myNotes = %s
     open (filename, 'w').write (str)
     base = os.path.splitext (filename)[0] + '.ps'
     os.system ('(lilypond %s && gv %s)&  ' % (filename, base))
+
+def add_start_skip (str, start_skip):
+    return """(make-music 'SequentialMusic 'elements
+               (list
+                (make-music 'SkipMusic
+                            'duration (ly:make-duration 0 0 %d %d))
+                %s))
+""" % (start_skip.num, start_skip.den, str)
+    
     
 
 class Lilypond_socket_parser:
@@ -130,13 +150,15 @@ class Notation_controller:
         
         self.notation = Notation (self)
         self.parser = Lilypond_socket_parser (self.interpret_line)
-        self.start_moment = 0.0
-        self.stop_moment = 3.0
+        self.start_moment = Rational (0)
+        self.stop_moment = Rational (3)
 
     def interpret_line (self, offset, cause, bbox, name, fields):
 	notation_item = self.notation.add_item (offset, cause, bbox, fields)
         notation_item.name = name
-    
+    def touch_document (self):
+        self.document.touched = True
+        
     def update_notation(self):
 	doc = self.document
 	doc.recompute()
@@ -145,20 +167,34 @@ class Notation_controller:
 
        	def sub(x):
 		ok = (x.start >= self.start_moment and
-                      x.start +x.length() <= self.stop_moment)
+                      x.start + x.length() <= self.stop_moment)
 		return ok
+
+        def sub2 (x):
+            return x.name() in ('RestEvent','NoteEvent') and  sub(x)
+
+        start_note = expr.find_first (sub2)
+
+        start_skip = start_note.start - start_note.start.floor()
+
+        print 'start_skip = ' ,  start_skip
+        
         
 	str = expr.lisp_sub_expression (sub)
-        str = set_measure_number (str, int (self.start_moment) + 1)
+        str = add_start_skip (str, start_skip)
+        
+        bar_count = (self.start_moment / measure_length).floor()
+        str = set_measure_number (str, bar_count.num)
 	str = talk_to_lilypond (str)
         self.parse_socket_file (str)
 
     def ensure_visible (self, when):
-        new_start =  max (math.floor (when - measure_length), 0.0)
-        new_stop = new_start + 3 * measure_length
+        new_start =  max ((when - measure_length).floor(), Rational(0))
+        new_stop = new_start + Rational (3) * measure_length
 
         if new_start <> self.start_moment or new_stop <> self.stop_moment:
-            self.document.touched = True
+            print "render interval", new_start, new_stop
+            self.touch_document()
             
         self.start_moment = new_start
         self.stop_moment = new_stop
@@ -185,105 +221,7 @@ class Notation_item:
         self.args = []
 	self.canvas_item = None
 	self.music_expression = None
-	
-    def create_round_box_canvas_item (self, canvas):
-	root = canvas.root()
-	type = gnomecanvas.CanvasRect
-	(b, w, d, h, blot) = tuple (self.args) 
-	w = root.add (type,
-		      fill_color = 'black',
-		      x1 = - b,
-		      y1 = - d,
-		      x2 = w,
-		      y2 = h)
-	
-	return w
-	
-    def create_line_canvas_item (self, canvas):
-        type = gnomecanvas.CanvasLine
-	(thick, x1, y1, x2, y2) = tuple (self.args)
-        w = canvas.root().add (type,
-			       fill_color = 'black',
-			       width_units = thick,
-			       points = [x1, y1, x2, y2]
-			       )
-        return w
- 
-    def create_glyph_item (self, canvas):
-        type = gnomecanvas.CanvasText 
-	(index, font_name, magnification, name) = tuple (self.args)
-        (family, style) = string.split (font_name, '-')
         
-        w = canvas.root().add (type,
-			       fill_color = 'black',
-			       family = family,
-			       family_set = True,
-			       anchor = gtk.ANCHOR_WEST,
-			       y_offset = 0.15,
-			       
-			       size_points = canvas.pixel_scale * 0.75 * magnification,  
-			       x = 0, y = 0,
-			       text = unichr (index))
-	return w
-
-
-    def create_polygon_item (self, canvas):
-        type = gnomecanvas.CanvasPolygon
-        
-        (blot, fill) = tuple (self.args[:2])
-        coords = self.args[2:]
-        w = canvas.root ().add (type,
-                                fill_color = 'black',
-                                outline_color = 'black',
-                                width_units = blot,
-                                points = coords)
-
-        return w
-
-    def create_text_item (self, canvas):
-        type = gnomecanvas.CanvasText
-        (descr, str) = tuple (self.args)
-
-        magnification = 0.5
-
-#ugh: how to get pango_descr_from_string() in pygtk?
-	
-	if descr.find (',') == -1:
-            (fam,rest) = tuple (string.split (descr, ' '))
-        else:
-            (fam,rest) = tuple (string.split (descr, ','))
-        size = string.atof (rest)
-        w = canvas.root().add (type,
-                               fill_color = 'black',
-                               family_set = True,
-                               family = fam,
-                               anchor = gtk.ANCHOR_SOUTH_WEST,
-                               y_offset = 0.75,
-                               size_points = size  * canvas.pixel_scale * 0.87  * magnification,
-                               text = str)
-        return w
-        
-    def create_canvas_item (self, canvas):
-	citem = None
-	try:
-	    method = Notation_item.dispatch_table[self.tag]
-	    citem = method (self, canvas)
-	    citem.move (*self.offset)
-	    citem.notation_item = self
-
-	    canvas.register_notation_canvas_item (citem)
-	except KeyError:
-	    print 'no such key', self.tag
-	    
-	return citem
-
-    dispatch_table = {'draw_round_box' : create_round_box_canvas_item,
-                       'drawline': create_line_canvas_item,
-                       'glyphshow':create_glyph_item,
-                       'polygon': create_polygon_item,
-                       'utf-8' : create_text_item,
-                       }
-	    
 class Notation:
     """A complete line/system/page of LilyPond output. Consists of a
     number of Notation_items"""
@@ -302,7 +240,7 @@ class Notation:
 	
     def add_item (self, offset, cause, bbox, fields):
 	    item = Notation_item()
-	    item.tag = fields[0]
+ 	    item.tag = fields[0]
 	    item.args = map (eval, fields[1:])
 	    item.offset = offset
 	    item.origin_tag = cause
@@ -324,10 +262,11 @@ class Notation:
                 w.destroy()
                 
 	for i in self.items:
-	    c_item = i.create_canvas_item (canvas)
+	    c_item = canvas.create_canvas_item (i)
 
         canvas.set_cursor_to_music (self.music_cursor)
-
+        self.touched = False
+        
     def set_cursor (self, music_expr):
         self.music_cursor = music_expr
         self.cursor_touched = True
@@ -341,7 +280,27 @@ class Notation:
         mus = mus.parent.get_neighbor (mus, dir)
         mus = mus.find_first (lambda x: x.name() in ('NoteEvent', 'RestEvent'))
         self.set_cursor (mus)
-        
+
+    def cursor_move_chord (self, dir):
+        mus = self.music_cursor
+        if mus.name ()=='NoteEvent':
+            current_steps  = mus.pitch.steps()
+            other_steps = [(note, note.pitch.steps()) for
+                           note in mus.parent.elements if note.name()=='NoteEvent']
+
+            def cmp(a,b):
+                if a[1] > b[1]:
+                    return 1
+                if a[1] < b[1]:
+                    return -1
+                return 0
+
+            bound_set = [(note, dir * step) for (note, step) in other_steps
+                         if dir * (step - current_steps) > 0]
+            bound_set.sort (cmp)
+            if bound_set:
+                self.set_cursor (bound_set[0][0])
+              
     def insert_at_cursor (self, music, dir):
         mus = self.music_cursor
         if mus.parent.name() == 'EventChord':
@@ -497,6 +456,22 @@ class Notation:
                 p.alteration = new_alt
             self.touch_document ()
 
+    def set_alteration (self, alter):
+        if self.music_cursor.name() == 'NoteEvent':
+            p = self.music_cursor.pitch
+            p.alteration = alter
+            self.touch_document ()
+
+    def toggle_arpeggio (self):
+        par = self.music_cursor.parent
+        if par.name()== "EventChord":
+            arps = [e for e in par.elements if e.name()=='ArpeggioEvent']
+            if arps:
+                par.delete_element (arps[0])
+            else:
+                arp = music.ArpeggioEvent()
+                par.insert_around (self.music_cursor, arp, -1)
+            self.touch_document()
     def print_score(self):
         doc = self.notation_controller.document
         ly = doc.music.ly_expression()

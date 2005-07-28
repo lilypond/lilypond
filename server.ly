@@ -10,6 +10,11 @@
     \Score
     \override BarNumber  #'break-visibility = #all-visible
   }
+  \context {
+    \Voice
+    \remove "Note_heads_engraver"
+    \consists "Completion_heads_engraver"
+  }
 }
 
 #(define (render-socket-music music socket)
@@ -55,7 +60,9 @@
                 (close client)
 		(display (format "Finished. Time elapsed: ~a\n"
 			  (/ (- (get-internal-real-time) start-time) (* 1.0 internal-time-units-per-second))
+			  
 			))
+		(gc) ; do GC while app is refreshing the screen.
 	      )))))
 
 
@@ -76,3 +83,4 @@
 
 #(render-socket-music test-exp "test")
   
+

@@ -2,6 +2,7 @@ import gtk
 import gnomecanvas
 import music
 import math
+import string
 
 class Notation_toolbar (gtk.VBox):
 	def __init__ (self, notation, check_refresh_callback):
@@ -66,21 +67,31 @@ class Notation_toolbar (gtk.VBox):
 			  lambda: self.notation.print_score(), 0),
 			 ('q', 'quit',
 			  lambda: gtk.main_quit(), 0),
-			 ('Left', '<-',
+			 ('Left', 'left',
 			  lambda: self.notation.cursor_move (-1), 0),
-			 ('Right', '->',
+			 ('Right', 'right',
 			  lambda: self.notation.cursor_move (1), 0),
+			 ('Up', 'up',
+			  lambda: self.notation.cursor_move_chord (1), 0),
+			 ('Down', 'down',
+			  lambda: self.notation.cursor_move_chord (-1), 0),
 			 ('space', 'new',
 			  lambda: self.notation.add_note (), 0),
 			 ('BackSpace', 'backspace',
 			  lambda: self.notation.backspace (), 0),
-			 ('Shift+Up', '#',
-			  lambda: self.notation.change_alteration (2), 1),
-			 ('Shift+Down', 'b',
-			  lambda: self.notation.change_alteration (-2), 1),
-			 ('Up', 'up',
+			 ('Ctrl+Shift+at', 'bb',
+			  lambda: self.notation.set_alteration (-4), 1),
+			 ('Shift+at', 'b',
+			  lambda: self.notation.set_alteration (-2), 1),
+			 ('Shift+exclam', 'natural',
+			  lambda: self.notation.set_alteration (0), 1),
+			 ('Shift+numbersign', '#',
+			  lambda: self.notation.set_alteration (2), 1),
+			 ('x', 'x',
+			  lambda: self.notation.set_alteration (4), 1),
+			 ('Shift+Up', 'higher',
 			  lambda: self.notation.change_step (1), 1),
-			 ('Down', 'down',
+			 ('Shift+Down', 'lower',
 			  lambda: self.notation.change_step (-1), 1),
 			 ('apostrophe', 'oct up',
 			  lambda: self.notation.change_octave (1), 1),
@@ -90,6 +101,8 @@ class Notation_toolbar (gtk.VBox):
 			  lambda: self.notation.change_dots (), 1),
 			 ('slash', 'shorter',
 			  lambda: self.notation.change_duration_log (1), 1),
+			 ('Shift+asciitilde', "arpeggio",
+			  lambda: self.notation.toggle_arpeggio (), 1),
 			 ('Shift+asterisk', 'longer',
 			  lambda: self.notation.change_duration_log (-1), 1),
 			 ('r', 'rest',
@@ -124,7 +137,6 @@ class Notation_toolbar (gtk.VBox):
 			  lambda: self.notation.set_step (6), 3)]:
 			
 			self.add_button (text, key_name, func, row)
-
 
 class Notation_canvas (gnomecanvas.Canvas):
 	"""The canvas for drawing notation symbols."""
@@ -178,8 +190,10 @@ class Notation_canvas (gnomecanvas.Canvas):
 		
 	def click_event (self, widget, event = None):
 		if event <> None and event.type == gtk.gdk.BUTTON_PRESS:
-			if event.button == 1 and widget.notation_item.name in ('Rest', 'NoteHead'):
-				
+			if (event.button == 1
+			    and widget.notation_item.name in ('Rest',
+							      'NoteHead')):
+
 				notat = self.notation_canvas_controller.notation
 				notat.set_cursor (widget.notation_item.music_expression)
 				self.notation_canvas_controller.check_update()
@@ -206,6 +220,152 @@ class Notation_canvas (gnomecanvas.Canvas):
 		fact = pow (1.25, delta)
 		self.pixel_scale *= fact
 		self.set_pixels_per_unit (self.pixel_scale)
+
+
+	def create_canvas_item (canvas, item):
+	    citem = None
+	    try:
+		method = canvas.dispatch_table[item.tag]
+		citem = method (canvas, item)
+		citem.move (*item.offset)
+		citem.notation_item = item
+
+		canvas.register_notation_canvas_item (citem)
+	    except KeyError:
+		print 'no such key', item.tag
+
+	    return citem
+
+	def create_round_box_canvas_item (self, item):
+	    canvas = self
+	    root = canvas.root()
+	    type = gnomecanvas.CanvasRect
+	    (b, w, d, h, blot) = tuple (item.args) 
+	    w = root.add (type,
+			  fill_color = 'black',
+			  x1 = - b,
+			  y1 = - d,
+			  x2 = w,
+			  y2 = h)
+
+	    return w
+
+	def create_line_canvas_item (self, item):
+	    canvas = self
+	    type = gnomecanvas.CanvasLine
+	    (thick, x1, y1, x2, y2) = tuple (item.args)
+	    w = canvas.root().add (type,
+				   fill_color = 'black',
+				   width_units = thick,
+				   points = [x1, y1, x2, y2]
+				   )
+	    return w
+
+	def create_glyph_item (self, item):
+	    canvas = self
+	    type = gnomecanvas.CanvasText 
+	    (index, font_name, magnification, name) = tuple (item.args)
+	    (family, style) = string.split (font_name, '-')
+
+	    sz = canvas.pixel_scale * 0.75 * magnification
+	    sz *= 1.2
+
+	    w = canvas.root().add (type,
+				   fill_color = 'black',
+				   family = family,
+				   family_set = True,
+				   anchor = gtk.ANCHOR_WEST,
+				   y_offset = 0.15,
+
+				   size_points = sz,
+				   x = 0, y = 0,
+
+				   text = unichr (index))
+	    return w
+
+
+	def create_polygon_item (self, item):
+	    type = gnomecanvas.CanvasPolygon
+	    canvas = self
+
+	    (blot, fill) = tuple (item.args[:2])
+	    coords = item.args[2:]
+	    w = canvas.root ().add (type,
+				    fill_color = 'black',
+				    outline_color = 'black',
+				    width_units = blot,
+				    points = coords)
+
+	    return w
+
+	def create_bezier_sandwich (self, item):
+	    type = gnomecanvas.CanvasBpath
+	    canvas = self
+
+	    (thick,points) = tuple (item.args)
+
+	    (tcl, tcr, tr, tl,
+	     bcr, bcl, bl, br) = tuple (points) 
+
+
+	    path = [(gnomecanvas.MOVETO_OPEN, tl[0], tl[1]),
+		    (gnomecanvas.CURVETO,
+		     tcl[0], tcl[1],
+		     tcr[0], tcr[1],
+		     tr[0], tr[1]),
+		    (gnomecanvas.LINETO,
+		     br[0], br[1]),
+		    (gnomecanvas.CURVETO,
+		     bcr[0], bcr[1],
+		     bcl[0], bcl[1],
+		     bl[0], bl[1]),
+		    (gnomecanvas.LINETO,
+		     tl[0], tl[1])
+		    ]
+
+	    pathdef = gnomecanvas.path_def_new(path)
+    #        pathdef.closepath()
+	    w = canvas.root().add (type,
+				   fill_color = 'black',
+				   outline_color = 'black',
+				   width_units = thick)
+	    w.set_bpath (pathdef)
+
+	    return w
+
+	def create_text_item (self, item):
+	    canvas = self
+	    type = gnomecanvas.CanvasText
+	    (descr, str) = tuple (item.args)
+
+	    magnification = 0.5
+
+    #ugh: how to get pango_descr_from_string() in pygtk?
+
+	    if descr.find (',') == -1:
+		(fam,rest) = tuple (string.split (descr, ' '))
+	    else:
+		(fam,rest) = tuple (string.split (descr, ','))
+	    size = string.atof (rest)
+	    w = canvas.root().add (type,
+				   fill_color = 'black',
+				   family_set = True,
+				   family = fam,
+				   anchor = gtk.ANCHOR_SOUTH_WEST,
+				   y_offset = 0.75,
+				   size_points = size  * canvas.pixel_scale * 0.87  * magnification,
+				   text = str)
+	    return w
+
+	dispatch_table = {'draw_round_box' : create_round_box_canvas_item,
+			  'drawline': create_line_canvas_item,
+			  'glyphshow':create_glyph_item,
+			  'polygon': create_polygon_item,
+			  'utf-8' : create_text_item,
+			  'bezier_sandwich': create_bezier_sandwich,
+			   }
+
+
 		
 class Notation_canvas_controller:
 	"""The connection between canvas and the abstract notation graphics."""

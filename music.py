@@ -1,5 +1,5 @@
 import string
-
+from rational import Rational
 		
 class Duration:
 	def __init__ (self):
@@ -28,16 +28,17 @@ class Duration:
 		return d
 
 	def length (self):
-		dot_fact = ((1 << (1 + self.dots))-1.0)/ (1 << self.dots)
+		dot_fact = Rational( (1 << (1 + self.dots))-1,
+				     1 << self.dots)
 
 		log = abs (self.duration_log)
 		dur = 1 << log
 		if self.duration_log < 0:
-			base = 1.0 * dur
+			base = Rational (dur)
 		else:
-			base = 1.0 / dur
+			base = Rational (1, dur)
 
-		return base * dot_fact * self.factor[0]/self.factor[1]
+		return base * dot_fact * Rational (self.factor[0], self.factor[1])
 	
 class Pitch:
 	def __init__ (self):
@@ -79,11 +80,11 @@ class Music:
 	def __init__ (self):
 		self.tag = None
 		self.parent = None
-		self.start = 0.0
+		self.start = Rational (0)
 		pass
 
 	def length(self):
-		return 0.0
+		return Rational (0)
 	
 	def set_tag (self, counter, tag_dict):
 		self.tag = counter
@@ -105,7 +106,6 @@ class Music:
 		return "(make-music '%s %s %s)" % (name, tag,  props)
 
 	def set_start (self, start):
-		start = round (start * 384) / 384.0
 		self.start = start
 
 	def find_first (self, predicate):
@@ -122,7 +122,7 @@ class Music_document:
 	def recompute (self):
 		self.tag_dict = {}
 		self.music.set_tag (0, self.tag_dict)
-		self.music.set_start (0.0)
+		self.music.set_start (Rational (0))
 		
 class NestedMusic(Music):
 	def __init__ (self):
@@ -200,7 +200,8 @@ class SequentialMusic (NestedMusic):
 	
 	def ly_expression (self):
 		return '{ %s }' % string.join (map (lambda x:x.ly_expression(),
-						    self.elements)) 
+						    self.elements))
+
 	def lisp_sub_expression (self, pred):
 		name = self.name()
 		tag = ''
@@ -222,7 +223,7 @@ class EventChord(NestedMusic):
 		return "EventChord"
 
 	def length (self):
-		l = 0.0
+		l = Rational (0)
 		for e in self.elements:
 			l = max(l, e.length())
 		return l
@@ -242,6 +243,10 @@ class Event(Music):
 	def name (self):
 		return "Event"
 
+class ArpeggioEvent(Music):
+	def name (self):
+		return 'ArpeggioEvent'
+	
 class RhythmicEvent(Event):
 	def __init__ (self):
 		Event.__init__ (self)
@@ -290,17 +295,18 @@ def test_expr ():
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)
 
+	evc = EventChord()
+	n = NoteEvent()
+	n.duration.duration_log = 0
+	n.pitch.step = 3
+	evc.insert_around (None, n, 0)
+	m.insert_around (None, evc, 0)
+
+
  	evc = EventChord()
 	n = NoteEvent()
 	n.duration.duration_log = l
 	n.pitch.step = 2 
-	evc.insert_around (None, n, 0)
-	m.insert_around (None, evc, 0)
-
-	evc = EventChord()
-	n = NoteEvent()
-	n.duration.duration_log = l
-	n.pitch.step = 3
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)
 
@@ -309,7 +315,7 @@ def test_expr ():
 
 if __name__ == '__main__':
 	expr = test_expr()
-	expr.set_start (0.0)
+	expr.set_start (Rational (0))
 
 	start = 0.25
 	stop = 0.5
