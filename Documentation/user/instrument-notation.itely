@@ -1905,7 +1905,7 @@ highland bagpipe; to use them, add
 @end example
 
 @noindent
-at the top of your input file.  This lets you add the special flourishes
+at the top of your input file.  This lets you add the special gracenotes
 common to bagpipe music with short commands.  For example, you could
 write @code{\taor} instead of
 
@@ -1918,7 +1918,7 @@ notes in the appropiate octaves, so you do not need to worry about
 @code{\relative} or @code{\transpose}.
 
 @ignore
-@lilypond[raggedright,verbatim,quote]
+@lilypond[raggedright,verbatim,quote,notime]
 \include "bagpipe.ly"
 { \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
 @end lilypond
@@ -1933,6 +1933,38 @@ notation.
 
 @ignore
 @lilypond[raggedright,verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+\score {
+  \time 3/4
+    
+  \grg \partial 8*2 a8. d16 
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
 @end lilypond
 @end ignore
 

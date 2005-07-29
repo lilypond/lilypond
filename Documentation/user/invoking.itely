@@ -643,6 +643,9 @@ This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
 defined in the init file @file{scm/@/lily@/.scm}.
 
+The @code{\score} must begin with music, and may contain only
+one music block.
+
 @item
 A @code{\book} block logically combines multiple movements
 (i.e., multiple @code{\score} blocks) in one document.  A number of

@@ -1,3 +1,12 @@
+2005-07-28  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/invoking.itely: \score begins with music.
+
+	* Documentation/user/ basic-notation.itely,
+	instrument-notation.itely: minor changes.
+
+	* Documentation/user/music-glossary.itely: began tenuto entry.
+
 2005-07-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-socket.scm (bezier-sandwich): add bezier-sandwich

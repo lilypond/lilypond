@@ -371,6 +371,7 @@ Languages in this order.
 * tempo indication::            
 * tenor::                       
 * tenth::                       
+* tenuto::                      
 * third::                       
 * thirty-second note::          
 * thirty-second rest::          
@@ -4533,6 +4534,21 @@ S: decima,
 FI: desimi.
 
 @aref{note value}.
+
+@node tenuto
+@section tenuto
+
+ES:
+I: tenuto,
+F:
+D:
+NL:
+DK:
+S:
+FI:
+
+An indication that a particular note should be held for the whole
+length.
 
 @node third
 @section third
