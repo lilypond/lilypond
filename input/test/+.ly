@@ -15,5 +15,5 @@ This document is for LilyPond version
 " (lilypond-version) ".")
 }
 
-
-\score { \context Lyrics \lyricmode {  " " } }
+% make sure .png  is generated.
+\lyrics {  "(left blank intentionally)" }

@@ -1,3 +1,7 @@
+2005-07-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/+.ly (TODO): add some text.
+
 2005-07-28  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/invoking.itely: \score begins with music.
@@ -50,6 +54,8 @@
 
 	* flower/include/guile-compatibility.hh (SCM_I_CONSP): add
 	SCM_I_CONSP
+
+	* VERSION: 2.7.3 released
 
 	* Documentation/user/invoking.itely (Invoking lilypond): add
 	LILYPOND_GC_YIELD documentation.
