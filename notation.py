@@ -25,18 +25,6 @@ time_sig = (4, 4)
 measure_length = Rational (time_sig[0], time_sig[1])
 measure_count = 4
 
-scale_str = ("'(%s)" % 
-             string.join (['(%d . %d)' % (i , scale_alterations[i]) for i in range (0,7)], ' '))
-
-"'((0 . 0) (1 . 0) (2 . -2) (3 . 0) (4 . 0) (5 . -2) (6 . -2))"
-clefsetting = """
-      (context-spec-music
-       (make-property-set 'clefGlyph "clefs.C") 'Staff)
-      (context-spec-music
-       (make-property-set 'clefPosition 0) 'Staff)
-      (context-spec-music
-       (make-property-set 'middleCPosition 0) 'Staff)
-"""
 
 try:
     server = os.environ['IKEBANASERVER']
@@ -78,18 +66,9 @@ def set_measure_number (str, num):
        (make-property-set 'beatLength (ly:make-moment 1 %d)) 'Score)
       (context-spec-music
        (make-property-set 'currentBarNumber %d) 'Score)
-      (context-spec-music
-       (make-music 'EventChord
-        'elements
-        (list
-         (make-music 'KeyChangeEvent
-          'pitch-alist
-          %s)
-         ))
-       'Staff)
-
+    
     %s))""" % (time_sig[0], time_sig[1], time_sig[0],
-               time_sig[1], time_sig[1], num, scale_str, str)
+               time_sig[1], time_sig[1], num, str)
 
 def render_score (filename, ly):
     print ly
@@ -162,6 +141,7 @@ class Notation_controller:
     def interpret_line (self, offset, cause, bbox, name, fields):
 	notation_item = self.notation.add_item (offset, cause, bbox, fields)
         notation_item.name = name
+        
     def touch_document (self):
         self.document.touched = True
         
@@ -196,7 +176,7 @@ class Notation_controller:
         new_stop = new_start + Rational (measure_count) * measure_length
 
         if new_start <> self.start_moment or new_stop <> self.stop_moment:
-            print "render interval", new_start, new_stop
+#            print "render interval", new_start, new_stop
             self.touch_document()
             
         self.start_moment = new_start
@@ -234,6 +214,7 @@ class Notation:
 	self.notation_controller = controller
         self.touched = True
         self.cursor_touched = True
+        self.cursor_callback = None
         
         toplevel = controller.document.music
         self.music_cursor = toplevel.find_first (lambda x: x.name()== "NoteEvent") 
@@ -269,11 +250,15 @@ class Notation:
 
         canvas.set_cursor_to_music (self.music_cursor)
         self.touched = False
-        
+
     def set_cursor (self, music_expr):
-        self.music_cursor = music_expr
-        self.cursor_touched = True
-        self.ensure_cursor_visible ()
+        if music_expr <> self.music_cursor:
+            self.music_cursor = music_expr
+            self.cursor_touched = True
+            self.ensure_cursor_visible ()
+            proc = self.set_cursor_callback
+            if proc:
+                proc (self)
         
     def cursor_move (self, dir):
         mus = self.music_cursor
@@ -481,6 +466,7 @@ class Notation:
                 arp = music.ArpeggioEvent()
                 par.insert_around (self.music_cursor, arp, -1)
             self.touch_document()
+            
     def print_score(self):
         doc = self.notation_controller.document
         ly = doc.music.ly_expression()

@@ -61,14 +61,16 @@ class Pitch:
 	def steps (self):
 		return self.step + self.octave * 7
 	
-	def ly_expression (self):
-
+	def ly_step_expression (self): 
 		str = 'cdefgab'[self.step]
 		if self.alteration > 0:
 			str += 'is'* (self.alteration/2)
 		elif self.alteration < 0:
 			str += 'es'* (-self.alteration/2)
-
+		return str
+	
+	def ly_expression (self):
+		str = self.ly_step_expression ()
 		if self.octave >= 0:
 			str += "'" * (self.octave + 1) 
 		elif self.octave < -1:
@@ -94,6 +96,15 @@ class Music:
 	def get_properties (self):
 		return ''
 	
+	def has_children (self):
+		return False
+	
+	def get_index (self):
+		if self.parent:
+			return self.parent.elements.index (self)
+		else:
+			return None
+		
 	def lisp_expression (self):
 		name = self.name()
 		tag = ''
@@ -128,7 +139,8 @@ class NestedMusic(Music):
 	def __init__ (self):
 		Music.__init__ (self)
 		self.elements = [] 
-
+	def has_children (self):
+		return self.elements
 	def set_tag (self, counter, dict):
 		counter = Music.set_tag (self, counter, dict)
 		for e in self.elements :
@@ -285,6 +297,54 @@ class NoteEvent(RhythmicEvent):
 		return '%s%s' % (self.pitch.ly_expression (),
 				 self.duration.ly_expression ())
 
+
+
+class KeySignatureEvent (Event):
+	def __init__ (self, tonic, scale):
+		Event.__init__ (self)
+		self.scale = scale
+		self.tonic = tonic
+	def name (self):
+		return 'KeySignatureEvent'
+	def ly_expression (self):
+		return '\\key %s \\major' % self.tonic.ly_step_expression ()
+	
+	def lisp_expression (self):
+		pairs = ['(%d . %d)' % (i , self.scale[i]) for i in range (0,7)]
+		scale_str = ("'(%s)" % string.join (pairs))
+
+		return """ (make-music 'KeyChangeEvent
+          'pitch-alist %s) """ % scale_str
+
+class ClefEvent (Event):
+	def __init__ (self, t):
+		Event.__init__ (self)
+		self.type = t
+	def name (self):
+		
+		return 'ClefEvent'
+	def ly_expression (self):
+		return '\\clef "%s"' % self.type
+	clef_dict = {
+		"G": ("clefs.G", -2, -6),
+		"C": ("clefs.C", 0, 0),
+		"F": ("clefs.F", 2, 6),
+		}
+	
+	def lisp_expression (self):
+		(glyph, pos, c0) = self.clef_dict [self.type]
+		clefsetting = """
+		(make-music 'SequentialMusic
+		'elements (list
+      (context-spec-music
+       (make-property-set 'clefGlyph "%s") 'Staff)
+      (context-spec-music
+       (make-property-set 'clefPosition %d) 'Staff)
+      (context-spec-music
+       (make-property-set 'middleCPosition %d) 'Staff)))
+""" % (glyph, pos, c0)
+		return clefsetting
+
 def test_expr ():
 	m = SequentialMusic()
 	l =2 
@@ -302,11 +362,21 @@ def test_expr ():
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)
 
-
  	evc = EventChord()
 	n = NoteEvent()
 	n.duration.duration_log = l
 	n.pitch.step = 2 
+	evc.insert_around (None, n, 0)
+	m.insert_around (None, evc, 0)
+
+ 	evc = ClefEvent("G")
+	m.insert_around (None, evc, 0)
+
+ 	evc = EventChord()
+	tonic = Pitch ()
+	tonic.step = 2
+	tonic.alteration = -2
+	n = KeySignatureEvent(tonic, [0, 0, -2, 0, 0,-2,-2]  )
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)
 
@@ -316,9 +386,9 @@ def test_expr ():
 if __name__ == '__main__':
 	expr = test_expr()
 	expr.set_start (Rational (0))
-
-	start = 0.25
-	stop = 0.5
+	print expr.ly_expression()
+	start = Rational (0,4)
+	stop = Rational (4,2)
 	def sub(x, start=start, stop=stop):
 		ok = x.start >= start and x.start +x.length() <= stop
 		return ok

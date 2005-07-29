@@ -122,19 +122,19 @@ class Notation_toolbar (gtk.VBox):
 			 ('Shift+B', '+B',
 			  lambda: self.notation.add_step (6), 2),
 			 ('c', 'C',
-			  lambda: self.notation.set_step (0), 3),
+			  lambda: self.notation.set_step (0), 2),
 			 ('d', 'D',
-			  lambda: self.notation.set_step (1), 3),
+			  lambda: self.notation.set_step (1), 2),
 			 ('e', 'E',
-			  lambda: self.notation.set_step (2), 3),
+			  lambda: self.notation.set_step (2), 2),
 			 ('f', 'F',
-			  lambda: self.notation.set_step (3), 3),
+			  lambda: self.notation.set_step (3), 2),
 			 ('g', 'G',
-			  lambda: self.notation.set_step (4), 3),
+			  lambda: self.notation.set_step (4), 2),
 			 ('a', 'A',
-			  lambda: self.notation.set_step (5), 3),
+			  lambda: self.notation.set_step (5), 2),
 			 ('b', 'B',
-			  lambda: self.notation.set_step (6), 3)]:
+			  lambda: self.notation.set_step (6), 2)]:
 			
 			self.add_button (text, key_name, func, row)
 
@@ -145,7 +145,7 @@ class Notation_canvas (gnomecanvas.Canvas):
 		gnomecanvas.Canvas.__init__ (self,
 					     #aa=True
 					     )
-		(w,h) = (400,200)
+		(w,h) = (400,150)
 		self.set_size_request (w, h) 
 		self.set_scroll_region (0, 0, w, h)
 		root = self.root ()

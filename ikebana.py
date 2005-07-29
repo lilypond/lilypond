@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import musictree
 import os
 import gtk
 import gnomecanvas
@@ -14,16 +15,40 @@ def mainquit (*args):
 
 class NotationApplication:
     def __init__ (self):
-        self.music = music.Music_document ()
+        self.document = music.Music_document ()
         
-        nc = notation.Notation_controller (self.music)
+        nc = notation.Notation_controller (self.document)
         self.notation_controller = nc
 
         ncc = notationcanvas.Notation_canvas_controller (nc.notation)
         self.notation_canvas_controller = ncc
         
         self.window = self.create_window ()
+        self.tree_window =self.create_tree_window ()
+
+    def tree_selection_changed (self, music_obj):
+        nc = self.notation_controller
+        nc.notation.set_cursor (music_obj)
+        self.notation_canvas_controller.check_update()
         
+    def create_tree_window (self):
+        win = gtk.Window ()
+        (w,h) = (500,300)
+        win.set_size_request (w, h) 
+        
+        win.connect ('destroy', mainquit)
+        win.set_title ('Ikebana - music representation')
+        
+        treeview = musictree.MusicTreeView (self.document.music)
+        win.add(treeview)
+        win.show()
+        treeview.selection_change_callback = self.tree_selection_changed
+
+        notation = self.notation_canvas_controller.notation
+        notation.set_cursor_callback = treeview.cursor_changed
+        
+        return win
+
     def create_window (self):
         win = gtk.Window ()
         win.connect ('destroy', mainquit)
