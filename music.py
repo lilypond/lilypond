@@ -258,6 +258,8 @@ class Event(Music):
 class ArpeggioEvent(Music):
 	def name (self):
 		return 'ArpeggioEvent'
+	def ly_expression (self):
+		return '\\arpeggio'
 	
 class RhythmicEvent(Event):
 	def __init__ (self):

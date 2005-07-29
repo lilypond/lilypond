@@ -401,14 +401,18 @@ class Notation:
         if ( self.music_cursor.name() == 'NoteEvent'
              or self.music_cursor.name() == 'RestEvent'):
 
+            m = self.music_cursor
             dur = self.music_cursor.duration
             dl = dur.duration_log
             dl += dir
-            if dl <= 6 and dl >= -2:
-                dur.duration_log = dl
+            if dl > 6 and dl < -2:
+                return None
+
+            evs = [x for x in m.parent.elements if x.name() in ('NoteEvent', 'RestEvent')]
+            for e in evs:
+                e.duration.duration_log = dl
                 
             self.touch_document ()
-
 
     def ensure_note (self):
         if self.music_cursor.name() == 'RestEvent':
