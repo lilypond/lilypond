@@ -21,5 +21,8 @@ Smaller and neater tests.
 
 }
 
-\score { \lyrics { " " }}
+%
+% make sure the .png is generated.
+%
+\lyrics { "(left blank intentionally)" }
 
