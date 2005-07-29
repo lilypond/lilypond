@@ -1211,6 +1211,9 @@ connected between different staves of a StaffGroup
 >>
 @end lilypond
 
+
+@commonprop
+
 @cindex @code{whichBar}
 @cindex @code{repeatCommands}
 @cindex @code{defaultBarType}
