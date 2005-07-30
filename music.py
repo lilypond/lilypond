@@ -62,11 +62,11 @@ class Pitch:
 		return self.step + self.octave * 7
 	
 	def ly_step_expression (self): 
-		str = 'cdefgab'[self.step]
+		str = 'CDEFGAB'[self.step]
 		if self.alteration > 0:
-			str += 'is'* (self.alteration/2)
+			str += '-Sharp'* (self.alteration/2)
 		elif self.alteration < 0:
-			str += 'es'* (-self.alteration/2)
+			str += '-Flat'* (-self.alteration/2)
 		return str
 	
 	def ly_expression (self):
@@ -349,7 +349,7 @@ class ClefEvent (Event):
 
 def test_expr ():
 	m = SequentialMusic()
-	l =2 
+	l = 2  
 	evc = EventChord()
 	n = NoteEvent()
 	n.duration.duration_log = l
@@ -359,7 +359,7 @@ def test_expr ():
 
 	evc = EventChord()
 	n = NoteEvent()
-	n.duration.duration_log = 0
+	n.duration.duration_log = l
 	n.pitch.step = 3
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)

@@ -1,3 +1,7 @@
+2005-07-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* notation.py (add_key_sig): add key sig if not at start.
+
 2005-07-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* notation.py (Notation.change_duration_log): duration logs of all

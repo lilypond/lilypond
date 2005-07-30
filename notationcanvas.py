@@ -150,7 +150,7 @@ class Notation_canvas (gnomecanvas.Canvas):
 		self.set_scroll_region (0, 0, w, h)
 		root = self.root ()
 		root.affine_relative ((1,0,0,-1,0, 5))
-		self.pixel_scale = 10
+		self.pixel_scale = 11
 		self.set_pixels_per_unit (self.pixel_scale)
 		i = root.add (gnomecanvas.CanvasRect,
 			      y1 = 5,
@@ -267,9 +267,7 @@ class Notation_canvas (gnomecanvas.Canvas):
 	    (index, font_name, magnification, name) = tuple (item.args)
 	    (family, style) = string.split (font_name, '-')
 
-	    sz = canvas.pixel_scale * 0.75 * magnification
-	    sz *= 1.2
-
+	    sz = canvas.pixel_scale * 15.5/16 * magnification
 	    w = canvas.root().add (type,
 				   fill_color = 'black',
 				   family = family,

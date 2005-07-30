@@ -33,7 +33,7 @@ class NotationApplication:
         
     def create_tree_window (self):
         win = gtk.Window ()
-        (w,h) = (500,300)
+        (w,h) = (500,200)
         win.set_size_request (w, h) 
         
         win.connect ('destroy', mainquit)

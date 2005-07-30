@@ -53,7 +53,8 @@ def talk_to_lilypond (expression_str):
 	    break
 	cont = len (data) > 0
 	retval += data
- 
+
+#    print retval
     return retval
 
 def set_measure_number (str, num):
@@ -81,14 +82,27 @@ myNotes = %s
     os.system ('(lilypond %s && gv %s)&  ' % (filename, base))
 
 def add_start_skip (str, start_skip):
-    return """(make-music 'SequentialMusic 'elements
+    str = """(make-music 'SequentialMusic 'elements
                (list
                 (make-music 'SkipMusic
                             'duration (ly:make-duration 0 0 %d %d))
                 %s))
 """ % (start_skip.num, start_skip.den, str)
+
+
+    return str
+
+def add_key_sig (str):
+    e_flat = music.Pitch()
+    e_flat.step = 2
+    e_flat.alteration = -2
+    ev = music.KeySignatureEvent (e_flat, scale_alterations)
     
-    
+    str = """(make-music 'SequentialMusic 'elements
+    (list (make-music 'EventChord 'elements (list
+    %s))
+    %s))""" % (ev.lisp_expression (), str)
+    return str
 
 class Lilypond_socket_parser:
     """Maintain state of reading multi-line lilypond output for socket transport."""
@@ -165,9 +179,12 @@ class Notation_controller:
         
 	str = expr.lisp_sub_expression (sub)
         str = add_start_skip (str, start_skip)
-        
+
         bar_count = (self.start_moment / measure_length).floor()
-        str = set_measure_number (str, bar_count.num)
+        str = set_measure_number (str, 1 + bar_count.num)
+        if bar_count.num > 0:
+            str = add_key_sig (str)
+        
 	str = talk_to_lilypond (str)
         self.parse_socket_file (str)
 
@@ -425,8 +442,10 @@ class Notation:
             
     def ensure_rest (self):
         if self.music_cursor.name() == 'NoteEvent':
+            dur = self.music_cursor.duration
             m = self.music_cursor
             rest = music.RestEvent()
+            rest.duration = dur.copy()
             m.parent.insert_around (None, rest, 1)
             m.parent.delete_element (m)
             self.music_cursor = rest  
