@@ -34,7 +34,7 @@ LY_DEFINE(ly_clear_anonymous_modules, "ly:clear-anonymous-modules",
       SCM closure = SCM_MODULE_EVAL_CLOSURE(module);
       SCM prop = scm_procedure_property (closure, ly_symbol2scm ("module")); 
 
-      if (ly_is_module (prop))
+      if (ly_c_module_p (prop))
 	{
 	  scm_set_procedure_property_x (closure, ly_symbol2scm ("module"),
 					SCM_BOOL_F);
