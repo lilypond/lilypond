@@ -18,7 +18,7 @@ SCM ly_modules_lookup (SCM modules, SCM sym, SCM);
 SCM ly_module_symbols (SCM mod);
 void ly_reexport_module (SCM mod);
 inline bool ly_c_module_p (SCM x) { return SCM_MODULEP (x); }
-void ly_clear_anonymous_modules ();
+SCM ly_clear_anonymous_modules ();
 SCM ly_use_module (SCM mod, SCM used);
 
 #endif /* LY_MODULE_HH */
