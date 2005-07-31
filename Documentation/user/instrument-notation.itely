@@ -1946,7 +1946,7 @@ notation.
 \score {
   \time 3/4
     
-  \grg \partial 8*2 a8. d16 
+  \grg \partial 4 a8. d16 
   \slurd d2 \grg f8[ e32 d16.]
   \grg f2 \grg f8 e
   \thrwd d2 \grg b4

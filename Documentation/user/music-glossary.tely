@@ -4538,17 +4538,17 @@ FI: desimi.
 @node tenuto
 @section tenuto
 
-ES:
+ES: tenuto,
 I: tenuto,
-F:
+F: tenuto,
 D:
 NL:
 DK:
-S:
-FI:
+S: tenuto,
+FI: viiva, tenuto.
 
 An indication that a particular note should be held for the whole
-length.
+length, although this can vary depending on the composer and era.
 
 @node third
 @section third
