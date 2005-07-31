@@ -1,3 +1,11 @@
+2005-07-31  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/music-glossary: more languages
+	for tenuto.
+
+	* Docuemntation/user/instrument-notation.itely: minor
+	update for bagpipe example.
+
 2005-07-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/+.ly (TODO): add some text.
