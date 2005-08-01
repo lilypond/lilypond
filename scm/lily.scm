@@ -370,7 +370,9 @@ The syntax is the same as `define*-public'."
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
     ;;(handler (lambda (key . arg) (set! failed (append arg failed)))))
-    (for-each (lambda (x) (lilypond-file handler x)) files)
+    (for-each (lambda (x) (lilypond-file handler x)
+		      (ly:clear-anonymous-modules))
+	      files)
     failed))
 
 (define (lilypond-file handler file-name)
