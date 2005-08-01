@@ -1,3 +1,8 @@
+2005-08-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/advanced-notation.itely (Font selection): add
+	doco for make-pango-font-tree.
+
 2005-07-31  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/music-glossary: more languages
