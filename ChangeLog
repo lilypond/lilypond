@@ -1,5 +1,7 @@
 2005-08-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/module-scheme.cc (LY_DEFINE): new file. 
+
 	* Documentation/user/advanced-notation.itely (Font selection): add
 	doco for make-pango-font-tree.
 
