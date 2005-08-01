@@ -16,6 +16,11 @@ This document is also available in @uref{source/Documentation/user/out-www/music
 and as @uref{source/Documentation/user/out-www/music-glossary.html,one big page}.
 @end ifhtml
 
+@dircategory GNU music project
+@direntry
+* Glossary: (music-glossary).                  Glossary of music terms.
+@end direntry
+
 @titlepage
 @title Music Glossary
 @author Christian Mondrup   @c Original author of LilyPond glossary
@@ -4540,10 +4545,10 @@ FI: desimi.
 
 ES: tenuto,
 I: tenuto,
-F: tenuto,
-D:
-NL:
-DK:
+F: tenue, tenuto,
+D: gehalten, tenuo,
+NL: tenuto,
+DK: tenuto,
 S: tenuto,
 FI: viiva, tenuto.
 
