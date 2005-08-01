@@ -516,7 +516,7 @@
 	* flower/include/guile-compatibility.hh (scm_from_locale_string):
 	add scm_from_locale_string compatibility glue. 
 
-2005-07-13  Yoshinobu Isizaki  <isizaki@mte.biglobe.ne.jp>
+2005-07-13  Yoshinobu Ishizaki  <isizaki@mte.biglobe.ne.jp>
 
 	* scripts/lilypond-book.py: Prevent occuring error when
 	'lilypond-book --output=foo/ somefile.ly' is executed multiple
@@ -534,7 +534,7 @@
 	* Documentation/user/converters.itely: fix URL for Noteedit and
 	Rosegarden.
 
-	* THANKS: added Yoshinobu Isizaki.
+	* THANKS: added Yoshinobu Ishizaki.
 
 2005-07-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
