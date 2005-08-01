@@ -895,8 +895,9 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
   shortest_playing_len = max (shortest_playing_len, delta_t);
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
-      dist = get_duration_space (me, shortest_playing_len, shortest.main_part_, expand_only);
-      dist *= (double) (delta_t.main_part_ / shortest_playing_len.main_part_);
+      dist = get_duration_space (me, shortest_playing_len,
+				 shortest.main_part_, expand_only);
+      dist *= double (delta_t.main_part_ / shortest_playing_len.main_part_);
     }
   else if (delta_t.grace_part_)
     {
@@ -925,9 +926,14 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "gets 2 note heads width (i.e. the space following a note is 1 note\n"
 	       "head width) A 16th note is followed by 0.5 note head width. The\n"
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
-	       "grace-space-factor spacing-increment base-shortest-duration shortest-duration-space common-shortest-duration");
+	       
+	       "grace-space-factor spacing-increment base-shortest-duration "
+	       "shortest-duration-space common-shortest-duration"
+
+	       );
 
 ADD_INTERFACE (Spacing_interface, "spacing-interface",
-	       "Something to do with line breaking and spacing. Kill this one after determining line breaks.",
+	       "Something to do with line breaking and spacing. "
+	       "Kill this one after determining line breaks.",
 	       "");
 
