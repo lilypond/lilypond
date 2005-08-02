@@ -1,3 +1,8 @@
+2005-08-02  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/music-glossary: remove accidentally committed
+	fink patch.
+
 2005-08-02  Yoshinobu Ishizaki  <isizaki@mte.biglobe.ne.jp>
 
 	* lily/lily-parser.cc (get_header): new function. Enable multiple
