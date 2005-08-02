@@ -943,6 +943,25 @@ may use any @ref{Text markup} commands in the header.
 }
 @end lilypond
 
+As demonstrated before, you can use multiple @code{\header} blocks. 
+When same fields appear in different blocks, the latter is used.  
+Here is a short example.
+
+@example 
+\header @{
+  composer = "Composer"
+@}
+\header @{
+  title = "Title"
+@}
+\score @{
+  \new Staff @{ c'4 @}
+  \header @{
+    title = "New title" %overwrite previous one
+  @}
+@}
+@end example
+
 A more advanced option is to change the definitions of the following
 variables in the @code{\paper} block.  The init file
 @file{ly/titling-init.ly} lists the default layout.

@@ -15,7 +15,7 @@
 #(ly:set-option 'old-relative #f)
 #(define toplevel-scores '())
 #(define output-count 0) 
-#(define $globalheader #f)
+#(define $defaultheader #f)
 #(define version-seen? #f)
 
 \maininput
@@ -37,4 +37,4 @@
 #(if (pair? toplevel-scores)
   (toplevel-book-handler
    parser
-   (apply ly:make-book $defaultpaper $globalheader toplevel-scores)))
+   (apply ly:make-book $defaultpaper $defaultheader toplevel-scores)))

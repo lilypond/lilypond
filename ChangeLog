@@ -1,3 +1,18 @@
+2005-08-02  Yoshinobu Ishizaki  <isizaki@mte.biglobe.ne.jp>
+
+	* lily/lily-parser.cc (get_header): new function. Enable multiple
+	\header definitions.
+
+	* lily/parser.yy (lilypond_header_body): use get_header.
+
+	* ly/init.ly:
+	* scm/lily-library.scm (print-score-with-defaults): renamed
+	$globalheader to $defaultheader
+        
+	* Documentation/user/global.itely (Creating titles): added short
+	explanation that multiple headers are useable.
+
+
 2005-08-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/module-scheme.cc (LY_DEFINE): new file. 
