@@ -209,3 +209,33 @@ ly_reexport_module (SCM mod)
 {
   ly_export (mod, ly_module_symbols (mod));
 }
+
+
+#ifdef MODULE_GC_KLUDGE
+static SCM
+redefine_keyval (void *closure, SCM key, SCM val, SCM result)
+{
+  (void)closure;
+  SCM new_tab = result;
+  scm_hashq_set_x (new_tab, key, val);
+  return new_tab;
+}
+
+/*
+  UGH UGH.
+  Kludge for older GUILE 1.6 versions.
+ */
+void
+make_stand_in_procs_weak ()
+{
+  SCM old_tab = scm_stand_in_procs;
+  SCM new_tab = scm_make_weak_key_hash_table (scm_from_int (257));
+  
+  new_tab = scm_internal_hash_fold ((Hash_cl_func) & redefine_keyval, NULL,
+				    new_tab, old_tab);
+
+  scm_stand_in_procs = new_tab;
+}
+
+ADD_SCM_INIT_FUNC(make_stand_in_procs_weak, make_stand_in_procs_weak);
+#endif
