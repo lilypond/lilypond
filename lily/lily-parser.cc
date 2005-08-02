@@ -215,3 +215,12 @@ get_paper (Lily_parser *parser)
   return layout;
 }
 
+SCM
+get_header(Lily_parser *parser)
+{
+  SCM id = parser->lexer_->lookup_identifier("$defaultheader");
+  if (!ly_is_module (id))
+    id = ly_make_anonymous_module (be_safe_global);
+
+  return id;
+}

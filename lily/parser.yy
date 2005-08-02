@@ -568,7 +568,7 @@ object_id_setting:
 
 toplevel_expression:
 	lilypond_header {
-		THIS->lexer_->set_identifier (ly_symbol2scm ("$globalheader"), $1);
+		THIS->lexer_->set_identifier (ly_symbol2scm ("$defaultheader"), $1);
 	}
 	| add_quote {
 	
@@ -625,7 +625,7 @@ embedded_scm:
 
 lilypond_header_body:
 	{
-		$$ = ly_make_anonymous_module (be_safe_global);
+		$$ = get_header(THIS);
 		THIS->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  {
@@ -754,7 +754,7 @@ book_body:
 		$$->set_spot (@$);
 		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
-		$$->header_ = THIS->lexer_->lookup_identifier ("$globalheader"); 
+		$$->header_ = THIS->lexer_->lookup_identifier ("$defaultheader"); 
 	}
 	| book_body paper_block {
 		$$->paper_ = $2;
