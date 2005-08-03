@@ -473,7 +473,9 @@ will be much more useful than changing @code{minimumVerticalExtent}.
 @seealso
 
 Internals: Vertical alignment of staves is handled by the
-@internalsref{VerticalAlignment} object.
+@internalsref{VerticalAlignment} object. The context parameters
+specifying  the vertical extent are described in connection with 
+the @internalsref{Axis_group_engraver}.
 
 @refbugs
 

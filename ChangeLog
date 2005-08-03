@@ -1,5 +1,9 @@
 2005-08-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* Documentation/user/global.itely (Vertical spacing): Added
+	reference to the Axis_group_engraver which documents the *Extent
+	properties.
+
 	* Documentation/user/programming-interface.itely (Markup
 	construction in Scheme): Corrected markup syntax in the
 	translation table.
