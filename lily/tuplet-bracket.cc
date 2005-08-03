@@ -109,7 +109,16 @@ Tuplet_bracket::print (SCM smob)
     SCM rp = me->get_property ("right-position");
 
     if (!scm_is_number (rp) || !scm_is_number (lp))
-      after_line_breaking (smob);
+      {
+	/*
+	  UGH. dependency tracking!
+	 */
+	extract_grob_set (me, "tuplets", tuplets);
+	for (int i = 0; i < tuplets.size (); i++)
+	  Tuplet_bracket::print (tuplets[i]->self_scm());
+
+	after_line_breaking (smob);
+      }
   }
 
   Real ly = robust_scm2double (me->get_property ("left-position"), 0);
@@ -191,30 +200,24 @@ Tuplet_bracket::print (SCM smob)
 
   if (bracket_visibility)
     {
-      Real ss = Staff_symbol_referencer::staff_space (me);
       Real gap = 0.;
 
       if (!num.extent (X_AXIS).is_empty ())
 	gap = num.extent (X_AXIS).length () + 1.0;
 
-      SCM fl = me->get_property ("bracket-flare");
-      SCM eh = me->get_property ("edge-height");
-      SCM sp = me->get_property ("shorten-pair");
+      Drul_array<Real> zero (0,0);
+      Real ss = Staff_symbol_referencer::staff_space (me);
+      Drul_array<Real> height
+	= robust_scm2drul (me->get_property ("edge-height"), zero);
+      Drul_array<Real> flare
+	= robust_scm2drul (me->get_property ("bracket-flare"), zero);
+      Drul_array<Real> shorten
+	= robust_scm2drul (me->get_property ("shorten-pair"), zero);
 
-      Direction d = LEFT;
-      Drul_array<Real> height, flare, shorten;
-      do
-	{
-	  flare[d] = height[d] = shorten[d] = 0.0;
-	  if (is_number_pair (fl))
-	    flare[d] += ss * scm_to_double (index_get_cell (fl, d));
-	  if (is_number_pair (eh))
-	    height[d] += -dir * ss * scm_to_double (index_get_cell (eh, d));
-	  if (is_number_pair (sp))
-	    shorten[d] += ss * scm_to_double (index_get_cell (sp, d));
-	}
-      while (flip (&d) != LEFT);
-
+      scale_drul (&height, -ss * dir);
+      scale_drul (&flare, ss);
+      scale_drul (&shorten, ss);
+      
       Stencil brack = make_bracket (me, Y_AXIS,
 				    Offset (w, ry - ly),
 				    height,
@@ -294,15 +297,43 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
   return m;
 }
 
+void
+Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
+{
+  extract_grob_set (me, "note-columns", columns);
+  int l = 0;
+  while (l < columns.size () && Note_column::has_rests (columns[l]))
+    l++;
+
+  int r = columns.size ()- 1;
+  while (r >= l && Note_column::has_rests (columns[r]))
+    r--;
+
+  *left = *right = 0;
+
+  if (l <= r)
+    {
+      *left = columns[l];
+      *right = columns[r];
+    }
+}
+
+
 /*
   use first -> last note for slope, and then correct for disturbing
   notes in between.  */
 void
-Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
+Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 {
+  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+  
   extract_grob_set (me, "note-columns", columns);
+  extract_grob_set (me, "tuplets", tuplets);
+  
   Grob *commony = common_refpoint_of_array (columns, me, Y_AXIS);
+  commony = common_refpoint_of_array (tuplets, commony, Y_AXIS);
   Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
+  commonx = common_refpoint_of_array (tuplets, commonx, Y_AXIS);
 
   Interval staff;
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
@@ -313,24 +344,19 @@ Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
   /*
     Use outer non-rest columns to determine slope
   */
-  int l = 0;
-  while (l < columns.size () && Note_column::has_rests (columns[l]))
-    l++;
-
-  int r = columns.size ()- 1;
-  while (r >= l && Note_column::has_rests (columns[r]))
-    r--;
-
-  if (l < r)
+  Grob *left_col = 0;
+  Grob *right_col = 0;
+  get_bounds (me, &left_col, &right_col);
+  if (left_col && right_col)
     {
-      Interval rv = columns[r]->extent (commony, Y_AXIS);
-      Interval lv = columns[l]->extent (commony, Y_AXIS);
+      Interval rv = right_col->extent (commony, Y_AXIS);
+      Interval lv = left_col->extent (commony, Y_AXIS);
       rv.unite (staff);
       lv.unite (staff);
       Real graphical_dy = rv[dir] - lv[dir];
 
-      Slice ls = Note_column::head_positions_interval (columns[l]);
-      Slice rs = Note_column::head_positions_interval (columns[r]);
+      Slice ls = Note_column::head_positions_interval (left_col);
+      Slice rs = Note_column::head_positions_interval (right_col);
 
       Interval musical_dy;
       musical_dy[UP] = rs[UP] - ls[UP];
@@ -343,7 +369,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
 	*dy = graphical_dy;
     }
   else
-    * dy = 0;
+    *dy = 0;
 
   *offset = -dir * infinity_f;
 
@@ -356,10 +382,11 @@ Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
 
   /*
-    Slope.
+    offset
   */
   Real factor = columns.size () > 1 ? 1 / (x1 - x0) : 1.0;
 
+  Array<Offset> points;
   for (int i = 0; i < columns.size (); i++)
     {
       Interval note_ext = columns[i]->extent (commony, Y_AXIS);
@@ -367,21 +394,72 @@ Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
       Real notey = note_ext[dir] - me->relative_coordinate (commony, Y_AXIS);
 
       Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
-      Real tuplety = *dy * x * factor;
+      points.push (Offset (x, notey));
+    }
+  
+  /*
+    This is a slight hack. We compute two encompass points from the
+    bbox of the smaller tuplets.
+    
+    We assume that the smaller bracket is 1.0 space high.
+  */
+  
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  for (int i = 0; i < tuplets.size (); i++)
+    {
+      Interval tuplet_x (tuplets[i]->extent (commonx, X_AXIS));
+      Interval tuplet_y (tuplets[i]->extent (commony, Y_AXIS));
 
-      if (notey * dir > (*offset + tuplety) * dir)
-	*offset = notey - tuplety;
+      Direction d = LEFT;
+      Real lp = scm_to_double (tuplets[i]->get_property ("left-position"));
+      Real rp = scm_to_double (tuplets[i]->get_property ("right-position"));
+      Real other_dy = rp - lp;
+
+      do
+	{
+	  Real y =
+	    tuplet_y.linear_combination (d * sign (other_dy));
+
+#if 0
+	  /*
+	    Let's not take padding into account for nested tuplets.
+	    the edges can come very close to the stems, likewise for
+	    nested tuplets?
+	   */
+	  Drul_array<Real> my_height
+	    = robust_scm2drul (me->get_property ("edge-height"), Interval (0,0));
+	  if (dynamic_cast<Spanner*> (tuplets[i])->get_bound (d)
+	      ==  me->get_bound (d))
+	    {
+	      y += dir * my_height[d];
+	    }
+#endif
+	  
+	  points.push (Offset (tuplet_x[d] - x0, y));
+	}
+      while (flip (&d) != LEFT);
     }
 
-  // padding
+  for (int i = 0; i < points.size (); i++)
+    {
+      Real x = points[i][X_AXIS];
+      Real tuplety = *dy * x * factor;
+
+      if (points[i][Y_AXIS] * dir > (*offset + tuplety) * dir)
+	*offset = points[i][Y_AXIS] - tuplety;
+    }
+		  
   *offset += scm_to_double (me->get_property ("padding")) * dir;
 
   /*
     horizontal brackets should not collide with staff lines.
 
+    Kind of pointless since we put them outside the staff anyway, but
+    let's leave code for the future when possibly allow them to move
+    into the staff once again.
   */
-  Real ss = Staff_symbol_referencer::staff_space (me);
-  if (*dy == 0 && fabs (*offset) < ss * Staff_symbol_referencer::staff_radius (me))
+  if (*dy == 0 &&
+      fabs (*offset) < ss * Staff_symbol_referencer::staff_radius (me))
     {
       // quantize, then do collision check.
       *offset *= 2 / ss;
@@ -447,7 +525,8 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   /*
     We follow the beam only if there is one, and we are next to it.
   */
-  Real dy, offset;
+  Real dy = 0.0;
+  Real offset = 0.0;
   if (!par_beam
       || get_grob_direction (par_beam) != dir)
     {
@@ -518,11 +597,21 @@ Tuplet_bracket::add_column (Grob *me, Item *n)
   add_bound_item (dynamic_cast<Spanner *> (me), n);
 }
 
+void
+Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
+{
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
+  me->add_dependency (bracket);
+}
+
+
+
 ADD_INTERFACE (Tuplet_bracket,
 	       "tuplet-bracket-interface",
 	       "A bracket with a number in the middle, used for tuplets.",
 
 	       "note-columns bracket-flare edge-height shorten-pair "
+	       "tuplets "
 	       "padding left-position right-position bracket-visibility "
 	       "number-visibility thickness direction");
 

@@ -512,9 +512,9 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (axis-group-parent-X ,ly:grob? "Containing X axis group")
      (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
-     (adjacent-hairpins ,grob-list? "List of directly neighboring hairpins")
+     (adjacent-hairpins ,ly:grob-array? "List of directly neighboring hairpins")
      (after-line-breaking-callback ,procedure? "This procedure is called after line breaking. Its return value is ignored.")     
-     (all-elements ,grob-list? "list of all grobs in this line. Its
+     (all-elements ,ly:grob-array? "list of all grobs in this line. Its
 function is to protect objects from being garbage collected.")
      (arpeggio ,ly:grob? "pointer to arpeggio object.")
      (beam ,ly:grob? "pointer to the beam, if applicable.")
@@ -527,38 +527,38 @@ set, which grob to get the direction from .")
      (tie ,ly:grob? "")
      (staff-symbol ,ly:grob? "the staff symbol grob that we're in.")
      (rest ,ly:grob? "the staff symbol grob that we're in.")
-     (rests ,grob-list? "A list of rest objects.")
+     (rests ,ly:grob-array? "A list of rest objects.")
      (rest-collision ,ly:grob? "rest collision that a rest is in.")
      (accidental-grob ,ly:grob? "Accidental for this note.")
-     (bars ,grob-list? "list of bar line pointers.")
-     (bounded-by-me ,grob-list? "list of spanners that have this
+     (bars ,ly:grob-array? "list of bar line pointers.")
+     (bounded-by-me ,ly:grob-array? "list of spanners that have this
 column as start/begin point. Only columns that have grobs or act as bounds are spaced.")
-     (columns ,grob-list? "list of grobs, typically containing
+     (columns ,ly:grob-array? "list of grobs, typically containing
 paper-columns or note-column objects.")
-     (conditional-elements ,grob-list? "Internal use only")
-     (dependencies ,grob-list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
-     (encompass-objects ,grob-list? "Objects that a slur should avoid
+     (conditional-elements ,ly:grob-array? "Internal use only")
+     (dependencies ,ly:grob-array? "list of score-grob pointers that indicate who to compute first for certain global passes.")
+     (encompass-objects ,ly:grob-array? "Objects that a slur should avoid
 in addition to notes and stems.")
-     (elements ,grob-list? "list of grobs, type depending on the Grob where this is set in.")
-     (heads ,grob-list? "List of note heads.")
-     (items-worth-living ,grob-list? "A list of interesting items. If
+     (elements ,ly:grob-array? "list of grobs, type depending on the Grob where this is set in.")
+     (heads ,ly:grob-array? "List of note heads.")
+     (items-worth-living ,ly:grob-array? "A list of interesting items. If
 empty in a particular staff, then that staff is erased.")
      (details ,list? "alist of parameters for detailed grob behavior.")
-     (note-heads ,grob-list? "List of note head grobs")
-     (side-support-elements ,grob-list? "the support, a list of grobs.")
-     (spacing-wishes ,grob-list? "List of note spacing or staff spacing objects.")
-     (stems ,grob-list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
+     (note-heads ,ly:grob-array? "List of note head grobs")
+     (side-support-elements ,ly:grob-array? "the support, a list of grobs.")
+     (spacing-wishes ,ly:grob-array? "List of note spacing or staff spacing objects.")
+     (stems ,ly:grob-array? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
+     (tuplets ,ly:grob-array? "list of smaller tuplet brackets")
 
-
-     (left-neighbors ,grob-list? " List of
+     (left-neighbors ,ly:grob-array? " List of
 spacing-wish grobs that are close to the current column.
 
 The closest spacing-wishes determine the actual distances between the
 columns.
 ")
-     (right-neighbors ,grob-list? "see left-neighbors")
-     (left-items ,grob-list? "")
-     (right-items ,grob-list? "")
+     (right-neighbors ,ly:grob-array? "see left-neighbors")
+     (left-items ,ly:grob-array? "")
+     (right-items ,ly:grob-array? "")
      (cause ,scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
      (font ,ly:font-metric? "Cached font metric object")
 
@@ -610,7 +610,7 @@ stem. Internally used to distribute beam shortening over stems. ")
 than a whole rest.")
      
 
-     (spaceable-staves ,grob-list? "Objects to be spaced during page layout.")
+     (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
 
      ;; ancient notation
 

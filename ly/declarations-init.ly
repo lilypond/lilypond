@@ -18,15 +18,15 @@ maxima = #(ly:make-duration -3 0)
 \include "script-init.ly"
 
 % declarations for standard directions
-left = -1
-right = 1
-up = 1
-down = -1
-start = -1
-stop = 1
-smaller = -1
-bigger = 1
-center = 0
+left = #-1
+right = #1
+up = #1
+down = #-1
+start = #-1
+stop = #1
+smaller = #-1
+bigger = #1
+center = #0
 
 %% FIXME
 %% should also set allowBeamBreak, but how to do it "portably"? (ie. also
@@ -60,8 +60,6 @@ escapedBiggerSymbol = #(make-span-event 'DecrescendoEvent START)
 escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
 
-
-foo = { \pageBreak }
 
 \include "scale-definitions-init.ly"
 

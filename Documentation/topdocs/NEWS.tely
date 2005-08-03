@@ -34,6 +34,19 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Nested tuplets are automatically positioned,
+
+@lilypond[fragment,raggedright,verbatim,relative=2]
+\set tupletNumberFormatFunction = #fraction-tuplet-formatter
+\times 4/6 {
+  a4 a 
+  \times 3/5 { a a a a a }
+}
+@end lilypond
+
+This feature was sponsored by Trevor Baca.
+
+@item
 Music expressions can be displayed, in LilyPond notation, using the
 new @code{\displayLilyMusic} function. For instance:
 @verbatim

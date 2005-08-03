@@ -404,6 +404,16 @@ length
 g'4 \times 2/3 {c'4 c' c'} d'4 d'4
 @end lilypond
 
+Tuplets may be nested, for example,
+
+@lilypond[fragment,raggedright,verbatim,relative=2]
+\set tupletNumberFormatFunction = #fraction-tuplet-formatter
+\times 4/6 {
+  a4 a 
+  \times 3/5 { a a a a a }
+}
+@end lilypond
+
 @refcommands
 
 @cindex @code{\tupletUp}
@@ -437,16 +447,15 @@ denominator, but if it is set to the Scheme function
 instead.
 
 
+
+
+
 @seealso
 
 Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
 
+Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 
-@refbugs
-
-Nested tuplets are not formatted automatically.  In this case, outer
-tuplet brackets should be moved manually, which is demonstrated in
-@inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 
 
 @node Scaling durations

@@ -1,40 +1,37 @@
 
 \version "2.6.0"
 
-
 \header {
-
-    texidoc=" Nested tuplets can be printed, using a manual hack to
-  move the outer bracket up."
-
+    texidoc=" Tuplets may be nested."
 }
 
-#(define (make-text-checker-once text)
-  (lambda (grob) (and text-checker-once
-		      (if (equal? text (ly:grob-property grob 'text))
-			  (begin
-			    (set! text-checker-once #f) #t)
-			  #f))))
+\paper {
+  raggedright = ##t  
+  indent = 0.0
+}
 
-#(define text-checker-once #t)
-
-\score {
-    \relative c'' {
-
-    \set tupletNumberFormatFunction = #fraction-tuplet-formatter
-
-    \applyoutput #(lambda (gr org cur)
-		   (if (equal? (ly:grob-property gr 'text) "6:4")
-		    (set! (ly:grob-property gr 'extra-offset) '(0 . 1.5))))
-    \times 4/6 {
-      \times 2/3 {
-        a a a
-      }
-      \times 3/5 {
-        a a a a a
-      }
+\relative c'' {
+  \set tupletNumberFormatFunction = #fraction-tuplet-formatter
+  \times 4/6 {
+    \times 2/3 {
+      a a a
+    }
+    \times 3/5 {
+      a a a a a
     }
   }
-  \layout { raggedright = ##t}
+
+  s1*1/6
+  
+  \stemUp
+  \times 4/6 {
+    \times 2/3 {
+      a1*1/6 a f'
+    }
+    \times 3/5 {
+      c f g a b 
+    }
+  }
+  
 }
 
