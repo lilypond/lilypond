@@ -18,6 +18,8 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
   static bool has_interface (Grob *);
+  static void add_tuplet_bracket (Grob *me, Grob *smaller_bracket);
+  static void get_bounds (Grob *,Grob **,Grob **);
   static void add_column (Grob *me, Item *);
   static void add_beam (Grob *me, Grob *);
   static Grob *parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equally_long);

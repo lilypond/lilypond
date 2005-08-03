@@ -1,3 +1,32 @@
+2005-08-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/basic-notation.itely (Tuplets): add note
+	about nested tuplets. Remove BUG. 
+
+	* input/regression/tuplet-nest.ly: update: remove manual hack. 
+
+	* lily/tuplet-bracket.cc (print): use robust_scm2drul
+	(print): manually call print() for subtuplets.
+	(calc_position_and_height): add subtuplets to the
+	support. Vertically shift outer tuplet 
+
+	* ly/engraver-init.ly (RemoveEmptyRhythmicStaffContext): set
+	remove-first for Lyrics, ChordNames and FiguredBass
+
+	* scm/define-grob-properties.scm (all-internal-grob-properties):
+	use ly:grob-array? iso. grob-list?
+	(all-internal-grob-properties): add tuplets grob-array.
+
+	* lily/tuplet-bracket.cc (add_tuplet_bracket):
+	new function
+
+2005-08-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/test/time-signature-staff.ly: new file.
+
+	* ly/declarations-init.ly (center): escape to Scheme. Fixes
+	spurious #<Music FingerEvent> errors. Backportme.
+
 2005-08-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/programming-interface.itely (Markup

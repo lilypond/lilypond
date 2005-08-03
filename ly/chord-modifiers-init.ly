@@ -34,9 +34,6 @@ ignatzekExceptionMusic = {
 	<c es ges beses>-\markup { \super  "o7" }
 }
 
-ignatzekExceptions = #(sequential-music-to-chord-exceptions
-		       ignatzekExceptionMusic #t)
-
 partialJazzMusic = {
     <c d>1-\markup { \normal-size-super "2" }
     <c es>-\markup { "m" }
@@ -48,11 +45,13 @@ partialJazzMusic = {
     <c d es>-\markup { "m" }-\markup { \normal-size-super "sus2" }
 }
 
+
 %% TODO: compatibility ignatzek code
-fullJazzExceptions = #(sequential-music-to-chord-exceptions
-                       ignatzekExceptionMusic #f)
+fullJazzExceptions=
+#(sequential-music-to-chord-exceptions ignatzekExceptionMusic #f)
 
-partialJazzExceptions = #(sequential-music-to-chord-exceptions
-                          partialJazzMusic #f)
+partialJazzExceptions=
+#(sequential-music-to-chord-exceptions partialJazzMusic #f)
 
-		       
+ignatzekExceptions  =
+#(sequential-music-to-chord-exceptions ignatzekExceptionMusic #t)

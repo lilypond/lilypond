@@ -346,6 +346,7 @@ printing of a single line of lyrics.  "
   \consists "Skip_event_swallow_translator"
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"
+  \override RemoveEmptyVerticalGroup #'remove-first = ##t
   \override SeparationItem #'padding = #0.2
 }
 
@@ -384,6 +385,7 @@ printing of a single line of lyrics.  "
   minimumVerticalExtent = #'(0 . 2.5)
   extraVerticalExtent = ##f
   \override SeparatingGroupSpanner #'padding = #0.8
+  \override RemoveEmptyVerticalGroup #'remove-first = ##t
   verticalExtent = ##f 
 }
 
@@ -594,6 +596,7 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Skip_event_swallow_translator"
   \consists "Separating_line_group_engraver"
   \consists "Hara_kiri_engraver"
+  \override RemoveEmptyVerticalGroup #'remove-first = ##t
 }
 
 \context {

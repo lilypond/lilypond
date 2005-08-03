@@ -44,9 +44,7 @@ public:
   static Real get_duration_space (Grob *, Moment dur, Rational shortest, bool *);
   static Rational find_shortest (Grob *, Link_array<Grob> const &);
   static void breakable_column_spacing (Grob *, Item *l, Item *r, Moment);
-  static void find_loose_columns () {}
   static void prune_loose_columns (Grob *, Link_array<Grob> *cols, Rational);
-  static void find_loose_columns (Link_array<Grob> cols);
   static void set_explicit_neighbor_columns (Link_array<Grob> const &cols);
   static void set_implicit_neighbor_columns (Link_array<Grob> const &cols);
   static void do_measure (Rational, Grob *me, Link_array<Grob> *cols);
@@ -162,7 +160,8 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols, Rational
   Real increment = robust_scm2double (me->get_property ("spacing-increment"), 1.2);
   for (int i = 0; i < cols->size (); i++)
     {
-      if (Item::is_breakable (cols->elem (i)) || Paper_column::is_musical (cols->elem (i)))
+      if (Item::is_breakable (cols->elem (i))
+	  || Paper_column::is_musical (cols->elem (i)))
 	{
 	  newcols.push (cols->elem (i));
 	  continue;

@@ -19,13 +19,20 @@ struct Tuplet_description
   Music *music_;
   Rational stop_;
   Rational span_stop_;
+  Rational length_;
   Spanner *spanner_;
   Tuplet_description ()
   {
     music_ = 0;
     spanner_ = 0;
   }
+  static int compare (Tuplet_description const &a, Tuplet_description const &b)
+  {
+    return ::compare (a.length_, b.length_);
+  }
 };
+
+
 
 class Tuplet_engraver : public Engraver
 {
@@ -51,7 +58,8 @@ Tuplet_engraver::try_music (Music *music)
 	{
 	  Tuplet_description d;
 	  d.music_ = music;
-	  d.stop_ = now_mom ().main_part_ + music->get_length ().main_part_;
+	  d.length_ = music->get_length ().main_part_;
+	  d.stop_ = now_mom ().main_part_ + d.length_;
 	  d.span_stop_ = d.stop_;
 
 	  SCM s = get_property ("tupletSpannerDuration");
@@ -68,6 +76,11 @@ Tuplet_engraver::try_music (Music *music)
 void
 Tuplet_engraver::process_music ()
 {
+  if (!tuplets_.size ())
+    return;
+  
+
+  tuplets_.sort (&Tuplet_description::compare);
   for (int i = 0; i < tuplets_.size (); i++)
     {
       if (tuplets_[i].spanner_)
@@ -76,6 +89,11 @@ Tuplet_engraver::process_music ()
       Spanner *spanner = make_spanner ("TupletBracket",
 				       tuplets_[i].music_->self_scm ());
       tuplets_[i].spanner_ = spanner;
+
+      if (i > 0 && tuplets_[i-1].spanner_)
+	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].spanner_, tuplets_[i-1].spanner_);
+      if (i < tuplets_.size()-1 && tuplets_[i+1].spanner_)
+	Tuplet_bracket::add_tuplet_bracket (tuplets_[i+1].spanner_, tuplets_[i].spanner_);
 
       SCM proc = get_property ("tupletNumberFormatFunction");
       if (ly_is_procedure (proc))
@@ -130,6 +148,7 @@ Tuplet_engraver::start_translation_timestep ()
 Tuplet_engraver::Tuplet_engraver ()
 {
 }
+
 ADD_ACKNOWLEDGER (Tuplet_engraver,note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
 		/* descr */ "Catch Time_scaled_music and generate appropriate bracket  ",
