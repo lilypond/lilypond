@@ -59,7 +59,7 @@ Part_combine_engraver::process_music ()
       else if (what == ly_symbol2scm ("unisono"))
 	text = get_property ("aDueText");
 
-      if (Text_interface::markup_p (text))
+      if (Text_interface::is_markup (text))
 	{
 	  text_ = make_item ("CombineTextScript", event_->self_scm ());
 	  text_->set_property ("text", text);

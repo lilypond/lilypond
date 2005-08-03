@@ -34,6 +34,33 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Tuplet brackets get arrows when they are broken across a line.
+
+@lilypond[fragment,raggedright,verbatim,relative=2]
+\times 4/5 {
+ c c c \bar "empty" \break c c
+}
+@end lilypond
+
+This feature was sponsored by Trevor Baca.
+
+
+@item
+Arrow heads were added to the Feta font.
+
+@lilypond[]
+\lyrics {
+  \markup {
+    filled, to the right:  \hspace #2.0 \fontsize #6 \arrow-head #0 #1 ##t
+    open, down: \hspace #2.0 \fontsize #6 \arrow-head #1 #-1 ##f
+  }
+}
+@end lilypond
+
+These glyphs have been sponsored by Trevor Baca.
+
+
+@item
 Nested tuplets are automatically positioned,
 
 @lilypond[fragment,raggedright,verbatim,relative=2]

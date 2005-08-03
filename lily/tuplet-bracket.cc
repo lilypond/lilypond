@@ -46,14 +46,18 @@
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 
-static Grob *
-get_x_bound_grob (Grob *g, Direction my_dir)
+static Item *
+get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
 {
-  if (Note_column::get_stem (g)
+  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+  Item *g = me->get_bound (hdir);
+  if (Note_column::has_interface (g)
+      && Note_column::get_stem (g)
       && Note_column::dir (g) == my_dir)
     {
       g = Note_column::get_stem (g);
     }
+  
   return g;
 }
 
@@ -162,13 +166,27 @@ Tuplet_bracket::print (SCM smob)
 
   Direction dir = get_grob_direction (me);
 
-  Grob *lgr = get_x_bound_grob (columns[0], dir);
-  Grob *rgr = get_x_bound_grob (columns.top (), dir);
+  Drul_array<Item *> bounds;
+  bounds[LEFT] = get_x_bound_item (me, LEFT, dir);
+  bounds[RIGHT] = get_x_bound_item (me, RIGHT, dir);
 
-  Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
-  Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
-  Real w = x1 -x0;
+  Interval x_span;
+  Direction d = LEFT;
+  do
+    {
+      x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
 
+      if (bounds[d]->break_status_dir())
+	{
+	  Interval overshoot (robust_scm2drul (me->get_property ("break-overshoot"),
+					       Interval (0,0)));
+
+	  x_span[d] += d * overshoot[d];
+	}
+    }
+  while (flip (&d) != LEFT);
+
+  Real w = x_span.length();
   SCM number = me->get_property ("text");
 
   Output_def *pap = me->get_layout ();
@@ -217,7 +235,20 @@ Tuplet_bracket::print (SCM smob)
       scale_drul (&height, -ss * dir);
       scale_drul (&flare, ss);
       scale_drul (&shorten, ss);
+
       
+      do
+	{
+	  if (bounds[d]->break_status_dir ())
+	    {
+	      height[d] = 0.0;
+	      flare[d] = 0.0;
+	      shorten[d] = 0.0;
+	    }
+	}
+      while (flip (&d) != LEFT);
+
+ 
       Stencil brack = make_bracket (me, Y_AXIS,
 				    Offset (w, ry - ly),
 				    height,
@@ -227,11 +258,35 @@ Tuplet_bracket::print (SCM smob)
 				    */
 				    Interval (-0.5, 0.5) * gap + 0.1,
 				    flare, shorten);
+
+      do
+	{
+	  if (bounds[d]->break_status_dir ())
+	    {
+	      SCM properties = Font_interface::text_font_alist_chain (me);
+	      SCM edge_text = me->get_property ("edge-text");
+	      
+	      SCM text = index_get_cell (edge_text, d);
+	      if (Text_interface::is_markup (text))
+		{
+		  SCM t = Text_interface::interpret_markup (pap->self_scm (), properties,
+							    text);
+		  
+		  Stencil *edge_text = unsmob_stencil (t);
+		  edge_text->translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
+		  mol.add_stencil (*edge_text);
+		}
+	    }
+	}
+      while (flip (&d) != LEFT);
+
+      
       mol.add_stencil (brack);
     }
 
   mol.translate_axis (ly, Y_AXIS);
-  mol.translate_axis (x0 - sp->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS), X_AXIS);
+  mol.translate_axis (x_span[LEFT]
+		      - sp->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS), X_AXIS);
   return mol.smobbed_copy ();
 }
 
@@ -376,8 +431,8 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   if (!columns.size ())
     return;
 
-  Grob *lgr = get_x_bound_grob (columns[0], dir);
-  Grob *rgr = get_x_bound_grob (columns.top (), dir);
+  Item *lgr = get_x_bound_item (me, LEFT, dir);
+  Item *rgr = get_x_bound_item (me, RIGHT, dir);
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
 
@@ -608,10 +663,14 @@ Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
 
 ADD_INTERFACE (Tuplet_bracket,
 	       "tuplet-bracket-interface",
-	       "A bracket with a number in the middle, used for tuplets.",
+	       "A bracket with a number in the middle, used for tuplets. ",
+	       "When the bracket spans  a line break, the value of "
+	       "@code{break-overshoot} determines how far it extends beyond the staff. "
+	       "At a line break, the markups in the @code{edge-text} are printed "
+	       "at the edges. "
 
 	       "note-columns bracket-flare edge-height shorten-pair "
-	       "tuplets "
+	       "tuplets edge-text break-overshoot "
 	       "padding left-position right-position bracket-visibility "
 	       "number-visibility thickness direction");
 

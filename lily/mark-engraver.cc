@@ -101,7 +101,7 @@ Mark_engraver::process_music ()
 
       SCM m = mark_ev_->get_property ("label");
       SCM proc = get_property ("markFormatter");
-      if (!Text_interface::markup_p (m)
+      if (!Text_interface::is_markup (m)
 	  && ly_is_procedure (proc))
 	{
 	  if (!scm_is_number (m))
@@ -123,7 +123,7 @@ Mark_engraver::process_music ()
 	    warning (_ ("rehearsalMark must have integer value"));
 	}
 
-      if (Text_interface::markup_p (m))
+      if (Text_interface::is_markup (m))
 	text_->set_property ("text", m);
       else
 	warning (_ ("mark label must be a markup object"));

@@ -1,3 +1,26 @@
+2005-08-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/markup-arrows.ly:  new file.
+
+	* lily/tuplet-bracket.cc: document new behavior.
+
+	* input/regression/tuplet-broken.ly: new file. Demonstrate tuplets
+	with line breaks.
+
+	* scm/define-markup-commands.scm (arrow-head): arrow-head markup command.
+
+	* scm/define-grobs.scm (all-grob-descriptions): set arrows as
+	default 
+
+	* lily/tuplet-bracket.cc: add edge-text property.
+	add break-overshoot.
+	(print): read break-overshoot.
+	(print): read edge-text, add stencils.
+
+	* mf/feta-arrow.mf: new file.
+
+	* mf/feta-generic.mf: add feta-arrow.
+
 2005-08-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/lilypond-book.itely (An example of a
