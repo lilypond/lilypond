@@ -23,12 +23,15 @@ input feta-params;
 
 font_x_height  staff_space#;
 
+%% this is a fallback so we can run the font without including feta-bolletjes.
+black_notehead_width# := 1.0 staff_space#;
 
 
 fet_beginfont("feta", design_size, "fetaMusic");
 if test = 0: 
 	input feta-eindelijk;
 	input feta-toevallig;
+	input feta-arrow;
 	input feta-puntje;
 	input feta-bolletjes;
 	input feta-schrift;

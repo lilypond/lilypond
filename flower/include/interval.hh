@@ -70,6 +70,11 @@ struct Interval_t : public Drul_array<T>
   {
     set_empty ();
   }
+  Interval_t (Drul_array<T> const &src)
+    : Drul_array<T> (src)
+  {
+  }
+  
   Interval_t (T m, T M) : Drul_array<T> (m, M)
   {
   }

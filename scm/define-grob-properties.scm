@@ -112,6 +112,8 @@ For example, clefs are put after key signatures by setting
      (break-glyph-function ,procedure? "This function determines the
 appearance of a bar line at the line break.  It takes a glyph and
 break-direction and returns the glyph at a line break.")
+     (break-overshoot ,number-pair? "How much does a broken spanner
+stick out of its bounds?")
      (breakable ,boolean? "Can this object appear at a line break,
 like clefs and bar lines?")
      (c0-position ,integer? "An integer indicating the position of

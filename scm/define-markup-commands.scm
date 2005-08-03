@@ -810,10 +810,26 @@ recommend font for this is bold and italic"
 		     (ly:stencil-extent stil X)
 		     (ly:stencil-extent stil Y))))
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; glyphs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(def-markup-command (arrow-head layout props axis direction filled)
+  (integer? ly:dir? boolean?)
+  "produce an arrow head in specified direction and axis. Use the filled head if @var{filled} is  specified."
+  (let*
+      ((name (format "arrowheads.~a.~a~a"
+		     (if filled
+			 "close"
+			 "open")
+		     axis
+		     direction)))
+    (ly:font-get-glyph
+     (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
+				     props))
+     name)))
 
 (def-markup-command (musicglyph layout props glyph-name) (string?)
   "This is converted to a musical symbol, e.g. @code{\\musicglyph
@@ -869,6 +885,7 @@ letter 'A'."
    (Text_interface::interpret_markup layout props
      (number->markletter-string number->mark-alphabet-vector num)))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -957,6 +974,7 @@ a shortened down stem."
   (let ((parsed (parse-simple-duration duration)))
     (note-by-number-markup layout props (car parsed) (cadr parsed) dir)))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; translating.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1074,7 +1092,7 @@ that.
    (interpret-markup layout props arg)
    (* -0.5 (chain-assoc-get 'baseline-skip props))
    Y))
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; brackets.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

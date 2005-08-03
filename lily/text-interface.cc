@@ -49,7 +49,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
     {
       SCM func = scm_car (markup);
       SCM args = scm_cdr (markup);
-      if (!markup_p (markup))
+      if (!is_markup (markup))
 	programming_error ("markup head has no markup signature");
 
       return scm_apply_2 (func, layout_smob, props, args);
@@ -81,7 +81,7 @@ Text_interface::print (SCM grob)
 
 /* Ugh. Duplicated from Scheme.  */
 bool
-Text_interface::markup_p (SCM x)
+Text_interface::is_markup (SCM x)
 {
   return (scm_is_string (x)
 	  || (scm_is_pair (x)

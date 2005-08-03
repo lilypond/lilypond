@@ -307,7 +307,7 @@ Paper_book::systems ()
 	  system_list = scm_reverse (system_list);
 	  systems_ = scm_append (scm_list_2 (system_list, systems_));
 	}
-      else if (Text_interface::markup_p (scm_car (s)))
+      else if (Text_interface::is_markup (scm_car (s)))
 	{
 	  SCM t = Text_interface::interpret_markup (paper_->self_scm (),
 						    page_properties,
