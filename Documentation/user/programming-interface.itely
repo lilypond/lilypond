@@ -470,7 +470,7 @@ is this table:
 @item @code{\command} @tab @code{#:command}
 @item @code{\variable} @tab @code{variable}
 @item @code{@{ ... @}} @tab @code{#:line ( ... )}
-@item @code{\center-align < ... >} @tab @code{#:center ( ... )}
+@item @code{\center-align @{ ... @}} @tab @code{#:center-align ( ... )}
 @item @code{string} @tab @code{"string"}
 @item @code{#scheme-arg} @tab @code{scheme-arg}
 @end multitable
