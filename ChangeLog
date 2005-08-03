@@ -1,5 +1,9 @@
 2005-08-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* Documentation/user/lilypond-book.itely (An example of a
+	musicological document): Added flag -o to dvips for people who use
+	the default setting in teTeX where output is sent to the printer. 
+
 	* Documentation/user/global.itely (Vertical spacing): Added
 	reference to the Axis_group_engraver which documents the *Extent
 	properties.
