@@ -71,6 +71,8 @@
 	* Documentation/user/instrument-notation.itely: small update
 	to bagpipe notation docs; thanks Sven!
 
+	* Documentation/user/basic-notation.itely: add link about trills.
+
 2005-08-02  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/music-glossary: remove accidentally committed
