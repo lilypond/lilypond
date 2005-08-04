@@ -171,8 +171,9 @@ Rational::operator += (Rational r)
     *this = r;
   else
     {
-      int n = sign_ * num_ * r.den_ + r.sign_ * den_ * r.num_;
-      int d = den_ * r.den_;
+      int lcm =  (den_ / gcd (r.den_, den_)) * r.den_;
+      int n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
+      int d = lcm;
       sign_ = ::sign (n) * ::sign (d);
       num_ = abs (n);
       den_ = abs (d);

@@ -386,6 +386,9 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   commony = common_refpoint_of_array (tuplets, commony, Y_AXIS);
   Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
   commonx = common_refpoint_of_array (tuplets, commonx, Y_AXIS);
+  commonx = commonx->common_refpoint (me->get_bound (LEFT), X_AXIS);
+  commonx = commonx->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+
 
   Interval staff;
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
@@ -662,7 +665,8 @@ ADD_INTERFACE (Tuplet_bracket,
 	       "tuplet-bracket-interface",
 	       "A bracket with a number in the middle, used for tuplets. "
 	       "When the bracket spans  a line break, the value of "
-	       "@code{break-overshoot} determines how far it extends beyond the staff. "
+	       "@code{break-overshoot} determines how far it extends "
+	       "beyond the staff. "
 	       "At a line break, the markups in the @code{edge-text} are printed "
 	       "at the edges. ",
 
