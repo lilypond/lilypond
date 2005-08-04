@@ -300,6 +300,10 @@ sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
      (printKeyCancellation ,boolean? "Print restoration alterations before a key signature change. ")
      (printPartCombineTexts ,boolean? "set Solo/A due texts in the part combiner?")
      (printOctaveNames ,boolean? "Print octave marks for the NoteNames context.")
+
+     (proportionalNotationDuration ,ly:moment? "Global override for
+shortest-playing duration. This is used for switching on proportional
+notation.")
      (recordEventSequence ,procedure? "When Recording_group_engraver
 is in this context, then upon termination of the context, this
 function is called with current context and a list of music objects.
