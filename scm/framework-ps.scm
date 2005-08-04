@@ -325,8 +325,7 @@
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
 	   (file-name (caddr font-name-filename))
-	   (bare-file-name (ly:find-file file-name))
-	   )
+	   (bare-file-name (ly:find-file file-name)))
 
       (cons
        (munge-lily-font-name name)
