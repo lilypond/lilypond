@@ -12,18 +12,14 @@
 class Stanza_number_engraver : public Engraver
 {
   Item *text_;
-
-  /*
-    This is naughty, since last_stanza_ may be GCd from under us.  But
-    since we don't look at the contents, we are/should be (knock on
-    wood) OK.
-  */
   SCM last_stanza_;
+
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
   virtual void process_music ();
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
+  virtual void derived_mark () const;
 };
 
 void
