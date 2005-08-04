@@ -414,6 +414,11 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
       compound_fixed /= wish_count;
     }
 
+  if (options->uniform_ && l->break_status_dir () != RIGHT)
+    {
+      compound_fixed = 0.0;
+    }
+  
   assert (!isinf (compound_space));
   compound_space = max (compound_space, compound_fixed);
 

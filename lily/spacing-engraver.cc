@@ -145,7 +145,6 @@ Spacing_engraver::stop_translation_timestep ()
      return; 
    }
   
-  
   Moment shortest_playing;
   shortest_playing.set_infinite (1);
   for (int i = 0; i < playing_durations_.size (); i++)
