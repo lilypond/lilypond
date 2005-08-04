@@ -201,6 +201,10 @@
 		(ly:input-location music-origin)
 		#f)))
 
+;; todo: how to integrate nicely?
+;(define-public (tweak-grob-property grob sym val)
+;  (set! (ly:grob-property grob sym) val))
+
 
 (define-method (tweak (go <gnome-outputter>) item offset)
   (let* ((grob (hashq-ref (item-grobs go) item #f))

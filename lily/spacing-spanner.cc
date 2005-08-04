@@ -9,361 +9,49 @@
 #include <math.h>
 #include <cstdio>
 
-#include "main.hh"
-#include "system.hh"
-#include "warn.hh"
+#include "spacing-spanner.hh"
+#include "paper-column.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
-#include "paper-column.hh"
+#include "system.hh"
 #include "moment.hh"
 #include "note-spacing.hh"
-#include "misc.hh"
+#include "main.hh"
 #include "warn.hh"
-#include "staff-spacing.hh"
-#include "spring.hh"
-#include "paper-column.hh"
-#include "spaceable-grob.hh"
-#include "break-align-interface.hh"
-#include "spacing-interface.hh"
 #include "pointer-group-interface.hh"
-#include "grob-array.hh"
-
-/*
-  TODO: this file/class is too complex. Should figure out how to chop
-  this up even more.
-*/
-
-class Spacing_spanner
-{
-public:
-  static void standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
-						 Real *fixed, Real *space, Moment);
-
-  static Real default_bar_spacing (Grob *, Grob *, Grob *, Moment);
-  static Real note_spacing (Grob *, Grob *, Grob *, Moment, bool *);
-  static Real get_duration_space (Grob *, Moment dur, Rational shortest, bool *);
-  static Rational find_shortest (Grob *, Link_array<Grob> const &);
-  static void breakable_column_spacing (Grob *, Item *l, Item *r, Moment);
-  static void prune_loose_columns (Grob *, Link_array<Grob> *cols, Rational);
-  static void set_explicit_neighbor_columns (Link_array<Grob> const &cols);
-  static void set_implicit_neighbor_columns (Link_array<Grob> const &cols);
-  static void do_measure (Rational, Grob *me, Link_array<Grob> *cols);
-  static void musical_column_spacing (Grob *, Item *, Item *, Real, Rational);
-  DECLARE_SCHEME_CALLBACK (set_springs, (SCM));
-  static bool has_interface (Grob *);
-};
-
-/*
-  Return whether COL is fixed to its neighbors by some kind of spacing
-  constraint.
+#include "spaceable-grob.hh"
+#include "staff-spacing.hh"
+#include "spacing-interface.hh"
 
 
-  If in doubt, then we're not loose; the spacing engine should space
-  for it, risking suboptimal spacing.
 
-  (Otherwise, we might risk core dumps, and other weird stuff.)
-*/
-static bool
-loose_column (Grob *l, Grob *c, Grob *r)
-{
-  extract_grob_set (c, "right-neighbors", rns);
-  extract_grob_set (c, "left-neighbors", lns);
-  
-  /*
-    If this column doesn't have a proper neighbor, we should really
-    make it loose, but spacing it correctly is more than we can
-    currently can handle.
-
-    (this happens in the following situation:
-
-    |
-    |    clef G
-    *
-
-    |               |      ||
-    |               |      ||
-    O               O       ||
-
-
-    the column containing the clef is really loose, and should be
-    attached right to the first column, but that is a lot of work for
-    such a borderline case.)
-
-  */
-  if (lns.is_empty () || rns.is_empty ())
-    return false;
-
-  Item *l_neighbor = dynamic_cast<Item *> (lns[0]);
-  Item *r_neighbor = dynamic_cast<Item *> (rns[0]);
-
-  if (!l_neighbor || !r_neighbor)
-    return false;
-
-  l_neighbor = l_neighbor->get_column ();
-  r_neighbor = dynamic_cast<Item *> (Note_spacing::right_column (r_neighbor));
-
-  if (l == l_neighbor && r == r_neighbor)
-    return false;
-
-  if (!l_neighbor || !r_neighbor)
-    return false;
-
-  /*
-    Only declare loose if the bounds make a little sense.  This means
-    some cases (two isolated, consecutive clef changes) won't be
-    nicely folded, but hey, then don't do that.
-  */
-  if (! ((Paper_column::is_musical (l_neighbor) || Item::is_breakable (l_neighbor))
-	 && (Paper_column::is_musical (r_neighbor) || Item::is_breakable (r_neighbor))))
-    {
-      return false;
-    }
-
-  /*
-    A rather hairy check, but we really only want to move around
-    clefs. (anything else?)
-
-    in any case, we don't want to move bar lines.
-  */
-  extract_grob_set (c, "elements", elts);
-  for (int i = elts.size (); i--; )
-    {
-      Grob *g = elts[i];
-      if (g && Break_align_interface::has_interface (g))
-	{
-	  extract_grob_set (g, "elements", gelts);
-	  for (int j = gelts.size (); j--; )
-	    {
-	      Grob *h = gelts[j];
-
-	      /*
-		ugh. -- fix staff-bar name?
-	      */
-	      if (h && h->get_property ("break-align-symbol") == ly_symbol2scm ("staff-bar"))
-		return false;
-	    }
-	}
-    }
-
-  return true;
-}
-
-/*
-  Remove columns that are not tightly fitting from COLS. In the
-  removed columns, set 'between-cols to the columns where it is in
-  between.
-*/
 void
-Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols, Rational shortest)
+Spacing_options::init (Grob*me)
 {
-  Link_array<Grob> newcols;
-  Real increment = robust_scm2double (me->get_property ("spacing-increment"), 1.2);
-  for (int i = 0; i < cols->size (); i++)
-    {
-      if (Item::is_breakable (cols->elem (i))
-	  || Paper_column::is_musical (cols->elem (i)))
-	{
-	  newcols.push (cols->elem (i));
-	  continue;
-	}
-
-      Grob *c = cols->elem (i);
-      if (loose_column (cols->elem (i - 1), c, cols->elem (i + 1)))
-	{
-	  extract_grob_set (c, "right-neighbors", rns_arr);
-	  extract_grob_set (c, "left-neighbors", lns_arr);
-	  
-	  SCM lns = lns_arr.size () ? lns_arr.top()->self_scm () : SCM_BOOL_F;
-	  SCM rns = rns_arr.size () ? rns_arr.top()->self_scm () : SCM_BOOL_F;
-	  
-	  /*
-	    Either object can be non existent, if the score ends
-	    prematurely.
-	  */
-
-	  extract_grob_set (unsmob_grob (rns), "right-items", right_items);
-	  c->set_object ("between-cols", scm_cons (lns,
-						   right_items[0]->self_scm ()));
-
-	  /*
-	    Set distance constraints for loose columns
-	  */
-	  Drul_array<Grob *> next_door;
-	  next_door[LEFT] = cols->elem (i - 1);
-	  next_door[RIGHT] = cols->elem (i + 1);
-	  Direction d = LEFT;
-	  Drul_array<Real> dists (0, 0);
-
-	  do
-	    {
-	      dists[d] = 0.0;
-	      Item *lc = dynamic_cast<Item *> ((d == LEFT) ? next_door[LEFT] : c);
-	      Item *rc = dynamic_cast<Item *> (d == LEFT ? c : next_door[RIGHT]);
-
-
-	      extract_grob_set (lc, "spacing-wishes", wishes);
-	      for (int k = wishes.size(); k--;)
-		{
-		  Grob *sp = wishes[k];
-		  if (Note_spacing::left_column (sp) != lc
-		      || Note_spacing::right_column (sp) != rc)
-		    continue;
-
-		  Real space, fixed;
-		  fixed = 0.0;
-		  bool dummy;
-
-		  if (d == LEFT)
-		    {
-		      /*
-			The note spacing should be taken from the musical
-			columns.
-
-		      */
-		      Real base = note_spacing (me, lc, rc, shortest, &dummy);
-		      Note_spacing::get_spacing (sp, rc, base, increment, &space, &fixed);
-
-		      space -= increment;
-
-		      dists[d] = max (dists[d], space);
-		    }
-		  else
-		    {
-		      Real space, fixed_space;
-		      Staff_spacing::get_spacing_params (sp,
-							 &space, &fixed_space);
-
-		      dists[d] = max (dists[d], fixed_space);
-		    }
-		}
-	    }
-	  while (flip (&d) != LEFT);
-
-	  Rod r;
-	  r.distance_ = dists[LEFT] + dists[RIGHT];
-	  r.item_drul_[LEFT] = dynamic_cast<Item *> (cols->elem (i - 1));
-	  r.item_drul_[RIGHT] = dynamic_cast<Item *> (cols->elem (i + 1));
-
-	  r.add_to_cols ();
-	}
-      else
-	{
-	  newcols.push (c);
-	}
-    }
-
-  *cols = newcols;
+  packed_ = to_boolean (me->get_layout ()->c_variable ("packed"));
+  uniform_ = to_boolean (me->get_property ("uniform-stretching")); 
 }
 
-/*
-  Set neighboring columns determined by the spacing-wishes grob property.
-*/
-void
-Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> const &cols)
+
+Rational
+Spacing_spanner::effective_shortest_duration (Grob *me, Link_array<Grob> const &all)
 {
-  for (int i = 0; i < cols.size (); i++)
+  SCM preset_shortest = me->get_property ("common-shortest-duration");
+  Rational global_shortest;
+  if (unsmob_moment (preset_shortest))
     {
-      SCM right_neighbors = Grob_array::make_array ();
-      Grob_array *rn_arr = unsmob_grob_array (right_neighbors);
-      int min_rank = 100000;	// inf.
-
-      extract_grob_set (cols[i], "spacing-wishes", wishes);
-      for (int k = wishes.size(); k--;)
-	{
-	  Item *wish = dynamic_cast<Item *> ( wishes[k]);
-
-	  Item *lc = wish->get_column ();
-	  Grob *right = Note_spacing::right_column (wish);
-
-	  if (!right)
-	    continue;
-
-	  Item *rc = dynamic_cast<Item *> (right);
-
-	  int right_rank = Paper_column::get_rank (rc);
-	  int left_rank = Paper_column::get_rank (lc);
-
-	  /*
-	    update the left column.
-	  */
-	  if (right_rank <= min_rank)
-	    {
-	      if (right_rank < min_rank)
-		rn_arr->clear ();
-
-	      min_rank = right_rank;
-	      rn_arr->add (wish);
-	    }
-
-	  /*
-	    update the right column of the wish.
-	  */
-	  int maxrank = 0;
-
-	  extract_grob_set (rc, "left-neighbors", lns_arr);
-	  if (lns_arr.size ())
-	    {
-	      Item *it = dynamic_cast<Item *> (lns_arr.top());
-	      maxrank = Paper_column::get_rank (it->get_column ());
-	    }
-
-	  if (left_rank >= maxrank)
-	    {
-	      
-	      if (left_rank > maxrank)
-		{
-		  Grob_array *ga = unsmob_grob_array (rc->get_object ("left-neighbors"));
-		  if (ga)
-		    ga->clear ();
-		}
-
-	      Pointer_group_interface::add_grob (rc, ly_symbol2scm ("left-neighbors"), wish);
-	    }
-	}
-
-      if (rn_arr->size ())
-	{
-	  cols[i]->set_object ("right-neighbors", right_neighbors);
-	}
+      global_shortest = unsmob_moment (preset_shortest)->main_part_;
     }
+  else
+    {
+      global_shortest = Spacing_spanner::find_shortest (me, all);
+      if (be_verbose_global)
+	message (_f ("Global shortest duration is %s", global_shortest.to_string ()) + "\n");
+    }
+
+  return global_shortest;
 }
 
-/*
-  Set neighboring columns that have no left/right-neighbor set
-  yet. Only do breakable non-musical columns, and musical columns.
-*/
-void
-Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> const &cols)
-{
-  for (int i = 0; i < cols.size (); i++)
-    {
-      Item *it = dynamic_cast<Item *> (cols[i]);
-      if (!Item::is_breakable (it) && !Paper_column::is_musical (it))
-	continue;
-
-      // it->breakable || it->musical
-
-      /*
-	sloppy with typing left/right-neighbors should take list, but paper-column found instead.
-      */
-      extract_grob_set (cols[i], "left-neighbors", lns);
-      if (lns.is_empty () && i )
-	{
-	  SCM ga_scm = Grob_array::make_array();
-	  Grob_array *ga = unsmob_grob_array (ga_scm);
-	  ga->add (cols[i-1]);
-	  cols[i]->set_object ("left-neighbors", ga_scm);
-	}
-      extract_grob_set (cols[i], "right-neighbors", rns);
-      if (rns.is_empty () && i < cols.size () - 1)
-	{
-	  SCM ga_scm = Grob_array::make_array();
-	  Grob_array *ga = unsmob_grob_array (ga_scm);
-	  ga->add (cols[i+1]);
-	  cols[i]->set_object ("right-neighbors", ga_scm);
-	}
-    }
-}
 
 MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
@@ -378,19 +66,11 @@ Spacing_spanner::set_springs (SCM smob)
 
   set_explicit_neighbor_columns (all);
 
-  SCM preset_shortest = me->get_property ("common-shortest-duration");
-  Rational global_shortest;
-  if (unsmob_moment (preset_shortest))
-    {
-      global_shortest = unsmob_moment (preset_shortest)->main_part_;
-    }
-  else
-    {
-      global_shortest = find_shortest (me, all);
-      if (be_verbose_global)
-	message (_f ("Global shortest duration is %s", global_shortest.to_string ()) + "\n");
-    }
-  prune_loose_columns (me, &all, global_shortest);
+  Spacing_options options;
+  options.init (me);
+  options.global_shortest_ = effective_shortest_duration (me, all);
+  
+  prune_loose_columns (me, &all, &options);
   set_implicit_neighbor_columns (all);
 
   int j = 0;
@@ -400,7 +80,7 @@ Spacing_spanner::set_springs (SCM smob)
       if (Item::is_breakable (sc))
 	{
 	  Link_array<Grob> measure (all.slice (j, i + 1));
-	  do_measure (global_shortest, me, &measure);
+	  do_measure (me, &measure, &options);
 	  j = i;
 	}
     }
@@ -506,8 +186,10 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
   (different time sigs) than others, and should be spaced differently.
 */
 void
-Spacing_spanner::do_measure (Rational global_shortest, Grob *me,
-			     Link_array<Grob> *cols)
+Spacing_spanner::do_measure (Grob *me,
+			     Link_array<Grob> *cols,
+			     Spacing_options const *options
+			     )
 {
   Real headwid = robust_scm2double (me->get_property ("spacing-increment"), 1);
   for (int i = 0; i < cols->size () - 1; i++)
@@ -520,9 +202,9 @@ Spacing_spanner::do_measure (Rational global_shortest, Grob *me,
 
       if (Paper_column::is_musical (l))
 	{
-	  musical_column_spacing (me, lc, rc, headwid, global_shortest);
+	  musical_column_spacing (me, lc, rc, headwid, options);
 	  if (Item *rb = r->find_prebroken_piece (LEFT))
-	    musical_column_spacing (me, lc, rb, headwid, global_shortest);
+	    musical_column_spacing (me, lc, rb, headwid, options);
 	}
       else
 	{
@@ -538,16 +220,16 @@ Spacing_spanner::do_measure (Rational global_shortest, Grob *me,
 	    l = 0;
 
 	  if (l && r)
-	    breakable_column_spacing (me, l, r, global_shortest);
+	    breakable_column_spacing (me, l, r, options);
 	  
 	  if (lb && r)
-	    breakable_column_spacing (me, lb, r, global_shortest);
+	    breakable_column_spacing (me, lb, r, options);
 
 	  if (l && rb)
-	    breakable_column_spacing (me, l, rb, global_shortest);
+	    breakable_column_spacing (me, l, rb, options);
 
 	  if (lb && rb)
-	    breakable_column_spacing (me, lb, rb, global_shortest);
+	    breakable_column_spacing (me, lb, rb, options);
 	}
     }
 }
@@ -557,84 +239,94 @@ Spacing_spanner::do_measure (Rational global_shortest, Grob *me,
   spacing parameters INCR and SHORTEST.
 */
 void
-Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc, Real increment, Rational global_shortest)
+Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc,
+					 Real increment,
+					 Spacing_options const *options)
 {
   bool expand_only = false;
-  Real base_note_space = note_spacing (me, lc, rc, global_shortest, &expand_only);
-
+  Real base_note_space = note_spacing (me, lc, rc, options, &expand_only);
+  
   Real compound_note_space = 0.0;
   Real compound_fixed_note_space = 0.0;
-  int wish_count = 0;
 
-  extract_grob_set (lc, "right-neighbors", neighbors);
-
-  /*
-    We adjust the space following a note only if the next note
-    happens after the current note (this is set in the grob
-    property SPACING-SEQUENCE.
-  */
-  for (int i = 0; i < neighbors.size (); i++)
-    {
-      Grob *wish = neighbors[i];
-
-      Item *wish_rcol = Note_spacing::right_column (wish);
-      if (Note_spacing::left_column (wish) != lc
-	  || (wish_rcol != rc && wish_rcol != rc->original_))
-	continue;
-
-      /*
-	This is probably a waste of time in the case of polyphonic
-	music.  */
-      if (Note_spacing::has_interface (wish))
-	{
-	  Real space = 0.0;
-	  Real fixed = 0.0;
-
-	  Note_spacing::get_spacing (wish, rc, base_note_space, increment, &space, &fixed);
-
-	  compound_note_space = compound_note_space + space;
-	  compound_fixed_note_space = compound_fixed_note_space + fixed;
-	  wish_count++;
-	}
-    }
-
-  if (Paper_column::when_mom (rc).grace_part_
-      && !Paper_column::when_mom (lc).grace_part_)
-    {
-      /*
-	Ugh. 0.8 is arbitrary.
-      */
-      compound_note_space *= 0.8;
-    }
-
-  if (compound_note_space < 0 || wish_count == 0)
+  if (options->uniform_)
     {
       compound_note_space = base_note_space;
-      compound_fixed_note_space = increment;
     }
   else
     {
-      compound_note_space /= wish_count;
-      compound_fixed_note_space /= wish_count;
+      int wish_count = 0;
+
+      extract_grob_set (lc, "right-neighbors", neighbors);
+
+      /*
+	We adjust the space following a note only if the next note
+	happens after the current note (this is set in the grob
+	property SPACING-SEQUENCE.
+      */
+      for (int i = 0; i < neighbors.size (); i++)
+	{
+	  Grob *wish = neighbors[i];
+
+	  Item *wish_rcol = Note_spacing::right_column (wish);
+	  if (Note_spacing::left_column (wish) != lc
+	      || (wish_rcol != rc && wish_rcol != rc->original_))
+	    continue;
+
+	  /*
+	    This is probably a waste of time in the case of polyphonic
+	    music.  */
+	  if (Note_spacing::has_interface (wish))
+	    {
+	      Real space = 0.0;
+	      Real fixed = 0.0;
+
+	      Note_spacing::get_spacing (wish, rc, base_note_space, increment, &space, &fixed);
+
+	      compound_note_space = compound_note_space + space;
+	      compound_fixed_note_space = compound_fixed_note_space + fixed;
+	      wish_count++;
+	    }
+	}
+
+      if (Paper_column::when_mom (rc).grace_part_
+	  && !Paper_column::when_mom (lc).grace_part_)
+	{
+	  /*
+	    Ugh. 0.8 is arbitrary.
+	  */
+	  compound_note_space *= 0.8;
+	}
+
+      if (compound_note_space < 0 || wish_count == 0)
+	{
+	  compound_note_space = base_note_space;
+	  compound_fixed_note_space = increment;
+	}
+      else
+	{
+	  compound_note_space /= wish_count;
+	  compound_fixed_note_space /= wish_count;
+	}
+
+      /*
+	Whatever we do, the fixed space is smaller than the real
+	space.
+
+	TODO: this criterion is discontinuous in the derivative.
+	Maybe it should be continuous?
+      */
+      compound_fixed_note_space = min (compound_fixed_note_space,
+				       compound_note_space);
     }
-
-  /*
-    Whatever we do, the fixed space is smaller than the real
-    space.
-
-    TODO: this criterion is discontinuous in the derivative.
-    Maybe it should be continuous?
-  */
-  compound_fixed_note_space = min (compound_fixed_note_space, compound_note_space);
-
-  bool packed = to_boolean (me->get_layout ()->c_variable ("packed"));
+  
   Real inverse_strength = 1.0;
   Real distance = 1.0;
 
   /*
     TODO: make sure that the space doesn't exceed the right margin.
   */
-  if (packed)
+  if (options->packed_)
     {
       /*
 	In packed mode, pack notes as tight as possible.  This makes
@@ -658,69 +350,11 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc, Real incr
 }
 
 /*
-  The one-size-fits all spacing. It doesn't take into account
-  different spacing wishes from one to the next column.
-*/
-void
-Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
-						    Real *fixed, Real *space,
-						    Moment shortest)
-{
-  *fixed = 0.0;
-  Direction d = LEFT;
-  Drul_array<Item *> cols (l, r);
-
-  do
-    {
-      if (!Paper_column::is_musical (cols[d]))
-	{
-	  /*
-	    Tied accidentals over barlines cause problems, so lets see
-	    what happens if we do this for non musical columns only.
-	  */
-	  Interval lext = cols[d]->extent (cols [d], X_AXIS);
-	  if (!lext.is_empty ())
-	    *fixed += -d * lext[-d];
-	}
-    }
-  while (flip (&d) != LEFT);
-
-  if (l->is_breakable (l) && r->is_breakable (r))
-    {
-      Moment *dt = unsmob_moment (l->get_property ("measure-length"));
-      Moment mlen (1);
-      if (dt)
-	mlen = *dt;
-
-      Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
-
-      *space = *fixed + incr * double (mlen.main_part_ / shortest.main_part_) * 0.8;
-    }
-  else
-    {
-      Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
-
-      if (dt == Moment (0, 0))
-	{
-	  /*
-	    In this case, Staff_spacing should handle the job,
-	    using dt when it is 0 is silly.
-	  */
-	  *space = *fixed + 0.5;
-	}
-      else
-	{
-	  bool dummy;
-	  *space = *fixed + get_duration_space (me, dt, shortest.main_part_, &dummy);
-	}
-    }
-}
-
-/*
   Read hints from L and generate springs.
 */
 void
-Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r, Moment shortest)
+Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
+					   Spacing_options const *options)
 {
   Real compound_fixed = 0.0;
   Real compound_space = 0.0;
@@ -771,7 +405,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r, Moment sh
   if (compound_space <= 0.0 || !wish_count)
     {
       standard_breakable_column_spacing (me, l, r, &compound_fixed, &compound_space,
-					 shortest);
+					 options);
       wish_count = 1;
     }
   else
@@ -795,125 +429,6 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r, Moment sh
   Spaceable_grob::add_spring (l, r, distance, inverse_strength);
 }
 
-/**
-   Get the measure wide ant for arithmetic spacing.
-*/
-Real
-Spacing_spanner::get_duration_space (Grob *me, Moment d, Rational shortest, bool *expand_only)
-{
-  Real k = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
-  Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
-
-  if (d < shortest)
-    {
-      /*
-	We don't space really short notes using the log of the
-	duration, since it would disproportionally stretches the long
-	notes in a piece. In stead, we use geometric spacing with constant 0.5
-	(i.e. linear.)
-
-	This should probably be tunable, to use other base numbers.
-
-	In Mozart hrn3 by EB., we have 8th note = 3.9 mm (total), 16th note =
-	3.6 mm (total).  head-width = 2.4, so we 1.2mm for 16th, 1.5
-	mm for 8th. (white space), suggesting that we use
-
-	(1.2 / 1.5)^{-log2(duration ratio)}
-
-
-      */
-      Rational ratio = d.main_part_ / shortest;
-
-      return ((k - 1) + double (ratio)) * incr;
-    }
-  else
-    {
-      /*
-	John S. Gourlay. ``Spacing a Line of Music, '' Technical
-	Report OSU-CISRC-10/87-TR35, Department of Computer and
-	Information Science, The Ohio State University, 1987.
-      */
-      Real log = log_2 (shortest);
-      k -= log;
-      Rational compdur = d.main_part_ + d.grace_part_ / Rational (3);
-      *expand_only = false;
-
-      return (log_2 (compdur) + k) * incr;
-    }
-}
-
-Real
-Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
-			       Moment shortest, bool *expand_only)
-{
-  Moment shortest_playing_len = 0;
-  SCM s = lc->get_property ("shortest-playing-duration");
-
-  if (unsmob_moment (s))
-    shortest_playing_len = *unsmob_moment (s);
-
-  if (! shortest_playing_len.to_bool ())
-    {
-      programming_error ("can't find a ruling note at " + Paper_column::when_mom (lc).to_string ());
-      shortest_playing_len = 1;
-    }
-
-  Moment lwhen = Paper_column::when_mom (lc);
-  Moment rwhen = Paper_column::when_mom (rc);
-
-  Moment delta_t = rwhen - lwhen;
-  if (!Paper_column::is_musical (rc))
-    {
-      /*
-	when toying with mmrests, it is possible to have musical
-	column on the left and non-musical on the right, spanning
-	several measures.
-      */
-
-      Moment *dt = unsmob_moment (rc->get_property ("measure-length"));
-      if (dt)
-	{
-	  delta_t = min (delta_t, *dt);
-
-	  /*
-	    The following is an extra safety measure, such that
-	    the length of a mmrest event doesn't cause havoc.
-	  */
-	  shortest_playing_len = min (shortest_playing_len, *dt);
-	}
-    }
-  Real dist = 0.0;
-
-  /*
-    In normal situations, the next column is at most
-    SHORTEST_PLAYING_LEN away. However chord-tremolos do funky faking stuff
-    with durations, invalidating this assumption. Here we kludge
-    around to get chord tremolos to behave properly.
-
-  */
-  shortest_playing_len = max (shortest_playing_len, delta_t);
-  if (delta_t.main_part_ && !lwhen.grace_part_)
-    {
-      dist = get_duration_space (me, shortest_playing_len,
-				 shortest.main_part_, expand_only);
-      dist *= double (delta_t.main_part_ / shortest_playing_len.main_part_);
-    }
-  else if (delta_t.grace_part_)
-    {
-      /*
-	TODO: figure out how to space grace notes.
-      */
-      dist = get_duration_space (me, shortest, shortest.main_part_, expand_only);
-
-      Real grace_fact
-	= robust_scm2double (me->get_property ("grace-space-factor"), 1);
-
-      dist *= grace_fact;
-    }
-
-  return dist;
-}
-
 ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "The space taken by a note is dependent on its duration. Doubling a\n"
 	       "duration adds spacing-increment to the space. The most common shortest\n"
@@ -927,7 +442,7 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
 	       
 	       "grace-space-factor spacing-increment base-shortest-duration "
-	       "shortest-duration-space common-shortest-duration"
+	       "shortest-duration-space common-shortest-duration uniform-stretching"
 
 	       );
 

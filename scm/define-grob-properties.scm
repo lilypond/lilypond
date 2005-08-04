@@ -114,6 +114,14 @@ appearance of a bar line at the line break.  It takes a glyph and
 break-direction and returns the glyph at a line break.")
      (break-overshoot ,number-pair? "How much does a broken spanner
 stick out of its bounds?")
+     (bracket-visibility ,boolean-or-symbol? "This controls the
+visibility of the tuplet bracket.  Setting it to false will prevent
+printing of the bracket. Setting the property to @code{'if-no-beam}
+will make it print only if there is no beam associated with this
+tuplet bracket.")
+     (break-visibility ,vector? "A vector of 3 booleans, #(end-of-line unbroken begin-of-line).
+#t means visible, #f means killed.")
+
      (breakable ,boolean? "Can this object appear at a line break,
 like clefs and bar lines?")
      (c0-position ,integer? "An integer indicating the position of
@@ -175,6 +183,10 @@ the vertical edges '(@var{left-height} . @var{right-height}).")
 edges '(@var{left-text} . @var{right-text}).")
      (eccentricity ,number? "How asymmetrical to make a slur. Positive means move the center to the right.")
      
+     (enclose-bounds ,number?
+		     "How much of the bound a spanner should enclose:
++1 = completely, 0 = center, -1 not at all.")
+
      (expand-limit ,integer? "maximum number of measures expanded in church rests.")
 
      ;; remove me? 
@@ -191,11 +203,13 @@ engine is completely oblivious to it.")
 
      (finger-code ,symbol? "Code for the type of fingering indication in a
 fret diagram.  Options include @code{none}, @code{in-dot}, and @code{below-string}.")
+     (flag-count ,number? "The number of tremolo beams.")
      (flag-style ,symbol?
 		 "a string determining what style of flag-glyph is
 typeset on a Stem. Valid options include @code{()} and
 @code{mensural}.  Additionally, @code{\"no-flag\"} switches off the
 flag.")
+     
      (flag-width-function ,procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
      (font-family ,symbol? "The font family is the broadest category for selecting text fonts. Options include: @code{sans}, @code{roman} ")
      (font-encoding ,symbol? "The font encoding is the broadest
@@ -314,8 +328,6 @@ this long. This requires an appropriate routine for the
 @code{spacing-procedure} property.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim
 should move (after padding).")
-     (print-function ,procedure? "Function taking grob as argument,
-returning a @code{Stencil} object.")
      (neutral-direction ,ly:dir? "Which direction to take in the
 center of the staff.")
      (neutral-position ,number? "Position (in half staff spaces) where
@@ -337,10 +349,6 @@ include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
      (old-accidentals ,list? "List of @code{(@var{pitch} . @var{accidental})
 pairs.}")
 
-     (enclose-bounds ,number?
-		     "How much of the bound a spanner should enclose:
-+1 = completely, 0 = center, -1 not at all.")
-
      (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
      (page-penalty ,number? "Penalty for page break at
@@ -356,7 +364,9 @@ as a real penalty.")
 		"Pair of staff coordinates @code{(@var{left}
 . @var{right})}, where both @var{left} and @var{right} are in the
 staff-space unit of the current staff.")
-
+     (print-function ,procedure? "Function taking grob as argument,
+returning a @code{Stencil} object.")
+     
      (ratio ,number? "Parameter for slur shape. The higher this number, the
 quicker the slur attains it @code{height-limit}.")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
@@ -414,6 +424,7 @@ parameters.  The routine is called after
 expressed in global staffspace.")
      (staff-position ,number? "Vertical position, measured in half
 staff spaces, counted from the middle line.")
+     
      (staffline-clearance ,ly:dimension? "How far away ties keep from
 staff lines.")
      (stemlet-length ,number? "How long should a stem over a rest be?")
@@ -457,17 +468,12 @@ reading this property.")
      (transparent ,boolean? "This is almost the same as setting
 @code{print-function} to @code{#f}, but this retains the dimensions of
 this grob, which means that grobs can be erased individually.")
-     (bracket-visibility ,boolean-or-symbol? "This controls the
-visibility of the tuplet bracket.  Setting it to false will prevent
-printing of the bracket. Setting the property to @code{'if-no-beam}
-will make it print only if there is no beam associated with this
-tuplet bracket.")
+     (uniform-stretching ,boolean? "If set, items stretch proportional
+to their durations. This looks better in complex polyphonic patterns")
+
      (number-visibility ,boolean-or-symbol? "Like
 @code{bracket-visibility}, but for the number.")
 
-     (break-visibility ,vector? "A vector of 3 booleans, #(end-of-line unbroken begin-of-line).
-#t means visible, #f means killed.")
-     (flag-count ,number? "The number of tremolo beams.")
 
      (when ,ly:moment? "Global time step associated with this column
 happen?")

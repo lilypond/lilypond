@@ -1,8 +1,13 @@
 
 \header
 {
-  texidoc = "Broken tuplets are adorned with little arrows."
+
+  texidoc = "Broken tuplets are adorned with little arrows. The arrows
+  come from the @code{edge-text} property, and thus be replaced with
+  larger glyphs or other text. "
+
 }
+
 \version "2.7.4"
 
 \paper {
@@ -16,8 +21,8 @@
 
   \override TupletBracket #'edge-text = #(cons
 					  (markup #:fontsize 6
-					     #:arrow-head 0 -1 #f)
-					  (markup #:arrow-head 0 1 #f))
+					     #:arrow-head Y LEFT #f)
+					  (markup #:arrow-head X RIGHT #f))
   \times 11/19 {
     c4 c4 c4 c4
     \bar "empty" \break
