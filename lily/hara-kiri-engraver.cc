@@ -21,12 +21,18 @@ protected:
   DECLARE_ACKNOWLEDGER (grob);
   virtual void add_element (Grob *e);
   void start_translation_timestep ();
-
+  virtual void derived_mark () const;
   SCM interesting_;
 public:
   TRANSLATOR_DECLARATIONS (Hara_kiri_engraver);
 };
 
+void
+Hara_kiri_engraver::derived_mark () const
+{
+  scm_gc_mark (interesting_);
+}
+  
 void
 Hara_kiri_engraver::start_translation_timestep ()
 {

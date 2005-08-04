@@ -32,10 +32,10 @@ protected:
   DECLARE_ACKNOWLEDGER (bar_line);
   
   virtual void finalize ();
-
+  virtual void derived_mark () const;
   void stop_translation_timestep ();
   void process_music ();
-
+  
   Moment started_mom_;
   Spanner *volta_span_;
   Spanner *end_volta_span_;
@@ -44,6 +44,13 @@ protected:
 
   bool staff_eligible ();
 };
+
+void
+Volta_engraver::derived_mark () const
+{
+  scm_gc_mark (staff_);
+  scm_gc_mark (start_string_);
+}
 
 Volta_engraver::Volta_engraver ()
 {

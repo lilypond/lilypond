@@ -30,6 +30,8 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   DECLARE_ACKNOWLEDGER (bar_line);
+
+  virtual void derived_mark () const;
 private:
   Item *clef_;
   Item *octavate_;
@@ -41,6 +43,14 @@ private:
   void set_glyph ();
   void inspect_clef_properties ();
 };
+
+void
+Clef_engraver::derived_mark () const
+{
+  scm_gc_mark (prev_octavation_);
+  scm_gc_mark (prev_cpos_);
+  scm_gc_mark (prev_glyph_);
+}
 
 Clef_engraver::Clef_engraver ()
 {

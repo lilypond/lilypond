@@ -31,7 +31,8 @@ protected:
   void process_music ();
   virtual bool try_music (Music *);
   virtual void finalize ();
-
+  virtual void derived_mark () const;
+  
   DECLARE_ACKNOWLEDGER (rest);
   DECLARE_ACKNOWLEDGER (beam);
   DECLARE_ACKNOWLEDGER (bar_line);
@@ -72,12 +73,19 @@ private:
 
   // We act as if beam were created, and start a grouping anyway.
   Beaming_info_list *grouping_;
-  SCM beam_settings_;		// ugh. should protect ? 
+  SCM beam_settings_;
 
   Beaming_info_list *finished_grouping_;
 
   void check_bar_property ();
 };
+
+
+void
+Auto_beam_engraver::derived_mark () const
+{
+  scm_gc_mark (beam_settings_);
+}
 
 
 void
@@ -181,7 +189,13 @@ Auto_beam_engraver::create_beam ()
     if (Stem::get_beam ((*stems_)[i]))
       return 0;
 
-  Spanner *beam = new Spanner (beam_settings_, context ()->get_grob_key ("Beam"));
+  /*
+    Can't use make_spanner_from_properties() because we have to use
+    beam_settings_.
+   */
+  Spanner *beam = new Spanner (beam_settings_,
+			       context ()->get_grob_key ("Beam"));
+
   for (int i = 0; i < stems_->size (); i++)
     {
       Beam::add_stem (beam, (*stems_)[i]);
