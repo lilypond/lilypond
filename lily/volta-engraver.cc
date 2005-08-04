@@ -55,6 +55,7 @@ Volta_engraver::derived_mark () const
 Volta_engraver::Volta_engraver ()
 {
   staff_ = SCM_EOL;
+  start_string_ = SCM_EOL;
   volta_span_ = 0;
   end_volta_span_ = 0;
 }
