@@ -20,12 +20,20 @@ class Time_signature_engraver : public Engraver
   SCM last_time_fraction_;
 
 protected:
+  virtual void derived_mark () const;
   virtual void stop_translation_timestep ();
   virtual void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
 };
 
+void
+Time_signature_engraver::derived_mark () const
+{
+  scm_gc_mark (last_time_fraction_);
+}
+
+  
 Time_signature_engraver::Time_signature_engraver ()
 {
   time_signature_ = 0;

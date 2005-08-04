@@ -25,6 +25,8 @@ public:
   Direction octave_dir_;
 
 protected:
+
+  virtual void derived_mark () const;
   virtual void stop_translation_timestep ();
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
@@ -40,6 +42,14 @@ private:
   void inspect_clef_properties ();
 };
 
+void
+Clef_engraver::derived_mark () const
+{
+  scm_gc_mark (prev_octavation_);
+  scm_gc_mark (prev_cpos_);
+  scm_gc_mark (prev_glyph_);
+}
+
 Clef_engraver::Clef_engraver ()
 {
   clef_ = 0;
@@ -49,7 +59,7 @@ Clef_engraver::Clef_engraver ()
   /*
     will trigger a clef at the start since #f != ' ()
   */
-  prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
+  prev_octavation_ = prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
 }
 
 void
