@@ -946,7 +946,7 @@ Beam::shift_region_to_valid (SCM grob)
 
   Real dy = pos[RIGHT] - pos[LEFT];
   Real y = pos[LEFT];
-  Real slope = dy / dx;
+  Real slope = dx ?  dy / dx : 0.0;
 
   /*
     Shift the positions so that we have a chance of finding good
