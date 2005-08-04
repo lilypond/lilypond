@@ -13,18 +13,20 @@ class Stanza_number_engraver : public Engraver
 {
   Item *text_;
 
-  /*
-    This is naughty, since last_stanza_ may be GCd from under us.  But
-    since we don't look at the contents, we are/should be (knock on
-    wood) OK.
-  */
   SCM last_stanza_;
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
   void process_music ();
+  virtual void derived_mark () const;
   void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER (lyric_syllable);
 };
+
+void
+Stanza_number_engraver::derived_mark () const
+{
+  scm_gc_mark (last_stanza_);
+}
 
 /*
   TODO: should make engraver that collects all the stanzas on a higher

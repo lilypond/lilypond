@@ -162,9 +162,10 @@ make_stand_in_procs_weak ()
   SCM old_tab = scm_stand_in_procs;
   SCM new_tab = scm_make_weak_key_hash_table (scm_from_int (257));
   
-  new_tab = scm_internal_hash_fold ((Hash_closure_function) & redefine_keyval,
+  new_tab = scm_internal_hash_fold ((Hash_closure_function) &redefine_keyval,
 				    NULL,
-				    new_tab, old_tab);
+				    new_tab,
+				    old_tab);
 
   scm_stand_in_procs = new_tab;
 }
