@@ -259,7 +259,6 @@ warranty ()
   printf (_ (WARRANTY).to_str0 ());
 }
 
-#if ARGV0_RELOCATION
 static int
 sane_putenv (char const* key, String value, bool overwrite = true)
 {
@@ -272,6 +271,7 @@ sane_putenv (char const* key, String value, bool overwrite = true)
   return -1;
 }
 
+#if ARGV0_RELOCATION
 static int
 set_env_file (char const* key, String value)
 {
@@ -737,16 +737,16 @@ setup_guile_env ()
       overwrite = false;
     }
   
-  setenv ("GUILE_MIN_YIELD_1", yield, overwrite);
-  setenv ("GUILE_MIN_YIELD_2", yield, overwrite);
-  setenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
+  sane_putenv ("GUILE_MIN_YIELD_1", yield, overwrite);
+  sane_putenv ("GUILE_MIN_YIELD_2", yield, overwrite);
+  sane_putenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
 
 
   char *mb16 = "16777216";
   char *mb1 = "1048576";
   
-  setenv ("SCM_DEFAULT_INIT_HEAP_SIZE_1", mb16, 0);
-  setenv ("SCM_DEFAULT_INIT_HEAP_SIZE_2", mb1, 0);
+  sane_putenv ("SCM_DEFAULT_INIT_HEAP_SIZE_1", mb16, 0);
+  sane_putenv ("SCM_DEFAULT_INIT_HEAP_SIZE_2", mb1, 0);
 }
 
 int
