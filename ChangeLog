@@ -1,5 +1,9 @@
 2005-08-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/instrument-notation.itely (Bagpipe example):
+	comment out non-functioning bagpipe exapmle.
+	(Bagpipe definitions): idem.
+
 	* Documentation/topdocs/NEWS.tely (Top): add uniform-stretching example.
 	(Top): add proportionalNotationDuration example.
 
