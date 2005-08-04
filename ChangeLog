@@ -1,6 +1,10 @@
+2005-08-04  Graham Percival  <gperlist@shaw.ca>
+
+	* ly/bagpipe.ly: new file.
+
 2005-08-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-o	* lily/spacing-engraver.cc (stop_translation_timestep): directly
+	* lily/spacing-engraver.cc (stop_translation_timestep): directly
 	copy proportionalNotationDuration into currentMusicalColumn if
 	set.
 

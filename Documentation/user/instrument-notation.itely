@@ -1928,12 +1928,10 @@ write @code{\taor} instead of
 notes in the appropiate octaves, so you do not need to worry about
 @code{\relative} or @code{\transpose}.
 
-@ignore
 @lilypond[raggedright,verbatim,quote,notime]
 \include "bagpipe.ly"
 { \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
 @end lilypond
-@end ignore
 
 
 @node Bagpipe example
@@ -1942,7 +1940,6 @@ notes in the appropiate octaves, so you do not need to worry about
 This is what the well known tune Amazing Grace looks like in bagpipe
 notation.
 
-@ignore
 @lilypond[raggedright,verbatim,quote]
 \include "bagpipe.ly"
 \layout {
@@ -1977,7 +1974,6 @@ notation.
   \bar "|."
 }
 @end lilypond
-@end ignore
 
 
 @node Ancient notation
