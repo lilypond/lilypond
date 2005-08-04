@@ -6,11 +6,6 @@
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-/*
-  this is culled from various other iterators, but sharing code by
-  subclassing proved to be too difficult.
-*/
-
 #include "chord-tremolo-iterator.hh"
 
 #include "input.hh"

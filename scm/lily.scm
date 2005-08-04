@@ -346,12 +346,14 @@ The syntax is the same as `define*-public'."
 		 (lambda (x y)
 		   (string<? (car x) (car y)))))))))
 
-(define-public (tweak-grob-property grob sym val)
-  (set! (ly:grob-property grob sym) val))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
+
+  (define (no-files-handler)
+    (ly:usage)
+    (exit 2))
+  
 
   (if (null? files)
       (no-files-handler))
@@ -365,10 +367,6 @@ The syntax is the same as `define*-public'."
 	  ;; HACK: be sure to exit with single newline
 	  (ly:message "")
 	  (exit 0)))))
-
-(define (no-files-handler)
-  (ly:usage)
-  (exit 2))
 
 (define-public (lilypond-all files)
   (let* ((failed '())

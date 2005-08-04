@@ -1,3 +1,24 @@
+2005-08-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+o	* lily/spacing-engraver.cc (stop_translation_timestep): directly
+	copy proportionalNotationDuration into currentMusicalColumn if
+	set.
+
+	* lily/spacing-spanner.cc (musical_column_spacing): if
+	uniform-stretching set, fixed space is 0.0
+
+	* input/regression/spacing-multi-tuplet.ly: show uniform-stretching property.
+
+	* lily/spacing-spanner.cc (effective_shortest_duration): new function.
+
+	* lily/include/spacing-spanner.hh (class Spacing_spanner): new file.
+	(struct Spacing_options): new struct.
+
+	* lily/spacing-basic.cc: new file.
+
+	* lily/spacing-spanner.cc (note_spacing): remove outdated code:
+	delta_t doesn't have to be smaller than shortest_playing_len
+
 2005-08-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/markup-arrows.ly:  new file.

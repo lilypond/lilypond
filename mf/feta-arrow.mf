@@ -10,6 +10,9 @@
 
 fet_begingroup ("arrowheads");
 
+%
+% To consider: we could put arrow heads at their real Unicode locations. 
+% 
 
 %
 % Setup paths for upper half of arrow head pointing right. 

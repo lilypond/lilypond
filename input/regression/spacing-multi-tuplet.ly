@@ -1,34 +1,32 @@
-\version "2.6.0"
-\header{
-texidoc = "Concurrent tuplets should be equidistant on all staffs.
-
-Note that this only spaces correctly (exactly) when @code{raggedright}
-is enabled. For a non-@code{raggedright} case, it still shows a bug: 
-uneven spacing. 
-"  }
+\version "2.6.0" \header{
 
 
-
-multipart =  \relative c'{ 
-    \context StaffGroup << 
-                \new Staff  \context Voice { 
-                   \times 2/10 {  c8[ c c c c c c c c c] } 
-                   \times 2/10 {  c[  c c c c c c c c c] } 
-		}
-                \new Staff  \context Voice { 
-                   \times 2/11 {  c8[ c c c c c c c c c c] } 
-                   \times 2/11 {  c[  c c c c c c c c c c] } 
-                }
-            >>
-	}
-    
-\score{
-     { 
-	\multipart 
-    }
-
-%    \layout { raggedright = ##t }
+  texidoc = "Concurrent tuplets should be equidistant on all staffs.
+Such equidistant spacing is it at odds with elegant engraver spacing;
+hence it must be switched on explicitly with the
+@code{uniform-stretching} property of @code{SpacingSpanner}.
+"
 
 }
+
+
+
+\relative c' { 
+  \new Score \with
+  {
+    \override SpacingSpanner #'uniform-stretching = ##t 
+  }
+  \context StaffGroup << 
+    \new Staff  \context Voice { 
+      \times 2/10 {  c8[ c c c c c c c c c] } 
+      \times 2/10 {  c[  c c c c c c c c c] } 
+    }
+    \new Staff  \context Voice { 
+      \times 2/11 {  c8[ c c c c c c c c c c] } 
+      \times 2/11 {  c[  c c c c c c c c c c] } 
+    }
+  >>
+}
+
 
 
