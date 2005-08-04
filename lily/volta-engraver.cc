@@ -30,6 +30,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void process_music ();
 
+  virtual void derived_mark () const;
   Moment started_mom_;
   Spanner *volta_span_;
   Spanner *end_volta_span_;
@@ -39,8 +40,16 @@ protected:
   bool staff_eligible ();
 };
 
+void
+Volta_engraver::derived_mark () const
+{
+  scm_gc_mark (staff_);
+  scm_gc_mark (start_string_);
+}
+
 Volta_engraver::Volta_engraver ()
 {
+  start_string_ = SCM_EOL;
   staff_ = SCM_EOL;
   volta_span_ = 0;
   end_volta_span_ = 0;

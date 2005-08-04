@@ -26,6 +26,12 @@ public:
   virtual void acknowledge_grob (Grob_info);
 };
 
+void
+Stanza_number_engraver::derived_mark () const
+{
+  scm_gc_mark (last_stanza_);
+}
+
 /*
   TODO: should make engraver that collects all the stanzas on a higher
   level, and then groups them to the side. Stanza numbers should be
@@ -34,6 +40,8 @@ public:
 
 Stanza_number_engraver::Stanza_number_engraver ()
 {
+  last_stanza_ = SCM_EOL;
+  
   text_ = 0;
 }
 

@@ -29,6 +29,7 @@ protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
+  virtual void derived_mark () const;
 
 private:
   bool test_moment (Direction, Moment);
@@ -63,10 +64,17 @@ private:
 
   // We act as if beam were created, and start a grouping anyway.
   Beaming_info_list *grouping_;
-  SCM beam_settings_;		// ugh. should protect ? 
+  SCM beam_settings_;
 
   Beaming_info_list *finished_grouping_;
 };
+
+void
+Auto_beam_engraver::derived_mark () const
+{
+  scm_gc_mark (beam_settings_);
+}
+
 
 void
 Auto_beam_engraver::process_music ()
@@ -150,7 +158,13 @@ Auto_beam_engraver::create_beam ()
   if (to_boolean (get_property ("skipTypesetting")))
     return 0;
 
-  Spanner *beam = new Spanner (beam_settings_, context ()->get_grob_key ("Beam"));
+  /*
+    Can't use make_spanner_from_properties() because we have to use
+    beam_settings_.
+   */
+  Spanner *beam = new Spanner (beam_settings_,
+			       context ()->get_grob_key ("Beam"));
+
   for (int i = 0; i < stems_->size (); i++)
     {
       /*
