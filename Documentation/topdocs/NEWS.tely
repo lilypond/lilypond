@@ -34,6 +34,40 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Proportional notation is supported.  Notes can be spaced proportional
+to their time-difference, by assigning a duration.  to
+@code{proportionalNotationDuration}. For example,
+
+@lilypond[verbatim,relative=2,fragment,raggedright]
+<<
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \new Staff { c8[ c c c c c]  c4 c2 r2 }
+  \new Staff { c2  \times 2/3 { c8 c c } c4 c1 }
+>>
+@end lilypond
+
+This feature was sponsored by Trevor Baca.
+
+@item 
+LilyPond will space note according to their durations, disregarding
+symbol sizes (e.g. accidentals) if @code{uniform-stretching} of the
+@code{SpacingSpanner} grob is set,
+
+
+@lilypond[verbatim,relative=2,fragment]
+<<
+  \override  Score.SpacingSpanner #'uniform-stretching = ##t 
+  \new Staff { c16[ c c c c c c c c c16]  }
+  \new Staff {
+    \times 6/7 { c16 c c cis c c c }
+    c8[ c32 c32 c16]
+  }
+>>
+@end lilypond
+
+This feature was sponsored by Trevor Baca.
+ 
+@item
 Tuplet brackets get arrows when they are broken across a line.
 
 @lilypond[fragment,raggedright,verbatim,relative=2]
