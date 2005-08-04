@@ -21,7 +21,7 @@
 
   \override TupletBracket #'edge-text = #(cons
 					  (markup #:fontsize 6
-					     #:arrow-head Y LEFT #f)
+					     #:arrow-head X LEFT #f)
 					  (markup #:arrow-head X RIGHT #f))
   \times 11/19 {
     c4 c4 c4 c4

@@ -62,21 +62,26 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
 }
 
 Grob *
-Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equally_long)
+Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool *equally_long)
 {
   /*
     ugh: code dup.
   */
+  Spanner *me = dynamic_cast<Spanner *> (me_grob);
+  
+  if (me->get_bound (LEFT)->break_status_dir ()
+      || me->get_bound (RIGHT)->break_status_dir ())
+    return 0;
+  
   Grob *s1 = Note_column::get_stem (cols[0]);
   Grob *s2 = Note_column::get_stem (cols.top ());
 
   Grob *b1 = s1 ? Stem::get_beam (s1) : 0;
   Grob *b2 = s2 ? Stem::get_beam (s2) : 0;
 
-  Spanner *sp = dynamic_cast<Spanner *> (me);
 
   *equally_long = false;
-  if (! (b1 && (b1 == b2) && !sp->is_broken ()))
+  if (! (b1 && (b1 == b2) && !me->is_broken ()))
     return 0;
 
   extract_grob_set (b1, "stems", beam_stems);
