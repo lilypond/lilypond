@@ -6,7 +6,7 @@
   Sven Axelsson, the Murray Pipes & Drums of Gothenburg
   (http://www.murrays.nu)
   
-  $Id: bagpipe.ly,v 1.1 2005/08/04 21:54:58 gpercival Exp $
+  $Id: bagpipe.ly,v 1.2 2005/08/04 23:32:42 gpercival Exp $
 %}
 
 \version "2.6.0"
@@ -38,16 +38,16 @@ pitchnames = \pitchnamesBagpipe
 
 hideKeySignature = {
   % We normally don't want to show the key signature.
-  \override Score.KeySignature #'print-function = ##f
-  \set Score.extraNatural = ##f
-  \set Staff.keySignature = #'((0 . 2) (3 . 2))
+  \override Staff.KeySignature #'print-function = ##f
+  \set Staff.extraNatural = ##f
+  \key d \major
   #(set-accidental-style 'forget)
 }
 showKeySignature = {
   % Show the key signature e.g. for BMW compatibility.
-  \override Score.KeySignature #'print-function = #'Key_signature_interface::print
-  \set Score.extraNatural = ##f
-  \set Staff.keySignature = #'((0 . 2) (3 . 2))
+  \override Staff.KeySignature #'print-function = #'Key_signature_interface::print
+  \set Staff.extraNatural = ##f
+  \key d \major
   #(set-accidental-style 'forget)
 }
 

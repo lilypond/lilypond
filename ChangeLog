@@ -1,7 +1,13 @@
+2005-08-04  Graham Percival  <gperlist@shaw.ca>
+
+	* ly/bagpipe.ly: updated.
+
+	* Documentat/user/intsrument.itely: un-comment out bagpipe example.
+
 2005-08-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/instrument-notation.itely (Bagpipe example):
-	comment out non-functioning bagpipe exapmle.
+	comment out non-functioning bagpipe example.
 	(Bagpipe definitions): idem.
 
 	* Documentation/topdocs/NEWS.tely (Top): add uniform-stretching example.
