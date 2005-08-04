@@ -61,7 +61,7 @@ Clef_engraver::Clef_engraver ()
   /*
     will trigger a clef at the start since #f != ' ()
   */
-  prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
+  prev_octavation_ = prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
 }
 
 void

@@ -18,7 +18,8 @@
 	* lily/spacing-spanner.cc (musical_column_spacing): if
 	uniform-stretching set, fixed space is 0.0
 
-	* input/regression/spacing-multi-tuplet.ly: show uniform-stretching property.
+	* input/regression/spacing-multi-tuplet.ly: show
+	uniform-stretching property.
 
 	* lily/spacing-spanner.cc (effective_shortest_duration): new function.
 

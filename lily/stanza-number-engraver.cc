@@ -37,6 +37,7 @@ Stanza_number_engraver::derived_mark () const
 Stanza_number_engraver::Stanza_number_engraver ()
 {
   text_ = 0;
+  last_stanza_ = SCM_EOL;
 }
 
 void

@@ -157,10 +157,7 @@ Tuplet_bracket::print (SCM smob)
 
   Grob *commonx = columns[0]->common_refpoint (columns.top (), X_AXIS);
 
-  /*
-    Tuplet brackets are normally not broken, but we shouldn't crash if
-    they are.
-  */
+  
   commonx = commonx->common_refpoint (sp->get_bound (LEFT), X_AXIS);
   commonx = commonx->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
 
