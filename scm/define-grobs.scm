@@ -660,11 +660,11 @@
 	(space-alist . (
 			(custos . (extra-space . 0.0))
 			(ambitus . (extra-space . 2.0))
-			(time-signature . (extra-space . 0.0))
+			(time-signature . (extra-space . 1.0))
 			(staff-bar . (extra-space . 0.0))
 			(breathing-sign . (minimum-space . 0.0))
 			(clef . (extra-space . 0.8))
-			(first-note . (fixed-space . 1.0))
+			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.0))
 			(key-signature . (extra-space . 0.0))
 			(key-cancellation . (extra-space . 0.0))

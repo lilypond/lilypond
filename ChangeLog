@@ -1,5 +1,8 @@
 2005-08-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/beam.cc (shift_region_to_valid): divide by zero fix. This
+	fixes beams with a single stem (eg. beams across linebreaks.)
+
 	* lily/parser.yy (simple_string): allow \new STRING_IDENTIFIER.
 
 	* flower/rational.cc (operator +): prevent overflow. This fixes

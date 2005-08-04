@@ -116,16 +116,14 @@ contained staves are not connected vertically."
 \context{
   \type "Engraver_group_engraver"
   
-  \consists "Output_property_engraver"	
-
   minimumVerticalExtent = ##f
   extraVerticalExtent = ##f
   verticalExtent = ##f 
   localKeySignature = #'()
+  createSpacing = ##t
 
-  \consists "Pitch_squash_engraver"
+  
   squashedPosition = #0
-  \consists "Separating_line_group_engraver"	
   \name RhythmicStaff
   \alias "Staff"
   
@@ -135,19 +133,25 @@ contained staves are not connected vertically."
   \override StaffSymbol #'line-count = #1	
 
   \override Stem  #'neutral-direction = #1
-  \override Beam  #'neutral-direction = #1 	
-  %%	\consists "Repeat_engraver"
-  \consists "Dot_column_engraver"
+  \override Beam  #'neutral-direction = #1
+  
+  \consists "Output_property_engraver"
+  \consists "Font_size_engraver"
   \consists "Volta_engraver"
+  \consists "Separating_line_group_engraver"	
+  \consists "Dot_column_engraver"
   \consists "Bar_engraver"
-  \consists "Time_signature_engraver"
-  \consists "Staff_symbol_engraver"
   \consists "Ledger_line_engraver" 
+  \consists "Staff_symbol_engraver"
+  \consists "Pitch_squash_engraver"
+  \consists "Time_signature_engraver"
   \consists "Instrument_name_engraver"
   \consists "Axis_group_engraver"
+  
   \accepts "Voice"
   \accepts "CueVoice"
   \defaultchild "Voice"
+
   \description  "
     A context like @code{Staff} but for printing rhythms.  Pitches are
     ignored; the notes are printed on one line.  
