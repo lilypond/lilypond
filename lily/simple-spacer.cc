@@ -383,14 +383,18 @@ void
 Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 {
   Link_array<Grob> cols (icols);
-
-  for (int i = cols.size (); i--;)
-    if (scm_is_pair (cols[i]->get_object ("between-cols")))
+  cols.clear();
+  
+  for (int i = 0;  i < icols.size (); i++)
+    if (scm_is_pair (icols[i]->get_object ("between-cols")))
       {
-	loose_cols_.push (cols[i]);
-	cols.del (i);
+	loose_cols_.push (icols[i]);
       }
-
+    else
+      {
+	cols.push (icols[i]);
+      }
+  
   spaced_cols_ = cols;
   for (int i = 0; i < cols.size () - 1; i++)
     {

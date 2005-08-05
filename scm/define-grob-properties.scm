@@ -211,6 +211,9 @@ typeset on a Stem. Valid options include @code{()} and
 flag.")
      
      (flag-width-function ,procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
+     (strict-note-spacing ,boolean? "If set, unbroken columns
+with non-musical material (clefs, barlines, etc.) are not spaced
+separately, but put before musical columns.")
      (font-family ,symbol? "The font family is the broadest category for selecting text fonts. Options include: @code{sans}, @code{roman} ")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font. Options include: @code{fetaMusic},

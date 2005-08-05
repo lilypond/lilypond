@@ -14,6 +14,8 @@
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
 
+#include "translator.icc"
+
 struct Rhythmic_tuple
 {
   Grob_info info_;
@@ -30,11 +32,13 @@ struct Rhythmic_tuple
   static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);
 };
 
-/**
+
+/*
+  TODO: allow starting & stopping of spacing regions.
+ */
+/*
    Acknowledge rhythmic elements, for initializing spacing fields in
    the columns.
-
-   should be the  last one of the toplevel context
 */
 class Spacing_engraver : public Engraver
 {
@@ -137,13 +141,13 @@ Spacing_engraver::stop_translation_timestep ()
   Paper_column *musical_column
     = dynamic_cast<Paper_column *> (unsmob_grob (get_property ("currentMusicalColumn")));
   
- SCM proportional = get_property ("proportionalNotationDuration");
- if (unsmob_moment (proportional))
-   {
-     musical_column->set_property ("shortest-playing-duration", proportional);
-     musical_column->set_property ("shortest-starter-duration", proportional);
-     return; 
-   }
+  SCM proportional = get_property ("proportionalNotationDuration");
+  if (unsmob_moment (proportional))
+    {
+      musical_column->set_property ("shortest-playing-duration", proportional);
+      musical_column->set_property ("shortest-starter-duration", proportional);
+      return; 
+    }
   
   Moment shortest_playing;
   shortest_playing.set_infinite (1);
@@ -192,14 +196,14 @@ Spacing_engraver::start_translation_timestep ()
     stopped_durations_.push (playing_durations_.get ());
 }
 
-#include "translator.icc"
-
 ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
 ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
 ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
   
 ADD_TRANSLATOR (Spacing_engraver,
-		/* descr */ "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",
+		"make a SpacingSpanner and do "
+		"bookkeeping of shortest starting and playing notes  ",
+
 		/* creats*/ "SpacingSpanner",
 		/* accepts */ "",
 		/* reads */ "currentMusicalColumn currentCommandColumn proportionalNotationDuration",

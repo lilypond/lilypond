@@ -181,9 +181,13 @@ Tuplet_bracket::print (SCM smob)
       if (bounds[d]->break_status_dir())
 	{
 	  Interval overshoot (robust_scm2drul (me->get_property ("break-overshoot"),
-					       Interval (0,0)));
+					       Interval (-0.5, 1.0)));
 
-	  x_span[d] += d * overshoot[d];
+	  if (d == RIGHT)
+	    x_span[d] += d * overshoot[d];
+	  else
+	    x_span[d] = robust_relative_extent(bounds[d], commonx, X_AXIS)[RIGHT]
+	      - overshoot[LEFT];
 	}
     }
   while (flip (&d) != LEFT);
