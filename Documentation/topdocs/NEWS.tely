@@ -43,6 +43,7 @@ Tuplets can be made to reach the next non-tuplet note by setting the
   allowBeamBreak = ##t
 }
 {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 32)
   \set tupletFullLength = ##t
   \times 2/3 { c8[ c c] }
   c4
@@ -55,7 +56,7 @@ This feature was sponsored by Trevor Baca.
 When @code{strict-note-spacing} is set, note are spaced without regard
 for clefs, bar lines and grace notes. For example,
 
-@lilypond[fragment,verbatim,relative=2]
+@lilypond[fragment,relative=2]
 \override Score.SpacingSpanner #'strict-note-spacing = ##t 
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
@@ -65,7 +66,7 @@ This feature was sponsored by Trevor Baca.
 @item
 Beams support the @code{break-overshoot} property, for example
 
-@lilypond[relative=2,fragment,verbatim]
+@lilypond[relative=2,fragment]
 \set allowBeamBreak = ##t
 \override Beam #'break-overshoot = #'(1.0 . 2.0)
 c2.. c8[ \break c]
@@ -78,7 +79,7 @@ Proportional notation is supported.  Notes can be spaced proportional
 to their time-difference, by assigning a duration.  to
 @code{proportionalNotationDuration}. For example,
 
-@lilypond[verbatim,relative=2,fragment,raggedright]
+@lilypond[relative=2,fragment,raggedright]
 <<
   \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
   \new Staff { c8[ c c c c c]  c4 c2 r2 }
@@ -94,7 +95,7 @@ symbol sizes (e.g. accidentals) if @code{uniform-stretching} of the
 @code{SpacingSpanner} grob is set,
 
 
-@lilypond[verbatim,relative=2,fragment]
+@lilypond[relative=2,fragment]
 <<
   \override  Score.SpacingSpanner #'uniform-stretching = ##t 
   \new Staff { c16[ c c c c c c c c c16]  }
@@ -110,7 +111,7 @@ This feature was sponsored by Trevor Baca.
 @item
 Tuplet brackets get arrows when they are broken across a line.
 
-@lilypond[fragment,raggedright,verbatim,relative=2]
+@lilypond[fragment,raggedright,relative=2]
 \times 4/5 {
  c c c \bar "empty" \break c c
 }
@@ -137,7 +138,7 @@ These glyphs have been sponsored by Trevor Baca.
 @item
 Nested tuplets are automatically positioned,
 
-@lilypond[fragment,raggedright,verbatim,relative=2]
+@lilypond[fragment,raggedright,relative=2]
 \set tupletNumberFormatFunction = #fraction-tuplet-formatter
 \times 4/6 {
   a4 a 
