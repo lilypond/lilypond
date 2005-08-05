@@ -25,17 +25,6 @@
 
 
 
-void
-Spacing_options::init (Grob *me)
-{
-  increment_ = robust_scm2double (me->get_property ("spacing-increment"), 1);
-  packed_ = to_boolean (me->get_layout ()->c_variable ("packed"));
-  stretch_uniformly_ = to_boolean (me->get_property ("uniform-stretching"));
-  float_nonmusical_columns_
-    = to_boolean (me->get_property ("strict-note-spacing"));
-}
-
-
 Rational
 Spacing_spanner::effective_shortest_duration (Grob *me, Link_array<Grob> const &all)
 {
@@ -70,7 +59,7 @@ Spacing_spanner::set_springs (SCM smob)
   set_explicit_neighbor_columns (all);
 
   Spacing_options options;
-  options.init (me);
+  options.init_from_grob (me);
   options.global_shortest_ = effective_shortest_duration (me, all);
   
   prune_loose_columns (me, &all, &options);
@@ -462,7 +451,8 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
 	       
 	       "grace-space-factor spacing-increment base-shortest-duration strict-note-spacing "
-	       "shortest-duration-space common-shortest-duration uniform-stretching"
+	       "shortest-duration-space common-shortest-duration uniform-stretching "
+	       "packed-spacing "
 
 	       );
 

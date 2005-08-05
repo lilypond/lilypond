@@ -19,11 +19,13 @@ struct Spacing_options
   bool packed_;
   bool stretch_uniformly_;
   bool float_nonmusical_columns_;
-  
   Rational global_shortest_;
   Real increment_;
+  Real shortest_duration_space_; 
   
-  void init (Grob *me);
+  void init ();
+  void init_from_grob (Grob *me);
+  Real get_duration_space (Moment d, bool*) const;
 };
 
 /*
@@ -41,7 +43,7 @@ public:
 						 Spacing_options const*);
   static Real default_bar_spacing (Grob *, Grob *, Grob *, Moment);
   static Real note_spacing (Grob *, Grob *, Grob *, Spacing_options const*, bool *);
-  static Real get_duration_space (Grob *, Moment dur, Rational shortest, bool *);
+  static Real get_duration_space (Moment dur, Spacing_options const*,  bool *);
   static Rational find_shortest (Grob *, Link_array<Grob> const &);
   static Rational effective_shortest_duration (Grob *me, Link_array<Grob> const &all);
   static void breakable_column_spacing (Grob *, Item *l, Item *r, Spacing_options const*);

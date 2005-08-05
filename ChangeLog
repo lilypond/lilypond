@@ -1,5 +1,21 @@
 2005-08-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/tuplet-bracket.cc (after_line_breaking): don't suicide if
+	columns is empty
+
+	* lily/tuplet-engraver.cc (finalize): new function. Reset right
+	bounds to currentCommandColumn for the last step.
+	(start_translation_timestep): if tupletFullLength is set, set
+	bound to Paper Column
+
+	* input/regression/tuplet-full-length.ly (indent): new file.
+
+	* lily/spacing-loose-columns.cc (set_loose_columns): space a whole
+	clique of loose columns, eg. a set of grace notes in strict
+	notespacing.
+
+	* input/regression/spacing-strict-spacing-grace.ly: new file.
+
 	* lily/key-signature-interface.cc: change property name to
 	alteration-alist
 

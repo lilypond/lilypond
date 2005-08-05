@@ -8,17 +8,17 @@
 
 */
 
-
+#include "staff-spacing.hh"
 
 #include "system.hh"
 #include "paper-column.hh"
 #include "column-x-positions.hh"
-#include "staff-spacing.hh"
 #include "pointer-group-interface.hh"
 #include "spacing-spanner.hh"
 #include "note-spacing.hh"
-
+#include "moment.hh"
 #include "break-align-interface.hh"
+#include "warn.hh"
 
 /*
   Return whether COL is fixed to its neighbors by some kind of spacing
@@ -31,8 +31,16 @@
   (Otherwise, we might risk core dumps, and other weird stuff.)
 */
 static bool
-is_loose_column (Grob *l, Grob *c, Grob *r)
+is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
 {
+  if (options->float_nonmusical_columns_
+      && Paper_column::when_mom (c).grace_part_)
+    return true;
+
+  if (Paper_column::is_musical (c)
+      || Item::is_breakable (c))
+    return false;
+      
   extract_grob_set (c, "right-neighbors", rns);
   extract_grob_set (c, "left-neighbors", lns);
   
@@ -125,18 +133,16 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 				      Spacing_options const *options)
 {
   Link_array<Grob> newcols;
-  Real increment = robust_scm2double (me->get_property ("spacing-increment"), 1.2);
+  
   for (int i = 0; i < cols->size (); i++)
     {
-      if (Item::is_breakable (cols->elem (i))
-	  || Paper_column::is_musical (cols->elem (i)))
-	{
-	  newcols.push (cols->elem (i));
-	  continue;
-	}
-
       Grob *c = cols->elem (i);
-      if (is_loose_column (cols->elem (i - 1), c, cols->elem (i + 1)))
+
+      bool loose = (i > 0 && i < cols->size()-1)
+	&& is_loose_column (cols->elem (i - 1), c, cols->elem (i + 1), options);
+	
+      
+      if (loose)
 	{
 	  extract_grob_set (c, "right-neighbors", rns_arr);
 	  extract_grob_set (c, "left-neighbors", lns_arr);
@@ -168,7 +174,6 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 	      Item *lc = dynamic_cast<Item *> ((d == LEFT) ? next_door[LEFT] : c);
 	      Item *rc = dynamic_cast<Item *> (d == LEFT ? c : next_door[RIGHT]);
 
-
 	      extract_grob_set (lc, "spacing-wishes", wishes);
 	      for (int k = wishes.size(); k--;)
 		{
@@ -181,7 +186,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 		  fixed = 0.0;
 		  bool dummy;
 
-		  if (d == LEFT)
+		  if (Note_spacing::has_interface (sp))
 		    {
 		      /*
 			The note spacing should be taken from the musical
@@ -189,19 +194,23 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 
 		      */
 		      Real base = note_spacing (me, lc, rc, options, &dummy);
-		      Note_spacing::get_spacing (sp, rc, base, increment, &space, &fixed);
+		      Note_spacing::get_spacing (sp, rc, base, options->increment_, &space, &fixed);
 
-		      space -= increment;
+		      space -= options->increment_;
 
 		      dists[d] = max (dists[d], space);
 		    }
-		  else
+		  else if (Staff_spacing::has_interface (sp))
 		    {
 		      Real space, fixed_space;
 		      Staff_spacing::get_spacing_params (sp,
 							 &space, &fixed_space);
 
 		      dists[d] = max (dists[d], fixed_space);
+		    }
+		  else
+		    {
+		      programming_error ("Subversive spacing wish");
 		    }
 		}
 	    }

@@ -34,14 +34,30 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Tuplets can be made to reach the next non-tuplet note by setting the
+@code{tupletFullLength}  property,
+
+@lilypond[fragment]
+\new Voice \with {
+  \remove  Forbid_line_break_engraver
+  allowBeamBreak = ##t
+}
+{
+  \set tupletFullLength = ##t
+  \times 2/3 { c8[ c c] }
+  c4
+}
+@end lilypond  
+
+
+@item
 When @code{strict-note-spacing} is set, note are spaced without regard
-for clefs and bar lines. For example,
+for clefs, bar lines and grace notes. For example,
 
 @lilypond[fragment,verbatim,relative=2]
 \override Score.SpacingSpanner #'strict-note-spacing = ##t 
-\new Staff { c8[ c \clef alto c c c c]  c32 c32 }
+\new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
-
 
 This feature was sponsored by Trevor Baca. 
 

@@ -348,7 +348,9 @@ spacing constraints.")
 get stems extending to the middle staff line.")
      (number-type ,symbol? "Type of numbers to use in label.  Choices
 include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
-     
+
+     (packed-spacing ,boolean? "If set, the notes are spaced as
+tightly as possible.")
      (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
      (page-penalty ,number? "Penalty for page break at

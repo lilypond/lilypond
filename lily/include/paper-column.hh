@@ -27,23 +27,21 @@ public:
   Paper_column (Paper_column const &, int count);
 
   virtual Grob *clone (int count) const;
-
-  static bool has_interface (Grob *);
   virtual void do_break_processing ();
   virtual Paper_column *get_column () const;
   virtual System *get_system () const;
 
-  static int get_rank (Grob *);
   int get_rank () const { return rank_; }
+  void set_rank (int);
   
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 
+  static bool has_interface (Grob *);
+  static int get_rank (Grob *);
   static bool is_musical (Grob *);
   static Moment when_mom (Grob *);
-
   static bool is_used (Grob *);
-  void set_rank (int);
 };
 
 #endif // PAPER_COLUMN_HH
