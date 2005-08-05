@@ -119,13 +119,13 @@ Tuplet_engraver::start_translation_timestep ()
 {
   Moment now = now_mom ();
 
+  last_tuplets_.clear ();
   if (tuplets_.is_empty())
     return;
 
   Moment tsdmom = robust_scm2moment (get_property ("tupletSpannerDuration"), Moment (0));
   bool full_length = to_boolean (get_property ("tupletFullLength"));
 
-  last_tuplets_.clear ();
   for (int i = tuplets_.size (); i--;)
     {
       Rational tsd = tsdmom.main_part_;
