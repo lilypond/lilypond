@@ -41,8 +41,7 @@ handle this cross-staffing behavior.  In this section we discuss the
 * Cross staff stems::           
 @end menu
 
-@
-refbugs
+@refbugs
 
 Dynamics are not centered, but workarounds do exist.  See the
 ``piano centered dynamics'' template in @ref{Piano templates}.
