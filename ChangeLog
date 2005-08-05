@@ -1,5 +1,8 @@
 2005-08-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): add Nicolas as
+	contributor.
+
 	* lily/include/ly-module.hh: define MODULE_GC_KLUDGE globally.
 
 	* input/proportional.ly: new file.

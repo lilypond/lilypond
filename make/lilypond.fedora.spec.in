@@ -56,7 +56,7 @@ Documentation and example files of LilyPond.  An index is available at
 ./configure --enable-static-gxx --without-kpathsea --disable-checking --prefix=%{_prefix} --enable-optimising
 
 
-make all
+make -j2 all
 make web
 make -C Documentation/user local_package_docdir=%{docdir} omf
 
