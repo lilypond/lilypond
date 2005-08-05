@@ -35,7 +35,9 @@ called first.  The functions take a grob and axis argument. ")
      (Y-extent-callback ,procedure? "see @code{X-extent-callback}.")
      (Y-offset-callbacks ,list? "see @code{X-offset-callbacks}.")
 
-     (accidentals ,list? "List of alteration numbers.")
+     (accidentals ,list? "List of alteration numbers")
+     (alteration-alist ,list? "List of @code{(@var{pitch}
+. @var{accidental})} pairs for key signature.")
      (add-stem-support ,boolean? "If set, the Stem object is included in this script's support") 
     
      (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
@@ -336,8 +338,6 @@ center of the staff.")
      (neutral-position ,number? "Position (in half staff spaces) where
 to flip the direction of custos stem.")
 
-     (new-accidentals ,list? "List of @code{(@var{pitch}
-. @var{accidental})} pairs.")
      (next ,ly:grob? "Object that is next relation (eg. the lyric syllable following an extender.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
@@ -349,9 +349,6 @@ get stems extending to the middle staff line.")
      (number-type ,symbol? "Type of numbers to use in label.  Choices
 include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
      
-     (old-accidentals ,list? "List of @code{(@var{pitch} . @var{accidental})
-pairs.}")
-
      (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
      (page-penalty ,number? "Penalty for page break at

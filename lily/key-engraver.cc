@@ -92,11 +92,11 @@ Key_engraver::create_key (bool is_default)
 		}
 	    }
 	  
-	  cancellation_->set_property ("accidentals", restore);
+	  cancellation_->set_property ("alteration-alist", restore);
 	  cancellation_->set_property ("c0-position",
 				       get_property ("middleCPosition"));
 	}
-      item_->set_property ("accidentals", key);
+      item_->set_property ("alteration-alist", key);
     }
 
   if (!is_default)
@@ -169,7 +169,7 @@ Key_engraver::read_event (Music const *r)
 
   SCM n = scm_list_copy (p);
   SCM accs = SCM_EOL;
-  for (SCM s = get_property ("keyAccidentalOrder");
+  for (SCM s = get_property ("keyAlterationOrder");
        scm_is_pair (s); s = scm_cdr (s))
     {
       if (scm_is_pair (scm_member (scm_car (s), n)))
@@ -208,5 +208,5 @@ ADD_TRANSLATOR (Key_engraver,
 		/* accepts */ "key-change-event",
 		/* reads */ "keySignature printKeyCancellation lastKeySignature "
 		"explicitKeySignatureVisibility createKeyOnClefChange "
-		"keyAccidentalOrder keySignature",
+		"keyAlterationOrder keySignature",
 		/* write */ "lastKeySignature tonic keySignature");
