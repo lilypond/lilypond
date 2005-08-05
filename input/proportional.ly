@@ -39,7 +39,7 @@ staffKind = "RhythmicStaff"
 
 \relative c''
 \new StaffGroup <<
-  \new \staffKind <<
+  \new \staffKind \new Voice <<
     {
       \skip 2
       \skip 2
@@ -59,6 +59,16 @@ staffKind = "RhythmicStaff"
 	\times 5/4 {
 	  c16 c c] r32[ c32 c16 c] r8 }
       }
+   \times 10/12 {
+     \times 7/6 {
+          r32[ c16. c32 c16.] r4
+          r16[ c16 c16. c32
+     }
+     \times 5/8 {
+          c16 c16 c16. c32] r8 c8[ c8] r4.
+     }
+   }
+    %{
     \times 10/12 {
       \times 7/6 {
 	r32[ c32. c16 c16.] r4
@@ -68,6 +78,7 @@ staffKind = "RhythmicStaff"
 	  c16 c c16. c32] r8 c8[ c] r4
       }
     }
+    %}
 
     \times 4/7 {
       r8
@@ -86,7 +97,7 @@ staffKind = "RhythmicStaff"
     }
   }  
     >>
-  \new \staffKind
+  \new \staffKind \new Voice
   <<
   {
     \times 9/5 {
@@ -108,7 +119,7 @@ staffKind = "RhythmicStaff"
       }
     }
     \times 10/12 {
-      \times 7/9 {
+      \times 7/10 {
 	c16 c16 c8] r8 r4
         r8.[ c32 c16 c r8 c16 c16 
       }

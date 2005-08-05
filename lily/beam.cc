@@ -1299,6 +1299,15 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   SCM s = beam->get_property ("positions");
   if (scm_is_pair (s) && scm_is_number (scm_car (s)))
     pos = ly_scm2interval (s);
+  else
+    {
+      /*
+	UGH. TODO: fix dependency tracking. 
+       */ 
+      position_beam (beam);
+      pos = ly_scm2interval (beam->get_property ("positions"));
+    }
+		   
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
   scale_drul (&pos, staff_space);
