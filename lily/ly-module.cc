@@ -12,8 +12,6 @@
 #include "string.hh"
 #include "protected-scm.hh"
 
-#define MODULE_GC_KLUDGE
-
 #ifdef MODULE_GC_KLUDGE
 Protected_scm anonymous_modules = SCM_EOL;
 #endif
