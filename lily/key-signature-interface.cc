@@ -101,7 +101,7 @@ Key_signature_interface::print (SCM smob)
       style = "";
     }
 
-  SCM newas = me->get_property ("accidentals");
+  SCM newas = me->get_property ("alteration-alist");
   Stencil mol;
 
   SCM c0s = me->get_property ("c0-position");
@@ -157,4 +157,4 @@ Key_signature_interface::print (SCM smob)
 
 ADD_INTERFACE (Key_signature_interface, "key-signature-interface",
 	       "A group of accidentals, to be printed as signature sign.",
-	       "style c0-position accidentals");
+	       "style c0-position alteration-alist");

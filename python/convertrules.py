@@ -2534,6 +2534,13 @@ conversions.append (((2, 7, 2), conv,
 		     '''ly:X-moment -> ly:moment-X'''))
 
 
+def conv (str):
+	str = re.sub('keyAccidentalOrder', 'keyAlterationOrder', str)
+	return str
+
+conversions.append (((2, 7, 4), conv,
+		     '''keyAccidentalOrder->keyAlterationOrder'''))
+
 
 ################################################################
 
