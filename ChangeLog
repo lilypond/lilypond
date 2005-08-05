@@ -1,3 +1,7 @@
+2005-08-04  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/lilypond.tely: set documentencoding utf-8.
+
 2005-07-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (sane_setenv)[!ARGV0_RELOCATION]: Also define.
