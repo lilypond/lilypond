@@ -21,9 +21,14 @@
     \override SpacingSpanner #'uniform-stretching = ##t
     \override SpacingSpanner #'strict-note-spacing = ##t
     proportionalNotationDuration = #(ly:make-moment 1 64)
-    \override TimeSignature #'break-visibility = #begin-of-line-visible
+    \override TimeSignature #'break-visibility = #end-of-line-invisible
     \override Beam #'break-overshoot = #'(-0.5 . 1.0)
-    
+  }
+  \context {
+
+    % we want over print if necessary.
+    \RhythmicStaff
+    \remove "Separating_line_group_engraver"
   }
 }
 
@@ -40,6 +45,7 @@ staffKind = "RhythmicStaff"
       \break \time 4/8
       
       \skip 1 \break \time 4/8
+      \skip 2 \time 1/8
     }
     
     {
@@ -79,10 +85,16 @@ staffKind = "RhythmicStaff"
     }
   }  
     >>
-  \new \staffKind {
+  \new \staffKind
+  <<
+  {
     \times 9/5 {
       r8. c16[ c c
-	       \grace { c32[ c32] }
+	       \grace {
+		 \stemDown
+		 c32[ c32]
+		 \stemNeutral 
+	       }
 	       c16 c c
       c 
     }
@@ -94,15 +106,21 @@ staffKind = "RhythmicStaff"
 	c32[ c c16
       }
     }
-    c16 c16 c8] r8 r4
     \times 10/12 {
       \times 7/9 {
+	c16 c16 c8] r8 r4
         r8.[ c32 c16 c r8 c16 c16 
       }
       c16 c32 c32]
-      r4 r16
+      r4.
+      r16.[
+      c32 
     }
-  }  
+    c16 r16]
+
+  }
+  { \skip 2 * 6 } % filler space. 
+  >>
 >>
 
 		 

@@ -129,9 +129,9 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	    }
 	  else
 	    {
-	      Interval my_extent = col->extent (col, X_AXIS);
+	      Interval my_extent = robust_relative_extent (col, col, X_AXIS);
 	      distance_to_next = my_extent[RIGHT] + default_padding;
-	      right_point = finished_right_column->extent (common, X_AXIS)[LEFT];
+	      right_point = robust_relative_extent (finished_right_column, common, X_AXIS)[LEFT];
 	    }
 
 	  Real my_offset = right_point - distance_to_next;
