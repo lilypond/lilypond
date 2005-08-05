@@ -14,6 +14,8 @@
 	* lily/beam.cc (rest_collision_callback): call position_beam() if
 	necessary.
 
+	* VERSION: release 2.7.4
+
 	* input/regression/spacing-uniform-stretching.ly: new file.
 
 	* lily/spacing-loose-columns.cc (set_loose_columns): use robust_relative_extent().
