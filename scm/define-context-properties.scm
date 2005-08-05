@@ -242,9 +242,9 @@ is used to transpose the MIDI output, and @code{\\quote}s.")
 
      (keepAliveInterfaces ,list? "List of symbols, signifying grob interfaces that
 are worth keeping a RemoveEmptyStaff staff around for.")   
-     (keyAccidentalOrder ,list? " Alist that defines in what order
-alterations should be printed.  The format is (@var{name}
-. @var{alter}), where @var{name} is from 0 .. 6 and @var{alter} from
+     (keyAlterationOrder ,list? " Alist that defines in what order
+alterations should be printed.  The format is (@var{step}
+. @var{alter}), where @var{step} is from 0 .. 6 and @var{alter} from
 -2 (sharp) and 2 (flat).
 ")
 
