@@ -34,6 +34,29 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+When @code{strict-note-spacing} is set, note are spaced without regard
+for clefs and bar lines. For example,
+
+@lilypond[fragment,verbatim,relative=2]
+\override Score.SpacingSpanner #'strict-note-spacing = ##t 
+\new Staff { c8[ c \clef alto c c c c]  c32 c32 }
+@end lilypond
+
+
+This feature was sponsored by Trevor Baca. 
+
+@item
+Beams support the @code{break-overshoot} property, for example
+
+@lilypond[relative=2,fragment,verbatim]
+\set allowBeamBreak = ##t
+\override Beam #'break-overshoot = #'(1.0 . 2.0)
+c2.. c8[ \break c]
+@end lilypond
+ 
+This feature was sponsored by Trevor Baca. 
+
+@item
 Proportional notation is supported.  Notes can be spaced proportional
 to their time-difference, by assigning a duration.  to
 @code{proportionalNotationDuration}. For example,

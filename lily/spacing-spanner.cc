@@ -26,10 +26,13 @@
 
 
 void
-Spacing_options::init (Grob*me)
+Spacing_options::init (Grob *me)
 {
+  increment_ = robust_scm2double (me->get_property ("spacing-increment"), 1);
   packed_ = to_boolean (me->get_layout ()->c_variable ("packed"));
-  uniform_ = to_boolean (me->get_property ("uniform-stretching")); 
+  stretch_uniformly_ = to_boolean (me->get_property ("uniform-stretching"));
+  float_nonmusical_columns_
+    = to_boolean (me->get_property ("strict-note-spacing"));
 }
 
 
@@ -72,18 +75,7 @@ Spacing_spanner::set_springs (SCM smob)
   
   prune_loose_columns (me, &all, &options);
   set_implicit_neighbor_columns (all);
-
-  int j = 0;
-  for (int i = 1; i < all.size (); i++)
-    {
-      Grob *sc = all[i];
-      if (Item::is_breakable (sc))
-	{
-	  Link_array<Grob> measure (all.slice (j, i + 1));
-	  do_measure (me, &measure, &options);
-	  j = i;
-	}
-    }
+  generate_springs (me, all, &options);
 
   return SCM_UNSPECIFIED;
 }
@@ -165,7 +157,8 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 	  max_count = counts[i];
 	}
 
-      //      printf ("duration %d/%d, count %d\n", durations[i].num (), durations[i].den (), counts[i]);
+      // printf ("duration %d/%d, count %d\n",
+      // durations[i].num (), durations[i].den (), counts[i]);
     }
 
   SCM bsd = me->get_property ("base-shortest-duration");
@@ -179,77 +172,99 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
   return d;
 }
 
-/*
-  Generate spacing for a single measure. We used to have code that did
-  per-measure spacing. Now we have piecewise spacing. We should fix
-  this to support "spacing-regions": some regions have different notes
-  (different time sigs) than others, and should be spaced differently.
-*/
 void
-Spacing_spanner::do_measure (Grob *me,
-			     Link_array<Grob> *cols,
-			     Spacing_options const *options
-			     )
+Spacing_spanner::generate_pair_spacing (Grob *me,
+					Paper_column *left_col, Paper_column *right_col,
+					Paper_column *after_right_col,
+					Spacing_options const *options)
 {
-  Real headwid = robust_scm2double (me->get_property ("spacing-increment"), 1);
-  for (int i = 0; i < cols->size () - 1; i++)
+  if (Paper_column::is_musical (left_col))
     {
-      Item *l = dynamic_cast<Item *> (cols->elem (i));
-      Item *r = dynamic_cast<Item *> (cols->elem (i + 1));
-
-      Paper_column *lc = dynamic_cast<Paper_column *> (l);
-      Paper_column *rc = dynamic_cast<Paper_column *> (r);
-
-      if (Paper_column::is_musical (l))
+      bool skip_unbroken_right = false;
+      
+      if (!Paper_column::is_musical (right_col)
+	  && options->float_nonmusical_columns_
+	  && after_right_col
+	  && Paper_column::is_musical (after_right_col))
 	{
-	  musical_column_spacing (me, lc, rc, headwid, options);
-	  if (Item *rb = r->find_prebroken_piece (LEFT))
-	    musical_column_spacing (me, lc, rb, headwid, options);
+	  skip_unbroken_right = true;
 	}
-      else
+
+      if (skip_unbroken_right)
 	{
 	  /*
-	    The case that the right part is broken as well is rather
-	    rare, but it is possible, eg. with a single empty measure,
-	    or if one staff finishes a tad earlier than the rest.
+	    TODO: should generate rods to prevent collisions.
 	  */
-	  Item *lb = l->find_prebroken_piece (RIGHT);
-	  Item *rb = r->find_prebroken_piece (LEFT);
-
-	  if (i == 0 && Paper_column::get_rank (l) == 0)
-	    l = 0;
-
-	  if (l && r)
-	    breakable_column_spacing (me, l, r, options);
-	  
-	  if (lb && r)
-	    breakable_column_spacing (me, lb, r, options);
-
-	  if (l && rb)
-	    breakable_column_spacing (me, l, rb, options);
-
-	  if (lb && rb)
-	    breakable_column_spacing (me, lb, rb, options);
+	  musical_column_spacing (me, left_col, after_right_col, options);
+	  right_col->set_object ("between-cols", scm_cons (left_col->self_scm (),
+							   after_right_col->self_scm ()));
 	}
+      else
+	musical_column_spacing (me, left_col, right_col, options);
+      
+
+      if (Item *rb = right_col->find_prebroken_piece (LEFT))
+	musical_column_spacing (me, left_col, rb, options);
+    }
+  else
+    {
+      /*
+	The case that the right part is broken as well is rather
+	rare, but it is possible, eg. with a single empty measure,
+	or if one staff finishes a tad earlier than the rest.
+      */
+      Item *lb = left_col->find_prebroken_piece (RIGHT);
+      Item *rb = right_col->find_prebroken_piece (LEFT);
+
+      if (left_col && right_col)
+	breakable_column_spacing (me, left_col, right_col, options);
+	  
+      if (lb && right_col)
+	breakable_column_spacing (me, lb, right_col, options);
+
+      if (left_col && rb)
+	breakable_column_spacing (me, left_col, rb, options);
+
+      if (lb && rb)
+	breakable_column_spacing (me, lb, rb, options);
+    }
+}
+
+void
+Spacing_spanner::generate_springs (Grob *me,
+				   Link_array<Grob> const &cols,
+				   Spacing_options const *options)
+{
+  Paper_column *next = 0;
+  Paper_column *next_next = 0;
+  for (int i = cols.size (); i--;)
+    {
+      Paper_column *col = dynamic_cast<Paper_column *> (cols[i]);
+      if (next)
+	generate_pair_spacing (me, col, next, next_next, options);
+
+      next_next = next;
+      next = col;
     }
 }
 
 /*
-  Generate the space between two musical columns LC and RC, given
+  Generate the space between two musical columns LEFT_COL and RIGHT_COL, given
   spacing parameters INCR and SHORTEST.
 */
 void
-Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc,
-					 Real increment,
+Spacing_spanner::musical_column_spacing (Grob *me,
+					 Item *left_col,
+					 Item *right_col,
 					 Spacing_options const *options)
 {
   bool expand_only = false;
-  Real base_note_space = note_spacing (me, lc, rc, options, &expand_only);
+  Real base_note_space = note_spacing (me, left_col, right_col, options, &expand_only);
   
   Real compound_note_space = 0.0;
   Real compound_fixed_note_space = 0.0;
 
-  if (options->uniform_)
+  if (options->stretch_uniformly_)
     {
       compound_note_space = base_note_space;
     }
@@ -257,7 +272,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc,
     {
       int wish_count = 0;
 
-      extract_grob_set (lc, "right-neighbors", neighbors);
+      extract_grob_set (left_col, "right-neighbors", neighbors);
 
       /*
 	We adjust the space following a note only if the next note
@@ -269,8 +284,8 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc,
 	  Grob *wish = neighbors[i];
 
 	  Item *wish_rcol = Note_spacing::right_column (wish);
-	  if (Note_spacing::left_column (wish) != lc
-	      || (wish_rcol != rc && wish_rcol != rc->original_))
+	  if (Note_spacing::left_column (wish) != left_col
+	      || (wish_rcol != right_col && wish_rcol != right_col->original_))
 	    continue;
 
 	  /*
@@ -281,7 +296,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc,
 	      Real space = 0.0;
 	      Real fixed = 0.0;
 
-	      Note_spacing::get_spacing (wish, rc, base_note_space, increment, &space, &fixed);
+	      Note_spacing::get_spacing (wish, right_col, base_note_space, options->increment_, &space, &fixed);
 
 	      compound_note_space = compound_note_space + space;
 	      compound_fixed_note_space = compound_fixed_note_space + fixed;
@@ -289,8 +304,8 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc,
 	    }
 	}
 
-      if (Paper_column::when_mom (rc).grace_part_
-	  && !Paper_column::when_mom (lc).grace_part_)
+      if (Paper_column::when_mom (right_col).grace_part_
+	  && !Paper_column::when_mom (left_col).grace_part_)
 	{
 	  /*
 	    Ugh. 0.8 is arbitrary.
@@ -301,7 +316,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc,
       if (compound_note_space < 0 || wish_count == 0)
 	{
 	  compound_note_space = base_note_space;
-	  compound_fixed_note_space = increment;
+	  compound_fixed_note_space = options->increment_;
 	}
       else
 	{
@@ -346,7 +361,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc,
       distance = compound_note_space;
     }
 
-  Spaceable_grob::add_spring (lc, rc, distance, inverse_strength);
+  Spaceable_grob::add_spring (left_col, right_col, distance, inverse_strength);
 }
 
 /*
@@ -414,7 +429,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
       compound_fixed /= wish_count;
     }
 
-  if (options->uniform_ && l->break_status_dir () != RIGHT)
+  if (options->stretch_uniformly_ && l->break_status_dir () != RIGHT)
     {
       compound_fixed = 0.0;
     }
@@ -446,7 +461,7 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "head width) A 16th note is followed by 0.5 note head width. The\n"
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
 	       
-	       "grace-space-factor spacing-increment base-shortest-duration "
+	       "grace-space-factor spacing-increment base-shortest-duration strict-note-spacing "
 	       "shortest-duration-space common-shortest-duration uniform-stretching"
 
 	       );

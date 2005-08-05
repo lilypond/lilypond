@@ -1484,7 +1484,6 @@
 	(padding . 1.1)
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
-	(break-overshoot . (1.0 . 1.0)) 
 	(shorten-pair . (-0.2 . -0.2))
 	(edge-text . ,(cons (markup #:arrow-head 0 -1 #f)
 			    (markup #:arrow-head 0 1 #f)))

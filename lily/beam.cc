@@ -284,7 +284,8 @@ Beam::connect_beams (Grob *me)
 }
 
 /*
-  TODO: should not make beams per stem, but per Y-level.
+  TODO: should not make beams per stem, but per Y-level; probably when
+  someone wants to sponsor feathered beaming.
 */
 MAKE_SCHEME_CALLBACK (Beam, print, 1);
 SCM
@@ -341,19 +342,19 @@ Beam::print (SCM grob)
 
   for (int i = 0; i <= stems.size (); i++)
     {
-      Grob *st = (i < stems.size ()) ? stems[i] : 0;
-
-      SCM this_beaming = st ? st->get_property ("beaming") : SCM_EOL;
-      Real xposn = st ? st->relative_coordinate (xcommon, X_AXIS) : 0.0;
-      Real stem_width = st ? robust_scm2double (st->get_property ("thickness"), 1.0) * lt : 0;
-      Direction stem_dir = st ? to_dir (st->get_property ("direction")) : CENTER;
+      Grob *stem = (i < stems.size ()) ? stems[i] : 0;
+      
+      SCM this_beaming = stem ? stem->get_property ("beaming") : SCM_EOL;
+      Real xposn = stem ? stem->relative_coordinate (xcommon, X_AXIS) : 0.0;
+      Real stem_width = stem ? robust_scm2double (stem->get_property ("thickness"), 1.0) * lt : 0;
+      Direction stem_dir = stem ? to_dir (stem->get_property ("direction")) : CENTER;
       /*
 	We do the space left of ST, with lfliebertjes pointing to the
 	right from the left stem, and rfliebertjes pointing left from
 	right stem.
       */
       SCM left = (i > 0) ? scm_cdr (last_beaming) : SCM_EOL;
-      SCM right = st ? scm_car (this_beaming) : SCM_EOL;
+      SCM right = stem ? scm_car (this_beaming) : SCM_EOL;
 
       Array<int> full_beams;
       Array<int> lfliebertjes;
@@ -382,11 +383,14 @@ Beam::print (SCM grob)
 	    }
 	}
 
-      /*
-	how much to stick out for beams across linebreaks
-      */
-      Real break_overshoot = 3.0;
-      Real w = (i > 0 && st) ? (xposn - last_xposn) : break_overshoot;
+      Drul_array<Real> break_overshoot
+	= robust_scm2drul (me->get_property ("break-overshoot"),
+			   Drul_array<Real> (-0.5, 0.0));
+
+      
+      Real w = (i > 0 && stem)
+	? (xposn - last_xposn)
+	: break_overshoot[(i==0) ? LEFT: RIGHT];
 
       Real stem_offset = 0.0;
       if (i > 0)
@@ -395,7 +399,7 @@ Beam::print (SCM grob)
 	  stem_offset = -last_stem_width / 2;
 	}
 
-      if (st)
+      if (stem)
 	w += stem_width / 2;
 
       Real blot = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
@@ -433,16 +437,16 @@ Beam::print (SCM grob)
 	{
 	  Real nw_f;
 
-	  if (st)
+	  if (stem)
 	    {
-	      int t = Stem::duration_log (st);
+	      int t = Stem::duration_log (stem);
 
 	      SCM proc = me->get_property ("flag-width-function");
 	      SCM result = scm_call_1 (proc, scm_from_int (t));
 	      nw_f = scm_to_double (result);
 	    }
 	  else
-	    nw_f = break_overshoot / 2;
+	    nw_f = break_overshoot[RIGHT] / 2;
 
 	  /* Half beam should be one note-width,
 	     but let's make sure two half-beams never touch */
@@ -451,17 +455,15 @@ Beam::print (SCM grob)
 	  if (i > 0)
 	    rw = min (nw_f, ((xposn - last_xposn) / 2));
 	  else
-	    /*
-	      TODO: 0.5 is a guess.
-	    */
 	    rw = xposn - me->get_bound (LEFT)->extent (xcommon, X_AXIS)[RIGHT]
-	      - 0.5;
+	      + break_overshoot[LEFT];
 
-	  if (st)
+	  if (stem)
 	    lw = min (nw_f, ((xposn - last_xposn) / 2));
 	  else
 	    lw = me->get_bound (RIGHT)->relative_coordinate (xcommon, X_AXIS)
-	      - last_xposn;
+	      - last_xposn
+	      + break_overshoot[RIGHT];
 
 	  Stencil rhalf = Lookup::beam (slope, rw, thick, blot);
 	  Stencil lhalf = Lookup::beam (slope, lw, thick, blot);
@@ -476,7 +478,8 @@ Beam::print (SCM grob)
 	    {
 	      Stencil b (rhalf);
 	      b.translate_axis (xposn - x0 - rw, X_AXIS);
-	      b.translate_axis (slope * (xposn - x0 -rw) + bdy * rfliebertjes[j], Y_AXIS);
+	      b.translate_axis (slope * (xposn - x0 - rw)
+				+ bdy * rfliebertjes[j], Y_AXIS);
 	      the_beam.add_stencil (b);
 	    }
 	}
@@ -1181,18 +1184,18 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 	      || (d == RIGHT && i == stems.size () -1))
 	    continue;
 
-	  Grob *st = stems[i];
-	  SCM beaming_prop = st->get_property ("beaming");
+	  Grob *stem = stems[i];
+	  SCM beaming_prop = stem->get_property ("beaming");
 	  if (beaming_prop == SCM_EOL
 	      || index_get_cell (beaming_prop, d) == SCM_EOL)
 	    {
 	      int b = beaming->infos_.elem (i).beams_i_drul_[d];
 	      if (i > 0
 		  && i < stems.size () -1
-		  && Stem::is_invisible (st))
+		  && Stem::is_invisible (stem))
 		b = min (b, beaming->infos_.elem (i).beams_i_drul_[-d]);
 
-	      Stem::set_beaming (st, b, d);
+	      Stem::set_beaming (stem, b, d);
 	    }
 	}
       while (flip (&d) != LEFT);
@@ -1399,6 +1402,7 @@ ADD_INTERFACE (Beam, "beam-interface",
 	       "knee positioning-done position-callbacks "
 	       "concaveness dir-function quant-score auto-knee-gap gap "
 	       "gap-count chord-tremolo beamed-stem-shorten shorten least-squares-dy "
-	       "details damping inspect-quants flag-width-function neutral-direction positions space-function "
+	       "details damping inspect-quants flag-width-function "
+	       "neutral-direction positions space-function break-overshoot "
 	       "thickness");
 

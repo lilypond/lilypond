@@ -100,6 +100,22 @@ Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real inverse_strength)
 }
 
 void
+Spaceable_grob::get_spring (Grob *me, Grob *other, Real *dist, Real *inv_strength)
+{
+  for (SCM s = me->get_object ("ideal-distances");
+       scm_is_pair (s); s = scm_cdr (s))
+    {
+      Spring_smob *spring = unsmob_spring (scm_car (s));
+      if (spring && spring->other_ == other)
+	{
+	  *dist = spring->distance_;
+	  *inv_strength = spring->inverse_strength_;
+	}
+    }
+}
+
+
+void
 Spaceable_grob::remove_interface (Grob *me)
 {
   me->set_object ("minimum-distances", SCM_EOL);
