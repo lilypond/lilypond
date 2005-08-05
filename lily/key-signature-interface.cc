@@ -51,8 +51,8 @@ alteration_pos (SCM what, int alter, int c0p)
 
   // Find the c in the range -4 through 2
   int from_bottom_pos = c0p + 4;
-  from_bottom_pos = from_bottom_pos%7;
-  from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
+  from_bottom_pos = from_bottom_pos % 7;
+  from_bottom_pos = (from_bottom_pos + 7) % 7; // Precaution to get positive.
   int c0 = from_bottom_pos - 4;
 
   if ((alter < 0 && ((p > FLAT_TOP_PITCH) || (p + c0 > 4)) && (p + c0 > 1))
@@ -86,7 +86,7 @@ MAKE_SCHEME_CALLBACK (Key_signature_interface, print, 1);
 SCM
 Key_signature_interface::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Item *me = dynamic_cast<Item*> (unsmob_grob (smob));
 
   Real inter = Staff_symbol_referencer::staff_space (me) / 2.0;
 
@@ -101,7 +101,7 @@ Key_signature_interface::print (SCM smob)
       style = "";
     }
 
-  SCM newas = me->get_property ("new-accidentals");
+  SCM newas = me->get_property ("accidentals");
   Stencil mol;
 
   SCM c0s = me->get_property ("c0-position");
@@ -114,6 +114,7 @@ Key_signature_interface::print (SCM smob)
     the cancellation signature.
   */
 
+  int last_pos = -1000;
   Font_metric *fm = Font_interface::get_default_font (me);
   for (SCM s = newas; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -131,47 +132,21 @@ Key_signature_interface::print (SCM smob)
 	  SCM what = scm_caar (s);
 	  int pos = alteration_pos (what, alteration, c0p);
 	  acc.translate_axis (pos * inter, Y_AXIS);
-	  mol.add_at_edge (X_AXIS, LEFT, acc, 0, 0);
-	}
-    }
 
-  Item *it = dynamic_cast<Item *> (me);
-  if (it->break_status_dir () != RIGHT)
-    {
-      SCM old = me->get_property ("old-accidentals");
-
-      Stencil natural;
-      if (scm_is_pair (old))
-	natural = Font_interface::get_default_font (me)->
-	  find_by_name (String ("accidentals.") + style + String ("0"));
-
-      int last_pos = -100;
-      for (; scm_is_pair (old); old = scm_cdr (old))
-	{
-	  SCM found = scm_assoc (scm_caar (old), newas);
-	  if (found == SCM_BOOL_F
-	      || scm_cdr (found) != scm_cdar (old))
-	    {
-	      SCM what = scm_caar (old);
-	      int alteration = 0;
-	      int pos = alteration_pos (what, alteration, c0p);
-
-	      Stencil m = natural;
-	      m.translate_axis (pos * inter, Y_AXIS);
 
 	      /*
 		The natural sign (unlike flat & sharp)
 		has vertical edges on both sides. A little padding is
 		needed to prevent collisions.
 	      */
-	      Real padding = 0.0;
-	      if (last_pos < pos + 2
-		  && last_pos > pos - 6)
-		padding = 0.3;
-
-	      mol.add_at_edge (X_AXIS, LEFT, m, padding, 0);
-	      last_pos = pos;
-	    }
+	  Real padding = 0.0;
+	  if (alteration == 0
+	      && last_pos < pos + 2
+	      && last_pos > pos - 6)
+	    padding = 0.3;
+	  
+	  mol.add_at_edge (X_AXIS, LEFT, acc, padding, 0);
+	  last_pos = pos;
 	}
     }
 
@@ -182,4 +157,4 @@ Key_signature_interface::print (SCM smob)
 
 ADD_INTERFACE (Key_signature_interface, "key-signature-interface",
 	       "A group of accidentals, to be printed as signature sign.",
-	       "style c0-position old-accidentals new-accidentals");
+	       "style c0-position accidentals");
