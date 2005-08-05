@@ -105,10 +105,6 @@ if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
   }
 #endif
 
-Coherent_ligature_engraver::Coherent_ligature_engraver ()
-{
-}
-
 /*
  * TODO: move this function to class Item?
  */
@@ -197,14 +193,6 @@ compute_delta_pitches (Array<Grob_info> primitives)
 }
 
 void
-Coherent_ligature_engraver::build_ligature (Spanner *, Array<Grob_info>)
-{
-  programming_error ("Coherent_ligature_engraver::build_ligature (): "
-		     "this is an abstract method that should not be called, "
-		     "but overridden by a subclass");
-}
-
-void
 Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
 					      Array<Grob_info> primitives)
 {
@@ -217,13 +205,5 @@ Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
   collect_accidentals (ligature, primitives);
 }
 
-#include "translator.icc"
-
-ADD_ACKNOWLEDGER (Coherent_ligature_engraver, note_head);
-ADD_ACKNOWLEDGER (Coherent_ligature_engraver, rest);
-ADD_TRANSLATOR (Coherent_ligature_engraver,
-		/* descr */ "This is an abstract class.  Subclasses such as Gregorian_ligature_engraver handle ligatures by glueing special ligature heads together.",
-		/* creats*/ "",
-		/* accepts */ "ligature-event",
-		/* reads */ "",
-		/* write */ "");
+// no ADD_ACKNOWLEDGER / ADD_ACKNOWLEDGER / ADD_TRANSLATOR macro calls
+// since this class is abstract

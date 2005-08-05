@@ -13,11 +13,12 @@
 class Coherent_ligature_engraver : public Ligature_engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS (Coherent_ligature_engraver);
+  // no TRANSLATOR_DECLARATIONS (Coherent_ligature_engraver) needed
+  // since this class is abstract
 
 protected:
   virtual void build_ligature (Spanner *ligature,
-			       Array<Grob_info> primitives); /* abstract */
+			       Array<Grob_info> primitives) = 0;
   virtual void typeset_ligature (Spanner *ligature,
 				 Array<Grob_info> primitives);
   virtual void get_set_column (Item *, Paper_column *);

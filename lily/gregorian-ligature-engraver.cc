@@ -246,14 +246,6 @@ provide_context_info (Array<Grob_info> primitives)
 }
 
 void
-Gregorian_ligature_engraver::transform_heads (Spanner *, Array<Grob_info>)
-{
-  programming_error ("Gregorian_ligature_engraver::transform_heads (): "
-		     "this is an abstract method that should not be called, "
-		     "but overridden by a subclass");
-}
-
-void
 Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
 					     Array<Grob_info> primitives)
 {
@@ -273,13 +265,5 @@ Gregorian_ligature_engraver::stop_translation_timestep ()
   pes_or_flexa_req_ = 0;
 }
 
-#include "translator.icc"
-
-ADD_ACKNOWLEDGER (Gregorian_ligature_engraver, rest);
-ADD_ACKNOWLEDGER (Gregorian_ligature_engraver, note_head);
-ADD_TRANSLATOR (Gregorian_ligature_engraver,
-		/* descr */ "This is an abstract class.  Subclasses such as Vaticana_ligature_engraver handle ligatures by glueing special ligature heads together.",
-		/* creats*/ "",
-		/* accepts */ "ligature-event",
-		/* reads */ "",
-		/* write */ "");
+// no ADD_ACKNOWLEDGER / ADD_ACKNOWLEDGER / ADD_TRANSLATOR macro calls
+// since this class is abstract
