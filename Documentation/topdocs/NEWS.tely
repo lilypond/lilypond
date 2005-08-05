@@ -159,6 +159,8 @@ will print:
 { a, b, cis d }
 @end verbatim
 
+This feature was contributed by Nicolas Sceaux.
+
 @item
 The current bar number may be checked with @code{\barNumberCheck}, eg.
 
