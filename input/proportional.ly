@@ -3,6 +3,7 @@
   title  = "Proportional notation"
 }
 
+\version "2.7.4"
 
 %% RhythmicStaff broken with 32nd rests ? 
 
