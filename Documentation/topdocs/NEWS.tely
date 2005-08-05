@@ -53,8 +53,8 @@ Tuplets can be made to reach the next non-tuplet note by setting the
 This feature was sponsored by Trevor Baca. 
 
 @item
-When @code{strict-note-spacing} is set, note are spaced without regard
-for clefs, bar lines and grace notes. For example,
+When @code{strict-note-spacing} is set, notes are spaced without regard
+for clefs, bar lines, and grace notes. For example,
 
 @lilypond[fragment,relative=2]
 \override Score.SpacingSpanner #'strict-note-spacing = ##t 
