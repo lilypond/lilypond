@@ -37,7 +37,7 @@ See user manual, \NAME\
 Tuplets can be made to reach the next non-tuplet note by setting the
 @code{tupletFullLength}  property,
 
-@lilypond[fragment]
+@lilypond[fragment,relative=2]
 \new Voice \with {
   \remove  Forbid_line_break_engraver
   allowBeamBreak = ##t
@@ -49,6 +49,7 @@ Tuplets can be made to reach the next non-tuplet note by setting the
 }
 @end lilypond  
 
+This feature was sponsored by Trevor Baca. 
 
 @item
 When @code{strict-note-spacing} is set, note are spaced without regard
