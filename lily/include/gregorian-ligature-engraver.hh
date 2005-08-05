@@ -15,13 +15,15 @@ class Gregorian_ligature_engraver : public Coherent_ligature_engraver
   Music *pes_or_flexa_req_;
 
 public:
-  TRANSLATOR_DECLARATIONS (Gregorian_ligature_engraver);
+  // no TRANSLATOR_DECLARATIONS (Gregorian_ligature_engraver) needed
+  // since this class is abstract
 
 protected:
+  Gregorian_ligature_engraver ();
   virtual bool try_music (Music *);
   virtual void build_ligature (Spanner *ligature, Array<Grob_info> primitives);
   virtual void transform_heads (Spanner *ligature,
-				Array<Grob_info> primitives); /* abstract method */
+				Array<Grob_info> primitives) = 0;
   void stop_translation_timestep ();
 };
 

@@ -11,25 +11,10 @@
 #include "engraver.hh"
 #include "moment.hh"
 
-
-/*
- * FIXME: Spanner *create_ligature_spanner () and virtual void
- * typeset_ligature (...) are abstract methods, such that we would
- * like to declare them abstract:
- *
- *    virtual Spanner *create_ligature_spanner () = 0;
- *    virtual void typeset_ligature (...) = 0;
- *
- * Unfortunately, clone_const_helper() (as expanded from the
- * TRANSLATOR_DECLARATIONS macro) requires this class to be
- * instantiatable, such that it may not have any abstract virtual
- * functions.  As a workaround, the actually abstract methods are
- * implemented, but produce a programming_error whenever called. --jr
- */
-
 class Ligature_engraver : public Engraver
 {
 protected:
+  Ligature_engraver ();
   void stop_translation_timestep ();
   virtual void finalize ();
 
@@ -38,14 +23,15 @@ protected:
   DECLARE_ACKNOWLEDGER (note_head);
   virtual bool try_music (Music *);
   void process_music ();
-  virtual Spanner *create_ligature_spanner (); /* abstract method */
+  virtual Spanner *create_ligature_spanner () = 0;
   virtual void typeset_ligature (Spanner *ligature,
-				 Array<Grob_info> primitives); /* abstract method */
+				 Array<Grob_info> primitives) = 0;
   virtual Spanner *current_ligature ();
   SCM brew_ligature_primitive_proc;
 
 public:
-  TRANSLATOR_DECLARATIONS (Ligature_engraver);
+  // no TRANSLATOR_DECLARATIONS (Ligature_engraver) needed since this
+  // class is abstract
 
 private:
   Drul_array<Music *> events_drul_;

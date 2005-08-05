@@ -1,3 +1,18 @@
+2005-08-05  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* lily/ligature-engaver.cc, lily/coherent-ligature-engaver.cc,
+	lily/gregorian-ligature-engaver.cc,
+	lily/include/ligature-engraver.hh,
+	lily/include/coherent-ligature-engraver.hh,
+	lily/include/gregorian-ligature-engraver.hh: make these classes
+	truely abstract.  This should fix some internal oddities such as
+	duplicate as well as dead translator/property declarations, and
+	also some dead code.
+
+	* lily/ligature-bracket-engraver.cc, lily/ligature-engraver.cc:
+	bugfix: avoid message "junking empty ligature" on ligature
+	brackets by collecting dummy grobs.
+
 2005-08-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/tuplet-bracket.cc (print): default right overshoot to 0.0

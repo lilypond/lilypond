@@ -89,15 +89,6 @@ Ligature_engraver::try_music (Music *m)
   return false;
 }
 
-Spanner *
-Ligature_engraver::create_ligature_spanner ()
-{
-  programming_error ("Ligature_engraver::create_ligature_spanner (): "
-		     "this is an abstract method that should not be called, "
-		     "but overridden by a subclass");
-  return 0;
-}
-
 /*
  * This method should do something that comes close to the following
  * .ly snippet:
@@ -215,14 +206,6 @@ Ligature_engraver::process_music ()
 }
 
 void
-Ligature_engraver::typeset_ligature (Spanner *, Array<Grob_info>)
-{
-  programming_error ("Ligature_engraver::typeset_ligature (): "
-		     "this is an abstract method that should not be called, "
-		     "but overridden by a subclass");
-}
-
-void
 Ligature_engraver::stop_translation_timestep ()
 {
   if (finished_ligature_)
@@ -272,8 +255,11 @@ Ligature_engraver::acknowledge_note_head (Grob_info info)
   if (ligature_)
     {
       primitives_.push (info);
-      info.grob ()->set_property ("print-function",
-				  brew_ligature_primitive_proc);
+      if (info.grob ())
+	{
+	  info.grob ()->set_property ("print-function",
+				      brew_ligature_primitive_proc);
+	}
     }
 }
 
@@ -289,12 +275,5 @@ Ligature_engraver::acknowledge_rest (Grob_info info)
     }
 }
 
-
-ADD_ACKNOWLEDGER (Ligature_engraver, rest);
-ADD_ACKNOWLEDGER (Ligature_engraver, note_head);
-ADD_TRANSLATOR (Ligature_engraver,
-		/* descr */ "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
-		/* creats */ "",
-		/* accepts */ "ligature-event",
-		/* reads */ "",
-		/* write */ "");
+// no ADD_ACKNOWLEDGER / ADD_ACKNOWLEDGER / ADD_TRANSLATOR macro calls
+// since this class is abstract

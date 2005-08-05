@@ -21,6 +21,8 @@ class Ligature_bracket_engraver : public Ligature_engraver
 {
 protected:
   virtual Spanner *create_ligature_spanner ();
+  virtual void typeset_ligature (Spanner *ligature,
+				 Array<Grob_info> primitives);
   DECLARE_ACKNOWLEDGER (rest);
   DECLARE_ACKNOWLEDGER (note_column);
 public:
@@ -38,12 +40,22 @@ Ligature_bracket_engraver::create_ligature_spanner ()
 }
 
 void
+Ligature_bracket_engraver::typeset_ligature (Spanner *, Array<Grob_info>)
+{
+  // no real ligature to typeset; the LigatureBracket just does it
+}
+
+void
 Ligature_bracket_engraver::acknowledge_note_column (Grob_info info)
 {
   if (current_ligature ())
     {
       Tuplet_bracket::add_column (current_ligature (),
 				  dynamic_cast<Item *> (info.grob ()));
+
+      // avoid "junking empty ligature" message by acknowledging dummy
+      // note head
+      Ligature_engraver::acknowledge_note_head (Grob_info ());
     }
 }
 
