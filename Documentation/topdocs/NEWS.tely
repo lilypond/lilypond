@@ -76,7 +76,7 @@ This feature was sponsored by Trevor Baca.
 
 @item
 Proportional notation is supported.  Notes can be spaced proportional
-to their time-difference, by assigning a duration.  to
+to their time-difference by assigning a duration to
 @code{proportionalNotationDuration}. For example,
 
 @lilypond[relative=2,fragment,raggedright]
@@ -90,9 +90,8 @@ to their time-difference, by assigning a duration.  to
 This feature was sponsored by Trevor Baca.
 
 @item 
-LilyPond will space note according to their durations, disregarding
-symbol sizes (e.g. accidentals) if @code{uniform-stretching} of the
-@code{SpacingSpanner} grob is set,
+Symbol sizes (e.g. accidentals) are disregarded for spacing if if
+@code{uniform-stretching} of the @code{SpacingSpanner} grob is set,
 
 
 @lilypond[relative=2,fragment]
