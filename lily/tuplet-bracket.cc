@@ -183,7 +183,7 @@ Tuplet_bracket::print (SCM smob)
       if (connect_to_other[d])
 	{
 	  Interval overshoot (robust_scm2drul (me->get_property ("break-overshoot"),
-					       Interval (-0.5, 1.0)));
+					       Interval (-0.5, 0.0)));
 
 	  if (d == RIGHT)
 	    x_span[d] += d * overshoot[d];
