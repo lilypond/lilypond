@@ -12,6 +12,8 @@
 #include "main.hh"
 #include "string.hh"
 
+#include "ly-module.hh"
+
 /*
   If a variable in changed in SRC, we DEST doesn't see the
   definitions.

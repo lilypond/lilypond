@@ -81,7 +81,9 @@ staffKind = "RhythmicStaff"
     >>
   \new \staffKind {
     \times 9/5 {
-      r8. c16[ c c  c c c
+      r8. c16[ c c
+	       \grace { c32[ c32] }
+	       c16 c c
       c 
     }
     \times 4/7 {

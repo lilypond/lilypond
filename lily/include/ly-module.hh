@@ -19,10 +19,13 @@ SCM ly_module_symbols (SCM mod);
 void ly_reexport_module (SCM mod);
 inline bool ly_is_module (SCM x) { return SCM_MODULEP (x); }
 SCM ly_clear_anonymous_modules ();
+void clear_anonymous_modules ();
 SCM ly_use_module (SCM mod, SCM used);
 
 /* Ugh signature of scm_internal_hash_fold () is inaccurate.  */
 typedef SCM (*Hash_closure_function) ();
+
+#define MODULE_GC_KLUDGE
 
 #endif /* LY_MODULE_HH */
 
