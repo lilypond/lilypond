@@ -1,5 +1,14 @@
 2005-08-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/proportional.ly (staffKind): bugfix.
+	(staffKind): updates by Trevor Baca.
+
+	* scm/define-grobs.scm (all-grob-descriptions): remove arrows as
+	default layout. 
+
+	* lily/tuplet-bracket.cc (print): check whether edge-text is a
+	pair.
+
 	* lily/beam.cc (rest_collision_callback): call position_beam() if
 	necessary.
 

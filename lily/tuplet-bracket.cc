@@ -261,19 +261,22 @@ Tuplet_bracket::print (SCM smob)
 	      height[d] = 0.0;
 	      flare[d] = 0.0;
 	      shorten[d] = 0.0;
-	      
-	      SCM properties = Font_interface::text_font_alist_chain (me);
+
 	      SCM edge_text = me->get_property ("edge-text");
 	      
-	      SCM text = index_get_cell (edge_text, d);
-	      if (Text_interface::is_markup (text))
+	      if (scm_is_pair (edge_text))
 		{
-		  SCM t = Text_interface::interpret_markup (pap->self_scm (), properties,
-							    text);
+		  SCM properties = Font_interface::text_font_alist_chain (me);
+		  SCM text = index_get_cell (edge_text, d);
+		  if (Text_interface::is_markup (text))
+		    {
+		      SCM t = Text_interface::interpret_markup (pap->self_scm (), properties,
+								text);
 		  
-		  Stencil *edge_text = unsmob_stencil (t);
-		  edge_text->translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
-		  edge_stencils[d] = *edge_text;
+		      Stencil *edge_text = unsmob_stencil (t);
+		      edge_text->translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
+		      edge_stencils[d] = *edge_text;
+		    }
 		}
 	    }
 	}

@@ -1485,8 +1485,6 @@
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
-	(edge-text . ,(cons (markup #:arrow-head 0 -1 #f)
-			    (markup #:arrow-head 0 1 #f)))
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(print-function . ,Tuplet_bracket::print)

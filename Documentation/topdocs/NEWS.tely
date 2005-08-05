@@ -108,9 +108,14 @@ Symbol sizes (e.g. accidentals) are disregarded for spacing if if
 This feature was sponsored by Trevor Baca.
  
 @item
-Tuplet brackets get arrows when they are broken across a line.
+Endings of broken tuplet brackets can be tuned.  For example, you can
+add arrows to the brackets,
 
 @lilypond[fragment,raggedright,relative=2]
+\override TupletBracket
+ #'edge-text = #(cons
+             (markup #:arrow-head X LEFT #f)
+             (markup #:arrow-head X RIGHT #f))
 \times 4/5 {
  c c c \bar "empty" \break c c
 }
