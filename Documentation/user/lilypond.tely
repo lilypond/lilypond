@@ -176,7 +176,7 @@ This document is also available in @uref{source/Documentation/user/out-www/lilyp
 
 
 @documentlanguage en
-@documentencoding ISO-8859-1
+@documentencoding utf-8
 
 @syncodeindex fn cp
 @syncodeindex ky cp
