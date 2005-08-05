@@ -24,14 +24,12 @@
    Get the measure wide ant for arithmetic spacing.
 */
 Real
-Spacing_spanner::get_duration_space (Grob *me,
-				     Moment d,
-				     Rational shortest, bool *expand_only)
+Spacing_options::get_duration_space (Moment d,
+				     bool *expand_only) const
 {
-  Real k = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
-  Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
+  Real k = shortest_duration_space_;
 
-  if (d < shortest)
+  if (d < global_shortest_)
     {
       /*
 	We don't space really short notes using the log of the
@@ -49,9 +47,9 @@ Spacing_spanner::get_duration_space (Grob *me,
 
 
       */
-      Rational ratio = d.main_part_ / shortest;
+      Rational ratio = d.main_part_ / global_shortest_;
 
-      return ((k - 1) + double (ratio)) * incr;
+      return ((k - 1) + double (ratio)) * increment_;
     }
   else
     {
@@ -60,12 +58,12 @@ Spacing_spanner::get_duration_space (Grob *me,
 	Report OSU-CISRC-10/87-TR35, Department of Computer and
 	Information Science, The Ohio State University, 1987.
       */
-      Real log = log_2 (shortest);
+      Real log = log_2 (global_shortest_);
       k -= log;
       Rational compdur = d.main_part_ + d.grace_part_ / Rational (3);
       *expand_only = false;
 
-      return (log_2 (compdur) + k) * incr;
+      return (log_2 (compdur) + k) * increment_;
     }
 }
 
@@ -124,7 +122,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
       else
 	{
 	  bool dummy;
-	  *space = *fixed + get_duration_space (me, dt, options->global_shortest_, &dummy);
+	  *space = *fixed + options->get_duration_space (dt, &dummy);
 	}
     }
 }
@@ -174,8 +172,8 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
   Real dist = 0.0;
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
-      dist = get_duration_space (me, shortest_playing_len,
-				 options->global_shortest_, expand_only);
+      dist = options->get_duration_space (shortest_playing_len,
+				  expand_only);
       dist *= double (delta_t.main_part_ / shortest_playing_len.main_part_);
     }
   else if (delta_t.grace_part_)
@@ -185,8 +183,7 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 	available (namely the space for the global shortest note), and
 	multiply that by grace-space-factor
       */
-      dist = get_duration_space (me, options->global_shortest_,
-				 options->global_shortest_, expand_only);
+      dist = options->get_duration_space (options->global_shortest_, expand_only);
 
       Real grace_fact
 	= robust_scm2double (me->get_property ("grace-space-factor"), 1);
@@ -195,4 +192,32 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
     }
 
   return dist;
+}
+
+
+/****************************************************************/
+
+void
+Spacing_options::init_from_grob (Grob *me)
+{
+  increment_ = robust_scm2double (me->get_property ("spacing-increment"), 1);
+
+  packed_ = to_boolean (me->get_property ("packed-spacing"));
+  stretch_uniformly_ = to_boolean (me->get_property ("uniform-stretching"));
+  float_nonmusical_columns_
+    = to_boolean (me->get_property ("strict-note-spacing"));
+  shortest_duration_space_ = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
+}
+
+
+void
+Spacing_options::init ()
+{
+  increment_ = 1.2;
+  packed_ = false;
+  stretch_uniformly_ = false;
+  float_nonmusical_columns_ = false;
+  shortest_duration_space_ = 2.0;
+
+  global_shortest_ = Rational (1,8);
 }

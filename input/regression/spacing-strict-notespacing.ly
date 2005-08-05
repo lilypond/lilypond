@@ -25,7 +25,14 @@ time.  This may cause collisions.  "
 <<
   \override Score.SpacingSpanner #'strict-note-spacing = ##t 
   \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
-  \new Staff { c8[ c \clef alto c c c c]  c4 c2 r2 }
-  \new Staff { c2  \times 2/3 { c8 \clef bass cis,, c } c4 c1 }
+  \new Staff {
+    c8[ c \clef alto c c \grace { d16 }  c8 c]  c4 c2
+    \grace { c16[ c16] }
+    c2 }
+  \new Staff {
+    c2  \times 2/3 { c8 \clef bass cis,, c } 
+    c4
+    c1
+  }
 >>
   

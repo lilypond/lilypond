@@ -382,6 +382,8 @@ Switch off for cadenzas.")
      (tremoloFlags ,integer? "Number of tremolo flags to add if no
 number is specified.")
 
+     (tupletFullLength ,boolean? "If set, the tuplet is printed upto
+the start of the next note.")
      (tupletNumberFormatFunction
       ,procedure?
       "Function taking a music as input, producing a string. This function

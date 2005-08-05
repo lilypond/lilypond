@@ -41,9 +41,10 @@ public:
 
 protected:
   Array<Tuplet_description> tuplets_;
-
+  Link_array<Spanner> last_tuplets_;
   DECLARE_ACKNOWLEDGER (note_column);
   virtual bool try_music (Music *r);
+  virtual void finalize ();
   void start_translation_timestep ();
   void process_music ();
 };
@@ -118,19 +119,32 @@ Tuplet_engraver::start_translation_timestep ()
 {
   Moment now = now_mom ();
 
+  if (tuplets_.is_empty())
+    return;
+
+  Moment tsdmom = robust_scm2moment (get_property ("tupletSpannerDuration"), Moment (0));
+  bool full_length = to_boolean (get_property ("tupletFullLength"));
+
+  last_tuplets_.clear ();
   for (int i = tuplets_.size (); i--;)
     {
-      Moment tsdmom = robust_scm2moment (get_property ("tupletSpannerDuration"), Moment (0));
-
       Rational tsd = tsdmom.main_part_;
 
       if (now.main_part_ >= tuplets_[i].span_stop_)
 	{
-	  if (Spanner *sp = tuplets_[i].spanner_)
+	  if (tuplets_[i].spanner_)
 	    {
-	      if (!sp->get_bound (RIGHT))
-		sp->set_bound (RIGHT, sp->get_bound (LEFT));
+	      if (full_length )
+		{
+		  Item * col = unsmob_item (get_property ("currentMusicalColumn"));
+	      
+		  tuplets_[i].spanner_->set_bound (RIGHT, col);
+		}
+	      else if (!tuplets_[i].spanner_->get_bound (RIGHT))
+		tuplets_[i].spanner_->set_bound (RIGHT,
+						 tuplets_[i].spanner_->get_bound (LEFT));
 
+	      last_tuplets_.push (tuplets_[i].spanner_);
 	      tuplets_[i].spanner_ = 0;
 	    }
 
@@ -145,6 +159,19 @@ Tuplet_engraver::start_translation_timestep ()
     }
 }
 
+void
+Tuplet_engraver::finalize ()
+{
+  if (to_boolean (get_property ("tupletFullLength")))
+    {
+      for (int i = 0; i < last_tuplets_.size (); i++)
+	{
+	  Item * col = unsmob_item (get_property ("currentCommandColumn"));
+	  last_tuplets_[i]->set_bound (RIGHT, col);
+	}
+    }
+}
+
 Tuplet_engraver::Tuplet_engraver ()
 {
 }
@@ -154,5 +181,5 @@ ADD_TRANSLATOR (Tuplet_engraver,
 		/* descr */ "Catch Time_scaled_music and generate appropriate bracket  ",
 		/* creats*/ "TupletBracket",
 		/* accepts */ "time-scaled-music",
-		/* reads */ "tupletNumberFormatFunction tupletSpannerDuration",
+		/* reads */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength" ,
 		/* write */ "");
