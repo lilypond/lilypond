@@ -44,7 +44,6 @@ protected:
 
   DECLARE_ACKNOWLEDGER (clef);
   DECLARE_ACKNOWLEDGER (bar_line);
-  
 };
 
 void
@@ -64,18 +63,36 @@ Key_engraver::create_key (bool is_default)
 {
   if (!item_)
     {
-      item_ = make_item ("KeySignature", key_event_ ? key_event_->self_scm () : SCM_EOL);
+      item_ = make_item ("KeySignature",
+			 key_event_ ? key_event_->self_scm () : SCM_EOL);
 
       item_->set_property ("c0-position",
 			   get_property ("middleCPosition"));
 
       SCM last = get_property ("lastKeySignature");
       SCM key = get_property ("keySignature");
-      if (to_boolean (get_property ("printKeyCancellation"))
+
+      if ((to_boolean (get_property ("printKeyCancellation"))
+	   || key == SCM_EOL)
 	  && !scm_is_eq (last, key))
 	{
-	  cancellation_ = make_item ("KeyCancellation", key_event_ ? key_event_->self_scm () : SCM_EOL);
-	  cancellation_->set_property ("accidentals", last);
+	  cancellation_ = make_item ("KeyCancellation",
+				     key_event_
+				     ? key_event_->self_scm () : SCM_EOL);
+
+	  SCM restore = SCM_EOL;
+	  SCM *tail = &restore;
+	  for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
+	    {
+	      if (scm_assoc (scm_caar (s), key) == SCM_BOOL_F)
+		{
+		  *tail = scm_acons (scm_caar (s),
+				     scm_from_int (0), *tail);
+		  tail = SCM_CDRLOC(*tail);
+		}
+	    }
+	  
+	  cancellation_->set_property ("accidentals", restore);
 	  cancellation_->set_property ("c0-position",
 				       get_property ("middleCPosition"));
 	}
@@ -189,5 +206,7 @@ ADD_TRANSLATOR (Key_engraver,
 		/* descr */ "",
 		/* creats*/ "KeySignature",
 		/* accepts */ "key-change-event",
-		/* reads */ "keySignature printKeyCancellation lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
+		/* reads */ "keySignature printKeyCancellation lastKeySignature "
+		"explicitKeySignatureVisibility createKeyOnClefChange "
+		"keyAccidentalOrder keySignature",
 		/* write */ "lastKeySignature tonic keySignature");

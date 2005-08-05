@@ -1,5 +1,10 @@
 2005-08-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/key-engraver.cc (create_key): always print a cancellation
+	for going to C-major/A-minor, regardless of printKeyCancellation.
+	(create_key): remove typecheck for visibility. This fixes key
+	signature not being printed.
+
 	* lily/spacing-determine-loose-columns.cc: new file.
 
 	* input/regression/spacing-strict-notespacing.ly: new file.
