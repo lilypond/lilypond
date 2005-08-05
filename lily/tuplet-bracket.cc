@@ -193,8 +193,8 @@ Tuplet_bracket::print (SCM smob)
 	}
       else if (d == RIGHT &&
 	       (columns.is_empty ()
-		|| bounds[d] != columns.top()))
-	       
+		|| (bounds[d]->get_column () !=
+		    dynamic_cast<Item*> (columns.top())->get_column ())))
 	{
 	  /*
 	    TODO: make padding tunable? 
