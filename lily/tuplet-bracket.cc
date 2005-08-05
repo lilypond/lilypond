@@ -175,9 +175,10 @@ Tuplet_bracket::print (SCM smob)
     {
       x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
       Direction break_dir = bounds[d]->break_status_dir ();
+      Spanner *orig_spanner = dynamic_cast<Spanner*> (me->original_);
       connect_to_other[d]
 	= (break_dir
-	   && (me->get_break_index() - break_dir < me->broken_intos_.size()));
+	   && (me->get_break_index() - break_dir < orig_spanner->broken_intos_.size()));
       
       if (connect_to_other[d])
 	{

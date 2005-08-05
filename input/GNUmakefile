@@ -2,7 +2,7 @@ depth = ..
 
 SUBDIRS = test regression tutorial no-notation mutopia 
 
-examples = typography-demo les-nereides puer-fragment wilhelmus sakura-sakura
+examples = typography-demo les-nereides puer-fragment wilhelmus sakura-sakura proportional
 #xiao-haizi-guai-guai
 
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
