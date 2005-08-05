@@ -15,6 +15,8 @@
 #include "clef.hh"
 #include "pitch.hh"
 
+#include "translator.icc"
+
 /*
   TODO: The representation  of key sigs is all fucked.
 */
@@ -25,9 +27,9 @@
 class Key_engraver : public Engraver
 {
   void create_key (bool);
-  void read_ev (Music const *r);
+  void read_event (Music const *r);
 
-  Music *key_ev_;
+  Music *key_event_;
   Item *item_;
   Item *cancellation_;
 public:
@@ -36,7 +38,7 @@ public:
 protected:
   virtual void initialize ();
   virtual void finalize ();
-  virtual bool try_music (Music *ev);
+  virtual bool try_music (Music *event);
   void stop_translation_timestep ();
   void process_music ();
 
@@ -52,17 +54,17 @@ Key_engraver::finalize ()
 
 Key_engraver::Key_engraver ()
 {
-  key_ev_ = 0;
+  key_event_ = 0;
   item_ = 0;
   cancellation_ = 0;
 }
 
 void
-Key_engraver::create_key (bool def)
+Key_engraver::create_key (bool is_default)
 {
   if (!item_)
     {
-      item_ = make_item ("KeySignature", key_ev_ ? key_ev_->self_scm () : SCM_EOL);
+      item_ = make_item ("KeySignature", key_event_ ? key_event_->self_scm () : SCM_EOL);
 
       item_->set_property ("c0-position",
 			   get_property ("middleCPosition"));
@@ -72,32 +74,31 @@ Key_engraver::create_key (bool def)
       if (to_boolean (get_property ("printKeyCancellation"))
 	  && !scm_is_eq (last, key))
 	{
-	  cancellation_ = make_item ("KeyCancellation", key_ev_ ? key_ev_->self_scm () : SCM_EOL);
-	  cancellation_->set_property ("old-accidentals", last);
+	  cancellation_ = make_item ("KeyCancellation", key_event_ ? key_event_->self_scm () : SCM_EOL);
+	  cancellation_->set_property ("accidentals", last);
 	  cancellation_->set_property ("c0-position",
 				       get_property ("middleCPosition"));
 	}
-      item_->set_property ("new-accidentals", key);
+      item_->set_property ("accidentals", key);
     }
 
-  if (!def)
+  if (!is_default)
     {
-      SCM vis = get_property ("explicitKeySignatureVisibility");
-      if (ly_is_procedure (vis))
-	item_->set_property ("break-visibility", vis);
+      SCM visibility = get_property ("explicitKeySignatureVisibility");
+      item_->set_property ("break-visibility", visibility);
     }
 }
 
 bool
-Key_engraver::try_music (Music *ev)
+Key_engraver::try_music (Music *event)
 {
-  if (ev->is_mus_type ("key-change-event"))
+  if (event->is_mus_type ("key-change-event"))
     {
       /* do this only once, just to be on the safe side.  */
-      if (!key_ev_)
+      if (!key_event_)
 	{
-	  key_ev_ = ev;
-	  read_ev (key_ev_);
+	  key_event_ = event;
+	  read_event (key_event_);
 	}
       return true;
     }
@@ -128,7 +129,7 @@ Key_engraver::acknowledge_bar_line (Grob_info info)
 void
 Key_engraver::process_music ()
 {
-  if (key_ev_
+  if (key_event_
       || get_property ("lastKeySignature") != get_property ("keySignature"))
     create_key (false);
 }
@@ -139,11 +140,11 @@ Key_engraver::stop_translation_timestep ()
   item_ = 0;
   context ()->set_property ("lastKeySignature", get_property ("keySignature"));
   cancellation_ = 0;
-  key_ev_ = 0;
+  key_event_ = 0;
 }
 
 void
-Key_engraver::read_ev (Music const *r)
+Key_engraver::read_event (Music const *r)
 {
   SCM p = r->get_property ("pitch-alist");
   if (!scm_is_pair (p))
@@ -180,10 +181,10 @@ Key_engraver::initialize ()
   context ()->set_property ("tonic", p.smobbed_copy ());
 }
 
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Key_engraver,clef);
 ADD_ACKNOWLEDGER (Key_engraver,bar_line);
+
 ADD_TRANSLATOR (Key_engraver,
 		/* descr */ "",
 		/* creats*/ "KeySignature",
