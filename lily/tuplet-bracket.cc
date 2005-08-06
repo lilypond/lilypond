@@ -65,11 +65,11 @@ Grob *
 Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool *equally_long)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
-  
+
   if (me->get_bound (LEFT)->break_status_dir ()
       || me->get_bound (RIGHT)->break_status_dir ())
     return 0;
-  
+
   Grob *s1 = Note_column::get_stem (cols[0]);
   Grob *s2 = Note_column::get_stem (cols.top ());
 
@@ -168,7 +168,7 @@ Tuplet_bracket::print (SCM smob)
   bounds[LEFT] = get_x_bound_item (me, LEFT, dir);
   bounds[RIGHT] = get_x_bound_item (me, RIGHT, dir);
 
-  Drul_array<bool> connect_to_other; 
+  Drul_array<bool> connect_to_other;
   Interval x_span;
   Direction d = LEFT;
   do
@@ -179,7 +179,7 @@ Tuplet_bracket::print (SCM smob)
       connect_to_other[d]
 	= (break_dir
 	   && (me->get_break_index() - break_dir < orig_spanner->broken_intos_.size()));
-      
+
       if (connect_to_other[d])
 	{
 	  Interval overshoot (robust_scm2drul (me->get_property ("break-overshoot"),
@@ -191,13 +191,13 @@ Tuplet_bracket::print (SCM smob)
 	    x_span[d] = robust_relative_extent(bounds[d], commonx, X_AXIS)[RIGHT]
 	      - overshoot[LEFT];
 	}
-      else if (d == RIGHT &&
-	       (columns.is_empty ()
-		|| (bounds[d]->get_column () !=
-		    dynamic_cast<Item*> (columns.top())->get_column ())))
+      else if (d == RIGHT
+	       && (columns.is_empty ()
+		|| (bounds[d]->get_column ()
+		    != dynamic_cast<Item*> (columns.top())->get_column ())))
 	{
 	  /*
-	    TODO: make padding tunable? 
+	    TODO: make padding tunable?
 	   */
 	  x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS) [LEFT] - 1.0;
 	}
@@ -212,7 +212,8 @@ Tuplet_bracket::print (SCM smob)
   if (scm_is_string (number) && number_visibility)
     {
       SCM properties = Font_interface::text_font_alist_chain (me);
-      SCM snum = Text_interface::interpret_markup (pap->self_scm (), properties, number);
+      SCM snum = Text_interface::interpret_markup (pap->self_scm (),
+						   properties, number);
       num = *unsmob_stencil (snum);
       num.align_to (X_AXIS, CENTER);
       num.translate_axis (w / 2, X_AXIS);
@@ -241,7 +242,7 @@ Tuplet_bracket::print (SCM smob)
       if (!num.extent (X_AXIS).is_empty ())
 	gap = num.extent (X_AXIS).length () + 1.0;
 
-      Drul_array<Real> zero (0,0);
+      Drul_array<Real> zero (0, 0);
       Real ss = Staff_symbol_referencer::staff_space (me);
       Drul_array<Real> height
 	= robust_scm2drul (me->get_property ("edge-height"), zero);
@@ -250,7 +251,7 @@ Tuplet_bracket::print (SCM smob)
       Drul_array<Real> shorten
 	= robust_scm2drul (me->get_property ("shorten-pair"), zero);
       Drul_array<Stencil> edge_stencils;
-      
+
       scale_drul (&height, -ss * dir);
       scale_drul (&flare, ss);
       scale_drul (&shorten, ss);
@@ -263,16 +264,15 @@ Tuplet_bracket::print (SCM smob)
 	      shorten[d] = 0.0;
 
 	      SCM edge_text = me->get_property ("edge-text");
-	      
+
 	      if (scm_is_pair (edge_text))
 		{
 		  SCM properties = Font_interface::text_font_alist_chain (me);
 		  SCM text = index_get_cell (edge_text, d);
 		  if (Text_interface::is_markup (text))
 		    {
-		      SCM t = Text_interface::interpret_markup (pap->self_scm (), properties,
-								text);
-		  
+		      SCM t = Text_interface::interpret_markup (pap->self_scm (), properties, text);
+
 		      Stencil *edge_text = unsmob_stencil (t);
 		      edge_text->translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
 		      edge_stencils[d] = *edge_text;
@@ -282,7 +282,7 @@ Tuplet_bracket::print (SCM smob)
 	}
       while (flip (&d) != LEFT);
 
- 
+
       Stencil brack = make_bracket (me, Y_AXIS,
 				    Offset (w, ry - ly),
 				    height,
@@ -300,7 +300,7 @@ Tuplet_bracket::print (SCM smob)
 	}
       while (flip (&d) != LEFT);
 
-      
+
       mol.add_stencil (brack);
     }
 
@@ -401,15 +401,15 @@ void
 Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 {
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
-  
+
   extract_grob_set (me, "note-columns", columns);
   extract_grob_set (me, "tuplets", tuplets);
-  
+
   Grob *commony = common_refpoint_of_array (columns, me, Y_AXIS);
   commony = common_refpoint_of_array (tuplets, commony, Y_AXIS);
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
     {
-      commony = st->common_refpoint (commony, Y_AXIS); 
+      commony = st->common_refpoint (commony, Y_AXIS);
     }
 
   Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
@@ -468,7 +468,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Array<Offset> points;
   points.push (Offset (x0, staff[dir]));
   points.push (Offset (x1, staff[dir]));
-  
+
   for (int i = 0; i < columns.size (); i++)
     {
       Interval note_ext = columns[i]->extent (commony, Y_AXIS);
@@ -477,11 +477,11 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
       points.push (Offset (x, notey));
     }
-  
+
   /*
     This is a slight hack. We compute two encompass points from the
     bbox of the smaller tuplets.
-    
+
     We assume that the smaller bracket is 1.0 space high.
   */
   Real ss = Staff_symbol_referencer::staff_space (me);
@@ -497,8 +497,8 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
       do
 	{
-	  Real y =
-	    tuplet_y.linear_combination (d * sign (other_dy));
+	  Real y
+	    = tuplet_y.linear_combination (d * sign (other_dy));
 
 #if 0
 	  /*
@@ -507,14 +507,15 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 	    nested tuplets?
 	   */
 	  Drul_array<Real> my_height
-	    = robust_scm2drul (me->get_property ("edge-height"), Interval (0,0));
+	    = robust_scm2drul (me->get_property ("edge-height"),
+			       Interval (0, 0));
 	  if (dynamic_cast<Spanner*> (tuplets[i])->get_bound (d)
 	      ==  me->get_bound (d))
 	    {
 	      y += dir * my_height[d];
 	    }
 #endif
-	  
+
 	  points.push (Offset (tuplet_x[d] - x0, y));
 	}
       while (flip (&d) != LEFT);
@@ -526,9 +527,9 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       Real tuplety = *dy * x * factor;
 
       if (points[i][Y_AXIS] * dir > (*offset + tuplety) * dir)
-	*offset = points[i][Y_AXIS] - tuplety;
+	*offset = points[i][Y_AXIS] - tuplety * sign (*dy) * dir;
     }
-		  
+
   *offset += scm_to_double (me->get_property ("padding")) * dir;
 
   /*
@@ -538,8 +539,8 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
     let's leave code for the future when possibly allow them to move
     into the staff once again.
   */
-  if (*dy == 0 &&
-      fabs (*offset) < ss * Staff_symbol_referencer::staff_radius (me))
+  if (*dy == 0
+      && fabs (*offset) < ss * Staff_symbol_referencer::staff_radius (me))
     {
       // quantize, then do collision check.
       *offset *= 2 / ss;
@@ -611,7 +612,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 	duh. magic.
       */
       offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));
-      dy = rp- lp;
+      dy = rp - lp;
     }
 
   SCM lp = me->get_property ("left-position");
