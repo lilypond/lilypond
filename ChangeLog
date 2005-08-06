@@ -1,3 +1,8 @@
+2005-08-05  Graham Percival  <gperlist@shaw.ca>
+
+	* scm/define-markup-commands: fix reversed justify/wordwrap
+	doc strings.
+
 2005-08-05  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* lily/ligature-engaver.cc, lily/coherent-ligature-engaver.cc,
