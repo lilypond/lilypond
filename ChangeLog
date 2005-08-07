@@ -1,3 +1,9 @@
+2005-08-07  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/instrument-notation.itely: moved
+	some bagpipe info back into the bagpipe section.  Somehow
+	it ended up in the "other vocal issues" section?!  :o_O
+
 2005-08-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-ps.scm (dir-join): Rename from path-join (joins
