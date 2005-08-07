@@ -1,9 +1,8 @@
-;;
-;; framework-ps.scm -- structure for PostScript output
-;;
-;;  source file of the GNU LilyPond music typesetter
-;;
-;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; framework-ps.scm -- structure for PostScript output
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;;
+;;;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm framework-ps))
 
@@ -239,7 +238,7 @@
       (format
        (if (string? name)
 	   "(~a) (r) file .loadfont\n"
-	   "% fontfile ~a could not be found\n")
+	   "% can't find font file: ~a\n")
        name))
 
     (let* ((font (car font-name-filename))
@@ -256,11 +255,10 @@
 	((string? bare-file-name)
 	 (ps-load-file (munge-lily-font-name file-name)))
 	(else
-	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
+	 (ly:warning (_ "can't embed ~S=~S") name file-name)
 	  "")))))
 
-  ;; ugh.  posix /windows/mingw? 
-  (define (path-join a b)
+  (define (dir-join a b)
     (if (equal? a "")
 	b
 	(string-append a "/" b)))
@@ -291,19 +289,19 @@
 	 (if (and (not embed)
 		  (string-match (string-append name "\\.") f))
 	     (set! embed
-		   (font-file-as-ps-string name (path-join dir-name f))))
+		   (font-file-as-ps-string name (dir-join dir-name f))))
 	     
 	 (if (or (equal? "." f) 
 		 (equal? ".." f))
 	     #t
-	     (delete-file (path-join dir-name f))))
+	     (delete-file (dir-join dir-name f))))
        files)
       (rmdir dir-name)
 
       (if (not embed)
 	  (begin
 	    (set! embed "% failed \n")
-	    (ly:warning (_ "Couldn't extract file matching ~a from ~a") name filename)))
+	    (ly:warning (_ "can't extract file matching ~a from ~a") name filename)))
       embed))
 
     (define (font-file-as-ps-string name file-name)
@@ -321,8 +319,7 @@
 	(ps-embed-cff (ly:otf->cff file-name) name 0))
        (else
 	(ly:warning (_ "don't know how to embed ~S=~S") name file-name)
-	"")
-       )))
+	""))))
       
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
@@ -411,6 +408,9 @@
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
 	 (outputter (ly:make-paper-outputter
+		     ;; FIXME: better wrap open/open-file,
+		     ;; content-mangling is always bad.
+		     ;; MINGW hack: need to have "b"inary for embedding CFFs
 		     (open-file filename "wb")
 		     "ps"))
 	 (paper (ly:paper-book-paper book))
@@ -456,8 +456,9 @@
 	  (max (1+ (cadr box)) (cadddr box)))))
 
   (let* ((outputter (ly:make-paper-outputter
-
-		     ;; need to have binary for embedding CFFs
+		     ;; FIXME: better wrap open/open-file,
+		     ;; content-mangling is always bad.
+		     ;; MINGW hack: need to have "b"inary for embedding CFFs
 		     (open-file (format "~a.eps" filename) "wb")
 		     "ps"))
 	 (port (ly:outputter-port outputter))
