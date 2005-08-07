@@ -193,7 +193,7 @@
   ;; PFAaybabtu.otf.pfa, but the second case now produces aybabtu.otf,
   ;; which still fails because .otf files cannot be embedded.
   (regexp-substitute/global #f "^([eE]mmentaler|[aA]ybabtu)"
-			    name 'pre "PFA" 1 'post ".pfa"))
+			    name 'pre "PFA" 1 'post))
 
 (define (cff-font? font)
   (let*
@@ -250,9 +250,9 @@
       (cons
        (munge-lily-font-name name)
        (cond
-	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
+	((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
 	 (ps-load-file (ly:find-file
-			(munge-lily-font-name file-name))))
+			(format "~a.pfa" (munge-lily-font-name file-name)))))
 	((string? bare-file-name)
 	 (ps-load-file (munge-lily-font-name file-name)))
 	(else
@@ -333,8 +333,9 @@
       (cons
        (munge-lily-font-name name)
        (cond
-	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
-	 (cached-file-contents (munge-lily-font-name file-name)))
+	((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
+	 (cached-file-contents
+	  (format "~a.pfa" (munge-lily-font-name file-name))))
 	((and
 	  (eq? PLATFORM 'darwin)
 	  bare-file-name (string-match "\\.dfont" bare-file-name))
