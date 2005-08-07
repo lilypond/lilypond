@@ -1,3 +1,8 @@
+2005-08-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/framework-ps.scm (dir-join): Rename from path-join (joins
+	directories, not paths).
+
 2005-08-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-ps.scm (munge-lily-font-name): Bugfix: Munge only
