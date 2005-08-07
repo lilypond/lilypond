@@ -1,3 +1,8 @@
+2005-08-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/framework-ps.scm (munge-lily-font-name): Bugfix: Munge only
+	plain emmentaler/aybabtu.  Backport.
+
 2005-08-04  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/lilypond.tely: set documentencoding utf-8.

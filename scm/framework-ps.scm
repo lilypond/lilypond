@@ -1,9 +1,8 @@
-;;
-;; framework-ps.scm -- structure for PostScript output
-;;
-;;  source file of the GNU LilyPond music typesetter
-;;
-;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; framework-ps.scm -- structure for PostScript output
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;;
+;;;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm framework-ps))
 
@@ -189,7 +188,10 @@
    "%%EndSetup\n"))
 
 (define-public (munge-lily-font-name name)
-  (regexp-substitute/global #f "([eE]mmentaler|[aA]ybabtu)"
+  ;; FIXME: this fixes PFAPAFemmentaler.pfapfa, and also
+  ;; PFAaybabtu.otf.pfa, but the second case now produces aybabtu.otf,
+  ;; which still fails because .otf files cannot be embedded.
+  (regexp-substitute/global #f "^([eE]mmentaler|[aA]ybabtu)"
 			    name 'pre "PFA" 1 'post))
 
 (define (cff-font? font)
@@ -236,7 +238,7 @@
       (format
        (if (string? name)
 	   "(~a) (r) file .loadfont\n"
-	   "% fontfile ~a could not be found\n")
+	   "% can't find font file: ~a\n")
        name))
 
     (let* ((font (car font-name-filename))
@@ -247,17 +249,16 @@
       (cons
        (munge-lily-font-name name)
        (cond
-	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
+	((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
 	 (ps-load-file (ly:find-file
 			(format "~a.pfa" (munge-lily-font-name file-name)))))
 	((string? bare-file-name)
 	 (ps-load-file (munge-lily-font-name file-name)))
 	(else
-	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
+	 (ly:warning (_ "can't embed ~S=~S") name file-name)
 	  "")))))
 
-  ;; ugh.  posix /windows/mingw? 
-  (define (path-join a b)
+  (define (dir-join a b)
     (if (equal? a "")
 	b
 	(string-append a "/" b)))
@@ -288,19 +289,19 @@
 	 (if (and (not embed)
 		  (string-match (string-append name "\\.") f))
 	     (set! embed
-		   (font-file-as-ps-string name (path-join dir-name f))))
+		   (font-file-as-ps-string name (dir-join dir-name f))))
 	     
 	 (if (or (equal? "." f) 
 		 (equal? ".." f))
 	     #t
-	     (delete-file (path-join dir-name f))))
+	     (delete-file (dir-join dir-name f))))
        files)
       (rmdir dir-name)
 
       (if (not embed)
 	  (begin
 	    (set! embed "% failed \n")
-	    (ly:warning (_ "Couldn't extract file matching ~a from ~a") name filename)))
+	    (ly:warning (_ "can't extract file matching ~a from ~a") name filename)))
       embed))
 
     (define (font-file-as-ps-string name file-name)
@@ -318,19 +319,18 @@
 	(ps-embed-cff (ly:otf->cff file-name) name 0))
        (else
 	(ly:warning (_ "don't know how to embed ~S=~S") name file-name)
-	"")
-       )))
+	""))))
       
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
 	   (file-name (caddr font-name-filename))
 	   (bare-file-name (ly:find-file file-name)))
-
+      
       (cons
        (munge-lily-font-name name)
        (cond
-	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
+	((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
 	 (cached-file-contents
 	  (format "~a.pfa" (munge-lily-font-name file-name))))
 	((and
@@ -407,7 +407,12 @@
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
-	 (outputter (ly:make-paper-outputter filename "ps"))
+	 (outputter (ly:make-paper-outputter
+		     ;; FIXME: better wrap open/open-file,
+		     ;; content-mangling is always bad.
+		     ;; MINGW hack: need to have "b"inary for embedding CFFs
+		     (open-file filename "wb")
+		     "ps"))
 	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -415,6 +420,8 @@
 	 (page-count (length pages))
 	 (port (ly:outputter-port outputter)))
 
+    (paper-book-write-midis book basename)
+    
     (output-scopes scopes fields basename)
     (display (page-header paper page-count #t) port)
     (write-preamble paper #t port)
@@ -448,7 +455,12 @@
 	  (max (1+ (car box)) (caddr box))
 	  (max (1+ (cadr box)) (cadddr box)))))
 
-  (let* ((outputter (ly:make-paper-outputter (format "~a.eps" filename) "ps"))
+  (let* ((outputter (ly:make-paper-outputter
+		     ;; FIXME: better wrap open/open-file,
+		     ;; content-mangling is always bad.
+		     ;; MINGW hack: need to have "b"inary for embedding CFFs
+		     (open-file (format "~a.eps" filename) "wb")
+		     "ps"))
 	 (port (ly:outputter-port outputter))
 	 (xext (ly:stencil-extent dump-me X))
 	 (yext (ly:stencil-extent dump-me Y))
