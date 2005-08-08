@@ -1,3 +1,10 @@
+2005-08-08  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/programming-interface.itely: fix @{ @}.
+
+	* scm/define-markup-commands.scm: add linewidth info to
+	\justify and \wordwrap.
+
 2005-08-08  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/programming-interface.itely (Markup

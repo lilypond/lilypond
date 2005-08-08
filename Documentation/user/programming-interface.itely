@@ -455,8 +455,8 @@ providing a LilyPond-like syntax.  For example,
 @noindent
 is equivalent to:
 @example
-\markup \column { \line @{ \bold \italic "hello" \raise #0.4 "world" @}
-                  \bigger \line @{ foo bar baz @} }
+\markup \column @{ \line @{ \bold \italic "hello" \raise #0.4 "world" @}
+                  \bigger \line @{ foo bar baz @} @}
 @end example
 
 @noindent
