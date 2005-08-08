@@ -455,8 +455,8 @@ providing a LilyPond-like syntax.  For example,
 @noindent
 is equivalent to:
 @example
-\markup \column < @{ \bold \italic "hello" \raise #0.4 "world" @}
-                  \bigger @{ foo bar baz @} >
+\markup \column { \line @{ \bold \italic "hello" \raise #0.4 "world" @}
+                  \bigger \line @{ foo bar baz @} }
 @end example
 
 @noindent
@@ -467,9 +467,12 @@ is this table:
 @quotation
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
+@item @b{LilyPond} @tab @b{Scheme}
+@item @code{\markup @{ ... @}} @tab @code{( markup ... )}
+@item @code{\markup @{ markup1 markup2 ... @}} @tab 
+        @code{(markup #:line ( markup1 markup2 ... ))}
 @item @code{\command} @tab @code{#:command}
 @item @code{\variable} @tab @code{variable}
-@item @code{@{ ... @}} @tab @code{#:line ( ... )}
 @item @code{\center-align @{ ... @}} @tab @code{#:center-align ( ... )}
 @item @code{string} @tab @code{"string"}
 @item @code{#scheme-arg} @tab @code{scheme-arg}

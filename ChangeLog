@@ -1,3 +1,9 @@
+2005-08-08  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/programming-interface.itely (Markup
+	construction in Scheme): Corrected example and tried to clarify
+	the implicit \line in the table.
+
 2005-08-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-ps.scm (munge-lily-font-name): Bugfix: Munge only
