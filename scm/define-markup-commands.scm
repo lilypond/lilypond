@@ -466,12 +466,15 @@ determines the space between each markup in @var{args}."
     (stack-lines DOWN 0.0 baseline-skip lines)))
 
 (def-markup-command (justify layout props args) (markup-list?)
-  "Like wordwrap, but with lines stretched to justify the margins."
+  "Like wordwrap, but with lines stretched to justify the margins.
+Use @code{\override #'(linewidth . X)} to set linewidth, where X
+is the number of staff spaces."
 
   (wordwrap-markups layout props args #t))
 
 (def-markup-command (wordwrap layout props args) (markup-list?)
-  "Simple wordwrap"
+  "Simple wordwrap.  Use @code{\override #'(linewidth . X)} to set
+linewidth, where X is the number of staff spaces."
 
   (wordwrap-markups layout props args #f))
 
