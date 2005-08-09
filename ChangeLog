@@ -3,7 +3,7 @@
 	* Documentation/user/programming-interface.itely: fix @{ @}.
 
 	* scm/define-markup-commands.scm: add linewidth info to
-	\justify and \wordwrap.
+	\justify and \wordwrap, add "upright is the opposite of italic".
 
 	* Documentation/user/advanced-notation.itely: shaped->shape,
 	add (cons (markup "foo")) type of example to text markup.
