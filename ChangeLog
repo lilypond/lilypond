@@ -16,6 +16,9 @@
 
 	* THANKS: add Bruce Fairchild, alphabetise.
 
+	* Documentation/user/global.itely: document \score{\header{}}
+	behavior.
+
 2005-08-08  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/programming-interface.itely (Markup
