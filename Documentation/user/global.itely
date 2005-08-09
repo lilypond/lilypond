@@ -984,7 +984,7 @@ You may change this behavior (and print all the headers when defining
 
 @example
 \paper@{
-   scoreTitleMarkup = \bookTitleMarkup
+  printallheaders=##t
 @}
 @end example
 
