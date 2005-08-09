@@ -5,6 +5,16 @@
 	* scm/define-markup-commands.scm: add linewidth info to
 	\justify and \wordwrap.
 
+	* Documentation/user/advanced-notation.itely: shaped->shape
+
+	* lily/note-heads-engraver.cc: changed Shaped->Shape in a
+	comment.  No actual code was touched.
+
+	* Documentation/user/invoking.itely: add more info about
+	\include.  Thanks, Bruce!
+
+	* THANKS: add Bruce Fairchild, alphabetise.
+
 2005-08-08  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/programming-interface.itely (Markup

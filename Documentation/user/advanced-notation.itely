@@ -1836,7 +1836,7 @@ teaching tools in addition to great musical scores.
 * Balloon help::                
 * Blank music sheet::           
 * Hidden notes::                
-* Shaped note heads ::          
+* Shape note heads ::          
 * Easy Notation note heads::    
 * Analysis brackets::           
 * Coloring objects::            
@@ -1938,14 +1938,14 @@ as possible.
 @end lilypond
 
 
-@node Shaped note heads 
-@subsection Shaped note heads 
+@node Shape note heads 
+@subsection Shape note heads 
 
-In shaped note head notation, the shape of the note head corresponds
+In shape note head notation, the shape of the note head corresponds
 to the harmonic function of a note in the scale.  This notation was
 popular in the 19th century American song books.
 
-Shaped note heads can be produced by setting @code{\aikenHeads} or
+Shape note heads can be produced by setting @code{\aikenHeads} or
 @code{\sacredHarpHeads}, depending on the style desired.
 
 @lilypond[verbatim,relative=1,fragment]
@@ -1963,7 +1963,7 @@ scale is determined by  the @code{\key} command
 @findex \aikenHeads
 @findex \sacredHarpHeads
 
-Shaped note heads are implemented through the @code{shapeNoteStyles}
+Shape note heads are implemented through the @code{shapeNoteStyles}
 property.  Its value is a vector of symbols.  The k-th element indicates
 the style to use for the k-th step of the scale.  Arbitrary
 combinations are possible, eg.,
