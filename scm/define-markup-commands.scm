@@ -758,7 +758,7 @@ recommend font for this is bold and italic"
    layout (prepend-alist-chain 'font-family 'typewriter props) arg))
 
 (def-markup-command (upright layout props arg) (markup?)
-  "Set font shape to @code{upright}."
+  "Set font shape to @code{upright}.  This is the opposite of @code{italic}."
   (interpret-markup
    layout (prepend-alist-chain 'font-shape 'upright props) arg))
 
