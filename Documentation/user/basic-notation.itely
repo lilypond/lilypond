@@ -231,7 +231,8 @@ r1 r2 r4 r8
 @end lilypond
 
 Whole bar rests, centered in middle of the bar,
-must be done with multi-measure rests.  They are discussed in
+must be done with multi-measure rests.  They can be used for a
+single bar as well as many bars, and are discussed in
 @ref{Multi measure rests}.
 
 

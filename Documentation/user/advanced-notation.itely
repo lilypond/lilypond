@@ -556,13 +556,15 @@ individual parts.
 @subsection Multi measure rests
 
 @cindex multi measure rests
+@cindex full measure rests
 @cindex Rests, multi measure
+@cindex Rests, full measure
 @cindex whole rests for a full measure
 @cindex @code{R}
 
-Multi-measure rests are entered using `@code{R}'.  It is specifically
-meant for full bar rests and for entering parts: the rest can expand
-to fill a score with rests, or it can be printed as a single
+Rests for one full measure (or many bars) are entered using `@code{R}'.  It
+is specifically meant for full bar rests and for entering parts: the rest
+can expand to fill a score with rests, or it can be printed as a single
 multi-measure rest.  This expansion is controlled by the property
 @code{Score.skipBars}.  If this is set to true, empty measures will not
 be expanded, and the appropriate number is added automatically
