@@ -95,7 +95,7 @@ Note_heads_engraver::process_music ()
       note->set_property ("staff-position", scm_from_int (pos));
 
       /*
-	Shaped note heads change on step of the scale.
+	Shape note heads change on step of the scale.
       */
       SCM shape_vector = get_property ("shapeNoteStyles");
       if (scm_is_vector (shape_vector))
