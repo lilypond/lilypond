@@ -5,7 +5,8 @@
 	* scm/define-markup-commands.scm: add linewidth info to
 	\justify and \wordwrap.
 
-	* Documentation/user/advanced-notation.itely: shaped->shape
+	* Documentation/user/advanced-notation.itely: shaped->shape,
+	add (cons (markup "foo")) type of example to text markup.
 
 	* lily/note-heads-engraver.cc: changed Shaped->Shape in a
 	comment.  No actual code was touched.

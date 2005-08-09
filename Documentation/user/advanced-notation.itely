@@ -215,9 +215,10 @@ but it can also be used anywhere text is called in lilypond
 
     \set Staff.instrument = \markup{ \column{ Alto solo } }
     c2^\markup{ don't be \flat }
-    b2
+    \override TextSpanner #'edge-text = #(cons (markup #:italic "rit" ) "")
+    b2\startTextSpan
     a2\mark \markup{ \large \bold Fine }
-    r2
+    r2\stopTextSpan
     \bar "||"
   }
   \addlyrics { bar, foo \markup{ \italic bar! } }
