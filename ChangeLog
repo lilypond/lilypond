@@ -6,7 +6,8 @@
 	\justify and \wordwrap, add "upright is the opposite of italic".
 
 	* Documentation/user/advanced-notation.itely: shaped->shape,
-	add (cons (markup "foo")) type of example to text markup.
+	add (cons (markup "foo")) type of example to text markup,
+	reword multi-measure rests section.
 
 	* lily/note-heads-engraver.cc: changed Shaped->Shape in a
 	comment.  No actual code was touched.
@@ -18,6 +19,9 @@
 
 	* Documentation/user/global.itely: document \score{\header{}}
 	behavior.
+
+	* Documentation/user/basic-notation.itely: reword multi-measure
+	rest discussion in Rests.
 
 2005-08-08  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
