@@ -949,7 +949,7 @@ As demonstrated before, you can use multiple @code{\header} blocks.
 When same fields appear in different blocks, the latter is used.  
 Here is a short example.
 
-@example 
+a@example 
 \header @{
   composer = "Composer"
 @}
@@ -959,10 +959,37 @@ Here is a short example.
 \score @{
   \new Staff @{ c'4 @}
   \header @{
-    title = "New title" %overwrite previous one
+    title = "New title"  % overwrite previous one
   @}
 @}
 @end example
+
+If you define the @code{\header} inside the @code{\score} block, then
+normally only the @code{piece} and @code{opus} headers will be printed.
+
+@lilypond[quote,verbatim,linewidth=11.0\cm]
+\score {
+  { c'4 }
+  \header {
+    title = "title"  % not printed
+    piece = "piece"
+    opus = "opus"
+  }
+}
+@end lilypond
+
+@noindent
+You may change this behavior (and print all the headers when defining
+@code{\header} inside @code{\score}) by using
+
+@example
+\paper@{
+   scoreTitleMarkup = \bookTitleMarkup
+@}
+@end example
+
+
+@commonprop
 
 A more advanced option is to change the definitions of the following
 variables in the @code{\paper} block.  The init file
