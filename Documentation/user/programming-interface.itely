@@ -315,6 +315,7 @@ exporting LilyPond input to other formats
 
 @cindex internal storage
 @cindex @code{\displayMusic}
+@cindex @code{\displayLilyMusic}
 
 When writing a music function, it is often instructive to inspect how
 a music expression is stored internally.  This can be done with the
@@ -322,10 +323,24 @@ music function @code{\displayMusic}.
 
 @example
 @{
-\displayMusic @{ c'4\f @}
+  \displayMusic @{ c'4\f @}
 @}
 @end example
 
+Conversely, displaying a music expression in LilyPond notation can be
+done using the music function @code{\displayLilyMusic}. For instance:
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c e g a bes @}
+@}
+@end example
+
+will display:
+
+@example
+@{ a, cis e fis g @}
+@end example
 
 @node Using LilyPond syntax inside Scheme
 @subsection Using LilyPond syntax inside Scheme
@@ -467,9 +482,9 @@ is this table:
 @quotation
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
-@item @code{\markup @{ ... @}} @tab @code{( markup ... )}
+@item @code{\markup markup1 @}} @tab @code{(markup markup1)}
 @item @code{\markup @{ markup1 markup2 ... @}} @tab 
-        @code{(markup #:line ( markup1 markup2 ... ))}
+        @code{(markup markup1 markup2 ... )}
 @item @code{\command} @tab @code{#:command}
 @item @code{\variable} @tab @code{variable}
 @item @code{\center-align @{ ... @}} @tab @code{#:center-align ( ... )}

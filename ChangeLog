@@ -1,3 +1,9 @@
+2005-08-10  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* Documentation/user/programming-interface.itely (Displaying music
+	expressions): doc for \displayLilyMusic. Also some precisions in
+	"Markup construction in Scheme"
+
 2005-08-10  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/define-markup-commands.scm (normal-text): Added 2 new
