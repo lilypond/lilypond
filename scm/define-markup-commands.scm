@@ -762,6 +762,17 @@ recommend font for this is bold and italic"
   (interpret-markup
    layout (prepend-alist-chain 'font-shape 'upright props) arg))
 
+(def-markup-command (medium layout props arg) (markup?)
+  "Switch to medium font-series (in contrast to bold)."
+  (interpret-markup layout (prepend-alist-chain 'font-series 'medium props)
+		    arg))
+
+(def-markup-command (normal-text layout props arg) (markup?)
+  "Set all font related properties (except the size) to get the default normal text font, no matter what font was used earlier."
+  ;; ugh - latin1
+  (interpret-markup layout
+                    (cons '((font-family . roman) (font-shape . upright) (font-series . medium) (font-encoding . latin1)) props)
+                    arg)) 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; symbols.
