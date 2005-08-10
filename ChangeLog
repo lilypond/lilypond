@@ -1,3 +1,9 @@
+2005-08-10  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scm/define-markup-commands.scm (normal-text): Added 2 new
+	markup commands, \normal-text and \medium (the latter thanks to
+	Bruce Fairchild). 
+
 2005-08-08  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/programming-interface.itely (Markup
