@@ -174,7 +174,7 @@ normally inserted before elements on a line.
   stil)
 
 (define bbox-regexp
-  (make-regexp "%%BoundingBox: ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)"))
+  (make-regexp "%%BoundingBox:[ \t]+([0-9-]+)[ \t]+([0-9-]+)[ \t]+([0-9-]+)[ \t]+([0-9-]+)"))
 
 (define (get-postscript-bbox string)
   "Extract the bbox from STRING, or return #f if not present."
@@ -201,7 +201,7 @@ one staff-space."
 	    (if bbox
 		(map (lambda (x) (/ x 10)) bbox)
 		(begin
-		  (ly:warn (_ "can't find bounding box of `~a'")
+		  (ly:warning (_ "can't find bounding box of `~a'")
 			   file-name)
 		  '()))))
 	
