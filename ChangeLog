@@ -1,3 +1,8 @@
+2005-08-11  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scm/define-markup-commands.scm: Improved regexp to search for
+	EPS bounding boxes and corrected call to ly:warning.
+
 2005-08-10  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* Documentation/user/programming-interface.itely (Displaying music
