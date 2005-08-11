@@ -439,12 +439,12 @@ ADD_ACKNOWLEDGER (Auto_beam_engraver,bar_line);
 ADD_ACKNOWLEDGER (Auto_beam_engraver,beam);
 ADD_ACKNOWLEDGER (Auto_beam_engraver,rest);
 ADD_TRANSLATOR (Auto_beam_engraver,
-		/* descr */ "Generate beams based on measure characteristics and observed "
+		/* doc */ "Generate beams based on measure characteristics and observed "
 		"Stems.  Uses beatLength, measureLength and measurePosition to decide "
 		"when to start and stop a beam.  Overriding beaming is done through "
 		"@ref{Stem_engraver} properties @code{stemLeftBeamCount} and "
 		"@code{stemRightBeamCount}. ",
-		/* creats*/ "Beam",
-		/* accepts */ "beam-forbid-event",
-		/* reads */ "autoBeaming autoBeamSettings beatLength subdivideBeams",
+		/* create */ "Beam",
+		/* accept */ "beam-forbid-event",
+		/* read */ "autoBeaming autoBeamSettings beatLength subdivideBeams",
 		/* write */ "");

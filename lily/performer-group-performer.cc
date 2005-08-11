@@ -14,10 +14,10 @@
 #include "warn.hh"
 
 ADD_TRANSLATOR_GROUP (Performer_group_performer,
-		/* descr */ "",
-		/* creats*/ "",
-		/* accepts */ "",
-		/* reads */ "",
+		/* doc */ "",
+		/* create */ "",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");
 
 void

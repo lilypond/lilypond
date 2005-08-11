@@ -117,8 +117,8 @@ Slash_repeat_engraver::start_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Slash_repeat_engraver,
-		/* descr */ "Make beat repeats.",
-		/* creats*/ "RepeatSlash",
-		/* accepts */ "repeated-music",
-		/* reads */ "measureLength",
+		/* doc */ "Make beat repeats.",
+		/* create */ "RepeatSlash",
+		/* accept */ "repeated-music",
+		/* read */ "measureLength",
 		/* write */ "");

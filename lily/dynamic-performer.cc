@@ -128,8 +128,8 @@ Dynamic_performer::try_music (Music *r)
 }
 
 ADD_TRANSLATOR (Dynamic_performer,
-		/*descr*/		 "",
-		/* creats*/ "",
-		/* accepts */ "absolute-dynamic-event",
-		/*reads */"dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer",
+		/* doc */ 		 "",
+		/* create */ "",
+		/* accept */ "absolute-dynamic-event",
+		/* read */ "dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer",
 		/*writes*/"");

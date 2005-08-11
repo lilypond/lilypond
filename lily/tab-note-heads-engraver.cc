@@ -168,9 +168,9 @@ Tab_note_heads_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
-		/* descr */ "Generate one or more tablature noteheads from Music of type NoteEvent.",
-		/* creats*/ "TabNoteHead Dots",
-		/* accepts */ "note-event string-number-event busy-playing-event",
-		/* reads */ "middleCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
+		/* doc */ "Generate one or more tablature noteheads from Music of type NoteEvent.",
+		/* create */ "TabNoteHead Dots",
+		/* accept */ "note-event string-number-event busy-playing-event",
+		/* read */ "middleCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
 		/* write */ "");
 

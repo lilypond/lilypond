@@ -210,8 +210,8 @@ ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,
-		/* descr */ "Print phrasing slurs. Similar to @ref{Slur_engraver}",
-		/* creats*/ "PhrasingSlur",
-		/* accepts */ "phrasing-slur-event",
-		/* reads */ "",
+		/* doc */ "Print phrasing slurs. Similar to @ref{Slur_engraver}",
+		/* create */ "PhrasingSlur",
+		/* accept */ "phrasing-slur-event",
+		/* read */ "",
 		/* write */ "");

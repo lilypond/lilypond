@@ -88,12 +88,12 @@ Metronome_mark_engraver::process_music ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
-		/* descr */ "Engrave metro nome marking. This delegates the formatting work "
+		/* doc */ "Engrave metro nome marking. This delegates the formatting work "
 		"to the function in the metronomeMarkFormatter property. "
 		"The mark is put over all staves. "
 		"The staves are taken from the @code{stavesFound} property, "
 		"which is maintained by @code{@ref{Staff_collecting_engraver}}. ",
-		/* creats*/ "MetronomeMark",
-		/* accepts */ "metronome-change-event",
-		/* reads */ "stavesFound metronomeMarkFormatter",
+		/* create */ "MetronomeMark",
+		/* accept */ "metronome-change-event",
+		/* read */ "stavesFound metronomeMarkFormatter",
 		/* write */ "");

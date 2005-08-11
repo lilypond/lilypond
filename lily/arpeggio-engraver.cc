@@ -107,8 +107,8 @@ ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head)
 ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column)
 
 ADD_TRANSLATOR (Arpeggio_engraver,
-		/* descr */ "Generate an Arpeggio symbol",
-		/* creats*/ "Arpeggio",
-		/* accepts */ "arpeggio-event",
-		/* reads */ "",
+		/* doc */ "Generate an Arpeggio symbol",
+		/* create */ "Arpeggio",
+		/* accept */ "arpeggio-event",
+		/* read */ "",
 		/* write */ "");

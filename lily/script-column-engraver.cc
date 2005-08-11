@@ -72,8 +72,8 @@ Script_column_engraver::process_acknowledged ()
 }
 ADD_ACKNOWLEDGER (Script_column_engraver, side_position);
 ADD_TRANSLATOR (Script_column_engraver,
-		/* descr */ "",
-		/* creats*/ "ScriptColumn",
-		/* accepts */ "",
-		/* reads */ "",
+		/* doc */ "",
+		/* create */ "ScriptColumn",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

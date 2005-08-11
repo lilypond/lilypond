@@ -88,8 +88,8 @@ ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_delimiter);
 ADD_ACKNOWLEDGER (System_start_delimiter_engraver, staff_symbol);
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,
-		/* descr */ "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",
-		/* creats*/ "SystemStartBar SystemStartBrace SystemStartBracket",
-		/* accepts */ "",
-		/* reads */ "systemStartDelimiter",
+		/* doc */ "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",
+		/* create */ "SystemStartBar SystemStartBrace SystemStartBracket",
+		/* accept */ "",
+		/* read */ "systemStartDelimiter",
 		/* write */ "");

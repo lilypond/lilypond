@@ -39,9 +39,9 @@ ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
 ADD_TRANSLATOR (Vertical_align_engraver,
 		"Catch groups (staffs, lyrics lines, etc.) and stack "
 		"them vertically.",
-		/* creats*/ "VerticalAlignment",
-		/* accepts */ "",
-		/* reads */ "",
+		/* create */ "VerticalAlignment",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");
 
 

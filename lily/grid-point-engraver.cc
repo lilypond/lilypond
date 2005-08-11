@@ -42,9 +42,9 @@ Grid_point_engraver::Grid_point_engraver ()
 
 
 ADD_TRANSLATOR (Grid_point_engraver,
-		/* descr */ "generate grid points.",
-		/* creats*/ "GridPoint",
-		/* accepts */ "",
-		/* reads */ "gridInterval",
+		/* doc */ "generate grid points.",
+		/* create */ "GridPoint",
+		/* accept */ "",
+		/* read */ "gridInterval",
 		/* write */ "");
 

@@ -99,9 +99,9 @@ Note_head_line_engraver::stop_translation_timestep ()
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Note_head_line_engraver, rhythmic_head);
 ADD_TRANSLATOR (Note_head_line_engraver,
-		/* descr */ "Engrave a line between two note heads, for example a glissando.  If "
+		/* doc */ "Engrave a line between two note heads, for example a glissando.  If "
 		" followVoice is set, staff switches also generate a line.",
-		/* creats*/ "Glissando VoiceFollower",
-		/* accepts */ "glissando-event",
-		/* reads */ "followVoice",
+		/* create */ "Glissando VoiceFollower",
+		/* accept */ "glissando-event",
+		/* read */ "followVoice",
 		/* write */ "");

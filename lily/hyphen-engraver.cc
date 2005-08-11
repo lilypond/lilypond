@@ -136,8 +136,8 @@ Hyphen_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Hyphen_engraver,lyric_syllable);
 ADD_TRANSLATOR (Hyphen_engraver,
-		/* descr */ "Create lyric hyphens",
-		/* creats*/ "LyricHyphen",
-		/* accepts */ "hyphen-event",
-		/* reads */ "",
+		/* doc */ "Create lyric hyphens",
+		/* create */ "LyricHyphen",
+		/* accept */ "hyphen-event",
+		/* read */ "",
 		/* write */ "");

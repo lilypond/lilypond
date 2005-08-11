@@ -165,7 +165,7 @@ Score_engraver::try_music (Music *m)
 }
 
 ADD_TRANSLATOR_GROUP (Score_engraver,
-		/* descr */ "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
+		/* doc */ "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
 		"\n\n "
 		"This engraver decides whether a column is breakable. The default is "
 		"that a column is always breakable. However, when every Bar_engraver "
@@ -173,7 +173,7 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
 		"Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
 		"means that you can make a breakpoint by creating a barline (assuming "
 		"that there are no beams or notes that prevent a breakpoint.) ",
-		/* creats*/ "System PaperColumn NonMusicalPaperColumn",
-		/* accepts */ "break-event",
-		/* reads */ "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
+		/* create */ "System PaperColumn NonMusicalPaperColumn",
+		/* accept */ "break-event",
+		/* read */ "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
 		/* write */ "");

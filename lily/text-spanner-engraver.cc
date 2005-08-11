@@ -142,8 +142,8 @@ Text_spanner_engraver::finalize ()
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Text_spanner_engraver,note_column);
 ADD_TRANSLATOR (Text_spanner_engraver,
-		/* descr */ "Create text spanner from a Music.",
-		/* creats*/ "TextSpanner",
-		/* accepts */ "text-span-event",
-		/* reads */ "",
+		/* doc */ "Create text spanner from a Music.",
+		/* create */ "TextSpanner",
+		/* accept */ "text-span-event",
+		/* read */ "",
 		/* write */ "");

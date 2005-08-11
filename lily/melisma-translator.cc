@@ -68,8 +68,8 @@ Melisma_translator::Melisma_translator ()
 
 
 ADD_TRANSLATOR (Melisma_translator,
-		/* descr */ "This translator collects melisma information about ties, beams, and user settings (@code{melismaBusy}, and signals it to the @code{\addlyrics} code.  ",
-		/* creats*/ "",
-		/* accepts */ "melisma-playing-event melisma-span-event",
-		/* reads */ "melismaBusy melismaBusyProperties slurMelismaBusy tieMelismaBusy beamMelismaBusy",
+		/* doc */ "This translator collects melisma information about ties, beams, and user settings (@code{melismaBusy}, and signals it to the @code{\addlyrics} code.  ",
+		/* create */ "",
+		/* accept */ "melisma-playing-event melisma-span-event",
+		/* read */ "melismaBusy melismaBusyProperties slurMelismaBusy tieMelismaBusy beamMelismaBusy",
 		/* write */ "");

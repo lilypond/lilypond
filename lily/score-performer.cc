@@ -19,10 +19,10 @@
 #include "context.hh"
 
 ADD_TRANSLATOR_GROUP (Score_performer,
-		/* descr */ "",
-		/* creats*/ "",
-		/* accepts */ "",
-		/* reads */ "",
+		/* doc */ "",
+		/* create */ "",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");
 
 Score_performer::Score_performer ()

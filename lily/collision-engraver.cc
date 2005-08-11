@@ -69,8 +69,8 @@ Collision_engraver::Collision_engraver ()
 ADD_ACKNOWLEDGER (Collision_engraver, note_column);
 
 ADD_TRANSLATOR (Collision_engraver,
-		/* descr */ "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",
-		/* creats*/ "NoteCollision",
-		/* accepts */ "",
-		/* reads */ "",
+		/* doc */ "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",
+		/* create */ "NoteCollision",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

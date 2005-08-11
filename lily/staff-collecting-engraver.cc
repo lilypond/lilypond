@@ -35,9 +35,9 @@ Staff_collecting_engraver::acknowledge_staff_symbol (Grob_info gi)
 ADD_ACKNOWLEDGER (Staff_collecting_engraver,staff_symbol);
 
 ADD_TRANSLATOR (Staff_collecting_engraver,
-		/* descr */ "Maintain the stavesFound variable",
+		/* doc */ "Maintain the stavesFound variable",
 
-		/* creats*/ "",
-		/* accepts */ "",
-		/* reads */ "stavesFound",
+		/* create */ "",
+		/* accept */ "",
+		/* read */ "stavesFound",
 		/* write */ "stavesFound");

@@ -126,7 +126,7 @@ ADD_TRANSLATOR (Break_align_engraver,
 		"Align grobs with corresponding @code{break-align-symbols} into "
 		"groups, and order the groups according to @code{breakAlignOrder}. "
 		"The left edge of the alignment gets a separate group, with a symbol @code{left-edge}. ",
-		/* creats*/ "BreakAlignment BreakAlignGroup LeftEdge",
-		/* accepts */ "",
-		/* reads */ "",
+		/* create */ "BreakAlignment BreakAlignGroup LeftEdge",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

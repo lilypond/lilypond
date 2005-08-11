@@ -218,7 +218,7 @@ ADD_ACKNOWLEDGER (Paper_column_engraver,staff_spacing);
 
 
 ADD_TRANSLATOR (Paper_column_engraver,
-		/* descr */ "Takes care of generating columns."
+		/* doc */ "Takes care of generating columns."
 		"\n\n "
 		"This engraver decides whether a column is breakable. The default is "
 		"that a column is always breakable. However, when every Bar_engraver "
@@ -226,7 +226,7 @@ ADD_TRANSLATOR (Paper_column_engraver,
 		"Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
 		"means that you can make a breakpoint by creating a barline (assuming "
 		"that there are no beams or notes that prevent a breakpoint.) ",
-		/* creats*/ "PaperColumn NonMusicalPaperColumn",
-		/* accepts */ "break-event",
-		/* reads */ "",
+		/* create */ "PaperColumn NonMusicalPaperColumn",
+		/* accept */ "break-event",
+		/* read */ "",
 		/* write */ "currentCommandColumn currentMusicalColumn");

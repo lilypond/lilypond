@@ -153,10 +153,10 @@ Chord_name_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Chord_name_engraver,
-		/* descr */ "Catch note-events "
+		/* doc */ "Catch note-events "
 		"and generate the appropriate chordname.",
-		/* creats*/ "ChordName",
-		/* accepts */ "note-event",
-		/* reads */ "chordChanges chordNameExceptions chordNameFunction "
+		/* create */ "ChordName",
+		/* accept */ "note-event",
+		/* read */ "chordChanges chordNameExceptions chordNameFunction "
 		"chordNoteNamer chordRootNamer chordNameExceptions majorSevenSymbol",
 		/* write */ "");

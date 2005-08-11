@@ -246,8 +246,8 @@ ADD_ACKNOWLEDGER (Volta_engraver, staff_symbol);
 ADD_ACKNOWLEDGER (Volta_engraver, note_column);
 ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,
-		/* descr */ "Make volta brackets.",
-		/* creats*/ "VoltaBracket",
-		/* accepts */ "",
-		/* reads */ "repeatCommands voltaSpannerDuration stavesFound",
+		/* doc */ "Make volta brackets.",
+		/* create */ "VoltaBracket",
+		/* accept */ "",
+		/* read */ "repeatCommands voltaSpannerDuration stavesFound",
 		/* write */ "");

@@ -132,8 +132,8 @@ Note_heads_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Note_heads_engraver,
-		/* descr */ "Generate noteheads.",
-		/* creats*/ "NoteHead Dots",
-		/* accepts */ "note-event busy-playing-event",
-		/* reads */ "middleCPosition",
+		/* doc */ "Generate noteheads.",
+		/* create */ "NoteHead Dots",
+		/* accept */ "note-event busy-playing-event",
+		/* read */ "middleCPosition",
 		/* write */ "");

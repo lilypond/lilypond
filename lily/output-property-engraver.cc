@@ -80,9 +80,9 @@ Output_property_engraver::Output_property_engraver ()
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Output_property_engraver,grob)
 ADD_TRANSLATOR (Output_property_engraver,
-/* descr */       "Interpret Music of Output_property type, and apply a function "
+/* doc */ "Interpret Music of Output_property type, and apply a function "
 " to any Graphic objects that satisfies the predicate.",
-/* creats*/       "",
-/* accepts */     "layout-instruction",
-/* reads */       "",
+/* create */ "",
+/* accept */ "layout-instruction",
+/* read */ "",
 /* write */       "");

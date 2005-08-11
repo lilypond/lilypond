@@ -124,8 +124,8 @@ Text_engraver::Text_engraver ()
 ADD_ACKNOWLEDGER (Text_engraver, stem);
 ADD_ACKNOWLEDGER (Text_engraver, rhythmic_head);
 ADD_TRANSLATOR (Text_engraver,
-		/* descr */ "Create text-scripts",
-		/* creats*/ "TextScript",
-		/* accepts */ "text-script-event",
-		/* reads */ "",
+		/* doc */ "Create text-scripts",
+		/* create */ "TextScript",
+		/* accept */ "text-script-event",
+		/* read */ "",
 		/* write */ "");

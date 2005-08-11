@@ -39,9 +39,9 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 
 ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver,grob);
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
-		/* descr */ "Create a staff-symbol, but look at stringTunings for the number of lines."
+		/* doc */ "Create a staff-symbol, but look at stringTunings for the number of lines."
 		"staff lines.",
-		/* creats*/ "StaffSymbol",
-		/* accepts */ "staff-span-event",
-		/* reads */ "stringTunings",
+		/* create */ "StaffSymbol",
+		/* accept */ "staff-span-event",
+		/* read */ "stringTunings",
 		/* write */ "");

@@ -71,8 +71,8 @@ Ligature_bracket_engraver::acknowledge_rest (Grob_info info)
 ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
 ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
 ADD_TRANSLATOR (Ligature_bracket_engraver,
-		/* descr */ "Handles Ligature_events by engraving Ligature brackets.",
-		/* creats*/ "TupletBracket",
-		/* accepts */ "ligature-event",
-		/* reads */ "",
+		/* doc */ "Handles Ligature_events by engraving Ligature brackets.",
+		/* create */ "TupletBracket",
+		/* accept */ "ligature-event",
+		/* read */ "",
 		/* write */ "");

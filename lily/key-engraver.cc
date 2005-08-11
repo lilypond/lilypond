@@ -203,10 +203,10 @@ ADD_ACKNOWLEDGER (Key_engraver,clef);
 ADD_ACKNOWLEDGER (Key_engraver,bar_line);
 
 ADD_TRANSLATOR (Key_engraver,
-		/* descr */ "",
-		/* creats*/ "KeySignature",
-		/* accepts */ "key-change-event",
-		/* reads */ "keySignature printKeyCancellation lastKeySignature "
+		/* doc */ "",
+		/* create */ "KeySignature",
+		/* accept */ "key-change-event",
+		/* read */ "keySignature printKeyCancellation lastKeySignature "
 		"explicitKeySignatureVisibility createKeyOnClefChange "
 		"keyAlterationOrder keySignature",
 		/* write */ "lastKeySignature tonic keySignature");

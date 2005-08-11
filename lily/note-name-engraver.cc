@@ -69,8 +69,8 @@ Note_name_engraver::Note_name_engraver ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Note_name_engraver,
-		/* descr */ "",
-		/* creats*/ "NoteName",
-		/* accepts */ "note-event",
-		/* reads */ "printOctaveNames",
+		/* doc */ "",
+		/* create */ "NoteName",
+		/* accept */ "note-event",
+		/* read */ "printOctaveNames",
 		/* write */ "");

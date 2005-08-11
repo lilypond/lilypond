@@ -225,8 +225,8 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
 ADD_TRANSLATOR (Separating_line_group_engraver,
-		/* descr */ "Generates objects for computing spacing parameters.",
-		/* creats*/ "SeparationItem SeparatingGroupSpanner StaffSpacing",
-		/* accepts */ "",
-		/* reads */ "createSpacing",
+		/* doc */ "Generates objects for computing spacing parameters.",
+		/* create */ "SeparationItem SeparatingGroupSpanner StaffSpacing",
+		/* accept */ "",
+		/* read */ "createSpacing",
 		/* write */ "breakableSeparationItem");

@@ -257,8 +257,8 @@ ADD_ACKNOWLEDGER (Script_engraver, stem);
 ADD_ACKNOWLEDGER (Script_engraver, note_column);
 
 ADD_TRANSLATOR (Script_engraver,
-		/* descr */ "Handles note scripted articulations.",
-		/* creats*/ "Script",
-		/* accepts */ "script-event articulation-event",
-		/* reads */ "scriptDefinitions",
+		/* doc */ "Handles note scripted articulations.",
+		/* create */ "Script",
+		/* accept */ "script-event articulation-event",
+		/* read */ "scriptDefinitions",
 		/* write */ "");
