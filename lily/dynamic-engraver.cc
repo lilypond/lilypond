@@ -441,10 +441,9 @@ Dynamic_engraver::acknowledge_script (Grob_info info)
     Side_position_interface::add_support (line_spanner_, info.grob ());
 }
 
-
-ADD_ACKNOWLEDGER (Dynamic_engraver,script);
-ADD_ACKNOWLEDGER (Dynamic_engraver,note_column);
-ADD_ACKNOWLEDGER (Dynamic_engraver,slur);
+ADD_ACKNOWLEDGER (Dynamic_engraver, script);
+ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
+ADD_ACKNOWLEDGER (Dynamic_engraver, slur);
 
 ADD_TRANSLATOR (Dynamic_engraver,
 		/* descr */

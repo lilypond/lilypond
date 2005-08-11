@@ -261,5 +261,12 @@ ADD_INTERFACE (Side_position_interface, "side-position-interface",
 	       "victim object relative to the support (left or right, up or down?)\n\n "
 	       "The routine also takes the size the staff into account if "
 	       "@code{staff-padding} is set. If undefined, the staff symbol is ignored.",
-	       "staff-padding side-support-elements direction-source "
-	       "direction side-relative-direction minimum-space padding");
+	       "direction "
+	       "direction-source "
+	       "minimum-space "
+	       "padding "
+	       "side-relative-direction "
+	       "side-support-elements "
+	       "slur-padding "
+	       "staff-padding "
+	       );

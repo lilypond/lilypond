@@ -25,6 +25,7 @@
 #include "misc.hh"
 #include "offset.hh"
 #include "pitch.hh"
+#include "string-convert.hh"
 #include "source-file.hh"
 #include "version.hh"
 #include "warn.hh"
@@ -352,46 +353,31 @@ ly_assoc_cdr (SCM key, SCM alist)
   if (scm_is_pair (alist))
     {
       SCM trykey = scm_caar (alist);
-      if (scm_is_pair (trykey) && to_boolean (scm_equal_p (key, scm_cdr (trykey))))
+      if (scm_is_pair (trykey)
+	  && to_boolean (scm_equal_p (key, scm_cdr (trykey))))
 	return scm_car (alist);
-      else
-	return ly_assoc_cdr (key, scm_cdr (alist));
+      return ly_assoc_cdr (key, scm_cdr (alist));
     }
   return SCM_BOOL_F;
 }
 
-/* LST has the form "sym1 sym2 sym3\nsym4\nsym5"
-   i.e. \n and ' ' can be used interchangeably as separators.  */
+SCM
+ly_string_array_to_scm (Array<String> a)
+{
+  SCM s = SCM_EOL;
+  for (int i = a.size () - 1; i >= 0; i--)
+    s = scm_cons (ly_symbol2scm (a[i].to_str0 ()), s);
+  return s;
+}
+  
+/* LST is whitespace separated list of symbols.  */
 SCM
 parse_symbol_list (char const *lst)
 {
-  char *s = strdup (lst);
-  char *orig = s;
-  SCM create_list = SCM_EOL;
-
-  char *e = s + strlen (s) - 1;
-  while (e >= s && isspace (*e))
-    *e-- = 0;
-
-  for (char *p = s; *p; p++)
-    if (*p == '\n')
-      *p = ' ';
-  
-  if (!s[0])
-    s = 0;
-  
-  while (s)
-    {
-      char *next = strchr (s, ' ');
-      if (next)
-	*next++ = 0;
-
-      create_list = scm_cons (ly_symbol2scm (s), create_list);
-      s = next;
-    }
-
-  free (orig);
-  return create_list;
+  String s = lst;
+  s.substitute ('\n', ' ');
+  s.substitute ('\t', ' ');
+  return ly_string_array_to_scm (String_convert::split (s, ' '));
 }
 
 SCM

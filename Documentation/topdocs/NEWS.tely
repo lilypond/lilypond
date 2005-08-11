@@ -30,8 +30,24 @@ See user manual, \NAME\
 @end ifnottex
 @unnumbered New features in 2.7 since 2.6
 
+@ifhtml
+This document is also available in @uref{source/Documentation/topdocs/out-www/NEWS.pdf,PDF}.
+@end ifhtml
+
 
 @itemize @bullet
+
+@item
+Text scripts such as fingering instructions and dynamics avoid
+collissions with Slurs
+
+@lilypond[fragment,relative=1]
+{
+  b_1( b <b d f>_1_3_5)
+  c-2_\markup { \italic {"cresc."}}( f c)
+  c-3( c\f c)
+}
+@end lilypond
 
 @item
 Tuplets can be made to reach the next non-tuplet note by setting the

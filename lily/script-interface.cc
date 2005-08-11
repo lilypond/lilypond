@@ -6,9 +6,10 @@
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "script-interface.hh"
+
 #include "directional-element-interface.hh"
 #include "warn.hh"
-#include "script-interface.hh"
 #include "font-interface.hh"
 #include "side-position-interface.hh"
 #include "output-def.hh"
