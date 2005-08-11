@@ -39,7 +39,7 @@ This document is also available in @uref{source/Documentation/topdocs/out-www/NE
 
 @item
 Text scripts such as fingering instructions and dynamics avoid
-collissions with Slurs
+collisions with Slurs
 
 @lilypond[fragment,relative=1]
 {
