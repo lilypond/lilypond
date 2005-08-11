@@ -1,3 +1,8 @@
+2005-08-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/framework-ps.scm (output-framework): Backport-bugfix: use
+	2.6 interface of paper-outputter.
+
 2005-08-10  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/define-markup-commands.scm (normal-text): Added 2 new

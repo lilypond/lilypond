@@ -387,6 +387,7 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
 	(no-spacing-rods . #t)
+	(slur-padding . 0.5)
 	(script-priority . 100)
 	(font-series . bold)
 	(font-encoding . fetaDynamic)
@@ -402,6 +403,7 @@
 ;	(font-series . bold)
 	(font-shape . italic)
 	(style . dashed-line)
+	(slur-padding . 0.5)
 
 	; need to blend with dynamic texts.
 	(font-size . 1)
@@ -421,6 +423,7 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(staff-padding . 0.1)
 	(padding . 0.6)
+	(slur-padding . 0.5)
 	(minimum-space . 1.2)
 	(direction . -1)
 	
@@ -455,6 +458,7 @@
 
 	; sync with TextScript (?)
 	(padding . 0.5)
+	(slur-padding . 0.5)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
@@ -963,6 +967,7 @@
 	;; This value is sensitive: if too large, staccato dots will move a
 	;; space a away.
 	(padding . 0.20)
+	(slur-padding . 0.5)
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
@@ -1226,6 +1231,7 @@
 
 	; sync with Fingering ?
 	(padding . 0.5)
+	(slur-padding . 0.5)
 	(staff-padding . 0.5)
 	(script-priority . 200)
 	;; todo: add X self alignment?

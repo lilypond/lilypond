@@ -407,12 +407,7 @@
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
-	 (outputter (ly:make-paper-outputter
-		     ;; FIXME: better wrap open/open-file,
-		     ;; content-mangling is always bad.
-		     ;; MINGW hack: need to have "b"inary for embedding CFFs
-		     (open-file filename "wb")
-		     "ps"))
+	 (outputter (ly:make-paper-outputter filename "ps"))
 	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -455,12 +450,7 @@
 	  (max (1+ (car box)) (caddr box))
 	  (max (1+ (cadr box)) (cadddr box)))))
 
-  (let* ((outputter (ly:make-paper-outputter
-		     ;; FIXME: better wrap open/open-file,
-		     ;; content-mangling is always bad.
-		     ;; MINGW hack: need to have "b"inary for embedding CFFs
-		     (open-file (format "~a.eps" filename) "wb")
-		     "ps"))
+  (let* ((outputter (ly:make-paper-outputter (format "~a.eps" filename) "ps"))
 	 (port (ly:outputter-port outputter))
 	 (xext (ly:stencil-extent dump-me X))
 	 (yext (ly:stencil-extent dump-me Y))
