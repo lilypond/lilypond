@@ -1,6 +1,8 @@
 /*
   slur-engraver.cc -- implement Slur_engraver
 
+  source file of the GNU LilyPond music typesetter
+
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
@@ -30,12 +32,13 @@ class Slur_engraver : public Engraver
 protected:
   virtual bool try_music (Music *);
 
-  DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (accidental);
   DECLARE_ACKNOWLEDGER (fingering);
+  DECLARE_ACKNOWLEDGER (dynamic_line_spanner);
+  DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (script);
-  DECLARE_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (text_script);
+  DECLARE_ACKNOWLEDGER (tie);
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   virtual void finalize ();
@@ -89,7 +92,7 @@ Slur_engraver::acknowledge_note_column (Grob_info info)
 void
 Slur_engraver::acknowledge_extra_object (Grob_info info)
 {
-  Grob*e = info.grob ();
+  Grob *e = info.grob ();
   SCM inside = e->get_property ("inside-slur");
   if (Tie::has_interface (e)
       || to_boolean (inside))
@@ -99,7 +102,8 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
       for (int i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
-  else if (inside == SCM_BOOL_F)
+  else if (!to_boolean (inside)
+	   && e->name () != "DynamicText")
     {
       Grob *slur = slurs_.size () ? slurs_[0] : 0;
       slur = (end_slurs_.size () && !slur)
@@ -119,6 +123,11 @@ Slur_engraver::acknowledge_accidental (Grob_info info)
   acknowledge_extra_object (info);
 }
 
+void
+Slur_engraver::acknowledge_dynamic_line_spanner (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
 
 void
 Slur_engraver::acknowledge_fingering (Grob_info info)
@@ -143,9 +152,6 @@ Slur_engraver::acknowledge_tie (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
-
-
-
 
 void
 Slur_engraver::finalize ()
@@ -199,14 +205,15 @@ Slur_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Slur_engraver,note_column);
 ADD_ACKNOWLEDGER (Slur_engraver,accidental);
+ADD_ACKNOWLEDGER (Slur_engraver,dynamic_line_spanner);
 ADD_ACKNOWLEDGER (Slur_engraver,fingering)
+ADD_ACKNOWLEDGER (Slur_engraver,note_column);
 ADD_ACKNOWLEDGER (Slur_engraver,script);
-ADD_ACKNOWLEDGER (Slur_engraver,tie);
 ADD_ACKNOWLEDGER (Slur_engraver,text_script);
+ADD_ACKNOWLEDGER (Slur_engraver,tie);
 ADD_TRANSLATOR (Slur_engraver,
-		/* descr */ "Build slurs grobs from slur events",
+		/* descr */ "Build slur grobs from slur events",
 		/* creats*/ "Slur",
 		/* accepts */ "slur-event",
 		/* reads */ "slurMelismaBusy doubleSlurs",

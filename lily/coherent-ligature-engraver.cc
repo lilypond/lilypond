@@ -79,7 +79,7 @@
  * until it really works and I also get Han-Wen's/Jan's permission to
  * add it to the spacing spanner code.
  */
-#if 0 // experimental code to collapse spacing after ligature
+#if 0 /* experimental code to collapse spacing after ligature */
 SCM incr_scm = lc->get_property ("forced-spacing");
 if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
   {
@@ -133,7 +133,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 	  if ((sibling)
 	      && (Staff_symbol_referencer::get_staff_symbol (sibling) == sl))
 	    {
-#if 0 // experimental code to collapse spacing after ligature
+#if 0 /* experimental code to collapse spacing after ligature */
 	      Grob *sibling_parent = sibling->get_parent (X_AXIS);
 	      sibling_parent->warning (_f ("Coherent_ligature_engraver: "
 					   "setting `spacing-increment="

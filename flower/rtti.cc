@@ -2,7 +2,7 @@
 
 #include "virtual-methods.hh"
 
-const char *
+char const *
 demangle_classname (std::type_info const &t)
 {
   char const *s = t.name ();

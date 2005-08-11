@@ -252,8 +252,7 @@ Pango_font::text_stencil (String str) const
       return Stencil (b, exp);
     }
 
-#if 0
-  // check extents.
+#if 0 /* Check extents.  */
   if (!dest.extent_box ()[X_AXIS].is_empty ())
     {
       Stencil frame = Lookup::frame (dest.extent_box (), 0.1, 0.1);

@@ -13,7 +13,7 @@
 
 #define classname(class_ptr) demangle_classname (typeid (* (class_ptr)))
 
-const char *
+char const *
 demangle_classname (std::type_info const &);
 
 /* Virtual copy constructor.  Make up for C++'s lack of a standard

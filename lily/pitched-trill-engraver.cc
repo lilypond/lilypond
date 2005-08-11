@@ -21,18 +21,17 @@
 
 class Pitched_trill_engraver : public Engraver
 {
-
 public:
   TRANSLATOR_DECLARATIONS(Pitched_trill_engraver);
   
 protected:
- 
   DECLARE_ACKNOWLEDGER ( note_head);
   DECLARE_ACKNOWLEDGER ( dots);
   DECLARE_ACKNOWLEDGER ( text_spanner);
   void process_music ();
   virtual bool try_music (Music*);
   void stop_translation_timestep ();
+
 private:
   Item *trill_head_;
   Item *trill_group_;
@@ -70,16 +69,14 @@ Pitched_trill_engraver::acknowledge_text_spanner (Grob_info info)
       && mus->is_mus_type ("trill-span-event")
       && to_dir (mus->get_property ("span-direction")) == START
       && unsmob_pitch (mus->get_property ("trill-pitch")))
-    {
-      make_trill (mus);
-    }
+    make_trill (mus);
 }
 
 void
 Pitched_trill_engraver::make_trill (Music *mus)
 {
   SCM scm_pitch = mus->get_property ("trill-pitch");
-  Pitch * p = unsmob_pitch (scm_pitch);
+  Pitch *p = unsmob_pitch (scm_pitch);
 
   SCM keysig = get_property ("localKeySignature");
 
@@ -87,8 +84,8 @@ Pitched_trill_engraver::make_trill (Music *mus)
 		      scm_from_int (p->get_notename ()));
 
   SCM handle = scm_assoc (key, keysig);
-  bool print_acc =
-    (handle == SCM_BOOL_F)
+  bool print_acc
+    = (handle == SCM_BOOL_F)
     || p->get_alteration () == 0;
 
   if (trill_head_)
@@ -129,9 +126,7 @@ Pitched_trill_engraver::stop_translation_timestep ()
 {
   if (trill_group_)
     for (int i = 0; i < heads_.size (); i++)
-      {
-	Side_position_interface::add_support (trill_group_, heads_[i]);
-      }
+      Side_position_interface::add_support (trill_group_, heads_[i]);
   
   heads_.clear ();
   trill_head_ = 0;

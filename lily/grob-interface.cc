@@ -12,9 +12,9 @@
 #include "grob.hh"
 #include "warn.hh"
 
-void add_interface (const char *symbol,
-		    const char *descr,
-		    const char *vars)
+void add_interface (char const *symbol,
+		    char const *descr,
+		    char const *vars)
 {
   SCM s = ly_symbol2scm (symbol);
   SCM d = scm_makfrom0str (descr);

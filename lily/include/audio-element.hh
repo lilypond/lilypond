@@ -16,7 +16,7 @@ class Audio_element
 public:
   Audio_element ();
   virtual ~Audio_element ();
-  virtual const char *name () const;
+  virtual char const *name () const;
 protected:
 };
 

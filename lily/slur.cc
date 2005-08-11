@@ -28,6 +28,23 @@
 #include "warn.hh"
 #include "slur-scoring.hh"
 
+static Direction
+get_default_dir (Grob *me)
+{
+  extract_grob_set (me, "note-columns", encompasses);
+
+  Direction d = DOWN;
+  for (int i = 0; i < encompasses.size (); i++)
+    {
+      if (Note_column::dir (encompasses[i]) < 0)
+	{
+	  d = UP;
+	  break;
+	}
+    }
+  return d;
+}
+
 MAKE_SCHEME_CALLBACK (Slur, height, 2);
 SCM
 Slur::height (SCM smob, SCM ax)
@@ -123,19 +140,28 @@ Slur::add_extra_encompass (Grob *me, Grob *n)
   me->add_dependency (n);
 }
 
+#include "script-interface.hh"
 MAKE_SCHEME_CALLBACK (Slur, outside_slur_callback, 2);
 SCM
 Slur::outside_slur_callback (SCM grob, SCM axis)
 {
   Grob *script = unsmob_grob (grob);
   Axis a = Axis (scm_to_int (axis));
-  (void) a; 
+  (void) a;
   assert (a == Y_AXIS);
 
   Grob *slur = unsmob_grob (script->get_object ("slur"));
 
   if (!slur)
     return scm_from_int (0);
+
+  Direction dir = get_grob_direction (script);
+  if (dir == CENTER)
+    return scm_from_int (0);
+
+  /* FIXME: this dependency should be automatic.  */
+  if (scm_ilength (slur->get_property ("control-points")) < 4)
+    Slur::after_line_breaking (slur->self_scm ());
 
   Grob *cx = script->common_refpoint (slur, X_AXIS);
   Grob *cy = script->common_refpoint (slur, Y_AXIS);
@@ -148,20 +174,18 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   Interval yext = robust_relative_extent (script, cy, Y_AXIS);
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
 
+  /* FIXME: slur property, script property?  */
   Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
-					 0.0);	// todo: slur property, script property?
+					 0.0);
   yext.widen (slur_padding);
+
   Real EPS = 1e-3;
-
-  Interval bezext (curve.control_[0][X_AXIS],
-		   curve.control_[3][X_AXIS]);
-
+  Interval bezext (curve.control_[0][X_AXIS], curve.control_[3][X_AXIS]);
   bool consider[] = { false, false, false };
   Real ys[] = {0, 0, 0};
-  int k = 0;
   bool do_shift = false;
 
-  for (int d = LEFT; d <= RIGHT; d++)
+  for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
     {
       Real x = xext.linear_combination ((Direction) d);
       consider[k] = bezext.contains (x);
@@ -176,42 +200,23 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 	       : curve.get_other_coordinate (X_AXIS, x));
 	  consider[k] = true;
 
-	  if (yext.contains (ys[k]))
+	  /* Request shift if slur is contained script's Y, or if
+	     script is fully inside slur.  */
+	  if (yext.contains (ys[k]) || dir * ys[k] > dir * yext[-dir])
 	    do_shift = true;
 	}
     }
   Real offset = 0.0;
   if (do_shift)
     {
-      k = 0;
-      Direction dir = get_grob_direction (script);
-      for (int d = LEFT; d <= RIGHT; d++)
-	{
-	  offset = dir * (max (dir * offset,
-			       dir * (ys[k] - yext[-dir] + dir * slur_padding)));
-	  k++;
-	}
+      for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
+	offset = dir * (max (dir * offset,
+			     dir * (ys[k] - yext[-dir] + dir * slur_padding)));
     }
 
   return scm_from_double (offset);
 }
 
-static Direction
-get_default_dir (Grob *me)
-{
-  extract_grob_set (me, "note-columns", encompasses);
-
-  Direction d = DOWN;
-  for (int i = 0; i < encompasses.size (); i++)
-    {
-      if (Note_column::dir (encompasses[i]) < 0)
-	{
-	  d = UP;
-	  break;
-	}
-    }
-  return d;
-}
 
 MAKE_SCHEME_CALLBACK (Slur, after_line_breaking, 1);
 SCM

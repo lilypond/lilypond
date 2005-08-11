@@ -198,7 +198,7 @@ internal_brew_primitive (Grob *me)
 	}
     }
 
-#if 0 // what happend with the ledger lines?
+#if 0 /* what happend with the ledger lines? */
   int pos = Staff_symbol_referencer::get_rounded_position (me);
   if (primitive & MLP_FLEXA)
     {
