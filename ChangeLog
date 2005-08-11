@@ -1,5 +1,8 @@
 2005-08-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* mf/GNUmakefile (get-*-fonts): Rename from get-*-pfa.  Copy SVG
+	too.
+
 	* Documentation/topdocs/NEWS.tely (Top): Add slur script feature.
 
 	* lily/lily-guile.cc (parse_symbol_list): Rewrite.  Grok multiple
