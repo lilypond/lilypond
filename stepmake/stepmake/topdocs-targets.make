@@ -5,5 +5,5 @@ copy-to-top:  $(TO_TOP_FILES)
 	$(foreach i, $(TO_TOP_FILES), \
 	  cp $(i) $(builddir) && ) true
 
-local-WWW: $(HTML_FILES) copy-to-top
+local-WWW: $(HTML_FILES) $(PDF_FILES) copy-to-top
 
