@@ -160,8 +160,8 @@ Lyric_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Lyric_engraver,
-		/* descr */ "",
-		/* creats*/ "LyricText",
-		/* accepts */ "lyric-event",
-		/* reads */ "",
+		/* doc */ "",
+		/* create */ "LyricText",
+		/* accept */ "lyric-event",
+		/* read */ "",
 		/* write */ "");

@@ -142,8 +142,8 @@ Fingering_engraver::Fingering_engraver ()
 ADD_ACKNOWLEDGER (Fingering_engraver,rhythmic_head);
 ADD_ACKNOWLEDGER (Fingering_engraver,stem);
 ADD_TRANSLATOR (Fingering_engraver,
-		/* descr */ "Create fingering-scripts",
-		/* creats*/ "Fingering",
-		/* accepts */ "fingering-event",
-		/* reads */ "",
+		/* doc */ "Create fingering-scripts",
+		/* create */ "Fingering",
+		/* accept */ "fingering-event",
+		/* read */ "",
 		/* write */ "");

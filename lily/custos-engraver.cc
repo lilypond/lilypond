@@ -140,8 +140,8 @@ ADD_ACKNOWLEDGER (Custos_engraver,bar);
 ADD_ACKNOWLEDGER (Custos_engraver,note_head);
 
 ADD_TRANSLATOR (Custos_engraver,
-		/* descr */ "",
-		/* creats*/ "Custos",
-		/* accepts */ "",
-		/* reads */ "",
+		/* doc */ "",
+		/* create */ "Custos",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

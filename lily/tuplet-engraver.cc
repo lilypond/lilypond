@@ -178,8 +178,8 @@ Tuplet_engraver::Tuplet_engraver ()
 
 ADD_ACKNOWLEDGER (Tuplet_engraver,note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
-		/* descr */ "Catch Time_scaled_music and generate appropriate bracket  ",
-		/* creats*/ "TupletBracket",
-		/* accepts */ "time-scaled-music",
-		/* reads */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength" ,
+		/* doc */ "Catch Time_scaled_music and generate appropriate bracket  ",
+		/* create */ "TupletBracket",
+		/* accept */ "time-scaled-music",
+		/* read */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength" ,
 		/* write */ "");

@@ -138,8 +138,8 @@ Grob_pq_engraver::start_translation_timestep ()
 ADD_ACKNOWLEDGER (Grob_pq_engraver, grob);
 ADD_TRANSLATOR (Grob_pq_engraver,
 
-		/* descr */ "Administrate when certain grobs (eg. note heads) stop playing",
-		/* creats*/ "",
-		/* accepts */ "",
-		/* reads */ "busyGrobs",
+		/* doc */ "Administrate when certain grobs (eg. note heads) stop playing",
+		/* create */ "",
+		/* accept */ "",
+		/* read */ "busyGrobs",
 		/* write */ "busyGrobs");

@@ -73,8 +73,8 @@ Stanza_number_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Stanza_number_engraver,lyric_syllable);
 ADD_TRANSLATOR (Stanza_number_engraver,
-		/* descr */ "",
-		/* creats*/ "StanzaNumber",
-		/* accepts */ "",
-		/* reads */ "stanza",
+		/* doc */ "",
+		/* create */ "StanzaNumber",
+		/* accept */ "",
+		/* read */ "stanza",
 		/* write */ "");

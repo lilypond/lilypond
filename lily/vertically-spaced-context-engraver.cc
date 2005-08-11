@@ -59,8 +59,8 @@ Vertically_spaced_contexts_engraver::acknowledge_vertically_spaceable (Grob_info
 
 ADD_ACKNOWLEDGER (Vertically_spaced_contexts_engraver, vertically_spaceable);
 ADD_TRANSLATOR (Vertically_spaced_contexts_engraver,
-		/* descr */ "",
-		/* creats*/ "",
-		/* accepts */ "",
-		/* reads */ "verticallySpacedContexts",
+		/* doc */ "",
+		/* create */ "",
+		/* accept */ "",
+		/* read */ "verticallySpacedContexts",
 		/* write */ "verticallySpacedContexts");

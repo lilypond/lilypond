@@ -167,9 +167,9 @@ Drum_notes_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
 ADD_ACKNOWLEDGER (Drum_notes_engraver,note_column);
 ADD_TRANSLATOR (Drum_notes_engraver,
-		/* descr */ "Generate noteheads.",
-		/* creats*/ "NoteHead Dots Script",
-		/* accepts */ "note-event busy-playing-event",
-		/* reads */ "drumStyleTable",
+		/* doc */ "Generate noteheads.",
+		/* create */ "NoteHead Dots Script",
+		/* accept */ "note-event busy-playing-event",
+		/* read */ "drumStyleTable",
 		/* write */ "");
 

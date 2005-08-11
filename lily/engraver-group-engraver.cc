@@ -131,10 +131,10 @@ Engraver_group_engraver::Engraver_group_engraver ()
 #include "translator.icc"
 
 ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
-		      /* descr */ "A group of engravers taken together",
-		      /* creats*/ "",
-		      /* accepts */ "",
-		      /* reads */ "",
+		      /* doc */ "A group of engravers taken together",
+		      /* create */ "",
+		      /* accept */ "",
+		      /* read */ "",
 		      /* write */ "");
 
 

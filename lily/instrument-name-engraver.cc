@@ -143,12 +143,12 @@ Instrument_name_engraver::process_music ()
 ADD_ACKNOWLEDGER (Instrument_name_engraver, bar_line);
 ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
 ADD_TRANSLATOR (Instrument_name_engraver,
-		/* descr */ " Prints the name of the instrument (specified by "
+		/* doc */ " Prints the name of the instrument (specified by "
 		" @code{Staff.instrument} and @code{Staff.instr}) "
 		"at the left of the staff. ",
-		/* creats*/ "InstrumentName",
-		/* accepts */ "",
-		/* reads */ "instrument instr",
+		/* create */ "InstrumentName",
+		/* accept */ "",
+		/* read */ "instrument instr",
 		/* write */ "");
 
 /****************************************************************/
@@ -190,10 +190,10 @@ Vocal_name_engraver::create_text ()
 ADD_ACKNOWLEDGER (Vocal_name_engraver, bar_line);
 ADD_ACKNOWLEDGER (Vocal_name_engraver, axis_group);
 ADD_TRANSLATOR (Vocal_name_engraver,
-		/* descr */ " Prints the name of the a lyric voice (specified by "
+		/* doc */ " Prints the name of the a lyric voice (specified by "
 		" @code{Staff.vocalName} and @code{Staff.vocNam}) "
 		"at the left of the staff. ",
-		/* creats*/ "VocalName",
-		/* accepts */ "",
-		/* reads */ "vocNam vocalName",
+		/* create */ "VocalName",
+		/* accept */ "",
+		/* read */ "vocNam vocalName",
 		/* write */ "");

@@ -204,7 +204,7 @@ ADD_TRANSLATOR (Spacing_engraver,
 		"make a SpacingSpanner and do "
 		"bookkeeping of shortest starting and playing notes  ",
 
-		/* creats*/ "SpacingSpanner",
-		/* accepts */ "",
-		/* reads */ "currentMusicalColumn currentCommandColumn proportionalNotationDuration",
+		/* create */ "SpacingSpanner",
+		/* accept */ "",
+		/* read */ "currentMusicalColumn currentCommandColumn proportionalNotationDuration",
 		/* write */ "");

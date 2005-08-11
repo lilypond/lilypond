@@ -111,8 +111,8 @@ Tie_performer::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Tie_performer,
-		/* descr */ "Generate ties between noteheads of equal pitch.",
-		/* creats*/ "",
-		/* accepts */ "tie-event",
-		/* reads */ "tieMelismaBusy",
+		/* doc */ "Generate ties between noteheads of equal pitch.",
+		/* create */ "",
+		/* accept */ "tie-event",
+		/* read */ "tieMelismaBusy",
 		/* write */ "");

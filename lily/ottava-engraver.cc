@@ -126,8 +126,8 @@ Ottava_spanner_engraver::finalize ()
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
 ADD_TRANSLATOR (Ottava_spanner_engraver,
-		/* descr */ "Create a text spanner when the ottavation property changes..",
-		/* creats*/ "OttavaBracket",
-		/* accepts */ "",
-		/* reads */ "ottavation",
+		/* doc */ "Create a text spanner when the ottavation property changes..",
+		/* create */ "OttavaBracket",
+		/* accept */ "",
+		/* read */ "ottavation",
 		/* write */ "");

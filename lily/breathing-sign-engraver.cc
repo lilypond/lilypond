@@ -65,8 +65,8 @@ Breathing_sign_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Breathing_sign_engraver,
-		/* descr */ "",
-		/* creats*/ "BreathingSign",
-		/* accepts */ "breathing-event",
-		/* reads */ "",
+		/* doc */ "",
+		/* create */ "BreathingSign",
+		/* accept */ "breathing-event",
+		/* read */ "",
 		/* write */ "");

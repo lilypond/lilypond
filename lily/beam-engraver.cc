@@ -276,11 +276,11 @@ ADD_ACKNOWLEDGER (Beam_engraver, stem);
 ADD_ACKNOWLEDGER (Beam_engraver, rest);
 
 ADD_TRANSLATOR (Beam_engraver,
-		/* descr */ "Handles Beam events by engraving Beams.    If omitted, then notes will be "
+		/* doc */ "Handles Beam events by engraving Beams.    If omitted, then notes will be "
 		"printed with flags instead of beams.",
-		/* creats*/ "Beam",
-		/* accepts */ "beam-event",
-		/* reads */ "beamMelismaBusy beatLength subdivideBeams",
+		/* create */ "Beam",
+		/* accept */ "beam-event",
+		/* read */ "beamMelismaBusy beatLength subdivideBeams",
 		/* write */ "");
 
 class Grace_beam_engraver : public Beam_engraver
@@ -314,11 +314,11 @@ Grace_beam_engraver::valid_end_point ()
 ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
 ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
 ADD_TRANSLATOR (Grace_beam_engraver,
-		/* descr */ "Handles Beam events by engraving Beams.  If omitted, then notes will "
+		/* doc */ "Handles Beam events by engraving Beams.  If omitted, then notes will "
 		"be printed with flags instead of beams. Only engraves beams when we "
 		" are at grace points in time. ",
-		/* creats*/ "Beam",
-		/* accepts */ "beam-event",
-		/* reads */ "beamMelismaBusy beatLength allowBeamBreak subdivideBeams",
+		/* create */ "Beam",
+		/* accept */ "beam-event",
+		/* read */ "beamMelismaBusy beatLength allowBeamBreak subdivideBeams",
 		/* write */ "");
 

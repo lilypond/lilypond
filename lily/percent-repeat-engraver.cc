@@ -201,8 +201,8 @@ Percent_repeat_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Percent_repeat_engraver,
-		/* descr */ "Make whole bar and double bar repeats.",
-		/* creats*/ "PercentRepeat DoublePercentRepeat",
-		/* accepts */ "repeated-music",
-		/* reads */ "measureLength currentCommandColumn",
+		/* doc */ "Make whole bar and double bar repeats.",
+		/* create */ "PercentRepeat DoublePercentRepeat",
+		/* accept */ "repeated-music",
+		/* read */ "measureLength currentCommandColumn",
 		/* write */ "");

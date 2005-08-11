@@ -34,8 +34,8 @@ Swallow_performer::Swallow_performer ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Swallow_performer,
-		/* descr */ "",
-		/* creats*/ "",
-		/* accepts */ "general-music",
-		/* reads */ "",
+		/* doc */ "",
+		/* create */ "",
+		/* accept */ "general-music",
+		/* read */ "",
 		/* write */ "");

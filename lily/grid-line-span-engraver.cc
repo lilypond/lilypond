@@ -61,9 +61,9 @@ Grid_line_span_engraver::stop_translation_timestep ()
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Grid_line_span_engraver, grid_point);
 ADD_TRANSLATOR (Grid_line_span_engraver,
-		/* descr */ "This engraver makes cross-staff linelines: It catches all normal "
+		/* doc */ "This engraver makes cross-staff linelines: It catches all normal "
 		"line lines, and draws a single span-line across them.",
-		/* creats*/ "GridLine",
-		/* accepts */ "",
-		/* reads */ "",
+		/* create */ "GridLine",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

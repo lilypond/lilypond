@@ -525,10 +525,10 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Piano_pedal_engraver,note_column);
 ADD_TRANSLATOR (Piano_pedal_engraver,
-		/* descr */ "Engrave piano pedal symbols and brackets.",
-		/* creats*/ "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
-		/* accepts */ "pedal-event",
-		/* reads */ "currentCommandColumn "
+		/* doc */ "Engrave piano pedal symbols and brackets.",
+		/* create */ "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
+		/* accept */ "pedal-event",
+		/* read */ "currentCommandColumn "
 		"pedalSostenutoStrings pedalSustainStrings "
 		"pedalUnaCordaStrings pedalSostenutoStyle "
 		"pedalSustainStyle pedalUnaCordaStyle",

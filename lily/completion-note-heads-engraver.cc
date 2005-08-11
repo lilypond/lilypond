@@ -315,10 +315,10 @@ Completion_heads_engraver::Completion_heads_engraver ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Completion_heads_engraver,
-		/* descr */ "This engraver replaces "
+		/* doc */ "This engraver replaces "
 		"@code{Note_heads_engraver}. It plays some trickery to "
 		"break long notes and automatically tie them into the next measure.",
-		/* creats*/ "NoteHead Dots Tie",
-		/* accepts */ "busy-playing-event note-event",
-		/* reads */ "middleCPosition measurePosition measureLength",
+		/* create */ "NoteHead Dots Tie",
+		/* accept */ "busy-playing-event note-event",
+		/* read */ "middleCPosition measurePosition measureLength",
 		/* write */ "");

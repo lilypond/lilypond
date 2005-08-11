@@ -211,8 +211,8 @@ Chord_tremolo_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Chord_tremolo_engraver,stem);
 ADD_TRANSLATOR (Chord_tremolo_engraver,
-		/* descr */ "Generates beams for  tremolo repeats.",
-		/* creats*/ "Beam",
-		/* accepts */ "repeated-music",
-		/* reads */ "",
+		/* doc */ "Generates beams for  tremolo repeats.",
+		/* create */ "Beam",
+		/* accept */ "repeated-music",
+		/* read */ "",
 		/* write */ "");

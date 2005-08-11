@@ -124,8 +124,8 @@ Axis_group_engraver::add_element (Grob *e)
 ADD_ACKNOWLEDGER (Axis_group_engraver, grob);
 
 ADD_TRANSLATOR (Axis_group_engraver,
-		/* descr */ "Group all objects created in this context in a VerticalAxisGroup spanner.",
-		/* creats*/ "VerticalAxisGroup",
-		/* accepts */ "",
-		/* reads */ "verticalExtent minimumVerticalExtent extraVerticalExtent",
+		/* doc */ "Group all objects created in this context in a VerticalAxisGroup spanner.",
+		/* create */ "VerticalAxisGroup",
+		/* accept */ "",
+		/* read */ "verticalExtent minimumVerticalExtent extraVerticalExtent",
 		/* write */ "");

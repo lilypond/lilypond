@@ -150,8 +150,8 @@ ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, text_spanner);
 ADD_TRANSLATOR (Pitched_trill_engraver,
-		/* descr */ "Print the bracketed notehead after a notehead with trill.",
-		/* creats*/ "TrillPitchHead TrillPitchAccidental TrillPitchGroup",
-		/* accepts */ "",
-		/* reads */ "",
+		/* doc */ "Print the bracketed notehead after a notehead with trill.",
+		/* create */ "TrillPitchHead TrillPitchAccidental TrillPitchGroup",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

@@ -76,9 +76,9 @@ Dot_column_engraver::acknowledge_stem (Grob_info info)
 ADD_ACKNOWLEDGER (Dot_column_engraver, stem);
 ADD_ACKNOWLEDGER (Dot_column_engraver, rhythmic_head);
 ADD_TRANSLATOR (Dot_column_engraver,
-		/* descr */ "Engraves dots on dotted notes shifted to the right of the note.\n"
+		/* doc */ "Engraves dots on dotted notes shifted to the right of the note.\n"
 		"If omitted, then dots appear on top of the notes.",
-		/* creats*/ "DotColumn",
-		/* accepts */ "",
-		/* reads */ "",
+		/* create */ "DotColumn",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

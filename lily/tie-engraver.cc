@@ -208,8 +208,8 @@ Tie_engraver::typeset_tie (Grob *her)
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Tie_engraver, note_head);
 ADD_TRANSLATOR (Tie_engraver,
-		/* descr */ "Generate ties between noteheads of equal pitch.",
-		/* creats*/ "Tie TieColumn",
-		/* accepts */ "tie-event",
-		/* reads */ "tieMelismaBusy",
+		/* doc */ "Generate ties between noteheads of equal pitch.",
+		/* create */ "Tie TieColumn",
+		/* accept */ "tie-event",
+		/* read */ "tieMelismaBusy",
 		/* write */ "");

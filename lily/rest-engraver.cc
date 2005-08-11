@@ -104,8 +104,8 @@ Rest_engraver::try_music (Music *m)
 #include "translator.icc"
 
 ADD_TRANSLATOR (Rest_engraver,
-		/* descr */ "",
-		/* creats*/ "Rest Dots",
-		/* accepts */ "rest-event",
-		/* reads */ "middleCPosition",
+		/* doc */ "",
+		/* create */ "Rest Dots",
+		/* accept */ "rest-event",
+		/* read */ "middleCPosition",
 		/* write */ "");

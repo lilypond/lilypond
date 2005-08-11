@@ -101,8 +101,8 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Span_arpeggio_engraver,arpeggio);
 ADD_TRANSLATOR (Span_arpeggio_engraver,
-		/* descr */ "",
-		/* creats*/ "Arpeggio",
-		/* accepts */ "",
-		/* reads */ "connectArpeggios",
+		/* doc */ "",
+		/* create */ "Arpeggio",
+		/* accept */ "",
+		/* read */ "connectArpeggios",
 		/* write */ "");

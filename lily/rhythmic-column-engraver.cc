@@ -165,8 +165,8 @@ ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
-		/* descr */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
-		/* creats*/ "NoteColumn NoteSpacing",
-		/* accepts */ "",
-		/* reads */ "",
+		/* doc */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
+		/* create */ "NoteColumn NoteSpacing",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

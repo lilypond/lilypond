@@ -183,8 +183,8 @@ Ambitus_engraver::finalize ()
 
 ADD_ACKNOWLEDGER (Ambitus_engraver, note_head);
 ADD_TRANSLATOR (Ambitus_engraver,
-		/* descr */ "",
-		/* creats*/ "Ambitus AmbitusLine AmbitusNoteHead AmbitusAccidental",
-		/* accepts */ "",
-		/* reads */ "",
+		/* doc */ "",
+		/* create */ "Ambitus AmbitusLine AmbitusNoteHead AmbitusAccidental",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");

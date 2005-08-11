@@ -195,8 +195,8 @@ Clef_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Clef_engraver, bar_line);
 ADD_TRANSLATOR (Clef_engraver,
-		/* descr */ "Determine and set reference point for pitches",
-		/* creats*/ "Clef OctavateEight",
-		/* accepts */ "",
-		/* reads */ "clefPosition clefGlyph middleCPosition clefOctavation explicitClefVisibility forceClef",
+		/* doc */ "Determine and set reference point for pitches",
+		/* create */ "Clef OctavateEight",
+		/* accept */ "",
+		/* read */ "clefPosition clefGlyph middleCPosition clefOctavation explicitClefVisibility forceClef",
 		/* write */ "");

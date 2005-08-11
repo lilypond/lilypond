@@ -107,8 +107,8 @@ Glissando_engraver::finalize ()
 
 ADD_ACKNOWLEDGER (Glissando_engraver,rhythmic_head);
 ADD_TRANSLATOR (Glissando_engraver,
-		/* descr */ "Engrave a glissandi",
-		/* creats*/ "Glissando",
-		/* accepts */ "glissando-event",
-		/* reads */ "followVoice",
+		/* doc */ "Engrave a glissandi",
+		/* create */ "Glissando",
+		/* accept */ "glissando-event",
+		/* read */ "followVoice",
 		/* write */ "");

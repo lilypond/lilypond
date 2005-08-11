@@ -86,8 +86,8 @@ Figured_bass_engraver::process_music ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Figured_bass_engraver,
-		/* descr */ "Make figured bass numbers.",
-		/* creats*/ "BassFigure",
-		/* accepts */ "rest-event bass-figure-event",
-		/* reads */ "bassFigureFormatFunction",
+		/* doc */ "Make figured bass numbers.",
+		/* create */ "BassFigure",
+		/* accept */ "rest-event bass-figure-event",
+		/* read */ "bassFigureFormatFunction",
 		/* write */ "");

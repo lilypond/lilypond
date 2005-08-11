@@ -32,9 +32,9 @@ ADD_TRANSLATOR (Default_bar_line_engraver,
 		"This engraver determines what kind of automatic bar lines should be produced, "
 		"and sets @code{whichBar} accordingly. It should be at the same "
 		"level as @ref{Timing_translator}. ",  
-		/* creats*/ "",
-		/* accepts */ "",
-		/* reads */
+		/* create */ "",
+		/* accept */ "",
+		/* read */ 
 		"measurePosition automaticBars whichBar barAlways defaultBarType "
 		"measureLength",
 		/* write */ "automaticBars");

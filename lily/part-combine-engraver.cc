@@ -98,10 +98,10 @@ Part_combine_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
 ADD_ACKNOWLEDGER (Part_combine_engraver, stem);
 ADD_TRANSLATOR (Part_combine_engraver,
-		/* descr */ "Part combine engraver for orchestral scores:		"
+		/* doc */ "Part combine engraver for orchestral scores:		"
 		"Print markings a2, Solo, Solo II, and unisono ",
-		/* creats*/ "CombineTextScript",
-		/* accepts */ "part-combine-event",
-		/* reads */ "printPartCombineTexts soloText soloIIText "
+		/* create */ "CombineTextScript",
+		/* accept */ "part-combine-event",
+		/* read */ "printPartCombineTexts soloText soloIIText "
 		"aDueText",
 		/* write */ "");

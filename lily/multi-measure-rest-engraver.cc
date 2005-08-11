@@ -249,12 +249,12 @@ Multi_measure_rest_engraver::finalize ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
-		/* descr */
+		/* doc */ 
 		"Engraves multi-measure rests that are produced with @code{R}.  Reads "
 		"measurePosition and currentBarNumber to determine what number to print "
 		"over the MultiMeasureRest.  Reads measureLength to determine if it "
 		"should use a whole rest or a breve rest to represent 1 measure ",
-		/* creats*/ "MultiMeasureRest MultiMeasureRestNumber MultiMeasureRestText",
-		/* accepts */ "multi-measure-rest-event multi-measure-text-event",
-		/* reads */ "currentBarNumber restNumberThreshold breakableSeparationItem currentCommandColumn measurePosition measureLength",
+		/* create */ "MultiMeasureRest MultiMeasureRestNumber MultiMeasureRestText",
+		/* accept */ "multi-measure-rest-event multi-measure-text-event",
+		/* read */ "currentBarNumber restNumberThreshold breakableSeparationItem currentCommandColumn measurePosition measureLength",
 		/* write */ "");

@@ -213,8 +213,8 @@ ADD_ACKNOWLEDGER (Slur_engraver,script);
 ADD_ACKNOWLEDGER (Slur_engraver,text_script);
 ADD_ACKNOWLEDGER (Slur_engraver,tie);
 ADD_TRANSLATOR (Slur_engraver,
-		/* descr */ "Build slur grobs from slur events",
-		/* creats*/ "Slur",
-		/* accepts */ "slur-event",
-		/* reads */ "slurMelismaBusy doubleSlurs",
+		/* doc */ "Build slur grobs from slur events",
+		/* create */ "Slur",
+		/* accept */ "slur-event",
+		/* read */ "slurMelismaBusy doubleSlurs",
 		/* write */ "");

@@ -147,8 +147,8 @@ Extender_engraver::finalize ()
 
 ADD_ACKNOWLEDGER (Extender_engraver,lyric_syllable);
 ADD_TRANSLATOR (Extender_engraver,
-		/* descr */ "Create lyric extenders",
-		/* creats*/ "LyricExtender",
-		/* accepts */ "extender-event",
-		/* reads */ "",
+		/* doc */ "Create lyric extenders",
+		/* create */ "LyricExtender",
+		/* accept */ "extender-event",
+		/* read */ "",
 		/* write */ "");

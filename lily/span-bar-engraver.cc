@@ -76,9 +76,9 @@ Span_bar_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
 ADD_TRANSLATOR (Span_bar_engraver,
-		/* descr */ "This engraver makes cross-staff barlines: It catches all normal "
+		/* doc */ "This engraver makes cross-staff barlines: It catches all normal "
 		"bar lines, and draws a single span-bar across them.",
-		/* creats*/ "SpanBar",
-		/* accepts */ "",
-		/* reads */ "",
+		/* create */ "SpanBar",
+		/* accept */ "",
+		/* read */ "",
 		/* write */ "");
