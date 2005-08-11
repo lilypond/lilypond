@@ -370,11 +370,13 @@ ly_string_array_to_scm (Array<String> a)
   return s;
 }
   
-/* LST is whitespace separated list of symbols.  */
+/* SYMBOLS is a whitespace separated list.  */
 SCM
-parse_symbol_list (char const *lst)
+parse_symbol_list (char const *symbols)
 {
-  String s = lst;
+  while (isspace (*symbols))
+    *symbols++;
+  String s = symbols;
   s.substitute ('\n', ' ');
   s.substitute ('\t', ' ');
   return ly_string_array_to_scm (String_convert::split (s, ' '));

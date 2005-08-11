@@ -91,6 +91,9 @@ rules = {
 	('\n[ \t]*,', ','),
 	# dangling semicolon
 	('\n[ \t]*;', ';'),
+	# delete gratuitous blocks
+	('''(?ux)\n([    ]|\t\s*){\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
+	 '\n\\2;'),
 	# brace open
 	('(\w)[ \t]*([^\s]*){([ \t]*\n)', '\\1\\2\n{\n'),
 	# brace open backslash
@@ -588,6 +591,26 @@ i
   (shift) *-d;
 
   a = 0 ? *x : *y;
+
+{
+  if (foo)
+    {
+    a = 1;
+    }
+}
+
+	    if (prev_delta_pitch < - 1)
+	      {
+		glyph_name = "svaticana.reverse.plica";
+	      }
+	    if (prev_delta_pitch < - 1)
+	      {
+		glyph_name = svaticana.reverse.plica;
+	      }
+	    if (prev_delta_pitch < - 1)
+	      {
+		glyph_name = "2";
+	      }
 '''
 
 def test ():
