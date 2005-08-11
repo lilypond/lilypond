@@ -159,7 +159,7 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
 
 void
 add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
-		  const char *func_name,
+		  char const *func_name,
 		  Array<Acknowledge_information> *ack_array)
 {
   Acknowledge_information inf;

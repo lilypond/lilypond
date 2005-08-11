@@ -167,7 +167,7 @@ System::get_paper_systems ()
 
   handle_broken_dependencies ();
   
-#if 0  /* don't do this: strange side effects.  */
+#if 0  /* FIXME: strange side effects.  */
 
   /* Because the this->get_property (all-elements) contains items in 3
      versions, handle_broken_dependencies () will leave duplicated

@@ -1,3 +1,27 @@
+2005-08-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/slur-script.ly: Fixed.
+
+	* lily/phrasing-slur-engraver.cc (class Phrasing_slur_engraver):
+	Update cut and paste code from Slur_engraver.
+
+	* scm/define-grob-interfaces.scm (dynamic-line-spanner-interface):
+	Add.
+
+	* scm/define-grobs.scm (DynamicLineSpanner): Add
+	dynamic-line-spanner-interface.
+	(DynamicLineSpanner, TextScript, Fingering): Add slur-padding.
+
+2005-08-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/slur-engraver.cc (acknowledge_extra_object): Bugfix: use
+	to_boolean () so that non-set 'inside-slur means false.
+
+	* lily/slur.cc (outside_slur_callback): Bugfixes: make sure that
+	slur has control-points.  Skip script without direction.  Always
+	do_shift if script inside slur, even if slur not contained in
+	script y-extent.  Increment k in loop.
+
 2005-08-11  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/define-markup-commands.scm: Improved regexp to search for

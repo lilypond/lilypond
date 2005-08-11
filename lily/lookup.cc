@@ -658,8 +658,7 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
-#if 0
-  // TODO
+#if 0 /*  TODO */
   Array<Offset> points ;
   Real blotdiameter = 0.0;
 

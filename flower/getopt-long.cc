@@ -222,7 +222,7 @@ Getopt_long::operator () ()
   if (argument_index_)
     return parseshort ();
 
-  const char *argument = arg_value_char_a_a_[array_index_];
+  char const *argument = arg_value_char_a_a_[array_index_];
 
   if (argument[0] != '-')
     return 0;

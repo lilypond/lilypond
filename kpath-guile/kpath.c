@@ -60,7 +60,7 @@ static char *(*dl_kpse_var_expand) (char const*) = 0;
 static kpse_format_info_type (*dl_kpse_format_info)[kpse_last_format] = 0;
 
 kpse_file_format_type
-kpathsea_find_format (const char* name)
+kpathsea_find_format (char const* name)
 {
   int i;
   int len = strlen (name);

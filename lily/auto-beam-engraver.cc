@@ -197,9 +197,7 @@ Auto_beam_engraver::create_beam ()
 			       context ()->get_grob_key ("Beam"));
 
   for (int i = 0; i < stems_->size (); i++)
-    {
-      Beam::add_stem (beam, (*stems_)[i]);
-    }
+    Beam::add_stem (beam, (*stems_)[i]);
 
   announce_grob (beam, (*stems_)[0]->self_scm ());
 

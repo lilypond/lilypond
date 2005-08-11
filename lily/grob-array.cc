@@ -49,8 +49,7 @@ Grob_array::mark_smob (SCM s)
 {
   (void) s;
   
-#if 0
-  // see System::derived_mark () const
+#if 0  /* see System::derived_mark () const */
   Grob_array *ga = unsmob_grob_array (s); 
   for (int i = 0; i < ga->grobs_.size(); i++)
     scm_gc_mark (ga->grobs_[i]->self_scm ());

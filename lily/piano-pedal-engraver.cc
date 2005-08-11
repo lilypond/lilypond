@@ -95,7 +95,7 @@ Piano_pedal_engraver::initialize ()
 {
   char *names [] = { "Sostenuto", "Sustain", "UnaCorda", 0 };
 
-  info_list_ = new Pedal_info[sizeof (names) / sizeof (const char *)];
+  info_list_ = new Pedal_info[sizeof (names) / sizeof (char const *)];
   Pedal_info *p = info_list_;
 
   char **np = names;

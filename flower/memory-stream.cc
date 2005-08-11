@@ -67,7 +67,7 @@ Memory_out_stream::get_length () const
   return size_;
 }
 
-const char *
+char const *
 Memory_out_stream::get_string () const
 {
   return buffer_;
@@ -75,7 +75,7 @@ Memory_out_stream::get_string () const
 
 ssize_t
 Memory_out_stream::writer (void *cookie,
-			   const char *buffer,
+			   char const *buffer,
 			   size_t size)
 {
   Memory_out_stream *stream = (Memory_out_stream *) cookie;

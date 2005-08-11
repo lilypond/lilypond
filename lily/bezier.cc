@@ -75,7 +75,6 @@ Bezier::get_other_coordinate (Axis a, Real x) const
       return 0.0;
     }
 
-
 #ifdef PARANOID
   Offset c = curve_point (ts[0]);
   if (fabs (c[a] - x) > 1e-8)

@@ -1,6 +1,8 @@
 /*
   phrasing-slur-engraver.cc -- implement Phrasing_slur_engraver
 
+  source file of the GNU LilyPond music typesetter
+
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
@@ -29,13 +31,14 @@ protected:
   virtual bool try_music (Music *);
 
   void acknowledge_extra_object (Grob_info);
-  DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (accidental);
+  DECLARE_ACKNOWLEDGER (dynamic_line_spanner);
   DECLARE_ACKNOWLEDGER (fingering);
+  DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (script);
-  DECLARE_ACKNOWLEDGER (tie);
-  DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (slur);
+  DECLARE_ACKNOWLEDGER (text_script);
+  DECLARE_ACKNOWLEDGER (tie);
   
   void stop_translation_timestep ();
   virtual void finalize ();
@@ -86,6 +89,7 @@ Phrasing_slur_engraver::acknowledge_note_column (Grob_info info)
     Slur::add_column (end_slurs_[i], e);
 }
 
+/* FIXME: cut + paste job from Slur:: */
 void
 Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
 {
@@ -99,7 +103,8 @@ Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
       for (int i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
-  else if (inside == SCM_BOOL_F)
+  else if (!to_boolean (inside)
+	   && e->name () != "DynamicText")
     {
       Grob *slur = slurs_.size () ? slurs_[0] : 0;
       slur = (end_slurs_.size () && !slur)
@@ -119,6 +124,11 @@ Phrasing_slur_engraver::acknowledge_accidental (Grob_info info)
   acknowledge_extra_object (info);
 }
 
+void
+Phrasing_slur_engraver::acknowledge_dynamic_line_spanner (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
 
 void
 Phrasing_slur_engraver::acknowledge_fingering (Grob_info info)
@@ -190,13 +200,14 @@ Phrasing_slur_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver,note_column);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver,accidental);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver,fingering)
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver,script);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver,tie);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver,text_script);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver,slur);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dynamic_line_spanner);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,
 		/* descr */ "Print phrasing slurs. Similar to @ref{Slur_engraver}",

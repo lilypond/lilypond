@@ -77,10 +77,8 @@ Note_heads_engraver::process_music ()
 
       Pitch *pit = unsmob_pitch (ev->get_property ("pitch"));
 
-#if 0
-      /*
-	TODO: should have a mechanism to switch off these warnings.
-       */
+#if 0 /* TODO: should have a mechanism to switch off these warnings. */
+
       if (!pit)
 	{
 	  ev->origin ()->warning (_ ("NoteEvent without pitch"));

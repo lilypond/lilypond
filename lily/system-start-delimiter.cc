@@ -71,13 +71,14 @@ System_start_delimiter::after_line_breaking (SCM smob)
       int count = 0;
       Paper_column *left_column = me->get_bound (LEFT)->get_column ();  
 
+#if 1 /* slur-script.ly test */
       /*
 	Get all coordinates, to trigger Hara kiri.
       */
       extract_grob_set (me, "elements", elts);
       Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
 
-      for (int i = elts.size();  i--;)
+      for (int i = elts.size (); i--;)
 	{
 	  Spanner *staff = dynamic_cast<Spanner*> (elts[i]);
 	  if (!staff || 
@@ -91,9 +92,8 @@ System_start_delimiter::after_line_breaking (SCM smob)
 	}
 
       if (count <= 1)
-	{
-	  me->suicide ();
-	}
+	me->suicide ();
+#endif      
     }
   return SCM_UNSPECIFIED;
 }

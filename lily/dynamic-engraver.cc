@@ -119,7 +119,6 @@ Dynamic_engraver::process_music ()
 	{
 	  Music *rq = accepted_spanevents_drul_[START];
 	  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm () : SCM_EOL);
-
 	  if (script_ev_)
 	    rq = script_ev_;
 	}
@@ -146,6 +145,8 @@ Dynamic_engraver::process_music ()
 
       if (Direction d = to_dir (script_ev_->get_property ("direction")))
 	set_grob_direction (line_spanner_, d);
+      else if (Direction d = to_dir (line_spanner_->get_property ("direction")))
+	set_grob_direction (script_, d);
 
       Axis_group_interface::add_element (line_spanner_, script_);
     }

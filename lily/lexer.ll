@@ -278,7 +278,7 @@ BOM_UTF8	\357\273\277
 	exit (1);
 }
 <chords,notes,figures>{RESTNAME} 	{
-	const char *s = YYText ();
+	char const *s = YYText ();
 	yylval.scm = scm_makfrom0str (s);
 	return RESTNAME;
 }

@@ -24,5 +24,5 @@
     b-.( b-.
     \once \override Script #'padding = #1.2
     b-.)
-    e=''16[-.( f-.)]
+    e='16[-.( f-.)]
 }

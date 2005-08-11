@@ -189,7 +189,7 @@ updated_grob_properties (Context *tg, SCM sym)
 }
 
 Grob *
-make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, const char *name)
+make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, char const *name)
 {
   Context *context = tr->context ();
 
@@ -215,7 +215,7 @@ make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, const char *name
 }
 
 Item *
-make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char *name)
+make_item_from_properties (Engraver *tr, SCM x, SCM cause, char const *name)
 {
   Item *it = dynamic_cast<Item*> (make_grob_from_properties (tr, x, cause, name));
   assert (it);
@@ -223,16 +223,16 @@ make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char *name)
 }
 
 Paper_column *
-make_paper_column_from_properties (Engraver *tr, SCM x, const char *name)
+make_paper_column_from_properties (Engraver *tr, SCM x, char const *name)
 {
   return dynamic_cast<Paper_column*> (make_grob_from_properties (tr, x, SCM_EOL, name));
 }
 
 
 Spanner *
-make_spanner_from_properties (Engraver *tr, SCM x, SCM cause, const char *name)
+make_spanner_from_properties (Engraver *tr, SCM x, SCM cause, char const *name)
 {
-  Spanner* sp = dynamic_cast<Spanner*> (make_grob_from_properties (tr, x, cause, name));
+  Spanner *sp = dynamic_cast<Spanner*> (make_grob_from_properties (tr, x, cause, name));
   assert (sp);
   return sp;
 }
