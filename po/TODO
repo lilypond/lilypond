@@ -10,15 +10,19 @@ FIX OR STANDARDISE TARGETS
 * if there are no errors (a list of changes against `po/' directory may be 
   displayed, that's ok), do
 
-    cp po/out/*.po po
+    cp po/out/*.po po/
 
   copy the template file for translating to a new language LANG: do
 
-    cp po/out/lilypond.po LANG.po
+    cp po/out/lilypond.po po/LANG.po
 
-* and edit your favorite po/LANG.po.  Especially, look for `, fuzzy', and empty 
-  entries.  At the bottom of the file you may find a list of obsolete
-  translations.
+* and edit your favorite po/LANG.po.  Use a dedicated tool, like kbabel:
+
+    kbabel po/fi.po
+
+  Especially, look for fuzzy and untranslated entries.  At the bottom of 
+  the file may accumulate the list of obsolete translations, which may 
+  help to translate some changed entries and may be safely dropped out.
 
 * because I never install LilyPond, I (check-out buildscripts/set-lily.sh) 
   made these links:
