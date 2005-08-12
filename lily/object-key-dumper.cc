@@ -57,9 +57,7 @@ Object_key_dumper::serialize_key (Object_key const *key)
   for (SCM s = skey; scm_is_pair (s); s = scm_cdr (s))
     {
       if (Object_key const *sub_key = unsmob_key (scm_car (s)))
-	{
-	  scm_set_car_x (s, dump_key (sub_key));
-	}
+	scm_set_car_x (s, dump_key (sub_key));
       else if (Moment *mom = unsmob_moment (scm_car (s)))
 	{
 	  scm_set_car_x (s,

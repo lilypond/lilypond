@@ -13,7 +13,6 @@
 #include "audio-item.hh"
 #include "pqueue.hh"
 
-
 class Tie_performer : public Performer
 {
   Music *event_;
@@ -73,7 +72,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 
 	  if (right_mus && left_mus
 	      && ly_is_equal (right_mus->get_property ("pitch"),
-			       left_mus->get_property ("pitch")))
+			      left_mus->get_property ("pitch")))
 	    {
 	      an->tie_to (th);
 	      ties_created_ = true;

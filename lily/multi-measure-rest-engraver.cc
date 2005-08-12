@@ -49,7 +49,7 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 
   /*
     For the start of a score.
-   */
+  */
   bar_seen_ = true;
   start_measure_ = 0;
   mmrest_ = 0;
@@ -249,7 +249,7 @@ Multi_measure_rest_engraver::finalize ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
-		/* doc */ 
+		/* doc */
 		"Engraves multi-measure rests that are produced with @code{R}.  Reads "
 		"measurePosition and currentBarNumber to determine what number to print "
 		"over the MultiMeasureRest.  Reads measureLength to determine if it "

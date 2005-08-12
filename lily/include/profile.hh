@@ -1,10 +1,9 @@
 /*
-  profile.hh -- declare property profiling utils. 
+  profile.hh -- declare property profiling utils.
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef PROFILE_HH

@@ -104,9 +104,7 @@ public:
       if (new_p)
 	elem_ref (i) = new_p;
       else
-	{
-	  unordered_del (i);
-	}
+	unordered_del (i);
   }
   void default_sort ()
   {

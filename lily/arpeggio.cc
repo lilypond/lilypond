@@ -26,7 +26,7 @@ Arpeggio::print (SCM smob)
   Grob *common = me;
 
   extract_grob_set (me, "stems", stems);
-  for (int i = 0;  i < stems.size(); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
       common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
@@ -44,7 +44,7 @@ Arpeggio::print (SCM smob)
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
 
-  for (int i = 0;  i < stems.size(); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
       Grob *ss = Staff_symbol_referencer::get_staff_symbol (stem);
@@ -100,9 +100,9 @@ Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *common = me;
-  
+
   extract_grob_set (me, "stems", stems);
-  for (int i = 0;  i < stems.size(); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
       common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
@@ -112,7 +112,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
 
-  for (int i = 0;  i < stems.size(); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
       Grob *ss = Staff_symbol_referencer::get_staff_symbol (stem);
@@ -141,7 +141,7 @@ Arpeggio::width_callback (SCM smob, SCM axis)
 {
   Grob *me = unsmob_grob (smob);
   (void) axis;
-  
+
   assert (scm_to_int (axis) == X_AXIS);
   Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts.arpeggio");
 

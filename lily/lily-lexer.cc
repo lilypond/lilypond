@@ -109,7 +109,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
   start_module_ = SCM_EOL;
-  
+
   error_level_ = src.error_level_;
   is_main_input_ = src.is_main_input_;
 
@@ -142,7 +142,7 @@ Lily_lexer::add_scope (SCM module)
   ly_reexport_module (scm_current_module ());
   if (!scm_is_pair (scopes_))
     start_module_ = scm_current_module ();
-  
+
   for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
     {
       ly_use_module (module, scm_car (s));
@@ -151,7 +151,6 @@ Lily_lexer::add_scope (SCM module)
 
   set_current_scope ();
 }
-
 
 SCM
 Lily_lexer::remove_scope ()
@@ -166,7 +165,7 @@ SCM
 Lily_lexer::set_current_scope ()
 {
   SCM old = scm_current_module ();
-  
+
   if (scm_is_pair (scopes_))
     scm_set_current_module (scm_car (scopes_));
   else
@@ -286,7 +285,7 @@ Lily_lexer::prepare_for_next_token ()
 void
 Lily_lexer::add_lexed_char (int count)
 {
-  char const * start = here_str0 ();
+  char const *start = here_str0 ();
   lexloc->set (get_source_file (),
 	       start, start + count);
   char_count_stack_.top () += count;

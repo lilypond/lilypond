@@ -29,7 +29,6 @@ private:
   Link_array<Audio_note> notes_;
 };
 
-
 Drum_note_performer::Drum_note_performer ()
 {
 }

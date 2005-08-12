@@ -59,7 +59,7 @@ Stem_engraver::make_stem (Grob_info gi)
   */
   Music *music = gi.music_cause ();
   Duration *dur = unsmob_duration (music->get_property ("duration"));
-  
+
   stem_->set_property ("duration-log", dur ? scm_from_int (dur->duration_log ()) : 0);
 
   if (tremolo_ev_)
@@ -117,11 +117,11 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
     return;
   Duration *d = unsmob_duration (cause->get_property ("duration"));
   if (!d)
-    return ;
-      
+    return;
+
   if (!stem_)
     make_stem (gi);
-      
+
   if (Stem::duration_log (stem_) != d->duration_log ())
     {
       // FIXME: 
@@ -169,7 +169,7 @@ Stem_engraver::try_music (Music *m)
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER (Stem_engraver,rhythmic_head);
+ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
 ADD_TRANSLATOR (Stem_engraver,
 		/* doc */ "Create stems and single-stem tremolos.  It also works together with "
 		"the beam engraver for overriding beaming.",

@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "axis-group-engraver.hh"
@@ -32,14 +31,13 @@ Hara_kiri_engraver::derived_mark () const
 {
   scm_gc_mark (interesting_);
 }
-  
+
 void
 Hara_kiri_engraver::start_translation_timestep ()
 {
   Axis_group_engraver::start_translation_timestep ();
   interesting_ = get_property ("keepAliveInterfaces");
 }
-
 
 void
 Hara_kiri_engraver::add_element (Grob *e)
@@ -73,7 +71,6 @@ Hara_kiri_engraver::Hara_kiri_engraver ()
 {
   interesting_ = SCM_EOL;
 }
-
 
 ADD_ACKNOWLEDGER (Hara_kiri_engraver, grob);
 ADD_TRANSLATOR (Hara_kiri_engraver,

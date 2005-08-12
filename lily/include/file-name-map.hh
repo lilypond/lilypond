@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef FILE_NAME_MAP_HH

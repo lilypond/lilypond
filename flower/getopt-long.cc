@@ -241,9 +241,7 @@ Getopt_long::operator () ()
 	  return parseshort ();
 	}
       else
-	{
-	  return 0;
-	}
+	return 0;
     }
 }
 

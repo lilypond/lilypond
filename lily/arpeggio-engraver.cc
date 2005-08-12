@@ -76,7 +76,7 @@ Arpeggio_engraver::acknowledge_rhythmic_head (Grob_info info)
       Side_position_interface::add_support (arpeggio_, info.grob ());
     }
 }
- 
+
 void
 Arpeggio_engraver::acknowledge_note_column (Grob_info info)
 {
@@ -103,12 +103,12 @@ Arpeggio_engraver::stop_translation_timestep ()
 }
 
 ADD_ACKNOWLEDGER (Arpeggio_engraver, stem)
-ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head)
-ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column)
+  ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head)
+  ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column)
 
-ADD_TRANSLATOR (Arpeggio_engraver,
-		/* doc */ "Generate an Arpeggio symbol",
-		/* create */ "Arpeggio",
-		/* accept */ "arpeggio-event",
-		/* read */ "",
-		/* write */ "");
+  ADD_TRANSLATOR (Arpeggio_engraver,
+		  /* doc */ "Generate an Arpeggio symbol",
+		  /* create */ "Arpeggio",
+		  /* accept */ "arpeggio-event",
+		  /* read */ "",
+		  /* write */ "");

@@ -18,7 +18,6 @@ protected:
   void stop_translation_timestep ();
   virtual void finalize ();
 
-
   DECLARE_ACKNOWLEDGER (rest);
   DECLARE_ACKNOWLEDGER (note_head);
   virtual bool try_music (Music *);

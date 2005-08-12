@@ -39,7 +39,7 @@ protected:
   DECLARE_ACKNOWLEDGER (slur);
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
-  
+
   void stop_translation_timestep ();
   virtual void finalize ();
   void process_music ();
@@ -93,7 +93,7 @@ Phrasing_slur_engraver::acknowledge_note_column (Grob_info info)
 void
 Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
 {
-  Grob*e = info.grob ();
+  Grob *e = info.grob ();
   SCM inside = e->get_property ("inside-slur");
   if (Tie::has_interface (e)
       || to_boolean (inside))
@@ -154,7 +154,6 @@ Phrasing_slur_engraver::acknowledge_tie (Grob_info info)
   acknowledge_extra_object (info);
 }
 
-
 void
 Phrasing_slur_engraver::acknowledge_slur (Grob_info info)
 {
@@ -199,11 +198,10 @@ Phrasing_slur_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dynamic_line_spanner);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);

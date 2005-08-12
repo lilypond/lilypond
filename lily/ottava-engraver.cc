@@ -17,9 +17,9 @@ public:
   TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);
 protected:
   virtual void finalize ();
- 
+
   DECLARE_ACKNOWLEDGER (note_column);
-  
+
   void process_music ();
   void stop_translation_timestep ();
   virtual void derived_mark () const;
@@ -70,7 +70,7 @@ Ottava_spanner_engraver::process_music ()
 void
 Ottava_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
-  Item *it = info.item();
+  Item *it = info.item ();
   if (span_ && it)
     {
       Side_position_interface::add_support (span_, it);

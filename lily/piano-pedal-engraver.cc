@@ -152,7 +152,7 @@ Piano_pedal_engraver::try_music (Music *m)
 	{
 	  String nm = p->name_ + String ("Event");
 	  if (ly_is_equal (m->get_property ("name"),
-			    scm_str2symbol (nm.to_str0 ())))
+			   scm_str2symbol (nm.to_str0 ())))
 	    {
 	      Direction d = to_dir (m->get_property ("span-direction"));
 	      p->event_drul_[d] = m;
@@ -237,9 +237,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	      p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
 	    }
 	  else
-	    {
-	      s = scm_cadr (strings);
-	    }
+	    s = scm_cadr (strings);
 	  p->start_ev_ = p->event_drul_[START];
 	}
     }
@@ -252,9 +250,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	      p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
 	    }
 	  else
-	    {
-	      s = scm_caddr (strings);
-	    }
+	    s = scm_caddr (strings);
 	  p->start_ev_ = 0;
 	}
     }
@@ -423,9 +419,7 @@ Piano_pedal_engraver::finalize ()
 	  SCM cc = get_property ("currentCommandColumn");
 	  Item *c = unsmob_item (cc);
 	  if (p->line_spanner_)
-	    {
-	      p->line_spanner_->set_bound (RIGHT, c);
-	    }
+	    p->line_spanner_->set_bound (RIGHT, c);
 	  p->bracket_->set_bound (RIGHT, c);
 
 	  p->finished_bracket_ = p->bracket_;
@@ -523,7 +517,7 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER (Piano_pedal_engraver,note_column);
+ADD_ACKNOWLEDGER (Piano_pedal_engraver, note_column);
 ADD_TRANSLATOR (Piano_pedal_engraver,
 		/* doc */ "Engrave piano pedal symbols and brackets.",
 		/* create */ "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",

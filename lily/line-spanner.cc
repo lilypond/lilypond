@@ -33,7 +33,7 @@ zigzag_stencil (Grob *me,
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Real w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
-  int count = (int) ceil (dz.length() / w);
+  int count = (int) ceil (dz.length () / w);
   w = dz.length () / count;
 
   Real l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
@@ -42,14 +42,14 @@ zigzag_stencil (Grob *me,
   Offset rotation_factor = complex_exp (Offset (0, dz.arg ()));
 
   Offset points[3];
-  points[0] = Offset (0, -h/2);
-  points[1] = Offset (w/2, h/2);
-  points[2] = Offset (w, -h/2);
+  points[0] = Offset (0, -h / 2);
+  points[1] = Offset (w / 2, h / 2);
+  points[2] = Offset (w, -h / 2);
   for (int i = 0; i < 3; i++)
     points[i] = complex_multiply (points[i], rotation_factor);
-  
-  Stencil squiggle (Line_interface::make_line (thick,points[0], points[1]));
-  squiggle.add_stencil (Line_interface::make_line (thick,points[1], points[2]));
+
+  Stencil squiggle (Line_interface::make_line (thick, points[0], points[1]));
+  squiggle.add_stencil (Line_interface::make_line (thick, points[1], points[2]));
 
   Stencil total;
   for (int i = 0; i < count; i++)
@@ -110,7 +110,7 @@ Line_spanner::line_stencil (Grob *me,
   SCM type = me->get_property ("style");
 
   Stencil line;
-  
+
   if (scm_is_symbol (type)
       && (type == ly_symbol2scm ("line")
 	  || type == ly_symbol2scm ("dashed-line")
@@ -156,7 +156,7 @@ Line_spanner::line_stencil (Grob *me,
 
   if (to_boolean (me->get_property ("arrow")))
     line.add_stencil (Line_interface::arrows (me, from, to, false, true));
-  
+
   return line;
 }
 

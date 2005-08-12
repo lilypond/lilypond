@@ -32,7 +32,7 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
 {
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
-  extract_grob_set (me,"items-worth-living", worth);
+  extract_grob_set (me, "items-worth-living", worth);
   if (worth.size ())
     return;
 
@@ -63,7 +63,7 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
   (void) axis;
-  
+
   assert (scm_to_int (axis) == Y_AXIS);
   consider_suicide (me);
   return scm_from_double (0.0);

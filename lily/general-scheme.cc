@@ -306,7 +306,7 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 {
   SCM_ASSERT_TYPE (scm_string_p (file_name), file_name, SCM_ARG1,
 		   __FUNCTION__, "file_name");
-  char const* m = "w";
+  char const *m = "w";
   if (mode != SCM_UNDEFINED && scm_string_p (mode))
     m = ly_scm2newstr (mode, 0);
   /* dup2 and (fileno (current-error-port)) do not work with mingw'c

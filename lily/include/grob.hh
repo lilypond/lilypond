@@ -39,16 +39,15 @@ protected:
   /*
     If this is a property, it accounts for 25% of the property
     lookups.
-   */
+  */
   SCM interfaces_;
 
-  
-  
+
   /* BARF */
   friend class Spanner;
   friend SCM ly_grob_properties (SCM);
   friend SCM ly_grob_basic_properties (SCM);
-  friend void check_interfaces_for_property  (Grob const*, SCM);
+  friend void check_interfaces_for_property (Grob const *, SCM);
   void substitute_object_links (SCM, SCM);
   char status_;
 
@@ -80,7 +79,7 @@ public:
 
   /*
     JUNKME.
-   */
+  */
   void add_to_list_property (SCM, SCM);
   void add_to_object_list (SCM sym, SCM thing);
 

@@ -34,7 +34,7 @@ Horizontal_bracket::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner *> (me);
-  
+
   extract_grob_set (me, "columns", gs);
   if (!gs.size ())
     {

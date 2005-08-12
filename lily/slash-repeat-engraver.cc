@@ -75,9 +75,7 @@ Slash_repeat_engraver::try_music (Music *m)
       Moment meas_length
 	= robust_scm2moment (get_property ("measureLength"), Moment (0));
       if (body_length_ < meas_length)
-	{
-	  repeat_ = m;
-	}
+	repeat_ = m;
       else
 	return false;
 
@@ -112,7 +110,6 @@ Slash_repeat_engraver::start_translation_timestep ()
     }
   beat_slash_ = 0;
 }
-
 
 #include "translator.icc"
 

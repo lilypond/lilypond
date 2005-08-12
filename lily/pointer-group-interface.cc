@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "pointer-group-interface.hh"
@@ -18,7 +17,7 @@ int
 Pointer_group_interface::count (Grob *me, SCM sym)
 {
   Grob_array *arr = unsmob_grob_array (me->internal_get_object (sym));
-  return arr ? arr->size() : 0;
+  return arr ? arr->size () : 0;
 }
 
 void
@@ -26,7 +25,6 @@ Pointer_group_interface::add_grob (Grob *me, SCM sym, SCM p)
 {
   add_grob (me, sym, unsmob_grob (p));
 }
-
 
 void
 Pointer_group_interface::add_grob (Grob *me, SCM sym, Grob *p)
@@ -41,7 +39,7 @@ Pointer_group_interface::add_grob (Grob *me, SCM sym, Grob *p)
     }
   arr->add (p);
 }
-  
+
 static Link_array<Grob> empty_array;
 
 Link_array<Grob> const &
@@ -50,7 +48,6 @@ ly_scm2link_array (SCM x)
   Grob_array *arr = unsmob_grob_array (x);
   return arr ? arr->array () : empty_array;
 }
-  
 
 Link_array<Grob> const &
 internal_extract_grob_array (Grob const *elt, SCM symbol)

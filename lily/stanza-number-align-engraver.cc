@@ -58,8 +58,8 @@ Stanza_number_align_engraver::stop_translation_timestep ()
   lyrics_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Stanza_number_align_engraver,lyric_syllable);
-ADD_ACKNOWLEDGER (Stanza_number_align_engraver,stanza_number);
+ADD_ACKNOWLEDGER (Stanza_number_align_engraver, lyric_syllable);
+ADD_ACKNOWLEDGER (Stanza_number_align_engraver, stanza_number);
 ADD_TRANSLATOR (Stanza_number_align_engraver,
 		"This engraver ensures that stanza numbers are neatly aligned. ",
 		"",

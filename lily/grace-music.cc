@@ -10,7 +10,6 @@
 #include "music-wrapper.hh"
 #include "moment.hh"
 
-
 class Grace_music
 {
 public:

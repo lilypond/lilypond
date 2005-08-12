@@ -24,7 +24,6 @@
 #include "spacing-interface.hh"
 
 
-
 Rational
 Spacing_spanner::effective_shortest_duration (Grob *me, Link_array<Grob> const &all)
 {
@@ -44,7 +43,6 @@ Spacing_spanner::effective_shortest_duration (Grob *me, Link_array<Grob> const &
   return global_shortest;
 }
 
-
 MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
@@ -61,7 +59,7 @@ Spacing_spanner::set_springs (SCM smob)
   Spacing_options options;
   options.init_from_grob (me);
   options.global_shortest_ = effective_shortest_duration (me, all);
-  
+
   prune_loose_columns (me, &all, &options);
   set_implicit_neighbor_columns (all);
   generate_springs (me, all, &options);
@@ -170,14 +168,12 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
   if (Paper_column::is_musical (left_col))
     {
       bool skip_unbroken_right = false;
-      
+
       if (!Paper_column::is_musical (right_col)
 	  && options->float_nonmusical_columns_
 	  && after_right_col
 	  && Paper_column::is_musical (after_right_col))
-	{
-	  skip_unbroken_right = true;
-	}
+	skip_unbroken_right = true;
 
       if (skip_unbroken_right)
 	{
@@ -190,7 +186,6 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
 	}
       else
 	musical_column_spacing (me, left_col, right_col, options);
-      
 
       if (Item *rb = right_col->find_prebroken_piece (LEFT))
 	musical_column_spacing (me, left_col, rb, options);
@@ -207,7 +202,7 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
 
       if (left_col && right_col)
 	breakable_column_spacing (me, left_col, right_col, options);
-	  
+
       if (lb && right_col)
 	breakable_column_spacing (me, lb, right_col, options);
 
@@ -249,7 +244,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 {
   bool expand_only = false;
   Real base_note_space = note_spacing (me, left_col, right_col, options, &expand_only);
-  
+
   Real compound_note_space = 0.0;
   Real compound_fixed_note_space = 0.0;
 
@@ -323,7 +318,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
       compound_fixed_note_space = min (compound_fixed_note_space,
 				       compound_note_space);
     }
-  
+
   Real inverse_strength = 1.0;
   Real distance = 1.0;
 
@@ -422,7 +417,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
     {
       compound_fixed = 0.0;
     }
-  
+
   assert (!isinf (compound_space));
   compound_space = max (compound_space, compound_fixed);
 
@@ -449,11 +444,10 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "gets 2 note heads width (i.e. the space following a note is 1 note\n"
 	       "head width) A 16th note is followed by 0.5 note head width. The\n"
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
-	       
+
 	       "grace-space-factor spacing-increment base-shortest-duration strict-note-spacing "
 	       "shortest-duration-space common-shortest-duration uniform-stretching "
 	       "packed-spacing "
-
 	       );
 
 ADD_INTERFACE (Spacing_interface, "spacing-interface",

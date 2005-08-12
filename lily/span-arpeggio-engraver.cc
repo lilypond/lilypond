@@ -76,12 +76,12 @@ Span_arpeggio_engraver::stop_translation_timestep ()
       for (int j = 0; j < arpeggios_.size (); j++)
 	{
 	  extract_grob_set (arpeggios_[j], "stems", stems);
-	  for (int i = stems.size() ; i--;)
+	  for (int i = stems.size (); i--;)
 	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("stems"),
 					       stems[i]);
 
 	  extract_grob_set (arpeggios_[j], "side-support-elements", sses);
-	  for (int i = sses.size() ; i--;)
+	  for (int i = sses.size (); i--;)
 	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("side-support-elements"),
 					       sses[i]);
 
@@ -99,7 +99,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Span_arpeggio_engraver,arpeggio);
+ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
 ADD_TRANSLATOR (Span_arpeggio_engraver,
 		/* doc */ "",
 		/* create */ "Arpeggio",

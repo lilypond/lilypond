@@ -9,7 +9,6 @@
 #include "recording-group-engraver.hh"
 #include "context.hh"
 
-
 void
 Recording_group_engraver::derived_mark () const
 {
@@ -43,7 +42,7 @@ Recording_group_engraver::stop_translation_timestep ()
 void
 Recording_group_engraver::finalize ()
 {
-  SCM proc = context()->get_property ("recordEventSequence");
+  SCM proc = context ()->get_property ("recordEventSequence");
 
   if (ly_is_procedure (proc))
     scm_call_2 (proc, context ()->self_scm (), scm_cdr (accumulator_));
@@ -61,7 +60,7 @@ Recording_group_engraver::try_music (Music *m)
 void
 recording_engraver (Translator_group *tg)
 {
-  Recording_group_engraver *rg = dynamic_cast<Recording_group_engraver*> (tg);
+  Recording_group_engraver *rg = dynamic_cast<Recording_group_engraver *> (tg);
   rg->stop_translation_timestep ();
 }
 
@@ -73,10 +72,10 @@ Recording_group_engraver::fetch_precomputable_methods (Translator_group_void_met
 }
 
 ADD_TRANSLATOR_GROUP (Recording_group_engraver,
-		"Engraver_group_engraver that records all music events "
-		"for this context. Calls the procedure "
-		"in @code{recordEventSequence} when finished.",
-		"",
-		"",
-		"recordEventSequence",
-		"");
+		      "Engraver_group_engraver that records all music events "
+		      "for this context. Calls the procedure "
+		      "in @code{recordEventSequence} when finished.",
+		      "",
+		      "",
+		      "recordEventSequence",
+		      "");

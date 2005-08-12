@@ -33,7 +33,6 @@ struct Tuplet_description
 };
 
 
-
 class Tuplet_engraver : public Engraver
 {
 public:
@@ -79,7 +78,6 @@ Tuplet_engraver::process_music ()
 {
   if (!tuplets_.size ())
     return;
-  
 
   tuplets_.sort (&Tuplet_description::compare);
   for (int i = 0; i < tuplets_.size (); i++)
@@ -91,10 +89,10 @@ Tuplet_engraver::process_music ()
 				       tuplets_[i].music_->self_scm ());
       tuplets_[i].spanner_ = spanner;
 
-      if (i > 0 && tuplets_[i-1].spanner_)
-	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].spanner_, tuplets_[i-1].spanner_);
-      if (i < tuplets_.size()-1 && tuplets_[i+1].spanner_)
-	Tuplet_bracket::add_tuplet_bracket (tuplets_[i+1].spanner_, tuplets_[i].spanner_);
+      if (i > 0 && tuplets_[i - 1].spanner_)
+	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].spanner_, tuplets_[i - 1].spanner_);
+      if (i < tuplets_.size () - 1 && tuplets_[i + 1].spanner_)
+	Tuplet_bracket::add_tuplet_bracket (tuplets_[i + 1].spanner_, tuplets_[i].spanner_);
 
       SCM proc = get_property ("tupletNumberFormatFunction");
       if (ly_is_procedure (proc))
@@ -120,7 +118,7 @@ Tuplet_engraver::start_translation_timestep ()
   Moment now = now_mom ();
 
   last_tuplets_.clear ();
-  if (tuplets_.is_empty())
+  if (tuplets_.is_empty ())
     return;
 
   Moment tsdmom = robust_scm2moment (get_property ("tupletSpannerDuration"), Moment (0));
@@ -134,10 +132,10 @@ Tuplet_engraver::start_translation_timestep ()
 	{
 	  if (tuplets_[i].spanner_)
 	    {
-	      if (full_length )
+	      if (full_length)
 		{
-		  Item * col = unsmob_item (get_property ("currentMusicalColumn"));
-	      
+		  Item *col = unsmob_item (get_property ("currentMusicalColumn"));
+
 		  tuplets_[i].spanner_->set_bound (RIGHT, col);
 		}
 	      else if (!tuplets_[i].spanner_->get_bound (RIGHT))
@@ -153,9 +151,7 @@ Tuplet_engraver::start_translation_timestep ()
 	}
 
       if (now.main_part_ >= tuplets_[i].stop_)
-	{
-	  tuplets_.del (i);
-	}
+	tuplets_.del (i);
     }
 }
 
@@ -166,7 +162,7 @@ Tuplet_engraver::finalize ()
     {
       for (int i = 0; i < last_tuplets_.size (); i++)
 	{
-	  Item * col = unsmob_item (get_property ("currentCommandColumn"));
+	  Item *col = unsmob_item (get_property ("currentCommandColumn"));
 	  last_tuplets_[i]->set_bound (RIGHT, col);
 	}
     }
@@ -176,10 +172,10 @@ Tuplet_engraver::Tuplet_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Tuplet_engraver,note_column);
+ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
 		/* doc */ "Catch Time_scaled_music and generate appropriate bracket  ",
 		/* create */ "TupletBracket",
 		/* accept */ "time-scaled-music",
-		/* read */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength" ,
+		/* read */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength",
 		/* write */ "");

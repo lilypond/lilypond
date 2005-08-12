@@ -9,7 +9,6 @@
 #include "performer.hh"
 #include "music.hh"
 
-
 class Swallow_performer : public Performer
 {
 public:

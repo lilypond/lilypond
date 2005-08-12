@@ -1,10 +1,9 @@
 /*
   spacing-basic.cc -- implement Spacing_spanner, simplistic spacing routines
-  
+
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "spacing-spanner.hh"
@@ -14,14 +13,13 @@
 #include "warn.hh"
 
 /*
-   LilyPond spaces by taking a simple-minded spacing algorithm, and
-   adding subtle adjustments to that. This file does the simple-minded
-   spacing routines.
+  LilyPond spaces by taking a simple-minded spacing algorithm, and
+  adding subtle adjustments to that. This file does the simple-minded
+  spacing routines.
 */
 
-
 /*
-   Get the measure wide ant for arithmetic spacing.
+  Get the measure wide ant for arithmetic spacing.
 */
 Real
 Spacing_options::get_duration_space (Moment d,
@@ -66,7 +64,6 @@ Spacing_options::get_duration_space (Moment d,
       return (log_2 (compdur) + k) * increment_;
     }
 }
-
 
 /*
   The one-size-fits all spacing. It doesn't take into account
@@ -129,7 +126,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
 
 Real
 Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
-			       Spacing_options const *options ,
+			       Spacing_options const *options,
 			       bool *expand_only)
 {
   Moment shortest_playing_len = 0;
@@ -173,7 +170,7 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
       dist = options->get_duration_space (shortest_playing_len,
-				  expand_only);
+					  expand_only);
       dist *= double (delta_t.main_part_ / shortest_playing_len.main_part_);
     }
   else if (delta_t.grace_part_)
@@ -194,7 +191,6 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
   return dist;
 }
 
-
 /****************************************************************/
 
 void
@@ -209,7 +205,6 @@ Spacing_options::init_from_grob (Grob *me)
   shortest_duration_space_ = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
 }
 
-
 void
 Spacing_options::init ()
 {
@@ -219,5 +214,5 @@ Spacing_options::init ()
   float_nonmusical_columns_ = false;
   shortest_duration_space_ = 2.0;
 
-  global_shortest_ = Rational (1,8);
+  global_shortest_ = Rational (1, 8);
 }

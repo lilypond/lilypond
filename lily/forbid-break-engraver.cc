@@ -42,13 +42,10 @@ Forbid_line_break_engraver::start_translation_timestep ()
     {
       Grob *g = unsmob_grob (scm_cdar (busy));
       if (g->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
-	{
-	  get_score_engraver ()->forbid_breaks ();
-	}
+	get_score_engraver ()->forbid_breaks ();
       busy = scm_cdr (busy);
     }
 }
-
 
 ADD_TRANSLATOR (Forbid_line_break_engraver,
 		/* doc */ "Forbid line breaks when note heads "

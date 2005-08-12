@@ -106,13 +106,9 @@ Beam_engraver::try_music (Music *m)
 	return false;
 
       if (d == START)
-	{
-	  start_ev_ = m;
-	}
+	start_ev_ = m;
       else if (d == STOP)
-	{
-	  now_stop_ev_ = m;
-	}
+	now_stop_ev_ = m;
       return true;
     }
   return false;

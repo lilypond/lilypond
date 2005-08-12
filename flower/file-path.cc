@@ -55,8 +55,8 @@ is_file (String file_name)
   struct stat sbuf;
   if (stat (file_name.to_str0 (), &sbuf) != 0)
     return false;
-  
-  if (!(sbuf.st_mode & __S_IFREG))
+
+  if (! (sbuf.st_mode & __S_IFREG))
     return false;
 #endif
 
@@ -64,7 +64,7 @@ is_file (String file_name)
   struct stat sbuf;
   if (stat (file_name.to_str0 (), &sbuf) != 0)
     return false;
-  
+
   return !S_ISDIR (sbuf.st_mode);
 #endif
 
@@ -73,7 +73,7 @@ is_file (String file_name)
       fclose (f);
       return true;
     }
-  
+
   return false;
 }
 
@@ -84,7 +84,7 @@ is_dir (String file_name)
   struct stat sbuf;
   if (stat (file_name.to_str0 (), &sbuf) != 0)
     return false;
-  
+
   return S_ISDIR (sbuf.st_mode);
 #endif
 
@@ -120,7 +120,7 @@ File_path::find (String name) const
   File_name file_name (name);
   if (file_name.dir_[0] == DIRSEP && is_file (file_name.to_string ()))
     return file_name.to_string ();
-  
+
   for (int i = 0; i < dirs_.size (); i++)
     {
       File_name file_name (name);
@@ -129,7 +129,7 @@ File_path::find (String name) const
       dir.root_ = "";
       if (file_name.dir_.is_empty ())
 	file_name.dir_ = dir.to_string ();
-      else if (!dir.to_string ().is_empty())
+      else if (!dir.to_string ().is_empty ())
 	file_name.dir_ = dir.to_string ()
 	  + ::to_string (DIRSEP) + file_name.dir_;
       if (is_file (file_name.to_string ()))
@@ -141,7 +141,7 @@ File_path::find (String name) const
 /*
   Try to find
 
-    file.EXT,
+  file.EXT,
 
   where EXT is from EXTENSIONS.
 */
@@ -163,7 +163,7 @@ File_path::find (String name, char const *extensions[])
 	  if (!find (file_name.to_string ()).is_empty ())
 	    break;
 	}
-      
+
       /* Reshuffle extension */
       file_name = File_name (file_name.to_string ());
     }
@@ -191,7 +191,7 @@ File_path::to_string () const
   for (int i = 0; i < dirs_.size (); i++)
     {
       s = s + dirs_[i];
-      if (i < dirs_.size() - 1)
+      if (i < dirs_.size () - 1)
 	s += ::to_string (PATHSEP);
     }
   return s;

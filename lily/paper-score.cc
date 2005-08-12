@@ -35,7 +35,6 @@ Paper_score::Paper_score (Paper_score const &s)
   assert (false);
 }
 
-
 void
 Paper_score::derived_mark () const
 {
@@ -108,7 +107,6 @@ Paper_score::layout () const
 {
   return layout_;
 }
-  
 
 SCM
 Paper_score::get_paper_systems () const

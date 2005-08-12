@@ -25,7 +25,7 @@ public:
 
   Output_def *layout () const;
   System *root_system () const;
-  
+
   void typeset_system (System *);
   Array<Column_x_positions> calc_breaking ();
 

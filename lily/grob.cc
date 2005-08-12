@@ -57,7 +57,6 @@ Grob::Grob (SCM basicprops,
   mutable_property_alist_ = SCM_EOL;
   object_alist_ = SCM_EOL;
 
-  
   /* We do smobify_self () as the first step.  Since the object lives
      on the heap, none of its SCM variables are protected from
      GC. After smobify_self (), they are.  */
@@ -68,9 +67,9 @@ Grob::Grob (SCM basicprops,
   */
   if (key_)
     {
-      ((Object_key*)key_)->unprotect ();
+      ((Object_key *)key_)->unprotect ();
     }
-  
+
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
     {
@@ -100,7 +99,7 @@ Grob::Grob (SCM basicprops,
   for (int a = X_AXIS; a <= Y_AXIS; a++)
     {
       SCM l = off_callbacks[a];
-	
+
       if (scm_ilength (l) >= 0)
 	{
 	  dim_cache_[a].offset_callbacks_ = l;
@@ -111,19 +110,13 @@ Grob::Grob (SCM basicprops,
 
       SCM cb = extent_callbacks[a];
       if (cb == SCM_BOOL_F)
-	{
-	  dim_cache_[a].dimension_ = SCM_BOOL_F;
-	}
+	dim_cache_[a].dimension_ = SCM_BOOL_F;
 
       SCM xt = extents[a];
       if (is_number_pair (xt))
-	{
-	  dim_cache_[a].dimension_ = xt;
-	}
+	dim_cache_[a].dimension_ = xt;
       else if (ly_is_procedure (cb))
-	{
-	  dim_cache_[a].dimension_callback_ = cb;
-	}
+	dim_cache_[a].dimension_callback_ = cb;
       else if (cb == SCM_EOL
 	       && ly_is_procedure (get_property ("print-function")))
 	dim_cache_[a].dimension_callback_ = stencil_extent_proc;
@@ -141,7 +134,7 @@ Grob::Grob (Grob const &s, int copy_index)
   mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
   interfaces_ = s.interfaces_;
   object_alist_ = SCM_EOL;
-  
+
   /* No properties are copied.  That is the job of
      handle_broken_dependencies.  */
   status_ = s.status_;
@@ -150,7 +143,7 @@ Grob::Grob (Grob const &s, int copy_index)
   smobify_self ();
   if (key_)
     {
-      ((Object_key*)key_)->unprotect ();
+      ((Object_key *)key_)->unprotect ();
     }
 }
 
@@ -258,7 +251,7 @@ Grob::get_uncached_stencil () const
 	  SCM expr = m->expr ();
 	  if (point_and_click_global)
 	    expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm (), expr);
-	  
+
 	  stil = Stencil (m->extent_box (), expr).smobbed_copy ();
 	}
 
@@ -315,7 +308,6 @@ Grob::handle_broken_dependencies ()
     {
       for (SCM s = object_alist_; scm_is_pair (s); s = scm_cdr (s))
 	sp->substitute_one_mutable_property (scm_caar (s), scm_cdar (s));
-
     }
   System *system = get_system ();
 
@@ -350,7 +342,7 @@ Grob::suicide ()
   object_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
   interfaces_ = SCM_EOL;
-  
+
   set_extent (SCM_EOL, Y_AXIS);
   set_extent (SCM_EOL, X_AXIS);
 
@@ -490,7 +482,7 @@ Grob::extent (Grob *refp, Axis a) const
   extra = (a == X_AXIS)
     ? get_property ("minimum-X-extent")
     : get_property ("minimum-Y-extent");
-  
+
   if (scm_is_pair (extra))
     ext.unite (Interval (scm_to_double (scm_car (extra)),
 			 scm_to_double (scm_cdr (extra))));
@@ -651,7 +643,6 @@ Grob::programming_error (String s) const
 void
 Grob::discretionary_processing ()
 {
-  
 }
 
 bool

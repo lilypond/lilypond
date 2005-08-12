@@ -20,7 +20,7 @@
 
 class Instrument_name_engraver : public Engraver
 {
-  bool first_; 
+  bool first_;
 public:
   TRANSLATOR_DECLARATIONS (Instrument_name_engraver);
 
@@ -32,10 +32,9 @@ protected:
 
   DECLARE_ACKNOWLEDGER (bar_line);
   DECLARE_ACKNOWLEDGER (axis_group);
-  
+
   void stop_translation_timestep ();
   void process_music ();
-  
 };
 
 Instrument_name_engraver::Instrument_name_engraver ()
@@ -59,7 +58,7 @@ Instrument_name_engraver::stop_translation_timestep ()
 			 grob_list_to_grob_array (get_property ("instrumentSupport")));
       text_ = 0;
     }
-  
+
   first_ = false;
 }
 
@@ -91,7 +90,6 @@ Instrument_name_engraver::acknowledge_bar_line (Grob_info i)
   (void)i;
   create_text ();
 }
-
 
 void
 Instrument_name_engraver::acknowledge_axis_group (Grob_info i)
@@ -138,7 +136,6 @@ Instrument_name_engraver::process_music ()
 }
 
 #include "translator.icc"
-
 
 ADD_ACKNOWLEDGER (Instrument_name_engraver, bar_line);
 ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);

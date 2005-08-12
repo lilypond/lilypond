@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "staff-symbol-engraver.hh"
@@ -37,7 +36,7 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver,grob);
+ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver, grob);
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
 		/* doc */ "Create a staff-symbol, but look at stringTunings for the number of lines."
 		"staff lines.",

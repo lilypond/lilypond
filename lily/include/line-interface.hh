@@ -22,7 +22,6 @@ struct Line_interface
   static Stencil arrows (Grob *me, Offset from, Offset to,
 			 bool from_arrow,
 			 bool to_arrow);
-
 };
 
 #endif /* LINE_INTERFACE_HH */

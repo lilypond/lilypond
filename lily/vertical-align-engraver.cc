@@ -22,8 +22,8 @@ class Vertical_align_engraver : public Engraver
 {
   Spanner *valign_;
   bool qualifies (Grob_info) const;
-  SCM id_to_group_hashtab_;  
-  
+  SCM id_to_group_hashtab_;
+
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
   DECLARE_ACKNOWLEDGER (axis_group);
@@ -44,7 +44,6 @@ ADD_TRANSLATOR (Vertical_align_engraver,
 		/* read */ "",
 		/* write */ "");
 
-
 Vertical_align_engraver::Vertical_align_engraver ()
 {
   valign_ = 0;
@@ -54,7 +53,7 @@ Vertical_align_engraver::Vertical_align_engraver ()
 void
 Vertical_align_engraver::derived_mark () const
 {
-  scm_gc_mark (id_to_group_hashtab_); 
+  scm_gc_mark (id_to_group_hashtab_);
 }
 
 void
@@ -62,7 +61,6 @@ Vertical_align_engraver::initialize ()
 {
   id_to_group_hashtab_ = scm_c_make_hash_table (11);
 }
-
 
 void
 Vertical_align_engraver::process_music ()
@@ -103,36 +101,35 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       scm_hash_set_x (id_to_group_hashtab_, scm_makfrom0str (id.to_str0 ()),
 		      i.grob ()->self_scm ());
 
-
       SCM before_id = i.context ()->get_property ("alignAboveContext");
       SCM after_id = i.context ()->get_property ("alignBelowContext");
-      
-      SCM before = scm_hash_ref (id_to_group_hashtab_,  before_id, SCM_BOOL_F);
-      SCM after = scm_hash_ref (id_to_group_hashtab_,  after_id, SCM_BOOL_F);
 
-      Grob * before_grob = unsmob_grob (before);
-      Grob * after_grob = unsmob_grob (after);
-      
+      SCM before = scm_hash_ref (id_to_group_hashtab_, before_id, SCM_BOOL_F);
+      SCM after = scm_hash_ref (id_to_group_hashtab_, after_id, SCM_BOOL_F);
+
+      Grob *before_grob = unsmob_grob (before);
+      Grob *after_grob = unsmob_grob (after);
+
       Align_interface::add_element (valign_, i.grob (),
 				    get_property ("verticalAlignmentChildCallback"));
 
       if (before_grob || after_grob)
 	{
-	  Grob_array * ga = unsmob_grob_array (valign_->get_object ("elements"));
+	  Grob_array *ga = unsmob_grob_array (valign_->get_object ("elements"));
 	  Link_array<Grob> &arr = ga->array_reference ();
-	  
-	  Grob *added = arr.pop();
-	  for (int i = 0 ; i < arr.size (); i++)
+
+	  Grob *added = arr.pop ();
+	  for (int i = 0; i < arr.size (); i++)
 	    {
 	      if (arr[i] == before_grob)
 		{
 		  arr.insert (added, i);
-		  break ; 
+		  break;
 		}
 	      else if (arr[i] == after_grob)
 		{
 		  arr.insert (added, i + 1);
-		  break ;
+		  break;
 		}
 	    }
 	}

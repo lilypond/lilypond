@@ -19,7 +19,7 @@ protected:
   Array<Grob_info> announce_infos_;
   SCM acknowledge_hash_table_;
 public:
-  VIRTUAL_COPY_CONSTRUCTOR ( Translator_group, Engraver_group_engraver);
+  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Engraver_group_engraver);
   Engraver_group_engraver ();
   virtual void derived_mark () const;
   void do_announces ();

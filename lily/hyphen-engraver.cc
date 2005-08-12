@@ -42,7 +42,7 @@ Hyphen_engraver::Hyphen_engraver ()
 void
 Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
 {
-  Item *item = i.item();
+  Item *item = i.item ();
   if (hyphen_)
     hyphen_->set_bound (LEFT, item);
 
@@ -67,9 +67,7 @@ completize_hyphen (Spanner *sp)
     {
       extract_item_set (sp, "heads", heads);
       if (heads.size ())
-	{
-	  sp->set_bound (RIGHT, heads.top ());
-	}
+	sp->set_bound (RIGHT, heads.top ());
     }
 }
 
@@ -134,7 +132,7 @@ Hyphen_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Hyphen_engraver,lyric_syllable);
+ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
 ADD_TRANSLATOR (Hyphen_engraver,
 		/* doc */ "Create lyric hyphens",
 		/* create */ "LyricHyphen",

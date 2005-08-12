@@ -16,14 +16,14 @@
 
 class Music_output
 {
-  DECLARE_SMOBS(Music_output, foo);
+  DECLARE_SMOBS (Music_output, foo);
 
 protected:
   Music_output ();
 
 public:
-  virtual void derived_mark () const; 
-  virtual void process (); 
+  virtual void derived_mark () const;
+  virtual void process ();
 };
 
 DECLARE_UNSMOB (Music_output, music_output);

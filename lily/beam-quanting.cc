@@ -23,7 +23,7 @@ Real
 get_detail (SCM alist, SCM sym, Real def)
 {
   SCM entry = scm_assq (sym, alist);
-  
+
   if (scm_is_pair (entry))
     {
       return robust_scm2double (scm_cdr (entry), def);
@@ -35,7 +35,7 @@ void
 Beam_quant_parameters::fill (Grob *him)
 {
   SCM details = him->get_property ("details");
-  
+
   INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("inter-quant-penalty"), 1000.0);
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0);
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
@@ -101,10 +101,9 @@ Beam::quanting (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-
   Beam_quant_parameters parameters;
   parameters.fill (me);
-  
+
   SCM s = me->get_property ("positions");
   Real yl = scm_to_double (scm_car (s));
   Real yr = scm_to_double (scm_cdr (s));
@@ -195,7 +194,7 @@ Beam::quanting (SCM smob)
   bool is_knee = dirs_found[LEFT] && dirs_found[RIGHT];
 
   int region_size = (int) parameters.REGION_SIZE;
-  
+
   /*
     Knees are harder, lets try some more possibilities for knees.
   */
@@ -279,10 +278,10 @@ Beam::quanting (SCM smob)
       }
 
   int best_idx = best_quant_score_idx (qscores);
-  
+
 #if DEBUG_QUANTING
   SCM inspect_quants = me->get_property ("inspect-quants");
-  if ( to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
+  if (to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
       && scm_is_pair (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
@@ -306,7 +305,7 @@ Beam::quanting (SCM smob)
   if (best_idx < 0)
     {
       warning (_ ("no feasible beam position"));
-      me->set_property ("positions", ly_interval2scm (Interval (0,0)));
+      me->set_property ("positions", ly_interval2scm (Interval (0, 0)));
     }
   else
     me->set_property ("positions",
@@ -336,8 +335,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
 			  bool knee,
 			  Real yl, Real yr,
 
-			  Beam_quant_parameters const*parameters
-			  )
+			  Beam_quant_parameters const *parameters)
 {
   Real limit_penalty = parameters->STEM_LENGTH_LIMIT_PENALTY;
   Drul_array<Real> score (0, 0);
@@ -358,7 +356,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
 
-      score[d] += limit_penalty * max (0.0,  (d * (info.shortest_y_ - current_y)));
+      score[d] += limit_penalty * max (0.0, (d * (info.shortest_y_ - current_y)));
 
       Real ideal_diff = d * (current_y - info.ideal_y_);
       Real ideal_score = shrink_extra_weight (ideal_diff, 1.5);
@@ -389,8 +387,8 @@ Beam::score_slopes_dy (Real yl, Real yr,
 		       Real dy_mus, Real dy_damp,
 		       Real dx,
 		       bool xstaff,
-		       
-		       Beam_quant_parameters const*parameters)
+
+		       Beam_quant_parameters const *parameters)
 {
   Real dy = yr - yl;
   Real dem = 0.0;
@@ -408,7 +406,7 @@ Beam::score_slopes_dy (Real yl, Real yr,
       dem += parameters->DAMPING_DIRECTION_PENALTY;
     }
 
-  dem += parameters->MUSICAL_DIRECTION_FACTOR * max (0.0, (fabs (dy) - fabs (dy_mus)));
+  dem += parameters->MUSICAL_DIRECTION_FACTOR *max (0.0, (fabs (dy) - fabs (dy_mus)));
 
   Real slope_penalty = parameters->IDEAL_SLOPE_FACTOR;
 
@@ -442,8 +440,8 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 			      Real thickness, Real beam_translation,
 			      Drul_array<int> beam_counts,
 			      Direction ldir, Direction rdir,
-			      
-			      Beam_quant_parameters const*parameters)
+
+			      Beam_quant_parameters const *parameters)
 {
   Real dy = yr - yl;
   Drul_array<Real> y (yl, yr);

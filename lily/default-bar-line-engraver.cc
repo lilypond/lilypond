@@ -12,7 +12,6 @@
 #include "grob.hh"
 #include "warn.hh"
 
-
 class Default_bar_line_engraver : public Engraver
 {
 protected:
@@ -31,14 +30,13 @@ public:
 ADD_TRANSLATOR (Default_bar_line_engraver,
 		"This engraver determines what kind of automatic bar lines should be produced, "
 		"and sets @code{whichBar} accordingly. It should be at the same "
-		"level as @ref{Timing_translator}. ",  
+		"level as @ref{Timing_translator}. ",
 		/* create */ "",
 		/* accept */ "",
-		/* read */ 
+		/* read */
 		"measurePosition automaticBars whichBar barAlways defaultBarType "
 		"measureLength",
 		/* write */ "automaticBars");
-
 
 Default_bar_line_engraver::Default_bar_line_engraver ()
 {

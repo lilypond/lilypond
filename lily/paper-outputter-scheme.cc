@@ -11,7 +11,6 @@
 #include "stencil.hh"
 
 
-
 LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 	   2, 0, 0, (SCM port, SCM format),
 	   "Create an outputter that evaluates within "
@@ -25,11 +24,11 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
   String f = ly_scm2string (format);
 
   String output_name = "<unknown>";
-  
+
   SCM port_name = scm_port_filename (port);
   if (scm_is_string (port_name))
     output_name = ly_scm2string (port_name);
-  
+
   message (_f ("Layout output to `%s'...",
 	       output_name.to_str0 ()));
 

@@ -92,7 +92,7 @@ Note_performer::try_music (Music *ev)
 
 ADD_TRANSLATOR (Note_performer, "", "",
 		"note-event busy-playing-event",
-		 "", "");
+		"", "");
 
 Note_performer::Note_performer ()
 {

@@ -217,7 +217,6 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   return scm_from_double (offset);
 }
 
-
 MAKE_SCHEME_CALLBACK (Slur, after_line_breaking, 1);
 SCM
 Slur::after_line_breaking (SCM smob)

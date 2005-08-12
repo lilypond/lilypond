@@ -18,7 +18,6 @@
 #include "grob.hh"
 #include "pointer-group-interface.hh"
 
-
 void
 Span_bar::add_bar (Grob *me, Grob *b)
 {
@@ -75,14 +74,14 @@ Span_bar::print (SCM smobbed_me)
 
   if (!model_bar)
     model_bar = me;
-  
+
   extents.sort (&Interval::left_comparison);
 
   Stencil span_bar;
-  for (int i = 1; i < extents.size (); i ++)
+  for (int i = 1; i < extents.size (); i++)
     {
-      Interval prev_extent = extents[i-1];
-      Interval ext = extents[i]; 
+      Interval prev_extent = extents[i - 1];
+      Interval ext = extents[i];
       if (!prev_extent.is_empty ())
 	{
 	  Interval l (prev_extent [UP],
@@ -106,7 +105,7 @@ Span_bar::print (SCM smobbed_me)
     }
 
   span_bar.translate_axis (- me->relative_coordinate (refp, Y_AXIS),
-			       Y_AXIS);
+			   Y_AXIS);
 
   return span_bar.smobbed_copy ();
 }
@@ -118,7 +117,7 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
   Grob *se = unsmob_grob (element_smob);
   (void) scm_axis;
 
-  assert ( (Axis) scm_to_int (scm_axis) == X_AXIS);
+  assert ((Axis) scm_to_int (scm_axis) == X_AXIS);
   String gl = ly_scm2string (se->get_property ("glyph"));
 
   /*
@@ -188,8 +187,8 @@ Span_bar::evaluate_glyph (Grob *me)
     return;
 
   extract_grob_set (me, "elements", elements);
-  for (int i = elements.size();
-       i-- && !scm_is_string (gl); )
+  for (int i = elements.size ();
+       i-- && !scm_is_string (gl);)
     {
       gl = elements[i]->get_property ("glyph");
     }

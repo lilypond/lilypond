@@ -16,7 +16,6 @@
 Protected_scm anonymous_modules = SCM_EOL;
 #endif
 
-
 void
 clear_anonymous_modules ()
 {
@@ -25,8 +24,8 @@ clear_anonymous_modules ()
        s = scm_cdr (s))
     {
       SCM module = scm_car (s);
-      SCM closure = SCM_MODULE_EVAL_CLOSURE(module);
-      SCM prop = scm_procedure_property (closure, ly_symbol2scm ("module")); 
+      SCM closure = SCM_MODULE_EVAL_CLOSURE (module);
+      SCM prop = scm_procedure_property (closure, ly_symbol2scm ("module"));
 
       if (ly_is_module (prop))
 	{
@@ -47,11 +46,11 @@ ly_make_anonymous_module (bool safe)
       SCM maker = ly_lily_module_constant ("make-module");
 
       SCM scm_module = ly_lily_module_constant ("the-scm-module");
-      
+
       mod = scm_call_0 (maker);
       scm_module_define (mod, ly_symbol2scm ("%module-public-interface"),
 			 mod);
-      
+
       ly_use_module (mod, scm_module);
       ly_use_module (mod, global_lily_module);
     }
@@ -64,7 +63,7 @@ ly_make_anonymous_module (bool safe)
 #ifdef MODULE_GC_KLUDGE
   anonymous_modules = scm_cons (mod, anonymous_modules);
 #endif
-  
+
   return mod;
 }
 
@@ -81,7 +80,6 @@ ly_use_module (SCM mod, SCM used)
 }
 
 #define FUNC_NAME __FUNCTION__
-
 
 
 static SCM
@@ -139,7 +137,6 @@ ly_reexport_module (SCM mod)
 }
 
 
-
 #ifdef MODULE_GC_KLUDGE
 static SCM
 redefine_keyval (void *closure, SCM key, SCM val, SCM result)
@@ -153,14 +150,14 @@ redefine_keyval (void *closure, SCM key, SCM val, SCM result)
 /*
   UGH UGH.
   Kludge for older GUILE 1.6 versions.
- */
+*/
 void
 make_stand_in_procs_weak ()
 {
   SCM old_tab = scm_stand_in_procs;
   SCM new_tab = scm_make_weak_key_hash_table (scm_from_int (257));
-  
-  new_tab = scm_internal_hash_fold ((Hash_closure_function) &redefine_keyval,
+
+  new_tab = scm_internal_hash_fold ((Hash_closure_function) & redefine_keyval,
 				    NULL,
 				    new_tab,
 				    old_tab);
@@ -168,5 +165,5 @@ make_stand_in_procs_weak ()
   scm_stand_in_procs = new_tab;
 }
 
-ADD_SCM_INIT_FUNC(make_stand_in_procs_weak, make_stand_in_procs_weak);
+ADD_SCM_INIT_FUNC (make_stand_in_procs_weak, make_stand_in_procs_weak);
 #endif

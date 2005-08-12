@@ -33,7 +33,7 @@ private:
   Music *event_;
   Item *text_;
   Item *last_text_;
-  
+
   Context *get_voice_context ();
 };
 
@@ -61,7 +61,7 @@ Lyric_engraver::process_music ()
   if (event_)
     {
       SCM text = event_->get_property ("text");
-      
+
       if (ly_is_equal (text, scm_makfrom0str (" ")))
 	{
 	  if (last_text_)
@@ -150,7 +150,7 @@ Lyric_engraver::stop_translation_timestep ()
 		text_->set_property ("self-alignment-X", scm_from_int (LEFT));
 	    }
 	}
-	  
+
       last_text_ = text_;
       text_ = 0;
     }

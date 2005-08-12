@@ -22,7 +22,6 @@
 #include "paper-score.hh"
 #include "warn.hh"
 
-
 #include "music.hh"
 #include "ly-smobs.icc"
 
@@ -76,16 +75,15 @@ Score::Score (Score const &s)
   Music *m = unsmob_music (s.music_);
   if (m)
     {
-      Music *mclone =  m->clone ();
+      Music *mclone = m->clone ();
       music_ = mclone->unprotect ();
     }
   else
     music_ = SCM_EOL;
 
-  
   for (int i = 0, n = s.defs_.size (); i < n; i++)
     {
-      Output_def * copy = s.defs_[i]->clone ();
+      Output_def *copy = s.defs_[i]->clone ();
       defs_.push (copy);
       copy->unprotect ();
     }
@@ -118,18 +116,18 @@ default_rendering (SCM music, SCM outdef,
       def->parent_ = bdef;
 
       scaled_def = def->self_scm ();
-      scaled_bookdef = bdef->self_scm();
+      scaled_bookdef = bdef->self_scm ();
 
-      def->unprotect();
-      bdef->unprotect ();  
+      def->unprotect ();
+      bdef->unprotect ();
     }
 
   SCM context = ly_run_translator (music, scaled_def, key);
 
   SCM output_as_scm = ly_format_output (context);
   Music_output *output = unsmob_music_output (output_as_scm);
-      
-  if (Paper_score *pscore = dynamic_cast<Paper_score*> (output))
+
+  if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
     {
       /* ugh, this is strange, Paper_book without a Book object. */
       Paper_book *paper_book = new Paper_book ();
@@ -152,7 +150,7 @@ default_rendering (SCM music, SCM outdef,
 }
 
 /*
-  Format score, return list of Music_output objects. 
+  Format score, return list of Music_output objects.
 
   LAYOUTBOOK should be scaled already.
 */
@@ -172,7 +170,7 @@ Score::book_rendering (Output_def *layoutbook,
 
   SCM outputs = SCM_EOL;
   SCM *tail = &outputs;
-  
+
   int outdef_count = defs_.size ();
 
   Object_key *key = new Lilypond_general_key (book_key, user_key_, 0);
@@ -196,9 +194,9 @@ Score::book_rendering (Output_def *layoutbook,
       if (dynamic_cast<Global_context *> (unsmob_context (context)))
 	{
 	  SCM s = ly_format_output (context);
-	  
+
 	  *tail = scm_cons (s, SCM_EOL);
-	  tail = SCM_CDRLOC(*tail);
+	  tail = SCM_CDRLOC (*tail);
 	}
 
       scm_remember_upto_here_1 (scaled);

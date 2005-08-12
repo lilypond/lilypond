@@ -90,7 +90,7 @@ Beam::get_beam_count (Grob *me)
   int m = 0;
 
   extract_grob_set (me, "stems", stems);
-  for (int i = 0; i < stems.size(); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
       m = max (m, (Stem::beam_multiplicity (stem).length () + 1));
@@ -271,9 +271,7 @@ Beam::connect_beams (Grob *me)
 	}
 
       if (i == stems.size () -1)
-	{
-	  scm_set_cdr_x (this_beaming, SCM_EOL);
-	}
+	scm_set_cdr_x (this_beaming, SCM_EOL);
 
       if (scm_ilength (scm_cdr (this_beaming)) > 0)
 	{
@@ -343,7 +341,7 @@ Beam::print (SCM grob)
   for (int i = 0; i <= stems.size (); i++)
     {
       Grob *stem = (i < stems.size ()) ? stems[i] : 0;
-      
+
       SCM this_beaming = stem ? stem->get_property ("beaming") : SCM_EOL;
       Real xposn = stem ? stem->relative_coordinate (xcommon, X_AXIS) : 0.0;
       Real stem_width = stem ? robust_scm2double (stem->get_property ("thickness"), 1.0) * lt : 0;
@@ -365,32 +363,25 @@ Beam::print (SCM grob)
 	{
 	  int b = scm_to_int (scm_car (s));
 	  if (scm_c_memq (scm_car (s), right) != SCM_BOOL_F)
-	    {
-	      full_beams.push (b);
-	    }
+	    full_beams.push (b);
 	  else
-	    {
-	      lfliebertjes.push (b);
-	    }
+	    lfliebertjes.push (b);
 	}
       for (SCM s = right;
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  int b = scm_to_int (scm_car (s));
 	  if (scm_c_memq (scm_car (s), left) == SCM_BOOL_F)
-	    {
-	      rfliebertjes.push (b);
-	    }
+	    rfliebertjes.push (b);
 	}
 
       Drul_array<Real> break_overshoot
 	= robust_scm2drul (me->get_property ("break-overshoot"),
 			   Drul_array<Real> (-0.5, 0.0));
 
-      
       Real w = (i > 0 && stem)
 	? (xposn - last_xposn)
-	: break_overshoot[(i==0) ? LEFT: RIGHT];
+	: break_overshoot[ (i == 0) ? LEFT : RIGHT];
 
       Real stem_offset = 0.0;
       if (i > 0)
@@ -853,9 +844,7 @@ Beam::least_squares (SCM smob)
 	  pos[-d] = -pos[d];
 	}
       else
-	{
-	  pos = ideal;
-	}
+	pos = ideal;
 
       /*
 	For broken beams this doesn't work well. In this case, the
@@ -1302,12 +1291,12 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   else
     {
       /*
-	UGH. TODO: fix dependency tracking. 
-       */ 
+	UGH. TODO: fix dependency tracking.
+      */
       position_beam (beam);
       pos = ly_scm2interval (beam->get_property ("positions"));
     }
-		   
+
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
   scale_drul (&pos, staff_space);

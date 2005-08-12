@@ -44,7 +44,7 @@ Volta_bracket_interface::print (SCM smob)
   bool no_vertical_end = orig_span && !broken_last_bracket;
 
   extract_grob_set (me, "bars", bars);
-  Grob *endbar = bars.size() ? bars.top () : 0;
+  Grob *endbar = bars.size () ? bars.top () : 0;
   SCM glyph = endbar ? endbar->get_property ("glyph") : SCM_EOL;
 
   String str;

@@ -5,7 +5,7 @@
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
- 
+
 #include "main.hh"
 
 #include <cassert>
@@ -20,10 +20,10 @@
 
 #if HAVE_GRP_H
 #include <grp.h>
-#endif 
+#endif
 #if HAVE_PWD_H
 #include <pwd.h>
-#endif 
+#endif
 #if HAVE_GETTEXT
 #include <libintl.h>
 #endif
@@ -161,7 +161,7 @@ static Long_option_init options_static[]
 #if HAVE_CHROOT
   {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
 						"and cd into DIR")},
-#endif 
+#endif
   {0, "no-print", 0, _i ("do not generate printed output")},
   {0, "preview", 'p',  _i ("generate a preview of the first system")},
   {0, "safe-mode", 's',  _i ("run in safe mode")},
@@ -174,7 +174,7 @@ static Long_option_init options_static[]
 #define LILYPOND_DATADIR PACKAGE_DATADIR "/" TOPLEVEL_VERSION
 
 static void
-env_var_info (FILE *out, char const* key)
+env_var_info (FILE *out, char const *key)
 {
   if (char const *value = getenv (key))
     fprintf (out, "%s=\"%s\"\n", key, value);
@@ -198,7 +198,7 @@ dir_info (FILE *out)
   env_var_info (out, "GUILE_LOAD_PATH");
   env_var_info (out, "PANGO_RC_FILE");
   env_var_info (out, "PATH");
-#endif  
+#endif
 }
 
 static void
@@ -260,7 +260,7 @@ warranty ()
 }
 
 static int
-sane_putenv (char const* key, String value, bool overwrite = true)
+sane_putenv (char const *key, String value, bool overwrite = true)
 {
   if (overwrite || !getenv (key))
     {
@@ -273,7 +273,7 @@ sane_putenv (char const* key, String value, bool overwrite = true)
 
 #if ARGV0_RELOCATION
 static int
-set_env_file (char const* key, String value)
+set_env_file (char const *key, String value)
 {
   if (is_file (value))
     return sane_putenv (key, value, false);
@@ -287,7 +287,7 @@ prepend_env_path (char const *key, String value)
 {
   if (is_dir (value))
     {
-      if (char const* cur = getenv (key))
+      if (char const *cur = getenv (key))
 	value += to_string (PATHSEP) + cur;
       return sane_putenv (key, value.to_str0 ());
     }
@@ -393,7 +393,7 @@ setup_paths (char const* argv0)
   /*
     ugh. C&P font-config.cc
   */
-  struct stat statbuf; 
+  struct stat statbuf;
   String builddir = prefix_directory + "/mf/out/";
   if (stat (builddir.to_str0 (), &statbuf) == 0)
     {
@@ -409,9 +409,9 @@ setup_paths (char const* argv0)
     }
 
   for (int i = 0; i < dirs.size (); i++)
-    global_path.prepend (dirs[i]);  
+    global_path.prepend (dirs[i]);
 }
-  
+
 static void
 prepend_load_path (String dir)
 {
@@ -508,7 +508,6 @@ do_chroot_jail ()
 #endif
 
 
-
 static void
 main_with_guile (void *, int, char **)
 {
@@ -529,7 +528,6 @@ main_with_guile (void *, int, char **)
   call_constructors ();
   ly_set_option (ly_symbol2scm ("verbose"), scm_from_bool (be_verbose_global));
 
-  
   init_global_tweak_registry ();
   init_fontconfig ();
 
@@ -537,13 +535,12 @@ main_with_guile (void *, int, char **)
 
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
-  
   if (!init_scheme_variables.is_empty ()
       || !init_scheme_code_string.is_empty ())
     {
       init_scheme_variables = "(map (lambda (x) (ly:set-option (car x) (cdr x))) (list "
 	+ init_scheme_variables + "))";
-      
+
       init_scheme_code_string
 	+= "(begin #t "
 	+ init_scheme_variables
@@ -551,13 +548,12 @@ main_with_guile (void *, int, char **)
 	+ ")";
 
       char const *str0 = init_scheme_code_string.to_str0 ();
-      
+
       if (be_verbose_global)
-	progress_indication (_f("Evaluating %s", str0));
+	progress_indication (_f ("Evaluating %s", str0));
       scm_c_eval_string ((char *) str0);
     }
 
-  
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
      Starting the GUILE engine is very time consuming.  */
@@ -598,7 +594,7 @@ setup_localisation ()
   String localedir = LOCALEDIR;
   if (char const *env = getenv ("LILYPOND_LOCALEDIR"))
     localedir = env;
-  
+
   bindtextdomain ("lilypond", localedir.to_str0 ());
   textdomain ("lilypond");
 #endif
@@ -641,7 +637,7 @@ parse_argv (int argc, char **argv)
 
 	    String key = arg;
 	    String val = "#t";
-	    
+
 	    if (eq >= 0)
 	      {
 		key = arg.left_string (eq);
@@ -649,10 +645,10 @@ parse_argv (int argc, char **argv)
 	      }
 
 	    init_scheme_variables
-	      += "(cons \'" + key  + "  " + val + ")\n";
+	      += "(cons \'" + key + "  " + val + ")\n";
 	  }
 	  break;
-	  
+
 	case 'v':
 	  notice ();
 	  exit (0);
@@ -715,7 +711,7 @@ parse_argv (int argc, char **argv)
 
   if (output_format_global == "")
     output_format_global = "pdf";
-      
+
   if (show_help)
     {
       identify (stdout);
@@ -729,19 +725,18 @@ parse_argv (int argc, char **argv)
 void
 setup_guile_env ()
 {
-  char * yield = getenv ("LILYPOND_GC_YIELD");
+  char *yield = getenv ("LILYPOND_GC_YIELD");
   bool overwrite = true;
   if (!yield)
     {
       yield = "70";
       overwrite = false;
     }
-  
+
   sane_putenv ("GUILE_MIN_YIELD_1", yield, overwrite);
   sane_putenv ("GUILE_MIN_YIELD_2", yield, overwrite);
   sane_putenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
 }
-
 
 int
 main (int argc, char **argv)

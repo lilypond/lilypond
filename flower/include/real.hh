@@ -28,12 +28,10 @@ template<class T> inline int sign (T x)
   return 0;
 }
 
-
 template<class T> inline T sqr (T x)
 {
   return x * x;
 }
-
 
 inline Real
 distance (Real x, Real y)

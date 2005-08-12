@@ -152,7 +152,7 @@ Input::end_column_number () const
 }
 
 void
-Input::get_counts (int *line, int *chr, int*col) const
+Input::get_counts (int *line, int *chr, int *col) const
 {
   source_file_->get_counts (start_, line, chr, col);
 }
@@ -162,23 +162,22 @@ Input::set (Source_file *sf, char const *start, char const *end)
 {
   source_file_ = sf;
   start_ = start;
-  end_ = end;  
+  end_ = end;
 }
 
-Source_file* 
+Source_file *
 Input::get_source_file () const
 {
   return source_file_;
 }
 
-
-char const * 
+char const *
 Input::start () const
 {
   return start_;
 }
 
-char const * 
+char const *
 Input::end () const
 {
   return end_;

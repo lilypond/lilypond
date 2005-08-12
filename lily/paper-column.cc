@@ -105,12 +105,12 @@ Paper_column::is_musical (Grob *me)
 bool
 Paper_column::is_used (Grob *me)
 {
-  extract_grob_set (me ,"elements", elts);
-  if (elts.size())
+  extract_grob_set (me, "elements", elts);
+  if (elts.size ())
     return true;
-  
-  extract_grob_set (me ,"bounded-by-me", bbm);
-  if (bbm.size())
+
+  extract_grob_set (me, "bounded-by-me", bbm);
+  if (bbm.size ())
     return true;
   return Item::is_breakable (me);
 }
@@ -129,7 +129,7 @@ Paper_column::print (SCM p)
 
   Moment *mom = unsmob_moment (me->get_property ("when"));
   String when = mom ? mom->to_string () : "?/?";
-    
+
   SCM properties = Font_interface::text_font_alist_chain (me);
 
   SCM scm_mol = Text_interface::interpret_markup (me->get_layout ()->self_scm (),
@@ -165,13 +165,13 @@ Paper_column::before_line_breaking (SCM grob)
   Grob *me = unsmob_grob (grob);
 
   SCM bbm = me->get_object ("bounded-by-me");
-  Grob_array * ga = unsmob_grob_array (bbm);
+  Grob_array *ga = unsmob_grob_array (bbm);
   if (!ga)
     return SCM_UNSPECIFIED;
-   
+
   Link_array<Grob> &array (ga->array_reference ());
-  
-  for (int i = array.size(); i--; )
+
+  for (int i = array.size (); i--;)
     {
       Grob *g = array[i];
 

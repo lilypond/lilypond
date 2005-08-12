@@ -135,7 +135,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
     contain a lot of noteheads, superlinear performance is too slow.
   */
   extract_item_set (me, "note-heads", heads);
-  for (int i = heads.size(); i --; )
+  for (int i = heads.size (); i--;)
     {
       Item *h = heads[i];
 
@@ -258,9 +258,7 @@ Ledger_line_spanner::print (SCM smob)
        i != reqs.end (); last = i++)
     {
       if (last == reqs.end ())
-	{
-	  continue;
-	}
+	continue;
 
       Direction d = DOWN;
       do
@@ -343,11 +341,11 @@ Ledger_line_spanner::print (SCM smob)
 
 ADD_INTERFACE (Ledger_line_spanner,
 	       "ledger-line-interface",
-	       
+
 	       "This spanner draws the ledger lines of a staff.\n"
 	       "This is a separate grob because it has to process\n"
 	       "all potential collisions between all note heads.",
-	       
+
 	       "note-heads thickness minimum-length-fraction length-fraction gap");
 
 struct Ledgered_interface
@@ -357,8 +355,8 @@ struct Ledgered_interface
 
 ADD_INTERFACE (Ledgered_interface,
 	       "ledgered-interface",
-	       
+
 	       "Objects that need ledger lines, typically "
 	       "note heads. See also @ref{ledger-line-interface}.",
-	       
+
 	       "no-ledgers");

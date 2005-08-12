@@ -38,10 +38,9 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
     {
       programming_error ("Cannot find OpenType table.");
     }
-  
+
   return 0;
 }
-
 
 String
 Open_type_font::get_otf_table (String tag) const
@@ -85,7 +84,6 @@ Open_type_font::~Open_type_font ()
   FT_Done_Face (face_);
 }
 
-
 /*
   UGH fix naming
 */
@@ -93,7 +91,7 @@ String
 get_otf_table (FT_Face face, String tag)
 {
   FT_ULong len;
-  FT_Byte *tab = load_table (tag.to_str0 (), face,  &len);
+  FT_Byte *tab = load_table (tag.to_str0 (), face, &len);
 
   return String (tab, len);
 }
@@ -128,7 +126,7 @@ Open_type_font::Open_type_font (FT_Face face)
   lily_global_table_ = SCM_EOL;
   lily_subfonts_ = SCM_EOL;
   lily_index_to_bbox_table_ = SCM_EOL;
-  
+
   lily_character_table_ = alist_to_hashq (load_scheme_table ("LILC", face_));
   lily_global_table_ = alist_to_hashq (load_scheme_table ("LILY", face_));
   lily_subfonts_ = load_scheme_table ("LILF", face_);
@@ -168,7 +166,7 @@ Open_type_font::get_indexed_char (int signed_idx) const
   if (SCM_HASHTABLE_P (lily_index_to_bbox_table_))
     {
       SCM box = scm_hashq_ref (lily_index_to_bbox_table_, scm_from_int (signed_idx), SCM_BOOL_F);
-      Box * box_ptr = Box::unsmob (box);
+      Box *box_ptr = Box::unsmob (box);
       if (box_ptr)
 	return *box_ptr;
     }

@@ -21,7 +21,6 @@
 
 #include "pointer-group-interface.hh"
 
-
 Stencil
 System_start_delimiter::staff_bracket (Grob *me, Real height)
 {
@@ -31,23 +30,21 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 
   Real thickness = robust_scm2double (me->get_property ("thickness"), 0.25);
 
-
   Real overlap = 0.1 * thickness;
-  
+
   Stencil bracket = Lookup::filled_box (Box (Interval (0, thickness),
 					     Interval (-1, 1)
-					     * (height/2 + overlap)));
+					     * (height / 2 + overlap)));
 
   Direction d = DOWN;
   do
     {
       bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap, 0.0);
     }
-  while (flip (&d) != DOWN); 
+  while (flip (&d) != DOWN);
 
   return bracket;
 }
-
 
 Stencil
 System_start_delimiter::simple_bar (Grob *me, Real h)
@@ -64,12 +61,12 @@ SCM
 System_start_delimiter::after_line_breaking (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
-  
+
   SCM gl = me->get_property ("glyph");
   if (ly_is_equal (gl, scm_makfrom0str ("bar-line")))
     {
       int count = 0;
-      Paper_column *left_column = me->get_bound (LEFT)->get_column ();  
+      Paper_column *left_column = me->get_bound (LEFT)->get_column ();
 
 #if 1 /* slur-script.ly test */
       /*
@@ -80,20 +77,20 @@ System_start_delimiter::after_line_breaking (SCM smob)
 
       for (int i = elts.size (); i--;)
 	{
-	  Spanner *staff = dynamic_cast<Spanner*> (elts[i]);
-	  if (!staff || 
-	      staff->get_bound (LEFT)->get_column () != left_column)
+	  Spanner *staff = dynamic_cast<Spanner *> (elts[i]);
+	  if (!staff
+	      || staff->get_bound (LEFT)->get_column () != left_column)
 	    continue;
-	  
+
 	  Interval v = staff->extent (common, Y_AXIS);
-	  
+
 	  if (!v.is_empty ())
 	    count++;
 	}
 
       if (count <= 1)
 	me->suicide ();
-#endif      
+#endif
     }
   return SCM_UNSPECIFIED;
 }
@@ -118,9 +115,9 @@ System_start_delimiter::print (SCM smob)
 
   Interval ext;
 
-  for (int i = elts.size();  i--;)
+  for (int i = elts.size (); i--;)
     {
-      Spanner *sp = dynamic_cast<Spanner*> (elts[i]);
+      Spanner *sp = dynamic_cast<Spanner *> (elts[i]);
       if (sp
 	  && sp->get_bound (LEFT) == me->get_bound (LEFT))
 	{
@@ -169,7 +166,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   fm = select_font (me->get_layout (), scm_list_n (alist, SCM_UNDEFINED));
 
   int lo = 0;
-  int hi = max (fm->count () - 1,2);
+  int hi = max (fm->count () - 1, 2);
   Box b;
 
   /* do a binary search for each Y, not very efficient, but passable?  */

@@ -75,8 +75,8 @@ Book::add_score (SCM s)
 }
 
 /* Concatenate all score outputs into a Paper_book
-   
- */
+
+*/
 Paper_book *
 Book::process (Output_def *default_paper,
 	       Output_def *default_layout)
@@ -87,14 +87,14 @@ Book::process (Output_def *default_paper,
 	return 0;
 
   Output_def *paper = paper_ ? default_paper : paper_;
-  
+
   Paper_book *paper_book = new Paper_book ();
   Real scale = scm_to_double (paper->c_variable ("outputscale"));
   Output_def *scaled_bookdef = scale_output_def (paper, scale);
 
   Object_key *key = new Lilypond_general_key (0, user_key_, 0);
   SCM scm_key = key->unprotect ();
-  
+
   paper_book->paper_ = scaled_bookdef;
   scaled_bookdef->unprotect ();
 
@@ -113,17 +113,15 @@ Book::process (Output_def *default_paper,
 	      Music_output *output = unsmob_music_output (scm_car (outputs));
 
 	      if (Performance *perf = dynamic_cast<Performance *> (output))
-		{
-		  paper_book->add_performance (perf->self_scm ());
-		}
-	      else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output)) 
+		paper_book->add_performance (perf->self_scm ());
+	      else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
 		{
 		  SCM systems = pscore->get_paper_systems ();
 		  if (ly_is_module (score->header_))
 		    paper_book->add_score (score->header_);
 		  paper_book->add_score (systems);
 		}
-	      
+
 	      outputs = scm_cdr (outputs);
 	    }
 	}

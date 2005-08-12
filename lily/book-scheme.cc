@@ -30,7 +30,6 @@ LY_DEFINE (ly_make_book, "ly:make-book",
 
   book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
 
-  
   SCM x = book->self_scm ();
   book->unprotect ();
   return x;

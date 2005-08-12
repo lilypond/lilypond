@@ -146,7 +146,7 @@ Trill_spanner_engraver::finalize ()
       span_ = 0;
     }
 }
-ADD_ACKNOWLEDGER (Trill_spanner_engraver,note_column);
+ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
 ADD_TRANSLATOR (Trill_spanner_engraver,
 		/* doc */ "Create trill spanner from a Music.",
 		/* create */ "TrillSpanner",

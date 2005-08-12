@@ -85,13 +85,12 @@ Box::widen (Real x, Real y)
   interval_a_[Y_AXIS].widen (y);
 }
 
-
-IMPLEMENT_SIMPLE_SMOBS(Box);
+IMPLEMENT_SIMPLE_SMOBS (Box);
 IMPLEMENT_TYPE_P (Box, "ly:box?");
-IMPLEMENT_DEFAULT_EQUAL_P(Box);
+IMPLEMENT_DEFAULT_EQUAL_P (Box);
 
 SCM
-Box::mark_smob (SCM x) 
+Box::mark_smob (SCM x)
 {
   (void)x;
   return SCM_EOL;

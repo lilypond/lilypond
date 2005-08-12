@@ -20,7 +20,6 @@
 
 #include "translator.icc"
 
-
 class Auto_beam_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);
@@ -32,12 +31,12 @@ protected:
   virtual bool try_music (Music *);
   virtual void finalize ();
   virtual void derived_mark () const;
-  
+
   DECLARE_ACKNOWLEDGER (rest);
   DECLARE_ACKNOWLEDGER (beam);
   DECLARE_ACKNOWLEDGER (bar_line);
   DECLARE_ACKNOWLEDGER (stem);
-  
+
   void process_acknowledged ();
 
 private:
@@ -80,13 +79,11 @@ private:
   void check_bar_property ();
 };
 
-
 void
 Auto_beam_engraver::derived_mark () const
 {
   scm_gc_mark (beam_settings_);
 }
-
 
 void
 Auto_beam_engraver::check_bar_property ()
@@ -152,7 +149,7 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test)
 		     test.smobbed_copy ())
     != SCM_BOOL_F;
 }
-    
+
 void
 Auto_beam_engraver::consider_begin (Moment test_mom)
 {
@@ -192,7 +189,7 @@ Auto_beam_engraver::create_beam ()
   /*
     Can't use make_spanner_from_properties() because we have to use
     beam_settings_.
-   */
+  */
   Spanner *beam = new Spanner (beam_settings_,
 			       context ()->get_grob_key ("Beam"));
 
@@ -285,9 +282,7 @@ Auto_beam_engraver::start_translation_timestep ()
     {
       Moment now = now_mom ();
       if (extend_mom_ < now)
-	{
-	  end_beam ();
-	}
+	end_beam ();
     }
   forbid_ = 0;
 }
@@ -310,7 +305,6 @@ Auto_beam_engraver::finalize ()
 
 
 
-
 void
 Auto_beam_engraver::acknowledge_beam (Grob_info info)
 {
@@ -321,7 +315,7 @@ Auto_beam_engraver::acknowledge_beam (Grob_info info)
       end_beam ();
     }
 }
- 
+
 void
 Auto_beam_engraver::acknowledge_bar_line (Grob_info info)
 {
@@ -407,7 +401,7 @@ void
 Auto_beam_engraver::process_acknowledged ()
 {
   if (extend_mom_ > now_mom ())
-    return ; 
+    return;
 
   if (!process_acknowledged_count_)
     {
@@ -421,23 +415,19 @@ Auto_beam_engraver::process_acknowledged ()
 	  Moment now = now_mom ();
 	  if ((extend_mom_ < now)
 	      || ((extend_mom_ == now) && (last_add_mom_ != now)))
-	    {
-	      end_beam ();
-	    }
+	    end_beam ();
 	  else if (!stems_->size ())
-	    {
-	      junk_beam ();
-	    }
+	    junk_beam ();
 	}
     }
 
   process_acknowledged_count_++;
 }
 
-ADD_ACKNOWLEDGER (Auto_beam_engraver,stem);
-ADD_ACKNOWLEDGER (Auto_beam_engraver,bar_line);
-ADD_ACKNOWLEDGER (Auto_beam_engraver,beam);
-ADD_ACKNOWLEDGER (Auto_beam_engraver,rest);
+ADD_ACKNOWLEDGER (Auto_beam_engraver, stem);
+ADD_ACKNOWLEDGER (Auto_beam_engraver, bar_line);
+ADD_ACKNOWLEDGER (Auto_beam_engraver, beam);
+ADD_ACKNOWLEDGER (Auto_beam_engraver, rest);
 ADD_TRANSLATOR (Auto_beam_engraver,
 		/* doc */ "Generate beams based on measure characteristics and observed "
 		"Stems.  Uses beatLength, measureLength and measurePosition to decide "

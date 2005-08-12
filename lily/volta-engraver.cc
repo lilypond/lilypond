@@ -30,12 +30,12 @@ protected:
   DECLARE_ACKNOWLEDGER (staff_symbol);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (bar_line);
-  
+
   virtual void finalize ();
   virtual void derived_mark () const;
   void stop_translation_timestep ();
   void process_music ();
-  
+
   Moment started_mom_;
   Spanner *volta_span_;
   Spanner *end_volta_span_;
@@ -176,7 +176,7 @@ void
 Volta_engraver::acknowledge_note_column (Grob_info i)
 {
   if (volta_span_)
-    Volta_bracket_interface::add_column (volta_span_, i.grob());
+    Volta_bracket_interface::add_column (volta_span_, i.grob ());
 }
 
 void
@@ -187,7 +187,7 @@ Volta_engraver::acknowledge_bar_line (Grob_info i)
   if (end_volta_span_)
     Volta_bracket_interface::add_bar (end_volta_span_, i.item ());
 }
- 
+
 void
 Volta_engraver::acknowledge_staff_symbol (Grob_info i)
 {

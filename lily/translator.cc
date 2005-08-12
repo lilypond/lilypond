@@ -29,7 +29,6 @@ Translator::init ()
   smobify_self ();
 }
 
-
 void
 Translator::process_music ()
 {
@@ -165,7 +164,7 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   Acknowledge_information inf;
   inf.function_ = ptr;
 
-  String interface_name(func_name);
+  String interface_name (func_name);
 
   interface_name = interface_name.substitute ('_', '-');
   interface_name += "-interface";
@@ -177,19 +176,17 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
 Engraver_void_function_engraver_grob_info
 generic_get_acknowledger (SCM sym, Array<Acknowledge_information> const *ack_array)
 {
-  for (int i = 0; i < ack_array->size(); i++)
+  for (int i = 0; i < ack_array->size (); i++)
     {
       if (ack_array->elem (i).symbol_ == sym)
-	{
-	  return ack_array->elem(i).function_;
-	}
+	return ack_array->elem (i).function_;
     }
   return 0;
 }
 
-ADD_TRANSLATOR(Translator,
-	       "Base class. Unused",
-	       "",
-	       "",
-	       "",
-	       "");
+ADD_TRANSLATOR (Translator,
+		"Base class. Unused",
+		"",
+		"",
+		"",
+		"");

@@ -102,15 +102,11 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
     {
       points.push (bottom_points[0] - vpadding + hpadding);
       for (int i = 1; i < size - 1; i++)
-	{
-	  points.push (bottom_points[i] - vpadding);
-	}
+	points.push (bottom_points[i] - vpadding);
       points.push (bottom_points[size - 1] - vpadding - hpadding);
       points.push (top_points[size - 1] + vpadding - hpadding);
       for (int i = size - 2; i > 0; i--)
-	{
-	  points.push (top_points[i] + vpadding);
-	}
+	points.push (top_points[i] + vpadding);
       points.push (top_points[0] + vpadding + hpadding);
       out.add_stencil (Lookup::round_filled_polygon (points, blotdiameter));
     }
@@ -160,10 +156,10 @@ Cluster::print (SCM smob)
     line with the center of the note heads?
 
   */
-  for (int i = 0; i < cols.size ();  i++) 
+  for (int i = 0; i < cols.size (); i++)
     {
       Grob *col = cols[i];
-      
+
       Interval yext = col->extent (commony, Y_AXIS);
 
       Real x = col->relative_coordinate (commonx, X_AXIS) - left_coord;
@@ -182,7 +178,7 @@ Cluster::print (SCM smob)
 	{
 	  Spanner *next = orig->broken_intos_[spanner->get_break_index () + 1];
 	  Link_array<Grob> const &next_cols = extract_grob_array (next, "columns");
-	  if (next_cols.size() > 0)
+	  if (next_cols.size () > 0)
 	    {
 	      Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);
 	      Grob *col = next_cols[0];

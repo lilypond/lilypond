@@ -66,9 +66,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
       if /* neither C2/2 nor C4/4 */
 	(((n != 2) || (d != 2))
 	 && ((n != 4) || (d != 4)))
-	{
-	  return numbered_time_signature (me, n, d);
-	}
+	return numbered_time_signature (me, n, d);
     }
 
   String char_name = style + to_string (n) + to_string (d);

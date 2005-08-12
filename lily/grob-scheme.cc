@@ -15,7 +15,6 @@
 #include "system.hh"
 #include "font-interface.hh"
 
-
 LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 	   3, 0, 0, (SCM grob, SCM sym, SCM val),
 	   "Set @var{sym} in grob @var{grob} to value @var{val}")
@@ -59,7 +58,6 @@ LY_DEFINE (ly_grob_object, "ly:grob-object",
   return sc->internal_get_object (sym);
 }
 
-
 LY_DEFINE (ly_spanner_get_bound, "ly:spanner-get-bound",
 	   2, 0, 0, (SCM slur, SCM dir),
 	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
@@ -98,7 +96,7 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
       if (global == SCM_UNDEFINED)
 	global = SCM_EOL;
     }
-  
+
   return sc->get_property_alist_chain (global);
 }
 
@@ -250,7 +248,6 @@ LY_DEFINE (ly_grob_key, "ly:grob-key",
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "Grob");
   return me->get_key ()->self_scm ();
 }
-
 
 
 LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",

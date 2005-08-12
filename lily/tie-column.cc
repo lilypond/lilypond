@@ -116,17 +116,11 @@ Tie_column::werner_directions (Grob *me)
 	  if (last_tie
 	      && Tie::get_column_rank (t, LEFT)
 	      < Tie::get_column_rank (last_tie, LEFT))
-	    {
-	      d = DOWN;
-	    }
+	    d = DOWN;
 	  else if (last_down_pos - p > 5)
-	    {
-	      d = UP;
-	    }
+	    d = UP;
 	  else
-	    {
-	      d = DOWN;
-	    }
+	    d = DOWN;
 
 	  set_grob_direction (t, d);
 	}
@@ -164,9 +158,7 @@ Tie_column::before_line_breaking (SCM smob)
 	{
 	  if (dir * tie->get_bound (dir)->get_column ()->get_rank ()
 	      > dir * me->get_bound (dir)->get_column ()->get_rank ())
-	    {
-	      me->set_bound (dir, Tie::head (tie, dir));
-	    }
+	    me->set_bound (dir, Tie::head (tie, dir));
 	}
       while (flip (&dir) != LEFT);
     }

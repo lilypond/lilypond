@@ -78,6 +78,9 @@ rules = {
 	('(return|=) (\*|&|-|!) ([\w\(])', '\\1 \\2\\3'),
 	# space after `operator'
 	('(\Woperator) *([^\w\s])', '\\1 \\2'),
+	# delete gratuitous block
+	('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
+	 '\n\\2;'),
 	# dangling brace close
 	('\n[ \t]*(\n[ \t]*})', '\\1'),
 	# dangling newline
@@ -92,7 +95,7 @@ rules = {
 	# dangling semicolon
 	('\n[ \t]*;', ';'),
 	# delete gratuitous blocks
-	('''(?ux)\n([    ]|\t\s*){\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
+	('''xx\n([    ]|\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
 	 '\n\\2;'),
 	# brace open
 	('(\w)[ \t]*([^\s]*){([ \t]*\n)', '\\1\\2\n{\n'),
@@ -595,22 +598,9 @@ i
 {
   if (foo)
     {
-    a = 1;
+      a = 1;
     }
 }
-
-	    if (prev_delta_pitch < - 1)
-	      {
-		glyph_name = "svaticana.reverse.plica";
-	      }
-	    if (prev_delta_pitch < - 1)
-	      {
-		glyph_name = svaticana.reverse.plica;
-	      }
-	    if (prev_delta_pitch < - 1)
-	      {
-		glyph_name = "2";
-	      }
 '''
 
 def test ():

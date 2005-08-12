@@ -19,7 +19,7 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
   SCM axes = me->get_property ("axes");
   if (!scm_is_pair (axes))
     programming_error ("axes should be nonempty");
-  
+
   for (SCM ax = axes; ax != SCM_EOL; ax = scm_cdr (ax))
     {
       Axis a = (Axis) scm_to_int (scm_car (ax));
@@ -29,7 +29,7 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
 
       e->internal_set_object ((a == X_AXIS)
 			      ? ly_symbol2scm ("axis-group-parent-X")
-				: ly_symbol2scm ("axis-group-parent-Y"),
+			      : ly_symbol2scm ("axis-group-parent-Y"),
 			      me->self_scm ());
     }
 
@@ -51,7 +51,7 @@ Axis_group_interface::relative_group_extent (Link_array<Grob> const &elts,
 					     Grob *common, Axis a)
 {
   Interval r;
-  for (int i = 0; i < elts.size(); i++)
+  for (int i = 0; i < elts.size (); i++)
     {
       Grob *se = elts[i];
       Interval dims = se->extent (common, a);
@@ -60,7 +60,6 @@ Axis_group_interface::relative_group_extent (Link_array<Grob> const &elts,
     }
   return r;
 }
-
 
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, group_extent_callback, 2);

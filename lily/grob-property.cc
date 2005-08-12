@@ -61,7 +61,6 @@ Grob::add_to_list_property (SCM sym, SCM thing)
 }
 
 
-
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
 void
@@ -71,12 +70,12 @@ Grob::internal_set_property (SCM sym, SCM v)
   SCM grob_p = ly_lily_module_constant ("ly:grob?");
   SCM grob_list_p = ly_lily_module_constant ("grob-list?");
   SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
-  
+
   if (type == grob_p
       || type == grob_list_p
       || (unsmob_grob (v) && ly_symbol2scm ("cause") != sym))
     {
-      scm_display (scm_list_2 (sym, type), scm_current_output_port());
+      scm_display (scm_list_2 (sym, type), scm_current_output_port ());
       assert (0);
     }
 #endif
@@ -99,7 +98,6 @@ Grob::internal_set_property (SCM sym, SCM v)
 
 
 
-
 SCM
 Grob::internal_get_property (SCM sym) const
 {
@@ -109,11 +107,11 @@ Grob::internal_get_property (SCM sym) const
       note_property_access (&grob_property_lookup_table, sym);
     }
 #endif
-  
+
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
     return scm_cdr (s);
-  
+
   s = scm_sloppy_assq (sym, immutable_property_alist_);
 
   if (do_internal_type_checking_global && scm_is_pair (s))
@@ -127,7 +125,6 @@ Grob::internal_get_property (SCM sym) const
 
   return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
 }
-
 
 
 void

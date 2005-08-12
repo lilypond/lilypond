@@ -42,10 +42,10 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_ACKNOWLEDGER ( slur);
-  DECLARE_ACKNOWLEDGER ( rhythmic_head);
-  DECLARE_ACKNOWLEDGER ( stem);
-  DECLARE_ACKNOWLEDGER ( note_column);
+  DECLARE_ACKNOWLEDGER (slur);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (note_column);
 
 public:
   TRANSLATOR_DECLARATIONS (Script_engraver);
@@ -151,8 +151,8 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
 void
 Script_engraver::process_music ()
 {
-  for (int i = 0; i < scripts_.size(); i++)
-     {
+  for (int i = 0; i < scripts_.size (); i++)
+    {
       Music *m = scripts_[i].event_;
 
       Grob *p = make_item ("Script", m->self_scm ());
@@ -168,7 +168,6 @@ Script_engraver::process_music ()
 	p->set_property ("direction", force_dir);
     }
 }
-
 
 void
 Script_engraver::acknowledge_stem (Grob_info info)
@@ -190,9 +189,9 @@ Script_engraver::acknowledge_stem (Grob_info info)
 void
 Script_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
-  if(info.music_cause ())
+  if (info.music_cause ())
     {
-     for (int i = 0; i < scripts_.size(); i++)
+      for (int i = 0; i < scripts_.size (); i++)
  	{
 	  Grob *e = scripts_[i].script_;
 
@@ -216,8 +215,8 @@ Script_engraver::acknowledge_note_column (Grob_info info)
 
      As the note head to put it on is not known now, postpone this
      decision to Script_interface::before_line_breaking ().  */
-  
-  for (int i = 0; i < scripts_.size(); i++)
+
+  for (int i = 0; i < scripts_.size (); i++)
     {
       Grob *e = scripts_[i].script_;
 
@@ -226,7 +225,7 @@ Script_engraver::acknowledge_note_column (Grob_info info)
 	e->set_parent (info.grob (), X_AXIS);
     }
 }
- 
+
 void
 Script_engraver::acknowledge_slur (Grob_info info)
 {

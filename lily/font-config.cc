@@ -23,15 +23,14 @@ init_fontconfig ()
 {
   if (be_verbose_global)
     message (_ ("Initializing FontConfig..."));
-  
+
   if (!FcInit ())
     error (_ ("initializing FontConfig failed"));
 
 
-  
   font_config_global = FcConfigGetCurrent ();
   Array<String> dirs;
-  struct stat statbuf; 
+  struct stat statbuf;
   String builddir = prefix_directory + "/mf/out/";
 
   if (stat (builddir.to_str0 (), &statbuf) == 0)
@@ -42,7 +41,7 @@ init_fontconfig ()
       dirs.push (prefix_directory + "/fonts/type1/");
       dirs.push (prefix_directory + "/fonts/svg/");
     }
-  
+
   for (int i = 0; i < dirs.size (); i++)
     {
       String dir = dirs[i];
@@ -61,7 +60,6 @@ init_fontconfig ()
 void
 init_fontconfig ()
 {
-  
 }
 
 #endif

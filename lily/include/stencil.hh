@@ -80,7 +80,7 @@ public:
   Interval extent (Axis) const;
   Box extent_box () const;
   bool is_empty () const;
-  Stencil in_color (Real r, Real g, Real b) const; 
+  Stencil in_color (Real r, Real g, Real b) const;
 
   static SCM ly_get_stencil_extent (SCM mol, SCM axis);
   static SCM ly_set_stencil_extent_x (SCM, SCM, SCM);

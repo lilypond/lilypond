@@ -74,7 +74,7 @@ struct Interval_t : public Drul_array<T>
     : Drul_array<T> (src)
   {
   }
-  
+
   Interval_t (T m, T M) : Drul_array<T> (m, M)
   {
   }

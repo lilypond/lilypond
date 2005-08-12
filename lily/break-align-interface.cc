@@ -44,7 +44,7 @@ SCM
 Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  (void)  axis;
+  (void) axis;
   assert (scm_to_int (axis) == X_AXIS);
 
   Item *item = dynamic_cast<Item *> (me);
@@ -72,7 +72,7 @@ Break_align_interface::ordered_elements (Grob *grob)
 {
   Item *me = dynamic_cast<Item *> (grob);
   extract_grob_set (me, "elements", elts);
-  
+
   SCM order_vec = me->get_property ("break-align-orders");
   if (!scm_is_vector (order_vec)
       || scm_c_vector_length (order_vec) < 3)
@@ -90,7 +90,7 @@ Break_align_interface::ordered_elements (Grob *grob)
     {
       SCM sym = scm_car (order);
 
-      for (int i = writable_elts.size(); i --; )
+      for (int i = writable_elts.size (); i--;)
 	{
 	  Grob *g = writable_elts[i];
 	  if (g && sym == g->get_property ("break-align-symbol"))
@@ -100,7 +100,7 @@ Break_align_interface::ordered_elements (Grob *grob)
 	    }
 	}
     }
-  
+
   return new_elts;
 }
 
@@ -157,8 +157,8 @@ Break_align_interface::do_alignment (Grob *grob)
 	Find the first grob with a space-alist entry.
       */
       extract_grob_set (l, "elements", elts);
-      
-      for (int i = elts.size(); i--; )
+
+      for (int i = elts.size (); i--;)
 	{
 	  Grob *elt = elts[i];
 
@@ -185,7 +185,7 @@ Break_align_interface::do_alignment (Grob *grob)
       if (r)
 	{
 	  extract_grob_set (r, "elements", elts);
-	  for (int i = elts.size();
+	  for (int i = elts.size ();
 	       !scm_is_symbol (rsym) && i--;)
 	    {
 	      Grob *elt = elts[i];
@@ -237,9 +237,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	    offsets[next_idx] = max (extents[idx][RIGHT], distance);
 	}
       else
-	{
-	  extra_right_space = distance;
-	}
+	extra_right_space = distance;
 
       idx = next_idx;
     }
@@ -257,8 +255,8 @@ Break_align_interface::do_alignment (Grob *grob)
     }
 
   if (total_extent.is_empty ())
-    return ;
-  
+    return;
+
   if (me->break_status_dir () == LEFT)
     {
       alignment_off = -total_extent[RIGHT] - extra_right_space;

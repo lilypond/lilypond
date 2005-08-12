@@ -49,7 +49,7 @@
 static Item *
 get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
 {
-  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+  Spanner *me = dynamic_cast<Spanner *> (me_grob);
   Item *g = me->get_bound (hdir);
   if (Note_column::has_interface (g)
       && Note_column::get_stem (g)
@@ -73,13 +73,11 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool
   Grob *s1 = Note_column::get_stem (cols[0]);
   Grob *s2 = Note_column::get_stem (cols.top ());
 
-
   if (s2 != me->get_bound (RIGHT))
     return 0;
 
   Grob *b1 = s1 ? Stem::get_beam (s1) : 0;
   Grob *b2 = s2 ? Stem::get_beam (s2) : 0;
-
 
   *equally_long = false;
   if (! (b1 && (b1 == b2) && !me->is_broken ()))
@@ -119,10 +117,10 @@ Tuplet_bracket::print (SCM smob)
       {
 	/*
 	  UGH. dependency tracking!
-	 */
+	*/
 	extract_grob_set (me, "tuplets", tuplets);
 	for (int i = 0; i < tuplets.size (); i++)
-	  Tuplet_bracket::print (tuplets[i]->self_scm());
+	  Tuplet_bracket::print (tuplets[i]->self_scm ());
 
 	after_line_breaking (smob);
       }
@@ -175,10 +173,10 @@ Tuplet_bracket::print (SCM smob)
     {
       x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
       Direction break_dir = bounds[d]->break_status_dir ();
-      Spanner *orig_spanner = dynamic_cast<Spanner*> (me->original_);
+      Spanner *orig_spanner = dynamic_cast<Spanner *> (me->original_);
       connect_to_other[d]
 	= (break_dir
-	   && (me->get_break_index() - break_dir < orig_spanner->broken_intos_.size()));
+	   && (me->get_break_index () - break_dir < orig_spanner->broken_intos_.size ()));
 
       if (connect_to_other[d])
 	{
@@ -188,23 +186,23 @@ Tuplet_bracket::print (SCM smob)
 	  if (d == RIGHT)
 	    x_span[d] += d * overshoot[d];
 	  else
-	    x_span[d] = robust_relative_extent(bounds[d], commonx, X_AXIS)[RIGHT]
+	    x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[RIGHT]
 	      - overshoot[LEFT];
 	}
       else if (d == RIGHT
 	       && (columns.is_empty ()
-		|| (bounds[d]->get_column ()
-		    != dynamic_cast<Item*> (columns.top())->get_column ())))
+		   || (bounds[d]->get_column ()
+		       != dynamic_cast<Item *> (columns.top ())->get_column ())))
 	{
 	  /*
 	    TODO: make padding tunable?
-	   */
+	  */
 	  x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS) [LEFT] - 1.0;
 	}
     }
   while (flip (&d) != LEFT);
 
-  Real w = x_span.length();
+  Real w = x_span.length ();
   SCM number = me->get_property ("text");
 
   Output_def *pap = me->get_layout ();
@@ -282,7 +280,6 @@ Tuplet_bracket::print (SCM smob)
 	}
       while (flip (&d) != LEFT);
 
-
       Stencil brack = make_bracket (me, Y_AXIS,
 				    Offset (w, ry - ly),
 				    height,
@@ -299,7 +296,6 @@ Tuplet_bracket::print (SCM smob)
 	    brack.add_stencil (edge_stencils[d]);
 	}
       while (flip (&d) != LEFT);
-
 
       mol.add_stencil (brack);
     }
@@ -393,14 +389,13 @@ Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
     }
 }
 
-
 /*
   use first -> last note for slope, and then correct for disturbing
   notes in between.  */
 void
 Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 {
-  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+  Spanner *me = dynamic_cast<Spanner *> (me_grob);
 
   extract_grob_set (me, "note-columns", columns);
   extract_grob_set (me, "tuplets", tuplets);
@@ -505,15 +500,13 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 	    Let's not take padding into account for nested tuplets.
 	    the edges can come very close to the stems, likewise for
 	    nested tuplets?
-	   */
+	  */
 	  Drul_array<Real> my_height
 	    = robust_scm2drul (me->get_property ("edge-height"),
 			       Interval (0, 0));
-	  if (dynamic_cast<Spanner*> (tuplets[i])->get_bound (d)
-	      ==  me->get_bound (d))
-	    {
-	      y += dir * my_height[d];
-	    }
+	  if (dynamic_cast<Spanner *> (tuplets[i])->get_bound (d)
+	      == me->get_bound (d))
+	    y += dir * my_height[d];
 #endif
 
 	  points.push (Offset (tuplet_x[d] - x0, y));
@@ -646,7 +639,7 @@ Tuplet_bracket::get_default_dir (Grob *me)
 {
   Drul_array<int> dirs (0, 0);
   extract_grob_set (me, "note-columns", columns);
-  for (int i = 0 ; i < columns.size (); i++)
+  for (int i = 0; i < columns.size (); i++)
     {
       Grob *nc = columns[i];
       Direction d = Note_column::dir (nc);
@@ -672,7 +665,6 @@ Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
   me->add_dependency (bracket);
 }
-
 
 
 ADD_INTERFACE (Tuplet_bracket,

@@ -12,7 +12,6 @@
 #include "music.hh"
 #include "translator.icc"
 
-
 /*
   TODO:
 
@@ -85,9 +84,7 @@ Dynamic_performer::create_audio_elements ()
 
 	  SCM eq = get_property ("instrumentEqualizer");
 	  if (ly_is_procedure (eq))
-	    {
-	      s = scm_call_1 (eq, s);
-	    }
+	    s = scm_call_1 (eq, s);
 
 	  if (is_number_pair (s))
 	    {

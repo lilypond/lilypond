@@ -197,7 +197,7 @@ Gourlay_breaking::do_solve () const
   if (be_verbose_global)
     {
       message (_f ("Optimal demerits: %f",
-			       optimal_paths.top ().demerits_) + "\n");
+		   optimal_paths.top ().demerits_) + "\n");
     }
 
   if (optimal_paths.top ().demerits_ >= infinity_f)
@@ -235,9 +235,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
     {
       SCM pen = pc->get_property ("penalty");
       if (scm_is_number (pen) && fabs (scm_to_double (pen)) < 10000)
-	{
-	  break_penalties += scm_to_double (pen);
-	}
+	break_penalties += scm_to_double (pen);
     }
 
   /*

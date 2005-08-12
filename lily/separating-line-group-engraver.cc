@@ -146,7 +146,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 	{
 	  Item *it = make_item ("StaffSpacing", SCM_EOL);
 	  current_spacings_.staff_spacing_ = it;
-	  Pointer_group_interface::add_grob (it,  ly_symbol2scm ("left-items"),
+	  Pointer_group_interface::add_grob (it, ly_symbol2scm ("left-items"),
 					     break_item_);
 
 	  if (int i = last_spacings_.note_spacings_.size ())
@@ -159,7 +159,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 	  else if (last_spacings_.staff_spacing_)
 	    {
 	      SCM ri = last_spacings_.staff_spacing_->get_object ("right-items");
-	      Grob_array *ga  = unsmob_grob_array (ri);
+	      Grob_array *ga = unsmob_grob_array (ri);
 	      if (!ga)
 		{
 		  SCM ga_scm = Grob_array::make_array ();

@@ -67,9 +67,7 @@ Simultaneous_music_iterator::construct_children ()
 	  tail = SCM_CDRLOC (*tail);
 	}
       else
-	{
-	  mi->quit ();
-	}
+	mi->quit ();
     }
 }
 
@@ -82,18 +80,14 @@ Simultaneous_music_iterator::process (Moment until)
       Music_iterator *i = unsmob_iterator (scm_car (*proc));
       if (i->run_always ()
 	  || i->pending_moment () == until)
-	{
-	  i->process (until);
-	}
+	i->process (until);
       if (!i->ok ())
 	{
 	  i->quit ();
 	  *proc = scm_cdr (*proc);
 	}
       else
-	{
-	  proc = SCM_CDRLOC (*proc);
-	}
+	proc = SCM_CDRLOC (*proc);
     }
 }
 

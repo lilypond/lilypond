@@ -17,7 +17,7 @@ Staff_symbol_engraver::~Staff_symbol_engraver ()
 Staff_symbol_engraver::Staff_symbol_engraver ()
 {
   finished_span_ = 0;
-  first_start_ = true; 
+  first_start_ = true;
   span_ = 0;
   span_events_[LEFT] = 0;
   span_events_[RIGHT] = 0;
@@ -32,7 +32,7 @@ Staff_symbol_engraver::try_music (Music *music)
       span_events_[d] = music;
       return true;
     }
-  
+
   return false;
 }
 
@@ -95,15 +95,15 @@ Staff_symbol_engraver::finalize ()
 
 /*
   Todo: staff-symbol-referencer iface.
- */
+*/
 void
 Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
   /*
     Perhaps should try to take SeparationItem as bound of the staff
     symbol?
-   */
-  if (span_  || finished_span_ )
+  */
+  if (span_ || finished_span_)
     {
       Spanner *my = span_ ? span_ : finished_span_;
       s.grob ()->set_object ("staff-symbol", my->self_scm ());
@@ -111,7 +111,7 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER (Staff_symbol_engraver,grob);
+ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
 ADD_TRANSLATOR (Staff_symbol_engraver,
 		/* doc */ "Create the constellation of five (default) "
 		"staff lines.",

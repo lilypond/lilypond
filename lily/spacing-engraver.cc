@@ -32,13 +32,12 @@ struct Rhythmic_tuple
   static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);
 };
 
-
 /*
   TODO: allow starting & stopping of spacing regions.
- */
+*/
 /*
-   Acknowledge rhythmic elements, for initializing spacing fields in
-   the columns.
+  Acknowledge rhythmic elements, for initializing spacing fields in
+  the columns.
 */
 class Spacing_engraver : public Engraver
 {
@@ -49,12 +48,12 @@ class Spacing_engraver : public Engraver
   Spanner *spacing_;
 
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
-  
+
 protected:
   DECLARE_ACKNOWLEDGER (staff_spacing);
   DECLARE_ACKNOWLEDGER (note_spacing);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
-  
+
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_music ();
@@ -112,7 +111,7 @@ Spacing_engraver::acknowledge_staff_spacing (Grob_info i)
 {
   Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
 }
-  
+
 void
 Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
 {
@@ -140,15 +139,15 @@ Spacing_engraver::stop_translation_timestep ()
 {
   Paper_column *musical_column
     = dynamic_cast<Paper_column *> (unsmob_grob (get_property ("currentMusicalColumn")));
-  
+
   SCM proportional = get_property ("proportionalNotationDuration");
   if (unsmob_moment (proportional))
     {
       musical_column->set_property ("shortest-playing-duration", proportional);
       musical_column->set_property ("shortest-starter-duration", proportional);
-      return; 
+      return;
     }
-  
+
   Moment shortest_playing;
   shortest_playing.set_infinite (1);
   for (int i = 0; i < playing_durations_.size (); i++)
@@ -176,7 +175,6 @@ Spacing_engraver::stop_translation_timestep ()
 
   shortest_playing = min (shortest_playing, starter);
 
- 
   assert (starter.to_bool ());
   SCM sh = shortest_playing.smobbed_copy ();
   SCM st = starter.smobbed_copy ();
@@ -199,7 +197,7 @@ Spacing_engraver::start_translation_timestep ()
 ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
 ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
 ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
-  
+
 ADD_TRANSLATOR (Spacing_engraver,
 		"make a SpacingSpanner and do "
 		"bookkeeping of shortest starting and playing notes  ",

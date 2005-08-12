@@ -79,7 +79,6 @@ File_name::to_string () const
   return s;
 }
 
-
 File_name::File_name (String file_name)
 {
 #ifdef __CYGWIN__

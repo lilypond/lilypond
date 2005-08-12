@@ -13,7 +13,6 @@
 #include "self-alignment-interface.hh"
 #include "pitch.hh"
 
-
 class Fingering_engraver : public Engraver
 {
   Link_array<Music> events_;
@@ -139,8 +138,8 @@ Fingering_engraver::Fingering_engraver ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Fingering_engraver,rhythmic_head);
-ADD_ACKNOWLEDGER (Fingering_engraver,stem);
+ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Fingering_engraver, stem);
 ADD_TRANSLATOR (Fingering_engraver,
 		/* doc */ "Create fingering-scripts",
 		/* create */ "Fingering",

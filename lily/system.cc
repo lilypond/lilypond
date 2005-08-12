@@ -32,7 +32,7 @@ System::System (System const &src, int count)
 {
   all_elements_ = 0;
   rank_ = 0;
-  init_elements (); 
+  init_elements ();
 }
 
 System::System (SCM s, Object_key const *key)
@@ -40,7 +40,7 @@ System::System (SCM s, Object_key const *key)
 {
   all_elements_ = 0;
   rank_ = 0;
-  init_elements (); 
+  init_elements ();
 }
 
 void
@@ -50,7 +50,6 @@ System::init_elements ()
   all_elements_ = unsmob_grob_array (scm_arr);
   set_object ("all-elements", scm_arr);
 }
-
 
 Grob *
 System::clone (int count) const
@@ -68,7 +67,7 @@ int
 System::spanner_count () const
 {
   int k = 0;
-  for (int i = all_elements_->size(); i--;)
+  for (int i = all_elements_->size (); i--;)
     if (dynamic_cast<Spanner *> (all_elements_->grob (i)))
       k++;
   return k;
@@ -97,20 +96,20 @@ System::derived_mark () const
       while (ptr < end)
 	{
 	  scm_gc_mark ((*ptr)->self_scm ());
-	  ptr ++;
+	  ptr++;
 	}
     }
 
   if (pscore_)
     scm_gc_mark (pscore_->self_scm ());
-  
+
   Spanner::derived_mark ();
 }
 
 static void
 fixup_refpoints (Link_array<Grob> const &grobs)
 {
-  for (int i = grobs.size (); i--; )
+  for (int i = grobs.size (); i--;)
     {
       grobs[i]->fixup_refpoint ();
     }
@@ -119,7 +118,7 @@ fixup_refpoints (Link_array<Grob> const &grobs)
 SCM
 System::get_paper_systems ()
 {
-  for (int i = 0; i < all_elements_->size(); i++)
+  for (int i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
@@ -146,14 +145,14 @@ System::get_paper_systems ()
   for (int i = 0; i < broken_intos_.size (); i++)
     {
       Grob *se = broken_intos_[i];
-      
+
       extract_grob_set (se, "all-elements", all_elts);
-      for (int j = 0; j < all_elts.size(); j++)
+      for (int j = 0; j < all_elts.size (); j++)
 	{
 	  Grob *g = all_elts[j];
 	  g->fixup_refpoint ();
 	}
-      
+
       count += all_elts.size ();
     }
 
@@ -161,12 +160,12 @@ System::get_paper_systems ()
     needed for doing items.
   */
   fixup_refpoints (all_elements_->array ());
-  
-  for (int i = 0 ; i < all_elements_->size(); i++)
+
+  for (int i = 0; i < all_elements_->size (); i++)
     all_elements_->grob (i)->handle_broken_dependencies ();
 
   handle_broken_dependencies ();
-  
+
 #if 0  /* FIXME: strange side effects.  */
 
   /* Because the this->get_property (all-elements) contains items in 3
@@ -238,10 +237,10 @@ System::add_column (Paper_column *p)
     }
 
   p->rank_
-    = ga->size()
+    = ga->size ()
     ? Paper_column::get_rank (ga->array ().top ()) + 1
     : 0;
-    
+
   ga->add (p);
   Axis_group_interface::add_element (this, p);
 }
@@ -264,9 +263,8 @@ apply_tweaks (Grob *g, bool broken)
 void
 System::pre_processing ()
 {
-  for (int i = 0 ;  i < all_elements_->size(); i ++)
+  for (int i = 0; i < all_elements_->size (); i++)
     all_elements_->grob (i)->discretionary_processing ();
-  
 
   if (be_verbose_global)
     message (_f ("Grob count %d", element_count ()));
@@ -276,22 +274,22 @@ System::pre_processing ()
     array, and should be processed before the original is potentially
     killed.
   */
-  for (int i = all_elements_->size(); i --; )
+  for (int i = all_elements_->size (); i--;)
     all_elements_->grob (i)->handle_prebroken_dependencies ();
 
   fixup_refpoints (all_elements_->array ());
 
-  for (int i = 0 ;  i < all_elements_->size(); i ++)
+  for (int i = 0; i < all_elements_->size (); i++)
     apply_tweaks (all_elements_->grob (i), false);
 
-  for (int i = 0 ;  i < all_elements_->size(); i ++)
+  for (int i = 0; i < all_elements_->size (); i++)
     all_elements_->grob (i)->calculate_dependencies (PRECALCED, PRECALCING,
 						     ly_symbol2scm ("before-line-breaking-callback"));
 
   message (_ ("Calculating line breaks..."));
   progress_indication (" ");
-  
-  for (int i = 0 ;  i < all_elements_->size(); i ++)
+
+  for (int i = 0; i < all_elements_->size (); i++)
     {
       Grob *e = all_elements_->grob (i);
       SCM proc = e->get_property ("spacing-procedure");
@@ -303,7 +301,7 @@ System::pre_processing ()
 void
 System::post_processing ()
 {
-  for (int i = 0 ;  i < all_elements_->size(); i ++)
+  for (int i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
 
@@ -323,7 +321,6 @@ System::post_processing ()
   /* Generate all stencils to trigger font loads.
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
-
 
   Link_array<Grob> all_elts_sorted (all_elements_->array ());
   all_elts_sorted.default_sort ();
@@ -346,7 +343,7 @@ System::get_paper_system ()
 
   /* Output stencils in three layers: 0, 1, 2.  Default layer: 1. */
   for (int i = 0; i < LAYER_COUNT; i++)
-    for (int j = all_elements_->size (); j --;)
+    for (int j = all_elements_->size (); j--;)
       {
 	Grob *g = all_elements_->grob (j);
 	Stencil *stil = g->get_stencil ();
@@ -385,7 +382,7 @@ System::get_paper_system ()
   Interval staff_refpoints;
   staff_refpoints.set_empty ();
   extract_grob_set (this, "spaceable-staves", staves);
-  for (int i = staves.size (); i--; )
+  for (int i = staves.size (); i--;)
     {
       Grob *g = staves[i];
       staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
@@ -410,20 +407,20 @@ System::broken_col_range (Item const *left, Item const *right) const
 
   extract_grob_set (this, "columns", cols);
   int i = 0;
-  while (i < cols.size()
+  while (i < cols.size ()
 	 && cols[i] != left)
     i++;
 
-  if (i < cols.size())
-    i ++;
-  
-  while (i < cols.size()
+  if (i < cols.size ())
+    i++;
+
+  while (i < cols.size ()
 	 && cols[i] != right)
     {
       Paper_column *c = dynamic_cast<Paper_column *> (cols[i]);
       if (Item::is_breakable (c) && !c->system_)
 	ret.push (c);
-      i++;      
+      i++;
     }
 
   return ret;
@@ -438,7 +435,7 @@ System::columns () const
 
   int last_breakable = ro_columns.size ();
 
-  while  (last_breakable --)
+  while (last_breakable--)
     {
       if (Item::is_breakable (ro_columns [last_breakable]))
 	break;

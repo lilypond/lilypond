@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "engraver.hh"
@@ -24,7 +23,7 @@ protected:
 void
 Grid_point_engraver::process_music ()
 {
-  SCM  grid_interval = get_property ("gridInterval");
+  SCM grid_interval = get_property ("gridInterval");
   if (Moment *mom = unsmob_moment (grid_interval))
     {
       Moment now = now_mom ();
@@ -39,7 +38,6 @@ Grid_point_engraver::process_music ()
 Grid_point_engraver::Grid_point_engraver ()
 {
 }
-
 
 ADD_TRANSLATOR (Grid_point_engraver,
 		/* doc */ "generate grid points.",

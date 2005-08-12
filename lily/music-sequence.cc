@@ -29,9 +29,7 @@ Music_sequence::cumulative_length (SCM l)
     {
       Moment l = unsmob_music (scm_car (s))->get_length ();
       if (last_len.grace_part_ && l.main_part_)
-	{
-	  last_len.grace_part_ = Rational (0);
-	}
+	last_len.grace_part_ = Rational (0);
       cumulative += last_len;
       last_len = l;
     }

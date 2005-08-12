@@ -52,7 +52,7 @@ public:
 public:
   Slice line_slice (char const *pos_str0) const;
   String line_string (char const *pos_str0) const;
-  void get_counts (char const *pos_str0, int*, int*, int*) const;
+  void get_counts (char const *pos_str0, int *, int *, int *) const;
 
   /*
     JUNKME.

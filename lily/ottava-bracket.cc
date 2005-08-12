@@ -94,16 +94,12 @@ Ottava_bracket::print (SCM smob)
 	      Grob *dots = Rhythmic_head::get_dots (h);
 
 	      if (dots && d == RIGHT)
-		{
-		  ext.unite (dots->extent (common, X_AXIS));
-		}
+		ext.unite (dots->extent (common, X_AXIS));
 	    }
 	}
 
       if (ext.is_empty ())
-	{
-	  ext = robust_relative_extent (b, common, X_AXIS);
-	}
+	ext = robust_relative_extent (b, common, X_AXIS);
 
       if (broken[d])
 	{
@@ -122,10 +118,10 @@ Ottava_bracket::print (SCM smob)
   Real text_size = text.extent (X_AXIS).is_empty ()
     ? 0.0 : text.extent (X_AXIS)[RIGHT] + 0.3;
 
-  span_points[LEFT] =
-    min (span_points[LEFT],
-	 (span_points[RIGHT] - text_size
-	  - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
+  span_points[LEFT]
+    = min (span_points[LEFT],
+	   (span_points[RIGHT] - text_size
+	    - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
 
   Interval bracket_span_points = span_points;
   bracket_span_points[LEFT] += text_size;

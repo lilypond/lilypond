@@ -130,9 +130,7 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
       Moment w;
       w.set_infinite (1);
       if (iter->ok ())
-	{
-	  w = iter->pending_moment ();
-	}
+	w = iter->pending_moment ();
 
       w = sneaky_insert_extra_moment (w);
       if (w.main_part_.is_infinity ())
@@ -178,7 +176,7 @@ Global_context::apply_finalizations ()
   SCM lst = get_property ("finalizations");
   set_property ("finalizations", SCM_EOL);
   for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-    
+
     /* TODO: make safe.  */
     scm_primitive_eval (scm_car (s));
 }

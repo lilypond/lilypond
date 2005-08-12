@@ -14,11 +14,11 @@
 #include "warn.hh"
 
 ADD_TRANSLATOR_GROUP (Performer_group_performer,
-		/* doc */ "",
-		/* create */ "",
-		/* accept */ "",
-		/* read */ "",
-		/* write */ "");
+		      /* doc */ "",
+		      /* create */ "",
+		      /* accept */ "",
+		      /* read */ "",
+		      /* write */ "");
 
 void
 Performer_group_performer::announce_element (Audio_element_info info)
@@ -75,14 +75,13 @@ Performer_group_performer::do_announces ()
     }
 }
 
-
 void
 Performer_group_performer::play_element (Audio_element *e)
 {
   Context *c = context_->get_parent_context ();
   if (c)
     {
-      Performer_group_performer *pgp = dynamic_cast<Performer_group_performer*> (c->implementation ());
+      Performer_group_performer *pgp = dynamic_cast<Performer_group_performer *> (c->implementation ());
       pgp->play_element (e);
     }
 }
@@ -93,9 +92,9 @@ Performer_group_performer::get_tempo () const
   Context *c = context_->get_parent_context ();
   if (c)
     {
-      Performer_group_performer *pgp = dynamic_cast<Performer_group_performer*> (c->implementation ());
+      Performer_group_performer *pgp = dynamic_cast<Performer_group_performer *> (c->implementation ());
       return pgp->get_tempo ();
     }
   return 60;
 }
-  
+

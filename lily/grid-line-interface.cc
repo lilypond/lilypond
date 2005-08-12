@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "grid-line-interface.hh"
@@ -14,7 +13,6 @@
 #include "lookup.hh"
 #include "output-def.hh"
 #include "stencil.hh"
-
 
 MAKE_SCHEME_CALLBACK (Grid_line_interface, print, 1);
 SCM
@@ -26,8 +24,8 @@ Grid_line_interface::print (SCM smobbed_me)
   /* compute common refpoint of elements */
   Grob *refp = common_refpoint_of_array (elts, me, Y_AXIS);
   Interval iv;
-  
-  for (int i = 0; i < elts.size(); i++)
+
+  for (int i = 0; i < elts.size (); i++)
     {
       Grob *point = elts[i];
 
@@ -44,7 +42,7 @@ Grid_line_interface::print (SCM smobbed_me)
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
     * staffline;
 
-  iv += - me->relative_coordinate (refp, Y_AXIS);
+  iv += -me->relative_coordinate (refp, Y_AXIS);
   Stencil st = Lookup::filled_box (Box (Interval (0, thick),
 					iv));
 
@@ -62,7 +60,7 @@ Grid_line_interface::width_callback (SCM element_smob, SCM scm_axis)
   Real staffline = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
     * staffline;
-  
+
   return ly_interval2scm (Interval (0, thick));
 }
 
@@ -75,7 +73,6 @@ Grid_line_interface::add_grid_point (Grob *me, Grob *b)
 ADD_INTERFACE (Grid_line_interface, "grid-line-interface",
 	       "A  line that spanned between grid-points. ",
 	       "elements thickness");
-
 
 ADD_INTERFACE (Grid_point_interface, "grid-point-interface",
 	       "A spanning point for grid lines. ",

@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "note-head.hh"
@@ -70,7 +69,7 @@ Note_head::brew_ez_stencil (SCM smob)
   Stencil head;
   Box extent (Interval (-radius, radius),
 	      Interval (-radius, radius));
-	      
+
   Stencil black_head (extent,
 		      scm_list_4 (ly_symbol2scm ("circle"),
 				  scm_from_double (radius),
@@ -79,19 +78,18 @@ Note_head::brew_ez_stencil (SCM smob)
   Stencil white_head;
   if (black)
     {
-      l = l.in_color (1, 1, 1); 
+      l = l.in_color (1, 1, 1);
     }
   else
     {
       white_head = Stencil (extent,
 			    scm_list_4 (ly_symbol2scm ("circle"),
-			       scm_from_double (radius - stem_thick),
-			       scm_from_double (0.0),
-			       SCM_BOOL_T));
+					scm_from_double (radius - stem_thick),
+					scm_from_double (0.0),
+					SCM_BOOL_T));
 
       white_head = white_head.in_color (1, 1, 1);
     }
-    
 
   Stencil total;
   total.add_stencil (l);

@@ -28,9 +28,7 @@ Rest::after_line_breaking (SCM smob)
   if (lc % 2)
     {
       if (bt == 0 && lc > 1)
-	{
-	  me->translate_axis (ss, Y_AXIS);
-	}
+	me->translate_axis (ss, Y_AXIS);
     }
   else
     {

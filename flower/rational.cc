@@ -24,7 +24,6 @@ Rational::operator bool () const
   return sign_ && num_;
 }
 
-
 #ifdef STREAM_SUPPORT
 ostream &
 operator << (ostream &o, Rational r)
@@ -171,7 +170,7 @@ Rational::operator += (Rational r)
     *this = r;
   else
     {
-      int lcm =  (den_ / gcd (r.den_, den_)) * r.den_;
+      int lcm = (den_ / gcd (r.den_, den_)) * r.den_;
       int n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
       int d = lcm;
       sign_ = ::sign (n) * ::sign (d);

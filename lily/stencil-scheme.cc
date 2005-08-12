@@ -193,16 +193,15 @@ LY_DEFINE (ly_stencil_add, "ly:stencil-add",
   SCM_VALIDATE_REST_ARGUMENT (args);
 
   SCM expr = SCM_EOL;
-  SCM *tail = &expr; 
+  SCM *tail = &expr;
   Box extent;
   extent.set_empty ();
-  
+
   while (!SCM_NULLP (args))
     {
       Stencil *s = unsmob_stencil (scm_car (args));
       if (!s)
 	SCM_ASSERT_TYPE (s, scm_car (args), SCM_ARGn, __FUNCTION__, "Stencil");
-
 
       extent.unite (s->extent_box ());
       *tail = scm_cons (s->expr (), SCM_EOL);
@@ -230,8 +229,7 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
 
   SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");
-  
-  
+
   Box b (ly_scm2interval (xext), ly_scm2interval (yext));
   Stencil s (b, expr);
   return s.smobbed_copy ();
@@ -263,7 +261,6 @@ LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
   return find_expression_fonts (stil->expr ());
 }
 
-
 LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
 	   4, 0, 0, (SCM stc, SCM r, SCM g, SCM b),
 	   "Put @var{stc} in a different color.")
@@ -275,7 +272,6 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
 			      scm_list_3 (r, g, b),
 			      stil->expr ())).smobbed_copy ();
 }
-
 
 struct Stencil_interpret_arguments
 {
@@ -338,7 +334,6 @@ LY_DEFINE (ly_filled_box, "ly:round-filled-box",
   return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),
 				   scm_to_double (blot)).smobbed_copy ();
 }
-
 
 
 LY_DEFINE (ly_register_stencil_expression, "ly:register-stencil-expression",

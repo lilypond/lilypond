@@ -203,9 +203,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	{
 	  SCM delta_pitch_scm = prev_primitive->get_property ("delta-pitch");
 	  if (delta_pitch_scm != SCM_EOL)
-	    {
-	      delta_pitch = scm_to_int (delta_pitch_scm);
-	    }
+	    delta_pitch = scm_to_int (delta_pitch_scm);
 	  else
 	    {
 	      primitive->programming_error ("Vaticana_ligature:"
@@ -369,9 +367,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       int delta_pitch;
       SCM delta_pitch_scm = primitive->get_property ("delta-pitch");
       if (delta_pitch_scm != SCM_EOL)
-	{
-	  delta_pitch = scm_to_int (delta_pitch_scm);
-	}
+	delta_pitch = scm_to_int (delta_pitch_scm);
       else
 	{
 	  primitive->programming_error ("Vaticana_ligature:"
@@ -471,14 +467,14 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 		prev_primitive->set_property ("add-cauda",
 					      ly_bool2scm (false));
 	      }
-	      if (prev_delta_pitch < - 1)
-		{
-		  glyph_name = "svaticana.reverse.plica";
-		}
-	      else
-		{
-		  glyph_name = "svaticana.reverse.vplica";
-		}
+	    if (prev_delta_pitch < - 1)
+	      {
+		glyph_name = "svaticana.reverse.plica";
+	      }
+	    else
+	      {
+		glyph_name = "svaticana.reverse.vplica";
+	      }
 	  }
 	else // (prev_delta_pitch == 0)
 	  {

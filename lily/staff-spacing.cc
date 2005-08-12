@@ -42,9 +42,7 @@ Staff_spacing::next_note_correction (Grob *me,
     {
       Interval v;
       if (Accidental_placement::has_interface (a))
-	{
-	  v = Accidental_placement::get_relevant_accidental_extent (a, col, me);
-	}
+	v = Accidental_placement::get_relevant_accidental_extent (a, col, me);
       else
 	v = a->extent (col, X_AXIS);
 
@@ -124,7 +122,6 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
   Interval bar_size = bar_y_positions (last_grob);
   Real max_corr = 0.0;
 
-
   extract_grob_set (me, "right-items", right_items);
   for (int i = right_items.size (); i--;)
     {
@@ -132,7 +129,7 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
 
       max_corr = max (max_corr, next_note_correction (me, g, bar_size));
       extract_grob_set (g, "elements", elts);
-      for (int j  = elts.size(); j--;)
+      for (int j = elts.size (); j--;)
 	max_corr = max (max_corr, next_note_correction (me, elts[j], bar_size));
     }
 
@@ -149,7 +146,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
   Item *me_item = dynamic_cast<Item *> (me);
 
   extract_grob_set (me, "left-items", items);
-  for (int i = items.size(); i--;)
+  for (int i = items.size (); i--;)
     {
       Grob *cand = items[i];
       if (cand && Separation_item::has_interface (cand))

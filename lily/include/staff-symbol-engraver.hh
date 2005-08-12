@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef STAFF_SYMBOL_ENGRAVER_HH
@@ -25,7 +24,7 @@ protected:
   Spanner *span_;
   Spanner *finished_span_;
   bool first_start_;
-  
+
 protected:
   virtual void start_spanner ();
   virtual void stop_spanner ();

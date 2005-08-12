@@ -25,11 +25,10 @@ Font_size_engraver::Font_size_engraver ()
   size = 0.0;
 }
 
-
 void
 Font_size_engraver::process_music ()
 {
-  size = robust_scm2double  (get_property ("fontSize"), 0.0);
+  size = robust_scm2double (get_property ("fontSize"), 0.0);
 }
 
 void
@@ -39,10 +38,10 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
     We only want to process a grob once.
   */
   if (!size)
-    return ;
+    return;
 
   if (gi.context () != context ())
-    return ;
+    return;
 
   Real font_size = size
     + robust_scm2double (gi.grob ()->get_property ("font-size"), 0);
@@ -51,7 +50,7 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Font_size_engraver,font);
+ADD_ACKNOWLEDGER (Font_size_engraver, font);
 ADD_TRANSLATOR (Font_size_engraver,
 		/* doc */ "Puts fontSize into font-relative-size grob property.",
 		/* create */ "",

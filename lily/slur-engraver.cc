@@ -205,13 +205,13 @@ Slur_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Slur_engraver,accidental);
-ADD_ACKNOWLEDGER (Slur_engraver,dynamic_line_spanner);
-ADD_ACKNOWLEDGER (Slur_engraver,fingering)
-ADD_ACKNOWLEDGER (Slur_engraver,note_column);
-ADD_ACKNOWLEDGER (Slur_engraver,script);
-ADD_ACKNOWLEDGER (Slur_engraver,text_script);
-ADD_ACKNOWLEDGER (Slur_engraver,tie);
+ADD_ACKNOWLEDGER (Slur_engraver, accidental);
+ADD_ACKNOWLEDGER (Slur_engraver, dynamic_line_spanner);
+ADD_ACKNOWLEDGER (Slur_engraver, fingering)
+  ADD_ACKNOWLEDGER (Slur_engraver, note_column);
+ADD_ACKNOWLEDGER (Slur_engraver, script);
+ADD_ACKNOWLEDGER (Slur_engraver, text_script);
+ADD_ACKNOWLEDGER (Slur_engraver, tie);
 ADD_TRANSLATOR (Slur_engraver,
 		/* doc */ "Build slur grobs from slur events",
 		/* create */ "Slur",

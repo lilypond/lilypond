@@ -29,8 +29,7 @@ public:
   DECLARE_ACKNOWLEDGER (note_column);
 };
 
-
-ADD_ACKNOWLEDGER (Horizontal_bracket_engraver,note_column);
+ADD_ACKNOWLEDGER (Horizontal_bracket_engraver, note_column);
 ADD_TRANSLATOR (Horizontal_bracket_engraver,
 		"Create horizontal brackets over notes for musical analysis purposes.",
 		"HorizontalBracket",

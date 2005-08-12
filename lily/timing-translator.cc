@@ -76,7 +76,6 @@ Timing_translator::Timing_translator ()
 {
 }
 
-
 void
 Timing_translator::start_translation_timestep ()
 {
@@ -145,7 +144,6 @@ ADD_TRANSLATOR (Timing_translator,
 		"this engraver should be removed from @code{Score} and placed in "
 		"@code{Staff}. "
 		"\n\nThis engraver adds the alias @code{Timing} to its containing context."
-
 		,
 
-		"",  "", "", "");
+		"", "", "", "");

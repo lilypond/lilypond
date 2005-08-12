@@ -44,7 +44,7 @@ class New_fingering_engraver : public Engraver
   Array<Finger_tuple> fingerings_;
   Array<Finger_tuple> articulations_;
   Array<Finger_tuple> string_numbers_;
-  
+
   Link_array<Grob> heads_;
   Grob *stem_;
 
@@ -77,21 +77,15 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 	continue;
 
       if (m->is_mus_type ("fingering-event"))
-	{
-	  add_fingering (inf.grob (), m, note_ev);
-	}
+	add_fingering (inf.grob (), m, note_ev);
       else if (m->is_mus_type ("text-script-event"))
 	{
 	  m->origin ()->warning (_ ("can't add text scripts to individual note heads"));
 	}
       else if (m->is_mus_type ("script-event"))
-	{
-	  add_script (inf.grob (), m, note_ev);
-	}
+	add_script (inf.grob (), m, note_ev);
       else if (m->is_mus_type ("string-number-event"))
-	{
-	  add_string (inf.grob (), m, note_ev);
-	}
+	add_string (inf.grob (), m, note_ev);
       else if (m->is_mus_type ("harmonic-event"))
 	{
 	  inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
@@ -168,7 +162,6 @@ New_fingering_engraver::add_fingering (Grob *head,
 
   fingerings_.push (ft);
 }
-
 
 void
 New_fingering_engraver::add_string (Grob *head,
