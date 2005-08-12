@@ -102,6 +102,10 @@ c1
 \textSpannerDown
 \override TextSpanner #'edge-text = #'("rall " . "")
 c2\startTextSpan b c\stopTextSpan a
+\break
+\textSpannerUp
+\override TextSpanner #'edge-text = #(cons (markup #:italic "rit" ) "")
+c2\startTextSpan b c\stopTextSpan a
 @end lilypond
 
 @refcommands
