@@ -1,3 +1,9 @@
+2005-08-12  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/tie-engraver.cc: Add tieWaitForNote to the list of read
+	properties and move tieMelismaBusy to the list of written
+	properties. 
+
 2005-08-12  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* po/TODO: suggest to use a dedicated tool like kbabel.
