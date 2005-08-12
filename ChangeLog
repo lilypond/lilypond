@@ -1,5 +1,8 @@
 2005-08-12  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* Documentation/user/basic-notation.itely (Ties): Add example of
+	tying a tremolo to a chord. Thanks to Steve Doonan. 
+
 	* lily/tie-engraver.cc: Add tieWaitForNote to the list of read
 	properties and move tieMelismaBusy to the list of written
 	properties. 
