@@ -23,7 +23,7 @@
 
 class File_path
 {
-  Array<String> dirs_; 
+  Array<String> dirs_;
 public:
   Array<String> directories () const;
   String find (String name) const;

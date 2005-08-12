@@ -49,8 +49,8 @@ class Rhythmic_column_engraver : public Engraver
   Grob *last_spacing_;
   Grob *spacing_;
 
-  void add_spacing_item (Grob*);
-  
+  void add_spacing_item (Grob *);
+
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
 
@@ -113,9 +113,7 @@ Rhythmic_column_engraver::process_acknowledged ()
     {
       if (dotcol_
 	  && !dotcol_->get_parent (X_AXIS))
-	{
-	  Note_column::set_dotcol (note_column_, dotcol_);
-	}
+	Note_column::set_dotcol (note_column_, dotcol_);
 
       if (stem_
 	  && !stem_->get_parent (X_AXIS))
@@ -129,7 +127,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 void
 Rhythmic_column_engraver::acknowledge_stem (Grob_info i)
 {
-  stem_ = i.grob();
+  stem_ = i.grob ();
 }
 
 void
@@ -158,7 +156,6 @@ Rhythmic_column_engraver::stop_translation_timestep ()
   dotcol_ = 0;
   stem_ = 0;
 }
-
 
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, dot_column);
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);

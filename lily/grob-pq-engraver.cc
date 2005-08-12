@@ -81,7 +81,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
       Grob_pq_entry e;
       e.grob_ = gi.grob ();
       e.end_ = end;
-      
+
       started_now_.push (e);
     }
 }
@@ -105,9 +105,9 @@ Grob_pq_engraver::stop_translation_timestep ()
       *tail = scm_acons (started_now_[i].end_.smobbed_copy (),
 			 started_now_[i].grob_->self_scm (),
 			 SCM_EOL);
-      tail = SCM_CDRLOC(*tail);
+      tail = SCM_CDRLOC (*tail);
     }
-  
+
   busy = scm_merge_x (lst, busy, ly_grob_pq_less_p_proc);
   context ()->set_property ("busyGrobs", busy);
 

@@ -132,7 +132,6 @@ String::to_bytes () const
 }
 
 
-
 Byte *
 String::get_bytes ()
 {
@@ -262,9 +261,7 @@ String::index_any (String set) const
     {
       char *found = (char *) memchr (me, set[i], n);
       if (found)
-	{
-	  return found - (char const *)me;
-	}
+	return found - (char const *)me;
     }
   return -1;
 }

@@ -67,6 +67,6 @@ ADD_TRANSLATOR (Note_swallow_translator,
 		"",
 		"note-event",
 		"",
-	
+
 		"");
 

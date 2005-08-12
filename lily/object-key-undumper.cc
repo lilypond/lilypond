@@ -64,9 +64,7 @@ Object_key_undumper::parse_contents (SCM contents)
 	      *tail = scm_cons (key->self_scm (), SCM_EOL);
 	    }
 	  else
-	    {
-	      *tail = scm_cons (item, SCM_EOL);
-	    }
+	    *tail = scm_cons (item, SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 	}
 

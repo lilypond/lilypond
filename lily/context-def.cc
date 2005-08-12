@@ -104,7 +104,7 @@ Context_def::add_context_mod (SCM mod)
     }
 
   /*
-    other modifiers take symbols as argument. 
+    other modifiers take symbols as argument.
   */
   SCM sym = scm_cadr (mod);
   if (scm_is_string (sym))
@@ -115,8 +115,8 @@ Context_def::add_context_mod (SCM mod)
       default_child_ = sym;
     }
   else if (ly_symbol2scm ("consists") == tag
-      || ly_symbol2scm ("consists-end") == tag
-      || ly_symbol2scm ("remove") == tag)
+	   || ly_symbol2scm ("consists-end") == tag
+	   || ly_symbol2scm ("remove") == tag)
     {
       if (!get_translator (sym))
 	error (_f ("program has no such type: `%s'",
@@ -171,10 +171,9 @@ Context_def::get_accepted (SCM user_mod) const
 	acc = scm_delete_x (def, acc);
       acc = scm_cons (def, acc);
     }
-  
+
   return acc;
 }
-
 
 SCM
 Context_def::get_default_child (SCM user_mod) const
@@ -254,9 +253,7 @@ Context_def::get_translator_names (SCM user_mod) const
       if (ly_symbol2scm ("consists") == tag)
 	l1 = scm_cons (arg, l1);
       else if (ly_symbol2scm ("remove") == tag)
-	{
-	  l1 = scm_delete_x (arg, l1);
-	}
+	l1 = scm_delete_x (arg, l1);
     }
 
   return l1;
@@ -271,7 +268,7 @@ filter_performers (SCM ell)
       if (dynamic_cast<Performer *> (unsmob_translator (scm_car (*tail))))
 	*tail = scm_cdr (*tail);
       else
-	tail = SCM_CDRLOC(*tail);
+	tail = SCM_CDRLOC (*tail);
     }
   return ell;
 }
@@ -285,7 +282,7 @@ filter_engravers (SCM ell)
       if (dynamic_cast<Engraver *> (unsmob_translator (scm_car (*tail))))
 	*tail = scm_cdr (*tail);
       else
-	tail = SCM_CDRLOC(*tail);
+	tail = SCM_CDRLOC (*tail);
     }
   return ell;
 }
@@ -326,15 +323,12 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 		trans_list = cons;
 	    }
 	  else
-	    {
-	      trans_list = scm_cons (str, trans_list);
-	    }
+	    trans_list = scm_cons (str, trans_list);
 
 	  tr->daddy_context_ = context;
 	  tr->unprotect ();
 	}
     }
-
 
   /*
     Ugh,  todo: should just make a private
@@ -355,7 +349,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
   g->unprotect ();
 
   context->accepts_list_ = get_accepted (ops);
-    
+
   return context;
 }
 

@@ -364,7 +364,7 @@ Simple_spacer::add_spring (Real ideal, Real inverse_hooke)
       /*
 	desc.is_active_ ?
       */
-      desc.block_force_ = - desc.ideal_ / desc.inverse_hooke_;
+      desc.block_force_ = -desc.ideal_ / desc.inverse_hooke_;
       // block at distance 0
 
       active_count_++;
@@ -383,9 +383,9 @@ void
 Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 {
   Link_array<Grob> cols (icols);
-  cols.clear();
-  
-  for (int i = 0;  i < icols.size (); i++)
+  cols.clear ();
+
+  for (int i = 0; i < icols.size (); i++)
     if (scm_is_pair (icols[i]->get_object ("between-cols")))
       {
 	loose_cols_.push (icols[i]);
@@ -394,7 +394,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
       {
 	cols.push (icols[i]);
       }
-  
+
   spaced_cols_ = cols;
   for (int i = 0; i < cols.size () - 1; i++)
     {
@@ -428,9 +428,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 	  Grob *other = unsmob_grob (scm_caar (s));
 	  int j = binsearch_links (cols, other, &compare_paper_column_rank);
 	  if (j >= 0 && cols[j] == other)
-	    {
-	      spacer_->add_rod (i, j, scm_to_double (scm_cdar (s)));
-	    }
+	    spacer_->add_rod (i, j, scm_to_double (scm_cdar (s)));
 	}
 
       if (i

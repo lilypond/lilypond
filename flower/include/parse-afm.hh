@@ -171,8 +171,8 @@ typedef struct _t_ligature
  */
 typedef struct
 {
-  int code,                                		/* key: C */
-    wx,                               		/* key: WX */
+  int code,                                 		/* key: C */
+    wx,                                		/* key: WX */
     wy;		/* together wx and wy are associated with key: W */
   char *name; 	/* key: N */
   AFM_BBox charBBox;	/* key: B */

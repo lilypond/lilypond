@@ -105,7 +105,7 @@ Glissando_engraver::finalize ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Glissando_engraver,rhythmic_head);
+ADD_ACKNOWLEDGER (Glissando_engraver, rhythmic_head);
 ADD_TRANSLATOR (Glissando_engraver,
 		/* doc */ "Engrave a glissandi",
 		/* create */ "Glissando",

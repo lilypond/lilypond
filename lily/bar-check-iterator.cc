@@ -40,7 +40,7 @@ Bar_check_iterator::process (Moment m)
       SCM check = tr->get_property ("ignoreBarChecks");
       if (to_boolean (check))
 	return;
-      
+
       SCM mp = tr->get_property ("measurePosition");
       SCM sync = tr->get_property ("barCheckSynchronize");
 
@@ -53,7 +53,7 @@ Bar_check_iterator::process (Moment m)
 	  bool warn = true;
 	  if (to_boolean (sync))
 	    {
-	      SCM mp; 
+	      SCM mp;
 	      tr = tr->where_defined (ly_symbol2scm ("measurePosition"), &mp);
 	      Moment zero;
 	      tr->set_property ("measurePosition", zero.smobbed_copy ());

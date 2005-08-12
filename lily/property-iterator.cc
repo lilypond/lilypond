@@ -83,7 +83,6 @@ check_grob (Music *mus, SCM sym)
   return g;
 }
 
-
 void
 Push_property_iterator::process (Moment m)
 {

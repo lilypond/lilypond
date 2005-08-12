@@ -12,7 +12,6 @@
 
 #include "translator.icc"
 
-
 /**
    Find potentially colliding scripts, and put them in a
    Script_column, that will fix the collisions.  */
@@ -49,9 +48,7 @@ Script_column_engraver::acknowledge_side_position (Grob_info inf)
     {
       if (!Item::is_breakable (thing)
 	  && Side_position_interface::get_axis (inf.grob ()) == Y_AXIS)
-	{
-	  scripts_.push (thing);
-	}
+	scripts_.push (thing);
     }
 }
 

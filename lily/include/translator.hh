@@ -22,29 +22,31 @@ struct Acknowledge_information
   Engraver_void_function_engraver_grob_info function_;
 };
 
-#define TRANSLATOR_DECLARATIONS(NAME)			\
-  public:						\
-  NAME ();						\
-  VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);		\
-  static SCM static_description_;			\
-  static Array<Acknowledge_information> acknowledge_static_array_; \
-  virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]);\
-  virtual SCM static_translator_description () const;	\
-  virtual SCM translator_description () const; \
-  virtual Engraver_void_function_engraver_grob_info get_acknowledger (SCM sym) { \
-    return static_get_acknowledger (sym);\
-  }\
+#define TRANSLATOR_DECLARATIONS(NAME)					\
+  public:								\
+  NAME ();								\
+  VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);				\
+  static SCM static_description_;					\
+  static Array<Acknowledge_information> acknowledge_static_array_;	\
+  virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]); \
+  virtual SCM static_translator_description () const;			\
+  virtual SCM translator_description () const;				\
+  virtual Engraver_void_function_engraver_grob_info get_acknowledger (SCM sym) \
+  {									\
+    return static_get_acknowledger (sym);				\
+  }									\
   static Engraver_void_function_engraver_grob_info static_get_acknowledger (SCM sym);
 
-#define DECLARE_ACKNOWLEDGER(x) public: void acknowledge_ ## x (Grob_info); protected:
+#define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
 
-enum Translator_precompute_index {
-  START_TRANSLATION_TIMESTEP,
-  STOP_TRANSLATION_TIMESTEP,
-  PROCESS_MUSIC,
-  PROCESS_ACKNOWLEDGED,
-  TRANSLATOR_METHOD_PRECOMPUTE_COUNT,
-};
+enum Translator_precompute_index
+  {
+    START_TRANSLATION_TIMESTEP,
+    STOP_TRANSLATION_TIMESTEP,
+    PROCESS_MUSIC,
+    PROCESS_ACKNOWLEDGED,
+    TRANSLATOR_METHOD_PRECOMPUTE_COUNT,
+  };
 
 /*
   Translate music into grobs.
@@ -52,7 +54,7 @@ enum Translator_precompute_index {
 class Translator
 {
   void init ();
-  
+
 protected:
   bool must_be_last_;
 
@@ -68,7 +70,7 @@ public:
   virtual Output_def *get_output_def () const;
   virtual Translator_group *get_daddy_translator ()const;
   virtual Moment now_mom () const;
-  
+
   virtual bool try_music (Music *req);
   virtual void initialize ();
   virtual void finalize ();
@@ -77,7 +79,7 @@ public:
   void start_translation_timestep ();
   void process_music ();
   void process_acknowledged ();
-  
+
   Score_context *get_score_context () const;
   Global_context *get_global_context () const;
 

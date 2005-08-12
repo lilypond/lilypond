@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2001--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include <cstdio>
@@ -42,9 +41,7 @@ substitute_grob (Grob *sc)
       System *line
 	= dynamic_cast<System *> (unsmob_grob (break_criterion));
       if (sc->get_system () != line)
-	{
-	  sc = sc->find_broken_piece (line);
-	}
+	sc = sc->find_broken_piece (line);
 
       /* now: !sc || (sc && sc->get_system () == line) */
       if (!sc)
@@ -66,9 +63,7 @@ substitute_grob (Grob *sc)
 
       if (sc->common_refpoint (line, X_AXIS)
 	  && sc->common_refpoint (line, Y_AXIS))
-	{
-	  return sc;
-	}
+	return sc;
       return 0;
     }
 
@@ -96,7 +91,7 @@ do_break_substitution (SCM src)
 
   if (unsmob_grob (src))
     {
-      Grob * new_ptr = substitute_grob (unsmob_grob (src));
+      Grob *new_ptr = substitute_grob (unsmob_grob (src));
       return new_ptr ? new_ptr->self_scm () : SCM_UNDEFINED;
     }
   else if (scm_is_vector (src))
@@ -145,27 +140,25 @@ do_break_substitution (SCM src)
 */
 Link_array<Grob> temporary_substition_array;
 void
-substitute_grob_array (Grob_array *grob_arr, Grob_array * new_arr)
+substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
 {
   Link_array<Grob> &old_grobs (grob_arr->array_reference ());
   Link_array<Grob> *new_grobs (new_arr == grob_arr
-			       ? &temporary_substition_array
+			       ? & temporary_substition_array
 			       : &new_arr->array_reference ());
-  
+
   new_grobs->set_size (old_grobs.size ());
-  Grob **array =  (Grob**) new_grobs->accesses();
-  Grob **ptr = array; 
+  Grob **array = (Grob **) new_grobs->accesses ();
+  Grob **ptr = array;
   for (int i = 0; i < old_grobs.size (); i++)
     {
       Grob *orig = old_grobs[i];
       Grob *new_grob = substitute_grob (orig);
       if (new_grob)
-	{
-	  *ptr ++ = new_grob;
-	}
+	*ptr++ = new_grob;
     }
 
-  new_grobs->set_size (ptr - array);  
+  new_grobs->set_size (ptr - array);
   if (new_arr == grob_arr)
     {
       new_arr->set_array (*new_grobs);
@@ -235,7 +228,7 @@ spanner_system_range (Spanner *sp)
     {
       if (sp->broken_intos_.size ())
 	rv = Slice (sp->broken_intos_[0]->get_system ()->get_rank (),
-		    sp->broken_intos_.top ()->get_system ()->get_rank());
+		    sp->broken_intos_.top ()->get_system ()->get_rank ());
     }
   return rv;
 }
@@ -322,7 +315,7 @@ bool
 Spanner::fast_substitute_grob_array (SCM sym,
 				     Grob_array *grob_array)
 {
-  int len = grob_array->size();
+  int len = grob_array->size ();
 
   if (grob_array->ordered ())
     return false;
@@ -346,8 +339,8 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
   int spanner_index = len;
   int item_index = 0;
-  
-  for (int i = 0 ; i < grob_array->size (); i++)
+
+  for (int i = 0; i < grob_array->size (); i++)
     {
       Grob *g = grob_array->grob (i);
 
@@ -356,13 +349,9 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
       int idx = 0;
       if (dynamic_cast<Spanner *> (g))
-	{
-	  idx = --spanner_index;
-	}
+	idx = --spanner_index;
       else if (dynamic_cast<Item *> (g))
-	{
-	  idx = item_index++;
-	}
+	idx = item_index++;
 
       vec[idx].set (g, sr);
     }
@@ -377,7 +366,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       item_indices.push (Slice (len, 0));
       spanner_indices.push (Slice (len, 0));
     }
-  
+
   Array<Slice> *arrs[]
     = {
     &item_indices, &spanner_indices
@@ -386,9 +375,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
   for (int i = 0; i < item_index;i++)
     {
       for (int j = vec[i].left_; j <= vec[i].right_; j++)
-	{
-	  item_indices[j - system_range[LEFT]].add_point (i);
-	}
+	item_indices[j - system_range[LEFT]].add_point (i);
     }
 
   /*
@@ -415,16 +402,14 @@ Spanner::fast_substitute_grob_array (SCM sym,
 	  newval = Grob_array::make_array ();
 	  sc->internal_set_object (sym, newval);
 	}
-      
-      Grob_array *new_array = unsmob_grob_array (newval);  
+
+      Grob_array *new_array = unsmob_grob_array (newval);
       for (int k = 0; k < 2;k++)
 	for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
 	  {
 	    Grob *substituted = substitute_grob (vec[j].grob_);
 	    if (substituted)
-	      {
-		new_array->add (substituted);
-	      }
+	      new_array->add (substituted);
 	  }
 
 #ifdef PARANOIA
@@ -465,14 +450,14 @@ substitute_object_alist (SCM alist, SCM dest)
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
 
-      if (Grob_array * orig = unsmob_grob_array (val))
+      if (Grob_array *orig = unsmob_grob_array (val))
 	{
 	  SCM handle = scm_assq (sym, dest);
-	  SCM newval =
-	    (scm_is_pair (handle))
+	  SCM newval
+	    = (scm_is_pair (handle))
 	    ? scm_cdr (handle)
 	    : Grob_array::make_array ();
-	    
+
 	  Grob_array *new_arr = unsmob_grob_array (newval);
 
 	  substitute_grob_array (orig, new_arr);
@@ -501,7 +486,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
   Spanner *s = this;
 
   bool fast_done = false;
-  Grob_array * grob_array = unsmob_grob_array (val);
+  Grob_array *grob_array = unsmob_grob_array (val);
   if (grob_array)
     fast_done = s->fast_substitute_grob_array (sym, grob_array);
 
@@ -518,7 +503,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
 	    if (!unsmob_grob_array (newval))
 	      {
 		newval = Grob_array::make_array ();
-		sc->internal_set_object  (sym, newval);
+		sc->internal_set_object (sym, newval);
 	      }
 	    substitute_grob_array (grob_array, unsmob_grob_array (newval));
 	  }

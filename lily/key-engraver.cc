@@ -88,10 +88,10 @@ Key_engraver::create_key (bool is_default)
 		{
 		  *tail = scm_acons (scm_caar (s),
 				     scm_from_int (0), *tail);
-		  tail = SCM_CDRLOC(*tail);
+		  tail = SCM_CDRLOC (*tail);
 		}
 	    }
-	  
+
 	  cancellation_->set_property ("alteration-alist", restore);
 	  cancellation_->set_property ("c0-position",
 				       get_property ("middleCPosition"));
@@ -198,9 +198,8 @@ Key_engraver::initialize ()
   context ()->set_property ("tonic", p.smobbed_copy ());
 }
 
-
-ADD_ACKNOWLEDGER (Key_engraver,clef);
-ADD_ACKNOWLEDGER (Key_engraver,bar_line);
+ADD_ACKNOWLEDGER (Key_engraver, clef);
+ADD_ACKNOWLEDGER (Key_engraver, bar_line);
 
 ADD_TRANSLATOR (Key_engraver,
 		/* doc */ "",

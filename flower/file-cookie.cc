@@ -54,5 +54,4 @@ extern "C" {
     buf[0] = (char) c;
     return Memory_out_stream::writer (file, buf, 1);
   }
-
 } /* extern C */

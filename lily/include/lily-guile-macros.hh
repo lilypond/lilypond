@@ -68,8 +68,8 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
     if (__builtin_constant_p ((x)))					\
       {									\
 	if (!cached)							\
-	  value = cached = scm_eval (scm_str2symbol (x),	\
-							    global_lily_module); \
+	  value = cached = scm_eval (scm_str2symbol (x),		\
+				     global_lily_module);		\
       }									\
     else								\
       value = scm_eval (scm_str2symbol (x), global_lily_module);	\

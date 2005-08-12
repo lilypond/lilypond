@@ -91,7 +91,7 @@ Stencil::translate (Offset o)
 	  || isnan (o[a])
 
 	  // ugh, hardcoded. 
-	  || fabs (o[a]) > 1e6)	
+	  || fabs (o[a]) > 1e6)
 	{
 	  programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", o[a])
 			     + "\n"
@@ -189,7 +189,6 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
 {
   add_stencil (moved_to_edge (a, d, s, padding, minimum));
 }
-
 
 
 Stencil

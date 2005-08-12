@@ -65,10 +65,10 @@ Key_performer::create_audio_elements ()
       bool minor = (scm_is_pair (third)
 		    && scm_is_integer (scm_cdr (third))
 		    && scm_to_int (scm_cdr (third)) == FLAT);
-      
+
       audio_ = new Audio_key (scm_to_int (acc),
 			      !minor);
-		    
+
       Audio_element_info info (audio_, key_ev_);
       announce_element (info);
       key_ev_ = 0;
@@ -92,7 +92,7 @@ Key_performer::try_music (Music *ev)
     {
       key_ev_ = ev;
     }
-      
+
   return true;
 }
 

@@ -73,7 +73,7 @@ check_meshing_chords (Grob *me,
 
   /* Do not merge notes typeset in different style. */
   if (!ly_is_equal (nu->get_property ("style"),
-		     nd->get_property ("style")))
+		    nd->get_property ("style")))
     merge_possible = false;
 
   int upball_type = Note_head::get_balltype (nu);
@@ -211,9 +211,7 @@ check_meshing_chords (Grob *me,
 	      wipe_ball = nu;
 	    }
 	  else
-	    {
-	      dot_wipe_head = nu;
-	    }
+	    dot_wipe_head = nu;
 	}
       else if (dnball_type > upball_type)
 	{
@@ -342,8 +340,8 @@ Note_collision_interface::do_shifts (Grob *me)
     }
 }
 
-Drul_array < Link_array<Grob> >
-Note_collision_interface::get_clash_groups (Grob *me)
+Drul_array < Link_array<Grob>
+> Note_collision_interface::get_clash_groups (Grob *me)
 {
   Drul_array<Link_array<Grob> > clash_groups;
 
@@ -470,7 +468,7 @@ Note_collision_interface::forced_shift (Grob *me)
   SCM tups = SCM_EOL;
 
   extract_grob_set (me, "elements", elements);
-  for (int i = 0;  i < elements.size (); i++)
+  for (int i = 0; i < elements.size (); i++)
     {
       Grob *se = elements[i];
 

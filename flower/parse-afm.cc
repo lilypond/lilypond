@@ -1171,9 +1171,7 @@ AFM_free (AFM_Font_info *fi)
 	{
 	  free (fi->ccd[i].ccName);
 	  for (j = 0; j < fi->ccd[i].numOfPieces; j++)
-	    {
-	      free (fi->ccd[i].pieces[j].AFM_PccName);
-	    }
+	    free (fi->ccd[i].pieces[j].AFM_PccName);
 	  free (fi->ccd[i].pieces);
 	}
       free (fi->ccd);

@@ -17,7 +17,6 @@
 
 #include "translator.icc"
 
-
 /*
  * This class implements an engraver for custos symbols.
  *
@@ -135,9 +134,8 @@ Custos_engraver::finalize ()
   custodes_.clear ();
 }
 
-
-ADD_ACKNOWLEDGER (Custos_engraver,bar);
-ADD_ACKNOWLEDGER (Custos_engraver,note_head);
+ADD_ACKNOWLEDGER (Custos_engraver, bar);
+ADD_ACKNOWLEDGER (Custos_engraver, note_head);
 
 ADD_TRANSLATOR (Custos_engraver,
 		/* doc */ "",

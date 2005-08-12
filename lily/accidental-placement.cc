@@ -337,9 +337,7 @@ Accidental_placement::position_accidentals (Grob *me)
       Interval y;
 
       for (int j = apes[i]->extents_.size (); j--;)
-	{
-	  y.unite (apes[i]->extents_[j][Y_AXIS]);
-	}
+	y.unite (apes[i]->extents_[j][Y_AXIS]);
       apes[i]->vertical_extent_ = y;
       total.unite (y);
     }
@@ -390,9 +388,7 @@ Accidental_placement::position_accidentals (Grob *me)
     {
       Accidental_placement_entry *ape = apes[i];
       for (int j = ape->grobs_.size (); j--;)
-	{
-	  ape->grobs_[j]->translate_axis (ape->offset_, X_AXIS);
-	}
+	ape->grobs_[j]->translate_axis (ape->offset_, X_AXIS);
     }
 
   Interval left_extent, right_extent;

@@ -74,11 +74,10 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	      message (_f ("Changing working directory to `%s'",
 			   output_name_global.to_str0 ()));
 	      chdir (output_name_global.to_str0 ());
-	      
 	    }
 	  output_name_global = "";
 	}
-      else      
+      else
 	out_file_name = File_name (output_name_global);
     }
 
@@ -216,7 +215,6 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 
   return SCM_UNSPECIFIED;
 }
-
 
 LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
 	   1, 0, 0, (SCM parser),

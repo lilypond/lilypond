@@ -41,7 +41,7 @@ Separation_item::conditional_width (Grob *me, Grob *left)
   extract_grob_set (me, "conditional-elements", elts);
   for (int i = 0; i < elts.size (); i++)
     {
-      Item *il = dynamic_cast<Item*> (elts[i]);
+      Item *il = dynamic_cast<Item *> (elts[i]);
       if (pc != il->get_column ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
@@ -50,14 +50,10 @@ Separation_item::conditional_width (Grob *me, Grob *left)
 	}
 
       if (to_boolean (il->get_property ("no-spacing-rods")))
-	{
-	  continue;
-	}
+	continue;
 
       if (Accidental_placement::has_interface (il))
-	{
-	  w.unite (Accidental_placement::get_relevant_accidental_extent (il, pc, left));
-	}
+	w.unite (Accidental_placement::get_relevant_accidental_extent (il, pc, left));
     }
 
   SCM pad = me->get_property ("padding");
@@ -82,7 +78,7 @@ Separation_item::width (Grob *me)
   extract_grob_set (me, "elements", elts);
   for (int i = 0; i < elts.size (); i++)
     {
-      Item *il = dynamic_cast<Item*> (elts[i]);
+      Item *il = dynamic_cast<Item *> (elts[i]);
       if (pc != il->get_column ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
@@ -91,15 +87,11 @@ Separation_item::width (Grob *me)
 	}
 
       if (to_boolean (il->get_property ("no-spacing-rods")))
-	{
-	  continue;
-	}
+	continue;
 
       Interval iv (il->extent (pc, X_AXIS));
       if (!iv.is_empty ())
-	{
-	  w.unite (iv);
-	}
+	w.unite (iv);
     }
 
   SCM pad = me->get_property ("padding");
@@ -131,9 +123,9 @@ Separation_item::extremal_break_aligned_grob (Grob *me,
   Grob *col = dynamic_cast<Item *> (me)->get_column ();
   last_ext->set_empty ();
   Grob *last_grob = 0;
-  
+
   extract_grob_set (me, "elements", elts);
-  for (int i = elts.size (); i--; )
+  for (int i = elts.size (); i--;)
     {
       Grob *break_item = elts[i];
       if (!scm_is_symbol (break_item->get_property ("break-align-symbol")))

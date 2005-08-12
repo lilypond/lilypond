@@ -87,9 +87,7 @@ fit_factor (Offset dz_unit, Offset dz_perp,
 
       Real y = curve.get_other_coordinate (X_AXIS, p[X_AXIS]);
       if (y)
-	{
-	  fit_factor = max (fit_factor, (p[Y_AXIS] / y));
-	}
+	fit_factor = max (fit_factor, (p[Y_AXIS] / y));
     }
   return fit_factor;
 }
@@ -97,8 +95,7 @@ fit_factor (Offset dz_unit, Offset dz_perp,
 void
 Slur_configuration::generate_curve (Slur_score_state const &state,
 				    Real r_0, Real h_inf,
-				    Array<Offset> const &avoid
-				    )
+				    Array<Offset> const &avoid)
 {
   Offset dz = attachment_[RIGHT]- attachment_[LEFT];;
   Offset dz_unit = dz;
@@ -286,7 +283,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
       variance_penalty = state.parameters_.head_slur_distance_max_ratio_;
       if (min_dist > 0.0)
 	variance_penalty
-	  = min ((avg_distance / (min_dist + state.parameters_.absolute_closeness_measure_) - 1.0),  variance_penalty);
+	  = min ((avg_distance / (min_dist + state.parameters_.absolute_closeness_measure_) - 1.0), variance_penalty);
 
       variance_penalty = max (variance_penalty, 0.0);
       variance_penalty *= state.parameters_.head_slur_distance_factor_;

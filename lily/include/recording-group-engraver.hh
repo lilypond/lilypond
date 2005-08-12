@@ -4,12 +4,10 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef RECORDING_GROUP_ENGRAVER_HH
 #define RECORDING_GROUP_ENGRAVER_HH
-
 
 #include "engraver-group-engraver.hh"
 

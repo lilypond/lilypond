@@ -57,7 +57,7 @@ Music::Music (SCM init)
     {
       length_callback_ = duration_length_callback_proc;
     }
-  
+
   start_callback_ = get_property ("start-callback");
 }
 
@@ -80,7 +80,6 @@ Music::Music (Music const &m)
 Music::~Music ()
 {
 }
-
 
 SCM
 Music::get_property_alist (bool m) const
@@ -277,7 +276,6 @@ Music::internal_get_property (SCM sym) const
   return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
 }
 
-
 SCM
 Music::internal_get_object (SCM s) const
 {
@@ -287,7 +285,7 @@ Music::internal_get_object (SCM s) const
 void
 Music::internal_set_object (SCM s, SCM v)
 {
-  return internal_set_property (s,v);
+  return internal_set_property (s, v);
 }
 
 void
@@ -324,7 +322,6 @@ make_music_by_name (SCM sym)
   m->protect ();
   return m;
 }
-
 
 MAKE_SCHEME_CALLBACK (Music, duration_length_callback, 1);
 SCM

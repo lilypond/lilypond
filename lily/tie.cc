@@ -232,9 +232,7 @@ Tie::get_control_points (SCM smob)
       Grob *dots = Rhythmic_head::get_dots (l);
       if (fabs (staff_space * Staff_symbol_referencer::get_position (dots) / 2
 		- ypos) < 0.5)
-	{
-	  ypos += 0.5 * dir;
-	}
+	ypos += 0.5 * dir;
     }
 
   /*
@@ -297,9 +295,7 @@ Tie::get_control_points (SCM smob)
 	    we don't want horizontal ties
 	  */
 	  if (fabs (newy - b.control_[0][Y_AXIS]) < 1e-2)
-	    {
-	      newy = newy + dir * staff_space;
-	    }
+	    newy = newy + dir * staff_space;
 	}
 
       Real y0 = b.control_ [0][Y_AXIS];
@@ -332,11 +328,9 @@ Tie::print (SCM smob)
   if (!scm_is_pair (cp))
     return Stencil ().smobbed_copy ();
 
-
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
   Real base_thick = robust_scm2double (me->get_property ("thickness"), 1);
   Real thick = base_thick * staff_thick;
-
 
   Bezier b;
   int i = 0;
@@ -360,14 +354,13 @@ Tie::print (SCM smob)
 		      get_grob_direction (me) * staff_thick,
 		      thick);
 
-  
   return a.smobbed_copy ();
 }
 
 ADD_INTERFACE (Tie,
 	       "tie-interface",
 	       "A tie connecting two noteheads.\n",
-	       
+
 	       "y-offset dash-period dash-fraction "
 	       "staffline-clearance control-points head-pair "
 	       "details thickness x-gap direction minimum-length");

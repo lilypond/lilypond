@@ -97,8 +97,8 @@ bool is_child_context (Context *me, Context *child);
 			     (),					\
 			     "")					\
   {									\
-    Class *c = (new Class);\
-    return c->unprotect();\
+    Class *c = (new Class);						\
+    return c->unprotect ();						\
   }
 
 DECLARE_UNSMOB (Music_iterator, iterator);

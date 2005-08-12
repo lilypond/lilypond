@@ -134,7 +134,7 @@ Stem::support_head (Grob *me)
   extract_grob_set (me, "note-heads", heads);
   if (heads.size () == 1)
     return heads[0];
-  
+
   return first_head (me);
 }
 
@@ -180,7 +180,7 @@ Stem::extremal_heads (Grob *me)
 
   Drul_array<Grob *> exthead (0, 0);
   extract_grob_set (me, "note-heads", heads);
-  
+
   for (int i = heads.size (); i--;)
     {
       Grob *n = heads[i];
@@ -212,7 +212,7 @@ Stem::note_head_positions (Grob *me)
 {
   Array<int> ps;
   extract_grob_set (me, "note-heads", heads);
-  
+
   for (int i = heads.size (); i--;)
     {
       Grob *n = heads[i];
@@ -617,7 +617,7 @@ Stem::width_callback (SCM e, SCM ax)
     }
   else
     {
-      r = Interval (-1,1) * thickness (me) * 0.5;
+      r = Interval (-1, 1) * thickness (me) * 0.5;
       r.unite (flag (me).extent (X_AXIS));
     }
   return ly_interval2scm (r);
@@ -886,7 +886,7 @@ Stem::calc_stem_info (Grob *me)
       y_ext.widen (0.5);	// FIXME. Should be tunable? 
       minimum_length = max (minimum_length, y_ext.length ());
     }
-  
+
   ideal_y *= my_dir;
   Real minimum_y = note_start + minimum_length;
   Real shortest_y = minimum_y * my_dir;

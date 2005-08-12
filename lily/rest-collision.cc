@@ -147,10 +147,9 @@ Rest_collision::do_shift (Grob *me)
 
       Direction d = LEFT;
       do
-	{
-	  ordered_rests[d].sort (Note_column::shift_compare);
-	}
-      while (flip (&d) != LEFT);
+	ordered_rests[d].sort (Note_column::shift_compare);
+      while (flip (&d) != LEFT)
+	;
 
       do
 	{
@@ -229,9 +228,7 @@ Rest_collision::do_shift (Grob *me)
 
       Interval notedim;
       for (int i = 0; i < notes.size (); i++)
-	{
-	  notedim.unite (notes[i]->extent (common, Y_AXIS));
-	}
+	notedim.unite (notes[i]->extent (common, Y_AXIS));
 
       Real dist
 	= minimum_dist + dir * max (notedim[dir] - restdim[-dir], 0.0);

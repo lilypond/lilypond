@@ -77,18 +77,14 @@ Beam_performer::try_music (Music *m)
       Direction d = to_dir (m->get_property ("span-direction"));
 
       if (d == START)
-	{
-	  start_ev_ = m;
-	}
+	start_ev_ = m;
       else if (d == STOP)
-	{
-	  now_stop_ev_ = m;
-	}
+	now_stop_ev_ = m;
       return true;
     }
   return false;
 }
 
 ADD_TRANSLATOR (Beam_performer, "", "",
-		"beam-event", "",  "");
+		"beam-event", "", "");
 

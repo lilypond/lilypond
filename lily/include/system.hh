@@ -21,7 +21,7 @@ class System : public Spanner
 {
   int rank_;
   Grob_array *all_elements_;
-  void init_elements ();  
+  void init_elements ();
 public:
   int get_rank () const;
   void post_processing ();

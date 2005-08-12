@@ -158,13 +158,9 @@ skyline_meshing_distance (Array<Skyline_entry> const &buildings,
 	distance = max (distance, (buildings[i].height_ - clouds[j].height_));
 
       if (i > 0 && buildings[i].width_[LEFT] >= clouds[j].width_[LEFT])
-	{
-	  i--;
-	}
+	i--;
       else if (j > 0 && buildings[i].width_[LEFT] <= clouds[j].width_[LEFT])
-	{
-	  j--;
-	}
+	j--;
     }
 
   return distance;

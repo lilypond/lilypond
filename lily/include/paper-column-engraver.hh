@@ -4,21 +4,18 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef PAPER_COLUMN_ENGRAVER_HH
 #define PAPER_COLUMN_ENGRAVER_HH
 
-
 #include "engraver.hh"
-
 
 class Paper_column_engraver : public Engraver
 {
   void make_columns ();
-  void set_columns (Paper_column*, Paper_column*); 
-  TRANSLATOR_DECLARATIONS(Paper_column_engraver);
+  void set_columns (Paper_column *, Paper_column *);
+  TRANSLATOR_DECLARATIONS (Paper_column_engraver);
 
 protected:
   void stop_translation_timestep ();
@@ -26,7 +23,7 @@ protected:
   void process_music ();
   virtual void initialize ();
   virtual void finalize ();
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
 
   DECLARE_ACKNOWLEDGER (item);
   DECLARE_ACKNOWLEDGER (note_spacing);
@@ -43,7 +40,6 @@ protected:
 public:
   // ug.h 
   void forbid_breaks ();
-
 };
 
 #endif /* PAPER_COLUMN_ENGRAVER_HH */

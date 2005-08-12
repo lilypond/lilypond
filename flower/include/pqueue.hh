@@ -73,10 +73,7 @@ public:
 	    j = i / 2;
 	  }
 	else
-
-	  {
-	    break;
-	  }
+	  break;
       }
     elt (i) = v;
     OK ();

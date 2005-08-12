@@ -84,7 +84,7 @@ Change_iterator::process (Moment m)
       {
 	/* We could change the current translator's id, but that would make
 	   errors hard to catch.
-	   
+
 	   last->translator_id_string () = get_change
 	   ()->change_to_id_string (); */
 	error (_f ("not changing to same context type: %s", to_type));

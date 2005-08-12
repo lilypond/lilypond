@@ -22,7 +22,6 @@
 #include "pitch.hh"
 
 
-
 /*
   TODO: make matching rest engraver.
 */
@@ -141,9 +140,7 @@ Completion_heads_engraver::find_nearest_duration (Rational length)
 	  continue;
 	}
       else
-	{
-	  d = Duration (d.duration_log () + 1, 2);
-	}
+	d = Duration (d.duration_log () + 1, 2);
     }
 
   if (d.duration_log () >= log_limit)

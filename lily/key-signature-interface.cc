@@ -86,7 +86,7 @@ MAKE_SCHEME_CALLBACK (Key_signature_interface, print, 1);
 SCM
 Key_signature_interface::print (SCM smob)
 {
-  Item *me = dynamic_cast<Item*> (unsmob_grob (smob));
+  Item *me = dynamic_cast<Item *> (unsmob_grob (smob));
 
   Real inter = Staff_symbol_referencer::staff_space (me) / 2.0;
 
@@ -133,18 +133,17 @@ Key_signature_interface::print (SCM smob)
 	  int pos = alteration_pos (what, alteration, c0p);
 	  acc.translate_axis (pos * inter, Y_AXIS);
 
-
-	      /*
-		The natural sign (unlike flat & sharp)
-		has vertical edges on both sides. A little padding is
-		needed to prevent collisions.
-	      */
+	  /*
+	    The natural sign (unlike flat & sharp)
+	    has vertical edges on both sides. A little padding is
+	    needed to prevent collisions.
+	  */
 	  Real padding = 0.0;
 	  if (alteration == 0
 	      && last_pos < pos + 2
 	      && last_pos > pos - 6)
 	    padding = 0.3;
-	  
+
 	  mol.add_at_edge (X_AXIS, LEFT, acc, padding, 0);
 	  last_pos = pos;
 	}

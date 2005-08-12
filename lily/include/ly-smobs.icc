@@ -71,22 +71,23 @@
 
 #define IMPLEMENT_SMOBS(CL)						\
   IMPLEMENT_BASE_SMOBS (CL)						\
-  void								\
+    void								\
   CL::smobify_self ()							\
   {									\
     self_scm_ = unprotected_smobify_self ();				\
-    protection_cons_ = SCM_EOL;\
-    protect();\
-  }\
-  void\
-  CL::protect(){					\
-    protect_smob (self_scm_, &protection_cons_);\
-  }\
-  SCM\
-  CL::unprotect ()\
-  {\
-    unprotect_smob (&protection_cons_);\
-    return self_scm_;\
+    protection_cons_ = SCM_EOL;						\
+    protect ();								\
+  }									\
+  void									\
+  CL::protect ()							\
+  {									\
+    protect_smob (self_scm_, &protection_cons_);			\
+  }									\
+  SCM									\
+  CL::unprotect ()							\
+  {									\
+    unprotect_smob (&protection_cons_);					\
+    return self_scm_;							\
   }									\
   SCM									\
   CL::unprotected_smobify_self ()					\

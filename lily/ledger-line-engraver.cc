@@ -21,7 +21,7 @@ public:
 protected:
   virtual void finalize ();
   void process_music ();
- 
+
   DECLARE_ACKNOWLEDGER (ledgered);
   DECLARE_ACKNOWLEDGER (staff_symbol);
 
@@ -53,7 +53,7 @@ Ledger_line_engraver::process_music ()
 void
 Ledger_line_engraver::finalize ()
 {
-  stop_spanner();
+  stop_spanner ();
 }
 
 void
@@ -69,7 +69,7 @@ Ledger_line_engraver::stop_spanner ()
 void
 Ledger_line_engraver::acknowledge_staff_symbol (Grob_info s)
 {
-  Spanner *sym = dynamic_cast<Spanner*> (s.grob ());
+  Spanner *sym = dynamic_cast<Spanner *> (s.grob ());
 
   if (!span_
       || span_->get_bound (LEFT) != sym->get_bound (LEFT))
@@ -92,8 +92,8 @@ Ledger_line_engraver::acknowledge_ledgered (Grob_info s)
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Ledger_line_engraver,ledgered);
-ADD_ACKNOWLEDGER (Ledger_line_engraver,staff_symbol);
+ADD_ACKNOWLEDGER (Ledger_line_engraver, ledgered);
+ADD_ACKNOWLEDGER (Ledger_line_engraver, staff_symbol);
 ADD_TRANSLATOR (Ledger_line_engraver,
 		"Creates the spanner to draw ledger lines, and notices objects that need ledger lines",
 		/* create */ "LedgerLineSpanner",

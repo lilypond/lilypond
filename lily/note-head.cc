@@ -12,7 +12,7 @@
 #include <cctype>
 #include <algorithm> 		//  min, max
 
-using namespace std; 
+using namespace std;
 
 #include "directional-element-interface.hh"
 #include "staff-symbol.hh"
@@ -39,13 +39,13 @@ internal_print (Grob *me, String *font_char)
     }
 
   SCM log = scm_from_int (Note_head::get_balltype (me));
-  String suffix =  to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
+  String suffix = to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
   if (style != ly_symbol2scm ("default"))
     {
       SCM proc = me->get_property ("glyph-name-procedure");
       if (ly_is_procedure (proc))
 	suffix = ly_scm2string (scm_call_2 (proc, log, style));
-    }  
+    }
   Font_metric *fm = Font_interface::get_default_font (me);
 
   String idx = "noteheads.s" + suffix;
@@ -56,7 +56,7 @@ internal_print (Grob *me, String *font_char)
       String prefix = "noteheads.";
       Grob *stem = unsmob_grob (me->get_object ("stem"));
       Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
-      
+
       if (stem_dir == CENTER)
 	programming_error ("must have stem dir for note head");
       String idx = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
@@ -66,7 +66,7 @@ internal_print (Grob *me, String *font_char)
   if (out.is_empty ())
     {
       me->warning (_f ("note head `%s' not found", idx.to_str0 ()));
-      out = Stencil (Box(Interval (0, 0),Interval (0, 0)), SCM_EOL);
+      out = Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL);
     }
   else
     {

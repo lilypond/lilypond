@@ -35,37 +35,37 @@ LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
   return scm_hashq_ref (otf->get_char_table (), sym, SCM_EOL);
 }
 
-LY_DEFINE(ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
-	  (SCM font, SCM tag),
-	  "Extract a table @var{tag} from @var{font}. Return empty string for "
-	  "non-existent @var{tag}.")
+LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
+	   (SCM font, SCM tag),
+	   "Extract a table @var{tag} from @var{font}. Return empty string for "
+	   "non-existent @var{tag}.")
 {
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
-  
+
   Open_type_font *otf = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
     : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
 
-  SCM_ASSERT_TYPE (otf, font, SCM_ARG1,  __FUNCTION__, "Open type font");
-  SCM_ASSERT_TYPE (scm_is_string (tag), tag, SCM_ARG1,  __FUNCTION__, "Open type font");
+  SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "Open type font");
+  SCM_ASSERT_TYPE (scm_is_string (tag), tag, SCM_ARG1, __FUNCTION__, "Open type font");
 
   char ctag [5] = "    ";
 
   String tag_string = ly_scm2string (tag);
-  strncpy (ctag, tag_string.to_str0 (), tag_string.length());
+  strncpy (ctag, tag_string.to_str0 (), tag_string.length ());
 
   String tab = otf->get_otf_table (String (ctag));
 
-  return scm_from_locale_stringn ((char const*) tab.to_bytes (), tab.length ());
+  return scm_from_locale_stringn ((char const *) tab.to_bytes (), tab.length ());
 }
 
-LY_DEFINE(ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
-	  (SCM font),
-	  "Is @var{font} an OpenType font?")
+LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
+	   (SCM font),
+	   "Is @var{font} an OpenType font?")
 {
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
-  
+
   Open_type_font *otf = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
     : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
 

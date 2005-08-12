@@ -16,7 +16,6 @@
 #include "main.hh"
 #include "music.hh"
 
-
 Translator_group *
 Translator_group::get_daddy_translator () const
 {
@@ -101,13 +100,12 @@ Translator_group::get_simple_trans_list ()
   return simple_trans_list_;
 }
 
-			    
 void
 precomputed_recurse_over_translators (Context *c, Translator_precompute_index idx, Direction dir)
 {
   Translator_group *tg
     = dynamic_cast<Translator_group *> (c->implementation ());
-  
+
   if (dir == DOWN)
     {
       tg->precomputed_translator_foreach (idx);
@@ -125,7 +123,6 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
       tg->precomputed_translator_foreach (idx);
       tg->call_precomputed_self_method (idx);
     }
-
 }
 
 void
@@ -133,7 +130,7 @@ recurse_over_translators (Context *c, Translator_method ptr, Translator_group_me
 {
   Translator_group *tg
     = dynamic_cast<Translator_group *> (c->implementation ());
-  
+
   if (dir == DOWN)
     {
       (tg->*tg_ptr) ();
@@ -170,7 +167,6 @@ Translator_group::derived_mark () const
 {
 }
 
-
 void
 Translator_group::precompute_method_bindings ()
 {
@@ -184,9 +180,7 @@ Translator_group::precompute_method_bindings ()
       for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
 	{
 	  if (ptrs[i])
-	    {
-	      precomputed_method_bindings_[i].push (Translator_method_binding (tr, ptrs[i]));
-	    }
+	    precomputed_method_bindings_[i].push (Translator_method_binding (tr, ptrs[i]));
 	}
     }
 
@@ -196,7 +190,7 @@ Translator_group::precompute_method_bindings ()
 void
 Translator_group::precomputed_translator_foreach (Translator_precompute_index idx)
 {
-  Array<Translator_method_binding> &bindings(precomputed_method_bindings_[idx]);
+  Array<Translator_method_binding> &bindings (precomputed_method_bindings_[idx]);
   for (int i = 0; i < bindings.size (); i++)
     {
       bindings[i].invoke ();
@@ -214,9 +208,8 @@ void
 Translator_group::call_precomputed_self_method (Translator_precompute_index idx)
 {
   if (precomputed_self_method_bindings_[idx])
-    (*precomputed_self_method_bindings_[idx])(this);
+    (*precomputed_self_method_bindings_[idx]) (this);
 }
-
 
 Translator_group::~Translator_group ()
 {
@@ -227,7 +220,6 @@ Translator_group::~Translator_group ()
 IMPLEMENT_SMOBS (Translator_group);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator_group);
 IMPLEMENT_TYPE_P (Translator_group, "ly:translator-group?");
-
 
 int
 Translator_group::print_smob (SCM s, SCM port, scm_print_state *)
@@ -240,11 +232,10 @@ Translator_group::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
-
 SCM
 Translator_group::mark_smob (SCM smob)
 {
-  Translator_group *me = (Translator_group*)SCM_CELL_WORD_1 (smob);
+  Translator_group *me = (Translator_group *)SCM_CELL_WORD_1 (smob);
 
   me->derived_mark ();
   scm_gc_mark (me->accept_hash_table_);

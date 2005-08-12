@@ -20,7 +20,6 @@
 #include "lilypond-key.hh"
 #include "profile.hh"
 
-
 bool
 Context::is_removable () const
 {
@@ -103,16 +102,16 @@ Context::Context (Object_key const *key)
   definition_ = SCM_EOL;
 
   smobify_self ();
-  
+
   Scheme_hash_table *tab = new Scheme_hash_table;
-  properties_scm_ =   tab->unprotect ();
+  properties_scm_ = tab->unprotect ();
 
   /*
-   UGH UGH
-   const correctness.
+    UGH UGH
+    const correctness.
   */
   if (key_)
-    ((Object_key*)key)->unprotect ();
+    ((Object_key *)key)->unprotect ();
 }
 
 /* TODO:  this shares code with find_create_context ().  */
@@ -201,9 +200,7 @@ Context::find_create_context (SCM n, String id, SCM operations)
 
 	  String this_id = "";
 	  if (i == path.size () -1)
-	    {
-	      this_id = id;
-	    }
+	    this_id = id;
 
 	  current = current->create_context (path[i],
 					     this_id,
@@ -251,7 +248,7 @@ Context::get_context_key (String type, String id)
 {
   if (!use_object_keys)
     return 0;
-      
+
   String now_key = type + "@" + id;
 
   int disambiguation_count = 0;
@@ -273,7 +270,7 @@ Context::get_grob_key (String name)
 {
   if (!use_object_keys)
     return 0;
-  
+
   int disambiguation_count = 0;
   if (grob_counts_.find (name) != grob_counts_.end ())
     {
@@ -297,7 +294,7 @@ SCM
 Context::default_child_context_name () const
 {
   return scm_is_pair (accepts_list_)
-    ? scm_car (accepts_list_) 
+    ? scm_car (accepts_list_)
     : SCM_EOL;
 }
 
@@ -365,7 +362,7 @@ Context::internal_get_property (SCM sym) const
       note_property_access (&context_property_lookup_table, sym);
     }
 #endif
-  
+
   SCM val = SCM_EOL;
   if (properties_dict ()->try_retrieve (sym, &val))
     return val;
@@ -500,7 +497,7 @@ Context::now_mom () const
     {
       p = p->daddy_context_;
     }
-  
+
   return p->now_mom ();
 }
 
@@ -537,7 +534,7 @@ Context::mark_smob (SCM sm)
   Context *me = (Context *) SCM_CELL_WORD_1 (sm);
   if (me->key_)
     scm_gc_mark (me->key_->self_scm ());
-  
+
   scm_gc_mark (me->context_list_);
   scm_gc_mark (me->aliases_);
   scm_gc_mark (me->definition_);
@@ -591,7 +588,7 @@ Context::clear_key_disambiguations ()
 {
   if (!use_object_keys)
     return;
-  
+
   grob_counts_.clear ();
   context_counts_.clear ();
   for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))
@@ -600,15 +597,14 @@ Context::clear_key_disambiguations ()
     }
 }
 
-
 /*
-  Ugh. Where to put this? 
+  Ugh. Where to put this?
 */
 Rational
 measure_length (Context const *context)
 {
   SCM l = context->get_property ("measureLength");
-  Rational length (1); 
+  Rational length (1);
   if (unsmob_moment (l))
     length = unsmob_moment (l)->main_part_;
   return length;

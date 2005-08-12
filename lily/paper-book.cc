@@ -81,13 +81,11 @@ Paper_book::add_score (SCM s)
   scores_ = scm_cons (s, scores_);
 }
 
-
 void
 Paper_book::add_performance (SCM s)
 {
   performances_ = scm_cons (s, performances_);
 }
-
 
 void
 Paper_book::output (SCM output_channel)
@@ -276,14 +274,14 @@ Paper_book::systems ()
 	    header_0_ = header;
 	}
       else if (Music_output *mop = unsmob_music_output (scm_car (s)))
-	
+
 	{
 	  if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
 	    {
 	      add_score_title (header);
-	  
+
 	      header = SCM_EOL;
-	  
+
 	      SCM system_list = scm_vector_to_list (pscore->get_paper_systems ());
 	      system_list = scm_reverse (system_list);
 	      systems_ = scm_append (scm_list_2 (system_list, systems_));
@@ -298,11 +296,11 @@ Paper_book::systems ()
       else if (scm_is_vector (scm_car (s)))
 	{
 	  /*
-	    UGH. code dup.  
+	    UGH. code dup.
 	  */
 	  add_score_title (header);
 	  header = SCM_EOL;
-	  
+
 	  SCM system_list = scm_vector_to_list (scm_car (s));
 	  system_list = scm_reverse (system_list);
 	  systems_ = scm_append (scm_list_2 (system_list, systems_));

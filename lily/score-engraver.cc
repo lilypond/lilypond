@@ -39,12 +39,11 @@ Score_engraver::derived_mark () const
   Engraver_group_engraver::derived_mark ();
 }
 
-
 void
 Score_engraver::prepare (Moment m)
 {
   (void) m;
-  
+
   precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, DOWN);
 }
 
@@ -77,15 +76,15 @@ Score_engraver::initialize ()
     }
 
   pscore_ = new Paper_score (dynamic_cast<Output_def *> (context ()->get_output_def ()));
-  pscore_->unprotect (); 
+  pscore_->unprotect ();
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
   Object_key const *sys_key = context ()->get_grob_key ("System");
   pscore_->typeset_system (new System (props, sys_key));
   system_ = pscore_->root_system ();
-  context ()->set_property ("rootSystem",  system_->self_scm ());
-  
+  context ()->set_property ("rootSystem", system_->self_scm ());
+
   Engraver_group_engraver::initialize ();
 }
 
@@ -138,20 +137,17 @@ Score_engraver::get_output ()
   return o->self_scm ();
 }
 
-
 /*
   UGH UGH
- */
+*/
 void
 Score_engraver::forbid_breaks ()
 {
   for (SCM s = simple_trans_list_; scm_is_pair (s); s = scm_cdr (s))
     {
       Translator *tr = unsmob_translator (scm_car (s));
-      if (Paper_column_engraver* pce = dynamic_cast<Paper_column_engraver*> (tr))
-	{
-	  pce->forbid_breaks ();
-	}
+      if (Paper_column_engraver *pce = dynamic_cast<Paper_column_engraver *> (tr))
+	pce->forbid_breaks ();
     }
 }
 
@@ -165,15 +161,15 @@ Score_engraver::try_music (Music *m)
 }
 
 ADD_TRANSLATOR_GROUP (Score_engraver,
-		/* doc */ "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
-		"\n\n "
-		"This engraver decides whether a column is breakable. The default is "
-		"that a column is always breakable. However, when every Bar_engraver "
-		"that does not have a barline at a certain point will call "
-		"Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
-		"means that you can make a breakpoint by creating a barline (assuming "
-		"that there are no beams or notes that prevent a breakpoint.) ",
-		/* create */ "System PaperColumn NonMusicalPaperColumn",
-		/* accept */ "break-event",
-		/* read */ "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
-		/* write */ "");
+		      /* doc */ "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
+		      "\n\n "
+		      "This engraver decides whether a column is breakable. The default is "
+		      "that a column is always breakable. However, when every Bar_engraver "
+		      "that does not have a barline at a certain point will call "
+		      "Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
+		      "means that you can make a breakpoint by creating a barline (assuming "
+		      "that there are no beams or notes that prevent a breakpoint.) ",
+		      /* create */ "System PaperColumn NonMusicalPaperColumn",
+		      /* accept */ "break-event",
+		      /* read */ "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
+		      /* write */ "");

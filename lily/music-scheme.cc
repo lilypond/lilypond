@@ -110,7 +110,7 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
   SCM copy = m;
   if (unsmob_music (m))
     {
-      Music * mcopy = unsmob_music (m)->clone ();
+      Music *mcopy = unsmob_music (m)->clone ();
       copy = mcopy->unprotect ();
     }
   else if (scm_is_pair (m))

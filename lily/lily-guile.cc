@@ -330,7 +330,6 @@ ly_deep_copy (SCM src)
 }
 
 
-
 /* looks the key up in the cdrs of the alist-keys
    - ignoring the car and ignoring non-pair keys.
    Returns first match found, i.e.
@@ -369,7 +368,7 @@ ly_string_array_to_scm (Array<String> a)
     s = scm_cons (ly_symbol2scm (a[i].to_str0 ()), s);
   return s;
 }
-  
+
 /* SYMBOLS is a whitespace separated list.  */
 SCM
 parse_symbol_list (char const *symbols)

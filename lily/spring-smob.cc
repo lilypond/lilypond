@@ -24,7 +24,7 @@ SCM
 Spring_smob::mark_smob (SCM x)
 {
   (void)x;
-  
+
   return SCM_UNSPECIFIED;
 }
 

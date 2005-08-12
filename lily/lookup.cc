@@ -44,49 +44,46 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
 
   Offset p;
 
-  p = Offset (0, thick/2);
+  p = Offset (0, thick / 2);
   b.add_point (p);
-  p += Offset (1,-1) * (blot/2);
+  p += Offset (1, -1) * (blot / 2);
 
   SCM points = SCM_EOL;
-  
-  points = scm_cons (scm_from_double (p[X_AXIS]),
-		     scm_cons (scm_from_double (p[Y_AXIS]),
-			       points));
-  
-  
-  p = Offset (0, -thick/2);
-  b.add_point (p);
-  p += Offset (1,1) * (blot/2);
 
   points = scm_cons (scm_from_double (p[X_AXIS]),
 		     scm_cons (scm_from_double (p[Y_AXIS]),
 			       points));
-  
-  
-  p = Offset (width, width * slope - thick/2);
+
+  p = Offset (0, -thick / 2);
   b.add_point (p);
-  p += Offset (-1, 1) * (blot/2);
+  p += Offset (1, 1) * (blot / 2);
 
   points = scm_cons (scm_from_double (p[X_AXIS]),
 		     scm_cons (scm_from_double (p[Y_AXIS]),
 			       points));
-  
-  
-  p = Offset (width, width * slope + thick/2);
+
+  p = Offset (width, width * slope - thick / 2);
   b.add_point (p);
-  p += Offset (-1, -1) * (blot/2);
+  p += Offset (-1, 1) * (blot / 2);
 
   points = scm_cons (scm_from_double (p[X_AXIS]),
 		     scm_cons (scm_from_double (p[Y_AXIS]),
 			       points));
-  
+
+  p = Offset (width, width * slope + thick / 2);
+  b.add_point (p);
+  p += Offset (-1, -1) * (blot / 2);
+
+  points = scm_cons (scm_from_double (p[X_AXIS]),
+		     scm_cons (scm_from_double (p[Y_AXIS]),
+			       points));
+
   SCM expr = scm_list_n (ly_symbol2scm ("polygon"),
 			 ly_quote_scm (points),
 			 scm_from_double (blot),
 			 SCM_BOOL_T,
 			 SCM_UNDEFINED);
-  
+
   return Stencil (b, expr);
 }
 
@@ -254,7 +251,7 @@ Lookup::round_filled_polygon (Array<Offset> const &points,
 	programming_error ("Polygon should not have duplicate points");
     }
 #endif
-  
+
   /* special cases: degenerated polygons */
   if (points.size () == 0)
     return Stencil ();
@@ -659,17 +656,16 @@ Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
 #if 0 /*  TODO */
-  Array<Offset> points ;
+  Array<Offset> points;
   Real blotdiameter = 0.0;
 
-  Offset p1(0, 0);
-  Offset p2(w, w*s);
-  
-  
-  
+  Offset p1 (0, 0);
+  Offset p2 (w, w * s);
+
+
   return Lookup::round_filled_polygon (points, blotdiameter);
 #endif
-  
+
   SCM wid = scm_from_double (w);
   SCM sl = scm_from_double (s);
   SCM thick = scm_from_double (t);

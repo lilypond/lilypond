@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "engraver.hh"
@@ -15,7 +14,7 @@
 
 class Vertically_spaced_contexts_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS(Vertically_spaced_contexts_engraver);
+  TRANSLATOR_DECLARATIONS (Vertically_spaced_contexts_engraver);
 protected:
   virtual void initialize ();
   DECLARE_ACKNOWLEDGER (vertically_spaceable);
@@ -23,7 +22,6 @@ protected:
 private:
   Grob *system_;
 };
-
 
 
 Vertically_spaced_contexts_engraver::Vertically_spaced_contexts_engraver ()

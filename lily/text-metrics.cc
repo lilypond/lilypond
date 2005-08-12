@@ -63,9 +63,7 @@ LY_DEFINE (ly_load_text_dimensions, "ly:load-text-dimensions",
 
       if (scm_hash_ref (text_dimension_hash_tab, key, SCM_BOOL_F)
 	  == SCM_BOOL_F)
-	{
-	  scm_hash_set_x (text_dimension_hash_tab, key, val);
-	}
+	scm_hash_set_x (text_dimension_hash_tab, key, val);
     }
 
   return SCM_UNSPECIFIED;

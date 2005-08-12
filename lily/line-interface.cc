@@ -19,14 +19,14 @@ Line_interface::make_arrow (Offset begin, Offset end,
 {
   Real angle = (end - begin).arg ();
   Array<Offset> points;
-  
+
   points.push (Offset (0, 0));
   points.push (Offset (-length, width));
   points.push (Offset (-length, -width));
 
-  for (int i = 0; i < points.size(); i++)
+  for (int i = 0; i < points.size (); i++)
     points[i] = points[i] * complex_exp (Offset (0, angle)) + end;
-    
+
   return Lookup::round_filled_polygon (points, thick);
 }
 
@@ -89,21 +89,20 @@ Line_interface::arrows (Grob *me, Offset from, Offset to,
     {
       Real thick = Staff_symbol_referencer::line_thickness (me)
 	* robust_scm2double (me->get_property ("thickness"), 1);
-      Real ss =  Staff_symbol_referencer::staff_space (me);
-      
+      Real ss = Staff_symbol_referencer::staff_space (me);
+
       Real len = robust_scm2double (me->get_property ("arrow-length"), 1.3 * ss);
       Real wid = robust_scm2double (me->get_property ("arrow-width"), 0.5 * ss);
 
       if (to_arrow)
-        a.add_stencil (make_arrow (from, to, thick, len, wid));
-	
+	a.add_stencil (make_arrow (from, to, thick, len, wid));
+
       if (from_arrow)
-        a.add_stencil (make_arrow (to, from, thick, len, wid));
+	a.add_stencil (make_arrow (to, from, thick, len, wid));
     }
 
   return a;
 }
-			
 
 Stencil
 Line_interface::line (Grob *me, Offset from, Offset to)
@@ -114,7 +113,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
   SCM type = me->get_property ("style");
 
   Stencil stil;
-  
+
   SCM dash_fraction = me->get_property ("dash-fraction");
   if (scm_is_number (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
     {
@@ -131,10 +130,10 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       if (period < 0)
 	return Stencil ();
 
-      stil =  make_dashed_line (thick, from, to, period, fraction);
+      stil = make_dashed_line (thick, from, to, period, fraction);
     }
   else
-    stil =  make_line (thick, from, to);
+    stil = make_line (thick, from, to);
 
   return stil;
 }

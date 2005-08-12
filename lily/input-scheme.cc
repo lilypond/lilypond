@@ -40,7 +40,7 @@ LY_DEFINE (ly_input_file_line_column, "ly:input-file-line-char-column", 1, 0, 0,
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
 
-  int l, ch, col; 
+  int l, ch, col;
   ip->get_counts (&l, &ch, &col);
   return scm_list_4 (scm_makfrom0str (ip->file_string ().to_str0 ()),
 		     scm_from_int (l),

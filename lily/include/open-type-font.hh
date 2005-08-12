@@ -25,7 +25,7 @@ class Open_type_font : public Font_metric
   SCM lily_character_table_;
   SCM lily_global_table_;
   SCM lily_index_to_bbox_table_;
-  
+
   Index_to_charcode_map index_to_charcode_map_;
   Open_type_font (FT_Face);
 

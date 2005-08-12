@@ -35,7 +35,7 @@ public:
   Output_def *paper_;
 
   Paper_book ();
-  
+
   void add_score (SCM);
   void add_performance (SCM);
 
@@ -47,7 +47,6 @@ public:
   void classic_output (SCM output_channel);
   void output (SCM output_channel);
   void post_processing (SCM, SCM);
-  
 };
 
 DECLARE_UNSMOB (Paper_book, paper_book)

@@ -64,7 +64,6 @@ class Dynamic_engraver : public Engraver
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (slur);
 
-
 protected:
   virtual void finalize ();
   virtual bool try_music (Music *event);
@@ -170,7 +169,7 @@ Dynamic_engraver::process_music ()
 	      cresc_->set_bound (RIGHT, script_);
 	      add_bound_item (line_spanner_, script_);
 	    }
-	  
+
 	  finished_cresc_ = cresc_;
 	  cresc_ = 0;
 	  current_cresc_ev_ = 0;
@@ -231,7 +230,7 @@ Dynamic_engraver::process_music ()
 		}
 	      cresc_->set_property ("grow-direction",
 				    scm_from_int ((start_type == "crescendo")
-						 ? BIGGER : SMALLER));
+						  ? BIGGER : SMALLER));
 	    }
 
 	  /*
@@ -278,7 +277,7 @@ Dynamic_engraver::stop_translation_timestep ()
       finished_line_spanner_ = line_spanner_;
       line_spanner_ = 0;
     }
-  
+
   typeset_all ();
 
   if (cresc_ && !cresc_->get_bound (LEFT))
@@ -397,13 +396,12 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
   if (script_ && !script_->get_parent (X_AXIS))
     {
       extract_grob_set (info.grob (), "note-heads", heads);
-      if (heads.size())
+      if (heads.size ())
 	{
 	  Grob *head = heads[0];
 	  script_->set_parent (head, X_AXIS);
 	  script_->add_offset_callback (Self_alignment_interface::centered_on_parent_proc,
 					X_AXIS);
-
 	}
     }
 
@@ -446,7 +444,7 @@ ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
 ADD_ACKNOWLEDGER (Dynamic_engraver, slur);
 
 ADD_TRANSLATOR (Dynamic_engraver,
-		/* doc */ 
+		/* doc */
 		"This engraver creates hairpins, dynamic texts, and their vertical\n"
 		"alignments.  The symbols are collected onto a DynamicLineSpanner grob\n"
 		"which takes care of vertical positioning.  ",

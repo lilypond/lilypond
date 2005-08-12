@@ -20,12 +20,12 @@
 #include "text-interface.hh"
 #include "pointer-group-interface.hh"
 
-MAKE_SCHEME_CALLBACK(Hairpin,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Hairpin, after_line_breaking, 1);
 SCM
 Hairpin::after_line_breaking (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
-  
+
   Drul_array<bool> broken;
   Drul_array<Item *> bounds;
   Direction d = LEFT;
@@ -38,13 +38,12 @@ Hairpin::after_line_breaking (SCM smob)
 
   if (broken[LEFT]
       && ly_is_equal (bounds[RIGHT]->get_column ()->get_property ("when"),
-		       bounds[LEFT]->get_property ("when")))
+		      bounds[LEFT]->get_property ("when")))
     {
       me->suicide ();
     }
   return SCM_UNSPECIFIED;
 }
-
 
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
 
@@ -75,7 +74,7 @@ Hairpin::print (SCM smob)
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
   Drul_array<Real> x_points;
-  
+
   do
     {
       Item *b = bounds[d];
@@ -97,7 +96,7 @@ Hairpin::print (SCM smob)
 	    {
 	      bool neighbor_found = false;
 	      extract_grob_set (me, "adjacent-hairpins", pins);
-	      for (int i = 0; i < pins.size(); i++)
+	      for (int i = 0; i < pins.size (); i++)
 		{
 		  /*
 		    FIXME: this will fuck up in case of polyphonic
@@ -105,7 +104,7 @@ Hairpin::print (SCM smob)
 		    in the current staff/voice.
 		  */
 
-		  Spanner *pin = dynamic_cast<Spanner*> (pins[i]);
+		  Spanner *pin = dynamic_cast<Spanner *> (pins[i]);
 		  if (pin
 		      && (pin->get_bound (LEFT)->get_column () == b->get_column ()
 			  || pin->get_bound (RIGHT)->get_column () == b->get_column ()))

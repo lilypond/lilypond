@@ -27,13 +27,11 @@ public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
 };
 
-
 void
 Time_signature_engraver::derived_mark () const
 {
   scm_gc_mark (last_time_fraction_);
 }
-
 
 Time_signature_engraver::Time_signature_engraver ()
 {

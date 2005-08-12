@@ -13,7 +13,6 @@
 #include "global-context.hh"
 #include "lilypond-key.hh"
 
-
 LY_DEFINE (ly_make_score, "ly:make-score",
 	   1, 0, 0,
 	   (SCM music),
@@ -21,7 +20,7 @@ LY_DEFINE (ly_make_score, "ly:make-score",
 {
   Music *mus = unsmob_music (music);
   SCM_ASSERT_TYPE (mus, music, SCM_ARG1, __FUNCTION__, "music");
-  
+
   Score *score = new Score;
   score->set_music (music);
 
@@ -88,7 +87,7 @@ LY_DEFINE (ly_score_process, "ly:score-process",
 		   default_header, SCM_ARG3, __FUNCTION__, "\\paper block");
   SCM_ASSERT_TYPE (unsmob_output_def (default_layout),
 		   default_header, SCM_ARG4, __FUNCTION__, "\\layout block");
-  
+
   Object_key *key = new Lilypond_general_key (0, score->user_key_, 0);
 
   if (score->error_found_)
@@ -97,7 +96,7 @@ LY_DEFINE (ly_score_process, "ly:score-process",
   SCM header = ly_is_module (score->header_)
     ? score->header_
     : default_header;
-  
+
   for (int i = 0; i < score->defs_.size (); i++)
     default_rendering (score->get_music (), score->defs_[i]->self_scm (),
 		       default_paper, header, basename, key->self_scm ());
@@ -113,5 +112,4 @@ LY_DEFINE (ly_score_process, "ly:score-process",
   key->unprotect ();
   return SCM_UNSPECIFIED;
 }
-
 

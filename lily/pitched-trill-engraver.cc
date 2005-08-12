@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "engraver.hh"
@@ -16,20 +15,20 @@
 #include "note-head.hh"
 #include "item.hh"
 #include "side-position-interface.hh"
-#include "pitch.hh"		
+#include "pitch.hh"
 #include "warn.hh"
 
 class Pitched_trill_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Pitched_trill_engraver);
-  
+  TRANSLATOR_DECLARATIONS (Pitched_trill_engraver);
+
 protected:
-  DECLARE_ACKNOWLEDGER ( note_head);
-  DECLARE_ACKNOWLEDGER ( dots);
-  DECLARE_ACKNOWLEDGER ( text_spanner);
+  DECLARE_ACKNOWLEDGER (note_head);
+  DECLARE_ACKNOWLEDGER (dots);
+  DECLARE_ACKNOWLEDGER (text_spanner);
   void process_music ();
-  virtual bool try_music (Music*);
+  virtual bool try_music (Music *);
   void stop_translation_timestep ();
 
 private:
@@ -41,7 +40,6 @@ private:
 
   void make_trill (Music *);
 };
-
 
 Pitched_trill_engraver::Pitched_trill_engraver ()
 {
@@ -60,7 +58,7 @@ Pitched_trill_engraver::acknowledge_note_head (Grob_info info)
 {
   heads_.push (info.grob ());
 }
- 
+
 void
 Pitched_trill_engraver::acknowledge_text_spanner (Grob_info info)
 {
@@ -91,7 +89,7 @@ Pitched_trill_engraver::make_trill (Music *mus)
   if (trill_head_)
     {
       programming_error ("already have a trill head.");
-      trill_head_ = 0; 
+      trill_head_ = 0;
     }
 
   trill_head_ = make_item ("TrillPitchHead", mus->self_scm ());
@@ -102,10 +100,10 @@ Pitched_trill_engraver::make_trill (Music *mus)
   trill_head_->set_property ("staff-position",
 			     scm_from_int (unsmob_pitch (scm_pitch)->steps ()
 					   + c0));
-  
-  trill_group_ = make_item ("TrillPitchGroup", mus->self_scm());
 
-  Axis_group_interface::add_element (trill_group_,  trill_head_);
+  trill_group_ = make_item ("TrillPitchGroup", mus->self_scm ());
+
+  Axis_group_interface::add_element (trill_group_, trill_head_);
 
   if (print_acc)
     {
@@ -127,7 +125,7 @@ Pitched_trill_engraver::stop_translation_timestep ()
   if (trill_group_)
     for (int i = 0; i < heads_.size (); i++)
       Side_position_interface::add_support (trill_group_, heads_[i]);
-  
+
   heads_.clear ();
   trill_head_ = 0;
   trill_group_ = 0;

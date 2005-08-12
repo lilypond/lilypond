@@ -19,9 +19,9 @@ Engraver_group_engraver::announce_grob (Grob_info info)
 {
   announce_infos_.push (info);
 
-  Engraver_group_engraver * dad_eng =
-    context_->get_parent_context ()
-    ? dynamic_cast<Engraver_group_engraver*> (context_->get_parent_context ()->implementation ())
+  Engraver_group_engraver *dad_eng
+    = context_->get_parent_context ()
+    ? dynamic_cast<Engraver_group_engraver *> (context_->get_parent_context ()->implementation ())
     : 0;
   if (dad_eng)
     dad_eng->announce_grob (info);
@@ -64,11 +64,8 @@ Engraver_group_engraver::acknowledge_grobs ()
 	  scm_hashq_set_x (acknowledge_hash_table_, nm, acklist);
 	}
 
-
       if (dispatch)
-	{
-	  dispatch->apply (info);
-	}
+	dispatch->apply (info);
     }
 }
 
@@ -121,7 +118,6 @@ Engraver_group_engraver::do_announces ()
   while (pending_grob_count () > 0);
 }
 
-
 Engraver_group_engraver::Engraver_group_engraver ()
 {
   acknowledge_hash_table_ = SCM_EOL;
@@ -136,7 +132,6 @@ ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
 		      /* accept */ "",
 		      /* read */ "",
 		      /* write */ "");
-
 
 
 void

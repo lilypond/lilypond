@@ -16,7 +16,7 @@ class Grace_engraver : public Engraver
 protected:
   void start_translation_timestep ();
   virtual void derived_mark () const;
-  virtual void initialize (); 
+  virtual void initialize ();
 
   TRANSLATOR_DECLARATIONS (Grace_engraver);
   Moment last_moment_;
@@ -27,7 +27,7 @@ public:
 Grace_engraver::Grace_engraver ()
 {
   grace_settings_ = SCM_EOL;
-  last_moment_ = Moment (Rational (-1,1));
+  last_moment_ = Moment (Rational (-1, 1));
 }
 
 void
@@ -70,9 +70,7 @@ Grace_engraver::consider_change_grace_settings ()
 
 	  Context *c = context ();
 	  while (c && !c->is_alias (context_name))
-	    {
-	      c = c->get_parent_context ();
-	    }
+	    c = c->get_parent_context ();
 
 	  if (c)
 	    {
@@ -89,7 +87,7 @@ Grace_engraver::consider_change_grace_settings ()
 	}
     }
 
-  last_moment_ = now_mom();
+  last_moment_ = now_mom ();
 }
 
 void

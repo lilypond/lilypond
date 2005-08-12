@@ -23,9 +23,7 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
   Axis ax = (Axis)scm_to_int (axis);
   Grob *par = me->get_parent (ax);
   if (par && !to_boolean (par->get_property ("positioning-done")))
-    {
-      Align_interface::align_elements_to_extents (par, ax);
-    }
+    Align_interface::align_elements_to_extents (par, ax);
   return scm_from_double (0.0);
 }
 
@@ -37,9 +35,7 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
   Axis ax = (Axis)scm_to_int (axis);
   Grob *par = me->get_parent (ax);
   if (par && !to_boolean (par->get_property ("positioning-done")))
-    {
-      Align_interface::align_to_fixed_distance (par, ax);
-    }
+    Align_interface::align_to_fixed_distance (par, ax);
   return scm_from_double (0.0);
 }
 
@@ -61,8 +57,8 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 
   extract_grob_set (me, "elements", elem_source);
 
-  Link_array<Grob> elems  (elem_source); // writable..
-  
+  Link_array<Grob> elems (elem_source); // writable..
+
   Real where_f = 0;
 
   Interval v;
@@ -99,9 +95,7 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
     TODO: support self-alignment-{Y, X}
   */
   for (int i = 0; i < translates.size (); i++)
-    {
-      elems[i]->translate_axis (translates[i] - v.center (), a);
-    }
+    elems[i]->translate_axis (translates[i] - v.center (), a);
 }
 
 /*
@@ -127,9 +121,9 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
       && me_spanner
       && me_spanner->get_bound (LEFT)->break_status_dir () == CENTER)
     {
-      me_spanner->warning (_("vertical alignment called before line-breaking. Only do cross-staff spanners with PianoStaff."));
+      me_spanner->warning (_ ("vertical alignment called before line-breaking. Only do cross-staff spanners with PianoStaff."));
     }
-  
+
   me->set_property ("positioning-done", SCM_BOOL_T);
 
   SCM d = me->get_property ("stacking-dir");
@@ -212,9 +206,7 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
       while (j < all_grobs.size ())
 	{
 	  if (i < elems.size () && all_grobs[j] == elems[i])
-	    {
-	      w = translates[i++];
-	    }
+	    w = translates[i++];
 	  all_translates.push (w);
 	  j++;
 	}
@@ -257,7 +249,6 @@ Align_interface::set_axis (Grob *me, Axis a)
     }
 
   ga->set_ordered (true);
-  
 }
 
 /*

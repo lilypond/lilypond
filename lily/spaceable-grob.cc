@@ -31,7 +31,7 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
   //  printf ("rod %lf\n", d);
   if (d < 0)
     return;
-  
+
   if (isinf (d))
     programming_error ("infinite rod");
 
@@ -52,7 +52,7 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
     {
       programming_error ("Adding reverse rod");
     }
-  
+
   mins = scm_cons (scm_cons (p->self_scm (), newdist), mins);
   me->set_object ("minimum-distances", mins);
 }
@@ -113,7 +113,6 @@ Spaceable_grob::get_spring (Grob *me, Grob *other, Real *dist, Real *inv_strengt
 	}
     }
 }
-
 
 void
 Spaceable_grob::remove_interface (Grob *me)

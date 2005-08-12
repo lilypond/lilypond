@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include <map>
@@ -17,7 +16,7 @@ std::map<String, String> file_name_map_global;
 String
 map_file_name (String s)
 {
-  if  (file_name_map_global.find (s) != file_name_map_global.end ())
+  if (file_name_map_global.find (s) != file_name_map_global.end ())
     {
       s = file_name_map_global[s];
     }

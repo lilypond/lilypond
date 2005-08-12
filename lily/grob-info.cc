@@ -14,7 +14,6 @@
 #include "spanner.hh"
 #include "item.hh"
 
-
 Grob_info::Grob_info (Translator *t, Grob *g)
 {
   origin_trans_ = t;
@@ -49,21 +48,20 @@ Grob_info::origin_contexts (Translator *end) const
   return r;
 }
 
-
-Context*
+Context *
 Grob_info::context () const
 {
   return origin_trans_->context ();
 }
 
-Spanner*
+Spanner *
 Grob_info::spanner () const
 {
-  return dynamic_cast<Spanner*> (grob_);
+  return dynamic_cast<Spanner *> (grob_);
 }
 
-Item*
+Item *
 Grob_info::item () const
 {
-  return dynamic_cast<Item*> (grob_);
+  return dynamic_cast<Item *> (grob_);
 }

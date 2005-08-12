@@ -21,5 +21,4 @@ SCM ly_get_option (SCM);
 SCM ly_set_option (SCM, SCM);
 
 
-
 #endif /* SCM_OPTION_HH */

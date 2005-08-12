@@ -36,7 +36,6 @@ int isinf (double x);
 #endif
 #endif
 
-
 #if ! HAVE_MEMRCHR
 unsigned char *memrchr (unsigned char const *p, int n, char c);
 #endif

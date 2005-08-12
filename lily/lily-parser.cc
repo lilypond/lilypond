@@ -116,14 +116,13 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   /*
     Don't mix cyclic pointers with weak tables.
-   */
+  */
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  SCM_EOL);
   ly_reexport_module (scm_current_module ());
-  
 
-    scm_set_current_module (mod);
- 
+  scm_set_current_module (mod);
+
   if (!define_spots_.is_empty ())
     {
       define_spots_.top ().warning (_ ("braces don't match"));
@@ -137,10 +136,10 @@ Lily_parser::parse_file (String init, String name, String out_name)
 void
 Lily_parser::parse_string (String ly_code)
 {
-   // TODO: use $parser 
+  // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
-  
+
   lexer_->main_input_name_ = "<string>";
   lexer_->is_main_input_ = true;
 
@@ -150,7 +149,7 @@ Lily_parser::parse_string (String ly_code)
   SCM mod = lexer_->set_current_scope ();
   do_yyparse ();
   scm_set_current_module (mod);
-  
+
   if (!define_spots_.is_empty ())
     {
       if (define_spots_.is_empty ()
@@ -216,9 +215,9 @@ get_paper (Lily_parser *parser)
 }
 
 SCM
-get_header(Lily_parser *parser)
+get_header (Lily_parser *parser)
 {
-  SCM id = parser->lexer_->lookup_identifier("$defaultheader");
+  SCM id = parser->lexer_->lookup_identifier ("$defaultheader");
   if (!ly_is_module (id))
     id = ly_make_anonymous_module (be_safe_global);
 

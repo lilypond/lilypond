@@ -24,10 +24,10 @@ demangle_classname (std::type_info const &);
    VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
    }; */
 
-#define VIRTUAL_COPY_CONSTRUCTOR(Base, name)			\
-  virtual Base *clone () const					\
-  {								\
-    return new name (*this);     				\
+#define VIRTUAL_COPY_CONSTRUCTOR(Base, name)	\
+  virtual Base *clone () const			\
+  {						\
+    return new name (*this);			\
   }
 
 #endif /* VIRTUAL_METHODS_HH */

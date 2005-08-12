@@ -13,7 +13,7 @@
 
 #include "ly-smobs.icc"
 
-using namespace std; 
+using namespace std;
 
 /*
   Return: number of objects.

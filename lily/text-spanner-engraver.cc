@@ -140,7 +140,7 @@ Text_spanner_engraver::finalize ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER (Text_spanner_engraver,note_column);
+ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
 ADD_TRANSLATOR (Text_spanner_engraver,
 		/* doc */ "Create text spanner from a Music.",
 		/* create */ "TextSpanner",

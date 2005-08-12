@@ -152,7 +152,7 @@ Item::handle_prebroken_dependencies ()
   SCM vis = get_property ("break-visibility");
   if (scm_is_vector (vis))
     {
-      bool visible = to_boolean (scm_vector_ref (vis,  scm_from_int (break_status_dir () + 1)));
+      bool visible = to_boolean (scm_vector_ref (vis, scm_from_int (break_status_dir () + 1)));
 
       if (!visible)
 	suicide ();

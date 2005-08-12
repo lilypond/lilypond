@@ -120,10 +120,10 @@
   private:					\
   void smobify_self ();				\
   SCM self_scm_;				\
-  SCM protection_cons_; \
+  SCM protection_cons_;				\
   public:					\
-  SCM unprotect();\
-  void protect();\
+  SCM unprotect ();				\
+  void protect ();				\
   SCM self_scm () const { return self_scm_; }	\
   private:
 

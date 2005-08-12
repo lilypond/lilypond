@@ -84,9 +84,9 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 
   extract_grob_set (me, "elements", elts);
   for (int i = elts.size ();
-       i-- > 1; )
+       i-- > 1;)
     {
-      Item *r = dynamic_cast<Item*> (elts[i]);
+      Item *r = dynamic_cast<Item *> (elts[i]);
       if (!r)
 	continue;
 

@@ -11,7 +11,6 @@
 #include <math.h>		// ceil.
 #include <algorithm>
 
-
 #include "note-head.hh"
 #include "warn.hh"
 #include "warn.hh"
@@ -268,5 +267,4 @@ ADD_INTERFACE (Side_position_interface, "side-position-interface",
 	       "side-relative-direction "
 	       "side-support-elements "
 	       "slur-padding "
-	       "staff-padding "
-	       );
+	       "staff-padding ");

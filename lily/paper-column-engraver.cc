@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "paper-column-engraver.hh"
@@ -19,7 +18,6 @@
 #include "warn.hh"
 
 #include "translator.icc"
-
 
 Paper_column_engraver::Paper_column_engraver ()
 {
@@ -41,7 +39,7 @@ Paper_column_engraver::finalize ()
     {
       command_column_->set_property ("breakable", SCM_BOOL_T);
       system_->set_bound (RIGHT, command_column_);
-    }  
+    }
 }
 
 void
@@ -53,21 +51,19 @@ Paper_column_engraver::make_columns ()
   Paper_column *p1 = make_paper_column ("NonMusicalPaperColumn");
   Paper_column *p2 = make_paper_column ("PaperColumn");
 
-  SCM m = now_mom().smobbed_copy();
+  SCM m = now_mom ().smobbed_copy ();
   p1->set_property ("when", m);
   p2->set_property ("when", m);
-      
+
   set_columns (p1, p2);
 }
-
 
 void
 Paper_column_engraver::initialize ()
 {
-  system_ = dynamic_cast<System*> (unsmob_grob (get_property ("rootSystem")));
+  system_ = dynamic_cast<System *> (unsmob_grob (get_property ("rootSystem")));
   make_columns ();
 
-  
   system_->set_bound (LEFT, command_column_);
   command_column_->set_property ("breakable", SCM_BOOL_T);
 }
@@ -113,14 +109,12 @@ Paper_column_engraver::set_columns (Paper_column *new_command,
   system_->add_column (musical_column_);
 }
 
-
 void
 Paper_column_engraver::forbid_breaks ()
 {
   if (command_column_ && !first_)
     command_column_->set_property ("breakable", SCM_EOL);
 }
-
 
 bool
 Paper_column_engraver::try_music (Music *m)
@@ -157,7 +151,6 @@ Paper_column_engraver::process_music ()
       command_column_->set_property ("page-penalty", scm_from_double (total_pp));
     }
 
-
   bool start_of_measure = (last_moment_.main_part_ != now_mom ().main_part_
 			   && !measure_position (context ()).main_part_);
 
@@ -168,11 +161,11 @@ Paper_column_engraver::process_music ()
   if (start_of_measure)
     {
       Moment mlen = Moment (measure_length (context ()));
-      Grob * column = unsmob_grob (get_property ("currentCommandColumn"));
+      Grob *column = unsmob_grob (get_property ("currentCommandColumn"));
       if (column)
 	column->set_property ("measure-length", mlen.smobbed_copy ());
       else
-	programming_error("No command column?");
+	programming_error ("No command column?");
     }
 }
 
@@ -190,7 +183,7 @@ Paper_column_engraver::stop_translation_timestep ()
 	}
     }
   items_.clear ();
-  
+
   if (to_boolean (command_column_->get_property ("breakable")))
     {
       breaks_++;
@@ -212,10 +205,9 @@ Paper_column_engraver::start_translation_timestep ()
     make_columns ();
 }
 
-ADD_ACKNOWLEDGER (Paper_column_engraver,item);
-ADD_ACKNOWLEDGER (Paper_column_engraver,note_spacing);
-ADD_ACKNOWLEDGER (Paper_column_engraver,staff_spacing);
-
+ADD_ACKNOWLEDGER (Paper_column_engraver, item);
+ADD_ACKNOWLEDGER (Paper_column_engraver, note_spacing);
+ADD_ACKNOWLEDGER (Paper_column_engraver, staff_spacing);
 
 ADD_TRANSLATOR (Paper_column_engraver,
 		/* doc */ "Takes care of generating columns."

@@ -31,7 +31,7 @@ private:
   SCM context_aliases_;
   SCM translator_group_type_;
   SCM default_child_;
-  
+
 public:
   void add_context_mod (SCM);
   SCM get_default_child (SCM user_mods) const;

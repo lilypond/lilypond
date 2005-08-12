@@ -1,5 +1,7 @@
 2005-08-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Remove obsolete files.  Nitpick run.
+
 	* lily/lily-guile.cc (parse_symbol_list): Bugfix.
 
 2005-08-11  Jan Nieuwenhuizen  <janneke@gnu.org>

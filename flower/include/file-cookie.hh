@@ -2,14 +2,13 @@
 extern "C" {
 #endif
 
-
 #include <stdio.h>
 #include <unistd.h>
 
 #if (! defined (__off64_t) && ! defined (__off64_t_defined)) || ! defined (__cplusplus)
 #define off64_t unsigned long long
 #endif
- 
+
   typedef struct
   {
     ssize_t (*read) (void *, char *, size_t);
@@ -17,7 +16,6 @@ extern "C" {
     int (*seek) (void *, off64_t *, int);
     int (*close) (void *);
   } lily_cookie_io_functions_t;
-
 
   void *lily_fopencookie (void *cookie, char const *modes,
 			  lily_cookie_io_functions_t io_funcs);

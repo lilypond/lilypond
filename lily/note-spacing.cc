@@ -20,7 +20,6 @@
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 
-
 /*
   TODO: detect hshifts due to collisions, and account for them in
   spacing?
@@ -45,10 +44,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	  Item *it = dynamic_cast<Item *> (items[i]);
 
 	  if (d == RIGHT && it->break_status_dir () != col_dir)
-	    {
-	      it = it->find_prebroken_piece (col_dir);
-	    }
-	  
+	    it = it->find_prebroken_piece (col_dir);
+
 	  /*
 	    some kind of mismatch, eg. a note column, that is behind a
 	    linebreak.
@@ -96,11 +93,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 		  extents[d].unite (v);
 		}
 
-
 	      if (Grob *arpeggio = Note_column::arpeggio (it))
-		{
-		  extents[d].unite (arpeggio->extent (it_col, X_AXIS));
-		}
+		extents[d].unite (arpeggio->extent (it_col, X_AXIS));
 	    }
 	}
 
@@ -139,10 +133,9 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
 	  /*
 	    Add that which sticks out a lot.
-	   */
+	  */
 	  + max (0.0, -extents[RIGHT][LEFT] - (base_space - increment))));
 
-	
 
   /*
     We don't do complicated stuff: (base_space - increment) is the
@@ -195,11 +188,11 @@ Note_spacing::right_column (Grob *me)
   if (!me->is_live ())
     return 0;
 
-  Grob_array * a = unsmob_grob_array (me->get_object ("right-items"));
+  Grob_array *a = unsmob_grob_array (me->get_object ("right-items"));
   Item *mincol = 0;
   int min_rank = INT_MAX;
   bool prune = false;
-  for (int i = 0; a && i <  a->size (); i++) 
+  for (int i = 0; a && i < a->size (); i++)
     {
       Item *ri = a->item (i);
       Item *col = ri->get_column ();
@@ -218,10 +211,10 @@ Note_spacing::right_column (Grob *me)
 
   if (prune && a)
     {
-      Link_array<Grob> & right = a->array_reference ();
-      for (int i = right.size(); i--;)  
+      Link_array<Grob> &right = a->array_reference ();
+      for (int i = right.size (); i--;)
 	{
-	  if (dynamic_cast<Item*> (right[i])->get_column () != mincol)
+	  if (dynamic_cast<Item *> (right[i])->get_column () != mincol)
 	    right.del (i);
 	}
     }
@@ -267,7 +260,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   do
     {
       Link_array<Grob> const &items (ly_scm2link_array (props [d]));
-      for (int i = 0; i < items.size(); i++)
+      for (int i = 0; i < items.size (); i++)
 	{
 	  Item *it = dynamic_cast<Item *> (items[i]);
 
@@ -281,9 +274,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	      if (d == RIGHT && Separation_item::has_interface (it))
 		{
 		  if (it->get_column () != rcolumn)
-		    {
-		      it = it->find_prebroken_piece (rcolumn->break_status_dir ());
-		    }
+		    it = it->find_prebroken_piece (rcolumn->break_status_dir ());
 
 		  Grob *last = Separation_item::extremal_break_aligned_grob (it, LEFT, &bar_xextent);
 
@@ -319,9 +310,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  */
 	  if (d == LEFT
 	      && Stem::duration_log (stem) > 2 && !Stem::get_beam (stem))
-	    {
-	      correct_stem_dirs = false;
-	    }
+	    correct_stem_dirs = false;
 
 	  Interval hp = Stem::head_positions (stem);
 	  if (!hp.is_empty ())
@@ -329,7 +318,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	      Real chord_start = hp[sd];
 	      Real stem_end = Stem::stem_end_position (stem);
 
-	      stem_posns[d] = Interval (min (chord_start, stem_end), max (chord_start,  stem_end));
+	      stem_posns[d] = Interval (min (chord_start, stem_end), max (chord_start, stem_end));
 	      head_posns[d].unite (hp);
 	    }
 	}
@@ -402,9 +391,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	    }
 
 	  if (!bar_yextent.is_empty ())
-	    {
-	      correction *= 0.5;
-	    }
+	    correction *= 0.5;
 	}
     }
   else if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == UP)
@@ -438,7 +425,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 
       Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
       Real corr = robust_scm2double (me->get_property ("same-direction-correction"), 0);
-      
+
       if (delta > 1)
 	correction = -lowest * corr;
     }

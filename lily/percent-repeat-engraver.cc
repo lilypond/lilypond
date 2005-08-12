@@ -91,9 +91,7 @@ Percent_repeat_engraver::try_music (Music *m)
       if (meas_len == body_length_)
 	repeat_sign_type_ = MEASURE;
       else if (Moment (2) * meas_len == body_length_)
-	{
-	  repeat_sign_type_ = DOUBLE_MEASURE;
-	}
+	repeat_sign_type_ = DOUBLE_MEASURE;
       else
 	{
 	  warning (_f ("can't handle a percent repeat of length: %s",
@@ -116,7 +114,7 @@ Percent_repeat_engraver::try_music (Music *m)
 
       if (repeat_sign_type_ == DOUBLE_MEASURE)
 	next_moment_ += meas_len;
-      
+
       return true;
     }
 
@@ -139,7 +137,7 @@ Percent_repeat_engraver::process_music ()
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
 	{
 	  double_percent_ = make_item ("DoublePercentRepeat", repeat_->self_scm ());
-	  
+
 	  /*
 	    forbid breaks on a % line. Should forbid all breaks, really.
 

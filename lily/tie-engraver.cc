@@ -152,14 +152,10 @@ Tie_engraver::stop_translation_timestep ()
   if (ties_.size ())
     {
       if (!to_boolean (get_property ("tieWaitForNote")))
-	{
-	  heads_to_tie_.clear ();
-	}
+	heads_to_tie_.clear ();
 
       for (int i = 0; i < ties_.size (); i++)
-	{
-	  typeset_tie (ties_[i]);
-	}
+	typeset_tie (ties_[i]);
 
       ties_.clear ();
       tie_column_ = 0;

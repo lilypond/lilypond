@@ -28,7 +28,6 @@ protected:
   virtual void prepare (Moment);
   virtual void one_time_step ();
 
-  
   /* Engraver_group_engraver interface */
   virtual bool try_music (Music *);
   virtual void initialize ();
@@ -38,7 +37,7 @@ protected:
 
   /*
     Translator interface
-   */
+  */
   virtual void derived_mark () const;
 
 public:

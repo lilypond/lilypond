@@ -108,7 +108,6 @@ Repeat_acknowledge_engraver::process_music ()
     }
 }
 
-
 ADD_TRANSLATOR (Repeat_acknowledge_engraver,
 		/* doc */ "Acknowledge repeated music, and convert the contents of "
 		"repeatCommands ainto an appropriate setting for whichBar.",

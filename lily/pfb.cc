@@ -93,10 +93,9 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
   delete str;
   if (be_verbose_global)
     progress_indication ("]");
-  
+
   return pfa_scm;
 }
-
 
 
 LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
@@ -114,12 +113,12 @@ LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
   FT_Face face = open_ft_face (file_name);
   String table = get_otf_table (face, "CFF ");
 
-  SCM asscm = scm_from_locale_stringn ((char*) table.get_bytes (),
+  SCM asscm = scm_from_locale_stringn ((char *) table.get_bytes (),
 				       table.length ());
 
   if (be_verbose_global)
     progress_indication ("]");
-  
+
   return asscm;
-}	   
- 
+}
+

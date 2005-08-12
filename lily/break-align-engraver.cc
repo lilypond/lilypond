@@ -28,7 +28,6 @@ protected:
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
   DECLARE_ACKNOWLEDGER (break_aligned);
-
 };
 
 void
@@ -79,12 +78,12 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
 
 	  Context *origin = inf.origin_contexts (this)[0];
 
-	  Translator_group *tg = origin ->implementation ();
-	  Engraver *random_source =  dynamic_cast<Engraver*> (unsmob_translator (scm_car (tg->get_simple_trans_list ())));
+	  Translator_group *tg = origin->implementation ();
+	  Engraver *random_source = dynamic_cast<Engraver *> (unsmob_translator (scm_car (tg->get_simple_trans_list ())));
 
 	  /*
 	    Make left edge appear to come from same context as clef/bar-line etc.
-	   */
+	  */
 	  left_edge_ = make_item_from_properties (random_source,
 						  ly_symbol2scm ("LeftEdge"),
 						  SCM_EOL,

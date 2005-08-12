@@ -17,7 +17,6 @@
 void init_freetype ();
 extern FT_Library freetype2_library;
 
-
 FT_Face open_ft_face (String str);
 
 #endif /* FREETYPE_HH */

@@ -159,9 +159,7 @@ shift_one (Dot_configuration const &cfg,
 	  else
 	    {
 	      if (new_cfg.find (p) == new_cfg.end ())
-		{
-		  offset = 0;
-		}
+		offset = 0;
 	      new_cfg[p + offset] = i->second;
 	    }
 	}
@@ -188,9 +186,7 @@ shift_one (Dot_configuration const &cfg,
 	  else
 	    {
 	      if (new_cfg.find (p) == new_cfg.end ())
-		{
-		  offset = 0;
-		}
+		offset = 0;
 
 	      new_cfg[p + offset] = i->second;
 	    }

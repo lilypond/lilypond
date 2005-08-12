@@ -249,19 +249,17 @@ Slur_score_state::get_bound_info () const
 		    do not issue warning. This happens for rests and
 		    whole notes.
 		  */
-		  s = Interval (0,0)
+		  s = Interval (0, 0)
 		    + extremes[d].stem_->relative_coordinate (common_[ax], ax);
 		}
-	      extremes[d].stem_extent_[ax] = s; 
+	      extremes[d].stem_extent_[ax] = s;
 	    }
-	  
+
 	  extremes[d].slur_head_
 	    = Stem::extremal_heads (extremes[d].stem_)[dir];
 	  if (!extremes[d].slur_head_
 	      && Note_column::has_rests (extremes[d].bound_))
-	    {
-	      extremes[d].slur_head_ = Note_column::get_rest (extremes[d].bound_);
-	    }
+	    extremes[d].slur_head_ = Note_column::get_rest (extremes[d].bound_);
 
 	  if (extremes[d].slur_head_)
 	    extremes[d].slur_head_extent_
@@ -416,9 +414,7 @@ Slur_score_state::get_best_curve ()
 #endif
     {
       for (int i = 0; i < configurations_.size (); i++)
-	{
-	  configurations_[i]->score (*this);
-	}
+	configurations_[i]->score (*this);
       for (int i = 0; i < configurations_.size (); i++)
 	{
 	  if (configurations_[i]->score_ < opt)
@@ -554,13 +550,9 @@ Slur_score_state::get_base_attachments () const
 	{
 	  Real x, y;
 	  if (d == RIGHT)
-	    {
-	      x = extremes_[d].bound_->extent (common_[X_AXIS], X_AXIS)[d];
-	    }
+	    x = extremes_[d].bound_->extent (common_[X_AXIS], X_AXIS)[d];
 	  else
-	    {
-	      x = slur_->get_broken_left_end_align ();
-	    }
+	    x = slur_->get_broken_left_end_align ();
 	  Grob *col = (d == LEFT) ? columns_[0] : columns_.top ();
 
 	  if (extremes_[-d].bound_ != col)
@@ -583,7 +575,6 @@ Slur_score_state::get_base_attachments () const
     }
   while (flip (&d) != LEFT);
 
-
   do
     {
       for (int a = X_AXIS; a < NO_AXES; a++)
@@ -595,12 +586,10 @@ Slur_score_state::get_base_attachments () const
 	      programming_error ("slur attachment is inf/nan");
 	      b = 0.0;
 	    }
-	    
 	}
     }
   while (flip (&d) != LEFT);
-  
-  
+
   return base_attachment;
 }
 
@@ -608,13 +597,13 @@ Real
 Slur_score_state::move_away_from_staffline (Real y,
 					    Grob *on_staff) const
 {
-  Grob * staff_symbol = Staff_symbol_referencer::get_staff_symbol (on_staff);
+  Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (on_staff);
   if (!staff_symbol)
     return y;
-  
+
   Real pos
     = (y - staff_symbol->relative_coordinate (common_[Y_AXIS],
-										      Y_AXIS))
+					      Y_AXIS))
     * 2.0 / staff_space_;
 
   if (fabs (pos - my_round (pos)) < 0.2
@@ -624,7 +613,6 @@ Slur_score_state::move_away_from_staffline (Real y,
 
   return y;
 }
-
 
 
 Array<Offset>
@@ -644,7 +632,7 @@ Slur_score_state::generate_avoid_offsets () const
 
       avoid.push (Offset (inf.x_, y + dir_ * parameters_.free_head_distance_));
     }
-  
+
   extract_grob_set (slur_, "encompass-objects", extra_encompasses);
   for (int i = 0; i < extra_encompasses.size (); i++)
     if (Slur::has_interface (extra_encompasses[i]))
@@ -669,7 +657,7 @@ Slur_score_state::generate_curves () const
   Real r_0 = robust_scm2double (slur_->get_property ("ratio"), 0.33);
   Real h_inf = staff_space_ * scm_to_double (slur_->get_property ("height-limit"));
 
-  Array<Offset> avoid = generate_avoid_offsets (); 
+  Array<Offset> avoid = generate_avoid_offsets ();
   for (int i = 0; i < configurations_.size (); i++)
     configurations_[i]->generate_curve (*this, r_0, h_inf, avoid);
 }

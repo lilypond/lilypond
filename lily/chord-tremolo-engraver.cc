@@ -158,9 +158,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 	}
 
       if (info.music_cause ()->is_mus_type ("rhythmic-event"))
-	{
-	  Beam::add_stem (beam_, s);
-	}
+	Beam::add_stem (beam_, s);
       else
 	{
 	  String s = _ ("stem must have Rhythmic structure");
@@ -178,7 +176,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
       stem_tremolo_->set_property ("flag-count",
 				   scm_from_int (flags_));
       stem_tremolo_->set_object ("stem",
-				   info.grob ()->self_scm ());
+				 info.grob ()->self_scm ());
       stem_tremolo_->set_parent (info.grob (), X_AXIS);
     }
 }
@@ -208,8 +206,7 @@ Chord_tremolo_engraver::stop_translation_timestep ()
   typeset_beam ();
 }
 
-
-ADD_ACKNOWLEDGER (Chord_tremolo_engraver,stem);
+ADD_ACKNOWLEDGER (Chord_tremolo_engraver, stem);
 ADD_TRANSLATOR (Chord_tremolo_engraver,
 		/* doc */ "Generates beams for  tremolo repeats.",
 		/* create */ "Beam",

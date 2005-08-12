@@ -357,16 +357,12 @@ Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
     {
       Item *current = dynamic_cast<Item *> (primitives[i].grob ());
       if (i == 0)
-	{
-	  first = current;
-	}
+	first = current;
 
       get_set_column (current, first->get_column ());
 
       if (i > 0)
-	{
-	  current->translate_axis (distance, X_AXIS);
-	}
+	current->translate_axis (distance, X_AXIS);
 
       distance
 	+= scm_to_double (current->get_property ("head-width"))

@@ -84,7 +84,7 @@ Note_heads_engraver::process_music ()
 	  ev->origin ()->warning (_ ("NoteEvent without pitch"));
 	}
 #endif
-      
+
       int pos = pit ? pit->steps () : 0;
       SCM c0 = get_property ("middleCPosition");
       if (scm_is_number (c0))
@@ -108,9 +108,7 @@ Note_heads_engraver::process_music ()
 	  SCM style = SCM_EOL;
 	  if (scm_c_vector_length (shape_vector) > delta
 	      && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
-	    {
-	      style = scm_vector_ref (shape_vector, scm_from_int (delta));
-	    }
+	    style = scm_vector_ref (shape_vector, scm_from_int (delta));
 	  if (scm_is_symbol (style))
 	    {
 	      note->set_property ("style", style);

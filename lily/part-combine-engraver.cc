@@ -22,7 +22,7 @@ class Part_combine_engraver : public Engraver
 protected:
   DECLARE_ACKNOWLEDGER (note_head);
   DECLARE_ACKNOWLEDGER (stem);
-  
+
   void process_music ();
   void stop_translation_timestep ();
   virtual bool try_music (Music *);
@@ -84,7 +84,7 @@ void
 Part_combine_engraver::acknowledge_stem (Grob_info i)
 {
   if (text_)
-      Side_position_interface::add_support (text_, i.grob ());
+    Side_position_interface::add_support (text_, i.grob ());
 }
 
 void

@@ -115,9 +115,7 @@ completize_extender (Spanner *sp)
     {
       extract_item_set (sp, "heads", heads);
       if (heads.size ())
-	{
-	  sp->set_bound (RIGHT, heads.top());
-	}
+	sp->set_bound (RIGHT, heads.top ());
     }
 }
 
@@ -145,7 +143,7 @@ Extender_engraver::finalize ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Extender_engraver,lyric_syllable);
+ADD_ACKNOWLEDGER (Extender_engraver, lyric_syllable);
 ADD_TRANSLATOR (Extender_engraver,
 		/* doc */ "Create lyric extenders",
 		/* create */ "LyricExtender",

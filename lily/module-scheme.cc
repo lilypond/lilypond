@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "lily-guile.hh"
@@ -41,19 +40,17 @@ LY_DEFINE (ly_module_copy, "ly:module-copy",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE(ly_clear_anonymous_modules, "ly:clear-anonymous-modules",
-	  0, 0, 0, (),
-	  "Plug a GUILE 1.6 and 1.7 memory leak by breaking a weak reference "
-	  "pointer cycle explicitly."
-	  )
+LY_DEFINE (ly_clear_anonymous_modules, "ly:clear-anonymous-modules",
+	   0, 0, 0, (),
+	   "Plug a GUILE 1.6 and 1.7 memory leak by breaking a weak reference "
+	   "pointer cycle explicitly.")
 {
 #ifdef MODULE_GC_KLUDGE
-  clear_anonymous_modules();
+  clear_anonymous_modules ();
 #endif
 
   return SCM_UNSPECIFIED;
 }
-
 
 /* Lookup SYM, but don't give error when it is not defined.  */
 SCM

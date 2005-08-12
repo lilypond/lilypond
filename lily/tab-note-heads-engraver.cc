@@ -20,7 +20,6 @@
 #include "warn.hh"
 #include "duration.hh"
 
-
 /**
    make (guitar-like) tablature note
 */

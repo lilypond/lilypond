@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef TRANSLATOR_DISPATCH_LIST_HH
@@ -29,7 +28,7 @@ public:
   SCM static create (SCM trans_list,
 		     SCM iface_list);
 
-  DECLARE_SIMPLE_SMOBS(Engraver_dispatch_list,);
+  DECLARE_SIMPLE_SMOBS (Engraver_dispatch_list,);
 };
 
 #endif /* TRANSLATOR_DISPATCH_LIST_HH */

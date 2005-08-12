@@ -121,9 +121,9 @@ select_encoded_font (Output_def *layout, SCM chain)
 #endif
     if (scm_is_string (name))
       {
-	Real rmag =
-	  robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-magnification"), chain, SCM_BOOL_F),
-			     1.0);
+	Real rmag
+	  = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-magnification"), chain, SCM_BOOL_F),
+			       1.0);
 	Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
 
 	return find_scaled_font (layout, fm, rmag);
@@ -135,7 +135,7 @@ select_encoded_font (Output_def *layout, SCM chain)
 
 	Real req = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
 				      0.0);
-	
+
 	return get_font_by_mag_step (layout, req, vec,
 				     scm_to_double (base_size));
       }

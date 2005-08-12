@@ -253,7 +253,7 @@ Spanner::find_broken_piece (System *l) const
 int
 Spanner::compare (Spanner *const &p1, Spanner *const &p2)
 {
-  return p1->get_system ()->get_rank() - p2->get_system ()->get_rank();
+  return p1->get_system ()->get_rank () - p2->get_system ()->get_rank ();
 }
 
 bool

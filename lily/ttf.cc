@@ -1,10 +1,9 @@
 /*
-  ttf.cc --  implement ttf -> pfa routine. 
+  ttf.cc --  implement ttf -> pfa routine.
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "freetype.hh"
@@ -17,43 +16,42 @@
 #include "lily-guile.hh"
 #include "main.hh"
 
-
 /*
   Based on ttfps by Juliusz Chroboczek
- */
+*/
 static void
 print_header (void *out, FT_Face face)
 {
   lily_cookie_fprintf (out, "%%!PS-TrueTypeFont\n");
 
-  TT_Postscript *pt =
-    (TT_Postscript*) FT_Get_Sfnt_Table(face, ft_sfnt_post);
+  TT_Postscript *pt
+    = (TT_Postscript *) FT_Get_Sfnt_Table (face, ft_sfnt_post);
 
   if (pt->maxMemType42)
     lily_cookie_fprintf (out, "%%%%VMUsage: %ld %ld\n", 0, 0);
-  
+
   lily_cookie_fprintf (out, "%d dict begin\n", 11);
   lily_cookie_fprintf (out, "/FontName /%s def\n",
-	   FT_Get_Postscript_Name (face));
+		       FT_Get_Postscript_Name (face));
 
   lily_cookie_fprintf (out, "/Encoding StandardEncoding def\n");
   lily_cookie_fprintf (out, "/PaintType 0 def\n");
   lily_cookie_fprintf (out, "/FontMatrix [1 0 0 1 0 0] def\n");
 
-  TT_Header *ht =
-    (TT_Header*)FT_Get_Sfnt_Table(face, ft_sfnt_head);
-  
+  TT_Header *ht
+    = (TT_Header *)FT_Get_Sfnt_Table (face, ft_sfnt_head);
+
   lily_cookie_fprintf (out, "/FontBBox [%ld %ld %ld %ld] def\n",
-	   ht->xMin * 1000L / ht->Units_Per_EM,
-	   ht->yMin * 1000L / ht->Units_Per_EM,
-	   ht->xMax * 1000L / ht->Units_Per_EM,
-	   ht->yMax * 1000L / ht->Units_Per_EM);
-  
+		       ht->xMin *1000L / ht->Units_Per_EM,
+		       ht->yMin *1000L / ht->Units_Per_EM,
+		       ht->xMax *1000L / ht->Units_Per_EM,
+		       ht->yMax *1000L / ht->Units_Per_EM);
+
   lily_cookie_fprintf (out, "/FontType 42 def\n");
   lily_cookie_fprintf (out, "/FontInfo 8 dict dup begin\n");
   lily_cookie_fprintf (out, "/version (%d.%d) def\n",
 		       (ht->Font_Revision >> 16),
-		       (ht->Font_Revision & ((1 << 16) -1)));
+		       (ht->Font_Revision &((1 << 16) -1)));
 
 #if 0
   if (strings[0])
@@ -75,16 +73,15 @@ print_header (void *out, FT_Face face)
       lily_cookie_fprintf (out, ") def\n");
     }
 #endif
-  
+
   lily_cookie_fprintf (out, "/isFixedPitch %s def\n",
-	   pt->isFixedPitch ? "true" : "false");
+		       pt->isFixedPitch ? "true" : "false");
   lily_cookie_fprintf (out, "/UnderlinePosition %ld def\n",
-	   pt->underlinePosition * 1000L / ht->Units_Per_EM);
+		       pt->underlinePosition *1000L / ht->Units_Per_EM);
   lily_cookie_fprintf (out, "/UnderlineThickness %ld def\n",
-	   pt->underlineThickness * 1000L / ht->Units_Per_EM);
+		       pt->underlineThickness *1000L / ht->Units_Per_EM);
   lily_cookie_fprintf (out, "end readonly def\n");
 }
-
 
 
 #define CHUNKSIZE 65534
@@ -93,7 +90,7 @@ static void
 print_body (void *out, String name)
 {
   FILE *fd = fopen (name.to_str0 (), "rb");
-  
+
   static char xdigits[] = "0123456789ABCDEF";
 
   unsigned char *buffer;
@@ -112,7 +109,7 @@ print_body (void *out, String name)
 	  if (j != 0 && j % 36 == 0)
 	    lily_cookie_putc ('\n', out);
 	  /* lily_cookie_fprintf (out,"%02X",(int)buffer[j]) is too slow */
-	  lily_cookie_putc (xdigits[(buffer[j] & 0xF0) >> 4], out);
+	  lily_cookie_putc (xdigits[ (buffer[j] & 0xF0) >> 4], out);
 	  lily_cookie_putc (xdigits[buffer[j] & 0x0F], out);
 	}
       lily_cookie_fprintf (out, "00>");	/* Adobe bug? */
@@ -131,9 +128,9 @@ print_trailer (void *out,
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
 
-  TT_MaxProfile * mp = 
-    (TT_MaxProfile *)FT_Get_Sfnt_Table(face, ft_sfnt_maxp);
-  
+  TT_MaxProfile *mp
+    = (TT_MaxProfile *)FT_Get_Sfnt_Table (face, ft_sfnt_maxp);
+
   lily_cookie_fprintf (out, "/CharStrings %d dict dup begin\n", mp->numGlyphs);
   for (int i = 0; i < mp->numGlyphs; i++)
     {
@@ -144,7 +141,7 @@ print_trailer (void *out,
       else
 	lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
 
-      if (!(i % 5))
+      if (! (i % 5))
 	lily_cookie_fprintf (out, "\n");
     }
   lily_cookie_fprintf (out, "end readonly def\n");
@@ -155,12 +152,11 @@ static void
 create_type42_font (void *out, String name)
 {
   FT_Face face = open_ft_face (name);
-  
+
   print_header (out, face);
   print_body (out, name);
   print_trailer (out, face);
 }
-
 
 LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
 	   1, 0, 0, (SCM ttf_file_name),
@@ -173,7 +169,7 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
   String file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)
     progress_indication ("[" + file_name);
-  
+
   Memory_out_stream stream;
 
   create_type42_font (&stream, file_name);
@@ -182,6 +178,6 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
 
   if (be_verbose_global)
     progress_indication ("]");
-  
+
   return asscm;
 }

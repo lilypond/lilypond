@@ -28,5 +28,4 @@ public:
   Rational measure_length () const;
 };
 
-
 #endif // TIMING_TRANSLATOR_HH

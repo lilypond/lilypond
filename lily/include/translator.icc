@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #ifndef TRANSLATOR_ICC
@@ -30,15 +29,15 @@
   }									\
   ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
-#define ADD_TRANSLATOR(classname, desc, grobs, accepted, read, write) \
-  Array<Acknowledge_information> classname::acknowledge_static_array_;\
-  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(classname); \
+#define ADD_TRANSLATOR(classname, desc, grobs, accepted, read, write)	\
+  Array<Acknowledge_information> classname::acknowledge_static_array_;	\
+  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);			\
   ADD_THIS_TRANSLATOR (classname);					\
-  Engraver_void_function_engraver_grob_info\
+  Engraver_void_function_engraver_grob_info				\
   classname::static_get_acknowledger (SCM sym)				\
-  {\
-    return generic_get_acknowledger (sym, &acknowledge_static_array_);\
-  }\
+  {									\
+    return generic_get_acknowledger (sym, &acknowledge_static_array_);	\
+  }									\
   SCM									\
   classname::static_translator_description () const			\
   {									\
@@ -64,31 +63,31 @@
     return static_properties;						\
   }
 
-#define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T) \
-void \
-T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])\
-{									\
-  ptrs[START_TRANSLATION_TIMESTEP] =					\
-    ((Translator_void_method_ptr) &T::start_translation_timestep == \
-     (Translator_void_method_ptr) &Translator::start_translation_timestep)	\
-    ? 0									\
-    : (Translator_void_method_ptr) &T::start_translation_timestep;	\
+#define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)			\
+  void									\
+  T::fetch_precomputable_methods (Translator_void_method_ptr ptrs[])	\
+  {									\
+    ptrs[START_TRANSLATION_TIMESTEP] =					\
+      ((Translator_void_method_ptr) & T::start_translation_timestep ==	\
+       (Translator_void_method_ptr) & Translator::start_translation_timestep) \
+      ? 0								\
+      : (Translator_void_method_ptr) & T::start_translation_timestep;	\
 									\
-  ptrs[STOP_TRANSLATION_TIMESTEP] =					\
-    ((Translator_void_method_ptr) &T::stop_translation_timestep == (Translator_void_method_ptr) &Translator::stop_translation_timestep) \
-    ? 0									\
-    : (Translator_void_method_ptr) &T::stop_translation_timestep;	\
+    ptrs[STOP_TRANSLATION_TIMESTEP] =					\
+      ((Translator_void_method_ptr) & T::stop_translation_timestep == (Translator_void_method_ptr) & Translator::stop_translation_timestep) \
+      ? 0								\
+      : (Translator_void_method_ptr) & T::stop_translation_timestep;	\
 									\
-  ptrs[PROCESS_MUSIC] =							\
-    ((Translator_void_method_ptr) &T::process_music == (Translator_void_method_ptr) &Translator::process_music)			\
-    ? 0									\
-    : (Translator_void_method_ptr) &T::process_music;		\
+    ptrs[PROCESS_MUSIC] =						\
+      ((Translator_void_method_ptr) & T::process_music == (Translator_void_method_ptr) & Translator::process_music) \
+      ? 0								\
+      : (Translator_void_method_ptr) & T::process_music;		\
 									\
-  ptrs[PROCESS_ACKNOWLEDGED] =						\
-    ((Translator_void_method_ptr) &T::process_acknowledged == (Translator_void_method_ptr) &Translator::process_acknowledged)	\
-    ? 0									\
-    : (Translator_void_method_ptr) &T::process_acknowledged;		\
-}
+    ptrs[PROCESS_ACKNOWLEDGED] =					\
+      ((Translator_void_method_ptr) & T::process_acknowledged == (Translator_void_method_ptr) & Translator::process_acknowledged) \
+      ? 0								\
+      : (Translator_void_method_ptr) & T::process_acknowledged;		\
+  }
 
 void add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
 		       char const *func_name,
@@ -98,13 +97,12 @@ Engraver_void_function_engraver_grob_info
 generic_get_acknowledger (SCM sym,
 			  Array<Acknowledge_information> const *ack_array);
 
-#define ADD_ACKNOWLEDGER(CLASS,NAME)		\
-void CLASS ## NAME ## _ack_adder () \
-{\
-  add_acknowledger ((Engraver_void_function_engraver_grob_info) &CLASS::acknowledge_ ## NAME, #NAME, &CLASS::acknowledge_static_array_);\
-}\
-  ADD_SCM_INIT_FUNC(CLASS ## NAME ## _ack_adder_initclass, CLASS ## NAME ## _ack_adder); \
-
+#define ADD_ACKNOWLEDGER(CLASS, NAME)					\
+  void CLASS ## NAME ## _ack_adder ()					\
+  {									\
+    add_acknowledger ((Engraver_void_function_engraver_grob_info) & CLASS::acknowledge_ ## NAME, #NAME, &CLASS::acknowledge_static_array_); \
+  }									\
+  ADD_SCM_INIT_FUNC (CLASS ## NAME ## _ack_adder_initclass, CLASS ## NAME ## _ack_adder);
 
 
 

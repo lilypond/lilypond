@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "font-metric.hh"
@@ -22,7 +21,7 @@ LY_DEFINE (ly_layout_lookup, "ly:output-def-lookup",
   Output_def *op = unsmob_output_def (pap);
   SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Output_def");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
-  
+
   SCM answer = op->lookup_variable (sym);
   if (answer == SCM_UNDEFINED)
     {
@@ -60,7 +59,7 @@ LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
   Output_def *op = unsmob_output_def (def);
   SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
 
-  Output_def *clone =  op->clone ();
+  Output_def *clone = op->clone ();
   return clone->unprotect ();
 }
 
@@ -69,18 +68,18 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 	   "Return the description of translators in @var{output-def}.")
 {
   Output_def *id = unsmob_output_def (output_def);
-  
+
   SCM al = ly_module2alist (id->scope_);
 
   SCM ell = SCM_EOL;
   for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
     {
-      Context_def * td = unsmob_context_def (scm_cdar (s));
+      Context_def *td = unsmob_context_def (scm_cdar (s));
       SCM key = scm_caar (s);
       if (td && key == td->get_context_name ())
-	ell = scm_cons (scm_cons (key, td->to_alist ()),  ell);
+	ell = scm_cons (scm_cons (key, td->to_alist ()), ell);
     }
-  return ell;  
+  return ell;
 }
 
 LY_DEFINE (ly_layout_def_p, "ly:layout-def?",
@@ -91,8 +90,8 @@ LY_DEFINE (ly_layout_def_p, "ly:layout-def?",
 }
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
-	  1, 0, 0, (SCM bp),
-	  "Get outputscale for BP.")
+	   1, 0, 0, (SCM bp),
+	   "Get outputscale for BP.")
 {
   Output_def *b = unsmob_output_def (bp);
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
@@ -103,7 +102,7 @@ LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 	   0, 0, 0, (),
 	   "Make a output def.")
 {
-  Output_def *bp = new Output_def ;
+  Output_def *bp = new Output_def;
   return bp->unprotect ();
 }
 
@@ -118,7 +117,7 @@ LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
   Output_def *paper = unsmob_output_def (paper_smob);
   SCM_ASSERT_TYPE (paper, paper_smob, SCM_ARG1,
 		   __FUNCTION__, "paper definition");
-  
+
   Font_metric *fm = select_font (paper, chain);
   return fm->self_scm ();
 }
@@ -140,7 +139,6 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
 {
   Output_def *b = unsmob_output_def (bp);
 
-  
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
 
   SCM tab1 = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
@@ -150,7 +148,7 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
   if (scm_hash_table_p (tab1) == SCM_BOOL_T)
     {
       alist1 = scm_append (ly_alist_vals (ly_hash2alist (tab1)));
-      
+
       alist1 = ly_alist_vals (alist1);
     }
 
@@ -161,7 +159,7 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
       alist2 = scm_append (ly_alist_vals (ly_hash2alist (tab2)));
 
       // strip size factors
-      alist2 = ly_alist_vals (alist2); 
+      alist2 = ly_alist_vals (alist2);
     }
 
   SCM alist = scm_append (scm_list_2 (alist1, alist2));
@@ -169,13 +167,13 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
-      
+
       Font_metric *fm = unsmob_metrics (entry);
 
-      if (dynamic_cast<Modified_font_metric*> (fm)
-	  || dynamic_cast<Pango_font*> (fm))
+      if (dynamic_cast<Modified_font_metric *> (fm)
+	  || dynamic_cast<Pango_font *> (fm))
 	font_list = scm_cons (fm->self_scm (), font_list);
     }
-  
+
   return font_list;
 }

@@ -6,7 +6,6 @@
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-
 #include "system.hh"
 #include "paper-column.hh"
 #include "column-x-positions.hh"
@@ -24,7 +23,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 {
   int loose_col_count = posns->loose_cols_.size ();
   if (!loose_col_count)
-    return; 
+    return;
 
   Real default_padding = 1.0;
   for (int i = 0; i < loose_col_count; i++)
@@ -60,7 +59,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 
 	      clique.push (left);
 	    }
-	  
+
 	  clique.push (loose);
 
 	  divide_over++;
@@ -73,9 +72,9 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       clique.push (right);
 
       Grob *common = right->common_refpoint (left, X_AXIS);
-      Item *finished_right_column = clique.top();
-      
-      for (int j = clique.size() - 2; j > 0; j--)
+      Item *finished_right_column = clique.top ();
+
+      for (int j = clique.size () - 2; j > 0; j--)
 	{
 	  int count = 0;
 	  Real total_space = 0.0;
@@ -89,9 +88,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	      Real fixed = 0.0;
 
 	      if (Staff_spacing::has_interface (spacing))
-		{
-		  Staff_spacing::get_spacing_params (spacing, &space, &fixed);
-		}
+		Staff_spacing::get_spacing_params (spacing, &space, &fixed);
 	      else if (Note_spacing::has_interface (spacing))
 		{
 		  Spacing_options options;
@@ -106,10 +103,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 					     &space, &fixed);
 		}
 	      else
-		{
-		  continue;
-		}
-	  
+		continue;
+
 	      count++;
 
 	      total_space += space;
@@ -117,7 +112,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	    }
 
 	  Real distance_to_next = 0.0;
-	  Real right_point = 0.0;  
+	  Real right_point = 0.0;
 	  if (count)
 	    {
 	      total_space /= count;
@@ -135,7 +130,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	    }
 
 	  Real my_offset = right_point - distance_to_next;
-	  
+
 	  col->system_ = which;
 	  col->translate_axis (my_offset - col->relative_coordinate (common, X_AXIS), X_AXIS);
 
@@ -143,5 +138,4 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	}
     }
 }
-
 

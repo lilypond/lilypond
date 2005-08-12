@@ -25,7 +25,7 @@ protected:
 
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
-  
+
   void stop_translation_timestep ();
 };
 
@@ -65,7 +65,6 @@ Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
       Dot_column::add_head (dotcol_, info.grob ());
     }
 }
-
 
 void
 Dot_column_engraver::acknowledge_stem (Grob_info info)

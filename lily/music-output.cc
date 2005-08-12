@@ -1,13 +1,12 @@
-/* 
+/*
   music-output.cc --  implement Music_output
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-  
 */
 
-#include "music-output.hh" 
+#include "music-output.hh"
 
 #include "ly-smobs.icc"
 #include "virtual-methods.hh"
@@ -24,9 +23,8 @@ Music_output::process ()
 
 Music_output::~Music_output ()
 {
-  
 }
-  
+
 void
 Music_output::derived_mark () const
 {

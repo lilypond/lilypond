@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include "smobs.hh"
@@ -12,12 +11,12 @@
 static SCM smob_protection_list;
 
 void
-init_smob_protection()
+init_smob_protection ()
 {
   smob_protection_list = scm_cons (SCM_UNDEFINED, SCM_EOL);
   scm_permanent_object (smob_protection_list);
 }
-ADD_SCM_INIT_FUNC(init_smob_protection, init_smob_protection);
+ADD_SCM_INIT_FUNC (init_smob_protection, init_smob_protection);
 
 void
 protect_smob (SCM smob, SCM *prot_cons)
@@ -49,9 +48,7 @@ unprotect_smob (SCM *prot_cons)
       while (scm_is_pair (next)
 	     && scm_car (next) == SCM_UNDEFINED)
 
-	{
-	  next = scm_cdr (next);
-	}
+	next = scm_cdr (next);
 
       scm_set_cdr_x (*prot_cons, next);
     }

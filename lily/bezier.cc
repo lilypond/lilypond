@@ -12,7 +12,7 @@
 #include "warn.hh"
 #include "libc-extension.hh"
 
-Real binomial_coefficient_3[] = {1,3 ,3, 1};
+Real binomial_coefficient_3[] = {1, 3, 3, 1};
 
 Real
 binomial_coefficient (Real over, int under)
@@ -92,14 +92,14 @@ Bezier::curve_coordinate (Real t, Axis a) const
   one_min_tj[0] = 1;
   for (int i = 1; i < 4; i++)
     {
-      one_min_tj[i] = one_min_tj[i-1] * (1-t);
+      one_min_tj[i] = one_min_tj[i - 1] * (1 - t);
     }
 
   Real r = 0.0;
   for (int j = 0; j < 4; j++)
     {
       r += control_[j][a] * binomial_coefficient_3[j]
-	* tj * one_min_tj[3-j];
+	* tj * one_min_tj[3 - j];
 
       tj *= t;
     }
@@ -115,14 +115,14 @@ Bezier::curve_point (Real t) const
   one_min_tj[0] = 1;
   for (int i = 1; i < 4; i++)
     {
-      one_min_tj[i] = one_min_tj[i-1] * (1-t);
+      one_min_tj[i] = one_min_tj[i - 1] * (1 - t);
     }
 
   Offset o;
   for (int j = 0; j < 4; j++)
     {
       o += control_[j] * binomial_coefficient_3[j]
-	* tj * one_min_tj[3-j];
+	* tj * one_min_tj[3 - j];
 
       tj *= t;
     }
@@ -139,14 +139,14 @@ Bezier::curve_point (Real t) const
   Cache binom(3,j) t^j (1-t)^{3-j}
 */
 static struct Polynomial bezier_term_cache[4];
-static bool  done_cache_init;
+static bool done_cache_init;
 
 void
 init_polynomial_cache ()
 {
-  for (int j = 0; j <= 3;  j++)
-    bezier_term_cache[j] =
-      binomial_coefficient_3[j]
+  for (int j = 0; j <= 3; j++)
+    bezier_term_cache[j]
+      = binomial_coefficient_3[j]
       * Polynomial::power (j, Polynomial (0, 1))
       * Polynomial::power (3 - j, Polynomial (1, -1));
   done_cache_init = true;
@@ -157,9 +157,9 @@ Bezier::polynomial (Axis a) const
 {
   if (!done_cache_init)
     init_polynomial_cache ();
-  
+
   Polynomial p (0.0);
-  Polynomial q ;
+  Polynomial q;
   for (int j = 0; j <= 3; j++)
     {
       q = bezier_term_cache[j];

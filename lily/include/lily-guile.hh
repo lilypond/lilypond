@@ -76,7 +76,6 @@ inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return SCM_NFALSEP (scm_port_p (x)); }
 
-
 inline bool ly_is_equal (SCM x, SCM y)
 {
   return SCM_NFALSEP (scm_equal_p (x, y));
@@ -160,8 +159,7 @@ typedef SCM (*Scheme_function_2) (...);
 typedef SCM (*Scheme_function_3) (...);
 #endif
 
-
-#define scm_cdr ly_cdr 
+#define scm_cdr ly_cdr
 #define scm_car ly_car
 
 #ifndef scm_is_pair
@@ -171,7 +169,6 @@ typedef SCM (*Scheme_function_3) (...);
 inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
-
 
 
 

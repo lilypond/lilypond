@@ -102,7 +102,6 @@ Interval_t<T>::intersect (Interval_t<T> h)
 }
 
 
-
 template<class T>
 String
 Interval_t<T>::to_string () const

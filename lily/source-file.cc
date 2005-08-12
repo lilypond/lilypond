@@ -146,16 +146,15 @@ Source_file::file_line_column_string (char const *context_str0) const
     {
       int l, ch, col;
       get_counts (context_str0, &l, &ch, &col);
-      
+
       return name_string () + ":" + to_string (l)
 	+ ":" + to_string (col);
     }
 }
 
 
-
 String
-Source_file::quote_input (char const* pos_str0) const
+Source_file::quote_input (char const *pos_str0) const
 {
   if (!contains (pos_str0))
     return " (" + _ ("position unknown") + ")";
@@ -224,7 +223,6 @@ Source_file::line_string (char const* pos_str0) const
   return String ((Byte const *)data_str0 + line[LEFT], line.length ());
 }
 
-
 void
 Source_file::get_counts (char const *pos_str0,
 			 int *line_number,
@@ -235,18 +233,18 @@ Source_file::get_counts (char const *pos_str0,
     return;
 
   *line_number = get_line (pos_str0);
-  
+
   Slice line = line_slice (pos_str0);
   char const *data = to_str0 ();
   Byte const *line_start = (Byte const *)data + line[LEFT];
 
-  int left = (Byte const*) pos_str0 -  line_start;
+  int left = (Byte const *) pos_str0 - line_start;
   String line_begin (line_start, left);
-  char const *line_chars = line_begin.to_str0();
-  
+  char const *line_chars = line_begin.to_str0 ();
+
   *column = 0;
   *line_char = 0;
-  
+
   mbstate_t state;
 
   /* Initialize the state.  */
@@ -260,13 +258,13 @@ Source_file::get_counts (char const *pos_str0,
 	FIXME, this is apparently locale dependent.
       */
       size_t thislen = mbrtowc (multibyte, line_chars, left, &state);
-      
+
       /* Stop converting at invalid character;
 	 this can mean we have read just the first part
 	 of a valid character.  */
       if (thislen == (size_t) -1)
 	break;
-      
+
       /* We want to handle embedded NUL bytes
 	 but the return value is 0.  Correct this.  */
       if (thislen == 0)
@@ -285,31 +283,31 @@ Source_file::get_counts (char const *pos_str0,
 }
 
 bool
-Source_file::contains (char const* pos_str0) const
+Source_file::contains (char const *pos_str0) const
 {
   return (pos_str0 && (pos_str0 >= to_str0 ()) && (pos_str0 <= to_str0 () + length ()));
 }
 
 int
-Source_file::get_line (char const* pos_str0) const
+Source_file::get_line (char const *pos_str0) const
 {
   if (!contains (pos_str0))
     return 0;
 
   if (!newline_locations_.size ())
     return 1;
-  
+
   int lo = 0;
   int hi = newline_locations_.size ();
 
   if (newline_locations_[lo] > pos_str0)
     return 1;
-  
-  if (newline_locations_[hi-1] < pos_str0)
+
+  if (newline_locations_[hi - 1] < pos_str0)
     return hi;
-  
+
   binary_search_bounds (newline_locations_,
-			pos_str0, 
+			pos_str0,
 			Link_array<char>::default_compare,
 			&lo, &hi);
 
@@ -376,5 +374,5 @@ Source_file::get_string (int n)
 SCM
 Source_file::get_port () const
 {
-  return str_port_; 
+  return str_port_;
 }

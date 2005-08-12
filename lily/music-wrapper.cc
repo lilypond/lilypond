@@ -10,7 +10,6 @@
 
 #include "music.hh"
 
-
 MAKE_SCHEME_CALLBACK (Music_wrapper, start_callback, 1);
 SCM
 Music_wrapper::start_callback (SCM m)

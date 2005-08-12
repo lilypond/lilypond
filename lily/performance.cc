@@ -149,7 +149,6 @@ Performance::add_element (Audio_element *p)
   audio_element_list_ = new Killing_cons<Audio_element> (p, audio_element_list_);
 }
 
-
 void
 Performance::write_output (String out)
 {

@@ -27,7 +27,7 @@ const int at_beat = 1 << 15;
 int
 Beaming_info_list::best_splitpoint_index (Moment &beat_length, bool subdivide) const
 {
-  int minden = INT_MAX;	
+  int minden = INT_MAX;
   int minidx = -1;
   Moment beat_pos;
 

@@ -126,7 +126,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
       Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
 
       extract_item_set (parent, "elements", elements);
-      
+
       for (int i = elements.size (); i--;)
 	{
 	  Item *sibling = elements[i];

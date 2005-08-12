@@ -146,9 +146,7 @@ Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
 
       if (!e->get_parent (X_AXIS)
 	  && Side_position_interface::get_axis (e) == Y_AXIS)
-	{
-	  e->set_parent (inf.grob (), X_AXIS);
-	}
+	e->set_parent (inf.grob (), X_AXIS);
     }
 }
 
@@ -165,7 +163,7 @@ Drum_notes_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
-ADD_ACKNOWLEDGER (Drum_notes_engraver,note_column);
+ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* doc */ "Generate noteheads.",
 		/* create */ "NoteHead Dots Script",

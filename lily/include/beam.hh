@@ -14,16 +14,15 @@
 #include "lily-guile.hh"
 #include "stem-info.hh"
 
-
 /*
   TODO: move quanting in separate file.
- */
-struct Beam_quant_parameters {
+*/
+struct Beam_quant_parameters
+{
   Real INTER_QUANT_PENALTY;
   Real SECONDARY_BEAM_DEMERIT;
   Real STEM_LENGTH_DEMERIT_FACTOR;
   Real REGION_SIZE;
-
 
   /*
     threshold to combat rounding errors.
@@ -37,7 +36,7 @@ struct Beam_quant_parameters {
   Real IDEAL_SLOPE_FACTOR;
   Real ROUND_TO_ZERO_SLOPE;
 
-  void fill (Grob *him); 
+  void fill (Grob *him);
 };
 
 class Beam
@@ -69,7 +68,7 @@ public:
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM));
   DECLARE_SCHEME_CALLBACK (quanting, (SCM));
-  static Real score_slopes_dy (Real, Real, Real, Real, Real, bool, Beam_quant_parameters const*);
+  static Real score_slopes_dy (Real, Real, Real, Real, Real, bool, Beam_quant_parameters const *);
 
   static Real score_stem_lengths (Link_array<Grob> const &stems,
 				  Array<Stem_info> const &stem_infos,
@@ -77,11 +76,11 @@ public:
 				  Array<Real> const &stem_xs,
 				  Real xl, Real xr,
 				  bool knee,
-				  Real yl, Real yr, Beam_quant_parameters const*);
+				  Real yl, Real yr, Beam_quant_parameters const *);
   static Real score_forbidden_quants (Real, Real,
 				      Real, Real, Real, Real,
 				      Drul_array<int>, Direction, Direction,
-				      Beam_quant_parameters const*);
+				      Beam_quant_parameters const *);
 
   static int get_direction_beam_count (Grob *me, Direction d);
 private:

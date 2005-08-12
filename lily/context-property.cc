@@ -133,9 +133,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
 	  execute_pushpop_property (tg, scm_car (entry), scm_cadr (entry), val);
 	}
       else if (type == ly_symbol2scm ("assign"))
-	{
-	  tg->internal_set_property (scm_car (entry), scm_cadr (entry));
-	}
+	tg->internal_set_property (scm_car (entry), scm_cadr (entry));
     }
 }
 
@@ -197,10 +195,10 @@ make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, char const *name
 
   Object_key const *key = context->get_grob_key (name);
   Grob *grob = 0;
-  
+
   SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
   SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
-  
+
   if (klass == ly_symbol2scm ("Item"))
     grob = new Item (props, key);
   else if (klass == ly_symbol2scm ("Spanner"))
@@ -217,7 +215,7 @@ make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, char const *name
 Item *
 make_item_from_properties (Engraver *tr, SCM x, SCM cause, char const *name)
 {
-  Item *it = dynamic_cast<Item*> (make_grob_from_properties (tr, x, cause, name));
+  Item *it = dynamic_cast<Item *> (make_grob_from_properties (tr, x, cause, name));
   assert (it);
   return it;
 }
@@ -225,14 +223,13 @@ make_item_from_properties (Engraver *tr, SCM x, SCM cause, char const *name)
 Paper_column *
 make_paper_column_from_properties (Engraver *tr, SCM x, char const *name)
 {
-  return dynamic_cast<Paper_column*> (make_grob_from_properties (tr, x, SCM_EOL, name));
+  return dynamic_cast<Paper_column *> (make_grob_from_properties (tr, x, SCM_EOL, name));
 }
-
 
 Spanner *
 make_spanner_from_properties (Engraver *tr, SCM x, SCM cause, char const *name)
 {
-  Spanner *sp = dynamic_cast<Spanner*> (make_grob_from_properties (tr, x, cause, name));
+  Spanner *sp = dynamic_cast<Spanner *> (make_grob_from_properties (tr, x, cause, name));
   assert (sp);
   return sp;
 }

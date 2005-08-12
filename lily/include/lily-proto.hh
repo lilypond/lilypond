@@ -171,10 +171,8 @@ class Transposed_music;
 class Type_swallow_translator;
 class yyFlexLexer;
 
-
-typedef void (*Engraver_void_function_engraver_grob_info)(Engraver*, Grob_info);
-typedef void (*Translator_void_method_ptr)(Translator*);
-
+typedef void (*Engraver_void_function_engraver_grob_info) (Engraver *, Grob_info);
+typedef void (*Translator_void_method_ptr) (Translator *);
 
 
 

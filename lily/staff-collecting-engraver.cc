@@ -32,7 +32,7 @@ Staff_collecting_engraver::acknowledge_staff_symbol (Grob_info gi)
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER (Staff_collecting_engraver,staff_symbol);
+ADD_ACKNOWLEDGER (Staff_collecting_engraver, staff_symbol);
 
 ADD_TRANSLATOR (Staff_collecting_engraver,
 		/* doc */ "Maintain the stavesFound variable",
