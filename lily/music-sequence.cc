@@ -119,9 +119,7 @@ Music_sequence::minimum_start (SCM l)
   Moment m;
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    {
-      m = min (m, unsmob_music (scm_car (s))->start_mom ());
-    }
+    m = min (m, unsmob_music (scm_car (s))->start_mom ());
   return m;
 }
 

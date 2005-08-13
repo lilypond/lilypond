@@ -33,13 +33,9 @@ Custos::print (SCM smob)
   SCM scm_style = me->get_property ("style");
   String style;
   if (scm_is_symbol (scm_style))
-    {
-      style = ly_symbol2string (scm_style);
-    }
+    style = ly_symbol2string (scm_style);
   else
-    {
-      style = "mensural";
-    }
+    style = "mensural";
 
   /*
    * Shall we use a common custos font character regardless if on
@@ -68,13 +64,9 @@ Custos::print (SCM smob)
     font_char += "d";
 
   if (adjust)
-    {
-      font_char += (((pos ^ sz) & 0x1) == 0) ? "1" : "0";
-    }
+    font_char += (((pos ^ sz) & 0x1) == 0) ? "1" : "0";
   else
-    {
-      font_char += "2";
-    }
+    font_char += "2";
 
   Stencil stencil
     = Font_interface::get_default_font (me)->find_by_name (font_char);

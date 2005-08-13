@@ -91,9 +91,7 @@ Ambitus_engraver::process_music ()
    * be placed after the rest.
    */
   if (!ambitus_)
-    {
-      create_ambitus ();
-    }
+    create_ambitus ();
 }
 
 void

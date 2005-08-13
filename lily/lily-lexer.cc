@@ -144,9 +144,7 @@ Lily_lexer::add_scope (SCM module)
     start_module_ = scm_current_module ();
 
   for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
-    {
-      ly_use_module (module, scm_car (s));
-    }
+    ly_use_module (module, scm_car (s));
   scopes_ = scm_cons (module, scopes_);
 
   set_current_scope ();
@@ -269,7 +267,7 @@ Lily_lexer::escaped_char (char c) const
 Input
 Lily_lexer::here_input () const
 {
-  return Input(*lexloc);
+  return Input (*lexloc);
 }
 
 void

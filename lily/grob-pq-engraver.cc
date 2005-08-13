@@ -93,9 +93,7 @@ Grob_pq_engraver::stop_translation_timestep ()
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
   while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) == now)
-    {
-      busy = scm_cdr (busy);
-    }
+    busy = scm_cdr (busy);
 
   started_now_.sort (Grob_pq_entry::compare);
   SCM lst = SCM_EOL;

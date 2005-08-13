@@ -75,13 +75,9 @@ Bar_line::compound_barline (Grob *me, String str, Real h,
     str = "|:";
 
   if (str == "")
-    {
-      return Lookup::blank (Box (Interval (0, 0), Interval (-h / 2, h / 2)));
-    }
+    return Lookup::blank (Box (Interval (0, 0), Interval (-h / 2, h / 2)));
   else if (str == "|")
-    {
-      return thin;
-    }
+    return thin;
   else if (str == "|." || (h == 0 && str == ":|"))
     {
       m.add_at_edge (X_AXIS, LEFT, thick, 0, 0);

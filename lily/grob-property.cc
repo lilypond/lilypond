@@ -42,9 +42,7 @@ Grob::add_to_list_property (SCM sym, SCM thing)
     = scm_sloppy_assq (sym, mutable_property_alist_);
 
   if (handle != SCM_BOOL_F)
-    {
-      scm_set_cdr_x (handle, scm_cons (thing, scm_cdr (handle)));
-    }
+    scm_set_cdr_x (handle, scm_cons (thing, scm_cdr (handle)));
   else
     {
       /*
@@ -59,7 +57,6 @@ Grob::add_to_list_property (SCM sym, SCM thing)
 					  mutable_property_alist_);
     }
 }
-
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
@@ -97,15 +94,12 @@ Grob::internal_set_property (SCM sym, SCM v)
 //#define PROFILE_PROPERTY_ACCESSES
 
 
-
 SCM
 Grob::internal_get_property (SCM sym) const
 {
 #ifndef NDEBUG
   if (profile_property_accesses)
-    {
-      note_property_access (&grob_property_lookup_table, sym);
-    }
+    note_property_access (&grob_property_lookup_table, sym);
 #endif
 
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
@@ -125,7 +119,6 @@ Grob::internal_get_property (SCM sym) const
 
   return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
 }
-
 
 void
 Grob::internal_set_object (SCM s, SCM v)

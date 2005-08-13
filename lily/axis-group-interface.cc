@@ -61,7 +61,6 @@ Axis_group_interface::relative_group_extent (Link_array<Grob> const &elts,
   return r;
 }
 
-
 MAKE_SCHEME_CALLBACK (Axis_group_interface, group_extent_callback, 2);
 SCM
 Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)

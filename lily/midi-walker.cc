@@ -131,9 +131,7 @@ Midi_walker::output_event (Moment now_mom, Midi_item *l)
     start with graces
   */
   if (delta_t < Moment (0))
-    {
-      delta_t = Moment (0);
-    }
+    delta_t = Moment (0);
 
   track_->add (delta_t, l);
 }

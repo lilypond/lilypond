@@ -53,9 +53,7 @@ void
 Glissando_engraver::process_music ()
 {
   if (event_)
-    {
-      line_ = make_spanner ("Glissando", event_->self_scm ());
-    }
+    line_ = make_spanner ("Glissando", event_->self_scm ());
 }
 
 void
@@ -73,9 +71,7 @@ void
 Glissando_engraver::stop_translation_timestep ()
 {
   if (last_line_ && last_line_->get_bound (RIGHT))
-    {
-      last_line_ = 0;
-    }
+    last_line_ = 0;
   if (line_)
     {
       if (last_line_)

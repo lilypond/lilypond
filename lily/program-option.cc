@@ -119,7 +119,7 @@ get_help_string ()
       opt_help.substitute (String ("\n"),
 			   String ("\n")
 			   + String_convert::char_string (' ', HELP_INDENT));
-      
+
       opts.push (opt_spec + opt_help + "\n");
     }
 
@@ -168,9 +168,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 		   __FUNCTION__, "symbol");
 
   if (ly_symbol2scm ("help") == var)
-    {
-      ly_option_usage ();
-    }
+    ly_option_usage ();
 
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
@@ -184,9 +182,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 
   SCM handle = scm_hashq_get_handle (option_hash_, var);
   if (handle == SCM_BOOL_F)
-    {
-      warning (_f ("no such internal option: %s", varstr.to_str0 ()));
-    }
+    warning (_f ("no such internal option: %s", varstr.to_str0 ()));
 
   internal_set_option (var, val);
   return SCM_UNSPECIFIED;

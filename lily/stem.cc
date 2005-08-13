@@ -505,9 +505,7 @@ Stem::height (SCM smob, SCM ax)
   */
   Grob *beam = get_beam (me);
   if (beam)
-    {
-      Beam::after_line_breaking (beam->self_scm ());
-    }
+    Beam::after_line_breaking (beam->self_scm ());
 
   SCM mol = me->get_uncached_stencil ();
   Interval iv;
@@ -561,14 +559,10 @@ Stem::flag (Grob *me)
 	    = Staff_symbol_referencer::on_staffline (me, p) ? "0" : "1";
 	}
       else
-	{
-	  staffline_offs = "2";
-	}
+	staffline_offs = "2";
     }
   else
-    {
-      staffline_offs = "";
-    }
+    staffline_offs = "";
 
   char dir = (get_direction (me) == UP) ? 'u' : 'd';
   String font_char = flag_style
@@ -607,9 +601,7 @@ Stem::width_callback (SCM e, SCM ax)
   Interval r;
 
   if (is_invisible (me))
-    {
-      r.set_empty ();
-    }
+    r.set_empty ();
   else if (unsmob_grob (me->get_object ("beam")) || abs (duration_log (me)) <= 2)
     {
       r = Interval (-1, 1);

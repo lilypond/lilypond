@@ -158,9 +158,7 @@ Moment::to_string () const
 {
   String s = main_part_.to_string ();
   if (grace_part_)
-    {
-      s += "G" + grace_part_.to_string ();
-    }
+    s += "G" + grace_part_.to_string ();
   return s;
 }
 

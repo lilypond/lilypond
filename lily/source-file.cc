@@ -117,10 +117,10 @@ Source_file::init_port ()
 int
 Source_file::tell () const
 {
-  return pos_str0_ - contents_str0_; 
+  return pos_str0_ - contents_str0_;
 }
 
-std::istream*
+std::istream *
 Source_file::get_istream ()
 {
   if (!istream_)
@@ -151,7 +151,6 @@ Source_file::file_line_column_string (char const *context_str0) const
 	+ ":" + to_string (col);
     }
 }
-
 
 String
 Source_file::quote_input (char const *pos_str0) const
@@ -201,7 +200,7 @@ Source_file::line_slice (char const *pos_str0) const
 	break;
       }
 
-  char const* end_str0 = pos_str0;
+  char const *end_str0 = pos_str0;
   while (end_str0 < eof_C_)
     if (*end_str0++ == '\n')
       {
@@ -213,7 +212,7 @@ Source_file::line_slice (char const *pos_str0) const
 }
 
 String
-Source_file::line_string (char const* pos_str0) const
+Source_file::line_string (char const *pos_str0) const
 {
   if (!contains (pos_str0))
     return "";
@@ -271,11 +270,11 @@ Source_file::get_counts (char const *pos_str0,
 	thislen = 1;
 
       if (thislen == 1 && line_chars[0] == '\t')
-	(*column) = (*column / 8 + 1) * 8;  
+	(*column) = (*column / 8 + 1) * 8;
       else
-	(*column) ++;
+	(*column)++;
 
-      (*line_char) ++;
+      (*line_char)++;
       /* Advance past this character. */
       line_chars += thislen;
       left -= thislen;
@@ -329,7 +328,7 @@ Source_file::to_str0 () const
 }
 
 void
-Source_file::set_pos (char const * pos_str0)
+Source_file::set_pos (char const *pos_str0)
 {
   if (contains (pos_str0))
     pos_str0_ = pos_str0;

@@ -35,9 +35,7 @@ Moment
 Folded_repeat_iterator::pending_moment () const
 {
   if (main_iter_)
-    {
-      return main_iter_->pending_moment ();
-    }
+    return main_iter_->pending_moment ();
   else
     return main_length_mom_ + alternative_iter_->pending_moment ();
 }
@@ -72,9 +70,7 @@ Folded_repeat_iterator::process (Moment m)
     }
 
   if (!main_iter_ && !alternative_iter_)
-    {
-      enter_alternative ();
-    }
+    enter_alternative ();
 
   if (alternative_iter_)
     {
@@ -121,9 +117,7 @@ Music_iterator *
 Folded_repeat_iterator::try_music_in_children (Music *m) const
 {
   if (main_iter_)
-    {
-      return main_iter_->try_music (m);
-    }
+    return main_iter_->try_music (m);
   if (alternative_iter_)
     return alternative_iter_->try_music (m);
   return 0;

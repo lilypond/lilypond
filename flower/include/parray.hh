@@ -217,9 +217,7 @@ void
 junk_pointers (Link_array<T> &a)
 {
   for (int i = 0; i < a.size (); i++)
-    {
-      delete a[i];
-    }
+    delete a[i];
   a.clear ();
 }
 

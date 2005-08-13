@@ -101,9 +101,7 @@ Timing_translator::start_translation_timestep ()
 
   SCM s = get_property ("measurePosition");
   if (unsmob_moment (s))
-    {
-      measposp = *unsmob_moment (s);
-    }
+    measposp = *unsmob_moment (s);
   else
     {
       measposp = now;
@@ -116,9 +114,7 @@ Timing_translator::start_translation_timestep ()
   SCM barn = get_property ("currentBarNumber");
   int b = 0;
   if (scm_is_number (barn))
-    {
-      b = scm_to_int (barn);
-    }
+    b = scm_to_int (barn);
 
   SCM cad = get_property ("timing");
   bool c = to_boolean (cad);
@@ -143,7 +139,6 @@ ADD_TRANSLATOR (Timing_translator,
 		"Normally in @code{Score}.  In order to create polyrhythmic music, "
 		"this engraver should be removed from @code{Score} and placed in "
 		"@code{Staff}. "
-		"\n\nThis engraver adds the alias @code{Timing} to its containing context."
-		,
+		"\n\nThis engraver adds the alias @code{Timing} to its containing context.",
 
 		"", "", "", "");

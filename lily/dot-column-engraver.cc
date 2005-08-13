@@ -58,9 +58,7 @@ Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
   if (d)
     {
       if (!dotcol_)
-	{
-	  dotcol_ = make_item ("DotColumn", SCM_EOL);
-	}
+	dotcol_ = make_item ("DotColumn", SCM_EOL);
 
       Dot_column::add_head (dotcol_, info.grob ());
     }

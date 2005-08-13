@@ -43,16 +43,16 @@ Getopt_long::parselong ()
   assert (*optnm);
 
   char const *endopt = strchr (optnm, '=');
-  int searchlen  = (endopt) ? endopt - optnm : strlen (optnm);
+  int searchlen = (endopt) ? endopt - optnm : strlen (optnm);
 
-  found_option_=0;
-  for (int i=0; i< table_len_; i++)
+  found_option_ = 0;
+  for (int i = 0; i < table_len_; i++)
     {
       char const *ln = option_a_[i].longname_str0_;
 
       if (ln && !strncmp (ln, optnm, searchlen))
 	{
-	  found_option_ = option_a_+i;
+	  found_option_ = option_a_ + i;
 	  break;
 	}
     }
@@ -64,7 +64,6 @@ Getopt_long::parselong ()
     }
   array_index_++;
   argument_index_ = 0;
-
 
   if (found_option_->take_arg_str0_)
     {
@@ -202,9 +201,7 @@ Getopt_long::parseshort ()
       array_index_++;
     }
   if (!optional_argument_str0_)
-    {
-      report (E_ARGEXPECT);
-    }
+    report (E_ARGEXPECT);
 
   return found_option_;
 }
@@ -308,9 +305,7 @@ Long_option_init::table_string (Long_option_init *l)
 
   int wid = 0;
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
-    {
-      wid = max (wid, l[i].str_for_help ().length ());
-    }
+    wid = max (wid, l[i].str_for_help ().length ());
 
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
     {

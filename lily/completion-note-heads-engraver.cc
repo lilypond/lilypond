@@ -21,7 +21,6 @@
 #include "duration.hh"
 #include "pitch.hh"
 
-
 /*
   TODO: make matching rest engraver.
 */
@@ -98,9 +97,7 @@ Completion_heads_engraver::try_music (Music *m)
       return true;
     }
   else if (m->is_mus_type ("busy-playing-event"))
-    {
-      return note_events_.size () && is_first_;
-    }
+    return note_events_.size () && is_first_;
 
   return false;
 }
@@ -170,9 +167,7 @@ Completion_heads_engraver::process_music ()
   Duration note_dur;
   Duration *orig = 0;
   if (left_to_do_)
-    {
-      note_dur = find_nearest_duration (left_to_do_);
-    }
+    note_dur = find_nearest_duration (left_to_do_);
   else
     {
       orig = unsmob_duration (note_events_[0]->get_property ("duration"));
@@ -191,9 +186,7 @@ Completion_heads_engraver::process_music ()
     }
 
   if (orig)
-    {
-      left_to_do_ = orig->get_length ();
-    }
+    left_to_do_ = orig->get_length ();
 
   if (orig && note_dur.get_length () != orig->get_length ())
     {
@@ -270,9 +263,7 @@ Completion_heads_engraver::process_music ()
   */
   if (orig
       && now_mom ().grace_part_)
-    {
-      left_to_do_ = Rational (0, 0);
-    }
+    left_to_do_ = Rational (0, 0);
 }
 
 void
@@ -287,9 +278,7 @@ Completion_heads_engraver::stop_translation_timestep ()
   dots_.clear ();
 
   for (int i = scratch_note_events_.size (); i--;)
-    {
-      scratch_note_events_[i]->unprotect ();
-    }
+    scratch_note_events_[i]->unprotect ();
 
   scratch_note_events_.clear ();
 }

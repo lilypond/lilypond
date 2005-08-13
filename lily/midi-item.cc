@@ -116,7 +116,7 @@ Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
 
   String format_string = String_convert::int2hex (format_i, 4, '0');
   str += String_convert::hex2bin (format_string);
-	
+
   String tracks_string = String_convert::int2hex (tracks_i, 4, '0');
   str += String_convert::hex2bin (tracks_string);
 
@@ -203,7 +203,7 @@ Midi_key::to_string () const
   return String_convert::hex2bin (str);
 }
 
-Midi_time_signature::Midi_time_signature (Audio_time_signature* a)
+Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
 {
   audio_ = a;
   clocks_per_1_ = 18;
@@ -217,13 +217,13 @@ Midi_time_signature::to_string () const
 
   String str = "ff5804";
   str += String_convert::int2hex (num, 2, '0');
-  str += String_convert::int2hex (intlog2 (den) , 2, '0');
+  str += String_convert::int2hex (intlog2 (den), 2, '0');
   str += String_convert::int2hex (clocks_per_1_, 2, '0');
   str += String_convert::int2hex (8, 2, '0');
   return String_convert::hex2bin (str);
 }
 
-Midi_note::Midi_note (Audio_note* a)
+Midi_note::Midi_note (Audio_note *a)
 {
   audio_ = a;
   dynamic_byte_ = 0x7f;
@@ -388,7 +388,7 @@ Midi_tempo::to_string () const
   return String_convert::hex2bin (str);
 }
 
-Midi_text::Midi_text (Audio_text* a)
+Midi_text::Midi_text (Audio_text *a)
 {
   audio_ = a;
 }

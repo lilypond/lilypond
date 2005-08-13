@@ -16,9 +16,7 @@ int tabcmp (Keyword_ent const &p1, Keyword_ent const &p2)
 Keyword_table::Keyword_table (Keyword_ent *tab)
 {
   while (tab->name_)
-    {
-      table_.push (*tab++);
-    }
+    table_.push (*tab++);
 
   table_.sort (tabcmp);
 }

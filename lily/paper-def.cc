@@ -76,9 +76,7 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
   SCM size_key = scm_from_double (factor);
   SCM handle = scm_assoc (size_key, sizes);
   if (scm_is_pair (handle))
-    {
-      return unsmob_metrics (scm_cdr (handle));
-    }
+    return unsmob_metrics (scm_cdr (handle));
 
   PangoFontDescription *description
     = pango_font_description_from_string (scm_i_string_chars (descr));

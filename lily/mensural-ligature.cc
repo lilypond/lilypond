@@ -106,9 +106,7 @@ internal_brew_primitive (Grob *me)
   Real width = 0.0;
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   if (primitive & MLP_ANY)
-    {
-      thickness = robust_scm2double (me->get_property ("thickness"), .14);
-    }
+    thickness = robust_scm2double (me->get_property ("thickness"), .14);
 
   if (primitive & MLP_FLEXA)
     {
@@ -118,9 +116,7 @@ internal_brew_primitive (Grob *me)
 	= robust_scm2double (me->get_property ("flexa-width"), 2.0 * staff_space);
     }
   if (primitive & MLP_SINGLE_HEAD)
-    {
-      width = robust_scm2double (me->get_property ("head-width"), staff_space);
-    }
+    width = robust_scm2double (me->get_property ("head-width"), staff_space);
 
   switch (primitive & MLP_ANY)
     {
@@ -193,9 +189,7 @@ internal_brew_primitive (Grob *me)
 	  out.add_stencil (join);
 	}
       else
-	{
-	  programming_error (_f ("Mensural_ligature: (join_right == 0)"));
-	}
+	programming_error (_f ("Mensural_ligature: (join_right == 0)"));
     }
 
 #if 0 /* what happend with the ledger lines? */

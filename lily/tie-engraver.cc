@@ -82,9 +82,7 @@ bool
 Tie_engraver::try_music (Music *mus)
 {
   if (mus->is_mus_type ("tie-event"))
-    {
-      event_ = mus;
-    }
+    event_ = mus;
 
   return true;
 }
@@ -93,9 +91,7 @@ void
 Tie_engraver::process_music ()
 {
   if (event_)
-    {
-      context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
-    }
+    context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
 }
 
 void
@@ -130,9 +126,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
     }
 
   if (ties_.size () && ! tie_column_)
-    {
-      tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
-    }
+    tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
 
   if (tie_column_)
     for (int i = ties_.size (); i--;)

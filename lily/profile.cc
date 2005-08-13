@@ -21,7 +21,6 @@ LY_DEFINE (ly_context_property_lookup_stats, "ly:context-property-lookup-stats",
     : scm_c_make_hash_table (1);
 }
 
-
 LY_DEFINE (ly_property_lookup_stats, "ly:grob-property-lookup-stats",
 	   0, 0, 0, (),
 	   "")

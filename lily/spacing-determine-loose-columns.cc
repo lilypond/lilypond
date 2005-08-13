@@ -89,9 +89,7 @@ is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
   */
   if (! ((Paper_column::is_musical (l_neighbor) || Item::is_breakable (l_neighbor))
 	 && (Paper_column::is_musical (r_neighbor) || Item::is_breakable (r_neighbor))))
-    {
-      return false;
-    }
+    return false;
 
   /*
     A rather hairy check, but we really only want to move around
@@ -207,9 +205,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 		      dists[d] = max (dists[d], fixed_space);
 		    }
 		  else
-		    {
-		      programming_error ("Subversive spacing wish");
-		    }
+		    programming_error ("Subversive spacing wish");
 		}
 	    }
 	  while (flip (&d) != LEFT);
@@ -295,9 +291,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> const &cols)
 	}
 
       if (rn_arr->size ())
-	{
-	  cols[i]->set_object ("right-neighbors", right_neighbors);
-	}
+	cols[i]->set_object ("right-neighbors", right_neighbors);
     }
 }
 

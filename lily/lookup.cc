@@ -96,9 +96,7 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction)
   Real off = dash_period - on;
 
   for (int i = 4; i--;)
-    {
-      l = scm_cons (ly_offset2scm (b.control_[i]), l);
-    }
+    l = scm_cons (ly_offset2scm (b.control_[i]), l);
 
   SCM at = (scm_list_n (ly_symbol2scm ("dashed-slur"),
 			scm_from_double (thick),
@@ -172,13 +170,9 @@ Stencil
 Lookup::round_filled_box (Box b, Real blotdiameter)
 {
   if (b.x ().length () < blotdiameter)
-    {
-      blotdiameter = b.x ().length ();
-    }
+    blotdiameter = b.x ().length ();
   if (b.y ().length () < blotdiameter)
-    {
-      blotdiameter = b.y ().length ();
-    }
+    blotdiameter = b.y ().length ();
 
   SCM at = (scm_list_n (ly_symbol2scm ("round-filled-box"),
 			scm_from_double (-b[X_AXIS][LEFT]),
@@ -381,9 +375,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   int indices[] = {5, 6, 7, 4, 1, 2, 3, 0};
   SCM list = SCM_EOL;
   for (int i = 8; i--;)
-    {
-      list = scm_cons (scontrols[indices[i]], list);
-    }
+    list = scm_cons (scontrols[indices[i]], list);
 
   SCM at = (scm_list_n (ly_symbol2scm ("bezier-sandwich"),
 			ly_quote_scm (list),
@@ -661,7 +653,6 @@ Lookup::repeat_slash (Real w, Real s, Real t)
 
   Offset p1 (0, 0);
   Offset p2 (w, w * s);
-
 
   return Lookup::round_filled_polygon (points, blotdiameter);
 #endif

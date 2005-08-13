@@ -34,9 +34,7 @@ internal_print (Grob *me, String *font_char)
 {
   SCM style = me->get_property ("style");
   if (!scm_is_symbol (style))
-    {
-      style = ly_symbol2scm ("default");
-    }
+    style = ly_symbol2scm ("default");
 
   SCM log = scm_from_int (Note_head::get_balltype (me));
   String suffix = to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
@@ -69,9 +67,7 @@ internal_print (Grob *me, String *font_char)
       out = Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL);
     }
   else
-    {
-      *font_char = idx;
-    }
+    *font_char = idx;
 
   return out;
 }

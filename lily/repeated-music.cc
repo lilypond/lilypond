@@ -48,9 +48,7 @@ Repeated_music::relative_callback (SCM music, SCM pitch)
       return last.smobbed_copy ();
     }
   else
-    {
-      return me->generic_to_relative_octave (p).smobbed_copy ();
-    }
+    return me->generic_to_relative_octave (p).smobbed_copy ();
 }
 
 Moment
@@ -97,9 +95,7 @@ Repeated_music::body_get_length (Music *me)
 {
   Moment m = 0;
   if (Music *body = unsmob_music (me->get_property ("element")))
-    {
-      m = body->get_length ();
-    }
+    m = body->get_length ();
   return m;
 }
 
@@ -149,9 +145,7 @@ Repeated_music::minimum_start (SCM m)
   if (body)
     return body->start_mom ().smobbed_copy ();
   else
-    {
-      return Music_sequence::minimum_start (me->get_property ("elements")).smobbed_copy ();
-    }
+    return Music_sequence::minimum_start (me->get_property ("elements")).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Repeated_music, first_start, 1);

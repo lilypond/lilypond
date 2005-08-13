@@ -65,9 +65,7 @@ Arpeggio::print (SCM smob)
   SCM ad = me->get_property ("arpeggio-direction");
   Direction dir = CENTER;
   if (is_direction (ad))
-    {
-      dir = to_dir (ad);
-    }
+    dir = to_dir (ad);
 
   Stencil mol;
   Font_metric *fm = Font_interface::get_default_font (me);

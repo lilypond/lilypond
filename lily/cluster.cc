@@ -39,9 +39,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
   String shape;
 
   if (scm_is_symbol (shape_scm))
-    {
-      shape = ly_symbol2string (shape_scm);
-    }
+    shape = ly_symbol2string (shape_scm);
   else
     {
       programming_error ("#'style should be symbol.");
@@ -111,9 +109,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
       out.add_stencil (Lookup::round_filled_polygon (points, blotdiameter));
     }
   else
-    {
-      me->warning (_f ("unknown cluster style `%s'", shape.to_str0 ()));
-    }
+    me->warning (_f ("unknown cluster style `%s'", shape.to_str0 ()));
   return out;
 }
 

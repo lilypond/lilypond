@@ -56,9 +56,7 @@ void
 Script_column_engraver::process_acknowledged ()
 {
   if (!scol_ && scripts_.size () > 1)
-    {
-      scol_ = make_item ("ScriptColumn", SCM_EOL);
-    }
+    scol_ = make_item ("ScriptColumn", SCM_EOL);
 
   if (scol_)
     {

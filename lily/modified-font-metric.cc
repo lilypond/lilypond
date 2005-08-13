@@ -115,60 +115,60 @@ Modified_font_metric::tex_kludge (String text) const
 	  /* Accent marks use width of base letter */
 	  if (i +1 < text.length ())
 	    {
-	      if (text[i + 1]=='\'' || text[i + 1]=='`' || text[i+1]=='"'
-		  || text[i+1]=='^')
+	      if (text[i + 1]=='\'' || text[i + 1]=='`' || text[i + 1]=='"'
+		  || text[i + 1]=='^')
 		{
 		  i++;
 		  break;
 		}
 	      /* For string width \\ is a \ and \_ is a _. */
-	      if (text[i + 1]=='\\' || text[i+1]=='_')        
+	      if (text[i + 1]=='\\' || text[i + 1]=='_')
 		break;
 	    }
-	  
-	  for (i++; (i < text.length ()) && !isspace (text[i]) 
+
+	  for (i++; (i < text.length ()) && !isspace (text[i])
 		 && text[i]!='{' && text[i]!='}'; i++)
 	    ;
-	  
+
 	  /* Compensate for the auto-increment in the outer loop. */
 	  i--;
 	  break;
 
-	case '{':  // Skip '{' and '}'
+	case '{': // Skip '{' and '}'
 	case '}':
 	  break;
-	
-	default: 
+
+	default:
 	  Box b = get_ascii_char ((unsigned char)text[i]);
-	  
+
 	  /* Use the width of 'x' for unknown characters */
 	  if (b[X_AXIS].length () == 0)
 	    b = get_ascii_char ((unsigned char)'x');
-	  
+
 	  w += b[X_AXIS].length ();
 	  ydims.unite (b[Y_AXIS]);
 	  break;
 	}
     }
-  
+
   if (ydims.is_empty ())
     ydims = Interval (0, 0);
-  
+
   return Box (Interval (0, w), ydims);
 }
 
 Stencil
 Modified_font_metric::text_stencil (String text) const
 {
-  Box b; 
-  if (Pango_font * pf = dynamic_cast<Pango_font*> (orig_))
+  Box b;
+  if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))
     {
       Stencil stc = pf->text_stencil (text);
 
       Box b = stc.extent_box ();
 
       b.scale (magnification_);
-      Stencil scaled(b, stc.expr());
+      Stencil scaled (b, stc.expr ());
       return scaled;
     }
 
@@ -182,7 +182,7 @@ Modified_font_metric::text_dimension (String text) const
   Box b = lookup_tex_text_dimension (orig_, stext);
   if (!b[Y_AXIS].is_empty ())
     {
-      b.scale (magnification_); 
+      b.scale (magnification_);
       return b;
     }
 

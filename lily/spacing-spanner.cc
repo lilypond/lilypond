@@ -23,16 +23,13 @@
 #include "staff-spacing.hh"
 #include "spacing-interface.hh"
 
-
 Rational
 Spacing_spanner::effective_shortest_duration (Grob *me, Link_array<Grob> const &all)
 {
   SCM preset_shortest = me->get_property ("common-shortest-duration");
   Rational global_shortest;
   if (unsmob_moment (preset_shortest))
-    {
-      global_shortest = unsmob_moment (preset_shortest)->main_part_;
-    }
+    global_shortest = unsmob_moment (preset_shortest)->main_part_;
   else
     {
       global_shortest = Spacing_spanner::find_shortest (me, all);
@@ -249,9 +246,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
   Real compound_fixed_note_space = 0.0;
 
   if (options->stretch_uniformly_)
-    {
-      compound_note_space = base_note_space;
-    }
+    compound_note_space = base_note_space;
   else
     {
       int wish_count = 0;
@@ -414,9 +409,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
     }
 
   if (options->stretch_uniformly_ && l->break_status_dir () != RIGHT)
-    {
-      compound_fixed = 0.0;
-    }
+    compound_fixed = 0.0;
 
   assert (!isinf (compound_space));
   compound_space = max (compound_space, compound_fixed);
@@ -447,8 +440,7 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 
 	       "grace-space-factor spacing-increment base-shortest-duration strict-note-spacing "
 	       "shortest-duration-space common-shortest-duration uniform-stretching "
-	       "packed-spacing "
-	       );
+	       "packed-spacing ");
 
 ADD_INTERFACE (Spacing_interface, "spacing-interface",
 	       "Something to do with line breaking and spacing. "

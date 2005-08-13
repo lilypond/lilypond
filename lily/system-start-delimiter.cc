@@ -38,10 +38,9 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 
   Direction d = DOWN;
   do
-    {
-      bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap, 0.0);
-    }
-  while (flip (&d) != DOWN);
+    bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap, 0.0);
+  while (flip (&d) != DOWN)
+    ;
 
   return bracket;
 }

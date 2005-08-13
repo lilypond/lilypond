@@ -85,9 +85,7 @@ Clef_engraver::acknowledge_bar_line (Grob_info info)
 {
   Item *item = dynamic_cast<Item *> (info.grob ());
   if (item && scm_is_string (get_property ("clefGlyph")))
-    {
-      create_clef ();
-    }
+    create_clef ();
 }
 
 void
@@ -174,17 +172,13 @@ Clef_engraver::stop_translation_timestep ()
     {
       SCM vis = 0;
       if (to_boolean (clef_->get_property ("non-default")))
-	{
-	  vis = get_property ("explicitClefVisibility");
-	}
+	vis = get_property ("explicitClefVisibility");
 
       if (vis)
 	{
 	  clef_->set_property ("break-visibility", vis);
 	  if (octavate_)
-	    {
-	      octavate_->set_property ("break-visibility", vis);
-	    }
+	    octavate_->set_property ("break-visibility", vis);
 	}
 
       clef_ = 0;

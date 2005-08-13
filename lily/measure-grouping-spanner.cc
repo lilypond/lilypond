@@ -38,13 +38,9 @@ Measure_grouping::print (SCM grob)
     TODO: use line interface
   */
   if (which == ly_symbol2scm ("bracket"))
-    {
-      m = Lookup::bracket (X_AXIS, iv, t, -height, t);
-    }
+    m = Lookup::bracket (X_AXIS, iv, t, -height, t);
   else if (which == ly_symbol2scm ("triangle"))
-    {
-      m = Lookup::triangle (iv, t, height);
-    }
+    m = Lookup::triangle (iv, t, height);
 
   m.align_to (Y_AXIS, DOWN);
   m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);

@@ -67,9 +67,7 @@ Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
     sort out how interfacing this should work;
   */
   if (line.is_empty ())
-    {
-      sp->line_len_ = -1;
-    }
+    sp->line_len_ = -1;
   else
     sp->line_len_ = line.length ();
 

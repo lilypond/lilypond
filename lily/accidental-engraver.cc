@@ -83,7 +83,6 @@ public:
 
   Array<Accidental_entry> accidentals_;
   Link_array<Spanner> ties_;
-
 };
 
 /*
@@ -205,19 +204,13 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
 
   if (from_same_octave != SCM_BOOL_F
       && recent_enough (bar_number, from_same_octave, laziness))
-    {
-      previous_alteration = from_same_octave;
-    }
+    previous_alteration = from_same_octave;
   else if (ignore_octave
 	   && from_other_octaves != SCM_BOOL_F
 	   && recent_enough (bar_number, from_other_octaves, laziness))
-    {
-      previous_alteration = from_other_octaves;
-    }
+    previous_alteration = from_other_octaves;
   else if (from_key_signature != SCM_BOOL_F)
-    {
-      previous_alteration = from_key_signature;
-    }
+    previous_alteration = from_key_signature;
 
   int num = 1;
   if (is_tied (previous_alteration))
@@ -449,9 +442,7 @@ Accidental_engraver::make_suggested_accidental (Music *note,
 
   Side_position_interface::add_support (a, note_head);
   if (Grob *stem = unsmob_grob (a->get_object ("stem")))
-    {
-      Side_position_interface::add_support (a, stem);
-    }
+    Side_position_interface::add_support (a, stem);
 
   a->set_parent (note_head, X_AXIS);
   return a;

@@ -67,9 +67,7 @@ Separation_item::width (Grob *me)
 {
   SCM sw = me->get_property ("X-extent");
   if (is_number_pair (sw))
-    {
-      return ly_scm2interval (sw);
-    }
+    return ly_scm2interval (sw);
 
   Item *item = dynamic_cast<Item *> (me);
   Paper_column *pc = item->get_column ();

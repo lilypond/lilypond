@@ -240,9 +240,7 @@ void
 Auto_beam_engraver::end_beam ()
 {
   if (stems_->size () < 2)
-    {
-      junk_beam ();
-    }
+    junk_beam ();
   else
     {
       finished_beam_ = create_beam ();
@@ -304,16 +302,13 @@ Auto_beam_engraver::finalize ()
 }
 
 
-
 void
 Auto_beam_engraver::acknowledge_beam (Grob_info info)
 {
   (void)info;
   check_bar_property ();
   if (stems_)
-    {
-      end_beam ();
-    }
+    end_beam ();
 }
 
 void

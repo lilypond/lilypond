@@ -375,13 +375,9 @@ set_slur_control_points (Grob *me)
   Bezier best;
 
   if (is_number_pair (end_ys))
-    {
-      best = state.configurations_[state.get_closest_index (end_ys)]->curve_;
-    }
+    best = state.configurations_[state.get_closest_index (end_ys)]->curve_;
   else
-    {
-      best = state.get_best_curve ();
-    }
+    best = state.get_best_curve ();
 
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
@@ -613,7 +609,6 @@ Slur_score_state::move_away_from_staffline (Real y,
 
   return y;
 }
-
 
 Array<Offset>
 Slur_score_state::generate_avoid_offsets () const

@@ -85,9 +85,7 @@ void
 Lily_parser::parse_file (String init, String name, String out_name)
 {
   if (output_backend_global == "tex")
-    {
-      try_load_text_metrics (out_name);
-    }
+    try_load_text_metrics (out_name);
 
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),

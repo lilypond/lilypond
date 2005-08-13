@@ -136,7 +136,6 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	  */
 	  + max (0.0, -extents[RIGHT][LEFT] - (base_space - increment))));
 
-
   /*
     We don't do complicated stuff: (base_space - increment) is the
     normal amount of white, which also determines the amount of
@@ -220,9 +219,7 @@ Note_spacing::right_column (Grob *me)
     }
 
   if (!mincol)
-    {
-      return 0;
-    }
+    return 0;
 
   return mincol;
 }

@@ -97,9 +97,7 @@ Cluster_spanner_engraver::process_music ()
     }
 
   if (beacon_ && !spanner_)
-    {
-      spanner_ = make_spanner ("ClusterSpanner", cluster_notes_[0]->self_scm ());
-    }
+    spanner_ = make_spanner ("ClusterSpanner", cluster_notes_[0]->self_scm ());
 
   if (beacon_ && spanner_)
     {

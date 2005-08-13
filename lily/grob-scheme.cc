@@ -249,7 +249,6 @@ LY_DEFINE (ly_grob_key, "ly:grob-key",
   return me->get_key ()->self_scm ();
 }
 
-
 LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
 	   1, 0, 0, (SCM grob),
 	   "Return the default font for grob @var{gr}.")

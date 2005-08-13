@@ -43,9 +43,7 @@ bool
 Tie_performer::try_music (Music *mus)
 {
   if (mus->is_mus_type ("tie-event"))
-    {
-      event_ = mus;
-    }
+    event_ = mus;
 
   return true;
 }

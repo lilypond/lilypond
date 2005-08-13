@@ -66,15 +66,11 @@ Grob::Grob (SCM basicprops,
     We always get a new key object for a new grob.
   */
   if (key_)
-    {
-      ((Object_key *)key_)->unprotect ();
-    }
+    ((Object_key *)key_)->unprotect ();
 
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
-    {
-      interfaces_ = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
-    }
+    interfaces_ = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
 
   /* TODO:
 
@@ -142,9 +138,7 @@ Grob::Grob (Grob const &s, int copy_index)
 
   smobify_self ();
   if (key_)
-    {
-      ((Object_key *)key_)->unprotect ();
-    }
+    ((Object_key *)key_)->unprotect ();
 }
 
 Grob::~Grob ()
@@ -170,9 +164,7 @@ robust_relative_extent (Grob *me, Grob *refp, Axis a)
 {
   Interval ext = me->extent (refp, a);
   if (ext.is_empty ())
-    {
-      ext.add_point (me->relative_coordinate (refp, a));
-    }
+    ext.add_point (me->relative_coordinate (refp, a));
 
   return ext;
 }

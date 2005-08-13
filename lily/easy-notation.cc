@@ -42,27 +42,23 @@ Note_head::brew_ez_stencil (SCM smob)
       charstr = scm_makfrom0str (s);
     }
 
-  
   SCM letter
-    = Text_interface::interpret_string (me->get_layout()->self_scm (),
+    = Text_interface::interpret_string (me->get_layout ()->self_scm (),
 					Font_interface::text_font_alist_chain (me),
 					charstr);
-  
+
   Stencil l (*unsmob_stencil (letter));
   l.align_to (X_AXIS, CENTER);
   l.align_to (Y_AXIS, CENTER);
 
-  
-  l = Stencil (Box (), l.expr ()); 
+  l = Stencil (Box (), l.expr ());
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real lt = Staff_symbol_referencer::line_thickness (me);
 
   Real radius = (ss + lt) / 2.0;
-  Real stem_thick = 1.3 * lt; 
+  Real stem_thick = 1.3 * lt;
   if (Grob *stem = unsmob_grob (me->get_object ("stem")))
-    {
-      stem_thick = Stem::thickness (stem);
-    }
+    stem_thick = Stem::thickness (stem);
 
   int black = (log >= 2);
 
@@ -77,9 +73,7 @@ Note_head::brew_ez_stencil (SCM smob)
 				  SCM_BOOL_T));
   Stencil white_head;
   if (black)
-    {
-      l = l.in_color (1, 1, 1);
-    }
+    l = l.in_color (1, 1, 1);
   else
     {
       white_head = Stencil (extent,

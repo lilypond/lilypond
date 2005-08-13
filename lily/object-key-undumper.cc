@@ -19,9 +19,7 @@ Object_key_undumper::mark_smob (SCM smob)
   Object_key_undumper *undumper = (Object_key_undumper *) SCM_CELL_WORD_1 (smob);
   for (Int_to_key_map::const_iterator i (undumper->keys_.begin ());
        i != undumper->keys_.end (); i++)
-    {
-      scm_gc_mark ((*i).second->self_scm ());
-    }
+    scm_gc_mark ((*i).second->self_scm ());
 
   return SCM_BOOL_F;
 }

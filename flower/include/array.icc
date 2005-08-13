@@ -147,9 +147,7 @@ binary_search (Array<T> const &table,
   binary_search_bounds (table, key, compare, &lo, &hi);
 
   if (! (*compare) (key, table[lo]))
-    {
-      return lo;
-    }
+    return lo;
   else
     return -1;              /* not found */
 }

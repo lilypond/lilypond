@@ -38,10 +38,10 @@ void
 File_path::parse_path (String p)
 {
   int len;
-  while ((len = p.length ()) )
+  while ((len = p.length ()))
     {
       int i = p.index (PATHSEP);
-      if (i < 0) 
+      if (i < 0)
 	i = len;
       append (p.left_string (i));
       p = p.right_string (len - i - 1);

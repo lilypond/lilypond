@@ -49,9 +49,7 @@ Staff_spacing::next_note_correction (Grob *me,
       max_corr = max (max_corr, (- v[LEFT]));
     }
   if (Grob *a = unsmob_grob (g->get_object ("arpeggio")))
-    {
-      max_corr = max (max_corr, - a->extent (col, X_AXIS)[LEFT]);
-    }
+    max_corr = max (max_corr, - a->extent (col, X_AXIS)[LEFT]);
 
   /*
     Let's decrease the space a little if the problem is not located
@@ -212,18 +210,14 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
       *space = *fixed;
     }
   else if (type == ly_symbol2scm ("extra-space"))
-    {
-      *space = *fixed + distance;
-    }
+    *space = *fixed + distance;
   else if (type == ly_symbol2scm ("semi-fixed-space"))
     {
       *fixed += distance / 2;
       *space = *fixed + distance / 2;
     }
   else if (type == ly_symbol2scm ("minimum-space"))
-    {
-      *space = last_ext[LEFT] + max (last_ext.length (), distance);
-    }
+    *space = last_ext[LEFT] + max (last_ext.length (), distance);
   else if (type == ly_symbol2scm ("minimum-fixed-space"))
     {
       *space = last_ext[LEFT] + max (last_ext.length (), distance);

@@ -10,7 +10,6 @@
 #include "warn.hh"
 #include "stencil.hh"
 
-
 LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 	   2, 0, 0, (SCM port, SCM format),
 	   "Create an outputter that evaluates within "

@@ -175,5 +175,4 @@ typedef void (*Engraver_void_function_engraver_grob_info) (Engraver *, Grob_info
 typedef void (*Translator_void_method_ptr) (Translator *);
 
 
-
 #endif /* LILY_PROTO_HH */

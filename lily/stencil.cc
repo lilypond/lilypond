@@ -190,7 +190,6 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
   add_stencil (moved_to_edge (a, d, s, padding, minimum));
 }
 
-
 Stencil
 Stencil::in_color (Real r, Real g, Real b) const
 {

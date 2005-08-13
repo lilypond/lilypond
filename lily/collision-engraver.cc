@@ -31,9 +31,7 @@ Collision_engraver::process_acknowledged ()
   if (col_ || note_columns_.size () < 2)
     return;
   if (!col_)
-    {
-      col_ = make_item ("NoteCollision", SCM_EOL);
-    }
+    col_ = make_item ("NoteCollision", SCM_EOL);
 
   for (int i = 0; i < note_columns_.size (); i++)
     Note_collision_interface::add_column (col_, note_columns_[i]);

@@ -66,9 +66,7 @@ Trill_spanner_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-	{
-	  event_drul_[STOP]->origin ()->warning (_ ("can't find start of trill spanner"));
-	}
+	event_drul_[STOP]->origin ()->warning (_ ("can't find start of trill spanner"));
       else
 	{
 	  finished_ = span_;
@@ -80,9 +78,7 @@ Trill_spanner_engraver::process_music ()
   if (event_drul_[START])
     {
       if (current_event_)
-	{
-	  event_drul_[START]->origin ()->warning (_ ("already have a trill spanner"));
-	}
+	event_drul_[START]->origin ()->warning (_ ("already have a trill spanner"));
       else
 	{
 	  current_event_ = event_drul_[START];

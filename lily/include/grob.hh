@@ -42,7 +42,6 @@ protected:
   */
   SCM interfaces_;
 
-
   /* BARF */
   friend class Spanner;
   friend SCM ly_grob_properties (SCM);

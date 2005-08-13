@@ -145,7 +145,7 @@ ly_scm2newstr (SCM str, size_t *lenp)
 
       if (lenp)
 	*lenp = len;
-      
+
       return new_str;
     }
   return 0;
@@ -154,7 +154,7 @@ ly_scm2newstr (SCM str, size_t *lenp)
 SCM
 index_get_cell (SCM s, Direction d)
 {
-  
+
   assert (d);
   return (d == LEFT) ? scm_car (s) : scm_cdr (s);
 }
@@ -168,7 +168,7 @@ index_set_cell (SCM s, Direction d, SCM v)
     scm_set_cdr_x (s, v);
   return s;
 }
-  
+
 bool
 is_number_pair (SCM p)
 {
@@ -328,7 +328,6 @@ ly_deep_copy (SCM src)
     }
   return src;
 }
-
 
 /* looks the key up in the cdrs of the alist-keys
    - ignoring the car and ignoring non-pair keys.
@@ -686,9 +685,7 @@ ly_alist_vals (SCM alist)
 {
   SCM x = SCM_EOL;
   for (SCM p = alist; scm_is_pair (p); p = scm_cdr (p))
-    {
-      x = scm_cons (scm_cdar (p), x);
-    }
+    x = scm_cons (scm_cdar (p), x);
   return x;
 }
 

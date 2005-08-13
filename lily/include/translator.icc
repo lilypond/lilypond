@@ -105,6 +105,5 @@ generic_get_acknowledger (SCM sym,
   ADD_SCM_INIT_FUNC (CLASS ## NAME ## _ack_adder_initclass, CLASS ## NAME ## _ack_adder);
 
 
-
 #endif /* TRANSLATOR_ICC */
 

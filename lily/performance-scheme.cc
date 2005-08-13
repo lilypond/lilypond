@@ -22,4 +22,3 @@ LY_DEFINE (ly_performance_write, "ly:performance-write",
   return SCM_UNSPECIFIED;
 }
 
-

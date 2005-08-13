@@ -173,9 +173,7 @@ Span_bar::evaluate_empty (Grob *me)
 
   extract_grob_set (me, "elements", elements);
   if (elements.is_empty ())
-    {
-      me->suicide ();
-    }
+    me->suicide ();
 }
 
 void
@@ -189,9 +187,7 @@ Span_bar::evaluate_glyph (Grob *me)
   extract_grob_set (me, "elements", elements);
   for (int i = elements.size ();
        i-- && !scm_is_string (gl);)
-    {
-      gl = elements[i]->get_property ("glyph");
-    }
+    gl = elements[i]->get_property ("glyph");
 
   if (!scm_is_string (gl))
     {
@@ -201,17 +197,11 @@ Span_bar::evaluate_glyph (Grob *me)
 
   String type = ly_scm2string (gl);
   if (type == "|:")
-    {
-      type = ".|";
-    }
+    type = ".|";
   else if (type == ":|")
-    {
-      type = "|.";
-    }
+    type = "|.";
   else if (type == ":|:")
-    {
-      type = ".|.";
-    }
+    type = ".|.";
 
   gl = scm_makfrom0str (type.to_str0 ());
   if (scm_equal_p (me->get_property ("glyph"), gl)

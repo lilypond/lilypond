@@ -75,8 +75,7 @@ Book::add_score (SCM s)
 }
 
 /* Concatenate all score outputs into a Paper_book
-
-*/
+ */
 Paper_book *
 Book::process (Output_def *default_paper,
 	       Output_def *default_layout)

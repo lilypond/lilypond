@@ -468,13 +468,9 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 					      ly_bool2scm (false));
 	      }
 	    if (prev_delta_pitch < - 1)
-	      {
-		glyph_name = "svaticana.reverse.plica";
-	      }
+	      glyph_name = "svaticana.reverse.plica";
 	    else
-	      {
-		glyph_name = "svaticana.reverse.vplica";
-	      }
+	      glyph_name = "svaticana.reverse.vplica";
 	  }
 	else // (prev_delta_pitch == 0)
 	  {

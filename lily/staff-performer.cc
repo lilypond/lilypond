@@ -138,8 +138,6 @@ void
 Staff_performer::acknowledge_audio_element (Audio_element *p)
 {
   if (Audio_item *ai = dynamic_cast<Audio_item *> (p))
-    {
-      audio_staff_->add_audio_item (ai);
-    }
+    audio_staff_->add_audio_item (ai);
 }
 

@@ -133,7 +133,6 @@ ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
 		      /* read */ "",
 		      /* write */ "");
 
-
 void
 Engraver_group_engraver::derived_mark () const
 {

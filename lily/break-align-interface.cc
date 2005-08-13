@@ -50,9 +50,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   Item *item = dynamic_cast<Item *> (me);
   Direction bsd = item->break_status_dir ();
   if (bsd == LEFT)
-    {
-      me->set_property ("self-alignment-X", scm_from_int (RIGHT));
-    }
+    me->set_property ("self-alignment-X", scm_from_int (RIGHT));
 
   /*
     Force break alignment itself to be done first, in the case
@@ -258,9 +256,7 @@ Break_align_interface::do_alignment (Grob *grob)
     return;
 
   if (me->break_status_dir () == LEFT)
-    {
-      alignment_off = -total_extent[RIGHT] - extra_right_space;
-    }
+    alignment_off = -total_extent[RIGHT] - extra_right_space;
   else if (edge_idx < 0)
     alignment_off = -total_extent[LEFT];
 

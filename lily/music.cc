@@ -36,13 +36,9 @@ Music::name () const
 {
   SCM nm = get_property ("name");
   if (scm_is_symbol (nm))
-    {
-      return ly_symbol2string (nm);
-    }
+    return ly_symbol2string (nm);
   else
-    {
-      return classname (this);
-    }
+    return classname (this);
 }
 
 Music::Music (SCM init)
@@ -54,9 +50,7 @@ Music::Music (SCM init)
 
   length_callback_ = get_property ("length-callback");
   if (!ly_is_procedure (length_callback_))
-    {
-      length_callback_ = duration_length_callback_proc;
-    }
+    length_callback_ = duration_length_callback_proc;
 
   start_callback_ = get_property ("start-callback");
 }
@@ -256,9 +250,7 @@ Music::transpose (Pitch delta)
   */
   SCM pa = get_property ("pitch-alist");
   if (scm_is_pair (pa))
-    {
-      set_property ("pitch-alist", ly_transpose_key_alist (pa, delta.smobbed_copy ()));
-    }
+    set_property ("pitch-alist", ly_transpose_key_alist (pa, delta.smobbed_copy ()));
 }
 
 IMPLEMENT_TYPE_P (Music, "ly:music?");
@@ -332,8 +324,6 @@ Music::duration_length_callback (SCM m)
 
   Moment mom;
   if (d)
-    {
-      mom = d->get_length ();
-    }
+    mom = d->get_length ();
   return mom.smobbed_copy ();
 }

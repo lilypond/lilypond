@@ -123,9 +123,7 @@ Sequential_iterator::construct_children ()
     }
 
   while (iter_ && !iter_->ok ())
-    {
-      next_element (true);
-    }
+    next_element (true);
 
   last_mom_ = Moment (-1);
   here_mom_ = get_music ()->start_mom ();
@@ -232,9 +230,7 @@ Sequential_iterator::pending_moment () const
   Grace_fixup *gf = get_grace_fixup ();
   if (gf
       && gf->length_ + iter_->music_start_mom () == cp)
-    {
-      return here_mom_ + gf->length_ + Moment (0, gf->grace_start_);
-    }
+    return here_mom_ + gf->length_ + Moment (0, gf->grace_start_);
 
   /*
     Fix-up a grace note at  the start of the music.

@@ -307,11 +307,11 @@ dir_name (String const file_name)
 #endif
 
 #ifdef __MINGW32__
-#  include <winbase.h>
+#include <winbase.h>
 #endif
 
 static void
-setup_paths (char const* argv0)
+setup_paths (char const *argv0)
 {
   prefix_directory = LILYPOND_DATADIR;
 
@@ -396,9 +396,7 @@ setup_paths (char const* argv0)
   struct stat statbuf;
   String builddir = prefix_directory + "/mf/out/";
   if (stat (builddir.to_str0 (), &statbuf) == 0)
-    {
-      dirs.push (builddir.to_str0 ());
-    }
+    dirs.push (builddir.to_str0 ());
   else
     {
       dirs.push (prefix_directory + "/fonts/otf/");
@@ -506,7 +504,6 @@ do_chroot_jail ()
     }
 }
 #endif
-
 
 static void
 main_with_guile (void *, int, char **)
@@ -670,7 +667,7 @@ parse_argv (int argc, char **argv)
 	  warranty ();
 	  exit (0);
 	  break;
-	  
+
 	case 'b':
 	  output_backend_global = option_parser->optional_argument_str0_;
 	  break;
@@ -678,7 +675,7 @@ parse_argv (int argc, char **argv)
 	case 'f':
 	  output_format_global = option_parser->optional_argument_str0_;
 	  break;
-	  
+
 	case 'H':
 	  dump_header_fieldnames_global
 	    .push (option_parser->optional_argument_str0_);

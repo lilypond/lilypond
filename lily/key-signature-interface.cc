@@ -93,13 +93,9 @@ Key_signature_interface::print (SCM smob)
   SCM scm_style = me->get_property ("style");
   String style;
   if (scm_is_symbol (scm_style))
-    {
-      style = ly_symbol2string (scm_style);
-    }
+    style = ly_symbol2string (scm_style);
   else
-    {
-      style = "";
-    }
+    style = "";
 
   SCM newas = me->get_property ("alteration-alist");
   Stencil mol;
@@ -124,9 +120,7 @@ Key_signature_interface::print (SCM smob)
       Stencil acc (fm->find_by_name ("accidentals." + font_char));
 
       if (acc.is_empty ())
-	{
-	  me->warning (_f ("accidental `%s' not found", font_char));
-	}
+	me->warning (_f ("accidental `%s' not found", font_char));
       else
 	{
 	  SCM what = scm_caar (s);

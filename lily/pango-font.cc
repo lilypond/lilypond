@@ -184,7 +184,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
     {
       ((Pango_font *) this)->register_font_file (file_name, ps_name);
       pango_fc_font_unlock_face (fcfont);
-	
+
       SCM expr = scm_list_5 (ly_symbol2scm ("glyph-string"),
 			     scm_makfrom0str (ps_name.to_str0 ()),
 			     scm_from_double (size),

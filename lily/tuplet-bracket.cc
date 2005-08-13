@@ -54,9 +54,7 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
   if (Note_column::has_interface (g)
       && Note_column::get_stem (g)
       && Note_column::dir (g) == my_dir)
-    {
-      g = Note_column::get_stem (g);
-    }
+    g = Note_column::get_stem (g);
 
   return g;
 }
@@ -142,17 +140,13 @@ Tuplet_bracket::print (SCM smob)
   */
   SCM bracket = me->get_property ("bracket-visibility");
   if (scm_is_bool (bracket))
-    {
-      bracket_visibility = ly_scm2bool (bracket);
-    }
+    bracket_visibility = ly_scm2bool (bracket);
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     bracket_visibility = !par_beam;
 
   SCM numb = me->get_property ("number-visibility");
   if (scm_is_bool (numb))
-    {
-      number_visibility = ly_scm2bool (numb);
-    }
+    number_visibility = ly_scm2bool (numb);
   else if (numb == ly_symbol2scm ("if-no-beam"))
     number_visibility = !par_beam;
 
@@ -229,9 +223,7 @@ Tuplet_bracket::print (SCM smob)
   */
   if (bracket_visibility && number_visibility
       && mol.extent (X_AXIS).length () > w)
-    {
-      bracket_visibility = false;
-    }
+    bracket_visibility = false;
 
   if (bracket_visibility)
     {
@@ -332,18 +324,16 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
 
   Direction d = LEFT;
   do
-    {
-      straight_corners[d] += -d * shorten[d] / length * dz;
-    }
-  while (flip (&d) != LEFT);
+    straight_corners[d] += -d * shorten[d] / length * dz;
+  while (flip (&d) != LEFT)
+    ;
 
   if (gap.is_empty ())
     gap = Interval (0, 0);
   do
-    {
-      gap_corners[d] = (dz * 0.5) + gap[d] / length * dz;
-    }
-  while (flip (&d) != LEFT);
+    gap_corners[d] = (dz * 0.5) + gap[d] / length * dz;
+  while (flip (&d) != LEFT)
+    ;
 
   Drul_array<Offset> flare_corners = straight_corners;
   do
@@ -403,9 +393,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Grob *commony = common_refpoint_of_array (columns, me, Y_AXIS);
   commony = common_refpoint_of_array (tuplets, commony, Y_AXIS);
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
-    {
-      commony = st->common_refpoint (commony, Y_AXIS);
-    }
+    commony = st->common_refpoint (commony, Y_AXIS);
 
   Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
   commonx = common_refpoint_of_array (tuplets, commonx, Y_AXIS);
@@ -591,9 +579,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   Real offset = 0.0;
   if (!par_beam
       || get_grob_direction (par_beam) != dir)
-    {
-      calc_position_and_height (me, &offset, &dy);
-    }
+    calc_position_and_height (me, &offset, &dy);
   else
     {
       SCM ps = par_beam->get_property ("positions");
@@ -612,13 +598,9 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   SCM rp = me->get_property ("right-position");
 
   if (scm_is_number (lp) && !scm_is_number (rp))
-    {
-      rp = scm_from_double (scm_to_double (lp) + dy);
-    }
+    rp = scm_from_double (scm_to_double (lp) + dy);
   else if (scm_is_number (rp) && !scm_is_number (lp))
-    {
-      lp = scm_from_double (scm_to_double (rp) - dy);
-    }
+    lp = scm_from_double (scm_to_double (rp) - dy);
   else if (!scm_is_number (rp) && !scm_is_number (lp))
     {
       lp = scm_from_double (offset);
@@ -665,7 +647,6 @@ Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
   me->add_dependency (bracket);
 }
-
 
 ADD_INTERFACE (Tuplet_bracket,
 	       "tuplet-bracket-interface",

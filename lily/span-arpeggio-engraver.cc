@@ -42,9 +42,7 @@ void
 Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info info)
 {
   if (info.origin_contexts (this).size ()) // huh? what's this test for? 
-    {
-      arpeggios_.push (info.grob ());
-    }
+    arpeggios_.push (info.grob ());
 }
 
 void
@@ -59,9 +57,7 @@ Span_arpeggio_engraver::process_acknowledged ()
   */
   if (!span_arpeggio_ && arpeggios_.size () > 1
       && to_boolean (get_property ("connectArpeggios")))
-    {
-      span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
-    }
+    span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
 }
 
 void

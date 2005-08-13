@@ -69,9 +69,7 @@ template<class T>
 Cons<T> *last_cons (Cons<T> *head)
 {
   while (head && head->next_)
-    {
-      head = head->next_;
-    }
+    head = head->next_;
   return head;
 }
 
@@ -127,9 +125,7 @@ public:
   {
     Cons<T> **p = &head_;
     for (; *p && i; p = &((*p)->next_))
-      {
-	i--;
-      }
+      i--;
 
     if (*p)
       {
