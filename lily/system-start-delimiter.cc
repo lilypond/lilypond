@@ -67,7 +67,6 @@ System_start_delimiter::after_line_breaking (SCM smob)
       int count = 0;
       Paper_column *left_column = me->get_bound (LEFT)->get_column ();
 
-#if 1 /* slur-script.ly test */
       /*
 	Get all coordinates, to trigger Hara kiri.
       */
@@ -89,7 +88,6 @@ System_start_delimiter::after_line_breaking (SCM smob)
 
       if (count <= 1)
 	me->suicide ();
-#endif
     }
   return SCM_UNSPECIFIED;
 }
