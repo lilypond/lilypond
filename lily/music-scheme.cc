@@ -42,9 +42,7 @@ LY_DEFINE (ly_music_set_property, "ly:music-set-property!",
 
   bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));
   if (ok)
-    {
-      sc->internal_set_property (sym, val);
-    }
+    sc->internal_set_property (sym, val);
 
   return SCM_UNSPECIFIED;
 }

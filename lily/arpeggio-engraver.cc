@@ -44,9 +44,7 @@ bool
 Arpeggio_engraver::try_music (Music *m)
 {
   if (!arpeggio_event_)
-    {
-      arpeggio_event_ = m;
-    }
+    arpeggio_event_ = m;
   return true;
 }
 
@@ -72,27 +70,21 @@ Arpeggio_engraver::acknowledge_rhythmic_head (Grob_info info)
       We can't catch local key items (accidentals) from Voice context,
       see Local_key_engraver
     */
-    {
-      Side_position_interface::add_support (arpeggio_, info.grob ());
-    }
+    Side_position_interface::add_support (arpeggio_, info.grob ());
 }
 
 void
 Arpeggio_engraver::acknowledge_note_column (Grob_info info)
 {
   if (arpeggio_)
-    {
-      info.grob ()->set_object ("arpeggio", arpeggio_->self_scm ());
-    }
+    info.grob ()->set_object ("arpeggio", arpeggio_->self_scm ());
 }
 
 void
 Arpeggio_engraver::process_music ()
 {
   if (arpeggio_event_)
-    {
-      arpeggio_ = make_item ("Arpeggio", arpeggio_event_->self_scm ());
-    }
+    arpeggio_ = make_item ("Arpeggio", arpeggio_event_->self_scm ());
 }
 
 void

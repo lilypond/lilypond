@@ -335,7 +335,6 @@ LY_DEFINE (ly_filled_box, "ly:round-filled-box",
 				   scm_to_double (blot)).smobbed_copy ();
 }
 
-
 LY_DEFINE (ly_register_stencil_expression, "ly:register-stencil-expression",
 	   1, 0, 0,
 	   (SCM symbol),

@@ -66,9 +66,7 @@ void
 Text_engraver::acknowledge_stem (Grob_info inf)
 {
   for (int i = 0; i < texts_.size (); i++)
-    {
-      Side_position_interface::add_support (texts_[i], inf.grob ());
-    }
+    Side_position_interface::add_support (texts_[i], inf.grob ());
 }
 
 void

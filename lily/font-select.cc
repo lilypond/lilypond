@@ -77,9 +77,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
 #endif
     }
   else
-    {
-      fm = unsmob_metrics (scm_force (scm_c_vector_ref (font_vector, i)));
-    }
+    fm = unsmob_metrics (scm_force (scm_c_vector_ref (font_vector, i)));
 
   return find_scaled_font (layout, fm, requested / size);
 }
@@ -114,9 +112,7 @@ select_encoded_font (Output_def *layout, SCM chain)
 #if HAVE_PANGO_FT2
   if (scm_is_string (name)
       && is_pango_format_global)
-    {
-      return select_pango_font (layout, chain);
-    }
+    return select_pango_font (layout, chain);
   else
 #endif
     if (scm_is_string (name))

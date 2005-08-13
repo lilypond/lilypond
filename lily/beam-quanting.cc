@@ -25,9 +25,7 @@ get_detail (SCM alist, SCM sym, Real def)
   SCM entry = scm_assq (sym, alist);
 
   if (scm_is_pair (entry))
-    {
-      return robust_scm2double (scm_cdr (entry), def);
-    }
+    return robust_scm2double (scm_cdr (entry), def);
   return def;
 }
 
@@ -374,10 +372,9 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
 
   Direction d = DOWN;
   do
-    {
-      score[d] /= max (count[d], 1);
-    }
-  while (flip (&d) != DOWN);
+    score[d] /= max (count[d], 1);
+  while (flip (&d) != DOWN)
+    ;
 
   return score[LEFT] + score[RIGHT];
 }
@@ -402,9 +399,7 @@ Beam::score_slopes_dy (Real yl, Real yr,
   */
   if (fabs (dy / dx) > parameters->ROUND_TO_ZERO_SLOPE
       && sign (dy_damp) != sign (dy))
-    {
-      dem += parameters->DAMPING_DIRECTION_PENALTY;
-    }
+    dem += parameters->DAMPING_DIRECTION_PENALTY;
 
   dem += parameters->MUSICAL_DIRECTION_FACTOR *max (0.0, (fabs (dy) - fabs (dy_mus)));
 

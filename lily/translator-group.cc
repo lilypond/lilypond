@@ -114,9 +114,7 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
 
   for (SCM s = c->children_contexts (); scm_is_pair (s);
        s = scm_cdr (s))
-    {
-      precomputed_recurse_over_translators (unsmob_context (scm_car (s)), idx, dir);
-    }
+    precomputed_recurse_over_translators (unsmob_context (scm_car (s)), idx, dir);
 
   if (dir == UP)
     {
@@ -139,9 +137,7 @@ recurse_over_translators (Context *c, Translator_method ptr, Translator_group_me
 
   for (SCM s = c->children_contexts (); scm_is_pair (s);
        s = scm_cdr (s))
-    {
-      recurse_over_translators (unsmob_context (scm_car (s)), ptr, tg_ptr, dir);
-    }
+    recurse_over_translators (unsmob_context (scm_car (s)), ptr, tg_ptr, dir);
 
   if (dir == UP)
     {
@@ -192,9 +188,7 @@ Translator_group::precomputed_translator_foreach (Translator_precompute_index id
 {
   Array<Translator_method_binding> &bindings (precomputed_method_bindings_[idx]);
   for (int i = 0; i < bindings.size (); i++)
-    {
-      bindings[i].invoke ();
-    }
+    bindings[i].invoke ();
 }
 
 void

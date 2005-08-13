@@ -23,7 +23,6 @@ private:
   Grob *system_;
 };
 
-
 Vertically_spaced_contexts_engraver::Vertically_spaced_contexts_engraver ()
 {
   system_ = 0;

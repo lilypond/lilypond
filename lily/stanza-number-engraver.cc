@@ -58,9 +58,7 @@ void
 Stanza_number_engraver::acknowledge_lyric_syllable (Grob_info inf)
 {
   if (text_)
-    {
-      Side_position_interface::add_support (text_, inf.grob ());
-    }
+    Side_position_interface::add_support (text_, inf.grob ());
 }
 
 void

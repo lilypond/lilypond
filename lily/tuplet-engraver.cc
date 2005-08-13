@@ -32,7 +32,6 @@ struct Tuplet_description
   }
 };
 
-
 class Tuplet_engraver : public Engraver
 {
 public:

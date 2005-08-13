@@ -43,13 +43,13 @@ Binary_source_file::quote_input (char const *pos_str0) const
 
   String str = pre_string
     + to_string ('\n')
-    + to_string (' ', pre_string.length () + 1) 
+    + to_string (' ', pre_string.length () + 1)
     + post_string;
   return str;
 }
 
 int
-Binary_source_file::get_line (char const* pos_str0) const
+Binary_source_file::get_line (char const *pos_str0) const
 {
   if (!contains (pos_str0))
     return 0;
@@ -60,9 +60,8 @@ Binary_source_file::get_line (char const* pos_str0) const
 U8
 Binary_source_file::get_U8 ()
 {
-  return * (U8*)forward_str0 (1);
+  return *(U8 *)forward_str0 (1);
 }
-
 
 U16
 Binary_source_file::get_U16 ()

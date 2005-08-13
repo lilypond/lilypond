@@ -134,9 +134,7 @@ Simple_spacer::active_blocking_force () const
   Real bf = -infinity_f;
   for (int i = 0; i < springs_.size (); i++)
     if (springs_[i].is_active_)
-      {
-	bf = max (bf, springs_[i].block_force_);
-      }
+      bf = max (bf, springs_[i].block_force_);
   return bf;
 }
 
@@ -356,9 +354,7 @@ Simple_spacer::add_spring (Real ideal, Real inverse_hooke)
     }
 
   if (!inverse_hooke)
-    {
-      desc.is_active_ = false;
-    }
+    desc.is_active_ = false;
   else
     {
       /*
@@ -387,13 +383,9 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 
   for (int i = 0; i < icols.size (); i++)
     if (scm_is_pair (icols[i]->get_object ("between-cols")))
-      {
-	loose_cols_.push (icols[i]);
-      }
+      loose_cols_.push (icols[i]);
     else
-      {
-	cols.push (icols[i]);
-      }
+      cols.push (icols[i]);
 
   spaced_cols_ = cols;
   for (int i = 0; i < cols.size () - 1; i++)

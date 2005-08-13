@@ -128,7 +128,7 @@ Performance::output_header_track (Midi_stream &midi_stream)
   Audio_text track_name_a (Audio_text::TRACK_NAME, "Track "
 			   + String_convert::int2dec (0, 0, '0'));
   Midi_text track_name (&track_name_a);
-			
+
   midi_track.add (Moment (0), &track_name);
 
   // Some sequencers read track 0 last.
@@ -143,9 +143,7 @@ void
 Performance::add_element (Audio_element *p)
 {
   if (Audio_staff *s = dynamic_cast<Audio_staff *> (p))
-    {
-      audio_staffs_.push (s);
-    }
+    audio_staffs_.push (s);
   audio_element_list_ = new Killing_cons<Audio_element> (p, audio_element_list_);
 }
 

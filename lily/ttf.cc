@@ -83,7 +83,6 @@ print_header (void *out, FT_Face face)
   lily_cookie_fprintf (out, "end readonly def\n");
 }
 
-
 #define CHUNKSIZE 65534
 
 static void

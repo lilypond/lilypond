@@ -58,9 +58,7 @@ Tab_note_heads_engraver::try_music (Music *m)
       return true;
     }
   else if (m->is_mus_type ("busy-playing-event"))
-    {
-      return note_events_.size ();
-    }
+    return note_events_.size ();
 
   return false;
 }

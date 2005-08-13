@@ -104,18 +104,14 @@ void
 Hyphen_engraver::process_music ()
 {
   if (ev_)
-    {
-      hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ());
-    }
+    hyphen_ = make_spanner ("LyricHyphen", ev_->self_scm ());
 }
 
 void
 Hyphen_engraver::stop_translation_timestep ()
 {
   if (finished_hyphen_ && finished_hyphen_->get_bound (RIGHT))
-    {
-      finished_hyphen_ = 0;
-    }
+    finished_hyphen_ = 0;
 
   if (finished_hyphen_ && hyphen_)
     {

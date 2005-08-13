@@ -87,9 +87,7 @@ if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
     ly_display_scm (lc->self_scm ());
     Real distance;
     if (incr_scm != SCM_EOL)
-      {
-	distance = scm_to_double (incr_scm);
-      }
+      distance = scm_to_double (incr_scm);
     else
       {
 	me->warning (_ ("distance undefined, assuming 0.1"));
@@ -146,9 +144,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 	}
     }
   else
-    {
-      get_set_column (parent, column);
-    }
+    get_set_column (parent, column);
 }
 
 /*

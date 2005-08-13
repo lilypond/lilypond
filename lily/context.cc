@@ -253,9 +253,7 @@ Context::get_context_key (String type, String id)
 
   int disambiguation_count = 0;
   if (context_counts_.find (now_key) != context_counts_.end ())
-    {
-      disambiguation_count = context_counts_[now_key];
-    }
+    disambiguation_count = context_counts_[now_key];
 
   context_counts_[now_key] = disambiguation_count + 1;
 
@@ -273,9 +271,7 @@ Context::get_grob_key (String name)
 
   int disambiguation_count = 0;
   if (grob_counts_.find (name) != grob_counts_.end ())
-    {
-      disambiguation_count = grob_counts_[name];
-    }
+    disambiguation_count = grob_counts_[name];
   grob_counts_[name] = disambiguation_count + 1;
 
   Object_key *k = new Lilypond_grob_key (get_key (),
@@ -337,15 +333,11 @@ Context::where_defined (SCM sym, SCM *value) const
 {
 #ifndef NDEBUG
   if (profile_property_accesses)
-    {
-      note_property_access (&context_property_lookup_table, sym);
-    }
+    note_property_access (&context_property_lookup_table, sym);
 #endif
 
   if (properties_dict ()->try_retrieve (sym, value))
-    {
-      return (Context *)this;
-    }
+    return (Context *)this;
 
   return (daddy_context_) ? daddy_context_->where_defined (sym, value) : 0;
 }
@@ -358,9 +350,7 @@ Context::internal_get_property (SCM sym) const
 {
 #ifndef NDEBUG
   if (profile_property_accesses)
-    {
-      note_property_access (&context_property_lookup_table, sym);
-    }
+    note_property_access (&context_property_lookup_table, sym);
 #endif
 
   SCM val = SCM_EOL;
@@ -494,9 +484,7 @@ Context::now_mom () const
 {
   Context const *p = this;
   while (p->daddy_context_)
-    {
-      p = p->daddy_context_;
-    }
+    p = p->daddy_context_;
 
   return p->now_mom ();
 }
@@ -592,9 +580,7 @@ Context::clear_key_disambiguations ()
   grob_counts_.clear ();
   context_counts_.clear ();
   for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))
-    {
-      unsmob_context (scm_car (s))->clear_key_disambiguations ();
-    }
+    unsmob_context (scm_car (s))->clear_key_disambiguations ();
 }
 
 /*

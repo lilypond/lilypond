@@ -201,9 +201,7 @@ Rest_collision::do_shift (Grob *me)
 	Rests and notes.
       */
       if (rests.size () > 1)
-	{
-	  warning (_ ("too many colliding rests"));
-	}
+	warning (_ ("too many colliding rests"));
       Grob *rcol = 0;
       Direction dir = CENTER;
 

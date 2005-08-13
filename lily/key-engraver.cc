@@ -128,9 +128,7 @@ Key_engraver::acknowledge_clef (Grob_info info)
   (void)info;
   SCM c = get_property ("createKeyOnClefChange");
   if (to_boolean (c))
-    {
-      create_key (false);
-    }
+    create_key (false);
 }
 
 void
@@ -138,9 +136,7 @@ Key_engraver::acknowledge_bar_line (Grob_info info)
 {
   (void)info;
   if (scm_is_pair (get_property ("keySignature")))
-    {
-      create_key (true);
-    }
+    create_key (true);
 }
 
 void

@@ -22,17 +22,28 @@ import sys
 import time
 
 COMMENT = 'COMMENT'
+STRING = 'STRING'
+GLOBAL_CXX = 'GC++'
 CXX = 'C++'
 verbose_p = 0
 indent_p = 0
 
 rules = {
+	GLOBAL_CXX:
+	[
+	# delete gratuitous block
+	('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
+	 '\n\\2;'),
+	],
 	CXX:
 	[
 	# space before parenthesis open
 	('([^\( \]])[ \t]*\(', '\\1 ('),
 	# space after comma
-	(',[ \t]*', ', '),
+	("\([^'],\)[ \t]*", '\1 '),
+	# delete gratuitous block
+	('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
+	 '\n\\2;'),
 	# delete inline tabs
 	('(\w)\t+', '\\1 '),
 	# delete inline double spaces
@@ -78,9 +89,6 @@ rules = {
 	('(return|=) (\*|&|-|!) ([\w\(])', '\\1 \\2\\3'),
 	# space after `operator'
 	('(\Woperator) *([^\w\s])', '\\1 \\2'),
-	# delete gratuitous block
-	('''\n(    |\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
-	 '\n\\2;'),
 	# dangling brace close
 	('\n[ \t]*(\n[ \t]*})', '\\1'),
 	# dangling newline
@@ -94,17 +102,14 @@ rules = {
 	('\n[ \t]*,', ','),
 	# dangling semicolon
 	('\n[ \t]*;', ';'),
-	# delete gratuitous blocks
-	('''xx\n([    ]|\t)\s*{\n\s*(.*?)(?![{}]|\b(do|for|else|if|switch|while)\b);\n\s*}''',
-	 '\n\\2;'),
 	# brace open
 	('(\w)[ \t]*([^\s]*){([ \t]*\n)', '\\1\\2\n{\n'),
 	# brace open backslash
 	('(\w[^\n]*){[ \t]*\\\\\n', '\\1\\\n{\\\n'),
 	# brace close
-	('}[ \t]*([^\n]*\w[^\n\\\]*)\n', '}\n\\1\n'),
+	("}[ \t]*([^'\n]*\w[^\n\\\]*)\n", '}\n\\1\n'),
 	# brace close backslash
-	('}[ \t]*([^\n]*\w[^\n\\\]*)', '\n}\n\\1'),
+	("}[ \t]*([^'\n]*\w[^\n\\\]*)", '\n}\n\\1'),
 	# delete space after `operator'
 	#('(\Woperator) (\W)', '\\1\\2'),
 	# delete space after case, label
@@ -169,41 +174,38 @@ rules = {
 no_match = 'a\ba'
 snippet_res = {
 	CXX: {
-		'include':
-		  no_match,
+	'multiline_comment':
+	r'''(?sx)
+	(?P<match>
+	(?P<code>
+	[ \t]*/\*.*?\*/))''',
+	
+	'singleline_comment':
+	r'''(?mx)
+	^.*
+	(?P<match>
+	(?P<code>
+	[ \t]*//([ \t][^\n]*|)\n))''',
 
-		'multiline_comment':
-		  r'''(?sx)
-		    (?P<match>
-		    (?P<code>
-		    [ \t]*/\*.*?\*/))''',
-
-		'singleline_comment':
-		  r'''(?mx)
-		    ^.*
-		    (?P<match>
-		      (?P<code>
-		      [ \t]*//([ \t][^\n]*|)\n))''',
-
-		'string':
-		  r'''(?x)
-		    (?P<match>
-		    (?P<code>
-		    "([^"]|(([^\\]|(\\\\))\\"))*"))''',
-
-		'char':
-		  r'''(?x)
-		    (?P<match>
-		    (?P<code>
-		    '([^']+|\')))''',
-
-		'include':
-		  r'''(?x)
-		    (?P<match>
-		    (?P<code>
-		    "#[ \t]*include[ \t]*<[^>]*>''',
-	},
-	}
+	'string':
+	r'''(?x)
+	(?P<match>
+	(?P<code>
+	"([^\"\n](\")*)*"))''',
+	
+	'char':
+	r'''(?x)
+	(?P<match>
+	(?P<code>
+	'([^']+|\')))''',
+	   
+	   'include':
+	   r'''(?x)
+	   (?P<match>
+	   (?P<code>
+	   "#[ \t]*include[ \t]*<[^>]*>''',
+	   },
+	  }
 
 class Chunk:
 	def replacement_text (self):
@@ -211,12 +213,6 @@ class Chunk:
 
 	def filter_text (self):
 		return self.replacement_text ()
-
-	def ly_is_outdated (self):
-		return 0
-
-	def png_is_outdated (self):
-		return 0
 
 class Substring (Chunk):
 	def __init__ (self, source, start, end):
@@ -231,11 +227,12 @@ class Substring (Chunk):
 		for i in rules[CXX]:
 			if verbose_p:
 				sys.stderr.write ('.')
-				#sys.stderr.write ('\n*********\n')
+				#sys.stderr.write ('\n\n***********\n')
 				#sys.stderr.write (i[0])
-				#sys.stderr.write ('\n=========\n')
+				#sys.stderr.write ('\n***********\n')
+				#sys.stderr.write ('\n=========>>\n')
 				#sys.stderr.write (s)
-				#sys.stderr.write ('\n*********\n')
+				#sys.stderr.write ('\n<<=========\n')
 			s = re.sub (i[0], i[1], s)
 		if verbose_p:
 			sys.stderr.write ('done\n')
@@ -279,8 +276,7 @@ class Multiline_comment (Snippet):
 
 snippet_type_to_class = {
 	'multiline_comment': Multiline_comment,
-#	'lilypond_block': Lilypond_snippet,
-#	'lilypond': Lilypond_snippet,
+#	'string': Multiline_comment,
 #	'include': Include_snippet,
 }
 
@@ -359,13 +355,17 @@ def find_toplevel_snippets (s, types):
 def nitpick_file (outdir, file):
 	s = open (file).read ()
 
+	for i in rules[GLOBAL_CXX]:
+		s = re.sub (i[0], i[1], s)
+
 	# FIXME: Containing blocks must be first, see
 	#        find_toplevel_snippets.
+	#        We leave simple strings be part of the code
 	snippet_types = (
 		'multiline_comment',
 		'singleline_comment',
 		'string',
-		'char',
+#		'char',
 		)
 
 	chunks = find_toplevel_snippets (s, snippet_types)
@@ -531,6 +531,10 @@ typedef struct _t_ligature
   
 typedef std::map < AFM_Ligature const *, int > Bar;
 
+  /**
+  (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  */
+  
 /*      ||
  *      vv
  * !OK  OK
@@ -595,10 +599,17 @@ i
 
   a = 0 ? *x : *y;
 
+a = "foo() 2,2,4";
 {
-  if (foo)
+  if (!span_)
     {
-      a = 1;
+      span_ = make_spanner ("StaffSymbol", SCM_EOL);
+    }
+}
+{
+  if (!span_)
+    {
+      span_ = make_spanner (StaffSymbol, SCM_EOL);
     }
 }
 '''

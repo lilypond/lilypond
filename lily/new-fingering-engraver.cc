@@ -79,9 +79,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
       if (m->is_mus_type ("fingering-event"))
 	add_fingering (inf.grob (), m, note_ev);
       else if (m->is_mus_type ("text-script-event"))
-	{
-	  m->origin ()->warning (_ ("can't add text scripts to individual note heads"));
-	}
+	m->origin ()->warning (_ ("can't add text scripts to individual note heads"));
       else if (m->is_mus_type ("script-event"))
 	add_script (inf.grob (), m, note_ev);
       else if (m->is_mus_type ("string-number-event"))
@@ -204,9 +202,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     positioning the fingerings, setting both X and Y coordinates.
   */
   for (int i = 0; i < scripts->size (); i++)
-    {
-      (*scripts)[i].position_ = scm_to_int ((*scripts)[i].head_->get_property ("staff-position"));
-    }
+    (*scripts)[i].position_ = scm_to_int ((*scripts)[i].head_->get_property ("staff-position"));
 
   for (int i = scripts->size (); i--;)
     for (int j = heads_.size (); j--;)

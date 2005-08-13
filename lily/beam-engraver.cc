@@ -126,9 +126,7 @@ void
 Beam_engraver::process_music ()
 {
   if (beam_ && !to_boolean (get_property ("allowBeamBreak")))
-    {
-      get_score_engraver ()->forbid_breaks ();
-    }
+    get_score_engraver ()->forbid_breaks ();
 
   if (start_ev_)
     {

@@ -23,9 +23,7 @@ protect_smob (SCM smob, SCM *prot_cons)
 {
   SCM s = scm_cdr (smob_protection_list);
   while (scm_is_pair (s) && scm_car (s) == SCM_UNDEFINED)
-    {
-      s = scm_cdr (s);
-    }
+    s = scm_cdr (s);
 
   SCM prot = scm_cons (smob, s);
   scm_set_cdr_x (smob_protection_list,
@@ -39,9 +37,7 @@ unprotect_smob (SCM *prot_cons)
   SCM next = scm_cdr (*prot_cons);
 
   if (next == SCM_EOL)
-    {
-      scm_set_car_x (*prot_cons, SCM_UNDEFINED);
-    }
+    scm_set_car_x (*prot_cons, SCM_UNDEFINED);
   else
     {
       scm_set_car_x (*prot_cons, SCM_UNDEFINED);

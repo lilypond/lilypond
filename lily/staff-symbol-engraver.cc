@@ -54,18 +54,14 @@ void
 Staff_symbol_engraver::start_spanner ()
 {
   if (!span_)
-    {
-      span_ = make_spanner ("StaffSymbol", SCM_EOL);
-    }
+    span_ = make_spanner ("StaffSymbol", SCM_EOL);
 }
 
 void
 Staff_symbol_engraver::stop_spanner ()
 {
   if (finished_span_ && !finished_span_->get_bound (RIGHT))
-    {
-      finished_span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
-    }
+    finished_span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
   finished_span_ = 0;
 }
 

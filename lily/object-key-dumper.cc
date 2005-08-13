@@ -20,9 +20,7 @@ Object_key_dumper::mark_smob (SCM smob)
   for (Key_to_key_map::const_iterator i (dumper->serialized_keys_.begin ());
        i != dumper->serialized_keys_.end ();
        i++)
-    {
-      scm_gc_mark ((*i).first->self_scm ());
-    }
+    scm_gc_mark ((*i).first->self_scm ());
   return SCM_EOL;
 }
 
@@ -83,13 +81,9 @@ SCM
 Object_key_dumper::dump_key (Object_key const *key)
 {
   if (key_serial_numbers_.find (key) != key_serial_numbers_.end ())
-    {
-      return key_serial (key_serial_numbers_[key]);
-    }
+    return key_serial (key_serial_numbers_[key]);
   else if (Object_key const *serialized = serialized_keys_[key])
-    {
-      return key_serial (key_serial_numbers_[ serialized_keys_ [serialized] ]);
-    }
+    return key_serial (key_serial_numbers_[ serialized_keys_ [serialized] ]);
 
   return serialize_key (key);
 }

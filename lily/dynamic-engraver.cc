@@ -374,9 +374,7 @@ void
 Dynamic_engraver::acknowledge_slur (Grob_info info)
 {
   if (line_spanner_)
-    {
-      Side_position_interface::add_support (line_spanner_, info.grob ());
-    }
+    Side_position_interface::add_support (line_spanner_, info.grob ());
 }
 
 void
@@ -415,9 +413,7 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
     }
 
   if (finished_cresc_ && !finished_cresc_->get_bound (RIGHT))
-    {
-      finished_cresc_->set_bound (RIGHT, info.grob ());
-    }
+    finished_cresc_->set_bound (RIGHT, info.grob ());
 }
 
 void

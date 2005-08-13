@@ -102,9 +102,7 @@ Separating_line_group_engraver::finalize ()
 
   if (last_spacings_.staff_spacing_
       && last_spacings_.staff_spacing_->get_column () == column)
-    {
-      last_spacings_.staff_spacing_->suicide ();
-    }
+    last_spacings_.staff_spacing_->suicide ();
 }
 
 void
@@ -193,9 +191,7 @@ void
 Separating_line_group_engraver::stop_translation_timestep ()
 {
   if (break_item_)
-    {
-      Separating_group_spanner::add_spacing_unit (sep_span_, break_item_);
-    }
+    Separating_group_spanner::add_spacing_unit (sep_span_, break_item_);
 
   if (Item *sp = current_spacings_.staff_spacing_)
     {
@@ -209,16 +205,12 @@ Separating_line_group_engraver::stop_translation_timestep ()
     }
 
   if (!current_spacings_.is_empty ())
-    {
-      last_spacings_ = current_spacings_;
-    }
+    last_spacings_ = current_spacings_;
 
   current_spacings_.clear ();
 
   if (musical_item_)
-    {
-      Separating_group_spanner::add_spacing_unit (sep_span_, musical_item_);
-    }
+    Separating_group_spanner::add_spacing_unit (sep_span_, musical_item_);
 
   musical_item_ = 0;
 }

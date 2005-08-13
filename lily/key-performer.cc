@@ -89,9 +89,7 @@ bool
 Key_performer::try_music (Music *ev)
 {
   if (!key_ev_)
-    {
-      key_ev_ = ev;
-    }
+    key_ev_ = ev;
 
   return true;
 }

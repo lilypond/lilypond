@@ -36,6 +36,5 @@ Link_array<Item> internal_extract_item_array (Grob const *elt, SCM symbol);
 #define extract_item_set(grob, prop, set)				\
   Link_array<Item> set (internal_extract_item_array (grob, ly_symbol2scm (prop)))
 
-
 #endif /* POINTER_GROUP_INTERFACE_HH */
 

@@ -96,14 +96,10 @@ Paper_column_engraver::set_columns (Paper_column *new_command,
   command_column_ = new_command;
   musical_column_ = new_musical;
   if (new_command)
-    {
-      context ()->set_property ("currentCommandColumn", new_command->self_scm ());
-    }
+    context ()->set_property ("currentCommandColumn", new_command->self_scm ());
 
   if (new_musical)
-    {
-      context ()->set_property ("currentMusicalColumn", new_musical->self_scm ());
-    }
+    context ()->set_property ("currentMusicalColumn", new_musical->self_scm ());
 
   system_->add_column (command_column_);
   system_->add_column (musical_column_);

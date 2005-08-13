@@ -111,9 +111,7 @@ Context_def::add_context_mod (SCM mod)
     sym = scm_string_to_symbol (sym);
 
   if (ly_symbol2scm ("default-child") == tag)
-    {
-      default_child_ = sym;
-    }
+    default_child_ = sym;
   else if (ly_symbol2scm ("consists") == tag
 	   || ly_symbol2scm ("consists-end") == tag
 	   || ly_symbol2scm ("remove") == tag)

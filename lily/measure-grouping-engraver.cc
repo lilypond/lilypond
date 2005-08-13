@@ -42,9 +42,7 @@ void
 Measure_grouping_engraver::acknowledge_note_column (Grob_info gi)
 {
   if (grouping_)
-    {
-      Side_position_interface::add_support (grouping_, gi.grob ());
-    }
+    Side_position_interface::add_support (grouping_, gi.grob ());
 }
 
 void

@@ -335,9 +335,7 @@ Note_collision_interface::do_shifts (Grob *me)
     }
 
   for (int i = 0; i < amounts.size (); i++)
-    {
-      done[i]->translate_axis (amounts[i] - left_most, X_AXIS);
-    }
+    done[i]->translate_axis (amounts[i] - left_most, X_AXIS);
 }
 
 Drul_array < Link_array<Grob>

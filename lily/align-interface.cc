@@ -120,9 +120,7 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   if (a == Y_AXIS
       && me_spanner
       && me_spanner->get_bound (LEFT)->break_status_dir () == CENTER)
-    {
-      me_spanner->warning (_ ("vertical alignment called before line-breaking. Only do cross-staff spanners with PianoStaff."));
-    }
+    me_spanner->warning (_ ("vertical alignment called before line-breaking. Only do cross-staff spanners with PianoStaff."));
 
   me->set_property ("positioning-done", SCM_BOOL_T);
 

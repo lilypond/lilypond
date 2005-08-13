@@ -77,9 +77,7 @@ Piano_pedal_performer::create_audio_elements ()
       if (p->event_drul_[STOP])
 	{
 	  if (!p->start_event_)
-	    {
-	      p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", String (p->name_)));
-	    }
+	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", String (p->name_)));
 	  else
 	    {
 	      Audio_piano_pedal *a = new Audio_piano_pedal;

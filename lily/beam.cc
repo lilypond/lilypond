@@ -78,9 +78,7 @@ Beam::get_beam_translation (Grob *me)
       return scm_to_double (s);
     }
   else
-    {
-      return 0.81;
-    }
+    return 0.81;
 }
 
 /* Maximum beam_count. */

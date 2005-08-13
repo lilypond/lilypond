@@ -29,9 +29,7 @@ Global_context::Global_context (Output_def *o, Moment final, Object_key *key)
 
   Context_def *globaldef = unsmob_context_def (definition_);
   if (!globaldef)
-    {
-      programming_error ("no `Global' context found");
-    }
+    programming_error ("no `Global' context found");
   else
     globaldef->apply_default_property_operations (this);
   accepts_list_ = scm_list_1 (ly_symbol2scm ("Score"));

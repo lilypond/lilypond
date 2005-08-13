@@ -91,9 +91,7 @@ Bezier::curve_coordinate (Real t, Axis a) const
   Real one_min_tj[4];
   one_min_tj[0] = 1;
   for (int i = 1; i < 4; i++)
-    {
-      one_min_tj[i] = one_min_tj[i - 1] * (1 - t);
-    }
+    one_min_tj[i] = one_min_tj[i - 1] * (1 - t);
 
   Real r = 0.0;
   for (int j = 0; j < 4; j++)
@@ -114,9 +112,7 @@ Bezier::curve_point (Real t) const
   Real one_min_tj[4];
   one_min_tj[0] = 1;
   for (int i = 1; i < 4; i++)
-    {
-      one_min_tj[i] = one_min_tj[i - 1] * (1 - t);
-    }
+    one_min_tj[i] = one_min_tj[i - 1] * (1 - t);
 
   Offset o;
   for (int j = 0; j < 4; j++)

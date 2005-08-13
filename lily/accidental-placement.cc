@@ -57,9 +57,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
   SCM key = scm_from_int (n);
   SCM entry = scm_assq (key, accs);
   if (entry == SCM_BOOL_F)
-    {
-      entry = SCM_EOL;
-    }
+    entry = SCM_EOL;
   else
     entry = scm_cdr (entry);
 
@@ -113,9 +111,7 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 
   Interval extent;
   for (int i = 0; i < which->size (); i++)
-    {
-      extent.unite (which->elem (i)->extent (item_col, X_AXIS));
-    }
+    extent.unite (which->elem (i)->extent (item_col, X_AXIS));
 
   if (!extent.is_empty ())
     {
@@ -302,9 +298,7 @@ Accidental_placement::position_accidentals (Grob *me)
     }
 
   for (int i = note_cols.size (); i--;)
-    {
-      heads.concat (extract_grob_array (note_cols[i], "note-heads"));
-    }
+    heads.concat (extract_grob_array (note_cols[i], "note-heads"));
 
   heads.default_sort ();
   heads.uniq ();

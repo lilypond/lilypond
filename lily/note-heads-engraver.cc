@@ -80,9 +80,7 @@ Note_heads_engraver::process_music ()
 #if 0 /* TODO: should have a mechanism to switch off these warnings. */
 
       if (!pit)
-	{
-	  ev->origin ()->warning (_ ("NoteEvent without pitch"));
-	}
+	ev->origin ()->warning (_ ("NoteEvent without pitch"));
 #endif
 
       int pos = pit ? pit->steps () : 0;
@@ -110,9 +108,7 @@ Note_heads_engraver::process_music ()
 	      && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
 	    style = scm_vector_ref (shape_vector, scm_from_int (delta));
 	  if (scm_is_symbol (style))
-	    {
-	      note->set_property ("style", style);
-	    }
+	    note->set_property ("style", style);
 	}
 
       notes_.push (note);

@@ -164,9 +164,7 @@ updated_grob_properties (Context *tg, SCM sym)
 
   SCM based_on = scm_cdr (props);
   if (based_on == daddy_props)
-    {
-      return scm_car (props);
-    }
+    return scm_car (props);
   else
     {
       SCM copy = daddy_props;

@@ -110,9 +110,7 @@ static void
 fixup_refpoints (Link_array<Grob> const &grobs)
 {
   for (int i = grobs.size (); i--;)
-    {
-      grobs[i]->fixup_refpoint ();
-    }
+    grobs[i]->fixup_refpoint ();
 }
 
 SCM
@@ -312,9 +310,7 @@ System::post_processing ()
 
   Interval iv (extent (this, Y_AXIS));
   if (iv.is_empty ())
-    {
-      programming_error ("system with empty extent");
-    }
+    programming_error ("system with empty extent");
   else
     translate_axis (-iv[MAX], Y_AXIS);
 

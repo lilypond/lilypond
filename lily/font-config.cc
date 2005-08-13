@@ -27,7 +27,6 @@ init_fontconfig ()
   if (!FcInit ())
     error (_ ("initializing FontConfig failed"));
 
-
   font_config_global = FcConfigGetCurrent ();
   Array<String> dirs;
   struct stat statbuf;

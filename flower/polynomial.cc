@@ -48,9 +48,7 @@ void
 Polynomial::differentiate ()
 {
   for (int i = 1; i <= degree (); i++)
-    {
-      coefs_[i - 1] = coefs_[i] * i;
-    }
+    coefs_[i - 1] = coefs_[i] * i;
   coefs_.pop ();
 }
 

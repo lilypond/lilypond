@@ -38,9 +38,7 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
 
   if (!to_boolean (me->get_property ("remove-first"))
       && broken_spanner_index (sp) == 0)
-    {
-      return;
-    }
+    return;
 
   Link_array<Grob> childs;
   Axis_group_interface::get_children (me, &childs);

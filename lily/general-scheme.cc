@@ -233,7 +233,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
 
   SCM lst = SCM_EOL;
   int output_formats_count = output_formats.size ();
-  for (int i = 0; i < output_formats_count; i ++)
+  for (int i = 0; i < output_formats_count; i++)
     lst = scm_cons (scm_makfrom0str (output_formats[i].to_str0 ()), lst);
 
   return lst;
@@ -250,9 +250,7 @@ LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
   char *p = buf;
 
   if (wide_char < 0x0080)
-    {
-      *p++ = (char)wide_char;
-    }
+    *p++ = (char)wide_char;
   else if (wide_char < 0x0800)
     {
       *p++ = (char) (((wide_char >> 6)) | 0xC0);

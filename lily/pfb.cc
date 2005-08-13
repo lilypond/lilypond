@@ -58,14 +58,11 @@ pfb2pfa (Byte const *pfb, int length)
 	      sprintf (outp, "%02x", *p++);
 	      outp += 2;
 	      if (! (i % 32))
-		{
-		  *outp++ = '\n';
-		}
+		*outp++ = '\n';
 	    }
 
 	  olen = outp - out;
 	}
-
     }
   out[olen] = 0;
 
@@ -96,7 +93,6 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
 
   return pfa_scm;
 }
-
 
 LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
 	   1, 0, 0, (SCM otf_file_name),

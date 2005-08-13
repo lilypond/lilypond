@@ -117,9 +117,7 @@ Quote_iterator::construct_children ()
       quote_outlet_.set_context (cue_context);
     }
   else
-    {
-      quote_outlet_.set_context (get_outlet ());
-    }
+    quote_outlet_.set_context (get_outlet ());
 
   event_vector_ = get_music ()->get_property ("quoted-events");
 

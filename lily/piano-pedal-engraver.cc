@@ -233,9 +233,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
 	{
 	  if (!p->start_ev_)
-	    {
-	      p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
-	    }
+	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
 	  else
 	    s = scm_cadr (strings);
 	  p->start_ev_ = p->event_drul_[START];
@@ -246,9 +244,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
 	{
 	  if (!p->start_ev_)
-	    {
-	      p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
-	    }
+	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
 	  else
 	    s = scm_caddr (strings);
 	  p->start_ev_ = 0;
@@ -481,17 +477,13 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
     p->finished_bracket_ = 0;
 
   if (p->item_)
-    {
-      p->item_ = 0;
-    }
+    p->item_ = 0;
 
   if (p->finished_bracket_)
     {
       Grob *r = p->finished_bracket_->get_bound (RIGHT);
       if (!r)
-	{
-	  p->finished_bracket_->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
-	}
+	p->finished_bracket_->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
 
       p->finished_bracket_ = 0;
     }

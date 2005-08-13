@@ -58,9 +58,7 @@ void
 Span_dynamic_performer::acknowledge_audio_element (Audio_element_info i)
 {
   if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (i.elem_))
-    {
-      last_volume_ = d->volume_;
-    }
+    last_volume_ = d->volume_;
 }
 
 void
@@ -105,14 +103,10 @@ Span_dynamic_performer::process_music ()
     }
 
   if (span_events_[STOP])
-    {
-      finished_dynamic_tuples_.top ().audio_->volume_ = last_volume_;
-    }
+    finished_dynamic_tuples_.top ().audio_->volume_ = last_volume_;
 
   if (span_events_[START])
-    {
-      dynamic_tuples_[0].audio_->volume_ = last_volume_;
-    }
+    dynamic_tuples_[0].audio_->volume_ = last_volume_;
 
   span_events_[START] = 0;
   span_events_[STOP] = 0;

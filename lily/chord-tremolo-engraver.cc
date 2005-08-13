@@ -91,9 +91,7 @@ Chord_tremolo_engraver::try_music (Music *m)
       int elt_count = body_is_sequential_ ? scm_ilength (body->get_property ("elements")) : 1;
 
       if (body_is_sequential_ && elt_count != 2)
-	{
-	  m->origin ()->warning (_f ("expect 2 elements for chord tremolo, found %d", elt_count));
-	}
+	m->origin ()->warning (_f ("expect 2 elements for chord tremolo, found %d", elt_count));
 
       if (elt_count <= 0)
 	elt_count = 1;
@@ -153,9 +151,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 	Stem::set_beaming (s, flags_, LEFT);
 
       if (Stem::duration_log (s) != 1)
-	{
-	  beam_->set_property ("gap-count", scm_from_int (flags_ - total_duration_flags_));
-	}
+	beam_->set_property ("gap-count", scm_from_int (flags_ - total_duration_flags_));
 
       if (info.music_cause ()->is_mus_type ("rhythmic-event"))
 	Beam::add_stem (beam_, s);

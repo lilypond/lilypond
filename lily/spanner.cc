@@ -185,9 +185,7 @@ Spanner::set_bound (Direction d, Grob *s)
      We check for System to prevent the column -> line_of_score
      -> column -> line_of_score -> etc situation */
   if (d == LEFT && !dynamic_cast<System *> (this))
-    {
-      set_parent (i, X_AXIS);
-    }
+    set_parent (i, X_AXIS);
 
   /*
     Signal that this column needs to be kept alive. They need to be
@@ -198,9 +196,7 @@ Spanner::set_bound (Direction d, Grob *s)
 
   */
   if (dynamic_cast<Paper_column *> (i))
-    {
-      Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);
-    }
+    Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);
 }
 
 Spanner::Spanner (SCM s, Object_key const *key)

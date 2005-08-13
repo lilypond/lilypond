@@ -21,7 +21,7 @@ Lilypond_version::Lilypond_version (String str)
 {
   Array<String> version;
   version = String_convert::split (str, '.');
-  
+
   major_ = version[0].to_int ();
   minor_ = version[1].to_int ();
   patch_ = 0;

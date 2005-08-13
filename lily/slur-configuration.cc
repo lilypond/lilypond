@@ -131,9 +131,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
       max_h = len / 3.0;
     }
   else
-    {
-      max_h = sqrt (max_h);
-    }
+    max_h = sqrt (max_h);
 
   Real eccentricity = robust_scm2double (state.slur_->get_property ("eccentricity"), 0);
 

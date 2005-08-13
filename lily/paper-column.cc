@@ -96,9 +96,7 @@ Paper_column::is_musical (Grob *me)
   SCM m = me->get_property ("shortest-starter-duration");
   Moment s (0);
   if (unsmob_moment (m))
-    {
-      s = *unsmob_moment (m);
-    }
+    s = *unsmob_moment (m);
   return s != Moment (0);
 }
 

@@ -78,9 +78,7 @@ vaticana_brew_flexa (Grob *me,
   Real interval;
   SCM flexa_height_scm = me->get_property ("flexa-height");
   if (flexa_height_scm != SCM_EOL)
-    {
-      interval = scm_to_int (flexa_height_scm);
-    }
+    interval = scm_to_int (flexa_height_scm);
   else
     {
       me->warning ("Vaticana_ligature: "
@@ -89,9 +87,7 @@ vaticana_brew_flexa (Grob *me,
     }
 
   if (interval >= 0.0)
-    {
-      me->warning (_ ("ascending vaticana style flexa"));
-    }
+    me->warning (_ ("ascending vaticana style flexa"));
 
   Real width = robust_scm2double (me->get_property ("flexa-width"), 2);
 
@@ -243,9 +239,7 @@ vaticana_brew_primitive (Grob *me)
 	= Lookup::blank (Box (Interval (0, 0.5 * flexa_width), Interval (0, 0)));
     }
   else if (!String::compare (glyph_name, "flexa"))
-    {
-      out = vaticana_brew_flexa (me, true, line_thickness);
-    }
+    out = vaticana_brew_flexa (me, true, line_thickness);
   else
     {
       out

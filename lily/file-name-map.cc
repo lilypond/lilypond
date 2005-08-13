@@ -17,9 +17,7 @@ String
 map_file_name (String s)
 {
   if (file_name_map_global.find (s) != file_name_map_global.end ())
-    {
-      s = file_name_map_global[s];
-    }
+    s = file_name_map_global[s];
   return s;
 }
 

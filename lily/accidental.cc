@@ -120,9 +120,7 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
   Offset o (a->relative_coordinate (common[X_AXIS], X_AXIS),
 	    a->relative_coordinate (common[Y_AXIS], Y_AXIS));
   for (int i = boxes.size (); i--;)
-    {
-      boxes[i].translate (o);
-    }
+    boxes[i].translate (o);
 
   return boxes;
 }

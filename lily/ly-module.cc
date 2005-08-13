@@ -81,7 +81,6 @@ ly_use_module (SCM mod, SCM used)
 
 #define FUNC_NAME __FUNCTION__
 
-
 static SCM
 accumulate_symbol (void *closure, SCM key, SCM val, SCM result)
 {
@@ -135,7 +134,6 @@ ly_reexport_module (SCM mod)
 {
   ly_export (mod, ly_module_symbols (mod));
 }
-
 
 #ifdef MODULE_GC_KLUDGE
 static SCM

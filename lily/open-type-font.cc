@@ -35,9 +35,7 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
       return buffer;
     }
   else
-    {
-      programming_error ("Cannot find OpenType table.");
-    }
+    programming_error ("Cannot find OpenType table.");
 
   return 0;
 }

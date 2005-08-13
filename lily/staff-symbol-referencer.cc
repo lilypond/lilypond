@@ -81,9 +81,7 @@ Staff_symbol_referencer::get_position (Grob *me)
       return p;
     }
   else if (!st)
-    {
-      return me->relative_coordinate (me->get_parent (Y_AXIS), Y_AXIS) * 2;
-    }
+    return me->relative_coordinate (me->get_parent (Y_AXIS), Y_AXIS) * 2;
   return robust_scm2double (me->get_property ("staff-position"), p);
 }
 

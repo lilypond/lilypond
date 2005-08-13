@@ -69,14 +69,10 @@ symbol_to_pango_style (SCM style)
 {
   PangoStyle pstyle = PANGO_STYLE_NORMAL;
   if (style == ly_symbol2scm ("italic"))
-    {
-      pstyle = PANGO_STYLE_ITALIC;
-    }
+    pstyle = PANGO_STYLE_ITALIC;
   else if (style == ly_symbol2scm ("oblique")
 	   || style == ly_symbol2scm ("slanted"))
-    {
-      pstyle = PANGO_STYLE_OBLIQUE;
-    }
+    pstyle = PANGO_STYLE_OBLIQUE;
 
   return pstyle;
 }
@@ -86,9 +82,7 @@ symbol_to_pango_variant (SCM variant)
 {
   PangoVariant pvariant = PANGO_VARIANT_NORMAL;
   if (variant == ly_symbol2scm ("caps"))
-    {
-      pvariant = PANGO_VARIANT_SMALL_CAPS;
-    }
+    pvariant = PANGO_VARIANT_SMALL_CAPS;
   return pvariant;
 }
 
@@ -97,25 +91,15 @@ symbol_to_pango_weight (SCM weight)
 {
   PangoWeight pw = PANGO_WEIGHT_NORMAL;
   if (weight == ly_symbol2scm ("bold"))
-    {
-      pw = PANGO_WEIGHT_BOLD;
-    }
+    pw = PANGO_WEIGHT_BOLD;
   if (weight == ly_symbol2scm ("heavy"))
-    {
-      pw = PANGO_WEIGHT_HEAVY;
-    }
+    pw = PANGO_WEIGHT_HEAVY;
   if (weight == ly_symbol2scm ("ultrabold"))
-    {
-      pw = PANGO_WEIGHT_ULTRABOLD;
-    }
+    pw = PANGO_WEIGHT_ULTRABOLD;
   if (weight == ly_symbol2scm ("light"))
-    {
-      pw = PANGO_WEIGHT_LIGHT;
-    }
+    pw = PANGO_WEIGHT_LIGHT;
   if (weight == ly_symbol2scm ("ultralight"))
-    {
-      pw = PANGO_WEIGHT_ULTRALIGHT;
-    }
+    pw = PANGO_WEIGHT_ULTRALIGHT;
 
   return pw;
 }

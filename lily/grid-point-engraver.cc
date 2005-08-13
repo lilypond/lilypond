@@ -29,9 +29,7 @@ Grid_point_engraver::process_music ()
       Moment now = now_mom ();
 
       if (!now.main_part_.mod_rat (mom->main_part_))
-	{
-	  make_item ("GridPoint", SCM_EOL);
-	}
+	make_item ("GridPoint", SCM_EOL);
     }
 }
 

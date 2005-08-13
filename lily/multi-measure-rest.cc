@@ -100,9 +100,7 @@ Multi_measure_rest::print (SCM smob)
   int measures = 0;
   SCM m (me->get_property ("measure-count"));
   if (scm_is_number (m))
-    {
-      measures = scm_to_int (m);
-    }
+    measures = scm_to_int (m);
 
   mol.translate_axis (x_off, X_AXIS);
   return mol.smobbed_copy ();
@@ -114,9 +112,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   int measures = 0;
   SCM m (me->get_property ("measure-count"));
   if (scm_is_number (m))
-    {
-      measures = scm_to_int (m);
-    }
+    measures = scm_to_int (m);
   if (measures <= 0)
     return Stencil ();
 
@@ -162,9 +158,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 	}
     }
   else
-    {
-      return church_rest (me, musfont, measures, space);
-    }
+    return church_rest (me, musfont, measures, space);
 }
 
 /*

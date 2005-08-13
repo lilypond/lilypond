@@ -277,9 +277,7 @@ Dot_column::do_shifts (Grob *me)
 
   for (Dot_configuration::const_iterator i (cfg.begin ());
        i != cfg.end (); i++)
-    {
-      Staff_symbol_referencer::set_position (i->second.dot_, i->first);
-    }
+    Staff_symbol_referencer::set_position (i->second.dot_, i->first);
 
   return SCM_UNSPECIFIED;
 }

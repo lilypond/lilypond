@@ -128,9 +128,7 @@ void
 Custos_engraver::finalize ()
 {
   for (int i = custodes_.size (); i--;)
-    {
-      custodes_[i]->suicide ();
-    }
+    custodes_[i]->suicide ();
   custodes_.clear ();
 }
 

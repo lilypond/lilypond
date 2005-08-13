@@ -105,9 +105,7 @@ void
 Slash_repeat_engraver::start_translation_timestep ()
 {
   if (stop_mom_ == now_mom ())
-    {
-      repeat_ = 0;
-    }
+    repeat_ = 0;
   beat_slash_ = 0;
 }
 

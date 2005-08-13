@@ -160,9 +160,7 @@ substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
 
   new_grobs->set_size (ptr - array);
   if (new_arr == grob_arr)
-    {
-      new_arr->set_array (*new_grobs);
-    }
+    new_arr->set_array (*new_grobs);
 }
 
 /*
@@ -221,9 +219,7 @@ spanner_system_range (Spanner *sp)
   Slice rv;
 
   if (System *st = sp->get_system ())
-    {
-      rv = Slice (st->get_rank (), st->get_rank ());
-    }
+    rv = Slice (st->get_rank (), st->get_rank ());
   else
     {
       if (sp->broken_intos_.size ())

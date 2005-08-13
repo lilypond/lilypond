@@ -186,9 +186,7 @@ void
 Multi_measure_rest_engraver::start_translation_timestep ()
 {
   if (now_mom ().main_part_ >= stop_moment_.main_part_)
-    {
-      rest_ev_ = 0;
-    }
+    rest_ev_ = 0;
 
   Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
 
@@ -212,9 +210,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       SCM sml = get_property ("measureLength");
       Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
       if (ml >= Rational (2))
-	{
-	  last_rest_->set_property ("use-breve-rest", SCM_BOOL_T);
-	}
+	last_rest_->set_property ("use-breve-rest", SCM_BOOL_T);
 
       mmrest_ = 0;
       numbers_.clear ();

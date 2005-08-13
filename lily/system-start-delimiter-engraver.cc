@@ -77,9 +77,7 @@ void
 System_start_delimiter_engraver::finalize ()
 {
   if (delim_)
-    {
-      delim_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
-    }
+    delim_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
 }
 
 #include "translator.icc"

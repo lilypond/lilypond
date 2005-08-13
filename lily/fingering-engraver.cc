@@ -46,9 +46,7 @@ void
 Fingering_engraver::acknowledge_stem (Grob_info inf)
 {
   for (int i = 0; i < fingerings_.size (); i++)
-    {
-      Side_position_interface::add_support (fingerings_[i], inf.grob ());
-    }
+    Side_position_interface::add_support (fingerings_[i], inf.grob ());
 }
 
 void

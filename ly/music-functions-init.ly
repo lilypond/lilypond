@@ -48,12 +48,15 @@ displayMusic =
 		 (display-scheme-music music)
 		 music)
 
-%#(use-modules (scm display-lily))
-%displayLilyMusic =
-%#(def-music-function (parser location music) (ly:music?)
-%   (display-lily-init parser)
-%   (display-lily-music music)
-%   music)
+%% FIXME: guile-1.7 required?
+%% # (use-modules (scm display-lily))invalid module name for use-syntax ((srfi srfi-39))
+
+%%#(use-modules (scm display-lily))
+%%displayLilyMusic =
+%%#(def-music-function (parser location music) (ly:music?)
+%%   (display-lily-init parser)
+%%   (display-lily-music music)
+%%   music)
 
 applyoutput =
 #(def-music-function (parser location proc) (procedure?)

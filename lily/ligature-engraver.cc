@@ -147,9 +147,7 @@ Ligature_engraver::process_music ()
 	}
 
       if (!last_bound_)
-	{
-	  events_drul_[STOP]->origin ()->warning (_ ("no right bound"));
-	}
+	events_drul_[STOP]->origin ()->warning (_ ("no right bound"));
       else
 	ligature_->set_bound (RIGHT, last_bound_);
 
@@ -181,15 +179,11 @@ Ligature_engraver::process_music ()
       brew_ligature_primitive_proc
 	= ligature_->get_property ("ligature-primitive-callback");
       if (brew_ligature_primitive_proc == SCM_EOL)
-	{
-	  programming_error ("Ligature_engraver: ligature-primitive-callback undefined");
-	}
+	programming_error ("Ligature_engraver: ligature-primitive-callback undefined");
 
       Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
       if (!bound)
-	{
-	  events_drul_[START]->origin ()->warning (_ ("no left bound"));
-	}
+	events_drul_[START]->origin ()->warning (_ ("no left bound"));
       else
 	ligature_->set_bound (LEFT, bound);
 

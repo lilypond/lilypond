@@ -39,16 +39,12 @@ Side_position_interface::get_direction (Grob *me)
   Direction relative_dir = Direction (1);
   SCM reldir = me->get_property ("side-relative-direction");	// should use a lambda.
   if (is_direction (reldir))
-    {
-      relative_dir = to_dir (reldir);
-    }
+    relative_dir = to_dir (reldir);
 
   SCM other_elt = me->get_object ("direction-source");
   Grob *e = unsmob_grob (other_elt);
   if (e)
-    {
-      return (Direction) (relative_dir * get_grob_direction (e));
-    }
+    return (Direction) (relative_dir * get_grob_direction (e));
 
   return CENTER;
 }

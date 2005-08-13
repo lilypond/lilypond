@@ -67,9 +67,7 @@ Note_performer::stop_translation_timestep ()
   // --> grace notes effectively do not get delayed
   Moment now = now_mom ();
   for (int i = 0; i < notes_.size (); i++)
-    {
-      play_element (notes_[i]);
-    }
+    play_element (notes_[i]);
   notes_.clear ();
   note_evs_.clear ();
 }

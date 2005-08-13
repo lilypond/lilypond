@@ -177,13 +177,13 @@ String_convert::unsigned2hex (unsigned u, int length_i, char fill_char)
 #endif
 
   str = to_string (fill_char, length_i - str.length ()) + str;
-  while ((str.length () > length_i) && (str[ 0 ] == 'f' ) )
+  while ((str.length () > length_i) && (str[ 0 ] == 'f'))
     str = str.cut_string (2, INT_MAX);
 
   return str;
 }
 
-String 
+String
 String_convert::int2hex (int i, int length_i, char fill_char)
 {
   return unsigned2hex ((unsigned)i, length_i, fill_char);
@@ -192,7 +192,7 @@ String_convert::int2hex (int i, int length_i, char fill_char)
 Byte
 String_convert::nibble2hex_byte (Byte byte)
 {
-  if ((byte & 0x0f) <= 9 )
+  if ((byte & 0x0f) <= 9)
     return (byte & 0x0f) + '0';
   else
     return (byte & 0x0f) - 10 + 'a';
@@ -305,7 +305,7 @@ String_convert::precision_string (double x, int n)
     str = "0." + to_string ('0', -dot) + str;
   else if (dot >= str.length ())
     str += to_string ('0', dot - str.length ());
-  else if (( dot > 0) && (dot < str.length ()))
+  else if ((dot > 0) && (dot < str.length ()))
     str = str.left_string (dot) + "." + str.cut_string (dot, INT_MAX);
   else
     assert (0);
@@ -343,5 +343,5 @@ String_convert::long_string (long l)
 String
 String_convert::pad_to (String s, int n)
 {
-  return s + to_string (' ' , max (n - s.length (), 0));
+  return s + to_string (' ', max (n - s.length (), 0));
 }
