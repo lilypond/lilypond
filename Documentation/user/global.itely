@@ -481,6 +481,18 @@ will be much more useful than changing @code{minimumVerticalExtent}.
 @}
 @end example
 
+If you simply want to tell LilyPond ``fit as much as possible onto
+these pages, then expand to fill any available space on the pages,''
+then use the following
+
+@example
+\paper @{
+  betweensystempadding = #1
+  raggedbottom=##f
+  raggedlastbottom=##f
+@}
+@end example
+
 
 @seealso
 
