@@ -27,6 +27,7 @@
    \override TimeSignature #'break-visibility = #end-of-line-invisible
    \override Beam #'break-overshoot = #'(-0.5 . 1.0)
    \override TupletBracket #'break-overshoot = #'(-0.5 . 1.0)
+   \override TupletBracket #'staff-padding = #4
    \override PaperColumn #'used = ##t 
  }
  \context {

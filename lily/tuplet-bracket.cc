@@ -402,8 +402,12 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
   Interval staff;
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
-    staff = st->extent (commony, Y_AXIS);
-
+    {
+      staff = st->extent (commony, Y_AXIS);
+      Real pad = robust_scm2double (me->get_property ("staff-padding"), 0.5);
+      staff.widen (pad);
+    }
+  
   Direction dir = get_grob_direction (me);
 
   /*
@@ -653,8 +657,20 @@ ADD_INTERFACE (Tuplet_bracket,
 	       "At a line break, the markups in the @code{edge-text} are printed "
 	       "at the edges. ",
 
-	       "note-columns bracket-flare edge-height shorten-pair "
-	       "tuplets edge-text break-overshoot "
-	       "padding left-position right-position bracket-visibility "
-	       "number-visibility thickness direction");
+	       
+	       "bracket-flare "
+	       "bracket-visibility "
+	       "break-overshoot "
+	       "direction"
+	       "edge-height "
+	       "edge-text "
+	       "left-position "
+	       "note-columns "
+	       "number-visibility "
+	       "padding "
+	       "right-position "
+	       "shorten-pair "
+	       "staff-padding "
+	       "thickness "
+	       "tuplets ");
 
