@@ -146,7 +146,9 @@
 
 (define (eps-header paper bbox load-fonts?)
   (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
-		 "%%Creator: LilyPond\n"
+		 "%%Creator: LilyPond "
+		 (lilypond-version)
+		 "\n"
 		 "%%BoundingBox: "
 		 (string-join (map ly:number->string bbox) " ") "\n"
 		 "%%Orientation: "
@@ -158,7 +160,10 @@
 
 (define (page-header paper page-count load-fonts?)
   (string-append "%!PS-Adobe-3.0\n"
-		 "%%Creator: LilyPond\n"
+		 "%%Creator: LilyPond "
+		 (lilypond-version)
+		 "\n"
+		 
 		 "%%Pages: " (number->string page-count) "\n"
 		 "%%PageOrder: Ascend\n"
 		 "%%Orientation: "
