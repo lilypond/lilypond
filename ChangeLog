@@ -1,3 +1,9 @@
+2005-08-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scm/framework-ps.scm (output-framework): Yet another
+	backport-bugfix: remove the call to paper-book-write-midis, 
+	which would otherwise require a more substantial backport. 
+
 2005-08-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-ps.scm (output-framework): Backport-bugfix: use
