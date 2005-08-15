@@ -1190,14 +1190,14 @@ def draw_fa_head (expr width_factor) =
 enddef;
 
 
-fet_beginchar ("Whole fa up head", "d0fa");
+fet_beginchar ("Whole fa up head", "u0fa");
 	draw_fa_head (1.8);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
 
 
-fet_beginchar ("Whole fa down head", "u0fa");
+fet_beginchar ("Whole fa down head", "d0fa");
 	draw_fa_head (1.8);
 	fill p_down_out;
 	unfill p_down_in;
