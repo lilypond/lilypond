@@ -8,6 +8,9 @@
 
 #include "smobs.hh"
 
+/*
+  The CDR contains the actual protected list.
+ */
 static SCM smob_protection_list;
 
 void
@@ -17,6 +20,16 @@ init_smob_protection ()
   scm_permanent_object (smob_protection_list);
 }
 ADD_SCM_INIT_FUNC (init_smob_protection, init_smob_protection);
+
+LY_DEFINE(ly_smob_protects, "ly:smob-protects",
+	  0,0,0, (),
+	  "Return lily's internal smob protection list")
+{
+  return scm_cdr (smob_protection_list);
+}
+
+	  
+	  
 
 void
 protect_smob (SCM smob, SCM *prot_cons)

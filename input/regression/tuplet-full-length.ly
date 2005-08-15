@@ -10,7 +10,7 @@ start of the next non-tuplet note.  "
 \paper { raggedright = ##t
 indent = 0.0 }
 
-\new Voice \with {
+\relative c'' \new Voice \with {
   \remove  Forbid_line_break_engraver
   allowBeamBreak = ##t
 }

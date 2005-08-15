@@ -29,7 +29,6 @@
 
 #(read-hash-extend #\[ my-read-lily-expression)
 
-#(display-lily-init parser)
 #(define test-number 0)
   
 #(define (lily-string->markup str)

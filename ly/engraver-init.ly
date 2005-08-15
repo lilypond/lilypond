@@ -243,7 +243,6 @@ contained staves are not connected vertically."
   \remove "Glissando_engraver"
   \remove "Ligature_bracket_engraver"
   \remove "Note_heads_engraver"
-  \consists "Rest_engraver"
   \consists "Drum_notes_engraver"
   \remove "New_fingering_engraver"
 

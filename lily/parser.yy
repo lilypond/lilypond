@@ -1779,7 +1779,6 @@ command_element:
 		SCM proc = ly_lily_module_constant ("make-mark-set");
 
 		SCM result = scm_call_1 (proc, $2);
-		scm_gc_protect_object (result);
 		$$ = unsmob_music (result);
 		$$->protect ();
 	}
