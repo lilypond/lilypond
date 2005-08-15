@@ -10,11 +10,12 @@ The accidental does add a little non-stretchable space.
 \score {
       \relative c'' \context GrandStaff {
 	#(set-accidental-style 'piano-cautionary)
-	d16 d d d d d cis d 
+	\time 2/4 
+	d16 d d d d d cis d dis dis dis dis 
 	
      }
 
      %% not raggedright!!
-     \layout {  linewidth = 14.\cm
+     \layout {  linewidth = 18.\cm
      }
 }

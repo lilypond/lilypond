@@ -14,6 +14,7 @@
 #include "item.hh"
 #include "warn.hh"
 #include "text-interface.hh"
+#include "grob-array.hh"
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
@@ -62,8 +63,8 @@ Mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      SCM lst = get_property ("stavesFound");
-      text_->set_object ("side-support-elements", lst);
+      text_->set_object ("side-support-elements",
+			 grob_list_to_grob_array (get_property ("stavesFound")));
       text_ = 0;
     }
   mark_ev_ = 0;

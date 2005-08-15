@@ -8,11 +8,11 @@
 
 #include <cctype>
 
+#include "engraver.hh"
+
 #include "note-column.hh"
-#include "bar-line.hh"
-#include "time-signature.hh"
-#include "engraver-group-engraver.hh"
 #include "context.hh"
+#include "grob-array.hh"
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
@@ -47,7 +47,8 @@ Metronome_mark_engraver::stop_translation_timestep ()
     {
       Grob *mc = unsmob_grob (get_property ("currentMusicalColumn"));
       text_->set_parent (mc, X_AXIS);
-      text_->set_object ("side-support-elements", get_property ("stavesFound"));
+      text_->set_object ("side-support-elements",
+			 grob_list_to_grob_array (get_property ("stavesFound")));
 
       text_ = 0;
     }
