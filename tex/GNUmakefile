@@ -13,15 +13,8 @@ $(outdir)/music-drawing-routines.ps: $(depth)/ps/music-drawing-routines.ps
 	rm -f $@
 	-ln $< $@
 
-
-# teTeX-2.0.x compatibility.
-local-install:
-	-$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)/tex
-	(cd $(DESTDIR)$(local_lilypond_datadir)/tex && ln -sf ../fonts/enc .)
-
 local-uninstall:
-	-rm -f $(DESTDIR)$(local_lilypond_datadir)/tex/enc
 	-rmdir $(DESTDIR)$(local_lilypond_datadir)/tex
 
-all: $(INSTALLATION_FILES) $(INSTALLATION_OUT_FILES1)
+all: $(INSTALLATION_FILES)
 

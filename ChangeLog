@@ -1,3 +1,19 @@
+2005-08-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/slur-script.ly: Add example of reverting
+	inside-slur for fingering.
+
+	* scm/define-grobs.scm (DynamicLineSpanner, Fingering,
+	TextScript): Explicitly set inside-slur #f, forcing these out of slur.
+
+	* lily/slur-engraver.cc (acknowledge_extra_object): Only invoke
+	outside_slur_callback if inside-slur == #f (as opposed to unset).
+
+2005-08-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* tex/GNUmakefile (INSTALLATION_FILES): Remove enc symlink setup,
+	encoding files are already removed.
+
 2005-08-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Instrument names):
