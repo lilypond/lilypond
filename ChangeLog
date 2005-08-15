@@ -1,5 +1,9 @@
 2005-08-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* Documentation/user/advanced-notation.itely (Instrument names):
+	Document a workaround for instrument names that collide with
+	system start braces/brackets.
+
 	* scm/framework-ps.scm (output-framework): Yet another
 	backport-bugfix: remove the call to paper-book-write-midis, 
 	which would otherwise require a more substantial backport. 

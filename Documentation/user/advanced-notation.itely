@@ -851,8 +851,10 @@ Program reference: @internalsref{InstrumentName}.
 @refbugs
 
 When you put a name on a grand staff or piano staff, the width of the
-brace is not taken into account.  You must add extra spaces to the end of
-the name to avoid a collision.
+brace is not taken into account. The following property setting can be
+used to move the instrument names to the left, in such situations.
+@example
+\override Score.InstrumentName #'space-alist = #'((left-edge extra-space . 2.0))@end example
 
 
 @node Instrument transpositions
