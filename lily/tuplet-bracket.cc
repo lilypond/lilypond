@@ -661,7 +661,7 @@ ADD_INTERFACE (Tuplet_bracket,
 	       "bracket-flare "
 	       "bracket-visibility "
 	       "break-overshoot "
-	       "direction"
+	       "direction "
 	       "edge-height "
 	       "edge-text "
 	       "left-position "
