@@ -46,6 +46,7 @@ ADD_INTERFACE (Paper_column, "paper-column-interface",
 	       "page-penalty "
 	       "shortest-playing-duration "
 	       "shortest-starter-duration "
+	       "used "
 	       "when ");
 
 void
@@ -117,7 +118,12 @@ Paper_column::is_used (Grob *me)
   if (bbm.size ())
     return true;
   
-  return Item::is_breakable (me);
+  if (Item::is_breakable (me))
+    return true;
+
+  if (to_boolean (me->get_property ("used")))
+    return true;
+  return false;
 }
 
 /*
