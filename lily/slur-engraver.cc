@@ -102,7 +102,7 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
       for (int i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
-  else if (!to_boolean (inside)
+  else if (inside == SCM_BOOL_F
 	   && e->name () != "DynamicText")
     {
       Grob *slur = slurs_.size () ? slurs_[0] : 0;
@@ -207,8 +207,8 @@ Slur_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Slur_engraver, accidental);
 ADD_ACKNOWLEDGER (Slur_engraver, dynamic_line_spanner);
-ADD_ACKNOWLEDGER (Slur_engraver, fingering)
-  ADD_ACKNOWLEDGER (Slur_engraver, note_column);
+ADD_ACKNOWLEDGER (Slur_engraver, fingering);
+ADD_ACKNOWLEDGER (Slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Slur_engraver, script);
 ADD_ACKNOWLEDGER (Slur_engraver, text_script);
 ADD_ACKNOWLEDGER (Slur_engraver, tie);
