@@ -1,5 +1,11 @@
 2005-08-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/proportional.ly: use #'used property. Set break-overshoot property.
+
+	* mf/feta-arrow.mf: arrow tip sticks out of bbox.
+
+	* lily/paper-column.cc: add used property
+
 	* lily/mark-engraver.cc (stop_translation_timestep): set grob
 	array for staves found.
 

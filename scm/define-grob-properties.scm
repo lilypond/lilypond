@@ -348,6 +348,10 @@ spacing constraints.")
 get stems extending to the middle staff line.")
      (number-type ,symbol? "Type of numbers to use in label.  Choices
 include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
+     (number-visibility ,boolean-or-symbol? "Like
+@code{bracket-visibility}, but for the number.")
+
+
 
      (packed-spacing ,boolean? "If set, the notes are spaced as
 tightly as possible.")
@@ -472,11 +476,7 @@ reading this property.")
 this grob, which means that grobs can be erased individually.")
      (uniform-stretching ,boolean? "If set, items stretch proportional
 to their durations. This looks better in complex polyphonic patterns")
-
-     (number-visibility ,boolean-or-symbol? "Like
-@code{bracket-visibility}, but for the number.")
-
-
+     (used ,boolean? "If set, this spacing column is kept in the spacing problem")
      (when ,ly:moment? "Global time step associated with this column
 happen?")
      (word-space ,ly:dimension? "space to insert between lyrics or

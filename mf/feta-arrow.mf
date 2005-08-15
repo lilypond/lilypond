@@ -31,7 +31,7 @@ def set_arrow_paths (expr width, height, open_tension, arrowlinethickness) =
 	indent = linethickness/2;
 
 	lft x1 = -width;
-	rt x2 = 0;
+	x2 = 0;
 	top y1 = height;
 	y2 = 0;
 
@@ -69,7 +69,7 @@ def set_arrow_paths (expr width, height, open_tension, arrowlinethickness) =
 enddef;
 
 fet_beginchar ("open", "open.01");
-	set_char_box (staff_space#, 0, 0.5 staff_space#, 0.5 staff_space#);
+	set_char_box (staff_space#, 1.6 linethickness#/2, 0.5 staff_space#, 0.5 staff_space#);
 	set_arrow_paths (staff_space, 0.5 staff_space, 1.0, 1.6 linethickness);
 	fill open_path;	
 	addto currentpicture also currentpicture yscaled -1;
@@ -78,7 +78,7 @@ fet_beginchar ("open", "open.01");
 fet_endchar;
 
 fet_beginchar ("open", "open.0M1");
-	set_char_box (0, staff_space#, 0.5 staff_space#, 0.5 staff_space#);
+	set_char_box ( 1.6 linethickness#/2, staff_space#, 0.5 staff_space#, 0.5 staff_space#);
 	set_arrow_paths (staff_space, 0.5 staff_space, 1.0, 1.6 linethickness);
 	fill open_path;	
 	addto currentpicture also currentpicture yscaled -1;
@@ -87,7 +87,7 @@ fet_endchar;
 
 fet_beginchar ("open", "open.11");
 	set_char_box (.5 staff_space#, .5 staff_space#,
-			1.0 staff_space#, 0.0 staff_space#);
+			1.0 staff_space#,  1.6 linethickness#/2);
 	set_arrow_paths (staff_space, 0.5 staff_space, 1.0, 1.6 linethickness);
 	fill open_path;	
 	addto currentpicture also currentpicture yscaled -1;
@@ -96,7 +96,7 @@ fet_endchar;
 
 fet_beginchar ("open", "open.1M1");
 	set_char_box (.5 staff_space#, .5 staff_space#,
-			0.0 staff_space#, 1.0 staff_space#);
+		      1.6 linethickness#/2, 1.0 staff_space#);
 	set_arrow_paths (staff_space, 0.5 staff_space, 1.0, 1.6 linethickness);
 	fill open_path;	
 	addto currentpicture also currentpicture yscaled -1;

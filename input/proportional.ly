@@ -3,7 +3,7 @@
 \header
 {
   title  = "Proportional notation"
-  copyright = "© 2005 Trevor Bača"
+  copyright = "© 2005 Trevor Bača - verbatim reproduction permitted."
 }
 
 \layout
@@ -26,6 +26,8 @@
    proportionalNotationDuration = #(ly:make-moment 1 64)
    \override TimeSignature #'break-visibility = #end-of-line-invisible
    \override Beam #'break-overshoot = #'(-0.5 . 1.0)
+   \override TupletBracket #'break-overshoot = #'(-0.5 . 1.0)
+   \override PaperColumn #'used = ##t 
  }
  \context {
    % we want over print if necessary.
