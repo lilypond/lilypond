@@ -16,32 +16,29 @@
     %% TODO: handle \footer, \head[er] properly
     footer = "Mutopia-2002/08/19-6"
 
-    tagline = \markup { \smaller
-			\column {
-			    \fill-line { \footer "" }
-			    \fill-line { { "This music is part of the Mutopia project, "
-					   \typewriter { "http://sca.uwaterloo.ca/Mutopia/" }
-					   "." } }
-			    \fill-line { { "It has been typeset and placed in the public "
-					   "domain by "  \maintainer  "." } }
-			    \fill-line { { "Unrestricted modification and redistribution "
-					   "is permitted and encouraged---copy this music "
-					   "and share it!" } }
-			}
-		    }
+    tagline = \markup {
+      \smaller
+      \column {
+	\line { \footer }
+	\line {
+	  "This music is part of the Mutopia project, "
+	  \typewriter { "http://sca.uwaterloo.ca/Mutopia/" }
+	}
+	\line {
+	  #(ly:export (string-append
+		       "It has been typeset and placed in the public "
+		       "domain by " maintainer  "." ))
+	}
+	\justify {
+	  Unrestricted modification and redistribution 
+	  is permitted and encouraged. Copy this music 
+	  and share it!
+	}
+      }
+    }
     lastupdated = "2002/August/19"
-}
+  }
 
-
-%{
-We really want this piece on 2 pages.
-
-tweaks:  we use 19 iso. 20 pt staff space, and squeeze up the spacing a bit.
-
-the few forced linebreaks were an earlier attempt to get the spacing
-to match up.
-
-%}
 
 
 \version "2.6.0"
@@ -55,11 +52,11 @@ dux = \context Voice = "two"  \relative c''{
 
     r8 c16 b c8 g as c16 b c8 d |
     g, c16 b c8 d f,16 g as4 g16 f |
-    es c' b a g f! es d c8 es' d c | \break 
+    es c' b a g f! es d c8 es' d c | 
     bes a bes c fis, g a fis |
     %%5
     g4 r16 c, d es f g as8~ as16 d, es f |
-    g a bes8 ~ bes16 es, f g as g f es d8 c'16 b! |  \break
+    g a bes8 ~ bes16 es, f g as g f es d8 c'16 b! |  
 				% forced accident!
     c4 r4 r8 f es d |
     r8 as g f g f16 es f8 d | 
@@ -84,7 +81,6 @@ dux = \context Voice = "two"  \relative c''{
     d, g16 fis g8 a! c,16 d es4 d16 c |  % forced accident!
     bes8 r8 r16 d e fis g a bes8 ~ bes16 e, f g |
     a bes c8 ~ c16 fis,16 g a bes8 es,!16 d es8 g, |
-    \break 
     as f'16 es f8 a,8 bes g'16 f g8 b, |
     %%20
     c16 f es d
@@ -179,7 +175,6 @@ bassdux = \context Voice = "three"  \relative c' {
     f d'16 c d8 fis, g4 r16 g, a b |
     c16 d es8~ es16 a, bes c d es f8~ f16 b, c d |
     %%20 
-				% es8 r r e f f, es! d |     % -> \classic_accidentals
     es8 r r e \stemNeutral \stemDown f f, es! d \stemNeutral |
     r as' g f g f16 es f8 g |
     c16 d es d c bes as g f bes' as g f es d c |
@@ -229,5 +224,6 @@ bassdux = \context Voice = "three"  \relative c' {
     }
     \paper {
 	linewidth = 18.0 \cm
+	raggedlastbottom = ##f
     }
 }

@@ -1,5 +1,8 @@
 2005-08-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/mutopia/J.S.Bach/wtk1-fugue2.ly (bassdux): text formatting
+	fixes. Remove tweaks.
+
 	* input/regression/tuplet-slope.ly: add a test case.
 
 	* lily/tuplet-bracket.cc (calc_position_and_height): revert
