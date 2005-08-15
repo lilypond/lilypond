@@ -142,7 +142,7 @@ Rest_collision::do_shift (Grob *me)
 	  if (d)
 	    ordered_rests[d].push (rests[i]);
 	  else
-	    rests[d]->warning (_ ("can't resolve rest collission: rest direction not set"));
+	    rests[d]->warning (_ ("can't resolve rest collision: rest direction not set"));
 	}
 
       Direction d = LEFT;
