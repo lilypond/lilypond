@@ -11,19 +11,24 @@ The bracket direction is determined by the dominating stem direction.
 
 }
 
+\layout {
+  raggedright = ##t 
+}
 
 \version "2.6.0"
 
-\score {
-     \relative c' {
-	\times 4/5 { a'4 as g fis f }
-	\times 4/5 { fis4 e es d des }
-	\times 4/5 { fis,4 e es d des }
-	\times 4/5 { bes'''4 bes,, b c cis }
-	\times 4/5 { a''4 b b c cis }
-    }
-    \layout {
-	raggedright = ##t 
-    }
+\new Voice {
+  \relative c'' {
+    \times 2/3 { c4 d e}
+    \times 2/3 { c4 d e}
+  }
+  
+  \relative c' {
+    \times 4/5 { a'4 as g fis f }
+    \times 4/5 { fis4 e es d des }
+    \times 4/5 { fis,4 e es d des }
+    \times 4/5 { bes'''4 bes,, b c cis }
+    \times 4/5 { a''4 b b c cis }
+  }
 }
 

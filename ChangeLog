@@ -1,5 +1,11 @@
 2005-08-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/tuplet-slope.ly: add a test case.
+
+	* lily/tuplet-bracket.cc (calc_position_and_height): revert
+	erroneous fix. Add spanner bounds to offset array with relative X
+	positions.
+
 	* ly/engraver-init.ly: add Rest_engraver only once.
 
 	* scm/define-music-display-methods.scm (KeyChangeEvent): only do

@@ -443,14 +443,9 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
 
-  /*
-    offset
-  */
-  Real factor = columns.size () > 1 ? 1 / (x1 - x0) : 1.0;
-
   Array<Offset> points;
-  points.push (Offset (x0, staff[dir]));
-  points.push (Offset (x1, staff[dir]));
+  points.push (Offset (x0 - x0, staff[dir]));
+  points.push (Offset (x1 - x0, staff[dir]));
 
   for (int i = 0; i < columns.size (); i++)
     {
@@ -502,13 +497,14 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       while (flip (&d) != LEFT);
     }
 
+  Real factor = (columns.size () > 1) ? 1 / (x1 - x0) : 1.0;
   for (int i = 0; i < points.size (); i++)
     {
       Real x = points[i][X_AXIS];
-      Real tuplety = *dy * x * factor;
+      Real tuplety = (*dy) * x * factor;
 
       if (points[i][Y_AXIS] * dir > (*offset + tuplety) * dir)
-	*offset = points[i][Y_AXIS] - tuplety * sign (*dy) * dir;
+	*offset = points[i][Y_AXIS] - tuplety;
     }
 
   *offset += scm_to_double (me->get_property ("padding")) * dir;
