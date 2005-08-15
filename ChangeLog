@@ -1,3 +1,9 @@
+2005-08-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/advanced-notation.itely (Instrument names):
+	Document a workaround for instrument names that collide with
+	system start braces/brackets.
+
 2005-08-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/proportional.ly: use #'used property. Set break-overshoot property.
