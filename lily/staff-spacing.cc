@@ -24,13 +24,17 @@
   Insert some more space for the next note, in case it has a stem in
   the wrong direction
 */
-Real
+void
 Staff_spacing::next_note_correction (Grob *me,
 				     Grob *g,
-				     Interval bar_size)
+				     Interval bar_size,
+				     Real *space,
+				     Real *fix)
 {
+  (void)space;
+  
   if (!g || !Note_column::has_interface (g))
-    return 0.0;
+    return ;
 
   Item *col = dynamic_cast<Item *> (g)->get_column ();
   Real max_corr = max (0., (- g->extent (col, X_AXIS)[LEFT]));
@@ -80,7 +84,8 @@ Staff_spacing::next_note_correction (Grob *me,
 	    max_corr = max (max_corr, corr);
 	  }
       }
-  return max_corr;
+
+  *fix += max_corr;
 }
 
 /*
@@ -114,24 +119,49 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
   pointers to the separation-items, not the note-columns or
   note-spacings.
 */
-Real
-Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
+void
+Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
+				      Real *compound_space, Real *compound_fixed
+				      )
 {
   Interval bar_size = bar_y_positions (last_grob);
-  Real max_corr = 0.0;
 
   extract_grob_set (me, "right-items", right_items);
+
+  *compound_fixed = 0.0;
+  *compound_space = 0.0;
+  int wishes;
+  
   for (int i = right_items.size (); i--;)
     {
       Grob *g = right_items[i];
 
-      max_corr = max (max_corr, next_note_correction (me, g, bar_size));
+      Real space = 0.0;
+      Real fixed = 0.0;
+
+      next_note_correction (me, g, bar_size, &space, &fixed);
+
+      *compound_space += space;
+      *compound_fixed += fixed; 
+      wishes ++;
+      
       extract_grob_set (g, "elements", elts);
       for (int j = elts.size (); j--;)
-	max_corr = max (max_corr, next_note_correction (me, elts[j], bar_size));
+	{
+	  Real space = 0.0;
+	  Real fixed = 0.0;
+	  next_note_correction (me, elts[j], bar_size, &space, &fixed);
+	  *compound_fixed += fixed;
+	  *compound_space += space;
+	  wishes ++;
+	}
     }
 
-  return max_corr;
+  if (wishes)
+    {
+      *compound_space /= wishes;
+      *compound_fixed /= wishes;
+    }
 }
 
 void
@@ -152,7 +182,6 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
     }
 
   //  printf ("doing col %d\n" , Paper_column::get_rank (left_col));
-
   if (!separation_item)
     {
       programming_error ("no sep item");
@@ -224,7 +253,10 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
       *fixed = *space;
     }
 
-  *space += next_notes_correction (me, last_grob);
+  Real correction_fixed, correction_space;
+  next_notes_correction (me, last_grob, &correction_space, &correction_fixed );
+  *space += correction_space;
+  *fixed += correction_fixed;
 }
 
 ADD_INTERFACE (Staff_spacing, "staff-spacing-interface",
