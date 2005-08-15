@@ -103,7 +103,7 @@ Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
       for (int i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
-  else if (!to_boolean (inside)
+  else if (inside == SCM_BOOL_F
 	   && e->name () != "DynamicText")
     {
       Grob *slur = slurs_.size () ? slurs_[0] : 0;
