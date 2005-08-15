@@ -18,8 +18,8 @@
     b(-.  d-.)
 
     b_1( b b_1_2_3)
-    %% Allow Fingering to go inside slur, by reverting the #f value.
-    \once \revert Fingering #'inside-slur
+    %% Allow Fingering to go inside slur.
+    \override Fingering #'inside-slur = ##t
     b( d_1 b)
     c_\markup { \italic {"cresc."}}( f c)
     c( c\f c)
