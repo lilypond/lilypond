@@ -1,3 +1,10 @@
+2005-08-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/engraver-init.ly: add Rest_engraver only once.
+
+	* scm/define-music-display-methods.scm (KeyChangeEvent): only do
+	(*parser*) lookup if (*parser*) != #f.
+
 2005-08-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/regression/slur-script.ly: Add example of reverting

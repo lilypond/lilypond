@@ -316,20 +316,24 @@ The syntax is the same as `define*-public'."
 
     (display (format "Dumping gc protected objs to ~a...\n" out-file-name))
     (display
-     (filter
-      (lambda (x) (not (symbol? x))) 
-      (map (lambda (y)
-	     (let ((x (car y))
-		   (c (cdr y)))
+     (map (lambda (y)
+	    (let ((x (car y))
+		  (c (cdr y)))
+	      
+	      (string-append
+	       (string-join
+		(map object->string (list (object-address x) c x))
+		" ")
+	       "\n")))
 
-	       (string-append
-		(string-join
-		 (map object->string (list (object-address x) c x))
-		 " ")
-		"\n")))
+	  (filter
+	   (lambda (x)
+	     (not (symbol? (car x))))
 	   protects))
      outfile)
 
+;    (display (ly:smob-protects))
+    (newline outfile)
     (if (defined? 'gc-live-object-stats)
 	(let* ((stats #f))
 	  (display "Live object statistics: GC'ing\n")
@@ -375,17 +379,17 @@ The syntax is the same as `define*-public'."
     (for-each
      (lambda (x)
        (lilypond-file handler x)
-       (ly:clear-anonymous-modules))
+       (ly:clear-anonymous-modules)
+       (if (ly:get-option 'debug-gc)
+	   (dump-gc-protects)))
+     
      files)
     failed))
 
 (define (lilypond-file handler file-name)
   (catch 'ly-file-failed
 	 (lambda () (ly:parse-file file-name))
-	 (lambda (x . args) (handler x file-name)))
-
-  (if (ly:get-option 'debug-gc)
-      (dump-gc-protects)))
+	 (lambda (x . args) (handler x file-name))))
 
 (use-modules (scm editor))
 

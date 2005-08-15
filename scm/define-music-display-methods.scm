@@ -561,7 +561,8 @@ Otherwise, return #f."
 	  (format #f "\\key ~a \\~a~a"
 		  (note-name->lily-string (ly:music-property key 'tonic))
 		  (any (lambda (mode)
-			 (if (equal? (ly:parser-lookup (*parser*) mode) c-pitch-alist)
+			 (if (and (*parser*)
+				  (equal? (ly:parser-lookup (*parser*) mode) c-pitch-alist))
 			     (symbol->string mode)
 			     #f))
 		       '(major minor ionian locrian aeolian mixolydian lydian phrygian dorian))
