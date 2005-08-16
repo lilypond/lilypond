@@ -1,5 +1,7 @@
 2005-08-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/stem-spacing.ly (Module): remove file.
+
 	* input/regression/spacing-stick-out.ly: specify Score context for
 	\override
 
