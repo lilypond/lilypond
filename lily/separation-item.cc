@@ -129,6 +129,9 @@ Separation_item::extremal_break_aligned_grob (Grob *me,
       if (!scm_is_symbol (break_item->get_property ("break-align-symbol")))
 	continue;
 
+      if (!scm_is_pair (break_item->get_property ("space-alist")))
+	continue;
+
       Interval ext = break_item->extent (col, X_AXIS);
 
       if (ext.is_empty ())

@@ -1,3 +1,25 @@
+2005-08-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/NEWS.tely (Top): add entry for percent
+	counters.
+
+	* Documentation/user/basic-notation.itely (Measure repeats): add
+	links to Counter grobs.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	DoublePercentRepeatCounter
+	(all-grob-descriptions): add PercentRepeatCounter
+
+	* lily/percent-repeat-engraver.cc (class Percent_repeat_engraver):
+	also create counter grobs.
+
+	* lily/separation-item.cc (extremal_break_aligned_grob): don't
+	return grob without space-alist.
+
+	* input/proportional.ly: tune staff-padding.
+
+	* input/regression/repeat-percent-count.ly: new file. 
+
 2005-08-16  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* input/no-notation/display-lily-tests.ly: moved from

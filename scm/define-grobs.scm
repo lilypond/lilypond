@@ -454,6 +454,23 @@
 				break-aligned-interface
 				percent-repeat-interface))))))
 
+    (DoublePercentRepeatCounter
+     . ((print-function . ,Text_interface::print)
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
+			       ,Self_alignment_interface::centered_on_other_axis_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(font-encoding . fetaNumber)
+	(self-alignment-X . 0)
+	(font-size . -2) 
+	(direction . 1)
+	(padding . 0.2)
+	(staff-padding . 0.25)
+	(meta . ((class . Item)
+		 (interfaces . (side-position-interface
+				self-alignment-interface
+				percent-repeat-interface
+				font-interface
+				text-interface))))))
     (DynamicLineSpanner
      . (
 	(axes . (1))
@@ -977,6 +994,23 @@
 		 (interfaces . (multi-measure-rest-interface
 				font-interface
 				percent-repeat-interface))))))
+    (PercentRepeatCounter
+     . ((print-function . ,Text_interface::print)
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
+			       ,Self_alignment_interface::centered_on_other_axis_parent))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(self-alignment-X . 0)
+	(direction . 1)
+	(padding . 0.2)
+	(staff-padding . 0.25)
+	(font-size . -2) 
+	(font-encoding . fetaNumber)
+	(meta . ((class . Spanner)
+		 (interfaces . (side-position-interface
+				self-alignment-interface
+				percent-repeat-interface
+				font-interface
+				text-interface))))))
 
     ;; an example of a text spanner
     (PianoPedalBracket

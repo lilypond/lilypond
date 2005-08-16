@@ -2937,7 +2937,9 @@ Percent repeats must be declared within a @code{Voice} context.
 
 @seealso
 
-Program reference: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
+Program reference: @internalsref{RepeatSlash},
+@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
+@internalsref{DoublePercentRepeatCounter},
+@internalsref{PercentRepeatCounter},
 @internalsref{PercentRepeatedMusic}, and
-@internalsref{DoublePercentRepeat}.
 
