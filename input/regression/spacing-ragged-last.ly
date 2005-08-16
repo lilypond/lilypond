@@ -2,17 +2,15 @@
 
 \header {
 
-    texidoc = "If @code{raggedlast} is set, the systems are broken
+  texidoc = "If @code{raggedlast} is set, the systems are broken
     similar to paragraph formatting in text: the last line is
-    justified. "
+    unjustified. "
 
-	  }
-
-
-\score  {
-     \relative c'' \new Staff { \repeat unfold 20 { c1 } }
-    \layout{
-	raggedlast = ##t
-    }
 }
-	
+
+\layout{
+  raggedlast = ##t
+}
+
+\relative c'' \new Staff { \repeat unfold 20 { c1 } }
+
