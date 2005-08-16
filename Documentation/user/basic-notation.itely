@@ -163,10 +163,11 @@ print them manually.  A reminder accidental
 can be forced by adding an exclamation mark @code{!}
 after the pitch.  A cautionary accidental
 (i.e., an accidental within parentheses) can be obtained by adding the
-question mark `@code{?}' after the pitch.
+question mark `@code{?}' after the pitch.  These extra accidentals
+can be used to produce natural signs, too.
 
 @lilypond[quote,raggedright,fragment,verbatim]
-cis' cis' cis'! cis'?
+cis' cis' cis'! cis'? c c? c! c
 @end lilypond
 
 
