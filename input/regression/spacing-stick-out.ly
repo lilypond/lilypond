@@ -10,8 +10,9 @@
 \version "2.6.0"
 
 \layout { raggedright = ##t } 
+
 \relative {
-  \override PaperColumn #'keep-inside-line = ##t 
+  \override Score.PaperColumn #'keep-inside-line = ##t 
   c1 c1^"This is a really long text" c
 }
 
