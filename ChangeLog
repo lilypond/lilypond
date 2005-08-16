@@ -1,3 +1,9 @@
+2005-08-16  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* input/no-notation/display-lily-tests.ly: moved from
+	input/regression/ to input/no-notation. Be sure to call
+	`display-lily-init' before trying to use the display function.
+
 2005-08-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (option_definitions): Don't localize

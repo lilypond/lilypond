@@ -34,7 +34,15 @@
 #(define (lily-string->markup str)
    (make-column-markup (string-split str #\NewLine)))
 
+initTest = #(def-music-function (parser location) ()
+             ;; Before using display-lily-music, it must be 
+             ;; inited using display-lily-init
+             (display-lily-init parser)
+             (set! test-number 0)
+             (make-music 'SequentialMusic))
+
 test = #(def-music-function (parser location result-info strings) (string? pair?)
+         (display-lily-init parser)
           (let ((input (car strings))
                 (output (cdr strings)))
             (set! test-number (1+ test-number))
@@ -84,6 +92,7 @@ test = #(def-music-function (parser location result-info strings) (string? pair?
   }
 }
 {
+  \initTest
   %% Sequential music
   \test #"" ##[ { { a b } { c d } } #]			% SequentialMusic
   \test #"" ##[ << { a b } { c d } >> #]		% SimultaneousMusic
