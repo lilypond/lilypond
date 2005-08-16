@@ -220,7 +220,7 @@ get_header (Lily_parser *parser)
     id = ly_make_anonymous_module (be_safe_global);
   else
     {
-      nid = ly_make_anonymous_module (false);
+      SCM nid = ly_make_anonymous_module (false);
       ly_module_copy(nid,id);
       id = nid;
     }
