@@ -31,14 +31,14 @@ See user manual, \NAME\
 @unnumbered New features in 2.7 since 2.6
 
 @ifhtml
-This document is also available in @uref{source/Documentation/topdocs/out-www/NEWS.pdf,PDF}.
+This document is also available in @uref{NEWS.pdf,PDF}.
 @end ifhtml
 
 
 @itemize @bullet
 
 @item
-Percent repeats now get numbers to how many repeats there are.
+Percent repeats get numbers to indicate how many repeats there are.
 
 @lilypond[relative=2,fragment,raggedright] 
 \repeat percent 4 { c1 }
