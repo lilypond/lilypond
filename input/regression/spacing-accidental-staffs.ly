@@ -2,7 +2,7 @@
 
 \header { 
 texidoc = "Accidentals in different staves do not affect the
-spacing of the quarter notes here."
+spacing of the eighth notes here."
 }
 
 \score {  \relative c'' << \new Staff { \time 4/4
