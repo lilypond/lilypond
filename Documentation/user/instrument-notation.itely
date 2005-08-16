@@ -1940,7 +1940,7 @@ music.
 This is what the well known tune Amazing Grace looks like in bagpipe
 notation.
 
-@lilypond[raggedright,verbatim,quote]
+@lilypond[verbatim,quote]
 \include "bagpipe.ly"
 \layout {
   indent = 0.0\cm
