@@ -77,7 +77,7 @@ Tuplets can be made to reach the next non-tuplet note by setting the
 }
 @end lilypond  
 
-This feature was sponsored by Trevor Baca. 
+This feature was sponsored by Trevor Ba@v{c}a. 
 
 @item
 When @code{strict-note-spacing} is set, notes are spaced without regard
@@ -88,7 +88,7 @@ for clefs, bar lines, and grace notes. For example,
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
 
-This feature was sponsored by Trevor Baca. 
+This feature was sponsored by Trevor Ba@v{c}a. 
 
 @item
 Beams support the @code{break-overshoot} property, for example
@@ -99,7 +99,7 @@ Beams support the @code{break-overshoot} property, for example
 c2.. c8[ \break c]
 @end lilypond
  
-This feature was sponsored by Trevor Baca. 
+This feature was sponsored by Trevor Ba@v{c}a. 
 
 @item
 Proportional notation is supported.  Notes can be spaced proportional
@@ -114,7 +114,7 @@ to their time-difference by assigning a duration to
 >>
 @end lilypond
 
-This feature was sponsored by Trevor Baca.
+This feature was sponsored by Trevor Ba@v{c}a.
 
 @item 
 Symbol sizes (e.g. accidentals) are disregarded for spacing if
@@ -132,7 +132,7 @@ Symbol sizes (e.g. accidentals) are disregarded for spacing if
 >>
 @end lilypond
 
-This feature was sponsored by Trevor Baca.
+This feature was sponsored by Trevor Ba@v{c}a.
  
 @item
 Endings of broken tuplet brackets can be tuned.  For example, you can
@@ -148,7 +148,7 @@ add arrows to the brackets,
 }
 @end lilypond
 
-This feature was sponsored by Trevor Baca.
+This feature was sponsored by Trevor Ba@v{c}a.
 
 
 @item
@@ -163,7 +163,7 @@ Arrow heads were added to the Feta font.
 }
 @end lilypond
 
-These glyphs have been sponsored by Trevor Baca.
+These glyphs have been sponsored by Trevor Ba@v{c}a.
 
 
 @item
@@ -177,7 +177,7 @@ Nested tuplets are automatically positioned,
 }
 @end lilypond
 
-This feature was sponsored by Trevor Baca.
+This feature was sponsored by Trevor Ba@v{c}a.
 
 @item
 Music expressions can be displayed, in LilyPond notation, using the
