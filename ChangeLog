@@ -1,3 +1,9 @@
+2005-08-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond-book.py (option_definitions): Don't localize
+	the empty string. Fixes bug when --psfonts was used with
+	non-English locale.
+
 2005-08-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Instrument names):
