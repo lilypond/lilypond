@@ -1,3 +1,16 @@
+2005-08-16  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* input/no-notation/display-lily-tests.ly: delete
+	display-lily-init call.
+
+	* ly/music-functions-init.ly (displayLilyMusic): move
+	display-lily-init call at top level, so that the user should not
+	have to call it.
+
+	* scm/define-music-display-methods.scm (note-name->lily-string):
+	retrieve note names directly from pitchnames using new function `rassoc'.
+	(display-lily-init): note names list construction removed.
+
 2005-08-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/NEWS.tely (Top): add entry for percent
