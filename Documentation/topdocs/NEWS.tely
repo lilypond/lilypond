@@ -38,7 +38,7 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 @itemize @bullet
 
 @item
-Percent repeats get numbers to indicate how many repeats there are.
+Percent repeats get incremental numbers to indicate how many repeats there are.
 
 @lilypond[relative=2,fragment,raggedright] 
 \repeat percent 4 { c1 }
@@ -117,7 +117,7 @@ to their time-difference by assigning a duration to
 This feature was sponsored by Trevor Baca.
 
 @item 
-Symbol sizes (e.g. accidentals) are disregarded for spacing if if
+Symbol sizes (e.g. accidentals) are disregarded for spacing if
 @code{uniform-stretching} of the @code{SpacingSpanner} grob is set,
 
 
