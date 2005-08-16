@@ -95,7 +95,7 @@ option_definitions = [
 	  _ ("write output to DIR")),
 	(_ ("COMMAND"), 'P', 'process',
 	  _ ("process ly_files using COMMAND FILE...")),
-	(_(''), '', 'psfonts',
+	('', '', 'psfonts',
 	 _ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
 	 must use this with dvips -h INPUT.psfonts''')),
 	('', 'V', 'verbose',
