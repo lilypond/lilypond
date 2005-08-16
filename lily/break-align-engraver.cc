@@ -71,7 +71,7 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
       SCM align_name = item->get_property ("break-align-symbol");
       if (!scm_is_symbol (align_name))
 	return;
-
+	  
       if (!align_)
 	{
 	  align_ = make_item ("BreakAlignment", SCM_EOL);

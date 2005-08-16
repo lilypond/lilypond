@@ -22,6 +22,7 @@ class Paper_system
   DECLARE_SMOBS (Paper_system,);
   Stencil stencil_;
   bool is_title_;
+
 public:
   Interval staff_refpoints_;
   Real break_before_penalty_;
@@ -34,7 +35,7 @@ public:
   bool is_title () const;
   Real break_before_penalty () const;
 };
-//
+
 DECLARE_UNSMOB (Paper_system, paper_system);
 
 #endif /* PAPER_SYSTEM_HH */
