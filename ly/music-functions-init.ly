@@ -52,9 +52,9 @@ displayMusic =
 %#(use-modules (scm display-lily))invalid module name for use-syntax ((srfi srfi-39))
 
 #(use-modules (scm display-lily))
+#(display-lily-init parser)
 displayLilyMusic =
 #(def-music-function (parser location music) (ly:music?)
-   (display-lily-init parser)
    (display-lily-music music)
    music)
 

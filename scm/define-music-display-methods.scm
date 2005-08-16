@@ -11,12 +11,10 @@
 
 (define-module (scm display-lily))
 
-
 ;;; `display-lily-init' must be called before using `display-lily-music'. It
 ;;; takes a parser object as an argument.
 (define-public (display-lily-init parser)
   (*parser* parser)
-  (set-note-names! (ly:parser-lookup (*parser*) 'pitchnames))
   #t)
 
 ;;;
@@ -80,12 +78,14 @@
 ;;;
 ;;; pitch names
 ;;;
-(define note-names '())
 
-(define (set-note-names! pitchnames)
-  (set! note-names (map-in-order (lambda (name+lypitch)
-				   (cons (cdr name+lypitch) (car name+lypitch)))
-				 pitchnames)))
+;; It is a pity that there is no rassoc in Scheme.
+(define* (rassoc item alist #:optional (test equal?))
+  (do ((alist alist (cdr alist))
+       (result #f result))
+      ((or result (null? alist)) result)
+    (if (and (car alist) (test item (cdar alist)))
+        (set! result (car alist)))))
 
 (define (note-name->lily-string ly-pitch)
   ;; here we define a custom pitch= function, since we do not want to
@@ -93,9 +93,9 @@
   (define (pitch= pitch1 pitch2)
     (and (= (ly:pitch-notename pitch1) (ly:pitch-notename pitch2))
 	 (= (ly:pitch-alteration pitch1) (ly:pitch-alteration pitch2))))
-  (let ((result (assoc ly-pitch note-names pitch=))) ;; assoc from srfi-1
+  (let ((result (rassoc ly-pitch (ly:parser-lookup (*parser*) 'pitchnames) pitch=)))
     (if result
-	(cdr result)
+	(car result)
 	#f)))
 
 (define (octave->lily-string pitch)

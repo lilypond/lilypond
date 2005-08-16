@@ -1,4 +1,4 @@
-\version "2.7.2"
+\version "2.7.6"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format))
@@ -33,13 +33,6 @@
   
 #(define (lily-string->markup str)
    (make-column-markup (string-split str #\NewLine)))
-
-initTest = #(def-music-function (parser location) ()
-             ;; Before using display-lily-music, it must be 
-             ;; inited using display-lily-init
-             (display-lily-init parser)
-             (set! test-number 0)
-             (make-music 'SequentialMusic))
 
 test = #(def-music-function (parser location result-info strings) (string? pair?)
          (display-lily-init parser)
@@ -92,7 +85,6 @@ test = #(def-music-function (parser location result-info strings) (string? pair?
   }
 }
 {
-  \initTest
   %% Sequential music
   \test #"" ##[ { { a b } { c d } } #]			% SequentialMusic
   \test #"" ##[ << { a b } { c d } >> #]		% SimultaneousMusic
