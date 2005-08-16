@@ -2,7 +2,7 @@
 \header {
 
 
-  texidoc = "Percent repeats get numbers to indicate the repeat
+  texidoc = "Percent repeats get incremental numbers to indicate the repeat
 counts, but only if there are more than two repeats."
 
 
