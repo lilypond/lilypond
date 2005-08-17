@@ -5,6 +5,10 @@
 	* Documentation/user/advanced-notation.itely: add info on
 	getting an I rehearsal mark.
 
+	* Documentation/user/putting.itely: reinstate "I", re-enforce
+	the fact that \override numbers are the result of
+	experimentation and personal taste.
+
 2005-08-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/stem-spacing.ly (Module): remove file.
