@@ -469,7 +469,8 @@ guess a default for @code{lilypond} environments which don't use the
 @code{raggedright} option.
 
 @item notime
-Do not print the time signature.
+Do not print the time signature, and turns off the timing (key signature,
+bar lines) in the score.
 
 @item fragment
 Make @command{lilypond-book} add some boilerplate code so that you can
