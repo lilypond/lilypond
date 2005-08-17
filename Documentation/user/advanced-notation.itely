@@ -739,7 +739,12 @@ c1 \mark \default
 @end lilypond
 
 @noindent
-(The letter@tie{}`I' is skipped in accordance with engraving traditions.)
+The letter@tie{}`I' is skipped in accordance with engraving traditions.
+If you wish to include the letter `I', then use
+
+@example
+\set Score.markFormatter = #format-mark-alphabet
+@end example
 
 The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the mark
@@ -886,8 +891,10 @@ Program reference: @internalsref{InstrumentName}.
 When you put a name on a grand staff or piano staff, the width of the
 brace is not taken into account. The following property setting can be
 used to move the instrument names to the left, in such situations.
+
 @example
-\override Score.InstrumentName #'space-alist = #'((left-edge extra-space . 2.0))@end example
+\override Score.InstrumentName #'space-alist = #'((left-edge extra-space . 2.0))
+@end example
 
 
 @node Instrument transpositions
