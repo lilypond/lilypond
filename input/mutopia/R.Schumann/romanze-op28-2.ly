@@ -123,7 +123,7 @@ rightb =  \transpose c cis' {
   f,8.. f32^1 g8^2  a4.) |
   a4^1( c8^1_\accent~[c b)] g16^1([ b^2] |
    c4)^1 es8^1~es d^1 f^1~ |
-  \override PianoStaff.Arpeggio  #'direction = #1
+  \override PianoStaff.Arpeggio  #'direction = #up
   f f8.. f32^1( as4.)^\fermata\arpeggio ~ |
   \revert PianoStaff.Arpeggio #'direction
   \stemUp \tieUp as r4 r8 |
@@ -257,7 +257,7 @@ leftb =  \transpose c cis {
     
     \set PianoStaff.instrument = "  2."
     \context Staff = "up" {
-      \override Staff.DynamicLineSpanner   #'direction = #-1
+      \override Staff.DynamicLineSpanner   #'direction = #down
       \clef G <<\global \context Voice = "upv" \righta >>
     }
     \context Staff = "mid" {
@@ -270,7 +270,7 @@ leftb =  \transpose c cis {
       \clef F <<\global \context Voice = "midv" \rightb>>
     }
       \context Staff = "down" {
-        \override Staff.DynamicLineSpanner   #'direction = #1
+        \override Staff.DynamicLineSpanner   #'direction = #up
         \clef F
 	<< \global \context Voice = "lva" \lefta \context Voice = "lvb" \leftb >>
     }

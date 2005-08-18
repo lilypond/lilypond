@@ -10,7 +10,7 @@ Objects, like text, can be moved around by using some Scheme code.
 
 \score {
   \relative c''' {
-    \override Stem  #'direction = #1
+    \stemUp
     \applyoutput #(outputproperty-compatibility (make-text-checker (make-simple-markup "m.d."))
       'extra-offset '(-3.5 . -4.5))
     a^2^"m.d."

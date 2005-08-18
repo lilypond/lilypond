@@ -262,7 +262,7 @@ lowerStaff = \context MensuralStaff = "lowerStaff" <<
 	    \override Accidental #'style = #'mensural
 	    \override Custos #'style = #'mensural
 	    \override Custos #'neutral-position = #3
-	    \override Custos #'neutral-direction = #-1
+	    \override Custos #'neutral-direction = #down
 	    clefGlyph = #"clefs.petrucci.c2"
 	    clefPosition = #-2
 	    clefOctavation = #0 
@@ -280,7 +280,7 @@ lowerStaff = \context MensuralStaff = "lowerStaff" <<
 	    \override Accidental #'style = #'vaticana
 	    \override Custos #'style = #'vaticana
 	    \override Custos #'neutral-position = #4
-	    \override Custos #'neutral-direction = #-1
+	    \override Custos #'neutral-direction = #down
 	    clefGlyph = #"clefs.vaticana.do"
 	    clefPosition = #1
 	    clefOctavation = #0 

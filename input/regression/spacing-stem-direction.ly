@@ -14,7 +14,7 @@ much to correct."
 
 \context Voice \relative c {
   %% make sure neutral is down.
-  \override Stem  #'neutral-direction = #-1
+  \override Stem  #'neutral-direction = #down
   \time 16/4  c''4 c c,  c' d, c' e, c' f, c' g c a c b c
 }
 
