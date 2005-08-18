@@ -1,3 +1,8 @@
+2005-08-18  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* input/test/script-abbreviations.ly: Removed some old LaTeX
+	left overs.
+
 2005-08-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* python/convertrules.py (conv): inside-slur -> avoid-slur.

@@ -15,12 +15,12 @@ Some articulations may be entered using an abbreviation.
       \override TextScript  #'font-family = #'typewriter
       \override TextScript  #'font-shape = #'upright
       c''4-._"c-."      s4
-      c''4--_"c-{}-"    s4
+      c''4--_"c--"      s4
       c''4-+_"c-+"      s4
       c''4-|_"c-|"      s4
       c''4->_"c->"      s4
-      c''4-^_"c-\\^{ }" s4
-      c''4-__"c-\_" s4      
+      c''4-^_"c-^"      s4
+      c''4-__"c-_"      s4      
     }
   }
 
