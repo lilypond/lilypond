@@ -1,5 +1,5 @@
 /*
-  performer-group-performer.cc -- implement Performer_group_performer
+  performer-group-performer.cc -- implement Performer_group
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,7 +13,7 @@
 #include "audio-element.hh"
 #include "warn.hh"
 
-ADD_TRANSLATOR_GROUP (Performer_group_performer,
+ADD_TRANSLATOR_GROUP (Performer_group,
 		      /* doc */ "",
 		      /* create */ "",
 		      /* accept */ "",
@@ -21,18 +21,18 @@ ADD_TRANSLATOR_GROUP (Performer_group_performer,
 		      /* write */ "");
 
 void
-Performer_group_performer::announce_element (Audio_element_info info)
+Performer_group::announce_element (Audio_element_info info)
 {
   announce_infos_.push (info);
   Translator_group *t
     = context ()->get_parent_context ()->implementation ();
 
-  if (Performer_group_performer *eg = dynamic_cast<Performer_group_performer *> (t))
+  if (Performer_group *eg = dynamic_cast<Performer_group *> (t))
     eg->announce_element (info);
 }
 
 void
-Performer_group_performer::acknowledge_audio_elements ()
+Performer_group::acknowledge_audio_elements ()
 {
   for (int j = 0; j < announce_infos_.size (); j++)
     {
@@ -60,7 +60,7 @@ performer_each (SCM list, Performer_method method)
 }
 
 void
-Performer_group_performer::do_announces ()
+Performer_group::do_announces ()
 {
   while (1)
     {
@@ -76,23 +76,23 @@ Performer_group_performer::do_announces ()
 }
 
 void
-Performer_group_performer::play_element (Audio_element *e)
+Performer_group::play_element (Audio_element *e)
 {
   Context *c = context_->get_parent_context ();
   if (c)
     {
-      Performer_group_performer *pgp = dynamic_cast<Performer_group_performer *> (c->implementation ());
+      Performer_group *pgp = dynamic_cast<Performer_group *> (c->implementation ());
       pgp->play_element (e);
     }
 }
 
 int
-Performer_group_performer::get_tempo () const
+Performer_group::get_tempo () const
 {
   Context *c = context_->get_parent_context ();
   if (c)
     {
-      Performer_group_performer *pgp = dynamic_cast<Performer_group_performer *> (c->implementation ());
+      Performer_group *pgp = dynamic_cast<Performer_group *> (c->implementation ());
       return pgp->get_tempo ();
     }
   return 60;

@@ -14,7 +14,8 @@
 /**
    Top level performer. Completely takes care of MIDI output
 */
-class Score_performer : public Score_translator, public virtual Performer_group_performer
+class Score_performer : public Score_translator,
+			public virtual Performer_group
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Score_performer);

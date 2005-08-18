@@ -1,5 +1,5 @@
 /*
-  performer-group-performer.hh -- declare Performer_group_performer
+  performer-group-performer.hh -- declare Performer_group
 
   (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
@@ -13,10 +13,10 @@
 
 typedef void (Performer:: *Performer_method) (void);
 
-class Performer_group_performer : public virtual Translator_group
+class Performer_group : public virtual Translator_group
 {
 public:
-  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Performer_group_performer);
+  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Performer_group);
 
   void do_announces ();
   virtual void announce_element (Audio_element_info);

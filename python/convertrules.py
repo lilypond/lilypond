@@ -2542,6 +2542,16 @@ conversions.append (((2, 7, 4), conv,
 		     '''keyAccidentalOrder->keyAlterationOrder'''))
 
 
+
+def conv (str):
+	str = re.sub('Performer_group_performer', 'Performer_group', str)
+	str = re.sub('Engraver_group_engraver', 'Engraver_group', str)
+	return str
+
+conversions.append (((2, 7, 6), conv,
+		     '''Performer_group_performer -> Performer_group, Engraver_group_engraver -> Engraver_group'''))
+
+
 ################################################################
 
 def str_to_tuple (s):

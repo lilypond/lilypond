@@ -94,7 +94,7 @@ Score_performer::derived_mark () const
     scm_gc_mark (performance_->self_scm ());
 
   Score_translator::derived_mark ();
-  Performer_group_performer::derived_mark ();
+  Performer_group::derived_mark ();
 }
 
 void

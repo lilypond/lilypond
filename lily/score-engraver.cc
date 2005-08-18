@@ -36,7 +36,7 @@ Score_engraver::derived_mark () const
   if (pscore_)
     scm_gc_mark (pscore_->self_scm ());
   Score_translator::derived_mark ();
-  Engraver_group_engraver::derived_mark ();
+  Engraver_group::derived_mark ();
 }
 
 void
@@ -85,7 +85,7 @@ Score_engraver::initialize ()
   system_ = pscore_->root_system ();
   context ()->set_property ("rootSystem", system_->self_scm ());
 
-  Engraver_group_engraver::initialize ();
+  Engraver_group::initialize ();
 }
 
 void
@@ -102,7 +102,7 @@ Score_engraver::one_time_step ()
   if (!to_boolean (context ()->get_property ("skipTypesetting")))
     {
       precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
-      Engraver_group_engraver::do_announces ();
+      Engraver_group::do_announces ();
     }
 
   precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
@@ -154,7 +154,7 @@ Score_engraver::forbid_breaks ()
 bool
 Score_engraver::try_music (Music *m)
 {
-  if (Engraver_group_engraver::try_music (m))
+  if (Engraver_group::try_music (m))
     return true;
 
   return false;

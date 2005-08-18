@@ -18,10 +18,10 @@
 Translator_group *
 get_translator_group (SCM sym)
 {
-  if (sym == ly_symbol2scm ("Engraver_group_engraver"))
-    return new Engraver_group_engraver ();
-  else if (sym == ly_symbol2scm ("Performer_group_performer"))
-    return new Performer_group_performer ();
+  if (sym == ly_symbol2scm ("Engraver_group"))
+    return new Engraver_group ();
+  else if (sym == ly_symbol2scm ("Performer_group"))
+    return new Performer_group ();
   else if (sym == ly_symbol2scm ("Score_engraver"))
     return new Score_engraver ();
   else if (sym == ly_symbol2scm ("Score_performer"))

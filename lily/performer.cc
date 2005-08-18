@@ -23,11 +23,11 @@ Performer::get_tempo () const
   return get_daddy_performer ()->get_tempo ();
 }
 
-Performer_group_performer *
+Performer_group *
 Performer::get_daddy_performer () const
 {
   return
-    dynamic_cast<Performer_group_performer *> (get_daddy_translator ());
+    dynamic_cast<Performer_group *> (get_daddy_translator ());
 }
 
 void

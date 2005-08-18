@@ -1,5 +1,17 @@
 2005-08-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grob-properties.scm (all-user-grob-properties): add
+	@code{} tags to property description.
+
+	* lily/include/line-group-group-engraver.hh (Module): remove file.
+
+	* python/convertrules.py (conv): add rule for
+	Engraver_group_engraver -> Engraver_group.
+
+	* lily/include/performer-group-performer.hh: analogous.
+
+	* lily/include/engraver-group-engraver.hh: rename to Engraver_group.
+
 	* lily/context-def.cc (instantiate): check for
 	Engraver_group_engraver and Performer_group_performer not
 	Engraver/Performer. Fixes crashes when doing \with { \consist .. }

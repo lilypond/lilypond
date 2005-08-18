@@ -18,6 +18,9 @@
 #include "translator-group.hh"
 #include "warn.hh"
 
+#include "engraver-group-engraver.hh"
+#include "performer-group-performer.hh"
+
 Context_def::Context_def ()
 {
   context_aliases_ = SCM_EOL;
@@ -336,9 +339,9 @@ Context_def::instantiate (SCM ops, Object_key const *key)
   g->simple_trans_list_ = trans_list;
 
   context->implementation_ = g;
-  if (dynamic_cast<Engraver_group_engraver *> (g))
+  if (dynamic_cast<Engraver_group *> (g))
     g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
-  else if (dynamic_cast<Performer_group_performer *> (g))
+  else if (dynamic_cast<Performer_group *> (g))
     g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
 
   g->context_ = context;

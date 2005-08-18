@@ -1,5 +1,5 @@
 /*
-  recording-group-engraver.hh -- declare
+  recording-group-engraver.hh -- declare Recording_group_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -11,7 +11,7 @@
 
 #include "engraver-group-engraver.hh"
 
-class Recording_group_engraver : public Engraver_group_engraver
+class Recording_group_engraver : public Engraver_group
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Recording_group_engraver);
