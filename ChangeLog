@@ -9,6 +9,8 @@
 	the fact that \override numbers are the result of
 	experimentation and personal taste.
 
+	* Documentation/user/invoking.itely: update convert-ly bugs.
+
 2005-08-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/stem-spacing.ly (Module): remove file.

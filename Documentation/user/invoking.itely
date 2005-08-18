@@ -452,7 +452,7 @@ specified.
 
 @ignore
 Copy and paste from CVS, last updated
-May 26, 2005
+Aug 18, 2005
 
 http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/convert-ly.txt?rev=HEAD&content-type=text/plain
 @end ignore
@@ -500,6 +500,8 @@ here for reference.
  \markup{ \center-align <{ ... }> } should be converted to:
  \markup{ \center-align {\line { ... }} }
  but now, \line is missing.
+2.4->2.6
+ Special LaTeX characters such as $~$ in text are not converted to UTF8.
 
 @end verbatim
 
