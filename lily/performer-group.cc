@@ -7,7 +7,7 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "performer-group-performer.hh"
+#include "performer-group.hh"
 
 #include "context.hh"
 #include "audio-element.hh"
