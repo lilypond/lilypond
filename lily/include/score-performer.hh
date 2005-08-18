@@ -8,7 +8,7 @@
 #ifndef SCORE_PERFORMER_HH
 #define SCORE_PERFORMER_HH
 
-#include "performer-group-performer.hh"
+#include "performer-group.hh"
 #include "score-translator.hh"
 
 /**
