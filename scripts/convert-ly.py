@@ -61,8 +61,63 @@ option_definitions = [
 program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
 
-
 add_version = 1
+
+def str_to_tuple (s):
+	return tuple (map (string.atoi, string.split (s, '.')))
+
+def tup_to_str (t):
+	return string.join (map (lambda x: '%s' % x, list (t)), '.')
+
+def version_cmp (t1, t2):
+	for x in [0, 1, 2]:
+		if t1[x] - t2[x]:
+			return t1[x] - t2[x]
+	return 0
+
+def get_conversions (from_version, to_version):
+	def is_applicable (v, f = from_version, t = to_version):
+		return version_cmp (v[0], f) > 0 and version_cmp (v[0], t) <= 0
+	return filter (is_applicable, conversions)
+
+def latest_version ():
+	return conversions[-1][0]
+
+def show_rules (file, from_version, to_version):
+	for x in conversions:
+		if (not from_version or x[0] > from_version) \
+		   and (not to_version or x[0] <= to_version):
+			file.write  ('%s: %s\n' % (tup_to_str (x[0]), x[2]))
+
+def do_conversion (str, from_version, to_version):
+	"""Apply conversions from FROM_VERSION to TO_VERSION.  Return
+tuple (LAST,STR), with the last succesful conversion and the resulting
+string."""
+	conv_list = get_conversions (from_version, to_version)
+
+	if error_file:
+		error_file.write (_ ("Applying conversion: "))
+		
+	last_conversion = ()
+	try:
+		for x in conv_list:
+			error_file.write (tup_to_str (x[0]))
+			if x != conv_list[-1]:
+				error_file.write (', ')
+			str = x[1] (str)
+			last_conversion = x[0]
+
+	except FatalConversionError:
+		error_file.write (_ ("error while converting")) 
+		error_file.write ('\n')
+		error_file.write (_ ("Aborting"))
+		error_file.write ('\n')
+
+
+
+	return (last_conversion, str)
+
+
 
 def guess_lilypond_version (filename):
 	s = open (filename).read ()
@@ -74,8 +129,6 @@ def guess_lilypond_version (filename):
 
 class FatalConversionError:
 	pass
-
-conversions = []
 
 class UnknownVersion:
 	pass

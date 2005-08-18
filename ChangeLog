@@ -1,3 +1,15 @@
+2005-08-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* python/convertrules.py (conv): inside-slur -> avoid-slur.
+	Remove functions.  Remove if 1: constructs, reindent.
+
+	* scripts/convert-ly.py (add_version): Add functions from
+	convertrules.py
+
+	* scm/script.scm (default-script-alist):
+	s/priority/script-priority.  Fixes script stacking.  Backportme.
+	(Fermata): Very low priority.
+
 2005-08-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/*.ly: remove superfluous \score blocks. Reindent.

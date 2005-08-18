@@ -36,25 +36,25 @@
 	  ((script-stencil . (feta . ("uaccentus" . "uaccentus")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
-	   (priority . -100)
+	   (script-priority . -100)
 	   (direction  . 1)))
 	 ("ictus" .
 	  ((script-stencil . (feta . ("ictus" . "ictus")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
-	   (priority . -100)
+	   (script-priority . -100)
 	   (direction  . -1)))
 	 ("semicirculus" .
 	  ((script-stencil . (feta . ("dsemicirculus" . "dsemicirculus")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
-	   (priority . -100)
+	   (script-priority . -100)
 	   (direction  . 1)))
 	 ("circulus" .
 	  ((script-stencil . (feta . ("circulus" . "circulus")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
-	   (priority . -100)
+	   (script-priority . -100)
 	   (direction  . 1)))
 
 	 ("signumcongruentiae" .
@@ -63,6 +63,7 @@
 	 ("fermata" .
 	  ((script-stencil . (feta . ("dfermata" . "ufermata")))
 	   (avoid-slur . around)
+	   (script-priority . 4000)
 	   (direction .  1)))
 	 ("shortfermata" .
 	  ((script-stencil . (feta . ("dshortfermata" . "ushortfermata")))
@@ -81,7 +82,7 @@
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
 	   (avoid-slur . inside) 
-	   (priority . -100)))
+	   (script-priority . -100)))
 	 ("tenuto" .
 	  ((script-stencil . (feta . ("tenuto" . "tenuto")))
 	   (follow-into-staff . #t)
@@ -131,7 +132,7 @@
 	 ("trill" .
 	  ((script-stencil . (feta . ("trill" . "trill")))
 	   (direction . 1)
-	   (priority . 2000)))
+	   (script-priority . 2000)))
 	 ("prall" .
 	  ((script-stencil . (feta . ("prall" . "prall")))
 	   (direction  . 1)))
