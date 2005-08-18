@@ -6,7 +6,7 @@
   Sven Axelsson, the Murray Pipes & Drums of Gothenburg
   (http://www.murrays.nu)
   
-  $Id: bagpipe.ly,v 1.2 2005/08/04 23:32:42 gpercival Exp $
+  $Id: bagpipe.ly,v 1.3 2005/08/18 22:06:45 gpercival Exp $
 %}
 
 \version "2.6.0"
@@ -57,10 +57,10 @@ showKeySignature = {
   \context {
     \Voice
     % All stems go down.
-    \override Stem #'direction = #-1
+    \stemDown
     % All slurs and ties are on top.
-    \override Slur #'direction = #1
-    \override Tie #'direction = #1
+    \slurUp
+    \tieUp
   }
 }
 
