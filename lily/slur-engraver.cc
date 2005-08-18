@@ -93,16 +93,16 @@ void
 Slur_engraver::acknowledge_extra_object (Grob_info info)
 {
   Grob *e = info.grob ();
-  SCM inside = e->get_property ("inside-slur");
+  SCM avoid = e->get_property ("avoid-slur");
   if (Tie::has_interface (e)
-      || to_boolean (inside))
+      || avoid == ly_symbol2scm ("inside"))
     {
       for (int i = slurs_.size (); i--;)
 	Slur::add_extra_encompass (slurs_[i], e);
       for (int i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
-  else if (inside == SCM_BOOL_F
+  else if (avoid != ly_symbol2scm ("inside")
 	   && e->name () != "DynamicText")
     {
       Grob *slur = slurs_.size () ? slurs_[0] : 0;
