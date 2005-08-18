@@ -1,5 +1,12 @@
 2005-08-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/les-nereides.ly: Remove three fingering tweaks, update
+	remaining one.
+
+	* input/regression/slur-script-inside.ly: Update, fix doc.
+
+	* scm/script.scm: Update to avoid-slur.
+
 	* scm/define-grob-properties.scm (avoid-slur): New property.
 
 	* lily/phrasing-slur-engraver.cc (acknowledge_extra_object):

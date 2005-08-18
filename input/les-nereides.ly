@@ -15,8 +15,7 @@ Nastiest piece of competition at
 http://www.orphee.com/comparison/study.html, see
 http://www.orphee.com/comparison/gray.pdf
 
-
-lines that contain tweaks (14 currently, not counting reverts) are
+Lines that contain tweaks (10 currently, not counting reverts) are
 marked with %tweak
 
 possibly more impressive to render without tweaks?
@@ -77,8 +76,6 @@ treble = \new Voice \relative c''{
     % \fingerUp
     \override Fingering  #'direction = #1
     
-    % Manual fix for collision with slur
-    \override Fingering  #'inside-slur = ##f %tweak
     <gis gis,> <fis fis,> e)-1-4-5 r
 
     | %6
@@ -103,8 +100,10 @@ trebleTwo = \new Voice \relative c''{
     <e, gis, e d!>2
     | %5
     s8 cis4. d4
+    % fair to count as one tweak?
     \override Fingering #'add-stem-support = ##t %tweak
-    \override Fingering #'padding = #0.1 %tweak
+    \override Fingering #'padding = #0.15
+    \override Fingering #'slur-padding = #0.1
     <cis e,>8[( <d,_3 b'_1>
     | %6
     <cis_1 a'_2>)] cis'4. d4 
@@ -186,11 +185,9 @@ bass = \new Voice \relative c{
     %%r b,-5 <e-3 gis-5 d'>4
     r b,-5\sustainUp\sustainDown <e gis d'>4-3-5
     \slurNeutral
-    \once \override Fingering  #'extra-offset = #'(0 . -1) %tweak
     e,8[-5(\sustainUp
     
     | %6
-    \once \override Fingering  #'extra-offset = #'(0 . -1) %tweak
     a)-2]\sustainDown
     \slurUp
     e'[(<a cis>)] r b,\sustainUp\sustainDown <e gis d'>4
@@ -227,8 +224,9 @@ middleDynamics = {
 	s32 s s s\!
     
     }
-
+    \fatText
     s32 s-"rall." s s s8 s4
+    \emptyText
     | %5
     s2-"a tempo" s8
     \once\override Dynamics.Hairpin  #'extra-offset = #'(1 . 0) %tweak
@@ -271,7 +269,7 @@ theScore = \score{
 	    \consists "Dynamic_engraver"
 	    \consists "Text_engraver"
 
-	    \override TextScript #'font-size = #2
+	    %%\override TextScript #'font-size = #1
 	    \override TextScript #'font-shape = #'italic
 
 	    \consists "Skip_event_swallow_translator"

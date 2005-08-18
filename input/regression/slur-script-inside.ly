@@ -1,8 +1,9 @@
 \header {
 
-    texidoc = "Slurs avoid scripts with @code{inside-slur} set
-    true, while scripts avoid slurs if @code{inside-slur} set to
-    false."
+    texidoc = "Slurs avoid scripts with @code{avoid-slur} set to
+@code{inside}, scripts avoid slurs with @code{avoid-slur} set to
+@code{around}.  Slurs and scripts keep a distance of
+@code{slur-padding}."
 
 }
 
@@ -14,9 +15,10 @@
 \relative c''{
     \clef alto
     \slurUp
-    \override Script #'inside-slur = ##t 
+    \override Script #'slur-padding = #0.2
+    \override Script #'avoid-slur = #'inside
     c4(^\downbow b) 
-    \override Script #'inside-slur = ##f 
+    \override Script #'avoid-slur = #'around
     c4(^\downbow b) 
     c4^\downbow b 
 }

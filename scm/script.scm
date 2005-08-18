@@ -10,12 +10,12 @@
 	  ((script-stencil . (feta . ("thumb"  . "thumb")))
 	   (direction . 1)))
          ("accent" .
-	  ((inside-slur . #f)
+	  ((avoid-slur . around)
 	   (follow-into-staff . #t)
 	   (script-stencil . (feta . ("sforzato" .  "sforzato")))
 	   (side-relative-direction . -1)))	 
          ("espressivo" .
-	  ((inside-slur . #f)
+	  ((avoid-slur . around)
 	   (follow-into-staff . #t)
 	   (script-stencil . (feta . ("espr" .  "espr")))
 	   (side-relative-direction . -1)))	 
@@ -24,7 +24,7 @@
 	   (follow-into-staff . #t)
 	   (side-relative-direction .  -1)))
 	 ("staccatissimo" .
-	  ((inside-slur . #t) 
+	  ((avoid-slur . inside) 
 	   (script-stencil . (feta . ("dstaccatissimo" . "ustaccatissimo")))
 	   (side-relative-direction .  -1)))
 	 
@@ -62,7 +62,7 @@
 	   (direction .  1)))
 	 ("fermata" .
 	  ((script-stencil . (feta . ("dfermata" . "ufermata")))
-	   (inside-slur . #f)
+	   (avoid-slur . around)
 	   (direction .  1)))
 	 ("shortfermata" .
 	  ((script-stencil . (feta . ("dshortfermata" . "ushortfermata")))
@@ -80,12 +80,12 @@
 	  ((script-stencil . (feta . ("staccato" . "staccato")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
-	   (inside-slur . #t) 
+	   (avoid-slur . inside) 
 	   (priority . -100)))
 	 ("tenuto" .
 	  ((script-stencil . (feta . ("tenuto" . "tenuto")))
 	   (follow-into-staff . #t)
-	   (inside-slur . #t)
+	   (avoid-slur . inside)
 	   (side-relative-direction . -1)))
 	 ("comma" .
 	  ((script-stencil . (feta . ("lcomma" . "rcomma")))
@@ -97,11 +97,11 @@
 	   (direction . 1)))
 	 ("upbow" .
 	  ((script-stencil . (feta . ("upbow" . "upbow")))
-	   (inside-slur . #f)
+	   (avoid-slur . around)
 	   (direction  . 1)))
 	 ("downbow" .
 	  ((script-stencil . (feta . ("downbow" . "downbow")))
-	   (inside-slur . #f)
+	   (avoid-slur . around)
 	   (direction  . 1)))
 	 ("lheel" .
 	  ((script-stencil . (feta . ("upedalheel" . "upedalheel")))
