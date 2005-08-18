@@ -24,7 +24,8 @@
 #include "spacing-interface.hh"
 
 Rational
-Spacing_spanner::effective_shortest_duration (Grob *me, Link_array<Grob> const &all)
+Spacing_spanner::effective_shortest_duration (Grob *me,
+					      Link_array<Grob> const &all)
 {
   SCM preset_shortest = me->get_property ("common-shortest-duration");
   Rational global_shortest;

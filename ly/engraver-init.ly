@@ -1,4 +1,4 @@
-\version "2.5.18"
+\version "2.7.6"
 
 \context {
   \name Global
@@ -11,7 +11,7 @@
 }
 
 \context {
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name Staff
   
   \consists "Output_property_engraver"	
@@ -63,7 +63,7 @@
 
 \context {
   \Staff
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name DrumStaff
   \alias Staff
   \remove "Accidental_engraver"
@@ -85,7 +85,7 @@
 
 
 \context {
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name InnerChoirStaff
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
@@ -114,7 +114,7 @@ contained staves are not connected vertically."
 
 
 \context{
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   
   minimumVerticalExtent = ##f
   extraVerticalExtent = ##f
@@ -160,7 +160,7 @@ contained staves are not connected vertically."
 
 
 \context {
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name Voice
 
   \description "
@@ -255,7 +255,7 @@ contained staves are not connected vertically."
 }
 
 \context{
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name GrandStaff
   localKeySignature = #'()
   
@@ -292,7 +292,7 @@ contained staves are not connected vertically."
 }
 
 \context {
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name InnerStaffGroup
 
   \consists "Span_bar_engraver"
@@ -331,7 +331,7 @@ connected vertically.  "
 
 
 \context{
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   minimumVerticalExtent = #'(-1.2 . 2.4)
   extraVerticalExtent = ##f
   verticalExtent = ##f
@@ -354,7 +354,7 @@ printing of a single line of lyrics.  "
 }
 
 \context {
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name NoteNames
   \consists "Axis_group_engraver"
 
@@ -371,7 +371,7 @@ printing of a single line of lyrics.  "
 }
 
 \context {
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name ChordNames
   \description "Typesets chord names."
 
@@ -592,7 +592,7 @@ AncientRemoveEmptyStaffContext = \context {
 
 
 \context {
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \name FiguredBass 
 
   \consists "Figured_bass_engraver"
@@ -606,7 +606,7 @@ AncientRemoveEmptyStaffContext = \context {
 
 \context {
   \name "Devnull"
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
 
 %% don't want to route anything out of here: 
   \alias "Staff"

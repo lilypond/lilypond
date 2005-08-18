@@ -144,6 +144,12 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   */
   *space = (base_space - increment) + *fixed;
 
+#if 0
+  /*
+    The below situation is now handled by the "sticks out a lot" case
+    above. However we keep around the code for a few releases before
+    we drop it.
+   */
   if (!extents[RIGHT].is_empty ()
       && (Item::is_breakable (right_col)
 	  || right_col->original_))
@@ -161,7 +167,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
       *space += -extents[RIGHT][LEFT] / 2;
       *fixed += -extents[RIGHT][LEFT] / 2;
     }
-
+#endif
+  
   stem_dir_correction (me, right_col, increment, space, fixed);
 }
 

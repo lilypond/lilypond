@@ -56,21 +56,22 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
 }
 
 void
-Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real inverse_strength)
+Spaceable_grob::add_spring (Grob *me, Grob *other,
+			    Real distance, Real inverse_strength)
 {
-  if (d <= 0.0 || inverse_strength < 0.0)
+  if (distance <= 0.0 || inverse_strength < 0.0)
     {
       programming_error ("adding reverse spring, setting to unit");
-      d = 1.0;
+      distance = 1.0;
       inverse_strength = 1.0;
     }
 
-  if (isinf (d) || isnan (d)
+  if (isinf (distance) || isnan (distance)
       || isnan (inverse_strength))
     {
       /* strength == INF is possible. It means fixed distance.  */
       programming_error ("insane distance found");
-      d = 1.0;
+      distance = 1.0;
       inverse_strength = 1.0;
     }
 
@@ -79,7 +80,7 @@ Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real inverse_strength)
   for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
     {
       Spring_smob *sp = unsmob_spring (scm_car (s));
-      if (sp->other_ == p)
+      if (sp->other_ == other)
 	{
 	  programming_error ("already have that spring");
 	  return;
@@ -89,8 +90,8 @@ Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real inverse_strength)
 
   Spring_smob spring;
   spring.inverse_strength_ = inverse_strength;
-  spring.distance_ = d;
-  spring.other_ = p;
+  spring.distance_ = distance;
+  spring.other_ = other;
 
   SCM ideal = me->get_object ("ideal-distances");
   ideal = scm_cons (spring.smobbed_copy (), ideal);
