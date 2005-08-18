@@ -184,6 +184,7 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   bool consider[] = { false, false, false };
   Real ys[] = {0, 0, 0};
   bool do_shift = false;
+  SCM avoid = script->get_property ("avoid-slur");
 
   for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
     {
@@ -201,8 +202,10 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 	  consider[k] = true;
 
 	  /* Request shift if slur is contained script's Y, or if
-	     script is fully inside slur.  */
-	  if (yext.contains (ys[k]) || dir * ys[k] > dir * yext[-dir])
+	     script is inside slur and avoid == outside.  */
+	  if (yext.contains (ys[k])
+	      || (avoid == ly_symbol2scm ("outside")
+		  && dir * ys[k] > dir * yext[-dir]))
 	    do_shift = true;
 	}
     }

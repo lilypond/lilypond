@@ -50,13 +50,13 @@ This feature was sponsored by Yoshinobu Ishizaki
                   
 @item
 Text scripts such as fingering instructions and dynamics avoid
-collisions with Slurs
+collisions with slurs
 
 @lilypond[fragment,relative=1]
 {
-  b_1( b <b d f>_1_3_5)
+  b_1( f'_1_2_3 c_3_4_5 a)
+  b( f'\p b,)
   c-2_\markup { \italic {"cresc."}}( f c)
-  c-3( c\f c)
 }
 @end lilypond
 

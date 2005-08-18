@@ -20,7 +20,7 @@
     (Accidental
      . (
 	(print-function . ,Accidental_interface::print)
-	(inside-slur . #t)
+	(avoid-slur . inside)
 	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)
 	(meta . ((class . Item)
@@ -478,7 +478,7 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(staff-padding . 0.1)
 	(padding . 0.6)
-	(inside-slur . #f)
+	(avoid-slur . outside)
 	(slur-padding . 0.3)
 	(minimum-space . 1.2)
 	(direction . -1)
@@ -536,7 +536,6 @@
 	;; sync with TextScript (?)
 
 	(padding . 0.5)
-	(inside-slur . #f)
 	(slur-padding . 0.2)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)
@@ -1409,7 +1408,6 @@
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
-	(inside-slur . #f)
 	(slur-padding . 0.5)
 	(script-priority . 200)
 	;; todo: add X self alignment?
