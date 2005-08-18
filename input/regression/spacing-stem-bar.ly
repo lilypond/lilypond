@@ -8,8 +8,6 @@ space. This is an optical correction similar to juxtaposed stems.
 
 }
 
-sd = \override Stem  #'direction = #-1
-su = \override Stem  #'direction = #1
 \relative e'
 {
 
@@ -17,7 +15,7 @@ su = \override Stem  #'direction = #1
 				%%\override Staff.NoteSpacing  #'stem-spacing-correction = #0.5
 
   \time 3/8
-  \su
+  \stemUp
   e8 e e
   f f f
   a a a

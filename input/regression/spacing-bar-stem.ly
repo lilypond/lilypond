@@ -9,17 +9,15 @@ Accidentals after the barline get some space as well.
 "
 }
 
-sd = \override Stem  #'direction = #-1
-su = \override Stem  #'direction = #1
 \relative c''
 {
 
   %%\override Staff.StaffSpacing  #'stem-spacing-correction = #10
   %%\override Staff.NoteSpacing  #'stem-spacing-correction = #10
 
-  \time 1/4 \sd c4 \su c4
-  \sd c4 \su c4
-  \sd f c,4  c'4 cis4 \stemUp c4
+  \time 1/4 \stemDown c4 \stemUp c4
+  \stemDown c4 \stemUp c4
+  \stemDown f c,4  c'4 cis4 \stemUp c4
 }
 \layout { raggedright = ##t}
 

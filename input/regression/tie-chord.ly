@@ -16,7 +16,6 @@ t =  \relative c' {   <c e g> ~ <c e g> }
   \t
   \transpose c g \t
 
-  \override TieColumn  #'direction = #-1
   \t
 
 }

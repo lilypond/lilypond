@@ -42,9 +42,6 @@ instrument = "Piano"
 
 \version "2.5.18"
 
-dynamicUp = \override DynamicLineSpanner  #'direction = #1
-dynamicRevert = \revert DynamicLineSpanner #'direction
-
 #(set-global-staff-size 16)
 
 vocalVerse = \relative c''{

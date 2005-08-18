@@ -14,7 +14,7 @@ last bass figure.
 <<
     \figures { 
 	<3 [5 7]>
-	\once \override BassFigure  #'direction = #-1
+	\once \override BassFigure  #'direction = #down
 	<3 [5 7]>
 	<3 [5] 7 [9 11]>
 	<3+ 5- 7!>

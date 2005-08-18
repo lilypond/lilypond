@@ -24,7 +24,7 @@ for instance, bracketed (B) and non-bracketed (NB).
   \override TupletBracket  #'bracket-visibility = #'if-no-beam  
   \times 2/3 {  c8[ c c]  }
   
-  \override TupletBracket  #'direction = #1
+  \tupletUp
   \override TupletBracket  #'number-visibility = ##f
   \times 2/3 { c8^""^""^"up, no digit"  c[ c]  }
   \revert TupletBracket #'number-visibility
@@ -37,7 +37,7 @@ for instance, bracketed (B) and non-bracketed (NB).
   \revert TupletBracket #'shorten-pair
   \override TupletBracket  #'bracket-flare = #'(0.5 . 0.5)
   \times 2/3 { b^""^""^"angled edges" b b }
-  \revert TupletBracket #'direction
+  \tupletNeutral
   \times 2/3 { b b b }
 
 }

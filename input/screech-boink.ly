@@ -23,7 +23,7 @@
 		    c'''32	\change Staff = down
 		    g16]
 		\change Staff = up
-		\override Stem  #'direction = #1
+		\stemUp
 		\set followVoice = ##t
 		c'''32([ b''16 a''16 gis''16 g''32)]  } \\
 	       { s4 \times 2/3 { d'16[ f' g'] } as'32[ b''32 e'' d''] } \\
@@ -46,7 +46,7 @@
 		<g cis>
 	    } \\
 	       {
-		   \override Staff.Arpeggio  #'arpeggio-direction =#-1
+		   \override Staff.Arpeggio  #'arpeggio-direction =#down
 		   <cis, e, gis, b, cis>4\arpeggio  }
 	   >>
 	}
