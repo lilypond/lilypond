@@ -2,12 +2,12 @@
 
 \version "2.6.0"
 
-stemUp = \override Stem  #'direction = #1
-stemDown = \override Stem  #'direction = #-1 
+stemUp = \override Stem  #'direction = #up
+stemDown = \override Stem  #'direction = #down 
 stemNeutral= \revert Stem #'direction
 
-slurUp = \override Slur  #'direction = #1
-slurDown = \override Slur  #'direction = #-1
+slurUp = \override Slur  #'direction = #up
+slurDown = \override Slur  #'direction = #down
 slurNeutral = \revert Slur #'direction 
 
 %% There's also dash, but setting dash period/length should be fixed.
@@ -25,8 +25,8 @@ slurSolid = {
 }
 
 
-phrasingSlurUp = \override PhrasingSlur  #'direction = #1
-phrasingSlurDown = \override PhrasingSlur  #'direction = #-1
+phrasingSlurUp = \override PhrasingSlur  #'direction = #up
+phrasingSlurDown = \override PhrasingSlur  #'direction = #down
 phrasingSlurNeutral = \revert PhrasingSlur #'direction 
 
 shiftOn = \override NoteColumn  #'horizontal-shift = #1
@@ -34,8 +34,8 @@ shiftOnn = \override NoteColumn  #'horizontal-shift = #2
 shiftOnnn = \override NoteColumn  #'horizontal-shift = #3
 shiftOff = \revert NoteColumn #'horizontal-shift 
 
-tieUp = \override Tie  #'direction = #1
-tieDown = \override Tie  #'direction = #-1
+tieUp = \override Tie  #'direction = #up
+tieDown = \override Tie  #'direction = #down
 tieNeutral = \revert Tie #'direction 
 
 tieDashed = {
@@ -64,13 +64,13 @@ sacredHarpHeads =
   \set shapeNoteStyles = ##(#f #f mi #f fa la #f)
 
 dynamicUp = {
-  \override DynamicText  #'direction = #1
-  \override DynamicLineSpanner  #'direction = #1
+  \override DynamicText  #'direction = #up
+  \override DynamicLineSpanner  #'direction = #up
 }
 
 dynamicDown = {
-  \override DynamicText  #'direction = #-1
-  \override DynamicLineSpanner  #'direction = #-1
+  \override DynamicText  #'direction = #down
+  \override DynamicLineSpanner  #'direction = #down
 }
 
 dynamicNeutral = {
@@ -79,12 +79,12 @@ dynamicNeutral = {
 }
 
 
-dotsUp = \override Dots  #'direction = #1
-dotsDown = \override Dots  #'direction = #-1
+dotsUp = \override Dots  #'direction = #up
+dotsDown = \override Dots  #'direction = #down
 dotsNeutral = \revert Dots #'direction 
 
-tupletUp = \override TupletBracket  #'direction = #1
-tupletDown = \override TupletBracket  #'direction = #-1
+tupletUp = \override TupletBracket  #'direction = #up
+tupletDown = \override TupletBracket  #'direction = #down
 tupletNeutral = \revert TupletBracket #'direction
 
 cadenzaOn = \set Timing.timing = ##f
@@ -140,11 +140,11 @@ arpeggio = #(make-music 'ArpeggioEvent)
 
 arpeggioUp = \sequential {
   \revert Arpeggio  #'print-function
-  \override Arpeggio  #'arpeggio-direction = #1
+  \override Arpeggio  #'arpeggio-direction = #up
 }
 arpeggioDown = \sequential {
   \revert Arpeggio  #'print-function
-  \override Arpeggio  #'arpeggio-direction = #-1
+  \override Arpeggio  #'arpeggio-direction = #down
 }
 arpeggioNeutral = \sequential {
   \revert Arpeggio  #'print-function
@@ -207,7 +207,7 @@ improvisationOff =  {
     \revert NoteHead #'style
 }
 
-textSpannerUp = \override TextSpanner #'direction = #1
-textSpannerDown = \override TextSpanner #'direction = #-1
+textSpannerUp = \override TextSpanner #'direction = #up
+textSpannerDown = \override TextSpanner #'direction = #down
 textSpannerNeutral = \revert TextSpanner #'direction
 

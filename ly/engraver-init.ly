@@ -132,8 +132,8 @@ contained staves are not connected vertically."
   \override VoltaBracket #'padding = #5
   \override StaffSymbol #'line-count = #1	
 
-  \override Stem  #'neutral-direction = #1
-  \override Beam  #'neutral-direction = #1
+  \override Stem  #'neutral-direction = #up
+  \override Beam  #'neutral-direction = #up
   
   \consists "Output_property_engraver"
   \consists "Font_size_engraver"
@@ -756,7 +756,7 @@ AncientRemoveEmptyStaffContext = \context {
   \override Accidental #'style = #'vaticana
   \override Custos #'style = #'vaticana
   \override Custos #'neutral-position = #3
-  \override Custos #'neutral-direction = #-1
+  \override Custos #'neutral-direction = #down
 
   %% Score.timing = ##f
   %% Score.barAlways = ##t
@@ -861,7 +861,7 @@ AncientRemoveEmptyStaffContext = \context {
   \override Accidental #'style = #'mensural
   \override Custos #'style = #'mensural
   \override Custos #'neutral-position = #3
-  \override Custos #'neutral-direction = #-1
+  \override Custos #'neutral-direction = #down
 
   %% Score.timing = ##f
   %% Score.barAlways = ##t
