@@ -949,7 +949,7 @@
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 
 	;; debugging
-	;;	        (print-function . ,Paper_column::print) (font-size . -6) (font-name . "sans") (Y-extent-callback . #f)
+		        (print-function . ,Paper_column::print) (font-size . -6) (font-name . "sans") (Y-extent-callback . #f)
 	(meta . ((class . Paper_column)
 		 (interfaces . (paper-column-interface
 				axis-group-interface
@@ -976,7 +976,7 @@
 	(breakable . #t)
 
 	;; debugging stuff: print column number.
-	;;	(print-function . ,Paper_column::print) (font-size . -6) (font-name . "sans")	(Y-extent-callback . #f)
+		(print-function . ,Paper_column::print) (font-size . -6) (font-name . "sans")	(Y-extent-callback . #f)
 
 	(meta . ((class . Paper_column)
 		 (interfaces . (paper-column-interface

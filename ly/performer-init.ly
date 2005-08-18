@@ -1,10 +1,10 @@
-\version "2.6.0"
+\version "2.7.6"
 
 				%
 				% setup for Request->Element conversion. Guru-only
 				%
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name Staff
     \accepts Voice
     
@@ -26,7 +26,7 @@
 }
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name Voice
     % The order of the dynamic performers is significant: absolute dynamic events must override crescendo events in midi.
     \consists "Span_dynamic_performer"
@@ -53,38 +53,38 @@
 }
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name FiguredBass 
     \consists "Swallow_performer"
 }
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name GrandStaff
     \accepts RhythmicStaff
     \accepts Staff
 }
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name "PianoStaff"
     \accepts Staff
     \accepts DrumStaff
 }
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name "TabVoice"
     \consists "Swallow_performer"
 }
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name "Devnull"
     \consists "Swallow_performer"
 }
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name "TabStaff"
     \accepts "TabVoice"
 }
@@ -120,8 +120,8 @@
 
 
 \context {
-    \type "Performer_group_performer"
-    \consists "Staff_performer" % Performer_group_performer ?
+    \type "Performer_group"
+    \consists "Staff_performer" % Performer_group ?
     \consists "Lyric_performer"
     \name Lyrics
     \consists "Time_signature_performer"
@@ -129,7 +129,7 @@
 }
 
 \context{
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \name ChoirStaff
     \accepts Staff
     \accepts DrumStaff
@@ -137,20 +137,20 @@
 
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \consists "Staff_performer"
     \accepts ChordNameVoice
     \name ChordNames
 }
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
     \consists "Note_performer"
     \name ChordNameVoice	
 }
 
 \context {
-    \type "Performer_group_performer"
+    \type "Performer_group"
 
     \name StaffGroup
     \accepts Staff
