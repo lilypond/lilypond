@@ -1,5 +1,8 @@
 2005-08-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/slur-script.ly: remove padding tweaks. Add
+	comment strings.
+
 	* lily/note-spacing.cc (get_spacing): remove kludge for EOL wide
 	time sigs and related stuff.
 
