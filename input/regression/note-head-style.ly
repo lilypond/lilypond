@@ -1,6 +1,6 @@
 \version "2.6.0"
 \header{
-texidoc="
+  texidoc="
 Note head shapes may be set from several choices.  
 The stem endings should be adjusted according to the note head.  
 If you want different note head styles on one stem,
@@ -22,67 +22,67 @@ pattern = <<
   }
 >>
 
-\score {
-  \transpose c c {
-    \clef C
 
-    \override Staff.NoteHead  #'style = #'default
-    s1*0^\markup { "default" }
-    \pattern
+\transpose c c {
+  \clef C
 
-    \override Staff.NoteHead  #'style = #'baroque
-    s1*0^\markup { "baroque" }
-    \pattern
+  \override Staff.NoteHead  #'style = #'default
+  s1*0^\markup { "default" }
+  \pattern
 
-    \break
+  \override Staff.NoteHead  #'style = #'baroque
+  s1*0^\markup { "baroque" }
+  \pattern
 
-    \override Staff.NoteHead  #'style = #'neomensural
-    s1*0^\markup { "neomensural" }
-    \pattern
+  \break
 
-    \override Staff.NoteHead  #'style = #'mensural
-    s1*0^\markup { "mensural" }
-    \pattern
+  \override Staff.NoteHead  #'style = #'neomensural
+  s1*0^\markup { "neomensural" }
+  \pattern
 
-    \break
+  \override Staff.NoteHead  #'style = #'mensural
+  s1*0^\markup { "mensural" }
+  \pattern
 
-    \override Staff.NoteHead  #'style = #'petrucci
-    s1*0^\markup { "petrucci" }
-    \pattern
+  \break
 
-    \override Staff.NoteHead  #'style = #'harmonic
-    s1*0^\markup { "harmonic" }
-    \pattern
+  \override Staff.NoteHead  #'style = #'petrucci
+  s1*0^\markup { "petrucci" }
+  \pattern
 
-    \break
+  \override Staff.NoteHead  #'style = #'harmonic
+  s1*0^\markup { "harmonic" }
+  \pattern
 
-    \override Staff.NoteHead  #'style = #'diamond
-    s1*0^\markup { "diamond" }
-    \pattern
+  \break
 
-    \override Staff.NoteHead  #'style = #'cross
-    s1*0^\markup { "cross" }
-    \pattern
+  \override Staff.NoteHead  #'style = #'diamond
+  s1*0^\markup { "diamond" }
+  \pattern
 
-    \break
+  \override Staff.NoteHead  #'style = #'cross
+  s1*0^\markup { "cross" }
+  \pattern
 
-    \override Staff.NoteHead  #'style = #'xcircle
-    s1*0^\markup { "xcircle" }
-    \pattern
+  \break
 
-    \override Staff.NoteHead  #'style = #'triangle
-    s1*0^\markup { "triangle" }
-    \pattern
+  \override Staff.NoteHead  #'style = #'xcircle
+  s1*0^\markup { "xcircle" }
+  \pattern
 
-    \break
+  \override Staff.NoteHead  #'style = #'triangle
+  s1*0^\markup { "triangle" }
+  \pattern
 
-    \override Staff.NoteHead  #'style = #'slash
-    s1*0^\markup { "slash" }
-    \pattern
-  }
+  \break
 
-  \layout {
-    indent = 0.0
-    raggedright = ##t
-  }
+  \override Staff.NoteHead  #'style = #'slash
+  s1*0^\markup { "slash" }
+  \pattern
 }
+
+\layout {
+  indent = 0.0
+  raggedright = ##t
+}
+

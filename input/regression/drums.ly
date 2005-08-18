@@ -14,27 +14,27 @@ drl = \drummode {\repeat "unfold" 3 {bd4 sn8 bd bd4 << bd ss >> } bd8 tommh tomm
 timb = \drummode { \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8 cb} }
 
 \score {
-    \repeat "volta" 2 {
-	<<
-	\new DrumStaff \with {
-	    drumStyleTable = #timbales-style
-	    \override StaffSymbol #'line-count = #2
-	    \override BarLine #'bar-size = #2
-	} <<
-	    \set Staff.instrument = "timbales"
-	    \timb
-	>>
-	\new DrumStaff <<
-	    \set Staff.instrument = "drums"
-	    \new DrumVoice {\stemUp \drh }
-	    \new DrumVoice {\stemDown \drl }
-	>>
+  \repeat "volta" 2 {
+    <<
+      \new DrumStaff \with {
+	drumStyleTable = #timbales-style
+	\override StaffSymbol #'line-count = #2
+	\override BarLine #'bar-size = #2
+      } <<
+	\set Staff.instrument = "timbales"
+	\timb
+      >>
+      \new DrumStaff <<
+	\set Staff.instrument = "drums"
+	\new DrumVoice {\stemUp \drh }
+	\new DrumVoice {\stemDown \drl }
+      >>
     >>
-	}
-    \layout {}
+  }
+  \layout {}
 
-    %% broken:
-    \midi{ \tempo 4=120 }
+  %% broken:
+  \midi{ \tempo 4=120 }
 }
 
 

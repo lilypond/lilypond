@@ -1,8 +1,8 @@
 \header {
 
-texidoc =
+  texidoc =
 
-"With @code{music-map}, you can apply functions operating on a single
+  "With @code{music-map}, you can apply functions operating on a single
 piece of music to an entire music expression. In this example, the the
 function @code{notes-to-skip} changes a note to a skip. When applied
 to an entire music expression in the 1st measure, the scripts and
@@ -13,29 +13,29 @@ dynamics are left over. These are put onto the 2nd measure."
 \version "2.6.0"
 
 #(define (notes-to-skip m)
-"Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
+  "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
 Scripts and dynamics are maintained.
 "
   (if (memq 'rhythmic-event (ly:music-property m 'types))
-	(let* ((newmus (make-music 'SkipEvent)))
-		(map
-		  (lambda (x) (ly:music-set-property! newmus (car x) (cdr x)))
-		  (ly:music-mutable-properties m))
-		newmus
-	)
-	m)
+   (let* ((newmus (make-music 'SkipEvent)))
+    (map
+     (lambda (x) (ly:music-set-property! newmus (car x) (cdr x)))
+     (ly:music-mutable-properties m))
+    newmus
+  )
+   m)
 )
 
 
-    \layout { raggedright= ##t }
+\layout { raggedright= ##t }
 
 foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  } 
 
-\score {
-   \relative c''  \context Voice {
-	\foobar
 
-	<< \applymusic #(lambda (x) (music-map notes-to-skip x))
-		\foobar
-	   { d2 d2 } >> 
-}}
+\relative c''  \context Voice {
+  \foobar
+
+  << \applymusic #(lambda (x) (music-map notes-to-skip x))
+     \foobar
+     { d2 d2 } >> 
+}

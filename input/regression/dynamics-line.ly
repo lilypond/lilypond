@@ -1,7 +1,7 @@
 
 \version "2.6.0"
 \header{
-texidoc=" Dynamics appear below or above the staff.  If multiple
+  texidoc=" Dynamics appear below or above the staff.  If multiple
 dynamics are linked with (de)crescendi, they should be on the same
 line. Isolated dynamics may be forced up or down.
  "
@@ -9,25 +9,18 @@ line. Isolated dynamics may be forced up or down.
 
 
 
-\score{
 \relative c''{
-a1^\sfz
-a1\fff\> c,,\!\pp a'' a\p
+  a1^\sfz
+  a1\fff\> c,,\!\pp a'' a\p
 
-% We need this to test if we get two Dynamic line spanners
-a
+  %% We need this to test if we get two Dynamic line spanners
+  a
 
-% because do_removal_processing ()
-% doesn't seem to post_process elements
-d\f
+  %% because do_removal_processing ()
+  %% doesn't seem to post_process elements
+  d\f
 
-a
+  a
 
-}
-\layout{
-}
-\midi{
-\tempo 1 = 60
-}
 }
 

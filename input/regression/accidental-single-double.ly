@@ -1,7 +1,7 @@
 
 \version "2.6.0"
 \header{
-texidoc="
+  texidoc="
 A sharp sign after a double sharp sign, as well as a flat sign
 after a double flat sign is automatically prepended with a
 natural sign.
@@ -10,16 +10,18 @@ natural sign.
 
 
 
-thenotes =  \relative cis' { \time 4/4
-gisis'4 gis gisis ges |
+thenotes =  \relative cis' {
+  \time 4/4
+  gisis'4 gis gisis ges |
 }
 
-\score { << \context Staff \thenotes
-	\context NoteNames  {
-		\override NoteNames.NoteName   #'no-spacing-rods = ##f 
-		\thenotes
-	}
-	>>
+<<
+  \context Staff \thenotes
+  \context NoteNames  {
+    \override NoteNames.NoteName   #'no-spacing-rods = ##f 
+    \thenotes
+  }
+>>
+
 \layout { raggedright = ##t }
-}
 

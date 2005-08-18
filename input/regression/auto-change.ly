@@ -11,17 +11,14 @@ note. When central C is reached, staff is not yet switched (by default).
 }
     \layout { raggedright= ##t }
 
-\score {
-	 \context PianoStaff <<
-	\context Staff = "up" {
-		\autochange  \context Voice = VA << \relative c' { g4 c e d c r4 a g } >>
-	}
-	\context Staff = "down" {
-		\clef bass 
-		s1*2
-	}
+\context PianoStaff <<
+  \context Staff = "up" {
+    \autochange  \context Voice = VA << \relative c' { g4 c e d c r4 a g } >>
+  }
+  \context Staff = "down" {
+    \clef bass 
+    s1*2
+  }
 
-	>>
-	
-}
+>>
 

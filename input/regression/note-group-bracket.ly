@@ -3,7 +3,7 @@
 
 \header {
 
-    texidoc = "Note grouping events are used to indicate where
+  texidoc = "Note grouping events are used to indicate where
 analysis brackets start and end.
 
 @cindex bracket
@@ -12,27 +12,27 @@ analysis brackets start and end.
 @cindex analysis
 
 "
-    
+  
 }
 
 
 
-\score {
-    \relative c''
-    {
-	c4\startGroup\startGroup\startGroup
-	c4\stopGroup
-	c4\startGroup
-	c4\stopGroup\stopGroup
-	c4\startGroup
-	c4\stopGroup\stopGroup
-    }
 
-    \layout {
-	\context {
-	    \Staff \consists "Horizontal_bracket_engraver"
-	}
-	raggedright = ##t
-    }
+\relative c''
+{
+  c4\startGroup\startGroup\startGroup
+  c4\stopGroup
+  c4\startGroup
+  c4\stopGroup\stopGroup
+  c4\startGroup
+  c4\stopGroup\stopGroup
 }
+
+\layout {
+  \context {
+    \Staff \consists "Horizontal_bracket_engraver"
+  }
+  raggedright = ##t
+}
+
 

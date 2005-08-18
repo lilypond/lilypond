@@ -3,8 +3,8 @@
 \layout { raggedright= ##t }
 
 \header { 
-texidoc = "Scripts may be stacked."
+  texidoc = "Scripts may be stacked."
 }
 
-\score {  { c'''->-. } }
+{ c'''->-. } 
 

@@ -18,9 +18,6 @@
 %    #(define debug-slur-scoring #t)
 }
 
-%% help lilypond-book
-%% \score
-
 \relative {
   
     \grace e=''16( d8.[) c16]

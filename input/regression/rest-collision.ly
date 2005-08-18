@@ -1,7 +1,7 @@
 
 \version "2.6.0"
 \header{
-texidoc="
+  texidoc="
 Rests should not collide with beams, stems and noteheads.  Rests may
 be under beams.  Rests should be move by integral number of spaces
 inside the staff, and by half spaces outside.  Notice that the half
@@ -18,38 +18,38 @@ rests =              {
   r r r  r r r r r r r r r r r r r
 } 
 different = <<  {
-       \relative c'' {
-        r8 a e4 a e
-      }
-    }\\ {
-      
-       \relative c'' {
-        r1
-      }} >>
+  \relative c'' {
+    r8 a e4 a e
+  }
+}\\ {
+  
+  \relative c'' {
+    r1
+  }} >>
 
 scales = \context Staff  <<
-	 {  r1 r2 r2   \scale    c''1 c'2 a'2 \rests  }
-	 \\
-	 { a'1 a'2 d'2 \rests r1 r2 r2  \scale }
+  {  r1 r2 r2   \scale    c''1 c'2 a'2 \rests  }
+  \\
+  { a'1 a'2 d'2 \rests r1 r2 r2  \scale }
 >>
 
 restsII = \context Staff  {
-	r4 r8
-	\context Staff << {  r8 } \\{  r8} >>
-	\context Staff << { r8} r8 \\{  r8} >>
-	\context Staff << { r8} r8 r8 \\ {  r8} >>
-	\context Staff << { r} \\ {  r} >>
-	\context Staff << { r} r\\ { \stemDown r} >>
-	\different	
-	}
+  r4 r8
+  \context Staff << {  r8 } \\{  r8} >>
+  \context Staff << { r8} r8 \\{  r8} >>
+  \context Staff << { r8} r8 r8 \\ {  r8} >>
+  \context Staff << { r} \\ {  r} >>
+  \context Staff << { r} r\\ { \stemDown r} >>
+  \different	
+}
 
-\score{
-	 { 
-		\scales 
-		\restsII 
-	}
-	\layout { raggedright = ##t }
-}	
+
+{ 
+  \scales 
+  \restsII 
+}
+\layout { raggedright = ##t }
+	
 
 
 

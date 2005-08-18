@@ -53,7 +53,6 @@ rossBeams = \relative c'' {
 
 
 #(define (<> x y) (not (= x  y)))
-\score{
    \new Voice {
      \override Beam #'position-callbacks = #(check-slope-callbacks =)
      \rossBeams
@@ -63,6 +62,5 @@ rossBeams = \relative c'' {
     raggedright = ##t
     #(define debug-beam-quanting #t)
   }
-}
 
 

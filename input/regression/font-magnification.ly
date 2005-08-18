@@ -4,15 +4,15 @@
 that this does not change variable symbols such as beams or slurs. 
 " }
 
-\score {
- \relative c'' \context Voice {
-\override NoteHead  #'font-magnification = #0.9
-c4
-\override NoteHead  #'font-magnification = #0.8
+
+\relative c'' \context Voice {
+  \override NoteHead  #'font-magnification = #0.9
+  c4
+  \override NoteHead  #'font-magnification = #0.8
 
 
-c4-"normal"
-  % why doesn't this  work?
+  c4-"normal"
+  %% why doesn't this  work?
   c4-\markup \bold \magnify #2.0 "foobar"
 
   \override NoteHead  #'font-magnification = #1.2
@@ -22,6 +22,6 @@ c4-"normal"
   c4
 }
 
-}
+
 
 

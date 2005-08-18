@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "The second and third notes should not get accidentals,
-    because they are tied to a note.  However, an accidental is
+6    because they are tied to a note.  However, an accidental is
     present if the line is broken at the tie, which happens for the G
     sharp."
 

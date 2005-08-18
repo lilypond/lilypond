@@ -3,7 +3,7 @@
 
 \header {
 
-texidoc = "In tightly engraved music, hyphens are removed, except at the
+  texidoc = "In tightly engraved music, hyphens are removed, except at the
 end of the line.  Normally, lyrics are not typeset so tightly, but by
 tuning down @code{padding} of in @code{SeparationItem}, syllables are put 
 closer together, and as a result hyphens may disappear.
@@ -19,38 +19,41 @@ amount
 
 }
 
-\score {
-<<     \new Staff \relative c'' { \time 1/4 c16[ c c  c]
-\time 1/4
-c16[ c c c]
-\time 1/4
-c16[ c c c]
 
-}
-      \new Lyrics \with {
-	% Otherwise lyrics are so far apart that hyphens don't disappear
-	  \override SeparationItem #'padding = #0.0
-      }
-      \lyricmode {
-	  bla -- bla -- bla -- bla --
-	  bla -- bla -- bla -- bla --
+<<
+  \new Staff \relative c'' {
+    \time 1/4 c16[ c c  c]
+    \time 1/4
+    c16[ c c c]
+    \time 1/4
+    c16[ c c c]
 
-	  \override LyricHyphen  #'minimum-length = #0.7
-	  \override LyricHyphen  #'spacing-procedure =
-	  #Hyphen_spanner::set_spacing_rods
+  }
+  \new Lyrics \with {
+				% Otherwise lyrics are so far apart that hyphens don't disappear
+    \override SeparationItem #'padding = #0.0
+  }
+  \lyricmode {
+    bla -- bla -- bla -- bla --
+    bla -- bla -- bla -- bla --
 
-	   bla -- bla -- bla -- bla 
-       }>>
-    \layout   {
-	indent = 0.0 \cm
-	linewidth = 3.4 \cm
+    \override LyricHyphen  #'minimum-length = #0.7
+    \override LyricHyphen  #'spacing-procedure =
+    #Hyphen_spanner::set_spacing_rods
 
-	\context {
-	    \Staff \remove "Time_signature_engraver"
-	}
-	
+    bla -- bla -- bla -- bla 
+  }
+>>
+  \layout   {
+    indent = 0.0 \cm
+    linewidth = 3.4 \cm
+
+    \context {
+      \Staff \remove "Time_signature_engraver"
     }
-      
-}
+    
+  }
+  
 
-	
+
+  

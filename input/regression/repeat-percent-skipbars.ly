@@ -2,17 +2,17 @@
 
 
 \header {
-texidoc = "Percent repeats are not skipped, even when @code{skipBars} is set."
+  texidoc = "Percent repeats are not skipped, even when @code{skipBars} is set."
 }
 
-    \layout { raggedright= ##t }
+\layout { raggedright= ##t }
 
-\score {
-     \context Staff <<
-	\set Score.skipBars = ##t
-	 {
-	\repeat "percent" 2 { g2 a g a }
-	}
-     >>
-}
+
+\context Staff <<
+  \set Score.skipBars = ##t
+  {
+    \repeat "percent" 2 { g2 a g a }
+  }
+>>
+
 

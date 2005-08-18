@@ -5,12 +5,10 @@
   "
 }
 
-\score {
-  \context Staff  \relative c' {
-    \repeat "tremolo"  2 { c32 e32 }
-    \stemDown
-    \repeat "tremolo"  2 { c32 e32 }
-  }
-  \layout { raggedright = ##t }
+\context Staff  \relative c' {
+  \repeat "tremolo"  2 { c32 e32 }
+  \stemDown
+  \repeat "tremolo"  2 { c32 e32 }
 }
+\layout { raggedright = ##t }
 
