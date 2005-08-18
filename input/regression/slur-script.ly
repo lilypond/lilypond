@@ -11,6 +11,7 @@
 
 \version "2.6.0"
 \layout {
+    indent = 0\mm
     raggedright = ##t
 }
 \relative
@@ -22,9 +23,14 @@
     b( f'\p b,)
     
     %% Do not force dynamics outside slur, only avoid collisions.
-    \override DynamicLineSpanner #'avoid-slur = #'()
-    \override DynamicLineSpanner #'padding = #0.3
+    \override DynamicLineSpanner #'avoid-slur = #'around
+    \override DynamicLineSpanner #'padding = #0.4
     b( e\p e\f b)
+    
+    %% Do not avoid collisions.
+    \override DynamicLineSpanner #'avoid-slur = #'()
+    \revert DynamicLineSpanner #'padding
+    b( d\p d\f b)
     
     c_\markup { \italic {"cresc."}}( c c)
     \once \override Script #'padding = #1.2

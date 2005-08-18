@@ -536,6 +536,7 @@
 	;; sync with TextScript (?)
 
 	(padding . 0.5)
+	(avoid-slur . around)
 	(slur-padding . 0.2)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)
@@ -1408,6 +1409,7 @@
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
+	(avoid-slur . around)
 	(slur-padding . 0.5)
 	(script-priority . 200)
 	;; todo: add X self alignment?

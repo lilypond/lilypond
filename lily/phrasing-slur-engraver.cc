@@ -103,8 +103,8 @@ Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
       for (int i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
-  else if (avoid != ly_symbol2scm ("inside")
-	   && e->name () != "DynamicText")
+  else if (avoid == ly_symbol2scm ("outside")
+	   || avoid == ly_symbol2scm ("around"))
     {
       Grob *slur = slurs_.size () ? slurs_[0] : 0;
       slur = (end_slurs_.size () && !slur)
