@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.6"
 
 \header {
 
@@ -43,7 +43,7 @@ what you would expect.)
 	    \denies Staff
 	}
 	\context {
-	    \type Engraver_group_engraver
+	    \type Engraver_group
 	    \consists Clef_engraver
 	    \consists Time_signature_engraver
 	    \consists Separating_line_group_engraver

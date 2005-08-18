@@ -260,7 +260,7 @@ theScore = \score{
 	    \remove Bar_number_engraver
         }
 	\context {
-	    \type "Engraver_group_engraver"
+	    \type "Engraver_group"
 	    \name Dynamics
 	    \consists "Output_property_engraver"
 	    minimumVerticalExtent = #'(-1 . 1)

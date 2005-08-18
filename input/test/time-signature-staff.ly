@@ -6,14 +6,14 @@
   used contemporary pieces with many time signature changes.  "
 
 }
-\version "2.6.0"
+\version "2.7.6"
 \layout {
   raggedright =  ##T
 }
 
 \layout{
   \context { 
-    \type "Engraver_group_engraver"
+    \type "Engraver_group"
     \consists "Time_signature_engraver"
     \consists "Axis_group_engraver"
     \name "TimeSig"

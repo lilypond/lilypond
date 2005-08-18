@@ -1,5 +1,5 @@
 
-\version "2.6.0"
+\version "2.7.6"
 \header {
     
 texidoc = "The notation problem, creating a certain symbol,
@@ -32,7 +32,7 @@ Staff context.
 %
 
 MyStaff =\context {
-	\type "Engraver_group_engraver"
+	\type "Engraver_group"
 	\name Staff
 
 	\description "Handles clefs, bar lines, keys, accidentals.  It can contain
@@ -73,7 +73,7 @@ MyStaff =\context {
 
 
 MyVoice = \context {
-	\type "Engraver_group_engraver"
+	\type "Engraver_group"
 	\name Voice
 
 \description "

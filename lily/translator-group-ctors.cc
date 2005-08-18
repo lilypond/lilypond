@@ -11,6 +11,7 @@
 #include "engraver-group-engraver.hh"
 #include "performer-group-performer.hh"
 #include "recording-group-engraver.hh"
+#include "warn.hh"
 
 /*
   Quick & dirty.
@@ -29,6 +30,11 @@ get_translator_group (SCM sym)
   else if (sym == ly_symbol2scm ("Recording_group_engraver"))
     return new Recording_group_engraver ();
 
+  programming_error ("Couldn't find type");
+  scm_flush (scm_current_error_port ());
+  scm_display (sym, scm_current_error_port ());
+  scm_flush (scm_current_error_port ());
+  
   assert (0);
   return 0;
 }
