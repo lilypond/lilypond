@@ -8,17 +8,15 @@ Completion heads are not fooled by polyphony with a different rhythm.
 
 }
 
-\score{ 
-	\context Staff  \relative c'' << 
-	    { c2. c bes2 } \\
-	    { c2. a8 g4 f4. g4 f  }
-	>>
+\context Staff  \relative c'' << 
+  { c2. c bes2 } \\
+  { c2. a8 g4 f4. g4 f  }
+>>
 
-	\layout {
-		\context{
-			\Voice
-			\remove "Note_heads_engraver"
-			\consists "Completion_heads_engraver"
-		}
-	}
+\layout {
+  \context{
+    \Voice
+    \remove "Note_heads_engraver"
+    \consists "Completion_heads_engraver"
+  }
 }

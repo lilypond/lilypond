@@ -8,10 +8,8 @@
 
 \layout { raggedright = ##t }
 
-\score {
-   \relative c {
-    \key d \minor
-    \clef bass
-    << <cis a' cis>4 \\ { g'8. bes16} >>
-  }
+\relative c {
+  \key d \minor
+  \clef bass
+  << <cis a' cis>4 \\ { g'8. bes16} >>
 }

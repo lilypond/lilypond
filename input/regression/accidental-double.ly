@@ -5,16 +5,15 @@
 }
 
 
-\score {  \transpose c c'
-   \context Staff <<
-     \key g \major
-     \context Voice = "va" { \stemUp c' fis! }
-     \context Voice = "vb" { \stemDown c fis! }
-   >>
+\transpose c c'
+\context Staff <<
+  \key g \major
+  \context Voice = "va" { \stemUp c' fis! }
+  \context Voice = "vb" { \stemDown c fis! }
+>>
 
-    \layout { raggedright= ##t }
-	 
-}
+\layout { raggedright= ##t }
+
 
 
 

@@ -2,7 +2,7 @@
 \version "2.6.0"
 
 \header {
-texidoc="
+  texidoc="
 This shows how accidentals in different octaves are handled. The note names 
 are also automatically printed but the octavation has been dropped out.
 "
@@ -19,12 +19,9 @@ mel =  \transpose c c' {
   \bar "|." \break
 }
 
-\score {
-  << \context Staff \mel
-     \context NoteNames{
-	 \set printOctaveNames= ##f
-	 \mel
-	 }
-  >>
-}
-
+<< \context Staff \mel
+   \context NoteNames{
+     \set printOctaveNames= ##f
+     \mel
+   }
+ >>

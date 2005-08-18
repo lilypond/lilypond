@@ -13,10 +13,8 @@ rechts =  \relative c' {
     <g b des f>8
 }
 
-\score {
   \rechts
 
-  \layout {
-    raggedright = ##t
-  }
+\layout {
+  raggedright = ##t
 }

@@ -7,16 +7,14 @@ horizontally centered on the note head.  Scripts that should appear
 closer to the note head (staccato, accent) are reckoned with.
 "  }
 
-\score {
-    
-\relative c'' { c1\ff
-		      e,-.-> \f
-		      e \rfz		      
-		      c' \mf
-		      c \mp \> 
-		      c\!\ppppp \< 
-		      c\sfp\!
-		      
-}
+
+\relative c'' {
+  c1\ff
+  e,-.-> \f
+  e \rfz		      
+  c' \mf
+  c \mp \> 
+  c\!\ppppp \< 
+  c\sfp\!
 }
 

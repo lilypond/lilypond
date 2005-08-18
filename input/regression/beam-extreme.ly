@@ -27,22 +27,14 @@ extreme = \relative c'' {
       }
 }
 
-\score {
-  {
-    % If we want to test extreme beams,
-    % we should not have them auto-kneed
-    \override Beam  #'auto-knee-gap = ##f
-    \extreme
+{
+				% If we want to test extreme beams,
+				% we should not have them auto-kneed
+  \override Beam  #'auto-knee-gap = ##f
+  \extreme
+}
 
-
-    %% what does this test? --hwn
-%{
-    \override Beam  #'slope-limit = #1000
-    \extreme
-    %}
-  }
-  \layout{
-%    raggedright = ##t
-    raggedright = ##t
-  }
+\layout{
+  %%    raggedright = ##t
+  raggedright = ##t
 }

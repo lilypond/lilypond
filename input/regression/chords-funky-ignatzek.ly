@@ -19,12 +19,10 @@ chs =
 }
 
 
-\score{
-    <<
-	\context ChordNames {
-%	#(set-chord-name-style 'ignatzek)
-	\chs
-    }
-	\context Staff  \transpose c c' { \chs }
-    >>
-}
+<<
+  \context ChordNames {
+    %%	#(set-chord-name-style 'ignatzek)
+    \chs
+  }
+  \context Staff  \transpose c c' { \chs }
+>>

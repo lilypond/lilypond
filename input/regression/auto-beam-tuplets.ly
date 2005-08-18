@@ -2,17 +2,16 @@
 \version "2.6.0"
 
 \header {
-texidoc = "Tuplet-spanner should not put (visible) brackets on
+  texidoc = "Tuplet-spanner should not put (visible) brackets on
 beams even if they're auto generated."
 }
 
-\score {  \relative c' {
+\relative c' {
   \set tupletSpannerDuration = #(ly:make-moment 1 4)
   \override TupletBracket  #'bracket-visibility = #'if-no-beam
   \times 2/3 {
-	 f8[ f f ] f8[ f f ] f f f f f f 
- }
+    f8[ f f ] f8[ f f ] f f f f f f 
+  }
 }
-    \layout { raggedright= ##t }
+\layout { raggedright= ##t }
 
-     }

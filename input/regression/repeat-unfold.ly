@@ -1,7 +1,7 @@
 \version "2.6.0"
 
 \header{
-texidoc="
+  texidoc="
 LilyPond has three modes for repeats: folded, unfolded and
 semi-unfolded.  Unfolded repeats are fully written out. Semi unfolded
 repeats have the body written and all alternatives sequentially.
@@ -15,14 +15,14 @@ Unfolded behavior:
 "
 }
 
-\score {
 
-  \context Voice \relative c'' {
-\repeat unfold 3 { c^"3x 0a" d }
-% less alts than body
-\repeat unfold 4 { c^"4x 0a" d } \alternative { e f }
-% more alts than body
-\repeat unfold 2 { c^"2x 3a" d } \alternative { e f g } 
-}}
+
+\context Voice \relative c'' {
+  \repeat unfold 3 { c^"3x 0a" d }
+  %% less alts than body
+  \repeat unfold 4 { c^"4x 0a" d } \alternative { e f }
+  %% more alts than body
+  \repeat unfold 2 { c^"2x 3a" d } \alternative { e f g } 
+}
 
 

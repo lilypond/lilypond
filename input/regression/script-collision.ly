@@ -2,17 +2,17 @@
 
 \header {
 
-    texidoc = "Scripts are put on the utmost head, so they are
+  texidoc = "Scripts are put on the utmost head, so they are
       positioned correctly when there are collisions."
 }
 
-\score  {
- \relative c'' {
+
+\relative c'' {
   c4
   <c d c'>\marcato
   <<  { c4^^ }\\
-     { d4_^ } >>
-    }
+      { d4_^ } >>
+}
 \layout { raggedright = ##t}
-    }
+
 

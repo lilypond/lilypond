@@ -7,7 +7,6 @@
 
 }
 
-\score{
     \relative c'{
 	 a8[ b'' a,, b'']
 	 b8[ a,, b'' a,,]
@@ -15,4 +14,3 @@
     \layout{
 	raggedright = ##t 
     }
-}

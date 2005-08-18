@@ -7,24 +7,21 @@ higher or lower), and can take any value, including 15 for two octaves."
 
 }
 
-\score { 
+\relative c'' {
 
-	\relative c'' {
-
-	    \clef "G_8"
-	    c4
-	    \clef "G_15"
-	    c4
-	    \clef "G_7"
-	    c4
-	    \clef "G_6"
-	    c4 
-	    \clef "G^8"
-	    c4 
-	    \clef "G^15"
-	    c4 
-	    \clef "G^9"
-	    c4 
+  \clef "G_8"
+  c4
+  \clef "G_15"
+  c4
+  \clef "G_7"
+  c4
+  \clef "G_6"
+  c4 
+  \clef "G^8"
+  c4 
+  \clef "G^15"
+  c4 
+  \clef "G^9"
+  c4 
 }
-	 \layout { raggedright = ##t  }
-	     }
+\layout { raggedright = ##t  }

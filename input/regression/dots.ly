@@ -22,23 +22,19 @@ The priorities to print the dots are (ranked in importance):
 
 
 
-\score { 
-  \context Voice \relative c'' {
-    \time 6/8
-	d4. g,,
-    \stemDown
-    <b'' c d e>4.  <f g a b>
-    <f a c> <e a c> <b f' c' g'>
-	
-	
-    <<
-	{ f  <b c> r4.  }\\
-	{ b, <a b> r4. }
-    >>
-	
-	
-  }
-  \layout { }  
-  \midi { }
+\context Voice \relative c'' {
+  \time 6/8
+  d4. g,,
+  \stemDown
+  <b'' c d e>4.  <f g a b>
+  <f a c> <e a c> <b f' c' g'>
+  
+  
+  <<
+    { f  <b c> r4.  }\\
+    { b, <a b> r4. }
+  >>
+  
+  
 }
 

@@ -4,11 +4,10 @@
     }
 \version "2.6.0"
 
-\score {
- {
-\relative c'' \new Staff {
+{
+  \relative c'' \new Staff {
     << { d8. e16 } \\ { d8. b16 } >> 
-    }
+  }
 }
 
-\layout { raggedright = ##t }}
+\layout { raggedright = ##t }

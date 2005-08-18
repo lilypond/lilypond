@@ -10,25 +10,25 @@ In the 2nd measure, the pattern without the tie, leads to combined
 voices.
   
 "
-    }
+	}
 \version "2.6.0"
 
 vone =
 
 %%%%%%%%%%%%%%  0   1   2   3  
 \relative c'' {
-    \time 2/4
-    a8[ a]  a8[ a] |
-    a8[ a]  a8[ a]
+  \time 2/4
+  a8[ a]  a8[ a] |
+  a8[ a]  a8[ a]
 }
 
 vtwo =
 \relative c' {
-    \time 2/4
-    f8[ f]~ f8[ f] |
-    f8[ f]  f8[ f]
+  \time 2/4
+  f8[ f]~ f8[ f] |
+  f8[ f]  f8[ f]
 }
 
-\score {
-    \partcombine \vone \vtwo
-    }
+
+\partcombine \vone \vtwo
+
