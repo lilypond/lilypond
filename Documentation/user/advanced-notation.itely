@@ -879,6 +879,24 @@ names, for example
 c''1
 @end lilypond
 
+If you wish to center the instrument names, you must center all of them
+
+@lilypond[quote,verbatim,raggedright]
+{ <<
+\new Staff {
+  \set Staff.instrument = \markup {
+    \center-align { "Clarinetti"
+      \line { "in B" \smaller \flat } } }
+  c''1
+}
+\new Staff {
+  \set Staff.instrument = \markup{ \center-align { Vibraphone }}
+  c''1
+}
+>>
+}
+@end lilypond
+
 For longer instrument names, it may be useful to increase the
 @code{indent} setting in the @code{\layout} block.
 
