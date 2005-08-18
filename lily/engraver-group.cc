@@ -1,12 +1,12 @@
 /*
-  engraver-group-engraver.cc -- implement Engraver_group
+  engraver-group.cc -- implement Engraver_group
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "engraver-group-engraver.hh"
+#include "engraver-group.hh"
 
 #include "warn.hh"
 #include "paper-score.hh"

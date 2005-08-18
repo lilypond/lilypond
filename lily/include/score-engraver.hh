@@ -9,7 +9,7 @@
 #ifndef SCORE_ENGRAVER_HH
 #define SCORE_ENGRAVER_HH
 
-#include "engraver-group-engraver.hh"
+#include "engraver-group.hh"
 #include "score-translator.hh"
 
 class Score_engraver : public virtual Score_translator,

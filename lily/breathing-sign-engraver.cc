@@ -14,7 +14,7 @@
 
 #include "staff-symbol-referencer.hh"
 #include "breathing-sign.hh"
-#include "engraver-group-engraver.hh"
+#include "engraver-group.hh"
 #include "item.hh"
 
 class Breathing_sign_engraver : public Engraver

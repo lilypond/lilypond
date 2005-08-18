@@ -7,7 +7,7 @@
 
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"
-#include "engraver-group-engraver.hh"
+#include "engraver-group.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "moment.hh"

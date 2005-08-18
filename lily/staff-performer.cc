@@ -10,7 +10,7 @@
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "audio-staff.hh"
-#include "performer-group-performer.hh"
+#include "performer-group.hh"
 #include "context.hh"
 
 /** Perform a staff. Individual notes should have their instrument

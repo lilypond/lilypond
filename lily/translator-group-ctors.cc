@@ -8,8 +8,8 @@
 
 #include "score-engraver.hh"
 #include "score-performer.hh"
-#include "engraver-group-engraver.hh"
-#include "performer-group-performer.hh"
+#include "engraver-group.hh"
+#include "performer-group.hh"
 #include "recording-group-engraver.hh"
 #include "warn.hh"
 

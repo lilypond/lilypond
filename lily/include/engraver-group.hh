@@ -1,13 +1,13 @@
 /*
-  engraver-group-engraver.hh -- declare Engraver_group
+  engraver-group.hh -- declare Engraver_group
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#ifndef ENGRAVERGROUP_HH
-#define ENGRAVERGROUP_HH
+#ifndef ENGRAVER_GROUP_HH
+#define ENGRAVER_GROUP_HH
 
 #include "engraver.hh"
 #include "translator-group.hh"

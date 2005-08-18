@@ -10,7 +10,7 @@
 
 #include "bar-line.hh"
 #include "context.hh"
-#include "engraver-group-engraver.hh"
+#include "engraver-group.hh"
 #include "item.hh"
 #include "warn.hh"
 #include "text-interface.hh"

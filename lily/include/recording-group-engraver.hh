@@ -9,7 +9,7 @@
 #ifndef RECORDING_GROUP_ENGRAVER_HH
 #define RECORDING_GROUP_ENGRAVER_HH
 
-#include "engraver-group-engraver.hh"
+#include "engraver-group.hh"
 
 class Recording_group_engraver : public Engraver_group
 {
