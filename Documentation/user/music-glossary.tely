@@ -1444,7 +1444,7 @@ of the 20th century
 \score {
   {
 %   \override Staff.Custos #'neutral-position = #4
-    \override Staff.Custos #'neutral-direction = #-1
+    \override Staff.Custos #'neutral-direction = #down
     \override Staff.Custos #'style = #'hufnagel
     c'1 \break
     <d' a' f''>1
