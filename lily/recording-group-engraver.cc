@@ -12,7 +12,7 @@
 void
 Recording_group_engraver::derived_mark () const
 {
-  Engraver_group_engraver::derived_mark ();
+  Engraver_group::derived_mark ();
   scm_gc_mark (now_events_);
   scm_gc_mark (accumulator_);
 }
@@ -72,7 +72,7 @@ Recording_group_engraver::fetch_precomputable_methods (Translator_group_void_met
 }
 
 ADD_TRANSLATOR_GROUP (Recording_group_engraver,
-		      "Engraver_group_engraver that records all music events "
+		      "Engraver_group that records all music events "
 		      "for this context. Calls the procedure "
 		      "in @code{recordEventSequence} when finished.",
 		      "",

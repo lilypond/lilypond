@@ -1,5 +1,5 @@
 /*
-  engraver-group-engraver.cc -- implement Engraver_group_engraver
+  engraver-group-engraver.cc -- implement Engraver_group
 
   source file of the GNU LilyPond music typesetter
 
@@ -15,20 +15,20 @@
 #include "translator-dispatch-list.hh"
 
 void
-Engraver_group_engraver::announce_grob (Grob_info info)
+Engraver_group::announce_grob (Grob_info info)
 {
   announce_infos_.push (info);
 
-  Engraver_group_engraver *dad_eng
+  Engraver_group *dad_eng
     = context_->get_parent_context ()
-    ? dynamic_cast<Engraver_group_engraver *> (context_->get_parent_context ()->implementation ())
+    ? dynamic_cast<Engraver_group *> (context_->get_parent_context ()->implementation ())
     : 0;
   if (dad_eng)
     dad_eng->announce_grob (info);
 }
 
 void
-Engraver_group_engraver::acknowledge_grobs ()
+Engraver_group::acknowledge_grobs ()
 {
   if (!announce_infos_.size ())
     return;
@@ -74,15 +74,15 @@ Engraver_group_engraver::acknowledge_grobs ()
   the group count?
 */
 int
-Engraver_group_engraver::pending_grob_count () const
+Engraver_group::pending_grob_count () const
 {
   int count = announce_infos_.size ();
   for (SCM s = context_->children_contexts ();
        scm_is_pair (s); s = scm_cdr (s))
     {
       Context *c = unsmob_context (scm_car (s));
-      Engraver_group_engraver *group
-	= dynamic_cast<Engraver_group_engraver *> (c->implementation ());
+      Engraver_group *group
+	= dynamic_cast<Engraver_group *> (c->implementation ());
 
       if (group)
 	count += group->pending_grob_count ();
@@ -91,7 +91,7 @@ Engraver_group_engraver::pending_grob_count () const
 }
 
 void
-Engraver_group_engraver::do_announces ()
+Engraver_group::do_announces ()
 {
   do
     {
@@ -99,8 +99,8 @@ Engraver_group_engraver::do_announces ()
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Context *c = unsmob_context (scm_car (s));
-	  Engraver_group_engraver *group
-	    = dynamic_cast<Engraver_group_engraver *> (c->implementation ());
+	  Engraver_group *group
+	    = dynamic_cast<Engraver_group *> (c->implementation ());
 	  if (group)
 	    group->do_announces ();
 	}
@@ -118,7 +118,7 @@ Engraver_group_engraver::do_announces ()
   while (pending_grob_count () > 0);
 }
 
-Engraver_group_engraver::Engraver_group_engraver ()
+Engraver_group::Engraver_group ()
 {
   acknowledge_hash_table_ = SCM_EOL;
   acknowledge_hash_table_ = scm_c_make_hash_table (61);
@@ -126,7 +126,7 @@ Engraver_group_engraver::Engraver_group_engraver ()
 
 #include "translator.icc"
 
-ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
+ADD_TRANSLATOR_GROUP (Engraver_group,
 		      /* doc */ "A group of engravers taken together",
 		      /* create */ "",
 		      /* accept */ "",
@@ -134,7 +134,7 @@ ADD_TRANSLATOR_GROUP (Engraver_group_engraver,
 		      /* write */ "");
 
 void
-Engraver_group_engraver::derived_mark () const
+Engraver_group::derived_mark () const
 {
   scm_gc_mark (acknowledge_hash_table_);
 }

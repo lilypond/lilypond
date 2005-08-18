@@ -18,8 +18,8 @@ class Performer : public Translator
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator, Performer);
-  friend class Performer_group_performer;
-  Performer_group_performer *get_daddy_performer () const;
+  friend class Performer_group;
+  Performer_group *get_daddy_performer () const;
 
 protected:
   virtual void announce_element (Audio_element_info);

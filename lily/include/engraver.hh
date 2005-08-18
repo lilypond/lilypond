@@ -20,7 +20,7 @@
 class Engraver : public Translator
 {
 
-  friend class Engraver_group_engraver;
+  friend class Engraver_group;
 protected:
   /*
     take note of item/spanner
@@ -30,7 +30,7 @@ protected:
   */
   virtual void acknowledge_grob (Grob_info) {}
   virtual void announce_grob (Grob_info);
-  Engraver_group_engraver *get_daddy_engraver () const;
+  Engraver_group *get_daddy_engraver () const;
 
 public:
   /**

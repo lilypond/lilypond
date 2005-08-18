@@ -17,10 +17,10 @@
 #include "score-context.hh"
 #include "lilypond-key.hh"
 
-Engraver_group_engraver *
+Engraver_group *
 Engraver::get_daddy_engraver () const
 {
-  return dynamic_cast<Engraver_group_engraver *> (get_daddy_translator ());
+  return dynamic_cast<Engraver_group *> (get_daddy_translator ());
 }
 
 void
@@ -41,7 +41,7 @@ Engraver::announce_grob (Grob *e, SCM cause)
 
   Grob_info i (this, e);
 
-  Engraver_group_engraver *g = get_daddy_engraver ();
+  Engraver_group *g = get_daddy_engraver ();
   if (g)
     g->announce_grob (i);
 }

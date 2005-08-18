@@ -277,7 +277,7 @@ slur, the closer it is to this height.")
 of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
      (avoid-slur ,symbol? "Method of handling slur collisions.
-Choices are @{around}, @{inside}, @{outside}.  If unset, script
+Choices are @code{around}, @code{inside}, @code{outside}.  If unset, script
 and slur ignore eachother.")
      (inspect-quants ,number-pair? "If debugging is set,
 set beam quant to this position, and print the respective scores.")

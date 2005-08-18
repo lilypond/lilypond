@@ -13,7 +13,7 @@
 #include "score-translator.hh"
 
 class Score_engraver : public virtual Score_translator,
-		       public virtual Engraver_group_engraver
+		       public virtual Engraver_group
 {
   System *system_;
 
