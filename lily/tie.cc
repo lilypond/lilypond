@@ -214,8 +214,8 @@ Tie::get_control_points (SCM smob)
   Bezier b = slur_shape (width, h_inf, r_0);
 
   /*
-    I think this better, particularly for small ties. It always allows the user to move ties if
-    they seem in the wrong place
+    I think this better, particularly for small ties. It always allows
+    the user to move ties if they seem in the wrong place
 
     TODO: what if 2 heads have different size.
 

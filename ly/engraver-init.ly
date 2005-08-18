@@ -584,6 +584,8 @@ AncientRemoveEmptyStaffContext = \context {
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
   verticallySpacedContexts = #'(Staff)
+
+  timing = ##t
 }
 
 

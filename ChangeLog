@@ -1,3 +1,9 @@
+2005-08-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/context-def.cc (instantiate): check for
+	Engraver_group_engraver and Performer_group_performer not
+	Engraver/Performer. Fixes crashes when doing \with { \consist .. }
+ 
 2005-08-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/les-nereides.ly: Remove three fingering tweaks, update
@@ -33,6 +39,11 @@
 	* Documentation/user/invoking.itely: update convert-ly bugs.
 
 2005-08-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): set timing
+	to #t.
+
+	* lily/timing-translator.cc (initialize): don't initialize timing.
 
 	* input/regression/stem-spacing.ly (Module): remove file.
 
