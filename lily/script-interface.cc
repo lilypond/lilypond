@@ -90,12 +90,22 @@ struct Text_script
 
 ADD_INTERFACE (Text_script, "text-script-interface",
 	       "An object that is put above or below a note",
-	       "add-stem-support slur script-priority inside-slur");
+	       "add-stem-support "
+	       "avoid-slur "
+	       "script-priority "
+	       "slur "
+	       );
 
 /*
   Hmm. Where should we put add-stem-support ?
 */
 ADD_INTERFACE (Script_interface, "script-interface",
 	       "An object that is put above or below a note",
-	       "add-stem-support slur-padding slur script-priority script-stencil inside-slur");
+	       "add-stem-support "
+	       "avoid-slur "
+	       "script-priority "
+	       "script-stencil "
+	       "slur "
+	       "slur-padding "
+	       );
 

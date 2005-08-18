@@ -56,7 +56,7 @@ collisions with slurs
 {
   b_1( f'_1_2_3 c_3_4_5 a)
   b( f'\p b,)
-  c-2_\markup { \italic {"cresc."}}( f c)
+  c-2_\markup { \italic {"cresc."}} ( f_\markup {x} c)
 }
 @end lilypond
 
