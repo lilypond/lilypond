@@ -8,7 +8,7 @@
 */
 
 #include "context.hh"
-#include "performer-group-performer.hh"
+#include "performer-group.hh"
 #include "warn.hh"
 
 void

@@ -18,8 +18,8 @@
 #include "translator-group.hh"
 #include "warn.hh"
 
-#include "engraver-group-engraver.hh"
-#include "performer-group-performer.hh"
+#include "engraver-group.hh"
+#include "performer-group.hh"
 
 Context_def::Context_def ()
 {
