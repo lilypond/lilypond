@@ -19,14 +19,8 @@ Timing_translator::stop_translation_timestep ()
 {
   Global_context *global = get_global_context ();
 
-  /* allbars == ! skipbars */
-  SCM sb = get_property ("skipBars");
-  bool allbars = !to_boolean (sb);
-
-  // urg: multi bar rests: should always process whole of first bar?
-  SCM tim = get_property ("timing");
-  bool timb = to_boolean (tim);
-  if (timb && allbars)
+  if (to_boolean (get_property ("timing"))
+      && !to_boolean (get_property ("skipBars")))
     {
       Moment barleft = (measure_length () - measure_position (context ()));
       Moment now = now_mom ();
@@ -44,12 +38,7 @@ Timing_translator::stop_translation_timestep ()
 void
 Timing_translator::initialize ()
 {
-
-  /*
-    move this to engraver-init.ly?
-  */
   context ()->add_alias (ly_symbol2scm ("Timing"));
-  context ()->set_property ("timing", SCM_BOOL_T);
   context ()->set_property ("currentBarNumber", scm_from_int (1));
 
   context ()->set_property ("timeSignatureFraction",
@@ -58,8 +47,10 @@ Timing_translator::initialize ()
     Do not init measurePosition; this should be done from global
     context.
   */
-  context ()->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
-  context ()->set_property ("beatLength", Moment (Rational (1, 4)).smobbed_copy ());
+  context ()->set_property ("measureLength",
+			    Moment (Rational (1)).smobbed_copy ());
+  context ()->set_property ("beatLength",
+			    Moment (Rational (1, 4)).smobbed_copy ());
 }
 
 Rational

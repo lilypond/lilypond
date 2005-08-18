@@ -48,7 +48,8 @@ protected:
   Repeat_sign_type repeat_sign_type_;
 
   Item *double_percent_;
-  Item *double_percent_counter_; 
+  Item *double_percent_counter_;
+  
   Spanner *percent_;
   Spanner *percent_counter_;
   Spanner *finished_percent_;
@@ -95,9 +96,12 @@ Percent_repeat_engraver::try_music (Music *m)
       Moment now = now_mom ();
       start_mom_ = now;
       stop_mom_ = start_mom_ + Moment (total_count_) * body_length_;
-      next_moment_ = start_mom_ + body_length_;
+      next_moment_ = start_mom_;
+      next_moment_ += body_length_;
 
-      Moment meas_len (robust_scm2moment (get_property ("measureLength"), Moment (1)));
+      Moment meas_len (robust_scm2moment (get_property ("measureLength"),
+					  Moment (1)));
+      
       if (meas_len == body_length_)
 	repeat_sign_type_ = MEASURE;
       else if (Moment (2) * meas_len == body_length_)

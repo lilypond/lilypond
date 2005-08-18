@@ -336,9 +336,9 @@ Context_def::instantiate (SCM ops, Object_key const *key)
   g->simple_trans_list_ = trans_list;
 
   context->implementation_ = g;
-  if (dynamic_cast<Engraver *> (g))
+  if (dynamic_cast<Engraver_group_engraver *> (g))
     g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
-  else if (dynamic_cast<Performer *> (g))
+  else if (dynamic_cast<Performer_group_performer *> (g))
     g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
 
   g->context_ = context;
