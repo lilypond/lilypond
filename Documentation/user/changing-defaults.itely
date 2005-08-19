@@ -661,7 +661,7 @@ to indicate improvisation in Jazz pieces,
 @lilypond[quote,raggedright]
 \layout { \context {
   \name ImproVoice
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
   \consists Pitch_squash_engraver
@@ -740,10 +740,10 @@ The notes look like a slash, without a stem,
 
 All these plug-ins have to cooperate, and this is achieved with a
 special plug-in, which must be marked with the keyword @code{\type}.
-This should always be @internalsref{Engraver_group_engraver},
+This should always be @internalsref{Engraver_group},
 
 @example
-\type "Engraver_group_engraver"
+\type "Engraver_group"
 @end example
 
 Put together, we get
@@ -751,7 +751,7 @@ Put together, we get
 @example
 \context @{
   \name ImproVoice
-  \type "Engraver_group_engraver"
+  \type "Engraver_group"
   \consists "Note_heads_engraver"
   \consists "Text_engraver"
   \consists Pitch_squash_engraver
