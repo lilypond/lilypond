@@ -167,8 +167,8 @@ def print1(ch) :
   elif cr=='d':
       namestr="e'"
   elif cr=='X':
-      namestr="\\property Staff.NoteHead \\override #'style = #'cross c'"
-      accstr="-^ \\property Staff.NoteHead \\revert #'style"
+      namestr="\\override Staff.NoteHead #'style = #'cross c'"
+      accstr="-^ \\revert Staff.NoteHead #'style"
   else:
       print 'foo', cr, chr(ch), ch == 'd', "A%sA" % cr
       raise 'foo'
@@ -236,7 +236,7 @@ for i in range(0,32):
 
 sys.stdout.write ('%%{\n %s \n %%}' % copyright)
 sys.stdout.write (r"""
-\include "paper11.ly"
+#(set-global-staff-size 11)
 
 \header {
     title = "CLA(O)P II"
@@ -254,12 +254,15 @@ sys.stdout.write (r"""
 for st in range(1,voices+1):
     str=stemme(st)
     ststr=chr((st-1)/24+ord('A')) + chr ((st-1)%24+ord('A'))
-    sys.stdout.write( """
+    sys.stdout.write(r'''
 
-stemme%s = \\notes {\n\\clef percussion
-\\property Staff.instrument = \"%d\"\n
-\\property Staff.instr = \"%d\"\n
-\\property Score.currentBarNumber = #%d\n""" % (ststr,st,st,start_measure))
+stemme%s =  {
+\clef percussion
+\set Staff.instrument = "%d"
+\set Staff.instr = "%d"
+\set Score.currentBarNumber = #%d
+'''
+    % (ststr,st,st,start_measure))
     
     for i in range(start_measure-1, start_measure-1+no_measures):
       print16(str[i*16:i*16+16])
@@ -269,14 +272,13 @@ stemme%s = \\notes {\n\\clef percussion
     
 
 sys.stdout.write (r"""
-\score {
-    \notes <
-	\property Score.BarNumber \override #'padding = #2.5
-	\property Score.autoBeamSettings \override
-	  #'(end * * * *) = #(ly:make-moment 1 4)
-	\property Score.skipBars = ##t
-	\context StaffGroup <
-	    \property StaffGroup.Stem \override #'direction = #up
+<<
+  \override Score.BarNumber  #'padding = #2.5
+  \override Score.autoBeamSettings
+    #'(end * * * *) = #(ly:make-moment 1 4)
+  \set Score.skipBars = ##t
+  \context StaffGroup <<
+    \override StaffGroup.Stem #'direction = #up
 """)
 
 
@@ -286,21 +288,22 @@ for   st in range(1,voices+1):
   sys.stdout.write (r"""\context Staff="%s" \%s
 """ % (ststr,ststr))
 
-sys.stdout.write (r""">
-    >
-    \paper {
+sys.stdout.write (r""">>
+>>
+#(set-default-paper-size "a3")
+\paper {
 	linewidth = 26.0\cm
 	indent = 0
 	textheight = 38.0\cm
 	%hsize = 30.0 \cm
 	%vsize = 42.0 \cm
-
-	\translator {
-	    \StaffContext 
-	    StaffSymbol \override #'line-count  = #3
-            minimumVerticalExtent = #'(-3 . 3)
-	}
-    }
-    
+}
+\context
+{
+  \translator {
+    \StaffContext 
+    \override StaffSymbol #'line-count  = #3
+    minimumVerticalExtent = #'(-3 . 3)
+  }
 }
 """)

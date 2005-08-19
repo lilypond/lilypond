@@ -38,9 +38,11 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 @itemize @bullet
 
 @item
-Percent repeats get incremental numbers to indicate how many repeats there are.
+With the @code{countPercentRepeats} property,
+percent repeats get incremental numbers to indicate how many repeats there are.
 
-@lilypond[relative=2,fragment,raggedright] 
+@lilypond[relative=2,fragment,raggedright]
+\set countPercentRepeats = ##t
 \repeat percent 4 { c1 }
 \time 2/4
 \repeat percent 4 { c2 c2 }
