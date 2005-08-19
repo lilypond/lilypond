@@ -107,11 +107,8 @@ Percent_repeat_engraver::try_music (Music *m)
       else if (Moment (2) * meas_len == body_length_)
 	repeat_sign_type_ = DOUBLE_MEASURE;
       else
-	{
-	  warning (_f ("can't handle a percent repeat of length: %s",
-		       body_length_.to_string ()));
-	  return false;
-	}
+	return false;
+    
 
       repeat_ = m;
 
