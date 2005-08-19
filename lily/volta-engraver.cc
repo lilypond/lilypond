@@ -160,7 +160,7 @@ Volta_engraver::process_music ()
     }
 
   if (!volta_span_
-      && (scm_is_string (start_string_) || scm_is_pair (start_string_)))
+      && Text_interface::is_markup (start_string_))
     {
       started_mom_ = now_mom ();
 

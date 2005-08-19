@@ -153,7 +153,8 @@ Percent_repeat_engraver::process_music ()
 	  Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
 	  percent_->set_bound (LEFT, col);
 
-	  if (total_count_ > 2)
+	  if (total_count_ > 2
+	      && to_boolean (get_property ("countPercentRepeats")))
 	    {
 	      percent_counter_
 		= make_spanner ("PercentRepeatCounter", repeat_->self_scm ());
@@ -172,7 +173,8 @@ Percent_repeat_engraver::process_music ()
 	{
 	  double_percent_ = make_item ("DoublePercentRepeat", repeat_->self_scm ());
 
-	  if (total_count_ > 2)
+	  if (total_count_ > 2
+	      && to_boolean (get_property ("countPercentRepeats")))
 	    {
 	      double_percent_counter_
 		= make_item ("DoublePercentRepeatCounter",
@@ -259,10 +261,21 @@ Percent_repeat_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Percent_repeat_engraver,
-		/* doc */ "Make whole bar and double bar repeats.",
+		/* doc */
+		"Make whole bar and double bar repeats.",
+		
 		/* create */
-		"PercentRepeat DoublePercentRepeat "
-		"PercentRepeatCounter DoublePercentRepeatCounter",
-		/* accept */ "repeated-music",
-		/* read */ "measureLength currentCommandColumn",
+		"PercentRepeat "
+		"DoublePercentRepeat "
+		"PercentRepeatCounter "
+		"DoublePercentRepeatCounter",
+		
+		/* accept */
+		"repeated-music",
+
+		/* read */
+		"measureLength "
+		"currentCommandColumn "
+		"countPercentRepeats",
+
 		/* write */ "");

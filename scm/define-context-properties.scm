@@ -150,6 +150,8 @@ symbol go, measured in half staff spaces from the center of the staff.")
 
      (connectArpeggios ,boolean? " If set, connect arpeggios across
 piano staff.")
+     (countPercentRepeats ,boolean? "If set, produce counters for
+percent repeats. ")
      (createKeyOnClefChange ,boolean? "Print a key signature whenever the clef is changed.")
      (createSpacing ,boolean? "Create @code{StaffSpacing} objects?
 Should be set for staves.")

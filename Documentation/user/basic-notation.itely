@@ -2934,6 +2934,16 @@ Percent repeats must be declared within a @code{Voice} context.
 }
 @end lilypond
 
+Isolated percents can also be printed. This is done by putting a multi
+measure rest, with a different print function,
+
+
+@lilypond[fragment,verbatim]
+\override MultiMeasureRest #'print-function
+  = #Multi_measure_rest::percent
+R1
+@end lilypond
+
 
 @seealso
 
