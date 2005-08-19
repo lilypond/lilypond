@@ -1,5 +1,8 @@
 2005-08-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/examples.itely (Piano templates): change
+	Engraver_group_engraver -> Engraver_group
+
 	* lily/ly-module.cc (make_stand_in_procs_weak): only kludge if
 	scm_stand_in_procs is not weak_any.
 

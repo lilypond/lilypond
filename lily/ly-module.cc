@@ -14,11 +14,13 @@
 
 #ifdef MODULE_GC_KLUDGE
 Protected_scm anonymous_modules = SCM_EOL;
+bool perform_gc_kludge;
 #endif
 
 void
 clear_anonymous_modules ()
 {
+#ifdef MODULE_GC_KLUDGE
   for (SCM s = anonymous_modules;
        scm_is_pair (s);
        s = scm_cdr (s))
@@ -35,6 +37,7 @@ clear_anonymous_modules ()
     }
 
   anonymous_modules = SCM_EOL;
+#endif
 }
 
 SCM
@@ -61,7 +64,8 @@ ly_make_anonymous_module (bool safe)
     }
 
 #ifdef MODULE_GC_KLUDGE
-  anonymous_modules = scm_cons (mod, anonymous_modules);
+  if (perform_gc_kludge)
+    anonymous_modules = scm_cons (mod, anonymous_modules);
 #endif
 
   return mod;
@@ -153,7 +157,15 @@ void
 make_stand_in_procs_weak ()
 {
   if (SCM_IS_WHVEC_ANY(scm_stand_in_procs))
-    return; 
+    {
+#if (SCM_MINOR_VERSION == 7) 
+      perform_gc_kludge = false;
+#endif
+      return; 
+    }
+  
+  perform_gc_kludge = true;
+  
   
   SCM old_tab = scm_stand_in_procs;
   SCM new_tab = scm_make_weak_key_hash_table (scm_from_int (257));

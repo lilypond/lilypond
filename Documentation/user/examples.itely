@@ -334,7 +334,7 @@ pedal = {
   >>
   \layout {
     \context {
-      \type "Engraver_group_engraver"
+      \type "Engraver_group"
       \name Dynamics
       \alias Voice % So that \cresc works, for example.
       \consists "Output_property_engraver"
