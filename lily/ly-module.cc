@@ -152,6 +152,9 @@ redefine_keyval (void *closure, SCM key, SCM val, SCM result)
 void
 make_stand_in_procs_weak ()
 {
+  if (SCM_IS_WHVEC_ANY(scm_stand_in_procs))
+    return; 
+  
   SCM old_tab = scm_stand_in_procs;
   SCM new_tab = scm_make_weak_key_hash_table (scm_from_int (257));
 

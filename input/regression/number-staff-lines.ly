@@ -8,13 +8,10 @@ adjusted accordingly.  "
 }
 
 
-\context Voice \relative c {
+\new Staff \with {
+  \override StaffSymbol #'line-count = #3
+}
+\relative c {
   c' c c c | g' g g g 	\bar ":|"
 }
-\layout {
-  \context {
-    \Staff
-    \override StaffSymbol #'line-count = #3
-  }
-
 

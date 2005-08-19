@@ -14,6 +14,7 @@
 #include "side-position-interface.hh"
 #include "warn.hh"
 #include "staff-symbol.hh"
+#include "text-interface.hh"
 
 #include "translator.icc"
 

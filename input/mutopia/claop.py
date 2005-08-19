@@ -266,7 +266,7 @@ stemme%s =  {
     
     for i in range(start_measure-1, start_measure-1+no_measures):
       print16(str[i*16:i*16+16])
-      sys.stdout.write (" |\n")
+      sys.stdout.write (" \n")
     
     sys.stdout.write ("\\bar\"|.\" }\n")
     
@@ -298,12 +298,13 @@ sys.stdout.write (r""">>
 	%hsize = 30.0 \cm
 	%vsize = 42.0 \cm
 }
-\context
-{
+\layout {
+ \context {
   \translator {
     \StaffContext 
     \override StaffSymbol #'line-count  = #3
     minimumVerticalExtent = #'(-3 . 3)
   }
+ }
 }
 """)
