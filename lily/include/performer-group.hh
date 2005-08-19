@@ -1,12 +1,12 @@
 /*
-  performer-group-performer.hh -- declare Performer_group
+  performer-group.hh -- declare Performer_group
 
   (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#ifndef PERFORMER_GROUP_PERFORMER_HH
-#define PERFORMER_GROUP_PERFORMER_HH
+#ifndef PERFORMER_GROUP_HH
+#define PERFORMER_GROUP_HH
 
 #include "performer.hh"
 #include "translator-group.hh"
@@ -32,5 +32,4 @@ private:
 
 void performer_each (SCM list, Performer_method method);
 
-#endif // PERFORMER_GROUP_PERFORMER_HH
-
+#endif /* PERFORMER_GROUP_HH */
