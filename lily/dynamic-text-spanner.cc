@@ -1,5 +1,5 @@
 /*
-  crescendo-text-spanner.cc -- implement Text_spanner
+  dynamic-text-spanner.cc -- implement Text_spanner
 
   source file of the GNU LilyPond music typesetter
 
@@ -137,5 +137,11 @@ Dynamic_text_spanner::print (SCM smob)
 ADD_INTERFACE (Dynamic_text_spanner,
 	       "dynamic-text-spanner-interface",
 	       "A text spanner for crescendo texts",
-	       "bound-padding dash-period dash-fraction edge-text style thickness");
+	       
+	       "bound-padding "
+	       "dash-period "
+	       "dash-fraction "
+	       "edge-text "
+	       "style "
+	       "thickness");
 
