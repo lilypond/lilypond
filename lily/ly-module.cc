@@ -156,7 +156,7 @@ redefine_keyval (void *closure, SCM key, SCM val, SCM result)
 void
 make_stand_in_procs_weak ()
 {
-  if (SCM_IS_WHVEC_ANY(scm_stand_in_procs))
+  if (scm_weak_key_hash_table_p (scm_stand_in_procs) == SCM_BOOL_T)
     {
 #if (SCM_MINOR_VERSION == 7) 
       perform_gc_kludge = false;
