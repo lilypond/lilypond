@@ -55,8 +55,11 @@ Volta_bracket_interface::print (SCM smob)
 
   char const *cs = str.to_str0 ();
   no_vertical_end
-    |= (strcmp (cs, ":|") != 0 && strcmp (cs, "|:") != 0 && strcmp (cs, "|.") != 0
-	&& strcmp (cs, ":|:") != 0 && strcmp (cs, ".|") != 0);
+    |= (str != ":|"
+	&& str != "|:"
+	&& str != "|."
+	&& str != ":|:"
+	&& str != ".|");
 
   Output_def *layout = me->get_layout ();
   Real half_space = 0.5;
