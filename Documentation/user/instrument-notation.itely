@@ -793,7 +793,7 @@ simply insert the characters directly into the input file and save
 it with utf-8 encoding.  See @ref{Text encoding} for more info.
 
 @example
-\lyricmode @{ He said: âLet my peo ple goâ. @}
+\lyricmode @{ He said: Ã¢ÂÂLet my peo ple goÃ¢ÂÂ. @}
 @end example
 
 The full definition of a word start in Lyrics mode is somewhat more
@@ -1946,11 +1946,13 @@ notation.
   indent = 0.0\cm
   \context { \Score \remove "Bar_number_engraver" }
 }
+
 \header {
   title = "Amazing Grace"
   meter = "Hymn"
   arranger = "Trad. arr."
 }
+
 {
   \hideKeySignature
   \time 3/4

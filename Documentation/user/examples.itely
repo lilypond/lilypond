@@ -372,7 +372,7 @@ pedal = {
   >>
   \midi {
     \context {
-      \type "Performer_group_performer"
+      \type "Performer_group"
       \name Dynamics
       \consists "Piano_pedal_performer"
     }

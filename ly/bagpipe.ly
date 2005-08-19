@@ -6,7 +6,7 @@
   Sven Axelsson, the Murray Pipes & Drums of Gothenburg
   (http://www.murrays.nu)
   
-  $Id: bagpipe.ly,v 1.3 2005/08/18 22:06:45 gpercival Exp $
+  $Id: bagpipe.ly,v 1.4 2005/08/19 18:18:02 hanwen Exp $
 %}
 
 \version "2.6.0"
@@ -53,6 +53,9 @@ showKeySignature = {
 
 % Layout tweaks.
 
+%{
+
+% WTF is this? --hwn
 \layout {
   \context {
     \Voice
@@ -63,6 +66,8 @@ showKeySignature = {
     \tieUp
   }
 }
+
+%}
 
 % Some common timing tweaks.
 
