@@ -1,3 +1,9 @@
+2005-08-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/examples.itely (Piano templates):
+	* lily/include/performer-group.hh: Remove last traces of
+	Performer_group_performer.  Fixes make web.
+
 2005-08-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/examples.itely (Piano templates): change
