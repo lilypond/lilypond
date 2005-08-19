@@ -53,7 +53,6 @@ Volta_bracket_interface::print (SCM smob)
   else
     str = "|";
 
-  char const *cs = str.to_str0 ();
   no_vertical_end
     |= (str != ":|"
 	&& str != "|:"

@@ -6,14 +6,12 @@ wreak havoc in the spacing when unbroken."
 
 \version "2.6.0"
 
-rechts =  \relative c' {
+\relative c' {
   \clef treble
   \time 3/4
-    c8 b2  <g b des f>8 ~ |
-    <g b des f>8
+  c8 b2  <g b des f>8 ~ |
+  <g b des f>8
 }
-
-  \rechts
 
 \layout {
   raggedright = ##t
