@@ -93,19 +93,19 @@ Engraver_group::pending_grob_count () const
 void
 Engraver_group::do_announces ()
 {
-  do
+  for (SCM s = context ()->children_contexts ();
+       scm_is_pair (s); s = scm_cdr (s))
     {
-      for (SCM s = context ()->children_contexts ();
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  Context *c = unsmob_context (scm_car (s));
-	  Engraver_group *group
-	    = dynamic_cast<Engraver_group *> (c->implementation ());
-	  if (group)
-	    group->do_announces ();
-	}
+      Context *c = unsmob_context (scm_car (s));
+      Engraver_group *group
+	= dynamic_cast<Engraver_group *> (c->implementation ());
+      if (group)
+	group->do_announces ();
+    }
 
-      while (1)
+ do
+    {
+       while (1)
 	{
 	  precomputed_translator_foreach (PROCESS_ACKNOWLEDGED);
 	  if (announce_infos_.size () == 0)
