@@ -1,5 +1,7 @@
 2005-08-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/midi-item.cc (name): new method.
+
 	* lily/staff-performer.cc (acknowledge_audio_element): use
 	signature of baseclass.
 
