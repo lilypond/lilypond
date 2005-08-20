@@ -15,6 +15,7 @@
 #include "midi-stream.hh"
 #include "duration.hh"
 #include "program-option.hh"
+
 #include "killing-cons.tcc"
 
 #define PITCH_WHEEL_TOP 0x3FFF
@@ -464,4 +465,11 @@ Midi_track::data_string () const
 	str += "\n";
     }
   return str;
+}
+
+
+char const *
+Midi_item::name () const
+{
+  return classname (this);
 }

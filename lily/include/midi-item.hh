@@ -20,6 +20,7 @@ class Midi_item
 public:
   Midi_item ();
   virtual ~Midi_item ();
+  virtual char const *name () const;
 
   /// factory
   static Midi_item *get_midi (Audio_item *a);
