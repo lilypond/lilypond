@@ -26,7 +26,7 @@ public:
   String instrument_string_;
 
 protected:
-  virtual void acknowledge_audio_element (Audio_element *p);
+  virtual void acknowledge_audio_element (Audio_element_info info);
   virtual void finalize ();
   virtual void initialize ();
   void process_music ();
@@ -135,9 +135,9 @@ Staff_performer::new_instrument_string ()
 }
 
 void
-Staff_performer::acknowledge_audio_element (Audio_element *p)
+Staff_performer::acknowledge_audio_element (Audio_element_info inf)
 {
-  if (Audio_item *ai = dynamic_cast<Audio_item *> (p))
+  if (Audio_item *ai = dynamic_cast<Audio_item *> (inf.elem_))
     audio_staff_->add_audio_item (ai);
 }
 
