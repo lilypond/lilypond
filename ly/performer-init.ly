@@ -1,12 +1,13 @@
 \version "2.7.6"
 
-				%
-				% setup for Request->Element conversion. Guru-only
-				%
+%%
+%% setup for Request->Element conversion. 
+%%
 \context {
     \type "Performer_group"
     \name Staff
     \accepts Voice
+    \defaultchild Voice
     
     \consists "Staff_performer"
     \consists "Key_performer"
@@ -18,11 +19,13 @@
     \accepts Score
 \description "Hard coded entry point for LilyPond. Cannot be tuned."
     }
+
 \context {
     \Staff
     \name DrumStaff
     midiInstrument = #"drums"
     \accepts DrumVoice
+    \defaultchild DrumVoice
 }
 
 \context {
@@ -63,6 +66,7 @@
     \name GrandStaff
     \accepts RhythmicStaff
     \accepts Staff
+    \defaultchild Staff
 }
 
 \context {
@@ -70,6 +74,7 @@
     \name "PianoStaff"
     \accepts Staff
     \accepts DrumStaff
+    \defaultchild Staff
 }
 
 \context {
@@ -87,6 +92,7 @@
     \type "Performer_group"
     \name "TabStaff"
     \accepts "TabVoice"
+    \defaultchild "TabVoice"
 }
 
 \context {
@@ -112,6 +118,8 @@
     
     \consists "Timing_translator"
     \consists "Swallow_performer"
+
+    \defaultchild "Staff"
     
     dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
     instrumentEqualizer = #default-instrument-equalizer
@@ -133,7 +141,10 @@
     \name ChoirStaff
     \accepts Staff
     \accepts DrumStaff
+    \defaultchild Staff
+
 }
+
 
 
 \context {
@@ -155,6 +166,8 @@
     \name StaffGroup
     \accepts Staff
     \accepts DrumStaff
+
+    \defaultchild Staff
 }
 
 \context { \Staff \name RhythmicStaff }

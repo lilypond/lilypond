@@ -29,7 +29,7 @@ protected:
   virtual void acknowledge_audio_element (Audio_element *p);
   virtual void finalize ();
   virtual void initialize ();
-  virtual void create_audio_elements ();
+  void process_music ();
   void stop_translation_timestep ();
 
 private:
@@ -73,7 +73,7 @@ Staff_performer::initialize ()
 }
 
 void
-Staff_performer::create_audio_elements ()
+Staff_performer::process_music ()
 {
   String str = new_instrument_string ();
   if (str.length ())

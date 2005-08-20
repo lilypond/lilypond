@@ -19,7 +19,7 @@ public:
 protected:
 
   void stop_translation_timestep ();
-  virtual void create_audio_elements ();
+  void process_music ();
   virtual void derived_mark () const;
   SCM prev_fraction_;
 private:
@@ -44,7 +44,7 @@ Time_signature_performer::~Time_signature_performer ()
 }
 
 void
-Time_signature_performer::create_audio_elements ()
+Time_signature_performer::process_music ()
 {
   SCM fr = get_property ("timeSignatureFraction");
   if (scm_is_pair (fr) && !ly_is_equal (fr, prev_fraction_))

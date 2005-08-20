@@ -22,7 +22,7 @@ public:
 protected:
   virtual bool try_music (Music *ev);
   void stop_translation_timestep ();
-  virtual void create_audio_elements ();
+  void process_music ();
 
 private:
   Link_array<Music> note_evs_;
@@ -34,10 +34,9 @@ Drum_note_performer::Drum_note_performer ()
 }
 
 void
-Drum_note_performer::create_audio_elements ()
+Drum_note_performer::process_music ()
 {
-  SCM tab = 0;
-  if (!tab) tab = get_property ("drumPitchTable");
+  SCM tab = get_property ("drumPitchTable");
 
   while (note_evs_.size ())
     {

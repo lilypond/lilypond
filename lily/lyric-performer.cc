@@ -18,7 +18,7 @@ protected:
 
   virtual bool try_music (Music *event);
   void stop_translation_timestep ();
-  virtual void create_audio_elements ();
+   void process_music ();
 
 private:
   Link_array<Music> events_;
@@ -31,7 +31,7 @@ Lyric_performer::Lyric_performer ()
 }
 
 void
-Lyric_performer::create_audio_elements ()
+Lyric_performer::process_music ()
 {
   // FIXME: won't work with fancy lyrics
   if (events_.size ()

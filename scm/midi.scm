@@ -286,9 +286,10 @@ returns the program of the instrument
 (define-public (paper-book-write-midis paper-book basename)
   (let
       loop
-      ((perfs (ly:paper-book-performances paper-book))
-       (count 0))
-      
+    ((perfs (ly:paper-book-performances paper-book))
+     (count 0))
+
+
     (if (pair?  perfs)
 	(begin
 	  (ly:performance-write

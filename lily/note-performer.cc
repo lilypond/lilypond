@@ -25,7 +25,7 @@ protected:
   virtual bool try_music (Music *ev);
 
   void stop_translation_timestep ();
-  virtual void create_audio_elements ();
+  void process_music ();
 
 private:
   Link_array<Music> note_evs_;
@@ -33,7 +33,7 @@ private:
 };
 
 void
-Note_performer::create_audio_elements ()
+Note_performer::process_music ()
 {
   if (note_evs_.size ())
     {
@@ -89,7 +89,8 @@ Note_performer::try_music (Music *ev)
 #include "translator.icc"
 
 ADD_TRANSLATOR (Note_performer, "", "",
-		"note-event busy-playing-event",
+		"note-event "
+		"busy-playing-event",
 		"", "");
 
 Note_performer::Note_performer ()

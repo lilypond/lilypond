@@ -1,3 +1,13 @@
+2005-08-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/drum-note-performer.cc (class Drum_note_performer): use
+	process_music everywhere.
+
+	* ly/performer-init.ly: add default children everywhere.
+
+	* lily/paper-book.cc (output): call paper-book-write-midis
+	directly: always write MIDI, even if no \layout {} block. 
+
 2005-08-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PACKAGE_NAME): release 2.7.6

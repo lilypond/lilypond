@@ -11,7 +11,6 @@
 LY_DEFINE (ly_performance_write, "ly:performance-write",
 	   2, 0, 0, (SCM performance, SCM filename),
 	   "Write @var{performance} to @var{filename}")
-
 {
   Performance *perf = dynamic_cast<Performance *> (unsmob_music_output (performance));
 

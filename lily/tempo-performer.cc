@@ -22,7 +22,7 @@ protected:
 
   virtual bool try_music (Music *event);
   void stop_translation_timestep ();
-  virtual void create_audio_elements ();
+  void process_music ();
 
 private:
   Music *tempo_event_;
@@ -40,7 +40,7 @@ Tempo_performer::~Tempo_performer ()
 }
 
 void
-Tempo_performer::create_audio_elements ()
+Tempo_performer::process_music ()
 {
   if (tempo_event_)
     {
