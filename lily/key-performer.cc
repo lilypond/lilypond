@@ -19,7 +19,7 @@ public:
 
 protected:
   virtual bool try_music (Music *ev);
-  virtual void create_audio_elements ();
+  void process_music ();
   void stop_translation_timestep ();
 
 private:
@@ -38,7 +38,7 @@ Key_performer::~Key_performer ()
 }
 
 void
-Key_performer::create_audio_elements ()
+Key_performer::process_music ()
 {
   if (key_ev_)
     {

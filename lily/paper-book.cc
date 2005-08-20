@@ -90,6 +90,13 @@ Paper_book::add_performance (SCM s)
 void
 Paper_book::output (SCM output_channel)
 {
+  if (scm_is_pair (performances_))
+    {
+      SCM proc = ly_lily_module_constant ("paper-book-write-midis");
+
+      scm_call_2 (proc, self_scm (), output_channel);
+    }
+
   if (scores_ == SCM_EOL)
     return;
 

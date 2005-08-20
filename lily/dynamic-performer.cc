@@ -26,7 +26,7 @@ public:
 protected:
   virtual bool try_music (Music *event);
   void stop_translation_timestep ();
-  virtual void create_audio_elements ();
+  void process_music ();
 
 private:
   Music *script_event_;
@@ -40,7 +40,7 @@ Dynamic_performer::Dynamic_performer ()
 }
 
 void
-Dynamic_performer::create_audio_elements ()
+Dynamic_performer::process_music ()
 {
   if (script_event_)
     {

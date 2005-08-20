@@ -29,7 +29,7 @@ public:
 protected:
   virtual void initialize ();
   virtual bool try_music (Music *);
-  virtual void create_audio_elements ();
+  void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
@@ -69,7 +69,7 @@ Piano_pedal_performer::initialize ()
 }
 
 void
-Piano_pedal_performer::create_audio_elements ()
+Piano_pedal_performer::process_music ()
 {
   for (Pedal_info *p = info_alist_; p && p->name_; p++)
 
