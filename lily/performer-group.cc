@@ -62,6 +62,16 @@ performer_each (SCM list, Performer_method method)
 void
 Performer_group::do_announces ()
 {
+  for (SCM s = context ()->children_contexts ();
+       scm_is_pair (s); s = scm_cdr (s))
+    {
+      Context *c = unsmob_context (scm_car (s));
+      Performer_group *group
+	= dynamic_cast<Performer_group *> (c->implementation ());
+      if (group)
+	group->do_announces ();
+    }
+
   while (1)
     {
       performer_each (get_simple_trans_list (),
