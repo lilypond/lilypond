@@ -54,7 +54,7 @@ Kieren MacMillan, Steve Doonan, by Trevor Baca, and Vincent SD.
 
 @item
 With the @code{countPercentRepeats} property,
-percent repeats get incremental numbers to indicate how many repeats there are.
+percent repeats get incremental numbers to indicate the accumulated repeat count.
 
 @lilypond[relative=2,fragment,raggedright]
 \set countPercentRepeats = ##t
