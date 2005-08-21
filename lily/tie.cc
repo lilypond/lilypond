@@ -126,9 +126,12 @@ Tie::set_direction (Grob *me)
 
 
 SCM
-Tie::get_control_points (SCM smob)
+Tie::get_configuration (Grob *me_grob,
+			Grob **common,
+			Tie_configuration *conf)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+  
   if (!head (me, LEFT) && !head (me, RIGHT))
     {
       programming_error ("tie without heads");
@@ -143,16 +146,6 @@ Tie::get_control_points (SCM smob)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_position = tie_position;
-
-  Grob *common[NO_AXES];
-  for (int a = X_AXIS; a < NO_AXES; a++)
-    {
-      Axis ax ((Axis) a); 
-      common[ax] = me->get_bound (LEFT)->common_refpoint (me, ax); 
-      common[ax] = me->get_bound (RIGHT)->common_refpoint (common[a], ax); 
-    }
-
-  Interval attachments;
 
   Direction d = LEFT;
   Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
@@ -296,15 +289,15 @@ Tie::get_control_points (SCM smob)
 	  Offset edge = b.curve_point (0.0);
 
 	  Real center = (edge[Y_AXIS] + middle[Y_AXIS])/2.0;
-	  b.translate (Offset (0,
-			       staff_position * staff_space * 0.5
-			       - center));
+
+	  conf->edge_y_ = staff_position * staff_space * 0.5
+	    - center;
 	}
       else
 	{
-	  b.translate (Offset (0,
-			       (staff_position - dir) * staff_space * 0.5
-			       + dir * 0.2 * staff_space));
+	  conf->edge_y_ = 
+	    (staff_position - dir) * staff_space * 0.5
+	    + dir * 0.2 * staff_space;
 	}
     }
   else
@@ -312,20 +305,59 @@ Tie::get_control_points (SCM smob)
       Real where = 0.5 * dir;
       
       Real rounding_dy = (where - middle[Y_AXIS]);
-      b.translate (Offset (0,
-			   0.5 * staff_position * staff_space + rounding_dy));
+      conf->edge_y_ = 0.5 * staff_position * staff_space + rounding_dy;
 
       if (dir * b.curve_point (0.0)[Y_AXIS] <
 	  dir * tie_position * 0.5 * staff_space)
-	b.translate (Offset (0, staff_space * dir)); 
+	conf->edge_y_ +=  staff_space * dir; 
+    }
+
+  conf->position_ = staff_position;
+  conf->dir_ = dir;
+  conf->attachment_x_ = attachments;
+}
+
+
+SCM
+Tie::get_control_points (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+
+  Grob *common[NO_AXES] = {
+    0, 0
+  };
+  for (int a = X_AXIS; a < NO_AXES; a++)
+    {
+      Axis ax ((Axis) a); 
+      common[ax] = me->get_bound (LEFT)->common_refpoint (me, ax); 
+      common[ax] = me->get_bound (RIGHT)->common_refpoint (common[a], ax); 
     }
   
-  b.translate (Offset (attachments[LEFT]
+  Tie_configuration conf;
+  get_configuration (me, common, &conf);
+  
+  SCM details = me->get_property ("details");
+  SCM limit
+    = scm_assq (ly_symbol2scm ("height-limit"), details);
+
+  Real h_inf = robust_scm2double (scm_cdr (limit), 0.75) * staff_space;
+  Real r_0 = robust_scm2double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"),
+						   details)),
+				.333);
+
+  Bezier b = slur_shape (conf->attachment_x_.length(),
+			 h_inf, r_0);
+  b.scale (1, conf->dir_);
+  
+  Bezier b;
+  
+  b.translate (Offset (conf->attachment_x_[LEFT]
 		       - me->relative_coordinate (common[X_AXIS], X_AXIS), 0));
   
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
     controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
+
   return controls;
 }
 
@@ -388,3 +420,6 @@ ADD_INTERFACE (Tie,
 	       "head-pair "
 	       "thickness "
 	       "x-gap ");
+
+
+
