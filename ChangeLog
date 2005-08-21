@@ -1,12 +1,17 @@
+2005-08-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/tie-dots.ly (Module): remove.
+
+	* lily/tie.cc (get_control_points): rewrite. Put short ties in
+	staff-spaces, make long ties cross staff lines. Avoid flags and dots.
+
+	* input/regression/tie-single.ly: new file.
+
 2005-08-21  Graham Percival  <gpermus@gmail.com>
 
 	* ly/bagpipe.ly: fix compile problem.
 
 2005-08-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
-
-	* input/regression/tie-single.ly: new file.
-
-	* scm/define-grobs.scm (all-grob-descriptions): height limit .75
 
 	* lily/midi-item.cc (name): new method.
 
