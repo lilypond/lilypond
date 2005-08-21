@@ -379,7 +379,12 @@ Tie::print (SCM smob)
 ADD_INTERFACE (Tie,
 	       "tie-interface",
 	       "A tie connecting two noteheads.\n",
-
-	       "y-offset dash-period dash-fraction "
-	       "staffline-clearance control-points head-pair "
-	       "details thickness x-gap direction minimum-length");
+	       
+	       "control-points "
+	       "dash-fraction"
+	       "dash-period "
+	       "details "
+	       "direction"
+	       "head-pair "
+	       "thickness "
+	       "x-gap ");

@@ -431,8 +431,6 @@ expressed in global staffspace.")
      (staff-position ,number? "Vertical position, measured in half
 staff spaces, counted from the middle line.")
      
-     (staffline-clearance ,ly:dimension? "How far away ties keep from
-staff lines.")
      (stemlet-length ,number? "How long should a stem over a rest be?")
      (stem-attachment-function ,procedure? "A function that calculates
 where a stem attaches to the note head? This is a fallback when this
@@ -483,8 +481,6 @@ happen?")
 words in texts.")
      (width ,ly:dimension? "The width of a grob measured in staff space.")
      (x-gap ,ly:dimension? "The horizontal gap between note head and tie.")
-     (y-offset ,ly:dimension? "Extra vertical offset for ties away
-from the center line.")
      (zigzag-length ,ly:dimension? "The length of the lines of a
 zigzag, relative to @code{zigzag-width}. A value of 1 gives 60-degree
 zigzags.")
