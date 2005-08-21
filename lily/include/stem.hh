@@ -38,6 +38,7 @@ public:
   static void position_noteheads (Grob *);
   static Real stem_end_position (Grob *);
   static Stencil flag (Grob *);
+  static Stencil get_translated_flag (Grob*);
   static bool has_interface (Grob *);
   static void set_spacing_hints (Grob *);
 

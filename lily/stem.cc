@@ -528,9 +528,15 @@ Stem::height (SCM smob, SCM ax)
 Stencil
 Stem::flag (Grob *me)
 {
-  /* TODO: maybe property stroke-style should take different values,
-     e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
-     '() or "grace").  */
+  int log = duration_log (me);
+  if (log < 3
+      || unsmob_grob (me->get_object ("beam")))
+    return Stencil ();
+
+  /*
+    TODO: maybe property stroke-style should take different values,
+    e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
+    '() or "grace").  */
   String flag_style;
 
   SCM flag_style_scm = me->get_property ("flag-style");
@@ -566,7 +572,7 @@ Stem::flag (Grob *me)
 
   char dir = (get_direction (me) == UP) ? 'u' : 'd';
   String font_char = flag_style
-    + to_string (dir) + staffline_offs + to_string (duration_log (me));
+    + to_string (dir) + staffline_offs + to_string (log);
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil flag = fm->find_by_name ("flags." + font_char);
   if (flag.is_empty ())
@@ -694,16 +700,29 @@ Stem::print (SCM smob)
   Stencil ss = Lookup::round_filled_box (b, blot);
   mol.add_stencil (ss);
 
-  if (!get_beam (me) && abs (duration_log (me)) > 2)
-    {
-      Stencil fl = flag (me);
-      fl.translate_axis (stem_y[d] * half_space - d * blot / 2, Y_AXIS);
-      fl.translate_axis (stem_width / 2, X_AXIS);
-      mol.add_stencil (fl);
-    }
+  mol.add_stencil (get_translated_flag (me));
 
   return mol.smobbed_copy ();
 }
+
+Stencil
+Stem::get_translated_flag (Grob *me)
+{
+  Stencil fl = flag (me);
+  if (!fl.is_empty ())
+    {
+      Direction d = get_direction (me);
+      Real blot
+	= me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+      Real stem_width = thickness (me);
+      Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
+      Real y2 = stem_end_position (me);
+      fl.translate_axis (y2 * half_space - d * blot / 2, Y_AXIS);
+      fl.translate_axis (stem_width / 2, X_AXIS);
+    }
+  return fl;
+}
+
 
 /*
   move the stem to right of the notehead if it is up.

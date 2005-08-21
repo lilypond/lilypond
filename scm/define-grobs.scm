@@ -1440,7 +1440,7 @@
 	(staffline-clearance . 0.35)
 	(details . ((ratio . 0.333) (height-limit . 1.0)))
 	(thickness . 1.0)
-	(x-gap . -0.1)
+;	(x-gap . -0.1)
 	(y-offset . 0.6)
 	(minimum-length . 2.5)
 	(meta . ((class . Spanner)
