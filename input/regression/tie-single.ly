@@ -1,7 +1,6 @@
 \header
 {
   texidoc = "Formatting for isolated ties.
- Things to note:
 
 @itemize @bullet
 @item short ties are in spaces
@@ -11,6 +10,8 @@
 
 @item short ties are vertically centered in the space, as well those
 that otherwise don't fit in a space
+
+@item extremely short ties are put over the noteheads, instead of inbetween.
  
 @end itemize
 "

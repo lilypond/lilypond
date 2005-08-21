@@ -1436,7 +1436,7 @@
     (Tie
      . (
 	(print-function . ,Tie::print)
-	(spacing-procedure . ,Spanner::set_spacing_rods)
+;	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(staffline-clearance . 0.35)
 	(details . ((ratio . 0.333) (height-limit . 1.0)))
 	(thickness . 1.0)
