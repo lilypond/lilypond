@@ -384,7 +384,7 @@ ADD_INTERFACE (Tie,
 	       "dash-fraction"
 	       "dash-period "
 	       "details "
-	       "direction"
+	       "direction "
 	       "head-pair "
 	       "thickness "
 	       "x-gap ");
