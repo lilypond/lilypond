@@ -36,6 +36,21 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item
+Formatting of isolated, single ties has been improved. Now, ties avoid
+staff lines, flags and dots, without compromising their shape.
+
+@lilypond[fragment,raggedright]
+\relative c'' {
+  \stemUp
+  c16 c2...~ c16 ~ c2... |
+  c4~c8 c8~c16 c16~c32 c16.~[ c64]~ c64[ c8..] |
+}
+@end lilypond
+
+This improvement has been sponsored by Bertalan Fodor, Jay Hamilton,
+Kieren MacMillan, Steve Doonan, by Trevor Baca, and Vincent SD.
+ 
 
 @item
 With the @code{countPercentRepeats} property,
@@ -79,7 +94,7 @@ Tuplets can be made to reach the next non-tuplet note by setting the
 }
 @end lilypond  
 
-This feature was sponsored by Trevor Ba@v{c}a. 
+This feature was sponsored by Trevor Baca. 
 
 @item
 When @code{strict-note-spacing} is set, notes are spaced without regard
@@ -90,7 +105,7 @@ for clefs, bar lines, and grace notes. For example,
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
 
-This feature was sponsored by Trevor Ba@v{c}a. 
+This feature was sponsored by Trevor Baca. 
 
 @item
 Beams support the @code{break-overshoot} property, for example
@@ -101,7 +116,7 @@ Beams support the @code{break-overshoot} property, for example
 c2.. c8[ \break c]
 @end lilypond
  
-This feature was sponsored by Trevor Ba@v{c}a. 
+This feature was sponsored by Trevor Baca. 
 
 @item
 Proportional notation is supported.  Notes can be spaced proportional
@@ -116,7 +131,7 @@ to their time-difference by assigning a duration to
 >>
 @end lilypond
 
-This feature was sponsored by Trevor Ba@v{c}a.
+This feature was sponsored by Trevor Baca.
 
 @item 
 Symbol sizes (e.g. accidentals) are disregarded for spacing if
@@ -134,7 +149,7 @@ Symbol sizes (e.g. accidentals) are disregarded for spacing if
 >>
 @end lilypond
 
-This feature was sponsored by Trevor Ba@v{c}a.
+This feature was sponsored by Trevor Baca.
  
 @item
 Endings of broken tuplet brackets can be tuned.  For example, you can
@@ -150,7 +165,7 @@ add arrows to the brackets,
 }
 @end lilypond
 
-This feature was sponsored by Trevor Ba@v{c}a.
+This feature was sponsored by Trevor Baca.
 
 
 @item
@@ -165,7 +180,7 @@ Arrow heads were added to the Feta font.
 }
 @end lilypond
 
-These glyphs have been sponsored by Trevor Ba@v{c}a.
+These glyphs have been sponsored by Trevor Baca.
 
 
 @item
@@ -179,7 +194,7 @@ Nested tuplets are automatically positioned,
 }
 @end lilypond
 
-This feature was sponsored by Trevor Ba@v{c}a.
+This feature was sponsored by Trevor Baca.
 
 @item
 Music expressions can be displayed, in LilyPond notation, using the
