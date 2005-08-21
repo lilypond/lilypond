@@ -51,6 +51,7 @@ tie_compare (Grob *const &s1,
   return sign (Tie::get_position (s1) - Tie::get_position (s2));
 }
 
+#if 0
 /*
   Werner:
 
@@ -133,6 +134,7 @@ Tie_column::werner_directions (Grob *me)
 
   return;
 }
+#endif
 
 MAKE_SCHEME_CALLBACK (Tie_column, after_line_breaking, 1);
 SCM
@@ -168,4 +170,5 @@ Tie_column::before_line_breaking (SCM smob)
 ADD_INTERFACE (Tie_column, "tie-column-interface",
 	       "Object that sets directions of multiple ties in a tied chord",
 	       "direction");
+
 

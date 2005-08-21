@@ -12,6 +12,24 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
+
+struct Tie_configuration
+{
+  int position_;
+  Direction dir_;
+  Interval attachment_x_;
+  Real edge_y_;
+  
+  Tie_configuration ()
+  {
+    dir_ = CENTER;
+    position_ = 0;
+  }
+  
+  static int compare (Tie_configuration const &a,
+		      Tie_configuration const &b);
+};
+
 class Tie
 {
 public:
@@ -24,8 +42,10 @@ public:
   static Real get_position (Grob *);
   static Direction get_default_dir (Grob *);
   static SCM get_control_points (SCM);
+  static SCM get_configuration (SCM);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
 };
+
 
 #endif // TIE_HH
