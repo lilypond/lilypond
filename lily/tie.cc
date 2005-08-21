@@ -137,11 +137,12 @@ Tie::get_control_points (SCM smob)
     }
 
   set_direction (me);
-
+  int tie_position = (int) Tie::get_position (me);
+  
   Direction dir = get_grob_direction (me);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real staff_position = Tie::get_position (me);
+  Real staff_position = tie_position;
 
   Grob *common[NO_AXES];
   for (int a = X_AXIS; a < NO_AXES; a++)
@@ -230,7 +231,7 @@ Tie::get_control_points (SCM smob)
     Avoid dot
    */
   Grob *left_dot = unsmob_grob (me->get_bound (LEFT)->get_object ("dot"));
-  if (left_dot && in_space && fits_in_space)
+  if (left_dot && in_space)
     {
       if (staff_position == Staff_symbol_referencer::get_position (left_dot))
 	{
@@ -258,7 +259,7 @@ Tie::get_control_points (SCM smob)
     Putting larger in-space ties next to the notes forces
     the edges to be opposite (Y-wise) to the tie direction.
    */
-  if (staff_position == Tie::get_position (me)
+  if (staff_position == tie_position
       && in_space
       && dy > 0.3 * staff_space)
     {
@@ -280,7 +281,7 @@ Tie::get_control_points (SCM smob)
 
   if (!in_between
       && in_space
-      && fabs (staff_position - Tie::get_position (me)) <= 1)
+      && fabs (staff_position - tie_position) <= 1)
     staff_position += 2*dir;
   
   
@@ -308,10 +309,15 @@ Tie::get_control_points (SCM smob)
     }
   else
     {
-      Real rounding_dy = (1.5 * dir  - middle[Y_AXIS]);
+      Real where = 0.5 * dir;
       
+      Real rounding_dy = (where - middle[Y_AXIS]);
       b.translate (Offset (0,
 			   0.5 * staff_position * staff_space + rounding_dy));
+
+      if (dir * b.curve_point (0.0)[Y_AXIS] <
+	  dir * tie_position * 0.5 * staff_space)
+	b.translate (Offset (0, staff_space * dir)); 
     }
   
   b.translate (Offset (attachments[LEFT]
