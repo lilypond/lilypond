@@ -54,7 +54,7 @@ def talk_to_lilypond (expression_str):
 	cont = len (data) > 0
 	retval += data
 
-#    print retval
+    print retval
     return retval
 
 def set_measure_number (str, num):
