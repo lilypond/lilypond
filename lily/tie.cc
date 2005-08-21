@@ -124,6 +124,162 @@ Tie::set_direction (Grob *me)
     }
 }
 
+
+SCM
+Tie::get_control_points (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  if (!head (me, LEFT) && !head (me, RIGHT))
+    {
+      programming_error ("tie without heads");
+      me->suicide ();
+      return SCM_EOL;
+    }
+
+  set_direction (me);
+
+  Direction dir = get_grob_direction (me);
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real staff_position = Tie::get_position (me);
+
+  Grob *common[NO_AXES];
+  for (int a = X_AXIS; a < NO_AXES; a++)
+    {
+      Axis ax ((Axis) a); 
+      common[ax] = me->get_bound (LEFT)->common_refpoint (me, ax); 
+      common[ax] = me->get_bound (RIGHT)->common_refpoint (common[a], ax); 
+    }
+
+  Drul_array<Real> attachments;
+
+  Direction d = LEFT;
+  Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
+  do
+    {
+      attachments[d]
+	= robust_relative_extent (me->get_bound (d),
+				  common[X_AXIS],
+				  X_AXIS)[-d]
+	- gap * d;
+    }
+  while (flip (&d) != LEFT);
+
+  SCM details = me->get_property ("details");
+
+  SCM limit
+    = scm_assq (ly_symbol2scm ("height-limit"), details);
+
+  Real h_inf = robust_scm2double (scm_cdr (limit), 0.75) * staff_space;
+  Real r_0 = robust_scm2double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"), details)),
+				.333);
+
+  Bezier b = slur_shape (attachments[RIGHT] - attachments[LEFT],
+			 h_inf, r_0);
+  b.scale (1, dir);
+  
+  Offset middle = b.curve_point (0.5);
+  Offset edge = b.curve_point (0.0);
+
+  staff_position = rint (staff_position);
+  
+  Real dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
+  bool in_space = !(Staff_symbol_referencer::on_staffline (me, (int) staff_position));
+  bool fits_in_space = (dy < 0.6 * staff_space);
+
+  /*
+    Avoid dot
+   */
+  Grob *left_dot = unsmob_grob (me->get_bound (LEFT)->get_object ("dot"));
+  if (left_dot && in_space && fits_in_space)
+    {
+      if (staff_position == Staff_symbol_referencer::get_position (left_dot))
+	{
+	  staff_position += dir;
+	  in_space = false;
+	}
+    }
+
+  /*
+    Avoid flag.
+   */
+  Grob *left_stem = unsmob_grob (me->get_bound (LEFT)->get_object ("stem"));
+  if (left_stem)
+    {
+      Stencil flag = Stem::get_translated_flag (left_stem);
+      Real y = staff_position * staff_space * 0.5;
+      if (flag.extent (Y_AXIS).contains (y))
+	{
+	  staff_position += dir;
+	  in_space = !in_space;
+	}
+    }
+
+  /*
+    Putting larger in-space ties next to the notes forces
+    the edges to be opposite (Y-wise) to the tie direction.
+   */
+  if (staff_position == Tie::get_position (me)
+      && in_space
+      && dy > 0.3 * staff_space)
+    {
+      staff_position += 2 * dir; 
+    }
+  
+  if (in_space != fits_in_space)
+    {
+      if (in_space)
+	{
+	  staff_position += dir;
+	}
+      else
+	{
+	  in_space = true;
+	  staff_position += dir;
+	}
+    }
+
+  if (in_space)
+    {
+      if (fabs (dy) < 0.4 * staff_space)
+	{
+	  /*
+	    vertically center in space.
+	  */
+	  Offset middle = b.curve_point (0.5);
+	  Offset edge = b.curve_point (0.0);
+
+	  Real center = (edge[Y_AXIS] + middle[Y_AXIS])/2.0;
+	  b.translate (Offset (0,
+			       staff_position * staff_space * 0.5
+			       - center));
+	}
+      else
+	{
+	  b.translate (Offset (0,
+			       (staff_position - dir) * staff_space * 0.5
+			       + dir * 0.2 * staff_space));
+	}
+    }
+  else
+    {
+      Real rounding_dy = (1.5 * dir  - middle[Y_AXIS]);
+      
+      b.translate (Offset (0,
+			   0.5 * staff_position * staff_space + rounding_dy));
+    }
+  
+  b.translate (Offset (attachments[LEFT]
+		       - me->relative_coordinate (common[X_AXIS], X_AXIS), 0));
+  
+  SCM controls = SCM_EOL;
+  for (int i = 4; i--;)
+    controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
+  return controls;
+}
+
+
+
 MAKE_SCHEME_CALLBACK (Tie, print, 1);
 SCM
 Tie::print (SCM smob)
