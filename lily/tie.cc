@@ -151,7 +151,7 @@ Tie::get_control_points (SCM smob)
       common[ax] = me->get_bound (RIGHT)->common_refpoint (common[a], ax); 
     }
 
-  Drul_array<Real> attachments;
+  Interval attachments;
 
   Direction d = LEFT;
   Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
@@ -165,6 +165,44 @@ Tie::get_control_points (SCM smob)
     }
   while (flip (&d) != LEFT);
 
+  bool in_between = true;
+  if (attachments.length () < 0.6 * staff_space)
+    {
+      /*
+	Let short ties start over note heads, instead of between.
+       */
+      Drul_array<bool> allow (true, true);
+
+      Direction d = LEFT;
+      do {
+	if (Note_head::has_interface (me->get_bound (d)))
+	  {
+	    Grob *stem = unsmob_grob (me->get_bound (d)->get_object ("stem"));
+	    if (get_grob_direction (stem) == dir
+		&& -d == dir)
+	      allow[d] = false;
+	  }
+      } while (flip (&d) != LEFT);
+
+      if (allow[LEFT] && allow[RIGHT])
+	{
+	  staff_position += dir;
+	  do
+	    {
+	      if (Note_head::has_interface (me->get_bound (d)))
+		{
+		  Interval extent
+		    = robust_relative_extent (me->get_bound (d),
+					      common[X_AXIS], X_AXIS);
+
+		  attachments[d] = extent.linear_combination (- 0.5 * d);
+		  in_between = false;
+		}
+	    }
+	  while (flip (&d) != LEFT);
+	}
+    }
+
   SCM details = me->get_property ("details");
 
   SCM limit
@@ -174,7 +212,7 @@ Tie::get_control_points (SCM smob)
   Real r_0 = robust_scm2double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"), details)),
 				.333);
 
-  Bezier b = slur_shape (attachments[RIGHT] - attachments[LEFT],
+  Bezier b = slur_shape (attachments.length(),
 			 h_inf, r_0);
   b.scale (1, dir);
   
@@ -185,8 +223,9 @@ Tie::get_control_points (SCM smob)
   
   Real dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
   bool in_space = !(Staff_symbol_referencer::on_staffline (me, (int) staff_position));
-  bool fits_in_space = (dy < 0.6 * staff_space);
-
+  bool fits_in_space =
+    (dy < 0.6 * staff_space);
+  
   /*
     Avoid dot
    */
@@ -225,7 +264,7 @@ Tie::get_control_points (SCM smob)
     {
       staff_position += 2 * dir; 
     }
-  
+
   if (in_space != fits_in_space)
     {
       if (in_space)
@@ -239,6 +278,12 @@ Tie::get_control_points (SCM smob)
 	}
     }
 
+  if (!in_between
+      && in_space
+      && fabs (staff_position - Tie::get_position (me)) <= 1)
+    staff_position += 2*dir;
+  
+  
   if (in_space)
     {
       if (fabs (dy) < 0.4 * staff_space)

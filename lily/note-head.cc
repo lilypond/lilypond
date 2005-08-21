@@ -129,5 +129,9 @@ Note_head::get_balltype (Grob *me)
 
 ADD_INTERFACE (Note_head, "note-head-interface",
 	       "Note head",
-	       "note-names glyph-name-procedure accidental-grob style stem-attachment-function");
+	       "note-names "
+	       "glyph-name-procedure "
+	       "accidental-grob "
+	       "style "
+	       "stem-attachment-function");
 
