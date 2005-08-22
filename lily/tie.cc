@@ -320,6 +320,7 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 	  /*
 	    vertically center in space.
 	  */
+	  conf->dir_ = dir;	   
 	  conf->attachment_x_ = attachments;
 	  conf->center_tie_vertically(details);
 	}
