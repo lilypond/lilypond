@@ -8,6 +8,9 @@ or below the clef respectively."
 
 }
 
+\layout{
+  raggedright = ##t
+}
 
 
 { 
@@ -24,8 +27,5 @@ or below the clef respectively."
   \clef "subbass"c'1^"subbass" \bar "||"
   \override Staff.Clef  #'full-size-change = ##t 
   \clef "treble" c'1^"full-size-change = #t" \bar "|."
-}
-\layout{
-  raggedright = ##t
 }
 

@@ -6,6 +6,10 @@ However, beams remain correctly quantized."
 
 }
 
+\layout  {
+  raggedright = ##t
+}
+
 
 mus =  \relative c' { c4 g' d'8 d d d }
 
@@ -19,8 +23,6 @@ mus =  \relative c' { c4 g' d'8 d d d }
   }
   \mus
 >>
-  \layout  {
-    raggedright = ##t
-  }
+
 
 

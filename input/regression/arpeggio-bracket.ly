@@ -1,3 +1,4 @@
+\layout { raggedright= ##t }
 
 
 \version "2.6.0"
@@ -14,5 +15,4 @@ arpeggiate the chord.
   <fis,  d a >\arpeggio
 }
 
-\layout { raggedright= ##t }
 

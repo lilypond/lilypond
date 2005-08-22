@@ -4,7 +4,7 @@
 \version "2.6.0"
 
 \layout { raggedright = ##t }
-  \new Staff 
-    \partcombine
-     \relative c''{ R1*2 | c4 r2.  | c2 r  | R1 }
-     \relative c' {  c2 r | R1 | c4 r2. | R1*2  }
+\new Staff 
+\partcombine
+\relative c''{ R1*2 | c4 r2.  | c2 r  | R1 }
+\relative c' {  c2 r | R1 | c4 r2. | R1*2  }

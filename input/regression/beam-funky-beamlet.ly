@@ -8,6 +8,7 @@ should be pointing to the note head.
 
 }
 
+\layout { raggedright = ##t}
 
 \relative c' {
   c16 c''8 c,,16
@@ -15,5 +16,4 @@ should be pointing to the note head.
   c16 c,,8 c16          
   
 }
-\layout { raggedright = ##t}
 	  

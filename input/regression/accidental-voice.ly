@@ -1,4 +1,5 @@
 \version "2.6.0"
+\layout { raggedright = ##t }
 
 \header{
   texidoc="
@@ -37,4 +38,3 @@ voiceb =  \transpose c c' {
 
   }
 >>
-  \layout { raggedright = ##t }

@@ -9,6 +9,11 @@ under normal circumstances, these beams would get knees here
 "
 }
 
+\layout{
+  %%    raggedright = ##t
+  raggedright = ##t
+}
+
 extreme = \relative c'' {
   \stemNeutral
    g8[ c c,]
@@ -32,9 +37,4 @@ extreme = \relative c'' {
 				% we should not have them auto-kneed
   \override Beam  #'auto-knee-gap = ##f
   \extreme
-}
-
-\layout{
-  %%    raggedright = ##t
-  raggedright = ##t
 }

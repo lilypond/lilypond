@@ -10,13 +10,13 @@ quickly."
 
 }
 
+\layout{
+  raggedright = ##t
+}
 
 \relative c''{
   \stemUp
   b8[ c]
   b16[ c]
   a'[ b]
-}
-\layout{
-  raggedright = ##t
 }

@@ -7,7 +7,11 @@ Whenever a voice switches to another staff a line connecting the notes
 can be printed automatically. This is enabled if the property
 @code{followVoice} is set to true. "
 
-	}
+}
+
+\layout{ 
+  raggedright = ##t 
+}
 
 \relative c'
 \context PianoStaff <<
@@ -19,7 +23,5 @@ can be printed automatically. This is enabled if the property
   }
   \context Staff = "two" {\clef bass \skip 1*2 }
 >>
-\layout{ 
-  raggedright = ##t 
-}
+
 

@@ -168,13 +168,13 @@
 
      (set! status (my-system verbose? #f cmd))
 
-     (if multi-page?
-	 (set! files
+     (set! files
+	   (if multi-page?
 	       (map
 		(lambda (n)
 		  (format "~a-page~a.png" base (1+ n)))
-		(iota page-count)))
-	 (list (format "~a.png" base)))
+		(iota page-count))
+	       (list (format "~a.png" base))))
      
      (if (not (= 0 status))
 	 (begin
@@ -188,7 +188,7 @@
 		 (cons png1
 		       (cdr files)))
 	   ))
-     
+
      (if (not (= 1 aa-factor))
 	 (for-each  (lambda (f) (scale-down-image verbose? aa-factor f))
 		    files))

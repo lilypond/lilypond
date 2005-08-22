@@ -9,6 +9,9 @@ printed.
 
 }
 
+\layout{  raggedright = ##t }
+
+
 
 \context PianoStaff <<
   \set PianoStaff.followVoice = ##t	    
@@ -19,7 +22,5 @@ printed.
   }
   \context Staff = "two" { \clef bass \skip 1*2 }
 >>
-\layout{
-  raggedright = ##t
-}
+
 

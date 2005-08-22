@@ -1,3 +1,4 @@
+\layout{ raggedright = ##t}
 
 \version "2.6.0"
 
@@ -13,4 +14,3 @@
 
   f4  f8[ f]  f16[ f]  f32[ f]  f64[ f]  f128[ f] 
 }
-\layout{ raggedright = ##t}

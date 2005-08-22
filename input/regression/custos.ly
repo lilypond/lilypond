@@ -3,6 +3,16 @@
     texidoc = "Custodes may be engraved in various styles."
 }
 
+\layout {
+  \context {
+    \Staff
+    \consists Custos_engraver
+  }
+  raggedright = ##t
+}
+
+
+
 {
   \override Staff.Custos  #'neutral-position = #4
 
@@ -22,11 +32,3 @@
   c'1^"mensural"
   \break < d' a' f''>1
 }
-\layout {
-  \context {
-    \Staff
-    \consists Custos_engraver
-  }
-  raggedright = ##t
-}
-

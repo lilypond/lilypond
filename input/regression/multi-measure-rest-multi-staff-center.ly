@@ -2,7 +2,10 @@
 independent on prefatory matter in other staves."
 
 	}
+
+
 \version "2.6.0"
+\layout { raggedright = ##t }
 
 
 << \new Staff  { R1 } 
@@ -10,5 +13,5 @@ independent on prefatory matter in other staves."
 
  >>
 
-   \layout { raggedright = ##t } 
+ 
 

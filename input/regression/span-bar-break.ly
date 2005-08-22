@@ -7,6 +7,8 @@ barline is drawn between the staves, but the @code{:|} is not."
 
 }
 
+\layout{ raggedright = ##t }
+
 
 \new PianoStaff <<
   \context Staff = "up" {
@@ -15,5 +17,5 @@ barline is drawn between the staves, but the @code{:|} is not."
   }
   \context Staff = "down" { r r }
 >>
-\layout{ raggedright = ##t }
+
 

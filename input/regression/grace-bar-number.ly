@@ -9,11 +9,13 @@ breaks should be possible at grace notes, and the bar number should be
 printed correctly.
 "
 }
+\layout { raggedright = ##t }
+
 
 \relative c'' { c1 \break
 		\grace c8
 		c1  }
 
-\layout { raggedright = ##t }
+
 
 

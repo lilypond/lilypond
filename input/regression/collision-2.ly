@@ -2,7 +2,8 @@
 \header {
 texidoc = "Single head notes may collide. "
 }
-    \layout { raggedright= ##t }
+
+\layout { raggedright= ##t }
 
 
 \context Staff  \transpose c c' <<  

@@ -4,9 +4,11 @@
     dots: notes with dots should go to the right, if there could be
     confusion to which notes the dots belong."
 }
+\layout {  raggedright = ##t }
+
 \version "2.6.0"
 \relative c'' { 
   << <a c>2\\ { <b d>4 <b d>4 }   >>
   << { <a c>2 } \\ { <b d>4. <b e>8 } >> 
 }
-\layout {  raggedright = ##t } 
+ 

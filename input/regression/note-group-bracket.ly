@@ -16,6 +16,12 @@ analysis brackets start and end.
 }
 
 
+\layout {
+  \context {
+    \Staff \consists "Horizontal_bracket_engraver"
+  }
+  raggedright = ##t
+}
 
 
 \relative c''
@@ -26,13 +32,6 @@ analysis brackets start and end.
   c4\stopGroup\stopGroup
   c4\startGroup
   c4\stopGroup\stopGroup
-}
-
-\layout {
-  \context {
-    \Staff \consists "Horizontal_bracket_engraver"
-  }
-  raggedright = ##t
 }
 
 

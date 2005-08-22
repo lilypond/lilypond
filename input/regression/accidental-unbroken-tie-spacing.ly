@@ -5,6 +5,9 @@ wreak havoc in the spacing when unbroken."
 }
 
 \version "2.6.0"
+\layout {
+  raggedright = ##t
+}
 
 \relative c' {
   \clef treble
@@ -13,6 +16,3 @@ wreak havoc in the spacing when unbroken."
   <g b des f>8
 }
 
-\layout {
-  raggedright = ##t
-}

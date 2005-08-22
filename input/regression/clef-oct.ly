@@ -6,6 +6,8 @@ octavation signs may be placed below or above (meaning an octave
 higher or lower), and can take any value, including 15 for two octaves."
 
 }
+\layout { raggedright = ##t  }
+
 
 \relative c'' {
 
@@ -24,4 +26,4 @@ higher or lower), and can take any value, including 15 for two octaves."
   \clef "G^9"
   c4 
 }
-\layout { raggedright = ##t  }
+

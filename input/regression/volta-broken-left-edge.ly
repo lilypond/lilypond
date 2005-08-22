@@ -5,6 +5,8 @@
 
 }
 
+\layout { raggedright =##t }
+
 %{
 
 
@@ -118,6 +120,6 @@ voiceE =  {
   }
 
 >>
-  \layout { raggedright =##t }
+
 
 

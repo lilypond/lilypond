@@ -4,6 +4,9 @@
   texidoc = "Melismata are triggered by manual beams." 
 }
 
+  \layout { raggedright = ##t }
+
+
 
 
 <<
@@ -14,5 +17,5 @@
   
   \lyricsto "" \new Lyrics \lyricmode { bla bla bla }
 >>
-  \layout { raggedright = ##t }
+
 

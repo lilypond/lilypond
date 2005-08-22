@@ -10,6 +10,10 @@ flats in a sixth should be staggered.  "
   
 }
 
+\layout {
+  raggedright = ##t
+}
+
 
 \context Voice \relative c'
 {
@@ -31,9 +35,6 @@ flats in a sixth should be staggered.  "
   <bes! c d f >    
   <bes,! c d f >
 
-}
-\layout {
-  raggedright = ##t
 }
 
 

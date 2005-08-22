@@ -1,3 +1,4 @@
+\version "2.6.0"
 
 \header {
 
@@ -7,15 +8,16 @@
 
 }
 
+\layout {
+  raggedright = ##t
+}
+
 \relative c'' \context Staff {
   \set autoBeaming = ##f
   a8[ a8 a8 a8]
   a8 a8 a8 a8
 }
-\layout {
-  raggedright = ##t
-}
 
 
-\version "2.6.0"
+
 

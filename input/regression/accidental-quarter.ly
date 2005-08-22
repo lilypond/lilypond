@@ -4,6 +4,7 @@
     threequarters flat."
 }
 \version "2.6.0"
+\layout { raggedright = ##t }
 
 \relative c'' {
   \time 12/4 
@@ -18,4 +19,3 @@
   cisih
   cisis
 }
-\layout { raggedright = ##t }

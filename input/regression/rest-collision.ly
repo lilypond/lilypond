@@ -10,6 +10,8 @@ cases.
 "
 }
 
+\layout { raggedright = ##t }
+
 scale =  \relative c' {
   c8 d e f g a b c c d e f g a b c
 
@@ -48,7 +50,7 @@ restsII = \context Staff  {
   \scales 
   \restsII 
 }
-\layout { raggedright = ##t }
+
 	
 
 

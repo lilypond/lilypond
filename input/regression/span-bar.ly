@@ -9,6 +9,12 @@ between systems.
 "
 }
 
+\layout {
+  \context {
+    \Staff
+  }
+  raggedright =##t 
+}
 
 \relative c' \new StaffGroup <<
   \new Staff {
@@ -26,12 +32,6 @@ between systems.
     f1 f1 f1 f1
   }
 >>
-\layout {
-  \context {
-    \Staff
-  }
-  raggedright =##t 
-}
 
 
 

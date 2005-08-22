@@ -7,5 +7,7 @@ identifier @code{pipeSymbol}."
 pipeSymbol = \bar "||"
 
 \layout { raggedright = ##t }
+
+
 { c'2 | c'2 | }
     

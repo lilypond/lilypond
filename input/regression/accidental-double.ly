@@ -4,6 +4,7 @@
 	sharp sign is printed."
 }
 
+\layout { raggedright= ##t }
 
 \transpose c c'
 \context Staff <<
@@ -12,7 +13,6 @@
   \context Voice = "vb" { \stemDown c fis! }
 >>
 
-\layout { raggedright= ##t }
 
 
 

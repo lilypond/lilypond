@@ -2,6 +2,9 @@
 \version "2.6.0"
 \header { texidoc = "@cindex Beam Damp
 Beams are less steep than the notes they encompass. " }
+\layout{
+  raggedright = ##t
+}
 
 \relative c''{
   %%		\stemUp
@@ -16,9 +19,6 @@ Beams are less steep than the notes they encompass. " }
   \stemDown
   d'[ c b a]
   a[ b c d]
-}
-\layout{
-  raggedright = ##t
 }
 
 

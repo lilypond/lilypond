@@ -8,6 +8,10 @@ one may have collisions between ties and beams.
 
 }
 
+\layout {
+  raggedright = ##t
+}
+
 
 \context Staff \relative c'' 
 <<
@@ -18,8 +22,6 @@ one may have collisions between ties and beams.
   { \voiceThree  { b,8 ~ b8 ~ b8 ~  b8 }}
 >>
 
-  \layout {
-    raggedright = ##t
-  }
+
 
 

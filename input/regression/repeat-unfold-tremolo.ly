@@ -6,6 +6,8 @@
 
 }
 
+\layout { raggedright = ##t }
+
 
 
 {
@@ -23,5 +25,5 @@
 
   
 }
-\layout { raggedright = ##t }  
+  
 

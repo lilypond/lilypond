@@ -5,6 +5,7 @@
   texidoc = "Tuplet-spanner should not put (visible) brackets on
 beams even if they're auto generated."
 }
+\layout { raggedright= ##t }
 
 \relative c' {
   \set tupletSpannerDuration = #(ly:make-moment 1 4)
@@ -13,5 +14,4 @@ beams even if they're auto generated."
     f8[ f f ] f8[ f f ] f f f f f f 
   }
 }
-\layout { raggedright= ##t }
 

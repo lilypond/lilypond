@@ -2,7 +2,9 @@
 \header {texidoc = "@cindex Slur, dotted, dashed
 The appearance of slurs may be changed from solid to dotted or dashed.
 "
-       } 
+} 
+\layout{ raggedright=##t }
+
 
 \relative c'{
   c( d e  c) |
@@ -16,7 +18,8 @@ The appearance of slurs may be changed from solid to dotted or dashed.
   \slurSolid
   c( d e  c) |
 }
-\layout{ raggedright=##t }
+
+
 
 
 

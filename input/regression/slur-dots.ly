@@ -5,12 +5,14 @@
 of dots, the problems becomes more visible."
 }
 
-\relative c'' {
-  c4.............( c)
-}
 \layout {
   raggedright = ##t
 }
+
+\relative c'' {
+  c4.............( c)
+}
+
 
 
 

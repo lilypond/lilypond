@@ -6,6 +6,8 @@
       positioned correctly when there are collisions."
 }
 
+\layout { raggedright = ##t}
+
 
 \relative c'' {
   c4
@@ -13,6 +15,6 @@
   <<  { c4^^ }\\
       { d4_^ } >>
 }
-\layout { raggedright = ##t}
+
 
 

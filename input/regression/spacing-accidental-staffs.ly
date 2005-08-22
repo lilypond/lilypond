@@ -5,6 +5,8 @@
 spacing of the eighth notes here."
 }
 
+\layout { raggedright = ##t}
+
 \relative c'' <<
   \new Staff {
     \time 4/4
@@ -17,7 +19,7 @@ spacing of the eighth notes here."
   }
 >>
 
-\layout { raggedright = ##t} 
+ 
 
 
 

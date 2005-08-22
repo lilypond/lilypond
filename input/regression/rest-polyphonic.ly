@@ -6,6 +6,8 @@ even if there is no opposite note or rest. The amount is two
 
 }
 
+\layout { raggedright = ##t }
+
 
 \version "2.6.0"
 
@@ -14,5 +16,5 @@ even if there is no opposite note or rest. The amount is two
   << { r8 g''4 g8 r g4 g8 } \\
      { d,4    r   d   r   } >>
 }
-\layout { raggedright = ##t }
+
 

@@ -8,6 +8,10 @@ produced with explicit staff switches)."
 
 }
 
+\layout{
+  raggedright = ##t
+}
+
 \context PianoStaff <<
   \context Staff = "up" \relative c''{
     b8[ \change Staff="down" d,, ]
@@ -19,6 +23,3 @@ produced with explicit staff switches)."
     s2.
   }
 >>
-\layout{
-  raggedright = ##t
-}

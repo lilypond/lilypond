@@ -5,9 +5,9 @@
 }
 
 \version "2.6.0"
+\layout { raggedright= ##t }
 
 \relative c''{
   c8 c c c
   \times 4/6 { c c c c c c}
 }
-\layout { raggedright= ##t }

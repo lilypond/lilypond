@@ -9,7 +9,7 @@ note. When central C is reached, staff is not yet switched (by default).
 
 "
 }
-    \layout { raggedright= ##t }
+\layout { raggedright= ##t }
 
 \context PianoStaff <<
   \context Staff = "up" {

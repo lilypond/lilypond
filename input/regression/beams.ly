@@ -4,7 +4,7 @@
     texidoc = "Beaming can be also given explicitly."
 }
 
-    \layout { raggedright= ##t }
+\layout { raggedright= ##t }
 
 \relative c'
 {

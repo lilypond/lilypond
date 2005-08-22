@@ -8,6 +8,11 @@
 
 }
 
+\layout{
+  raggedright = ##t
+  indent = 0
+}
+
 \relative c'{
   %%\override Staff.Stem  #'beamed-lengths = #'(3.50)
   %%  c8[ d]
@@ -39,9 +44,5 @@
   
   a''[ f]
   f[ a]
-}
-\layout{
-  raggedright = ##t
-  indent = 0
 }
 

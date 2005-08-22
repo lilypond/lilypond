@@ -4,6 +4,12 @@
    completely identical to normal note heads.
 
   Harmonic heads do not get  dots. If @code{harmonicAccidentals} is unset, they also don't get accidentals."
+
+  
+}
+
+\layout {
+  raggedright = ##t 
 }
 
 \version "2.6.0"
@@ -18,7 +24,5 @@
   < dis'' gis''\harmonic >8
 }
 
-\layout {
-  raggedright = ##t 
-}
+
 

@@ -10,6 +10,8 @@ eighth note. "
 
 }
 
+\layout { raggedright = ##t}
+
 \relative c''
 {
   \time 2/4 
@@ -20,6 +22,6 @@ eighth note. "
 
 }
 
-\layout { raggedright = ##t}
+
 
 

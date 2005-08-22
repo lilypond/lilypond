@@ -7,6 +7,9 @@ true; the two grace beams should be the same here.
 }
 
 
+\layout {
+  raggedright = ##t
+}  
 
 \context Voice \relative c {
   \grace { 
@@ -18,9 +21,4 @@ true; the two grace beams should be the same here.
   a4
   
 }
-\layout {
-  raggedright = ##t
-}  
-\midi { }
-
 

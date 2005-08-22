@@ -7,6 +7,9 @@
 
 }
 
+\layout { raggedright = ##t}
+
+
 
 \relative c''{\key a \minor \time 2/4
 	      \repeat "volta" 2 {
@@ -15,7 +18,7 @@
 		
 	      }
 	    }
-\layout { raggedright = ##t}
+
  
 
 

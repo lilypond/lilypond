@@ -10,14 +10,16 @@ to it.  "
 
 }
 
+\layout {
+  raggedright = ##t
+}
+
 
 \context Voice \relative c' {
   e'4-. f-. g-. d-. c-. b-.
   \stemDown
   e,-. d-. c-. b-. a-. g-.    
 }
-\layout {
-  raggedright = ##t
-}  
+  
 
 

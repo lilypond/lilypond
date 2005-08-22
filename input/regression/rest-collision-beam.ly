@@ -2,6 +2,10 @@
   texidoc = "Rests under beams are only moved if necessary."
 }
 
+\layout {
+  raggedright = ##t
+}
+
 \version "2.6.0"
 
 fig =   \relative c' {
@@ -31,8 +35,6 @@ fig =   \relative c' {
      >>
   }
 
-  \layout {
-    raggedright = ##t
-  }
+
 
 

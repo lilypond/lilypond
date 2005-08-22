@@ -14,6 +14,14 @@ are used then a different symbol is used.
 "
 }
 
+\layout {
+  \context {
+    \Score
+    skipBars = ##t
+  }
+  raggedright = ##t	
+}
+
 
 {
   \time 3/4 \key cis \major
@@ -25,13 +33,6 @@ are used then a different symbol is used.
   R2.*11
 
   \time 8/4 R1*2
-}
-\layout {
-  \context {
-    \Score
-    skipBars = ##t
-  }
-  raggedright = ##t	
 }
 
 

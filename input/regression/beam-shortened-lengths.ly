@@ -4,6 +4,8 @@
 \header{
     texidoc="Beams in unnatural direction, have shortened stems, but do not look too short."
     }
+\layout{ raggedright = ##t }
+
 
 \relative c'{
   \override Beam  #'position-callbacks =
@@ -13,4 +15,4 @@
   \stemUp
   f'4  f8[ f]  f16[ f]  f32[ f]  f64[ f]  f128[ f] 
 }
-\layout{ raggedright = ##t }
+

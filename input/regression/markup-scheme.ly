@@ -14,6 +14,17 @@ For maintenance reasons, we don't excercise the entire markup command set.
 
 %}
 
+\layout { 
+  raggedright = ##t
+  indent = #0
+  \context {
+    \Staff
+    \remove Time_signature_engraver 
+  }
+}
+
+
+
 \version "2.6.0"
 
 {
@@ -62,12 +73,3 @@ For maintenance reasons, we don't excercise the entire markup command set.
 		       #:smaller #:smaller #:smaller "A")
 	#:sub "alike")
 }
-\layout { 
-  raggedright = ##t
-  indent = #0
-  \context {
-    \Staff
-    \remove Time_signature_engraver 
-  }
-}
-

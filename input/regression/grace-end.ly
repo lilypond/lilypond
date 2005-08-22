@@ -8,14 +8,17 @@
 
 }
 
+\layout {
+  raggedright = ##t
+}
+
+
 
 \context Voice \relative c' {
   
   c4 \grace {  d16[ d16] }
   
 }
-\layout {
-  raggedright = ##t
-}  
+  
 
 

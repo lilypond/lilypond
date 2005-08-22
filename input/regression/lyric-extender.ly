@@ -8,6 +8,7 @@ does not extend past a rest, or past the next lyric syllable."
 }
 
 \layout { raggedright = ##t }
+
 \relative c''{
     d8( e f) r4. 
     f4

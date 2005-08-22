@@ -11,6 +11,10 @@ much to correct."
 
 }
 
+\layout {
+  raggedright = ##t
+}
+
 
 \context Voice \relative c {
   %% make sure neutral is down.
@@ -18,8 +22,6 @@ much to correct."
   \time 16/4  c''4 c c,  c' d, c' e, c' f, c' g c a c b c
 }
 
-\layout {
-  raggedright = ##t
-}  
+  
 
 
