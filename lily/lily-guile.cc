@@ -84,7 +84,7 @@ ly_symbol2string (SCM s)
 }
 
 String
-gulp_file_to_string (String fn, bool must_exist)
+gulp_file_to_string (String fn, bool must_exist, int size)
 {
   String s = global_path.find (fn);
   if (s == "")
@@ -103,7 +103,7 @@ gulp_file_to_string (String fn, bool must_exist)
   if (be_verbose_global)
     progress_indication ("[" + s);
 
-  int n;
+  int n = sz;
   char *str = gulp_file (s, &n);
   String result ((Byte *) str, n);
   delete[] str;

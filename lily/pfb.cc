@@ -77,11 +77,11 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
 		   SCM_ARG1, __FUNCTION__, "string");
 
   String file_name = ly_scm2string (pfb_file_name);
-  int len;
+  int len = -1;
 
   if (be_verbose_global)
     progress_indication ("[" + file_name);
-
+  
   char *str = gulp_file (file_name, &len);
   char *pfa = pfb2pfa ((Byte *)str, len);
 
