@@ -68,8 +68,7 @@
 	 (status (system cmd))
 	 (s (gulp-file d bbox 10240))
 	 (m (string-match BOUNDING_BOX_RE s)))
-    (display m)
-    (newline)
+
     (if m
 	(list->vector
 	 (map (lambda (x) (string->number (car x))) (vector->list m)))
@@ -100,7 +99,7 @@
   (let* ((status 0)
 	 (percentage (* 100 (/ 1.0 factor)))
 	 (old (string-append file ".old")))
-  
+
   (rename-file file old)
   (my-system be-verbose
 	     #t
@@ -173,7 +172,7 @@
 	 (set! files
 	       (map
 		(lambda (n)
-		  (format "~a-page~a.png" base n))
+		  (format "~a-page~a.png" base (1+ n)))
 		(iota page-count)))
 	 (list (format "~a.png" base)))
      
@@ -181,7 +180,7 @@
 	 (begin
 	   (map delete-file files)
 	   (exit 1)))
-     
+
      (if (and rename-page-1? multi-page?)
 	 (begin
 	   (rename-file (re-sub "%d" "1" pngn) png1)
