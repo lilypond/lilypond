@@ -1,5 +1,14 @@
 2005-08-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/ps-to-png.scm: remove dir-re function.
+	(make-ps-images): generate page names, instead of globbing them.
+	This brings down LilyPond memory usage for make web by a factor
+	10.
+
+	* scripts/lilypond-book.py (Lilypond_snippet.png_is_outdated):
+	don't use glob. With 3000 files, globbing
+	Documentation/user/out-www/ can take too much time.
+
 	* lily/lily-guile.cc (gulp_file_to_string): take size argument.
 
 	* lily/general-scheme.cc (LY_DEFINE): take optional size argument.

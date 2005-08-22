@@ -12,7 +12,8 @@
  (ice-9 rw)
  (srfi srfi-1)
  (srfi srfi-13)
- (srfi srfi-14))
+ (srfi srfi-14)
+ )
 
 ;; gettext wrapper for guile < 1.7.2
 (if (defined? 'gettext)
@@ -45,14 +46,10 @@
     (read-string!/partial str port 0 max-length)
    str))
 
-(define (dir-listing dir-name)
-  (define (dir-helper dir lst)
-    (let ((e (readdir dir)))
-      (if (eof-object? e) lst (dir-helper dir (cons e lst)))))
-  (reverse (dir-helper (opendir dir-name) '())))
+(define (gulp-file nm len)
+  (gulp-port (open-file nm "r") len))
 
-(define (dir-re dir re)
-  (filter (lambda (x) (string-match re x)) (dir-listing dir)))
+;;; ARGH - cuases memory usage to explode with GUILE cvs.  
 
 (define BOUNDING-BOX-RE
   "^%%BoundingBox: (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)")
@@ -69,7 +66,7 @@
  -c quit 2>~S"
 			  file-name bbox))
 	 (status (system cmd))
-	 (s (gulp-port (open-file bbox "r") 10240))
+	 (s (gulp-file d bbox 10240))
 	 (m (string-match BOUNDING_BOX_RE s)))
     (display m)
     (newline)
@@ -111,6 +108,16 @@
   (delete-file old)
   ))
 
+
+(define-public (ps-page-count ps-name)
+  (let*
+      ((header (gulp-file ps-name 10240))
+       (match (string-match "%%Pages: ([0-9]+)" header))
+       (count (if match
+		  (string->number (match:substring match 1))
+		  0)))
+    count))
+
 (define-public (make-ps-images ps-name . rest)
   (let-optional
    rest ((resolution 90)
@@ -121,13 +128,12 @@
 	 )
    
    (let* ((base (basename (re-sub "[.]e?ps" "" ps-name)))
-	  (header (ly:gulp-file ps-name))
-;	  (header (gulp-port (open-file ps-name "r") 10240))
+	  (header (gulp-file ps-name 10240))
 	  (png1 (string-append base ".png"))
 	  (pngn (string-append base "-page%d.png"))
-	  (pngn-re (re-sub "%d" "[0-9]*" pngn))
-	  (multi-page? (and (string-match "\n%%Pages: " header)
-			    (not (string-match "\n%%Pages: 1\n" header))))
+	  (page-count (ps-page-count ps-name))
+	  
+	  (multi-page? (> page-count 1))
 	  (output-file (if multi-page? pngn png1))
 
 	  ;;png16m is because Lily produces color nowadays.
@@ -154,10 +160,6 @@
 	  (status 0)
 	  (files '()))
 
-     
-     (for-each delete-file (append (dir-re "." png1)
-				   (dir-re "." pngn-re)))
-     
      ;; The wrapper on windows cannot handle `=' signs,
      ;; gs has a workaround with #.
      (if (eq? PLATFORM 'windows)
@@ -167,20 +169,26 @@
 
      (set! status (my-system verbose? #f cmd))
 
-     (set! files
-	   (append (dir-re "." png1) (dir-re "." pngn-re)))
-
+     (if multi-page?
+	 (set! files
+	       (map
+		(lambda (n)
+		  (format "~a-page~a.png" base n))
+		(iota page-count)))
+	 (list (format "~a.png" base)))
+     
      (if (not (= 0 status))
 	 (begin
 	   (map delete-file files)
 	   (exit 1)))
      
      (if (and rename-page-1? multi-page?)
-	 (rename-file (re-sub "%d" "1" pngn) png1))
-     
-     (set! files
-	   (append (dir-re "." png1) (dir-re "." pngn-re)))
-
+	 (begin
+	   (rename-file (re-sub "%d" "1" pngn) png1)
+	   (set! files
+		 (cons png1
+		       (cdr files)))
+	   ))
      
      (if (not (= 1 aa-factor))
 	 (for-each  (lambda (f) (scale-down-image verbose? aa-factor f))

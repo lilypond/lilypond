@@ -954,9 +954,20 @@ class Lilypond_snippet (Snippet):
 		base = self.basename ()
 		ok = self.ly_is_outdated ()
 		if format == HTML or format == TEXINFO:
-			ok = ok and (os.path.exists (base + '.png')
-				     or glob.glob (base + '-page*.png'))
+			ok = ok and os.path.exists (base + '.eps')
+
+			page_count = 0
+			if ok:
+				page_count = ly.ps_page_count (base + '.eps')
+			
+			if page_count == 1:
+				ok = ok and os.path.exists (base + '.png')
+			elif page_count > 1:
+				for a in range (1, page_count + 1):
+						ok = ok and os.path.exists (base + '-page%d.png' % a)
+				
 		return not ok
+	
 	def texstr_is_outdated (self):
 		if backend == 'ps':
 			return 0
@@ -990,7 +1001,9 @@ class Lilypond_snippet (Snippet):
 		   and (not os.path.exists (single) \
 			or (os.stat (multiple)[stat.ST_MTIME] \
 			    > os.stat (single)[stat.ST_MTIME])):
-			images = glob.glob ('%(base)s-page*.png' % vars ())
+			count = ly.ps_page_count ('%(base)s.eps' % vars ())
+			images = ['%s-page%d.png' % (base, a) for a in range (1, count+1)]
+			images = tuple (images)
 		return images
 
 	def output_html (self):

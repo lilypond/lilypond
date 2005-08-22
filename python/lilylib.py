@@ -348,6 +348,13 @@ def print_environment ():
 		sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
 
 
+def ps_page_count (ps_name):
+	header = open (ps_name).read (1024)
+	m = re.search ('\n%%Pages: ([0-9]+)', header)
+	if m:
+		return string.atoi (m.group (1))
+	return 0
+
 def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 		    rename_page1_p = 0):
 	base = os.path.basename (re.sub (r'\.e?ps', '', ps_name))

@@ -73,7 +73,7 @@ gulp_file (String filename, int *filesize)
     warning (_f ("expected to read %d characters, got %d", bytes_read,
 		 read_count));
   fclose (f);
-
+  *filesize = bytes_read;
   return str;
 }
 
