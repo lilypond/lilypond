@@ -65,11 +65,11 @@ Tie::get_column_rank (Grob *me, Direction d)
   return Paper_column::get_rank (col);
 }
 
-Real
+int
 Tie::get_position (Grob *me)
 {
   Direction d = head (me, LEFT) ? LEFT : RIGHT;
-  return Staff_symbol_referencer::get_position (head (me, d));
+  return (int) Staff_symbol_referencer::get_position (head (me, d));
 }
 
 /*
@@ -114,10 +114,87 @@ Tie::set_direction (Grob *me)
     }
 }
 
+Interval
+get_default_attachments (Spanner *me, Grob *common, Real gap,
+			 int *staff_position,
+			 bool *in_between
+			 )
+{
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Direction dir = get_grob_direction (me);
+  Interval attachments;
+  Direction d = LEFT;
+  do
+    {
+      attachments[d]
+	= robust_relative_extent (me->get_bound (d),
+				  common,
+				  X_AXIS)[-d]
+	- gap * d;
+    }
+  while (flip (&d) != LEFT);
 
+  if (attachments.length () < 0.6 * staff_space)
+    {
+      /*
+	Let short ties start over note heads, instead of between.
+      */
+      Drul_array<bool> allow (true, true);
+
+      Direction d = LEFT;
+      do {
+	if (Note_head::has_interface (me->get_bound (d)))
+	  {
+	    Grob *stem = unsmob_grob (me->get_bound (d)->get_object ("stem"));
+	    if (get_grob_direction (stem) == dir
+		&& -d == dir)
+	      allow[d] = false;
+	  }
+      } while (flip (&d) != LEFT);
+
+      if (allow[LEFT] && allow[RIGHT])
+	{
+	  *staff_position += dir;
+	  do
+	    {
+	      if (Note_head::has_interface (me->get_bound (d)))
+		{
+		  Interval extent
+		    = robust_relative_extent (me->get_bound (d),
+					      common, X_AXIS);
+
+		  attachments[d] = extent.linear_combination (- 0.5 * d);
+		  *in_between = false;
+		}
+	    }
+	  while (flip (&d) != LEFT);
+	}
+    }
+
+  return attachments;
+}  
+
+Interval
+get_skyline_attachment (Drul_array< Array < Skyline_entry > > const &skylines,
+			Real y)
+{
+  Interval attachments;
+  Direction d = LEFT;
+  do
+    {
+      attachments[d] = skyline_height (skylines[d], y, -d);
+    }
+  while (flip (&d) != LEFT);
+  
+  return attachments;
+}
+			
 void
-Tie::get_configuration (Grob *me_grob, Grob **common,
-			Tie_configuration *conf)
+Tie::get_configuration (Grob *me_grob, Grob *common,
+			Tie_configuration *conf,
+			Drul_array< Array < Skyline_entry > > const *skylines,
+			Tie_details const &details
+			)
 {
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
   if (!head (me, LEFT) && !head (me, RIGHT))
@@ -130,7 +207,7 @@ Tie::get_configuration (Grob *me_grob, Grob **common,
   Direction dir = CENTER;
   
   int tie_position = (int) Tie::get_position (me);
-  int staff_position = conf->position_;
+  int staff_position = (int) conf->position_;
 
   if (conf->dir_)
     {
@@ -143,72 +220,28 @@ Tie::get_configuration (Grob *me_grob, Grob **common,
 	dir = get_default_dir (me);
     }
 
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real staff_space = details.staff_space_;
 
   bool in_between = true;
   Interval attachments = conf->attachment_x_;
+  Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
   if (attachments.is_empty())
     {
-      Direction d = LEFT;
-      Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
-      do
+      if (!skylines)
+	attachments = get_default_attachments (me, common, gap,
+					       &staff_position,
+					       &in_between);
+      else
 	{
-	  attachments[d]
-	    = robust_relative_extent (me->get_bound (d),
-				      common[X_AXIS],
-				      X_AXIS)[-d]
-	    - gap * d;
-	}
-      while (flip (&d) != LEFT);
-  
-      if (attachments.length () < 0.6 * staff_space)
-	{
-	  /*
-	    Let short ties start over note heads, instead of between.
-	  */
-	  Drul_array<bool> allow (true, true);
-
-	  Direction d = LEFT;
-	  do {
-	    if (Note_head::has_interface (me->get_bound (d)))
-	      {
-		Grob *stem = unsmob_grob (me->get_bound (d)->get_object ("stem"));
-		if (get_grob_direction (stem) == dir
-		    && -d == dir)
-		  allow[d] = false;
-	      }
-	  } while (flip (&d) != LEFT);
-
-	  if (allow[LEFT] && allow[RIGHT])
-	    {
-	      staff_position += dir;
-	      do
-		{
-		  if (Note_head::has_interface (me->get_bound (d)))
-		    {
-		      Interval extent
-			= robust_relative_extent (me->get_bound (d),
-						  common[X_AXIS], X_AXIS);
-
-		      attachments[d] = extent.linear_combination (- 0.5 * d);
-		      in_between = false;
-		    }
-		}
-	      while (flip (&d) != LEFT);
-	    }
+	  Real y = staff_space * 0.5 * staff_position;
+	  attachments = get_skyline_attachment (*skylines, y);
+	  attachments.widen (-gap);
 	}
     }
-  SCM details = me->get_property ("details");
-
-  SCM limit
-    = scm_assq (ly_symbol2scm ("height-limit"), details);
-
-  Real h_inf = robust_scm2double (scm_cdr (limit), 0.75) * staff_space;
-  Real r_0 = robust_scm2double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"), details)),
-				.333);
 
   Bezier b = slur_shape (attachments.length(),
-			 h_inf, r_0);
+			 details.height_limit_,
+			 details.ratio_);
   b.scale (1, dir);
   
   Offset middle = b.curve_point (0.5);
@@ -282,17 +315,13 @@ Tie::get_configuration (Grob *me_grob, Grob **common,
   
   if (in_space)
     {
-      if (fabs (dy) < 0.4 * staff_space)
+      if (fabs (dy) < 0.45 * staff_space)
 	{
 	  /*
 	    vertically center in space.
 	  */
-	  Offset middle = b.curve_point (0.5);
-	  Offset edge = b.curve_point (0.0);
-
-	  Real center = (edge[Y_AXIS] + middle[Y_AXIS])/2.0;
-
-	  conf->delta_y_ = - center;
+	  conf->attachment_x_ = attachments;
+	  conf->center_tie_vertically(details);
 	}
       else
 	{
@@ -314,6 +343,13 @@ Tie::get_configuration (Grob *me_grob, Grob **common,
 
   conf->dir_ = dir;
   conf->position_ = staff_position;
+
+  if (skylines)
+    {
+      Real y = staff_space * 0.5 * staff_position;
+      attachments = get_skyline_attachment (*skylines, y);
+      attachments.widen (-gap);
+    }
   conf->attachment_x_ = attachments;
 }
 
@@ -322,15 +358,9 @@ void
 Tie::set_default_control_points (Grob *me_grob)
 {
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
-  Grob *common[NO_AXES] = {
-    0, 0
-  };
-  for (int a = X_AXIS; a < NO_AXES; a++)
-    {
-      Axis ax ((Axis) a); 
-      common[ax] = me->get_bound (LEFT)->common_refpoint (me, ax); 
-      common[ax] = me->get_bound (RIGHT)->common_refpoint (common[a], ax); 
-    }
+  Grob *common  = me;
+  common = me->get_bound (LEFT)->common_refpoint (common, X_AXIS); 
+  common = me->get_bound (RIGHT)->common_refpoint (common, X_AXIS); 
   
   Tie_configuration conf;
   if (!get_grob_direction (me))
@@ -338,33 +368,25 @@ Tie::set_default_control_points (Grob *me_grob)
 
   int tie_position = (int) Tie::get_position (me);
   conf.position_ = tie_position;
-
   
-  get_configuration (me, common, &conf);
-  set_control_points (me, common, conf);
+  Tie_details details;
+  details.init (me);
+  get_configuration (me, common, &conf, 0, details);
+  set_control_points (me, common, conf, details);
 }
 
 void
 Tie::set_control_points (Grob *me,
-			 Grob **common,
-			 Tie_configuration const &conf)
+			 Grob *common,
+			 Tie_configuration const &conf,
+			 Tie_details const &details
+			 )
 {
-  SCM details = me->get_property ("details");
-  SCM limit
-    = scm_assq (ly_symbol2scm ("height-limit"), details);
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real h_inf = robust_scm2double (scm_cdr (limit), 0.75) * staff_space;
-  Real r_0 = robust_scm2double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"),
-						   details)),
-				.333);
-
-  Bezier b = slur_shape (conf.attachment_x_.length(),
-			 h_inf, r_0);
+  Bezier b = conf.get_bezier (details);
   b.scale (1, conf.dir_);
   b.translate (Offset (conf.attachment_x_[LEFT]
-		       - me->relative_coordinate (common[X_AXIS], X_AXIS),
-		       0.5 * conf.position_ * staff_space 
+		       - me->relative_coordinate (common, X_AXIS),
+		       0.5 * conf.position_ * details.staff_space_
 		       + conf.delta_y_
 		       ));
   
@@ -437,20 +459,3 @@ ADD_INTERFACE (Tie,
 	       "direction "
 	       "thickness "
 	       "x-gap ");
-
-int
-Tie_configuration::compare (Tie_configuration const &a,
-			    Tie_configuration const &b)
-{
-  if (a.position_ - b.position_)
-    return sign (a.position_ - b.position_);
-  return sign (a.dir_ - b.dir_);
-}
-			    
-
-Tie_configuration::Tie_configuration ()
-{
-  dir_ = CENTER;
-  position_ = 0;
-  delta_y_ = 0.0;
-}

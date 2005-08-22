@@ -20,7 +20,6 @@ public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   static void set_directions (Grob *me);
-  static void werner_directions (Grob *me);
   static void new_directions (Grob *me);
 };
 
