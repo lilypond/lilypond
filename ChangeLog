@@ -1,5 +1,9 @@
 2005-08-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/tie-manual.ly: new file
+
+	* input/regression/tie-chord.ly: update.
+
 	* flower/include/interval.hh (struct Interval_t): 
 
 	* lily/tie.cc (distance): new function 
