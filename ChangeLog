@@ -1,3 +1,7 @@
+2005-08-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PATCH_LEVEL): release 2.7.7
+
 2005-08-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* make/lilypond-vars.make: set -dgs-font-load for "make web" 
