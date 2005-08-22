@@ -13,6 +13,7 @@
  (srfi srfi-1)
  (srfi srfi-13)
  (srfi srfi-14)
+ (lily)
  )
 
 ;; gettext wrapper for guile < 1.7.2
@@ -47,7 +48,13 @@
    str))
 
 (define (gulp-file nm len)
-  (gulp-port (open-file nm "r") len))
+
+  ;; string routines barf when strlen() != string-length,.
+  ;; which may happen as side effect of read-string!/partial.
+  
+;  (gulp-port (open-file nm "r") len))
+  (ly:gulp-file nm len))
+  
 
 ;;; ARGH - cuases memory usage to explode with GUILE cvs.  
 
