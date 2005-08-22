@@ -583,9 +583,10 @@ entries @code{name} and @code{interfaces}.")
      ;; TODO: use interface for this!
      (chord-tremolo ,boolean? "if set, this beam is a tremolo. ")
      (begin-of-line-visible ,boolean? "Used for marking ChordNames that should only show changes.")
-     (head-pair ,pair? "Pair of grob pointers, pointing to the two heads of the tie.")
+
      (quant-score ,string? "Beam quanting score -- can be stored for
 debugging")
+     
      (least-squares-dy ,number? 
 		       "ideal beam slope, without damping.")
      (ligature-primitive-callback ,procedure? "callback that brews ligature head.")

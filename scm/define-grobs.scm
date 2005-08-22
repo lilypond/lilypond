@@ -1438,8 +1438,6 @@
 	(print-function . ,Tie::print)
 	(details . ((ratio . 0.333) (height-limit . 1.0)))
 	(thickness . 1.0)
-	(y-offset . 0.6)
-	(minimum-length . 2.5)
 	(meta . ((class . Spanner)
 		 (interfaces . (tie-interface))))))
 

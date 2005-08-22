@@ -1,4 +1,3 @@
-
 /*
   tie-column.hh -- declare Tie_column
 
@@ -22,6 +21,7 @@ public:
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   static void set_directions (Grob *me);
   static void werner_directions (Grob *me);
+  static void new_directions (Grob *me);
 };
 
 #endif /* TIE_COLUMN_HH */

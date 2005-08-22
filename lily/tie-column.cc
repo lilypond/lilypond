@@ -6,6 +6,12 @@
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+
+#include <math.h>
+#include <map>
+
+#include "staff-symbol-referencer.hh"
+#include "warn.hh"
 #include "tie-column.hh"
 #include "paper-column.hh"
 #include "spanner.hh"
@@ -14,12 +20,6 @@
 #include "directional-element-interface.hh"
 #include "rhythmic-head.hh"
 
-/*
-  tie dir depends on what Tie_column does.
-*/
-/*
-  TODO: this doesn't follow standard pattern. Regularize.
-*/
 void
 Tie_column::add_tie (Grob *me, Grob *tie)
 {
@@ -41,17 +41,20 @@ Tie_column::add_tie (Grob *me, Grob *tie)
 void
 Tie_column::set_directions (Grob *me)
 {
-  werner_directions (me);
+  if (!to_boolean (me->get_property ("positioning-done")))
+    {
+      me->set_property ("positioning-done", SCM_BOOL_T); 
+      new_directions (me);
+    }
 }
 
 int
-tie_compare (Grob *const &s1,
-	     Grob *const &s2)
+Tie::compare (Grob *const &s1,
+	      Grob *const &s2)
 {
   return sign (Tie::get_position (s1) - Tie::get_position (s2));
 }
 
-#if 0
 /*
   Werner:
 
@@ -75,7 +78,7 @@ Tie_column::werner_directions (Grob *me)
   if (!ties.size ())
     return;
 
-  ties.sort (tie_compare);
+  ties.sort (&Tie::compare);
 
   Direction d = get_grob_direction (me);
   if (d)
@@ -134,13 +137,12 @@ Tie_column::werner_directions (Grob *me)
 
   return;
 }
-#endif
 
 MAKE_SCHEME_CALLBACK (Tie_column, after_line_breaking, 1);
 SCM
 Tie_column::after_line_breaking (SCM smob)
 {
-  werner_directions (unsmob_grob (smob));
+  set_directions (unsmob_grob (smob));
   return SCM_UNSPECIFIED;
 }
 
@@ -169,6 +171,182 @@ Tie_column::before_line_breaking (SCM smob)
 
 ADD_INTERFACE (Tie_column, "tie-column-interface",
 	       "Object that sets directions of multiple ties in a tied chord",
-	       "direction");
+	       "direction "
+	       "positioning-done "
+	       );
+
+
+
+
+bool
+config_allowed (map<Tie_configuration, bool> const &allowed,
+		Tie_configuration conf)
+{
+  return allowed.find (conf) == allowed.end ();
+}
+
+void
+add_configuration (map<Tie_configuration, bool> *allowed,
+		   Grob *tie_column,
+		   Tie_configuration new_conf)
+{
+  bool on_line = Staff_symbol_referencer::on_staffline (tie_column, new_conf.position_);
+  
+  if (allowed->find (new_conf) != allowed->end ()
+      && !(*allowed)[new_conf])
+    {
+      programming_error ("Tie configuration not allowed");
+    }
+        
+
+  if (on_line)
+    {
+      Tie_configuration forbidden;
+
+      forbidden.dir_ = -new_conf.dir_ ;
+      forbidden.position_ = new_conf.position_;
+      (*allowed)[forbidden] = false;
+
+      forbidden.position_ += new_conf.dir_;
+      (*allowed)[forbidden] = false;
+      forbidden.position_ += new_conf.dir_;
+      (*allowed)[forbidden] = false;
+
+      forbidden.dir_ = new_conf.dir_;
+      forbidden.position_ = new_conf.position_ + new_conf.dir_;
+      (*allowed)[forbidden] = false;
+    }
+  else
+    {
+      Tie_configuration forbidden;
+      forbidden.dir_ = - new_conf.dir_;
+      forbidden.position_ = new_conf.position_;
+
+      
+      (*allowed)[forbidden] = false;
+      forbidden.position_ -= new_conf.dir_;
+      forbidden.dir_ = new_conf.dir_;
+      (*allowed)[forbidden] = false;
+
+      forbidden.position_ += 2* new_conf.dir_; 
+      (*allowed)[forbidden] = false;
+    }
+}
+
+
+void
+Tie_column::new_directions (Grob *me)
+{
+  extract_grob_set (me, "ties", ro_ties);
+  Link_array<Grob> ties (ro_ties);
+  if (!ties.size ())
+    return;
+
+  if (ties.size() == 1)
+    {
+      Tie::set_default_control_points (ties[0]);
+      return ;
+    }
+  
+  ties.sort (&Tie::compare);
+  Array<Tie_configuration> tie_configs;
+  for (int i = 0; i < ties.size (); i++)
+    {
+      Tie_configuration conf;
+      conf.dir_ = get_grob_direction (ties[i]);
+      conf.position_ = (int) rint (Tie::get_position (ties[i]));
+      tie_configs.push (conf);
+    }
+
+    
+  if (!tie_configs[0].dir_)
+    tie_configs[0].dir_ = DOWN;
+  if (!tie_configs.top().dir_)
+    tie_configs.top().dir_ = UP;
+
+
+  /*
+    Seconds
+   */
+  for (int i = 1; i < tie_configs.size(); i++)
+    {
+      if (fabs (tie_configs[i-1].position_ - tie_configs[i].position_) <= 1)
+	{
+	  if (!tie_configs[i-1].dir_)
+	    tie_configs[i-1].dir_ = DOWN;
+	  if (!tie_configs[i].dir_)
+	    tie_configs[i].dir_ = UP;
+	}
+    }
+
+  for (int i = 1; i < tie_configs.size() - 1; i++)
+    {
+      if (tie_configs[i].dir_)
+	continue;
+
+      tie_configs[i].dir_ = (Direction) sign (tie_configs[i].position_);
+    }
+
+  Grob *common[NO_AXES] = {
+    me, me
+  };
+  for (int i = 0; i < ties.size (); i++)
+    for (int a = X_AXIS; a < NO_AXES; a++)
+      {
+	Axis ax ((Axis) a);
+	
+	common[ax] = dynamic_cast<Spanner*> (ties[i])->get_bound (LEFT)->common_refpoint (common[a], ax); 
+	common[ax] = dynamic_cast<Spanner*> (ties[i])->get_bound (RIGHT)->common_refpoint (common[a], ax); 
+      }
+  
+  map<Tie_configuration, bool> allowed;
+
+  Tie::get_configuration (ties[0], common, &tie_configs.elem_ref (0));
+  Tie::get_configuration (ties.top (), common,
+			  &tie_configs.elem_ref (tie_configs.size()-1));
+
+  add_configuration (&allowed, me, tie_configs[0]);
+  add_configuration (&allowed, me, tie_configs.top());
+
+  for (int i = 1; i < ties.size(); i++)
+    {
+      Tie_configuration conf = tie_configs[i];
+      Tie::get_configuration (ties[i], common, &conf);
+      if (!config_allowed (allowed, conf))
+	{
+	  conf = tie_configs[i];
+
+	  Direction d = LEFT;
+	  do
+	    {
+	      conf.attachment_x_[d] = d * 1e6; //  infty
+	      for (int j = i - 1; j < i + 2; j++)
+		{
+		  if (j >= 0 && j < ties.size())
+		    {
+		      Spanner *t = dynamic_cast<Spanner*> (ties[j]);
+		      Interval ext
+			= robust_relative_extent (t->get_bound (d),
+						  common[X_AXIS], X_AXIS);
+		      conf.attachment_x_[d]
+			= d * min (d * conf.attachment_x_[d], d * ext[-d]);
+		    } 
+		}
+	    }
+	  while (flip (&d) != LEFT);
+	  tie_configs[i] = conf;
+	}
+      else
+	tie_configs[i] = conf;
+
+      add_configuration (&allowed, me, conf);
+    }
+
+  for (int i = 0; i < ties.size(); i++)
+    {
+      Tie::set_control_points (ties[i], common, tie_configs[i]);
+      set_grob_direction (ties[i], tie_configs[i].dir_);
+    }
+}
 
 

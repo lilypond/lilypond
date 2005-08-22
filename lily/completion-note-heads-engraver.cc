@@ -247,8 +247,6 @@ Completion_heads_engraver::process_music ()
       for (int i = 0; i < notes_.size (); i++)
 	{
 	  Grob *p = make_spanner ("Tie", SCM_EOL);
-	  Tie::set_interface (p); // cannot remove yet!
-
 	  Tie::set_head (p, LEFT, prev_notes_[i]);
 	  Tie::set_head (p, RIGHT, notes_[i]);
 

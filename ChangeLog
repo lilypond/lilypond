@@ -1,3 +1,21 @@
+2005-08-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/tie-column.cc (set_directions): set directions only once.
+	(add_configuration): new function.
+
+	* lily/tie.cc (set_control_points): new function
+
+	* lily/tie-column.cc (new_directions): new function.
+
+	* ly/music-functions-init.ly: set 'pitch property
+	iso. trill-pitch. This makes \relative work with \pitchedTrill
+
+	* lily/tie.cc (get_configuration): new function. Don't generate
+	control points, rather, generate configuration.
+	remove head-pair property.
+
+	* lily/include/tie.hh (struct Tie_configuration): new struct.
+
 2005-08-22  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/NEWS.tely: clarify.
