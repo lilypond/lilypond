@@ -133,15 +133,21 @@ set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
       Direction updowndir = DOWN;
       do
 	{
-	  Box b = boxes.boundary (updowndir, 0);
-	  Interval x = b[X_AXIS];
-	  x[-d] =  b[X_AXIS].linear_combination (-d / 2);
+	  Interval x ;
+	  if (boxes.size())
+	    {
+	      Box b = boxes.boundary (updowndir, 0);
+	      Interval x = b[X_AXIS];
+	      x[-d] =  b[X_AXIS].linear_combination (-d / 2);
+	    }
+	  
 	  if (stem
 	      && !Stem::is_invisible (stem)
 	      && updowndir == get_grob_direction (stem))
 	    x.unite (robust_relative_extent (stem, common, X_AXIS));
 
-	  (*skyline_drul)[d].boundary (updowndir, 0).height_ = x[-d]; 
+	  if (!x.is_empty ())
+	    (*skyline_drul)[d].boundary (updowndir, 0).height_ = x[-d]; 
 	}
       while (flip (&updowndir) != DOWN);
 
