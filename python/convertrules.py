@@ -1454,7 +1454,7 @@ Postfix articulations, new text markup syntax, new chord syntax."""))
 def conv (str):
 	if re.search ("font-style",str):
 		error_file.write ('\n')
-		error_file.write (NOT_SMART % "font-sytle")
+		error_file.write (NOT_SMART % "font-style")
 		error_file.write ('\n')
 		error_file.write (UPDATE_MANUALLY)
 		error_file.write ('\n')
