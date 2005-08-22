@@ -52,12 +52,19 @@ LY_DEFINE (ly_find_file, "ly:find-file",
   buffering.)
 */
 LY_DEFINE (ly_gulp_file, "ly:gulp-file",
-	   1, 0, 0, (SCM name),
+	   1, 1, 0, (SCM name, SCM size),
 	   "Read the file @var{name}, and return its contents in a string.  "
-	   "The file is looked up using the search path.")
+	   "The file is looked up using the search path. ")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
-  String contents = gulp_file_to_string (ly_scm2string (name), true);
+  int sz = -1;
+  if (size != SCM_UNDEFINED)
+    {
+      SCM_ASSERT_TYPE (scm_is_number (size), size, SCM_ARG2, __FUNCTION__, "number");
+      sz = scm_to_int (size);
+    }
+  
+  String contents = gulp_file_to_string (ly_scm2string (name), true, sz);
   return scm_from_locale_stringn (contents.get_str0 (), contents.length ());
 }
 

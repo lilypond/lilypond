@@ -57,16 +57,21 @@ gulp_file (String filename, int *filesize)
     }
 
   fseek (f, 0, SEEK_END);
-  *filesize = ftell (f);
+  int real_size = ftell (f);
+  int read_count = real_size;
+
+  if (*filesize >= 0)
+    read_count = min (read_count, *filesize);
+  
   rewind (f);
 
-  char *str = new char[*filesize + 1];
-  str[*filesize] = 0;
+  char *str = new char[read_count + 1];
+  str[read_count] = 0;
 
-  int bytes_read = fread (str, sizeof (char), *filesize, f);
-  if (bytes_read != *filesize)
+  int bytes_read = fread (str, sizeof (char), read_count, f);
+  if (bytes_read != read_count)
     warning (_f ("expected to read %d characters, got %d", bytes_read,
-		 *filesize));
+		 read_count));
   fclose (f);
 
   return str;
@@ -95,8 +100,11 @@ Source_file::Source_file (String filename_string)
   if (filename_string == "-")
     load_stdin ();
   else
-    contents_str0_ = gulp_file (filename_string, &length_);
-
+    {
+      length_ = -1;
+      contents_str0_ = gulp_file (filename_string, &length_);
+    }
+  
   pos_str0_ = to_str0 ();
 
   init_port ();

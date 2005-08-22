@@ -103,7 +103,7 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   File_name f (name);
   String s = global_path.find (f.base_ + ".twy");
-  s = gulp_file_to_string (s, false);
+  s = gulp_file_to_string (s, false, -1);
   scm_eval_string (scm_makfrom0str (s.to_str0 ()));
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to

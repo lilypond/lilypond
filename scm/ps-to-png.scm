@@ -42,8 +42,8 @@
 
 (define (gulp-port port max-length)
   (let ((str (make-string max-length)))
-    (read-string!/partial str port)
-    str))
+    (read-string!/partial str port 0 max-length)
+   str))
 
 (define (dir-listing dir-name)
   (define (dir-helper dir lst)
@@ -121,7 +121,8 @@
 	 )
    
    (let* ((base (basename (re-sub "[.]e?ps" "" ps-name)))
-	  (header (gulp-port (open-file ps-name "r") 10240))
+	  (header (ly:gulp-file ps-name))
+;	  (header (gulp-port (open-file ps-name "r") 10240))
 	  (png1 (string-append base ".png"))
 	  (pngn (string-append base "-page%d.png"))
 	  (pngn-re (re-sub "%d" "[0-9]*" pngn))
@@ -152,6 +153,7 @@
 			   (* aa-factor resolution) ps-name))
 	  (status 0)
 	  (files '()))
+
      
      (for-each delete-file (append (dir-re "." png1)
 				   (dir-re "." pngn-re)))
