@@ -6,10 +6,13 @@
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include <math.h>
-#include <map>
 
+#include <map>
+#include <set>
+
+#include "stem.hh"
+#include "skyline.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 #include "tie-column.hh"
@@ -55,89 +58,6 @@ Tie::compare (Grob *const &s1,
   return sign (Tie::get_position (s1) - Tie::get_position (s2));
 }
 
-/*
-  Werner:
-
-  . The algorithm to choose the direction of the ties doesn't work
-  properly.  I suggest the following for applying ties sequentially
-  from top to bottom:
-
-  + The topmost tie is always `up'.
-
-  + If there is a vertical gap to the last note above larger than
-  or equal to a fifth (or sixth?), the tie is `up', otherwise it
-  is `down'.
-
-  + The bottommost tie is always `down'.
-*/
-void
-Tie_column::werner_directions (Grob *me)
-{
-  extract_grob_set (me, "ties", ro_ties);
-  Link_array<Grob> ties (ro_ties);
-  if (!ties.size ())
-    return;
-
-  ties.sort (&Tie::compare);
-
-  Direction d = get_grob_direction (me);
-  if (d)
-    {
-      for (int i = ties.size (); i--;)
-	{
-	  Grob *t = ties[i];
-	  if (!get_grob_direction (t))
-	    set_grob_direction (t, d);
-	}
-      return;
-    }
-
-  if (ties.size () == 1)
-    {
-      Grob *t = ties[0];
-      if (t->is_live ()
-	  && !get_grob_direction (t))
-	set_grob_direction (t, Tie::get_default_dir (t));
-      return;
-    }
-
-  Real last_down_pos = 10000;
-  if (!get_grob_direction (ties[0]))
-    set_grob_direction (ties[0], DOWN);
-
-  /*
-    Go downward.
-  */
-  Grob *last_tie = 0;
-  for (int i = ties.size (); i--;)
-    {
-      Grob *t = ties[i];
-
-      Direction d = get_grob_direction (t);
-      Real p = Tie::get_position (t);
-      if (!d)
-	{
-	  if (last_tie
-	      && Tie::get_column_rank (t, LEFT)
-	      < Tie::get_column_rank (last_tie, LEFT))
-	    d = DOWN;
-	  else if (last_down_pos - p > 5)
-	    d = UP;
-	  else
-	    d = DOWN;
-
-	  set_grob_direction (t, d);
-	}
-
-      if (d == DOWN)
-	last_down_pos = p;
-
-      last_tie = t;
-    }
-
-  return;
-}
-
 MAKE_SCHEME_CALLBACK (Tie_column, after_line_breaking, 1);
 SCM
 Tie_column::after_line_breaking (SCM smob)
@@ -169,68 +89,86 @@ Tie_column::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE (Tie_column, "tie-column-interface",
-	       "Object that sets directions of multiple ties in a tied chord",
-	       "direction "
-	       "positioning-done "
-	       );
 
-
-
-
-bool
-config_allowed (map<Tie_configuration, bool> const &allowed,
-		Tie_configuration conf)
-{
-  return allowed.find (conf) == allowed.end ();
-}
 
 void
-add_configuration (map<Tie_configuration, bool> *allowed,
-		   Grob *tie_column,
-		   Tie_configuration new_conf)
+set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
+		    Link_array<Grob> ties,
+		    Grob *common)
 {
-  bool on_line = Staff_symbol_referencer::on_staffline (tie_column, new_conf.position_);
-  
-  if (allowed->find (new_conf) != allowed->end ()
-      && !(*allowed)[new_conf])
+  Direction d = LEFT;
+
+  Real staff_space = Staff_symbol_referencer::staff_space (ties[0]);
+  do
     {
-      programming_error ("Tie configuration not allowed");
-    }
-        
+      Array<Box> boxes;
+      Interval x_union;
 
-  if (on_line)
-    {
-      Tie_configuration forbidden;
+      Grob *stem = 0; 
+      for (int i = 0; i < ties.size (); i++)
+	{
+	  Spanner *tie = dynamic_cast<Spanner*> (ties[i]);
 
-      forbidden.dir_ = -new_conf.dir_ ;
-      forbidden.position_ = new_conf.position_;
-      (*allowed)[forbidden] = false;
+	  Grob *head = Tie::head (tie, d);
+	  if (!head)
+	    continue;
 
-      forbidden.position_ += new_conf.dir_;
-      (*allowed)[forbidden] = false;
-      forbidden.position_ += new_conf.dir_;
-      (*allowed)[forbidden] = false;
+	  if (!stem)
+	    stem = unsmob_grob (head->get_object ("stem"));
+	  
+	  Real p = Tie::get_position (tie);
+	  Interval y ((p-1) * 0.5 * staff_space,
+		      (p+1) * 0.5 * staff_space);
 
-      forbidden.dir_ = new_conf.dir_;
-      forbidden.position_ = new_conf.position_ + new_conf.dir_;
-      (*allowed)[forbidden] = false;
-    }
-  else
-    {
-      Tie_configuration forbidden;
-      forbidden.dir_ = - new_conf.dir_;
-      forbidden.position_ = new_conf.position_;
+	  Interval x = head->extent (common, X_AXIS);
+	  boxes.push (Box (x, y));
+	  x_union.unite (x);
+	}
 
+      (*skyline_drul)[d] = empty_skyline (-d);
+      for (int i = 0; i < boxes.size (); i++)
+	insert_extent_into_skyline (&skyline_drul->elem_ref (d),
+				    boxes[i], Y_AXIS, -d);
+
+      Direction updowndir = DOWN;
+      do
+	{
+	  Box b = boxes.boundary (updowndir, 0);
+	  Interval x = b[X_AXIS];
+	  x[-d] =  b[X_AXIS].linear_combination (-d / 2);
+	  if (stem
+	      && !Stem::is_invisible (stem)
+	      && updowndir == get_grob_direction (stem))
+	    x.unite (robust_relative_extent (stem, common, X_AXIS));
+
+	  (*skyline_drul)[d].boundary (updowndir, 0).height_ = x[-d]; 
+	}
+      while (flip (&updowndir) != DOWN);
+
+      for (int i = 0; i < ties.size (); i++)
+	{
+	  Spanner *tie = dynamic_cast<Spanner*> (ties[i]);
+	  Grob *head = Tie::head (tie, d);
+	  if (!head)
+	    continue;
+
+	  Grob *dots = unsmob_grob (head->get_object ("dot"));
+	  if (dots)
+	    {
+	      Interval x = dots->extent (common, X_AXIS);
+	      Real p = Staff_symbol_referencer::get_position (dots);
+	      
+	      Interval y (-1,1);
+	      y *= (staff_space /4);
+	      y.translate ( p * staff_space * .5);
+
+	      insert_extent_into_skyline (&skyline_drul->elem_ref (d),
+					  Box (x,y), Y_AXIS, -d);
+	    }
+	}
       
-      (*allowed)[forbidden] = false;
-      forbidden.position_ -= new_conf.dir_;
-      forbidden.dir_ = new_conf.dir_;
-      (*allowed)[forbidden] = false;
-
-      forbidden.position_ += 2* new_conf.dir_; 
-      (*allowed)[forbidden] = false;
     }
+  while (flip (&d) != LEFT);
 }
 
 
@@ -249,21 +187,36 @@ Tie_column::new_directions (Grob *me)
     }
   
   ties.sort (&Tie::compare);
+
   Array<Tie_configuration> tie_configs;
   for (int i = 0; i < ties.size (); i++)
     {
       Tie_configuration conf;
       conf.dir_ = get_grob_direction (ties[i]);
-      conf.position_ = (int) rint (Tie::get_position (ties[i]));
+      conf.position_ = Tie::get_position (ties[i]);
       tie_configs.push (conf);
     }
 
-    
+  SCM manual_configs = me->get_property ("tie-configuration");
+  bool manual_override = false;
+  int k = 0;
+  for (SCM s = manual_configs;
+       scm_is_pair (s) && k < tie_configs.size(); s = scm_cdr (s))
+    {
+      SCM entry = scm_car (s);
+      if (!scm_is_pair (entry))
+	continue;
+
+      manual_override = true;
+      tie_configs[k].position_ = robust_scm2double (scm_car (entry), tie_configs[k].position_);
+      tie_configs[k].dir_ = Direction (robust_scm2int (scm_cdr (entry), tie_configs[k].dir_));
+      k ++;
+    }
+
   if (!tie_configs[0].dir_)
     tie_configs[0].dir_ = DOWN;
   if (!tie_configs.top().dir_)
     tie_configs.top().dir_ = UP;
-
 
   /*
     Seconds
@@ -287,66 +240,107 @@ Tie_column::new_directions (Grob *me)
       tie_configs[i].dir_ = (Direction) sign (tie_configs[i].position_);
     }
 
-  Grob *common[NO_AXES] = {
-    me, me
-  };
+  Grob *common = me;
   for (int i = 0; i < ties.size (); i++)
-    for (int a = X_AXIS; a < NO_AXES; a++)
-      {
-	Axis ax ((Axis) a);
-	
-	common[ax] = dynamic_cast<Spanner*> (ties[i])->get_bound (LEFT)->common_refpoint (common[a], ax); 
-	common[ax] = dynamic_cast<Spanner*> (ties[i])->get_bound (RIGHT)->common_refpoint (common[a], ax); 
-      }
-  
-  map<Tie_configuration, bool> allowed;
-
-  Tie::get_configuration (ties[0], common, &tie_configs.elem_ref (0));
-  Tie::get_configuration (ties.top (), common,
-			  &tie_configs.elem_ref (tie_configs.size()-1));
-
-  add_configuration (&allowed, me, tie_configs[0]);
-  add_configuration (&allowed, me, tie_configs.top());
-
-  for (int i = 1; i < ties.size(); i++)
     {
-      Tie_configuration conf = tie_configs[i];
-      Tie::get_configuration (ties[i], common, &conf);
-      if (!config_allowed (allowed, conf))
-	{
-	  conf = tie_configs[i];
-
-	  Direction d = LEFT;
-	  do
-	    {
-	      conf.attachment_x_[d] = d * 1e6; //  infty
-	      for (int j = i - 1; j < i + 2; j++)
-		{
-		  if (j >= 0 && j < ties.size())
-		    {
-		      Spanner *t = dynamic_cast<Spanner*> (ties[j]);
-		      Interval ext
-			= robust_relative_extent (t->get_bound (d),
-						  common[X_AXIS], X_AXIS);
-		      conf.attachment_x_[d]
-			= d * min (d * conf.attachment_x_[d], d * ext[-d]);
-		    } 
-		}
-	    }
-	  while (flip (&d) != LEFT);
-	  tie_configs[i] = conf;
-	}
-      else
-	tie_configs[i] = conf;
-
-      add_configuration (&allowed, me, conf);
+      common = dynamic_cast<Spanner*> (ties[i])->get_bound (LEFT)->common_refpoint (common, X_AXIS); 
+      common = dynamic_cast<Spanner*> (ties[i])->get_bound (RIGHT)->common_refpoint (common, X_AXIS); 
     }
 
+  Drul_array< Array<Skyline_entry> > skylines;
+  set_chord_outlines (&skylines, ties, common);
+  
+  Tie_details details;
+  details.init (ties[0]);
+
+  /*
+    Let the ties flow out, according to our single-tie formatting.
+   */
+  if (!manual_override)
+    {
+      Tie::get_configuration (ties[0], common, &tie_configs.elem_ref (0),
+			      &skylines,
+			      details
+			      );
+      Tie::get_configuration (ties.top (), common,
+			      &tie_configs.elem_ref (tie_configs.size()-1),
+			      &skylines,
+			      details
+			      );
+    }
+
+  /*
+    Calculate final width and shape of the ties.
+   */
+  Real staff_space = Staff_symbol_referencer::staff_space (ties[0]);
+  Real gap = robust_scm2double (ties[0]->get_property ("x-gap"), 0.2);
   for (int i = 0; i < ties.size(); i++)
     {
-      Tie::set_control_points (ties[i], common, tie_configs[i]);
+      if (!manual_override
+	  && (i == 0 || i == ties.size () -1))
+	continue;
+      
+      Tie_configuration conf = tie_configs[i];
+      conf = tie_configs[i];
+
+      Real line_dy = 0.0;
+      bool on_line = Staff_symbol_referencer::on_staffline (ties[0],
+							    int (rint (conf.position_)));
+      if (on_line)
+	line_dy = - sign (conf.height (details) - 0.6 * staff_space)
+	  * 0.2 * staff_space * conf.dir_;
+
+      Real y = conf.position_ * staff_space * 0.5
+	+ line_dy;
+      conf.attachment_x_
+	= get_skyline_attachment (skylines, y);
+      conf.attachment_x_.intersect (get_skyline_attachment (skylines,
+							    y + conf.dir_ * staff_space * .5));
+
+      conf.delta_y_ += line_dy;
+      conf.attachment_x_.widen (-gap);
+      if (!on_line
+	  && Staff_symbol_referencer::staff_radius (ties[0]) * staff_space > y)
+	conf.center_tie_vertically (details);
+	      
+      tie_configs[i] = conf;
+    }
+
+  /*
+    Try to shift small ties into available spaces.
+   */
+  if (!manual_override)
+    {
+      set<int> positions_taken; 
+      for (int i = 0; i < tie_configs.size (); i++)
+	positions_taken.insert (int (rint (tie_configs[i].position_)));
+
+      for (int i = 0; i < tie_configs.size (); i++)
+	{
+	  Tie_configuration * conf = &tie_configs.elem_ref (i);
+	  if (Staff_symbol_referencer::on_staffline (ties[0], int (rint (conf->position_)))
+	      && conf->height (details) < 0.4 * staff_space
+	      && (positions_taken.find (int (rint (conf->position_ + conf->dir_)))
+		  == positions_taken.end ()))
+	    {
+	      positions_taken.insert (int (rint (conf->position_ + conf->dir_)));
+	      conf->delta_y_ += 0.2 * staff_space * conf->dir_;
+	    }
+	}
+    }
+  
+  for (int i = 0; i < ties.size(); i++)
+    {
+      Tie::set_control_points (ties[i], common, tie_configs[i],
+			       details
+			       );
       set_grob_direction (ties[i], tie_configs[i].dir_);
     }
 }
 
 
+ADD_INTERFACE (Tie_column, "tie-column-interface",
+	       "Object that sets directions of multiple ties in a tied chord",
+	       "positioning-done "
+	       "tie-configuration "
+	       );

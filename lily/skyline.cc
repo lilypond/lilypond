@@ -12,19 +12,17 @@
   A skyline is a shape of the form:
 
 
-  ----
-  |  |
-  ---------|  |
-  |	      |
-  |	      |
-  |	      |______
-  --------|		     |___
-
-
+  *                  ----
+  *                  |  |
+  *         ---------|  |
+  *         |           |
+  *         |           |
+  *         |	        |______
+  * --------|		      |___
+  *
 
   This file deals with building such skyline structure, and computing
   the minimum distance between two opposing skylines.
-
 
   Invariants for a skyline:
 
@@ -183,3 +181,22 @@ heighten_skyline (Array<Skyline_entry> *buildings, Real ground)
   for (int i = 0; i < buildings->size (); i++)
     buildings->elem_ref (i).height_ += ground;
 }
+
+Real
+skyline_height (Array<Skyline_entry> const &buildings,
+		Real airplane,
+		Direction sky_dir)
+{
+  Real h = - sky_dir * infinity_f;
+
+  /*
+    Ugh! linear, should be O(log n).
+   */
+  for (int i = 0; i < buildings.size (); i++)
+    if (buildings[i].width_.contains (airplane))
+      h = sky_dir * max (sky_dir * h,
+			 sky_dir * buildings[i].height_);
+  
+  return h;
+}
+

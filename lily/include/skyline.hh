@@ -33,5 +33,9 @@ Real
 skyline_meshing_distance (Array<Skyline_entry> const &buildings,
 			  Array<Skyline_entry> const &clouds);
 
+Real
+skyline_height (Array<Skyline_entry> const &buildings,
+		Real airplane, Direction sky_dir);
+
 #endif /* SKYLINE_HH */
 

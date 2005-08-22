@@ -469,6 +469,8 @@ reading this property.")
 
      (threshold ,number-pair? "(@var{min} . @var{max}), where
 @var{min} and @var{max} are dimensions in staff space.")
+     (tie-configuration ,list? "List of (@var{position} . @var{dir})
+pairs, indicating the desired tie configuration.")
      (transparent ,boolean? "This is almost the same as setting
 @code{print-function} to @code{#f}, but this retains the dimensions of
 this grob, which means that grobs can be erased individually.")

@@ -2543,13 +2543,6 @@ conversions.append (((2, 7, 4), conv,
 def conv (str):
 	str = re.sub('Performer_group_performer', 'Performer_group', str)
 	str = re.sub('Engraver_group_engraver', 'Engraver_group', str)
-	return str
-
-conversions.append (((2, 7, 6), conv,
-		     '''Performer_group_performer -> Performer_group, Engraver_group_engraver -> Engraver_group'''))
-
-
-def conv (str):
 	str = re.sub (r"#'inside-slur\s*=\s*##t *",
 		      r"#'avoid-slur = #'inside ", str)
 	str = re.sub (r"#'inside-slur\s*=\s*##f *",
@@ -2558,6 +2551,7 @@ def conv (str):
 		      r"#'avoid-slur", str)
 	return str
 
-conversions.append (((2, 7, 7), conv,
-		     """inside-slur -> avoid-slur"""))
+conversions.append (((2, 7, 6), conv,
+		     '''Performer_group_performer -> Performer_group, Engraver_group_engraver -> Engraver_group
+inside-slur -> avoid-slur'''))
 

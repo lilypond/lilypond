@@ -109,7 +109,7 @@ struct Interval_t : public Drul_array<T>
   }
   String to_string () const;
 
-  bool contains (T r);
+  bool contains (T r) const;
   void negate ()
   {
     T r = -elem (LEFT);
