@@ -28,7 +28,6 @@ protected:
   DECLARE_ACKNOWLEDGER (dots);
   DECLARE_ACKNOWLEDGER (text_spanner);
   void process_music ();
-  virtual bool try_music (Music *);
   void stop_translation_timestep ();
 
 private:
@@ -66,14 +65,14 @@ Pitched_trill_engraver::acknowledge_text_spanner (Grob_info info)
   if (mus
       && mus->is_mus_type ("trill-span-event")
       && to_dir (mus->get_property ("span-direction")) == START
-      && unsmob_pitch (mus->get_property ("trill-pitch")))
+      && unsmob_pitch (mus->get_property ("pitch")))
     make_trill (mus);
 }
 
 void
 Pitched_trill_engraver::make_trill (Music *mus)
 {
-  SCM scm_pitch = mus->get_property ("trill-pitch");
+  SCM scm_pitch = mus->get_property ("pitch");
   Pitch *p = unsmob_pitch (scm_pitch);
 
   SCM keysig = get_property ("localKeySignature");
@@ -137,19 +136,19 @@ Pitched_trill_engraver::process_music ()
 {
 }
 
-bool
-Pitched_trill_engraver::try_music (Music *)
-{
-  return false;
-}
 
 #include "translator.icc"
+
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, text_spanner);
+
 ADD_TRANSLATOR (Pitched_trill_engraver,
 		/* doc */ "Print the bracketed notehead after a notehead with trill.",
-		/* create */ "TrillPitchHead TrillPitchAccidental TrillPitchGroup",
+		/* create */
+		"TrillPitchHead "
+		"TrillPitchAccidental "
+		"TrillPitchGroup",
 		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

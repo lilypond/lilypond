@@ -18,33 +18,33 @@ struct Tie_configuration
   int position_;
   Direction dir_;
   Interval attachment_x_;
-  Real edge_y_;
+  Real delta_y_;
   
-  Tie_configuration ()
-  {
-    dir_ = CENTER;
-    position_ = 0;
-  }
+  Tie_configuration ();
   
   static int compare (Tie_configuration const &a,
 		      Tie_configuration const &b);
 };
+INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
 
 class Tie
 {
 public:
   static void set_head (Grob *, Direction, Grob *head);
-  static void set_interface (Grob *);
   static bool has_interface (Grob *);
   static void set_direction (Grob *);
   static Grob *head (Grob *, Direction);
   static int get_column_rank (Grob *, Direction);
   static Real get_position (Grob *);
   static Direction get_default_dir (Grob *);
-  static SCM get_control_points (SCM);
-  static SCM get_configuration (SCM);
+  static void get_configuration (Grob *, Grob **, Tie_configuration *);
+  static void set_control_points (Grob *, Grob **,Tie_configuration const&);
+  static void set_default_control_points (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
+  static int compare (Grob *const &s1,
+		      Grob *const &s2);
+  
 };
 
 

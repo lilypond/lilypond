@@ -1799,11 +1799,6 @@ typeset with the command @code{pitchedTrill},
 The first argument is the main note. The absolute pitch of the second
 is printed as a stemless note head in parentheses.
 
-@refbugs
-
-Relative octave mode ignores the octave of the second argument of
-@code{\pitchedTrill}.
-
 @node Feathered beams
 @subsection Feathered beams
 

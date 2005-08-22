@@ -115,8 +115,6 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_,
 				 context ()->get_grob_key ("Tie"));
 	  announce_grob (p, heads_to_tie_[i].event_->self_scm ());
-	  Tie::set_interface (p); // cannot remove yet!
-
 	  Tie::set_head (p, LEFT, th);
 	  Tie::set_head (p, RIGHT, h);
 
@@ -191,15 +189,20 @@ Tie_engraver::typeset_tie (Grob *her)
     }
   while (flip (&d) != LEFT);
 
-  index_set_cell (her->get_property ("head-pair"), LEFT, new_head_drul[LEFT]->self_scm ());
-  index_set_cell (her->get_property ("head-pair"), RIGHT, new_head_drul[RIGHT]->self_scm ());
+  Spanner *sp = dynamic_cast<Spanner*> (her);
+  sp->set_bound (LEFT, new_head_drul[LEFT]);
+  sp->set_bound (RIGHT, new_head_drul[RIGHT]);
 }
 
 #include "translator.icc"
+
 ADD_ACKNOWLEDGER (Tie_engraver, note_head);
 ADD_TRANSLATOR (Tie_engraver,
 		/* doc */ "Generate ties between noteheads of equal pitch.",
-		/* create */ "Tie TieColumn",
+		/* create */
+		"Tie "
+		"TieColumn",
+
 		/* accept */ "tie-event",
 		/* read */ "tieWaitForNote",
 		/* write */ "tieMelismaBusy");

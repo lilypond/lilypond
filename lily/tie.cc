@@ -39,26 +39,16 @@
 void
 Tie::set_head (Grob *me, Direction d, Grob *h)
 {
-  assert (!head (me, d));
-  index_set_cell (me->get_property ("head-pair"), d, h->self_scm ());
-
   dynamic_cast<Spanner *> (me)->set_bound (d, h);
   me->add_dependency (h);
-}
-
-void
-Tie::set_interface (Grob *me)
-{
-  me->set_property ("head-pair", scm_cons (SCM_EOL, SCM_EOL));
 }
 
 Grob *
 Tie::head (Grob *me, Direction d)
 {
-  SCM c = me->get_property ("head-pair");
-
-  if (scm_is_pair (c))
-    return unsmob_grob (index_get_cell (c, d));
+  Item *it = dynamic_cast<Spanner*> (me)->get_bound (d);
+  if (Note_head::has_interface (it))
+    return it;
   else
     return 0;
 }
@@ -125,78 +115,89 @@ Tie::set_direction (Grob *me)
 }
 
 
-SCM
-Tie::get_configuration (Grob *me_grob,
-			Grob **common,
+void
+Tie::get_configuration (Grob *me_grob, Grob **common,
 			Tie_configuration *conf)
 {
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
-  
   if (!head (me, LEFT) && !head (me, RIGHT))
     {
       programming_error ("tie without heads");
       me->suicide ();
-      return SCM_EOL;
+      return ;
     }
 
-  set_direction (me);
-  int tie_position = (int) Tie::get_position (me);
+  Direction dir = CENTER;
   
-  Direction dir = get_grob_direction (me);
+  int tie_position = (int) Tie::get_position (me);
+  int staff_position = conf->position_;
+
+  if (conf->dir_)
+    {
+      dir = conf->dir_;
+    }
+  else
+    {
+      dir = get_grob_direction (me);
+      if (!dir)
+	dir = get_default_dir (me);
+    }
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real staff_position = tie_position;
-
-  Direction d = LEFT;
-  Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
-  do
-    {
-      attachments[d]
-	= robust_relative_extent (me->get_bound (d),
-				  common[X_AXIS],
-				  X_AXIS)[-d]
-	- gap * d;
-    }
-  while (flip (&d) != LEFT);
 
   bool in_between = true;
-  if (attachments.length () < 0.6 * staff_space)
+  Interval attachments = conf->attachment_x_;
+  if (attachments.is_empty())
     {
-      /*
-	Let short ties start over note heads, instead of between.
-       */
-      Drul_array<bool> allow (true, true);
-
       Direction d = LEFT;
-      do {
-	if (Note_head::has_interface (me->get_bound (d)))
-	  {
-	    Grob *stem = unsmob_grob (me->get_bound (d)->get_object ("stem"));
-	    if (get_grob_direction (stem) == dir
-		&& -d == dir)
-	      allow[d] = false;
-	  }
-      } while (flip (&d) != LEFT);
-
-      if (allow[LEFT] && allow[RIGHT])
+      Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
+      do
 	{
-	  staff_position += dir;
-	  do
-	    {
-	      if (Note_head::has_interface (me->get_bound (d)))
-		{
-		  Interval extent
-		    = robust_relative_extent (me->get_bound (d),
-					      common[X_AXIS], X_AXIS);
+	  attachments[d]
+	    = robust_relative_extent (me->get_bound (d),
+				      common[X_AXIS],
+				      X_AXIS)[-d]
+	    - gap * d;
+	}
+      while (flip (&d) != LEFT);
+  
+      if (attachments.length () < 0.6 * staff_space)
+	{
+	  /*
+	    Let short ties start over note heads, instead of between.
+	  */
+	  Drul_array<bool> allow (true, true);
 
-		  attachments[d] = extent.linear_combination (- 0.5 * d);
-		  in_between = false;
+	  Direction d = LEFT;
+	  do {
+	    if (Note_head::has_interface (me->get_bound (d)))
+	      {
+		Grob *stem = unsmob_grob (me->get_bound (d)->get_object ("stem"));
+		if (get_grob_direction (stem) == dir
+		    && -d == dir)
+		  allow[d] = false;
+	      }
+	  } while (flip (&d) != LEFT);
+
+	  if (allow[LEFT] && allow[RIGHT])
+	    {
+	      staff_position += dir;
+	      do
+		{
+		  if (Note_head::has_interface (me->get_bound (d)))
+		    {
+		      Interval extent
+			= robust_relative_extent (me->get_bound (d),
+						  common[X_AXIS], X_AXIS);
+
+		      attachments[d] = extent.linear_combination (- 0.5 * d);
+		      in_between = false;
+		    }
 		}
+	      while (flip (&d) != LEFT);
 	    }
-	  while (flip (&d) != LEFT);
 	}
     }
-
   SCM details = me->get_property ("details");
 
   SCM limit
@@ -213,7 +214,7 @@ Tie::get_configuration (Grob *me_grob,
   Offset middle = b.curve_point (0.5);
   Offset edge = b.curve_point (0.0);
 
-  staff_position = rint (staff_position);
+  staff_position = int (rint (staff_position));
   
   Real dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
   bool in_space = !(Staff_symbol_referencer::on_staffline (me, (int) staff_position));
@@ -248,17 +249,6 @@ Tie::get_configuration (Grob *me_grob,
 	}
     }
 
-  /*
-    Putting larger in-space ties next to the notes forces
-    the edges to be opposite (Y-wise) to the tie direction.
-   */
-  if (staff_position == tie_position
-      && in_space
-      && dy > 0.3 * staff_space)
-    {
-      staff_position += 2 * dir; 
-    }
-
   if (in_space != fits_in_space)
     {
       if (in_space)
@@ -270,6 +260,18 @@ Tie::get_configuration (Grob *me_grob,
 	  in_space = true;
 	  staff_position += dir;
 	}
+    }
+
+
+  /*
+    Putting larger in-space ties next to the notes forces
+    the edges to be opposite (Y-wise) to the tie direction.
+   */
+  if (staff_position == tie_position
+      && in_space
+      && dy > 0.3 * staff_space)
+    {
+      staff_position += 2 * dir; 
     }
 
   if (!in_between
@@ -290,14 +292,12 @@ Tie::get_configuration (Grob *me_grob,
 
 	  Real center = (edge[Y_AXIS] + middle[Y_AXIS])/2.0;
 
-	  conf->edge_y_ = staff_position * staff_space * 0.5
-	    - center;
+	  conf->delta_y_ = - center;
 	}
       else
 	{
-	  conf->edge_y_ = 
-	    (staff_position - dir) * staff_space * 0.5
-	    + dir * 0.2 * staff_space;
+	  conf->delta_y_ = 
+	    dir * staff_space * (- 0.3);
 	}
     }
   else
@@ -305,24 +305,23 @@ Tie::get_configuration (Grob *me_grob,
       Real where = 0.5 * dir;
       
       Real rounding_dy = (where - middle[Y_AXIS]);
-      conf->edge_y_ = 0.5 * staff_position * staff_space + rounding_dy;
+      conf->delta_y_ = rounding_dy;
 
       if (dir * b.curve_point (0.0)[Y_AXIS] <
 	  dir * tie_position * 0.5 * staff_space)
-	conf->edge_y_ +=  staff_space * dir; 
+	conf->delta_y_ +=  staff_space * dir; 
     }
 
-  conf->position_ = staff_position;
   conf->dir_ = dir;
+  conf->position_ = staff_position;
   conf->attachment_x_ = attachments;
 }
 
 
-SCM
-Tie::get_control_points (SCM smob)
+void
+Tie::set_default_control_points (Grob *me_grob)
 {
-  Spanner *me = unsmob_spanner (smob);
-
+  Spanner *me = dynamic_cast<Spanner*> (me_grob);
   Grob *common[NO_AXES] = {
     0, 0
   };
@@ -334,31 +333,46 @@ Tie::get_control_points (SCM smob)
     }
   
   Tie_configuration conf;
-  get_configuration (me, common, &conf);
+  if (!get_grob_direction (me))
+    set_grob_direction (me, get_default_dir (me));
+
+  int tie_position = (int) Tie::get_position (me);
+  conf.position_ = tie_position;
+
   
+  get_configuration (me, common, &conf);
+  set_control_points (me, common, conf);
+}
+
+void
+Tie::set_control_points (Grob *me,
+			 Grob **common,
+			 Tie_configuration const &conf)
+{
   SCM details = me->get_property ("details");
   SCM limit
     = scm_assq (ly_symbol2scm ("height-limit"), details);
 
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real h_inf = robust_scm2double (scm_cdr (limit), 0.75) * staff_space;
   Real r_0 = robust_scm2double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"),
 						   details)),
 				.333);
 
-  Bezier b = slur_shape (conf->attachment_x_.length(),
+  Bezier b = slur_shape (conf.attachment_x_.length(),
 			 h_inf, r_0);
-  b.scale (1, conf->dir_);
-  
-  Bezier b;
-  
-  b.translate (Offset (conf->attachment_x_[LEFT]
-		       - me->relative_coordinate (common[X_AXIS], X_AXIS), 0));
+  b.scale (1, conf.dir_);
+  b.translate (Offset (conf.attachment_x_[LEFT]
+		       - me->relative_coordinate (common[X_AXIS], X_AXIS),
+		       0.5 * conf.position_ * staff_space 
+		       + conf.delta_y_
+		       ));
   
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
     controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
 
-  return controls;
+  me->set_property ("control-points", controls);
 }
 
 
@@ -369,11 +383,14 @@ Tie::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
+  if (CENTER == get_grob_direction (me))
+    set_direction (me);
+      
   SCM cp = me->get_property ("control-points");
-  if (!scm_is_pair (cp))		// list is more accurate
+  if (!scm_is_pair (cp))
     {
-      cp = get_control_points (smob);
-      me->set_property ("control-points", cp);
+      set_default_control_points (me);
+      cp = me->get_property ("control-points");
     }
 
   if (!scm_is_pair (cp))
@@ -410,16 +427,30 @@ Tie::print (SCM smob)
 
 ADD_INTERFACE (Tie,
 	       "tie-interface",
+	       
 	       "A tie connecting two noteheads.\n",
 	       
 	       "control-points "
-	       "dash-fraction"
+	       "dash-fraction "
 	       "dash-period "
 	       "details "
 	       "direction "
-	       "head-pair "
 	       "thickness "
 	       "x-gap ");
 
+int
+Tie_configuration::compare (Tie_configuration const &a,
+			    Tie_configuration const &b)
+{
+  if (a.position_ - b.position_)
+    return sign (a.position_ - b.position_);
+  return sign (a.dir_ - b.dir_);
+}
+			    
 
-
+Tie_configuration::Tie_configuration ()
+{
+  dir_ = CENTER;
+  position_ = 0;
+  delta_y_ = 0.0;
+}
