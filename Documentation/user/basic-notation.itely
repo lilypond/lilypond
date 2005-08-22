@@ -1509,9 +1509,6 @@ Program reference: @internalsref{Tie}.
 
 Switching staves when a tie is active will not produce a slanted tie.
 
-Formatting of ties is a difficult subject.  The results are often not
-optimal.
-
 
 @node Slurs
 @subsection Slurs

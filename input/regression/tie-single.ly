@@ -22,6 +22,8 @@ that otherwise don't fit in a space
   raggedright = ##t
 }
 
+\version "2.7.7"
+
 frag =
 \relative c'' {
   c16 c2...~ c16 ~ c2... |
