@@ -8,6 +8,10 @@ to the last beam.
 "
 }
 
+\layout {
+  raggedright= ##t
+}
+
 \context PianoStaff \relative c' <<
   \context Staff = SA {
     \stemDown
@@ -24,5 +28,5 @@ to the last beam.
   }	     
   
 >>
-\layout { raggedright= ##t }
+
 

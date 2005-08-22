@@ -12,6 +12,8 @@ Main note scripts do not end up on the grace note.
 "
 }
 
+\layout {raggedright = ##t}
+
 \context Voice = VA \relative c'' {
   \grace b8 c4\fermata
   \grace {  c32[ cis32] } gis4
@@ -24,6 +26,5 @@ Main note scripts do not end up on the grace note.
   %%\grace  { \set Grace.graceAlignPosition = \right c16} c4
   c4 \grace  { c16 } c4
 }
-\layout {raggedright = ##t}
 
 

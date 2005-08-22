@@ -9,6 +9,7 @@ natural sign.
 }
 
 
+\layout { raggedright = ##t }
 
 thenotes =  \relative cis' {
   \time 4/4
@@ -23,5 +24,4 @@ thenotes =  \relative cis' {
   }
 >>
 
-\layout { raggedright = ##t }
 

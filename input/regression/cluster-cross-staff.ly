@@ -3,6 +3,9 @@
     texidoc = "Clusters can be written across staves."
 
 }
+\layout {
+  raggedright= ##t
+}
 
 \version "2.6.0"
 
@@ -17,6 +20,3 @@
     { \clef bass s1 * 2 }
   >>
 >>
-\layout {
-  raggedright= ##t
-}

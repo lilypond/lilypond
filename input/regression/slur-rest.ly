@@ -7,6 +7,8 @@ the rest.
 
 "
 }
+
+\layout { raggedright = ##t }
 { \stemDown c'4 ( r4  c'2)
 
   \relative c'' { 
@@ -15,6 +17,6 @@ the rest.
   }
   
 }
-\layout { raggedright = ##t }
+
 
 

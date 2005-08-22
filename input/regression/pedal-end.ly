@@ -5,11 +5,13 @@
 
 }
 
+\layout { raggedright  = ##t }
+
 
 {
   \set Staff.pedalSustainStyle = #'bracket
   c4 \sustainDown
   \bar "|."
 }
-\layout { raggedright  = ##t }
+
 

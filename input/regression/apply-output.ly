@@ -10,6 +10,7 @@ position.
 "
 
 }
+\layout { raggedright = ##t }
 
 #(define  (mc-squared gr org cur)
   (let*
@@ -44,4 +45,3 @@ position.
   
 }
 
-\layout { raggedright = ##t }

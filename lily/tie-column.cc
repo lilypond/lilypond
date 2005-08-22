@@ -137,7 +137,7 @@ set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
 	  if (boxes.size())
 	    {
 	      Box b = boxes.boundary (updowndir, 0);
-	      Interval x = b[X_AXIS];
+	      x = b[X_AXIS];
 	      x[-d] =  b[X_AXIS].linear_combination (-d / 2);
 	    }
 	  

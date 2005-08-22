@@ -3,7 +3,9 @@
 \header {
   texidoc = "Explicit beams may cross barlines. "
 }
+\layout { raggedright= ##t }
+
 \relative c'' { c2.  c8[ c8 c8 c8] }
 
-\layout { raggedright= ##t }
+
 

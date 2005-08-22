@@ -8,6 +8,8 @@ space. This is an optical correction similar to juxtaposed stems.
 
 }
 
+\layout { raggedright = ##t}
+
 \relative e'
 {
 
@@ -22,6 +24,6 @@ space. This is an optical correction similar to juxtaposed stems.
   c c c
   e e e
 }
-\layout { raggedright = ##t}
+
 
 

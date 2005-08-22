@@ -9,6 +9,10 @@ large on smaller staves."
 
 \version "2.6.0"
 
+\layout {
+  #(layout-set-staff-size 6)
+  raggedright = ##t
+}
 
 <<
   \new Staff \with {
@@ -26,8 +30,4 @@ large on smaller staves."
 			      }
     >>
 
-  \layout {
-    #(layout-set-staff-size 6)
-    raggedright = ##t
-  }
 

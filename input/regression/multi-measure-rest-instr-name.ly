@@ -7,12 +7,6 @@ multimeasure rests. "
 
 }
 
-
-\context Staff <<
-  \set Staff.instrument = "instrument"
-  \set Staff.instr = "instr"
-  {c''1 \break R1 }
->>
 \layout {
   raggedright = ##t
   \context {
@@ -23,5 +17,8 @@ multimeasure rests. "
 }
 
 
-
-
+\context Staff <<
+  \set Staff.instrument = "instrument"
+  \set Staff.instr = "instr"
+  {c''1 \break R1 }
+>>

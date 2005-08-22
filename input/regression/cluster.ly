@@ -4,6 +4,8 @@
   texidoc = "Clusters are a device to denote that a complete range of
 notes is to be played."
 }
+  \layout { raggedright = ##t }
+
 
 fragment = \relative c' {
   c4 f4 <e d'>4
@@ -15,7 +17,7 @@ fragment = \relative c' {
   \new Staff \fragment
   \new Staff \applymusic #notes-to-clusters \fragment
 >>
-  \layout { raggedright = ##t }
+
 
 
 

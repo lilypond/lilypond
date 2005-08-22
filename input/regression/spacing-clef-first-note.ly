@@ -6,6 +6,16 @@ than clef changes halfway the line."
 
 }
 
+  \layout {
+    raggedright = ##t
+    \context {
+      \Staff
+      \remove Time_signature_engraver
+    }
+  }
+
+
+
 
 <<
   \new Staff {
@@ -17,12 +27,3 @@ than clef changes halfway the line."
     c'4 c'4 c'4 
   }
 >>
-  \layout {
-    raggedright = ##t
-    \context {
-      \Staff
-      \remove Time_signature_engraver
-    }
-  }
-
-

@@ -10,6 +10,10 @@ bar-line is different from the start of line.
 
 }
 
+\layout  {
+  raggedright = ##t
+}
+
 \relative c'' {
   \set Staff.instrument = "fobar"
   \bar "||:"
@@ -20,6 +24,6 @@ bar-line is different from the start of line.
   \key g \minor
   c1
 }
-\layout  { raggedright = ##t}
+
 
 

@@ -4,6 +4,10 @@
   texidoc = "Symmetric figures should lead to symmetric slurs."
 }
 
+\layout{
+  raggedright = ##t
+}
+
 
 \relative c''<<
   \time 4/4
@@ -14,8 +18,6 @@
     e,(e e e) e(d d e) e(c c e) e(b b e)
   }
 >>
-\layout{
-  raggedright = ##t
-}
+
 
 

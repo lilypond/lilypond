@@ -1,6 +1,9 @@
 \header {
 
   texidoc = "Instrument names are set with @code{Staff.instrument} and
+
+\layout { raggedright = ##t }
+
 @code{Staff.instr}. You can enter markup texts to create more funky names,
 including alterations. "
 
@@ -20,7 +23,7 @@ textFlat = \markup {\smaller \flat}
   { c''1 \break c'' }
 
 }
-\layout { raggedright = ##t }
+
 
 
 

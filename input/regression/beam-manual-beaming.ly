@@ -6,6 +6,10 @@
   texidoc = 
   "Beaming can be overidden for individual stems."
 }
+\layout{ 
+  raggedright = ##t 
+}
+
 \relative c'' {
   c32[ c
 
@@ -21,6 +25,4 @@
        #'beaming = #(cons (list 0 2 4) (list 0 1 4))
        c c c]
 }
-\layout{ 
-  raggedright = ##t 
-}
+

@@ -7,6 +7,8 @@
   
 }
 
+\layout { raggedright = ##t}
+
 
 \context Voice 
 { \time 2/4
@@ -17,6 +19,6 @@
   }  
 
 }
-\layout { raggedright = ##t}
+
 
 

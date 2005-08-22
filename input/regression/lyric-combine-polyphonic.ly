@@ -6,6 +6,7 @@
 
 }
 
+\layout { raggedright = ##t}
 
 {
   \clef violin
@@ -29,6 +30,6 @@
     }
   >>
 }
-\layout { raggedright = ##t}
+
 
 

@@ -11,6 +11,11 @@ dimensions.
 "
 }
 
+\layout {
+  indent = 0.0
+  raggedright = ##t
+}
+
 pattern = <<
   \new Voice {
     \override Stem  #'direction = #UP
@@ -81,8 +86,5 @@ pattern = <<
   \pattern
 }
 
-\layout {
-  indent = 0.0
-  raggedright = ##t
-}
+
 

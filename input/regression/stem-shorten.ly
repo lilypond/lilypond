@@ -9,6 +9,10 @@
 
 }
 
+\layout  {
+  raggedright = ##t
+}
+
 
 \relative c'' {
   \stemDown d c b a g f e
@@ -18,7 +22,5 @@
   <g, e'>2 <b e g> <c e g> <d f g>
   
 } 
-\layout  {
-  raggedright = ##t
-}
+
 

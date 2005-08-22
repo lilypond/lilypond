@@ -1,5 +1,8 @@
 2005-08-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/*.ly: formatting clean-up. Default layout
+	before music expression.
+
 	* input/mutopia/R.Schumann/GNUmakefile (examples): switch off
 	romanze28-2 example.
 

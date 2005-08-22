@@ -7,6 +7,9 @@ chord name after a line break.
 "
 }
 
+\layout{ raggedright = ##t }
+
+
 scheme = \chordmode {
   c1:m \break c:m c:m c:m d
   c1:m \break c:m c:m c:m d
@@ -22,4 +25,4 @@ settings = {
   >>
   \context Staff \transpose c c' \scheme
 >>
-  \layout{ raggedright = ##t }
+

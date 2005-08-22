@@ -6,12 +6,14 @@ However, the quarter rest in feta font is relatively wide, causing this
 effect to be very small.
 "
 }
+
+\layout {
+  raggedright = ##t
+}
 \relative c'' \context Staff {
   \time 12/4
   r4 c4 c4 c4 r4 r4 c4
 }
-\layout {
-  raggedright = ##t
-}
+
 
 

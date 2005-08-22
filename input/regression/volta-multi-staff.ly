@@ -4,6 +4,8 @@
     also over other staves than the topmost one in a score."
 
 }
+
+\layout { raggedright = ##t }
 \version "2.6.0"
 
 
@@ -24,5 +26,5 @@ vmus =  { \repeat volta 2 c1 \alternative { d e } }
   >>
 >>
 
-\layout { raggedright = ##t }
+
 

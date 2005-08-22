@@ -7,6 +7,11 @@
 
 }
 
+
+\layout { raggedright = ##t }
+  
+
+
 \version "2.6.0" % to be updated
 
 #(def-markup-command (upcase paper props str) (string?)
@@ -18,5 +23,5 @@
   c''-\markup \upcase #"hello world"
 				% produces a "HELLO WORLD" markup
 }
-\layout { raggedright = ##t }
+
 

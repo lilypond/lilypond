@@ -6,6 +6,7 @@ Arpeggios are supported, both cross-staff and broken single staff.
 "
 }
 
+\layout { raggedright= ##t }
 
 
 \context PianoStaff << 
@@ -25,4 +26,3 @@ Arpeggios are supported, both cross-staff and broken single staff.
     <g b d>\arpeggio
   }
 >>
-\layout { raggedright= ##t }

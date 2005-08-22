@@ -2,8 +2,9 @@
 \header { texidoc = "
 A voicelet (a very short voice to get polyphonic chords correct)
 should not confuse the spacing engine."
-	}
+}
 
+\layout { raggedright = ##t }
 
 
 {  \context Staff \relative c' {
@@ -16,6 +17,7 @@ should not confuse the spacing engine."
   >>
   c4
 }}
-\layout { raggedright = ##t }
+
+
 
 

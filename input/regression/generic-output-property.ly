@@ -8,6 +8,8 @@ setting the @code{extra-offset} of a grob.
 "
 }
 
+\layout{ raggedright = ##t }
+
 
 \relative c''{
   \context Bottom
@@ -23,9 +25,6 @@ setting the @code{extra-offset} of a grob.
   d1
   \mark \default
   e
-}
-\layout{
-  raggedright = ##t
 }
 
 

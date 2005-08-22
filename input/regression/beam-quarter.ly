@@ -6,6 +6,7 @@
 }
 
 \layout { raggedright = ##t }
+
 \relative c'' {
   c8[ c4 c8] % should warn here!
 }

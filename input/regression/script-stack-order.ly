@@ -7,7 +7,9 @@ order determines the order. Objects specified first are closest to the note.
 "
 }
 
-\relative c'' { c4^"inner up"^"outer up"_"inner down"_"outer down" }
 \layout { raggedright = ##t}
+
+\relative c'' { c4^"inner up"^"outer up"_"inner down"_"outer down" }
+
 
 

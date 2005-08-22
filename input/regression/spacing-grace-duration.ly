@@ -9,6 +9,8 @@
 "
 }
 
+\layout { raggedright = ##t}
+
 \relative c''
 \context Voice 
 {
@@ -18,6 +20,6 @@
 
 }
 
-\layout { raggedright = ##t}
+
 
 

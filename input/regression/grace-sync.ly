@@ -3,6 +3,9 @@
   texidoc = "Grace notes in different voices/staves are synchronized."
 }
 
+\layout { raggedright = ##t}
+
+
 \relative c'' <<
   \context Staff  {
     c2
@@ -15,6 +18,6 @@
     c4) c4 }
   \new Staff { c2 c4 c4 \bar "|." }
 >>
-\layout { raggedright = ##t}
+
 
 

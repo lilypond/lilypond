@@ -9,6 +9,8 @@ beam. This is in disagreement with the current algorithm."
   
 }
 
+\layout { raggedright = ##t} 
+
 \relative c'
 {
   \override Beam  #'auto-knee-gap = #7
@@ -34,5 +36,4 @@ beam. This is in disagreement with the current algorithm."
 		   }
   }
 }
-\layout { raggedright = ##t} 
 

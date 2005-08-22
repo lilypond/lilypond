@@ -4,13 +4,16 @@
 
 }
 
-{
-  c''2 { \grace  b'16  c''2 }  \bar "|."
-}
 \layout {
 
   raggedright = ##t 
 }
+
+
+{
+  c''2 { \grace  b'16  c''2 }  \bar "|."
+}
+
 
 
 

@@ -5,6 +5,9 @@
 
 }
 
+\layout { raggedright = ##t}
+
+
 
 
 {
@@ -14,7 +17,7 @@
 
   c'1 R1*20 c'1
 }
-\layout { raggedright = ##t} 
+ 
 
 	 
 

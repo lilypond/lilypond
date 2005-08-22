@@ -9,6 +9,8 @@ Accidentals after the barline get some space as well.
 "
 }
 
+\layout { raggedright = ##t}
+
 \relative c''
 {
 
@@ -19,6 +21,6 @@ Accidentals after the barline get some space as well.
   \stemDown c4 \stemUp c4
   \stemDown f c,4  c'4 cis4 \stemUp c4
 }
-\layout { raggedright = ##t}
+
 
 

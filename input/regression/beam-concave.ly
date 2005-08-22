@@ -50,6 +50,12 @@ rossBeams = \relative c'' {
   }
 
 
+\layout{
+  raggedright = ##t
+  #(define debug-beam-quanting #t)
+}
+
+
 
 
 #(define (<> x y) (not (= x  y)))
@@ -58,9 +64,3 @@ rossBeams = \relative c'' {
      \rossBeams
      
    }
-  \layout{
-    raggedright = ##t
-    #(define debug-beam-quanting #t)
-  }
-
-

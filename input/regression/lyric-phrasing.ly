@@ -8,6 +8,9 @@
 "
 }
 
+  \layout { raggedright = ##t }
+
+
 
 
 <<
@@ -22,5 +25,5 @@
     izzz
   }
 >>
-  \layout { raggedright = ##t }
+
 

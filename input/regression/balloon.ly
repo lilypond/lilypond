@@ -5,6 +5,8 @@ with lines and explanatory text added."
 }
 \version "2.6.0"
 
+\layout{ raggedright = ##t }
+
 {
   
   \relative c'  {
@@ -27,4 +29,3 @@ with lines and explanatory text added."
     c8
   }
 }
-\layout{ raggedright = ##t }

@@ -5,6 +5,10 @@
 
 }
 
+\layout{
+  raggedright = ##t
+}
+
 
 \relative c'<<
   \time 6/8
@@ -15,8 +19,6 @@
     f'8(f f) f(g f) f(a f) f(b f)
   }
 >>
-\layout{
-  raggedright = ##t
-}
+
 
 

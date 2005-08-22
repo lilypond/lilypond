@@ -8,6 +8,11 @@ Beams can be placed across a @code{PianoStaff}.
 "
 
 }
+
+\layout{
+  raggedright = ##t
+}
+
 \context PianoStaff <<
   \context Staff = "one" \relative c'{
     s1
@@ -20,9 +25,6 @@ Beams can be placed across a @code{PianoStaff}.
     s2
   }
 >>
-\layout{
-  raggedright = ##t
-}
 
 
 

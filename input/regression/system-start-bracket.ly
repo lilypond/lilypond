@@ -6,6 +6,8 @@ The piano brace should be shifted horizontally if it  is enclosed in a bracket.
 "
 }
 
+\layout {raggedright = ##t}
+
 
 {
   \context StaffGroup <<
@@ -16,6 +18,6 @@ The piano brace should be shifted horizontally if it  is enclosed in a bracket.
     >>
   >>
 }
-\layout {raggedright = ##t}
+
 
 

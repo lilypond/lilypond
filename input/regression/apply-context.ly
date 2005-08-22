@@ -14,7 +14,7 @@ This example prints a bar-number during processing on stdout.
 
 }
 
-    \layout { raggedright= ##t }
+\layout { raggedright= ##t }
 
 
 \relative c'' {

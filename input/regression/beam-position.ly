@@ -9,6 +9,10 @@ note beams.  Override with @code{no-stem-extend}.  "
 
 }
 
+\layout {
+  raggedright = ##t
+}  
+
 
 \context Voice \relative c {
   f8[ f]   f64[ f] 
@@ -21,6 +25,3 @@ note beams.  Override with @code{no-stem-extend}.  "
   f8[ f]
   
 }
-\layout {
-  raggedright = ##t
-}  

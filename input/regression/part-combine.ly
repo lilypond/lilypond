@@ -9,6 +9,8 @@
 "
 }
 
+\layout { raggedright = ##t }
+
 \version "2.6.0"
 
 vone =  \relative a' {
@@ -23,6 +25,6 @@ vtwo =  \relative a' {
 
 \partcombine \vone \vtwo
 
-\layout { raggedright = ##t } 
+ 
 
  

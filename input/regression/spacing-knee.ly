@@ -7,6 +7,8 @@ width of the note heads and the thickness of the stem.
 "
 }
 
+\layout { raggedright = ##t}
+
 {
   g''8[ g g'' g''] 
 
@@ -16,7 +18,7 @@ width of the note heads and the thickness of the stem.
   \override Stem  #'thickness = #10 
   g''8[ g g'' g''] 
 }
-\layout { raggedright = ##t}
+
 
 
 
