@@ -75,7 +75,7 @@ try_load_text_metrics (String basename)
   String path = global_path.find (basename + ".textmetrics");
   if (path != "")
     {
-      String contents (gulp_file_to_string (path, true));
+      String contents (gulp_file_to_string (path, true, -1));
       contents = "(quote (" + contents + "))";
 
       SCM lst = scm_c_eval_string (contents.to_str0 ());

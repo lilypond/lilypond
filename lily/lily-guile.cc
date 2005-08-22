@@ -103,7 +103,7 @@ gulp_file_to_string (String fn, bool must_exist, int size)
   if (be_verbose_global)
     progress_indication ("[" + s);
 
-  int n = sz;
+  int n = size;
   char *str = gulp_file (s, &n);
   String result ((Byte *) str, n);
   delete[] str;

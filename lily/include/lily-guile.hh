@@ -33,7 +33,7 @@ SCM ly_to_symbol (SCM scm);
 
 extern SCM global_lily_module;
 
-String gulp_file_to_string (String fn, bool must_exist);
+String gulp_file_to_string (String fn, bool must_exist, int size);
 
 String ly_scm2string (SCM s);
 String ly_symbol2string (SCM);
