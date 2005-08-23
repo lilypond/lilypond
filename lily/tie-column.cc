@@ -159,14 +159,14 @@ set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
 	    continue;
 
 	  Grob *dots = unsmob_grob (head->get_object ("dot"));
-	  if (dots)
+	  if (dots && d == LEFT)
 	    {
 	      Interval x = dots->extent (common, X_AXIS);
 	      Real p = Staff_symbol_referencer::get_position (dots);
 	      
 	      Interval y (-1,1);
 	      y *= (staff_space /4);
-	      y.translate ( p * staff_space * .5);
+	      y.translate (p * staff_space * .5);
 
 	      insert_extent_into_skyline (&skyline_drul->elem_ref (d),
 					  Box (x,y), Y_AXIS, -d);
