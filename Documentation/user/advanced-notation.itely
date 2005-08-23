@@ -622,6 +622,16 @@ R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
 @end lilypond
 
+Warning!  This text is created by @code{MultiMeasureRestText}, not
+@code{TextScript}.
+
+@lilypond[quote,raggedright,verbatim,fragment]
+\override TextScript #'padding = #5
+R1^"low"
+\override MultiMeasureRestText #'padding = #5
+R1^"high"
+@end lilypond
+
 If you want to have text on the left end of a multi-measure rest,
 attach the text to a zero-length skip note, i.e.,
 
