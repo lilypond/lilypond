@@ -2,6 +2,11 @@
 
 	* {various} : change #up->#UP and #down->#DOWN.
 
+	* ly/titling-init.ly: Spacing fix when using printallheaders=##t.
+
+	* Documentation/user/advanced-notation.itely: clarify
+	what objects handles text on a multimeasure rest.
+
 2005-08-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PATCH_LEVEL): release 2.7.7
