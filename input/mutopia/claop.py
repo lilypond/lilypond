@@ -278,7 +278,7 @@ sys.stdout.write (r"""
     #'(end * * * *) = #(ly:make-moment 1 4)
   \set Score.skipBars = ##t
   \context StaffGroup <<
-    \override StaffGroup.Stem #'direction = #up
+    \override StaffGroup.Stem #'direction = #UP
 """)
 
 
