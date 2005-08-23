@@ -347,8 +347,11 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 
   if (skylines)
     {
-      Real y = staff_space * 0.5 * staff_position;
+      Real half_space = 0.5 * staff_space;
+      Real y = staff_position * half_space;
+      
       attachments = get_skyline_attachment (*skylines, y);
+      
       attachments.widen (-gap);
     }
   conf->attachment_x_ = attachments;
@@ -410,6 +413,19 @@ Tie::print (SCM smob)
     set_direction (me);
       
   SCM cp = me->get_property ("control-points");
+  if (!scm_is_pair (cp))
+    {
+      /*
+	UGH.  dependency tracking!
+       */
+      if (Tie_column::has_interface (me->get_parent (Y_AXIS)))
+	{
+	  Tie_column::set_directions (me->get_parent (Y_AXIS));
+	}
+
+      cp = me->get_property ("control-points");
+    }
+  
   if (!scm_is_pair (cp))
     {
       set_default_control_points (me);
