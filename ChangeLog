@@ -1,3 +1,7 @@
+2005-08-23  Graham Percival  <gpermus@gmail.com>
+
+	* {various} : change #up->#UP and #down->#DOWN.
+
 2005-08-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PATCH_LEVEL): release 2.7.7

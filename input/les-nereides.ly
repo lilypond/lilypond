@@ -74,7 +74,7 @@ treble = \new Voice \relative c''{
     r8 <a' a,>8(\mf <gis gis,> <fis fis,>
     
     % \fingerUp
-    \override Fingering  #'direction = #up
+    \override Fingering  #'direction = #UP
     
     <gis gis,> <fis fis,> e)-1-4-5 r
 
@@ -90,7 +90,7 @@ trebleTwo = \new Voice \relative c''{
     \stemDown
     \slurDown
     % \fingerDown
-    \override Fingering  #'direction = #down
+    \override Fingering  #'direction = #DOWN
     s2
     | %1
     s1*2
@@ -173,7 +173,7 @@ bass = \new Voice \relative c{
     \slurUp
     
     % \fingerDown
-    \override Fingering  #'direction = #down
+    \override Fingering  #'direction = #DOWN
 
 			   
     \override Staff.SustainPedalLineSpanner #'staff-padding = #3.5 %tweak
