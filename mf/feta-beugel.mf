@@ -1,5 +1,5 @@
 % 
-% feta-beugel.mf -- [Staff] braces
+% feta-beugel.mf -- Staff braces
 % 
 % source file of the Feta (not an acronym for Font-En-Tja)
 % pretty-but-neat music font
@@ -41,7 +41,7 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
 fet_beginchar ("brace number " & (decimal (brace_number)),
 		"brace" & decimal(brace_number))
 
-	set_char_box (0, width#, height#/2, height#/2);
+	set_char_box (width#, 0, height#/2, height#/2);
 	  
 	define_pixels (height, width, slt);
 	thin = 2 slt;
@@ -51,7 +51,7 @@ fet_beginchar ("brace number " & (decimal (brace_number)),
 	y3l = y1 + height/2;
 	x3 = x1 + width;
 	y1 =0;
-	x3 = - width / 2;
+	x1 = - b;
 
 	pair pendir;
 	pendir = unitvector(x3 - x1, y3l/6 - y1);
