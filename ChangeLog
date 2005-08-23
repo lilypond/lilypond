@@ -1,3 +1,12 @@
+	
+2005-08-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/system-start-delimiter.cc (staff_brace): don't remove brace
+	extent. This fixes braces falling out of the EPS bbox.
+
+	* mf/feta-beugel.mf (braces_per_font): make brace glyph align
+	exactly to bbox.
+
 2005-08-23  Graham Percival  <gpermus@gmail.com>
 
 	* {various} : change #up->#UP and #down->#DOWN.

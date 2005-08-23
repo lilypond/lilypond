@@ -164,9 +164,9 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
 
   int lo = 0;
   int hi = max (fm->count () - 1, 2);
-  Box b;
 
   /* do a binary search for each Y, not very efficient, but passable?  */
+  Box b;
   do
     {
       int cmp = (lo + hi) / 2;
@@ -179,14 +179,17 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   while (hi - lo > 1);
 
   Stencil stil (fm->find_by_name ("brace" + to_string (lo)));
-  b = stil.extent_box ();
-  b[X_AXIS] = Interval (0, 0);
+  stil.translate_axis (-b[X_AXIS].length()/2, X_AXIS);
 
-  return Stencil (b, stil.expr ());
+  return stil;
 }
 
 ADD_INTERFACE (System_start_delimiter, "system-start-delimiter-interface",
 	       "The brace, bracket or bar in front of the system. "
 	       "It is implemented as a spanner.",
-	       "collapse-height thickness "
-	       "glyph");
+
+	       /* properties */
+	       "collapse-height "
+	       "glyph "
+	       "thickness "
+	       );
