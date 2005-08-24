@@ -384,10 +384,10 @@ determines the space between each markup in @var{args}."
 
 
 (define (wordwrap-stencils stencils
-			   justify base-space line-width 
-			   )
+			   justify base-space line-width)
   
   "Perform simple wordwrap, return stencil of each line."
+  
   (define space (if justify
 		    
 		    ;; justify only stretches lines.
@@ -771,8 +771,10 @@ recommend font for this is bold and italic"
   "Set all font related properties (except the size) to get the default normal text font, no matter what font was used earlier."
   ;; ugh - latin1
   (interpret-markup layout
-                    (cons '((font-family . roman) (font-shape . upright) (font-series . medium) (font-encoding . latin1)) props)
-                    arg)) 
+                    (cons '((font-family . roman) (font-shape . upright)
+			    (font-series . medium) (font-encoding . latin1))
+			  props)
+                    arg))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; symbols.

@@ -38,7 +38,6 @@ your scores.
 * Overview of text markup commands::  
 * Font selection::              
 * New dynamic marks::           
-* Other text markup issues::    
 @end menu
 
 
@@ -519,22 +518,6 @@ rndf = \markup{ \center-align {\line { \bold{\italic (}
 boxf = \markup{ \bracket { \dynamic f } }
 { c'1_\rndf c'1_\boxf }
 @end lilypond
-
-
-@node Other text markup issues
-@subsection Other text markup issues
-
-To use a normal font within a title, you must define it manually
-
-@example
-#(def-markup-command (normal-font layout props arg) (markup?)
-  "Switch to normal text font"
-  (interpret-markup layout (cons '((font-series . 'medium) (font-shape . 'upright)) props) arg))
-
-\header@{
-  title = \markup@{ ABCD \normal-font ABCD @}
-@}
-@end example
 
 
 
@@ -1875,7 +1858,7 @@ teaching tools in addition to great musical scores.
 * Balloon help::                
 * Blank music sheet::           
 * Hidden notes::                
-* Shape note heads ::          
+* Shape note heads ::           
 * Easy Notation note heads::    
 * Analysis brackets::           
 * Coloring objects::            

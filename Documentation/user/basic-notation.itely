@@ -2931,15 +2931,27 @@ Percent repeats must be declared within a @code{Voice} context.
 }
 @end lilypond
 
-Isolated percents can also be printed. This is done by putting a multi
-measure rest, with a different print function,
+Measure repeats of more than 2 measures get a counter, if you switch
+on the @code{countPercentRepeats} property,
 
+@lilypond[relative=2, quote,verbatim,raggedright]
+\set countPercentRepeats = ##t
+\new Voice
+  \repeat "percent" 4 { c1 }
+@end lilypond
+
+
+
+Isolated percents can also be printed. This is done by putting a multi
+measure rest with a different print function,
 
 @lilypond[fragment,verbatim]
 \override MultiMeasureRest #'print-function
   = #Multi_measure_rest::percent
 R1
 @end lilypond
+
+
 
 
 @seealso
