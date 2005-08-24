@@ -12,7 +12,9 @@
 #include "warn.hh"
 #include "libc-extension.hh"
 
-Real binomial_coefficient_3[] = {1, 3, 3, 1};
+Real binomial_coefficient_3[] = {
+  1, 3, 3, 1
+};
 
 Real
 binomial_coefficient (Real over, int under)

@@ -493,7 +493,6 @@
 	 (scale (ly:output-def-lookup paper 'outputscale))
 	 (to-dump-systems '()))
 
-    (display systems)
     ;; skip booktitles.
     (if (and
 	 (not

@@ -833,9 +833,11 @@
 				self-alignment-interface
 				font-interface
 				text-interface))))))
+    
     (MultiMeasureRestText
      . (
 	(print-function . ,Text_interface::print)
+	(spacing-procedure . ,Multi_measure_rest::set_text_rods)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
