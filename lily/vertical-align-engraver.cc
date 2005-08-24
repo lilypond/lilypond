@@ -69,6 +69,7 @@ Vertical_align_engraver::process_music ()
     {
       valign_ = make_spanner ("VerticalAlignment", SCM_EOL);
       valign_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+      Align_interface::set_axis (valign_, Y_AXIS);
     }
 }
 

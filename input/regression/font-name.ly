@@ -13,7 +13,7 @@ without size specification."
 
 
 {
-  \override Staff.TimeSignature  #'font-name = #"Times"
+  \override Staff.TimeSignature  #'font-name = #"Times New Roman"
   \time 3/4
   \set Score.skipBars = ##t
   \override Staff.MultiMeasureRestText #'font-name = #"LuxiMono"
