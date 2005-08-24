@@ -12,7 +12,14 @@
   myStaffSize = #20
   
   #(define fonts
-    (make-pango-font-tree "Times New Roman" "Helvetica" "Courier" (/ myStaffSize 20)))
+    (make-pango-font-tree "Times New Roman"
+                          "Nimbus Sans"
+                          "Luxi Mono"
+
+;;     "Helvetica"
+;;     "Courier"
+
+     (/ myStaffSize 20)))
 }
 
 \relative {

@@ -475,8 +475,8 @@ example,
   
   #(define fonts
     (make-pango-font-tree "Times New Roman"
-                          "Helvetica"
-                          "Courier"
+                          "Nimbus Sans"
+                          "Luxi Mono"
                            (/ myStaffSize 20)))
 }
 
@@ -484,6 +484,10 @@ example,
   c'^\markup { roman: foo \sans bla \typewriter bar }
 }
 @end lilypond
+
+@c we don't do Helvetica / Courier, since GS incorrectly loads
+@c Apple TTF fonts  
+
 
 
 @seealso
