@@ -2934,7 +2934,7 @@ Percent repeats must be declared within a @code{Voice} context.
 Measure repeats of more than 2 measures get a counter, if you switch
 on the @code{countPercentRepeats} property,
 
-@lilypond[relative=2, quote,verbatim,raggedright]
+@lilypond[relative=2,fragment,quote,verbatim,raggedright]
 \set countPercentRepeats = ##t
 \new Voice
   \repeat "percent" 4 { c1 }
