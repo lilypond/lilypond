@@ -10,6 +10,7 @@ Texts may be added to the multi-measure rests.
 
 }
 
+\layout { raggedright = ##t }
 {
   \time 3/4
   \set Score.skipBars = ##t
@@ -18,5 +19,6 @@ Texts may be added to the multi-measure rests.
   R2.^"4"
   R2.*3_\markup { \roman "a1b2c3" }
   R2.*10^"inner"^"top"_"inner"_"bot"
+  R2.^"very very very very very very long text"
   c'2.
 }

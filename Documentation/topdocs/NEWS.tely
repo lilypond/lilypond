@@ -23,7 +23,7 @@ See user manual, \NAME\
 
 @macro textanchor{NAME}
 @html
-<a name href="\NAME\"></a>
+<a name="\NAME\"></a>
 @end html
 @end macro
 
@@ -42,7 +42,21 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 @end ifhtml
 
 
+
+
 @itemize @bullet
+
+
+@item
+Texts over multi measure rests now stretch corresponding measure.
+
+@lilypond[relative=2,fragment,raggedright]
+c1 R1 R1^"Very long long long text" 
+@end lilypond
+
+This feature was sponsored by Kris Shaffer.
+
+
 @item @textanchor{tie-chords}
 Formatting of ties in chords has been improved. Ties no longer collide
 with note heads and stems. In addition, it is possible to manually

@@ -328,7 +328,66 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+/*
+  Ugh. Cut & paste.
+ */
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_text_rods, 1);
+SCM
+Multi_measure_rest::set_text_rods (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  Spanner *sp = dynamic_cast<Spanner *> (me);
+  if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
+    {
+      programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
+      return SCM_UNSPECIFIED;
+    }
+
+  Item *li = sp->get_bound (LEFT)->get_column ();
+  Item *ri = sp->get_bound (RIGHT)->get_column ();
+  Item *lb = li->find_prebroken_piece (RIGHT);
+  Item *rb = ri->find_prebroken_piece (LEFT);
+
+  Item *combinations[4][2] = {{li, ri},
+			      {lb, ri},
+			      {li, rb},
+			      {lb, rb}};
+
+  SCM st = me->get_uncached_stencil ();
+  Real len = unsmob_stencil (st)
+    ? unsmob_stencil (st)->extent (X_AXIS).length ()
+    : 0.0;
+  
+
+  for (int i = 0; i < 4; i++)
+    {
+      Item *li = combinations[i][0];
+      Item *ri = combinations[i][1];
+
+      if (!li || !ri)
+	continue;
+
+      Rod rod;
+      rod.item_drul_[LEFT] = li;
+      rod.item_drul_[RIGHT] = ri;
+
+      rod.distance_ = len; 
+
+      Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0);
+      rod.distance_ = max (rod.distance_, minlen);
+      rod.add_to_cols ();
+    }
+  return SCM_UNSPECIFIED;
+}
+
+
 ADD_INTERFACE (Multi_measure_rest, "multi-measure-rest-interface",
 	       "A rest that spans a whole number of measures.",
-	       "expand-limit measure-count hair-thickness thick-thickness use-breve-rest minimum-length");
+	       "expand-limit "
+	       "measure-count "
+	       "hair-thickness "
+	       "thick-thickness "
+	       "use-breve-rest "
+	       "minimum-length");
 
