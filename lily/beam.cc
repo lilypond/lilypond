@@ -280,8 +280,10 @@ Beam::connect_beams (Grob *me)
 }
 
 /*
-  TODO: should not make beams per stem, but per Y-level; probably when
-  someone wants to sponsor feathered beaming.
+  I really enjoy spaghetti, but spaghetti should be kept on a plate
+  with a little garlic and olive oil. This is too much.
+
+  rewrite-me
 */
 MAKE_SCHEME_CALLBACK (Beam, print, 1);
 SCM
@@ -454,19 +456,25 @@ Beam::print (SCM grob)
 	      - last_xposn
 	      + break_overshoot[RIGHT];
 
+	  rw += stem_width / 2;
+	  lw += last_stem_width / 2;
+
 	  Stencil rhalf = Lookup::beam (slope, rw, thick, blot);
 	  Stencil lhalf = Lookup::beam (slope, lw, thick, blot);
 	  for (int j = lfliebertjes.size (); j--;)
 	    {
 	      Stencil b (lhalf);
-	      b.translate_axis (last_xposn - x0, X_AXIS);
-	      b.translate_axis (slope * (last_xposn - x0) + bdy * lfliebertjes[j], Y_AXIS);
+	      b.translate_axis (last_xposn - x0 - last_stem_width /2,
+				X_AXIS);
+	      b.translate_axis (slope * (last_xposn - x0)
+				+ bdy * lfliebertjes[j],
+				Y_AXIS);
 	      the_beam.add_stencil (b);
 	    }
 	  for (int j = rfliebertjes.size (); j--;)
 	    {
 	      Stencil b (rhalf);
-	      b.translate_axis (xposn - x0 - rw, X_AXIS);
+	      b.translate_axis (xposn - x0 - rw + stem_width / 2, X_AXIS);
 	      b.translate_axis (slope * (xposn - x0 - rw)
 				+ bdy * rfliebertjes[j], Y_AXIS);
 	      the_beam.add_stencil (b);
@@ -478,13 +486,14 @@ Beam::print (SCM grob)
       last_beaming = this_beaming;
     }
 
-  the_beam.translate_axis (x0 - me->relative_coordinate (xcommon, X_AXIS), X_AXIS);
+  the_beam.translate_axis (x0 - me->relative_coordinate (xcommon, X_AXIS),
+			   X_AXIS);
   the_beam.translate_axis (pos[LEFT], Y_AXIS);
 
 #if (DEBUG_QUANTING)
   SCM quant_score = me->get_property ("quant-score");
-  if (to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
-      && scm_is_string (quant_score))
+  SCM debug = me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"));
+  if (to_boolean (debug) && scm_is_string (quant_score))
     {
 
       /*
