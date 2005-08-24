@@ -1,5 +1,8 @@
 2005-08-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grob-interfaces.scm (dynamic-line-spanner-interface):
+	add avoid-slur property. 
+
 	* Documentation/user/basic-notation.itely (Measure repeats): add
 	countPercentRepeats example.
 

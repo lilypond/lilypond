@@ -22,7 +22,7 @@
 (ly:add-interface
  'dynamic-line-spanner-interface
    "Dynamic line spanner"
-   '())
+   '(avoid-slur))
 
 (ly:add-interface
  'finger-interface
