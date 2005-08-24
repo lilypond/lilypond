@@ -1,5 +1,7 @@
 2005-08-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/tie-chord.ly: add note about remaining bugs.
+
 	* lily/tie.cc (print): try Tie_column::set_directions () if
 	control-points not yet defined.
 
