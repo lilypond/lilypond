@@ -21,6 +21,13 @@ See user manual, \NAME\
 @end ifnothtml
 
 
+@macro textanchor{NAME}
+@html
+<a name href="\NAME\"></a>
+@end html
+@end macro
+
+
 @documentencoding utf-8
 @documentlanguage en
 
@@ -36,7 +43,7 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
-@item
+@item @textanchor{tie-chords}
 Formatting of ties in chords has been improved. Ties no longer collide
 with note heads and stems. In addition, it is possible to manually
 specify tie formatting
@@ -70,7 +77,7 @@ Kieren MacMillan, Steve Doonan, Trevor Baca, and Vicente Solsona
 Dellá.
  
 
-@item
+@item  @textanchor{repeat-counter}
 With the @code{countPercentRepeats} property,
 percent repeats get incremental numbers to indicate the accumulated repeat count.
 
@@ -186,7 +193,7 @@ add arrows to the brackets,
 This feature was sponsored by Trevor Baca.
 
 
-@item
+@item @textanchor{arrow-glyph}
 Arrow heads were added to the Feta font.
 
 @lilypond[]
@@ -250,7 +257,7 @@ showLastLength = R1*5
 will render only the last five measures (assuming 4/4 time signature)
 of a piece.
 
-@item
+@itemy @textanchor{simple-melismata}
 Melismata can be specified simply in the lyrics now, eg.
 
 @lilypond[relative=1,verbatim,fragment]
@@ -279,7 +286,7 @@ The setting @code{whichBar} and time-bookkeeping is now split into a
 @code{Default_bar_line_engraver} and @code{Timing_translator}
 respectively.
 
-@item
+@item @textanchor{pitched-trill}
 Explicit pitches may be added to trills,
 
 @lilypond[relative,verbatim,fragment]
