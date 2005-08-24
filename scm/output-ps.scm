@@ -204,7 +204,7 @@
 
 		      ;; TODO
 		      ;; full escaping.
-		      (re-sub " " "%20" file)
+		      (string-regexp-substitute " " "%20" file)
 		      (cadr location)
 		      (caddr location)
 		      (cadddr location))
