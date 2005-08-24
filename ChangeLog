@@ -1,5 +1,7 @@
 2005-08-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-ps.scm (grob-cause): escape spaces in URLs.
+
 	* lily/multi-measure-rest.cc (set_text_rods): new function.
 
 	* lily/vertical-align-engraver.cc (process_music): call

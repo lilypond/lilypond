@@ -201,7 +201,10 @@
 		      (+ (cdr offset) (car y-ext))
 		      (+ (car offset) (cdr x-ext))
 		      (+ (cdr offset) (cdr y-ext))
-		      file
+
+		      ;; TODO
+		      ;; full escaping.
+		      (re-sub " " "%20" file)
 		      (cadr location)
 		      (caddr location)
 		      (cadddr location))
