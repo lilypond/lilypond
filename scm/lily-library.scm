@@ -364,7 +364,6 @@ possibly turned off."
 (define-public (string-regexp-substitute a b str)
   (regexp-substitute/global #f a str 'pre b 'post)) 
 
-
 (define (regexp-split str regex)
   (define matches '())
   (define end-of-prev-match 0)
