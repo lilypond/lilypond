@@ -1,3 +1,7 @@
+2005-08-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-markup-commands.scm (null): add null markup.
+
 2005-08-25  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/item.cc: Add documentation of center-invisible
