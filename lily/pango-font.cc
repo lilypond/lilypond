@@ -44,6 +44,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 
     --hwn
   */
+  output_scale_ = output_scale;
   scale_ = INCH_TO_BP / (Real (PANGO_SCALE) * Real (PANGO_RESOLUTION) * output_scale);
 
   /*
@@ -76,7 +77,7 @@ Pango_font::derived_mark () const
 }
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) const
+Pango_font::pango_item_string_stencil (PangoItem *item, String str) const
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
@@ -126,12 +127,11 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 	}
       else
 	char_id = scm_makfrom0str (glyph_name);
-      *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_
-						     + dx),
+      
+      *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_),
 				    scm_from_double (ggeo.y_offset * scale_),
 				    char_id),
 			SCM_EOL);
-      dx = 0.0;
       tail = SCM_CDRLOC (*tail);
     }
 
@@ -214,18 +214,15 @@ Pango_font::text_stencil (String str) const
 
   GList *ptr = items;
   Stencil dest;
-  Real x = 0.0;
+
+  Real last_x = 0.0;
   while (ptr)
     {
       PangoItem *item = (PangoItem *) ptr->data;
 
-      Stencil item_stencil = pango_item_string_stencil (item, str, x);
-
-
-      /*
-      UGH. Is this correct for bidi? 
-      */
-      x = item_stencil.extent (X_AXIS)[RIGHT];
+      Stencil item_stencil = pango_item_string_stencil (item, str);
+      item_stencil.translate_axis (last_x, X_AXIS);
+      last_x = item_stencil.extent (X_AXIS)[RIGHT];
 
 #if 0 /* Check extents.  */
       if (!item_stencil.extent_box ()[X_AXIS].is_empty ())
