@@ -272,8 +272,10 @@ e4^\markup{ \italic ritenuto } g b e
 @end lilypond
 
 That looks better, but it isn't quite big enough.  After experimenting
-with a few values, I think 2.3 is the best number.  I leave this as an
-exercise for the reader.
+with a few values, we think 2.3 is the best number in this case.  However,
+this number is merely the result of experimentation and my personal
+taste in notation.  Try the above example with 2.3... but also try higher
+(and lower) numbers.  Which do you think looks the best?
 
 @cindex extra-offset
 
@@ -291,13 +293,18 @@ e4^\markup{ \italic ritenuto } g b e
 
 With @code{extra-offset}, the first number controls the horizontal
 movement (left is negative); the second number controls the vertial
-movement (up is positive).  After a bit of experimenting, I decided
+movement (up is positive).  After a bit of experimenting, we decided
 that these values look good
 
 @lilypond[quote,fragment,raggedright,verbatim,relative=2]
 \once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
+
+@noindent
+Again, these numbers are simply the result of a few experiments and
+looking at the output.  You might prefer the text to be slightly higher,
+or to the left, or whatever.  Try it and look at the result!
 
 
 @seealso

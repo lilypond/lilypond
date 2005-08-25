@@ -371,6 +371,7 @@ Languages in this order.
 * tempo indication::            
 * tenor::                       
 * tenth::                       
+* tenuto::                      
 * third::                       
 * thirty-second note::          
 * thirty-second rest::          
@@ -1443,7 +1444,7 @@ of the 20th century
 \score {
   {
 %   \override Staff.Custos #'neutral-position = #4
-    \override Staff.Custos #'neutral-direction = #-1
+    \override Staff.Custos #'neutral-direction = #down
     \override Staff.Custos #'style = #'hufnagel
     c'1 \break
     <d' a' f''>1
@@ -4533,6 +4534,21 @@ S: decima,
 FI: desimi.
 
 @aref{note value}.
+
+@node tenuto
+@section tenuto
+
+ES: tenuto,
+I: tenuto,
+F: tenue, tenuto,
+D: gehalten, tenuo,
+NL: tenuto,
+DK: tenuto,
+S: tenuto,
+FI: viiva, tenuto.
+
+An indication that a particular note should be held for the whole
+length, although this can vary depending on the composer and era.
 
 @node third
 @section third
