@@ -3,6 +3,9 @@
 	* Documentation/user/advanced-notation.itely: add info about
 	raising text.
 
+	* Documentation/user/programming-interface.itely: fix example
+	involving raised text.
+
 2005-08-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/beam.cc (print): fix X start/end points of isolated
