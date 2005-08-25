@@ -123,7 +123,8 @@
     
     dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
     instrumentEqualizer = #default-instrument-equalizer
-    drumPitchTable = #(alist->hash-table midiDrumPitches) 
+    drumPitchTable = #(alist->hash-table midiDrumPitches)
+    timing = ##t 
 }
 
 
