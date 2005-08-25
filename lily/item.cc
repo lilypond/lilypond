@@ -208,5 +208,6 @@ ADD_INTERFACE (Item,
 	       "  all-visible                yes     yes    yes\n"
 	       "  begin-of-line-invisible    yes     yes    no\n"
 	       "  end-of-line-invisible      no      yes    yes\n"
+	       "  center-invisible           yes      no    yes\n"
 	       "@end example\n",
 	       "no-spacing-rods break-visibility breakable")
