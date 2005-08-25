@@ -1,5 +1,8 @@
 2005-08-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/performer-init.ly: init timing to #t.  Fixes bar checks in
+	MIDI.
+
 	* scm/define-markup-commands.scm (wordwrap-string): use
 	text-direction
 	(wordwrap-stencils): idem.
