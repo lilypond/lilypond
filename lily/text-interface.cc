@@ -92,5 +92,9 @@ Text_interface::is_markup (SCM x)
 
 ADD_INTERFACE (Text_interface, "text-interface",
 	       "A scheme markup text, see @usermanref{Text markup}.",
-	       "baseline-skip direction text word-space");
+	       "baseline-skip "
+	       "text "
+	       "word-space "
+	       "text-direction "
+	       );
 

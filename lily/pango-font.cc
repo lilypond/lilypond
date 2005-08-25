@@ -221,6 +221,9 @@ Pango_font::text_stencil (String str) const
 
       Stencil item_stencil = pango_item_string_stencil (item, str, x);
 
+      /*
+      UGH. Is this correct for bidi? 
+      */
       x = item_stencil.extent (X_AXIS)[RIGHT];
 
       dest.add_stencil (item_stencil);
