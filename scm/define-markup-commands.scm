@@ -465,8 +465,15 @@ determines the space between each markup in @var{args}."
 	    (loop (cons line lines)
 		  (cdr line-break))
 
-	    (reverse (cons line lines))
-	    ))
+	    (begin
+	      (if (= text-dir LEFT)
+		  (set! line
+			(ly:stencil-translate-axis line
+						   (- line-width (interval-end (ly:stencil-extent line X)))
+						   X)))
+	      (reverse (cons line lines))
+	      
+	    )))
 
       ))
 

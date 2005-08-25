@@ -221,11 +221,23 @@ Pango_font::text_stencil (String str) const
 
       Stencil item_stencil = pango_item_string_stencil (item, str, x);
 
+
       /*
       UGH. Is this correct for bidi? 
       */
       x = item_stencil.extent (X_AXIS)[RIGHT];
 
+#if 0 /* Check extents.  */
+      if (!item_stencil.extent_box ()[X_AXIS].is_empty ())
+	{
+	  Stencil frame = Lookup::frame (item_stencil.extent_box (), 0.1, 0.1);
+	  Box empty;
+	  empty.set_empty ();
+	  Stencil dimless_frame (empty, frame.expr ());
+	  dest.add_stencil (frame);
+	}
+#endif
+  
       dest.add_stencil (item_stencil);
 
       ptr = ptr->next;
@@ -254,16 +266,6 @@ Pango_font::text_stencil (String str) const
       return Stencil (b, exp);
     }
 
-#if 0 /* Check extents.  */
-  if (!dest.extent_box ()[X_AXIS].is_empty ())
-    {
-      Stencil frame = Lookup::frame (dest.extent_box (), 0.1, 0.1);
-      Box empty;
-      empty.set_empty ();
-      Stencil dimless_frame (empty, frame.expr ());
-      dest.add_stencil (frame);
-    }
-#endif
 
   return dest;
 }
