@@ -1,3 +1,7 @@
+2005-08-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-markup-commands.scm (null): add  null markup.
+
 2005-08-24  Graham Percival  <gpermus@gmail.com>
 
 	* ly/bagpipe.ly: Backport.
