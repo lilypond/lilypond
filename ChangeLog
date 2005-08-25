@@ -1,3 +1,8 @@
+2005-08-25  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* lily/lily-parser.cc (Lily_parser): also copy output_basename_
+	when copying a Lily_parser object.
+
 2005-08-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-markup-commands.scm (null): add null markup.

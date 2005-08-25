@@ -42,6 +42,7 @@ Lily_parser::Lily_parser (Lily_parser const &src)
   sources_ = src.sources_;
   default_duration_ = src.default_duration_;
   error_level_ = src.error_level_;
+  output_basename_ = src.output_basename_;
 
   smobify_self ();
   if (src.lexer_)
