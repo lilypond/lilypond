@@ -19,6 +19,12 @@
   "Stencil as markup"
   stil)
 
+
+(def-markup-command (null layout props) ()
+  "An empty markup with extents of a single point"
+
+  point-stencil)
+
 (def-markup-command (draw-circle layout props radius thickness fill)
   (number? number? boolean?)
   "A circle of radius @var{radius}, thickness @var{thickness} and
