@@ -344,6 +344,7 @@ gsave /ecrm10 findfont
 		     (interval-length (ly:stencil-extent stc X))))
 	       stencils))
 	 (text-width (apply + text-widths))
+	 (text-dir (chain-assoc-get 'text-direction props RIGHT))
 	 (word-count (length stencils))
 	 (word-space (chain-assoc-get 'word-space props))
 	 (line-width (chain-assoc-get 'linewidth props))
@@ -358,12 +359,12 @@ gsave /ecrm10 findfont
 					(- line-width text-width)))
 			(else 
 				(get-fill-space word-count line-width text-widths))))
-     (fill-space-normal
-     	(map (lambda (x)
-     		(if (< x word-space)
-     			word-space
-				x))
-			fill-space))
+	 (fill-space-normal
+	  (map (lambda (x)
+		 (if (< x word-space)
+		     word-space
+		     x))
+	       fill-space))
 					
 	 (line-stencils (if (= word-count 1)
 			    (list
@@ -372,24 +373,35 @@ gsave /ecrm10 findfont
 			     point-stencil)
 			    stencils)))
 
+    (if (= text-dir LEFT)
+	(set! line-stencils (reverse line-stencils)))
+
     (if (null? (remove ly:stencil-empty? orig-stencils))
 	empty-stencil
-	(stack-stencils-padding-list X RIGHT fill-space-normal line-stencils))))
+	(stack-stencils-padding-list X
+				     RIGHT fill-space-normal line-stencils))))
 	
 (def-markup-command (line layout props args) (markup-list?)
   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between each markup in @var{args}."
   (let*
       ((stencils (map (lambda (m) (interpret-markup layout props m)) args))
-       (space    (chain-assoc-get 'word-space props)))
+       (space    (chain-assoc-get 'word-space props))
+       (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
+       )
 
-  (stack-stencil-line
-   space
-   (remove ly:stencil-empty? stencils))))
+    
+    (if (= text-dir LEFT)
+	(set! stencils (reverse stencils)))
+    
+
+    (stack-stencil-line
+     space
+     (remove ly:stencil-empty? stencils))))
 
 
 (define (wordwrap-stencils stencils
-			   justify base-space line-width)
+			   justify base-space line-width text-dir)
   
   "Perform simple wordwrap, return stencil of each line."
   
@@ -445,7 +457,9 @@ determines the space between each markup in @var{args}."
 
 	   (line (stack-stencil-line
 		  line-word-space
-		  (reverse line-stencils))))
+		  (if (= text-dir RIGHT)
+		      (reverse line-stencils)
+		      line-stencils))))
 
 	(if (pair? (cdr line-break))
 	    (loop (cons line lines)
@@ -462,10 +476,12 @@ determines the space between each markup in @var{args}."
       ((baseline-skip (chain-assoc-get 'baseline-skip props))
        (line-width (chain-assoc-get 'linewidth props))
        (word-space (chain-assoc-get 'word-space props))
+       (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
        (lines (wordwrap-stencils
 	       (remove ly:stencil-empty?
 		       (map (lambda (m) (interpret-markup layout props m)) args))
-	       justify word-space  line-width)
+	       justify word-space line-width
+	       text-dir)
 	       ))
 
     (stack-lines DOWN 0.0 baseline-skip lines)))
@@ -490,6 +506,7 @@ linewidth, where X is the number of staff spaces."
        (word-space (chain-assoc-get 'word-space props))
        (para-strings (regexp-split arg "\n[ \t\n]*\n[ \t\n]*"))
        
+       (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
        (list-para-words (map (lambda (str)
 			       (regexp-split str "[ \t\n]+"))
 			     para-strings))
@@ -502,7 +519,9 @@ linewidth, where X is the number of staff spaces."
 					(interpret-markup layout props x))
 				      words)))
 			       (lines (wordwrap-stencils stencils
-							 justify word-space line-width)))
+							 justify word-space
+							 line-width text-dir
+							 )))
 
 			    lines))
 			

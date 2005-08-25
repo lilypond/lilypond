@@ -461,6 +461,9 @@ typeset. Valid choices depend on the @code{print-function} that is
 reading this property.")
      (text ,markup? "Text markup.  See @usermanref{Text markup}.")
 ;;FIXME -- Should both be the same?
+     (text-direction ,ly:dir? "This controls the ordering of the
+words. The default RIGHT is for roman text. Arabic or hebrew should
+use LEFT.")
      (thick-thickness ,number? "Bar line thickness, measured in
 @code{linethickness}.")
      (thickness ,number? "Bar line thickness, measured in

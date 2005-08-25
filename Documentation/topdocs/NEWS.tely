@@ -48,6 +48,14 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @item
+The order of words in @code{\markup} commands may now be reversed by
+setting the @code{text-direction} property. This is useful for
+Right-to-Left languages like Hebrew.
+
+This feature was sponsored by Aaron Mehl.
+
+
+@item
 Texts over multi measure rests now stretch corresponding measure.
 
 @lilypond[relative=2,fragment,raggedright]
