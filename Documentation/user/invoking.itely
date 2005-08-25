@@ -270,57 +270,6 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 
 @section Environment variables
 
-@ignore
-For processing both the @TeX{} and the PostScript output, the
-appropriate environment variables must be set.  The following scripts
-do this:
-
-@itemize @bullet
-@item @file{buildscripts/@/out/@/lilypond@/-profile}
-(for SH shells)
-@item @file{buildscripts/@/out/@/lilypond@/-login} (for C-shells)
-@end itemize
-
-They should normally be sourced as part of the login process.  If these
-scripts are not run from the system wide login process, then you must
-run them yourself.
-
-@cindex installing LilyPond
-
-If you use sh, bash, or a similar shell, then add the following to
-your @file{.profile}:
-@example
-. @var{/the/path/to/}lilypond-profile
-@end example
-
-If you use csh, tcsh or a similar shell, then add the following to
-your @file{~/.login}:
-@example
-source @var{/the/path/to/}lilypond-login
-@end example
-
-Of course, in both cases, you should substitute the proper location of
-either script.
-
-These scripts set the following variables:
-@table @code
-@item TEXMF
-To make sure that @TeX{} and lilypond find data files (among
-others @file{.tex}, @file{.mf}, and @file{.tfm}),
-you have to set @code{TEXMF} to point to the lilypond data
-file tree.  A typical setting would be
-@example
-@{/usr/share/lilypond/2.4.0,@{!!/usr/share/texmf@}@}
-@end example
-
-@end table
-
-@cindex PostScript
-@cindex TEXMF
-@cindex printing postscript
-
-@end ignore
-
 
 @cindex LANG
 @cindex LILYPONDPREFIX
@@ -496,7 +445,7 @@ specified.
 
 @ignore
 Copy and paste from CVS, last updated
-May 26, 2005
+Aug 18, 2005
 
 http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/convert-ly.txt?rev=HEAD&content-type=text/plain
 @end ignore
@@ -544,6 +493,8 @@ here for reference.
  \markup{ \center-align <{ ... }> } should be converted to:
  \markup{ \center-align {\line { ... }} }
  but now, \line is missing.
+2.4->2.6
+ Special LaTeX characters such as $~$ in text are not converted to UTF8.
 
 @end verbatim
 
@@ -687,6 +638,9 @@ This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
 defined in the init file @file{scm/@/lily@/.scm}.
 
+The @code{\score} must begin with music, and may contain only
+one music block.
+
 @item
 A @code{\book} block logically combines multiple movements
 (i.e., multiple @code{\score} blocks) in one document.  A number of
@@ -774,7 +728,32 @@ file, use
 \include "otherfile.ly"
 @end example
 
-For example, you may write separate files for each instrument part and
-create a ``full score'' file which brings together the individual
-instrument files.
+The line @code{\include "file.ly"} is equivalent to pasting the contents
+of file.ly into the current file at the place where you have the
+\include.  For example, for a large project you might write separate files
+for each instrument part and create a ``full score'' file which brings
+together the individual instrument files.
+
+The initialization of LilyPond is done in a number of files that are
+included by default when you start the program, normally transparent to the
+user.  Run lilypond --verbose to see a list of paths and files that Lily
+finds.
+
+Files placed in directory @file{PATH/TO/share/lilypond/VERSION/ly/} (where
+VERSION is in the form ``2.6.1'') are on the path and available to
+@code{\include}.  Files in the
+current working directory are available to \include, but a file of the same
+name in LilyPond's installation takes precedence.  Files are
+available to \include from directories in the search path specified as an
+option when invoking @code{lilypond --include=DIR} which adds DIR to the search
+path.
+
+The @code{\include} statement can use full path information, but with the Unix
+convention @code{"/"} rather than the DOS/Windows @code{"\"}.  For example,
+if @file{stuff.ly} is located one directory higher than the current working
+directory, use
+
+@example
+\include "../stuff.ly"
+@end example
 

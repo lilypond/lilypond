@@ -38,7 +38,6 @@ your scores.
 * Overview of text markup commands::  
 * Font selection::              
 * New dynamic marks::           
-* Other text markup issues::    
 @end menu
 
 
@@ -101,6 +100,10 @@ properties
 c1
 \textSpannerDown
 \override TextSpanner #'edge-text = #'("rall " . "")
+c2\startTextSpan b c\stopTextSpan a
+\break
+\textSpannerUp
+\override TextSpanner #'edge-text = #(cons (markup #:italic "rit" ) "")
 c2\startTextSpan b c\stopTextSpan a
 @end lilypond
 
@@ -215,9 +218,10 @@ but it can also be used anywhere text is called in lilypond
 
     \set Staff.instrument = \markup{ \column{ Alto solo } }
     c2^\markup{ don't be \flat }
-    b2
+    \override TextSpanner #'edge-text = #(cons (markup #:italic "rit" ) "")
+    b2\startTextSpan
     a2\mark \markup{ \large \bold Fine }
-    r2
+    r2\stopTextSpan
     \bar "||"
   }
   \addlyrics { bar, foo \markup{ \italic bar! } }
@@ -292,6 +296,19 @@ any effects of alignments applied to their markup arguments as a
 whole.  For example, the @internalsref{RehearsalMark} is horizontally
 centered, so using @code{\mark \markup @{ \left-align .. @}} has no
 effect.
+
+In addition, vertical placement is performed after creating the
+text markup object.  If you wish to move an entire piece of markup,
+you need to use the #'padding property or create an "anchor" point
+inside the markup (generally with @code{\hspace #0}).
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\fatText
+c'4^\markup{ \raise #5 "not raised" }
+\once \override TextScript #'padding = #3
+c'4^\markup{ raised }
+c'4^\markup{ \hspace #0 \raise #1.5 raised }
+@end lilypond
 
 
 @seealso
@@ -490,22 +507,6 @@ boxf = \markup{ \bracket { \dynamic f } }
 @end lilypond
 
 
-@node Other text markup issues
-@subsection Other text markup issues
-
-To use a normal font within a title, you must define it manually
-
-@example
-#(def-markup-command (normal-font layout props arg) (markup?)
-  "Switch to normal text font"
-  (interpret-markup layout (cons '((font-series . 'medium) (font-shape . 'upright)) props) arg))
-
-\header@{
-  title = \markup@{ ABCD \normal-font ABCD @}
-@}
-@end example
-
-
 
 @node Preparing parts
 @section Preparing parts
@@ -529,13 +530,15 @@ individual parts.
 @subsection Multi measure rests
 
 @cindex multi measure rests
+@cindex full measure rests
 @cindex Rests, multi measure
+@cindex Rests, full measure
 @cindex whole rests for a full measure
 @cindex @code{R}
 
-Multi-measure rests are entered using `@code{R}'.  It is specifically
-meant for full bar rests and for entering parts: the rest can expand
-to fill a score with rests, or it can be printed as a single
+Rests for one full measure (or many bars) are entered using `@code{R}'.  It
+is specifically meant for full bar rests and for entering parts: the rest
+can expand to fill a score with rests, or it can be printed as a single
 multi-measure rest.  This expansion is controlled by the property
 @code{Score.skipBars}.  If this is set to true, empty measures will not
 be expanded, and the appropriate number is added automatically
@@ -587,6 +590,16 @@ adding fermatas
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
+@end lilypond
+
+Warning!  This text is created by @code{MultiMeasureRestText}, not
+@code{TextScript}.
+
+@lilypond[quote,raggedright,verbatim,fragment]
+\override TextScript #'padding = #5
+R1^"low"
+\override MultiMeasureRestText #'padding = #5
+R1^"high"
 @end lilypond
 
 If you want to have text on the left end of a multi-measure rest,
@@ -706,7 +719,12 @@ c1 \mark \default
 @end lilypond
 
 @noindent
-(The letter@tie{}`I' is skipped in accordance with engraving traditions.)
+The letter@tie{}`I' is skipped in accordance with engraving traditions.
+If you wish to include the letter `I', then use
+
+@example
+\set Score.markFormatter = #format-mark-alphabet
+@end example
 
 The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the mark
@@ -841,6 +859,24 @@ names, for example
 c''1
 @end lilypond
 
+If you wish to center the instrument names, you must center all of them
+
+@lilypond[quote,verbatim,raggedright]
+{ <<
+\new Staff {
+  \set Staff.instrument = \markup {
+    \center-align { "Clarinetti"
+      \line { "in B" \smaller \flat } } }
+  c''1
+}
+\new Staff {
+  \set Staff.instrument = \markup{ \center-align { Vibraphone }}
+  c''1
+}
+>>
+}
+@end lilypond
+
 For longer instrument names, it may be useful to increase the
 @code{indent} setting in the @code{\layout} block.
 
@@ -853,8 +889,10 @@ Program reference: @internalsref{InstrumentName}.
 When you put a name on a grand staff or piano staff, the width of the
 brace is not taken into account. The following property setting can be
 used to move the instrument names to the left, in such situations.
+
 @example
-\override Score.InstrumentName #'space-alist = #'((left-edge extra-space . 2.0))@end example
+\override Score.InstrumentName #'space-alist = #'((left-edge extra-space . 2.0))
+@end example
 
 
 @node Instrument transpositions
@@ -1356,7 +1394,7 @@ Cue notes have smaller font sizes.
  when the original part takes over again, this should be marked with
  the name of the original instrument.
 
- @c really?  Are you sure about that last point?  I'll check after 3.0 -gp
+@c really?  Are you sure about that last point?  I'll check after 3.0 -gp
 
 @c Yes, this is good practice.  Otherwise, the start of the original
 @c part can only be seen from the font size.  This is not good enough
@@ -1366,7 +1404,7 @@ Cue notes have smaller font sizes.
 @c -hwn
 
 
- any other changes introduced by the cued part should also be
+Any other changes introduced by the cued part should also be
 undone.  For example, if the cued instrument plays in a different clef,
 the original clef should be stated once again.
 
@@ -1778,7 +1816,7 @@ teaching tools in addition to great musical scores.
 * Balloon help::                
 * Blank music sheet::           
 * Hidden notes::                
-* Shaped note heads ::          
+* Shape note heads ::           
 * Easy Notation note heads::    
 * Analysis brackets::           
 * Coloring objects::            
@@ -1880,14 +1918,14 @@ as possible.
 @end lilypond
 
 
-@node Shaped note heads 
-@subsection Shaped note heads 
+@node Shape note heads 
+@subsection Shape note heads 
 
-In shaped note head notation, the shape of the note head corresponds
+In shape note head notation, the shape of the note head corresponds
 to the harmonic function of a note in the scale.  This notation was
 popular in the 19th century American song books.
 
-Shaped note heads can be produced by setting @code{\aikenHeads} or
+Shape note heads can be produced by setting @code{\aikenHeads} or
 @code{\sacredHarpHeads}, depending on the style desired.
 
 @lilypond[verbatim,relative=1,fragment]
@@ -1905,7 +1943,7 @@ scale is determined by  the @code{\key} command
 @findex \aikenHeads
 @findex \sacredHarpHeads
 
-Shaped note heads are implemented through the @code{shapeNoteStyles}
+Shape note heads are implemented through the @code{shapeNoteStyles}
 property.  Its value is a vector of symbols.  The k-th element indicates
 the style to use for the k-th step of the scale.  Arbitrary
 combinations are possible, eg.,

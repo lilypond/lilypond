@@ -163,10 +163,11 @@ print them manually.  A reminder accidental
 can be forced by adding an exclamation mark @code{!}
 after the pitch.  A cautionary accidental
 (i.e., an accidental within parentheses) can be obtained by adding the
-question mark `@code{?}' after the pitch.
+question mark `@code{?}' after the pitch.  These extra accidentals
+can be used to produce natural signs, too.
 
 @lilypond[quote,raggedright,fragment,verbatim]
-cis' cis' cis'! cis'?
+cis' cis' cis'! cis'? c c? c! c
 @end lilypond
 
 
@@ -231,7 +232,8 @@ r1 r2 r4 r8
 @end lilypond
 
 Whole bar rests, centered in middle of the bar,
-must be done with multi-measure rests.  They are discussed in
+must be done with multi-measure rests.  They can be used for a
+single bar as well as many bars, and are discussed in
 @ref{Multi measure rests}.
 
 
@@ -1177,6 +1179,9 @@ connected between different staves of a StaffGroup
 >>
 @end lilypond
 
+
+@commonprop
+
 @cindex @code{whichBar}
 @cindex @code{repeatCommands}
 @cindex @code{defaultBarType}
@@ -1423,11 +1428,13 @@ lines.
 
 Ties are sometimes used to write out arpeggios.  In this case, two tied
 notes need not be consecutive.  This can be achieved by setting the
-@code{tieWaitForNote} property to true.  For example,
+@code{tieWaitForNote} property to true. The same feature is also useful,
+for example, to tie a tremolo to a chord. For example,
 
 @lilypond[fragment,verbatim,relative=1,raggedright]
 \set tieWaitForNote = ##t
-\grace { c16[~ e~ g]~ } <c, e g>4   
+\grace { c16[~ e~ g]~ } <c, e g>2   
+\repeat "tremolo" 8 { c32~ c'~ } <c c,>1
 @end lilypond
 
 

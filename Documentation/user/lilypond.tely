@@ -10,7 +10,7 @@
 
 @ignore
 (I think)
-Current version of the manual: 2.5.18
+Current version of the manual: 2.6.0
 Please update this whenever you run convert-ly on the docs.
 
 convert-ly --from=... --to=... --no-version *.itely

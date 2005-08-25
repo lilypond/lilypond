@@ -16,6 +16,7 @@ This chapter explains how to use notation for specific instruments.
 * Vocal music::                 
 * Rhythmic music::              
 * Guitar::                      
+* Bagpipe::                     
 * Ancient notation::            
 * Other instrument specific notation::  
 @end menu
@@ -40,8 +41,7 @@ handle this cross-staffing behavior.  In this section we discuss the
 * Cross staff stems::           
 @end menu
 
-@
-refbugs
+@refbugs
 
 Dynamics are not centered, but workarounds do exist.  See the
 ``piano centered dynamics'' template in @ref{Piano templates}.
@@ -320,6 +320,13 @@ twoWays = \transpose c c' {
 This example also shows that the chord printing routines do not try to
 be intelligent.  The last chord (@code{f bes d}) is not interpreted as
 an inversion.
+
+Note that the duration of chords must be specified outside the
+@code{<>}.
+
+@example
+<c e g>2
+@end example
 
 
 @node Chords mode
@@ -778,20 +785,16 @@ property commands
 
 Any @code{_} character that appears in an unquoted word is converted
 to a space.  This provides a mechanism for introducing spaces into words
-without using quotes.  Quoted words can also be used in Lyrics mode to
-specify words that cannot be written with the above rules.  The
-following example incorporates double quotes
+without using quotes.
+
+To enter lyrics with characters from non-English languages, or with
+non-ascii characters (such as the heart symbol or slanted quotes),
+simply insert the characters directly into the input file and save
+it with utf-8 encoding.  See @ref{Text encoding} for more info.
 
 @example
-\lyricmode @{ He said: "\"Let" my peo ple "go\"" @}
+\lyricmode @{ He said: Ã¢ÂÂLet my peo ple goÃ¢ÂÂ. @}
 @end example
-
-This example is slightly academic, since it gives better looking
-results using single quotes, @code{``} and @code{''}
-@example
-\lyricmode @{ He said: ``Let my peo ple go'' @}
-@end example
-
 
 The full definition of a word start in Lyrics mode is somewhat more
 complex.
@@ -838,15 +841,15 @@ the @code{LyricHyphen} grob.
 
 @lilypond[quote,verbatim,raggedright]
 \score {
-<<
+ <<
   \new Staff \relative c'' {
     \time 1/4 c16 c c c c16 c c c c16 c c c
-  } % closes notes
+  }
   \lyricmode { \new Lyrics
     \with {
-    \override SeparationItem #'padding = #0.0
+      \override SeparationItem #'padding = #0.0
       % Otherwise lyrics are so far apart that hyphens don't disappear
-    } % closes with
+    } 
     {
       An -- ti -- cons -- ti --
       tu -- tion -- nel -- le --
@@ -854,17 +857,17 @@ the @code{LyricHyphen} grob.
       \override LyricHyphen  #'spacing-procedure =
         #Hyphen_spanner::set_spacing_rods
       men -- taire -- ment. ouf~!
-    } % closes lyrics
-  } %closes lyricmode
->>
-\layout   {
+    }
+  }
+ >>
+ \layout   {
   indent = 0.0 \cm
   linewidth = 3.4 \cm
   \context {
     \Staff \remove "Time_signature_engraver"
-  } % closes context
-} % closes layout
-} % closes score
+  }
+ }
+}
 @end lilypond
 
 @seealso
@@ -1033,10 +1036,12 @@ inserted by hand.
 @node Flexibility in alignment
 @subsection Flexibility in alignment
 
-
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
 @code{\lyricsto}.
+
+@subsubsection Lyrics to multiple notes of a melisma 
+
 
 One possibility is that the text has a melisma in one stanza, but
 multiple syllables in another one.  One solution is to make the faster
@@ -1084,6 +1089,11 @@ For example,
   kle
 }
 @end lilypond
+
+
+@subsection Switching the melody associated with a lyrics line
+
+
 
 More complex variations in text underlay are possible.  It is possible
 to switch the melody for a line of lyrics during the text.  This is
@@ -1845,6 +1855,102 @@ touching the strings instead of fully pressing them.  This gives the sound a
 percussive noise-like sound that still maintains part of the original
 pitch.  It is notated with cross noteheads; this is
 demonstrated in @ref{Special noteheads}.
+
+
+@node Bagpipe
+@section Bagpipe
+
+@cindex Bagpipe
+
+@menu
+* Bagpipe definitions::         
+* Bagpipe example::             
+@end menu
+
+
+@node Bagpipe definitions
+@subsection Bagpipe definitions
+
+LilyPond contains special definitions for music for the Scottish
+highland bagpipe; to use them, add
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+at the top of your input file.  This lets you add the special gracenotes
+common to bagpipe music with short commands.  For example, you could
+write @code{\taor} instead of
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+@code{bagpipe.ly} also contains pitch definitions for the bagpipe
+notes in the appropiate octaves, so you do not need to worry about
+@code{\relative} or @code{\transpose}.
+
+@lilypond[raggedright,verbatim,quote,notime]
+\include "bagpipe.ly"
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
+@end lilypond
+
+Bagpipe music nominally uses the key of D Major (even though that 
+isn't really true). However, since that is the only key that can be used, 
+the key signature is normally not written out. To set this up correctly, 
+always start your music with @code{\hideKeySignature}. If you for some 
+reason want to show the key signature, you can use @code{\showKeySignature}
+instead.
+
+Some modern music use cross fingering on c and f to flatten those notes.
+This can be indicated by @code{cflat} or @code{fflat}. Similarly, the
+piobaireachd high g can be written @code{gflat} when it occurs in light 
+music.
+
+
+@node Bagpipe example
+@subsection Bagpipe example
+
+This is what the well known tune Amazing Grace looks like in bagpipe
+notation.
+
+@lilypond[verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+
+{
+  \hideKeySignature
+  \time 3/4
+  \grg \partial 4 a8. d16 
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
+@end lilypond
 
 
 @node Ancient notation

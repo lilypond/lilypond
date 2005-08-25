@@ -467,10 +467,9 @@ is this table:
 @quotation
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
-@item @b{LilyPond} @tab @b{Scheme}
-@item @code{\markup @{ ... @}} @tab @code{( markup ... )}
+@item @code{\markup markup1 @}} @tab @code{(markup markup1)}
 @item @code{\markup @{ markup1 markup2 ... @}} @tab 
-        @code{(markup #:line ( markup1 markup2 ... ))}
+        @code{(markup markup1 markup2 ... )}
 @item @code{\command} @tab @code{#:command}
 @item @code{\variable} @tab @code{variable}
 @item @code{\center-align @{ ... @}} @tab @code{#:center-align ( ... )}
@@ -614,15 +613,15 @@ defined @code{\smallcaps} command:
   "Print the character name in small caps, translated to the left and
   top.  Syntax: \\character #\"name\""
   (interpret-markup layout props 
-   (markup "" #:translate (cons -3 1) #:smallcaps name)))
+   (markup #:hspace 0 #:translate (cons -3 1) #:smallcaps name)))
 @end example
 
 There is one complication that needs explanation: texts above and below
 the staff are moved vertically to be at a certain distance (the
 @code{padding} property) from the staff and the notes.  To make sure
 that this mechanism does not annihilate the vertical effect of our
-@code{#:translate}, we add an empty string (@code{""}) before the
-translated text.  Now the @code{""} will be put above the notes, and the
+@code{#:translate}, we add an empty string (@code{#:hspace 0}) before the
+translated text.  Now the @code{#:hspace 0} will be put above the notes, and the
 @code{name} is moved in relation to that empty string.  The net effect is
 that the text is moved to the upper left.
 
@@ -651,7 +650,7 @@ The final result is as follows:
   "Print the character name in small caps, translated to the left and
   top.  Syntax: \\character #\"name\""
   (interpret-markup layout props 
-   (markup "" #:translate (cons -3 1) #:smallcaps name)))
+   (markup #:hspace 0 #:translate (cons -3 1) #:smallcaps name)))
 
 {
   c''^\markup \character #"Cleopatra" c'' c'' c''
