@@ -1,3 +1,7 @@
+2005-08-25  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/item.cc: Add documentation of center-invisible
+
 2005-08-24  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/advanced-notation.itely: add info about
