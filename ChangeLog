@@ -1,3 +1,10 @@
+2005-08-24  Graham Percival  <gpermus@gmail.com>
+
+	* ly/bagpipe.ly: Backport.
+
+	* Documentation/user/ {various}: backport doc updates,
+	excluding stuff for new features in 2.7.
+
 2005-08-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (option_definitions): Don't localize
