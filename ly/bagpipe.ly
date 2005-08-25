@@ -6,7 +6,7 @@
   Sven Axelsson, the Murray Pipes & Drums of Gothenburg
   (http://www.murrays.nu)
   
-  $Id: bagpipe.ly,v 1.6 2005/08/23 03:04:09 gpercival Exp $
+  $Id: bagpipe.ly,v 1.6.2.1 2005/08/25 06:25:52 gpercival Exp $
 %}
 
 \version "2.6.0"
