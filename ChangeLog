@@ -5,6 +5,8 @@
 	(wordwrap-stencils): idem.
 	(line): idem..
 	(fill-line): idem.
+	(wordwrap-stencils): translate last line to right for
+	text-direction = LEFT.
 
 	* scm/define-grob-properties.scm (all-user-grob-properties): add
 	text-direction.
