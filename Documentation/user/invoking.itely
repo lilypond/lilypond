@@ -372,6 +372,9 @@ above the indicated position.
 @node Updating files with convert-ly
 @section Updating with @command{convert-ly}
 
+@cindex Updating a LilyPond file
+@cindex @code{@convert-ly}
+
 The LilyPond input syntax is routinely changed to simplify it or improve
 it in different ways.  As a side effect of this, the LilyPond interpreter
 often is no longer compatible with older input files.  To remedy this,

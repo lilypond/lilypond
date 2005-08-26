@@ -537,8 +537,9 @@ between this and the last note is always taken to be a fourth or
 less.  This distance is determined without regarding alterations; a
 @code{fisis} following a @code{ceses} will be put above the
 @code{ceses}.  In other words, a doubly-augmented fourth is considered
-a smaller interval than a diminshed fifth, even though the fourth is
-seven semitones while the fifth is only six semitones.
+a smaller interval than a diminished fifth, even though the
+doubly-augmented fourth spans seven semitones while the diminished
+fifth only spans six semitones.
 
 The octave changing marks @code{'} and @code{,} can be added to raise
 or lower the pitch by an extra octave.  Upon entering relative mode,

@@ -1,3 +1,13 @@
+2005-08-26  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/advanced.itely: add text-only example.
+
+	* Documentation/user/invoking.itely: add index entries for
+	convert-ly.
+
+	* Documentation/user/ tutorial.itely, basic-notation.itely:
+	small fixes suggested by Steve D.  Thanks!
+
 2005-08-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/markup-bidi-pango.ly: new file.
