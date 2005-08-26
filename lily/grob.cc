@@ -629,8 +629,16 @@ Grob::warning (String s) const
 void
 Grob::programming_error (String s) const
 {
+  SCM cause = self_scm ();
+  while (Grob *g = unsmob_grob (cause))
+    cause = g->get_property ("cause");
+
   s = _f ("programming error: %s", s);
-  message (s);
+
+  if (Music *m = unsmob_music (cause))
+    m->origin ()->message (s);
+  else
+    ::message (s);
 }
 void
 Grob::discretionary_processing ()
