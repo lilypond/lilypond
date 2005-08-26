@@ -48,9 +48,12 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @item
-Texts over multi measure rests now stretch corresponding measure.
+Texts over multi measure rests can stretch corresponding measure, if
+the appropriate @code{spacing-procedure} property is set.
 
 @lilypond[relative=2,fragment,raggedright]
+\override MultiMeasureRestText #'spacing-procedure
+  = #Multi_measure_rest::set_spacing_rods
 c1 R1 R1^"Very long long long text" 
 @end lilypond
 

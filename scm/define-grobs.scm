@@ -801,7 +801,6 @@
 				measure-grouping-interface))))))
     (MultiMeasureRest
      . (
-	(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
 	(print-function . ,Multi_measure_rest::print)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(staff-position . 0)

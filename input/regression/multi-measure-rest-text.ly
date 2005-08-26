@@ -5,6 +5,9 @@
   texidoc = "
 Texts may be added to the multi-measure rests.
 
+By setting the appropriate @code{spacing-procedure}, we can make
+measures stretch to accomodate wide texts.
+
 "
 
 
@@ -19,6 +22,9 @@ Texts may be added to the multi-measure rests.
   R2.^"4"
   R2.*3_\markup { \roman "a1b2c3" }
   R2.*10^"inner"^"top"_"inner"_"bot"
+  \override MultiMeasureRestText #'spacing-procedure
+    = #Multi_measure_rest::set_spacing_rods
+
   R2.^"very very very very very very long text"
   c'2.
 }
