@@ -240,7 +240,6 @@ Pango_font::text_stencil (String str) const
 	  dest.translate_axis (item_stencil.extent (X_AXIS)[RIGHT], X_AXIS);
 	}
 
-      
 #if 0 /* Check extents.  */
       if (!item_stencil.extent_box ()[X_AXIS].is_empty ())
 	{
