@@ -1,3 +1,7 @@
+2005-08-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (get_latex_textwidth): remove unixisms
+
 2005-08-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-markup-commands.scm (null): add  null markup.

@@ -117,7 +117,6 @@ psfonts_p = 0
 use_hash_p = 1
 format = 0
 output_name = ''
-latex_filter_cmd = 'cat > %(tmpfile)s && latex "\\nonstopmode \input %(tmpfile)s" && rm %(tmpfile)s'
 filter_cmd = 0
 process_cmd = ''
 default_ly_options = { 'alt': "[image of music]" }
@@ -1263,7 +1262,8 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	if ly_names:
 		my_system (string.join ([cmd, 'snippet-map.ly'] + ly_names))
 
-LATEX_DOCUMENT = r'''
+LATEX_INSPECTION_DOCUMENT = r'''
+\nonstopmode
 %(preamble)s
 \begin{document}
 \typeout{textwidth=\the\textwidth}
@@ -1276,12 +1276,16 @@ LATEX_DOCUMENT = r'''
 def get_latex_textwidth (source):
 	m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
 	preamble = source[:m.start (0)]
-	latex_document = LATEX_DOCUMENT % vars ()
+	latex_document = LATEX_INSPECTION_DOCUMENT % vars ()
 	# Workaround problems with unusable $TMP on Cygwin:
 	tempfile.tempdir = ''
 	tmpfile = tempfile.mktemp('.tex')
-	cmd = latex_filter_cmd % vars ()
-	parameter_string = filter_pipe (latex_document, cmd)
+	logfile = os.path.splitext (tmpfile) + '.log'
+	open (tmpfile,'w').write (latex_document)
+	ly.system ('latex %s' % tmpfile)
+	parameter_string = open (logfile).read()
+	os.unlink (tmpfile)
+	os.unlink (logfile)
 
 	columns = 0
 	m = re.search ('columns=([0-9.]*)', parameter_string)
