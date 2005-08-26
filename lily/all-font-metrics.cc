@@ -62,7 +62,8 @@ All_font_metrics::All_font_metrics (All_font_metrics const &)
 Pango_font *
 All_font_metrics::find_pango_font (PangoFontDescription *description,
 				   Real magnification,
-				   Real output_scale)
+				   Real output_scale
+				   )
 {
   pango_font_description_set_size (description,
 				   gint (magnification *
@@ -78,9 +79,10 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
 	progress_indication ("[" + String (pango_fn));
 
       Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
-				       RIGHT,
 				       description,
-				       output_scale);
+				       output_scale
+				       );
+      
       val = pf->self_scm ();
       pango_dict_->set (key, val);
       pf->unprotect ();

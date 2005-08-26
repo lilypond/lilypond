@@ -1,5 +1,17 @@
 2005-08-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/markup-bidi-pango.ly: new file.
+
+	* lily/pango-font.cc (pango_item_string_stencil): make Mingw code
+	standard. Remove #ifdef. Remove memleak.
+	(text_stencil): use text_dir to decide how to composite items.
+	(text_stencil): determine uniform text direction for the entire
+	string.
+
+	* scripts/lilypond-book.py (output_name): remove
+	latex_filter_cmd. Non-portable to non-Unix systems. 
+	(get_latex_textwidth): use File.write and os.unlink() instead.
+
 	* THANKS: add Vicente & Trevor.
 
 	* lily/grob.cc (discretionary_processing): look up origin for
