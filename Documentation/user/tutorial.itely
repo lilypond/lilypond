@@ -588,7 +588,7 @@ you can make arbitrarily complex and large expressions.  For example,
 @cindex expression
 @cindex music expression
 This is a sequence of expressions, where each expression is contained
-in the next one.  The simplest expressions are numbers, and larger
+in the next (larger) one.  The simplest expressions are numbers, and larger
 ones are made by combining expressions with operators (like @samp{+},
 @samp{*} and @samp{/}) and parentheses.  Like mathematical expressions,
 music expressions can be nested arbitrarily deep, which is necessary
