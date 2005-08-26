@@ -126,6 +126,17 @@ set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
 	}
 
       (*skyline_drul)[d] = empty_skyline (-d);
+      
+      Spanner *tie = dynamic_cast<Spanner*> (ties[0]);
+      if (tie->get_bound (d)->break_status_dir ())
+	{
+	  Real x = robust_relative_extent (tie->get_bound (d),
+					   common,
+					   X_AXIS)[-d];
+
+	  (*skyline_drul)[d].elem_ref (0).height_ = x; 
+	}
+	  
       for (int i = 0; i < boxes.size (); i++)
 	insert_extent_into_skyline (&skyline_drul->elem_ref (d),
 				    boxes[i], Y_AXIS, -d);
