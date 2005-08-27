@@ -72,9 +72,11 @@ Midi_chunk::to_string () const
   String length_string = String_convert::int2hex (dat.length ()
 						  + footer_string_.length (), 8, '0');
   length_string = String_convert::hex2bin (length_string);
+
   str += length_string;
   str += dat;
   str += footer_string_;
+
   return str;
 }
 
@@ -103,7 +105,7 @@ Midi_event::to_string () const
 {
   Rational rat_dt = (delta_mom_.main_part_ * Rational (384)
 		     + delta_mom_.grace_part_ * Rational (100)) * Rational (4);
-  int delta_i = int (rat_dt);
+  int delta_i = rat_dt.to_int ();
 
   String delta_string = Midi_item::i2varint_string (delta_i);
   String midi_string = midi_->to_string ();
