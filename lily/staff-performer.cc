@@ -63,12 +63,14 @@ void
 Staff_performer::initialize ()
 {
   audio_staff_ = new Audio_staff;
-  announce_element (Audio_element_info (audio_staff_, 0));
-
   name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ());
-  announce_element (Audio_element_info (name_, 0));
-
   tempo_ = new Audio_tempo (get_tempo ());
+
+  audio_staff_->add_audio_item (name_);
+  audio_staff_->add_audio_item (tempo_);
+  
+  announce_element (Audio_element_info (audio_staff_, 0));
+  announce_element (Audio_element_info (name_, 0));
   announce_element (Audio_element_info (tempo_, 0));
 }
 

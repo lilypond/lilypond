@@ -286,7 +286,7 @@ Rational::to_string () const
 int
 Rational::to_int () const
 {
-  return num () / den ();
+  return (int) num () / den ();
 }
 
 int

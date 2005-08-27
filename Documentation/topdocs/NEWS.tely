@@ -53,7 +53,7 @@ the appropriate @code{spacing-procedure} property is set.
 
 @lilypond[relative=2,fragment,raggedright]
 \override MultiMeasureRestText #'spacing-procedure
-  = #Multi_measure_rest::set_spacing_rods
+  = #Multi_measure_rest::set_text_rods
 c1 R1 R1^"Very long long long text" 
 @end lilypond
 

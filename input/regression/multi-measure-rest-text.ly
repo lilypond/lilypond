@@ -23,7 +23,7 @@ measures stretch to accomodate wide texts.
   R2.*3_\markup { \roman "a1b2c3" }
   R2.*10^"inner"^"top"_"inner"_"bot"
   \override MultiMeasureRestText #'spacing-procedure
-    = #Multi_measure_rest::set_spacing_rods
+    = #Multi_measure_rest::set_text_rods
 
   R2.^"very very very very very very long text"
   c'2.
