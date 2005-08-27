@@ -1,5 +1,8 @@
 2005-08-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/advanced-notation.itely (Text markup): not a
+	fragment.
+
 	* lily/midi-item.cc (to_string): use to_int() iso. int cast.
 
 	* lily/staff-performer.cc (initialize): add tempo/name to

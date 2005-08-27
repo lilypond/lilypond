@@ -232,8 +232,8 @@ Text can also be placed on its own, away from any @code{\score}
 block.  This is primarily used in a @code{\book} (see
 @ref{Multiple movements}).
 
-@lilypond[quote,fragment,raggedright,verbatim]
-\markup{Here is some text.}
+@lilypond[quote,raggedright,verbatim]
+\markup{ Here is some text. }
 @end lilypond
 
 @cindex font switching
