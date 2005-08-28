@@ -1,3 +1,9 @@
+2005-08-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/tempo-performer.cc (process_music): idem.
+
+	* lily/midi-def.cc (get_tempo): Rational to int conversion bug.
+
 2005-08-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/advanced-notation.itely (Text markup): not a
@@ -54,7 +60,7 @@
 	* scm/define-markup-commands.scm (wordwrap-string): use
 	text-direction
 	(wordwrap-stencils): idem.
-	(line): idem..
+	(line): idem.
 	(fill-line): idem.
 	(wordwrap-stencils): translate last line to right for
 	text-direction = LEFT.

@@ -30,8 +30,8 @@ get_tempo (Output_def *def,
   else
     wholes_per_min /= *w;
 
-  int beats_per_min = int ((wholes_per_min / one_beat_mom).main_part_);
-  return int (beats_per_min);
+  Rational beats_per_min =  (wholes_per_min / one_beat_mom).main_part_;
+  return beats_per_min.to_int ();
 }
 
 void
