@@ -49,7 +49,7 @@ Tempo_performer::process_music ()
 
       Rational r = (d->get_length () / Moment (Rational (1, 4)) * Moment (scm_to_int (met))).main_part_;
 
-      audio_ = new Audio_tempo (int (r));
+      audio_ = new Audio_tempo (r.to_int ());
 
       Audio_element_info info (audio_, tempo_event_);
       announce_element (info);
