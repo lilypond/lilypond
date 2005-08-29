@@ -1,3 +1,7 @@
+2005-08-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PACKAGE_NAME): VERSION release 2.7.8
+
 2005-08-29  Werner Lemberg  <wl@gnu.org>
 
 	* mf/GNUmakefile: Add `-f' flag to `rm' command while removing
