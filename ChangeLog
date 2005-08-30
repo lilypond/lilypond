@@ -1,3 +1,8 @@
+2005-08030  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/basic-notation.itely, global.itely,
+	tutorial.itely: misc small changes.
+
 2005-08-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Include MY_PATCH_LEVEL in config.make's

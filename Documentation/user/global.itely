@@ -253,52 +253,66 @@ The default layout responds to the following settings in the
 
 @quotation
 @table @code
+@cindex @code{firstpagenumber}
 @item firstpagenumber
 The value of the page number of the first page.  Default is@tie{}1.
 
+@cindex @code{printfirstpagenumber}
 @item printfirstpagenumber
 If set to true, will print the page number in the first page.  Default is
 false.
 
+@cindex @code{printpagenumber}
 @item printpagenumber
 If set to false, page numbers will not be printed.
 
+@cindex @code{hsize}
 @item hsize
 The width of the page.
 
+@cindex @code{vsize}
 @item vsize
 The height of the page.
 
+@cindex @code{topmargin}
 @item topmargin
 Margin between header and top of the page.
 
+@cindex @code{bottommargin}
 @item bottommargin
 Margin between footer and bottom of the page.
 
+@cindex @code{leftmargin}
 @item leftmargin
 Margin between the left side of the page and the beginning of the music.
 
+@cindex @code{linewidth}
 @item linewidth
 The length of the systems.
 
+@cindex @code{headsep}
 @item headsep
 Distance between the top-most music system and the page header.
 
+@cindex @code{footsep}
 @item footsep
 Distance between the bottom-most music system and the page footer.
 
+@cindex @code{raggedbottom}
 @item raggedbottom
 If set to true, systems will not be spread across the page.
 
 This should be set false for pieces that have only two or three
 systems per page, for example orchestral scores.
  
+@cindex @code{raggedlastbottom}
 @item raggedlastbottom
 If set to false, systems will be spread to fill the last page.
 
 Pieces that amply fill two pages or more should have this set to
 true.
 
+@cindex @code{betweensystemspace}
 @item betweensystemspace
 This dimensions determines the distance between systems.  It is the
 ideal distance between the center of the bottom staff of one system
@@ -307,6 +321,7 @@ and the center of the top staff of the next system.
 Increasing this will provide a more even appearance of the page at the
 cost of using more vertical space.
 
+@cindex @code{betweensystempadding}
 @item betweensystempadding
 This dimension is the minimum amount of white space that will always
 be present between the bottom-most symbol of one system, and the
@@ -315,29 +330,33 @@ top-most of the next system.
 Increasing this will put systems whose bounding boxes almost touch
 farther apart.
 
-
+@cindex @code{horizontalshift}
 @item horizontalshift
 All systems (including titles and system separators) are shifted by
 this amount to the right. Page markup, such as headers and footers are
 not affected by this. The purpose of this variable is to make space
 for instrument names at the left.
 
-
+@cindex @code{aftertitlespace}
 @item aftertitlespace
 Amount of space between the title and the first system.
 
+@cindex @code{aftertitlespace}
 @item beforetitlespace 
 Amount of space between the last system of the previous piece and the
 title of the next.
 
+@cindex @code{betweentitlespace}
 @item betweentitlespace
 Amount of space between consecutive titles (e.g., the title of the
 book and the title of a piece).
 
+@cindex @code{printallheaders}
 @item printallheaders
 Setting this to #t will print all headers for each \score in a
 \book.  Normally only the piece and opus \headers are printed.
 
+@cindex @code{systemSeparatorMarkup}
 @item systemSeparatorMarkup
 This contains a markup object, which will be inserted between
 systems.  This is often used for orchestral scores.
@@ -665,6 +684,7 @@ following work-around may be used to insert extra space into a score.
 
 No work-around exists for decreasing the amount of space.
 
+
 @node Line length
 @subsection Line length
 
@@ -673,6 +693,7 @@ No work-around exists for decreasing the amount of space.
 
 @cindex @code{indent}
 @cindex @code{linewidth}
+@cindex @code{raggedright}
 
 @c Although linewidth can be set in \layout, it should be set in paper
 @c block, to get page layout right.
@@ -699,6 +720,7 @@ paragraph, the last line simply takes its natural length.
 @c While Knuth TeX uses natural length, lead typesetters use the same
 @c stretch as the previous line.  eTeX uses \lastlinefit to
 @c interpolate between both these solutions.
+
 
 @node Line breaking
 @subsection Line breaking
@@ -931,8 +953,7 @@ may use any @ref{Text markup} commands in the header.
     composer =  \markup \center-align { "composer" \small "(1847-1973)" }
     texttranslator = "Text Translator"
     meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge "r" }
-    arranger = "Arranger"
-    opus = \markup { \fontsize #8.5 "o" \fontsize #2.5 "p" \fontsize #-2.5 "u" \fontsize #-5.3 "s" \fontsize #7.5 "       " }
+    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize #-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "nger" }
     instrument = \markup \bold \italic "instrument"
     piece = "Piece"
   }
@@ -961,7 +982,7 @@ As demonstrated before, you can use multiple @code{\header} blocks.
 When same fields appear in different blocks, the latter is used.  
 Here is a short example.
 
-a@example 
+@example 
 \header @{
   composer = "Composer"
 @}
@@ -990,6 +1011,7 @@ normally only the @code{piece} and @code{opus} headers will be printed.
 }
 @end lilypond
 
+@cindex @code{printallheaders}
 @noindent
 You may change this behavior (and print all the headers when defining
 @code{\header} inside @code{\score}) by using
@@ -1008,28 +1030,34 @@ variables in the @code{\paper} block.  The init file
 @file{ly/titling-init.ly} lists the default layout.
 
 @table @code
+@cindex @code{bookTitleMarkup}
 @item bookTitleMarkup
   This is the title put over an entire @code{\book} block.  Typically,
   it has the composer and the title of the piece
   
+@cindex @code{scoreTitleMarkup}
 @item scoreTitleMarkup
   This is the title put over a @code{\score} block within a
 @code{\book}.  Typically, it has the name of the movement (@code{piece}
 field).
 
+@cindex @code{oddHeaderMarkup}
 @item oddHeaderMarkup
   This is the page header for odd-numbered pages. 
 
-  @item evenHeaderMarkup
+@cindex @code{evenHeaderMarkup}
+@item evenHeaderMarkup
   This is the page header for even-numbered pages.  If unspecified,
   the odd header is used instead.
 
   By default, headers are defined such that the page number is on the
   outside edge, and the instrument is centered.
 
+@cindex @code{oddFooterMarkup}
 @item oddFooterMarkup
   This is the page footer for odd-numbered pages. 
   
+@cindex @code{evenFotterMarkup}
 @item evenFooterMarkup
   This is the page footer for even-numbered pages.  If unspecified,
   the odd header is used instead.

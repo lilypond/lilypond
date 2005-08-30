@@ -1273,7 +1273,7 @@ The line
 substitutes the contents of @file{horn-music.ly} at this position in
 the file, so @code{hornNotes} is defined afterwards.  The command
 @code{\transpose f@tie{}c'} indicates that the argument, being
-@code{\hornNotes}, should be transposed by a fifth downwards.  Sounding
+@code{\hornNotes}, should be transposed by a fifth upwards.  Sounding
 @samp{f} is denoted by notated @code{c'}, which corresponds with the
 tuning of a normal French Horn in@tie{}F.  The transposition can be seen
 in the following output
