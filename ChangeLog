@@ -1,3 +1,10 @@
+2005-08-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (PREAMBLE_LY): define
+	inside-lilypond-book
+	(modify_preamble): new function. Insert \RequirePackage{graphics}
+	when no {graphics found in preamble.  
+
 2005-08030  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/basic-notation.itely, global.itely,

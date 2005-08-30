@@ -411,7 +411,10 @@ Tie::print (SCM smob)
 
   if (CENTER == get_grob_direction (me))
     set_direction (me);
-      
+
+  if (!get_grob_direction (me))
+    me->programming_error ("Tie direction not set."); 
+    
   SCM cp = me->get_property ("control-points");
   if (!scm_is_pair (cp))
     {
