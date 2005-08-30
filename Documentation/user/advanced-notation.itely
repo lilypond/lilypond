@@ -459,7 +459,7 @@ then set the
 
 @lilypond[fragment,verbatim]
 {
-  \override Staff.TimeSignature #'font-name = #"Times"
+  \override Staff.TimeSignature #'font-name = #"Charter"
   \override Staff.TimeSignature #'font-size = #2
   \time 3/4
   c'1_\markup {

@@ -51,8 +51,7 @@ Script_interface::before_line_breaking (SCM smob)
 
   if (!d)
     {
-      /* FIXME: This should never happen: `arbitrary' directions.  */
-      programming_error ("script direction not yet known");
+      me->programming_error ("script direction not yet known");
       d = DOWN;
     }
 
