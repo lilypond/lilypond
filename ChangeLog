@@ -1,3 +1,8 @@
+2005-08-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Include MY_PATCH_LEVEL in config.make's
+	VERSION.
+
 2005-08-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (get_latex_textwidth): remove unixisms
