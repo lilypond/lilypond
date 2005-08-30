@@ -581,11 +581,11 @@ AC_DEFUN(STEPMAKE_INIT, [
     . $srcdir/VERSION
     FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
     MICRO_VERSION=$PATCH_LEVEL
-    VERSION=$FULL_VERSION
     TOPLEVEL_VERSION=$FULL_VERSION
     if test x$MY_PATCH_LEVEL != x; then
 	FULL_VERSION=$FULL_VERSION.$MY_PATCH_LEVEL
     fi
+    VERSION=$FULL_VERSION
     export MAJOR_VERSION MINOR_VERSION PATCH_LEVEL
     # urg: don't "fix" this: irix doesn't know about [:lower:] and [:upper:]
     changequote(<<, >>)#dnl
