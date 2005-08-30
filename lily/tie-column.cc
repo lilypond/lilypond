@@ -254,7 +254,11 @@ Tie_column::new_directions (Grob *me)
       if (tie_configs[i].dir_)
 	continue;
 
-      tie_configs[i].dir_ = (Direction) sign (tie_configs[i].position_);
+      Direction position_dir = (Direction) sign (tie_configs[i].position_);
+      if (!position_dir)
+	position_dir = DOWN;
+      
+      tie_configs[i].dir_ = position_dir;
     }
 
   Grob *common = me;

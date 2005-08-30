@@ -153,7 +153,7 @@
  -dGraphicsAlphaBits=4\
  -dTextAlphaBits=4\
  -dNOPAUSE\
- -sDEVICE=png16m\
+ -sDEVICE=pngalpha\
  -sOutputFile=~S\
  -r~S\
  ~S\
