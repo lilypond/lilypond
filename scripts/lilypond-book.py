@@ -1280,7 +1280,7 @@ def get_latex_textwidth (source):
 	# Workaround problems with unusable $TMP on Cygwin:
 	tempfile.tempdir = ''
 	tmpfile = tempfile.mktemp('.tex')
-	logfile = os.path.splitext (tmpfile) + '.log'
+	logfile = os.path.splitext (tmpfile)[0] + '.log'
 	open (tmpfile,'w').write (latex_document)
 	ly.system ('latex %s' % tmpfile)
 	parameter_string = open (logfile).read()
