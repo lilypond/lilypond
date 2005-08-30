@@ -54,8 +54,8 @@ Right-to-Left languages like Hebrew.
 This feature was sponsored by Aaron Mehl.
 
 @item
-Texts over multi measure rests can stretch corresponding measure, if
-the appropriate @code{spacing-procedure} property is set.
+Texts over multi measure rests can stretch the corresponding measure,
+if the appropriate @code{spacing-procedure} property is set.
 
 @lilypond[relative=2,fragment,raggedright]
 \override MultiMeasureRestText #'spacing-procedure
