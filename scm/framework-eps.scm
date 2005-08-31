@@ -50,7 +50,7 @@
 		(if (< 0 c)
 		    (begin 
 		      (display "\\ifx\\betweenLilyPondSystem \\undefined\n" tex-system-port)
-		      (display "  \\relax\n" tex-system-port)
+		      (display "  \\linebreak\n" tex-system-port)
 		      (display "\\else\n" tex-system-port)
 		      (display (format 
 				"  \\betweenLilyPondSystem{~a}\n" c) tex-system-port)

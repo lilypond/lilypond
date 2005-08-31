@@ -1,5 +1,12 @@
 2005-08-31  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* scm/framework-eps.scm (dump-stencils-as-EPSes): Insert a
+	\linebreak between each .eps file if \betweenLilyPondSystem is
+	undefined. 
+
+	* Documentation/user/lilypond-book.itely (Integrating LaTeX and
+	music): Document the \linebreak!
+	
 	* Documentation/user/lilypond-book.itely,
 	input/tutorial/lbook-latex-test.tex,
 	Documentation/user/examples.itely: Remove \usepackage{graphics}
