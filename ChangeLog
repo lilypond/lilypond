@@ -1,3 +1,9 @@
+2005-08-31  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/lilypond-book.itely,
+	input/tutorial/lbook-latex-test.tex,
+	Documentation/user/examples.itely: Remove \usepackage{graphics}
+
 2005-08-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (PREAMBLE_LY): define
