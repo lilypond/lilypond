@@ -246,7 +246,7 @@ the user:
 @code{lilypond-book} has split the snippet into several postscript
 files.  It must be defined as taking one parameter and will be
 passed the number of files already included in this snippet. 
-
+The default is to simply insert a @code{\linebreak}.
 
 @ignore
 Broken stuff.  :(
