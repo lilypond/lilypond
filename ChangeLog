@@ -5,13 +5,18 @@
 	undefined. 
 
 	* Documentation/user/lilypond-book.itely (Integrating LaTeX and
-	music): Document the \linebreak!
-	
+	music): Document the \linebreak
+
 	* Documentation/user/lilypond-book.itely,
 	input/tutorial/lbook-latex-test.tex,
 	Documentation/user/examples.itely: Remove \usepackage{graphics}
 
 2005-08-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/aybabtu.pe.in (i): don't merge alphabet into aybabtu.
+
+	* lily/ly-module.cc (make_stand_in_procs_weak): 1.6.4 and earlier
+	compat bugfix.
 
 	* scripts/lilypond-book.py (PREAMBLE_LY): define
 	inside-lilypond-book
