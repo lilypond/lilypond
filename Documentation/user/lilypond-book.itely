@@ -62,7 +62,7 @@ text, so we will not comment on it further.
 @quotation
 @verbatim
 \documentclass[a4paper]{article}
-\usepackage{graphics}
+
 \begin{document}
 
 Documents for @command{lilypond-book} may freely mix music and text.
@@ -191,23 +191,7 @@ or
 @end example
 
 Running @command{lilypond-book} yields a file that can be further
-processed with La@TeX{}.  Since @command{lilypond-book} produces
-lilypond snippets as @code{\includegraphics@{NAME.eps@}}, you must
-add
-
-@example
-\usepackage@{graphics@}
-@end example
-
-@noindent
-or
-
-@example
-\usepackage@{graphicx@}
-@end example
-
-@noindent
-to the preamble of the LaTeX document.
+processed with La@TeX{}. 
 
 We show some examples here.  The lilypond environment
 
