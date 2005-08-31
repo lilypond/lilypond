@@ -156,6 +156,15 @@ redefine_keyval (void *closure, SCM key, SCM val, SCM result)
 void
 make_stand_in_procs_weak ()
 {
+  /*
+    Ugh, ABI breakage for 1.6.5: scm_stand_in_procs is a hashtab from
+    1.6.5 on.
+   */
+  if (scm_is_pair (scm_stand_in_procs))
+    {
+      return; 
+    }
+      
   if (scm_weak_key_hash_table_p (scm_stand_in_procs) == SCM_BOOL_T)
     {
 #if (SCM_MINOR_VERSION == 7) 
@@ -163,6 +172,7 @@ make_stand_in_procs_weak ()
 #endif
       return; 
     }
+
   
   perform_gc_kludge = true;
   
