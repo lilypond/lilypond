@@ -42,6 +42,7 @@ related constructs, such as stems, tuplets and ties.
 * Augmentation dots::           
 * Tuplets::                     
 * Scaling durations::           
+* Stems::
 @end menu
 
 
@@ -481,6 +482,22 @@ b16*4 c4
 
 This manual: @ref{Tuplets}
 
+
+@node Stems
+@subsection Stems
+
+Whenever a note is found, a @internalsref{Stem} object is created
+automatically.  For whole notes and rests, they are also created but
+made invisible.
+
+@refcommands
+
+@cindex @code{\stemUp}
+@code{\stemUp},
+@cindex @code{\stemDown}
+@code{\stemDown},
+@cindex @code{\stemNeutral}
+@code{\stemNeutral}.
 
 
 @node Alternate music entry
@@ -2110,6 +2127,11 @@ use spacer notes if multiple marks are needed during one note
 c\< c\! d\> e\!
 << f1 { s4 s4\< s4\! \> s4\! } >>
 @end lilypond
+
+@noindent
+A hairpin starts at the left edge of the beginning note and ends on the
+right edge of the ending note.
+
 This may give rise to very short hairpins.  Use @code{minimum-length}
 in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
 example
@@ -2144,6 +2166,18 @@ a'2\< a a a\!\mf
 
 To create new dynamic marks or text that should be aligned
 with dynamics, see @ref{New dynamic marks}.
+
+
+@commonprop
+
+Dynamics that occur at, begin on, or end on, the same note
+will be vertically aligned.  If you want to ensure that dynamics
+are aligned when they do not occur on the same note, you can
+increase the @code{padding} or @code{staff-padding} properties.
+
+@example
+\override DynamicLineSpanner #'staff-padding = 2
+@end example
 
 
 @refcommands
