@@ -2081,30 +2081,6 @@ Program reference: @internalsref{HorizontalBracket}.
 Examples: @inputfileref{input/@/regression,note@/-group@/-bracket@/.ly}.
 
 
-
-@ignore
-
-I don't think we need this info.
-
-@n ode Stems
-@s ubsection Stems
-
-Whenever a note is found, a @internalsref{Stem} object is created
-automatically.  For whole notes and rests, they are also created but
-made invisible.
-
-@refcommands
-
-@cindex @code{\stemUp}
-@code{\stemUp},
-@cindex @code{\stemDown}
-@code{\stemDown},
-@cindex @code{\stemNeutral}
-@code{\stemNeutral}.
-
-@end ignore
-
-
 @node Coloring objects
 @subsection Coloring objects
 
