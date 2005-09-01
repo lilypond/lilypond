@@ -16,7 +16,6 @@
 
 #ifdef MODULE_GC_KLUDGE
 Protected_scm anonymous_modules = SCM_EOL;
-
 #endif
 
 LY_DEFINE(ly_clear_anonymous_modules, "ly:clear-anonymous-modules",
@@ -236,6 +235,7 @@ make_stand_in_procs_weak ()
     {
       return; 
     }
+  
   SCM old_tab = scm_stand_in_procs;
   SCM new_tab = scm_make_weak_key_hash_table (scm_from_int (257));
   
