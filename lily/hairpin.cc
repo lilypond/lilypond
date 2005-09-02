@@ -163,6 +163,10 @@ Hairpin::print (SCM smob)
 }
 
 ADD_INTERFACE (Hairpin, "hairpin-interface",
-	       "A hairpin (de)crescendo.",
-	       "grow-direction height bound-padding adjacent-hairpins");
+	       "A hairpin crescendo/decrescendo.",
+	       "adjacent-hairpins "
+	       "bound-padding "
+	       "grow-direction "
+	       "height "
+	       );
 

@@ -475,6 +475,7 @@
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
+	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(staff-padding . 0.1)
 	(padding . 0.6)
