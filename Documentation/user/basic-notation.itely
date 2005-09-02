@@ -2173,10 +2173,10 @@ with dynamics, see @ref{New dynamic marks}.
 Dynamics that occur at, begin on, or end on, the same note
 will be vertically aligned.  If you want to ensure that dynamics
 are aligned when they do not occur on the same note, you can
-increase the @code{padding} or @code{staff-padding} properties.
+increase the @code{staff-padding} property.
 
 @example
-\override DynamicLineSpanner #'staff-padding = 2
+\override DynamicLineSpanner #'staff-padding = 4
 @end example
 
 
