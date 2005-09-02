@@ -33,8 +33,8 @@ protected:
   virtual bool try_music (Music *);
 
   DECLARE_ACKNOWLEDGER (accidental);
-  DECLARE_ACKNOWLEDGER (fingering);
   DECLARE_ACKNOWLEDGER (dynamic_line_spanner);
+  DECLARE_ACKNOWLEDGER (fingering);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (text_script);
