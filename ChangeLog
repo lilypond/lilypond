@@ -1,3 +1,7 @@
+2005-09-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* .cvsignore: Add auto-generated configure files and then some.
+
 2005-09-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/define-grobs.scm (DynamicLineSpanner): Add
