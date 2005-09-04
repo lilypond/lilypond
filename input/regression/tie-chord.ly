@@ -39,7 +39,7 @@ testShort =
     
     <a' c d f> ~ <a c d f>  
     <a c e f> ~ <a c e f>
-    <a b c d e> ~ <a b c d e>
+    <f b e a>4 ~ <f b e a>
   }
 }  
 
@@ -58,8 +58,9 @@ testLong =
   \relative c' {
     <c e f a>2 ~ <c e f a>8
     <c e g a>2 ~ <c e g a>8
-    <a' c d f>2  ~   <a c d f>8  
-    <a c e f>2  ~   <a c e f>8  
+    <a' c d f>2  ~ <a c d f>8  
+    <a c e f>2  ~ <a c e f>8  
+    <f b e a>2 ~ <f b e a>8
   }
 }  
 

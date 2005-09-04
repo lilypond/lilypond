@@ -95,7 +95,7 @@ public:
 
   Real arg () const;
   Real length () const;
-
+  bool is_sane () const;
   Offset operator *= (Offset z2)
   {
     *this = complex_multiply (*this, z2);

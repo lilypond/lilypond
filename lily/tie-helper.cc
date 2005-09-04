@@ -7,11 +7,13 @@
 
 */
 
+#include <math.h>
+
 #include "tie.hh"
 #include "bezier.hh"
 #include "grob.hh"
 #include "staff-symbol-referencer.hh"
-
+#include "warn.hh"
 
 int
 Tie_configuration::compare (Tie_configuration const &a,
@@ -50,7 +52,13 @@ Tie_configuration::center_tie_vertically (Tie_details const &details)
 Bezier
 Tie_configuration::get_bezier (Tie_details const &details) const
 {
-  return slur_shape (attachment_x_.length(),
+  Real l = attachment_x_.length();
+  if (isnan (l) || isnan (l))
+    {
+      programming_error ("Inf or NaN encountered");
+      l = 1.0;
+    }
+  return slur_shape (l,
 		     details.height_limit_,
 		     details.ratio_);
 }
@@ -70,7 +78,9 @@ Tie_configuration::distance (Tie_configuration const &a,
 Real
 Tie_configuration::height (Tie_details const &details) const
 {
-  return slur_shape (attachment_x_.length(),
+  Real l = attachment_x_.length();
+
+  return slur_shape (l,
 		     details.height_limit_,
 		     details.ratio_).curve_point (0.5)[Y_AXIS]; 
 }

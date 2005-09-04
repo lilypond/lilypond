@@ -6,16 +6,19 @@
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "tie-column.hh"
+
 #include <math.h>
 
 #include <map>
 #include <set>
 
+
+#include "stencil.hh"
 #include "stem.hh"
 #include "skyline.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
-#include "tie-column.hh"
 #include "paper-column.hh"
 #include "spanner.hh"
 #include "pointer-group-interface.hh"
@@ -140,6 +143,36 @@ set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
       for (int i = 0; i < boxes.size (); i++)
 	insert_extent_into_skyline (&skyline_drul->elem_ref (d),
 				    boxes[i], Y_AXIS, -d);
+      if (stem
+	  && !Stem::is_invisible (stem))
+	{
+	  Interval x;
+	  x.add_point (stem->relative_coordinate (common, X_AXIS));
+	  x.widen (staff_space / 20); // ugh.
+	  Interval y;
+	  y.add_point (Stem::stem_end_position (stem) * staff_space * .5);
+
+	  Direction stemdir = Stem::get_direction (stem);
+	  y.add_point (Stem::head_positions (stem)[-stemdir]
+		       * staff_space * .5);
+	  
+	  insert_extent_into_skyline (&skyline_drul->elem_ref (d),
+				      Box (x,y), Y_AXIS, -d);
+
+
+
+	  if (d == LEFT)
+	    {
+	      Box flag_box = Stem::get_translated_flag (stem).extent_box ();
+	      flag_box.translate( Offset (x[RIGHT], X_AXIS));
+	      insert_extent_into_skyline (&skyline_drul->elem_ref (d),
+					  flag_box,
+					  Y_AXIS, -d);
+	    }
+	}
+
+      
+
 
       Direction updowndir = DOWN;
       do
@@ -152,11 +185,6 @@ set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
 	      x[-d] =  b[X_AXIS].linear_combination (-d / 2);
 	    }
 	  
-	  if (stem
-	      && !Stem::is_invisible (stem)
-	      && updowndir == get_grob_direction (stem))
-	    x.unite (robust_relative_extent (stem, common, X_AXIS));
-
 	  if (!x.is_empty ())
 	    (*skyline_drul)[d].boundary (updowndir, 0).height_ = x[-d]; 
 	}
@@ -318,6 +346,7 @@ Tie_column::new_directions (Grob *me)
       conf.attachment_x_.intersect (get_skyline_attachment (skylines,
 							    y + conf.dir_ * staff_space * .5));
 
+
       conf.delta_y_ += line_dy;
       conf.attachment_x_.widen (-gap);
       if (!on_line
@@ -339,14 +368,26 @@ Tie_column::new_directions (Grob *me)
       for (int i = 0; i < tie_configs.size (); i++)
 	{
 	  Tie_configuration * conf = &tie_configs.elem_ref (i);
-	  if (Staff_symbol_referencer::on_staffline (ties[0], int (rint (conf->position_)))
-	      && conf->height (details) < 0.4 * staff_space
-	      && (positions_taken.find (int (rint (conf->position_ + conf->dir_)))
-		  == positions_taken.end ()))
-	    {
-	      positions_taken.insert (int (rint (conf->position_ + conf->dir_)));
-	      conf->delta_y_ += 0.2 * staff_space * conf->dir_;
-	    }
+
+	  /*
+	    on staff line and small enough, translate a little further 
+	   */
+	  Real h = conf->height (details);
+	  bool next_free = positions_taken.find (int (rint (conf->position_ + conf->dir_)))
+	    == positions_taken.end ();
+	  bool on_line = Staff_symbol_referencer::on_staffline (ties[0],
+								int (rint (conf->position_ + conf->delta_y_)));
+	  if (next_free)
+	    if (on_line && h < 0.4 * staff_space)
+	      {
+		positions_taken.insert (int (rint (conf->position_ + conf->dir_)));
+		conf->delta_y_ += 0.2 * staff_space * conf->dir_;
+	      }
+	    else if (!on_line && h > 0.6 * staff_space)
+	      {
+		positions_taken.insert (int (rint (conf->position_ + conf->dir_)));
+		conf->delta_y_ += 0.5 * staff_space * conf->dir_;
+	      }
 	}
     }
   

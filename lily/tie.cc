@@ -115,10 +115,10 @@ Tie::set_direction (Grob *me)
 }
 
 Interval
-get_default_attachments (Spanner *me, Grob *common, Real gap,
-			 int *staff_position,
-			 bool *in_between
-			 )
+Tie::get_default_attachments (Spanner *me, Grob *common, Real gap,
+			      int *staff_position,
+			      bool *in_between
+			      )
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Direction dir = get_grob_direction (me);
@@ -204,6 +204,9 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
       return ;
     }
 
+  /*
+    UGH. Don't mirror Tie_configuration.
+   */
   Direction dir = CENTER;
   
   int tie_position = (int) Tie::get_position (me);
@@ -264,12 +267,26 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 	{
 	  staff_position += dir;
 	  in_space = false;
+
+	  if (skylines)
+	    {
+	      Real y = staff_space * 0.5 * staff_position;
+	      attachments = get_skyline_attachment (*skylines, y);
+	      attachments.widen (-gap);
+	      Bezier b = slur_shape (attachments.length(),
+				     details.height_limit_,
+				     details.ratio_);
+	      Offset middle = b.curve_point (0.5);
+	      Offset edge = b.curve_point (0.0);
+	      dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
+	      fits_in_space =
+		(dy < 0.6 * staff_space);
+	    }
 	}
     }
-
   /*
     Avoid flag.
-   */
+  */
   Grob *left_stem = unsmob_grob (me->get_bound (LEFT)->get_object ("stem"));
   if (left_stem)
     {
@@ -293,6 +310,25 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 	  in_space = true;
 	  staff_position += dir;
 	}
+
+      /*
+	ugh: code dup.
+       */
+      if (skylines)
+	{
+	  Real y = staff_space * 0.5 * staff_position;
+	  attachments = get_skyline_attachment (*skylines, y);
+	  attachments.widen (-gap);
+	      
+	  Bezier b = slur_shape (attachments.length(),
+				 details.height_limit_,
+				 details.ratio_);
+	  Offset middle = b.curve_point (0.5);
+	  Offset edge = b.curve_point (0.0);
+	  dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
+	  fits_in_space =
+	    (dy < 0.6 * staff_space);
+	}
     }
 
 
@@ -302,6 +338,7 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
    */
   if (staff_position == tie_position
       && in_space
+      && Staff_symbol_referencer::staff_radius (me) > fabs (staff_position) / 2
       && dy > 0.3 * staff_space)
     {
       staff_position += 2 * dir; 
@@ -313,16 +350,21 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     staff_position += 2*dir;
   
   
+  conf->dir_ = dir;
+  conf->position_ = staff_position;
   if (in_space)
     {
-      if (fabs (dy) < 0.45 * staff_space)
+      if ((fabs (staff_position - tie_position) <= 1
+	   && fabs (dy) < 0.45 * staff_space)
+	  || fabs (dy) < 0.6 * staff_space)
 	{
 	  /*
 	    vertically center in space.
 	  */
-	  conf->dir_ = dir;	   
+	  conf->dir_ = dir;
+	  conf->position_ = staff_position;
 	  conf->attachment_x_ = attachments;
-	  conf->center_tie_vertically(details);
+	  conf->center_tie_vertically (details);
 	}
       else
 	{
@@ -337,13 +379,18 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
       Real rounding_dy = (where - middle[Y_AXIS]);
       conf->delta_y_ = rounding_dy;
 
-      if (dir * b.curve_point (0.0)[Y_AXIS] <
+      if (dir * (b.curve_point (0.0)[Y_AXIS]
+		 + conf->position_ * staff_space * 0.5
+		 + conf->delta_y_) <
 	  dir * tie_position * 0.5 * staff_space)
-	conf->delta_y_ +=  staff_space * dir; 
+	{
+	  if (Staff_symbol_referencer::staff_radius (me) >  fabs (tie_position) / 2)
+	    conf->position_ +=  2 * dir;
+	  else
+	    conf->position_ += dir;
+	}
     }
 
-  conf->dir_ = dir;
-  conf->position_ = staff_position;
 
   if (skylines)
     {
@@ -396,8 +443,11 @@ Tie::set_control_points (Grob *me,
   
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
-    controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
-
+    {
+      if (!b.control_[i].is_sane ())
+	programming_error ("Insane offset");
+      controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
+    }
   me->set_property ("control-points", controls);
 }
 
