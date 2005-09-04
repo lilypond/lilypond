@@ -1,3 +1,16 @@
+2005-09-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/tie-chord.ly (testLong): add a chord in 4ths
+
+	* lily/tie.cc (get_configuration): update bezier shape as we
+	change Y positions.
+	(get_configuration): don't move large ties if we're outside of the
+	staff.
+
+2005-09-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-markup-commands.scm (strut): swap X and Y dims.
+	
 2005-09-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* .cvsignore: Add auto-generated configure files and then some.
@@ -52,7 +65,8 @@
 	* lily/tie-column.cc (new_directions): put Tie down on center
 	staff line. 
 
-	* lily/script-interface.cc (before_line_breaking): use Grob::programming_error
+	* lily/script-interface.cc (before_line_breaking): use
+	Grob::programming_error
 
 	* scm/ps-to-png.scm (make-ps-images): use pngalpha device.
 

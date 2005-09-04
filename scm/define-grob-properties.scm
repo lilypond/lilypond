@@ -482,8 +482,7 @@ to their durations. This looks better in complex polyphonic patterns")
      (used ,boolean? "If set, this spacing column is kept in the spacing problem")
      (when ,ly:moment? "Global time step associated with this column
 happen?")
-     (word-space ,ly:dimension? "space to insert between lyrics or
-words in texts.")
+     (word-space ,ly:dimension? "space to insert between words in texts.")
      (width ,ly:dimension? "The width of a grob measured in staff space.")
      (x-gap ,ly:dimension? "The horizontal gap between note head and tie.")
      (zigzag-length ,ly:dimension? "The length of the lines of a

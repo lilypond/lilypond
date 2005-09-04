@@ -147,8 +147,9 @@ thickness and padding around the markup."
   "Create a box of the same height as the space in the current font."
   (let ((m (Text_interface::interpret_markup layout props " ")))
     (ly:make-stencil (ly:stencil-expr m)
+		     '(1000 . -1000)
 		     (ly:stencil-extent m X)
-		     '(1000 . -1000))))
+		     )))
 
 
 ;; todo: fix negative space

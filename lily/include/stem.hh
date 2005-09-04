@@ -29,7 +29,7 @@ public:
   static Direction get_direction (Grob *);
   static void set_stemend (Grob *, Real);
   static Direction get_default_dir (Grob *);
-  static Slice Stem::beam_multiplicity (Grob *);
+  static Slice beam_multiplicity (Grob *);
   static Real thickness (Grob *);
   static int head_count (Grob *);
   static bool is_invisible (Grob *);
