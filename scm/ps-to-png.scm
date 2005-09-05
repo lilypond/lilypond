@@ -142,13 +142,14 @@
 	  (multi-page? (> page-count 1))
 	  (output-file (if multi-page? pngn png1))
 
-	  ;;png16m is because Lily produces color nowadays.
+	  ;; png16m is because Lily produces color nowadays.
+	  ;; can't use pngalpha device, since IE is broken.
+	  ;;
 	  (gs-variable-options
 	    (if multi-page?
 		(format #f "-sPAPERSIZE=~a" paper-size)
 		"-dEPSCrop"))
 
-	  ;; can't use pngalpha device, since IE is broken.  
 	  (cmd (format #f "~a\
  ~a\
  ~a\

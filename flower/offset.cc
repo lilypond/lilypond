@@ -8,6 +8,8 @@
 
 #include "offset.hh"
 
+
+#include <math.h>
 #include <cmath>
 
 #ifndef STANDALONE
