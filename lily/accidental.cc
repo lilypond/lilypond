@@ -23,8 +23,12 @@
 Stencil
 parenthesize (Grob *me, Stencil m)
 {
-  Stencil open = Font_interface::get_default_font (me)->find_by_name ("accidentals.leftparen");
-  Stencil close = Font_interface::get_default_font (me)->find_by_name ("accidentals.rightparen");
+  Font_metric * font
+    = Font_interface::get_default_font (me); 
+  Stencil open
+    = font->find_by_name ("accidentals.leftparen");
+  Stencil close
+    = font->find_by_name ("accidentals.rightparen");
 
   m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0, 0);
   m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0, 0);

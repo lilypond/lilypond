@@ -45,8 +45,6 @@
 */
 class Stencil
 {
-  friend SCM ly_stencil_set_extent_x (SCM, SCM, SCM);
-
   /*
     This provides the reference point of the symbol, for example with
     characters, it is on the base line of the character. Usually,
@@ -81,10 +79,6 @@ public:
   Box extent_box () const;
   bool is_empty () const;
   Stencil in_color (Real r, Real g, Real b) const;
-
-  static SCM ly_get_stencil_extent (SCM mol, SCM axis);
-  static SCM ly_set_stencil_extent_x (SCM, SCM, SCM);
-  static SCM ly_stencil_combined_at_edge (SCM, SCM, SCM, SCM, SCM);
 };
 
 DECLARE_UNSMOB (Stencil, stencil);
