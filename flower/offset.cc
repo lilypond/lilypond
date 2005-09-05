@@ -10,7 +10,7 @@
 
 
 #include <math.h>
-#include <cmath>
+// #include <cmath>  // undefines isnan on MacOS X.  
 
 #ifndef STANDALONE
 String
