@@ -147,6 +147,8 @@
 	    (if multi-page?
 		(format #f "-sPAPERSIZE=~a" paper-size)
 		"-dEPSCrop"))
+
+	  ;; can't use pngalpha device, since IE is broken.  
 	  (cmd (format #f "~a\
  ~a\
  ~a\
