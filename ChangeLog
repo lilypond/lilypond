@@ -4,7 +4,8 @@
 	of IE users.
 
 	* scm/framework-eps.scm (dump-stencils-as-EPSes): cleanup.
-	(widen-left-stencil-edges): new function.
+	(widen-left-stencil-edges): new function. Fix alignment problems
+	with LaTeX includegraphics.
 
 	* lily/text-interface.cc (interpret_markup): use abort().
 
