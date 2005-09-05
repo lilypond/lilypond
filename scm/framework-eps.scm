@@ -20,6 +20,28 @@
 
 (define framework-eps-module (current-module))
 
+
+(define (widen-left-stencil-edges stencils)
+  "Change STENCILS to use the union for the left extents in every
+stencil, so LaTeX includegraphics doesn't fuck up the alignment."
+
+  (define left
+    (apply min
+	   (map (lambda (stc)
+		  (interval-start (ly:stencil-extent stc X)))
+		stencils)))
+
+  (map (lambda (stil)
+	 
+	 (ly:make-stencil
+	  (ly:stencil-expr stil)
+	  (cons
+	   left
+	   (cdr (ly:stencil-extent stil X)))
+	  (ly:stencil-extent stil Y)
+	  ))
+       stencils))
+
 (define (dump-stencils-as-EPSes stencils book basename)
   (define paper (ly:paper-book-paper book))
   (define (dump-infinite-stack-EPS stencils)
@@ -37,7 +59,9 @@
 	   (ly:output-def-lookup paper 'force-eps-font-include))
 	  
 	  (dump-stencils-as-separate-EPS rest (1+ count)))))
-  
+
+
+  ;; main body 
   (let* ((tex-system-name (format "~a-systems.tex" basename))
 	 (texi-system-name (format "~a-systems.texi" basename))
 	 (tex-system-port (open-output-file tex-system-name))
@@ -45,21 +69,24 @@
     
     (ly:message (_ "Writing ~a...") tex-system-name)
     (ly:message (_ "Writing ~a...") texi-system-name)
+
+    (set! stencils (widen-left-stencil-edges stencils))
+    
     (dump-stencils-as-separate-EPS stencils 1)
     (for-each (lambda (c)
 		(if (< 0 c)
-		    (begin 
-		      (display "\\ifx\\betweenLilyPondSystem \\undefined\n" tex-system-port)
-		      (display "  \\linebreak\n" tex-system-port)
-		      (display "\\else\n" tex-system-port)
-		      (display (format 
-				"  \\betweenLilyPondSystem{~a}\n" c) tex-system-port)
-		      (display "\\fi\n" tex-system-port)))
+		    (display (format "\\ifx\\betweenLilyPondSystem \\undefined
+  \\linebreak
+\\else
+  \\betweenLilyPondSystem{~a}
+\\fi
+" c) tex-system-port))
 		(display (format "\\includegraphics{~a-~a.eps}\n"
 				 basename (1+ c)) tex-system-port)
 		(display (format "@image{~a-~a}\n"
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
+    
     (display "@c eof - 'eof' is a Makefile marker; do not remove. " texi-system-port)
     (display "% eof - 'eof' is Makefile marker; do not remove. " tex-system-port)
     

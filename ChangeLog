@@ -1,5 +1,8 @@
 2005-09-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-eps.scm (dump-stencils-as-EPSes): cleanup.
+	(widen-left-stencil-edges): new function.
+
 	* lily/text-interface.cc (interpret_markup): use abort().
 
 2005-09-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
