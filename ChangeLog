@@ -1,5 +1,9 @@
 2005-09-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* tex/GNUmakefile: don't install texinfo.tex
+
+	* tex/ : cleanup: remove unused files.
+
 	* lily/general-scheme.cc: remove my_{isinf,isnan}.
 
 	* flower/include/real.hh: using std::{isnan,isinf}
