@@ -1202,6 +1202,28 @@ set @code{melismaBusyProperties}, as is done in the example above.
 @end lilypond
 
 
+@subsection Spacing lyrics
+
+@cindex Spacing lyrics
+@cindex Lyrics, increasing space between
+
+To increase the space between lyrics, use the @code{SeparationItem}
+property.
+
+@lilypond[relative,verbatim,fragment,quote,raggedright]
+{ 
+  c c c c
+  \override Score.SeparationItem #'padding = #5
+  c c c c
+}
+\addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+}
+@end lyrics
+
+
+
 @node More stanzas
 @subsection More stanzas
 

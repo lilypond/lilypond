@@ -711,11 +711,11 @@ the metronome marking invisible
 To print other metronome markings, use these markup commands
 @lilypond[quote,raggedright,verbatim,relative,fragment]
 c4^\markup {
-  "("
+  (
   \smaller \general-align #Y #DOWN \note #"16." #1
-  "="
-  \smaller \general-align #Y #DOWN \note #"8" #1"
-  ")" }
+  =
+  \smaller \general-align #Y #DOWN \note #"8" #1
+  ) }
 @end lilypond
 
 @noindent
