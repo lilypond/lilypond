@@ -13,7 +13,6 @@
 #include "dimensions.hh"
 #include "font-metric.hh"
 #include "input-smob.hh"
-#include "libc-extension.hh"	// isinf
 #include "string-convert.hh"
 #include "warn.hh"
 
