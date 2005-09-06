@@ -9,7 +9,6 @@
 #include <cstdio>
 #include <math.h>
 
-#include "libc-extension.hh"	// isinf
 #include "paper-column.hh"
 #include "spring.hh"
 #include "warn.hh"

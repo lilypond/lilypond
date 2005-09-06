@@ -9,9 +9,6 @@
 #include "offset.hh"
 
 
-#include <math.h>
-// #include <cmath>  // undefines isnan on MacOS X.  
-
 #ifndef STANDALONE
 String
 Offset::to_string () const

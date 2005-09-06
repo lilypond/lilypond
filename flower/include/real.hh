@@ -11,10 +11,13 @@
 
 #include <algorithm>
 #include <climits>
+#include <cmath>
 
 typedef double Real;
 extern const Real infinity_f;
 using namespace std;
+using std::isnan;
+using std::isinf;
 
 template<class T> inline T abs (T x)
 {

@@ -24,14 +24,6 @@
 #include "main.hh"
 #include "file-path.hh"
 
-/* MacOS S fix:
-   source-file.hh includes cmath which undefines isinf and isnan
-*/
-#ifdef __APPLE__
-inline int my_isinf (Real r) { return isinf (r); }
-inline int my_isnan (Real r) { return isnan (r); }
-#endif
-
 LY_DEFINE (ly_find_file, "ly:find-file",
 	   1, 0, 0, (SCM name),
 	   "Return the absolute file name of @var{name}, "
@@ -164,11 +156,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
   if (scm_exact_p (s) == SCM_BOOL_F)
     {
       Real r (scm_to_double (s));
-#ifdef __APPLE__
-      if (my_isinf (r) || my_isnan (r))
-#else
 	if (isinf (r) || isnan (r))
-#endif
 	  {
 	    programming_error (_ ("infinity or NaN encountered while converting Real number"));
 	    programming_error (_ ("setting to zero"));
