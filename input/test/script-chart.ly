@@ -17,12 +17,13 @@ This chart shows all articulations, or scripts, that feta font contains.
       \context Staff  {
 	\set Score.timing = ##f
 	\set Score.barAlways = ##t
+        \override Score.SeparationItem #'padding = #2.5
 	\override Staff.BarLine  #'transparent = ##t
         c''\accent             c''\marcato            c''\staccatissimo 	c''\espressivo
         c''\staccato           c''\tenuto             c''\portato
         c''\upbow              c''\downbow            c''\flageolet
-        c''\thumb              c''^\lheel              c''\rheel
-        c''^\ltoe               c''\rtoe               c''\open
+        c''\thumb              c''^\lheel             c''\rheel
+        c''^\ltoe              c''\rtoe               c''\open
         c''\stopped            c''\turn               c''\reverseturn
         c''\trill              c''\prall              c''\mordent
         c''\prallprall         c''\prallmordent       c''\upprall
