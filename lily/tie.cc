@@ -261,29 +261,30 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     Avoid dot
    */
   Grob *left_dot = unsmob_grob (me->get_bound (LEFT)->get_object ("dot"));
-  if (left_dot && in_space)
+  int dot_pos = int (Staff_symbol_referencer::get_position (left_dot));
+  if (left_dot
+      && (staff_position == dot_pos
+	  || staff_position + dir == dot_pos))
     {
-      if (staff_position == Staff_symbol_referencer::get_position (left_dot))
-	{
-	  staff_position += dir;
-	  in_space = false;
+      staff_position += dir;
+      in_space = !in_space;
 
-	  if (skylines)
-	    {
-	      Real y = staff_space * 0.5 * staff_position;
-	      attachments = get_skyline_attachment (*skylines, y);
-	      attachments.widen (-gap);
-	      Bezier b = slur_shape (attachments.length(),
-				     details.height_limit_,
-				     details.ratio_);
-	      Offset middle = b.curve_point (0.5);
-	      Offset edge = b.curve_point (0.0);
-	      dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
-	      fits_in_space =
-		(dy < 0.6 * staff_space);
-	    }
+      if (skylines)
+	{
+	  Real y = staff_space * 0.5 * staff_position;
+	  attachments = get_skyline_attachment (*skylines, y);
+	  attachments.widen (-gap);
+	  Bezier b = slur_shape (attachments.length(),
+				 details.height_limit_,
+				 details.ratio_);
+	  Offset middle = b.curve_point (0.5);
+	  Offset edge = b.curve_point (0.0);
+	  dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
+	  fits_in_space =
+	    (dy < 0.6 * staff_space);
 	}
     }
+  
   /*
     Avoid flag.
   */
