@@ -1,3 +1,7 @@
+2005-09-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/instrument-notation.itely: Bugfix.
+
 2005-09-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* tex/GNUmakefile: don't install texinfo.tex

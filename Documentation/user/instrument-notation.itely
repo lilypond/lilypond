@@ -1201,7 +1201,6 @@ set @code{melismaBusyProperties}, as is done in the example above.
  { Ky -- _ _ ri __ _ _ _  e }
 @end lilypond
 
-
 @subsubsection Spacing lyrics
 
 @cindex Spacing lyrics
@@ -1220,7 +1219,7 @@ property.
   longtext longtext longtext longtext
   longtext longtext longtext longtext
 }
-@end lyrics
+@end lilypond
 
 
 
