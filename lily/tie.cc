@@ -261,7 +261,9 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     Avoid dot
    */
   Grob *left_dot = unsmob_grob (me->get_bound (LEFT)->get_object ("dot"));
-  int dot_pos = int (Staff_symbol_referencer::get_position (left_dot));
+  int dot_pos = dot_pos
+    ? int (Staff_symbol_referencer::get_position (left_dot))
+    : 0;
   if (left_dot
       && (staff_position == dot_pos
 	  || staff_position + dir == dot_pos))

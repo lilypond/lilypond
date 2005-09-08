@@ -18,6 +18,7 @@ extern const Real infinity_f;
 using namespace std;
 using std::isnan;
 using std::isinf;
+using std::fabs;
 
 template<class T> inline T abs (T x)
 {
