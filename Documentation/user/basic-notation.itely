@@ -1,4 +1,4 @@
-@c -*- coding: latin-1; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 
 @c A menu is needed before every deeper *section nesting of @node's; run
