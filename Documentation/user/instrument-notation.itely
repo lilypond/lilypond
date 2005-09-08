@@ -1,4 +1,4 @@
-@c -*- coding: latin-1; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 
 @c A menu is needed before every deeper *section nesting of @node's; run 
@@ -793,7 +793,7 @@ simply insert the characters directly into the input file and save
 it with utf-8 encoding.  See @ref{Text encoding} for more info.
 
 @example
-\lyricmode @{ He said: Ã¢ÂÂLet my peo ple goÃ¢ÂÂ. @}
+\lyricmode @{ He said: “Let my peo ple go”. @}
 @end example
 
 The full definition of a word start in Lyrics mode is somewhat more

@@ -1,3 +1,10 @@
+2005-09-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/instrument-notation.itely (Entering lyrics):
+	Multiple latin-1->utf-8 conversion fix.
+
+	* Documentation/user/*tely: Update Emacs cookie to utf-8.
+
 2005-09-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-ps.scm (grob-cause): escape spaces in URLs.
