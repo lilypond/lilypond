@@ -165,7 +165,7 @@ HINTS FOR STYLE
     This makes it easier to not forget `@noindent'.
 
   . Non-ASCII characters which are in utf-8 should be directly used;
-    this is, don't say `Ba@ss{}tuba' but `Baﬂtuba'.  This ensures that
+    this is, don't say `Ba@ss{}tuba' but `Ba√ütuba'.  This ensures that
     all such characters appear in all output formats.
 
 @end ignore
