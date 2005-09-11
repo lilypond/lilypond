@@ -439,9 +439,15 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "head width) A 16th note is followed by 0.5 note head width. The\n"
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
 
-	       "grace-space-factor spacing-increment base-shortest-duration strict-note-spacing "
-	       "shortest-duration-space common-shortest-duration uniform-stretching "
-	       "packed-spacing ");
+	       "grace-space-factor "
+	       "spacing-increment "
+	       "base-shortest-duration "
+	       "strict-note-spacing "
+	       "shortest-duration-space "
+	       "common-shortest-duration "
+	       "uniform-stretching "
+	       "packed-spacing "
+	       );
 
 ADD_INTERFACE (Spacing_interface, "spacing-interface",
 	       "Something to do with line breaking and spacing. "

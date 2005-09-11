@@ -218,7 +218,7 @@ Syntax: @var{note}\\cr
 	(description .	"Change the key signature. 
 
 Syntax: @code{\\key } @var{name} @var{scale}.")
-
+	(to-relative-callback . ,(lambda (x p) p))
 	(types . (general-music key-change-event event))
 	))
     
