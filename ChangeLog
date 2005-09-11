@@ -4,6 +4,9 @@
 
 2005-09-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/feta-banier.mf: make vertical stem 1/2 stemthickness wide to
+	reduce aliasing effects.
+
 	* lily/tie-column.cc (set_chord_outlines): bugfix: insert complete
 	box in skyline.
 
