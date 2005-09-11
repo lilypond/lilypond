@@ -107,7 +107,7 @@ set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
       Array<Box> boxes;
       Interval x_union;
 
-      Grob *stem = 0; 
+      Grob *stem = 0;
       for (int i = 0; i < ties.size (); i++)
 	{
 	  Spanner *tie = dynamic_cast<Spanner*> (ties[i]);
@@ -178,15 +178,20 @@ set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
       do
 	{
 	  Interval x ;
+	  Interval y;
 	  if (boxes.size())
 	    {
 	      Box b = boxes.boundary (updowndir, 0);
 	      x = b[X_AXIS];
 	      x[-d] =  b[X_AXIS].linear_combination (-d / 2);
+	      y[-updowndir] = b[Y_AXIS][updowndir];
+	      y[updowndir] = updowndir * infinity_f;
 	    }
-	  
+
 	  if (!x.is_empty ())
-	    (*skyline_drul)[d].boundary (updowndir, 0).height_ = x[-d]; 
+	    insert_extent_into_skyline (&skyline_drul->elem_ref (d),
+					Box (x,y),
+					Y_AXIS, -d);
 	}
       while (flip (&updowndir) != DOWN);
 
