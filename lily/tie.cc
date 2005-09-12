@@ -24,17 +24,12 @@
 #include "note-head.hh"
 #include "tie-column.hh"
 
-/*
-  tie: Connect two noteheads.
-
-  What if we have
-
-  c4 ~ \clef bass ; c4 or
-
-  c4 \staffchange c4
-
-  do we have non-horizontal ties then?
-*/
+int
+Tie::compare (Grob *const &s1,
+	      Grob *const &s2)
+{
+  return sign (Tie::get_position (s1) - Tie::get_position (s2));
+}
 
 void
 Tie::set_head (Grob *me, Direction d, Grob *h)

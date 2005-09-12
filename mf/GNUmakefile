@@ -43,7 +43,7 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
 TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
-ENC_FILES = $(TEXTABLES:.tex=.enc) $(outdir)/cmr.enc
+ENC_FILES = $(TEXTABLES:.tex=.enc)
 TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)\
  $(SAUTER_FONTS:%=$(outdir)/%.tfm)
 FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
