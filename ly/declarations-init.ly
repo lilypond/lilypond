@@ -65,7 +65,8 @@ escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
 melisma = #(make-span-event 'ManualMelismaEvent START)
 melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
-
+laissezVibrer = #(make-music 'LaissezVibrerEvent)
+		  
 \include "grace-init.ly"
 \include "midi-init.ly"
 \include "paper-defaults.ly"

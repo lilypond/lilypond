@@ -221,7 +221,13 @@ Syntax: @code{\\key } @var{name} @var{scale}.")
 	(to-relative-callback . ,(lambda (x p) p))
 	(types . (general-music key-change-event event))
 	))
-    
+    (LaissezVibrerEvent
+     . ((description . "Don't damp this chord.
+
+Syntax: @var{note}\\laissezVibrer.")
+
+	(types . (general-music event laissez-vibrer-event))
+	))
     (LigatureEvent
      . (
 	(description .	"(docme).")

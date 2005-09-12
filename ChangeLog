@@ -1,3 +1,42 @@
+2005-09-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/instrument-notation.itely (Laissez vibrer
+	ties): new node.
+
+	* input/regression/laissez-vibrer-ties.ly: new file.
+
+	* lily/laissez-vibrer-engraver.cc: new file.	
+
+	* lily/include/tie-column-format.hh: new file.
+
+	* lily/tie-column-format.cc: new file. 
+
+	* lily/tie-column.cc (set_manual_tie_configuration): new function.
+
+	* lily/laissez-vibrer-tie.cc: new file.
+
+	* lily/include/laissez-vibrer-tie.hh: new file.
+
+	* ly/engraver-init.ly: add Laissez_vibrer_engraver
+
+	* ly/declarations-init.ly (laissezVibrer): add \laissezVibrer
+
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	LaissezVibrerTie, LaissezVibrerTieColumn
+
+	* lily/tie-column.cc (set_tie_config_directions): new function
+	(final_shape_adjustment): new function.
+	(shift_small_ties): new function.
+
+	* scm/define-music-types.scm (music-descriptions): add LaissezVibrerEvent
+
+	* lily/include/tie.hh (struct Tie_details): add x_gap_
+	(struct Tie_configuration): add head_position_
+
+	* lily/tie-column.cc (set_chord_outline): new function.
+
+	* mf/cmr.enc.in:  remove file.
+
 2005-09-11  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/examples.itely: typo fix.  Thanks, Matevž

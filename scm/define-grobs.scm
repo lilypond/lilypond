@@ -677,6 +677,26 @@
 		 (interfaces . (key-signature-interface
 				font-interface
 				break-aligned-interface))))))
+    (LaissezVibrerTie
+     . (
+	(print-function  . ,Laissez_vibrer_tie::print)
+	(details . ((ratio . 0.333)
+		    (height-limit . 1.0)))
+	(thickness . 1.0)
+	(meta . ((class . Item)
+		 (interfaces . (laissez-vibrer-tie-interface))
+		 ))
+	))
+    
+    (LaissezVibrerTieColumn
+     . (
+	(X-extent-callback . #f)
+	(Y-extent-callback . #f)
+	(meta . ((class . Item)
+		 (interfaces . (laissez-vibrer-tie-column-interface))
+		 ))
+	))
+    
     (LedgerLineSpanner
      . (
 	(print-function . ,Ledger_line_spanner::print)

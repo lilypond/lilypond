@@ -10,6 +10,7 @@
 #define TRANSLATOR_ICC
 
 #include "array.hh"
+#include "translator.hh"
 
 /**
    A macro to automate administration of translators.

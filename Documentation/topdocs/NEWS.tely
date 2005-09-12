@@ -47,6 +47,15 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 @itemize @bullet
 
 @item
+Laissez vibrer ties can be created with @code{\laissezVibrer},
+
+@lilypond[fragment,raggedright,relative=1]
+  <c e g>\laissezVibrer  <d f>\laissezVibrer
+@end lilypond
+
+This feature was sponsored by Henrik Frisk.
+
+@item
 The order of words in @code{\markup} commands may now be reversed by
 setting the @code{text-direction} property. This is useful for
 Right-to-Left languages like Hebrew.

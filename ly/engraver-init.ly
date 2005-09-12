@@ -182,7 +182,7 @@ contained staves are not connected vertically."
   \consists "Trill_spanner_engraver"
   \consists "Grob_pq_engraver"
   \consists "Forbid_line_break_engraver"
-
+  \consists "Laissez_vibrer_engraver"
   \consists "Note_head_line_engraver"
   \consists "Glissando_engraver"
   \consists "Ligature_bracket_engraver"
