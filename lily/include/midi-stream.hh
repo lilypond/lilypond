@@ -8,6 +8,7 @@
 #define MIDI_STREAM_HH
 
 #include <cstdio>
+using namespace std;
 
 #include "string.hh"
 

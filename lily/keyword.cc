@@ -6,6 +6,7 @@
 
 #include <cstring>
 #include <cstdlib>
+using namespace std;
 
 /* for qsort */
 int tabcmp (Keyword_ent const &p1, Keyword_ent const &p2)

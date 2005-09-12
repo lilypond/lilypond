@@ -8,8 +8,7 @@
 
 #include "tie-column.hh"
 
-#include <math.h>
-#include <map>
+#include <cmath>
 
 #include "skyline.hh"
 #include "warn.hh"
@@ -19,6 +18,8 @@
 #include "tie.hh"
 #include "directional-element-interface.hh"
 #include "tie-column-format.hh"
+
+using namespace std;
 
 void
 Tie_column::add_tie (Grob *me, Grob *tie)
@@ -93,7 +94,7 @@ Tie_column::new_directions (Grob *me)
   if (ties.size() == 1)
     {
       Tie::set_default_control_points (ties[0]);
-      return ;
+      return;
     }
   
   ties.sort (&Tie::compare);

@@ -10,9 +10,11 @@
 #define OBJECT_KEY_UNDUMPER_HH
 
 #include <map>
+using namespace std;
+
 #include "object-key.hh"
 
-typedef std::map<int, Object_key const *> Int_to_key_map;
+typedef map<int, Object_key const *> Int_to_key_map;
 
 struct Object_key_undumper
 {

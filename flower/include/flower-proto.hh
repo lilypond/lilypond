@@ -5,8 +5,8 @@
   (c) 1996--2005 Han-Wen Nienhuys
 */
 
-#ifndef FPROTO_HH
-#define FPROTO_HH
+#ifndef FLOWER_PROTO_HH
+#define FLOWER_PROTO_HH
 
 char const *flower_version_str0 ();
 
@@ -57,5 +57,4 @@ struct File_storage;
 struct Mapped_file_storage;
 struct Simple_file_storage;
 
-#endif // FPROTO_HH
-
+#endif /* FLOWER_PROTO_HH */

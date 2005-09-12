@@ -10,7 +10,8 @@
 #include "beam.hh"
 
 #include <algorithm>
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
@@ -401,7 +402,8 @@ Beam::score_slopes_dy (Real yl, Real yr,
       && sign (dy_damp) != sign (dy))
     dem += parameters->DAMPING_DIRECTION_PENALTY;
 
-  dem += parameters->MUSICAL_DIRECTION_FACTOR *max (0.0, (fabs (dy) - fabs (dy_mus)));
+  dem += parameters->MUSICAL_DIRECTION_FACTOR
+    * max (0.0, (fabs (dy) - fabs (dy_mus)));
 
   Real slope_penalty = parameters->IDEAL_SLOPE_FACTOR;
 

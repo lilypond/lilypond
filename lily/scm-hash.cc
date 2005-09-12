@@ -10,10 +10,9 @@
 
 #include <cstdio>
 #include <algorithm>
+using namespace std;
 
 #include "ly-smobs.icc"
-
-using namespace std;
 
 /*
   Return: number of objects.
@@ -84,8 +83,8 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
 }
 
 bool
-Scheme_hash_table::try_retrieve (SCM k, SCM *v)
-{
+Scheme_hash_table::try_retrieve (SCM k, SCM *v){
+
   SCM handle = scm_hashq_get_handle (hash_tab_, k);
   if (scm_is_pair (handle))
     {

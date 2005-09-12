@@ -9,7 +9,8 @@
 
 #include "text-interface.hh"
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "main.hh"
 #include "config.hh"

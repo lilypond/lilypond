@@ -24,7 +24,8 @@
   - beam_translation is the offset between Y centers of the beam.
 */
 
-#include <math.h> // tanh.
+#include <cmath> // tanh.
+using namespace std;
 
 #include "beam.hh"
 #include "interval-set.hh"
@@ -780,7 +781,7 @@ set_minimum_dy (Grob *me, Real *dy)
       Real hang = 1.0 - (thickness - slt) / 2;
 
       *dy = sign (*dy) * max (fabs (*dy),
-			      min (min (sit, inter), hang));
+				   min (min (sit, inter), hang));
     }
 }
 
@@ -1402,12 +1403,28 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
 
 ADD_INTERFACE (Beam, "beam-interface",
 	       "A beam. \n\n"
-	       "The @code{thickness} property is the weight of beams, and is measured "
-	       "in  staffspace",
-	       "knee positioning-done position-callbacks "
-	       "concaveness dir-function quant-score auto-knee-gap gap "
-	       "gap-count chord-tremolo beamed-stem-shorten shorten least-squares-dy "
-	       "details damping inspect-quants flag-width-function "
-	       "neutral-direction positions space-function break-overshoot "
-	       "thickness");
-
+	       "The @code{thickness} property is the weight of beams, "
+	       "measured in staffspace",
+	       "auto-knee-gap "
+	       "beamed-stem-shorten "
+	       "break-overshoot "
+	       "chord-tremolo "
+	       "concaveness "
+	       "damping "
+	       "details "
+	       "dir-function "
+	       "flag-width-function "
+	       "gap "
+	       "gap-count "
+	       "inspect-quants "
+	       "knee "
+	       "least-squares-dy "
+	       "neutral-direction "
+	       "position-callbacks "
+	       "positioning-done "
+	       "positions "
+	       "quant-score "
+	       "shorten "
+	       "space-function "
+	       "thickness "
+	       );

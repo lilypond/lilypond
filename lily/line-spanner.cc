@@ -8,7 +8,8 @@
 
 #include "line-spanner.hh"
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "spanner.hh"
 #include "output-def.hh"

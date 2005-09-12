@@ -8,6 +8,7 @@
 
 #include <cctype>
 #include <cstdio>
+using namespace std;
 
 #include "rhythmic-head.hh"
 #include "output-def.hh"

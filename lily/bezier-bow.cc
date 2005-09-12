@@ -6,7 +6,8 @@
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "misc.hh"
 #include "bezier.hh"
@@ -98,8 +99,7 @@ get_slur_indent_height (Real *indent, Real *height,
   *height = slur_height (width, h_inf, r_0);
 
   Real q = 2 * h_inf / max_fraction;
-  *indent
-    = 2 * h_inf - sqr (q) * max_fraction / (width + q);
+  *indent = 2 * h_inf - sqr (q) * max_fraction / (width + q);
 }
 
 Bezier

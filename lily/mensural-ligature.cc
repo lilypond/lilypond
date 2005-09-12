@@ -7,7 +7,8 @@
   Pal Benko <benkop@freestart.hu>
 */
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "mensural-ligature.hh"
 #include "item.hh"

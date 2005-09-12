@@ -11,6 +11,7 @@
 #include "cluster.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "spanner.hh"
 #include "item.hh"

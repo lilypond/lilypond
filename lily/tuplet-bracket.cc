@@ -29,7 +29,8 @@
   todo: handle breaking elegantly.
 */
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "tuplet-bracket.hh"
 #include "line-interface.hh"

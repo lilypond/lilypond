@@ -9,9 +9,10 @@
 
 #include "config.hh"
 
-#include <math.h>  /* isinf */
-#include <stdio.h>
-#include <string.h>  /* memset */
+#include <cmath>  /* isinf */
+#include <cstdio>
+#include <cstring>  /* memset */
+using namespace std;
 
 #include "international.hh"
 #include "libc-extension.hh"

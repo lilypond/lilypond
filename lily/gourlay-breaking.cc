@@ -8,8 +8,9 @@
 
 #include "gourlay-breaking.hh"
 
-#include <math.h>		// rint
+#include <cmath>		// rint
 #include <cstdio>
+using namespace std;
 
 #include "warn.hh"
 #include "main.hh"

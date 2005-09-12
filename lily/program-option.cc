@@ -9,7 +9,8 @@
 #include "program-option.hh"
 
 #include <cstdio>
-#include <string.h>
+#include <cstring>
+using namespace std;
 
 #include "string-convert.hh"
 #include "protected-scm.hh"

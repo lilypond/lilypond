@@ -9,8 +9,9 @@
 #include "dot-column.hh"
 
 #include <cstdio>
-#include <math.h>
+#include <cmath>
 #include <map>
+using namespace std;
 
 #include "dots.hh"
 #include "rhythmic-head.hh"
@@ -82,7 +83,7 @@ struct Dot_position
   }
 };
 
-typedef std::map<int, Dot_position> Dot_configuration;
+typedef map<int, Dot_position> Dot_configuration;
 
 /*
   Value CFG according.

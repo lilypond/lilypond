@@ -8,8 +8,9 @@
 
 #include "side-position-interface.hh"
 
-#include <math.h>		// ceil.
+#include <cmath>		// ceil.
 #include <algorithm>
+using namespace std;
 
 #include "note-head.hh"
 #include "warn.hh"
@@ -20,8 +21,6 @@
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "string-convert.hh"
-
-using namespace std;
 
 void
 Side_position_interface::add_support (Grob *me, Grob *e)

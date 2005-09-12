@@ -31,7 +31,9 @@
 
 #ifdef STRING_DEBUG
 #include <sys/types.h>
-#include <memory.h>
+#include <memory>
+using namespace std;
+
 void *
 mymemmove (void *dest, void const *src, size_t n)
 {

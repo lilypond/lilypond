@@ -8,10 +8,9 @@
 
 #include "note-head.hh"
 
-#include <math.h>
+#include <cmath>
 #include <cctype>
 #include <algorithm> 		//  min, max
-
 using namespace std;
 
 #include "directional-element-interface.hh"

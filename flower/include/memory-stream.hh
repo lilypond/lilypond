@@ -9,8 +9,9 @@
 #ifndef MEMORY_STREAM_HH
 #define MEMORY_STREAM_HH
 
-#include <stdio.h>
+#include <cstdio>
 #include <unistd.h>
+using namespace std;
 
 #include "libc-extension.hh"
 #include "file-cookie.hh"

@@ -8,6 +8,7 @@
 
 #include <cstring>
 #include <cstdio>
+using namespace std;
 
 #include "libc-extension.hh"
 #include "rational.hh"

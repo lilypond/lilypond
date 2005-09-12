@@ -8,7 +8,8 @@
 
 #include "rest-collision.hh"
 
-#include <math.h>		// ceil.
+#include <cmath>		// ceil.
+using namespace std;
 
 #include "warn.hh"
 #include "note-column.hh"

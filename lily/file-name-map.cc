@@ -7,11 +7,12 @@
 */
 
 #include <map>
+using namespace std;
 
 #include "file-name-map.hh"
 #include "lily-guile.hh"
 
-std::map<String, String> file_name_map_global;
+map<String, String> file_name_map_global;
 
 String
 map_file_name (String s)

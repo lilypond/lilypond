@@ -9,6 +9,7 @@
 #include "parse-scm.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "main.hh"
 #include "paper-book.hh"

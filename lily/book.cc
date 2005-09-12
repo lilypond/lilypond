@@ -9,6 +9,7 @@
 #include "book.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "lilypond-key.hh"
 #include "global-context.hh"

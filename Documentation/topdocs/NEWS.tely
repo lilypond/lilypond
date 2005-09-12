@@ -1,4 +1,4 @@
-\input texinfo @c -*-texinfo-*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @setfilename NEWS.info
 @settitle NEWS
 
@@ -90,7 +90,7 @@ specify tie formatting
 
 This improvement has been sponsored by Bertalan Fodor, Jay Hamilton,
 Kieren MacMillan, Steve Doonan, Trevor Baca, and Vicente Solsona
-Dellá.
+Dell¡.
 
 @item
 Formatting of isolated, single ties has been improved. Now, ties avoid
@@ -106,7 +106,7 @@ staff lines, flags and dots, without compromising their shape.
 
 This improvement has been sponsored by Bertalan Fodor, Jay Hamilton,
 Kieren MacMillan, Steve Doonan, Trevor Baca, and Vicente Solsona
-Dellá.
+Dell¡.
  
 
 @item  @textanchor{repeat-counter}
@@ -251,7 +251,9 @@ Nested tuplets are automatically positioned,
 }
 @end lilypond
 
-This feature was sponsored by Trevor Baca.
+@c This feature was sponsored by Trevor Baca.
+@c where does this fail?
+This feature was sponsored by Trevor Bača.
 
 @item
 Music expressions can be displayed, in LilyPond notation, using the

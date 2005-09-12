@@ -10,6 +10,7 @@
 #define MISC_HH
 
 #include <cstdlib>
+using namespace std;
 
 #include "array.hh"
 #include "interval.hh"

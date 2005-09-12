@@ -10,8 +10,9 @@
 
 #include "lookup.hh"
 
-#include <math.h>
+#include <cmath>
 #include <cctype>
+using namespace std;
 
 #include "line-interface.hh"
 #include "warn.hh"

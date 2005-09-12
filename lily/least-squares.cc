@@ -33,7 +33,7 @@ minimise_least_squares (Real *coef, Real *offset,
   *coef = 0.0;
   *offset = 0.;
 
-  Real den = (N *sqx - sqr (sx));
+  Real den = (N * sqx - sqr (sx));
   if (!N || !den)
     {
       programming_error ("minimise_least_squares ():  Nothing to minimise");

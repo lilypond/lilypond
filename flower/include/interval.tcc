@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <cmath>
+using namespace std;
 
 #include "interval.hh"
 #include "string.hh"

@@ -9,6 +9,7 @@
 #include "includable-lexer.hh"
 
 #include <sstream>
+using namespace std;
 
 #include "config.hh"
 #include "file-path.hh"

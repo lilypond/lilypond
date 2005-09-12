@@ -63,7 +63,7 @@ INSTANTIATE_COMPARE (Moment const &, Moment::compare);
 Moment robust_scm2moment (SCM, Moment);
 
 #ifdef STREAM_SUPPORT
-std::ostream &operator << (std::ostream &, Moment const &);
+ostream &operator << (ostream &, Moment const &);
 #endif
 
 bool moment_less (SCM a, SCM b);

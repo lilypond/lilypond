@@ -9,6 +9,7 @@
 #include "performance.hh"
 
 #include <ctime>
+using namespace std;
 
 #include "audio-column.hh"
 #include "audio-staff.hh"

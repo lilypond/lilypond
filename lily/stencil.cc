@@ -8,7 +8,8 @@
 
 #include "stencil.hh"
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "dimensions.hh"
 #include "font-metric.hh"

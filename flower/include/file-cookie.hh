@@ -2,8 +2,11 @@
 extern "C" {
 #endif
 
-#include <stdio.h>
 #include <unistd.h>
+
+#include <cstdio>
+using namespace std;
+
 
 #if (! defined (__off64_t) && ! defined (__off64_t_defined)) || ! defined (__cplusplus)
 #define off64_t unsigned long long

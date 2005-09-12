@@ -7,6 +7,7 @@
 */
 
 #include <map>
+using namespace std;
 
 #include "item.hh"
 #include "note-head.hh"
@@ -188,7 +189,7 @@ struct Ledger_request
   }
 };
 
-typedef std::map < int, Drul_array<Ledger_request> > Ledger_requests;
+typedef map < int, Drul_array<Ledger_request> > Ledger_requests;
 
 /*
   TODO: ledger share a lot of info. Lots of room to optimize away

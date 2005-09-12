@@ -7,6 +7,7 @@
 */
 
 #include <climits>		// INT_MAX
+using namespace std;
 
 #include "binary-source-file.hh"
 #include "string-convert.hh"

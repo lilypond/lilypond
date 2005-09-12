@@ -7,6 +7,7 @@
 */
 
 #include <cstring>
+using namespace std;
 
 #include "protected-scm.hh"
 #include "string.hh"

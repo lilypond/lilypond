@@ -6,9 +6,10 @@
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include <assert.h>
-#include <string.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstring>
+#include <cstdlib>
+using namespace std;
 
 #include "memory-stream.hh"
 

@@ -10,11 +10,12 @@
 #define VIRTUAL_METHODS_HH
 
 #include <typeinfo>
+using namespace std;
 
 #define classname(class_ptr) demangle_classname (typeid (* (class_ptr)))
 
 char const *
-demangle_classname (std::type_info const &);
+demangle_classname (type_info const &);
 
 /* Virtual copy constructor.  Make up for C++'s lack of a standard
    factory or clone () function.  Uses a typeof hack.  Usage:

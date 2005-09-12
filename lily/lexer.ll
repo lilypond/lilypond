@@ -22,9 +22,10 @@
  */
 
 
-#include <stdio.h>
-#include <ctype.h>
-#include <errno.h>
+
+#include <cstdio>
+#include <cctype>
+#include <cerrno>
 
 /* Flex >= 2.5.29 fix; FlexLexer.h's multiple include bracing breaks
    when building the actual lexer.  */
@@ -32,7 +33,6 @@
 #define LEXER_CC
 
 #include <iostream>
-
 using namespace std;
 
 #include "music-function.hh"
@@ -952,3 +952,35 @@ music_function_type (SCM func)
 
 	return MUSIC_FUNCTION_SCM;
 }
+
+/* Shut up lexer warnings.  */
+#if YY_STACK_USED
+
+static void
+yy_push_state (int)
+{
+}
+
+static void
+yy_pop_state ()
+{
+}
+
+static int
+yy_top_state ()
+{
+  return 0;
+}
+
+static void
+silence_lexer_warnings ()
+{
+   (void) yy_start_stack_ptr;
+   (void) yy_start_stack_depth;
+   (void) yy_start_stack;
+   (void) yy_push_state;
+   (void) yy_pop_state;
+   (void) yy_top_state;
+   (void) silence_lexer_warnings;
+}
+#endif

@@ -10,6 +10,7 @@
 
 #include <cstdlib>
 #include <cstdio>
+using namespace std;
 
 /* Is progress indication at NEWLINE?  */
 static bool progress_newline = true;
