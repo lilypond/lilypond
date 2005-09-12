@@ -24,6 +24,7 @@ struct Tie_details
   Real height_limit_;
   Real ratio_;
   Real staff_space_;
+  Real x_gap_;
   
   Tie_details ();
   void init (Grob *);
@@ -31,7 +32,9 @@ struct Tie_details
   
 struct Tie_configuration
 {
-  Real position_;
+  int head_position_;
+  int position_;
+  
   Direction dir_;
   Interval attachment_x_;
   Real delta_y_;

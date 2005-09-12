@@ -96,6 +96,9 @@ Tie_details::init (Grob *me)
   height_limit_ = robust_scm2double (scm_cdr (limit), 0.75) * staff_space_;
   ratio_ = robust_scm2double (scm_cdr (scm_assq (ly_symbol2scm ("ratio"), details)),
 			      .333);
+
+  x_gap_ = robust_scm2double (me->get_property ("x-gap"), 0.2);
+
 }
 
 Tie_details::Tie_details ()
