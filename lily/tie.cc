@@ -207,53 +207,43 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
   /*
     UGH. Don't mirror Tie_configuration.
    */
-  Direction dir = CENTER;
-  
-  int tie_position = (int) Tie::get_position (me);
-  int staff_position = (int) conf->position_;
-
-  if (conf->dir_)
-    {
-      dir = conf->dir_;
-    }
-  else
-    {
-      dir = get_grob_direction (me);
-      if (!dir)
-	dir = get_default_dir (me);
-    }
+  conf->head_position_ = (int) Tie::get_position (me);
+  if (!conf->dir_)
+    conf->dir_ = get_grob_direction (me);
+  if (!conf->dir_)
+    conf->dir_ = get_default_dir (me);
+    
 
   Real staff_space = details.staff_space_;
-
   bool in_between = true;
-  Interval attachments = conf->attachment_x_;
   Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
-  if (attachments.is_empty())
+
+  if (conf->attachment_x_.is_empty())
     {
       if (!skylines)
-	attachments = get_default_attachments (me, common, gap,
-					       &staff_position,
+	conf->attachment_x_ = get_default_attachments (me, common, gap,
+					       &conf->position_,
 					       &in_between);
       else
 	{
-	  Real y = staff_space * 0.5 * staff_position;
-	  attachments = get_skyline_attachment (*skylines, y);
-	  attachments.widen (-gap);
+	  Real y = staff_space * 0.5 * conf->position_;
+	  conf->attachment_x_ = get_skyline_attachment (*skylines, y);
+	  conf->attachment_x_.widen (-gap);
 	}
     }
 
-  Bezier b = slur_shape (attachments.length(),
+  Bezier b = slur_shape (conf->attachment_x_.length(),
 			 details.height_limit_,
 			 details.ratio_);
-  b.scale (1, dir);
+  b.scale (1, conf->dir_);
   
   Offset middle = b.curve_point (0.5);
   Offset edge = b.curve_point (0.0);
 
-  staff_position = int (rint (staff_position));
+  conf->position_ = int (rint (conf->position_));
   
   Real dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
-  bool in_space = !(Staff_symbol_referencer::on_staffline (me, (int) staff_position));
+  bool in_space = !(Staff_symbol_referencer::on_staffline (me, (int) conf->position_));
   bool fits_in_space =
     (dy < 0.6 * staff_space);
   
@@ -265,18 +255,18 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     ? int (Staff_symbol_referencer::get_position (left_dot))
     : 0;
   if (left_dot
-      && (staff_position == dot_pos
-	  || staff_position + dir == dot_pos))
+      && (conf->position_ == dot_pos
+	  || conf->position_ + conf->dir_ == dot_pos))
     {
-      staff_position += dir;
+      conf->position_ += conf->dir_;
       in_space = !in_space;
 
       if (skylines)
 	{
-	  Real y = staff_space * 0.5 * staff_position;
-	  attachments = get_skyline_attachment (*skylines, y);
-	  attachments.widen (-gap);
-	  Bezier b = slur_shape (attachments.length(),
+	  Real y = staff_space * 0.5 * conf->position_;
+	  conf->attachment_x_ = get_skyline_attachment (*skylines, y);
+	  conf->attachment_x_.widen (-gap);
+	  Bezier b = slur_shape (conf->attachment_x_.length(),
 				 details.height_limit_,
 				 details.ratio_);
 	  Offset middle = b.curve_point (0.5);
@@ -294,10 +284,10 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
   if (left_stem)
     {
       Stencil flag = Stem::get_translated_flag (left_stem);
-      Real y = staff_position * staff_space * 0.5;
+      Real y = conf->position_ * staff_space * 0.5;
       if (flag.extent (Y_AXIS).contains (y))
 	{
-	  staff_position += dir;
+	  conf->position_ += conf->dir_;
 	  in_space = !in_space;
 	}
     }
@@ -306,12 +296,12 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     {
       if (in_space)
 	{
-	  staff_position += dir;
+	  conf->position_ += conf->dir_;
 	}
       else
 	{
 	  in_space = true;
-	  staff_position += dir;
+	  conf->position_ += conf->dir_;
 	}
 
       /*
@@ -319,11 +309,11 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
        */
       if (skylines)
 	{
-	  Real y = staff_space * 0.5 * staff_position;
-	  attachments = get_skyline_attachment (*skylines, y);
-	  attachments.widen (-gap);
+	  Real y = staff_space * 0.5 * conf->position_;
+	  conf->attachment_x_ = get_skyline_attachment (*skylines, y);
+	  conf->attachment_x_.widen (-gap);
 	      
-	  Bezier b = slur_shape (attachments.length(),
+	  Bezier b = slur_shape (conf->attachment_x_.length(),
 				 details.height_limit_,
 				 details.ratio_);
 	  Offset middle = b.curve_point (0.5);
@@ -339,58 +329,53 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     Putting larger in-space ties next to the notes forces
     the edges to be opposite (Y-wise) to the tie direction.
    */
-  if (staff_position == tie_position
+  if (conf->position_ == conf->head_position_
       && in_space
-      && Staff_symbol_referencer::staff_radius (me) > fabs (staff_position) / 2
+      && Staff_symbol_referencer::staff_radius (me) > fabs (conf->position_) / 2
       && dy > 0.3 * staff_space)
     {
-      staff_position += 2 * dir; 
+      conf->position_ += 2 * conf->dir_; 
     }
 
   if (!in_between
       && in_space
-      && fabs (staff_position - tie_position) <= 1)
-    staff_position += 2*dir;
+      && fabs (conf->position_ - conf->head_position_) <= 1)
+    conf->position_ += 2*conf->dir_;
   
   
-  conf->dir_ = dir;
-  conf->position_ = staff_position;
   if (in_space)
     {
-      if ((fabs (staff_position - tie_position) <= 1
+      if ((fabs (conf->position_ - conf->head_position_) <= 1
 	   && fabs (dy) < 0.45 * staff_space)
 	  || fabs (dy) < 0.6 * staff_space)
 	{
 	  /*
 	    vertically center in space.
 	  */
-	  conf->dir_ = dir;
-	  conf->position_ = staff_position;
-	  conf->attachment_x_ = attachments;
 	  conf->center_tie_vertically (details);
 	}
       else
 	{
 	  conf->delta_y_ = 
-	    dir * staff_space * (- 0.3);
+	    conf->dir_ * staff_space * (- 0.3);
 	}
     }
   else
     {
-      Real where = 0.5 * dir;
+      Real where = 0.5 * conf->dir_;
       
       Real rounding_dy = (where - middle[Y_AXIS]);
       conf->delta_y_ = rounding_dy;
 
-      if (dir * (b.curve_point (0.0)[Y_AXIS]
+      if (conf->dir_ * (b.curve_point (0.0)[Y_AXIS]
 		 + conf->position_ * staff_space * 0.5
 		 + conf->delta_y_) <
-	  dir * tie_position * 0.5 * staff_space)
+	  conf->dir_ * conf->head_position_ * 0.5 * staff_space)
 	{
-	  if (Staff_symbol_referencer::staff_radius (me) >  fabs (tie_position) / 2)
-	    conf->position_ +=  2 * dir;
+	  if (Staff_symbol_referencer::staff_radius (me) >  fabs (conf->head_position_) / 2)
+	    conf->position_ +=  2 * conf->dir_;
 	  else
-	    conf->position_ += dir;
+	    conf->position_ += conf->dir_;
 	}
     }
 
@@ -398,13 +383,11 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
   if (skylines)
     {
       Real half_space = 0.5 * staff_space;
-      Real y = staff_position * half_space;
+      Real y = conf->position_ * half_space;
       
-      attachments = get_skyline_attachment (*skylines, y);
-      
-      attachments.widen (-gap);
+      conf->attachment_x_ = get_skyline_attachment (*skylines, y);
+      conf->attachment_x_.widen (-gap);
     }
-  conf->attachment_x_ = attachments;
 }
 
 
@@ -524,7 +507,8 @@ ADD_INTERFACE (Tie,
 	       "tie-interface",
 	       
 	       "A tie connecting two noteheads.\n",
-	       
+
+	       /* properties */
 	       "control-points "
 	       "dash-fraction "
 	       "dash-period "
