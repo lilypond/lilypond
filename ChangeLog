@@ -1,5 +1,8 @@
 2005-09-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/c++-vars.make (#EXTRA_CXXFLAGS): don't add
+	-Werror. Otherwise GCC barfs over various optimizations.
+
 	* scm/define-grob-properties.scm (all-internal-grob-properties):
 	add note-head property
 
