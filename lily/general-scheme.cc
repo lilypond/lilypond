@@ -9,7 +9,6 @@
 
 #include "config.hh"
 
-#include <cmath>  /* isinf */
 #include <cstdio>
 #include <cstring>  /* memset */
 using namespace std;
