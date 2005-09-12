@@ -160,8 +160,8 @@ and the @context{Voice} is inserted afterwards
 @cindex Ties,  laissez vibrer
 
 L.v. ties (laissez vibrer) indicate that notes must not be damped at the
-end. It is used in harp notation. They can be entered using
-@code{\laissezVibrer},
+end. It is used in notation for piano, harp and other string and
+percussion instruments. They can be entered using @code{\laissezVibrer},
 
 @lilypond[fragment,raggedright,verbatim,relative=1]
 <c f g>\laissezVibrer 
