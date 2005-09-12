@@ -6,8 +6,7 @@
   (c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <cmath>
-using namespace std;
+
 
 #include "accidental-placement.hh"
 #include "skyline.hh"

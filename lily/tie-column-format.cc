@@ -260,7 +260,8 @@ set_tie_config_directions (Array<Tie_configuration> *tie_configs_ptr)
    */
   for (int i = 1; i < tie_configs.size(); i++)
     {
-      if (fabs (tie_configs[i-1].position_ - tie_configs[i].position_) <= 1)
+      Real diff = tie_configs[i-1].position_ - tie_configs[i].position_;
+      if (fabs (diff) <= 1)
 	{
 	  if (!tie_configs[i-1].dir_)
 	    tie_configs[i-1].dir_ = DOWN;

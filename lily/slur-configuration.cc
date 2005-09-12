@@ -8,8 +8,6 @@
 
 #include "slur-configuration.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "stem.hh"
 #include "warn.hh"

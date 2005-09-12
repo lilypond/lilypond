@@ -9,8 +9,6 @@
 #include "grob.hh"
 
 #include <cstring>
-#include <cmath>
-using namespace std;
 
 #include "main.hh"
 #include "input-smob.hh"

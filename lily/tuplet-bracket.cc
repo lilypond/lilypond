@@ -29,8 +29,6 @@
   todo: handle breaking elegantly.
 */
 
-#include <cmath>
-using namespace std;
 
 #include "tuplet-bracket.hh"
 #include "line-interface.hh"

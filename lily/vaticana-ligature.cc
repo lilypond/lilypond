@@ -8,8 +8,6 @@
 
 #include "vaticana-ligature.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "item.hh"
 #include "font-interface.hh"

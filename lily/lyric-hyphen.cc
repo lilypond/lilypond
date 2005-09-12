@@ -8,8 +8,6 @@
 
 #include "lyric-hyphen.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "lookup.hh"
 #include "output-def.hh"

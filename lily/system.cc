@@ -8,8 +8,6 @@
 
 #include "system.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "align-interface.hh"
 #include "axis-group-interface.hh"

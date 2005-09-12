@@ -8,8 +8,6 @@
 
 #include "percent-repeat-item.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "lookup.hh"
 #include "font-interface.hh"

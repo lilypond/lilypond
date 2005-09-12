@@ -9,8 +9,6 @@
 
 #include "slur.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "beam.hh"
 #include "bezier.hh"

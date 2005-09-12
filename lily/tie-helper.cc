@@ -7,8 +7,6 @@
 
 */
 
-#include <cmath>
-using namespace std;
 
 #include "tie.hh"
 #include "bezier.hh"
