@@ -1,5 +1,8 @@
 2005-09-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grob-properties.scm (all-internal-grob-properties):
+	add note-head property
+
 	* Documentation/user/instrument-notation.itely (Laissez vibrer
 	ties): new node.
 
