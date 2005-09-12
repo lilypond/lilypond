@@ -10,6 +10,7 @@
 
 #include <cctype>
 #include <sstream>
+using namespace std;
 
 #include "scm-hash.hh"
 #include "interval.hh"

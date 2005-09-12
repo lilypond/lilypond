@@ -7,6 +7,7 @@
 #define STRING_CONVERT_HH
 
 #include <cstdarg>
+using namespace std;
 
 #include "string.hh"
 

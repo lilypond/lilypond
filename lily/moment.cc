@@ -172,8 +172,8 @@ Moment::operator - () const
 }
 
 #ifdef STREAM_SUPPORT
-std::ostream &
-operator << (std::ostream &os, Moment const &m)
+ostream &
+operator << (ostream &os, Moment const &m)
 {
   os << m.to_string ();
   return os;

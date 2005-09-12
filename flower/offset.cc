@@ -81,7 +81,8 @@ Offset::arg () const
 Real
 Offset::length () const
 {
-  return sqrt (sqr (coordinate_a_[X_AXIS]) + sqr (coordinate_a_[Y_AXIS]));
+  return sqrt (sqr (coordinate_a_[X_AXIS])
+		    + sqr (coordinate_a_[Y_AXIS]));
 }
 
 bool

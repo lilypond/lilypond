@@ -80,6 +80,7 @@
  */
 
 #include <cstdio>
+using namespace std;
 
 #define BOOL int
 #define FLAGS int

@@ -11,6 +11,7 @@
 #include <cstdio>
 #include <cstring>
 #include <cctype>
+using namespace std;
 
 #include "libc-extension.hh"
 
@@ -35,25 +36,6 @@ strnupr (char *start, int n)
     }
   return start;
 }
-
-/*
-  There are some strange problems with round() on early glibcs.
-*/
-double
-my_round (double x)
-{
-  return floor (x -0.5)+ 1.0;
-}
-
-#ifndef isinf
-#if !HAVE_ISINF
-int
-isinf (double x)
-{
-  return x && (x == x/ 2);
-}
-#endif
-#endif
 
 #if !HAVE_MEMMEM
 
@@ -132,6 +114,27 @@ memrev (unsigned char *byte, int length)
   return byte;
 }
 
+/*
+  There are some strange problems with round() on early glibcs.
+*/
+double
+my_round (double x)
+{
+  return floor (x -0.5)+ 1.0;
+}
+
+/* namespace std { */
+  
+#ifndef isinf
+#if !HAVE_ISINF
+int
+isinf (double x)
+{
+  return x && (x == x/ 2);
+}
+#endif
+#endif
+
 #if ! HAVE_SNPRINTF
 int
 snprintf (char *str, size_t n, char const *format, ...)
@@ -157,3 +160,4 @@ vsnprintf (char *str, size_t n, char const *format, va_list args)
 }
 #endif
 
+/* } namespace std */

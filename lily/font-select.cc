@@ -6,7 +6,8 @@
   (c) 2003--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "dimensions.hh"
 #include "all-font-metrics.hh"

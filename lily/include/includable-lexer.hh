@@ -10,7 +10,6 @@
 #define INCLUDABLE_LEXER_HH
 
 #ifndef LEXER_CC
-using namespace std;
 #include <FlexLexer.h>
 #endif
 

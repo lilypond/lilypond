@@ -9,7 +9,8 @@
 #include "spaceable-grob.hh"
 
 #include <cstdio>
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "warn.hh"
 #include "spring.hh"

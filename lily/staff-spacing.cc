@@ -9,6 +9,7 @@
 #include "staff-spacing.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "paper-column.hh"
 #include "separation-item.hh"
@@ -76,8 +77,7 @@ Staff_spacing::next_note_correction (Grob *me,
 	    stem_posns.intersect (bar_size);
 
 	    Real corr = min (abs (stem_posns.length () / 7.0), 1.0);
-	    corr
-	      *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
+	    corr *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
 
 	    if (d != DOWN)
 	      corr = 0.0;

@@ -11,6 +11,7 @@
 
 #include <cstdio>
 #include <cerrno>
+using namespace std;
 
 #include "config.hh"
 #if HAVE_SYS_STAT_H

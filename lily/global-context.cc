@@ -9,6 +9,7 @@
 #include "global-context.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "warn.hh"
 #include "music.hh"

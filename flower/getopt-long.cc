@@ -11,6 +11,7 @@
 #include <cstdlib>
 
 #include <iostream>
+using namespace std;
 
 #include "config.hh"
 #include "string-convert.hh"

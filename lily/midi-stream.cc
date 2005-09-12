@@ -8,7 +8,8 @@
 
 #include "midi-stream.hh"
 
-#include <errno.h>
+#include <cerrno>
+using namespace std;
 
 #include "stream.hh"
 #include "string-convert.hh"

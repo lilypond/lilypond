@@ -7,6 +7,7 @@
 #include "polynomial.hh"
 
 #include <cmath>
+using namespace std;
 
 /*
   Een beter milieu begint bij uzelf. Hergebruik!
@@ -16,7 +17,7 @@
 */
 
 Real
-Polynomial::eval (Real x)const
+Polynomial::eval (Real x) const
 {
   Real p = 0.0;
 
@@ -87,7 +88,7 @@ Polynomial::clean ()
     We only do relative comparisons. Absolute comparisons break down in
     degenerate cases.  */
   while (degree () > 0
-	 && (fabs (coefs_.top ()) < FUDGE *fabs (coefs_.top (1))
+	 && (fabs (coefs_.top ()) < FUDGE * fabs (coefs_.top (1))
 	     || !coefs_.top ()))
     coefs_.pop ();
 }
@@ -193,8 +194,7 @@ inline Real cubic_root (Real x)
     return pow (x, 1.0 / 3.0);
   else if (x < 0.0)
     return -pow (-x, 1.0 / 3.0);
-  else
-    return 0.0;
+  return 0.0;
 }
 
 static bool
@@ -240,21 +240,25 @@ Polynomial::solve_cubic ()const
 	sol.push (-u);
       }
     }
-  else if (D < 0) {		/* Casus irreducibilis: three real solutions */
-    Real phi = 1.0 / 3 * acos (-q / sqrt (-cb));
-    Real t = 2 * sqrt (-p);
+  else if (D < 0)
+    {
+    /* Casus irreducibilis: three real solutions */
+      Real phi = 1.0 / 3 * acos (-q / sqrt (-cb));
+      Real t = 2 * sqrt (-p);
 
-    sol.push (t * cos (phi));
-    sol.push (-t * cos (phi + M_PI / 3));
-    sol.push (-t * cos (phi - M_PI / 3));
-  }
-  else {			/* one real solution */
-    Real sqrt_D = sqrt (D);
-    Real u = cubic_root (sqrt_D - q);
-    Real v = -cubic_root (sqrt_D + q);
+      sol.push (t * cos (phi));
+      sol.push (-t * cos (phi + M_PI / 3));
+      sol.push (-t * cos (phi - M_PI / 3));
+    }
+  else
+    {
+      /* one real solution */
+      Real sqrt_D = sqrt (D);
+      Real u = cubic_root (sqrt_D - q);
+      Real v = -cubic_root (sqrt_D + q);
 
-    sol.push (u + v);
-  }
+      sol.push (u + v);
+    }
 
   /* resubstitute */
   Real sub = 1.0 / 3 * A;

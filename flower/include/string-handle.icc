@@ -11,8 +11,8 @@ source file of Flower lib
 #define STRINGHANDLE_INL
 
 #include <cassert>
-
-#include <memory.h>
+#include <memory>
+using namespace std;
 
 #include "string-data.hh"
 #include "string-handle.hh"

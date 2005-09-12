@@ -7,6 +7,7 @@
 */
 
 #include <cctype>
+using namespace std;
 
 #include "bar-line.hh"
 #include "context.hh"

@@ -6,8 +6,9 @@
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <math.h>
+#include <cmath>
 #include <cstdio>
+using namespace std;
 
 #include "spacing-spanner.hh"
 #include "paper-column.hh"

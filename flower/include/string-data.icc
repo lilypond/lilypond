@@ -14,8 +14,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cstring>
-#include <memory.h>
-
+#include <memory>
 using namespace std;
 
 const int INITIALMAX = 8;

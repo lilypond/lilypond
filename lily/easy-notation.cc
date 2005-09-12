@@ -8,6 +8,9 @@
 
 #include "note-head.hh"
 
+#include <cctype>
+using namespace std;
+
 #include "text-interface.hh"
 #include "grob.hh"
 #include "output-def.hh"
@@ -16,7 +19,6 @@
 #include "font-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
-#include <cctype>
 
 MAKE_SCHEME_CALLBACK (Note_head, brew_ez_stencil, 1);
 SCM

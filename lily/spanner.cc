@@ -8,7 +8,8 @@
 
 #include "spanner.hh"
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "pointer-group-interface.hh"
 #include "libc-extension.hh"

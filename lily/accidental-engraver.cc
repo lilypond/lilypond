@@ -225,7 +225,8 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
 
       if (alter == prev)
 	num = 0;
-      else if ((abs (alter) < abs (prev) || prev * alter < 0) && alter != 0)
+      else if ((abs (alter) < abs (prev)
+		|| prev * alter < 0) && alter != 0)
 	num = 2;
       *different = (alter != prev);
     }

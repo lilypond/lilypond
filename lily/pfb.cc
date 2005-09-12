@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
+using namespace std;
 
 #include "program-option.hh"
 #include "source-file.hh"

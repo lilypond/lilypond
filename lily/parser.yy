@@ -20,10 +20,10 @@ FIXME:
 
 #include "config.hh"
 
-#include <ctype.h>
-#include <stdlib.h>
-#include <stdio.h>
-
+#include <cctype>
+#include <cstdlib>
+#include <cstdio>
+using namespace std;
 
 #include "book.hh"
 #include "context-def.hh"

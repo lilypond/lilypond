@@ -10,10 +10,12 @@
 #define OPEN_TYPE_FONT_HH
 
 #include <map>
+using namespace std;
+
 #include "freetype.hh"
 #include "font-metric.hh"
 
-typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
+typedef map<FT_UInt, FT_ULong> Index_to_charcode_map;
 Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 
 class Open_type_font : public Font_metric

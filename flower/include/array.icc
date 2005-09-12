@@ -80,7 +80,8 @@ void
 Array<T>::OK () const
 {
   assert (max_ >= size_ && size_ >= 0);
-  if (max_) assert (array_);
+  if (max_)
+    assert (array_);
 }
 
 template<class T> INLINE

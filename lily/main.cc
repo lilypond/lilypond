@@ -11,8 +11,10 @@
 #include <cassert>
 #include <clocale>
 #include <cstring>
+#include <cerrno>
+using namespace std;
+
 #include <unistd.h>
-#include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 

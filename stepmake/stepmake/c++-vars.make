@@ -2,6 +2,9 @@
 include $(stepdir)/compile-vars.make
 
 EXTRA_CXXFLAGS= -W -Wall -Wconversion
+#ifeq ($(MY_PATCH_LEVEL),)
+EXTRA_CXXFLAGS += -Werror
+#endif
 
 ALL_CXXFLAGS = $(CXXFLAGS) $(ICFLAGS) $(DEFINES) $(addprefix -I,$(INCLUDES)) $(USER_CFLAGS) $(EXTRA_CFLAGS) $(MODULE_CFLAGS) $($(PACKAGE)_CFLAGS) $($(PACKAGE)_CXXFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 

@@ -10,12 +10,13 @@
 #define OBJECT_KEY_DUMPER_HH
 
 #include <map>
+using namespace std;
 
 #include "object-key.hh"
 
-typedef std::map<Object_key const *, Object_key const *, Object_key_less> Key_to_key_map;
-typedef std::map<Object_key const *, int> Pointer_to_int_map;
-typedef std::map<int, Object_key const *> Int_to_key_map;
+typedef map<Object_key const *, Object_key const *, Object_key_less> Key_to_key_map;
+typedef map<Object_key const *, int> Pointer_to_int_map;
+typedef map<int, Object_key const *> Int_to_key_map;
 
 class Object_key_dumper
 {

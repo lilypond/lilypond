@@ -15,7 +15,8 @@
 
 #include "stem.hh"
 
-#include <math.h>		// rint
+#include <cmath>		// rint
+using namespace std;
 
 #include "lookup.hh"
 #include "directional-element-interface.hh"
@@ -608,7 +609,8 @@ Stem::width_callback (SCM e, SCM ax)
 
   if (is_invisible (me))
     r.set_empty ();
-  else if (unsmob_grob (me->get_object ("beam")) || abs (duration_log (me)) <= 2)
+  else if (unsmob_grob (me->get_object ("beam"))
+	   || abs (duration_log (me)) <= 2)
     {
       r = Interval (-1, 1);
       r *= thickness (me) / 2;

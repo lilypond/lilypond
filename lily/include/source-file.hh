@@ -10,6 +10,7 @@
 #define SOURCE_FILE_HH
 
 #include <iostream>
+using namespace std;
 
 #include "string.hh"
 #include "protected-scm.hh"
@@ -33,7 +34,7 @@ public:
 
   char const *to_str0 () const;
   virtual String quote_input (char const *pos_str0) const;
-  std::istream *get_istream ();
+  istream *get_istream ();
   bool contains (char const *pos_str0) const;
   int length () const;
   virtual int get_line (char const *pos_str0) const;
@@ -66,7 +67,7 @@ public:
 
 private:
   Link_array<char> newline_locations_;
-  std::istream *istream_;
+  istream *istream_;
   char *contents_str0_;
   int length_;
   void load_stdin ();

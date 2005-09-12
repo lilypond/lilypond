@@ -8,6 +8,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+using namespace std;
 
 #include "grob-array.hh"
 #include "item.hh"

@@ -11,16 +11,17 @@
 
 #include <iostream>
 #include <sstream>
+using namespace std;
 
 #include "string.hh"
 
 #if __GNUC__ > 2
-std::ostream *open_file_stream (String file_name,
-				std::ios_base::openmode mode = std::ios::out);
+ostream *open_file_stream (String file_name,
+				ios_base::openmode mode = ios::out);
 #else
-std::ostream *open_file_stream (String file_name, int mode = ios::out);
+ostream *open_file_stream (String file_name, int mode = ios::out);
 #endif
-void close_file_stream (std::ostream *os);
+void close_file_stream (ostream *os);
 
 #endif /* STREAM_HH */
 

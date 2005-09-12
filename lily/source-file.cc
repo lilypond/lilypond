@@ -14,7 +14,7 @@
 #if HAVE_UTF8_WCHAR_H
 #include <utf8/wchar.h>  /* mbrtowc */
 #else
-#include <wchar.h> /* mbrtowc */
+#include <cwchar> /* mbrtowc */
 #endif
 
 #include <cstdio>
@@ -25,6 +25,7 @@
 #include <strstream>
 #define istringstream(x) istrstream (x, length ())
 #endif
+using namespace std;
 
 #include "warn.hh"
 #include "file-name-map.hh"
@@ -128,17 +129,17 @@ Source_file::tell () const
   return pos_str0_ - contents_str0_;
 }
 
-std::istream *
+istream *
 Source_file::get_istream ()
 {
   if (!istream_)
     {
       if (length ()) // can-t this be done without such a hack?
-	istream_ = new std::istringstream (to_str0 ());
+	istream_ = new istringstream (to_str0 ());
       else
 	{
-	  istream_ = new std::istringstream ("");
-	  istream_->setstate (std::ios::eofbit);
+	  istream_ = new istringstream ("");
+	  istream_->setstate (ios::eofbit);
 	  //	  istream_->set (ios::eofbit);
 	}
     }

@@ -17,6 +17,7 @@
 class ostream;
 #endif
 #endif
+using namespace std;
 
 #include "arithmetic-operator.hh"
 #include "string-handle.hh"
@@ -174,8 +175,8 @@ String to_string (char const *format, ...);
 */
 
 #include "international.hh"
-
 #include "compare.hh"
+
 INSTANTIATE_COMPARE (String const &, String::compare);
 
 #ifdef STRING_UTILS_INLINED

@@ -10,6 +10,7 @@
 #define CONS_HH
 
 #include <cassert>
+using namespace std;
 
 template<class T>
 class Cons

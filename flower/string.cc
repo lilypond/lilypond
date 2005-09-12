@@ -16,6 +16,7 @@
 #include <cstring>
 
 #include <iostream>
+using namespace std;
 
 #include "libc-extension.hh"
 #include "string-convert.hh"
@@ -232,8 +233,9 @@ String::index (String searchfor) const
 {
   char const *me = strh_.to_str0 ();
 
-  char const *p = (char const *)
-    memmem (me, length (), searchfor.to_str0 (), searchfor.length ());
+  char const *p
+    = (char const *) memmem (me, length (),
+			     searchfor.to_str0 (), searchfor.length ());
 
   if (p)
     return p - me;

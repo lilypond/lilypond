@@ -73,6 +73,7 @@ Morten Welinder <terra@diku.dk> September 1999.
 #include <cerrno>
 #include <cmath>
 #include <cstring>
+using namespace std;
 
 #include <sys/file.h>
 

@@ -12,17 +12,25 @@
 #include <algorithm>
 #include <climits>
 #include <cmath>
+using namespace std;
+
 
 typedef double Real;
 extern const Real infinity_f;
-using namespace std;
-using std::isnan;
-using std::isinf;
-using std::fabs;
 
+/* namespace std { */
+  
 template<class T> inline T abs (T x)
 {
   return x > 0 ? x : -x;
+}
+
+/* } namespace std */
+
+inline Real
+distance (Real x, Real y)
+{
+  return abs (x - y);
 }
 
 template<class T> inline int sign (T x)
@@ -35,12 +43,6 @@ template<class T> inline int sign (T x)
 template<class T> inline T sqr (T x)
 {
   return x * x;
-}
-
-inline Real
-distance (Real x, Real y)
-{
-  return abs (x - y);
 }
 
 #endif

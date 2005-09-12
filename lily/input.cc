@@ -9,6 +9,7 @@
 #include "input.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "source.hh"
 #include "source-file.hh"

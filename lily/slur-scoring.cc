@@ -7,7 +7,8 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "slur-scoring.hh"
 #include "libc-extension.hh"
@@ -471,7 +472,8 @@ Slur_score_state::get_y_attachment_range () const
       if (extremes_[d].note_column_)
 	{
 	  end_ys[d] = dir_
-	    * max (max (dir_ * (base_attachments_[d][Y_AXIS] + parameters_.region_size_ * dir_),
+	    * max (max (dir_ * (base_attachments_[d][Y_AXIS]
+					  + parameters_.region_size_ * dir_),
 			dir_ * (dir_ + extremes_[d].note_column_->extent (common_[Y_AXIS], Y_AXIS)[dir_])),
 		   dir_ * base_attachments_[-d][Y_AXIS]);
 	}

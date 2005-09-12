@@ -7,6 +7,7 @@
 #include "engraver.hh"
 
 #include <cctype>
+using namespace std;
 
 #include "rhythmic-head.hh"
 #include "output-def.hh"

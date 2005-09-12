@@ -181,10 +181,7 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
       */
       dy *= stacking_dir;
       if (j)
-	{
-	  dy = min (max (dy, threshold[SMALLER]),
-		    threshold[BIGGER]);
-	}
+	dy = min (max (dy, threshold[SMALLER]), threshold[BIGGER]);
 
       where_f += stacking_dir * dy;
       total.unite (dims[j] + where_f);

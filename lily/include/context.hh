@@ -10,6 +10,7 @@
 #define CONTEXT_HH
 
 #include <map>
+using namespace std;
 
 #include "moment.hh"
 #include "lily-proto.hh"
@@ -28,8 +29,8 @@ private:
   int iterator_count_;
   bool init_;
 
-  std::map<String, int> grob_counts_;
-  std::map<String, int> context_counts_;
+  map<String, int> grob_counts_;
+  map<String, int> context_counts_;
 
 protected:
   Object_key const *key_;

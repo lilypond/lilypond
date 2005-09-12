@@ -2,6 +2,7 @@
 #define GETOPT_LONG_HH
 
 #include <cstdio>
+using namespace std;
 
 #include "string.hh"
 

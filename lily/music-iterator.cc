@@ -13,6 +13,7 @@
 #include "music-iterator.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "warn.hh"
 #include "context.hh"

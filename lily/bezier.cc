@@ -6,7 +6,8 @@
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
+#include <cmath>
+using namespace std;
 
 #include "bezier.hh"
 #include "warn.hh"

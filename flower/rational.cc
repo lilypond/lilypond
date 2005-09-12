@@ -10,6 +10,7 @@
 
 #include <cmath>
 #include <cstdlib>
+using namespace std;
 
 #include "string-convert.hh"
 #include "libc-extension.hh"

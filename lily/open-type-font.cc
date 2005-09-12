@@ -8,8 +8,10 @@
 
 #include "open-type-font.hh"
 
+#include <cstdio>
+using namespace std;
+
 #include <freetype/tttables.h>
-#include <stdio.h>
 
 #include "dimensions.hh"
 #include "modified-font-metric.hh"

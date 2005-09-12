@@ -3,10 +3,11 @@
 
   Distributed under GNU GPL
 */
-
 #ifndef ARRAY_H
 #define ARRAY_H
+
 #include <cassert>
+using namespace std;
 
 #ifndef INLINE
 #define INLINE inline
