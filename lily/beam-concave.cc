@@ -2,9 +2,6 @@
   Determine whether a beam is concave.
 */
 
-#include <cmath>
-using namespace std;
-
 #include "pointer-group-interface.hh"
 #include "array.hh"
 #include "stem.hh"

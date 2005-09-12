@@ -10,8 +10,6 @@
 */
 
 #include <cstdio>
-#include <cmath>
-using namespace std;
 
 #include "libc-extension.hh"	// isinf
 #include "simple-spacer.hh"

@@ -24,9 +24,6 @@
   - beam_translation is the offset between Y centers of the beam.
 */
 
-#include <cmath> // tanh.
-using namespace std;
-
 #include "beam.hh"
 #include "interval-set.hh"
 #include "directional-element-interface.hh"

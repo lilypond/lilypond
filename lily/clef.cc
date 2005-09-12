@@ -42,7 +42,7 @@ Clef::before_line_breaking (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Clef, print, 1)
-  SCM
+SCM
 Clef::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);

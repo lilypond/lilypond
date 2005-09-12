@@ -8,9 +8,6 @@
 
 #include "bar-line.hh"
 
-#include <cmath>
-using namespace std;
-
 #include "all-font-metrics.hh"
 #include "font-interface.hh"
 #include "lookup.hh"

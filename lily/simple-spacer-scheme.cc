@@ -7,8 +7,6 @@
 */
 
 #include <cstdio>
-#include <cmath>
-using namespace std;
 
 #include "paper-column.hh"
 #include "spring.hh"

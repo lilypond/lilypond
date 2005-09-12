@@ -94,7 +94,7 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
   {									\
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (#TYPE "::" #FUNC,	\
 					       (ARGCOUNT), 0, 0,	\
-					       (Scheme_function_unknown)TYPE ::FUNC); \
+					       (Scheme_function_unknown) TYPE::FUNC); \
     scm_c_export (#TYPE "::" #FUNC, NULL);				\
   }									\
 									\

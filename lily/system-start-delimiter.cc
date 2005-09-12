@@ -8,8 +8,6 @@
 
 #include "system-start-delimiter.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "spanner.hh"
 #include "axis-group-interface.hh"

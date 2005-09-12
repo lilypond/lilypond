@@ -7,8 +7,6 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <cmath>
-using namespace std;
 
 #include "misc.hh"
 #include "string.hh"

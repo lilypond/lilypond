@@ -8,6 +8,7 @@
 
 #ifndef CLEF_HH
 #define CLEF_HH
+
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 

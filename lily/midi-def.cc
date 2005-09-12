@@ -6,8 +6,6 @@
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <cmath>
-using namespace std;
 
 #include "misc.hh"
 #include "output-def.hh"

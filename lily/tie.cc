@@ -8,8 +8,6 @@
 
 #include "tie.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "spanner.hh"
 #include "lookup.hh"

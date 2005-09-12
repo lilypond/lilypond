@@ -7,8 +7,6 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <cmath>
-using namespace std;
 
 #include "slur-scoring.hh"
 #include "libc-extension.hh"

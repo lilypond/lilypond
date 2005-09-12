@@ -8,8 +8,6 @@
 
 #include "note-collision.hh"
 
-#include <cmath>
-using namespace std;
 
 #include "warn.hh"
 #include "note-column.hh"

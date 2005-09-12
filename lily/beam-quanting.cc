@@ -10,7 +10,6 @@
 #include "beam.hh"
 
 #include <algorithm>
-#include <cmath>
 using namespace std;
 
 #include "warn.hh"

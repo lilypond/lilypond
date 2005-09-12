@@ -6,8 +6,6 @@
   (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <cmath>
-using namespace std;
 
 #include "dimension-cache.hh"
 #include "warn.hh"
