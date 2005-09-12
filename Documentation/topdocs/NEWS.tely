@@ -50,7 +50,7 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 Laissez vibrer ties can be created with @code{\laissezVibrer},
 
 @lilypond[fragment,raggedright,relative=1]
-  <c e g>\laissezVibrer  <d f>\laissezVibrer
+  <c e g>\laissezVibrer r  <d f>\laissezVibrer
 @end lilypond
 
 This feature was sponsored by Henrik Frisk.
