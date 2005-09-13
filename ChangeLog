@@ -1,5 +1,8 @@
 2005-09-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/python-module-rules.make
+	($(outdir)/%$(SHARED_MODULE_SUFFIX)): SHARED_FLAGS at the end.  
+
 	* lily/*.cc: remove <cmath> everywhere. <cmath> is included from real.hh
 
 2005-09-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
