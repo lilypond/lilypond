@@ -412,3 +412,4 @@ initmidi ()
   Midi_warning = PyString_FromString ("midi.warning");
   PyDict_SetItemString (d, "warning", Midi_warning);
 }
+ 
