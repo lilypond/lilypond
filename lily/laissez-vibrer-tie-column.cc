@@ -24,8 +24,8 @@ ADD_INTERFACE(Laissez_vibrer_tie_column,
 	      "The interface for a column of l.v. ties.",
 
 	      /* properties */
-	      "positioning-done"
-	      "tie-configuration"
+	      "positioning-done "
+	      "tie-configuration "
 	      );
 			   
 
@@ -124,3 +124,4 @@ Laissez_vibrer_tie_column::set_directions (Grob *me)
     }
 }
   
+
