@@ -1,3 +1,8 @@
+2005-09-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/tie.cc (get_configuration): Replace fabs -> abs for integer
+	arguments. Fixes compilation error with gcc 3.3.
+
 2005-09-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* stepmake/stepmake/python-module-rules.make
