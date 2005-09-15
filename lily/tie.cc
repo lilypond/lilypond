@@ -325,7 +325,7 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
    */
   if (conf->position_ == conf->head_position_
       && in_space
-      && Staff_symbol_referencer::staff_radius (me) > fabs (conf->position_) / 2
+      && Staff_symbol_referencer::staff_radius (me) > abs (conf->position_) / 2
       && dy > 0.3 * staff_space)
     {
       conf->position_ += 2 * conf->dir_; 
@@ -333,13 +333,13 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 
   if (!in_between
       && in_space
-      && fabs (conf->position_ - conf->head_position_) <= 1)
+      && abs (conf->position_ - conf->head_position_) <= 1)
     conf->position_ += 2*conf->dir_;
   
   
   if (in_space)
     {
-      if ((fabs (conf->position_ - conf->head_position_) <= 1
+      if ((abs (conf->position_ - conf->head_position_) <= 1
 	   && fabs (dy) < 0.45 * staff_space)
 	  || fabs (dy) < 0.6 * staff_space)
 	{
@@ -366,7 +366,7 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 		 + conf->delta_y_) <
 	  conf->dir_ * conf->head_position_ * 0.5 * staff_space)
 	{
-	  if (Staff_symbol_referencer::staff_radius (me) >  fabs (conf->head_position_) / 2)
+	  if (Staff_symbol_referencer::staff_radius (me) >  abs (conf->head_position_) / 2)
 	    conf->position_ +=  2 * conf->dir_;
 	  else
 	    conf->position_ += conf->dir_;
