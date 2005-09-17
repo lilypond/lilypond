@@ -401,7 +401,9 @@ goes down).")
      . (
 	(description . "Quote preprocessed snippets of music. ")
 	(iterator-ctor . ,Quote_iterator::constructor)
-	(types . (general-music))
+	(length-callback . ,Music_wrapper::length_callback)
+	(start-callback . ,Music_wrapper::start_callback)
+	(types . (general-music music-wrapper-music))
 	))
     
     (RelativeOctaveCheck
