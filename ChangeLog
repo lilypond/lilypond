@@ -1,5 +1,10 @@
 2005-09-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/changing-defaults.itely (Difficult tweaks):
+	fix example, now that 'interfaces is no longer directly available.
+
+	* lily/book.cc (process): don't crash if paper == NULL.
+
 	* po/fr.po: update.
 
 2005-09-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>

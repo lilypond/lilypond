@@ -1239,7 +1239,8 @@ right Y-position.
 @lilypond[quote,verbatim]
 #(define ((set-position-font-size pos size) grob origin current)
   (let*
-      ((interfaces (ly:grob-property grob 'interfaces))
+      ((meta (ly:grob-property grob 'meta))
+       (interfaces (cdr (assoc 'interfaces meta)))
        (position (ly:grob-property grob 'staff-position)))
    (if (and
         ; is this a note head?
