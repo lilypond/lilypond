@@ -139,6 +139,8 @@ Translations
     Spanish glossary translations.
 @item @email{john.mandereau@@free.fr, John Mandereau},
     French translation.
+@item @email{lilyfan@@wanadoo.fr, Jean-Charles Malahieude}
+    French translation
 @end itemize
 
 @bye
