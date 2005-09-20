@@ -1,3 +1,7 @@
+2005-09-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* po/fr.po: update.
+
 2005-09-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-music-types.scm (music-descriptions): set length and
@@ -9,6 +13,8 @@
 	arguments. Fixes compilation error with gcc 3.3.
 
 2005-09-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION: release 2.7.10
 
 	* stepmake/stepmake/python-module-rules.make
 	($(outdir)/%$(SHARED_MODULE_SUFFIX)): SHARED_FLAGS at the end.  
