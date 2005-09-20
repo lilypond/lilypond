@@ -87,7 +87,9 @@ Book::process (Output_def *default_paper,
 	return 0;
 
   Output_def *paper = paper_ ? default_paper : paper_;
-
+  if (!paper)
+    return 0;
+  
   Paper_book *paper_book = new Paper_book ();
   Real scale = scm_to_double (paper->c_variable ("outputscale"));
   Output_def *scaled_bookdef = scale_output_def (paper, scale);
