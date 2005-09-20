@@ -122,14 +122,12 @@ contained staves are not connected vertically."
   localKeySignature = #'()
   createSpacing = ##t
 
-  
   squashedPosition = #0
   \name RhythmicStaff
   \alias "Staff"
   
   \override BarLine #'bar-size = #4
-  \override VoltaBracket #'minimum-space = #15
-  \override VoltaBracket #'padding = #5
+  \override VoltaBracket #'staff-padding = #3
   \override StaffSymbol #'line-count = #1	
 
   \override Stem  #'neutral-direction = #UP
