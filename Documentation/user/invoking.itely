@@ -134,7 +134,7 @@ Generate PostScript.
 
 @item --dvi
 Generate DVI files.  In this case, the @TeX{} backend should be
-specified, i.e., @code{-f tex}.
+specified, i.e., @code{-b tex}.
 
 @item --png
 Generate pictures of each page, in PNG format.  This implies
