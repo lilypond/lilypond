@@ -9,6 +9,7 @@
 
 #include "axis.hh"
 #include "string.hh"
+#include "real.hh"
 
 Offset complex_multiply (Offset, Offset);
 Offset complex_divide (Offset, Offset);

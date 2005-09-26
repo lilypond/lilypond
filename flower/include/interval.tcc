@@ -10,7 +10,9 @@
 #define INTERVAL_TCC
 
 #include <cassert>
-#include <cmath>
+
+// MacOS 10.3 problems:
+// #include <cmath>
 using namespace std;
 
 #include "interval.hh"

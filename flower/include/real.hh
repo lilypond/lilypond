@@ -11,7 +11,12 @@
 
 #include <algorithm>
 #include <climits>
-#include <cmath>
+
+/*
+  MacOS 10.3 uses g++ 3.3 which doesn't have std::isinf()
+ */
+// #include <cmath>
+#include <math.h>
 using namespace std;
 
 
