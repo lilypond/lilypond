@@ -7,6 +7,8 @@
 #ifndef INTERVAL_HH
 #define INTERVAL_HH
 
+#include <math.h>
+
 #include "flower-proto.hh"
 #include "drul-array.hh"
 
