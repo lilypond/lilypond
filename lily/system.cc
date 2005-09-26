@@ -385,10 +385,8 @@ System::get_paper_system ()
 
   Paper_system *pl = new Paper_system (sys_stencil, false);
   pl->staff_refpoints_ = staff_refpoints;
-  Item *break_point = this->get_bound (LEFT);
-  pl->break_before_penalty_
-    = robust_scm2double (break_point->get_property ("page-penalty"), 0.0);
-
+  pl->read_left_bound (this->get_bound (LEFT));
+  
   return pl->unprotect ();
 }
 

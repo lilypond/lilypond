@@ -29,11 +29,12 @@ public:
   int number_;
 
   Paper_system (Stencil, bool);
-
+  void read_left_bound (Item*);
   Stencil to_stencil () const;
   SCM stencils () const;
   bool is_title () const;
   Real break_before_penalty () const;
+  Interval staff_refpoints () const;
 };
 
 DECLARE_UNSMOB (Paper_system, paper_system);

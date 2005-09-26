@@ -321,6 +321,7 @@ Paper_book::systems ()
 	  Paper_system *ps = new Paper_system (*unsmob_stencil (t), true);
 	  systems_ = scm_cons (ps->self_scm (), systems_);
 	  ps->unprotect ();
+	  
 	  // FIXME: figure out penalty.
 	  //set_system_penalty (ps, scores_[i].header_);
 	}

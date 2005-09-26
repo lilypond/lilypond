@@ -306,6 +306,10 @@ unbeamed stems.")
      (length-fraction ,number? "Length of ledger line as fraction of note head size.")
      (lengths ,list? "Default stem lengths. The list gives a length
 for each flag-count.")
+     (line-break-system-details ,list?
+				"Alist of properties to use when this
+column is the start of a system.")
+     
      (line-count ,integer? "The number of staff lines.")
      (measure-length ,ly:moment? "Length of a
 measure. Used in some spacing situations.")

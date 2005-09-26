@@ -161,11 +161,11 @@ The syntax of composite music expressions, like @code{\repeat},
 
 Such syntax can also be defined as user code.  To do this, it is
 necessary to create a @emph{music function}.  This is a specially marked
-Scheme function.  For example, the music function @code{\applymusic} applies
+Scheme function.  For example, the music function @code{\applyMusic} applies
 a user-defined function to a music expression.  Its syntax is
 
 @example
-\applymusic #@var{func} @var{music}
+\applyMusic #@var{func} @var{music}
 @end example
 
 A music function is created with @code{ly:make-music-function},
@@ -174,7 +174,7 @@ A music function is created with @code{ly:make-music-function},
 (ly:make-music-function
 @end example
 
-@code{\applymusic} takes a Scheme function and a Music expression as
+@code{\applyMusic} takes a Scheme function and a Music expression as
 arguments.  This is encoded in its parameter list,
 
 @example
@@ -192,10 +192,10 @@ and line numbers.  The definition is the second argument of
 @end example
 
 The above Scheme code only defines the functionality.  The tag
-@code{\applymusic} is selected by defining
+@code{\applyMusic} is selected by defining
 
 @example
-applymusic = #(ly:make-music-function
+applyMusic = #(ly:make-music-function
                 (list procedure? ly:music?)
                 (lambda (parser location func music)
                   (func music)))
@@ -206,12 +206,12 @@ A @code{def-music-function} macro is introduced on top of
 functions:
 
 @example
-applymusic = #(def-music-function (parser location func music)
+applyMusic = #(def-music-function (parser location func music)
                 (procedure? ly:music?)
                 (func music))
 @end example
 
-Examples of the use of @code{\applymusic} are in the next section.
+Examples of the use of @code{\applyMusic} are in the next section.
 
 @seealso
 @file{ly/@/music@/-functions@/-init@/.ly}.
@@ -220,10 +220,10 @@ Examples of the use of @code{\applymusic} are in the next section.
 @subsection Manipulating music expressions
 
 Music objects and their properties can be accessed and manipulated
-directly, through the @code{\applymusic} mechanism.
-The syntax for @code{\applymusic} is
+directly, through the @code{\applyMusic} mechanism.
+The syntax for @code{\applyMusic} is
 @example
-\applymusic #@var{func} @var{music}
+\applyMusic #@var{func} @var{music}
 @end example
 
 @noindent
@@ -241,7 +241,7 @@ its argument,
     (reverse (ly:music-property m 'elements)))
   m)
 
-\applymusic #rev-music-1 { c'4 d'4 } 
+\applyMusic #rev-music-1 { c'4 d'4 } 
 @end lilypond
 
 The use of such a function is very limited.  The effect of this
@@ -249,13 +249,13 @@ function is void when applied to an argument that does not have
 multiple children.  The following function application has no effect
 
 @example
-\applymusic #rev-music-1 \grace @{ c4 d4 @}
+\applyMusic #rev-music-1 \grace @{ c4 d4 @}
 @end example
 
 @noindent
 In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which
 has no @code{elements}, only a single @code{element}.  Every generally
-applicable function for @code{\applymusic} must -- like music expressions
+applicable function for @code{\applyMusic} must -- like music expressions
 themselves -- be recursive.
 
 The following example is such a recursive function: It first extracts
@@ -295,7 +295,7 @@ above by the internal equivalent of
    \context Voice = "2" @{ \voiceTwo b @} >>
 @end example
 
-Other applications of @code{\applymusic} are writing out repeats
+Other applications of @code{\applyMusic} are writing out repeats
 automatically (@inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}),
 saving keystrokes (@inputfileref{input/@/test,music@/-box@/.ly}) and
 exporting LilyPond input to other formats
@@ -402,7 +402,7 @@ example:
 
 {
   c'^"1"
-  \applymusic #(with-padding 3) { c'^"2" c'^"3" }
+  \applyMusic #(with-padding 3) { c'^"2" c'^"3" }
   c'^"4"
 }
 @end lilypond
@@ -720,12 +720,12 @@ to the @code{interpret-markup} function, with the @code{layout} and
 @subsection Context evaluation
 
 @cindex calling code during interpreting
-@cindex @code{\applycontext}
+@cindex @code{\applyContext}
 
 Contexts can be modified during interpretation with Scheme code.  The
 syntax for this is
 @example
-\applycontext @var{function}
+\applyContext @var{function}
 @end example
 
 @var{function} should be a Scheme function taking a single argument,
@@ -733,7 +733,7 @@ being the context to apply it to.  The following code will print the
 current bar number on the standard output during the compile:
 
 @example
-\applycontext
+\applyContext
   #(lambda (x)
     (format #t "\nWe were called in barnumber ~a.\n"
      (ly:context-property x 'currentBarNumber)))

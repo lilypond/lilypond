@@ -407,6 +407,7 @@ parser.yy:352.8-24: warning: symbol `"\\<"' used more than once as a literal str
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_SCM 
 %token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM_SCM_SCM 
 %token <scm> MUSIC_IDENTIFIER
 %token <scm> NOTENAME_PITCH
 %token <scm> NUMBER_IDENTIFIER
@@ -1115,6 +1116,9 @@ Generic_prefix_music_scm:
 	}
 	| MUSIC_FUNCTION_SCM_SCM embedded_scm embedded_scm {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
+	}
+	| MUSIC_FUNCTION_SCM_SCM_SCM embedded_scm embedded_scm embedded_scm {
+		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
 	}
 	| MUSIC_FUNCTION_SCM_SCM_MUSIC embedded_scm embedded_scm Music {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4->self_scm ());

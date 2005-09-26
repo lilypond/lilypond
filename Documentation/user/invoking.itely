@@ -488,7 +488,7 @@ here for reference.
  \magnify isn't changed to \fontsize.
     - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
  remove-tag isn't changed.
-    - \applymusic #(remove-tag '. . .) => \keepWithTag #'. . .
+    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
  firstpagenumber isn't changed.
     - firstpagenumber no => printfirstpagenumber = ##f
  Line breaks in header strings aren't converted.
