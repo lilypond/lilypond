@@ -7,8 +7,7 @@
 */
 
 #include "paper-system.hh"
-
-#include "virtual-methods.hh"
+#include "item.hh"
 
 #include "ly-smobs.icc"
 
@@ -69,4 +68,41 @@ Stencil
 Paper_system::to_stencil () const
 {
   return stencil_;
+}
+
+void
+Paper_system::read_left_bound (Item *left)
+{
+  break_before_penalty_
+    = robust_scm2double (left->get_property ("page-penalty"), 0.0);
+
+  SCM details
+    = left->get_property ("line-break-system-details");
+
+  SCM yext
+    = scm_assoc (ly_symbol2scm ("Y-extent"), details);
+  
+  SCM staff_ext
+    = scm_assoc (ly_symbol2scm ("refpoint-Y-extent"), details);
+
+  if (scm_is_pair (yext)
+      && is_number_pair (scm_cdr (yext)))
+    {
+      Box b = stencil_.extent_box();
+      b[Y_AXIS] = ly_scm2interval (scm_cdr (yext));
+      
+      stencil_ = Stencil (b, stencil_.expr ());
+    }
+
+  if (scm_is_pair (staff_ext)
+      && is_number_pair (scm_cdr (staff_ext)))
+    {
+      staff_refpoints_ = ly_scm2interval (scm_cdr (staff_ext));
+    }
+}
+
+Interval
+Paper_system::staff_refpoints () const
+{
+  return staff_refpoints_;
 }

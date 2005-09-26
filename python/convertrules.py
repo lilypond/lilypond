@@ -2555,3 +2555,14 @@ conversions.append (((2, 7, 6), conv,
 		     '''Performer_group_performer -> Performer_group, Engraver_group_engraver -> Engraver_group
 inside-slur -> avoid-slur'''))
 
+
+
+def conv (str):
+	str = re.sub(r'\\applyoutput', '\\applyOutput', str)
+	str = re.sub(r'\\applycontext', '\\applyContext', str)
+	str = re.sub(r'\\applymusic', '\\applyMusic', str)
+	str = re.sub(r'ly:grob-suicide', 'ly:grob-suicide!', str)
+	return str
+
+conversions.append (((2, 7, 10), conv,
+		     '''\\applyxxx -> \\applyXxx'''))

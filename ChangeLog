@@ -1,3 +1,24 @@
+2005-09-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/paper-system.cc (read_left_bound): new function. Read
+	line-break-system-details from left bound to determine extents.
+ 
+	* Documentation/user/programming-interface.itely (Using LilyPond
+	syntax inside Scheme): change applyxxx -> applyXxx.
+
+	* ly/music-functions-init.ly: add outputProperty music function.
+
+	* lily/parser.yy (Generic_prefix_music_scm): add scm-scm-scm signature.
+
+	* lily/grob-scheme.cc (LY_DEFINE): add ! to ly:grob-suicide! name.
+
+	* python/convertrules.py (conv): rule
+
+	* ly/music-functions-init.ly: applyxxx -> applyXxx
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): alias
+	TabVoice to Voice.
+
 2005-09-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* flower/include/real.hh: include <math.h> iso. <cmath>

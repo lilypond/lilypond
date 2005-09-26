@@ -61,6 +61,6 @@ LY_DEFINE (ly_paper_system_staff_extent, "ly:paper-system-staff-extents",
 {
   Paper_system *ps = unsmob_paper_system (system);
   SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  return ly_interval2scm (ps->staff_refpoints_);
+  return ly_interval2scm (ps->staff_refpoints ());
 }
 

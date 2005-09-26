@@ -518,7 +518,7 @@ BOM_UTF8	\357\273\277
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-scheme2"))
 				return MARKUP_HEAD_SCM0_SCM1_SCM2;
 			else {
-				programming_error ("no parser tag defined for this signature"); 
+				programming_error ("no parser tag defined for this markup signature"); 
 				ly_display_scm (s);
 				assert(false);
 			}
@@ -919,6 +919,10 @@ music_function_type (SCM func)
 	else if (type == ly_symbol2scm ("scm-scm-music"))
 	{
 		return MUSIC_FUNCTION_SCM_SCM_MUSIC;
+	}
+	else if (type == ly_symbol2scm ("scm-scm-scm"))
+	{
+		return MUSIC_FUNCTION_SCM_SCM_SCM;
 	}
 	else if (type == ly_symbol2scm ("markup"))
 	{

@@ -186,7 +186,7 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
   return s;
 }
 
-LY_DEFINE (ly_grob_suicide, "ly:grob-suicide",
+LY_DEFINE (ly_grob_suicide_x, "ly:grob-suicide!",
 	   1, 0, 0, (SCM g),
 	   "Kill @var{g}.")
 {

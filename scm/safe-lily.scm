@@ -56,7 +56,7 @@
    ly:grob-script-priority-less
    ly:grob-set-property!
    ly:grob-staff-position
-   ly:grob-suicide
+   ly:grob-suicide!
    ly:grob-system
    ly:grob-translate-axis!
    ly:grob?

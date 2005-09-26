@@ -169,7 +169,14 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
 		      "Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
 		      "means that you can make a breakpoint by creating a barline (assuming "
 		      "that there are no beams or notes that prevent a breakpoint.) ",
-		      /* create */ "System PaperColumn NonMusicalPaperColumn",
-		      /* accept */ "break-event",
-		      /* read */ "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
-		      /* write */ "");
+		      /* create */
+		      "System ",
+
+		      /* accept */
+		      "break-event",
+		      /* read */
+		      "currentMusicalColumn "
+		      "currentCommandColumn "
+		      "verticallySpacedContexts",
+		      /* write */
+		      "");

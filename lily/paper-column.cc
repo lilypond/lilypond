@@ -26,29 +26,6 @@ Paper_column::clone (int count) const
   return new Paper_column (*this, count);
 }
 
-ADD_INTERFACE (Paper_column, "paper-column-interface",
-	       "@code{Paper_column} objects form the top-most X-parents for items."
-	       "  The are two types of columns: musical columns, where are attached to, and "
-	       "  non-musical columns, where bar-lines, clefs etc. are attached to. "
-	       "  The spacing engine determines the X-positions of these objects."
-	       
-	       "\n\n"
-	       "They are\n"
-	       "  numbered, the first (leftmost) is column 0. Numbering happens before\n"
-	       "  line-breaking, and columns are not renumbered after line breaking.\n"
-	       "  Since many columns go unused, you should only use the rank field to\n"
-	       "  get ordering information.  Two adjacent columns may have\n"
-	       "  non-adjacent numbers.\n",
-	       
-	       
-	       "between-cols "
-	       "bounded-by-me "
-	       "page-penalty "
-	       "shortest-playing-duration "
-	       "shortest-starter-duration "
-	       "used "
-	       "when ");
-
 void
 Paper_column::do_break_processing ()
 {
@@ -194,3 +171,32 @@ Paper_column::before_line_breaking (SCM grob)
 
   return SCM_UNSPECIFIED;
 }
+
+
+ADD_INTERFACE (Paper_column,
+
+	       "paper-column-interface",
+	       "@code{Paper_column} objects form the top-most X-parents for items."
+	       "  The are two types of columns: musical columns, where are attached to, and "
+	       "  non-musical columns, where bar-lines, clefs etc. are attached to. "
+	       "  The spacing engine determines the X-positions of these objects."
+	       
+	       "\n\n"
+	       "They are\n"
+	       "  numbered, the first (leftmost) is column 0. Numbering happens before\n"
+	       "  line-breaking, and columns are not renumbered after line breaking.\n"
+	       "  Since many columns go unused, you should only use the rank field to\n"
+	       "  get ordering information.  Two adjacent columns may have\n"
+	       "  non-adjacent numbers.\n",
+	       
+
+	       /* properties */
+	       "between-cols "
+	       "bounded-by-me "
+	       "line-break-system-details "
+	       "page-penalty "
+	       "shortest-playing-duration "
+	       "shortest-starter-duration "
+	       "used "
+	       "when ");
+

@@ -6,7 +6,7 @@
 
 #(use-modules (srfi srfi-1))  
 
-applymusic =
+applyMusic =
 #(def-music-function (parser location func music) (procedure? ly:music?)
                (func music))
 
@@ -33,7 +33,7 @@ autochange =
 #(def-music-function (parser location music) (ly:music?)
                (make-autochange-music music))
 
-applycontext =
+applyContext =
 #(def-music-function (parser location proc) (procedure?)
                  (make-music 'ApplyContext 
                    'origin location
@@ -58,11 +58,28 @@ displayLilyMusic =
    (display-lily-music music)
    music)
 
-applyoutput =
+applyOutput =
 #(def-music-function (parser location proc) (procedure?)
                 (make-music 'ApplyOutputEvent 
                   'origin location
                   'procedure proc))
+
+outputProperty =
+#(def-music-function (parser location name prop value)
+   (symbol? symbol? scheme?)
+
+
+   "Set @var{prop} to @var{value} in all grobs named @var{name} "
+
+   (make-music 'ApplyOutputEvent
+	       'origin location
+	       'procedure
+	       (lambda (grob orig-context context)
+		 (if (equal?
+		      (cdr (assoc 'name (ly:grob-property grob 'meta)))
+		      name)
+		     (set! (ly:grob-property grob prop) value)
+		 ))))
 
 breathe =
 #(def-music-function (parser location) ()
