@@ -1,5 +1,9 @@
 2005-09-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/hara-kiri-pianostaff.ly (disappear): remove
+	superfluous s1.
+	(disappear): bugfix.
+
 	* lily/stem-tremolo.cc (raw_stencil): read slope property.
 
 	* lily/include/paper-system.hh (class Paper_system): remove
