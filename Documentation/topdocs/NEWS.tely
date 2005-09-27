@@ -60,7 +60,7 @@ This feature was sponsored by Sven Axelsson.
 Vertical spacing for page layout can now be tuned for each system
 individually.  
 
-This feature was sponsored by Trevor Baca.
+This feature was sponsored by Trevor Baca and Nicolas Sceaux.
 
 @item
 Laissez vibrer ties can be created with @code{\laissezVibrer},
