@@ -28,7 +28,10 @@
 	"\n")))
 
 (define-method (node-system-numbers (node <optimally-broken-page-node>))
-  (map ly:paper-system-number (node-lines node)))
+  (map ly:paper-system-property (node-lines node) 'number))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -130,13 +133,13 @@ create offsets.
 	    (let* ((system (car stencil-position))
 		   (stencil (ly:paper-system-stencil system))
 		   (y (cadr stencil-position))
-		   (is-title (ly:paper-system-title?
+		   (is-title (paper-system-title?
 			      (car stencil-position))))
 	      (add-to-page stencil y)
 	      (if (and (ly:stencil? system-separator-stencil)
 		       last-system
-		       (not (ly:paper-system-title? system))
-		       (not (ly:paper-system-title? last-system)))
+		       (not (paper-system-title? system))
+		       (not (paper-system-title? last-system)))
 		  (add-to-page
 		   system-separator-stencil
 		   (average (- last-y
@@ -188,7 +191,6 @@ create offsets.
 (define-public (optimal-page-breaks lines paper-book)
   "Return pages as a list starting with 1st page. Each page is a list
 of lines. "
-
 
   (define MAXPENALTY 1e9)
   (define paper (ly:paper-book-paper paper-book))
@@ -293,10 +295,11 @@ is what have collected so far, and has ascending page numbers."
 					 fixed-dist)
 				      (interval-start this-system-ext))))
 		     (title1? (and (vector-ref system-vector idx)
-				   (ly:paper-system-title? (vector-ref system-vector idx))))
+				   (paper-system-title? (vector-ref system-vector idx)
+							     )))
 		     (title2? (and
 			       (vector-ref system-vector (1+ idx))
-			       (ly:paper-system-title? (vector-ref system-vector (1+ idx)))))
+			       (paper-system-title? (vector-ref system-vector (1+ idx)))))
 		     (ideal (+
 			     (cond
 			      ((and title2? title1?)
@@ -384,14 +387,16 @@ CURRENT-BEST is the best result sofar, or #f."
 			  satisfied-constraints)
 		      10000))
 	   (positions (cdr vertical-spacing))
+	   (get-break-penalty (lambda (sys)
+				(ly:paper-system-property sys 'penalty 0.0)))
 	   (user-nobreak-penalties
 	    (-
 	     (apply + (filter negative?
-			      (map ly:paper-system-break-before-penalty
+			      (map get-break-penalty
 				   (cdr current-lines))))))
            (user-penalty
 	    (+
-	     (max (ly:paper-system-break-before-penalty (car current-lines)) 0.0)
+	     (max (get-break-penalty (car current-lines)) 0.0)
 	     user-nobreak-penalties))
            (total-penalty (combine-penalties
                            force user-penalty
@@ -457,7 +462,7 @@ DONE."
 		      (cdr todo)))))
 
   (define (line-number node)
-    (ly:paper-system-number (car (node-lines node))))
+    (ly:paper-system-property (car (node-lines node)) 'number))
 
   (ly:message (_ "Calculating page breaks..."))
   (set! force-equalization-factor

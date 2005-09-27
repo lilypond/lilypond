@@ -498,16 +498,16 @@
 	 (not
 	  (ly:get-option 'preview-include-book-title))
 	 (< 1 (length systems))
-	 (ly:paper-system-title? (list-ref systems 0))
-	 (ly:paper-system-title? (list-ref systems 1)))
+	 (paper-system-title? (list-ref systems 0))
+	 (paper-system-title? (list-ref systems 1)))
 	(set! systems (cdr systems)))
 
     (for-each
      (lambda (sys)
        (if (or
-	    (ly:paper-system-title? sys)
+	    (paper-system-title? sys)
 	    (not (pair? to-dump-systems))
-	    (ly:paper-system-title? (car to-dump-systems)))
+	    (paper-system-title? (car to-dump-systems)))
 	   (set! to-dump-systems (cons sys to-dump-systems))))
      systems)
 
@@ -527,9 +527,9 @@
       (let* ((paper (ly:paper-book-paper book))
 	     (systems (ly:paper-book-systems book))
 	     (scale (ly:output-def-lookup paper 'outputscale))
-	     (titles (take-while ly:paper-system-title? systems))
+	     (titles (take-while paper-system-title? systems))
 	     (non-title (find (lambda (x)
-				(not (ly:paper-system-title? x))) systems))
+				(not (paper-system-title? x))) systems))
 	     (dump-me
 	      (stack-stencils Y DOWN 0.0
 			      (map ly:paper-system-stencil

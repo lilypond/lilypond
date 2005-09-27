@@ -115,6 +115,11 @@
     (ly:score-process score header paper layout base)
     ))
 
+
+(define-public (paper-system-title? ps)
+  (equal? #t (ly:paper-system-property ps 'is-title)
+	  ))
+
 ;;;;;;;;;;;;;;;;
 ;; alist
 (define-public assoc-get ly:assoc-get)

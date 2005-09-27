@@ -2558,9 +2558,9 @@ inside-slur -> avoid-slur'''))
 
 
 def conv (str):
-	str = re.sub(r'\\applyoutput', '\\applyOutput', str)
-	str = re.sub(r'\\applycontext', '\\applyContext', str)
-	str = re.sub(r'\\applymusic', '\\applyMusic', str)
+	str = re.sub(r'\\applyoutput', r'\\applyOutput', str)
+	str = re.sub(r'\\applycontext', r'\\applyContext', str)
+	str = re.sub(r'\\applymusic',  r'\\applyMusic', str)
 	str = re.sub(r'ly:grob-suicide', 'ly:grob-suicide!', str)
 	return str
 

@@ -1,8 +1,8 @@
 
-\version "2.6.0" 
+\version "2.7.10" 
 \header {
 
-  texidoc = "The @code{\applyoutput} expression is the most flexible way to
+  texidoc = "The @code{\applyOutput} expression is the most flexible way to
 tune properties for individual grobs.
 
 Here, the layout of a note head is changed depending on its vertical
@@ -38,7 +38,7 @@ position.
   \stemUp
   \set autoBeaming =  ##f
   { <d f g b>8
-    \context Voice \applyoutput #mc-squared
+    \context Voice \applyOutput #mc-squared
 
     <d f g b>
   }

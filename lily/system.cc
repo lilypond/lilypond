@@ -383,9 +383,14 @@ System::get_paper_system ()
       staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
     }
 
-  Paper_system *pl = new Paper_system (sys_stencil, false);
+  Grob *left_bound = this->get_bound (LEFT);
+  SCM prop_init = left_bound->get_property ("line-break-system-details");
+  Paper_system *pl = new Paper_system (sys_stencil,
+				       prop_init);
+  
   pl->staff_refpoints_ = staff_refpoints;
-  pl->read_left_bound (this->get_bound (LEFT));
+  pl->set_property ("penalty",
+		    left_bound->get_property ("page-penalty"));
   
   return pl->unprotect ();
 }

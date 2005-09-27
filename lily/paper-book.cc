@@ -227,9 +227,10 @@ set_system_penalty (Paper_system *ps, SCM header)
       if (SCM_VARIABLEP (force)
 	  && scm_is_bool (SCM_VARIABLE_REF (force)))
 	{
-	  ps->break_before_penalty_ = to_boolean (SCM_VARIABLE_REF (force))
-	    ? -10000
-	    : 10000;
+	  ps->set_property ("penalty",
+			    scm_from_int(to_boolean (SCM_VARIABLE_REF (force))
+					 ? -10000
+					 : 10000));
 	}
     }
 }
@@ -242,7 +243,9 @@ Paper_book::add_score_title (SCM header)
     title = score_title (header_);
   if (!title.is_empty ())
     {
-      Paper_system *ps = new Paper_system (title, true);
+      //  TODO: init properties, from where? 
+      Paper_system *ps = new Paper_system (title, SCM_EOL);
+      ps->set_property ("is-title", SCM_BOOL_T); 
       systems_ = scm_cons (ps->self_scm (), systems_);
       ps->unprotect ();
       set_system_penalty (ps, header);
@@ -260,7 +263,8 @@ Paper_book::systems ()
 
   if (!title.is_empty ())
     {
-      Paper_system *ps = new Paper_system (title, true);
+      Paper_system *ps = new Paper_system (title, SCM_EOL);
+      ps->set_property ("is-title", SCM_BOOL_T); 
       set_system_penalty (ps, header_);
 
       systems_ = scm_cons (ps->self_scm (), systems_);
@@ -317,8 +321,10 @@ Paper_book::systems ()
 	  SCM t = Text_interface::interpret_markup (paper_->self_scm (),
 						    page_properties,
 						    scm_car (s));
-	  // FIXME: title=true?
-	  Paper_system *ps = new Paper_system (*unsmob_stencil (t), true);
+	  
+	  // TODO: init props
+	  Paper_system *ps = new Paper_system (*unsmob_stencil (t), SCM_EOL);
+	  ps->set_property ("is-title", SCM_BOOL_T); 
 	  systems_ = scm_cons (ps->self_scm (), systems_);
 	  ps->unprotect ();
 	  
@@ -336,12 +342,12 @@ Paper_book::systems ()
   for (SCM s = systems_; s != SCM_EOL; s = scm_cdr (s))
     {
       Paper_system *ps = unsmob_paper_system (scm_car (s));
-      ps->number_ = ++i;
+      ps->set_property ("number", scm_from_int (++i));
 
       if (last
-	  && last->is_title ()
-	  && !ps->break_before_penalty_)
-	ps->break_before_penalty_ = 10000;
+	  && to_boolean (last->get_property ("is-title"))
+	  && !scm_is_number (ps->get_property ("penalty")))
+	ps->set_property ("penalty", scm_from_int (10000));
       last = ps;
     }
 

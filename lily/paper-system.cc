@@ -15,15 +15,16 @@ IMPLEMENT_SMOBS (Paper_system);
 IMPLEMENT_TYPE_P (Paper_system, "ly:paper-system?");
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_system);
 
-Paper_system::Paper_system (Stencil s, bool is_title)
+Paper_system::Paper_system (Stencil s, SCM immutable_init)
 {
-  is_title_ = is_title;
-  number_ = 0;
-  break_before_penalty_ = 0;
+  mutable_property_alist_ = SCM_EOL;
+  immutable_property_alist_ = immutable_init;
   smobify_self ();
   stencil_ = s;
   staff_refpoints_ = Interval (0, 0);
+  init_vars ();
 }
+
 
 Paper_system::~Paper_system ()
 {
@@ -33,7 +34,7 @@ SCM
 Paper_system::mark_smob (SCM smob)
 {
   Paper_system *system = (Paper_system *) SCM_CELL_WORD_1 (smob);
-  scm_gc_mark (system->details_);
+  scm_gc_mark (system->mutable_property_alist_);
   return system->stencil_.expr ();
 }
 
@@ -43,27 +44,12 @@ Paper_system::print_smob (SCM smob, SCM port, scm_print_state*)
   Paper_system *p = (Paper_system *) SCM_CELL_WORD_1 (smob);
   scm_puts ("#<", port);
   scm_puts (classname (p), port);
-  scm_puts ("n ", port);
-  scm_puts (to_string (p->number_).to_str0 (), port);
-  scm_puts (", p ", port);
-  scm_puts (to_string (p->break_before_penalty_).to_str0 (), port);
-  if (p->is_title ())
-    scm_puts (" t", port);
+  scm_display (p->mutable_property_alist_, port);
+  
   scm_puts (" >", port);
   return 1;
 }
 
-bool
-Paper_system::is_title () const
-{
-  return is_title_;
-}
-
-Real
-Paper_system::break_before_penalty () const
-{
-  return break_before_penalty_;
-}
 
 Stencil
 Paper_system::to_stencil () const
@@ -72,19 +58,10 @@ Paper_system::to_stencil () const
 }
 
 void
-Paper_system::read_left_bound (Item *left)
+Paper_system::init_vars ()
 {
-  break_before_penalty_
-    = robust_scm2double (left->get_property ("page-penalty"), 0.0);
-
-  details_
-    = left->get_property ("line-break-system-details");
-
-  SCM yext
-    = scm_assq (ly_symbol2scm ("Y-extent"), details_);
-  
-  SCM staff_ext
-    = scm_assq (ly_symbol2scm ("refpoint-Y-extent"), details_);
+  SCM yext = get_property ("Y-extent");
+  SCM staff_ext = get_property ("refpoint-Y-extent");
 
   if (scm_is_pair (yext)
       && is_number_pair (scm_cdr (yext)))
@@ -105,11 +82,23 @@ Paper_system::read_left_bound (Item *left)
 SCM
 Paper_system::internal_get_property (SCM sym) const
 {
-  SCM handle = scm_assq (sym, details_);
-  if (scm_is_pair (handle))
-    return scm_cdr (handle);
-  else
-    return SCM_EOL;
+  /*
+    TODO: type checking
+   */
+  SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
+  if (s != SCM_BOOL_F)
+    return scm_cdr (s);
+
+  s = scm_sloppy_assq (sym, immutable_property_alist_);
+
+     
+  return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
+}
+
+void
+Paper_system::internal_set_property (SCM sym, SCM val) 
+{
+  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, sym, val);
 }
 
 /*
