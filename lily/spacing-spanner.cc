@@ -6,7 +6,8 @@
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <cmath>
+#include <math.h>
+
 #include <cstdio>
 using namespace std;
 
