@@ -73,7 +73,6 @@ Separating_line_group_engraver::Separating_line_group_engraver ()
 void
 Separating_line_group_engraver::process_music ()
 {
-
   if (!sep_span_)
     {
       sep_span_ = make_spanner ("SeparatingGroupSpanner", SCM_EOL);
@@ -218,7 +217,11 @@ Separating_line_group_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
 ADD_TRANSLATOR (Separating_line_group_engraver,
 		/* doc */ "Generates objects for computing spacing parameters.",
-		/* create */ "SeparationItem SeparatingGroupSpanner StaffSpacing",
+
+		/* create */
+		"SeparationItem "
+		"SeparatingGroupSpanner "
+		"StaffSpacing",
 		/* accept */ "",
 		/* read */ "createSpacing",
 		/* write */ "breakableSeparationItem");

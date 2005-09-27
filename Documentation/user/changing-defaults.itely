@@ -229,20 +229,20 @@ This is similar to @code{\context} with @code{= @var{id}}, but matches
 any context of type @var{type}, regardless of its given name.
 
 This variant is used with music expressions that can be interpreted at
-several levels.  For example, the @code{\applyoutput} command (see
+several levels.  For example, the @code{\applyOutput} command (see
 @ref{Running a function on all layout objects}).  Without an explicit
 @code{\context}, it is usually applied to @context{Voice}
 
 @example
-\applyoutput #@var{function}   % apply to Voice
+\applyOutput #@var{function}   % apply to Voice
 @end example
 
 To have it interpreted at the @context{Score} or @context{Staff} level use
 these forms
 
 @example
-\context Score \applyoutput #@var{function}
-\context Staff \applyoutput #@var{function}
+\context Score \applyOutput #@var{function}
+\context Staff \applyOutput #@var{function}
 @end example
 
 
@@ -1226,11 +1226,16 @@ Fingering_engraver is part of contexts: @dots{} @b{@internalsref{Voice}}
 @node Difficult tweaks
 @subsection Difficult tweaks
 
-There are two classes of difficult adjustments.  First, when there are
-several of the same objects at one point, and you want to adjust only
-one.  For example, if you want to change only one note head in a chord.
+There are a few classes of difficult adjustments.  
 
-In this case, the @code{\applyoutput} function must be used.  The
+@itemize @bullet
+First, when there are
+several of the same objects at one point, and you want to adjust only
+one.  
+
+For example, if you want to change only one note head in a chord.
+
+In this case, the @code{\applyOutput} function must be used.  The
 next example defines a Scheme function @code{set-position-font-size}
 that sets the @code{font-size} property, but only  
 on objects that have @internalsref{note-head-interface} and are at the
@@ -1254,7 +1259,7 @@ right Y-position.
 
 \relative {
   c
-  \applyoutput #(set-position-font-size -2 4)
+  \applyOutput #(set-position-font-size -2 4)
   <c e g>
 }
 @end lilypond
@@ -1263,6 +1268,7 @@ right Y-position.
 A similar technique can be used for accidentals.  In that case, the
 function should check for @code{accidental-interface}.
 
+@item
 Another difficult adjustment is the appearance of spanner objects,
 such as slur and tie.  Initially, only one of these objects is created,
 and they can be adjusted with the normal mechanism.  However, in some
@@ -1323,3 +1329,18 @@ should also call the old @code{after-line-breaking-callback}, if there
 is one.  For example, if using this with @code{Slur},
 @code{Slur::after_line_breaking} should also be called.
 
+
+@item Some objects cannot be changed with @code{\override} for
+technical reasons. Examples of those are @code{NonMusicalPaperColumn}
+and @code{PaperColumn}.  They can be changed with the
+@code{\outputProperty} function, which works similar to @code{\once
+\override}, but uses a different syntax,
+
+@example 
+\outputProperty
+#"Score.NonMusicalPaperColumn"  % Grob name
+#'line-break-system-details     % Property name  
+#'((next-padding . 20))         % Value
+@end example
+
+@end itemize

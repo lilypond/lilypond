@@ -7,6 +7,7 @@
 (define-public (set-paper-dimension-variables mod)
   (module-define! mod 'dimension-variables
 		  '(pt mm cm in staffheight staff-space
+		       pagetopspace
 		       betweensystemspace betweensystempadding
 		       linewidth indent hsize vsize horizontalshift
 		       staffspace linethickness ledgerlinethickness

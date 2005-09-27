@@ -746,13 +746,13 @@ current bar number on the standard output during the compile:
 
 
 @cindex calling code on layout objects
-@cindex @code{\applyoutput}
+@cindex @code{\applyOutput}
 
 
-The most versatile way of tuning an object is @code{\applyoutput}.  Its
+The most versatile way of tuning an object is @code{\applyOutput}.  Its
 syntax is
 @example
-\applyoutput @var{proc}
+\applyOutput @var{proc}
 @end example
 
 @noindent
@@ -763,7 +763,7 @@ object found in the context, with the following arguments:
 @itemize @bullet
 @item the layout object itself,
 @item the context where the layout object was created, and
-@item the context where @code{\applyoutput} is processed.
+@item the context where @code{\applyOutput} is processed.
 @end itemize
 
 
@@ -773,7 +773,7 @@ object property @code{cause}.  For example, for a note head, this is a
 @internalsref{NoteHead} event, and for a @internalsref{Stem} object,
 this is a @internalsref{NoteHead} object.
 
-Here is a function to use for @code{\applyoutput}; it blanks
+Here is a function to use for @code{\applyOutput}; it blanks
 note-heads on the center-line:
 
 @example

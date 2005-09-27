@@ -185,8 +185,7 @@ create offsets.
 ;; - separate function for word-wrap style breaking?
 ;; - raggedbottom? raggedlastbottom?
 
-(define-public (ly:optimal-page-breaks
-		lines paper-book)
+(define-public (optimal-page-breaks lines paper-book)
   "Return pages as a list starting with 1st page. Each page is a list
 of lines. "
 
@@ -230,90 +229,120 @@ is what have collected so far, and has ascending page numbers."
 	 user)))
 
   (define (space-systems page-height lines ragged?)
-    (let* ((inter-system-space
+    (let* ((global-inter-system-space
 	    (ly:output-def-lookup paper 'betweensystemspace))
+	   (top-space
+	    (ly:output-def-lookup paper 'pagetopspace))
+	   (global-fixed-dist (ly:output-def-lookup paper 'betweensystempadding))
+	   
 	   (system-vector (list->vector
 			   (append lines
 				   (if (= (length lines) 1)
 				       '(#f)
 				       '()))))
-	 (staff-extents
-	  (list->vector
-	   (append (map ly:paper-system-staff-extents lines)
-		   (if (= (length lines) 1)
-		       '((0 . 0))
-		       '()))))
-	 (real-extents
-	  (list->vector
-	   (append
-	    (map
-	     (lambda (sys) (ly:paper-system-extent sys Y)) lines)
-	    (if (= (length lines) 1)
-		'((0 .  0))
-		'()))))
-	 (no-systems (vector-length real-extents))
-	 (topskip (interval-end (vector-ref real-extents 0)))
-	 (space-left (- page-height
-			(apply + (map interval-length (vector->list real-extents)))))
+	   (staff-extents
+	    (list->vector
+	     (append (map ly:paper-system-staff-extents lines)
+		     (if (= (length lines) 1)
+			 '((0 . 0))
+			 '()))))
+	   
+	   (real-extents
+	    (list->vector
+	     (append
+	      (map
+	       (lambda (sys) (ly:paper-system-extent sys Y)) lines)
+	      (if (= (length lines) 1)
+		  '((0 .  0))
+		  '()))))
+	   
+	   (system-count (vector-length real-extents))
+	   (topskip (max
+		     (+
+		      top-space
+		      (interval-end (vector-ref staff-extents 0)))
+		     (interval-end (vector-ref real-extents 0))
+		     ))
+	   (last-system (vector-ref system-vector (1- system-count)))
+	   (bottom-space (if (ly:paper-system? last-system)
+			     (ly:paper-system-property last-system 'bottom-space 0.0)
+			     0.0))
+	   (space-left (- page-height
+			  bottom-space
+			  (apply + (map interval-length
+					(vector->list real-extents)))))
 
-	 (space (- page-height
-		   topskip
-		   (-  (interval-start (vector-ref real-extents (1- no-systems))))))
+	   (space (- page-height
+		     topskip
+		     bottom-space
+		     (-  (interval-start
+			  (vector-ref real-extents (1- system-count))))))
 
-	 (fixed-dist (ly:output-def-lookup paper 'betweensystempadding))
-	 (calc-spring
-	  (lambda (idx)
-	    (let* ((this-system-ext (vector-ref staff-extents idx))
-		 (next-system-ext (vector-ref staff-extents (1+ idx)))
-		 (fixed (max 0 (- (+ (interval-end next-system-ext)
-				      fixed-dist)
-				   (interval-start this-system-ext))))
-		 (title1? (and (vector-ref system-vector idx)
-			       (ly:paper-system-title? (vector-ref system-vector idx))))
-		 (title2? (and
-			   (vector-ref system-vector (1+ idx))
-			   (ly:paper-system-title? (vector-ref system-vector (1+ idx)))))
-		 (ideal (+
-			 (cond
-			  ((and title2? title1?)
-			   (ly:output-def-lookup paper 'betweentitlespace))
-			  (title1?
-			   (ly:output-def-lookup paper 'aftertitlespace))
-			  (title2?
-			   (ly:output-def-lookup paper 'beforetitlespace))
-			  (else inter-system-space))
-			 fixed))
-		 (hooke (/ 1 (- ideal fixed))))
-	      (list ideal hooke))))
+	   (calc-spring
+	    (lambda (idx)
+	      (let* (
+		     (upper-system (vector-ref system-vector idx))
+		     (between-space (ly:paper-system-property upper-system 'next-space
+							      global-inter-system-space))
+		     (fixed-dist (ly:paper-system-property upper-system 'next-padding
+							   global-fixed-dist))
+		     
+		     (this-system-ext (vector-ref staff-extents idx))
+		     (next-system-ext (vector-ref staff-extents (1+ idx)))
+		     (fixed (max 0 (- (+ (interval-end next-system-ext)
+					 fixed-dist)
+				      (interval-start this-system-ext))))
+		     (title1? (and (vector-ref system-vector idx)
+				   (ly:paper-system-title? (vector-ref system-vector idx))))
+		     (title2? (and
+			       (vector-ref system-vector (1+ idx))
+			       (ly:paper-system-title? (vector-ref system-vector (1+ idx)))))
+		     (ideal (+
+			     (cond
+			      ((and title2? title1?)
+			       (ly:output-def-lookup paper 'betweentitlespace))
+			      (title1?
+			       (ly:output-def-lookup paper 'aftertitlespace))
+			      (title2?
+			       (ly:output-def-lookup paper 'beforetitlespace))
+			      (else between-space))
+			     fixed))
+		     (hooke (/ 1 (- ideal fixed))))
+		(list ideal hooke))))
 
-	 (springs (map calc-spring (iota (1- no-systems))))
-	 (calc-rod
-	  (lambda (idx)
-	    (let* ((this-system-ext (vector-ref real-extents idx))
-		 (next-system-ext (vector-ref real-extents (1+ idx)))
-		 (distance (max  (- (+ (interval-end next-system-ext)
-				       fixed-dist)
-				    (interval-start this-system-ext)
-				    ) 0))
-		 (entry (list idx (1+ idx) distance)))
-	      entry)))
-	 (rods (map calc-rod (iota (1- no-systems))))
+	   (springs (map calc-spring (iota (1- system-count))))
+	   (calc-rod
+	    (lambda (idx)
+	      (let* (
+		     (upper-system (vector-ref system-vector idx))
+		     (fixed-dist (ly:paper-system-property upper-system 'next-padding
+							   global-fixed-dist))
+		     (this-system-ext (vector-ref real-extents idx))
+		     (next-system-ext (vector-ref real-extents (1+ idx)))
+		     
+		     (distance (max  (- (+ (interval-end next-system-ext)
+					   fixed-dist)
+					(interval-start this-system-ext)
+					) 0))
+		     (entry (list idx (1+ idx) distance)))
+		entry)))
+	   (rods (map calc-rod (iota (1- system-count))))
 
-	 ;; we don't set ragged based on amount space left.
-	 ;; raggedbottomlast = ##T is much more predictable
-	 (result (ly:solve-spring-rod-problem
-		  springs rods space
-		  ragged?))
+	   ;; we don't set ragged based on amount space left.
+	   ;; raggedbottomlast = ##T is much more predictable
+	   (result (ly:solve-spring-rod-problem
+		    springs rods space
+		    ragged?))
 
-	 (force (car result))
-	 (positions
-	  (map (lambda (y)
-		 (+ y topskip))
-	       (cdr  result))))
+	   (force (car result))
+	   (positions
+	    (map (lambda (y)
+		   (+ y topskip))
+		 (cdr  result))))
 
       (if #f ;; debug.
 	  (begin
-	    (display (list "\n# systems: " no-systems
+	    (display (list "\n# systems: " system-count
 			   "\nreal-ext" real-extents "\nstaff-ext" staff-extents
 			   "\ninterscore" inter-system-space
 			   "\nspace-letf" space-left

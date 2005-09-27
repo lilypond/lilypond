@@ -40,7 +40,8 @@
     %% staves themselves.
     %%
     betweensystemspace = #(* 20 mm)
-
+    
+    
     %%
     %% fixed space between systems.
     %%
@@ -50,6 +51,14 @@
     beforetitlespace = 10 \mm
     betweentitlespace = 2 \mm
 
+
+    %%
+    %% Small staves are aligned so they come out on the same place on
+    %% across different pages.
+    %%
+    pagetopspace = #(* 12 mm)
+
+    
     raggedbottom = ##f
 
     %%
@@ -75,7 +84,7 @@
 	(baseline-skip . 3)
 	(word-space . 0.6)))
 
-    #(define page-breaking ly:optimal-page-breaks)
+    #(define page-breaking optimal-page-breaks)
     #(define page-music-height default-page-music-height )
     #(define page-make-stencil default-page-make-stencil )
 

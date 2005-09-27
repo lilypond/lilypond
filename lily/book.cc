@@ -86,7 +86,7 @@ Book::process (Output_def *default_paper,
       if (score->error_found_)
 	return 0;
 
-  Output_def *paper = paper_ ? default_paper : paper_;
+  Output_def *paper = paper_ ? paper_ : default_paper;
   if (!paper)
     return 0;
   

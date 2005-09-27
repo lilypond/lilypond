@@ -515,7 +515,10 @@ ADD_TRANSLATOR (Piano_pedal_engraver,
 		/* create */ "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
 		/* accept */ "pedal-event",
 		/* read */ "currentCommandColumn "
-		"pedalSostenutoStrings pedalSustainStrings "
-		"pedalUnaCordaStrings pedalSostenutoStyle "
-		"pedalSustainStyle pedalUnaCordaStyle",
+		"pedalSostenutoStrings "
+		"pedalSustainStrings "
+		"pedalUnaCordaStrings "
+		"pedalSostenutoStyle "
+		"pedalSustainStyle "
+		"pedalUnaCordaStyle",
 		/* write */ "");

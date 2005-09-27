@@ -33,6 +33,7 @@ SCM
 Paper_system::mark_smob (SCM smob)
 {
   Paper_system *system = (Paper_system *) SCM_CELL_WORD_1 (smob);
+  scm_gc_mark (system->details_);
   return system->stencil_.expr ();
 }
 
@@ -76,14 +77,14 @@ Paper_system::read_left_bound (Item *left)
   break_before_penalty_
     = robust_scm2double (left->get_property ("page-penalty"), 0.0);
 
-  SCM details
+  details_
     = left->get_property ("line-break-system-details");
 
   SCM yext
-    = scm_assoc (ly_symbol2scm ("Y-extent"), details);
+    = scm_assq (ly_symbol2scm ("Y-extent"), details_);
   
   SCM staff_ext
-    = scm_assoc (ly_symbol2scm ("refpoint-Y-extent"), details);
+    = scm_assq (ly_symbol2scm ("refpoint-Y-extent"), details_);
 
   if (scm_is_pair (yext)
       && is_number_pair (scm_cdr (yext)))
@@ -101,6 +102,19 @@ Paper_system::read_left_bound (Item *left)
     }
 }
 
+SCM
+Paper_system::internal_get_property (SCM sym) const
+{
+  SCM handle = scm_assq (sym, details_);
+  if (scm_is_pair (handle))
+    return scm_cdr (handle);
+  else
+    return SCM_EOL;
+}
+
+/*
+  todo: move to Paper_system property.
+ */
 Interval
 Paper_system::staff_refpoints () const
 {
