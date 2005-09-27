@@ -45,10 +45,22 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item
+The slope of a stem-tremolo may be set manually
+
+@lilypond[fragment,relative=1,raggedright]
+c8:16[ 
+\once \override StemTremolo #'slope = #0.45
+c:16 c:16 c:16 ]
+@end lilypond 
+
+This feature was sponsored by Sven Axelsson.
 
 @item 
 Vertical spacing for page layout can now be tuned for each system
-individually.  This feature was sponsored by Trevor Baca.
+individually.  
+
+This feature was sponsored by Trevor Baca.
 
 @item
 Laissez vibrer ties can be created with @code{\laissezVibrer},

@@ -28,7 +28,8 @@
 	"\n")))
 
 (define-method (node-system-numbers (node <optimally-broken-page-node>))
-  (map ly:paper-system-property (node-lines node) 'number))
+  (map (lambda (ps) (ly:paper-system-property ps 'number))
+       (node-lines node)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -471,8 +472,6 @@ DONE."
   (set! force-equalization-factor
 	(ly:output-def-lookup paper 'verticalequalizationfactor 0.3))
 
-  (display lines)
-  
   (let* ((best-break-node (walk-lines '() '() lines))
 	 (break-nodes (get-path best-break-node '()))
 	 (last-node (car (last-pair break-nodes))))

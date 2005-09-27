@@ -34,6 +34,7 @@ Paper_system::mark_smob (SCM smob)
 {
   Paper_system *system = (Paper_system *) SCM_CELL_WORD_1 (smob);
   scm_gc_mark (system->mutable_property_alist_);
+  scm_gc_mark (system->immutable_property_alist_);
   return system->stencil_.expr ();
 }
 

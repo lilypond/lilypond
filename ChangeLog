@@ -1,5 +1,7 @@
 2005-09-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/stem-tremolo.cc (raw_stencil): read slope property.
+
 	* lily/include/paper-system.hh (class Paper_system): remove
 	staff_extents_ member.
 
