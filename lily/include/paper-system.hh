@@ -33,6 +33,7 @@ public:
   SCM internal_get_property (SCM sym) const;
   void internal_set_property (SCM sym, SCM val);
   bool is_title () const;
+
   Real break_before_penalty () const;
 };
 

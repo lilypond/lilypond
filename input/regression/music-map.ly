@@ -2,11 +2,11 @@
 
   texidoc =
 
-  "With @code{music-map}, you can apply functions operating on a single
-piece of music to an entire music expression. In this example, the the
-function @code{notes-to-skip} changes a note to a skip. When applied
-to an entire music expression in the 1st measure, the scripts and
-dynamics are left over. These are put onto the 2nd measure."
+  "With @code{music-map}, you can apply functions operating on a
+single piece of music to an entire music expression. In this example,
+the the function @code{notes-to-skip} changes a note to a skip. When
+applied to an entire music expression in the 1st measure, the scripts
+and dynamics are left over. These are put onto the 2nd measure."
 
 }
 
@@ -35,7 +35,7 @@ foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  }
 \relative c''  \context Voice {
   \foobar
 
-  << pplyMusic #(lambda (x) (music-map notes-to-skip x))
+  << \applyMusic #(lambda (x) (music-map notes-to-skip x))
      \foobar
      { d2 d2 } >> 
 }

@@ -54,22 +54,27 @@ Stem_tremolo::raw_stencil (Grob *me)
 {
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   Spanner *beam = Stem::get_beam (stem);
-  Real dydx;
-  if (beam)
-    {
-      Real dy = 0;
-      SCM s = beam->get_property ("positions");
-      if (is_number_pair (s))
-	dy = -scm_to_double (scm_car (s)) +scm_to_double (scm_cdr (s));
 
-      Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
-	- Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
-      dydx = dx ? dy / dx : 0;
+  SCM slope = me->get_property ("slope");
+  Real dydx = 0.25;
+  if (scm_is_number (slope))
+    {
+      dydx = robust_scm2double (slope, 0.0);
     }
   else
-    // urg
-    dydx = 0.25;
+    {
+      if (beam)
+	{
+	  Real dy = 0;
+	  SCM s = beam->get_property ("positions");
+	  if (is_number_pair (s))
+	    dy = - scm_to_double (scm_car (s)) + scm_to_double (scm_cdr (s));
 
+	  Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
+	    - Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
+	  dydx = dx ? dy / dx : 0;
+	}
+    }
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thick = robust_scm2double (me->get_property ("beam-thickness"), 1);
   Real width = robust_scm2double (me->get_property ("beam-width"), 1);
@@ -172,4 +177,8 @@ Stem_tremolo::print (SCM grob)
 
 ADD_INTERFACE (Stem_tremolo, "stem-tremolo-interface",
 	       "A beam slashing a stem to indicate a tremolo.",
-	       "stem beam-width beam-thickness flag-count");
+	       "stem "
+	       "slope "
+	       "beam-width "
+	       "beam-thickness "
+	       "flag-count");

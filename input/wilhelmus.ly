@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.10"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -35,15 +35,15 @@ noclefs =  {
 setMargins = {
   %% first line left margin
   %% justified:
-  %% \context Staff \applycontext #(set-extra-space 'TimeSignature 'first-note 4.5)
+  %% \context Staff \applyContext #(set-extra-space 'TimeSignature 'first-note 4.5)
   %% raggedright:
-  \context Staff \applycontext #(set-extra-space 'TimeSignature 'first-note 9.5)
+  \context Staff \applyContext #(set-extra-space 'TimeSignature 'first-note 9.5)
   
   %% next lines left margin
-  \context Staff \applycontext #(set-extra-space 'KeySignature 'staff-bar 15)
+  \context Staff \applyContext #(set-extra-space 'KeySignature 'staff-bar 15)
   
   %% next lines small key-signature margin
-  \context Staff \applycontext #(set-extra-space 'LeftEdge 'key-signature 1.0)
+  \context Staff \applyContext #(set-extra-space 'LeftEdge 'key-signature 1.0)
 }
 
 pipeSymbol = {
