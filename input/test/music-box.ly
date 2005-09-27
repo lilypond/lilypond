@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.10"
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -53,7 +53,7 @@ using Scheme functions to avoid typing work. " }
 
 
 
-\version "2.6.0"
+\version "2.7.10"
 
 pat =  \transpose c c' \repeat unfold 2 {
   << { \context Staff = "up" {r8 e16 f g e f g } }
@@ -75,7 +75,7 @@ endc =  {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
    \transpose c c' \context PianoStaff <<
        \context Staff = "up"   { \clef "G"  }
        \context Staff = "down" { \clef "F" }
-       { \applymusic #transform {
+       { \applyMusic #transform {
 	   \pat {c e g c' e' }
 	   \pat {c d a d' f' }
        }

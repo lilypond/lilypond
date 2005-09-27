@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.10"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -117,7 +117,7 @@ lowerStaff = \context MensuralStaff = "lowerStaff" <<
     
     % this is broken until further notice -- see refman
     % \override Staff.StaffSymbol  #'line-count = #5
-    \context Staff \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 5)
+    \context Staff \applyOutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 5)
 
      \transpose c c {
 	\set autoBeaming = ##f

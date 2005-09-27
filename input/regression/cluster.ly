@@ -1,5 +1,5 @@
 
-\version "2.6.0"
+\version "2.7.10"
 \header {
   texidoc = "Clusters are a device to denote that a complete range of
 notes is to be played."
@@ -15,7 +15,7 @@ fragment = \relative c' {
 
 <<
   \new Staff \fragment
-  \new Staff \applymusic #notes-to-clusters \fragment
+  \new Staff \applyMusic #notes-to-clusters \fragment
 >>
 
 

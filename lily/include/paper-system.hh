@@ -21,18 +21,18 @@ class Paper_system
 {
   DECLARE_SMOBS (Paper_system,);
   Stencil stencil_;
-  bool is_title_;
-  SCM details_;
+  SCM mutable_property_alist_;
+  SCM immutable_property_alist_;
+
+  void init_vars ();
 public:
   Interval staff_refpoints_;
-  Real break_before_penalty_;
-  int number_;
 
-  Paper_system (Stencil, bool);
-  void read_left_bound (Item*);
+  Paper_system (Stencil, SCM);
   Stencil to_stencil () const;
   SCM stencils () const;
   SCM internal_get_property (SCM sym) const;
+  void internal_set_property (SCM sym, SCM val);
   bool is_title () const;
   Real break_before_penalty () const;
   Interval staff_refpoints () const;

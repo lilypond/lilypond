@@ -19,33 +19,6 @@ LY_DEFINE (ly_paper_system_height, "ly:paper-system-extent",
   return ly_interval2scm (ps->to_stencil ().extent (ax));
 }
 
-LY_DEFINE (ly_paper_system_title_p, "ly:paper-system-title?",
-	   1, 0, 0, (SCM system),
-	   "Is  @var{system} a title system?")
-{
-  Paper_system *ps = unsmob_paper_system (system);
-  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  return SCM_BOOL (ps->is_title ());
-}
-
-LY_DEFINE (ly_paper_system_number, "ly:paper-system-number",
-	   1, 0, 0, (SCM system),
-	   "Return the number of @var{system}.")
-{
-  Paper_system *ps = unsmob_paper_system (system);
-  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  return scm_from_int (ps->number_);
-}
-
-LY_DEFINE (ly_paper_system_break_before_penalty, "ly:paper-system-break-before-penalty",
-	   1, 0, 0, (SCM system),
-	   "Return the score for page break after @var{system}.")
-{
-  Paper_system *ps = unsmob_paper_system (system);
-  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  return scm_from_int (int (ps->break_before_penalty ()));
-}
-
 LY_DEFINE (ly_paper_system_stencil, "ly:paper-system-stencil",
 	   1, 0, 0, (SCM system),
 	   "Return the height of @var{system}.")

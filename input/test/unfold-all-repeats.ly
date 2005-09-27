@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.10"
 
 \header { 
 texidoc = "Applying the standard function @code{unfold-repeats} unfolds 
@@ -18,7 +18,7 @@ mel =  \context Staff {
 
 \score {  {
   \mel \break
-  \applymusic #unfold-repeats \mel 
+  \applyMusic #unfold-repeats \mel 
  }
 }
 

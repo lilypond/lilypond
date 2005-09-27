@@ -10,7 +10,7 @@ dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "2.6.0"
+\version "2.7.10"
 
 #(define (notes-to-skip m)
   "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
@@ -35,7 +35,7 @@ foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  }
 \relative c''  \context Voice {
   \foobar
 
-  << \applymusic #(lambda (x) (music-map notes-to-skip x))
+  << pplyMusic #(lambda (x) (music-map notes-to-skip x))
      \foobar
      { d2 d2 } >> 
 }
