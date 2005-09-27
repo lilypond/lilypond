@@ -40,7 +40,7 @@
 		    (if tex-backend?
 			(make-cmr-tree (/  sz (* 20 pt)))
 			(make-century-schoolbook-tree
-			 (/  sz (* 20 pt)))))
+			 (/ sz (* 20 pt)))))
     (module-define! m 'staffheight sz)
     (module-define! m 'staff-space ss)
     (module-define! m 'staffspace ss)

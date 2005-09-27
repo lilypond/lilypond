@@ -26,7 +26,6 @@ class Paper_system
 
   void init_vars ();
 public:
-  Interval staff_refpoints_;
 
   Paper_system (Stencil, SCM);
   Stencil to_stencil () const;
@@ -35,7 +34,6 @@ public:
   void internal_set_property (SCM sym, SCM val);
   bool is_title () const;
   Real break_before_penalty () const;
-  Interval staff_refpoints () const;
 };
 
 DECLARE_UNSMOB (Paper_system, paper_system);

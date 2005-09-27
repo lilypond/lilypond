@@ -32,6 +32,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-public (paper-system-staff-extents ps)
+  (ly:paper-system-property ps 'refpoint-Y-extent '(0 . 0)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -143,9 +145,9 @@ create offsets.
 		  (add-to-page
 		   system-separator-stencil
 		   (average (- last-y
-			       (car (ly:paper-system-staff-extents last-system)))
+			       (car (paper-system-staff-extents last-system)))
 			    (- y
-			       (cdr (ly:paper-system-staff-extents system))))))
+			       (cdr (paper-system-staff-extents system))))))
 	      (set! last-system system)
 	      (set! last-y y)))))
 
@@ -244,11 +246,11 @@ is what have collected so far, and has ascending page numbers."
 				       '()))))
 	   (staff-extents
 	    (list->vector
-	     (append (map ly:paper-system-staff-extents lines)
+	     (append (map paper-system-staff-extents lines)
 		     (if (= (length lines) 1)
 			 '((0 . 0))
 			 '()))))
-	   
+
 	   (real-extents
 	    (list->vector
 	     (append
@@ -347,8 +349,8 @@ is what have collected so far, and has ascending page numbers."
 	  (begin
 	    (display (list "\n# systems: " system-count
 			   "\nreal-ext" real-extents "\nstaff-ext" staff-extents
-			   "\ninterscore" inter-system-space
-			   "\nspace-letf" space-left
+			   "\ninterscore" global-inter-system-space
+			   "\nspace-left" space-left
 			   "\nspring,rod" springs rods
 			   "\ntopskip " topskip
 			   " space " space
@@ -398,10 +400,10 @@ CURRENT-BEST is the best result sofar, or #f."
 	    (+
 	     (max (get-break-penalty (car current-lines)) 0.0)
 	     user-nobreak-penalties))
+	   
            (total-penalty (combine-penalties
                            force user-penalty
 			   best-paths))
-
 
            (better? (or
                      (not current-best)
@@ -450,6 +452,7 @@ CURRENT-BEST is the best result sofar, or #f."
 <optimal-page-break-node> for optimally breaking TODO ++
 DONE.reversed. BEST-PATHS is a list of break nodes corresponding to
 DONE."
+    
     (if (null? todo)
 	(car best-paths)
 	(let* ((this-line (car todo))
@@ -468,6 +471,8 @@ DONE."
   (set! force-equalization-factor
 	(ly:output-def-lookup paper 'verticalequalizationfactor 0.3))
 
+  (display lines)
+  
   (let* ((best-break-node (walk-lines '() '() lines))
 	 (break-nodes (get-path best-break-node '()))
 	 (last-node (car (last-pair break-nodes))))

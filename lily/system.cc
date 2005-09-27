@@ -374,23 +374,27 @@ System::get_paper_system ()
 		       scm_cons (ly_symbol2scm ("combine-stencil"),
 				 exprs));
 
-  Interval staff_refpoints;
-  staff_refpoints.set_empty ();
-  extract_grob_set (this, "spaceable-staves", staves);
-  for (int i = staves.size (); i--;)
-    {
-      Grob *g = staves[i];
-      staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
-    }
+
 
   Grob *left_bound = this->get_bound (LEFT);
   SCM prop_init = left_bound->get_property ("line-break-system-details");
   Paper_system *pl = new Paper_system (sys_stencil,
 				       prop_init);
-  
-  pl->staff_refpoints_ = staff_refpoints;
   pl->set_property ("penalty",
 		    left_bound->get_property ("page-penalty"));
+  
+  if (!scm_is_pair (pl->get_property ("refpoint-Y-extent")))
+    {
+      Interval staff_refpoints;
+      staff_refpoints.set_empty ();
+      extract_grob_set (this, "spaceable-staves", staves);
+      for (int i = staves.size (); i--;)
+	{
+	  Grob *g = staves[i];
+	  staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
+	}
+      pl->set_property ("refpoint-Y-extent", ly_interval2scm (staff_refpoints));
+    }
   
   return pl->unprotect ();
 }

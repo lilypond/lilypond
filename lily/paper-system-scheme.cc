@@ -28,15 +28,6 @@ LY_DEFINE (ly_paper_system_stencil, "ly:paper-system-stencil",
   return ps->to_stencil ().smobbed_copy ();
 }
 
-LY_DEFINE (ly_paper_system_staff_extent, "ly:paper-system-staff-extents",
-	   1, 0, 0, (SCM system),
-	   "Return the top and bottom staff refpoint.")
-{
-  Paper_system *ps = unsmob_paper_system (system);
-  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  return ly_interval2scm (ps->staff_refpoints ());
-}
-
 
 
 LY_DEFINE (ly_paper_system_property, "ly:paper-system-property",

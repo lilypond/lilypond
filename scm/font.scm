@@ -34,9 +34,11 @@
 (define-method (display (leaf <Font-tree-leaf>) port)
   (map (lambda (x) (display x port))
        (list
-	"Font-size-family: \n"
+	"#<Font-size-family: \n"
 	(slot-ref leaf 'default-size) 
-	(slot-ref leaf 'size-vector))))
+	(slot-ref leaf 'size-vector)
+	"#>"
+	)))
 
 (define-method (display (node <Font-tree-node>) port)
 
@@ -66,6 +68,7 @@
 (define-method (add-font (node <Font-tree-node>) fprops size-family)
   (define (assoc-delete key alist)
     (assoc-remove! (list-copy alist) key))
+  
   (define (make-node fprops size-family)
     (if (null? fprops)
 	(make-font-tree-leaf (car size-family) (cdr size-family))
