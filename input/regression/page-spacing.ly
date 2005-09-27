@@ -18,34 +18,46 @@ used for global overrides.
 
 \book {
   \score {
-    \relative c'' \new StaffGroup <<
+    \relative c'' \new PianoStaff <<
       \new Voice  {
-	c1\break
+	c1_"followed by default spacing"\break
+	c\break
 
 	\outputProperty
 	#"Score.NonMusicalPaperColumn"
 	#'line-break-system-details
 	#'((Y-extent . (-30 . 10)))
-	c^"This system has big extents (property Y-extent)"\break
+	c_"Big bounding box (property Y-extent)"\break
 
-	c\break
 	\outputProperty
 	#"Score.NonMusicalPaperColumn"
 	#'line-break-system-details
-	#'((next-padding . 20))
+	#'((refpoint-Y-extent . (-37 . -10)))
+	c_\markup {
+	  \column {
+	    "Refpoints further apart (property refpoint-Y-extent)."
+	    "Stretchable space runs between refpoints"
+	  }
+	}
+	
+	\break
+	
+	\outputProperty
+	#"Score.NonMusicalPaperColumn"
+	#'line-break-system-details
+	#'((next-padding . 10))
 
-	c^"This system is followed by padding, ie unstretchable space. (property next-padding)" \break
+	c_"Followed by padding, ie unstretchable space. (property next-padding)" \break
 	\outputProperty
 	#"Score.NonMusicalPaperColumn"
 	#'line-break-system-details
 	#'((next-space . 20))
-	c^"This system is followed by stretchable space (property next-space)"\break
-	c\break
+	c_"Followed by stretchable space (property next-space)"\break
 	c\break
 	\outputProperty
 	#"Score.NonMusicalPaperColumn" #'line-break-system-details
 	#'((bottom-space . 25.0)) 
-	c^"This system has 25 staff space to the bottom of the page. (property bottom-space)"\break
+	c_"25 staff space to the bottom of the page. (property bottom-space)"\break
 
 
       }
@@ -55,5 +67,11 @@ used for global overrides.
   \paper {
     raggedlastbottom = ##f
     betweensystemspace = 1.0
+    #(set! text-font-defaults
+      (acons
+       'font-size 6
+       text-font-defaults)
+      
+    )
   }
 }

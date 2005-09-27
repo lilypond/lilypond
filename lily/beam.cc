@@ -778,7 +778,7 @@ set_minimum_dy (Grob *me, Real *dy)
       Real hang = 1.0 - (thickness - slt) / 2;
 
       *dy = sign (*dy) * max (fabs (*dy),
-				   min (min (sit, inter), hang));
+			      min (min (sit, inter), hang));
     }
 }
 

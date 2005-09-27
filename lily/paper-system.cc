@@ -21,7 +21,6 @@ Paper_system::Paper_system (Stencil s, SCM immutable_init)
   immutable_property_alist_ = immutable_init;
   smobify_self ();
   stencil_ = s;
-  staff_refpoints_ = Interval (0, 0);
   init_vars ();
 }
 
@@ -45,8 +44,9 @@ Paper_system::print_smob (SCM smob, SCM port, scm_print_state*)
   scm_puts ("#<", port);
   scm_puts (classname (p), port);
   scm_display (p->mutable_property_alist_, port);
+  scm_display (p->immutable_property_alist_, port);
   
-  scm_puts (" >", port);
+  scm_puts (" >\n", port);
   return 1;
 }
 
@@ -61,21 +61,13 @@ void
 Paper_system::init_vars ()
 {
   SCM yext = get_property ("Y-extent");
-  SCM staff_ext = get_property ("refpoint-Y-extent");
 
-  if (scm_is_pair (yext)
-      && is_number_pair (scm_cdr (yext)))
+  if (is_number_pair (yext))
     {
       Box b = stencil_.extent_box();
-      b[Y_AXIS] = ly_scm2interval (scm_cdr (yext));
+      b[Y_AXIS] = ly_scm2interval (yext);
       
       stencil_ = Stencil (b, stencil_.expr ());
-    }
-
-  if (scm_is_pair (staff_ext)
-      && is_number_pair (scm_cdr (staff_ext)))
-    {
-      staff_refpoints_ = ly_scm2interval (scm_cdr (staff_ext));
     }
 }
 
@@ -99,13 +91,4 @@ void
 Paper_system::internal_set_property (SCM sym, SCM val) 
 {
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, sym, val);
-}
-
-/*
-  todo: move to Paper_system property.
- */
-Interval
-Paper_system::staff_refpoints () const
-{
-  return staff_refpoints_;
 }

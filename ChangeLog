@@ -1,6 +1,11 @@
 2005-09-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/include/paper-system.hh (class Paper_system): remove
+	staff_extents_ member.
+
+	* lily/paper-system-scheme.cc (LY_DEFINE): remove.
+
+	* lily/include/paper-system.hh (class Paper_system): remove
 	number_ variable. Remove is_title_. Remove break_before_penalty_
 
 	* lily/paper-book.cc (systems): use 'number property iso. number_
