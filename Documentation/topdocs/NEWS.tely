@@ -46,6 +46,10 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 
+@item 
+Vertical spacing for page layout can now be tuned for each system
+individually.  This feature was sponsored by Trevor Baca.
+
 @item
 Laissez vibrer ties can be created with @code{\laissezVibrer},
 
