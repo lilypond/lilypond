@@ -204,5 +204,9 @@ ADD_TRANSLATOR (Spacing_engraver,
 
 		/* create */ "SpacingSpanner",
 		/* accept */ "",
-		/* read */ "currentMusicalColumn currentCommandColumn proportionalNotationDuration",
+		/* read */
+		"currentMusicalColumn "
+		"currentCommandColumn "
+		"proportionalNotationDuration",
+		
 		/* write */ "");

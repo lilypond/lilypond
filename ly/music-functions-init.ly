@@ -65,21 +65,37 @@ applyOutput =
                   'procedure proc))
 
 outputProperty =
-#(def-music-function (parser location name prop value)
-   (symbol? symbol? scheme?)
+#(def-music-function (parser location name property value)
+   (string? symbol? scheme?)
 
 
-   "Set @var{prop} to @var{value} in all grobs named @var{name} "
+   "Set @var{property} to @var{value} in all grobs named @var{name}.
+The @var{name} argument is a string of the form @code{\"Context.GrobName\"}
+or @code{\"GrobName\"}"
 
-   (make-music 'ApplyOutputEvent
-	       'origin location
-	       'procedure
-	       (lambda (grob orig-context context)
-		 (if (equal?
-		      (cdr (assoc 'name (ly:grob-property grob 'meta)))
-		      name)
-		     (set! (ly:grob-property grob prop) value)
-		 ))))
+   (let*
+       ((name-components (string-split name #\.))
+	(context-name 'Bottom)
+	(grob-name #f))
+
+     (if (> 2 (length name-components))
+	 (set! grob-name (string->symbol (car name-components)))
+	 (begin
+	   (set! grob-name (string->symbol (list-ref name-components 1)))
+	   (set! context-name (string->symbol (list-ref name-components 0)))))
+
+     (context-spec-music
+      (make-music 'ApplyOutputEvent
+		  'origin location
+		  'procedure
+		  (lambda (grob orig-context context)
+		    (if (equal?
+			 (cdr (assoc 'name (ly:grob-property grob 'meta)))
+			 grob-name)
+			(set! (ly:grob-property grob property) value)
+			)))
+
+      context-name)))
 
 breathe =
 #(def-music-function (parser location) ()

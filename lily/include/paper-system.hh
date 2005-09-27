@@ -22,7 +22,7 @@ class Paper_system
   DECLARE_SMOBS (Paper_system,);
   Stencil stencil_;
   bool is_title_;
-
+  SCM details_;
 public:
   Interval staff_refpoints_;
   Real break_before_penalty_;
@@ -32,6 +32,7 @@ public:
   void read_left_bound (Item*);
   Stencil to_stencil () const;
   SCM stencils () const;
+  SCM internal_get_property (SCM sym) const;
   bool is_title () const;
   Real break_before_penalty () const;
   Interval staff_refpoints () const;

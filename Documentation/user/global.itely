@@ -298,6 +298,12 @@ Distance between the top-most music system and the page header.
 @item footsep
 Distance between the bottom-most music system and the page footer.
 
+@cindex @code{pagetopspace}
+Distance from the top of the printable area to the center of the first
+staff. This only works for staves which are vertically small. Big staves
+are set with the top of their bounding box aligned to the top of the
+printable area.
+
 @cindex @code{raggedbottom}
 @item raggedbottom
 If set to true, systems will not be spread across the page.
@@ -513,12 +519,22 @@ then use the following
 @end example
 
 
+@c let's wait for a some comments before writing more.
+
+The vertical spacing on a page can also be changed for each system individually.
+Some examples are found in the example file
+@inputfileref{input/regression/,page-spacing.ly}.
+
+
 @seealso
 
 Internals: Vertical alignment of staves is handled by the
 @internalsref{VerticalAlignment} object. The context parameters
 specifying  the vertical extent are described in connection with 
 the @internalsref{Axis_group_engraver}.
+
+Example files: @inputfileref{input/regression/,page-spacing.ly}.
+
 
 @refbugs
 
@@ -576,16 +592,15 @@ The difference is demonstrated in the following example,
 
 @code{forced-distance} cannot be changed per system.
 
-
 @node Horizontal spacing
 @subsection Horizontal Spacing
 
-The spacing engine translates differences in durations into
-stretchable distances (``springs'') of differring lengths.  Longer
-durations get more space, shorter durations get less.  The shortest
-durations get a fixed amount of space (which is controlled by
-@code{shortest-duration-space} in the @internalsref{SpacingSpanner} object). 
-The longer the duration, the more space it gets: doubling a
+The spacing engine translates differences in durations into stretchable
+distances (``springs'') of differring lengths.  Longer durations get
+more space, shorter durations get less.  The shortest durations get a
+fixed amount of space (which is controlled by
+@code{shortest-duration-space} in the @internalsref{SpacingSpanner}
+object).  The longer the duration, the more space it gets: doubling a
 duration adds a fixed amount (this amount is controlled by
 @code{spacing-increment}) of space to the note.
 
