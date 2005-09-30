@@ -477,7 +477,7 @@ AncientRemoveEmptyStaffContext = \context {
   firstClef = ##t
   
   defaultBarType = #"|"
-  barNumberVisibility = #default-bar-number-visibility
+  barNumberVisibility = #first-bar-number-invisible
   automaticBars = ##t
   
   explicitClefVisibility = #all-visible

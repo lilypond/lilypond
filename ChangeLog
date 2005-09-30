@@ -1,3 +1,13 @@
+2005-09-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-lib.scm (first-bar-number-invisible): rename from
+	default-bar-number-visibility
+
+2005-09-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-music-properties.scm (all-music-properties): remove
+	predicate property.
+
 2005-09-28  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* po/fi.po: refresh.

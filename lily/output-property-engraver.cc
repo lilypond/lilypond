@@ -11,6 +11,9 @@
 #include "grob.hh"
 #include "context.hh"
 
+#include "translator.icc"
+
+
 class Output_property_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Output_property_engraver);
@@ -39,31 +42,13 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 {
   for (int i = props_.size (); i--;)
     {
-      Music * o = props_[i];
-      SCM pred = o->get_property ("predicate");
-
-      if (ly_is_procedure (pred))
-	{
-	  /*
-	    should typecheck pred. 
-	  */
-	  SCM result = scm_call_1 (pred, inf.grob ()->self_scm ());
-	  if (to_boolean (result))
-	    {
-	      SCM sym = o->get_property ("grob-property");
-	      SCM val = o->get_property ("grob-value");
-	      inf.grob ()->internal_set_property (sym, val);
-	    }
-	}
-      else
-	{
-	  Context * d = inf.context ();
-	  SCM proc = o->get_property ("procedure");
-	  scm_call_3 (proc,
-		      inf.grob ()->self_scm (),
-		      d->self_scm (), 
-		      context ()->self_scm ());
-	}
+      Music *o = props_[i];
+      Context *d = inf.context ();
+      SCM proc = o->get_property ("procedure");
+      scm_call_3 (proc,
+		  inf.grob ()->self_scm (),
+		  d->self_scm (), 
+		  context ()->self_scm ());
     }
 }
 
@@ -77,12 +62,20 @@ Output_property_engraver::Output_property_engraver ()
 {
 }
 
-#include "translator.icc"
-ADD_ACKNOWLEDGER (Output_property_engraver,grob)
+ADD_ACKNOWLEDGER (Output_property_engraver,grob);
 ADD_TRANSLATOR (Output_property_engraver,
-/* doc */ "Interpret Music of Output_property type, and apply a function "
-" to any Graphic objects that satisfies the predicate.",
-/* create */ "",
-/* accept */ "layout-instruction",
-/* read */ "",
-/* write */       "");
+
+		/* doc */
+		"Apply a procedure to any grob acknowledged. ",
+		
+		/* create */
+		"",
+		
+		/* accept */
+		"layout-instruction",
+		
+		/* read */
+		"",
+		
+		/* write */
+		"");

@@ -170,7 +170,7 @@ centered, X==1 is at the right, X == -1 is at the left."
   (let* ((bn (ly:context-property tr 'currentBarNumber)))
     (ly:context-set-property! tr 'barNumberVisibility (modulo-bar-number-visible n (modulo bn n)))))
 
-(define-public (default-bar-number-visibility barnum) (> barnum 1))
+(define-public (first-bar-number-invisible barnum) (> barnum 1))
 
 ;; See documentation of Item::visibility_lambda_
 (define-public begin-of-line-visible
