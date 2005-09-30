@@ -6,10 +6,9 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "engraver.hh"
 #include "note-column.hh"
 #include "note-collision.hh"
-
-#include "engraver.hh"
 #include "axis-group-interface.hh"
 
 class Collision_engraver : public Engraver

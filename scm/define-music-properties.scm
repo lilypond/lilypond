@@ -73,7 +73,6 @@ For chord inversions, this is negative.")
 It must take a single argument, being the context.")
      (property-operations ,list?
 			  "Do these operations for instantiating the context.")
-     (predicate ,procedure? "the predicate of a \\outputproperty.")
      (quoted-events ,vector? "A vector of with moment/event-list entries.")
      (quoted-music-name ,string? "The name of the voice to quote.")
      (quoted-voice-direction ,ly:dir? "Should the quoted voice be up-stem or down-stem?")
