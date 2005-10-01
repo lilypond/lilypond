@@ -1,5 +1,11 @@
 2005-10-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/global.itely (Paper size): explain how to add
+	sizes.
+
+	* scm/paper.scm (paper-alist): rename tabloid paper to 11x17 to
+	correspond to GS's definition.
+
 	* lily/tuplet-bracket.cc (after_line_breaking): suicide empty
 	tuplet bracket.
 	(print): only connect to next bracket if the next one is alive.

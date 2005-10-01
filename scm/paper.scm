@@ -79,7 +79,8 @@
     ("a3" . (cons (* 297.9 mm) (* 420 mm)))
     ("legal" . (cons (* 8.5 in) (* 14.0 in)))
     ("letter" . (cons (* 8.5 in) (* 11.0 in)))
-    ("tabloid" . (cons (* 11.0 in) (* 17.0 in)))))
+    ("11x17" . (cons (* 11.0 in) (* 17.0 in)))
+    ))
 
 ;; todo: take dimension arguments.
 

@@ -2566,3 +2566,12 @@ def conv (str):
 
 conversions.append (((2, 7, 10), conv,
 		     '''\\applyxxx -> \\applyXxx'''))
+
+
+
+def conv (str):
+	str = re.sub(r'\"tabloid\"', '"11x17"', str)
+	return str
+
+conversions.append (((2, 7, 11), conv,
+		     '''\"tabloid\" -> \"11x17\"'''))
