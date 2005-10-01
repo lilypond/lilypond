@@ -218,9 +218,9 @@
    putter
    (format "\\lybox{~a}{~a}{%\n"
 	   (ly:number->string
-	    (max 0 (interval-end (ly:paper-system-extent line X))))
+	    (max 0 (interval-end (paper-system-extent line X))))
 	   (ly:number->string
-	    (interval-length (ly:paper-system-extent line Y)))))
+	    (interval-length (paper-system-extent line Y)))))
 
   (ly:outputter-dump-stencil putter (ly:paper-system-stencil line))
   (ly:outputter-dump-string

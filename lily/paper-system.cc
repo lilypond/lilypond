@@ -20,10 +20,19 @@ Paper_system::Paper_system (Stencil s, SCM immutable_init)
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = immutable_init;
   smobify_self ();
-  stencil_ = s;
-  init_vars ();
-}
 
+  SCM yext = get_property ("Y-extent");
+
+  if (is_number_pair (yext))
+    {
+      
+      Box b = s.extent_box();
+      b[Y_AXIS] = ly_scm2interval (yext);
+
+      s = Stencil (b, s.expr ());
+    }
+  set_property ("stencil", s.smobbed_copy ());
+}
 
 Paper_system::~Paper_system ()
 {
@@ -34,8 +43,7 @@ Paper_system::mark_smob (SCM smob)
 {
   Paper_system *system = (Paper_system *) SCM_CELL_WORD_1 (smob);
   scm_gc_mark (system->mutable_property_alist_);
-  scm_gc_mark (system->immutable_property_alist_);
-  return system->stencil_.expr ();
+  return system->immutable_property_alist_;
 }
 
 int
@@ -51,25 +59,10 @@ Paper_system::print_smob (SCM smob, SCM port, scm_print_state*)
   return 1;
 }
 
-
-Stencil
-Paper_system::to_stencil () const
-{
-  return stencil_;
-}
-
 void
 Paper_system::init_vars ()
 {
-  SCM yext = get_property ("Y-extent");
 
-  if (is_number_pair (yext))
-    {
-      Box b = stencil_.extent_box();
-      b[Y_AXIS] = ly_scm2interval (yext);
-      
-      stencil_ = Stencil (b, stencil_.expr ());
-    }
 }
 
 SCM

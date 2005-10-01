@@ -8,26 +8,6 @@
 
 #include "paper-system.hh"
 
-LY_DEFINE (ly_paper_system_height, "ly:paper-system-extent",
-	   2, 0, 0, (SCM system, SCM axis),
-	   "Return the extent of @var{system}.")
-{
-  Paper_system *ps = unsmob_paper_system (system);
-  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  Axis ax = (Axis)scm_to_int (axis);
-  return ly_interval2scm (ps->to_stencil ().extent (ax));
-}
-
-LY_DEFINE (ly_paper_system_stencil, "ly:paper-system-stencil",
-	   1, 0, 0, (SCM system),
-	   "Return the height of @var{system}.")
-{
-  Paper_system *ps = unsmob_paper_system (system);
-  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
-  return ps->to_stencil ().smobbed_copy ();
-}
-
 
 
 LY_DEFINE (ly_paper_system_property, "ly:paper-system-property",
