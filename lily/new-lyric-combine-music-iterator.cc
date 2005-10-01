@@ -160,7 +160,9 @@ void
 Lyric_combine_music_iterator::find_voice ()
 {
   SCM voice_name = lyricsto_voice_name_;
-  SCM running = lyrics_context_ ? lyrics_context_->get_property ("associatedVoice") : SCM_EOL;
+  SCM running = lyrics_context_
+    ? lyrics_context_->get_property ("associatedVoice")
+    : SCM_EOL;
 
   if (scm_is_string (running))
     voice_name = running;
