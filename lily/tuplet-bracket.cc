@@ -209,7 +209,12 @@ Tuplet_bracket::print (SCM smob)
 	  /*
 	    TODO: make padding tunable?
 	  */
-	  x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS) [LEFT] - 1.0;
+	  Real padding = 1.0;
+
+	  if (bounds[d]->break_status_dir ())
+	    padding = 0.0;
+	  
+	  x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS) [LEFT] - padding;
 	}
     }
   while (flip (&d) != LEFT);

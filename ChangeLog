@@ -3,6 +3,9 @@
 	* lily/tuplet-bracket.cc (after_line_breaking): suicide empty
 	tuplet bracket.
 	(print): only connect to next bracket if the next one is alive.
+	(print): set padding to 0.0 if the bound is a breakable
+	column. This makes tupletFullLength brackets reach up to the staff
+	line if it doesn't connect to the next line.
 
 2005-09-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
