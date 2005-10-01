@@ -167,9 +167,28 @@ Tuplet_bracket::print (SCM smob)
       x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
       Direction break_dir = bounds[d]->break_status_dir ();
       Spanner *orig_spanner = dynamic_cast<Spanner *> (me->original_);
+
+      int neighbor_idx = me->get_break_index () - break_dir;
+
+      /*
+	UGH. dependency handling.
+       */
+      if (break_dir
+	  && d == RIGHT
+	  && neighbor_idx < orig_spanner->broken_intos_.size ())
+	{
+	  Grob *neighbor = orig_spanner->broken_intos_[neighbor_idx];
+
+	  // ugh, should inspect callback?  
+	  Tuplet_bracket::after_line_breaking (neighbor->self_scm ());
+	}
+
       connect_to_other[d]
 	= (break_dir
-	   && (me->get_break_index () - break_dir < orig_spanner->broken_intos_.size ()));
+	   && (neighbor_idx < orig_spanner->broken_intos_.size ()
+	       && neighbor_idx >= 0)
+	   && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
+	   
 
       if (connect_to_other[d])
 	{
@@ -554,13 +573,18 @@ Tuplet_bracket::before_line_breaking (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Tuplet_bracket, after_line_breaking, 1);
-
 SCM
 Tuplet_bracket::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "note-columns", columns);
 
+  if (columns.is_empty())
+    {
+      me->suicide ();
+      return SCM_UNSPECIFIED;
+    }
+  
   Direction dir = get_grob_direction (me);
   if (!dir)
     {
