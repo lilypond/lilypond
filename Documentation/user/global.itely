@@ -220,8 +220,12 @@ block is at the top of the file, then it will apply to all pages.  If the
 @code{\paper} block is inside a @code{\book}, then the paper size will only
 apply to that book.
 
-The following paper sizes are supported: @code{a6}, @code{a5}, @code{a4},
-@code{a3}, @code{legal}, @code{letter}, @code{tabloid}.
+Support for the following paper sizes are included by default,
+@code{a6}, @code{a5}, @code{a4}, @code{a3}, @code{legal}, @code{letter},
+@code{11x17} (also known as tabloid).
+
+Extra sizes may be added by editing the definition for
+@code{paper-alist} in the initialization file @file{scm/paper.scm}.
 
 @cindex orientation
 @cindex landscape
