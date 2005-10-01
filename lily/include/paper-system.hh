@@ -20,7 +20,6 @@
 class Paper_system
 {
   DECLARE_SMOBS (Paper_system,);
-  Stencil stencil_;
   SCM mutable_property_alist_;
   SCM immutable_property_alist_;
 
@@ -28,12 +27,8 @@ class Paper_system
 public:
 
   Paper_system (Stencil, SCM);
-  Stencil to_stencil () const;
-  SCM stencils () const;
   SCM internal_get_property (SCM sym) const;
   void internal_set_property (SCM sym, SCM val);
-  bool is_title () const;
-
   Real break_before_penalty () const;
 };
 

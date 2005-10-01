@@ -1,5 +1,7 @@
 2005-10-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/paper-system-scheme.cc (LY_DEFINE): remove ly:paper-system-{extent,stencil}
+
 	* Documentation/user/global.itely (Paper size): explain how to add
 	sizes.
 

@@ -221,7 +221,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (shift-right-at-line-begin g)
   "Shift an item to the right, but only at the start of the line."
-  (if (and (ly:item? g)  (equal? (ly:item-break-dir g) RIGHT))
+  (if (and (ly:item? g)
+	   (equal? (ly:item-break-dir g) RIGHT))
       (ly:grob-translate-axis! g 3.5 X)))
 
 

@@ -36,6 +36,7 @@
 (define-public (paper-system-staff-extents ps)
   (ly:paper-system-property ps 'refpoint-Y-extent '(0 . 0)))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (page-headfoot layout scopes number sym sepsym dir last?)
@@ -256,7 +257,7 @@ is what have collected so far, and has ascending page numbers."
 	    (list->vector
 	     (append
 	      (map
-	       (lambda (sys) (ly:paper-system-extent sys Y)) lines)
+	       (lambda (sys) (paper-system-extent sys Y)) lines)
 	      (if (= (length lines) 1)
 		  '((0 .  0))
 		  '()))))

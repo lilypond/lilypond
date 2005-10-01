@@ -100,7 +100,6 @@
    ly:layout-def?
    ly:paper-get-font
    ly:paper-get-number
-   ly:paper-system-extent
    ly:paper-system-stencil
    ly:paper-system?
    ly:output-def-lookup

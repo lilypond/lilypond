@@ -116,9 +116,12 @@
     ))
 
 
-(define-public (paper-system-title? ps)
-  (equal? #t (ly:paper-system-property ps 'is-title)
+(define-public (paper-system-title? system)
+  (equal? #t (ly:paper-system-property system 'is-title)
 	  ))
+
+(define-public (paper-system-extent system axis)
+  (ly:stencil-extent (ly:paper-system-property system 'stencil) axis))
 
 ;;;;;;;;;;;;;;;;
 ;; alist
