@@ -23,7 +23,7 @@
 
     (if (pair? systems)
 	(ly:outputter-dump-stencil outputter
-				   (ly:paper-system-stencil (car systems))))
+				   (paper-system-stencil (car systems))))
     ))
 
 (define-public output-classic-framework output-framework)

@@ -98,7 +98,7 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
   (output-scopes scopes fields basename)
   
   (dump-stencils-as-EPSes
-   (map ly:paper-system-stencil (ly:paper-book-systems book))
+   (map paper-system-stencil (ly:paper-book-systems book))
    book
    basename))
 

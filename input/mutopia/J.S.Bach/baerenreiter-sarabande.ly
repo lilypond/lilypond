@@ -174,6 +174,8 @@ smallerPaper = \layout {
   linewidth =183.5 \mm
   betweensystemspace = 25\mm 
   betweensystempadding = 0\mm
+
+%%  annotatespacing = ##t
 }
 
 \book {

@@ -340,6 +340,7 @@ top-most of the next system.
 Increasing this will put systems whose bounding boxes almost touch
 farther apart.
 
+
 @cindex @code{horizontalshift}
 @item horizontalshift
 All systems (including titles and system separators) are shifted by
@@ -528,6 +529,16 @@ then use the following
 The vertical spacing on a page can also be changed for each system individually.
 Some examples are found in the example file
 @inputfileref{input/regression/,page-spacing.ly}.
+
+When setting @code{annotatespacing} in the @code{\paper} block LilyPond
+will graphically indicate the dimensions of properties that may be set
+for page spacing,
+
+@lilypond[verbatim]
+\paper { annotatespacing = ##t }
+{ c4 }
+@end lilypond
+
 
 
 @seealso

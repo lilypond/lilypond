@@ -222,7 +222,7 @@
 	   (ly:number->string
 	    (interval-length (paper-system-extent line Y)))))
 
-  (ly:outputter-dump-stencil putter (ly:paper-system-stencil line))
+  (ly:outputter-dump-stencil putter (paper-system-stencil line))
   (ly:outputter-dump-string
    putter
    (if last?

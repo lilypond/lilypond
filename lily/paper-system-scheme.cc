@@ -8,7 +8,16 @@
 
 #include "paper-system.hh"
 
+LY_DEFINE (ly_paper_system_set_property_x, "ly:paper-system-set-property!",
+	   2, 1, 0, (SCM system, SCM sym, SCM value),
+	   "Set property @var{sym} of @var{system} to @var{value}")
+{
+  Paper_system *ps = unsmob_paper_system (system);
+  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
 
+  ps->internal_set_property (sym, value);
+  return SCM_UNSPECIFIED;
+}
 
 LY_DEFINE (ly_paper_system_property, "ly:paper-system-property",
 	   2, 1, 0, (SCM system, SCM sym, SCM dfault),

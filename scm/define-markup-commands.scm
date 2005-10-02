@@ -267,7 +267,7 @@ gsave /ecrm10 findfont
   (let* ((output (ly:score-embedded-format score layout)))
 
     (if (ly:music-output? output)
-	(ly:paper-system-stencil
+	(paper-system-stencil
 	 (vector-ref (ly:paper-score-paper-systems output) 0))
 	(begin
 	  (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
@@ -1224,3 +1224,9 @@ the elements marked in @var{indices}, which is a list of numbers."
 
     (apply ly:stencil-add
 	   (append stacked brackets))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; size indications arrow
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+

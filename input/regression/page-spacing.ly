@@ -8,6 +8,7 @@ For technical reasons, @code{outputProperty} has to be used for
 setting properties on individual object. @code{\override} may still be
 used for global overrides.
 
+By setting @code{annotatespacing}, we can see the effect of each property.
 "
 
 }
@@ -66,6 +67,7 @@ used for global overrides.
   }
   \paper {
     raggedlastbottom = ##f
+    annotatespacing = ##t
     betweensystemspace = 1.0
     #(set! text-font-defaults
       (acons

@@ -115,3 +115,50 @@ encloses the contents.
          (c `(white-text ,(* 2 scale) ,text)))
     ;;urg -- extent is not from ps font, but we hope it's close
     (ly:make-stencil c (car b) (cdr b))))
+
+(define-public (dimension-arrows destination) 
+  "Draw twosided arrow from here to @var{destination}"
+  
+  (let*
+      ((e_x 1+0i)
+       (e_y 0+1i)
+       (rotate (lambda (z ang)
+		 (* (make-polar 1 ang)
+		    z)))
+       (complex-to-offset (lambda (z)
+			    (list (real-part z) (imag-part z))))
+       
+       (z-dest (+ (* e_x (car destination)) (* e_y (cdr destination))))
+       (triangle-points '(-1+0.25i
+			  0
+			  -1-0.25i))
+       (p1s (map (lambda (z)
+		   (+ z-dest (rotate z (angle z-dest))))
+		 triangle-points))
+       (p2s (map (lambda (z)
+		   (rotate z (angle (- z-dest))))
+		   triangle-points))
+       (null (cons 0 0)) 
+       (arrow-1  
+	(ly:make-stencil
+	 `(polygon (quote ,(concatenate (map complex-to-offset p1s)))
+		   0.0
+		   #t) null null))
+       (arrow-2
+	(ly:make-stencil
+	 `(polygon (quote ,(concatenate (map complex-to-offset p2s)))
+		   0.0
+		   #t) null null ) )
+       (line (ly:make-stencil
+	      `(draw-line 0.1 0 0
+			  ,(car destination)
+			  ,(cdr destination))
+	      (cons (min 0 (car destination))
+		    (min 0 (cdr destination)))
+	      (cons (max 0 (car destination))
+		    (max 0 (cdr destination)))))
+		    
+       (result (ly:stencil-add arrow-2 arrow-1 line)))
+
+
+    result))
