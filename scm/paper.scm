@@ -73,7 +73,8 @@
     (module-define! old-mod '$defaultpaper new-paper)))
 
 (define-public paper-alist
-  '(("a6" . (cons (* 105 mm) (* 148.95 mm)))
+  '(("a7" . (cons (* 74.48 mm) (* 148.95 mm)))
+    ("a6" . (cons (* 105 mm) (* 148.95 mm)))
     ("a5" . (cons (* 148.95 mm) (* 210 mm)))
     ("a4" . (cons (* 210 mm) (* 297.9 mm)))
     ("a3" . (cons (* 297.9 mm) (* 420 mm)))

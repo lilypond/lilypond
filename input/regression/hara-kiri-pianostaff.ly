@@ -16,6 +16,7 @@ This example was done with a pianostaff, which has fixed distance
 alignment; this should not confuse the mechanism.
 "
 	  
+}
 
 \layout {
   raggedright= ##t

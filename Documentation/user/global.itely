@@ -535,6 +535,7 @@ will graphically indicate the dimensions of properties that may be set
 for page spacing,
 
 @lilypond[verbatim]
+#(set-default-paper-size "a6")
 \paper { annotatespacing = ##t }
 { c4 }
 @end lilypond
