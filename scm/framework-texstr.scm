@@ -40,7 +40,7 @@
     (ly:outputter-dump-string outputter (header basename))
     (for-each
      (lambda (system)
-       (ly:outputter-dump-stencil outputter (ly:paper-system-stencil system)))
+       (ly:outputter-dump-stencil outputter (paper-system-stencil system)))
      lines)
     (ly:outputter-dump-string outputter (footer))))
 

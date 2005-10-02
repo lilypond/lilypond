@@ -120,8 +120,11 @@
   (equal? #t (ly:paper-system-property system 'is-title)
 	  ))
 
+(define-public (paper-system-stencil system)
+  (ly:paper-system-property system 'stencil))
+
 (define-public (paper-system-extent system axis)
-  (ly:stencil-extent (ly:paper-system-property system 'stencil) axis))
+  (ly:stencil-extent (paper-system-stencil system) axis))
 
 ;;;;;;;;;;;;;;;;
 ;; alist
@@ -322,6 +325,16 @@ found."
 
 (define-public interval-start car)
 (define-public interval-end cdr)
+
+(define-public (interval-center x)
+  "Center the number-pair X, when an interval"
+  (/ (+ (car x) (cdr x)) 2))
+
+(define-public interval-start car)
+(define-public interval-end cdr)
+(define-public (interval-translate iv amount)
+  (cons (+ amount (car iv))
+	(+ amount (cdr iv))))
 
 (define (other-axis a)
   (remainder (+ a 1) 2))

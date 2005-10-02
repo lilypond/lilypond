@@ -1,6 +1,19 @@
 2005-10-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily-library.scm (interval-translate): new function
+	(interval-center): new function. 
+
+	* scm/page-layout.scm (paper-system-annotate): new function. Add
+	arrows for dimensions.
+ 
+	* scm/stencil.scm (dimension-arrows): new function.
+
+	* Documentation/user/global.itely (Vertical spacing): mention annotatespacing
+
+	* input/regression/page-spacing.ly: add annotatespacing
+
 	* lily/paper-system-scheme.cc (LY_DEFINE): remove ly:paper-system-{extent,stencil}
+	(LY_DEFINE): new function ly:paper-system-set-property!
 
 	* Documentation/user/global.itely (Paper size): explain how to add
 	sizes.

@@ -146,4 +146,10 @@ ADD_INTERFACE (Line_interface, "line-interface",
 	       "produced. If @code{dash-fraction} is negative, the line is made "
 	       "transparent.",
 
-	       "dash-period dash-fraction thickness style arrow-length arrow-width")
+	       /* properties */
+	       "dash-period "
+	       "dash-fraction "
+	       "thickness "
+	       "style "
+	       "arrow-length "
+	       "arrow-width")

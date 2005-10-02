@@ -16,9 +16,15 @@
   (make-procedure-with-setter ly:music-property
 			      ly:music-set-property!))
 
+
+;; TODO move this
 (define-public ly:grob-property
   (make-procedure-with-setter ly:grob-property
 			      ly:grob-set-property!))
+
+(define-public ly:paper-system-property
+  (make-procedure-with-setter ly:paper-system-property
+			      ly:paper-system-set-property!))
 
 (define-public (music-map function music)
   "Apply @var{function} to @var{music} and all of the music it contains.

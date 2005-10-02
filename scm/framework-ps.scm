@@ -514,7 +514,7 @@
     (dump-stencil-as-EPS
      paper
      (stack-stencils Y DOWN 0.0
-		     (map ly:paper-system-stencil (reverse to-dump-systems)))
+		     (map paper-system-stencil (reverse to-dump-systems)))
      (format "~a.preview" basename)
      #t)
 
@@ -532,7 +532,7 @@
 				(not (paper-system-title? x))) systems))
 	     (dump-me
 	      (stack-stencils Y DOWN 0.0
-			      (map ly:paper-system-stencil
+			      (map paper-system-stencil
 				   (append titles (list non-title))))))
 	(output-scopes scopes fields basename)
 	(dump-stencil-as-EPS paper dump-me

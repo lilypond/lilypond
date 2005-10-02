@@ -37,6 +37,99 @@
   (ly:paper-system-property ps 'refpoint-Y-extent '(0 . 0)))
 
 
+
+(define (paper-system-annotate system layout)
+  "Add arrows and texts to indicate which lengths are set."
+  (let*
+      ((annotations (ly:make-stencil '() (cons 0 2) (cons 0 0)))
+       (text-props (cons
+		    '((font-size . -3)
+		      (font-family . typewriter)
+		      )
+		   (layout-extract-page-properties layout)))
+       (append-stencil
+	(lambda (a b)
+	  (ly:stencil-combine-at-edge a X RIGHT b 0.5 0)))
+
+       (annotate-property
+	(lambda (name extent is-length?)
+
+	  ;; do something sensible for 0,0 intervals. 
+	  (set! extent (interval-widen extent 0.001))
+	  (let*
+	      ((annotation (interpret-markup
+			    layout text-props
+			    (make-column-markup
+			     (list
+			      (make-whiteout-markup (make-simple-markup name))
+			      (make-whiteout-markup
+			       (make-simple-markup
+				(if is-length?
+				    (format "~$" (interval-length extent))
+				    (format "(~$,~$)" (car extent) (cdr extent)))))))))
+	    
+	       
+	       (arrows
+		(ly:stencil-translate-axis 
+		 (dimension-arrows (cons 0 (interval-length extent)))
+		 (interval-start extent) Y))
+	       )
+
+	    (set! annotation
+		  (ly:stencil-aligned-to annotation Y CENTER))
+	    (set! annotation
+		  (ly:stencil-translate annotation (cons 0 (interval-center extent))))
+
+
+	    (set! annotations
+		  (append-stencil annotations
+				  (append-stencil arrows annotation))))))
+
+
+       (bbox-extent (paper-system-extent system Y))
+       (refp-extent (ly:paper-system-property system 'refpoint-Y-extent))
+       (next-space (ly:paper-system-property system 'next-space
+					     (ly:output-def-lookup layout 'betweensystemspace)
+					     ))
+       (next-padding (ly:paper-system-property system 'next-padding
+					       (ly:output-def-lookup layout 'betweensystempadding)
+					       ))
+		     
+       )
+
+    (if (number-pair? bbox-extent) 
+	(annotate-property "Y-extent"
+			   bbox-extent #f))
+
+    ;; titles don't have a refpoint-Y-extent.
+    (if (number-pair? refp-extent)
+	(begin
+	  (annotate-property "refpoint-Y-extent"
+			     refp-extent #f)
+	
+	  (annotate-property "next-space"
+			     (interval-translate (cons (- next-space) 0) (car refp-extent))
+		       #t)))
+	
+    
+    (annotate-property "next-padding"
+		       (interval-translate (cons (- next-padding) 0) (car bbox-extent))
+		       #t)
+    
+
+    (set! (ly:paper-system-property system 'stencil)
+	  (ly:stencil-add
+	   (ly:paper-system-property system 'stencil)
+	   (ly:make-stencil
+	    (ly:stencil-expr annotations)
+	    (ly:stencil-extent empty-stencil X)
+	    (ly:stencil-extent empty-stencil Y)
+	    )))
+    
+    ))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (page-headfoot layout scopes number sym sepsym dir last?)
@@ -85,6 +178,9 @@
 create offsets.
  "
 
+  (if (eq? #t (ly:output-def-lookup layout 'annotatespacing))
+      (for-each (lambda (sys) (paper-system-annotate sys layout))
+		lines))
   (let* ((topmargin (ly:output-def-lookup layout 'topmargin))
 
        ;; TODO: naming vsize/hsize not analogous to TeX.
@@ -135,7 +231,7 @@ create offsets.
 	 (add-system
 	  (lambda (stencil-position)
 	    (let* ((system (car stencil-position))
-		   (stencil (ly:paper-system-stencil system))
+		   (stencil (paper-system-stencil system))
 		   (y (cadr stencil-position))
 		   (is-title (paper-system-title?
 			      (car stencil-position))))
