@@ -21,11 +21,11 @@ ADD_INTERFACE(Laissez_vibrer_tie,
 
 	      /* properties */
 	      "control-points "
-	      "details "
-	      "thickness "
-	      "x-gap "
+	      "direction "
 	      "details "
 	      "note-head "
+	      "thickness "
+	      "x-gap "
 	      );
 
 MAKE_SCHEME_CALLBACK (Laissez_vibrer_tie, print, 1);

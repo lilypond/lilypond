@@ -97,10 +97,14 @@
 		     
        )
 
-    (if (number-pair? bbox-extent) 
-	(annotate-property "Y-extent"
-			   bbox-extent #f))
-
+    (if (number-pair? bbox-extent)
+	(begin
+	  (annotate-property "Y-extent"
+			     bbox-extent #f)
+	  (annotate-property "next-padding"
+			     (interval-translate (cons (- next-padding) 0) (car bbox-extent))
+			     #t)))
+    
     ;; titles don't have a refpoint-Y-extent.
     (if (number-pair? refp-extent)
 	(begin
@@ -111,10 +115,6 @@
 			     (interval-translate (cons (- next-space) 0) (car refp-extent))
 		       #t)))
 	
-    
-    (annotate-property "next-padding"
-		       (interval-translate (cons (- next-padding) 0) (car bbox-extent))
-		       #t)
     
 
     (set! (ly:paper-system-property system 'stencil)
