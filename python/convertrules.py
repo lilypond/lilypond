@@ -2575,3 +2575,10 @@ def conv (str):
 
 conversions.append (((2, 7, 11), conv,
 		     '''\"tabloid\" -> \"11x17\"'''))
+
+def conv (str):
+	str = re.sub(r'outputProperty' , 'overrideProperty', str)
+	return str
+
+conversions.append (((2, 7, 12), conv,
+		     '''outputProperty -> overrideProperty'''))

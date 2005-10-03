@@ -98,7 +98,6 @@
 				    #t)
 	       #f)))
     
-    (display (list y-extent bottomspace))
     (if arrow
 	(set! stencil
 	      (ly:stencil-add stencil arrow)))
@@ -373,15 +372,15 @@ create offsets.
 
     (map add-system (zip lines offsets))
 
-    
-    (set!
-     page-stencil
-     (annotate-space-left page-stencil layout
-			  (- bottom-edge
-			     (if (ly:stencil? foot)
-				 (interval-length (ly:stencil-extent foot Y))
-				 0))))
-    
+    (if (annotate? layout)
+	(set!
+	 page-stencil
+	 (annotate-space-left page-stencil layout
+			      (- bottom-edge
+				 (if (ly:stencil? foot)
+				     (interval-length (ly:stencil-extent foot Y))
+				     0)))
+	 ))
 
     
     (if (and (ly:stencil? foot)

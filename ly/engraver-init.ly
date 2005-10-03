@@ -281,6 +281,8 @@ contained staves are not connected vertically."
   verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
   \override VerticalAlignment #'forced-distance = #12
   \override VerticalAlignment #'self-alignment-Y = #0
+  \override VerticalAlignment #'after-line-breaking-callback
+     = #Align_interface::stretch_after_break
 
   \consists "Vertical_align_engraver"
   \consists "Instrument_name_engraver"
