@@ -64,7 +64,7 @@ applyOutput =
                   'origin location
                   'procedure proc))
 
-outputProperty =
+overrideProperty =
 #(def-music-function (parser location name property value)
    (string? symbol? scheme?)
 

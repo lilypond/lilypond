@@ -45,6 +45,10 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item  
+Vertical alignments of staves may be tuned for individual systems
+easily.
+
 
 @item 
 Vertical spacing for page layout can now be tuned for each system
@@ -58,7 +62,7 @@ individually.  The dimensions that can be tuned can be visualized.
 }
 @end lilypond
 
-This feature was sponsored by Trevor Baca and Nicolas Sceaux.
+This feature was sponsored by Trevor Bača and Nicolas Sceaux.
 
 @item
 The slope of a stem-tremolo may be set manually
@@ -114,7 +118,7 @@ specify tie formatting
 @end lilypond
 
 This improvement has been sponsored by Bertalan Fodor, Jay Hamilton,
-Kieren MacMillan, Steve Doonan, Trevor Baca, and Vicente Solsona
+Kieren MacMillan, Steve Doonan, Trevor Bača, and Vicente Solsona
 Dell¡.
 
 @item
@@ -130,7 +134,7 @@ staff lines, flags and dots, without compromising their shape.
 @end lilypond
 
 This improvement has been sponsored by Bertalan Fodor, Jay Hamilton,
-Kieren MacMillan, Steve Doonan, Trevor Baca, and Vicente Solsona
+Kieren MacMillan, Steve Doonan, Trevor Bača, and Vicente Solsona
 Dell¡.
  
 
@@ -176,7 +180,7 @@ Tuplets can be made to reach the next non-tuplet note by setting the
 }
 @end lilypond  
 
-This feature was sponsored by Trevor Baca. 
+This feature was sponsored by Trevor Bača. 
 
 @item
 When @code{strict-note-spacing} is set, notes are spaced without regard
@@ -187,7 +191,7 @@ for clefs, bar lines, and grace notes. For example,
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
 
-This feature was sponsored by Trevor Baca. 
+This feature was sponsored by Trevor Bača. 
 
 @item
 Beams support the @code{break-overshoot} property, for example
@@ -198,7 +202,7 @@ Beams support the @code{break-overshoot} property, for example
 c2.. c8[ \break c]
 @end lilypond
  
-This feature was sponsored by Trevor Baca. 
+This feature was sponsored by Trevor Bača. 
 
 @item
 Proportional notation is supported.  Notes can be spaced proportional
@@ -213,7 +217,7 @@ to their time-difference by assigning a duration to
 >>
 @end lilypond
 
-This feature was sponsored by Trevor Baca.
+This feature was sponsored by Trevor Bača.
 
 @item 
 Symbol sizes (e.g. accidentals) are disregarded for spacing if
@@ -231,7 +235,7 @@ Symbol sizes (e.g. accidentals) are disregarded for spacing if
 >>
 @end lilypond
 
-This feature was sponsored by Trevor Baca.
+This feature was sponsored by Trevor Bača.
  
 @item
 Endings of broken tuplet brackets can be tuned.  For example, you can
@@ -247,7 +251,7 @@ add arrows to the brackets,
 }
 @end lilypond
 
-This feature was sponsored by Trevor Baca.
+This feature was sponsored by Trevor Bača.
 
 
 @item @textanchor{arrow-glyph}
@@ -262,7 +266,7 @@ Arrow heads were added to the Feta font.
 }
 @end lilypond
 
-These glyphs have been sponsored by Trevor Baca.
+These glyphs have been sponsored by Trevor Bača.
 
 
 @item
@@ -276,8 +280,6 @@ Nested tuplets are automatically positioned,
 }
 @end lilypond
 
-@c This feature was sponsored by Trevor Baca.
-@c where does this fail?
 This feature was sponsored by Trevor Bača.
 
 @item

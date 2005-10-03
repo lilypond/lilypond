@@ -7,13 +7,19 @@
 */
 
 #include "align-interface.hh"
-
 #include "spanner.hh"
 #include "item.hh"
 #include "axis-group-interface.hh"
 #include "pointer-group-interface.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "grob-array.hh"
+
+/*
+  TODO: for vertical spacing, should also include a rod & spring
+  scheme of sorts into this: the alignment should default to a certain
+  distance between element refpoints, unless bbox force a bigger
+  distance.
+ */
 
 MAKE_SCHEME_CALLBACK (Align_interface, alignment_callback, 2);
 SCM
@@ -68,8 +74,7 @@ Align_interface::stretch_after_break (SCM grob)
 
       Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					       DOWN);
-  
-      Real delta  = extra_space / elems.size();
+      Real delta  = extra_space / elems.size() * stacking_dir;
       for (int i = 0; i < elems.size (); i++)
 	elems[i]->translate_axis (i * delta, Y_AXIS);
     }
@@ -85,11 +90,8 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 {
   me->set_property ("positioning-done", SCM_BOOL_T);
 
-  SCM d = me->get_property ("stacking-dir");
-
-  Direction stacking_dir = scm_is_number (d) ? to_dir (d) : CENTER;
-  if (!stacking_dir)
-    stacking_dir = DOWN;
+  Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
+					   DOWN);
 
   Real dy = robust_scm2double (me->get_property ("forced-distance"), 0.0);
 
@@ -172,11 +174,8 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   
   me->set_property ("positioning-done", SCM_BOOL_T);
   
-  SCM d = me->get_property ("stacking-dir");
-
-  Direction stacking_dir = scm_is_number (d) ? to_dir (d) : CENTER;
-  if (!stacking_dir)
-    stacking_dir = DOWN;
+  Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
+					       DOWN);
 
   Interval threshold = robust_scm2interval (me->get_property ("threshold"),
 					    Interval (0, Interval::infinity ()));
@@ -308,9 +307,16 @@ find_fixed_alignment_parent (Grob *g)
   return 0;
 }
 
-ADD_INTERFACE (Align_interface, "align-interface",
+ADD_INTERFACE (Align_interface,
+	       "align-interface",
+	       
 	       "Order grobs from top to bottom, left to right, right to left or bottom "
-	       "to top.",
+	       "to top.  "
+	       "For vertical alignments of staves, the @code{break-system-details} of "
+	       "the left @internalsref{NonMusicalPaperColumn} may be set to tune vertical spacing "
+	       "Set @code{alignment-extra-space} to add extra space for staves. Set "
+	       "@code{fixed-alignment-extra-space} to force staves in PianoStaves further apart."
+	       ,
 	       
 	       /*
 		 properties

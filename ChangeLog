@@ -1,5 +1,17 @@
 2005-10-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/alignment-vertical-spacing.ly: new file.
+
+	* python/convertrules.py (conv): add rule.
+
+	* ly/music-functions-init.ly: rename outputProperty to overrideProperty
+
+	* lily/align-interface.cc (stretch_after_break): new
+	function. Read fixed-alignment-extra-space property.
+	(align_elements_to_extents): read alignment-extra-space property.
+
+	* lily/lily-guile.cc (robust_scm2dir): new function.
+
 	* scm/page-layout.scm (page-headfoot): annotate headsep and footsep.
 	(annotate-space-left): new function. Annotate space left on page. 
 	(annotate-y-interval): new function.
