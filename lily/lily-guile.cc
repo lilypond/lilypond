@@ -613,6 +613,14 @@ robust_scm2double (SCM k, double x)
   return x;
 }
 
+Direction
+robust_scm2dir (SCM d, Direction def)
+{
+  if (is_direction (d))
+    def = to_dir (d);
+  return def;
+}
+
 Interval
 robust_scm2interval (SCM k, Drul_array<Real> v)
 {
