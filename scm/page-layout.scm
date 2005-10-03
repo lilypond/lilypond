@@ -33,58 +33,94 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (annotate? layout)
+  (eq? #t (ly:output-def-lookup layout 'annotatespacing)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define-public (paper-system-staff-extents ps)
   (ly:paper-system-property ps 'refpoint-Y-extent '(0 . 0)))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ANNOTATIONS
+;;
+;; annotations are arrows indicating the numerical value of
+;; spacing variables 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (annotate-y-interval layout name extent is-length?)
+  ;; do something sensible for 0,0 intervals. 
+  (set! extent (interval-widen extent 0.001))
+  (let*
+      ((text-props (cons
+		    '((font-size . -3)
+		      (font-family . typewriter))
+		    (layout-extract-page-properties layout)))
+       (annotation (interpret-markup
+		    layout text-props
+		    (make-column-markup
+		     (list
+		      (make-whiteout-markup (make-simple-markup name))
+		      (make-whiteout-markup
+		       (make-simple-markup
+			(if is-length?
+			    (format "~$" (interval-length extent))
+			    (format "(~$,~$)" (car extent)
+				    (cdr extent)))))))))
+       (arrows
+	(ly:stencil-translate-axis 
+	 (dimension-arrows (cons 0 (interval-length extent)))
+	 (interval-start extent) Y)))
+
+    (set! annotation
+	  (ly:stencil-aligned-to annotation Y CENTER))
+    
+    (set! annotation (ly:stencil-translate annotation
+			  (cons 0 (interval-center extent))))
+
+    (ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5 0)
+    ))
+
+(define (paper-system-annotate-last system layout)
+  (let*
+      ((bottomspace (ly:paper-system-property system 'bottom-space))
+       (y-extent (paper-system-extent system Y))
+       (x-extent (paper-system-extent system X))
+       (stencil (ly:paper-system-property system 'stencil))
+     
+       (arrow (if (number? bottomspace)
+	       (annotate-y-interval layout
+				    "bottom-space"
+				    (cons (- (car y-extent) bottomspace)
+					  (car y-extent))
+				    #t)
+	       #f)))
+    
+    (display (list y-extent bottomspace))
+    (if arrow
+	(set! stencil
+	      (ly:stencil-add stencil arrow)))
+
+    (set! (ly:paper-system-property system 'stencil)
+	  stencil)
+  ))
+  
 (define (paper-system-annotate system layout)
   "Add arrows and texts to indicate which lengths are set."
   (let*
       ((annotations (ly:make-stencil '() (cons 0 2) (cons 0 0)))
-       (text-props (cons
-		    '((font-size . -3)
-		      (font-family . typewriter)
-		      )
-		   (layout-extract-page-properties layout)))
        (append-stencil
 	(lambda (a b)
 	  (ly:stencil-combine-at-edge a X RIGHT b 0.5 0)))
 
        (annotate-property
 	(lambda (name extent is-length?)
-
-	  ;; do something sensible for 0,0 intervals. 
-	  (set! extent (interval-widen extent 0.001))
-	  (let*
-	      ((annotation (interpret-markup
-			    layout text-props
-			    (make-column-markup
-			     (list
-			      (make-whiteout-markup (make-simple-markup name))
-			      (make-whiteout-markup
-			       (make-simple-markup
-				(if is-length?
-				    (format "~$" (interval-length extent))
-				    (format "(~$,~$)" (car extent) (cdr extent)))))))))
-	    
-	       
-	       (arrows
-		(ly:stencil-translate-axis 
-		 (dimension-arrows (cons 0 (interval-length extent)))
-		 (interval-start extent) Y))
-	       )
-
-	    (set! annotation
-		  (ly:stencil-aligned-to annotation Y CENTER))
-	    (set! annotation
-		  (ly:stencil-translate annotation (cons 0 (interval-center extent))))
-
-
-	    (set! annotations
-		  (append-stencil annotations
-				  (append-stencil arrows annotation))))))
-
+	  (set! annotations
+		(append-stencil annotations
+				(annotate-y-interval layout
+						     name extent is-length?)))))
 
        (bbox-extent (paper-system-extent system Y))
        (refp-extent (ly:paper-system-property system 'refpoint-Y-extent))
@@ -99,9 +135,9 @@
 
     (if (number-pair? bbox-extent)
 	(begin
-	  (annotate-property "Y-extent"
-			     bbox-extent #f)
-	  (annotate-property "next-padding"
+	  (annotate-property  "Y-extent"
+			       bbox-extent #f)
+	  (annotate-property  "next-padding"
 			     (interval-translate (cons (- next-padding) 0) (car bbox-extent))
 			     #t)))
     
@@ -128,35 +164,101 @@
     
     ))
 
+(define (annotate-page layout stencil)
+  (let*
+      ((topmargin (ly:output-def-lookup layout 'topmargin))
+       (vsize (ly:output-def-lookup layout 'vsize))
+       (bottommargin (ly:output-def-lookup layout 'bottommargin))
+       (add-stencil (lambda (y)
+		      (set! stencil
+			    (ly:stencil-add stencil y))
+		      )))
 
+    (add-stencil
+     (ly:stencil-translate-axis 
+      (annotate-y-interval layout "vsize"
+			   (cons (- vsize) 0)
+			   #t)
+      1 X))
+    
+    (add-stencil
+     (ly:stencil-translate-axis 
+      (annotate-y-interval layout "topmargin"
+			   (cons (- topmargin) 0)
+			   #t)
+      2 X))
+    
+    (add-stencil
+     (ly:stencil-translate-axis 
+      (annotate-y-interval layout "bottommargin"
+			   (cons (- vsize) (- bottommargin vsize))
+			   #t)
+      2 X))
+    
+    stencil))
 
+(define (annotate-space-left page-stencil layout bottom-edge)
+  (let*
+      ((arrow (annotate-y-interval layout
+				"space left"
+				(cons (- bottom-edge)  (car (ly:stencil-extent page-stencil Y)))
+				#t)))
+    
+    (set! arrow (ly:stencil-translate-axis arrow 8 X))
+    (ly:stencil-add page-stencil arrow)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (page-headfoot layout scopes number sym sepsym dir last?)
-  "Create a stencil including separating space."
-  (let* ((header-proc (ly:output-def-lookup layout sym))
-       (sep (ly:output-def-lookup layout sepsym))
-       (stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
-       (head-stencil
-	(if (procedure? header-proc)
-	    (header-proc layout scopes number last?)
-	    #f)))
 
+(define (page-headfoot layout scopes number
+		       sym separation-symbol dir last?)
+  "Create a stencil including separating space."
+
+  (let* ((header-proc (ly:output-def-lookup layout sym))
+	 (sep (ly:output-def-lookup layout separation-symbol))
+	 (stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
+	 (head-stencil
+	  (if (procedure? header-proc)
+	      (header-proc layout scopes number last?)
+	      #f))
+	 )
+    
     (if (and (number? sep)
 	     (ly:stencil? head-stencil)
 	     (not (ly:stencil-empty? head-stencil)))
-	(set! head-stencil
-	      (ly:stencil-combine-at-edge
-	       stencil Y dir head-stencil
-	       sep 0.0)))
+
+	(begin
+	  (set! head-stencil
+		(ly:stencil-combine-at-edge
+		 stencil Y dir head-stencil
+		 sep 0.0))
+
+	  
+	  ;; add arrow markers 
+	  (if (annotate? layout)
+	      (set! head-stencil
+		    (ly:stencil-add
+		     (ly:stencil-translate-axis
+		      (annotate-y-interval layout 
+					   (symbol->string separation-symbol)
+					   (cons (min 0 (* dir sep))
+						 (max 0 (* dir sep)))
+					   #t)
+		      (/ (ly:output-def-lookup layout 'linewidth) 2)
+		      X)
+		     head-stencil
+		     ))
+	      )))
 
     head-stencil))
 
 (define-public (default-page-music-height layout scopes number last?)
   "Printable area for music and titles; matches default-page-make-stencil."
   (let* ((h (- (ly:output-def-lookup layout 'vsize)
-	     (ly:output-def-lookup layout 'topmargin)
-	     (ly:output-def-lookup layout 'bottommargin)))
+	       (ly:output-def-lookup layout 'topmargin)
+	       (ly:output-def-lookup layout 'bottommargin)))
+	 
        (head (page-headfoot layout scopes number 'make-header 'headsep UP last?))
        (foot (page-headfoot layout scopes number 'make-footer 'footsep DOWN last?))
        (available
@@ -178,9 +280,6 @@
 create offsets.
  "
 
-  (if (eq? #t (ly:output-def-lookup layout 'annotatespacing))
-      (for-each (lambda (sys) (paper-system-annotate sys layout))
-		lines))
   (let* ((topmargin (ly:output-def-lookup layout 'topmargin))
 
        ;; TODO: naming vsize/hsize not analogous to TeX.
@@ -247,8 +346,17 @@ create offsets.
 			    (- y
 			       (cdr (paper-system-staff-extents system))))))
 	      (set! last-system system)
-	      (set! last-y y)))))
+	      (set! last-y y))))
+	 )
 
+
+    (if (annotate? layout)
+	(begin
+	  (for-each (lambda (sys) (paper-system-annotate sys layout))
+		    lines)
+	  (paper-system-annotate-last (car (last-pair lines)) layout)))
+  
+    
     (if #f
 	(display (list
 		  "leftmargin " leftmargin "rightmargin " rightmargin
@@ -264,6 +372,18 @@ create offsets.
 			    0. 0.))
 
     (map add-system (zip lines offsets))
+
+    
+    (set!
+     page-stencil
+     (annotate-space-left page-stencil layout
+			  (- bottom-edge
+			     (if (ly:stencil? foot)
+				 (interval-length (ly:stencil-extent foot Y))
+				 0))))
+    
+
+    
     (if (and (ly:stencil? foot)
 	     (not (ly:stencil-empty? foot)))
 	(set! page-stencil
@@ -275,7 +395,15 @@ create offsets.
 		      (+ (- bottom-edge)
 			 (- (car (ly:stencil-extent foot Y)))))))))
 
-    (ly:stencil-translate page-stencil (cons leftmargin 0))))
+    (set! page-stencil
+	  (ly:stencil-translate page-stencil (cons leftmargin 0)))
+
+    ;; annotation.
+    (if (annotate? layout)
+	(set! page-stencil (annotate-page layout page-stencil)))
+    
+
+    page-stencil))
 
 ;;; optimal page breaking
 

@@ -1,4 +1,15 @@
+2005-10-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/page-layout.scm (page-headfoot): annotate headsep and footsep.
+	(annotate-space-left): new function. Annotate space left on page. 
+	(annotate-y-interval): new function.
+	(paper-system-annotate-last): new function. Annotate bottom-space.
+
+	* mf/feta-beugel.mf (y): 
+
 2005-10-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PACKAGE_NAME):  release 2.7.11
 
 	* scm/lily-library.scm (interval-translate): new function
 	(interval-center): new function. 
@@ -85,7 +96,8 @@
 
 	* lily/paper-system.cc (internal_get_property): new function.
 
-	* Documentation/user/global.itely (Vertical spacing): refer to page-spacing.ly
+	* Documentation/user/global.itely (Vertical spacing): refer to
+	page-spacing.ly
 
 	* scm/page-layout.scm (ly:optimal-page-breaks): add support for
 	pagetopspace
