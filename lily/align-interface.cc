@@ -42,6 +42,44 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
 /*
   merge with align-to-extents?
 */
+MAKE_SCHEME_CALLBACK(Align_interface, stretch_after_break, 1)
+SCM
+Align_interface::stretch_after_break (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+
+  Spanner *me_spanner = dynamic_cast<Spanner *> (me);
+  extract_grob_set (me, "elements", elems);
+  if (me_spanner && elems.size ())
+    {
+      Grob *common = common_refpoint_of_array (elems, me, Y_AXIS);
+
+      /* force position callbacks */
+      for (int i = 0; i < elems.size (); i++)
+	elems[i]->relative_coordinate (common, Y_AXIS);
+
+      SCM details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+      SCM extra_space_handle = scm_assoc (ly_symbol2scm ("fixed-alignment-extra-space"), details);
+      
+      Real extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
+					    ? scm_cdr (extra_space_handle)
+					    : SCM_EOL,
+					    0.0);
+
+      Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
+					       DOWN);
+  
+      Real delta  = extra_space / elems.size();
+      for (int i = 0; i < elems.size (); i++)
+	elems[i]->translate_axis (i * delta, Y_AXIS);
+    }
+  
+  return SCM_UNSPECIFIED;
+}
+
+/*
+  merge with align-to-extents?
+*/
 void
 Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 {
@@ -73,8 +111,6 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 	force_hara_kiri_callback () (extent and offset callback) is
 	such that we might get into a loop if we call extent () or
 	offset () the elements.
-
-
       */
       if (a == Y_AXIS
 	  && Hara_kiri_group_spanner::has_interface (elems[j]))
@@ -116,14 +152,26 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 void
 Align_interface::align_elements_to_extents (Grob *me, Axis a)
 {
+  Real extra_space = 0.0;
   Spanner *me_spanner = dynamic_cast<Spanner *> (me);
   if (a == Y_AXIS
-      && me_spanner
-      && me_spanner->get_bound (LEFT)->break_status_dir () == CENTER)
-    me_spanner->warning (_ ("vertical alignment called before line-breaking. Only do cross-staff spanners with PianoStaff."));
+      && me_spanner)
+    {
+      if (me_spanner->get_bound (LEFT)->break_status_dir () == CENTER)
+	me->warning (_ ("vertical alignment called before line-breaking. "
+			"Only do cross-staff spanners with PianoStaff."));
 
+      SCM details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+      SCM extra_space_handle = scm_assoc (ly_symbol2scm ("alignment-extra-space"), details);
+
+      extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
+				       ? scm_cdr (extra_space_handle)
+				       : SCM_EOL,
+				       extra_space);
+    }
+  
   me->set_property ("positioning-done", SCM_BOOL_T);
-
+  
   SCM d = me->get_property ("stacking-dir");
 
   Direction stacking_dir = scm_is_number (d) ? to_dir (d) : CENTER;
@@ -156,19 +204,13 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
     prevent ugly cyclic dependencies that arise when you combine
     self-alignment on a child with alignment of children.
   */
-  static SCM prop_syms[2];
-
-  if (!prop_syms[0])
-    {
-      prop_syms[X_AXIS] = ly_symbol2scm ("self-alignment-X");
-      prop_syms[Y_AXIS] = ly_symbol2scm ("self-alignment-Y");
-    }
-
-  SCM align (me->internal_get_property (prop_syms[a]));
+  SCM align ((a == X_AXIS)
+	     ? me->get_property ("self-alignment-X")
+	     : me->get_property ("self-alignment-Y"));
 
   Array<Real> translates;
   Interval total;
-  Real where_f = 0;
+  Real where = 0;
 
   for (int j = 0; j < elems.size (); j++)
     {
@@ -183,12 +225,13 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
       if (j)
 	dy = min (max (dy, threshold[SMALLER]), threshold[BIGGER]);
 
-      where_f += stacking_dir * dy;
-      total.unite (dims[j] + where_f);
-      translates.push (where_f);
+      where += stacking_dir * (dy + extra_space / elems.size ());
+      total.unite (dims[j] + where);
+      translates.push (where);
     }
 
   Real center_offset = 0.0;
+  
   /*
     also move the grobs that were empty, to maintain spatial order.
   */
@@ -266,9 +309,17 @@ find_fixed_alignment_parent (Grob *g)
 }
 
 ADD_INTERFACE (Align_interface, "align-interface",
-	       "Order grobs from top to bottom, left to right, right to left or bottom"
+	       "Order grobs from top to bottom, left to right, right to left or bottom "
 	       "to top.",
-	       "forced-distance stacking-dir align-dir threshold positioning-done "
+	       
+	       /*
+		 properties
+		*/
+	       "forced-distance "
+	       "stacking-dir "
+	       "align-dir "
+	       "threshold "
+	       "positioning-done "
 	       "elements axes");
 
 struct Foobar
