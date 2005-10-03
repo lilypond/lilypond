@@ -1,5 +1,10 @@
 2005-10-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/global.itely (Vertical spacing): document
+	alignment-extra-space and fixed-alignment-extra-space.
+
+	* Documentation/topdocs/NEWS.tely (Top): add entry.
+
 	* input/regression/alignment-vertical-spacing.ly: new file.
 
 	* python/convertrules.py (conv): add rule.

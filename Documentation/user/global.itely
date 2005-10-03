@@ -483,6 +483,8 @@ systems from bumping into each other, some minimum distances are set.
 By changing these, you can put staves closer together, and thus put
 more systems onto one page.
 
+@c TODO: junk explanation of minimumVerticalExtent
+
 Normally staves are stacked vertically.  To make staves maintain a
 distance, their vertical size is padded.  This is done with the
 property @code{minimumVerticalExtent}.  It takes a pair of numbers, so
@@ -499,6 +501,40 @@ either side of the center staff line.  The argument of
 @code{minimumVerticalExtent} is interpreted as an interval, where the
 center line is the 0, so the first number is generally negative.  The
 staff can be made larger at the bottom by setting it to @code{(-6 . 4)}. 
+
+The spacing of staves in a system may also be tuned per system.  This is
+done with the command
+
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"
+#'line-break-system-details
+#'((alignment-extra-space . 15))
+@end example
+
+@noindent
+at the line break before the system to be changed. The distance
+@code{15} is distributed over all staves that have a fixed distance
+alignment.  For example,
+
+@lilypond[raggedright, fragment, relative=2, staffsize=13]
+\new StaffGroup <<
+  \new Staff { 
+    c1\break 
+        
+    \overrideProperty
+    #"Score.NonMusicalPaperColumn"
+    #'line-break-system-details
+    #'((fixed-alignment-extra-space . 15))
+
+    c\break 
+  }
+  \new Staff { c c }
+>>
+@end lilypond
+
+The distance for @code{alignment-extra-space} may also be negative.
+
 
 To change the amount of space between systems, use
 @code{betweensystemspace}.  A score with only one staff is still
@@ -535,7 +571,7 @@ will graphically indicate the dimensions of properties that may be set
 for page spacing,
 
 @lilypond[verbatim]
-#(set-default-paper-size "a6")
+#(set-default-paper-size "a7" 'landscape)
 \paper { annotatespacing = ##t }
 { c4 }
 @end lilypond
@@ -588,7 +624,7 @@ measured from the center line of each staff.
 
 The difference is demonstrated in the following example,
 @lilypond[quote,verbatim]
-\relative <<
+\relative c'' <<
   \new PianoStaff \with {
     \override VerticalAlignment #'forced-distance = #7
   } <<
@@ -603,10 +639,40 @@ The difference is demonstrated in the following example,
 @end lilypond
 
 
+It is also possible to change the distance between for each system
+individually.  This is done by including the command 
 
-@refbugs
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"
+#'line-break-system-details
+#'((fixed-alignment-extra-space . 15))
+@end example
 
-@code{forced-distance} cannot be changed per system.
+@noindent
+at the line break before the system to be changed. The distance
+@code{15} is distributed over all staves that have a fixed distance
+alignment.  For example,
+
+@lilypond[raggedright, fragment, relative=2, staffsize=13]
+\new PianoStaff <<
+  \new Staff { 
+    c1\break 
+        
+    \overrideProperty
+    #"Score.NonMusicalPaperColumn"
+    #'line-break-system-details
+    #'((fixed-alignment-extra-space . 15))
+
+    c\break 
+  }
+  \new Staff { c c }
+>>
+@end lilypond
+
+The distance for @code{fixed-alignment-extra-space} may also be
+negative.
+
 
 @node Horizontal spacing
 @subsection Horizontal Spacing

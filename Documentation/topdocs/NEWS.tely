@@ -46,9 +46,34 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 @item  
-Vertical alignments of staves may be tuned for individual systems
-easily.
+Vertical alignments of staves can now be tuned easily for individual
+systems.
 
+@lilypond[raggedright]
+#(set-global-staff-size 13)
+\relative c'' <<
+  \new PianoStaff <<
+    \new Voice  {
+      \set PianoStaff.instrument = #"piano"
+      \set PianoStaff.instr = #"pn"
+      c1_"normal"
+      
+      \overrideProperty
+      #"Score.NonMusicalPaperColumn"
+      #'line-break-system-details
+      #'((fixed-alignment-extra-space . 15))
+      c
+
+    }
+    { 
+        c1\break 
+        c\break 
+    }
+  >>
+>>
+@end lilypond
+
+This feature was sponsored by Nicolas Sceaux.
 
 @item 
 Vertical spacing for page layout can now be tuned for each system
@@ -62,7 +87,7 @@ individually.  The dimensions that can be tuned can be visualized.
 }
 @end lilypond
 
-This feature was sponsored by Trevor Bača and Nicolas Sceaux.
+These features were sponsored by Trevor Bača and Nicolas Sceaux.
 
 @item
 The slope of a stem-tremolo may be set manually
