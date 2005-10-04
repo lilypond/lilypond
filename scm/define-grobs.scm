@@ -1390,7 +1390,7 @@
 	(X-offset-callbacks . (,(lambda (g a) -0.8)))
 	(print-function . ,System_start_delimiter::print)
 	(glyph . "bracket")
-	(collapse-height . 1)
+	(collapse-height . 5.0)
 	(thickness . 0.45)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
