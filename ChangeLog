@@ -1,5 +1,10 @@
 2005-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* scm/define-grobs.scm (all-grob-descriptions): Change
+	collapse-height of the SystemStartBracket grob to 5.0, 
+	so the bracket disappears for single stave score lines (similarly
+	to SystemStartBraces). 
+
 	* Documentation/user/advanced-notation.itely (Polymetric
 	notation): Clarify the use of compressMusic.
 
