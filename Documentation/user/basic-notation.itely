@@ -1872,6 +1872,9 @@ Another option is to change the variables @code{startGraceMusic},
 @code{stopAppoggiaturaMusic}.  More information is in the file
 @file{ly/@/grace@/-init@/.ly}.
 
+@noindent
+The slash through the stem in acciaccaturas can be obtained
+in other situations by @code{\override Stem  #'stroke-style = #"grace"}.
 
 @seealso
 
@@ -1894,7 +1897,8 @@ care when you mix staves with grace notes and staves without, for example,
 @end lilypond
 
 @noindent
-This can be remedied by inserting grace skips, for the above example
+This can be remedied by inserting grace skips of the corresponding
+durations in the other staves. For the above example
 
 @example
 \new Staff @{ c4 \bar "|:" \grace s16 d4 @}
