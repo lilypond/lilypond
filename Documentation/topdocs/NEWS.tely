@@ -54,9 +54,7 @@ systems.
 \relative c'' <<
   \new PianoStaff <<
     \new Voice  {
-      \set PianoStaff.instrument = #"piano"
-      \set PianoStaff.instr = #"pn"
-      c1_"normal"
+      c1
       
       \overrideProperty
       #"Score.NonMusicalPaperColumn"
