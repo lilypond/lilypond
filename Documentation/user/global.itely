@@ -576,7 +576,10 @@ for page spacing,
 { c4 }
 @end lilypond
 
-
+@noindent
+All units dimensions are measured in staff spaces. The pairs
+(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
+@var{b} the upper edge of the interval.
 
 @seealso
 
@@ -585,7 +588,8 @@ Internals: Vertical alignment of staves is handled by the
 specifying  the vertical extent are described in connection with 
 the @internalsref{Axis_group_engraver}.
 
-Example files: @inputfileref{input/regression/,page-spacing.ly}.
+Example files: @inputfileref{input/regression/,page-spacing.ly},
+@inputfileref{input/regression/,alignment-vertical-spacing.ly}.
 
 
 @refbugs
@@ -673,6 +677,9 @@ alignment.  For example,
 The distance for @code{fixed-alignment-extra-space} may also be
 negative.
 
+@seealso
+
+Example files: @inputfileref{input/regression/,alignment-vertical-spacing.ly}.
 
 @node Horizontal spacing
 @subsection Horizontal Spacing
