@@ -1607,8 +1607,12 @@ This notation can be created by setting a common time signature for
 each staff but replacing it manually using
 @code{timeSignatureFraction} to the desired fraction.  Then the printed
 durations in each staff are scaled to the common time signature.
-The latter is done with @code{\compressMusic}, which is similar to
-@code{\times}, but does not create a tuplet bracket.
+The latter is done with @code{\compressMusic}, which is used similar
+to @code{\times}, but does not create a tuplet bracket. The syntax is
+@example
+\compressMusic #'(@var{numerator} . @var{denominator}) @var{musicexpr}
+@end example
+
 
 
 In this example, music with the time signatures of 3/4, 9/8, and 10/8 are
