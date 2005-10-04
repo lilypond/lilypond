@@ -1,5 +1,8 @@
 2005-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* scripts/lilypond-book.py: Bug fix, put the quote around the
+	actual score for LaTeX documents.
+
 	* scm/define-grobs.scm (all-grob-descriptions): Change
 	collapse-height of the SystemStartBracket grob to 5.0, 
 	so the bracket disappears for single stave score lines (similarly
