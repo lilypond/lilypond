@@ -1051,10 +1051,10 @@ class Lilypond_snippet (Snippet):
 			if VERBATIM in self.option_dict:
 				verb = self.substring ('code')
 				str += (output[LATEX][VERBATIM] % vars ())
-			if QUOTE in self.option_dict:
-				str = output[LATEX][QUOTE] % vars ()
 
 		str += (output[LATEX][OUTPUT] % vars ())
+		if QUOTE in self.option_dict:
+			str = output[LATEX][QUOTE] % vars ()
 		return str
 
 	def output_print_filename (self, format):
