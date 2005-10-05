@@ -212,7 +212,9 @@ make_lyric_combine_music (SCM name, Music *music)
 deleting them.  Let's hope that a stack overflow doesnt trigger a move
 of the parse stack onto the heap. */
 
+%left PREC_TOP
 %left ADDLYRICS
+%left PREC_BOT
 
 %union {
 	Book *book;
@@ -477,8 +479,8 @@ parser.yy:352.8-24: warning: symbol `"\\<"' used more than once as a literal str
 %type <scm> assignment_id
 %type <scm> bare_number
 %type <scm> bass_figure
-%type <scm> bass_number
 %type <scm> br_bass_figure
+%type <scm> bass_number
 %type <scm> chord_body_elements
 %type <scm> chord_item
 %type <scm> chord_items
@@ -2165,14 +2167,10 @@ tremolo_type:
 
 bass_number:
 	DIGIT   {
-		$$ = scm_number_to_string (scm_from_int ($1), scm_from_int (10));
-		$$ = scm_list_2 (ly_lily_module_constant ("number-markup"),
-				$$);
+		$$ = scm_from_int ($1);
 	}
 	| UNSIGNED {
-		$$ = scm_number_to_string (scm_from_int ($1), scm_from_int (10));
-		$$ = scm_list_2 (ly_lily_module_constant ("number-markup"),
-				$$);
+		$$ = scm_from_int ($1);
 	}
 	| STRING { $$ = $1; }
 	| full_markup { $$ = $1; }
@@ -2194,8 +2192,16 @@ bass_figure:
 		Music *bfr = MY_MAKE_MUSIC ("BassFigureEvent");
 		$$ = bfr->self_scm ();
 
-		bfr->set_property ("figure", $1);
+		if (scm_is_number ($1))
+			bfr->set_property ("figure", $1);
+		else if (Text_interface::is_markup ($1))
+			bfr->set_property ("text", $1);
+
 		bfr->unprotect ();
+	}
+	| bass_figure ']' {
+		$$ = $1;
+		unsmob_music ($1)->set_property ("bracket-stop", SCM_BOOL_T);
 	}
 	| bass_figure bass_mod {
 		Music *m = unsmob_music ($1);
@@ -2210,17 +2216,14 @@ bass_figure:
 	}
 	;
 
+
 br_bass_figure:
-	'[' bass_figure {
+	bass_figure {
+		$$ = $1;
+	}
+	| '[' bass_figure {
 		$$ = $2;
 		unsmob_music ($$)->set_property ("bracket-start", SCM_BOOL_T);
-	}
-	| bass_figure	{
-		$$ = $1;
-	}
-	| br_bass_figure ']' {
-		$$ = $1;
-		unsmob_music ($1)->set_property ("bracket-stop", SCM_BOOL_T);
 	}
 	;
 

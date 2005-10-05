@@ -159,9 +159,14 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   if (a == Y_AXIS
       && me_spanner)
     {
+#if 0
+      /*
+	TODO: messes up for figured bass alignments. 
+       */
       if (me_spanner->get_bound (LEFT)->break_status_dir () == CENTER)
 	me->warning (_ ("vertical alignment called before line-breaking. "
 			"Only do cross-staff spanners with PianoStaff."));
+#endif
 
       SCM details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
       SCM extra_space_handle = scm_assoc (ly_symbol2scm ("alignment-extra-space"), details);

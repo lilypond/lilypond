@@ -204,6 +204,47 @@
 				bass-figure-interface
 				self-alignment-interface
 				font-interface))))))
+
+    (NewBassFigure
+     . (
+	(print-function . ,Text_interface::print)
+	(meta . ((class . Item)
+		 (interfaces . (text-interface
+				rhythmic-grob-interface
+				bass-figure-interface
+				font-interface))))))
+
+    (BassFigureBracket
+     . ((print-function . ,Figured_bass_bracket::print)
+	(edge-height . (0.2 . 0.2))
+	(meta . ((class . Item)
+		 (interfaces . (figured-bass-bracket-interface)) ))
+	))
+    (BassFigureContinuation
+     . (
+	(print-function . ,Figured_bass_continuation::print)
+	(Y-offset-callbacks . (,Figured_bass_continuation::center_on_figures))
+	(meta . ((class . Spanner)
+		 (interfaces . (figured-bass-continuation-interface))
+		 ))))
+    (BassFigureLine
+     . (
+	(axes . (,Y))
+	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
+	(meta . ((class . Spanner)
+		 (interfaces . (axis-group-interface
+				))))))
+
+    (BassFigureAlignment
+     . (
+	(axes . (,Y))
+	(threshold . (2.4 . 1000))
+	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
+	(stacking-dir . -1)
+	(meta . ((class . Spanner)
+		 (interfaces . (align-interface
+				axis-group-interface))))))
+    
     (Beam
      . (
 	;; todo: clean this up a bit: the list is getting

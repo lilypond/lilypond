@@ -11,6 +11,31 @@
  "A bass figure, including bracket"
  '())
 
+
+(define-public (format-new-bass-figure figure event context)
+  (let* ((fig (ly:music-property event 'figure))
+	 (fig-markup (markup #:number (number->string figure 10)))
+
+	 (alt (ly:music-property event 'alteration))
+	 (alt-markup
+	  (if (number? alt)
+	      (alteration->text-accidental-markup alt)
+	      #f))
+	 (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
+	 
+	 )
+    
+    (if alt-markup
+	(set! fig-markup
+	      (markup #:put-adjacent fig-markup X
+		      (if (number? alt-dir)
+			  alt-dir
+			  LEFT)
+		      #:raise .33  
+		      #:pad-around 0.5 #:smaller alt-markup )))
+
+    fig-markup))
+
 (define-public (format-bass-figure figures context grob)
   ;; TODO: support slashed numerals here.
   (define (fig-to-markup fig-music)

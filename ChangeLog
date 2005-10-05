@@ -1,3 +1,18 @@
+2005-10-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/horizontal-bracket.cc (make_bracket): new function.
+
+	* scm/define-grobs.scm (all-grob-descriptions): new grobs
+	NewBassFigure, BassFigureBracket, BassFigureContinuation,
+	BassFigureLine, BassFigureAlignment
+
+	* lily/new-figured-bass-engraver.cc (process_music): new file.
+
+	* lily/figured-bass-continuation.cc: new file.
+
+	* lily/include/horizontal-bracket.hh (struct Horizontal_bracket):
+	new file.
+
 2005-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py: Bug fix, put the quote around the
