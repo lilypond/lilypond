@@ -11,6 +11,8 @@
 #include "item.hh"
 #include "context.hh"
 
+#include "translator.icc"
+
 class Figured_bass_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Figured_bass_engraver);
@@ -82,8 +84,6 @@ Figured_bass_engraver::process_music ()
 	}
     }
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Figured_bass_engraver,
 		/* doc */ "Make figured bass numbers.",

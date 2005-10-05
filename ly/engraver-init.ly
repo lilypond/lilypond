@@ -552,6 +552,7 @@ AncientRemoveEmptyStaffContext = \context {
 
 %%
   bassFigureFormatFunction = #format-bass-figure
+  newFiguredBassFormatter = #format-new-bass-figure
   metronomeMarkFormatter = #format-metronome-markup
   graceSettings = #`(
     (Voice Stem direction 1)
@@ -596,7 +597,6 @@ AncientRemoveEmptyStaffContext = \context {
   \name FiguredBass 
 
   \consists "Figured_bass_engraver"
-  \consists "Rest_swallow_translator"
   \consists "Note_swallow_translator"
   \consists "Skip_event_swallow_translator"
   \consists "Separating_line_group_engraver"

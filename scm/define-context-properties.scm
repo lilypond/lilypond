@@ -22,6 +22,11 @@
    (lambda (x)
      (apply translator-property-description x))
    `(
+
+     ;; TODO FIXME
+     (useBassFigureExtenders ,boolean? "")
+     (figuredBassAlterationDirection ,ly:dir? "")
+     
      (aDueText ,string? "Text to print at a unisono passage.")
      (alignBelowContext ,string? "Where to insert newly created context in vertiical alignment.")
      (alignAboveContext ,string? "Where to insert newly created context in vertiical alignment.")
