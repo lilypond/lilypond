@@ -46,7 +46,7 @@ struct Figure_group
 struct New_figured_bass_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS(New_figured_bass_engraver);
-  void finalize_spanners();
+  void clear_spanners();
   void add_brackets ();
 protected:
   Array<Figure_group> groups_;
@@ -57,7 +57,6 @@ protected:
   Music *rest_event_; 
   
   virtual bool try_music (Music *);
-  virtual void finalize ();
   virtual void derived_mark () const; 
   
   void start_translation_timestep ();
@@ -87,7 +86,7 @@ New_figured_bass_engraver::stop_translation_timestep ()
     found  = found  || groups_[i].current_music_;
 
   if (!found)
-    finalize_spanners (); 
+    clear_spanners (); 
 }
 
 New_figured_bass_engraver::New_figured_bass_engraver ()
@@ -126,7 +125,8 @@ New_figured_bass_engraver::try_music (Music *m)
      SCM fig = m->get_property ("figure");
      for (int i = 0; i < groups_.size (); i++)
        {
-	 if (ly_is_equal (groups_[i].number_, fig))
+	 if (!groups_[i].current_music_
+	     && ly_is_equal (groups_[i].number_, fig))
 	   {
 	     groups_[i].current_music_ = m;
 	     groups_[i].is_continuation_ =
@@ -145,8 +145,9 @@ New_figured_bass_engraver::try_music (Music *m)
      return true;
    }
 }
+
 void
-New_figured_bass_engraver::finalize_spanners ()
+New_figured_bass_engraver::clear_spanners ()
 {
   if (!alignment_)
     return;
@@ -194,21 +195,21 @@ New_figured_bass_engraver::process_music ()
 {
   if (rest_event_)
     {
-      finalize_spanners ();
+      clear_spanners ();
       return;
     }
   
   if (!continuation_
       && new_musics_.is_empty ())
     {
-      finalize_spanners ();
+      clear_spanners ();
       return;
     }
   
   Grob *muscol = dynamic_cast<Item*> (unsmob_grob (get_property ("currentMusicalColumn")));
   if (!continuation_)
     {
-      finalize_spanners ();
+      clear_spanners ();
       alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);
       alignment_->set_bound (LEFT, muscol);
     }
@@ -308,19 +309,17 @@ New_figured_bass_engraver::process_music ()
   add_brackets ();
 }
 
-void
-New_figured_bass_engraver::finalize ()
-{
-  finalize_spanners ();
-}
-
 
 ADD_TRANSLATOR (New_figured_bass_engraver,
 		/* doc */
 
 		"Make figured bass numbers.",
 		/* create */
-		"BassFigure BassFigureLine BassFigureAlignment BassFigureBracket",
+		"NewBassFigure "
+		"BassFigureAlignment "
+		"BassFigureBracket",
+		"BassFigureContinuation "
+		"BassFigureLine "
 
 		/* accept */
 		"bass-figure-event rest-event",
