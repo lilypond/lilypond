@@ -596,7 +596,8 @@ AncientRemoveEmptyStaffContext = \context {
   \type "Engraver_group"
   \name FiguredBass 
 
-  \consists "Figured_bass_engraver"
+%%  \consists "Figured_bass_engraver"
+  \consists "New_figured_bass_engraver"
   \consists "Note_swallow_translator"
   \consists "Skip_event_swallow_translator"
   \consists "Separating_line_group_engraver"

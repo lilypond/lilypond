@@ -58,7 +58,7 @@ protected:
   
   virtual bool try_music (Music *);
   virtual void derived_mark () const; 
-  
+
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_music ();
@@ -86,7 +86,7 @@ New_figured_bass_engraver::stop_translation_timestep ()
     found  = found  || groups_[i].current_music_;
 
   if (!found)
-    clear_spanners (); 
+    clear_spanners ();
 }
 
 New_figured_bass_engraver::New_figured_bass_engraver ()
@@ -226,41 +226,49 @@ New_figured_bass_engraver::process_music ()
 	  Figure_group group;
 	  groups_.push (group);
 	}
-
       
       groups_[k].current_music_ = new_musics_[i];
       groups_[k].figure_item_ = 0;
       k++;
     }
 
-  SCM proc = get_property ("newFiguredBassFormatter");
-  
-  alignment_->set_bound (RIGHT, muscol);
-  if (to_boolean (get_property ("useBassFigureExtenders")))
-  for (int i = 0; i < groups_.size(); i++)
+  for (int i = 0; i < groups_.size (); i++)
     {
-      if (groups_[i].is_continuation_)
+      if (!groups_[i].is_continuation_)
 	{
-	  if (!groups_[i].continuation_line_)
-	    {
-	      Spanner * line = make_spanner ("BassFigureContinuation", SCM_EOL);
-	      Item * item = groups_[i].figure_item_;
-	      groups_[i].continuation_line_ = line;
-	      line->set_bound (LEFT, item);
-
-	      /*
-		Don't add as child. This will cache the wrong
-		(pre-break) stencil when callbacks are triggered.
-	       */
-	      line->set_parent (groups_[i].group_, Y_AXIS);
-	      Pointer_group_interface::add_grob (line, ly_symbol2scm ("figures"), item);
-	      
-	      groups_[i].figure_item_ = 0;
-	    }
+	  groups_[i].number_ = SCM_BOOL_F;
+	  groups_[i].alteration_ = SCM_BOOL_F;
 	}
-      else
-	groups_[i].continuation_line_ = 0;
     }
+
+  SCM proc = get_property ("newFiguredBassFormatter");
+  alignment_->set_bound (RIGHT, muscol);
+
+  if (to_boolean (get_property ("useBassFigureExtenders")))
+    for (int i = 0; i < groups_.size(); i++)
+      {
+	if (groups_[i].is_continuation_)
+	  {
+	    if (!groups_[i].continuation_line_)
+	      {
+		Spanner * line = make_spanner ("BassFigureContinuation", SCM_EOL);
+		Item * item = groups_[i].figure_item_;
+		groups_[i].continuation_line_ = line;
+		line->set_bound (LEFT, item);
+
+		/*
+		  Don't add as child. This will cache the wrong
+		  (pre-break) stencil when callbacks are triggered.
+		*/
+		line->set_parent (groups_[i].group_, Y_AXIS);
+		Pointer_group_interface::add_grob (line, ly_symbol2scm ("figures"), item);
+	      
+		groups_[i].figure_item_ = 0;
+	      }
+	  }
+	else
+	  groups_[i].continuation_line_ = 0;
+      }
   
   for (int i = 0; i < groups_.size(); i++)
     {
@@ -275,6 +283,7 @@ New_figured_bass_engraver::process_music ()
 	  Item *item
 	    = make_item ("NewBassFigure",
 			 group.current_music_->self_scm ());
+
 	  SCM fig = group.current_music_->get_property ("figure");
 	  if (!group.group_)
 	    {

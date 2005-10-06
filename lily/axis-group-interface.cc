@@ -77,6 +77,9 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
   return ly_interval2scm (r - my_coord);
 }
 
+/*
+  FIXME: junk this. 
+ */
 void
 Axis_group_interface::set_axes (Grob *me, Axis a1, Axis a2)
 {

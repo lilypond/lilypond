@@ -118,11 +118,13 @@ Figured_bass_continuation::print (SCM grob)
 	- me->relative_coordinate (common, X_AXIS);
     }
   while (flip (&d) !=  LEFT);
+  spanned.widen (- robust_scm2double (me->get_property ("padding"), 0.2));
   
-  Stencil extender
-    = Line_interface::make_line (thick,
-				 Offset (spanned[LEFT], 0),
-				 Offset (spanned[RIGHT], 0));
+  Stencil extender;
+  if (!spanned.is_empty ())
+    extender = Line_interface::make_line (thick,
+					  Offset (spanned[LEFT], 0),
+					  Offset (spanned[RIGHT], 0));
   
   return extender.smobbed_copy ();
 }
@@ -133,6 +135,7 @@ ADD_INTERFACE(Figured_bass_continuation,
 	      
 	      /* props */
 	      "thickness "
+	      "padding "
 	      "figures "
 	      );
 	      

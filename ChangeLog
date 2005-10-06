@@ -1,5 +1,8 @@
 2005-10-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): switch on
+	New_figured_bass_engraver by default.
+
 	* lily/ttf.cc (print_trailer): only define glyph names when
 	FT_Face has FT_FACE_FLAG_GLYPH_NAMES
 
