@@ -208,12 +208,12 @@
     (NewBassFigure
      . (
 	(print-function . ,Text_interface::print)
+	(font-size . -2)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				rhythmic-grob-interface
 				bass-figure-interface
 				font-interface))))))
-
     (BassFigureBracket
      . ((print-function . ,Figured_bass_bracket::print)
 	(edge-height . (0.2 . 0.2))
@@ -238,7 +238,7 @@
     (BassFigureAlignment
      . (
 	(axes . (,Y))
-	(threshold . (2.4 . 1000))
+	(threshold . (2 . 1000))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(stacking-dir . -1)
 	(meta . ((class . Spanner)

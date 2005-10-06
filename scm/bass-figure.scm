@@ -14,27 +14,49 @@
 
 (define-public (format-new-bass-figure figure event context)
   (let* ((fig (ly:music-property event 'figure))
-	 (fig-markup (markup #:number (number->string figure 10)))
+	 (fig-markup (if (number? figure)
+			 (markup #:number (number->string figure 10))
+			 #f
+			 ))
 
 	 (alt (ly:music-property event 'alteration))
 	 (alt-markup
 	  (if (number? alt)
-	      (alteration->text-accidental-markup alt)
+	      (markup
+		      #:general-align Y DOWN #:smaller #:smaller
+		      (alteration->text-accidental-markup alt))
+	      
 	      #f))
 	 (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
-	 
 	 )
+
+    (if (and (not fig-markup) alt-markup)
+	(begin
+	  (set! fig-markup (markup #:left-align #:pad-around 0.3 alt-markup))
+	  (set! alt-markup #f)))
+
+
+    ;; hmm, how to get figures centered between note, and
+    ;; lone accidentals too?
     
+    ;;    (if (markup? fig-markup)
+    ;;	(set!
+    ;;	 fig-markup (markup #:translate (cons 1.0 0)
+    ;;			    #:hcenter fig-markup)))
+
     (if alt-markup
 	(set! fig-markup
-	      (markup #:put-adjacent fig-markup X
+	      (markup #:put-adjacent
+		      fig-markup X
 		      (if (number? alt-dir)
 			  alt-dir
 			  LEFT)
-		      #:raise .33  
-		      #:pad-around 0.5 #:smaller alt-markup )))
+		      #:pad-around 0.2 alt-markup
+		      )))
 
-    fig-markup))
+    (if (markup?  fig-markup)
+	fig-markup
+	empty-markup)))
 
 (define-public (format-bass-figure figures context grob)
   ;; TODO: support slashed numerals here.
