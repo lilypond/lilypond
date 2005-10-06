@@ -1,3 +1,8 @@
+2005-10-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/ttf.cc (print_trailer): only define glyph names when
+	FT_Face has FT_FACE_FLAG_GLYPH_NAMES
+
 2005-10-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/horizontal-bracket.cc (make_bracket): new function.

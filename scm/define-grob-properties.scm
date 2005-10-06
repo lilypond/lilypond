@@ -535,6 +535,7 @@ function is to protect objects from being garbage collected.")
      (direction-source ,ly:grob? "in case side-relative-direction is
 set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")
+     (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
      (stem ,ly:grob? "pointer to Stem object.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
@@ -546,14 +547,17 @@ set, which grob to get the direction from .")
      (accidental-grob ,ly:grob? "Accidental for this note.")
      (bars ,ly:grob-array? "list of bar line pointers.")
      (bounded-by-me ,ly:grob-array? "list of spanners that have this
-column as start/begin point. Only columns that have grobs or act as bounds are spaced.")
+column as start/begin point. Only columns that have grobs or act as
+bounds are spaced.")
      (columns ,ly:grob-array? "list of grobs, typically containing
 paper-columns or note-column objects.")
      (conditional-elements ,ly:grob-array? "Internal use only")
-     (dependencies ,ly:grob-array? "list of score-grob pointers that indicate who to compute first for certain global passes.")
+     (dependencies ,ly:grob-array? "list of score-grob pointers that indicate
+who to compute first for certain global passes.")
      (encompass-objects ,ly:grob-array? "Objects that a slur should avoid
 in addition to notes and stems.")
-     (elements ,ly:grob-array? "list of grobs, type depending on the Grob where this is set in.")
+     (elements ,ly:grob-array? "list of grobs, type depending on the Grob
+where this is set in.")
      (heads ,ly:grob-array? "List of note heads.")
      (items-worth-living ,ly:grob-array? "A list of interesting items. If
 empty in a particular staff, then that staff is erased.")
