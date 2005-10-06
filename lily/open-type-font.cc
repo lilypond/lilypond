@@ -9,6 +9,7 @@
 #include "open-type-font.hh"
 
 #include <cstdio>
+
 using namespace std;
 
 #include <freetype/tttables.h>

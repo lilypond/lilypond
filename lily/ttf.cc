@@ -131,18 +131,22 @@ print_trailer (void *out,
     = (TT_MaxProfile *)FT_Get_Sfnt_Table (face, ft_sfnt_maxp);
 
   lily_cookie_fprintf (out, "/CharStrings %d dict dup begin\n", mp->numGlyphs);
-  for (int i = 0; i < mp->numGlyphs; i++)
-    {
-      FT_Error error = FT_Get_Glyph_Name (face, i, glyph_name, GLYPH_NAME_LEN);
 
-      if (error)
-	programming_error ("FT_Get_Glyph_Name() returned error");
-      else
-	lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
 
-      if (! (i % 5))
-	lily_cookie_fprintf (out, "\n");
-    }
+  if (face->face_flags & FT_FACE_FLAG_GLYPH_NAMES)
+    for (int i = 0; i < mp->numGlyphs; i++)
+      {
+	FT_Error error = FT_Get_Glyph_Name (face, i, glyph_name,
+					    GLYPH_NAME_LEN);
+	if (error)
+	  programming_error ("print_trailer(): FT_Get_Glyph_Name() returned error");
+	else
+	  lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
+
+	if (! (i % 5))
+	  lily_cookie_fprintf (out, "\n");
+      }
+
   lily_cookie_fprintf (out, "end readonly def\n");
   lily_cookie_fprintf (out, "FontName currentdict end definefont pop\n");
 }
