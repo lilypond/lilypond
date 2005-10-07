@@ -1,5 +1,7 @@
 2005-10-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/beam-outside-beamlets.ly: new file.
+
 	* lily/beam.cc (set_beaming): don't clip edges.
 	(connect_beams): don't clip edges.
 
