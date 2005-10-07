@@ -3986,7 +3986,7 @@ Program reference: @internalsref{Accidental_engraver} engraver and the
 @c TODO: musicological blurb about FB
 
 
-LilyPond has limited support for figured bass
+LilyPond has support for figured bass
 
 @lilypond[quote,raggedright,verbatim,fragment]
 <<
@@ -4037,12 +4037,23 @@ strings and text markups, see @ref{Overview of text markup commands}.
 \figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ + \number 6 } > }
 @end lilypond
 
+It is also possible to use continuation lines for repeated figures,
+
+@lilypond[verbatim,relative=1]
+<<
+  \new Staff { c4 c }
+  \figures {
+    \set useBassFigureExtenders = ##t 
+    <4 6> <3 6> <3 7>
+  }
+>>
+@end lilypond
 
 Although the support for figured bass may superficially resemble chord
-support, it works much simpler.  The @code{\figuremode} mode simply
-stores the numbers and @internalsref{FiguredBass} context prints
-them as entered.  There is no conversion to pitches and no
-realizations of the bass are played in the MIDI file.
+support, it is much simpler.  The @code{\figuremode} mode simply
+stores the numbers and @internalsref{FiguredBass} context prints them
+as entered.  There is no conversion to pitches and no realizations of
+the bass are played in the MIDI file.
 
 Internally, the code produces markup texts.  You can use any of the
 markup text properties to override formatting.  For example, the
@@ -4050,7 +4061,10 @@ vertical spacing of the figures may be set with @code{baseline-skip}.
 
 @seealso
 
-Program reference: @internalsref{BassFigure} object,
+Program reference: @internalsref{NewBassFigure},
+@internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
+@internalsref{BassFigureBracket}, and
+@internalsref{BassFigureContinuation} objects and
 @internalsref{FiguredBass} context.
 
 @refbugs

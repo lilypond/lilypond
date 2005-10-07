@@ -215,7 +215,7 @@
 				bass-figure-interface
 				font-interface))))))
     (BassFigureBracket
-     . ((print-function . ,Figured_bass_bracket::print)
+     . ((print-function . ,Enclosing_bracket::print)
 	(edge-height . (0.2 . 0.2))
 	(meta . ((class . Item)
 		 (interfaces . (figured-bass-bracket-interface)) ))

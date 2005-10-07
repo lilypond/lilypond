@@ -49,7 +49,7 @@ page:last?, page:page-number-string and page:page-number
 		       (list pgnum-alist)
 		       prefixed-alists
 		       (layout-extract-page-properties layout))))
-	  (display prefixed-alists)
+	  
 	  (interpret-markup layout props potential-markup))
 
 	empty-stencil))
