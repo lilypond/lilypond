@@ -17,6 +17,8 @@
 #include "align-interface.hh"
 #include "pointer-group-interface.hh"
 #include "text-interface.hh"
+#include "grob-array.hh"
+
 
 #include "translator.icc"
 
@@ -56,6 +58,9 @@ struct New_figured_bass_engraver : public Engraver
   void clear_spanners();
   void add_brackets ();
   void create_grobs ();
+
+  void center_continuations (Link_array<Spanner> const &consecutive_lines);
+  void center_repeated_continuations ();
 protected:
   Array<Figure_group> groups_;
   Spanner *alignment_;
@@ -155,12 +160,57 @@ New_figured_bass_engraver::try_music (Music *m)
 }
 
 void
+New_figured_bass_engraver::center_continuations (Link_array<Spanner> const &consecutive_lines)
+{
+  if (consecutive_lines.size () == 2)
+    {
+      Link_array<Grob> left_figs;
+      for (int j = consecutive_lines.size(); j--;)
+	left_figs.push (consecutive_lines[j]->get_bound (LEFT));
+
+      SCM  ga = Grob_array::make_array ();
+      unsmob_grob_array (ga)->set_array (left_figs);
+
+      for (int j = consecutive_lines.size(); j--;)
+	consecutive_lines[j]->set_object ("figures",
+					  unsmob_grob_array (ga)->smobbed_copy ());
+    }
+}
+
+void
+New_figured_bass_engraver::center_repeated_continuations ()
+{  
+  Link_array<Spanner> consecutive_lines;
+  for (int i = 0; i <= groups_.size(); i++)
+    {
+      if (i < groups_.size ()
+	  && groups_[i].continuation_line_
+	  && (consecutive_lines.is_empty ()
+	      || (consecutive_lines[0]->get_bound(LEFT)->get_column ()
+	          == groups_[i].continuation_line_->get_bound (LEFT)->get_column ()
+		  && consecutive_lines[0]->get_bound(RIGHT)->get_column ()
+	          == groups_[i].continuation_line_->get_bound (RIGHT)->get_column ())))
+	{
+	  consecutive_lines.push (groups_[i].continuation_line_);	  
+	}
+      else 
+	{
+	  center_continuations (consecutive_lines);
+	  consecutive_lines.clear ();
+	}
+    }
+}
+
+void
 New_figured_bass_engraver::clear_spanners ()
 {
   if (!alignment_)
     return;
   
   alignment_ = 0;
+  center_repeated_continuations();
+
+  
   groups_.clear ();
 }
 
@@ -224,6 +274,7 @@ New_figured_bass_engraver::process_music ()
   bool use_extenders = to_boolean (get_property ("useBassFigureExtenders"));
   if (!use_extenders)
     {
+      center_repeated_continuations ();
       alignment_ = 0;
       for (int i = 0; i < groups_.size (); i++)
 	{
@@ -266,31 +317,54 @@ New_figured_bass_engraver::process_music ()
     }
 
   if (use_extenders)
-    
-    for (int i = 0; i < groups_.size(); i++)
-      {
-	if (groups_[i].is_continuation ())
-	  {
-	    if (!groups_[i].continuation_line_)
-	      {
-		Spanner * line = make_spanner ("BassFigureContinuation", SCM_EOL);
-		Item * item = groups_[i].figure_item_;
-		groups_[i].continuation_line_ = line;
-		line->set_bound (LEFT, item);
+    {
+      Array<int> junk_continuations;
+      for (int i = 0; i < groups_.size(); i++)
+	{
+	  if (groups_[i].is_continuation ())
+	    {
+	      if (!groups_[i].continuation_line_)
+		{
+		  Spanner * line = make_spanner ("BassFigureContinuation", SCM_EOL);
+		  Item * item = groups_[i].figure_item_;
+		  groups_[i].continuation_line_ = line;
+		  line->set_bound (LEFT, item);
 
-		/*
-		  Don't add as child. This will cache the wrong
-		  (pre-break) stencil when callbacks are triggered.
-		*/
-		line->set_parent (groups_[i].group_, Y_AXIS);
-		Pointer_group_interface::add_grob (line, ly_symbol2scm ("figures"), item);
+		  /*
+		    Don't add as child. This will cache the wrong
+		    (pre-break) stencil when callbacks are triggered.
+		  */
+		  line->set_parent (groups_[i].group_, Y_AXIS);
+		  Pointer_group_interface::add_grob (line, ly_symbol2scm ("figures"), item);
 	      
-		groups_[i].figure_item_ = 0;
-	      }
-	  }
-	else
-	  groups_[i].continuation_line_ = 0;
-      }
+		  groups_[i].figure_item_ = 0;
+		}
+	    }
+	  else if (groups_[i].continuation_line_) 
+	    junk_continuations.push (i); 
+	}
+
+      /*
+	Ugh, repeated code.
+       */
+      Link_array<Spanner> consecutive;
+      for (int i = 0; i <= junk_continuations.size (); i++)
+	{
+	  if (i < junk_continuations.size()
+	      && (i == 0 || junk_continuations[i-1] == junk_continuations[i] - 1))
+	    consecutive.push (groups_[junk_continuations[i]].continuation_line_);
+	  else 
+	    {
+	      center_continuations (consecutive);
+	      consecutive.clear ();
+	      if (i < junk_continuations.size ())
+		consecutive.push (groups_[junk_continuations[i]].continuation_line_);
+	    }
+	}
+      for (int i = 0; i < junk_continuations.size (); i++)
+	groups_[junk_continuations[i]].continuation_line_ = 0;
+    }
+  
   create_grobs ();
   add_brackets ();
 }
