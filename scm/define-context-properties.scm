@@ -26,6 +26,7 @@
      ;; TODO FIXME
      (useBassFigureExtenders ,boolean? "")
      (figuredBassAlterationDirection ,ly:dir? "")
+     (newFiguredBassFormatter ,procedure? "")
      
      (aDueText ,string? "Text to print at a unisono passage.")
      (alignBelowContext ,string? "Where to insert newly created context in vertiical alignment.")

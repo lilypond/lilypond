@@ -1,4 +1,17 @@
+2005-10-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/titling.scm (marked-up-headfoot): change tagline
+	handling. tagline = ##f will blank the tagline as well.
+
 2005-10-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/NEWS.tely: add entry for Figured bass.
+
+	* lily/new-figured-bass-engraver.cc (struct
+	New_figured_bass_engraver): add new_music_found_ member.
+
+	* lily/lilypond-version.cc (Lilypond_version): deal with
+	incorrectly formatted version strings. 
 
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): switch on
 	New_figured_bass_engraver by default.

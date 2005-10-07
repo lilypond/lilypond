@@ -36,16 +36,11 @@ page:last?, page:page-number-string and page:page-number
 			       (cdr entry)))
 			    alist))
 		     alists))
-	       (tagline (ly:modules-lookup scopes 'tagline)) 
-	       (default-tagline (ly:output-def-lookup layout 'tagline)) 
-
 	       (pgnum-alist
 		(list
 		 (cons 'header:tagline
-		       (cond
-			((markup? tagline) tagline)
-			((markup? default-tagline) default-tagline)
-			(else "")))
+		       (ly:modules-lookup scopes 'tagline
+					  (ly:output-def-lookup layout 'tagline)))
 		 (cons 'page:last? last?)
 		 (cons 'page:page-number-string
 		       (number->string page-number))
@@ -54,7 +49,7 @@ page:last?, page:page-number-string and page:page-number
 		       (list pgnum-alist)
 		       prefixed-alists
 		       (layout-extract-page-properties layout))))
-
+	  (display prefixed-alists)
 	  (interpret-markup layout props potential-markup))
 
 	empty-stencil))

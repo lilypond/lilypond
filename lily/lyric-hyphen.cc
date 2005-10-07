@@ -23,7 +23,8 @@ Hyphen_spanner::print (SCM smob)
 			     me->get_bound (RIGHT));
 
   if (bounds[LEFT]->break_status_dir ()
-      && Paper_column::when_mom (bounds[LEFT]) == Paper_column::when_mom (bounds[RIGHT]->get_column ()))
+      && (Paper_column::when_mom (bounds[LEFT])
+	  == Paper_column::when_mom (bounds[RIGHT]->get_column ())))
     return SCM_EOL;
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);

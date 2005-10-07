@@ -28,18 +28,25 @@ struct Figure_group
   SCM number_;
   SCM alteration_;
   
-  bool is_continuation_;
   Item *figure_item_; 
   Music *current_music_;
   
   Figure_group ()
   {
-    is_continuation_ = false;
     continuation_line_ = 0;
     number_ = SCM_EOL;
     alteration_ = SCM_EOL;
     group_ = 0;
     current_music_ = 0;
+  }
+  bool is_continuation () const
+  {
+    return
+      current_music_
+      && ly_is_equal (number_,
+		      current_music_->get_property ("figure"))
+      && ly_is_equal (alteration_,
+		      current_music_->get_property ("alteration"));
   }
 };
 
@@ -48,11 +55,14 @@ struct New_figured_bass_engraver : public Engraver
   TRANSLATOR_DECLARATIONS(New_figured_bass_engraver);
   void clear_spanners();
   void add_brackets ();
+  void create_grobs ();
 protected:
   Array<Figure_group> groups_;
   Spanner *alignment_;
   Link_array<Music> new_musics_;
   bool continuation_;
+  bool new_music_found_;
+  
   Moment stop_moment_;
   Music *rest_event_; 
   
@@ -94,6 +104,7 @@ New_figured_bass_engraver::New_figured_bass_engraver ()
   alignment_ = 0;
   continuation_ = false;
   rest_event_ = 0;
+  new_music_found_ = false;
 }
 
 void
@@ -107,7 +118,6 @@ New_figured_bass_engraver::start_translation_timestep ()
   for (int i = 0; i < groups_.size (); i++)
     {
       groups_[i].current_music_ = 0;
-      groups_[i].is_continuation_ = false;
     }
   continuation_ = false;
 }
@@ -115,35 +125,33 @@ New_figured_bass_engraver::start_translation_timestep ()
 bool
 New_figured_bass_engraver::try_music (Music *m)
 {
- if (m->is_mus_type ("rest-event"))
+  new_music_found_ = true;
+  if (m->is_mus_type ("rest-event"))
     {
       rest_event_ = m;
       return true;
     }
- else
-   {
-     SCM fig = m->get_property ("figure");
-     for (int i = 0; i < groups_.size (); i++)
-       {
-	 if (!groups_[i].current_music_
-	     && ly_is_equal (groups_[i].number_, fig))
-	   {
-	     groups_[i].current_music_ = m;
-	     groups_[i].is_continuation_ =
-	       ly_is_equal (groups_[i].alteration_,
-			    m->get_property ("alteration"));
-	     
-	     continuation_ = true;
-	     return true; 
-	   }
-       }
-
-     new_musics_.push (m);
-
-     stop_moment_ = now_mom () + m->get_length ();
+  else
+    {
+      stop_moment_ = now_mom () + m->get_length ();
      
-     return true;
-   }
+      SCM fig = m->get_property ("figure");
+      for (int i = 0; i < groups_.size (); i++)
+	{
+	  if (!groups_[i].current_music_
+	      && ly_is_equal (groups_[i].number_, fig))
+	    {
+	      groups_[i].current_music_ = m;
+	     
+	      continuation_ = true;
+	      return true; 
+	    }
+	}
+
+      new_musics_.push (m);
+
+      return true;
+    }
 }
 
 void
@@ -205,15 +213,31 @@ New_figured_bass_engraver::process_music ()
       clear_spanners ();
       return;
     }
+
+  if (!new_music_found_)
+    return ;
+  new_music_found_ = false;
+
+  /*
+    Don't need to sync alignments, if we're not using extenders. 
+   */
+  bool use_extenders = to_boolean (get_property ("useBassFigureExtenders"));
+  if (!use_extenders)
+    {
+      alignment_ = 0;
+      for (int i = 0; i < groups_.size (); i++)
+	{
+	  groups_[i].group_ = 0;
+	  groups_[i].continuation_line_ = 0;
+	}
+    }
   
-  Grob *muscol = dynamic_cast<Item*> (unsmob_grob (get_property ("currentMusicalColumn")));
   if (!continuation_)
     {
       clear_spanners ();
-      alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);
-      alignment_->set_bound (LEFT, muscol);
     }
 
+  
   int k = 0;
   for (int i = 0; i < new_musics_.size (); i++)
     {
@@ -234,20 +258,18 @@ New_figured_bass_engraver::process_music ()
 
   for (int i = 0; i < groups_.size (); i++)
     {
-      if (!groups_[i].is_continuation_)
+      if (!groups_[i].is_continuation ())
 	{
 	  groups_[i].number_ = SCM_BOOL_F;
 	  groups_[i].alteration_ = SCM_BOOL_F;
 	}
     }
 
-  SCM proc = get_property ("newFiguredBassFormatter");
-  alignment_->set_bound (RIGHT, muscol);
-
-  if (to_boolean (get_property ("useBassFigureExtenders")))
+  if (use_extenders)
+    
     for (int i = 0; i < groups_.size(); i++)
       {
-	if (groups_[i].is_continuation_)
+	if (groups_[i].is_continuation ())
 	  {
 	    if (!groups_[i].continuation_line_)
 	      {
@@ -269,16 +291,27 @@ New_figured_bass_engraver::process_music ()
 	else
 	  groups_[i].continuation_line_ = 0;
       }
-  
+  create_grobs ();
+  add_brackets ();
+}
+
+void
+New_figured_bass_engraver::create_grobs () 
+{
+  Grob *muscol = dynamic_cast<Item*> (unsmob_grob (get_property ("currentMusicalColumn")));
+  if (!alignment_)
+    {
+      alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);
+      alignment_->set_bound (LEFT, muscol);
+    }
+  alignment_->set_bound (RIGHT, muscol);
+
+  SCM proc = get_property ("newFiguredBassFormatter");
   for (int i = 0; i < groups_.size(); i++)
     {
       Figure_group &group = groups_[i];
       
-      if (group.continuation_line_)
-	{
-	  group.continuation_line_->set_bound (RIGHT, muscol);
-	}
-      else if (group.current_music_)
+      if (group.current_music_)
 	{
 	  Item *item
 	    = make_item ("NewBassFigure",
@@ -312,12 +345,21 @@ New_figured_bass_engraver::process_music ()
 	  group.figure_item_ = item;
 	}
 
-      groups_[i].group_->set_bound (RIGHT, muscol);
+      if (group.continuation_line_)
+	{
+	  /*
+	    UGH should connect to the bass staff, and get the note heads. 
+	  */
+	  group.figure_item_->set_property ("transparent", SCM_BOOL_T);
+	  group.continuation_line_->set_bound (RIGHT, group.figure_item_);
+	}
+
+      
+      if (groups_[i].group_)
+	groups_[i].group_->set_bound (RIGHT, muscol);
     }
 
-  add_brackets ();
 }
-
 
 ADD_TRANSLATOR (New_figured_bass_engraver,
 		/* doc */
