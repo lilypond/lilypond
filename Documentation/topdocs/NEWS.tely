@@ -76,7 +76,7 @@ tuned separately.
 } >>
 @end lilypond
 
-This feature was sponsored by Trent Johnston.
+This rewrite was sponsored by Trent Johnston.
 
 @item  
 Vertical alignments of staves can now be tuned easily for individual
