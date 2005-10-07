@@ -91,10 +91,22 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
 
   infos_ = splits[LEFT].infos_;
   infos_.concat (splits[RIGHT].infos_);
+
+  clip_edges ();
 }
 
 void
 Beaming_info_list::add_stem (Moment m, int b)
 {
   infos_.push (Beaming_info (m, b));
+}
+
+void
+Beaming_info_list::clip_edges ()
+{
+  if (infos_.size ())
+    {
+      infos_[0].beams_i_drul_[LEFT] = 0;
+      infos_.top().beams_i_drul_[RIGHT] = 0;
+    }
 }

@@ -217,7 +217,9 @@ Beam::connect_beams (Grob *me)
 
   Slice last_int;
   last_int.set_empty ();
-  SCM last_beaming = SCM_EOL;
+  
+  //  SCM last_beaming = SCM_EOL;
+  SCM last_beaming = scm_cons (SCM_EOL, scm_list_1 (scm_from_int (0)));
   Direction last_dir = CENTER;
   for (int i = 0; i < stems.size (); i++)
     {
@@ -229,15 +231,13 @@ Beam::connect_beams (Grob *me)
 	{
 	  int start_point = position_with_maximal_common_beams
 	    (last_beaming, this_beaming,
-	     last_dir, this_dir);
+	     last_dir ? last_dir : this_dir,
+	     this_dir);
 
 	  Direction d = LEFT;
 	  Slice new_slice;
 	  do
 	    {
-	      if (d == RIGHT && i == stems.size () - 1)
-		continue;
-
 	      new_slice.set_empty ();
 	      SCM s = index_get_cell (this_beaming, d);
 	      for (; scm_is_pair (s); s = scm_cdr (s))
@@ -256,7 +256,6 @@ Beam::connect_beams (Grob *me)
 	}
       else
 	{
-	  scm_set_car_x (this_beaming, SCM_EOL);
 	  SCM s = scm_cdr (this_beaming);
 	  for (; scm_is_pair (s); s = scm_cdr (s))
 	    {
@@ -265,10 +264,7 @@ Beam::connect_beams (Grob *me)
 	      last_int.add_point (np);
 	    }
 	}
-
-      if (i == stems.size () -1)
-	scm_set_cdr_x (this_beaming, SCM_EOL);
-
+      
       if (scm_ilength (scm_cdr (this_beaming)) > 0)
 	{
 	  last_beaming = this_beaming;
@@ -444,16 +440,22 @@ Beam::print (SCM grob)
 	  if (i > 0)
 	    rw = min (nw_f, ((xposn - last_xposn) / 2));
 	  else
-	    rw = xposn - me->get_bound (LEFT)->extent (xcommon, X_AXIS)[RIGHT]
-	      + break_overshoot[LEFT];
-
+	    {
+	      if (me->get_bound (LEFT)->break_status_dir ())
+		rw = xposn - me->get_bound (LEFT)->extent (xcommon, X_AXIS)[RIGHT]
+		  + break_overshoot[LEFT];
+	      else
+		rw = 1.0; 	// ugh.
+	    }
+	  
 	  if (stem)
 	    lw = min (nw_f, ((xposn - last_xposn) / 2));
 	  else
-	    lw = me->get_bound (RIGHT)->relative_coordinate (xcommon, X_AXIS)
-	      - last_xposn
-	      + break_overshoot[RIGHT];
-
+	    {
+	      lw = me->get_bound (RIGHT)->relative_coordinate (xcommon, X_AXIS)
+		- last_xposn
+		+ break_overshoot[RIGHT];
+	    }
 	  rw += stem_width / 2;
 	  lw += last_stem_width / 2;
 
@@ -1160,7 +1162,7 @@ Beam::set_stem_lengths (Grob *me)
 }
 
 void
-Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
+Beam::set_beaming (Grob *me, Beaming_info_list const *beaming)
 {
   extract_grob_set (me, "stems", stems);
 
@@ -1173,11 +1175,6 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 
       do
 	{
-	  /* Don't set beaming for outside of outer stems */
-	  if ((d == LEFT && i == 0)
-	      || (d == RIGHT && i == stems.size () -1))
-	    continue;
-
 	  Grob *stem = stems[i];
 	  SCM beaming_prop = stem->get_property ("beaming");
 	  if (beaming_prop == SCM_EOL

@@ -218,7 +218,7 @@
      . ((print-function . ,Enclosing_bracket::print)
 	(edge-height . (0.2 . 0.2))
 	(meta . ((class . Item)
-		 (interfaces . (figured-bass-bracket-interface)) ))
+		 (interfaces . (enclosing-bracket-interface)) ))
 	))
     (BassFigureContinuation
      . (
