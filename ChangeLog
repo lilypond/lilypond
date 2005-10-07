@@ -1,5 +1,7 @@
 2005-10-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/figured-bass-continuation-center.ly: new file.
+
 	* input/regression/beam-outside-beamlets.ly: new file.
 
 	* lily/beam.cc (set_beaming): don't clip edges.
