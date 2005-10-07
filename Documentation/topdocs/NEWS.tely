@@ -45,6 +45,20 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item
+Support for figured bass has been rewritten. Now it supports continuation lines.
+
+@lilypond[raggedright,fragment]
+<<
+\relative { c4 c c c }
+\figures {
+  \set useBassFigureExtenders = ##t
+  <6+ 4 3> <6 4 3> <4 3+> 
+} >>
+@end lilypond
+
+This feature was sponsored by Trent Johnston.
+
 @item  
 Vertical alignments of staves can now be tuned easily for individual
 systems.

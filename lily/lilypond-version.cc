@@ -6,6 +6,8 @@
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include <ctype.h>
+
 #include "lilypond-input-version.hh"
 #include "string-convert.hh"
 #include "array.hh"
@@ -19,13 +21,21 @@ Lilypond_version::Lilypond_version (int major, int minor, int patch)
 
 Lilypond_version::Lilypond_version (String str)
 {
+  major_ = 0; 
+  minor_ = 0;
+  patch_ = 0;
+  
   Array<String> version;
   version = String_convert::split (str, '.');
 
-  major_ = version[0].to_int ();
-  minor_ = version[1].to_int ();
+  if (version.size () > 0 && isdigit (version[0][0]))
+    major_ = version[0].to_int ();
+  if (version.size () > 1 && isdigit (version[1][0]))
+    minor_ = version[1].to_int ();
+  
   patch_ = 0;
-  if (version.size () >= 3)
+  if (version.size () >= 3
+      && isdigit (version[2][0]))
     patch_ = version[2].to_int ();
 
   if (version.size () >= 4)

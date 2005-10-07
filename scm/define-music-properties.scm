@@ -106,8 +106,7 @@ translation property")
 			  "Change to what kind of state? Options are
 solo1, solo2 and unisono")
 
-     (figure ,markup? "a `figure' (which may be
-a string) for figured bass")
+     (figure ,integer? "a bass figure")
      (alteration ,number? "alteration for figured bass")
      (bracket-start ,boolean? "start a bracket
 here. TODO: use SpanEvents?")
