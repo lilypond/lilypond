@@ -14,8 +14,11 @@
 #include "paper-column.hh"
 #include "moment.hh"
 
-MAKE_SCHEME_CALLBACK (Hyphen_spanner, print, 1)
-  SCM
+/*
+  TODO: should extract hyphen from the font.
+ */
+MAKE_SCHEME_CALLBACK (Hyphen_spanner, print, 1);
+SCM
 Hyphen_spanner::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
@@ -128,6 +131,13 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
 }
 
 ADD_INTERFACE (Hyphen_spanner, "lyric-hyphen-interface",
-	       "A centred hyphen is a simple line between lyrics used to divide syllables",
-	       "padding thickness height dash-period minimum-length length");
+	       "A centered hyphen is a simple line between lyrics used to divide syllables",
+
+	       /* props */
+	       "padding "
+	       "thickness "
+	       "height "
+	       "dash-period "
+	       "minimum-length "
+	       "length");
 

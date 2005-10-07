@@ -24,10 +24,7 @@
    `(
 
      ;; TODO FIXME
-     (useBassFigureExtenders ,boolean? "")
-     (figuredBassAlterationDirection ,ly:dir? "")
-     (newFiguredBassFormatter ,procedure? "")
-     
+   
      (aDueText ,string? "Text to print at a unisono passage.")
      (alignBelowContext ,string? "Where to insert newly created context in vertiical alignment.")
      (alignAboveContext ,string? "Where to insert newly created context in vertiical alignment.")
@@ -110,9 +107,13 @@ returns whether the corresponding bar number should be printed")
 for the down staff of PianoStaff. Used by @code{\\autochange}")
      (trebleStaffProperties ,list? "Alist of property settings to apply
 for the up staff of PianoStaff. Used by @code{\\autochange}")
+
+     (newFiguredBassFormatter ,procedure? "Routine generating a markup
+for a bass figure.")
      (bassFigureFormatFunction ,procedure? "Procedure that is called
 to produce the formatting for a @code{BassFigure} grob. It takes a
 list of @code{BassFigureEvent}s, a context, and the grob to format.")
+     
      (beatLength ,ly:moment? "The length of one beat in this time signature.")
      (beatGrouping ,list?
 		   "List of beatgroups, e.g., in 5/8 time @code{'(2
@@ -208,6 +209,8 @@ another non-natural.")
 			  "extra vertical extent, same format as @var{minimumVerticalExtent}")
 
 
+     (figuredBassAlterationDirection ,ly:dir? "Where to put
+alterations relative to the main figure.")
      (followVoice ,boolean? "If set, note heads are tracked across staff
 switches by a thin line")
 
@@ -411,6 +414,10 @@ context Voice \\times 2/3 @{
 @@end lilypond
 @end example
 .")
+
+     (useBassFigureExtenders ,boolean? "Whether to use extender lines
+for repeated bass figures")
+
      (verticalAlignmentChildCallback ,procedure? "What callback to add
 to children of a vertical alignment.  It determines what
 procedure is used on the alignment itself.")

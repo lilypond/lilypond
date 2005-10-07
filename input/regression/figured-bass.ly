@@ -1,34 +1,43 @@
-\version "2.6.0"
+\version "2.7.12"
+
 \header {
-    texidoc = "
-Figured bass is created by the FiguredBass context which responds to
-figured bass requests and rest-requests.  You must enter these using
-the special @code{\figuremode @{ @}} mode, which allows you to type
-numbers, like @code{<4 6+>}.
 
-You can also type letters by entering quoted strings, which is shown in the
-last bass figure.
 
-" }
-\layout  { raggedright = ##t }  
+  texidoc = " Figured bass is created by the FiguredBass context which
+responds to figured bass events and rest events.  You must enter these
+using the special @code{\figuremode @{ @}} mode, which allows you to
+type numbers, like @code{<4 6+>}.
+
+You can also enter markup strings. The vertical alignment may also be
+tuned.
+
+"
+
+}
+
+
+\paper { raggedright = ##t }
+
+
 <<
-    \figures { 
-	<3 [5 7]>
-	\once \override BassFigure  #'direction = #down
-	<3 [5 7]>
-	<3 [5] 7 [9 11]>
-	<3+ 5- 7!>
-	<3 _! 5 _- 7>
-	<3 _ 5 _ 7>
-	<"V7" ["bla" 6] \markup{ \musicglyph #"rests.2"} >
-	
-    }
-    \context Voice {
-	\clef bass
-	c 4
-	c c c c c 
-	g8
-    }
+  \context Voice {
+    \clef bass
+    c 4
+    c c c c c 
+    g8
+  }
+  \figures { 
+    <3 [5 7]>
+    <3 [5] 7 [9 11]>
+    <3+ 5- 7!>
+    <3 _! 5 _- 7>
+    <3 _ 5 _ 7>
+    <"V7" ["bla" 6] \markup{ \musicglyph #"rests.2"} >
+
+    \once \override BassFigureAlignment #'stacking-dir = #UP
+    <3 [5 7]>
+    
+  }
 >>
 
 
