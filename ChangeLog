@@ -1,5 +1,10 @@
 2005-10-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/beam.cc (set_beaming): don't clip edges.
+	(connect_beams): don't clip edges.
+
+	* lily/beaming-info.cc (clip_edges): new function.
+
 	* lily/enclosing-bracket.cc (struct Enclosing_bracket): new file.
 
 	* Documentation/user/instrument-notation.itely (Figured bass):

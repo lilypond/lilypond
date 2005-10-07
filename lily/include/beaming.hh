@@ -34,6 +34,7 @@ struct Beaming_info_list
   int best_splitpoint_index (Moment &beat_length, bool subdivide) const;
   void beamify (Moment &beat_length, bool subdivide);
   void add_stem (Moment d, int beams);
+  void clip_edges ();
 };
 
 #endif /* BEAMING_HH */

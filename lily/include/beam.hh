@@ -48,7 +48,7 @@ public:
   static bool has_interface (Grob *);
   static void add_stem (Grob *, Grob *);
   static bool is_knee (Grob *);
-  static void set_beaming (Grob *, Beaming_info_list *);
+  static void set_beaming (Grob *, Beaming_info_list const *);
   static void set_stemlens (Grob *);
   static int get_beam_count (Grob *me);
   static void position_beam (Grob *me);
