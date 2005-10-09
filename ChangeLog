@@ -1,3 +1,9 @@
+2005-10-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* flower/file-name.cc (dos_to_posix)[__CYGWIN__]: Return
+	unconverted value if cygwin_conv_to_posix_path () fails.  Fixes
+	absolute file name bug.
+
 2005-09-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove

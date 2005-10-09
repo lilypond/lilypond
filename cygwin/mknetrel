@@ -17,7 +17,9 @@ save_PATH="$PATH"
 doc () {
     # doc works, but take too long to build each time
     [ "$cygwin" == "mingw" ] && return 1
-    return 0
+    #return 0
+    # doc needs > 2h to build with 2.6.3-CVS, guile-1.6.7 and only 512MB ram
+    return 1
 }
 
 preconfig () {
@@ -50,13 +52,7 @@ preconfig () {
 	    $src/configure --prefix=$prefix --enable-config=for-build)
     fi
 
-    if [ "$cygwin" == "mingw" ]; then
-	cp /usr/include/FlexLexer.h .
-	mkdir python2.3
-	cp /usr/include/python2.3/Python.h python2.3
-    fi
-
-    GUILE=$($cygwin_prefix/bin/guile-config --version 2>&1 | awk '{print $NF}')
+    GUILE=$(GUILE_LOAD_PATH=$cygwin_prefix/share/guile/* $cygwin_prefix/bin/guile-config --version 2>&1 | awk '{print $NF}')
     cat > $target-guile-config <<EOF
 [ "\$1" == "--version" ] && echo "$target-guile-config - Guile version $GUILE"
 [ "\$1" == "compile" ] && echo "-I$cygwin_prefix/include"
@@ -68,13 +64,36 @@ EOF
     build_cxx="$build_cxx -I$(pwd)"
     if [ "$cygwin" == "mingw" ]; then
 	CONFIGOPTS="--without-kpathsea $CONFIGOPTS"
-	CPPFLAGS="-DARGV0_RELOCATION=1 $CPPFLAGS"
+	#CPPFLAGS="-DARGV0_RELOCATION=1 $CPPFLAGS"
+	CONFIGOPTS="--enable-relocation $CONFIGOPTS"
 	# There's a problem with inlining the string utils.
 	# The -O2 flag is still passed by default through opt.
 	CONFIGOPTS="--disable-optimising $CONFIGOPTS"
         ## debugging
 	##opt='-g'
     fi
+    
+    if [ "$cygwin" == "mingw" ]; then
+	cp /usr/include/FlexLexer.h .
+	mkdir python2.3
+	cp /usr/include/python2.3/Python.h python2.3
+
+	CXX="$(echo $build_cxx | sed 's/ -mwindows//')" \
+	    CXX_FOR_TARGET="${build_cxx}" \
+	    CC="${build_cc}" \
+	    CC_FOR_TARGET="${build_cc}" \
+	    GCC_FOR_TARGET="${build_cc}" \
+	    RANLIB="${build_ranlib}" \
+	    RANLIB_FOR_TARGET="${build_ranlib}" \
+	    DLLWRAP="${build_dllwrap}" \
+	    AR="${build_ar}" NM="${build_nm}" \
+	    LD=$(${build_cc} -print-prog-name=ld) \
+	    $src/configure --enable-config=console $CONFIGOPTS
+
+	rm -f config.cache
+        iscygwin || crosscache
+    fi
+
     :
 }
 
@@ -83,8 +102,12 @@ prebuild () {
 
     # shortcircuit python for mingw
     if [ "$cygwin" == "mingw" ]; then
-	mkdir -p python/out
+	#sed -e s/-mwindows// < config.make > config-console.make
+	#cp config.hh config-console.hh
+
+	mkdir -p python/out python/out-console
 	touch python/out/midi.lo python/out/midi.so python/out/midi.dll
+	touch python/out-console/midi.lo python/out-console/midi.so python/out-console/midi.dll
     fi
 
     # cross-compiling: build for build-host, generate doc
@@ -103,12 +126,26 @@ prebuild () {
 	    CXX=$HOST_CXX \
 	    LDFLAGS="" \
 	    eval make conf=for-build $args) || exit 1
-	
-	mkdir -p mf/out
-	cp -pv mf/out-for-build/* mf/out
 
+	# fake mf and texi
+        mkdir -p mf/out
+	cp -pv mf/out-for-build/* mf/out
 	mkdir -p Documentation/user/out
 	cp -pv Documentation/user/out-for-build/*{tely,texi} Documentation/user/out
+    fi
+
+    if [ "$cygwin" == "mingw" ]; then
+	# fake mf and texi
+        mkdir -p mf/out-console
+	cp -pv mf/out-for-build/* mf/out-console
+	mkdir -p Documentation/user/out-console
+	cp -pv Documentation/user/out-for-build/*{tely,texi} Documentation/user/out-console
+	# fake manual pages, only works without --enable-config
+	mkdir -p scripts/out-console
+	cp scripts/out-for-build/*.1 scripts/out-console
+	mkdir -p lily/out-console
+	cp lily/out-for-build/*.1 lily/out-console
+	make conf=console || exit 1
     fi
 
     addmakeflags "target=$target" ' '
@@ -129,7 +166,24 @@ preinstall () {
 }
 
 postinstall () {
+    if [ "$cygwin" == "mingw" ]; then
+	cp $inst/usr/share/lilypond/$v/python/* $inst/usr/bin
+	install -m755 $build/lily/out/lilypond $inst/usr/bin/lilypond-windows
+	install -m755 $build/lily/out-console/lilypond $inst/usr/bin/
+    fi
+    
     extras_postinstall
+
+    if [ "$cygwin" == "mingw" ]; then
+	for i in $inst/usr/bin/*; do
+	    m=$(file -b $i)
+	    if echo "$m" | grep "guile"; then
+		mv $i $i.scm
+	    elif echo "$m" | grep "python"; then
+		mv $i $i.py
+	    fi
+	done
+    fi
 
     cd $build || exit 1
     if ! iscygwin && doc; then
@@ -172,15 +226,15 @@ extra_name () {
 }
 
 extra_split () {
-    mkdir -p 
     # should be in devel...
     mkdir -p ./$prefix/share/lilypond/$v
     for i in make python tex vim; do
-	mv $inst/$prefix/share/lilypond/$v/$i ./$prefix/share/lilypond/
+    #for i in make tex vim; do
+	mv $inst/$prefix/share/lilypond/$v/$i ./$prefix/share/lilypond/$v
     done
     mkdir -p ./$prefix/share/lilypond/$v/fonts
     for i in source svg tfm; do
-	mv $inst/$prefix/share/lilypond/$v/fonts/$i ./$prefix/share/lilypond/fonts
+	mv $inst/$prefix/share/lilypond/$v/fonts/$i ./$prefix/share/lilypond/$v/fonts
     done
 
     mkdir -p ./$prefix/share
