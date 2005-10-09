@@ -1,7 +1,6 @@
 sdesc: "A program for printing sheet music"
 category: Publishing
-requires: bash coreutils cygwin findutils ghostscript glib2-runtime libfontconfig1 libfreetype2 libguile12 libiconv2 libintl2 pango-runtime python _update-info-dir
-#requires: tetex-bin, tetex-tiny | tetex-base
+requires: bash coreutils cygwin findutils ghostscript glib2-runtime libfontconfig1 libfreetype2 libguile12 libiconv2 libintl3 pango-runtime python _update-info-dir
 #suggests: emacs gsview lilypond-doc rxvt tetex-x11 xorg-x11-base libkpathsea4
 ldesc: "A program for printing sheet music.
 LilyPond prints beautiful sheet music.  It produces music notation
