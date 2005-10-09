@@ -1,3 +1,8 @@
+2005-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/stepmake/python-module-rules.make
+	($(outdir)/%$(SHARED_MODULE_SUFFIX)): put flags after files.
+
 2005-10-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/ps-to-png.scm (make-ps-images): backport: make PS images
