@@ -950,7 +950,7 @@ fet_beginchar ("Half dohead", "d1do");
 fet_endchar;
 
 
-fet_beginchar ("Half dohead", "s1do");
+fet_beginchar ("Half dohead", "u1do");
 	draw_do_head (1.5, 1);
 	fill p_out;
 	unfill p_in;
@@ -963,7 +963,7 @@ fet_beginchar ("Quart dohead", "d2do");
 fet_endchar;
 
 
-fet_beginchar ("Quart dohead", "s2do");
+fet_beginchar ("Quart dohead", "u2do");
 	draw_do_head (1.55, 1);
 	fill p_out;
 fet_endchar;
