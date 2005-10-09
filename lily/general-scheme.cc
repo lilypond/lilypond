@@ -56,7 +56,8 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "Read the file @var{name}, and return its contents in a string.  "
 	   "The file is looked up using the search path.")
 {
-  SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (name), name,
+		   SCM_ARG1, __FUNCTION__, "string");
   String contents = gulp_file_to_string (ly_scm2string (name), true);
   return scm_from_locale_stringn (contents.get_str0 (), contents.length ());
 }

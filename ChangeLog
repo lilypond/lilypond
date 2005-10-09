@@ -1,3 +1,8 @@
+2005-10-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/ps-to-png.scm (make-ps-images): backport: make PS images
+	without globbing. 
+
 2005-10-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/file-name.cc (dos_to_posix)[__CYGWIN__]: Return

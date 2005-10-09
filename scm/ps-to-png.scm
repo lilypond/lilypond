@@ -111,6 +111,15 @@
   (delete-file old)
   ))
 
+(define-public (ps-page-count ps-name)
+  (let*
+      ((header (gulp-port (open-file ps-name "r") 10240))
+       (match (string-match "%%Pages: ([0-9]+)" header))
+       (count (if match
+		  (string->number (match:substring match 1))
+		  0)))
+    count))
+
 (define-public (make-ps-images ps-name . rest)
   (let-optional
    rest ((resolution 90)
@@ -121,19 +130,22 @@
 	 )
    
    (let* ((base (basename (re-sub "[.]e?ps" "" ps-name)))
-	  (header (gulp-port (open-file ps-name "r") 10240))
+	  (header (gulp-port (open-file ps-name "r")  10240))
 	  (png1 (string-append base ".png"))
 	  (pngn (string-append base "-page%d.png"))
-	  (pngn-re (re-sub "%d" "[0-9]*" pngn))
-	  (multi-page? (and (string-match "\n%%Pages: " header)
-			    (not (string-match "\n%%Pages: 1\n" header))))
+	  (page-count (ps-page-count ps-name))
+	  
+	  (multi-page? (> page-count 1))
 	  (output-file (if multi-page? pngn png1))
 
-	  ;;png16m is because Lily produces color nowadays.
+	  ;; png16m is because Lily produces color nowadays.
+	  ;; can't use pngalpha device, since IE is broken.
+	  ;;
 	  (gs-variable-options
 	    (if multi-page?
 		(format #f "-sPAPERSIZE=~a" paper-size)
 		"-dEPSCrop"))
+
 	  (cmd (format #f "~a\
  ~a\
  ~a\
@@ -152,10 +164,7 @@
 			   (* aa-factor resolution) ps-name))
 	  (status 0)
 	  (files '()))
-     
-     (for-each delete-file (append (dir-re "." png1)
-				   (dir-re "." pngn-re)))
-     
+
      ;; The wrapper on windows cannot handle `=' signs,
      ;; gs has a workaround with #.
      (if (eq? PLATFORM 'windows)
@@ -166,20 +175,26 @@
      (set! status (my-system verbose? #f cmd))
 
      (set! files
-	   (append (dir-re "." png1) (dir-re "." pngn-re)))
-
+	   (if multi-page?
+	       (map
+		(lambda (n)
+		  (format "~a-page~a.png" base (1+ n)))
+		(iota page-count))
+	       (list (format "~a.png" base))))
+     
      (if (not (= 0 status))
 	 (begin
 	   (map delete-file files)
 	   (exit 1)))
-     
-     (if (and rename-page-1? multi-page?)
-	 (rename-file (re-sub "%d" "1" pngn) png1))
-     
-     (set! files
-	   (append (dir-re "." png1) (dir-re "." pngn-re)))
 
-     
+     (if (and rename-page-1? multi-page?)
+	 (begin
+	   (rename-file (re-sub "%d" "1" pngn) png1)
+	   (set! files
+		 (cons png1
+		       (cdr files)))
+	   ))
+
      (if (not (= 1 aa-factor))
 	 (for-each  (lambda (f) (scale-down-image verbose? aa-factor f))
 		    files))
