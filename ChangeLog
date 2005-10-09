@@ -1,3 +1,29 @@
+2005-10-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/parser-ly-from-scheme.scm: rename from ly-from-scheme.scm
+
+	* scm/parser-clef.scm (supported-clefs): rename from clef.scm
+
+	* scm/layout-slur.scm: rename from slur.scm
+
+	* scm/layout-page-layout.scm: rename from page-layout.scm
+
+	* scm/layout-beam.scm: rename from beam.scm
+
+	* scm/define-grob-interfaces.scm (bass-figure-interface): add
+	bass-figure-interface
+
+	* lily/new-figured-bass-engraver.cc (process_music): add
+	implicitBassFigures property.
+	
+	* scm/define-markup-commands.scm (pad-x): new markup.
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): set
+	minimumVerticalExtent on FiguredBass context.
+
+	* lily/figured-bass-continuation.cc (center_on_figures): kludge in
+	case the continuation crosses a line break.
+
 2005-10-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/file-name.cc (dos_to_posix)[__CYGWIN__]: Return
@@ -5,6 +31,8 @@
 	absolute file name bug.  Backportme.
 
 2005-10-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PACKAGE_NAME): release 2.7.12
 
 	* input/regression/figured-bass-continuation-center.ly: new file.
 

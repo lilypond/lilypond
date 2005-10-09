@@ -106,6 +106,11 @@ are interesting enough to maintain a hara-kiri staff."
  "A stanza number, to be put in from of a lyrics line"
  '())
 
+(ly:add-interface
+ 'bass-figure-interface
+ "A bass figure text"
+ '(implicit))
+
 ;;; todo: this is not typesetting info. Move to interpretation.
 (ly:add-interface
  'tablature-interface

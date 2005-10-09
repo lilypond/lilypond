@@ -281,7 +281,7 @@ Choices are @code{around}, @code{inside}, @code{outside}.  If unset, script
 and slur ignore eachother.")
      (inspect-quants ,number-pair? "If debugging is set,
 set beam quant to this position, and print the respective scores.")
-
+     (implicit ,boolean? "Is this an implicit bass figure?")
      (keep-inside-line ,boolean? "If set, this column cannot have
 things sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add. For

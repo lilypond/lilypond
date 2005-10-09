@@ -643,6 +643,23 @@ alignment accordingly."
 		     (interval-widen x amount)
 		     (interval-widen y amount))
    ))
+
+
+(def-markup-command (pad-x layout props amount arg) (number? markup?)
+
+  "Add padding @var{amount} around @var{arg} in the X-direction. "
+  (let*
+      ((m (interpret-markup layout props arg))
+       (x (ly:stencil-extent m X))
+       (y (ly:stencil-extent m Y)))
+    
+       
+    (ly:make-stencil (ly:stencil-expr m)
+		     (interval-widen x amount)
+		     y)
+   ))
+
+
 (def-markup-command (put-adjacent layout props arg1 axis dir arg2) (markup? integer? ly:dir?  markup?)
 
   "Put @var{arg2} next to @var{arg1}, without moving @var{arg1}.  "
@@ -652,6 +669,19 @@ alignment accordingly."
 
     (ly:stencil-combine-at-edge m1 axis dir m2 0.0 0.0)
   ))
+
+(def-markup-command (transparent layout props arg) (markup?)
+  "Make the argument transparent"
+  (let*
+      ((m (interpret-markup layout props arg))
+       (x (ly:stencil-extent m X))
+       (y (ly:stencil-extent m Y)))
+    
+
+    
+    (ly:make-stencil ""
+		     x y)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property

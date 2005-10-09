@@ -266,6 +266,7 @@ New_figured_bass_engraver::process_music ()
 
   if (!new_music_found_)
     return ;
+  
   new_music_found_ = false;
 
   /*
@@ -287,7 +288,6 @@ New_figured_bass_engraver::process_music ()
     {
       clear_spanners ();
     }
-
   
   int k = 0;
   for (int i = 0; i < new_musics_.size (); i++)
@@ -321,26 +321,28 @@ New_figured_bass_engraver::process_music ()
       Array<int> junk_continuations;
       for (int i = 0; i < groups_.size(); i++)
 	{
-	  if (groups_[i].is_continuation ())
+	        Figure_group &group = groups_[i];
+
+	  if (group.is_continuation ())
 	    {
-	      if (!groups_[i].continuation_line_)
+	      if (!group.continuation_line_)
 		{
 		  Spanner * line = make_spanner ("BassFigureContinuation", SCM_EOL);
-		  Item * item = groups_[i].figure_item_;
-		  groups_[i].continuation_line_ = line;
+		  Item * item = group.figure_item_;
+		  group.continuation_line_ = line;
 		  line->set_bound (LEFT, item);
 
 		  /*
 		    Don't add as child. This will cache the wrong
 		    (pre-break) stencil when callbacks are triggered.
 		  */
-		  line->set_parent (groups_[i].group_, Y_AXIS);
+		  line->set_parent (group.group_, Y_AXIS);
 		  Pointer_group_interface::add_grob (line, ly_symbol2scm ("figures"), item);
-	      
-		  groups_[i].figure_item_ = 0;
+
+		  group.figure_item_ = 0;
 		}
 	    }
-	  else if (groups_[i].continuation_line_) 
+	  else if (group.continuation_line_) 
 	    junk_continuations.push (i); 
 	}
 
@@ -391,6 +393,7 @@ New_figured_bass_engraver::create_grobs ()
 	    = make_item ("NewBassFigure",
 			 group.current_music_->self_scm ());
 
+	  
 	  SCM fig = group.current_music_->get_property ("figure");
 	  if (!group.group_)
 	    {
@@ -401,6 +404,11 @@ New_figured_bass_engraver::create_grobs ()
 					    Align_interface::alignment_callback_proc);
 	    }
 
+	  if (scm_memq (fig, get_property ("implicitBassFigures")) != SCM_BOOL_F)
+	    {
+	      item->set_property ("transparent", SCM_BOOL_T); 
+	      item->set_property ("implicit", SCM_BOOL_T);
+	    }
 	  
       	  group.number_ = fig;
       	  group.alteration_ = group.current_music_->get_property ("alteration");
@@ -450,6 +458,9 @@ ADD_TRANSLATOR (New_figured_bass_engraver,
 		"bass-figure-event rest-event",
 
 		/* read */
+		"implicitBassFigures "
+		"newFiguredBassFormatter "
+		"figuredBassAlterationDirection "
 		"useBassFigureExtenders",
 
 		/* write */

@@ -36,10 +36,13 @@ Figured_bass_continuation::center_on_figures (SCM grob, SCM axis)
   (void) axis;
   
   extract_grob_set (me, "figures", figures);
+  if (figures.is_empty ())
+    return scm_from_double (0.0);
   Grob *common = common_refpoint_of_array (figures, me, Y_AXIS);
 
   Interval ext = Axis_group_interface::relative_group_extent (figures, common, Y_AXIS);
-  
+  if (ext.is_empty ())
+    return scm_from_double (0.0);
   return scm_from_double (ext.center () - me->relative_coordinate (common, Y_AXIS));
 }
 
@@ -59,8 +62,13 @@ Figured_bass_continuation::print (SCM grob)
 							X_AXIS);
   do
     {
+      Item *bound = me->get_bound (d);
+      Direction extdir =
+	(d == LEFT && to_boolean (bound->get_property ("implicit")))
+	? LEFT : RIGHT;
+
       spanned[d] 
-	= robust_relative_extent (me->get_bound (d), common, X_AXIS)[RIGHT]
+	= robust_relative_extent (bound, common, X_AXIS)[extdir]
 	- me->relative_coordinate (common, X_AXIS);
     }
   while (flip (&d) !=  LEFT);
