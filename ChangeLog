@@ -1,3 +1,8 @@
+2005-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/note-head.cc (internal_print): don't shadow idx
+	parameter. This fixes wrong attachment for do shape heads.
+
 2005-10-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/parser-ly-from-scheme.scm: rename from ly-from-scheme.scm

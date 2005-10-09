@@ -56,8 +56,6 @@
   (ly:gulp-file nm len))
   
 
-;;; ARGH - cuases memory usage to explode with GUILE cvs.  
-
 (define BOUNDING-BOX-RE
   "^%%BoundingBox: (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)")
 

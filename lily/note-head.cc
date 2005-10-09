@@ -56,7 +56,8 @@ internal_print (Grob *me, String *font_char)
 
       if (stem_dir == CENTER)
 	programming_error ("must have stem dir for note head");
-      String idx = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
+
+      idx = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
       out = fm->find_by_name (idx);
     }
 
