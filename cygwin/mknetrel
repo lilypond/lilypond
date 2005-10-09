@@ -17,9 +17,7 @@ save_PATH="$PATH"
 doc () {
     # doc works, but take too long to build each time
     [ "$cygwin" == "mingw" ] && return 1
-    #return 0
-    # doc needs > 2h to build with 2.6.3-CVS, guile-1.6.7 and only 512MB ram
-    return 1
+    return 0
 }
 
 preconfig () {
