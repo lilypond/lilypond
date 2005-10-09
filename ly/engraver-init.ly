@@ -551,7 +551,6 @@ AncientRemoveEmptyStaffContext = \context {
   tablatureFormat = #fret-number-tablature-format
 
 %%
-  bassFigureFormatFunction = #format-bass-figure
   newFiguredBassFormatter = #format-new-bass-figure
   metronomeMarkFormatter = #format-metronome-markup
   graceSettings = #`(
@@ -594,7 +593,7 @@ AncientRemoveEmptyStaffContext = \context {
 
 \context {
   \type "Engraver_group"
-  \name FiguredBass 
+  \name "FiguredBass"
 
 %%  \consists "Figured_bass_engraver"
   \consists "New_figured_bass_engraver"
@@ -603,6 +602,7 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Separating_line_group_engraver"
   \consists "Hara_kiri_engraver"
   \override RemoveEmptyVerticalGroup #'remove-first = ##t
+  minimumVerticalExtent = #'(-0.5 . 2.5)
 }
 
 \context {

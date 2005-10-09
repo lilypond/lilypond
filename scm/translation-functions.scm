@@ -52,3 +52,54 @@
 (define-public (format-mark-box-barnumbers mark context)
   (make-bold-markup (make-box-markup
     (number->string (ly:context-property context 'currentBarNumber)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bass figures.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public (format-new-bass-figure figure event context)
+  (let* ((fig (ly:music-property event 'figure))
+	 (fig-markup (if (number? figure)
+			 (markup #:number (number->string figure 10))
+			 #f
+			 ))
+	 (alt (ly:music-property event 'alteration))
+	 (alt-markup
+	  (if (number? alt)
+	      (markup
+		      #:general-align Y DOWN #:smaller #:smaller
+		      (alteration->text-accidental-markup alt))
+	      
+	      #f))
+	 (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
+	 )
+
+    (if (and (not fig-markup) alt-markup)
+	(begin
+	  (set! fig-markup (markup #:left-align #:pad-around 0.3 alt-markup))
+	  (set! alt-markup #f)))
+
+
+    ;; hmm, how to get figures centered between note, and
+    ;; lone accidentals too?
+    
+    ;;    (if (markup? fig-markup)
+    ;;	(set!
+    ;;	 fig-markup (markup #:translate (cons 1.0 0)
+    ;;			    #:hcenter fig-markup)))
+
+    (if alt-markup
+	(set! fig-markup
+	      (markup #:put-adjacent
+		      fig-markup X
+		      (if (number? alt-dir)
+			  alt-dir
+			  LEFT)
+		      #:pad-x 0.2 alt-markup
+		      )))
+
+    (if (markup?  fig-markup)
+	fig-markup
+	empty-markup)))
+

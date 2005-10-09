@@ -239,6 +239,10 @@ selector for tab notation.")
 
      (ignoreBarChecks ,boolean? "Ignore bar checks")
      (ignoreMelismata ,boolean? "Ignore melismata for this @internalsref{Lyrics} line.")
+
+     (implicitBassFigures ,list? "List of bass figures that are not
+printed as numbers, but only as extender lines.")
+     
      (instr ,markup? "See @code{instrument}")
 
      (instrument ,markup? "The name to print left of a staff.  The
