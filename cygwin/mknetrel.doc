@@ -10,7 +10,7 @@ docdir=$docprefix/doc
 cygdocdir=$docdir/$Cygwin
 infodir=$docprefix/info
 mandir=$docprefix/man
-packagedocdir=$docdir/$base-$ver
+packagedocdir=$docdir/$base
 
 fixdoc () {
     #
@@ -28,5 +28,10 @@ fixdoc () {
 	mkdir -p $packagedocdir
 	tar -C $inst/$docprefix/$base -cf - . | tar -C $inst/$packagedocdir -xf -
     fi
+    for i in $inst/$docprefix/info/*.info \
+	$inst/$docprefix/info/*.info-[0-9] \
+	$inst/$docprefix/info/*.info-[0-9][0-9]; do
+	gzip $i
+    done
     true
 }
