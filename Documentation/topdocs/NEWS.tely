@@ -46,6 +46,10 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 @item
+The default paper size may now be set from the command line using
+@code{-dpaper-size}.
+
+@item
 Beamlets may stick out of the side of beams.
 
 

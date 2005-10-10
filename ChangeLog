@@ -1,5 +1,20 @@
 2005-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily.scm (define-scheme-options): add paper-size option.
+
+	* ly/declarations-init.ly (laissezVibrer): get paper size from
+	-dpaper-size
+
+	* scm/translation-functions.scm: use \fontsize for changing the
+	fontsize.
+
+	* scm/define-grobs.scm (all-grob-descriptions): set
+	between-length-limit to 1.0
+
+	* lily/tie-helper.cc: add between_length_limit_ detail property.
+
+	* mf/feta-bolletjes.mf: typos.
+
 	* lily/note-head.cc (internal_print): don't shadow idx
 	parameter. This fixes wrong attachment for do shape heads.
 

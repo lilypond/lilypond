@@ -208,7 +208,6 @@
     (NewBassFigure
      . (
 	(print-function . ,Text_interface::print)
-	(font-size . -2)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				rhythmic-grob-interface
@@ -1498,12 +1497,14 @@
 				font-interface))))))
 
     (Tie
-     . (
-	(print-function . ,Tie::print)
-	(details . ((ratio . 0.333) (height-limit . 1.0)))
+     . ((print-function . ,Tie::print)
+	(details . ((ratio . 0.333)
+		    (height-limit . 1.0)
+		    (between-length-limit . 1.0)))
 	(thickness . 1.0)
 	(meta . ((class . Spanner)
-		 (interfaces . (tie-interface))))))
+		 (interfaces . (tie-interface))))
+	))
 
     (TieColumn
      . (

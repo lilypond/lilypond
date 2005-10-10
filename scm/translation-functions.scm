@@ -99,7 +99,7 @@
 		      #:pad-x 0.2 alt-markup
 		      )))
 
-    (if (markup?  fig-markup)
-	fig-markup
+    (if (markup? fig-markup)
+	(markup #:fontsize -2 fig-markup)
 	empty-markup)))
 

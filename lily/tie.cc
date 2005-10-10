@@ -111,7 +111,8 @@ Tie::set_direction (Grob *me)
 Interval
 Tie::get_default_attachments (Spanner *me, Grob *common, Real gap,
 			      int *staff_position,
-			      bool *in_between
+			      bool *in_between,
+			      Tie_details const &details
 			      )
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -128,7 +129,7 @@ Tie::get_default_attachments (Spanner *me, Grob *common, Real gap,
     }
   while (flip (&d) != LEFT);
 
-  if (attachments.length () < 0.6 * staff_space)
+  if (attachments.length () < details.between_length_limit_ * staff_space)
     {
       /*
 	Let short ties start over note heads, instead of between.
@@ -206,7 +207,6 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     conf->dir_ = get_grob_direction (me);
   if (!conf->dir_)
     conf->dir_ = get_default_dir (me);
-    
 
   Real staff_space = details.staff_space_;
   bool in_between = true;
@@ -216,8 +216,8 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     {
       if (!skylines)
 	conf->attachment_x_ = get_default_attachments (me, common, gap,
-					       &conf->position_,
-					       &in_between);
+						       &conf->position_,
+						       &in_between, details);
       else
 	{
 	  Real y = staff_space * 0.5 * conf->position_;
@@ -326,7 +326,8 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
   if (conf->position_ == conf->head_position_
       && in_space
       && Staff_symbol_referencer::staff_radius (me) > abs (conf->position_) / 2
-      && dy > 0.3 * staff_space)
+      && dy > 0.3 * staff_space
+      )
     {
       conf->position_ += 2 * conf->dir_; 
     }
@@ -500,7 +501,9 @@ Tie::print (SCM smob)
 ADD_INTERFACE (Tie,
 	       "tie-interface",
 	       
-	       "A tie connecting two noteheads.\n",
+	       "A tie connecting two noteheads. \n\n"
+	       ,
+	       
 
 	       /* properties */
 	       "control-points "
