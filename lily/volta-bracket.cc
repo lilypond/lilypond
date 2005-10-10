@@ -177,5 +177,9 @@ Volta_bracket_interface::add_column (Grob *me, Grob *c)
 
 ADD_INTERFACE (Volta_bracket_interface, "volta-bracket-interface",
 	       "Volta bracket with number",
-	       "bars thickness height");
+
+	       /* properties */
+	       "bars "
+	       "thickness "
+	       "height");
 
