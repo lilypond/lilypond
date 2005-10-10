@@ -82,7 +82,9 @@ Horizontal_bracket::print (SCM smob)
   return b.smobbed_copy ();
 }
 
-ADD_INTERFACE (Horizontal_bracket, "horizontal-bracket-interface",
+ADD_INTERFACE (Horizontal_bracket,
+
+	       "horizontal-bracket-interface",
 	       "A horizontal bracket encompassing notes.",
 
 	       /* props */		  

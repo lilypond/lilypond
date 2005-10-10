@@ -139,10 +139,10 @@ node."
 ;;;;;;;;;;;;;;;;
 
 (define (lookup-interface name)
-  (let* ((entry (hashq-ref (ly:all-grob-interfaces) name '())))
-    (if (equal? entry #f)
-	(ly:error (_ "unknown interface: ~S") name))
-    entry))
+  (let* ((entry (hashq-ref (ly:all-grob-interfaces) name #f)))
+    (if entry
+	entry
+	(ly:error (_ "unknown Grob interface: ~S") name))))
 
 (define (all-interfaces-doc)
   (make <texi-node>

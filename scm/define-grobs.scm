@@ -1698,7 +1698,6 @@
 				horizontal-bracket-interface				
 				line-interface
 				text-interface
-				bracket-interface
 				side-position-interface
 				font-interface))))))
 

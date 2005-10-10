@@ -1,5 +1,8 @@
 2005-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/document-backend.scm (lookup-interface): error message if
+	using unknown interface.
+
 	* lily/volta-bracket.cc (after_line_breaking): new function. Set
 	edge-height.
 
