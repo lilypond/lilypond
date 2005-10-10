@@ -85,8 +85,7 @@ laissezVibrer = #(make-music 'LaissezVibrerEvent)
     
 }
 
-
-#(set-default-paper-size "a4")
+#(set-default-paper-size (ly:get-option 'paper-size))
 
 
 partCombineListener = \layout {

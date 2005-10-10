@@ -11,6 +11,7 @@
 	      (ly:add-option (car x) (cadr x) (caddr x)))
 	  
 	    '((point-and-click #t "use point & click")
+	      (paper-size "a4" "the default paper size")
 	      (midi-debug #f "generate human readable MIDI")
 	      (internal-type-checking #f "check every property assignment for types")
 	      (parse-protect #t    "continue when finding errors in inline
