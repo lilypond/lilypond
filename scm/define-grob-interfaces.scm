@@ -50,6 +50,7 @@
  "A bracket indicating a ligature in the original edition"
  '(width thickness height ligature-primitive-callback))
 
+
 (ly:add-interface
  'lyric-syllable-interface
  "a single piece of lyrics"

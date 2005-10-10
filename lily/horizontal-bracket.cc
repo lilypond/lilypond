@@ -6,25 +6,23 @@
   (c) 2002--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "side-position-interface.hh"
+#include "horizontal-bracket.hh"	
+
 #include "lookup.hh"
+#include "side-position-interface.hh"
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
 #include "tuplet-bracket.hh"
-#include "horizontal-bracket.hh"	
 #include "axis-group-interface.hh"
 
-Stencil
-Horizontal_bracket::make_bracket (Grob *me, Grob *refpoint,
-				  Link_array<Grob> grobs,
-				  Axis a, Direction dir)
-{
-  Axis other = other_axis (a);
-  Grob *common = common_refpoint_of_array (grobs, refpoint, a);
-  Interval ext = Axis_group_interface::relative_group_extent (grobs, common, a);
 
+Stencil
+Horizontal_bracket::make_bracket (Grob *me,
+				  Real length,
+				  Axis a, Direction dir)				 
+{
   Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
 						      Interval (1.0, 1.0));
   Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
@@ -34,20 +32,29 @@ Horizontal_bracket::make_bracket (Grob *me, Grob *refpoint,
 
   // Make sure that it points in the correct direction:
   scale_drul (&edge_height, Real (-dir));
-
+ 
   Interval empty;
   Offset start;
-  start[a] = ext.length ();
+  start[a] = length;
 
   /*
     ugh, Tuplet_bracket should use Horizontal_bracket, not the other way around. 
   */
-  Stencil b
-    = Tuplet_bracket::make_bracket (me, other, start, 
-				    edge_height, empty, flare, shorten);
+  return Tuplet_bracket::make_bracket (me, other_axis (a), start, 
+				       edge_height, empty, flare, shorten);
+}
 
-  b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a)
-		    , a);
+
+Stencil
+Horizontal_bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
+					    Link_array<Grob> grobs,
+					    Axis a, Direction dir)
+{
+  Grob *common = common_refpoint_of_array (grobs, refpoint, a);
+  Interval ext = Axis_group_interface::relative_group_extent (grobs, common, a);
+
+  Stencil b = make_bracket (me, ext.length(), a, dir);
+  b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a), a);
 
   return b;
 }
@@ -71,7 +78,7 @@ Horizontal_bracket::print (SCM smob)
       return SCM_EOL;
     }
 
-  Stencil b = make_bracket (me, me, gs, X_AXIS, get_grob_direction (me));
+  Stencil b = make_enclosing_bracket (me, me, gs, X_AXIS, get_grob_direction (me));
   return b.smobbed_copy ();
 }
 

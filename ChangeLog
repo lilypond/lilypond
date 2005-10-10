@@ -1,5 +1,12 @@
 2005-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/volta-bracket.cc (after_line_breaking): new function. Set
+	edge-height.
+
+	* lily/horizontal-bracket.cc (make_enclosing_bracket): rename from
+	make_bracket.
+	(make_bracket): new function.
+
 	* scm/lily.scm (define-scheme-options): add paper-size option.
 
 	* ly/declarations-init.ly (laissezVibrer): get paper size from

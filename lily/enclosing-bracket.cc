@@ -54,10 +54,10 @@ Enclosing_bracket::print (SCM grob)
   Interval xext = Axis_group_interface::relative_group_extent (elements, common_x, X_AXIS);
 
 
-  Stencil left_br = Horizontal_bracket::make_bracket (me, me, elements,
-						      Y_AXIS, LEFT);
-  Stencil right_br = Horizontal_bracket::make_bracket (me, me, elements,
-						       Y_AXIS, RIGHT);
+  Stencil left_br = Horizontal_bracket::make_enclosing_bracket (me, me, elements,
+								Y_AXIS, LEFT);
+  Stencil right_br = Horizontal_bracket::make_enclosing_bracket (me, me, elements,
+								 Y_AXIS, RIGHT);
 
   xext.widen (robust_scm2double (me->get_property ("padding"), 0.25));
   left_br.translate_axis (xext[LEFT], X_AXIS);
