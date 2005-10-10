@@ -1,5 +1,13 @@
 2005-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (output-preview-framework): use
+	is-book-title to determine whether to chop off the booktitle.
+
+	* lily/paper-book.cc (systems): init from book-title-properties
+	(add_score_title): init score-title-properties.
+
+	* ly/paper-defaults.ly: add {score,book}-title-properties.
+
 	* scm/document-backend.scm (lookup-interface): error message if
 	using unknown interface.
 

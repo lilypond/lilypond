@@ -243,10 +243,12 @@ Paper_book::add_score_title (SCM header)
     title = score_title (header_);
   if (!title.is_empty ())
     {
-      //  TODO: init properties, from where? 
-      Paper_system *ps = new Paper_system (title, SCM_EOL);
-      ps->set_property ("is-title", SCM_BOOL_T); 
-      systems_ = scm_cons (ps->self_scm (), systems_);
+      /*
+	TODO: this should come from the \layout {} block, which should
+	override settings from \paper {}
+      */
+      SCM props = paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
+      Paper_system *ps = new Paper_system (title, props);
       ps->unprotect ();
       set_system_penalty (ps, header);
     }
@@ -263,8 +265,8 @@ Paper_book::systems ()
 
   if (!title.is_empty ())
     {
-      Paper_system *ps = new Paper_system (title, SCM_EOL);
-      ps->set_property ("is-title", SCM_BOOL_T); 
+      SCM props = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
+      Paper_system *ps = new Paper_system (title, props);
       set_system_penalty (ps, header_);
 
       systems_ = scm_cons (ps->self_scm (), systems_);

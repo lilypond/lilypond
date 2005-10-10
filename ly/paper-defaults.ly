@@ -35,6 +35,16 @@
 
     #(layout-set-staff-size (* 20.0 pt))
 
+
+    #(define-public score-title-properties
+      '((is-title . #t)
+	(is-book-title . #f)
+	))
+    #(define-public book-title-properties
+      '((is-title . #t)
+	(is-book-title . #t)
+	))
+    
     %%
     %% this dimension includes the extent of the
     %% staves themselves.
