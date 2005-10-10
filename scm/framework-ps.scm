@@ -495,11 +495,10 @@
 
     ;; skip booktitles.
     (if (and
-	 (not
-	  (ly:get-option 'preview-include-book-title))
-	 (< 1 (length systems))
-	 (paper-system-title? (list-ref systems 0))
-	 (paper-system-title? (list-ref systems 1)))
+	 (not (ly:get-option 'preview-include-book-title))
+	 (pair? systems)
+	 (ly:paper-system-property (car systems) 'is-book-title #f))
+
 	(set! systems (cdr systems)))
 
     (for-each
