@@ -175,7 +175,16 @@ Ottava_bracket::print (SCM smob)
   return b.smobbed_copy ();
 }
 
-ADD_INTERFACE (Ottava_bracket, "ottava-bracket-interface",
+ADD_INTERFACE (Ottava_bracket,
+	       "ottava-bracket-interface",
+	       
 	       "An ottava bracket",
-	       "edge-height bracket-flare shorten-pair minimum-length");
+
+	       /*
+		 properties
+		*/
+	       "edge-height "
+	       "bracket-flare "
+	       "shorten-pair "
+	       "minimum-length");
 

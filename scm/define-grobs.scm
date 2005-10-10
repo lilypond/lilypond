@@ -1000,6 +1000,7 @@
 	(direction . 1)
 	(meta . ((class . Spanner)
 		 (interfaces . (ottava-bracket-interface
+				horizontal-bracket-interface
 				line-interface
 				side-position-interface
 				font-interface
@@ -1683,18 +1684,21 @@
     (VoltaBracket
      . (
 	(print-function . ,Volta_bracket_interface::print)
-	(direction . 1)
+	(after-line-breaking-callback . ,Volta_bracket_interface::after_line_breaking)
+	(direction . ,UP)
 	(padding . 1)
 	(font-encoding . fetaNumber)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(thickness . 1.6)  ;;  linethickness
-	(height . 2.0) ;; staffspace;
+	(edge-height . (2.0 . 2.0)) ;; staffspace;
 	(minimum-space . 5)
 	(font-size . -4)
 	(meta . ((class . Spanner)
 		 (interfaces . (volta-bracket-interface
+				horizontal-bracket-interface				
 				line-interface
 				text-interface
+				bracket-interface
 				side-position-interface
 				font-interface))))))
 
