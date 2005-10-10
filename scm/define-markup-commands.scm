@@ -512,7 +512,10 @@ linewidth, where X is the number of staff spaces."
       ((baseline-skip (chain-assoc-get 'baseline-skip props))
        (line-width (chain-assoc-get 'linewidth props))
        (word-space (chain-assoc-get 'word-space props))
-       (para-strings (regexp-split arg "\n[ \t\n]*\n[ \t\n]*"))
+       
+       (para-strings (regexp-split
+		      (string-regexp-substitute "\r" "" arg)
+		      "\n[ \t\n]*\n[ \t\n]*"))
        
        (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
        (list-para-words (map (lambda (str)
