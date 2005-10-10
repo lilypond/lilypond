@@ -145,7 +145,6 @@ Volta_bracket_interface::after_line_breaking (SCM smob)
 	&& str != ":|:"
 	&& str != ".|");
 
-
   if (no_vertical_end || no_vertical_start)
     {
       Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
