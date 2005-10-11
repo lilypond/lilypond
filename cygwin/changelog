@@ -1,3 +1,10 @@
+lilypond (2.6.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * New Cygwin maintainer.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Mon, 10 Oct 2005 21:30:49 +0200
+
 lilypond (2.5.12-1) unstable; urgency=low
 
   * New upstream release.
