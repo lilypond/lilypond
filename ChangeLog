@@ -1,3 +1,8 @@
+2005-10-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/hara-kiri-group-spanner.cc (consider_suicide): backport:
+	only consider break_index for broken spanner.  
+
 2005-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* stepmake/stepmake/python-module-rules.make

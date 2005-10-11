@@ -13,6 +13,7 @@
 #include "spanner.hh"
 #include "warn.hh"
 #include "item.hh"
+#include "paper-column.hh"
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 2);
 SCM
@@ -34,11 +35,13 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
   if (scm_is_pair (worth))
     return;
 
-  if (!to_boolean (me->get_property ("remove-first"))
-      && broken_spanner_index (sp) == 0)
-    {
-      return;
-    }
+
+  bool remove_first = to_boolean (me->get_property ("remove-first"));
+  if (!remove_first
+       && ((sp->original_ && broken_spanner_index (sp) == 0)
+	   || Paper_column::get_rank (sp->get_bound (LEFT)->get_column ())
+	   == 0)) 
+    return;
 
   Link_array<Grob> childs = Axis_group_interface::get_children (me);
   for (int i = 0; i < childs.size (); i++)
