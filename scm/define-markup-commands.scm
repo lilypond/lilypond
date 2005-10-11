@@ -514,7 +514,8 @@ linewidth, where X is the number of staff spaces."
        (word-space (chain-assoc-get 'word-space props))
        
        (para-strings (regexp-split
-		      (string-regexp-substitute "\r" "" arg)
+		      (string-regexp-substitute "\r" "\n"
+						(string-regexp-substitute "\r\n" "\n" arg))
 		      "\n[ \t\n]*\n[ \t\n]*"))
        
        (text-dir (chain-assoc-get 'text-direction props RIGHT)) 

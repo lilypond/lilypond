@@ -4049,6 +4049,25 @@ It is also possible to use continuation lines for repeated figures,
 >>
 @end lilypond
 
+The @code{FiguredBass} context doesn't pay attention to the actual
+bass line. As a consequence, you may have to insert extra figures to
+get extender lines below all notes, eg.
+
+
+@lilypond[verbatim, relative=1]
+<<
+  \new Voice 
+  {
+    \clef bass
+    f16. g32 f16. g32 f16. g32 f16. g32
+  }
+  \figures {
+    \set useBassFigureExtenders = ##t 
+    <6 4>4. <6 4>16. <6 4>32 <5 3>8 r
+  }
+>>
+@end lilypond
+
 When using continuation lines, common figures are always put in the
 same vertical position. When this is unwanted, you can insert a rest
 with @code{r}. The rest will clear any previous alignment.  For
