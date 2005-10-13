@@ -14,6 +14,7 @@ using namespace std;
 
 #include "moment.hh"
 #include "lily-proto.hh"
+#include "virtual-methods.hh"
 
 class Context
 {
@@ -21,7 +22,7 @@ class Context
   Context (Context const &src);
 
   DECLARE_SMOBS (Context, dummy);
-
+  DECLARE_CLASSNAME(Context);
   void terminate ();
 
 private:

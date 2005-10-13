@@ -50,6 +50,7 @@ protected:
   void substitute_object_links (SCM, SCM);
   char status_;
 
+  DECLARE_CLASSNAME(Grob);
 public:
   Object_key const *get_key () const;
 
@@ -65,7 +66,7 @@ public:
 
   virtual Grob *clone (int count) const;
   DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
-
+  
   String name () const;
   /*
     Properties

@@ -25,7 +25,13 @@ demangle_classname (type_info const &);
    VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
    }; */
 
+#define DECLARE_CLASSNAME(name) \
+  virtual const char *class_name () const {	\
+    return #name; \
+}
+
 #define VIRTUAL_COPY_CONSTRUCTOR(Base, name)	\
+  DECLARE_CLASSNAME(name);\
   virtual Base *clone () const			\
   {						\
     return new name (*this);			\

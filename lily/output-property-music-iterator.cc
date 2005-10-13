@@ -27,7 +27,7 @@ Output_property_music_iterator::process (Moment m)
       bool accepted = try_music (get_music ());
       if (!accepted)
 	get_music ()->origin ()->warning (_f ("junking event: `%s'",
-					  classname (get_music ())));
+					  get_music (->class_name ())));
     }
   Simple_music_iterator::process (m);
 }

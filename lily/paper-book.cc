@@ -58,7 +58,7 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
   Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
 
   scm_puts ("#<", port);
-  scm_puts (classname (b), port);
+  scm_puts (b->class_name (), port);
   scm_puts (" ", port);
   scm_puts (">", port);
   return 1;

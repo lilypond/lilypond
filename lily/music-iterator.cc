@@ -207,7 +207,7 @@ Music_iterator::print_smob (SCM sm, SCM port, scm_print_state*)
   char s[1000];
 
   Music_iterator *iter = unsmob_iterator (sm);
-  sprintf (s, "#<%s>", classname (iter));
+  sprintf (s, "#<%s>", iter->class_name ());
   scm_puts (s, port);
   return 1;
 }

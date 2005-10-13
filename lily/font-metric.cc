@@ -112,7 +112,7 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state *)
 {
   Font_metric *m = unsmob_metrics (s);
   scm_puts ("#<", port);
-  scm_puts (classname (m), port);
+  scm_puts (m->class_name (), port);
   scm_puts (" ", port);
   scm_write (m->description_, port);
   scm_puts (">", port);
