@@ -101,8 +101,9 @@ gzip -9fn `find $RPM_BUILD_ROOT%{_infodir}/ -name '*.info'`
 touch /tmp/.lilypond-install
 
 %if %{info}
-/sbin/install-info %{_infodir}/lilypond/lilypond.info.gz %{_infodir}/dir 
-/sbin/install-info %{_infodir}/lilypond/music-glossary.info.gz %{_infodir}/dir 
+  /sbin/install-info %{_infodir}/lilypond/lilypond.info.gz %{_infodir}/dir 
+  /sbin/install-info %{_infodir}/lilypond/lilypond-internals.info.gz %{_infodir}/dir 
+  /sbin/install-info %{_infodir}/lilypond/music-glossary.info.gz %{_infodir}/dir 
 %endif
 
 export PACKAGEDIR=%{_datadir}/lilypond/@TOPLEVEL_VERSION@
@@ -129,6 +130,7 @@ fi
 
 %if %{info}
     /sbin/install-info --delete %{_infodir}/lilypond/lilypond.info.gz %{_infodir}/dir 
+    /sbin/install-info --delete %{_infodir}/lilypond/lilypond-internals.info.gz %{_infodir}/dir 
     /sbin/install-info --delete %{_infodir}/lilypond/music-glossary.info.gz %{_infodir}/dir 
 %endif
 

@@ -495,7 +495,7 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
   Context *sc = (Context *) SCM_CELL_WORD_1 (s);
 
   scm_puts ("#<", port);
-  scm_puts (classname (sc), port);
+  scm_puts (sc->class_name (), port);
   if (Context_def *d = unsmob_context_def (sc->definition_))
     {
       scm_puts (" ", port);

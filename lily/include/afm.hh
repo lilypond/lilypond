@@ -1,4 +1,3 @@
-
 /*
   afm.hh -- declare Adobe_font_metric
 
@@ -19,6 +18,7 @@ using namespace std;
 
 class Adobe_font_metric : public Simple_font_metric
 {
+  DECLARE_CLASSNAME(Adobe_font_metric);
 public:
   AFM_Font_info *font_info_;
   unsigned int checksum_;

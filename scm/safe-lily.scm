@@ -83,7 +83,6 @@
    ly:music-length
    ly:music-list?
    ly:music-mutable-properties
-   ly:music-name
    ly:music-property
    ly:make-score
    ly:music-set-property!

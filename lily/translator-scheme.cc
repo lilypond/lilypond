@@ -17,7 +17,7 @@ LY_DEFINE (ly_translator_name, "ly:translator-name",
 {
   Translator *tr = unsmob_translator (trans);
   SCM_ASSERT_TYPE (tr, trans, SCM_ARG1, __FUNCTION__, "Translator");
-  char const *nm = classname (tr);
+  char const *nm = tr->class_name ();
   return ly_symbol2scm (nm);
 }
 

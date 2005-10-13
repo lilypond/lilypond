@@ -21,6 +21,7 @@ class Item : public Grob
 {
   Drul_array<Item *> broken_to_drul_;
 
+  DECLARE_CLASSNAME(Item);
 public:
   Item (SCM, Object_key const *);
   Item (Item const &, int count);

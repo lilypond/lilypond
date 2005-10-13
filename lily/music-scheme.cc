@@ -47,16 +47,6 @@ LY_DEFINE (ly_music_set_property, "ly:music-set-property!",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_music_name, "ly:music-name",
-	   1, 0, 0, (SCM mus),
-	   "Return the name of @var{music}.")
-{
-  Music *m = unsmob_music (mus);
-  SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "music");
-
-  char const *nm = classname (m);
-  return scm_makfrom0str (nm);
-}
 
 /* todo:  property args */
 LY_DEFINE (ly_make_music, "ly:make-music",

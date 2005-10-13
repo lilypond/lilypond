@@ -38,7 +38,7 @@ Music::name () const
   if (scm_is_symbol (nm))
     return ly_symbol2string (nm);
   else
-    return classname (this);
+    return "Music";
 }
 
 Music::Music (SCM init)
@@ -142,7 +142,7 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
   if (scm_is_symbol (nm) || scm_is_string (nm))
     scm_display (nm, p);
   else
-    scm_puts (classname (m), p);
+    scm_puts ("Music", p);
 
   /* Printing properties takes a lot of time, especially during backtraces.
      For inspecting, it is better to explicitly use an inspection

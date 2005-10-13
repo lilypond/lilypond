@@ -67,20 +67,24 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool
       || me->get_bound (RIGHT)->break_status_dir ())
     return 0;
 
-  Grob *s1 = Note_column::get_stem (cols[0]);
-  Grob *s2 = Note_column::get_stem (cols.top ());
+  Drul_array<Grob*> stems (Note_column::get_stem (cols[0]),
+			   Note_column::get_stem (cols.top ()));
 
-  if (s2 != me->get_bound (RIGHT))
+  if (dynamic_cast<Item*> (stems[RIGHT])->get_column ()
+      != me->get_bound (RIGHT)->get_column())
     return 0;
 
-  Grob *b1 = s1 ? Stem::get_beam (s1) : 0;
-  Grob *b2 = s2 ? Stem::get_beam (s2) : 0;
-
+  Drul_array<Grob*> beams;
+  Direction d = LEFT;
+  do {
+    beams[d] = stems[d] ? Stem::get_beam (stems[d]) : 0;
+  } while (flip (&d) != LEFT);
+  
   *equally_long = false;
-  if (! (b1 && (b1 == b2) && !me->is_broken ()))
+  if (! (beams[LEFT] && (beams[LEFT] == beams[RIGHT]) && !me->is_broken ()))
     return 0;
 
-  extract_grob_set (b1, "stems", beam_stems);
+  extract_grob_set (beams[LEFT], "stems", beam_stems);
   if (beam_stems.size () == 0)
     {
       programming_error ("beam under tuplet bracket has no stems");
@@ -88,8 +92,8 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool
       return 0;
     }
 
-  *equally_long = (beam_stems[0] == s1 && beam_stems.top () == s2);
-  return b1;
+  *equally_long = (beam_stems[0] == stems[LEFT] && beam_stems.top () == stems[RIGHT]);
+  return beams[LEFT];
 }
 
 /*
@@ -128,7 +132,6 @@ Tuplet_bracket::print (SCM smob)
 
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
-
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
   bool bracket_visibility = !(par_beam && equally_long);

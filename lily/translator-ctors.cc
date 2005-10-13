@@ -33,7 +33,7 @@ add_translator (Translator *t)
   if (!global_translator_dict)
     global_translator_dict = new Scheme_hash_table;
 
-  SCM k = ly_symbol2scm (classname (t));
+  SCM k = ly_symbol2scm (t->class_name ());
   global_translator_dict->set (k, t->self_scm ());
 
   t->unprotect ();

@@ -31,6 +31,7 @@ class Open_type_font : public Font_metric
   Index_to_charcode_map index_to_charcode_map_;
   Open_type_font (FT_Face);
 
+  DECLARE_CLASSNAME(Open_type_font);
 public:
   SCM get_subfonts () const;
   SCM get_global_table () const;

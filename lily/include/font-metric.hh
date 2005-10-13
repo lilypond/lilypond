@@ -12,9 +12,12 @@
 #include "box.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
+#include "virtual-methods.hh"
 
 class Font_metric
 {
+  DECLARE_CLASSNAME(Font_metric);
+
 public:
   SCM description_;
   String file_name_;
@@ -52,6 +55,7 @@ int get_encoded_index (Font_metric *m, String input_coding, int code);
 
 class Simple_font_metric : public Font_metric
 {
+  DECLARE_CLASSNAME(Simple_font_metric);
 public:
 };
 

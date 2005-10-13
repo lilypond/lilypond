@@ -142,6 +142,7 @@ struct Tex_font_char_metric
 
 class Tex_font_metric : public Simple_font_metric
 {
+  DECLARE_CLASSNAME(Tex_font_metric);
 public:
   static SCM make_tfm (String file_name);
 
