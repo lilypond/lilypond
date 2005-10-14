@@ -1,3 +1,9 @@
+2005-10-14  Heikki Junes <hjunes@cc.hut.fi>
+
+	* elisp/lilypond-font-lock.el, elisp/lilypond-indent.el: Avoid nil 
+	as an argument for char-syntax: use (char-syntax (or nil 0)) 
+	instead of (char-syntax nil), thanks to Milan Zamazal.
+
 2005-10-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* make/lilypond.fedora.spec.in (Group): add lilypond-internals to
