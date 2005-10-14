@@ -180,8 +180,8 @@
   (setq context (parse-partial-sexp (point-min) (point)))
   (cond ((nth 3 context)) ; inside string
 	((nth 4 context)) ; inside a comment
-	((eq (char-syntax (char-before (point))) ?\\)) ; found escape-char
-	((and (eq (char-syntax (char-before (- (point) 1))) ?\\)
+	((eq (char-syntax (or (char-before (point)) 0)) ?\\)) ; found escape-char
+	((and (eq (char-syntax (or (char-before (- (point) 1)) 0)) ?\\)
 	      (memq (char-before (point)) '( ?\) ?\] )))) ; found escape-char
 	((memq (char-before (point)) '( ?\) ))
 	 (LilyPond-mode-set-syntax-table '( ?\( ?\) )))

@@ -383,7 +383,7 @@ slur-paren-p defaults to nil.
     ;; match concurrent one-char opening and closing slurs
     (if (and (eq dir 1)
 	     (not (sequencep bracket-type))
-	     (eq (char-syntax (char-after oldpos)) ?\()
+	     (eq (char-syntax (or (char-after oldpos) 0)) ?\()
 	     (not (eq (char-after oldpos) ?<)))
 	;; anyway do not count open slur, since already level = -1
         (progn (forward-char 1)
