@@ -23,6 +23,8 @@ class Paper_score : public Music_output
 public:
   Paper_score (Output_def *);
 
+  DECLARE_CLASSNAME(Paper_score);
+
   Output_def *layout () const;
   System *root_system () const;
 

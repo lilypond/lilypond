@@ -19,6 +19,7 @@ class Sequential_iterator : public Music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  DECLARE_CLASSNAME(Sequential_iterator);
   Sequential_iterator ();
   Sequential_iterator (Sequential_iterator const &);
   virtual void derived_substitute (Context *f, Context *t);
@@ -34,9 +35,11 @@ protected:
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
   virtual bool run_always () const;
+  
 protected:
   Music_iterator *iter_;
-  virtual SCM get_music_list ()const;
+  
+  virtual SCM get_music_list () const;
   virtual void next_element (bool side_effect);
 
   Grace_fixup *get_grace_fixup () const;

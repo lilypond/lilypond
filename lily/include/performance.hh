@@ -17,6 +17,7 @@ class Performance : public Music_output
 public:
   Performance ();
   ~Performance ();
+  DECLARE_CLASSNAME(Performance);
 
   void add_element (Audio_element *p);
 

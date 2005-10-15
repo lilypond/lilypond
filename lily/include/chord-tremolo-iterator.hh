@@ -14,6 +14,7 @@
 class Chord_tremolo_iterator : public Music_iterator
 {
 public:
+  DECLARE_CLASSNAME(Chord_tremolo_iterator);
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Chord_tremolo_iterator ();
   Chord_tremolo_iterator (Chord_tremolo_iterator const &);
