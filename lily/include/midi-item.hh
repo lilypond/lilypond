@@ -18,6 +18,7 @@
 class Midi_item
 {
 public:
+  DECLARE_CLASSNAME(Midi_item);
   Midi_item ();
   virtual ~Midi_item ();
   virtual char const *name () const;
@@ -54,6 +55,7 @@ public:
   void set (String header_string, String data_string, String footer_string);
   virtual String to_string () const;
   virtual String data_string () const;
+  DECLARE_CLASSNAME(Midi_chunk);
 
 private:
   String data_string_;
@@ -73,6 +75,8 @@ public:
 class Midi_header : public Midi_chunk
 {
 public:
+    DECLARE_CLASSNAME(Midi_header);
+
   Midi_header (int format_i, int tracks_i, int clocks_per_4_i);
 };
 
@@ -84,6 +88,7 @@ class Midi_instrument : public Midi_item
 public:
   Midi_instrument (Audio_instrument *);
 
+  DECLARE_CLASSNAME(Midi_instrument);
   virtual String to_string () const;
 
   Audio_instrument *audio_;
@@ -93,6 +98,7 @@ class Midi_key : public Midi_item
 {
 public:
   Midi_key (Audio_key *);
+  DECLARE_CLASSNAME(Midi_key);
 
   virtual String to_string () const;
 
@@ -103,6 +109,7 @@ class Midi_time_signature : public Midi_item
 {
 public:
   Midi_time_signature (Audio_time_signature *);
+  DECLARE_CLASSNAME(Midi_time_signature);
 
   virtual String to_string () const;
 
@@ -117,6 +124,7 @@ class Midi_note : public Midi_item
 {
 public:
   Midi_note (Audio_note *);
+  DECLARE_CLASSNAME(Midi_note);
 
   Moment get_length () const;
   int get_pitch () const;
@@ -136,6 +144,7 @@ class Midi_note_off : public Midi_note
 {
 public:
   Midi_note_off (Midi_note *);
+  DECLARE_CLASSNAME(Midi_note_off);
 
   virtual String to_string () const;
 
@@ -151,6 +160,7 @@ public:
       TEXT = 1, COPYRIGHT, TRACK_NAME, INSTRUMENT_NAME, LYRIC,
       MARKER, CUE_POINT
     };
+  DECLARE_CLASSNAME(Midi_text);
 
   Midi_text (Audio_text *);
 
@@ -163,6 +173,7 @@ class Midi_dynamic : public Midi_item
 {
 public:
   Midi_dynamic (Audio_dynamic *);
+  DECLARE_CLASSNAME(Midi_dynamic);
 
   virtual String to_string () const;
 
@@ -173,6 +184,7 @@ class Midi_piano_pedal : public Midi_item
 {
 public:
   Midi_piano_pedal (Audio_piano_pedal *);
+  DECLARE_CLASSNAME(Midi_piano_pedal);
 
   virtual String to_string () const;
 
@@ -183,6 +195,7 @@ class Midi_tempo : public Midi_item
 {
 public:
   Midi_tempo (Audio_tempo *);
+  DECLARE_CLASSNAME(Midi_tempo);
 
   virtual String to_string () const;
 
@@ -193,6 +206,7 @@ class Midi_track : public Midi_chunk
 {
 public:
   int number_;
+  DECLARE_CLASSNAME(Midi_track);
 
   /*
     Compensate for starting grace notes.

@@ -16,6 +16,7 @@ class Time_scaled_music_iterator : public Music_wrapper_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   /* construction */
+  DECLARE_CLASSNAME(Time_scaled_music_iterator);
 protected:
   virtual void process (Moment);
 };

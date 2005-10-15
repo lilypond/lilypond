@@ -19,6 +19,7 @@ class Folded_repeat_iterator : public Music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  DECLARE_CLASSNAME(Folded_repeat_iterator);
 
   Folded_repeat_iterator (Folded_repeat_iterator const &src);
   Folded_repeat_iterator ();

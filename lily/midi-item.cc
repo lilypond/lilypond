@@ -473,5 +473,5 @@ Midi_track::data_string () const
 char const *
 Midi_item::name () const
 {
-  return this->class_name ();
+   return this->class_name ();
 }

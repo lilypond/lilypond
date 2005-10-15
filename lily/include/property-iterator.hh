@@ -19,6 +19,7 @@ class Property_iterator : public Simple_music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   DECLARE_SCHEME_CALLBACK (once_finalization, (SCM, SCM));
+  DECLARE_CLASSNAME(Property_iterator);
 
 protected:
   virtual void do_quit ();
@@ -32,6 +33,7 @@ class Property_unset_iterator : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  DECLARE_CLASSNAME(Property_unset_iterator);
 protected:
   virtual void process (Moment);
 };
@@ -41,6 +43,7 @@ class Push_property_iterator : public Simple_music_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   DECLARE_SCHEME_CALLBACK (once_finalization, (SCM, SCM));
+  DECLARE_CLASSNAME(Push_property_iterator);
 protected:
   virtual void process (Moment);
   virtual void do_quit ();
@@ -50,6 +53,7 @@ class Pop_property_iterator : public Simple_music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  DECLARE_CLASSNAME(Pop_property_iterator);
 protected:
   virtual void process (Moment);
 };

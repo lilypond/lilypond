@@ -14,6 +14,7 @@
 class Percent_repeat_iterator : public Music_iterator
 {
 public:
+  DECLARE_CLASSNAME(Percent_repeat_iterator);
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Percent_repeat_iterator ();
 protected:
