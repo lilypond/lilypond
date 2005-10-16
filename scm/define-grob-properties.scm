@@ -84,9 +84,7 @@ note etc. This information is used to determine how to connect the
 beaming patterns from stem to stem inside a beam.")
 
 
-     (before-line-breaking-callback ,procedure? "This procedure is
-called before line breaking, but after splitting breakable items at
-potential line breaks.")
+     (before-line-breaking ,boolean? "Dummy property, used to trigger a callback function.")
      (between-cols ,pair? "Where to attach a loose column to")
      (bound-padding ,number? "The amount of padding to insert around spanner bounds.")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
@@ -529,7 +527,7 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
      (adjacent-hairpins ,ly:grob-array? "List of directly neighboring hairpins")
-     (after-line-breaking-callback ,procedure? "This procedure is called after line breaking. Its return value is ignored.")     
+     (after-line-breaking ,boolean? "Dummy property, used to trigger callback for after-line-breaking")
      (all-elements ,ly:grob-array? "list of all grobs in this line. Its
 function is to protect objects from being garbage collected.")
      (arpeggio ,ly:grob? "pointer to arpeggio object.")

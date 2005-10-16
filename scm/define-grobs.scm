@@ -22,7 +22,8 @@
 	(print-function . ,Accidental_interface::print)
 	(avoid-slur . inside)
 	(cautionary-style . parentheses)
-	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)
+	(callbacks ((after-line-breaking . ,Accidental_interface::after_line_breaking)))
+	
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
@@ -94,7 +95,8 @@
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . -1)
 	(cautionary-style . parentheses)
-	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)
+	(callbacks . ((after-line-breaking . ,Accidental_interface::after_line_breaking)
+		      ))
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
 				accidental-interface
@@ -141,7 +143,7 @@
 	(print-function . ,Bar_line::print)
 	(break-visibility . ,all-visible)
 	(breakable . #t)
-	(before-line-breaking-callback . ,Bar_line::before_line_breaking)
+	(callbacks . ((before-line-breaking . ,Bar_line::before_line_breaking)))
 	(space-alist . (
 			(time-signature . (extra-space . 0.75))
 			(custos . (minimum-space . 2.0))
@@ -264,8 +266,6 @@
 
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
-;	(before-line-breaking-callback . ,Beam::before_line_breaking)
-;	(after-line-breaking-callback . ,Beam::after_line_breaking)
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority-median)
 
@@ -377,7 +377,7 @@
     (Clef
      . (
 	(print-function . ,Clef::print)
-	(before-line-breaking-callback . ,Clef::before_line_breaking)
+	(callbacks ((before-line-breaking . ,Clef::before_line_breaking)))
 	(breakable . #t)
 	(font-family . music)
 	(break-align-symbol . clef)
@@ -417,7 +417,8 @@
     (ChordName
      . (
 	(print-function . ,Text_interface::print)
-	(after-line-breaking-callback . ,Chord_name::after_line_breaking)
+	(callbacks . ((after-line-breaking . ,Chord_name::after_line_breaking)
+		      ))
 	(word-space . 0.0)
 	(font-family . sans)
 	(font-size . 1.5)
@@ -541,7 +542,8 @@
     (DynamicText
      . (
 	(print-function . ,Text_interface::print)
-	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
+	;; todo.
+	(callbacks . ((before-line-breaking . ,Script_interface::before_line_breaking)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
@@ -591,7 +593,7 @@
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
-	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
+	(callbacks . ((before-line-breaking . ,Script_interface::before_line_breaking)))
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
@@ -610,7 +612,8 @@
 	(breakable . #t)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
-	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
+	(callbacks ((after-line-breaking . ,Line_spanner::after_line_breaking)
+		    ))
 	(print-function . ,Line_spanner::print)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
@@ -638,7 +641,7 @@
     (Hairpin
      . (
 	(print-function . ,Hairpin::print)
-	(after-line-breaking-callback . ,Hairpin::after_line_breaking)
+	(callbacks . ((after-line-breaking . ,Hairpin::after_line_breaking)))
 	(thickness . 1.0)
 	(height . 0.6666)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
@@ -1029,7 +1032,7 @@
     (PaperColumn
      . (
 	(axes . (0))
-	(before-line-breaking-callback . ,Paper_column::before_line_breaking)
+	(callbacks ((before-line-breaking . ,Paper_column::before_line_breaking)))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 
 	;; debugging
@@ -1058,7 +1061,7 @@
      . (
 	(axes . (0))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
-	(before-line-breaking-callback . ,Paper_column::before_line_breaking)
+	(callbacks . ((before-line-breaking . ,Paper_column::before_line_breaking)))
 	(breakable . #t)
 
 	;; debugging stuff: print column number.
@@ -1119,7 +1122,7 @@
 	(print-function . ,Text_interface::print)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(after-line-breaking-callback . ,shift-right-at-line-begin)
+	(callbacks . ((after-line-breaking . ,shift-right-at-line-begin)))
 	(self-alignment-X . 0)
 	(direction . 1)
 	(breakable . #t)
@@ -1154,12 +1157,14 @@
 		 (interfaces . (percent-repeat-interface))))))
     (Rest
      . (
-	(after-line-breaking-callback . ,Rest::after_line_breaking)
 	(X-extent-callback . ,Rest::extent_callback)
 	(Y-extent-callback . ,Rest::extent_callback)
 	(print-function . ,Rest::print)
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback
-			       ,Rest::polyphonic_offset_callback))
+	(Y-offset-callbacks . (
+			       ,Staff_symbol_referencer::callback
+			       ,Rest::polyphonic_offset_callback
+			       ,Rest::y_offset_callback
+			       ))
 	(minimum-distance . 0.25)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -1187,7 +1192,7 @@
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
-	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
+	(callbacks . ((before-line-breaking . ,Script_interface::before_line_breaking)))
 	(font-encoding . fetaMusic)
 	(meta . ((class . Item)
 		 (interfaces . (script-interface
@@ -1196,7 +1201,7 @@
 
     (ScriptColumn
      . (
-	(before-line-breaking-callback . ,Script_column::before_line_breaking)
+	(callbacks . ((before-line-breaking . ,Script_column::before_line_breaking)))
 	(meta . ((class . Item)
 		 (interfaces . (script-column-interface))))))
 
@@ -1252,7 +1257,7 @@
 	(Y-extent-callback . ())
 	(layer . 0)
 	(breakable . #t)
-	(before-line-breaking-callback . ,Span_bar::before_line_breaking)
+	(callbacks . ((before-line-breaking . ,Span_bar::before_line_breaking)))
 	;; ugh duplication!
 
 	;;
@@ -1473,7 +1478,8 @@
 	(print-function . ,System_start_delimiter::print)
 	(glyph . "bar-line")
 	(thickness . 1.6)
-	(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
+	(callbacks . ((after-line-breaking . ,System_start_delimiter::after_line_breaking)))
+	
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-delimiter-interface))))))
 
@@ -1502,7 +1508,7 @@
 	;; sync with Fingering ?
 	(padding . 0.5)
 	(staff-padding . 0.5)
-	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
+	(callbacks . ((before-line-breaking . ,Script_interface::before_line_breaking)))
 	(avoid-slur . around)
 	(slur-padding . 0.5)
 	(script-priority . 200)
@@ -1543,8 +1549,8 @@
     (TieColumn
      . (
 	(callbacks . ((positioning-done . ,Tie_column::calc_positioning_done)
+		      (before-line-breaking . ,Tie_column::before_line_breaking)
 		      ))
-	(before-line-breaking-callback . ,Tie_column::before_line_breaking)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
 	
@@ -1722,7 +1728,7 @@
     (VoltaBracket
      . (
 	(print-function . ,Volta_bracket_interface::print)
-	(after-line-breaking-callback . ,Volta_bracket_interface::after_line_breaking)
+	(callbacks . ((after-line-breaking . ,Volta_bracket_interface::after_line_breaking)))
 	(direction . ,UP)
 	(padding . 1)
 	(font-encoding . fetaNumber)
@@ -1747,7 +1753,7 @@
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
 	(print-function . ,Line_spanner::print)
-	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
+	(callbacks ((after-line-breaking . ,Line_spanner::after_line_breaking)))
 	(meta . ((class . Spanner)
 		 (interfaces . (line-spanner-interface
 				line-interface))))))))

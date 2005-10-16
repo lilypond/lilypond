@@ -17,21 +17,25 @@
 #include "directional-element-interface.hh"
 
 // -> offset callback
-MAKE_SCHEME_CALLBACK (Rest, after_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, 2);
 SCM
-Rest::after_line_breaking (SCM smob)
+Rest::y_offset_callback (SCM smob, SCM axis)
 {
   Grob *me = unsmob_grob (smob);
+  (void) axis;
+  
   int bt = scm_to_int (me->get_property ("duration-log"));
   int lc = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
+
+  Real amount = 0.0;
   if (lc % 2)
     {
       if (bt == 0 && lc > 1)
-	me->translate_axis (ss, Y_AXIS);
+	amount += ss;
     }
   else
-    me->translate_axis (ss / 2, Y_AXIS);
+    amount += ss / 2;
 
   Grob *d = unsmob_grob (me->get_object ("dot"));
   if (d && bt > 4) // UGH.
@@ -44,7 +48,7 @@ Rest::after_line_breaking (SCM smob)
       d->set_property ("staff-position",
 		       scm_from_int ((bt == 0) ? -1 : 1));
     }
-  return SCM_UNSPECIFIED;
+  return scm_from_double (amount);
 }
 
 /*

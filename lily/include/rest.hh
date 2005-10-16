@@ -16,7 +16,7 @@ class Grob;
 class Rest
 {
 public:
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (y_offset_callback, (SCM, SCM));
   static bool has_interface (Grob *);
   static String glyph_name (Grob *, int, String, bool);
   static SCM brew_internal_stencil (SCM, bool);
