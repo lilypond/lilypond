@@ -19,17 +19,19 @@
   `(
     (Accidental
      . (
-	(print-function . ,Accidental_interface::print)
 	(avoid-slur . inside)
 	(cautionary-style . parentheses)
-	(callbacks ((after-line-breaking . ,Accidental_interface::after_line_breaking)))
+	(callbacks . ((stencil . ,Accidental_interface::print)
+		      (after-line-breaking . ,Accidental_interface::after_line_breaking)))
 	
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
-
+    
     (AccidentalSuggestion
-     . ((print-function . ,Accidental_interface::print)
+     . (
+
+	(callbacks . ((stencil . ,Accidental_interface::print)))
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
 			       ,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . ,CENTER)
@@ -78,7 +80,7 @@
 
     (AmbitusLine
      . (
-	(print-function . ,Ambitus::print)
+	(callbacks . (	(stencil . ,Ambitus::print)))
 	(join-heads . #t)
 	(thickness . 2)
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
@@ -89,13 +91,13 @@
 				font-interface))))))
     (AmbitusAccidental
      . (
-	(print-function . ,Accidental_interface::print)
 	(font-family . music)
 	(padding . 0.5)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . -1)
 	(cautionary-style . parentheses)
-	(callbacks . ((after-line-breaking . ,Accidental_interface::after_line_breaking)
+	(callbacks . ((stencil . ,Accidental_interface::print)
+		      (after-line-breaking . ,Accidental_interface::after_line_breaking)
 		      ))
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
@@ -107,7 +109,7 @@
     (AmbitusNoteHead
      . (
 	(duration-log . 2)
-	(print-function . ,Note_head::print)
+	(callbacks . (	(stencil . ,Note_head::print)))
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(meta . ((class . Item)
@@ -121,7 +123,7 @@
     (Arpeggio
      . (
 	(X-extent-callback . ,Arpeggio::width_callback)
-	(print-function . ,Arpeggio::print)
+	(callbacks . (	(stencil . ,Arpeggio::print)))
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . -1)
@@ -140,10 +142,10 @@
 	(break-glyph-function . ,default-break-barline)
 	(layer . 0)
 	(bar-size-procedure . ,Bar_line::get_staff_bar_size)
-	(print-function . ,Bar_line::print)
 	(break-visibility . ,all-visible)
 	(breakable . #t)
-	(callbacks . ((before-line-breaking . ,Bar_line::before_line_breaking)))
+	(callbacks . ((stencil . ,Bar_line::print)
+		      (before-line-breaking . ,Bar_line::before_line_breaking)))
 	(space-alist . (
 			(time-signature . (extra-space . 0.75))
 			(custos . (minimum-space . 2.0))
@@ -170,7 +172,7 @@
 
     (BarNumber
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(breakable . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
@@ -192,7 +194,7 @@
 
     (BassFigure
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
 	(font-family . number)
@@ -210,21 +212,21 @@
 
     (NewBassFigure
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . (	(stencil . ,Text_interface::print)))
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				rhythmic-grob-interface
 				bass-figure-interface
 				font-interface))))))
     (BassFigureBracket
-     . ((print-function . ,Enclosing_bracket::print)
+     . ((callbacks . ((stencil . ,Enclosing_bracket::print)))
 	(edge-height . (0.2 . 0.2))
 	(meta . ((class . Item)
 		 (interfaces . (enclosing-bracket-interface)) ))
 	))
     (BassFigureContinuation
      . (
-	(print-function . ,Figured_bass_continuation::print)
+	(callbacks . (	(stencil . ,Figured_bass_continuation::print)))
 	(Y-offset-callbacks . (,Figured_bass_continuation::center_on_figures))
 	(meta . ((class . Spanner)
 		 (interfaces . (figured-bass-continuation-interface))
@@ -253,7 +255,6 @@
      . (
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
-	(print-function . ,Beam::print)
 	(gap . 0.8)
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
@@ -262,6 +263,7 @@
 			       ,Beam::quanting))
 	(callbacks . ((positions . ,Beam::calc_positions)
 		      (direction . ,Beam::calc_direction)
+		      (stencil . ,Beam::print)
 		      ))
 
 	;; TODO: should be in SLT.
@@ -364,7 +366,7 @@
 			(clef . (minimum-space . 2.0))
 			(first-note . (fixed-space . 1.0)) ;huh?
 			(right-edge . (extra-space . 0.1))))
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(text . ,(make-musicglyph-markup "scripts.rcomma"))
 	(Y-offset-callbacks . (,Breathing_sign::offset_callback))
 	(break-visibility . ,begin-of-line-invisible)
@@ -376,8 +378,9 @@
 
     (Clef
      . (
-	(print-function . ,Clef::print)
-	(callbacks ((before-line-breaking . ,Clef::before_line_breaking)))
+	(callbacks . ((stencil . ,Clef::print)
+		      (before-line-breaking . ,Clef::before_line_breaking)
+		      ))
 	(breakable . #t)
 	(font-family . music)
 	(break-align-symbol . clef)
@@ -399,14 +402,13 @@
 
     (ClusterSpannerBeacon
      . (
-	(print-function . #f)
 	(Y-extent-callback . ,Cluster_beacon::height)
 	(meta . ((class . Item)
 		 (interfaces . (cluster-beacon-interface))))))
 
     (ClusterSpanner
      . (
-	(print-function . ,Cluster::print)
+	(callbacks . ((stencil . ,Cluster::print)))
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 0.0)
 	(padding . 0.25)
@@ -416,7 +418,7 @@
 
     (ChordName
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(callbacks . ((after-line-breaking . ,Chord_name::after_line_breaking)
 		      ))
 	(word-space . 0.0)
@@ -431,7 +433,7 @@
 
     (CombineTextScript
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(no-spacing-rods . #t)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
@@ -452,7 +454,7 @@
      . (
 	(break-align-symbol . custos)
 	(breakable . #t)
-	(print-function . ,Custos::print)
+	(callbacks . ((stencil . ,Custos::print)))
 	(break-visibility . ,end-of-line-visible)
 	(style . vaticana)
 	(neutral-direction . -1)
@@ -472,7 +474,7 @@
 	(axes . (0))
 	(direction . ,RIGHT)
 	(callbacks . ((positioning-done . ,Dot_column::calc_positioning_done) 
-		       ))
+		      ))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-offset-callbacks . (,Dot_column::side_position))
 	(meta . ((class . Item)
@@ -481,7 +483,7 @@
 
     (Dots
      . (
-	(print-function . ,Dots::print)
+	(callbacks . ((stencil . ,Dots::print)))
 	(dot-count . 1)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -490,7 +492,7 @@
 
     (DoublePercentRepeat
      . (
-	(print-function . ,Percent_repeat_item_interface::double_percent)
+	(callbacks . ((stencil . ,Percent_repeat_item_interface::double_percent)))
 	(breakable . #t)
 	(slope . 1.0)
 	(font-encoding . fetaMusic)
@@ -504,7 +506,8 @@
 				percent-repeat-interface))))))
 
     (DoublePercentRepeatCounter
-     . ((print-function . ,Text_interface::print)
+     . (
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -541,9 +544,10 @@
 
     (DynamicText
      . (
-	(print-function . ,Text_interface::print)
+	
 	;; todo.
-	(callbacks . ((before-line-breaking . ,Script_interface::before_line_breaking)))
+	(callbacks . ((stencil . ,Text_interface::print)
+		      (before-line-breaking . ,Script_interface::before_line_breaking)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
@@ -561,8 +565,8 @@
 				script-interface))))))
 
     (DynamicTextSpanner
-     . ((print-function . ,Dynamic_text_spanner::print)
-
+     . (
+	(callbacks . ((stencil . ,Dynamic_text_spanner::print)))
 	;; rather ugh with NCSB
 	;; (font-series . bold)
 	(font-shape . italic)
@@ -582,7 +586,6 @@
 
     (Fingering
      . (
-	(print-function . ,Text_interface::print)
 
 	;; sync with TextScript (?)
 
@@ -593,7 +596,8 @@
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
-	(callbacks . ((before-line-breaking . ,Script_interface::before_line_breaking)))
+	(callbacks . ((stencil . ,Text_interface::print)
+		      (before-line-breaking . ,Script_interface::before_line_breaking)))
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
@@ -612,9 +616,10 @@
 	(breakable . #t)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
-	(callbacks ((after-line-breaking . ,Line_spanner::after_line_breaking)
-		    ))
-	(print-function . ,Line_spanner::print)
+	(callbacks . ((stencil . ,Line_spanner::print)
+		      (after-line-breaking . ,Line_spanner::after_line_breaking)
+		      ))
+	
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
 				line-spanner-interface))))))
@@ -628,7 +633,7 @@
 
     (GridLine
      . (
-	(print-function . ,Grid_line_interface::print)
+	(callbacks . (stencil . ,Grid_line_interface::print))
 	(X-extent-callback  . ,Grid_line_interface::width_callback)
 	(self-alignment-X . ,CENTER)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
@@ -640,8 +645,9 @@
 
     (Hairpin
      . (
-	(print-function . ,Hairpin::print)
-	(callbacks . ((after-line-breaking . ,Hairpin::after_line_breaking)))
+	
+	(callbacks . ((stencil . ,Hairpin::print)
+		      (after-line-breaking . ,Hairpin::after_line_breaking)))
 	(thickness . 1.0)
 	(height . 0.6666)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
@@ -659,7 +665,7 @@
     (HorizontalBracket
      . (
 	(thickness . 1.0)
-	(print-function . ,Horizontal_bracket::print)
+	(callbacks . ((stencil . ,Horizontal_bracket::print)))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(padding . 0.2)
 	(staff-padding . 0.2)
@@ -682,7 +688,7 @@
 			(left-edge . (extra-space . 1.0))))
 
 	(self-alignment-Y . 0)
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(break-align-symbol . instrument-name)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -695,7 +701,7 @@
 
     (KeyCancellation
      . (
-	(print-function . ,Key_signature_interface::print)
+	(callbacks . ((stencil . ,Key_signature_interface::print)))
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar . (extra-space . 0.6))
@@ -713,7 +719,7 @@
 				break-aligned-interface))))))
     (KeySignature
      . (
-	(print-function . ,Key_signature_interface::print)
+	(callbacks . ((stencil . ,Key_signature_interface::print)))
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar . (extra-space . 1.1))
@@ -730,8 +736,8 @@
 				break-aligned-interface))))))
     (LaissezVibrerTie
      . (
-	(print-function  . ,Tie::print)
-	(callbacks . ((control-points . ,Laissez_vibrer_tie::calc_control_points)
+	(callbacks . ((stencil  . ,Tie::print)
+		      (control-points . ,Laissez_vibrer_tie::calc_control_points)
 		      (direction . ,Laissez_vibrer_tie::calc_direction)
 		      ))
 	(details . ((ratio . 0.333)
@@ -755,13 +761,12 @@
     
     (LedgerLineSpanner
      . (
-	(print-function . ,Ledger_line_spanner::print)
+	(callbacks . ((stencil . ,Ledger_line_spanner::print)))
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
 	(minimum-length-fraction . 0.25)
 	(length-fraction . 0.25)
 	(spacing-procedure . ,Ledger_line_spanner::set_spacing_rods)
-	(print-function . ,Ledger_line_spanner::print)
 	(layer . 0)
 	(meta . ((class . Spanner)
 		 (interfaces . (ledger-line-interface))))))
@@ -795,6 +800,7 @@
 	;; a tuplet bracket.
 	(callbacks . ((direction  . ,Tuplet_bracket::calc_direction)
 		      (positions . ,Tuplet_bracket::calc_positions)
+		      (stencil . ,Tuplet_bracket::print)
 		      ))
 	(direction . 1)
 	(gap . 0.0)
@@ -802,7 +808,6 @@
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
-	(print-function . ,Tuplet_bracket::print)
 	(meta . ((class . Spanner)
 		 (interfaces . (tuplet-bracket-interface
 				line-interface))))))
@@ -816,7 +821,7 @@
 	(minimum-length . 0.3)
 	(padding . 0.07)
 					;	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
-	(print-function . ,Hyphen_spanner::print)
+	(callbacks . ((stencil . ,Hyphen_spanner::print)))
 	(Y-extent . (0 . 0))
 	(meta . ((class . Spanner)
 		 (interfaces . (lyric-interface
@@ -825,7 +830,7 @@
 
     (LyricExtender
      . (
-	(print-function . ,Lyric_extender::print)
+	(callbacks . ((stencil . ,Lyric_extender::print)))
 	(thickness . 0.8) ; linethickness
 	(minimum-length . 1.5)
 	(Y-extent . (0 . 0))
@@ -834,7 +839,7 @@
 				lyric-extender-interface))))))
 
     (LyricText
-     . ((print-function . ,Text_interface::print)
+     . ((callbacks . ((stencil . ,Text_interface::print)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_parent))
 	(self-alignment-X . 0)
 	(word-space . 0.6)
@@ -852,14 +857,14 @@
 	(thickness . 1.4)
 	(flexa-width . 2.0)
 	(ligature-primitive-callback . ,Mensural_ligature::brew_ligature_primitive)
-	(print-function . ,Mensural_ligature::print)
+	(callbacks . ((stencil . ,Mensural_ligature::print)))
 	(meta . ((class . Spanner)
 		 (interfaces . (mensural-ligature-interface
 				font-interface))))))
 
     (MetronomeMark
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . 1)
 	(padding . 0.8)
@@ -871,7 +876,7 @@
     (MeasureGrouping
      . (
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(print-function . ,Measure_grouping::print)
+	(callbacks . (stencil . ,Measure_grouping::print))
 	(padding . 2)
 	(direction . 1)
 	(thickness . 1)
@@ -882,7 +887,7 @@
 				measure-grouping-interface))))))
     (MultiMeasureRest
      . (
-	(print-function . ,Multi_measure_rest::print)
+	(callbacks . ((stencil . ,Multi_measure_rest::print)))
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(staff-position . 0)
 	(expand-limit . 10)
@@ -898,7 +903,7 @@
 
     (MultiMeasureRestNumber
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
@@ -917,7 +922,7 @@
     
     (MultiMeasureRestText
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -954,7 +959,7 @@
 
     (NoteHead
      . (
-	(print-function . ,Note_head::print)
+	(callbacks . ((stencil . ,Note_head::print)))
 	(ligature-primitive-callback . ,Note_head::print)
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
@@ -982,7 +987,7 @@
 
     (NoteName
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(meta . ((class . Item)
 		 (interfaces . (note-name-interface
 				text-interface
@@ -995,7 +1000,7 @@
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
 			       ,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 
 	;; no Y dimensions, because of lyrics under tenor clef.
 	(Y-extent . (0 . 0))
@@ -1012,7 +1017,7 @@
     (OttavaBracket
      . (
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(print-function . ,Ottava_bracket::print)
+	(callbacks . ((stencil . ,Ottava_bracket::print)))
 	(font-shape . italic)
 	(shorten-pair . (0.0 . -0.6))
 	(staff-padding . 1.0)
@@ -1032,11 +1037,13 @@
     (PaperColumn
      . (
 	(axes . (0))
-	(callbacks ((before-line-breaking . ,Paper_column::before_line_breaking)))
+	(callbacks . ((before-line-breaking . ,Paper_column::before_line_breaking)
+		      ;; (stencil . ,Paper_column::print)
+		      ))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 
 	;; debugging
-;;		        (print-function . ,Paper_column::print) (font-size . -6) (font-name . "sans") (Y-extent-callback . #f)
+	;;		         (font-size . -6) (font-name . "sans") (Y-extent-callback . #f)
 	(meta . ((class . Paper_column)
 		 (interfaces . (paper-column-interface
 				axis-group-interface
@@ -1046,8 +1053,9 @@
      . ((slur-details . ,default-slur-details)
 	(callbacks . ((control-points . ,Slur::calc_control_points)
 		      (direction . ,Slur::calc_direction)
-		       ))
-	(print-function . ,Slur::print)
+		      (stencil . ,Slur::print)		      
+		      ))
+	
 	(thickness . 1.1)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 1.5)
@@ -1061,11 +1069,13 @@
      . (
 	(axes . (0))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
-	(callbacks . ((before-line-breaking . ,Paper_column::before_line_breaking)))
+	(callbacks . ((before-line-breaking . ,Paper_column::before_line_breaking)
+		      ;;		      (stencil . ,Paper_column::print)
+		      ))
 	(breakable . #t)
 
 	;; debugging stuff: print column number.
-;;		(print-function . ,Paper_column::print) (font-size . -6) (font-name . "sans")	(Y-extent-callback . #f)
+	;;		 (font-size . -6) (font-name . "sans")	(Y-extent-callback . #f)
 
 	(meta . ((class . Paper_column)
 		 (interfaces . (paper-column-interface
@@ -1075,7 +1085,7 @@
     (PercentRepeat
      . (
 	(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
-	(print-function . ,Multi_measure_rest::percent)
+	(callbacks . ((stencil . ,Multi_measure_rest::percent)))
 	(slope . 1.0)
 	(thickness . 0.48)
 	(font-encoding . fetaMusic)
@@ -1084,7 +1094,7 @@
 				font-interface
 				percent-repeat-interface))))))
     (PercentRepeatCounter
-     . ((print-function . ,Text_interface::print)
+     . ((callbacks . ((stencil . ,Text_interface::print)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -1104,7 +1114,7 @@
     ;; an example of a text spanner
     (PianoPedalBracket
      . (
-	(print-function . ,Piano_pedal_bracket::print)
+	(callbacks . ((stencil . ,Piano_pedal_bracket::print)))
 	(style . line)
 	(bound-padding . 1.0)
 	(direction . -1)
@@ -1119,7 +1129,7 @@
 
     (RehearsalMark
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(callbacks . ((after-line-breaking . ,shift-right-at-line-begin)))
@@ -1150,7 +1160,7 @@
 
     (RepeatSlash
      . (
-	(print-function . ,Percent_repeat_item_interface::beat_slash)
+	(callbacks . ((stencil . ,Percent_repeat_item_interface::beat_slash)))
 	(thickness . 0.48)
 	(slope . 1.7)
 	(meta . ((class . Item)
@@ -1159,7 +1169,7 @@
      . (
 	(X-extent-callback . ,Rest::extent_callback)
 	(Y-extent-callback . ,Rest::extent_callback)
-	(print-function . ,Rest::print)
+	(callbacks . ((stencil . ,Rest::print)))
 	(Y-offset-callbacks . (
 			       ,Staff_symbol_referencer::callback
 			       ,Rest::polyphonic_offset_callback
@@ -1184,7 +1194,6 @@
     (Script
      . (
 	;; don't set direction here: it breaks staccato.
-	(print-function . ,Script_interface::print)
 
 	;; This value is sensitive: if too large, staccato dots will move a
 	;; space a away.
@@ -1192,7 +1201,8 @@
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
-	(callbacks . ((before-line-breaking . ,Script_interface::before_line_breaking)))
+	(callbacks . ((stencil . ,Script_interface::print)
+		      (before-line-breaking . ,Script_interface::before_line_breaking)))
 	(font-encoding . fetaMusic)
 	(meta . ((class . Item)
 		 (interfaces . (script-interface
@@ -1225,8 +1235,8 @@
      . ((slur-details . ,default-slur-details)
 	(callbacks . ((control-points . ,Slur::calc_control_points)
 		      (direction . ,Slur::calc_direction)
-		       ))
-	(print-function . ,Slur::print)
+		      (stencil . ,Slur::print)
+		      ))
 	(thickness . 1.0)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 1.5)
@@ -1252,12 +1262,12 @@
      . (
 	(break-align-symbol . staff-bar)
 	(bar-size-procedure . ,Span_bar::get_bar_size)
-	(print-function . ,Span_bar::print)
 	(X-extent-callback . ,Span_bar::width_callback)
 	(Y-extent-callback . ())
 	(layer . 0)
 	(breakable . #t)
-	(callbacks . ((before-line-breaking . ,Span_bar::before_line_breaking)))
+	(callbacks . ((stencil . ,Span_bar::print)
+		      (before-line-breaking . ,Span_bar::before_line_breaking)))
 	;; ugh duplication!
 
 	;;
@@ -1273,7 +1283,7 @@
 				bar-line-interface))))))
 
     (StanzaNumber
-     . ((print-function . ,Text_interface::print)
+     . ((callbacks . ((stencil . ,Text_interface::print)))
 	(font-series . bold)
 	(padding . 1.0)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -1286,7 +1296,7 @@
 
     (StringNumber
      . (
-	(print-function . ,print-circled-text-callback)
+	(callbacks . ((stencil . ,print-circled-text-callback)))
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)
@@ -1307,14 +1317,13 @@
      . (
 	(breakable . #t)
 	(stem-spacing-correction . 0.4)
-
 	(meta . ((class . Item)
 		 (interfaces . (spacing-interface
 				staff-spacing-interface))))))
 
     (SostenutoPedal
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(direction . 1)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(no-spacing-rods . #t)
@@ -1342,7 +1351,7 @@
 
     (StaffSymbol
      . (
-	(print-function . ,Staff_symbol::print)
+	(callbacks . ((stencil . ,Staff_symbol::print)))
 	(line-count . 5)
 	(ledger-line-thickness . (1.0 . 0.1))
 	(layer . 0)
@@ -1356,8 +1365,8 @@
 		      (stem-end-position . ,Stem::calc_stem_end_position)
 		      (stem-info . ,Stem::calc_stem_info)
 		      (positioning-done . ,Stem::calc_positioning_done)
+		      (stencil . ,Stem::print)
 		      ))
-	(print-function . ,Stem::print)
 	(thickness . 1.3)
 
 	;; 3.5 (or 3 measured from note head) is standard length
@@ -1401,7 +1410,7 @@
 
     (StemTremolo
      . (
-	(print-function . ,Stem_tremolo::print)
+	(callbacks . ((stencil . ,Stem_tremolo::print)))
 	(Y-extent-callback . ,Stem_tremolo::height)
 	(X-extent-callback . #f)
 
@@ -1413,7 +1422,7 @@
     (SustainPedal
      . (
 	(no-spacing-rods . #t)
-	(print-function . ,Sustain_pedal::print)
+	(callbacks . ((stencil . ,Sustain_pedal::print)))
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
@@ -1452,7 +1461,7 @@
     (SystemStartBrace
      . (
 	(glyph . "brace")
-	(print-function . ,System_start_delimiter::print)
+	(callbacks . ((stencil . ,System_start_delimiter::print)))
 	(collapse-height . 5.0)
 	(font-encoding . fetaBraces)
 	(Y-extent-callback . #f)
@@ -1464,7 +1473,7 @@
      . (
 	(Y-extent-callback . #f)
 	(X-offset-callbacks . (,(lambda (g a) -0.8)))
-	(print-function . ,System_start_delimiter::print)
+	(callbacks . ((stencil . ,System_start_delimiter::print)))
 	(glyph . "bracket")
 	(collapse-height . 5.0)
 	(thickness . 0.45)
@@ -1475,17 +1484,17 @@
     (SystemStartBar
      . (
 	(Y-extent-callback . #f)
-	(print-function . ,System_start_delimiter::print)
 	(glyph . "bar-line")
 	(thickness . 1.6)
-	(callbacks . ((after-line-breaking . ,System_start_delimiter::after_line_breaking)))
+	(callbacks . ((stencil . ,System_start_delimiter::print)
+		      (after-line-breaking . ,System_start_delimiter::after_line_breaking)))
 	
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-delimiter-interface))))))
 
     (TabNoteHead
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(font-size . -2)
 	(stem-attachment-function . ,tablature-stem-attachment-function)
@@ -1500,7 +1509,6 @@
 
     (TextScript
      . (
-	(print-function . ,Text_interface::print)
 	(no-spacing-rods . #t)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . -1)
@@ -1508,7 +1516,8 @@
 	;; sync with Fingering ?
 	(padding . 0.5)
 	(staff-padding . 0.5)
-	(callbacks . ((before-line-breaking . ,Script_interface::before_line_breaking)))
+	(callbacks . ((stencil . ,Text_interface::print)
+		      (before-line-breaking . ,Script_interface::before_line_breaking)))
 	(avoid-slur . around)
 	(slur-padding . 0.5)
 	(script-priority . 200)
@@ -1521,7 +1530,7 @@
 
     (TextSpanner
      . (
-	(print-function . ,Text_spanner::print)
+	(callbacks .((stencil . ,Text_spanner::print)))
 	(font-shape . italic)
 	(style . dashed-line)
 	(staff-padding . 0.8)
@@ -1534,9 +1543,10 @@
 				font-interface))))))
 
     (Tie
-     . ((print-function . ,Tie::print)
+     . (
 	(callbacks . ((control-points . ,Tie::calc_control_points)
 		      (direction . ,Tie::calc_direction)
+		      (stencil . ,Tie::print)
 		      ))
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)
@@ -1559,7 +1569,7 @@
 
     (TimeSignature
      . (
-	(print-function . ,Time_signature::print)
+	(callbacks . ((stencil . ,Time_signature::print)))
 	(break-align-symbol . time-signature)
 	(break-visibility . ,all-visible)
 	(space-alist . (
@@ -1575,7 +1585,7 @@
 
     (TrillSpanner
      . (
-	(print-function . ,Dynamic_text_spanner::print)
+	(callbacks . ((stencil . ,Dynamic_text_spanner::print)))
 	(edge-text . ,(cons (make-musicglyph-markup "scripts.trill")
 			    ""))
 	(style . trill)
@@ -1593,7 +1603,7 @@
 	(padding . 0.2)
 	(direction . ,LEFT)
 	(font-size . -4)
-	(print-function . ,Accidental_interface::print)
+	(callbacks . ((stencil . ,Accidental_interface::print)))
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
 				accidental-interface
@@ -1604,7 +1614,7 @@
      . ((X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(axes . (,X))
 	(font-size . -4)
-	(print-function . ,parenthesize-elements)
+	(callbacks . ((stencil . ,parenthesize-elements)))
 	(direction . ,RIGHT)
 	(padding . 0.3)
 	(meta . ((class . Item)
@@ -1616,7 +1626,7 @@
 				axis-group-interface))))))
 
     (TrillPitchHead
-     . ((print-function . ,Note_head::print)
+     . ((callbacks . ((stencil . ,Note_head::print)))
 	(duration-log . 2)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(font-size . -4)
@@ -1636,8 +1646,8 @@
 	(shorten-pair . (-0.2 . -0.2))
 	(callbacks . ((direction  . ,Tuplet_bracket::calc_direction)
 		      (positions . ,Tuplet_bracket::calc_positions)
+		      (stencil . ,Tuplet_bracket::print)
 		      ))
-	(print-function . ,Tuplet_bracket::print)
 	(font-shape . italic)
 
 	(font-size . -2)
@@ -1649,7 +1659,7 @@
 
     (UnaCordaPedal
      . (
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(font-shape . italic)
 	(no-spacing-rods . #t)
 	(self-alignment-X . 0)
@@ -1680,7 +1690,7 @@
 	(thickness . 0.6)
 	(flexa-width . 2.0)
 	(ligature-primitive-callback . ,Vaticana_ligature::brew_ligature_primitive)
-	(print-function . ,Vaticana_ligature::print)
+	(callbacks . ((stencil . ,Vaticana_ligature::print)))
 	(meta . ((class . Spanner)
 		 (interfaces . (vaticana-ligature-interface
 				font-interface))))))
@@ -1715,7 +1725,7 @@
 	(direction . 0)
 	(space-alist . ((left-edge . (extra-space . 1.0))))
 	(break-align-symbol . instrument-name)
-	(print-function . ,Text_interface::print)
+	(callbacks . ((stencil . ,Text_interface::print)))
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -1728,8 +1738,8 @@
 
     (VoltaBracket
      . (
-	(print-function . ,Volta_bracket_interface::print)
-	(callbacks . ((after-line-breaking . ,Volta_bracket_interface::after_line_breaking)))
+	(callbacks . ((stencil . ,Volta_bracket_interface::print)
+		      (after-line-breaking . ,Volta_bracket_interface::after_line_breaking)))
 	(direction . ,UP)
 	(padding . 1)
 	(font-encoding . fetaNumber)
@@ -1746,6 +1756,7 @@
 				side-position-interface
 				font-interface))))))
 
+    
     (VoiceFollower
      . (
 	(style . line)
@@ -1753,8 +1764,9 @@
 	(breakable . #t)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
-	(print-function . ,Line_spanner::print)
-	(callbacks ((after-line-breaking . ,Line_spanner::after_line_breaking)))
+	
+	(callbacks . ((stencil . ,Line_spanner::print)
+		      (after-line-breaking . ,Line_spanner::after_line_breaking)))
 	(meta . ((class . Spanner)
 		 (interfaces . (line-spanner-interface
 				line-interface))))))))

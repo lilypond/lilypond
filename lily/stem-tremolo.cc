@@ -32,7 +32,6 @@ Stem_tremolo::dim_callback (SCM e, SCM)
   return ly_interval2scm (Interval (-space, space));
 }
 
-/* ugh ?  --from Slur   */
 MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 2);
 SCM
 Stem_tremolo::height (SCM smob, SCM ax)
@@ -41,12 +40,11 @@ Stem_tremolo::height (SCM smob, SCM ax)
   Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
-  SCM mol = me->get_uncached_stencil ();
 
-  if (Stencil *m = unsmob_stencil (mol))
-    return ly_interval2scm (m->extent (a));
-  else
-    return ly_interval2scm (Interval ());
+  /* TODO: fixme. uncached? */
+  return ly_interval2scm (me->get_stencil ()
+			  ? me->get_stencil ()->extent (a)
+			  : Interval());
 }
 
 Stencil

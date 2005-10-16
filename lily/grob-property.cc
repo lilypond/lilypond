@@ -196,7 +196,11 @@ Grob::try_callback (SCM sym)
 	    call.
 	   */
 	  if (value == SCM_UNSPECIFIED)
-	    value = internal_get_property (sym);
+	    {
+	      value = internal_get_property (sym);
+	      if (value == marker)
+		mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, marker);
+	    }
 	  else
 	    internal_set_property (sym, value);
 	  

@@ -100,7 +100,7 @@ public:
   virtual void derived_mark () const;
 
   Stencil *get_stencil () const;
-  SCM get_uncached_stencil () const;
+  Stencil get_print_stencil () const;
 
   void suicide ();
   bool is_live () const;

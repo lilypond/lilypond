@@ -2582,3 +2582,18 @@ def conv (str):
 
 conversions.append (((2, 7, 12), conv,
 		     '''outputProperty -> overrideProperty'''))
+
+def conv (str):
+	if re.search(r'(after-line-breaking-callback|before-line-breaking-callback|print-function)', str):
+		error_file.write ("""
+
+Conversion rules for 2.7.13 layout engine refactoring haven't been written yet.
+
+""")
+		
+		raise FatalConversionError ()
+	
+	return str
+
+conversions.append (((2, 7, 13), conv,
+		     '''layout engine refactoring. [FIXME] '''))

@@ -33,7 +33,7 @@ SCM
 Grob::same_axis_parent_positioning (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis ax = other_axis ((Axis)scm_to_int (axis));
+  Axis ax = Axis (scm_to_int (axis));
   
   Grob *par = me->get_parent (ax);
   if (par)
@@ -146,7 +146,8 @@ Grob::Grob (SCM basicprops,
       else if (ly_is_procedure (cb))
 	dim_cache_[a].dimension_callback_ = cb;
       else if (cb == SCM_EOL
-	       && ly_is_procedure (get_property ("print-function")))
+	       && ly_is_procedure (ly_assoc_get (ly_symbol2scm ("stencil"),
+						 property_callbacks_, SCM_BOOL_F)))
 	dim_cache_[a].dimension_callback_ = stencil_extent_proc;
     }
 
@@ -213,39 +214,27 @@ Grob::get_stencil () const
     return 0;
 
   SCM stil = get_property ("stencil");
-  if (unsmob_stencil (stil))
-    return unsmob_stencil (stil);
-
-  stil = get_uncached_stencil ();
-  if (is_live ())
-    {
-      Grob *me = (Grob *) this;
-      me->set_property ("stencil", stil);
-    }
-
   return unsmob_stencil (stil);
 }
 
-SCM
-Grob::get_uncached_stencil () const
+Stencil
+Grob::get_print_stencil () const
 {
-  SCM proc = get_property ("print-function");
+  SCM stil = get_property ("stencil");
 
-  SCM stil = SCM_EOL;
-  if (ly_is_procedure (proc))
-    stil = scm_apply_0 (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
-
+  Stencil retval;
   if (Stencil *m = unsmob_stencil (stil))
     {
+      retval = *m;
       if (to_boolean (get_property ("transparent")))
-	stil = Stencil (m->extent_box (), SCM_EOL).smobbed_copy ();
+	retval = Stencil (m->extent_box (), SCM_EOL);
       else
 	{
 	  SCM expr = m->expr ();
 	  if (point_and_click_global)
 	    expr = scm_list_3 (ly_symbol2scm ("grob-cause"), self_scm (), expr);
 
-	  stil = Stencil (m->extent_box (), expr).smobbed_copy ();
+	  retval = Stencil (m->extent_box (), expr);
 	}
 
       /* color support... see interpret_stencil_expression () for more... */
@@ -257,11 +246,12 @@ Grob::get_uncached_stencil () const
 				 color,
 				 m->expr ());
 
-	  stil = Stencil (m->extent_box (), expr).smobbed_copy ();
+	  retval = Stencil (m->extent_box (), expr);
 	}
+
     }
 
-  return stil;
+  return retval;
 }
 
 /*
@@ -712,10 +702,12 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "Mutable properties are variables that are specific to one grob. Typically, "
 	       "lists of other objects, or results from computations are stored in"
 	       "mutable properties: every call to set-grob-property (or its C++ equivalent) "
-	       "sets a mutable property. ",
+	       "sets a mutable property. "
 	       "\n\n"
-	       
-	       "The properties @code{after-line-breaking} and @code{before-line-breaking} are unused dummies. "
+	       "The properties @code{after-line-breaking} and @code{before-line-breaking} "
+	       "are dummies that are not user-serviceable. "
+
+	       ,
 
 	       /* properties */
 	       "X-extent "

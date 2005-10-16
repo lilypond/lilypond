@@ -342,15 +342,16 @@ System::get_paper_system ()
     for (int j = all_elements_->size (); j--;)
       {
 	Grob *g = all_elements_->grob (j);
-	Stencil *stil = g->get_stencil ();
+	Stencil st = g->get_print_stencil ();
 
 	/* Skip empty stencils and grobs that are not in this layer.  */
-	if (!stil
+	if (st.expr() == SCM_EOL
 	    || robust_scm2int (g->get_property ("layer"), 1) != i)
 	  continue;
 
-	Offset o (g->relative_coordinate (this, X_AXIS),
-		  g->relative_coordinate (this, Y_AXIS));
+	Offset o;
+	for (int a = X_AXIS; a < NO_AXES; a++)
+	  o[Axis (a)] = g->relative_coordinate (this, Axis (a));
 
 	Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
 					  Offset (0, 0))
@@ -359,7 +360,6 @@ System::get_paper_system ()
 	/* Must copy the stencil, for we cannot change the stencil
 	   cached in G.  */
 
-	Stencil st = *stil;
 	st.translate (o + extra);
 
 	*tail = scm_cons (st.expr (), SCM_EOL);

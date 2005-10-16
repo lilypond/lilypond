@@ -1,5 +1,28 @@
 2005-10-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/grob.cc (get_stencil): simplify: use callback mechanism to
+	calculate stencil.
+	(get_print_stencil): rename from get_stencil: create stencil with
+	transparency, color and cause. 
+
+	* scm/define-grobs.scm: change print-function to stencil callback everywhere.
+
+	* python/convertrules.py (conv): insert temporary warning rule.
+
+	* lily/multi-measure-rest.cc (set_text_rods): use stencil directly.
+
+	* lily/grob-property.cc (try_callback): remove marker if applicable.
+
+	* lily/grob.cc: elucidate doc about after/before-line-breaking
+
+	* lily/slur-scoring.cc (enumerate_attachments): robustness fix.
+
+	* lily/stem.cc (height): idem.
+
+	* lily/stem-tremolo.cc: idem.
+
+	* lily/slur.cc (height): don't use get_uncached_stencil()
+
 	* lily/rest.cc (y_offset_callback): use offset callback
 	iso. after-line-breaking callback.
 
