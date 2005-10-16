@@ -41,6 +41,9 @@ Script_interface::get_stencil (Grob *me, Direction d)
   return Stencil ();
 }
 
+/*
+todo: use proper callbacks.
+*/
 MAKE_SCHEME_CALLBACK (Script_interface, before_line_breaking, 1);
 SCM
 Script_interface::before_line_breaking (SCM smob)

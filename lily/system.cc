@@ -280,8 +280,10 @@ System::pre_processing ()
     apply_tweaks (all_elements_->grob (i), false);
 
   for (int i = 0; i < all_elements_->size (); i++)
-    all_elements_->grob (i)->calculate_dependencies (PRECALCED, PRECALCING,
-						     ly_symbol2scm ("before-line-breaking-callback"));
+    {
+      Grob *g = all_elements_->grob (i);
+      (void) g->get_property ("after-line-breaking");
+    }
 
   message (_ ("Calculating line breaks..."));
   progress_indication (" ");
@@ -303,8 +305,7 @@ System::post_processing ()
       Grob *g = all_elements_->grob (i);
 
       apply_tweaks (g, true);
-      g->calculate_dependencies (POSTCALCED, POSTCALCING,
-				 ly_symbol2scm ("after-line-breaking-callback"));
+      (void) g->get_property ("after-line-breaking");
     }
 
   Interval iv (extent (this, Y_AXIS));

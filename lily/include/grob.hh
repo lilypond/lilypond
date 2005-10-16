@@ -14,15 +14,6 @@
 #include "grob-interface.hh"
 #include "object-key.hh"
 
-enum Grob_status
-  {
-    ORPHAN = 0, // not yet added to Paper_score
-    PRECALCING,
-    PRECALCED, // calcs before spacing done
-    POSTCALCING, // busy calculating. This is used to trap cyclic deps.
-    POSTCALCED, // after spacing calcs done
-  };
-
 typedef void (Grob:: *Grob_method_pointer) (void);
 
 class Grob
@@ -30,8 +21,6 @@ class Grob
 private:
   DECLARE_SMOBS (Grob, foo);
   void init ();
-
-
 
 protected:
   Object_key const *key_;

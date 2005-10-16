@@ -165,9 +165,6 @@ Grob::Grob (Grob const &s, int copy_index)
   property_callbacks_ = s.property_callbacks_;
   object_alist_ = SCM_EOL;
 
-  /* No properties are copied.  That is the job of
-     handle_broken_dependencies.  */
-  status_ = s.status_;
   pscore_ = 0;
 
   smobify_self ();
@@ -207,36 +204,6 @@ Output_def *
 Grob::get_layout () const
 {
   return pscore_ ? pscore_->layout () : 0;
-}
-
-/* Recursively track all dependencies of this Grob.  The status_ field
-   is used as a mark-field.  It is marked with BUSY during execution
-   of this function, and marked with FINAL when finished.
-
-   FUNCPTR is the function to call to update this element.  */
-void
-Grob::calculate_dependencies (int final, int busy, SCM funcname)
-{
-  if (status_ >= final)
-    return;
-
-  if (status_ == busy)
-    {
-      programming_error ("element is busy, come back later");
-      return;
-    }
-
-  status_ = busy;
-
-  extract_grob_set (this, "dependencies", deps);
-  for (int i = 0; i < deps.size (); i++)
-    deps[i]->calculate_dependencies (final, busy, funcname);
-
-  SCM proc = internal_get_property (funcname);
-  if (ly_is_procedure (proc))
-    scm_call_1 (proc, this->self_scm ());
-
-  status_ = final;
 }
 
 Stencil *
@@ -746,6 +713,9 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "lists of other objects, or results from computations are stored in"
 	       "mutable properties: every call to set-grob-property (or its C++ equivalent) "
 	       "sets a mutable property. ",
+	       "\n\n"
+	       
+	       "The properties @code{after-line-breaking} and @code{before-line-breaking} are unused dummies. "
 
 	       /* properties */
 	       "X-extent "
@@ -754,10 +724,10 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "Y-extent "
 	       "Y-extent-callback "
 	       "Y-offset-callbacks "
-	       "after-line-breaking-callback "
+	       "after-line-breaking "
 	       "axis-group-parent-X "
 	       "axis-group-parent-Y "
-	       "before-line-breaking-callback "
+	       "before-line-breaking "
 	       "callbacks "
 	       "cause "
 	       "color "

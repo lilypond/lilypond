@@ -36,17 +36,6 @@ SCM
 Volta_bracket_interface::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-
-  /*
-    UGH UGH  dependency tracking.
-  */
-  SCM proc = me->get_property ("after-line-breaking-callback");
-  if (ly_is_procedure (proc))
-    {
-      me->set_property ("after-line-breaking-callback", SCM_EOL);
-      scm_call_1  (proc, me->self_scm ());
-    }
-
   Spanner *orig_span = dynamic_cast<Spanner *> (me->original_);
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0]
 					    == (Spanner *)me);
