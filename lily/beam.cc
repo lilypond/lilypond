@@ -544,18 +544,18 @@ Beam::get_default_dir (Grob *me)
 	}
     }
 
-  SCM func = me->get_property ("dir-function");
-  SCM s = scm_call_2 (func,
-		      scm_cons (scm_from_int (count[UP]),
-				scm_from_int (count[DOWN])),
-		      scm_cons (scm_from_int (total[UP]),
-				scm_from_int (total[DOWN])));
-
-  if (scm_is_number (s) && scm_to_int (s))
-    return to_dir (s);
-
-  /* If dir is not determined: get default */
-  return to_dir (me->get_property ("neutral-direction"));
+  Direction dir = CENTER;
+  
+  if (Direction d =  (Direction) sign (count[UP] - count[DOWN]))
+    dir = d;
+  else if (Direction d = (Direction)  sign (total[UP] / count[UP] - total[DOWN]/count[DOWN]))
+    dir = d;
+  else if (Direction d = (Direction)  sign (total[UP] - total[DOWN]))
+    dir = d;
+  else
+    dir = to_dir (me->get_property ("neutral-direction"));
+  
+  return dir;
 }
 
 /* Set all stems with non-forced direction to beam direction.
@@ -1395,7 +1395,6 @@ ADD_INTERFACE (Beam,
 	       "damping "
 	       "details "
 	       "direction " 
-	       "dir-function "
 	       "flag-width-function "
 	       "gap "
 	       "gap-count "
