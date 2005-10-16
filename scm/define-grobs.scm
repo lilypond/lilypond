@@ -1689,6 +1689,7 @@
      . (
 	(axes . (1))
 	(callbacks . ((positioning-done . ,Align_interface::calc_positioning_done)
+		      (after-line-breaking . ,Align_interface::stretch_after_break)
 		      ))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)

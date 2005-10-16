@@ -46,6 +46,9 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 @item
+Major internal cleanups.
+
+@item
 The default paper size may now be set from the command line using
 @code{-dpaper-size}.
 

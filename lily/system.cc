@@ -282,7 +282,7 @@ System::pre_processing ()
   for (int i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
-      (void) g->get_property ("after-line-breaking");
+      (void) g->get_property ("before-line-breaking");
     }
 
   message (_ ("Calculating line breaks..."));
