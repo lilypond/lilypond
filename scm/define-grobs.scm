@@ -139,13 +139,13 @@
      . (
 	(break-align-symbol . staff-bar)
 	(glyph . "|")
-	(break-glyph-function . ,default-break-barline)
 	(layer . 0)
-	(bar-size-procedure . ,Bar_line::get_staff_bar_size)
 	(break-visibility . ,all-visible)
 	(breakable . #t)
 	(callbacks . ((stencil . ,Bar_line::print)
-		      (before-line-breaking . ,Bar_line::before_line_breaking)))
+		      (glyph-name . ,bar-line::calc-glyph-name)
+		      (bar-size .  ,Bar_line::calc_bar_size)
+		      ))
 	(space-alist . (
 			(time-signature . (extra-space . 0.75))
 			(custos . (minimum-space . 2.0))
@@ -379,7 +379,7 @@
     (Clef
      . (
 	(callbacks . ((stencil . ,Clef::print)
-		      (before-line-breaking . ,Clef::before_line_breaking)
+		      (glyph-name . ,Clef::calc_glyph_name)
 		      ))
 	(breakable . #t)
 	(font-family . music)
@@ -547,7 +547,7 @@
 	
 	;; todo.
 	(callbacks . ((stencil . ,Text_interface::print)
-		      (before-line-breaking . ,Script_interface::before_line_breaking)))
+		      (direction . ,Script_interface::calc_direction)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
@@ -597,7 +597,7 @@
 	(self-alignment-Y . 0)
 	(script-priority . 100)
 	(callbacks . ((stencil . ,Text_interface::print)
-		      (before-line-breaking . ,Script_interface::before_line_breaking)))
+		      (direction . ,Script_interface::calc_direction)))
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
@@ -1202,7 +1202,7 @@
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
 	(callbacks . ((stencil . ,Script_interface::print)
-		      (before-line-breaking . ,Script_interface::before_line_breaking)))
+		      (direction . ,Script_interface::calc_direction)))
 	(font-encoding . fetaMusic)
 	(meta . ((class . Item)
 		 (interfaces . (script-interface
@@ -1261,12 +1261,13 @@
     (SpanBar
      . (
 	(break-align-symbol . staff-bar)
-	(bar-size-procedure . ,Span_bar::get_bar_size)
 	(X-extent-callback . ,Span_bar::width_callback)
 	(Y-extent-callback . ())
 	(layer . 0)
 	(breakable . #t)
 	(callbacks . ((stencil . ,Span_bar::print)
+		      (bar-size . ,Span_bar::calc_bar_size)
+		      (glyph-name . ,Span_bar::calc_glyph_name)
 		      (before-line-breaking . ,Span_bar::before_line_breaking)))
 	;; ugh duplication!
 
@@ -1487,8 +1488,7 @@
 	(glyph . "bar-line")
 	(thickness . 1.6)
 	(callbacks . ((stencil . ,System_start_delimiter::print)
-		      (after-line-breaking . ,System_start_delimiter::after_line_breaking)))
-	
+		      ))
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-delimiter-interface))))))
 
@@ -1517,7 +1517,7 @@
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(callbacks . ((stencil . ,Text_interface::print)
-		      (before-line-breaking . ,Script_interface::before_line_breaking)))
+		      (direction . ,Script_interface::calc_direction)))
 	(avoid-slur . around)
 	(slur-padding . 0.5)
 	(script-priority . 200)

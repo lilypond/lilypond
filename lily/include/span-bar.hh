@@ -25,10 +25,10 @@ public:
   static Interval get_spanned_interval (Grob *);
   static void add_bar (Grob *, Grob *);
   static void evaluate_glyph (Grob *);
-  static void evaluate_empty (Grob *);
   DECLARE_SCHEME_CALLBACK (width_callback, (SCM smob, SCM axis));
-  DECLARE_SCHEME_CALLBACK (get_bar_size, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_bar_size, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_glyph_name, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (center_on_spanned_callback, (SCM element, SCM axis));
 };

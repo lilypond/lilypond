@@ -31,10 +31,6 @@ Side_position_interface::add_support (Grob *me, Grob *e)
 Direction
 Side_position_interface::get_direction (Grob *me)
 {
-  SCM d = me->get_property ("direction");
-  if (is_direction (d) && to_dir (d))
-    return to_dir (d);
-
   Direction relative_dir = Direction (1);
   SCM reldir = me->get_property ("side-relative-direction");	// should use a lambda.
   if (is_direction (reldir))
@@ -96,7 +92,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
   if (dim.is_empty ())
     dim = Interval (0, 0);
 
-  Direction dir = Side_position_interface::get_direction (me);
+  Direction dir = get_grob_direction (me);
 
   Real off = me->get_parent (a)->relative_coordinate (common, a);
   Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"), -1);
@@ -156,7 +152,7 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
 
-  Direction d = Side_position_interface::get_direction (me);
+  Direction d = get_grob_direction (me);
 
   Grob *stsym = Staff_symbol_referencer::get_staff_symbol (me);
   if (stsym)
@@ -193,8 +189,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) scm_to_int (axis);
 
-  Direction d = Side_position_interface::get_direction (me);
-
+  Direction d = get_grob_direction (me);
   Real o = scm_to_double (aligned_on_support_extents (element_smob, axis));
 
   Interval iv = me->extent (me, a);
@@ -255,6 +250,8 @@ ADD_INTERFACE (Side_position_interface, "side-position-interface",
 	       "victim object relative to the support (left or right, up or down?)\n\n "
 	       "The routine also takes the size the staff into account if "
 	       "@code{staff-padding} is set. If undefined, the staff symbol is ignored.",
+
+	       /* properties */
 	       "direction "
 	       "direction-source "
 	       "minimum-space "

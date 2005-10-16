@@ -61,7 +61,6 @@ original stencil drawer to draw the balloon around.")
 
 
      (bar-size ,ly:dimension? "size of a bar line.")
-     (bar-size-procedure ,procedure? "Procedure that computes the size of a bar line.")
      (barre-type ,symbol? "Type of barre indication used in a fret diagram.
 Choices include @code{curved} and @code{straight}.")
      (base-shortest-duration ,ly:moment?
@@ -109,9 +108,6 @@ For example, clefs are put after key signatures by setting
 	  clef
 	  time-signature))
 @end example")
-     (break-glyph-function ,procedure? "This function determines the
-appearance of a bar line at the line break.  It takes a glyph and
-break-direction and returns the glyph at a line break.")
      (break-overshoot ,number-pair? "How much does a broken spanner
 stick out of its bounds?")
      (bracket-visibility ,boolean-or-symbol? "This controls the
@@ -260,7 +256,6 @@ stem. The stem will stop at the innermost beams.")
      (glyph ,string? "a string determining what (style) of glyph is
 typeset. Valid choices depend on the function that is reading this
 property.")
-     (glyph-name ,string? "a name of character within font.")
      (glyph-name-procedure ,procedure? "Return the name of a character
 within font, to use for printing a symbol.")
 
@@ -536,6 +531,7 @@ function is to protect objects from being garbage collected.")
 set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
+     (glyph-name ,string? "a name of character within font.")
      (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
      (stem ,ly:grob? "pointer to Stem object.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")

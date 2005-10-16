@@ -134,6 +134,7 @@ Drum_notes_engraver::acknowledge_stem (Grob_info inf)
       Side_position_interface::add_support (e, inf.grob ());
     }
 }
+
 void
 Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
 {

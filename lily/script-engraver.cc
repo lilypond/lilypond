@@ -135,7 +135,7 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
 
 	  val = scm_from_int (prio);
 	}
-      if (p->internal_get_property (sym) == SCM_EOL)
+      if (p->get_property_data (sym) == SCM_EOL)
 	p->internal_set_property (sym, val);
     }
 
@@ -153,17 +153,17 @@ Script_engraver::process_music ()
 {
   for (int i = 0; i < scripts_.size (); i++)
     {
-      Music *m = scripts_[i].event_;
+      Music *music = scripts_[i].event_;
 
-      Grob *p = make_item ("Script", m->self_scm ());
+      Grob *p = make_item ("Script", music->self_scm ());
 
       make_script_from_event (p, &scripts_[i].follow_into_staff_, context (),
-			      m->get_property ("articulation-type"),
+			      music->get_property ("articulation-type"),
 			      i);
 
       scripts_[i].script_ = p;
 
-      SCM force_dir = m->get_property ("direction");
+      SCM force_dir = music->get_property("direction");
       if (is_direction (force_dir) && to_dir (force_dir))
 	p->set_property ("direction", force_dir);
     }

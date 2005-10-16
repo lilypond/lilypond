@@ -36,6 +36,9 @@ parenthesize (Grob *me, Stencil m)
   return m;
 }
 
+/*
+  Hmm. Need separate callback, or perhaps #'live bool property.
+ */
 MAKE_SCHEME_CALLBACK (Accidental_interface, after_line_breaking, 1);
 SCM
 Accidental_interface::after_line_breaking (SCM smob)

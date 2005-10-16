@@ -13,19 +13,14 @@
 #include "item.hh"
 #include "font-interface.hh"
 
-/*
-  FIXME: should use symbol for #'style.
-*/
-MAKE_SCHEME_CALLBACK (Clef, before_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Clef, calc_glyph_name, 1);
 SCM
-Clef::before_line_breaking (SCM smob)
+Clef::calc_glyph_name (SCM smob)
 {
   Item *s = unsmob_item (smob);
-  SCM glyph = s->get_property ("glyph-name");
+  SCM glyph = s->get_property ("glyph");
 
-  if (!scm_is_string (glyph))
-    s->suicide ();
-  else
+  if (scm_is_string (glyph))
     {
       String str = ly_scm2string (glyph);
 
@@ -34,10 +29,12 @@ Clef::before_line_breaking (SCM smob)
 	  && !to_boolean (s->get_property ("full-size-change")))
 	{
 	  str += "_change";
-	  s->set_property ("glyph-name", scm_makfrom0str (str.to_str0 ()));
 	}
+
+      return scm_makfrom0str (str.to_str0 ());
     }
 
+  s->suicide ();
   return SCM_UNSPECIFIED;
 }
 
@@ -60,5 +57,11 @@ Clef::print (SCM smob)
 
 ADD_INTERFACE (Clef, "clef-interface",
 	       "A clef sign",
-	       "non-default full-size-change glyph-name");
+
+	       /* properties */
+	       "full-size-change "
+	       "glyph "
+	       "glyph-name "
+	       "non-default "
+	       );
 

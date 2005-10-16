@@ -18,11 +18,12 @@ between systems.
 
 \relative c' \new StaffGroup <<
   \new Staff {
-    \override Score.BarLine #'transparent = ##t
+    a1
+    \once \override Score.BarLine #'transparent = ##t
+    a1
+    \once \override Score.SpanBar #'transparent = ##t
     a1 a1
-    \revert Score.BarLine #'transparent
-    \override Score.SpanBar #'transparent = ##t
-    a1 a1
+    \bar "|."
   }
   \lyricmode <<
     \new Lyrics { bla1 die bla }

@@ -194,8 +194,11 @@ centered, X==1 is at the right, X == -1 is at the left."
 ;; How should a  bar line behave at a break? 
 ;;
 ;; Why prepend `default-' to every scm identifier?
-(define-public (default-break-barline glyph dir)
-  (let ((result (assoc glyph 
+(define-public (bar-line::calc-glyph-name grob)
+  (let* (
+	 (glyph (ly:grob-property grob 'glyph))
+	 (dir (ly:item-break-dir grob))
+	 (result (assoc glyph 
 		       '((":|:" . (":|" . "|:"))
 			 ("||:" . ("||" . "|:"))
 			 ("|" . ("|" . ()))
@@ -213,11 +216,18 @@ centered, X==1 is at the right, X == -1 is at the left."
 			 (":" . (":" . ""))
 			 ("empty" . (() . ()))
 			 ("brace" . (() . "brace"))
-			 ("bracket" . (() . "bracket"))  ))))
+			 ("bracket" . (() . "bracket"))  )))
+	 (glyph-name (if (= dir CENTER)
+			 glyph
+		         (if (and result (string? (index-cell (cdr result) dir)))
+			     (index-cell (cdr result) dir)
+			     #f)))
+	 )
+	 
+    (if glyph-name
+	(set! (ly:grob-property grob 'glyph-name) glyph-name)
+	(ly:grob-suicide! grob))))
 
-    (if (equal? result #f)
-	(ly:warning (_ "unknown bar glyph: `~S'" glyph))
-	(index-cell (cdr result) dir))))
 
 (define-public (shift-right-at-line-begin g)
   "Shift an item to the right, but only at the start of the line."

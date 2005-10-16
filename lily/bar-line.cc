@@ -21,13 +21,13 @@ Bar_line::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  SCM s = me->get_property ("glyph");
-  SCM barsiz_proc = me->get_property ("bar-size-procedure");
-  if (scm_is_string (s) && ly_is_procedure (barsiz_proc))
+  SCM s = me->get_property ("glyph-name");
+  SCM barsize = me->get_property ("bar-size");
+  
+  if (scm_is_string (s) && scm_is_number (barsize))
     {
       String str = ly_scm2string (s);
-      SCM siz = scm_call_1 (barsiz_proc, me->self_scm ());
-      Real sz = robust_scm2double (siz, 0);
+      Real sz = robust_scm2double (barsize, 0);
       if (sz <= 0)
 	return SCM_EOL;
 
@@ -149,45 +149,14 @@ Bar_line::simple_barline (Grob *me,
 					Interval (-h / 2, h / 2)), blot);
 }
 
-MAKE_SCHEME_CALLBACK (Bar_line, before_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Bar_line, calc_bar_size, 1);
 SCM
-Bar_line::before_line_breaking (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  Item *item = dynamic_cast<Item *> (me);
-
-  SCM g = me->get_property ("glyph");
-  SCM orig = g;
-  Direction bsd = item->break_status_dir ();
-  if (scm_is_string (g) && bsd)
-    {
-      SCM proc = me->get_property ("break-glyph-function");
-      g = scm_call_2 (proc, g, scm_from_int (bsd));
-    }
-
-  if (!scm_is_string (g))
-    {
-      me->set_property ("print-function", SCM_EOL);
-      me->set_extent (SCM_EOL, X_AXIS);
-      // leave y_extent for spanbar? 
-    }
-
-  if (!ly_is_equal (g, orig))
-    me->set_property ("glyph", g);
-
-  return SCM_UNSPECIFIED;
-}
-
-MAKE_SCHEME_CALLBACK (Bar_line, get_staff_bar_size, 1);
-SCM
-Bar_line::get_staff_bar_size (SCM smob)
+Bar_line::calc_bar_size (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Real ss = Staff_symbol_referencer::staff_space (me);
-  SCM size = me->get_property ("bar-size");
-  if (scm_is_number (size))
-    return scm_from_double (scm_to_double (size) * ss);
-  else if (Staff_symbol_referencer::get_staff_symbol (me))
+
+  if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       /*
 	If there is no staff-symbol, we get -1 from the next
@@ -200,6 +169,7 @@ Bar_line::get_staff_bar_size (SCM smob)
     }
   return scm_from_int (0);
 }
+
 
 ADD_INTERFACE (Bar_line,
 	       "bar-line-interface",
@@ -221,11 +191,10 @@ ADD_INTERFACE (Bar_line,
 
 
 	       /* properties */ 
-	       "bar-size-procedure "
 	       "kern "
 	       "thin-kern "
 	       "hair-thickness "
 	       "thick-thickness "
 	       "glyph "
 	       "bar-size "
-	       "break-glyph-function");
+	       );

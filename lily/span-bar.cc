@@ -46,8 +46,7 @@ Span_bar::print (SCM smobbed_me)
   extract_grob_set (me, "elements", elements);
   Grob *refp = common_refpoint_of_array (elements, me, Y_AXIS);
 
-  Span_bar::evaluate_glyph (me);
-  SCM glyph = me->get_property ("glyph");
+  SCM glyph = me->get_property ("glyph-name");
 
   /* glyph may not be a string, when ME is killed by Hara Kiri in
      between. */
@@ -116,7 +115,7 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
   (void) scm_axis;
 
   assert ((Axis) scm_to_int (scm_axis) == X_AXIS);
-  String gl = ly_scm2string (se->get_property ("glyph"));
+  String gl = ly_scm2string (se->get_property ("glyph-name"));
 
   /*
     urg.
@@ -130,13 +129,11 @@ MAKE_SCHEME_CALLBACK (Span_bar, before_line_breaking, 1);
 SCM
 Span_bar::before_line_breaking (SCM smob)
 {
-  Grob *g = unsmob_grob (smob);
-  evaluate_empty (g);
-  evaluate_glyph (g);
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "elements", elements);
+  if (elements.is_empty ())
+    me->suicide ();
 
-  /* No need to call Bar_line::before_line_breaking (), because the info
-     in ELEMENTS already has been procced by
-     Bar_line::before_line_breaking (). */
   return SCM_UNSPECIFIED;
 }
 
@@ -162,27 +159,15 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   return scm_from_double (i.center ());
 }
 
-void
-Span_bar::evaluate_empty (Grob *me)
+
+
+MAKE_SCHEME_CALLBACK(Span_bar, calc_glyph_name, 1);
+SCM
+Span_bar::calc_glyph_name (SCM smob)
 {
-  /* TODO: filter all hara-kiried out of ELEMENS list, and then
-     optionally do suicide. Call this cleanage function from
-     center_on_spanned_callback () as well. */
-
+  Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "elements", elements);
-  if (elements.is_empty ())
-    me->suicide ();
-}
-
-void
-Span_bar::evaluate_glyph (Grob *me)
-{
-  SCM gl = me->get_property ("glyph");
-
-  if (scm_is_string (gl))
-    return;
-
-  extract_grob_set (me, "elements", elements);
+  SCM gl = SCM_EOL;
   for (int i = elements.size ();
        i-- && !scm_is_string (gl);)
     gl = elements[i]->get_property ("glyph");
@@ -190,7 +175,7 @@ Span_bar::evaluate_glyph (Grob *me)
   if (!scm_is_string (gl))
     {
       me->suicide ();
-      return;
+      return SCM_UNSPECIFIED;
     }
 
   String type = ly_scm2string (gl);
@@ -201,10 +186,7 @@ Span_bar::evaluate_glyph (Grob *me)
   else if (type == ":|:")
     type = ".|.";
 
-  gl = scm_makfrom0str (type.to_str0 ());
-  if (scm_equal_p (me->get_property ("glyph"), gl)
-      != SCM_BOOL_T)
-    me->set_property ("glyph", gl);
+  return scm_makfrom0str (type.to_str0 ());
 }
 
 Interval
@@ -214,9 +196,9 @@ Span_bar::get_spanned_interval (Grob *me)
 			  (me->self_scm (), scm_from_int (Y_AXIS)));
 }
 
-MAKE_SCHEME_CALLBACK (Span_bar, get_bar_size, 1);
+MAKE_SCHEME_CALLBACK (Span_bar, calc_bar_size, 1);
 SCM
-Span_bar::get_bar_size (SCM smob)
+Span_bar::calc_bar_size (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Interval iv (get_spanned_interval (me));
@@ -232,5 +214,8 @@ Span_bar::get_bar_size (SCM smob)
 ADD_INTERFACE (Span_bar, "span-bar-interface",
 	       "A bar line that spanned between other barlines. This interface is "
 	       " used for  bar lines that connect different staves.",
+
+	       /* properties */
+	       "glyph-name "
 	       "elements");
 

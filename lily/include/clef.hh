@@ -14,7 +14,7 @@
 
 struct Clef
 {
-  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_glyph_name, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob *);
 };

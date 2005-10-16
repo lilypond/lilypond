@@ -1,5 +1,24 @@
 2005-10-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/script-engraver.cc (make_script_from_event): don't trigger callback.
+
+	* lily/item-scheme.cc: new file.
+
+	* lily/bar-line.cc (before_line_breaking): remove function.
+	remove bar-size-procedure, break-glyph-function
+
+	* lily/clef-engraver.cc (set_glyph): use glyph iso. glyph-name
+
+	* lily/clef.cc (before_line_breaking): change to calc_glyph_name.
+
+	* lily/system-start-delimiter.cc (print): suicide from
+	here. Remove after_line_breaking_callback.
+
+	* lily/script-interface.cc (calc_direction): use callback for direction.
+
+	* lily/side-position-interface.cc (aligned_side): don't use
+	Side_position_interface::get_direction directly. Use callback. 
+
 	* lily/grob.cc (get_stencil): simplify: use callback mechanism to
 	calculate stencil.
 	(get_print_stencil): rename from get_stencil: create stencil with
