@@ -35,7 +35,6 @@ public:
   static bool is_invisible (Grob *);
   static Interval head_positions (Grob *);
   static Real get_default_stem_end_position (Grob *me);
-  static void position_noteheads (Grob *);
   static Real stem_end_position (Grob *);
   static Stencil flag (Grob *);
   static Stencil get_translated_flag (Grob*);
@@ -44,11 +43,11 @@ public:
 
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element, SCM axis));
-  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_stem_end_position, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_stem_info, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (width_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (height, (SCM, SCM));
-
-private:
-  static void calc_stem_info (Grob *);
 };
 #endif

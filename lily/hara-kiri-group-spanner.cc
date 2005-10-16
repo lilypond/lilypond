@@ -92,7 +92,6 @@ Hara_kiri_group_spanner::add_element (Grob *me, Grob *e)
 void
 Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 {
-  me->add_dependency (n);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("items-worth-living"), n);
 }
 
@@ -100,5 +99,9 @@ ADD_INTERFACE (Hara_kiri_group_spanner, "hara-kiri-group-interface",
 	       "A group spanner that  keeps track of interesting items.  If it "
 	       "doesn't contain any after linebreaking, then it "
 	       "will remove itself and all its children.",
-	       "items-worth-living remove-first");
+
+
+	       /* properties */
+	       "items-worth-living "
+	       "remove-first");
 

@@ -20,25 +20,7 @@
 #include "dot-column.hh"
 #include "pointer-group-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Note_collision_interface, force_shift_callback, 2);
 
-SCM
-Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (axis);
-  assert (a == X_AXIS);
-
-  me = me->get_parent (a);
-
-  if (! to_boolean (me->get_property ("positioning-done")))
-    {
-      me->set_property ("positioning-done", SCM_BOOL_T);
-      do_shifts (me);
-    }
-
-  return scm_from_double (0.0);
-}
 
 void
 check_meshing_chords (Grob *me,
@@ -285,9 +267,12 @@ check_meshing_chords (Grob *me,
   while ((flip (&d)) != UP);
 }
 
-void
-Note_collision_interface::do_shifts (Grob *me)
+
+MAKE_SCHEME_CALLBACK(Note_collision_interface, calc_positioning_done, 1) 
+SCM
+Note_collision_interface::calc_positioning_done (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);  
   Drul_array<Link_array<Grob> > cg = get_clash_groups (me);
 
   SCM autos (automatic_shift (me, cg));
@@ -335,10 +320,12 @@ Note_collision_interface::do_shifts (Grob *me)
 
   for (int i = 0; i < amounts.size (); i++)
     done[i]->translate_axis (amounts[i] - left_most, X_AXIS);
+
+  return SCM_BOOL_T;
 }
 
-Drul_array < Link_array<Grob>
-> Note_collision_interface::get_clash_groups (Grob *me)
+Drul_array < Link_array<Grob> >
+Note_collision_interface::get_clash_groups (Grob *me)
 {
   Drul_array<Link_array<Grob> > clash_groups;
 
@@ -482,9 +469,8 @@ Note_collision_interface::forced_shift (Grob *me)
 void
 Note_collision_interface::add_column (Grob *me, Grob *ncol)
 {
-  ncol->add_offset_callback (Note_collision_interface::force_shift_callback_proc, X_AXIS);
+  ncol->add_offset_callback (Grob::same_axis_parent_positioning_proc, X_AXIS);
   Axis_group_interface::add_element (me, ncol);
-  me->add_dependency (ncol);
 }
 
 ADD_INTERFACE (Note_collision_interface, "note-collision-interface",
@@ -493,4 +479,7 @@ ADD_INTERFACE (Note_collision_interface, "note-collision-interface",
 	       "are to be set in @ref{note-column-interface}: these are "
 	       "@code{force-hshift} and @code{horizontal-shift}.",
 
-	       "merge-differently-dotted merge-differently-headed positioning-done");
+	       /* properties */
+	       "merge-differently-dotted "
+	       "merge-differently-headed "
+	       "positioning-done");

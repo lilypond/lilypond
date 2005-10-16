@@ -28,40 +28,38 @@ ADD_INTERFACE(Laissez_vibrer_tie,
 	      "x-gap "
 	      );
 
-MAKE_SCHEME_CALLBACK (Laissez_vibrer_tie, print, 1);
+MAKE_SCHEME_CALLBACK(Laissez_vibrer_tie, calc_control_points, 1)
 SCM
-Laissez_vibrer_tie::print (SCM smob)
+Laissez_vibrer_tie::calc_control_points (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  if (CENTER == get_grob_direction (me))
-    set_direction (me);
-
-  if (!get_grob_direction (me))
-    me->programming_error ("lv. tie direction not set."); 
-    
-  SCM cp = me->get_property ("control-points");
-  if (!scm_is_pair (cp))
-    if (Laissez_vibrer_tie_column::has_interface (me->get_parent (Y_AXIS)))
-      {
-	Laissez_vibrer_tie_column::set_directions (me->get_parent (Y_AXIS));
-      }
-
-  return Tie::print (smob);
+  if (Laissez_vibrer_tie_column::has_interface (me->get_parent (Y_AXIS)))
+    {
+      me->get_parent (Y_AXIS)->get_property ("positioning-done");
+    }
+  else
+    {
+      programming_error ("lv tie without Laissez_vibrer_tie_column. Killing lv tie."); 
+      me->suicide (); 
+    }
+  
+  return SCM_UNSPECIFIED;
 }
 
-void
-Laissez_vibrer_tie::set_direction (Grob *me)
+MAKE_SCHEME_CALLBACK(Laissez_vibrer_tie, calc_direction, 1)
+SCM
+Laissez_vibrer_tie::calc_direction (SCM smob)
 {
-  if (!get_grob_direction (me))
+  Grob *me = unsmob_grob (smob);
+  if (Laissez_vibrer_tie_column::has_interface (me->get_parent (Y_AXIS)))
+    me->get_parent (Y_AXIS)->get_property("positioning-done");
+  else
     {
-      if (Laissez_vibrer_tie_column::has_interface (me->get_parent (Y_AXIS)))
-	Laissez_vibrer_tie_column::set_directions (me->get_parent (Y_AXIS));
-      else
-	{
-	  programming_error ("lv tie without Laissez_vibrer_tie_column"); 
-	  set_grob_direction (me, UP);
-	}
+      programming_error ("lv tie without Laissez_vibrer_tie_column"); 
+      set_grob_direction (me, UP);
     }
+
+  return SCM_UNSPECIFIED;
 }
 
 int

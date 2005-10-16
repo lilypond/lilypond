@@ -180,8 +180,6 @@ Script_engraver::acknowledge_stem (Grob_info info)
       if (to_dir (e->get_property ("side-relative-direction")))
 	e->set_object ("direction-source", info.grob ()->self_scm ());
 
-      /* FIXME: add dependency */
-      e->add_dependency (info.grob ());
       Side_position_interface::add_support (e, info.grob ());
     }
 }
@@ -199,7 +197,6 @@ Script_engraver::acknowledge_rhythmic_head (Grob_info info)
 	      && !e->get_parent (Y_AXIS))
 	    {
 	      e->set_parent (info.grob (), Y_AXIS);
-	      e->add_dependency (info.grob ());
 	    }
 	  Side_position_interface::add_support (e, info.grob ());
 	}

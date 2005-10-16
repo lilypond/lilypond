@@ -13,15 +13,13 @@
 #include "pointer-group-interface.hh"
 
 void
-Script_column::add_staff_sided (Grob *me, Item *i)
+Script_column::add_staff_sided (Grob *me, Item *item)
 {
-  SCM p = i->get_property ("script-priority");
+  SCM p = item->get_property ("script-priority");
   if (!scm_is_number (p))
     return;
 
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), i);
-
-  me->add_dependency (i);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), item);
 }
 
 LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",

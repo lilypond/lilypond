@@ -230,7 +230,6 @@ void
 Stem::add_head (Grob *me, Grob *n)
 {
   n->set_object ("stem", me->self_scm ());
-  n->add_dependency (me);
 
   if (Note_head::has_interface (n))
     Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), n);
@@ -266,6 +265,7 @@ Stem::get_default_dir (Grob *me)
   return to_dir (me->get_property ("neutral-direction"));
 }
 
+
 Real
 Stem::get_default_stem_end_position (Grob *me)
 {
@@ -289,11 +289,6 @@ Stem::get_default_stem_end_position (Grob *me)
   /* URGURGURG
      'set-default-stemlen' sets direction too.   */
   Direction dir = get_direction (me);
-  if (!dir)
-    {
-      dir = get_default_dir (me);
-      set_grob_direction (me, dir);
-    }
 
   /* Stems in unnatural (forced) direction should be shortened,
      according to [Roush & Gourlay] */
@@ -389,11 +384,13 @@ Stem::duration_log (Grob *me)
   return (scm_is_number (s)) ? scm_to_int (s) : 2;
 }
 
-void
-Stem::position_noteheads (Grob *me)
+MAKE_SCHEME_CALLBACK(Stem, calc_positioning_done, 1);
+SCM
+Stem::calc_positioning_done (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);  
   if (!head_count (me))
-    return;
+    return SCM_BOOL_T;
 
   extract_grob_set (me, "note-heads", ro_heads);
   Link_array<Grob> heads (ro_heads);
@@ -467,11 +464,33 @@ Stem::position_noteheads (Grob *me)
 
       lastpos = int (p);
     }
+
+  return SCM_BOOL_T;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, before_line_breaking, 1);
+
+
+MAKE_SCHEME_CALLBACK(Stem, calc_direction, 1);
 SCM
-Stem::before_line_breaking (SCM smob)
+Stem::calc_direction (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Direction dir = CENTER;
+  if (Grob *beam = unsmob_grob (me->get_object ("beam")))
+    {
+      SCM ignore_me = beam->get_property ("direction");
+      (void) ignore_me;
+      dir = get_grob_direction (me);
+    }
+  else
+    dir = get_default_dir (me);
+
+  return scm_from_int (dir);
+}
+
+MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position, 1);
+SCM
+Stem::calc_stem_end_position (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
@@ -479,13 +498,13 @@ Stem::before_line_breaking (SCM smob)
     Do the calculations for visible stems, but also for invisible stems
     with note heads (i.e. half notes.)
   */
+  Real pos = 0.0;
   if (head_count (me))
     {
-      stem_end_position (me);	// ugh. Trigger direction calc.
-      position_noteheads (me);
+      pos = stem_end_position (me);	// ugh. Trigger direction calc.
     }
 
-  return SCM_UNSPECIFIED;
+  return scm_from_double (pos);
 }
 
 /*
@@ -501,26 +520,31 @@ Stem::height (SCM smob, SCM ax)
   Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
-  /*
-    ugh. - this dependency should be automatic.
+  Direction dir = get_grob_direction (me);
+  
+  /* Trigger callback.
+
+  UGH. Should be automatic
   */
   Grob *beam = get_beam (me);
   if (beam)
-    Beam::after_line_breaking (beam->self_scm ());
-
+    {
+      beam->get_property ("positions");
+    }
+  
   SCM mol = me->get_uncached_stencil ();
   Interval iv;
   if (mol != SCM_EOL)
     iv = unsmob_stencil (mol)->extent (a);
-  if (Grob *b = get_beam (me))
+  
+  if (beam)
     {
-      Direction d = get_direction (me);
-      if (d == CENTER)
+      if (dir == CENTER)
 	{
 	  programming_error ("no stem direction");
-	  d = UP;
+	  dir = UP;
 	}
-      iv[d] += d * Beam::get_thickness (b) * 0.5;
+      iv[dir] += dir * Beam::get_thickness (beam) * 0.5;
     }
 
   return ly_interval2scm (iv);
@@ -779,25 +803,21 @@ Stem::get_beam (Grob *me)
 Stem_info
 Stem::get_stem_info (Grob *me)
 {
-  /* Return cached info if available */
-  SCM scm_info = me->get_property ("stem-info");
-  if (!scm_is_pair (scm_info))
-    {
-      calc_stem_info (me);
-      scm_info = me->get_property ("stem-info");
-    }
-
   Stem_info si;
   si.dir_ = get_grob_direction (me);
+  
+  SCM scm_info = me->get_property ("stem-info");
   si.ideal_y_ = scm_to_double (scm_car (scm_info));
   si.shortest_y_ = scm_to_double (scm_cadr (scm_info));
   return si;
 }
 
 /* TODO: add extra space for tremolos!  */
-void
-Stem::calc_stem_info (Grob *me)
+MAKE_SCHEME_CALLBACK(Stem, calc_stem_info, 1);
+SCM
+Stem::calc_stem_info (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);
   Direction my_dir = get_grob_direction (me);
 
   if (!my_dir)
@@ -904,9 +924,8 @@ Stem::calc_stem_info (Grob *me)
   Real minimum_y = note_start + minimum_length;
   Real shortest_y = minimum_y * my_dir;
 
-  me->set_property ("stem-info",
-		    scm_list_2 (scm_from_double (ideal_y),
-				scm_from_double (shortest_y)));
+  return scm_list_2 (scm_from_double (ideal_y),
+		     scm_from_double (shortest_y));
 }
 
 Slice
@@ -925,14 +944,34 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "In addition, it internally connects note heads, beams and"
 	       "tremolos. "
 	       "Rests and whole notes have invisible stems.",
-	       "tremolo-flag french-beaming "
-	       "avoid-note-head thickness "
-	       "stemlet-length rests "
-	       "stem-info beamed-lengths beamed-minimum-free-lengths "
-	       "beamed-extreme-minimum-free-lengths lengths beam stem-shorten "
-	       "duration-log beaming neutral-direction stem-end-position "
-	       "note-heads direction length flag-style "
-	       "no-stem-extend stroke-style");
+
+	       /* properties */
+	       
+	       "avoid-note-head "
+	       "beam "
+	       "beamed-extreme-minimum-free-lengths "
+	       "beamed-lengths "
+	       "beamed-minimum-free-lengths "
+	       "beaming "
+	       "direction "
+	       "duration-log "
+	       "flag-style "
+	       "french-beaming "
+	       "length "
+	       "lengths "
+	       "neutral-direction "
+	       "no-stem-extend "
+	       "note-heads "
+	       "positioning-done "
+	       "rests "
+	       "stem-end-position "
+	       "stem-info "
+	       "stem-shorten "
+	       "stemlet-length "
+	       "stroke-style "
+	       "thickness "
+	       "tremolo-flag "
+	       );
 
 /****************************************************************/
 

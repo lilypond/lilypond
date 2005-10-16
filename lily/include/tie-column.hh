@@ -17,7 +17,7 @@ class Tie_column
 public:
   static bool has_interface (Grob *);
   static void add_tie (Grob *me, Grob *);
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   static void set_directions (Grob *me);
   static void new_directions (Grob *me);

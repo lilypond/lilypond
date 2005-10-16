@@ -26,24 +26,6 @@ using namespace std;
   TODO: let Dot_column communicate with stem via Note_column.
 */
 
-MAKE_SCHEME_CALLBACK (Dot_column, force_shift_callback, 2);
-SCM
-Dot_column::force_shift_callback (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  (void) axis;
-  assert (scm_to_int (axis) == Y_AXIS);
-  me = me->get_parent (X_AXIS);
-
-  if (!to_boolean (me->get_property ("positioning-done")))
-    {
-      me->set_property ("positioning-done", SCM_BOOL_T);
-
-      do_shifts (me);
-    }
-  return scm_from_double (0.0);
-}
-
 MAKE_SCHEME_CALLBACK (Dot_column, side_position, 2);
 SCM
 Dot_column::side_position (SCM element_smob, SCM axis)
@@ -63,8 +45,9 @@ Dot_column::side_position (SCM element_smob, SCM axis)
 
 	This will add the stem to the support if a flag collision happens.
       */
-      Stem::stem_end_position (stem);
+      stem->get_property ("stem-end-position");
     }
+  
   return Side_position_interface::aligned_side (element_smob, axis);
 }
 
@@ -219,9 +202,11 @@ remove_collision (Dot_configuration &cfg, int p)
     }
 }
 
+MAKE_SCHEME_CALLBACK(Dot_column, calc_positioning_done, 1);
 SCM
-Dot_column::do_shifts (Grob *me)
+Dot_column::calc_positioning_done (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);  
   Link_array<Grob> dots
     = extract_grob_array (me, "dots");
 
@@ -280,7 +265,7 @@ Dot_column::do_shifts (Grob *me)
        i != cfg.end (); i++)
     Staff_symbol_referencer::set_position (i->second.dot_, i->first);
 
-  return SCM_UNSPECIFIED;
+  return SCM_BOOL_T;
 }
 
 void
@@ -292,13 +277,19 @@ Dot_column::add_head (Grob *me, Grob *rh)
       Side_position_interface::add_support (me, rh);
 
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("dots"), d);
-      d->add_offset_callback (Dot_column::force_shift_callback_proc, Y_AXIS);
+      d->add_offset_callback (Grob::other_axis_parent_positioning_proc, Y_AXIS);
       Axis_group_interface::add_element (me, d);
     }
 }
 
-ADD_INTERFACE (Dot_column, "dot-column-interface",
+ADD_INTERFACE (Dot_column,
+	       "dot-column-interface",
+	       
 	       "Groups dot objects so they form a column, and position dots so they do not "
 	       "clash with staff lines ",
-	       "positioning-done direction stem");
+
+	       /* properties */
+	       "positioning-done "
+	       "direction "
+	       "stem");
 

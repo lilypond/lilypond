@@ -12,11 +12,13 @@
 
 #include "grob-interface.hh"
 #include "lily-proto.hh"
+#include "lily-guile.hh"
 
 struct Laissez_vibrer_tie_column
 {
   static bool has_interface (Grob *);
-  static void set_directions (Grob *me);
+  
+  DECLARE_SCHEME_CALLBACK(calc_positioning_done, (SCM));
 };
 
 

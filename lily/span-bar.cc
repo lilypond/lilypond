@@ -22,8 +22,6 @@ void
 Span_bar::add_bar (Grob *me, Grob *b)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), b);
-
-  me->add_dependency (b);
 }
 
 MAKE_SCHEME_CALLBACK (Span_bar, print, 1);

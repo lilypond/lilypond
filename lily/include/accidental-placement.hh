@@ -24,7 +24,7 @@ public:
 				 Link_array<Grob> *break_reminder,
 				 Link_array<Grob> *real_acc);
 
-  static SCM position_accidentals (Grob *);
+  DECLARE_SCHEME_CALLBACK(calc_positioning_done, (SCM));
   static bool has_interface (Grob *);
 };
 #endif /* ACCIDENTAL_PLACEMENT_HH */

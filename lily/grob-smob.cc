@@ -21,6 +21,7 @@ Grob::mark_smob (SCM ses)
 {
   Grob *s = (Grob *) SCM_CELL_WORD_1 (ses);
   scm_gc_mark (s->immutable_property_alist_);
+  scm_gc_mark (s->property_callbacks_);
 
   if (s->key_)
     scm_gc_mark (s->key_->self_scm ());

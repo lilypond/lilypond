@@ -1,6 +1,71 @@
+2005-10-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): remove verticalAlignmentChildCallback
+
+	* lily/tuplet-bracket.cc: use positions property iso. left,right-position.
+	(calc_direction): use callback
+	(calc_positions): use callback.
+
+	* lily/tie.cc (calc_direction): use callback. Only call parent
+	positioning for more than one tie.
+
+	* lily/tie-column.cc (calc_positioning_done): use callback
+
+	* lily/slur-scoring.cc (calc_control_points): use callback
+
+	* lily/slur.cc (calc_direction): use callback.
+
+	* lily/note-collision.cc (force_shift_callback): remove.
+
+	* lily/dot-column.cc (force_shift_callback): remove. Use
+	other_axis_parent_positioning.
+
+	* lily/grob.cc (other_axis_parent_positioning): new function.
+	(same_axis_parent_positioning): new function
+
+	* lily/align-interface.cc (alignment_callback): remove function.
+
+	* lily/note-collision.cc (calc_positioning_done): use callback.
+
+	* lily/laissez-vibrer-tie.cc (calc_control_points): use callback.
+	(calc_direction): idem.
+	remove print function.
+
+	* lily/laissez-vibrer-tie-column.cc (calc_positioning_done): use callback.
+
+	* lily/dot-column.cc (calc_positioning_done): use callback.
+
+	* lily/break-align-interface.cc (calc_positioning_done): use callback.
+
+	* lily/beam.cc (calc_direction): use pseudo-property for beam
+	direction callback.
+	(calc_positions): use callback 
+
+	* lily/align-interface.cc (calc_positioning_done): use
+	callback. Fold fixed  distance and normal alignment in one function.
+
+	* lily/stem.cc (calc_stem_end_position): use callback.
+	(calc_positioning_done): idem.
+	(calc_direction): idem.
+	(calc_stem_end_position): idem
+	(calc_stem_info): idem.
+
+	* lily/grob-property.cc (get_property_data): new function: 
+	(try_callback): new function.
+
+	* scm/define-grob-properties.scm (all-user-grob-properties): doc
+	callbacks property.
+
+	* lily/break-align-interface.cc: remove Break_align_interface::alignment_callback.
+
 2005-10-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* lily/include/*.hh (Module): lots of compile fixes.
+	* lily/tie.cc (get_position): robustness fix. Don't crash if a
+	tie
+	has no heads.
+	
+	* lily/include/*.hh (Module): compile fixes.
 
 2005-10-14  Heikki Junes <hjunes@cc.hut.fi>
 
@@ -34,7 +99,7 @@
 2005-10-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/titling-init.ly (evenHeaderMarkup): use space in header on
-	even header too.6
+	even header too.
 	
 	* scm/define-markup-commands.scm (wordwrap-string): bugfix for
 	MacOS 9 users.

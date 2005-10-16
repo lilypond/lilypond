@@ -13,8 +13,8 @@
 class Tuplet_bracket
 {
 public:
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
   static bool has_interface (Grob *);

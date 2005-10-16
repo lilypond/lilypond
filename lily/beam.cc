@@ -47,13 +47,14 @@
 void
 Beam::add_stem (Grob *me, Grob *s)
 {
+  if (Stem::get_beam (s))
+    {
+      programming_error ("Stem already has beam");
+      return ;
+    }
+
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("stems"), s);
-
-  s->add_dependency (me);
-
-  assert (!Stem::get_beam (s));
   s->set_object ("beam", me->self_scm ());
-
   add_bound_item (dynamic_cast<Spanner *> (me), dynamic_cast<Item *> (s));
 }
 
@@ -120,9 +121,9 @@ Beam::space_function (SCM smob, SCM beam_count)
    Currenly, this means that beam has set all stem's directions.
    [Alternatively, stems could set its own directions, according to
    their beam, during 'final-pre-processing'.] */
-MAKE_SCHEME_CALLBACK (Beam, before_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Beam, calc_direction, 1);
 SCM
-Beam::before_line_breaking (SCM smob)
+Beam::calc_direction (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
@@ -153,10 +154,12 @@ Beam::before_line_breaking (SCM smob)
 	  return SCM_UNSPECIFIED;
 	}
     }
+
+  Direction d = CENTER;
+  
   if (count >= 1)
     {
-      Direction d = get_default_dir (me);
-
+      d = get_default_dir (me);
       consider_auto_knees (me);
       set_stem_directions (me, d);
 
@@ -165,7 +168,7 @@ Beam::before_line_breaking (SCM smob)
       set_stem_shorten (me);
     }
 
-  return SCM_EOL;
+  return scm_from_int (d);
 }
 
 /* We want a maximal number of shared beams, but if there is choice, we
@@ -284,7 +287,6 @@ SCM
 Beam::print (SCM grob)
 {
   Spanner *me = unsmob_spanner (grob);
-  position_beam (me);
 
   extract_grob_set (me, "stems", stems);
   Grob *xcommon = common_refpoint_of_array (stems, me, X_AXIS);
@@ -522,26 +524,25 @@ Beam::get_default_dir (Grob *me)
   total[UP] = total[DOWN] = 0;
   Drul_array<int> count;
   count[UP] = count[DOWN] = 0;
-  Direction d = DOWN;
 
   extract_grob_set (me, "stems", stems);
 
   for (int i = 0; i < stems.size (); i++)
-    do
-      {
-	Grob *s = stems[i];
-	Direction sd = get_grob_direction (s);
+    {
+      Grob *s = stems[i];
+      Direction stem_dir = CENTER;
+      SCM stem_dir_scm = s->get_property_data (ly_symbol2scm ("direction"));
+      if (is_direction (stem_dir_scm))
+	stem_dir = to_dir (stem_dir_scm);
+      else
+	stem_dir = Stem::get_default_dir (s);
 
-	int center_distance = max (int (- d * Stem::head_positions (s) [-d]), 0);
-	int current = sd ? (1 + d * sd) / 2 : center_distance;
-
-	if (current)
-	  {
-	    total[d] += current;
-	    count[d]++;
-	  }
-      }
-    while (flip (&d) != DOWN);
+      if (stem_dir)
+	{
+	  count[stem_dir] ++;
+	  total[stem_dir] += max (int (- stem_dir * Stem::head_positions (s) [-stem_dir]), 0);
+	}
+    }
 
   SCM func = me->get_property ("dir-function");
   SCM s = scm_call_2 (func,
@@ -569,7 +570,7 @@ Beam::set_stem_directions (Grob *me, Direction d)
     {
       Grob *s = stems[i];
 
-      SCM forcedir = s->get_property ("direction");
+      SCM forcedir = s->get_property_data (ly_symbol2scm ("direction"));
       if (!to_dir (forcedir))
 	set_grob_direction (s, d);
     }
@@ -624,7 +625,7 @@ Beam::consider_auto_knees (Grob *me)
 	  */
 	  head_extents += stem->relative_coordinate (common, Y_AXIS);
 
-	  if (to_dir (stem->get_property ("direction")))
+	  if (to_dir (stem->get_property_data (ly_symbol2scm ("direction"))))
 	    {
 	      Direction stemdir = to_dir (stem->get_property ("direction"));
 	      head_extents[-stemdir] = -stemdir * infinity_f;
@@ -724,43 +725,30 @@ Beam::set_stem_shorten (Grob *me)
     me->set_property ("shorten", scm_from_double (shorten_f));
 }
 
-/*  Call list of y-dy-callbacks, that handle setting of
-    grob-properties
-*/
-MAKE_SCHEME_CALLBACK (Beam, after_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Beam, calc_positions, 1);
 SCM
-Beam::after_line_breaking (SCM smob)
+Beam::calc_positions (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  if (!me->is_live ())
+    return SCM_EOL;
 
-  position_beam (me);
+  (void) me->get_property ("direction");
+  
+  SCM posns = scm_cons (SCM_BOOL_F, SCM_BOOL_F);
+  me->set_property ("positions", posns);
+
+  SCM callbacks = me->get_property ("position-callbacks");
+  for (SCM i = callbacks; scm_is_pair (i); i = scm_cdr (i))
+    scm_call_1 (scm_car (i), me->self_scm ());
+
+  /*
+    TODO: move this in separate calc function.
+   */
+  set_stem_lengths (me);
   return SCM_UNSPECIFIED;
 }
 
-void
-Beam::position_beam (Grob *me)
-{
-  if (!me->is_live ())
-    return;
-  if (to_boolean (me->get_property ("positioning-done")))
-    return;
-
-  me->set_property ("positioning-done", SCM_BOOL_T);
-
-  /* Copy to mutable list. */
-  SCM s = ly_deep_copy (me->get_property ("positions"));
-  me->set_property ("positions", s);
-
-  if (scm_car (s) == SCM_BOOL_F)
-    {
-      // one wonders if such genericity is necessary  --hwn.
-      SCM callbacks = me->get_property ("position-callbacks");
-      for (SCM i = callbacks; scm_is_pair (i); i = scm_cdr (i))
-	scm_call_1 (scm_car (i), me->self_scm ());
-    }
-
-  set_stem_lengths (me);
-}
 
 void
 set_minimum_dy (Grob *me, Real *dy)
@@ -1291,13 +1279,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   if (scm_is_pair (s) && scm_is_number (scm_car (s)))
     pos = ly_scm2interval (s);
   else
-    {
-      /*
-	UGH. TODO: fix dependency tracking.
-      */
-      position_beam (beam);
-      pos = ly_scm2interval (beam->get_property ("positions"));
-    }
+    programming_error ("positions property should always be pair of numbers.");
 
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
@@ -1395,10 +1377,17 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
   return bc;
 }
 
-ADD_INTERFACE (Beam, "beam-interface",
+ADD_INTERFACE (Beam,
+	       "beam-interface",
+
 	       "A beam. \n\n"
 	       "The @code{thickness} property is the weight of beams, "
-	       "measured in staffspace",
+	       "measured in staffspace.  The @code{direction} property is not user-serviceable. Use "
+	       "the @code{direction} property of @code{Stem} instead. "
+
+	       ,
+	       
+	       /* properties */
 	       "auto-knee-gap "
 	       "beamed-stem-shorten "
 	       "break-overshoot "
@@ -1406,6 +1395,7 @@ ADD_INTERFACE (Beam, "beam-interface",
 	       "concaveness "
 	       "damping "
 	       "details "
+	       "direction " 
 	       "dir-function "
 	       "flag-width-function "
 	       "gap "
@@ -1415,7 +1405,6 @@ ADD_INTERFACE (Beam, "beam-interface",
 	       "least-squares-dy "
 	       "neutral-direction "
 	       "position-callbacks "
-	       "positioning-done "
 	       "positions "
 	       "quant-score "
 	       "shorten "

@@ -32,12 +32,11 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 
   if (Note_column::has_rests (them))
     {
-      Grob *rc = unsmob_grob (them->get_object ("rest-collision"));
+      Grob *collision = unsmob_grob (them->get_object ("rest-collision"));
 
-      if (rc && !to_boolean (rc->get_property ("positioning-done")))
+      if (collision)
 	{
-	  rc->set_property ("positioning-done", SCM_BOOL_T);
-	  do_shift (rc);
+	  (void) collision->get_property ("positioning-done");
 	}
     }
   return scm_from_double (0.0);
@@ -60,7 +59,6 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM axis)
 void
 Rest_collision::add_column (Grob *me, Grob *p)
 {
-  me->add_dependency (p);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), p);
 
   /*
@@ -84,9 +82,11 @@ Rest_collision::add_column (Grob *me, Grob *p)
   TODO: look at horizontal-shift to determine ordering between rests
   for more than two voices.
 */
+MAKE_SCHEME_CALLBACK(Rest_collision, calc_positioning_done, 1);
 SCM
-Rest_collision::do_shift (Grob *me)
+Rest_collision::calc_positioning_done (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "elements", elts);
 
   Link_array<Grob> rests;
@@ -254,5 +254,9 @@ Rest_collision::do_shift (Grob *me)
 ADD_INTERFACE (Rest_collision, "rest-collision-interface",
 	       "Move around ordinary rests (not multi-measure-rests) to avoid "
 	       "conflicts.",
-	       "minimum-distance positioning-done elements");
+
+	       /* properties */
+	       "minimum-distance "
+	       "positioning-done "
+	       "elements");
 

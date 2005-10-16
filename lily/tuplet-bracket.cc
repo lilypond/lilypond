@@ -110,26 +110,8 @@ Tuplet_bracket::print (SCM smob)
   Stencil mol;
   extract_grob_set (me, "note-columns", columns);
 
-  {
-    SCM lp = me->get_property ("left-position");
-    SCM rp = me->get_property ("right-position");
-
-    if (!scm_is_number (rp) || !scm_is_number (lp))
-      {
-	/*
-	  UGH. dependency tracking!
-	*/
-	extract_grob_set (me, "tuplets", tuplets);
-	for (int i = 0; i < tuplets.size (); i++)
-	  Tuplet_bracket::print (tuplets[i]->self_scm ());
-
-	after_line_breaking (smob);
-      }
-  }
-
-  Real ly = robust_scm2double (me->get_property ("left-position"), 0);
-  Real ry = robust_scm2double (me->get_property ("right-position"), 0);
-
+  Drul_array<Real> positions = ly_scm2realdrul (me->get_property ("positions"));
+  Real dy = positions[RIGHT] - positions[LEFT];
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
   Spanner *sp = dynamic_cast<Spanner *> (me);
@@ -173,17 +155,14 @@ Tuplet_bracket::print (SCM smob)
 
       int neighbor_idx = me->get_break_index () - break_dir;
 
-      /*
-	UGH. dependency handling.
-       */
       if (break_dir
 	  && d == RIGHT
 	  && neighbor_idx < orig_spanner->broken_intos_.size ())
 	{
 	  Grob *neighbor = orig_spanner->broken_intos_[neighbor_idx];
 
-	  // ugh, should inspect callback?  
-	  Tuplet_bracket::after_line_breaking (neighbor->self_scm ());
+	  /* trigger possible suicide*/
+	  (void) neighbor->get_property ("positions");
 	}
 
       connect_to_other[d]
@@ -237,7 +216,7 @@ Tuplet_bracket::print (SCM smob)
       num.translate_axis (w / 2, X_AXIS);
       num.align_to (Y_AXIS, CENTER);
 
-      num.translate_axis ((ry - ly) / 2, Y_AXIS);
+      num.translate_axis (dy / 2, Y_AXIS);
 
       mol.add_stencil (num);
     }
@@ -299,7 +278,7 @@ Tuplet_bracket::print (SCM smob)
       while (flip (&d) != LEFT);
 
       Stencil brack = make_bracket (me, Y_AXIS,
-				    Offset (w, ry - ly),
+				    Offset (w, positions[RIGHT]),
 				    height,
 				    /*
 				      0.1 = more space at right due to italics
@@ -318,7 +297,7 @@ Tuplet_bracket::print (SCM smob)
       mol.add_stencil (brack);
     }
 
-  mol.translate_axis (ly, Y_AXIS);
+  mol.translate_axis (positions[LEFT], Y_AXIS);
   mol.translate_axis (x_span[LEFT]
 		      - sp->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS), X_AXIS);
   return mol.smobbed_copy ();
@@ -499,9 +478,10 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       Interval tuplet_y (tuplets[i]->extent (commony, Y_AXIS));
 
       Direction d = LEFT;
-      Real lp = scm_to_double (tuplets[i]->get_property ("left-position"));
-      Real rp = scm_to_double (tuplets[i]->get_property ("right-position"));
-      Real other_dy = rp - lp;
+      Drul_array<Real> positions = ly_scm2realdrul (tuplets[i]->get_property ("positions"));
+
+      
+      Real other_dy = positions[RIGHT] - positions[LEFT];
 
       do
 	{
@@ -560,29 +540,19 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
     }
 }
 
-/*
-  We depend on the beams if there are any.
-*/
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, before_line_breaking, 1);
+
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_direction, 1);
 SCM
-Tuplet_bracket::before_line_breaking (SCM smob)
+Tuplet_bracket::calc_direction (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  extract_grob_set (me, "note-columns", columns);
-
-  for (int i = columns.size (); i--;)
-    {
-      Grob *s = Note_column::get_stem (columns[i]);
-      Grob *b = s ? Stem::get_beam (s) : 0;
-      if (b)
-	me->add_dependency (b);
-    }
-  return SCM_UNSPECIFIED;
+  Direction dir = Tuplet_bracket::get_default_dir (me);
+  return scm_from_int (dir);
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, after_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_positions, 1);
 SCM
-Tuplet_bracket::after_line_breaking (SCM smob)
+Tuplet_bracket::calc_positions (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "note-columns", columns);
@@ -590,16 +560,11 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   if (columns.is_empty())
     {
       me->suicide ();
-      return SCM_UNSPECIFIED;
+      return scm_cons (scm_from_double (0),
+		       scm_from_double (0));
     }
   
   Direction dir = get_grob_direction (me);
-  if (!dir)
-    {
-      dir = Tuplet_bracket::get_default_dir (me);
-      set_grob_direction (me, dir);
-    }
-
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
 
@@ -625,23 +590,11 @@ Tuplet_bracket::after_line_breaking (SCM smob)
       dy = rp - lp;
     }
 
-  SCM lp = me->get_property ("left-position");
-  SCM rp = me->get_property ("right-position");
-
-  if (scm_is_number (lp) && !scm_is_number (rp))
-    rp = scm_from_double (scm_to_double (lp) + dy);
-  else if (scm_is_number (rp) && !scm_is_number (lp))
-    lp = scm_from_double (scm_to_double (rp) - dy);
-  else if (!scm_is_number (rp) && !scm_is_number (lp))
-    {
-      lp = scm_from_double (offset);
-      rp = scm_from_double (offset + dy);
-    }
-
-  me->set_property ("left-position", lp);
-  me->set_property ("right-position", rp);
-
-  return SCM_UNSPECIFIED;
+  
+  SCM x = scm_cons (scm_from_double (offset),
+		    scm_from_double (offset + dy));
+  
+  return x;
 }
 
 /*
@@ -667,8 +620,6 @@ void
 Tuplet_bracket::add_column (Grob *me, Item *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
-  me->add_dependency (n);
-
   add_bound_item (dynamic_cast<Spanner *> (me), n);
 }
 
@@ -676,7 +627,6 @@ void
 Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
-  me->add_dependency (bracket);
 }
 
 ADD_INTERFACE (Tuplet_bracket,
@@ -688,18 +638,18 @@ ADD_INTERFACE (Tuplet_bracket,
 	       "At a line break, the markups in the @code{edge-text} are printed "
 	       "at the edges. ",
 
-	       
+
+	       /* properties */
 	       "bracket-flare "
 	       "bracket-visibility "
 	       "break-overshoot "
 	       "direction "
 	       "edge-height "
 	       "edge-text "
-	       "left-position "
+	       "positions "
 	       "note-columns "
 	       "number-visibility "
 	       "padding "
-	       "right-position "
 	       "shorten-pair "
 	       "staff-padding "
 	       "thickness "

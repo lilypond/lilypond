@@ -131,6 +131,10 @@ middle C.")
      (cautionary-style ,symbol? "How to print cautionary
 accidentals. Choices are @code{smaller} or
 @code{parentheses}.")
+     (callbacks ,list? "An alist of (@var{symbol} . @var{procedure})
+pairs.  When the grob property @var{symbol} is requested,
+@var{procedure} is invoked. The return value, if it is unequal to
+@code{#<unspecified>} is recorded as the value of the property.") 
      (cautionary ,boolean? "Is this a cautionary accidental?")
      (concaveness ,number? "A beam is concave when its inner stems are
 closer to the beam than the two outside stems. This number is a
@@ -298,7 +302,6 @@ objects in higher layers.")
 			    "The thickness of ledger lines: it is the
 sum of 2 numbers.  The first is the factor for line thickness, and the
 second for staff space. Both contributions are added.")
-     (left-position ,number? "Vertical position of left part of spanner.")
      (left-padding ,ly:dimension? "The amount of space that is put
 left to a group of accidentals.")
      (length ,ly:dimension? "User override for the stem length of
@@ -382,7 +385,6 @@ quicker the slur attains it @code{height-limit}.")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
      (right-padding ,ly:dimension? "Space to insert between note and
 accidentals.")
-     (right-position ,number? "Vertical position of right part of spanner.")
      (script-priority ,number? "A sorting key that determines in what
 order a script is within a stack of scripts.")
 
@@ -552,8 +554,6 @@ bounds are spaced.")
      (columns ,ly:grob-array? "list of grobs, typically containing
 paper-columns or note-column objects.")
      (conditional-elements ,ly:grob-array? "Internal use only")
-     (dependencies ,ly:grob-array? "list of score-grob pointers that indicate
-who to compute first for certain global passes.")
      (encompass-objects ,ly:grob-array? "Objects that a slur should avoid
 in addition to notes and stems.")
      (elements ,ly:grob-array? "list of grobs, type depending on the Grob

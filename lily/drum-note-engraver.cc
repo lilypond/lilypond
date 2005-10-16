@@ -131,10 +131,6 @@ Drum_notes_engraver::acknowledge_stem (Grob_info inf)
       if (to_dir (e->get_property ("side-relative-direction")))
 	e->set_object ("direction-source", inf.grob ()->self_scm ());
 
-      /*
-	add dep ?
-      */
-      e->add_dependency (inf.grob ());
       Side_position_interface::add_support (e, inf.grob ());
     }
 }

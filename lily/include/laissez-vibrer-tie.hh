@@ -18,8 +18,8 @@ struct Laissez_vibrer_tie
 {
   static bool has_interface (Grob *);
   
-  DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static void set_direction (Grob *);
+  DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   static int compare (Grob *const &s1,
 		      Grob *const &s2);
   static int get_position (Grob *);

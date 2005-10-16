@@ -36,27 +36,6 @@ Tie_column::add_tie (Grob *me, Grob *tie)
 
   tie->set_parent (me, Y_AXIS);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), tie);
-  tie->add_dependency (me);
-}
-
-void
-Tie_column::set_directions (Grob *me)
-{
-  if (!to_boolean (me->get_property ("positioning-done")))
-    {
-      me->set_property ("positioning-done", SCM_BOOL_T); 
-      new_directions (me);
-    }
-}
-
-
-
-MAKE_SCHEME_CALLBACK (Tie_column, after_line_breaking, 1);
-SCM
-Tie_column::after_line_breaking (SCM smob)
-{
-  set_directions (unsmob_grob (smob));
-  return SCM_UNSPECIFIED;
 }
 
 /*
@@ -79,22 +58,26 @@ Tie_column::before_line_breaking (SCM smob)
 	}
       while (flip (&dir) != LEFT);
     }
+  
   return SCM_UNSPECIFIED;
 }
 
-
-void
-Tie_column::new_directions (Grob *me)
+MAKE_SCHEME_CALLBACK(Tie_column, calc_positioning_done, 1)
+SCM
+Tie_column::calc_positioning_done (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "ties", ro_ties);
   Link_array<Grob> ties (ro_ties);
   if (!ties.size ())
-    return;
+    return SCM_BOOL_T;
 
   if (ties.size() == 1)
     {
-      Tie::set_default_control_points (ties[0]);
-      return;
+      /*
+	Already handled by standard mechanisms.
+       */
+      return SCM_BOOL_T;
     }
   
   ties.sort (&Tie::compare);
@@ -176,6 +159,7 @@ Tie_column::new_directions (Grob *me)
 			       );
       set_grob_direction (ties[i], tie_configs[i].dir_);
     }
+  return SCM_BOOL_T;
 }
 
 

@@ -27,10 +27,22 @@
 #include "warn.hh"
 #include "slur-scoring.hh"
 
-static Direction
-get_default_dir (Grob *me)
+#include "script-interface.hh"
+
+
+
+MAKE_SCHEME_CALLBACK(Slur, calc_direction, 1)
+SCM
+Slur::calc_direction (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "note-columns", encompasses);
+
+  if (encompasses.is_empty ())
+    {
+      me->suicide ();
+      return SCM_BOOL_F;
+    }
 
   Direction d = DOWN;
   for (int i = 0; i < encompasses.size (); i++)
@@ -41,7 +53,7 @@ get_default_dir (Grob *me)
 	  break;
 	}
     }
-  return d;
+  return scm_from_int (d);
 }
 
 MAKE_SCHEME_CALLBACK (Slur, height, 2);
@@ -136,10 +148,9 @@ void
 Slur::add_extra_encompass (Grob *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
-  me->add_dependency (n);
 }
 
-#include "script-interface.hh"
+
 MAKE_SCHEME_CALLBACK (Slur, outside_slur_callback, 2);
 SCM
 Slur::outside_slur_callback (SCM grob, SCM axis)
@@ -157,10 +168,6 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   Direction dir = get_grob_direction (script);
   if (dir == CENTER)
     return scm_from_int (0);
-
-  /* FIXME: this dependency should be automatic.  */
-  if (scm_ilength (slur->get_property ("control-points")) < 4)
-    Slur::after_line_breaking (slur->self_scm ());
 
   Grob *cx = script->common_refpoint (slur, X_AXIS);
   Grob *cy = script->common_refpoint (slur, Y_AXIS);
@@ -219,28 +226,23 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   return scm_from_double (offset);
 }
 
-MAKE_SCHEME_CALLBACK (Slur, after_line_breaking, 1);
-SCM
-Slur::after_line_breaking (SCM smob)
-{
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
-  extract_grob_set (me, "note-columns", encompasses);
-  if (encompasses.is_empty ())
-    {
-      me->suicide ();
-      return SCM_UNSPECIFIED;
-    }
 
-  if (!get_grob_direction (me))
-    set_grob_direction (me, get_default_dir (me));
-
-  if (scm_ilength (me->get_property ("control-points")) < 4)
-    set_slur_control_points (me);
-
-  return SCM_UNSPECIFIED;
-}
 
 ADD_INTERFACE (Slur, "slur-interface",
+	       
 	       "A slur",
-	       "positions quant-score eccentricity encompass-objects control-points dash-period dash-fraction slur-details direction height-limit note-columns ratio thickness");
+	       
+	       "control-points "
+	       "dash-fraction "
+	       "dash-period "
+	       "direction "
+	       "eccentricity "
+	       "encompass-objects "
+	       "height-limit "
+	       "note-columns "
+	       "positions "
+	       "quant-score "
+	       "ratio "
+	       "slur-details "
+	       "thickness ");
 

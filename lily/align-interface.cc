@@ -21,28 +21,21 @@
   distance.
  */
 
-MAKE_SCHEME_CALLBACK (Align_interface, alignment_callback, 2);
+MAKE_SCHEME_CALLBACK (Align_interface, calc_positioning_done, 1);
 SCM
-Align_interface::alignment_callback (SCM element_smob, SCM axis)
+Align_interface::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
+  SCM axis = scm_car (me->get_property ("axes"));
   Axis ax = (Axis)scm_to_int (axis);
-  Grob *par = me->get_parent (ax);
-  if (par && !to_boolean (par->get_property ("positioning-done")))
-    Align_interface::align_elements_to_extents (par, ax);
-  return scm_from_double (0.0);
-}
 
-MAKE_SCHEME_CALLBACK (Align_interface, fixed_distance_alignment_callback, 2);
-SCM
-Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  Axis ax = (Axis)scm_to_int (axis);
-  Grob *par = me->get_parent (ax);
-  if (par && !to_boolean (par->get_property ("positioning-done")))
-    Align_interface::align_to_fixed_distance (par, ax);
-  return scm_from_double (0.0);
+  SCM force = me->get_property ("forced-distance");
+  if (scm_is_number (force))
+    Align_interface::align_to_fixed_distance (me, ax);
+  else
+    Align_interface::align_elements_to_extents (me, ax);
+
+  return SCM_BOOL_T;
 }
 
 /*
@@ -88,8 +81,6 @@ Align_interface::stretch_after_break (SCM grob)
 void
 Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 {
-  me->set_property ("positioning-done", SCM_BOOL_T);
-
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					   DOWN);
 
@@ -151,6 +142,7 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
   The original function has been taken over by
   align_to_fixed_distance ().
 */
+
 void
 Align_interface::align_elements_to_extents (Grob *me, Axis a)
 {
@@ -176,8 +168,6 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
 				       : SCM_EOL,
 				       extra_space);
     }
-  
-  me->set_property ("positioning-done", SCM_BOOL_T);
   
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					       DOWN);
@@ -271,9 +261,10 @@ Align_interface::axis (Grob *me)
 }
 
 void
-Align_interface::add_element (Grob *me, Grob *element, SCM call_back)
+Align_interface::add_element (Grob *me, Grob *element)
 {
-  element->add_offset_callback (call_back, Align_interface::axis (me));
+  element->add_offset_callback (Grob::same_axis_parent_positioning_proc,
+				Align_interface::axis (me));
   Axis_group_interface::add_element (me, element);
 }
 

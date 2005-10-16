@@ -7,8 +7,6 @@
 */
 
 #include "tie.hh"
-
-
 #include "spanner.hh"
 #include "lookup.hh"
 #include "output-def.hh"
@@ -22,6 +20,7 @@
 #include "stem.hh"
 #include "note-head.hh"
 #include "tie-column.hh"
+#include "grob-array.hh"
 
 int
 Tie::compare (Grob *const &s1,
@@ -34,7 +33,6 @@ void
 Tie::set_head (Grob *me, Direction d, Grob *h)
 {
   dynamic_cast<Spanner *> (me)->set_bound (d, h);
-  me->add_dependency (h);
 }
 
 Grob *
@@ -62,8 +60,24 @@ Tie::get_column_rank (Grob *me, Direction d)
 int
 Tie::get_position (Grob *me)
 {
-  Direction d = head (me, LEFT) ? LEFT : RIGHT;
-  return (int) Staff_symbol_referencer::get_position (head (me, d));
+  Direction d = LEFT;
+  do
+    {
+      Grob *h = head (me, d);
+      if (h)
+	return (int) Staff_symbol_referencer::get_position (h);
+    }
+  while (flip (&d) != LEFT);
+
+  /*
+
+  TODO: this is theoretically possible for ties across more than 2
+  systems.. We should look at the first broken copy.
+  
+  */
+  programming_error ("Tie without heads. Suicide");
+  me->suicide ();
+  return 0;
 }
 
 /*
@@ -96,16 +110,24 @@ Tie::get_default_dir (Grob *me)
   return UP;
 }
 
-void
-Tie::set_direction (Grob *me)
+
+MAKE_SCHEME_CALLBACK(Tie, calc_direction, 1);
+SCM
+Tie::calc_direction (SCM smob)
 {
-  if (!get_grob_direction (me))
+  Grob *me = unsmob_grob (smob);
+  Grob *yparent = me->get_parent (Y_AXIS);
+  if (Tie_column::has_interface (yparent)
+      && unsmob_grob_array (yparent->get_object ("ties"))
+      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1)
     {
-      if (Tie_column::has_interface (me->get_parent (Y_AXIS)))
-	Tie_column::set_directions (me->get_parent (Y_AXIS));
-      else
-	set_grob_direction (me, Tie::get_default_dir (me));
+      /* trigger positioning. */
+      (void) yparent->get_property ("positioning-done");
     }
+  else
+    set_grob_direction (me, Tie::get_default_dir (me));
+
+  return SCM_UNSPECIFIED;
 }
 
 Interval
@@ -395,9 +417,6 @@ Tie::set_default_control_points (Grob *me_grob)
   common = me->get_bound (RIGHT)->common_refpoint (common, X_AXIS); 
   
   Tie_configuration conf;
-  if (!get_grob_direction (me))
-    set_grob_direction (me, get_default_dir (me));
-
   int tie_position = (int) Tie::get_position (me);
   conf.position_ = tie_position;
   
@@ -432,6 +451,22 @@ Tie::set_control_points (Grob *me,
   me->set_property ("control-points", controls);
 }
 
+MAKE_SCHEME_CALLBACK(Tie, calc_control_points, 1);
+SCM
+Tie::calc_control_points (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  // trigger Tie-column
+  (void)  get_grob_direction (me);
+
+  if (!scm_is_pair (me->get_property ("control-points")))
+    {
+      set_default_control_points (me);
+    }
+
+  return SCM_UNSPECIFIED;
+}
 
 
 MAKE_SCHEME_CALLBACK (Tie, print, 1);
@@ -439,35 +474,8 @@ SCM
 Tie::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-
-  if (CENTER == get_grob_direction (me))
-    set_direction (me);
-
-  if (!get_grob_direction (me))
-    me->programming_error ("Tie direction not set."); 
-    
-  SCM cp = me->get_property ("control-points");
-  if (!scm_is_pair (cp))
-    {
-      /*
-	UGH.  dependency tracking!
-       */
-      if (Tie_column::has_interface (me->get_parent (Y_AXIS)))
-	{
-	  Tie_column::set_directions (me->get_parent (Y_AXIS));
-	}
-
-      cp = me->get_property ("control-points");
-    }
   
-  if (!scm_is_pair (cp))
-    {
-      set_default_control_points (me);
-      cp = me->get_property ("control-points");
-    }
-
-  if (!scm_is_pair (cp))
-    return Stencil ().smobbed_copy ();
+  SCM cp = me->get_property ("control-points");
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
   Real base_thick = robust_scm2double (me->get_property ("thickness"), 1);

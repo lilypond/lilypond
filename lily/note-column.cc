@@ -89,7 +89,6 @@ void
 Note_column::set_stem (Grob *me, Grob *stem)
 {
   me->set_object ("stem", stem->self_scm ());
-  me->add_dependency (stem);
   Axis_group_interface::add_element (me, stem);
 }
 

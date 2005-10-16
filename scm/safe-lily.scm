@@ -144,29 +144,15 @@
    ;;$defaultmidi
    ;;$defaultlayout
 
-   Accidental_interface::after_line_breaking
    Accidental_interface::print
    Ambitus::print
    Arpeggio::print
    Arpeggio::brew_chord_bracket
    Arpeggio::width_callback
    Axis_group_interface::group_extent_callback
-   Bar_line::before_line_breaking
    Bar_line::get_staff_bar_size
    Bar_line::print
-   Beam::after_line_breaking
-   Beam::before_line_breaking
-   Beam::check_concave
-   Beam::least_squares
-   Beam::print
-   Beam::quanting
-   Beam::shift_region_to_valid
-   Beam::slope_damping
-   Beam::space_function
-   Break_align_interface::alignment_callback
    Breathing_sign::offset_callback
-   Chord_name::after_line_breaking
-   Clef::before_line_breaking
    Clef::print
    Cluster::print
    Cluster_beacon::height
@@ -180,7 +166,6 @@
    Hyphen_spanner::print
    Hyphen_spanner::set_spacing_rods
    Key_signature_interface::print
-   Line_spanner::after_line_breaking
    Line_spanner::print
    Lyric_extender::print
    Measure_grouping::print
@@ -192,17 +177,13 @@
    Note_head::print
    Note_head::brew_ez_stencil
    Ottava_bracket::print
-   Paper_column::before_line_breaking
    Paper_column::print
    Percent_repeat_item_interface::beat_slash
    Percent_repeat_item_interface::double_percent
    Piano_pedal_bracket::print
-   Rest::after_line_breaking
    Rest::extent_callback
    Rest::polyphonic_offset_callback
    Rest::print
-   Script_column::before_line_breaking
-   Script_interface::before_line_breaking
    Script_interface::print
    Self_alignment_interface::aligned_on_parent
    Self_alignment_interface::aligned_on_self
@@ -211,18 +192,15 @@
    Separating_group_spanner::set_spacing_rods
    Side_position_interface::aligned_on_support_refpoints
    Side_position_interface::aligned_side
-   Slur::after_line_breaking
    Slur::height
    Slur::print
    Spacing_spanner::set_springs
-   Span_bar::before_line_breaking
    Span_bar::get_bar_size
    Span_bar::print
    Span_bar::width_callback
    Spanner::set_spacing_rods
    Staff_symbol::print
    Staff_symbol_referencer::callback
-   Stem::before_line_breaking
    Stem::width_callback
    Stem::height
    Stem::offset_callback
@@ -230,15 +208,11 @@
    Stem_tremolo::height
    Stem_tremolo::print
    Sustain_pedal::print
-   System_start_delimiter::after_line_breaking
    System_start_delimiter::print
    Text_interface::print
    Text_spanner::print
    Tie::print
-   Tie_column::after_line_breaking
    Time_signature::print
-   Tuplet_bracket::after_line_breaking
-   Tuplet_bracket::before_line_breaking
    Tuplet_bracket::print
    Vaticana_ligature::brew_ligature_primitive
    Vaticana_ligature::print

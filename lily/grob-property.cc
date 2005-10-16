@@ -92,6 +92,36 @@ Grob::internal_set_property (SCM sym, SCM v)
 
 //#define PROFILE_PROPERTY_ACCESSES
 
+/*
+  Ugh C&P Coding.
+
+  Retrieve property without triggering callback.
+ */
+SCM
+Grob::get_property_data (SCM sym) const
+{
+#ifndef NDEBUG
+  if (profile_property_accesses)
+    note_property_access (&grob_property_lookup_table, sym);
+#endif
+  
+  SCM handle = scm_sloppy_assq (sym, mutable_property_alist_);
+  if (handle != SCM_BOOL_F)
+    return scm_cdr (handle);
+
+  handle = scm_sloppy_assq (sym, immutable_property_alist_);
+
+  if (do_internal_type_checking_global && scm_is_pair (handle))
+    {
+      if (!type_check_assignment (sym, scm_cdr (handle),
+				  ly_symbol2scm ("backend-type?")))
+	abort ();
+
+      check_interfaces_for_property (this, sym);
+    }
+  
+  return (handle == SCM_BOOL_F) ? SCM_EOL : scm_cdr (handle);
+}
 
 SCM
 Grob::internal_get_property (SCM sym) const
@@ -100,23 +130,83 @@ Grob::internal_get_property (SCM sym) const
   if (profile_property_accesses)
     note_property_access (&grob_property_lookup_table, sym);
 #endif
+  
+  SCM handle = scm_sloppy_assq (sym, mutable_property_alist_);
+  if (handle != SCM_BOOL_F)
+    return scm_cdr (handle);
 
-  SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
-  if (s != SCM_BOOL_F)
-    return scm_cdr (s);
+  handle = scm_sloppy_assq (sym, immutable_property_alist_);
 
-  s = scm_sloppy_assq (sym, immutable_property_alist_);
-
-  if (do_internal_type_checking_global && scm_is_pair (s))
+  if (do_internal_type_checking_global && scm_is_pair (handle))
     {
-      if (!type_check_assignment (sym, scm_cdr (s),
+      if (!type_check_assignment (sym, scm_cdr (handle),
 				  ly_symbol2scm ("backend-type?")))
 	abort ();
 
       check_interfaces_for_property (this, sym);
     }
 
-  return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
+  
+  if (handle == SCM_BOOL_F)
+    {
+      SCM value = ((Grob*)  this)->try_callback (sym);
+      if (value != SCM_UNSPECIFIED)
+	return value;
+    }
+  
+  return (handle == SCM_BOOL_F) ? SCM_EOL : scm_cdr (handle);
+}
+
+#ifndef NDEBUG
+#include "protected-scm.hh"
+Protected_scm grob_property_callback_stack = SCM_EOL;
+bool debug_property_callbacks;
+#endif
+
+SCM
+Grob::try_callback (SCM sym)
+{      
+  SCM handle = scm_sloppy_assq (sym, property_callbacks_);
+  if (scm_is_pair (handle))
+    {
+      SCM proc = scm_cdr (handle);
+      if (ly_is_procedure (proc))
+	{
+	  SCM marker = ly_symbol2scm ("calculation-in-progress");
+	  /*
+	    need to put a value in SYM to ensure that we don't get a
+	    cyclic call chain.
+	  */
+	  mutable_property_alist_
+	    = scm_assq_set_x (mutable_property_alist_, sym, marker);
+
+#ifndef NDEBUG
+	  if (debug_property_callbacks)
+	    grob_property_callback_stack = scm_acons (sym, proc, grob_property_callback_stack);
+#endif
+	  SCM value = scm_call_1 (proc, self_scm ());
+#ifndef NDEBUG
+	  if (debug_property_callbacks)
+	    grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
+#endif
+	  
+	  /*
+	    If the function returns SCM_UNSPECIFIED, we assume the
+	    property has been set with an explicit set_property()
+	    call.
+	   */
+	  if (value == SCM_UNSPECIFIED)
+	    value = internal_get_property (sym);
+	  else
+	    internal_set_property (sym, value);
+	  
+	  return value;
+	}
+      else
+	programming_error ("Callback should be procedure type");
+    }
+
+  return SCM_UNSPECIFIED;
 }
 
 void

@@ -89,6 +89,8 @@ struct Text_script
 
 ADD_INTERFACE (Text_script, "text-script-interface",
 	       "An object that is put above or below a note",
+
+	       /* properties */
 	       "add-stem-support "
 	       "avoid-slur "
 	       "script-priority "

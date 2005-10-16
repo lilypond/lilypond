@@ -49,7 +49,8 @@
     (AccidentalPlacement
      . ((X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(left-padding . 0.2)
-
+	(callbacks . ((positioning-done . ,Accidental_placement::calc_positioning_done)
+		      ))
 	;; this is quite small, but it is very ugly to have
 	;; accs closer to the previous note than to the next one.
 	(right-padding . 0.15)
@@ -238,6 +239,8 @@
      . (
 	(axes . (,Y))
 	(threshold . (2 . 1000))
+	(callbacks . ((positioning-done . ,Align_interface::calc_positioning_done)
+		      ))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(stacking-dir . -1)
 	(meta . ((class . Spanner)
@@ -250,17 +253,19 @@
 	;; rather long.
 	(print-function . ,Beam::print)
 	(gap . 0.8)
-	(positions . (#f . #f))
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
 			       ,Beam::slope_damping
 			       ,Beam::shift_region_to_valid
 			       ,Beam::quanting))
+	(callbacks . ((positions . ,Beam::calc_positions)
+		      (direction . ,Beam::calc_direction)
+		      ))
 
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
-	(before-line-breaking-callback . ,Beam::before_line_breaking)
-	(after-line-breaking-callback . ,Beam::after_line_breaking)
+;	(before-line-breaking-callback . ,Beam::before_line_breaking)
+;	(after-line-breaking-callback . ,Beam::after_line_breaking)
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority-median)
 
@@ -296,6 +301,8 @@
      . (
 	(breakable . #t)
 	(stacking-dir . 1)
+	(callbacks . ((positioning-done . ,Break_align_interface::calc_positioning_done)
+		      ))
 	(break-align-orders . ;; end of line
 			    #((instrument-name
 			       left-edge
@@ -340,7 +347,6 @@
     (BreakAlignGroup
      . (
 	(axes . (0))
-	(X-offset-callbacks . (,Break_align_interface::alignment_callback))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -464,6 +470,8 @@
      . (
 	(axes . (0))
 	(direction . ,RIGHT)
+	(callbacks . ((positioning-done . ,Dot_column::calc_positioning_done) 
+		       ))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-offset-callbacks . (,Dot_column::side_position))
 	(meta . ((class . Item)
@@ -719,7 +727,10 @@
 				break-aligned-interface))))))
     (LaissezVibrerTie
      . (
-	(print-function  . ,Laissez_vibrer_tie::print)
+	(print-function  . ,Tie::print)
+	(callbacks . ((control-points . ,Laissez_vibrer_tie::calc_control_points)
+		      (direction . ,Laissez_vibrer_tie::calc_direction)
+		      ))
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
 	(thickness . 1.0)
@@ -732,6 +743,8 @@
      . (
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
+	(callbacks . ((positioning-done . ,Laissez_vibrer_tie_column::calc_positioning_done)
+		      ))
 	(meta . ((class . Item)
 		 (interfaces . (laissez-vibrer-tie-column-interface))
 		 ))
@@ -774,14 +787,18 @@
     (LigatureBracket
      . (
 	(ligature-primitive-callback . ,Note_head::print)
+	
+	;; ugh.  A ligature bracket is totally different from
+	;; a tuplet bracket.
+	(callbacks . ((direction  . ,Tuplet_bracket::calc_direction)
+		      (positions . ,Tuplet_bracket::calc_positions)
+		      ))
 	(direction . 1)
 	(gap . 0.0)
 	(padding . 2.0)
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
-	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
-	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(print-function . ,Tuplet_bracket::print)
 	(meta . ((class . Spanner)
 		 (interfaces . (tuplet-bracket-interface
@@ -917,6 +934,8 @@
 	(axes . (0 1))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
+	(callbacks . ((positioning-done . ,Note_collision_interface::calc_positioning_done)
+		      ))
 	(meta . ((class . Item)
 		 (interfaces . (note-collision-interface
 				axis-group-interface))))))
@@ -936,6 +955,7 @@
 	(ligature-primitive-callback . ,Note_head::print)
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(X-offset-callbacks . (,Note_head::stem_x_shift))
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(meta . ((class . Item)
 		 (interfaces . (rhythmic-grob-interface
@@ -1021,11 +1041,13 @@
 
     (PhrasingSlur
      . ((slur-details . ,default-slur-details)
+	(callbacks . ((control-points . ,Slur::calc_control_points)
+		      (direction . ,Slur::calc_direction)
+		       ))
 	(print-function . ,Slur::print)
 	(thickness . 1.1)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 1.5)
-	(after-line-breaking-callback . ,Slur::after_line_breaking)
 	(Y-extent-callback . ,Slur::height)
 	(height-limit . 2.0)
 	(ratio . 0.333)
@@ -1149,6 +1171,8 @@
     (RestCollision
      . (
 	(minimum-distance . 0.75)
+	(callbacks .  ((positioning-done . ,Rest_collision::calc_positioning_done)
+		       ))
 	(meta . ((class . Item)
 		 (interfaces . (rest-collision-interface))))))
 
@@ -1194,11 +1218,13 @@
 
     (Slur
      . ((slur-details . ,default-slur-details)
+	(callbacks . ((control-points . ,Slur::calc_control_points)
+		      (direction . ,Slur::calc_direction)
+		       ))
 	(print-function . ,Slur::print)
 	(thickness . 1.0)
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 1.5)
-	(after-line-breaking-callback . ,Slur::after_line_breaking)
 	(Y-extent-callback . ,Slur::height)
 					; Slur::height)
 	(height-limit . 2.0)
@@ -1321,7 +1347,11 @@
     (Stem
      . (
 	;; this list is rather long. Trim --hwn
-	(before-line-breaking-callback . ,Stem::before_line_breaking)
+	(callbacks . ((direction . ,Stem::calc_direction)
+		      (stem-end-position . ,Stem::calc_stem_end_position)
+		      (stem-info . ,Stem::calc_stem_info)
+		      (positioning-done . ,Stem::calc_positioning_done)
+		      ))
 	(print-function . ,Stem::print)
 	(thickness . 1.3)
 
@@ -1499,6 +1529,9 @@
 
     (Tie
      . ((print-function . ,Tie::print)
+	(callbacks . ((control-points . ,Tie::calc_control_points)
+		      (direction . ,Tie::calc_direction)
+		      ))
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)
 		    (between-length-limit . 1.0)))
@@ -1509,10 +1542,12 @@
 
     (TieColumn
      . (
-	(after-line-breaking-callback . ,Tie_column::after_line_breaking)
+	(callbacks . ((positioning-done . ,Tie_column::calc_positioning_done)
+		      ))
 	(before-line-breaking-callback . ,Tie_column::before_line_breaking)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
+	
 	(meta . ((class . Spanner)
 		 (interfaces . (tie-column-interface))))))
 
@@ -1593,8 +1628,9 @@
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
-	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
-	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
+	(callbacks . ((direction  . ,Tuplet_bracket::calc_direction)
+		      (positions . ,Tuplet_bracket::calc_positions)
+		      ))
 	(print-function . ,Tuplet_bracket::print)
 	(font-shape . italic)
 
@@ -1646,6 +1682,8 @@
     (VerticalAlignment
      . (
 	(axes . (1))
+	(callbacks . ((positioning-done . ,Align_interface::calc_positioning_done)
+		      ))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(stacking-dir . -1)

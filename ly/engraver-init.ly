@@ -278,7 +278,6 @@ contained staves are not connected vertically."
   "Just like @code{GrandStaff} but with a forced distance between
     the staves, so cross staff beaming and slurring can be used."
   
-  verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
   \override VerticalAlignment #'forced-distance = #12
   \override VerticalAlignment #'self-alignment-Y = #0
   \override VerticalAlignment #'after-line-breaking-callback
@@ -488,8 +487,6 @@ AncientRemoveEmptyStaffContext = \context {
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
   scriptDefinitions = #default-script-alist
-
-  verticalAlignmentChildCallback = #Align_interface::alignment_callback
 
   pedalSustainStrings = #'("Ped." "*Ped." "*")
   pedalSustainStyle = #'text
