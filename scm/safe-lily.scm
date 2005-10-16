@@ -150,7 +150,6 @@
    Arpeggio::brew_chord_bracket
    Arpeggio::width_callback
    Axis_group_interface::group_extent_callback
-   Bar_line::get_staff_bar_size
    Bar_line::print
    Breathing_sign::offset_callback
    Clef::print
@@ -195,7 +194,6 @@
    Slur::height
    Slur::print
    Spacing_spanner::set_springs
-   Span_bar::get_bar_size
    Span_bar::print
    Span_bar::width_callback
    Spanner::set_spacing_rods

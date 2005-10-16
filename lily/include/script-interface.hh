@@ -23,7 +23,7 @@ public:
   static Stencil get_stencil (Grob *, Direction d);
   static bool has_interface (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
 };
 
 void make_script_from_event (Grob *p, bool *follow, Context *tg,

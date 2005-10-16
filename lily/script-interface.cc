@@ -41,15 +41,11 @@ Script_interface::get_stencil (Grob *me, Direction d)
   return Stencil ();
 }
 
-/*
-todo: use proper callbacks.
-*/
-MAKE_SCHEME_CALLBACK (Script_interface, before_line_breaking, 1);
+MAKE_SCHEME_CALLBACK (Script_interface, calc_direction, 1);
 SCM
-Script_interface::before_line_breaking (SCM smob)
+Script_interface::calc_direction (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-
   Direction d = Side_position_interface::get_direction (me);
 
   if (!d)
@@ -58,15 +54,14 @@ Script_interface::before_line_breaking (SCM smob)
       d = DOWN;
     }
 
-  set_grob_direction (me, d);
-
   if (Grob *par = me->get_parent (X_AXIS))
     {
       Grob *stem = Note_column::get_stem (par);
       if (stem && Stem::first_head (stem))
 	me->set_parent (Stem::first_head (stem), X_AXIS);
     }
-  return SCM_UNSPECIFIED;
+
+  return scm_from_int (d);
 }
 
 MAKE_SCHEME_CALLBACK (Script_interface, print, 1);
@@ -76,12 +71,8 @@ Script_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  Direction dir = Side_position_interface::get_direction (me);
-  if (!dir)
-    {
-      programming_error ("script direction unknown, but stencil wanted");
-      dir = DOWN;
-    }
+  Direction dir = get_grob_direction (me);
+
   return get_stencil (me, dir).smobbed_copy ();
 }
 

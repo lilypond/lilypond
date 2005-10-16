@@ -21,7 +21,6 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
   static bool has_interface (Grob *);
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   static void try_collapse (Grob *);
   static Stencil staff_bracket (Grob *, Real);
   static Stencil old_staff_bracket (Grob *, Real);

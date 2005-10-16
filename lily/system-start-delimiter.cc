@@ -53,44 +53,6 @@ System_start_delimiter::simple_bar (Grob *me, Real h)
 				   lt);
 }
 
-MAKE_SCHEME_CALLBACK (System_start_delimiter, after_line_breaking, 1);
-
-SCM
-System_start_delimiter::after_line_breaking (SCM smob)
-{
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
-
-  SCM gl = me->get_property ("glyph");
-  if (ly_is_equal (gl, scm_makfrom0str ("bar-line")))
-    {
-      int count = 0;
-      Paper_column *left_column = me->get_bound (LEFT)->get_column ();
-
-      /*
-	Get all coordinates, to trigger Hara kiri.
-      */
-      extract_grob_set (me, "elements", elts);
-      Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
-
-      for (int i = elts.size (); i--;)
-	{
-	  Spanner *staff = dynamic_cast<Spanner *> (elts[i]);
-	  if (!staff
-	      || staff->get_bound (LEFT)->get_column () != left_column)
-	    continue;
-
-	  Interval v = staff->extent (common, Y_AXIS);
-
-	  if (!v.is_empty ())
-	    count++;
-	}
-
-      if (count <= 1)
-	me->suicide ();
-    }
-  return SCM_UNSPECIFIED;
-}
-
 MAKE_SCHEME_CALLBACK (System_start_delimiter, print, 1);
 SCM
 System_start_delimiter::print (SCM smob)
@@ -111,18 +73,30 @@ System_start_delimiter::print (SCM smob)
 
   Interval ext;
 
+  int non_empty_count = 0;
   for (int i = elts.size (); i--;)
     {
       Spanner *sp = dynamic_cast<Spanner *> (elts[i]);
+
       if (sp
 	  && sp->get_bound (LEFT) == me->get_bound (LEFT))
 	{
 	  Interval dims = sp->extent (common, Y_AXIS);
 	  if (!dims.is_empty ())
-	    ext.unite (dims);
+	    {
+	      non_empty_count ++;
+	      ext.unite (dims);
+	    }
 	}
     }
 
+  if (gsym == ly_symbol2scm ("bar-line")
+      && non_empty_count <= 1)
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+  
   ext -= me->relative_coordinate (common, Y_AXIS);
 
   Real len = ext.length () / staff_space;

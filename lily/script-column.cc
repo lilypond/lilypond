@@ -8,6 +8,7 @@
 
 #include "script-column.hh"
 
+#include "directional-element-interface.hh"
 #include "side-position-interface.hh"
 #include "warn.hh"
 #include "pointer-group-interface.hh"
@@ -59,13 +60,7 @@ Script_column::before_line_breaking (SCM smob)
   for (int i = 0; i < staff_sided.size (); i++)
     {
       Grob *g = staff_sided[i];
-      Direction d = Side_position_interface::get_direction (g);
-      if (!d)
-	{
-	  programming_error ("no direction for script");
-	  d = DOWN;
-	  g->set_property ("direction", scm_from_int (d));
-	}
+      Direction d = get_grob_direction (g);
 
       scripts_drul[d] = scm_cons (g->self_scm (), scripts_drul[d]);
     }

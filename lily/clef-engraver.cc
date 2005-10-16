@@ -68,7 +68,7 @@ Clef_engraver::Clef_engraver ()
 void
 Clef_engraver::set_glyph ()
 {
-  SCM glyph_sym = ly_symbol2scm ("glyph-name");
+  SCM glyph_sym = ly_symbol2scm ("glyph");
   SCM glyph = get_property ("clefGlyph");
 
   SCM basic = ly_symbol2scm ("Clef");

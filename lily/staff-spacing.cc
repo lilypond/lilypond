@@ -98,15 +98,15 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
   bar_size.set_empty ();
   if (Bar_line::has_interface (bar_grob))
     {
-      SCM glyph = bar_grob->get_property ("glyph");
+      SCM glyph = bar_grob->get_property ("glyph-name");
+      Grob *staff_sym = Staff_symbol_referencer::get_staff_symbol (bar_grob);
 
       String glyph_string = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
       if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
 	{
-	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm ());
-	  bar_size = Interval (-1, 1);
-	  bar_size *= robust_scm2double (sz, 1)
-	    / Staff_symbol_referencer::staff_space (bar_grob);
+	  Grob *common = bar_grob->common_refpoint (staff_sym, Y_AXIS);
+	  Interval bar_size = bar_grob->extent (common, Y_AXIS);
+	  bar_size *= 1.0 / Staff_symbol_referencer::staff_space (bar_grob);
 	}
     }
   return bar_size;
