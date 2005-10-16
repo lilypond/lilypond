@@ -56,7 +56,6 @@ public:
   static void connect_beams (Grob *me);
 
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM axis));
-  DECLARE_SCHEME_CALLBACK (space_function, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));

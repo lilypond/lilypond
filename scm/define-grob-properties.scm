@@ -192,7 +192,6 @@ typeset on a Stem. Valid options include @code{()} and
 @code{mensural}.  Additionally, @code{\"no-flag\"} switches off the
 flag.")
      
-     (flag-width-function ,procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, barlines, etc.) are not spaced
 separately, but put before musical columns.")
@@ -390,9 +389,6 @@ prefatory items, like clef and time-signature. The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}
 . @var{distance})}, where @var{type} can be the symbols
 @code{minimum-space} or @code{extra-space}.")
-     (space-function ,procedure? "Calculate the vertical space between
-two beams. This function takes a beam grob and the maximum number of
-beams.")
 
      (spacing-increment ,number? "Add this much space for a doubled
 duration. Typically, the width of a note head. See also

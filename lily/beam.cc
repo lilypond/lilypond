@@ -69,15 +69,17 @@ Beam::get_thickness (Grob *me)
 Real
 Beam::get_beam_translation (Grob *me)
 {
-  SCM func = me->get_property ("space-function");
+  int beam_count = get_beam_count (me);
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real line = Staff_symbol_referencer::line_thickness (me);
+  Real thickness = get_thickness (me);
+  Real fract = robust_scm2double (me->get_property ("length-fraction"), 1.0);
+  
+  Real beam_translation = beam_count < 4
+    ? (2 * staff_space + line - thickness) / 2.0
+    : (3 * staff_space + line - thickness) / 3.0;
 
-  if (ly_is_procedure (func))
-    {
-      SCM s = scm_call_2 (func, me->self_scm (), scm_from_int (get_beam_count (me)));
-      return scm_to_double (s);
-    }
-  else
-    return 0.81;
+  return fract * beam_translation;
 }
 
 /* Maximum beam_count. */
@@ -95,25 +97,6 @@ Beam::get_beam_count (Grob *me)
   return m;
 }
 
-/*
-  Space return space between beams.
-*/
-MAKE_SCHEME_CALLBACK (Beam, space_function, 2);
-SCM
-Beam::space_function (SCM smob, SCM beam_count)
-{
-  Grob *me = unsmob_grob (smob);
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real line = Staff_symbol_referencer::line_thickness (me);
-  Real thickness = get_thickness (me);
-
-  Real beam_translation = scm_to_int (beam_count) < 4
-    ? (2 * staff_space + line - thickness) / 2.0
-    : (3 * staff_space + line - thickness) / 3.0;
-
-  return scm_from_double (beam_translation);
-}
 
 /* After pre-processing all directions should be set.
    Several post-processing routines (stem, slur, script) need stem/beam
@@ -427,10 +410,11 @@ Beam::print (SCM grob)
 	  if (stem)
 	    {
 	      int t = Stem::duration_log (stem);
-
-	      SCM proc = me->get_property ("flag-width-function");
-	      SCM result = scm_call_1 (proc, scm_from_int (t));
-	      nw_f = scm_to_double (result);
+	      // ugh. hardcoded.
+	      if (t == 1)
+		nw_f = 1.98;
+	      else
+		nw_f = 1.32;
 	    }
 	  else
 	    nw_f = break_overshoot[RIGHT] / 2;
@@ -1395,11 +1379,11 @@ ADD_INTERFACE (Beam,
 	       "damping "
 	       "details "
 	       "direction " 
-	       "flag-width-function "
 	       "gap "
 	       "gap-count "
 	       "inspect-quants "
 	       "knee "
+	       "length-fraction "
 	       "least-squares-dy "
 	       "neutral-direction "
 	       "position-callbacks "
