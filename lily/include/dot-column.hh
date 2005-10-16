@@ -25,6 +25,6 @@ public:
   static bool has_interface (Grob *);
   DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (side_position, (SCM, SCM));
-  static SCM do_shifts (Grob *);
+  DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
 };
 #endif // DOT_COLUMN_HH

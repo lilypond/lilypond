@@ -18,27 +18,12 @@
 #include "note-collision.hh"
 #include "accidental-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Accidental_placement, alignment_callback, 2);
-SCM
-Accidental_placement::alignment_callback (SCM s, SCM)
-{
-  Grob *me = unsmob_grob (s);
-
-  Grob *par = me->get_parent (X_AXIS);
-  if (!to_boolean (par->get_property ("positioning-done")))
-    {
-      par->set_property ("positioning-done", SCM_BOOL_T);
-      position_accidentals (par);
-    }
-
-  return scm_from_int (0);
-}
 
 void
 Accidental_placement::add_accidental (Grob *me, Grob *a)
 {
   a->set_parent (me, X_AXIS);
-  a->add_offset_callback (alignment_callback_proc, X_AXIS);
+  a->add_offset_callback (Grob::same_axis_parent_positioning_proc, X_AXIS);
   SCM cause = a->get_parent (Y_AXIS)->get_property ("cause");
 
   Music *mcause = unsmob_music (cause);
@@ -221,20 +206,26 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
 
   Natural + downstem
 
-  |_
-  | |    X
-  |_|   |
-  |   |
+  *
+  *  |_
+  *  | |    X
+  *  |_|   |
+  *    |   |
+  *
+
 */
+
+MAKE_SCHEME_CALLBACK(Accidental_placement, calc_positioning_done, 1);
 SCM
-Accidental_placement::position_accidentals (Grob *me)
+Accidental_placement::calc_positioning_done (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);
   if (!me->is_live ())
-    return SCM_UNSPECIFIED;
+    return SCM_BOOL_T;
 
   SCM accs = me->get_object ("accidental-grobs");
   if (!scm_is_pair (accs))
-    return SCM_UNSPECIFIED;
+    return SCM_BOOL_T;
 
   /*
     TODO: there is a bug in this code. If two accs are on the same
@@ -403,10 +394,16 @@ Accidental_placement::position_accidentals (Grob *me)
   for (int i = apes.size (); i--;)
     delete apes[i];
 
-  return SCM_UNSPECIFIED;
+  return SCM_BOOL_T;
 }
 
 ADD_INTERFACE (Accidental_placement,
 	       "accidental-placement-interface",
 	       "Resolve accidental collisions.",
-	       "left-padding padding right-padding accidental-grobs positioning-done")
+
+	       /* properties */
+	       "accidental-grobs "
+	       "left-padding "
+	       "padding "
+	       "positioning-done "
+	       "right-padding ")

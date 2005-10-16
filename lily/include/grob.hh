@@ -30,12 +30,16 @@ class Grob
 private:
   DECLARE_SMOBS (Grob, foo);
   void init ();
+
+
+
 protected:
   Object_key const *key_;
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   SCM object_alist_;
-
+  SCM property_callbacks_;
+  
   /*
     If this is a property, it accounts for 25% of the property
     lookups.
@@ -52,6 +56,9 @@ protected:
 
   DECLARE_CLASSNAME(Grob);
 public:
+  DECLARE_SCHEME_CALLBACK(same_axis_parent_positioning, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK(other_axis_parent_positioning, (SCM, SCM));
+
   Object_key const *get_key () const;
 
   Grob *original_;
@@ -71,12 +78,14 @@ public:
   /*
     Properties
   */
-  SCM internal_get_property (SCM) const;
-  SCM internal_get_object (SCM) const;
+  SCM internal_get_property (SCM symbol) const;
+  SCM get_property_data (SCM symbol) const;
+  SCM internal_get_object (SCM symbol) const;
 
   void internal_set_property (SCM sym, SCM val);
   void internal_set_object (SCM sym, SCM val);
 
+  SCM try_callback (SCM);
   /*
     JUNKME.
   */

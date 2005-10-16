@@ -280,7 +280,7 @@ i.e.  this is not an override"
 
 (define-public (make-grob-property-revert grob gprop)
   "Revert the grob property GPROP for GROB."
-  (make-music 'OverrideProperty
+  (make-music 'RevertProperty
 	      'symbol grob
 	      'grob-property gprop))
 

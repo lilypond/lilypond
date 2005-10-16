@@ -359,14 +359,18 @@ Slur_score_state::fill (Grob *me)
     musical_dy_ = 0.0;
 }
 
-void
-set_slur_control_points (Grob *me)
+
+MAKE_SCHEME_CALLBACK(Slur, calc_control_points, 1)
+SCM
+Slur::calc_control_points (SCM smob)
 {
+  Spanner *me = unsmob_spanner (smob);
+
   Slur_score_state state;
   state.fill (me);
 
   if (!state.valid_)
-    return;
+    return SCM_EOL;
 
   state.generate_curves ();
 
@@ -386,7 +390,8 @@ set_slur_control_points (Grob *me)
 		  me->relative_coordinate (state.common_[Y_AXIS], Y_AXIS));
       controls = scm_cons (ly_offset2scm (o), controls);
     }
-  me->set_property ("control-points", controls);
+
+  return controls;
 }
 
 Bezier

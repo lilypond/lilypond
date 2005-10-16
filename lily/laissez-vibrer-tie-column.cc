@@ -33,15 +33,12 @@ ADD_INTERFACE(Laissez_vibrer_tie_column,
 /*
   Cut & paste from tie-column.cc
  */   
-void
-Laissez_vibrer_tie_column::set_directions (Grob *me)
+MAKE_SCHEME_CALLBACK(Laissez_vibrer_tie_column, calc_positioning_done, 1);
+SCM
+Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
 {
-  if (!to_boolean (me->get_property ("positioning-done")))
-    me->set_property ("positioning-done", SCM_BOOL_T); 
-  else
-    return;
-
-
+  Grob *me = unsmob_grob (smob);
+  
   extract_grob_set (me, "ties", lv_ro_ties);
   Link_array<Grob> lv_ties (lv_ro_ties);
 
@@ -52,7 +49,7 @@ Laissez_vibrer_tie_column::set_directions (Grob *me)
   for (int i = 0; i < lv_ties.size (); i++)
     {
       Tie_configuration conf;
-      conf.dir_ = get_grob_direction (lv_ties[i]);
+      conf.dir_ = CENTER;
       Item *head = unsmob_item (lv_ties[i]->get_object ("note-head"));
 
       heads.push (head);
@@ -122,6 +119,8 @@ Laissez_vibrer_tie_column::set_directions (Grob *me)
 			       details );
       set_grob_direction (lv_ties[i], tie_configs[i].dir_);
     }
+
+  return SCM_BOOL_T;
 }
   
 

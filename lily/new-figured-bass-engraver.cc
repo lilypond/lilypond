@@ -400,8 +400,7 @@ New_figured_bass_engraver::create_grobs ()
 	      group.group_ = make_spanner ("BassFigureLine", SCM_EOL);
 	      group.group_->set_bound (LEFT, muscol);
 	      Align_interface::add_element (alignment_,
-					    group.group_,
-					    Align_interface::alignment_callback_proc);
+					    group.group_);
 	    }
 
 	  if (scm_memq (fig, get_property ("implicitBassFigures")) != SCM_BOOL_F)

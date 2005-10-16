@@ -71,7 +71,6 @@ similar to chord syntax")
       (debug-enable 'backtrace)
       (read-enable 'positions)))
 
-
 (define-public tex-backend?
   (member (ly:output-backend) '("texstr" "tex")))
 

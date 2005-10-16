@@ -16,7 +16,6 @@
 #include "staff-symbol-referencer.hh"
 
 MAKE_SCHEME_CALLBACK (Bar_line, print, 1);
-
 SCM
 Bar_line::print (SCM smob)
 {
@@ -151,7 +150,6 @@ Bar_line::simple_barline (Grob *me,
 }
 
 MAKE_SCHEME_CALLBACK (Bar_line, before_line_breaking, 1);
-
 SCM
 Bar_line::before_line_breaking (SCM smob)
 {
@@ -174,7 +172,7 @@ Bar_line::before_line_breaking (SCM smob)
       // leave y_extent for spanbar? 
     }
 
-  if (! ly_is_equal (g, orig))
+  if (!ly_is_equal (g, orig))
     me->set_property ("glyph", g);
 
   return SCM_UNSPECIFIED;
@@ -203,7 +201,9 @@ Bar_line::get_staff_bar_size (SCM smob)
   return scm_from_int (0);
 }
 
-ADD_INTERFACE (Bar_line, "bar-line-interface",
+ADD_INTERFACE (Bar_line,
+	       "bar-line-interface",
+
 	       "Bar line.\n"
 	       "\n"
 	       "Print a special bar symbol. It replaces the \n"
@@ -218,4 +218,14 @@ ADD_INTERFACE (Bar_line, "bar-line-interface",
 	       "repeat, a double bar, a start bar, an end bar, and a thick double bar.\n"
 	       "If @var{bartype} is set to @code{empty} then nothing is printed,\n"
 	       "but a line break is allowed at that spot.\n",
-	       "bar-size-procedure kern thin-kern hair-thickness thick-thickness glyph bar-size break-glyph-function");
+
+
+	       /* properties */ 
+	       "bar-size-procedure "
+	       "kern "
+	       "thin-kern "
+	       "hair-thickness "
+	       "thick-thickness "
+	       "glyph "
+	       "bar-size "
+	       "break-glyph-function");

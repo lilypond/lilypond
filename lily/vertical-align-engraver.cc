@@ -111,8 +111,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       Grob *before_grob = unsmob_grob (before);
       Grob *after_grob = unsmob_grob (after);
 
-      Align_interface::add_element (valign_, i.grob (),
-				    get_property ("verticalAlignmentChildCallback"));
+      Align_interface::add_element (valign_, i.grob ());
 
       if (before_grob || after_grob)
 	{

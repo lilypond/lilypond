@@ -422,9 +422,6 @@ context Voice \\times 2/3 @{
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures")
 
-     (verticalAlignmentChildCallback ,procedure? "What callback to add
-to children of a vertical alignment.  It determines what
-procedure is used on the alignment itself.")
      (verticalExtent ,number-pair? "Hard coded vertical extent.  The format
 is a pair of dimensions, for example, this sets the sizes of a staff
 to 10 (5+5) staffspaces high.

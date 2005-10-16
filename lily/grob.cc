@@ -28,6 +28,36 @@
 #include "ly-smobs.icc"
 #include "output-def.hh"
 
+MAKE_SCHEME_CALLBACK(Grob, same_axis_parent_positioning, 2);
+SCM
+Grob::same_axis_parent_positioning (SCM element_smob, SCM axis)
+{
+  Grob *me = unsmob_grob (element_smob);
+  Axis ax = other_axis ((Axis)scm_to_int (axis));
+  
+  Grob *par = me->get_parent (ax);
+  if (par)
+    par->get_property ("positioning-done");
+
+  return scm_from_double (0.0);
+}
+
+MAKE_SCHEME_CALLBACK(Grob,other_axis_parent_positioning, 2);
+SCM
+Grob::other_axis_parent_positioning (SCM element_smob, SCM axis)
+{
+  Grob *me = unsmob_grob (element_smob);
+  Axis ax = other_axis ((Axis) scm_to_int (axis));
+  
+  Grob *par = me->get_parent (ax);
+  if (par)
+    par->get_property ("positioning-done");
+
+  return scm_from_double (0.0);
+}
+
+
+
 Grob *
 Grob::clone (int count) const
 {
@@ -55,7 +85,8 @@ Grob::Grob (SCM basicprops,
   immutable_property_alist_ = basicprops;
   mutable_property_alist_ = SCM_EOL;
   object_alist_ = SCM_EOL;
-
+  property_callbacks_ = SCM_EOL;
+  
   /* We do smobify_self () as the first step.  Since the object lives
      on the heap, none of its SCM variables are protected from
      GC. After smobify_self (), they are.  */
@@ -77,6 +108,8 @@ Grob::Grob (SCM basicprops,
   properties with a new BASICPROPS value after
   creation. Convenient eg. when using \override with
   StaffSymbol.  */
+
+  property_callbacks_ = get_property ("callbacks");
 
   SCM off_callbacks[] = {
     get_property ("X-offset-callbacks"),
@@ -116,6 +149,7 @@ Grob::Grob (SCM basicprops,
 	       && ly_is_procedure (get_property ("print-function")))
 	dim_cache_[a].dimension_callback_ = stencil_extent_proc;
     }
+
 }
 
 Grob::Grob (Grob const &s, int copy_index)
@@ -128,6 +162,7 @@ Grob::Grob (Grob const &s, int copy_index)
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
   interfaces_ = s.interfaces_;
+  property_callbacks_ = s.property_callbacks_;
   object_alist_ = SCM_EOL;
 
   /* No properties are copied.  That is the job of
@@ -276,14 +311,6 @@ Grob::get_system () const
   return 0;
 }
 
-void
-Grob::add_dependency (Grob *e)
-{
-  if (e)
-    Pointer_group_interface::add_grob (this, ly_symbol2scm ("dependencies"), e);
-  else
-    programming_error ("null dependency added");
-}
 
 void
 Grob::handle_broken_dependencies ()
@@ -331,6 +358,7 @@ Grob::suicide ()
 
   mutable_property_alist_ = SCM_EOL;
   object_alist_ = SCM_EOL;
+  property_callbacks_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
   interfaces_ = SCM_EOL;
 
@@ -718,13 +746,35 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "lists of other objects, or results from computations are stored in"
 	       "mutable properties: every call to set-grob-property (or its C++ equivalent) "
 	       "sets a mutable property. ",
-	       "X-offset-callbacks Y-offset-callbacks X-extent-callback stencil cause "
-	       "Y-extent-callback print-function extra-offset spacing-procedure "
-	       "context staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
-	       "meta layer before-line-breaking-callback "
-	       "color "
+
+	       /* properties */
+	       "X-extent "
+	       "X-extent-callback "
+	       "X-offset-callbacks "
+	       "Y-extent "
+	       "Y-extent-callback "
+	       "Y-offset-callbacks "
+	       "after-line-breaking-callback "
 	       "axis-group-parent-X "
 	       "axis-group-parent-Y "
-	       "after-line-breaking-callback extra-Y-extent minimum-X-extent "
-	       "minimum-Y-extent transparent");
+	       "before-line-breaking-callback "
+	       "callbacks "
+	       "cause "
+	       "color "
+	       "context "
+	       "extra-X-extent "
+	       "extra-Y-extent "
+	       "extra-offset "
+	       "interfaces "
+	       "layer "
+	       "meta "
+	       "minimum-X-extent "
+	       "minimum-Y-extent "
+	       "print-function "
+	       "spacing-procedure "
+	       "staff-symbol "
+	       "stencil "
+	       "transparent"
+	       );
+
 

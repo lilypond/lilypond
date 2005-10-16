@@ -19,23 +19,6 @@
 #include "paper-column.hh"
 #include "align-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Break_align_interface, alignment_callback, 2);
-SCM
-Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (axis);
-
-  assert (a == X_AXIS);
-  Grob *par = me->get_parent (a);
-  if (par && !to_boolean (par->get_property ("positioning-done")))
-    {
-      par->set_property ("positioning-done", SCM_BOOL_T);
-      Break_align_interface::do_alignment (par);
-    }
-
-  return scm_from_double (0);
-}
 
 MAKE_SCHEME_CALLBACK (Break_align_interface, self_align_callback, 2);
 SCM
@@ -103,12 +86,14 @@ Break_align_interface::ordered_elements (Grob *grob)
 void
 Break_align_interface::add_element (Grob *me, Grob *toadd)
 {
-  Axis_group_interface::add_element (me, toadd);
+  Align_interface::add_element (me, toadd);
 }
 
-void
-Break_align_interface::do_alignment (Grob *grob)
+MAKE_SCHEME_CALLBACK(Break_align_interface, calc_positioning_done, 1)
+SCM
+Break_align_interface::calc_positioning_done (SCM smob)
 {
+  Grob *grob = unsmob_grob (smob);  
   Item *me = dynamic_cast<Item *> (grob);
 
   Link_array<Grob> elems = ordered_elements (me);
@@ -251,7 +236,7 @@ Break_align_interface::do_alignment (Grob *grob)
     }
 
   if (total_extent.is_empty ())
-    return;
+    return SCM_BOOL_T;
 
   if (me->break_status_dir () == LEFT)
     alignment_off = -total_extent[RIGHT] - extra_right_space;
@@ -264,6 +249,8 @@ Break_align_interface::do_alignment (Grob *grob)
       here += offsets[i];
       elems[i]->translate_axis (here, X_AXIS);
     }
+
+  return SCM_BOOL_T;
 }
 
 ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
@@ -293,5 +280,8 @@ ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 
 ADD_INTERFACE (Break_align_interface, "break-alignment-interface",
 	       "The object that performs break aligment. See @ref{break-aligned-interface}.",
-	       "positioning-done break-align-orders");
+
+	       /* properties */
+	       "positioning-done "
+	       "break-align-orders");
 

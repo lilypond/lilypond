@@ -51,7 +51,6 @@ public:
   static void set_beaming (Grob *, Beaming_info_list const *);
   static void set_stemlens (Grob *);
   static int get_beam_count (Grob *me);
-  static void position_beam (Grob *me);
   static Real get_beam_translation (Grob *me);
   static Real get_thickness (Grob *me);
   static void connect_beams (Grob *me);
@@ -59,8 +58,8 @@ public:
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (space_function, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
 
   /* position callbacks */
   DECLARE_SCHEME_CALLBACK (least_squares, (SCM));

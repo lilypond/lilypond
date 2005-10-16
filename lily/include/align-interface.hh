@@ -14,6 +14,7 @@
 
 struct Align_interface
 {
+  DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (fixed_distance_alignment_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (stretch_after_break, (SCM element));
@@ -21,7 +22,7 @@ struct Align_interface
   static void align_elements_to_extents (Grob *, Axis a);
   static void set_axis (Grob *, Axis);
   static Axis axis (Grob *);
-  static void add_element (Grob *, Grob *, SCM callback);
+  static void add_element (Grob *, Grob *);
   static int get_count (Grob *, Grob *);
 
   static bool has_interface (Grob *);
