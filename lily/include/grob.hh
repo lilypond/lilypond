@@ -119,6 +119,7 @@ public:
   Grob *common_refpoint (Grob const *s, Axis a) const;
 
   // duh. slim down interface here. (todo)
+  void set_callback (SCM sym, SCM proc);
   bool has_offset_callback (SCM callback, Axis) const;
   void add_offset_callback (SCM callback, Axis);
   bool has_extent_callback (SCM, Axis) const;

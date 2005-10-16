@@ -211,8 +211,8 @@ Script_engraver::acknowledge_note_column (Grob_info info)
      swapped around horizontally.
 
      As the note head to put it on is not known now, postpone this
-     decision to Script_interface::before_line_breaking ().  */
-
+     decision to Script_interface::calc_direction ().  */
+  */
   for (int i = 0; i < scripts_.size (); i++)
     {
       Grob *e = scripts_[i].script_;
