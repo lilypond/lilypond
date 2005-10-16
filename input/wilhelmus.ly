@@ -48,7 +48,7 @@ setMargins = {
 
 pipeSymbol = {
   %% Set height of bar line to 2 staff-spaces
-  \once \override Staff.BarLine #'bar-size-procedure = #(lambda (x) 2)
+  \once \override Staff.BarLine #'bar-size = #2
   %% Move barline one staff-space up
   \once \override Staff.BarLine #'extra-offset = #'(0 . 1)
   \bar "|"
