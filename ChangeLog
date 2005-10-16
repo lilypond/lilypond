@@ -1,5 +1,7 @@
 2005-10-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/layout-beam.scm: remove beam dir functions.
+
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): use length-fraction.
 
 	* lily/stem.cc (calc_length): multiply with length_fraction. Makes
