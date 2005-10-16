@@ -223,6 +223,21 @@ Grob::internal_set_object (SCM s, SCM v)
   object_alist_ = scm_assq_set_x (object_alist_, s, v);
 }
 
+void
+Grob::set_callback (SCM s, SCM v)
+{
+  /* Perhaps we simply do the assq_set, but what the heck. */
+  if (!is_live ())
+    return;
+
+  /*
+    property_callbacks_ is r/o in principle, so we tack it in front.
+   */ 
+  property_callbacks_ = scm_acons (s,v, property_callbacks_);
+}
+
+
+
 SCM
 Grob::internal_get_object (SCM sym) const
 {
