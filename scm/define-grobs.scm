@@ -286,15 +286,11 @@
 	;; isolated shortened beams look nice and a bit shortened,
 	;; sadly possibly breaking patterns with high order beams.
 	(beamed-stem-shorten . (1.0 0.5 0.25))
-
-	(flag-width-function . ,beam-flag-width-function)
 	(damping . 1)
 	(auto-knee-gap . 5.5)
 
 	;; only for debugging.
 	(font-family . roman)
-
-	(space-function . ,Beam::space_function)
 	(meta . ((class . Spanner)
 		 (interfaces . (staff-symbol-referencer-interface
 				beam-interface))))))
