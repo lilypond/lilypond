@@ -35,14 +35,14 @@ internal_print (Grob *me, String *font_char)
   if (!scm_is_symbol (style))
     style = ly_symbol2scm ("default");
 
-  SCM log = scm_from_int (Note_head::get_balltype (me));
   String suffix = to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
   if (style != ly_symbol2scm ("default"))
     {
-      SCM proc = me->get_property ("glyph-name-procedure");
-      if (ly_is_procedure (proc))
-	suffix = ly_scm2string (scm_call_2 (proc, log, style));
+      SCM gn = me->get_property ("glyph-name");
+      if (scm_is_string (gn))
+	suffix = ly_scm2string (gn);
     }
+
   Font_metric *fm = Font_interface::get_default_font (me);
 
   String idx = "noteheads.s" + suffix;
@@ -102,40 +102,43 @@ Note_head::print (SCM smob)
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {
-  SCM brewer = me->get_property ("print-function");
+  Offset off = robust_scm2offset (me->get_property ("stem-attachment"),
+				  Offset (0,0));
+  
+  return off [a];
+}
+
+MAKE_SCHEME_CALLBACK(Note_head, calc_stem_attachment, 1);
+SCM
+Note_head::calc_stem_attachment (SCM smob)
+{
+  Grob *me  = unsmob_grob (smob);
   Font_metric *fm = Font_interface::get_default_font (me);
+  String key;
+  internal_print (me, &key);
 
-  if (brewer == Note_head::print_proc)
+  Offset att;
+  
+  int k = fm->name_to_index (key);
+  if (k >= 0)
     {
-      String key;
-      internal_print (me, &key);
-
-      int k = fm->name_to_index (key);
-      if (k >= 0)
+      Box b = fm->get_indexed_char (k);
+      Offset wxwy = fm->attachment_point (key);
+      for (int i = X_AXIS ; i < NO_AXES; i++)
 	{
-	  Box b = fm->get_indexed_char (k);
-	  Offset wxwy = fm->attachment_point (key);
+	  Axis a = Axis (i);
+	  
 	  Interval v = b[a];
 	  if (!v.is_empty ())
-	    return 2 * (wxwy[a] - v.center ()) / v.length ();
+	    {
+	      att[a] = (2 * (wxwy[a] - v.center ()) / v.length ());
+	    }
 	}
     }
 
-  /*
-    Fallback
-  */
-  SCM v = me->get_property ("stem-attachment-function");
-  if (!ly_is_procedure (v))
-    return 0.0;
-
-  SCM result = scm_call_2 (v, me->self_scm (), scm_from_int (a));
-  if (!scm_is_pair (result))
-    return 0.0;
-
-  result = (a == X_AXIS) ? scm_car (result) : scm_cdr (result);
-
-  return robust_scm2double (result, 0);
+  return ly_offset2scm (att);
 }
+
 
 int
 Note_head::get_balltype (Grob *me)
@@ -151,6 +154,7 @@ ADD_INTERFACE (Note_head, "note-head-interface",
 	       "note-names "
 	       "glyph-name-procedure "
 	       "accidental-grob "
+	       "stem-attachment"
 	       "style "
-	       "stem-attachment-function");
+	       );
 

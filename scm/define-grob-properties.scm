@@ -252,9 +252,6 @@ stem. The stem will stop at the innermost beams.")
      (glyph ,string? "a string determining what (style) of glyph is
 typeset. Valid choices depend on the function that is reading this
 property.")
-     (glyph-name-procedure ,procedure? "Return the name of a character
-within font, to use for printing a symbol.")
-
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
      (gap-count ,integer? "Number of gapped beams for tremolo.")
      (grace-space-factor ,number? "Space grace notes at this fraction
@@ -365,9 +362,6 @@ as a real penalty.")
 		"Pair of staff coordinates @code{(@var{left}
 . @var{right})}, where both @var{left} and @var{right} are in the
 staff-space unit of the current staff.")
-     (print-function ,procedure? "Function taking grob as argument,
-returning a @code{Stencil} object.")
-     
      (ratio ,number? "Parameter for slur shape. The higher this number, the
 quicker the slur attains it @code{height-limit}.")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
@@ -426,11 +420,7 @@ expressed in global staffspace.")
 staff spaces, counted from the middle line.")
      
      (stemlet-length ,number? "How long should a stem over a rest be?")
-     (stem-attachment-function ,procedure? "A function that calculates
-where a stem attaches to the note head? This is a fallback when this
-information is not specified in the font.  The function takes a grob
-and axis argument, and returns a (@var{x} . @var{y}) pair, specifying
-location in terms of note head bounding box.")
+     (stem-attachment ,number-pair? "A  (@var{x} . @var{y}) pair where the stem attaches to the notehead.")
 
      (stem-end-position ,number? "Where does the stem end (the end is opposite to the support-head.")
 

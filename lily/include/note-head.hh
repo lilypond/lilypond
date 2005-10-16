@@ -23,6 +23,7 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_ez_stencil, (SCM));
   DECLARE_SCHEME_CALLBACK (extent, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (stem_x_shift, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (calc_stem_attachment, (SCM));
   static bool has_interface (Grob *);
   static Real stem_attachment_coordinate (Grob *, Axis a);
   static int get_balltype (Grob *);

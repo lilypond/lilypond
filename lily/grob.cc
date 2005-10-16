@@ -732,7 +732,6 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "meta "
 	       "minimum-X-extent "
 	       "minimum-Y-extent "
-	       "print-function "
 	       "spacing-procedure "
 	       "staff-symbol "
 	       "stencil "

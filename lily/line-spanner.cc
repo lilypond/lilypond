@@ -95,7 +95,7 @@ Line_spanner::after_line_breaking (SCM g)
       /*
 	Can't do suicide, since this mucks up finding the trend.
       */
-      me->set_property ("print-function", SCM_EOL);
+      me->set_property ("transparent", SCM_BOOL_T);
     }
   return SCM_EOL;
 }

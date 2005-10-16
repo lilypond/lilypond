@@ -196,5 +196,6 @@ ADD_INTERFACE (Bar_line,
 	       "hair-thickness "
 	       "thick-thickness "
 	       "glyph "
+	       "glyph-name "
 	       "bar-size "
 	       );

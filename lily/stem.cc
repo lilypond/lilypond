@@ -938,6 +938,7 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "avoid-note-head "
 	       "beam "
 	       "beaming "
+	       "details "
 	       "direction "
 	       "duration-log "
 	       "flag-style "
