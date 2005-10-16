@@ -375,6 +375,13 @@ Stem::calc_positioning_done (SCM smob)
   Real thick = thickness (me);
 
   Grob *hed = support_head (me);
+  if (!dir)
+    {
+      programming_error ("Stem dir must be up or down.");
+      dir = UP;
+      set_grob_direction (me, dir);
+    }
+  
   Real w = hed->extent (hed, X_AXIS)[dir];
   for (int i = 0; i < heads.size (); i++)
     heads[i]->translate_axis (w - heads[i]->extent (heads[i], X_AXIS)[dir],

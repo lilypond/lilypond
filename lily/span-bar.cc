@@ -109,18 +109,22 @@ Span_bar::print (SCM smobbed_me)
 
 MAKE_SCHEME_CALLBACK (Span_bar, width_callback, 2);
 SCM
-Span_bar::width_callback (SCM element_smob, SCM scm_axis)
+Span_bar::width_callback (SCM smob, SCM scm_axis)
 {
-  Grob *se = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
   (void) scm_axis;
 
   assert ((Axis) scm_to_int (scm_axis) == X_AXIS);
-  String gl = ly_scm2string (se->get_property ("glyph-name"));
+  SCM gn = me->get_property ("glyph-name");
+  if (!me->is_live ())
+    return ly_interval2scm (Interval ());
+  
+  String gl = ly_scm2string (gn);
 
   /*
     urg.
   */
-  Stencil m = Bar_line::compound_barline (se, gl, 40 PT, false);
+  Stencil m = Bar_line::compound_barline (me, gl, 40 PT, false);
 
   return ly_interval2scm (m.extent (X_AXIS));
 }

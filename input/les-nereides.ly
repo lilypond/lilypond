@@ -56,7 +56,7 @@ treble = \new Voice \relative c''{
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
     \grace {
         cis8
-	\override Stem #'direction = #CENTER
+	\revert Stem #'direction
 	
 	a16[-5_( fis dis]
 	#(set-octavation 0)
