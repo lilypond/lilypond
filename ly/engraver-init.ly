@@ -550,21 +550,10 @@ AncientRemoveEmptyStaffContext = \context {
   metronomeMarkFormatter = #format-metronome-markup
   graceSettings = #`(
     (Voice Stem direction 1)
-    ;; TODO: should take from existing definition.
-    ;; c&p from define-grobs.scm
-    
-    (Voice Stem lengths ,(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0)))
-    (Voice Stem stem-shorten (0.4 0.4))
-    (Voice Stem  font-size -3)
+    (Voice Stem font-size -3)
     (Voice NoteHead  font-size -3)
-    (Voice Dots  font-size -3)
-    (Voice Stem beamed-lengths  
-     ,(map (lambda (x) (* 0.8 x)) '(3.3 3.3 4.0)))
-    (Voice Stem beamed-minimum-free-lengths  
-     ,(map (lambda (x) (* 0.8 x)) '(2.5 2.0 1.5)))
-    (Voice Stem beamed-extreme-minimum-free-lengths  
-     ,(map (lambda (x) (* 0.8 x)) '(1.83 1.5)))
-
+    (Voice Dots font-size -3)
+    (Voice Stem length-fraction 0.8)
     (Voice Stem no-stem-extend #t)
     (Voice Beam thickness 0.384)
     (Voice Beam space-function ,(lambda (beam mult)

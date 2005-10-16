@@ -732,7 +732,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "meta "
 	       "minimum-X-extent "
 	       "minimum-Y-extent "
-	       "spacing-procedure "
+	       "springs-and-rods "
 	       "staff-symbol "
 	       "stencil "
 	       "transparent"

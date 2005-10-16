@@ -317,6 +317,8 @@ Stem::calc_length (SCM smob)
       length -= shorten;
     }
 
+  length *= robust_scm2double (me->get_property ("length-fraction"), 1.0);
+
   /* Tremolo stuff.  */
   Grob *t_flag = unsmob_grob (me->get_object ("tremolo-flag"));
   if (t_flag && !unsmob_grob (me->get_object ("beam")))
@@ -805,6 +807,8 @@ Stem::calc_stem_info (SCM smob)
   /* Simple standard stem length */
   SCM details = me->get_property ("details");
   SCM lengths = scm_cdr (scm_assq (ly_symbol2scm ("beamed-lengths"), details));
+
+  
   Real ideal_length
     = scm_to_double (robust_list_ref (beam_count - 1, lengths))
 
@@ -815,9 +819,12 @@ Stem::calc_stem_info (SCM smob)
 
   /* Condition: sane minimum free stem length (chord to beams) */
   lengths = scm_cdr (scm_assq (ly_symbol2scm ("beamed-minimum-free-lengths"), details));
+  Real length_fraction
+    = robust_scm2double (me->get_property ("length-fraction"), 1.0);
+
   Real ideal_minimum_free
     = scm_to_double (robust_list_ref (beam_count - 1, lengths))
-    * staff_space;
+    * staff_space * length_fraction;
 
   /* UGH
      It seems that also for ideal minimum length, we must use
@@ -872,7 +879,8 @@ Stem::calc_stem_info (SCM smob)
 
   ideal_y -= robust_scm2double (beam->get_property ("shorten"), 0);
 
-  SCM bemfl = scm_cdr (scm_assq (ly_symbol2scm ("beamed-extreme-minimum-free-lengths"), details));
+  SCM bemfl = scm_cdr (scm_assq (ly_symbol2scm ("beamed-extreme-minimum-free-lengths"),
+				 details));
   
   Real minimum_free
     = scm_to_double (robust_list_ref (beam_count - 1, bemfl))
@@ -944,6 +952,7 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "flag-style "
 	       "french-beaming "
 	       "length "
+	       "length-fraction "
 	       "neutral-direction "
 	       "no-stem-extend "
 	       "note-heads "

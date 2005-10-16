@@ -1,5 +1,19 @@
 2005-10-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): use length-fraction.
+
+	* lily/stem.cc (calc_length): multiply with length_fraction. Makes
+	for easier grace tweaks.
+
+	* lily/beam.cc: remove dir-function.
+
+	* lily/system.cc (pre_processing): use callback to trigger spacing procedures.
+
+	* lily/grob.cc: remove spacing-procedure.
+
+	* lily/note-head.cc (calc_stem_attachment): new function.
+	(internal_print): use callback to get glyph-name.
+
 	* lily/grob-property.cc (get_interfaces): new function.
 
 	* lily/grob-scheme.cc (LY_DEFINE): new function ly:grob-interfaces

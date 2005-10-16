@@ -152,20 +152,6 @@ line).")
      (arrow-length ,number? "Arrow length.")
      (arrow-width ,number? "Arrow width.")
 
-     ;; todo: why is this tunable?
-     (dir-function ,procedure? "The function to determine the
-direction of a beam. Choices include: 
-
-@table @code
-@item beam-dir-majority
-number count of up or down notes
-@item beam-dir-mean
-mean center distance of all notes
-@item beam-dir-median.
-mean center distance weighted per note
-@end table
-
-")
      
      (direction ,ly:dir? "Up or down, left or right?")
      (dot-color ,symbol? "Color of dots.  Options include 
@@ -290,9 +276,11 @@ sum of 2 numbers.  The first is the factor for line thickness, and the
 second for staff space. Both contributions are added.")
      (left-padding ,ly:dimension? "The amount of space that is put
 left to a group of accidentals.")
+     
      (length ,ly:dimension? "User override for the stem length of
 unbeamed stems.")
-     (length-fraction ,number? "Length of ledger line as fraction of note head size.")
+     (length-fraction ,number? "Multiplier for lengths. Used for
+determining ledger lines and stem lengths.")
 
      (line-break-system-details ,list?
 				"Alist of properties to use when this
@@ -321,8 +309,8 @@ and notes or beam.")
 dimension, measured in staff space.")
      (minimum-Y-extent ,number-pair? "See @code{minimum-Y-extent}.")
      (minimum-length ,ly:dimension? "Try to make a spanner at least
-this long. This requires an appropriate routine for the
-@code{spacing-procedure} property.")
+this long. This requires an appropriate callback for the
+@code{springs-and-rods} property.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim
 should move (after padding).")
      (neutral-direction ,ly:dir? "Which direction to take in the
@@ -410,9 +398,7 @@ beams.")
 duration. Typically, the width of a note head. See also
 @internalsref{spacing-spanner-interface}.")
 
-     (spacing-procedure ,procedure? "Procedure for calculating spacing
-parameters.  The routine is called after
-@code{before-line-breaking-callback}.")
+     (springs-and-rods ,boolean? "Dummy variable for triggering spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
      (staff-space ,ly:dimension? "Amount of space between staff lines,
 expressed in global staffspace.")

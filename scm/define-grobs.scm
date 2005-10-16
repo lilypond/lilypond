@@ -270,7 +270,6 @@
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
 	(neutral-direction . -1)
-	(dir-function . ,beam-dir-majority-median)
 
 	;; Whe have some unreferenced problems here.
 	;;
@@ -409,8 +408,9 @@
 
     (ClusterSpanner
      . (
-	(callbacks . ((stencil . ,Cluster::print)))
-	(spacing-procedure . ,Spanner::set_spacing_rods)
+	(callbacks . ((springs-and-rods . ,Spanner::set_spacing_rods)
+		      (stencil . ,Cluster::print)))
+	
 	(minimum-length . 0.0)
 	(padding . 0.25)
 	(style . ramp)
@@ -419,8 +419,8 @@
 
     (ChordName
      . (
-	(callbacks . ((stencil . ,Text_interface::print)))
-	(callbacks . ((after-line-breaking . ,Chord_name::after_line_breaking)
+	(callbacks . ((stencil . ,Text_interface::print)
+		      (after-line-breaking . ,Chord_name::after_line_breaking)
 		      ))
 	(word-space . 0.0)
 	(font-family . sans)
@@ -648,10 +648,10 @@
      . (
 	
 	(callbacks . ((stencil . ,Hairpin::print)
+		      (springs-and-rods . ,Spanner::set_spacing_rods)
 		      (after-line-breaking . ,Hairpin::after_line_breaking)))
 	(thickness . 1.0)
 	(height . 0.6666)
-	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 2.0)
 	(bound-padding . 1.0)
 	(self-alignment-Y . 0)
@@ -762,12 +762,13 @@
     
     (LedgerLineSpanner
      . (
-	(callbacks . ((stencil . ,Ledger_line_spanner::print)))
+	(callbacks . ((springs-and-rods . ,Ledger_line_spanner::set_spacing_rods)
+		      
+		      (stencil . ,Ledger_line_spanner::print)))
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
 	(minimum-length-fraction . 0.25)
 	(length-fraction . 0.25)
-	(spacing-procedure . ,Ledger_line_spanner::set_spacing_rods)
 	(layer . 0)
 	(meta . ((class . Spanner)
 		 (interfaces . (ledger-line-interface))))))
@@ -821,7 +822,7 @@
 	(length . 0.66)
 	(minimum-length . 0.3)
 	(padding . 0.07)
-					;	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
+					;	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
 	(callbacks . ((stencil . ,Hyphen_spanner::print)))
 	(Y-extent . (0 . 0))
 	(meta . ((class . Spanner)
@@ -904,8 +905,8 @@
 
     (MultiMeasureRestNumber
      . (
-	(callbacks . ((stencil . ,Text_interface::print)))
-	(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
+	(callbacks . ((springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
+		      (stencil . ,Text_interface::print)))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -1057,11 +1058,11 @@
      . ((slur-details . ,default-slur-details)
 	(callbacks . ((control-points . ,Slur::calc_control_points)
 		      (direction . ,Slur::calc_direction)
+		      (springs-and-rods . ,Spanner::set_spacing_rods)
 		      (stencil . ,Slur::print)		      
 		      ))
 	
 	(thickness . 1.1)
-	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 1.5)
 	(Y-extent-callback . ,Slur::height)
 	(height-limit . 2.0)
@@ -1088,8 +1089,8 @@
 
     (PercentRepeat
      . (
-	(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)
-	(callbacks . ((stencil . ,Multi_measure_rest::percent)))
+	(callbacks . ((springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
+		      (stencil . ,Multi_measure_rest::percent)))
 	(slope . 1.0)
 	(thickness . 0.48)
 	(font-encoding . fetaMusic)
@@ -1229,7 +1230,8 @@
 
     (SeparatingGroupSpanner
      . (
-	(spacing-procedure . ,Separating_group_spanner::set_spacing_rods)
+	(callbacks . ((springs-and-rods . ,Separating_group_spanner::set_spacing_rods)
+		      ))
 	(meta . ((class . Spanner)
 		 (interfaces . (only-prebreak-interface
 				spacing-interface
@@ -1239,10 +1241,10 @@
      . ((slur-details . ,default-slur-details)
 	(callbacks . ((control-points . ,Slur::calc_control_points)
 		      (direction . ,Slur::calc_direction)
+		      (springs-and-rods . ,Spanner::set_spacing_rods)
 		      (stencil . ,Slur::print)
 		      ))
 	(thickness . 1.0)
-	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(minimum-length . 1.5)
 	(Y-extent-callback . ,Slur::height)
 					; Slur::height)
@@ -1253,7 +1255,7 @@
 
     (SpacingSpanner
      . (
-	(spacing-procedure . ,Spacing_spanner::set_springs)
+	(callbacks . ((springs-and-rods . ,Spacing_spanner::set_springs)))
 	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
