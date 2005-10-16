@@ -69,10 +69,6 @@ Choices include @code{curved} and @code{straight}.")
  multiple lines of text.")
      (beam-thickness ,ly:dimension? "thickness, measured in staffspace.")
      (beam-width ,ly:dimension? "width of the tremolo sign.")
-     (beamed-lengths ,list? "list of stem lengths given beam multiplicity .")
-     (beamed-minimum-free-lengths ,list? "list of normal minimum free stem lengths (chord to beams) given beam multiplicity.")
-     (beamed-extreme-minimum-free-lengths ,list? "list of extreme minimum free stem lengths (chord to beams) given beam multiplicity.")
-
      (beamed-stem-shorten ,list? "How much to shorten beamed stems,
 when their direction is forced. It is a list, since the value is different
 depending on the number flags/beams.")
@@ -300,8 +296,7 @@ left to a group of accidentals.")
      (length ,ly:dimension? "User override for the stem length of
 unbeamed stems.")
      (length-fraction ,number? "Length of ledger line as fraction of note head size.")
-     (lengths ,list? "Default stem lengths. The list gives a length
-for each flag-count.")
+
      (line-break-system-details ,list?
 				"Alist of properties to use when this
 column is the start of a system.")
@@ -438,10 +433,6 @@ and axis argument, and returns a (@var{x} . @var{y}) pair, specifying
 location in terms of note head bounding box.")
 
      (stem-end-position ,number? "Where does the stem end (the end is opposite to the support-head.")
-
-     (stem-shorten ,list? "How much a stem in a forced direction
-should be shortened. The list gives an amount depending on the number
-of flags/beams.")
 
      ;;[TODO: doco]
      (stem-spacing-correction ,number? "Optical correction amount for

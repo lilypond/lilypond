@@ -716,13 +716,12 @@ Beam::set_stem_shorten (Grob *me)
 
   SCM shorten_elt
     = robust_list_ref (beam_count -1, shorten_list);
-  Real shorten_f = scm_to_double (shorten_elt) * staff_space;
+  Real shorten = scm_to_double (shorten_elt) * staff_space;
 
-  /* your similar cute comment here */
-  shorten_f *= forced_fraction;
+  shorten *= forced_fraction;
 
-  if (shorten_f)
-    me->set_property ("shorten", scm_from_double (shorten_f));
+  if (shorten)
+    me->set_property ("shorten", scm_from_double (shorten));
 }
 
 MAKE_SCHEME_CALLBACK (Beam, calc_positions, 1);
@@ -942,7 +941,7 @@ Beam::shift_region_to_valid (SCM grob)
       if (Stem::is_invisible (s))
 	continue;
 
-      Direction d = Stem::get_direction (s);
+      Direction d = get_grob_direction (s);
 
       Real left_y
 	= Stem::get_stem_info (s).shortest_y_
@@ -1197,7 +1196,7 @@ Beam::forced_stem_count (Grob *me)
       /* I can imagine counting those boundaries as a half forced stem,
 	 but let's count them full for now. */
       if (abs (Stem::chord_start_y (s)) > 0.1
-	  && (Stem::get_direction (s) != Stem::get_default_dir (s)))
+	  && (get_grob_direction (s) != Stem::get_default_dir (s)))
 	f++;
     }
   return f;
@@ -1292,7 +1291,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Real dx = last_visible_stem (beam)->relative_coordinate (0, X_AXIS) - x0;
   Real slope = dy && dx ? dy / dx : 0;
 
-  Direction d = Stem::get_direction (stem);
+  Direction d = get_grob_direction (stem);
   Real stem_y = pos[LEFT] + (stem->relative_coordinate (0, X_AXIS) - x0) * slope;
 
   Real beam_translation = get_beam_translation (beam);
@@ -1370,7 +1369,7 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
       /*
 	Should we take invisible stems into account?
       */
-      if (Stem::get_direction (stems[i]) == d)
+      if (get_grob_direction (stems[i]) == d)
 	bc = max (bc, (Stem::beam_multiplicity (stems[i]).length () + 1));
     }
 

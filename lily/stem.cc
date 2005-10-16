@@ -80,48 +80,20 @@ Stem::chord_start_y (Grob *me)
 {
   Interval hp = head_positions (me);
   if (!hp.is_empty ())
-    return hp[get_direction (me)] * Staff_symbol_referencer::staff_space (me)
+    return hp[get_grob_direction (me)] * Staff_symbol_referencer::staff_space (me)
       * 0.5;
   return 0;
 }
 
-Real
-Stem::stem_end_position (Grob *me)
-{
-  SCM p = me->get_property ("stem-end-position");
-  Real pos;
-  if (!scm_is_number (p))
-    {
-      pos = get_default_stem_end_position (me);
-      me->set_property ("stem-end-position", scm_from_double (pos));
-    }
-  else
-    pos = scm_to_double (p);
 
-  return pos;
-}
-
-Direction
-Stem::get_direction (Grob *me)
-{
-  Direction d = get_grob_direction (me);
-
-  if (!d)
-    {
-      d = get_default_dir (me);
-      // urg, AAARGH!
-      set_grob_direction (me, d);
-    }
-  return d;
-}
 
 void
 Stem::set_stemend (Grob *me, Real se)
 {
   // todo: margins
-  Direction d = get_direction (me);
+  Direction d = get_grob_direction (me);
 
-  if (d && d * head_positions (me)[get_direction (me)] >= se * d)
+  if (d && d * head_positions (me)[get_grob_direction (me)] >= se * d)
     me->warning (_ ("weird stem size, check for narrow beams"));
 
   me->set_property ("stem-end-position", scm_from_double (se));
@@ -150,7 +122,7 @@ Stem::head_count (Grob *me)
 Grob *
 Stem::first_head (Grob *me)
 {
-  Direction d = get_direction (me);
+  Direction d = get_grob_direction (me);
   if (d)
     return extremal_heads (me)[-d];
   return 0;
@@ -160,7 +132,7 @@ Stem::first_head (Grob *me)
 Grob *
 Stem::last_head (Grob *me)
 {
-  Direction d = get_direction (me);
+  Direction d = get_grob_direction (me);
   if (d)
     return extremal_heads (me)[d];
   return 0;
@@ -248,92 +220,25 @@ Stem::is_invisible (Grob *me)
 	   && scm_to_int (me->get_property ("duration-log")) >= 1);
 }
 
-Direction
-Stem::get_default_dir (Grob *me)
+MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position, 1)
+SCM
+Stem::calc_stem_end_position (SCM smob)
 {
-  int staff_center = 0;
-  Interval hp = head_positions (me);
-  if (hp.is_empty ())
-    return CENTER;
+  Grob *me = unsmob_grob (smob);
 
-  int udistance = (int) (UP *hp[UP] - staff_center);
-  int ddistance = (int) (DOWN *hp[DOWN] - staff_center);
-
-  if (sign (ddistance - udistance))
-    return Direction (sign (ddistance - udistance));
-
-  return to_dir (me->get_property ("neutral-direction"));
-}
+  if (!head_count (me))
+    return scm_from_double (0.0);
 
 
-Real
-Stem::get_default_stem_end_position (Grob *me)
-{
   Real ss = Staff_symbol_referencer::staff_space (me);
   int durlog = duration_log (me);
-  SCM s;
   Array<Real> a;
 
   /* WARNING: IN HALF SPACES */
-  Real length = 7;
-  SCM scm_len = me->get_property ("length");
-  if (scm_is_number (scm_len))
-    length = scm_to_double (scm_len);
-  else
-    {
-      s = me->get_property ("lengths");
-      if (scm_is_pair (s))
-	length = 2 * scm_to_double (robust_list_ref (durlog - 2, s));
-    }
+  Real length = robust_scm2double (me->get_property ("length"), 7);
 
-  /* URGURGURG
-     'set-default-stemlen' sets direction too.   */
-  Direction dir = get_direction (me);
-
-  /* Stems in unnatural (forced) direction should be shortened,
-     according to [Roush & Gourlay] */
+  Direction dir = get_grob_direction (me);
   Interval hp = head_positions (me);
-  if (dir && dir * hp[dir] >= 0)
-    {
-      SCM sshorten = me->get_property ("stem-shorten");
-      SCM scm_shorten = scm_is_pair (sshorten)
-	? robust_list_ref (max (duration_log (me) - 2, 0), sshorten) : SCM_EOL;
-      Real shorten = 2* robust_scm2double (scm_shorten, 0);
-
-      /* On boundary: shorten only half */
-      if (abs (head_positions (me)[dir]) <= 1)
-	shorten *= 0.5;
-
-      length -= shorten;
-    }
-
-  /* Tremolo stuff.  */
-  Grob *t_flag = unsmob_grob (me->get_object ("tremolo-flag"));
-  if (t_flag && !unsmob_grob (me->get_object ("beam")))
-    {
-      /* Crude hack: add extra space if tremolo flag is there.
-
-      We can't do this for the beam, since we get into a loop
-      (Stem_tremolo::raw_stencil () looks at the beam.) --hwn  */
-
-      Real minlen = 1.0
-	+ 2 * Stem_tremolo::raw_stencil (t_flag).extent (Y_AXIS).length ()
-	/ ss;
-
-      if (durlog >= 3)
-	{
-	  Interval flag_ext = flag (me).extent (Y_AXIS);
-	  if (!flag_ext.is_empty ())
-	    minlen += 2 * flag_ext.length () / ss;
-
-	  /* The clash is smaller for down stems (since the tremolo is
-	     angled up.) */
-	  if (dir == DOWN)
-	    minlen -= 1.0;
-	}
-      length = max (length, minlen + 1.0);
-    }
-
   Real st = dir ? hp[dir] + dir * length : 0;
 
   /* TODO: change name  to extend-stems to staff/center/'()  */
@@ -373,9 +278,74 @@ Stem::get_default_stem_end_position (Grob *me)
 	    }
 	}
     }
-  return st;
+
+  return scm_from_double (st);
 }
 
+
+MAKE_SCHEME_CALLBACK (Stem, calc_length, 1)
+SCM
+Stem::calc_length (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  
+  SCM details = me->get_property ("details");
+  int durlog = duration_log (me);
+
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  Real length = 7;
+  SCM s = scm_cdr (scm_assq (ly_symbol2scm ("lengths"), details));
+  if (scm_is_pair (s))
+    length = 2 * scm_to_double (robust_list_ref (durlog - 2, s));
+
+  Direction dir = get_grob_direction (me);
+
+  /* Stems in unnatural (forced) direction should be shortened,
+     according to [Roush & Gourlay] */
+  Interval hp = head_positions (me);
+  if (dir && dir * hp[dir] >= 0)
+    {
+      SCM sshorten = scm_cdr (scm_assq (ly_symbol2scm ("stem-shorten"), details));
+      SCM scm_shorten = scm_is_pair (sshorten)
+	? robust_list_ref (max (duration_log (me) - 2, 0), sshorten) : SCM_EOL;
+      Real shorten = 2* robust_scm2double (scm_shorten, 0);
+
+      /* On boundary: shorten only half */
+      if (abs (head_positions (me)[dir]) <= 1)
+	shorten *= 0.5;
+
+      length -= shorten;
+    }
+
+  /* Tremolo stuff.  */
+  Grob *t_flag = unsmob_grob (me->get_object ("tremolo-flag"));
+  if (t_flag && !unsmob_grob (me->get_object ("beam")))
+    {
+      /* Crude hack: add extra space if tremolo flag is there.
+
+      We can't do this for the beam, since we get into a loop
+      (Stem_tremolo::raw_stencil () looks at the beam.) --hwn  */
+
+      Real minlen = 1.0
+	+ 2 * Stem_tremolo::raw_stencil (t_flag).extent (Y_AXIS).length ()
+	/ ss;
+
+      if (durlog >= 3)
+	{
+	  Interval flag_ext = flag (me).extent (Y_AXIS);
+	  if (!flag_ext.is_empty ())
+	    minlen += 2 * flag_ext.length () / ss;
+
+	  /* The clash is smaller for down stems (since the tremolo is
+	     angled up.) */
+	  if (dir == DOWN)
+	    minlen -= 1.0;
+	}
+      length = max (length, minlen + 1.0);
+    }
+  
+  return scm_from_double (length);
+}
 /* The log of the duration (Number of hooks on the flag minus two)  */
 int
 Stem::duration_log (Grob *me)
@@ -395,7 +365,7 @@ Stem::calc_positioning_done (SCM smob)
   extract_grob_set (me, "note-heads", ro_heads);
   Link_array<Grob> heads (ro_heads);
   heads.sort (compare_position);
-  Direction dir = get_direction (me);
+  Direction dir = get_grob_direction (me);
 
   if (dir < 0)
     heads.reverse ();
@@ -425,7 +395,7 @@ Stem::calc_positioning_done (SCM smob)
 	    {
 	      Real ell = heads[i]->extent (heads[i], X_AXIS).length ();
 
-	      Direction d = get_direction (me);
+	      Direction d = get_grob_direction (me);
 	      /*
 		Reversed head should be shifted ell-thickness, but this
 		looks too crowded, so we only shift ell-0.5*thickness.
@@ -484,28 +454,30 @@ Stem::calc_direction (SCM smob)
     }
   else
     dir = get_default_dir (me);
-
+  
   return scm_from_int (dir);
 }
 
-MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position, 1);
-SCM
-Stem::calc_stem_end_position (SCM smob)
+Direction
+Stem::get_default_dir (Grob *me)
 {
-  Grob *me = unsmob_grob (smob);
-
-  /*
-    Do the calculations for visible stems, but also for invisible stems
-    with note heads (i.e. half notes.)
-  */
-  Real pos = 0.0;
-  if (head_count (me))
+  Direction dir = CENTER;
+  int staff_center = 0;
+  Interval hp = head_positions (me);
+  if (!hp.is_empty ())
     {
-      pos = stem_end_position (me);	// ugh. Trigger direction calc.
+      int udistance = (int) (UP *hp[UP] - staff_center);
+      int ddistance = (int) (DOWN *hp[DOWN] - staff_center);
+      
+      if (sign (ddistance - udistance))
+	dir = Direction (sign (ddistance - udistance));
+      else
+	dir = to_dir (me->get_property ("neutral-direction"));
     }
-
-  return scm_from_double (pos);
+  return dir;
 }
+
+
 
 MAKE_SCHEME_CALLBACK (Stem, height, 2);
 SCM
@@ -540,6 +512,12 @@ Stem::height (SCM smob, SCM ax)
     }
 
   return ly_interval2scm (iv);
+}
+
+Real
+Stem::stem_end_position (Grob *me)
+{
+  return robust_scm2double (me->get_property ("stem-end-position"), 0);
 }
 
 Stencil
@@ -587,7 +565,7 @@ Stem::flag (Grob *me)
   else
     staffline_offs = "";
 
-  char dir = (get_direction (me) == UP) ? 'u' : 'd';
+  char dir = (get_grob_direction (me) == UP) ? 'u' : 'd';
   String font_char = flag_style
     + to_string (dir) + staffline_offs + to_string (log);
   Font_metric *fm = Font_interface::get_default_font (me);
@@ -652,7 +630,7 @@ Stem::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Stencil mol;
-  Direction d = get_direction (me);
+  Direction d = get_grob_direction (me);
 
   Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
 					   0.0);
@@ -675,7 +653,7 @@ Stem::print (SCM smob)
   if (is_invisible (me))
     return SCM_EOL;
 
-  Real y2 = stem_end_position (me);
+  Real y2 = robust_scm2double (me->get_property ("stem-end-position"), 0.0);
   Real y1 = y2;
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
@@ -729,12 +707,12 @@ Stem::get_translated_flag (Grob *me)
   Stencil fl = flag (me);
   if (!fl.is_empty ())
     {
-      Direction d = get_direction (me);
+      Direction d = get_grob_direction (me);
       Real blot
 	= me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
       Real stem_width = thickness (me);
       Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
-      Real y2 = stem_end_position (me);
+      Real y2 = robust_scm2double (me->get_property ("stem-end-position"), 0.0);
       fl.translate_axis (y2 * half_space - d * blot / 2, Y_AXIS);
       fl.translate_axis (stem_width / 2, X_AXIS);
     }
@@ -762,7 +740,7 @@ Stem::offset_callback (SCM element_smob, SCM)
       else
 	attach = Note_head::stem_attachment_coordinate (f, X_AXIS);
 
-      Direction d = get_direction (me);
+      Direction d = get_grob_direction (me);
       Real real_attach = head_wid.linear_combination (d * attach);
       r = real_attach;
 
@@ -825,7 +803,8 @@ Stem::calc_stem_info (SCM smob)
   int beam_count = Beam::get_direction_beam_count (beam, my_dir);
 
   /* Simple standard stem length */
-  SCM lengths = me->get_property ("beamed-lengths");
+  SCM details = me->get_property ("details");
+  SCM lengths = scm_cdr (scm_assq (ly_symbol2scm ("beamed-lengths"), details));
   Real ideal_length
     = scm_to_double (robust_list_ref (beam_count - 1, lengths))
 
@@ -835,7 +814,7 @@ Stem::calc_stem_info (SCM smob)
     - 0.5 * beam_thickness;
 
   /* Condition: sane minimum free stem length (chord to beams) */
-  lengths = me->get_property ("beamed-minimum-free-lengths");
+  lengths = scm_cdr (scm_assq (ly_symbol2scm ("beamed-minimum-free-lengths"), details));
   Real ideal_minimum_free
     = scm_to_double (robust_list_ref (beam_count - 1, lengths))
     * staff_space;
@@ -893,11 +872,10 @@ Stem::calc_stem_info (SCM smob)
 
   ideal_y -= robust_scm2double (beam->get_property ("shorten"), 0);
 
+  SCM bemfl = scm_cdr (scm_assq (ly_symbol2scm ("beamed-extreme-minimum-free-lengths"), details));
+  
   Real minimum_free
-    = scm_to_double (robust_list_ref
-		     (beam_count - 1,
-		      me->get_property
-		      ("beamed-extreme-minimum-free-lengths")))
+    = scm_to_double (robust_list_ref (beam_count - 1, bemfl))
     * staff_space;
 
   Real minimum_length = minimum_free
@@ -935,22 +913,36 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "The stem represent the graphical stem.  "
 	       "In addition, it internally connects note heads, beams and"
 	       "tremolos. "
-	       "Rests and whole notes have invisible stems.",
+	       "Rests and whole notes have invisible stems."
+
+	       "\n\nThe following properties may be set in the details list." 
+	       "@table @code\n"
+	       "@item  beamed-lengths \n"
+	       "list of stem lengths given beam multiplicity. \n"
+	       "@item beamed-minimum-free-lengths \n"
+	       "list of normal minimum free stem lengths (chord to beams) given beam multiplicity.\n"
+	       "@item beamed-extreme-minimum-free-lengths\n"
+	       "list of extreme minimum free stem lengths (chord to beams) given beam multiplicity.\n"
+	       "@item lengths\n"
+	       "Default stem lengths. The list gives a length for each flag-count.\n"
+	       "@item stem-shorten\n"
+	       "How much a stem in a forced direction "
+	       "should be shortened. The list gives an amount depending on the number "
+	       "of flags/beams."
+	       "@end table\n"
+
+	       ,
 
 	       /* properties */
 	       
 	       "avoid-note-head "
 	       "beam "
-	       "beamed-extreme-minimum-free-lengths "
-	       "beamed-lengths "
-	       "beamed-minimum-free-lengths "
 	       "beaming "
 	       "direction "
 	       "duration-log "
 	       "flag-style "
 	       "french-beaming "
 	       "length "
-	       "lengths "
 	       "neutral-direction "
 	       "no-stem-extend "
 	       "note-heads "
@@ -958,7 +950,6 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "rests "
 	       "stem-end-position "
 	       "stem-info "
-	       "stem-shorten "
 	       "stemlet-length "
 	       "stroke-style "
 	       "thickness "

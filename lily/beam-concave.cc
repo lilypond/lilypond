@@ -7,6 +7,7 @@
 #include "stem.hh"
 #include "beam.hh"
 #include "staff-symbol-referencer.hh"
+#include "directional-element-interface.hh"
 
 bool
 is_concave_single_notes (Array<int> const &positions, Direction beam_dir)
@@ -98,7 +99,7 @@ Beam::check_concave (SCM smob)
 	stems.del (i);
       else
 	{
-	  if (Direction dir = Stem::get_direction (stems[i]))
+	  if (Direction dir = get_grob_direction (stems[i]))
 	    beam_dir = dir;
 	}
     }
