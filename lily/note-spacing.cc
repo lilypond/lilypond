@@ -8,6 +8,7 @@
 
 #include "note-spacing.hh"
 
+#include "directional-element-interface.hh"
 #include "grob-array.hh"
 #include "paper-column.hh"
 #include "moment.hh"
@@ -300,7 +301,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  stems_drul[d] = stem;
 	  beams_drul[d] = Stem::get_beam (stem);
 
-	  Direction sd = Stem::get_direction (stem);
+	  Direction sd = get_grob_direction (stem);
 	  if (stem_dirs[d] && stem_dirs[d] != sd)
 	    {
 	      correct_stem_dirs = false;

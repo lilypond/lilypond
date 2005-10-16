@@ -14,6 +14,7 @@
 #include "spanner.hh"
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
+#include "directional-element-interface.hh"
 
 #include <set>
 
@@ -96,7 +97,7 @@ set_chord_outline (Array<Skyline_entry> *skyline,
       Interval y;
       y.add_point (Stem::stem_end_position (stem) * staff_space * .5);
 
-      Direction stemdir = Stem::get_direction (stem);
+      Direction stemdir = get_grob_direction (stem);
       y.add_point (Stem::head_positions (stem)[-stemdir]
 		   * staff_space * .5);
 	  

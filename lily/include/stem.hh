@@ -26,24 +26,23 @@ public:
   static void add_head (Grob *me, Grob *n);
   static Stem_info get_stem_info (Grob *);
   static Real chord_start_y (Grob *);
-  static Direction get_direction (Grob *);
   static void set_stemend (Grob *, Real);
-  static Direction get_default_dir (Grob *);
   static Slice beam_multiplicity (Grob *);
+  static Direction get_default_dir (Grob*);
   static Real thickness (Grob *);
   static int head_count (Grob *);
   static bool is_invisible (Grob *);
   static Interval head_positions (Grob *);
-  static Real get_default_stem_end_position (Grob *me);
   static Real stem_end_position (Grob *);
   static Stencil flag (Grob *);
   static Stencil get_translated_flag (Grob*);
   static bool has_interface (Grob *);
   static void set_spacing_hints (Grob *);
-
+  
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_length, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_end_position, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));

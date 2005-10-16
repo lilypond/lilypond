@@ -20,6 +20,7 @@ using namespace std;
 #include "stem.hh"
 #include "accidental-placement.hh"
 #include "pointer-group-interface.hh"
+#include "directional-element-interface.hh"
 
 /*
   Insert some more space for the next note, in case it has a stem in
@@ -66,7 +67,7 @@ Staff_spacing::next_note_correction (Grob *me,
   if (!bar_size.is_empty ())
     if (Grob *stem = Note_column::get_stem (g))
       {
-	Direction d = Stem::get_direction (stem);
+	Direction d = get_grob_direction (stem);
 	if (d == DOWN)
 	  {
 	    Real stem_start = Stem::head_positions (stem) [DOWN];

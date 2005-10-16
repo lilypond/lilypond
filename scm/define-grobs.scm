@@ -1367,39 +1367,44 @@
 		      (stem-info . ,Stem::calc_stem_info)
 		      (positioning-done . ,Stem::calc_positioning_done)
 		      (stencil . ,Stem::print)
+		      (length . ,Stem::calc_length)
 		      ))
 	(thickness . 1.3)
 
-	;; 3.5 (or 3 measured from note head) is standard length
-	;; 32nd, 64th flagged stems should be longer
-	(lengths . (3.5 3.5 3.5 4.5 5.0))
+	(details
+	 . (
+	    ;; 3.5 (or 3 measured from note head) is standard length
+	    ;; 32nd, 64th flagged stems should be longer
+	    (lengths . (3.5 3.5 3.5 4.5 5.0))
 
-	;; Stems in unnatural (forced) direction should be shortened by
-	;; one staff space, according to [Roush & Gourlay].
-	;; Flagged stems we shorten only half a staff space.
-	(stem-shorten . (1.0 0.5))
+	    ;; FIXME.  3.5 yields too long beams (according to Ross and
+	    ;; looking at Baerenreiter examples) for a number of common
+	    ;; boundary cases.  Subtracting half a beam thickness fixes
+	    ;; this, but the bug may well be somewhere else.
+
+	    ;; FIXME this should come from 'lengths
+	    (beamed-lengths . (3.26 3.5 3.6))
+
+	    ;; The 'normal' minima
+	    (beamed-minimum-free-lengths . (1.83 1.5 1.25))
+					;(beamed-minimum-free-lengths . (2.0 1.83 1.25))
+
+	    ;; The 'extreme case' minima
+	    (beamed-extreme-minimum-free-lengths . (2.0 1.25))
+
+	    ;; Stems in unnatural (forced) direction should be shortened by
+	    ;; one staff space, according to [Roush & Gourlay].
+	    ;; Flagged stems we shorten only half a staff space.
+	    (stem-shorten . (1.0 0.5))
+
+	    ))
+	
 
 	;; default stem direction for note on middle line
 	(neutral-direction . -1)
 
-	;; FIXME.  3.5 yields too long beams (according to Ross and
-	;; looking at Baerenreiter examples) for a number of common
-	;; boundary cases.  Subtracting half a beam thickness fixes
-	;; this, but the bug may well be somewhere else.
-
-	;; FIXME this should come from 'lengths
-
-	(beamed-lengths . (3.26 3.5 3.6))
-
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.
-
-	;; The 'normal' minima
-	(beamed-minimum-free-lengths . (1.83 1.5 1.25))
-					;(beamed-minimum-free-lengths . (2.0 1.83 1.25))
-
-	;; The 'extreme case' minima
-	(beamed-extreme-minimum-free-lengths . (2.0 1.25))
 
 	(X-offset-callbacks . (,Stem::offset_callback))
 	(X-extent-callback . ,Stem::width_callback)

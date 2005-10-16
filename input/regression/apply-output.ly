@@ -1,5 +1,5 @@
 
-\version "2.7.10" 
+\version "2.7.13" 
 \header {
 
   texidoc = "The @code{\applyOutput} expression is the most flexible way to
@@ -15,13 +15,13 @@ position.
 #(define  (mc-squared gr org cur)
   (let*
    (
-     (ifs (ly:grob-property gr 'interfaces))
+     (ifs (ly:grob-interfaces gr))
      (sp (ly:grob-property gr 'staff-position))
    )
    (if (and (memq 'note-head-interface ifs)
 	(memq sp '(-2 -3 -5)))
     (begin
-     (ly:grob-set-property! gr 'print-function Text_interface::print)
+     (ly:grob-set-callback! gr 'stencil Text_interface::print)
      (ly:grob-set-property! gr 'font-family 'roman)
      (ly:grob-set-property!
       gr 'text

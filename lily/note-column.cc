@@ -20,6 +20,7 @@ using namespace std;
 #include "note-head.hh"
 #include "accidental-placement.hh"
 #include "pointer-group-interface.hh"
+#include "directional-element-interface.hh"
 
 /*
   TODO: figure out if we can prune this class. This is just an
@@ -73,7 +74,7 @@ Note_column::dir (Grob *me)
 {
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (stem && Stem::has_interface (stem))
-    return Stem::get_direction (stem);
+    return get_grob_direction (stem);
   else
     {
       extract_grob_set (me, "note-heads", heads);

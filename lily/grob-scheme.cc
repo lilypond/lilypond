@@ -23,9 +23,9 @@ LY_DEFINE (ly_grob_set_callback_x, "ly:grob-set-callback!",
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (ly_is_procedure (val), val, SCM_ARG3, __FUNCTION__, "procedure");
+  SCM_ASSERT_TYPE (ly_is_procedure (proc), proc, SCM_ARG3, __FUNCTION__, "procedure");
 
-  sc->set_callback (sym, val);
+  sc->set_callback (sym, proc);
   return SCM_UNSPECIFIED;
 }
 
@@ -56,6 +56,17 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return sc->internal_get_property (sym);
+}
+
+
+LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
+	   1, 0, 0, (SCM grob),
+	   "Return the interfaces list of  grob @var{grob}.")
+{
+  Grob *sc = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  return sc->get_interfaces ();
 }
 
 LY_DEFINE (ly_grob_object, "ly:grob-object",

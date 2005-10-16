@@ -108,7 +108,8 @@ public:
 
   bool internal_has_interface (SCM intf);
   static bool has_interface (Grob *me);
-
+  SCM get_interfaces () const;
+  
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 

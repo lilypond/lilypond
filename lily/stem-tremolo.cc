@@ -123,7 +123,7 @@ Stem_tremolo::print (SCM grob)
     }
 
   Spanner *beam = Stem::get_beam (stem);
-  Direction stemdir = Stem::get_direction (stem);
+  Direction stemdir = get_grob_direction (stem);
   if (stemdir == 0)
     stemdir = UP;
 
