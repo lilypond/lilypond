@@ -9,7 +9,7 @@
 ;;; Tablature functions, by Jiba (jiba@tuxfamily.org)
 
 ;; The TabNoteHead stem attachment function.
-(define (tablature-stem-attachment-function style duration)
+(define (note-head::calc-tablature-stem-attachment grob)
   (cons 0.0 1.35))
 
 ;; The TabNoteHead tablatureFormat callback.
@@ -110,41 +110,45 @@
 
 
 ;; silly, use alist? 
-(define-public (find-notehead-symbol duration style)
-  (case style
-    ((xcircle) "2xcircle")
-    ((harmonic) "0harmonic")
-    ((baroque) 
-     ;; Oops, I actually would not call this "baroque", but, for
-     ;; backwards compatibility to 1.4, this is supposed to take
-     ;; brevis, longa and maxima from the neo-mensural font and all
-     ;; other note heads from the default font.  -- jr
-     (if (< duration 0)
-	 (string-append (number->string duration) "neomensural")
-	 (number->string duration)))
-    ((mensural)
-     (string-append (number->string duration) (symbol->string style)))
-    ((petrucci)
-     (if (< duration 0)
-	 (string-append (number->string duration) "mensural")
-	 (string-append (number->string duration) (symbol->string style))))
-    ((neomensural)
-     (string-append (number->string duration) (symbol->string style)))
-    ((default)
-     ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
-     ;; neither a longa nor a maxima.  Hence let us, for the moment,
-     ;; take these from the neo-mensural font.  TODO: mf/feta-bolletjes
-     ;; should define at least a longa for the default font.  The longa
-     ;; should look exactly like the brevis of the default font, but
-     ;; with a stem exactly like that of the quarter note. -- jr
-     (if (< duration -1)
-	 (string-append (number->string duration) "neomensural")
-	 (number->string duration)))
-    (else
-     (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
-	 (symbol->string style)
-	 (string-append (number->string (max 0 duration))
-			(symbol->string style))))))
+(define-public (note-head::calc-glyph-name grob)
+  (let*
+      ((style (ly:grob-property grob 'style))
+       (log (min 2 (ly:grob-property grob 'duration-log))))
+    
+    (case style
+      ((xcircle) "2xcircle")
+      ((harmonic) "0harmonic")
+      ((baroque) 
+       ;; Oops, I actually would not call this "baroque", but, for
+       ;; backwards compatibility to 1.4, this is supposed to take
+       ;; brevis, longa and maxima from the neo-mensural font and all
+       ;; other note heads from the default font.  -- jr
+       (if (< log 0)
+	   (string-append (number->string log) "neomensural")
+	   (number->string log)))
+      ((mensural)
+       (string-append (number->string log) (symbol->string style)))
+      ((petrucci)
+       (if (< log 0)
+	   (string-append (number->string log) "mensural")
+	   (string-append (number->string log) (symbol->string style))))
+      ((neomensural)
+       (string-append (number->string log) (symbol->string style)))
+      ((default)
+       ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
+       ;; neither a longa nor a maxima.  Hence let us, for the moment,
+       ;; take these from the neo-mensural font.  TODO: mf/feta-bolletjes
+       ;; should define at least a longa for the default font.  The longa
+       ;; should look exactly like the brevis of the default font, but
+       ;; with a stem exactly like that of the quarter note. -- jr
+       (if (< log -1)
+	   (string-append (number->string log) "neomensural")
+	   (number->string log)))
+      (else
+       (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
+	   (symbol->string style)
+	   (string-append (number->string (max 0 log))
+			  (symbol->string style)))))))
 
 ;; TODO junk completely?
 (define (note-head-style->attachment-coordinates grob axis)

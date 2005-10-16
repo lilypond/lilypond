@@ -109,8 +109,9 @@
     (AmbitusNoteHead
      . (
 	(duration-log . 2)
-	(callbacks . (	(stencil . ,Note_head::print)))
-	(glyph-name-procedure . ,find-notehead-symbol)
+	(callbacks . ((stencil . ,Note_head::print)
+		      (glyph-name . ,note-head::calc-glyph-name)
+		      ))
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -959,12 +960,15 @@
 
     (NoteHead
      . (
-	(callbacks . ((stencil . ,Note_head::print)))
+	(callbacks . ((stencil . ,Note_head::print)
+		      (stem-attachment . ,Note_head::calc_stem_attachment)
+		      (glyph-name . ,note-head::calc-glyph-name) 
+		      ))
+
+	;; WTF is this? 
 	(ligature-primitive-callback . ,Note_head::print)
-	(glyph-name-procedure . ,find-notehead-symbol)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(X-offset-callbacks . (,Note_head::stem_x_shift))
-	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(meta . ((class . Item)
 		 (interfaces . (rhythmic-grob-interface
 				rhythmic-head-interface
@@ -1502,7 +1506,7 @@
 	(callbacks . ((stencil . ,Text_interface::print)))
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(font-size . -2)
-	(stem-attachment-function . ,tablature-stem-attachment-function)
+	(stem-attachment . (1.0 . 1.35))
 	(font-series . bold)
 	(meta . ((class . Item)
 		 (interfaces

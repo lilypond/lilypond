@@ -247,7 +247,7 @@ Ligature_engraver::acknowledge_note_head (Grob_info info)
       primitives_.push (info);
       if (info.grob ())
 	{
-	  info.grob ()->set_property ("print-function",
+	  info.grob ()->set_callback (ly_symbol2scm ("stencil"),
 				      brew_ligature_primitive_proc);
 	}
     }
