@@ -711,7 +711,8 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 	    {
 	      do
 		{
-		  if (extremes_[d].slur_head_)
+		  if (extremes_[d].slur_head_
+		      && !extremes_[d].slur_head_extent_.is_empty ())
 		    {
 		      os[d][X_AXIS] = extremes_[d].slur_head_extent_.center ();
 		      attach_to_stem[d] = false;

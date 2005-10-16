@@ -354,11 +354,12 @@ Multi_measure_rest::set_text_rods (SCM smob)
 			      {li, rb},
 			      {lb, rb}};
 
-  SCM st = me->get_uncached_stencil ();
-  Real len = unsmob_stencil (st)
-    ? unsmob_stencil (st)->extent (X_AXIS).length ()
+  Stencil *stil = me->get_stencil ();
+
+  /* FIXME uncached */
+  Real len = (stil && !stil->extent (X_AXIS).is_empty ())
+    ? stil->extent (X_AXIS).length ()
     : 0.0;
-  
 
   for (int i = 0; i < 4; i++)
     {
@@ -384,6 +385,8 @@ Multi_measure_rest::set_text_rods (SCM smob)
 
 ADD_INTERFACE (Multi_measure_rest, "multi-measure-rest-interface",
 	       "A rest that spans a whole number of measures.",
+
+	       /* properties */
 	       "expand-limit "
 	       "measure-count "
 	       "hair-thickness "

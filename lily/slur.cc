@@ -64,11 +64,9 @@ Slur::height (SCM smob, SCM ax)
   Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
-  SCM mol = me->get_uncached_stencil ();
-  Interval ext;
-  if (Stencil *m = unsmob_stencil (mol))
-    ext = m->extent (a);
-  return ly_interval2scm (ext);
+  // FIXME uncached
+  Stencil *m = me->get_stencil ();
+  return m ? ly_interval2scm (m->extent (a)) : ly_interval2scm (Interval ());
 }
 
 /*

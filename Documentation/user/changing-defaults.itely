@@ -1277,6 +1277,9 @@ are cloned.  A separate object is created for every system that it is
 in.  These are clones of the original object and inherit all
 properties, including @code{\override}s.
 
+
+[THIS SECTION IS OUT OF DATE. REWRITE ME.] 
+
 In other words, an @code{\override} always affects all pieces of a
 broken spanner.  To change only one part of a spanner at a line break,
 it is necessary to hook into the formatting process.  The
@@ -1301,8 +1304,8 @@ if yes, it sets @code{extra-offset}.
 This procedure is installed into @internalsref{Tie}, so the last part
 of the broken tie is translated up.
 
-
-@lilypond[quote,verbatim,raggedright]
+@ignore
+@li lypond[quote,verbatim,raggedright]
 #(define (my-callback grob)
   (let* (
          ; have we been split? 
@@ -1322,12 +1325,15 @@ of the broken tie is translated up.
   c1 ~ \break c2 ~ c
 }
 @end lilypond
+@end ignore
 
 @noindent
 When applying this trick, the new @code{after-line-breaking-callback}
 should also call the old @code{after-line-breaking-callback}, if there
 is one.  For example, if using this with @code{Slur},
 @code{Slur::after_line_breaking} should also be called.
+
+[END OUT OF DATE]
 
 
 @item Some objects cannot be changed with @code{\override} for

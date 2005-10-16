@@ -507,11 +507,6 @@ Stem::calc_stem_end_position (SCM smob)
   return scm_from_double (pos);
 }
 
-/*
-  ugh.
-  When in a beam with tuplet brackets, brew_mol is called early,
-  caching a wrong value.
-*/
 MAKE_SCHEME_CALLBACK (Stem, height, 2);
 SCM
 Stem::height (SCM smob, SCM ax)
@@ -531,12 +526,9 @@ Stem::height (SCM smob, SCM ax)
     {
       beam->get_property ("positions");
     }
-  
-  SCM mol = me->get_uncached_stencil ();
-  Interval iv;
-  if (mol != SCM_EOL)
-    iv = unsmob_stencil (mol)->extent (a);
-  
+
+  /* FIXME uncached? */
+  Interval iv = me->get_stencil () ? me->get_stencil ()->extent (a) : Interval();
   if (beam)
     {
       if (dir == CENTER)
