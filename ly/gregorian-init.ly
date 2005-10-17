@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.13"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation
@@ -56,7 +56,7 @@ caesura = {
   \breathe
 }
 divisioMinima = {
-  \once \override BreathingSign  #'print-function = #Breathing_sign::divisio_minima
+  \once \override BreathingSign #'callbacks #'stencil = #Breathing_sign::divisio_minima
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
@@ -64,7 +64,7 @@ divisioMinima = {
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign  #'print-function = #Breathing_sign::divisio_maior
+  \once \override BreathingSign #'callbacks #'stencil = #Breathing_sign::divisio_maior
   \once \override BreathingSign  #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -73,7 +73,7 @@ divisioMaior = {
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign  #'print-function = #Breathing_sign::divisio_maxima
+  \once \override BreathingSign #'callbacks #'stencil = #Breathing_sign::divisio_maxima
   \once \override BreathingSign  #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -82,7 +82,7 @@ divisioMaxima = {
   \breathe
 }
 finalis = {
-  \once \override BreathingSign  #'print-function = #Breathing_sign::finalis
+  \once \override BreathingSign #'callbacks #'stencil = #Breathing_sign::finalis
   \once \override BreathingSign  #'Y-offset-callbacks = #'()
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -138,7 +138,7 @@ ligature = #(def-music-function
 %#(define (add-staccato m)
 %   (add-script m "staccato"))
 %
-% % \applymusic #(lambda (x) (music-map add-staccato x)) { c c }
+% % \applyMusic #(lambda (x) (music-map add-staccato x)) { c c }
 %
 % % \climacus { x y z ... }:
 % % \[ \virga x \inclinatum y \inclinatum z ... \]

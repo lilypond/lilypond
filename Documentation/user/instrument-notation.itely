@@ -881,7 +881,7 @@ the @code{LyricHyphen} grob.
       An -- ti -- cons -- ti --
       tu -- tion -- nel -- le --
       \override LyricHyphen  #'minimum-length = #0.7
-      \override LyricHyphen  #'spacing-procedure =
+      \override LyricHyphen  #'callbacks #'springs-and-rods =
         #Hyphen_spanner::set_spacing_rods
       men -- taire -- ment. ouf~!
     }
