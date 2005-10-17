@@ -467,6 +467,7 @@ Stem::calc_direction (SCM smob)
   return scm_from_int (dir);
 }
 
+/* A separate function, since this is used elsewhere too.  */
 Direction
 Stem::get_default_dir (Grob *me)
 {

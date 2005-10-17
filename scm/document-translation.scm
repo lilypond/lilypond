@@ -115,25 +115,27 @@
 
 (define (document-property-operation op)
   (let ((tag (car op))
-	(body (cdr op))
-	(sym (cadr op)))
+	(context-sym (cadr op))
+	(args (cddr op))
+	)
 
     (cond
      ((equal?  tag 'push)
+      (let*
+	  ((value (car args))
+	   (path (cdr args)))
+
       (string-append
-       "@item "
-       (if (null? (cddr body))
-	   "Revert "
-	   "Set ")
-       "grob-property @code{"
-       (symbol->string (cadr body))
-       "} in @ref{" (symbol->string sym)
-       "}"
+       "@item Set "
+       (format "grob-property @code{~a} " (string-join path " "))
+       (format " in @ref{~a} " sym)
        (if (not (null? (cddr body)))
-	   (string-append " to @code{" (scm->texi (cadr (cdr body))) "}" ))
-       "\n"))
+	   (format " to @code{~a}" (scm->texi value))
+	   "")
+       
+       "\n")))
      ((equal? (object-property sym 'is-grob?) #t) "")
-     ((equal? (car op) 'assign)
+     ((equal? tag 'assign)
       (string-append
        "@item Set translator property @code{"
        (symbol->string (car body))
