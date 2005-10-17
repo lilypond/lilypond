@@ -33,7 +33,7 @@ LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
   int i = scm_to_int (index);
   if (i < 0 || i >= me->size ())
     {
-      scm_out_of_range (NULL, scm_from_size_t (i)); 
+      scm_out_of_range (NULL, scm_from_int (i)); 
     }
   
   return me->grob (i)->self_scm ();
