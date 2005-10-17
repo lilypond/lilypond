@@ -214,7 +214,6 @@ check_meshing_chords (Grob *me,
       if (wipe_ball && wipe_ball->is_live ())
 	{
 	  wipe_ball->set_property ("transparent", SCM_BOOL_T);
-	  wipe_ball->set_property ("stencil", SCM_EOL);
 	}
     }
   /* TODO: these numbers are magic; should devise a set of grob props
@@ -275,10 +274,22 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   Grob *me = unsmob_grob (smob);  
   Drul_array<Link_array<Grob> > cg = get_clash_groups (me);
 
+  Direction d = UP;
+  do
+    {
+      for (int i = cg[d].size(); i--; )
+	{
+	  /*
+	    Trigger positioning
+	   */
+	  cg[d][i]->extent (me, X_AXIS);
+	}
+    }
+  while (flip (&d) != UP);
+
   SCM autos (automatic_shift (me, cg));
   SCM hand (forced_shift (me));
 
-  Direction d = UP;
   Real wid = 0.0;
   do
     {
