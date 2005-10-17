@@ -223,7 +223,8 @@ contained staves are not connected vertically."
   \name CueVoice
   \alias Voice
   fontSize = #-4
-  \override Stem #'lengths = #'(2.5 2.5 3.0 3.0)
+  \override Stem #'length-fraction = #(magstep -4)
+  \override Beam #'length-fraction = #(magstep -4)
 }
 
 \context {

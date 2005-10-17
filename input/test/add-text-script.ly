@@ -1,4 +1,4 @@
-\version "2.7.10"
+\version "2.7.13"
 
 \header {
 texidoc= "@cindex make-music Fingering

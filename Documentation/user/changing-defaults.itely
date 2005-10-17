@@ -1329,7 +1329,6 @@ of the broken tie is translated up.
   c1 ~ \break c2 ~ c
 }
 @end lilypond
-@end ignore
 
 @noindent
 When applying this trick, the new @code{after-line-breaking} callback

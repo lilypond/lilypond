@@ -991,6 +991,47 @@ letter 'A'."
    (Text_interface::interpret_markup layout props
      (number->markletter-string number->mark-alphabet-vector num)))
 
+
+
+(def-markup-command (slashed-digit layout props num) (integer?)
+  "A feta number, with slash. This is for use in the context of
+figured bass notation"
+  (let*
+      ((mag (magstep (chain-assoc-get 'font-size props 0)))
+       (thickness
+	(* mag
+	   (chain-assoc-get 'thickness props 0.16)))
+       (dy (* mag 0.15))
+       (number-stencil (interpret-markup layout
+					 (prepend-alist-chain 'font-encoding 'fetaNumber props)
+					 (number->string num)))
+       (num-x (interval-widen (ly:stencil-extent number-stencil X)
+			      (* mag 0.2)))
+       (num-y (ly:stencil-extent number-stencil Y))
+       (slash-stencil 
+	(ly:make-stencil
+	 `(draw-line
+	   ,thickness
+	   ,(car num-x) ,(- (interval-center num-y) dy)
+	   ,(cdr num-x) ,(+ (interval-center num-y) dy))
+	 num-x num-y
+	 )))
+
+    (ly:stencil-add number-stencil
+		    (cond
+		     ((= num 5) (ly:stencil-translate slash-stencil
+						      ;;(cons (* mag -0.05) (* mag 0.42))
+						      (cons (* mag -0.00) (* mag -0.07))
+
+						      ))
+		     ((= num 7) (ly:stencil-translate slash-stencil
+						      ;;(cons (* mag -0.05) (* mag 0.42))
+						      (cons (* mag -0.00) (* mag -0.15))
+
+						      ))
+		     
+		     (else slash-stencil)))
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.

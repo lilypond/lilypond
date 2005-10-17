@@ -1392,10 +1392,9 @@ first or second voice.
 @lilypond[verbatim,raggedright]
 smaller = {
   \set fontSize = #-2
-  \override Stem #'length = #5.5
+  \override Stem #'length-fraction = #0.8
   \override Beam #'thickness = #0.384
-  \override Beam #'space-function =
-    #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
+  \override Beam #'length-fraction = #0.8
 }
 
 \addquote clarinet \relative {

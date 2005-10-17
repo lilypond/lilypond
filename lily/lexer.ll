@@ -611,6 +611,8 @@ BOM_UTF8	\357\273\277
 	return E_CLOSE;
     case '[':
 	return E_BRACKET_OPEN;
+    case '+':
+	return E_PLUS;
     case ']':
 	return E_BRACKET_CLOSE;
     case '~':

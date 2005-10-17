@@ -1,5 +1,5 @@
 
-\version "2.6.0"
+\version "2.7.13"
 
 \header { texidoc = "@cindex text spanner
 Text spanners can be used in the similar manner than markings for pedals

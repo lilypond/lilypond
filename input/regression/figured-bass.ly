@@ -6,10 +6,9 @@
   texidoc = " Figured bass is created by the FiguredBass context which
 responds to figured bass events and rest events.  You must enter these
 using the special @code{\figuremode @{ @}} mode, which allows you to
-type numbers, like @code{<4 6+>}.
+type numbers, like @code{<4 6+>} and add slashes and pluses.
 
-You can also enter markup strings. The vertical alignment may also be
-tuned.
+You can also enter markup strings. The vertical alignment may also be tuned.
 
 "
 
@@ -28,7 +27,7 @@ tuned.
   }
   \figures { 
     <3 [5 7]>
-    <3 [5] 7 [9 11]>
+    <3\+ [5/] 7/ [9 11]>
     <3+ 5- 7!>
     <3 _! 5 _- 7>
     <3 _ 5 _ 7>

@@ -46,7 +46,47 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 @item
-Major internal cleanups.
+Support for figured bass has been rewritten. Now it supports
+continuation lines, slashed figures, and its figures, brackets, and alignments may
+tuned separately.
+
+@lilypond[raggedright,fragment]
+<<
+\relative { c4 c c c }
+\figures {
+  \set useBassFigureExtenders = ##t
+  <6+ 4 3> <6 4 3> <4 3+> <5/ 7/\+>
+} >>
+@end lilypond
+
+This rewrite was sponsored by Trent Johnston and John Mandereau.
+
+@item
+Major internal cleanups: for each grob, a subproperty in
+@code{callbacks} property defines the procedure which computes it.
+
+@verbatim
+\override Beam #'callbacks #'direction
+  = #(lambda (grob)
+      (if (4 > (ly:grob-array-length (ly:grob-object 'stems)))
+          DOWN
+          UP))
+@end verbatim 
+
+@noindent
+With this code fragment, the direction of a beam is decided to be up
+or down, depending on the number of stems in the beam.
+
+@item
+Subproperties, like the @code{details} field of @code{Slur} and
+@code{Tie} may now be tuned with @code{\override}. For example, 
+
+@verbatim
+\override Stem #'details #'beamed-lengths = #'(4 4 3) 
+@end verbatim
+
+@noindent
+shortens the stems in beams.
 
 @item
 The default paper size may now be set from the command line using
@@ -69,21 +109,7 @@ Beamlets may stick out of the side of beams.
 
 This feature was sponsored by Trevor Bača.
  
-@item
-Support for figured bass has been rewritten. Now it supports
-continuation lines, and its figures, brackets, and alignments may
-tuned separately.
 
-@lilypond[raggedright,fragment]
-<<
-\relative { c4 c c c }
-\figures {
-  \set useBassFigureExtenders = ##t
-  <6+ 4 3> <6 4 3> <4 3+> 
-} >>
-@end lilypond
-
-This rewrite was sponsored by Trent Johnston.
 
 @item  
 Vertical alignments of staves can now be tuned easily for individual
@@ -156,10 +182,10 @@ This feature was sponsored by Aaron Mehl.
 
 @item
 Texts over multi measure rests can stretch the corresponding measure,
-if the appropriate @code{spacing-procedure} property is set.
+if the appropriate @code{spring-and-rods} callback is set.
 
 @lilypond[relative=2,fragment,raggedright]
-\override MultiMeasureRestText #'spacing-procedure
+\override MultiMeasureRestText #'callbacks #'springs-and-rods
   = #Multi_measure_rest::set_text_rods
 c1 R1 R1^"Very long long long text" 
 @end lilypond
