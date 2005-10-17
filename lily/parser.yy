@@ -2755,7 +2755,7 @@ property_op_to_music (SCM op)
 		}
 	else if (tag == ly_symbol2scm ("pop")) {
 		m = MY_MAKE_MUSIC ("RevertProperty");
-		grob_path = scm_cdr (args);
+		grob_path = args;
 		}
 
 	m->set_property ("symbol", symbol);

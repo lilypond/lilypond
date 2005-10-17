@@ -153,6 +153,7 @@ ADD_INTERFACE (Note_head, "note-head-interface",
 	       /* properties */
 	       "note-names "
 	       "accidental-grob "
+	       "glyph-name "
 	       "stem-attachment "
 	       "style "
 	       );

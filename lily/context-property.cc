@@ -161,6 +161,14 @@ execute_general_pushpop_property (Context *context,
     {
       SCM current_value = scm_car (current_context_val);
       SCM daddy = scm_cdr (current_context_val);
+
+      if (!scm_is_pair (grob_property_path)
+	  || !scm_is_symbol (scm_car (grob_property_path)))
+	{
+	  programming_error ("Grob property path should be list of symbols.");
+	  return;
+	}
+      
       SCM symbol = scm_car (grob_property_path);
       SCM new_alist = evict_from_alist (symbol, current_value, daddy);
 
