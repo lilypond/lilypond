@@ -83,20 +83,35 @@ check_grob (Music *mus, SCM sym)
   return g;
 }
 
+SCM
+get_property_path (Music *m)
+{
+  SCM grob_property_path = m->get_property ("grob-property-path");
+
+  SCM eprop = m->get_property ("grob-property");
+  if (scm_is_symbol (eprop))
+    {
+      grob_property_path = scm_list_1 (eprop);
+    }
+
+  return grob_property_path;
+}
+
 void
 Push_property_iterator::process (Moment m)
 {
   SCM sym = get_music ()->get_property ("symbol");
   if (check_grob (get_music (), sym))
     {
-      SCM eprop = get_music ()->get_property ("grob-property");
+      SCM grob_property_path = get_property_path (get_music ());
       SCM val = get_music ()->get_property ("grob-value");
 
       if (to_boolean (get_music ()->get_property ("pop-first"))
 	  && !to_boolean (get_music ()->get_property ("once")))
-	execute_pushpop_property (get_outlet (), sym, eprop, SCM_UNDEFINED);
+	
+	execute_general_pushpop_property (get_outlet (), sym, grob_property_path, SCM_UNDEFINED);
 
-      execute_pushpop_property (get_outlet (), sym, eprop, val);
+      execute_general_pushpop_property (get_outlet (), sym, grob_property_path, val);
     }
   Simple_music_iterator::process (m);
 }
@@ -111,9 +126,9 @@ Push_property_iterator::once_finalization (SCM trans, SCM music)
   SCM sym = mus->get_property ("symbol");
   if (check_grob (mus, sym))
     {
-      SCM eprop = mus->get_property ("grob-property");
+      SCM grob_property_path = get_property_path (mus);
 
-      execute_pushpop_property (tg, sym, eprop, SCM_UNDEFINED);
+      execute_general_pushpop_property (tg, sym, grob_property_path, SCM_UNDEFINED);
     }
   return SCM_UNSPECIFIED;
 }
@@ -139,8 +154,8 @@ Pop_property_iterator::process (Moment m)
 
   if (check_grob (get_music (), sym))
     {
-      SCM eprop = get_music ()->get_property ("grob-property");
-      execute_pushpop_property (get_outlet (), sym, eprop, SCM_UNDEFINED);
+      SCM grob_property_path = get_property_path (get_music ());
+      execute_general_pushpop_property (get_outlet (), sym, grob_property_path, SCM_UNDEFINED);
     }
   Simple_music_iterator::process (m);
 }

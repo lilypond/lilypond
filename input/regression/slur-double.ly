@@ -3,7 +3,7 @@
     texidoc = "Some composers use slurs both above and below chords.
  This can be typeset by setting @code{doubleSlurs}"
 }
-\version "2.6.0"
+\version "2.7.13"
 
 \layout { raggedright = ##t }
 \relative {

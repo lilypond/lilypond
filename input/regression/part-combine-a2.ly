@@ -1,5 +1,5 @@
 
-\version "2.6.0"
+\version "2.7.13"
 \header {
     texidoc ="The a2 string is printed only on notes (i.e. not on rests),
 and only after chords, solo or polyphony."

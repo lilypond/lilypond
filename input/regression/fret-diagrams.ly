@@ -1,7 +1,7 @@
 %% regression test for fret diagram markups
 
 
-\version "2.6.0"
+\version "2.7.13"
 
 \paper {
 

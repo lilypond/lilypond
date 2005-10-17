@@ -15,103 +15,174 @@
 #include "warn.hh"
 #include "paper-column.hh"
 
-/*
-  Grob descriptions (ie. alists with layout properties) are
-  represented as a (ALIST . BASED-ON) pair, where BASED-ON is the
-  alist defined in a parent context. BASED-ON should always be a tail
-  of ALIST.
-*/
+SCM
+lookup_nested_property (SCM alist,
+			SCM grob_property_path)
+{
+  if (scm_is_pair (grob_property_path))
+    {
+      SCM sym = scm_car (grob_property_path);
+      SCM handle = scm_assq (sym, alist);
+
+      if (handle == SCM_BOOL_F)
+	return SCM_EOL;
+      else
+	return lookup_nested_property (scm_cdr (handle),
+				       scm_cdr (grob_property_path));
+    }
+  else 
+    return alist;
+}
 
 /*
-  Push or pop (depending on value of VAL) a single entry (ELTPROP . VAL)
-  entry from a translator property list by name of PROP
+  copy ALIST leaving out SYMBOL. Copying stops at ALIST_END
 */
+SCM
+evict_from_alist (SCM symbol,
+		  SCM alist,
+		  SCM alist_end)
+{
+  SCM new_alist = SCM_EOL;
+  SCM *tail = &new_alist;
+
+  while (alist != alist_end)
+    {
+      if (ly_is_equal (scm_caar (alist), symbol))
+	{
+	  alist = scm_cdr (alist);
+	  break;
+	}
+
+      *tail = scm_cons (scm_car (alist), SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
+      alist = scm_cdr (alist);
+    }
+
+  *tail = alist;
+  return new_alist;
+}
 
 void
-execute_pushpop_property (Context *trg,
-			  SCM prop, SCM eltprop, SCM val)
+general_pushpop_property (Context *context,
+			  SCM context_property,
+			  SCM grob_property_path,
+			  SCM new_value			  
+			  )
 {
-  SCM prev = SCM_EOL;
-  if (scm_is_symbol (prop) && scm_is_symbol (eltprop))
-    {
-      if (val != SCM_UNDEFINED)
-	{
-	  Context *where = trg->where_defined (prop, &prev);
-
-	  /*
-	    Don't mess with MIDI.
-	  */
-	  if (!where)
-	    return;
-
-	  if (where != trg)
-	    {
-	      SCM base = updated_grob_properties (trg, prop);
-	      prev = scm_cons (base, base);
-	      trg->internal_set_property (prop, prev);
-	    }
-
-	  if (!scm_is_pair (prev))
-	    {
-	      programming_error ("Grob definition should be cons");
-	      return;
-	    }
-
-	  SCM prev_alist = scm_car (prev);
-
-	  if (scm_is_pair (prev_alist) || prev_alist == SCM_EOL)
-	    {
-	      bool ok = type_check_assignment (eltprop, val, ly_symbol2scm ("backend-type?"));
-
-	      /*
-		tack onto alist:
-	      */
-	      if (ok)
-		scm_set_car_x (prev, scm_acons (eltprop, val, prev_alist));
-	    }
-	  else
-	    {
-	      // warning here.
-	    }
-	}
-      else if (trg->where_defined (prop, &prev) == trg)
-	{
-	  SCM prev_alist = scm_car (prev);
-	  SCM daddy = scm_cdr (prev);
-
-	  SCM new_alist = SCM_EOL;
-	  SCM *tail = &new_alist;
-
-	  while (prev_alist != daddy)
-	    {
-	      if (ly_is_equal (scm_caar (prev_alist), eltprop))
-		{
-		  prev_alist = scm_cdr (prev_alist);
-		  break;
-		}
-
-	      *tail = scm_cons (scm_car (prev_alist), SCM_EOL);
-	      tail = SCM_CDRLOC (*tail);
-	      prev_alist = scm_cdr (prev_alist);
-	    }
-
-	  if (new_alist == SCM_EOL && prev_alist == daddy)
-	    trg->unset_property (prop);
-	  else
-	    {
-	      *tail = prev_alist;
-	      trg->internal_set_property (prop, scm_cons (new_alist, daddy));
-	    }
-	}
-    }
-  else
+  if (!scm_is_symbol (context_property)
+      || !scm_is_symbol (scm_car (grob_property_path)))
     {
       warning (_ ("need symbol arguments for \\override and \\revert"));
       if (do_internal_type_checking_global)
 	assert (false);
     }
+
+  execute_general_pushpop_property (context, context_property,
+				    grob_property_path, new_value);
 }
 
+
+/*
+  
+  Grob descriptions (ie. alists with layout properties) are
+  represented as a (ALIST . BASED-ON) pair, where BASED-ON is the
+  alist defined in a parent context. BASED-ON should always be a tail
+  of ALIST.
+
+  Push or pop (depending on value of VAL) a single entry entry from a
+  translator property list by name of PROP.  GROB_PROPERTY_PATH
+  indicates nested alists, eg. '(beamed-stem-lengths details)
+  
+*/
+void
+execute_general_pushpop_property (Context *context,
+				  SCM context_property,
+				  SCM grob_property_path,
+				  SCM new_value
+				  )
+{
+  SCM current_context_val = SCM_EOL;
+  if (new_value != SCM_UNDEFINED)
+    {
+      Context *where = context->where_defined (context_property, &current_context_val);
+
+      /*
+	Don't mess with MIDI.
+      */
+      if (!where)
+	return;
+
+      if (where != context)
+	{
+	  SCM base = updated_grob_properties (context, context_property);
+	  current_context_val = scm_cons (base, base);
+	  context->internal_set_property (context_property, current_context_val);
+	}
+
+      if (!scm_is_pair (current_context_val))
+	{
+	  programming_error ("Grob definition should be cons");
+	  return;
+	}
+
+      SCM prev_alist = scm_car (current_context_val);
+      SCM symbol = scm_car (grob_property_path);
+      SCM target_alist
+	= lookup_nested_property (prev_alist,
+				  scm_reverse (scm_cdr (grob_property_path)));
+
+      target_alist = scm_acons (symbol, new_value, target_alist);
+
+      bool ok = true;
+      if (!scm_is_pair (scm_cdr (grob_property_path)))
+	{
+	  ok = type_check_assignment (symbol, new_value, ly_symbol2scm ("backend-type?"));
+
+	  /*
+	    tack onto alist.  We can use set_car, since
+	    updated_grob_properties() in child contexts will check
+	    for changes in the car.
+	  */
+	  if (ok)
+	    {
+	      scm_set_car_x (current_context_val, target_alist);
+	    }
+	}
+      else
+	{
+	  execute_general_pushpop_property (context,
+					    context_property,
+					    scm_cdr (grob_property_path),
+					    target_alist
+					    );
+	}
+    }
+  else if (context->where_defined (context_property, &current_context_val) == context)
+    {
+      SCM current_value = scm_car (current_context_val);
+      SCM daddy = scm_cdr (current_context_val);
+      SCM symbol = scm_car (grob_property_path);
+      SCM new_alist = evict_from_alist (symbol, current_value, daddy);
+
+      if (new_alist == daddy)
+	context->unset_property (context_property);
+      else
+	context->internal_set_property (context_property, scm_cons (new_alist, daddy));
+    }
+}
+
+void
+execute_pushpop_property (Context *context,
+			  SCM context_property,
+			  SCM grob_property,
+			  SCM new_value
+			  )
+{
+  general_pushpop_property (context, context_property,
+			    scm_list_1 (grob_property),
+			    new_value);
+}
+  
 /*
   PRE_INIT_OPS is in the order specified, and hence must be reversed.
 */
@@ -125,12 +196,19 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
       SCM type = scm_car (entry);
       entry = scm_cdr (entry);
 
-      if (type == ly_symbol2scm ("push") || type == ly_symbol2scm ("poppush"))
+      if (type == ly_symbol2scm ("push"))
 	{
-	  SCM val = scm_cddr (entry);
-	  val = scm_is_pair (val) ? scm_car (val) : SCM_UNDEFINED;
-
-	  execute_pushpop_property (tg, scm_car (entry), scm_cadr (entry), val);
+	  SCM context_prop = scm_car (entry);
+	  SCM val = scm_cadr (entry);
+	  SCM grob_prop_path = scm_cddr (entry);
+	  execute_general_pushpop_property (tg, context_prop, grob_prop_path, val);
+	}
+      else if (type == ly_symbol2scm ("pop"))
+	{
+	  SCM context_prop = scm_car (entry);
+	  SCM val = SCM_UNDEFINED;
+	  SCM grob_prop_path = scm_cdr (entry);
+	  execute_general_pushpop_property (tg, context_prop, grob_prop_path, val);
 	}
       else if (type == ly_symbol2scm ("assign"))
 	tg->internal_set_property (scm_car (entry), scm_cadr (entry));

@@ -69,12 +69,10 @@ void
 Clef_engraver::set_glyph ()
 {
   SCM glyph_sym = ly_symbol2scm ("glyph");
-  SCM glyph = get_property ("clefGlyph");
-
   SCM basic = ly_symbol2scm ("Clef");
 
   execute_pushpop_property (context (), basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (context (), basic, glyph_sym, glyph);
+  execute_pushpop_property (context (), basic, glyph_sym, get_property ("clefGlyph"));
 }
 
 /**

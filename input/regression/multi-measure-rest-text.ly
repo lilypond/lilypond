@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.13"
 
 \header  {
 
@@ -22,7 +22,7 @@ measures stretch to accomodate wide texts.
   R2.^"4"
   R2.*3_\markup { \roman "a1b2c3" }
   R2.*10^"inner"^"top"_"inner"_"bot"
-  \override MultiMeasureRestText #'spacing-procedure
+  \override MultiMeasureRestText #'callbacks #'springs-and-rods
     = #Multi_measure_rest::set_text_rods
 
   R2.^"very very very very very very long text"

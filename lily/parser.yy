@@ -1418,7 +1418,11 @@ property_operation:
 	}
 	| OVERRIDE simple_string embedded_scm '=' embedded_scm {
 		$$ = scm_list_4 (ly_symbol2scm ("push"),
-			scm_string_to_symbol ($2), $3, $5);
+			scm_string_to_symbol ($2), $5, $3);
+	}
+	| OVERRIDE simple_string embedded_scm embedded_scm '=' embedded_scm {
+		$$ = scm_list_5 (ly_symbol2scm ("push"),
+				scm_string_to_symbol ($2), $6, $4, $3);
 	}
 	| REVERT simple_string embedded_scm {
 		$$ = scm_list_3 (ly_symbol2scm ("pop"),
@@ -1466,10 +1470,17 @@ context_prop_spec:
 music_property_def:
 	OVERRIDE context_prop_spec embedded_scm '=' scalar {
 		$$ = property_op_to_music (scm_list_4 (
-			ly_symbol2scm ("poppush"),
+			ly_symbol2scm ("push"),
 			scm_cadr ($2),
-			$3, $5));
-		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+			$5, $3));
+		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+	}
+	| OVERRIDE context_prop_spec embedded_scm  embedded_scm '=' scalar {
+		$$ = property_op_to_music (scm_list_5 (
+			ly_symbol2scm ("push"),
+			scm_cadr ($2),
+			$6, $4, $3));
+		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| REVERT context_prop_spec embedded_scm {
 		$$ = property_op_to_music (scm_list_3 (
@@ -2725,7 +2736,7 @@ property_op_to_music (SCM op)
 	SCM symbol = scm_cadr (op);
 	SCM args = scm_cddr (op);
 	SCM grob_val = SCM_UNDEFINED;
-	SCM grob_sym = SCM_UNDEFINED;
+	SCM grob_path = SCM_UNDEFINED;
 	SCM val = SCM_UNDEFINED;
 	
 	if (tag == ly_symbol2scm ("assign"))
@@ -2735,16 +2746,16 @@ property_op_to_music (SCM op)
 		}
 	else if (tag == ly_symbol2scm ("unset"))
 		m = MY_MAKE_MUSIC ("PropertyUnset");
-	else if (tag == ly_symbol2scm ("poppush")
-		 || tag == ly_symbol2scm ("push"))
+	else if (tag == ly_symbol2scm ("push"))
 		{
 		m = MY_MAKE_MUSIC ("OverrideProperty");
-		grob_sym = scm_car (args);
-		grob_val = scm_cadr (args);
+		grob_val = scm_car (args);
+		grob_path = scm_cdr (args);
+		m->set_property ("pop-first", SCM_BOOL_T);
 		}
 	else if (tag == ly_symbol2scm ("pop")) {
 		m = MY_MAKE_MUSIC ("RevertProperty");
-		grob_sym = scm_car (args);
+		grob_path = scm_cdr (args);
 		}
 
 	m->set_property ("symbol", symbol);
@@ -2753,23 +2764,8 @@ property_op_to_music (SCM op)
 		m->set_property ("value", val);
 	if (grob_val != SCM_UNDEFINED)
 		m->set_property ("grob-value", grob_val);
-
-	if (grob_sym != SCM_UNDEFINED)
-		{
-		bool itc = do_internal_type_checking_global;
-		/* UGH.
-		*/
-		bool autobeam = ly_is_equal (symbol, ly_symbol2scm ("autoBeamSettings"));
-		if (autobeam)
-			do_internal_type_checking_global = false;
-		m->set_property ("grob-property", grob_sym);
-		if (autobeam)
-			do_internal_type_checking_global = itc;
-		}
-
-	if (tag == ly_symbol2scm ("poppush"))
-		m->set_property ("pop-first", SCM_BOOL_T);
-
+	if (grob_path != SCM_UNDEFINED)
+		m->set_property ("grob-property-path", grob_path);
 
 	return m;
 }

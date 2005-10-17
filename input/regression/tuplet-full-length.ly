@@ -5,7 +5,7 @@
 start of the next non-tuplet note.  "
 
 }
-\version "2.7.4"
+\version "2.7.13"
 
 \paper { raggedright = ##t
 indent = 0.0 }

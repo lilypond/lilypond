@@ -2583,16 +2583,27 @@ def conv (str):
 conversions.append (((2, 7, 12), conv,
 		     '''outputProperty -> overrideProperty'''))
 
+
 def conv (str):
-	if re.search(r'(spacing-procedure|after-line-breaking-callback|before-line-breaking-callback|print-function)', str):
-		error_file.write ("""
+	def subber (match):
+		newkey = {'spacing-procedure': 'springs-and-rods',
+			  'after-line-breaking-callback' : 'after-line-breaking',
+			  'before-line-breaking-callback' : 'before-line-breaking',
+			  'print-function' : 'stencil'} [match.group(3)]
+		what = match.group (1)
+		grob = match.group (2)
 
-Conversion rules for 2.7.13 layout engine refactoring haven't been written yet.
-
-""")
+		if what == 'revert':
+			return "revert %s #'callbacks %% %s\n" % (grob, newkey)
+		elif what == 'override':
+			return "override %s #'callbacks #'%s" % (grob, newkey)
+		else:
+			raise 'urg'
+			return ''
 		
-		raise FatalConversionError ()
-	
+	str = re.sub(r"(override|revert)\s*([a-zA-Z.]+)\s*#'(spacing-procedure|after-line-breaking-callback"
+		    + r"|before-line-breaking-callback|print-function)",
+		    subber, str)
 	return str
 
 conversions.append (((2, 7, 13), conv,
