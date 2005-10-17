@@ -1140,18 +1140,25 @@ does not amount to much.  The initialization file
 
 @example
 (Fingering
-  . ((print-function . ,Text_interface::print)
-     (padding . 0.6)
-     (staff-padding . 0.6)
+  . ((padding . 0.5)
+     (avoid-slur . around)
+     (slur-padding . 0.2)
+     (staff-padding . 0.5)
      (self-alignment-X . 0)
      (self-alignment-Y . 0)
      (script-priority . 100)
-     (font-size . -5)
-     (meta . ((interfaces . (finger-interface font-interface
-                             text-script-interface text-interface
-                             side-position-interface
-                             self-alignment-interface
-                             item-interface))))))
+     (callbacks . ((stencil . ,Text_interface::print)
+                   (direction . ,Script_interface::calc_direction)))
+     (font-encoding . fetaNumber)
+     (font-size . -5) 		; don't overlap when next to heads.
+     (meta . ((class . Item)
+     (interfaces . (finger-interface
+                    font-interface
+                    text-script-interface
+                    text-interface
+                    side-position-interface
+                    self-alignment-interface
+                    item-interface))))))
 @end example
 
 @noindent
@@ -1278,13 +1285,11 @@ in.  These are clones of the original object and inherit all
 properties, including @code{\override}s.
 
 
-[THIS SECTION IS OUT OF DATE. REWRITE ME.] 
-
 In other words, an @code{\override} always affects all pieces of a
 broken spanner.  To change only one part of a spanner at a line break,
 it is necessary to hook into the formatting process.  The
-@code{after-line-breaking-callback} property contains the Scheme procedure
-that is called after the line breaks have been determined, and layout
+@code{after-line-breaking} callback contains the Scheme procedure that
+is called after the line breaks have been determined, and layout
 objects have been split over different systems.
 
 In the following example, we define a procedure
@@ -1304,8 +1309,7 @@ if yes, it sets @code{extra-offset}.
 This procedure is installed into @internalsref{Tie}, so the last part
 of the broken tie is translated up.
 
-@ignore
-@li lypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,raggedright]
 #(define (my-callback grob)
   (let* (
          ; have we been split? 
@@ -1320,7 +1324,7 @@ of the broken tie is translated up.
      (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
 \relative c'' { 
-  \override Tie #'after-line-breaking-callback =
+  \override Tie #'callbacks #'after-line-breaking =
   #my-callback
   c1 ~ \break c2 ~ c
 }
@@ -1328,12 +1332,10 @@ of the broken tie is translated up.
 @end ignore
 
 @noindent
-When applying this trick, the new @code{after-line-breaking-callback}
-should also call the old @code{after-line-breaking-callback}, if there
-is one.  For example, if using this with @code{Slur},
-@code{Slur::after_line_breaking} should also be called.
-
-[END OUT OF DATE]
+When applying this trick, the new @code{after-line-breaking} callback
+should also call the old one @code{after-line-breaking}, if there is
+one.  For example, if using this with @code{Hairpin},
+@code{Hairpin::after_line_breaking} should also be called.
 
 
 @item Some objects cannot be changed with @code{\override} for

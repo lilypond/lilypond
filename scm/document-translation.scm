@@ -128,7 +128,7 @@
       (string-append
        "@item Set "
        (format "grob-property @code{~a} " (string-join path " "))
-       (format " in @ref{~a} " sym)
+       (format " in @ref{~a} " context-sym)
        (if (not (null? (cddr body)))
 	   (format " to @code{~a}" (scm->texi value))
 	   "")
@@ -136,12 +136,11 @@
        "\n")))
      ((equal? (object-property sym 'is-grob?) #t) "")
      ((equal? tag 'assign)
-      (string-append
-       "@item Set translator property @code{"
-       (symbol->string (car body))
-       "} to @code{"
-       (scm->texi (cadr body))
-       "}\n")))))
+      (format "@item Set translator property @code{~a} to @code{~a}"
+	      context-sym
+	      (scm->texi (car args))))
+     )))
+     
 
 (define (context-doc context-desc)
   (let* ((name-sym (cdr (assoc 'context-name context-desc)))
