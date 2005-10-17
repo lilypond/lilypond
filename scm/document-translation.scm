@@ -134,7 +134,7 @@
 	   "")
        
        "\n")))
-     ((equal? (object-property sym 'is-grob?) #t) "")
+     ((equal? (object-property context-sym 'is-grob?) #t) "")
      ((equal? tag 'assign)
       (format "@item Set translator property @code{~a} to @code{~a}"
 	      context-sym

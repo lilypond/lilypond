@@ -85,7 +85,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	    we can't kill the children, since we don't want to the
 	    previous note to bump into the span arpeggio; so we make
 	    it transparent.  */
-	  arpeggios_[j]->set_property ("print-function", SCM_EOL);
+	  arpeggios_[j]->set_callback (ly_symbol2scm ("stencil"), SCM_EOL);
 	}
 
       span_arpeggio_ = 0;

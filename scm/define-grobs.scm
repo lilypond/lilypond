@@ -874,7 +874,7 @@
     (MeasureGrouping
      . (
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(callbacks . (stencil . ,Measure_grouping::print))
+	(callbacks . ((stencil . ,Measure_grouping::print)))
 	(padding . 2)
 	(direction . 1)
 	(thickness . 1)

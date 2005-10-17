@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.6.0"
+\version "2.7.13"
 
 stemUp = \override Stem  #'direction = #UP
 stemDown = \override Stem  #'direction = #DOWN 
@@ -52,7 +52,7 @@ tieSolid = {
 }
 
 setEasyHeads = \sequential {
-  \override NoteHead #'print-function = #Note_head::brew_ez_stencil
+  \override NoteHead #'callbacks #'stencil = #Note_head::brew_ez_stencil
   \override NoteHead #'font-size = #-7
   \override NoteHead #'font-family = #'sans
   \override NoteHead #'font-series = #'bold
@@ -139,19 +139,22 @@ hideStaffSwitch = \set followVoice = ##f
 arpeggio = #(make-music 'ArpeggioEvent)
 
 arpeggioUp = \sequential {
-  \revert Arpeggio  #'print-function
+  \revert Arpeggio #'callbacks % stencil
+
   \override Arpeggio  #'arpeggio-direction = #UP
 }
 arpeggioDown = \sequential {
-  \revert Arpeggio  #'print-function
+  \revert Arpeggio #'callbacks % stencil
+
   \override Arpeggio  #'arpeggio-direction = #DOWN
 }
 arpeggioNeutral = \sequential {
-  \revert Arpeggio  #'print-function
+  \revert Arpeggio #'callbacks % stencil
+
   \revert Arpeggio  #'arpeggio-direction
 }
 arpeggioBracket = \sequential {
-  \override Arpeggio #'print-function = #Arpeggio::brew_chord_bracket
+  \override Arpeggio #'callbacks #'stencil = #Arpeggio::brew_chord_bracket
 }
 
 glissando = #(make-music 'GlissandoEvent)
