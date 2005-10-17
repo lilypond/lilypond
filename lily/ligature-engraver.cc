@@ -106,12 +106,18 @@ Ligature_engraver::try_music (Music *m)
 void
 Ligature_engraver::override_stencil_callback ()
 {
+#if 0
+  /*
+    This has  been broken with the introduction of generic callbacks.
+   */
   SCM target_callback = ly_symbol2scm ("print-function");
   SCM source_callback = ly_symbol2scm ("ligature-primitive-callback");
   SCM noteHeadProperties = updated_grob_properties (context (), ly_symbol2scm ("NoteHead"));
   SCM value = scm_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
   execute_pushpop_property (context (), ly_symbol2scm ("NoteHead"),
 			    target_callback, value);
+
+#endif
 }
 
 /*

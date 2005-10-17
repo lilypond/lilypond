@@ -127,12 +127,8 @@
 
       (string-append
        "@item Set "
-       (format "grob-property @code{~a} " (string-join path " "))
-       (format " in @ref{~a} " context-sym)
-       (if (not (null? (cddr body)))
-	   (format " to @code{~a}" (scm->texi value))
-	   "")
-       
+       (format "grob-property @code{~a} " (string-join (map symbol->string path) " "))
+       (format " in @ref{~a} to @code{~a}.  " context-sym (scm->texi value))
        "\n")))
      ((equal? (object-property context-sym 'is-grob?) #t) "")
      ((equal? tag 'assign)
