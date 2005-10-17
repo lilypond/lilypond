@@ -60,6 +60,7 @@ descend in the context tree.")
      (length-callback ,procedure? "How to compute the duration of this music. This property
 can only be defined as initializer in @file{define-music-types.scm}.")
      (name ,symbol? "Name of this music object")
+     (no-continuation ,boolean? "If set, disallow continuation lines")
      (numerator ,integer? "numerator of a time signature")
      (once ,boolean? "Apply this operation only during one time step?")
      (octavation ,integer?

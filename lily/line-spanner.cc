@@ -283,8 +283,8 @@ Line_spanner::print (SCM smob)
 	{
 	  Axis ax = (Axis)a;
 	  dxy[ax]
-	    = + bound[RIGHT]->extent (common[X_AXIS], ax).center ()
-	    - bound[LEFT]->extent (common[X_AXIS], ax).center ();
+	    = + robust_relative_extent (bound[RIGHT], common[X_AXIS], ax).center ()
+	    - robust_relative_extent (bound[LEFT], common[X_AXIS], ax).center ();
 
 	  my_off[ax] = me->relative_coordinate (common[a], ax);
 	  his_off[ax] = bound[LEFT]->relative_coordinate (common[a], ax);

@@ -629,7 +629,7 @@
 
     (GridLine
      . (
-	(callbacks . (stencil . ,Grid_line_interface::print))
+	(callbacks . ((stencil . ,Grid_line_interface::print)))
 	(X-extent-callback  . ,Grid_line_interface::width_callback)
 	(self-alignment-X . ,CENTER)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
