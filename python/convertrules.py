@@ -2604,6 +2604,13 @@ def conv (str):
 	str = re.sub(r"(override|revert)\s*([a-zA-Z.]+)\s*#'(spacing-procedure|after-line-breaking-callback"
 		    + r"|before-line-breaking-callback|print-function)",
 		    subber, str)
+
+	if re.search ('bar-size-procedure', str):
+		error_file.write (NOT_SMART % "bar-size-procedure")
+	if re.search ('space-function', str):
+		error_file.write (NOT_SMART % "space-function")
+	if re.search ('verticalAlignmentChildCallback', str):
+		error_file.write ('verticalAlignmentChildCallback has been deprecated') 
 	return str
 
 conversions.append (((2, 7, 13), conv,

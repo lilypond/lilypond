@@ -6,7 +6,7 @@ ambitus must be moved manually to prevent collisions."
 
 }
 
-\version "2.6.0"
+\version "2.7.13"
 
 \layout {
     raggedright = ##t

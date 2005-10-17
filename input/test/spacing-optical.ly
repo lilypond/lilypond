@@ -4,7 +4,7 @@ texidoc  = "Stem directions and head positions are taken into account for spacin
 
 }
 
-\version "2.6.0"
+\version "2.7.13"
 
 \paper {
   raggedright = ##t

@@ -6,7 +6,7 @@
   used contemporary pieces with many time signature changes.  "
 
 }
-\version "2.7.6"
+\version "2.7.13"
 \layout {
   raggedright =  ##T
 }

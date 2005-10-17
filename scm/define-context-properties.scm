@@ -209,6 +209,7 @@ another non-natural.")
 			  "extra vertical extent, same format as @var{minimumVerticalExtent}")
 
 
+     (figuredBassCenterContinuations ,boolean? "Whether to vertically center pairs of extender lines.")
      (figuredBassAlterationDirection ,ly:dir? "Where to put
 alterations relative to the main figure.")
      (followVoice ,boolean? "If set, note heads are tracked across staff

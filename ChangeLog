@@ -1,5 +1,31 @@
 2005-10-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): mention John Mandereau. 
+	(Top): document #'callbacks.
+	(Top): document nested \override.
+
+	* input/regression/figured-bass.ly: update for slash and pluses.
+
+	* input/regression/figured-bass-continuation-forbid.ly (Module):
+	new file.
+
+	* scm/translation-functions.scm (format-new-bass-figure): use
+	slashed-digit if diminished is set.
+	(format-new-bass-figure): add + if 'augmented is set.
+
+	* scm/define-markup-commands.scm (slashed-digit): new command slashed-digit.
+
+	* input/test/piano-staff-distance.ly: remove file.
+
+	* Documentation/user/advanced-notation.itely (Formatting cue
+	notes): use length-fraction for making stems/beams smaller.
+
+	* lily/parser.yy (bass_figure): accept \+ \! and / as figured bass
+	modifications.
+
+	* lily/new-figured-bass-engraver.cc: new property
+	centerFiguredBassContinuations
+
 	* Documentation/user/changing-defaults.itely (Difficult tweaks):
 	use callbacks.
 

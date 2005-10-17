@@ -22,16 +22,15 @@
 	(avoid-slur . inside)
 	(cautionary-style . parentheses)
 	(callbacks . ((stencil . ,Accidental_interface::print)
-		      (after-line-breaking . ,Accidental_interface::after_line_breaking)))
-	
+		      (after-line-breaking
+		       . ,Accidental_interface::after_line_breaking)
+		      ))
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
     
     (AccidentalSuggestion
-     . (
-
-	(callbacks . ((stencil . ,Accidental_interface::print)))
+     . ((callbacks . ((stencil . ,Accidental_interface::print)))
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
 			       ,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . ,CENTER)

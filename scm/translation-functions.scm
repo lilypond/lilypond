@@ -61,7 +61,9 @@
 (define-public (format-new-bass-figure figure event context)
   (let* ((fig (ly:music-property event 'figure))
 	 (fig-markup (if (number? figure)
-			 (markup #:number (number->string figure 10))
+			 (if (eq? #t (ly:music-property event 'diminished))
+			     (markup #:slashed-digit figure)
+			     (markup #:number (number->string figure 10)))
 			 #f
 			 ))
 	 (alt (ly:music-property event 'alteration))
@@ -72,6 +74,9 @@
 		      (alteration->text-accidental-markup alt))
 	      
 	      #f))
+	 (plus-markup (if (eq? #t (ly:music-property event 'augmented))
+			  (markup #:number "+")
+			  #f))
 	 (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
 	 )
 
@@ -99,7 +104,16 @@
 		      #:pad-x 0.2 alt-markup
 		      )))
 
+    (if plus-markup
+	(set! fig-markup
+	      (markup #:put-adjacent
+		      fig-markup
+		      X LEFT
+		      #:pad-x 0.2 plus-markup)))
+    
     (if (markup? fig-markup)
 	(markup #:fontsize -2 fig-markup)
-	empty-markup)))
+	empty-markup)
+
+    ))
 

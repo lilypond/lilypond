@@ -350,15 +350,12 @@ or
 %token E_OPEN "\\("
 %token E_BRACKET_CLOSE "\\]"
 %token E_ANGLE_OPEN "\\<"
+%token E_PLUS "\\+"
 %token E_TILDE "\\~"
 %token EXTENDER "__"
-/*  These used at all?
-  %token FIGURE_BRACKET_CLOSE 
-  %token FIGURE_BRACKET_OPEN
 
-parser.yy:348.8-25: warning: symbol `"\\>"' used more than once as a literal string
-parser.yy:352.8-24: warning: symbol `"\\<"' used more than once as a literal string
-
+/*
+If we give names, Bison complains.
 */
 %token FIGURE_CLOSE /* "\\>" */
 %token FIGURE_OPEN /* "\\<" */
@@ -428,7 +425,7 @@ parser.yy:352.8-24: warning: symbol `"\\<"' used more than once as a literal str
 %type <book> book_body
 
 %type <i> bare_unsigned
-%type <i> bass_mod
+%type <i> figured_bass_alteration
 %type <i> dots
 %type <i> exclamations
 %type <i> optional_rest
@@ -479,6 +476,7 @@ parser.yy:352.8-24: warning: symbol `"\\<"' used more than once as a literal str
 %type <scm> assignment_id
 %type <scm> bare_number
 %type <scm> bass_figure
+%type <scm> figured_bass_modification
 %type <scm> br_bass_figure
 %type <scm> bass_number
 %type <scm> chord_body_elements
@@ -2187,7 +2185,7 @@ bass_number:
 	| full_markup { $$ = $1; }
 	;
 
-bass_mod:
+figured_bass_alteration:
 	'-' 	{ $$ = -2; }
 	| '+'	{ $$ = 2; }
 	| '!'	{ $$ = 0; }
@@ -2214,7 +2212,7 @@ bass_figure:
 		$$ = $1;
 		unsmob_music ($1)->set_property ("bracket-stop", SCM_BOOL_T);
 	}
-	| bass_figure bass_mod {
+	| bass_figure figured_bass_alteration {
 		Music *m = unsmob_music ($1);
 		if ($2) {
 			SCM salter = m->get_property ("alteration");
@@ -2225,8 +2223,35 @@ bass_figure:
 			m->set_property ("alteration", scm_from_int (0));
 		}
 	}
+	| bass_figure figured_bass_modification  {
+		Music *m = unsmob_music ($1);
+		if ($2 == ly_symbol2scm ("plus"))
+			{
+			m->set_property ("augmented", SCM_BOOL_T);
+			}
+		else if ($2 == ly_symbol2scm ("slash"))
+			{
+			m->set_property ("diminished", SCM_BOOL_T);
+			}
+		else if ($2 == ly_symbol2scm ("exclamation"))
+			{
+			m->set_property ("no-continuation", SCM_BOOL_T);
+			}
+	}
 	;
 
+
+figured_bass_modification:
+	E_PLUS		{
+		$$ = ly_symbol2scm ("plus");
+	}
+	| E_EXCLAMATION {
+		$$ = ly_symbol2scm ("exclamation");
+	}
+	| '/'		{
+		$$ = ly_symbol2scm ("slash");
+	}
+	;
 
 br_bass_figure:
 	bass_figure {

@@ -32,9 +32,11 @@ struct Figure_group
   
   Item *figure_item_; 
   Music *current_music_;
+  bool force_no_continuation_;
   
   Figure_group ()
   {
+    force_no_continuation_ = false;
     continuation_line_ = 0;
     number_ = SCM_EOL;
     alteration_ = SCM_EOL;
@@ -45,6 +47,7 @@ struct Figure_group
   {
     return
       current_music_
+      && !force_no_continuation_
       && ly_is_equal (number_,
 		      current_music_->get_property ("figure"))
       && ly_is_equal (alteration_,
@@ -147,7 +150,8 @@ New_figured_bass_engraver::try_music (Music *m)
 	      && ly_is_equal (groups_[i].number_, fig))
 	    {
 	      groups_[i].current_music_ = m;
-	     
+	      groups_[i].force_no_continuation_
+		= to_boolean (m->get_property ("no-continuation"));
 	      continuation_ = true;
 	      return true; 
 	    }
@@ -208,8 +212,8 @@ New_figured_bass_engraver::clear_spanners ()
     return;
   
   alignment_ = 0;
-  center_repeated_continuations();
-
+  if (to_boolean (get_property ("figuredBassCenterContinuations")))
+    center_repeated_continuations();
   
   groups_.clear ();
 }
@@ -275,7 +279,8 @@ New_figured_bass_engraver::process_music ()
   bool use_extenders = to_boolean (get_property ("useBassFigureExtenders"));
   if (!use_extenders)
     {
-      center_repeated_continuations ();
+      if (to_boolean (get_property ("figuredBassCenterContinuations")))
+	center_repeated_continuations ();
       alignment_ = 0;
       for (int i = 0; i < groups_.size (); i++)
 	{
@@ -457,6 +462,7 @@ ADD_TRANSLATOR (New_figured_bass_engraver,
 		"bass-figure-event rest-event",
 
 		/* read */
+		"figuredBassCenterContinuations "
 		"implicitBassFigures "
 		"newFiguredBassFormatter "
 		"figuredBassAlterationDirection "
