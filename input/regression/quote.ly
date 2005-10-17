@@ -34,7 +34,7 @@ original = \relative c'' { c8 d s2 es8 gis8 }
 	\new Voice {
 	    s4
 	    \set fontSize = #-4
-	    \override Stem #'lengths = #'(2.5 2.5 3.0 3.0)
+	    \override Stem #'length-fraction = #(magstep -4)
 	    \quoteDuring #"quoteMe" { \skip 2. }
 	}
     >>
