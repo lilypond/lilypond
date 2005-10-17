@@ -419,8 +419,8 @@ for stems with the same direction to compensate for note-head to stem distance."
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      
      (style ,symbol? "This setting determines in what style a grob is
-typeset. Valid choices depend on the @code{print-function} that is
-reading this property.")
+typeset. Valid choices depend on the @code{stencil} callback reading
+this property.")
      (text ,markup? "Text markup.  See @usermanref{Text markup}.")
 ;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
@@ -436,9 +436,7 @@ use LEFT.")
 @var{min} and @var{max} are dimensions in staff space.")
      (tie-configuration ,list? "List of (@var{position} . @var{dir})
 pairs, indicating the desired tie configuration.")
-     (transparent ,boolean? "This is almost the same as setting
-@code{print-function} to @code{#f}, but this retains the dimensions of
-this grob, which means that grobs can be erased individually.")
+     (transparent ,boolean? "This makes the grob invisible.")
      (uniform-stretching ,boolean? "If set, items stretch proportional
 to their durations. This looks better in complex polyphonic patterns")
      (used ,boolean? "If set, this spacing column is kept in the spacing problem")
@@ -575,7 +573,7 @@ functions set spanner positions.")
 
      ;; [TODO: change this]
      (primitive ,integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. ")
-     (stencil ,ly:stencil? "Cached output of the print-function.")
+     (stencil ,ly:stencil? "The symbol to print.")
      (ideal-distances ,list? "(@var{obj} . (@var{dist} . @var{strength})) pairs.")
      (minimum-distances ,list? "list of rods, that have the format (@var{obj} . @var{dist}).")
 

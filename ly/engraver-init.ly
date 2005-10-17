@@ -618,8 +618,7 @@ AncientRemoveEmptyStaffContext = \context {
   %% increases beam thickness and spacing; beams are
   %% too big. We have to adjust the beam settings:
   \override Beam #'thickness = #0.32
-  \override Beam #'space-function =
-  #(lambda (beam mult) (* 0.62 (Beam::space_function beam mult)))
+  \override Beam #'length-fraction = #0.62
 
   %% No accidental in tablature !
   \remove Accidental_engraver
