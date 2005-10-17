@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.13"
 \header {
 
     texidoc = "The size of every system is correctly determined; this 
@@ -10,7 +10,7 @@
 \layout { 
     \context {
 	\Score
-	\override System #'print-function = #box-grob-stencil
+	\override System #'callbacks #'stencil = #box-grob-stencil
     }
 }
 

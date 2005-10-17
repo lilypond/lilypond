@@ -128,8 +128,7 @@ Context_def::add_context_mod (SCM mod)
   else if (ly_symbol2scm ("accepts") == tag
 	   || ly_symbol2scm ("denies") == tag)
     accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_);
-  else if (ly_symbol2scm ("poppush") == tag
-	   || ly_symbol2scm ("pop") == tag
+  else if (ly_symbol2scm ("pop") == tag
 	   || ly_symbol2scm ("push") == tag
 	   || ly_symbol2scm ("assign") == tag
 	   || ly_symbol2scm ("unset") == tag)

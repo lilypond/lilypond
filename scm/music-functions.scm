@@ -808,11 +808,14 @@ if appropriate.
 (define-public ((add-balloon-text object-name text off) grob orig-context cur-context)
   "Usage: see input/regression/balloon.ly "
   (let* ((meta (ly:grob-property grob 'meta))
+	 (callbacks (ly:grob-property grob 'callbacks))
 	 (nm (if (pair? meta) (cdr (assoc 'name meta)) "nonexistant"))
-	 (cb (ly:grob-property grob 'print-function)))
-    (if (equal? nm object-name)
+	 (cb-handle (assoc 'stencil callbacks))
+	 (cb (if cb-handle (cdr cb-handle) #f)))
+    (if (and (equal? nm object-name)
+	     cb)
 	(begin
-	  (set! (ly:grob-property grob 'print-function) Balloon_interface::print)
+	  (ly:grob-set-callback! grob 'stencil  Balloon_interface::print)
 	  (set! (ly:grob-property grob 'balloon-original-callback) cb)
 	  (set! (ly:grob-property grob 'balloon-text) text)
 	  (set! (ly:grob-property grob 'balloon-text-offset) off)

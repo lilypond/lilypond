@@ -8,7 +8,7 @@ texidoc = "Stem lengths take precedence over beam quants: `forbidden'
 
 }
 
-\version "2.6.0"
+\version "2.7.13"
 
 \relative c''{ 
   \time 3/8

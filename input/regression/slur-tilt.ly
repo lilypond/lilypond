@@ -8,7 +8,7 @@ point into one note head, and point over another note head."
 \layout {
     raggedright = ##t
 }
-\version "2.6.0"
+\version "2.7.13"
 
 \relative c'' {
     \time 2/4

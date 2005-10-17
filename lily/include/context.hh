@@ -63,7 +63,6 @@ public:
   Context (Object_key const *);
 
   /* properties:  */
-  void execute_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM internal_get_property (SCM name_sym) const;
   SCM properties_as_alist () const;
   void internal_set_property (SCM var_sym, SCM value);
@@ -102,6 +101,8 @@ public:
 
 void apply_property_operations (Context *tg, SCM pre_init_ops);
 void execute_pushpop_property (Context *trg, SCM prop, SCM eltprop, SCM val);
+void execute_general_pushpop_property (Context *context,
+				       SCM context_property, SCM grob_property_path, SCM val);
 SCM updated_grob_properties (Context *tg, SCM sym);
 Context *find_context_below (Context *where,
 			     SCM type_sym, String id);

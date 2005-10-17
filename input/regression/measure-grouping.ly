@@ -7,7 +7,7 @@ brackets above beats when the beats of a time signature are grouped.  "
 
 }
 
-\version "2.6.0"
+\version "2.7.13"
 
 
 %% TODO: should have 2/4 + 5/8 time sig style.
