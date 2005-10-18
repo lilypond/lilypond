@@ -246,6 +246,7 @@ Paper_book::add_score_title (SCM header)
       */
       SCM props = paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
       Paper_system *ps = new Paper_system (title, props);
+      systems_ = scm_cons (ps->self_scm (), systems_);
       ps->unprotect ();
       set_system_penalty (ps, header);
     }
