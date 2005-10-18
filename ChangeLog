@@ -8,6 +8,8 @@
 
 2005-10-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION: 2.7.13 released.
+
 	* lily/note-collision.cc (check_meshing_chords): don't wipe
 	stencil, merely set transparent.
 
