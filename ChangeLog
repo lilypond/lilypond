@@ -1,3 +1,8 @@
+2005-10-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/translation-functions.scm (format-new-bass-figure): also
+	allow plus in combination with _
+
 2005-10-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/note-collision.cc (check_meshing_chords): don't wipe

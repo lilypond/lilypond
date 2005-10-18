@@ -77,6 +77,7 @@
 	 (plus-markup (if (eq? #t (ly:music-property event 'augmented))
 			  (markup #:number "+")
 			  #f))
+
 	 (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
 	 )
 
@@ -104,12 +105,15 @@
 		      #:pad-x 0.2 alt-markup
 		      )))
 
+    
     (if plus-markup
 	(set! fig-markup
-	      (markup #:put-adjacent
-		      fig-markup
-		      X LEFT
-		      #:pad-x 0.2 plus-markup)))
+	      (if fig-markup
+		  (markup #:put-adjacent
+			  fig-markup
+			  X LEFT
+			  #:pad-x 0.2 plus-markup)
+		  plus-markup)))
     
     (if (markup? fig-markup)
 	(markup #:fontsize -2 fig-markup)
