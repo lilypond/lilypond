@@ -1,5 +1,8 @@
 2005-10-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/tuplet-bracket.cc (print): use dy iso. positions[RIGHT] for
+	Y coordinate. 
+
 	* lily/paper-book.cc (add_score_title): put Paper_score title into
 	systems_ list.
 

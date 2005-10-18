@@ -266,7 +266,8 @@ Tuplet_bracket::print (SCM smob)
 		  SCM text = index_get_cell (edge_text, d);
 		  if (Text_interface::is_markup (text))
 		    {
-		      SCM t = Text_interface::interpret_markup (pap->self_scm (), properties, text);
+		      SCM t = Text_interface::interpret_markup (pap->self_scm (),
+								properties, text);
 
 		      Stencil *edge_text = unsmob_stencil (t);
 		      edge_text->translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
@@ -278,7 +279,7 @@ Tuplet_bracket::print (SCM smob)
       while (flip (&d) != LEFT);
 
       Stencil brack = make_bracket (me, Y_AXIS,
-				    Offset (w, positions[RIGHT]),
+				    Offset (w, dy),
 				    height,
 				    /*
 				      0.1 = more space at right due to italics

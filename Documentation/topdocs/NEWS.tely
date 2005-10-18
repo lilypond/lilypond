@@ -63,7 +63,7 @@ This rewrite was sponsored by Trent Johnston and John Mandereau.
 
 @item
 For each grob, a subproperty in @code{callbacks} property defines the
-procedure which computes it. This is major internal cleanup, which
+procedure which computes it. This is a major internal cleanup, which
 also provides advanced tweakability for power users. For example,
 
 @verbatim
