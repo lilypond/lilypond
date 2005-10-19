@@ -676,8 +676,9 @@ env.Append (
 	PSPDF_FLAGS = ['-sPAPERSIZE=$DVIPS_PAPERSIZE'],
 	)
 
+env.Append (CCFLAGS = ['-pipe', '-Wno-pmf-conversions'])
 if env['debugging']:
-	env.Append (CCFLAGS = ['-g', '-pipe'])
+	env.Append (CCFLAGS = ['-g'])
 if env['optimising']:
 	env.Append (CCFLAGS = '-O2')
 	env.Append (CXXFLAGS = ['-DSTRING_UTILS_INLINED'])
@@ -755,10 +756,10 @@ env.Append (
 
 	# FIXME: move to lily/SConscript?
 	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),
-		   os.path.join (absbuild, 'kpath-guile', env['out']),
-		   os.path.join (absbuild, 'ttftool', env['out']),],
+		   os.path.join (absbuild, 'kpath-guile', env['out']),],
 	CPPPATH = [outdir, ],
-	LILYPOND_PATH = ['.', '$srcdir/input',
+	LILYPOND_PATH = ['.',
+			 '$srcdir/input',
 			 '$srcdir/input/regression',
 			 '$srcdir/input/test',
 			 '$srcdir/input/tutorial',
@@ -769,7 +770,7 @@ env.Append (
 #			 os.path.join (absbuild, 'Documentation/user',
 #				       env['out']),
 			 ],
-	MAKEINFO_PATH = ['.', '$srcdir/Documentation/user',
+	makeinfo_path = ['.', '$srcdir/Documentation/user',
 			 '$absbuild/Documentation/user/$out'],
 	)
 
@@ -837,10 +838,10 @@ def symlink_tree (target, source, env):
 	      ('#scm',       'share/lilypond/%(ver)s/scm'),
 	      ('#scripts',   'share/lilypond/%(ver)s/scripts'),
 	      ('#ps',        'share/lilypond/%(ver)s/ps'),
-	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
+	      ('po/@/nl.mo', 'share/locale/nl/lc_messages/lilypond.mo'),
 	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
 
-	print "FIXME: BARF BARF BARF"
+	print "fixme: barf barf barf"
 	os.chdir (absbuild)
 	out = env['out']
 	ver = version
@@ -857,9 +858,9 @@ def symlink_tree (target, source, env):
 
 if env['debugging']:
 	stamp = os.path.join (run_prefix, 'stamp')
-	env.Command (stamp, ['#/SConstruct', '#/VERSION'],
-		     [symlink_tree, 'touch $TARGET'])
-	env.Depends ('lily', stamp)
+	env.command (stamp, ['#/SConstruct', '#/VERSION'],
+		     [symlink_tree, 'touch $target'])
+	env.depends ('lily', stamp)
 	
 #### dist, tar
 def plus (a, b):
@@ -872,18 +873,20 @@ def cvs_entry_is_file (line):
 	return line[0] == '/' and line[-2] == '/'
 
 def cvs_dirs (dir):
-	ENTRIES = os.path.join (dir, 'CVS/Entries')
-	if not os.path.exists (ENTRIES):
+	entries = os.path.join (dir, 'CVS/Entries')
+	if not os.path.exists (entries):
 		return []
-	entries = open (ENTRIES).readlines ()
+	entries = open (entries).readlines ()
 	dir_entries = filter (cvs_entry_is_dir, entries)
 	dirs = map (lambda x: os.path.join (dir, x[2:x[2:].index ('/')+3]),
 		    dir_entries)
 	return dirs + map (cvs_dirs, dirs)
 
 def cvs_files (dir):
-	ENTRIES = os.path.join (dir, 'CVS/Entries')
-	entries = open (ENTRIES).readlines ()
+	entries = os.path.join (dir, 'CVS/Entries')
+	if not os.path.exists (entries):
+		return []
+	entries = open (entries).readlines ()
 	file_entries = filter (cvs_entry_is_file, entries)
 	files = map (lambda x: x[1:x[1:].index ('/')+1], file_entries)
 	return map (lambda x: os.path.join (dir, x), files)
@@ -906,15 +909,14 @@ else:
 	subdirs = string.split (os.popen (command).read ())
 
 if env['fast']\
-   and 'all' not in COMMAND_LINE_TARGETS\
-   and 'doc' not in COMMAND_LINE_TARGETS\
-   and 'web' not in COMMAND_LINE_TARGETS\
-   and 'install' not in COMMAND_LINE_TARGETS\
-   and 'clean' not in COMMAND_LINE_TARGETS:
+   and 'all' not in command_line_targets\
+   and 'doc' not in command_line_targets\
+   and 'web' not in command_line_targets\
+   and 'install' not in command_line_targets\
+   and 'clean' not in command_line_targets:
 	subdirs = ['lily', 'lily/include',
 		   'flower', 'flower/include',
 		   'kpath-guile',
-		   'ttftool',
 		   'mf',
 		   ]
 
