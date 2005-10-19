@@ -6,6 +6,7 @@ local-distclean:
 	rm -f config.hh config.make Makefile GNUmakefile \
 		config.cache config.status config.log index.html \
 		stepmake/stepmake/stepmake stepmake/stepmake/bin
+	rm -rf autom4te.cache
 
 local-maintainerclean:
 	rm -f configure
@@ -67,12 +68,13 @@ local-help:
   .             release==\n\
   .             to=0.1.74.jcn2\n\
   dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
-  distclean   cleaner than clean (duh)\n\
+  distclean   also remove configure output\n\
   doc         update all documentation\n\
-  release     roll tarball and generate patch\n\
+  maintainerclean also remove distributed generated files\n\
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
+  release     roll tarball and generate patch\n\
 \n\
 Some of these top level targets (diff, dist, release) can be issued\n\
 from anywhere in the source tree.\n\

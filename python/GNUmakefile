@@ -5,7 +5,7 @@ STEPMAKE_TEMPLATES=c python-module install-out po
 include $(depth)/make/stepmake.make
 
 # unset al guile stuff from configure
-USER_LDFLAGS=
+CONFIG_LDFLAGS=
 
 INSTALLATION_OUT_SUFFIXES=1
 

@@ -195,7 +195,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     fi
 
     if test $profile_b = yes; then
-	EXTRA_LIBES="-pg"
+	EXTRA_LIBS="-pg"
 	OPTIMIZE="$OPTIMIZE -pg"
     fi
 
@@ -243,10 +243,8 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     AC_SUBST(CFLAGS)
     AC_SUBST(CPPFLAGS)
     AC_SUBST(LDFLAGS)
-    AC_SUBST(ICFLAGS)
-    AC_SUBST(ILDFLAGS)
     AC_SUBST(DEFINES)
-    AC_SUBST(EXTRA_LIBES)
+    AC_SUBST(EXTRA_LIBS)
 ])
 
 AC_DEFUN(STEPMAKE_CXX, [
@@ -254,13 +252,11 @@ AC_DEFUN(STEPMAKE_CXX, [
     AC_PROG_CXX
     STEPMAKE_OPTIONAL_REQUIRED(CXX, c++, $1)
 
-    CPPFLAGS="$CPPFLAGS $DEFINES"
     CXXFLAGS="$CXXFLAGS $OPTIMIZE"
-    LDFLAGS="$LDFLAGS $EXTRA_LIBES"
-
-    AC_SUBST(CXXFLAGS)
-    AC_SUBST(CXX)
     LD='$(CXX)'
+
+    AC_SUBST(CXX)
+    AC_SUBST(CXXFLAGS)
     AC_SUBST(LD)
 ])
 
@@ -358,10 +354,26 @@ AC_DEFUN(STEPMAKE_END, [
 	rm -f $srcdir/GNUmakefile
 	cp $srcdir/GNUmakefile.in $srcdir/GNUmakefile
 	chmod 444 $srcdir/GNUmakefile
-    else # --srcdir build
-        rm -f GNUmakefile
-    	cp $srcdir/make/srcdir.make.in GNUmakefile
-    	chmod 444 GNUmakefile
+    else
+	if test -f $srcdir/GNUmakefile; then
+	    cat <<EOF
+Source directory already configured.  Please clean the source directory
+
+     make -C $srcdir distclean
+
+and rerun configure.
+EOF
+	    exit 2
+	fi
+	rm -f GNUmakefile
+	cp $srcdir/GNUmakefile.in GNUmakefile
+	## (cd $srcdir && find . -name GNUmakefile -o -name '*.make' | grep -v config.make | xargs tar -cf-) | tar -xf-
+	for i in $(cd $srcdir && find . -name GNUmakefile -o -name '*.make' | grep -v config.make); do
+	    mkdir -p $(dirname $i)
+	    ln -sf $srcdir/$i $i
+	done
+	ln -sf $srcdir/VERSION .
+	AC_SUBST(VPATH)
     fi
 ])
 
@@ -661,6 +673,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     fi
 
     AC_SUBST(ugh_ugh_autoconf250_builddir)
+    AC_SUBST(srcdir)
     AC_SUBST(stepmake)
     AC_SUBST(package)
     AC_SUBST(PACKAGE)
@@ -1087,8 +1100,14 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
     PKG_CHECK_MODULES(FREETYPE2, $1 >= $3, have_freetype2=yes, true)
     if test "$have_freetype2" = yes; then
 	AC_DEFINE(HAVE_FREETYPE2)
+        save_CPPFLAGS="$CPPFLAGS"
+        save_LIBS="$LIBS"
+	CPPFLAGS="$FREETYPE2_CFLAGS $CPPFLAGS"
+	LIBS="$FREETYPE2_LIBS $LIBS"
 	AC_SUBST(FREETYPE2_CFLAGS)
 	AC_SUBST(FREETYPE2_LIBS)
+	CPPFLAGS="$save_CPPFLAGS"
+	LIBS="$save_LIBS"
     else
 	# UGR
      	#r="lib$1-dev or $1-devel"
@@ -1102,8 +1121,15 @@ AC_DEFUN(STEPMAKE_GTK2, [
     PKG_CHECK_MODULES(GTK2, $1 >= $3, have_gtk2=yes, true)
     if test "$have_gtk2" = yes ; then
 	AC_DEFINE(HAVE_GTK2)
+	# Do not pollute user-CPPFLAGS with configure-CPPFLAGS
+        save_CPPFLAGS="$CPPFLAGS"
+        save_LIBS="$LIBS"
+	CPPFLAGS="$GTK2_CFLAGS $CPPFLAGS"
+	LIBS="$GTK2_LIBS $LIBS"
 	AC_SUBST(GTK2_CFLAGS)
 	AC_SUBST(GTK2_LIBS)
+	CPPFLAGS="$save_CPPFLAGS"
+	LIBS="$save_LIBS"
     else
 	# UGR
      	# r="lib$1-dev or $1-devel"
@@ -1117,11 +1143,11 @@ AC_DEFUN(STEPMAKE_PANGO, [
     PKG_CHECK_MODULES(PANGO, $1 >= $3, have_pango16=yes, true)
     if test "$have_pango16" = yes ; then
 	AC_DEFINE(HAVE_PANGO16)
-	PANGO_CFLAGS="$PANGO_CFLAGS $GTK2_CFLAGS"
-	PANGO_LIBS="$PANGO_LIBS $GTK2_LIBS"
 	# Do not pollute user-CPPFLAGS with configure-CPPFLAGS
         save_CPPFLAGS="$CPPFLAGS"
         save_LIBS="$LIBS"
+	CPPFLAGS="$PANGO_CFLAGS $CPPFLAGS"
+	LIBS="$PANGO_LIBS $LIBS"
 	AC_CHECK_HEADERS([pango/pangofc-fontmap.h])
 	AC_CHECK_FUNCS([pango_fc_font_map_add_decoder_find_func])
 	AC_SUBST(PANGO_CFLAGS)
@@ -1142,8 +1168,6 @@ AC_DEFUN(STEPMAKE_PANGO_FT2, [
     if test "$have_pangoft2" = yes ; then
 	AC_DEFINE(HAVE_PANGO16)
 	AC_DEFINE(HAVE_PANGO_FT2)
-	PANGO_FT2_CFLAGS="$PANGO_FT2_CFLAGS $GTK2_CFLAGS"
-	PANGO_FT2_LIBS="$PANGO_FT2_LIBS $GTK2_LIBS"
 	# Do not pollute user-CPPFLAGS with configure-CPPFLAGS
         save_CPPFLAGS="$CPPFLAGS"
         save_LIBS="$LIBS"
@@ -1168,12 +1192,10 @@ AC_DEFUN(STEPMAKE_FONTCONFIG, [
     PKG_CHECK_MODULES(FONTCONFIG, $1 >= $3, have_fontconfig=yes, true)
     if test "$have_fontconfig" = yes ; then
 	AC_DEFINE(HAVE_FONTCONFIG)
-	FONTCONFIG_CFLAGS="$FONTCONFIG_CFLAGS"
-	FONTCONFIG_LIBS="$FONTCONFIG_LIBS"
 	# Do not pollute user-CPPFLAGS with configure-CPPFLAGS
         save_CPPFLAGS="$CPPFLAGS"
         save_LIBS="$LIBS"
-	CPPFLAGS="$CPPFLAGS $FONTCONFIG_CFLAGS"
+	CPPFLAGS="$FONTCONFIG_CFLAGS $CPPFLAGS"
 	LIBS="$FONTCONFIG_LIBS $LIBS"
 	AC_SUBST(FONTCONFIG_CFLAGS)
 	AC_SUBST(FONTCONFIG_LIBS)

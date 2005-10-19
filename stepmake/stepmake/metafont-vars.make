@@ -1,5 +1,5 @@
 
-MF_FILES := $(wildcard *.mf)
+MF_FILES := $(call src-wildcard,*.mf)
 EXTRA_DIST_FILES += $(MF_FILES)
 MF_TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 MF_DVI_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.dvi))

@@ -15,7 +15,7 @@
 # cases.  Four more explaining what a line comment is, and that it may
 # be parsed, same here.
 
-HELP2MAN_COMMAND = $(PERL) $(builddir)/buildscripts/$(outbase)/help2man $< > $@
+HELP2MAN_COMMAND = $(PERL) $(top-build-dir)/buildscripts/$(outbase)/help2man $< > $@
 
 ifeq ($(strip $(CROSS)),no)
 $(outdir)/%.1: $(outdir)/%

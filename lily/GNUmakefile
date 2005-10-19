@@ -29,7 +29,7 @@ endif
 
 # for profiling, link guile statically:
 #
-# USER_LDFLAGS += -static -lltdl -ldl
+# CONFIG_LDFLAGS += -static -lltdl -ldl
 #
 
 ifeq ($(PLATFORM_WINDOWS),yes)
@@ -38,13 +38,13 @@ O_FILES += $(outdir)/lilypond.rc.o
 $(outdir)/lilypond: $(outdir)/lilypond.rc.o
 
 $(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico $(outdir)/ly.ico
-$(builddir)/Documentation/pictures/$(outbase)/lilypond.ico:
-	$(MAKE) -C $(abs-srcdir)/Documentation/pictures
-$(outdir)/lilypond.ico: $(builddir)/Documentation/pictures/$(outbase)/lilypond.ico
+$(top-build-dir)/Documentation/pictures/$(outbase)/lilypond.ico:
+	$(MAKE) -C $(top-src-dir)/Documentation/pictures
+$(outdir)/lilypond.ico: $(top-build-dir)/Documentation/pictures/$(outbase)/lilypond.ico
 	cp $< $@ 
-$(builddir)/Documentation/pictures/$(outbase)/ly.ico:
-	$(MAKE) -C $(abs-srcdir)/Documentation/pictures
-$(outdir)/ly.ico: $(builddir)/Documentation/pictures/$(outbase)/ly.ico
+$(top-build-dir)/Documentation/pictures/$(outbase)/ly.ico:
+	$(MAKE) -C $(top-src-dir)/Documentation/pictures
+$(outdir)/ly.ico: $(top-build-dir)/Documentation/pictures/$(outbase)/ly.ico
 	cp $< $@ 
 endif
 
@@ -83,7 +83,12 @@ local-po: $(outdir)/parser.cc
 
 # ugh.  For --srcdir builds, these must exist to satisfy their broken
 # lexer.dep and parser.dep file entries.
-ifneq ($(srcdir), .)
+ifneq ($(configure-srcdir),.)
 .PRECIOUS: $(outdir)/lexer.cc $(outdir)/parser.cc
 endif
 
+
+foe:
+	@echo b:$(build-dir)
+	@echo s:$(src-dir)
+	@echo t:$(tree-dir)

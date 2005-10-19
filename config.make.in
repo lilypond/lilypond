@@ -7,10 +7,25 @@ MISSING_REQUIRED = @REQUIRED@
 
 package-depth = @package_depth@
 
-USER_CFLAGS = @CPPFLAGS@ @CFLAGS@ @GUILE_CFLAGS@ @PANGO_FT2_CFLAGS@ @FREETYPE2_CFLAGS@
-USER_CXXFLAGS = @CPPFLAGS@ @CXXFLAGS@ @GUILE_CFLAGS@ @PANGO_FT2_CFLAGS@ @FREETYPE2_CFLAGS@
-USER_LDFLAGS = @LDFLAGS@ @GUILE_LDFLAGS@
-EXTRA_LIBES = @EXTRA_LIBES@ @LIBS@ @PANGO_FT2_LIBS@ @FONTCONFIG_LIBS@ @FREETYPE2_LIBS@
+FREETYPE2_CFLAGS = @FREETYPE2_CFLAGS@
+GTK2_CFLAGS = @GTK2_CFLAGS@
+GUILE_CFLAGS = @GUILE_CFLAGS@
+PANGO_FT2_CFLAGS = @PANGO_FT2_CFLAGS@
+
+CONFIG_CPPFLAGS = @CPPFLAGS@
+CONFIG_DEFINES = @DEFINES@
+
+CONFIG_CFLAGS = @CFLAGS@ $(GUILE_CFLAGS) $(FREETYPE2_CFLAGS) $(PANGO_FT2_CFLAGS)
+CONFIG_CXXFLAGS = @CXXFLAGS@ $(GUILE_CFLAGS) $(FREETYPE2_CFLAGS) $(PANGO_FT2_CFLAGS)
+
+FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
+GUILE_LIBS = @GUILE_LDFLAGS@
+GTK2_LIBS = @GTK2_LIBS@
+FREETYPE2_LIBS = @FREETYPE2_LIBS@
+PANGO_FT2_LIBS = @PANGO_FT2_LIBS@
+
+CONFIG_LIBS = @LIBS@ @EXTRA_LIBS@ $(GUILE_LIBS) $(PANGO_FT2_LIBS) $(FONTCONFIG_LIBS) $(FREETYPE2_LIBS)
+CONFIG_LDFLAGS = @LDFLAGS@
 
 PACKAGE = @PACKAGE@
 package = @package@
@@ -21,24 +36,25 @@ HAVE_LIBKPATHSEA_SO = @HAVE_LIBKPATHSEA_SO@
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 
-builddir = @ugh_ugh_autoconf250_builddir@
+##configure-builddir = @ugh_ugh_autoconf250_builddir@
+configure-srcdir = @srcdir@
+
+bindir = @bindir@
 build_lilypond_datadir = @build_package_datadir@
 build_lilypond_libdir = @build_package_libdir@
-bindir = @bindir@
 datadir = @datadir@
+docdir = $(datadir)/doc
+elispdir = $(datadir)/emacs/site-lisp
 includedir = @includedir@
 infodir = @infodir@
 libdir = @libdir@
 localedir = @localedir@
 mandir = @mandir@
+omfdir = $(datadir)/omf
 program_prefix = @program_prefix@
 program_suffix = @program_suffix@
 sharedstatedir = @sharedstatedir@
-srcdir = @srcdir@
 stepmake = @stepmake@
-docdir = $(datadir)/doc
-omfdir = $(datadir)/omf
-elispdir = $(datadir)/emacs/site-lisp
 
 package_datadir = $(datadir)/$(package)
 package_infodir = $(infodir)/$(package)
@@ -75,6 +91,7 @@ DEFS = @DEFS@
 DOTEXE = @DOTEXE@
 FIND = @FIND@
 FLEX = @FLEX@
+FLEXLEXER_PATH = @FLEXLEXER_PATH@
 FONTFORGE = @FONTFORGE@
 GCC = @GCC@
 GROFF = @GROFF@
@@ -89,6 +106,7 @@ INIMETAFONT = @INIMETAFONT@
 INSTALL = @INSTALL@
 KPATHSEA_LIBS = @KPATHSEA_LIBS@
 LD = @LD@
+LINK_GXX_STATICALLY = @LINK_GXX_STATICALLY@
 LN = @LN@
 LN_S = @LN_S@
 MAKEINFO_PROGRAM = @MAKEINFO@
@@ -110,6 +128,3 @@ TAR = @TAR@
 WINDRES = @WINDRES@
 YACC = @YACC@
 ZIP = @ZIP@
-FLEXLEXER_PATH = @FLEXLEXER_PATH@
-
-LINK_GXX_STATICALLY = @LINK_GXX_STATICALLY@

@@ -1,9 +1,9 @@
 include $(stepdir)/compile-vars.make
 
-H_FILES := $(wildcard *.h)
-C_FILES := $(wildcard *.c)
-Y_FILES := $(wildcard *.y)
-L_FILES := $(wildcard *.l)
+H_FILES := $(call src-wildcard,*.h)
+C_FILES := $(call src-wildcard,*.c)
+Y_FILES := $(call src-wildcard,*.y)
+L_FILES := $(call src-wildcard,*.l)
 
 SOURCE_FILES+=$(Y_FILES) $(C_FILES) $(L_FILES) $(H_FILES)
 
@@ -14,4 +14,5 @@ TAGS_HEADERS += $(H_FILES)
 
 ALL_C_SOURCES += $(H_FILES) $(C_FILES) $(Y_FILES) $(L_FILES)
 
-ALL_CFLAGS = $(CFLAGS) $(ICFLAGS) $(DEFINES) $(addprefix -I,$(INCLUDES)) $(USER_CFLAGS) $(EXTRA_CFLAGS) $(MODULE_CFLAGS)
+ALL_CPPFLAGS = $(CPPFLAGS) $(CONFIG_CPPFLAGS) $(DEFINES) $(INCLUDES:%=-I%)
+ALL_CFLAGS = $(CFLAGS) $(ALL_CPPFLAGS) $(CONFIG_CFLAGS) $(MODULE_CFLAGS) $(EXTRA_CFLAGS)

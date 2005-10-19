@@ -1,5 +1,5 @@
 
-SCM_FILES := $(wildcard *.scm)
+SCM_FILES := $(call src-wildcard,*.scm)
 
 SOURCE_FILES += $(SCM_FILES)
 

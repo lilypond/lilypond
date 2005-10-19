@@ -30,7 +30,7 @@ maintainerclean:
 # configure:
 #
 config:
-	./$(depth)/configure
+	./$(src-depth)/configure
 #
 
 
@@ -67,10 +67,10 @@ local-help:
 
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 	mkdir -p $(distdir)/$(localdir)
-	$(LN) $(DIST_FILES) $(distdir)/$(localdir)
+	$(LN) $(DIST_FILES:%=$(src-dir)/%) $(distdir)/$(localdir)
 
 	case "$(NON_ESSENTIAL_DIST_FILES)x" in x) ;; *) \
-		$(LN) $(NON_ESSENTIAL_DIST_FILES) $(distdir)/$(localdir);; \
+		$(LN) $(NON_ESSENTIAL_DIST_FILES:%=$(src-dir)/%) $(distdir)/$(localdir);; \
 	esac
 
 	case "$(OUT_DIST_FILES)x" in x) ;; *) \
@@ -79,7 +79,7 @@ local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 	esac
 #	$(foreach i, $(SUBDIRS), $(MAKE) distdir=../$(distdir) localdir=$(localdir)/$(i) -C $(i) local-dist &&) true
 # absolute for installed stepmake
-	$(foreach i, $(SUBDIRS), $(MAKE) topdir=$(topdir) distdir=$(distdir) localdir=$(localdir)/$(notdir $(i)) -C $(i) local-dist &&) true
+	$(foreach i, $(SUBDIRS), $(MAKE) top-src-dir=$(top-src-dir) distdir=$(distdir) localdir=$(localdir)/$(notdir $(i)) -C $(i) local-dist &&) true
 
 
 
@@ -105,7 +105,7 @@ $(outdir)/config.hh: $(config_h)
 	cp -p $< $@
 
 configure: configure.in aclocal.m4
-	NOCONFIGURE=yes $(srcdir)/autogen.sh
+	NOCONFIGURE=yes $(src-depth)/autogen.sh
 	chmod +x configure
 
 local-clean:
@@ -152,11 +152,11 @@ check: local-check
 local-check:
 
 # ugh.  ugh ugh ugh
-$(config_make): $(topdir)/configure
+$(config_make): $(top-src-dir)/configure
 	@echo "************************************************************"
 	@echo "configure changed! You should probably reconfigure manually."
 	@echo "************************************************************"
-	(cd $(builddir); ./config.status)
+	(cd $(top-build-dir); ./config.status)
 	touch $@		# do something for multiple simultaneous configs.
 
 
@@ -165,11 +165,11 @@ deb:
 	cd $(depth) && debuild
 
 diff:
-	$(PYTHON) $(step-bindir)/package-diff.py  --outdir=$(topdir)/$(outdir) --package=$(topdir) $(makeflags)
+	$(PYTHON) $(step-bindir)/package-diff.py  --outdir=$(top-src-dir)/$(outdir) --package=$(top-src-dir) $(makeflags)
 	-ln -f $(depth)/$(outdir)/$(distname).diff.gz $(patch-dir)
 
 release: 
-	$(PYTHON) $(step-bindir)/release.py --outdir=$(topdir)/$(outdir) --package=$(topdir)
+	$(PYTHON) $(step-bindir)/release.py --outdir=$(top-src-dir)/$(outdir) --package=$(top-src-dir)
 
 
 ################ website.

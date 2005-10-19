@@ -1,3 +1,3 @@
+POD_FILES := $(call src-wildcard,*.pod)
 
-POD_FILES := $(wildcard *.pod)
 OUTPOD_FILES = $(addprefix $(outdir)/,$(POD_FILES))

@@ -393,20 +393,24 @@ setup_paths (char const *argv0)
     }
 
   /*
-    ugh. C&P font-config.cc
+    When running from build dir, a full LILYPOND_PREFIX is set-up at
+
+        share/lilypond/TOPLEVEL_VERSION
+
+     This historical hack will allow the shorthand
+
+        LILYPONDPREFIX=. lily/out/lilypond ...
+
   */
   struct stat statbuf;
-  String builddir = prefix_directory + "/mf/out/";
-  if (stat (builddir.to_str0 (), &statbuf) == 0)
-    dirs.push (builddir.to_str0 ());
-  else
-    {
-      dirs.push (prefix_directory + "/fonts/otf/");
-      dirs.push (prefix_directory + "/fonts/type1/");
-      dirs.push (prefix_directory + "/fonts/cff/");
-      dirs.push (prefix_directory + "/fonts/svg/");
-      dirs.push (prefix_directory + "/fonts/cff/");
-    }
+  String build_prefix = prefix_directory + "share/lilypond/" TOPLEVEL_VERSION;
+  if (stat (build_prefix.to_str0 (), &statbuf) == 0)
+    prefix_directory = build_prefix;
+  
+  dirs.push (prefix_directory + "/fonts/otf/");
+  dirs.push (prefix_directory + "/fonts/type1/");
+  dirs.push (prefix_directory + "/fonts/cff/");
+  dirs.push (prefix_directory + "/fonts/svg/");
 
   for (int i = 0; i < dirs.size (); i++)
     global_path.prepend (dirs[i]);
