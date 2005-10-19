@@ -772,7 +772,7 @@ env.Append (
 #			 os.path.join (absbuild, 'Documentation/user',
 #				       env['out']),
 			 ],
-	makeinfo_path = ['.', '$srcdir/Documentation/user',
+	MAKEINFO_PATH = ['.', '$srcdir/Documentation/user',
 			 '$absbuild/Documentation/user/$out'],
 	)
 
@@ -840,10 +840,10 @@ def symlink_tree (target, source, env):
 	      ('#scm',       'share/lilypond/%(ver)s/scm'),
 	      ('#scripts',   'share/lilypond/%(ver)s/scripts'),
 	      ('#ps',        'share/lilypond/%(ver)s/ps'),
-	      ('po/@/nl.mo', 'share/locale/nl/lc_messages/lilypond.mo'),
+	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
 	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
 
-	print "fixme: barf barf barf"
+	print "FIXME: BARF BARF BARF"
 	os.chdir (absbuild)
 	out = env['out']
 	ver = version
@@ -861,7 +861,7 @@ def symlink_tree (target, source, env):
 if env['debugging']:
 	stamp = os.path.join (run_prefix, 'stamp')
 	env.command (stamp, ['#/SConstruct', '#/VERSION'],
-		     [symlink_tree, 'touch $target'])
+		     [symlink_tree, 'touch $TARGET'])
 	env.depends ('lily', stamp)
 	
 #### dist, tar
@@ -911,10 +911,10 @@ else:
 	subdirs = string.split (os.popen (command).read ())
 
 if env['fast']\
-   and 'all' not in command_line_targets\
-   and 'doc' not in command_line_targets\
-   and 'web' not in command_line_targets\
-   and 'install' not in command_line_targets\
+   and 'all' not in COMMAND_LINE_TARGETS\
+   and 'doc' not in COMMAND_LINE_TARGETS\
+   and 'web' not in COMMAND_LINE_TARGETS\
+   and 'install' not in COMMAND_LINE_TARGETS\
    and 'clean' not in command_line_targets:
 	subdirs = ['lily', 'lily/include',
 		   'flower', 'flower/include',

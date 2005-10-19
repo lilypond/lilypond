@@ -14,7 +14,8 @@ MODULE_CXXFLAGS= -Wno-pmf-conversions
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES=c c++ executable po help2man
 
-OUT_DIST_FILES=$(addprefix $(outdir)/,parser.cc parser.hh )
+# list parser.hh first: making parser.hh removes parser.cc
+OUT_DIST_FILES=$(addprefix $(outdir)/,parser.hh parser.cc)
 
 include $(depth)/make/stepmake.make 
 
@@ -86,9 +87,3 @@ local-po: $(outdir)/parser.cc
 ifneq ($(configure-srcdir),.)
 .PRECIOUS: $(outdir)/lexer.cc $(outdir)/parser.cc
 endif
-
-
-foe:
-	@echo b:$(build-dir)
-	@echo s:$(src-dir)
-	@echo t:$(tree-dir)
