@@ -64,25 +64,17 @@ endif
 ifdef config
   config_make=$(config)
 else
-  ifeq ($(builddir),)
-    config_make=$(depth)/config$(CONFIGSUFFIX).make
-  else
-    config_make=$(builddir)/config$(CONFIGSUFFIX).make
-  endif
+  config_make=$(depth)/config$(CONFIGSUFFIX).make
 endif
 
-ifeq ($(builddir),)
-  outroot=.
-else
-  outroot=$(builddir)$(patsubst $(shell cd $(depth); pwd)%,%,$(pwd))
-endif
+outroot=.
 
 include $(config_make)
 
 outdir=$(outroot)/$(outbase)
 
 # why not generic ?? 
-config_h=$(builddir)/config$(CONFIGSUFFIX).hh
+config_h=$(top-build-dir)/config$(CONFIGSUFFIX).hh
 
 # The outdir that was configured for: best guess to find binaries
 outconfbase=out$(CONFIGSUFFIX)
@@ -115,7 +107,7 @@ all:
 
 include $(addprefix $(stepdir)/,$(addsuffix -vars.make, $(STEPMAKE_TEMPLATES)))
 
-# ugh. need to do this because of PATH :=$(topdir)/..:$(PATH) 
+# ugh. need to do this because of PATH :=$(top-src-dir)/..:$(PATH) 
 include $(addprefix $(depth)/make/,$(addsuffix -vars.make, $(LOCALSTEPMAKE_TEMPLATES))) 
 
 
@@ -123,5 +115,3 @@ include $(addprefix $(depth)/make/,$(addsuffix -rules.make, $(LOCALSTEPMAKE_TEMP
 include $(addprefix $(stepdir)/,$(addsuffix -rules.make, $(STEPMAKE_TEMPLATES))) 
 include $(addprefix $(depth)/make/,$(addsuffix -targets.make, $(LOCALSTEPMAKE_TEMPLATES))) 
 include $(addprefix $(stepdir)/,$(addsuffix -targets.make, $(STEPMAKE_TEMPLATES))) 
-
-

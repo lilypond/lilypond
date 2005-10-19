@@ -1,8 +1,9 @@
 
-MAKE_FILES := $(wildcard *.make)
-LSM_FILES:= $(wildcard *.lsm.in)
+MAKE_FILES := $(call src-wildcard,*.make)
+LSM_FILES:= $(call src-wildcard,*.lsm.in)
+SPEC_FILES:= $(call src-wildcard,*.spec.in)
+
 OUTLSM_FILES=$(addprefix $(outdir)/,$(basename $(LSM_FILES)))
-SPEC_FILES:= $(wildcard *.spec.in)
 OUTSPEC_FILES=$(addprefix $(outdir)/,$(basename $(SPEC_FILES)))
 OUT_DIST_FILES= $(strip $(OUTLSM_FILES) $(OUTSPEC_FILES))
 

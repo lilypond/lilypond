@@ -56,10 +56,13 @@ if test -n "$NOCONFIGURE"; then
 fi
 
 if test -z "$*"; then
-    echo "warning: about to run \`./configure' without arguments."
-    echo "arguments on the \`$0\'"
-    echo "command line will be passed to \`./configure'."
-    echo
+    cat <<EOF
+    Warning: about to run \`configure' without arguments.
+    arguments on the \`$0' command line
+    will be passed to \`configure'.
+
+    Invoke with --noconfigure to skip configure step.
+EOF
 fi
 
 echo Running $srcdir/configure $conf_flags "$@" ...

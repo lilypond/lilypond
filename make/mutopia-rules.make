@@ -13,7 +13,7 @@ $(outdir)/%.ly.txt: %.abc
 $(outdir)/%.ly: %.abc
 	$(PYTHON) $(ABC2LY) --strict -o $@ $< 
 
-# hmm. notdir builds srcdir builds? 
+# hmm. notdir builds src-dir builds? 
 $(outdir)/%.png $(outdir)/%.pdf $(outdir)/%.ly $(outdir)/%.ps: $(outdir)/%.ly
 	cd $(outdir); $(LILYPOND) --pdf --png -danti-alias-factor=2 -ddelete-intermediate-files -dno-point-and-click -I $(shell pwd)/ $(notdir $<)
 	touch $(outdir)/$(basename $(notdir $<)).png

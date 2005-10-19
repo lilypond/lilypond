@@ -35,5 +35,3 @@ ATVARIABLES = \
   program_prefix\
   program_suffix\
   sharedstatedir\
-  srcdir\
-  step-bindir\

@@ -85,16 +85,16 @@ AC_SEARCH_LIBS(mbrtowc, [mingwex msvcp60])
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
 if test "$gui_b" = "yes"; then
     STEPMAKE_GTK2(gtk+-2.0, REQUIRED, 2.4.0)
-fi # $gui_b
+fi
 
 if test "$reloc_b" = "yes"; then
     AC_DEFINE(ARGV0_RELOCATION)
-fi # $reloc_b
+fi
 
-STEPMAKE_FREETYPE2(freetype2, REQUIRED, 0)
-#STEPMAKE_PANGO(pango, REQUIRED, 1.6.0)
 STEPMAKE_PANGO_FT2(pangoft2, REQUIRED, 1.6.0)
+#STEPMAKE_PANGO(pango, REQUIRED, 1.6.0)
 STEPMAKE_FONTCONFIG(fontconfig, REQUIRED, 2.2.0)
+STEPMAKE_FREETYPE2(freetype2, REQUIRED, 0)
 
 STEPMAKE_WINDOWS
 

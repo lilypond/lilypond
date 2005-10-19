@@ -1,20 +1,20 @@
 
 include $(stepdir)/compile-vars.make
 
-EXTRA_CXXFLAGS= -W -Wall -Wconversion
+EXTRA_CXXFLAGS = -W -Wall -Wconversion
 #ifeq ($(MY_PATCH_LEVEL),)
 #EXTRA_CXXFLAGS += -Werror
 #endif
 
-ALL_CXXFLAGS = $(CXXFLAGS) $(ICFLAGS) $(DEFINES) $(addprefix -I,$(INCLUDES)) $(USER_CFLAGS) $(EXTRA_CFLAGS) $(MODULE_CFLAGS) $($(PACKAGE)_CFLAGS) $($(PACKAGE)_CXXFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
+ALL_CXXPPFLAGS = $(DEFINES) $(INCLUDES:%=-I%)
+ALL_CXXFLAGS = $(CXXFLAGS) $(ALL_CXXPPFLAGS) $($(PACKAGE)_CXXFLAGS) $(CONFIG_CXXFLAGS) $(MODULE_CXXFLAGS) $(EXTRA_CXXFLAGS)
 
-# template files:
-TCC_FILES := $(wildcard *.tcc)
-HH_FILES := $(wildcard *.hh)
-CC_FILES := $(wildcard *.cc)
-INL_FILES := $(wildcard *.icc)
-YY_FILES := $(wildcard *.yy)
-LL_FILES := $(wildcard *.ll)
+TCC_FILES := $(call src-wildcard,*.tcc)
+HH_FILES := $(call src-wildcard,*.hh)
+CC_FILES := $(call src-wildcard,*.cc)
+INL_FILES := $(call src-wildcard,*.icc)
+YY_FILES := $(call src-wildcard,*.yy)
+LL_FILES := $(call src-wildcard,*.ll)
 
 SOURCE_FILES+= $(CC_FILES) $(YY_FILES) $(INL_FILES) $(TCC_FILES) $(HH_FILES) $(LL_FILES)
 

@@ -22,9 +22,9 @@ SUBDIRS = buildscripts python scripts \
 #package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
 
 SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh Doxyfile
-README_FILES = ChangeLog  COPYING DEDICATION ROADMAP THANKS HACKING
+README_FILES = ChangeLog COPYING DEDICATION ROADMAP THANKS HACKING
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
-IN_FILES := $(wildcard *.in)
+IN_FILES := $(call src-wildcard,*.in)
 PATCH_FILES = emacsclient.patch server.el.patch darwin.patch
 EXTRA_DIST_FILES = VERSION .cvsignore SConstruct \
   $(README_FILES) $(SCRIPTS) $(IN_FILES) $(PATCH_FILES)
@@ -69,20 +69,20 @@ footifymail = MAILADDRESS=bug-lilypond@gnu.org
 
 local-WWW-post:
 # need UTF8 setting in case this is hosted on a website. 
-	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(builddir)/.htaccess
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
-	cd $(builddir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
-	cd $(builddir) && find . -name \*.html~ -print | xargs rm -f
-	cd $(builddir) && find Documentation input \
+	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(top-build-dir)/examples.html ./
+	cd $(top-build-dir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
+	cd $(top-build-dir) && find . -name \*.html~ -print | xargs rm -f
+	cd $(top-build-dir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
 		> $(outdir)/weblist
-	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
-	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
-	cd $(builddir) && ls *.html >> $(outdir)/weblist
-	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
+	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(top-build-dir)/index.html
+	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(top-build-dir)/index.html
+	cd $(top-build-dir) && ls *.html >> $(outdir)/weblist
+	cat $(outdir)/weblist | (cd $(top-build-dir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
-share-prefix = $(builddir)/share
-tree-prefix = $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)
+share-prefix = $(top-build-dir)/share
+tree-prefix = $(top-build-dir)/share/lilypond/$(TOPLEVEL_VERSION)
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
@@ -90,18 +90,18 @@ web-clean:
 	$(MAKE) out=www clean
 	$(MAKE) $(tree-prefix)/lilypond-force
 
-default: $(config_h) builddir-setup 
+default: $(config_h) build-dir-setup 
 
-builddir-setup: $(tree-prefix)/lilypond-force
+build-dir-setup: $(tree-prefix)/lilypond-force
 
-PO_FILES = $(wildcard $(srcdir)/po/*.po)
-HELP_CATALOGS = $(PO_FILES:$(srcdir)/po/%.po=%)
+PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
+HELP_CATALOGS = $(PO_FILES:$(src-depth)/po/%.po=%)
 CATALOGS = $(HELP_CATALOGS:lilypond=) 
 
 $(tree-prefix)/lilypond-force link-tree: GNUmakefile
-# Preparing LilyPond tree for builddir exec
-	cd $(builddir) && rm -rf lib share
-	mkdir -p $(builddir)/lib/$(package)
+# Preparing LilyPond tree for build-dir exec
+	cd $(top-build-dir) && rm -rf lib share
+	mkdir -p $(top-build-dir)/lib/$(package)
 	mkdir -p $(tree-prefix)
 	mkdir -p $(tree-prefix)/dvips
 	mkdir -p $(tree-prefix)/elisp
@@ -113,19 +113,20 @@ $(tree-prefix)/lilypond-force link-tree: GNUmakefile
 	mkdir -p $(tree-prefix)/fonts/map
 	mkdir -p $(tree-prefix)/fonts/enc
 	mkdir -p $(tree-prefix)/tex
-	cd $(builddir)/lib && \
+	cd $(top-build-dir)/lib && \
 		ln -s  ../../../python/$(outconfbase) python
 	cd $(tree-prefix) && \
-		ln -s $(abs-srcdir)/ly ly && \
-		ln -s $(abs-srcdir)/ps && \
+		ln -s $(top-src-dir)/ly ly && \
+		ln -s ../../../mf mf && \
+		ln -s $(top-src-dir)/ps && \
 		ln -s ../../../python/$(outconfbase) python && \
-		ln -s $(abs-srcdir)/scm && \
-		ln -s $(abs-srcdir)/scripts scripts
+		ln -s $(top-src-dir)/scm && \
+		ln -s $(top-src-dir)/scripts scripts
 	cd $(tree-prefix)/dvips && \
 		ln -s ./../../mf/$(outconfbase) mf-out && \
-		ln -s $(abs-srcdir)/ps
+		ln -s $(top-src-dir)/ps
 	cd $(tree-prefix)/tex && \
-		ln -s $(abs-srcdir)/tex source && \
+		ln -s $(top-src-dir)/tex source && \
 		ln -s ../../../../tex/$(outconfbase) tex-out && \
 		ln -s ../../../../mf/$(outconfbase) mf-out
 	-cd $(tree-prefix)/fonts/otf && \
@@ -137,11 +138,11 @@ $(tree-prefix)/lilypond-force link-tree: GNUmakefile
 	-cd $(tree-prefix)/fonts/type1 && \
 		ln -s ../../../../../mf/$(outconfbase)/*.pfa .
 	cd $(tree-prefix)/fonts && \
-		ln -s $(abs-srcdir)/mf source && \
+		ln -s $(top-src-dir)/mf source && \
 		true
 	-cd $(tree-prefix)/elisp && \
 		ln -sf ../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
-		ln -s $(abs-srcdir)/elisp/*.el .
+		ln -s $(top-src-dir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
 		mkdir -p $(share-prefix)/locale/$i/LC_MESSAGES && \
 		cd $(share-prefix)/locale/$i/LC_MESSAGES && \
@@ -149,9 +150,9 @@ $(tree-prefix)/lilypond-force link-tree: GNUmakefile
 #	touch $@
 	touch $(tree-prefix)/lilypond-force
 
-local-clean: builddir-setup-clean
-builddir-setup-clean:
-	cd $(builddir) && rm -rf share
+local-clean: build-dir-setup-clean
+build-dir-setup-clean:
+	cd $(top-build-dir) && rm -rf share
 
 $(config_h): config.hh.in
 #

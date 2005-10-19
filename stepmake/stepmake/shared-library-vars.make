@@ -20,4 +20,3 @@ lo-dep-out = $(outdir)/$(subst .lo,.dep,$(notdir $@))#
 DO_LO_DEP = rm -f $(lo-dep-out); DEPENDENCIES_OUTPUT="$(lo-dep-out) $(outdir)/$(notdir $@)"
 
 LO_FILES += $(addprefix $(outdir)/, $(Y_FILES:.y=.lo) $(C_FILES:.c=.lo) $(L_FILES:.l=.lo))
-

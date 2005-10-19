@@ -8,26 +8,22 @@ For more information, tutorial, documentation, packaging instructions, visit:
 Runtime requirements:
   bash
   cygwin-1.5.11 or newer
-  ec-fonts-mftraced
   ghostscript
   glib2-runtime
   libfontconfig1
   libfreetype2
   libguile12-1.6.5-1 or newer
   libiconv2
-  libintl2
-  libkpathsea3-2.0.2-15 or newer
+  libintl3
   pango-runtime
   python
-  tetex-bin-2.0.2-15 or newer
-  tetex-tiny or tetex-base
 
 Suggested:
   xorg-x11-base
   emacs or vim
   ghostscript-x11
   rxvt
-  tetex-x11
+  libkpathsea4-3.0.0-3 or newer
   gv
 
 Build requirements:
@@ -43,12 +39,12 @@ Build requirements:
   libfontconfig-devel
   libfreetype2-devel
   libguile12-1.6.5-1 or newer
-  libkpathsea3-2.0.2-15 or newer
+  libkpathsea4-3.0.0-3 or newer
   pango-devel
   python
   sed
-  tetex-devel-2.0.2-15 or newer
-  texinfo-4.7 or newer
+  tetex-devel-3.0.0-3 or newer
+  texinfo-4.8 or newer
 
   
 Website/documentation build requirements (lilypond-doc package):
@@ -102,7 +98,7 @@ Port notes:
 
   LilyPond builds ootb with cygwin/mknetrel.
 
-  Cygwin port maintained by: Bertalan Fodor
+  Cygwin port maintained by: Jan Nieuwenhuizen.
 
 ------------------
 

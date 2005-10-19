@@ -14,12 +14,12 @@ include $(depth)/make/stepmake.make
 
 LILYPOND_WORDS = $(outdir)/lilypond-words.el
 LILYPOND_WORDS_DEPENDS =\
-  $(topdir)/lily/lily-lexer.cc \
+  $(top-src-dir)/lily/lily-lexer.cc \
   $(buildscript-dir)/lilypond-words.py \
-  $(topdir)/scm/markup.scm \
-  $(topdir)/ly/engraver-init.ly
+  $(top-src-dir)/scm/markup.scm \
+  $(top-src-dir)/ly/engraver-init.ly
 
 $(LILYPOND_WORDS): 
-	cd $(topdir) && $(PYTHON) buildscripts/lilypond-words.py --el --dir=$(builddir)/elisp/$(outconfbase)
+	cd $(top-src-dir) && $(PYTHON) buildscripts/lilypond-words.py --el --dir=$(top-build-dir)/elisp/$(outconfbase)
 
 all: $(LILYPOND_WORDS)

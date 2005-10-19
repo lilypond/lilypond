@@ -5,7 +5,7 @@ LOCALSTEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make 
 
-AF_FILES = $(wildcard *.af)
+AF_FILES = $(call src-wildcard,*.af)
 
 # hangs on feta23
 MFTRACE_FLAGS=  # --simplify
@@ -13,10 +13,10 @@ MFTRACE_FLAGS=  # --simplify
 EXTRA_DIST_FILES += README feta.tex
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
-FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
-	$(wildcard feta-braces-[a-z].mf)\
-	$(wildcard feta-alphabet*[0-9].mf)\
-	$(wildcard parmesan[0-9]*.mf)
+FETA_MF_FILES = $(call src-wildcard,feta[0-9]*.mf)\
+	$(call src-wildcard,feta-braces-[a-z].mf)\
+	$(call src-wildcard,feta-alphabet*[0-9].mf)\
+	$(call src-wildcard,parmesan[0-9]*.mf)
 
 STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
@@ -49,7 +49,7 @@ TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)\
 FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 
 
-ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
+ENCODING_FILE=$(findstring $(<F:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
 
 # only for fonts which
@@ -120,7 +120,7 @@ $(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa $(outdir)/aybabtu.svg: 
 $(outdir)/aybabtu.fontname:
 	echo -n 'aybabtu' > $@ 
 $(outdir)/aybabtu.subfonts: 
-	echo $(subst .mf,,$(wildcard feta-braces-[a-z].mf)) > $@
+	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
 $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
@@ -171,8 +171,8 @@ export MFINPUTS:=.:$(MFINPUTS)
 .PHONY: tree-regen
 # FIXME: temporary hack: must regenerate after building fonts
 tree-regen:
-	rm -rf $(builddir)/share
-	${MAKE} -C $(builddir) link-tree
+	rm -rf $(top-build-dir)/share
+	${MAKE} -C $(top-build-dir) link-tree
 
 default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 
@@ -243,3 +243,6 @@ local-install:
 local-uninstall:
 	-rm -f $(DESTDIR)$(local_lilypond_datadir)/dvips/map
 	-rmdir $(DESTDIR)$(local_lilypond_datadir)/dvips
+
+foe:
+	@echo mf:$(FETA_MF_FILES)

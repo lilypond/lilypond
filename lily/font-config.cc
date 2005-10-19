@@ -29,18 +29,15 @@ init_fontconfig ()
 
   font_config_global = FcConfigGetCurrent ();
   Array<String> dirs;
-  struct stat statbuf;
-  String builddir = prefix_directory + "/mf/out/";
 
-  if (stat (builddir.to_str0 (), &statbuf) == 0)
-    dirs.push (builddir.to_str0 ());
-  else
-    {
-      dirs.push (prefix_directory + "/fonts/otf/");
-      dirs.push (prefix_directory + "/fonts/type1/");
-      dirs.push (prefix_directory + "/fonts/svg/");
-    }
-
+  /*
+    ugh. C&P main.cc
+  */
+  dirs.push (prefix_directory + "/fonts/otf/");
+  dirs.push (prefix_directory + "/fonts/type1/");
+  dirs.push (prefix_directory + "/fonts/cff/");
+  dirs.push (prefix_directory + "/fonts/svg/");
+  
   for (int i = 0; i < dirs.size (); i++)
     {
       String dir = dirs[i];
