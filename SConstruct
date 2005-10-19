@@ -688,6 +688,8 @@ if env['warnings']:
 
 # ugr,huh?
 env.Append (LINKFLAGS = ['-Wl,--export-dynamic'])
+# FIXME: ParseConfig ignores -L flag?
+env.Append (LINKFLAGS = ['-L/usr/X11R6/lib'])
 
 if env['verbose']:
 	env['__verbose'] = ' --verbose'
