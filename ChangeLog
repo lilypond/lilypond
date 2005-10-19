@@ -1,5 +1,8 @@
 2005-10-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* SConstruct (CheckYYCurrentBuffer): Use TryCompile (there is no
+	main).
+
 	* lily/SConscript: Remove ttftools.
 
 	* SConstruct: Resurrect.

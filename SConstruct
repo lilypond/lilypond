@@ -369,7 +369,7 @@ def configure (target, source, env):
 
 	def CheckYYCurrentBuffer (context):
 		context.Message ('Checking for yy_current_buffer... ')
-		ret = conf.TryLink ("""using namespace std;
+		ret = conf.TryCompile ("""using namespace std;
 		#include <FlexLexer.h>
 		class yy_flex_lexer: public yyFlexLexer
 		{
