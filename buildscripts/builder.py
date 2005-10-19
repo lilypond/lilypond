@@ -231,12 +231,13 @@ pfa = Builder (action = a,
 env.Append (BUILDERS = {'PFA': pfa})
 
 a = ['(cd ${TARGET.dir} && $FONTFORGE -script ${SOURCE.file})',
-     '$PYTHON $srcdir/buildscripts/ps-embed-cff.py ${SOURCE.base}.cff $$(cat ${SOURCE.base}.fontname) ${SOURCE.base}.cff.ps',
+#     '$PYTHON $srcdir/buildscripts/ps-embed-cff.py ${SOURCE.base}.cff $$(cat ${SOURCE.base}.fontname) ${SOURCE.base}.cff.ps',
      'rm -f ${TARGET.dir}/*.scale.pfa']
 otf = Builder (action = a,
 	       suffix = '.otf',
 	       src_suffix = '.pe',
-	       emitter = add_cff_cffps_svg)
+#	       emitter = add_cff_cffps_svg
+	       )
 env.Append (BUILDERS = {'OTF': otf})
 
 
