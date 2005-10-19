@@ -858,11 +858,11 @@ def symlink_tree (target, source, env):
 			   % vars ())
 	os.chdir (srcdir)
 
-if env['debugging']:
+if 1: #env['debugging']:
 	stamp = os.path.join (run_prefix, 'stamp')
-	env.command (stamp, ['#/SConstruct', '#/VERSION'],
+	env.Command (stamp, ['#/SConstruct', '#/VERSION'],
 		     [symlink_tree, 'touch $TARGET'])
-	env.depends ('lily', stamp)
+	env.Depends ('lily', stamp)
 	
 #### dist, tar
 def plus (a, b):
@@ -915,11 +915,12 @@ if env['fast']\
    and 'doc' not in COMMAND_LINE_TARGETS\
    and 'web' not in COMMAND_LINE_TARGETS\
    and 'install' not in COMMAND_LINE_TARGETS\
-   and 'clean' not in command_line_targets:
-	subdirs = ['lily', 'lily/include',
-		   'flower', 'flower/include',
+   and 'clean' not in COMMAND_LINE_TARGETS:
+	subdirs = ['lily',
+		   'flower',
 		   'kpath-guile',
 		   'mf',
+		   'python',
 		   ]
 
 if os.path.isdir ('%(srcdir)s/CVS' % vars ()):

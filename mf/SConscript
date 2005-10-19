@@ -32,7 +32,7 @@ g = map (env.GTABLE, fonts)
 #p = map (env.PFA, fonts + map (lambda x: 'PFA' + x, otfs))
 p = map (env.PFA, fonts)
 #e = map (env.ENC, fonts)
-c = map (lambda x: x + '.cff', fonts)
+#c = map (lambda x: x + '.cff', fonts)
 cp = map (lambda x: x + '.cff.ps', fonts)
 e = map (lambda x: x + '.enc', fonts)
 s = map (lambda x: x + '.svg', fonts)
@@ -48,6 +48,7 @@ otf_table = Builder (action = a, suffix = '.otf-table',
 		     src_suffix = '.lisp')
 env.Append (BUILDERS = {'OTF_TABLE': otf_table})
 f = map (env.OTF_TABLE, feta)
+g = map (env.OTF_TABLE, feta_braces)
 
 map (lambda x: env.Depends ('emmentaler-' + x + '.otf',
 			    'feta' + x + '.otf-table'),
@@ -79,19 +80,25 @@ env.Command ('aybabtu.otf-gtable',
 	     map (lambda x: x + '.otf-gtable', feta_braces),
 	     'echo "(design_size . 20)" > $TARGET')
 
+#env.Depends ('aybabtu.otf-table',
+#	     map (lambda x: x + '.otf-table', feta_braces))
+
 env.Depends ('aybabtu.otf', 'aybabtu.subfonts')
 env.Depends ('aybabtu.otf', 'aybabtu.fontname')
 env.Depends ('aybabtu.otf', 'aybabtu.otf-table')
 env.Depends ('aybabtu.otf', 'aybabtu.otf-gtable')
+
+# Hmm?
+env.Depends ('aybabtu.pfa', 'aybabtu.subfonts')
+env.Depends ('aybabtu.pfa', 'aybabtu.fontname')
+env.Depends ('aybabtu.pfa', 'aybabtu.otf-table')
+env.Depends ('aybabtu.pfa', 'aybabtu.otf-gtable')
 
 
 ## FIXME
 mf_essential = ['feta16', 'feta20', 'parmesan16', ]
 pfa_essential = map (env.PFA, mf_essential)
 env.Alias ('mf-essential', pfa_essential)
-
-env.Command ('cmr.enc', 'cmr.enc.in', 'cp $SOURCE $TARGET')
-env.Alias ('mf', 'cmr.enc')
 
 env['fonts'] = string.join (fonts)
 env['feta_sizes'] = string.join (feta_sizes)
@@ -105,7 +112,7 @@ env.Command ('lilypond.map', p,
 	      'echo "Aybabtu-Regular Aybabtu-Regular <aybabtu.cff.ps" >> $TARGET',
 	      'echo "PFAAybabtu-Regular PFAAybabtu-Regular <aybabtu.cff.ps" >> $TARGET',
 	      'for i in $sauter; do echo "$$i $$i <$$i.pfa"; done >> $TARGET'])
-env.Alias ('mf', 'lilypond.map')
+#env.Alias ('mf', 'lilypond.map')
 
 env.Command ('fonts.scale', p,
 	     'cd ${TARGET.dir} && echo *.pfa *.pfb | $PYTHON $srcdir/buildscripts/make-font-dir.py  > $TARGET.file')
@@ -130,7 +137,7 @@ env.Command ('Fontmap.lily', p + ['Fontmap'],
 	      '''echo "/Aybabtu (aybabtu.cff.ps);" >> $TARGET''',
 	      '''echo "/PFAAybabtu (PFAaybabtu.pfa);" >> $TARGET''',
 	      '''for i in $sauter; do echo "$$i ($$i.pfa);"; done >> $TARGET'''])
-env.Alias ('mf', 'Fontmap.lily')
+#env.Alias ('mf', 'Fontmap.lily')
 
 # build essential stuff first, that's friendlier
 env.Alias ('mf', pfa_essential + p + map (lambda x: x[0], o))
@@ -140,6 +147,6 @@ install (p, env['sharedir_package_version'] + '/fonts/type1')
 install (o, env['sharedir_package_version'] + '/fonts/otf')
 install (e, env['sharedir_package_version'] + '/ps')
 install (s, env['sharedir_package_version'] + '/fonts/svg')
-install (c, env['sharedir_package_version'] + '/fonts/cff')
+#install (c, env['sharedir_package_version'] + '/fonts/cff')
 install (cp, env['sharedir_package_version'] + '/ps')
 
