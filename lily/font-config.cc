@@ -31,6 +31,7 @@ init_fontconfig ()
   Array<String> dirs;
   String builddir = prefix_directory + "/mf/out/";
 
+  struct stat statbuf;
   if (stat (builddir.to_str0 (), &statbuf) == 0)
     dirs.push (builddir.to_str0 ());
   else

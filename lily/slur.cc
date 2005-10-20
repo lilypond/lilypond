@@ -230,6 +230,7 @@ ADD_INTERFACE (Slur, "slur-interface",
 	       
 	       "A slur",
 	       
+	       /* properties */
 	       "control-points "
 	       "dash-fraction "
 	       "dash-period "
