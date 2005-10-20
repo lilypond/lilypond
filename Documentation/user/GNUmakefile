@@ -78,7 +78,7 @@ else
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
-	(cd $(lilypond_infodir) && ln -sf $(webdir)/Documentation/user/out-www/*png .)
+	(cd $(package_infodir) && ln -sf $(webdir)/Documentation/user/out-www/*png .)
 endif
 
 local-uninstall-WWW:
