@@ -1147,8 +1147,8 @@ does not amount to much.  The initialization file
      (self-alignment-X . 0)
      (self-alignment-Y . 0)
      (script-priority . 100)
-     (callbacks . ((stencil . ,Text_interface::print)
-                   (direction . ,Script_interface::calc_direction)))
+     (stencil . ,Text_interface::print)
+     (direction . ,Script_interface::calc_direction)
      (font-encoding . fetaNumber)
      (font-size . -5) 		; don't overlap when next to heads.
      (meta . ((class . Item)
