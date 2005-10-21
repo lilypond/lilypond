@@ -1575,7 +1575,7 @@ mus = \drummode {
        \remove Time_signature_engraver
        \override Stem #'transparent = ##t
        \override Stem #'Y-extent-callback = ##f
-       minimumVerticalExtent = #'(-4.0 . 5.0)
+       \override VerticalAxisGroup #'minimum-Y-extent = #'(-4.0 . 5.0)
      } \mus
      \context Lyrics \nam
   >>
@@ -1609,7 +1609,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
     \override Stem #'Y-extent-callback = ##f
     \override StaffSymbol #'line-count = #2
     \override StaffSymbol #'staff-space = #2
-    minimumVerticalExtent = #'(-3.0 . 4.0)
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.0 . 4.0)
     drumStyleTable = #timbales-style
   } \mus
   \context Lyrics {
@@ -2212,7 +2212,7 @@ select ancient accidentals.   Supported styles are
       \remove "Key_engraver"
       \remove "Time_signature_engraver"
       \remove "Staff_symbol_engraver"
-      minimumVerticalExtent = ##f
+      \override VerticalAxisGroup #'minimum-Y-extent = ##f
     }
   }
 }

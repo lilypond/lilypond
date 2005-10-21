@@ -2625,7 +2625,7 @@ def conv (str):
 		      r"\\revert \1 #'\2", str)
 	str = re.sub (r"([XY]-extent)-callback", r'\1', str)
 	str = re.sub (r"RemoveEmptyVerticalGroup", "VerticalAxisGroup", str)
-	str = re.sub (r"\\set ([a-zA-Z]+\.)?minimumVerticalExtent",
+	str = re.sub (r"\\set ([a-zA-Z]*\.?)minimumVerticalExtent",
 		      r"\\override \1VerticalAxisGroup #'minimum-Y-extent",
 		      str)
 	str = re.sub (r"minimumVerticalExtent",
