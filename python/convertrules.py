@@ -2619,7 +2619,10 @@ conversions.append (((2, 7, 13), conv,
 
 
 def conv (str):
-	str = re.sub (r"#'callbacks", '', str)
+	str = re.sub (r"\\override +([A-Z.a-z]+) #'callbacks",
+		      r"\\override \1", str)
+	str = re.sub (r"\\revert ([A-Z.a-z]+) #'callbacks % ([a-zA-Z]+)",
+		      r"\\revert \1 #'\2", str)
 	str = re.sub (r"([XY]-extent)-callback", r'\1', str)
 	return str
 

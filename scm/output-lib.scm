@@ -59,8 +59,11 @@
 ;;; end of tablature functions
 
 (define-public (make-stencil-boxer thickness padding callback)
+
   "Return function that adds a box around the grob passed as argument."
-  (lambda (grob) (box-stencil (callback grob) thickness padding)))
+  (lambda (grob)
+    
+    (box-stencil (callback grob) thickness padding)))
 
 (define-public (make-stencil-circler thickness padding callback)
   "Return function that adds a circle around the grob passed as argument."

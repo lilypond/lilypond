@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.14"
 \header {
 texidoc = "@cindex compound time
 @cindex plus
@@ -24,7 +24,7 @@ compound time.
 \relative {
   %% compound time signature hack
   \time 5/8
-  \override Staff.TimeSignature #'callbacks #'stencil
+  \override Staff.TimeSignature  #'stencil
   = #(lambda (grob) (compound-time grob "2" "3" "8"))
   #(override-auto-beam-setting '(end 1 8 5 8) 1 4)
   c8 c c8 c c
