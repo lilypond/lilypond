@@ -188,7 +188,7 @@ Texts over multi measure rests can stretch the corresponding measure,
 if the appropriate @code{spring-and-rods} callback is set.
 
 @lilypond[relative=2,fragment,raggedright]
-\override MultiMeasureRestText #'callbacks #'springs-and-rods
+\override MultiMeasureRestText #'springs-and-rods
   = #Multi_measure_rest::set_text_rods
 c1 R1 R1^"Very long long long text" 
 @end lilypond
