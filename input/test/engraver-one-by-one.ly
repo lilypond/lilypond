@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.14"
 \header {
     
 texidoc = "The notation problem, creating a certain symbol,
@@ -56,7 +56,7 @@ MyStaff =\context {
 	\consists "Axis_group_engraver"
 \consists "Pitch_squash_engraver"
 
-	minimumVerticalExtent = #'(-6 . 6)
+	\override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()

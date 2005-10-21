@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.6.0"
+\version "2.7.14"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
@@ -143,7 +143,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	\layout {
 	    \context {
 		\Lyrics
-		minimumVerticalExtent = #'(-0.85 . 2.2)
+		\override VerticalAxisGroup #'minimum-Y-extent = #'(-0.85 . 2.2)
 		\override LyricText #'font-size = #-1
 	    }
 	    \context {

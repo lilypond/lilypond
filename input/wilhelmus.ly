@@ -1,4 +1,4 @@
-\version "2.7.10"
+\version "2.7.14"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -170,10 +170,10 @@ oneHalfNoteTime = \markup {
       \setMargins
      
       %% Less vertical space needed with lyrics
-      \set Staff.minimumVerticalExtent = #'(2 . 2)
+      \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(2 . 2)
       
       %% Custom time signature
-      \override Staff.TimeSignature #'print-function = #Text_interface::print
+      \override Staff.TimeSignature #'stencil = #Text_interface::print
       \override Staff.TimeSignature #'text = #oneHalfNoteTime
       \noclefs
     
@@ -181,7 +181,7 @@ oneHalfNoteTime = \markup {
       \context Voice = "stich" \stich
     >>
     \lyricsto "voice" \new Lyrics {
-      \set minimumVerticalExtent = #'(2 . 2)
+      \override VerticalAxisGroup #'minimum-Y-extent = #'(2 . 2)
       \text
     }
   >>
