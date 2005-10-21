@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.14"
 
 \header { texidoc=" You can write stencil callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -37,7 +37,7 @@ GROB.  The dimensions of the stencil is not affected.
 	    (subject-dim-x (ly:stencil-extent subject 0))
 	    (subject-dim-y (ly:stencil-extent subject 1)))
 
-        ; add parens
+        ;; add parens
         (set! subject
 	     (ly:stencil-combine-at-edge 
 	      (ly:stencil-combine-at-edge subject 0 1 pclose 0.2)
@@ -53,13 +53,13 @@ GROB.  The dimensions of the stencil is not affected.
 \relative c' {
     c4 e
 
-    \override NoteHead #'callbacks #'stencil
+    \override NoteHead  #'stencil
     =
     #(parenthesize-callback Note_head::print)
     g bes
-    \revert NoteHead #'callbacks % stencil
+    \revert NoteHead  % stencil
 
-    \override Beam #'callbacks #'stencil
+    \override Beam  #'stencil
     =
     #(parenthesize-callback Beam::print)
 

@@ -1,5 +1,8 @@
 2005-10-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (datadir): add prefix switching hack to
+	.py too.
+
 	* input/mutopia/W.A.Mozart/mozart-hrn3-defs.ily (cresc): remove
 	space-function tweak.
 

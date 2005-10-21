@@ -2987,7 +2987,7 @@ Isolated percents can also be printed. This is done by putting a multi
 measure rest with a different print function,
 
 @lilypond[fragment,verbatim]
-\override MultiMeasureRest #'callbacks #'stencil
+\override MultiMeasureRest #'stencil
   = #Multi_measure_rest::percent
 R1
 @end lilypond

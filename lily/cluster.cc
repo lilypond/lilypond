@@ -210,13 +210,13 @@ ADD_INTERFACE (Cluster, "cluster-interface",
 struct Cluster_beacon
 {
 public:
-  DECLARE_SCHEME_CALLBACK (height, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (height, (SCM));
   static bool has_interface (Grob *);
 };
 
-MAKE_SCHEME_CALLBACK (Cluster_beacon, height, 2);
+MAKE_SCHEME_CALLBACK (Cluster_beacon, height, 1);
 SCM
-Cluster_beacon::height (SCM g, SCM)
+Cluster_beacon::height (SCM g)
 {
   Grob *me = unsmob_grob (g);
   Interval v = robust_scm2interval (me->get_property ("positions"),
@@ -228,4 +228,6 @@ ADD_INTERFACE (Cluster_beacon,
 	       "cluster-beacon-interface",
 	       "A place holder for the cluster spanner to determine the vertical "
 	       "extents of a cluster spanner at this X position.",
-	       "positions");
+
+	       /* properties */
+	       "positions ");

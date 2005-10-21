@@ -22,7 +22,10 @@ if not os.path.isdir (datadir):
 if os.environ.has_key ('LILYPONDPREFIX'):
 	datadir = os.environ['LILYPONDPREFIX']
 	while datadir[-1] == os.sep:
-		datadir= datadir[:-1]
+		datadir = datadir[:-1]
+
+if os.path.exists (os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')):
+	datadir = os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')
 
 sys.path.insert (0, os.path.join (datadir, 'python'))
 

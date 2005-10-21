@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.14"
 
 \header {
 
@@ -38,7 +38,7 @@ amount
     bla -- bla -- bla -- bla --
 
     \override LyricHyphen  #'minimum-length = #0.7
-    \override LyricHyphen #'callbacks #'springs-and-rods =
+    \override LyricHyphen  #'springs-and-rods =
     #Hyphen_spanner::set_spacing_rods
 
     bla -- bla -- bla -- bla 

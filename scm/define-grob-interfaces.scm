@@ -48,7 +48,7 @@
 (ly:add-interface
  'ligature-bracket-interface
  "A bracket indicating a ligature in the original edition"
- '(width thickness height ligature-primitive-callback))
+ '(width thickness height))
 
 
 (ly:add-interface
