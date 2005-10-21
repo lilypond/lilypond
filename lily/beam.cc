@@ -118,6 +118,8 @@ Beam::calc_direction (SCM smob)
      For a beam that  only has one stem, we try to do some disappearance magic:
      we revert the flag, and move on to The Eternal Engraving Fields. */
 
+  Direction d = CENTER;
+
   int count = visible_stem_count (me);
   if (count < 2)
     {
@@ -136,21 +138,32 @@ Beam::calc_direction (SCM smob)
 	  me->suicide ();
 	  return SCM_UNSPECIFIED;
 	}
+      else
+	{
+	  /*
+	    ugh.
+
+	    can happen in stem-tremolo case.
+	    TODO: fixme.
+	   */
+	  d = Stem::get_default_dir (stems[0]);
+	}
     }
 
-  Direction d = CENTER;
   
   if (count >= 1)
     {
       d = get_default_dir (me);
       consider_auto_knees (me);
-      set_stem_directions (me, d);
-
-      connect_beams (me);
-
-      set_stem_shorten (me);
     }
 
+  if (d)
+    {
+      set_stem_directions (me, d);
+      connect_beams (me);
+      set_stem_shorten (me);
+    }
+  
   return scm_from_int (d);
 }
 

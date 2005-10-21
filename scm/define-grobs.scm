@@ -1262,18 +1262,6 @@
 				mark-interface
 				self-alignment-interface))))))
 
-    (RemoveEmptyVerticalGroup
-     . (
-	(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))
-
-	(Y-extent . ,Hara_kiri_group_spanner::y_extent)
-
-	(axes . (1))
-	(meta . ((class . Spanner)
-		 (interfaces . (axis-group-interface
-				vertically-spaceable-interface
-				hara-kiri-group-interface
-				spanner-interface))))))
 
     (RepeatSlash
      . (
@@ -1850,7 +1838,9 @@
     (VerticalAxisGroup
      . (
 	(axes . (1))
-	(Y-extent . ,Axis_group_interface::height)
+	(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))
+
+	(Y-extent . ,Hara_kiri_group_spanner::y_extent)
 	(X-extent . ,Axis_group_interface::width)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface

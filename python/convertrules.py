@@ -2624,6 +2624,14 @@ def conv (str):
 	str = re.sub (r"\\revert ([A-Z.a-z]+) #'callbacks % ([a-zA-Z]+)",
 		      r"\\revert \1 #'\2", str)
 	str = re.sub (r"([XY]-extent)-callback", r'\1', str)
+	str = re.sub (r"RemoveEmptyVerticalGroup", "VerticalAxisGroup", str)
+	str = re.sub (r"\\set ([a-zA-Z]+\.)?minimumVerticalExtent",
+		      r"\\override \1VerticalAxisGroup #'minimum-Y-extent",
+		      str)
+	str = re.sub (r"minimumVerticalExtent",
+		      r"\\override VerticalAxisGroup #'minimum-Y-extent",
+		      str)
+	
 	return str
 
 conversions.append (((2, 7, 14), conv,

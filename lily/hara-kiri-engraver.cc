@@ -13,6 +13,10 @@
 
 #include "translator.icc"
 
+/*
+  TODO: fold together with axis_group_engraver? 
+ */
+
 class Hara_kiri_engraver : public Axis_group_engraver
 {
 protected:
@@ -48,8 +52,7 @@ Hara_kiri_engraver::add_element (Grob *e)
 Spanner *
 Hara_kiri_engraver::get_spanner ()
 {
-  Spanner *sp = make_spanner ("RemoveEmptyVerticalGroup", SCM_EOL);
-
+  Spanner *sp = make_spanner ("VerticalAxisGroup", SCM_EOL);
   return sp;
 }
 
@@ -76,7 +79,7 @@ ADD_ACKNOWLEDGER (Hara_kiri_engraver, grob);
 ADD_TRANSLATOR (Hara_kiri_engraver,
 		/* doc */ "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
 		"interesting items (ie. note heads, lyric syllables and normal rests) ",
-		/* create */ "RemoveEmptyVerticalGroup",
+		/* create */ "VerticalAxisGroup",
 		/* accept */ "",
 		/* read */ "keepAliveInterfaces",
 		/* write */ "");
