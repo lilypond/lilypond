@@ -259,7 +259,7 @@ the instrument. Its value is the pitch that sounds like middle C. This
 is used to transpose the MIDI output, and @code{\\quote}s.")
 
      (keepAliveInterfaces ,list? "List of symbols, signifying grob interfaces that
-are worth keeping a RemoveEmptyStaff staff around for.")   
+are worth keeping an staff with @code{remove-empty} set around for.")   
      (keyAlterationOrder ,list? " Alist that defines in what order
 alterations should be printed.  The format is (@var{step}
 . @var{alter}), where @var{step} is from 0 .. 6 and @var{alter} from
