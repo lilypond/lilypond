@@ -1,5 +1,8 @@
 2005-10-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/mutopia/W.A.Mozart/mozart-hrn3-defs.ily (cresc): remove
+	space-function tweak.
+
 	* lily/font-config.cc (init_fontconfig): resurrect mf/out/ check.
 	
 2005-10-20  Jan Nieuwenhuizen  <janneke@gnu.org>

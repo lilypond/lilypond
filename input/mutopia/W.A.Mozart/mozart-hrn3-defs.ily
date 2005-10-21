@@ -12,23 +12,6 @@ cresc =  {
     \set crescendoSpanner =  #'dashed-line
 }
 
-%%
-%% TODO: a better mechanism for tweaking Grace settings.
-%%
-
-startGraceMusic = \sequential { 
-    \startGraceMusic 
-    \override Beam   #'space-function
-    = #(lambda (beam mult) (* 0.8 0.8))
-    \override Beam   #'thickness = #(* 0.384 (/ 0.6 0.48))
-}
-
-stopGraceMusic= \sequential {
-    \revert Beam #'thickness
-    \revert Beam #'space-function
-    \stopGraceMusic
-}
-
 \layout {
     \context {
         \Score
