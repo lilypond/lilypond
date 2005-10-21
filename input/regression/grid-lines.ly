@@ -5,7 +5,7 @@
 staves synchronized with the notes."
 
 }
-\version "2.7.13"
+\version "2.7.14"
 
 skips =
 {
@@ -39,7 +39,7 @@ skips =
   \context {
     \RhythmicStaff
     \consists "Grid_point_engraver"
-    minimumVerticalExtent = #'(-4 . 4) 
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4) 
     gridInterval = #(ly:make-moment 1 8)
     \override BarLine #'bar-size = #0.05
   }

@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.6.0"
+\version "2.7.14"
 manuscriptBreak = { \break }
 
 
@@ -171,7 +171,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	\layout {
 	    \context {
 		\Lyrics
-		minimumVerticalExtent = #'(-0.5 . 2.5)
+		\override VerticalAxisGroup #'minimum-Y-extent = #'(-0.5 . 2.5)
 		\override LyricText #'font-size = #-1
 	    }
 	    \context {

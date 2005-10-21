@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.14"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -263,7 +263,7 @@ theScore = \score{
 	    \type "Engraver_group"
 	    \name Dynamics
 	    \consists "Output_property_engraver"
-	    minimumVerticalExtent = #'(-1 . 1)
+	    \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
 
 	    \consists "Script_engraver"
 	    \consists "Dynamic_engraver"
