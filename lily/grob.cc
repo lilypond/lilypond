@@ -359,10 +359,13 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
 
   /* We catch PARENT_L_ == nil case with this, but we crash if we did
      not ask for the absolute coordinate (ie. REFP == nil.)  */
+  Real off = get_offset (a);
   if (refp == dim_cache_[a].parent_)
-    return get_offset (a);
+    return off;
+  
+  off += dim_cache_[a].parent_->relative_coordinate (refp, a);
 
-  return get_offset (a) + dim_cache_[a].parent_->relative_coordinate (refp, a);
+  return off;
 }
 
 /* Invoke callbacks to get offset relative to parent.  */
@@ -387,14 +390,6 @@ Grob::get_offset (Axis a) const
   return dim_cache_[a].offset_;
 }
 
-#if 0
-bool
-Grob::is_empty (Axis a) const
-{
-  return !(scm_is_pair (dim_cache_[a].dimension_)
-	   || ly_is_procedure (dim_cache_[a].dimension_callback_));
-}
-#endif
 
 void
 Grob::flush_extent_cache (Axis axis)

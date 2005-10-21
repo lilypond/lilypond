@@ -42,6 +42,7 @@ protected:
   void substitute_object_links (SCM, SCM);
 
   DECLARE_CLASSNAME(Grob);
+  Real get_offset (Axis a) const;
 public:
   DECLARE_SCHEME_CALLBACK(same_axis_parent_positioning, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK(other_axis_parent_positioning, (SCM, SCM));
@@ -77,11 +78,6 @@ public:
   void internal_set_object (SCM sym, SCM val);
 
   SCM try_callback (SCM, SCM);
-  /*
-    JUNKME.
-  */
-  void add_to_list_property (SCM, SCM);
-  void add_to_object_list (SCM sym, SCM thing);
 
   SCM get_property_alist_chain (SCM) const;
   static SCM ly_grob_set_property (SCM, SCM, SCM);
@@ -91,11 +87,7 @@ public:
   void programming_error (String) const;
 
   Output_def *get_layout () const;
-  void add_dependency (Grob *);
   virtual System *get_system () const;
-
-  void calculate_dependencies (int final, int busy, SCM funcname);
-
   virtual void do_break_processing ();
   virtual Grob *find_broken_piece (System *) const;
   virtual void discretionary_processing ();
@@ -124,7 +116,6 @@ public:
   bool has_offset_callback (SCM callback, Axis) const;
   void add_offset_callback (SCM callback, Axis);
   void flush_extent_cache (Axis);
-  Real get_offset (Axis a) const;
 
   void set_parent (Grob *e, Axis);
 
