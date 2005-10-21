@@ -23,7 +23,7 @@ void clear_anonymous_modules ();
 SCM ly_use_module (SCM mod, SCM used);
 
 /* Ugh signature of scm_internal_hash_fold () is inaccurate.  */
-typedef SCM (*Hash_closure_function) ();
+typedef SCM (*Hash_closure_function) (GUILE_ELLIPSIS);
 
 #define MODULE_GC_KLUDGE
 

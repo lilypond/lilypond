@@ -15,6 +15,15 @@
 
 #include <libguile.h>
 
+
+/*
+  Hack for various MacOS incarnations.
+ */
+#ifndef GUILE_ELLIPSIS
+#define GUILE_ELLIPSIS 
+#endif
+
+
 #include "guile-compatibility.hh"
 #include "interval.hh"
 #include "lily-guile-macros.hh"
@@ -145,7 +154,7 @@ SCM ly_kpathsea_find_file (SCM);
 void add_scm_init_func (void (*) ());
 
 extern "C" {
-  typedef SCM (*Scheme_function_unknown) ();
+  typedef SCM (*Scheme_function_unknown) (GUILE_ELLIPSIS);
 }
 
 #if __GNUC__ > 2 || __GNUC_MINOR__ >= 96
@@ -154,10 +163,10 @@ typedef SCM (*Scheme_function_1) (SCM);
 typedef SCM (*Scheme_function_2) (SCM, SCM);
 typedef SCM (*Scheme_function_3) (SCM, SCM, SCM);
 #else
-typedef SCM (*Scheme_function_0) (...);
-typedef SCM (*Scheme_function_1) (...);
-typedef SCM (*Scheme_function_2) (...);
-typedef SCM (*Scheme_function_3) (...);
+typedef SCM (*Scheme_function_0) (GUILE_ELLIPSIS);
+typedef SCM (*Scheme_function_1) (GUILE_ELLIPSIS);
+typedef SCM (*Scheme_function_2) (GUILE_ELLIPSIS);
+typedef SCM (*Scheme_function_3) (GUILE_ELLIPSIS);
 #endif
 
 #define scm_cdr ly_cdr
