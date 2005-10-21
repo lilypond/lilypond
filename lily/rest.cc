@@ -116,12 +116,9 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 }
 
 MAKE_SCHEME_CALLBACK (Rest, print, 1);
-
 SCM
-Rest::brew_internal_stencil (SCM smob, bool ledgered)
+Rest::brew_internal_stencil (Grob *me, bool ledgered)
 {
-  Grob *me = unsmob_grob (smob);
-
   SCM balltype_scm = me->get_property ("duration-log");
   if (!scm_is_number (balltype_scm))
     return Stencil ().smobbed_copy ();
@@ -145,18 +142,32 @@ Rest::brew_internal_stencil (SCM smob, bool ledgered)
 SCM
 Rest::print (SCM smob)
 {
-  return brew_internal_stencil (smob, true);
+  return brew_internal_stencil (unsmob_grob (smob), true);
 }
 
-MAKE_SCHEME_CALLBACK (Rest, extent_callback, 2);
+MAKE_SCHEME_CALLBACK (Rest, width, 1);
 /*
   We need the callback. The real stencil has ledgers depending on
   Y-position. The Y-position is known only after line breaking.  */
 SCM
-Rest::extent_callback (SCM smob, SCM ax)
+Rest::width (SCM smob)
 {
-  Axis a = (Axis) scm_to_int (ax);
+  return generic_extent_callback (unsmob_grob (smob), X_AXIS);
+}
 
+MAKE_SCHEME_CALLBACK (Rest, height, 1);
+SCM
+Rest::height (SCM smob)
+{
+  return  generic_extent_callback (unsmob_grob (smob), Y_AXIS);
+}
+
+/*
+  We need the callback. The real stencil has ledgers depending on
+  Y-position. The Y-position is known only after line breaking.  */
+SCM
+Rest::generic_extent_callback (Grob *me, Axis a)
+{
   /*
     Don't want ledgers: ledgers depend on Y position, which depends on
     rest collision, which depends on stem size which depends on beam
@@ -165,7 +176,7 @@ Rest::extent_callback (SCM smob, SCM ax)
     consequence: we get too small extents and potential collisions
     with ledgered rests.
   */
-  SCM m = brew_internal_stencil (smob, a != X_AXIS);
+  SCM m = brew_internal_stencil (me, a != X_AXIS);
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 

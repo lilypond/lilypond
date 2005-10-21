@@ -1390,5 +1390,6 @@ ADD_INTERFACE (Beam,
 	       "positions "
 	       "quant-score "
 	       "shorten "
+	       "stems "
 	       "thickness "
 	       );

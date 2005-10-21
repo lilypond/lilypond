@@ -16,7 +16,7 @@ class Hara_kiri_group_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_callback, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (y_extent, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK (y_extent, (SCM smob));
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_in_parent_callback, (SCM, SCM));
   static void add_element (Grob *me, Grob *e);
   static bool has_interface (Grob *);

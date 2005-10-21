@@ -221,4 +221,4 @@ Mensural_ligature::print (SCM)
 ADD_INTERFACE (Mensural_ligature, "mensural-ligature-interface",
 	       "A mensural ligature",
 	       "delta-pitch flexa-width head-width join-right-amount " // "add-join "
-	       "ligature-primitive-callback primitive thickness");
+	       "primitive thickness");

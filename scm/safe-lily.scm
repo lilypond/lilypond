@@ -148,8 +148,6 @@
    Ambitus::print
    Arpeggio::print
    Arpeggio::brew_chord_bracket
-   Arpeggio::width_callback
-   Axis_group_interface::group_extent_callback
    Bar_line::print
    Breathing_sign::offset_callback
    Clef::print
@@ -180,7 +178,6 @@
    Percent_repeat_item_interface::beat_slash
    Percent_repeat_item_interface::double_percent
    Piano_pedal_bracket::print
-   Rest::extent_callback
    Rest::polyphonic_offset_callback
    Rest::print
    Script_interface::print
@@ -195,11 +192,9 @@
    Slur::print
    Spacing_spanner::set_springs
    Span_bar::print
-   Span_bar::width_callback
    Spanner::set_spacing_rods
    Staff_symbol::print
    Staff_symbol_referencer::callback
-   Stem::width_callback
    Stem::height
    Stem::offset_callback
    Stem::print

@@ -131,7 +131,7 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
 
   *compound_fixed = 0.0;
   *compound_space = 0.0;
-  int wishes;
+  int wish_count = 0;
   
   for (int i = right_items.size (); i--;)
     {
@@ -144,7 +144,7 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
 
       *compound_space += space;
       *compound_fixed += fixed; 
-      wishes ++;
+      wish_count ++;
       
       extract_grob_set (g, "elements", elts);
       for (int j = elts.size (); j--;)
@@ -154,14 +154,14 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
 	  next_note_correction (me, elts[j], bar_size, &space, &fixed);
 	  *compound_fixed += fixed;
 	  *compound_space += space;
-	  wishes ++;
+	  wish_count ++;
 	}
     }
 
-  if (wishes)
+  if (wish_count)
     {
-      *compound_space /= wishes;
-      *compound_fixed /= wishes;
+      *compound_space /= wish_count;
+      *compound_fixed /= wish_count;
     }
 }
 
@@ -264,4 +264,9 @@ ADD_INTERFACE (Staff_spacing, "staff-spacing-interface",
 	       "This object calculates spacing details from a "
 	       " breakable symbol (left) to another object. For example, it takes care "
 	       " of  optical spacing from  a bar lines to a note.",
-	       "stem-spacing-correction left-items right-items");
+
+	       /* properties */
+	       "stem-spacing-correction "
+	       "left-items "
+	       "right-items "
+	       );

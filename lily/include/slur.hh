@@ -20,7 +20,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
-  DECLARE_SCHEME_CALLBACK (height, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (outside_slur_callback, (SCM, SCM));
   static bool has_interface (Grob *);
   static Bezier get_curve (Grob *me);

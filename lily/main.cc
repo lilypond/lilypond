@@ -381,10 +381,29 @@ setup_paths (char const *argv0)
 
   global_path.append ("");
 
+
+  /*
+    When running from build dir, a full LILYPOND_PREFIX is set-up at
+
+        $(OUTBASE)/share/lilypond/TOPLEVEL_VERSION
+
+     This historical hack will allow the shorthand
+
+        LILYPONDPREFIX=out lily/out/lilypond ...
+
+  */
+  
+  struct stat statbuf;
+  String build_prefix = prefix_directory + "/share/lilypond/" TOPLEVEL_VERSION;
+  if (stat (build_prefix.to_str0 (), &statbuf) == 0)
+    prefix_directory = build_prefix;
+
+  
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */
   char *suffixes[] = {"ly", "ps", "scm", 0 };
 
+  
   Array<String> dirs;
   for (char **s = suffixes; *s; s++)
     {
@@ -392,26 +411,11 @@ setup_paths (char const *argv0)
       dirs.push (path);
     }
 
-  /*
-    When running from build dir, a full LILYPOND_PREFIX is set-up at
 
-        share/lilypond/TOPLEVEL_VERSION
-
-     This historical hack will allow the shorthand
-
-        LILYPONDPREFIX=. lily/out/lilypond ...
-
-  */
-  struct stat statbuf;
-  String build_prefix = prefix_directory + "share/lilypond/" TOPLEVEL_VERSION;
-  if (stat (build_prefix.to_str0 (), &statbuf) == 0)
-    prefix_directory = build_prefix;
-  
   dirs.push (prefix_directory + "/fonts/otf/");
   dirs.push (prefix_directory + "/fonts/type1/");
-  dirs.push (prefix_directory + "/fonts/cff/");
   dirs.push (prefix_directory + "/fonts/svg/");
-
+  
   for (int i = 0; i < dirs.size (); i++)
     global_path.prepend (dirs[i]);
 }

@@ -17,22 +17,12 @@
 /**
    Adminstration of offset dimension info.
 */
-struct Dimension_cache
+class Dimension_cache
 {
-  /*
-    Multi typed:
-
-    - cons: interval
-    - procedure: callback
-    - else: empty
-  */
-  SCM dimension_;
-  SCM dimension_callback_;
-
   /**
      The offset wrt. to the center of #parent_#
   */
-
+  Interval *extent_;
   Real offset_;
   SCM offset_callbacks_;
 
@@ -42,8 +32,10 @@ struct Dimension_cache
      What to call to find extent.  Nil means empty.
   */
   Grob *parent_;
-
+  friend class Grob;
+  
   Dimension_cache (Dimension_cache const &);
+  ~Dimension_cache ();
   Dimension_cache ();
   void init ();
 };

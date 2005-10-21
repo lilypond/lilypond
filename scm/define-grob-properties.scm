@@ -22,17 +22,9 @@
      (apply define-grob-property x))
 
    `(
-     (X-extent-callback ,procedure? "Procedure that calculates the
-extent of this object. If this value is set to @code{#f}, the object
-is empty in the X direction.  The procedure takes a grob and axis
-argument, and returns a number-pair.
-")
-
      (X-offset-callbacks ,list? "A list of functions determining this
 objects' position relative to its parent. The last one in the list is
 called first.  The functions take a grob and axis argument. ")
-
-     (Y-extent-callback ,procedure? "see @code{X-extent-callback}.")
      (Y-offset-callbacks ,list? "see @code{X-offset-callbacks}.")
 
      (accidentals ,list? "List of alteration numbers")
@@ -56,7 +48,7 @@ for balloon text.")
      (balloon-text-offset ,number-pair?
 			  "Where to put text relative to balloon.")
      (balloon-padding ,ly:dimension? "Text to add to help balloon")
-     (balloon-original-callback ,procedure? "The
+     (original-stencil ,ly:stencil? "The
 original stencil drawer to draw the balloon around.")
 
 
@@ -121,10 +113,6 @@ middle C.")
      (cautionary-style ,symbol? "How to print cautionary
 accidentals. Choices are @code{smaller} or
 @code{parentheses}.")
-     (callbacks ,list? "An alist of (@var{symbol} . @var{procedure})
-pairs.  When the grob property @var{symbol} is requested,
-@var{procedure} is invoked. The return value, if it is unequal to
-@code{#<unspecified>} is recorded as the value of the property.") 
      (cautionary ,boolean? "Is this a cautionary accidental?")
      (concaveness ,number? "A beam is concave when its inner stems are
 closer to the beam than the two outside stems. This number is a
@@ -134,8 +122,6 @@ the slope of the beam.")
 
      (color ,color? "The color of this grob.")
 
-     (context ,ly:context? "Originating context of the grob")
-     
      ;;DOCME
      (control-points ,list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 
@@ -557,7 +543,6 @@ debugging")
      
      (least-squares-dy ,number? 
 		       "ideal beam slope, without damping.")
-     (ligature-primitive-callback ,procedure? "callback that brews ligature head.")
      (stem-info ,pair? "caching of stem parameters")
      (note-columns ,pair? "list of NoteColumn grobs.")
 

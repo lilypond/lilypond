@@ -20,7 +20,7 @@ struct Align_interface
   DECLARE_SCHEME_CALLBACK (stretch_after_break, (SCM element));
   static void align_to_fixed_distance (Grob *, Axis a);
   static void align_elements_to_extents (Grob *, Axis a);
-  static void set_axis (Grob *, Axis);
+  static void set_ordered (Grob *);
   static Axis axis (Grob *);
   static void add_element (Grob *, Grob *);
   static int get_count (Grob *, Grob *);

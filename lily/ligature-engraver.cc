@@ -94,7 +94,7 @@ Ligature_engraver::try_music (Music *m)
  * .ly snippet:
  *
  * \property Voice.NoteHead \override #'print-function =
- *     < value of #'ligature-primitive-callback of Voice.NoteHead >
+ *     < value of noteHeadLigaturePrimitive
  *
  * TODO: What we are doing here on the c++ level, should actually be
  * performed on the SCM level.  However, I do not know how to teach
@@ -106,18 +106,9 @@ Ligature_engraver::try_music (Music *m)
 void
 Ligature_engraver::override_stencil_callback ()
 {
-#if 0
-  /*
-    This has  been broken with the introduction of generic callbacks.
-   */
-  SCM target_callback = ly_symbol2scm ("print-function");
-  SCM source_callback = ly_symbol2scm ("ligature-primitive-callback");
-  SCM noteHeadProperties = updated_grob_properties (context (), ly_symbol2scm ("NoteHead"));
-  SCM value = scm_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
   execute_pushpop_property (context (), ly_symbol2scm ("NoteHead"),
-			    target_callback, value);
-
-#endif
+			    ly_symbol2scm ("stencil"),
+			    get_property ("noteHeadLigaturePrimitive"));
 }
 
 /*
@@ -136,9 +127,8 @@ Ligature_engraver::override_stencil_callback ()
 void
 Ligature_engraver::revert_stencil_callback ()
 {
-  SCM symbol = ly_symbol2scm ("NoteHead");
-  SCM key = ly_symbol2scm ("print-function");
-  execute_pushpop_property (context (), symbol, key, SCM_UNDEFINED);
+  execute_pushpop_property (context (), ly_symbol2scm ("NoteHead"),
+			    ly_symbol2scm ("stencil"), SCM_UNDEFINED);
 }
 
 void
@@ -182,10 +172,6 @@ Ligature_engraver::process_music ()
 
       prev_start_event_ = events_drul_[START];
       ligature_ = create_ligature_spanner ();
-      brew_ligature_primitive_proc
-	= ligature_->get_property ("ligature-primitive-callback");
-      if (brew_ligature_primitive_proc == SCM_EOL)
-	programming_error ("Ligature_engraver: ligature-primitive-callback undefined");
 
       Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
       if (!bound)
@@ -253,7 +239,7 @@ Ligature_engraver::acknowledge_note_head (Grob_info info)
       primitives_.push (info);
       if (info.grob ())
 	{
-	  info.grob ()->set_callback (ly_symbol2scm ("stencil"),
+	  info.grob ()->set_property ("stencil",
 				      brew_ligature_primitive_proc);
 	}
     }

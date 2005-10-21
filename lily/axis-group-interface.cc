@@ -39,11 +39,9 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
 bool
 Axis_group_interface::has_axis (Grob *me, Axis a)
 {
-  /*
-    urg. FIXME, check for Hara_kiri_group_spanner shouldn't be necessary?
-  */
-  return me->has_extent_callback (group_extent_callback_proc, a)
-    || (me->has_extent_callback (Hara_kiri_group_spanner::y_extent_proc, a));
+  SCM axes = me->get_property ("axes");
+
+  return (SCM_BOOL_F != scm_memq (scm_from_int (a), axes));
 }
 
 Interval
@@ -61,13 +59,25 @@ Axis_group_interface::relative_group_extent (Link_array<Grob> const &elts,
   return r;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, group_extent_callback, 2);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, width, 1);
 SCM
-Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
+Axis_group_interface::width (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (scm_axis);
+  Grob *me = unsmob_grob (smob);
+  return generic_group_extent (me, X_AXIS);
+}
 
+MAKE_SCHEME_CALLBACK (Axis_group_interface, height, 1);
+SCM
+Axis_group_interface::height (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  return generic_group_extent (me, Y_AXIS);
+}
+  
+SCM
+Axis_group_interface::generic_group_extent (Grob *me, Axis a)
+{
   extract_grob_set (me, "elements", elts);
   Grob *common = common_refpoint_of_array (elts, me, a);
 
@@ -75,41 +85,6 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
   Interval r (relative_group_extent (elts, common, a));
 
   return ly_interval2scm (r - my_coord);
-}
-
-/*
-  FIXME: junk this. 
- */
-void
-Axis_group_interface::set_axes (Grob *me, Axis a1, Axis a2)
-{
-  SCM sa1 = scm_from_int (a1);
-  SCM sa2 = scm_from_int (a2);
-
-  SCM axes = me->get_property ("axes");
-
-  if (!scm_is_pair (axes)
-      || scm_c_memq (sa1, axes) == SCM_BOOL_F
-      || scm_c_memq (sa2, axes) == SCM_BOOL_F)
-    {
-      SCM ax = scm_cons (sa1, SCM_EOL);
-      if (a1 != a2)
-	ax = scm_cons (sa2, ax);
-      me->set_property ("axes", ax);
-    }
-
-  if (a1 != X_AXIS && a2 != X_AXIS)
-    me->set_extent (SCM_EOL, X_AXIS);
-  if (a1 != Y_AXIS && a2 != Y_AXIS)
-    me->set_extent (SCM_EOL, Y_AXIS);
-
-  /*
-    why so convoluted ? (fixme/documentme?)
-  */
-  if (me->has_extent_callback (Grob::stencil_extent_proc, a1))
-    me->set_extent_callback (Axis_group_interface::group_extent_callback_proc, a1);
-  if (me->has_extent_callback (Grob::stencil_extent_proc, a2))
-    me->set_extent_callback (Axis_group_interface::group_extent_callback_proc, a2);
 }
 
 void
@@ -129,5 +104,9 @@ Axis_group_interface::get_children (Grob *me, Link_array<Grob> *found)
 }
 
 ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
+
 	       "An object that groups other layout objects.",
-	       "axes elements");
+
+	       /* properties */
+	       "axes "
+	       "elements");

@@ -28,12 +28,7 @@ Balloon_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  SCM cb = me->get_property ("balloon-original-callback");
-  SCM stil = SCM_EOL;
-
-  if (ly_is_procedure (cb))
-    stil = scm_call_1 (cb, smob);
-
+  SCM stil = me->get_property ("original-stencil");
   if (!unsmob_stencil (stil))
     return stil;
 
@@ -85,5 +80,11 @@ Balloon_interface::print (SCM smob)
 
 ADD_INTERFACE (Balloon_interface, "text-balloon-interface",
 	       "A collection of routines to put text balloons around an object.",
-	       "balloon-padding balloon-text-props balloon-text-offset balloon-text balloon-original-callback");
+
+	       /* properties */
+	       "balloon-padding "
+	       "balloon-text-props "
+	       "balloon-text-offset "
+	       "balloon-text "
+	       "original-stencil ");
 

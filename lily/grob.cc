@@ -79,13 +79,11 @@ Grob::Grob (SCM basicprops,
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
   pscore_ = 0;
-  status_ = 0;
   original_ = 0;
   interfaces_ = SCM_EOL;
   immutable_property_alist_ = basicprops;
   mutable_property_alist_ = SCM_EOL;
   object_alist_ = SCM_EOL;
-  property_callbacks_ = SCM_EOL;
   
   /* We do smobify_self () as the first step.  Since the object lives
      on the heap, none of its SCM variables are protected from
@@ -100,7 +98,7 @@ Grob::Grob (SCM basicprops,
 
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
-    interfaces_ = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
+    interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
 
   /* TODO:
 
@@ -109,19 +107,9 @@ Grob::Grob (SCM basicprops,
   creation. Convenient eg. when using \override with
   StaffSymbol.  */
 
-  property_callbacks_ = get_property ("callbacks");
-
   SCM off_callbacks[] = {
     get_property ("X-offset-callbacks"),
     get_property ("Y-offset-callbacks")
-  };
-  SCM extents[] = {
-    get_property ("X-extent"),
-    get_property ("Y-extent")
-  };
-  SCM extent_callbacks[] = {
-    get_property ("X-extent-callback"),
-    get_property ("Y-extent-callback")
   };
 
   for (int a = X_AXIS; a <= Y_AXIS; a++)
@@ -136,21 +124,13 @@ Grob::Grob (SCM basicprops,
       else
 	programming_error ("[XY]-offset-callbacks must be a list");
 
-      SCM cb = extent_callbacks[a];
-      if (cb == SCM_BOOL_F)
-	dim_cache_[a].dimension_ = SCM_BOOL_F;
-
-      SCM xt = extents[a];
-      if (is_number_pair (xt))
-	dim_cache_[a].dimension_ = xt;
-      else if (ly_is_procedure (cb))
-	dim_cache_[a].dimension_callback_ = cb;
-      else if (cb == SCM_EOL
-	       && ly_is_procedure (ly_assoc_get (ly_symbol2scm ("stencil"),
-						 property_callbacks_, SCM_BOOL_F)))
-	dim_cache_[a].dimension_callback_ = stencil_extent_proc;
     }
 
+  
+  if (get_property_data (ly_symbol2scm ("X-extent")) == SCM_EOL)
+    set_property ("X-extent", Grob::stencil_width_proc);
+  if (get_property_data (ly_symbol2scm ("Y-extent")) == SCM_EOL)
+    set_property ("Y-extent", Grob::stencil_height_proc);
 }
 
 Grob::Grob (Grob const &s, int copy_index)
@@ -163,7 +143,6 @@ Grob::Grob (Grob const &s, int copy_index)
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = ly_deep_copy (s.mutable_property_alist_);
   interfaces_ = s.interfaces_;
-  property_callbacks_ = s.property_callbacks_;
   object_alist_ = SCM_EOL;
 
   pscore_ = 0;
@@ -177,14 +156,27 @@ Grob::~Grob ()
 {
 }
 
-MAKE_SCHEME_CALLBACK (Grob, stencil_extent, 2);
-SCM
-Grob::stencil_extent (SCM element_smob, SCM scm_axis)
-{
-  Grob *s = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (scm_axis);
 
-  Stencil *m = s->get_stencil ();
+MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
+SCM
+Grob::stencil_height (SCM element_smob)
+{
+  Grob *me = unsmob_grob (element_smob);
+  return stencil_extent (me, Y_AXIS);
+}
+
+MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
+SCM
+Grob::stencil_width (SCM element_smob)
+{
+  Grob *me = unsmob_grob (element_smob);
+  return stencil_extent (me, X_AXIS);
+}
+
+SCM
+Grob::stencil_extent (Grob *me, Axis a)
+{
+  Stencil *m = me->get_stencil ();
   Interval e;
   if (m)
     e = m->extent (a);
@@ -192,11 +184,11 @@ Grob::stencil_extent (SCM element_smob, SCM scm_axis)
 }
 
 Interval
-robust_relative_extent (Grob *me, Grob *refp, Axis a)
+robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
 {
-  Interval ext = me->extent (refp, a);
+  Interval ext = me->extent (refpoint, a);
   if (ext.is_empty ())
-    ext.add_point (me->relative_coordinate (refp, a));
+    ext.add_point (me->relative_coordinate (refpoint, a));
 
   return ext;
 }
@@ -316,15 +308,8 @@ Grob::suicide ()
 
   mutable_property_alist_ = SCM_EOL;
   object_alist_ = SCM_EOL;
-  property_callbacks_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
   interfaces_ = SCM_EOL;
-
-  set_extent (SCM_EOL, Y_AXIS);
-  set_extent (SCM_EOL, X_AXIS);
-
-  set_extent_callback (SCM_EOL, Y_AXIS);
-  set_extent_callback (SCM_EOL, X_AXIS);
 
   for (int a = X_AXIS; a <= Y_AXIS; a++)
     {
@@ -402,71 +387,69 @@ Grob::get_offset (Axis a) const
   return dim_cache_[a].offset_;
 }
 
+#if 0
 bool
 Grob::is_empty (Axis a) const
 {
   return !(scm_is_pair (dim_cache_[a].dimension_)
 	   || ly_is_procedure (dim_cache_[a].dimension_callback_));
 }
+#endif
 
 void
 Grob::flush_extent_cache (Axis axis)
 {
-  Dimension_cache *d = &dim_cache_[axis];
-  if (ly_is_procedure (d->dimension_callback_)
-      && scm_is_pair (d->dimension_))
+  if (dim_cache_[axis].extent_)
     {
-      d->dimension_ = SCM_EOL;
-
+      /*
+	Ugh, this is not accurate; will flush property, causing
+	callback to be called if.
+       */
+      del_property ((axis == X_AXIS) ? ly_symbol2scm ("X-extent") : ly_symbol2scm ("Y-extent"));
+      delete dim_cache_[axis].extent_;
+      dim_cache_[axis].extent_ = 0;
       if (get_parent (axis))
 	get_parent (axis)->flush_extent_cache (axis);
     }
 }
 
+
 Interval
 Grob::extent (Grob *refp, Axis a) const
 {
-  Real x = relative_coordinate (refp, a);
-
-  Dimension_cache *d = (Dimension_cache *) & dim_cache_[a];
-  Interval ext;
-
-  SCM dimpair = d->dimension_;
-  if (scm_is_pair (dimpair))
-    ;
-  else if (ly_is_procedure (d->dimension_callback_)
-	   && d->dimension_ == SCM_EOL)
-    d->dimension_ = scm_call_2 (d->dimension_callback_, self_scm (), scm_from_int (a));
-  else
-    return ext;
-
-  if (!scm_is_pair (d->dimension_))
-    return ext;
-
-  ext = ly_scm2interval (d->dimension_);
-
-  SCM extra = (a == X_AXIS)
-    ? get_property ("extra-X-extent")
-    : get_property ("extra-Y-extent");
-
-  /* Signs ?  */
-  if (scm_is_pair (extra))
+  Real offset = relative_coordinate (refp, a);
+  Interval real_ext;
+  if (dim_cache_[a].extent_)
     {
-      ext[BIGGER] += scm_to_double (scm_cdr (extra));
-      ext[SMALLER] += scm_to_double (scm_car (extra));
+      real_ext = *dim_cache_[a].extent_;
     }
+  else
+    {
+      SCM min_ext_sym =
+	(a == X_AXIS)
+	? ly_symbol2scm ("minimum-X-extent")
+	: ly_symbol2scm ("minimum-Y-extent");
 
-  extra = (a == X_AXIS)
-    ? get_property ("minimum-X-extent")
-    : get_property ("minimum-Y-extent");
+      SCM ext_sym =
+	(a == X_AXIS)
+	? ly_symbol2scm ("X-extent")
+	: ly_symbol2scm ("Y-extent");
+  
+      SCM min_ext = internal_get_property (min_ext_sym);
+      SCM ext = internal_get_property (ext_sym);
 
-  if (scm_is_pair (extra))
-    ext.unite (Interval (scm_to_double (scm_car (extra)),
-			 scm_to_double (scm_cdr (extra))));
+      if (is_number_pair (min_ext))
+	real_ext.unite (ly_scm2interval (min_ext));
+      if (is_number_pair (ext))
+	real_ext.unite (ly_scm2interval (ext));
 
-  ext.translate (x);
-
-  return ext;
+      ((Grob*)this)->del_property (ext_sym);
+      ((Grob*)this)->dim_cache_[a].extent_ = new Interval (real_ext);  
+    }
+  
+  real_ext.translate (offset);
+  
+  return real_ext;
 }
 
 /* Find the group-element which has both #this# and #s#  */
@@ -518,7 +501,7 @@ String
 Grob::name () const
 {
   SCM meta = get_property ("meta");
-  SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
+  SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
   return scm_is_symbol (nm) ? ly_symbol2string (nm) : this->class_name ();
 }
@@ -535,27 +518,9 @@ Grob::add_offset_callback (SCM cb, Axis a)
 }
 
 bool
-Grob::has_extent_callback (SCM cb, Axis a) const
-{
-  return scm_equal_p (cb, dim_cache_[a].dimension_callback_) == SCM_BOOL_T;
-}
-
-bool
 Grob::has_offset_callback (SCM cb, Axis a) const
 {
   return scm_c_memq (cb, dim_cache_[a].offset_callbacks_) != SCM_BOOL_F;
-}
-
-void
-Grob::set_extent (SCM dc, Axis a)
-{
-  dim_cache_[a].dimension_ = dc;
-}
-
-void
-Grob::set_extent_callback (SCM dc, Axis a)
-{
-  dim_cache_[a].dimension_callback_ = dc;
 }
 
 void
@@ -712,19 +677,15 @@ ADD_INTERFACE (Grob, "grob-interface",
 
 	       /* properties */
 	       "X-extent "
-	       "X-extent-callback "
 	       "X-offset-callbacks "
 	       "Y-extent "
-	       "Y-extent-callback "
 	       "Y-offset-callbacks "
 	       "after-line-breaking "
 	       "axis-group-parent-X "
 	       "axis-group-parent-Y "
 	       "before-line-breaking "
-	       "callbacks "
 	       "cause "
 	       "color "
-	       "context "
 	       "extra-X-extent "
 	       "extra-Y-extent "
 	       "extra-offset "
@@ -736,7 +697,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "springs-and-rods "
 	       "staff-symbol "
 	       "stencil "
-	       "transparent"
+	       "transparent "
 	       );
 
 

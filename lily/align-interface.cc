@@ -269,9 +269,8 @@ Align_interface::add_element (Grob *me, Grob *element)
 }
 
 void
-Align_interface::set_axis (Grob *me, Axis a)
+Align_interface::set_ordered (Grob *me)
 {
-  Axis_group_interface::set_axes (me, a, a);
   SCM ga_scm = me->get_object ("elements");
   Grob_array *ga = unsmob_grob_array (ga_scm);
   if (!ga)

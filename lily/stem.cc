@@ -489,13 +489,11 @@ Stem::get_default_dir (Grob *me)
 
 
 
-MAKE_SCHEME_CALLBACK (Stem, height, 2);
+MAKE_SCHEME_CALLBACK (Stem, height, 1);
 SCM
-Stem::height (SCM smob, SCM ax)
+Stem::height (SCM smob)
 {
-  Axis a = (Axis)scm_to_int (ax);
   Grob *me = unsmob_grob (smob);
-  assert (a == Y_AXIS);
 
   Direction dir = get_grob_direction (me);
   
@@ -510,7 +508,7 @@ Stem::height (SCM smob, SCM ax)
     }
 
   /* FIXME uncached? */
-  Interval iv = me->get_stencil () ? me->get_stencil ()->extent (a) : Interval();
+  Interval iv = me->get_stencil () ? me->get_stencil ()->extent (Y_AXIS) : Interval();
   if (beam)
     {
       if (dir == CENTER)
@@ -601,12 +599,10 @@ Stem::flag (Grob *me)
   return flag;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, width_callback, 2);
+MAKE_SCHEME_CALLBACK (Stem, width, 1);
 SCM
-Stem::width_callback (SCM e, SCM ax)
+Stem::width (SCM e)
 {
-  (void) ax;
-  assert (scm_to_int (ax) == X_AXIS);
   Grob *me = unsmob_grob (e);
 
   Interval r;

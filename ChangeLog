@@ -3,6 +3,59 @@
 	* input/mutopia/W.A.Mozart/mozart-hrn3-defs.ily (cresc): remove
 	space-function tweak.
 
+	* lily/grob.cc: remove X-extent-callback / Y-extent-callback.
+
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	remove callback property.
+
+	* lily/include/grob.hh (class Grob): remove property_callbacks_
+	member. Properties of procedure type are assumed to be callbacks.
+
+	* lily/ligature-engraver.cc (override_stencil_callback):
+	rewrite. Use noteHeadLigaturePrimitive as source.
+
+	* scm/define-grob-properties.scm (all-internal-grob-properties):
+	remove ligature-primitive-callback
+
+	* lily/include/dimension-cache.hh (class Dimension_cache): make
+	class, with Grob as friend.
+
+	* lily/grob.cc: remove set_extent_callback(), set_extent() and
+	has_extent_callback()
+
+	* scm/translation-functions.scm (format-new-bass-figure): read
+	figuredBassPlusDirection
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add figuredBassPlusDirection.
+
+	* lily/staff-spacing.cc (next_notes_correction): oops. Init wishes.
+
+	* lily/align-interface.cc (set_ordered): new function.
+
+	* lily/grob.cc (flush_extent_cache): rewrite.
+
+	* lily/dimension-cache.cc (Dimension_cache): cache extent as
+	Interval pointer directly.
+
+	* lily/main.cc (setup_paths): insert extra / .
+	(setup_paths): junk cff entry.
+
+	* lily/font-config.cc (init_fontconfig): only add type1 / otf
+	directories.
+
+	* lily/axis-group-engraver.cc (finalize): remove
+	extraVerticalExtent, minimumVerticalExtent verticalExtent.
+
+	* lily/grob.cc (Grob): don't set extent from ctor.
+	(extent): use property callbacks. 
+
+	* lily/axis-group-interface.cc: remove set_axes() function.
+
+	* lily/grob-property.cc (del_property): new function.
+
+2005-10-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
 	* lily/font-config.cc (init_fontconfig): resurrect mf/out/ check.
 	
 2005-10-20  Jan Nieuwenhuizen  <janneke@gnu.org>

@@ -210,6 +210,8 @@ another non-natural.")
 
 
      (figuredBassCenterContinuations ,boolean? "Whether to vertically center pairs of extender lines.")
+     (figuredBassPlusDirection ,ly:dir? "Where to put plus signs relative to the the main figure.")
+     
      (figuredBassAlterationDirection ,ly:dir? "Where to put
 alterations relative to the main figure.")
      (followVoice ,boolean? "If set, note heads are tracked across staff
@@ -269,7 +271,6 @@ containing (@var{name} . @var{alter}) or ((@var{octave} . @var{name}) . @var{alt
  where @var{name} is from 0.. 6 and
 @var{alter} from -4 (double flat) to 4 (double sharp).
 ")
-
      (majorSevenSymbol ,markup? "How should
 the major 7th be formatted in a chord name?")
      (markFormatter ,procedure? "Procedure
@@ -301,6 +302,7 @@ markup.  Called with 2 arguments, event and context.")
 selects the highest string with a fret at least @code{minimumFret}")
      (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
 format as @var{verticalExtent}")
+     (noteHeadLigaturePrimitive ,procedure? "Callback for generating stencil of ligature.")
      (ottavation ,string? "If set, the text for an ottava spanner. Changing
 this creates a new text spanner. ")
      (pedalSustainStrings ,list? "List of string to print for
