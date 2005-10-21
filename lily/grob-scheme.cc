@@ -16,17 +16,18 @@
 #include "font-interface.hh"
 
 
-LY_DEFINE (ly_grob_set_callback_x, "ly:grob-set-callback!",
-	   3, 0, 0, (SCM grob, SCM sym, SCM proc),
-	   "Set @var{sym} in grob @var{grob} to value @var{proc}")
+
+LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
+	   2, 0, 0, (SCM grob, SCM sym),
+	   //, SCM dfault),
+	   "Retrieve @var{sym} for @var{grob} but don't process callbacks.")
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (ly_is_procedure (proc), proc, SCM_ARG3, __FUNCTION__, "procedure");
+  //  SCM_ASSERT_TYPE (ly_is_procedure (proc), proc, SCM_ARG3, __FUNCTION__, "procedure");
 
-  sc->set_callback (sym, proc);
-  return SCM_UNSPECIFIED;
+  return sc->get_property_data (sym);
 }
 
 LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",

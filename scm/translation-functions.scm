@@ -79,6 +79,7 @@
 			  #f))
 
 	 (alt-dir (ly:context-property context 'figuredBassAlterationDirection))
+	 (plus-dir (ly:context-property context 'figuredBassPlusDirection))
 	 )
 
     (if (and (not fig-markup) alt-markup)
@@ -111,7 +112,9 @@
 	      (if fig-markup
 		  (markup #:put-adjacent
 			  fig-markup
-			  X LEFT
+			  X (if (number? plus-dir)
+				plus-dir
+				LEFT)
 			  #:pad-x 0.2 plus-markup)
 		  plus-markup)))
     

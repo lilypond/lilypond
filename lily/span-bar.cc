@@ -107,14 +107,11 @@ Span_bar::print (SCM smobbed_me)
   return span_bar.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Span_bar, width_callback, 2);
+MAKE_SCHEME_CALLBACK (Span_bar, width, 1);
 SCM
-Span_bar::width_callback (SCM smob, SCM scm_axis)
+Span_bar::width (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  (void) scm_axis;
-
-  assert ((Axis) scm_to_int (scm_axis) == X_AXIS);
   SCM gn = me->get_property ("glyph-name");
   if (!me->is_live ())
     return ly_interval2scm (Interval ());
@@ -196,8 +193,7 @@ Span_bar::calc_glyph_name (SCM smob)
 Interval
 Span_bar::get_spanned_interval (Grob *me)
 {
-  return ly_scm2interval (Axis_group_interface::group_extent_callback
-			  (me->self_scm (), scm_from_int (Y_AXIS)));
+  return ly_scm2interval (Axis_group_interface::generic_group_extent (me, Y_AXIS));
 }
 
 MAKE_SCHEME_CALLBACK (Span_bar, calc_bar_size, 1);

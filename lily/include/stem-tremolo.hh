@@ -19,7 +19,7 @@ public:
   static bool has_interface (Grob *);
   DECLARE_SCHEME_CALLBACK (dim_callback, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (height, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (height, (SCM));
   static Stencil raw_stencil (Grob *);
 };
 

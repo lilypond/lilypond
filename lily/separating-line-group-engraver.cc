@@ -111,8 +111,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
   if (!it)
     return;
   if (it->get_parent (X_AXIS)
-      && it->get_parent (X_AXIS)
-      ->has_extent_callback (Axis_group_interface::group_extent_callback_proc, X_AXIS))
+      && Axis_group_interface::has_axis (it->get_parent (X_AXIS), X_AXIS))
     return;
 
   if (to_boolean (it->get_property ("no-spacing-rods")))

@@ -36,6 +36,7 @@ struct Figure_group
   
   Figure_group ()
   {
+    figure_item_ = 0;
     force_no_continuation_ = false;
     continuation_line_ = 0;
     number_ = SCM_EOL;

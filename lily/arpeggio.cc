@@ -133,14 +133,11 @@ Arpeggio::brew_chord_bracket (SCM smob)
   We have to do a callback, because print () triggers a
   vertical alignment if it is cross-staff.
 */
-MAKE_SCHEME_CALLBACK (Arpeggio, width_callback, 2);
+MAKE_SCHEME_CALLBACK (Arpeggio, width, 1);
 SCM
-Arpeggio::width_callback (SCM smob, SCM axis)
+Arpeggio::width (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  (void) axis;
-
-  assert (scm_to_int (axis) == X_AXIS);
   Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts.arpeggio");
 
   return ly_interval2scm (arpeggio.extent (X_AXIS));
@@ -148,5 +145,9 @@ Arpeggio::width_callback (SCM smob, SCM axis)
 
 ADD_INTERFACE (Arpeggio, "arpeggio-interface",
 	       "Functions and settings for drawing an arpeggio symbol (a wavy line left to noteheads.",
-	       "stems arpeggio-direction");
+
+	       /* properties */
+	       "arpeggio-direction "
+	       "stems "
+	       );
 

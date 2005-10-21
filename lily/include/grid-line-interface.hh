@@ -17,7 +17,7 @@ class Grid_line_interface
 public:
   static void add_grid_point (Grob *me, Grob *b);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (width_callback, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (width, (SCM));
   static bool has_interface (Grob *);
 };
 

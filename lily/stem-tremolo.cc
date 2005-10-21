@@ -32,18 +32,15 @@ Stem_tremolo::dim_callback (SCM e, SCM)
   return ly_interval2scm (Interval (-space, space));
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 2);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 1);
 SCM
-Stem_tremolo::height (SCM smob, SCM ax)
+Stem_tremolo::height (SCM smob)
 {
-  Axis a = (Axis)scm_to_int (ax);
   Grob *me = unsmob_grob (smob);
-  assert (a == Y_AXIS);
-
 
   /* TODO: fixme. uncached? */
   return ly_interval2scm (me->get_stencil ()
-			  ? me->get_stencil ()->extent (a)
+			  ? me->get_stencil ()->extent (Y_AXIS)
 			  : Interval());
 }
 

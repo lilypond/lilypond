@@ -16,7 +16,9 @@
  */
 struct Axis_group_interface
 {
-  DECLARE_SCHEME_CALLBACK (group_extent_callback, (SCM smob, SCM axis));
+  static SCM generic_group_extent (Grob *me, Axis a);
+  DECLARE_SCHEME_CALLBACK (width, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (height, (SCM smob));
   static Interval relative_group_extent (Link_array<Grob> const &list,
 					 Grob *common, Axis);
 

@@ -389,7 +389,8 @@ Accidental_placement::calc_positioning_done (SCM smob)
   Interval width (left_extent[LEFT], right_extent[RIGHT]);
 
   SCM scm_width = ly_interval2scm (width);
-  me->set_extent (scm_width, X_AXIS);
+  me->flush_extent_cache (X_AXIS);
+  me->set_property ("X-extent", scm_width);
 
   for (int i = apes.size (); i--;)
     delete apes[i];

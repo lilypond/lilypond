@@ -27,7 +27,6 @@ protected:
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   SCM object_alist_;
-  SCM property_callbacks_;
   
   /*
     If this is a property, it accounts for 25% of the property
@@ -41,7 +40,6 @@ protected:
   friend SCM ly_grob_basic_properties (SCM);
   friend void check_interfaces_for_property (Grob const *, SCM);
   void substitute_object_links (SCM, SCM);
-  char status_;
 
   DECLARE_CLASSNAME(Grob);
 public:
@@ -61,7 +59,10 @@ public:
   Grob (Grob const &, int copy_count);
 
   virtual Grob *clone (int count) const;
-  DECLARE_SCHEME_CALLBACK (stencil_extent, (SCM smob, SCM axis));
+  static SCM stencil_extent (Grob*, Axis);
+  DECLARE_SCHEME_CALLBACK (stencil_height, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (stencil_width, (SCM smob));
+    
   
   String name () const;
   /*
@@ -71,10 +72,11 @@ public:
   SCM get_property_data (SCM symbol) const;
   SCM internal_get_object (SCM symbol) const;
 
+  void del_property (SCM symbol); 
   void internal_set_property (SCM sym, SCM val);
   void internal_set_object (SCM sym, SCM val);
 
-  SCM try_callback (SCM);
+  SCM try_callback (SCM, SCM);
   /*
     JUNKME.
   */
@@ -104,7 +106,6 @@ public:
 
   void suicide ();
   bool is_live () const;
-  bool is_empty (Axis a) const;
 
   bool internal_has_interface (SCM intf);
   static bool has_interface (Grob *me);
@@ -120,13 +121,9 @@ public:
   Grob *common_refpoint (Grob const *s, Axis a) const;
 
   // duh. slim down interface here. (todo)
-  void set_callback (SCM sym, SCM proc);
   bool has_offset_callback (SCM callback, Axis) const;
   void add_offset_callback (SCM callback, Axis);
-  bool has_extent_callback (SCM, Axis) const;
   void flush_extent_cache (Axis);
-  void set_extent (SCM, Axis);
-  void set_extent_callback (SCM, Axis);
   Real get_offset (Axis a) const;
 
   void set_parent (Grob *e, Axis);

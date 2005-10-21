@@ -45,28 +45,11 @@ Axis_group_engraver::get_spanner ()
 void
 Axis_group_engraver::finalize ()
 {
-  if (!staffline_)
-    return;
-
-  String type = context ()->context_name ();
-  SCM dims = get_property ("verticalExtent");
-
-  if (is_number_pair (dims))
-    staffline_->set_extent (dims, Y_AXIS);
-
-  dims = get_property ("minimumVerticalExtent");
-  if (is_number_pair (dims))
-    staffline_->set_property ("minimum-Y-extent", dims);
-
-  dims = get_property ("extraVerticalExtent");
-  if (is_number_pair (dims))
-    staffline_->set_property ("extra-Y-extent", dims);
-
-  Grob *it = unsmob_grob (get_property ("currentCommandColumn"));
-
-  staffline_->set_bound (RIGHT, it);
-
-  staffline_ = 0;
+  if (staffline_)
+    {
+      Grob *it = unsmob_grob (get_property ("currentCommandColumn"));
+      staffline_->set_bound (RIGHT, it);
+    }
 }
 
 void
@@ -99,6 +82,7 @@ Axis_group_engraver::process_acknowledged ()
 	      staffline_ = 0;
 	      break;
 	    }
+#if 0 
 	  else if (elts_[i]->is_empty (Y_AXIS))
 	    {
 	      /*
@@ -109,6 +93,7 @@ Axis_group_engraver::process_acknowledged ()
 	      elts_[i]->set_parent (staffline_, Y_AXIS);
 	    }
 	  else
+#endif
 	    add_element (elts_[i]);
 	}
     }

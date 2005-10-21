@@ -69,7 +69,7 @@ Vertical_align_engraver::process_music ()
     {
       valign_ = make_spanner ("VerticalAlignment", SCM_EOL);
       valign_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
-      Align_interface::set_axis (valign_, Y_AXIS);
+      Align_interface::set_ordered (valign_);
     }
 }
 
@@ -89,7 +89,8 @@ Vertical_align_engraver::qualifies (Grob_info i) const
   int sz = i.origin_contexts ((Translator *)this).size ();
 
   return sz > 0 && Axis_group_interface::has_interface (i.grob ())
-    && !i.grob ()->get_parent (Y_AXIS) && Axis_group_interface::has_axis (i.grob (), Y_AXIS);
+    && !i.grob ()->get_parent (Y_AXIS)
+    && Axis_group_interface::has_axis (i.grob (), Y_AXIS);
 }
 
 void

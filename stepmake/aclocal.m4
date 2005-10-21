@@ -283,7 +283,7 @@ AC_DEFUN(STEPMAKE_DATADIR, [
 	presome=${ac_default_prefix}
     fi
     
-    build_package_datadir=$ugh_ugh_autoconf250_builddir/share/$package
+    build_package_datadir=$ugh_ugh_autoconf250_builddir/out$CONFIGSUFFIX/share/$package
     
     DATADIR=`echo ${datadir} | sed "s!\\\${prefix}!$presome!"`
     BUILD_PACKAGE_DATADIR=`echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!"`
@@ -301,7 +301,7 @@ AC_DEFUN(STEPMAKE_LIBDIR, [
  	libdir='${exec_prefix}/lib'
     fi
     presome=$exec_prefix
-    build_package_libdir=$ugh_ugh_autoconf250_builddir/lib/$package
+    build_package_libdir=$ugh_ugh_autoconf250_builddir/out$CONFIGSUFFIX/lib/$package
     
     LIBDIR=`echo ${libdir} | sed "s!\\\${exec_prefix}!$presome!"`
     BUILD_PACKAGE_LIBDIR=`echo ${build_package_libdir} | sed "s!\\\${exec_prefix}!$presome!"`

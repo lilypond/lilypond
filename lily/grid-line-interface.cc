@@ -49,13 +49,11 @@ Grid_line_interface::print (SCM smobbed_me)
   return st.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Grid_line_interface, width_callback, 2);
+MAKE_SCHEME_CALLBACK (Grid_line_interface, width, 1);
 SCM
-Grid_line_interface::width_callback (SCM element_smob, SCM scm_axis)
+Grid_line_interface::width (SCM element_smob)
 {
   Grob *me = unsmob_grob (element_smob);
-  (void) scm_axis;
-  assert (scm_to_int (scm_axis) == X_AXIS);
 
   Real staffline = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)

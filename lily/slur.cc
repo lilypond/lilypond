@@ -56,17 +56,15 @@ Slur::calc_direction (SCM smob)
   return scm_from_int (d);
 }
 
-MAKE_SCHEME_CALLBACK (Slur, height, 2);
+MAKE_SCHEME_CALLBACK (Slur, height, 1);
 SCM
-Slur::height (SCM smob, SCM ax)
+Slur::height (SCM smob)
 {
-  Axis a = (Axis)scm_to_int (ax);
   Grob *me = unsmob_grob (smob);
-  assert (a == Y_AXIS);
 
   // FIXME uncached
   Stencil *m = me->get_stencil ();
-  return m ? ly_interval2scm (m->extent (a)) : ly_interval2scm (Interval ());
+  return m ? ly_interval2scm (m->extent (Y_AXIS)) : ly_interval2scm (Interval ());
 }
 
 /*

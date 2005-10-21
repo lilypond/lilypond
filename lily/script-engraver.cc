@@ -135,7 +135,9 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
 
 	  val = scm_from_int (prio);
 	}
-      if (p->get_property_data (sym) == SCM_EOL)
+
+      SCM preset = p->get_property_data (sym);
+      if (scm_call_1 (type, preset) == SCM_BOOL_F)
 	p->internal_set_property (sym, val);
     }
 
@@ -163,7 +165,7 @@ Script_engraver::process_music ()
 
       scripts_[i].script_ = p;
 
-      SCM force_dir = music->get_property("direction");
+      SCM force_dir = music->get_property ("direction");
       if (is_direction (force_dir) && to_dir (force_dir))
 	p->set_property ("direction", force_dir);
     }

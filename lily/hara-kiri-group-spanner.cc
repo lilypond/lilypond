@@ -16,16 +16,13 @@
 #include "warn.hh"
 #include "item.hh"
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 1);
 SCM
-Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
+Hara_kiri_group_spanner::y_extent (SCM element_smob)
 {
   Grob *me = unsmob_grob (element_smob);
-  (void) scm_axis;
-
-  assert (scm_to_int (scm_axis) == Y_AXIS);
   consider_suicide (me);
-  return Axis_group_interface::group_extent_callback (me->self_scm (), scm_axis);
+  return Axis_group_interface::generic_group_extent (me, Y_AXIS);
 }
 
 void
