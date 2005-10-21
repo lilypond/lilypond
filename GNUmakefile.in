@@ -116,12 +116,12 @@ $(tree-prefix)/lilypond-force link-tree: GNUmakefile
 	mkdir -p $(tree-prefix)/fonts/enc
 	mkdir -p $(tree-prefix)/tex
 	cd $(top-build-dir)/$(outbase)/lib && \
-		ln -s  ../../../python/$(outconfbase) python
+		ln -s ../../../../python/$(outconfbase) python
 	cd $(tree-prefix) && \
 		ln -s $(top-src-dir)/ly ly && \
 		ln -s ../../../../mf mf && \
 		ln -s $(top-src-dir)/ps && \
-		ln -s ../../../python/$(outconfbase) python && \
+		ln -s ../../../../python/$(outconfbase) python && \
 		ln -s $(top-src-dir)/scm && \
 		ln -s $(top-src-dir)/scripts scripts
 	cd $(tree-prefix)/dvips && \

@@ -45,6 +45,25 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+
+@item
+Each grob property can be a procedure. If this is the case, it is
+assumed to be a routine that calculates said property.  This is a
+major internal cleanup, which also provides advanced tweakability for
+power users. For example,
+
+@verbatim
+\override Beam #'direction
+  = #(lambda (grob)
+      (if (> 4 (ly:grob-array-length (ly:grob-object grob 'stems)))
+          DOWN
+          UP))
+@end verbatim 
+
+@noindent
+With this code fragment, the direction of a beam is decided to be up
+or down, depending on the number of stems in the beam.
+
 @item
 Support for figured bass has been rewritten. Now it supports
 continuation lines, slashed figures, and its figures, brackets, and alignments may
@@ -60,23 +79,6 @@ tuned separately.
 @end lilypond
 
 This rewrite was sponsored by Trent Johnston and John Mandereau.
-
-@item
-For each grob, a subproperty in @code{callbacks} property defines the
-procedure which computes it. This is a major internal cleanup, which
-also provides advanced tweakability for power users. For example,
-
-@verbatim
-\override Beam #'callbacks #'direction
-  = #(lambda (grob)
-      (if (> 4 (ly:grob-array-length (ly:grob-object grob 'stems)))
-          DOWN
-          UP))
-@end verbatim 
-
-@noindent
-With this code fragment, the direction of a beam is decided to be up
-or down, depending on the number of stems in the beam.
 
 @item
 Subproperties, like the @code{details} field of @code{Slur} and

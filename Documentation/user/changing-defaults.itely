@@ -1324,7 +1324,7 @@ of the broken tie is translated up.
      (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
 \relative c'' { 
-  \override Tie #'callbacks #'after-line-breaking =
+  \override Tie #'after-line-breaking =
   #my-callback
   c1 ~ \break c2 ~ c
 }

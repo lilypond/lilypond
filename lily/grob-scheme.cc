@@ -38,7 +38,8 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
-  if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
+  if (!ly_is_procedure (val)
+      && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
 
   sc->internal_set_property (sym, val);
@@ -48,7 +49,7 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 LY_DEFINE (ly_grob_property, "ly:grob-property",
 	   2, 0, 0, (SCM grob, SCM sym),
 	   "Return the value of a value in grob @var{g} of property @var{sym}. "
-	   "It will return @code{' ()} (end-of-list) "
+	   "It will return @code{'()} (end-of-list) "
 	   "if  @var{sym} is undefined in @var{g}."
 	   "\n\n")
 {

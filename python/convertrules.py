@@ -2615,3 +2615,13 @@ def conv (str):
 
 conversions.append (((2, 7, 13), conv,
 		     '''layout engine refactoring. [FIXME] '''))
+
+
+
+def conv (str):
+	str = re.sub (r"#'callbacks", '', str)
+	str = re.sub (r"([XY]-extent)-callback", r'\1', str)
+	return str
+
+conversions.append (((2, 7, 14), conv,
+		     '''Remove callbacks property, deprecate XY-extent-callback. '''))

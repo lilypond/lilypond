@@ -336,7 +336,7 @@ fragment.
    \set autoBeaming = ##f
    \time 2/4
    <d f g>4
-   \once \override NoteHead #'callbacks #'stencil = #Note_head::brew_ez_stencil
+   \once \override NoteHead #'stencil = #Note_head::brew_ez_stencil
    <d f g>
    \once \override NoteHead #'style = #'cross
    <d f g>

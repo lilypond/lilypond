@@ -12,8 +12,8 @@ with lines and explanatory text added."
   \relative c'  {
 
     %% by hand:
-    \once\override Stem #'callbacks #'stencil = #Balloon_interface::print
-    \once\override Stem #'balloon-original-callback = #Stem::print
+    \once\override Stem #'stencil = #Balloon_interface::print
+    \once\override Stem #'original-stencil = #Stem::print
     \once\override Stem #'balloon-text = #"I'm a stem"
     \once\override Stem #'balloon-text-offset = #'(3 . 4)
     \once\override Stem #'balloon-text-props

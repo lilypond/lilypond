@@ -88,7 +88,8 @@ Grob::internal_set_property (SCM sym, SCM v)
 
   if (do_internal_type_checking_global)
     {
-      if (!type_check_assignment (sym, v, ly_symbol2scm ("backend-type?")))
+      if (!ly_is_procedure (v)
+	  && !type_check_assignment (sym, v, ly_symbol2scm ("backend-type?")))
 	abort ();
       check_interfaces_for_property (this, sym);
     }
@@ -119,7 +120,9 @@ Grob::get_property_data (SCM sym) const
 
   if (do_internal_type_checking_global && scm_is_pair (handle))
     {
-      if (!type_check_assignment (sym, scm_cdr (handle),
+      SCM val = scm_cdr (handle);
+      if (!ly_is_procedure (val)
+	  && !type_check_assignment (sym, val, 
 				  ly_symbol2scm ("backend-type?")))
 	abort ();
 

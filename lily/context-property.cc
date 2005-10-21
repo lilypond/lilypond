@@ -136,7 +136,9 @@ execute_general_pushpop_property (Context *context,
       bool ok = true;
       if (!scm_is_pair (scm_cdr (grob_property_path)))
 	{
-	  ok = type_check_assignment (symbol, new_value, ly_symbol2scm ("backend-type?"));
+	  ok = !ly_is_procedure (new_value)
+	    && type_check_assignment (symbol, new_value,
+				      ly_symbol2scm ("backend-type?"));
 
 	  /*
 	    tack onto alist.  We can use set_car, since
