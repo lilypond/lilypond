@@ -32,36 +32,6 @@ Grob::get_interfaces () const
   return interfaces_;
 }
 
-/*
-  This special add_thing routine is slightly more efficient than
-
-  set_prop (name, cons (thing, get_prop (name)))
-
-  since it can reuse the handle returned by scm_assq ().
-*/
-// JUNKME.
-void
-Grob::add_to_list_property (SCM sym, SCM thing)
-{
-  SCM handle
-    = scm_sloppy_assq (sym, mutable_property_alist_);
-
-  if (handle != SCM_BOOL_F)
-    scm_set_cdr_x (handle, scm_cons (thing, scm_cdr (handle)));
-  else
-    {
-      /*
-	There is no mutable prop yet, so create an entry, and put it in front of the
-	mutable prop list.
-      */
-      handle = scm_sloppy_assq (sym, immutable_property_alist_);
-      SCM tail = (handle != SCM_BOOL_F) ? scm_cdr (handle) : SCM_EOL;
-      SCM val = scm_cons (thing, tail);
-
-      mutable_property_alist_ = scm_cons (scm_cons (sym, val),
-					  mutable_property_alist_);
-    }
-}
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
