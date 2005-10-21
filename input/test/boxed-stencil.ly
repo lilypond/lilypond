@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.14"
 \header {
   texidoc = "@cindex Boxed Stencil
 
@@ -10,18 +10,18 @@ grob. " }
 \layout{raggedright = ##t}
 \relative c''  {
 
-  \override TextScript #'callbacks #'stencil =
+  \override TextScript  #'stencil =
   #(make-stencil-boxer 0.1 0.3 Text_interface::print)
 
   c'4^"foo"
 
-  \override Stem #'callbacks #'stencil =
+  \override Stem  #'stencil =
   #(make-stencil-boxer 0.05 0.25 Stem::print)
 
-  \override Score.RehearsalMark #'callbacks #'stencil =
+  \override Score.RehearsalMark  #'stencil =
   #(make-stencil-boxer 0.15 0.3 Text_interface::print)
   b8
-  \revert Stem #'callbacks % stencil
+  \revert Stem  % stencil
 
 
   c4. c4 \mark "F" c1 
