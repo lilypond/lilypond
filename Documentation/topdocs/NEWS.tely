@@ -64,6 +64,7 @@ power users. For example,
 With this code fragment, the direction of a beam is decided to be up
 or down, depending on the number of stems in the beam.
 
+
 @item
 Support for figured bass has been rewritten. Now it supports
 continuation lines, slashed figures, and its figures, brackets, and alignments may

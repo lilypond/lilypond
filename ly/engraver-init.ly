@@ -347,8 +347,8 @@ printing of a single line of lyrics.  "
   \consists "Skip_event_swallow_translator"
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"
-  \override RemoveEmptyVerticalGroup #'remove-first = ##t
-  \override RemoveEmptyVerticalGroup #'remove-empty = ##t
+  \override VerticalAxisGroup #'remove-first = ##t
+  \override VerticalAxisGroup #'remove-empty = ##t
   \override SeparationItem #'padding = #0.2
 }
 
@@ -387,7 +387,7 @@ printing of a single line of lyrics.  "
   \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2.5)
   extraVerticalExtent = ##f
   \override SeparatingGroupSpanner #'padding = #0.8
-  \override RemoveEmptyVerticalGroup #'remove-first = ##t
+  \override VerticalAxisGroup #'remove-first = ##t
   verticalExtent = ##f 
 }
 
@@ -585,7 +585,7 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Skip_event_swallow_translator"
   \consists "Separating_line_group_engraver"
   \consists "Hara_kiri_engraver"
-  \override RemoveEmptyVerticalGroup #'remove-first = ##t
+  \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.5 . 2.5)
 }
 
