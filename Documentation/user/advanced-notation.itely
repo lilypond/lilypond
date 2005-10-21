@@ -1258,10 +1258,10 @@ in this example disappears in the second line
 
 The first system shows all staves in full.  If empty staves should be
 removed from the first system too, set @code{remove-first} to true in
-@internalsref{RemoveEmptyVerticalGroup}.
+@internalsref{VerticalAxisGroup}.
 
 @example
-\override Score.RemoveEmptyVerticalGroup #'remove-first = ##t
+\override Score.VerticalAxisGroup #'remove-first = ##t
 @end example
 
 To remove other types of contexts, use @code{\AncientRemoveEmptyStaffContext}

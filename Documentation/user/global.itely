@@ -453,7 +453,7 @@ layout.
 \layout @{
   indent = 2.0\cm
   \context @{ \Staff
-    minimumVerticalExtent = #'(-6 . 6
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
   @}
   \context @{ \Voice
     \override TextScript #'padding = #1.0
@@ -483,24 +483,24 @@ systems from bumping into each other, some minimum distances are set.
 By changing these, you can put staves closer together, and thus put
 more systems onto one page.
 
-@c TODO: junk explanation of minimumVerticalExtent
-
 Normally staves are stacked vertically.  To make staves maintain a
 distance, their vertical size is padded.  This is done with the
-property @code{minimumVerticalExtent}.  It takes a pair of numbers, so
+property @code{minimum-Y-extent}.  It takes a pair of numbers, so
 if you want to make it smaller than its default @code{#'(-4 . 4)},
-then you could set
+then you could set. When applied to a
+@internalsref{VerticalAxisGroup}, it controls the size of a horizontal
+line, such as a staff or a line of lyrics.  
 
 @example
-\set Staff.minimumVerticalExtent = #'(-3 . 3)
+\override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
 @end example
 
 @noindent
 This sets the vertical size of the current staff to 3 staff spaces on
-either side of the center staff line.  The argument of
-@code{minimumVerticalExtent} is interpreted as an interval, where the
-center line is the 0, so the first number is generally negative.  The
-staff can be made larger at the bottom by setting it to @code{(-6 . 4)}. 
+either side of the center staff line.  The value @code{(-3 . 3)} is
+interpreted as an interval, where the center line is the 0, so the
+first number is generally negative.  The staff can be made larger at
+the bottom by setting it to @code{(-6 . 4)}.
 
 The spacing of staves in a system may also be tuned per system.  This is
 done with the command
@@ -538,8 +538,9 @@ The distance for @code{alignment-extra-space} may also be negative.
 
 To change the amount of space between systems, use
 @code{betweensystemspace}.  A score with only one staff is still
-considered to have systems, so setting @code{betweensystemspace}
-will be much more useful than changing @code{minimumVerticalExtent}.
+considered to have systems, so setting @code{betweensystemspace} will
+be much more useful than changing @code{minimum-Y-extent} of a Staff
+context.
 
 @example
 \paper @{
@@ -590,13 +591,6 @@ the @internalsref{Axis_group_engraver}.
 
 Example files: @inputfileref{input/regression/,page-spacing.ly},
 @inputfileref{input/regression/,alignment-vertical-spacing.ly}.
-
-
-@refbugs
-
-@code{minimumVerticalExtent} is syntactic sugar for setting
-@code{minimum-Y-extent} of the @internalsref{VerticalAxisGroup} of the
-current context.  It can only be changed score wide.
 
 
 

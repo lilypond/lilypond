@@ -339,7 +339,7 @@ pedal = {
       \alias Voice % So that \cresc works, for example.
       \consists "Output_property_engraver"
 
-      minimumVerticalExtent = #'(-1 . 1)
+      \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
       pedalSustainStrings = #'("Ped." "*Ped." "*")
       pedalUnaCordaStrings = #'("una corda" "" "tre corde")
 
@@ -620,7 +620,8 @@ bassWords = \lyricmode {
       \context {
          % a little smaller so lyrics
          % can be closer to the staff
-         \Staff minimumVerticalExtent = #'(-3 . 3)
+         \Staff
+         \override VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
       }
    }
 }
@@ -674,7 +675,7 @@ bassWords = \lyricmode {
          % a little smaller so lyrics
          % can be closer to the staff
          \Staff
-          minimumVerticalExtent = #'(-3 . 3)
+          \override VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
   }
 }
 
