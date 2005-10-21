@@ -337,6 +337,9 @@ as a real penalty.")
 staff-space unit of the current staff.")
      (ratio ,number? "Parameter for slur shape. The higher this number, the
 quicker the slur attains it @code{height-limit}.")
+     
+     (remove-empty ,boolean? "If set, remove group if it contains no
+@code{interesting-items}")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
      (right-padding ,ly:dimension? "Space to insert between note and
 accidentals.")

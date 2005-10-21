@@ -1,5 +1,10 @@
 2005-10-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): remove
+	RemoveEmptyVerticalGroup
+
+	* lily/hara-kiri-engraver.cc (get_spanner): create VerticalAxisGroup.
+
 	* lily/include/lily-guile.hh (GUILE_ELLIPSIS): define to get clean
 	compile on MOSX
 

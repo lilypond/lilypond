@@ -57,7 +57,7 @@ GROB.  The dimensions of the stencil is not affected.
     =
     #(parenthesize-callback Note_head::print)
     g bes
-    \revert NoteHead  % stencil
+    \revert NoteHead #'stencil
 
     \override Beam  #'stencil
     =

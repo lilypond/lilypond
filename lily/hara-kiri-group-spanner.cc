@@ -29,6 +29,8 @@ void
 Hara_kiri_group_spanner::consider_suicide (Grob *me)
 {
   Spanner *sp = dynamic_cast<Spanner *> (me);
+  if (!to_boolean (me->get_property ("remove-empty")))
+    return ;
 
   extract_grob_set (me, "items-worth-living", worth);
   if (worth.size ())
@@ -58,9 +60,9 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
   before asking for offsets.  */
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback, 2);
 SCM
-Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
+Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob, SCM axis)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
   (void) axis;
 
   assert (scm_to_int (axis) == Y_AXIS);
@@ -100,5 +102,8 @@ ADD_INTERFACE (Hara_kiri_group_spanner, "hara-kiri-group-interface",
 
 	       /* properties */
 	       "items-worth-living "
-	       "remove-first");
+	       "remove-empty "
+	       "remove-first "
+	       );
+
 

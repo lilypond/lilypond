@@ -1,4 +1,4 @@
-\version "2.7.6"
+\version "2.7.14"
 
 \context {
   \name Global
@@ -39,7 +39,7 @@
   \consists "String_number_engraver"
   \consists "Axis_group_engraver"
 
-  minimumVerticalExtent = #'(-4 . 4)
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
   extraVerticalExtent = ##f
   verticalExtent = ##f 
   localKeySignature = #'()
@@ -116,7 +116,7 @@ contained staves are not connected vertically."
 \context{
   \type "Engraver_group"
   
-  minimumVerticalExtent = ##f
+  \override VerticalAxisGroup #'minimum-Y-extent = ##f
   extraVerticalExtent = ##f
   verticalExtent = ##f 
   localKeySignature = #'()
@@ -330,7 +330,7 @@ connected vertically.  "
 
 \context{
   \type "Engraver_group"
-  minimumVerticalExtent = #'(-1.2 . 2.4)
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(-1.2 . 2.4)
   extraVerticalExtent = ##f
   verticalExtent = ##f
 
@@ -348,6 +348,7 @@ printing of a single line of lyrics.  "
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"
   \override RemoveEmptyVerticalGroup #'remove-first = ##t
+  \override RemoveEmptyVerticalGroup #'remove-empty = ##t
   \override SeparationItem #'padding = #0.2
 }
 
@@ -356,7 +357,7 @@ printing of a single line of lyrics.  "
   \name NoteNames
   \consists "Axis_group_engraver"
 
-  minimumVerticalExtent = ##f
+  \override VerticalAxisGroup #'minimum-Y-extent = ##f
   extraVerticalExtent = ##f
   verticalExtent = ##f 
 
@@ -383,7 +384,7 @@ printing of a single line of lyrics.  "
   \consists "Hara_kiri_engraver"
   
   voltaOnThisStaff = ##f
-  minimumVerticalExtent = #'(0 . 2.5)
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2.5)
   extraVerticalExtent = ##f
   \override SeparatingGroupSpanner #'padding = #0.8
   \override RemoveEmptyVerticalGroup #'remove-first = ##t
@@ -585,7 +586,7 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Separating_line_group_engraver"
   \consists "Hara_kiri_engraver"
   \override RemoveEmptyVerticalGroup #'remove-first = ##t
-  minimumVerticalExtent = #'(-0.5 . 2.5)
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.5 . 2.5)
 }
 
 \context {

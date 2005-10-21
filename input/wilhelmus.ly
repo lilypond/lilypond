@@ -96,8 +96,7 @@ voice =  \relative c' {
 stich =  \relative c'' {
   \override Staff.NoteCollision #'merge-differently-dotted = ##t
   \set fontSize = #-3
-  %% broken?
-  \override Stem #'beamed-lengths = #(map (lambda (x) (* 0.2 x)) '(3.26))
+  \override Stem #'length-fraction = #(magstep -3)
 
   \voiceTwo
   \partial 4
