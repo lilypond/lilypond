@@ -166,7 +166,7 @@ static Long_option_init options_static[]
 #endif
   {0, "no-print", 0, _i ("do not generate printed output")},
   {0, "preview", 'p',  _i ("generate a preview of the first system")},
-  {0, "safe-mode", 's',  _i ("run in safe mode")},
+  {0, "safe-mode", 's',  _i ("disallow unsafe Scheme and PostScript operations")},
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i ("be verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
