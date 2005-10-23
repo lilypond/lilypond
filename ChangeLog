@@ -1,3 +1,7 @@
+2005-10-23  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* scripts/lilypond-book.py: Backport bugfix by Mats Bengtsson.
+
 2005-10-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/postinstall-lilypond.sh: Remove cruft.
