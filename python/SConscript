@@ -11,3 +11,4 @@ pym
 cm
 
 install (cm + pym, env['sharedir_package_version'] + '/python')
+install (cm, env['libdir_package_version'] + '/python')
