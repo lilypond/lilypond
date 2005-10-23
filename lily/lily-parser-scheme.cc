@@ -8,15 +8,16 @@
 
 #include <unistd.h>
 
+#include "file-name-map.hh"
 #include "file-name.hh"
 #include "file-path.hh"
-#include "main.hh"
-#include "lily-parser.hh"
-#include "warn.hh"
-#include "source.hh"
 #include "lily-lexer.hh"
+#include "lily-parser.hh"
 #include "ly-module.hh"
-#include "file-name-map.hh"
+#include "main.hh"
+#include "program-option.hh"
+#include "source.hh"
+#include "warn.hh"
 
 /* Do not append `!' suffix, since 1st argument is not modified. */
 LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
@@ -52,7 +53,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
   /* When running from gui, generate output in .ly source directory.  */
   if (output_name_global.is_empty ()
-      && scm_call_0 (ly_lily_module_constant ("running-from-gui?")) == SCM_BOOL_T)
+      && ly_get_option (ly_symbol2scm ("gui")) == SCM_BOOL_T)
     {
       File_name f (file);
       f.base_ = "";
