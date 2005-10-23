@@ -1,3 +1,7 @@
+2005-10-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* THANKS: add Thomas Bushnell.
+
 2005-10-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily.scm: Remove horrendous running-from-gui? kludge.
