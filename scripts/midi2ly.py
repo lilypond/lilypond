@@ -39,7 +39,7 @@ if os.environ.has_key ('LILYPONDPREFIX'):
 	datadir = os.environ['LILYPONDPREFIX']
 	while datadir[-1] == os.sep:
 		datadir= datadir[:-1]
-        libdir = datadir.replace ('/share/', '/lib/')
+	libdir = datadir.replace ('/share/', '/lib/')
 
 sys.path.insert (0, os.path.join (libdir, 'python'))
 
