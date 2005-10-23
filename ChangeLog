@@ -3,6 +3,16 @@
 	* scm/lily.scm: Remove horrendous running-from-gui? kludge.
 	(lilypond-main): Redirect to gui-main if 'gui is set.
 
+	* scripts/midi2ly.py (datadir): Add libdir iso datadir to path,
+	for alternative installations kludging s/share/lib/g
+	LILYPONDPREFIX.
+
+	* SConstruct (libdir_package_version): Define.
+
+	* python/SConscript: 
+	* python/GNUmakefile (INSTALLATION_OUT_DIR): Install binary .so
+	module in libdir.
+
 2005-10-23  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* scripts/lilypond-book.py: Backport bugfix by Mats Bengtsson.

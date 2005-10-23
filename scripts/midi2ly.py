@@ -30,12 +30,18 @@ import sys
 ################################################################
 # Users of python modules should include this snippet.
 #
-# This soon to be removed for: import lilypond.lilylib as ly
 libdir = '@local_lilypond_libdir@'
 if not os.path.isdir (libdir):
        libdir = '@lilypond_libdir@'
-sys.path.insert (0, os.path.join (libdir, 'python'))
 
+# ugh
+if os.environ.has_key ('LILYPONDPREFIX'):
+	datadir = os.environ['LILYPONDPREFIX']
+	while datadir[-1] == os.sep:
+		datadir= datadir[:-1]
+	libdir = datadir.replace ('/share/', '/lib/')
+
+sys.path.insert (0, os.path.join (libdir, 'python'))
 
 ################################################################
 
