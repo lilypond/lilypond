@@ -348,6 +348,9 @@ The syntax is the same as `define*-public'."
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
 
+  (if (ly:get-option 'gui)
+      (gui-main files))
+
   (if (null? files)
       (no-files-handler))
 
@@ -385,29 +388,12 @@ The syntax is the same as `define*-public'."
 
 (use-modules (scm editor))
 
-(define-public (running-from-gui?)
-  (let ((have-tty? (isatty? (current-input-port))))
-    ;; If no TTY and not using safe, assume running from GUI.
-    (cond
-     ((eq? PLATFORM 'windows)
-      ;; Always write to .log file.
-      (if DOS #t
-      ;; This only works for i586-mingw32msvc-gcc -mwindows
-      (not (string-match "standard input"
-			 (format #f "~S" (current-input-port))))))
-     ;; FIXME: using -dgui would be nice, but it does not work
-     ((eq? PLATFORM 'foo-windows)
-      (ly:get-option 'gui))
-     ((eq? PLATFORM 'darwin) #f)
-     (else
-      (not have-tty?)))))
-
 (define-public (gui-main files)
   (if (null? files)
       (gui-no-files-handler))
   (let* ((base (basename (car files) ".ly"))
 	 (log-name (string-append base ".log")))
-    (if (not (running-from-gui?))
+    (if (not (ly:get-option 'gui))
 	(ly:message (_ "Redirecting output to ~a...") log-name))
     (ly:stderr-redirect log-name "w")
     (ly:message "# -*-compilation-*-")
@@ -430,7 +416,3 @@ The syntax is the same as `define*-public'."
     (ly:message (_ "Invoking `~a'...") cmd)
     (system cmd)
     (exit 1)))
-
-(or (not (running-from-gui?))
-    (ly:get-option 'safe)
-    (define lilypond-main gui-main))
