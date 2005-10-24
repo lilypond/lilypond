@@ -4,7 +4,7 @@ INSTALLATION_OUT_DIR=$(vimdir)/syntax
 INSTALLATION_OUT_FILES=$(LILYPOND_WORDS)
 # $(outdir)/lilypond-words $(outdir)/lilypond-words.el
 
-EXTRA_DIST_FILES=$(wildcard *.vim) vimrc
+EXTRA_DIST_FILES=$(call src-wildcard,*.vim) vimrc
 
 LILYPOND_WORDS = $(outdir)/lilypond-words $(outdir)/lilypond-words.vim
 LILYPOND_WORDS_DEPENDS =\

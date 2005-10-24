@@ -1,6 +1,6 @@
 depth = ..
 
-TEX_FILES = $(filter-out texinfo.tex, $(wildcard *.tex))  
+TEX_FILES = $(filter-out texinfo.tex, $(call src-wildcard,*.tex))
 EXTRA_DIST_FILES = $(TEX_FILES) texinfo.tex texinfo.cnf
 STEPMAKE_TEMPLATES=install install-out
 
