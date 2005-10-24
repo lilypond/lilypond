@@ -129,6 +129,7 @@ encloses the contents.
 			    (list (real-part z) (imag-part z))))
        
        (z-dest (+ (* e_x (car destination)) (* e_y (cdr destination))))
+       (e_z (/ z-dest (magnitude z-dest)))
        (triangle-points '(-1+0.25i
 			  0
 			  -1-0.25i))
@@ -149,10 +150,16 @@ encloses the contents.
 	 `(polygon (quote ,(concatenate (map complex-to-offset p2s)))
 		   0.0
 		   #t) null null ) )
+       (thickness 0.1)
+       (shorten-line 0.5)
+       (start (complex-to-offset (/ (* e_z shorten-line) 2)))
+       (end (complex-to-offset (- z-dest (/ (* e_z shorten-line) 2))))
+       
        (line (ly:make-stencil
-	      `(draw-line 0.1 0 0
-			  ,(car destination)
-			  ,(cdr destination))
+	      `(draw-line ,thickness
+			  ,(car start) ,(cadr start)
+			  ,(car end) ,(cadr end)
+			  )
 	      (cons (min 0 (car destination))
 		    (min 0 (cdr destination)))
 	      (cons (max 0 (car destination))

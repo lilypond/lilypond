@@ -1,3 +1,15 @@
+2005-10-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/layout-page-layout.scm (page-headfoot): annotate
+	pagetopspace too.
+
+	* scm/stencil.scm (dimension-arrows): shorten arrowed lines a bit. 
+
+	* scm/layout-page-layout.scm (annotate-y-interval): y-annotation
+	doesn't take y-space.
+
+	* scm/paper.scm (paper-alist): fix A7 dimensions. 
+
 2005-10-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/stepmake/generic-vars.make (DIST_FILES): Fix
