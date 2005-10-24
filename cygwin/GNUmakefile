@@ -2,8 +2,8 @@ depth = ..
 
 NAME = cygwin
 
-MKNETRELS = $(wildcard mknetrel mknetrel.*[a-z])
-EXTRA_DIST_FILES = changelog $(MKNETRELS) $(wildcard *.hint)
+MKNETRELS = mknetrel $(call src-wildcard,mknetrel.*[a-z])
+EXTRA_DIST_FILES = changelog $(MKNETRELS) $(call src-wildcard,*.hint)
 
 SEXECUTABLES=bug-lilypond-cygwin lily-wins
 STEPMAKE_TEMPLATES = install install-out script
@@ -15,7 +15,7 @@ ifneq ($(CYGWIN_BUILD),)
 
 include $(stepdir)/executable-targets.make
 
-POSTINSTALLS=$(wildcard postinstall*.sh)
+POSTINSTALLS=$(call src-wildcard,postinstall*.sh)
 OUT_POSTINSTALLS=$(POSTINSTALLS:%=$(outdir)/%)
 
 $(outdir)/%.sh: %.sh $(config_make)
