@@ -80,8 +80,14 @@
     (set! annotation (ly:stencil-translate annotation
 			  (cons 0 (interval-center extent))))
 
-    (ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5 0)
-    ))
+    (set! annotation
+	  (ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5 0))
+
+    (set! annotation
+	  (ly:make-stencil (ly:stencil-expr annotation)
+			   (ly:stencil-extent annotation X)
+			   (cons 10000 -10000)))
+    annotation))
 
 (define (paper-system-annotate-last system layout)
   (let*
@@ -180,6 +186,7 @@
 			   #t)
       1 X))
     
+
     (add-stencil
      (ly:stencil-translate-axis 
       (annotate-y-interval layout "topmargin"
@@ -246,6 +253,18 @@
 					   #t)
 		      (/ (ly:output-def-lookup layout 'linewidth) 2)
 		      X)
+		     (if (= dir UP)
+			 (ly:stencil-translate-axis
+			  (annotate-y-interval layout
+					      "topspace"
+					      (cons
+					       (- (min 0 (* dir sep))
+						  (ly:output-def-lookup layout 'pagetopspace))
+					       (min 0 (* dir sep)))
+					      #t)
+			  (+ 7 (interval-center (ly:stencil-extent head-stencil X))) X)
+			 empty-stencil
+			 )
 		     head-stencil
 		     ))
 	      )))

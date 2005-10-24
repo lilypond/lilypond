@@ -68,12 +68,6 @@ Grob::internal_set_property (SCM sym, SCM v)
 }
 
 //#define PROFILE_PROPERTY_ACCESSES
-
-/*
-  Ugh C&P Coding.
-
-  Retrieve property without triggering callback.
- */
 SCM
 Grob::get_property_data (SCM sym) const
 {
