@@ -769,11 +769,11 @@ set_minimum_dy (Grob *me, Real *dy)
 }
 
 /*
-  Compute  a first approximation to the beam slope.
+  Compute a first approximation to the beam slope.
 */
-MAKE_SCHEME_CALLBACK (Beam, least_squares, 1);
+MAKE_SCHEME_CALLBACK (Beam, calc_least_squares_dy, 1);
 SCM
-Beam::least_squares (SCM smob)
+Beam::calc_least_squares_dy (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
@@ -783,7 +783,7 @@ Beam::least_squares (SCM smob)
   if (count < 1)
     {
       me->set_property ("positions", ly_interval2scm (pos));
-      return SCM_UNSPECIFIED;
+      return scm_from_double (0.0);
     }
 
   Array<Real> x_posns;
@@ -814,7 +814,7 @@ Beam::least_squares (SCM smob)
   Real y = 0;
   Real slope = 0;
   Real dy = 0;
-
+  Real ldy = 0.0;
   if (!ideal.delta ())
     {
       Interval chord (Stem::chord_start_y (first_visible_stem (me)),
@@ -842,8 +842,7 @@ Beam::least_squares (SCM smob)
 	slope esp. of the first part of a broken beam should predict
 	where the second part goes.
       */
-      me->set_property ("least-squares-dy",
-			scm_from_double (pos[RIGHT] - pos[LEFT]));
+      ldy = pos[RIGHT] - pos[LEFT];
     }
   else
     {
@@ -864,7 +863,8 @@ Beam::least_squares (SCM smob)
       dy = slope * dx;
 
       set_minimum_dy (me, &dy);
-      me->set_property ("least-squares-dy", scm_from_double (dy));
+
+      ldy = dy;
       pos = Interval (y, (y + dy));
     }
 
@@ -875,7 +875,7 @@ Beam::least_squares (SCM smob)
 
   me->set_property ("positions", ly_interval2scm (pos));
 
-  return SCM_UNSPECIFIED;
+  return scm_from_double (ldy);
 }
 
 /*
@@ -991,11 +991,16 @@ Beam::slope_damping (SCM smob)
   if (visible_stem_count (me) <= 1)
     return SCM_UNSPECIFIED;
 
+  /* trigger callback. */
+  (void) me->get_property ("least-squares-dy");
+  
   SCM s = me->get_property ("damping");
   Real damping = scm_to_double (s);
 
   if (damping)
     {
+      Real concaveness = robust_scm2double (me->get_property ("concaveness"), 0.0);
+
       Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
       scale_drul (&pos, Staff_symbol_referencer::staff_space (me));
 
@@ -1010,8 +1015,6 @@ Beam::slope_damping (SCM smob)
 	- first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
 
       Real slope = dy && dx ? dy / dx : 0;
-
-      Real concaveness = robust_scm2double (me->get_property ("concaveness"), 0.0);
 
       slope = 0.6 * tanh (slope) / (damping + concaveness);
 

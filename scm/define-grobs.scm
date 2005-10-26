@@ -285,12 +285,12 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(gap . 0.8)
-	(position-callbacks . (,Beam::least_squares
-			       ,Beam::check_concave
-			       ,Beam::slope_damping
+	
+	(position-callbacks . (,Beam::slope_damping
 			       ,Beam::shift_region_to_valid
 			       ,Beam::quanting))
-
+	(least-squares-dy . ,Beam::calc_least_squares_dy)
+	(concaveness . ,Beam::calc_concaveness)
 	(positions . ,Beam::calc_positions)
 	(direction . ,Beam::calc_direction)
 	(stencil . ,Beam::print)
