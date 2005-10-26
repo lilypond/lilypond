@@ -94,14 +94,8 @@
     (module-define! m 'indent (/ w 14))
 
     ;; page layout - what to do with (printer specific!) margin settings?
-    (module-define! m 'topmargin (* 5 mm))
-    (module-define! m 'bottommargin (* 6 mm))
-    (module-define! m 'headsep (* 4 mm))
-    (module-define! m 'footsep (* 4 mm))
-    (module-define! m 'leftmargin #f)
-    (module-define! m 'firstpagenumber 1)
-    (module-define! m 'printfirstpagenumber #f)
-    (module-define! m 'rightmargin (* 10 mm))))
+
+    ))
 
 (define (internal-set-paper-size module name landscape?)
   (define (swap x)

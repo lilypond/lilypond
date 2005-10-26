@@ -1,3 +1,7 @@
+2005-10-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/paper-defaults.ly: move fixed dimensions from paper.scm 
+
 2005-10-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* HACKING: Update.

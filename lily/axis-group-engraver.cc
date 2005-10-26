@@ -82,19 +82,7 @@ Axis_group_engraver::process_acknowledged ()
 	      staffline_ = 0;
 	      break;
 	    }
-#if 0 
-	  else if (elts_[i]->is_empty (Y_AXIS))
-	    {
-	      /*
-		We have to do _something_, otherwise staff objects will
-		end up with System as parent.
-
-	      */
-	      elts_[i]->set_parent (staffline_, Y_AXIS);
-	    }
-	  else
-#endif
-	    add_element (elts_[i]);
+	  add_element (elts_[i]);
 	}
     }
   elts_.clear ();

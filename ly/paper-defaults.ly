@@ -99,4 +99,16 @@
     #(set-paper-dimension-variables (current-module))
 
     \include "titling-init.ly"
-}
+
+
+    topmargin = 5 \mm
+    bottommargin = 6 \mm
+    headsep = 4 \mm
+    footsep = 4 \mm
+    rightmargin = 10 \mm
+
+    leftmargin = ##f
+    firstpagenumber = #1
+    printfirstpagenumber =##f)
+
+  }
