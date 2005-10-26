@@ -59,10 +59,10 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_least_squares_dy, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
 
   /* position callbacks */
-  DECLARE_SCHEME_CALLBACK (least_squares, (SCM));
-  DECLARE_SCHEME_CALLBACK (check_concave, (SCM));
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM));
   DECLARE_SCHEME_CALLBACK (quanting, (SCM));

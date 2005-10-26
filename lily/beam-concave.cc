@@ -57,7 +57,7 @@ is_concave_single_notes (Array<int> const &positions, Direction beam_dir)
 }
 
 Real
-calc_concaveness (Array<int> const &positions, Direction beam_dir)
+calc_positions_concaveness (Array<int> const &positions, Direction beam_dir)
 {
   Real dy = positions.top () - positions[0];
   Real slope = dy / Real (positions.size () - 1);
@@ -80,9 +80,10 @@ calc_concaveness (Array<int> const &positions, Direction beam_dir)
   return concaveness;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, check_concave, 1);
+
+MAKE_SCHEME_CALLBACK (Beam, calc_concaveness, 1);
 SCM
-Beam::check_concave (SCM smob)
+Beam::calc_concaveness (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
@@ -90,7 +91,7 @@ Beam::check_concave (SCM smob)
     = extract_grob_array (me, "stems");
 
   if (is_knee (me))
-    return SCM_UNSPECIFIED;
+    return scm_from_double (0.0);
 
   Direction beam_dir = CENTER;
   for (int i = stems.size (); i--;)
@@ -125,8 +126,12 @@ Beam::check_concave (SCM smob)
       far_positions.push ((int) rint (posns[-beam_dir]));
     }
 
+  Real concaveness = 0.0;
+
   if (is_concave_single_notes (far_positions, beam_dir))
     {
+      (void) me->get_property ("least-squares-dy"); // ugh. dependency handling.
+
       Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
       Real r = linear_combination (pos, 0.0);
 
@@ -136,11 +141,9 @@ Beam::check_concave (SCM smob)
     }
   else
     {
-      Real concaveness = (calc_concaveness (far_positions, beam_dir)
-			  + calc_concaveness (close_positions, beam_dir)) / 2;
-
-      me->set_property ("concaveness", scm_from_double (concaveness));
+      concaveness = (calc_positions_concaveness (far_positions, beam_dir)
+		     + calc_positions_concaveness (close_positions, beam_dir)) / 2;
     }
 
-  return SCM_UNSPECIFIED;
+  return scm_from_double (concaveness);
 }
