@@ -3992,9 +3992,9 @@ LilyPond has support for figured bass
 <<
   \context Voice { \clef bass dis4 c d ais g fis}
   \context FiguredBass \figuremode {
-    < 6 >4 < 7 >8 < 6+ [_!] >
+    < 6 >4 < 7\+ >8 < 6+ [_!] >
     < 6 >4 <6 5 [3+] >
-    < _ >4 < 6 >4
+    < _ >4 < 6 5/>4
   }
 >>
 @end lilypond
@@ -4015,33 +4015,37 @@ In figures input mode, a group of bass figures is delimited by
 @end lilypond
 
 Accidentals are added when you append @code{-}, @code{!}, and @code{+}
-to the numbers
+to the numbers.  A plus sign is added when you append @code{\+}, and
+diminished fifths and sevenths can be obtained with @code{5/} and @code{7/}.
 
 @example
-<4- 6+ 7!>
+<4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
 @end example
 @lilypond[quote,raggedright,fragment]
-\context FiguredBass
-\figuremode { <4- 6+ 7!> }
+\figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
 @end lilypond
 
-Spaces or dashes may be inserted by using @code{_}.  Brackets are
+Spaces may be inserted by using @code{_}.  Brackets are
 introduced with @code{[} and @code{]}. You can also include text
 strings and text markups, see @ref{Overview of text markup commands}.
 
 @example
-< [4 6] 8 [_! 12] > < 5 \markup @{ + \number 6 @} >
+< [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >
 @end example
 @lilypond[quote,raggedright,fragment]
 \context FiguredBass
-\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ + \number 6 } > }
+\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
 @end lilypond
+
 
 It is also possible to use continuation lines for repeated figures,
 
 @lilypond[verbatim,relative=1]
 <<
-  \new Staff { c4 c }
+  \new Staff {
+    \clef bass
+    c4 c c
+  }
   \figures {
     \set useBassFigureExtenders = ##t 
     <4 6> <3 6> <3 7>
@@ -4051,19 +4055,19 @@ It is also possible to use continuation lines for repeated figures,
 
 The @code{FiguredBass} context doesn't pay attention to the actual
 bass line. As a consequence, you may have to insert extra figures to
-get extender lines below all notes, eg.
+get extender lines below all notes, and you may have to add @code{\!}
+to avoid getting an extender line, eg.
 
-
-@lilypond[verbatim, relative=1]
+@lilypond[relative=1]
 <<
   \new Voice 
-  {
-    \clef bass
-    f16. g32 f16. g32 f16. g32 f16. g32
-  }
   \figures {
     \set useBassFigureExtenders = ##t 
-    <6 4>4. <6 4>16. <6 4>32 <5 3>8 r
+    <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
+  }
+  {
+    \clef bass
+    f16. g32 f16. g32 f16. g32 f16. g32 f8. es16 d8 es
   }
 >>
 @end lilypond
@@ -4083,6 +4087,22 @@ instead of
   <4 6>4
 @end example
 
+Accidentals and plus signs can appear before or after the numbers,
+depending on the @code{figuredBassAlterationDirection} and @code{figuredBassPlusDirection}
+properties
+
+@lilypond
+  \figures {
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #1
+    <6\+> <5+> <6 4-> r
+    \set figuredBassPlusDirection = #1
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #-1
+    <6\+> <5+> <6 4-> r
+  }
+@end lilypond
+
 
 Although the support for figured bass may superficially resemble chord
 support, it is much simpler.  The @code{\figuremode} mode simply
@@ -4101,10 +4121,6 @@ Program reference: @internalsref{NewBassFigure},
 @internalsref{BassFigureBracket}, and
 @internalsref{BassFigureContinuation} objects and
 @internalsref{FiguredBass} context.
-
-@refbugs
-
-Slash notation for alterations is not supported.
 
 
 
