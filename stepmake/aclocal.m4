@@ -976,26 +976,41 @@ AC_DEFUN(STEPMAKE_PYTHON, [
 ])
 
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
-    unset PYTHON_HEADER PYTHON_INCLUDE
-    if test -n "$PYTHON"; then
+    AC_ARG_WITH(python-include,
+	[  --with-python-include=DIR
+	                  location of the python include dir],[
+	    if test "$withval" = "yes" -o "$withval" = "no"; then
+		AC_MSG_WARN(Usage: --with-python-include=includedir)
+	    else
+		PYTHON_CFLAGS="-I${withval}"
+	    fi
+	    ])
+    
+    AC_ARG_WITH(python-lib,
+	[  --with-python-lib=NAME name of the python lib],[
+	    if test "$withval" = "yes" -o "$withval" = "no"; then
+		AC_MSG_WARN(Usage: --with-python-lib=name)
+	    else
+		LDFLAGS="$LDFLAGS -l${withval}"
+	    fi
+	    ])
+    
+    if test "$cross_compiling" = "no" -a -z "$PYTHON_CFLAGS"; then
 	changequote(<<, >>)#dnl
 	# alternatively, for python >= 2.0
 	# 'import sys, distutils.sysconfig; sys.stdout.write (distutils.sysconfig.get_python_inc ())'
 	PYTHON_INCLUDE=`$PYTHON -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'`
+	PYTHON_CFLAGS="-I$PYTHON_INCLUDE"
 	changequote([, ])#dnl
     fi
     
-    ##AC_CHECK_HEADERS([Python.h],[PYTHON_HEADER=yes])
     if test -z "$PYTHON_HEADER"; then
-	#URG -- how to extend include path?
-	ac_compile="$ac_compile -I$PYTHON_INCLUDE"
-	ac_cpp="$ac_cpp -I$PYTHON_INCLUDE"
-	CPPFLAGS="$CPPFLAGS -I$PYTHON_INCLUDE"
+	CPPFLAGS="$PYTHON_CFLAGS $CPPFLAGS"
 	AC_CHECK_HEADERS([Python.h],[PYTHON_HEADER=yes])
     fi
     
     if test -z "$PYTHON_HEADER"; then
-	warn="$PYTHON_INCLUDE/Python.h (python-devel, python-dev or libpython-dev package)"
+	warn="Python.h (python-devel, python-dev or libpython-dev package)"
 	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
 ])

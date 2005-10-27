@@ -1,3 +1,26 @@
+2005-10-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/stepmake/compile-vars.make (SHARED_FLAGS): Support mingw.
+
+	* stepmake/stepmake/generic-vars.make (MINGW_BUILD): Detect mingw
+	cross compiling.
+
+	* stepmake/aclocal.m4: Support python cross compiling.
+
+	* stepmake/stepmake/python-module-vars.make (SHARED_MODULE_SUFFIX):
+	Add mingw section.
+
+2005-10-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4 (STEPMAKE_PYTHON_DEVEL): Fixes for cross
+	compilation.  Add --with-python-include, --with-python-lib
+	options.
+
+	* stepmake/stepmake/shared-library-vars.make (ALL_LDFLAGS): Add
+	MINGW section.  Update CYGWIN section.
+
+	* stepmake/stepmake/generic-vars.make: Add MINGW_BUILD.
+
 2005-10-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily.scm: Remove horrendous running-from-gui? kludge.
