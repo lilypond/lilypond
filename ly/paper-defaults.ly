@@ -109,6 +109,5 @@
 
     leftmargin = ##f
     firstpagenumber = #1
-    printfirstpagenumber =##f)
-
+    printfirstpagenumber =##f
   }
