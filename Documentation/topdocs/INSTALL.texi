@@ -94,6 +94,13 @@ newer).  EGCS and 2.x are known to cause crashes.
 
 @item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
 
+
+@item @uref{http://www.gnu.org/software/flex/,Flex} 
+
+@item @uref{http://www.perl.org/,Perl} 
+
+@item @uref{http://www.gnu.org/software/flex/,GNU Bison} 
+
 @item All packages required for running, including development packages with
 header files and libraries.
 
