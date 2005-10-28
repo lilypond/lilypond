@@ -1,3 +1,7 @@
+2005-10-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): add perl flex bison.
+
 2005-10-25  John Mandereau  <john.mandereau@free.fr>
  
 	* Documentation/user/instrument-notation.itely (Figured bass):
