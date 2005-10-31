@@ -77,6 +77,8 @@ SCM alist_to_hashq (SCM);
 SCM ly_alist_vals (SCM alist);
 SCM ly_hash2alist (SCM tab);
 
+int procedure_arity (SCM);
+
 /* inserts at front, removing dublicates */
 inline SCM ly_assoc_front_x (SCM alist, SCM key, SCM val)
 {

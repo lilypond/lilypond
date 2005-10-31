@@ -93,18 +93,17 @@ best_quant_score_idx (Array<Quant_score> const &qscores)
   return best_idx;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, quanting, 1);
+MAKE_SCHEME_CALLBACK (Beam, quanting, 2);
 SCM
-Beam::quanting (SCM smob)
+Beam::quanting (SCM smob, SCM posns)
 {
   Grob *me = unsmob_grob (smob);
 
   Beam_quant_parameters parameters;
   parameters.fill (me);
 
-  SCM s = me->get_property ("positions");
-  Real yl = scm_to_double (scm_car (s));
-  Real yr = scm_to_double (scm_cdr (s));
+  Real yl = scm_to_double (scm_car (posns));
+  Real yr = scm_to_double (scm_cdr (posns));
 
   /*
     Calculations are relative to a unit-scaled staff, i.e. the quants are
@@ -300,15 +299,19 @@ Beam::quanting (SCM smob)
 	programming_error ("can't find quant");
     }
 #endif
+
+  Interval final_positions;
   if (best_idx < 0)
     {
       warning (_ ("no feasible beam position"));
-      me->set_property ("positions", ly_interval2scm (Interval (0, 0)));
+      final_positions = Interval (0, 0);
     }
   else
-    me->set_property ("positions",
-		      ly_interval2scm (Drul_array<Real> (qscores[best_idx].yl,
-							 qscores[best_idx].yr)));
+    {
+      final_positions = Drul_array<Real> (qscores[best_idx].yl,
+					  qscores[best_idx].yr);
+    }
+  
 #if DEBUG_QUANTING
   if (best_idx >= 0
       && to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"))))
@@ -321,7 +324,7 @@ Beam::quanting (SCM smob)
     }
 #endif
 
-  return SCM_UNSPECIFIED;
+  return ly_interval2scm (final_positions);
 }
 
 Real

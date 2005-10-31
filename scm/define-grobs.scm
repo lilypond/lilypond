@@ -285,16 +285,17 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(gap . 0.8)
-	
-	(position-callbacks . (,Beam::slope_damping
-			       ,Beam::shift_region_to_valid
-			       ,Beam::quanting))
-	(least-squares-dy . ,Beam::calc_least_squares_dy)
+
+	(positions .  ,(ly:make-callback-chain
+			Beam::calc_least_squares_positions
+			Beam::slope_damping
+			Beam::shift_region_to_valid
+			Beam::quanting
+			Beam::set_stem_lengths
+			))
 	(concaveness . ,Beam::calc_concaveness)
-	(positions . ,Beam::calc_positions)
 	(direction . ,Beam::calc_direction)
 	(stencil . ,Beam::print)
-					
 
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space

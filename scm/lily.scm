@@ -281,6 +281,7 @@ The syntax is the same as `define*-public'."
 	(,ly:pitch? . "pitch")
 	(,ly:translator? . "translator")
 	(,ly:font-metric? . "font metric")
+	(,ly:callback-chain? . "callback chain")
 	(,markup-list? . "list of markups")
 	(,markup? . "markup")
 	(,ly:music-list? . "list of music")
