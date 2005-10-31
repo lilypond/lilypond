@@ -1,3 +1,39 @@
+2005-10-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/beam-quant-standard.ly: reindent, set
+	debug-beam-quanting to #t.
+
+	* lily/beam-concave.cc (calc_concaveness): set concaveness to
+	10000 if this is a "hard" concave beam.
+
+	* lily/beam.cc (calc_least_squares_positions): change from
+	calc_least_squares_dy
+	(set_stem_lengths): this is now a chained callback.
+
+	* lily/context-property.cc (execute_general_pushpop_property):
+	bugfix override with procedure should have effect.
+
+	* scm/define-grob-properties.scm (all-internal-grob-properties):
+	remove position-callbacks.
+
+	* scm/define-grobs.scm (all-grob-descriptions): use
+	ly:make-callback-chain for positions property.
+
+	* scm/layout-beam.scm (check-quant-callbacks): return list of
+	chained callbacks.
+
+	* scm/lily.scm (type-p-name-alist): add callback-chain
+
+	* lily/lily-guile.cc (type_check_assignment): type check failure
+	is warning not message.
+
+	* lily/grob-property.cc (try_callback): walk callback chain if
+	appropriate.
+
+	* lily/chained-callback.cc: new file. new smob type.
+
+	* lily/lily-guile.cc (procedure_arity): new function.
+
 2005-10-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/INSTALL.texi (Top): add perl flex bison.

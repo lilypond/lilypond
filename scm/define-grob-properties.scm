@@ -549,9 +549,6 @@ debugging")
      (stem-info ,pair? "caching of stem parameters")
      (note-columns ,pair? "list of NoteColumn grobs.")
 
-     (position-callbacks ,list? "list of
-functions set spanner positions.")
-
 ;;; add-join would be enough if in Mensural_ligature::brew_ligature_primitive
 ;;; the next note could be seen
      (join-right-amount ,number? "")

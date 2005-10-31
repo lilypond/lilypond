@@ -130,14 +130,7 @@ Beam::calc_concaveness (SCM smob)
 
   if (is_concave_single_notes (far_positions, beam_dir))
     {
-      (void) me->get_property ("least-squares-dy"); // ugh. dependency handling.
-
-      Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
-      Real r = linear_combination (pos, 0.0);
-
-      r /= Staff_symbol_referencer::staff_space (me);
-      me->set_property ("positions", ly_interval2scm (Drul_array<Real> (r, r)));
-      me->set_property ("least-squares-dy", scm_from_double (0));
+      concaveness = 10000;
     }
   else
     {
@@ -147,3 +140,6 @@ Beam::calc_concaveness (SCM smob)
 
   return scm_from_double (concaveness);
 }
+
+
+

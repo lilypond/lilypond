@@ -505,9 +505,11 @@ Beam::print (SCM grob)
 
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
 
-      Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
+      Stencil score = *unsmob_stencil (Text_interface::interpret_markup
 				    (me->get_layout ()->self_scm (), properties, quant_score));
-      the_beam.add_at_edge (Y_AXIS, stem_dir, tm, 1.0, 0);
+
+      if (!score.is_empty ())
+	the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0, 0);
     }
 #endif
 
@@ -738,12 +740,9 @@ Beam::calc_positions (SCM smob)
   for (SCM i = callbacks; scm_is_pair (i); i = scm_cdr (i))
     scm_call_1 (scm_car (i), me->self_scm ());
 
-  /*
-    TODO: move this in separate calc function.
-   */
-  set_stem_lengths (me);
   return SCM_UNSPECIFIED;
 }
+
 
 
 void
@@ -771,20 +770,16 @@ set_minimum_dy (Grob *me, Real *dy)
 /*
   Compute a first approximation to the beam slope.
 */
-MAKE_SCHEME_CALLBACK (Beam, calc_least_squares_dy, 1);
+MAKE_SCHEME_CALLBACK (Beam, calc_least_squares_positions, 2);
 SCM
-Beam::calc_least_squares_dy (SCM smob)
+Beam::calc_least_squares_positions (SCM smob, SCM posns)
 {
+  (void) posns;
+  
   Grob *me = unsmob_grob (smob);
 
   int count = visible_stem_count (me);
   Interval pos (0, 0);
-
-  if (count < 1)
-    {
-      me->set_property ("positions", ly_interval2scm (pos));
-      return scm_from_double (0.0);
-    }
 
   Array<Real> x_posns;
   extract_grob_set (me, "stems", stems);
@@ -873,9 +868,8 @@ Beam::calc_least_squares_dy (SCM smob)
   */
   scale_drul (&pos, 1 / Staff_symbol_referencer::staff_space (me));
 
-  me->set_property ("positions", ly_interval2scm (pos));
-
-  return scm_from_double (ldy);
+  me->set_property ("least-squares-dy",  scm_from_double (ldy));
+  return ly_interval2scm (pos);
 }
 
 /*
@@ -885,9 +879,9 @@ Beam::calc_least_squares_dy (SCM smob)
   TODO: we should use the concaveness to control the amount of damping
   applied.
 */
-MAKE_SCHEME_CALLBACK (Beam, shift_region_to_valid, 1);
+MAKE_SCHEME_CALLBACK (Beam, shift_region_to_valid, 2);
 SCM
-Beam::shift_region_to_valid (SCM grob)
+Beam::shift_region_to_valid (SCM grob, SCM posns)
 {
   Grob *me = unsmob_grob (grob);
   /*
@@ -901,7 +895,7 @@ Beam::shift_region_to_valid (SCM grob)
   Grob *fvs = first_visible_stem (me);
 
   if (!fvs)
-    return SCM_UNSPECIFIED;
+    return posns;
 
   Real x0 = fvs->relative_coordinate (commonx, X_AXIS);
   for (int i = 0; i < stems.size (); i++)
@@ -914,11 +908,12 @@ Beam::shift_region_to_valid (SCM grob)
 
   Grob *lvs = last_visible_stem (me);
   if (!lvs)
-    return SCM_UNSPECIFIED;
+    return posns;
 
   Real dx = lvs->relative_coordinate (commonx, X_AXIS) - x0;
 
-  Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
+  Drul_array<Real> pos = ly_scm2interval (posns);
+  
 
   scale_drul (&pos, Staff_symbol_referencer::staff_space (me));
 
@@ -975,33 +970,35 @@ Beam::shift_region_to_valid (SCM grob)
   pos = Drul_array<Real> (y, (y + dy));
   scale_drul (&pos, 1 / Staff_symbol_referencer::staff_space (me));
 
-  me->set_property ("positions", ly_interval2scm (pos));
-  return SCM_UNSPECIFIED;
+  return ly_interval2scm (pos);
 }
 
 /* This neat trick is by Werner Lemberg,
    damped = tanh (slope)
    corresponds with some tables in [Wanske] CHECKME */
-MAKE_SCHEME_CALLBACK (Beam, slope_damping, 1);
+MAKE_SCHEME_CALLBACK (Beam, slope_damping, 2);
 SCM
-Beam::slope_damping (SCM smob)
+Beam::slope_damping (SCM smob, SCM posns)
 {
   Grob *me = unsmob_grob (smob);
+  Drul_array<Real> pos = ly_scm2interval (posns);
 
   if (visible_stem_count (me) <= 1)
     return SCM_UNSPECIFIED;
 
-  /* trigger callback. */
-  (void) me->get_property ("least-squares-dy");
   
   SCM s = me->get_property ("damping");
   Real damping = scm_to_double (s);
-
+  Real concaveness = robust_scm2double (me->get_property ("concaveness"), 0.0);
+  if (concaveness >= 10000)
+    {
+      pos[LEFT] = pos[RIGHT];
+      me->set_property ("least-squares-dy", scm_from_double (0));
+      damping = 0;
+    }
+  
   if (damping)
     {
-      Real concaveness = robust_scm2double (me->get_property ("concaveness"), 0.0);
-
-      Drul_array<Real> pos = ly_scm2interval (me->get_property ("positions"));
       scale_drul (&pos, Staff_symbol_referencer::staff_space (me));
 
       Real dy = pos[RIGHT] - pos[LEFT];
@@ -1026,10 +1023,9 @@ Beam::slope_damping (SCM smob)
       pos[RIGHT] -= (dy - damped_dy) / 2;
 
       scale_drul (&pos, 1 / Staff_symbol_referencer::staff_space (me));
-
-      me->set_property ("positions", ly_interval2scm (pos));
     }
-  return SCM_UNSPECIFIED;
+
+  return ly_interval2scm (pos);
 }
 
 /*
@@ -1095,18 +1091,21 @@ Beam::calc_stem_y (Grob *me, Grob *s, Grob ** common,
   Hmm.  At this time, beam position and slope are determined.  Maybe,
   stem directions and length should set to relative to the chord's
   position of the beam.  */
-void
-Beam::set_stem_lengths (Grob *me)
+MAKE_SCHEME_CALLBACK(Beam, set_stem_lengths, 2); 
+SCM
+Beam::set_stem_lengths (SCM smob,  SCM posns)
 {
+  Grob *me = unsmob_grob (smob);
+  
   extract_grob_set (me, "stems", stems);
   if (!stems.size ())
-    return;
+    return posns;
 
   Grob *common[2];
   for (int a = 2; a--;)
     common[a] = common_refpoint_of_array (stems, me, Axis (a));
 
-  Drul_array<Real> pos = ly_scm2realdrul (me->get_property ("positions"));
+  Drul_array<Real> pos = ly_scm2realdrul (posns);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   scale_drul (&pos, staff_space);
 
@@ -1146,6 +1145,8 @@ Beam::set_stem_lengths (Grob *me)
 
       Stem::set_stemend (s, 2 * stem_y / staff_space);
     }
+
+  return posns;
 }
 
 void

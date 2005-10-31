@@ -59,14 +59,16 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_least_squares_dy, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_least_squares_positions, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
 
   /* position callbacks */
-  DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
-  DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM));
-  DECLARE_SCHEME_CALLBACK (quanting, (SCM));
-  static Real score_slopes_dy (Real, Real, Real, Real, Real, bool, Beam_quant_parameters const *);
+  DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (slope_damping, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (quanting, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM,SCM));
+  
+static Real score_slopes_dy (Real, Real, Real, Real, Real, bool, Beam_quant_parameters const *);
 
   static Real score_stem_lengths (Link_array<Grob> const &stems,
 				  Array<Stem_info> const &stem_infos,
@@ -89,7 +91,6 @@ private:
   static Real calc_stem_y (Grob *, Grob *s, Grob **c,
 			   Real, Real,
 			   Drul_array<Real> pos, bool french);
-  static void set_stem_lengths (Grob *);
   static int forced_stem_count (Grob *);
 };
 

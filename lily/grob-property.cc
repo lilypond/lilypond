@@ -100,7 +100,7 @@ SCM
 Grob::internal_get_property (SCM sym) const
 {
   SCM val = get_property_data (sym);
-  if (ly_is_procedure (val))
+  if (ly_is_procedure (val) || is_callback_chain (val))
     {
       val = ((Grob*)this)->try_callback (sym, val);
     }
@@ -129,7 +129,21 @@ Grob::try_callback (SCM sym, SCM proc)
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_acons (sym, proc, grob_property_callback_stack);
 #endif
-  SCM value = scm_call_1 (proc, self_scm ());
+
+  SCM value = SCM_EOL;
+  if (ly_is_procedure (proc))
+    value = scm_call_1 (proc, self_scm ());
+  else if (is_callback_chain (proc))
+    {
+      for (SCM s = callback_chain_extract_procedures (proc);
+	   scm_is_pair (s); s = scm_cdr (s))
+	{
+	  value = scm_call_2  (scm_car (s), self_scm (), value);
+	}
+    }
+  else
+    assert (false);
+  
 #ifndef NDEBUG
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);

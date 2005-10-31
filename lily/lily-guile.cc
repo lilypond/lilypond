@@ -465,7 +465,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 	  SCM typefunc = ly_lily_module_constant ("type-name");
 	  SCM type_name = scm_call_1 (typefunc, type);
 
-	  message (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
+	  warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
 		       ly_symbol2string (sym).to_str0 (),
 		       print_scm_val (val),
 		       ly_scm2string (type_name).to_str0 ()));
@@ -706,3 +706,13 @@ ly_hash2alist (SCM tab)
   return scm_call_1 (func, tab);
 }
 
+int
+procedure_arity (SCM proc)
+{
+  assert (ly_is_procedure (proc));
+  SCM arity = scm_procedure_property (proc,
+				      ly_symbol2scm ("arity"));
+
+  SCM fixed = scm_car (arity);
+  return scm_to_int (fixed);
+}

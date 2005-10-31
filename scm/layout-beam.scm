@@ -6,13 +6,12 @@
 ;;;; (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 
-(define ((check-beam-quant posl posr) beam)
+(define ((check-beam-quant posl posr) beam posns)
   "Check whether BEAM has POSL and POSR quants.  POSL are (POSITION
 . QUANT) pairs, where QUANT is -1 (hang), 0 (center), 1 (sit) or -2/ 2 (inter) 
 
 "
-  (let* ((posns (ly:grob-property beam 'positions))
-	 (thick (ly:grob-property beam 'thickness))
+  (let* ((thick (ly:grob-property beam 'thickness))
 	 (layout (ly:grob-layout beam))
 	 (lthick (ly:output-def-lookup layout 'linethickness))
 	 (staff-thick lthick) ; fixme.
@@ -31,12 +30,14 @@
 		      want-l want-r posns)
 	  (set! (ly:grob-property beam 'quant-score)
 		(format "(~S,~S)" want-l want-r)))
-	(set! (ly:grob-property beam 'quant-score) ""))))
+	(set! (ly:grob-property beam 'quant-score) ""))
 
-(define ((check-beam-slope-sign comparison) beam)
+    posns
+    ))
+
+(define ((check-beam-slope-sign comparison) beam posns)
   "Check whether the slope of BEAM is correct wrt. COMPARISON."
-  (let* ((posns (ly:grob-property beam 'positions))
-	 (slope-sign (- (cdr posns) (car posns)))
+  (let* ((slope-sign (- (cdr posns) (car posns)))
 	 (correct (comparison slope-sign 0)))
 
     (if (not correct)
@@ -45,22 +46,27 @@
 		      (procedure-name comparison) "0" slope-sign)
 	  (set! (ly:grob-property beam 'quant-score)
 		(format "~S 0" (procedure-name comparison))))
-	(set! (ly:grob-property beam 'quant-score) ""))))
+
+	(set! (ly:grob-property beam 'quant-score) ""))
+    posns))
+
 
 (define-public (check-quant-callbacks l r)
-  (list Beam::least_squares
-	Beam::check_concave
+  (list Beam::calc_least_squares_positions
 	Beam::slope_damping
 	Beam::shift_region_to_valid
 	Beam::quanting
-	(check-beam-quant l r)))
+	Beam::set_stem_lengths
+	(check-beam-quant l r)
+	))
+			
 
 
 (define-public (check-slope-callbacks comparison)
-  (list Beam::least_squares
-	Beam::check_concave
+  (list Beam::calc_least_squares_positions
 	Beam::slope_damping
 	Beam::shift_region_to_valid
 	Beam::quanting
-	(check-beam-slope-sign comparison)))
-
+	Beam::set_stem_lengths
+	(check-beam-slope-sign comparison)	
+	))
