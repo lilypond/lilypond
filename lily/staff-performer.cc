@@ -85,6 +85,9 @@ Staff_performer::process_music ()
       instrument_ = new Audio_instrument (str);
       announce_element (Audio_element_info (instrument_, 0));
 
+      audio_staff_->add_audio_item (instrument_);
+      audio_staff_->add_audio_item (instrument_name_);
+     
       /*
 	Have to be here before notes arrive into the staff.
       */

@@ -57,14 +57,11 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
   Grob *common = common_refpoint_of_array (support, me->get_parent (a), a);
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
-  bool include_staff = false;
-
-  if (staff_symbol
-      && a == Y_AXIS)
-    {
-      if (scm_is_number (me->get_property ("staff-padding")))
-	include_staff = true;
-    }
+  bool include_staff = 
+    staff_symbol
+    && a == Y_AXIS
+    && scm_is_number (me->get_property ("staff-padding"))
+    && !to_boolean (me->get_property ("quantize-position"));
 
   Interval dim;
   Interval staff_extents;
@@ -173,19 +170,6 @@ Side_position_interface::aligned_side (Grob*me, Axis a)
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   if (staff && a == Y_AXIS)
     {
-      if (scm_is_number (me->get_property ("staff-padding")))
-	{
-	  Real padding
-	    = Staff_symbol_referencer::staff_space (me)
-	    * scm_to_double (me->get_property ("staff-padding"));
-
-	  Grob *common = me->common_refpoint (staff, Y_AXIS);
-
-	  Interval staff_size = staff->extent (common, Y_AXIS);
-	  Real diff = dir*staff_size[dir] + padding - dir * (o + iv[-dir]);
-	  o += dir * max (diff, 0.0);
-	}
-      
       if (to_boolean (me->get_property ("quantize-position")))
 	{
 	  Grob *common = me->common_refpoint (staff, Y_AXIS);
@@ -204,6 +188,18 @@ Side_position_interface::aligned_side (Grob*me, Axis a)
 	      if (Staff_symbol_referencer::on_staffline (me, int (rounded)))
 		o += dir * 0.5 * ss;
 	    }
+	}
+      else if (scm_is_number (me->get_property ("staff-padding")))
+	{
+	  Real padding
+	    = Staff_symbol_referencer::staff_space (me)
+	    * scm_to_double (me->get_property ("staff-padding"));
+
+	  Grob *common = me->common_refpoint (staff, Y_AXIS);
+
+	  Interval staff_size = staff->extent (common, Y_AXIS);
+	  Real diff = dir*staff_size[dir] + padding - dir * (o + iv[-dir]);
+	  o += dir * max (diff, 0.0);
 	}
     }
   return scm_from_double (o);
