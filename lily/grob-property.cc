@@ -102,7 +102,6 @@ Grob::internal_get_property (SCM sym) const
 {
   SCM val = get_property_data (sym);
   if (ly_is_procedure (val)
-      || is_callback_chain (val)
       || is_simple_closure (val))
     {
       val = ((Grob*)this)->try_callback (sym, val);

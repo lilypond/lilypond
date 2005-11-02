@@ -14,6 +14,7 @@
 #include "spanner.hh"
 #include "warn.hh"
 #include "paper-column.hh"
+#include "simple-closure.hh"
 
 SCM
 lookup_nested_property (SCM alist,
@@ -137,7 +138,7 @@ execute_general_pushpop_property (Context *context,
       if (!scm_is_pair (scm_cdr (grob_property_path)))
 	{
 	  if (!ly_is_procedure (new_value)
-	      && !is_callback_chain (new_value))
+	      && !is_simple_closure (new_value))
 	    ok = type_check_assignment (symbol, new_value,
 					ly_symbol2scm ("backend-type?"));
 
