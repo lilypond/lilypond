@@ -110,23 +110,39 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   return scm_from_double (x);
 }
 
+void
+Self_alignment_interface::set_center_parent (Grob *me, Axis a)
+{
+  add_offset_callback (me,
+		       (a==X_AXIS) ? centered_on_x_parent_proc : centered_on_y_parent_proc,
+		       a);
+}
+
+void
+Self_alignment_interface::set_align_self (Grob *me, Axis a)
+{
+  add_offset_callback (me,
+		       (a==X_AXIS) ? x_aligned_on_self_proc : y_aligned_on_self_proc,
+		       a);
+}
+
 ADD_INTERFACE (Self_alignment_interface, "self-alignment-interface",
 	       "Position this object on itself and/or on its parent. To this end, the following functions "
 	       " are provided: \n"
 	       "@table @code \n"
-	       "@item Self_alignment_interface::aligned_on_self\n"
+	       "@item Self_alignment_interface::[xy]_aligned_on_self\n"
 	       "  Align self on reference point, using @code{self-alignment-X} and "
 	       "@code{self-alignment-Y}."
-	       "@item Self_alignment_interface::aligned_on_parent\n"
-	       "@item Self_alignment_interface::centered_on_parent\n"
+	       "@item Self_alignment_interface::aligned_on_[xy]_parent\n"
+	       "@item Self_alignment_interface::centered_on_[xy]_parent\n"
 	       "  Shift the object so its own reference point is centered on the  "
 	       " extent of the parent \n"
-	       "@item Self_alignment_interface::centered_on_other_axis_parent\n"
-	       " For X-axis, center on the Y-parent, and vice versa.\n "
 	       "@end table\n",
 
 
 	       /* porperties */
 	       "self-alignment-X "
+	       "self-X-offset "
+	       "self-Y-offset "
 	       "self-alignment-Y ");
 

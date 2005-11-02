@@ -1840,6 +1840,7 @@
 	(X-extent . ,Axis_group_interface::width)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
+				hara-kiri-group-interface
 				vertically-spaceable-interface))))))
 
     (VocalName

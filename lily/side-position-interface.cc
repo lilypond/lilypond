@@ -212,10 +212,11 @@ Side_position_interface::aligned_side (Grob*me, Axis a)
 void
 Side_position_interface::set_axis (Grob *me, Axis a)
 {
-  me->internal_set_property (axis_offset_symbol (a),
-		    (a==X_AXIS)
-		    ? x_aligned_side_proc
-		    : y_aligned_side_proc);
+  add_offset_callback (me,
+		       (a==X_AXIS)
+		       ? x_aligned_side_proc
+		       : y_aligned_side_proc,
+		       a);
 }
 
 // ugh. doesn't catch all variants. 
