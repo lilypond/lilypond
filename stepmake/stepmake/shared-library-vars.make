@@ -1,15 +1,26 @@
 
+ifeq ($(CYGWIN_BUILD)$(MINGW_BUILD),)
+  SHARED_LIB_PREFIX = lib
+  SHARED_LIB_SUFFIX = .so
+  SHARED_LIB_VERSION = $(VERSION)
+  SHARED_LIB_VERSION_SUFFIX =
+else
 ifneq ($(CYGWIN_BUILD),)
   SHARED_LIB_PREFIX = cyg
   SHARED_LIB_SUFFIX = 
   SHARED_LIB_VERSION = $(subst .,-,$(VERSION))
   SHARED_LIB_VERSION_SUFFIX = .dll
-  ALL_LDFLAGS += -Wl,--image-base=0x10000000 -Wl,--out-implib,lib$(NAME).a
-else
+#  ALL_LDFLAGS += -Wl,--image-base=0x10000000 -Wl,--out-implib,lib$(NAME).a
+  ALL_LDFLAGS += -Wl,--enable-auto-image-base -Wl,--out-implib,lib$(NAME).a
+endif
+ifneq ($(MINGW_BUILD),)
   SHARED_LIB_PREFIX = lib
-  SHARED_LIB_SUFFIX = .so
-  SHARED_LIB_VERSION = $(VERSION)
-  SHARED_LIB_VERSION_SUFFIX =
+  SHARED_LIB_SUFFIX = 
+  SHARED_LIB_VERSION = $(subst .,-,$(VERSION))
+  SHARED_LIB_VERSION_SUFFIX = .dll
+##  ALL_LDFLAGS += -Wl,--image-base=0x10000000 -Wl,--out-implib,lib$(NAME).a
+  ALL_LDFLAGS += -Wl,--out-implib,lib$(NAME).a
+endif
 endif
 
 INSTALL_SHARED_LIBRARY = $(SHARED_LIB_PREFIX)$(NAME)$(SHARED_LIB_SUFFIX)$(SHARED_LIB_VERSION)$(SHARED_LIB_VERSION_SUFFIX)

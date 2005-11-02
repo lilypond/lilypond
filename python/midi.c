@@ -399,8 +399,8 @@ static PyMethodDef MidiMethods[] =
   {0, 0}        /* Sentinel */
 };
 
-void
-initmidi ()
+PyMODINIT_FUNC
+initmidi (void)
 {
   PyObject *m, *d;
   m = Py_InitModule ("midi", MidiMethods);
