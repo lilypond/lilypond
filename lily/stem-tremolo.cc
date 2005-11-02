@@ -20,11 +20,11 @@
 
 /* TODO: lengthen stem if necessary  */
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, dim_callback, 2);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, dim_callback, 1);
 
 /* todo: init with cons.  */
 SCM
-Stem_tremolo::dim_callback (SCM e, SCM)
+Stem_tremolo::dim_callback (SCM e)
 {
   Grob *se = unsmob_grob (e);
 

@@ -55,7 +55,7 @@ public:
   static Real get_thickness (Grob *me);
   static void connect_beams (Grob *me);
 
-  DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));

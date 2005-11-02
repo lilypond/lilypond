@@ -138,14 +138,12 @@ Span_bar::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK (Span_bar, center_on_spanned_callback, 2);
+MAKE_SCHEME_CALLBACK (Span_bar, center_on_spanned_callback, 1);
 
 SCM
-Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
+Span_bar::center_on_spanned_callback (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
-  (void) axis;
-  assert (scm_to_int (axis) == Y_AXIS);
+  Grob *me = unsmob_grob (smob);
   Interval i (get_spanned_interval (me));
 
   /* Bar_line::print delivers a barline of y-extent (-h/2, h/2), so

@@ -51,9 +51,9 @@ Grid_line_interface::print (SCM smobbed_me)
 
 MAKE_SCHEME_CALLBACK (Grid_line_interface, width, 1);
 SCM
-Grid_line_interface::width (SCM element_smob)
+Grid_line_interface::width (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
 
   Real staffline = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)

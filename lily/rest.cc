@@ -17,37 +17,38 @@
 #include "directional-element-interface.hh"
 
 // -> offset callback
-MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, 2);
+MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, 1);
 SCM
-Rest::y_offset_callback (SCM smob, SCM axis)
+Rest::y_offset_callback (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  (void) axis;
-  
-  int bt = scm_to_int (me->get_property ("duration-log"));
+  int duration_log = scm_to_int (me->get_property ("duration-log"));
   int lc = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   Real amount = 0.0;
   if (lc % 2)
     {
-      if (bt == 0 && lc > 1)
+      if (duration_log == 0 && lc > 1)
 	amount += ss;
     }
   else
     amount += ss / 2;
 
-  Grob *d = unsmob_grob (me->get_object ("dot"));
-  if (d && bt > 4) // UGH.
+  Grob *dot = unsmob_grob (me->get_object ("dot"));
+  if (dot && duration_log > 4) // UGH.
     {
-      d->set_property ("staff-position",
-		       scm_from_int ((bt == 7) ? 4 : 3));
+      dot->set_property ("staff-position",
+		       scm_from_int ((duration_log == 7) ? 4 : 3));
     }
-  if (d && bt >= -1 && bt <= 1) // UGH again.
+  if (dot && duration_log >= -1 && duration_log <= 1) // UGH again.
     {
-      d->set_property ("staff-position",
-		       scm_from_int ((bt == 0) ? -1 : 1));
+      dot->set_property ("staff-position",
+		       scm_from_int ((duration_log == 0) ? -1 : 1));
     }
+
+  amount += 2 * ss * get_grob_direction (me);; 
+  
   return scm_from_double (amount);
 }
 
@@ -159,7 +160,7 @@ MAKE_SCHEME_CALLBACK (Rest, height, 1);
 SCM
 Rest::height (SCM smob)
 {
-  return  generic_extent_callback (unsmob_grob (smob), Y_AXIS);
+  return generic_extent_callback (unsmob_grob (smob), Y_AXIS);
 }
 
 /*
@@ -180,23 +181,12 @@ Rest::generic_extent_callback (Grob *me, Axis a)
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 
-MAKE_SCHEME_CALLBACK (Rest, polyphonic_offset_callback, 2);
-SCM
-Rest::polyphonic_offset_callback (SCM smob, SCM)
-{
-  Grob *me = unsmob_grob (smob);
-  if (scm_is_number (me->get_property ("staff-position")))
-    return scm_from_double (0);
-
-  Direction d = get_grob_direction (me);
-  Real off = 2 * d;
-  if (off)
-    off *= Staff_symbol_referencer::staff_space (me);
-
-  return scm_from_double (off);
-}
-
 ADD_INTERFACE (Rest, "rest-interface",
 	       "A rest symbol.",
-	       "style direction minimum-distance");
+
+	       /* properties */
+		  
+	       "style "
+	       "direction "
+	       "minimum-distance");
 

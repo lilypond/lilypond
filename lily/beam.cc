@@ -1254,16 +1254,14 @@ Beam::last_visible_stem (Grob *me)
 */
 MAKE_SCHEME_CALLBACK (Beam, rest_collision_callback, 2);
 SCM
-Beam::rest_collision_callback (SCM element_smob, SCM axis)
+Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 {
-  Grob *rest = unsmob_grob (element_smob);
-  (void) axis;
-
+  Grob *rest = unsmob_grob (smob);
   if (scm_is_number (rest->get_property ("staff-position")))
     return scm_from_int (0);
 
-  assert (scm_to_int (axis) == Y_AXIS);
-
+  Real offset = robust_scm2double (prev_offset, 0.0);
+  
   Grob *st = unsmob_grob (rest->get_object ("stem"));
   Grob *stem = st;
   if (!stem)
@@ -1309,11 +1307,13 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Real beam_y = stem_y - d * height_of_my_beams;
 
   Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
-
-  Real rest_dim = rest->extent (common_y, Y_AXIS)[d];
+  Interval rest_extent = rest->extent (common_y, Y_AXIS);
+  rest_extent.translate (offset);
+  
+  Real rest_dim = rest_extent[d];
   Real minimum_distance
-    = + staff_space * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
-		       + robust_scm2double (rest->get_property ("minimum-distance"), 0.0));
+    = staff_space * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
+		     + robust_scm2double (rest->get_property ("minimum-distance"), 0.0));
 
   Real shift = d * min (((beam_y - d * minimum_distance) - rest_dim) * d, 0.0);
 
@@ -1324,9 +1324,9 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   shift = ceil (fabs (shift * 2.0)) / 2.0 * sign (shift);
 
   /* Inside staff, move by whole spaces*/
-  if ((rest->extent (common_y, Y_AXIS)[d] + staff_space * shift) * d
+  if ((rest_extent[d] + staff_space * shift) * d
       < rad
-      || (rest->extent (common_y, Y_AXIS)[-d] + staff_space * shift) * -d
+      || (rest_extent[-d] + staff_space * shift) * -d
       < rad)
     shift = ceil (fabs (shift)) * sign (shift);
 

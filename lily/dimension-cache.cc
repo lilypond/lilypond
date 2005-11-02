@@ -14,9 +14,7 @@
 Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {
   init ();
-  offset_ = d.offset_;
-  offset_callbacks_ = d.offset_callbacks_;
-  offsets_left_ = d.offsets_left_;
+  offset_ = d.offset_ ? new Real (*d.offset_) : 0;
   parent_ = d.parent_;
   extent_ = d.extent_ ? new Interval (*d.extent_) : 0;
 }
@@ -29,9 +27,7 @@ Dimension_cache::Dimension_cache ()
 void
 Dimension_cache::init ()
 {
-  offsets_left_ = 0;
-  offset_callbacks_ = SCM_EOL;
-  offset_ = 0.0;
+  offset_ = 0;
   extent_ = 0;
   parent_ = 0;
 }
@@ -39,4 +35,5 @@ Dimension_cache::init ()
 Dimension_cache::~Dimension_cache ()
 {
   delete extent_;
+  delete offset_;
 }

@@ -103,13 +103,8 @@ Drum_notes_engraver::process_music ()
 	  if (scm_is_string (script))
 	    {
 	      Item *p = make_item ("Script", ev->self_scm ());
-	      bool follow;
-	      make_script_from_event (p, &follow,
-				      context (), script,
+	      make_script_from_event (p, context (), script,
 				      0);
-
-	      if (p->get_property ("follow-into-staff"))
-		p->set_property ("staff-padding", SCM_EOL);
 
 	      p->set_parent (note, Y_AXIS);
 	      Side_position_interface::add_support (p, note);

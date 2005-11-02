@@ -23,10 +23,8 @@ struct Script_tuple
 {
   Music *event_;
   Grob *script_;
-  bool follow_into_staff_;
   Script_tuple ()
   {
-    follow_into_staff_ = false;
     event_ = 0;
     script_ = 0;
   }
@@ -92,7 +90,7 @@ copy_property (Grob *g, SCM sym, SCM alist)
    could be saved by tacking the props onto the Script grob (i.e. make
    ScriptStaccato , ScriptMarcato, etc. ).
 */
-void make_script_from_event (Grob *p, bool *follow, Context *tg,
+void make_script_from_event (Grob *p,  Context *tg,
 			     SCM art_type, int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
@@ -110,10 +108,6 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
 
   art = scm_cdr (art);
 
-  SCM follow_scm = scm_assoc (ly_symbol2scm ("follow-into-staff"),
-			      art);
-
-  *follow = scm_is_pair (follow_scm) && to_boolean (scm_cdr (follow_scm));
   bool priority_found = false;
 
   for (SCM s = art; scm_is_pair (s); s = scm_cdr (s))
@@ -159,7 +153,7 @@ Script_engraver::process_music ()
 
       Grob *p = make_item ("Script", music->self_scm ());
 
-      make_script_from_event (p, &scripts_[i].follow_into_staff_, context (),
+      make_script_from_event (p, context (),
 			      music->get_property ("articulation-type"),
 			      i);
 
@@ -233,16 +227,6 @@ Script_engraver::acknowledge_slur (Grob_info info)
 void
 Script_engraver::stop_translation_timestep ()
 {
-  int script_count = scripts_.size ();
-  for (int i = 0; i < script_count; i++)
-    if (scripts_[i].follow_into_staff_)
-      {
-	Grob *sc = scripts_[i].script_;
-	sc->add_offset_callback (Side_position_interface
-				 ::quantised_position_proc, Y_AXIS);
-	sc->set_property ("staff-padding", SCM_EOL);
-      }
-
   scripts_.clear ();
 }
 

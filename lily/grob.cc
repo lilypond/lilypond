@@ -28,35 +28,34 @@
 #include "ly-smobs.icc"
 #include "output-def.hh"
 
-MAKE_SCHEME_CALLBACK(Grob, same_axis_parent_positioning, 2);
-SCM
-Grob::same_axis_parent_positioning (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  Axis ax = Axis (scm_to_int (axis));
-  
-  Grob *par = me->get_parent (ax);
-  if (par)
-    par->get_property ("positioning-done");
 
-  return scm_from_double (0.0);
-}
 
-MAKE_SCHEME_CALLBACK(Grob,other_axis_parent_positioning, 2);
+
+MAKE_SCHEME_CALLBACK(Grob, y_parent_positioning, 1);
 SCM
-Grob::other_axis_parent_positioning (SCM element_smob, SCM axis)
+Grob::y_parent_positioning (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
-  Axis ax = other_axis ((Axis) scm_to_int (axis));
-  
-  Grob *par = me->get_parent (ax);
+  Grob *me = unsmob_grob (smob);
+  Grob *par = me->get_parent (Y_AXIS);
   if (par)
-    par->get_property ("positioning-done");
+    (void) par->get_property ("positioning-done");
 
   return scm_from_double (0.0);
 }
 
 
+MAKE_SCHEME_CALLBACK(Grob, x_parent_positioning, 1);
+SCM
+Grob::x_parent_positioning (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  
+  Grob *par = me->get_parent (X_AXIS);
+  if (par)
+    (void) par->get_property ("positioning-done");
+
+  return scm_from_double (0.0);
+}
 
 Grob *
 Grob::clone (int count) const
@@ -99,33 +98,6 @@ Grob::Grob (SCM basicprops,
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
     interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
-
-  /* TODO:
-
-  - destill this into a function, so we can re-init the immutable
-  properties with a new BASICPROPS value after
-  creation. Convenient eg. when using \override with
-  StaffSymbol.  */
-
-  SCM off_callbacks[] = {
-    get_property ("X-offset-callbacks"),
-    get_property ("Y-offset-callbacks")
-  };
-
-  for (int a = X_AXIS; a <= Y_AXIS; a++)
-    {
-      SCM l = off_callbacks[a];
-
-      if (scm_ilength (l) >= 0)
-	{
-	  dim_cache_[a].offset_callbacks_ = l;
-	  dim_cache_[a].offsets_left_ = scm_ilength (l);
-	}
-      else
-	programming_error ("[XY]-offset-callbacks must be a list");
-
-    }
-
   
   if (get_property_data (ly_symbol2scm ("X-extent")) == SCM_EOL)
     set_property ("X-extent", Grob::stencil_width_proc);
@@ -159,17 +131,17 @@ Grob::~Grob ()
 
 MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
 SCM
-Grob::stencil_height (SCM element_smob)
+Grob::stencil_height (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
   return stencil_extent (me, Y_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
 SCM
-Grob::stencil_width (SCM element_smob)
+Grob::stencil_width (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
   return stencil_extent (me, X_AXIS);
 }
 
@@ -310,12 +282,6 @@ Grob::suicide ()
   object_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
   interfaces_ = SCM_EOL;
-
-  for (int a = X_AXIS; a <= Y_AXIS; a++)
-    {
-      dim_cache_[a].offset_callbacks_ = SCM_EOL;
-      dim_cache_[a].offsets_left_ = 0;
-    }
 }
 
 void
@@ -342,9 +308,15 @@ void
 Grob::translate_axis (Real y, Axis a)
 {
   if (isinf (y) || isnan (y))
-    programming_error (_ (INFINITY_MSG));
+    {
+      programming_error (_ (INFINITY_MSG));
+      return ;
+    }
+  
+  if (!dim_cache_[a].offset_)
+    dim_cache_[a].offset_ = new Real (y);
   else
-    dim_cache_[a].offset_ += y;
+    *dim_cache_[a].offset_ += y;  
 }
 
 /* Find the offset relative to D.  If D equals THIS, then it is 0.
@@ -372,24 +344,27 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
 Real
 Grob::get_offset (Axis a) const
 {
+  if (dim_cache_[a].offset_)
+    return *dim_cache_[a].offset_;
+
   Grob *me = (Grob *) this;
-  while (dim_cache_[a].offsets_left_)
-    {
-      int l = --me->dim_cache_[a].offsets_left_;
-      SCM cb = scm_list_ref (dim_cache_[a].offset_callbacks_, scm_from_int (l));
-      SCM retval = scm_call_2 (cb, self_scm (), scm_from_int (a));
 
-      Real r = scm_to_double (retval);
-      if (isinf (r) || isnan (r))
-	{
-	  programming_error (INFINITY_MSG);
-	  r = 0.0;
-	}
-      me->dim_cache_[a].offset_ += r;
-    }
-  return dim_cache_[a].offset_;
+  me->dim_cache_[a].offset_ = new Real (0.0);
+  Real off = robust_scm2double (internal_get_property (axis_offset_symbol (a)), 0.0);
+
+  SCM self_off_sym
+    = (a == X_AXIS)
+    ? ly_symbol2scm ("self-X-offset")
+    : ly_symbol2scm ("self-Y-offset");
+
+  off += robust_scm2double (internal_get_property (self_off_sym), 0.0);
+  
+  *me->dim_cache_[a].offset_ += off;
+
+  me->del_property (self_off_sym);
+  me->del_property (axis_offset_symbol (a));
+  return off;
 }
-
 
 void
 Grob::flush_extent_cache (Axis axis)
@@ -499,23 +474,6 @@ Grob::name () const
   SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
   return scm_is_symbol (nm) ? ly_symbol2string (nm) : this->class_name ();
-}
-
-void
-Grob::add_offset_callback (SCM cb, Axis a)
-{
-  if (!has_offset_callback (cb, a))
-    {
-      dim_cache_[a].offset_callbacks_
-	= scm_cons (cb, dim_cache_[a].offset_callbacks_);
-      dim_cache_[a].offsets_left_++;
-    }
-}
-
-bool
-Grob::has_offset_callback (SCM cb, Axis a) const
-{
-  return scm_c_memq (cb, dim_cache_[a].offset_callbacks_) != SCM_BOOL_F;
 }
 
 void
@@ -696,3 +654,87 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       );
 
 
+#include "simple-closure.hh"
+
+/*
+  UGH : todo -> to different file.
+ */
+
+SCM
+axis_offset_symbol (Axis a)
+{
+  return a == X_AXIS
+    ? ly_symbol2scm ("X-offset")
+    : ly_symbol2scm ("Y-offset");
+}
+
+SCM
+axis_parent_positioning (Axis a)
+{
+  return (a == X_AXIS)
+    ? Grob::x_parent_positioning_proc
+    : Grob::y_parent_positioning_proc;
+}
+
+
+
+/*
+  Replace
+
+  (orig-proc GROB)
+
+  by
+
+  (+ (PROC GROB) (orig-proc GROB))
+  
+*/
+void
+add_offset_callback (Grob *g, SCM proc, Axis a)
+{
+  SCM data = g->get_property_data (axis_offset_symbol (a));
+
+  if (ly_is_procedure (data))
+    data = ly_make_simple_closure (scm_list_1  (data));
+  else if (is_simple_closure (data))
+    data = simple_closure_expression (data);
+  else if (!scm_is_number (data))
+    data = scm_from_int (0);
+
+  SCM plus = ly_lily_module_constant ("+");
+  SCM expr = scm_list_3 (plus,
+			 ly_make_simple_closure (scm_list_1 (proc)),
+			 data);
+  g->internal_set_property (axis_offset_symbol (a),
+			    ly_make_simple_closure (expr));
+}
+
+
+/*
+  replace
+
+  (orig-proc GROB)
+
+  by
+
+  (PROC GROB (orig-proc GROB)) 
+
+*/
+void
+chain_offset_callback (Grob *g, SCM proc, Axis a)
+{
+  SCM data = g->get_property_data (axis_offset_symbol (a));
+
+  if (ly_is_procedure (data))
+    data = ly_make_simple_closure (scm_list_1  (data));
+  else if (is_simple_closure (data))
+    data = simple_closure_expression (data);
+  else if (!scm_is_number (data))
+    data = scm_from_int (0);
+  
+  SCM expr = scm_list_2 (proc, data);
+  g->internal_set_property (axis_offset_symbol (a),
+			    
+			    // twice: one as a wrapper for grob property routines,
+			    // once for the actual delayed binding. 
+			    ly_make_simple_closure (ly_make_simple_closure (expr)));
+}

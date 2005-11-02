@@ -75,12 +75,10 @@ internal_print (Grob *me, String *font_char)
 /*
   TODO: make stem X-parent of notehead. 
  */
-MAKE_SCHEME_CALLBACK (Note_head, stem_x_shift, 2);
+MAKE_SCHEME_CALLBACK (Note_head, stem_x_shift, 1);
 SCM
-Note_head::stem_x_shift (SCM smob, SCM axis)
+Note_head::stem_x_shift (SCM smob)
 {
-  (void) axis;
-  
   Grob *me = unsmob_grob (smob);
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (stem)

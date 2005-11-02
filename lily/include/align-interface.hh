@@ -15,8 +15,6 @@
 struct Align_interface
 {
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
-  DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element, SCM axis));
-  DECLARE_SCHEME_CALLBACK (fixed_distance_alignment_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (stretch_after_break, (SCM element));
   static void align_to_fixed_distance (Grob *, Axis a);
   static void align_elements_to_extents (Grob *, Axis a);

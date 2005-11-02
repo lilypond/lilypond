@@ -20,12 +20,12 @@
 struct Side_position_interface
 {
 public:
-  DECLARE_SCHEME_CALLBACK (aligned_on_support_extents, (SCM element, SCM axis));
-  DECLARE_SCHEME_CALLBACK (aligned_on_support_refpoints, (SCM element, SCM axis));
 
-  DECLARE_SCHEME_CALLBACK (aligned_side, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (y_aligned_on_support_refpoints, (SCM element));
+  DECLARE_SCHEME_CALLBACK (x_aligned_side, (SCM element));
+  DECLARE_SCHEME_CALLBACK (y_aligned_side, (SCM element));
 
-  DECLARE_SCHEME_CALLBACK (quantised_position, (SCM element, SCM axis));
+  static SCM Side_position_interface::aligned_side (Grob*me, Axis a);
 
   static SCM general_side_position (Grob *, Axis, bool);
   static Axis get_axis (Grob *);

@@ -178,16 +178,9 @@
    Percent_repeat_item_interface::beat_slash
    Percent_repeat_item_interface::double_percent
    Piano_pedal_bracket::print
-   Rest::polyphonic_offset_callback
    Rest::print
    Script_interface::print
-   Self_alignment_interface::aligned_on_parent
-   Self_alignment_interface::aligned_on_self
-   Self_alignment_interface::centered_on_other_axis_parent
-   Self_alignment_interface::centered_on_parent
    Separating_group_spanner::set_spacing_rods
-   Side_position_interface::aligned_on_support_refpoints
-   Side_position_interface::aligned_side
    Slur::height
    Slur::print
    Spacing_spanner::set_springs

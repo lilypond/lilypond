@@ -52,8 +52,8 @@ Script_column::before_line_breaking (SCM smob)
       /*
 	Don't want to consider scripts horizontally next to notes.
       */
-      if (!sc->has_offset_callback (Side_position_interface::aligned_side_proc,
-				    X_AXIS))
+      if (sc->get_property_data (ly_symbol2scm ("X-offset")) !=
+	  Side_position_interface::x_aligned_side_proc)
 	staff_sided.push (sc);
     }
 

@@ -149,21 +149,17 @@ Slur::add_extra_encompass (Grob *me, Grob *n)
 
 MAKE_SCHEME_CALLBACK (Slur, outside_slur_callback, 2);
 SCM
-Slur::outside_slur_callback (SCM grob, SCM axis)
+Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
   Grob *script = unsmob_grob (grob);
-  Axis a = Axis (scm_to_int (axis));
-  (void) a;
-  assert (a == Y_AXIS);
-
   Grob *slur = unsmob_grob (script->get_object ("slur"));
 
   if (!slur)
-    return scm_from_int (0);
+    return offset_scm;
 
   Direction dir = get_grob_direction (script);
   if (dir == CENTER)
-    return scm_from_int (0);
+    return offset_scm;
 
   Grob *cx = script->common_refpoint (slur, X_AXIS);
   Grob *cy = script->common_refpoint (slur, Y_AXIS);
@@ -176,6 +172,9 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   Interval yext = robust_relative_extent (script, cy, Y_AXIS);
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
 
+  yext.translate (robust_scm2double (offset_scm, 0));
+  
+  
   /* FIXME: slur property, script property?  */
   Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
 					 0.0);
@@ -211,15 +210,16 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 	    do_shift = true;
 	}
     }
-  Real offset = 0.0;
+
+  Real avoidance_offset = 0.0;
   if (do_shift)
     {
       for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
-	offset = dir * (max (dir * offset,
+	avoidance_offset = dir * (max (dir * avoidance_offset,
 			     dir * (ys[k] - yext[-dir] + dir * slur_padding)));
     }
 
-  return scm_from_double (offset);
+  return scm_from_double (scm_to_double (offset_scm) + avoidance_offset);
 }
 
 

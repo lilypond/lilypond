@@ -20,13 +20,11 @@
 #include "align-interface.hh"
 
 
-MAKE_SCHEME_CALLBACK (Break_align_interface, self_align_callback, 2);
+MAKE_SCHEME_CALLBACK (Break_align_interface, self_align_callback, 1);
 SCM
-Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
+Break_align_interface::self_align_callback (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
-  (void) axis;
-  assert (scm_to_int (axis) == X_AXIS);
+  Grob *me = unsmob_grob (smob);
 
   Item *item = dynamic_cast<Item *> (me);
   Direction bsd = item->break_status_dir ();
@@ -36,7 +34,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   /*
     Force break alignment itself to be done first, in the case
   */
-  return Self_alignment_interface::aligned_on_self (element_smob, axis);
+  return Self_alignment_interface::aligned_on_self (me, X_AXIS);
 }
 
 /*
@@ -276,7 +274,11 @@ ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 	       "\n"
 	       "Rules for this spacing are much more complicated than this. \n"
 	       "See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147\n",
-	       "break-align-symbol space-alist");
+
+	       /* properties */ 
+	       "break-align-symbol "
+	       "space-alist "
+	       );
 
 ADD_INTERFACE (Break_align_interface, "break-alignment-interface",
 	       "The object that performs break aligment. See @ref{break-aligned-interface}.",

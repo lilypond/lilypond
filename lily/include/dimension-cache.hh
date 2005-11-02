@@ -23,10 +23,7 @@ class Dimension_cache
      The offset wrt. to the center of #parent_#
   */
   Interval *extent_;
-  Real offset_;
-  SCM offset_callbacks_;
-
-  char offsets_left_;
+  Real *offset_;
 
   /**
      What to call to find extent.  Nil means empty.

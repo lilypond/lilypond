@@ -729,11 +729,11 @@ Stem::get_translated_flag (Grob *me)
 /*
   move the stem to right of the notehead if it is up.
 */
-MAKE_SCHEME_CALLBACK (Stem, offset_callback, 2);
+MAKE_SCHEME_CALLBACK (Stem, offset_callback, 1);
 SCM
-Stem::offset_callback (SCM element_smob, SCM)
+Stem::offset_callback (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
   Real r = 0.0;
 
   if (Grob *f = first_head (me))

@@ -105,12 +105,11 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
     return scm_from_double (pos);
 }
 
-/* should use offset callback!  */
-MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 2);
+MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 1);
 SCM
-Staff_symbol_referencer::callback (SCM element_smob, SCM)
+Staff_symbol_referencer::callback (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
 
   SCM pos = me->get_property ("staff-position");
   Real off = 0.0;
@@ -140,15 +139,15 @@ void
 Staff_symbol_referencer::set_position (Grob *me, Real p)
 {
   Grob *st = get_staff_symbol (me);
+  Real oldpos = 0.0;
   if (st && me->common_refpoint (st, Y_AXIS))
     {
-      Real oldpos = get_position (me);
-      me->set_property ("staff-position", scm_from_double (p - oldpos));
+      oldpos = get_position (me);
     }
-  else
-    me->set_property ("staff-position", scm_from_double (p));
 
-  me->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
+  
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  me->translate_axis ((p  - oldpos) * ss * 0.5, Y_AXIS);
 }
 
 /* Half of the height, in staff space, i.e. 2.0 for a normal staff. */

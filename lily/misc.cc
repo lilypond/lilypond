@@ -58,3 +58,14 @@ split_string (String s, char c)
 
   return rv;
 }
+
+
+Real
+directed_round (Real f, Direction d)
+{
+  if (d < 0)
+    return floor (f);
+  else
+    return ceil (f);
+}
+

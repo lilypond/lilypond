@@ -263,8 +263,11 @@ Align_interface::axis (Grob *me)
 void
 Align_interface::add_element (Grob *me, Grob *element)
 {
-  element->add_offset_callback (Grob::same_axis_parent_positioning_proc,
-				Align_interface::axis (me));
+  Axis a = Align_interface::axis (me);
+  SCM sym = axis_offset_symbol (a);
+  SCM proc = axis_parent_positioning (a);
+    
+  element->internal_set_property (sym, proc);
   Axis_group_interface::add_element (me, element);
 }
 

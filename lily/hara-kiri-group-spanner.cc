@@ -18,9 +18,9 @@
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 1);
 SCM
-Hara_kiri_group_spanner::y_extent (SCM element_smob)
+Hara_kiri_group_spanner::y_extent (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
   consider_suicide (me);
   return Axis_group_interface::generic_group_extent (me, Y_AXIS);
 }
@@ -72,9 +72,9 @@ Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob, SCM axis)
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_parent_callback, 2);
 SCM
-Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, SCM axis)
+Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM smob, SCM axis)
 {
-  Grob *daughter = unsmob_grob (element_smob);
+  Grob *daughter = unsmob_grob (smob);
   Axis a = (Axis) scm_to_int (axis);
   assert (a == Y_AXIS);
   force_hara_kiri_callback (daughter->get_parent (a)->self_scm (), axis);
@@ -84,7 +84,6 @@ Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, S
 void
 Hara_kiri_group_spanner::add_element (Grob *me, Grob *e)
 {
-  //  e->add_offset_callback (force_hara_kiri_in_parent_callback, Y_AXIS);
   Axis_group_interface::add_element (me, e);
 }
 

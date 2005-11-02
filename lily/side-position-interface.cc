@@ -20,7 +20,9 @@ using namespace std;
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "staff-symbol.hh"
 #include "string-convert.hh"
+#include "misc.hh"
 
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
@@ -32,7 +34,7 @@ Direction
 Side_position_interface::get_direction (Grob *me)
 {
   Direction relative_dir = Direction (1);
-  SCM reldir = me->get_property ("side-relative-direction");	// should use a lambda.
+  SCM reldir = me->get_property ("side-relative-direction");
   if (is_direction (reldir))
     relative_dir = to_dir (reldir);
 
@@ -42,16 +44,6 @@ Side_position_interface::get_direction (Grob *me)
     return (Direction) (relative_dir * get_grob_direction (e));
 
   return CENTER;
-}
-
-MAKE_SCHEME_CALLBACK (Side_position_interface, aligned_on_support_extents, 2);
-SCM
-Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (axis);
-
-  return general_side_position (me, a, true);
 }
 
 /* Put the element next to the support, optionally taking in
@@ -64,16 +56,25 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
   extract_grob_set (me, "side-support-elements", support);
 
   Grob *common = common_refpoint_of_array (support, me->get_parent (a), a);
-  Grob *st = Staff_symbol_referencer::get_staff_symbol (me);
-  bool include_staff = (st
-			&& a == Y_AXIS
-			&& scm_is_number (me->get_property ("staff-padding")));
+  Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
+  bool include_staff = false;
+
+  if (staff_symbol
+      && a == Y_AXIS)
+    {
+      if (scm_is_number (me->get_property ("staff-padding")))
+	include_staff = true;
+    }
 
   Interval dim;
+  Interval staff_extents;
   if (include_staff)
     {
-      common = st->common_refpoint (common, Y_AXIS);
-      dim = st->extent (common, Y_AXIS);
+      common = staff_symbol->common_refpoint (common, Y_AXIS);
+      staff_extents = staff_symbol->extent (common, Y_AXIS);
+
+      if (include_staff)
+	dim.unite (staff_extents);
     }
 
   for (int i = 0; i < support.size (); i++)
@@ -104,7 +105,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
       && dir
       && total_off * dir < minimum_space)
     total_off = minimum_space * dir;
-
+  
   /* FIXME: 100CM should relate to paper size.  */
   if (fabs (total_off) > 100 CM)
     {
@@ -118,90 +119,50 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
   return scm_from_double (total_off);
 }
 
-/*
-  Cut & paste (ugh.)
-*/
-MAKE_SCHEME_CALLBACK (Side_position_interface, aligned_on_support_refpoints, 2);
+
+MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_on_support_refpoints, 1);
 SCM
-Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
+Side_position_interface::y_aligned_on_support_refpoints (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Axis a = (Axis) scm_to_int (axis);
-
-  return general_side_position (me, a, false);
+  return general_side_position (unsmob_grob (smob), Y_AXIS, false); 
 }
 
-Real
-directed_round (Real f, Direction d)
-{
-  if (d < 0)
-    return floor (f);
-  else
-    return ceil (f);
-}
 
-/*
-  Callback that quantises in staff-spaces, rounding in the direction
-  of the elements "direction" elt property.
-
-  Only rounds when we're inside the staff, as determined by
-  Staff_symbol_referencer::staff_radius () */
-MAKE_SCHEME_CALLBACK (Side_position_interface, quantised_position, 2);
-SCM
-Side_position_interface::quantised_position (SCM element_smob, SCM)
-{
-  Grob *me = unsmob_grob (element_smob);
-
-  Direction d = get_grob_direction (me);
-
-  Grob *stsym = Staff_symbol_referencer::get_staff_symbol (me);
-  if (stsym)
-    {
-      Real p = Staff_symbol_referencer::get_position (me);
-      Real rp = directed_round (p, d);
-      Real rad = Staff_symbol_referencer::staff_radius (me) * 2;
-      int ip = int (rp);
-
-      Grob *head = me->get_parent (X_AXIS);
-
-      if (Staff_symbol_referencer::on_staffline (me, ip)
-	  && ((abs (ip) <= rad)
-	      || (Note_head::has_interface (head)
-		  && sign (Staff_symbol_referencer::get_position (head))
-		  == -d)))
-	{
-	  ip += d;
-	  rp += d;
-	}
-
-      return scm_from_double ((rp - p) * Staff_symbol_referencer::staff_space (me) / 2.0);
-    }
-  return scm_from_double (0.0);
-}
 
 /*
   Position next to support, taking into account my own dimensions and padding.
 */
-MAKE_SCHEME_CALLBACK (Side_position_interface, aligned_side, 2);
+
+MAKE_SCHEME_CALLBACK (Side_position_interface, x_aligned_side, 1);
 SCM
-Side_position_interface::aligned_side (SCM element_smob, SCM axis)
+Side_position_interface::x_aligned_side (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (axis);
+  return aligned_side (unsmob_grob (smob), X_AXIS);
+}
 
-  Direction d = get_grob_direction (me);
-  Real o = scm_to_double (aligned_on_support_extents (element_smob, axis));
+MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_side, 1);
+SCM
+Side_position_interface::y_aligned_side (SCM smob)
+{
+  return aligned_side (unsmob_grob (smob), Y_AXIS);
+}
 
+SCM
+Side_position_interface::aligned_side (Grob*me, Axis a)
+{
+  Direction dir = get_grob_direction (me);
+
+  Real o = scm_to_double (general_side_position (me, a, true));
   Interval iv = me->extent (me, a);
 
   if (!iv.is_empty ())
     {
-      if (!d)
+      if (!dir)
 	{
 	  programming_error ("direction unknown, but aligned-side wanted");
-	  d = DOWN;
+	  dir = DOWN;
 	}
-      o += -iv[-d];
+      o += -iv[-dir];
     }
 
   /*
@@ -209,39 +170,66 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
     position with padding, but it will put adjoining objects on a row if
     stuff sticks out of the staff a little.
   */
-  Grob *st = Staff_symbol_referencer::get_staff_symbol (me);
-  if (st && a == Y_AXIS
-      && scm_is_number (me->get_property ("staff-padding")))
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+  if (staff && a == Y_AXIS)
     {
-      Real padding
-	= Staff_symbol_referencer::staff_space (me)
-	* scm_to_double (me->get_property ("staff-padding"));
+      if (scm_is_number (me->get_property ("staff-padding")))
+	{
+	  Real padding
+	    = Staff_symbol_referencer::staff_space (me)
+	    * scm_to_double (me->get_property ("staff-padding"));
 
-      Grob *common = me->common_refpoint (st, Y_AXIS);
+	  Grob *common = me->common_refpoint (staff, Y_AXIS);
 
-      Interval staff_size = st->extent (common, Y_AXIS);
-      Real diff = d*staff_size[d] + padding - d * (o + iv[-d]);
-      o += d * max (diff, 0.0);
+	  Interval staff_size = staff->extent (common, Y_AXIS);
+	  Real diff = dir*staff_size[dir] + padding - dir * (o + iv[-dir]);
+	  o += dir * max (diff, 0.0);
+	}
+      
+      if (to_boolean (me->get_property ("quantize-position")))
+	{
+	  Grob *common = me->common_refpoint (staff, Y_AXIS);
+	  Real my_off = me->relative_coordinate (common, Y_AXIS);
+	  Real staff_off = staff->relative_coordinate (common, Y_AXIS);
+	  Real ss = Staff_symbol::staff_space (staff);
+	  Real position = 2 * (my_off + o - staff_off) / ss;
+	  Real rounded = directed_round (position, dir);
+	  Grob *head = me->get_parent (X_AXIS);
+      
+	  if (rounded <= Staff_symbol_referencer::staff_radius (me) 
+	      || (Note_head::has_interface (head)
+		  && sign (Staff_symbol_referencer::get_position (head)) == - dir))
+	    {
+	      o += dir *(rounded - position) * 0.5 * ss;
+	      if (Staff_symbol_referencer::on_staffline (me, int (rounded)))
+		o += dir * 0.5 * ss;
+	    }
+	}
     }
-
   return scm_from_double (o);
 }
 
 void
 Side_position_interface::set_axis (Grob *me, Axis a)
 {
-  me->add_offset_callback (Side_position_interface::aligned_side_proc, a);
+  me->internal_set_property (axis_offset_symbol (a),
+		    (a==X_AXIS)
+		    ? x_aligned_side_proc
+		    : y_aligned_side_proc);
 }
 
 // ugh. doesn't catch all variants. 
 Axis
 Side_position_interface::get_axis (Grob *me)
 {
-  if (me->has_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS)
-      || me->has_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS))
+  if (me->get_property_data (ly_symbol2scm ("X-offset"))
+      == Side_position_interface::x_aligned_side_proc)
     return X_AXIS;
+  else if (me->get_property_data (ly_symbol2scm ("Y-offset"))
+	   == Side_position_interface::y_aligned_side_proc)
+    return Y_AXIS;
 
-  return Y_AXIS;
+  return NO_AXES;
 }
 
 ADD_INTERFACE (Side_position_interface, "side-position-interface",
@@ -260,4 +248,5 @@ ADD_INTERFACE (Side_position_interface, "side-position-interface",
 	       "side-support-elements "
 	       "slur-padding "
 	       "staff-padding "
+	       "quantize-position "
 	       );

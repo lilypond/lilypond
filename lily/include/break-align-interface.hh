@@ -18,7 +18,7 @@ public:
   static bool has_interface (Grob *);
   static void add_element (Grob *me, Grob *add);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));
-  DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element));
 };
 struct Break_aligned_interface
 {

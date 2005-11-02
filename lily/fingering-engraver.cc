@@ -75,8 +75,6 @@ void
 Fingering_engraver::make_script (Direction d, Music *r, int i)
 {
   Item *fingering = make_item ("Fingering", r->self_scm ());
-  Axis a = Y_AXIS;
-  Axis other = other_axis (a);
 
   /*
     Huh, what's this for? --hwn.
@@ -91,9 +89,9 @@ Fingering_engraver::make_script (Direction d, Music *r, int i)
     We can't fold these definitions into define-grobs since
     fingerings for chords need different settings.
   */
-  Side_position_interface::set_axis (fingering, a);
-  fingering->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, other);
-  fingering->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, other);
+  Side_position_interface::set_axis (fingering, Y_AXIS);
+  fingering->set_property ("self-X-offset", Self_alignment_interface::x_aligned_on_self_proc);
+  fingering->set_property ("X-offset", Self_alignment_interface::centered_on_x_parent_proc);
 
   // Hmm
   int priority = 200;

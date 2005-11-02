@@ -22,14 +22,11 @@ using namespace std;
 #include "duration.hh"
 #include "directional-element-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback, 2);
+MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback, 1);
 SCM
-Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
+Rest_collision::force_shift_callback (SCM smob)
 {
-  Grob *them = unsmob_grob (element_smob);
-  (void) axis;
-  assert (scm_to_int (axis) == Y_AXIS);
-
+  Grob *them = unsmob_grob (smob);
   if (Note_column::has_rests (them))
     {
       Grob *collision = unsmob_grob (them->get_object ("rest-collision"));
@@ -42,16 +39,14 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback_rest, 2);
+MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback_rest, 1);
 SCM
-Rest_collision::force_shift_callback_rest (SCM rest, SCM axis)
+Rest_collision::force_shift_callback_rest (SCM rest)
 {
   Grob *rest_grob = unsmob_grob (rest);
-  assert ((Axis) scm_to_int (axis) == Y_AXIS);
-
   Grob *parent = rest_grob->get_parent (X_AXIS);
   if (Note_column::has_interface (parent))
-    return force_shift_callback (parent->self_scm (), axis);
+    return force_shift_callback (parent->self_scm ());
   else
     return scm_from_double (0.0);
 }
@@ -67,14 +62,14 @@ Rest_collision::add_column (Grob *me, Grob *p)
 
     (not?)
   */
-  p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
+  add_offset_callback (p, Rest_collision::force_shift_callback_proc, Y_AXIS);
   p->set_object ("rest-collision", me->self_scm ());
 
   Grob *rest = unsmob_grob (p->get_object ("rest"));
   if (rest)
     {
-      rest->add_offset_callback (Rest_collision::force_shift_callback_rest_proc,
-				 Y_AXIS);
+      rest->set_property ("Y-offset" ,
+			  Rest_collision::force_shift_callback_rest_proc);
     }
 }
 

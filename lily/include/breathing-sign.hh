@@ -26,7 +26,7 @@ public:
   DECLARE_SCHEME_CALLBACK (divisio_maior, (SCM));
   DECLARE_SCHEME_CALLBACK (divisio_maxima, (SCM));
   DECLARE_SCHEME_CALLBACK (finalis, (SCM));
-  DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));
 
   static bool has_interface (Grob *);
 };

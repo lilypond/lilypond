@@ -37,5 +37,7 @@ linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)
     + (x - x1) / (x2 - x1) * y2;
 }
 
+Real directed_round (Real f, Direction d);
+
 #endif
 

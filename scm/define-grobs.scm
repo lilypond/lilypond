@@ -29,18 +29,16 @@
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
-
+    
     (AccidentalSuggestion
      . (
-
 	(stencil . ,Accidental_interface::print)
-					
-	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
-			       ,Self_alignment_interface::aligned_on_self))
+	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
+	(self-X-offset . Self_alignment_interface::x_aligned_on_self)
 	(self-alignment-X . ,CENTER)
 	(cautionary . #t)
 	(cautionary-style . smaller)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(cautionary-style . parentheses)
 	(direction . ,UP)
 	(staff-padding . 0.25)
@@ -67,7 +65,6 @@
     (Ambitus
      . (
 	(axes . (0 1))
-
 	(X-extent . ,Axis_group_interface::width)
 	(X-extent . ,Axis_group_interface::height)
 
@@ -92,7 +89,7 @@
 
 	(join-heads . #t)
 	(thickness . 2)
-	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
+	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
 
 	(meta . ((class . Item)
 		 (interfaces . (ambitus-interface
@@ -102,7 +99,7 @@
      . (
 	(font-family . music)
 	(padding . 0.5)
-	(X-offset-callbacks . (,Side_position_interface::aligned_side))
+	(X-offset . ,Side_position_interface::x_aligned_side)
 	(direction . -1)
 	(cautionary-style . parentheses)
 
@@ -123,7 +120,7 @@
 	(stencil . ,Note_head::print)
 	(glyph-name . ,note-head::calc-glyph-name)
 	
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				note-head-interface
@@ -138,8 +135,8 @@
 	(X-extent . ,Arpeggio::width)
 	(stencil . ,Arpeggio::print)
 
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	(X-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Staff_symbol_referencer::callback)
+	(X-offset . ,Side_position_interface::x_aligned_side)
 	(direction . -1)
 	(padding . 0.5)
 	(staff-position . 0.0)
@@ -196,8 +193,8 @@
 	(direction . 1)
 	(font-family . roman)
 	(font-size . -2)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(self-alignment-X . 1)
 
 	(meta .
@@ -214,7 +211,7 @@
 
 	(stencil . ,Text_interface::print)
 
-	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(Y-offset . ,Self_alignment_interface::y_aligned_on_self)
 	(direction . 1)
 	(font-family . number)
 
@@ -253,7 +250,7 @@
 
 	(stencil . ,Figured_bass_continuation::print)
 
-	(Y-offset-callbacks . (,Figured_bass_continuation::center_on_figures))
+	(Y-offset . ,Figured_bass_continuation::center_on_figures)
 	(meta . ((class . Spanner)
 		 (interfaces . (figured-bass-continuation-interface))
 		 ))))
@@ -399,7 +396,7 @@
 	(stencil . ,Text_interface::print)
 
 	(text . ,(make-musicglyph-markup "scripts.rcomma"))
-	(Y-offset-callbacks . (,Breathing_sign::offset_callback))
+	(Y-offset . ,Breathing_sign::offset_callback)
 	(break-visibility . ,begin-of-line-invisible)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -425,7 +422,7 @@
 			(first-note . (minimum-fixed-space . 5.0))
 			(next-note . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))))
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (clef-interface
 				staff-symbol-referencer-interface
@@ -475,8 +472,8 @@
 	(stencil . ,Text_interface::print)
 
 	(no-spacing-rods . #t)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(direction . 1)
 	(padding . 0.5)
 	(staff-padding . 0.5)
@@ -500,7 +497,7 @@
 	(break-visibility . ,end-of-line-visible)
 	(style . vaticana)
 	(neutral-direction . -1)
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(space-alist . (
 			(first-note . (minimum-fixed-space . 0.0))
 			(right-edge . (extra-space . 0.1))))
@@ -519,7 +516,7 @@
 	(positioning-done . ,Dot_column::calc_positioning_done) 
 	(X-extent . ,Axis_group_interface::width)
 	
-	(X-offset-callbacks . (,Dot_column::side_position))
+	(X-offset . ,Dot_column::side_position)
 	(meta . ((class . Item)
 		 (interfaces . (dot-column-interface
 				axis-group-interface))))))
@@ -557,9 +554,9 @@
 
 	(stencil . ,Text_interface::print)
 
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
-			       ,Self_alignment_interface::centered_on_other_axis_parent))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::centered_on_y_parent)
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(font-encoding . fetaNumber)
 	(self-alignment-X . 0)
 	(font-size . -2) 
@@ -575,7 +572,7 @@
     (DynamicLineSpanner
      . (
 	(axes . (1))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(staff-padding . 0.1)
 	(padding . 0.6)
 	(avoid-slur . outside)
@@ -601,9 +598,9 @@
 	(stencil . ,Text_interface::print)
 	(direction . ,Script_interface::calc_direction)
 
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(self-alignment-X . 0)
-	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(self-Y-offset . ,Self_alignment_interface::y_aligned_on_self)
 	(self-alignment-Y . 0)
 	(font-series . bold)
 	(font-encoding . fetaDynamic)
@@ -696,8 +693,9 @@
 	(stencil . ,Grid_line_interface::print)
 
 	(self-alignment-X . ,CENTER)
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
-			       ,Self_alignment_interface::centered_on_parent))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
+	
 	(layer . 0)
 	(meta . ((class . Item)
 		 (interfaces . (self-alignment-interface
@@ -716,7 +714,7 @@
 	(minimum-length . 2.0)
 	(bound-padding . 1.0)
 	(self-alignment-Y . 0)
-	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(self-Y-offset . ,Self_alignment_interface::y_aligned_on_self)
 	(meta . ((class . Spanner)
 		 (interfaces . (hairpin-interface
 				line-interface
@@ -730,7 +728,7 @@
 
 	(stencil . ,Horizontal_bracket::print)
 
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(padding . 0.2)
 	(staff-padding . 0.2)
 	(direction . -1)
@@ -743,8 +741,8 @@
     (InstrumentName
      . (
 	(breakable . #t)
-	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self
-			       ,Side_position_interface::aligned_on_support_refpoints))
+	(self-Y-offset . ,Self_alignment_interface::y_aligned_on_self)
+	(Y-offset . ,Side_position_interface::y_aligned_on_support_refpoints)
 	;; This direction is for aligned_on_support_refpoints
 	;; (?) --hwn
 	(direction . 0)
@@ -776,7 +774,7 @@
 			(key-signature . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(break-align-symbol . key-cancellation)
 	(break-visibility . ,begin-of-line-invisible)
 	(breakable . #t)
@@ -795,7 +793,7 @@
 			(staff-bar . (extra-space . 1.1))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(break-align-symbol . key-signature)
 	(break-visibility . ,begin-of-line-visible)
 	(breakable . #t)
@@ -921,7 +919,7 @@
 
 	(stencil . ,Text_interface::print)
 
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_parent))
+	(X-offset . ,Self_alignment_interface::aligned_on_x_parent)
 	(self-alignment-X . 0)
 	(word-space . 0.6)
 	(font-series . bold-narrow)
@@ -948,7 +946,7 @@
 
 	(stencil . ,Text_interface::print)
 
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(direction . 1)
 	(padding . 0.8)
 	(meta . ((class . Item)
@@ -959,7 +957,7 @@
 
     (MeasureGrouping
      . (
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 
 	(stencil . ,Measure_grouping::print)
 
@@ -977,7 +975,7 @@
 
 	(stencil . ,Multi_measure_rest::print)
 
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(staff-position . 0)
 	(expand-limit . 10)
 	(thick-thickness . 6.6)
@@ -995,9 +993,9 @@
      . (
 	(springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
 	(stencil . ,Text_interface::print)
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
-			       ,Self_alignment_interface::centered_on_other_axis_parent))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(self-X-offset . ,Self_alignment_interface::y_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::centered_on_y_parent)
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.4)
@@ -1014,12 +1012,11 @@
 
     (MultiMeasureRestText
      . (
-
 	(stencil . ,Text_interface::print)
-
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
-			       ,Self_alignment_interface::centered_on_other_axis_parent))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(X-offset . ,Self_alignment_interface::centered_on_y_parent)
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.2)
@@ -1059,8 +1056,8 @@
 	(stencil . ,Note_head::print)
 	(stem-attachment . ,Note_head::calc_stem_attachment)
 	(glyph-name . ,note-head::calc-glyph-name) 
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-	(X-offset-callbacks . (,Note_head::stem_x_shift))
+	(Y-offset . ,Staff_symbol_referencer::callback)
+	(X-offset . ,Note_head::stem_x_shift)
 	(meta . ((class . Item)
 		 (interfaces . (rhythmic-grob-interface
 				rhythmic-head-interface
@@ -1095,9 +1092,9 @@
      . (
 	(self-alignment-X . 0)
 	(break-visibility . ,begin-of-line-visible)
-	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
-			       ,Self_alignment_interface::aligned_on_self))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 
 	(stencil . ,Text_interface::print)
 
@@ -1116,7 +1113,7 @@
 
     (OttavaBracket
      . (
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 
 	(stencil . ,Ottava_bracket::print)
 
@@ -1205,9 +1202,9 @@
 
 	(stencil . ,Text_interface::print)
 
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
-			       ,Self_alignment_interface::centered_on_other_axis_parent))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::centered_on_y_parent)
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.2)
@@ -1244,8 +1241,8 @@
 
 	(stencil . ,Text_interface::print)
 
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 
 	(after-line-breaking . ,shift-right-at-line-begin)
 
@@ -1279,12 +1276,7 @@
 	(stencil . ,Rest::print)
 	(X-extent . ,Rest::width)
 	(Y-extent . ,Rest::height)
-
-	(Y-offset-callbacks . (
-			       ,Staff_symbol_referencer::callback
-			       ,Rest::polyphonic_offset_callback
-			       ,Rest::y_offset_callback
-			       ))
+	(Y-offset . ,Rest::y_offset_callback)
 	(minimum-distance . 0.25)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -1310,7 +1302,7 @@
 	(padding . 0.20)
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
-	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
+	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
 
 	(stencil . ,Script_interface::print)
 	(direction . ,Script_interface::calc_direction)
@@ -1410,7 +1402,7 @@
 
 	(font-series . bold)
 	(padding . 1.0)
-	(X-offset-callbacks . (,Side_position_interface::aligned_side))
+	(X-offset . ,Side_position_interface::x_aligned_side)
 	(direction . ,LEFT)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
@@ -1453,7 +1445,7 @@
 	(stencil . ,Text_interface::print)
 
 	(direction . 1)
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(no-spacing-rods . #t)
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
 	(font-shape . italic)
@@ -1469,7 +1461,7 @@
 
 	(X-extent . ,Axis_group_interface::height)
 
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 
 	(padding . 1.2)
 	(minimum-space . 1.0)
@@ -1538,8 +1530,8 @@
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.
 
-	(X-offset-callbacks . (,Stem::offset_callback))
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(X-offset . ,Stem::offset_callback)
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (stem-interface
 				font-interface))))))
@@ -1561,7 +1553,7 @@
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(meta . ((class . Item)
 		 (interfaces . (piano-pedal-interface
 				text-spanner-interface
@@ -1573,7 +1565,7 @@
      . (
 	(axes . (1))
 	(X-extent . ,Axis_group_interface::height)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(padding . 1.2)
 	(staff-padding . 1.2)
 	(minimum-space . 1.0)
@@ -1606,7 +1598,7 @@
     (SystemStartBracket
      . (
 	(Y-extent . #f)
-	(X-offset-callbacks . (,(lambda (g a) -0.8)))
+	(X-offset . -0.8)
 	(stencil . ,System_start_delimiter::print)
 	(glyph . "bracket")
 	(collapse-height . 5.0)
@@ -1628,7 +1620,7 @@
      . (
 
 	(stencil . ,Text_interface::print)
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(font-size . -2)
 	(stem-attachment . (1.0 . 1.35))
 	(font-series . bold)
@@ -1643,7 +1635,7 @@
     (TextScript
      . (
 	(no-spacing-rods . #t)
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(direction . -1)
 
 	;; sync with Fingering ?
@@ -1724,14 +1716,14 @@
 	(staff-padding . 1.0)
 	(padding . 0.5)
 	(direction . 1)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
 				side-position-interface
 				font-interface))))))
 
     (TrillPitchAccidental
-     . ((X-offset-callbacks . (,Side_position_interface::aligned_side))
+     . ((X-offset . ,Side_position_interface::x_aligned_side)
 	(padding . 0.2)
 	(direction . ,LEFT)
 	(font-size . -4)
@@ -1743,7 +1735,7 @@
 				font-interface))))))
 
     (TrillPitchGroup
-     . ((X-offset-callbacks . (,Side_position_interface::aligned_side))
+     . ((X-offset . ,Side_position_interface::x_aligned_side)
 	(axes . (,X))
 	(font-size . -4)
 	(stencil . ,parenthesize-elements)
@@ -1761,7 +1753,7 @@
      . (
 	(stencil . ,Note_head::print)
 	(duration-log . 2)
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(Y-offset . ,Staff_symbol_referencer::callback)
 	(font-size . -4)
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
@@ -1796,7 +1788,7 @@
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
+	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				self-alignment-interface
@@ -1806,7 +1798,7 @@
      . (
 	(axes . (1))
 	(X-extent . ,Axis_group_interface::height)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(padding . 1.2)
 	(staff-padding . 1.2)
 	(minimum-space . 1.0)
@@ -1839,8 +1831,7 @@
     (VerticalAxisGroup
      . (
 	(axes . (1))
-	(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))
-
+	(Y-offset . ,Hara_kiri_group_spanner::force_hara_kiri_callback)
 	(Y-extent . ,Hara_kiri_group_spanner::y_extent)
 	(X-extent . ,Axis_group_interface::width)
 	(meta . ((class . Spanner)
@@ -1850,7 +1841,7 @@
     (VocalName
      . (
 	(breakable . #t)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_on_support_refpoints))
+	(Y-offset . ,Side_position_interface::y_aligned_on_support_refpoints)
 	(direction . 0)
 	(space-alist . ((left-edge . (extra-space . 1.0))))
 	(break-align-symbol . instrument-name)
@@ -1872,7 +1863,7 @@
 	(direction . ,UP)
 	(padding . 1)
 	(font-encoding . fetaNumber)
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(thickness . 1.6)  ;;  linethickness
 	(edge-height . (2.0 . 2.0)) ;; staffspace;
 	(minimum-space . 5)

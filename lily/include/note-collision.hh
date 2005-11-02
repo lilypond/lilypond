@@ -30,7 +30,6 @@ public:
   static SCM forced_shift (Grob *);
 
   static Drul_array<Link_array<Grob> > get_clash_groups (Grob *me);
-  DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM smob));
   static void add_column (Grob *me, Grob *ncol);
   static bool has_interface (Grob *);
