@@ -136,14 +136,6 @@ Grob::try_callback (SCM sym, SCM proc)
   SCM value = SCM_EOL;
   if (ly_is_procedure (proc))
     value = scm_call_1 (proc, self_scm ());
-  else if (is_callback_chain (proc))
-    {
-      for (SCM s = callback_chain_extract_procedures (proc);
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  value = scm_call_2  (scm_car (s), self_scm (), value);
-	}
-    }
   else if (is_simple_closure (proc))
     {
       value = evaluate_with_simple_closure (self_scm (),

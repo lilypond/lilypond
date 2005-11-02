@@ -282,14 +282,17 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(gap . 0.8)
-
-	(positions .  ,(ly:make-callback-chain
-			Beam::calc_least_squares_positions
-			Beam::slope_damping
-			Beam::shift_region_to_valid
-			Beam::quanting
-			Beam::set_stem_lengths
-			))
+	(positions .  ,(ly:make-simple-closure
+			(ly:make-simple-closure
+			 (list chain-grob-member-functions
+			   `(,cons 0 0)
+			   Beam::calc_least_squares_positions
+			   Beam::slope_damping
+			   Beam::shift_region_to_valid
+			   Beam::quanting
+			   Beam::set_stem_lengths
+			   ))))
+	
 	(concaveness . ,Beam::calc_concaveness)
 	(direction . ,Beam::calc_direction)
 	(stencil . ,Beam::print)
