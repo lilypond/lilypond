@@ -47,6 +47,41 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 @itemize @bullet
 
 @item
+Each grob property may also be a ``grob closure.'' This means that it
+is possible to combine functions. For example, the @code{Y-offset} of
+a @code{InstrumentName} grob is defined to be 
+
+@verbatim
+,(ly:make-simple-closure
+  `(,+
+    ,(ly:make-simple-closure (list Self_alignment_interface::y_aligned_on_self))
+    ,(ly:make-simple-closure (list Side_position_interface::y_aligned_on_support_refpoints)))
+@end verbatim
+
+@noindent
+During execution, the @code{Y-offset} of an @code{InstrumentName} is computed
+as
+
+@example
+(+ (Self_alignment_interface::y_aligned_on_self @var{grob})
+   (Self_alignment_interface::y_aligned_on_support_refpoints @var{grob}))
+@end example
+
+
+@item
+Calculation of extent and offset of grob is now controlled via the
+@code{X-extent}, @code{Y-extent}, @code{X-offset} and @code{Y-offset}
+properties, for example
+
+@verbatim
+\override TextScript #'Y-offset = #-6
+@end verbatim
+
+@noindent
+hard codes @code{TextScript} grobs to be 6 spaces below their Y-parent
+grobs.
+
+@item
 Each grob property can be a procedure. If this is the case, it is
 assumed to be a routine that calculates said property.  This is a
 major internal cleanup, which also provides advanced tweakability for
