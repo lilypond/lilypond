@@ -320,7 +320,7 @@ setup_paths (char const* argv0)
   if (getenv ("LILYPOND_VERBOSE"))
     be_verbose_global = true;
 
-#ifndef __MINGW32__
+#if 1 /* Huh, argv0 is not absolute on windows?  ndef __MINGW32__ */
   File_path p;
   p.parse_path (getenv ("PATH"));
   String bindir = dir_name (p.find (argv0));
@@ -331,8 +331,10 @@ setup_paths (char const* argv0)
   if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
     {
       if (be_verbose_global)
-	warning (_f ("argv0 relocation: argv0=%s, prefix=%s", argv0,
-		     prefix_directory));
+	warning (_f ("argv0 relocation: prefix=%s, argv0=%s, argv0_prefix=%s",
+		     prefix_directory,
+		     argv0,
+		     argv0_prefix.to_str0 ()));
       String datadir = argv0_prefix + "/share";
       String libdir = argv0_prefix + "/lib";
       String localedir = datadir + "/locale";

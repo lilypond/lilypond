@@ -1,3 +1,8 @@
+2005-11-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/main.cc (setup_paths)[__MINGW32__]: Do not assume argv0 is
+	absolute.  Better diagnostics.
+
 2005-11-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (setup_paths)[!__MINGW32__]: Bugfix: if argv0 is
