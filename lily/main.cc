@@ -320,7 +320,13 @@ setup_paths (char const* argv0)
   if (getenv ("LILYPOND_VERBOSE"))
     be_verbose_global = true;
 
+#ifndef __MINGW32__
+  File_path p;
+  p.parse_path (getenv ("PATH"));
+  String bindir = dir_name (p.find (argv0));
+#else /* __MINGW32__ */
   String bindir = dir_name (argv0);
+#endif  
   String argv0_prefix = dir_name (bindir);
   if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
     {
