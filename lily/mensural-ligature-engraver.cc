@@ -298,7 +298,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
   Real thickness
     = robust_scm2double (ligature->get_property ("thickness"), 1.4);
   thickness
-    *= ligature->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+    *= ligature->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
 
   Real head_width
     = Font_interface::get_default_font (ligature)->

@@ -42,7 +42,7 @@ Ottava_bracket::print (SCM smob)
   Interval span_points;
 
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Output_def *layout = me->get_layout ();
+  Output_def *layout = me->layout ();
 
   Drul_array<bool> broken;
   Direction d = LEFT;

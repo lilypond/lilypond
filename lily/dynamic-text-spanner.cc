@@ -52,7 +52,7 @@ Dynamic_text_spanner::print (SCM smob)
   Spanner *spanner = dynamic_cast<Spanner *> (me);
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
-  Output_def *layout = me->get_layout ();
+  Output_def *layout = me->layout ();
 
   Interval span_points;
   Drul_array<bool> broken;

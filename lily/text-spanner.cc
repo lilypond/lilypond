@@ -42,7 +42,7 @@ Text_spanner::print (SCM smob)
   /* Ugh, must be same as Hairpin::print.  */
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
-  Output_def *layout = me->get_layout ();
+  Output_def *layout = me->layout ();
 
   SCM flare = me->get_property ("bracket-flare");
   SCM shorten = me->get_property ("shorten-pair");

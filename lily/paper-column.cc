@@ -120,10 +120,10 @@ Paper_column::print (SCM p)
 
   SCM properties = Font_interface::text_font_alist_chain (me);
 
-  SCM scm_mol = Text_interface::interpret_markup (me->get_layout ()->self_scm (),
+  SCM scm_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
 						  properties,
 						  scm_makfrom0str (r.to_str0 ()));
-  SCM when_mol = Text_interface::interpret_markup (me->get_layout ()->self_scm (),
+  SCM when_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
 						   properties,
 						   scm_makfrom0str (when.to_str0 ()));
   Stencil t = *unsmob_stencil (scm_mol);

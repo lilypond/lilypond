@@ -34,7 +34,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
       return;
     }
 
-  SCM ifs = me->interfaces_;
+  SCM ifs = me->interfaces ();
 
   SCM all_ifaces = ly_all_grob_interfaces ();
   bool found = false;

@@ -129,7 +129,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Font_metric *musfont
-    = select_font (me->get_layout (), alist_chain);
+    = select_font (me->layout (), alist_chain);
 
   SCM sml = me->get_property ("use-breve-rest");
   if (measures == 1)
@@ -171,7 +171,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Real hair_thick = robust_scm2double (me->get_property ("hair-thickness"), .1);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real slt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real slt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real y = slt * thick_thick / 2 * ss;
   Real ythick = hair_thick * slt * ss;
   Box b (Interval (0.0, max (0.0, (width - 2 * ythick))), Interval (-y, y));

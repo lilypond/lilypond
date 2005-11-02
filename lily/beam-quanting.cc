@@ -278,7 +278,7 @@ Beam::quanting (SCM smob, SCM posns)
 
 #if DEBUG_QUANTING
   SCM inspect_quants = me->get_property ("inspect-quants");
-  if (to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
+  if (to_boolean (me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
       && scm_is_pair (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
@@ -314,7 +314,7 @@ Beam::quanting (SCM smob, SCM posns)
   
 #if DEBUG_QUANTING
   if (best_idx >= 0
-      && to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"))))
+      && to_boolean (me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"))))
     {
       qscores[best_idx].score_card_ += to_string ("i%d", best_idx);
 

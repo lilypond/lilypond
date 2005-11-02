@@ -49,7 +49,7 @@ protected:
   void clear_key_disambiguations ();
 
 public:
-  Object_key const *get_key () const;
+  Object_key const *key () const { return key_; }
   Object_key const *get_grob_key (String);
   Object_key const *get_context_key (String, String);
 

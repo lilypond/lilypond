@@ -39,7 +39,7 @@ Item::Item (Item const &s, int copy_count)
 bool
 Item::is_breakable (Grob *me)
 {
-  if (me->original_)
+  if (me->original ())
     return false;
 
   if (!dynamic_cast<Item *> (me))
@@ -73,7 +73,7 @@ Item::copy_breakable_items ()
     {
       Grob *dolly = clone (count++);
       Item *item = dynamic_cast<Item *> (dolly);
-      pscore_->root_system ()->typeset_grob (item);
+      get_root_system (this)->typeset_grob (item);
       new_copies[i] = item;
     }
   while (flip (&i) != LEFT);
@@ -130,9 +130,9 @@ Item::find_prebroken_piece (Direction d) const
 Direction
 Item::break_status_dir () const
 {
-  if (original_)
+  if (original ())
     {
-      Item *i = dynamic_cast<Item *> (original_);
+      Item *i = dynamic_cast<Item *> (original ());
 
       return (i->broken_to_drul_[LEFT] == this) ? LEFT : RIGHT;
     }

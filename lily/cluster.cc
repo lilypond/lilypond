@@ -167,9 +167,9 @@ Cluster::print (SCM smob)
   /*
     Across a line break we anticipate on the next pitches.
   */
-  if (spanner->original_)
+  if (spanner->original ())
     {
-      Spanner *orig = dynamic_cast<Spanner *> (spanner->original_);
+      Spanner *orig = dynamic_cast<Spanner *> (spanner->original ());
 
       if (spanner->get_break_index () < orig->broken_intos_.size () - 1)
 	{

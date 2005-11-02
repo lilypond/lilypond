@@ -77,7 +77,7 @@ Text_interface::print (SCM grob)
 
   SCM t = me->get_property ("text");
   SCM chain = Font_interface::text_font_alist_chain (me);
-  return interpret_markup (me->get_layout ()->self_scm (), chain, t);
+  return interpret_markup (me->layout ()->self_scm (), chain, t);
 }
 
 /* Ugh. Duplicated from Scheme.  */

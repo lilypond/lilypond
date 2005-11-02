@@ -45,7 +45,7 @@ Bar_line::compound_barline (Grob *me, String str, Real h,
   Real hair = robust_scm2double (me->get_property ("hair-thickness"), 1);
   Real fatline = robust_scm2double (me->get_property ("thick-thickness"), 1);
 
-  Real staffline = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   kern *= staffline;
@@ -142,7 +142,7 @@ Bar_line::simple_barline (Grob *me,
 {
   Real blot
     = rounded
-    ? me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"))
+    ? me->layout ()->get_dimension (ly_symbol2scm ("blotdiameter"))
     : 0.0;
 
   return Lookup::round_filled_box (Box (Interval (0, w),

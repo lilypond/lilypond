@@ -151,7 +151,7 @@ Tuplet_bracket::print (SCM smob)
     {
       x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
       Direction break_dir = bounds[d]->break_status_dir ();
-      Spanner *orig_spanner = dynamic_cast<Spanner *> (me->original_);
+      Spanner *orig_spanner = dynamic_cast<Spanner *> (me->original ());
 
       int neighbor_idx = me->get_break_index () - break_dir;
 
@@ -204,7 +204,7 @@ Tuplet_bracket::print (SCM smob)
   Real w = x_span.length ();
   SCM number = me->get_property ("text");
 
-  Output_def *pap = me->get_layout ();
+  Output_def *pap = me->layout ();
   Stencil num;
   if (scm_is_string (number) && number_visibility)
     {

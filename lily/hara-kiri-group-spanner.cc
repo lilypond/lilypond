@@ -38,7 +38,7 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
 
   bool remove_first = to_boolean (me->get_property ("remove-first"));
   if (!remove_first
-       && ((sp->original_ && broken_spanner_index (sp) == 0)
+       && ((sp->original () && broken_spanner_index (sp) == 0)
 	   || Paper_column::get_rank (sp->get_bound (LEFT)->get_column ())
 	   == 0)) 
     return;

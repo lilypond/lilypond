@@ -328,7 +328,7 @@ Beam::print (SCM grob)
   Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
 
   Stencil the_beam;
-  Real lt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
 
   for (int i = 0; i <= stems.size (); i++)
     {
@@ -385,7 +385,7 @@ Beam::print (SCM grob)
       if (stem)
 	w += stem_width / 2;
 
-      Real blot = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+      Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
       Stencil whole = Lookup::beam (slope, w, thick, blot);
       Stencil gapped;
 
@@ -491,7 +491,7 @@ Beam::print (SCM grob)
 
 #if (DEBUG_QUANTING)
   SCM quant_score = me->get_property ("quant-score");
-  SCM debug = me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"));
+  SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"));
   if (to_boolean (debug) && scm_is_string (quant_score))
     {
 
@@ -506,7 +506,7 @@ Beam::print (SCM grob)
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
 
       Stencil score = *unsmob_stencil (Text_interface::interpret_markup
-				    (me->get_layout ()->self_scm (), properties, quant_score));
+				    (me->layout ()->self_scm (), properties, quant_score));
 
       if (!score.is_empty ())
 	the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0, 0);

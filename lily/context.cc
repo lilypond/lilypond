@@ -82,11 +82,6 @@ Context::add_context (Context *t)
     }
 }
 
-Object_key const *
-Context::get_key () const
-{
-  return key_;
-}
 
 Context::Context (Object_key const *key)
 {
@@ -257,7 +252,7 @@ Context::get_context_key (String type, String id)
 
   context_counts_[now_key] = disambiguation_count + 1;
 
-  return new Lilypond_context_key (get_key (),
+  return new Lilypond_context_key (key (),
 				   now_mom (),
 				   type, id,
 				   disambiguation_count);
@@ -274,7 +269,7 @@ Context::get_grob_key (String name)
     disambiguation_count = grob_counts_[name];
   grob_counts_[name] = disambiguation_count + 1;
 
-  Object_key *k = new Lilypond_grob_key (get_key (),
+  Object_key *k = new Lilypond_grob_key (key (),
 					 now_mom (),
 					 name,
 					 disambiguation_count);

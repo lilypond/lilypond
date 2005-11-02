@@ -125,7 +125,7 @@ broken_trend_y (Slur_score_state const &state, Direction hdir)
   /* A broken slur should maintain the same vertical trend
      the unbroken slur would have had.  */
   Real by = 0.0;
-  if (Spanner *mother = dynamic_cast<Spanner *> (state.slur_->original_))
+  if (Spanner *mother = dynamic_cast<Spanner *> (state.slur_->original ()))
     {
       int k = broken_spanner_index (state.slur_);
       int j = k + hdir;
@@ -134,7 +134,7 @@ broken_trend_y (Slur_score_state const &state, Direction hdir)
 
       Grob *neighbor = mother->broken_intos_[j];
       Spanner *common_mother
-	= dynamic_cast<Spanner *> (state.common_[Y_AXIS]->original_);
+	= dynamic_cast<Spanner *> (state.common_[Y_AXIS]->original ());
       int common_k
 	= broken_spanner_index (dynamic_cast<Spanner *> (state.common_[Y_AXIS]));
       int common_j = common_k + hdir;
@@ -161,7 +161,7 @@ Slur_score_state::set_next_direction ()
   if (extremes_[RIGHT].note_column_)
     return;
 
-  if (Spanner *mother = dynamic_cast<Spanner *> (slur_->original_))
+  if (Spanner *mother = dynamic_cast<Spanner *> (slur_->original ()))
     {
       int k = broken_spanner_index (slur_);
       int j = k + 1;
@@ -289,7 +289,7 @@ Slur_score_state::fill (Grob *me)
     }
 
   staff_space_ = Staff_symbol_referencer::staff_space (me);
-  Real lt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 
   dir_ = get_grob_direction (me);
@@ -402,7 +402,7 @@ Slur_score_state::get_best_curve ()
 
 #if DEBUG_SLUR_SCORING
   SCM inspect_quants = slur_->get_property ("inspect-quants");
-  if (to_boolean (slur_->get_layout ()
+  if (to_boolean (slur_->layout ()
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
       && scm_is_pair (inspect_quants))
     {
