@@ -23,6 +23,8 @@
 #include "source.hh"
 #include "warn.hh"
 
+#include "ly-smobs.icc"
+
 Lily_parser::Lily_parser (Sources *sources)
 {
   lexer_ = 0;
@@ -55,11 +57,6 @@ Lily_parser::~Lily_parser ()
 {
 }
 
-#include "ly-smobs.icc"
-
-IMPLEMENT_SMOBS (Lily_parser);
-IMPLEMENT_TYPE_P (Lily_parser, "ly:lily-parser?");
-IMPLEMENT_DEFAULT_EQUAL_P (Lily_parser);
 
 SCM
 Lily_parser::mark_smob (SCM s)
@@ -179,10 +176,19 @@ Lily_parser::parser_error (Input const &i, String s)
   error_level_ = 1;
 }
 
-/****************************************************************/
+
+
+IMPLEMENT_SMOBS (Lily_parser);
+IMPLEMENT_TYPE_P (Lily_parser, "ly:lily-parser?");
+IMPLEMENT_DEFAULT_EQUAL_P (Lily_parser);
+
+
+/****************************************************************
+  OUTPUT-DEF 
+ ****************************************************************/
 
 Output_def *
-layout (Lily_parser *parser)
+get_layout (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultlayout");
   Output_def *layout = unsmob_output_def (id);

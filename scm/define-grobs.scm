@@ -696,8 +696,9 @@
 	(stencil . ,Grid_line_interface::print)
 
 	(self-alignment-X . ,CENTER)
-	(X-offset . (ly:make-simple-closure `(,+  ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent))
-						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+  ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent))
+			    ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(layer . 0)
 	(meta . ((class . Item)
 		 (interfaces . (self-alignment-interface
@@ -996,8 +997,9 @@
      . (
 	(springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
 	(stencil . ,Text_interface::print)
-	(self-X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::y_aligned_on_self))
-						       ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent)))))
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self))
+			   ,(ly:make-simple-closure (list Self_alignment_interface::x_centered_on_y_parent)))))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
 	(direction . 1)
@@ -1012,12 +1014,12 @@
 				text-interface))))
 	      ))
 
-
     (MultiMeasureRestText
      . (
 	(stencil . ,Text_interface::print)
-	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent))
-						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_centered_on_y_parent))
+			   ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
@@ -1204,7 +1206,7 @@
     (PercentRepeatCounter
      . (
 	(stencil . ,Text_interface::print)
-	(X-offset . `(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent))
+	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent))
 						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)

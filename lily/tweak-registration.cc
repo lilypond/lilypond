@@ -54,7 +54,7 @@ Tweak_registry::insert_tweak_from_file (SCM tweak)
 void
 Tweak_registry::insert_grob_tweak (Grob *g, SCM tweak)
 {
-  Object_key const *key = g->get_key ();
+  Object_key const *key = g->key ();
   if (tweaks_.find (key) == tweaks_.end ())
     tweaks_[key] = SCM_EOL;
 
@@ -64,14 +64,14 @@ Tweak_registry::insert_grob_tweak (Grob *g, SCM tweak)
 void
 Tweak_registry::replace_grob_tweak (Grob *g, SCM tweak)
 {
-  Object_key const *key = g->get_key ();
+  Object_key const *key = g->key ();
   tweaks_[key] = scm_cons (tweak, SCM_EOL);
 }
 
 SCM
 Tweak_registry::get_tweaks (Grob *g)
 {
-  Object_key const *key = g->get_key ();
+  Object_key const *key = g->key ();
   if (tweaks_.find (key) == tweaks_.end ())
     return SCM_EOL;
   return tweaks_[key];

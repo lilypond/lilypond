@@ -2641,6 +2641,8 @@ conversions.append (((2, 7, 14), conv,
 def conv (str):
 	if re.search ('[XY]-offset-callbacks', str):
 		error_file.write (NOT_SMART % "[XY]-offset-callbacks")
+	if re.search ('position-callbacks', str):
+		error_file.write (NOT_SMART % "position-callbacks")
 	return str
 
 conversions.append (((2, 7, 15), conv,

@@ -723,26 +723,6 @@ Beam::set_stem_shorten (Grob *me)
     me->set_property ("shorten", scm_from_double (shorten));
 }
 
-MAKE_SCHEME_CALLBACK (Beam, calc_positions, 1);
-SCM
-Beam::calc_positions (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  if (!me->is_live ())
-    return SCM_EOL;
-
-  (void) me->get_property ("direction");
-  
-  SCM posns = scm_cons (SCM_BOOL_F, SCM_BOOL_F);
-  me->set_property ("positions", posns);
-
-  SCM callbacks = me->get_property ("position-callbacks");
-  for (SCM i = callbacks; scm_is_pair (i); i = scm_cdr (i))
-    scm_call_1 (scm_car (i), me->self_scm ());
-
-  return SCM_UNSPECIFIED;
-}
-
 
 
 void

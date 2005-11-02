@@ -20,7 +20,6 @@
 #include "all-font-metrics.hh"
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "paper-book.hh"
 #include "paper-system.hh"
 #include "tweak-registration.hh"
 #include "grob-array.hh"
@@ -30,6 +29,7 @@ System::System (System const &src, int count)
   : Spanner (src, count)
 {
   all_elements_ = 0;
+  pscore_ = 0;
   rank_ = 0;
   init_elements ();
 }
@@ -75,11 +75,11 @@ System::spanner_count () const
 void
 System::typeset_grob (Grob *elem)
 {
-  if (elem->pscore_)
+  if (elem->layout_)
     programming_error ("adding element twice");
   else
     {
-      elem->layout_ = pscore_->layout_;
+      elem->layout_ = pscore_->layout ();
       all_elements_->add (elem);
       elem->unprotect ();
     }
@@ -462,8 +462,9 @@ System *
 get_root_system (Grob *me) 
 {
   Grob *system_grob = me;
-  while (system->get_parent (Y_AXIS))
-    system = system->get_parent (Y_AXIS);
+  
+  while (system_grob->get_parent (Y_AXIS))
+    system_grob = system_grob->get_parent (Y_AXIS);
 
   return dynamic_cast<System*> (system_grob); 
 }
@@ -471,4 +472,9 @@ get_root_system (Grob *me)
 ADD_INTERFACE (System, "system-interface",
 	       "This is the toplevel object: each object in a score "
 	       "ultimately has a System object as its X and Y parent. ",
-	       "all-elements spaceable-staves columns")
+
+	       /* properties */
+	       "all-elements "
+	       "spaceable-staves "
+	       "columns"
+	       )

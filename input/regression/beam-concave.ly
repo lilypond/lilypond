@@ -2,20 +2,20 @@
 \version "2.7.13"
 \header{
 
-texidoc = "Fully concave beams should be horizontal. Informally spoken,
+  texidoc = "Fully concave beams should be horizontal. Informally spoken,
   concave refers to the shape of the notes that are opposite a
   beam. If an up-beam has high notes on its center stems, then we call
   it concave.
 
+  If a beam is fails a test, the desired slope is printed next to it.
 
-  If a beam is fails a test, the desired slope is printed
-next to it."
+" 
 }
 
 
 resetMeasure = \set Score.measurePosition = #(ly:make-moment 0 1)
 
-% examples from 
+%% examples from Ross.
 rossFourBeams =\relative c'' {
   \time 2/4
   c8[ e b c]
@@ -31,7 +31,7 @@ rossFourBeams =\relative c'' {
   f,,[ b a g]
   f[g g e]
   a[ d, b' g]
-  }
+}
 rossThreeBeams = \relative c'' {
   \time 6/8
   e[ a, c] f[ d g]
@@ -47,8 +47,7 @@ rossThreeBeams = \relative c'' {
 rossBeams = \relative c'' {
   \rossFourBeams
   \rossThreeBeams
-  }
-
+}
 
 \layout{
   raggedright = ##t
@@ -59,8 +58,12 @@ rossBeams = \relative c'' {
 
 
 #(define (<> x y) (not (= x  y)))
-   \new Voice {
-     \override Beam #'position-callbacks = #(check-slope-callbacks =)
-     \rossBeams
-     
-   }
+\new Voice {
+  \override Beam #'positions = #(ly:make-simple-closure
+				 (ly:make-simple-closure
+				  (append
+				   (list chain-grob-member-functions `(,cons 0 0))
+				   (check-slope-callbacks =))))
+  \rossBeams
+  
+}

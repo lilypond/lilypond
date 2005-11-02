@@ -191,3 +191,10 @@ Grob::is_live () const
 {
   return immutable_property_alist_ != SCM_EOL;
 }
+
+
+bool
+Grob::internal_has_interface (SCM k)
+{
+  return scm_c_memq (k, interfaces_) != SCM_BOOL_F;
+}

@@ -14,16 +14,22 @@
 #include "grob-interface.hh"
 #include "object-key.hh"
 
-typedef void (Grob:: *Grob_method_pointer) (void);
-
 class Grob
 {
 private:
   DECLARE_SMOBS (Grob, foo);
+  DECLARE_CLASSNAME(Grob);
+  
   void init ();
 
 protected:
+  /* data */
+  Dimension_cache dim_cache_[NO_AXES];
+  Output_def *layout_;
+  Grob *original_;
   Object_key const *key_;
+
+  /* SCM data */
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   SCM object_alist_;
@@ -33,22 +39,19 @@ protected:
     lookups.
   */
   SCM interfaces_;
-
-  /* BARF */
-  friend class Spanner;
-  friend SCM ly_grob_properties (SCM);
-  friend SCM ly_grob_basic_properties (SCM);
+  
   void substitute_object_links (SCM, SCM);
-
-  DECLARE_CLASSNAME(Grob);
   Real get_offset (Axis a) const;
-
-  Output_def *layout_;
-  Dimension_cache dim_cache_[NO_AXES];
-  Grob *original_;
-
   SCM try_callback (SCM, SCM);
 public:
+  
+  /* friends */
+  friend class Spanner;
+  friend class System;
+  friend SCM ly_grob_properties (SCM);
+  friend SCM ly_grob_basic_properties (SCM);
+
+  /* standard callbacks */
   DECLARE_SCHEME_CALLBACK(x_parent_positioning, (SCM));
   DECLARE_SCHEME_CALLBACK(y_parent_positioning, (SCM));
   DECLARE_SCHEME_CALLBACK (stencil_height, (SCM smob));
@@ -118,6 +121,7 @@ public:
   void fixup_refpoint ();
 };
 
+/* smob utilities */
 DECLARE_UNSMOB (Grob, grob);
 Spanner *unsmob_spanner (SCM);
 Item *unsmob_item (SCM);

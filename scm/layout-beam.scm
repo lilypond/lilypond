@@ -35,6 +35,7 @@
     posns
     ))
 
+
 (define ((check-beam-slope-sign comparison) beam posns)
   "Check whether the slope of BEAM is correct wrt. COMPARISON."
   (let* ((slope-sign (- (cdr posns) (car posns)))
@@ -60,7 +61,6 @@
 	(check-beam-quant l r)
 	))
 			
-
 
 (define-public (check-slope-callbacks comparison)
   (list Beam::calc_least_squares_positions

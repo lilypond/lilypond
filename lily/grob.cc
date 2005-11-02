@@ -31,45 +31,12 @@
 
 
 
-MAKE_SCHEME_CALLBACK(Grob, y_parent_positioning, 1);
-SCM
-Grob::y_parent_positioning (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  Grob *par = me->get_parent (Y_AXIS);
-  if (par)
-    (void) par->get_property ("positioning-done");
-
-  return scm_from_double (0.0);
-}
-
-
-MAKE_SCHEME_CALLBACK(Grob, x_parent_positioning, 1);
-SCM
-Grob::x_parent_positioning (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  
-  Grob *par = me->get_parent (X_AXIS);
-  if (par)
-    (void) par->get_property ("positioning-done");
-
-  return scm_from_double (0.0);
-}
 
 Grob *
 Grob::clone (int count) const
 {
   return new Grob (*this, count);
 }
-
-/* TODO:
-
-- remove dynamic_cast<Spanner, Item> and put this code into respective
-subclass.  */
-
-#define HASH_SIZE 3
-#define INFINITY_MSG "Infinity or NaN encountered"
 
 Grob::Grob (SCM basicprops,
 	    Object_key const *key)
@@ -127,46 +94,9 @@ Grob::Grob (Grob const &s, int copy_index)
 Grob::~Grob ()
 {
 }
-
-
-static SCM
-grob_stencil_extent (Grob *me, Axis a)
-{
-  Stencil *m = me->get_stencil ();
-  Interval e;
-  if (m)
-    e = m->extent (a);
-  return ly_interval2scm (e);
-}
-
-
-MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
-SCM
-Grob::stencil_height (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  return grob_stencil_extent (me, Y_AXIS);
-}
-
-MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
-SCM
-Grob::stencil_width (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  return grob_stencil_extent (me, X_AXIS);
-}
-
-
-Interval
-robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
-{
-  Interval ext = me->extent (refpoint, a);
-  if (ext.is_empty ())
-    ext.add_point (me->relative_coordinate (refpoint, a));
-
-  return ext;
-}
-
+/****************************************************************
+  STENCILS
+****************************************************************/
 
 Stencil *
 Grob::get_stencil () const
@@ -216,11 +146,16 @@ Grob::get_print_stencil () const
   return retval;
 }
 
-/*
+/****************************************************************
   VIRTUAL STUBS
-*/
+****************************************************************/
 void
 Grob::do_break_processing ()
+{
+}
+
+void
+Grob::discretionary_processing ()
 {
 }
 
@@ -300,13 +235,16 @@ Grob::find_broken_piece (System *) const
   return 0;
 }
 
-/* Translate in one direction.  */
+/****************************************************************
+   OFFSETS
+****************************************************************/
+
 void
 Grob::translate_axis (Real y, Axis a)
 {
   if (isinf (y) || isnan (y))
     {
-      programming_error (_ (INFINITY_MSG));
+      programming_error (_ ("Infinity or NaN encountered"));
       return ;
     }
   
@@ -359,6 +297,11 @@ Grob::get_offset (Axis a) const
   me->del_property (sym);
   return *me->dim_cache_[a].offset_;
 }
+
+
+/****************************************************************
+  extents
+****************************************************************/
 
 void
 Grob::flush_extent_cache (Axis axis)
@@ -416,6 +359,10 @@ Grob::extent (Grob *refp, Axis a) const
   return real_ext;
 }
 
+/****************************************************************
+  REFPOINTS
+****************************************************************/
+
 /* Find the group-element which has both #this# and #s#  */
 Grob *
 Grob::common_refpoint (Grob const *s, Axis a) const
@@ -431,50 +378,18 @@ Grob::common_refpoint (Grob const *s, Axis a) const
   return 0;
 }
 
-Grob *
-common_refpoint_of_list (SCM elist, Grob *common, Axis a)
-{
-  for (; scm_is_pair (elist); elist = scm_cdr (elist))
-    if (Grob *s = unsmob_grob (scm_car (elist)))
-      {
-	if (common)
-	  common = common->common_refpoint (s, a);
-	else
-	  common = s;
-      }
-
-  return common;
-}
-
-Grob *
-common_refpoint_of_array (Link_array<Grob> const &arr, Grob *common, Axis a)
-{
-  for (int i = arr.size (); i--;)
-    if (Grob *s = arr[i])
-      {
-	if (common)
-	  common = common->common_refpoint (s, a);
-	else
-	  common = s;
-      }
-
-  return common;
-}
-
-String
-Grob::name () const
-{
-  SCM meta = get_property ("meta");
-  SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
-  nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
-  return scm_is_symbol (nm) ? ly_symbol2string (nm) : this->class_name ();
-}
-
 void
 Grob::set_parent (Grob *g, Axis a)
 {
   dim_cache_[a].parent_ = g;
 }
+
+Grob *
+Grob::get_parent (Axis a) const
+{
+  return dim_cache_[a].parent_;
+}
+
 
 void
 Grob::fixup_refpoint ()
@@ -510,6 +425,10 @@ Grob::fixup_refpoint ()
     }
 }
 
+
+/****************************************************************
+  MESSAGES
+****************************************************************/
 void
 Grob::warning (String s) const
 {
@@ -521,6 +440,16 @@ Grob::warning (String s) const
     m->origin ()->warning (s);
   else
     ::warning (s);
+}
+
+
+String
+Grob::name () const
+{
+  SCM meta = get_property ("meta");
+  SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
+  nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
+  return scm_is_symbol (nm) ? ly_symbol2string (nm) : this->class_name ();
 }
 
 void
@@ -536,22 +465,6 @@ Grob::programming_error (String s) const
     m->origin ()->message (s);
   else
     ::message (s);
-}
-void
-Grob::discretionary_processing ()
-{
-}
-
-bool
-Grob::internal_has_interface (SCM k)
-{
-  return scm_c_memq (k, interfaces_) != SCM_BOOL_F;
-}
-
-Grob *
-Grob::get_parent (Axis a) const
-{
-  return dim_cache_[a].parent_;
 }
 
 
@@ -614,4 +527,108 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "stencil "
 	       "transparent "
 	       );
+
+
+
+
+
+/****************************************************************
+  CALLBACKS
+****************************************************************/
+
+
+static SCM
+grob_stencil_extent (Grob *me, Axis a)
+{
+  Stencil *m = me->get_stencil ();
+  Interval e;
+  if (m)
+    e = m->extent (a);
+  return ly_interval2scm (e);
+}
+
+
+MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
+SCM
+Grob::stencil_height (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  return grob_stencil_extent (me, Y_AXIS);
+}
+
+MAKE_SCHEME_CALLBACK(Grob, y_parent_positioning, 1);
+SCM
+Grob::y_parent_positioning (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *par = me->get_parent (Y_AXIS);
+  if (par)
+    (void) par->get_property ("positioning-done");
+
+  return scm_from_double (0.0);
+}
+
+
+MAKE_SCHEME_CALLBACK(Grob, x_parent_positioning, 1);
+SCM
+Grob::x_parent_positioning (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  
+  Grob *par = me->get_parent (X_AXIS);
+  if (par)
+    (void) par->get_property ("positioning-done");
+
+  return scm_from_double (0.0);
+}
+
+MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
+SCM
+Grob::stencil_width (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  return grob_stencil_extent (me, X_AXIS);
+}
+
+
+
+Grob *
+common_refpoint_of_list (SCM elist, Grob *common, Axis a)
+{
+  for (; scm_is_pair (elist); elist = scm_cdr (elist))
+    if (Grob *s = unsmob_grob (scm_car (elist)))
+      {
+	if (common)
+	  common = common->common_refpoint (s, a);
+	else
+	  common = s;
+      }
+
+  return common;
+}
+
+Grob *
+common_refpoint_of_array (Link_array<Grob> const &arr, Grob *common, Axis a)
+{
+  for (int i = arr.size (); i--;)
+    if (Grob *s = arr[i])
+      {
+	if (common)
+	  common = common->common_refpoint (s, a);
+	else
+	  common = s;
+      }
+
+  return common;
+}
+
+Interval
+robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
+{
+  Interval ext = me->extent (refpoint, a);
+  if (ext.is_empty ())
+    ext.add_point (me->relative_coordinate (refpoint, a));
+
+  return ext;
+}
 

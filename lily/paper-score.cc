@@ -25,7 +25,6 @@ Paper_score::Paper_score (Output_def *layout)
 {
   layout_ = layout;
   system_ = 0;
-  pscore_ = 0;
   systems_ = SCM_EOL;
   paper_systems_ = SCM_EOL;
 }
@@ -41,8 +40,6 @@ Paper_score::derived_mark () const
 {
   if (layout_)
     scm_gc_mark (layout_->self_scm ());
-  if (pscore_)
-    scm_gc_mark (pscore_->self_scm ());
   scm_gc_mark (systems_);
   scm_gc_mark (paper_systems_);
 }
@@ -55,7 +52,7 @@ Paper_score::typeset_system (System *system)
 
   systems_ = scm_cons (system->self_scm (), systems_);
   system->pscore_ = this;
-  system->layout_ = pscore_->layout_;
+  system->layout_ = layout_;
   system->unprotect ();
 }
 
