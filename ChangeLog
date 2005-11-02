@@ -1,3 +1,50 @@
+2005-11-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/rest.cc (y_offset_callback): merge function of 3 callbacks. 
+
+	* lily/grob.cc (y_parent_positioning): remove axis argument from
+	parent_positioning callbacks.
+	(Grob): junk init code
+	(get_offset): use generic property callbacks for
+	X-offset, Y-offset. Remove Grob::{add,has}_offset_callback.
+	(axis_parent_positioning): new function
+	(axis_offset_symbol): new function
+	(chain_offset_callback): new function
+	(add_offset_callback): new function
+
+	* lily/beam.cc (rest_collision_callback): change signature; this
+	is now a chained callback.
+
+	* lily/include/dimension-cache.hh (class Dimension_cache): remove
+	callback administration.
+
+	* lily/simple-closure.cc: new file. Smob type that allows "grob"
+	member functions
+
+	    (ly:make-simple-closure FUNC A B)
+
+	is evaluated as (FUNC grob A B). This allows chaining of callbacks
+	in various ways.
+
+	* lily/slur-engraver.cc (acknowledge_extra_object): use chained
+	callbacks.
+
+	* lily/slur.cc (outside_slur_callback): take 2 arguments.
+
+	* lily/rest.cc (polyphonic_offset_callback): remove.
+
+	* lily/script-engraver.cc (try_music): remove bool* argument.
+
+	* scm/script.scm (default-script-alist): set quantize-position
+	appropriately.
+
+	* lily/script-engraver.cc: remove follow_into_staff_ special coding. 
+
+	* lily/side-position-interface.cc (aligned_side): move staff
+	position quantization from
+	Side_position_interface::quantised_position().
+	(quantised_position): remove
+	
 2005-10-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/beam-quant-standard.ly: reindent, set

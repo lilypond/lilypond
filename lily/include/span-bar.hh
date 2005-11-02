@@ -30,7 +30,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_glyph_name, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
-  DECLARE_SCHEME_CALLBACK (center_on_spanned_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (center_on_spanned_callback, (SCM element));
 };
 
 #endif // SPAN_BAR_HH

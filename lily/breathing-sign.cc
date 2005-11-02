@@ -160,11 +160,11 @@ Breathing_sign::finalis (SCM smob)
   return line1.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Breathing_sign, offset_callback, 2);
+MAKE_SCHEME_CALLBACK (Breathing_sign, offset_callback, 1);
 SCM
-Breathing_sign::offset_callback (SCM element_smob, SCM)
+Breathing_sign::offset_callback (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
+  Grob *me = unsmob_grob (smob);
 
   Direction d = get_grob_direction (me);
   if (!d)

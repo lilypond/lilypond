@@ -13,6 +13,7 @@
 #include "note-column.hh"
 #include "spanner.hh"
 #include "tie.hh"
+#include "warn.hh"
 
 /*
   It is possible that a slur starts and ends on the same note.  At
@@ -112,7 +113,7 @@ Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
 
       if (slur)
 	{
-	  e->add_offset_callback (Slur::outside_slur_callback_proc, Y_AXIS);
+	  chain_offset_callback (e, Slur::outside_slur_callback_proc, Y_AXIS);
 	  e->set_object ("slur", slur->self_scm ());
 	}
     }

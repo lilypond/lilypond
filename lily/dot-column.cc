@@ -26,14 +26,11 @@ using namespace std;
   TODO: let Dot_column communicate with stem via Note_column.
 */
 
-MAKE_SCHEME_CALLBACK (Dot_column, side_position, 2);
+MAKE_SCHEME_CALLBACK (Dot_column, side_position, 1);
 SCM
-Dot_column::side_position (SCM element_smob, SCM axis)
+Dot_column::side_position (SCM smob)
 {
-  Grob *me = unsmob_grob (element_smob);
-  (void) axis;
-  assert (scm_to_int (axis) == X_AXIS);
-
+  Grob *me = unsmob_grob (smob);
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (stem
       && !Stem::get_beam (stem)
@@ -48,7 +45,7 @@ Dot_column::side_position (SCM element_smob, SCM axis)
       stem->get_property ("stem-end-position");
     }
   
-  return Side_position_interface::aligned_side (element_smob, axis);
+  return Side_position_interface::x_aligned_side (smob);
 }
 
 struct Dot_position
@@ -263,8 +260,12 @@ Dot_column::calc_positioning_done (SCM smob)
 
   for (Dot_configuration::const_iterator i (cfg.begin ());
        i != cfg.end (); i++)
-    Staff_symbol_referencer::set_position (i->second.dot_, i->first);
-
+    {
+      /*
+	Junkme?
+       */
+      Staff_symbol_referencer::set_position (i->second.dot_, i->first);
+    }
   return SCM_BOOL_T;
 }
 
@@ -277,7 +278,7 @@ Dot_column::add_head (Grob *me, Grob *rh)
       Side_position_interface::add_support (me, rh);
 
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("dots"), d);
-      d->add_offset_callback (Grob::other_axis_parent_positioning_proc, Y_AXIS);
+      d->set_property ("Y-offset", Grob::x_parent_positioning_proc);
       Axis_group_interface::add_element (me, d);
     }
 }

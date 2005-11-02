@@ -480,7 +480,7 @@ Note_collision_interface::forced_shift (Grob *me)
 void
 Note_collision_interface::add_column (Grob *me, Grob *ncol)
 {
-  ncol->add_offset_callback (Grob::same_axis_parent_positioning_proc, X_AXIS);
+  ncol->set_property ("X-offset", Grob::x_parent_positioning_proc);
   Axis_group_interface::add_element (me, ncol);
 }
 

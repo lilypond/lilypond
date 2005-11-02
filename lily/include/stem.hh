@@ -40,7 +40,7 @@ public:
   static void set_spacing_hints (Grob *);
   
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_length, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_end_position, (SCM));

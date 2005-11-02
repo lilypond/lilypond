@@ -25,16 +25,14 @@ struct Figured_bass_continuation
   
 public:
   DECLARE_SCHEME_CALLBACK(print, (SCM));
-  DECLARE_SCHEME_CALLBACK(center_on_figures, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK(center_on_figures, (SCM));
 };
 
-MAKE_SCHEME_CALLBACK (Figured_bass_continuation, center_on_figures, 2);
+MAKE_SCHEME_CALLBACK (Figured_bass_continuation, center_on_figures, 1);
 SCM
-Figured_bass_continuation::center_on_figures (SCM grob, SCM axis)
+Figured_bass_continuation::center_on_figures (SCM grob)
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (grob));
-  (void) axis;
-  
   extract_grob_set (me, "figures", figures);
   if (figures.is_empty ())
     return scm_from_double (0.0);

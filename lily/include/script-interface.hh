@@ -26,7 +26,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
 };
 
-void make_script_from_event (Grob *p, bool *follow, Context *tg,
+void make_script_from_event (Grob *p,  Context *tg,
 			     SCM type, int index);
 
 #endif /* SCRIPT_INTERFACE_HH */

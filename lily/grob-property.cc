@@ -16,6 +16,7 @@
 #include "item.hh"
 #include "program-option.hh"
 #include "profile.hh"
+#include "simple-closure.hh"
 
 SCM
 Grob::get_property_alist_chain (SCM def) const
@@ -100,7 +101,9 @@ SCM
 Grob::internal_get_property (SCM sym) const
 {
   SCM val = get_property_data (sym);
-  if (ly_is_procedure (val) || is_callback_chain (val))
+  if (ly_is_procedure (val)
+      || is_callback_chain (val)
+      || is_simple_closure (val))
     {
       val = ((Grob*)this)->try_callback (sym, val);
     }
@@ -141,9 +144,11 @@ Grob::try_callback (SCM sym, SCM proc)
 	  value = scm_call_2  (scm_car (s), self_scm (), value);
 	}
     }
-  else
-    assert (false);
-  
+  else if (is_simple_closure (proc))
+    {
+      value = evaluate_with_simple_closure (self_scm (),
+					    simple_closure_expression (proc));
+    }
 #ifndef NDEBUG
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);

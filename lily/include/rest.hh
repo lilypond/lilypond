@@ -16,13 +16,12 @@ class Grob;
 class Rest
 {
 public:
-  DECLARE_SCHEME_CALLBACK (y_offset_callback, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (y_offset_callback, (SCM));
   static bool has_interface (Grob *);
   static String glyph_name (Grob *, int, String, bool);
   static SCM brew_internal_stencil (Grob*, bool);
   static SCM generic_extent_callback (Grob*, Axis);
-  DECLARE_SCHEME_CALLBACK (extent_callback, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (polyphonic_offset_callback, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (polyphonic_offset_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));

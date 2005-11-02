@@ -21,7 +21,7 @@ public:
   static bool has_interface (Grob *);
   static bool ugly_hack (Grob *);
   static void set_position (Grob *, Real);
-  DECLARE_SCHEME_CALLBACK (callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (callback, (SCM element));
 
   /**
      Leading are the lead strips between the sticks (lines) of

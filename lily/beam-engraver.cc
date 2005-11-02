@@ -215,7 +215,10 @@ void
 Beam_engraver::acknowledge_rest (Grob_info info)
 {
   if (beam_)
-    info.grob ()->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
+    {
+      chain_offset_callback (info.grob(),
+			     Beam::rest_collision_callback_proc, Y_AXIS);
+    }
 }
 
 void

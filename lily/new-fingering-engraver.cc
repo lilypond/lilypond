@@ -112,8 +112,7 @@ New_fingering_engraver::add_script (Grob *head,
   Finger_tuple ft;
 
   Grob *g = make_item ("Script", event->self_scm ());
-  make_script_from_event (g, &ft.follow_into_staff_, context (),
-			  event->get_property ("articulation-type"), 0);
+  make_script_from_event (g, context (), event->get_property ("articulation-type"), 0);
   if (g)
     {
       ft.script_ = g;
@@ -267,9 +266,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
       Grob *f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_parent (ft.head_, Y_AXIS);
-      f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, Y_AXIS);
-      f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, Y_AXIS);
-      f->add_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS);
+
+      f->set_property ("self-Y-offset",Self_alignment_interface::y_aligned_on_self_proc);
+      f->set_property ("Y-offset",  Self_alignment_interface::centered_on_y_parent_proc);
+      f->set_property ("X-offset",  Side_position_interface::x_aligned_side_proc);
 
       f->set_property ("direction", scm_from_int (hordir));
     }
@@ -282,10 +282,11 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
 		       scm_from_int (finger_prio + ft.position_));
-      f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
-      f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
-      f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
 
+      f->set_property ("self-X-offset", Self_alignment_interface::x_aligned_on_self_proc);
+      f->set_property ("Y-offset", Side_position_interface::y_aligned_side_proc);
+      f->set_property ("X-offset", Self_alignment_interface::centered_on_x_parent_proc);
+      
       f->set_property ("direction", scm_from_int (UP));
     }
 
@@ -297,9 +298,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_property ("script-priority",
 		       scm_from_int (finger_prio + down.size () - ft.position_));
 
-      f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
-      f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
-      f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
+      f->set_property ("self-X-offset", Self_alignment_interface::x_aligned_on_self_proc);
+      f->set_property ("X-offset", Self_alignment_interface::centered_on_x_parent_proc);
+      f->set_property ("Y-offset", Side_position_interface::y_aligned_side_proc);
+
       f->set_property ("direction", scm_from_int (DOWN));
     }
 }
@@ -334,11 +336,7 @@ New_fingering_engraver::stop_translation_timestep ()
       if (stem_ && to_boolean (script->get_property ("add-stem-support")))
 	Side_position_interface::add_support (script, stem_);
 
-      if (articulations_[i].follow_into_staff_)
-	{
-	  script->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
-	  script->set_property ("staff-padding", SCM_EOL);
-	}
+
     }
 
   stem_ = 0;

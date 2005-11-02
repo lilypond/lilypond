@@ -44,8 +44,8 @@ protected:
   DECLARE_CLASSNAME(Grob);
   Real get_offset (Axis a) const;
 public:
-  DECLARE_SCHEME_CALLBACK(same_axis_parent_positioning, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK(other_axis_parent_positioning, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK(x_parent_positioning, (SCM));
+  DECLARE_SCHEME_CALLBACK(y_parent_positioning, (SCM));
 
   Object_key const *get_key () const;
 
@@ -112,9 +112,6 @@ public:
   Real relative_coordinate (Grob const *refp, Axis) const;
   Grob *common_refpoint (Grob const *s, Axis a) const;
 
-  // duh. slim down interface here. (todo)
-  bool has_offset_callback (SCM callback, Axis) const;
-  void add_offset_callback (SCM callback, Axis);
   void flush_extent_cache (Axis);
 
   void set_parent (Grob *e, Axis);
@@ -141,5 +138,13 @@ Interval robust_relative_extent (Grob *, Grob *, Axis);
 
 bool is_callback_chain (SCM s);
 SCM callback_chain_extract_procedures (SCM chain_smob);
+
+
+SCM axis_offset_symbol (Axis a);
+SCM axis_self_offset_symbol (Axis a);
+SCM axis_parent_positioning (Axis a);
+void add_offset_callback (Grob *g, SCM proc, Axis a);
+void chain_offset_callback (Grob *g, SCM proc, Axis a);
+
 
 #endif /* GROB_HH */

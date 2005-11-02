@@ -18,9 +18,9 @@ public:
   static void add_column (Grob *me, Grob *);
 
   static bool has_interface (Grob *);
-  DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM element));
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));
-  DECLARE_SCHEME_CALLBACK (force_shift_callback_rest, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (force_shift_callback_rest, (SCM element));
   static SCM do_shift (Grob *);
 };
 #endif // REST_COLLISION_HH

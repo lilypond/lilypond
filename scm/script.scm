@@ -11,17 +11,17 @@
 	   (direction . 1)))
          ("accent" .
 	  ((avoid-slur . around)
-	   (follow-into-staff . #t)
+	   (staff-padding . #f) (quantize-position . #t)
 	   (script-stencil . (feta . ("sforzato" .  "sforzato")))
 	   (side-relative-direction . -1)))	 
          ("espressivo" .
 	  ((avoid-slur . around)
-	   (follow-into-staff . #t)
+	   (staff-padding . #f) (quantize-position . #t)
 	   (script-stencil . (feta . ("espr" .  "espr")))
 	   (side-relative-direction . -1)))	 
 	 ("marcato" .
 	  ((script-stencil . (feta . ("dmarcato" . "umarcato")))
-	   (follow-into-staff . #t)
+	   (staff-padding . #f) (quantize-position . #t)
 	   (side-relative-direction .  -1)))
 	 ("staccatissimo" .
 	  ((avoid-slur . inside) 
@@ -85,16 +85,16 @@
 	   (script-priority . -100)))
 	 ("tenuto" .
 	  ((script-stencil . (feta . ("tenuto" . "tenuto")))
-	   (follow-into-staff . #t)
+	   (staff-padding . #f) (quantize-position . #t)
 	   (avoid-slur . inside)
 	   (side-relative-direction . -1)))
 	 ("comma" .
 	  ((script-stencil . (feta . ("lcomma" . "rcomma")))
-	   (follow-into-staff . #t)
+	   (staff-padding . #f) (quantize-position . #t)
 	   (direction . 1)))
 	 ("varcomma" .
 	  ((script-stencil . (feta . ("lvarcomma" . "rvarcomma")))
-	   (follow-into-staff . #t)
+	   (staff-padding . #f) (quantize-position . #t)
 	   (direction . 1)))
 	 ("upbow" .
 	  ((script-stencil . (feta . ("upbow" . "upbow")))

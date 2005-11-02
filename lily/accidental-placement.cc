@@ -23,7 +23,7 @@ void
 Accidental_placement::add_accidental (Grob *me, Grob *a)
 {
   a->set_parent (me, X_AXIS);
-  a->add_offset_callback (Grob::same_axis_parent_positioning_proc, X_AXIS);
+  a->set_property ("X-offset", Grob::x_parent_positioning_proc);
   SCM cause = a->get_parent (Y_AXIS)->get_property ("cause");
 
   Music *mcause = unsmob_music (cause);
