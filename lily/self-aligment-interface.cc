@@ -43,12 +43,18 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a)
 
 
 
+SCM
+Self_alignment_interface::centered_on_object (Grob *him, Axis a)
+{
+  return scm_from_double (robust_relative_extent (him, him, a).center ());
+}
+
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_x_parent, 1);
 SCM
 Self_alignment_interface::centered_on_x_parent (SCM smob)
 {
-  return centered_on_parent (unsmob_grob (smob), X_AXIS);
+  return centered_on_object (unsmob_grob (smob)->get_parent (X_AXIS), X_AXIS);
 }
 
 
@@ -56,16 +62,15 @@ MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_y_parent, 1);
 SCM
 Self_alignment_interface::centered_on_y_parent (SCM smob)
 {
-  return centered_on_parent (unsmob_grob (smob), Y_AXIS);
+  return centered_on_object (unsmob_grob (smob)->get_parent (Y_AXIS), Y_AXIS);
 }
 
-SCM
-Self_alignment_interface::centered_on_parent (Grob *me, Axis a)
-{
-  Grob *him = me->get_parent (a);
-  Interval he = him->extent (him, a);
 
-  return scm_from_double (he.is_empty () ? 0.0 : he.center ());
+MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_centered_on_y_parent, 1);
+SCM
+Self_alignment_interface::x_centered_on_y_parent (SCM smob)
+{
+  return centered_on_object (unsmob_grob (smob)->get_parent (Y_AXIS), X_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_x_parent,1);

@@ -14,21 +14,15 @@
 #include "dimension-cache-callback.hh"
 #include "lily-guile.hh"
 
-/**
-   Adminstration of offset dimension info.
+/*
+  XY offset/refpoint/extent structure.
 */
 class Dimension_cache
 {
-  /**
-     The offset wrt. to the center of #parent_#
-  */
   Interval *extent_;
   Real *offset_;
-
-  /**
-     What to call to find extent.  Nil means empty.
-  */
   Grob *parent_;
+  
   friend class Grob;
   
   Dimension_cache (Dimension_cache const &);
