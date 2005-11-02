@@ -1,5 +1,10 @@
 2005-11-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* GNUmakefile.in: bugfix: encapsulate mkdir && cd in parens.   
+
+	* lily/staff-performer.cc (process_music): add audio
+	elements. This makes MIDI instrument changes work once again.
+
 	* lily/main.cc (LY_DEFINE): add gmane address.
 
 	* lily/beam.cc: remove calc_positions()

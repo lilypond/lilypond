@@ -154,9 +154,9 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 		ln -sf ../../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(top-src-dir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
-		mkdir -p $(tree-share)/locale/$i/LC_MESSAGES && \
+		(mkdir -p $(tree-share)/locale/$i/LC_MESSAGES && \
 		cd $(tree-share)/locale/$i/LC_MESSAGES && \
-		ln -sf ../../../../../po/$(outconfbase)/$i.mo lilypond.mo &&) true
+		ln -sf ../../../../../po/$(outconfbase)/$i.mo lilypond.mo) &&) true
 #	touch $@
 	touch $(tree-share-prefix)/lilypond-force
 
