@@ -1,3 +1,9 @@
+2005-11-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scm/define-grobs.scm (all-grob-descriptions): Added space-alist
+	entry for time signatures after breathing signs. Bug report by
+	Scott Russell.
+
 2005-11-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (setup_paths)[!__MINGW32__]: Bugfix: if argv0 is
