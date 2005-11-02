@@ -79,7 +79,7 @@ System::typeset_grob (Grob *elem)
     programming_error ("adding element twice");
   else
     {
-      elem->pscore_ = pscore_;
+      elem->layout_ = pscore_->layout_;
       all_elements_->add (elem);
       elem->unprotect ();
     }
@@ -245,7 +245,7 @@ System::add_column (Paper_column *p)
 void
 apply_tweaks (Grob *g, bool broken)
 {
-  if (bool (g->original_) == broken)
+  if (bool (g->original ()) == broken)
     {
       SCM tweaks = global_registry_->get_tweaks (g);
       for (SCM s = tweaks; scm_is_pair (s); s = scm_cdr (s))
@@ -456,6 +456,16 @@ int
 System::get_rank () const
 {
   return rank_;
+}
+
+System *
+get_root_system (Grob *me) 
+{
+  Grob *system_grob = me;
+  while (system->get_parent (Y_AXIS))
+    system = system->get_parent (Y_AXIS);
+
+  return dynamic_cast<System*> (system_grob); 
 }
 
 ADD_INTERFACE (System, "system-interface",

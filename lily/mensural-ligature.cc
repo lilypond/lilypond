@@ -143,7 +143,7 @@ internal_brew_primitive (Grob *me)
     }
 
   Real blotdiameter
-    = (me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter")));
+    = (me->layout ()->get_dimension (ly_symbol2scm ("blotdiameter")));
 
   if (primitive & MLP_STEM)
     {

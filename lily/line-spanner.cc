@@ -129,7 +129,7 @@ Line_spanner::line_stencil (Grob *me,
 					      ly_symbol2scm ("fetaMusic")),
 				    SCM_UNDEFINED);
 
-      Font_metric *fm = select_font (me->get_layout (),
+      Font_metric *fm = select_font (me->layout (),
 				     scm_cons (style_alist,
 					       alist_chain));
       Stencil m = fm->find_by_name ("scripts.trill_element");
@@ -223,7 +223,7 @@ Line_spanner::print (SCM smob)
       */
 
       int k = broken_spanner_index (me);
-      Spanner *parent_sp = dynamic_cast<Spanner *> (me->original_);
+      Spanner *parent_sp = dynamic_cast<Spanner *> (me->original ());
       Spanner *next_sp = parent_sp->broken_intos_ [k + 1];
       Item *next_bound = next_sp->get_bound (RIGHT);
 

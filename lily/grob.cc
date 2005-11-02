@@ -77,7 +77,7 @@ Grob::Grob (SCM basicprops,
   key_ = key;
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
-  pscore_ = 0;
+  layout_ = 0;
   original_ = 0;
   interfaces_ = SCM_EOL;
   immutable_property_alist_ = basicprops;
@@ -117,7 +117,7 @@ Grob::Grob (Grob const &s, int copy_index)
   interfaces_ = s.interfaces_;
   object_alist_ = SCM_EOL;
 
-  pscore_ = 0;
+  layout_ = 0;
 
   smobify_self ();
   if (key_)
@@ -129,24 +129,8 @@ Grob::~Grob ()
 }
 
 
-MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
-SCM
-Grob::stencil_height (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  return stencil_extent (me, Y_AXIS);
-}
-
-MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
-SCM
-Grob::stencil_width (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  return stencil_extent (me, X_AXIS);
-}
-
-SCM
-Grob::stencil_extent (Grob *me, Axis a)
+static SCM
+grob_stencil_extent (Grob *me, Axis a)
 {
   Stencil *m = me->get_stencil ();
   Interval e;
@@ -154,6 +138,24 @@ Grob::stencil_extent (Grob *me, Axis a)
     e = m->extent (a);
   return ly_interval2scm (e);
 }
+
+
+MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
+SCM
+Grob::stencil_height (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  return grob_stencil_extent (me, Y_AXIS);
+}
+
+MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
+SCM
+Grob::stencil_width (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  return grob_stencil_extent (me, X_AXIS);
+}
+
 
 Interval
 robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
@@ -165,11 +167,6 @@ robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
   return ext;
 }
 
-Output_def *
-Grob::get_layout () const
-{
-  return pscore_ ? pscore_->layout () : 0;
-}
 
 Stencil *
 Grob::get_stencil () const
@@ -238,7 +235,7 @@ void
 Grob::handle_broken_dependencies ()
 {
   Spanner *sp = dynamic_cast<Spanner *> (this);
-  if (original_ && sp)
+  if (original () && sp)
     return;
 
   if (sp)
@@ -289,11 +286,11 @@ Grob::handle_prebroken_dependencies ()
 {
   /* Don't do this in the derived method, since we want to keep access to
      object_alist_ centralized.  */
-  if (original_)
+  if (original ())
     {
       Item *it = dynamic_cast<Item *> (this);
       substitute_object_links (scm_from_int (it->break_status_dir ()),
-			       original_->object_alist_);
+			       original ()->object_alist_);
     }
 }
 
@@ -557,38 +554,6 @@ Grob::get_parent (Axis a) const
   return dim_cache_[a].parent_;
 }
 
-/** Return Array of Grobs in SCM list LST */
-Link_array<Grob>
-ly_scm2grobs (SCM lst)
-{
-  Link_array<Grob> arr;
-
-  for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM e = scm_car (s);
-      arr.push (unsmob_grob (e));
-    }
-
-  arr.reverse ();
-  return arr;
-}
-
-Object_key const *
-Grob::get_key () const
-{
-  return key_;
-}
-
-/** Return SCM list of Grob array A */
-SCM
-ly_grobs2scm (Link_array<Grob> a)
-{
-  SCM s = SCM_EOL;
-  for (int i = a.size (); i; i--)
-    s = scm_cons (a[i - 1]->self_scm (), s);
-
-  return s;
-}
 
 ADD_INTERFACE (Grob, "grob-interface",
 	       "A grob represents a piece of music notation\n"

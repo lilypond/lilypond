@@ -182,7 +182,7 @@ Lily_parser::parser_error (Input const &i, String s)
 /****************************************************************/
 
 Output_def *
-get_layout (Lily_parser *parser)
+layout (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultlayout");
   Output_def *layout = unsmob_output_def (id);

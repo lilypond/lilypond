@@ -47,7 +47,7 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 Stencil
 System_start_delimiter::simple_bar (Grob *me, Real h)
 {
-  Real lt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
   return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h / 2, h / 2)),
 				   lt);
@@ -133,7 +133,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
 		      ly_symbol2scm ("fetaBraces"));
 
   SCM alist = scm_list_n (fam, SCM_UNDEFINED);
-  fm = select_font (me->get_layout (), scm_list_n (alist, SCM_UNDEFINED));
+  fm = select_font (me->layout (), scm_list_n (alist, SCM_UNDEFINED));
 
   int lo = 0;
   int hi = max (fm->count () - 1, 2);

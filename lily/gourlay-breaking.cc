@@ -232,7 +232,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 {
   Real break_penalties = 0.0;
   Grob *pc = this_one.cols_.top ();
-  if (pc->original_)
+  if (pc->original ())
     {
       SCM pen = pc->get_property ("penalty");
       if (scm_is_number (pen) && fabs (scm_to_double (pen)) < 10000)

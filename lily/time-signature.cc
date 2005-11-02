@@ -91,9 +91,9 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
 					  ly_symbol2scm ("fetaNumber"))),
 		    chain);
 
-  SCM sn = Text_interface::interpret_markup (me->get_layout ()->self_scm (), chain,
+  SCM sn = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
 					     scm_makfrom0str (to_string (num).to_str0 ()));
-  SCM sd = Text_interface::interpret_markup (me->get_layout ()->self_scm (), chain,
+  SCM sd = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
 					     scm_makfrom0str (to_string (den).to_str0 ()));
 
   Stencil n = *unsmob_stencil (sn);

@@ -46,7 +46,7 @@ Accidental_interface::after_line_breaking (SCM smob)
   Grob *me = unsmob_grob (smob);
   Grob *tie = unsmob_grob (me->get_object ("tie"));
 
-  if (tie && !tie->original_)
+  if (tie && !tie->original ())
     me->suicide ();
   return SCM_UNSPECIFIED;
 }
@@ -221,7 +221,7 @@ Accidental_interface::print (SCM smob)
 				 (ly_symbol2scm ("font-size"),
 				  scm_from_int (-2))),
 		     ac);
-      fm = select_font (me->get_layout (), ac);
+      fm = select_font (me->layout (), ac);
     }
   else
     fm = Font_interface::get_default_font (me);

@@ -512,3 +512,9 @@ Spanner::substitute_one_mutable_property (SCM sym,
       }
 }
 
+void
+Grob::substitute_object_links (SCM crit, SCM orig)
+{
+  set_break_subsititution (crit);
+  object_alist_ = substitute_object_alist (orig, object_alist_);
+}

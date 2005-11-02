@@ -68,7 +68,7 @@ LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
 
-  return sc->get_interfaces ();
+  return sc->interfaces ();
 }
 
 LY_DEFINE (ly_grob_object, "ly:grob-object",
@@ -105,7 +105,7 @@ LY_DEFINE (ly_grob_layout, "ly:grob-layout",
   Grob *sc = unsmob_grob (g);
   SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
 
-  return sc->get_layout ()->self_scm ();
+  return sc->layout ()->self_scm ();
 }
 
 LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
@@ -119,7 +119,7 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
 
   if (global == SCM_UNDEFINED)
     {
-      global = sc->get_layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+      global = sc->layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
       if (global == SCM_UNDEFINED)
 	global = SCM_EOL;
     }
@@ -195,7 +195,7 @@ LY_DEFINE (ly_grob_original, "ly:grob-original",
 {
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
-  return me->original_ ? me->original_->self_scm () : me->self_scm ();
+  return me->original () ? me->original ()->self_scm () : me->self_scm ();
 }
 
 /* TODO: maybe we should return a vector -- random access is more
@@ -254,7 +254,7 @@ LY_DEFINE (ly_grob_key, "ly:grob-key",
 {
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "Grob");
-  return me->get_key ()->self_scm ();
+  return me->key ()->self_scm ();
 }
 
 LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",

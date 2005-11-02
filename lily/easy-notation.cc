@@ -45,7 +45,7 @@ Note_head::brew_ez_stencil (SCM smob)
     }
 
   SCM letter
-    = Text_interface::interpret_string (me->get_layout ()->self_scm (),
+    = Text_interface::interpret_string (me->layout ()->self_scm (),
 					Font_interface::text_font_alist_chain (me),
 					charstr);
 

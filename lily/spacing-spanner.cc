@@ -43,6 +43,7 @@ Spacing_spanner::effective_shortest_duration (Grob *me,
   return global_shortest;
 }
 
+
 MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
@@ -52,7 +53,7 @@ Spacing_spanner::set_springs (SCM smob)
   /*
     can't use get_system() ? --hwn.
   */
-  Link_array<Grob> all (me->pscore_->root_system ()->columns ());
+  Link_array<Grob> all (get_root_system (me)->columns ());
 
   set_explicit_neighbor_columns (all);
 
@@ -267,7 +268,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 
 	  Item *wish_rcol = Note_spacing::right_column (wish);
 	  if (Note_spacing::left_column (wish) != left_col
-	      || (wish_rcol != right_col && wish_rcol != right_col->original_))
+	      || (wish_rcol != right_col && wish_rcol != right_col->original ()))
 	    continue;
 
 	  /*

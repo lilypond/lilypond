@@ -32,8 +32,8 @@ Grob::mark_smob (SCM ses)
      between X and Y in an erratic manner, leading to much more
      recursion depth (and core dumps if we link to pthreads).  */
 
-  if (s->original_)
-    scm_gc_mark (s->original_->self_scm ());
+  if (s->original ())
+    scm_gc_mark (s->original ()->self_scm ());
 
   s->derived_mark ();
   scm_gc_mark (s->object_alist_);

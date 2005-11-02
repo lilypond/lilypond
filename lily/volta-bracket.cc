@@ -36,11 +36,11 @@ SCM
 Volta_bracket_interface::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-  Spanner *orig_span = dynamic_cast<Spanner *> (me->original_);
+  Spanner *orig_span = dynamic_cast<Spanner *> (me->original ());
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0]
 					    == (Spanner *)me);
   
-  Output_def *layout = me->get_layout ();
+  Output_def *layout = me->layout ();
   Real half_space = 0.5;
 
   Item *bound = dynamic_cast<Spanner *> (me)->get_bound (LEFT);
@@ -106,7 +106,7 @@ SCM
 Volta_bracket_interface::after_line_breaking (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-  Spanner *orig_span = dynamic_cast<Spanner *> (me->original_);
+  Spanner *orig_span = dynamic_cast<Spanner *> (me->original ());
  
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == (Spanner *)me);
 

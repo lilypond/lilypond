@@ -27,12 +27,6 @@ Grob::get_property_alist_chain (SCM def) const
 		     SCM_UNDEFINED);
 }
 
-SCM
-Grob::get_interfaces () const
-{
-  return interfaces_;
-}
-
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
@@ -190,13 +184,6 @@ Grob::internal_get_object (SCM sym) const
   SCM s = scm_sloppy_assq (sym, object_alist_);
 
   return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
-}
-
-void
-Grob::substitute_object_links (SCM crit, SCM orig)
-{
-  set_break_subsititution (crit);
-  object_alist_ = substitute_object_alist (orig, object_alist_);
 }
 
 bool
