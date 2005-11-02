@@ -81,76 +81,84 @@ local-WWW-post:
 	cd $(top-build-dir) && ls *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(top-build-dir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
-#share-prefix = $(top-build-dir)/share
-#tree-prefix = $(top-build-dir)/share/lilypond/$(TOPLEVEL_VERSION)
-share-prefix = $(outdir)/share
-tree-prefix = $(share-prefix)/lilypond/$(TOPLEVEL_VERSION)
+tree-prefix = $(outdir)
+tree-bin = $(tree-prefix)/bin
+tree-lib = $(tree-prefix)/lib
+tree-share = $(tree-prefix)/share
+tree-share-prefix = $(tree-share)/lilypond/$(TOPLEVEL_VERSION)
+tree-lib-prefix = $(tree-lib)/lilypond/$(TOPLEVEL_VERSION)
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
 web-clean:
 	$(MAKE) out=www clean
-	$(MAKE) $(tree-prefix)/lilypond-force
+	$(MAKE) $(tree-share-prefix)/lilypond-force
 
 default: $(config_h) build-dir-setup 
 
-build-dir-setup: $(tree-prefix)/lilypond-force
+build-dir-setup: $(tree-share-prefix)/lilypond-force
 
 PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
 HELP_CATALOGS = $(PO_FILES:$(src-depth)/po/%.po=%)
 CATALOGS = $(HELP_CATALOGS:lilypond=) 
 
-$(tree-prefix)/lilypond-force link-tree: GNUmakefile
+$(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 # Preparing LilyPond tree for build-dir exec
-	cd $(top-build-dir)/$(outbase) && rm -rf lib share
-	mkdir -p $(top-build-dir)/$(outbase)/lib/$(package)
-	mkdir -p $(tree-prefix)
-	mkdir -p $(tree-prefix)/dvips
-	mkdir -p $(tree-prefix)/elisp
-	mkdir -p $(tree-prefix)/fonts
-	mkdir -p $(tree-prefix)/fonts/otf
-	mkdir -p $(tree-prefix)/fonts/tfm
-	mkdir -p $(tree-prefix)/fonts/type1
-	mkdir -p $(tree-prefix)/fonts/svg
-	mkdir -p $(tree-prefix)/fonts/map
-	mkdir -p $(tree-prefix)/fonts/enc
-	mkdir -p $(tree-prefix)/tex
-	cd $(top-build-dir)/$(outbase)/lib && \
-		ln -s ../../../../python/$(outconfbase) python
-	cd $(tree-prefix) && \
+	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
+	mkdir -p $(tree-bin)
+	mkdir -p $(tree-share-prefix)
+	mkdir -p $(tree-lib-prefix)
+	mkdir -p $(tree-share-prefix)/dvips
+	mkdir -p $(tree-share-prefix)/elisp
+	mkdir -p $(tree-share-prefix)/fonts
+	mkdir -p $(tree-share-prefix)/fonts/otf
+	mkdir -p $(tree-share-prefix)/fonts/tfm
+	mkdir -p $(tree-share-prefix)/fonts/type1
+	mkdir -p $(tree-share-prefix)/fonts/svg
+	mkdir -p $(tree-share-prefix)/fonts/map
+	mkdir -p $(tree-share-prefix)/fonts/enc
+	mkdir -p $(tree-share-prefix)/tex
+	cd $(tree-bin) && \
+		ln -sf ../../lily/$(outconfbase)/lilypond . && \
+		ln -sf ../../scripts/$(outconfbase)/convert-ly . && \
+		ln -sf ../../scripts/$(outconfbase)/lilypond-book . && \
+		ln -sf ../../scripts/$(outconfbase)/*.ly .
+	cd $(tree-lib-prefix) && \
+		ln -s ../../../../../python/$(outconfbase) python
+	cd $(tree-share-prefix) && \
 		ln -s $(top-src-dir)/ly ly && \
 		ln -s ../../../../mf mf && \
 		ln -s $(top-src-dir)/ps && \
 		ln -s ../../../../python/$(outconfbase) python && \
 		ln -s $(top-src-dir)/scm && \
 		ln -s $(top-src-dir)/scripts scripts
-	cd $(tree-prefix)/dvips && \
+	cd $(tree-share-prefix)/dvips && \
 		ln -s ./../../../mf/$(outconfbase) mf-out && \
 		ln -s $(top-src-dir)/ps
-	cd $(tree-prefix)/tex && \
+	cd $(tree-share-prefix)/tex && \
 		ln -s $(top-src-dir)/tex source && \
 		ln -s ../../../../../tex/$(outconfbase) tex-out && \
 		ln -s ../../../../../mf/$(outconfbase) mf-out
-	-cd $(tree-prefix)/fonts/otf && \
+	-cd $(tree-share-prefix)/fonts/otf && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
-	-cd $(tree-prefix)/fonts/svg && \
+	-cd $(tree-share-prefix)/fonts/svg && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
-	-cd $(tree-prefix)/fonts/tfm && \
+	-cd $(tree-share-prefix)/fonts/tfm && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.tfm .
-	-cd $(tree-prefix)/fonts/type1 && \
+	-cd $(tree-share-prefix)/fonts/type1 && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.pfa .
-	cd $(tree-prefix)/fonts && \
+	cd $(tree-share-prefix)/fonts && \
 		ln -s $(top-src-dir)/mf source && \
 		true
-	-cd $(tree-prefix)/elisp && \
+	-cd $(tree-share-prefix)/elisp && \
 		ln -sf ../../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(top-src-dir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
-		mkdir -p $(share-prefix)/locale/$i/LC_MESSAGES && \
-		cd $(share-prefix)/locale/$i/LC_MESSAGES && \
+		mkdir -p $(tree-share)/locale/$i/LC_MESSAGES && \
+		cd $(tree-share)/locale/$i/LC_MESSAGES && \
 		ln -sf ../../../../../po/$(outconfbase)/$i.mo lilypond.mo &&) true
 #	touch $@
-	touch $(tree-prefix)/lilypond-force
+	touch $(tree-share-prefix)/lilypond-force
 
 local-clean: build-dir-setup-clean
 build-dir-setup-clean:
