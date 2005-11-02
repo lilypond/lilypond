@@ -1,3 +1,7 @@
+2005-11-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/spanners-init.ly (assertBeamQuant): use make-simple-closure.
+
 2005-11-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (setup_paths)[__MINGW32__]: Do not assume argv0 is
@@ -9,7 +13,9 @@
 
 2005-11-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* scm/define-grobs.scm: purge self-[XY]-offset varialbes, replace
+	* Documentation/topdocs/NEWS.tely (Top): document new backend design.
+
+	* scm/define-grobs.scm: purge self-[XY]-offset variables, replace
 	with simple-closure.
 
 	* lily/self-aligment-interface.cc (set_align_self): new function

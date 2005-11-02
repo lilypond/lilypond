@@ -97,12 +97,20 @@ sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
 assertBeamQuant =
 #(def-music-function (parser location l r) (pair? pair?)
   (make-grob-property-override 'Beam 'positions
-   (apply ly:make-callback-chain (check-quant-callbacks l r))))
+   (ly:make-simple-closure
+    (ly:make-simple-closure
+     (append
+      (list chain-grob-member-functions `(,cons 0 0))
+      (check-quant-callbacks l r))))))
     
 % for regression testing purposes.
 assertBeamSlope =
 #(def-music-function (parser location comp) (procedure?)
   (make-grob-property-override 'Beam 'positions
-   (apply ly:make-callback-chain (check-slope-callbacks comp))))
-
+   (ly:make-simple-closure
+    (ly:make-simple-closure
+     (append
+      (list chain-grob-member-functions `(,cons 0 0))
+      (check-slope-callbacks comp))))))
+    
 
