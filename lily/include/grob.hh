@@ -136,9 +136,6 @@ SCM ly_grobs2scm (Link_array<Grob> a);
 
 Interval robust_relative_extent (Grob *, Grob *, Axis);
 
-bool is_callback_chain (SCM s);
-SCM callback_chain_extract_procedures (SCM chain_smob);
-
 
 SCM axis_offset_symbol (Axis a);
 SCM axis_self_offset_symbol (Axis a);

@@ -1,5 +1,10 @@
 2005-11-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-lib.scm (chain-grob-member-functions): replace
+	chained-callback.cc
+
+	* lily/chained-callback.cc (Module): remove file.
+
 	* lily/rest-collision.cc (force_shift_callback_rest): change to
 	chained callback.
 
@@ -21,8 +26,8 @@
 	* lily/include/dimension-cache.hh (class Dimension_cache): remove
 	callback administration.
 
-	* lily/simple-closure.cc: new file. Smob type that allows "grob"
-	member functions
+	* lily/simple-closure.cc: new file. Smob type that allows "grob
+	member functions",
 
 	    (ly:make-simple-closure FUNC A B)
 

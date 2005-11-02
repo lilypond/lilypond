@@ -56,11 +56,15 @@ evaluate_with_simple_closure (SCM delayed_argument,
     return expr;
   else if (scm_car (expr) == ly_symbol2scm ("quote"))
     return scm_cadr (expr);
-  else
+  else if (ly_is_procedure (scm_car (expr)))
     {
-      return scm_apply_0 (scm_car (expr), evaluate_args (delayed_argument, scm_cdr (expr)));
+      return scm_apply_0 (scm_car (expr),
+			  evaluate_args (delayed_argument, scm_cdr (expr)));
     }
-
+  else
+    // ugh. deviation from standard. Should print error? 
+    return  evaluate_args (delayed_argument, scm_cdr (expr)); 
+  
   assert (false);
   return SCM_EOL;
 }
@@ -73,7 +77,7 @@ LY_DEFINE(ly_simple_closure_p, "ly:simple-closure?",
 }
 
 LY_DEFINE(ly_make_simple_closure, "ly:make-simple-closure",
-	  0, 0, 1, (SCM expr),
+	  1, 0, 0, (SCM expr),
 	  "Make a simple closure. @var{expr} should be form of "
 	  "@code{(@var{func} @var{a1} @var{A2} ...)}, and will be invoked "
 	  "as @code{(@var{func} @var{delayed-arg} @var{a1} @var{a2} ... )}.")

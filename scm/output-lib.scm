@@ -282,3 +282,14 @@ centered, X==1 is at the right, X == -1 is at the left."
      (ly:stencil-translate-axis lp (- (car x-ext) padding) X)
      (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))
   ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
+
+(define-public (chain-grob-member-functions grob value . funcs)
+  (for-each
+   (lambda (func)
+     (set! value (func grob value)))
+   funcs)
+
+  value)
