@@ -39,16 +39,23 @@ Rest_collision::force_shift_callback (SCM smob)
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback_rest, 1);
+MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback_rest, 2);
 SCM
-Rest_collision::force_shift_callback_rest (SCM rest)
+Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {
   Grob *rest_grob = unsmob_grob (rest);
   Grob *parent = rest_grob->get_parent (X_AXIS);
+
+  /*
+    translate REST; we need the result of this translation later on,
+    while the offset probably still is 0/calculation-in-progress.
+   */
+  rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
+  
   if (Note_column::has_interface (parent))
-    return force_shift_callback (parent->self_scm ());
-  else
-    return scm_from_double (0.0);
+    force_shift_callback (parent->self_scm ());
+
+  return scm_from_double (0.0);
 }
 
 void
@@ -68,8 +75,8 @@ Rest_collision::add_column (Grob *me, Grob *p)
   Grob *rest = unsmob_grob (p->get_object ("rest"));
   if (rest)
     {
-      rest->set_property ("Y-offset" ,
-			  Rest_collision::force_shift_callback_rest_proc);
+      chain_offset_callback (rest,
+			     Rest_collision::force_shift_callback_rest_proc, Y_AXIS);
     }
 }
 
