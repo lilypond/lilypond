@@ -33,8 +33,8 @@
     (AccidentalSuggestion
      . (
 	(stencil . ,Accidental_interface::print)
-	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
-	(self-X-offset . Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent))
+						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(self-alignment-X . ,CENTER)
 	(cautionary . #t)
 	(cautionary-style . smaller)
@@ -477,7 +477,7 @@
 
 	(no-spacing-rods . #t)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(direction . 1)
 	(padding . 0.5)
 	(staff-padding . 0.5)
@@ -557,9 +557,8 @@
      . (
 
 	(stencil . ,Text_interface::print)
-
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
-	(X-offset . ,Self_alignment_interface::centered_on_y_parent)
+	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent))
+						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(font-encoding . fetaNumber)
 	(self-alignment-X . 0)
@@ -602,9 +601,9 @@
 	(stencil . ,Text_interface::print)
 	(direction . ,Script_interface::calc_direction)
 
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(self-alignment-X . 0)
-	(self-Y-offset . ,Self_alignment_interface::y_aligned_on_self)
+	(Y-offset . ,Self_alignment_interface::y_aligned_on_self)
 	(self-alignment-Y . 0)
 	(font-series . bold)
 	(font-encoding . fetaDynamic)
@@ -697,9 +696,8 @@
 	(stencil . ,Grid_line_interface::print)
 
 	(self-alignment-X . ,CENTER)
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
-	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
-	
+	(X-offset . (ly:make-simple-closure `(,+  ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent))
+						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(layer . 0)
 	(meta . ((class . Item)
 		 (interfaces . (self-alignment-interface
@@ -718,7 +716,7 @@
 	(minimum-length . 2.0)
 	(bound-padding . 1.0)
 	(self-alignment-Y . 0)
-	(self-Y-offset . ,Self_alignment_interface::y_aligned_on_self)
+	(Y-offset . ,Self_alignment_interface::y_aligned_on_self)
 	(meta . ((class . Spanner)
 		 (interfaces . (hairpin-interface
 				line-interface
@@ -745,8 +743,9 @@
     (InstrumentName
      . (
 	(breakable . #t)
-	(self-Y-offset . ,Self_alignment_interface::y_aligned_on_self)
-	(Y-offset . ,Side_position_interface::y_aligned_on_support_refpoints)
+	(Y-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::y_aligned_on_self))
+						  ,(ly:make-simple-closure (list Side_position_interface::y_aligned_on_support_refpoints)))))
+	
 	;; This direction is for aligned_on_support_refpoints
 	;; (?) --hwn
 	(direction . 0)
@@ -997,8 +996,8 @@
      . (
 	(springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
 	(stencil . ,Text_interface::print)
-	(self-X-offset . ,Self_alignment_interface::y_aligned_on_self)
-	(X-offset . ,Self_alignment_interface::centered_on_y_parent)
+	(self-X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::y_aligned_on_self))
+						       ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent)))))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
 	(direction . 1)
@@ -1017,8 +1016,8 @@
     (MultiMeasureRestText
      . (
 	(stencil . ,Text_interface::print)
-	(X-offset . ,Self_alignment_interface::centered_on_y_parent)
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent))
+						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
@@ -1096,8 +1095,9 @@
      . (
 	(self-alignment-X . 0)
 	(break-visibility . ,begin-of-line-visible)
-	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(self-X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self))
+						       ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent)))))
+	
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 
 	(stencil . ,Text_interface::print)
@@ -1203,11 +1203,9 @@
 				percent-repeat-interface))))))
     (PercentRepeatCounter
      . (
-
 	(stencil . ,Text_interface::print)
-
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
-	(X-offset . ,Self_alignment_interface::centered_on_y_parent)
+	(X-offset . `(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent))
+						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
 	(direction . 1)
@@ -1245,7 +1243,7 @@
 
 	(stencil . ,Text_interface::print)
 
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 
 	(after-line-breaking . ,shift-right-at-line-begin)
@@ -1449,7 +1447,7 @@
 	(stencil . ,Text_interface::print)
 
 	(direction . 1)
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(no-spacing-rods . #t)
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
 	(font-shape . italic)
@@ -1557,7 +1555,7 @@
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(meta . ((class . Item)
 		 (interfaces . (piano-pedal-interface
 				text-spanner-interface
@@ -1639,7 +1637,7 @@
     (TextScript
      . (
 	(no-spacing-rods . #t)
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(direction . -1)
 
 	;; sync with Fingering ?
@@ -1792,7 +1790,7 @@
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
-	(self-X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				self-alignment-interface

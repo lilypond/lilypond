@@ -349,21 +349,12 @@ Grob::get_offset (Axis a) const
 
   Grob *me = (Grob *) this;
 
+  SCM sym = axis_offset_symbol (a);
   me->dim_cache_[a].offset_ = new Real (0.0);
-  Real off = robust_scm2double (internal_get_property (axis_offset_symbol (a)), 0.0);
+  *me->dim_cache_[a].offset_ += robust_scm2double (internal_get_property (sym), 0.0);
 
-  SCM self_off_sym
-    = (a == X_AXIS)
-    ? ly_symbol2scm ("self-X-offset")
-    : ly_symbol2scm ("self-Y-offset");
-
-  off += robust_scm2double (internal_get_property (self_off_sym), 0.0);
-  
-  *me->dim_cache_[a].offset_ += off;
-
-  me->del_property (self_off_sym);
-  me->del_property (axis_offset_symbol (a));
-  return off;
+  me->del_property (sym);
+  return *me->dim_cache_[a].offset_;
 }
 
 void
