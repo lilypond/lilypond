@@ -23,13 +23,13 @@ Rest::y_offset_callback (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   int duration_log = scm_to_int (me->get_property ("duration-log"));
-  int lc = Staff_symbol_referencer::line_count (me);
+  int line_count = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   Real amount = 0.0;
-  if (lc % 2)
+  if (line_count % 2)
     {
-      if (duration_log == 0 && lc > 1)
+      if (duration_log == 0 && line_count > 1)
 	amount += ss;
     }
   else
@@ -58,7 +58,7 @@ Rest::y_offset_callback (SCM smob)
 String
 Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 {
-  bool ledgered_b = false;
+  bool is_ledgered = false;
   if (try_ledgers && (balltype == 0 || balltype == 1))
     {
       Real rad = Staff_symbol_referencer::staff_radius (me) * 2.0;
@@ -69,8 +69,8 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 	could bemore generic, but hey, we understand this even after
 	dinner.
       */
-      ledgered_b |= (balltype == 0) && (pos >= +rad + 2 || pos < -rad);
-      ledgered_b |= (balltype == 1) && (pos <= -rad - 2 || pos > +rad);
+      is_ledgered |= (balltype == 0) && (pos >= +rad + 2 || pos < -rad);
+      is_ledgered |= (balltype == 1) && (pos <= -rad - 2 || pos > +rad);
     }
 
   String actual_style (style.to_str0 ());
@@ -84,7 +84,7 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 	ledgered rests at all now that we can draw ledger lines with
 	variable width, length and blotdiameter? -- jr
       */
-      ledgered_b = 0;
+      is_ledgered = 0;
 
       /*
 	There are no 32th/64th/128th mensural/neomensural rests.  In
@@ -112,7 +112,7 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
       actual_style = "";
     }
 
-  return ("rests." + to_string (balltype) + (ledgered_b ? "o" : "")
+  return ("rests." + to_string (balltype) + (is_ledgered ? "o" : "")
 	  + actual_style);
 }
 
