@@ -104,3 +104,10 @@ endif
 ifeq ($(HOST_ARCH),i686-cygwin)
 CYGWIN_BUILD = yes
 endif
+
+ifeq ($(HOST_ARCH),i586-mingw32msvc)
+MINGW_BUILD = yes
+endif
+ifeq ($(HOST_ARCH),i386-mingw32)
+MINGW_BUILD = yes
+endif
