@@ -46,7 +46,7 @@ Hara_kiri_engraver::start_translation_timestep ()
 void
 Hara_kiri_engraver::add_element (Grob *e)
 {
-  Hara_kiri_group_spanner::add_element (staffline_, e);
+  Axis_group_engraver::add_element (e);
 }
 
 Spanner *

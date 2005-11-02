@@ -1403,7 +1403,6 @@ ADD_INTERFACE (Beam,
 	       "length-fraction "
 	       "least-squares-dy "
 	       "neutral-direction "
-	       "position-callbacks "
 	       "positions "
 	       "quant-score "
 	       "shorten "

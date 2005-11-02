@@ -267,43 +267,36 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_parent (ft.head_, X_AXIS);
       f->set_parent (ft.head_, Y_AXIS);
 
-      f->set_property ("self-Y-offset",Self_alignment_interface::y_aligned_on_self_proc);
-      f->set_property ("Y-offset",  Self_alignment_interface::centered_on_y_parent_proc);
-      f->set_property ("X-offset",  Side_position_interface::x_aligned_side_proc);
+
+      Self_alignment_interface::set_align_self (f, Y_AXIS);
+      Self_alignment_interface::set_center_parent (f, Y_AXIS);
+      Side_position_interface::set_axis (f, X_AXIS);
 
       f->set_property ("direction", scm_from_int (hordir));
     }
 
   int finger_prio = 200;
-  for (int i = 0; i < up.size (); i++)
-    {
-      Finger_tuple ft = up[i];
-      Grob *f = ft.script_;
-      f->set_parent (ft.head_, X_AXIS);
-      f->set_property ("script-priority",
-		       scm_from_int (finger_prio + ft.position_));
 
-      f->set_property ("self-X-offset", Self_alignment_interface::x_aligned_on_self_proc);
-      f->set_property ("Y-offset", Side_position_interface::y_aligned_side_proc);
-      f->set_property ("X-offset", Self_alignment_interface::centered_on_x_parent_proc);
+  Direction d = DOWN;
+  Drul_array< Array<Finger_tuple> > vertical (down, up);
+  do
+    {
+      for (int i = 0; i < vertical[d].size (); i++)
+	{
+	  Finger_tuple ft = vertical[d][i];
+	  Grob *f = ft.script_;
+	  f->set_parent (ft.head_, X_AXIS);
+	  f->set_property ("script-priority",
+			   scm_from_int (finger_prio + d * ft.position_));
+
+	  Self_alignment_interface::set_align_self (f, X_AXIS);
+	  Self_alignment_interface::set_center_parent (f, X_AXIS);
+	  Side_position_interface::set_axis (f, Y_AXIS);
       
-      f->set_property ("direction", scm_from_int (UP));
+	  f->set_property ("direction", scm_from_int (d));
+	}
     }
-
-  for (int i = 0; i < down.size (); i++)
-    {
-      Finger_tuple ft = down[i];
-      Grob *f = ft.script_;
-      f->set_parent (ft.head_, X_AXIS);
-      f->set_property ("script-priority",
-		       scm_from_int (finger_prio + down.size () - ft.position_));
-
-      f->set_property ("self-X-offset", Self_alignment_interface::x_aligned_on_self_proc);
-      f->set_property ("X-offset", Self_alignment_interface::centered_on_x_parent_proc);
-      f->set_property ("Y-offset", Side_position_interface::y_aligned_side_proc);
-
-      f->set_property ("direction", scm_from_int (DOWN));
-    }
+  while (flip (&d) != DOWN);
 }
 
 void

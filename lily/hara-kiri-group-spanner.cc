@@ -82,12 +82,6 @@ Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM smob, SCM axis)
 }
 
 void
-Hara_kiri_group_spanner::add_element (Grob *me, Grob *e)
-{
-  Axis_group_interface::add_element (me, e);
-}
-
-void
 Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("items-worth-living"), n);

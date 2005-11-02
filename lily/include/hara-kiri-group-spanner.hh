@@ -18,7 +18,6 @@ public:
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_callback, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (y_extent, (SCM smob));
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_in_parent_callback, (SCM, SCM));
-  static void add_element (Grob *me, Grob *e);
   static bool has_interface (Grob *);
   static void consider_suicide (Grob *me);
   static void add_interesting_item (Grob *me, Grob *n);

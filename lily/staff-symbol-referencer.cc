@@ -169,5 +169,7 @@ ADD_INTERFACE (Staff_symbol_referencer, "staff-symbol-referencer-interface",
 	       "symbol. "
 	       "These usually have @code{Staff_symbol_referencer::callback} "
 	       "in their @code{Y-offset-callbacks}. ",
+
+	       /* properties */
 	       "staff-position");
 

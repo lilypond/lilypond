@@ -398,8 +398,7 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
 	{
 	  Grob *head = heads[0];
 	  script_->set_parent (head, X_AXIS);
-	  script_->set_property ("self-X-offset",
-				 Self_alignment_interface::centered_on_x_parent_proc);
+	  Self_alignment_interface::set_center_parent (script_, X_AXIS);
 	}
     }
 

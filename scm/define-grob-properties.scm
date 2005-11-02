@@ -25,6 +25,8 @@
      (X-offset ,number? "The horizontal amount that this object is moved relative to its X-parent")
      (Y-offset ,number? "The vertical amount that this object is moved
 relative to its X-parent")
+     (self-X-offset ,number? "")
+     (self-Y-offset ,number? "")
      (accidentals ,list? "List of alteration numbers")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
@@ -539,6 +541,7 @@ entries @code{name} and @code{interfaces}.")
      (chord-tremolo ,boolean? "if set, this beam is a tremolo. ")
      (begin-of-line-visible ,boolean? "Used for marking ChordNames that should only show changes.")
 
+     (quantize-position ,boolean? "If set, a vertical alignment is aligned to be within staff spaces.")
      (quant-score ,string? "Beam quanting score -- can be stored for
 debugging")
      
