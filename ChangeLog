@@ -1,3 +1,8 @@
+2005-11-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	remove [XY]-offset-callbacks add [YX]-offset
+	
 2005-11-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/define-grobs.scm (all-grob-descriptions): Added space-alist

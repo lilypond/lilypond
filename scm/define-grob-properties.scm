@@ -22,11 +22,9 @@
      (apply define-grob-property x))
 
    `(
-     (X-offset-callbacks ,list? "A list of functions determining this
-objects' position relative to its parent. The last one in the list is
-called first.  The functions take a grob and axis argument. ")
-     (Y-offset-callbacks ,list? "see @code{X-offset-callbacks}.")
-
+     (X-offset ,number? "The horizontal amount that this object is moved relative to its X-parent")
+     (Y-offset ,number? "The vertical amount that this object is moved
+relative to its X-parent")
      (accidentals ,list? "List of alteration numbers")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
