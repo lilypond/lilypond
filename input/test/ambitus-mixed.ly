@@ -16,8 +16,7 @@ ambitus must be moved manually to prevent collisions."
     \new Voice \with {
 	\consists "Ambitus_engraver"
     } \relative c'' {
-	\override Ambitus #'X-offset-callbacks
-	=  #(list (lambda (grob axis) -1.0))
+	\override Ambitus #'X-offset = #-1.0
 	\voiceOne
 	c4 a d e f2
     }

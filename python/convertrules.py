@@ -2636,3 +2636,12 @@ def conv (str):
 
 conversions.append (((2, 7, 14), conv,
 		     '''Remove callbacks property, deprecate XY-extent-callback. '''))
+
+
+def conv (str):
+	if re.search ('[XY]-offset-callbacks', str):
+		error_file.write (NOT_SMART % "[XY]-offset-callbacks")
+	return str
+
+conversions.append (((2, 7, 15), conv,
+		     '''Use grob closures iso. XY-offset-callbacks.'''))

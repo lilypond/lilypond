@@ -57,8 +57,8 @@ skips =
   \consists "Grid_line_span_engraver"
   \override SystemStartBrace #'transparent = ##t
 
-  \override NoteColumn #'X-offset-callbacks = #(list (lambda (x a) -0.5))
-  \override NoteHead #'Y-offset-callbacks = #(list (lambda (x a) 0.75))
+  \override NoteColumn #'X-offset = #-0.5
+  \override NoteHead #'Y-offset = #0.75
 
 }
 \new StaffGroup <<

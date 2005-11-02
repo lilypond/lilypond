@@ -1393,8 +1393,7 @@ rather than to the @internalsref{Voice} context.  Here is an example,
   \new Voice \with {
     \remove "Ambitus_engraver"
   } \relative c'' {
-    \override Ambitus #'X-offset-callbacks
-      = #(list (lambda (grob axis) -1.0))
+    \override Ambitus #'X-offset = #-1.0
     \voiceOne
     c4 a d e f2
   }
@@ -1411,8 +1410,7 @@ rather than to the @internalsref{Voice} context.  Here is an example,
 This example uses one advanced feature,
 
 @example
-\override Ambitus #'X-offset-callbacks
-  = #(list (lambda (grob axis) -1.0))
+\override Ambitus #'X-offset = #-1.0
 @end example
 
 @noindent

@@ -351,7 +351,13 @@ Grob::get_offset (Axis a) const
 
   SCM sym = axis_offset_symbol (a);
   me->dim_cache_[a].offset_ = new Real (0.0);
-  *me->dim_cache_[a].offset_ += robust_scm2double (internal_get_property (sym), 0.0);
+
+  /*
+    UGH: can't fold next 2 statements together. Apparently GCC thinks
+    dim_cache_[a].offset_ is unaliased.
+  */
+  Real off = robust_scm2double (internal_get_property (sym), 0.0);
+  *me->dim_cache_[a].offset_ += off;
 
   me->del_property (sym);
   return *me->dim_cache_[a].offset_;
