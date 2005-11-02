@@ -391,6 +391,7 @@
 			(ambitus . (extra-space . 2.0))
 			(custos . (minimum-space . 1.0))
 			(key-signature . (minimum-space . 1.5))
+			(time-signature . (minimum-space . 1.5))
 			(staff-bar . (minimum-space . 1.5))
 			(clef . (minimum-space . 2.0))
 			(first-note . (fixed-space . 1.0)) ;huh?
