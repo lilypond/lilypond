@@ -779,8 +779,10 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
   Grob *me = unsmob_grob (smob);
 
   int count = visible_stem_count (me);
-  Interval pos (0, 0);
-
+  Interval pos (0,0);
+  if (count < 1)
+    return ly_interval2scm (pos);
+  
   Array<Real> x_posns;
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
@@ -984,7 +986,7 @@ Beam::slope_damping (SCM smob, SCM posns)
   Drul_array<Real> pos = ly_scm2interval (posns);
 
   if (visible_stem_count (me) <= 1)
-    return SCM_UNSPECIFIED;
+    return posns;
 
   
   SCM s = me->get_property ("damping");

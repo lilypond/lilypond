@@ -1,5 +1,8 @@
 2005-11-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm: purge self-[XY]-offset varialbes, replace
+	with simple-closure.
+
 	* lily/self-aligment-interface.cc (set_align_self): new function
 	(set_center_parent): new function.
 
