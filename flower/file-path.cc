@@ -148,26 +148,22 @@ File_path::find (String name) const
 String
 File_path::find (String name, char const *extensions[])
 {
-  File_name file_name (name);
   if (name.is_empty () || name == "-")
-    file_name.base_ = "-";
-  else
+    return name;
+  
+  File_name file_name (name);
+  String orig_ext = file_name.ext_;
+  for (int i = 0; extensions[i]; i++)
     {
-      String orig_ext = file_name.ext_;
-      for (int i = 0; extensions[i]; i++)
-	{
-	  file_name.ext_ = orig_ext;
-	  if (*extensions[i] && !file_name.ext_.is_empty ())
-	    file_name.ext_ += ".";
-	  file_name.ext_ += extensions[i];
-	  if (!find (file_name.to_string ()).is_empty ())
-	    break;
-	}
-      
-      /* Reshuffle extension */
-      file_name = File_name (file_name.to_string ());
+      file_name.ext_ = orig_ext;
+      if (*extensions[i] && !file_name.ext_.is_empty ())
+	file_name.ext_ += ".";
+      file_name.ext_ += extensions[i];
+      String found = find (file_name.to_string ());
+      if (!found.is_empty ())
+	return found;
     }
-  return file_name.to_string ();
+  return "";
 }
 
 /** Append a directory, return false if failed.  */

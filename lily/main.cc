@@ -300,7 +300,9 @@ String
 dir_name (String const file_name)
 {
   String s = file_name;
+#if defined (__CYGWIN__) || defined (__MINGW32__)
   s.substitute ('\\', '/');
+#endif  
   s = s.left_string (s.index_last ('/'));
   return s;
 }
@@ -321,15 +323,28 @@ setup_paths (char const* argv0)
     be_verbose_global = true;
 
   /* Find absolute ARGV0 name, using PATH.  */
-  File_path p;
-  p.parse_path (getenv ("PATH"));
-  String argv0_abs = p.find (argv0);
+  File_path path;
+  path.parse_path (getenv ("PATH"));
+
+#if defined (__CYGWIN__) || defined (__MINGW32__)
+  String s = argv0;
+  s.substitute ('\\', '/');
+  argv0 = s.to_str0 ();
+#endif /* __CYGWIN__ || __MINGW32__ */
+
+#ifndef __MINGW32__
+  String argv0_abs = path.find (argv0);
+#else /* __MINGW32__ */
+  char const *ext[] = {"exe", "", 0 };
+  String argv0_abs = path.find (argv0, ext);
+#endif /* __MINGW32__ */
+
   if (argv0_abs.is_empty ())
     {
       File_name name (argv0);
       /* If NAME contains slashes and its DIR is not absolute, it can
 	 only be referenced from CWD.  */
-      if (name.to_string ().index ('/') >= 0 && name.dir_[0] != DIRSEP)
+      if (name.to_string ().index ('/') >= 0 && name.dir_[0] != '/')
 	{
 	  char cwd[PATH_MAX];
 	  getcwd (cwd, PATH_MAX);

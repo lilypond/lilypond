@@ -1,6 +1,10 @@
 2005-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* flower/file-path.cc (find): Bugfix: Return name of file found.
+
 	* lily/main.cc (setup_paths): Bugfix for argv0 logic.
+	(setup_paths)[__CYGWIN__ || __MINGW32__ || ]: Normalize argv0.
+	(setup_paths)[__MINGW32__]: Also look for argv0 + .exe.
 
 2005-11-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
