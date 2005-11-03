@@ -1,10 +1,6 @@
 #include "grob.hh"
 #include "simple-closure.hh"
 
-/*
-  UGH : todo -> to different file.
- */
-
 SCM
 axis_offset_symbol (Axis a)
 {
