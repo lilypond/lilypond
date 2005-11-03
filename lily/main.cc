@@ -320,13 +320,26 @@ setup_paths (char const* argv0)
   if (getenv ("LILYPOND_VERBOSE"))
     be_verbose_global = true;
 
-#if 1 /* Huh, argv0 is not absolute on windows?  ndef __MINGW32__ */
+  /* Find absolute ARGV0 name, using PATH.  */
   File_path p;
   p.parse_path (getenv ("PATH"));
-  String bindir = dir_name (p.find (argv0));
-#else /* __MINGW32__ */
-  String bindir = dir_name (argv0);
-#endif  
+  String argv0_abs = p.find (argv0);
+  if (argv0_abs.is_empty ())
+    {
+      File_name name (argv0);
+      /* If NAME contains slashes and its DIR is not absolute, it can
+	 only be referenced from CWD.  */
+      if (name.to_string ().index ('/') >= 0 && name.dir_[0] != DIRSEP)
+	{
+	  char cwd[PATH_MAX];
+	  getcwd (cwd, PATH_MAX);
+	  argv0_abs = String (cwd) + "/" + argv0;
+	}
+      else
+	programming_error ("can't find absolute argv0");
+    }
+    
+  String bindir = dir_name (argv0_abs);
   String argv0_prefix = dir_name (bindir);
   if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
     {
