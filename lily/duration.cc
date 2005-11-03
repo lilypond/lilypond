@@ -4,7 +4,7 @@
   source file of the LilyPond music typesetter
 
   (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "duration.hh"

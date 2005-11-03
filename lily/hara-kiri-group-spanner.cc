@@ -4,7 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1998--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "hara-kiri-group-spanner.hh"
