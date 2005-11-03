@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef INTERVAL_TCC
