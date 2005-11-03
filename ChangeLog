@@ -1,5 +1,7 @@
 2005-11-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PATCH_LEVEL): release 2.7.15
+
 	* lily/*:  cs.uu.nl -> xs4all.nl
 
 	* make/lilypond.mandrake.spec.in (Module): remove Mandrake & Suse
@@ -170,7 +172,6 @@
 
 	* lily/lily-guile.cc (procedure_arity): new function.
 
->>>>>>> 1.4221
 2005-10-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/INSTALL.texi (Top): add perl flex bison.
