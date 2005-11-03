@@ -23,7 +23,6 @@ using namespace std;
 #include <sys/cygwin.h>
 #endif
 
-/* We don't have multiple roots, set this to '\0'? */
 #ifndef ROOTSEP
 #define ROOTSEP ':'
 #endif
