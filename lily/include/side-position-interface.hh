@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1999--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef SIDE_POSITION_INTERFACE_HH

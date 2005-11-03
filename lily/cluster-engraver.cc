@@ -3,7 +3,7 @@
 
   (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
 
-  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"

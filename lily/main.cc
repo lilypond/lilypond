@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1997--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "main.hh"
@@ -96,7 +96,7 @@ File_path global_path;
  */
 
 static char const *AUTHORS
-= "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
+= "  Han-Wen Nienhuys <hanwen@xs4all.nl>\n"
   "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
 static char const *PROGRAM_NAME = "lilypond";

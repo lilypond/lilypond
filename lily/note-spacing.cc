@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 2001--2005  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "note-spacing.hh"
