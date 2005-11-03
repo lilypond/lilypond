@@ -13,7 +13,7 @@ SUBDIRS = buildscripts python scripts \
 	flower kpath-guile lily \
 	mf ly tex ps scm \
 	po make \
-	cygwin debian stepmake \
+	cygwin stepmake \
 	Documentation input \
 	vim 
 #

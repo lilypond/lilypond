@@ -1,6 +1,0 @@
-#!/bin/sh
-set -e
-
-/usr/sbin/install-info --quiet --remove /usr/share/info/lilypond.info.gz
-
-#DEBHELPER#
