@@ -290,9 +290,10 @@
 			   Beam::slope_damping
 			   Beam::shift_region_to_valid
 			   Beam::quanting
-			   Beam::set_stem_lengths
 			   ))))
-	
+
+	;; this is a hack to set stem lengths, if positions is set.
+	(quantized-positions . ,Beam::set_stem_lengths)
 	(concaveness . ,Beam::calc_concaveness)
 	(direction . ,Beam::calc_direction)
 	(stencil . ,Beam::print)
