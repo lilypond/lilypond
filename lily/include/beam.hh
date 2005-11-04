@@ -61,12 +61,12 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_least_squares_positions, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
+  DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
 
   /* position callbacks */
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (quanting, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM,SCM));
   
 static Real score_slopes_dy (Real, Real, Real, Real, Real, bool, Beam_quant_parameters const *);
 

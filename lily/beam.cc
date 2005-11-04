@@ -217,7 +217,6 @@ Beam::connect_beams (Grob *me)
   Slice last_int;
   last_int.set_empty ();
   
-  //  SCM last_beaming = SCM_EOL;
   SCM last_beaming = scm_cons (SCM_EOL, scm_list_1 (scm_from_int (0)));
   Direction last_dir = CENTER;
   for (int i = 0; i < stems.size (); i++)
@@ -303,7 +302,7 @@ Beam::print (SCM grob)
       dx = stems.top ()->relative_coordinate (xcommon, X_AXIS) - x0;
     }
 
-  SCM posns = me->get_property ("positions");
+  SCM posns = me->get_property ("quantized-positions");
   Drul_array<Real> pos;
   if (!is_number_pair (posns))
     {
@@ -1073,11 +1072,16 @@ Beam::calc_stem_y (Grob *me, Grob *s, Grob ** common,
   Hmm.  At this time, beam position and slope are determined.  Maybe,
   stem directions and length should set to relative to the chord's
   position of the beam.  */
-MAKE_SCHEME_CALLBACK(Beam, set_stem_lengths, 2); 
+MAKE_SCHEME_CALLBACK(Beam, set_stem_lengths, 1); 
 SCM
-Beam::set_stem_lengths (SCM smob,  SCM posns)
+Beam::set_stem_lengths (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+
+  /* trigger callback. */
+  (void) me->get_property ("direction");
+
+  SCM posns = me->get_property ("positions");
   
   extract_grob_set (me, "stems", stems);
   if (!stems.size ())
@@ -1094,13 +1098,12 @@ Beam::set_stem_lengths (SCM smob,  SCM posns)
   bool gap = false;
   Real thick = 0.0;
   if (scm_is_number (me->get_property ("gap-count"))
-      &&scm_to_int (me->get_property ("gap-count")))
+      && scm_to_int (me->get_property ("gap-count")))
     {
       gap = true;
       thick = get_thickness (me);
     }
 
-  // ugh -> use commonx
   Grob *fvs = first_visible_stem (me);
   Grob *lvs = last_visible_stem (me);
 
@@ -1142,7 +1145,6 @@ Beam::set_beaming (Grob *me, Beaming_info_list const *beaming)
       /*
 	Don't overwrite user settings.
       */
-
       do
 	{
 	  Grob *stem = stems[i];
@@ -1267,13 +1269,19 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 
   Real dy = pos[RIGHT] - pos[LEFT];
 
-  // ugh -> use commonx
-  Real x0 = first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
-  Real dx = last_visible_stem (beam)->relative_coordinate (0, X_AXIS) - x0;
+  Drul_array<Grob*> visible_stems (first_visible_stem (beam),
+				   last_visible_stem (beam));
+				    
+  Grob *common = visible_stems[RIGHT]
+    ->common_refpoint (visible_stems[LEFT], X_AXIS);
+  
+  Real x0 = visible_stems[LEFT]->relative_coordinate (common, X_AXIS);
+  Real dx = visible_stems[RIGHT]->relative_coordinate (common, X_AXIS) - x0;
   Real slope = dy && dx ? dy / dx : 0;
 
   Direction d = get_grob_direction (stem);
-  Real stem_y = pos[LEFT] + (stem->relative_coordinate (0, X_AXIS) - x0) * slope;
+  Real stem_y = pos[LEFT]
+    + (stem->relative_coordinate (common, X_AXIS) - x0) * slope;
 
   Real beam_translation = get_beam_translation (beam);
   Real beam_thickness = Beam::get_thickness (beam);

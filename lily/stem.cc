@@ -229,7 +229,7 @@ Stem::calc_stem_end_position (SCM smob)
   if (!head_count (me))
     return scm_from_double (0.0);
 
-
+  
   Real ss = Staff_symbol_referencer::staff_space (me);
   int durlog = duration_log (me);
   Array<Real> a;
@@ -239,13 +239,14 @@ Stem::calc_stem_end_position (SCM smob)
 
   Direction dir = get_grob_direction (me);
   Interval hp = head_positions (me);
-  Real st = dir ? hp[dir] + dir * length : 0;
+  Real stem_end = dir ? hp[dir] + dir * length : 0;
 
   /* TODO: change name  to extend-stems to staff/center/'()  */
   bool no_extend_b = to_boolean (me->get_property ("no-stem-extend"));
-  if (!no_extend_b && dir * st < 0)
-    st = 0.0;
+  if (!no_extend_b && dir * stem_end < 0)
+    stem_end = 0.0;
 
+  
   /* Make a little room if we have a upflag and there is a dot.
      previous approach was to lengthen the stem. This is not
      good typesetting practice.  */
@@ -263,7 +264,7 @@ Stem::calc_stem_end_position (SCM smob)
 
 	  /* Very gory: add myself to the X-support of the parent,
 	     which should be a dot-column. */
-	  if (dir * (st + flagy - dp) < 0.5)
+	  if (dir * (stem_end + flagy - dp) < 0.5)
 	    {
 	      Grob *par = dots->get_parent (X_AXIS);
 
@@ -279,7 +280,7 @@ Stem::calc_stem_end_position (SCM smob)
 	}
     }
 
-  return scm_from_double (st);
+  return scm_from_double (stem_end);
 }
 
 
@@ -507,8 +508,12 @@ Stem::height (SCM smob)
       beam->get_property ("positions");
     }
 
-  /* FIXME uncached? */
-  Interval iv = me->get_stencil () ? me->get_stencil ()->extent (Y_AXIS) : Interval();
+  /*
+    Can't get_stencil(), since that would cache stencils too early.
+    This causes problems with beams.
+   */
+  Stencil *stencil = unsmob_stencil (print (smob));
+  Interval iv = stencil ? stencil->extent (Y_AXIS) : Interval();
   if (beam)
     {
       if (dir == CENTER)
@@ -679,13 +684,13 @@ Stem::print (SCM smob)
 
   Interval stem_y (min (y1, y2), max (y2, y1));
 
-  if (Grob *hed = support_head (me))
+  if (Grob *head = support_head (me))
     {
       /*
 	must not take ledgers into account.
       */
-      Interval head_height = hed->extent (hed, Y_AXIS);
-      Real y_attach = Note_head::stem_attachment_coordinate (hed, Y_AXIS);
+      Interval head_height = head->extent (head, Y_AXIS);
+      Real y_attach = Note_head::stem_attachment_coordinate (head, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
       stem_y[Direction (-d)] += d * y_attach / half_space;
@@ -942,11 +947,9 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "should be shortened. The list gives an amount depending on the number "
 	       "of flags/beams."
 	       "@end table\n"
-
 	       ,
 
 	       /* properties */
-	       
 	       "avoid-note-head "
 	       "beam "
 	       "beaming "
