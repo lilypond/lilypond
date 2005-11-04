@@ -31,7 +31,6 @@ Score::Score ()
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
-  texts_ = SCM_EOL;
   error_found_ = false;
   smobify_self ();
 }
@@ -50,7 +49,6 @@ Score::mark_smob (SCM s)
   Score *sc = (Score *) SCM_CELL_WORD_1 (s);
 
   scm_gc_mark (sc->header_);
-  scm_gc_mark (sc->texts_);
   for (int i = sc->defs_.size (); i--;)
     scm_gc_mark (sc->defs_[i]->self_scm ());
   return sc->music_;
@@ -69,7 +67,6 @@ Score::Score (Score const &s)
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
-  texts_ = SCM_EOL;
   error_found_ = s.error_found_;
   smobify_self ();
 
@@ -91,8 +88,6 @@ Score::Score (Score const &s)
   header_ = ly_make_anonymous_module (false);
   if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
-
-  texts_ = s.texts_;
 }
 
 void

@@ -27,7 +27,6 @@ public:
   String user_key_;
   Link_array<Output_def> defs_;
   SCM header_;
-  SCM texts_;
   bool error_found_;
 
   Score ();

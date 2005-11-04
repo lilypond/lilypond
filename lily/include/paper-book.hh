@@ -46,7 +46,6 @@ public:
   Stencil score_title (SCM);
   void classic_output (SCM output_channel);
   void output (SCM output_channel);
-  void post_processing (SCM, SCM);
 };
 
 DECLARE_UNSMOB (Paper_book, paper_book)
