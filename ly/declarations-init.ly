@@ -82,7 +82,6 @@ laissezVibrer = #(make-music 'LaissezVibrerEvent)
     \include "engraver-init.ly"
 
     #(set-paper-dimension-variables (current-module))
-    
 }
 
 #(set-default-paper-size (ly:get-option 'paper-size))
