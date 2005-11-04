@@ -539,9 +539,7 @@
 
     (DoublePercentRepeat
      . (
-
 	(stencil . ,Percent_repeat_item_interface::double_percent)
-
 	(breakable . #t)
 	(slope . 1.0)
 	(font-encoding . fetaMusic)
@@ -1207,8 +1205,9 @@
     (PercentRepeatCounter
      . (
 	(stencil . ,Text_interface::print)
-	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent))
-						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_centered_on_y_parent))
+			   ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
 	(direction . 1)
