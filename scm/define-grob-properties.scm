@@ -538,6 +538,7 @@ entries @code{name} and @code{interfaces}.")
 
 
      ;; TODO: use interface for this!
+     (quantized-positions ,number-pair? "Beam positions after quanting.")
      (chord-tremolo ,boolean? "if set, this beam is a tremolo. ")
      (begin-of-line-visible ,boolean? "Used for marking ChordNames that should only show changes.")
 

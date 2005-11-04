@@ -1395,6 +1395,7 @@ ADD_INTERFACE (Beam,
 	       "neutral-direction "
 	       "positions "
 	       "quant-score "
+	       "quantized-positions "
 	       "shorten "
 	       "stems "
 	       "thickness "
