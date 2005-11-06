@@ -44,19 +44,19 @@
 ;; parser stuff.
 (define-public (print-music-as-book parser music)
   (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser $defaultpaper)
-			     head score)))
-    (ly:parser-print-book parser book)))
+	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
+			     head (scorify-music music parser))))
+    (print-book-with-defaults parser book)))
 
 (define-public (print-score-as-book parser score)
   (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser $defaultpaper)
+	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
 			     head score)))
-    (ly:parser-print-book parser book)))
+    (print-book-with-defaults parser book)))
 
 (define-public (print-score parser score)
   (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser $defaultpaper)
+	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
 			     head score)))
     (ly:parser-print-score parser book)))
 		
