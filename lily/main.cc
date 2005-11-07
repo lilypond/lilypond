@@ -55,7 +55,7 @@ Array<String> dump_header_fieldnames_global;
 String init_name_global;
 
 /* Selected output backend
-   One of (gnome, ps [default], scm, svg, tex, texstr)") */
+   One of (gnome, ps [default], eps, scm, svg, tex, texstr)") */
 String output_backend_global = "ps";
 /* Output formats to generate.  */
 String output_format_global = "";
@@ -140,7 +140,7 @@ static Getopt_long *option_parser = 0;
 
 static Long_option_init options_static[]
 = {
-  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps [default],\nscm, svg, tex, texstr)")},
+  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps [default],eps,\nscm, svg, tex, texstr)")},
 
   {_i ("SYM=VAL"), "define-default", 'd',
    _i ("set a Scheme program option. Uses #t if VAL is not specified\n"

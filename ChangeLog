@@ -1,3 +1,7 @@
+2005-11-07  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* lily/main.cc: eps listed as a backend.
+
 2005-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/lily-library.scm (print-music-as-book): quote $defaultparser.
