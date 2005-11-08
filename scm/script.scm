@@ -35,25 +35,25 @@
 	 ("accentus" .
 	  ((script-stencil . (feta . ("uaccentus" . "uaccentus")))
 	   (side-relative-direction .  -1)
-	   (follow-into-staff  . #t)
+	   (quantize-position . #t)
 	   (script-priority . -100)
 	   (direction  . 1)))
 	 ("ictus" .
 	  ((script-stencil . (feta . ("ictus" . "ictus")))
 	   (side-relative-direction .  -1)
-	   (follow-into-staff  . #t)
+	   (quantize-position . #t)
 	   (script-priority . -100)
 	   (direction  . -1)))
 	 ("semicirculus" .
 	  ((script-stencil . (feta . ("dsemicirculus" . "dsemicirculus")))
 	   (side-relative-direction .  -1)
-	   (follow-into-staff  . #t)
+	   (quantize-position . #t)
 	   (script-priority . -100)
 	   (direction  . 1)))
 	 ("circulus" .
 	  ((script-stencil . (feta . ("circulus" . "circulus")))
 	   (side-relative-direction .  -1)
-	   (follow-into-staff  . #t)
+	   (quantize-position . #t)
 	   (script-priority . -100)
 	   (direction  . 1)))
 
