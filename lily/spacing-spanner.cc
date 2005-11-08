@@ -246,6 +246,8 @@ Spacing_spanner::musical_column_spacing (Grob *me,
   bool expand_only = false;
   Real base_note_space = note_spacing (me, left_col, right_col, options, &expand_only);
 
+  Real max_fixed = 0;
+  Real max_space = 0;
   Real compound_note_space = 0.0;
   Real compound_fixed_note_space = 0.0;
 
@@ -281,8 +283,12 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 
 	      Note_spacing::get_spacing (wish, right_col, base_note_space, options->increment_, &space, &fixed);
 
-	      compound_note_space = compound_note_space + space;
-	      compound_fixed_note_space = compound_fixed_note_space + fixed;
+
+	      max_space = max (max_space, space);
+	      max_fixed = max (max_fixed, fixed);
+	      
+	      compound_note_space += space;
+	      compound_fixed_note_space += fixed;
 	      wish_count++;
 	    }
 	}
@@ -301,10 +307,15 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	  compound_note_space = base_note_space;
 	  compound_fixed_note_space = options->increment_;
 	}
-      else
+      else if (to_boolean (me->get_property ("average-spacing-wishes")))
 	{
 	  compound_note_space /= wish_count;
 	  compound_fixed_note_space /= wish_count;
+	}
+      else
+	{
+	  compound_fixed_note_space = max_fixed;
+	  compound_note_space = max_space;
 	}
 
       /*
@@ -356,6 +367,9 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 {
   Real compound_fixed = 0.0;
   Real compound_space = 0.0;
+  Real max_fixed = 0.0;
+  Real max_space = 0.0;
+  
   int wish_count = 0;
 
   Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
@@ -394,6 +408,9 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 	      space *= 0.8;
 	    }
 
+	  max_space = max (max_space, space);
+	  max_fixed = max (max_fixed, fixed_space);
+	  
 	  compound_space += space;
 	  compound_fixed += fixed_space;
 	  wish_count++;
@@ -408,8 +425,17 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
     }
   else
     {
-      compound_space /= wish_count;
-      compound_fixed /= wish_count;
+      if (to_boolean (me->get_property ("average-spacing-wishes")))
+	{
+	  compound_space /= wish_count;
+	  compound_fixed /= wish_count;
+	}
+      else
+	{
+	  compound_fixed = max_fixed;
+	  compound_space = max_space;
+	}
+      
     }
 
   if (options->stretch_uniformly_ && l->break_status_dir () != RIGHT)
@@ -442,6 +468,7 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "head width) A 16th note is followed by 0.5 note head width. The\n"
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
 
+	       "average-spacing-wishes "
 	       "grace-space-factor "
 	       "spacing-increment "
 	       "base-shortest-duration "

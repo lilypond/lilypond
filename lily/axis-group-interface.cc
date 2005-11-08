@@ -109,4 +109,4 @@ ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
 
 	       /* properties */
 	       "axes "
-	       "elements");
+	       "elements ");

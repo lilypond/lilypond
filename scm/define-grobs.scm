@@ -43,6 +43,7 @@
 	(direction . ,UP)
 	(staff-padding . 0.25)
 	(script-priority . 0)
+	(side-axis . ,X)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
 				script-interface
@@ -105,6 +106,7 @@
 
 	(stencil . ,Accidental_interface::print)
 	(after-line-breaking . ,Accidental_interface::after_line_breaking)
+	(side-axis . ,X)
 	
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
@@ -139,6 +141,7 @@
 	(X-offset . ,Side_position_interface::x_aligned_side)
 	(direction . -1)
 	(padding . 0.5)
+	(side-axis . ,X)
 	(staff-position . 0.0)
 	(meta . ((class . Item)
 		 (interfaces . (arpeggio-interface
@@ -184,9 +187,7 @@
 
     (BarNumber
      . (
-
 	(stencil . ,Text_interface::print)
-	;
 	(breakable . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
@@ -194,6 +195,7 @@
 	(font-family . roman)
 	(font-size . -2)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
 	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(self-alignment-X . 1)
 
@@ -485,6 +487,7 @@
 	(script-priority . 200)
 	;; todo: add X self alignment?
 	(baseline-skip . 2)
+	(side-axis . ,Y)
 	(font-series . bold)
 	(meta . ((class . Item)
 		 (interfaces . (text-script-interface
@@ -565,6 +568,7 @@
 	(direction . 1)
 	(padding . 0.2)
 	(staff-padding . 0.25)
+	(side-axis . ,Y)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
 				self-alignment-interface
@@ -581,6 +585,7 @@
 	(slur-padding . 0.3)
 	(minimum-space . 1.2)
 	(direction . -1)
+	(side-axis . ,Y)
 
 	(Y-extent . ,Axis_group_interface::height)
 	(X-extent . ,Axis_group_interface::width)
@@ -727,13 +732,12 @@
     (HorizontalBracket
      . (
 	(thickness . 1.0)
-
 	(stencil . ,Horizontal_bracket::print)
-
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(padding . 0.2)
 	(staff-padding . 0.2)
 	(direction . -1)
+	(side-axis . ,Y)
 	(bracket-flare . (0.5 . 0.5))
 	(meta . ((class . Spanner)
 		 (interfaces . (horizontal-bracket-interface
@@ -753,12 +757,11 @@
 			(left-edge . (extra-space . 1.0))))
 
 	(self-alignment-Y . 0)
-
 	(stencil . ,Text_interface::print)
-
 	(break-align-symbol . instrument-name)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
+	(side-axis . ,X)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				self-alignment-interface
@@ -952,6 +955,7 @@
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(direction . 1)
 	(padding . 0.8)
+	(side-axis . ,Y)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				side-position-interface
@@ -961,6 +965,7 @@
     (MeasureGrouping
      . (
 	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
 
 	(stencil . ,Measure_grouping::print)
 
@@ -1000,6 +1005,8 @@
 		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self))
 			   ,(ly:make-simple-closure (list Self_alignment_interface::x_centered_on_y_parent)))))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
+
 	(self-alignment-X . 0)
 	(direction . 1)
 	(padding . 0.4)
@@ -1307,7 +1314,8 @@
 	(padding . 0.20)
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
-	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
+	(X-offset . , Self_alignment_interface::centered_on_x_parent)
+	
 
 	(stencil . ,Script_interface::print)
 	(direction . ,Script_interface::calc_direction)
@@ -1365,7 +1373,7 @@
      . (
 
 	(springs-and-rods . ,Spacing_spanner::set_springs)
-
+	(average-spacing-wishes . #t)
 	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
@@ -1408,6 +1416,7 @@
 	(font-series . bold)
 	(padding . 1.0)
 	(X-offset . ,Side_position_interface::x_aligned_side)
+	(side-axis . ,X)
 	(direction . ,LEFT)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
@@ -1467,6 +1476,7 @@
 	(X-extent . ,Axis_group_interface::height)
 
 	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
 
 	(padding . 1.2)
 	(minimum-space . 1.0)
@@ -1571,6 +1581,7 @@
 	(axes . (1))
 	(X-extent . ,Axis_group_interface::height)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
 	(padding . 1.2)
 	(staff-padding . 1.2)
 	(minimum-space . 1.0)
@@ -1668,6 +1679,7 @@
 	(staff-padding . 0.8)
 	(dash-fraction . 0.2)
 	(dash-period . 3.0)
+	(side-axis . ,Y)
 	(direction . 1)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
@@ -1722,6 +1734,7 @@
 	(padding . 0.5)
 	(direction . 1)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
 				side-position-interface
@@ -1732,6 +1745,7 @@
 	(padding . 0.2)
 	(direction . ,LEFT)
 	(font-size . -4)
+	(side-axis . ,X)
 	(stencil . ,Accidental_interface::print)
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
@@ -1745,6 +1759,7 @@
 	(font-size . -4)
 	(stencil . ,parenthesize-elements)
 	(direction . ,RIGHT)
+	(side-axis . ,X)
 	(padding . 0.3)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
@@ -1804,6 +1819,7 @@
 	(axes . (1))
 	(X-extent . ,Axis_group_interface::height)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
 	(padding . 1.2)
 	(staff-padding . 1.2)
 	(minimum-space . 1.0)
@@ -1855,6 +1871,7 @@
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
+	(side-axis . ,Y)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				self-alignment-interface
@@ -1870,6 +1887,7 @@
 	(padding . 1)
 	(font-encoding . fetaNumber)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
 	(thickness . 1.6)  ;;  linethickness
 	(edge-height . (2.0 . 2.0)) ;; staffspace;
 	(minimum-space . 5)
