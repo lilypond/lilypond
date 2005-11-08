@@ -108,6 +108,8 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
 	mkdir -p $(tree-lib-prefix)
+	(cd $(tree-lib)/lilypond/ && ln -sf $(TOPLEVEL_VERSION) current)
+	(cd $(tree-share)/lilypond/ && ln -sf $(TOPLEVEL_VERSION) current)
 	mkdir -p $(tree-share-prefix)/dvips
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts

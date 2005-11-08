@@ -58,6 +58,8 @@ private:
 
 Mensural_ligature_engraver::Mensural_ligature_engraver ()
 {
+  brew_ligature_primitive_proc = 
+    Mensural_ligature::brew_ligature_primitive_proc;
 }
 
 Spanner *

@@ -47,6 +47,8 @@ protected:
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 {
+  brew_ligature_primitive_proc = 
+    Vaticana_ligature::brew_ligature_primitive_proc;
 }
 
 Spanner *

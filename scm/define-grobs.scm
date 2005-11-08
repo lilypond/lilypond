@@ -421,8 +421,8 @@
 	(break-visibility . ,begin-of-line-visible)
 	(space-alist . ((ambitus . (extra-space . 2.0))
 			(staff-bar . (extra-space . 0.7))
-			(key-cancellation . (minimum-space . 4.0))
-			(key-signature . (minimum-space . 4.0))
+			(key-cancellation . (minimum-space . 3.5))
+			(key-signature . (minimum-space . 3.5))
 			(time-signature . (minimum-space . 4.2))
 			(first-note . (minimum-fixed-space . 5.0))
 			(next-note . (extra-space . 0.5))
@@ -792,7 +792,7 @@
 	(stencil . ,Key_signature_interface::print)
 
 	(space-alist . (
-			(time-signature . (extra-space . 1.25))
+			(time-signature . (extra-space . 1.15))
 			(staff-bar . (extra-space . 1.1))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
@@ -1096,8 +1096,9 @@
      . (
 	(self-alignment-X . 0)
 	(break-visibility . ,begin-of-line-visible)
-	(self-X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self))
-						       ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent)))))
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self))
+			   ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent)))))
 	
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 

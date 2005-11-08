@@ -27,6 +27,7 @@ protected:
   void stop_translation_timestep ();
   void process_acknowledged ();
 
+  DECLARE_ACKNOWLEDGER (stem_tremolo);
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
 };
@@ -67,6 +68,13 @@ Text_engraver::acknowledge_stem (Grob_info inf)
 {
   for (int i = 0; i < texts_.size (); i++)
     Side_position_interface::add_support (texts_[i], inf.grob ());
+}
+
+void
+Text_engraver::acknowledge_stem_tremolo (Grob_info info)
+{
+  for (int i = 0; i < texts_.size (); i++)
+    Side_position_interface::add_support (texts_[i], info.grob ());
 }
 
 void
@@ -120,6 +128,7 @@ Text_engraver::Text_engraver ()
 #include "translator.icc"
 
 ADD_ACKNOWLEDGER (Text_engraver, stem);
+ADD_ACKNOWLEDGER (Text_engraver, stem_tremolo);
 ADD_ACKNOWLEDGER (Text_engraver, rhythmic_head);
 ADD_TRANSLATOR (Text_engraver,
 		/* doc */ "Create text-scripts",
