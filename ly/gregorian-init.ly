@@ -65,7 +65,7 @@ divisioMinima = {
 }
 divisioMaior = {
   \once \override BreathingSign  #'stencil = #Breathing_sign::divisio_maior
-  \once \override BreathingSign  #'Y-offset-callbacks = #'()
+  \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
@@ -74,7 +74,7 @@ divisioMaior = {
 }
 divisioMaxima = {
   \once \override BreathingSign  #'stencil = #Breathing_sign::divisio_maxima
-  \once \override BreathingSign  #'Y-offset-callbacks = #'()
+  \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
@@ -83,7 +83,7 @@ divisioMaxima = {
 }
 finalis = {
   \once \override BreathingSign  #'stencil = #Breathing_sign::finalis
-  \once \override BreathingSign  #'Y-offset-callbacks = #'()
+  \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
