@@ -223,20 +223,19 @@ Tuplet_bracket::print (SCM smob)
 
   /*
     No bracket when it would be smaller than the number.
-
-    TODO: should use GAP in calculation too.
   */
-  if (bracket_visibility && number_visibility
-      && mol.extent (X_AXIS).length () > w)
-    bracket_visibility = false;
+  Real gap = 0.;
+  if (bracket_visibility && number_visibility)
+    {
+      if (!num.extent (X_AXIS).is_empty ())
+	gap = num.extent (X_AXIS).length () + 1.0;
+      
+      if (w - gap < w / 4.0)
+	bracket_visibility = false;
+    }
 
   if (bracket_visibility)
     {
-      Real gap = 0.;
-
-      if (!num.extent (X_AXIS).is_empty ())
-	gap = num.extent (X_AXIS).length () + 1.0;
-
       Drul_array<Real> zero (0, 0);
       Real ss = Staff_symbol_referencer::staff_space (me);
       Drul_array<Real> height
