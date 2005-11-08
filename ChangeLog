@@ -1,10 +1,37 @@
+2005-11-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/grob-closure.cc (add_offset_callback): bugfix: properly add
+	offset callbacks. This fixes alignment for Fingering objects.
+
+	* scm/define-grobs.scm (all-grob-descriptions): tiny bit less
+	space for key - timesig combination. 
+
+	* input/regression/script-stem-tremolo.ly (Module): new file.
+
+	* scm/define-grobs.scm (all-grob-descriptions): decrease distance
+	to key sig.
+
+	* lily/dynamic-engraver.cc (acknowledge_stem_tremolo): new function.
+
+	* lily/text-engraver.cc (acknowledge_stem_tremolo): new function.
+
+	* lily/script-engraver.cc (acknowledge_stem_tremolo): new function.
+
+	* scm/define-grobs.scm (all-grob-descriptions): remove
+	self-X-offset. Fixes alignment of octavate-8.
+
+	* scripts/lilypond-book.py (datadir): look in
+	LILYPONDPREFIX/share/lilypond/current/
+
+	* GNUmakefile.in: symlink current to <VERSION>. 
+
 2005-11-07  Pedro Kroger  <kroeger@pedrokroeger.net>
 
 	* lily/main.cc: eps listed as a backend.
 
 2005-11-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* scm/lily-library.scm (print-music-as-book): quote $defaultparser.
+	* scm/lily-library.scm (print-music-as-book): quote $defaultpaper.
 
 2005-11-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 

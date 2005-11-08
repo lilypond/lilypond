@@ -50,7 +50,9 @@ if os.environ.has_key ('LILYPONDPREFIX'):
 	datadir = os.environ['LILYPONDPREFIX']
 	while datadir[-1] == os.sep:
 		datadir= datadir[:-1]
-
+		
+	datadir = os.path.join (datadir, "share/lilypond/current/")
+	
 sys.path.insert (0, os.path.join (datadir, 'python'))
 
 # Customize these.

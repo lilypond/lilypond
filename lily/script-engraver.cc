@@ -43,6 +43,7 @@ protected:
   DECLARE_ACKNOWLEDGER (slur);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
+  DECLARE_ACKNOWLEDGER (stem_tremolo);
   DECLARE_ACKNOWLEDGER (note_column);
 
 public:
@@ -181,6 +182,18 @@ Script_engraver::acknowledge_stem (Grob_info info)
 }
 
 void
+Script_engraver::acknowledge_stem_tremolo (Grob_info info)
+{
+  int script_count = scripts_.size ();
+  for (int i = 0; i < script_count; i++)
+    {
+      Grob *e = scripts_[i].script_;
+      Side_position_interface::add_support (e, info.grob ());
+    }
+}
+
+
+void
 Script_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
   if (info.music_cause ())
@@ -236,6 +249,7 @@ ADD_ACKNOWLEDGER (Script_engraver, slur);
 ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Script_engraver, stem);
 ADD_ACKNOWLEDGER (Script_engraver, note_column);
+ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
 
 ADD_TRANSLATOR (Script_engraver,
 		/* doc */ "Handles note scripted articulations.",
