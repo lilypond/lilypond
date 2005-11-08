@@ -397,9 +397,6 @@ a property set for MultiMeasureRestNumber."
 			 (append texts events))
 			others)))
 
-
-	(display-scheme-music (list music))
-
 	))
 
   music)
