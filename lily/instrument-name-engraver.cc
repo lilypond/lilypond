@@ -85,21 +85,21 @@ Instrument_name_engraver::create_text ()
 }
 
 void
-Instrument_name_engraver::acknowledge_bar_line (Grob_info i)
+Instrument_name_engraver::acknowledge_bar_line (Grob_info info)
 {
-  (void)i;
+  (void) info;
   create_text ();
 }
 
 void
-Instrument_name_engraver::acknowledge_axis_group (Grob_info i)
+Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 {
   /*
     Ugh - typechecking for pedal and dynamic sucks.
   */
-  if (dynamic_cast<Spanner *> (i.grob ())
-      && (i.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
-	  || i.grob ()->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))))
+  if (dynamic_cast<Spanner *> (info.grob ())
+      && (info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
+	  || info.grob ()->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))))
     return;
 
   /*
@@ -111,12 +111,12 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info i)
     We could also just use stavesFound, but lets keep this working
     without staffs as well.
   */
-  if (dynamic_cast<Spanner *> (i.grob ())
-      && ((Axis_group_interface::has_interface (i.grob ())
-	   && Axis_group_interface::has_axis (i.grob (), Y_AXIS)))
-      && !Align_interface::has_interface (i.grob ()))
+  if (dynamic_cast<Spanner *> (info.grob ())
+      && ((Axis_group_interface::has_interface (info.grob ())
+	   && Axis_group_interface::has_axis (info.grob (), Y_AXIS)))
+      && !Align_interface::has_interface (info.grob ()))
     {
-      SCM nl = scm_cons (i.grob ()->self_scm (),
+      SCM nl = scm_cons (info.grob ()->self_scm (),
 			 get_property ("instrumentSupport"));
 
       context ()->set_property ("instrumentSupport", nl);
@@ -139,6 +139,7 @@ Instrument_name_engraver::process_music ()
 
 ADD_ACKNOWLEDGER (Instrument_name_engraver, bar_line);
 ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
+
 ADD_TRANSLATOR (Instrument_name_engraver,
 		/* doc */ " Prints the name of the instrument (specified by "
 		" @code{Staff.instrument} and @code{Staff.instr}) "

@@ -97,7 +97,6 @@ Bar_number_engraver::create_items ()
     return;
 
   text_ = make_item ("BarNumber", SCM_EOL);
-  Side_position_interface::set_axis (text_, Y_AXIS);
 }
 
 ADD_TRANSLATOR (Bar_number_engraver,

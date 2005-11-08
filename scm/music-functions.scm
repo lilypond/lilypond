@@ -367,21 +367,41 @@ i.e.  this is not an override"
   "Check if we have R1*4-\\markup { .. }, and if applicable convert to
 a property set for MultiMeasureRestNumber."
   (define (script-to-mmrest-text script-music)
-    "Extract 'direction and 'text from SCRIPT-MUSIC, and transform into property sets."
+    "Extract 'direction and 'text from SCRIPT-MUSIC, and transform MultiMeasureTextEvent"
     (let ((dir (ly:music-property script-music 'direction))
 	  (p   (make-music 'MultiMeasureTextEvent
 			   'text (ly:music-property script-music 'text))))
       (if (ly:dir? dir)
 	  (set! (ly:music-property p 'direction) dir))
       p))
+  
   (if (eq? (ly:music-property music 'name) 'MultiMeasureRestMusicGroup)
       (let* ((text? (lambda (x) (memq 'script-event (ly:music-property x 'types))))
-	     (es (ly:music-property  music 'elements))
-	     (texts (map script-to-mmrest-text	(filter text? es)))
-	     (others (remove text? es)))
-	(if (pair? texts)
+	     (event? (lambda (x) (memq 'event (ly:music-property x 'types))))
+	     (group-elts (ly:music-property  music 'elements))
+	     (texts '())
+	     (events '())
+	     (others '()))
+
+	(set! texts 
+	      (map script-to-mmrest-text (filter text? group-elts)))
+	(set! group-elts
+	      (remove text? group-elts))
+
+	(set! events (filter event? group-elts))
+	(set! others (remove event? group-elts))
+	
+	(if (or (pair? texts) (pair? events))
 	    (set! (ly:music-property music 'elements)
-		  (cons (make-event-chord texts) others)))))
+		  (cons (make-event-chord
+			 (append texts events))
+			others)))
+
+
+	(display-scheme-music (list music))
+
+	))
+
   music)
 
 

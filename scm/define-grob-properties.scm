@@ -39,6 +39,7 @@ arrow on the arpeggio squiggly line.")
   
      (auto-knee-gap ,ly:dimension? "If a gap is found between note heads
 where a horizontal beam fits that is larger than this number, make a kneed beam.")
+     (average-spacing-wishes ,boolean? "If set, the spacing wishes are averaged over staves.")
      (axes ,list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
 
@@ -177,10 +178,7 @@ fret diagram.  Options include @code{none}, @code{in-dot}, and @code{below-strin
 typeset on a Stem. Valid options include @code{()} and
 @code{mensural}.  Additionally, @code{\"no-flag\"} switches off the
 flag.")
-     
-     (strict-note-spacing ,boolean? "If set, unbroken columns
-with non-musical material (clefs, barlines, etc.) are not spaced
-separately, but put before musical columns.")
+
      (font-family ,symbol? "The font family is the broadest category for selecting text fonts. Options include: @code{sans}, @code{roman} ")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font. Options include: @code{fetaMusic},
@@ -343,6 +341,9 @@ quicker the slur attains it @code{height-limit}.")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
      (right-padding ,ly:dimension? "Space to insert between note and
 accidentals.")
+     (same-direction-correction ,number? "Optical correction amount
+for stems that are placed in tight configurations. This amount is used
+for stems with the same direction to compensate for note-head to stem distance.")
      (script-priority ,number? "A sorting key that determines in what
 order a script is within a stack of scripts.")
 
@@ -368,6 +369,7 @@ note that starts here.")
 			      "Multiply direction of
 @code{direction-source} with this to get the direction of this
 object.")
+     (side-axis ,number? "Is this object horizontally or vertically next to another object?")
      (size ,number? "Size of object, relative to standard size.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
@@ -401,9 +403,9 @@ stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
 
-     (same-direction-correction ,number? "Optical correction amount
-for stems that are placed in tight configurations. This amount is used
-for stems with the same direction to compensate for note-head to stem distance.")
+     (strict-note-spacing ,boolean? "If set, unbroken columns
+with non-musical material (clefs, barlines, etc.) are not spaced
+separately, but put before musical columns.")
      (string-count ,integer? "The number of strings in a fret diagram.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      

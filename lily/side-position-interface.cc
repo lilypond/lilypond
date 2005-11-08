@@ -208,24 +208,23 @@ Side_position_interface::aligned_side (Grob*me, Axis a)
 void
 Side_position_interface::set_axis (Grob *me, Axis a)
 {
-  add_offset_callback (me,
-		       (a==X_AXIS)
-		       ? x_aligned_side_proc
-		       : y_aligned_side_proc,
-		       a);
+  if (!scm_is_number (me->get_property ("side-axis")))
+    {
+      me->set_property ("side-axis", scm_from_int (a));
+      add_offset_callback (me,
+			   (a==X_AXIS)
+			   ? x_aligned_side_proc
+			   : y_aligned_side_proc,
+			   a);
+    }
 }
-
-// ugh. doesn't catch all variants. 
 Axis
 Side_position_interface::get_axis (Grob *me)
 {
-  if (me->get_property_data (ly_symbol2scm ("X-offset"))
-      == Side_position_interface::x_aligned_side_proc)
-    return X_AXIS;
-  else if (me->get_property_data (ly_symbol2scm ("Y-offset"))
-	   == Side_position_interface::y_aligned_side_proc)
-    return Y_AXIS;
-
+  if (scm_is_number (me->get_property ("side-axis")))
+    return Axis (scm_to_int (me->get_property ("side-axis")));
+  
+  programming_error ("side-axis not set.");
   return NO_AXES;
 }
 
@@ -241,6 +240,7 @@ ADD_INTERFACE (Side_position_interface, "side-position-interface",
 	       "direction-source "
 	       "minimum-space "
 	       "padding "
+	       "side-axis "
 	       "side-relative-direction "
 	       "side-support-elements "
 	       "slur-padding "
