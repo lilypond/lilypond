@@ -429,15 +429,13 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	    if (! (prev_context_info & FLEXA_RIGHT))
 	      /* correct head of previous primitive */
 	      if (prev_delta_pitch > 1)
-		{
-		  prev_glyph_name = "svaticana.epiphonus";
-		  glyph_name = "svaticana.plica";
-		}
+		prev_glyph_name = "svaticana.epiphonus";
 	      else
-		{
-		  prev_glyph_name = "svaticana.vepiphonus";
-		  glyph_name = "svaticana.vplica";
-		}
+		prev_glyph_name = "svaticana.vepiphonus";
+	    if (prev_delta_pitch > 1)
+	      glyph_name = "svaticana.plica";
+	    else
+	      glyph_name = "svaticana.vplica";
 	  }
 	else if (prev_delta_pitch < 0)
 	  {
