@@ -57,7 +57,6 @@
 	Beam::slope_damping
 	Beam::shift_region_to_valid
 	Beam::quanting
-	Beam::set_stem_lengths
 	(check-beam-quant l r)
 	))
 			
@@ -67,6 +66,5 @@
 	Beam::slope_damping
 	Beam::shift_region_to_valid
 	Beam::quanting
-	Beam::set_stem_lengths
 	(check-beam-slope-sign comparison)	
 	))

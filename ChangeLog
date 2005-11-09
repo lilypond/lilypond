@@ -1,3 +1,8 @@
+2005-11-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/layout-beam.scm (check-quant-callbacks): remove
+	set_stem_lengths()
+
 2005-11-08  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* ly/gregorian-init.ly (divisiones): Maintenance bugfix: vertical
@@ -10,6 +15,8 @@
 	plica head in porrectus deminutus.
 
 2005-11-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* make/lilypond.fedora.spec.in (Group): add %clean section.
 
 	* lily/tuplet-bracket.cc (print): change check: remove bracket if
 	less then 1/5th of total length.  
