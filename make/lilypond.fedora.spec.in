@@ -192,3 +192,7 @@ scrollkeeper-update
 
 %{docdir}
 %{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
+
+
+%clean
+rm -rf %{buildroot
