@@ -25,8 +25,10 @@ display_fontset (FcFontSet *fs)
 	printf ("FILE %s\n", str);
       if (FcPatternGetString (fs->fonts[j], FC_FAMILY, 0, &str) == FcResultMatch)
 	printf ("family %s\n ", str);
-      if (FcPatternGetString (fs->fonts[j], "designsize", 0, &str) == FcResultMatch)
+      if (FcPatternGetString (fs->fonts[j],
+			      "designsize", 0, &str) == FcResultMatch)
 	printf ("designsize %s\n ", str);
+      
       printf ("%s\n", font);
       free (font);
     }
