@@ -16,7 +16,6 @@
       Beam::calc_least_squares_positions
       Beam::slope_damping
       Beam::shift_region_to_valid
-      Beam::set_stem_lengths
     )))
   
   \stemUp

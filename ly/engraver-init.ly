@@ -652,6 +652,10 @@ AncientRemoveEmptyStaffContext = \context {
   %% Special "TAB" clef
   clefGlyph = #"clefs.tab"
   clefPosition = #0
+  keepAliveInterfaces = #'(rhythmic-grob-interface
+  	
+  	lyric-interface percent-repeat-interface)
+
 }
 
 %% TODO: Gregorian Chant contexts should be moved to gregorian-init.ly,

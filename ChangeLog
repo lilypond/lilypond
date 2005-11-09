@@ -1,5 +1,8 @@
 2005-11-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	rhythmic-grob-interface to TabNoteHead.
+
 	* scm/layout-beam.scm (check-quant-callbacks): remove
 	set_stem_lengths()
 
@@ -23,7 +26,8 @@
 	(print): use gap too.  Fixes tupletUp-single-bracket.ly
 
 	* scm/music-functions.scm (glue-mm-rest-texts): also put other
-	events into EventChord. This fixes textspanners on mm rests. Fixes spanner-rest.ly
+	events into EventChord. This fixes textspanners on mm rests. Fixes
+	spanner-rest.ly
 
 	* lily/side-position-interface.cc (get_axis): read side-axis
 	(set_axis): set side-axis.
@@ -35,7 +39,8 @@
 	average-spacing-wishes. Take maximum if not set.
 	(musical_column_spacing): idem. Fixes: spacing-keysig-note.ly
 
-	* scm/define-grobs.scm (all-grob-descriptions): add average-spacing-wishes.
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	average-spacing-wishes.
 
 	* lily/grob-closure.cc (add_offset_callback): bugfix: properly add
 	offset callbacks. This fixes alignment for Fingering objects.

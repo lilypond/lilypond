@@ -1643,7 +1643,7 @@
 	(meta . ((class . Item)
 		 (interfaces
 		  . (rhythmic-head-interface
-		     font-interface
+		     font-interface rhythmic-grob-interface
 		     note-head-interface
 		     staff-symbol-referencer-interface
 		     text-interface))))))
