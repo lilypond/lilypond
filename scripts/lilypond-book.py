@@ -33,6 +33,7 @@ import glob
 import stat
 import string
 import tempfile
+import commands
 
 # Users of python modules should include this snippet
 # and customize variables below.
@@ -1634,7 +1635,7 @@ def main ():
 			      + ' --formats=%s --backend eps ' % formats
 
 	if process_cmd:
-		process_cmd += string.join ([(' -I %s' % p)
+		process_cmd += string.join ([(' -I %s' % commands.mkarg (p))
 					     for p in include_path])
 
 	ly.identify (sys.stderr)

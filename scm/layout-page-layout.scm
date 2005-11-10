@@ -256,7 +256,7 @@
 		     (if (= dir UP)
 			 (ly:stencil-translate-axis
 			  (annotate-y-interval layout
-					      "topspace"
+					      "pagetopspace"
 					      (cons
 					       (- (min 0 (* dir sep))
 						  (ly:output-def-lookup layout 'pagetopspace))

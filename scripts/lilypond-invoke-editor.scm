@@ -120,9 +120,10 @@ Options:
 	  (exit 1)))))
 
 (define (run-browser uri)
-
-  ;; TODO: make educated guess which browser to run.
-  (system (format #f "firefox -remote 'OpenURL(~a,new-tab)'" uri)))
+  (system
+   (if (getenv "BROWSER")
+       (format "~a ~a" (getenv "BROWSER") uri)
+       (format #f "firefox -remote 'OpenURL(~a,new-tab)'" uri))))
 
 (define (main args)
   (let ((files (parse-options args)))
