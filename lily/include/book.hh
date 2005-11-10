@@ -25,6 +25,7 @@ public:
   Output_def *paper_;
   SCM scores_;
 
+  Book *clone () const;
   Book ();
   void add_score (SCM);
   Paper_book *process (Output_def *def_paper,

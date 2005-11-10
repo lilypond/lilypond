@@ -1,3 +1,18 @@
+2005-11-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/point-and-click.itely: simplify p&c
+	instruction: don't configure firefox. Put lilypond-invoke-editor
+	in front of the browser.
+
+	* scripts/lilypond-invoke-editor.scm (run-editor): new function.
+	(run-browser): new function.
+
+	* lily/parser.yy (Lily_lexer): recognize Book
+
+	* lily/book.cc (clone): new function
+
+	* lily/parser.yy (book_body): allow BOOK_IDENTIFIER.
+
 2005-11-10  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* lily/vaticana-ligature.cc, lily/vaticana-ligature-engraver.cc:

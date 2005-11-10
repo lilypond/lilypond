@@ -23,15 +23,19 @@
   (format #f "~a/lilypond/~a" DATADIR TOPLEVEL-VERSION))
 
 ;; argv0 relocation -- do in wrapper?
+
+
 (define LILYPONDPREFIX
-  (or (getenv "LILYPONDPREFIX")
-      (let* ((bindir (dirname (car (command-line))))
-	     (prefix (dirname bindir))
-	     (lilypond-prefix
-	      (if (eq? prefix (dirname DATADIR)) COMPILE-TIME-PREFIX
-		  (format #f "~a/share/lilypond/~a"
-			  prefix TOPLEVEL-VERSION))))
-	lilypond-prefix)))
+  (let* ((prefix
+	  (or (getenv "LILYPONDPREFIX")
+	      (dirname  (dirname (car (command-line)))))))
+    
+
+    (if (eq? prefix (dirname DATADIR)) COMPILE-TIME-PREFIX
+	(format #f "~a/share/lilypond/~a"
+		prefix TOPLEVEL-VERSION))))
+
+
 
 ;; gettext wrapper for guile < 1.7.2
 (if (defined? 'gettext)
@@ -69,30 +73,29 @@ Options:
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
 
-;; FIXME: I'm going slowly but certainly mad, I really cannot find the
+;; FIXME: I'm going slowly but certainly mad; I really cannot find the
 ;; scm library function for this.
 (define (unquote-uri uri)
   (re-sub "%([A-Fa-f0-9]{2})"
 	  (lambda (m)
 	    (string (integer->char (string->number (match:substring m 1) 16))))
 	  uri))
+
+(define (is-textedit-uri? uri)
+  (string-match "^textedit://" uri))
+  
   
 (define (dissect-uri uri)
-  (let* ((ri "textedit://")
-	 (file-name:line:char:column (re-sub ri "" uri))
-	 (match (string-match "(.*):([^:]+):([^:]+):(.*)$" file-name:line:char:column)))
+  (let* ((match (string-match "textedit://(.*):([^:]+):([^:]+):(.*)$" uri)))
     (if match
 	(list (unquote-uri (match:substring match 1))
 	      (match:substring match 2)
 	      (match:substring match 3)
 	      (match:substring match 4))
 	(begin
-	  ;; FIXME: why be so strict wrt :LINE:COLUMN,
-	  ;; esp. considering omitting textedit:// is explicitly
-	  ;; allowed.
-	  (format (current-error-port) (_ "invalid URI: ~a") uri)
+	  (format (current-error-port) (_ "invalid textedit URI: ~a") uri)
 	  (newline (current-error-port))
-	  (format (current-error-port) (_ "expect: ~aFILE:LINE:CHAR:COLUMN") ri)
+	  (format (current-error-port) (_ "expect: textedit://FILE:LINE:CHAR:COLUMN"))
 	  (newline (current-error-port))
 	  (exit 1)))))
 
@@ -105,6 +108,21 @@ Options:
   (let ((have-tty? (isatty? (current-input-port))))
     ;; If no TTY and not using safe, assume running from GUI.
     (not have-tty?)))
+
+(define (run-editor uri)
+  (let*
+      ((command (apply get-editor-command (dissect-uri uri)))
+       (status (system command)))
+    (if (not (= status 0))
+	(begin
+	  (format (current-error-port)
+		  (_ "failed to invoke editor: ~a") command)
+	  (exit 1)))))
+
+(define (run-browser uri)
+
+  ;; TODO: make educated guess which browser to run.
+  (system (format #f "firefox -remote 'OpenURL(~a,new-tab)'" uri)))
 
 (define (main args)
   (let ((files (parse-options args)))
@@ -121,11 +139,9 @@ Options:
 	  (exit 2)))
     (set! %load-path (cons LILYPONDPREFIX %load-path))
     (primitive-eval '(use-modules (scm editor)))
-    (let* ((uri (car files))
-	   (command (apply get-editor-command (dissect-uri uri)))
-	   (status (system command)))
-      (if (not (= status 0))
-	  (begin
-	    (format (current-error-port)
-		    (_ "failed to invoke editor: ~a") command)
-	    (exit 1))))))
+
+    (let* ((uri (car files)))
+      (if (is-textedit-uri? uri)
+	  (run-editor uri)
+	  (run-browser uri)))))
+
