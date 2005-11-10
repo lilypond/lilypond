@@ -234,7 +234,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	  head_width = 0.0;
 	  x_offset = join_thickness
 	    - Font_interface::get_default_font (primitive)->
-	    find_by_name ("noteheads." + glyph_name).extent (X_AXIS).length ();
+	    find_by_name ("noteheads.s" + glyph_name).extent (X_AXIS).length ();
 	}
       else if (!String::compare (glyph_name, "flexa")
 	       || !String::compare (glyph_name, ""))
@@ -254,7 +254,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	   */
 	  head_width
 	    = Font_interface::get_default_font (primitive)->
-	    find_by_name ("noteheads." + glyph_name).extent (X_AXIS).length ();
+	    find_by_name ("noteheads.s" + glyph_name).extent (X_AXIS).length ();
 	  x_offset = 0.0;
 	}
 
@@ -399,29 +399,29 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       String glyph_name;
       if (prefix_set & VIRGA)
 	{
-	  glyph_name = "svaticana.punctum";
+	  glyph_name = "vaticana.punctum";
 	  primitive->set_property ("add-stem", ly_bool2scm (true));
 	}
       else if (prefix_set & QUILISMA)
-	glyph_name = "svaticana.quilisma";
+	glyph_name = "vaticana.quilisma";
       else if (prefix_set & ORISCUS)
-	glyph_name = "ssolesmes.oriscus";
+	glyph_name = "solesmes.oriscus";
       else if (prefix_set & STROPHA)
 	if (prefix_set & AUCTUM)
-	  glyph_name = "ssolesmes.stropha.aucta";
-	else glyph_name = "ssolesmes.stropha";
+	  glyph_name = "solesmes.stropha.aucta";
+	else glyph_name = "solesmes.stropha";
       else if (prefix_set & INCLINATUM)
 	if (prefix_set & AUCTUM)
-	  glyph_name = "ssolesmes.incl.auctum";
+	  glyph_name = "solesmes.incl.auctum";
 	else if (prefix_set & DEMINUTUM)
-	  glyph_name = "ssolesmes.incl.parvum";
+	  glyph_name = "solesmes.incl.parvum";
 	else
-	  glyph_name = "svaticana.inclinatum";
+	  glyph_name = "vaticana.inclinatum";
       else if (prefix_set & DEMINUTUM)
 	if (i == 0)
 	  {
 	    // initio debilis
-	    glyph_name = "svaticana.reverse.plica";
+	    glyph_name = "vaticana.reverse.plica";
 	  }
 	else if (prev_delta_pitch > 0)
 	  {
@@ -429,13 +429,13 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	    if (! (prev_context_info & FLEXA_RIGHT))
 	      /* correct head of previous primitive */
 	      if (prev_delta_pitch > 1)
-		prev_glyph_name = "svaticana.epiphonus";
+		prev_glyph_name = "vaticana.epiphonus";
 	      else
-		prev_glyph_name = "svaticana.vepiphonus";
+		prev_glyph_name = "vaticana.vepiphonus";
 	    if (prev_delta_pitch > 1)
-	      glyph_name = "svaticana.plica";
+	      glyph_name = "vaticana.plica";
 	    else
-	      glyph_name = "svaticana.vplica";
+	      glyph_name = "vaticana.vplica";
 	  }
 	else if (prev_delta_pitch < 0)
 	  {
@@ -446,12 +446,12 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 		if (i > 1)
 		  {
 		    /* cephalicus head with fixed size cauda */
-		    prev_glyph_name = "svaticana.inner.cephalicus";
+		    prev_glyph_name = "vaticana.inner.cephalicus";
 		  }
 		else
 		  {
 		    /* cephalicus head without cauda */
-		    prev_glyph_name = "svaticana.cephalicus";
+		    prev_glyph_name = "vaticana.cephalicus";
 		  }
 
 		/*
@@ -468,9 +468,9 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 					      ly_bool2scm (false));
 	      }
 	    if (prev_delta_pitch < - 1)
-	      glyph_name = "svaticana.reverse.plica";
+	      glyph_name = "vaticana.reverse.plica";
 	    else
-	      glyph_name = "svaticana.reverse.vplica";
+	      glyph_name = "vaticana.reverse.vplica";
 	  }
 	else // (prev_delta_pitch == 0)
 	  {
@@ -480,24 +480,24 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	  }
       else if (prefix_set & (CAVUM | LINEA))
 	if ((prefix_set & CAVUM) && (prefix_set & LINEA))
-	  glyph_name = "svaticana.linea.punctum.cavum";
+	  glyph_name = "vaticana.linea.punctum.cavum";
 	else if (prefix_set & CAVUM)
-	  glyph_name = "svaticana.punctum.cavum";
+	  glyph_name = "vaticana.punctum.cavum";
 	else
-	  glyph_name = "svaticana.linea.punctum";
+	  glyph_name = "vaticana.linea.punctum";
       else if (prefix_set & AUCTUM)
 	if (prefix_set & ASCENDENS)
-	  glyph_name = "ssolesmes.auct.asc";
+	  glyph_name = "solesmes.auct.asc";
 	else
-	  glyph_name = "ssolesmes.auct.desc";
+	  glyph_name = "solesmes.auct.desc";
       else if ((context_info & STACKED_HEAD)
 	       && (context_info & PES_UPPER))
 	if (prev_delta_pitch > 1)
-	  glyph_name = "svaticana.upes";
+	  glyph_name = "vaticana.upes";
 	else
-	  glyph_name = "svaticana.vupes";
+	  glyph_name = "vaticana.vupes";
       else
-	glyph_name = "svaticana.punctum";
+	glyph_name = "vaticana.punctum";
 
       /*
        * This head needs a cauda, if it starts a flexa, is not the upper
@@ -545,9 +545,9 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	    {
 	      if (!String::compare (prev_glyph_name, "svaticana.punctum"))
 		if (prev_delta_pitch > 1)
-		  prev_glyph_name = "svaticana.lpes";
+		  prev_glyph_name = "vaticana.lpes";
 		else
-		  prev_glyph_name = "svaticana.vlpes";
+		  prev_glyph_name = "vaticana.vlpes";
 	    }
 	}
 
