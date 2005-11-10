@@ -1,9 +1,17 @@
+2005-11-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (main): use commands.mkarg () to quote
+	shell arguments. 
+
 2005-11-10  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/examples.itely (Piano templates): Minor
 	modification to the Piano centered lyrics example.
 
 2005-11-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-invoke-editor.scm (run-browser): look at
+	$BROWSER.
 
 	* Documentation/user/point-and-click.itely: simplify p&c
 	instruction: don't configure firefox. Put lilypond-invoke-editor
