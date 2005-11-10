@@ -38,6 +38,12 @@ Book::Book ()
   smobify_self ();
 }
 
+Book* 
+Book::clone () const
+{
+  return new Book (*this);
+}
+
 Book::~Book ()
 {
 }
@@ -136,3 +142,4 @@ Book::process (Output_def *default_paper,
   scm_remember_upto_here_1 (scm_key);
   return paper_book;
 }
+

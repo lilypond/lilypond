@@ -11,51 +11,22 @@ When this functionality is active, LilyPond adds hyperlinks to the PDF
 file. These hyperlinks are sent to the web-browser, which opens a
 text-editor with the cursor in the right place. 
 
-To make this chain work, the following should done:
-
-@itemize @bullet
-
-@item
-The PDF viewer must be configured for following hyperlinks, preferably
-using Mozilla Firefox.
+To make this chain work, you should configure your PDF viewer to
+follow hyperlinks using the @file{lilypond-invoke-editor} script
+supplied with LilyPond.
 
 For Xpdf on Unix, the following should be present in
 @file{xpdfrc}@footnote{On unix, this file is found either in
 @file{/etc/xpdfrc} or as @file{.xpdfrc} in your home directory.}
 
 @example
-urlCommand     "firefox -remote 'OpenURL(%s)'"
+urlCommand     "lilypond-invoke-editor %s"
 @end example
 
-@item Your web-browser must be configured for the @code{textedit}
-protocol,
-
-For Mozilla and Mozilla Firefox, this is done by adding following
-lines to the @file{user.js}@footnote{On a typical unix system, this
-file exists or must be created in your home-directory as
-@file{.mozilla/firefox/default.trn/user.js} or
-@file{.firefox/default/xxxxxxxx.xxx/user.js},
-see @uref{http://@/www@/.mozilla@/.org@/support@/firefox@/edit#user,location}
-and
-@uref{http://@/www@/.mozilla@/.org@/support@/firefox@/edit#profile,profile}.}
-
-@ignore
-mozilla wants us do store this in user.js:
-
-location on different systems:
-
-@end ignore
-
-@example
-user_pref("network.protocol-handler.app.textedit", "lilypond-invoke-editor");
-user_pref("network.protocol-handler.warn-external.textedit", false);
-@end example
-
-@end itemize
-
-The program @file{lilypond-invoke-editor} is a small helper program.
-It tests the environment variable @code{EDITOR} for the following
-patterns,
+The program @file{lilypond-invoke-editor} is a small helper
+program. It will invoke an editor for the special @code{textedit}
+URIs, and run a web browser for others.  It tests the environment
+variable @code{EDITOR} for the following patterns,
 
 @table @code
 @item emacs

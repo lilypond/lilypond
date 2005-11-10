@@ -372,8 +372,7 @@ If we give names, Bison complains.
 %token <i> E_UNSIGNED
 %token <i> UNSIGNED
 
-%token <id> IDENTIFIER
-
+%token <scm> BOOK_IDENTIFIER
 %token <scm> CHORDMODIFIER_PITCH
 %token <scm> CHORD_MODIFIER
 %token <scm> CONTEXT_DEF_IDENTIFIER
@@ -674,6 +673,10 @@ identifier_init:
 		$$ = $1->self_scm ();
 		$1->unprotect ();
 	}
+	| book_block {
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
 	| output_def {
 		$$ = $1->self_scm ();
 		$1->unprotect ();
@@ -756,6 +759,10 @@ book_body:
 		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
 		$$->header_ = THIS->lexer_->lookup_identifier ("$defaultheader"); 
+	}
+	| BOOK_IDENTIFIER {
+		$$ = unsmob_book ($1);
+		$$->set_spot (@$);
 	}
 	| book_body paper_block {
 		$$->paper_ = $2;
@@ -2714,6 +2721,9 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	if (scm_is_string (sid)) {
 		*destination = sid;
 		return STRING_IDENTIFIER;
+	} else if (unsmob_book (sid)) {
+		*destination = unsmob_book (sid)->clone ()->self_scm ();
+		return BOOK_IDENTIFIER;
 	} else if (scm_is_number (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
