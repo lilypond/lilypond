@@ -271,13 +271,12 @@ text = \lyricmode {
 
 \score {
   \context GrandStaff <<
-    \context Staff = upper {
-        \context Voice = singer \upper }
+    \context Staff = upper { \context Voice = singer \upper }
     \lyricsto "singer" \new Lyrics \text
-    \context Staff = lower <<
+    \context Staff = lower {
       \clef bass
       \lower
-    >>
+    }
   >>
   \layout {
     \context { \GrandStaff \accepts "Lyrics" }
