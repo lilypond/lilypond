@@ -1,3 +1,7 @@
+2005-11-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py: quote shell arguments. 
+
 2005-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/file-path.cc (find): Bugfix: Return name of file found.
@@ -71,6 +75,8 @@
 	* cygwin/GNUmakefile (default): Remove postremove rules.
 
 2005-10-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PATCH_LEVEL): release 2.6.4
 
 	* lily/hara-kiri-group-spanner.cc (consider_suicide): backport:
 	only consider break_index for broken spanner.  
