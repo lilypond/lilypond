@@ -40,11 +40,13 @@ $(outdir)/lilypond: $(outdir)/lilypond.rc.o
 
 $(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico $(outdir)/ly.ico
 $(top-build-dir)/Documentation/pictures/$(outbase)/lilypond.ico:
-	$(MAKE) -C $(top-src-dir)/Documentation/pictures
+	$(MAKE) -C $(top-build-dir)/Documentation/pictures
+
 $(outdir)/lilypond.ico: $(top-build-dir)/Documentation/pictures/$(outbase)/lilypond.ico
 	cp $< $@ 
 $(top-build-dir)/Documentation/pictures/$(outbase)/ly.ico:
-	$(MAKE) -C $(top-src-dir)/Documentation/pictures
+	$(MAKE) -C $(top-build-dir)/Documentation/pictures
+
 $(outdir)/ly.ico: $(top-build-dir)/Documentation/pictures/$(outbase)/ly.ico
 	cp $< $@ 
 endif
