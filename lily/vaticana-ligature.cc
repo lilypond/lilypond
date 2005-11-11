@@ -243,7 +243,7 @@ vaticana_brew_primitive (Grob *me)
     {
       out
 	= Font_interface::get_default_font (me)->
-	find_by_name ("noteheads.s" + glyph_name);
+	find_by_name ("noteheads." + glyph_name);
     }
   out.translate_axis (x_offset, X_AXIS);
   Real head_width = out.extent (X_AXIS).length ();
