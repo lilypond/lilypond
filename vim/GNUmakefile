@@ -19,36 +19,17 @@ STEPMAKE_TEMPLATES=install-out
 include $(depth)/make/stepmake.make 
 
 local-install:
-	-$(INSTALL) -d $(DESTDIR)$(vimdir)/compiler
-	$(INSTALL) -m 644 lilypond-compiler.vim $(DESTDIR)$(vimdir)/compiler/lilypond.vim
-
-	-$(INSTALL) -d $(DESTDIR)$(vimdir)/ftdetect
-	$(INSTALL) -m 644 lilypond-ftdetect.vim $(DESTDIR)$(vimdir)/ftdetect/lilypond.vim
-
-	-$(INSTALL) -d $(DESTDIR)$(vimdir)/ftplugin
-	$(INSTALL) -m 644 lilypond-ftplugin.vim $(DESTDIR)$(vimdir)/ftplugin/lilypond.vim
-
-	-$(INSTALL) -d $(DESTDIR)$(vimdir)/indent
-	$(INSTALL) -m 644 lilypond-indent.vim $(DESTDIR)$(vimdir)/indent/lilypond.vim
-
-	-$(INSTALL) -d $(DESTDIR)$(vimdir)/syntax
+	for a in compiler ftdetect ftplugin indent syntax; do \
+		$(INSTALL) -d $(DESTDIR)$(vimdir)/$$a \
+		&& $(INSTALL) -m 644 $(srcdir)/lilypond-$$a.vim $(DESTDIR)$(vimdir)/$$a/lilypond.vim ; \
+	done
 	$(INSTALL) -m 644 lilypond-syntax.vim $(DESTDIR)$(vimdir)/syntax/lilypond.vim
 
 local-uninstall:
-	rm $(DESTDIR)$(vimdir)/compiler/lilypond.vim
-	-rmdir -p $(DESTDIR)$(vimdir)/compiler 
-
-	rm $(DESTDIR)$(vimdir)/ftdetect/lilypond.vim
-	-rmdir -p $(DESTDIR)$(vimdir)/ftdetect 
-
-	rm $(DESTDIR)$(vimdir)/ftplugin/lilypond.vim
-	-rmdir -p $(DESTDIR)$(vimdir)/ftplugin 
-
-	rm $(DESTDIR)$(vimdir)/indent/lilypond.vim
-	-rmdir -p $(DESTDIR)$(vimdir)/indent 
-
-	rm $(DESTDIR)$(vimdir)/syntax/lilypond.vim
-	-rmdir -p $(DESTDIR)$(vimdir)/syntax
+	for a in compiler ftdetect ftplugin indent syntax; do \
+		rm $(DESTDIR)$(vimdir)/$$a/lilypond.vim ; \
+		-rmdir -p $(DESTDIR)$(vimdir)/$$a ; \
+	done
 
 $(LILYPOND_WORDS): 
 	cd $(top-src-dir) && $(PYTHON) buildscripts/lilypond-words.py --words --vim --dir=$(top-build-dir)/vim/$(outconfbase)
