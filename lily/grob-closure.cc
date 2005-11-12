@@ -48,9 +48,11 @@ add_offset_callback (Grob *g, SCM proc, Axis a)
     data = simple_closure_expression (data);
 
   SCM plus = ly_lily_module_constant ("+");
-  SCM expr = scm_list_3 (plus,
-			 ly_make_simple_closure (scm_list_1 (proc)),
-			 data);
+
+  if (ly_is_procedure (proc))
+    proc = ly_make_simple_closure (scm_list_1 (proc));
+  
+  SCM expr = scm_list_3 (plus, proc, data);
   g->internal_set_property (axis_offset_symbol (a),
 			    ly_make_simple_closure (expr));
 }
