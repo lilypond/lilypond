@@ -21,7 +21,7 @@ include $(depth)/make/stepmake.make
 local-install:
 	for a in compiler ftdetect ftplugin indent syntax; do \
 		$(INSTALL) -d $(DESTDIR)$(vimdir)/$$a \
-		&& $(INSTALL) -m 644 $(srcdir)/lilypond-$$a.vim $(DESTDIR)$(vimdir)/$$a/lilypond.vim ; \
+		&& $(INSTALL) -m 644 $(src-dir)/lilypond-$$a.vim $(DESTDIR)$(vimdir)/$$a/lilypond.vim ; \
 	done
 	$(INSTALL) -m 644 lilypond-syntax.vim $(DESTDIR)$(vimdir)/syntax/lilypond.vim
 
