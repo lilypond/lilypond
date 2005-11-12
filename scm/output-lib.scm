@@ -231,9 +231,10 @@ centered, X==1 is at the right, X == -1 is at the left."
 			     #f)))
 	 )
 	 
-    (if glyph-name
-	(set! (ly:grob-property grob 'glyph-name) glyph-name)
-	(ly:grob-suicide! grob))))
+    (if (not glyph-name)
+	(ly:grob-suicide! grob))
+
+    glyph-name))
 
 
 (define-public (shift-right-at-line-begin g)

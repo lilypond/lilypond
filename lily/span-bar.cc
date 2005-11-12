@@ -169,7 +169,7 @@ Span_bar::calc_glyph_name (SCM smob)
   SCM gl = SCM_EOL;
   for (int i = elements.size ();
        i-- && !scm_is_string (gl);)
-    gl = elements[i]->get_property ("glyph");
+    gl = elements[i]->get_property ("glyph-name");
 
   if (!scm_is_string (gl))
     {

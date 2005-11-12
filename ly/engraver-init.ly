@@ -388,6 +388,7 @@ printing of a single line of lyrics.  "
   extraVerticalExtent = ##f
   \override SeparatingGroupSpanner #'padding = #0.8
   \override VerticalAxisGroup #'remove-first = ##t
+  \override VerticalAxisGroup #'remove-empty = ##t
   verticalExtent = ##f 
 }
 
@@ -397,6 +398,7 @@ RemoveEmptyStaffContext= \context {
   \remove "Axis_group_engraver"
   \consists "Hara_kiri_engraver"
   \override Beam #'auto-knee-gap = #'()
+  \override VerticalAxisGroup #'remove-empty = ##t
 }
 
 AncientRemoveEmptyStaffContext = \context {
@@ -585,6 +587,7 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Skip_event_swallow_translator"
   \consists "Separating_line_group_engraver"
   \consists "Hara_kiri_engraver"
+  \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.5 . 2.5)
 }
@@ -652,10 +655,6 @@ AncientRemoveEmptyStaffContext = \context {
   %% Special "TAB" clef
   clefGlyph = #"clefs.tab"
   clefPosition = #0
-  keepAliveInterfaces = #'(rhythmic-grob-interface
-  	
-  	lyric-interface percent-repeat-interface)
-
 }
 
 %% TODO: Gregorian Chant contexts should be moved to gregorian-init.ly,
@@ -860,5 +859,6 @@ AncientRemoveEmptyStaffContext = \context {
 RemoveEmptyRhythmicStaffContext= \context {
   \RhythmicStaff
   \remove "Axis_group_engraver"
+  \override VerticalAxisGroup #'remove-empty = ##t
   \consists "Hara_kiri_engraver"
 }

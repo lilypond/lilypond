@@ -37,6 +37,7 @@ System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 
   Pointer_group_interface::add_grob (delim_, ly_symbol2scm ("elements"), inf.grob ());
 }
+
 void
 System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info inf)
 {
@@ -48,12 +49,10 @@ System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info i
   */
   if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("brace"))
       && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
-    inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
+    add_offset_callback (inf.grob (), scm_from_double (-0.8), X_AXIS);
   else if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("bracket"))
 	   && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
-    {
-      inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
-    }
+    add_offset_callback (inf.grob (), scm_from_double (-0.8), X_AXIS);
 }
 
 System_start_delimiter_engraver::System_start_delimiter_engraver ()
