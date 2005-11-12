@@ -110,8 +110,12 @@ SCM ly_kpathsea_expand_variable (SCM var)
   return ret;
 }
 
+#ifndef DYNAMIC_OBJECT_EXTENSION
+#define DYNAMIC_OBJECT_EXTENSION ".so"
+#endif
 
-static char const* LIBKPATHSEA = "libkpathsea.so";
+
+static char const* LIBKPATHSEA = "libkpathsea" DYNAMIC_OBJECT_EXTENSION;
 
 int
 open_library ()

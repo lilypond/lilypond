@@ -1,5 +1,8 @@
 2005-11-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* tex/GNUmakefile (local-uninstall): remove
+	music-drawing-routines.ps juggling.
+
 	* stepmake/stepmake/install-targets.make (local-install-files):
 	prepend src-dir to install targets.
 

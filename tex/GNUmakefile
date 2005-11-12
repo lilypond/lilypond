@@ -5,13 +5,9 @@ EXTRA_DIST_FILES = $(TEX_FILES) texinfo.tex texinfo.cnf
 STEPMAKE_TEMPLATES=install install-out
 
 INSTALLATION_DIR=$(local_lilypond_datadir)/tex/
-INSTALLATION_FILES=$(TEX_FILES) $(outdir)/music-drawing-routines.ps
+INSTALLATION_FILES=$(TEX_FILES)
 
 include $(depth)/make/stepmake.make
-
-$(outdir)/music-drawing-routines.ps: $(depth)/ps/music-drawing-routines.ps
-	rm -f $@
-	-ln $< $@
 
 local-uninstall:
 	-rmdir $(DESTDIR)$(local_lilypond_datadir)/tex
