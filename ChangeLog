@@ -1,5 +1,8 @@
 2005-11-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/install-targets.make (local-install-files):
+	prepend src-dir to install targets.
+
 	* lily/system-start-delimiter-engraver.cc
 	(acknowledge_system_start_delimiter): use
 	add_offset_callback(). This fixes translation of nested
