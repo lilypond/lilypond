@@ -737,6 +737,48 @@ More stanzas can be added by adding more
 \addlyrics { joue le jeu }
 @end lilypond
 
+Sometimes it is appropriate to have one stanza set
+to the music, and the rest added in verse form at
+the end of the piece.  This can be accomplished by adding
+the extra verses into a @code{\markup} section outside
+of the main score block.  Notice that there are two
+different ways to force linebreaks when using
+@code{\markup}.
+
+@lilypond[raggedright,verbatim,quote]
+melody = \relative c' {
+e d c d | e e e e |
+d d e d | c1 |
+}
+
+text = \lyricmode {
+\set stanza = "1." Ma- ry had a lit- tle lamb,
+it's fleece was white as snow.
+}
+
+\score{ <<
+  \context Voice = one { \melody }
+  \lyricsto "one" \new Lyrics \text
+	>>
+  \layout { }
+}
+\markup { \column{
+  \line{ Verse 2. }
+  \line{ All the children laughed and played }
+  \line{ To see a lamb at school. }
+  }
+}
+\markup{
+  \wordwrap-string #"
+  Verse 3.
+
+  Mary took it home again,
+
+  It was against the rule."
+}
+@end lilypond
+
+
 @c TODO - this isn't such a great place for this note, but I can't
 @c  find a better place without rearranging a lot of lyric stuff.
 @c  It's yet another thing to look at post-3.0.
