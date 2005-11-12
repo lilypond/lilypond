@@ -1,5 +1,8 @@
 2005-11-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/texinfo-vars.make (GENERATE_OMF): use
+	buildscript-dir iso. $(depth)/buildscripts.
+
 	* tex/GNUmakefile (local-uninstall): remove
 	music-drawing-routines.ps juggling.
 
