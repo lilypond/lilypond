@@ -4,11 +4,11 @@ include $(make-dir)/lilypond-vars.make
 
 # LY_FILES is defined the LY make template.
 
-SCORE_LY_FILES = $(shell fgrep -l score *.ly)
+SCORE_LY_FILES = $(shell cd $(src-dir) && fgrep -l score *.ly)
 
-M4_FILES = $(wildcard *.m4)
-LYM4_FILES = $(wildcard *.lym4)
-EXTRA_DIST_FILES +=  $(M4_FILES) $(LYM4_FILES)
+M4_FILES = $(call src-wildcard,*.m4)
+LYM4_FILES = $(call src-wildcard,*.lym4)
+EXTRA_DIST_FILES += $(M4_FILES) $(LYM4_FILES)
 
 ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly.txt, $(examples)))
 all_examples=$(examples)
