@@ -1,3 +1,10 @@
+% feta-haak.mf -- implement bracket tips -*-Fundamental-*-
+%
+% part of LilyPond's pretty-but-neat music font
+%
+% source file of the Feta (not the Font-En-Tja) music font
+%
+% (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 fet_begingroup ("brackettips");
 
@@ -18,19 +25,19 @@ begingroup;
 			      .5 thick# , flare#);
 	else:
 	        set_char_box (0, width#,
-				flare#, .5 thick#);
+			      flare#, .5 thick#);
 	fi;
 
 	thin = 2 linethickness;
 	hair = 1.25 linethickness;
 
 	pickup pencircle scaled thin;
-	z7 = z1 + (3/4 thick,0); 
+	y7 = y1;
+	x7 = x2;
 	z2 = z4r + (thin, 0);
 
-
-	penpos3(thin, 0);
-	penpos4(thin, 90);
+	penpos3 (thin, 0);
+	penpos4 (thin, 90);
 
 	z3 = z4;
 
@@ -39,52 +46,47 @@ begingroup;
 	x1 = x3l;
 	y1 = -0.5 thick;
 
-
-	z8 = .5  [z2, z7];
+	z8 = .5 [z2, z7];
 	top y5 = flare;
 	rt x5 = width;
 
-	save leave_angle;
-	leave_angle = 10;
+	p := z8{right}
+	     ..tension 1.2.. z5{curl 0};
+	tipdir := direction 1 of p;
 
-	p := z8{dir(leave_angle)}
-		.. z5{curl 0};
-	tipdir := (direction 1 of p);
-
-	save tip_angle;
-	tip_angle := 50;
-	penpos5 (hair, tip_angle);
-	penpos6 (hair, 90 + tip_angle);
+	penpos5 (hair, angle tipdir);
+	penpos6 (hair, 90 + angle tipdir);
 
 	z5 = z6;
 
 	pickup pencircle scaled 1;
 
-	%draw p;
-	fill
-	%draw
-	(z1{up} .. z3l{up}
-		.. z4r{right}
-		.. z2{right}
-		.. z6r{tipdir}
-		.. z5r .. z6l{-tipdir}
-		.. z7{dir(180 + leave_angle)} & z7 .. z1{left} & cycle)
-		 yscaled updown;
-
+	fill (z1
+	      -- z3l{up}
+	      .. z4r{right}
+	      -- z2{right}
+	      .. z6r{tipdir}
+	      .. z5r
+	      .. z6l{-tipdir}
+	      ..tension 1.1.. z7{left}
+	      & z7
+	      -- z1
+	      & cycle) yscaled updown;
 
 	if updown = 1:
-		penlabels (1,2,3,4,5,6,7);
+		penlabels (1, 2, 3, 4, 5, 6, 7, 8);
 	fi;
-
 endgroup;
 enddef;
 
+
 fet_beginchar ("bracket tip up", "up");
-   draw_bracket (0.45 staff_space#, 1.9 staff_space#, 1);
+	draw_bracket (0.45 staff_space#, 1.9 staff_space#, 1);
 fet_endchar;
 
-fet_beginchar ("bracket tip down", "down"); 
-   draw_bracket (0.45 staff_space#, 1.9 staff_space#, -1);
+
+fet_beginchar ("bracket tip down", "down");
+	draw_bracket (0.45 staff_space#, 1.9 staff_space#, -1);
 fet_endchar;
 
 fet_endgroup ("brackettips");
