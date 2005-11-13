@@ -1818,7 +1818,11 @@ conversions.append (((2,1,18), conv, """\\newpartcombine -> \\partcombine,
 
 
 def conv (str):
+	if re.search ('include "drumpitch', str):
+		error_file.write ("Drums found. Enclose drum notes in \\drummode")
+		
 	str = re.sub (r'\\include "drumpitch-init.ly"','', str)
+	
 	str = re.sub (r'\\pitchnames ','pitchnames = ', str)
 	str = re.sub (r'\\chordmodifiers ','chordmodifiers = ', str)
 	str = re.sub (r'\bdrums\b\s*=','drumContents = ', str)
