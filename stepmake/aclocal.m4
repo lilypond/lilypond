@@ -692,7 +692,9 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(ugh_ugh_autoconf250_builddir)
 
     # use absolute path.
-    srcdir=$(cd $srcdir;  pwd)
+    if [ "$srcdir" != "." ];  then 
+	srcdir=$(cd $srcdir;  pwd)
+    fi
     
     AC_SUBST(srcdir)
     AC_SUBST(stepmake)
