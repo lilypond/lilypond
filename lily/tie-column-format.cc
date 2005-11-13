@@ -15,6 +15,7 @@
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
+#include "rhythmic-head.hh"
 
 #include <set>
 
@@ -56,7 +57,6 @@ set_chord_outline (Array<Skyline_entry> *skyline,
   Real staff_space = Staff_symbol_referencer::staff_space (bounds[0]);
 
   Array<Box> boxes;
-  Interval x_union;
 
   Grob *stem = 0;
   for (int i = 0; i < bounds.size (); i++)
@@ -74,7 +74,17 @@ set_chord_outline (Array<Skyline_entry> *skyline,
 
       Interval x = head->extent (common, X_AXIS);
       boxes.push (Box (x, y));
-      x_union.unite (x);
+
+      Grob *dots = Rhythmic_head::get_dots (head);
+      if (d == LEFT && dots)
+	{
+	  Interval x = dots->extent (common, X_AXIS);
+	  Interval y (-0.5, 0.5);
+	  y.translate (Staff_symbol_referencer::get_position (dots));
+	  y *= staff_space * 0.5;
+	  
+	  boxes.push (Box (x, y));
+	}
     }
 
   (*skyline) = empty_skyline (-d);

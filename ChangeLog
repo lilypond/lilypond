@@ -1,3 +1,13 @@
+2005-11-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/tie-column-format.cc (set_chord_outline): add dots into
+	skyline extents. This fixes tie formatting if the left head has dots.
+
+	* lily/tie.cc (get_configuration): only shift tie by a whole staff
+	space inside the staff.
+	(get_configuration): shift another position if necessary in case
+	of left head tie  
+
 2005-11-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* stepmake/stepmake/texinfo-vars.make (GENERATE_OMF): use

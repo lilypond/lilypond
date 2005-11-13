@@ -277,6 +277,12 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
       conf->position_ += conf->dir_;
       in_space = !in_space;
 
+      if (conf->position_ == dot_pos)
+	{
+	  conf->position_ += conf->dir_;
+	  in_space = !in_space;
+	}
+      
       if (skylines)
 	{
 	  Real y = staff_space * 0.5 * conf->position_;
@@ -468,6 +474,15 @@ Tie::calc_control_points (SCM smob)
 
   // trigger Tie-column
   (void)  get_grob_direction (me);
+
+  Grob *yparent = me->get_parent (Y_AXIS);
+  if (Tie_column::has_interface (yparent)
+      && unsmob_grob_array (yparent->get_object ("ties"))
+      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1)
+    {
+      /* trigger positioning. */
+      (void) yparent->get_property ("positioning-done");
+    }
 
   if (!scm_is_pair (me->get_property ("control-points")))
     {
