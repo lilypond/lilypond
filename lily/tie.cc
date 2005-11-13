@@ -357,14 +357,23 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
   if (!in_between
       && in_space
       && abs (conf->position_ - conf->head_position_) <= 1)
-    conf->position_ += 2*conf->dir_;
-  
+    {
+      int amount = conf->dir_;
+      if (sign (conf->position_) != conf->dir_
+	  || conf->position_ < Staff_symbol_referencer::staff_radius (me) * 2)
+	amount *= 2;
+
+      conf->position_ += amount;
+    }
   
   if (in_space)
     {
-      if ((abs (conf->position_ - conf->head_position_) <= 1
-	   && fabs (dy) < 0.45 * staff_space)
-	  || fabs (dy) < 0.6 * staff_space)
+      if ((sign (conf->position_) != conf->dir_
+	   || conf->position_ < Staff_symbol_referencer::staff_radius (me) * 2)
+	  &&
+	  ((abs (conf->position_ - conf->head_position_) <= 1
+	    && fabs (dy) < 0.45 * staff_space)
+	   || fabs (dy) < 0.6 * staff_space))
 	{
 	  /*
 	    vertically center in space.
