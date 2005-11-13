@@ -34,9 +34,6 @@ scons:
 endif
 endif
 
-include $(depth)/make/toplevel-version.make
-MICRO_VERSION=$(PATCH_LEVEL)
-BUILD_VERSION=1
 
 # Use alternate configurations alongside eachother:
 #
@@ -70,6 +67,11 @@ endif
 outroot=.
 
 include $(config_make)
+
+include $(depth)/make/toplevel-version.make
+MICRO_VERSION=$(PATCH_LEVEL)
+BUILD_VERSION=1
+
 
 outdir=$(outroot)/$(outbase)
 

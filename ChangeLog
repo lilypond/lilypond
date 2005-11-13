@@ -1,5 +1,7 @@
 2005-11-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/stepmake.make: include toplevel-version.make after config.make.
+
 	* stepmake/aclocal.m4 (depth): make sure $srcdir is absolute.
 	also allow python2.4
 
