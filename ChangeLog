@@ -1,3 +1,11 @@
+2005-11-13  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-arrow.mf: For all glyphs, don't mirror `currentpicture'
+	but the affected path.  This ensures that the (overlapping) outlines
+	have the same direction, which is a necessary prerequisite for
+	FontForge's algorithm to remove overlaps.
+	Formatting.
+
 2005-11-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/tie-column-format.cc (set_chord_outline): add dots into
