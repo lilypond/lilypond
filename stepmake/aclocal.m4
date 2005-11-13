@@ -365,14 +365,31 @@ and rerun configure.
 EOF
 	    exit 2
 	fi
-	rm -f GNUmakefile
-	cp $srcdir/GNUmakefile.in GNUmakefile
-	## (cd $srcdir && find . -name GNUmakefile -o -name '*.make' | grep -v config.make | xargs tar -cf-) | tar -xf-
-	for i in $(cd $srcdir && find . -name GNUmakefile -o -name '*.make' | grep -v config.make); do
-	    mkdir -p $(dirname $i)
-	    ln -sf $srcdir/$i $i
+
+	for d in 2 3 4 ; do
+	    for mf in `cd $srcdir ; find -maxdepth $d -mindepth $d -name GNUmakefile`; do
+		mkdir -p $(dirname $mf)
+	        cat <<EOF | $PYTHON -  > $mf
+print 'depth=' + ('../' * ( $d-1 ) )
+print 'include \$(depth)/config.make'
+print 'include \$(configure-srcdir)/$mf'
+EOF
+	    done
+	    for mf in `cd $srcdir ; find -maxdepth $d -mindepth $d -name '*.make' | grep -v config.make `; do
+		mkdir -p $(dirname $mf)
+	        cat <<EOF | $PYTHON -  > $mf
+print 'include \$(depth)/config.make'
+print 'include \$(configure-srcdir)/$mf'
+EOF
+	    done
 	done
-	ln -sf $srcdir/VERSION .
+
+	
+	cat <<EOF > GNUmakefile
+depth = ./
+include config.make
+include \$(configure-srcdir)/GNUmakefile.in
+EOF
 	AC_SUBST(VPATH)
     fi
 ])
@@ -673,6 +690,10 @@ AC_DEFUN(STEPMAKE_INIT, [
     fi
 
     AC_SUBST(ugh_ugh_autoconf250_builddir)
+
+    # use absolute path.
+    srcdir=$(cd $srcdir;  pwd)
+    
     AC_SUBST(srcdir)
     AC_SUBST(stepmake)
     AC_SUBST(package)
@@ -967,7 +988,7 @@ AC_DEFUN(STEPMAKE_PERL, [
 AC_DEFUN(STEPMAKE_PYTHON, [
     unset pv
     AC_MSG_CHECKING([for python])
-    for python in $PYTHON python python2 python2.3 python2.2 python2.1 python2.0; do
+    for python in $PYTHON python python2 python2.4 python2.3 python2.2 python2.1 python2.0; do
 	AC_MSG_RESULT([$python])
 	if ! $python -V > /dev/null 2>&1 ; then
 	    #AC_MSG_WARN([cannot execute $python])

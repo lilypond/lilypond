@@ -1,6 +1,6 @@
 # Toplevel_version.make
 
-include $(depth)/VERSION
+include $(configure-srcdir)/VERSION
 TOPLEVEL_MAJOR_VERSION=$(MAJOR_VERSION)
 TOPLEVEL_MINOR_VERSION=$(MINOR_VERSION)
 TOPLEVEL_PATCH_LEVEL=$(PATCH_LEVEL)

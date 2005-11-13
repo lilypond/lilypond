@@ -33,8 +33,10 @@
     (AccidentalSuggestion
      . (
 	(stencil . ,Accidental_interface::print)
-	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent))
-						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+
+			,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent))
+			,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(self-alignment-X . ,CENTER)
 	(cautionary . #t)
 	(cautionary-style . smaller)

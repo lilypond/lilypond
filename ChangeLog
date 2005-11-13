@@ -1,3 +1,13 @@
+2005-11-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/aclocal.m4 (depth): make sure $srcdir is absolute.
+	also allow python2.4
+
+	* config.make.in (configure-srcdir): remove GXX GCC vars.
+
+	* stepmake/aclocal.m4: don't do non-srcdir build with
+	symlinks. Use inclusion, so the src directory name can be changed.
+
 2005-11-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* make/mutopia-vars.make:
@@ -19,6 +29,8 @@
 	them from the affected paths.
 
 2005-11-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/README: remove xpm / accordion notes.
 
 	* lily/tie-column-format.cc (set_chord_outline): add dots into
 	skyline extents. This fixes tie formatting if the left head has dots.
