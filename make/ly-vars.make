@@ -3,14 +3,14 @@
 # empty
 
 # huh ? these are for documentation?!
-TELY_FILES := $(wildcard *.tely)
+TELY_FILES := $(call src-wildcard,*.tely)
 
 OMF_FILES += $(foreach format, html pdf ps.gz, $(foreach f, $(TELY_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
 
-ITELY_FILES := $(wildcard *.itely)
-ITEXI_FILES := $(wildcard *.itexi)
-LY_FILES := $(wildcard *.ly)
-ILY_FILES := $(wildcard *.ily)
+ITELY_FILES := $(call src-wildcard,*.itely)
+ITEXI_FILES := $(call src-wildcard,*.itexi)
+LY_FILES := $(call src-wildcard,*.ly)
+ILY_FILES := $(call src-wildcard,*.ily)
 
 TEXINFO_SOURCES += $(TELY_FILES) $(ITELY_FILES) $(ITEXI_FILES)
 
