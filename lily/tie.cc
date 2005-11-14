@@ -21,6 +21,8 @@
 #include "note-head.hh"
 #include "tie-column.hh"
 #include "grob-array.hh"
+#include "tie-formatting-problem.hh"
+
 
 int
 Tie::compare (Grob *const &s1,
@@ -190,26 +192,11 @@ Tie::get_default_attachments (Spanner *me, Grob *common, Real gap,
 
   return attachments;
 }  
-
-Interval
-get_skyline_attachment (Drul_array< Array < Skyline_entry > > const &skylines,
-			Real y)
-{
-  Interval attachments;
-  Direction d = LEFT;
-  do
-    {
-      attachments[d] = skyline_height (skylines[d], y, -d);
-    }
-  while (flip (&d) != LEFT);
-  
-  return attachments;
-}
 			
 void
-Tie::get_configuration (Grob *me_grob, Grob *common,
+Tie::get_configuration (Grob *me_grob, 
 			Tie_configuration *conf,
-			Drul_array< Array < Skyline_entry > > const *skylines,
+			Tie_formatting_problem const &problem,
 			Tie_details const &details
 			)
 {
@@ -236,16 +223,15 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 
   if (conf->attachment_x_.is_empty())
     {
+#if 0
       if (!skylines)
 	conf->attachment_x_ = get_default_attachments (me, common, gap,
 						       &conf->position_,
 						       &in_between, details);
-      else
-	{
-	  Real y = staff_space * 0.5 * conf->position_;
-	  conf->attachment_x_ = get_skyline_attachment (*skylines, y);
-	  conf->attachment_x_.widen (-gap);
-	}
+#endif
+      Real y = staff_space * 0.5 * conf->position_;
+      conf->attachment_x_ = problem.get_attachment (y);
+      conf->attachment_x_.widen (-gap);
     }
 
   Bezier b = slur_shape (conf->attachment_x_.length(),
@@ -283,20 +269,17 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 	  in_space = !in_space;
 	}
       
-      if (skylines)
-	{
-	  Real y = staff_space * 0.5 * conf->position_;
-	  conf->attachment_x_ = get_skyline_attachment (*skylines, y);
-	  conf->attachment_x_.widen (-gap);
-	  Bezier b = slur_shape (conf->attachment_x_.length(),
-				 details.height_limit_,
-				 details.ratio_);
-	  Offset middle = b.curve_point (0.5);
-	  Offset edge = b.curve_point (0.0);
-	  dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
-	  fits_in_space =
-	    (dy < 0.6 * staff_space);
-	}
+      Real y = staff_space * 0.5 * conf->position_;
+      conf->attachment_x_ = problem.get_attachment (y);
+      conf->attachment_x_.widen (-gap);
+      Bezier b = slur_shape (conf->attachment_x_.length(),
+			     details.height_limit_,
+			     details.ratio_);
+      Offset middle = b.curve_point (0.5);
+      Offset edge = b.curve_point (0.0);
+      dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
+      fits_in_space =
+	(dy < 0.6 * staff_space);
     }
   
   /*
@@ -328,22 +311,19 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
 
       /*
 	ugh: code dup.
-       */
-      if (skylines)
-	{
-	  Real y = staff_space * 0.5 * conf->position_;
-	  conf->attachment_x_ = get_skyline_attachment (*skylines, y);
-	  conf->attachment_x_.widen (-gap);
+      */
+      Real y = staff_space * 0.5 * conf->position_;
+      conf->attachment_x_ = problem.get_attachment (y);
+      conf->attachment_x_.widen (-gap);
 	      
-	  Bezier b = slur_shape (conf->attachment_x_.length(),
-				 details.height_limit_,
-				 details.ratio_);
-	  Offset middle = b.curve_point (0.5);
-	  Offset edge = b.curve_point (0.0);
-	  dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
-	  fits_in_space =
-	    (dy < 0.6 * staff_space);
-	}
+      Bezier b = slur_shape (conf->attachment_x_.length(),
+			     details.height_limit_,
+			     details.ratio_);
+      Offset middle = b.curve_point (0.5);
+      Offset edge = b.curve_point (0.0);
+      dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
+      fits_in_space =
+	(dy < 0.6 * staff_space);
     }
 
 
@@ -412,14 +392,11 @@ Tie::get_configuration (Grob *me_grob, Grob *common,
     }
 
 
-  if (skylines)
-    {
-      Real half_space = 0.5 * staff_space;
-      Real y = conf->position_ * half_space;
+  Real half_space = 0.5 * staff_space;
+  Real y = conf->position_ * half_space;
       
-      conf->attachment_x_ = get_skyline_attachment (*skylines, y);
-      conf->attachment_x_.widen (-gap);
-    }
+  conf->attachment_x_ = problem.get_attachment (y);
+  conf->attachment_x_.widen (-gap);
 }
 
 
@@ -437,8 +414,13 @@ Tie::set_default_control_points (Grob *me_grob)
   
   Tie_details details;
   details.init (me);
-  get_configuration (me, common, &conf, 0, details);
-  set_control_points (me, common, conf, details);
+
+  Tie_formatting_problem problem;
+  problem.from_tie (me);
+  
+  get_configuration (me,  &conf, problem, details);
+  set_control_points (me, problem.common_x_refpoint (),
+		      conf, details);
 }
 
 void
