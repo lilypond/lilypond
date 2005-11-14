@@ -18,6 +18,7 @@
 #include "tie.hh"
 #include "directional-element-interface.hh"
 #include "tie-column-format.hh"
+#include "tie-formatting-problem.hh"
 
 using namespace std;
 
@@ -82,31 +83,25 @@ Tie_column::calc_positioning_done (SCM smob)
   
   ties.sort (&Tie::compare);
 
-  Array<Tie_configuration> tie_configs;
+  Ties_configuration ties_config;
   for (int i = 0; i < ties.size (); i++)
     {
       Tie_configuration conf;
-      conf.dir_ = get_grob_direction (ties[i]);
+      if (scm_is_number (ties[i]->get_property_data (ly_symbol2scm ("direction"))))
+	conf.dir_ = get_grob_direction (ties[i]);
       conf.position_ = Tie::get_position (ties[i]);
-      tie_configs.push (conf);
+      ties_config.ties_.push (conf);
     }
 
   SCM manual_configs = me->get_property ("tie-configuration");
   bool manual_override = false;
-  set_manual_tie_configuration (&tie_configs,
+  set_manual_tie_configuration (&ties_config,
 				&manual_override,
 				manual_configs);
-  set_tie_config_directions (&tie_configs);
+  set_tie_config_directions (&ties_config);
 
-  Grob *common = me;
-  for (int i = 0; i < ties.size (); i++)
-    {
-      common = dynamic_cast<Spanner*> (ties[i])->get_bound (LEFT)->common_refpoint (common, X_AXIS); 
-      common = dynamic_cast<Spanner*> (ties[i])->get_bound (RIGHT)->common_refpoint (common, X_AXIS); 
-    }
-
-  Drul_array< Array<Skyline_entry> > skylines;
-  set_chord_outlines (&skylines, ties, common);
+  Tie_formatting_problem problem;
+  problem.from_ties (ties);
   
   Tie_details details;
   details.init (ties[0]);
@@ -116,13 +111,12 @@ Tie_column::calc_positioning_done (SCM smob)
    */
   if (!manual_override)
     {
-      Tie::get_configuration (ties[0], common, &tie_configs.elem_ref (0),
-			      &skylines,
-			      details
-			      );
-      Tie::get_configuration (ties.top (), common,
-			      &tie_configs.elem_ref (tie_configs.size()-1),
-			      &skylines,
+      Tie::get_configuration (ties[0], &ties_config.ties_.elem_ref (0),
+			      problem,
+			      details);
+      Tie::get_configuration (ties.top (), 
+			      &ties_config.ties_.elem_ref (ties_config.ties_.size()-1),
+			      problem,
 			      details
 			      );
     }
@@ -137,8 +131,8 @@ Tie_column::calc_positioning_done (SCM smob)
 	continue;
 
 
-      final_shape_adjustment (tie_configs[i],
-			      skylines,
+      final_shape_adjustment (ties_config.ties_[i],
+			      problem,
 			      ties[0],
 			      details);
     }
@@ -149,15 +143,15 @@ Tie_column::calc_positioning_done (SCM smob)
    */
   if (!manual_override)
     {
-      shift_small_ties (&tie_configs, ties[0], details);
+      shift_small_ties (&ties_config, ties[0], details);
     }
   
   for (int i = 0; i < ties.size(); i++)
     {
-      Tie::set_control_points (ties[i], common, tie_configs[i],
+      Tie::set_control_points (ties[i], problem.common_x_refpoint (), ties_config.ties_[i],
 			       details
 			       );
-      set_grob_direction (ties[i], tie_configs[i].dir_);
+      set_grob_direction (ties[i], ties_config.ties_[i].dir_);
     }
   return SCM_BOOL_T;
 }

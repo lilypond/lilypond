@@ -17,6 +17,7 @@
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
 #include "tie-column-format.hh"
+#include "tie-formatting-problem.hh"
 
 
 ADD_INTERFACE(Laissez_vibrer_tie_column,
@@ -44,52 +45,30 @@ Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
 
   lv_ties.sort (&Laissez_vibrer_tie::compare);
 
-  Array<Tie_configuration> tie_configs;
-  Link_array<Item> heads;
+  Ties_configuration ties_config;
   for (int i = 0; i < lv_ties.size (); i++)
     {
       Tie_configuration conf;
       conf.dir_ = CENTER;
       Item *head = unsmob_item (lv_ties[i]->get_object ("note-head"));
 
-      heads.push (head);
       if (head)
 	conf.position_ = (int) Staff_symbol_referencer::get_position (head);
       
-      tie_configs.push (conf);
+      ties_config.ties_.push (conf);
     }
 
   bool manual_override = false;
   SCM manual_configs = me->get_property ("tie-configuration");
-  set_manual_tie_configuration (&tie_configs,
+  set_manual_tie_configuration (&ties_config,
 				&manual_override,
 				manual_configs
 				);
 
-  set_tie_config_directions (&tie_configs);
+  set_tie_config_directions (&ties_config);
 
-  Grob *common = me;
-  for (int i = 0; i < lv_ties.size (); i++)
-    {
-      common = lv_ties[i]->common_refpoint (common, X_AXIS); 
-    }
-
-  Drul_array< Array<Skyline_entry> > skylines;
-  set_chord_outline (&skylines[LEFT],
-		     heads,
-		     common, LEFT);
-
-  Real right_most = - infinity_f;   
-  for (int i = 0; i < skylines[LEFT].size (); i++)
-    {
-      right_most = max (right_most, skylines[LEFT][i].height_);
-    }
-
-  Skyline_entry right_entry;
-  right_entry.width_.set_full ();
-  right_entry.height_ = right_most + 1.5;
-  
-  skylines[RIGHT].push (right_entry);
+  Tie_formatting_problem problem;
+  problem.from_lv_ties (lv_ties);
 
   Tie_details details;
   details.init (lv_ties[0]);
@@ -99,8 +78,8 @@ Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
    */
   for (int i = 0; i < lv_ties.size(); i++)
     {
-      final_shape_adjustment (tie_configs[i],
-			      skylines,
+      final_shape_adjustment (ties_config.ties_[i],
+			      problem,
 			      lv_ties[0],
 			      details);
     }
@@ -110,14 +89,14 @@ Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
    */
   if (!manual_override)
     {
-      shift_small_ties (&tie_configs, lv_ties[0], details);
+      shift_small_ties (&ties_config, lv_ties[0], details);
     }
   
   for (int i = 0; i < lv_ties.size(); i++)
     {
-      Tie::set_control_points (lv_ties[i], common, tie_configs[i],
+      Tie::set_control_points (lv_ties[i], problem.common_x_refpoint (), ties_config.ties_[i],
 			       details );
-      set_grob_direction (lv_ties[i], tie_configs[i].dir_);
+      set_grob_direction (lv_ties[i], ties_config.ties_[i].dir_);
     }
 
   return SCM_BOOL_T;

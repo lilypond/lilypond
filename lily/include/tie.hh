@@ -15,10 +15,6 @@
 
 
 
-Interval
-get_skyline_attachment (Drul_array< Array < Skyline_entry > > const &skylines,
-			Real y1);
-
 struct Tie_details
 {
   Real height_limit_;
@@ -31,14 +27,17 @@ struct Tie_details
   void init (Grob *);
 };
   
-struct Tie_configuration
+class Tie_configuration
 {
-  int head_position_;
+public:
   int position_;
-  
   Direction dir_;
-  Interval attachment_x_;
   Real delta_y_;
+
+
+  Interval attachment_x_;
+  Grob *tie_;
+  int head_position_;
   
   Tie_configuration ();
   void center_tie_vertically (Tie_details const &);
@@ -53,6 +52,14 @@ struct Tie_configuration
 
 INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
 
+class Ties_configuration
+{
+public:
+  Array<Tie_configuration> ties_;
+
+};
+
+
 class Tie
 {
 public:
@@ -62,13 +69,13 @@ public:
   static int get_column_rank (Grob *, Direction);
   static int get_position (Grob *);
   static Direction get_default_dir (Grob *);
-  static void get_configuration (Grob *, Grob *, Tie_configuration *,
-				 Drul_array< Array<Skyline_entry> > const *,
+  static void get_configuration (Grob *, Tie_configuration *,
+				 Tie_formatting_problem const &,
 				 Tie_details const & 
 				 );
-  static void set_control_points (Grob *, Grob *,Tie_configuration const&,
-				  Tie_details const&
-				  );
+  static void set_control_points (Grob *, Grob *,
+				  Tie_configuration const&,
+				  Tie_details const&);
   static void set_default_control_points (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
