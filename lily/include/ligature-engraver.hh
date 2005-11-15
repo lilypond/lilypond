@@ -47,9 +47,6 @@ private:
   Moment ligature_start_mom_;
 
   Grob *last_bound_;
-
-  void override_stencil_callback ();
-  void revert_stencil_callback ();
 };
 
 #endif // LIGATURE_ENGRAVER_HH

@@ -89,48 +89,6 @@ Ligature_engraver::try_music (Music *m)
   return false;
 }
 
-/*
- * This method should do something that comes close to the following
- * .ly snippet:
- *
- * \property Voice.NoteHead \override #'print-function =
- *     < value of noteHeadLigaturePrimitive
- *
- * TODO: What we are doing here on the c++ level, should actually be
- * performed on the SCM level.  However, I do not know how to teach
- * lilypond to apply an \override and \revert on #'print-function,
- * whenever lily encounters a \[ and \] in an .ly file, respectively.
- * Also encounter, that lily should not crash if a user erronously
- * nests \[ and \].
- */
-void
-Ligature_engraver::override_stencil_callback ()
-{
-  execute_pushpop_property (context (), ly_symbol2scm ("NoteHead"),
-			    ly_symbol2scm ("stencil"),
-			    get_property ("noteHeadLigaturePrimitive"));
-}
-
-/*
- * This method should do something that comes close to the following
- * .ly snippet:
- *
- * \property Voice.NoteHead \revert #'print-function
- *
- * TODO: What we are doing here on the c++ level, should actually be
- * performed on the SCM level.  However, I do not know how to teach
- * lilypond to apply an \override and \revert on #'print-function,
- * whenever lily encounters a \[ and \] in an .ly file, respectively.
- * Also encounter, that lily should not crash if a user erronously
- * nests \[ and \].
- */
-void
-Ligature_engraver::revert_stencil_callback ()
-{
-  execute_pushpop_property (context (), ly_symbol2scm ("NoteHead"),
-			    ly_symbol2scm ("stencil"), SCM_UNDEFINED);
-}
-
 void
 Ligature_engraver::process_music ()
 {
@@ -152,7 +110,6 @@ Ligature_engraver::process_music ()
       finished_ligature_ = ligature_;
       primitives_.clear ();
       ligature_ = 0;
-      revert_stencil_callback ();
     }
   last_bound_ = unsmob_grob (get_property ("currentMusicalColumn"));
 
@@ -183,7 +140,6 @@ Ligature_engraver::process_music ()
 
       // TODO: dump cause into make_item/spanner. 
       // announce_grob (ligature_, events_drul_[START]->self_scm ());
-      override_stencil_callback ();
     }
 }
 
@@ -237,10 +193,9 @@ Ligature_engraver::acknowledge_note_head (Grob_info info)
   if (ligature_)
     {
       primitives_.push (info);
-      if (info.grob ())
+      if (info.grob () && (brew_ligature_primitive_proc != SCM_EOL))
 	{
-	  info.grob ()->set_property ("stencil",
-				      brew_ligature_primitive_proc);
+	  info.grob ()->set_property ("stencil", brew_ligature_primitive_proc);
 	}
     }
 }
