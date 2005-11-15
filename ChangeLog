@@ -5,6 +5,10 @@
 	ligature brackets work again by removing obsolete ligature
 	primitive callback push/pop.
 
+	* scm/define-grobs.scm (LigatureBracket): Maintenance bugfix: do
+	not call Tuplet_bracket::calc_direction.  Removed obsolete gap
+	value.
+
 2005-11-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4 (depth): Explain why absolute directory is
