@@ -302,7 +302,6 @@ markup.  Called with 2 arguments, event and context.")
 selects the highest string with a fret at least @code{minimumFret}")
      (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
 format as @var{verticalExtent}")
-     (noteHeadLigaturePrimitive ,procedure? "Callback for generating stencil of ligature.")
      (ottavation ,string? "If set, the text for an ottava spanner. Changing
 this creates a new text spanner. ")
      (pedalSustainStrings ,list? "List of string to print for
