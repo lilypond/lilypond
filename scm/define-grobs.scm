@@ -878,16 +878,14 @@
 	;; ugh.  A ligature bracket is totally different from
 	;; a tuplet bracket.
 
-	(direction  . ,Tuplet_bracket::calc_direction)
-	(positions . ,Tuplet_bracket::calc_positions)
-	(stencil . ,Tuplet_bracket::print)
-	
-	(direction . 1)
-	(gap . 0.0)
 	(padding . 2.0)
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
+	(direction . 1)
+	(positions . ,Tuplet_bracket::calc_positions)
+	(stencil . ,Tuplet_bracket::print)
+	
 	(meta . ((class . Spanner)
 		 (interfaces . (tuplet-bracket-interface
 				line-interface))))))
