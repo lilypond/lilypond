@@ -692,7 +692,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(ugh_ugh_autoconf250_builddir)
 
     # use absolute path.
-    if [ "$srcdir" != "." ];  then 
+    if test "$srcdir" != "." ;  then 
 	srcdir=$(cd $srcdir;  pwd)
     fi
     
