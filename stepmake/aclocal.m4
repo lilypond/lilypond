@@ -441,19 +441,19 @@ class yy_flex_lexer: public yyFlexLexer
 
 
 AC_DEFUN(STEPMAKE_FLEXLEXER_LOCATION, [
-	AC_MSG_CHECKING([FlexLexer.h path])
+	AC_MSG_CHECKING([FlexLexer.h location])
 
 	# ugh.
 	cat <<EOF > conftest.cc
 using namespace std;
 #include <FlexLexer.h>
 EOF
-	FLEXLEXER_PATH=`$CXX -E conftest.cc | \
-	  sed 's!# 1 "\(.*\)FlexLexer.h"!@FLEXLEXER@\1@@!g' | grep '@@' | \
+	FLEXLEXER_FILE=`$CXX -E conftest.cc | \
+	  sed 's!# 1 "\(.*FlexLexer.h\)"!@FLEXLEXER@\1@@!g' | grep '@@' | \
 	  sed 's!.*@FLEXLEXER@\(.*\)@@.*$!\1!g' ` >& /dev/null
 	rm conftest.cc
-	AC_SUBST(FLEXLEXER_PATH)
-        AC_MSG_RESULT($FLEXLEXER_PATH)
+	AC_SUBST(FLEXLEXER_FILE)
+        AC_MSG_RESULT($FLEXLEXER_FILE)
 ])
 
 AC_DEFUN(STEPMAKE_GCC, [
@@ -658,8 +658,6 @@ AC_DEFUN(STEPMAKE_INIT, [
 
 	(cd stepmake 2>/dev/null || mkdir stepmake)
 	(cd stepmake; rm -f bin; ln -s ../$srcdir/bin .)
-# only possible with autoconf < 2.50 -- hardcoded in configure.in
-#	AC_CONFIG_AUX_DIR(bin)
 	stepmake=stepmake
     else
         AC_MSG_RESULT($PACKAGE)
@@ -681,19 +679,14 @@ AC_DEFUN(STEPMAKE_INIT, [
 	    stepmake="`cd $srcdir/stepmake; pwd`"
 	    AC_MSG_RESULT([$srcdir/stepmake  ($datadir/stepmake not found)])
 	fi
-
-# only possible with autoconf < 2.50 -- hardcoded in configure.in
-# 	AC_CONFIG_AUX_DIR(\
-# 	  stepmake/bin\
-# 	  $srcdir/stepmake/bin\
-#	)
     fi
 
     AC_SUBST(ugh_ugh_autoconf250_builddir)
 
-    # use absolute path.
-    if test "$srcdir" != "." ;  then 
-	srcdir=$(cd $srcdir;  pwd)
+    # Use absolute directory for non-srcdir builds, so that build
+    # dir can be moved.
+    if test "$srcdir_build" = "no" ;  then 
+	srcdir="`cd $srcdir; pwd`"
     fi
     
     AC_SUBST(srcdir)
@@ -835,7 +828,7 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     fi
 
     save_CFLAGS="$CFLAGS"
-    CFLAGS=$(echo "-shared $CFLAGS" | sed -e 's/ -g//')
+    CFLAGS=`echo "-shared $CFLAGS" | sed -e 's/ -g//'`
     AC_MSG_CHECKING([for shared libkpathsea])
     AC_TRY_LINK([#include <kpathsea/kpathsea.h>],
                  [kpse_var_expand ("\$TEXMF");],
@@ -1150,7 +1143,7 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
 	# UGR
      	#r="lib$1-dev or $1-devel"
      	r="libfreetype6-dev or freetype?-devel"
-     	ver="$(pkg-config --modversion $1)"
+     	ver="`pkg-config --modversion $1`"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
@@ -1172,7 +1165,7 @@ AC_DEFUN(STEPMAKE_GTK2, [
 	# UGR
      	# r="lib$1-dev or $1-devel"
      	r="libgtk2.0-dev or gtk2-devel"
-     	ver="$(pkg-config --modversion $1)"
+     	ver="`pkg-config --modversion $1`"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
@@ -1196,7 +1189,7 @@ AC_DEFUN(STEPMAKE_PANGO, [
 	# UGR
      	#r="lib$1-dev or $1-devel"
      	r="libpango1.0-dev or pango1.0-devel"
-     	ver="$(pkg-config --modversion $1)"
+     	ver="`pkg-config --modversion $1`"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
@@ -1221,7 +1214,7 @@ AC_DEFUN(STEPMAKE_PANGO_FT2, [
 	# UGR
      	#r="lib$1-dev or $1-devel"e
      	r="libpango1.0-dev or pango?-devel"
-     	ver="$(pkg-config --modversion $1)"
+     	ver="`pkg-config --modversion $1`"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
@@ -1241,7 +1234,7 @@ AC_DEFUN(STEPMAKE_FONTCONFIG, [
 	LIBS="$save_LIBS"
     else
      	r="lib$1-dev or $1-devel"
-     	ver="$(pkg-config --modversion $1)"
+     	ver="`pkg-config --modversion $1`"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
