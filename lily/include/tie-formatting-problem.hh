@@ -15,10 +15,26 @@
 #include "skyline.hh"
 #include "lily-proto.hh"
 
+
+struct Tie_details
+{
+  Real height_limit_;
+  Real ratio_;
+  Real staff_space_;
+  Real x_gap_;
+  Real between_length_limit_;
+  
+  Tie_details ();
+  void from_grob (Grob *);
+};
+
 class Tie_formatting_problem
 {
   Drul_array< Array<Skyline_entry> > chord_outlines_;
   Grob *x_refpoint_;
+public:
+  Tie_details details_;
+
 public:
   Tie_formatting_problem ();
 

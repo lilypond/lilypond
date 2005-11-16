@@ -885,6 +885,11 @@ solfa_pen_thick# = 2 stafflinethickness#;
 define_blacker_pixels (solfa_pen_thick);
 
 
+solfa_whole_width := 1.8;
+solfa_half_width := 1.35;
+solfa_quarter_width := 1.35;
+
+
 def draw_do_head (expr width_factor, dir) =
 	save p_in, p_out;
 	save left_dist, right_dist;
@@ -937,34 +942,34 @@ enddef;
 
 
 fet_beginchar ("Whole dohead", "s0do");
-	draw_do_head (1.8, 1);
+	draw_do_head (solfa_whole_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half dohead", "d1do");
-	draw_do_head (1.5, -1);
+	draw_do_head (solfa_half_width, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half dohead", "u1do");
-	draw_do_head (1.5, 1);
+	draw_do_head (solfa_half_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Quart dohead", "d2do");
-	draw_do_head (1.55, -1);
+	draw_do_head (solfa_quarter_width, -1);
 	fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("Quart dohead", "u2do");
-	draw_do_head (1.55, 1);
+	draw_do_head (solfa_quarter_width, 1);
 	fill p_out;
 fet_endchar;
 
@@ -1027,34 +1032,34 @@ enddef;
 
 
 fet_beginchar ("Whole rehead", "s0re");
-	draw_re_head (1.8, 1);
+	draw_re_head (solfa_whole_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half up rehead", "u1re");
-	draw_re_head (1.5, 1);
+	draw_re_head (solfa_half_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half down rehead", "d1re");
-	draw_re_head (1.5, -1);
+	draw_re_head (solfa_half_width, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Quart rehead", "u2re");
-	draw_re_head (1.55, 1);
+	draw_re_head (solfa_quarter_width, 1);
 	fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("Quart rehead", "d2re");
-	draw_re_head (1.55, -1);
+	draw_re_head (solfa_quarter_width, -1);
 	fill p_out;
 fet_endchar;
 
@@ -1120,7 +1125,7 @@ enddef;
 
 
 fet_beginchar ("Whole mihead", "s0mi");
-	draw_mi_head (1.8);
+	draw_mi_head (solfa_whole_width);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
@@ -1191,41 +1196,41 @@ enddef;
 
 
 fet_beginchar ("Whole fa up head", "u0fa");
-	draw_fa_head (1.8);
+	draw_fa_head (solfa_whole_width);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
 
 
 fet_beginchar ("Whole fa down head", "d0fa");
-	draw_fa_head (1.8);
+	draw_fa_head (solfa_whole_width);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
 
 fet_beginchar ("half fa up head", "u1fa");
-	draw_fa_head (1.5);
+	draw_fa_head (solfa_half_width);
 	fill p_up_out;
 	unfill p_up_in;
 fet_endchar;
 
 
 fet_beginchar ("Half fa down head", "d1fa");
-	draw_fa_head (1.5);
+	draw_fa_head (solfa_half_width);
 	fill p_down_out;
 	unfill p_down_in;
 fet_endchar;
 
 
 fet_beginchar ("Quarter fa up head", "u2fa");
-	draw_fa_head (1.55);
+	draw_fa_head (solfa_quarter_width);
 	fill p_up_out;
 fet_endchar;
 
 
 fet_beginchar ("Quarter fa down head", "d2fa");
-	draw_fa_head (1.55);
+	draw_fa_head (solfa_quarter_width);
 	fill p_down_out;
 fet_endchar;
 
@@ -1270,21 +1275,21 @@ enddef;
 
 
 fet_beginchar ("Whole lahead", "s0la");
-	draw_la_head (1.8);
+	draw_la_head (solfa_whole_width);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half lahead", "s1la");
-	draw_la_head (1.5);
+	draw_la_head (solfa_half_width);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Quart lahead", "s2la");
-	draw_la_head (1.55);
+	draw_la_head (solfa_quarter_width);
 	fill p_out;
 fet_endchar;
 
@@ -1352,34 +1357,34 @@ enddef;
 
 
 fet_beginchar ("Whole up tihead", "s0ti");
-	draw_ti_head (1.8, 1);
+	draw_ti_head (solfa_whole_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half up tihead", "u1ti");
-	draw_ti_head (1.5, 1);
+	draw_ti_head (solfa_half_width, 1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Half down tihead", "d1ti");
-	draw_ti_head (1.5, -1);
+	draw_ti_head (solfa_half_width, -1);
 	fill p_out;
 	unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("Quart up tihead", "u2ti");
-	draw_ti_head (1.55, 1);
+	draw_ti_head (solfa_quarter_width, 1);
 	fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("Quart down tihead", "d2ti");
-	draw_ti_head (1.55, -1);
+	draw_ti_head (solfa_quarter_width, -1);
 	fill p_out;
 fet_endchar;
 

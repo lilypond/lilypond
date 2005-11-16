@@ -70,18 +70,13 @@ Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
   Tie_formatting_problem problem;
   problem.from_lv_ties (lv_ties);
 
-  Tie_details details;
-  details.init (lv_ties[0]);
-
   /*
     Calculate final width and shape of the ties.
    */
   for (int i = 0; i < lv_ties.size(); i++)
     {
       final_shape_adjustment (ties_config.ties_[i],
-			      problem,
-			      lv_ties[0],
-			      details);
+			      problem, lv_ties[0]);
     }
   
   /*
@@ -89,13 +84,13 @@ Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
    */
   if (!manual_override)
     {
-      shift_small_ties (&ties_config, lv_ties[0], details);
+      shift_small_ties (&ties_config, lv_ties[0], problem.details_);
     }
   
   for (int i = 0; i < lv_ties.size(); i++)
     {
       Tie::set_control_points (lv_ties[i], problem.common_x_refpoint (), ties_config.ties_[i],
-			       details );
+			       problem.details_);
       set_grob_direction (lv_ties[i], ties_config.ties_[i].dir_);
     }
 

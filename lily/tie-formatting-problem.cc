@@ -169,6 +169,8 @@ Tie_formatting_problem::from_tie (Grob *tie)
   ties.push (tie);
 
   from_ties (ties);
+
+  details_.from_grob (tie);
 }
 
 Grob *
@@ -184,6 +186,7 @@ Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
     return;
   
   x_refpoint_ = ties[0];
+  details_.from_grob (ties[0]);
   for (int i = 0; i < ties.size (); i++)
     {
       x_refpoint_ = dynamic_cast<Spanner*> (ties[i])->get_bound (LEFT)->common_refpoint (x_refpoint_, X_AXIS); 
@@ -213,6 +216,7 @@ Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
   if (lv_ties.is_empty ())
     return ;
   
+  details_.from_grob (lv_ties[0]);
   Link_array<Item> heads;
   for (int i = 0; i < lv_ties.size (); i++)
     {
