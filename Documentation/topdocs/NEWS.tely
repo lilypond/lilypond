@@ -45,7 +45,13 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item
+Tie formatting now uses scoring. This opens the road to formatting
+which handles complex situations require tradeoffs between different
+beauty factors.
 
+This refactoring has been sponsored by Steve Doonan.
+ 
 @item
 Each grob property may also be a ``grob closure.'' This means that it
 is possible to combine functions. For example, the @code{Y-offset} of
