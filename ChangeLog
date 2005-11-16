@@ -1,5 +1,15 @@
 2005-11-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/tie-formatting-problem.cc (find_optimal_tie_configuration):
+	new function. Search region of 3 positions for best tie.
+	(score_configuration): new function.
+	(score_aptitude): new function.
+	(generate_configuration): new function.
+	(get_configuration): new function.
+	(Tie_formatting_problem): new function
+
+	* input/regression/page-top-space.ly: a6 for page-top-space demo. 
+
 	* stepmake/aclocal.m4: use $(if ) for config-FOOF.make
 
 	* THANKS: add Eduardo Vieira & Ralph Little

@@ -192,7 +192,7 @@ Tie::get_default_attachments (Spanner *me, Grob *common, Real gap,
 
   return attachments;
 }  
-			
+
 void
 Tie::get_configuration (Grob *me_grob, 
 			Tie_configuration *conf,
@@ -406,14 +406,13 @@ Tie::set_default_control_points (Grob *me_grob)
   common = me->get_bound (LEFT)->common_refpoint (common, X_AXIS); 
   common = me->get_bound (RIGHT)->common_refpoint (common, X_AXIS); 
   
-  Tie_configuration conf;
-  int tie_position = (int) Tie::get_position (me);
-  conf.position_ = tie_position;
-  
   Tie_formatting_problem problem;
   problem.from_tie (me);
   
-  get_configuration (me,  &conf, problem);
+  // get_configuration (me,  &conf, problem);
+  int tie_position = (int) Tie::get_position (me);
+  Tie_configuration conf
+    = problem.find_optimal_tie_configuration (tie_position, get_grob_direction (me));
   set_control_points (me, problem.common_x_refpoint (),
 		      conf, problem.details_);
 }
@@ -522,3 +521,6 @@ ADD_INTERFACE (Tie,
 	       "direction "
 	       "thickness "
 	       "x-gap ");
+
+
+

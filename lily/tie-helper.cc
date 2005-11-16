@@ -89,6 +89,7 @@ Tie_configuration::height (Tie_details const &details) const
 void
 Tie_details::from_grob (Grob *me)
 {
+  staff_symbol_referencer_ = me;
   staff_space_ = Staff_symbol_referencer::staff_space (me);
   SCM details = me->get_property ("details");
 
