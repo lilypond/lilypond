@@ -42,7 +42,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * lilypond-book: (lilypond/lilypond)LilyPond-book.     Itegrating text and music.
 * midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
 * mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup. 
-* musedata2ly: (lilypond/lilypond)Invoking musedata2ly.        Importing MuseData.
 @end direntry
 
 

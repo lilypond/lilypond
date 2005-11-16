@@ -1,3 +1,7 @@
+2005-11-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/lilypond.tely: remove musedata2ly entry.
+
 2005-11-16  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* lily/ligature-engraver.cc, lily/include/ligature-engraver.hh,
