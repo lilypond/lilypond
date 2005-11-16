@@ -371,14 +371,14 @@ EOF
 		mkdir -p $(dirname $mf)
 	        cat <<EOF | $PYTHON -  > $mf
 print 'depth=' + ('../' * ( $d-1 ) )
-print 'include \$(depth)/$CONFIGFILE.make'
+print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make
 print 'include \$(configure-srcdir)/$mf'
 EOF
 	    done
 	    for mf in `cd $srcdir ; find -maxdepth $d -mindepth $d -name '*.make' | grep -v config.make `; do
 		mkdir -p $(dirname $mf)
 	        cat <<EOF | $PYTHON -  > $mf
-print 'include \$(depth)/$CONFIGFILE.make'
+print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make'
 print 'include \$(configure-srcdir)/$mf'
 EOF
 	    done
@@ -387,7 +387,7 @@ EOF
 	
 	cat <<EOF > GNUmakefile
 depth = ./
-include $CONFIGFILE.make
+include config\$(if \$(conf),-\$(conf),).make
 include \$(configure-srcdir)/GNUmakefile.in
 EOF
 	AC_SUBST(VPATH)
