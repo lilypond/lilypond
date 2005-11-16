@@ -14,7 +14,6 @@
 #include "skyline.hh"
 
 
-
   
 class Tie_configuration
 {
@@ -45,9 +44,7 @@ class Ties_configuration
 {
 public:
   Array<Tie_configuration> ties_;
-
 };
-
 
 class Tie
 {

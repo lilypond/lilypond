@@ -6,6 +6,8 @@ first system can be forced to be uniform."
 }
 \version "2.7.13"
 
+#(set-default-paper-size "a6")
+
 \book {
   \score {
 
