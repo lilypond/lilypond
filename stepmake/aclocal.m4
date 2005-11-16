@@ -387,7 +387,7 @@ EOF
 	
 	cat <<EOF > GNUmakefile
 depth = ./
-include config.make
+include $CONFIGFILE.make
 include \$(configure-srcdir)/GNUmakefile.in
 EOF
 	AC_SUBST(VPATH)
