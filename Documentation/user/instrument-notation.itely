@@ -534,11 +534,12 @@ for showing repeats.
   \consists Bar_engraver
   \consists "Volta_engraver"
 }
-\repeat volta 2 \chordmode {
+\chordmode { \repeat volta 2 {
   f1:maj f:7 bes:7
   c:maj
 } \alternative {
   es e
+}
 }
 @end lilypond
 

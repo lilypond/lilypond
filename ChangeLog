@@ -1,3 +1,8 @@
+2005-11-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/instrument-notation.itely (Printing chord
+	names): Reorder \chordmode and \repeat in one example.
+
 2005-11-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/NEWS.tely (Top): add note about
