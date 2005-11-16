@@ -15,17 +15,6 @@
 
 
 
-struct Tie_details
-{
-  Real height_limit_;
-  Real ratio_;
-  Real staff_space_;
-  Real x_gap_;
-  Real between_length_limit_;
-  
-  Tie_details ();
-  void init (Grob *);
-};
   
 class Tie_configuration
 {
@@ -70,9 +59,7 @@ public:
   static int get_position (Grob *);
   static Direction get_default_dir (Grob *);
   static void get_configuration (Grob *, Tie_configuration *,
-				 Tie_formatting_problem const &,
-				 Tie_details const & 
-				 );
+				 Tie_formatting_problem const &);
   static void set_control_points (Grob *, Grob *,
 				  Tie_configuration const&,
 				  Tie_details const&);

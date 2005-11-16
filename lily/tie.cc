@@ -196,9 +196,7 @@ Tie::get_default_attachments (Spanner *me, Grob *common, Real gap,
 void
 Tie::get_configuration (Grob *me_grob, 
 			Tie_configuration *conf,
-			Tie_formatting_problem const &problem,
-			Tie_details const &details
-			)
+			Tie_formatting_problem const &problem)
 {
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
   if (!head (me, LEFT) && !head (me, RIGHT))
@@ -217,7 +215,7 @@ Tie::get_configuration (Grob *me_grob,
   if (!conf->dir_)
     conf->dir_ = get_default_dir (me);
 
-  Real staff_space = details.staff_space_;
+  Real staff_space = problem.details_.staff_space_;
   bool in_between = true;
   Real gap = robust_scm2double (me->get_property ("x-gap"), 0.2);
 
@@ -227,7 +225,7 @@ Tie::get_configuration (Grob *me_grob,
       if (!skylines)
 	conf->attachment_x_ = get_default_attachments (me, common, gap,
 						       &conf->position_,
-						       &in_between, details);
+						       &in_between, problem.details_);
 #endif
       Real y = staff_space * 0.5 * conf->position_;
       conf->attachment_x_ = problem.get_attachment (y);
@@ -235,8 +233,8 @@ Tie::get_configuration (Grob *me_grob,
     }
 
   Bezier b = slur_shape (conf->attachment_x_.length(),
-			 details.height_limit_,
-			 details.ratio_);
+			 problem.details_.height_limit_,
+			 problem.details_.ratio_);
   b.scale (1, conf->dir_);
   
   Offset middle = b.curve_point (0.5);
@@ -273,8 +271,8 @@ Tie::get_configuration (Grob *me_grob,
       conf->attachment_x_ = problem.get_attachment (y);
       conf->attachment_x_.widen (-gap);
       Bezier b = slur_shape (conf->attachment_x_.length(),
-			     details.height_limit_,
-			     details.ratio_);
+			     problem.details_.height_limit_,
+			     problem.details_.ratio_);
       Offset middle = b.curve_point (0.5);
       Offset edge = b.curve_point (0.0);
       dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
@@ -317,8 +315,8 @@ Tie::get_configuration (Grob *me_grob,
       conf->attachment_x_.widen (-gap);
 	      
       Bezier b = slur_shape (conf->attachment_x_.length(),
-			     details.height_limit_,
-			     details.ratio_);
+			     problem.details_.height_limit_,
+			     problem.details_.ratio_);
       Offset middle = b.curve_point (0.5);
       Offset edge = b.curve_point (0.0);
       dy = fabs (middle[Y_AXIS] - edge[Y_AXIS]);
@@ -364,7 +362,7 @@ Tie::get_configuration (Grob *me_grob,
 	  /*
 	    vertically center in space.
 	  */
-	  conf->center_tie_vertically (details);
+	  conf->center_tie_vertically (problem.details_);
 	}
       else
 	{
@@ -412,15 +410,12 @@ Tie::set_default_control_points (Grob *me_grob)
   int tie_position = (int) Tie::get_position (me);
   conf.position_ = tie_position;
   
-  Tie_details details;
-  details.init (me);
-
   Tie_formatting_problem problem;
   problem.from_tie (me);
   
-  get_configuration (me,  &conf, problem, details);
+  get_configuration (me,  &conf, problem);
   set_control_points (me, problem.common_x_refpoint (),
-		      conf, details);
+		      conf, problem.details_);
 }
 
 void

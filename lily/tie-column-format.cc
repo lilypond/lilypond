@@ -90,9 +90,9 @@ shift_small_ties (Ties_configuration *tie_configs,
 void
 final_shape_adjustment (Tie_configuration &conf,
 			Tie_formatting_problem const &problem,
-			Grob *staff_referencer,
-			Tie_details const &details)
+			Grob *staff_referencer)
 {
+  Tie_details const &details (problem.details_);
   Real line_dy = 0.0;
   bool on_line = Staff_symbol_referencer::on_staffline (staff_referencer,
 							int (rint (conf.position_)));

@@ -7,12 +7,12 @@
 
 */
 
-
 #include "tie.hh"
 #include "bezier.hh"
 #include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
+#include "tie-formatting-problem.hh"
 
 int
 Tie_configuration::compare (Tie_configuration const &a,
@@ -87,7 +87,7 @@ Tie_configuration::height (Tie_details const &details) const
 
 
 void
-Tie_details::init (Grob *me)
+Tie_details::from_grob (Grob *me)
 {
   staff_space_ = Staff_symbol_referencer::staff_space (me);
   SCM details = me->get_property ("details");

@@ -22,8 +22,7 @@ void shift_small_ties (Ties_configuration *tie_configs,
 		       Tie_details const &details);
 void final_shape_adjustment (Tie_configuration &conf,
 			     Tie_formatting_problem const&,
-			     Grob *staff_referencer,
-			     Tie_details const &details);
+			     Grob *staff_referencer);
 void
 set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
 		    Link_array<Grob> ties,

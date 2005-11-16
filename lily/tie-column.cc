@@ -103,22 +103,16 @@ Tie_column::calc_positioning_done (SCM smob)
   Tie_formatting_problem problem;
   problem.from_ties (ties);
   
-  Tie_details details;
-  details.init (ties[0]);
-
   /*
     Let the ties flow out, according to our single-tie formatting.
    */
   if (!manual_override)
     {
       Tie::get_configuration (ties[0], &ties_config.ties_.elem_ref (0),
-			      problem,
-			      details);
+			      problem);
       Tie::get_configuration (ties.top (), 
 			      &ties_config.ties_.elem_ref (ties_config.ties_.size()-1),
-			      problem,
-			      details
-			      );
+			      problem);
     }
 
   /*
@@ -133,8 +127,7 @@ Tie_column::calc_positioning_done (SCM smob)
 
       final_shape_adjustment (ties_config.ties_[i],
 			      problem,
-			      ties[0],
-			      details);
+			      ties[0]);
     }
 
   
@@ -143,14 +136,13 @@ Tie_column::calc_positioning_done (SCM smob)
    */
   if (!manual_override)
     {
-      shift_small_ties (&ties_config, ties[0], details);
+      shift_small_ties (&ties_config, ties[0], problem.details_);
     }
   
   for (int i = 0; i < ties.size(); i++)
     {
       Tie::set_control_points (ties[i], problem.common_x_refpoint (), ties_config.ties_[i],
-			       details
-			       );
+			       problem.details_);
       set_grob_direction (ties[i], ties_config.ties_[i].dir_);
     }
   return SCM_BOOL_T;
