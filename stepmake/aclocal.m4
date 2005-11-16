@@ -371,7 +371,7 @@ EOF
 		mkdir -p $(dirname $mf)
 	        cat <<EOF | $PYTHON -  > $mf
 print 'depth=' + ('../' * ( $d-1 ) )
-print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make
+print 'include \$(depth)/config\$(if \$(conf),-\$(conf),).make'
 print 'include \$(configure-srcdir)/$mf'
 EOF
 	    done
