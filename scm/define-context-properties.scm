@@ -108,7 +108,7 @@ for the down staff of PianoStaff. Used by @code{\\autochange}")
      (trebleStaffProperties ,list? "Alist of property settings to apply
 for the up staff of PianoStaff. Used by @code{\\autochange}")
 
-     (newFiguredBassFormatter ,procedure? "Routine generating a markup
+     (figuredBassFormatter ,procedure? "Routine generating a markup
 for a bass figure.")
      (bassFigureFormatFunction ,procedure? "Procedure that is called
 to produce the formatting for a @code{BassFigure} grob. It takes a

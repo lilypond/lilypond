@@ -550,7 +550,7 @@ AncientRemoveEmptyStaffContext = \context {
   tablatureFormat = #fret-number-tablature-format
 
 %%
-  newFiguredBassFormatter = #format-new-bass-figure
+  figuredBassFormatter = #format-bass-figure
   metronomeMarkFormatter = #format-metronome-markup
   graceSettings = #`(
     (Voice Stem direction 1)
@@ -581,8 +581,7 @@ AncientRemoveEmptyStaffContext = \context {
   \type "Engraver_group"
   \name "FiguredBass"
 
-%%  \consists "Figured_bass_engraver"
-  \consists "New_figured_bass_engraver"
+  \consists "Figured_bass_engraver"
   \consists "Note_swallow_translator"
   \consists "Skip_event_swallow_translator"
   \consists "Separating_line_group_engraver"

@@ -58,7 +58,7 @@
 ;; Bass figures.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (format-new-bass-figure figure event context)
+(define-public (format-bass-figure figure event context)
   (let* ((fig (ly:music-property event 'figure))
 	 (fig-markup (if (number? figure)
 			 (if (eq? #t (ly:music-property event 'diminished))
