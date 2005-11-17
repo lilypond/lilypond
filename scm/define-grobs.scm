@@ -300,6 +300,8 @@
 	(quantized-positions . ,Beam::set_stem_lengths)
 	(concaveness . ,Beam::calc_concaveness)
 	(direction . ,Beam::calc_direction)
+	(shorten . ,Beam::calc_stem_shorten)
+	(beaming . ,Beam::calc_beaming)
 	(stencil . ,Beam::print)
 
 	;; TODO: should be in SLT.

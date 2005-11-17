@@ -160,12 +160,12 @@ Beam::calc_direction (SCM smob)
   if (d)
     {
       set_stem_directions (me, d);
-      connect_beams (me);
-      set_stem_shorten (me);
     }
   
   return scm_from_int (d);
 }
+
+
 
 /* We want a maximal number of shared beams, but if there is choice, we
  * take the one that is closest to the end of the stem. This is for
@@ -209,9 +209,12 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
   return best_start;
 }
 
-void
-Beam::connect_beams (Grob *me)
+MAKE_SCHEME_CALLBACK(Beam, calc_beaming, 1)
+SCM
+Beam::calc_beaming (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);
+  
   extract_grob_set (me, "stems", stems);
 
   Slice last_int;
@@ -269,6 +272,8 @@ Beam::connect_beams (Grob *me)
 	  last_dir = this_dir;
 	}
     }
+
+  return SCM_BOOL_T;
 }
 
 /*
@@ -692,35 +697,6 @@ scmify forced-fraction
 This is done in beam because the shorten has to be uniform over the
 entire beam.
 */
-void
-Beam::set_stem_shorten (Grob *me)
-{
-  /*
-    shortening looks silly for x staff beams
-  */
-  if (is_knee (me))
-    return;
-
-  Real forced_fraction = 1.0 * forced_stem_count (me)
-    / visible_stem_count (me);
-
-  int beam_count = get_beam_count (me);
-
-  SCM shorten_list = me->get_property ("beamed-stem-shorten");
-  if (shorten_list == SCM_EOL)
-    return;
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-
-  SCM shorten_elt
-    = robust_list_ref (beam_count -1, shorten_list);
-  Real shorten = scm_to_double (shorten_elt) * staff_space;
-
-  shorten *= forced_fraction;
-
-  if (shorten)
-    me->set_property ("shorten", scm_from_double (shorten));
-}
 
 
 
@@ -745,6 +721,46 @@ set_minimum_dy (Grob *me, Real *dy)
 			      min (min (sit, inter), hang));
     }
 }
+
+  
+
+MAKE_SCHEME_CALLBACK(Beam, calc_stem_shorten, 1)
+SCM
+Beam::calc_stem_shorten (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  
+  /*
+    shortening looks silly for x staff beams
+  */
+  if (is_knee (me))
+    return scm_from_int (0);
+
+  Real forced_fraction = 1.0 * forced_stem_count (me)
+    / visible_stem_count (me);
+
+  int beam_count = get_beam_count (me);
+
+  SCM shorten_list = me->get_property ("beamed-stem-shorten");
+  if (shorten_list == SCM_EOL)
+    return scm_from_int (0);
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+
+  SCM shorten_elt
+    = robust_list_ref (beam_count -1, shorten_list);
+  Real shorten = scm_to_double (shorten_elt) * staff_space;
+
+  shorten *= forced_fraction;
+
+  
+  if (shorten)
+    return scm_from_double (shorten);
+
+  return scm_from_double (0.0);
+}
+
+
 
 /*
   Compute a first approximation to the beam slope.

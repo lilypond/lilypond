@@ -448,8 +448,6 @@ Stem::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-
-
 MAKE_SCHEME_CALLBACK(Stem, calc_direction, 1);
 SCM
 Stem::calc_direction (SCM smob)
@@ -809,31 +807,38 @@ Stem::calc_stem_info (SCM smob)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Grob *beam = get_beam (me);
+
+  if (beam)
+    {
+      (void) beam->get_property ("beaming");
+    }
+  
   Real beam_translation = Beam::get_beam_translation (beam);
   Real beam_thickness = Beam::get_thickness (beam);
   int beam_count = Beam::get_direction_beam_count (beam, my_dir);
+  Real length_fraction
+    = robust_scm2double (me->get_property ("length-fraction"), 1.0);
 
   /* Simple standard stem length */
   SCM details = me->get_property ("details");
   SCM lengths = scm_cdr (scm_assq (ly_symbol2scm ("beamed-lengths"), details));
-
   
   Real ideal_length
     = scm_to_double (robust_list_ref (beam_count - 1, lengths))
-
     * staff_space
+    * length_fraction
+    
     /* stem only extends to center of beam
      */
     - 0.5 * beam_thickness;
 
   /* Condition: sane minimum free stem length (chord to beams) */
   lengths = scm_cdr (scm_assq (ly_symbol2scm ("beamed-minimum-free-lengths"), details));
-  Real length_fraction
-    = robust_scm2double (me->get_property ("length-fraction"), 1.0);
 
   Real ideal_minimum_free
     = scm_to_double (robust_list_ref (beam_count - 1, lengths))
-    * staff_space * length_fraction;
+    * staff_space
+    * length_fraction;
 
   /* UGH
      It seems that also for ideal minimum length, we must use
@@ -893,7 +898,8 @@ Stem::calc_stem_info (SCM smob)
   
   Real minimum_free
     = scm_to_double (robust_list_ref (beam_count - 1, bemfl))
-    * staff_space;
+    * staff_space
+    * length_fraction;
 
   Real minimum_length = minimum_free
     + height_of_my_beams
