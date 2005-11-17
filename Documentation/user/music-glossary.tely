@@ -1510,7 +1510,7 @@ another place frequently near the beginning marked by a sign:
   d1 |
   g,4^\segno a b c |
   b a g2_\markup{
-    \line { "d.s. " \tiny \raise #1 \musicglyph #"scripts-segno" } }
+    \line { "d.s. " \tiny \raise #1 \musicglyph #"scripts.segno" } }
   \bar "|."
 }
 @end lilypond
