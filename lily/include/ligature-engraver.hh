@@ -5,6 +5,7 @@
 
   (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
 */
+
 #ifndef LIGATURE_ENGRAVER_HH
 #define LIGATURE_ENGRAVER_HH
 

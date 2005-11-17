@@ -1674,6 +1674,7 @@
     (TextSpanner
      . (
 	(stencil . ,Text_spanner::print)
+	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(font-shape . italic)
 	(style . dashed-line)
 	(staff-padding . 0.8)

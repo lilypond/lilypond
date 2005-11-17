@@ -611,3 +611,15 @@ measure_position (Context const *context)
 
   return m;
 }
+
+
+void
+set_context_property_on_children (Context *trans, SCM sym, SCM val)
+{
+  trans->internal_set_property (sym, ly_deep_copy (val));
+  for (SCM p = trans->children_contexts (); scm_is_pair (p); p = scm_cdr (p))
+    {
+      Context *trg = unsmob_context (scm_car (p));
+      set_context_property_on_children (trg, sym, ly_deep_copy (val));
+    }
+}

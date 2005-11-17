@@ -115,6 +115,7 @@ DECLARE_UNSMOB (Context, context);
 
 Moment measure_position (Context const *context);
 Rational measure_length (Context const *context);
+void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 
 #endif /* CONTEXT_HH */
 

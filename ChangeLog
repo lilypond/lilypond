@@ -1,3 +1,14 @@
+2005-11-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/accidental-clef-change.ly: new file.
+
+	* lily/note-collision.cc (check_meshing_chords): don't merge fa heads.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add Y-offset property.
+
+	* lily/clef-engraver.cc (inspect_clef_properties): reset
+	localKeySignature for clef changes.
+
 2005-11-17  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* python/midi.c: PyMIDINIT_FUNC isn't defined in Python < 2.3 
@@ -17,6 +28,8 @@
 
 2005-11-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION: release 2.7.17
+	
 	* Documentation/topdocs/NEWS.tely (Top): add note about
 	refactoring.
 

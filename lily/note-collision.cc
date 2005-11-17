@@ -76,6 +76,11 @@ check_meshing_chords (Grob *me,
       && !to_boolean (me->get_property ("merge-differently-headed")))
     merge_possible = false;
 
+  merge_possible = merge_possible &&
+    !(nu->get_property ("style") == ly_symbol2scm ("fa")
+      && nd->get_property ("style") == ly_symbol2scm ("fa"));
+  
+  
   /* Should never merge quarter and half notes, as this would make
      them indistinguishable.  */
   if (merge_possible
