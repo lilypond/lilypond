@@ -144,6 +144,10 @@ Clef_engraver::inspect_clef_properties ()
       || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
       || to_boolean (force_clef))
     {
+      set_context_property_on_children (context (),
+					ly_symbol2scm ("localKeySignature"),
+					get_property ("keySignature"));
+      
       set_glyph ();
       if (prev_cpos_ != SCM_BOOL_F || to_boolean (get_property ("firstClef")))
 	create_clef ();

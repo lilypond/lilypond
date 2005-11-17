@@ -94,16 +94,6 @@ public:
   those.
 */
 
-static void
-set_property_on_children (Context *trans, char const *sym, SCM val)
-{
-  trans->set_property (sym, ly_deep_copy (val));
-  for (SCM p = trans->children_contexts (); scm_is_pair (p); p = scm_cdr (p))
-    {
-      Context *trg = unsmob_context (scm_car (p));
-      set_property_on_children (trg, sym, ly_deep_copy (val));
-    }
-}
 
 Accidental_engraver::Accidental_engraver ()
 {
@@ -121,7 +111,9 @@ void
 Accidental_engraver::update_local_key_signature ()
 {
   last_keysig_ = get_property ("keySignature");
-  set_property_on_children (context (), "localKeySignature", last_keysig_);
+  set_context_property_on_children (context (),
+				    ly_symbol2scm ("localKeySignature"),
+				    last_keysig_);
 
   Context *trans = context ()->get_parent_context ();
 
