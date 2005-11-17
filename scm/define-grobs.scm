@@ -212,26 +212,6 @@
 
     (BassFigure
      . (
-
-	(stencil . ,Text_interface::print)
-
-	(Y-offset . ,Self_alignment_interface::y_aligned_on_self)
-	(direction . 1)
-	(font-family . number)
-
-	;; We must do this, other BFs in
-	;; layout16 become too small.
-	(font-size . -4)
-	(kern . 0.2)
-	(meta . ((class . Item)
-		 (interfaces . (text-interface
-				rhythmic-grob-interface
-				bass-figure-interface
-				self-alignment-interface
-				font-interface))))))
-
-    (NewBassFigure
-     . (
 	;
 	(stencil . ,Text_interface::print)
 
