@@ -57,6 +57,8 @@ public:
 
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_stem_shorten, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_least_squares_positions, (SCM, SCM));
