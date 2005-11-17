@@ -88,7 +88,8 @@ may need to install guile-devel or guile-dev or libguile-dev too.
  @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 3.3 or
 newer).  EGCS and 2.x are known to cause crashes.
 
-@item @uref{http://www.python.org,Python} (version 2.1 or newer).
+@item @uref{http://www.python.org,Python} (version 2.1 or newer except
+for Cygwin/Mingw where version 2.3 or newer is needed).
 
 @item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 

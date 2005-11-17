@@ -20,6 +20,15 @@ midi.parse (s)
 
 #include <Python.h>
 
+/* PyMIDINIT_FUNC isn't defined in Python < 2.3 */
+#ifndef PyMODINIT_FUNC
+#       if defined(__cplusplus)
+#               define PyMODINIT_FUNC extern "C" void
+#       else /* __cplusplus */
+#               define PyMODINIT_FUNC void
+#       endif /* __cplusplus */
+#endif
+
 #if 0
 int x = 0;
 int *track = &x;
