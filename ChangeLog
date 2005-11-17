@@ -1,5 +1,9 @@
 2005-11-17  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* python/midi.c: PyMIDINIT_FUNC isn't defined in Python < 2.3 
+	add dummy definition that works in Linux and add information in
+	INSTALL.texi on the specific Python requirements for Cygwin/Mingw.
+
 	* Documentation/user/changing-defaults.itely (Modifying context
 	plug-ins): Add index for \with.
 
