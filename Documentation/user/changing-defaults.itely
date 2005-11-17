@@ -400,6 +400,8 @@ It can be useful to shuffle around these plug-ins.  This is done by
 starting a new context, with @code{\new} or @code{\context}, and
 modifying it like this, 
 
+@cindex @code{\with}
+
 @example
 \new @var{context} \with @{
   \consists @dots{}

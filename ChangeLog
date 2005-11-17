@@ -1,5 +1,8 @@
 2005-11-17  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* Documentation/user/changing-defaults.itely (Modifying context
+	plug-ins): Add index for \with.
+
 	* Documentation/user/music-glossary.tely (dal segno): Updated
 	example to version >=2.6.
 
