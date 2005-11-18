@@ -504,7 +504,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        * head of a pes, and if it is a punctum.
        */
       if ((context_info & FLEXA_LEFT) && ! (context_info & PES_UPPER))
-	if (!String::compare (glyph_name, "svaticana.punctum"))
+	if (!String::compare (glyph_name, "vaticana.punctum"))
 	  primitive->set_property ("add-cauda", ly_bool2scm (true));
 
       /*
@@ -543,7 +543,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	{
 	  if ((context_info & PES_UPPER) && (context_info & STACKED_HEAD))
 	    {
-	      if (!String::compare (prev_glyph_name, "svaticana.punctum"))
+	      if (!String::compare (prev_glyph_name, "vaticana.punctum"))
 		if (prev_delta_pitch > 1)
 		  prev_glyph_name = "vaticana.lpes";
 		else

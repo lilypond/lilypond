@@ -1,3 +1,8 @@
+2005-11-18  Michael Welsh Duggan <md5i@cs.cmu.edu>
+
+	* lily/vaticana-ligature-engraver.cc: fixed 2 typos in glyph
+	names.
+
 2005-11-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-context-properties.scm
