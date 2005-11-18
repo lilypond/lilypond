@@ -45,6 +45,34 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+
+@item
+It's now possible to easily create deeply nested system start
+brackets,
+
+@lilypond[raggedright]
+\new StaffGroup \with {
+  \remove "System_start_delimiter_engraver"
+  \consists "Nested_system_start_delimiter_engraver"
+}
+\relative <<
+  \override StaffGroup.NestedSystemStartDelimiter #'styles
+     = #'(line-bracket bracket line-bracket)
+  \set StaffGroup.systemStartDelimiterHierarchy = #'((a (b)) c)
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+>>
+@end lilypond
+
+
+In addition, there is now also support for ``square'' system start
+brackets.
+
+This feature was sponsored by Trevor Bača.
+
 @item
 Tie formatting now uses scoring. This opens the road to formatting
 which handles complex situations require tradeoffs between different

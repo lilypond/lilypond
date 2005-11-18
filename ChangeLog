@@ -1,3 +1,24 @@
+2005-11-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-grobs.scm (all-grob-descriptions): new grob
+	NestedSystemStartDelimiter.
+
+	* input/regression/system-start-heavy-bar.ly: new file.
+
+	* lily/nested-system-start-delimiter-engraver.cc: new file.
+
+	* lily/nested-system-start-delimiter.cc: new file.
+
+	* input/regression/system-start-nesting.ly: new file.
+
+	* scm/define-grobs.scm (all-grob-descriptions): use X side
+	positioning for positioning braces for nested contexts.
+
+	* lily/system-start-delimiter.cc (print): don't divide extent by
+	staff_space.
+	(print): use style iso. glyph.
+	(staff_bracket): translate glyph inside routine already.
+
 2005-11-18  Michael Welsh Duggan <md5i@cs.cmu.edu>
 
 	* lily/vaticana-ligature-engraver.cc: fixed 2 typos in glyph

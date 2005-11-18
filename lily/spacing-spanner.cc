@@ -25,6 +25,13 @@ using namespace std;
 #include "staff-spacing.hh"
 #include "spacing-interface.hh"
 
+
+/*
+  TODO:
+
+  use callback instead?
+
+*/
 Rational
 Spacing_spanner::effective_shortest_duration (Grob *me,
 					      Link_array<Grob> const &all)

@@ -6,13 +6,15 @@
   (c) 2000--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "system-start-delimiter.hh"
 #include "engraver.hh"
+
+#include "system-start-delimiter.hh"
 #include "staff-symbol.hh"
 #include "pointer-group-interface.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "spanner.hh"
+#include "side-position-interface.hh"
 
 class System_start_delimiter_engraver : public Engraver
 {
@@ -20,7 +22,7 @@ public:
   TRANSLATOR_DECLARATIONS (System_start_delimiter_engraver);
 
 protected:
-  Spanner *delim_;
+  Spanner *delimiter_;
   DECLARE_ACKNOWLEDGER (system_start_delimiter);
   DECLARE_ACKNOWLEDGER (staff_symbol);
 
@@ -31,52 +33,38 @@ protected:
 void
 System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 {
-  /*
-    don't add as Axis_group_interface::add_element (delim_, ),
-    because that would set the parent as well */
-
-  Pointer_group_interface::add_grob (delim_, ly_symbol2scm ("elements"), inf.grob ());
+  Pointer_group_interface::add_grob (delimiter_, ly_symbol2scm ("elements"), inf.grob ());
 }
+
 
 void
 System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info inf)
 {
-  SCM gl = inf.grob ()->get_property ("glyph");
-  SCM my_gl = delim_->get_property ("glyph");
-
-  /*
-    UGH UGH
-  */
-  if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("brace"))
-      && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
-    add_offset_callback (inf.grob (), scm_from_double (-0.8), X_AXIS);
-  else if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("bracket"))
-	   && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
-    add_offset_callback (inf.grob (), scm_from_double (-0.8), X_AXIS);
+  Side_position_interface::add_support (inf.grob (), delimiter_);
 }
 
 System_start_delimiter_engraver::System_start_delimiter_engraver ()
 {
-  delim_ = 0;
+  delimiter_ = 0;
 }
 
 void
 System_start_delimiter_engraver::process_music ()
 {
-  if (!delim_)
+  if (!delimiter_)
     {
-      SCM delim_name = get_property ("systemStartDelimiter");
-      delim_ = make_spanner_from_properties (this, delim_name, SCM_EOL,
-					     ly_symbol2string (delim_name).to_str0 ());
+      SCM delimiter_name = get_property ("systemStartDelimiter");
+      delimiter_ = make_spanner_from_properties (this, delimiter_name, SCM_EOL,
+						 ly_symbol2string (delimiter_name).to_str0 ());
 
-      delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+      delimiter_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 void
 System_start_delimiter_engraver::finalize ()
 {
-  if (delim_)
-    delim_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+  if (delimiter_)
+    delimiter_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
 }
 
 #include "translator.icc"
