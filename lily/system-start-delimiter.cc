@@ -56,8 +56,6 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 Stencil
 System_start_delimiter::line_bracket (Grob *me, Real height)
 {
-  height -= 1.0;
-
   Real thick
     = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"))
     * robust_scm2double (me->get_property ("thickness"), 1);
@@ -181,7 +179,7 @@ ADD_INTERFACE (System_start_delimiter, "system-start-delimiter-interface",
 
 	       /* properties */
 	       "collapse-height "
-	       "styles "
+	       "style "
 	       "staff-hierarchy "
 	       "thickness "
 	       );
