@@ -412,6 +412,7 @@ separately, but put before musical columns.")
      (style ,symbol? "This setting determines in what style a grob is
 typeset. Valid choices depend on the @code{stencil} callback reading
 this property.")
+     (styles ,list? "A list of style symbols.")   
      (text ,markup? "Text markup.  See @usermanref{Text markup}.")
 ;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
@@ -570,14 +571,17 @@ debugging")
      (shorten ,ly:dimension? "The amount of space that a
 stem. Internally used to distribute beam shortening over stems. ")
      (slur ,ly:grob? "A pointer to a slur object")
+     (staff-hierarchy ,pair? "A nested list of staff symbol grobs.")
      (use-breve-rest ,boolean? "Use breve rests for measures longer
 than a whole rest.")
      
 
      (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
 
+     
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
      ;; ancient notation
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
      ;;;;;;; TODO:
      ;; there are too many properties for ancient notation
      ;; probably neume-types (a list of symbols) would also work.

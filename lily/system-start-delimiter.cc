@@ -17,13 +17,19 @@
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 #include "item.hh"
+#include "line-interface.hh"
 
 #include "pointer-group-interface.hh"
 
 Stencil
 System_start_delimiter::staff_bracket (Grob *me, Real height)
 {
-  Font_metric *fm = Font_interface::get_default_font (me);
+  SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
+		      ly_symbol2scm ("fetaMusic"));
+
+  SCM alist = scm_list_n (fam, SCM_UNDEFINED);
+  Font_metric *fm = select_font (me->layout (), scm_list_n (alist, SCM_UNDEFINED));
+
   Drul_array<Stencil> tips (fm->find_by_name ("brackettips.down"),
 			    fm->find_by_name ("brackettips.up"));
 
@@ -31,17 +37,46 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 
   Real overlap = 0.1 * thickness;
 
-  Stencil bracket = Lookup::filled_box (Box (Interval (0, thickness),
-					     Interval (-1, 1)
-					     * (height / 2 + overlap)));
-
+  Box box (Interval (0, thickness),
+	   Interval (-1, 1)
+	   * (height / 2 + overlap));
+  
+  Stencil bracket = Lookup::filled_box (box);
   Direction d = DOWN;
   do
     bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap, 0.0);
-  while (flip (&d) != DOWN)
-    ;
+  while (flip (&d) != DOWN);
+  bracket = Stencil (box, bracket.expr ());
 
+  bracket.translate_axis (-0.8, X_AXIS);
+  
   return bracket;
+}
+
+Stencil
+System_start_delimiter::line_bracket (Grob *me, Real height)
+{
+  height -= 1.0;
+
+  Real thick
+    = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"))
+    * robust_scm2double (me->get_property ("thickness"), 1);
+  Real w = 0.8;
+  
+  Stencil tip1 = Line_interface::make_line (thick,
+					   Offset (0, -height/2),
+					   Offset (w, -height/2));
+  Stencil tip2 = Line_interface::make_line (thick,
+					    Offset (0, height/2),
+					    Offset (w, height/2));
+  Stencil vline = Line_interface::make_line (thick,
+					     Offset (0, -height/2),
+					     Offset (0, height/2));
+
+  vline.add_stencil (tip1);
+  vline.add_stencil (tip2);
+  vline.translate_axis (-w, X_AXIS);
+  return vline;
 }
 
 Stencil
@@ -58,21 +93,10 @@ SCM
 System_start_delimiter::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-  if (!me)
-    return SCM_EOL;
-
-  SCM s = me->get_property ("glyph");
-  if (!scm_is_string (s))
-    return SCM_EOL;
-  SCM gsym = scm_string_to_symbol (s);
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-
   extract_grob_set (me, "elements", elts);
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
 
   Interval ext;
-
   int non_empty_count = 0;
   for (int i = elts.size (); i--;)
     {
@@ -90,31 +114,23 @@ System_start_delimiter::print (SCM smob)
 	}
     }
 
-  if (gsym == ly_symbol2scm ("bar-line")
-      && non_empty_count <= 1)
-    {
-      me->suicide ();
-      return SCM_EOL;
-    }
-  
-  ext -= me->relative_coordinate (common, Y_AXIS);
-
-  Real len = ext.length () / staff_space;
-
+  SCM glyph_sym = me->get_property ("style");
+  Real len = ext.length ();
   if (ext.is_empty ()
-      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= len))
+      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= ext.length ())
+      || (glyph_sym == ly_symbol2scm ("bar-line")
+	  && non_empty_count <= 1))
     {
       me->suicide ();
-      return SCM_EOL;
+      return SCM_UNSPECIFIED;
     }
 
   Stencil m;
-
-  if (gsym == ly_symbol2scm ("bracket"))
+  if (glyph_sym == ly_symbol2scm ("bracket"))
     m = staff_bracket (me, len);
-  else if (gsym == ly_symbol2scm ("brace"))
+  else if (glyph_sym == ly_symbol2scm ("brace"))
     m = staff_brace (me, len);
-  else if (gsym == ly_symbol2scm ("bar-line"))
+  else if (glyph_sym == ly_symbol2scm ("bar-line"))
     m = simple_bar (me, len);
 
   m.translate_axis (ext.center (), Y_AXIS);
@@ -128,7 +144,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   /* We go through the style sheet to lookup the font file
      name.  This is better than using find_font directly,
      esp. because that triggers mktextfm for non-existent
-     fonts. */
+>     fonts. */
   SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
 		      ly_symbol2scm ("fetaBraces"));
 
@@ -154,15 +170,18 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   Stencil stil (fm->find_by_name ("brace" + to_string (lo)));
   stil.translate_axis (-b[X_AXIS].length()/2, X_AXIS);
 
+  stil.translate_axis (-0.2, X_AXIS);
+  
   return stil;
 }
 
 ADD_INTERFACE (System_start_delimiter, "system-start-delimiter-interface",
 	       "The brace, bracket or bar in front of the system. "
-	       "It is implemented as a spanner.",
+	       ,
 
 	       /* properties */
 	       "collapse-height "
-	       "glyph "
+	       "styles "
+	       "staff-hierarchy "
 	       "thickness "
 	       );

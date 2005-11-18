@@ -26,6 +26,7 @@ public:
   static Stencil old_staff_bracket (Grob *, Real);
   static Stencil staff_brace (Grob *, Real);
   static Stencil simple_bar (Grob *, Real);
+  static Stencil line_bracket (Grob *, Real);
 };
 
 #endif /* SYSTEM_START_DELIMITER_HH */
