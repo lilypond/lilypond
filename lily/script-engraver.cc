@@ -132,7 +132,8 @@ void make_script_from_event (Grob *p,  Context *tg,
 	}
 
       SCM preset = p->get_property_data (sym);
-      if (scm_call_1 (type, preset) == SCM_BOOL_F)
+      if (val == SCM_EOL
+	  || scm_call_1 (type, preset) == SCM_BOOL_F)
 	p->internal_set_property (sym, val);
     }
 
