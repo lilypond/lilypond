@@ -21,6 +21,7 @@
 	   (side-relative-direction . -1)))	 
 	 ("marcato" .
 	  ((script-stencil . (feta . ("dmarcato" . "umarcato")))
+;	   (staff-padding . ())
 	   (quantize-position . #t)
 	   (side-relative-direction .  -1)))
 	 ("staccatissimo" .

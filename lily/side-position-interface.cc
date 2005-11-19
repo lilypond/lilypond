@@ -103,8 +103,8 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
       && total_off * dir < minimum_space)
     total_off = minimum_space * dir;
   
-  /* FIXME: 100CM should relate to paper size.  */
-  if (fabs (total_off) > 100 CM)
+  /* FIXME: 1000 should relate to paper size.  */
+  if (fabs (total_off) > 1000)
     {
       String msg
 	= String_convert::form_string ("Improbable offset for grob %s: %f%s",
@@ -180,7 +180,7 @@ Side_position_interface::aligned_side (Grob*me, Axis a)
 	  Real rounded = directed_round (position, dir);
 	  Grob *head = me->get_parent (X_AXIS);
       
-	  if (rounded <= Staff_symbol_referencer::staff_radius (me) 
+	  if (rounded <= 2 * Staff_symbol_referencer::staff_radius (me) 
 	      || (Note_head::has_interface (head)
 		  && sign (Staff_symbol_referencer::get_position (head)) == - dir))
 	    {
