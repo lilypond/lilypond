@@ -14,7 +14,9 @@
   \consists "Nested_system_start_delimiter_engraver"
 }
 \relative <<
-  \override StaffGroup.NestedSystemStartDelimiter #'styles = #'(line-bracket bracket line-bracket)
+  \set StaffGroup.systemStartDelimiters =
+   #'(SystemStartSquare SystemStartBracket SystemStartSquare)
+  
   \set StaffGroup.systemStartDelimiterHierarchy = #'((a (b)) c)
   \new Staff { c1 }
   \new Staff { c1 }

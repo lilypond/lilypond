@@ -17,13 +17,150 @@
 #include "output-def.hh"
 #include "spanner.hh"
 
+
+struct Bracket_nesting_node
+{
+public:
+  virtual ~Bracket_nesting_node(){}
+  virtual bool add_staff (Grob *) { return false; }
+  virtual void add_support (Grob *) { }
+  virtual void set_bound (Direction, Grob *){}
+  virtual void set_nesting_support (Grob*) {}
+  virtual void create_grobs (Engraver*, SCM, SCM){}
+};
+
+struct Bracket_nesting_group : public Bracket_nesting_node
+{
+  Spanner *delimiter_;
+  Link_array<Bracket_nesting_node> children_;
+ 
+  void from_list (SCM ); 
+  virtual void add_support (Grob *grob);
+  virtual bool add_staff (Grob *grob);
+  virtual void set_nesting_support (Grob*);
+  virtual void set_bound (Direction, Grob *grob);
+  virtual void create_grobs (Engraver*, SCM, SCM);
+  ~Bracket_nesting_group ();
+};
+
+struct Bracket_nesting_staff : public Bracket_nesting_node
+{
+  Grob *staff_;
+
+  Bracket_nesting_staff (Grob *s) { staff_ = s; }
+  virtual bool add_staff (Grob *);
+};
+
+bool
+Bracket_nesting_staff::add_staff (Grob *g)
+{
+  if (!staff_)
+    {
+      staff_ = g;
+      return true;
+    }
+  return false;
+}
+
+void
+Bracket_nesting_group::create_grobs (Engraver *engraver, SCM types, SCM default_type)
+{
+  SCM type = (scm_is_pair (types) ? scm_car (types) : default_type);
+  delimiter_ = make_spanner_from_properties (engraver, type,
+					     SCM_EOL, ly_symbol2string (type).to_str0 ());
+
+  for (int i = 0 ; i < children_.size (); i++)
+    {
+      children_[i]->create_grobs (engraver, (scm_is_pair (types) ? scm_cdr (types) : SCM_EOL),
+				  default_type);
+    }
+}
+
+void
+Bracket_nesting_group::add_support (Grob *g)
+{
+  Side_position_interface::add_support (g, delimiter_);
+  for (int i = 0 ; i < children_.size (); i++)
+    {
+      children_[i]->add_support (g);
+    }
+}
+
+Bracket_nesting_group::~Bracket_nesting_group ()
+{
+  for (int i = 0 ; i < children_.size (); i++)
+    delete children_[i];
+}
+
+void
+Bracket_nesting_group::set_bound (Direction d, Grob *g)
+{
+  delimiter_->set_bound (d, g);
+  for (int i = 0 ; i < children_.size (); i++)
+    {
+      children_[i]->set_bound (d, g);
+    }
+}
+
+void
+Bracket_nesting_group::set_nesting_support (Grob *parent)
+{
+  if (parent)
+    Side_position_interface::add_support (delimiter_, parent);
+  
+  for (int i = 0 ; i < children_.size (); i++)
+    {
+      children_[i]->set_nesting_support (delimiter_);
+    }
+}
+
+
+void
+Bracket_nesting_group::from_list (SCM x)
+{
+  for (SCM s = x; scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM entry = scm_car (s);
+      if (scm_is_pair (entry))
+	{
+	  Bracket_nesting_group *node = new Bracket_nesting_group;
+	  node->from_list (entry);
+	  children_.push (node);
+	}
+      else
+	{
+	  children_.push (new Bracket_nesting_staff (0));
+	}
+    }
+}
+
+bool
+Bracket_nesting_group::add_staff (Grob *grob)
+{
+  for (int i = 0; i < children_.size (); i++)
+    {
+      if (children_[i]->add_staff (grob))
+	{
+	  Pointer_group_interface::add_grob (delimiter_, ly_symbol2scm ("elements"), grob);
+	  return true;
+	}
+    }
+
+  return false;
+}
+
+
+
+
+/****************/
+
 class Nested_system_start_delimiter_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Nested_system_start_delimiter_engraver);
 
 protected:
-  Spanner *delimiter_;
+  Bracket_nesting_group *nesting_;
   
   DECLARE_ACKNOWLEDGER (system_start_delimiter);
   DECLARE_ACKNOWLEDGER (staff_symbol);
@@ -34,69 +171,48 @@ protected:
 
 Nested_system_start_delimiter_engraver::Nested_system_start_delimiter_engraver ()
 {
-  delimiter_ = 0;
+  nesting_ = 0;
 }
 
-bool
-add_staff_to_hierarchy (SCM hierarchy, SCM grob)
-{
-  for (SCM s = hierarchy; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM entry = scm_car (s);
 
-      if (unsmob_grob (entry))
-	;
-      else if (scm_is_pair (entry))
-	{
-	  bool success = add_staff_to_hierarchy (entry, grob);
-	  if (success)
-	    return success;
-	}
-      else
-	{
-	  scm_set_car_x (s, grob);
-	  return true;
-	}
-    }
-
-  return false;
-}
 
 void
 Nested_system_start_delimiter_engraver::process_music ()
 {
-  if (!delimiter_)
+  if (!nesting_)
     {
-      delimiter_ = make_spanner ("NestedSystemStartDelimiter", SCM_EOL);
+      nesting_ = new Bracket_nesting_group ();
       SCM hierarchy = get_property ("systemStartDelimiterHierarchy");
-      
-      
-      delimiter_->set_object ("staff-hierarchy", ly_deep_copy (hierarchy));
-      delimiter_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+      SCM delimiter_name = get_property ("systemStartDelimiter");
+      SCM delimiter_types = get_property ("systemStartDelimiters");
+      nesting_->from_list (hierarchy);
+      nesting_->create_grobs (this, delimiter_types,
+			      delimiter_name);
+      nesting_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 
 void
 Nested_system_start_delimiter_engraver::finalize ()
 {
-  if (delimiter_)
-    delimiter_->set_bound (RIGHT,
+  if (nesting_)
+    {
+      nesting_->set_bound (RIGHT,
 			   unsmob_grob (get_property ("currentCommandColumn")));
+      nesting_->set_nesting_support (0);
+    }
 }
 
 void
 Nested_system_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 {
   Grob *staff = inf.grob();
-  SCM hier = delimiter_->get_object ("staff-hierarchy");
-  bool succ = add_staff_to_hierarchy (hier, staff->self_scm ());
+  bool succ = nesting_->add_staff (staff);
 
   if (!succ)
     {
-      hier = scm_append_x (scm_list_2 (hier,
-				       scm_list_1 (staff->self_scm ())));
-
-      delimiter_->set_object ("staff-hierarchy", hier);
+      nesting_->children_.push  (new Bracket_nesting_staff (0));
+      nesting_->add_staff (staff);
     }
 }
 
@@ -104,7 +220,7 @@ Nested_system_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 void
 Nested_system_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info inf)
 {
-  Side_position_interface::add_support (inf.grob (), delimiter_);
+  nesting_->add_support (inf.grob ());
 }
 
 #include "translator.icc"

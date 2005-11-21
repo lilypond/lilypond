@@ -87,7 +87,7 @@
 \context {
   \type "Engraver_group"
   \name InnerChoirStaff
-  \consists "System_start_delimiter_engraver"
+  \consists "Nested_system_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
 
   \accepts "Staff"
@@ -264,7 +264,7 @@ contained staves are not connected vertically."
 
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
-  \consists "System_start_delimiter_engraver"
+  \consists "Nested_system_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBrace
 
   \accepts "Staff"
@@ -298,7 +298,7 @@ contained staves are not connected vertically."
   \consists "Output_property_engraver"	
   systemStartDelimiter = #'SystemStartBracket
 
-  \consists "System_start_delimiter_engraver"
+  \consists "Nested_system_start_delimiter_engraver"
 
   \defaultchild "Staff"
   \accepts "Staff"
@@ -436,7 +436,7 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Timing_translator"
   \consists "Default_bar_line_engraver"
   \consists "Output_property_engraver"
-  \consists "System_start_delimiter_engraver"
+  \consists "Nested_system_start_delimiter_engraver"
   \consists "Mark_engraver"	
   \consists "Metronome_mark_engraver"	
   \consists "Break_align_engraver"

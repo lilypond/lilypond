@@ -130,6 +130,8 @@ System_start_delimiter::print (SCM smob)
     m = staff_brace (me, len);
   else if (glyph_sym == ly_symbol2scm ("bar-line"))
     m = simple_bar (me, len);
+  else if (glyph_sym == ly_symbol2scm ("line-bracket"))
+    m = line_bracket (me, len);
 
   m.translate_axis (ext.center (), Y_AXIS);
   return m.smobbed_copy ();

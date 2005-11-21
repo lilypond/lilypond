@@ -1,3 +1,18 @@
+2005-11-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): replace
+	System_start_delimiter_engraver by Nested_system_start_delimiter_engraver.
+
+	* lily/nested-system-start-delimiter-engraver.cc (struct
+	Bracket_nesting_node): new class.
+	(struct Bracket_nesting_group): new class
+	(struct Bracket_nesting_staff): new class.
+	(process_music): create hierarchy of grobs. This allows separate
+	tuning of different SSDs. 
+
+	* scm/define-grobs.scm (all-grob-descriptions): new Grob SystemStartSquare
+	(all-grob-descriptions): remove old NestedSystemStartDelimiter.
+
 2005-11-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/side-position-interface.cc (aligned_side): multiply
