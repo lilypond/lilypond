@@ -1,5 +1,7 @@
 2005-11-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PATCH_LEVEL): release 2.7.18
+
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): replace
 	System_start_delimiter_engraver by
 	Nested_system_start_delimiter_engraver.
