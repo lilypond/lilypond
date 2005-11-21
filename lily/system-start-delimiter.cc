@@ -182,6 +182,5 @@ ADD_INTERFACE (System_start_delimiter, "system-start-delimiter-interface",
 	       /* properties */
 	       "collapse-height "
 	       "style "
-	       "staff-hierarchy "
 	       "thickness "
 	       );

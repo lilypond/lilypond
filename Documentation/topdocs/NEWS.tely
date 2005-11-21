@@ -48,16 +48,13 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @item
 It's now possible to easily create deeply nested system start
-brackets,
+delimiters,
 
 @lilypond[raggedright]
-\new StaffGroup \with {
-  \remove "System_start_delimiter_engraver"
-  \consists "Nested_system_start_delimiter_engraver"
-}
+\new StaffGroup 
 \relative <<
-  \override StaffGroup.NestedSystemStartDelimiter #'styles
-     = #'(line-bracket bracket line-bracket)
+  \override StaffGroup.systemStartDelimiters
+     = #'(SystemStartSquare SystemStartBracket SystemStartSquare)
   \set StaffGroup.systemStartDelimiterHierarchy = #'((a (b)) c)
   \new Staff { c1 }
   \new Staff { c1 }
