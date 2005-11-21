@@ -1582,24 +1582,10 @@
 		 (interfaces . (system-interface
 				axis-group-interface))))))
 
-    (NestedSystemStartDelimiter 
-     . (
-	(stencil . ,Nested_system_start_delimiter::print)
-	(X-offset . ,Side_position_interface::x_aligned_side)
-	(direction . ,LEFT)
-	(collapse-height . 1.0)
-	(padding . 0.0)
-	(font-encoding . fetaBraces)
-	(Y-extent . #f)
-	(meta . ((class . Spanner)
-		 (interfaces . (system-start-delimiter-interface
-				side-position-interface
-				font-interface))))))
-
     (SystemStartBrace
      . (
 	(style . brace)
-	(padding . 0.2)
+	(padding . 0.3)
 	(stencil . ,System_start_delimiter::print)
 	(collapse-height . 5.0)
 	(X-offset . ,Side_position_interface::x_aligned_side)
@@ -1611,6 +1597,18 @@
 				side-position-interface
 				font-interface))))))
 
+    (SystemStartSquare
+     . (
+	(Y-extent . #f)
+	(X-offset . ,Side_position_interface::x_aligned_side)
+	(direction . ,LEFT)
+	(stencil . ,System_start_delimiter::print)
+	(style . line-bracket)
+	(thickness . 0.45)
+	(meta . ((class . Spanner)
+		 (interfaces . (font-interface
+				side-position-interface
+				system-start-delimiter-interface))))))
     (SystemStartBracket
      . (
 	(Y-extent . #f)
