@@ -1,7 +1,8 @@
 2005-11-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): replace
-	System_start_delimiter_engraver by Nested_system_start_delimiter_engraver.
+	System_start_delimiter_engraver by
+	Nested_system_start_delimiter_engraver.
 
 	* lily/nested-system-start-delimiter-engraver.cc (struct
 	Bracket_nesting_node): new class.

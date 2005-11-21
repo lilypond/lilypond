@@ -53,7 +53,7 @@ delimiters,
 @lilypond[raggedright]
 \new StaffGroup 
 \relative <<
-  \override StaffGroup.systemStartDelimiters
+  \set StaffGroup.systemStartDelimiters
      = #'(SystemStartSquare SystemStartBracket SystemStartSquare)
   \set StaffGroup.systemStartDelimiterHierarchy = #'((a (b)) c)
   \new Staff { c1 }
@@ -85,8 +85,10 @@ a @code{InstrumentName} grob is defined to be
 @verbatim
 ,(ly:make-simple-closure
   `(,+
-    ,(ly:make-simple-closure (list Self_alignment_interface::y_aligned_on_self))
-    ,(ly:make-simple-closure (list Side_position_interface::y_aligned_on_support_refpoints)))
+    ,(ly:make-simple-closure
+      (,Self_alignment_interface::y_aligned_on_self))
+    ,(ly:make-simple-closure
+      (,Side_position_interface::y_aligned_on_support_refpoints)))
 @end verbatim
 
 @noindent
