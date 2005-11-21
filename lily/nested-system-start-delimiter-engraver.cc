@@ -230,7 +230,7 @@ ADD_ACKNOWLEDGER (Nested_system_start_delimiter_engraver, system_start_delimiter
 
 ADD_TRANSLATOR (Nested_system_start_delimiter_engraver,
 		/* doc */ "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",
-		/* create */ "NestedSystemStartDelimiter",
+		/* create */ "SystemStartSquare SystemStartBrace SystemStartBracket SystemStartBar",
 		/* accept */ "",
 		/* read */ "systemStartDelimiterHierarchy",
 		/* write */ "");
