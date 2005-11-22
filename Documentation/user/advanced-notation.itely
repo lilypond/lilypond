@@ -378,6 +378,12 @@ Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
 suitable LaTeX wrappers to load appropriate La@TeX{} packages for
 interpreting non-ASCII strings.
 
+To use a Unicode escape sequence, use
+
+@example
+#(ly:export (ly:wide-char->utf-8 #x2014))
+@end example
+
 
 @seealso
 
