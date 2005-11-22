@@ -2180,8 +2180,11 @@ are aligned when they do not occur on the same note, you can
 increase the @code{staff-padding} property.
 
 @example
-\override DynamicLineSpanner #'staff-padding = 4
+\override DynamicLineSpanner #'staff-padding = #4
 @end example
+
+You may also use this property if the dynamics are colliding
+with other notation.
 
 
 @refcommands

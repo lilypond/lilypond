@@ -1266,6 +1266,20 @@ gives a basic equalizer control, which can enhance the quality of
 the MIDI output remarkably.  The equalizer can be controlled by
 setting @code{instrumentEqualizer}.
 
+To remove dynamics from the MIDI output, insert the following lines
+in the @code{\midi@{@}} section.
+
+@example
+\midi {
+  ...
+  \context {
+    \Voice
+    \remove "Dynamic_performer"
+    \remove "Span_dynamic_performer"
+  }
+}
+@end example
+
 
 @node MIDI block
 @subsection MIDI block
