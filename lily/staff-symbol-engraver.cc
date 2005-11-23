@@ -43,6 +43,8 @@ Staff_symbol_engraver::process_music ()
     {
       finished_span_ = span_;
       span_ = 0;
+      if (first_start_)
+	first_start_ = false;
     }
 
   if (span_events_[START]

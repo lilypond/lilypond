@@ -1,6 +1,6 @@
 #!@PYTHON@
 #
-# midi2ly.py -- LilyPond midi import script
+# msdi2ly.py -- LilyPond midi import script
 # 
 # source file of the GNU LilyPond music typesetter
 #
@@ -26,13 +26,13 @@ import os
 import string
 import sys
 
-
+       
 ################################################################
 # Users of python modules should include this snippet.
 #
 libdir = '@local_lilypond_libdir@'
 if not os.path.isdir (libdir):
-       libdir = '@lilypond_libdir@'
+        libdir = '@lilypond_libdir@'
 
 # ugh
 if os.environ.has_key ('LILYPONDPREFIX'):
@@ -41,6 +41,12 @@ if os.environ.has_key ('LILYPONDPREFIX'):
 		datadir= datadir[:-1]
 	libdir = datadir.replace ('/share/', '/lib/')
 
+if os.path.exists (os.path.join (datadir, 'lib/lilypond/@TOPLEVEL_VERSION@/')):
+	libdir = os.path.join (libdir, 'lib/lilypond/@TOPLEVEL_VERSION@/')
+        
+if os.path.exists (os.path.join (datadir, 'lib/lilypond/current/')):
+	libdir = os.path.join (libdir, 'lib/lilypond/current/')
+        
 sys.path.insert (0, os.path.join (libdir, 'python'))
 
 ################################################################
@@ -344,7 +350,6 @@ class Note:
 	names = (0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6)
 	alterations = (0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0)
 	alteration_names = ('eses', 'es', '', 'is' , 'isis')
-	
 	def __init__ (self, clocks, pitch, velocity):
 		self.pitch = pitch
 		self.velocity = velocity
@@ -429,6 +434,10 @@ class Note:
 
 		return (o, n, a)
 		
+        def __repr__ (self):
+		s = chr ((self.notename + 2)  % 7 + ord ('a'))
+                return 'Note(%s %s)' % (s, self.duration.dump())
+
 	def dump (self, dump_dur = 1):
 		global reference_note
 		s = chr ((self.notename + 2)  % 7 + ord ('a'))
@@ -470,7 +479,10 @@ class Time:
 
 	def bar_clocks (self):
 		return clocks_per_1 * self.num / self.den
-	
+
+        def __repr__ (self):
+                return 'Time(%d/%d)' % (self.num, self.den)
+        
 	def dump (self):
 		global time
 		time = self
@@ -481,14 +493,23 @@ class Tempo:
 		self.clocks = 0
 		self.seconds_per_1 = seconds_per_1
 
+        def __repr__ (self):
+                return 'Tempo(%d)' % self.bpm ()
+        
+        def bpm (self):
+                return 4 * 60 / self.seconds_per_1
+        
 	def dump (self):
-		return '\n  ' + '\\tempo 4 = %d ' % (4 * 60 / self.seconds_per_1) + '\n  '
+		return '\n  ' + '\\tempo 4 = %d ' % (self.bpm()) + '\n  '
 
 class Clef:
 	clefs = ('"bass_8"', 'bass', 'violin', '"violin^8"')
 	def __init__ (self, type):
 		self.type = type
-		
+
+	def __repr__ (self):
+                return 'Clef(%s)' % self.clefs[self.type]
+        
 	def dump (self):
 		return '\n  \\clef %s\n  ' % self.clefs[self.type]
 
@@ -573,6 +594,10 @@ class Text:
 		else:
 			s = '\n  % [' + self.text_types[self.type] + '] ' + self.text + '\n  '
 		return s
+
+        def __repr__ (self):
+                return 'Text(%d=%s)' % (self.type, self.text)
+
 
 
 def split_track (track):
@@ -928,15 +953,19 @@ def dump_track (channels, n):
 def thread_first_item (thread):
 	for chord in thread:
 		for event in chord:
-			if event[1].__class__ == Note \
-			   or (event[1].__class__ == Text \
-			       and event[1].type == midi.LYRIC):
-				return event[1]
-	return 0
+			if (event[1].__class__ == Note 
+                            or (event[1].__class__ == Text 
+                                and event[1].type == midi.LYRIC)):
+                                
+                            return event[1]
+	return None
 
 def track_first_item (track):
 	for thread in track:
-		return thread_first_item (thread)
+		first = thread_first_item (thread)
+                if first:
+                        return first
+        return None
 
 def guess_clef (track):
 	i = 0
@@ -957,24 +986,24 @@ def guess_clef (track):
 		return Clef (2)
 	
 
-def convert_midi (f, o):
+def convert_midi (in_file, out_file):
 	global clocks_per_1, clocks_per_4, key
+	global start_quant, start_quant_clocks
+	global duration_quant, duration_quant_clocks
+	global allowed_tuplet_clocks
 
-	str = open (f).read ()
+	str = open (in_file).read ()
 	midi_dump = midi.parse (str)
-
+        
 	clocks_per_1 = midi_dump[0][1]
 	clocks_per_4 = clocks_per_1 / 4
 	
-	global start_quant, start_quant_clocks
 	if start_quant:
 		start_quant_clocks = clocks_per_1 / start_quant
 
-	global duration_quant, duration_quant_clocks
 	if duration_quant:
 		duration_quant_clocks = clocks_per_1 / duration_quant
 
-	global allowed_tuplet_clocks
 	allowed_tuplet_clocks = []
 	for (dur, num, den) in allowed_tuplets:
 		allowed_tuplet_clocks.append (clocks_per_1 * num / (dur * den))
@@ -988,29 +1017,34 @@ def convert_midi (f, o):
 
         
 	s = ''
-	s = tag + '\n\\version "2.3.25"\n\n'
+	s = tag + '\n\\version "2.7.18"\n\n'
 	for i in range (len (tracks)):
 		s = s + dump_track (tracks[i], i)
 
 	s = s + '\n\\score {\n  <<\n'
-	for i in range (len (tracks)):
+        
+        i = 0
+	for t in tracks:
 		track = track_name (i)
-		item = track_first_item (tracks[i])
+		item = track_first_item (t)
+                
 		if item and item.__class__ == Note:
 			s = s + '    \\context Staff=%s \\%s\n' % (track, track)
 		elif item and item.__class__ == Text:
 			s = s + '    \\context Lyrics=%s \\%s\n' % (track, track)
+
+                i += 1
 	s = s + '  >>\n}\n'
 
  	progress (_ ("%s output to `%s'...") % ('LY', o))
 
 	if o == '-':
-		h = sys.stdout
+		handle = sys.stdout
 	else:
-		h = open (o, 'w')
+		handle = open (out_file, 'w')
 
-	h.write (s)
-	h.close ()
+	handle.write (s)
+	handle.close ()
 
 
 (sh, long) = getopt_args (option_definitions)

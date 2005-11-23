@@ -135,6 +135,7 @@ Mark_engraver::process_music ()
 #include "translator.icc"
 
 ADD_ACKNOWLEDGER (Mark_engraver, bar_line);
+
 ADD_TRANSLATOR (Mark_engraver,
 		/* doc */ "This engraver will create RehearsalMark objects. "
 		"It puts them on top of all staves (which is taken from "
