@@ -1,3 +1,8 @@
+2005-11-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/midi2ly.py (track_first_item): backport: only return
+	non-null values.
+
 2005-11-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py: quote shell arguments. 

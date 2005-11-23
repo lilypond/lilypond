@@ -32,7 +32,7 @@ import sys
 #
 libdir = '@local_lilypond_libdir@'
 if not os.path.isdir (libdir):
-       libdir = '@lilypond_libdir@'
+	libdir = '@lilypond_libdir@'
 
 # ugh
 if os.environ.has_key ('LILYPONDPREFIX'):
@@ -936,7 +936,10 @@ def thread_first_item (thread):
 
 def track_first_item (track):
 	for thread in track:
-		return thread_first_item (thread)
+                t = thread_first_item (thread)
+                if t:
+                        return t
+        return None
 
 def guess_clef (track):
 	i = 0
