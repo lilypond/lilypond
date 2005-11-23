@@ -16,6 +16,15 @@ s = open ("s.midi").read ()
 midi.parse_track (s)
 midi.parse (s)
 
+
+returns a MIDI file as the tuple
+
+ (format, division, TRACKLIST) 
+
+each track is an EVENTLIST, where EVENT is
+
+  (time, (type, ARG1, [ARG2]))
+
 */
 
 #include <Python.h>

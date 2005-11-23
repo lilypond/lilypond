@@ -126,7 +126,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 		ln -sf ../../scripts/$(outconfbase)/lilypond-book . && \
 		ln -sf ../../scripts/$(outconfbase)/*.ly .
 	cd $(tree-lib-prefix) && \
-		ln -s ../../../../../python/$(outconfbase) python
+		ln -s ../../../../python/$(outconfbase) python
 	cd $(tree-share-prefix) && \
 		ln -s $(top-src-dir)/ly ly && \
 		ln -s ../../../../mf mf && \
