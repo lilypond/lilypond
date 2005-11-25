@@ -54,9 +54,8 @@ Mark_engraver::acknowledge_break_aligned (Grob_info inf)
 	  == s->get_property ("break-align-symbol")))
     {
       /*
-	TODO: make this configurable. RehearsalMark cannot be
-	break-aligned, since the width of the object should not be taken
-	into alignment considerations.
+	RehearsalMark cannot be break-aligned, since the width of the
+	object should not be taken into alignment considerations.
       */
       text_->set_parent (s, X_AXIS);
     }
