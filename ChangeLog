@@ -1,5 +1,10 @@
 2005-11-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/system-start-delimiter-engraver.cc: move from
+	Nested_system_start_delimiter_engraver, rename
+	Nested_system_start_delimiter_engraver ->
+	System_start_delimiter_engraver.
+
 	* lily/nested-system-start-delimiter-engraver.cc (from_list): read
 	bracket type from hierarchy.
 

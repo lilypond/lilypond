@@ -9,15 +9,10 @@
   raggedright = ##t
 }
 
-\new StaffGroup \with {
-  \remove "System_start_delimiter_engraver"
-  \consists "Nested_system_start_delimiter_engraver"
-}
+\new StaffGroup
 \relative <<
-  \set StaffGroup.systemStartDelimiters =
-   #'(SystemStartSquare SystemStartBracket SystemStartSquare)
-  
-  \set StaffGroup.systemStartDelimiterHierarchy = #'((a (b)) c)
+  \set StaffGroup.systemStartDelimiterHierarchy
+    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
   \new Staff { c1 }
   \new Staff { c1 }
   \new Staff { c1 }

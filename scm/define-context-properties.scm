@@ -379,8 +379,6 @@ at beat positions by only drawing one beam over the beat.")
 
      (systemStartDelimiterHierarchy ,pair? "A nested list, indicating the nesting of a start delimiters.") 
 
-     (systemStartDelimiters ,list? "Grobs for nested system starts
-Overrides @code{systemStartDelimiter}.")
      (systemStartDelimiter ,symbol? "Which grob to make for the start of
 the system/staff? Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
