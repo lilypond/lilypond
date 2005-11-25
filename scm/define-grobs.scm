@@ -1266,7 +1266,6 @@
 		 (interfaces . (percent-repeat-interface))))))
     (Rest
      . (
-
 	(stencil . ,Rest::print)
 	(X-extent . ,Rest::width)
 	(Y-extent . ,Rest::height)

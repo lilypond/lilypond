@@ -242,8 +242,7 @@ def do_file (f):
 		# don't cause ///////index.html entries in log files.
 		#	index = "./index.html"
 		#	top = "./"
-
-
+			
 	versiontup = string.split(package_version, '.')
 	branch_str = 'stable-branch'
 	if string.atoi ( versiontup[1]) %  2:

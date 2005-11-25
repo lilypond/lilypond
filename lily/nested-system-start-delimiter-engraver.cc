@@ -26,22 +26,25 @@ public:
   virtual void add_support (Grob *) { }
   virtual void set_bound (Direction, Grob *){}
   virtual void set_nesting_support (Grob*) {}
-  virtual void create_grobs (Engraver*, SCM, SCM){}
+  virtual void create_grobs (Engraver*, SCM) {}
 };
 
 struct Bracket_nesting_group : public Bracket_nesting_node
 {
   Spanner *delimiter_;
   Link_array<Bracket_nesting_node> children_;
- 
+  SCM symbol_;
+
   void from_list (SCM ); 
   virtual void add_support (Grob *grob);
   virtual bool add_staff (Grob *grob);
   virtual void set_nesting_support (Grob*);
   virtual void set_bound (Direction, Grob *grob);
-  virtual void create_grobs (Engraver*, SCM, SCM);
+  virtual void create_grobs (Engraver*, SCM);
   ~Bracket_nesting_group ();
+  Bracket_nesting_group ();
 };
+
 
 struct Bracket_nesting_staff : public Bracket_nesting_node
 {
@@ -50,6 +53,13 @@ struct Bracket_nesting_staff : public Bracket_nesting_node
   Bracket_nesting_staff (Grob *s) { staff_ = s; }
   virtual bool add_staff (Grob *);
 };
+
+
+Bracket_nesting_group::Bracket_nesting_group ()
+{
+  symbol_ = SCM_EOL;
+  delimiter_ = 0;
+}
 
 bool
 Bracket_nesting_staff::add_staff (Grob *g)
@@ -63,16 +73,15 @@ Bracket_nesting_staff::add_staff (Grob *g)
 }
 
 void
-Bracket_nesting_group::create_grobs (Engraver *engraver, SCM types, SCM default_type)
+Bracket_nesting_group::create_grobs (Engraver *engraver, SCM default_type)
 {
-  SCM type = (scm_is_pair (types) ? scm_car (types) : default_type);
+  SCM type = scm_is_symbol (symbol_) ? symbol_ : default_type;
   delimiter_ = make_spanner_from_properties (engraver, type,
 					     SCM_EOL, ly_symbol2string (type).to_str0 ());
 
   for (int i = 0 ; i < children_.size (); i++)
     {
-      children_[i]->create_grobs (engraver, (scm_is_pair (types) ? scm_cdr (types) : SCM_EOL),
-				  default_type);
+      children_[i]->create_grobs (engraver, default_type);
     }
 }
 
@@ -131,6 +140,9 @@ Bracket_nesting_group::from_list (SCM x)
 	{
 	  children_.push (new Bracket_nesting_staff (0));
 	}
+
+      if (scm_is_symbol (entry))
+	symbol_ = entry;
     }
 }
 
@@ -184,10 +196,9 @@ Nested_system_start_delimiter_engraver::process_music ()
       nesting_ = new Bracket_nesting_group ();
       SCM hierarchy = get_property ("systemStartDelimiterHierarchy");
       SCM delimiter_name = get_property ("systemStartDelimiter");
-      SCM delimiter_types = get_property ("systemStartDelimiters");
+
       nesting_->from_list (hierarchy);
-      nesting_->create_grobs (this, delimiter_types,
-			      delimiter_name);
+      nesting_->create_grobs (this, delimiter_name);
       nesting_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
@@ -232,5 +243,5 @@ ADD_TRANSLATOR (Nested_system_start_delimiter_engraver,
 		/* doc */ "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",
 		/* create */ "SystemStartSquare SystemStartBrace SystemStartBracket SystemStartBar",
 		/* accept */ "",
-		/* read */ "systemStartDelimiterHierarchy",
+		/* read */ "systemStartDelimiter systemStartDelimiterHierarchy currentCommandColumn",
 		/* write */ "");

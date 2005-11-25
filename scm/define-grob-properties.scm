@@ -25,9 +25,8 @@
      (X-offset ,number? "The horizontal amount that this object is moved relative to its X-parent")
      (Y-offset ,number? "The vertical amount that this object is moved
 relative to its X-parent")
-     (self-X-offset ,number? "")
-     (self-Y-offset ,number? "")
      (accidentals ,list? "List of alteration numbers")
+     (after-line-breaking ,boolean? "Dummy property, used to trigger callback for after-line-breaking")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
      (add-stem-support ,boolean? "If set, the Stem object is included in this script's support") 
@@ -474,7 +473,6 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
      (adjacent-hairpins ,ly:grob-array? "List of directly neighboring hairpins")
-     (after-line-breaking ,boolean? "Dummy property, used to trigger callback for after-line-breaking")
      (all-elements ,ly:grob-array? "list of all grobs in this line. Its
 function is to protect objects from being garbage collected.")
      (arpeggio ,ly:grob? "pointer to arpeggio object.")
