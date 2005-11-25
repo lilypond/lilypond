@@ -19,8 +19,9 @@
       td.left-column { padding-right: 1em; }
       td.right-column { padding-left: 1em; }
       hr { border:0; height:1; color: #000000; background-color: #000000; }
-    </style>
+    </style> 
   </head>
+  
   <body>
         
 	<div class="navigation">

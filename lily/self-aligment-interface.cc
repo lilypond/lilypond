@@ -147,7 +147,5 @@ ADD_INTERFACE (Self_alignment_interface, "self-alignment-interface",
 
 	       /* porperties */
 	       "self-alignment-X "
-	       "self-X-offset "
-	       "self-Y-offset "
 	       "self-alignment-Y ");
 

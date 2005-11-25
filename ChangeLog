@@ -1,8 +1,24 @@
+2005-11-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/nested-system-start-delimiter-engraver.cc (from_list): read
+	bracket type from hierarchy.
+
+2005-11-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/rest.cc (y_offset_callback): read staff-position.
+
+	* scm/define-grob-properties.scm (all-user-grob-properties): don't
+	mark after-line-breaking-callback as internal.
+
+	* lily/self-aligment-interface.cc: remove self-[XY]-offset.
+
 2005-11-25  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-banier.mf ("d3"): Make `flare' equal to `staff_space'.
 
 2005-11-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/bin/add-html-footer.py (do_file): add google
 
 	* lily/staff-symbol-engraver.cc (process_music): bugfix: stop
 	staff if first_start_ is true.
