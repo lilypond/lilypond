@@ -46,6 +46,29 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 
+@item The horizontal location of rehearsal marks can be adjusted by
+setting the @code{rehearsalMarkAlignSymbol} property,
+
+@lilypond[raggedright]
+\relative {
+  c1 \mark "foo"
+  \key cis \major
+  \clef alto
+  \set Score.rehearsalMarkAlignSymbol = #'key-signature
+  \mark "on-key"
+  cis
+ \key ces \major
+  \set Score.rehearsalMarkAlignSymbol = #'clef
+  \clef treble
+  \mark "on clef"
+  ces
+}
+@end lilypond 
+
+
+This feature was sponsored by Trevor Bača.
+
+
 @item
 It's now possible to easily create deeply nested system start
 delimiters,
