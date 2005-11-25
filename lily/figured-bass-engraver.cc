@@ -356,17 +356,20 @@ Figured_bass_engraver::process_music ()
 	Ugh, repeated code.
        */
       Link_array<Spanner> consecutive;
-      for (int i = 0; i <= junk_continuations.size (); i++)
+      if (to_boolean (get_property ("figuredBassCenterContinuations")))
 	{
-	  if (i < junk_continuations.size()
-	      && (i == 0 || junk_continuations[i-1] == junk_continuations[i] - 1))
-	    consecutive.push (groups_[junk_continuations[i]].continuation_line_);
-	  else 
+	  for (int i = 0; i <= junk_continuations.size (); i++)
 	    {
-	      center_continuations (consecutive);
-	      consecutive.clear ();
-	      if (i < junk_continuations.size ())
+	      if (i < junk_continuations.size()
+		  && (i == 0 || junk_continuations[i-1] == junk_continuations[i] - 1))
 		consecutive.push (groups_[junk_continuations[i]].continuation_line_);
+	      else 
+		{
+		  center_continuations (consecutive);
+		  consecutive.clear ();
+		  if (i < junk_continuations.size ())
+		    consecutive.push (groups_[junk_continuations[i]].continuation_line_);
+		}
 	    }
 	}
       for (int i = 0; i < junk_continuations.size (); i++)

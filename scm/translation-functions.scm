@@ -70,7 +70,9 @@
 	 (alt-markup
 	  (if (number? alt)
 	      (markup
-		      #:general-align Y DOWN #:smaller #:smaller
+		      #:general-align Y DOWN #:fontsize
+		      (if (not (= alt DOUBLE-SHARP))
+			  -2 2)
 		      (alteration->text-accidental-markup alt))
 	      
 	      #f))
