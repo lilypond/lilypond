@@ -1,4 +1,4 @@
-% feta-nummer.mf -- implement bold Orator numerals
+% feta-nummer-code.mf -- implement bold Orator numerals
 %
 % part of LilyPond's pretty-but-neat music font
 %
@@ -264,15 +264,18 @@ fet_beginchar ("Plus", "plus");
 	outer_hsize = hround ((b + w - vthick) / 2);
 	outer_vsize = vround ((h + d - hthick) / 2);
 
-	centerx := hround (w/2);
-	centery := vround ((h - d)/2);
+	centerx := hround (w / 2);
+	centery := vround ((h - d) / 2);
 
 	z1 = (centerx - hthick/2, -d); 
 	z2 = (centerx + hthick/2, h); 
-	labels(1,2);
+
+	labels (1, 2);
+
 	draw_rounded_block (z1, z2, hthick);
 	draw_rounded_block ((0, centery - vthick/2),
-	  (w, (centery + vthick/2)), vthick);
+			    (w, (centery + vthick/2)),
+			    vthick);
 fet_endchar;
 
 
