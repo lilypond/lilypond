@@ -53,9 +53,8 @@ delimiters,
 @lilypond[raggedright]
 \new StaffGroup 
 \relative <<
-  \set StaffGroup.systemStartDelimiters
-     = #'(SystemStartSquare SystemStartBracket SystemStartSquare)
-  \set StaffGroup.systemStartDelimiterHierarchy = #'((a (b)) c)
+  \set StaffGroup.systemStartDelimiterHierarchy
+    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
   \new Staff { c1 }
   \new Staff { c1 }
   \new Staff { c1 }

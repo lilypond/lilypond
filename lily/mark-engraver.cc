@@ -23,19 +23,20 @@ using namespace std;
 */
 class Mark_engraver : public Engraver
 {
+
+  void create_items (Music *);
+  Item *text_;
+  Music *mark_ev_;
+
 public:
   TRANSLATOR_DECLARATIONS (Mark_engraver);
+
 protected:
-  Item *text_;
-protected:
-  void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (bar_line);
-  void create_items (Music *);
   virtual bool try_music (Music *ev);
   void process_music ();
+  void stop_translation_timestep ();
 
-private:
-  Music *mark_ev_;
+  DECLARE_ACKNOWLEDGER (bar_line);
 };
 
 Mark_engraver::Mark_engraver ()
