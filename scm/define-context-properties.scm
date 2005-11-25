@@ -328,6 +328,8 @@ The list of contains entries with start times, music objects and
 whether they are processed in this context.")
 
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
+     (rehearsalMarkAlignSymbol ,symbol? "Which @code{break-align-symbol} to put the mark on?  Example values:  @code{clef}, @code{key-signature}.")
+     
      (repeatCommands ,list? "This property is read to find any command of the form @code{(volta . @var{x})}, where @var{x} is a string or @code{#f}")
      (restNumberThreshold ,number?
 			  "If a multimeasure rest has more measures

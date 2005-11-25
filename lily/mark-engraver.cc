@@ -36,7 +36,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
 
-  DECLARE_ACKNOWLEDGER (bar_line);
+  DECLARE_ACKNOWLEDGER (break_aligned);
 };
 
 Mark_engraver::Mark_engraver ()
@@ -46,10 +46,12 @@ Mark_engraver::Mark_engraver ()
 }
 
 void
-Mark_engraver::acknowledge_bar_line (Grob_info inf)
+Mark_engraver::acknowledge_break_aligned (Grob_info inf)
 {
   Grob *s = inf.grob ();
-  if (text_)
+  if (text_
+      && (get_property ("rehearsalMarkAlignSymbol")
+	  == s->get_property ("break-align-symbol")))
     {
       /*
 	TODO: make this configurable. RehearsalMark cannot be
@@ -135,7 +137,7 @@ Mark_engraver::process_music ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Mark_engraver, bar_line);
+ADD_ACKNOWLEDGER (Mark_engraver, break_aligned);
 
 ADD_TRANSLATOR (Mark_engraver,
 		/* doc */ "This engraver will create RehearsalMark objects. "
@@ -146,5 +148,5 @@ ADD_TRANSLATOR (Mark_engraver,
 		"end up on the same Y-location",
 		/* create */ "RehearsalMark",
 		/* accept */ "mark-event",
-		/* read */ "rehearsalMark markFormatter stavesFound",
+		/* read */ "rehearsalMark rehearsalMarkAlignSymbol markFormatter stavesFound",
 		/* write */ "");
