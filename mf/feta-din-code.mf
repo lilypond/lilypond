@@ -1,3 +1,11 @@
+% feta-din-code.mf -- implement dynamic signs
+%
+% part of LilyPond's pretty-but-neat music font
+%
+% source file of the Feta (not the Font-En-Tja) music font
+%
+% (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
+
 
 ex# := (dynamic_design_size / 2.4) * pt#;
 descender# := 0.5 ex#;
@@ -94,7 +102,7 @@ fet_beginchar ("dynamic z", "z");
 	     .. simple_serif (z3l, z3r, 90)
 	     .. z2{left}
 	     .. z1r{left}
-	     .. tension 1.2.. cycle;
+	     ..tension 1.2.. cycle;
 
 %	draw
 	fill z3l
@@ -119,15 +127,11 @@ fet_endchar;
 %
 % NOTES:
 %
-% * the bulbs are open.
+% * the bulbs are open
 %
 % * blotting around the serif
 %
-%
-%
 % TODO: insert blots around the serif
-%
-%
 %
 
 slant_angle = 20;
@@ -145,7 +149,7 @@ fet_beginchar ("dynamic f", "f");
 	set_char_box (0, 1.1 ex#, descender#, ex# + ascender#);
 
 	bulb_diam = 7.5 / 40 ex;
-	bulb_thick = 8.5/40 ex;
+	bulb_thick = 8.5 / 40 ex;
 	fill_up = 1.5 serif_thick;
 	left_angle = slant_angle - 6;
 	right_angle = slant_angle - 3;
@@ -205,7 +209,7 @@ fet_beginchar ("dynamic f", "f");
 	     .. z3r{left}
 	     ..tension 1.1.. z2r{z6 - z2r}
 	     -- z6{z6 - z2r}
-	     ..tension 1.25 .. z7r{left}
+	     ..tension 1.25.. z7r{left}
 	     .. z8r{up}
 	     .. z9r{right}
 	     .. z9l{down}
@@ -336,7 +340,7 @@ slant := ypart (dir (slant_angle));
 %
 % * The slant is extreme: 20 degrees.
 %
-% * The twiddle (what'sitcalled) is a slightly darker than the serif.
+% * The twiddle (what's-it-called) is a slightly darker than the serif.
 %
 % * The hole in the cheek has a straight right side.
 %

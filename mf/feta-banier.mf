@@ -137,7 +137,7 @@ fet_beginchar ("8th Flag (up)", "u3");
 		   hip_depth_ratio, foot_width_ratio,
 		   hip_thickness, foot_thickness, 1);
 
-	draw_square_block ((- 0.5 stemthickness_rounded, -staff_space_rounded),
+	draw_square_block ((-0.5 stemthickness_rounded, -staff_space_rounded),
 			   (0, 0));
 fet_endchar;
 
@@ -168,7 +168,7 @@ fet_beginchar ("16th Flag (up)", "u4");
 	add_flag (flagspace, flare, .97, 1.00, 1.25,
 		  hip_thickness, foot_thickness);
 
-	draw_square_block ((- 0.5 stemthickness_rounded, 0),
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, -2 staff_space_rounded));
 fet_endchar;
 
@@ -202,7 +202,7 @@ fet_beginchar ("32nd Flag (up)", "u5");
 	add_flag (flagspace, flare, .95, 1.05, 1.25,
 		  hip_thickness, foot_thickness);
 
-	draw_square_block ((- 0.5 stemthickness_rounded, 0),
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, -3 staff_space_rounded));
 fet_endchar;
 
@@ -239,7 +239,7 @@ fet_beginchar ("64th Flag (up)", "u6");
 	add_flag (flagspace, flare, .95, 1.05, 1.25,
 		  hip_thickness, foot_thickness);
 
-	draw_square_block ((- 0.5 stemthickness_rounded, 0),
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, -4 staff_space_rounded));
 fet_endchar;
 
@@ -249,9 +249,9 @@ fet_beginchar ("8th (down)", "d3");
 	save flagspace, total_depth, flag_count;
 
 	flag_count = 1;
-	flare = .99 staff_space;
+	flare = staff_space;
 	flagspace# = .9 staff_space#;
-	hip_depth_ratio = .72 ;
+	hip_depth_ratio = .72;
 	hip_width# = downflag_width# - hip_thickness# / 2;
 	total_depth# = 2.85 staff_space#;
 	foot_width_ratio = .8;
@@ -268,7 +268,7 @@ fet_beginchar ("8th (down)", "d3");
 		   hip_depth_ratio, foot_width_ratio,
 		   hip_thickness, foot_thickness, 0);
 
-	draw_square_block ((- 0.5 stemthickness_rounded, 0),
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, -staff_space_rounded));
 
 	y_mirror_char;
@@ -420,7 +420,7 @@ fet_beginchar ("32nd (down)", "d5");
 	add_flag (flagspace, flare, .95, 1.05, 1.25,
 		  hip_thickness, foot_thickness);
 
-	draw_square_block ((- 0.5 stemthickness_rounded, 0),
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, -3 staff_space_rounded));
 
 	y_mirror_char;
@@ -459,7 +459,7 @@ fet_beginchar ("64th (down)", "d6");
 	add_flag (.98 flagspace, flare, .91, 1.05, 1.2,
 		  hip_thickness, foot_thickness);
 
-	draw_square_block ((- 0.5 stemthickness_rounded, 0),
+	draw_square_block ((-0.5 stemthickness_rounded, 0),
 			   (0, -4 staff_space_rounded));
 
 	y_mirror_char;
