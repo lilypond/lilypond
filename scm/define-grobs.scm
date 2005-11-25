@@ -1235,7 +1235,10 @@
 
 	(stencil . ,Text_interface::print)
 
-	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+ ,(ly:make-simple-closure `(,Self_alignment_interface::x_aligned_on_self))
+			   ,(ly:make-simple-closure `(,Self_alignment_interface::centered_on_x_parent)))
+		      ))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 
 	(after-line-breaking . ,shift-right-at-line-begin)
