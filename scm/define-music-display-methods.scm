@@ -85,7 +85,7 @@
        (result #f result))
       ((or result (null? alist)) result)
     (if (and (car alist) (test item (cdar alist)))
-        (set! result (car alist)))))
+	(set! result (car alist)))))
 
 (define (note-name->lily-string ly-pitch)
   ;; here we define a custom pitch= function, since we do not want to
@@ -321,7 +321,7 @@
 					       'ContextSpeccedMusic
 					       element (music
 							'OverrideProperty
-							grob-property 'stroke-style
+							grob-property-path '(stroke-style)
 							grob-value "grace"
 							symbol 'Stem)))))
 			   #t)
@@ -331,7 +331,7 @@
 					      'ContextSpeccedMusic
 					      element (music
 						       'RevertProperty
-						       grob-property 'stroke-style
+						       grob-property-path '(stroke-style)
 						       symbol 'Stem))
 					     (music
 					      'EventChord
@@ -598,9 +598,9 @@ Otherwise, return #f."
 	(bracket-stop (ly:music-property figure 'bracket-stop)))
     (format #f "~a~a~a~a"
 	    (if (null? bracket-start) "" "[")
-	    (if (null? fig) 
-		"_"
-		(second fig)) ;; fig: (<number-markup> "number")
+	    (cond ((null? fig) "_")
+		  ((markup? fig) (second fig)) ;; fig: (<number-markup> "number")
+		  (else fig))
 	    (if (null? alteration)
 		""
 		(case alteration
@@ -827,7 +827,7 @@ Otherwise, return #f."
 
 (define-display-method OverrideProperty (expr)
   (let ((symbol	  (ly:music-property expr 'symbol))
-	(property (ly:music-property expr 'grob-property))
+	(properties (ly:music-property expr 'grob-property-path))
 	(value	  (ly:music-property expr 'grob-value))
 	(once	  (ly:music-property expr 'once)))
     (format #f "~a\\override ~a~a #'~a = ~a~a"
@@ -839,19 +839,23 @@ Otherwise, return #f."
 		"" 
 		(format #f "~a . " (*current-context*)))
 	    symbol
-	    property
+	    (if (null? (cdr properties))
+		(car properties)
+		properties)
 	    (property-value->lily-string value)
 	    (new-line->lily-string))))
 	    
 (define-display-method RevertProperty (expr)
   (let ((symbol (ly:music-property expr 'symbol))
-	(property (ly:music-property expr 'grob-property)))
+	(properties (ly:music-property expr 'grob-property-path)))
     (format #f "\\revert ~a~a #'~a~a"
 	    (if (eqv? (*current-context*) 'Bottom) 
 		"" 
 		(format #f "~a . " (*current-context*)))
 	    symbol
-	    property
+	    (if (null? (cdr properties))
+		(car properties)
+		properties)
 	    (new-line->lily-string))))
 
 ;;; \clef 
