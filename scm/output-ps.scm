@@ -136,7 +136,7 @@
 (define (glyph-string
 	 postscript-font-name
 	 size cid?
-	 x-y-named-glyphs)
+	 w-x-y-named-glyphs)
 
   (format #f "gsave 1 output-scale div 1 output-scale div scale
   /~a ~a ~a scalefont setfont\n~a grestore"
@@ -150,19 +150,21 @@
 	   string-append
 	   (map (lambda  (item)
 		  (let*
-		      ((x (car item))
-		       (y (cadr item))
-		       (g (caddr item))
+		      ((w (car item))
+		       (x (cadr item))
+		       (y (caddr item))
+		       (g (cadddr item))
 		       (prefix (if  (string? g) "/" "")))
 
 		    (if (and (= 0.0 x)
 			     (= 0.0 y))
-			(format #f " ~a~a glyphshow\n" prefix g)
+;			(format #f " ~a~a glyphshow\n" prefix g)
+			(format #f " gsave ~a~a glyphshow grestore ~a 0 rmoveto \n" prefix g w)
 			(format #f " ~a ~a rmoveto ~a~a glyphshow\n"
 				x y
 				prefix
 				g))))
-		x-y-named-glyphs))))
+		w-x-y-named-glyphs))))
 
 (define (grob-cause offset grob)
   (let* ((cause (ly:grob-property grob 'cause))
