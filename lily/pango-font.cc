@@ -125,8 +125,10 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
       else
 	char_id = scm_makfrom0str (glyph_name);
       
-      *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_),
+      *tail = scm_cons (scm_list_4 (scm_from_double (ggeo.width * scale_),
+				    scm_from_double (ggeo.x_offset * scale_),
 				    scm_from_double (ggeo.y_offset * scale_),
+				    
 				    char_id),
 			SCM_EOL);
       tail = SCM_CDRLOC (*tail);

@@ -248,14 +248,14 @@ lilypond -fgnome input/simple-song.ly
 ;; FIXME: the framework-gnome backend needs to see every item that
 ;; gets created.  All items created here must should be put in a group
 ;; that gets returned.
-(define (glyph-string font postscript-font-name x-y-named-glyphs)
+(define (glyph-string font postscript-font-name w-x-y-named-glyphs)
   (for-each
    (lambda (x)
 
      ;; UGR, glyph names not found
      (stderr "GLYPH:~S\n" (caddr x))
      (stderr "ID:~S\n" (ly:font-glyph-name-to-charcode font (caddr x)))
-     (placebox (car x) (cadr x)
+     (placebox (cadr x) (caddr x)
 	       (make <gnome-canvas-text>
 		 #:parent (canvas-root)
 		 ;;#:x 0.0 #:y (if (music-font? font) 0.15 0.69)
@@ -266,8 +266,8 @@ lilypond -fgnome input/simple-song.ly
 		 #:size-set #t
 		 #:text
 		 (integer->utf-8-string
-		  (ly:font-glyph-name-to-charcode font (caddr x))))))
-   x-y-named-glyphs))
+		  (ly:font-glyph-name-to-charcode font (cadddr x))))))
+   w-x-y-named-glyphs))
 
 (define (grob-cause offset grob)
   grob)
