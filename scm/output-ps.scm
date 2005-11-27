@@ -158,8 +158,8 @@
 
 		    (if (and (= 0.0 x)
 			     (= 0.0 y))
-;			(format #f " ~a~a glyphshow\n" prefix g)
-			(format #f " gsave ~a~a glyphshow grestore ~a 0 rmoveto \n" prefix g w)
+			(format #f " ~a~a glyphshow\n" prefix g)
+;;			(format #f " gsave ~a~a glyphshow grestore ~a 0 rmoveto \n" prefix g w)
 			(format #f " ~a ~a rmoveto ~a~a glyphshow\n"
 				x y
 				prefix
