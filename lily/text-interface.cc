@@ -58,7 +58,7 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
     {
       programming_error ("not a markup: ");
       scm_display (markup, scm_current_error_port ());
-      assert (false);
+
       Box b;
       b[X_AXIS].set_empty ();
       b[Y_AXIS].set_empty ();
