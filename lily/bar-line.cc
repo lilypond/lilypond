@@ -131,6 +131,10 @@ Bar_line::compound_barline (Grob *me, String str, Real h,
 	  m.add_stencil (d);
 	}
     }
+  else if (str == ".")
+    {
+      m = dot;
+    }
   return m;
 }
 

@@ -711,7 +711,7 @@ class Chunk:
 		return 0
 
 	def is_plain (self):
-		return false
+		return False
 	
 class Substring (Chunk):
 	def __init__ (self, source, start, end, line_number):
@@ -722,7 +722,7 @@ class Substring (Chunk):
 		self.override_text = None
 		
 	def is_plain (self):
-		return true
+		return True
 
 	def replacement_text (self):
 		if self.override_text:
