@@ -11,7 +11,7 @@ SUBDIRS = buildscripts python scripts \
 	input \
 	cygwin stepmake
 
-ifneq($(strip $(DOCUMENTATION)),no)
+ifneq ($(strip $(DOCUMENTATION)),no)
 SUBDIRS += Documentation
 endif
 
