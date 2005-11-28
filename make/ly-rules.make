@@ -23,7 +23,7 @@ $(outdir)/%.texi: $(outdir)/%.tely
 $(outdir)/%.nexi: %.tely
 	rm -f $(outdir)/$*.texi
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) --process='true' $<
-	mv $(outdir)/$*.texinfo $@ 2>/dev/null || mv $(outdir)/$*.texi $@
+	mv -f $(outdir)/$*.texinfo $@ 2>/dev/null || mv -f $(outdir)/$*.texi $@
 
 $(outdir)/%.info: $(outdir)/%.nexi
 	$(MAKEINFO) -I $(outdir) --output=$(outdir)/$(*F).info $<

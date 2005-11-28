@@ -221,6 +221,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 			 (".|." . (".|." . ()))
 			 ("" . ("" . ""))
 			 (":" . (":" . ""))
+			 ("." . ("." . ()))
 			 ("empty" . (() . ()))
 			 ("brace" . (() . "brace"))
 			 ("bracket" . (() . "bracket"))  )))
@@ -230,7 +231,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 			     (index-cell (cdr result) dir)
 			     #f)))
 	 )
-	 
+
     (if (not glyph-name)
 	(ly:grob-suicide! grob))
 
