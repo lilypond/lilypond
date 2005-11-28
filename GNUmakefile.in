@@ -70,16 +70,27 @@ footifymail = MAILADDRESS=bug-lilypond@gnu.org
 local-WWW-post:
 # need UTF8 setting in case this is hosted on a website. 
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(top-build-dir)/examples.html ./
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html ./
+	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/index.html">' > $(outdir)/index.html
+	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(outdir)/index.html
+
 	cd $(top-build-dir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
 	cd $(top-build-dir) && find . -name \*.html~ -print | xargs rm -f
 	cd $(top-build-dir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
 		> $(outdir)/weblist
-	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(top-build-dir)/index.html
-	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(top-build-dir)/index.html
-	cd $(top-build-dir) && ls *.html >> $(outdir)/weblist
-	cat $(outdir)/weblist | (cd $(top-build-dir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
+	ls $(outdir)/*.html >> $(outdir)/weblist
+
+## rewrite paths so we lose out-www
+	rm -rf $(outdir)/web-root/
+	mkdir $(outdir)/web-root/
+	cat $(outdir)/weblist | (cd $(top-build-dir); tar -cf-  -T- ) | \
+		tar -C $(outdir)/web-root/ -xf -  
+	cd $(outdir)/web-root/ &&  \
+		for a in `find -name out-www`; do \
+			mv $$a/* $$a/.. ; \
+			rmdir $$a ; \
+		done
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
