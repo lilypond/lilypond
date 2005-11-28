@@ -21,6 +21,11 @@ AC_CONFIG_HEADER([$CONFIGFILE.hh:config.hh.in])
 
 # Uncomment the configuration options your package needs.
 
+DOCUMENTATION=yes
+AC_ARG_ENABLE(documentation,
+    [  --enable-documentation  build Documentation.  Default: on],
+    [DOCUMENTATION=$enableval])
+AC_SUBST(DOCUMENTATION)
 
 gui_b=no
 AC_ARG_ENABLE(gui,
@@ -32,11 +37,11 @@ AC_ARG_ENABLE(relocation,
     [  --enable-relocation     compile with dynamic relocation.  Default: off],
     [reloc_b=$enableval])
 
-AC_SUBST(LINK_GXX_STATICALLY)
 LINK_GXX_STATICALLY=no
 AC_ARG_ENABLE(static-gxx,
     [  --enable-static-gxx     link libstdc++.a statically. Default: off],
     [LINK_GXX_STATICALLY=$enableval])
+AC_SUBST(LINK_GXX_STATICALLY)
 
 # must come before any header checks
 STEPMAKE_COMPILE
@@ -83,6 +88,7 @@ AC_CHECK_HEADERS([utf8/wchar.h], LIBS="$LIBS -lutf8")
 AC_SEARCH_LIBS(mbrtowc, [mingwex msvcp60])
 
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
+
 if test "$gui_b" = "yes"; then
     STEPMAKE_GTK2(gtk+-2.0, REQUIRED, 2.4.0)
 fi

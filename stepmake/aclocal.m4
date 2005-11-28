@@ -725,7 +725,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     CONFIGSUFFIX=
     AC_ARG_ENABLE(config,
     [  --enable-config=CONF    put settings in config-CONF.make and config-CONF.h;
-                            do \`make conf=CONF' to get output in ./out-CONF],
+                            do `make conf=CONF' to get output in ./out-CONF],
     [CONFIGURATION=$enableval])
 
     ##'
@@ -810,12 +810,9 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
 	    ])
     
     kpathsea_b=yes
-    #FIXME --with-xxx is meant for specifying a PATH too,
-    # so this should read: --enable-kpathsea,
-    # or --with-kpathsea-include=PATH --with-kpathsea-lib=PATH
-    AC_ARG_WITH(kpathsea,
-    [  --with-kpathsea         use kpathsea lib.  Default: on],
-    [kpathsea_b=$with_kpathsea])
+    AC_ARG_ENABLE(kpathsea,
+    [  --enable-kpathsea         use kpathsea lib.  Default: on],
+    [kpathsea_b=$enableval])
 
     save_LIBS="$LIBS"
     if test "$kpathsea_b" != "no"; then	

@@ -1,25 +1,19 @@
 # -*-Makefile-*-
-# title	   specific top level makefile for LilyPond  
 
-# subdir level:
-#
 depth = .
-#
 
-# descent order into subdirectories
-# 
 SUBDIRS = buildscripts python scripts \
-	elisp \
 	flower kpath-guile lily \
-	mf ly tex ps scm \
+	mf ly \
+	tex ps scm \
 	po make \
-	cygwin stepmake \
-	Documentation input \
-	vim 
-#
+	elisp vim \
+	input \
+	cygwin stepmake
 
-#include VERSION
-#package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
+ifneq($(strip $(DOCUMENTATION)),no)
+SUBDIRS += Documentation
+endif
 
 SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh Doxyfile
 README_FILES = ChangeLog COPYING DEDICATION ROADMAP THANKS HACKING
