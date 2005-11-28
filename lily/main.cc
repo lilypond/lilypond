@@ -140,7 +140,7 @@ static Getopt_long *option_parser = 0;
 
 static Long_option_init options_static[]
 = {
-  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps [default],eps,\nscm, svg, tex, texstr)")},
+  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps,eps,\nscm, svg, tex, texstr)\ndefault: PS")},
 
   {_i ("SYM=VAL"), "define-default", 'd',
    _i ("set a Scheme program option. Uses #t if VAL is not specified\n"
@@ -246,7 +246,7 @@ LY_DEFINE (ly_usage, "ly:usage",
   printf (Long_option_init::table_string (options_static).to_str0 ());
   printf ("\n");
   printf (_f ("Report bugs to %s or via %s",
-	      "bug-lilypond@gnu.org"
+	      "bug-lilypond@gnu.org",
 	      "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
 	      ).to_str0 ());
   printf ("\n");

@@ -710,6 +710,9 @@ class Chunk:
 	def png_is_outdated (self):
 		return 0
 
+	def is_plain (self):
+		return false
+	
 class Substring (Chunk):
 	def __init__ (self, source, start, end, line_number):
 		self.source = source
@@ -717,6 +720,9 @@ class Substring (Chunk):
 		self.end = end
 		self.line_number = line_number
 		self.override_text = None
+		
+	def is_plain (self):
+		return true
 
 	def replacement_text (self):
 		if self.override_text:
@@ -1521,10 +1527,12 @@ def do_file (input_filename):
 		ly.progress (_ ("Dissecting..."))
 		chunks = find_toplevel_snippets (source, snippet_types)
 
-		if format == LATEX: 
-			modify_preamble (chunks[0])
-			
-		
+		if format == LATEX:
+			for c in chunks:
+				if (c.is_plain () and
+				    re.search (r"\\begin{document}", c.replacement_text())):
+					modify_preamble (chunks[0])
+					break
 		ly.progress ('\n')
 
 		if filter_cmd:
