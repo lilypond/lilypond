@@ -39,7 +39,7 @@ Group: Applications/Publishing
 
 %description documentation
 Documentation and example files of LilyPond.  An index is available at
-%{docdir}/web/Documentation/out-www/index.html
+%{docdir}/web/Documentation/index.html
 
 %prep
 %setup
@@ -86,7 +86,7 @@ make prefix="$RPM_BUILD_ROOT%{_prefix}" \
   infodir="$RPM_BUILD_ROOT%{_infodir}"  \
   webdir="$RPM_BUILD_ROOT%{_prefix}/share/doc/lilypond/" web-install
 
-ln -sf ../../doc/lilypond/Documentation/user/out-www/*png $RPM_BUILD_ROOT%{_infodir}/lilypond/
+ln -sf ../../doc/lilypond/Documentation/user/*png $RPM_BUILD_ROOT%{_infodir}/lilypond/
 
 # info 
 %if %{info}
