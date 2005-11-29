@@ -7995,7 +7995,7 @@
 	Update all code which uses them where appropriate.
 	(feta_eps, feta_shift, feta_space_shift, feta_offset, feta_fillpen):
 	New variables used to control rasterization at low resolutions.  Set
-	to zert if feta code is processed with metapost.
+	to zero if feta code is processed with metapost.
 
 	* mf/feta-macros.mf (draw_staff, draw_staff_outline): Updated.
 	(draw_rounded_block, draw_square_block): Updated to use `--' only.
@@ -8690,7 +8690,7 @@
 	("Quarter rest"): Use `intersectiontimes' to create a single
 	outline.
 	(rest_crook): Removed.  Unused.
-	(draw_rest_bulb): Return path (wihtout filling).  Update callers.
+	(draw_rest_bulb): Return path (without filling).  Update callers.
 	Simplified.
 	(draw_eighth_rest, "16th rest", "32th rest", "64th rest",
 	"128th rest"): Simplify `pat'.
