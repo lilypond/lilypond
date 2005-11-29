@@ -27,9 +27,11 @@
 	  (throw 'ly-file-failed)))))
 
 (define-public (sanitize-command-option str)
+  "Kill dubious shell quoting"
+  
   (string-append
    "\""
-   (regexp-substitute/global #f "[^- 0-9,.a-zA-Z'\"\\]" str 'pre 'post)
+   (regexp-substitute/global #f "[^-_ 0-9,.a-zA-Z'\"\\]" str 'pre 'post)
    "\""))
 
 (define-public (search-executable names)

@@ -18,6 +18,7 @@ def find (pat, dir):
 	return lst
 
 
+junk_prefix = 'out-www/'
 
 headertext= r"""
 
@@ -132,7 +133,7 @@ hr { border:0; height:1; color: #000000; background-color: #000000; }\n
 		def list_item (file_name, desc, type, lst = list):
 			if os.path.isfile (file_name):
 				lst.write ('<li><a href="%s">%s</a>'
-					   % (file_name, desc))
+					   % (re.sub (junk_prefix, '', file_name), desc))
 
 				# FIXME: include warning if it uses \include
 				# files.

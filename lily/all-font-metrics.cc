@@ -107,10 +107,17 @@ kpathsea_find_file (String name, String ext)
   if (path.length () > 0)
     return path;
 
-  SCM kpath = ly_lily_module_constant ("ly:kpathsea-find-file");
-  if (ly_is_procedure (kpath))
+  static SCM proc;
+  if (!proc)
     {
-      SCM kp_result = scm_call_1 (kpath, scm_makfrom0str (name.to_str0 ()));
+      SCM module = scm_c_resolve_module ("scm kpathsea");
+      proc = scm_c_module_lookup (module, "ly:kpathsea-find-file");
+      proc = scm_variable_ref (proc);
+    }
+
+  if (ly_is_procedure (proc))
+    {
+      SCM kp_result = scm_call_1 (proc, scm_makfrom0str (name.to_str0 ()));
       if (scm_is_string (kp_result))
 	return ly_scm2string (kp_result);
     }

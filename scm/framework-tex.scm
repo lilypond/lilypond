@@ -15,6 +15,7 @@
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (srfi srfi-14)
+	     (scm kpathsea)
 	     (lily))
 
 (define (output-formats)
@@ -345,7 +346,7 @@
 	  (string->number
 	   (regexp-substitute/global
 	    #f " *%.*\n?"
-	    (ly:kpathsea-expand-variable "$extra_mem_top")
+	    (ly:kpathsea-expand-variable "extra_mem_top")
 	    'pre "" 'post)))
 	 (base (basename name ".tex"))
 	 (cmd (format
