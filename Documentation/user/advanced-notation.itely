@@ -2349,16 +2349,16 @@ In order to add a rule to the list, use
 
 @item @code{be} is either "begin" or "end".
 
-@item @code{b/q} is the duration of the note for which you want
+@item @code{p/q} is the duration of the note for which you want
 to add a rule.  A beam is considered to have the duration of its
 shortest note.  Set @code{p} and @code{q} to @code{'*'} to
 have this apply to any beam.
 
-@item @code{n/m} is the position in the time signature to which
+@item @code{n/m} is the time signature to which
 this rule should apply.  Set @code{n} and @code{m} to @code{'*'}
 to have this apply in any time signature.
 
-@item @code{a/b} is the position in the bar at which the beam should end.
+@item @code{a/b} is the position in the bar at which the beam should begin/end.
 
 @item @code{context} is optional, and it specifies the context at which
 the change should be made.  The default is @code{'Voice}.

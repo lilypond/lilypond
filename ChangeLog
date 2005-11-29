@@ -1,5 +1,8 @@
 2005-11-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* Documentation/user/advanced-notation.itely (Setting automatic
+	beam behavior): Correct a few typos. Thanks to David Bobroff.
+
 	* scripts/lilypond-book.py (LATEX_INSPECTION_DOCUMENT): Use
 	\usepackage instead of \RequirePackage. Thanks to Bernard Hurley.
 
