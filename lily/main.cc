@@ -243,7 +243,9 @@ LY_DEFINE (ly_usage, "ly:usage",
   printf ("\n");
   printf (Long_option_init::table_string (options_static).to_str0 ());
   printf ("\n");
-  printf (_f ("Report bugs to %s.", "bug-lilypond@gnu.org").to_str0 ());
+  printf (_f ("Report bugs via %s",
+	      "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
+	      ).to_str0 ());
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;

@@ -1,3 +1,7 @@
+2005-11-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/main.cc (LY_DEFINE): gmane address for reporting bugs.
+
 2005-11-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/text-interface.cc (interpret_markup): remove assert(false).
