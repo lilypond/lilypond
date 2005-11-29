@@ -71,14 +71,14 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo
 	@echo "For images in the INFO docs to work, do: "
 	@echo
-	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/Documentation/user/out-www/*png .)"
+	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/Documentation/user/*png .)"
 	@echo "or add something like that to the postinstall script."
 	@echo
 else
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
-	(cd $(package_infodir) && ln -sf $(webdir)/Documentation/user/out-www/*png .)
+	(cd $(package_infodir) && ln -sf $(webdir)/Documentation/user/*png .)
 endif
 
 local-uninstall-WWW:

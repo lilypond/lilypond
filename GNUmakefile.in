@@ -35,9 +35,9 @@ doc:
 	$(MAKE) -C Documentation
 
 install-WWW:
-	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir) 
-	tar -C $(webdir)/ -xzf $(outdir)/web.tar.gz
-# install-WWW does not recurse; fake it visiting Documentation/user manually
+	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
+	cp -a $(outdir)/web-root/ $(DESTDIR)$(webdir)/
+
 	$(MAKE) -C Documentation/user local-install-WWW
 	$(MAKE) -C Documentation/user install-info
 
