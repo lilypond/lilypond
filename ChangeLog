@@ -1,3 +1,8 @@
+2005-11-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond-book.py (LATEX_INSPECTION_DOCUMENT): Use
+	\usepackage instead of \RequirePackage. Thanks to Bernard Hurley.
+
 2005-11-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/*.py: gmane address for bugs.
