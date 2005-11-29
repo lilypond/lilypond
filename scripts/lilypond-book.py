@@ -1357,7 +1357,7 @@ def modify_preamble (chunk):
 	if (re.search (r"\\begin{document}", str)
 	    and not re.search ("{graphic[sx]", str)):
 		str = re.sub (r"\\begin{document}",
-			      r"\\RequirePackage{graphics}" + '\n'
+			      r"\\usepackage{graphics}" + '\n'
 			      + r"\\begin{document}",
 			      str)
 		chunk.override_text = str 
