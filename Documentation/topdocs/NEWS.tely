@@ -46,6 +46,11 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 
+@item LilyPond does no longer link to kpathsea for the @TeX{} backend.
+This makes the @TeX{} backend more easily usable on various systems.
+
+This fix was sponsored by Christian Ebert.
+
 @item The horizontal location of rehearsal marks can be adjusted by
 setting the @code{rehearsalMarkAlignSymbol} property,
 

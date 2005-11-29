@@ -53,7 +53,7 @@ Documentation and example files of LilyPond.  An index is available at
 # because RPM will gladly do a substitution anyway.
 
 # compile with static libstdc++ for better platform portability.
-./configure --enable-static-gxx --without-kpathsea --disable-checking --prefix=%{_prefix} --enable-optimising
+./configure --enable-static-gxx --disable-checking --prefix=%{_prefix} --enable-optimising
 
 
 make -j2 all
