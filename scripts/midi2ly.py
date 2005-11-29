@@ -233,7 +233,8 @@ def help ():
 		('\n'),
 		(options_help_str (option_definitions)),
 		('\n\n'),
-		(_ ("Report bugs to %s.") % 'bug-lilypond@gnu.org'),
+		(_ ("Report bugs via %s.") %
+		 "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"),
 		('\n')]
 	map (sys.stdout.write, ls)
 	

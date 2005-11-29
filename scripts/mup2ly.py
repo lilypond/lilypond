@@ -217,21 +217,23 @@ def options_help_str (opts):
 
 def help ():
 	ls = [(_ ("Usage: %s [OPTIONS]... FILE") % program_name),
-		('\n\n'),
-		(help_summary),
-		('\n\n'),
-		(_ ("Options:")),
-		('\n'),
-		(options_help_str (option_definitions)),
-		('\n\n'),
-		(_ ("Report bugs to %s.") % 'bug-lilypond@gnu.org'),
-		('\n')]
+	      ('\n\n'),
+	      (help_summary),
+	      ('\n\n'),
+	      (_ ("Options:")),
+	      ('\n'),
+	      (options_help_str (option_definitions)),
+	      ('\n\n'),
+	      (_ ("Report bugs to %s.") %
+	      "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"),
+	      ('\n')]
 	map (sys.stdout.write, ls)
 	
 def setup_temp ():
 	"""
-	Create a temporary directory, and return its name. 
+	Create a temporary directory, and return its name.
 	"""
+	
 	global temp_dir
 	if not keep_temp_dir_p:
 		temp_dir = tempfile.mktemp (program_name)

@@ -1338,7 +1338,9 @@ This program converts ABC music files (see
 http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input.
 
 
-Report bugs to bug-lilypond@gnu.org.
+Report bugs via
+
+  http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs
 
 Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>, Laura Conrad
 <lconrad@laymusic.org>, Roy Rankin <Roy.Rankin@@alcatel.com.au>.
