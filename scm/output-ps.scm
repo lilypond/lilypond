@@ -138,13 +138,12 @@
 	 size cid?
 	 w-x-y-named-glyphs)
 
-  (format #f "gsave 1 output-scale div 1 output-scale div scale
-  /~a ~a ~a scalefont setfont\n~a grestore"
+  (format #f "gsave 
+  /~a ~a ~a output-scale div scalefont setfont\n~a grestore"
 	  postscript-font-name
 	  (if cid?
 	      " /CIDFont findresource "
 	      " findfont")
-	  
 	  size
 	  (apply
 	   string-append
@@ -156,14 +155,8 @@
 		       (g (cadddr item))
 		       (prefix (if  (string? g) "/" "")))
 
-		    (if (and (= 0.0 x)
-			     (= 0.0 y))
-			(format #f " ~a~a glyphshow\n" prefix g)
-;;			(format #f " gsave ~a~a glyphshow grestore ~a 0 rmoveto \n" prefix g w)
-			(format #f " ~a ~a rmoveto ~a~a glyphshow\n"
-				x y
-				prefix
-				g))))
+		    (format #f " gsave ~a~a glyphshow grestore ~a ~a rmoveto \n" prefix g (+ w x) y)
+		    ))
 		w-x-y-named-glyphs))))
 
 (define (grob-cause offset grob)
