@@ -97,6 +97,7 @@ the PDF backend."
   "Draw a box round @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup."
+  
   (let* ((th (chain-assoc-get 'thickness props  0.1))
 	 (size (chain-assoc-get 'font-size props 0))
 	 (pad (* (magstep size)
@@ -391,7 +392,6 @@ determines the space between each markup in @var{args}."
        (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
        )
 
-    
     (if (= text-dir LEFT)
 	(set! stencils (reverse stencils)))
     
@@ -685,6 +685,21 @@ alignment accordingly."
     
     (ly:make-stencil ""
 		     x y)))
+
+
+(def-markup-command (pad-to-box layout props x-ext y-ext arg) (number-pair? number-pair? markup?)
+  "Make @var{arg} take at least @var{x-ext}, @var{y-ext} space"
+
+  (let*
+      ((m (interpret-markup layout props arg))
+       (x (ly:stencil-extent m X))
+       (y (ly:stencil-extent m Y)))
+
+
+    (ly:make-stencil (ly:stencil-expr m)
+		     (interval-union x-ext x)
+		     (interval-union y-ext y))))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

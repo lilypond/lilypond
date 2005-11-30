@@ -1,5 +1,7 @@
 2005-11-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-markup-commands.scm (pad-to-box): new markup command.
+
 	* scm/define-grobs.scm (all-grob-descriptions): set thickness to
 	1.0.
 	(all-grob-descriptions): don't shift RehearsalMark arbitrarily.

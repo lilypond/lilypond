@@ -45,9 +45,11 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item Texts set in a TrueType font are now kerned.
 
-@item LilyPond does no longer link to kpathsea for the @TeX{} backend.
-This makes the @TeX{} backend more easily usable on various systems.
+@item Using the @TeX{}  no longer requires linking or dynamically
+opening the kpathsea library, making the backend more easily usable on
+various systems.
 
 This fix was sponsored by Christian Ebert.
 
