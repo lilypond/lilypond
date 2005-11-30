@@ -145,7 +145,7 @@ Side_position_interface::y_aligned_side (SCM smob)
 }
 
 SCM
-Side_position_interface::aligned_side (Grob*me, Axis a)
+Side_position_interface::aligned_side (Grob *me, Axis a)
 {
   Direction dir = get_grob_direction (me);
 

@@ -4,7 +4,7 @@ depth = ..
 NAME = lilypond
 SUBDIRS = include
 
-MODULE_LIBS=  $(depth)/flower   $(depth)/kpath-guile 
+MODULE_LIBS=$(depth)/flower
 MODULE_INCLUDES= $(depth)/flower/include 
 
 # need this to convert between function pointers and member function pointers.
