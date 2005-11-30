@@ -41,7 +41,7 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="../user/out-www/lilypond/Tutorial.html">Tutorial</a>
+	    <a class="title" href="user/lilypond/Tutorial.html">Tutorial</a>
 	      <br>(start here)
 	  </ul>
 	  </td>
@@ -49,11 +49,11 @@
 	  <ul>
 	  
             <li>
-	    <a class="title" href="../topdocs/out-www/NEWS.html">NEWS</a>
+	    <a class="title" href="topdocs/NEWS.html">NEWS</a>
  	    <br>(changes since the last major release)
 
             <li>
-	    <a class="title" href="../topdocs/out-www/INSTALL.html">INSTALL</a>
+	    <a class="title" href="topdocs/INSTALL.html">INSTALL</a>
  	    <br>(how to compile)
 	  </ul>
 	  </td>
@@ -63,23 +63,23 @@
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="../user/out-www/lilypond/index.html">User manual</a>
-(in <a class="title" href="../user/out-www/lilypond.pdf">PDF</a>, in
-<a class="title" href="../user/out-www/lilypond.html">one big page, ~4Mb</a>)
+<a class="title" href="user/lilypond/index.html">User manual</a>
+(in <a class="title" href="user/lilypond.pdf">PDF</a>, in
+<a class="title" href="user/lilypond.html">one big page, ~4Mb</a>)
 
      <br>(everything about LilyPond)
      
-<li><a class="title"href="../../examples.html">Examples</a>
+<li><a class="title"href="../examples.html">Examples</a>
 
      <br>(see some examples)
 
-<li><a class="title" href="../../input/test/out-www/collated-files.html">Tips and tricks</a>
-(in  <a class="title" href="../../input/test/out-www/collated-files.pdf">PDF</a>)
+<li><a class="title" href="../input/test/collated-files.html">Tips and tricks</a>
+(in  <a class="title" href="../input/test/collated-files.pdf">PDF</a>)
 
      <br>(for advanced users)
- <li><a class="title" href="../user/out-www/music-glossary/index.html">Glossary</a>
-(in <a class="title" href="../user/out-www/music-glossary.pdf">PDF</a>, in
-<a class="title" href="../user/out-www/music-glossary.html">one big page</a>)
+ <li><a class="title" href="user/music-glossary/index.html">Glossary</a>
+(in <a class="title" href="user/music-glossary.pdf">PDF</a>, in
+<a class="title" href="user/music-glossary.html">one big page</a>)
 
      <br>(for non-English users)
 	  </ul>
@@ -88,18 +88,18 @@
           &nbsp;
 	  <ul>
 	    <li>
- <a  class="title" href="../user/out-www/lilypond-internals/index.html">Program reference</a>
- (in <a class="title" href="../user/out-www/lilypond-internals.html">one big page</a>)
+ <a  class="title" href="user/lilypond-internals/index.html">Program reference</a>
+ (in <a class="title" href="user/lilypond-internals.html">one big page</a>)
 
      <br>(definitions for tweaking)
 
 	    <li>
-     <a  class="title" href="../../input/regression/out-www/collated-files.html">Regression tests</a> (in <a  class="title" href="../../input/regression/out-www/collated-files.pdf">PDF</a>) ~ 2.4Mb
+     <a  class="title" href="../input/regression/collated-files.html">Regression tests</a> (in <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>) ~ 2.4Mb
 
      <br>(for developers)
 
 
-	    <li><a  class="title" href="../bibliography/out-www/index.html">Bibliography</a>
+	    <li><a  class="title" href="bibliography/index.html">Bibliography</a>
 
      <br>(background information)
 <li><a class="title"  href="THANKS.html">Thank yous</a>

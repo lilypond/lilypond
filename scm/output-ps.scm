@@ -147,49 +147,28 @@
 (define (glyph-string
 	 postscript-font-name
 	 size cid?
-	 x-y-named-glyphs)
+	 w-x-y-named-glyphs)
 
-  (define (encoding-vector-hack glyphs)
-    
-    ;; GS fucks up with glyphs that are not in the
-    ;; encoding vector.
-    (define (inner j glyphs)
-      (if (or (null? glyphs) (> j 256))
-	  '()
-	  (cons (format "dup ~a /~a put\n"
-			j (car glyphs))
-		(inner (1+ j) (cdr glyphs)))))
-	  
-    (format "256 array 0 1 255 { 1 index exch /.notdef put} for\n ~a
-/EncHack reencode-font /EncHack findfont"
-	    (apply string-append (inner 32 glyphs))))
-    ;; END HACK.
-  
-  (format #f "gsave 1 output-scale div 1 output-scale div scale
-  /~a ~a ~a scalefont setfont\n~a grestore"
+  (format #f "gsave 
+  /~a ~a ~a output-scale div scalefont setfont\n~a grestore"
 	  postscript-font-name
 	  (if cid?
 	      " /CIDFont findresource "
 	      " findfont")
-	
 	  size
 	  (apply
 	   string-append
 	   (map (lambda  (item)
 		  (let*
-		      ((x (car item))
-		       (y (cadr item))
-		       (g (caddr item))
+		      ((w (car item))
+		       (x (cadr item))
+		       (y (caddr item))
+		       (g (cadddr item))
 		       (prefix (if  (string? g) "/" "")))
 
-		    (if (and (= 0.0 x)
-			     (= 0.0 y))
-			(format #f " ~a~a glyphshow\n" prefix g)
-			(format #f " ~a ~a rmoveto ~a~a glyphshow\n"
-				x y
-				prefix
-				g))))
-		x-y-named-glyphs))))
+		    (format #f " gsave ~a~a glyphshow grestore ~a ~a rmoveto \n" prefix g (+ w x) y)
+		    ))
+		w-x-y-named-glyphs))))
 
 (define (grob-cause offset grob)
   (let* ((cause (ly:grob-property grob 'cause))

@@ -1,4 +1,13 @@
+2005-11-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/pango-font.cc: backport: pango-font.cc, completely. This
+	turns on TTF kerning.
+
+	* scm/output-ps.scm (glyph-string): backport: use width in glyph-string
+
 2005-11-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* GNUmakefile.in: backport of out-www excision.
 
 	* scripts/*.py: update bug reporting addresses.  
 

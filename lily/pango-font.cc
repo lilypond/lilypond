@@ -22,15 +22,12 @@
 #include "stencil.hh"
 
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
-			Direction dir,
 			PangoFontDescription *description,
 			Real output_scale)
 {
   (void) fontmap;
   physical_font_tab_ = scm_c_make_hash_table (11);
-  PangoDirection pango_dir = (dir == RIGHT)
-    ? PANGO_DIRECTION_LTR
-    : PANGO_DIRECTION_RTL;
+  PangoDirection pango_dir = PANGO_DIRECTION_LTR;
   context_
     = pango_ft2_get_context (PANGO_RESOLUTION, PANGO_RESOLUTION);
   //  context_ = pango_ft2_font_map_create_context (fontmap);
@@ -44,6 +41,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 
     --hwn
   */
+  output_scale_ = output_scale;
   scale_ = INCH_TO_BP / (Real (PANGO_SCALE) * Real (PANGO_RESOLUTION) * output_scale);
 
   /*
@@ -76,15 +74,15 @@ Pango_font::derived_mark () const
 }
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) const
+Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
-  PangoAnalysis *pa = &(item->analysis);
+  PangoAnalysis const *pa = &(item->analysis);
   PangoGlyphString *pgs = pango_glyph_string_new ();
 
   pango_shape (str.to_str0 () + item->offset,
-	       item->length, pa, pgs);
+	       item->length, (PangoAnalysis*) pa, pgs);
 
   PangoRectangle logical_rect;
   PangoRectangle ink_rect;
@@ -101,7 +99,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 		   PANGO_ASCENT (ink_rect)));
 
   b.scale (scale_);
-  
+
   SCM glyph_exprs = SCM_EOL;
   SCM *tail = &glyph_exprs;
 
@@ -115,24 +113,24 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 
       FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
 
-
-      SCM char_id; 
+      SCM char_id;
       if (glyph_name[0] == '\0')
 	{
 	  /*
 	    CID entry
-	   */
+	  */
 	  cid_keyed = true;
 	  char_id = scm_from_int (pg);
 	}
       else
 	char_id = scm_makfrom0str (glyph_name);
-      *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_
-						     + dx),
+      
+      *tail = scm_cons (scm_list_4 (scm_from_double (ggeo.width * scale_),
+				    scm_from_double (ggeo.x_offset * scale_),
 				    scm_from_double (ggeo.y_offset * scale_),
+				    
 				    char_id),
 			SCM_EOL);
-      dx = 0.0;
       tail = SCM_CDRLOC (*tail);
     }
 
@@ -141,14 +139,16 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
     / (Real (PANGO_SCALE));
 
   FcPattern *fcpat = fcfont->font_pattern;
-  char *file_name = 0;
-  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name);
-#ifdef __MINGW32__
-  /* Normalize file name.  */
-  // FIXME: memleak(s?), drop the #ifdef?
-  file_name = File_name (file_name).to_string ().get_copy_str0 ();
-#endif
+  char *file_name_as_ptr = 0;
+  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name_as_ptr);
 
+  String file_name;
+  if (file_name_as_ptr)
+    {
+      /* Normalize file name.  */
+      file_name = File_name (file_name_as_ptr).to_string ();
+    }
+  
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
 
   if (!ps_name_str0)
@@ -156,15 +156,15 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 
   String ps_name;
   if (!ps_name_str0
-      && file_name
-      && (String (file_name).index (".otf") >= 0
-	  || String (file_name).index (".cff") >= 0))
+      && file_name != ""
+      && (file_name.index (".otf") >= 0
+	  || file_name.index (".cff") >= 0))
     {
 
       /* UGH: kludge a PS name for OTF/CFF fonts.  */
       String name = file_name;
-      int idx = max (String (file_name).index (".otf"),
-		     String (file_name).index (".cff"));
+      int idx = max (file_name.index (".otf"),
+		     file_name.index (".cff"));
 
       name = name.left_string (idx);
 
@@ -185,7 +185,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
     {
       ((Pango_font *) this)->register_font_file (file_name, ps_name);
       pango_fc_font_unlock_face (fcfont);
-	
+
       SCM expr = scm_list_5 (ly_symbol2scm ("glyph-string"),
 			     scm_makfrom0str (ps_name.to_str0 ()),
 			     scm_from_double (size),
@@ -208,25 +208,52 @@ Pango_font::physical_font_tab () const
 Stencil
 Pango_font::text_stencil (String str) const
 {
-  GList *items = pango_itemize (context_,
-				str.to_str0 (),
-				0, str.length (), attribute_list_,
-				NULL);
+  GList *items
+    = pango_itemize (context_,
+		     str.to_str0 (),
+		     0, str.length (), attribute_list_,
+		     NULL);
 
-  GList *ptr = items;
   Stencil dest;
-  Real x = 0.0;
-  while (ptr)
+
+  Real last_x = 0.0;
+
+  Direction text_dir = RIGHT;
+  for (GList *p = items; p; p = p->next)
+    {
+      PangoItem *item = (PangoItem *) p->data;
+      if (item->analysis.level == PANGO_DIRECTION_RTL)
+	text_dir = LEFT;
+    }
+ 
+  for (GList *ptr = items; ptr; ptr = ptr->next)
     {
       PangoItem *item = (PangoItem *) ptr->data;
 
-      Stencil item_stencil = pango_item_string_stencil (item, str, x);
+      Stencil item_stencil = pango_item_string_stencil (item, str);
 
-      x = item_stencil.extent (X_AXIS)[RIGHT];
+      if (text_dir == RIGHT)
+	{
+	  item_stencil.translate_axis (last_x, X_AXIS);
+	  last_x = item_stencil.extent (X_AXIS)[RIGHT];
+	}
+      else if (text_dir == LEFT)
+	{
+	  dest.translate_axis (item_stencil.extent (X_AXIS)[RIGHT], X_AXIS);
+	}
 
+#if 0 /* Check extents.  */
+      if (!item_stencil.extent_box ()[X_AXIS].is_empty ())
+	{
+	  Stencil frame = Lookup::frame (item_stencil.extent_box (), 0.1, 0.1);
+	  Box empty;
+	  empty.set_empty ();
+	  Stencil dimless_frame (empty, frame.expr ());
+	  dest.add_stencil (frame);
+	}
+#endif
+  
       dest.add_stencil (item_stencil);
-
-      ptr = ptr->next;
     }
 
   /*
@@ -241,7 +268,7 @@ Pango_font::text_stencil (String str) const
       */
       char *descr_string = pango_font_description_to_string (pango_description_);
       SCM exp
-	= scm_list_3 (ly_symbol2scm ("utf8-string"),
+	= scm_list_3 (ly_symbol2scm ("utf-8-string"),
 		      scm_makfrom0str (descr_string),
 		      scm_makfrom0str (str.to_str0 ()));
 
@@ -252,17 +279,6 @@ Pango_font::text_stencil (String str) const
       return Stencil (b, exp);
     }
 
-#if 0
-  // check extents.
-  if (!dest.extent_box ()[X_AXIS].is_empty ())
-    {
-      Stencil frame = Lookup::frame (dest.extent_box (), 0.1, 0.1);
-      Box empty;
-      empty.set_empty ();
-      Stencil dimless_frame (empty, frame.expr ());
-      dest.add_stencil (frame);
-    }
-#endif
 
   return dest;
 }

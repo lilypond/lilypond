@@ -25,12 +25,12 @@ class Pango_font : public Font_metric
   PangoFontDescription *pango_description_;
   PangoAttrList *attribute_list_;
   Real scale_;
+  Real output_scale_;
   SCM physical_font_tab_;
 
 public:
   SCM physical_font_tab () const;
   Pango_font (PangoFT2FontMap *,
-	      Direction leftright,
 	      PangoFontDescription *,
 	      Real);
   ~Pango_font ();
@@ -38,7 +38,7 @@ public:
   SCM font_file_name () const;
   void register_font_file (String, String);
   Stencil text_stencil (String) const;
-  Stencil pango_item_string_stencil (PangoItem *, String, Real) const;
+  Stencil pango_item_string_stencil (const PangoItem *, String) const;
 
   virtual void derived_mark () const;
 };

@@ -78,7 +78,6 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
 	progress_indication ("[" + String (pango_fn));
       
       Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
-				       RIGHT,
 				       description,
 				       output_scale);
       val = pf->self_scm ();

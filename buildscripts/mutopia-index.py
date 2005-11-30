@@ -18,6 +18,7 @@ def find (pat, dir):
 	return lst
 
 
+junk_prefix = 'out-www/'
 
 headertext= r"""
 
@@ -26,16 +27,12 @@ headertext= r"""
 
 <p>You're looking at a page with some LilyPond samples.  These files
 are also included in the distribution. The output is completely
-generated from the <tt>.ly</tt> source file, without any further touch
-up.
+generated from the source file, without any further touch up.
 
 <p>
 
 The pictures are 90 dpi anti-aliased snapshots of the printed output.
-If you want a better impression of the appearance, do print out one of
-the PDF or PostScript files; they use scalable fonts, and should look
-good at any resolution.
-
+For a good impression of the quality print out the PDF file.
 """
 
 headertext_nopics= r"""
@@ -136,7 +133,7 @@ hr { border:0; height:1; color: #000000; background-color: #000000; }\n
 		def list_item (file_name, desc, type, lst = list):
 			if os.path.isfile (file_name):
 				lst.write ('<li><a href="%s">%s</a>'
-					   % (file_name, desc))
+					   % (re.sub (junk_prefix, '', file_name), desc))
 
 				# FIXME: include warning if it uses \include
 				# files.

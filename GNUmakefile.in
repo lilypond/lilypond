@@ -41,9 +41,9 @@ doc:
 	$(MAKE) -C Documentation
 
 install-WWW:
-	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir) 
-	tar -C $(webdir)/ -xzf $(outdir)/web.tar.gz
-# install-WWW does not recurse; fake it visiting Documentation/user manually
+	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
+	cp -a $(outdir)/web-root/ $(DESTDIR)$(webdir)/
+
 	$(MAKE) -C Documentation/user local-install-WWW
 	$(MAKE) -C Documentation/user install-info
 
@@ -67,19 +67,31 @@ web-ext = html midi pdf png txt ly
 footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
 footifymail = MAILADDRESS=bug-lilypond@gnu.org
 
+
 local-WWW-post:
 # need UTF8 setting in case this is hosted on a website. 
-	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(builddir)/.htaccess
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
-	cd $(builddir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
-	cd $(builddir) && find . -name \*.html~ -print | xargs rm -f
+	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(outdir)/.htaccess
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html ./
+	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/index.html">' > $(outdir)/index.html
+	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(outdir)/index.html
+
+	$(FIND) $(builddir) -name '*.html' -print | $(footifymail) xargs $(footify)
+	$(FIND) $(builddir) -name \*.html~ -print | xargs rm -f
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
 		> $(outdir)/weblist
-	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
-	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
-	cd $(builddir) && ls *.html >> $(outdir)/weblist
-	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
+	ls $(outdir)/*.html >> $(outdir)/weblist
+
+## rewrite paths so we lose out-www
+	rm -rf $(outdir)/web-root/
+	mkdir $(outdir)/web-root/
+	cat $(outdir)/weblist | (cd $(builddir); tar -cf-  -T- ) | \
+		tar -C $(outdir)/web-root/ -xf -  
+	cd $(outdir)/web-root/ &&  \
+		for a in `find -name out-www`; do \
+			mv $$a/* $$a/.. ; \
+			rmdir $$a ; \
+		done
 
 share-prefix = $(builddir)/share
 tree-prefix = $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)
