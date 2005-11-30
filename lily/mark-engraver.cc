@@ -9,13 +9,15 @@
 #include <cctype>
 using namespace std;
 
+#include "engraver.hh"
+
 #include "bar-line.hh"
 #include "context.hh"
-#include "engraver-group.hh"
 #include "item.hh"
 #include "warn.hh"
 #include "text-interface.hh"
 #include "grob-array.hh"
+#include "axis-group-interface.hh"
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
@@ -51,7 +53,8 @@ Mark_engraver::acknowledge_break_aligned (Grob_info inf)
   Grob *s = inf.grob ();
   if (text_
       && (get_property ("rehearsalMarkAlignSymbol")
-	  == s->get_property ("break-align-symbol")))
+	  == s->get_property ("break-align-symbol"))
+      && Axis_group_interface::has_interface (s))
     {
       /*
 	RehearsalMark cannot be break-aligned, since the width of the
