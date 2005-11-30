@@ -1,4 +1,4 @@
-2005-11-30    <kroeger@pedrokroeger.net>
+2005-11-30  Pedro Kröger  <kroeger@pedrokroeger.net>
 
 	* ly/titling-init.ly (tagline): it should be a space between
 	"Music engraving by LilyPond" and the version number.
