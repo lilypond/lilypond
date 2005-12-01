@@ -42,7 +42,7 @@ doc:
 
 install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	cp -a $(outdir)/web-root/ $(DESTDIR)$(webdir)/
+	cp -a $(outdir)/web-root/* $(DESTDIR)$(webdir)/
 
 	$(MAKE) -C Documentation/user local-install-WWW
 	$(MAKE) -C Documentation/user install-info
