@@ -1354,7 +1354,7 @@ def get_latex_textwidth (source):
 
 def modify_preamble (chunk):
 	str = chunk.replacement_text ()
-	if (re.search (r"\\begin{document}", str)
+	if (re.search (r"\\begin *{document}", str)
 	    and not re.search ("{graphic[sx]", str)):
 		str = re.sub (r"\\begin{document}",
 			      r"\\usepackage{graphics}" + '\n'
@@ -1530,8 +1530,8 @@ def do_file (input_filename):
 		if format == LATEX:
 			for c in chunks:
 				if (c.is_plain () and
-				    re.search (r"\\begin{document}", c.replacement_text())):
-					modify_preamble (chunks[0])
+				    re.search (r"\\begin *{document}", c.replacement_text())):
+					modify_preamble (c)
 					break
 		ly.progress ('\n')
 
