@@ -1,5 +1,7 @@
 2005-11-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION: 2.6.5
+	
 	* lily/pango-font.cc: backport: pango-font.cc, completely. This
 	turns on TTF kerning.
 
