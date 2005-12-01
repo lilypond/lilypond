@@ -45,13 +45,14 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
-@item Texts set in a TrueType font are now kerned.
+@item Texts set in a TrueType font are now kerned. This requires CVS
+Pango or Pango 2.12.
 
 @item Using the @TeX{}  no longer requires linking or dynamically
 opening the kpathsea library, making the backend more easily usable on
 various systems.
 
-This fix was sponsored by Christian Ebert.
+This fix was sponsored by Black Trash Productions.
 
 @item The horizontal location of rehearsal marks can be adjusted by
 setting the @code{rehearsalMarkAlignSymbol} property,
