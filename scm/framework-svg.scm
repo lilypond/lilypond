@@ -46,7 +46,7 @@
 	      `(width . ,(format #f "~s" page-width))
 	      `(height . ,(format #f "~s" page-height))))
     
-;    (dump (dump-fonts outputter paper))
+    (dump (dump-fonts outputter paper))
     (dump
      (string-append
       ;; FIXME: only use pages if there are more than one, pageSet is
