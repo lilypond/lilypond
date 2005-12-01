@@ -71,11 +71,12 @@ $(outdir)/lily-lexer.o: $(outdir)/parser.hh $(outdir)/FlexLexer.h
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
 
 ifneq ($(FLEXLEXER_FILE),)
-$(outdir)/FlexLexer.h: $(FLEXLEXER_FILE)
+$(outdir)/FlexLexer.h: $(FLEXLEXER_FILE) $(config_h)
 	cp $< $@
 endif
 
-
+$(outdir)/lexer.cc: $(config_h)
+$(outdir)/parser.cc: $(config_h)
 
 $(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/kpath.o: $(outdir)/version.hh

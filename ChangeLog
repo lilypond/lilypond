@@ -1,3 +1,9 @@
+2005-12-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/GNUmakefile ($(outdir)/FlexLexer.h):
+	($(outdir)/parser.cc): 
+	($(outdir)/lexer.cc): Bugfix: depend on config.h.
+
 2005-11-30  Pedro Kröger  <kroeger@pedrokroeger.net>
 
 	* ly/titling-init.ly (tagline): it should be a space between
