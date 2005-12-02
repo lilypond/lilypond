@@ -114,7 +114,7 @@ def draw_short_fermata =
 
 	pickup pencircle scaled dot_size;
 
-	x1 - 2x6 = x2;
+	x1 - 2 x6 = x2;
 	bot y6 = -d;
 
 	drawdot z6;
@@ -862,7 +862,7 @@ fet_beginchar ("Trill (`tr')", "trill");
 	penpos11 (hair_thick, -4);
 	z11r = z9r;
 
-	z13l = (x9l + r_width, y11 -  linethickness);
+	z13l = (x9l + r_width, y11 - linethickness);
 	penpos13 (r_flare, 180);
 
 	z15 = z13r - (bulb_size * r_fatness, 0);
@@ -1261,7 +1261,7 @@ def draw_arpeggio =
 	save alpha;
 	save ne, nw, se, sw;
 	save x, y;
-	pair ne,nw,se,sw;
+	pair ne, nw, se, sw;
 
 	alpha := -40;
 

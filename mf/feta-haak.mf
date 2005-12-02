@@ -8,7 +8,7 @@
 
 fet_begingroup ("brackettips");
 
-def draw_bracket(expr thick_sharp, width_sharp, updown) =
+def draw_bracket (expr thick_sharp, width_sharp, updown) =
 begingroup;
 	save p, thin, thick, flattening, width, hair, flare;
  	path p;
@@ -22,7 +22,7 @@ begingroup;
 	define_pixels (thick, width, flare);
 	if updown = 1:
 	        set_char_box (0, width#,
-			      .5 thick# , flare#);
+			      .5 thick#, flare#);
 	else:
 	        set_char_box (0, width#,
 			      flare#, .5 thick#);

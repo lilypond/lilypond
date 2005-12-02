@@ -585,8 +585,8 @@ def draw_slash (expr hwid_hash) =
 		z6 - z5 = whatever * ne;
 		z8 - z7 = whatever * ne;
 
-		z5  = z1 + whatever * ne + th * (ne rotated -90);
-		z8  = z4 + whatever * ne + th * (ne rotated 90);
+		z5 = z1 + whatever * ne + th * (ne rotated -90);
+		z8 = z4 + whatever * ne + th * (ne rotated 90);
 
 		unfill z5
 		       -- z6

@@ -1,5 +1,5 @@
 % 
-% feta-braces3.mf --  next 256 braces
+% feta-braces-d.mf --  next 256 braces
 % 
 % source file of the Feta (Font-En-Tja) music font
 % 

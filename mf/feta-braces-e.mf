@@ -1,5 +1,5 @@
 % 
-% feta-braces4.mf --  next 256 braces
+% feta-braces-e.mf --  next 256 braces
 % 
 % source file of the Feta (Font-En-Tja) music font
 % 
@@ -9,5 +9,3 @@
 font_count := 4;
 input feta-beugel;
 end.
-
-

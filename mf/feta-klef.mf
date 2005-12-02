@@ -146,7 +146,7 @@ begingroup;
 	labels (1', 2', 3', 4', 5');
 
 	before := z3'{dir (turning_dir * 90)}
-		  .. z4'{-dir(0)}
+		  .. z4'{-dir (0)}
 		  ..tension 1.1.. z1'{-dir (turning_dir* 90)};
 	after := z2'{dir (turning_dir * 90)}
 		 .. end_point{dir (end_angle)};
@@ -154,7 +154,7 @@ begingroup;
 
 	pat := start_point{dir (start_angle)}
 	       .. outer_tangent_point{dir (-turning_dir * 90)}
-	       ..tension 1.02.. z5'{dir(0)}
+	       ..tension 1.02.. z5'{dir (0)}
 	       .. subpath (0, u) of before
 	       .. subpath (v, infinity) of after;
 
@@ -312,7 +312,7 @@ def draw_gclef (expr reduction) =
 	upward_swoosh_angle = 132;
 	start_angle = -97;
 
-	breapth_factor = 21.0 /14;
+	breapth_factor = 21/14;
 	inner_thick_end = 45;
 	inner_start_angle = downstroke_angle - 43;
 	thickness = .32 reduced_ss + 1.1 linethickness;
@@ -632,7 +632,7 @@ begingroup;
 
 	penpos10 (.75 [penh, penw], 170);
 	z10 = pos + .375 vx + vy;
-	penpos 11 (.8 [penh, penw], 150);
+	penpos11 (.8 [penh, penw], 150);
 	z11 = z10 - .5 vy + .04 vx;
 	penpos12 (penh, 100);
 	z12l = (xpart .5 [z13, z11], ypart pos);

@@ -66,7 +66,7 @@ def autometric_parameter (expr name, value) =
 enddef;
 
 
-def autometric_output_char=
+def autometric_output_char =
 	message "@{char@:" & charnamestr
 		& "@:" & decimal charcode
 		& "@:" & decimal charbp
@@ -242,7 +242,7 @@ endgroup;
 enddef;
 
 
-def fet_endchar=
+def fet_endchar =
 	autometric_output_char;
 	breapth_endchar;
 enddef;

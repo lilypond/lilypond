@@ -145,7 +145,7 @@ fet_endchar;
 
 
 fet_beginchar ("close", "close.11");
-	set_char_box (.5 staff_space#, .5 staff_space# ,
+	set_char_box (.5 staff_space#, .5 staff_space#,
 		      1.0 staff_space#, 0.0 staff_space#);
 	set_arrow_paths (staff_space, 0.5 staff_space, 1.5, blot_diameter);
 	fill close_path;
@@ -156,7 +156,7 @@ fet_endchar;
 
 
 fet_beginchar ("close", "close.1M1");
-	set_char_box (.5 staff_space#, .5 staff_space# ,
+	set_char_box (.5 staff_space#, .5 staff_space#,
 		      0.0 staff_space#, 1.0 staff_space#);
 	set_arrow_paths (staff_space, 0.5 staff_space, 1.5, blot_diameter);
 	fill close_path;

@@ -1,3 +1,12 @@
+2005-12-02  Werner Lemberg  <wl@gnu.org>
+
+	* mf/README: Document process for proper mf2pt1 conversion.
+
+	* mf/feta-beugel.mf (draw_brace): Fix path to assure clean
+	overlapping.
+
+	* mf/feta-harmonica.mf: Removed.  Unused.
+
 2005-12-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (do_file): fix thinkos.

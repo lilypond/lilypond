@@ -1,5 +1,5 @@
 % 
-% feta-braces0.mf --  256 smallest braces
+% feta-braces-a.mf --  256 smallest braces
 % 
 % source file of the Feta (Font-En-Tja) music font
 % 

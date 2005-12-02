@@ -1,10 +1,10 @@
-
-% feta16.mf
+% feta14.mf
 % part of LilyPond's pretty-but-neat music font
 
 input feta-autometric;
+
 design_size := 14.14;
-test:=0;
+test := 0;
 
 
 input feta-generic;
