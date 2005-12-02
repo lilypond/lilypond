@@ -1,3 +1,71 @@
 
 This is a font of music symbols.  All MF sources are original.  Most
-of the doco is in comments in the MF code.
+of the documentation is in comments in the MF code.
+
+Currently, outline fonts are created by using `autotrace', but we are
+already in the process to convert the MF code directly to PostScript code
+with a tool called `mf2pt1', which in turn calls `FontForge' to postprocess
+the output (mainly to remove outline overlaps and to add hints).
+
+The recommended calling sequence of mf2pt1 is
+
+  mf2pt1 --rounding=0.001 <font>
+
+You need mf2pt1 version 2.1 or newer.
+
+Here some guidelines to assure a clean conversion.
+
+. Never use `---'.  Replace it with `--' together with explicit path
+  directions (if necessary).
+
+. Don't use self-intersecting outlines in general since it can confuse
+  mf2pt1's algorithm to get the orientation of a closed path.  Note that
+  MetaPost's implementation of the `turningnumber' primitive (which would
+  immediately give the orientation of a path) is severely broken and not
+  fixed yet at the time of writing (November 2005), thus some hand-made code
+  in mf2pt1.mp is used to work around this bug.
+
+. If outlines intersect, avoid grazing intersections.  In case two outlines
+  intersect in an explicitly defined point, include this point into both
+  intersecting paths to avoid problems due to rounding errors.
+
+. Don't use `draw' with a polygonal pen but for straight lines (consisting
+  of exactly two points).  In most cases it is quite easy to emulate `draw'
+  with an explicit definition of the outline or with `penstroke'.
+
+. Don't apply transformations after calling `fill' -- for example, don't
+  mirror `currentpicture'.  Instead, transform the path and call `fill'
+  afterwards.  This insures that mf2pt1 gets the correct outline directions
+  which is a necessary prerequisite for FontForge's algorithm to remove
+  overlaps.
+
+
+Some design rules:
+
+. Always use smooth curve transitions.  Since this is difficult to see in
+  MetaFont proof sheets (which don't show the tangents) I recommend to call
+  mf2pt1 like this
+
+    FONTFORGE=foo mf2pt1 ...
+
+  (`foo' should be a non-existent program; this avoids the default
+  postprocessing).  Then call FontForge to inspect the outlines.
+
+. Use rounded corners.
+
+
+Finally, some rules to assure that rasterization at low resolutions give
+good results.  Today, this is a minor issue, but in some cases it might show
+design flaws.
+
+. Use `define_whole_pixels' and friends where appropriate.
+
+. Use `hround' and `vround' consistently.  A lot of auxiliary macros are
+  defined in feta-macros.mf.
+
+. If a path element is duplicated or shifted, use an integer value for the
+  offset.
+
+. Add `eps' for mirrored paths to assure correct MetaFont rasterization.
+  See the comment and the variables at the end of `feta-params.mf' for
+  details how vertical symmetry should be achieved.

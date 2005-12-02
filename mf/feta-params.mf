@@ -67,7 +67,7 @@ fi;
 % characters have sharp edges and corners.
 % The following variable controls the amount of `roundness'.
 %
-% %his is not a meta variable: it is related to absolute sizes.
+% This is not a meta variable: it is related to absolute sizes.
 %
 % FIXME: According to [Wanske], only outside corners should be round
 %        I don't think we do this anywhere -- jcn

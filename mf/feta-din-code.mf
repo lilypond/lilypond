@@ -187,7 +187,7 @@ fet_beginchar ("dynamic f", "f");
 	penpos8 (bulb_thick, 160);
 	x8l = x7l - 1/10 ex;
 
-	z7l = whatever [z8r,z8l];
+	z7l = whatever [z8r, z8l];
 
 	penpos9 (bulb_thick, 135);
 	x9r = 0.1 [x8l, x8r];
@@ -349,7 +349,7 @@ slant := ypart (dir (slant_angle));
 
 code := 111;
 
-fet_beginchar("dynamic p", "p")
+fet_beginchar ("dynamic p", "p")
 	% TODO: w really is 13/12 ex
 	%       but should do kerning
 
@@ -376,7 +376,7 @@ fet_beginchar("dynamic p", "p")
 	cheek_thick = 13/32 ex;
 	cheek_width = 0.72 ex;
 	left_serif_protude = 18/60 ex;
-	right_serif_protude= 15/60 ex;
+	right_serif_protude = 15/60 ex;
 
 	currenttransform := currenttransform slanted slant;
 
@@ -657,7 +657,7 @@ fet_beginchar ("dynamic m", "m");
 	y6l = 23/80 ex + ypart center;
 	z6l = 1.6 [z3l, z3r] + whatever * idir;
 
-	penpos7 (i_thick ,0);
+	penpos7 (i_thick, 0);
 	y7 = 0;
 	z7l = z5l + whatever * idir;
 
@@ -685,11 +685,11 @@ fet_beginchar ("dynamic r", "r");
 	save twiddle_thick, attach_len, overshoot, taille;
 	pair base_point;
 
-	set_char_box (0, .75 ex#, 0, 1ex#);
+	set_char_box (0, .75 ex#, 0, ex#);
 
 	stem_thick =.26 ex;
 	bulb_diam = .30 ex;
-	twiddle_thick= 1.1 serif_thick;
+	twiddle_thick = 1.1 serif_thick;
 	overshoot = .5 serif_thick;
 	taille = -0.3 serif_thick;
 	attach_len + bulb_diam / 2 + stem_thick = w;

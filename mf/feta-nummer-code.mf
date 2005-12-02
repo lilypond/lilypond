@@ -21,13 +21,13 @@ font_normal_space space#;
 %
 
 save b, h;
-4h + b = 1.15;
-10h + b = 1;
+4 h + b = 1.15;
+10 h + b = 1;
 fatten := number_design_size * h + b;
 
 save b, h;
-4h + b = 1.05;
-10h + b = 1;
+4 h + b = 1.05;
+10 h + b = 1;
 widen := number_design_size * h + b;
 
 tense = 0.85;
@@ -75,7 +75,7 @@ define_pixels (kuulleke);
 %
 %
 % move_away_to = amount left (for 2)
-% turn_to  = amount down (for  2 )
+% turn_to = amount down (for 2)
 %
 
 def number_flare_path (expr pos, alpha, beta, line, flare,
@@ -98,8 +98,8 @@ begingroup;
 	z3r = 0.5 [z2l, z2r] + 0.5 * flare * dir (alpha + beta);
 
 	penpos1 (line, 180 + beta + alpha);
-	penpos2 (flare, alpha );
-	penpos3 (flare, alpha +  beta);
+	penpos2 (flare, alpha);
+	penpos3 (flare, alpha + beta);
 
 	penlabels (1, 2, 3, 4, 5);
 
@@ -146,7 +146,7 @@ enddef;
 
 % should make generic macro?
 %
-def draw_foot(expr xpos) =
+def draw_foot (expr xpos) =
 begingroup;
 	clearxy;
 
@@ -267,14 +267,14 @@ fet_beginchar ("Plus", "plus");
 	centerx := hround (w / 2);
 	centery := vround ((h - d) / 2);
 
-	z1 = (centerx - hthick/2, -d); 
-	z2 = (centerx + hthick/2, h); 
+	z1 = (centerx - hthick / 2, -d); 
+	z2 = (centerx + hthick / 2, h); 
 
 	labels (1, 2);
 
 	draw_rounded_block (z1, z2, hthick);
-	draw_rounded_block ((0, centery - vthick/2),
-			    (w, (centery + vthick/2)),
+	draw_rounded_block ((0, centery - vthick / 2),
+			    (w, (centery + vthick / 2)),
 			    vthick);
 fet_endchar;
 
@@ -309,7 +309,7 @@ fet_beginchar ("Numeral comma", "comma");
 	fill subpath (0,3) of pat
 	     .. z0
 	     .. cycle;
-	filldraw z1l{dir(alpha)}
+	filldraw z1l{dir (alpha)}
 		 .. {up}z2
 		 -- z0{direction pos of pat}
 		 ..tension 0.95.. {dir (180 + alpha)}z1r
@@ -341,7 +341,7 @@ fet_endchar;
 
 code := 47;	% 0 = 48
 
-fet_beginchar("Numeral 0", "zero");
+fet_beginchar ("Numeral 0", "zero");
 	set_char_box (0, 11/15 height# * widen, 0, height#);
 
 	message "w:" & decimal w;

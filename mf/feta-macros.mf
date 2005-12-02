@@ -141,7 +141,7 @@ def make_pen_stack =
 enddef;
 
 
-def del_pen_stack=
+def del_pen_stack =
 	save save_pen_stack, pen_stack_idx;
 enddef;
 

@@ -44,9 +44,9 @@ fet_beginchar ("Pedal asterisk", "*");
 
 	pickup pencircle scaled penh;
 
-	penpos 1 (bulb, 180);
-	penpos 2 (bulb, 0);
-	penpos 3 (thin, 0);
+	penpos1 (bulb, 180);
+	penpos2 (bulb, 0);
+	penpos3 (thin, 0);
 
 	z1 = z0 + (0, radius);
 	z2 = z1;

@@ -1,5 +1,5 @@
 % 
-% feta-generic.mf --  implement generic stuff: include lots of files, but don't
+% feta-generic.mf -- implement generic stuff: include lots of files, but don't
 %  set dims.
 %
 % source file of the Feta (defintively not an abbreviation for Font-En-Tja)
@@ -21,13 +21,14 @@ input feta-macros;
 
 input feta-params;
 
-font_x_height  staff_space#;
+font_x_height staff_space#;
 
 %% this is a fallback so we can run the font without including feta-bolletjes.
 black_notehead_width# := 1.0 staff_space#;
 
 
-fet_beginfont("feta", design_size, "fetaMusic");
+fet_beginfont ("feta", design_size, "fetaMusic");
+
 if test = 0: 
 	input feta-eindelijk;
 	input feta-toevallig;
@@ -43,16 +44,14 @@ if test = 0:
 	input feta-accordion;
 else:
 	input feta-test-generic.mf;
-
 fi
 
-autometric_parameter("staffsize", staffsize#);
-autometric_parameter("stafflinethickness", stafflinethickness#);
-autometric_parameter("staff_space", staff_space#)
-autometric_parameter("linethickness", linethickness#)
-autometric_parameter("black_notehead_width", black_notehead_width#);
-autometric_parameter("ledgerlinethickness", ledgerlinethickness#);
-autometric_parameter("blot_diameter", blot_diameter#);
+autometric_parameter ("staffsize", staffsize#);
+autometric_parameter ("stafflinethickness", stafflinethickness#);
+autometric_parameter ("staff_space", staff_space#);
+autometric_parameter ("linethickness", linethickness#);
+autometric_parameter ("black_notehead_width", black_notehead_width#);
+autometric_parameter ("ledgerlinethickness", ledgerlinethickness#);
+autometric_parameter ("blot_diameter", blot_diameter#);
 
 fet_endfont;
-

@@ -5,7 +5,7 @@ input feta-autometric;
 
 % todo change file name
 design_size := 22.45;
-test:=0;
+test := 0;
 
 
 input feta-generic;
