@@ -230,8 +230,9 @@ class Part (Music_xml_node):
 	
 class Chord (Music_xml_node):
 	pass
-
 class Dot (Music_xml_node):
+	pass
+class Alter (Music_xml_node):
 	pass
 
 class Rest (Music_xml_node):
@@ -243,6 +244,7 @@ class Grace (Music_xml_node):
 	pass
 
 class_dict = {
+	'alter': Alter,
 	'grace': Grace,
 	'rest':Rest,
 	'dot': Dot,
@@ -331,11 +333,6 @@ def read_musicxml (name):
 	tree = create_tree (name)
 	strip_white_space (tree)
 	return tree
-
-
-
-
-
 
 if __name__  == '__main__':
 	tree = read_musicxml ('BeetAnGeSample.xml')
