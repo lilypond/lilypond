@@ -46,7 +46,7 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 @item Texts set in a TrueType font are now kerned. This requires CVS
-Pango or Pango 2.12.
+Pango or Pango 1.12.
 
 @item Using the @TeX{}  no longer requires linking or dynamically
 opening the kpathsea library, making the backend more easily usable on
