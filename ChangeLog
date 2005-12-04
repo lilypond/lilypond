@@ -1,3 +1,9 @@
+2005-12-04  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/part-combine-iterator.cc: Minor bugfix
+	
+	* THANKS: Update bughunters
+
 2005-12-02  Werner Lemberg  <wl@gnu.org>
 
 	* mf/README: Document process for proper mf2pt1 conversion.

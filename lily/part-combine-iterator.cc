@@ -426,7 +426,7 @@ Part_combine_iterator::process (Moment m)
   if (second_iter_->ok ())
     {
       second_iter_->process (m);
-      if (first_iter_->try_music_in_children (busy_playing_event))
+      if (second_iter_->try_music_in_children (busy_playing_event))
 	last_playing_ = SOLO2;
     }
 }
