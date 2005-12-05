@@ -1287,9 +1287,9 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 
   Drul_array<Grob*> visible_stems (first_visible_stem (beam),
 				   last_visible_stem (beam));
-				    
-  Grob *common = visible_stems[RIGHT]
-    ->common_refpoint (visible_stems[LEFT], X_AXIS);
+  extract_grob_set (beam, "stems", stems);
+  
+  Grob *common = common_refpoint_of_array (stems, beam, X_AXIS);
   
   Real x0 = visible_stems[LEFT]->relative_coordinate (common, X_AXIS);
   Real dx = visible_stems[RIGHT]->relative_coordinate (common, X_AXIS) - x0;
