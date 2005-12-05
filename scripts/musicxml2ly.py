@@ -256,7 +256,7 @@ def musicxml_pitch_to_lily (mxl_pitch):
 	p = musicexp.Pitch()
 	p.alteration = mxl_pitch.get_alteration ()
 	p.step = (ord (mxl_pitch.get_step ()) - ord ('A') + 7 - 2) % 7
-	p.octave = mxl_pitch.get_octave () -4
+	p.octave = mxl_pitch.get_octave () - 4
 	return p
 
 def get_all_voices (parts):

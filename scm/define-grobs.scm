@@ -880,7 +880,7 @@
 	(length . 0.66)
 	(minimum-length . 0.3)
 	(padding . 0.07)
-					;	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
+	;;	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
 
 	(stencil . ,Hyphen_spanner::print)
 
