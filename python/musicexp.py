@@ -1,53 +1,95 @@
 import inspect
 import sys
 import string
+import re
+
 from rational import Rational
 
-def flatten_list (fl):
-	if type(fl) == type((1,)):
-		return 
-	
-	flattened = []
-	for f in fl:
-		flattened += flatten_list (fl)
-	
-def is_derived (deriv_class, maybe_base):
-	if deriv_class == maybe_base:
-		return True
-
-	for c in deriv_class.__bases__:
-		if is_derived (c, maybe_base):
-			return True
-
-	return False
-
+class Output_stack_element:
+	def __init__ (self):
+		self.factor = Rational (1)
+	def copy (self):
+		o = Output_stack_element()
+		o.factor = self.factor
+		return o
 class Output_printer:
+
+	## TODO: support for \relative.
+	
 	def __init__ (self):
 		self.line = ''
-		self.indent = 0
+		self.indent = 4
+		self.nesting = 0
 		self.file = sys.stdout
 		self.line_len = 72
+		self.output_state_stack = [Output_stack_element()]
+		self._skipspace = False
+		self.last_duration = None
 		
+	def get_indent (self):
+		return self.nesting * self.indent
+	
+	def override (self):
+		last = self.output_state_stack[-1]
+		self.output_state_stack.append (last.copy())
+		
+	def add_factor (self, factor):
+		self.override()
+		self.output_state_stack[-1].factor *=  factor
+
+	def revert (self):
+		del self.output_state_stack[-1]
+		if not self.output_state_stack:
+			raise 'empty'
+
+	def duration_factor (self):
+		return self.output_state_stack[-1].factor
+
+	def print_verbatim (self, str):
+		self.line += str
+		
+	def print_duration_string (self, str):
+		if self.last_duration == str:
+			return
+		
+		self.print_verbatim (str)
+				     
 	def add_word (self, str):
 		if (len (str) + 1 + len (self.line) > self.line_len):
 			self.newline()
+			self._skipspace = True
 
-		self.indent += str.count ('<') + str.count ('{')
-		self.indent -= str.count ('>') + str.count ('}')
-		self.line += ' ' + str
+		self.nesting += str.count ('<') + str.count ('{')
+		self.nesting -= str.count ('>') + str.count ('}')
+
+		if not self._skipspace:
+			self.line += ' '
+		self.line += str
+		self._skipspace = False
 		
 	def newline (self):
 		self.file.write (self.line + '\n')
-		self.line = ' ' * self.indent
+		self.line = ' ' * self.indent * self.nesting
+		self._skipspace = True
+
+	def skipspace (self):
+		self._skipspace = True
 		
+	def __call__(self, arg):
+		self.dump (arg)
+	
 	def dump (self, str):
-		words = string.split (str)
-		for w in words:
-			self.add_word (w)
-		
+		if self._skipspace:
+			self._skipspace = False
+			self.print_verbatim (str)
+		else:
+			words = string.split (str)
+			for w in words:
+				self.add_word (w)
+
 class Duration:
 	def __init__ (self):
-		self.duration_log = 2
+		self.duration_log = 0
 		self.dots = 0
 		self.factor = Rational (1)
 
@@ -57,14 +99,28 @@ class Duration:
 							   self.factor.numerator (),
 							   self.factor.denominator ())
 
-	def ly_expression (self):
+
+	def ly_expression (self, factor = None):
+		if not factor:
+			factor = self.factor
+			
 		str = '%d%s' % (1 << self.duration_log, '.'*self.dots)
 
-		if self.factor <> Rational (1,1):
-			str += '*%d/%d' % (self.factor.numerator (),self.factor.denominator ())
+		if factor <> Rational (1,1):
+			str += '*%d/%d' % (factor.numerator (), factor.denominator ())
 
 		return str
-
+	
+	def print_ly (self, outputter):
+		if isinstance (outputter, Output_printer):
+			str = self.ly_expression (self.factor / outputter.duration_factor ())
+			outputter.print_duration_string (str)
+		else:
+			outputter (self.ly_expression ())
+		
+	def __repr__(self):
+		return self.ly_expression()
+		
 	def copy (self):
 		d = Duration ()
 		d.dots = self.dots
@@ -84,6 +140,7 @@ class Duration:
 			base = Rational (1, dur)
 
 		return base * dot_fact * self.factor
+
 	
 class Pitch:
 	def __init__ (self):
@@ -91,6 +148,28 @@ class Pitch:
 		self.step = 0
 		self.octave = 0
 
+	def __repr__(self):
+		return self.ly_expression()
+
+	def transposed (self, interval):
+		c = self.copy ()
+		c.alteration  += interval.alteration
+		c.step += interval.step
+		c.octave += interval.octave
+		c.normalize ()
+		
+		target_st = self.semitones()  + interval.semitones()
+		c.alteration += target_st - c.semitones()
+		return c
+
+	def normalize (c):
+		while c.step < 0:
+			c.step += 7
+			c.octave -= 1
+		c.octave += c.step / 7
+		c.step = c.step  % 7
+
+	
 	def lisp_expression (self):
 		return '(ly:make-pitch %d %d %d)' % (self.octave,
 						     self.step,
@@ -104,7 +183,10 @@ class Pitch:
 		return p
 
 	def steps (self):
-		return self.step + self.octave * 7
+		return self.step + self.octave *7
+
+	def semitones (self):
+		return self.octave * 12 + [0,2,4,5,7,9,11][self.step] + self.alteration
 	
 	def ly_step_expression (self): 
 		str = 'cdefgab'[self.step]
@@ -123,10 +205,11 @@ class Pitch:
 			str += "," * (-self.octave - 1) 
 			
 		return str
-
+	def print_ly (self, outputter):
+		outputter (self.ly_expression())
+	
 class Music:
 	def __init__ (self):
-		self.tag = None
 		self.parent = None
 		self.start = Rational (0)
 		pass
@@ -134,10 +217,6 @@ class Music:
 	def get_length(self):
 		return Rational (0)
 	
-	def set_tag (self, counter, tag_dict):
-		self.tag = counter
-		tag_dict [counter] = self
-		return counter + 1
 	
 	def get_properties (self):
 		return ''
@@ -150,17 +229,16 @@ class Music:
 			return self.parent.elements.index (self)
 		else:
 			return None
-		
+	def name (self):
+		return self.__class__.__name__
+	
 	def lisp_expression (self):
 		name = self.name()
-		tag = ''
-		if self.tag:
-			tag = "'input-tag %d" % self.tag
 
 		props = self.get_properties ()
 #		props += 'start %f ' % self.start
 		
-		return "(make-music '%s %s %s)" % (name, tag,  props)
+		return "(make-music '%s %s)" % (name,  props)
 
 	def set_start (self, start):
 		self.start = start
@@ -172,29 +250,50 @@ class Music:
 
 	def print_ly (self, printer):
 		printer (self.ly_expression ())
-		
-class Music_document:
+
+
+class Comment (Music):
+	def __name__ (self):
+		self.text = ''
+	def print_ly (self, printer):
+		if isinstance (printer, Output_printer):
+			lines = string.split (self.text, '\n')
+			for l in lines:
+				if l:
+					printer.print_verbatim ('% ' + l)
+				printer.newline ()
+		else:
+			printer ('% ' + re.sub ('\n', '\n% ', self.text))
+			printer ('\n')
+			
+	
+
+class MusicWrapper (Music):
 	def __init__ (self):
-		self.music = test_expr ()
-		self.tag_dict = {}
-		self.touched = True
-		
-	def recompute (self):
-		self.tag_dict = {}
-		self.music.set_tag (0, self.tag_dict)
-		self.music.set_start (Rational (0))
-		
+		Music.__init__(self)
+		self.element = None
+	def print_ly (self, func):
+		self.element.print_ly (func)
+
+class TimeScaledMusic (MusicWrapper):
+	def print_ly (self, func):
+		if isinstance(func, Output_printer):
+			func ('\\times %d/%d ' %
+			      (self.numerator, self.denominator))
+			func.add_factor (Rational (self.numerator, self.denominator))
+			MusicWrapper.print_ly (self, func)
+			func.revert ()
+		else:
+			func (r'\times 1/1 ')
+			MusicWrapper.print_ly (self, func)
+
 class NestedMusic(Music):
 	def __init__ (self):
 		Music.__init__ (self)
 		self.elements = [] 
 	def has_children (self):
 		return self.elements
-	def set_tag (self, counter, dict):
-		counter = Music.set_tag (self, counter, dict)
-		for e in self.elements :
-			counter = e.set_tag (counter, dict)
-		return counter
+
 
 	def insert_around (self, succ, elt, dir):
 		assert elt.parent == None
@@ -256,9 +355,6 @@ class NestedMusic(Music):
 		return None
 		
 class SequentialMusic (NestedMusic):
-	def name(self):
-		return 'SequentialMusic'
-	
 	def print_ly (self, printer):
 		printer ('{')
 		for e in self.elements:
@@ -267,14 +363,11 @@ class SequentialMusic (NestedMusic):
 
 	def lisp_sub_expression (self, pred):
 		name = self.name()
-		tag = ''
-		if self.tag:
-			tag = "'input-tag %d" % self.tag
 
 
 		props = self.get_subset_properties (pred)
 		
-		return "(make-music '%s %s %s)" % (name, tag,  props)
+		return "(make-music '%s %s)" % (name,  props)
 	
 	def set_start (self, start):
 		for e in self.elements:
@@ -282,9 +375,6 @@ class SequentialMusic (NestedMusic):
 			start += e.get_length()
 			
 class EventChord(NestedMusic):
-	def name(self):
-		return "EventChord"
-
 	def get_length (self):
 		l = Rational (0)
 		for e in self.elements:
@@ -293,41 +383,47 @@ class EventChord(NestedMusic):
 	
 	def print_ly (self, printer):
 		note_events = [e for e in self.elements if
-			       is_derived (e.__class__, NoteEvent)]
+			       isinstance (e, NoteEvent)]
+
 		rest_events = [e for e in self.elements if
-			       is_derived (e.__class__, RhythmicEvent)
-			       and not is_derived (e.__class__, NoteEvent)]
+			       isinstance (e, RhythmicEvent)
+			       and not isinstance (e, NoteEvent)]
 		
 		other_events = [e for e in self.elements if
-				not is_derived (e.__class__, RhythmicEvent)]
+				not isinstance (e, RhythmicEvent)]
 
 		if rest_events:
-			printer (rest_events[0].ly_expression ())
+			rest_events[0].print_ly (printer)
 		elif len (note_events) == 1:
-			printer (note_events[0].ly_expression ())
+			note_events[0].print_ly (printer)
 		elif note_events:
 			pitches = [x.pitch.ly_expression () for x in note_events]
-			printer ('<%s>' % string.join (pitches)
-				 + note_events[0].duration.ly_expression ())
+			printer ('<%s>' % string.join (pitches))
+			note_events[0].duration.print_ly (printer)
 		else:
 			pass
+		
 		#	print  'huh', rest_events, note_events, other_events
-			
-		for e in other_events:
+ 		for e in other_events:
 			e.print_ly (printer)
 		
 			
 class Event(Music):
-	def __init__ (self):
-		Music.__init__ (self)
+	pass
 
-	def name (self):
-		return "Event"
+class SpanEvent (Event):
+	def __init__(self):
+		Event.__init__ (self)
+		self.span_direction = 0
+	def get_properties(self):
+		return "'span-direction  %d" % self.span_direction
+class SlurEvent (SpanEvent):
+	def ly_expression (self):
+		return {-1: '(',
+			0:'',
+			1:')'}[self.span_direction]
 
 class ArpeggioEvent(Music):
-	def name (self):
-		return 'ArpeggioEvent'
-	
 	def ly_expression (self):
 		return ('\\arpeggio')
 	
@@ -343,18 +439,17 @@ class RhythmicEvent(Event):
 		return ("'duration %s"
 			% self.duration.lisp_expression ())
 	
-	def name (self):
-		return 'RhythmicEvent'
-
 class RestEvent (RhythmicEvent):
-	def name (self):
-		return 'RestEvent'
 	def ly_expression (self):
 		return 'r%s' % self.duration.ly_expression ()
+	
+	def print_ly (self, printer):
+		printer('r')
+		if isinstance(printer, Output_printer):
+			printer.skipspace()
+		self.duration.print_ly (printer)
 
 class SkipEvent (RhythmicEvent):
-	def name (self):
-		return 'SkipEvent'
 	def ly_expression (self):
 		return 's%s' % self.duration.ly_expression () 
 
@@ -363,9 +458,6 @@ class NoteEvent(RhythmicEvent):
 		RhythmicEvent.__init__ (self)
 		self.pitch = Pitch()
 
-	def name (self):
-		return 'NoteEvent'
-	
 	def get_properties (self):
 		return ("'pitch %s\n 'duration %s"
 			% (self.pitch.lisp_expression (),
@@ -375,17 +467,20 @@ class NoteEvent(RhythmicEvent):
 		return '%s%s' % (self.pitch.ly_expression (),
 				 self.duration.ly_expression ())
 
+	def print_ly (self, printer):
+		self.pitch.print_ly (printer)
+		self.duration.print_ly (printer)
 
-
-class KeySignatureEvent (Event):
-	def __init__ (self, tonic, scale):
-		Event.__init__ (self)
-		self.scale = scale
-		self.tonic = tonic
-	def name (self):
-		return 'KeySignatureEvent'
+class KeySignatureChange (Music):
+	def __init__ (self):
+		Music.__init__ (self)
+		self.scale = []
+		self.tonic = Pitch()
+		self.mode = 'major'
+		
 	def ly_expression (self):
-		return '\\key %s \\major' % self.tonic.ly_step_expression ()
+		return '\\key %s \\%s' % (self.tonic.ly_step_expression (),
+					  self.mode)
 	
 	def lisp_expression (self):
 		pairs = ['(%d . %d)' % (i , self.scale[i]) for i in range (0,7)]
@@ -394,13 +489,19 @@ class KeySignatureEvent (Event):
 		return """ (make-music 'KeyChangeEvent
           'pitch-alist %s) """ % scale_str
 
-class ClefEvent (Event):
-	def __init__ (self, t):
-		Event.__init__ (self)
-		self.type = t
+class TimeSignatureChange (Music):
+	def __init__ (self):
+		Music.__init__ (self)
+		self.fraction = (4,4)
+	def ly_expression (self):
+		return '\\time %d/%d ' % self.fraction
+	
+class ClefChange (Music):
+	def __init__ (self):
+		Music.__init__ (self)
+		self.type = 'G'
 		
-	def name (self):
-		return 'ClefEvent'
+	
 	def ly_expression (self):
 		return '\\clef "%s"' % self.type
 	clef_dict = {
@@ -422,6 +523,28 @@ class ClefEvent (Event):
        (make-property-set 'middleCPosition %d) 'Staff)))
 """ % (glyph, pos, c0)
 		return clefsetting
+
+
+def test_pitch ():
+	bflat = Pitch()
+	bflat.alteration = -1
+	bflat.step =  6
+	bflat.octave = -1
+	fifth = Pitch()
+	fifth.step = 4
+	down = Pitch ()
+	down.step = -4
+	down.normalize ()
+	
+	
+	print bflat.semitones()
+	print bflat.transposed (fifth),  bflat.transposed (fifth).transposed (fifth)
+	print bflat.transposed (fifth).transposed (fifth).transposed (fifth)
+
+	print bflat.semitones(), 'down'
+	print bflat.transposed (down)
+	print bflat.transposed (down).transposed (down)
+	print bflat.transposed (down).transposed (down).transposed (down)
 
 def test_expr ():
 	m = SequentialMusic()
@@ -447,7 +570,7 @@ def test_expr ():
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)
 
- 	evc = ClefEvent("G")
+ 	evc = ClefChange("G")
 	m.insert_around (None, evc, 0)
 
  	evc = EventChord()
@@ -462,6 +585,8 @@ def test_expr ():
 
 
 if __name__ == '__main__':
+	test_pitch()
+	raise 1
 	expr = test_expr()
 	expr.set_start (Rational (0))
 	print expr.ly_expression()

@@ -1,3 +1,20 @@
+2005-12-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/musicxml2ly.py (NonDentedHeadingFormatter.format_headi):
+	option formatting, lilypond style.
+
+	* python/musicexp.py: grab from Ikebana: a library for composing
+	ly music expressions. 
+	(Output_printer): class for advanced .ly printing.
+	(eg. tupletting) 
+
+	* python/musicxml.py: new file. Read MusicXML MiniDOM tree, and
+	convert to pythonesque structure.
+
+	* python/rational.py: PD rational number class.
+
+	* Documentation/user/converters.itely (Invoking musicxml2ly):  new node.
+
 2005-12-04  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/part-combine-iterator.cc: Minor bugfix

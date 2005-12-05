@@ -140,6 +140,27 @@ version information
 The list of articulation scripts is incomplete.  Empty measures
 confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 
+@node Invoking musicxml2ly
+@section Invoking @code{musicxml2ly}
+
+@uref{http://@/www.@/recordarde@/.com/xml/,MusicXML} is a XML dialect
+for representing music notation.
+
+@command{musicxml2ly} extracts the notes from part-wise MusicXML
+files, and writes it to a .ly file.
+
+
+The following options are supported by @command{musicxml2ly}:
+
+
+@table @code
+@item -h,--help
+print usage and option summary.
+@item -o,--output=@var{file}
+set output filename to @var{file}. (default: print to stdout)
+@item -v,--version
+print version information.
+@end table
 
 @node Invoking abc2ly
 @section Invoking @code{abc2ly}

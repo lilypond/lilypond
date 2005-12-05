@@ -13,6 +13,10 @@ class Xml_node:
 		self._data = None
 		self._original = None
 		self._name = 'xml_node'
+		self._parent = None
+
+	def is_first (self):
+		return self._parent.get_typed_children (self.__class__)[0] == self
 
 	def original (self):
 		return self._original 
@@ -29,7 +33,10 @@ class Xml_node:
 		return ''.join ([c.get_text () for c in self._children])
 
 	def get_typed_children (self, klass):
-		return [c for c in self._children if c.__class__ == klass]
+		return [c for c in self._children if isinstance(c, klass)]
+	
+	def get_named_children (self, nm):
+		return self.get_typed_children (class_dict[nm])
 
 	def get_children (self, predicate):
 		return [c for c in self._children if predicate(c)]
@@ -37,6 +44,9 @@ class Xml_node:
 	def get_all_children (self):
 		return self._children
 
+	def get_maybe_exist_named_child (self, name):
+		return self.get_maybe_exist_typed_child (class_dict[name])
+	
 	def get_maybe_exist_typed_child (self, klass):
 		cn = self.get_typed_children (klass)
 		if len (cn)==0:
@@ -59,28 +69,15 @@ class Music_xml_node (Xml_node):
 		Xml_node.__init__ (self)
 		self.duration = Rational (0)
 		self.start = Rational (0)
-	
-class Attributes (Music_xml_node):
-	def __init__ (self):
-		self._dict = {}
 		
-	def set_attributes_from_previous (self, dict):
-		self._dict.update (dict)
-	def read_self (self):
-		for c in self.get_all_children ():
-			self._dict[c.get_name()] = c
 
-	def get_named_attribute (self, name):
-		return self._dict[name]
-		
 class Duration (Music_xml_node):
 	def get_length (self):
 		dur = string.atoi (self.get_text ()) * Rational (1,4)
 		return dur
 		
 class Hash_comment (Music_xml_node):
-	def to_ly (self, output_func):
-		output_func ('%% %s\n ' % self.get_text())
+	pass
 		
 class Pitch (Music_xml_node):
 	def get_step (self):
@@ -100,24 +97,34 @@ class Pitch (Music_xml_node):
 			alter = string.atoi (ch.get_text ().strip ())
 		return alter
 
-	def to_ly (self, output_func):
-		oct = (self.get_octave () - 4)
-		oct_str = ''
-		if oct > 0:
-			oct_str = "'" * oct
-		elif oct < 0:
-			oct_str = "," * -oct
-
-		alt = self.get_alteration ()
-		alt_str = ''
-		if alt > 0:
-			alt_str = 'is' * alt
-		elif alt < 0:
-			alt_str = 'es' * alt 
+class Measure_element (Music_xml_node):
+	def get_voice_id (self):
+		voice_id = self.get_maybe_exist_named_child ('voice')
+		if voice_id:
+			return voice_id.get_text ()
+		else:
+			return None
 		
-		output_func ('%s%s%s' % (self.get_step ().lower(), alt_str, oct_str))
-				       
-class Note (Music_xml_node):
+	def is_first (self):
+		cn = self._parent.get_typed_children (self.__class__)
+		cn = [c for c in cn if c.get_voice_id () == self.get_voice_id ()]
+		return cn[0] == self
+	
+class Attributes (Measure_element):
+	def __init__ (self):
+		Measure_element.__init__ (self)
+		self._dict = {}
+	
+	def set_attributes_from_previous (self, dict):
+		self._dict.update (dict)
+	def read_self (self):
+		for c in self.get_all_children ():
+			self._dict[c.get_name()] = c
+
+	def get_named_attribute (self, name):
+		return self._dict[name]
+		
+class Note (Measure_element):
 	def get_duration_log (self):
 		ch = self.get_maybe_exist_typed_child (class_dict[u'type'])
 
@@ -140,38 +147,13 @@ class Note (Music_xml_node):
 	def get_pitches (self):
 		return self.get_typed_children (class_dict[u'pitch'])
 
-	def to_ly (self, func):
-		ps = self.get_pitches ()
-
-		if len (ps) == 0:
-			func ('r')
-		else:
-			func ('<')
-			for p in ps:
-				p.to_ly (func)
-			func ('>')
-		
-		func ('%d ' % (1 << self.get_duration_log ()))
-		
-
 
 		
 class Measure(Music_xml_node):
 	def get_notes (self):
 		return self.get_typed_children (class_dict[u'note'])
-	def to_ly (self, func):
-		func (' { % measure \n ')
-		for c in self._children:
-			c.to_ly (func)
-		func (' } \n ')
 
 class Part (Music_xml_node):
-	def to_ly (self, func):
-		func (' { %% part %s \n ' % self.name)
-		for c in self._children:
-			c.to_ly (func)
-		func (' } \n ')
-
 	def interpret (self):
 		"""Set durations and starting points."""
 		
@@ -210,12 +192,22 @@ class Part (Music_xml_node):
 		measures = part.get_typed_children (Measure)
 		elements = []
 		for m in measures:
-			elements.extend (m.get_typed_children (Note))
+			elements.extend (m.get_all_children ())
 
+		start_attr = None
 		for n in elements:
 			voice_id = n.get_maybe_exist_typed_child (class_dict['voice'])
 
-			if not voice_id:
+			if not (voice_id or isinstance (n, Attributes)):
+				continue
+
+			if isinstance (n, Attributes) and not start_attr:
+				start_attr = n
+				continue
+
+			if isinstance (n, Attributes):
+				for v in voices.values ():
+					v.append (n)
 				continue
 			
 			id = voice_id.get_text ()
@@ -223,11 +215,42 @@ class Part (Music_xml_node):
 				voices[id] = []
 
 			voices[id].append (n)
-			
+
+		if start_attr:
+			for (k,v) in voices.items ():
+				v.insert (0, start_attr)
+		
 		part._voices = voices
 	def get_voices (self):
 		return self._voices
-	
+
+class Notations (Music_xml_node):
+	def get_tuplet (self):
+		return self.get_maybe_exist_typed_child (Tuplet)
+	def get_slur (self):
+		slurs = self.get_typed_children (Slur)
+
+		if not slurs:
+			return None
+		
+		if len (slurs) > 1:
+			print "More than one slur?!"
+			
+		return slurs[0]
+
+class Time_modification(Music_xml_node):
+	def get_fraction (self):
+		b = self.get_maybe_exist_typed_child (class_dict['actual-notes'])
+		a = self.get_maybe_exist_typed_child (class_dict['normal-notes'])
+		return (string.atoi(a.get_text ()), string.atoi (b.get_text ()))
+		
+		
+		
+class Tuplet(Music_xml_node):
+	pass
+class Slur (Music_xml_node):
+	pass
+
 class Chord (Music_xml_node):
 	pass
 class Dot (Music_xml_node):
@@ -244,6 +267,8 @@ class Grace (Music_xml_node):
 	pass
 
 class_dict = {
+	'notations': Notations,
+	'time-modification': Time_modification,
 	'alter': Alter,
 	'grace': Grace,
 	'rest':Rest,
@@ -256,6 +281,8 @@ class_dict = {
 	'part': Part, 
 	'measure': Measure,
 	'type': Type,
+	'slur': Slur,
+	'tuplet': Tuplet,
 	'#comment': Hash_comment,
 }
 
@@ -287,9 +314,13 @@ def demarshal_node (node):
 	py_node = klass()
 	py_node._name = name
 	py_node._children = [demarshal_node (cn) for cn in node.childNodes]
+	for c in py_node._children:
+		c._parent = py_node
+		
 	if node.attributes:
-		for (name, value) in node.attributes.items():
-			py_node.name = value
+		
+		for (nm, value) in node.attributes.items():
+			py_node.__dict__[nm] = value
 
 	py_node._data = None
 	if node.nodeType == node.TEXT_NODE and node.data:
@@ -314,20 +345,10 @@ def create_tree (name):
 	create_classes (names, class_dict)
     
 	return demarshal_node (node)
-
-def oldtest ():
-	n = tree._children[-2]._children[-1]._children[0]
-	print n
-	print n.get_duration_log()
-	print n.get_pitches()
-	print n.get_pitches()[0].get_alteration()
-	
 	
 def test_musicxml (tree):
 	m = tree._children[-2]
 	print m
-	
-	m.to_ly (lambda str: sys.stdout.write (str))
 	
 def read_musicxml (name):
 	tree = create_tree (name)
@@ -337,4 +358,5 @@ def read_musicxml (name):
 if __name__  == '__main__':
 	tree = read_musicxml ('BeetAnGeSample.xml')
 	test_musicxml (tree)
+
 

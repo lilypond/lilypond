@@ -45,6 +45,8 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item A MusicXML importer is included now.
+
 @item Texts set in a TrueType font are now kerned. This requires CVS
 Pango or Pango 1.12.
 
