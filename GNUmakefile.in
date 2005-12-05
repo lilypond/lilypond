@@ -71,7 +71,7 @@ footifymail = MAILADDRESS=bug-lilypond@gnu.org
 local-WWW-post:
 # need UTF8 setting in case this is hosted on a website. 
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(outdir)/.htaccess
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html ./
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html input/
 	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/index.html">' > $(outdir)/index.html
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(outdir)/index.html
 

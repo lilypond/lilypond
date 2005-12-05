@@ -61,7 +61,7 @@
 
 @c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
 @macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
 @macro rglos{NAME}@c
@@ -82,7 +82,7 @@
 @end macro
  
 @macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
 @macro rglos{NAME}@c
