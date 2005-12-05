@@ -95,8 +95,6 @@ class Rational(object):
             return Rational(self._n + self._d * other, self._d)
         elif isinstance(other, (float, complex)):
             return float(self) + other
-        elif isinstance(other, _decimal.Decimal):
-            return self.decimal() + other
         else:
             return NotImplemented
     __radd__ = __add__
@@ -108,8 +106,6 @@ class Rational(object):
             return Rational(self._n - self._d * other, self._d)
         elif isinstance(other, (float, complex)):
             return float(self) - other
-        elif isinstance(other, _decimal.Decimal):
-            return self.decimal() - other
         else:
             return NotImplemented
     def __rsub__(self, other):
@@ -117,8 +113,6 @@ class Rational(object):
             return Rational(other * self._d - self._n, self._d)
         elif isinstance(other, (float, complex)):
             return other - float(self)
-        elif isinstance(other, _decimal.Decimal):
-            return other - self.decimal()
         else:
             return NotImplemented
     def __mul__(self, other):
@@ -128,8 +122,6 @@ class Rational(object):
             return Rational(self._n * other, self._d)
         elif isinstance(other, (float, complex)):
             return float(self) * other
-        elif isinstance(other, _decimal.Decimal):
-            return self.decimal() * other
         else:
             return NotImplemented
     __rmul__ = __mul__
@@ -140,8 +132,6 @@ class Rational(object):
             return Rational(self._n, self._d * other)
         elif isinstance(other, (float, complex)):
             return float(self) / other
-        elif isinstance(other, _decimal.Decimal):
-            return self.decimal() / other
         else:
             return NotImplemented
     __div__ = __truediv__
@@ -150,8 +140,6 @@ class Rational(object):
             return Rational(other * self._d, self._n)
         elif isinstance(other, (float, complex)):
             return other / float(self)
-        elif isinstance(other, _decimal.Decimal):
-            return other / self.decimal()
         else:
             return NotImplemented
     __rdiv__ = __rtruediv__
@@ -184,9 +172,6 @@ class Rational(object):
                 return float(self) ** other
     def __rpow__(self, other):
         return other ** float(self)
-    def decimal(self):
-        """Return a Decimal approximation of self in the current context."""
-        return _decimal.Decimal(self._n) / _decimal.Decimal(self._d)
     def round(self, denominator):
         """Return self rounded to nearest multiple of 1/denominator."""
         int_part, frac_part = divmod(self * denominator, 1)
@@ -211,15 +196,6 @@ def rational_from_exact_float(x):
     else:
         return Rational(mantissa * 2 ** exponent)
 
-def rational_from_exact_decimal(x):
-    """Returns the exact Rational equivalent of x."""
-    sign, mantissa, exponent = x.as_tuple()
-    sign = (1, -1)[sign]
-    mantissa = sign * reduce(lambda a, b: 10 * a + b, mantissa)
-    if exponent < 0:
-        return Rational(mantissa, 10 ** (-exponent))
-    else:
-        return Rational(mantissa * 10 ** exponent)
 
 
 def rational_approx_smallest_denominator(x, tolerance):

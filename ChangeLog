@@ -1,5 +1,7 @@
 2005-12-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/rational.py: python 2.3 compat.
+
 	* scripts/musicxml2ly.py (NonDentedHeadingFormatter.format_headi):
 	option formatting, lilypond style.
 
