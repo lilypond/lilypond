@@ -1,3 +1,8 @@
+2005-12-05  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/user/lilypond.tely (direntry): remove empty lines;
+	fixes invalid info entry issue with makeinfo 4.8 in debian sid.
+
 2005-12-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* python/rational.py: python 2.3 compat.

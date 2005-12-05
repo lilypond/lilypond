@@ -7,7 +7,6 @@
 
 @dircategory GNU music project
 @direntry
-
 @ignore
 (I think)
 Current version of the manual: 2.6.0
@@ -34,7 +33,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c    LilyPond  program.
   
 @end ignore
-
 * LilyPond: (lilypond/lilypond).           The GNU music typesetter.
 * abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.          
 * convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
