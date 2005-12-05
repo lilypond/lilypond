@@ -14,6 +14,7 @@ sequencers and XML converters.  Refer to the
 @menu
 * Invoking midi2ly::            Importing MIDI.
 * Invoking etf2ly::             Importing Finale.
+* Invoking musicxml2ly::        
 * Invoking abc2ly::             Importing ABC.          
 * Invoking mup2ly::             Importing MUP. 
 * Generating LilyPond files::   

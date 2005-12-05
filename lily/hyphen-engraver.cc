@@ -129,6 +129,7 @@ Hyphen_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
+
 ADD_TRANSLATOR (Hyphen_engraver,
 		/* doc */ "Create lyric hyphens",
 		/* create */ "LyricHyphen",

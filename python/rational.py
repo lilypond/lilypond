@@ -198,65 +198,69 @@ class Rational(object):
         else:
            numerator = int_part + 1
         return Rational(numerator, denominator)
-    @staticmethod
-    def from_exact_float(x):
-        """Returns the exact Rational equivalent of x."""
-        mantissa, exponent = _math.frexp(x)
-        mantissa = int(mantissa * 2 ** 53)
-        exponent -= 53
-        if exponent < 0:
-            return Rational(mantissa, 2 ** (-exponent))
-        else:
-            return Rational(mantissa * 2 ** exponent)
-    @staticmethod
-    def from_exact_decimal(x):
-        """Returns the exact Rational equivalent of x."""
-        sign, mantissa, exponent = x.as_tuple()
-        sign = (1, -1)[sign]
-        mantissa = sign * reduce(lambda a, b: 10 * a + b, mantissa)
-        if exponent < 0:
-            return Rational(mantissa, 10 ** (-exponent))
-        else:
-            return Rational(mantissa * 10 ** exponent)
-    @staticmethod
-    def approx_smallest_denominator(x, tolerance):
-        """
-        Returns a Rational approximation of x.
-        Minimizes the denominator given a constraint on the error.
-        
-        x = the float or Decimal value to convert
-        tolerance = maximum absolute error allowed,
-                    must be of the same type as x
-        """
-        tolerance = abs(tolerance)
-        n = 1
-        while True:
-            m = int(round(x * n))
-            result = Rational(m, n)
-            if abs(result - x) < tolerance:
-                return result
-            n += 1
-    @staticmethod
-    def approx_smallest_error(x, maxDenominator):
-        """
-        Returns a Rational approximation of x.
-        Minimizes the error given a constraint on the denominator.
-        
-        x = the float or Decimal value to convert
-        maxDenominator = maximum denominator allowed
-        """
-        result = None
-        minError = x
-        for n in xrange(1, maxDenominator + 1):
-            m = int(round(x * n))
-            r = Rational(m, n)
-            error = abs(r - x)
-            if error == 0:
-                return r
-            elif error < minError:
-                result = r
-                minError = error
-        return result
+
+
+
+def rational_from_exact_float(x):
+    """Returns the exact Rational equivalent of x."""
+    mantissa, exponent = _math.frexp(x)
+    mantissa = int(mantissa * 2 ** 53)
+    exponent -= 53
+    if exponent < 0:
+        return Rational(mantissa, 2 ** (-exponent))
+    else:
+        return Rational(mantissa * 2 ** exponent)
+
+def rational_from_exact_decimal(x):
+    """Returns the exact Rational equivalent of x."""
+    sign, mantissa, exponent = x.as_tuple()
+    sign = (1, -1)[sign]
+    mantissa = sign * reduce(lambda a, b: 10 * a + b, mantissa)
+    if exponent < 0:
+        return Rational(mantissa, 10 ** (-exponent))
+    else:
+        return Rational(mantissa * 10 ** exponent)
+
+
+def rational_approx_smallest_denominator(x, tolerance):
+    """
+    Returns a Rational approximation of x.
+    Minimizes the denominator given a constraint on the error.
+
+    x = the float or Decimal value to convert
+    tolerance = maximum absolute error allowed,
+                must be of the same type as x
+    """
+    tolerance = abs(tolerance)
+    n = 1
+    while True:
+        m = int(round(x * n))
+        result = Rational(m, n)
+        if abs(result - x) < tolerance:
+            return result
+        n += 1
+
+
+def rational_approx_smallest_error(x, maxDenominator):
+    """
+    Returns a Rational approximation of x.
+    Minimizes the error given a constraint on the denominator.
+
+    x = the float or Decimal value to convert
+    maxDenominator = maximum denominator allowed
+    """
+    result = None
+    minError = x
+    for n in xrange(1, maxDenominator + 1):
+        m = int(round(x * n))
+        r = Rational(m, n)
+        error = abs(r - x)
+        if error == 0:
+            return r
+        elif error < minError:
+            result = r
+            minError = error
+    return result
 
 def divide(x, y):
     """Same as x/y, but returns a Rational if both are ints."""
