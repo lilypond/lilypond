@@ -158,6 +158,7 @@ scrollkeeper-update
 %{_bindir}/midi2ly
 %{_bindir}/lilypond-book
 %{_bindir}/mup2ly
+%{_bindir}/musicxml2ly
 %{_bindir}/lilypond-invoke-editor
 
 %doc THANKS
@@ -173,6 +174,7 @@ scrollkeeper-update
 %endif
 
 %{_mandir}/man1/abc2ly.1.gz
+%{_mandir}/man1/musicxml2ly.1.gz
 %{_mandir}/man1/convert-ly.1.gz
 %{_mandir}/man1/etf2ly.1.gz
 %{_mandir}/man1/lilypond.1.gz
