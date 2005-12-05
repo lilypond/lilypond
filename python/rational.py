@@ -2,7 +2,6 @@
 
 from __future__ import division
 
-import decimal as _decimal
 import math as _math
 
 def _gcf(a, b):
