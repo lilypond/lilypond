@@ -1,3 +1,10 @@
+2005-12-06 Erik Sandberg  <mandolaerik@gmail.com>
+
+	* scm/music-functions.scm: Make phrasing slurs follow voice direction
+
+	* scripts/lilypond-book.py: Introduce option
+        --preserve-line-breaks, for usage with srcltx
+
 2005-12-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-lib.scm (print-circled-text-callback): draw circle

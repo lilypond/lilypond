@@ -99,8 +99,11 @@ option_definitions = [
 	(_ ("COMMAND"), 'P', 'process',
 	  _ ("process ly_files using COMMAND FILE...")),
 	('', '', 'psfonts',
-	 _ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
-	 must use this with dvips -h INPUT.psfonts''')),
+	  _ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
+	  must use this with dvips -h INPUT.psfonts''')),
+	('', '', 'keep-line-breaks',
+	  _ ('''do not alter the number of newline characters in output
+	  .tex files. Useful when the LaTeX package srcltx is used''')),
 	('', 'V', 'verbose',
 	  _ ("be verbose")),
 	('', 'v', 'version',
@@ -117,6 +120,7 @@ if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 	lilypond_binary = 'lilypond'
 
 psfonts_p = 0
+srcltx_p = 0
 use_hash_p = 1
 format = 0
 output_name = ''
@@ -471,7 +475,7 @@ output = {
 
 	##
 	LATEX: {
-		OUTPUT: r'''{%%
+		OUTPUT: r'''{
 \parindent 0pt
 \catcode`\@=12
 \ifx\preLilyPondExample \undefined
@@ -479,7 +483,7 @@ output = {
 \else
   \preLilyPondExample
 \fi
-\def\lilypondbook{}%%
+\def\lilypondbook{}
 \input %(base)s-systems.tex
 \ifx\postLilyPondExample \undefined
   \relax
@@ -491,15 +495,11 @@ output = {
 		PRINTFILENAME: '''\\texttt{%(filename)s}
 	''',
 
-		QUOTE: r'''\begin{quotation}
-%(str)s
-\end{quotation}
-''',
+		QUOTE: r'''\begin{quotation}%(str)s
+\end{quotation}''',
 
 		VERBATIM: r'''\noindent
-\begin{verbatim}
-%(verb)s\end{verbatim}
-''',
+\begin{verbatim}%(verb)s\end{verbatim}''',
 
 		FILTER: r'''\begin{lilypond}[%(options)s]
 %(code)s
@@ -1080,7 +1080,9 @@ class Lilypond_snippet (Snippet):
 			if VERBATIM in self.option_dict:
 				verb = self.substring ('code')
 				str += (output[LATEX][VERBATIM] % vars ())
-
+			elif srcltx_p:
+				breaks = self.substring ('code').count ("\n")
+				str += "".ljust (breaks, "\n").replace("\n","%\n")
 		str += (output[LATEX][OUTPUT] % vars ())
 		if QUOTE in self.option_dict:
 			str = output[LATEX][QUOTE] % vars ()
@@ -1568,7 +1570,7 @@ def do_file (input_filename):
 		raise Compile_error
 
 def do_options ():
-	global format, output_name, psfonts_p
+	global format, output_name, psfonts_p, srcltx_p
 	global filter_cmd, process_cmd, verbose_p
 
 	(sh, long) = ly.getopt_args (option_definitions)
@@ -1614,6 +1616,10 @@ def do_options ():
 			verbose_p = 1
 		elif o == '--psfonts':
 			psfonts_p = 1 
+		elif o == '--keep-line-breaks':
+			srcltx_p = 1 
+			for s in (OUTPUT, QUOTE, VERBATIM):
+				output[LATEX][s] = output[LATEX][s].replace("\n"," ")
 		elif o == '--warranty' or o == '-w':
 			if 1 or status:
 				ly.warranty ()
