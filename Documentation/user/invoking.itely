@@ -574,7 +574,7 @@ and syntax coloring, handy compile short-cuts and reading LilyPond
 manuals using Info.  If @file{lilypond-mode} is not installed on your
 platform, then read the
 @ifhtml
-@uref{source/Documentation/topdocs/out-www/INSTALL.html,installation instructions}.
+@uref{source/Documentation/topdocs/INSTALL.html,installation instructions}.
 @end ifhtml
 @ifnothtml
 installation instructions.
@@ -585,7 +585,7 @@ installation instructions.
 For @uref{http://@/www@/.vim@/.org,VIM}, a @file{vimrc} is supplied, along
 with syntax coloring tools.  For more information, refer to the
 @ifhtml
-@uref{source/Documentation/topdocs/out-www/INSTALL.html,installation instructions}.
+@uref{source/Documentation/topdocs/INSTALL.html,installation instructions}.
 @end ifhtml
 @ifnothtml
 installation instructions.
