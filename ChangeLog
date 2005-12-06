@@ -1,5 +1,8 @@
 2005-12-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-lib.scm (print-circled-text-callback): draw circle
+	around text using make-circle-markup.
+
 	* Documentation/user/*: strip out-www from paths.
 
 2005-12-05  Heikki Junes  <hjunes@cc.hut.fi>
