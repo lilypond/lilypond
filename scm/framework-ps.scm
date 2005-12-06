@@ -475,7 +475,9 @@
 		     (equal? (format #f "~S" x) "+#.#")
 		     (equal? (format #f "~S" x) "-#.#"))
 		 0.0 x))
-	   (list (car xext) (car yext) (cdr xext) (cdr yext))))
+	   ;; set left of X to 0, to prevent barnumbers
+	   ;; from sticking out of margin.
+	   (list 0.0 (car yext) (cdr xext) (cdr yext))))
 	 (rounded-bbox (mm-to-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts?)))
