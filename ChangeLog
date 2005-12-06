@@ -1,3 +1,7 @@
+2005-12-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/*: strip out-www from paths.
+
 2005-12-05  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/lilypond.tely (direntry): remove empty lines;
@@ -5,7 +9,13 @@
 
 2005-12-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/GNUmakefile: idem.
+
+	* Documentation/user/macros.itexi: strip out-www
+
 	* python/rational.py: python 2.3 compat.
+
+	* VERSION (PATCH_LEVEL): release 2.7.21
 
 	* scripts/musicxml2ly.py (NonDentedHeadingFormatter.format_headi):
 	option formatting, lilypond style.

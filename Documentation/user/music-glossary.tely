@@ -12,8 +12,8 @@
 @end direntry
 
 @ifhtml
-This document is also available in @uref{source/Documentation/user/out-www/music-glossary.pdf,PDF}
-and as @uref{source/Documentation/user/out-www/music-glossary.html,one big page}.
+This document is also available in @uref{source/Documentation/user/music-glossary.pdf,PDF}
+and as @uref{source/Documentation/user/music-glossary.html,one big page}.
 @end ifhtml
 
 @titlepage
