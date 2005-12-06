@@ -1,3 +1,8 @@
+2005-12-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/engraver-init.ly: set bar-size, so bar-lines aren't
+	collapsed.
+
 2005-12-06 Erik Sandberg  <mandolaerik@gmail.com>
 
 	* scm/music-functions.scm: Make phrasing slurs follow voice direction

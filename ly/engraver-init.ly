@@ -350,6 +350,12 @@ printing of a single line of lyrics.  "
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
   \override SeparationItem #'padding = #0.2
+
+
+  %% make sure that barlines aren't collapsed, when
+  %% Bar_engraver is there.
+  \override BarLine #'bar-size = #0.1 
+  
 }
 
 \context {

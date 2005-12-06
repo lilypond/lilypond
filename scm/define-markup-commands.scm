@@ -1274,7 +1274,13 @@ that.
 (def-markup-command (bracketed-y-column layout props indices args)
   (list? markup-list?)
   "Make a column of the markups in @var{args}, putting brackets around
-the elements marked in @var{indices}, which is a list of numbers."
+the elements marked in @var{indices}, which is a list of numbers.
+
+"
+;;
+;; DROPME? This command is a relic from the old figured bass implementation.
+;;
+  
   (define (sublist lst start stop)
     (take (drop lst start) (- (1+ stop) start)))
 
