@@ -365,9 +365,9 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
 
   SCM scontrols[8];
 
-  for (int i = 4; i--;)
-    scontrols[ i ] = ly_offset2scm (back.control_[i]);
-  for (int i = 4; i--;)
+  for (int i = 0; i < 4; i++)
+    scontrols[i] = ly_offset2scm (back.control_[i]);
+  for (int i = 0; i < 4; i++)
     scontrols[i + 4] = ly_offset2scm (curve.control_[i]);
 
   /*

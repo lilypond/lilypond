@@ -27,6 +27,12 @@ import musicxml
 import musicexp
 from rational import Rational
 
+
+def progress (str):
+	sys.stderr.write (str + '\n')
+	sys.stderr.flush ()
+	
+
 def musicxml_duration_to_lily (mxl_note):
 	d = musicexp.Duration ()
 	if mxl_note.get_maybe_exist_typed_child (musicxml.Type):
@@ -39,12 +45,14 @@ def musicxml_duration_to_lily (mxl_note):
 
 	return d 	
 
-span_event_dict = {
-	'start': -1,
-	'stop': 1
-}
-
 def group_tuplets (music_list, events):
+
+
+	"""Collect Musics from
+	MUSIC_LIST demarcated by EVENTS_LIST in TimeScaledMusic objects.
+	"""
+
+	
 	indices = []
 
 	j = 0
@@ -80,6 +88,7 @@ def group_tuplets (music_list, events):
 	new_list.extend (music_list[last:])
 	return new_list
 
+
 def musicxml_clef_to_lily (mxl):
 	sign = mxl.get_maybe_exist_named_child ('sign')
 	change = musicexp.ClefChange ()
@@ -98,7 +107,22 @@ def musicxml_time_to_lily (mxl):
 	return change
 
 def musicxml_key_to_lily (mxl):
-	mode = mxl.get_maybe_exist_named_child ('mode').get_text ()
+	start_pitch  = musicexp.Pitch ()
+	try:
+		mode = mxl.get_maybe_exist_named_child ('mode')
+		if mode:
+			mode = mode.get_text ()
+		else:
+			mode = 'major'
+			
+		(n,a) = { 'major' : (0,0),
+			  'minor' : (6,0),
+			}[mode]
+		start_pitch.step = n
+		start_pitch.alteration = a
+	except  KeyError:
+		print 'unknown mode', mode
+		
 	fifths = string.atoi (mxl.get_maybe_exist_named_child ('fifths').get_text ())
 
 	fifth = musicexp.Pitch()
@@ -108,15 +132,15 @@ def musicxml_key_to_lily (mxl):
 		fifth.step *= -1
 		fifth.normalize ()
 	
-	c = musicexp.Pitch()
+	start_pitch = musicexp.Pitch()
 	for x in range (fifths):
-		c = c.transposed (fifth)
+		start_pitch = start_pitch.transposed (fifth)
 
-	c.octave = 0
+	start_pitch.octave = 0
 
 	change = musicexp.KeySignatureChange()
 	change.mode = mode
-	change.tonic = c
+	change.tonic = start_pitch
 	return change
 	
 def musicxml_attributes_to_lily (attrs):
@@ -135,16 +159,67 @@ def musicxml_attributes_to_lily (attrs):
 	
 	return elts
 
-def insert_measure_start_comments (ly_voice, indices):
-	idxs = indices[:]
-	idxs.reverse ()
-	for i in idxs:
-		c = musicexp.Comment()
-		c.text = '' 
-		ly_voice.insert (i, c)
+def create_skip_music (duration):
+	skip = musicexp.SkipEvent()
+	skip.duration.duration_log = 0
+	skip.duration.factor = duration
 
-	return ly_voice
+	evc = musicexp.EventChord ()
+	evc.append (skip)
+	return evc
+
+spanner_event_dict = {
+	'slur' : musicexp.SlurEvent,
+	'beam' : musicexp.BeamEvent,
+}	
+spanner_type_dict = {
+	'start': -1,
+	'begin': -1,
+	'stop': 1,
+	'end' : 1
+}
+
+def musicxml_spanner_to_lily_event (mxl_event):
+	ev = None
 	
+	name = mxl_event.get_name()
+	try:
+		func = spanner_event_dict[name]
+		ev = func()
+	except KeyError:
+		print 'unknown span event ', mxl_event
+
+	try:
+		key = mxl_event.get_type ()
+		ev.span_direction = spanner_type_dict[key]
+	except KeyError:
+		print 'unknown span type', key, 'for', name
+
+	return ev
+
+def musicxml_note_to_lily_main_event (n):
+	pitch  = None
+	duration = None
+		
+	mxl_pitch = n.get_maybe_exist_typed_child (musicxml.Pitch)
+	event = None
+	if mxl_pitch:
+		pitch = musicxml_pitch_to_lily (mxl_pitch)
+		event = musicexp.NoteEvent()
+		event.pitch = pitch
+
+		acc = n.get_maybe_exist_named_child ('accidental')
+		if acc:
+			# let's not force accs everywhere. 
+			event.cautionary = acc.editorial
+			print event, event.cautionary, event.ly_expression()
+		
+	elif n.get_maybe_exist_typed_child (musicxml.Rest):
+		event = musicexp.RestEvent()
+
+	event.duration = musicxml_duration_to_lily (n)
+	return event
+
 def musicxml_voice_to_lily_voice (voice):
 	
 	ly_voice = []
@@ -152,68 +227,76 @@ def musicxml_voice_to_lily_voice (voice):
 
 	tuplet_events = []
 
-	measure_start_indices = []
 	for n in voice:
-		if n.is_first ():
-			measure_start_indices.append (len (ly_voice))
-			
+		if n.get_name () == 'forward':
+			continue
+		
 		if isinstance (n, musicxml.Attributes):
 			ly_voice.extend (musicxml_attributes_to_lily (n))
 			continue
 		
 		if not n.__class__.__name__ == 'Note':
-			print 'not a Note or Attributes?'
+			print 'not a Note or Attributes?', n
 			continue
-		
-		
-		pitch  = None
-		duration = None
-		
-		mxl_pitch = n.get_maybe_exist_typed_child (musicxml.Pitch)
-		event = None
 
-		notations = n.get_maybe_exist_typed_child (musicxml.Notations)
-		tuplet_event = None
-		slur_event = None
-		if notations:
-			tuplet_event = notations.get_tuplet ()
-			slur_event = notations.get_slur ()
-			
-		if mxl_pitch:
-			pitch = musicxml_pitch_to_lily (mxl_pitch)
-			event = musicexp.NoteEvent()
-			event.pitch = pitch
-		elif n.get_maybe_exist_typed_child (musicxml.Rest):
-			event = musicexp.RestEvent()
-
-		event.duration = musicxml_duration_to_lily (n)
+		if n.is_first () and ly_voice:
+			ly_voice[-1].comment += '\n'
+		
 		ev_chord = None
 		if None ==  n.get_maybe_exist_typed_child (musicxml.Chord):
 			if ly_voice:
 				ly_now += ly_voice[-1].get_length ()
 
 			if ly_now <> n._when:
-				diff = n._when - ly_now 
+				diff = n._when - ly_now
 				if diff < Rational (0):
 					print 'huh: negative skip', n._when, ly_now, n._duration
 					diff = Rational (1,314159265)
-				
-				skip = musicexp.SkipEvent()
-				skip.duration.duration_log = 0
-				skip.duration.factor = diff
 
-				evc = musicexp.EventChord ()
-				evc.elements.append (skip)
-				ly_voice.append (evc)
+				ly_voice.append (create_skip_music (diff))
 				ly_now = n._when
 				
 			ly_voice.append (musicexp.EventChord())
 		else:
 			pass
-
+		
 		ev_chord = ly_voice[-1]
-		ev_chord.elements.append (event)
 
+		main_event = musicxml_note_to_lily_main_event (n)
+		ev_chord.append (main_event)
+			
+		notations = n.get_maybe_exist_typed_child (musicxml.Notations)
+		tuplet_event = None
+		span_events = []
+		if notations:
+			if notations.get_tuplet():
+				mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
+				frac = (1,1)
+				if mod:
+					frac = mod.get_fraction ()
+				
+				tuplet_events.append ((ev_chord, tuplet_event, frac))
+
+			slurs = [s for s in notations.get_named_children ('slur')
+				 if s.get_type () in ('start','stop')]
+			if slurs:
+				if len (slurs) > 1:
+					print 'more than 1 slur?'
+
+				lily_ev = musicxml_spanner_to_lily_event (slurs[0])
+				ev_chord.append (lily_ev)
+
+			mxl_tie = notations.get_tie ()
+			if mxl_tie and mxl_tie.type == 'start':
+				ev_chord.append (musicexp.TieEvent ())
+
+		mxl_beams = [b for b in n.get_named_children ('beam')
+			     if b.get_type () in ('begin', 'end')] 
+		if mxl_beams:
+			beam_ev = musicxml_spanner_to_lily_event (mxl_beams[0])
+			if beam_ev:
+				ev_chord.append (beam_ev)
+			
 		if tuplet_event:
 			mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
 			frac = (1,1)
@@ -221,16 +304,7 @@ def musicxml_voice_to_lily_voice (voice):
 				frac = mod.get_fraction ()
 				
 			tuplet_events.append ((ev_chord, tuplet_event, frac))
-			
-		if slur_event:
-			sp = musicexp.SlurEvent()
-			try:
-				sp.span_direction = span_event_dict[slur_event.type]
-				ev_chord.elements.append (sp)
-			except KeyError:
-				pass
 
-	ly_voice = insert_measure_start_comments (ly_voice, measure_start_indices)
 	ly_voice = group_tuplets (ly_voice, tuplet_events)
 
 	seq_music = musicexp.SequentialMusic()
@@ -260,6 +334,8 @@ def musicxml_pitch_to_lily (mxl_pitch):
 	return p
 
 def get_all_voices (parts):
+	progress ("Synchronizing MusicXML...")
+	
 	all_voices = {} 
 	for p in parts:
 		p.interpret ()
@@ -267,12 +343,17 @@ def get_all_voices (parts):
 		voice_dict = p.get_voices ()
 		
 		for (id, voice) in voice_dict.items ():
-			m = musicxml_voice_to_lily_voice (voice)
 			m_name = 'Part' + p.id + 'Voice' + id
 			m_name = musicxml_id_to_lily (m_name)
-			all_voices[m_name] = m
+			all_voices[m_name] = voice
 
-	return all_voices
+
+	progress ("Converting to LilyPond expressions...")
+	all_ly_voices = {}
+	for (k, v) in all_voices.items():
+		all_ly_voices[k] = musicxml_voice_to_lily_voice (v)
+
+	return all_ly_voices
 
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):
@@ -339,15 +420,18 @@ Copyright (c) 2005 by
 def convert (filename, output_name):
 	
 	printer = musicexp.Output_printer()
+
+	progress ("Reading MusicXML...")
+	
 	tree = musicxml.read_musicxml (filename)
 	parts = tree.get_typed_children (musicxml.Part)
 
 	voices = get_all_voices (parts)
 
-
 	if output_name:
 		printer.file = open (output_name,'w')
 		
+	progress ("Printing as .ly...")
 	for  (k,v) in voices.items():
 		printer.dump ('%s = ' % k)
 		v.print_ly (printer)
@@ -359,9 +443,6 @@ def convert (filename, output_name):
 opt_parser = option_parser()
 
 (options, args) = opt_parser.parse_args ()
-if options.version:
-	opt_parser.print_version()
-	sys.exit (0)
 if not args:
 	opt_parser.print_usage()
 	sys.exit (2)

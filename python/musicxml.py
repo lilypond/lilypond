@@ -225,18 +225,12 @@ class Part (Music_xml_node):
 		return self._voices
 
 class Notations (Music_xml_node):
+	def get_tie (self):
+		return self.get_maybe_exist_named_child ('tied')
+	
 	def get_tuplet (self):
 		return self.get_maybe_exist_typed_child (Tuplet)
-	def get_slur (self):
-		slurs = self.get_typed_children (Slur)
-
-		if not slurs:
-			return None
-		
-		if len (slurs) > 1:
-			print "More than one slur?!"
-			
-		return slurs[0]
+	
 
 class Time_modification(Music_xml_node):
 	def get_fraction (self):
@@ -248,17 +242,27 @@ class Time_modification(Music_xml_node):
 		
 class Tuplet(Music_xml_node):
 	pass
+
 class Slur (Music_xml_node):
-	pass
+	def get_type (self):
+		return self.type
+
+class Beam (Music_xml_node):
+	def get_type (self):
+		return self.get_text ()
 
 class Chord (Music_xml_node):
 	pass
+
 class Dot (Music_xml_node):
 	pass
+
 class Alter (Music_xml_node):
 	pass
 
 class Rest (Music_xml_node):
+	pass
+class Mode (Music_xml_node):
 	pass
 
 class Type (Music_xml_node):
@@ -267,23 +271,25 @@ class Grace (Music_xml_node):
 	pass
 
 class_dict = {
-	'notations': Notations,
-	'time-modification': Time_modification,
-	'alter': Alter,
-	'grace': Grace,
-	'rest':Rest,
-	'dot': Dot,
-	'chord': Chord,
-	'duration': Duration,
-	'attributes': Attributes,
-	'note': Note,
-	'pitch': Pitch,
-	'part': Part, 
-	'measure': Measure,
-	'type': Type,
-	'slur': Slur,
-	'tuplet': Tuplet,
 	'#comment': Hash_comment,
+	'alter': Alter,
+	'attributes': Attributes,
+	'beam' : Beam,
+	'chord': Chord,
+	'dot': Dot,
+	'duration': Duration,
+	'grace': Grace,
+	'mode' : Mode,
+	'measure': Measure,
+	'notations': Notations,
+	'note': Note,
+	'part': Part,
+	'pitch': Pitch,
+	'rest':Rest,
+	'slur': Slur,
+	'time-modification': Time_modification,
+	'tuplet': Tuplet,
+	'type': Type,
 }
 
 def name2class_name (name):
