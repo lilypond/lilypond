@@ -12,8 +12,8 @@ class Output_stack_element:
 		o = Output_stack_element()
 		o.factor = self.factor
 		return o
-class Output_printer:
 
+class Output_printer:
 	## TODO: support for \relative.
 	
 	def __init__ (self):
@@ -92,7 +92,7 @@ class Duration:
 		self.duration_log = 0
 		self.dots = 0
 		self.factor = Rational (1)
-
+		
 	def lisp_expression (self):
 		return '(ly:make-duration %d %d %d %d)' % (self.duration_log,
 							   self.dots,
@@ -147,7 +147,7 @@ class Pitch:
 		self.alteration = 0
 		self.step = 0
 		self.octave = 0
-
+		
 	def __repr__(self):
 		return self.ly_expression()
 
@@ -212,11 +212,10 @@ class Music:
 	def __init__ (self):
 		self.parent = None
 		self.start = Rational (0)
-		pass
+		self.comment = ''
 
 	def get_length(self):
 		return Rational (0)
-	
 	
 	def get_properties (self):
 		return ''
@@ -248,25 +247,31 @@ class Music:
 			return self
 		return None
 
-	def print_ly (self, printer):
-		printer (self.ly_expression ())
+	def print_comment (self, printer, text = None):
+		if not text:
+			text = self.comment
 
+		if not text:
+			return
 
-class Comment (Music):
-	def __name__ (self):
-		self.text = ''
-	def print_ly (self, printer):
+			
 		if isinstance (printer, Output_printer):
-			lines = string.split (self.text, '\n')
+			if text == '\n':
+				printer.newline ()
+				return
+
+			lines = string.split (text, '\n')
 			for l in lines:
 				if l:
 					printer.print_verbatim ('% ' + l)
 				printer.newline ()
 		else:
-			printer ('% ' + re.sub ('\n', '\n% ', self.text))
+			printer ('% ' + re.sub ('\n', '\n% ', text))
 			printer ('\n')
 			
-	
+
+	def print_ly (self, printer):
+		printer (self.ly_expression ())
 
 class MusicWrapper (Music):
 	def __init__ (self):
@@ -290,10 +295,14 @@ class TimeScaledMusic (MusicWrapper):
 class NestedMusic(Music):
 	def __init__ (self):
 		Music.__init__ (self)
-		self.elements = [] 
+		self.elements = []
+
+	def append (self, what):
+		if what:
+			self.elements.append (what)
+			
 	def has_children (self):
 		return self.elements
-
 
 	def insert_around (self, succ, elt, dir):
 		assert elt.parent == None
@@ -357,8 +366,16 @@ class NestedMusic(Music):
 class SequentialMusic (NestedMusic):
 	def print_ly (self, printer):
 		printer ('{')
+		if self.comment:
+			self.print_comment (printer)
+		elif isinstance (printer, Output_printer):
+			printer.newline()
+		else:
+			printer ('\n')
+			
 		for e in self.elements:
 			e.print_ly (printer)
+
 		printer ('}')
 
 	def lisp_sub_expression (self, pred):
@@ -406,7 +423,8 @@ class EventChord(NestedMusic):
 		#	print  'huh', rest_events, note_events, other_events
  		for e in other_events:
 			e.print_ly (printer)
-		
+
+		self.print_comment (printer)
 			
 class Event(Music):
 	pass
@@ -417,15 +435,28 @@ class SpanEvent (Event):
 		self.span_direction = 0
 	def get_properties(self):
 		return "'span-direction  %d" % self.span_direction
+	
 class SlurEvent (SpanEvent):
 	def ly_expression (self):
 		return {-1: '(',
 			0:'',
 			1:')'}[self.span_direction]
 
-class ArpeggioEvent(Music):
+class BeamEvent (SpanEvent):
+	def ly_expression (self):
+		return {-1: '[',
+			0:'',
+			1:']'}[self.span_direction]
+
+class ArpeggioEvent(Event):
 	def ly_expression (self):
 		return ('\\arpeggio')
+
+
+class TieEvent(Event):
+	def ly_expression (self):
+		return '~'
+
 	
 class RhythmicEvent(Event):
 	def __init__ (self):
@@ -445,8 +476,6 @@ class RestEvent (RhythmicEvent):
 	
 	def print_ly (self, printer):
 		printer('r')
-		if isinstance(printer, Output_printer):
-			printer.skipspace()
 		self.duration.print_ly (printer)
 
 class SkipEvent (RhythmicEvent):
@@ -457,18 +486,31 @@ class NoteEvent(RhythmicEvent):
 	def  __init__ (self):
 		RhythmicEvent.__init__ (self)
 		self.pitch = Pitch()
-
+		self.cautionary = False
+		self.forced_accidental = False
+		
 	def get_properties (self):
 		return ("'pitch %s\n 'duration %s"
 			% (self.pitch.lisp_expression (),
 			   self.duration.lisp_expression ()))
 
+	def pitch_mods (self):
+		excl_question = ''
+		if self.cautionary:
+			excl_question += '?'
+		if self.forced_accidental:
+			excl_question += '!'
+
+		return excl_question
+	
 	def ly_expression (self):
-		return '%s%s' % (self.pitch.ly_expression (),
-				 self.duration.ly_expression ())
+		return '%s%s%s' % (self.pitch.ly_expression (),
+				   self.pitch_mods(),
+				   self.duration.ly_expression ())
 
 	def print_ly (self, printer):
 		self.pitch.print_ly (printer)
+		printer (self.pitch_mods ())  
 		self.duration.print_ly (printer)
 
 class KeySignatureChange (Music):
