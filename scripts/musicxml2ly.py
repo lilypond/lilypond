@@ -212,7 +212,6 @@ def musicxml_note_to_lily_main_event (n):
 		if acc:
 			# let's not force accs everywhere. 
 			event.cautionary = acc.editorial
-			print event, event.cautionary, event.ly_expression()
 		
 	elif n.get_maybe_exist_typed_child (musicxml.Rest):
 		event = musicexp.RestEvent()
