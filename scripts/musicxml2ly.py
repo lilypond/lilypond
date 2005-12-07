@@ -223,6 +223,7 @@ def musicxml_voice_to_lily_voice (voice):
 	
 	ly_voice = []
 	ly_now = Rational (0)
+	pending_skip = Rational (0) 
 
 	tuplet_events = []
 
@@ -231,6 +232,9 @@ def musicxml_voice_to_lily_voice (voice):
 			continue
 		
 		if isinstance (n, musicxml.Attributes):
+			ly_now += pending_skip
+			pending_skip = Rational (0)
+			
 			ly_voice.extend (musicxml_attributes_to_lily (n))
 			continue
 		
@@ -241,13 +245,17 @@ def musicxml_voice_to_lily_voice (voice):
 		if n.is_first () and ly_voice:
 			ly_voice[-1].comment += '\n'
 		
+
+		main_event = musicxml_note_to_lily_main_event (n)
+
 		ev_chord = None
 		if None ==  n.get_maybe_exist_typed_child (musicxml.Chord):
-			if ly_voice:
-				ly_now += ly_voice[-1].get_length ()
+			ly_now += pending_skip
+			pending_skip = main_event.get_length ()
 
 			if ly_now <> n._when:
 				diff = n._when - ly_now
+
 				if diff < Rational (0):
 					print 'huh: negative skip', n._when, ly_now, n._duration
 					diff = Rational (1,314159265)
@@ -260,10 +268,8 @@ def musicxml_voice_to_lily_voice (voice):
 			pass
 		
 		ev_chord = ly_voice[-1]
-
-		main_event = musicxml_note_to_lily_main_event (n)
 		ev_chord.append (main_event)
-			
+		
 		notations = n.get_maybe_exist_typed_child (musicxml.Notations)
 		tuplet_event = None
 		span_events = []
@@ -332,7 +338,7 @@ def musicxml_pitch_to_lily (mxl_pitch):
 	p.octave = mxl_pitch.get_octave () - 4
 	return p
 
-def get_all_voices (parts):
+def synchronize_musicxml (parts):
 	progress ("Synchronizing MusicXML...")
 	
 	all_voices = {} 
@@ -345,8 +351,12 @@ def get_all_voices (parts):
 			m_name = 'Part' + p.id + 'Voice' + id
 			m_name = musicxml_id_to_lily (m_name)
 			all_voices[m_name] = voice
+	return all_voices
 
+def get_all_voices (parts):
 
+	all_voices = synchronize_musicxml (parts)
+	
 	progress ("Converting to LilyPond expressions...")
 	all_ly_voices = {}
 	for (k, v) in all_voices.items():
@@ -417,9 +427,7 @@ Copyright (c) 2005 by
 
 
 def convert (filename, output_name):
-	
 	printer = musicexp.Output_printer()
-
 	progress ("Reading MusicXML...")
 	
 	tree = musicxml.read_musicxml (filename)
@@ -439,11 +447,15 @@ def convert (filename, output_name):
 	return voices
 
 
-opt_parser = option_parser()
+def main ():
+	opt_parser = option_parser()
 
-(options, args) = opt_parser.parse_args ()
-if not args:
-	opt_parser.print_usage()
-	sys.exit (2)
+	(options, args) = opt_parser.parse_args ()
+	if not args:
+		opt_parser.print_usage()
+		sys.exit (2)
 
-voices = convert (args[0], options.output)
+	voices = convert (args[0], options.output)
+
+if __name__ == '__main__':
+	main()
