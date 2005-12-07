@@ -237,7 +237,12 @@ class Time_modification(Music_xml_node):
 		b = self.get_maybe_exist_typed_child (class_dict['actual-notes'])
 		a = self.get_maybe_exist_typed_child (class_dict['normal-notes'])
 		return (string.atoi(a.get_text ()), string.atoi (b.get_text ()))
-		
+
+class Accidental (Music_xml_node):
+	def __init__ (self):
+		Music_xml_node.__init__ (self)
+		self.editorial = False
+		self.cautionary = False
 		
 		
 class Tuplet(Music_xml_node):
@@ -272,6 +277,7 @@ class Grace (Music_xml_node):
 
 class_dict = {
 	'#comment': Hash_comment,
+	'accidental': Accidental,
 	'alter': Alter,
 	'attributes': Attributes,
 	'beam' : Beam,

@@ -144,7 +144,7 @@ confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
-@uref{http://@/www.@/recordarde@/.com/xml/,MusicXML} is a XML dialect
+@uref{http://@/www.@/recordarde@/.com/xml/,MusicXML} is an XML dialect
 for representing music notation.
 
 @command{musicxml2ly} extracts the notes from part-wise MusicXML
