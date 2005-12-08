@@ -15,8 +15,10 @@
 #include "moment.hh"
 
 /*
-  TODO: should extract hyphen from the font.
+  TODO: should extract hyphen dimensions or hyphen glyph from the
+  font.
  */
+
 MAKE_SCHEME_CALLBACK (Hyphen_spanner, print, 1);
 SCM
 Hyphen_spanner::print (SCM smob)
@@ -106,26 +108,20 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
 
   Rod r;
   Spanner *sp = dynamic_cast<Spanner *> (me);
-  r.distance_
-    = robust_scm2double (me->get_property ("minimum-length"), 0);
 
-  if (r.distance_ > 0.0)
+  r.distance_ = robust_scm2double (me->get_property ("minimum-distance"), 0);
+  Direction d = LEFT;
+  do
     {
-      Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
-      r.distance_ += 2*padding;
-      Direction d = LEFT;
-      do
-	{
-	  r.item_drul_[d] = sp->get_bound (d);
-	  if (r.item_drul_[d])
-	    r.distance_ += r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
-	}
-      while (flip (&d) != LEFT);
-
-      if (r.item_drul_[LEFT]
-	  && r.item_drul_[RIGHT])
-	r.add_to_cols ();
+      r.item_drul_[d] = sp->get_bound (d);
+      if (r.item_drul_[d])
+	r.distance_ += r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
     }
+  while (flip (&d) != LEFT);
+
+  if (r.item_drul_[LEFT]
+      && r.item_drul_[RIGHT])
+    r.add_to_cols ();
 
   return SCM_UNSPECIFIED;
 }
@@ -139,5 +135,6 @@ ADD_INTERFACE (Hyphen_spanner, "lyric-hyphen-interface",
 	       "height "
 	       "dash-period "
 	       "minimum-length "
+	       "minimum-distance "
 	       "length");
 

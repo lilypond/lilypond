@@ -338,7 +338,6 @@ connected vertically.  "
 printing of a single line of lyrics.  "
   
   \name Lyrics 
-  \consists "Separating_line_group_engraver"
   \consists "Lyric_engraver"
   \consists "Extender_engraver"
   \consists "Hyphen_engraver"

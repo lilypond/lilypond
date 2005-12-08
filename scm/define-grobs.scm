@@ -879,9 +879,10 @@
 	(dash-period . 10.0)
 	(length . 0.66)
 	(minimum-length . 0.3)
+	(minimum-distance . 0.5)
 	(padding . 0.07)
-	;;	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
-
+	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
+	
 	(stencil . ,Hyphen_spanner::print)
 
 	(Y-extent . (0 . 0))
@@ -902,6 +903,16 @@
 		 (interfaces . (lyric-interface
 				lyric-extender-interface))))))
 
+    (LyricSpace
+     . ((minimum-distance . 0.3)
+	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
+	(padding . 0.0)
+	(Y-extent . #f)
+	(X-extent . #f)
+	(meta . ((class . Spanner)
+		 (interfaces . (spanner-interface spacing-interface)) 
+		 ))
+	))
     (LyricText
      . (
 
