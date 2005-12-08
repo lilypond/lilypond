@@ -149,8 +149,9 @@ Hyphen_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
 
 ADD_TRANSLATOR (Hyphen_engraver,
-		/* doc */ "Create lyric hyphens",
-		/* create */ "LyricHyphen LyricsSpace",
+		/* doc */ "Create lyric hyphens and "
+		"distance constraints between words.",
+		/* create */ "LyricHyphen LyricSpace",
 		/* accept */ "hyphen-event",
 		/* read */ "",
 		/* write */ "");
