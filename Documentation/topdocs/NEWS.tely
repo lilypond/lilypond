@@ -47,7 +47,7 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 @itemize @bullet
 @item Spaces between lyrics and distance between syllables with
 hyphens may now be separately tuned through the
-@internalsref{LyricSpace} grob.
+@code{LyricSpace} grob.
 
 This feature has been sponsored by Bertalan Fodor.
 
