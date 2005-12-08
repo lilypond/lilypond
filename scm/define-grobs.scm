@@ -879,7 +879,7 @@
 	(dash-period . 10.0)
 	(length . 0.66)
 	(minimum-length . 0.3)
-	(minimum-distance . 0.5)
+	(minimum-distance . 0.1)
 	(padding . 0.07)
 	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
 	
