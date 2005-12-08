@@ -1,5 +1,16 @@
 2005-12-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): add LyricSpace
+	grob
+
+	* lily/lyric-hyphen.cc (set_spacing_rods): use minimum-distance
+	iso. minimum-length property for rods.
+
+	* lily/hyphen-engraver.cc (acknowledge_lyric_syllable): create
+	LyricSpace item to keep lyrics spaced apart.
+
+	* ly/engraver-init.ly: remove Separating_line_group_engraver
+
 	* Documentation/user/music-glossary.tely: do setfilename before
 	music-glossary.
 
