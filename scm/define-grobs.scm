@@ -910,7 +910,8 @@
 	(Y-extent . #f)
 	(X-extent . #f)
 	(meta . ((class . Spanner)
-		 (interfaces . (spanner-interface spacing-interface)) 
+		 (interfaces . (spanner-interface
+				lyric-hyphen-interface spacing-interface))
 		 ))
 	))
     (LyricText
