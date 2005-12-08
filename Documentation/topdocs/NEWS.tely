@@ -45,6 +45,11 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item Spaces between lyrics and distance between syllables with
+hyphens may now be separately tuned.
+
+This feature has been sponsored by Bertalan Fodor.
+
 @item A MusicXML importer is included now.
 
 @item Texts set in a TrueType font are now kerned. This requires CVS

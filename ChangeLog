@@ -1,5 +1,7 @@
 2005-12-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/lyric-hyphen-retain.ly: renew.
+
 	* scm/define-grobs.scm (all-grob-descriptions): add LyricSpace
 	grob
 
