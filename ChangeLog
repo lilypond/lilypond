@@ -1,3 +1,8 @@
+2005-12-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/music-glossary.tely: do setfilename before
+	music-glossary.
+
 2005-12-07  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/lilypond-book.itely: use `,´ after xref:
