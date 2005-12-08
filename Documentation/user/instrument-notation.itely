@@ -880,7 +880,7 @@ combination of a backslash followed by one of @code{`}, @code{'},
 
 @seealso
 
-Program reference: @internalsref{LyricText}.
+Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 @refbugs
 
@@ -903,42 +903,10 @@ indicated with a horizontal line centered between a syllable and the
 next one.  Such a line is called an extender line, and it is entered as
 `@code{__}'.
 
-In tighly engraved music, hyphens can be removed.  In some languages
-(e.g. German and Hungarian), hyphens should not disappear, since
-spelling depends on hyphenation.  For that purpose, hyphens can be
-forced to remain by overriding @code{minimum-length} of
-the @code{LyricHyphen} grob.
-
-@lilypond[quote,verbatim,raggedright]
-\score {
- <<
-  \new Staff \relative c'' {
-    \time 1/4 c16 c c c c16 c c c c16 c c c
-  }
-  \lyricmode { \new Lyrics
-    \with {
-      \override SeparationItem #'padding = #0.0
-      % Otherwise lyrics are so far apart that hyphens don't disappear
-    } 
-    {
-      An -- ti -- cons -- ti --
-      tu -- tion -- nel -- le --
-      \override LyricHyphen  #'minimum-length = #0.7
-      \override LyricHyphen  #'springs-and-rods =
-        #Hyphen_spanner::set_spacing_rods
-      men -- taire -- ment. ouf~!
-    }
-  }
- >>
- \layout   {
-  indent = 0.0 \cm
-  linewidth = 3.4 \cm
-  \context {
-    \Staff \remove "Time_signature_engraver"
-  }
- }
-}
-@end lilypond
+In tighly engraved music, hyphens can be removed.  Whether this
+happens can be controlled with the @code{minimum-distance} (minimum
+distance between two syllables) and the @code{minimum-length}
+(threshold below which hyphens are removed).
 
 @seealso
 

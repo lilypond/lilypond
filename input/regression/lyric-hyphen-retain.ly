@@ -10,17 +10,11 @@ its @code{minimum-length} setting."
 \version "2.7.22"
 
 \layout {
-  \context {
-    \Lyrics
-    \remove Separating_line_group_engraver
-  }
-
   raggedright = ##t
 }
 
 
-
-{
+\relative c'' {
   \time 2/4
   c32 c c c 
   c32 c c c 
