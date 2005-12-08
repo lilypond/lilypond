@@ -294,7 +294,7 @@ command line:
 
 @noindent
 where the @var{file}@command{psfonts} file is obtained from
-@command{lilypond-book}, @xref{Invoking lilypond-book} for details. PDF
+@command{lilypond-book}, @xref{Invoking lilypond-book}, for details. PDF
 can then be produced with a PostScript to PDF translator like
 @code{ps2pdf} (which is part of GhostScript).  Running @command{dvips}
 will produce some warnings about fonts; these are harmless and may
