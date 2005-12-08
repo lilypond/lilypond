@@ -1,5 +1,7 @@
 2005-12-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PATCH_LEVEL): release 2.7.22
+
 	* input/regression/lyric-hyphen-retain.ly: renew.
 
 	* scm/define-grobs.scm (all-grob-descriptions): add LyricSpace
@@ -23,9 +25,8 @@
 
 2005-12-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* scripts/musicxml2ly.py (musicxml_voice_to_lily_voice): don't
-	forget 
-	(musicxml_voice_to_lily_voice): use pending_skip iso. ly_voice[-1]
+	* scripts/musicxml2ly.py (musicxml_voice_to_lily_voice): use
+	pending_skip iso. ly_voice[-1]
 	(main): add if __main__ for debugging.
 
 	* python/musicxml.py (Accidental.__init__): new class.
