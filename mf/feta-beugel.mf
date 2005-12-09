@@ -64,13 +64,16 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp, brace_number) =
 		penlabels (1, 2, 3);
 		labels (0);
 
-		pat = z2r
-		      .. simple_serif (z3r, z3l, 90)
-		      .. z2l
-		      .. z1l{dir (angle (z1r - z1l) - 90)}
-		      .. z0{down}
-		      -- z1r{-dir (angle (z1l - z1r) + 90)}
-		      .. cycle;
+		pat := z2r
+		       .. simple_serif (z3r, z3l, 90)
+		       .. z2l
+		       .. z1l{dir (angle (z1r - z1l) - 90)}
+		       .. z0{down}
+		       .. z1r{-dir (angle (z1l - z1r) + 90)}
+		       .. cycle;
+		pat := subpath (0, 5) of pat
+		       -- subpath (6, 7) of pat
+		       .. cycle;
 
 		fill pat;
 		fill pat yscaled -1;
