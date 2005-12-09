@@ -51,7 +51,7 @@ Stem_engraver::make_stem (Grob_info gi)
 {
   /* Announce the cause of the head as cause of the stem.  The
      stem needs a rhythmic structure to fit it into a beam.  */
-  stem_ = make_item ("Stem", gi.music_cause ()->self_scm ());
+  stem_ = make_item ("Stem", gi.grob ()->self_scm ());
 
   /*
     we take the duration log from the Event, since the duration-log

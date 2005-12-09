@@ -29,7 +29,7 @@ display_fontset (FcFontSet *fs)
 			      "designsize", 0, &str) == FcResultMatch)
 	printf ("designsize %s\n ", str);
       
-      printf ("%s\n", font);
+      printf ("%s\n", (const char*) font);
       free (font);
     }
 }

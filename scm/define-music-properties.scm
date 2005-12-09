@@ -83,6 +83,9 @@ It must take a single argument, being the context.")
      (quoted-context-type ,symbol? "The name of the context to direct quotes to, eg., @code{Voice}.")
      (quoted-context-id ,string? "The id of the context to direct quotes to, eg., @code{cue}.")
      (to-relative-callback ,procedure? "How to transform a piece of music to relative pitches")
+     (tweaks ,list? "An alist of properties to override in the backend
+for the grob made of this event.")
+     
      (repeat-count  ,integer? "do a @code{\repeat} how ofen?")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
      (split-list ,list? "splitting moments for part combiner.")

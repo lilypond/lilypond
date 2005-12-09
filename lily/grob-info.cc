@@ -27,7 +27,7 @@ Grob_info::Grob_info ()
 }
 
 Music *
-Grob_info::music_cause ()
+Grob_info::music_cause () const
 {
   SCM cause = grob_->get_property ("cause");
   return unsmob_music (cause);
@@ -65,3 +65,16 @@ Grob_info::item () const
 {
   return dynamic_cast<Item *> (grob_);
 }
+
+Music *
+Grob_info::ultimate_music_cause () const
+{
+  SCM cause = grob_->self_scm ();
+  while (unsmob_grob (cause))
+    {
+      cause = unsmob_grob (cause)->get_property ("cause");
+    }
+
+  return unsmob_music (cause);
+}
+

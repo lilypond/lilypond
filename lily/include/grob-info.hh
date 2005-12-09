@@ -27,7 +27,8 @@ public:
   Translator *origin_translator () const { return origin_trans_; }
 
   Context *context () const;
-  Music *music_cause ();
+  Music *music_cause () const;
+  Music *ultimate_music_cause () const;
   Link_array<Context> origin_contexts (Translator *) const;
   Grob_info (Translator *, Grob *);
   Grob_info ();

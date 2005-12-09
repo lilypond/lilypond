@@ -134,11 +134,8 @@
 				ledgered-interface))))))
 
     (Arpeggio
-     . (
-
-	(X-extent . ,Arpeggio::width)
+     . ((X-extent . ,Arpeggio::width)
 	(stencil . ,Arpeggio::print)
-
 	(Y-offset . ,Staff_symbol_referencer::callback)
 	(X-offset . ,Side_position_interface::x_aligned_side)
 	(direction . -1)

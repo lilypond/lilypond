@@ -45,6 +45,31 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item With the @code{\tweak} music function, layout objects that are directly
+connected to input may be tuned,
+
+@lilypond[relative=2,fragment,raggedright]
+<
+  \tweak #'font-size #3  c
+  \tweak #'color #red  e
+  \tweak #'style #cross  g
+  \tweak #'duration-log #1  a
+>4
+@end lilypond
+
+This feature was sponsored by Sean Reed and Bertalan Fodor.
+
+@item Generic music functions may now also be used on articulations
+and chord elements, eg.
+
+@verbatim
+  < \displayMusic c
+    e-\keepWithTag #'bla -\tag #'bla ^2 >
+@end verbatim
+
+This feature was sponsored by Sean Reed and Bertalan Fodor.
+
+
 @item Spaces between lyrics and distance between syllables with
 hyphens may now be separately tuned through the
 @code{LyricSpace} grob.

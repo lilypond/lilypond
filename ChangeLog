@@ -1,7 +1,35 @@
-2005-12-09  Werner Lemberg  <wl@gnu.org>
+2005-12-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* mf/feta-beugel.mf (draw_brace): Use subpaths to assure correct
-	tension values.
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
+	Span_arpeggio_engraver, add Tweak_engraver to Score context. 
+
+	* lily/parser.yy: reorganize file layout.
+
+	* ly/music-functions-init.ly: add tweak music function.
+
+	* lily/grob-info.cc (ultimate_music_cause): new function:
+	recursively lookup causes. 
+
+	* lily/parser.yy (chord_body_element): allow music functions for
+	post-events, allow music functions for chord elements. 
+ 
+	* lily/font-config-scheme.cc (display_fontset): add cast.
+
+	* python/convertrules.py (FatalConversionError.sub_syms): \tag
+	#'(a b) -> \tag #'a \tag #'b rule.
+
+	* python/musicexp.py (Output_printer.dump_version): new function
+
+2005-12-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/parser.yy (FIXME): remove \tag
+	(FIXME): remove tag_music() function.
+
+	* lily/lily-lexer.cc: remove \tag
+
+	* ly/music-functions-init.ly: define music-function "tag"
+
+	* lily/parser.yy (chord_body_element): allow tags in chord bodies.
 
 2005-12-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
