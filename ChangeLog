@@ -1,3 +1,8 @@
+2005-12-07  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* scripts/lilypond-book.py: Backport: don't add newline after
+	\lilypond blocks
+
 2005-11-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION: 2.6.5

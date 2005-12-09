@@ -491,13 +491,11 @@ output = {
 
 		QUOTE: r'''\begin{quotation}
 %(str)s
-\end{quotation}
-''',
+\end{quotation}''',
 
 		VERBATIM: r'''\noindent
 \begin{verbatim}
-%(verb)s\end{verbatim}
-''',
+%(verb)s\end{verbatim}''',
 
 		FILTER: r'''\begin{lilypond}[%(options)s]
 %(code)s
