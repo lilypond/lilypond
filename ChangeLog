@@ -1,3 +1,8 @@
+2005-12-09  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-beugel.mf (draw_brace): Use subpaths to assure correct
+	tension values.
+
 2005-12-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PATCH_LEVEL): release 2.7.22
@@ -23,6 +28,7 @@
 	* Documentation/user/lilypond-book.itely: use `,´ after xref:
 	See xref documentation, for example.
 
+>>>>>>> 1.4331
 2005-12-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/musicxml2ly.py (musicxml_voice_to_lily_voice): use
