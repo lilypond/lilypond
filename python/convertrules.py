@@ -2651,3 +2651,16 @@ def conv (str):
 
 conversions.append (((2, 7, 15), conv,
 		     '''Use grob closures iso. XY-offset-callbacks.'''))
+
+
+def conv (str):
+	def sub_syms (m):
+		syms =  m.group (1).split ()
+		tags = ["\\tag #'%s" % s for s in syms]
+		return ' '.join (tags)
+		
+	str = re.sub (r"\\tag #'\(([^)]+)\)",  sub_syms, str)
+	return str
+
+conversions.append (((2, 7, 22), conv,
+		     """\tag #'(a b) -> \tag #'a \tag #'b""" ))

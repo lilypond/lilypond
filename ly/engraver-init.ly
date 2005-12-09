@@ -1,18 +1,18 @@
 \version "2.7.14"
 
 \context {
-  \name Global
+  \name "Global"
 
-  \accepts Score
+  \accepts "Score"
 
-  \defaultchild Score
+  \defaultchild "Score"
   \description "Hard coded entry point for LilyPond. Cannot be tuned."
   \grobdescriptions #all-grob-descriptions
 }
 
 \context {
   \type "Engraver_group"
-  \name Staff
+  \name "Staff"
   
   \consists "Output_property_engraver"	
   \consists "Bar_engraver"
@@ -64,8 +64,9 @@
 \context {
   \Staff
   \type "Engraver_group"
-  \name DrumStaff
-  \alias Staff
+  \name "DrumStaff"
+  \alias "Staff"
+  
   \remove "Accidental_engraver"
   \remove "Ottava_spanner_engraver"
   \remove "Key_engraver" 
@@ -74,9 +75,9 @@
   
   \description "Handles typesetting for percussion."
 
-  \denies Voice
-  \accepts DrumVoice
-  \defaultchild DrumVoice
+  \denies "Voice"
+  \accepts "DrumVoice"
+  \defaultchild "DrumVoice"
 
   clefGlyph = #"clefs.percussion"
   clefPosition = #0
@@ -86,7 +87,7 @@
 
 \context {
   \type "Engraver_group"
-  \name InnerChoirStaff
+  \name "InnerChoirStaff"
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
 
@@ -416,9 +417,9 @@ AncientRemoveEmptyStaffContext = \context {
 }
 
 \context {
-  \type Score_engraver
+  \type "Score_engraver"
   \name "Score"
-
+  
   \description "This is the top level notation context.  No
     other context can contain a @code{Score} context.  This context
     handles the administration of time signatures.  It also makes sure
@@ -449,9 +450,10 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Vertical_align_engraver"
   \consists "Stanza_number_align_engraver"
   \consists "Bar_number_engraver"
-  \consists "Span_arpeggio_engraver"
-
+  \consists "Tweak_engraver"
+  
   \defaultchild "Staff"
+
   \accepts "Staff"
   \accepts "RhythmicStaff"
   \accepts "TabStaff"
@@ -468,7 +470,7 @@ AncientRemoveEmptyStaffContext = \context {
   \accepts "Devnull"
   \accepts "NoteNames"
   \accepts "FiguredBass"
-
+  
   soloText = #"Solo"
   soloIIText = #"Solo II"
   aDueText = #"a2"

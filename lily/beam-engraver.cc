@@ -221,52 +221,55 @@ Beam_engraver::acknowledge_rest (Grob_info info)
     }
 }
 
+
+
 void
 Beam_engraver::acknowledge_stem (Grob_info info)
 {
-  if (beam_)
+  if (!beam_)
+    return;
+  
+  Moment now = now_mom ();
+  if (!valid_start_point ())
+    return;
+
+  Item *stem = dynamic_cast<Item *> (info.grob ());
+  if (Stem::get_beam (stem))
+    return;
+
+  
+  
+  Music *m = info.ultimate_music_cause ();
+  if (!m->is_mus_type ("rhythmic-event"))
     {
-      Moment now = now_mom ();
+      String s = _ ("stem must have Rhythmic structure");
+      if (info.music_cause ())
+	info.music_cause ()->origin ()->warning (s);
+      else
+	::warning (s);
 
-      if (!valid_start_point ())
-	return;
-
-      Item *stem = dynamic_cast<Item *> (info.grob ());
-      if (Stem::get_beam (stem))
-	return;
-
-      Music *m = info.music_cause ();
-      if (!m->is_mus_type ("rhythmic-event"))
-	{
-	  String s = _ ("stem must have Rhythmic structure");
-	  if (info.music_cause ())
-	    info.music_cause ()->origin ()->warning (s);
-	  else
-	    ::warning (s);
-
-	  return;
-	}
-
-      last_stem_added_at_ = now;
-      int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
-      if (durlog <= 2)
-	{
-	  m->origin ()->warning (_ ("stem doesn't fit in beam"));
-	  prev_start_ev_->origin ()->warning (_ ("beam was started here"));
-	  /*
-	    don't return, since
-
-	    [r4 c8] can just as well be modern notation.
-	  */
-	}
-
-      stem->set_property ("duration-log",
-			  scm_from_int (durlog));
-      Moment stem_location = now - beam_start_mom_ + beam_start_location_;
-      beam_info_->add_stem (stem_location,
-			    max (durlog- 2, 0));
-      Beam::add_stem (beam_, stem);
+      return;
     }
+
+  last_stem_added_at_ = now;
+  int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
+  if (durlog <= 2)
+    {
+      m->origin ()->warning (_ ("stem doesn't fit in beam"));
+      prev_start_ev_->origin ()->warning (_ ("beam was started here"));
+      /*
+	don't return, since
+
+	[r4 c8] can just as well be modern notation.
+      */
+    }
+
+  stem->set_property ("duration-log",
+		      scm_from_int (durlog));
+  Moment stem_location = now - beam_start_mom_ + beam_start_location_;
+  beam_info_->add_stem (stem_location,
+			max (durlog- 2, 0));
+  Beam::add_stem (beam_, stem);
 }
 
 ADD_ACKNOWLEDGER (Beam_engraver, stem);

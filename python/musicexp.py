@@ -25,6 +25,11 @@ class Output_printer:
 		self.output_state_stack = [Output_stack_element()]
 		self._skipspace = False
 		self.last_duration = None
+
+	def dump_version (self):
+		self.newline ()
+		self.print_verbatim ('\\version "@TOPLEVEL_VERSION@"')
+		self.newline ()
 		
 	def get_indent (self):
 		return self.nesting * self.indent

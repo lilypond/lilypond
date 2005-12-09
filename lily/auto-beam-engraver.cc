@@ -334,7 +334,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
 {
   check_bar_property ();
   Item *stem = dynamic_cast<Item *> (info.grob ());
-  Music *m = info.music_cause ();
+  Music *m = info.ultimate_music_cause ();
   if (!m->is_mus_type ("rhythmic-event"))
     {
       programming_error ("stem must have rhythmic structure");

@@ -1,5 +1,3 @@
-%{ // -*-Fundamental-*-
-
 /*
   parser.yy -- Bison/C++ parser for LilyPond
 
@@ -8,6 +6,54 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
+
+%{
+
+#define YYERROR_VERBOSE 1
+#define YYPARSE_PARAM my_lily_parser
+#define YYLEX_PARAM my_lily_parser
+#define THIS\
+	((Lily_parser *) my_lily_parser)
+
+#define yyerror THIS->parser_error
+
+/* We use custom location type: Input objects */
+#define YYLTYPE Input
+#define YYLLOC_DEFAULT(Current,Rhs,N) \
+	((Current).set_location ((Rhs)[1], (Rhs)[N]))
+
+
+%}
+
+/* We use SCMs to do strings, because it saves us the trouble of
+deleting them.  Let's hope that a stack overflow doesnt trigger a move
+of the parse stack onto the heap. */
+
+%left PREC_TOP
+%left ADDLYRICS
+%left PREC_BOT
+
+%expect 1
+
+/* One shift/reduce problem
+
+1.  \repeat
+	\repeat .. \alternative
+
+    \repeat { \repeat .. \alternative }
+
+or
+
+    \repeat { \repeat } \alternative 
+*/
+
+
+%pure_parser
+%locations
+
+
+
+%{ // -*-Fundamental-*-
 
 /*
 FIXME:
@@ -47,6 +93,21 @@ using namespace std;
 #include "warn.hh"
 #include "music.hh"
 
+%}
+
+
+%union {
+	Book *book;
+	Output_def *outputdef;
+	SCM scm;
+	String *string;
+ 	Music *music;
+ 	Score *score;
+ 	int i;
+}
+
+%{
+
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
 Music *property_op_to_music (SCM op);
@@ -62,203 +123,23 @@ SCM get_next_unique_lyrics_context_id ();
 #define _(x) gettext (x)
 #endif
 
-#define YYERROR_VERBOSE 1
-
-#define YYPARSE_PARAM my_lily_parser
-#define YYLEX_PARAM my_lily_parser
-#define THIS\
-	((Lily_parser *) my_lily_parser)
-
-#define yyerror THIS->parser_error
-
-/* We use custom location type: Input objects */
-#define YYLTYPE Input
-#define YYLLOC_DEFAULT(Current,Rhs,N) \
-	((Current).set_location ((Rhs)[1], (Rhs)[N]))
 
 
-/* Add symbols to the TAGS field of a music object.  */
-
-void
-tag_music (Music *m, SCM tag, Input ip)
-{
-	SCM tags = m->get_property ("tags");
-	if (scm_is_symbol (tag))
-		tags = scm_cons (tag, tags);
-	else if (ly_is_list (tag))
-		tags = ly_append2 (tag, tags);
-	else
-		ip.warning (_ ("tag must be symbol or list of symbols"));
-
-	m->set_property ("tags", tags);
-}
-
-bool
-is_regular_identifier (SCM id)
-{
-  String str = ly_scm2string (id);
-  char const *s = str.to_str0 ();
-
-  bool v = true;
-#if 0
-  isalpha (*s);
-  s++;
-#endif
-  while (*s && v)
-   {
-        v = v && isalnum (*s);
-        s++;
-   }
-  return v;
-}
-
-
-SCM
-get_first_context_id (SCM type, Music *m)
-{
-	SCM id = m->get_property ("context-id");
-	if (SCM_BOOL_T == scm_equal_p (m->get_property ("context-type"), type)
-	    && scm_is_string (m->get_property ("context-id"))
-	    && scm_c_string_length (id) > 0)
-	{
-		return id;
-	}
-	return SCM_EOL;
-}
-
-SCM
-make_simple_markup (SCM a)
-{
-	return a;
-}
-
-bool
-is_duration (int t)
-{
-  return t && t == 1 << intlog2 (t);
-}
-
-void
-set_music_properties (Music *p, SCM a)
-{
-  for (SCM k = a; scm_is_pair (k); k = scm_cdr (k))
- 	p->internal_set_property (scm_caar (k), scm_cdar (k));
-}
-
-SCM
-make_chord_step (int step, int alter)
-{
-	if (step == 7)
-		alter += FLAT;
-
-	while (step < 0)
-		step += 7;
-	Pitch m ((step -1) / 7, (step - 1) % 7, alter);
-	return m.smobbed_copy ();
-}
-
-
-SCM
-make_chord (SCM pitch, SCM dur, SCM modification_list)
-{
-	SCM chord_ctor = ly_lily_module_constant ("construct-chord");
-	SCM ch = scm_call_3 (chord_ctor, pitch, dur, modification_list);
-
-	unsmob_music (ch)->protect();	
-	return ch;
-}
-
-/* Todo: actually also use apply iso. call too ...  */
-bool
-ly_input_procedure_p (SCM x)
-{
-	return ly_is_procedure (x)
-		|| (scm_is_pair (x) && ly_is_procedure (scm_car (x)));
-}
-
-Music*
-set_property_music (SCM sym, SCM value)
-{
-	Music *p = MY_MAKE_MUSIC ("PropertySet");
-	p->set_property ("symbol", sym);
-	p->set_property ("value", value);
-	return p;
-}
-
-Music*
-make_music_relative (Pitch start, Music *music)
-{
-	Music *relative = MY_MAKE_MUSIC ("RelativeOctaveMusic");
- 	relative->set_property ("element", music->self_scm ());
-	
- 	Pitch last = music->to_relative_octave (start);
- 	if (lily_1_8_relative)
- 		music->set_property ("last-pitch", last.smobbed_copy ());
-	return relative;
-}
-
-Music*
-make_lyric_combine_music (SCM name, Music *music)
-{
-	Music *combine = MY_MAKE_MUSIC ("LyricCombineMusic");
-	combine->set_property ("element", music->self_scm ());
- 	combine->set_property ("associated-context", name);
-	return combine;
-}
+Music *make_lyric_combine_music (SCM name, Music *music);
+Music *make_music_relative (Pitch start, Music *music);
+Music *run_music_function (Lily_parser *, SCM expr);
+Music *set_property_music (SCM sym, SCM value);
+SCM get_first_context_id (SCM type, Music *m);
+SCM make_chord (SCM pitch, SCM dur, SCM modification_list);
+SCM make_chord_step (int step, int alter);
+SCM make_simple_markup (SCM a);
+bool is_duration (int t);
+bool is_regular_identifier (SCM id);
+bool ly_input_procedure_p (SCM x);
+int yylex (YYSTYPE *s, YYLTYPE *loc, void *v);
+void set_music_properties (Music *p, SCM a);
 
 %}
-
-/* We use SCMs to do strings, because it saves us the trouble of
-deleting them.  Let's hope that a stack overflow doesnt trigger a move
-of the parse stack onto the heap. */
-
-%left PREC_TOP
-%left ADDLYRICS
-%left PREC_BOT
-
-%union {
-	Book *book;
-	Output_def *outputdef;
-	SCM scm;
-	String *string;
- 	Music *music;
- 	Score *score;
- 	int i;
-}
-%{
-
-int
-yylex (YYSTYPE *s, YYLTYPE *loc, void *v)
-{
-	Lily_parser *pars = (Lily_parser*) v;
-	Lily_lexer *lex = pars->lexer_;
-
-	lex->lexval = (void*) s;
-	lex->lexloc = loc;
-	lex->prepare_for_next_token ();
-	return lex->yylex ();
-}
-
-
-%}
-
-%expect 1
-
-/* One shift/reduce problem
-
-1.  \repeat
-	\repeat .. \alternative
-
-    \repeat { \repeat .. \alternative }
-
-or
-
-    \repeat { \repeat } \alternative 
-*/
-
-
-%pure_parser
-%locations
 
 /* The third option is an alias that will be used to display the
    syntax error.  Bison CVS now correctly handles backslash escapes.
@@ -318,7 +199,6 @@ or
 %token SET "\\set"
 %token SIMULTANEOUS "\\simultaneous"
 %token SKIP "\\skip"
-%token TAG "\\tag"
 %token TEMPO "\\tempo"
 %token TIMES "\\times"
 %token TRANSPOSE "\\transpose"
@@ -435,7 +315,6 @@ If we give names, Bison complains.
 %type <i> tremolo_type
 
 %type <music> Composite_music
-%type <music> Generic_prefix_music
 %type <music> Grouped_music_list
 %type <music> Music
 %type <music> Prefix_composite_music
@@ -459,7 +338,6 @@ If we give names, Bison complains.
 %type <music> relative_music
 %type <music> simple_element
 %type <music> string_number_event
-%type <music> tagged_post_event
 %type <music> tempo_event
 %type <music> toplevel_music
 
@@ -474,6 +352,8 @@ If we give names, Bison complains.
 %type <scm> absolute_pitch
 %type <scm> assignment_id
 %type <scm> bare_number
+%type <scm> music_function_event
+%type <scm> music_function_chord_body
 %type <scm> bass_figure
 %type <scm> figured_bass_modification
 %type <scm> br_bass_figure
@@ -1113,10 +993,7 @@ Generic_prefix_music_scm:
 	| MUSIC_FUNCTION_MARKUP full_markup {
 		$$ = scm_list_3 ($1, make_input (@$), $2);
 	}
-	| MUSIC_FUNCTION_MUSIC Music {
-		$$ = scm_list_3 ($1, make_input (@$), $2->self_scm ());
-		$2->unprotect ();
-	}
+
 	| MUSIC_FUNCTION_SCM_MUSIC embedded_scm Music {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3->self_scm ());
 		$3->unprotect ();
@@ -1126,6 +1003,10 @@ Generic_prefix_music_scm:
 	}
 	| MUSIC_FUNCTION_SCM_SCM_SCM embedded_scm embedded_scm embedded_scm {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
+	}
+	| MUSIC_FUNCTION_MUSIC Music {
+		$$ = scm_list_3 ($1, make_input (@$), $2->self_scm ());
+		$2->unprotect ();
 	}
 	| MUSIC_FUNCTION_SCM_SCM_MUSIC embedded_scm embedded_scm Music {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4->self_scm ());
@@ -1154,46 +1035,9 @@ Generic_prefix_music_scm:
 	}
 	;
 
-Generic_prefix_music:
-	Generic_prefix_music_scm {
-		SCM func = scm_car ($1);
-		Input *loc = unsmob_input (scm_cadr ($1));
-		SCM args = scm_cddr ($1);
-		SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
-
-		SCM type_check_proc = ly_lily_module_constant ("type-check-list");
-		bool ok  = true;
-
-		if (!to_boolean (scm_call_3  (type_check_proc, scm_cadr ($1), sig, args)))
-		{
-			THIS->error_level_ = 1;
-			ok = false;
-		}
-
-		SCM m = SCM_EOL;
-  		if (ok)
-			m = scm_apply_0 (func, scm_cons (THIS->self_scm(),
-							 scm_cdr ($1)));
-
-		if (unsmob_music (m))
-			{
-			$$ = unsmob_music (m);
-			$$->protect ();
-			}
-		else
-			{
-			if (ok)
- 				loc->error (_ ("music head function must return Music object")); 
-			$$ = MY_MAKE_MUSIC ("Music");
-			}
-		$$->set_spot (*loc);
-	}
-	;
-
-
 Prefix_composite_music:
-	Generic_prefix_music {
-		$$ = $1;
+	Generic_prefix_music_scm {
+		$$ = run_music_function (THIS, $1);
 	}
 	| CONTEXT simple_string '=' simple_string optional_context_mod Music {
 		$$ = context_spec_music ($2, $4, $6, $5);
@@ -1262,10 +1106,6 @@ Prefix_composite_music:
 	}
 	| relative_music	{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; }
-	| TAG embedded_scm Music {
-		tag_music ($3, $2, @$);
-		$$ = $3;
-	}
 	;
 
 mode_changing_head: 
@@ -1689,7 +1529,32 @@ chord_body_element:
 		}
 		$$ = n;
 	}
+	| music_function_chord_body { 
+		$$ = run_music_function (THIS, $1);
+		$$->set_spot (@$);
+	}
 	;
+
+music_function_chord_body:
+	MUSIC_FUNCTION {
+		$$ = scm_list_2 ($1, make_input (@$));
+	}
+	| MUSIC_FUNCTION_MUSIC chord_body_element {
+		$$ = scm_list_3 ($1, make_input (@$),
+					$2->self_scm ());
+	}
+	| MUSIC_FUNCTION_SCM_MUSIC embedded_scm chord_body_element {
+		$$ = scm_list_4 ($1, make_input (@$),
+					$2, $3->self_scm ());
+	}
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC embedded_scm embedded_scm
+		chord_body_element {
+
+		$$ = scm_list_5 ($1, make_input (@$),
+					$2, $3, $4->self_scm ());
+	}
+	;
+
 
 add_quote:
 	ADDQUOTE string Music {
@@ -1847,25 +1712,29 @@ post_events:
 		$$ = scm_cons ($2->self_scm (), $$);
 		$2->unprotect ();
 	}
-	| post_events tagged_post_event {
-		$2 -> set_spot (@2);
-		$$ = scm_cons ($2->self_scm (), $$);
-		$2->unprotect ();
+	;
+
+music_function_event:
+	MUSIC_FUNCTION_MUSIC post_event {
+		$$ = scm_list_3 ($1, make_input (@$), $2->self_scm ());
+	}
+	| MUSIC_FUNCTION_SCM_MUSIC embedded_scm post_event {
+		$$ = scm_list_4 ($1, make_input (@$), $2, $3->self_scm ());
+	}
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC embedded_scm embedded_scm post_event {
+		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4->self_scm ());
 	}
 	;
 
-
-tagged_post_event:
-	'-' TAG embedded_scm post_event {
-		tag_music ($4, $3, @$);
-		$$ = $4;
-	}
-	;
-
-
+	
 post_event:
 	direction_less_event {
 		$$ = $1;
+	}
+	| '-' music_function_event {
+		Music *mus = run_music_function (THIS, $2);
+		mus->set_spot (@1);
+		$$ = mus;
 	}
 	| HYPHEN {
 		if (!THIS->lexer_->is_lyric_state ())
@@ -2834,6 +2703,174 @@ get_next_unique_lyrics_context_id ()
 {
 	static int new_context_count;
 	char s[128];
-	snprintf (s, 1024, "uniqueContext%d", new_context_count++);
+	snprintf (s, sizeof (s)-1, "uniqueContext%d", new_context_count++);
 	return scm_makfrom0str (s);
+}
+
+
+Music *
+run_music_function (Lily_parser *parser, SCM expr)
+{
+	SCM func = scm_car (expr);
+	Input *loc = unsmob_input (scm_cadr (expr));
+	SCM args = scm_cddr (expr);
+	SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
+
+	SCM type_check_proc = ly_lily_module_constant ("type-check-list");
+	bool ok  = true;
+
+	if (!to_boolean (scm_call_3  (type_check_proc, scm_cadr (expr), sig, args)))
+	{
+		parser->error_level_ = 1;
+		ok = false;
+	}
+
+	SCM m = SCM_EOL;
+	if (ok)
+		m = scm_apply_0 (func, scm_cons (parser->self_scm(),
+						 scm_cdr (expr)));
+
+
+	Music* retval = 0;
+	if (unsmob_music (m))
+		{
+		retval = unsmob_music (m);
+		retval->protect ();
+		}
+	else
+		{
+		if (ok)
+			loc->error (_ ("music head function must return Music object")); 
+		retval = MY_MAKE_MUSIC ("Music");
+		}
+	retval->set_spot (*loc);
+	return retval;
+}
+
+bool
+is_regular_identifier (SCM id)
+{
+  String str = ly_scm2string (id);
+  char const *s = str.to_str0 ();
+
+  bool v = true;
+#if 0
+  isalpha (*s);
+  s++;
+#endif
+  while (*s && v)
+   {
+        v = v && isalnum (*s);
+        s++;
+   }
+  return v;
+}
+
+
+SCM
+get_first_context_id (SCM type, Music *m)
+{
+	SCM id = m->get_property ("context-id");
+	if (SCM_BOOL_T == scm_equal_p (m->get_property ("context-type"), type)
+	    && scm_is_string (m->get_property ("context-id"))
+	    && scm_c_string_length (id) > 0)
+	{
+		return id;
+	}
+	return SCM_EOL;
+}
+
+SCM
+make_simple_markup (SCM a)
+{
+	return a;
+}
+
+bool
+is_duration (int t)
+{
+  return t && t == 1 << intlog2 (t);
+}
+
+void
+set_music_properties (Music *p, SCM a)
+{
+  for (SCM k = a; scm_is_pair (k); k = scm_cdr (k))
+ 	p->internal_set_property (scm_caar (k), scm_cdar (k));
+}
+
+
+SCM
+make_chord_step (int step, int alter)
+{
+	if (step == 7)
+		alter += FLAT;
+
+	while (step < 0)
+		step += 7;
+	Pitch m ((step -1) / 7, (step - 1) % 7, alter);
+	return m.smobbed_copy ();
+}
+
+
+SCM
+make_chord (SCM pitch, SCM dur, SCM modification_list)
+{
+	SCM chord_ctor = ly_lily_module_constant ("construct-chord");
+	SCM ch = scm_call_3 (chord_ctor, pitch, dur, modification_list);
+
+	unsmob_music (ch)->protect();	
+	return ch;
+}
+
+
+/* Todo: actually also use apply iso. call too ...  */
+bool
+ly_input_procedure_p (SCM x)
+{
+	return ly_is_procedure (x)
+		|| (scm_is_pair (x) && ly_is_procedure (scm_car (x)));
+}
+
+Music*
+set_property_music (SCM sym, SCM value)
+{
+	Music *p = MY_MAKE_MUSIC ("PropertySet");
+	p->set_property ("symbol", sym);
+	p->set_property ("value", value);
+	return p;
+}
+
+Music*
+make_music_relative (Pitch start, Music *music)
+{
+	Music *relative = MY_MAKE_MUSIC ("RelativeOctaveMusic");
+ 	relative->set_property ("element", music->self_scm ());
+	
+ 	Pitch last = music->to_relative_octave (start);
+ 	if (lily_1_8_relative)
+ 		music->set_property ("last-pitch", last.smobbed_copy ());
+	return relative;
+}
+
+Music *
+make_lyric_combine_music (SCM name, Music *music)
+{
+	Music *combine = MY_MAKE_MUSIC ("LyricCombineMusic");
+	combine->set_property ("element", music->self_scm ());
+ 	combine->set_property ("associated-context", name);
+	return combine;
+}
+
+
+int
+yylex (YYSTYPE *s, YYLTYPE *loc, void *v)
+{
+	Lily_parser *pars = (Lily_parser*) v;
+	Lily_lexer *lex = pars->lexer_;
+
+	lex->lexval = (void*) s;
+	lex->lexloc = loc;
+	lex->prepare_for_next_token ();
+	return lex->yylex ();
 }

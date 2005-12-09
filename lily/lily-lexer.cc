@@ -73,7 +73,6 @@ static Keyword_ent the_key_tab[]
   {"set", SET},
   {"simultaneous", SIMULTANEOUS},
   {"skip", SKIP},
-  {"tag", TAG},
   {"tempo", TEMPO},
   {"time", TIME_T},
   {"times", TIMES},
