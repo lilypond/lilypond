@@ -28,7 +28,6 @@
 	* Documentation/user/lilypond-book.itely: use `,´ after xref:
 	See xref documentation, for example.
 
->>>>>>> 1.4331
 2005-12-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/musicxml2ly.py (musicxml_voice_to_lily_voice): use
