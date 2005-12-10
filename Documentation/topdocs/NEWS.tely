@@ -46,13 +46,13 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 @item With the @code{\tweak} music function, layout objects that are directly
-connected to input may be tuned,
+connected to input may be tuned easily,
 
-@lilypond[relative=2,fragment,raggedright]
+@lilypond[relative=2,fragment,verbatim,raggedright]
 <
   \tweak #'font-size #3  c
-  \tweak #'color #red  e
-  \tweak #'style #cross  g
+  \tweak #'color #red d
+  \tweak #'style #'cross  g
   \tweak #'duration-log #1  a
 >4
 @end lilypond
