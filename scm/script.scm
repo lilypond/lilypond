@@ -134,6 +134,7 @@
 	 ("trill" .
 	  ((script-stencil . (feta . ("trill" . "trill")))
 	   (direction . 1)
+	   (avoid-slur . outside)
 	   (script-priority . 2000)))
 	 ("prall" .
 	  ((script-stencil . (feta . ("prall" . "prall")))
