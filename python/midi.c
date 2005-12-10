@@ -281,7 +281,7 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
   track_size = track_end - *track;
 
   debug_print ("%s", "\n");
-  if (strcmp (*track, "MTrk"))
+  if (memcmp (*track, "MTrk", 4))
     return midi_error (__FUNCTION__,  ": MTrk expected");
   
   *track += 4;
@@ -399,7 +399,7 @@ pymidi_parse (PyObject *self, PyObject *args)
   if (!PyArg_ParseTuple (args, "s#", &midi, &midi_size))
     return 0;
 
-  if (strcmp (midi, "MThd"))
+  if (memcmp (midi, "MThd", 4))
       return midi_error (__FUNCTION__,  ": MThd expected");
   
   midi += 4;
