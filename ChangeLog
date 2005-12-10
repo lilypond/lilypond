@@ -1,5 +1,7 @@
 2005-12-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/midi.c (pymidi_parse): use memcmp() iso. strcmp().
+
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
 	Span_arpeggio_engraver, add Tweak_engraver to Score context. 
 
