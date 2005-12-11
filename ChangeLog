@@ -1,3 +1,12 @@
+2005-12-11  Graham Percival  <gpermus@gmail.com>
+
+	* stepmake/stepmake/generic-vars.make: define DARWIN_BUILD.
+
+	* stepmake/stepmake/python-modules-vars.make: define
+	SHARED_FLAGS for OSX.  Thanks Johannes Schindelin!
+
+	* THANKS: added Johannes Schindelin.
+
 2005-12-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* python/midi.c (pymidi_parse): use memcmp() iso. strcmp().

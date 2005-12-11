@@ -13,6 +13,9 @@ ifneq ($(MINGW_BUILD),)
 SHARED_MODULE_SUFFIX = .dll
 endif
 endif
+ifneq ($(DARWIN_BUILD),)
+SHARED_FLAGS = -bundle -flat_namespace -framework Python
+endif
 OUT_SO_MODULES = $(addprefix $(outdir)/, $(C_FILES:.c=$(SHARED_MODULE_SUFFIX)))
 EXTRA_DIST_FILES += $(PY_MODULES_IN)
 
