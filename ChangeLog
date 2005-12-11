@@ -1,3 +1,10 @@
+2005-12-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* flower/libc-extension.cc: include cassert
+
+	* stepmake/stepmake/generic-vars.make (MINGW_BUILD): more robust
+	darwin check.
+
 2005-12-11  Graham Percival  <gpermus@gmail.com>
 
 	* stepmake/stepmake/generic-vars.make: define DARWIN_BUILD.
