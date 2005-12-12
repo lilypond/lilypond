@@ -1,3 +1,9 @@
+2005-12-12  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* input/no-notation/display-lily-tests.ly (test): 
+	* scm/display-lily.scm (tag->lily-string): the syntax for tags has
+	changed from \tag #'(a b) to \tag #'a \tag #'b
+
 2005-12-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/NEWS.tely: strip out-www.

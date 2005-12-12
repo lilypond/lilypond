@@ -75,13 +75,10 @@ display method will be called."
      new-method))
 
 (define* (tag->lily-string expr #:optional (post-event? #f))
-  (let ((tags (ly:music-property expr 'tags)))
-    (cond ((null? tags)
-	   "")
-	  ((null? (cdr tags))
-	   (format #f "~a\\tag #'~a " (if post-event? "-" "") (car tags)))
-	  (else
-	   (format #f "~a\\tag #'(~a~{ ~a~}) " (if post-event? "-" "") (car tags) (cdr tags))))))
+  (format #f "~{~a ~}"
+          (map (lambda (tag)
+                 (format #f "~a\\tag #'~a" (if post-event? "-" "") tag))
+               (ly:music-property expr 'tags))))
 
 (define-public (music->lily-string expr)
   "Print expr, a music expression, in LilyPond syntax"
