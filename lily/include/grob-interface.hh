@@ -9,7 +9,7 @@
 #ifndef INTERFACE_HH
 #define INTERFACE_HH
 
-#include <libguile.h> /* SCM */
+#include "lily-guile.hh"
 
 #define ADD_INTERFACE(cl, a, b, c)				\
   bool cl::has_interface (Grob *me)				\
