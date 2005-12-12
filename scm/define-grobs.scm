@@ -971,9 +971,8 @@
 
     (MultiMeasureRest
      . (
-
 	(stencil . ,Multi_measure_rest::print)
-
+	(springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
 	(Y-offset . ,Staff_symbol_referencer::callback)
 	(staff-position . 0)
 	(expand-limit . 10)

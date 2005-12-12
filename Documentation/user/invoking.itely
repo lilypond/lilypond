@@ -520,7 +520,11 @@ that is a bug.  We try to respond to bug-reports promptly, and fix them as
 soon as possible.  Help us by sending a defective input file, so we can
 reproduce the problem.  Make it small, so we can easily debug the
 problem.  Don't forget to tell which version of LilyPond you use!  Send
-the report to @email{bug-lilypond@@gnu.org}.
+the report via
+
+@example
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs}
+@end example
 
 @ignore
 @c the bug database is not up to date enough. 
