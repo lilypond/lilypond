@@ -1,3 +1,8 @@
+2005-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-grobs.scm (all-grob-descriptions): set
+	springs-and-rods (thanks Joe!)
+
 2005-12-12  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* input/no-notation/display-lily-tests.ly (test): 
