@@ -1,5 +1,7 @@
 2005-12-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* config.make.in (AR): add AR and RANLIB
+
 	* flower/libc-extension.cc: include cassert
 
 	* stepmake/stepmake/generic-vars.make (MINGW_BUILD): more robust
