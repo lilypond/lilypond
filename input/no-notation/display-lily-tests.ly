@@ -110,7 +110,7 @@ test = #(def-music-function (parser location result-info strings) (string? pair?
 
   %% tags
   \test #"" ##[ { \tag #'foo { c4 d } } #]
-  \test #"" ##[ c-\tag #'(foo baz) -^ -. #]
+  \test #"" ##[ c-\tag #'foo -\tag #'baz -^ -. #]
 
   %% Graces
   \test #"" ##[ { \grace c8 d2 } #]			% GraceMusic
