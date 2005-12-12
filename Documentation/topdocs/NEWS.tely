@@ -4,10 +4,10 @@
 
 @ifhtml
 @macro inputfileref{DIR,NAME}
-@uref{../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{../../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 @macro usermanref{NAME}
-@inforef{\NAME\,,../../user/out-www/lilypond/lilypond}@c
+@inforef{\NAME\,,../../user/lilypond/lilypond}@c
 @end macro
 @end ifhtml
 
