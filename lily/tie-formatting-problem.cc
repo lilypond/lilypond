@@ -237,6 +237,7 @@ Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
 	}
       
       heads.push (head);
+      specifications_.push (spec);
     }
 
   x_refpoint_ = lv_ties [0];
@@ -536,6 +537,8 @@ Ties_configuration
 Tie_formatting_problem::generate_base_chord_configuration () 
 {
   Ties_configuration ties_config;
+  
+  
   for (int i = 0;  i < specifications_.size (); i ++)
     {
       Tie_configuration conf;
@@ -593,6 +596,9 @@ Tie_formatting_problem::generate_optimal_chord_configuration ()
 void
 Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration *tie_configs)
 {
+  if (tie_configs->is_empty ())
+    return ;
+  
   if (!tie_configs->elem (0).dir_)
     tie_configs->elem_ref (0).dir_ = DOWN;
   if (!tie_configs->top().dir_)
