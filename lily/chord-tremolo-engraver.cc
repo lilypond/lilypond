@@ -153,7 +153,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
       if (Stem::duration_log (s) != 1)
 	beam_->set_property ("gap-count", scm_from_int (flags_ - total_duration_flags_));
 
-      if (info.music_cause ()->is_mus_type ("rhythmic-event"))
+      if (info.ultimate_music_cause ()->is_mus_type ("rhythmic-event"))
 	Beam::add_stem (beam_, s);
       else
 	{
