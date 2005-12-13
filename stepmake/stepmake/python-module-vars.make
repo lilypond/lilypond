@@ -14,7 +14,7 @@ SHARED_MODULE_SUFFIX = .dll
 endif
 endif
 ifneq ($(DARWIN_BUILD),)
-SHARED_FLAGS = -bundle -flat_namespace -framework Python
+SHARED_FLAGS = -bundle -flat_namespace -undefined suppress
 endif
 OUT_SO_MODULES = $(addprefix $(outdir)/, $(C_FILES:.c=$(SHARED_MODULE_SUFFIX)))
 EXTRA_DIST_FILES += $(PY_MODULES_IN)

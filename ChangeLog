@@ -1,7 +1,10 @@
 2005-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/python-module-vars.make (SHARED_FLAGS): use
+	-undefined suppress iso. -framework Python 
+
 	* scm/define-grobs.scm (all-grob-descriptions): set
-	springs-and-rods (thanks Joe!)
+	springs-and-rods (thanks Joe Neeman!)
 
 2005-12-12  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
