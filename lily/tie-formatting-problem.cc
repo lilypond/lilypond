@@ -15,7 +15,7 @@
 
 #include "item.hh"
 #include "spanner.hh" 
-
+#include "bezier.hh" 
 #include "stem.hh"
 #include "note-head.hh"
 #include "rhythmic-head.hh"
@@ -80,6 +80,7 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
 	  y.translate (p);
 
 	  dot_positions_.insert (p);
+	  dot_x_.unite (x);
 	  
 	  y *= staff_space * 0.5;
 	  // boxes.push (Box (x, y));
@@ -264,6 +265,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir)
     {
       conf->delta_y_ += 0.25 * details_.staff_space_;
     }
+  
   conf->attachment_x_ = get_attachment (y + conf->delta_y_);
 
   Real h =  conf->height (details_);
@@ -313,6 +315,9 @@ Tie_formatting_problem::score_configuration (Tie_configuration const &conf)
   Real min_length = 0.333;
   Real staff_line_clearance = 0.1;
   Real staff_line_collision_penalty = 5;
+  Real dot_collision_clearance = 0.25;
+  Real dot_collision_penalty = 10;
+  
 
   Real penalty = 0.0;
   Real length = conf.attachment_x_.length ();
@@ -339,6 +344,28 @@ Tie_formatting_problem::score_configuration (Tie_configuration const &conf)
 						int (rint (tip_pos))))
     {
       penalty += staff_line_collision_penalty;
+    }
+
+  if (!dot_x_.is_empty ())
+    {
+      /* use left edge? */
+      Real x = dot_x_.center ();
+      
+      Bezier b = conf.get_transformed_bezier (details_);
+      if (b.control_point_extent (X_AXIS).contains (x))
+	{
+	  Real y = b.get_other_coordinate (X_AXIS, x);
+
+	  for (set<int>::const_iterator i (dot_positions_.begin ());
+	       i != dot_positions_.end (); i ++)
+	    {
+	      int dot_pos = (*i);
+	      if (fabs (dot_pos * details_.staff_space_ * 0.5 - y) < dot_collision_clearance)
+		{
+		  penalty += dot_collision_penalty;
+		}
+	    }
+	}      
     }
   
   return penalty;

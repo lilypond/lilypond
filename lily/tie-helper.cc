@@ -35,10 +35,9 @@ Tie_configuration::Tie_configuration ()
 void
 Tie_configuration::center_tie_vertically (Tie_details const &details)
 {
-  Bezier b = get_bezier (details);
+  Bezier b = get_untransformed_bezier (details);
   Offset middle = b.curve_point (0.5);
   Offset edge = b.curve_point (0.0);
-
   Real center = (edge[Y_AXIS] + middle[Y_AXIS])/2.0;
 
   delta_y_ = - dir_ * center;
@@ -49,7 +48,22 @@ Tie_configuration::center_tie_vertically (Tie_details const &details)
   Get bezier with left control at (0,0)
  */
 Bezier
-Tie_configuration::get_bezier (Tie_details const &details) const
+Tie_configuration::get_transformed_bezier (Tie_details const &details) const
+{
+  Bezier b (get_untransformed_bezier (details));
+
+  b.scale (1, dir_);
+  b.translate (Offset (attachment_x_[LEFT],
+		       delta_y_ + details.staff_space_ * 0.5 * position_));
+
+  return b;
+}
+
+/*
+  Get bezier with left control at (0,0)
+ */
+Bezier
+Tie_configuration::get_untransformed_bezier (Tie_details const &details) const
 {
   Real l = attachment_x_.length();
   if (isnan (l) || isnan (l))

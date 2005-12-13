@@ -424,14 +424,9 @@ Tie::set_control_points (Grob *me,
 			 Tie_details const &details
 			 )
 {
-  Bezier b = conf.get_bezier (details);
-  b.scale (1, conf.dir_);
-  b.translate (Offset (conf.attachment_x_[LEFT]
-		       - me->relative_coordinate (common, X_AXIS),
-		       0.5 * conf.position_ * details.staff_space_
-		       + conf.delta_y_
-		       ));
-  
+  Bezier b = conf.get_transformed_bezier (details);
+  b.translate (Offset (- me->relative_coordinate (common, X_AXIS), 0));
+
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
     {

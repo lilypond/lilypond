@@ -23,13 +23,15 @@ public:
   Real delta_y_;
 
 
+  /* computed. */
   Interval attachment_x_;
   Grob *tie_;
   int head_position_;
   
   Tie_configuration ();
   void center_tie_vertically (Tie_details const &);
-  Bezier get_bezier (Tie_details const &) const;
+  Bezier get_transformed_bezier (Tie_details const &) const;
+  Bezier get_untransformed_bezier (Tie_details const &) const;
   Real height (Tie_details const&) const;
   
   static int compare (Tie_configuration const &a,

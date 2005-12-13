@@ -26,7 +26,9 @@ public:
   Real get_other_coordinate (Axis a, Real x) const;
   Array<Real> solve_point (Axis, Real coordinate) const;
   Array<Real> solve_derivative (Offset) const;
-  Interval extent (Axis)const;
+  Interval extent (Axis) const;
+  Interval control_point_extent (Axis) const;
+  
   Polynomial polynomial (Axis)const;
   Offset curve_point (Real t) const;
   Real curve_coordinate (Real t, Axis) const;

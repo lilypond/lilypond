@@ -66,7 +66,7 @@ translate (Array<Offset> *array, Offset o)
 Real
 Bezier::get_other_coordinate (Axis a, Real x) const
 {
-  Axis other = Axis ((a +1)%NO_AXES);
+  Axis other = Axis ((a +1) % NO_AXES);
   Array<Real> ts = solve_point (a, x);
 
   if (ts.size () == 0)
@@ -227,6 +227,17 @@ Bezier::extent (Axis a) const
     }
   return iv;
 }
+
+Interval
+Bezier::control_point_extent (Axis a) const
+{
+  Interval ext;
+  for (int i = CONTROL_COUNT; i--;)
+    ext.add_point (control_[i][a]);
+
+  return ext;      
+}
+
 
 /**
    Flip around axis A
