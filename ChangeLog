@@ -1,5 +1,8 @@
 2005-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/chord-tremolo-engraver.cc (acknowledge_stem): use
+	ultimate_music_cause(). This fixes core dumps in unfold-all-repeats.ly
+
 	* Documentation/topdocs/NEWS.tely (Top): document new feature.
 
 	* lily/tie-formatting-problem.cc (score_ties): new function
