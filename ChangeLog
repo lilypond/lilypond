@@ -1,5 +1,23 @@
 2005-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): document new feature.
+
+	* lily/tie-formatting-problem.cc (score_ties): new function
+	(get_variations): new function. Try flipping dirs for collisions.
+	(generate_optimal_chord_configuration): new function. 1-opt search
+	for better configuration.
+
+	* lily/tie-configuration.cc: new file.
+
+	* lily/tie.cc: junk Tie::get_configuration()
+
+	* lily/tie-formatting-problem.cc (score_ties_aptitude): new function.
+	(score_ties_configuration): new function.
+	(generate_ties_configuration): new function.
+	(generate_base_chord_configuration): new function.
+	(set_ties_config_standard_directions): Move body from tie-column-format.cc 
+	(set_manual_tie_configuration): Move body from tie-column-format.cc 
+
 	* input/regression/tie-dot.ly: new file.
 
 	* lily/tie-formatting-problem.cc (score_configuration): score

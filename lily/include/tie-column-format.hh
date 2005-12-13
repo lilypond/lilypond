@@ -1,5 +1,5 @@
 /*
-  tie-column-format.hh -- declare
+  tie-column-format.hh -- declare Tie column format routines.
 
   source file of the GNU LilyPond music typesetter
 
@@ -10,7 +10,8 @@
 #ifndef TIE_COLUMN_FORMAT_HH
 #define TIE_COLUMN_FORMAT_HH
 
-
+#include "lily-proto.hh"
+#include "tie-configuration.hh"
 
 void set_chord_outline (Array<Skyline_entry> *skyline,
 			Link_array<Item> bounds,

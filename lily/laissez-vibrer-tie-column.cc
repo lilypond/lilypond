@@ -16,8 +16,9 @@
 #include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
-#include "tie-column-format.hh"
 #include "tie-formatting-problem.hh"
+#include "tie-configuration.hh"
+#include "tie-column-format.hh"
 
 
 ADD_INTERFACE(Laissez_vibrer_tie_column,
@@ -46,52 +47,21 @@ Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
   lv_ties.sort (&Laissez_vibrer_tie::compare);
 
   Ties_configuration ties_config;
-  for (int i = 0; i < lv_ties.size (); i++)
-    {
-      Tie_configuration conf;
-      conf.dir_ = CENTER;
-      Item *head = unsmob_item (lv_ties[i]->get_object ("note-head"));
-
-      if (head)
-	conf.position_ = (int) Staff_symbol_referencer::get_position (head);
-      
-      ties_config.ties_.push (conf);
-    }
-
-  bool manual_override = false;
-  SCM manual_configs = me->get_property ("tie-configuration");
-  set_manual_tie_configuration (&ties_config,
-				&manual_override,
-				manual_configs
-				);
-
-  set_tie_config_directions (&ties_config);
+  
 
   Tie_formatting_problem problem;
+  
   problem.from_lv_ties (lv_ties);
 
-  /*
-    Calculate final width and shape of the ties.
-   */
+  SCM manual_configs = me->get_property ("tie-configuration");
+  problem.set_manual_tie_configuration (manual_configs);
+
+  Ties_configuration base = problem.generate_optimal_chord_configuration ();
   for (int i = 0; i < lv_ties.size(); i++)
     {
-      final_shape_adjustment (ties_config.ties_[i],
-			      problem, lv_ties[0]);
-    }
-  
-  /*
-    Try to shift small ties into available spaces.
-   */
-  if (!manual_override)
-    {
-      shift_small_ties (&ties_config, lv_ties[0], problem.details_);
-    }
-  
-  for (int i = 0; i < lv_ties.size(); i++)
-    {
-      Tie::set_control_points (lv_ties[i], problem.common_x_refpoint (), ties_config.ties_[i],
+      Tie::set_control_points (lv_ties[i], problem.common_x_refpoint (), base[i],
 			       problem.details_);
-      set_grob_direction (lv_ties[i], ties_config.ties_[i].dir_);
+      set_grob_direction (lv_ties[i], base[i].dir_);
     }
 
   return SCM_BOOL_T;

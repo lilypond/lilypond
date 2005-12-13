@@ -15,38 +15,6 @@
 
 
   
-class Tie_configuration
-{
-public:
-  int position_;
-  Direction dir_;
-  Real delta_y_;
-
-
-  /* computed. */
-  Interval attachment_x_;
-  Grob *tie_;
-  int head_position_;
-  
-  Tie_configuration ();
-  void center_tie_vertically (Tie_details const &);
-  Bezier get_transformed_bezier (Tie_details const &) const;
-  Bezier get_untransformed_bezier (Tie_details const &) const;
-  Real height (Tie_details const&) const;
-  
-  static int compare (Tie_configuration const &a,
-		      Tie_configuration const &b);
-  static Real distance (Tie_configuration const &a,
-		       Tie_configuration const &b);
-};
-
-INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
-
-class Ties_configuration
-{
-public:
-  Array<Tie_configuration> ties_;
-};
 
 class Tie
 {
@@ -57,8 +25,12 @@ public:
   static int get_column_rank (Grob *, Direction);
   static int get_position (Grob *);
   static Direction get_default_dir (Grob *);
+
+#if 0
   static void get_configuration (Grob *, Tie_configuration *,
 				 Tie_formatting_problem const &);
+#endif
+  
   static void set_control_points (Grob *, Grob *,
 				  Tie_configuration const&,
 				  Tie_details const&);
@@ -73,7 +45,6 @@ public:
   static Interval get_default_attachments (Spanner *me, Grob *common, Real gap,
 					   int *staff_position, bool *in_between,
 					   Tie_details const &);
-  
 };
 
 
