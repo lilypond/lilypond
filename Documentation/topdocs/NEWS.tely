@@ -45,6 +45,20 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+
+@item Ties in chords are also formatted using a scoring based
+formatting. This reduces the number of collisions for ties in
+chords, 
+
+@lilypond[raggedright,fragment,relative=2]
+  <b  d f g> ~  <b  d f g> 
+@end lilypond
+
+Here, the tie for the F is flipped, in spite the default rule for
+directions in chords.
+
+This rewrite was sponsored by Steve Doonan.
+
 @item With the @code{\tweak} music function, layout objects that are directly
 connected to input may be tuned easily,
 

@@ -17,37 +17,10 @@
 #include "directional-element-interface.hh"
 #include "rhythmic-head.hh"
 #include "tie-formatting-problem.hh"
+#include "tie-configuration.hh"
 
 #include <set>
 
-void
-set_manual_tie_configuration (Ties_configuration *ties_config,
-			      bool *manual_override,
-			      SCM manual_configs
-			      )
-{
-  *manual_override = false;
-  int k = 0;
-  for (SCM s = manual_configs;
-       scm_is_pair (s) && k < ties_config->ties_.size(); s = scm_cdr (s))
-    {
-      SCM entry = scm_car (s);
-      if (!scm_is_pair (entry))
-	continue;
-
-      *manual_override = true;
-      Tie_configuration &conf = ties_config->ties_.elem_ref (k);
-      
-      Real complete_pos = robust_scm2double (scm_car (entry),
-					     conf.position_);
-
-      conf.position_ = int (rint (complete_pos));
-      conf.delta_y_ = complete_pos - conf.position_;
-      conf.dir_ = Direction (robust_scm2int (scm_cdr (entry),
-					     conf.dir_));
-      k ++;
-    }
-}
 
 void
 shift_small_ties (Ties_configuration *tie_configs,
@@ -55,12 +28,12 @@ shift_small_ties (Ties_configuration *tie_configs,
 		  Tie_details const &details)
 {
   set<int> positions_taken;
-  for (int i = 0; i < tie_configs->ties_.size (); i++)
-    positions_taken.insert (int (rint (tie_configs->ties_.elem (i).position_)));
+  for (int i = 0; i < tie_configs->size (); i++)
+    positions_taken.insert (int (rint (tie_configs->elem (i).position_)));
 
-  for (int i = 0; i < tie_configs->ties_.size (); i++)
+  for (int i = 0; i < tie_configs->size (); i++)
     {
-      Tie_configuration * conf = &tie_configs->ties_.elem_ref (i);
+      Tie_configuration * conf = &tie_configs->elem_ref (i);
 
       /*
 	on staff line and small enough, translate a little further 
@@ -113,45 +86,4 @@ final_shape_adjustment (Tie_configuration &conf,
     conf.center_tie_vertically (details);
 }
 
-void
-set_tie_config_directions (Ties_configuration *tie_configs_ptr)
-{
-  Array<Tie_configuration> &tie_configs (tie_configs_ptr->ties_);
-  
-  if (!tie_configs[0].dir_)
-    tie_configs[0].dir_ = DOWN;
-  if (!tie_configs.top().dir_)
-    tie_configs.top().dir_ = UP;
-
-  /*
-    Seconds
-   */
-  for (int i = 1; i < tie_configs.size(); i++)
-    {
-      Real diff = tie_configs[i-1].position_
-	- tie_configs[i].position_;
-      
-      if (fabs (diff) <= 1)
-	{
-	  if (!tie_configs[i-1].dir_)
-	    tie_configs[i-1].dir_ = DOWN;
-	  if (!tie_configs[i].dir_)
-	    tie_configs[i].dir_ = UP;
-	}
-    }
-
-  for (int i = 1; i < tie_configs.size() - 1; i++)
-    {
-      Tie_configuration &conf = tie_configs.elem_ref (i);
-      if (conf.dir_)
-	continue;
-
-      Direction position_dir =
-	Direction (sign (conf.position_));
-      if (!position_dir)
-	position_dir = DOWN;
-
-      conf.dir_ = position_dir;
-    }
-}
 			   

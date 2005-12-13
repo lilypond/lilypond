@@ -19,6 +19,7 @@
 #include "directional-element-interface.hh"
 #include "tie-column-format.hh"
 #include "tie-formatting-problem.hh"
+#include "tie-configuration.hh"
 
 using namespace std;
 
@@ -83,67 +84,22 @@ Tie_column::calc_positioning_done (SCM smob)
   
   ties.sort (&Tie::compare);
 
-  Ties_configuration ties_config;
-  for (int i = 0; i < ties.size (); i++)
-    {
-      Tie_configuration conf;
-      if (scm_is_number (ties[i]->get_property_data (ly_symbol2scm ("direction"))))
-	conf.dir_ = get_grob_direction (ties[i]);
-      conf.position_ = Tie::get_position (ties[i]);
-      ties_config.ties_.push (conf);
-    }
-
-  SCM manual_configs = me->get_property ("tie-configuration");
-  bool manual_override = false;
-  set_manual_tie_configuration (&ties_config,
-				&manual_override,
-				manual_configs);
-  set_tie_config_directions (&ties_config);
-
   Tie_formatting_problem problem;
   problem.from_ties (ties);
-  
-  /*
-    Let the ties flow out, according to our single-tie formatting.
-   */
-  if (!manual_override)
-    {
-      Tie::get_configuration (ties[0], &ties_config.ties_.elem_ref (0),
-			      problem);
-      Tie::get_configuration (ties.top (), 
-			      &ties_config.ties_.elem_ref (ties_config.ties_.size()-1),
-			      problem);
-    }
 
-  /*
-    Calculate final width and shape of the ties.
-   */
-  for (int i = 0; i < ties.size(); i++)
-    {
-      if (!manual_override
-	  && (i == 0 || i == ties.size () -1))
-	continue;
+  SCM manual_configs = me->get_property ("tie-configuration");
+  problem.set_manual_tie_configuration (manual_configs);
 
 
-      final_shape_adjustment (ties_config.ties_[i],
-			      problem,
-			      ties[0]);
-    }
+  Ties_configuration base = problem.generate_optimal_chord_configuration ();
 
-  
-  /*
-    Try to shift small ties into available spaces.
-   */
-  if (!manual_override)
+  for (int i = 0; i < base.size(); i++)
     {
-      shift_small_ties (&ties_config, ties[0], problem.details_);
-    }
-  
-  for (int i = 0; i < ties.size(); i++)
-    {
-      Tie::set_control_points (ties[i], problem.common_x_refpoint (), ties_config.ties_[i],
+      Tie::set_control_points (ties[i], problem.common_x_refpoint (),
+			       base[i],
 			       problem.details_);
-      set_grob_direction (ties[i], ties_config.ties_[i].dir_);
+      set_grob_direction (ties[i],
+			  base[i].dir_);
     }
   return SCM_BOOL_T;
 }
