@@ -521,8 +521,11 @@ Tie_formatting_problem::generate_ties_configuration (Ties_configuration const &t
     {
       Tie_configuration * ptr = get_configuration (ties_config[i].position_, ties_config[i].dir_);
       if (specifications_[i].has_manual_position_)
-	ptr->delta_y_ = specifications_[i].manual_position_;
-
+	{
+	  ptr->delta_y_
+	    = (specifications_[i].manual_position_ - ties_config[i].position_)
+	    * 0.5 * details_.staff_space_;
+	}
       copy.push (*ptr);
     }
   
@@ -700,7 +703,7 @@ Tie_formatting_problem::set_manual_tie_configuration (SCM manual_configs)
       if (scm_is_number (scm_car (entry)))
 	{
 	  spec.has_manual_position_ = true;
-	  spec.manual_position_ = scm_to_double (scm_cdr (entry));
+	  spec.manual_position_ = scm_to_double (scm_car (entry));
 	}
 	  
       k ++;
