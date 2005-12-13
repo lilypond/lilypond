@@ -54,8 +54,8 @@ chords,
   <b  d f g> ~  <b  d f g> 
 @end lilypond
 
-Here, the tie for the F is flipped, in spite the default rule for
-directions in chords.
+Here, the tie for the D is flipped, in spite the default rule for
+tie directions.
 
 This rewrite was sponsored by Steve Doonan.
 
