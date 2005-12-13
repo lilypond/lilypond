@@ -657,7 +657,7 @@
 	(length . 0.66)
 	(minimum-length . 0.3)
 	(padding . 0.07)
-;	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
+	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
 	(print-function . ,Hyphen_spanner::print)
 	(Y-extent . (0 . 0))
 	(meta . ((interfaces . (lyric-interface lyric-hyphen-interface

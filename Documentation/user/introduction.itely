@@ -759,7 +759,7 @@ available in
 a big HTML page,
 @end iftex
 @ifhtml
-@uref{source/Documentation/user/out-www/lilypond.html, one big page},
+@uref{source/Documentation/user/lilypond.html, one big page},
 @end ifhtml
 which can be searched easily using the search facility of a web
 browser.
@@ -823,7 +823,7 @@ Various input examples.
 @ifhtml
 @c Works, but link name is not so nice; so write-out macro
 @c @inputfileref{input/test,Various input examples}.
-@uref{source/input/test/out-www/collated-files.html,Various input examples}.
+@uref{source/input/test/collated-files.html,Various input examples}.
 @end ifhtml
 
 This collection of files shows various tips and tricks, and is
@@ -837,7 +837,7 @@ The regression tests.
 @ifhtml
 @c Works, but link name is not so nice; so write-out macro
 @c @inputfileref{input/regression,The regression tests}.
-@uref{source/input/regression/out-www/collated-files.html,The regression tests}.
+@uref{source/input/regression/collated-files.html,The regression tests}.
 @end ifhtml
 
 This collection of files tests each notation and engraving feature of

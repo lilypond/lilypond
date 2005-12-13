@@ -210,15 +210,15 @@ source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossa
 
 $(outdir)/source:
 	@rm -f $(@)
-	ln -sf ../../../ $(@)
+	ln -sf ../../ $(@)
 
 $(outdir)/lilypond/source:
 	@rm -f $(@)
-	ln -sf ../../../../ $(@)
+	ln -sf ../../../ $(@)
 
 $(outdir)/music-glossary/source:
 	@rm -f $(@)
-	ln -sf ../../../../ $(@)
+	ln -sf ../../../ $(@)
 
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
  $(datafiles) $(PDF_FILES) $(source-links) info info-dir

@@ -510,7 +510,11 @@ that is a bug.  We try to respond to bug-reports promptly, and fix them as
 soon as possible.  Help us by sending a defective input file, so we can
 reproduce the problem.  Make it small, so we can easily debug the
 problem.  Don't forget to tell which version of LilyPond you use!  Send
-the report to @email{bug-lilypond@@gnu.org}.
+the report via
+
+@example
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs}
+@end example
 
 @ignore
 @c the bug database is not up to date enough. 
@@ -564,7 +568,7 @@ and syntax coloring, handy compile short-cuts and reading LilyPond
 manuals using Info.  If @file{lilypond-mode} is not installed on your
 platform, then read the
 @ifhtml
-@uref{source/Documentation/topdocs/out-www/INSTALL.html,installation instructions}.
+@uref{source/Documentation/topdocs/INSTALL.html,installation instructions}.
 @end ifhtml
 @ifnothtml
 installation instructions.
@@ -575,7 +579,7 @@ installation instructions.
 For @uref{http://@/www@/.vim@/.org,VIM}, a @file{vimrc} is supplied, along
 with syntax coloring tools.  For more information, refer to the
 @ifhtml
-@uref{source/Documentation/topdocs/out-www/INSTALL.html,installation instructions}.
+@uref{source/Documentation/topdocs/INSTALL.html,installation instructions}.
 @end ifhtml
 @ifnothtml
 installation instructions.

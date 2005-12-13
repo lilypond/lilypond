@@ -1,7 +1,6 @@
 \input texinfo @c -*- coding: utf8; mode: texinfo; -*-
-
-@settitle Music Glossary
 @setfilename music-glosssary.info
+@settitle Music Glossary
 
 @documentencoding utf-8
 @documentlanguage en
@@ -12,8 +11,8 @@
 @end direntry
 
 @ifhtml
-This document is also available in @uref{source/Documentation/user/out-www/music-glossary.pdf,PDF}
-and as @uref{source/Documentation/user/out-www/music-glossary.html,one big page}.
+This document is also available in @uref{source/Documentation/user/music-glossary.pdf,PDF}
+and as @uref{source/Documentation/user/music-glossary.html,one big page}.
 @end ifhtml
 
 @titlepage

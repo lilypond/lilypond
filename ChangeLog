@@ -1,3 +1,8 @@
+2005-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/invoking.itely (Reporting bugs): update bug
+	address.
+
 2005-12-07  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* scripts/lilypond-book.py: Backport: don't add newline after
