@@ -1,5 +1,12 @@
 2005-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/tie-dot.ly: new file.
+
+	* lily/tie-formatting-problem.cc (score_configuration): score
+	tie/dot collisions.
+
+	* lily/tie-helper.cc (get_transformed_bezier): new function
+
 	* Documentation/topdocs/NEWS.tely (Top): strip out-www.
 
 	* stepmake/stepmake/python-module-vars.make (SHARED_FLAGS): use

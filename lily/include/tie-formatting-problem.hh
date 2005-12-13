@@ -38,6 +38,8 @@ class Tie_formatting_problem
 {
   Drul_array< Array<Skyline_entry> > chord_outlines_;
   set<int> dot_positions_;
+  Interval dot_x_;
+  
   Tie_configuration_map possibilities_;
 
   Tie_configuration *get_configuration (int position, Direction dir);
