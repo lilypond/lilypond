@@ -1,5 +1,9 @@
 2005-12-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/musicxml2ly.py (convert): add \version
+
+	* lily/tie.cc: remove get_default_attachments()
+
 	* VERSION (PACKAGE_NAME): release 2.7.23
 	
 	* lily/chord-tremolo-engraver.cc (acknowledge_stem): use

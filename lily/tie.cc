@@ -133,66 +133,6 @@ Tie::calc_direction (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-Interval
-Tie::get_default_attachments (Spanner *me, Grob *common, Real gap,
-			      int *staff_position,
-			      bool *in_between,
-			      Tie_details const &details
-			      )
-{
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Direction dir = get_grob_direction (me);
-  Interval attachments;
-  Direction d = LEFT;
-  do
-    {
-      attachments[d]
-	= robust_relative_extent (me->get_bound (d),
-				  common,
-				  X_AXIS)[-d]
-	- gap * d;
-    }
-  while (flip (&d) != LEFT);
-
-  if (attachments.length () < details.between_length_limit_ * staff_space)
-    {
-      /*
-	Let short ties start over note heads, instead of between.
-      */
-      Drul_array<bool> allow (true, true);
-
-      Direction d = LEFT;
-      do {
-	if (Note_head::has_interface (me->get_bound (d)))
-	  {
-	    Grob *stem = unsmob_grob (me->get_bound (d)->get_object ("stem"));
-	    if (get_grob_direction (stem) == dir
-		&& -d == dir)
-	      allow[d] = false;
-	  }
-      } while (flip (&d) != LEFT);
-
-      if (allow[LEFT] && allow[RIGHT])
-	{
-	  *staff_position += dir;
-	  do
-	    {
-	      if (Note_head::has_interface (me->get_bound (d)))
-		{
-		  Interval extent
-		    = robust_relative_extent (me->get_bound (d),
-					      common, X_AXIS);
-
-		  attachments[d] = extent.linear_combination (- 0.5 * d);
-		  *in_between = false;
-		}
-	    }
-	  while (flip (&d) != LEFT);
-	}
-    }
-
-  return attachments;
-}  
 
 void
 Tie::set_default_control_points (Grob *me_grob)
