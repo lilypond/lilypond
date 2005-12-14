@@ -42,9 +42,6 @@ Tie_configuration::center_tie_vertically (Tie_details const &details)
 }
 
 
-/*
-  Get bezier with left control at (0,0)
- */
 Bezier
 Tie_configuration::get_transformed_bezier (Tie_details const &details) const
 {
@@ -64,7 +61,7 @@ Bezier
 Tie_configuration::get_untransformed_bezier (Tie_details const &details) const
 {
   Real l = attachment_x_.length();
-  if (isnan (l) || isnan (l))
+  if (isinf (l) || isnan (l))
     {
       programming_error ("Inf or NaN encountered");
       l = 1.0;

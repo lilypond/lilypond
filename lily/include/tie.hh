@@ -41,10 +41,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   static int compare (Grob *const &s1,
 		      Grob *const &s2);
-
-  static Interval get_default_attachments (Spanner *me, Grob *common, Real gap,
-					   int *staff_position, bool *in_between,
-					   Tie_details const &);
 };
 
 
