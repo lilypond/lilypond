@@ -1,5 +1,7 @@
-2005-12-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+2005-12-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PACKAGE_NAME): release 2.7.23
+	
 	* lily/chord-tremolo-engraver.cc (acknowledge_stem): use
 	ultimate_music_cause(). This fixes core dumps in unfold-all-repeats.ly
 
