@@ -275,7 +275,6 @@ sane_putenv (char const *key, String value, bool overwrite = true)
   return -1;
 }
 
-#if ARGV0_RELOCATION
 static int
 set_env_file (char const *key, String value)
 {
@@ -308,11 +307,56 @@ dir_name (String const file_name)
   s = s.left_string (s.index_last ('/'));
   return s;
 }
-#endif
 
 #ifdef __MINGW32__
 #include <winbase.h>
 #endif
+
+void
+set_relocation (String bindir, String prefix)
+{
+  if (be_verbose_global)
+    warning (_f ("argv0 relocation: prefix=%s, new prefix=%s",
+		 prefix_directory,
+		 prefix.to_str0 ()));
+  
+  String datadir = prefix + "/share";
+  String libdir = prefix + "/lib";
+  String localedir = datadir + "/locale";
+  String sysconfdir = prefix + "/etc";
+  String lilypond_datadir = datadir + "/lilypond/" TOPLEVEL_VERSION;
+
+  if (is_dir (lilypond_datadir))
+    prefix_directory = lilypond_datadir;
+
+#if HAVE_GETTEXT
+  if (is_dir (localedir))
+    bindtextdomain ("lilypond", localedir.to_str0 ());
+#endif
+
+  set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf");
+#ifdef __MINGW32__
+  char font_dir[PATH_MAX];
+  ExpandEnvironmentStrings ("%windir%/fonts", font_dir, sizeof (font_dir));
+  prepend_env_path ("GS_FONTPATH", font_dir);
+#endif
+
+  /* FIXME: *cough* 8.15 *cough* */
+  prepend_env_path ("GS_FONTPATH", datadir + "/ghostscript/8.15/fonts");
+  prepend_env_path ("GS_LIB", datadir + "/ghostscript/8.15/Resource");
+  prepend_env_path ("GS_LIB", datadir + "/ghostscript/8.15/lib");
+
+  prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
+  prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
+  prepend_env_path ("GS_LIB", datadir + "/gs/lib");
+
+  prepend_env_path ("GUILE_LOAD_PATH", datadir
+		    + to_string ("/guile/%d.%d",
+				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
+  set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
+  prepend_env_path ("PATH", bindir);
+}
+
 
 static void
 setup_paths (char const *argv0)
@@ -359,48 +403,7 @@ setup_paths (char const *argv0)
   String bindir = dir_name (argv0_abs);
   String argv0_prefix = dir_name (bindir);
   if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
-    {
-      if (be_verbose_global)
-	warning (_f ("argv0 relocation: prefix=%s, argv0=%s, argv0_prefix=%s",
-		     prefix_directory,
-		     argv0,
-		     argv0_prefix.to_str0 ()));
-      String datadir = argv0_prefix + "/share";
-      String libdir = argv0_prefix + "/lib";
-      String localedir = datadir + "/locale";
-      String sysconfdir = argv0_prefix + "/etc";
-      String argv0_lilypond_datadir = datadir + "/lilypond/" TOPLEVEL_VERSION;
-
-      if (is_dir (argv0_lilypond_datadir))
-	prefix_directory = argv0_lilypond_datadir;
-
-#if HAVE_GETTEXT
-      if (is_dir (localedir))
-	bindtextdomain ("lilypond", localedir.to_str0 ());
-#endif
-
-      set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf");
-#ifdef __MINGW32__
-      char font_dir[PATH_MAX];
-      ExpandEnvironmentStrings ("%windir%/fonts", font_dir, sizeof (font_dir));
-      prepend_env_path ("GS_FONTPATH", font_dir);
-#endif
-
-      /* FIXME: *cough* 8.15 *cough* */
-      prepend_env_path ("GS_FONTPATH", datadir + "/ghostscript/8.15/fonts");
-      prepend_env_path ("GS_LIB", datadir + "/ghostscript/8.15/Resource");
-      prepend_env_path ("GS_LIB", datadir + "/ghostscript/8.15/lib");
-
-      prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
-      prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
-      prepend_env_path ("GS_LIB", datadir + "/gs/lib");
-
-      prepend_env_path ("GUILE_LOAD_PATH", datadir
-			+ to_string ("/guile/%d.%d",
-				     SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
-      set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
-      prepend_env_path ("PATH", bindir);
-    }
+    set_relocation (bindir, argv0_prefix);
 #else
   (void) argv0;
 #endif /* ARGV0_RELOCATION */
