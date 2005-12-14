@@ -414,6 +414,7 @@ If we give names, Bison complains.
 %type <scm> step_number
 %type <scm> step_numbers 
 %type <scm> string
+%type <scm> function_scm_argument
 
 %type <score> score_block
 %type <score> score_body
@@ -983,32 +984,38 @@ Grouped_music_list:
 	| Sequential_music		{ $$ = $1; }
 	;
 
+
+function_scm_argument:
+	embedded_scm  
+	| simple_string
+	;
+
 Generic_prefix_music_scm:
 	MUSIC_FUNCTION {
 		$$ = scm_list_2 ($1, make_input (@$));
 	}
-	| MUSIC_FUNCTION_SCM embedded_scm {
+	| MUSIC_FUNCTION_SCM function_scm_argument {
 		$$ = scm_list_3 ($1, make_input (@$), $2);
 	}
 	| MUSIC_FUNCTION_MARKUP full_markup {
 		$$ = scm_list_3 ($1, make_input (@$), $2);
 	}
 
-	| MUSIC_FUNCTION_SCM_MUSIC embedded_scm Music {
+	| MUSIC_FUNCTION_SCM_MUSIC function_scm_argument Music {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3->self_scm ());
 		$3->unprotect ();
 	}
-	| MUSIC_FUNCTION_SCM_SCM embedded_scm embedded_scm {
+	| MUSIC_FUNCTION_SCM_SCM function_scm_argument function_scm_argument {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
 	}
-	| MUSIC_FUNCTION_SCM_SCM_SCM embedded_scm embedded_scm embedded_scm {
+	| MUSIC_FUNCTION_SCM_SCM_SCM function_scm_argument function_scm_argument function_scm_argument {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
 	}
 	| MUSIC_FUNCTION_MUSIC Music {
 		$$ = scm_list_3 ($1, make_input (@$), $2->self_scm ());
 		$2->unprotect ();
 	}
-	| MUSIC_FUNCTION_SCM_SCM_MUSIC embedded_scm embedded_scm Music {
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC function_scm_argument function_scm_argument Music {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4->self_scm ());
 	}
 	| MUSIC_FUNCTION_MARKUP_MUSIC full_markup Music {
@@ -1023,7 +1030,7 @@ Generic_prefix_music_scm:
 		$2->unprotect ();
 		$3->unprotect ();
 	}
-	| MUSIC_FUNCTION_SCM_MUSIC_MUSIC embedded_scm Music Music {
+	| MUSIC_FUNCTION_SCM_MUSIC_MUSIC function_scm_argument Music Music {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3->self_scm (), $4->self_scm ());
 		$4->unprotect ();
 		$3->unprotect ();
@@ -1543,11 +1550,11 @@ music_function_chord_body:
 		$$ = scm_list_3 ($1, make_input (@$),
 					$2->self_scm ());
 	}
-	| MUSIC_FUNCTION_SCM_MUSIC embedded_scm chord_body_element {
+	| MUSIC_FUNCTION_SCM_MUSIC function_scm_argument chord_body_element {
 		$$ = scm_list_4 ($1, make_input (@$),
 					$2, $3->self_scm ());
 	}
-	| MUSIC_FUNCTION_SCM_SCM_MUSIC embedded_scm embedded_scm
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC function_scm_argument function_scm_argument
 		chord_body_element {
 
 		$$ = scm_list_5 ($1, make_input (@$),
@@ -1718,10 +1725,10 @@ music_function_event:
 	MUSIC_FUNCTION_MUSIC post_event {
 		$$ = scm_list_3 ($1, make_input (@$), $2->self_scm ());
 	}
-	| MUSIC_FUNCTION_SCM_MUSIC embedded_scm post_event {
+	| MUSIC_FUNCTION_SCM_MUSIC function_scm_argument post_event {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3->self_scm ());
 	}
-	| MUSIC_FUNCTION_SCM_SCM_MUSIC embedded_scm embedded_scm post_event {
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC function_scm_argument function_scm_argument post_event {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4->self_scm ());
 	}
 	;

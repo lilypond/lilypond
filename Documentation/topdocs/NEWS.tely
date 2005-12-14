@@ -45,10 +45,12 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item String arguments for music functions may be specified without
+@code{#} marks. This allows syntactical constructs (like \clef and
+\bar) to be expressed in generic music functions.
 
 @item Ties in chords are also formatted using a scoring based
-formatting. This reduces the number of collisions for ties in
-chords, 
+formatting. This reduces the number of collisions for ties in chords,
 
 @lilypond[raggedright,fragment,relative=2]
   <b  d f g> ~  <b  d f g> 
