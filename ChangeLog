@@ -1,5 +1,12 @@
 2005-12-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): doc string argument change.
+
+	* lily/parser.yy (Generic_prefix_music_scm): allow strings as
+	function arguments too
+
+	* lily/main.cc (set_relocation): new function.
+
 	* scripts/musicxml2ly.py (convert): add \version
 
 	* lily/tie.cc: remove get_default_attachments()
