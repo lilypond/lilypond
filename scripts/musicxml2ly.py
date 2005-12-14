@@ -439,9 +439,10 @@ def convert (filename, output_name):
 		printer.file = open (output_name,'w')
 		
 	progress ("Printing as .ly...")
+
+	printer.dump_version ()
 	for  (k,v) in voices.items():
 		printer.print_verbatim ('%% converted from %s\n' % filename) 
-		printer.dump_version ()
 		printer.dump ('%s = ' % k)
 		v.print_ly (printer)
 		printer.newline()
