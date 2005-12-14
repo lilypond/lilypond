@@ -12,6 +12,8 @@
 /*
   TODO: fold this into 1 engraver: \< and \> should also stop when
   absdyn is encountered.
+
+  currently leads to nasty problems (unhearable notes.)
 */
 struct Audio_dynamic_tuple
 {

@@ -1511,6 +1511,9 @@ simple_string: STRING {
 	| LYRICS_STRING {
 		$$ = $1;
 	}
+	| STRING_IDENTIFIER {
+		$$ = $1;
+	}
 	;
 
 scalar: string {
