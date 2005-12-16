@@ -962,7 +962,8 @@ affect how notes are printed in the current staff.  To change the printed
 output, see @ref{Transpose}.
 
 The pitch to use for @code{\transposition} should correspond to the
-transposition of the notes.  For example, when entering a score in
+real sound heard when a @code{c'} written on the staff is played by the
+transposing instrument.  For example, when entering a score in
 concert pitch, typically all voices are entered in C, so
 they should be entered as
 

@@ -1,3 +1,8 @@
+2005-12-16  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/basic-notation.itely, advanced-notation.itely:
+	minor fixes from Fredric.  Thanks!
+
 2005-12-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/music-functions-init.ly: add \bar and \clef music function 
