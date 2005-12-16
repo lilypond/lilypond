@@ -2455,7 +2455,7 @@ to the note immediately preceding it.
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
-@internalsref{Voice} contexts can also also be instantiated manually
+@internalsref{Voice} contexts can also be instantiated manually
 inside a @code{<< >>} block to create polyphonic music, using 
 @code{\voiceOne}, up to @code{\voiceFour} to assign stem directions 
 and a horizontal shift for each part.
