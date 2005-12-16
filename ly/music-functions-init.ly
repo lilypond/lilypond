@@ -43,6 +43,21 @@ tag = #(def-music-function (parser location tag arg)
 	  (ly:music-property arg 'tags)))
    arg)
 
+clef =
+#(def-music-function (parser location type)
+   (string?)
+   
+   "Set the current clef."
+
+   (make-clef-set type))
+
+bar =
+#(def-music-function (parser location type)
+   (string?)
+   (context-spec-music
+    (make-property-set 'whichBar type)
+    'Timing))
+
 applyMusic =
 #(def-music-function (parser location func music) (procedure? ly:music?)
                (func music))
@@ -310,19 +325,4 @@ assertBeamSlope =
     
 
 
-
-%{
-
-TODO:
-
-remove these from the parser, and softcode here:
-
- * \tag
-
-with small syntax changes, we could also do
-
- * \bar
- *  ?
-
-%}
 

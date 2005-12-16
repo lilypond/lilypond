@@ -154,12 +154,10 @@ void set_music_properties (Music *p, SCM a);
 %token ADDQUOTE "\\addquote"
 %token ALIAS "\\alias"
 %token ALTERNATIVE "\\alternative"
-%token BAR "\\bar"
 %token BOOK "\book"
 %token CHANGE "\\change"
 %token CHORDMODE "\\chordmode"
 %token CHORDS "\\chords"
-%token CLEF "\\clef"
 %token CONSISTS "\\consists"
 %token CONTEXT "\\context"
 %token DEFAULT "\\default"
@@ -1636,15 +1634,6 @@ command_element:
 		$$ = context_spec_music (ly_symbol2scm ("Staff"), SCM_UNDEFINED,
 			$$, SCM_EOL);
 	}
-	| BAR STRING  			{
-		Music *t = set_property_music (ly_symbol2scm ("whichBar"), $2);
-
-		Music *csm = context_spec_music (ly_symbol2scm ("Timing"), SCM_UNDEFINED,
-					t, SCM_EOL);
-		$$ = context_spec_music (ly_symbol2scm ("Score"), SCM_UNDEFINED, csm, SCM_EOL);
-		$$->set_spot (@$);
-		t->set_spot (@$);
-	}
 	| PARTIAL duration_length  	{
 		Moment m = - unsmob_duration ($2)->get_length ();
 		Music *p = set_property_music (ly_symbol2scm ( "measurePosition"),m.smobbed_copy ());
@@ -1655,13 +1644,7 @@ command_element:
 					p, SCM_EOL);
 		$$ = p;
 	}
-	| CLEF STRING  {
-		SCM proc = ly_lily_module_constant ("make-clef-set");
 
-		SCM result = scm_call_1 (proc, $2);
-		$$ = unsmob_music (result);
-		$$->protect ();
-	}
 	| TIME_T fraction  {
 		SCM proc = ly_lily_module_constant ("make-time-signature-set");
 

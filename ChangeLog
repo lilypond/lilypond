@@ -1,3 +1,11 @@
+2005-12-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/music-functions-init.ly: add \bar and \clef music function 
+
+	* lily/lily-lexer.cc: idem.
+
+	* lily/parser.yy (FIXME): remove BAR and CLEF.
+
 2005-12-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/NEWS.tely (Top): doc string argument change.
