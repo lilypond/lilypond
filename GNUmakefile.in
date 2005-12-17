@@ -81,7 +81,7 @@ local-WWW-post:
 	cat $(outdir)/weblist | (cd $(top-build-dir); tar -cf-  -T- ) | \
 		tar -C $(outdir)/web-root/ -xf -  
 	cd $(outdir)/web-root/ &&  \
-		for a in `find -name out-www`; do \
+		for a in `find . -name out-www`; do \
 			mv $$a/* $$a/.. ; \
 			rmdir $$a ; \
 		done

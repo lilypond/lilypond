@@ -2062,6 +2062,7 @@ bass_figure:
 		Music *bfr = MY_MAKE_MUSIC ("BassFigureEvent");
 		$$ = bfr->self_scm ();
 		bfr->unprotect ();
+		bfr->set_spot (@1);
 	}
 	| bass_number  {
 		Music *bfr = MY_MAKE_MUSIC ("BassFigureEvent");
@@ -2073,6 +2074,7 @@ bass_figure:
 			bfr->set_property ("text", $1);
 
 		bfr->unprotect ();
+		bfr->set_spot (@1);
 	}
 	| bass_figure ']' {
 		$$ = $1;
