@@ -97,7 +97,8 @@ void
 Figured_bass_engraver::stop_translation_timestep ()
 {
   if (groups_.is_empty ()
-      || now_mom ().main_part_ < stop_moment_.main_part_)
+      || now_mom ().main_part_ < stop_moment_.main_part_
+      || now_mom ().grace_part_ < Rational (0))
     return ;
   
   bool found = false;
@@ -119,7 +120,8 @@ Figured_bass_engraver::Figured_bass_engraver ()
 void
 Figured_bass_engraver::start_translation_timestep ()
 {
-  if (now_mom ().main_part_ < stop_moment_.main_part_)
+  if (now_mom ().main_part_ < stop_moment_.main_part_
+      || now_mom ().grace_part_ < Rational (0))
     return ;
   
   rest_event_ = 0;

@@ -81,7 +81,6 @@
 	 ("staccato" .
 	  ((script-stencil . (feta . ("staccato" . "staccato")))
 	   (side-relative-direction .  -1)
-	   
 	   (quantize-position . #t)
 	   (avoid-slur . inside) 
 	   (script-priority . -100)))

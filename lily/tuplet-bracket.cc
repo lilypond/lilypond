@@ -110,7 +110,8 @@ Tuplet_bracket::print (SCM smob)
   Stencil mol;
   extract_grob_set (me, "note-columns", columns);
 
-  Drul_array<Real> positions = ly_scm2realdrul (me->get_property ("positions"));
+  Drul_array<Real> positions
+    = ly_scm2realdrul (me->get_property ("positions"));
   Real dy = positions[RIGHT] - positions[LEFT];
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
