@@ -86,6 +86,16 @@ bool make_preview = false;
 /* Generate printed output.  */
 bool make_print = true;
 
+
+bool relocate_binary =
+#ifdef __MINGW32__  
+  false
+#else
+  true;
+#endif
+  ;
+
+
 /*
  * Miscellaneous global stuff.
  */
@@ -151,6 +161,7 @@ static Long_option_init options_static[]
      for --output-format.  */
   {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
   {0, "dvi", 0, _i ("generate DVI (tex backend only)")},
+  {0, "relocate", 0, _i("relocate using path to binary")},
   {0, "pdf", 0, _i ("generate PDF (default)")},
   {0, "png", 0, _i ("generate PNG")},
   {0, "ps", 0, _i ("generate PostScript")},
@@ -192,15 +203,16 @@ dir_info (FILE *out)
 
   fprintf (out, "\nEffective prefix: \"%s\"\n", prefix_directory.to_str0 ());
 
-#if ARGV0_RELOCATION
-  env_var_info (out, "FONTCONFIG_FILE");
-  env_var_info (out, "FONTCONFIG_PATH");
-  env_var_info (out, "GS_FONTPATH");
-  env_var_info (out, "GS_LIB");
-  env_var_info (out, "GUILE_LOAD_PATH");
-  env_var_info (out, "PANGO_RC_FILE");
-  env_var_info (out, "PATH");
-#endif
+  if (relocate_binary)
+    {
+      env_var_info (out, "FONTCONFIG_FILE");
+      env_var_info (out, "FONTCONFIG_PATH");
+      env_var_info (out, "GS_FONTPATH");
+      env_var_info (out, "GS_LIB");
+      env_var_info (out, "GUILE_LOAD_PATH");
+      env_var_info (out, "PANGO_RC_FILE");
+      env_var_info (out, "PATH");
+    }
 }
 
 static void
@@ -363,50 +375,50 @@ setup_paths (char const *argv0)
 {
   prefix_directory = LILYPOND_DATADIR;
 
-#if ARGV0_RELOCATION
+  if (relocate_binary)
+    {
+      if (getenv ("LILYPOND_VERBOSE"))
+	be_verbose_global = true;
 
-  if (getenv ("LILYPOND_VERBOSE"))
-    be_verbose_global = true;
-
-  /* Find absolute ARGV0 name, using PATH.  */
-  File_path path;
-  path.parse_path (getenv ("PATH"));
+      /* Find absolute ARGV0 name, using PATH.  */
+      File_path path;
+      path.parse_path (getenv ("PATH"));
 
 #if defined (__CYGWIN__) || defined (__MINGW32__)
-  String s = argv0;
-  s.substitute ('\\', '/');
-  argv0 = s.to_str0 ();
+      String s = argv0;
+      s.substitute ('\\', '/');
+      argv0 = s.to_str0 ();
 #endif /* __CYGWIN__ || __MINGW32__ */
 
 #ifndef __MINGW32__
-  String argv0_abs = path.find (argv0);
+      String argv0_abs = path.find (argv0);
 #else /* __MINGW32__ */
-  char const *ext[] = {"exe", "", 0 };
-  String argv0_abs = path.find (argv0, ext);
+      char const *ext[] = {"exe", "", 0 };
+      String argv0_abs = path.find (argv0, ext);
 #endif /* __MINGW32__ */
 
-  if (argv0_abs.is_empty ())
-    {
-      File_name name (argv0);
-      /* If NAME contains slashes and its DIR is not absolute, it can
-	 only be referenced from CWD.  */
-      if (name.to_string ().index ('/') >= 0 && name.dir_[0] != '/')
+      if (argv0_abs.is_empty ())
 	{
-	  char cwd[PATH_MAX];
-	  getcwd (cwd, PATH_MAX);
-	  argv0_abs = String (cwd) + "/" + argv0;
+	  File_name name (argv0);
+	  /* If NAME contains slashes and its DIR is not absolute, it can
+	     only be referenced from CWD.  */
+	  if (name.to_string ().index ('/') >= 0 && name.dir_[0] != '/')
+	    {
+	      char cwd[PATH_MAX];
+	      getcwd (cwd, PATH_MAX);
+	      argv0_abs = String (cwd) + "/" + argv0;
+	    }
+	  else
+	    programming_error ("can't find absolute argv0");
 	}
-      else
-	programming_error ("can't find absolute argv0");
-    }
     
-  String bindir = dir_name (argv0_abs);
-  String argv0_prefix = dir_name (bindir);
-  if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
-    set_relocation (bindir, argv0_prefix);
-#else
-  (void) argv0;
-#endif /* ARGV0_RELOCATION */
+      String bindir = dir_name (argv0_abs);
+      String argv0_prefix = dir_name (bindir);
+      if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
+	set_relocation (bindir, argv0_prefix);
+    }
+  else
+    (void) argv0;
 
   /* FIXME: use LILYPOND_DATADIR.  */
   if (char const *env = getenv ("LILYPONDPREFIX"))
@@ -674,6 +686,8 @@ parse_argv (int argc, char **argv)
 	    make_preview = true;
 	  else if (String (opt->longname_str0_) == "no-pages")
 	    make_print = false;
+	  else if (String (opt->longname_str0_) == "relocate")
+	    relocate_binary = true;
 	  break;
 
 	case 'd':
@@ -788,12 +802,12 @@ int
 main (int argc, char **argv)
 {
   setup_localisation ();
-  setup_paths (argv[0]);
-  setup_guile_env ();
   parse_argv (argc, argv);
   if (isatty (STDIN_FILENO))
     identify (stderr);
 
+  setup_paths (argv[0]);
+  setup_guile_env ();
   scm_boot_guile (argc, argv, main_with_guile, 0);
 
   /* Only reachable if GUILE exits.  That is an error.  */

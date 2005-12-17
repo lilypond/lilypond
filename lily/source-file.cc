@@ -237,6 +237,10 @@ Source_file::get_counts (char const *pos_str0,
 			 int *line_char,
 			 int *column) const
 {
+  *line_number = 0;
+  *line_char = 0;
+  *column = 0;
+    
   if (!contains (pos_str0))
     return;
 
