@@ -34,6 +34,14 @@ Dimension_cache::init ()
 
 Dimension_cache::~Dimension_cache ()
 {
+  clear ();
+}
+
+void
+Dimension_cache::clear ()
+{
   delete extent_;
   delete offset_;
+  extent_ = 0;
+  offset_ = 0;
 }
