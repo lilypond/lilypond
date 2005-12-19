@@ -1,5 +1,8 @@
 2005-12-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* GNUmakefile.in ($(tree-share-prefix)/mf-link-tree link-mf-tree):
+	separate target for making font symlinks.
+
 	* stepmake/stepmake/help2man-vars.make (OUT_DIST_FILES): only do
 	something if DOCUMENTATION is no.
 
