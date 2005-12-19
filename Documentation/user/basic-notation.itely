@@ -455,7 +455,8 @@ instead.
 
 @seealso
 
-Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
+Program reference: @internalsref{TupletBracket},
+@internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
 
 Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 

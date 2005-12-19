@@ -36,6 +36,11 @@ relative to its X-parent")
      (arpeggio-direction ,ly:dir? "If set, put an
 arrow on the arpeggio squiggly line.")
   
+
+     (arrow ,boolean? "Add an arrow to the line.")
+     (arrow-length ,number? "Arrow length.")
+     (arrow-width ,number? "Arrow width.")
+
      (auto-knee-gap ,ly:dimension? "If a gap is found between note heads
 where a horizontal beam fits that is larger than this number, make a kneed beam.")
      (average-spacing-wishes ,boolean? "If set, the spacing wishes are averaged over staves.")
@@ -122,9 +127,12 @@ the slope of the beam.")
 
      (color ,color? "The color of this grob.")
 
-     ;;DOCME
-     (control-points ,list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
+     (control-points ,list? "List of offsets (number-pairs) that form
+control points for the tie/slur/bracket shape. For beziers, this
+should list the control points of a 3rd order bezier curve." )
 
+     (connect-to-neighbor ,pair? "Pair of booleans, indicating whether this
+grob looks as a continued break.")
      (damping ,number? "Amount of beam slope damping. 0: no, 1: yes,
 100000: horizontal beams.")
      (dash-period ,number? "the length of one dash + white space. If
@@ -133,11 +141,6 @@ negative, no line is drawn at all.")
      (dash-fraction ,number? "Size of the dashes, relative to
 dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
-
-     (arrow ,boolean? "Add an arrow to the line.")
-     (arrow-length ,number? "Arrow length.")
-     (arrow-width ,number? "Arrow width.")
-
      
      (direction ,ly:dir? "Up or down, left or right?")
      (dot-color ,symbol? "Color of dots.  Options include 
@@ -310,11 +313,6 @@ spacing constraints.")
 get stems extending to the middle staff line.")
      (number-type ,symbol? "Type of numbers to use in label.  Choices
 include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
-     (number-visibility ,boolean-or-symbol? "Like
-@code{bracket-visibility}, but for the number.")
-
-
-
      (packed-spacing ,boolean? "If set, the notes are spaced as
 tightly as possible.")
      (padding ,ly:dimension? "Add this much extra space between
@@ -477,6 +475,7 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
 function is to protect objects from being garbage collected.")
      (arpeggio ,ly:grob? "pointer to arpeggio object.")
      (beam ,ly:grob? "pointer to the beam, if applicable.")
+     (bracket ,ly:grob? "the bracket for a  number.")
      (direction-source ,ly:grob? "in case side-relative-direction is
 set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")
@@ -512,6 +511,7 @@ empty in a particular staff, then that staff is erased.")
      (spacing-wishes ,ly:grob-array? "List of note spacing or staff spacing objects.")
      (stems ,ly:grob-array? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
      (tuplets ,ly:grob-array? "list of smaller tuplet brackets")
+     (tuplet-number ,ly:grob? "the number for a bracket.")
 
      (left-neighbors ,ly:grob-array? " List of
 spacing-wish grobs that are close to the current column.

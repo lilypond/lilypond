@@ -62,6 +62,7 @@ Real robust_scm2double (SCM, double);
 int robust_scm2int (SCM, int);
 Direction robust_scm2dir (SCM, Direction);
 Drul_array<Real> robust_scm2drul (SCM, Drul_array<Real>);
+Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);
 Interval robust_scm2interval (SCM, Drul_array<Real>);
 Offset robust_scm2offset (SCM, Offset);
 

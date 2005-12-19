@@ -20,11 +20,13 @@ struct Tuplet_description
   Rational stop_;
   Rational span_stop_;
   Rational length_;
-  Spanner *spanner_;
+  Spanner *bracket_;
+  Spanner *number_;
   Tuplet_description ()
   {
     music_ = 0;
-    spanner_ = 0;
+    bracket_ = 0;
+    number_ = 0;
   }
   static int compare (Tuplet_description const &a, Tuplet_description const &b)
   {
@@ -81,34 +83,41 @@ Tuplet_engraver::process_music ()
   tuplets_.sort (&Tuplet_description::compare);
   for (int i = 0; i < tuplets_.size (); i++)
     {
-      if (tuplets_[i].spanner_)
+      if (tuplets_[i].bracket_)
 	continue;
 
-      Spanner *spanner = make_spanner ("TupletBracket",
-				       tuplets_[i].music_->self_scm ());
-      tuplets_[i].spanner_ = spanner;
+      tuplets_[i].bracket_ = make_spanner ("TupletBracket",
+					   tuplets_[i].music_->self_scm ());
+      tuplets_[i].number_ = make_spanner ("TupletNumber",
+					  tuplets_[i].music_->self_scm ());
+      tuplets_[i].number_->set_object ("bracket", tuplets_[i].bracket_->self_scm ());
+      tuplets_[i].bracket_->set_object ("tuplet-number", tuplets_[i].number_->self_scm ());
+      
+      if (i > 0 && tuplets_[i - 1].bracket_)
+	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i - 1].bracket_);
 
-      if (i > 0 && tuplets_[i - 1].spanner_)
-	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].spanner_, tuplets_[i - 1].spanner_);
-      if (i < tuplets_.size () - 1 && tuplets_[i + 1].spanner_)
-	Tuplet_bracket::add_tuplet_bracket (tuplets_[i + 1].spanner_, tuplets_[i].spanner_);
+      if (i < tuplets_.size () - 1 && tuplets_[i + 1].bracket_)
+	Tuplet_bracket::add_tuplet_bracket (tuplets_[i + 1].bracket_, tuplets_[i].bracket_);
 
       SCM proc = get_property ("tupletNumberFormatFunction");
       if (ly_is_procedure (proc))
 	{
 	  SCM t = scm_apply_0 (proc, scm_list_1 (tuplets_[i].music_->self_scm ()));
-	  spanner->set_property ("text", t);
+	  tuplets_[i].number_->set_property ("text", t);
 	}
     }
 }
 
 void
-Tuplet_engraver::acknowledge_note_column (Grob_info i)
+Tuplet_engraver::acknowledge_note_column (Grob_info inf)
 {
   for (int j = 0; j < tuplets_.size (); j++)
-    if (tuplets_[j].spanner_)
-      Tuplet_bracket::add_column (tuplets_[j].spanner_,
-				  dynamic_cast<Item *> (i.grob ()));
+    if (tuplets_[j].bracket_)
+      {
+	Item *i = dynamic_cast<Item *> (inf.grob ());
+	Tuplet_bracket::add_column (tuplets_[j].bracket_, i);
+	add_bound_item (tuplets_[j].number_, i);
+      }
 }
 
 void
@@ -129,20 +138,27 @@ Tuplet_engraver::start_translation_timestep ()
 
       if (now.main_part_ >= tuplets_[i].span_stop_)
 	{
-	  if (tuplets_[i].spanner_)
+	  if (tuplets_[i].bracket_)
 	    {
 	      if (full_length)
 		{
 		  Item *col = unsmob_item (get_property ("currentMusicalColumn"));
 
-		  tuplets_[i].spanner_->set_bound (RIGHT, col);
+		  tuplets_[i].bracket_->set_bound (RIGHT, col);
+		  tuplets_[i].number_->set_bound (RIGHT, col);
 		}
-	      else if (!tuplets_[i].spanner_->get_bound (RIGHT))
-		tuplets_[i].spanner_->set_bound (RIGHT,
-						 tuplets_[i].spanner_->get_bound (LEFT));
-
-	      last_tuplets_.push (tuplets_[i].spanner_);
-	      tuplets_[i].spanner_ = 0;
+	      else if (!tuplets_[i].bracket_->get_bound (RIGHT))
+		{
+		  tuplets_[i].bracket_->set_bound (RIGHT,
+						   tuplets_[i].bracket_->get_bound (LEFT));
+		  tuplets_[i].number_->set_bound (RIGHT,
+						  tuplets_[i].bracket_->get_bound (LEFT));
+		}
+	      last_tuplets_.push (tuplets_[i].bracket_);
+	      last_tuplets_.push (tuplets_[i].number_);
+	      
+	      tuplets_[i].bracket_ = 0;
+	      tuplets_[i].number_ = 0;
 	    }
 
 	  if (tsd)
@@ -174,7 +190,7 @@ Tuplet_engraver::Tuplet_engraver ()
 ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
 		/* doc */ "Catch Time_scaled_music and generate appropriate bracket  ",
-		/* create */ "TupletBracket",
+		/* create */ "TupletBracket TupletNumber",
 		/* accept */ "time-scaled-music",
 		/* read */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength",
 		/* write */ "");
