@@ -1,5 +1,7 @@
 2005-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/convertrules.py (conv): rule for number-visibility
+
 	* lily/slur-configuration.cc (score_extra_encompass): different
 	distance measure for avoid and inside avoidance.
 	(score_extra_encompass): use 1/(distance+eps) as penalty.

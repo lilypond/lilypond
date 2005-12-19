@@ -45,9 +45,30 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+@item
+Slurs now avoid @code{TupletNumber}s, and tuplet numbers may enter the
+staff.
+
+@lilypond[raggedright]
+\relative {
+  \slurUp
+  \override TupletBracket #'bracket-visibility = ##f
+  \override TupletBracket #'staff-padding = ##f
+  \override Slur #'details #'region-size  = #6
+  
+  \times 2/3
+  {
+    c(  \stemDown g' \stemNeutral  c,)
+  }
+}
+@end lilypond
+
+This feature was sponsored by Trent Johnston.
 
 @item Tuplet brackets and numbers  are implemented as separate grobs,
 @code{TupletBracket} and @code{TupletNumber}.
+
+This rewrite was sponsored by Trent Johnston.
 
 @item String arguments for music functions may be specified without
 @code{#} marks. This allows syntactical constructs (like \clef and

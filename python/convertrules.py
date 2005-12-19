@@ -2664,3 +2664,12 @@ def conv (str):
 
 conversions.append (((2, 7, 22), conv,
 		     """\tag #'(a b) -> \tag #'a \tag #'b""" ))
+
+def conv (str):
+	str = re.sub (r"#'number-visibility",
+		      "#'number-visibility % number-visibility is deprecated. Tune the TupletNumber instead\n",
+		      str)
+	return str
+
+conversions.append (((2, 7, 24), conv,
+		     """deprecate number-visibility""")) 
