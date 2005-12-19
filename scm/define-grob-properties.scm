@@ -370,8 +370,6 @@ object.")
      (size ,number? "Size of object, relative to standard size.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
-     (slur-details ,list?
-		   "An alist of scoring parameters for slur formatting")
      (space-alist ,list? "A table that specifies distances between
 prefatory items, like clef and time-signature. The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}

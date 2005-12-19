@@ -1153,7 +1153,7 @@
 				spaceable-grob-interface))))))
 
     (PhrasingSlur
-     . ((slur-details . ,default-slur-details)
+     . ((details . ,default-slur-details)
 
 	(control-points . ,Slur::calc_control_points)
 	(direction . ,Slur::calc_direction)
@@ -1342,7 +1342,7 @@
 				separation-spanner-interface))))))
 
     (Slur
-     . ((slur-details . ,default-slur-details)
+     . ((details . ,default-slur-details)
 
 	(control-points . ,Slur::calc_control_points)
 	(direction . ,Slur::calc_direction)
@@ -1820,6 +1820,7 @@
 	(stencil . ,Tuplet_number::print)
 	(font-shape . italic)
 	(font-size . -2)
+	(avoid-slur . inside)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-interface tuplet-number-interface
 				font-interface))))))

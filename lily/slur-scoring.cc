@@ -77,7 +77,7 @@ get_detail (SCM alist, SCM sym)
 void
 Slur_score_parameters::fill (Grob *me)
 {
-  SCM details = me->get_property ("slur-details");
+  SCM details = me->get_property ("details");
 
   region_size_
     = (int) get_detail (details, ly_symbol2scm ("region-size"));
@@ -103,8 +103,8 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("free-head-distance"));
   absolute_closeness_measure_
     = get_detail (details, ly_symbol2scm ("absolute-closeness-measure"));
-  extra_object_collision_
-    = get_detail (details, ly_symbol2scm ("extra-object-collision"));
+  extra_object_collision_penalty_
+    = get_detail (details, ly_symbol2scm ("extra-object-collision-penalty"));
   accidental_collision_
     = get_detail (details, ly_symbol2scm ("accidental-collision"));
   extra_encompass_free_distance_
@@ -635,19 +635,30 @@ Slur_score_state::generate_avoid_offsets () const
 
   extract_grob_set (slur_, "encompass-objects", extra_encompasses);
   for (int i = 0; i < extra_encompasses.size (); i++)
-    if (Slur::has_interface (extra_encompasses[i]))
-      {
-	Grob *small_slur = extra_encompasses[i];
-	Bezier b = Slur::get_curve (small_slur);
+    {
+      if (Slur::has_interface (extra_encompasses[i]))
+	{
+	  Grob *small_slur = extra_encompasses[i];
+	  Bezier b = Slur::get_curve (small_slur);
 
-	Offset z = b.curve_point (0.5);
-	z += Offset (small_slur->relative_coordinate (common_[X_AXIS], X_AXIS),
-		     small_slur->relative_coordinate (common_[Y_AXIS], Y_AXIS));
+	  Offset z = b.curve_point (0.5);
+	  z += Offset (small_slur->relative_coordinate (common_[X_AXIS], X_AXIS),
+		       small_slur->relative_coordinate (common_[Y_AXIS], Y_AXIS));
 
-	z[Y_AXIS] += dir_ * parameters_.free_slur_distance_;
-	avoid.push (z);
-      }
+	  z[Y_AXIS] += dir_ * parameters_.free_slur_distance_;
+	  avoid.push (z);
+	}
+      else if (extra_encompasses[i]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
+	{
+	  Grob *g = extra_encompasses [i];
+	  Interval xe = g->extent (common_[X_AXIS], X_AXIS);
+	  Interval ye = g->extent (common_[Y_AXIS], Y_AXIS);
 
+	  if (!xe.is_empty ()
+	      && !ye.is_empty ())
+	    avoid.push (Offset (xe.center(), ye[dir_]));
+	}
+    }  
   return avoid;
 }
 
@@ -792,7 +803,7 @@ Slur_score_state::get_extra_encompass_infos () const
 					 k - 1.0,
 					 xext,
 					 yext,
-					 parameters_.extra_object_collision_);
+					 parameters_.extra_object_collision_penalty_);
 	      collision_infos.push (info);
 	    }
 	}
@@ -803,7 +814,7 @@ Slur_score_state::get_extra_encompass_infos () const
 	  Interval ye = g->extent (common_[Y_AXIS], Y_AXIS);
 
 	  Real xp = 0.0;
-	  Real penalty = parameters_.extra_object_collision_;
+	  Real penalty = parameters_.extra_object_collision_penalty_;
 	  if (Accidental_interface::has_interface (g))
 	    {
 	      penalty = parameters_.accidental_collision_;
@@ -847,4 +858,21 @@ Slur_score_state::get_extra_encompass_infos () const
 
   return collision_infos;
 }
+ 
+Extra_collision_info::Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p)
+{
+  idx_ = idx;
+  extents_[X_AXIS] = x;
+  extents_[Y_AXIS] = y;
+  penalty_ = p;
+  grob_ = g;
+  type_ = g->get_property ("avoid-slur");
+}
 
+Extra_collision_info::Extra_collision_info ()
+{
+  idx_ = 0.0;
+  penalty_ = 0.;
+  grob_ = 0;
+  type_ = SCM_EOL; 
+}

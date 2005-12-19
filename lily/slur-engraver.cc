@@ -39,6 +39,7 @@ protected:
   DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_ACKNOWLEDGER (tuplet_number);
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   virtual void finalize ();
@@ -116,6 +117,8 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
 	  e->set_object ("slur", slur->self_scm ());
 	}
     }
+  else
+    e->warning ("Ignoring grob for slur. avoid-slur not set?");
 }
 
 void
@@ -135,6 +138,13 @@ Slur_engraver::acknowledge_fingering (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
+
+void
+Slur_engraver::acknowledge_tuplet_number (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
+
 
 void
 Slur_engraver::acknowledge_script (Grob_info info)
@@ -213,6 +223,7 @@ ADD_ACKNOWLEDGER (Slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Slur_engraver, script);
 ADD_ACKNOWLEDGER (Slur_engraver, text_script);
 ADD_ACKNOWLEDGER (Slur_engraver, tie);
+ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
 ADD_TRANSLATOR (Slur_engraver,
 		/* doc */ "Build slur grobs from slur events",
 		/* create */ "Slur",
