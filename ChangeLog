@@ -1,4 +1,11 @@
+2005-12-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/stepmake/help2man-vars.make (OUT_DIST_FILES): only do
+	something if DOCUMENTATION is no.
+
 2005-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION: release 2.7.24
 
 	* lily/script-column-engraver.cc (stop_translation_timestep):
 	delay adding to script-column.
