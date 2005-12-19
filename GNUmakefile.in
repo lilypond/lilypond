@@ -9,11 +9,12 @@ SUBDIRS = buildscripts python scripts \
 	po make \
 	elisp vim \
 	input \
-	cygwin stepmake
+	cygwin stepmake $(documentation-dir)
 
-ifneq ($(strip $(DOCUMENTATION)),no)
-SUBDIRS += Documentation
-endif
+
+## this convoluted construction is necessary, since we don't know the
+## value of DOCUMENTATION here.
+documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
 SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh Doxyfile
 README_FILES = ChangeLog COPYING DEDICATION ROADMAP THANKS HACKING
