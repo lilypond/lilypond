@@ -169,10 +169,10 @@ INSTALLATION_OUT_FILES9=$(SVG_FILES)
 export MFINPUTS:=.:$(MFINPUTS)
 
 .PHONY: tree-regen
+
 # FIXME: temporary hack: must regenerate after building fonts
 tree-regen:
-	rm -rf $(top-build-dir)/share
-	${MAKE} -C $(top-build-dir) link-tree
+	${MAKE} -C $(top-build-dir) link-mf-tree
 
 default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 

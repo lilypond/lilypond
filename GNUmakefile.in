@@ -146,14 +146,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 		ln -s $(top-src-dir)/tex source && \
 		ln -s ../../../../../tex/$(outconfbase) tex-out && \
 		ln -s ../../../../../mf/$(outconfbase) mf-out
-	-cd $(tree-share-prefix)/fonts/otf && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
-	-cd $(tree-share-prefix)/fonts/svg && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
-	-cd $(tree-share-prefix)/fonts/tfm && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.tfm .
-	-cd $(tree-share-prefix)/fonts/type1 && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.pfa .
+
 	cd $(tree-share-prefix)/fonts && \
 		ln -s $(top-src-dir)/mf source && \
 		true
@@ -164,8 +157,19 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 		(mkdir -p $(tree-share)/locale/$i/LC_MESSAGES && \
 		cd $(tree-share)/locale/$i/LC_MESSAGES && \
 		ln -sf ../../../../../po/$(outconfbase)/$i.mo lilypond.mo) &&) true
-#	touch $@
 	touch $(tree-share-prefix)/lilypond-force
+
+$(tree-share-prefix)/mf-link-tree link-mf-tree:
+	-rm -f $(tree-share-prefix)/fonts/{otf,svg,tfm,type1}/* &&  \
+		cd $(tree-share-prefix)/fonts/otf && \
+		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
+	-cd $(tree-share-prefix)/fonts/svg && \
+		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
+	-cd $(tree-share-prefix)/fonts/tfm && \
+		ln -s ../../../../../../mf/$(outconfbase)/*.tfm .
+	-cd $(tree-share-prefix)/fonts/type1 && \
+		ln -s ../../../../../../mf/$(outconfbase)/*.pfa .
+
 
 local-clean: build-dir-setup-clean
 build-dir-setup-clean:
