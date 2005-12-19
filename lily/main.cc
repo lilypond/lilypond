@@ -161,7 +161,7 @@ static Long_option_init options_static[]
      for --output-format.  */
   {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
   {0, "dvi", 0, _i ("generate DVI (tex backend only)")},
-  {0, "relocate", 0, _i("relocate using path to binary")},
+  {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
   {0, "pdf", 0, _i ("generate PDF (default)")},
   {0, "png", 0, _i ("generate PNG")},
   {0, "ps", 0, _i ("generate PostScript")},

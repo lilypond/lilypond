@@ -75,7 +75,7 @@ local-WWW-post:
 		> $(outdir)/weblist
 	ls $(outdir)/*.html >> $(outdir)/weblist
 
-## rewrite paths so we lose out-www
+## rewrite file names so we lose out-www
 	rm -rf $(outdir)/web-root/
 	mkdir $(outdir)/web-root/
 	cat $(outdir)/weblist | (cd $(top-build-dir); tar -cf-  -T- ) | \
