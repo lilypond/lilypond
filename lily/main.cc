@@ -404,7 +404,9 @@ setup_paths (char const *argv0)
 
       /* if name contains slashes, we should not look in $PATH */
       String argv0_abs;
-      if (argv0[0] == '/')
+      if (getenv ("LILYPOND_RELOCATE_PREFIX"))
+	argv0_abs = getenv ("LILYPOND_RELOCATE_PREFIX");
+      else if (argv0[0] == '/')
 	argv0_abs = argv0_abs;
       else if (String (argv0).index ('/') > 0)
 	argv0_abs = get_working_directory () + "/" + String (argv0);
