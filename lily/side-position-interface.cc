@@ -224,7 +224,7 @@ Side_position_interface::get_axis (Grob *me)
   if (scm_is_number (me->get_property ("side-axis")))
     return Axis (scm_to_int (me->get_property ("side-axis")));
   
-  programming_error ("side-axis not set.");
+  me->programming_error ("side-axis not set.");
   return NO_AXES;
 }
 
