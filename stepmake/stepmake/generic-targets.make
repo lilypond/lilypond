@@ -112,7 +112,7 @@ local-distclean:
 local-maintainerclean:
 
 install-strip:
-	$(MAKE) INSTALL="$(INSTALL) -s" install
+	$(MAKE) INSTALLPY="$(INSTALLPY) -s" install
 
 ifeq ($(strip $(depth)),.)
 final-install:
@@ -132,9 +132,8 @@ uninstall: local-uninstall
 local-uninstall:
 
 installextradoc:
-	-$(INSTALL) -d $(DESTDIR)$(prefix)/doc/$(package)
-	$(foreach i, $(EXTRA_DOC_FILES),\
-		cp -r $(i) $(prefix)/doc/$(package) &&) true
+	-$(INSTALLPY) -d $(DESTDIR)$(prefix)/doc/$(package)
+	cp -r $(EXTRA_DOC_FILES) $(prefix)/doc/$(package) 
 
 include $(outdir)/dummy.dep $(wildcard $(outdir)/*.dep) # expect a warning here
 
