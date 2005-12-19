@@ -1,5 +1,26 @@
 2005-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* flower/include/offset.hh (class Offset): new operator /=
+
+	* lily/tuplet-number.cc (print): new file, new interface.
+
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	remove number-visibility property.
+
+	* lily/tuplet-bracket.cc (calc_control_points): new function
+	(calc_connect_to_neighbors): new function.
+	(print): remove text handling for tuplet numberdef.
+
+	* lily/tuplet-engraver.cc (struct Tuplet_description): create
+	TupletNumbers too. 
+
+	* lily/lily-guile.cc (robust_scm2booldrul): new function
+
+	* scm/define-grobs.scm (all-grob-descriptions): new grob TupletNumber
+
+	* lily/tuplet-bracket.cc (calc_position_and_height): use
+	staff-padding to control whether tuplet brackets are over staves.
+
 	* lily/grob.cc (suicide): clear dim_caches_.
 
 	* lily/dimension-cache.cc (clear): new function.

@@ -67,6 +67,12 @@ public:
     return *this;
   }
 
+  Offset &operator /= (Real a)
+  {
+    (*this) *= 1/a;
+    return *this;
+  }
+
   Offset &operator *= (Real a)
   {
     (*this)[X_AXIS] *= a;
@@ -113,6 +119,13 @@ operator * (Real o1, Offset o2)
 {
   o2 *= o1;
   return o2;
+}
+
+inline Offset
+operator / (Offset o1, Real a)
+{
+  o1 /= a;
+  return o1;
 }
 
 inline Offset

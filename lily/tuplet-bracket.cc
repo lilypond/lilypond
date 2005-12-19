@@ -34,8 +34,8 @@
 #include "line-interface.hh"
 #include "beam.hh"
 #include "warn.hh"
-#include "font-interface.hh"
 #include "output-def.hh"
+#include "font-interface.hh"
 #include "text-interface.hh"
 #include "stem.hh"
 #include "note-column.hh"
@@ -57,6 +57,19 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
 
   return g;
 }
+
+
+void
+flatten_number_pair_property (Grob *me,
+			      Direction xdir,  SCM sym)
+{
+  Drul_array<Real> zero (0, 0);
+  Drul_array<Real> pair = robust_scm2drul (me->internal_get_property (sym), zero);
+  pair[xdir] = 0.0;
+  
+  me->internal_set_property (sym, ly_interval2scm (pair));
+}
+
 
 Grob *
 Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool *equally_long)
@@ -96,66 +109,26 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool
   return beams[LEFT];
 }
 
-/*
-  TODO:
 
-  in the case that there is no bracket, but there is a (single) beam,
-  follow beam precisely for determining tuplet number location.
-*/
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, print, 1);
+MAKE_SCHEME_CALLBACK(Tuplet_bracket,calc_connect_to_neighbors,1);
 SCM
-Tuplet_bracket::print (SCM smob)
+Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-  Stencil mol;
-  extract_grob_set (me, "note-columns", columns);
 
-  Drul_array<Real> positions
-    = ly_scm2realdrul (me->get_property ("positions"));
-  Real dy = positions[RIGHT] - positions[LEFT];
-  bool equally_long = false;
-  Grob *par_beam = parallel_beam (me, columns, &equally_long);
-  Spanner *sp = dynamic_cast<Spanner *> (me);
-
-  bool bracket_visibility = !(par_beam && equally_long);
-  bool number_visibility = true;
-
-  /*
-    Fixme: the type of this prop is sucky.
-  */
-  SCM bracket = me->get_property ("bracket-visibility");
-  if (scm_is_bool (bracket))
-    bracket_visibility = ly_scm2bool (bracket);
-  else if (bracket == ly_symbol2scm ("if-no-beam"))
-    bracket_visibility = !par_beam;
-
-  SCM numb = me->get_property ("number-visibility");
-  if (scm_is_bool (numb))
-    number_visibility = ly_scm2bool (numb);
-  else if (numb == ly_symbol2scm ("if-no-beam"))
-    number_visibility = !par_beam;
-
-  Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
-  commonx = commonx->common_refpoint (sp->get_bound (LEFT), X_AXIS);
-  commonx = commonx->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
-
-  Direction dir = get_grob_direction (me);
-
-  Drul_array<Item *> bounds;
-  bounds[LEFT] = get_x_bound_item (me, LEFT, dir);
-  bounds[RIGHT] = get_x_bound_item (me, RIGHT, dir);
-
-  Drul_array<bool> connect_to_other;
-  Interval x_span;
+  Direction dir = get_grob_direction (me); 
+  Drul_array<Item *> bounds (get_x_bound_item (me, LEFT, dir),
+			     get_x_bound_item (me, RIGHT, dir));
+  
+  Drul_array<bool> connect_to_other (false, false);
   Direction d = LEFT;
   do
     {
-      x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
       Direction break_dir = bounds[d]->break_status_dir ();
-      Spanner *orig_spanner = dynamic_cast<Spanner *> (me->original ());
+      
+      Spanner *orig_spanner = dynamic_cast<Spanner*> (me->original ());
 
       int neighbor_idx = me->get_break_index () - break_dir;
-
       if (break_dir
 	  && d == RIGHT
 	  && neighbor_idx < orig_spanner->broken_intos_.size ())
@@ -171,7 +144,57 @@ Tuplet_bracket::print (SCM smob)
 	   && (neighbor_idx < orig_spanner->broken_intos_.size ()
 	       && neighbor_idx >= 0)
 	   && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
-	   
+    }
+  while (flip (&d) != LEFT);
+
+
+  if (connect_to_other[LEFT] || connect_to_other[RIGHT])
+    return scm_cons (scm_from_bool (connect_to_other[LEFT]),
+		     scm_from_bool (connect_to_other[RIGHT]));
+		     
+  return SCM_EOL;
+}
+
+Grob* 
+Tuplet_bracket::get_common_x (Spanner *me)
+{
+  extract_grob_set (me, "note-columns", columns);
+
+  Grob * commonx = common_refpoint_of_array (columns, me, X_AXIS);
+  commonx = commonx->common_refpoint (me->get_bound (LEFT), X_AXIS);
+  commonx = commonx->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+
+  return commonx;
+}
+  
+MAKE_SCHEME_CALLBACK(Tuplet_bracket,calc_control_points,1)
+SCM
+Tuplet_bracket::calc_control_points (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+
+  extract_grob_set (me, "note-columns", columns);
+
+  Drul_array<Real> positions
+    = ly_scm2realdrul (me->get_property ("positions"));
+
+  Grob *commonx = get_common_x (me);
+  Direction dir = get_grob_direction (me);
+
+  Drul_array<Item *> bounds;
+  bounds[LEFT] = get_x_bound_item (me, LEFT, dir);
+  bounds[RIGHT] = get_x_bound_item (me, RIGHT, dir);
+
+  Drul_array<bool> connect_to_other =
+    robust_scm2booldrul (me->get_property ("connect-to-other"),
+			 Drul_array<bool> (false, false));
+  
+    
+  Interval x_span;
+  Direction d = LEFT;
+  do
+    {
+      x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[d];
 
       if (connect_to_other[d])
 	{
@@ -202,37 +225,69 @@ Tuplet_bracket::print (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  Real w = x_span.length ();
-  SCM number = me->get_property ("text");
+  
+  
+  x_span -= me->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS);
+  return scm_list_2 (ly_offset2scm (Offset (x_span[LEFT], positions[LEFT])),
+		     ly_offset2scm (Offset (x_span[RIGHT], positions[RIGHT])));
+}
+
+/*
+  TODO:
+
+  in the case that there is no bracket, but there is a (single) beam,
+  follow beam precisely for determining tuplet number location.
+*/
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, print, 1);
+SCM
+Tuplet_bracket::print (SCM smob)
+{
+  Spanner *me = unsmob_spanner (smob);
+  Stencil mol;
+
+  extract_grob_set (me, "note-columns", columns);
+  bool equally_long = false;
+  Grob *par_beam = parallel_beam (me, columns, &equally_long);
+  
+  bool bracket_visibility = !(par_beam && equally_long);
+  /*
+    Fixme: the type of this prop is sucky.
+  */
+  SCM bracket = me->get_property ("bracket-visibility");
+  if (scm_is_bool (bracket))
+    bracket_visibility = ly_scm2bool (bracket);
+  else if (bracket == ly_symbol2scm ("if-no-beam"))
+    bracket_visibility = !par_beam;
+
+  
+  SCM cpoints =  me->get_property ("control-points");
+  Drul_array<Offset> points;
+  points[LEFT] = ly_scm2offset (scm_car (cpoints));
+  points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));
+  
+  Interval x_span (points[LEFT][X_AXIS], points[RIGHT][X_AXIS]);
+  Drul_array<Real> positions (points[LEFT][Y_AXIS], points[RIGHT][Y_AXIS]);
+
+
 
   Output_def *pap = me->layout ();
-  Stencil num;
-  if (scm_is_string (number) && number_visibility)
-    {
-      SCM properties = Font_interface::text_font_alist_chain (me);
-      SCM snum = Text_interface::interpret_markup (pap->self_scm (),
-						   properties, number);
-      num = *unsmob_stencil (snum);
-      num.align_to (X_AXIS, CENTER);
-      num.translate_axis (w / 2, X_AXIS);
-      num.align_to (Y_AXIS, CENTER);
 
-      num.translate_axis (dy / 2, Y_AXIS);
-
-      mol.add_stencil (num);
-    }
-
+  Grob *number_grob = unsmob_grob (me->get_object ("tuplet-number"));
+  
   /*
     No bracket when it would be smaller than the number.
   */
   Real gap = 0.;
-  if (bracket_visibility && number_visibility)
+  if (bracket_visibility && number_grob)
     {
-      if (!num.extent (X_AXIS).is_empty ())
-	gap = num.extent (X_AXIS).length () + 1.0;
+      Interval ext = number_grob->extent (number_grob, X_AXIS);
+      if (!ext.is_empty ())
+	{
+	  gap = ext.length () + 1.0;
       
-      if (w - gap < w / 4.0)
-	bracket_visibility = false;
+	  if (0.75 * x_span.length () < gap)
+	    bracket_visibility = false;
+	}
     }
 
   if (bracket_visibility)
@@ -247,9 +302,17 @@ Tuplet_bracket::print (SCM smob)
 	= robust_scm2drul (me->get_property ("shorten-pair"), zero);
       Drul_array<Stencil> edge_stencils;
 
+      Direction dir = get_grob_direction (me);
+      
       scale_drul (&height, -ss * dir);
       scale_drul (&flare, ss);
       scale_drul (&shorten, ss);
+
+      Drul_array<bool> connect_to_other =
+	robust_scm2booldrul (me->get_property ("connect-to-other"),
+			     Drul_array<bool> (false, false));
+
+      Direction d = LEFT;
       do
 	{
 	  if (connect_to_other[d])
@@ -279,7 +342,7 @@ Tuplet_bracket::print (SCM smob)
       while (flip (&d) != LEFT);
 
       Stencil brack = make_bracket (me, Y_AXIS,
-				    Offset (w, dy),
+				    points[RIGHT] - points[LEFT],
 				    height,
 				    /*
 				      0.1 = more space at right due to italics
@@ -298,9 +361,7 @@ Tuplet_bracket::print (SCM smob)
       mol.add_stencil (brack);
     }
 
-  mol.translate_axis (positions[LEFT], Y_AXIS);
-  mol.translate_axis (x_span[LEFT]
-		      - sp->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS), X_AXIS);
+  mol.translate (points[LEFT]);
   return mol.smobbed_copy ();
 }
 
@@ -401,17 +462,18 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
     commony = st->common_refpoint (commony, Y_AXIS);
 
-  Grob *commonx = common_refpoint_of_array (columns, me, X_AXIS);
+  Grob *commonx = get_common_x (me);
   commonx = common_refpoint_of_array (tuplets, commonx, Y_AXIS);
-  commonx = commonx->common_refpoint (me->get_bound (LEFT), X_AXIS);
-  commonx = commonx->common_refpoint (me->get_bound (RIGHT), X_AXIS);
 
   Interval staff;
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
     {
-      staff = st->extent (commony, Y_AXIS);
-      Real pad = robust_scm2double (me->get_property ("staff-padding"), 0.5);
-      staff.widen (pad);
+      Real pad = robust_scm2double (me->get_property ("staff-padding"), -1.0);
+      if  (pad >= 0.0)
+	{
+	  staff = st->extent (commony, Y_AXIS);
+	  staff.widen (pad);
+	}
     }
   
   Direction dir = get_grob_direction (me);
@@ -644,15 +706,19 @@ ADD_INTERFACE (Tuplet_bracket,
 	       "bracket-flare "
 	       "bracket-visibility "
 	       "break-overshoot "
+	       "connect-to-neighbor "
+	       "control-points "
 	       "direction "
 	       "edge-height "
 	       "edge-text "
+	       "gap "
 	       "positions "
 	       "note-columns "
-	       "number-visibility "
 	       "padding "
+	       "tuplet-number "
 	       "shorten-pair "
 	       "staff-padding "
 	       "thickness "
 	       "tuplets ");
+
 

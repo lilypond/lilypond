@@ -629,6 +629,17 @@ robust_scm2drul (SCM k, Drul_array<Real> v)
   return v;
 }
 
+Drul_array<bool>
+robust_scm2booldrul (SCM k, Drul_array<bool> def)
+{
+  if (scm_is_pair (k))
+    {
+      def[LEFT] = to_boolean (scm_car (k));
+      def[RIGHT] = to_boolean (scm_cdr (k));
+    }
+  return def;
+}
+
 Offset
 robust_scm2offset (SCM k, Offset o)
 {

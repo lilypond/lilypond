@@ -1803,17 +1803,27 @@
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
+	(staff-padding . 0.25)
+	
 	(direction  . ,Tuplet_bracket::calc_direction)
 	(positions . ,Tuplet_bracket::calc_positions)
+	(connect-to-neighbor . ,Tuplet_bracket::calc_connect_to_neighbors)
+	(control-points . ,Tuplet_bracket::calc_control_points)
 	(stencil . ,Tuplet_bracket::print)
+	
+	(meta . ((class . Spanner)
+		 (interfaces . (line-interface
+				tuplet-bracket-interface))))))
+
+    (TupletNumber
+     . (
+	(stencil . ,Tuplet_number::print)
 	(font-shape . italic)
 	(font-size . -2)
 	(meta . ((class . Spanner)
-		 (interfaces . (text-interface
-				line-interface
-				tuplet-bracket-interface
+		 (interfaces . (text-interface tuplet-number-interface
 				font-interface))))))
-
+    
     (UnaCordaPedal
      . (
 	(stencil . ,Text_interface::print)
