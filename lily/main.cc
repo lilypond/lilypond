@@ -89,9 +89,9 @@ bool make_print = true;
 
 bool relocate_binary =
 #ifdef __MINGW32__  
-  false
-#else
   true;
+#else
+  false
 #endif
   ;
 
@@ -328,7 +328,7 @@ void
 set_relocation (String bindir, String prefix)
 {
   if (be_verbose_global)
-    warning (_f ("argv0 relocation: prefix=%s, new prefix=%s",
+    warning (_f ("Relocation: compile prefix=%s, new prefix=%s",
 		 prefix_directory,
 		 prefix.to_str0 ()));
   
@@ -362,6 +362,9 @@ set_relocation (String bindir, String prefix)
   prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
   prepend_env_path ("GS_LIB", datadir + "/gs/lib");
 
+  /* need otherwise dynamic .so's aren't found.   */
+  prepend_env_path ("DYLD_LIBRARY_PATH", libdir);
+  
   prepend_env_path ("GUILE_LOAD_PATH", datadir
 		    + to_string ("/guile/%d.%d",
 				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
@@ -369,6 +372,14 @@ set_relocation (String bindir, String prefix)
   prepend_env_path ("PATH", bindir);
 }
 
+String
+get_working_directory ()
+{
+  char cwd[PATH_MAX];
+  getcwd (cwd, PATH_MAX);
+
+  return String (cwd);
+}
 
 static void
 setup_paths (char const *argv0)
@@ -379,39 +390,48 @@ setup_paths (char const *argv0)
     {
       if (getenv ("LILYPOND_VERBOSE"))
 	be_verbose_global = true;
-
-      /* Find absolute ARGV0 name, using PATH.  */
-      File_path path;
-      path.parse_path (getenv ("PATH"));
-
+      
 #if defined (__CYGWIN__) || defined (__MINGW32__)
       String s = argv0;
       s.substitute ('\\', '/');
       argv0 = s.to_str0 ();
 #endif /* __CYGWIN__ || __MINGW32__ */
 
+
+      /* if name contains slashes, we should not look in $PATH */
+      String argv0_abs;
+      if (argv0[0] == '/')
+	argv0_abs = argv0_abs;
+      else if (String (argv0).index ('/') > 0)
+	argv0_abs = get_working_directory () + "/" + String (argv0);
+      else
+	{
+	  /* Find absolute ARGV0 name, using PATH.  */
+	  File_path path;
+	  path.parse_path (getenv ("PATH"));
+
+      
 #ifndef __MINGW32__
-      String argv0_abs = path.find (argv0);
+	  String argv0_abs = path.find (argv0);
 #else /* __MINGW32__ */
-      char const *ext[] = {"exe", "", 0 };
-      String argv0_abs = path.find (argv0, ext);
+	  char const *ext[] = {"exe", "", 0 };
+	  String argv0_abs = path.find (argv0, ext);
 #endif /* __MINGW32__ */
 
-      if (argv0_abs.is_empty ())
-	{
-	  File_name name (argv0);
-	  /* If NAME contains slashes and its DIR is not absolute, it can
-	     only be referenced from CWD.  */
-	  if (name.to_string ().index ('/') >= 0 && name.dir_[0] != '/')
+	  if (argv0_abs.is_empty ())
 	    {
-	      char cwd[PATH_MAX];
-	      getcwd (cwd, PATH_MAX);
-	      argv0_abs = String (cwd) + "/" + argv0;
+	      File_name name (argv0);
+	      /* If NAME contains slashes and its DIR is not absolute, it can
+		 only be referenced from CWD.  */
+	      if (name.to_string ().index ('/') >= 0 && name.dir_[0] != '/')
+		{
+		  argv0_abs =  get_working_directory () + "/" + argv0;
+		}
+	      else
+		programming_error ("can't find absolute argv0");
 	    }
-	  else
-	    programming_error ("can't find absolute argv0");
 	}
-    
+      
       String bindir = dir_name (argv0_abs);
       String argv0_prefix = dir_name (bindir);
       if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
