@@ -1,7 +1,10 @@
 2005-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/GNUmakefile: don't install make rules.
+
 	* lily/main.cc (setup_paths): don't inspect $PATH for argv0 with
 	slashes.
+	(prepend_env_path): more verbosity.
 
 2005-12-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
