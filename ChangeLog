@@ -1,5 +1,16 @@
 2005-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/slur-configuration.cc (score_extra_encompass): different
+	distance measure for avoid and inside avoidance.
+	(score_extra_encompass): use 1/(distance+eps) as penalty.
+
+	* lily/slur-scoring.cc (generate_avoid_offsets): use 'inside
+	encompass objects for generating slur curves.
+
+	* lily/slur.cc: use details iso. slur-details property.
+
+	* input/regression/slur-tuplet.ly: new file.
+
 	* lily/slur-engraver.cc (acknowledge_tuplet_number): new function.  
 
 	* flower/include/offset.hh (class Offset): new operator /=
