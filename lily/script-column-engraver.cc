@@ -36,6 +36,13 @@ Script_column_engraver::Script_column_engraver ()
 void
 Script_column_engraver::stop_translation_timestep ()
 {
+  if (scol_)
+    {
+      for (int i = 0; i < scripts_.size (); i++)
+	if (Side_position_interface::get_axis (scripts_[i]) == Y_AXIS)
+	  Script_column::add_staff_sided (scol_, scripts_[i]);
+    }
+
   scol_ = 0;
   scripts_.clear ();
 }
@@ -46,8 +53,7 @@ Script_column_engraver::acknowledge_side_position (Grob_info inf)
   Item *thing = dynamic_cast<Item *> (inf.grob ());
   if (thing)
     {
-      if (!Item::is_breakable (thing)
-	  && Side_position_interface::get_axis (inf.grob ()) == Y_AXIS)
+      if (!Item::is_breakable (thing))
 	scripts_.push (thing);
     }
 }
@@ -57,14 +63,8 @@ Script_column_engraver::process_acknowledged ()
 {
   if (!scol_ && scripts_.size () > 1)
     scol_ = make_item ("ScriptColumn", SCM_EOL);
-
-  if (scol_)
-    {
-      for (int i = 0; i < scripts_.size (); i++)
-	Script_column::add_staff_sided (scol_, scripts_[i]);
-      scripts_.clear ();
-    }
 }
+
 ADD_ACKNOWLEDGER (Script_column_engraver, side_position);
 ADD_TRANSLATOR (Script_column_engraver,
 		/* doc */ "",
