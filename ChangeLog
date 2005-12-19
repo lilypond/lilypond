@@ -2,6 +2,8 @@
 
 	* GNUmakefile.in ($(tree-share-prefix)/mf-link-tree link-mf-tree):
 	separate target for making font symlinks.
+	(documentation-dir): use $(if $(findstring )) for switching off
+	Documentation.
 
 	* stepmake/stepmake/help2man-vars.make (OUT_DIST_FILES): only do
 	something if DOCUMENTATION is no.
