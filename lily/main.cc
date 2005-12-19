@@ -304,6 +304,10 @@ prepend_env_path (char const *key, String value)
     {
       if (char const *cur = getenv (key))
 	value += to_string (PATHSEP) + cur;
+
+      if (be_verbose_global)
+	progress (_f ("%s=%s", key, value.to_str0 ())); 
+
       return sane_putenv (key, value.to_str0 ());
     }
   else if (be_verbose_global)
