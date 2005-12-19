@@ -361,7 +361,6 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 	= (1.0 / (max (dist, 0.0) + epsilon * state.parameters_.extra_encompass_free_distance_));
       Real threshold 
 	= 1.0 / ((1 + epsilon) * state.parameters_.extra_encompass_free_distance_);
-	   
       
       demerit
 	+= max (info.penalty_ * (factor - threshold), 0.0);
