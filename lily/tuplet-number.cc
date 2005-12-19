@@ -47,5 +47,6 @@ ADD_INTERFACE (Tuplet_number,
 	       ,
 
 	       /* properties */
+	       "avoid-slur " 	// UGH.
 	       "bracket ");
 

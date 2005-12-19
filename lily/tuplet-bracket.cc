@@ -261,6 +261,12 @@ Tuplet_bracket::print (SCM smob)
 
   
   SCM cpoints =  me->get_property ("control-points");
+  if (scm_ilength (cpoints) < 2)
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+  
   Drul_array<Offset> points;
   points[LEFT] = ly_scm2offset (scm_car (cpoints));
   points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));

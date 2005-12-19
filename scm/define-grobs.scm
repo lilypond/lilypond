@@ -593,6 +593,7 @@
 	(font-series . bold)
 	(font-encoding . fetaDynamic)
 	(font-shape . italic)
+	(avoid-slur . avoid)
 	(no-spacing-rods . #t)
 	(script-priority . 100)
 	(meta . ((class . Item)

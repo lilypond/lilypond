@@ -295,10 +295,14 @@ Grob::get_offset (Axis a) const
     dim_cache_[a].offset_ is unaliased.
   */
   Real off = robust_scm2double (internal_get_property (sym), 0.0);
-  *me->dim_cache_[a].offset_ += off;
-
-  me->del_property (sym);
-  return *me->dim_cache_[a].offset_;
+  if (me->dim_cache_[a].offset_)
+    {
+      *me->dim_cache_[a].offset_ += off;
+      me->del_property (sym);
+      return *me->dim_cache_[a].offset_;
+    }
+  else
+    return 0.0;
 }
 
 
