@@ -5,14 +5,11 @@ local-install-files:
 
 # urg, parameterise
 local-install-outfiles: $(INSTALLATION_OUT_FILES) $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(INSTALLATION_OUT_FILES$(suff)))
-	-$(INSTALL) -d $(DESTDIR)$(INSTALLATION_OUT_DIR)
-	$(foreach i, $(INSTALLATION_OUT_FILES), \
-		$(INSTALL) -m 644 $(i) $(DESTDIR)$(INSTALLATION_OUT_DIR)/ && ) true
+	-$(INSTALLPY) -d $(DESTDIR)$(INSTALLATION_OUT_DIR)
+	$(INSTALLPY) -c -m 644 $(INSTALLATION_OUT_FILES) $(DESTDIR)$(INSTALLATION_OUT_DIR)/
 	$(foreach suff, $(INSTALLATION_OUT_SUFFIXES),  \
-		($(INSTALL) -d $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/ || true) && \
-		$(foreach i, $(INSTALLATION_OUT_FILES$(suff)), \
-			$(INSTALL) -m 644 $(i) $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/ && ) true && ) true
-
+		($(INSTALLPY) -d $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/ || true) && \
+		$(INSTALLPY) -c -m 644 $(INSTALLATION_OUT_FILES$(suff)) $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/ && ) true
 
 local-uninstall: local-uninstall-outfiles local-uninstall-files 
 

@@ -302,16 +302,16 @@ prepend_env_path (char const *key, String value)
 {
   if (is_dir (value))
     {
+      if (be_verbose_global)
+	progress_indication (_f ("%s=%s\n", key, value.to_str0 ())); 
+
       if (char const *cur = getenv (key))
 	value += to_string (PATHSEP) + cur;
-
-      if (be_verbose_global)
-	progress_indication (_f ("%s=%s", key, value.to_str0 ())); 
 
       return sane_putenv (key, value.to_str0 ());
     }
   else if (be_verbose_global)
-    warning (_f ("no such directory: %s", value));
+    warning (_f ("no such directory: %s for %s", value, key));
   return -1;
 }
 

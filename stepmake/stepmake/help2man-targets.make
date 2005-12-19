@@ -3,9 +3,8 @@ default: man
 local-install: install-help2man
 
 install-help2man: man
-	-$(INSTALL) -d $(DESTDIR)$(mandir)/man1
-	$(foreach a, $(HELP2MAN_GROFFS), \
-		$(INSTALL) -m 644 $(a) $(DESTDIR)$(mandir)/man1 && ) true
+	-$(INSTALLPY) -d $(DESTDIR)$(mandir)/man1
+	$(INSTALLPY) -c -m 644 $(HELP2MAN_GROFFS) $(DESTDIR)$(mandir)/man1
 
 man: $(HELP2MAN_GROFFS)
 
