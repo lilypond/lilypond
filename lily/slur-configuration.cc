@@ -301,6 +301,8 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
   for (int j = 0; j < state.extra_encompass_infos_.size (); j++)
     {
       Drul_array<Offset> attachment = attachment_;
+      Extra_collision_info const &info (state.extra_encompass_infos_[j]);
+      
       Interval slur_wid (attachment[LEFT][X_AXIS], attachment[RIGHT][X_AXIS]);
 
       /*
@@ -333,8 +335,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 
       if (!found)
 	{
-	  Real x = state.extra_encompass_infos_[j].extents_[X_AXIS]
-	    .linear_combination (state.extra_encompass_infos_[j].idx_);
+	  Real x = info.extents_[X_AXIS].linear_combination (info.idx_);
 
 	  if (!slur_wid.contains (x))
 	    continue;
@@ -342,15 +343,33 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 	  y = curve_.get_other_coordinate (X_AXIS, x);
 	}
 
-      Real dist = state.extra_encompass_infos_[j].extents_[Y_AXIS].distance (y);
+      Real dist = 0.0;
+      if (info.type_ == ly_symbol2scm ("avoid"))
+	dist = info.extents_[Y_AXIS].distance (y);
+
+      /*
+	Have to score too: the curve enumeration is limited in its
+	shape, and may produce curves which collide anyway.
+       */
+      else if (info.type_ == ly_symbol2scm ("inside"))
+	dist = state.dir_ * (y - info.extents_[Y_AXIS][state.dir_]);
+      else
+	programming_error ("unknown avoidance type");
+
+      Real epsilon = 0.1;
+      Real factor
+	= (1.0 / (max (dist, 0.0) + epsilon * state.parameters_.extra_encompass_free_distance_));
+      Real threshold 
+	= 1.0 / ((1 + epsilon) * state.parameters_.extra_encompass_free_distance_);
+	   
+      
       demerit
-	+= fabs (max (0.0, (state.parameters_.extra_encompass_free_distance_ - dist)))
-	/ state.parameters_.extra_encompass_free_distance_
-	* state.extra_encompass_infos_[j].penalty_;
+	+= max (info.penalty_ * (factor - threshold), 0.0);
     }
 #if DEBUG_SLUR_SCORING
   score_card_ += to_string ("X%.2f", demerit);
 #endif
+  
   score_ += demerit;
 }
 

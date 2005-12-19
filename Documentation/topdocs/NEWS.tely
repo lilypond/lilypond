@@ -45,6 +45,10 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 
 @itemize @bullet
+
+@item Tuplet brackets and numbers  are implemented as separate grobs,
+@code{TupletBracket} and @code{TupletNumber}.
+
 @item String arguments for music functions may be specified without
 @code{#} marks. This allows syntactical constructs (like \clef and
 \bar) to be expressed in generic music functions.

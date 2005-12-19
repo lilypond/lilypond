@@ -157,6 +157,10 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   if (!slur)
     return offset_scm;
 
+  SCM avoid = script->get_property ("avoid-slur");
+  if (avoid != ly_symbol2scm ("outside"))
+    return scm_from_int (0);
+  
   Direction dir = get_grob_direction (script);
   if (dir == CENTER)
     return offset_scm;
@@ -185,8 +189,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   bool consider[] = { false, false, false };
   Real ys[] = {0, 0, 0};
   bool do_shift = false;
-  SCM avoid = script->get_property ("avoid-slur");
-
+  
   for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
     {
       Real x = xext.linear_combination ((Direction) d);
@@ -205,8 +208,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 	  /* Request shift if slur is contained script's Y, or if
 	     script is inside slur and avoid == outside.  */
 	  if (yext.contains (ys[k])
-	      || (avoid == ly_symbol2scm ("outside")
-		  && dir * ys[k] > dir * yext[-dir]))
+	      || dir * ys[k] > dir * yext[-dir])
 	    do_shift = true;
 	}
     }
@@ -240,6 +242,6 @@ ADD_INTERFACE (Slur, "slur-interface",
 	       "positions "
 	       "quant-score "
 	       "ratio "
-	       "slur-details "
+	       "details "
 	       "thickness ");
 

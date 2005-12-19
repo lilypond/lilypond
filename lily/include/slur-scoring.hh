@@ -26,7 +26,7 @@ struct Slur_score_parameters
   Real non_horizontal_penalty_;
   Real max_slope_;
   Real max_slope_factor_;
-  Real extra_object_collision_;
+  Real extra_object_collision_penalty_;
   Real accidental_collision_;
   Real free_slur_distance_;
   Real free_head_distance_;
@@ -45,21 +45,11 @@ struct Extra_collision_info
   Box extents_;
   Real penalty_;
   Grob *grob_;
+  SCM type_;
+  
+  Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p);
+  Extra_collision_info ();
 
-  Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p)
-  {
-    idx_ = idx;
-    extents_[X_AXIS] = x;
-    extents_[Y_AXIS] = y;
-    penalty_ = p;
-    grob_ = g;
-  }
-  Extra_collision_info ()
-  {
-    idx_ = 0.0;
-    penalty_ = 0.;
-    grob_ = 0;
-  }
 };
 
 struct Encompass_info

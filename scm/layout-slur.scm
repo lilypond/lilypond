@@ -18,7 +18,7 @@
     (max-slope-factor . 10)
     (free-head-distance . 0.3)
     (free-slur-distance . 0.8)
-    (extra-object-collision . 50)
+    (extra-object-collision-penalty . 50)
     (accidental-collision . 3)
     (extra-encompass-free-distance . 0.3)
     (head-slur-distance-max-ratio . 3)
