@@ -22,13 +22,14 @@ class Dimension_cache
   Interval *extent_;
   Real *offset_;
   Grob *parent_;
+  void init ();
+  void clear ();
   
   friend class Grob;
   
   Dimension_cache (Dimension_cache const &);
   ~Dimension_cache ();
   Dimension_cache ();
-  void init ();
 };
 
 #endif /* DIMENSION_CACHE_HH */

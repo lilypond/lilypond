@@ -210,6 +210,9 @@ Grob::suicide ()
   if (!is_live ())
     return;
 
+  for (int a = X_AXIS; a < NO_AXES; a++)
+    dim_cache_[a].clear ();
+
   mutable_property_alist_ = SCM_EOL;
   object_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
@@ -332,24 +335,25 @@ Grob::extent (Grob *refp, Axis a) const
     }
   else
     {
-      SCM min_ext_sym =
-	(a == X_AXIS)
-	? ly_symbol2scm ("minimum-X-extent")
-	: ly_symbol2scm ("minimum-Y-extent");
-
+      /*
+	Order is significant: ?-extent may trigger suicide.
+       */
       SCM ext_sym =
 	(a == X_AXIS)
 	? ly_symbol2scm ("X-extent")
 	: ly_symbol2scm ("Y-extent");
-  
-      SCM min_ext = internal_get_property (min_ext_sym);
-      SCM ext = internal_get_property (ext_sym);
 
-      if (is_number_pair (min_ext))
-	real_ext.unite (ly_scm2interval (min_ext));
+      SCM ext = internal_get_property (ext_sym);
       if (is_number_pair (ext))
 	real_ext.unite (ly_scm2interval (ext));
 
+      SCM min_ext_sym =
+	(a == X_AXIS)
+	? ly_symbol2scm ("minimum-X-extent")
+	: ly_symbol2scm ("minimum-Y-extent");
+      SCM min_ext = internal_get_property (min_ext_sym);
+      if (is_number_pair (min_ext))
+	real_ext.unite (ly_scm2interval (min_ext));
       ((Grob*)this)->del_property (ext_sym);
       ((Grob*)this)->dim_cache_[a].extent_ = new Interval (real_ext);  
     }
