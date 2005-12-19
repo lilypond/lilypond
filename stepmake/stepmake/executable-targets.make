@@ -7,12 +7,11 @@ local-install: installexe
 local-uninstall: uninstallexe
 
 installexe: all
-	-$(INSTALL) -d $(DESTDIR)$(bindir)
+	-$(INSTALLPY) -d $(DESTDIR)$(bindir)
 	$(foreach a, $(EXECUTABLES), \
-		$(INSTALL) -m 755 $(outdir)/$(a) \
+		$(INSTALLPY) -m 755 $(outdir)/$(a) \
 		$(DESTDIR)$(bindir)/$(program_prefix)$(a)$(program_suffix) && ) true
-	$(foreach a, $(SEXECUTABLES), \
-		$(INSTALL) -m 755 $(outdir)/$(a) $(DESTDIR)$(bindir) &&) true
+	$(INSTALLPY) -c -m 755 $(addprefix $(outdir)/, $(SEXECUTABLES)) $(DESTDIR)$(bindir)
 
 uninstallexe:
 	$(foreach a, $(EXECUTABLES), rm -f \

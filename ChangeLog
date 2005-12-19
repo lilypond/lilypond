@@ -1,5 +1,17 @@
 2005-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/install-targets.make (local-uninstall): idem.
+
+	* stepmake/stepmake/install-out-targets.make (local-install-outfiles): idem.
+
+	* stepmake/stepmake/help2man-targets.make (install-help2man): idem.
+
+	* stepmake/stepmake/generic-vars.make (Module): idem.
+
+	* stepmake/stepmake/executable-targets.make (default): use it.
+
+	* stepmake/bin/install.py (create_dir): new file. Replace install-sh.
+
 	* make/GNUmakefile: don't install make rules.
 
 	* lily/main.cc (setup_paths): don't inspect $PATH for argv0 with
