@@ -1703,6 +1703,7 @@
     (Tie
      . (
 	(control-points . ,Tie::calc_control_points)
+	(avoid-slur . inside)
 	(direction . ,Tie::calc_direction)
 	(stencil . ,Tie::print)
 	(details . ((ratio . 0.333)
