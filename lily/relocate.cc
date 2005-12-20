@@ -9,19 +9,23 @@
 
 #include "relocate.hh"
 
-#include "string.hh"
+#include "config.hh"
+
+#include <sys/stat.h>
+#include <unistd.h>
+
+#if HAVE_GETTEXT
+#include <libintl.h>
+#endif
+
 #include "file-name.hh"
 #include "file-path.hh"
-#include "main.hh"
-#include "warn.hh"
-#include "config.hh"
-#include "version.hh"
-
 #include "lily-guile.hh"
 #include "lily-version.hh"
+#include "main.hh"
+#include "version.hh"
+#include "warn.hh"
 
-#include <unistd.h>
-#include <sys/stat.h>
 
 int
 sane_putenv (char const *key, String value, bool overwrite)
