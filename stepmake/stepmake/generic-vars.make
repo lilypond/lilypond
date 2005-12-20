@@ -39,7 +39,7 @@ step-bindir = $(stepmake)/bin
 DEPTH = $(depth)/$(package-depth)
 
 INSTALLPY=$(PYTHON) $(step-bindir)/install.py -c
-INSTALL=$(INSTALL)
+INSTALL=$(INSTALLPY)
 
 group-dir = $(shell cd $(DEPTH);pwd)/..
 release-dir = $(group-dir)/releases
