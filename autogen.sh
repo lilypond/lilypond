@@ -7,6 +7,7 @@ case $1 in
     --noconf*) NOCONFIGURE=true;;
 esac
 
+touch stepmake/bin/install-sh
 if [ ! -f aclocal.m4 -o stepmake/aclocal.m4 -nt aclocal.m4 ]; then
     echo "stepmake/aclocal.m4 is newer.  Copying file." 
     cp -f stepmake/aclocal.m4 aclocal.m4
@@ -34,7 +35,7 @@ for i in autoconf2.50 autoconf-2.50 autoconf  false; do
 done
 
 if test -z "$autoconf"; then
-    echo "ERROR: Please install autoconf 2.50 or newer"
+i    echo "ERROR: Please install autoconf 2.50 or newer"
     exit 1
 fi
 
