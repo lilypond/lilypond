@@ -1,5 +1,9 @@
 2005-12-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/relocate.hh: new file.
+
+	* lily/relocate.cc: new file. Contain relocation logic.
+
 	* lily/main.cc (setup_paths): fix: LILYPOND_RELOCATE_PREFIX.
 	(main): read LILYPOND_VERBOSE as the first thing.
 

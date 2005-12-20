@@ -1,0 +1,21 @@
+/*
+  relocate.hh -- declare
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
+
+#ifndef RELOCATE_HH
+#define RELOCATE_HH
+
+
+
+#include "string.hh"
+
+int sane_putenv (char const *key, String value, bool overwrite);
+void setup_paths (char const *argv0);
+extern bool relocate_binary;
+
+#endif /* RELOCATE_HH */
