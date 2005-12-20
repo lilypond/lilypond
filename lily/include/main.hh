@@ -49,6 +49,8 @@ extern bool make_print;
 extern Array<String> failed_files;
 extern int exit_status_global;
 extern File_path global_path;
+extern const char *LILYPOND_DATADIR;
+
 
 /*
   Debugging options: switch on
