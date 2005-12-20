@@ -32,6 +32,7 @@ config.hh
 config.make
 config.status
 custom.py
+install-sh
 out
 out-g16
 out-g16opt

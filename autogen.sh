@@ -35,7 +35,7 @@ for i in autoconf2.50 autoconf-2.50 autoconf  false; do
 done
 
 if test -z "$autoconf"; then
-i    echo "ERROR: Please install autoconf 2.50 or newer"
+    echo "ERROR: Please install autoconf 2.50 or newer"
     exit 1
 fi
 
