@@ -1,3 +1,9 @@
+2005-12-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* .cvsignore: Add install-sh.
+
+	* autogen.sh (srcdir): Typo.
+
 2005-12-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* autogen.sh (srcdir): urg. Touch install-sh.
