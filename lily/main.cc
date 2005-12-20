@@ -390,11 +390,18 @@ setup_paths (char const *argv0)
 {
   prefix_directory = LILYPOND_DATADIR;
 
-  if (relocate_binary)
+  
+  if (relocate_binary
+      && getenv ("LILYPOND_RELOCATE_PREFIX"))
     {
-      if (getenv ("LILYPOND_VERBOSE"))
-	be_verbose_global = true;
-      
+      String prefix = getenv ("LILYPOND_RELOCATE_PREFIX");
+      /*
+	fixme: need different sep for mingw? 
+      */
+      set_relocation (prefix + "/bin", prefix);
+    }
+  else if (relocate_binary)
+    {
 #if defined (__CYGWIN__) || defined (__MINGW32__)
       String s = argv0;
       s.substitute ('\\', '/');
@@ -404,9 +411,7 @@ setup_paths (char const *argv0)
 
       /* if name contains slashes, we should not look in $PATH */
       String argv0_abs;
-      if (getenv ("LILYPOND_RELOCATE_PREFIX"))
-	argv0_abs = getenv ("LILYPOND_RELOCATE_PREFIX");
-      else if (argv0[0] == '/')
+      if (argv0[0] == '/')
 	argv0_abs = argv0_abs;
       else if (String (argv0).index ('/') > 0)
 	argv0_abs = get_working_directory () + "/" + String (argv0);
@@ -827,6 +832,9 @@ setup_guile_env ()
 int
 main (int argc, char **argv)
 {
+  if (getenv ("LILYPOND_VERBOSE"))
+    be_verbose_global = true;
+
   setup_localisation ();
   parse_argv (argc, argv);
   if (isatty (STDIN_FILENO))
