@@ -1,5 +1,7 @@
 2005-12-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* autogen.sh (srcdir): urg. Touch install-sh.
+
 	* stepmake/bin/install-sh (Module): remove.
 
 	* stepmake/stepmake/generic-vars.make (INSTALL): add $(INSTALL).
