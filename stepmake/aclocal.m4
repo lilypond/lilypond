@@ -769,14 +769,12 @@ AC_DEFUN(STEPMAKE_INIT, [
     LN=ln
     LN_S='ln -s'
     ZIP="zip -r -9"
-    INSTALL="\$(SHELL) \$(stepdir)/../bin/install-sh -c"
 
     AC_SUBST(program_prefix)
     AC_SUBST(program_suffix)
     AC_SUBST(ZIP)
     AC_SUBST(LN)
     AC_SUBST(LN_S)
-    AC_SUBST(INSTALL)
     AC_DEFINE_UNQUOTED(DIRSEP, ['${DIRSEP}'])
     AC_DEFINE_UNQUOTED(PATHSEP, ['${PATHSEP}'])
     AC_SUBST(DIRSEP)
