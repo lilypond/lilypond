@@ -4,6 +4,8 @@
 
 2005-12-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* stepmake/bin/install.py: Remove file before copying.
+
 	* config.make.in: 
 	* stepmake/aclocal.m4: Do not substitute INSTALL.
 
