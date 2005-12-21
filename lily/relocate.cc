@@ -161,6 +161,15 @@ setup_paths (char const *argv0)
 #endif /* __CYGWIN__ || __MINGW32__ */
 
 
+#ifndef __MINGW32__
+
+      /* FIXME, this is broken.
+       what is this supposed to do?
+
+       argv0[0]==/ is not a universal test for absolute files, see
+       below for File_name.dir_[0] .
+      */
+
       /* if name contains slashes, we should not look in $PATH */
       String argv0_abs;
       if (argv0[0] == '/')
@@ -168,6 +177,7 @@ setup_paths (char const *argv0)
       else if (String (argv0).index ('/') > 0)
 	argv0_abs = get_working_directory () + "/" + String (argv0);
       else
+#endif
 	{
 	  /* Find absolute ARGV0 name, using PATH.  */
 	  File_path path;
