@@ -22,6 +22,7 @@ public:
 
   File_name (String);
 
+  bool is_absolute () const;
   String to_string () const;
 };
 
