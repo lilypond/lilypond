@@ -66,7 +66,8 @@ if not create_dir:
 
 for f in args:
 	if create_dir:
-		os.makedirs (f, mode=mode)
+		if not os.path.isdir (f):
+			os.makedirs (f, mode=mode)
 		chown_me.append (f)
 	else:
 		if copy:
