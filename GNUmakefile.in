@@ -160,7 +160,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 		ln -sf ../../../../../po/$(outconfbase)/$i.mo lilypond.mo) &&) true
 	touch $(tree-share-prefix)/lilypond-force
 
-$(tree-share-prefix)/mf-link-tree link-mf-tree:
+$(tree-share-prefix)/mf-link-tree link-mf-tree: $(tree-share-prefix)/lilypond-force
 	-rm -f $(tree-share-prefix)/fonts/{otf,svg,tfm,type1}/* &&  \
 		cd $(tree-share-prefix)/fonts/otf && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
