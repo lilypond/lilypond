@@ -157,15 +157,15 @@ setup_paths (char const *argv0_ptr)
     {
       String argv0_abs;
       if (argv0_filename.is_absolute ())
-	argv0_abs = argv0_abs;
+	argv0_abs = argv0_filename.to_string ();
       else if (argv0_filename.dir_.length ())
-	argv0_abs = get_working_directory () + "/" + String (argv0_filename.to_string ());
+	argv0_abs = get_working_directory ()
+	  + "/" + String (argv0_filename.to_string ());
       else
 	{
 	  /* Find absolute ARGV0 name, using PATH.  */
 	  File_path path;
 	  path.parse_path (getenv ("PATH"));
-
       
 #ifndef __MINGW32__
 	  String argv0_abs = path.find (argv0_filename.to_string ());
@@ -177,7 +177,6 @@ setup_paths (char const *argv0_ptr)
 	  if (argv0_abs.is_empty ())
 	    programming_error ("can't find absolute argv0.");
 	}
-
       
       String bindir = dir_name (argv0_abs);
       String argv0_prefix = dir_name (bindir);
