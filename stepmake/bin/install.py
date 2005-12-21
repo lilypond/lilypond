@@ -71,7 +71,7 @@ for f in args:
 		chown_me.append (f)
 	else:
 		if copy:
-			if os.path.exists (dest):
+			if os.path.exists (dest) and not os.path.isdir (dest):
 				os.remove (dest)
 			shutil.copy2 (f, dest)
 		else:
