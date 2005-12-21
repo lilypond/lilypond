@@ -139,10 +139,11 @@ get_working_directory ()
 }
 
 void
-setup_paths (char const *argv0)
+setup_paths (char const *argv0_ptr)
 {
-  prefix_directory = LILYPOND_DATADIR;
+  File_name argv0_filename (argv0_ptr);
   
+  prefix_directory = LILYPOND_DATADIR;
   if (relocate_binary
       && getenv ("LILYPOND_RELOCATE_PREFIX"))
     {
@@ -150,34 +151,16 @@ setup_paths (char const *argv0)
       /*
 	fixme: need different sep for mingw? 
       */
-      set_relocation (prefix + "/bin", prefix);
+      set_relocation (prefix + "/" + "bin", prefix);
     }
   else if (relocate_binary)
     {
-#if defined (__CYGWIN__) || defined (__MINGW32__)
-      String s = argv0;
-      s.substitute ('\\', '/');
-      argv0 = s.to_str0 ();
-#endif /* __CYGWIN__ || __MINGW32__ */
-
-
-#ifndef __MINGW32__
-
-      /* FIXME, this is broken.
-       what is this supposed to do?
-
-       argv0[0]==/ is not a universal test for absolute files, see
-       below for File_name.dir_[0] .
-      */
-
-      /* if name contains slashes, we should not look in $PATH */
       String argv0_abs;
-      if (argv0[0] == '/')
+      if (argv0_filename.is_absolute ())
 	argv0_abs = argv0_abs;
-      else if (String (argv0).index ('/') > 0)
-	argv0_abs = get_working_directory () + "/" + String (argv0);
+      else if (argv0_filename.dir_.length ())
+	argv0_abs = get_working_directory () + "/" + String (argv0_filename.to_string ());
       else
-#endif
 	{
 	  /* Find absolute ARGV0 name, using PATH.  */
 	  File_path path;
@@ -185,33 +168,22 @@ setup_paths (char const *argv0)
 
       
 #ifndef __MINGW32__
-	  String argv0_abs = path.find (argv0);
+	  String argv0_abs = path.find (argv0_filename.to_string ());
 #else /* __MINGW32__ */
 	  char const *ext[] = {"exe", "", 0 };
-	  String argv0_abs = path.find (argv0, ext);
+	  String argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif /* __MINGW32__ */
 
 	  if (argv0_abs.is_empty ())
-	    {
-	      File_name name (argv0);
-	      /* If NAME contains slashes and its DIR is not absolute, it can
-		 only be referenced from CWD.  */
-	      if (name.to_string ().index ('/') >= 0 && name.dir_[0] != '/')
-		{
-		  argv0_abs =  get_working_directory () + "/" + argv0;
-		}
-	      else
-		programming_error ("can't find absolute argv0");
-	    }
+	    programming_error ("can't find absolute argv0.");
 	}
+
       
       String bindir = dir_name (argv0_abs);
       String argv0_prefix = dir_name (bindir);
       if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
 	set_relocation (bindir, argv0_prefix);
     }
-  else
-    (void) argv0;
 
   /* FIXME: use LILYPOND_DATADIR.  */
   if (char const *env = getenv ("LILYPONDPREFIX"))
