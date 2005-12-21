@@ -16,9 +16,10 @@ FIX OR STANDARDISE TARGETS
 
     cp po/out/lilypond.po po/LANG.po
 
-* and edit your favorite po/LANG.po.  Use a dedicated tool, like kbabel:
+* and edit your favorite po/LANG.po using a dedicated tool:
 
     kbabel po/fi.po
+    gtranslator po/fi.po
 
   Especially, look for fuzzy and untranslated entries.  At the bottom of 
   the file may accumulate the list of obsolete translations, which may 
