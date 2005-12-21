@@ -39,7 +39,6 @@ step-bindir = $(stepmake)/bin
 DEPTH = $(depth)/$(package-depth)
 
 INSTALLPY=$(PYTHON) $(step-bindir)/install.py -c
-## FIXME, use INSTALLPY or INSTALL from config.make?
 INSTALL=$(INSTALLPY)
 
 group-dir = $(shell cd $(DEPTH);pwd)/..
