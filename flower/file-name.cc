@@ -116,3 +116,9 @@ File_name::File_name (String file_name)
   else
     base_ = file_name;
 }
+
+bool
+File_name::is_absolute () const
+{
+  return (dir_[0] == DIRSEP);
+}
