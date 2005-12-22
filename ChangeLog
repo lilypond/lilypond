@@ -1,3 +1,8 @@
+2005-12-22  Graham Percival  <gpermus@gmail.com>
+
+	* scm/define-markup-commands.scm: typo.  @code{\raise}
+	=> @code{\\raise}.
+
 2005-12-21  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* po/TODO: mention gtranslator along with kbabel.
