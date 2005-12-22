@@ -1144,7 +1144,7 @@ a shortened down stem."
 (def-markup-command (lower layout props amount arg) (number? markup?)
   "
 Lower @var{arg}, by the distance @var{amount}.
-A negative @var{amount} indicates raising, see also @code{\raise}.
+A negative @var{amount} indicates raising, see also @code{\\raise}.
 "
   (ly:stencil-translate-axis (interpret-markup layout props arg)
 			     (- amount) Y))
