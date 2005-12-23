@@ -152,14 +152,15 @@ SCM
 Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
   Grob *script = unsmob_grob (grob);
-  Grob *slur = unsmob_grob (script->get_object ("slur"));
+  Grob *slur = unsmob_grob (script->get_object ("slur")); 
 
   if (!slur)
     return offset_scm;
 
   SCM avoid = script->get_property ("avoid-slur");
-  if (avoid != ly_symbol2scm ("outside"))
-    return scm_from_int (0);
+  if (avoid != ly_symbol2scm ("outside")
+      && avoid != ly_symbol2scm ("around"))
+    return offset_scm;
   
   Direction dir = get_grob_direction (script);
   if (dir == CENTER)
@@ -208,7 +209,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 	  /* Request shift if slur is contained script's Y, or if
 	     script is inside slur and avoid == outside.  */
 	  if (yext.contains (ys[k])
-	      || dir * ys[k] > dir * yext[-dir])
+	      || (dir * ys[k] > dir * yext[-dir] && avoid == ly_symbol2scm ("outside")))
 	    do_shift = true;
 	}
     }
