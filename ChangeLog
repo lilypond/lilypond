@@ -3,6 +3,9 @@
 	* scm/define-markup-commands.scm: typo.  @code{\raise}
 	=> @code{\\raise}.
 
+	* darwin.patch: now used again, includes a
+	required patch from fink.
+
 2005-12-21  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* po/TODO: mention gtranslator along with kbabel.

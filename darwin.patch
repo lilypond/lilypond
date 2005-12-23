@@ -1,32 +1,11 @@
---- lily/out/parser.hh.orig	Tue Mar 12 16:10:02 2002
-+++ lily/out/parser.hh	Tue Mar 12 16:23:58 2002
-@@ -14,7 +14,7 @@
+diff -ruN stepmake/stepmake/c++-rules.make lilypond-2.7.11/stepmake/stepmake/c++-rules.make
+--- stepmake/stepmake/c++-rules.make	2005-10-02 09:14:45.000000000 -0700
++++ stepmake/stepmake/c++-rules.make	2005-10-02 09:15:10.000000000 -0700
+@@ -26,6 +26,7 @@
  
-     Request * request;
+ $(outdir)/%.cc: %.ll
+ 	$(FLEX) -Cfe -p -p -o$@ $< 
++	perl -i.bak -pe 's/^class istream;/#include <iostream>;\nusing namespace std;/' $@
  
--    //* We use SCMs to do strings, because it saves us the trouble of
-+    /* We use SCMs to do strings, because it saves us the trouble of
- deleting them.  Let's hope that a stack overflow doesnt trigger a move
- of the parse stack onto the heap. */
- 
---- lily/out/parser.cc.orig	Tue Mar 12 16:08:40 2002
-+++ lily/out/parser.cc	Tue Mar 12 16:16:02 2002
-@@ -227,7 +227,7 @@
- 
- 
- // needed for bison.simple's malloc () and free ()
--#include <malloc.h>
-+#include <stdlib.h>
- 
- #ifndef NDEBUG
- #define YYDEBUG 1
-@@ -258,7 +258,7 @@
- 
-     Request * request;
- 
--    //* We use SCMs to do strings, because it saves us the trouble of
-+    /* We use SCMs to do strings, because it saves us the trouble of
- deleting them.  Let's hope that a stack overflow doesnt trigger a move
- of the parse stack onto the heap. */
- 
-     SCM scm;
+ $(outdir)/%-rc.o: $(outdir)/%.rc
+ 	$(WINDRES) $(WINDRES_FLAGS) -o$@ $<
