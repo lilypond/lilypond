@@ -93,6 +93,10 @@ Slur_engraver::acknowledge_note_column (Grob_info info)
 void
 Slur_engraver::acknowledge_extra_object (Grob_info info)
 {
+  if (slurs_.is_empty ()
+      && end_slurs_.is_empty ())
+    return ;
+  
   Grob *e = info.grob ();
   SCM avoid = e->get_property ("avoid-slur");
   if (Tie::has_interface (e)
@@ -103,9 +107,8 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
       for (int i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
-  else if ((avoid == ly_symbol2scm ("outside")
-	    || avoid == ly_symbol2scm ("around"))
-	   && e->name () != "DynamicText")
+  else if (avoid == ly_symbol2scm ("outside")
+	   || avoid == ly_symbol2scm ("around"))
     {
       Grob *slur = slurs_.size () ? slurs_[0] : 0;
       slur = (end_slurs_.size () && !slur)
@@ -155,6 +158,7 @@ Slur_engraver::acknowledge_script (Grob_info info)
 void
 Slur_engraver::acknowledge_text_script (Grob_info info)
 {
+  //  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("DynamicText")))
   acknowledge_extra_object (info);
 }
 

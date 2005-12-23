@@ -236,38 +236,41 @@ Slur_score_state::get_bound_info () const
 	{
 	  extremes[d].note_column_ = extremes[d].bound_;
 	  extremes[d].stem_ = Note_column::get_stem (extremes[d].note_column_);
-	  extremes[d].stem_dir_ = get_grob_direction (extremes[d].stem_);
-
-	  for (int a = X_AXIS; a < NO_AXES; a++)
+	  if (extremes[d].stem_)
 	    {
-	      Axis ax = Axis (a);
-	      Interval s = extremes[d].stem_->extent (common_[ax], ax);
-	      if (s.is_empty ())
+	      extremes[d].stem_dir_ = get_grob_direction (extremes[d].stem_);
+
+	      for (int a = X_AXIS; a < NO_AXES; a++)
 		{
-		  /*
-		    do not issue warning. This happens for rests and
-		    whole notes.
-		  */
-		  s = Interval (0, 0)
-		    + extremes[d].stem_->relative_coordinate (common_[ax], ax);
+		  Axis ax = Axis (a);
+		  Interval s = extremes[d].stem_->extent (common_[ax], ax);
+		  if (s.is_empty ())
+		    {
+		      /*
+			do not issue warning. This happens for rests and
+			whole notes.
+		      */
+		      s = Interval (0, 0)
+			+ extremes[d].stem_->relative_coordinate (common_[ax], ax);
+		    }
+		  extremes[d].stem_extent_[ax] = s;
 		}
-	      extremes[d].stem_extent_[ax] = s;
+
+	      extremes[d].slur_head_
+		= Stem::extremal_heads (extremes[d].stem_)[dir];
+	      if (!extremes[d].slur_head_
+		  && Note_column::has_rests (extremes[d].bound_))
+		extremes[d].slur_head_ = Note_column::get_rest (extremes[d].bound_);
+	      extremes[d].staff_ = Staff_symbol_referencer
+		::get_staff_symbol (extremes[d].stem_);
+	      extremes[d].staff_space_ = Staff_symbol_referencer
+		::staff_space (extremes[d].stem_);
 	    }
 
-	  extremes[d].slur_head_
-	    = Stem::extremal_heads (extremes[d].stem_)[dir];
-	  if (!extremes[d].slur_head_
-	      && Note_column::has_rests (extremes[d].bound_))
-	    extremes[d].slur_head_ = Note_column::get_rest (extremes[d].bound_);
-
 	  if (extremes[d].slur_head_)
-	    extremes[d].slur_head_extent_
+	    extremes[d].slur_head_x_extent_
 	      = extremes[d].slur_head_->extent (common_[X_AXIS], X_AXIS);
 
-	  extremes[d].staff_ = Staff_symbol_referencer
-	    ::get_staff_symbol (extremes[d].stem_);
-	  extremes[d].staff_space_ = Staff_symbol_referencer
-	    ::staff_space (extremes[d].stem_);
 	}
     }
   while (flip (&d) != LEFT);
@@ -343,7 +346,8 @@ Slur_score_state::fill (Grob *me)
   Direction d = LEFT;
   do
     {
-      if (!is_broken_)
+      if (!is_broken_
+	  && extremes_[d].slur_head_)
 	musical_dy_ += d
 	  * extremes_[d].slur_head_->relative_coordinate (common_[Y_AXIS], Y_AXIS);
     }
@@ -598,6 +602,9 @@ Real
 Slur_score_state::move_away_from_staffline (Real y,
 					    Grob *on_staff) const
 {
+  if (!on_staff)
+    return y;
+  
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (on_staff);
   if (!staff_symbol)
     return y;
@@ -723,9 +730,9 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 	      do
 		{
 		  if (extremes_[d].slur_head_
-		      && !extremes_[d].slur_head_extent_.is_empty ())
+		      && !extremes_[d].slur_head_x_extent_.is_empty ())
 		    {
-		      os[d][X_AXIS] = extremes_[d].slur_head_extent_.center ();
+		      os[d][X_AXIS] = extremes_[d].slur_head_x_extent_.center ();
 		      attach_to_stem[d] = false;
 		    }
 		}
@@ -743,7 +750,7 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 
 		     TODO: parameter */
 		  os[d][X_AXIS]
-		    -= dir_ * extremes_[d].slur_head_extent_.length ()
+		    -= dir_ * extremes_[d].slur_head_x_extent_.length ()
 		    * sin (dz.arg ()) / 3;
 		}
 	    }
