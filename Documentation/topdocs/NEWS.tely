@@ -48,9 +48,17 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 @item
 Stem direction on the center staff line are now interpolated between
 neighbors. This results in less stem direction changes, leading to a
-more even typography. For example,
+more even appearance. For example,
 
- 
+@lilypond[raggedright]
+\relative c'' {
+  c4 b c b
+  c c c r
+  b a b a
+}
+@end lilypond 
+
+This feature was sponsored by Mike Rolish and Basil Crow.
 
 @item
 Slurs now avoid @code{TupletNumber}s, and tuplet numbers may enter the

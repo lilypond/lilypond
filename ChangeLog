@@ -1,5 +1,11 @@
 2005-12-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): document new feature.
+
+	* input/regression/stem-direction-context.ly: new file.
+
+	* lily/relocate.cc (set_relocation): add PANGO_PREFIX
+
 	* lily/melody-engraver.cc (acknowledge_stem): restart MelodyItem
 	on rest.
 

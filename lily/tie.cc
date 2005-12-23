@@ -245,6 +245,7 @@ ADD_INTERFACE (Tie,
 	       
 
 	       /* properties */
+	       "avoid-slur " 	//  UGH.
 	       "control-points "
 	       "dash-fraction "
 	       "dash-period "
@@ -252,6 +253,7 @@ ADD_INTERFACE (Tie,
 	       "direction "
 	       "thickness "
 	       "x-gap ");
+
 
 
 

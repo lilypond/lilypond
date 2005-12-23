@@ -626,13 +626,6 @@ Tuplet_bracket::calc_positions (SCM smob)
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "note-columns", columns);
 
-  if (columns.is_empty())
-    {
-      me->suicide ();
-      return scm_cons (scm_from_double (0),
-		       scm_from_double (0));
-    }
-  
   Direction dir = get_grob_direction (me);
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);

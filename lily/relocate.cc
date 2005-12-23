@@ -126,6 +126,8 @@ set_relocation (String bindir, String prefix)
 		    + to_string ("/guile/%d.%d",
 				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
   set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
+  set_env_file ("PANGO_PREFIX", prefix);
+		
   prepend_env_path ("PATH", bindir);
 }
 
