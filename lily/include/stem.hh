@@ -40,6 +40,7 @@ public:
   static void set_spacing_hints (Grob *);
   
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_default_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));

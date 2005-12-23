@@ -1,0 +1,96 @@
+/*
+  melody-spanner.cc -- implement Melody_spanner
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
+
+#include "melody-spanner.hh"
+#include "grob.hh"
+#include "pointer-group-interface.hh"
+
+/*
+  TODO: this could be either item or spanner. For efficiency reasons,
+  let's take item for now.
+*/
+
+
+/*
+  Interpolate stem directions for neutral stems.
+ */
+MAKE_SCHEME_CALLBACK(Melody_spanner,calc_neutral_stem_direction, 1);
+SCM
+Melody_spanner::calc_neutral_stem_direction (SCM smob)
+{
+  Grob *stem = unsmob_grob (smob);
+  Grob *me =  unsmob_grob (stem->get_object ("melody-spanner"));
+
+  extract_grob_set (me, "stems", stems);
+
+  Array<Direction> dirs;
+  for (int i = 0; i < stems.size (); i++)
+    {
+      dirs.push (to_dir (stems[i]->get_property ("default-direction")));
+    }
+
+  int last_nonneutral = -1;
+  int next_nonneutral = 0;
+  while (next_nonneutral < dirs.size() &&  !dirs[next_nonneutral])
+    next_nonneutral ++;
+
+  while (last_nonneutral < dirs.size () - 1) 
+    {
+      Direction d1 = CENTER;
+      Direction d2 = CENTER;
+      if (last_nonneutral >= 0)
+	d1 = dirs[last_nonneutral];
+      if (next_nonneutral < dirs.size ())
+	d2 = dirs[next_nonneutral];
+
+      Direction total = CENTER;
+      if (d1 && d1 == d2)
+	total = d1;
+      else if (d1 && !d2)
+	total = d1;
+      else if (d2 && !d1)
+	total = d2;
+      else
+	total = to_dir (me->get_property ("neutral-direction"));
+      
+      for (int i = last_nonneutral + 1; i <  next_nonneutral; i++)
+	stems[i]->set_property ("neutral-direction", scm_from_int (total));
+
+
+      last_nonneutral = next_nonneutral;
+      while (last_nonneutral < dirs.size ()
+	     && dirs[last_nonneutral])
+	last_nonneutral ++;
+      next_nonneutral = last_nonneutral;
+      last_nonneutral --;
+
+      while (next_nonneutral < dirs.size ()
+	     && !dirs[next_nonneutral])
+	next_nonneutral ++;
+    }
+
+  me->suicide ();
+  return SCM_UNSPECIFIED;
+}
+
+void
+Melody_spanner::add_stem (Grob *me, Grob *stem)
+{
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("stems"), stem);
+  stem->set_object ("melody-spanner", me->self_scm ());
+  stem->set_property ("neutral-direction", Melody_spanner::calc_neutral_stem_direction_proc);
+}
+
+ADD_INTERFACE (Melody_spanner, "melody-spanner-interface",
+	       "Context dependent typesetting decisions.",
+
+	       "stems "
+	       "neutral-direction ");
+
+  

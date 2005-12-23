@@ -142,6 +142,7 @@ negative, no line is drawn at all.")
 dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
      
+     (default-direction ,ly:dir? "Direction determined by note head positions.")
      (direction ,ly:dir? "Up or down, left or right?")
      (dot-color ,symbol? "Color of dots.  Options include 
 @code{black} and @code{white}.")
