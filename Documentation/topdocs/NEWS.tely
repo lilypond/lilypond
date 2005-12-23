@@ -80,6 +80,7 @@ staff.
 
 This feature was sponsored by Trent Johnston.
 
+
 @item Tuplet brackets and numbers  are implemented as separate grobs,
 @code{TupletBracket} and @code{TupletNumber}.
 
