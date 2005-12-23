@@ -81,7 +81,11 @@ fit_factor (Offset dz_unit, Offset dz_perp,
       Offset z = (avoid[i] - x0);
       Offset p (dot_product (z, dz_unit),
 		d * dot_product (z, dz_perp));
-      if (!curve_xext.contains (p[X_AXIS]))
+
+      Real eps = 0.01;
+      Interval pext = eps * Interval (-1,1) + p[X_AXIS];
+      pext.intersect (curve_xext);
+      if (pext.is_empty () || pext.length () <= 2.1* eps)
 	continue;
 
       Real y = curve.get_other_coordinate (X_AXIS, p[X_AXIS]);
