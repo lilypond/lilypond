@@ -11,6 +11,7 @@
 
 #include "item.hh"
 #include "melody-spanner.hh"
+#include "pointer-group-interface.hh"
 
 /**
    Make stems upon receiving noteheads.
@@ -33,12 +34,17 @@ Melody_engraver::Melody_engraver ()
 void
 Melody_engraver::acknowledge_stem (Grob_info info)
 {
-  if (!melody_item_)
-    melody_item_ = make_item ("MelodyItem", info.grob ()->self_scm ());
+  extract_grob_set (info.grob (), "rests", rests);
+  if (rests.size ())
+    melody_item_ = 0;
+  else
+    {
+      if (!melody_item_)
+	melody_item_ = make_item ("MelodyItem", info.grob ()->self_scm ());
 
-  Melody_spanner::add_stem (melody_item_, info.grob ());
+      Melody_spanner::add_stem (melody_item_, info.grob ());
+    }
 }
-
 
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Melody_engraver, stem);
