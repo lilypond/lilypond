@@ -46,6 +46,13 @@ This document is also available in @uref{NEWS.pdf,PDF}.
 
 @itemize @bullet
 @item
+Stem direction on the center staff line are now interpolated between
+neighbors. This results in less stem direction changes, leading to a
+more even typography. For example,
+
+ 
+
+@item
 Slurs now avoid @code{TupletNumber}s, and tuplet numbers may enter the
 staff.
 

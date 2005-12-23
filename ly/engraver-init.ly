@@ -160,7 +160,7 @@ contained staves are not connected vertically."
 
 \context {
   \type "Engraver_group"
-  \name Voice
+  \name "Voice"
 
   \description "
     Corresponds to a voice on a staff.  This context handles the
@@ -186,9 +186,9 @@ contained staves are not connected vertically."
   \consists "Glissando_engraver"
   \consists "Ligature_bracket_engraver"
   \consists "Breathing_sign_engraver"
-  %% \consists "Rest_engraver"
   \consists "Note_heads_engraver"
   \consists "Rest_engraver"
+  \consists "Melody_engraver"
 
   \consists "Stem_engraver"
   \consists "Beam_engraver"
