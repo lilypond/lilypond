@@ -322,14 +322,17 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 	    distance.
 	  */
 	  Item *as_item = dynamic_cast<Item *> (state.extra_encompass_infos_[j].grob_);
-	  if ((as_item
-	       && as_item->get_column ()
-	       == state.extremes_[d].bound_->get_column ())
-	      || state.extra_encompass_infos_[j].extents_[X_AXIS].contains (attachment[d][X_AXIS]))
+	  if (!as_item)
+	    continue;
+	  
+	  Interval item_x = as_item->extent (state.common_[X_AXIS], X_AXIS);
+	  item_x.intersect (state.extremes_[d].slur_head_x_extent_);
+	  if (!item_x.is_empty ())
 	    {
 	      y = attachment[d][Y_AXIS];
 	      found = true;
 	    }
+	      
 	}
       while (flip (&d) != LEFT);
 
@@ -344,7 +347,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 	}
 
       Real dist = 0.0;
-      if (info.type_ == ly_symbol2scm ("avoid"))
+      if (info.type_ == ly_symbol2scm ("around"))
 	dist = info.extents_[Y_AXIS].distance (y);
 
       /*

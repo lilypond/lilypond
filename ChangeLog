@@ -1,3 +1,18 @@
+2005-12-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/slur-configuration.cc (score_extra_encompass): don't use
+	bound->column() == avoid->column() for checking extents, as this
+	doesn't work for accidentals. 
+
+	* lily/slur-engraver.cc (acknowledge_extra_object): remove
+	DynamicText hardcoding.
+
+	* lily/slur-scoring.cc (enumerate_attachments): robustness: don't
+	crash if bound stem is NULL
+
+	* lily/piano-pedal-performer.cc: patch by MWD for enabling piano
+	pedals.
+
 2005-12-22  Graham Percival  <gpermus@gmail.com>
 
 	* scm/define-markup-commands.scm: typo.  @code{\raise}
@@ -17,7 +32,10 @@
 
 2005-12-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* stepmake/bin/install.py (dest): don't create existing.
+	* lily/slur-configuration.cc (score_extra_encompass): don't use
+	"avoid" choice for avoid-slur.
+
+	* stepmake/bin/install.py (dest): don't create existing dir.
 
 2005-12-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 

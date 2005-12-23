@@ -54,10 +54,11 @@ extern const char *LILYPOND_DATADIR;
 
 /*
   Debugging options: switch on
+
+  Cannot switch on -DNDEBUG, because it causes weird errors if you mix
+  DNDEBUG and normal builds.
 */
 
-#ifndef NDEBUG
 #define DEBUG_SLUR_SCORING 1
-#endif
 
 #endif /* MAIN_HH */
