@@ -26,7 +26,9 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
 {
   Grob *stem = unsmob_grob (smob);
   Grob *me =  unsmob_grob (stem->get_object ("melody-spanner"));
-
+  if (!me || !me->is_live ())
+    return SCM_UNSPECIFIED;
+  
   extract_grob_set (me, "stems", stems);
 
   Array<Direction> dirs;
