@@ -461,31 +461,35 @@ Stem::calc_direction (SCM smob)
       dir = get_grob_direction (me);
     }
   else
-    dir = get_default_dir (me);
+    {
+      SCM dd = me->get_property ("default-direction");
+      dir = to_dir (dd);
+      if (!dir)
+	return me->get_property ("neutral-direction");
+    }
   
   return scm_from_int (dir);
 }
 
-/* A separate function, since this is used elsewhere too.  */
-Direction
-Stem::get_default_dir (Grob *me)
+MAKE_SCHEME_CALLBACK(Stem, calc_default_direction, 1);
+SCM
+Stem::calc_default_direction (SCM smob)
 {
+  Grob *me = unsmob_grob (smob);
+
   Direction dir = CENTER;
   int staff_center = 0;
   Interval hp = head_positions (me);
   if (!hp.is_empty ())
     {
-      int udistance = (int) (UP *hp[UP] - staff_center);
-      int ddistance = (int) (DOWN *hp[DOWN] - staff_center);
+      int udistance = (int) (UP * hp[UP] - staff_center);
+      int ddistance = (int) (DOWN * hp[DOWN] - staff_center);
       
-      if (sign (ddistance - udistance))
-	dir = Direction (sign (ddistance - udistance));
-      else
-	dir = to_dir (me->get_property ("neutral-direction"));
+      dir = Direction (sign (ddistance - udistance));
     }
-  return dir;
+  
+  return scm_from_int (dir);
 }
-
 
 
 MAKE_SCHEME_CALLBACK (Stem, height, 1);
@@ -959,6 +963,7 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "avoid-note-head "
 	       "beam "
 	       "beaming "
+	       "default-direction "
 	       "details "
 	       "direction "
 	       "duration-log "

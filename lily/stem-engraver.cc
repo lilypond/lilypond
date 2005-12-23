@@ -169,7 +169,9 @@ Stem_engraver::try_music (Music *m)
 }
 
 #include "translator.icc"
+
 ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
+
 ADD_TRANSLATOR (Stem_engraver,
 		/* doc */ "Create stems and single-stem tremolos.  It also works together with "
 		"the beam engraver for overriding beaming.",

@@ -929,6 +929,28 @@
 				text-interface
 				font-interface))))))
 
+
+    (MeasureGrouping
+     . (
+	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(side-axis . ,Y)
+
+	(stencil . ,Measure_grouping::print)
+
+	(padding . 2)
+	(direction . 1)
+	(thickness . 1)
+	(height . 2.0)
+	(staff-padding . 3)
+	(meta . ((class . Spanner)
+		 (interfaces . (side-position-interface
+				measure-grouping-interface))))))
+
+    (MelodyItem
+     . (
+	(neutral-direction . ,DOWN)
+	(meta . ((class . Item)
+		 (interfaces . (melody-spanner-interface spacing-interface))))))
     (MensuralLigature
      . (
 	(thickness . 1.4)
@@ -954,21 +976,6 @@
 				font-interface
 				metronome-mark-interface))))))
 
-    (MeasureGrouping
-     . (
-	(Y-offset . ,Side_position_interface::y_aligned_side)
-	(side-axis . ,Y)
-
-	(stencil . ,Measure_grouping::print)
-
-	(padding . 2)
-	(direction . 1)
-	(thickness . 1)
-	(height . 2.0)
-	(staff-padding . 3)
-	(meta . ((class . Spanner)
-		 (interfaces . (side-position-interface
-				measure-grouping-interface))))))
 
     (MultiMeasureRest
      . (
@@ -1490,6 +1497,7 @@
     (Stem
      . (
 	(direction . ,Stem::calc_direction)
+	(default-direction . ,Stem::calc_default_direction)
 	(stem-end-position . ,Stem::calc_stem_end_position)
 	(stem-info . ,Stem::calc_stem_info)
 	(positioning-done . ,Stem::calc_positioning_done)

@@ -140,13 +140,7 @@ Beam::calc_direction (SCM smob)
 	}
       else
 	{
-	  /*
-	    ugh.
-
-	    can happen in stem-tremolo case.
-	    TODO: fixme.
-	   */
-	  d = Stem::get_default_dir (stems[0]);
+	  d = to_dir (stems[0]->get_property ("default-direction"));
 	}
     }
 
@@ -538,7 +532,10 @@ Beam::get_default_dir (Grob *me)
       if (is_direction (stem_dir_scm))
 	stem_dir = to_dir (stem_dir_scm);
       else
-	stem_dir = Stem::get_default_dir (s);
+	stem_dir = to_dir (s->get_property ("default-direction"));
+
+      if (!stem_dir)
+	stem_dir = to_dir (s->get_property ("neutral-direction"));
 
       if (stem_dir)
 	{
@@ -1196,8 +1193,11 @@ Beam::forced_stem_count (Grob *me)
 
       /* I can imagine counting those boundaries as a half forced stem,
 	 but let's count them full for now. */
+      Direction defdir = to_dir (s->get_property ("default-direction"));
+      
       if (abs (Stem::chord_start_y (s)) > 0.1
-	  && (get_grob_direction (s) != Stem::get_default_dir (s)))
+	  && defdir
+	  && get_grob_direction (s) != defdir)
 	f++;
     }
   return f;
