@@ -13,9 +13,6 @@
 #include "melody-spanner.hh"
 #include "pointer-group-interface.hh"
 
-/**
-   Make stems upon receiving noteheads.
-*/
 class Melody_engraver : public Engraver
 {
   Grob *melody_item_;
