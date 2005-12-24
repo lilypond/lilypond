@@ -1,3 +1,8 @@
+2005-12-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/melody-engraver.cc (class Melody_engraver): Remove lying
+	comment.
+
 2005-12-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PACKAGE_NAME): release 2.7.25
