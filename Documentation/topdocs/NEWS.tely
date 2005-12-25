@@ -38,7 +38,8 @@ See user manual, \NAME\
 @unnumbered New features in 2.7 since 2.6
 
 @ifhtml
-This document is also available in @uref{NEWS.pdf,PDF}.
+This document is also available in @uref{NEWS.pdf,PDF}. It's part of
+the @uref{../,LilyPond Documentation} 
 @end ifhtml
 
 
@@ -646,7 +647,10 @@ This feature was sponsored by Sven Axelsson.
 
 @ifhtml
 For older news, go to
-@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS.html}.
+@uref{http://lilypond.org/doc/v2.6/Documentation/topdocs/NEWS.html},
+or @uref{../,go back} to the Documentation index.
+
+
 @end ifhtml
 
 @bye

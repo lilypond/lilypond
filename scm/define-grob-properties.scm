@@ -24,7 +24,7 @@
    `(
      (X-offset ,number? "The horizontal amount that this object is moved relative to its X-parent")
      (Y-offset ,number? "The vertical amount that this object is moved
-relative to its X-parent")
+relative to its Y-parent")
      (accidentals ,list? "List of alteration numbers")
      (after-line-breaking ,boolean? "Dummy property, used to trigger callback for after-line-breaking")
      (alteration-alist ,list? "List of @code{(@var{pitch}
