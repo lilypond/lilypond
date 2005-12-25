@@ -46,7 +46,7 @@ set_env_file (char const *key, String value)
   if (is_file (value))
     return sane_putenv (key, value, false);
   else if (be_verbose_global)
-    warning (_f ("no such file: %s", value));
+    warning (_f ("no such file: %s for %s", value, key));
   return -1;
 }
 
@@ -126,7 +126,8 @@ set_relocation (String bindir, String prefix)
 		    + to_string ("/guile/%d.%d",
 				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
   set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
-  set_env_file ("PANGO_PREFIX", prefix);
+
+  sane_putenv ("PANGO_PREFIX", prefix);
 		
   prepend_env_path ("PATH", bindir);
 }
