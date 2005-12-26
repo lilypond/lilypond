@@ -85,8 +85,14 @@ all pages (systems) including fonts.
 This mode is used by default by lilypond-book.
 
 @item svg
- for SVG (Scalable Vector Graphics)
+ for SVG (Scalable Vector Graphics).  
 @cindex SVG (Scalable Vector Graphics)
+  SVG files include embedded fonts.  Thus you need a SVG capable 
+  viewer which supports embedded fonts, or a SVG viewer is able to
+  replace the embedded fonts with OTF fonts.  
+  Under Unix, you may use @uref{http://www.inkscape.org,Inkscape} 
+  (version 0.42 or later), after copying the OTF fonts in directory 
+  @file{PATH/TO/share/lilypond/VERSION/fonts/otf/} to @code{~/.fonts/}.
 @item scm
  for a dump of the raw, internal Scheme-based drawing commands.
 @cindex Scheme dump
