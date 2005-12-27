@@ -1,3 +1,10 @@
+2005-12-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/stem-direction-context.ly: remove rest.
+
+	* lily/melody-engraver.cc (process_music): restart for bar lines.
+	(acknowledge_slur): restart for slurs.
+
 2005-12-27  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/invoking.itely: describe how to view SVG 
