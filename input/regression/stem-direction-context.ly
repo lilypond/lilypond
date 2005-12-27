@@ -10,7 +10,7 @@
 
 \relative c'' \new Voice {
   c4 b c b
-  c c c r
+  c c c c
   b a b a
 } 
   

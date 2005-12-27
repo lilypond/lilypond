@@ -127,7 +127,7 @@ set_relocation (String bindir, String prefix)
 				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
   set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
 
-  sane_putenv ("PANGO_PREFIX", prefix);
+  sane_putenv ("PANGO_PREFIX", prefix, true);
 		
   prepend_env_path ("PATH", bindir);
 }
