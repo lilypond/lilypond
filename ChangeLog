@@ -1,3 +1,8 @@
+2005-12-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/relocate.cc (set_env_dir): New function.
+	(set_relocation): Use it to fix setting PANGO_PREFIX.
+
 2005-12-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/stem-direction-context.ly: remove rest.
