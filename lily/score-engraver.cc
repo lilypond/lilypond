@@ -7,7 +7,6 @@
 */
 
 #include "all-font-metrics.hh"
-#include "afm.hh"
 #include "warn.hh"
 #include "main.hh"
 #include "system.hh"
@@ -21,9 +20,6 @@
 #include "open-type-font.hh"
 #include "paper-column-engraver.hh"
 
-/*
-  TODO: the column creation logic is rather hairy. Revise it.
-*/
 Score_engraver::Score_engraver ()
 {
   system_ = 0;

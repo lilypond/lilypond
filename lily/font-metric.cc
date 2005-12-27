@@ -136,8 +136,6 @@ Font_metric::font_name () const
   return s;
 }
 
-#include "afm.hh"
-
 int
 Font_metric::index_to_ascii (int i) const
 {
