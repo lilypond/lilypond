@@ -9,15 +9,17 @@
 
 #include "stencil.hh"
 
-#include "protected-scm.hh"
-
-static Protected_scm heads = SCM_EOL;
+static SCM heads;
 
 void register_stencil_head (SCM symbol)
 {
+  if (!heads)
+    heads = scm_permanent_object (scm_cons (SCM_EOL, SCM_EOL));
+  
   scm_set_object_property_x (symbol, ly_symbol2scm ("stencil-head?"), SCM_BOOL_T);
-  heads = scm_cons (symbol, heads);
+  scm_set_cdr_x (heads,  scm_cons (symbol, heads));
 }
+
 bool
 is_stencil_head (SCM symbol)
 {
@@ -28,6 +30,6 @@ is_stencil_head (SCM symbol)
 SCM
 all_stencil_heads ()
 {
-  return heads;
+  return scm_cdr (heads);
 }
 

@@ -31,8 +31,6 @@ PACKAGE = @PACKAGE@
 package = @package@
 PACKAGE_NAME = @PACKAGE_NAME@
 
-HAVE_LIBKPATHSEA_SO = @HAVE_LIBKPATHSEA_SO@
-
 prefix = @prefix@
 exec_prefix = @exec_prefix@
 
