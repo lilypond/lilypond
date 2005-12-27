@@ -87,7 +87,7 @@ bool make_print = true;
 
 
 bool relocate_binary =
-#ifdef __MINGW32__  
+#ifdef ARGV0_RELOCATION
   true;
 #else
   false

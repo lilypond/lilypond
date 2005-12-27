@@ -108,6 +108,7 @@ Grob::internal_get_property (SCM sym) const
 
 #ifndef NDEBUG
 #include "protected-scm.hh"
+
 Protected_scm grob_property_callback_stack = SCM_EOL;
 bool debug_property_callbacks = 0;
 #endif

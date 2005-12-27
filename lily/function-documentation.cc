@@ -9,10 +9,10 @@
 #include <cstring>
 using namespace std;
 
-#include "protected-scm.hh"
 #include "string.hh"
+#include "lily-guile.hh"
 
-static Protected_scm doc_hash_table;
+static SCM doc_hash_table;
 
 void ly_add_function_documentation (SCM func,
 				    char const *fname,
@@ -22,8 +22,8 @@ void ly_add_function_documentation (SCM func,
   if (!strlen (doc))
     return;
 
-  if (scm_hash_table_p (doc_hash_table) != SCM_BOOL_T)
-    doc_hash_table = scm_c_make_hash_table (59);
+  if (!doc_hash_table)
+    doc_hash_table = scm_permanent_object (scm_c_make_hash_table (59));
 
   String s = String (" - ") + "LilyPond procedure: " + fname + " " + varlist
     + "\n" + doc;
