@@ -10,7 +10,6 @@
 #define LILY_PROTO_HH
 #include "flower-proto.hh"
 
-class Adobe_font_metric;
 class All_font_metrics;
 class Audio_column;
 class Audio_dynamic;

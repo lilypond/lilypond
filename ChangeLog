@@ -1,5 +1,7 @@
 2005-12-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* flower/parse-afm.cc (Module): strip AFM handling completely.
+
 	* lily/stencil-expression.cc: idem.
 
 	* lily/grob-interface-scheme.cc (LY_DEFINE): idem.

@@ -23,7 +23,6 @@
 */
 class All_font_metrics
 {
-  Scheme_hash_table *afm_dict_;
   Scheme_hash_table *tfm_dict_;
   Scheme_hash_table *otf_dict_;
   File_path search_path_;
@@ -45,7 +44,6 @@ public:
 			       Real scale);
 #endif
 
-  Adobe_font_metric *find_afm (String name);
   Tex_font_metric *find_tfm (String);
   Font_metric *find_font (String name);
   Open_type_font *find_otf (String name);
