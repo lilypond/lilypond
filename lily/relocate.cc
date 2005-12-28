@@ -193,6 +193,8 @@ setup_paths (char const *argv0_ptr)
       
       String bindir = dir_name (argv0_abs);
       String argv0_prefix = dir_name (bindir);
+      if (bindir == ".")
+	argv0_prefix = "..";
       if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
 	set_relocation (bindir, argv0_prefix);
     }
