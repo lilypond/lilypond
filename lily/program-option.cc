@@ -13,7 +13,6 @@
 using namespace std;
 
 #include "string-convert.hh"
-#include "protected-scm.hh"
 #include "parse-scm.hh"
 #include "warn.hh"
 #include "main.hh"
@@ -33,11 +32,11 @@ bool profile_property_accesses = false;
 */
 bool do_internal_type_checking_global;
 
-Protected_scm option_hash_;
+static SCM option_hash;
 
 void internal_set_option (SCM var, SCM val)
 {
-  scm_hashq_set_x (option_hash_, var, val);
+  scm_hashq_set_x (option_hash, var, val);
 
   if (0)
     ;
@@ -90,7 +89,7 @@ const int SEPARATION = 5;
 static String
 get_help_string ()
 {
-  SCM alist = ly_hash2alist (option_hash_);
+  SCM alist = ly_hash2alist (option_hash);
   SCM convertor = ly_lily_module_constant ("scm->string");
 
   Array<String> opts;
@@ -147,8 +146,8 @@ LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
 	   (SCM sym, SCM val, SCM description),
 	   "Add a program option @var{sym} with default @var{val}.")
 {
-  if (scm_hash_table_p (option_hash_) == SCM_BOOL_F)
-    option_hash_ = scm_c_make_hash_table (11);
+  if (!option_hash)
+    option_hash = scm_c_make_hash_table (11);
 
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG1, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (scm_is_string (description), description,
@@ -181,7 +180,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
       val = scm_from_bool (!to_boolean (val));
     }
 
-  SCM handle = scm_hashq_get_handle (option_hash_, var);
+  SCM handle = scm_hashq_get_handle (option_hash, var);
   if (handle == SCM_BOOL_F)
     warning (_f ("no such internal option: %s", varstr.to_str0 ()));
 
@@ -194,5 +193,5 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 {
   SCM_ASSERT_TYPE (scm_is_symbol (var), var,
 		   SCM_ARG1, __FUNCTION__, "symbol");
-  return scm_hashq_ref (option_hash_, var, SCM_BOOL_F);
+  return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
 }
