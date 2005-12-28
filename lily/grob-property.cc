@@ -55,6 +55,7 @@ Grob::internal_set_property (SCM sym, SCM v)
     {
       if (!ly_is_procedure (v)
 	  && !is_simple_closure (v)
+	  && v != ly_symbol2scm ("calculation-in-progress") 
 	  && !type_check_assignment (sym, v, ly_symbol2scm ("backend-type?")))
 	abort ();
       check_interfaces_for_property (this, sym);
