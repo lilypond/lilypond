@@ -545,12 +545,14 @@ Beam::get_default_dir (Grob *me)
     }
 
   Direction dir = CENTER;
-  
-  if (Direction d =  (Direction) sign (count[UP] - count[DOWN]))
+  Direction d = CENTER;
+  if ((d = (Direction) sign (count[UP] - count[DOWN])))
     dir = d;
-  else if (Direction d = (Direction)  sign (total[UP] / count[UP] - total[DOWN]/count[DOWN]))
+  else if (count[UP]
+	   && count[DOWN]
+	   && (d = (Direction)  sign (total[UP] / count[UP] - total[DOWN]/count[DOWN])))
     dir = d;
-  else if (Direction d = (Direction)  sign (total[UP] - total[DOWN]))
+  else if ((d = (Direction)  sign (total[UP] - total[DOWN])))
     dir = d;
   else
     dir = to_dir (me->get_property ("neutral-direction"));

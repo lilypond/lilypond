@@ -186,7 +186,7 @@ Tuplet_bracket::calc_control_points (SCM smob)
   bounds[RIGHT] = get_x_bound_item (me, RIGHT, dir);
 
   Drul_array<bool> connect_to_other =
-    robust_scm2booldrul (me->get_property ("connect-to-other"),
+    robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
 			 Drul_array<bool> (false, false));
   
     
@@ -315,7 +315,7 @@ Tuplet_bracket::print (SCM smob)
       scale_drul (&shorten, ss);
 
       Drul_array<bool> connect_to_other =
-	robust_scm2booldrul (me->get_property ("connect-to-other"),
+	robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
 			     Drul_array<bool> (false, false));
 
       Direction d = LEFT;
