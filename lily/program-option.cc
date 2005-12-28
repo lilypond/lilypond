@@ -147,8 +147,9 @@ LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
 	   "Add a program option @var{sym} with default @var{val}.")
 {
   if (!option_hash)
-    option_hash = scm_c_make_hash_table (11);
-
+    {
+      option_hash = scm_permanent_object (scm_c_make_hash_table (11));
+    }
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG1, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (scm_is_string (description), description,
 		   SCM_ARG3, __FUNCTION__, "string");
