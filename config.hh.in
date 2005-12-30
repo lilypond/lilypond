@@ -10,6 +10,9 @@
 /* dynamic relocation? */
 #define ARGV0_RELOCATION 0
 
+/* framework prefix, usually ".." */
+#define FRAMEWORKDIR "@FRAMEWORKDIR@"
+
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"
 

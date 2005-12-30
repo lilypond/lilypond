@@ -1,3 +1,10 @@
+2005-12-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/relocate.cc (framework_relocation): New function,
+	factored from set_relocation ().
+	(prefix_relocation): Rename from set_relocation ().
+	(setup_paths): Use it.
+
 2005-12-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/*.scm: use LEFT/RIGHT/UP/DOWN etc. iso. magical numbers.

@@ -83,6 +83,9 @@ dir_name (String const file_name)
 {
   String s = file_name;
   s.substitute ('\\', '/');
+  int n = s.length ();
+  if (n && s[n - 1] == '/')
+    s[n - 1] = 0;
   s = s.left_string (s.index_last ('/'));
   return s;
 }
@@ -92,17 +95,16 @@ dir_name (String const file_name)
 #endif
 
 void
-set_relocation (String bindir, String prefix)
+prefix_relocation (String prefix)
 {
   if (be_verbose_global)
     warning (_f ("Relocation: compile prefix=%s, new prefix=%s",
 		 prefix_directory,
 		 prefix.to_str0 ()));
   
+  String bindir = prefix + "/bin";
   String datadir = prefix + "/share";
-  String libdir = prefix + "/lib";
   String localedir = datadir + "/locale";
-  String sysconfdir = prefix + "/etc";
   String lilypond_datadir = datadir + "/lilypond/" TOPLEVEL_VERSION;
 
   if (is_dir (lilypond_datadir))
@@ -113,8 +115,26 @@ set_relocation (String bindir, String prefix)
     bindtextdomain ("lilypond", localedir.to_str0 ());
 #endif
 
+  prepend_env_path ("PATH", bindir);
+}
+
+void
+framework_relocation (String prefix)
+{
+  if (be_verbose_global)
+    warning (_f ("Relocation: framework_prefix=%s", prefix));
+
+  String bindir = prefix + "/bin";
+  String datadir = prefix + "/share";
+  String libdir = prefix + "/lib";
+  String sysconfdir = prefix + "/etc";
+
+  /* need otherwise dynamic .so's aren't found.   */
+  prepend_env_path ("DYLD_LIBRARY_PATH", libdir);
   
   set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf");
+  set_env_dir ("FONTCONFIG_PATH", sysconfdir + "/fonts");
+
 #ifdef __MINGW32__
   char font_dir[PATH_MAX];
   ExpandEnvironmentStrings ("%windir%/fonts", font_dir, sizeof (font_dir));
@@ -130,17 +150,13 @@ set_relocation (String bindir, String prefix)
   prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
   prepend_env_path ("GS_LIB", datadir + "/gs/lib");
 
-  /* need otherwise dynamic .so's aren't found.   */
-  prepend_env_path ("DYLD_LIBRARY_PATH", libdir);
-  
   prepend_env_path ("GUILE_LOAD_PATH", datadir
 		    + to_string ("/guile/%d.%d",
 				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
-  set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
 
+  set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
   set_env_dir ("PANGO_PREFIX", prefix);
-  set_env_dir ("FONTCONFIG_PATH", sysconfdir + "/fonts");
-  
+
   prepend_env_path ("PATH", bindir);
 }
 
@@ -163,10 +179,13 @@ setup_paths (char const *argv0_ptr)
       && getenv ("LILYPOND_RELOCATE_PREFIX"))
     {
       String prefix = getenv ("LILYPOND_RELOCATE_PREFIX");
-      /*
-	fixme: need different sep for mingw? 
-      */
-      set_relocation (prefix + "/" + "bin", prefix);
+#ifdef __MINGW32__
+      /* Normalize file name.  */
+      prefix = File_name (prefix).to_string ().get_copy_str0 ();
+#endif /* __MINGW32__ */
+      prefix_relocation (prefix);
+      String bindir = prefix + "/bin";
+      framework_relocation (bindir + "/" FRAMEWORKDIR);
     }
   else if (relocate_binary)
     {
@@ -192,11 +211,14 @@ setup_paths (char const *argv0_ptr)
 	  if (argv0_abs.is_empty ())
 	    programming_error ("can't find absolute argv0.");
 	}
-      
+
       String bindir = dir_name (argv0_abs);
       String argv0_prefix = dir_name (bindir);
-      if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
-	set_relocation (bindir, argv0_prefix);
+      String compile_prefix = dir_name (dir_name (dir_name (prefix_directory)));
+      if (argv0_prefix != compile_prefix)
+	prefix_relocation (argv0_prefix);
+      if (argv0_prefix != compile_prefix || String (FRAMEWORKDIR) != "..")
+	framework_relocation (bindir + "/" FRAMEWORKDIR);
     }
 
   /* FIXME: use LILYPOND_DATADIR.  */
