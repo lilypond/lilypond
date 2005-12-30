@@ -170,10 +170,10 @@
 
 (define* (event-direction->lily-string event #:optional (required #t))
   (let ((direction (ly:music-property event 'direction)))
-    (cond ((or (not direction) (null? direction) (= 0 direction))
+    (cond ((or (not direction) (null? direction) (= CENTER direction))
 	   (if required "-" ""))
-	  ((= 1 direction) "^")
-	  ((= -1 direction) "_")
+	  ((= UP direction) "^")
+	  ((= DOWN direction) "_")
 	  (else ""))))
 
 (define-macro (define-post-event-display-method type vars direction-required str)
@@ -186,7 +186,7 @@
   `(define-display-method ,type ,vars
      (format #f "~a~a"
 	     (event-direction->lily-string ,(car vars) ,direction-required)
-	     (if (= -1 (ly:music-property ,(car vars) 'span-direction))
+	     (if (= START (ly:music-property ,(car vars) 'span-direction))
 		 ,str-start
 		 ,str-stop))))
 
@@ -281,7 +281,7 @@
 							  duration (ly:make-duration 0 0 0 1))
 							 (music
 							  'SlurEvent
-							  span-direction -1))))))
+							  span-direction START))))))
 			   #t)
 	  (with-music-match (?stop (music 
 				    'SequentialMusic
@@ -292,7 +292,7 @@
 							  duration (ly:make-duration 0 0 0 1))
 							 (music
 							  'SlurEvent
-							  span-direction 1))))))
+							  span-direction STOP))))))
 	    (format #f "\\appoggiatura ~a" (music->lily-string ?music))))))
 
 
@@ -316,7 +316,7 @@
 							  duration (ly:make-duration 0 0 0 1))
 							 (music
 							  'SlurEvent
-							  span-direction -1)))
+							  span-direction START)))
 					      (music
 					       'ContextSpeccedMusic
 					       element (music
@@ -340,7 +340,7 @@
 							 duration (ly:make-duration 0 0 0 1))
 							(music
 							 'SlurEvent
-							 span-direction 1))))))
+							 span-direction STOP))))))
 	   (format #f "\\acciaccatura ~a" (music->lily-string ?music))))))
 
 (define-extra-display-method GraceMusic (expr)
@@ -578,7 +578,7 @@ Otherwise, return #f."
   "\\\\")
 
 (define-display-method LigatureEvent (ligature)
-  (if (= -1 (ly:music-property ligature 'span-direction))
+  (if (= START (ly:music-property ligature 'span-direction))
       "\\["
       "\\]"))
 

@@ -12,9 +12,11 @@
 
 #include <fontconfig/fontconfig.h>
 #include <sys/stat.h>
+
 #include "file-path.hh"
 #include "main.hh"
 #include "warn.hh"
+
 
 FcConfig *font_config_global = 0;
 
@@ -24,10 +26,19 @@ init_fontconfig ()
   if (be_verbose_global)
     message (_ ("Initializing FontConfig..."));
 
-  if (!FcInit ())
-    error (_ ("initializing FontConfig failed"));
+  font_config_global = FcInitLoadConfig ();
+  FcChar8 *cache_file = FcConfigGetCache (font_config_global);
 
-  font_config_global = FcConfigGetCurrent ();
+  /*
+    This is a terrible kludge, but there is apparently no way for
+    FontConfig to signal whether it needs to rescan directories.
+   */ 
+  if (!is_file ((char*)cache_file))
+    message (_ ("Rebuilding FontConfig cache; this may take a while..."));
+			
+  FcConfigBuildFonts (font_config_global);
+  FcConfigSetCurrent (font_config_global);
+  
   Array<String> dirs;
 
   dirs.push (prefix_directory + "/fonts/otf/");
@@ -42,8 +53,18 @@ init_fontconfig ()
 	message (_f ("adding font directory: %s", dir.to_str0 ()));
     }
 
+  font_config_global = FcConfigGetCurrent ();
+  
   if (be_verbose_global)
     progress_indication ("\n");
+
+  if (!is_file ((char*)cache_file))
+    {
+      /* inhibit future messages. */
+      FILE *f = fopen ((char*)cache_file, "w");
+      fclose (f);
+    }
+  
 }
 
 #else

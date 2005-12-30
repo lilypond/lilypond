@@ -196,7 +196,7 @@ a fresh copy of the list-head is made."
       #f
       (let* ((beat-length (get 'beatLength (ly:make-moment 1 1)))
 	     (measure-length (get 'measureLength (ly:make-moment 1 1)))
-	     (measure-pos (get 'measurePosition (ly:make-moment 0 1)))
+	     (measure-pos (get 'measurePosition ZERO-MOMENT))
 	     (settings (get 'autoBeamSettings '()))
 	     (function (list (if (= dir START) 'begin 'end)))
 	     (num-mom (ly:moment-div measure-length beat-length))

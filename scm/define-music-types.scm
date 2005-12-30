@@ -192,7 +192,7 @@ Syntax: @var{note}\\cr
      . (
 	(description .	"Interpret the argument as grace notes. ")
 	(start-callback . ,Grace_music::start_callback)
-	(length . ,(ly:make-moment 0 1))
+	(length . ,ZERO-MOMENT)
 	(iterator-ctor . ,Grace_iterator::constructor)
 	(types . (grace-music music-wrapper-music general-music))
 	))
@@ -253,7 +253,7 @@ Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 	(description .	"Align lyrics to the start of notes.
 
 Syntax @var{\\lyricsto }@var{voicename} @var{lyrics}.")
-	(length . ,(ly:make-moment 0 1))
+	(length . ,ZERO-MOMENT)
 	(types . (general-music lyric-combine-music))
 	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
 	))

@@ -90,7 +90,7 @@ tupletNeutral = \revert TupletBracket #'direction
 cadenzaOn = \set Timing.timing = ##f
 cadenzaOff = {
   \set Timing.timing = ##t
-  \set Timing.measurePosition = #(ly:make-moment 0 1)
+  \set Timing.measurePosition = #ZERO-MOMENT
 }
 
 % dynamic ly:dir?  text script, articulation script ly:dir?	
