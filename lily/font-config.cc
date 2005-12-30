@@ -34,7 +34,7 @@ init_fontconfig ()
     FontConfig to signal whether it needs to rescan directories.
    */ 
   if (!is_file ((char*)cache_file))
-    message (_ ("Rebuilding FontConfig cache; this may take a while..."));
+    message (_f ("Rebuilding FontConfig cache %s. this may take a while...", cache_file));
 			
   FcConfigBuildFonts (font_config_global);
   FcConfigSetCurrent (font_config_global);
