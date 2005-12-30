@@ -1,5 +1,6 @@
 2005-12-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* THANKS: add Muziekacademie Lede. 
 
 	* scripts/musicxml2ly.py (print_voice_definitions): new function 
 	(print_score_setup): new function

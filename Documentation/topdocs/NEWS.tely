@@ -46,6 +46,11 @@ the @uref{../,LilyPond Documentation}
 
 
 @itemize @bullet
+@item A MusicXML importer is included now.
+
+It was sponsored by among others, Mark van den Borre, 
+and Muziekacademie Lede.
+
 @item
 Stem direction on the center staff line are now interpolated between
 neighbors. This results in less stem direction changes, leading to a
@@ -133,8 +138,6 @@ hyphens may now be separately tuned through the
 @code{LyricSpace} grob.
 
 This feature has been sponsored by Bertalan Fodor.
-
-@item A MusicXML importer is included now.
 
 @item Texts set in a TrueType font are now kerned. This requires CVS
 Pango or Pango 1.12.
