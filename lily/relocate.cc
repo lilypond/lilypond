@@ -113,6 +113,7 @@ set_relocation (String bindir, String prefix)
     bindtextdomain ("lilypond", localedir.to_str0 ());
 #endif
 
+  
   set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf");
 #ifdef __MINGW32__
   char font_dir[PATH_MAX];
@@ -138,7 +139,8 @@ set_relocation (String bindir, String prefix)
   set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
 
   set_env_dir ("PANGO_PREFIX", prefix);
-		
+  set_env_dir ("FONTCONFIG_PATH", sysconfdir + "/fonts");
+  
   prepend_env_path ("PATH", bindir);
 }
 

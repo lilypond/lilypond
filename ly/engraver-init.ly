@@ -560,7 +560,7 @@ AncientRemoveEmptyStaffContext = \context {
   figuredBassFormatter = #format-bass-figure
   metronomeMarkFormatter = #format-metronome-markup
   graceSettings = #`(
-    (Voice Stem direction 1)
+    (Voice Stem direction ,UP)
     (Voice Stem font-size -3)
     (Voice NoteHead font-size -3)
     (Voice Dots font-size -3)
@@ -569,7 +569,7 @@ AncientRemoveEmptyStaffContext = \context {
     (Voice Beam thickness 0.384)
     (Voice Beam length-fraction 0.8)
     (Voice Accidental font-size -4)
-    (Voice Slur direction -1)
+    (Voice Slur direction ,DOWN)
   )
 
   keepAliveInterfaces = #'(rhythmic-grob-interface lyric-interface percent-repeat-interface)

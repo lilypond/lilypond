@@ -103,7 +103,7 @@
 	(font-family . music)
 	(padding . 0.5)
 	(X-offset . ,Side_position_interface::x_aligned_side)
-	(direction . -1)
+	(direction . ,LEFT)
 	(cautionary-style . parentheses)
 
 	(stencil . ,Accidental_interface::print)
@@ -138,7 +138,7 @@
 	(stencil . ,Arpeggio::print)
 	(Y-offset . ,Staff_symbol_referencer::callback)
 	(X-offset . ,Side_position_interface::x_aligned_side)
-	(direction . -1)
+	(direction . ,LEFT)
 	(padding . 0.5)
 	(side-axis . ,X)
 	(staff-position . 0.0)
@@ -190,7 +190,7 @@
 	(breakable . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
-	(direction . 1)
+	(direction . ,UP)
 	(font-family . roman)
 	(font-size . -2)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
@@ -283,7 +283,7 @@
 
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
-	(neutral-direction . -1)
+	(neutral-direction . ,DOWN)
 
 	;; Whe have some unreferenced problems here.
 	;;
@@ -462,7 +462,7 @@
 	(no-spacing-rods . #t)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
-	(direction . 1)
+	(direction . ,UP)
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(script-priority . 200)
@@ -485,7 +485,7 @@
 
 	(break-visibility . ,end-of-line-visible)
 	(style . vaticana)
-	(neutral-direction . -1)
+	(neutral-direction . ,DOWN)
 	(Y-offset . ,Staff_symbol_referencer::callback)
 	(space-alist . (
 			(first-note . (minimum-fixed-space . 0.0))
@@ -546,7 +546,7 @@
 	(font-encoding . fetaNumber)
 	(self-alignment-X . 0)
 	(font-size . -2) 
-	(direction . 1)
+	(direction . ,UP)
 	(padding . 0.2)
 	(staff-padding . 0.25)
 	(side-axis . ,Y)
@@ -565,7 +565,7 @@
 	(avoid-slur . outside)
 	(slur-padding . 0.3)
 	(minimum-space . 1.2)
-	(direction . -1)
+	(direction . ,DOWN)
 	(side-axis . ,Y)
 
 	(Y-extent . ,Axis_group_interface::height)
@@ -718,7 +718,7 @@
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(padding . 0.2)
 	(staff-padding . 0.2)
-	(direction . -1)
+	(direction . ,DOWN)
 	(side-axis . ,Y)
 	(bracket-flare . (0.5 . 0.5))
 	(meta . ((class . Spanner)
@@ -734,7 +734,7 @@
 	
 	;; This direction is for aligned_on_support_refpoints
 	;; (?) --hwn
-	(direction . 0)
+	(direction . ,CENTER)
 	(space-alist . (
 			(left-edge . (extra-space . 1.0))))
 
@@ -862,7 +862,7 @@
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
-	(direction . 1)
+	(direction . ,UP)
 	(positions . ,Tuplet_bracket::calc_positions)
 	(stencil . ,Tuplet_bracket::print)
 	
@@ -938,7 +938,7 @@
 	(stencil . ,Measure_grouping::print)
 
 	(padding . 2)
-	(direction . 1)
+	(direction . ,UP)
 	(thickness . 1)
 	(height . 2.0)
 	(staff-padding . 3)
@@ -967,7 +967,7 @@
 	(stencil . ,Text_interface::print)
 
 	(Y-offset . ,Side_position_interface::y_aligned_side)
-	(direction . 1)
+	(direction . ,UP)
 	(padding . 0.8)
 	(side-axis . ,Y)
 	(meta . ((class . Item)
@@ -1006,7 +1006,7 @@
 	(side-axis . ,Y)
 
 	(self-alignment-X . 0)
-	(direction . 1)
+	(direction . ,UP)
 	(padding . 0.4)
 	(staff-padding . 0.4)
 	(font-encoding . fetaNumber)
@@ -1027,7 +1027,7 @@
 	
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
-	(direction . 1)
+	(direction . ,UP)
 	(padding . 0.2)
 	(staff-padding . 0.25)
 	(meta . ((class . Spanner)
@@ -1135,7 +1135,7 @@
 	(minimum-length . 1.0)
 	(dash-fraction . 0.3)
 	(edge-height . (0 . 1.2))
-	(direction . 1)
+	(direction . ,UP)
 	(meta . ((class . Spanner)
 		 (interfaces . (ottava-bracket-interface
 				horizontal-bracket-interface
@@ -1216,7 +1216,7 @@
 			   ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
-	(direction . 1)
+	(direction . ,UP)
 	(padding . 0.2)
 	(staff-padding . 0.25)
 	(font-size . -2) 
@@ -1236,7 +1236,7 @@
 
 	(style . line)
 	(bound-padding . 1.0)
-	(direction . -1)
+	(direction . ,DOWN)
 	(bracket-flare . (0.5 . 0.5))
 	(edge-height . (1.0 . 1.0))
 	(shorten-pair . (0.0 . 0.0))
@@ -1257,7 +1257,7 @@
 		      ))
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(self-alignment-X . 0)
-	(direction . 1)
+	(direction . ,UP)
 	(breakable . #t)
 	(font-size . 2)
 	(baseline-skip . 2)
@@ -1455,7 +1455,7 @@
 
 	(stencil . ,Text_interface::print)
 
-	(direction . 1)
+	(direction . ,RIGHT)
 	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(no-spacing-rods . #t)
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
@@ -1477,7 +1477,7 @@
 
 	(padding . 1.2)
 	(minimum-space . 1.0)
-	(direction . -1)
+	(direction . ,DOWN)
 	(meta . ((class . Spanner)
 		 (interfaces . (piano-pedal-interface
 				axis-group-interface
@@ -1538,7 +1538,7 @@
 
 
 	;; default stem direction for note on middle line
-	(neutral-direction . -1)
+	(neutral-direction . ,DOWN)
 
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.
@@ -1564,7 +1564,7 @@
 	(no-spacing-rods . #t)
 	(stencil . ,Sustain_pedal::print)
 	(self-alignment-X . 0)
-	(direction . 1)
+	(direction . ,RIGHT)
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
 	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(meta . ((class . Item)
@@ -1583,7 +1583,7 @@
 	(padding . 1.2)
 	(staff-padding . 1.2)
 	(minimum-space . 1.0)
-	(direction . -1)
+	(direction . ,DOWN)
 	(meta . ((class . Spanner)
 		 (interfaces . (piano-pedal-interface
 				axis-group-interface
@@ -1674,7 +1674,7 @@
      . (
 	(no-spacing-rods . #t)
 	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
-	(direction . -1)
+	(direction . ,DOWN)
 
 	;; sync with Fingering ?
 	(padding . 0.5)
@@ -1703,7 +1703,7 @@
 	(dash-fraction . 0.2)
 	(dash-period . 3.0)
 	(side-axis . ,Y)
-	(direction . 1)
+	(direction . ,UP)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
 				side-position-interface
@@ -1756,7 +1756,7 @@
 	(style . trill)
 	(staff-padding . 1.0)
 	(padding . 0.5)
-	(direction . 1)
+	(direction . ,UP)
 	(Y-offset . ,Side_position_interface::y_aligned_side)
 	(side-axis . ,Y)
 	(meta . ((class . Spanner)
@@ -1841,7 +1841,7 @@
 	(font-shape . italic)
 	(no-spacing-rods . #t)
 	(self-alignment-X . 0)
-	(direction . 1)
+	(direction . ,RIGHT)
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
 	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
 	(meta . ((class . Item)
@@ -1858,7 +1858,7 @@
 	(padding . 1.2)
 	(staff-padding . 1.2)
 	(minimum-space . 1.0)
-	(direction . -1)
+	(direction . ,DOWN)
 	(meta . ((class . Spanner)
 		 (interfaces . (piano-pedal-interface
 				axis-group-interface
@@ -1899,7 +1899,7 @@
      . (
 	(breakable . #t)
 	(Y-offset . ,Side_position_interface::y_aligned_on_support_refpoints)
-	(direction . 0)
+	(direction . ,CENTER)
 	(space-alist . ((left-edge . (extra-space . 1.0))))
 	(break-align-symbol . instrument-name)
 	(stencil . ,Text_interface::print)
