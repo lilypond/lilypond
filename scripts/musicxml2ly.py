@@ -220,14 +220,13 @@ def musicxml_note_to_lily_main_event (n):
 	return event
 
 def musicxml_voice_to_lily_voice (voice):
-	
 	ly_voice = []
 	ly_now = Rational (0)
 	pending_skip = Rational (0) 
 
 	tuplet_events = []
 
-	for n in voice:
+	for n in voice._elements:
 		if n.get_name () == 'forward':
 			continue
 		
@@ -275,6 +274,7 @@ def musicxml_voice_to_lily_voice (voice):
 		span_events = []
 		if notations:
 			if notations.get_tuplet():
+				tuplet_event = notations.get_tuplet()
 				mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
 				frac = (1,1)
 				if mod:
@@ -338,30 +338,34 @@ def musicxml_pitch_to_lily (mxl_pitch):
 	p.octave = mxl_pitch.get_octave () - 4
 	return p
 
-def synchronize_musicxml (parts):
-	progress ("Synchronizing MusicXML...")
-	
-	all_voices = {} 
-	for p in parts:
-		p.interpret ()
-		p.extract_voices ()		
-		voice_dict = p.get_voices ()
-		
-		for (id, voice) in voice_dict.items ():
-			m_name = 'Part' + p.id + 'Voice' + id
-			m_name = musicxml_id_to_lily (m_name)
-			all_voices[m_name] = voice
-	return all_voices
+
+
+def voices_in_part (part):
+	"""Return a Name -> Voice dictionary for PART"""
+	part.interpret ()
+	part.extract_voices ()		
+	voice_dict = part.get_voices ()
+
+	return voice_dict
+
+def voices_in_part_in_parts (parts):
+	"""return a Part -> Name -> Voice dictionary"""
+	return dict([(p, voices_in_part (p)) for p in parts])
+
 
 def get_all_voices (parts):
+	all_voices = voices_in_part_in_parts (parts)
 
-	all_voices = synchronize_musicxml (parts)
-	
-	progress ("Converting to LilyPond expressions...")
 	all_ly_voices = {}
-	for (k, v) in all_voices.items():
-		all_ly_voices[k] = musicxml_voice_to_lily_voice (v)
+	for p, name_voice in all_voices.items ():
 
+		part_ly_voices = {}
+		for n, v in name_voice.items ():
+			progress ("Converting to LilyPond expressions...")
+			part_ly_voices[n] = (musicxml_voice_to_lily_voice (v), v)
+
+		all_ly_voices[p] = part_ly_voices
+		
 	return all_ly_voices
 
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
@@ -425,6 +429,80 @@ Copyright (c) 2005 by
 	p.formatter = NonDentedHeadingFormatter () 
 	return p
 
+def music_xml_voice_name_to_lily_name (part, name):
+	str = "Part%sVoice%s" % (part.id, name)
+	return musicxml_id_to_lily (str) 
+
+def print_voice_definitions (printer, voices):
+	for (part, nv_dict) in voices.items():
+		for (name, (voice, mxlvoice)) in nv_dict.items ():
+			k = music_xml_voice_name_to_lily_name (part, name)
+			printer.dump ('%s = ' % k)
+			voice.print_ly (printer)
+			printer.newline()
+def uniq_list (l):
+	return dict ([(elt,1) for elt in l]).keys ()
+	
+def print_score_setup (printer, part_list, voices):
+	part_dict = dict ([(p.id, p) for p in voices.keys ()]) 
+
+	printer ('<<')
+	printer.newline ()
+	for part_definition in part_list:
+		part_name = part_definition.id
+		try:
+			part = part_dict[part_name]
+		except KeyError:
+			print 'unknown part in part-list:', part_name
+			continue
+
+		nv_dict = voices[part]
+		staves = reduce (lambda x,y: x+ y,
+				 [mxlvoice._staves.keys ()
+				  for (v, mxlvoice) in nv_dict.values ()],
+				 [])
+
+		if len (staves) > 1:
+			staves = uniq_list (staves)
+			staves.sort ()
+			printer ('\\context PianoStaff << ')
+			printer.newline ()
+			
+			for s in staves:
+				staff_voices = [music_xml_voice_name_to_lily_name (part, voice_name)
+						for (voice_name, (v, mxlvoice)) in nv_dict.items ()
+						if mxlvoice._start_staff == s]
+				
+				printer ('\\context Staff = "%s" << ' % s)
+				printer.newline ()
+				for v in staff_voices:
+					printer ('\\context Voice = "%s"  \\%s' % (v,v))
+					printer.newline ()
+				printer ('>>')
+				printer.newline ()
+				
+			printer ('>>')
+			printer.newline ()
+			
+		else:
+			printer ('\\new Staff <<')
+			printer.newline ()
+			for (n,v) in nv_dict.items ():
+
+				n = music_xml_voice_name_to_lily_name (part, n) 
+				printer ('\\context Voice = "%s"  \\%s' % (n,n))
+			printer ('>>')
+			printer.newline ()
+			
+
+	printer ('>>')
+	printer.newline ()
+
+				
+
+def print_ly_preamble (printer, filename):
+	printer.dump_version ()
+	printer.print_verbatim ('%% converted from %s\n' % filename)
 
 def convert (filename, output_name):
 	printer = musicexp.Output_printer()
@@ -432,21 +510,28 @@ def convert (filename, output_name):
 	
 	tree = musicxml.read_musicxml (filename)
 	parts = tree.get_typed_children (musicxml.Part)
-
 	voices = get_all_voices (parts)
 
-	if output_name:
-		printer.file = open (output_name,'w')
+	part_list = []
+	if tree.get_maybe_exist_typed_child (musicxml.Part_list):
+		pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
+		part_list = pl.get_named_children ("score-part")
 		
+	if not output_name:
+		output_name = os.path.basename (filename)
+		output_name = os.path.splitext (output_name)[0] + '.ly'
+
+		
+	if output_name:
+		progress ("Output to `%s'" % output_name)
+		printer.set_file (open (output_name, 'w'))
+	
 	progress ("Printing as .ly...")
 
-	printer.dump_version ()
-	for  (k,v) in voices.items():
-		printer.print_verbatim ('%% converted from %s\n' % filename) 
-		printer.dump ('%s = ' % k)
-		v.print_ly (printer)
-		printer.newline()
-
+	print_ly_preamble (printer, filename)
+	print_voice_definitions (printer,  voices)
+	print_score_setup (printer, part_list, voices)
+	printer.newline ()
 	return voices
 
 

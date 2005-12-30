@@ -21,7 +21,8 @@ lyrics do not collide with barlines.
     }
     \context Lyrics \with {
 	\consists "Bar_engraver"
-	\override BarLine #'bar-size = #4 
+	\consists "Separating_line_group_engraver"
+ 	\override BarLine #'bar-size = #4 
     } \lyricmode {
 	  looooooooooooooooooooooooooooooooooong1 syllable
       }

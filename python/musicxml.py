@@ -16,7 +16,7 @@ class Xml_node:
 		self._parent = None
 
 	def is_first (self):
-		return self._parent.get_typed_children (self.__class__)[0] == self
+        	return self._parent.get_typed_children (self.__class__)[0] == self
 
 	def original (self):
 		return self._original 
@@ -37,6 +37,9 @@ class Xml_node:
 	
 	def get_named_children (self, nm):
 		return self.get_typed_children (class_dict[nm])
+
+	def get_named_child (self, nm):
+		return self.get_maybe_exist_named_child (nm)
 
 	def get_children (self, predicate):
 		return [c for c in self._children if predicate(c)]
@@ -147,13 +150,39 @@ class Note (Measure_element):
 	def get_pitches (self):
 		return self.get_typed_children (class_dict[u'pitch'])
 
-
+class Part_list (Music_xml_node):
+	pass
 		
 class Measure(Music_xml_node):
 	def get_notes (self):
 		return self.get_typed_children (class_dict[u'note'])
 
+
+class Musicxml_voice:
+	def __init__ (self):
+		self._elements = []
+		self._staves = {}
+		self._start_staff = None
+		
+	def add_element (self, e):
+		self._elements.append (e)
+		if (isinstance (e, Note)
+		    and e.get_maybe_exist_typed_child (Staff)):
+			name = e.get_maybe_exist_typed_child (Staff).get_text ()
+
+			if not self._start_staff:
+				self._start_staff = name
+			self._staves[name] = True
+
+	def insert (self, idx, e):
+		self._elements.insert (idx, e)
+
+	
+
 class Part (Music_xml_node):
+	def __init__ (self):
+		self._voices = []
+		
 	def interpret (self):
 		"""Set durations and starting points."""
 		
@@ -207,31 +236,36 @@ class Part (Music_xml_node):
 
 			if isinstance (n, Attributes):
 				for v in voices.values ():
-					v.append (n)
+					v.add_element (n)
 				continue
 			
 			id = voice_id.get_text ()
 			if not voices.has_key (id):
-				voices[id] = []
+				voices[id] = Musicxml_voice()
 
-			voices[id].append (n)
+			voices[id].add_element (n)
 
 		if start_attr:
 			for (k,v) in voices.items ():
 				v.insert (0, start_attr)
 		
 		part._voices = voices
+
 	def get_voices (self):
 		return self._voices
 
 class Notations (Music_xml_node):
 	def get_tie (self):
-		return self.get_maybe_exist_named_child ('tied')
+		ts = self.get_named_children ('tied')
+		starts = [t for t in ts if t.type == 'start']
+		if starts:
+			return starts[0]
+		else:
+			return None
 	
 	def get_tuplet (self):
 		return self.get_maybe_exist_typed_child (Tuplet)
 	
-
 class Time_modification(Music_xml_node):
 	def get_fraction (self):
 		b = self.get_maybe_exist_typed_child (class_dict['actual-notes'])
@@ -269,10 +303,14 @@ class Rest (Music_xml_node):
 	pass
 class Mode (Music_xml_node):
 	pass
-
+class Tied (Music_xml_node):
+	pass
+	
 class Type (Music_xml_node):
 	pass
 class Grace (Music_xml_node):
+	pass
+class Staff (Music_xml_node):
 	pass
 
 class_dict = {
@@ -293,9 +331,12 @@ class_dict = {
 	'pitch': Pitch,
 	'rest':Rest,
 	'slur': Slur,
+	'tied': Tied,
 	'time-modification': Time_modification,
 	'tuplet': Tuplet,
 	'type': Type,
+	'part-list': Part_list,
+	'staff': Staff,
 }
 
 def name2class_name (name):

@@ -14,67 +14,77 @@ class Output_stack_element:
 		return o
 
 class Output_printer:
+
+	"""A class that takes care of formatting (eg.: indenting) a
+	Music expression as a .ly file.
+	
+	"""
 	## TODO: support for \relative.
 	
 	def __init__ (self):
-		self.line = ''
-		self.indent = 4
-		self.nesting = 0
-		self.file = sys.stdout
-		self.line_len = 72
-		self.output_state_stack = [Output_stack_element()]
+		self._line = ''
+		self._indent = 4
+		self._nesting = 0
+		self._file = sys.stdout
+		self._line_len = 72
+		self._output_state_stack = [Output_stack_element()]
 		self._skipspace = False
-		self.last_duration = None
+		self._last_duration = None
 
+	def set_file (self, file):
+		self._file = file
+		
 	def dump_version (self):
 		self.newline ()
 		self.print_verbatim ('\\version "@TOPLEVEL_VERSION@"')
 		self.newline ()
 		
 	def get_indent (self):
-		return self.nesting * self.indent
+		return self._nesting * self._indent
 	
 	def override (self):
-		last = self.output_state_stack[-1]
-		self.output_state_stack.append (last.copy())
+		last = self._output_state_stack[-1]
+		self._output_state_stack.append (last.copy())
 		
 	def add_factor (self, factor):
 		self.override()
-		self.output_state_stack[-1].factor *=  factor
+		self._output_state_stack[-1].factor *=  factor
 
 	def revert (self):
-		del self.output_state_stack[-1]
-		if not self.output_state_stack:
+		del self._output_state_stack[-1]
+		if not self._output_state_stack:
 			raise 'empty'
 
 	def duration_factor (self):
-		return self.output_state_stack[-1].factor
+		return self._output_state_stack[-1].factor
 
 	def print_verbatim (self, str):
-		self.line += str
+		self._line += str
+
+	def unformatted_output (self, str):
+		self._nesting += str.count ('<') + str.count ('{')
+		self._nesting -= str.count ('>') + str.count ('}')
+		self.print_verbatim (str)
 		
 	def print_duration_string (self, str):
-		if self.last_duration == str:
+		if self._last_duration == str:
 			return
 		
-		self.print_verbatim (str)
+		self.unformatted_output (str)
 				     
 	def add_word (self, str):
-		if (len (str) + 1 + len (self.line) > self.line_len):
+		if (len (str) + 1 + len (self._line) > self._line_len):
 			self.newline()
 			self._skipspace = True
 
-		self.nesting += str.count ('<') + str.count ('{')
-		self.nesting -= str.count ('>') + str.count ('}')
-
 		if not self._skipspace:
-			self.line += ' '
-		self.line += str
+			self._line += ' '
+		self.unformatted_output (str)
 		self._skipspace = False
 		
 	def newline (self):
-		self.file.write (self.line + '\n')
-		self.line = ' ' * self.indent * self.nesting
+		self._file.write (self._line + '\n')
+		self._line = ' ' * self._indent * self._nesting
 		self._skipspace = True
 
 	def skipspace (self):
@@ -84,9 +94,10 @@ class Output_printer:
 		self.dump (arg)
 	
 	def dump (self, str):
+		
 		if self._skipspace:
 			self._skipspace = False
-			self.print_verbatim (str)
+			self.unformatted_output (str)
 		else:
 			words = string.split (str)
 			for w in words:
@@ -117,11 +128,8 @@ class Duration:
 		return str
 	
 	def print_ly (self, outputter):
-		if isinstance (outputter, Output_printer):
-			str = self.ly_expression (self.factor / outputter.duration_factor ())
-			outputter.print_duration_string (str)
-		else:
-			outputter (self.ly_expression ())
+		str = self.ly_expression (self.factor / outputter.duration_factor ())
+		outputter.print_duration_string (str)
 		
 	def __repr__(self):
 		return self.ly_expression()
@@ -218,7 +226,8 @@ class Music:
 		self.parent = None
 		self.start = Rational (0)
 		self.comment = ''
-
+		self.identifier = None
+		
 	def get_length(self):
 		return Rational (0)
 	
@@ -260,20 +269,21 @@ class Music:
 			return
 
 			
-		if isinstance (printer, Output_printer):
-			if text == '\n':
-				printer.newline ()
-				return
-
-			lines = string.split (text, '\n')
-			for l in lines:
-				if l:
-					printer.print_verbatim ('% ' + l)
-				printer.newline ()
-		else:
-			printer ('% ' + re.sub ('\n', '\n% ', text))
-			printer ('\n')
+		if text == '\n':
+			printer.newline ()
+			return
+		lines = string.split (text, '\n')
+		for l in lines:
+			if l:
+				printer.dump ('% ' + l)
+			printer.newline ()
 			
+
+	def print_with_identifier (self, printer):
+		if self.identifier: 
+			printer ("\\%s" % self.identifier)
+		else:
+			self.print_ly (printer)
 
 	def print_ly (self, printer):
 		printer (self.ly_expression ())
@@ -287,15 +297,11 @@ class MusicWrapper (Music):
 
 class TimeScaledMusic (MusicWrapper):
 	def print_ly (self, func):
-		if isinstance(func, Output_printer):
-			func ('\\times %d/%d ' %
-			      (self.numerator, self.denominator))
-			func.add_factor (Rational (self.numerator, self.denominator))
-			MusicWrapper.print_ly (self, func)
-			func.revert ()
-		else:
-			func (r'\times 1/1 ')
-			MusicWrapper.print_ly (self, func)
+		func ('\\times %d/%d ' %
+		      (self.numerator, self.denominator))
+		func.add_factor (Rational (self.numerator, self.denominator))
+		MusicWrapper.print_ly (self, func)
+		func.revert ()
 
 class NestedMusic(Music):
 	def __init__ (self):
@@ -373,16 +379,14 @@ class SequentialMusic (NestedMusic):
 		printer ('{')
 		if self.comment:
 			self.print_comment (printer)
-		elif isinstance (printer, Output_printer):
-			printer.newline()
-		else:
-			printer ('\n')
-			
+
+		printer.newline()
 		for e in self.elements:
 			e.print_ly (printer)
 
 		printer ('}')
-
+		printer.newline()
+			
 	def lisp_sub_expression (self, pred):
 		name = self.name()
 
@@ -593,6 +597,37 @@ def test_pitch ():
 	print bflat.transposed (down).transposed (down)
 	print bflat.transposed (down).transposed (down).transposed (down)
 
+
+
+def test_printer ():
+	def make_note ():
+		evc = EventChord()
+		n = NoteEvent()
+		evc.append (n)
+		return n
+
+	def make_tup ():
+		m = SequentialMusic()
+		m.append (make_note ())
+		m.append (make_note ())
+		m.append (make_note ())
+
+		
+		t = TimeScaledMusic ()
+		t.numerator = 2
+		t.denominator = 3
+		t.element = m
+		return t
+
+	m = SequentialMusic ()
+	m.append (make_tup ())
+	m.append (make_tup ())
+	m.append (make_tup ())
+	
+	printer = Output_printer()
+	m.print_ly (printer)
+	printer.newline ()
+	
 def test_expr ():
 	m = SequentialMusic()
 	l = 2  
@@ -617,14 +652,18 @@ def test_expr ():
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)
 
- 	evc = ClefChange("G")
+ 	evc = ClefChange()
+	evc.type = 'treble'
 	m.insert_around (None, evc, 0)
 
  	evc = EventChord()
 	tonic = Pitch ()
 	tonic.step = 2
 	tonic.alteration = -2
-	n = KeySignatureEvent(tonic, [0, 0, -2, 0, 0,-2,-2]  )
+	n = KeySignatureChange()
+	n.tonic=tonic.copy()
+	n.scale = [0, 0, -2, 0, 0,-2,-2]
+	
 	evc.insert_around (None, n, 0)
 	m.insert_around (None, evc, 0)
 
@@ -632,8 +671,10 @@ def test_expr ():
 
 
 if __name__ == '__main__':
+	test_printer ()
+	raise 'bla'
 	test_pitch()
-	raise 1
+	
 	expr = test_expr()
 	expr.set_start (Rational (0))
 	print expr.ly_expression()
