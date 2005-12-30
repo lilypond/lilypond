@@ -41,10 +41,10 @@ sane_putenv (char const *key, String value, bool overwrite)
 }
 
 static int
-set_env_file (char const *key, String value)
+set_env_file (char const *key, String value, bool overwrite = false)
 {
   if (is_file (value))
-    return sane_putenv (key, value, false);
+    return sane_putenv (key, value, overwrite);
   else if (be_verbose_global)
     warning (_f ("no such file: %s for %s", value, key));
   return -1;
@@ -132,7 +132,7 @@ framework_relocation (String prefix)
   /* need otherwise dynamic .so's aren't found.   */
   prepend_env_path ("DYLD_LIBRARY_PATH", libdir);
   
-  set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf");
+  set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf", true);
   set_env_dir ("FONTCONFIG_PATH", sysconfdir + "/fonts");
 
 #ifdef __MINGW32__
@@ -156,7 +156,7 @@ framework_relocation (String prefix)
 
   set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
   set_env_dir ("PANGO_PREFIX", prefix);
-
+  
   prepend_env_path ("PATH", bindir);
 }
 

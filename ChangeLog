@@ -1,3 +1,20 @@
+2005-12-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+
+	* scripts/musicxml2ly.py (print_voice_definitions): new function 
+	(print_score_setup): new function
+	(convert): read part definition to output staves properly.
+
+	* python/musicxml.py (Measure.get_notes): new class. Wrap lists of
+	Music_xml notes.
+
+	* python/musicexp.py (Output_printer.__init__): use _ in data members.
+	(Output_printer.unformatted_output): new function: no formatting,
+	but count braces.
+	(Duration.get_length): remove isinstance() checks for Output_printer everywhere.
+
+	* input/regression/lyrics-bar.ly (texidoc): add Separating_line_group_engraver.
+
 2005-12-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/relocate.cc (framework_relocation): New function,
@@ -7,7 +24,8 @@
 
 2005-12-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* scm/*.scm: use LEFT/RIGHT/UP/DOWN etc. iso. magical numbers.
+	* scm/*.scm: use LEFT/RIGHT/UP/DOWN etc. iso. magical
+	numbers. Patch by Erlend Aasland.
 
 2005-12-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
