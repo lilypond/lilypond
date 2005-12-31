@@ -131,6 +131,7 @@ $(outdir)/fonts.cache-1: $(PFA_OTF_FILES) $(PFA_FILES) $(OTF_FILES)
 local-install: install-fc-cache
 
 install-fc-cache:
+	$(foreach suff, $(INSTALLATION_OUT_SUFFIXES), rm -f $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/fonts.cache-1 && ) true
 	fc-cache $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff)))
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
