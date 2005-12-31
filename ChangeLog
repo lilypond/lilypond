@@ -1,3 +1,7 @@
+2005-12-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/GNUmakefile (install-fc-cache): remove old font.cache-1 files.
+
 2005-12-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/font-config.cc (init_fontconfig): verbosity.

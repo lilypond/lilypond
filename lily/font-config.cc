@@ -36,7 +36,6 @@ init_fontconfig ()
   if (!is_file ((char*)cache_file))
     message (_f ("Rebuilding FontConfig cache %s. this may take a while...", cache_file));
 			
-  FcConfigBuildFonts (font_config_global);
   FcConfigSetCurrent (font_config_global);
   
   Array<String> dirs;
@@ -53,8 +52,6 @@ init_fontconfig ()
 	message (_f ("adding font directory: %s", dir.to_str0 ()));
     }
 
-  font_config_global = FcConfigGetCurrent ();
-  
   if (be_verbose_global)
     progress_indication ("\n");
 
