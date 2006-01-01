@@ -1,5 +1,11 @@
 2006-01-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile ($(NCSB_TTFS)): revise rule. Create
+	<PostScriptName>.ttf instead of c059XXXttf.
+
+	* lily/program-option.cc (LY_DEFINE): special support for
+	--verbose, so it works before option init too.
+ 
 	* mf/GNUmakefile (local-install): oops.
 
 	* lily/lyric-hyphen.cc (print): oops.

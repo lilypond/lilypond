@@ -196,7 +196,12 @@ ly_init_ly_module (void *)
     (scm_init_funcs_->elem (i)) ();
 
   if (be_verbose_global)
-    progress_indication ("\n");
+    {
+      progress_indication ("[");
+      scm_display (scm_c_eval_string ("(%search-load-path \"lily.scm\")"),
+		   scm_current_error_port ());
+      progress_indication ("]\n");
+    }
 
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
 }

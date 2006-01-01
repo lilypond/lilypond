@@ -34,8 +34,8 @@ FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
 
 
-NCSB_FILES=c059013l c059016l c059033l c059036l
-NCSB_TTFS=$(addprefix $(outdir)/,$(addsuffix .ttf, $(NCSB_FILES)))
+NCSB_SOURCE_FILES=c059013l c059016l c059033l c059036l
+NCSB_TTFS=$(addprefix $(outdir)/,CenturySchL-Ital.ttf CenturySchL-BoldItal.ttf CenturySchL-Roma.ttf CenturySchL-Bold.ttf)
 NCSB_PATH=/usr/share/fonts/default/Type1
 NCSB_INSTALL_DIR=$(local_lilypond_datadir)/fonts/otf
 
@@ -177,13 +177,15 @@ INSTALLATION_OUT_FILES9=$(SVG_FILES)
 
 export MFINPUTS:=.:$(MFINPUTS)
 
+
+
+default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
+
 .PHONY: tree-regen
 
 # FIXME: temporary hack: must regenerate after building fonts
 tree-regen:
 	${MAKE} -C $(top-build-dir) link-mf-tree
-
-default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 
 pfa_warning:
 ifneq ($(shell $(MFTRACE) --version | sed 's/ .*//'),mftrace)
@@ -254,8 +256,7 @@ local-uninstall:
 	-rmdir $(DESTDIR)$(local_lilypond_datadir)/dvips
 
 
-$(outdir)/%.ttf: $(NCSB_PATH)/%.pfb
-	$(foreach i,$(NCSB_FILES), \
+$(NCSB_TTFS): $(addsuffix .pfb,$(addprefix $(NCSB_PATH)/,$(NCSB_SOURCE_FILES)))
+	$(foreach i,$(NCSB_SOURCE_FILES), \
 		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
-			$(NCSB_PATH)/$(i).pfb $(NCSB_PATH)/$(i).afm \
-			$(outdir)/$(i).ttf && ) true
+			$(NCSB_PATH)/$(i).pfb $(NCSB_PATH)/$(i).afm $(outdir)/ && ) true

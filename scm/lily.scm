@@ -31,7 +31,7 @@ similar to chord syntax")
 	      (gui #f "running from gui; redirect stderr to log file")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
-	      (verbose #f "value for the --verbose flag")
+	      (verbose (ly:command-line-verbose?)  "value for the --verbose flag")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
 	      (debug-gc #f
@@ -353,7 +353,7 @@ The syntax is the same as `define*-public'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
-
+  
   (define (no-files-handler)
     (ly:usage)
     (exit 2))
@@ -375,9 +375,12 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
+
+  blablalblah
   (let* ((failed '())
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
+
     (for-each
      (lambda (x)
        (lilypond-file handler x)
@@ -404,6 +407,7 @@ The syntax is the same as `define*-public'."
 	(ly:message (_ "Redirecting output to ~a...") log-name))
     (ly:stderr-redirect log-name "w")
     (ly:message "# -*-compilation-*-")
+    
     (let ((failed (lilypond-all files)))
       (if (pair? failed)
 	  (begin
