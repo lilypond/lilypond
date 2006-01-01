@@ -1,0 +1,6 @@
+#!@FONTFORGE@
+
+Open($1);
+MergeKern($2)
+Generate($3);
+

@@ -1,7 +1,9 @@
 2006-01-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/pfx2ttf.fontforge: new file.
+	
 	* mf/GNUmakefile (NCSB_PATH): add vars for NCSB.
-	(install-ncsb-ttf): new target.
+	($(outdir)/%.ttf): new rule. 
 
 	* scm/define-grobs.scm (all-grob-descriptions): add font-interface
 	to LyricHyphen.
