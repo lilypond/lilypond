@@ -137,7 +137,7 @@ $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 $(outdir)/fonts.cache-1: $(PFA_OTF_FILES) $(PFA_FILES) $(OTF_FILES)
 	cd $(outdir) ; fc-cache .
 
-local-install: install-fc-cache
+local-install: install-ncsb-ttf install-fc-cache
 
 install-fc-cache:
 	$(foreach suff, $(INSTALLATION_OUT_SUFFIXES), rm -f $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/fonts.cache-1 && ) true
@@ -148,7 +148,7 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa) $(PFA_OTF_FILES)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) $(outdir)/fonts.cache-1
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(NCSB_TTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) $(outdir)/fonts.cache-1 
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
@@ -159,9 +159,8 @@ INSTALLATION_OUT_SUFFIXES=1 2 3 5 7 8 9
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
 
-# must not be installed with .cff, pango/fontconfig does not like .cff fonts 
 INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/fonts/otf
-INSTALLATION_OUT_FILES2=$(OTF_FILES)
+INSTALLATION_OUT_FILES2=$(OTF_FILES) $(NCSB_TTFS)
 
 INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
@@ -260,7 +259,3 @@ $(outdir)/%.ttf: $(NCSB_PATH)/%.pfb
 		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
 			$(NCSB_PATH)/$(i).pfb $(NCSB_PATH)/$(i).afm \
 			$(outdir)/$(i).ttf && ) true
-
-install-ncsb-ttf: $(NCSB_TTFS)
-	$(INSTALL) -d $(DESTDIR)$(NCSB_INSTALL_DIR)
-	$(INSTALL) $(NCSB_TTFS) $(DESTDIR)$(NCSB_INSTALL_DIR)
