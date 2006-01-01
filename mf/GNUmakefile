@@ -137,7 +137,7 @@ $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 $(outdir)/fonts.cache-1: $(PFA_OTF_FILES) $(PFA_FILES) $(OTF_FILES)
 	cd $(outdir) ; fc-cache .
 
-local-install: install-ncsb-ttf install-fc-cache
+local-install: install-fc-cache
 
 install-fc-cache:
 	$(foreach suff, $(INSTALLATION_OUT_SUFFIXES), rm -f $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/fonts.cache-1 && ) true
