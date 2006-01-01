@@ -49,8 +49,7 @@ Hyphen_spanner::print (SCM smob)
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real th = robust_scm2double (me->get_property ("thickness"), 1) * lt;
-  Real font_size_step = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
-				 0.0);
+  Real font_size_step = robust_scm2double (me->get_property ("font-size"), 0.0);
   Real h = robust_scm2double (me->get_property ("height"), 0.5)
     * pow (2.0, font_size_step / 6.0);
 
