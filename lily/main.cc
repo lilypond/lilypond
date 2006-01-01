@@ -387,8 +387,6 @@ main_with_guile (void *, int, char **)
 
   ly_c_init_guile ();
   call_constructors ();
-  ly_set_option (ly_symbol2scm ("verbose"), scm_from_bool (be_verbose_global));
-
   init_global_tweak_registry ();
   init_fontconfig ();
 
