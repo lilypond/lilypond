@@ -1,5 +1,7 @@
 2006-01-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile (local-install): oops.
+
 	* lily/lyric-hyphen.cc (print): oops.
 
 	* buildscripts/pfx2ttf.fontforge: new file.
