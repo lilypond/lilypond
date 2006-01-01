@@ -1,5 +1,18 @@
+2006-01-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/GNUmakefile (NCSB_PATH): add vars for NCSB.
+	(install-ncsb-ttf): new target.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add font-interface
+	to LyricHyphen.
+
+	* lily/lyric-hyphen.cc (print): multiply hyphen height by
+	font-size
+
 2005-12-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION: release 2.7.26
+	
 	* mf/GNUmakefile (install-fc-cache): remove old font.cache-1 files.
 
 2005-12-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>

@@ -34,11 +34,10 @@ FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
 
 
-$(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
-	cat $^ > $@
-
-$(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
-	echo '(design_size . 20)' > $@
+NCSB_FILES=c059013l c059016l c059033l c059036l
+NCSB_TTFS=$(addprefix $(outdir)/,$(addsuffix .ttf, $(NCSB_FILES)))
+NCSB_PATH=/usr/share/fonts/default/Type1
+NCSB_INSTALL_DIR=$(local_lilypond_datadir)/fonts/otf
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
@@ -51,6 +50,16 @@ FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 
 ENCODING_FILE=$(findstring $(<F:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
+
+
+
+
+$(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
+	cat $^ > $@
+
+$(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
+	echo '(design_size . 20)' > $@
+
 
 # only for fonts which
 #
@@ -245,5 +254,13 @@ local-uninstall:
 	-rm -f $(DESTDIR)$(local_lilypond_datadir)/dvips/map
 	-rmdir $(DESTDIR)$(local_lilypond_datadir)/dvips
 
-foe:
-	@echo mf:$(FETA_MF_FILES)
+
+$(outdir)/%.ttf: $(NCSB_PATH)/%.pfb
+	$(foreach i,$(NCSB_FILES), \
+		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
+			$(NCSB_PATH)/$(i).pfb $(NCSB_PATH)/$(i).afm \
+			$(outdir)/$(i).ttf && ) true
+
+install-ncsb-ttf: $(NCSB_TTFS)
+	$(INSTALL) -d $(DESTDIR)$(NCSB_INSTALL_DIR)
+	$(INSTALL) $(NCSB_TTFS) $(DESTDIR)$(NCSB_INSTALL_DIR)

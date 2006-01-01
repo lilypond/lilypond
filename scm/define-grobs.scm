@@ -886,6 +886,7 @@
 	(Y-extent . (0 . 0))
 	(meta . ((class . Spanner)
 		 (interfaces . (lyric-interface
+				font-interface
 				lyric-hyphen-interface
 				spanner-interface))))))
 
