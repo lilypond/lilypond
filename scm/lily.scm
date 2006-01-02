@@ -376,7 +376,6 @@ The syntax is the same as `define*-public'."
 
 (define-public (lilypond-all files)
 
-  blablalblah
   (let* ((failed '())
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
