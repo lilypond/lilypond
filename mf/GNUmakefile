@@ -255,7 +255,7 @@ local-uninstall:
 	-rmdir $(DESTDIR)$(local_lilypond_datadir)/dvips
 
 
-$(NCSB_TTFS): $(addsuffix .pfb,$(addprefix $(NCSB_PATH)/,$(NCSB_SOURCE_FILES)))
+$(NCSB_TTFS): $(addsuffix .pfb,$(addprefix $(NCSB_DIR)/,$(NCSB_SOURCE_FILES)))
 	$(foreach i,$(NCSB_SOURCE_FILES), \
 		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
-			$(NCSB_PATH)/$(i).pfb $(NCSB_PATH)/$(i).afm $(outdir)/ && ) true
+			$(NCSB_DIR)/$(i).pfb $(NCSB_DIR)/$(i).afm $(outdir)/ && ) true

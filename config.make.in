@@ -87,7 +87,7 @@ webdir = $(lilypond_docdir)/html
 vimdir = $(lilypond_datadir)/vim
 
 
-NCSB_PATH = @NCSB_PATH@
+NCSB_DIR = @NCSB_DIR@
 
 ################################################################
 ## PROGRAMS
