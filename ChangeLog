@@ -1,6 +1,7 @@
 2006-01-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* configure.in (NCSB_DIR): --enable-ncsb-dir
+	(LINK_GXX_STATICALLY): denko.
 
 	* mf/GNUmakefile ($(NCSB_TTFS)): NCSB_DIR iso. NCSB_PATH. 
 
