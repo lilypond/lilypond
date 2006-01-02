@@ -9,16 +9,17 @@
 
 #include "tie-formatting-problem.hh"
 
-#include "tie-configuration.hh"
-#include "directional-element-interface.hh"
-#include "staff-symbol-referencer.hh"
-#include "tie.hh"
-#include "item.hh"
-#include "spanner.hh" 
 #include "bezier.hh" 
-#include "stem.hh"
+#include "directional-element-interface.hh"
+#include "item.hh"
+#include "libc-extension.hh"
 #include "note-head.hh"
 #include "rhythmic-head.hh"
+#include "spanner.hh" 
+#include "staff-symbol-referencer.hh"
+#include "stem.hh"
+#include "tie-configuration.hh"
+#include "tie.hh"
 #include "warn.hh"
 
 Interval

@@ -1,5 +1,9 @@
 2006-01-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/tie-formatting-problem.cc
+	(problem::generate_base_chord_configuration): Use my_round (was
+	round).
+
 	* lily/source-file.cc (file::get_counts)[!HAVE_MBRTOWC]: Bugfix,
 	do not invoke mbrtowc.
 
