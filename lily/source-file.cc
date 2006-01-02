@@ -269,7 +269,11 @@ Source_file::get_counts (char const *pos_str0,
       /*
 	FIXME, this is apparently locale dependent.
       */
+#if HAVE_MBRTOWC
       size_t thislen = mbrtowc (multibyte, line_chars, left, &state);
+#else
+      size_t thislen = 1;
+#endif /* !HAVE_MBRTOWC */
 
       /* Stop converting at invalid character;
 	 this can mean we have read just the first part
