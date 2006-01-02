@@ -9,16 +9,16 @@
 #include "slur-configuration.hh"
 
 
-#include "stem.hh"
-#include "warn.hh"
-#include "misc.hh"
 #include "item.hh"
+#include "libc-extension.hh"
+#include "misc.hh"
 #include "pointer-group-interface.hh"
-#include "slur.hh"
 #include "slur-scoring.hh"
+#include "slur.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
-#include "libc-extension.hh"
+#include "stem.hh"
+#include "warn.hh"
 
 Bezier
 avoid_staff_line (Slur_score_state const &state,
