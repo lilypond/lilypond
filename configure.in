@@ -33,6 +33,14 @@ AC_ARG_ENABLE(gui,
     [  --enable-gui            compile with experimental GNOME output module.  Default: off],
     [gui_b=$enableval])
 
+
+NCSB_PATH=unknown
+AC_ARG_ENABLE(gui,
+[  --enable-ncsb-path      set the path where Century Schoolbook fonts can be found.
+                            Default: detect with locate(1)],
+    [NCSB_PATH=$enableval])
+
+
 reloc_b=no
 AC_ARG_ENABLE(relocation,
     [  --enable-relocation     compile with dynamic relocation.  Default: off],
@@ -108,6 +116,23 @@ fi
 if test "$reloc_b" = "yes"; then
     AC_DEFINE(ARGV0_RELOCATION)
 fi
+
+AC_MSG_CHECKING([New Century Schoolbook PFB files])
+if test "$NCSB_PATH" = "unknown"; then
+  which locate >& /dev/null
+  if test "$?" = "0"; then
+      ## sort to give precedence to /usr/  
+      NCSB_PATH=`locate c059033l.pfb | sort -r | head -1`
+      if then "$NCSB_PATH" = "";
+	  AC_MSG_WARN(Could not find c059033l.pfb. Use --enable-ncsb-path to set path)
+      fi
+      NCSB_PATH=`dirname "$NCSB_PATH"`
+  else
+     AC_MSG_WARN(Could not find locate(1). Use --enable-ncsb-path to set path to c059033l.pfb)
+  fi
+fi
+AC_MSG_RESULT($NCSB_PATH)
+AC_SUBST(NCSB_PATH)
 
 STEPMAKE_PANGO_FT2(pangoft2, REQUIRED, 1.6.0)
 #STEPMAKE_PANGO(pango, REQUIRED, 1.6.0)

@@ -1,3 +1,8 @@
+2006-01-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* configure.in (LINK_GXX_STATICALLY): --enable-ncsb-path option. 
+	use locate to find c059033l.pfb. 
+	
 2006-01-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/tie-formatting-problem.cc

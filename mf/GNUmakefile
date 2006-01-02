@@ -36,7 +36,6 @@ SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
 
 NCSB_SOURCE_FILES=c059013l c059016l c059033l c059036l
 NCSB_TTFS=$(addprefix $(outdir)/,CenturySchL-Ital.ttf CenturySchL-BoldItal.ttf CenturySchL-Roma.ttf CenturySchL-Bold.ttf)
-NCSB_PATH=/usr/share/fonts/default/Type1
 NCSB_INSTALL_DIR=$(local_lilypond_datadir)/fonts/otf
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
