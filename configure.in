@@ -121,12 +121,15 @@ AC_MSG_CHECKING([New Century Schoolbook PFB files])
 if test "$NCSB_DIR" = "unknown"; then
   which locate >& /dev/null
   if test "$?" = "0"; then
-      ## sort to give precedence to /usr/  
-      NCSB_DIR=`locate c059033l.pfb | sort -r | head -1`
-      if test "$NCSB_DIR" = "";  then
+      for d in `locate c059033l.pfb `; do
+	  if test -f `dirname "$d"`/c059033l.afm ; then
+	      NCSB_DIR=`dirname "$d"`
+	      break 
+	  fi 
+      done
+      if test "$NCSB_DIR" = "unknown";  then
 	  AC_MSG_WARN(Could not find c059033l.pfb. Use --enable-ncsb-path to set path)
       fi
-      NCSB_DIR=`dirname "$NCSB_DIR"`
   else
      AC_MSG_WARN(Could not find locate(1). Use --enable-ncsb-path to set path to c059033l.pfb)
   fi
