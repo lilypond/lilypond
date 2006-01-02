@@ -191,16 +191,28 @@ setup_paths (char const *argv0_ptr)
     {
       String argv0_abs;
       if (argv0_filename.is_absolute ())
-	argv0_abs = argv0_filename.to_string ();
+	{
+	  argv0_abs = argv0_filename.to_string ();
+	  if (be_verbose_global)
+	    warning (_f ("Relocation: is absolute: argv0=%s", argv0_ptr));
+	}
       else if (argv0_filename.dir_.length ())
-	argv0_abs = get_working_directory ()
-	  + "/" + String (argv0_filename.to_string ());
+	{
+	  argv0_abs = get_working_directory ()
+	    + "/" + String (argv0_filename.to_string ());
+	  if (be_verbose_global)
+	    warning (_f ("Relocation: from cwd: argv0=%s", argv0_ptr));
+	}
       else
 	{
 	  /* Find absolute ARGV0 name, using PATH.  */
 	  File_path path;
 	  path.parse_path (getenv ("PATH"));
-      
+
+	  if (be_verbose_global)
+	    warning (_f ("Relocation: from PATH=%s\nargv0=%s",
+			 path.to_string ().get_str0 (), argv0_ptr));
+
 #ifndef __MINGW32__
 	  String argv0_abs = path.find (argv0_filename.to_string ());
 #else /* __MINGW32__ */
