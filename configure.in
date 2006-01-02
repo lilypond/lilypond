@@ -123,7 +123,7 @@ if test "$NCSB_DIR" = "unknown"; then
   if test "$?" = "0"; then
       ## sort to give precedence to /usr/  
       NCSB_DIR=`locate c059033l.pfb | sort -r | head -1`
-      if then "$NCSB_DIR" = "";
+      if test "$NCSB_DIR" = "";  then
 	  AC_MSG_WARN(Could not find c059033l.pfb. Use --enable-ncsb-path to set path)
       fi
       NCSB_DIR=`dirname "$NCSB_DIR"`
@@ -131,6 +131,7 @@ if test "$NCSB_DIR" = "unknown"; then
      AC_MSG_WARN(Could not find locate(1). Use --enable-ncsb-path to set path to c059033l.pfb)
   fi
 fi
+
 AC_MSG_RESULT($NCSB_DIR)
 AC_SUBST(NCSB_DIR)
 
