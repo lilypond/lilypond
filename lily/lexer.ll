@@ -112,7 +112,7 @@ SCM (* scm_parse_error_handler) (void *);
 %x markup
 %x notes
 %x quote
-%x renameinput
+%x sourcefilename
 %x version
 
 A		[a-zA-Z]
@@ -180,8 +180,8 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
 	yy_push_state (version);
 }
-<INITIAL,chords,lyrics,notes,figures>\\renameinput{WHITE}*	{
-	yy_push_state (renameinput);
+<INITIAL,chords,lyrics,notes,figures>\\sourcefilename{WHITE}*	{
+	yy_push_state (sourcefilename);
 }
 <version>\"[^"]*\"     { /* got the version number */
 	String s (YYText () + 1);
@@ -195,7 +195,7 @@ BOM_UTF8	\357\273\277
 	scm_module_define (top_scope, ly_symbol2scm ("version-seen?"), SCM_BOOL_T);
 
 }
-<renameinput>\"[^"]*\"     {
+<sourcefilename>\"[^"]*\"     {
 	String s (YYText () + 1);
 	s = s.left_string (s.index_last ('\"'));
 
@@ -212,8 +212,8 @@ BOM_UTF8	\357\273\277
 	LexerError (_ ("quoted string expected after \\version").to_str0 ());
 	yy_pop_state ();
 }
-<renameinput>. 	{
-	LexerError (_ ("quoted string expected after \\renameinput").to_str0 ());
+<sourcefilename>>. 	{
+	LexerError (_ ("quoted string expected after \\sourcefilename").to_str0 ());
 	yy_pop_state ();
 }
 <longcomment>{
