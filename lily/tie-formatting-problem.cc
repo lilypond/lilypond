@@ -130,7 +130,7 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
   Direction updowndir = DOWN;
   do
     {
-      Interval x ;
+      Interval x;
       Interval y;
       if (boxes.size())
 	{
@@ -547,7 +547,7 @@ Tie_formatting_problem::generate_base_chord_configuration ()
 	conf.dir_ = specifications_[i].manual_dir_;
       if (specifications_[i].has_manual_position_)
 	{
-	  conf.position_ = (int) round (specifications_[i].manual_position_);
+	  conf.position_ = (int) my_round (specifications_[i].manual_position_);
 	  conf.delta_y_ = (specifications_[i].manual_position_ - conf.position_)
 	    * 0.5 * details_.staff_space_;
 	}
