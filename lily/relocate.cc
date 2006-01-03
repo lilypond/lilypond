@@ -214,10 +214,10 @@ setup_paths (char const *argv0_ptr)
 			 path.to_string ().get_str0 (), argv0_ptr));
 
 #ifndef __MINGW32__
-	  String argv0_abs = path.find (argv0_filename.to_string ());
+	  argv0_abs = path.find (argv0_filename.to_string ());
 #else /* __MINGW32__ */
 	  char const *ext[] = {"exe", "", 0 };
-	  String argv0_abs = path.find (argv0_filename.to_string (), ext);
+	  argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif /* __MINGW32__ */
 
 	  if (argv0_abs.is_empty ())
