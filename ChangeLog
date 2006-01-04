@@ -1,3 +1,8 @@
+2006-01-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/music-glossary.tely (Pitch names): Added
+	Spanish pitch names and durations, thanks to Ernesto Gancedo
+
 2006-01-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/lily.scm (define-scheme-options): use quasi-quote for option

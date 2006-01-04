@@ -5035,7 +5035,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab @strong{S}
   @tab @strong{FI}
-  @tab
+  @tab @strong{ES}
 
 @item
 
@@ -5050,7 +5050,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab longa
   @tab longa
-  @tab
+  @tab longa
 
 @item
 
@@ -5065,7 +5065,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab brevis
   @tab brevis
-  @tab
+  @tab breve
 
 @item
 
@@ -5080,7 +5080,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab hel
   @tab koko@-nuotti/@w{-tauko}
-  @tab
+  @tab redonda
 
 @item
 
@@ -5095,7 +5095,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab halv
   @tab puoli@-nuotti/@w{-tauko}
-  @tab
+  @tab blanca
 
 @item
 
@@ -5110,7 +5110,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab fjärdedel
   @tab neljännesosa@-nuotti/@w{-tauko}
-  @tab
+  @tab negra
 
 @item
 
@@ -5125,7 +5125,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab åttondel
   @tab kahdeksasosa@-nuotti/@w{-tauko}
-  @tab
+  @tab corchea
 
 @item
 
@@ -5140,7 +5140,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab sextondel
   @tab kuudestoistaosa@-nuotti/@w{-tauko}
-  @tab
+  @tab semicorchea
 
 @item
 
@@ -5155,7 +5155,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab trettiotvåondel
   @tab kolmaskymme@-neskahdesosa@-nuotti/@w{-tauko}
-  @tab
+  @tab fusa
 
 @item
 
@@ -5170,7 +5170,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab sextiofjärdedel
   @tab kuudeskymme@-nesneljäsosa@-nuotti/@w{-tauko}
-  @tab
+  @tab semifusa
 
 @end multitable
 @c @item @tab @tab @tab @tab @tab @tab @tab @tab @tab
@@ -5182,63 +5182,64 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item PITCH NAMES
 @end table
 
-@multitable @columnfractions .105 .145 .125 .125 .125 .125 .125 .125
+@c @multitable @columnfractions .105 .145 .125 .125 .125 .125 .125 .125
+@multitable @columnfractions .11 .14 .14 .11 .1 .1 .1 .1 .1
 
-@item @tab @strong{I} @tab @strong{F} @tab @strong{D} @tab
-@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI} 
-
-@item
-
-@item @strong{c} @tab do @tab ut @tab C @tab c @tab c @tab c @tab c
+@item @tab @strong{ES} @tab @strong{I} @tab @strong{F} @tab @strong{D} 
+@tab @strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI} 
 
 @item
 
-@item @strong{c-sharp} @tab do diesis @tab ut dièse @tab Cis @tab cis @tab
+@item @strong{c} @tab do  @tab do  @tab ut @tab C @tab c @tab c @tab c @tab c
+
+@item
+
+@item @strong{c-sharp} @tab do diesis  @tab do diesis  @tab ut dièse @tab Cis @tab cis @tab
 cis @tab cis @tab cis
 
 @item
 
-@item @strong{d-flat} @tab re bemolle @tab ré bémol @tab Des @tab des @tab
+@item @strong{d-flat} @tab re bemolle  @tab re bemolle  @tab ré bémol @tab Des @tab des @tab
 des @tab des @tab des
 
 @item
 
-@item @strong{d} @tab re @tab ré @tab D @tab d @tab d @tab d @tab d
+@item @strong{d} @tab re  @tab re  @tab ré @tab D @tab d @tab d @tab d @tab d
 
 @item
 
-@item @strong{e} @tab mi @tab mi @tab E @tab e @tab e @tab e @tab e
+@item @strong{e} @tab mi  @tab mi  @tab mi @tab E @tab e @tab e @tab e @tab e
 
 @item
 
-@item @strong{f} @tab fa @tab fa @tab F @tab f @tab f @tab f @tab f
+@item @strong{f} @tab fa  @tab fa  @tab fa @tab F @tab f @tab f @tab f @tab f
 
 @item
 
-@item @strong{g} @tab sol @tab sol @tab G @tab g @tab g @tab g @tab g
+@item @strong{g} @tab sol  @tab sol  @tab sol @tab G @tab g @tab g @tab g @tab g
 
 @item
 
-@item @strong{a-flat} @tab la bemolle @tab la bémol @tab As @tab as @tab as
+@item @strong{a-flat} @tab la bemol  @tab la bemolle  @tab la bémol @tab As @tab as @tab as
 @tab as @tab as
 
 @item
 
-@item @strong{a} @tab la @tab la @tab A @tab a @tab a @tab a @tab a
+@item @strong{a} @tab la  @tab la  @tab la @tab A @tab a @tab a @tab a @tab a
 
 @item
 
-@item @strong{a-sharp} @tab la diesis @tab la dièse @tab Ais @tab ais @tab
+@item @strong{a-sharp} @tab la sostenido  @tab la diesis  @tab la dièse @tab Ais @tab ais @tab
 ais @tab ais @tab ais
 
 @item
 
-@item @strong{b-flat} @tab si bemolle @tab si bémol @tab B @tab bes @tab b
+@item @strong{b-flat} @tab si bemol  @tab si bemolle  @tab si bémol @tab B @tab bes @tab b
 @tab b @tab b
 
 @item
 
-@item @strong{b} @tab si @tab si @tab H @tab b @tab h @tab h @tab h
+@item @strong{b} @tab si  @tab si  @tab si @tab H @tab b @tab h @tab h @tab h
 
 @end multitable
 
