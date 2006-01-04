@@ -10,7 +10,7 @@
   (for-each (lambda (x)
 	      (ly:add-option (car x) (cadr x) (caddr x)))
 	  
-	    '((point-and-click #t "use point & click")
+	    `((point-and-click #t "use point & click")
 	      (paper-size "a4" "the default paper size")
 	      (midi-debug #f "generate human readable MIDI")
 	      (internal-type-checking #f "check every property assignment for types")
@@ -31,7 +31,7 @@ similar to chord syntax")
 	      (gui #f "running from gui; redirect stderr to log file")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
-	      (verbose (ly:command-line-verbose?)  "value for the --verbose flag")
+	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
 	      (debug-gc #f

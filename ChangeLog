@@ -1,5 +1,8 @@
 2006-01-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily.scm (define-scheme-options): use quasi-quote for option
+	init. Fixes verbose printing of .scm files.
+
 	* stepmake/aclocal.m4: add spaces before - options.
 	
 2006-01-03  Jan Nieuwenhuizen  <janneke@gnu.org>
