@@ -125,7 +125,7 @@ if test "$NCSB_DIR" = "unknown"; then
 	  if test -f `dirname "$d"`/c059033l.afm ; then
 	      NCSB_DIR=`dirname "$d"`
 	      break 
-	  fi 
+	  fi
       done
       if test "$NCSB_DIR" = "unknown";  then
 	  AC_MSG_WARN(Could not find c059033l.pfb. Use --enable-ncsb-path to set path)

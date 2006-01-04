@@ -191,7 +191,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     if test "$optimise_b" = yes; then
 	AC_DEFINE(NDEBUG)
 	DEFINES="$DEFINES -DNDEBUG"
-	OPTIMIZE="-O2 -finline-functions"
+	OPTIMIZE=" -O2 -finline-functions"
     fi
 
     if test $profile_b = yes; then
@@ -211,7 +211,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     # If -pipe requested, test if it works and add to CFLAGS.
     if test "$pipe_b" = yes; then
 	save_cflags="$CFLAGS"
-	CFLAGS="-pipe $CFLAGS";
+	CFLAGS=" -pipe $CFLAGS";
 	AC_CACHE_CHECK([whether compiler understands -pipe],
 	    [stepmake_cflags_pipe],
 	    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[/* -pipe test */]])],
@@ -232,7 +232,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
         alpha*-*-*)
 	    dnl should do compile test?
 	    AC_MSG_RESULT(-mieee)
-	    CFLAGS="-mieee $CFLAGS"
+	    CFLAGS=" -mieee $CFLAGS"
 	    ;;
 	*)
 	    AC_MSG_RESULT([none])
