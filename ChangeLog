@@ -1,3 +1,7 @@
+2006-01-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/aclocal.m4: add spaces before - options.
+	
 2006-01-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/relocate.cc (setup_paths): Bugfix: do not store result
