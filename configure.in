@@ -119,7 +119,8 @@ fi
 
 AC_MSG_CHECKING([New Century Schoolbook PFB files])
 if test "$NCSB_DIR" = "unknown"; then
-  which locate >& /dev/null
+  # use `type' command rather than external program `which'
+  type locate >& /dev/null
   if test "$?" = "0"; then
       for d in `locate c059033l.pfb `; do
 	  if test -f `dirname "$d"`/c059033l.afm ; then
