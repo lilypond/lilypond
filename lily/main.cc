@@ -169,12 +169,12 @@ static Long_option_init options_static[]
   {_i ("FIELD"), "header", 'H',  _i ("dump a header field to file BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
-  {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
 #if HAVE_CHROOT
   {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
 						"and cd into DIR")},
 #endif
   {0, "no-print", 0, _i ("do not generate printed output")},
+  {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
   {0, "preview", 'p',  _i ("generate a preview of the first system")},
   {0, "safe-mode", 's',  _i ("disallow unsafe Scheme and PostScript operations")},
   {0, "version", 'v',  _i ("print version number")},

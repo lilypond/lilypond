@@ -1,3 +1,8 @@
+2006-01-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/main.cc: 
+	* configure.in: Cosmetic fixes.
+
 2006-01-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/music-glossary.tely (Pitch names): Added
