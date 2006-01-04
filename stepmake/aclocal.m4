@@ -894,8 +894,7 @@ AC_DEFUN(STEPMAKE_LOCALE, [
 
     # with/enable ??
     AC_ARG_WITH(localedir,
-    [  --with-localedir=LOCALE use LOCALE as locale dir.  Default:
-                            PREFIX/share/locale ],
+    [  --with-localedir=DIR    location of locales.  Default: PREFIX/share/locale ],
     localedir=$with_localedir,
     localedir='${prefix}/share/locale')
 
@@ -1011,7 +1010,7 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 	    ])
     
     AC_ARG_WITH(python-lib,
-	[  --with-python-lib=NAME name of the python lib],[
+	[  --with-python-lib=NAME  name of the python lib],[
 	    if test "$withval" = "yes" -o "$withval" = "no"; then
 		AC_MSG_WARN(Usage: --with-python-lib=name)
 	    else
