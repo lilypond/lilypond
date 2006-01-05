@@ -245,15 +245,6 @@ local-clean:
 $(outdir)/%.enc.in: %.enc
 	cp $< $@
 
-# teTeX-2.0.x compatibility.
-local-install:
-	-$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)/dvips
-	(cd $(DESTDIR)$(local_lilypond_datadir)/dvips && ln -sf ../fonts/map .)
-
-local-uninstall:
-	-rm -f $(DESTDIR)$(local_lilypond_datadir)/dvips/map
-	-rmdir $(DESTDIR)$(local_lilypond_datadir)/dvips
-
 
 $(NCSB_TTFS): $(addsuffix .pfb,$(addprefix $(NCSB_DIR)/,$(NCSB_SOURCE_FILES)))
 	$(foreach i,$(NCSB_SOURCE_FILES), \
