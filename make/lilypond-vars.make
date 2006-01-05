@@ -1,11 +1,15 @@
 ##
 ## settings to run LilyPond
-
+ifeq($(EXTERNAL_LILYPOND_BINARY,)
 # environment settings.
 export PATH:=$(top-build-dir)/lily/$(outconfbase):$(top-build-dir)/buildscripts/$(outconfbase):$(top-build-dir)/scripts/$(outconfbase):$(PATH):
 export LILYPONDPREFIX:=$(build_lilypond_datadir)/$(TOPLEVEL_VERSION)
-export PYTHONPATH:=$(top-build-dir)/python/$(outconfbase):$(PYTHONPATH)
 export DVIPSHEADERS:=$(top-build-dir)/mf/out::
+else
+export PATH:=$(dir $(EXTERNAL_LILYPOND_BINARY)):$(PATH)
+endif
+
+export PYTHONPATH:=$(top-build-dir)/python/$(outconfbase):$(PYTHONPATH)
 
 the-script-dir=$(wildcard $(script-dir))
 
@@ -21,3 +25,4 @@ LILYPOND_BOOK_FLAGS = --process="$(LILYPOND) --backend=eps --formats=ps,png --he
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
 LY2DVI = $(LILYPOND)
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
+

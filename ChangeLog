@@ -1,5 +1,7 @@
 2006-01-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/lilypond-vars.make: support EXTERNAL_LILYPOND_BINARY variable.
+
 	* mf/GNUmakefile: remove broken dvips map symlink.
 
 2006-01-04  Jan Nieuwenhuizen  <janneke@gnu.org>
