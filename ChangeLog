@@ -1,3 +1,7 @@
+2006-01-05    <kroeger@pedrokroeger.net>
+
+	* configure.in (NCSB_DIR): fix --with-ncsb-dir option.
+
 2006-01-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/GNUmakefile ($(outdir)/interfaces.itexi):
