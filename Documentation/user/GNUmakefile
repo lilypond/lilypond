@@ -258,8 +258,8 @@ ifneq ($(CROSS),yes)
 # of lilypond-internals every time.  however, this triggers
 # compilation during install, which is a bad thing (tm).
 
-$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(top-build-dir)/lily/$(outconfbase)/lilypond
-	cd $(outdir) && lilypond --verbose $(top-src-dir)/ly/generate-documentation
+$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(LILYPOND_BINARY)
+	cd $(outdir) && $(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation
 	rm -f $(outdir)/lilypond-internals.nexi
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 

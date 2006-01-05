@@ -1,11 +1,19 @@
-2006-01-05    <kroeger@pedrokroeger.net>
+
+2006-01-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* make/lilypond-vars.make: set LILYPOND_BINARY variable
+	(LILYPOND_BOOK_LILYPOND_FLAGS): new variable
+	LILYPOND_BOOK_LILYPOND_FLAGS to hold system dependent settings,
+	like -dgs-font-load.
+
+	* Documentation/user/GNUmakefile ($(outdir)/interfaces.itexi):
+	remove absolute path to lilypond binary.
+	
+2006-01-05 Pedro Kroeger    <kroeger@pedrokroeger.net>
 
 	* configure.in (NCSB_DIR): fix --with-ncsb-dir option.
 
 2006-01-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
-
-	* Documentation/user/GNUmakefile ($(outdir)/interfaces.itexi):
-	remove absolute path to lilypond binary.
 
 	* make/lilypond-vars.make: support LILYPOND_EXTERNAL_BINARY variable.
 
