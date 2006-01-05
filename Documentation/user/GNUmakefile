@@ -259,14 +259,14 @@ ifneq ($(CROSS),yes)
 # compilation during install, which is a bad thing (tm).
 
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(top-build-dir)/lily/$(outconfbase)/lilypond
-	cd $(outdir) && $(top-build-dir)/lily/$(outconfbase)/lilypond --verbose $(top-src-dir)/ly/generate-documentation
+	cd $(outdir) && lilypond --verbose $(top-src-dir)/ly/generate-documentation
 	rm -f $(outdir)/lilypond-internals.nexi
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 
 
 ## unused
 $(outdir)/interfaces.itexi: dummy
-	cd $(outdir) && $(top-build-dir)/lily/$(outconfbase)/lilypond $(top-src-dir)/ly/generate-interface-doc
+	cd $(outdir) && lilypond $(top-src-dir)/ly/generate-interface-doc
 
 else
 
