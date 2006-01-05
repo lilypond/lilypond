@@ -1,12 +1,12 @@
 ##
 ## settings to run LilyPond
-ifeq($(EXTERNAL_LILYPOND_BINARY,)
+ifeq ($(LILYPOND_EXTERNAL_BINARY),)
 # environment settings.
 export PATH:=$(top-build-dir)/lily/$(outconfbase):$(top-build-dir)/buildscripts/$(outconfbase):$(top-build-dir)/scripts/$(outconfbase):$(PATH):
 export LILYPONDPREFIX:=$(build_lilypond_datadir)/$(TOPLEVEL_VERSION)
 export DVIPSHEADERS:=$(top-build-dir)/mf/out::
 else
-export PATH:=$(dir $(EXTERNAL_LILYPOND_BINARY)):$(PATH)
+export PATH:=$(dir $(LILYPOND_EXTERNAL_BINARY)):$(PATH)
 endif
 
 export PYTHONPATH:=$(top-build-dir)/python/$(outconfbase):$(PYTHONPATH)
