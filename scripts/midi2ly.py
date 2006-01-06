@@ -35,6 +35,7 @@ if not os.path.isdir (libdir):
         libdir = '@lilypond_libdir@'
 
 # ugh
+datadir = '@local_lilypond_datadir@'
 if os.environ.has_key ('LILYPONDPREFIX'):
 	datadir = os.environ['LILYPONDPREFIX']
 	while datadir[-1] == os.sep:
