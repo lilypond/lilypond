@@ -7,7 +7,12 @@ export LILYPONDPREFIX:=$(build_lilypond_datadir)/$(TOPLEVEL_VERSION)
 export DVIPSHEADERS:=$(top-build-dir)/mf/out::
 export LILYPOND_BINARY=$(top-build-dir)/lily/$(outconfbase)/lilypond
 else
-export PATH:=$(dir $(LILYPOND_EXTERNAL_BINARY)):$(PATH)
+
+## better not take the binaries  from a precompiled bundle, as they
+## rely on env vars for relocation.
+##
+
+#export PATH:=$(dir $(LILYPOND_EXTERNAL_BINARY)):$(PATH)
 export LILYPOND_BINARY=$(LILYPOND_EXTERNAL_BINARY)
 endif
 
