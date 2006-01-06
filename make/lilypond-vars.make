@@ -25,6 +25,6 @@ LILYPOND_BOOK_FLAGS = --process="$(LILYPOND_BINARY) --verbose --backend=eps --fo
 
 #texi-html for www only:
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
-LY2DVI = $(LILYPOND)
+LY2DVI = $(LILYPOND_BINARY)
 LYS_TO_TELY = $(buildscript-dir)/lys-to-tely.py
 
