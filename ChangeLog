@@ -1,3 +1,7 @@
+2006-01-06  Graham Percival  <gpermus@gmail.com>
+
+	* input/test/add-staccato.ly: remove reference to old file.
+
 2006-01-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (invokes_lilypond): allow . in path to

@@ -5,9 +5,7 @@
 
 texidoc= "@cindex Add Stacato
 Using @code{make-music}, you can add various stuff to notes. In this
-example staccato dots are added to the notes.  For this simple case,
-it is not necessary to use scm constructs (see @code{separate-staccato.ly}).
-"
+example staccato dots are added to the notes."
 } 
 
 #(define (make-script x)
