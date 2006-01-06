@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2005 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 
   Chris Jackson <chris@fluffhouse.org.uk> - extended to support
   bracketed pedals.

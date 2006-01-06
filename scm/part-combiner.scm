@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2004--2005	Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 2004--2006	Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;; todo: figure out how to make module,
 ;; without breaking nested ly scopes

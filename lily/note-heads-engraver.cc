@@ -1,7 +1,7 @@
 /*
   note-heads-engraver.cc -- part of GNU LilyPond
 
-  (c) 1997--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"

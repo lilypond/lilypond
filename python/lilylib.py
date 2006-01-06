@@ -3,7 +3,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c) 1998--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ###  subst:\(^\|[^._a-z]\)\(abspath\|identify\|warranty\|progress\|warning\|error\|exit\|getopt_args\|option_help_str\|options_help_str\|help\|setup_temp\|read_pipe\|system\|cleanup_temp\|strip_extension\|cp_to_dir\|mkdir_p\|init\) *(
@@ -63,7 +63,7 @@ def identify (port):
 def warranty ():
 	identify (sys.stdout)
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ ("Copyright (c) %s by") % '1998--2005')
+	sys.stdout.write (_ ("Copyright (c) %s by") % '1998--2006')
 	sys.stdout.write ('\n')
 	map (lambda x: sys.stdout.write ('  %s\n' % x), __main__.copyright)
 	sys.stdout.write ('\n')

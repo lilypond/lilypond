@@ -1,7 +1,7 @@
 //
 //  binary-source-file.hh -- declare Binary_source_file
 //
-//  (c) 1997--2005 Jan Nieuwenhuizen <janneke@gnu.org>
+//  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef BINARY_SOURCE_FILE_HH
 #define BINARY_SOURCE_FILE_HH

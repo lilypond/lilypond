@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2005 Jan Nieuwenhuizen
+  (c) 1997--2006 Jan Nieuwenhuizen
 */
 
 #include <climits>		// INT_MAX
