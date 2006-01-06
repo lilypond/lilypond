@@ -674,7 +674,7 @@ def split_options (option_string):
 	return []
 
 def invokes_lilypond ():
-	return re.search ('^[\'\"0-9A-Za-z/]*lilypond', process_cmd)
+	return re.search ('^[\'\"0-9A-Za-z/.]*lilypond', process_cmd)
 
 def set_default_options (source):
 	global default_ly_options
@@ -1301,7 +1301,7 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	# UGH
 	# the --process=CMD switch is a bad idea
 	# it is too generic for lilypond-book.
-	if texstr_names and invokes_lilypond:
+	if texstr_names and invokes_lilypond ():
 		my_system (string.join ([cmd, '--backend texstr',
 					 'snippet-map.ly'] + texstr_names))
 		for l in texstr_names:
