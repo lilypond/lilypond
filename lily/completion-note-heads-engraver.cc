@@ -1,7 +1,7 @@
 /*
   completion-note-heads-engraver.cc -- Completion_heads_engraver
 
-  (c) 1997--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include <cctype>

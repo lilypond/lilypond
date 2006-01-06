@@ -5,7 +5,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c)  2005 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2005--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (use-modules
  (ice-9 getopt-long)

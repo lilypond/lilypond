@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c)  2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 2005--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 (define cache-hash-tab  (make-hash-table 11))

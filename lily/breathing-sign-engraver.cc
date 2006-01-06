@@ -1,7 +1,7 @@
 /*
   breathing_sign-engraver.cc -- implement Breathing_sign_engraver
 
-  (c) 1999--2005 Michael Krause
+  (c) 1999--2006 Michael Krause
 
   written for the GNU LilyPond music typesetter
 

@@ -5,7 +5,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c)  2005 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 2005--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; gui debug helper
 ;; (define (exit x) (system "sleep 10"))

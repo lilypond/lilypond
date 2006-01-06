@@ -3,7 +3,7 @@
 
   based on note-heads-engraver.cc, by Jean-Baptiste Lamy <jiba@tuxfamily.org>,
 
-  (c) 2002--2005
+  (c) 2002--2006
 */
 
 #include <cctype>

@@ -1,7 +1,7 @@
 /*
   string.cc - implement String
 
-  (c) 1997--2005 Han-Wen Nienhuys & Jan Nieuwenhuizen
+  (c) 1997--2006 Han-Wen Nienhuys & Jan Nieuwenhuizen
 */
 
 #ifndef _GNU_SOURCE // we want memmem

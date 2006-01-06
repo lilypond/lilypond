@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef BREAK_HH
