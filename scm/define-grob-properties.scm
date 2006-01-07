@@ -271,8 +271,9 @@ determining ledger lines and stem lengths.")
      (line-break-system-details ,list?
 				"Alist of properties to use when this
 column is the start of a system.")
-     
+
      (line-count ,integer? "The number of staff lines.")
+     (line-positions ,list? "Vertical positions of staff lines.")
      (measure-length ,ly:moment? "Length of a
 measure. Used in some spacing situations.")
 

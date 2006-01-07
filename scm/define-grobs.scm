@@ -1486,9 +1486,8 @@
 
     (StaffSymbol
      . (
-
+	(Y-extent . ,Staff_symbol::height)
 	(stencil . ,Staff_symbol::print)
-
 	(line-count . 5)
 	(ledger-line-thickness . (1.0 . 0.1))
 	(layer . 0)
