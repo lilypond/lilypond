@@ -65,23 +65,40 @@ Staff_symbol::print (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  int l = Staff_symbol::line_count (me);
+  Stencil m;
 
-  Real height = (l - 1) * staff_space (me) / 2;
-  Stencil a
+  SCM line_positions = me->get_property ("line-positions");
+  Stencil line
     = Lookup::horizontal_line (span_points
 			       -me->relative_coordinate (common, X_AXIS),
 			       t);
 
-  Stencil m;
-  for (int i = 0; i < l; i++)
+  Real space = staff_space (me);
+  if (scm_is_pair (line_positions))
     {
-      Stencil b (a);
-      b.translate_axis (height - i * staff_space (me), Y_AXIS);
-      m.add_stencil (b);
+      for (SCM s = line_positions; scm_is_pair (s);
+	   s = scm_cdr (s))
+	{
+	  Stencil b (line);
+	  b.translate_axis (scm_to_double (scm_car (s))
+			    * 0.5 * space, Y_AXIS);
+	  m.add_stencil (b);
+	}
+    }
+  else
+    {
+      int l = Staff_symbol::line_count (me);
+      Real height = (l - 1) * staff_space (me) / 2;
+      for (int i = 0; i < l; i++)
+	{
+	  Stencil b (line);
+	  b.translate_axis (height - i * space, Y_AXIS);
+	  m.add_stencil (b);
+	}
     }
   return m.smobbed_copy ();
 }
+
 
 int
 Staff_symbol::get_steps (Grob *me)
@@ -122,6 +139,37 @@ Staff_symbol::get_ledger_line_thickness (Grob *me)
   return z[X_AXIS] * get_line_thickness (me) + z[Y_AXIS] * staff_space (me);
 }
 
+MAKE_SCHEME_CALLBACK(Staff_symbol,height,1);
+SCM
+Staff_symbol::height  (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Real t = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  t *= robust_scm2double (me->get_property ("thickness"), 1.0);
+  
+  SCM line_positions = me->get_property ("line-positions");
+
+  Interval y_ext;
+  Real space = staff_space (me);
+  if (scm_is_pair (line_positions))
+    {
+      for (SCM s = line_positions; scm_is_pair (s);
+	   s = scm_cdr (s))
+	y_ext.add_point (scm_to_double (scm_car (s)) * 0.5 * space);
+    }
+  else
+    {
+      int l = Staff_symbol::line_count (me);
+      Real height = (l - 1) * staff_space (me) / 2;
+      y_ext = Interval (-height, height);
+    }
+  y_ext.widen (t/2);
+  return ly_interval2scm (y_ext);
+}
+
+
+
+
 ADD_INTERFACE (Staff_symbol, "staff-symbol-interface",
 	       "This spanner draws the lines of a staff. "
 	       "A staff symbol definines a vertical unit, the staff space. "
@@ -130,4 +178,12 @@ ADD_INTERFACE (Staff_symbol, "staff-symbol-interface",
 	       "or space) is position 0. The length of the symbol may be set by hand "
 	       "through the @code{width} property. ",
 
-	       "ledger-line-thickness width staff-space thickness line-count");
+
+	       /* properties */
+	       "ledger-line-thickness "
+	       "line-count "
+	       "line-positions "
+	       "staff-space "
+	       "thickness "
+	       "width "
+	       );

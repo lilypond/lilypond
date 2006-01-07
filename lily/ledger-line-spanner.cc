@@ -24,7 +24,7 @@ struct Ledger_line_spanner
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   static Stencil brew_ledger_lines (Grob *me,
 				    int pos,
-				    int interspaces,
+				    Interval,
 				    Real, Real,
 				    Interval x_extent,
 				    Real left_shorten);
@@ -35,15 +35,15 @@ struct Ledger_line_spanner
 Stencil
 Ledger_line_spanner::brew_ledger_lines (Grob *staff,
 					int pos,
-					int interspaces,
+					Interval staff_extent,
 					Real halfspace,
 					Real ledgerlinethickness,
 					Interval x_extent,
 					Real left_shorten)
 {
-  int line_count = ((abs (pos) < interspaces)
+  int line_count = (staff_extent.contains (pos)
 		    ? 0
-		    : (abs (pos) - interspaces) / 2);
+		    : sign (pos) * int (rint(pos -  staff_extent[Direction (sign (pos))])) / 2);
   Stencil stencil;
   if (line_count)
     {
@@ -129,8 +129,11 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
   Item *previous_column = 0;
   Item *current_column = 0;
 
-  int interspaces = Staff_symbol::line_count (staff) - 1;
+  Real halfspace = Staff_symbol::staff_space (staff) / 2;
 
+  Interval staff_extent = staff->extent (staff, Y_AXIS);
+  staff_extent *= 1 / halfspace;
+    
   /*
     Run through heads using a loop. Since Ledger_line_spanner can
     contain a lot of noteheads, superlinear performance is too slow.
@@ -141,7 +144,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
       Item *h = heads[i];
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if (abs (pos) <= interspaces)
+      if (staff_extent.contains (pos))
 	continue;
 
       Item *column = h->get_column ();
@@ -211,6 +214,11 @@ Ledger_line_spanner::print (SCM smob)
   if (!staff)
     return SCM_EOL;
 
+  Real halfspace = Staff_symbol::staff_space (staff) / 2;
+
+  Interval staff_extent = staff->extent (staff, Y_AXIS);
+  staff_extent *= 1 / halfspace;
+  
   Real length_fraction
     = robust_scm2double (me->get_property ("length-fraction"), 0.25);
 
@@ -228,15 +236,13 @@ Ledger_line_spanner::print (SCM smob)
 	  common[a] = common[a]->common_refpoint (g, a);
     }
 
-  int interspaces = Staff_symbol::line_count (staff) - 1;
   Ledger_requests reqs;
   for (int i = heads.size (); i--;)
     {
       Item *h = dynamic_cast<Item *> (heads[i]);
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if (pos
-	  && abs (pos) > interspaces)
+      if (pos && !staff_extent.contains (pos))
 	{
 	  Interval head_extent = h->extent (common[X_AXIS], X_AXIS);
 	  Interval ledger_extent = head_extent;
@@ -264,8 +270,8 @@ Ledger_line_spanner::print (SCM smob)
       Direction d = DOWN;
       do
 	{
-	  if (abs (last->second[d].position_) > interspaces
-	      && abs (i->second[d].position_) > interspaces)
+	  if (!staff_extent.contains (last->second[d].position_)
+	      && !staff_extent.contains (i->second[d].position_))
 	    {
 	      Real center
 		= (last->second[d].head_extent_[RIGHT]
@@ -277,10 +283,12 @@ Ledger_line_spanner::print (SCM smob)
 		  Ledger_request &lr = ((which == LEFT) ? * last : *i).second[d];
 
 		  // due tilt of quarter note-heads
+		  /* FIXME */
 		  bool both
-		    = (abs (last->second[d].position_) > interspaces + 1
-		       && abs (i->second[d].position_) > interspaces + 1);
-
+		    = (!staff_extent.contains (last->second[d].position_
+					       - sign (last->second[d].position_))
+		       && !staff_extent.contains (i->second[d].position_
+						  - sign (i->second[d].position_)));
 		  Real limit = (center + (both ? which * gap / 2 : 0));
 		  lr.ledger_extent_.elem_ref (-which)
 		    = which * max (which * lr.ledger_extent_[-which], which * limit);
@@ -291,22 +299,22 @@ Ledger_line_spanner::print (SCM smob)
       while (flip (&d) != DOWN);
     }
 
-  // create  ledgers for note heads
+  // create ledgers for note heads
   Real ledgerlinethickness
     = Staff_symbol::get_ledger_line_thickness (staff);
-  Real halfspace = Staff_symbol::staff_space (staff) / 2;
   for (int i = heads.size (); i--;)
     {
       Item *h = dynamic_cast<Item *> (heads[i]);
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if (abs (pos) > interspaces + 1)
+      if (!staff_extent.contains (pos - sign (pos)))
 	{
 	  Interval head_size = h->extent (common[X_AXIS], X_AXIS);
 	  Interval ledger_size = head_size;
 	  ledger_size.widen (ledger_size.length () * length_fraction);
 
-	  Interval max_size = reqs[h->get_column ()->get_rank ()][Direction (sign (pos))].ledger_extent_;
+	  Interval max_size = reqs[h->get_column ()->get_rank ()]
+	    [Direction (sign (pos))].ledger_extent_;
 
 	  ledger_size.intersect (max_size);
 	  Real left_shorten = 0.0;
@@ -326,7 +334,7 @@ Ledger_line_spanner::print (SCM smob)
 	      */
 	    }
 
-	  ledgers.add_stencil (brew_ledger_lines (staff, pos, interspaces,
+	  ledgers.add_stencil (brew_ledger_lines (staff, pos, staff_extent,
 						  halfspace,
 						  ledgerlinethickness,
 						  ledger_size,
@@ -347,7 +355,12 @@ ADD_INTERFACE (Ledger_line_spanner,
 	       "This is a separate grob because it has to process\n"
 	       "all potential collisions between all note heads.",
 
-	       "note-heads thickness minimum-length-fraction length-fraction gap");
+	       /* properties */
+	       "note-heads "
+	       "thickness "
+	       "minimum-length-fraction "
+	       "length-fraction "
+	       "gap");
 
 struct Ledgered_interface
 {
