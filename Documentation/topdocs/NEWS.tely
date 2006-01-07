@@ -46,6 +46,20 @@ the @uref{../,LilyPond Documentation}
 
 
 @itemize @bullet
+
+@item Positions of staff lines may now be set individually, for
+example
+
+@lilypond[raggedright]
+\new Staff  \relative c' {
+  \override Staff.StaffSymbol #'line-positions = #'(-7 -2 0 3 9)
+  g c f b e a
+}
+@end lilypond
+
+This feature  was sponsored by Andrea Valle.
+
+
 @item A MusicXML importer is included now.
 
 It was sponsored by among others, Mark van den Borre, 
