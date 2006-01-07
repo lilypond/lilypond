@@ -158,18 +158,10 @@ SCM
 Bar_line::calc_bar_size (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Real ss = Staff_symbol_referencer::staff_space (me);
-
-  if (Staff_symbol_referencer::get_staff_symbol (me))
+  if (Grob *staff = Staff_symbol_referencer::get_staff_symbol (me))
     {
-      /*
-	If there is no staff-symbol, we get -1 from the next
-	calculation. That's a nonsense value, which would collapse the
-	barline so we return 0.0 in the next alternative.
-      */
-      Real ysize = (Staff_symbol_referencer::line_count (me) -1);
-      ysize = ysize * ss + Staff_symbol_referencer::line_thickness (me);
-      return scm_from_double (ysize);
+      Interval staff_y = staff->extent (staff, Y_AXIS);
+      return scm_from_double (staff_y.is_empty () ? 0.0 : staff_y.length ());
     }
   return scm_from_int (0);
 }
