@@ -1,5 +1,8 @@
 2006-01-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/font-config.cc (init_fontconfig): call FcConfigBuildFonts()
+	explicitly.
+
 	* lily/font-config-scheme.cc (LY_DEFINE): also display font and
 	config dirs. Aids debugging. 
 	(display_config): also display config files.
