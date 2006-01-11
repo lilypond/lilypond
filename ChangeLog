@@ -1,3 +1,8 @@
+2006-01-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/font-config-scheme.cc (LY_DEFINE): also display font and
+	config dirs. Aids debugging. 
+
 2006-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/bar-line.cc (calc_bar_size): inspect staff->extent (Y_AXIS)

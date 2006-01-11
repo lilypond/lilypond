@@ -34,6 +34,21 @@ display_fontset (FcFontSet *fs)
     }
 }
 
+void
+display_strlist (char const*what, FcStrList *slist)
+{
+  while (FcChar8 *dir = FcStrListNext (slist))
+    {
+      printf("%s: %s\n", what, dir);
+    }
+}
+
+void
+display_dirs (FcConfig *fcc)
+{
+  display_strlist ("config dir", FcConfigGetConfigDirs(fcc));
+  display_strlist ("font dir", FcConfigGetFontDirs(fcc));
+}
 
 void
 display_list (FcConfig *fcc)
@@ -60,9 +75,9 @@ display_list (FcConfig *fcc)
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0,
 	   (),
 	   "Dump a list of all fonts visible to FontConfig.")
-
 {
   display_list (NULL);
+  display_dirs (NULL);
   
   return SCM_UNSPECIFIED;
 }
