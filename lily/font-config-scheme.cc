@@ -44,10 +44,11 @@ display_strlist (char const*what, FcStrList *slist)
 }
 
 void
-display_dirs (FcConfig *fcc)
+display_config (FcConfig *fcc)
 {
-  display_strlist ("config dir", FcConfigGetConfigDirs(fcc));
-  display_strlist ("font dir", FcConfigGetFontDirs(fcc));
+  display_strlist ("Config files", FcConfigGetConfigFiles(fcc));
+  display_strlist ("Config dir", FcConfigGetConfigDirs(fcc));
+  display_strlist ("Font dir", FcConfigGetFontDirs(fcc));
 }
 
 void
@@ -72,12 +73,13 @@ display_list (FcConfig *fcc)
 }
 
 
+
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0,
 	   (),
 	   "Dump a list of all fonts visible to FontConfig.")
 {
   display_list (NULL);
-  display_dirs (NULL);
+  display_config (NULL);
   
   return SCM_UNSPECIFIED;
 }

@@ -2,6 +2,7 @@
 
 	* lily/font-config-scheme.cc (LY_DEFINE): also display font and
 	config dirs. Aids debugging. 
+	(display_config): also display config files.
 
 2006-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
