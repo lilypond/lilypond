@@ -36,8 +36,6 @@ init_fontconfig ()
   if (!is_file ((char*)cache_file))
     message (_f ("Rebuilding FontConfig cache %s. this may take a while...", cache_file));
 			
-  FcConfigSetCurrent (font_config_global);
-  
   Array<String> dirs;
 
   dirs.push (prefix_directory + "/fonts/otf/");
@@ -52,6 +50,8 @@ init_fontconfig ()
 	message (_f ("adding font directory: %s", dir.to_str0 ()));
     }
 
+  FcConfigBuildFonts (font_config_global);
+  FcConfigSetCurrent (font_config_global);
   if (be_verbose_global)
     progress_indication ("\n");
 
