@@ -583,6 +583,17 @@ of beat groupings "
     (set! (ly:music-property m 'procedure) checker)
     m))
 
+
+(define-public (skip->rest mus)
+
+  "Replace MUS by RestEvent of the same duration if it is a
+SkipEvent. Useful for extracting parts from crowded scores"
+
+  (if (equal? (ly:music-property mus 'name) 'SkipEvent)
+   (make-music 'RestEvent 'duration (ly:music-property mus 'duration))
+   mus))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
 
