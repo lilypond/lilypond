@@ -108,14 +108,9 @@ ifeq ($(HOST_ARCH),i686-cygwin)
 CYGWIN_BUILD = yes
 endif
 
-ifeq ($(HOST_ARCH),i586-mingw32msvc)
+ifeq (mingw,$(findstring mingw$(HOST_ARCH)))
 MINGW_BUILD = yes
 endif
-ifeq ($(HOST_ARCH),i386-mingw32)
-MINGW_BUILD = yes
-endif
-ifeq ($(HOST_ARCH),i686-mingw32)
-MINGW_BUILD = yes
 endif
 ifeq (darwin,$(findstring darwin,$(HOST_ARCH)))
 DARWIN_BUILD = yes
