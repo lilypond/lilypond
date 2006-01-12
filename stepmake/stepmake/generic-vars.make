@@ -114,6 +114,9 @@ endif
 ifeq ($(HOST_ARCH),i386-mingw32)
 MINGW_BUILD = yes
 endif
+ifeq ($(HOST_ARCH),i686-mingw32)
+MINGW_BUILD = yes
+endif
 ifeq (darwin,$(findstring darwin,$(HOST_ARCH)))
 DARWIN_BUILD = yes
 endif
