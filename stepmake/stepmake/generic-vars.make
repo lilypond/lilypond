@@ -108,7 +108,7 @@ ifeq ($(HOST_ARCH),i686-cygwin)
 CYGWIN_BUILD = yes
 endif
 
-ifeq (mingw,$(findstring mingw$(HOST_ARCH)))
+ifeq (mingw,$(findstring mingw,$(HOST_ARCH)))
 MINGW_BUILD = yes
 endif
 endif
