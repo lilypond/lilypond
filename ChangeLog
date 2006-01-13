@@ -2,6 +2,7 @@
 
 	* stepmake/stepmake/generic-vars.make (MINGW_BUILD): generic
 	detection of mingw build.
+	(MINGW_BUILD): opps.
 
 2006-01-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 

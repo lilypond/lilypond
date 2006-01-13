@@ -101,17 +101,15 @@ ALL_SOURCES = $(SOURCE_FILES)
 # Check if we are building for Cygwin
 #
 HOST_ARCH=$(shell $(CC) -dumpmachine)
-ifeq ($(HOST_ARCH),i686-pc-cygwin)
-CYGWIN_BUILD = yes
-endif
-ifeq ($(HOST_ARCH),i686-cygwin)
+
+ifeq (cygwin,$(findstring cygwin,$(HOST_ARCH)))
 CYGWIN_BUILD = yes
 endif
 
 ifeq (mingw,$(findstring mingw,$(HOST_ARCH)))
 MINGW_BUILD = yes
 endif
-endif
+
 ifeq (darwin,$(findstring darwin,$(HOST_ARCH)))
 DARWIN_BUILD = yes
 endif
