@@ -75,6 +75,15 @@ The @code{\markup} is described in more detail in
 @code{\emptyText}.
 
 
+@commonprop
+
+Checking to make sure that text scripts and lyrics are within the margins is a relatively large computational task.  To speed up processing, lilypond does not perform such calculations by default; to enable it, use
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+
 @seealso
 
 In this manual: @ref{Text markup}.

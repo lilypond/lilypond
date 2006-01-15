@@ -886,6 +886,7 @@ piece in several movements), use @code{breakbefore} in the header.
 @example
 \header@{
   breakbefore = ##t
+  piece = ""
 @}
 @end example
 
@@ -895,6 +896,12 @@ piece in several movements), use @code{breakbefore} in the header.
 @code{\pageBreak}
 @cindex @code{\noPageBreak} 
 @code{\noPageBreak} 
+
+
+@bugs
+
+The @code{breakbefore=##t} header requires that there is a @code{piece} header as well.  It may be used as a normal header, or left  blank (@code{=""}) as in the example above, but it must be present.
+
 
 
 @node Multiple movements
@@ -1184,6 +1191,11 @@ composer flush right on a single line.
   }
 }
 @end verbatim
+
+
+@bugs
+
+The @code{breakbefore=##t} header requires that there is a @code{piece} header as well.  It may be used as a normal header, or left  blank (@code{=""}) as in the example above, but it must be present.
 
 
 
