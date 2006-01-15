@@ -1,3 +1,9 @@
+2006-01-15 Erik Sandberg  <mandolaerik@gmail.com>
+
+	* scripts/lilypond-book.py: bugfix
+
+	* scm/define-music-types.scm: fix typos.
+
 2006-01-14  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ basic-notation.itely, global.itely,
