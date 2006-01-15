@@ -348,8 +348,7 @@ Syntax @code{\\outputproperty @var{predicate} @var{prop}
 
 SYNTAX
 
-@code{\\propery Foo.Bar \\override} @var{SYMBOL} = @var{VALUE}
-
+@code{\\override [ @var{Ctxt} . ] @var{Obj}} @var{prop} = @var{val}}
 ")
 	(types . (general-music layout-instruction))
 	(iterator-ctor . ,Push_property_iterator::constructor)

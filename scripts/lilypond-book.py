@@ -1081,8 +1081,8 @@ class Lilypond_snippet (Snippet):
 				verb = self.substring ('code')
 				str += (output[LATEX][VERBATIM] % vars ())
 			elif srcltx_p:
-				breaks = self.substring ('code').count ("\n")
-				str += "".ljust (breaks, "\n").replace("\n","%\n")
+				breaks = self.ly ().count ("\n")
+				str += "".ljust (breaks, "\n").replace ("\n","%\n")
 		str += (output[LATEX][OUTPUT] % vars ())
 		if QUOTE in self.option_dict:
 			str = output[LATEX][QUOTE] % vars ()
