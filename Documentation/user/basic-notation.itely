@@ -438,9 +438,9 @@ typing @code{\times} only once, thus saving lots of typing.  In the next
 example, there are two triplets shown, while @code{\times} was only
 used once
 
-@lilypond[quote,fragment,relative=1,raggedright,verbatim]
+@lilypond[quote,fragment,relative=2,raggedright,verbatim]
 \set tupletSpannerDuration = #(ly:make-moment 1 4)
-\times 2/3 { c'8 c c c c c }
+\times 2/3 { c8 c c c c c }
 @end lilypond
 
 The format of the number is determined by the property
@@ -449,8 +449,13 @@ denominator, but if it is set to the Scheme function
 @code{fraction-tuplet-formatter}, @var{num}:@var{den} will be printed
 instead.
 
+To avoid printing tuplet numbers, use
 
-
+@lilypond[quote,fragment,relative=2,raggedright,verbatim]
+\times 2/3 { c8 c c } \times 2/3 { c8 c c }
+\override TupletNumber #'transparent = ##t
+\times 2/3 { c8 c c } \times 2/3 { c8 c c }
+@end lilypond
 
 
 @seealso

@@ -709,6 +709,16 @@ for complex vocal music.
 * Other vocal issues::          
 @end menu
 
+
+@commonprop
+
+Checking to make sure that text scripts and lyrics are within the margins is a relatively large computational task.  To speed up processing, lilypond does not perform such calculations by default; to enable it, use
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t 
+@end example
+
+
 @node Setting simple songs
 @subsection Setting simple songs
 
