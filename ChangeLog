@@ -1,3 +1,10 @@
+006-01-16  Erlend Aasland  <erlenda@gmail.com>
+
+	* Documentation/user/global.itely: fix typos; @bugs -> @refbugs
+
+	* scm/define-music-types.scm: fix bug in desc. string
+	for OverrideProperty
+
 2006-01-15 Erik Sandberg  <mandolaerik@gmail.com>
 
 	* scripts/lilypond-book.py: bugfix
