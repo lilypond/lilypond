@@ -1,5 +1,7 @@
 2006-01-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/music-functions-init.ly: remove duplicate tag.
+
 	* lily/include/*.hh: GCC 4.1 fixes.
 
 006-01-16  Erlend Aasland  <erlenda@gmail.com>

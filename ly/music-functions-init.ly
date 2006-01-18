@@ -19,19 +19,6 @@ tweak = #(def-music-function (parser location sym val arg)
 		   (ly:music-property arg 'tweaks)))
 	   arg)
 
-	   
-
-tag = #(def-music-function (parser location tag arg)
-   (symbol? ly:music?)
-
-   "Add @var{tag} to the @code{tags} property of @var{arg}."
-
-   (set!
-    (ly:music-property arg 'tags)
-    (cons tag
-	  (ly:music-property arg 'tags)))
-   arg)
-
 tag = #(def-music-function (parser location tag arg)
    (symbol? ly:music?)
 
