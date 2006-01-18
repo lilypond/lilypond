@@ -25,7 +25,7 @@ public:
   DECLARE_SCHEME_CALLBACK (x_aligned_side, (SCM element));
   DECLARE_SCHEME_CALLBACK (y_aligned_side, (SCM element));
 
-  static SCM Side_position_interface::aligned_side (Grob*me, Axis a);
+  static SCM aligned_side (Grob*me, Axis a);
 
   static SCM general_side_position (Grob *, Axis, bool);
   static Axis get_axis (Grob *);

@@ -123,7 +123,7 @@ struct Slur_score_state
   void fill (Grob *);
   void set_next_direction ();
 
-  Array<Offset> Slur_score_state::generate_avoid_offsets () const;
+  Array<Offset> generate_avoid_offsets () const;
   Drul_array<Bound_info> get_bound_info () const;
   void generate_curves () const;
   Link_array<Slur_configuration> enumerate_attachments (Drul_array<Real> end_ys) const;
