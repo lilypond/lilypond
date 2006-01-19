@@ -4,7 +4,7 @@
 
 @ifhtml
 @macro inputfileref{DIR,NAME}
-@uref{../../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 @macro usermanref{NAME}
 @inforef{\NAME\,,../../user/lilypond/lilypond}@c
@@ -174,7 +174,7 @@ Point and click editing is now supported in the PS/PDF backend as
 well.
 See
 @ifhtml
-@uref{../../user/lilypond/Point-and-click.html,Point and click}.
+@uref{../user/lilypond/Point-and-click.html,Point and click}.
 @end ifhtml
 @ifnothtml
 the section Point and click in he user manual. 
