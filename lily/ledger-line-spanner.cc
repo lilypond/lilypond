@@ -59,7 +59,7 @@ Ledger_line_spanner::brew_ledger_lines (Grob *staff,
 	= Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
 
       Direction dir = (Direction)sign (pos);
-      Real offs = (Staff_symbol_referencer::on_staffline (staff, pos))
+      Real offs = (Staff_symbol_referencer::on_line (staff, pos))
 	? 0.0
 	: -dir * halfspace;
 

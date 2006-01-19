@@ -570,6 +570,7 @@ BOM_UTF8	\357\273\277
 	Real r;
 	int cnv = sscanf (YYText (), "%lf", &r);
 	assert (cnv == 1);
+	(void) cnv;
 
 	yylval.scm = scm_from_double (r);
 	return REAL;

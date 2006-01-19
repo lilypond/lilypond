@@ -20,6 +20,11 @@ using namespace std;
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 
+/*
+
+TODO: move to scheme
+
+*/
 MAKE_SCHEME_CALLBACK (Note_head, brew_ez_stencil, 1);
 SCM
 Note_head::brew_ez_stencil (SCM smob)

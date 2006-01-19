@@ -144,11 +144,13 @@ Tie::set_default_control_points (Grob *me_grob)
   
   Tie_formatting_problem problem;
   problem.from_tie (me);
+  Tie_specification spec = problem.get_tie_specification (0);
+  spec.has_manual_dir_ = true;
+  spec.manual_dir_ = get_grob_direction (me);
   
-  // get_configuration (me,  &conf, problem);
-  int tie_position = (int) Tie::get_position (me);
   Tie_configuration conf
-    = problem.find_optimal_tie_configuration (tie_position, get_grob_direction (me));
+    = problem.find_optimal_tie_configuration (spec);
+  
   set_control_points (me, problem.common_x_refpoint (),
 		      conf, problem.details_);
 }

@@ -1,5 +1,5 @@
 /*
-  tie-formatting-problem.cc -- implement Tie_formatting_problem6
+  tie-formatting-problem.cc -- implement Tie_formatting_problem
 
   source file of the GNU LilyPond music typesetter
 
@@ -210,6 +210,12 @@ Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
 	}
 	  
       spec.position_ = Tie::get_position (ties[i]);
+
+      do
+	{
+	  spec.note_head_drul_[d] = Tie::head (ties[i], d);
+	}
+      while (flip (&d) != LEFT);
       
       specifications_.push (spec);
     }
@@ -236,7 +242,8 @@ Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
 	{
 	  spec.position_ = int (Staff_symbol_referencer::get_position (head));
 	}
-      
+
+      spec.note_head_drul_[LEFT] = head;
       heads.push (head);
       specifications_.push (spec);
     }
@@ -262,6 +269,14 @@ Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
   
   chord_outlines_[RIGHT].push (right_entry);
 }
+
+
+Tie_specification
+Tie_formatting_problem::get_tie_specification (int i) const
+{
+  return specifications_[i];
+}
+
 
 Tie_configuration*
 Tie_formatting_problem::get_configuration (int pos, Direction dir) 
@@ -298,15 +313,32 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir) const
   Real h =  conf->height (details_);
   if (!conf->delta_y_)
     {
-      if (h < 0.5 * details_.staff_space_
-	  && !Staff_symbol_referencer::on_staffline (details_.staff_symbol_referencer_, pos))
+      if (h < 0.5 * details_.staff_space_)
 	{
-	  conf->center_tie_vertically (details_);
+	  if (!Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
+	    {
+	      conf->center_tie_vertically (details_);
+	    }
+	  else if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
+	    {
+	      conf->delta_y_ += dir * 0.2 * details_.staff_space_;
+	    }
 	}
-      else if (h < 0.5 * details_.staff_space_
-	       && Staff_symbol_referencer::on_staffline (details_.staff_symbol_referencer_, pos))
+      else 
 	{
-	  conf->delta_y_ += dir * 0.2 * details_.staff_space_;
+	  Real top_y = y + conf->delta_y_ + conf->dir_ * h;
+	  Real top_pos = top_y / (0.5*details_.staff_space_);
+	  int round_pos = int (my_round (top_pos));
+
+	  /* TODO: should use other variable? */
+	  Real clearance = details_.staff_line_clearance_;
+	  if (fabs (top_pos - round_pos) < clearance
+	      && Staff_symbol_referencer::on_staff_line (details_.staff_symbol_referencer_,
+							 round_pos))
+	    {
+	      Real new_y = (round_pos + clearance * conf->dir_) * 0.5 * details_.staff_space_;
+	      conf->delta_y_ = (new_y - top_y);
+	    }
 	}
     }
   
@@ -316,40 +348,25 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir) const
 
 Real
 Tie_formatting_problem::score_aptitude (Tie_configuration const &conf,
-					int tie_position) const
+					Tie_specification const &spec) const
 {
-  Real wrong_direction_offset_penalty_;
-  Real distance_penalty_factor_;
-				  
-  wrong_direction_offset_penalty_ = 10;
-  distance_penalty_factor_ = 5;
-  
   Real penalty = 0.0;
   Real curve_y = conf.position_ * details_.staff_space_ * 0.5 + conf.delta_y_;
-  Real tie_y = tie_position * details_.staff_space_ * 0.5;
+  Real tie_y = spec.position_ * details_.staff_space_ * 0.5;
   if (sign (curve_y - tie_y) != conf.dir_)
-    penalty += wrong_direction_offset_penalty_;
+    penalty += details_.wrong_direction_offset_penalty_;
 
-  penalty += distance_penalty_factor_ * fabs (curve_y - tie_y);
+  penalty += details_.distance_penalty_factor_ * fabs (curve_y - tie_y);
   return penalty;
 }
-
 
 Real
 Tie_formatting_problem::score_configuration (Tie_configuration const &conf) const
 {
-  Real length_penalty_factor = 1.0;
-  Real min_length = 0.333;
-  Real staff_line_clearance = 0.1;
-  Real staff_line_collision_penalty = 5;
-  Real dot_collision_clearance = 0.25;
-  Real dot_collision_penalty = 10;
-  
-
   Real penalty = 0.0;
   Real length = conf.attachment_x_.length ();
-  if (length < min_length)
-    penalty += length_penalty_factor / max (0.01, length);
+  if (length < details_.min_length_)
+    penalty += details_.length_penalty_factor_ / max (0.01, length);
 
   Real tip_pos = conf.position_ + conf.delta_y_ / 0.5 * details_.staff_space_;
   Real tip_y = tip_pos * details_.staff_space_ * 0.5;
@@ -358,19 +375,19 @@ Tie_formatting_problem::score_configuration (Tie_configuration const &conf) cons
   Real top_y = tip_y + conf.dir_ * height;
   Real top_pos = 2 * top_y / details_.staff_space_;
   Real round_top_pos = rint (top_pos);
-  if (fabs (top_pos - round_top_pos) < staff_line_clearance
-      && Staff_symbol_referencer::on_staffline (details_.staff_symbol_referencer_,
+  if (fabs (top_pos - round_top_pos) < details_.staff_line_clearance_
+      && Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_,
 						int (round_top_pos))
       && Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_) > top_y)
     {
-      penalty += staff_line_collision_penalty;      
+      penalty += details_.staff_line_collision_penalty_;
     }
   
-  if (fabs (tip_pos - rint (tip_pos)) < staff_line_clearance
-      && Staff_symbol_referencer::on_staffline (details_.staff_symbol_referencer_,
-						int (rint (tip_pos))))
+  if (fabs (tip_pos - rint (tip_pos)) < details_.staff_line_clearance_
+      && Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_,
+					   int (rint (tip_pos))))
     {
-      penalty += staff_line_collision_penalty;
+      penalty += details_.staff_line_collision_penalty_;
     }
 
   if (!dot_x_.is_empty ())
@@ -387,21 +404,24 @@ Tie_formatting_problem::score_configuration (Tie_configuration const &conf) cons
 	       i != dot_positions_.end (); i ++)
 	    {
 	      int dot_pos = (*i);
-	      if (fabs (dot_pos * details_.staff_space_ * 0.5 - y) < dot_collision_clearance)
+	      if (fabs (dot_pos * details_.staff_space_ * 0.5 - y) < details_.dot_collision_clearance_)
 		{
-		  penalty += dot_collision_penalty;
+		  penalty += details_.dot_collision_penalty_;
 		}
 	    }
-	}      
+	}
     }
   
   return penalty;
 }
 
 Tie_configuration
-Tie_formatting_problem::find_optimal_tie_configuration (int pos, Direction dir) const
+Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const &spec) const
 {
   Link_array<Tie_configuration> confs;
+
+  int pos = spec.position_;
+  Direction dir = spec.manual_dir_;
 
   int region_size = 3;
   for (int i = 0; i < region_size; i ++)
@@ -417,7 +437,7 @@ Tie_formatting_problem::find_optimal_tie_configuration (int pos, Direction dir) 
     {
       Real score = 0.0;
       score += score_configuration (*confs[i]);
-      score += score_aptitude (*confs[i], pos);
+      score += score_aptitude (*confs[i], spec);
 
       if (score < best_score)
 	{
@@ -440,6 +460,8 @@ Tie_specification::Tie_specification ()
   position_ = 0;
   manual_position_ = 0;
   manual_dir_ = CENTER;
+  note_head_drul_[LEFT] =
+    note_head_drul_[RIGHT] = 0;
 }
 
 
@@ -454,7 +476,7 @@ Tie_formatting_problem::score_ties_aptitude (Ties_configuration const &ties) con
     }
 
   for (int i = 0; i < ties.size (); i++)
-    score += score_aptitude (ties[i], specifications_[i].position_);
+    score += score_aptitude (ties[i], specifications_[i]);
 
   return score;
 }
@@ -469,10 +491,6 @@ Tie_formatting_problem::score_ties (Ties_configuration const &ties) const
 Real
 Tie_formatting_problem::score_ties_configuration (Ties_configuration const &ties) const
 {
-  const Real tie_monotonicity_penalty = 100;
-  const Real tie_collision_penalty = 30;
-  const Real tie_collision_distance = 0.25;
-  
   Real score = 0.0;
   for (int i = 0; i < ties.size (); i++)
     {
@@ -492,16 +510,18 @@ Tie_formatting_problem::score_ties_configuration (Ties_configuration const &ties
       if (i)
 	{
 	  if (edge <= last_edge)
-	    score += tie_monotonicity_penalty;
+	    score += details_.tie_column_monotonicity_penalty_;
 	  if (center <= last_center)
-	    score += tie_monotonicity_penalty;
+	    score +=details_. tie_column_monotonicity_penalty_;
 
 	  score +=
-	    tie_collision_penalty
-	    * max (tie_collision_distance - fabs (center - last_center), 0.0) / tie_collision_distance;
+	    details_.tie_tie_collision_penalty_
+	    * max (details_.tie_tie_collision_distance_ - fabs (center - last_center), 0.0)
+	    / details_.tie_tie_collision_distance_;
 	  score +=
-	    tie_collision_penalty
-	    * max (tie_collision_distance - fabs (edge - last_edge), 0.0) / tie_collision_distance;
+	    details_.tie_tie_collision_penalty_
+	    * max (details_.tie_tie_collision_distance_ - fabs (edge - last_edge), 0.0)
+	    / details_.tie_tie_collision_distance_;
 	}
 
       last_edge = edge;
@@ -538,8 +558,6 @@ Ties_configuration
 Tie_formatting_problem::generate_base_chord_configuration () 
 {
   Ties_configuration ties_config;
-  
-  
   for (int i = 0;  i < specifications_.size (); i ++)
     {
       Tie_configuration conf;
