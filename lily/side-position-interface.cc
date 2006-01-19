@@ -185,7 +185,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a)
 		  && sign (Staff_symbol_referencer::get_position (head)) == - dir))
 	    {
 	      o += dir *(rounded - position) * 0.5 * ss;
-	      if (Staff_symbol_referencer::on_staffline (me, int (rounded)))
+	      if (Staff_symbol_referencer::on_line (me, int (rounded)))
 		o += dir * 0.5 * ss;
 	    }
 	}

@@ -21,20 +21,28 @@ Staff_symbol_referencer::line_count (Grob *me)
 }
 
 bool
-Staff_symbol_referencer::on_staffline (Grob *me)
+Staff_symbol_referencer::on_line (Grob *me)
 {
-  return on_staffline (me, (int) rint (get_position (me)));
+  return on_line (me, (int) rint (get_position (me)));
 }
 
-/*
-  This does not take size into account.
-  maybe rename: on_virtual_staffline, on_staff_or_ledger_line?
-*/
 bool
-Staff_symbol_referencer::on_staffline (Grob *me, int pos)
+Staff_symbol_referencer::on_staff_line (Grob *me)
+{
+  return on_staff_line (me, (int) rint (get_position (me)));
+}
+
+bool
+Staff_symbol_referencer::on_line (Grob *me, int pos)
 {
   int sz = line_count (me) - 1;
   return ((pos + sz) % 2) == 0;
+}
+
+bool
+Staff_symbol_referencer::on_staff_line (Grob *me, int pos)
+{
+  return on_line (me, pos) && fabs (pos) <= 2 * staff_radius (me);
 }
 
 Grob *
@@ -88,21 +96,6 @@ int
 Staff_symbol_referencer::get_rounded_position (Grob *me)
 {
   return int (rint (get_position (me)));
-}
-
-LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
-	   1, 0, 0, (SCM sg),
-	   "Return the Y-position of @var{sg} relative to the staff.")
-{
-  Grob *g = unsmob_grob (sg);
-
-  SCM_ASSERT_TYPE (g, sg, SCM_ARG1, __FUNCTION__, "grob");
-  Real pos = Staff_symbol_referencer::get_position (g);
-
-  if (fabs (rint (pos) -pos) < 1e-6) // ugh.
-    return scm_from_int ((int) my_round (pos));
-  else
-    return scm_from_double (pos);
 }
 
 MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 1);

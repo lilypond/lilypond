@@ -26,6 +26,18 @@ struct Tie_details
   Real staff_space_;
   Real x_gap_;
   Real between_length_limit_;
+  Real wrong_direction_offset_penalty_;
+  Real distance_penalty_factor_;
+  Real length_penalty_factor_;
+  Real min_length_;
+  Real staff_line_clearance_;
+  Real staff_line_collision_penalty_;
+  Real dot_collision_clearance_;
+  Real dot_collision_penalty_;
+  Real tie_column_monotonicity_penalty_;
+  Real tie_tie_collision_penalty_;
+  Real tie_tie_collision_distance_;
+  
   Grob *staff_symbol_referencer_;
   
   Tie_details ();
@@ -38,7 +50,8 @@ typedef map< pair<int, int>, Tie_configuration *> Tie_configuration_map;
 struct Tie_specification
 {
   int position_;
-
+  Drul_array<Grob*> note_head_drul_;
+  
   bool has_manual_position_;
   bool has_manual_dir_;
   
@@ -71,8 +84,8 @@ class Tie_formatting_problem
   Tie_configuration *generate_configuration (int position, Direction dir) const;
   Array<Tie_configuration_variation> get_variations (Ties_configuration const &ties);
 
-  Real score_configuration (Tie_configuration const&) const;
-  Real score_aptitude (Tie_configuration const&, int) const;
+  Real score_configuration (Tie_configuration const &) const;
+  Real score_aptitude (Tie_configuration const &, Tie_specification const &) const;
   Real score_ties_aptitude (Ties_configuration const &ties) const;
   Real score_ties_configuration (Ties_configuration const &ties) const;
   void set_ties_config_standard_directions (Ties_configuration *tie_configs_ptr);
@@ -86,10 +99,10 @@ public:
   Tie_formatting_problem ();
   ~Tie_formatting_problem ();
 
-
+  Tie_specification get_tie_specification (int) const;
   Ties_configuration generate_optimal_chord_configuration ();
   Ties_configuration generate_ties_configuration (Ties_configuration const &);
-  Tie_configuration find_optimal_tie_configuration (int p, Direction d) const;
+  Tie_configuration find_optimal_tie_configuration (Tie_specification const &) const;
   void from_ties (Link_array<Grob> const &ties);
   void from_tie (Grob *tie);
   void from_lv_ties (Link_array<Grob> const &);

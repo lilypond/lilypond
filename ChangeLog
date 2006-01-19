@@ -1,9 +1,26 @@
+<<<<<<< ChangeLog
+2006-01-19 Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/tie-formatting-problem.cc (generate_configuration): make
+	large ties avoid stafflines in the horizontal section.
+	(score_configuration): use softcoded penalties
+	(score_aptitude): idem.
+
+	* lily/tie-helper.cc (from_grob): softcode tie details
+
+	* lily/staff-symbol-referencer.cc (on_staff_line): new function
+
+	* lily/staff-symbol-referencer.cc (on_line): rename from
+	on_staffline 
+
+=======
 2006-01-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/music-functions-init.ly: remove duplicate tag.
 
 	* lily/include/*.hh: GCC 4.1 fixes.
 
+>>>>>>> 1.4455
 006-01-16  Erlend Aasland  <erlenda@gmail.com>
 
 	* Documentation/user/global.itely: fix typos; @bugs -> @refbugs

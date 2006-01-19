@@ -128,7 +128,7 @@ shift_one (Dot_configuration const &cfg,
 	  int p = i->first;
 	  if (p == k)
 	    {
-	      if (Staff_symbol_referencer::on_staffline (i->second.dot_, p))
+	      if (Staff_symbol_referencer::on_line (i->second.dot_, p))
 		p += d;
 	      else
 		p += 2* d;
@@ -155,7 +155,7 @@ shift_one (Dot_configuration const &cfg,
 	  int p = i->first;
 	  if (p == k)
 	    {
-	      if (Staff_symbol_referencer::on_staffline (i->second.dot_, p))
+	      if (Staff_symbol_referencer::on_line (i->second.dot_, p))
 		p += d;
 	      else
 		p += 2* d;
@@ -254,7 +254,7 @@ Dot_column::calc_positioning_done (SCM smob)
 
       remove_collision (cfg, p);
       cfg[p] = dp;
-      if (Staff_symbol_referencer::on_staffline (dp.dot_, p))
+      if (Staff_symbol_referencer::on_line (dp.dot_, p))
 	remove_collision (cfg, p);
     }
 

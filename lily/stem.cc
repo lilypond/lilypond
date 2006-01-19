@@ -572,7 +572,7 @@ Stem::flag (Grob *me)
 	{
 	  int p = (int) (rint (stem_end_position (me)));
 	  staffline_offs
-	    = Staff_symbol_referencer::on_staffline (me, p) ? "0" : "1";
+	    = Staff_symbol_referencer::on_line (me, p) ? "0" : "1";
 	}
       else
 	staffline_offs = "2";

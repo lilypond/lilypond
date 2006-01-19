@@ -1716,6 +1716,7 @@
 	(direction . ,Tie::calc_direction)
 	(stencil . ,Tie::print)
 	(details . ((ratio . 0.333)
+		    (staff-line-clearance . 0.6)
 		    (height-limit . 1.0)
 		    (between-length-limit . 1.0)))
 	(thickness . 1.0)

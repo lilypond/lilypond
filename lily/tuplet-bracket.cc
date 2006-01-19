@@ -602,7 +602,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       *offset *= 2 / ss;
 
       *offset = rint (*offset);
-      if (Staff_symbol_referencer::on_staffline (me, (int) rint (*offset)))
+      if (Staff_symbol_referencer::on_line (me, (int) rint (*offset)))
 	*offset += dir;
 
       *offset *= 0.5 * ss;
