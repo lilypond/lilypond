@@ -1,5 +1,7 @@
 2006-01-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/tie-formatting-problem.cc (generate_configuration): 
+
 	* input/regression/tie-chord.ly: use generateTiePattern to
 	simplify file.
 
