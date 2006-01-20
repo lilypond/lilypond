@@ -356,7 +356,11 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir) const
 	}
     }
   
-  conf->attachment_x_ = get_attachment (y + conf->delta_y_);
+  /*
+    we don't recompute attachment_x_ to take changed Y (through
+    delta_Y) into account. Doing would make ties go into small holes between heads, which
+    means we get collisions with neighboring heads.
+   */
   conf->attachment_x_.widen ( - details_.x_gap_);
 
   Direction d = LEFT;
