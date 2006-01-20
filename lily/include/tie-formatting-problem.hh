@@ -25,18 +25,22 @@ struct Tie_details
   Real ratio_;
   Real staff_space_;
   Real x_gap_;
+  Real stem_gap_; 
   Real between_length_limit_;
   Real wrong_direction_offset_penalty_;
-  Real distance_penalty_factor_;
   Real length_penalty_factor_;
   Real min_length_;
-  Real staff_line_clearance_;
+  Real tip_staff_line_clearance_;
+  Real center_staff_line_clearance_;
   Real staff_line_collision_penalty_;
   Real dot_collision_clearance_;
   Real dot_collision_penalty_;
   Real tie_column_monotonicity_penalty_;
   Real tie_tie_collision_penalty_;
   Real tie_tie_collision_distance_;
+  Real horizontal_distance_penalty_factor_;
+  Real vertical_distance_penalty_factor_;
+  Real intra_space_threshold_;
   
   Grob *staff_symbol_referencer_;
   
@@ -71,6 +75,7 @@ struct Tie_configuration_variation
 class Tie_formatting_problem
 {
   Drul_array< Array<Skyline_entry> > chord_outlines_;
+  Drul_array< Box > stem_extents_;
   set<int> dot_positions_;
   Interval dot_x_;
   Array<Tie_specification> specifications_;

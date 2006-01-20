@@ -20,54 +20,84 @@ each system.  "
   raggedright = ##t
 }
 
+
+
+generateTiePattern
+= #(def-music-function (parser location is-long chords) (boolean? ly:music?)
+
+    "
+
+translate x y z to x~x y~y z~z
+
+" 
+    
+  (define (chord->tied-chord chord)
+    (let*
+	((ch1 (ly:music-deep-copy chord))
+	 (ch2 (ly:music-deep-copy chord))
+	 (dur1 (ly:make-duration
+		(if is-long
+		    1 2)))
+	 (dur2 (ly:make-duration
+		(if is-long
+		    3 2))))
+
+      (for-each (lambda (e)
+		  (ly:music-set-property! e 'duration dur1))
+		(ly:music-property ch1 'elements))
+
+      (for-each (lambda (e)
+		  (ly:music-set-property! e 'duration dur2))
+		(ly:music-property ch2 'elements))
+      
+      (set! (ly:music-property ch1 'elements)
+	    (cons
+	     (make-music 'TieEvent)
+	     (ly:music-property ch1 'elements)))
+
+      (list ch1 ch2)))
+
+  (make-music 'SequentialMusic 'elements (apply append
+						(map chord->tied-chord (ly:music-property  chords 'elements)))))
+
+baseChords =
+\applyMusic #(lambda (mus)
+	      (ly:music-property mus 'element))
+\relative c'' {
+  <c e>  
+  <b c e>
+  <a c e>
+  <a b e>
+  <a b e f>
+  <a c d f>
+  <a c e f>
+  <f a e f>
+  <c e f a> 
+  <c e g a>
+  <f b e a>
+}
+
 testShort =
 {
-   \time 4/4
   \key c \major
-  \relative c'' {
-				%  c ~ c
-    <c e> ~ <c e>
-    <b c e> ~ <b c e>
-    <a c e> ~ <a c e>
-    <a b e> ~ <a b e>
-    <a b e f> ~ <a b e f> 
-  }
-
-  \relative c' {
-    <c e f a> ~ <c e f a>
-    <c e g a> ~ <c e g a>
-    
-    <a' c d f> ~ <a c d f>  
-    <a c e f> ~ <a c e f>
-    <f b e a>4 ~ <f b e a>
-  }
+  \generateTiePattern ##f \baseChords
 }  
 
 testLong =
 {
-  \time 5/8
   \key c \major
-  \relative c'' {
-    <c e>2 ~ <c e>8
-    <b c e>2 ~ <b c e>8
-    <a c e>2 ~ <a c e>8
-    <a b e>2 ~ <a b e>8
-    <a b e f>2 ~ <a b e f>8
-  }
-
-  \relative c' {
-    <c e f a>2 ~ <c e f a>8
-    <c e g a>2 ~ <c e g a>8
-    <a' c d f>2  ~ <a c d f>8  
-    <a c e f>2  ~ <a c e f>8  
-    <f b e a>2 ~ <f b e a>8
-  }
+  \generateTiePattern ##t \baseChords
 }  
 
 \new Voice
-{ \testShort \break
+{
+  \time 2/4
+
+  \testShort \break
   \transpose c d \testShort \break
+  \time 5/8
   \testLong \break
   \transpose c d \testLong \break
 }
+
 
