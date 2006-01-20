@@ -1,4 +1,17 @@
-<<<<<<< ChangeLog
+2006-01-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/tie-chord.ly: use generateTiePattern to
+	simplify file.
+
+	* lily/tie-formatting-problem.cc (peak_around): new function.
+	(score_configuration): use sliding criterion for staff line collisions. 
+	(score_configuration): idem for dot collisions.
+	(generate_configuration): use separate stem_gap for gap to stem.
+
+	* lily/include/tie-formatting-problem.hh (struct Tie_details):
+	separate penalty factors for x and y distance.
+	(struct Tie_details): separate penalties for tip and center line collisions.
+
 2006-01-19 Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/tie-formatting-problem.cc (generate_configuration): make
@@ -13,14 +26,12 @@
 	* lily/staff-symbol-referencer.cc (on_line): rename from
 	on_staffline 
 
-=======
 2006-01-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/music-functions-init.ly: remove duplicate tag.
 
 	* lily/include/*.hh: GCC 4.1 fixes.
 
->>>>>>> 1.4455
 006-01-16  Erlend Aasland  <erlenda@gmail.com>
 
 	* Documentation/user/global.itely: fix typos; @bugs -> @refbugs
