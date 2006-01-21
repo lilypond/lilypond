@@ -159,6 +159,39 @@ create_type42_font (void *out, String name)
   print_header (out, face);
   print_body (out, name);
   print_trailer (out, face);
+
+  FT_Done_Face (face);
+}
+
+LY_DEFINE (ly_font_glyph_list, "ly:font-glyph-list",
+	   1, 0, 0, (SCM font_file_name),
+	   "Return a list of glyphnames for @var{font-file-name}.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (font_file_name), font_file_name,
+		   SCM_ARG1, __FUNCTION__, "string");
+
+  String file_name = ly_scm2string (font_file_name);
+  if (be_verbose_global)
+    progress_indication ("[" + file_name);
+
+  SCM retval = SCM_EOL;
+  SCM *tail = &retval;
+  
+  FT_Face face = open_ft_face (file_name);
+  for (int i = 0; i < face->num_glyphs; i++)
+    {
+      const int len = 256;
+      char name[len];
+      int code = FT_Get_Glyph_Name (face, i, name, len);
+      if (code)
+	warning (_f ("FT_Get_Glyph_Name() returned error: %d", code));
+
+      *tail = scm_cons (scm_makfrom0str (name), SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
+    }
+  
+  FT_Done_Face (face);
+  return retval;
 }
 
 LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
@@ -177,8 +210,11 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
   if (be_verbose_global)
     progress_indication ("]");
 
+  FT_Done_Face (face);
   return scm_makfrom0str (ps_name_str0 ? ps_name_str0 : "");
 }
+
+
 
 LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
 	   1, 0, 0, (SCM ttf_file_name),

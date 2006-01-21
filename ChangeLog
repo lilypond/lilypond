@@ -1,5 +1,9 @@
 2006-01-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/ttf.cc (LY_DEFINE): new function ly:font-glyph-list.
+
+	* VERSION (PACKAGE_NAME): release 2.7.28
+
 	* scm/framework-ps.scm (write-preamble): use it to pick exactly
 	the right font from a Mac dfont.
 	(write-preamble): don't forget directory, only look at files.
@@ -106,6 +110,8 @@
 	(display_config): also display config files.
 
 2006-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION: release 2.7.27
 
 	* lily/bar-line.cc (calc_bar_size): inspect staff->extent (Y_AXIS)
 	for determining bar size.
