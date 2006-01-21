@@ -41,7 +41,9 @@ struct Tie_details
   Real horizontal_distance_penalty_factor_;
   Real vertical_distance_penalty_factor_;
   Real intra_space_threshold_;
-  
+  Real outer_tie_length_symmetry_penalty_factor_;
+  Real outer_tie_vertical_distance_symmetry_penalty_factor_;
+
   Grob *staff_symbol_referencer_;
   
   Tie_details ();

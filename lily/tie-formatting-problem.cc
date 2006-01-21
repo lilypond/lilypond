@@ -323,7 +323,13 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir) const
   if (!conf->delta_y_)
     {
       /*
-	TODO: make sliding criterion?  
+	TODO:
+
+	- should make sliding criterion, should flatten ties if
+
+	- they're just the wrong (ie. touching line at top & bottom)
+	size.
+	
        */
       if (h < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
 	{
@@ -550,7 +556,6 @@ Tie_formatting_problem::score_ties_configuration (Ties_configuration const &ties
       score += score_configuration (ties[i]);
     }
 
-
   Real last_edge = 0.0;
   Real last_center = 0.0;
   for (int i = 0; i < ties.size (); i++)
@@ -583,6 +588,19 @@ Tie_formatting_problem::score_ties_configuration (Ties_configuration const &ties
       last_center = center;
     }
 
+
+  score +=
+    details_.outer_tie_length_symmetry_penalty_factor_
+    * fabs (ties[0].attachment_x_.length () - ties.top().attachment_x_.length ());
+  
+  score +=
+    details_.outer_tie_vertical_distance_symmetry_penalty_factor_
+    * (fabs (specifications_[0].position_
+	     - (ties[0].position_ * 0.5 * details_.staff_space_ + ties[0].delta_y_))
+       -
+       fabs (specifications_.top ().position_
+	     - (ties.top().position_ * 0.5 * details_.staff_space_ + ties.top().delta_y_)));
+  
   return score;
 }
 
@@ -789,22 +807,21 @@ Tie_formatting_problem::set_manual_tie_configuration (SCM manual_configs)
        scm_is_pair (s) && k < specifications_.size(); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
-      if (!scm_is_pair (entry))
-	continue;
-
-      Tie_specification &spec = specifications_[k];
-
-      if (scm_is_number (scm_cdr (entry)))
+      if (scm_is_pair (entry))
 	{
-	  spec.has_manual_dir_ = true;
-	  spec.manual_dir_ = Direction (scm_to_int (scm_cdr (entry)));
-	}
-      if (scm_is_number (scm_car (entry)))
-	{
-	  spec.has_manual_position_ = true;
-	  spec.manual_position_ = scm_to_double (scm_car (entry));
-	}
-	  
+	  Tie_specification &spec = specifications_[k];
+
+	  if (scm_is_number (scm_cdr (entry)))
+	    {
+	      spec.has_manual_dir_ = true;
+	      spec.manual_dir_ = Direction (scm_to_int (scm_cdr (entry)));
+	    }
+	  if (scm_is_number (scm_car (entry)))
+	    {
+	      spec.has_manual_position_ = true;
+	      spec.manual_position_ = scm_to_double (scm_car (entry));
+	    }
+	}	  
       k ++;
     }
 }

@@ -52,6 +52,9 @@ Tie_details::from_grob (Grob *me)
   horizontal_distance_penalty_factor_ = get_real_detail ("horizontal-distance-penalty-factor", 5);
   vertical_distance_penalty_factor_ = get_real_detail ("vertical-distance-penalty-factor", 5);
   intra_space_threshold_ = get_real_detail ("intra-space-threshold", 1.0);
+  outer_tie_length_symmetry_penalty_factor_ = get_real_detail ("outer-tie-length-symmetry-penalty-factor", 3.0);
+  outer_tie_vertical_distance_symmetry_penalty_factor_ = get_real_detail ("outer-tie-vertical-distance-symmetry-penalty-factor", 3.0);
+  
 }
 
 Tie_details::Tie_details ()

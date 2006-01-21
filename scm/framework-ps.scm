@@ -281,9 +281,7 @@
 	 (status 0)
 	 (embed #f))
 
-
       (mkdir dir-name #o700)
-
       (set! status (ly:system
 		    (format "cd ~a && fondu -force '~a'" dir-name filename)))
       
@@ -292,10 +290,10 @@
       (for-each
        (lambda (f)
 	 (if (and (not embed)
-		  (string-match (string-append name "\\.") f))
+		  (equal? name (ly:ttf-ps-name f)))
 	     (set! embed
 		   (font-file-as-ps-string name (dir-join dir-name f))))
-	     
+	 
 	 (if (or (equal? "." f) 
 		 (equal? ".." f))
 	     #t

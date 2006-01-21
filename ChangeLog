@@ -1,6 +1,30 @@
+2006-01-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (write-preamble): use it to pick exactly
+	the right font from a Mac dfont.
+
+	* lily/ttf.cc (LY_DEFINE): ly:ttf-ps-name: new routine to extract
+	PS name from TTF font.
+
+	* input/regression/tie-manual.ly: document new feature.
+
+	* Documentation/topdocs/NEWS.tely (Top): add tie NEWS.
+
+	* VERSION (MY_PATCH_LEVEL): bump to .28
+
+	* Documentation/user/basic-notation.itely (Ties): add tie examples
+	refs.
+
+	* lily/tie-formatting-problem.cc (score_ties_configuration):
+	symmetry penalties for outer ties.
+
 2006-01-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* lily/tie-formatting-problem.cc (generate_configuration): 
+	* lily/tie-formatting-problem.cc (generate_configuration) 
+	(set_manual_tie_configuration): skip non-pair manual
+	tie-configuration, so you can set individual ties as
+
+	  #'tie-configuration = #'((7 . 1) #t (-3 . 1))
 
 	* input/regression/tie-chord.ly: use generateTiePattern to
 	simplify file.

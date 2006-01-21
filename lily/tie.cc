@@ -242,7 +242,7 @@ Tie::print (SCM smob)
 ADD_INTERFACE (Tie,
 	       "tie-interface",
 	       
-	       "A tie connecting two noteheads. \n\n"
+	       "A horizontal curve connecting two noteheads. \n\n"
 	       ,
 	       
 
@@ -254,7 +254,7 @@ ADD_INTERFACE (Tie,
 	       "details "
 	       "direction "
 	       "thickness "
-	       "x-gap ");
+	       );
 
 
 

@@ -423,7 +423,8 @@ use LEFT.")
      (threshold ,number-pair? "(@var{min} . @var{max}), where
 @var{min} and @var{max} are dimensions in staff space.")
      (tie-configuration ,list? "List of (@var{position} . @var{dir})
-pairs, indicating the desired tie configuration.")
+pairs, indicating the desired tie configuration. A non-pair entry in
+the list will cause said tie to be formatted automatically. ")
      (transparent ,boolean? "This makes the grob invisible.")
      (uniform-stretching ,boolean? "If set, items stretch proportional
 to their durations. This looks better in complex polyphonic patterns")
@@ -432,7 +433,6 @@ to their durations. This looks better in complex polyphonic patterns")
 happen?")
      (word-space ,ly:dimension? "space to insert between words in texts.")
      (width ,ly:dimension? "The width of a grob measured in staff space.")
-     (x-gap ,ly:dimension? "The horizontal gap between note head and tie.")
      (zigzag-length ,ly:dimension? "The length of the lines of a
 zigzag, relative to @code{zigzag-width}. A value of 1 gives 60-degree
 zigzags.")

@@ -161,6 +161,25 @@ create_type42_font (void *out, String name)
   print_trailer (out, face);
 }
 
+LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
+	   1, 0, 0, (SCM ttf_file_name),
+	   "Extract the PostScript name from a TrueType font.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (ttf_file_name), ttf_file_name,
+		   SCM_ARG1, __FUNCTION__, "string");
+  String file_name = ly_scm2string (ttf_file_name);
+  if (be_verbose_global)
+    progress_indication ("[" + file_name);
+
+  FT_Face face = open_ft_face (file_name);
+  char const *ps_name_str0 = FT_Get_Postscript_Name (face);
+  
+  if (be_verbose_global)
+    progress_indication ("]");
+
+  return scm_makfrom0str (ps_name_str0 ? ps_name_str0 : "");
+}
+
 LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
 	   1, 0, 0, (SCM ttf_file_name),
 	   "Convert the contents of a TTF file to Type42 PFA, returning it as "

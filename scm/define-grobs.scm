@@ -809,9 +809,7 @@
      . (
 	(X-extent . #f)
 	(Y-extent . #f)
-
 	(positioning-done . ,Laissez_vibrer_tie_column::calc_positioning_done)
-	
 	(meta . ((class . Item)
 		 (interfaces . (laissez-vibrer-tie-column-interface))
 		 ))
@@ -1715,7 +1713,9 @@
 	(avoid-slur . inside)
 	(direction . ,Tie::calc_direction)
 	(stencil . ,Tie::print)
-	(details . ((ratio . 0.333)
+	(details . (
+		    ;; for a full list, see tie-helper.cc
+		    (ratio . 0.333)
 		    (center-staff-line-clearance . 0.6)
 		    (tip-staff-line-clearance . 0.45)
 		    (note-head-gap . 0.2)
@@ -1725,6 +1725,8 @@
 		    (tie-tie-collision-distance . 0.45) 
 		    (tie-tie-collision-penalty . 25.0)
 		    (intra-space-threshold . 1.25)
+		    (outer-tie-vertical-distance-symmetry-penalty-factor . 10)
+		    (outer-tie-length-symmetry-penalty-factor . 10)
 		    (between-length-limit . 1.0)))
 	(thickness . 1.0)
 	(meta . ((class . Spanner)

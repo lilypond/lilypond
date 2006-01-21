@@ -1528,6 +1528,12 @@ In this manual: @ref{Automatic note splitting}.
 
 Program reference: @internalsref{Tie}.
 
+Examples:
+@inputfileref{input/@/regression,tie-arpeggio.ly}
+@inputfileref{input/@/regression,tie-manual.ly}
+
+
+
 
 @refbugs
 
