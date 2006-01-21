@@ -2,7 +2,12 @@
 
   texidoc = "Tie formatting may be adjusted manually, by setting the
 @code{tie-configuration} property. The override should be placed at
-the second note of the chord."
+the second note of the chord.
+
+You can leave a Tie alone by introducing a non-pair value
+(eg. @code{#t}) in the @code{tie-configuration} list.
+
+"
 
 }
 
