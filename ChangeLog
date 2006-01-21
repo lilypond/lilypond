@@ -4,6 +4,9 @@
 	the right font from a Mac dfont.
 	(write-preamble): don't forget directory, only look at files.
 
+	This fixes problems with TTF files in dfonts that don't match
+	their PostScript names.
+	 
 	* lily/ttf.cc (LY_DEFINE): ly:ttf-ps-name: new routine to extract
 	PS name from TTF font.
 
