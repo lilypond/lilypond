@@ -286,18 +286,25 @@
 		    (format "cd ~a && fondu -force '~a'" dir-name filename)))
       
       (set! files (dir-listing dir-name))
-
+      
       (for-each
        (lambda (f)
-	 (if (and (not embed)
-		  (equal? name (ly:ttf-ps-name f)))
-	     (set! embed
-		   (font-file-as-ps-string name (dir-join dir-name f))))
-	 
-	 (if (or (equal? "." f) 
-		 (equal? ".." f))
-	     #t
-	     (delete-file (dir-join dir-name f))))
+	 (let*
+	     ((full-name  (dir-join dir-name f)))
+	   
+	   (if (and (not embed)
+		    (equal? 'regular (stat:type (stat full-name)))
+		    (equal? name (ly:ttf-ps-name full-name)))
+	       
+	       (set! embed
+		     (font-file-as-ps-string name full-name)))
+	   
+	   (if (or (equal? "." f) 
+		   (equal? ".." f))
+	       #t
+	       (delete-file full-name))))
+
+
        files)
       (rmdir dir-name)
 
