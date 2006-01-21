@@ -25,7 +25,6 @@ ADD_INTERFACE(Laissez_vibrer_tie,
 	      "details "
 	      "note-head "
 	      "thickness "
-	      "x-gap "
 	      );
 
 MAKE_SCHEME_CALLBACK(Laissez_vibrer_tie, calc_control_points, 1)
