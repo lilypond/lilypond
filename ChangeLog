@@ -2,6 +2,7 @@
 
 	* scm/framework-ps.scm (write-preamble): use it to pick exactly
 	the right font from a Mac dfont.
+	(write-preamble): don't forget directory, only look at files.
 
 	* lily/ttf.cc (LY_DEFINE): ly:ttf-ps-name: new routine to extract
 	PS name from TTF font.
