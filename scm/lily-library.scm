@@ -110,8 +110,6 @@
 	(set! base (format #f "~a-~a" base count)))
 
     (ly:parser-define! parser 'output-count (1+ count))
-    
-
     (ly:score-process score header paper layout base)
     ))
 

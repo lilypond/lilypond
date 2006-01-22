@@ -1,5 +1,13 @@
 2006-01-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/notation-appendices.itely (The Feta font):
+	use it.
+
+	* input/test/font-table.ly: new file. Generate font table within lily.
+
+	* Documentation/user/notation-appendices.itely (The Feta font):
+	use new font-table.ly file. 
+
 	* stepmake/stepmake/install-out-targets.make
 	(local-install-outfiles): only create directory if
 	$(INSTALLATION_OUT_DIR) is defined. This fixes install on Gentoo.
