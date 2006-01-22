@@ -1,3 +1,16 @@
+2006-01-22  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* ly/music-functions-init.ly (parallelMusic): new music function for parallel
+	music entry.
+
+	* scm/define-music-properties.scm (all-music-properties): new 'void music property
+
+	* scm/music-functions.scm (ly:music-message): make public, to be
+	used in music function definitions
+
+	* scm/lily-library.scm (collect-music-for-book): discard music
+	when the 'void property is set.
+
 2006-01-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/ttf.cc (LY_DEFINE): store name before destroying face.

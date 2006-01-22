@@ -108,6 +108,8 @@ e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in 
 engraver this music expression is processed.")
      (value ,scheme? "Assignment value for a
 translation property")
+     (void ,boolean? "If this property is #t, then the music expression is to be
+discarded by the toplevel music handler.")
      (what ,symbol? "What to change for auto-change. FIXME, naming")
      (part-combine-status ,symbol?
 			  "Change to what kind of state? Options are

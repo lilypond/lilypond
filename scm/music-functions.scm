@@ -603,7 +603,7 @@ SkipEvent. Useful for extracting parts from crowded scores"
 		 (equal? (ly:music-property x 'name) 'RequestChord))
 	       elts)))
 
-(define (ly:music-message music msg)
+(define-public (ly:music-message music msg)
   (let ((ip (ly:music-property music 'origin)))
     (if (ly:input-location? ip)
 	(ly:input-message ip msg)
