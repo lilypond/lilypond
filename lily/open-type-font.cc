@@ -288,3 +288,24 @@ Open_type_font::font_name () const
   return FT_Get_Postscript_Name (face_);
 }
 
+
+SCM
+Open_type_font::glyph_list () const
+{
+  SCM retval = SCM_EOL;
+  SCM *tail = &retval;
+  
+  for (int i = 0; i < face_->num_glyphs; i++)
+    {
+      const int len = 256;
+      char name[len];
+      int code = FT_Get_Glyph_Name (face_, i, name, len);
+      if (code)
+	warning (_f ("FT_Get_Glyph_Name() returned error: %d", code));
+
+      *tail = scm_cons (scm_makfrom0str (name), SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
+    }
+  
+  return retval;
+}

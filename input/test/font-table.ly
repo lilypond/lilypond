@@ -56,9 +56,7 @@
 			
 #(let*
   ((lines (doc-chars
-	   (ly:font-glyph-list (format  "~a/fonts/otf/emmentaler-20.otf"
-				(getenv "LILYPONDPREFIX")
-			      ))
+	   (ly:otf-glyph-list (ly:font-load "emmentaler-20"))
 	 '()))
    (pages (group-lines (reverse lines))))
 

@@ -1,3 +1,13 @@
+2006-01-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/test/font-table.ly: use it.
+
+	* lily/open-type-font.cc (glyph_list): new function.
+
+	* lily/open-type-font-scheme.cc (LY_DEFINE): ly:otf-glyph-list function.
+
+	* lily/ttf.cc: remove ly:font-glyph-list scheme function
+
 2006-01-22  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* ly/music-functions-init.ly (parallelMusic): new music function for parallel
