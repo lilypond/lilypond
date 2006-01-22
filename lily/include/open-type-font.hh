@@ -36,7 +36,8 @@ public:
   SCM get_subfonts () const;
   SCM get_global_table () const;
   SCM get_char_table () const;
-
+  SCM glyph_list () const;
+    
   String get_otf_table (String tag) const;
   static SCM make_otf (String);
   virtual String font_name () const;

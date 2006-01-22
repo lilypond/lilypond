@@ -8,6 +8,7 @@
 */
 
 #include "lily-guile.hh"
+#include "string.hh"
 
 #include <fontconfig/fontconfig.h>
 
@@ -73,6 +74,37 @@ display_list (FcConfig *fcc)
 }
 
 
+LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0,
+	   (SCM name),
+	   "Get the file for font @var{name}")
+{
+  SCM_ASSERT_TYPE (scm_is_string (name), name,
+		   SCM_ARG1, __FUNCTION__, "string");
+
+  
+  FcPattern*pat = FcPatternCreate ();
+  FcValue val;
+  
+  val.type = FcTypeString;
+  val.u.s = (const FcChar8*)ly_scm2string (name).to_str0 (); // FC_SLANT_ITALIC;
+  FcPatternAdd(pat, FC_FAMILY, val, FcFalse);
+
+  FcResult result;
+  SCM scm_result = SCM_BOOL_F;
+
+  FcConfigSubstitute (NULL, pat, FcMatchFont);
+  FcDefaultSubstitute (pat);
+  
+  pat = FcFontMatch(NULL, pat, &result);
+  FcChar8 *str = 0;
+  if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
+    scm_result = scm_makfrom0str ((char const*) str);
+
+  FcPatternDestroy (pat);
+
+  return scm_result;
+}
+	   
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0,
 	   (),
 	   "Dump a list of all fonts visible to FontConfig.")
@@ -82,3 +114,5 @@ LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0
   
   return SCM_UNSPECIFIED;
 }
+
+

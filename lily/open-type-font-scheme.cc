@@ -71,3 +71,19 @@ LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
 
   return scm_from_bool (otf);
 }
+
+LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list",
+	   1, 0, 0, (SCM font),
+	   "Return a list of glyphnames for @var{font}.")
+{
+  Modified_font_metric *fm
+    = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
+
+  Open_type_font *otf = fm ? dynamic_cast<Open_type_font *> (fm->original_font ())
+    : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
+
+
+  SCM_ASSERT_TYPE (otf,font, SCM_ARG1, __FUNCTION__, "OTF font");
+  return otf->glyph_list ();
+
+}
