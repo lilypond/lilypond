@@ -173,15 +173,11 @@ Where N is in the range 0-100.
 @node The Feta font
 @appendixsec The Feta font
 
-The following symbols are available in the Feta font and may be
+The following symbols are available in the Emmentaler font and may be
 accessed directly using text markup such as @code{g^\markup @{
 \musicglyph #"scripts.segno" @}}, see @ref{Text markup}.
 
-
-@lilypondfile[noindent]{feta16list.ly}
-
-
-@lilypondfile[noindent]{parmesan16list.ly}
+@lilypondfile[noindent]{font-table.ly}
 
 
 @ignore

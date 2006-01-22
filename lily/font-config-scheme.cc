@@ -60,7 +60,7 @@ display_list (FcConfig *fcc)
   if (!os)
     os = FcObjectSetBuild (FC_FAMILY, FC_STYLE, (char *) 0);
 
-  FcFontSet   * fs = FcFontList (fcc, pat, os);
+  FcFontSet *fs = FcFontList (fcc, pat, os);
   FcObjectSetDestroy (os);
   if (pat)
     FcPatternDestroy (pat);
@@ -71,7 +71,6 @@ display_list (FcConfig *fcc)
       FcFontSetDestroy (fs);
     }
 }
-
 
 
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0,
