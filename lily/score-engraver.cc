@@ -66,7 +66,7 @@ Score_engraver::initialize ()
 	     + "\n"
 	     + _ ("Music font has not been installed properly.")
 	     + "\n"
-	     + _f ("Search path `%s'", global_path.to_string ().to_str0 ())
+	     + _f ("Search path `%s'", global_path.to_string ().c_str ())
 	     + "\n"
 	     + _ ("Aborting"));
     }

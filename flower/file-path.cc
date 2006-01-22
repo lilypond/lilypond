@@ -29,32 +29,32 @@ using namespace std;
 #define PATHSEP ':'
 #endif
 
-Array<String>
+Array<Std_string>
 File_path::directories () const
 {
   return dirs_;
 }
 
 void
-File_path::parse_path (String p)
+File_path::parse_path (Std_string p)
 {
   int len;
   while ((len = p.length ()))
     {
-      int i = p.index (PATHSEP);
+      int i = p.find (PATHSEP);
       if (i < 0)
 	i = len;
-      append (p.left_string (i));
-      p = p.right_string (len - i - 1);
+      append (String (p, 0, i));
+      p = String (p, i + 1);
     }
 }
 
 bool
-is_file (String file_name)
+is_file (Std_string file_name)
 {
 #if 0 /* Check if directory. TODO: encapsulate for autoconf */
   struct stat sbuf;
-  if (stat (file_name.to_str0 (), &sbuf) != 0)
+  if (stat (file_name.c_str (), &sbuf) != 0)
     return false;
 
   if (! (sbuf.st_mode & __S_IFREG))
@@ -63,13 +63,13 @@ is_file (String file_name)
 
 #if !STAT_MACROS_BROKEN
   struct stat sbuf;
-  if (stat (file_name.to_str0 (), &sbuf) != 0)
+  if (stat (file_name.c_str (), &sbuf) != 0)
     return false;
 
   return !S_ISDIR (sbuf.st_mode);
 #endif
 
-  if (FILE *f = fopen (file_name.to_str0 (), "r"))
+  if (FILE *f = fopen (file_name.c_str (), "r"))
     {
       fclose (f);
       return true;
@@ -79,17 +79,17 @@ is_file (String file_name)
 }
 
 bool
-is_dir (String file_name)
+is_dir (Std_string file_name)
 {
 #if !STAT_MACROS_BROKEN
   struct stat sbuf;
-  if (stat (file_name.to_str0 (), &sbuf) != 0)
+  if (stat (file_name.c_str (), &sbuf) != 0)
     return false;
 
   return S_ISDIR (sbuf.st_mode);
 #endif
 
-  if (FILE *f = fopen (file_name.to_str0 (), "r"))
+  if (FILE *f = fopen (file_name.c_str (), "r"))
     {
       fclose (f);
       return true;
@@ -106,14 +106,14 @@ directory, in this order.
 @return
 The file name if found, or empty string if not found. */
 
-String
-File_path::find (String name) const
+Std_string
+File_path::find (Std_string name) const
 {
   if (!name.length () || (name == "-"))
     return name;
 
 #ifdef __MINGW32__
-  if (name.index ('\\') >= 0)
+  if (name.find ('\\') >= 0)
     programming_error ("file name not normalized: " + name);
 #endif /* __MINGW32__ */
 
@@ -146,22 +146,22 @@ File_path::find (String name) const
 
   where EXT is from EXTENSIONS.
 */
-String
-File_path::find (String name, char const *extensions[])
+Std_string
+File_path::find (Std_string name, char const *extensions[])
 {
-  if (name.is_empty () || name == "-")
+  if (name.empty () || name == "-")
     return name;
   
   File_name file_name (name);
-  String orig_ext = file_name.ext_;
+  Std_string orig_ext = file_name.ext_;
   for (int i = 0; extensions[i]; i++)
     {
       file_name.ext_ = orig_ext;
       if (*extensions[i] && !file_name.ext_.empty ())
 	file_name.ext_ += ".";
       file_name.ext_ += extensions[i];
-      String found = find (file_name.to_string ());
-      if (!found.is_empty ())
+      Std_string found = find (file_name.to_string ());
+      if (!found.empty ())
 	return found;
     }
   
@@ -170,7 +170,7 @@ File_path::find (String name, char const *extensions[])
 
 /** Append a directory, return false if failed.  */
 bool
-File_path::try_append (String s)
+File_path::try_append (Std_string s)
 {
   if (s == "")
     s = ".";
@@ -182,10 +182,10 @@ File_path::try_append (String s)
   return false;
 }
 
-String
+Std_string
 File_path::to_string () const
 {
-  String s;
+  Std_string s;
   for (int i = 0; i < dirs_.size (); i++)
     {
       s = s + dirs_[i];
@@ -196,13 +196,13 @@ File_path::to_string () const
 }
 
 void
-File_path::append (String str)
+File_path::append (Std_string str)
 {
   dirs_.push (str);
 }
 
 void
-File_path::prepend (String str)
+File_path::prepend (Std_string str)
 {
   dirs_.insert (str, 0);
 }

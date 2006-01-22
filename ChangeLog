@@ -1,5 +1,9 @@
 2006-01-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* flower/file-path.cc: 
+	* flower/include/file-path.hh: Use std::string [interface].
+	Update callers.
+
 	* flower/direction.cc: 
 	* flower/axis.cc: Unused.  Remove.
 
@@ -9,7 +13,7 @@
 	* flower/include/std-string.hh: New file.
 
 	* flower/file-name.cc[STD_STRING]:
-	* flower/include/file-name.hh[STD_STRING]: Use it.
+	* flower/include/file-name.hh[STD_STRING]: Use it.  Update callers.
 
 2006-01-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 

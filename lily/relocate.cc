@@ -211,7 +211,7 @@ setup_paths (char const *argv0_ptr)
 
 	  if (be_verbose_global)
 	    warning (_f ("Relocation: from PATH=%s\nargv0=%s",
-			 path.to_string ().get_str0 (), argv0_ptr));
+			 path.to_string ().c_str (), argv0_ptr));
 
 #ifndef __MINGW32__
 	  argv0_abs = path.find (argv0_filename.to_string ());
