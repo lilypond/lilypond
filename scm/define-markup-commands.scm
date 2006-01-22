@@ -633,6 +633,14 @@ alignment accordingly."
     (ly:stencil-aligned-to m X dir)))
 
 
+
+(def-markup-command (with-dimensions layout props x y arg) (number-pair? number-pair? markup?)
+  "Set the dimensions of @var{arg} to @var{x} and @var{y}."
+  
+  (let* ((m (interpret-markup layout props arg)))
+    (ly:make-stencil (ly:stencil-expr m) x y)))
+
+
 (def-markup-command (pad-around layout props amount arg) (number? markup?)
 
   "Add padding @var{amount} all around @var{arg}. "
