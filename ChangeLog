@@ -1,5 +1,7 @@
 2006-01-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/bin/install.py (dest): Only chmod/chown just created directories
+
 	* Documentation/user/notation-appendices.itely (The Feta font):
 	use it.
 
