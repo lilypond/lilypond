@@ -1,5 +1,7 @@
 2006-01-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* flower/axis.cc: Remove.
+
 	* configure.in (--enable-std-string): New option.
 
 	* flower/std-string.cc: 
