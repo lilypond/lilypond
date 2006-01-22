@@ -236,7 +236,7 @@
 	  ;; FIXME -- JCN
 	  ;;(dispatch expr)
 	  expr
-	  `(transform . ,(format #f "translate (~f, ~f)"
+	  `(transform . ,(format #f "translate(~f, ~f)"
 				 x (- y)))))
 
 (define (polygon coords blot-diameter is-filled)
