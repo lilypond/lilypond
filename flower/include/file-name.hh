@@ -10,20 +10,27 @@
 #define FILE_NAME_HH
 
 #include "array.hh"
+#include "std-string.hh"
+
+#if 0// STD_STRING
 #include "string.hh"
+#endif
 
 class File_name
 {
 public:
-  String root_;
-  String dir_;
-  String base_;
-  String ext_;
+  Std_string root_;
+  Std_string dir_;
+  Std_string base_;
+  Std_string ext_;
 
+  File_name (Std_string);
+#if 0// STD_STRING
   File_name (String);
+#endif
 
   bool is_absolute () const;
-  String to_string () const;
+  Std_string to_string () const;
 };
 
 #endif /* FILE_NAME */

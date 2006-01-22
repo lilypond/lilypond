@@ -17,6 +17,8 @@
 class ostream;
 #endif
 #endif
+
+#include "std-string.hh"
 using namespace std;
 
 #include "arithmetic-operator.hh"
@@ -56,6 +58,22 @@ convert to char const* .
 */
 class String
 {
+public:
+
+#if STD_STRING
+  String (Std_string const &);
+  operator Std_string () const;
+#endif /* STD_STRING */
+
+  /* std::string interface */
+  char const *c_str () const;
+  bool empty () const;
+  int size () const;
+  int find (char c) const;
+  int rfind (char c) const;
+
+  String (String const &, int pos, int n=-1);
+
 protected:
   String_handle strh_;
 

@@ -30,9 +30,18 @@ AC_SUBST(DOCUMENTATION)
 
 gui_b=no
 AC_ARG_ENABLE(gui,
-    [  --enable-gui            compile with experimental GNOME output module.  Default: off],
+    [  --enable-gui            compile with experimental GNOME output.  Default: off],
     [gui_b=$enableval])
 
+std_string=no
+AC_ARG_ENABLE(std-string,
+    [  --enable-std-string     compile with experimental std::string.  Default: off],
+    [std_string=$enableval])
+if test "$std_string" = "yes"; then
+    # Store in config.make rather than in config.hh and have every
+    # source file depend on that.
+    DEFINES="$DEFINES -DSTD_STRING=1"
+fi
 
 NCSB_DIR=unknown
 AC_ARG_WITH(ncsb-dir,

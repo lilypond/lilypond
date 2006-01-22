@@ -125,12 +125,12 @@ File_path::find (String name) const
   for (int i = 0; i < dirs_.size (); i++)
     {
       File_name file_name (name);
-      File_name dir = dirs_[i];
+      File_name dir = (Std_string) dirs_[i];
       file_name.root_ = dir.root_;
       dir.root_ = "";
-      if (file_name.dir_.is_empty ())
+      if (file_name.dir_.empty ())
 	file_name.dir_ = dir.to_string ();
-      else if (!dir.to_string ().is_empty ())
+      else if (!dir.to_string ().empty ())
 	file_name.dir_ = dir.to_string ()
 	  + ::to_string (DIRSEP) + file_name.dir_;
       if (is_file (file_name.to_string ()))
@@ -157,7 +157,7 @@ File_path::find (String name, char const *extensions[])
   for (int i = 0; extensions[i]; i++)
     {
       file_name.ext_ = orig_ext;
-      if (*extensions[i] && !file_name.ext_.is_empty ())
+      if (*extensions[i] && !file_name.ext_.empty ())
 	file_name.ext_ += ".";
       file_name.ext_ += extensions[i];
       String found = find (file_name.to_string ());

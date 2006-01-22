@@ -36,8 +36,8 @@ using namespace std;
 #endif
 
 #ifdef __CYGWIN__
-static String
-dos_to_posix (String file_name)
+static Std_string
+dos_to_posix (Std_string file_name)
 {
   char buf[PATH_MAX] = "";
   char *s = file_name.get_copy_str0 ();
@@ -53,8 +53,8 @@ dos_to_posix (String file_name)
 #ifdef __MINGW32__
 /** Use slash as directory separator.  On Windows, they can pretty
     much be exchanged.  */
-static String
-slashify (String file_name)
+static Std_string
+slashify (Std_string file_name)
 {
   file_name.substitute ('\\', '/');
   file_name.substitute ("//", "/");
@@ -63,25 +63,25 @@ slashify (String file_name)
 #endif /* __MINGW32__ */
 
 /* Join components to full file_name. */
-String
+Std_string
 File_name::to_string () const
 {
-  String s;
-  if (!root_.is_empty ())
-    s = root_ + ::to_string (ROOTSEP);
-  if (!dir_.is_empty ())
+  Std_string s;
+  if (!root_.empty ())
+    s = root_ + ::to_std_string (ROOTSEP);
+  if (!dir_.empty ())
     {
       s += dir_;
-      if (!base_.is_empty () || !ext_.is_empty ())
-	s += ::to_string (DIRSEP);
+      if (!base_.empty () || !ext_.empty ())
+	s += ::to_std_string (DIRSEP);
     }
   s += base_;
-  if (!ext_.is_empty ())
-    s += ::to_string (EXTSEP) + ext_;
+  if (!ext_.empty ())
+    s += ::to_std_string (EXTSEP) + ext_;
   return s;
 }
 
-File_name::File_name (String file_name)
+File_name::File_name (Std_string file_name)
 {
 #ifdef __CYGWIN__
   /* All system functions would work, even if we do not convert to
@@ -93,25 +93,25 @@ File_name::File_name (String file_name)
   file_name = slashify (file_name);
 #endif
 
-  int i = file_name.index (ROOTSEP);
+  int i = file_name.find (ROOTSEP);
   if (i >= 0)
     {
-      root_ = file_name.left_string (i);
-      file_name = file_name.right_string (file_name.length () - i - 1);
+      root_ = Std_string (file_name, 0, i);
+      file_name = Std_string (file_name, i + 1);
     }
 
-  i = file_name.index_last (DIRSEP);
+  i = file_name.rfind (DIRSEP);
   if (i >= 0)
     {
-      dir_ = file_name.left_string (i);
-      file_name = file_name.right_string (file_name.length () - i - 1);
+      dir_ = Std_string (file_name, 0, i);
+      file_name = Std_string (file_name, i + 1);
     }
 
-  i = file_name.index_last ('.');
+  i = file_name.rfind ('.');
   if (i >= 0)
     {
-      base_ = file_name.left_string (i);
-      ext_ = file_name.right_string (file_name.length () - i - 1);
+      base_ = Std_string (file_name, 0, i);
+      ext_ = Std_string (file_name, i + 1);
     }
   else
     base_ = file_name;
@@ -125,3 +125,10 @@ File_name::is_absolute () const
    */
   return (dir_.length () && dir_[0] == DIRSEP) || root_.length ();
 }
+
+#if 0 //STD_STRING
+File_name::File_name (String file_name)
+{
+  *this = File_name (Std_string (file_name));
+}
+#endif
