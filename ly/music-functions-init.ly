@@ -310,6 +310,90 @@ assertBeamSlope =
       (list chain-grob-member-functions `(,cons 0 0))
       (check-slope-callbacks comp))))))
     
+parallelMusic =
+#(def-music-function (parser location voice-ids music) (list? ly:music?)
+  "Define parallel music sequences, separated by '|' (bar check signs),
+and assign them to the identifiers provided in @var{voice-ids}.
 
+@var{voice-ids}: a list of music identifiers (symbols containing only letters)
 
+@var{music}: a music sequence, containing BarChecks as limiting expressions.
 
+Example:
+  \\parallelMusic #'(A B C) {
+    c c | d d | e e |
+    d d | e e | f f |
+  }
+<==>
+  A = { c c | d d | }
+  B = { d d | e e | }
+  C = { e e | f f | }
+"
+  (let* ((voices (apply circular-list (make-list (length voice-ids) (list))))
+         (current-voices voices)
+         (current-sequence (list)))
+    ;;
+    ;; utilities
+    (define (push-music m)
+      "Push the music expression into the current sequence"
+      (set! current-sequence (cons m current-sequence)))
+    (define (change-voice)
+      "Stores the previously built sequence into the current voice and
+       change to the following voice."
+      (list-set! current-voices 0 (cons (make-music 'SequentialMusic 
+                                         'elements (reverse! current-sequence))
+                                        (car current-voices)))
+      (set! current-sequence (list))
+      (set! current-voices (cdr current-voices)))
+    (define (bar-check? m)
+      "Checks whether m is a bar check."
+      (eq? (ly:music-property m 'name) 'BarCheck))
+    (define (music-origin music)
+      "Recursively search an origin location stored in music."
+      (cond ((null? music) #f)
+            ((not (null? (ly:music-property music 'origin)))
+             (ly:music-property music 'origin))
+            (else (or (music-origin (ly:music-property music 'element))
+                      (let ((origins (remove not (map music-origin 
+                                                      (ly:music-property music 'elements)))))
+                        (and (not (null? origins)) (car origins)))))))
+    ;;
+    ;; first, split the music and fill in voices
+    (map-in-order (lambda (m)
+                    (push-music m)
+                    (if (bar-check? m) (change-voice)))
+                  (ly:music-property music 'elements))
+    (if (not (null? current-sequence)) (change-voice))
+    ;; un-circularize `voices' and reorder the voices
+    (set! voices (map-in-order (lambda (dummy seqs)
+                                 (reverse! seqs))
+                               voice-ids voices))
+    ;;
+    ;; set origin location of each sequence in each voice
+    ;; for better type error tracking
+    (for-each (lambda (voice)
+                (for-each (lambda (seq)
+                            (set! (ly:music-property seq 'origin)
+                                  (or (music-origin seq) location)))
+                          voice))
+              voices)
+    ;;
+    ;; check sequence length
+    (apply for-each (lambda (. seqs)
+                      (let ((moment-reference (ly:music-length (car seqs))))
+                        (for-each (lambda (seq moment)
+                                    (if (not (equal? moment moment-reference))
+                                        (ly:music-message seq 
+                                         "Bars in parallel music don't have the same length")))
+                          seqs (map-in-order ly:music-length seqs))))
+           voices)
+   ;;
+   ;; bind voice identifiers to the voices
+   (map (lambda (voice-id voice)
+          (ly:parser-define! parser voice-id 
+                             (make-music 'SequentialMusic 
+                               'origin location
+                               'elements voice)))
+        voice-ids voices))
+ ;; Return an empty sequence. this function is actually a "void" function.
+ (make-music 'SequentialMusic 'void #t))

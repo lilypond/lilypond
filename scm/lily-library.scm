@@ -75,7 +75,10 @@
   (ly:make-score music))
 
 (define-public (collect-music-for-book parser music)
-  (collect-scores-for-book parser (scorify-music music parser)))
+  ;; discard music if its 'void property is true.
+  (let ((void-music (ly:music-property music 'void)))
+    (if (or (null? void-music) (not void-music))
+        (collect-scores-for-book parser (scorify-music music parser)))))
 
 
 (define-public (print-book-with-defaults parser book)
