@@ -5,8 +5,9 @@ local-install-files:
 
 # urg, parameterise
 local-install-outfiles: $(INSTALLATION_OUT_FILES) $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(INSTALLATION_OUT_FILES$(suff)))
-	-$(INSTALLPY) -d $(DESTDIR)$(INSTALLATION_OUT_DIR)
-	$(INSTALLPY) -c -m 644 $(INSTALLATION_OUT_FILES) $(DESTDIR)$(INSTALLATION_OUT_DIR)/
+	$(if $(INSTALLATION_OUT_DIR),\
+		($(INSTALLPY) -d $(DESTDIR)$(INSTALLATION_OUT_DIR) || true) \
+		 && $(INSTALLPY) -c -m 644 $(INSTALLATION_OUT_FILES) $(DESTDIR)$(INSTALLATION_OUT_DIR)/, true)
 	$(foreach suff, $(INSTALLATION_OUT_SUFFIXES),  \
 		($(INSTALLPY) -d $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/ || true) && \
 		$(INSTALLPY) -c -m 644 $(INSTALLATION_OUT_FILES$(suff)) $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/ && ) true

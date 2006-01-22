@@ -8,7 +8,6 @@ local-install-files: $(INSTALLATION_FILES)
 	$(PRE_INSTALL)
 	-$(INSTALLPY) -d $(DESTDIR)$(INSTALLATION_DIR)
 	$(INSTALLPY) -m 644 $(addprefix $(src-dir)/,$(INSTALLATION_FILES)) $(DESTDIR)$(INSTALLATION_DIR)/
-
 	$(foreach suff, $(INSTALLATION_SUFFIXES),  \
 		($(INSTALLPY) -d $(DESTDIR)$(INSTALLATION_DIR$(suff)) || true) && \
 		$(INSTALLPY) -m 644  $(addprefix $(src-dir)/, $(INSTALLATION_FILES$(suff))) $(DESTDIR)$(INSTALLATION_DIR$(suff))/ ) 
