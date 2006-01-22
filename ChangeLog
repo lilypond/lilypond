@@ -1,5 +1,9 @@
 2006-01-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile: idem.
+
+	* buildscripts/mf-to-table.py (help): excise fetaXXlist.ly support.
+
 	* stepmake/bin/install.py (dest): Only chmod/chown just created directories
 
 	* Documentation/user/notation-appendices.itely (The Feta font):
