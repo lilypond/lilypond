@@ -90,19 +90,19 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
   String out_file = out_file_name.to_string ();
 
-  if (init.length () && global_path.find (init).is_empty ())
+  if (init.length () && global_path.find (init).empty ())
     {
       warning (_f ("can't find init file: `%s'", init));
       warning (_f ("(search path: `%s')",
-		   global_path.to_string ().to_str0 ()));
+		   global_path.to_string ().c_str ()));
       exit (2);
     }
 
-  if ((file_name != "-") && global_path.find (file_name).is_empty ())
+  if ((file_name != "-") && global_path.find (file_name).empty ())
     {
       warning (_f ("can't find file: `%s'", file_name));
       scm_throw (ly_symbol2scm ("ly-file-failed"),
-		 scm_list_1 (scm_makfrom0str (file_name.to_str0 ())));
+		 scm_list_1 (scm_makfrom0str (file_name.c_str ())));
     }
   else
     {

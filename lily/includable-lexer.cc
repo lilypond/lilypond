@@ -58,7 +58,7 @@ Includable_lexer::new_input (String name, Sources *sources)
       String msg = _f ("can't find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
-		 sources->path_->to_string ().to_str0 ());
+		 sources->path_->to_string ().c_str ());
       LexerError (msg.to_str0 ());
       return;
     }

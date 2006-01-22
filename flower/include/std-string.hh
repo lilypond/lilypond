@@ -18,7 +18,7 @@
 #else
 
 #include <string>
-#warning Using std::string
+// #warning Using std::string
 
 namespace std {
 
