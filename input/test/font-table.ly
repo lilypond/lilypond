@@ -28,18 +28,18 @@
    0
    (1+ (min-length (cdr lst) (1- n)) )))
 
-#(define (doc-chars names)
+#(define (doc-chars names acc)
   (let*
    ((n (min-length names 2))
     (head (take names n))
     (tail (drop names n))
     )
 
-   (cons
-    (make-line-markup (map doc-char head))
-    (if (null? tail)
-     '()
-     (doc-chars tail)))))
+   (if (null? head)
+    acc
+    (doc-chars  tail
+     (cons (make-line-markup (map doc-char head)) acc)))
+     ))
 
 #(define (group-lines lines)
   (let*
@@ -56,11 +56,11 @@
 			
 #(let*
   ((lines (doc-chars
-	   (ly:font-glyph-list (format  "~a/share/lilypond/~a/fonts/otf/emmentaler-20.otf"
+	   (ly:font-glyph-list (format  "~a/fonts/otf/emmentaler-20.otf"
 				(getenv "LILYPONDPREFIX")
-				(lilypond-version)
-			      ))))
-   (pages (group-lines lines)))
+			      ))
+	 '()))
+   (pages (group-lines (reverse lines))))
 
   (for-each 
    (lambda (x)

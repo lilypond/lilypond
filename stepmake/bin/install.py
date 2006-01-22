@@ -65,7 +65,10 @@ if not create_dir:
 	dest = args.pop()
 
 for f in args:
-	if create_dir and not os.path.isdir (f):
+	if create_dir:
+		if os.path.isdir (f):
+			continue
+		
 		os.makedirs (f, mode=mode)
 		chown_me.append (f)
 	else:
@@ -75,6 +78,7 @@ for f in args:
 			shutil.copy2 (f, dest)
 		else:
 			shutil.move (f, dest)
+
 		if os.path.isdir (dest):
 			chown_me.append (os.path.join (dest, os.path.basename (f)))
 		else:
