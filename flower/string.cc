@@ -21,6 +21,64 @@ using namespace std;
 #include "libc-extension.hh"
 #include "string-convert.hh"
 
+#if STD_STRING
+
+#include "std-string.hh"
+
+String::String (Std_string const &s)
+{
+  *this = String (s.c_str ());
+}
+#endif
+
+
+String::String (String const &s, int pos, int n)
+{
+  if (n == -1)
+    n = s.size () - pos;
+  if (pos == 0)
+    *this = s.left_string (n);
+  else
+    *this = s.right_string (s.size () - pos).left_string (n);
+}
+
+String::operator Std_string () const
+{
+  return Std_string (this->c_str ());
+}
+
+char const *
+String::c_str () const
+{
+  return to_str0 ();
+}
+
+bool
+String::empty () const
+{
+  return is_empty ();
+}
+
+int
+String::size () const
+{
+  return length ();
+}
+
+int
+String::find (char c) const
+{
+  return index (c);
+}
+
+int
+String::rfind (char c) const
+{
+  return index_last (c);
+}
+
+
+
 #ifdef STRING_DEBUG
 void *mymemmove (void *dest, void const *src, size_t n);
 #define memmove mymemmove
