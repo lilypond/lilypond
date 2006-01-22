@@ -695,7 +695,6 @@ alignment accordingly."
        (x (ly:stencil-extent m X))
        (y (ly:stencil-extent m Y)))
 
-
     (ly:make-stencil (ly:stencil-expr m)
 		     (interval-union x-ext x)
 		     (interval-union y-ext y))))

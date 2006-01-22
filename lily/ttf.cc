@@ -191,6 +191,9 @@ LY_DEFINE (ly_font_glyph_list, "ly:font-glyph-list",
     }
   
   FT_Done_Face (face);
+
+  if (be_verbose_global)
+    progress_indication ("]");  
   return retval;
 }
 
@@ -207,10 +210,11 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
   FT_Face face = open_ft_face (file_name);
   char const *ps_name_str0 = FT_Get_Postscript_Name (face);
   
+  FT_Done_Face (face);
+  
   if (be_verbose_global)
     progress_indication ("]");
 
-  FT_Done_Face (face);
   return scm_makfrom0str (ps_name_str0 ? ps_name_str0 : "");
 }
 
