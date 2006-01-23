@@ -21,6 +21,8 @@ using namespace std;
 #include "libc-extension.hh"
 #include "string-convert.hh"
 
+/* std::string conversion helpers */
+
 #if STD_STRING
 
 #include "std-string.hh"
@@ -29,22 +31,29 @@ String::String (Std_string const &s)
 {
   *this = String (s.c_str ());
 }
-#endif
-
-
-String::String (String const &s, int pos, int n)
-{
-  if (n == -1)
-    n = s.size () - pos;
-  if (pos == 0)
-    *this = s.left_string (n);
-  else
-    *this = s.right_string (s.size () - pos).left_string (n);
-}
 
 String::operator Std_string () const
 {
   return Std_string (this->c_str ());
+}
+
+#endif
+
+/* std::string interface */
+
+String::String (String const &s, int pos, int n)
+{
+  if (n == -1)
+    n = s.length () - pos;
+  if (pos == 0)
+    *this = s.left_string (n);
+  else
+    *this = s.right_string (s.length () - pos).left_string (n);
+}
+
+String::String (int n, char c)
+{
+  *this = String_convert::char_string (c, n);
 }
 
 char const *
@@ -60,15 +69,21 @@ String::empty () const
 }
 
 int
-String::size () const
-{
-  return length ();
-}
-
-int
 String::find (char c) const
 {
   return index (c);
+}
+
+int
+String::find (String &s, int pos) const
+{
+  if (!pos)
+    return index (s);
+  String f = right_string (length () - pos);
+  int n = f.index (s);
+  if (n != -1)
+    return pos + n;
+  return -1;
 }
 
 int
@@ -77,7 +92,15 @@ String::rfind (char c) const
   return index_last (c);
 }
 
+String
+String::replace (int pos, int n, String str)
+{
+  return String (*this, 0, pos) + str + String (*this, pos + n);
+}
 
+
+
+/* String */
 
 #ifdef STRING_DEBUG
 void *mymemmove (void *dest, void const *src, size_t n);

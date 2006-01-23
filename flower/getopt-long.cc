@@ -10,11 +10,9 @@
 #include <cassert>
 #include <cstdlib>
 
-#include <iostream>
 using namespace std;
 
 #include "config.hh"
-#include "string-convert.hh"
 
 #if !HAVE_GETTEXT
 inline char *
@@ -88,23 +86,23 @@ Getopt_long::parselong ()
   return found_option_;
 }
 
-String
+Std_string
 Long_option_init::to_string () const
 {
-  String str;
+  Std_string str;
   if (shortname_char_)
     str += "-" + shortname_char_;
   if (shortname_char_ && longname_str0_)
     str += ", ";
   if (longname_str0_)
-    str += String ("`--") + longname_str0_ + "'";
+    str += Std_string ("`--") + longname_str0_ + "'";
   return str;
 }
 
-String
+Std_string
 Long_option_init::str_for_help () const
 {
-  String s;
+  Std_string s;
   if (shortname_char_)
     s = "-" + ::to_string (shortname_char_);
   else
@@ -135,7 +133,7 @@ Getopt_long::report (Errorcod c)
   if (!error_out_)
     return;
 
-  String str = arg_value_char_a_a_[0];
+  Std_string str = arg_value_char_a_a_[0];
   str += ": ";
   switch (c)
     {
@@ -149,10 +147,9 @@ Getopt_long::report (Errorcod c)
       break;
     case E_UNKNOWNOPTION:
       str += _f ("unrecognized option: `%s'",
-		 String (argument_index_
-			 ? String ("-" + String_convert::form_string ("%c",
-								      arg_value_char_a_a_[array_index_][argument_index_]))
-			 : String (arg_value_char_a_a_[array_index_])));
+		 Std_string (argument_index_
+			     ? Std_string ("-" + Std_string (1, arg_value_char_a_a_[array_index_][argument_index_]))
+			 : Std_string (arg_value_char_a_a_[array_index_])));
       break;
     case E_ILLEGALARG:
       str += _f ("invalid argument `%s' to option `%s'",
@@ -161,7 +158,7 @@ Getopt_long::report (Errorcod c)
     default:
       assert (false);
     }
-  fprintf (error_out_, "%s\n", str.to_str0 ());
+  fprintf (error_out_, "%s\n", str.c_str ());
   exit (2);
 }
 
@@ -299,22 +296,23 @@ Getopt_long::get_next_arg ()
 
 const int EXTRA_SPACES = 5;
 
-String
+Std_string
 Long_option_init::table_string (Long_option_init *l)
 {
-  String tabstr = "";
+  Std_string tabstr = "";
 
   int wid = 0;
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
-    wid = max (wid, l[i].str_for_help ().length ());
+    wid = max (wid, int(l[i].str_for_help ().length ()));
 
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
     {
-      String s = "  " + l[i].str_for_help ();
-      s += String_convert::char_string (' ', wid - s.length () + EXTRA_SPACES);
+      Std_string s = "  " + l[i].str_for_help ();
+      s += Std_string (wid - s.length () + EXTRA_SPACES, ' ');
 
-      String help_text (gettext (l[i].help_str0_));
-      help_text.substitute ("\n", "\n" + String_convert::char_string (' ', wid + EXTRA_SPACES + 2));
+      Std_string help_text (gettext (l[i].help_str0_));
+      replace_all (help_text, "\n",
+		   "\n" + Std_string (wid + EXTRA_SPACES + 2, ' '));
       tabstr += s + help_text + "\n";
     }
 

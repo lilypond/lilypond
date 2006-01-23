@@ -11,8 +11,9 @@
 
 #if !STD_STRING
 
-#define Std_string
+#define Std_string String
 #define to_std_string to_string
+class String;
 #include "string.hh"
 
 #else
@@ -48,6 +49,9 @@ namespace std {
   Std_string to_std_string (char const *format, ...);
 }
 
+}
 #endif /* STD_STRING */
+  
+Std_string &replace_all (Std_string &str, Std_string find, Std_string replace);
 
 #endif /* STD_STRING_HH */
