@@ -48,7 +48,7 @@ Includable_lexer::new_input (String name, Sources *sources)
 {
   if (!allow_includes_b_)
     {
-      LexerError (_ ("include files are not allowed in safe mode").to_str0 ());
+      LexerError (_ ("include files are not allowed in safe mode").c_str ());
       return;
     }
 

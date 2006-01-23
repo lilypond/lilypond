@@ -19,25 +19,25 @@ gettext (char const *s)
 #include <libintl.h>
 #endif
 
-String
+Std_string
 _ (char const *ch)
 {
-  return String (gettext (ch));
+  return Std_string (gettext (ch));
 }
 
-String
+Std_string
 _f (char const *format, ...)
 {
   va_list args;
   va_start (args, format);
-  String str = String_convert::vform_string (gettext (format), args);
+  Std_string str = String_convert::vform_string (gettext (format), args);
   va_end (args);
   return str;
 }
 
-String
-_f (char const *format, String s, String s2, String s3)
+Std_string
+_f (char const *format, Std_string s, Std_string s2, Std_string s3)
 {
-  return String_convert::form_string (gettext (format), s.to_str0 (), s2.to_str0 (),
-				      s3.to_str0 ());
+  return String_convert::form_string (gettext (format), s.c_str (), s2.c_str (),
+				      s3.c_str ());
 }
