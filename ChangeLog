@@ -3,6 +3,8 @@
 	* Documentation/user/basic-notation.itely: add hairpin
 	after-linebreak tweak to commonprop.
 
+	* Documentation/user/putting.itely: added two new sections.
+
 2006-01-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/international.cc: 

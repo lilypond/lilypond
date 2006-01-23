@@ -9,6 +9,8 @@ how to solve common problems.
 * Suggestions for writing LilyPond files::  
 * Extending the templates::     
 * Fixing overlapping notation::  
+* How LilyPond files work::     
+* Troubleshooting (taking it all apart)::  
 @end menu
 
 
@@ -54,7 +56,10 @@ references to musical themes (``second theme in violins'', ``fourth
 variation'').  You may not need it when you're writing the piece for
 the first time, but if you want to go back and change something two
 or three years later, you won't know how your file is structured if you
-don't comment the file.
+didn't comment the file.
+
+@item Ident your braces.  A lot of problems are caused by an imbalance
+in the number of @code{@{} and @code{@}}.
 
 @end itemize
 
@@ -311,4 +316,163 @@ or to the left, or whatever.  Try it and look at the result!
 
 This manual: @ref{The \override command}, @ref{Common tweaks}.
 
+
+@node How LilyPond files work
+@section How LilyPond files work
+
+The LilyPond input format is quite free-form, giving experienced
+users a lot of flexibility to structure their files however they
+wish.  However, this flexibility can make things confusing for
+new users.  This section will explain some of this structure, but
+may gloss over some details in favor of simplicity.  For a complete
+description of the input format, see @ref{File structure}.
+
+Most examples in this manual are little snippets -- for example
+
+@example
+c4 a b c
+@end example
+
+As you are (hopefully) aware by now, this will not compile by
+itself.  These examples are shorthand for complete
+examples.  They all need at least curly braces to compile
+
+@example
+@{
+  c4 a b c
+@}
+@end example
+
+@noindent
+but most examples also make use of the @code{\relative c'}
+(or @code{c''}) command.  This is not necessary to merely
+compile the examples, but in most cases the output will
+look very odd if you omit the @code{\relative c'}.
+
+@lilypond[quote,fragment,raggedright,verbatim]
+\relative c'' {
+  c4 a b c
+}
+@end lilypond
+
+Now we get to the only real stumbling block: LilyPond
+input in this form is actually @emph{another}
+shorthand.  Although it compiles and displays the
+correct output, it is shorthand for
+
+@example
+\score @{
+  \relative c'' @{
+    c4 a b c
+	@}
+@}
+@end example
+
+A @code{\score} must begin with a single music
+expression.  Remember that a music expression could
+be anything from a single note to a huge
+
+@example
+@{
+  \new GrandStaff @{
+	  insert the whole score of a Wager opera in here
+	@}
+@}
+@end example
+
+@noindent
+Since everything is inside @code{@{ ... @}}, it counts
+as one music expression.
+
+The @code{\score} can contain other things, such as
+
+@example
+\score @{
+  @{ c'4 a b c' @}
+	\layout @{ @}
+	\paper @{ @}
+	\midi @{ @}
+	\header @{ @}
+@}
+@end example
+
+@noindent
+Most people put some of those commands outside the
+@code{\score} block -- for example, @code{\header} is
+almost always placed above the @code{\score}.  That's
+just another shorthand.
+
+Another great shorthand is the ability to define
+variables.  All the templates use this
+
+@example
+melody = \relative c' @{
+  c4 a b c
+@}
+
+\score @{
+  @{ \melody @}
+@}
+@end example
+
+When LilyPond looks at this file, it takes the value of
+@code{melody} (ie everything to the right of the
+@code{melody = }) and inserts it whenever it sees
+@code{\melody}.  There's nothing special about the
+name @code{melody}, @code{global}, @code{pianorighthand},
+or @code{foofoobarbaz}.  You can use whatever variable
+names you want.
+
+For a complete definition
+of the input format, see @ref{File structure}.
+
+
+@node Troubleshooting (taking it all apart)
+@section Troubleshooting (taking it all apart)
+
+Sooner or later, you will write a file that LilyPond cannot
+compile.  The messages that LilyPond gives may help
+you find the error, but in many cases you need to do some
+investigation to determine the source of the problem.
+
+The most powerful tool for this purpose is the
+comment (@code{%} and @code{%@{ ... %@}}).  If you don't
+know where a problem is, start commenting out huge portions
+of your input file.  After you comment out a section, try
+compiling the file again.  If it works, then the problem
+must exist in the portion you just commented.  If it doens't
+work, then keep on commenting out material until you have
+something that works.
+
+In an extreme case, you might end up with only
+
+@example
+\score @{ <<
+  % \melody
+	% \harmony
+	% \bass
+>>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+(in other words, an empty file)
+
+If that happens, don't give up.  Uncomment a bit -- say,
+the bass part -- and see if it works.  If it doesn't,
+then comment out all of the bass music (but leave
+@code{\bass} in the @code{\score} uncommented.
+
+@example
+bass = \relative c' {
+%{
+  c4 c c c
+  d d d d
+%}
+}
+@end example
+
+Now start slowly uncommenting more and more of the
+@code{bass} part until you find the problem line.
 
