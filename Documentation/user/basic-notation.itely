@@ -2198,6 +2198,13 @@ increase the @code{staff-padding} property.
 You may also use this property if the dynamics are colliding
 with other notation.
 
+Crescendi and decrescendi that end on the first note of a
+new line are not printed.  To change this behavior, use
+
+@example
+\override Score.Hairpin #'after-line-breaking = ##t
+@end example
+
 
 @refcommands
 
