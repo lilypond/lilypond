@@ -9,7 +9,7 @@
 #ifndef INTERNATIONAL_HH
 #define INTERNATIONAL_HH
 
-#include "string.hh"
+#include "std-string.hh"
 
 /**
    Internationalisation: _i ("to be translated") gets an entry in the POT file
@@ -22,14 +22,14 @@
 /**
    Internationalisation: _ ("to be translated") gets "translated" by GNU gettext
 */
-String _ (char const *ch);
+Std_string _ (char const *ch);
 
 /**
    Internationalisation: _f ("Usage: %s [FILE]", "lilypond") gets "translated" by
    GNU gettext
 */
-String _f (char const *format, ...);
-String _f (char const *format, String s, String s2 = "", String s3 = "");
+Std_string _f (char const *format, ...);
+Std_string _f (char const *format, Std_string s, Std_string s2 = "", Std_string s3 = "");
 
 #endif // INTERNATIONAL_HH
 

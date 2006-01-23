@@ -209,7 +209,7 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 {
   SCM_ASSERT_TYPE (scm_is_string (string), string, SCM_ARG1,
 		   __FUNCTION__, "string");
-  return scm_makfrom0str (_ (scm_i_string_chars (string)).to_str0 ());
+  return scm_makfrom0str (_ (scm_i_string_chars (string)).c_str ());
 }
 
 LY_DEFINE (ly_output_backend, "ly:output-backend",

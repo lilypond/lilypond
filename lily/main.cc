@@ -219,14 +219,14 @@ copyright ()
 {
   printf (_f ("Copyright (c) %s by\n%s  and others.",
 	      "1996--2006",
-	      AUTHORS).to_str0 ());
+	      AUTHORS).c_str ());
   printf ("\n");
 }
 
 static void
 identify (FILE *out)
 {
-  fputs (gnu_lilypond_version_string ().to_str0 (), out);
+  fputs (gnu_lilypond_version_string ().c_str (), out);
   fputs ("\n", out);
 }
 
@@ -234,7 +234,7 @@ static void
 notice ()
 {
   identify (stdout);
-  puts (_f (NOTICE, PROGRAM_NAME).to_str0 ());
+  puts (_f (NOTICE, PROGRAM_NAME).c_str ());
   printf ("\n");
   copyright ();
 }
@@ -244,21 +244,21 @@ LY_DEFINE (ly_usage, "ly:usage",
 	   "Print usage message.")
 {
   /* No version number or newline here.  It confuses help2man.  */
-  printf (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).to_str0 ());
+  printf (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).c_str ());
   printf ("\n\n");
-  printf (_ ("Typeset music and/or produce MIDI from FILE.").to_str0 ());
+  printf (_ ("Typeset music and/or produce MIDI from FILE.").c_str ());
   printf ("\n\n");
-  printf (_ ("LilyPond produces beautiful music notation.").to_str0 ());
+  printf (_ ("LilyPond produces beautiful music notation.").c_str ());
   printf ("\n");
-  printf (_f ("For more information, see %s", PROGRAM_URL).to_str0 ());
+  printf (_f ("For more information, see %s", PROGRAM_URL).c_str ());
   printf ("\n\n");
-  printf (_ ("Options:").to_str0 ());
+  printf (_ ("Options:").c_str ());
   printf ("\n");
   printf (Long_option_init::table_string (options_static).c_str ());
   printf ("\n");
   printf (_f ("Report bugs via %s",
 	      "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
-	      ).to_str0 ());
+	      ).c_str ());
   printf ("\n");
   printf ("\n");
   return SCM_UNSPECIFIED;
@@ -271,14 +271,14 @@ warranty ()
   printf ("\n");
   copyright ();
   printf ("\n");
-  printf (_ (WARRANTY).to_str0 ());
+  printf (_ (WARRANTY).c_str ());
 }
 
 static void
 prepend_load_path (String dir)
 {
   String s = "(set! %load-path (cons \"" + dir + "\" %load-path))";
-  scm_c_eval_string (s.to_str0 ());
+  scm_c_eval_string (s.c_str ());
 }
 
 void init_global_tweak_registry ();
@@ -311,7 +311,7 @@ do_chroot_jail ()
   errno = 0;
 
   int uid;
-  if (passwd * passwd = getpwnam (components[USER_NAME].to_str0 ()))
+  if (passwd * passwd = getpwnam (components[USER_NAME].c_str ()))
     uid = passwd->pw_uid;
   else
     {
@@ -328,7 +328,7 @@ do_chroot_jail ()
   errno = 0;
 
   int gid;
-  if (group * group = getgrnam (components[GROUP_NAME].to_str0 ()))
+  if (group * group = getgrnam (components[GROUP_NAME].c_str ()))
     gid = group->gr_gid;
   else
     {
@@ -341,7 +341,7 @@ do_chroot_jail ()
       exit (3);
     }
 
-  if (chroot (components[JAIL].to_str0 ()))
+  if (chroot (components[JAIL].c_str ()))
     {
       error (_f ("can't chroot to: %s: %s", components[JAIL],
 		 strerror (errno)));
@@ -360,7 +360,7 @@ do_chroot_jail ()
       exit (3);
     }
 
-  if (chdir (components[DIR].to_str0 ()))
+  if (chdir (components[DIR].c_str ()))
     {
       error (_f ("can't change working directory to: %s: %s", components[DIR],
 		 strerror (errno)));
@@ -406,7 +406,7 @@ main_with_guile (void *, int, char **)
 	+ init_scheme_code_string
 	+ ")";
 
-      char const *str0 = init_scheme_code_string.to_str0 ();
+      char const *str0 = init_scheme_code_string.c_str ();
 
       if (be_verbose_global)
 	progress_indication (_f ("Evaluating %s", str0));
@@ -454,7 +454,7 @@ setup_localisation ()
   if (char const *env = getenv ("LILYPOND_LOCALEDIR"))
     localedir = env;
 
-  bindtextdomain ("lilypond", localedir.to_str0 ());
+  bindtextdomain ("lilypond", localedir.c_str ());
   textdomain ("lilypond");
 #endif
 }

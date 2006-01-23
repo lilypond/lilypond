@@ -153,7 +153,7 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,lyrics,figures,notes>{BOM_UTF8} {
   if (this->lexloc->line_number () != 1 || this->lexloc->column_number () != 0)
     {
-      LexerError (_ ("stray UTF-8 BOM encountered").to_str0 ());
+      LexerError (_ ("stray UTF-8 BOM encountered").c_str ());
       exit (1);
     }
   if (be_verbose_global)
@@ -209,11 +209,11 @@ BOM_UTF8	\357\273\277
 
 }
 <version>. 	{
-	LexerError (_ ("quoted string expected after \\version").to_str0 ());
+	LexerError (_ ("quoted string expected after \\version").c_str ());
 	yy_pop_state ();
 }
 <sourcefilename>>. 	{
-	LexerError (_ ("quoted string expected after \\sourcefilename").to_str0 ());
+	LexerError (_ ("quoted string expected after \\sourcefilename").c_str ());
 	yy_pop_state ();
 }
 <longcomment>{
@@ -226,7 +226,7 @@ BOM_UTF8	\357\273\277
 		yy_pop_state ();
 	}
 	<<EOF>> 	{
-		LexerError (_ ("EOF found inside a comment").to_str0 ());
+		LexerError (_ ("EOF found inside a comment").c_str ());
 		is_main_input_ = false;
 		if (! close_input ()) 
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
