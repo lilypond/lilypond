@@ -2,6 +2,8 @@
 #define GETOPT_LONG_HH
 
 #include <cstdio>
+
+#include "std-string.hh"
 using namespace std;
 
 #include "string.hh"
@@ -21,12 +23,12 @@ struct Long_option_init
 
   char const *help_str0_;
 
-  String to_string () const;
-  String str_for_help () const;
+  Std_string to_string () const;
+  Std_string str_for_help () const;
   //   NO constructor!
 
   static int compare (Long_option_init const &, Long_option_init const &);
-  static String table_string (Long_option_init *);
+  static Std_string table_string (Long_option_init *);
 };
 
 /** C++ for version of long_getopt.  For processing GNU style command

@@ -254,7 +254,7 @@ LY_DEFINE (ly_usage, "ly:usage",
   printf ("\n\n");
   printf (_ ("Options:").to_str0 ());
   printf ("\n");
-  printf (Long_option_init::table_string (options_static).to_str0 ());
+  printf (Long_option_init::table_string (options_static).c_str ());
   printf ("\n");
   printf (_f ("Report bugs via %s",
 	      "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"

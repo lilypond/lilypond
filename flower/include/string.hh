@@ -68,11 +68,13 @@ public:
   /* std::string interface */
   char const *c_str () const;
   bool empty () const;
-  int size () const;
+  int String::find (String &s, int pos=0) const;
   int find (char c) const;
   int rfind (char c) const;
+  String replace (int pos, int n, String str);
 
   String (String const &, int pos, int n=-1);
+  String (int n, char c);
 
 protected:
   String_handle strh_;
