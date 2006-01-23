@@ -1,3 +1,8 @@
+2006-01-23  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/basic-notation.itely: add hairpin
+	after-linebreak tweak to commonprop.
+
 2006-01-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/international.cc: 
