@@ -47,11 +47,13 @@ namespace std {
   Std_string to_std_string (long b);
   Std_string to_std_string (bool b);
   Std_string to_std_string (char const *format, ...);
-}
 
-}
 #endif /* STD_STRING */
+
+  Std_string &replace_all (Std_string &str, Std_string find, Std_string replace);
+#if STD_STRING
+}
+#endif
   
-Std_string &replace_all (Std_string &str, Std_string find, Std_string replace);
 
 #endif /* STD_STRING_HH */

@@ -19,7 +19,6 @@ namespace std {
        n=1.  */
     return Std_string (n, c);
   }
-}
 
 #define FIND_FAILED string::npos
 #define SIZE_T size_t
@@ -40,3 +39,6 @@ replace_all (Std_string &str, Std_string find, Std_string replace)
   return str;
 }
 
+#if STD_STRING
+}
+#endif
