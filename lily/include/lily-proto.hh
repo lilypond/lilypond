@@ -120,7 +120,6 @@ class Paper_book;
 class Paper_column;
 class Paper_outputter;
 class Paper_score;
-class Paper_system;
 class Performance;
 class Performer;
 class Performer_group;

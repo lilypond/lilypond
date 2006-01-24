@@ -377,8 +377,8 @@ System::get_paper_system ()
 
   Grob *left_bound = this->get_bound (LEFT);
   SCM prop_init = left_bound->get_property ("line-break-system-details");
-  Paper_system *pl = new Paper_system (sys_stencil,
-				       prop_init);
+  Prob *pl = make_paper_system (prop_init);
+  paper_system_set_stencil (pl, sys_stencil);
   pl->set_property ("penalty",
 		    left_bound->get_property ("page-penalty"));
   

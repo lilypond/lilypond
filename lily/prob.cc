@@ -1,5 +1,5 @@
 /*
-  paper-system.cc -- implement Paper_system
+  prob.cc -- implement Prob
 
   source file of the GNU LilyPond music typesetter
 
@@ -16,11 +16,12 @@ IMPLEMENT_SMOBS (Prob);
 IMPLEMENT_TYPE_P (Prob, "ly:prob?");
 IMPLEMENT_DEFAULT_EQUAL_P (Prob);
 
-Prob::Prob (SCM immutable_init)
+Prob::Prob (SCM type, SCM immutable_init)
 {
   self_scm_ = SCM_EOL;
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = immutable_init;
+  type_ = type;
   smobify_self ();
 }
 
@@ -69,8 +70,8 @@ Prob::print_smob (SCM smob, SCM port, scm_print_state*)
   Prob *p = (Prob *) SCM_CELL_WORD_1 (smob);
   scm_puts ("#<", port);
   scm_puts ("Prob: ", port);
-
-  
+  scm_display (p->type_, port);
+  scm_puts (" C++: ", port);
   scm_puts (p->class_name (), port);
   scm_display (p->mutable_property_alist_, port);
   scm_display (p->immutable_property_alist_, port);

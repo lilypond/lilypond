@@ -504,7 +504,7 @@
     (if (and
 	 (not (ly:get-option 'preview-include-book-title))
 	 (pair? systems)
-	 (ly:paper-system-property (car systems) 'is-book-title #f))
+	 (ly:prob-property (car systems) 'is-book-title #f))
 
 	(set! systems (cdr systems)))
 

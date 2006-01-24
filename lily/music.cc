@@ -32,7 +32,7 @@ Music::internal_is_music_type (SCM k) const
 }
 
 Music::Music (SCM init)
-  : Prob (init)
+  : Prob (ly_symbol2scm ("Music"), init)
 {
   length_callback_ = SCM_EOL;
   start_callback_ = SCM_EOL;
@@ -218,8 +218,6 @@ Music::transpose (Pitch delta)
   if (scm_is_pair (pa))
     set_property ("pitch-alist", ly_transpose_key_alist (pa, delta.smobbed_copy ()));
 }
-
-
 
 void
 Music::set_spot (Input ip)

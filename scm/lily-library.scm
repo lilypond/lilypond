@@ -118,11 +118,11 @@
 
 
 (define-public (paper-system-title? system)
-  (equal? #t (ly:paper-system-property system 'is-title)
+  (equal? #t (ly:prob-property system 'is-title)
 	  ))
 
 (define-public (paper-system-stencil system)
-  (ly:paper-system-property system 'stencil))
+  (ly:prob-property system 'stencil))
 
 (define-public (paper-system-extent system axis)
   (ly:stencil-extent (paper-system-stencil system) axis))

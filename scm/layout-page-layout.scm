@@ -28,7 +28,7 @@
 	"\n")))
 
 (define-method (node-system-numbers (node <optimally-broken-page-node>))
-  (map (lambda (ps) (ly:paper-system-property ps 'number))
+  (map (lambda (ps) (ly:prob-property ps 'number))
        (node-lines node)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -40,7 +40,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (paper-system-staff-extents ps)
-  (ly:paper-system-property ps 'refpoint-Y-extent '(0 . 0)))
+  (ly:prob-property ps 'refpoint-Y-extent '(0 . 0)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -91,10 +91,10 @@
 
 (define (paper-system-annotate-last system layout)
   (let*
-      ((bottomspace (ly:paper-system-property system 'bottom-space))
+      ((bottomspace (ly:prob-property system 'bottom-space))
        (y-extent (paper-system-extent system Y))
        (x-extent (paper-system-extent system X))
-       (stencil (ly:paper-system-property system 'stencil))
+       (stencil (ly:prob-property system 'stencil))
      
        (arrow (if (number? bottomspace)
 	       (annotate-y-interval layout
@@ -108,7 +108,7 @@
 	(set! stencil
 	      (ly:stencil-add stencil arrow)))
 
-    (set! (ly:paper-system-property system 'stencil)
+    (set! (ly:prob-property system 'stencil)
 	  stencil)
   ))
   
@@ -128,11 +128,11 @@
 						     name extent is-length?)))))
 
        (bbox-extent (paper-system-extent system Y))
-       (refp-extent (ly:paper-system-property system 'refpoint-Y-extent))
-       (next-space (ly:paper-system-property system 'next-space
+       (refp-extent (ly:prob-property system 'refpoint-Y-extent))
+       (next-space (ly:prob-property system 'next-space
 					     (ly:output-def-lookup layout 'betweensystemspace)
 					     ))
-       (next-padding (ly:paper-system-property system 'next-padding
+       (next-padding (ly:prob-property system 'next-padding
 					       (ly:output-def-lookup layout 'betweensystempadding)
 					       ))
 		     
@@ -158,9 +158,9 @@
 	
     
 
-    (set! (ly:paper-system-property system 'stencil)
+    (set! (ly:prob-property system 'stencil)
 	  (ly:stencil-add
-	   (ly:paper-system-property system 'stencil)
+	   (ly:prob-property system 'stencil)
 	   (ly:make-stencil
 	    (ly:stencil-expr annotations)
 	    (ly:stencil-extent empty-stencil X)
@@ -512,8 +512,8 @@ is what have collected so far, and has ascending page numbers."
 		     (interval-end (vector-ref real-extents 0))
 		     ))
 	   (last-system (vector-ref system-vector (1- system-count)))
-	   (bottom-space (if (ly:paper-system? last-system)
-			     (ly:paper-system-property last-system 'bottom-space 0.0)
+	   (bottom-space (if (ly:prob? last-system)
+			     (ly:prob-property last-system 'bottom-space 0.0)
 			     0.0))
 	   (space-left (- page-height
 			  bottom-space
@@ -530,9 +530,9 @@ is what have collected so far, and has ascending page numbers."
 	    (lambda (idx)
 	      (let* (
 		     (upper-system (vector-ref system-vector idx))
-		     (between-space (ly:paper-system-property upper-system 'next-space
+		     (between-space (ly:prob-property upper-system 'next-space
 							      global-inter-system-space))
-		     (fixed-dist (ly:paper-system-property upper-system 'next-padding
+		     (fixed-dist (ly:prob-property upper-system 'next-padding
 							   global-fixed-dist))
 		     
 		     (this-system-ext (vector-ref staff-extents idx))
@@ -564,7 +564,7 @@ is what have collected so far, and has ascending page numbers."
 	    (lambda (idx)
 	      (let* (
 		     (upper-system (vector-ref system-vector idx))
-		     (fixed-dist (ly:paper-system-property upper-system 'next-padding
+		     (fixed-dist (ly:prob-property upper-system 'next-padding
 							   global-fixed-dist))
 		     (this-system-ext (vector-ref real-extents idx))
 		     (next-system-ext (vector-ref real-extents (1+ idx)))
@@ -634,7 +634,7 @@ CURRENT-BEST is the best result sofar, or #f."
 		      10000))
 	   (positions (cdr vertical-spacing))
 	   (get-break-penalty (lambda (sys)
-				(ly:paper-system-property sys 'penalty 0.0)))
+				(ly:prob-property sys 'penalty 0.0)))
 	   (user-nobreak-penalties
 	    (-
 	     (apply + (filter negative?
@@ -709,7 +709,7 @@ DONE."
 		      (cdr todo)))))
 
   (define (line-number node)
-    (ly:paper-system-property (car (node-lines node)) 'number))
+    (ly:prob-property (car (node-lines node)) 'number))
 
   (ly:message (_ "Calculating page breaks..."))
   (set! force-equalization-factor
