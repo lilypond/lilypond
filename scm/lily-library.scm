@@ -1,3 +1,4 @@
+;;;;
 ;;;; lily-library.scm -- utilities
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
@@ -116,16 +117,6 @@
     (ly:score-process score header paper layout base)
     ))
 
-
-(define-public (paper-system-title? system)
-  (equal? #t (ly:prob-property system 'is-title)
-	  ))
-
-(define-public (paper-system-stencil system)
-  (ly:prob-property system 'stencil))
-
-(define-public (paper-system-extent system axis)
-  (ly:stencil-extent (paper-system-stencil system) axis))
 
 ;;;;;;;;;;;;;;;;
 ;; alist
