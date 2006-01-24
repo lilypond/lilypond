@@ -33,13 +33,15 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 	   "Its arguments. @code{signature} is a list containing either "
 	   "@code{ly:music?} predicates or other type predicates.")
 {
+  extern SCM ly_music_p_proc;
+  
   String str = "";
   for (SCM s = signature; scm_is_pair (s); s = scm_cdr (s))
     {
       if (str != "")
 	str += "-";
 
-      if (scm_car (s) == Music_type_p_proc)
+      if (scm_car (s) == ly_music_p_proc)
 	str += "music";
       else if (scm_car (s) == ly_lily_module_constant ("markup?"))
 	str += "markup";

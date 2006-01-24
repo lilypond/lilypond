@@ -10,6 +10,7 @@
 #define SMOBS_HH
 
 #include "lily-guile.hh"
+#include "virtual-methods.hh"
 
 /*
   Smobs are GUILEs mechanism of exporting C(++) objects to the Scheme
