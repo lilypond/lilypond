@@ -117,7 +117,7 @@ LY_DEFINE (ly_font_name, "ly:font-name",
   Font_metric *fm = unsmob_metrics (font);
 
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  return scm_makfrom0str (fm->font_name ().to_str0 ());
+  return scm_makfrom0str (fm->font_name ().c_str ());
 }
 
 LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,

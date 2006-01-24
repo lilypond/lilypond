@@ -592,7 +592,7 @@ Stem::flag (Grob *me)
   if (scm_is_string (stroke_style_scm))
     {
       String stroke_style = ly_scm2string (stroke_style_scm);
-      if (!stroke_style.is_empty ())
+      if (!stroke_style.empty ())
 	{
 	  String font_char = to_string (dir) + stroke_style;
 	  Stencil stroke = fm->find_by_name ("flags." + font_char);

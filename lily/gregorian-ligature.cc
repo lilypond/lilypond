@@ -15,7 +15,7 @@ void check_prefix (String name, int mask, int prefix_set, String *str)
 {
   if (prefix_set & mask)
     {
-      if (!str->is_empty ())
+      if (!str->empty ())
 	*str += ", ";
       *str += name;
     }

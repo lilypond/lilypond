@@ -88,7 +88,7 @@ print_header (void *out, FT_Face face)
 static void
 print_body (void *out, String name)
 {
-  FILE *fd = fopen (name.to_str0 (), "rb");
+  FILE *fd = fopen (name.c_str (), "rb");
 
   static char xdigits[] = "0123456789ABCDEF";
 

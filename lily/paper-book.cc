@@ -67,7 +67,7 @@ dump_fields ()
   SCM fields = SCM_EOL;
   for (int i = dump_header_fieldnames_global.size (); i--;)
     fields
-      = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].to_str0 ()),
+      = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].c_str ()),
 		  fields);
   return fields;
 }
@@ -106,7 +106,7 @@ Paper_book::output (SCM output_channel)
 
   String mod_nm = "scm framework-" + output_backend_global;
 
-  SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
+  SCM mod = scm_c_resolve_module (mod_nm.c_str ());
   if (make_print)
     {
       SCM func = scm_c_module_lookup (mod, "output-framework");
@@ -147,7 +147,7 @@ Paper_book::classic_output (SCM output)
   String format = output_backend_global;
   String mod_nm = "scm framework-" + format;
 
-  SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
+  SCM mod = scm_c_resolve_module (mod_nm.c_str ());
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
 
   func = scm_variable_ref (func);

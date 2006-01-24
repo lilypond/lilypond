@@ -45,8 +45,8 @@ Spanner::do_break_processing ()
 	  if (!parent->spanned_rank_iv ().superset (this->spanned_rank_iv ()))
 	    {
 	      programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner `%s'.",
-					    name ().to_str0 (),
-					    parent->name ().to_str0 ()));
+					    name ().c_str (),
+					    parent->name ().c_str ()));
 	    }
 	}
     }

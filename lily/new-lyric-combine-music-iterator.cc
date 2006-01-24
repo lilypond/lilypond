@@ -241,7 +241,7 @@ Lyric_combine_music_iterator::do_quit ()
 	name = ly_scm2string (voice_name);
 
       get_music ()->origin ()->warning (_f ("cannot find Voice `%s'",
-					    name.to_str0 ()) + "\n");
+					    name.c_str ()) + "\n");
     }
 
   if (lyric_iter_)

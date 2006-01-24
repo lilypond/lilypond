@@ -136,7 +136,7 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
 	   "Print ly:set-option usage")
 {
   String help = get_help_string ();
-  fputs (help.to_str0 (), stdout);
+  fputs (help.c_str (), stdout);
 
   exit (0);
   return SCM_UNSPECIFIED;
@@ -177,13 +177,13 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   String varstr = ly_scm2string (scm_symbol_to_string (var));
   if (varstr.left_string (3) == String ("no-"))
     {
-      var = ly_symbol2scm (varstr.nomid_string (0, 3).to_str0 ());
+      var = ly_symbol2scm (varstr.nomid_string (0, 3).c_str ());
       val = scm_from_bool (!to_boolean (val));
     }
 
   SCM handle = scm_hashq_get_handle (option_hash, var);
   if (handle == SCM_BOOL_F)
-    warning (_f ("no such internal option: %s", varstr.to_str0 ()));
+    warning (_f ("no such internal option: %s", varstr.c_str ()));
 
   internal_set_option (var, val);
   return SCM_UNSPECIFIED;

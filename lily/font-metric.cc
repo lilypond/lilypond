@@ -41,7 +41,7 @@ Font_metric::find_by_name (String s) const
     {
       expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
 			 self_scm (),
-			 scm_makfrom0str (s.to_str0 ()));
+			 scm_makfrom0str (s.c_str ()));
       b = get_indexed_char (idx);
     }
 
@@ -183,7 +183,7 @@ Font_metric::text_stencil (String str) const
 {
   SCM lst = scm_list_3 (ly_symbol2scm ("text"),
 			this->self_scm (),
-			scm_makfrom0str (str.to_str0 ()));
+			scm_makfrom0str (str.c_str ()));
 
   Box b = text_dimension (str);
   return Stencil (b, lst);

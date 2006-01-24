@@ -29,7 +29,7 @@ void ly_add_function_documentation (SCM func,
     + "\n" + doc;
 
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
-				scm_makfrom0str (s.to_str0 ()));
+				scm_makfrom0str (s.c_str ()));
   SCM entry = scm_cons (scm_makfrom0str (varlist), scm_makfrom0str (doc));
   scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname), entry);
 }

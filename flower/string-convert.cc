@@ -74,7 +74,7 @@ String_convert::dec2int (String dec_string)
     return 0;
 
   long l = 0;
-  int conv = sscanf (dec_string.to_str0 (), "%ld", &l);
+  int conv = sscanf (dec_string.c_str (), "%ld", &l);
   assert (conv);
 
   return (int)l;
@@ -95,7 +95,7 @@ String_convert::dec2double (String dec_string)
   if (!dec_string.length ())
     return 0;
   double d = 0;
-  int conv = sscanf (dec_string.to_str0 (), "%lf", &d);
+  int conv = sscanf (dec_string.c_str (), "%lf", &d);
   assert (conv);
   return d;
 }
@@ -287,7 +287,7 @@ String
 String_convert::precision_string (double x, int n)
 {
   String format = "%." + to_string (max (0, n - 1)) + "e";
-  String str = double_string (abs (x), format.to_str0 ());
+  String str = double_string (abs (x), format.c_str ());
 
   int exp = str.right_string (3).to_int ();
   str = str.left_string (str.length () - 4);

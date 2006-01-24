@@ -86,7 +86,7 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
   FcValue val;
   
   val.type = FcTypeString;
-  val.u.s = (const FcChar8*)ly_scm2string (name).to_str0 (); // FC_SLANT_ITALIC;
+  val.u.s = (const FcChar8*)ly_scm2string (name).c_str (); // FC_SLANT_ITALIC;
   FcPatternAdd(pat, FC_FAMILY, val, FcFalse);
 
   FcResult result;

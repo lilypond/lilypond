@@ -179,7 +179,7 @@ Modified_font_metric::text_stencil (String text) const
 Box
 Modified_font_metric::text_dimension (String text) const
 {
-  SCM stext = scm_makfrom0str (text.to_str0 ());
+  SCM stext = scm_makfrom0str (text.c_str ());
   Box b = lookup_tex_text_dimension (orig_, stext);
   if (!b[Y_AXIS].is_empty ())
     {

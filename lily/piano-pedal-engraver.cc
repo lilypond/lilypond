@@ -152,7 +152,7 @@ Piano_pedal_engraver::try_music (Music *m)
 	{
 	  String nm = p->name_ + String ("Event");
 	  if (ly_is_equal (m->get_property ("name"),
-			   scm_str2symbol (nm.to_str0 ())))
+			   scm_str2symbol (nm.c_str ())))
 	    {
 	      Direction d = to_dir (m->get_property ("span-direction"));
 	      p->event_drul_[d] = m;
@@ -174,7 +174,7 @@ Piano_pedal_engraver::process_music ()
 	    {
 	      String name = String (p->name_) + "PedalLineSpanner";
 	      Music *rq = (p->event_drul_[START] ? p->event_drul_[START] : p->event_drul_[STOP]);
-	      p->line_spanner_ = make_spanner (name.to_str0 (), rq->self_scm ());
+	      p->line_spanner_ = make_spanner (name.c_str (), rq->self_scm ());
 	    }
 
 	  /* Choose the appropriate grobs to add to the line spanner
@@ -191,7 +191,7 @@ Piano_pedal_engraver::process_music ()
 	  */
 
 	  String prop = String ("pedal") + p->name_ + "Style";
-	  SCM style = get_property (prop.to_str0 ());
+	  SCM style = get_property (prop.c_str ());
 
 	  bool mixed = style == ly_symbol2scm ("mixed");
 	  bool bracket = (mixed
@@ -211,7 +211,7 @@ void
 Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 {
   SCM s = SCM_EOL;
-  SCM strings = get_property (("pedal" + String (p->name_) + "Strings").to_str0 ());
+  SCM strings = get_property (("pedal" + String (p->name_) + "Strings").c_str ());
 
   if (scm_ilength (strings) < 3)
     {
@@ -271,7 +271,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
     {
       String propname = String (p->name_) + "Pedal";
 
-      p->item_ = make_item (propname.to_str0 (), (p->event_drul_[START]
+      p->item_ = make_item (propname.c_str (), (p->event_drul_[START]
 						  ? p->event_drul_[START]
 						  : p->event_drul_[STOP])->self_scm ());
 

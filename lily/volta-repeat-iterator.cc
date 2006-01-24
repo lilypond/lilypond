@@ -98,7 +98,7 @@ Volta_repeat_iterator::next_element (bool side_effect)
 
 	  if (done_count_ <= alt_count_)
 	    add_repeat_command (scm_list_n (ly_symbol2scm ("volta"),
-					    scm_makfrom0str (repstr.to_str0 ()), SCM_UNDEFINED));
+					    scm_makfrom0str (repstr.c_str ()), SCM_UNDEFINED));
 	}
       else
 	add_repeat_command (ly_symbol2scm ("end-repeat"));

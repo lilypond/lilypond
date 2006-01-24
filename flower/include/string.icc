@@ -19,9 +19,9 @@ to_string (String s)
 
 INLINE
 char const *
-String::to_str0 () const
+String::c_str () const
 {
-  return strh_.to_str0 ();
+  return strh_.c_str ();
 }
 
 // because char const* also has an operator ==, this is for safety:

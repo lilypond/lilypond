@@ -108,7 +108,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
     {
       String msg
 	= String_convert::form_string ("Improbable offset for grob %s: %f%s",
-				       me->name ().to_str0 (), total_off,
+				       me->name ().c_str (), total_off,
 				       INTERNAL_UNIT);
 
       programming_error (msg);

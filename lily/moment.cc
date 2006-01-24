@@ -50,7 +50,7 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
 
   scm_puts ("#<Mom ", port);
   String str = r->to_string ();
-  scm_puts ((char *)str.to_str0 (), port);
+  scm_puts ((char *)str.c_str (), port);
   scm_puts (">", port);
 
   return 1;

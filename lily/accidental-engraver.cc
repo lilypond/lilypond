@@ -235,7 +235,7 @@ number_accidentals (bool *different,
   *different = false;
   if (scm_is_pair (accidentals) && !scm_is_symbol (scm_car (accidentals)))
     warning (_f ("accidental typesetting list must begin with context-name: %s",
-		 ly_scm2string (scm_car (accidentals)).to_str0 ()));
+		 ly_scm2string (scm_car (accidentals)).c_str ()));
 
   for (; scm_is_pair (accidentals) && origin;
        accidentals = scm_cdr (accidentals))
@@ -263,7 +263,7 @@ number_accidentals (bool *different,
 	    }
 	  else
 	    warning (_f ("ignoring unknown accidental: %s",
-			 ly_symbol2string (type).to_str0 ()));
+			 ly_symbol2string (type).c_str ()));
 	}
 
       /* if symbol then it is a context name.  Scan parent contexts to
@@ -279,7 +279,7 @@ number_accidentals (bool *different,
 	}
       else
 	warning (_f ("pair or context-name expected for accidental rule, found %s",
-		     ly_scm2string (rule).to_str0 ()));
+		     ly_scm2string (rule).c_str ()));
     }
 
   return number;

@@ -27,7 +27,7 @@ static int
 print_smob (SCM s, SCM port, scm_print_state *)
 {
   String str = "#<location " + unsmob_input (s)->location_string () + ">";
-  scm_puts (str.to_str0 (), port);
+  scm_puts (str.c_str (), port);
   return 1;
 }
 

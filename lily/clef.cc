@@ -31,7 +31,7 @@ Clef::calc_glyph_name (SCM smob)
 	  str += "_change";
 	}
 
-      return scm_makfrom0str (str.to_str0 ());
+      return scm_makfrom0str (str.c_str ());
     }
 
   s->suicide ();
@@ -51,7 +51,7 @@ Clef::print (SCM smob)
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil out = fm->find_by_name (glyph);
   if (out.is_empty ())
-    me->warning (_f ("clef `%s' not found", glyph.to_str0 ()));
+    me->warning (_f ("clef `%s' not found", glyph.c_str ()));
   return out.smobbed_copy ();
 }
 

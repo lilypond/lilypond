@@ -110,7 +110,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
       out.add_stencil (Lookup::round_filled_polygon (points, blotdiameter));
     }
   else
-    me->warning (_f ("unknown cluster style `%s'", shape.to_str0 ()));
+    me->warning (_f ("unknown cluster style `%s'", shape.c_str ()));
   return out;
 }
 

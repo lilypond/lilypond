@@ -59,7 +59,7 @@ Includable_lexer::new_input (String name, Sources *sources)
       msg += "\n";
       msg += _f ("(search path: `%s')",
 		 sources->path_->to_string ().c_str ());
-      LexerError (msg.to_str0 ());
+      LexerError (msg.c_str ());
       return;
     }
   file_name_strings_.push (file->name_string ());
@@ -128,7 +128,7 @@ Includable_lexer::here_str0 () const
 {
   if (include_stack_.is_empty ())
     return 0;
-  return include_stack_.top ()->to_str0 () + char_count_stack_.top ();
+  return include_stack_.top ()->c_str () + char_count_stack_.top ();
 }
 
 Includable_lexer::~Includable_lexer ()

@@ -7,7 +7,6 @@
 */
 
 #include "hairpin.hh"
-
 #include "staff-symbol-referencer.hh"
 #include "line-interface.hh"
 #include "spanner.hh"

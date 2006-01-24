@@ -173,7 +173,7 @@ Lily_lexer::set_current_scope ()
 int
 Lily_lexer::lookup_keyword (String s)
 {
-  return keytable_->lookup (s.to_str0 ());
+  return keytable_->lookup (s.c_str ());
 }
 
 SCM
@@ -192,7 +192,7 @@ Lily_lexer::lookup_identifier_symbol (SCM sym)
 SCM
 Lily_lexer::lookup_identifier (String name)
 {
-  return lookup_identifier_symbol (ly_symbol2scm (name.to_str0 ()));
+  return lookup_identifier_symbol (ly_symbol2scm (name.c_str ()));
 }
 
 void
@@ -206,7 +206,7 @@ Lily_lexer::start_main_input ()
 
   scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (main_input_name_.to_str0 ()));
+		     scm_makfrom0str (main_input_name_.c_str ()));
 }
 
 void
@@ -221,7 +221,7 @@ Lily_lexer::set_identifier (SCM name, SCM s)
       if (lookup_keyword (ly_symbol2string (sym)) >= 0)
 	{
 	  String symstr = ly_symbol2string (sym);
-	  warning (_f ("identifier name is a keyword: `%s'", symstr.to_str0 ()));
+	  warning (_f ("identifier name is a keyword: `%s'", symstr.c_str ()));
 	}
 
       SCM mod = scm_car (scopes_);

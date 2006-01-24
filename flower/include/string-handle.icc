@@ -87,7 +87,7 @@ const *String_handle::to_bytes () const
 }
 
 INLINE char const *
-String_handle::to_str0 () const
+String_handle::c_str () const
 {
   return (char const *)data->to_bytes ();
 }

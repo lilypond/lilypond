@@ -1,3 +1,11 @@
+2006-01-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* buildscripts/analyse-cxx-log.py: new file. Read compile log to
+	substitute appropriate functions.
+
+	* flower/include/string.hh (class String): remove to_str0 and
+	is_empty(). S&R everywhere.
+
 2006-01-23  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/basic-notation.itely: add hairpin
@@ -53,10 +61,11 @@
 
 2006-01-22  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
-	* ly/music-functions-init.ly (parallelMusic): new music function for parallel
-	music entry.
+	* ly/music-functions-init.ly (parallelMusic): new music function
+	for parallel music entry.
 
-	* scm/define-music-properties.scm (all-music-properties): new 'void music property
+	* scm/define-music-properties.scm (all-music-properties): new
+	'void music property
 
 	* scm/music-functions.scm (ly:music-message): make public, to be
 	used in music function definitions

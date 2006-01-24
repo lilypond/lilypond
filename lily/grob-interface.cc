@@ -44,7 +44,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
       if (iface == SCM_BOOL_F)
 	{
 	  String msg = to_string (_f ("Unknown interface `%s'",
-				      ly_symbol2string (scm_car (ifs)).to_str0 ()));
+				      ly_symbol2string (scm_car (ifs)).c_str ()));
 	  programming_error (msg);
 	  continue;
 	}
@@ -55,8 +55,8 @@ check_interfaces_for_property (Grob const *me, SCM sym)
   if (!found)
     {
       String str = to_string (_f ("Grob `%s' has no interface for property `%s'",
-				  me->name ().to_str0 (),
-				  ly_symbol2string (sym).to_str0 ()));
+				  me->name ().c_str (),
+				  ly_symbol2string (sym).c_str ()));
       programming_error (str);
     }
 }

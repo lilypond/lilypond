@@ -114,7 +114,7 @@ kpathsea_find_file (String name, String ext)
 
   if (ly_is_procedure (proc))
     {
-      SCM kp_result = scm_call_1 (proc, scm_makfrom0str (name.to_str0 ()));
+      SCM kp_result = scm_call_1 (proc, scm_makfrom0str (name.c_str ()));
       if (scm_is_string (kp_result))
 	return ly_scm2string (kp_result);
     }
@@ -125,16 +125,16 @@ kpathsea_find_file (String name, String ext)
 Open_type_font *
 All_font_metrics::find_otf (String name)
 {
-  SCM sname = ly_symbol2scm (name.to_str0 ());
-  SCM name_string = scm_makfrom0str (name.to_str0 ());
+  SCM sname = ly_symbol2scm (name.c_str ());
+  SCM name_string = scm_makfrom0str (name.c_str ());
   SCM val;
   if (!otf_dict_->try_retrieve (sname, &val))
     {
       String file_name;
 
-      if (file_name.is_empty ())
+      if (file_name.empty ())
 	file_name = search_path_.find (name + ".otf");
-      if (file_name.is_empty ())
+      if (file_name.empty ())
 	return 0;
 
       if (be_verbose_global)
@@ -158,14 +158,14 @@ All_font_metrics::find_otf (String name)
 Tex_font_metric *
 All_font_metrics::find_tfm (String name)
 {
-  SCM sname = ly_symbol2scm (name.to_str0 ());
-  SCM name_string = scm_makfrom0str (name.to_str0 ());
+  SCM sname = ly_symbol2scm (name.c_str ());
+  SCM name_string = scm_makfrom0str (name.c_str ());
   SCM val;
   if (!tfm_dict_->try_retrieve (sname, &val))
     {
       String file_name;
 
-      if (file_name.is_empty ())
+      if (file_name.empty ())
 	{
 	  /* FIXME: should add "cork-" prefix to lm* fonts.  How to do
 	     that, cleanly?  */
@@ -174,9 +174,9 @@ All_font_metrics::find_tfm (String name)
 	    file_name = p;
 	}
 
-      if (file_name.is_empty ())
+      if (file_name.empty ())
 	file_name = search_path_.find (name + ".tfm");
-      if (file_name.is_empty ())
+      if (file_name.empty ())
 	return 0;
 
       if (be_verbose_global)
@@ -209,7 +209,7 @@ All_font_metrics::find_font (String name)
 
   if (!f)
     {
-      warning (_f ("can't find font: `%s'", name.to_str0 ()));
+      warning (_f ("can't find font: `%s'", name.c_str ()));
       warning (_ ("loading default font"));
     }
 
@@ -220,7 +220,7 @@ All_font_metrics::find_font (String name)
 
   if (!f)
     {
-      error (_f ("can't find default font: `%s'", def_name.to_str0 ()));
+      error (_f ("can't find default font: `%s'", def_name.c_str ()));
       error (_f ("(search path: `%s')", search_path_.to_string ()));
       error (_ ("giving up"));
     }

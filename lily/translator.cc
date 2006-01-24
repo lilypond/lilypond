@@ -169,7 +169,7 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   interface_name = interface_name.substitute ('_', '-');
   interface_name += "-interface";
 
-  inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.to_str0 ()));
+  inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.c_str ()));
   ack_array->push (inf);
 }
 

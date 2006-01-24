@@ -28,8 +28,8 @@ Binary_source_file::quote_input (char const *pos_str0) const
   if (!contains (pos_str0))
     return "";
 
-  char const *begin_str0 = max (pos_str0 - 8, to_str0 ());
-  char const *end_str0 = min (pos_str0 + 7, to_str0 () + length ());
+  char const *begin_str0 = max (pos_str0 - 8, c_str ());
+  char const *end_str0 = min (pos_str0 + 7, c_str () + length ());
 
   String pre_string ((Byte const *)begin_str0, pos_str0 - begin_str0);
   pre_string = String_convert::bin2hex (pre_string);
@@ -55,7 +55,7 @@ Binary_source_file::get_line (char const *pos_str0) const
   if (!contains (pos_str0))
     return 0;
 
-  return pos_str0 - to_str0 ();
+  return pos_str0 - c_str ();
 }
 
 U8

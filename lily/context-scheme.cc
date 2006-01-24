@@ -19,7 +19,7 @@ LY_DEFINE (ly_context_id, "ly:context-id",
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
 
-  return scm_makfrom0str (tr->id_string ().to_str0 ());
+  return scm_makfrom0str (tr->id_string ().c_str ());
 }
 
 LY_DEFINE (ly_context_name, "ly:context-name",
@@ -30,7 +30,7 @@ LY_DEFINE (ly_context_name, "ly:context-name",
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  return ly_symbol2scm (tr->context_name ().to_str0 ());
+  return ly_symbol2scm (tr->context_name ().c_str ());
 }
 
 LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",

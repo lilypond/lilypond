@@ -50,7 +50,7 @@ Note_name_engraver::process_music ()
   if (s.length ())
     {
       Item *t = make_item ("NoteName", events_[0]->self_scm ());
-      t->set_property ("text", scm_makfrom0str (s.to_str0 ()));
+      t->set_property ("text", scm_makfrom0str (s.c_str ()));
       texts_.push (t);
     }
 }

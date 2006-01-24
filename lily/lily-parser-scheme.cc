@@ -52,7 +52,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   out_file_name.dir_ = "";
 
   /* When running from gui, generate output in .ly source directory.  */
-  if (output_name_global.is_empty ()
+  if (output_name_global.empty ()
       && ly_get_option (ly_symbol2scm ("gui")) == SCM_BOOL_T)
     {
       File_name f (file);
@@ -61,7 +61,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       output_name_global = f.to_string ();
     }
 
-  if (!output_name_global.is_empty ())
+  if (!output_name_global.empty ())
     {
       /* Interpret --output=DIR to mean --output=DIR/BASE.  */
       if (is_dir (output_name_global))
@@ -73,8 +73,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	    {
 	      global_path.prepend (cwd);
 	      message (_f ("Changing working directory to `%s'",
-			   output_name_global.to_str0 ()));
-	      chdir (output_name_global.to_str0 ());
+			   output_name_global.c_str ()));
+	      chdir (output_name_global.c_str ());
 	    }
 	  output_name_global = "";
 	}
@@ -83,7 +83,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
     }
 
   String init;
-  if (!init_name_global.is_empty ())
+  if (!init_name_global.empty ())
     init = init_name_global;
   else
     init = "init.ly";
@@ -110,7 +110,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       sources.set_path (&global_path);
 
       String mapped_fn = map_file_name (file_name);
-      message (_f ("Processing `%s'", mapped_fn.to_str0 ()));
+      message (_f ("Processing `%s'", mapped_fn.c_str ()));
       progress_indication ("\n");
 
       Lily_parser *parser = new Lily_parser (&sources);
@@ -123,7 +123,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       if (error)
 	/* TODO: pass renamed input file too.  */
 	scm_throw (ly_symbol2scm ("ly-file-failed"),
-		   scm_list_1 (scm_makfrom0str (file_name.to_str0 ())));
+		   scm_list_1 (scm_makfrom0str (file_name.c_str ())));
     }
   return SCM_UNSPECIFIED;
 }
@@ -224,6 +224,6 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
   Lily_parser *p = unsmob_lily_parser (parser);
   SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
 
-  return scm_makfrom0str (p->output_basename_.to_str0 ());
+  return scm_makfrom0str (p->output_basename_.c_str ());
 }
 
