@@ -220,15 +220,6 @@ String::get_str0 ()
   return strh_.get_str0 ();
 }
 
-#ifndef DISALLOW_OLD_STRING
-bool
-String::is_empty () const
-{
-  return !length ();
-}
-#endif
-
-
 /**
    Do a signed comparison,  analogous to memcmp;
 */

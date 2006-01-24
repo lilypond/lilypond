@@ -62,6 +62,13 @@ LY_DEFINE (ly_make_music, "ly:make-music",
   return ms->unprotect ();
 }
 
+LY_DEFINE (ly_music_p, "ly:music?",
+	   1, 0, 0, (SCM obj),
+	   "Type predicate")
+{
+  return scm_from_bool (unsmob_music (obj));
+}
+
 /* todo: property args */
 LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
 	   1, 0, 0, (SCM mus),
@@ -214,3 +221,4 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
     }
   return scm_reverse_x (newlist, SCM_EOL);
 }
+

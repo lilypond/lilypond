@@ -31,23 +31,12 @@ Music::internal_is_music_type (SCM k) const
   return scm_c_memq (k, ifs) != SCM_BOOL_F;
 }
 
-String
-Music::name () const
-{
-  SCM nm = get_property ("name");
-  if (scm_is_symbol (nm))
-    return ly_symbol2string (nm);
-  else
-    return "Music";
-}
-
 Music::Music (SCM init)
+  : Prob (init)
 {
-  self_scm_ = SCM_EOL;
-  immutable_property_alist_ = init;
-  mutable_property_alist_ = SCM_EOL;
-  smobify_self ();
-
+  length_callback_ = SCM_EOL;
+  start_callback_ = SCM_EOL;
+  
   length_callback_ = get_property ("length-callback");
   if (!ly_is_procedure (length_callback_))
     length_callback_ = duration_length_callback_proc;
@@ -55,38 +44,34 @@ Music::Music (SCM init)
   start_callback_ = get_property ("start-callback");
 }
 
-Music::Music (Music const &m)
+void
+Music::derived_mark () const
 {
-  immutable_property_alist_ = m.immutable_property_alist_;
-  mutable_property_alist_ = SCM_EOL;
-  self_scm_ = SCM_EOL;
+  scm_gc_mark (length_callback_);
+  scm_gc_mark (start_callback_);
+}
 
-  /* First we smobify_self, then we copy over the stuff.  If we don't,
-     stack vars that hold the copy might be optimized away, meaning
-     that they won't be protected from GC. */
-  smobify_self ();
-  mutable_property_alist_ = ly_music_deep_copy (m.mutable_property_alist_);
+SCM
+Music::copy_mutable_properties () const
+{
+  return ly_music_deep_copy (mutable_property_alist_);
+}
+
+void
+Music::type_check_assignment (SCM s, SCM v) const
+{
+  if (!::type_check_assignment (s, v, ly_symbol2scm ("music-type?")))
+    abort ();
+}
+
+Music::Music (Music const &m)
+  : Prob (m)
+{
   length_callback_ = m.length_callback_;
   start_callback_ = m.start_callback_;
+
+  /// why? 
   set_spot (*m.origin ());
-}
-
-Music::~Music ()
-{
-}
-
-SCM
-Music::get_property_alist (bool m) const
-{
-  return (m) ? mutable_property_alist_ : immutable_property_alist_;
-}
-
-SCM
-Music::mark_smob (SCM m)
-{
-  Music *mus = (Music *) SCM_CELL_WORD_1 (m);
-  scm_gc_mark (mus->immutable_property_alist_);
-  return mus->mutable_property_alist_;
 }
 
 Moment
@@ -132,25 +117,6 @@ print_alist (SCM a, SCM port)
     }
 }
 
-int
-Music::print_smob (SCM s, SCM p, scm_print_state*)
-{
-  scm_puts ("#<Music ", p);
-  Music *m = unsmob_music (s);
-
-  SCM nm = m->get_property ("name");
-  if (scm_is_symbol (nm) || scm_is_string (nm))
-    scm_display (nm, p);
-  else
-    scm_puts ("Music", p);
-
-  /* Printing properties takes a lot of time, especially during backtraces.
-     For inspecting, it is better to explicitly use an inspection
-     function.  */
-
-  scm_puts (">", p);
-  return 1;
-}
 
 Pitch
 Music::generic_to_relative_octave (Pitch last)
@@ -253,42 +219,7 @@ Music::transpose (Pitch delta)
     set_property ("pitch-alist", ly_transpose_key_alist (pa, delta.smobbed_copy ()));
 }
 
-IMPLEMENT_TYPE_P (Music, "ly:music?");
-IMPLEMENT_SMOBS (Music);
-IMPLEMENT_DEFAULT_EQUAL_P (Music);
 
-SCM
-Music::internal_get_property (SCM sym) const
-{
-  SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
-  if (s != SCM_BOOL_F)
-    return scm_cdr (s);
-
-  s = scm_sloppy_assq (sym, immutable_property_alist_);
-  return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
-}
-
-SCM
-Music::internal_get_object (SCM s) const
-{
-  return internal_get_property (s);
-}
-
-void
-Music::internal_set_object (SCM s, SCM v)
-{
-  return internal_set_property (s, v);
-}
-
-void
-Music::internal_set_property (SCM s, SCM v)
-{
-  if (do_internal_type_checking_global)
-    if (!type_check_assignment (s, v, ly_symbol2scm ("music-type?")))
-      abort ();
-
-  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
-}
 
 void
 Music::set_spot (Input ip)
@@ -327,3 +258,10 @@ Music::duration_length_callback (SCM m)
     mom = d->get_length ();
   return mom.smobbed_copy ();
 }
+
+Music *
+unsmob_music (SCM m)
+{
+  return dynamic_cast<Music*> (unsmob_prob (m));
+}
+
