@@ -27,21 +27,23 @@ class Prob
 protected:
   SCM mutable_property_alist_;
   SCM immutable_property_alist_;
-
+  SCM type_;
+  
   virtual void derived_mark () const;
   virtual SCM copy_mutable_properties () const;
   virtual void type_check_assignment (SCM,SCM) const;
   
 public:
-  Prob (SCM);
+  Prob (SCM, SCM);
   Prob (Prob const &);
   virtual String name () const;
-
+  SCM type () const { return type_; }
   SCM get_property_alist (bool mutble) const;
   SCM internal_get_property (SCM sym) const;
   void internal_set_property (SCM sym, SCM val);
 };
-
-DECLARE_UNSMOB (Prob, prob);
+DECLARE_UNSMOB(Prob,prob);
+SCM ly_prob_set_property_x (SCM system, SCM sym, SCM value);
+SCM ly_prob_property (SCM system, SCM sym, SCM dfault);
 
 #endif /* PROPERTY_OBJECT_HH */

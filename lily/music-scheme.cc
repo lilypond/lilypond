@@ -11,6 +11,7 @@
 #include "music.hh"
 #include "pitch.hh"
 
+
 LY_DEFINE (ly_music_length, "ly:music-length",
 	   1, 0, 0, (SCM mus),
 	   "Get the length of music expression @var{mus}, and return as a @code{Moment} object.")
@@ -21,15 +22,13 @@ LY_DEFINE (ly_music_length, "ly:music-length",
 }
 
 LY_DEFINE (ly_music_property,
-	   "ly:music-property", 2, 0, 0, (SCM mus, SCM sym),
+	   "ly:music-property", 2, 1, 0, (SCM mus, SCM sym, SCM dfault),
 	   "Get the property @var{sym} of music expression @var{mus}.\n"
-	   "If @var{sym} is undefined, return @code{' ()}.\n")
+	   "If @var{sym} is undefined, return @code{'()}.\n")
 {
   Music *sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
-
-  return sc->internal_get_property (sym);
+  return ly_prob_property (mus,sym,dfault);
 }
 
 LY_DEFINE (ly_music_set_property, "ly:music-set-property!",
@@ -38,13 +37,7 @@ LY_DEFINE (ly_music_set_property, "ly:music-set-property!",
 {
   Music *sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
-
-  bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));
-  if (ok)
-    sc->internal_set_property (sym, val);
-
-  return SCM_UNSPECIFIED;
+  return ly_prob_set_property_x (mus, sym, val);
 }
 
 

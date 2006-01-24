@@ -17,11 +17,7 @@
   formatted content of the grob is put into a
   Paper_system. Page-breaking handles Paper_system objects.
 */
-class Paper_system : public Prob 
-{
-public:
-  Paper_system (Stencil, SCM);
-};
-Paper_system*unsmob_paper_system (SCM);
+Prob *make_paper_system (SCM immutable_init);
+void paper_system_set_stencil (Prob *prob, Stencil s);
 
 #endif /* PAPER_SYSTEM_HH */

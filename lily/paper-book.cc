@@ -216,7 +216,7 @@ Paper_book::score_title (SCM header)
 }
 
 void
-set_system_penalty (Paper_system *ps, SCM header)
+set_system_penalty (Prob *ps, SCM header)
 {
   if (ly_is_module (header))
     {
@@ -245,7 +245,9 @@ Paper_book::add_score_title (SCM header)
 	override settings from \paper {}
       */
       SCM props = paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
-      Paper_system *ps = new Paper_system (title, props);
+      Prob *ps = make_paper_system (props);
+      paper_system_set_stencil (ps, title);
+      
       systems_ = scm_cons (ps->self_scm (), systems_);
       ps->unprotect ();
       set_system_penalty (ps, header);
@@ -264,7 +266,8 @@ Paper_book::systems ()
   if (!title.is_empty ())
     {
       SCM props = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
-      Paper_system *ps = new Paper_system (title, props);
+      Prob *ps = make_paper_system (props);
+      paper_system_set_stencil (ps, title);
       set_system_penalty (ps, header_);
 
       systems_ = scm_cons (ps->self_scm (), systems_);
@@ -323,7 +326,8 @@ Paper_book::systems ()
 						    scm_car (s));
 	  
 	  // TODO: init props
-	  Paper_system *ps = new Paper_system (*unsmob_stencil (t), SCM_EOL);
+	  Prob *ps = make_paper_system (SCM_EOL);
+	  paper_system_set_stencil (ps, *unsmob_stencil (t));
 	  ps->set_property ("is-title", SCM_BOOL_T); 
 	  systems_ = scm_cons (ps->self_scm (), systems_);
 	  ps->unprotect ();
@@ -338,10 +342,10 @@ Paper_book::systems ()
   systems_ = scm_reverse (systems_);
 
   int i = 0;
-  Paper_system *last = 0;
+  Prob *last = 0;
   for (SCM s = systems_; s != SCM_EOL; s = scm_cdr (s))
     {
-      Paper_system *ps = unsmob_paper_system (scm_car (s));
+      Prob *ps = unsmob_prob (scm_car (s));
       ps->set_property ("number", scm_from_int (++i));
 
       if (last

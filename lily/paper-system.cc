@@ -1,5 +1,5 @@
 /*
-  paper-system.cc -- implement Paper_system
+  paper-system.cc -- implement Prob functions for paper-system
 
   source file of the GNU LilyPond music typesetter
 
@@ -9,10 +9,17 @@
 #include "paper-system.hh"
 #include "item.hh"
 
-Paper_system::Paper_system (Stencil s, SCM immutable_init)
-  : Prob (immutable_init)
+Prob *
+make_paper_system (SCM immutable_init)
 {
-  SCM yext = get_property ("Y-extent");
+  Prob *prob = new Prob (ly_symbol2scm ("paper-system"), immutable_init);
+  return prob;
+}
+
+void
+paper_system_set_stencil (Prob *prob, Stencil s)
+{
+  SCM yext = prob->get_property ("Y-extent");
 
   if (is_number_pair (yext))
     {
@@ -23,19 +30,5 @@ Paper_system::Paper_system (Stencil s, SCM immutable_init)
       s = Stencil (b, s.expr ());
     }
 
-  set_property ("stencil", s.smobbed_copy ());
-}
-
-Paper_system *
-unsmob_paper_system (SCM x)
-{
-  Prob *prob = unsmob_prob (x);
-  return dynamic_cast<Paper_system*> (prob);
-}
-
-LY_DEFINE(ly_paper_system_p, "ly:paper-system?",
-	  1,0,0, (SCM obj),
-	  "Type predicate.")
-{
-  return scm_from_bool (unsmob_paper_system (obj));
+  prob->set_property ("stencil", s.smobbed_copy ());
 }
