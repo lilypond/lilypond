@@ -68,7 +68,7 @@ public:
   /* std::string interface */
   char const *c_str () const;
   bool empty () const;
-  int String::find (String &s, int pos=0) const;
+  int find (String &s, int pos=0) const;
   int find (char c) const;
   int rfind (char c) const;
   String replace (int pos, int n, String str);
