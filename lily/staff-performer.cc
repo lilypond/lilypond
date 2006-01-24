@@ -101,7 +101,7 @@ Staff_performer::stop_translation_timestep ()
 {
   SCM proc = ly_lily_module_constant ("percussion?");
 
-  SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.to_str0 ()));
+  SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.c_str ()));
   audio_staff_->channel_ = (drums == SCM_BOOL_T ? 9 : -1);
   if (name_)
     {

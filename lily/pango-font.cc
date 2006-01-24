@@ -63,8 +63,8 @@ void
 Pango_font::register_font_file (String filename, String ps_name)
 {
   scm_hash_set_x (physical_font_tab_,
-		  scm_makfrom0str (ps_name.to_str0 ()),
-		  scm_makfrom0str (filename.to_str0 ()));
+		  scm_makfrom0str (ps_name.c_str ()),
+		  scm_makfrom0str (filename.c_str ()));
 }
 
 void
@@ -81,7 +81,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
   PangoAnalysis const *pa = &(item->analysis);
   PangoGlyphString *pgs = pango_glyph_string_new ();
 
-  pango_shape (str.to_str0 () + item->offset,
+  pango_shape (str.c_str () + item->offset,
 	       item->length, (PangoAnalysis*) pa, pgs);
 
   PangoRectangle logical_rect;
@@ -187,7 +187,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
       pango_fc_font_unlock_face (fcfont);
 
       SCM expr = scm_list_5 (ly_symbol2scm ("glyph-string"),
-			     scm_makfrom0str (ps_name.to_str0 ()),
+			     scm_makfrom0str (ps_name.c_str ()),
 			     scm_from_double (size),
 			     scm_from_bool (cid_keyed),
 			     ly_quote_scm (glyph_exprs));
@@ -210,7 +210,7 @@ Pango_font::text_stencil (String str) const
 {
   GList *items
     = pango_itemize (context_,
-		     str.to_str0 (),
+		     str.c_str (),
 		     0, str.length (), attribute_list_,
 		     NULL);
 
@@ -270,7 +270,7 @@ Pango_font::text_stencil (String str) const
       SCM exp
 	= scm_list_3 (ly_symbol2scm ("utf-8-string"),
 		      scm_makfrom0str (descr_string),
-		      scm_makfrom0str (str.to_str0 ()));
+		      scm_makfrom0str (str.c_str ()));
 
       g_free (descr_string);
 

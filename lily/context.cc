@@ -153,7 +153,7 @@ Context::create_unique_context (SCM n, SCM operations)
   else
     {
       warning (_f ("can't find or create new `%s'",
-		   ly_symbol2string (n).to_str0 ()));
+		   ly_symbol2string (n).c_str ()));
       ret = 0;
     }
   return ret;
@@ -215,7 +215,7 @@ Context::find_create_context (SCM n, String id, SCM operations)
   else
     {
       warning (_f ("can't find or create `%s' called `%s'",
-		   ly_symbol2string (n).to_str0 (), id));
+		   ly_symbol2string (n).c_str (), id));
       ret = 0;
     }
   return ret;
@@ -307,7 +307,7 @@ Context::get_default_interpreter ()
       Context_def *t = unsmob_context_def (st);
       if (!t)
 	{
-	  warning (_f ("can't find or create: `%s'", name.to_str0 ()));
+	  warning (_f ("can't find or create: `%s'", name.c_str ()));
 	  t = unsmob_context_def (this->definition_);
 	}
 
@@ -497,10 +497,10 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
       scm_display (d->get_context_name (), port);
     }
 
-  if (!sc->id_string_.is_empty ())
+  if (!sc->id_string_.empty ())
     {
       scm_puts ("=", port);
-      scm_puts (sc->id_string_.to_str0 (), port);
+      scm_puts (sc->id_string_.c_str (), port);
     }
 
   scm_puts (" ", port);

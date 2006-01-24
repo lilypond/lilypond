@@ -27,7 +27,7 @@ lookup_tex_text_dimension (Font_metric *font, SCM text)
   if (text_dimension_hash_tab)
     {
       scm_hash_ref (text_dimension_hash_tab,
-		    scm_makfrom0str (key_str.to_str0 ()),
+		    scm_makfrom0str (key_str.c_str ()),
 		    SCM_BOOL_F);
     }
   if (scm_is_pair (val))
@@ -78,7 +78,7 @@ try_load_text_metrics (String basename)
       String contents (gulp_file_to_string (path, true, -1));
       contents = "(quote (" + contents + "))";
 
-      SCM lst = scm_c_eval_string (contents.to_str0 ());
+      SCM lst = scm_c_eval_string (contents.c_str ());
       ly_load_text_dimensions (lst);
     }
 }

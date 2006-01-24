@@ -51,7 +51,7 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 			     signature);
 
   scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature-keyword"),
-			     ly_symbol2scm (str.to_str0 ()));
+			     ly_symbol2scm (str.c_str ()));
 
   SCM_RETURN_NEWSMOB (music_function_tag, func);
 }

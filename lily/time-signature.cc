@@ -92,9 +92,9 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
 		    chain);
 
   SCM sn = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
-					     scm_makfrom0str (to_string (num).to_str0 ()));
+					     scm_makfrom0str (to_string (num).c_str ()));
   SCM sd = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
-					     scm_makfrom0str (to_string (den).to_str0 ()));
+					     scm_makfrom0str (to_string (den).c_str ()));
 
   Stencil n = *unsmob_stencil (sn);
   Stencil d = *unsmob_stencil (sd);

@@ -23,7 +23,7 @@ progress_indication (String s)
   if (s == "\n")
     return;
 
-  fputs (s.to_str0 (), stderr);
+  fputs (s.c_str (), stderr);
   fflush (stderr);
   if (s.length ())
     progress_newline = s[s.length () - 1] == '\n';
@@ -42,13 +42,13 @@ message (String s)
 void
 warning (String s)
 {
-  message (_f ("warning: %s", s.to_str0 ()) + "\n");
+  message (_f ("warning: %s", s.c_str ()) + "\n");
 }
 
 void
 non_fatal_error (String s)
 {
-  message (_f ("error: %s", s.to_str0 ()) + "\n");
+  message (_f ("error: %s", s.c_str ()) + "\n");
 }
 
 /* Display an error message.  Always starts on a new line.  */

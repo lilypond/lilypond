@@ -33,7 +33,7 @@ sane_putenv (char const *key, String value, bool overwrite)
   if (overwrite || !getenv (key))
     {
       String combine = String (key) + "=" + value;
-      char *s = strdup (combine.to_str0 ());
+      char *s = strdup (combine.c_str ());
       return putenv (s);
     }
   
@@ -66,12 +66,12 @@ prepend_env_path (char const *key, String value)
   if (is_dir (value))
     {
       if (be_verbose_global)
-	progress_indication (_f ("%s=%s\n", key, value.to_str0 ())); 
+	progress_indication (_f ("%s=%s\n", key, value.c_str ())); 
 
       if (char const *cur = getenv (key))
 	value += to_string (PATHSEP) + cur;
 
-      return sane_putenv (key, value.to_str0 (), true);
+      return sane_putenv (key, value.c_str (), true);
     }
   else if (be_verbose_global)
     warning (_f ("no such directory: %s for %s", value, key));
@@ -100,7 +100,7 @@ prefix_relocation (String prefix)
   if (be_verbose_global)
     warning (_f ("Relocation: compile prefix=%s, new prefix=%s",
 		 prefix_directory,
-		 prefix.to_str0 ()));
+		 prefix.c_str ()));
   
   String bindir = prefix + "/bin";
   String datadir = prefix + "/share";
@@ -112,7 +112,7 @@ prefix_relocation (String prefix)
 
 #if HAVE_GETTEXT
   if (is_dir (localedir))
-    bindtextdomain ("lilypond", localedir.to_str0 ());
+    bindtextdomain ("lilypond", localedir.c_str ());
 #endif
 
   prepend_env_path ("PATH", bindir);
@@ -220,7 +220,7 @@ setup_paths (char const *argv0_ptr)
 	  argv0_abs = path.find (argv0_filename.to_string (), ext);
 #endif /* __MINGW32__ */
 
-	  if (argv0_abs.is_empty ())
+	  if (argv0_abs.empty ())
 	    programming_error ("can't find absolute argv0.");
 	}
 
@@ -259,7 +259,7 @@ setup_paths (char const *argv0_ptr)
   
   struct stat statbuf;
   String build_prefix = prefix_directory + "/share/lilypond/" TOPLEVEL_VERSION;
-  if (stat (build_prefix.to_str0 (), &statbuf) == 0)
+  if (stat (build_prefix.c_str (), &statbuf) == 0)
     prefix_directory = build_prefix;
 
   

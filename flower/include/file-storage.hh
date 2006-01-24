@@ -17,7 +17,7 @@
 class File_storage
 {
 public:
-  virtual char const *to_str0 () const = 0;
+  virtual char const *c_str () const = 0;
   virtual int length () const = 0;
   virtual ~File_storage (){}
 };

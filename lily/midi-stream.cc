@@ -22,7 +22,7 @@ using namespace std;
 Midi_stream::Midi_stream (String file_name)
 {
   file_name_string_ = file_name;
-  out_file_ = fopen (file_name.to_str0 (), "wb");
+  out_file_ = fopen (file_name.c_str (), "wb");
   if (!out_file_)
     error (_f ("can't open for write: %s: %s", file_name, strerror (errno)));
 }

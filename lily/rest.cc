@@ -74,7 +74,7 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
       is_ledgered |= (balltype == 1) && (pos <= -rad - 2 || pos > +rad);
     }
 
-  String actual_style (style.to_str0 ());
+  String actual_style (style.c_str ());
 
   if ((style == "mensural") || (style == "neomensural"))
     {
@@ -136,7 +136,7 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
   String font_char = glyph_name (me, balltype, style, ledgered);
   Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
-    me->warning (_f ("rest `%s' not found", font_char.to_str0 ()));
+    me->warning (_f ("rest `%s' not found", font_char.c_str ()));
 
   return out.smobbed_copy ();
 }

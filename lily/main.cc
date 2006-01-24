@@ -200,7 +200,7 @@ dir_info (FILE *out)
   env_var_info (out, "LILYPONDPREFIX");
   fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
 
-  fprintf (out, "\nEffective prefix: \"%s\"\n", prefix_directory.to_str0 ());
+  fprintf (out, "\nEffective prefix: \"%s\"\n", prefix_directory.c_str ());
 
   if (relocate_binary)
     {
@@ -394,8 +394,8 @@ main_with_guile (void *, int, char **)
 
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
-  if (!init_scheme_variables.is_empty ()
-      || !init_scheme_code_string.is_empty ())
+  if (!init_scheme_variables.empty ()
+      || !init_scheme_code_string.empty ())
     {
       init_scheme_variables = "(map (lambda (x) (ly:set-option (car x) (cdr x))) (list "
 	+ init_scheme_variables + "))";
@@ -428,7 +428,7 @@ main_with_guile (void *, int, char **)
   option_parser = 0;
 
 #if HAVE_CHROOT
-  if (!jail_spec.is_empty ())
+  if (!jail_spec.empty ())
     do_chroot_jail ();
 #endif
 

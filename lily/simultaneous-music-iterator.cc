@@ -50,7 +50,7 @@ Simultaneous_music_iterator::construct_children ()
       /* if create_separate_contexts_ is set, create a new context with the
 	 number number as name */
 
-      SCM name = ly_symbol2scm (get_outlet ()->context_name ().to_str0 ());
+      SCM name = ly_symbol2scm (get_outlet ()->context_name ().c_str ());
       Context *t = (j && create_separate_contexts_)
 	? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
 	: get_outlet ();

@@ -63,7 +63,7 @@ internal_print (Grob *me, String *font_char)
 
   if (out.is_empty ())
     {
-      me->warning (_f ("note head `%s' not found", idx.to_str0 ()));
+      me->warning (_f ("note head `%s' not found", idx.c_str ()));
       out = Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL);
     }
   else

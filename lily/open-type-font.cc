@@ -61,7 +61,7 @@ load_scheme_table (char const *tag_str, FT_Face face)
       String contents ((Byte const *)buffer, length);
       contents = "(quote (" + contents + "))";
 
-      tab = scm_c_eval_string (contents.to_str0 ());
+      tab = scm_c_eval_string (contents.c_str ());
       free (buffer);
     }
   return tab;
@@ -92,7 +92,7 @@ String
 get_otf_table (FT_Face face, String tag)
 {
   FT_ULong len;
-  FT_Byte *tab = load_table (tag.to_str0 (), face, &len);
+  FT_Byte *tab = load_table (tag.c_str (), face, &len);
 
   return String (tab, len);
 }
@@ -101,13 +101,13 @@ FT_Face
 open_ft_face (String str)
 {
   FT_Face face;
-  int error_code = FT_New_Face (freetype2_library, str.to_str0 (), 0, &face);
+  int error_code = FT_New_Face (freetype2_library, str.c_str (), 0, &face);
 
   if (error_code == FT_Err_Unknown_File_Format)
-    error (_f ("unsupported font format: %s", str.to_str0 ()));
+    error (_f ("unsupported font format: %s", str.c_str ()));
   else if (error_code)
     error (_f ("unknown error: %d reading font file: %s", error_code,
-	       str.to_str0 ()));
+	       str.c_str ()));
   return face;
 }
 
@@ -148,7 +148,7 @@ Open_type_font::derived_mark () const
 Offset
 Open_type_font::attachment_point (String glyph_name) const
 {
-  SCM sym = ly_symbol2scm (glyph_name.to_str0 ());
+  SCM sym = ly_symbol2scm (glyph_name.c_str ());
   SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
 
   Offset o;
@@ -224,7 +224,7 @@ Open_type_font::get_indexed_char (int signed_idx) const
 int
 Open_type_font::name_to_index (String nm) const
 {
-  char *nm_str = (char *) nm.to_str0 ();
+  char *nm_str = (char *) nm.c_str ();
   if (int idx = FT_Get_Name_Index (face_, nm_str))
     return idx;
   return -1;

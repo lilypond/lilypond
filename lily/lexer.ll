@@ -201,11 +201,11 @@ BOM_UTF8	\357\273\277
 
 	yy_pop_state ();
 	this->here_input().get_source_file ()->name_ = s;
-	message (_f ("Renaming input to: `%s'", s.to_str0 ()));
+	message (_f ("Renaming input to: `%s'", s.c_str ()));
 	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (s.to_str0 ()));
+		     scm_makfrom0str (s.c_str ()));
 
 }
 <version>. 	{
@@ -267,7 +267,7 @@ BOM_UTF8	\357\273\277
 	} else { 
 	    String msg (_f ("wrong or undefined identifier: `%s'", s ));
 
-	    LexerError (msg.to_str0 ());
+	    LexerError (msg.c_str ());
 	    SCM err = scm_current_error_port ();
 	    scm_puts ("This value was found in the table: ", err);
 	    scm_display (sid, err);
@@ -379,7 +379,7 @@ BOM_UTF8	\357\273\277
 
 		/* yylval is union. Must remember STRING before setting SCM*/
 		String *sp = yylval.string;
-		yylval.scm = scm_makfrom0str (sp->to_str0 ());
+		yylval.scm = scm_makfrom0str (sp->c_str ());
 		delete sp;
 		return STRING;
 	}
@@ -400,7 +400,7 @@ BOM_UTF8	\357\273\277
 
 		/* yylval is union. Must remember STRING before setting SCM*/
 		String *sp = yylval.string;
-		yylval.scm = scm_makfrom0str (sp->to_str0 ());
+		yylval.scm = scm_makfrom0str (sp->c_str ());
 		delete sp;
 		return LYRICS_STRING;
 	}
@@ -437,7 +437,7 @@ BOM_UTF8	\357\273\277
 		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
 			here_input ().warning (
 				_ ("Brace found at end of lyric.  Did you forget a space?"));
-		yylval.scm = scm_makfrom0str (s.to_str0 ());
+		yylval.scm = scm_makfrom0str (s.c_str ());
 
 
 		return LYRICS_STRING;
@@ -536,7 +536,7 @@ BOM_UTF8	\357\273\277
 		if (c == '{' ||  c == '}')
 			here_input ().warning (
 				_ ("Brace found at end of markup.  Did you forget a space?"));
-		yylval.scm = scm_makfrom0str (s.to_str0 ());
+		yylval.scm = scm_makfrom0str (s.c_str ());
 
 
 		return STRING;
@@ -628,7 +628,7 @@ BOM_UTF8	\357\273\277
 
 <*>.		{
 	String msg = _f ("invalid character: `%c'", YYText ()[0]);
-	LexerError (msg.to_str0 ());
+	LexerError (msg.c_str ());
 	return YYText ()[0];
 }
 
@@ -693,7 +693,7 @@ Lily_lexer::scan_escaped_word (String str)
 {
 	// use more SCM for this.
 
-//	SCM sym = ly_symbol2scm (str.to_str0 ());
+//	SCM sym = ly_symbol2scm (str.c_str ());
 
 	int i = lookup_keyword (str);
  	if (i == MARKUP && is_lyric_state ())
@@ -715,9 +715,9 @@ Lily_lexer::scan_escaped_word (String str)
 	}
 
 	String msg (_f ("unknown escaped string: `\\%s'", str));	
-	LexerError (msg.to_str0 ());
+	LexerError (msg.c_str ());
 
-	yylval.scm = scm_makfrom0str (str.to_str0 ());
+	yylval.scm = scm_makfrom0str (str.c_str ());
 
 	return STRING;
 }
@@ -725,7 +725,7 @@ Lily_lexer::scan_escaped_word (String str)
 int
 Lily_lexer::scan_bare_word (String str)
 {
-	SCM sym = ly_symbol2scm (str.to_str0 ());
+	SCM sym = ly_symbol2scm (str.c_str ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		SCM handle = SCM_BOOL_F;
 		if (scm_is_pair (pitchname_tab_stack_))
@@ -745,7 +745,7 @@ Lily_lexer::scan_bare_word (String str)
 		}
 	}
 
-	yylval.scm = scm_makfrom0str (str.to_str0 ());
+	yylval.scm = scm_makfrom0str (str.c_str ());
 	return STRING;
 }
 
@@ -867,7 +867,7 @@ SCM
 lookup_markup_command (String s)
 {
 	SCM proc = ly_lily_module_constant ("lookup-markup-command");
-	return scm_call_1 (proc, scm_makfrom0str (s.to_str0 ()));
+	return scm_call_1 (proc, scm_makfrom0str (s.c_str ()));
 }
 
 

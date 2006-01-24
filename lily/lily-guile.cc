@@ -360,7 +360,7 @@ ly_string_array_to_scm (Array<String> a)
 {
   SCM s = SCM_EOL;
   for (int i = a.size () - 1; i >= 0; i--)
-    s = scm_cons (ly_symbol2scm (a[i].to_str0 ()), s);
+    s = scm_cons (ly_symbol2scm (a[i].c_str ()), s);
   return s;
 }
 
@@ -439,8 +439,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   if (type != SCM_EOL && !ly_is_procedure (type))
     {
       warning (_f ("can't find property type-check for `%s' (%s).",
-		   ly_symbol2string (sym).to_str0 (),
-		   ly_symbol2string (type_symbol).to_str0 ())
+		   ly_symbol2string (sym).c_str (),
+		   ly_symbol2string (type_symbol).c_str ())
 	       + "  " + _ ("perhaps a typing error?"));
 
       /* Be strict when being anal :) */
@@ -460,9 +460,9 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 	  SCM type_name = scm_call_1 (typefunc, type);
 
 	  warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
-		       ly_symbol2string (sym).to_str0 (),
+		       ly_symbol2string (sym).c_str (),
 		       print_scm_val (val),
-		       ly_scm2string (type_name).to_str0 ()));
+		       ly_scm2string (type_name).c_str ()));
 	  progress_indication ("\n");
 	}
     }

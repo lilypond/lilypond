@@ -52,7 +52,7 @@ LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
   char ctag [5] = "    ";
 
   String tag_string = ly_scm2string (tag);
-  strncpy (ctag, tag_string.to_str0 (), tag_string.length ());
+  strncpy (ctag, tag_string.c_str (), tag_string.length ());
 
   String tab = otf->get_otf_table (String (ctag));
 

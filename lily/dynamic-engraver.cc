@@ -215,7 +215,7 @@ Dynamic_engraver::process_music ()
 	  else if (start_type == "CrescendoEvent")
 	    start_type = "crescendo";
 
-	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
+	  SCM s = get_property ((start_type + "Spanner").c_str ());
 	  if (!scm_is_symbol (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_ = make_spanner ("Hairpin", accepted_spanevents_drul_[START]->self_scm ());
@@ -244,8 +244,8 @@ Dynamic_engraver::process_music ()
 	      cresc_ = make_spanner ("DynamicTextSpanner", accepted_spanevents_drul_[START]->self_scm ());
 	      cresc_->set_property ("style", s);
 	      context ()->set_property ((start_type
-					 + "Spanner").to_str0 (), SCM_EOL);
-	      s = get_property ((start_type + "Text").to_str0 ());
+					 + "Spanner").c_str (), SCM_EOL);
+	      s = get_property ((start_type + "Text").c_str ());
 	      /*
 		FIXME: use get_markup () to check type.
 	      */
@@ -253,7 +253,7 @@ Dynamic_engraver::process_music ()
 		{
 		  cresc_->set_property ("edge-text",
 					scm_cons (s, scm_makfrom0str ("")));
-		  context ()->set_property ((start_type + "Text").to_str0 (),
+		  context ()->set_property ((start_type + "Text").c_str (),
 					    SCM_EOL);
 		}
 	    }

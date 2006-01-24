@@ -152,7 +152,7 @@ String_data::operator += (char const *str0)
 
 INLINE
 char const *
-String_data::to_str0 () const
+String_data::c_str () const
 {
   return (char const *)data_byte_;
 }

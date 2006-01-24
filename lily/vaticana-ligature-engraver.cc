@@ -345,7 +345,7 @@ check_for_prefix_loss (Item *primitive)
       String prefs = Gregorian_ligature::prefixes_to_str (primitive);
       primitive->warning (_f ("ignored prefix (es) `%s' of this head according "
 			      "to restrictions of the selected ligature style",
-			      prefs.to_str0 ()));
+			      prefs.c_str ()));
     }
 }
 
@@ -553,7 +553,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
       if (prev_primitive)
 	prev_primitive->set_property ("glyph-name",
-				      scm_makfrom0str (prev_glyph_name.to_str0 ()));
+				      scm_makfrom0str (prev_glyph_name.c_str ()));
 
       /*
        * In the backend, flexa shapes and joins need to know about line
@@ -571,7 +571,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     }
 
   prev_primitive->set_property ("glyph-name",
-				scm_makfrom0str (prev_glyph_name.to_str0 ()));
+				scm_makfrom0str (prev_glyph_name.c_str ()));
 
   align_heads (primitives, flexa_width, thickness);
 

@@ -104,7 +104,7 @@ Tex_font_metric_reader::read_header ()
     /* Not using ngettext's plural feature here, as this message is
        more of a programming error.  */
     error (_f ("TFM header of `%s' has only %u word (s)",
-	       input_.name_string ().to_str0 (), header_length));
+	       input_.name_string ().c_str (), header_length));
 
   info_.checksum = input_.get_U32 ();
   info_.design_size = get_U32_fix ();
@@ -137,7 +137,7 @@ Tex_font_metric_reader::read_params ()
   if (header_.param_word_count > TFM_MAX_FONTDIMENS)
     {
       warning (_f ("%s: TFM file has %u parameters, which is more than the %u I can handle",
-		   input_.name_string ().to_str0 (),
+		   input_.name_string ().c_str (),
 		   header_.param_word_count,
 		   TFM_MAX_FONTDIMENS));
       header_.param_word_count = TFM_MAX_FONTDIMENS;

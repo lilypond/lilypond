@@ -121,7 +121,7 @@ Context_def::add_context_mod (SCM mod)
     {
       if (!get_translator (sym))
 	error (_f ("program has no such type: `%s'",
-		   ly_symbol2string (sym).to_str0 ()));
+		   ly_symbol2string (sym).c_str ()));
       else
 	translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
     }

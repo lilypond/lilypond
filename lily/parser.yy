@@ -2743,7 +2743,7 @@ bool
 is_regular_identifier (SCM id)
 {
   String str = ly_scm2string (id);
-  char const *s = str.to_str0 ();
+  char const *s = str.c_str ();
 
   bool v = true;
 #if 0

@@ -29,7 +29,7 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
     output_name = ly_scm2string (port_name);
 
   message (_f ("Layout output to `%s'...",
-	       output_name.to_str0 ()));
+	       output_name.c_str ()));
 
   progress_indication ("\n");
   Paper_outputter *po = new Paper_outputter (port, f);

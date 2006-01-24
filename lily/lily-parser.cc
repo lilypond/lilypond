@@ -102,7 +102,7 @@ Lily_parser::parse_file (String init, String name, String out_name)
   File_name f (name);
   String s = global_path.find (f.base_ + ".twy");
   s = gulp_file_to_string (s, false, -1);
-  scm_eval_string (scm_makfrom0str (s.to_str0 ()));
+  scm_eval_string (scm_makfrom0str (s.c_str ()));
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */
@@ -165,7 +165,7 @@ Lily_parser::here_str0 () const
 void
 Lily_parser::parser_error (String s)
 {
-  lexer_->here_input ().error (_ (s.to_str0 ()));
+  lexer_->here_input ().error (_ (s.c_str ()));
   error_level_ = 1;
 }
 

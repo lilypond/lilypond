@@ -35,7 +35,7 @@ Paper_outputter::Paper_outputter (SCM port, String format)
   smobify_self ();
 
   String module_name = "scm output-" + format;
-  output_module_ = scm_c_resolve_module (module_name.to_str0 ());
+  output_module_ = scm_c_resolve_module (module_name.c_str ());
 }
 
 Paper_outputter::~Paper_outputter ()

@@ -25,7 +25,7 @@ internal_ly_parse_scm (Parse_start *ps)
   Source_file *sf = ps->start_location_.get_source_file ();
   SCM port = sf->get_port ();
 
-  int off = ps->start_location_.start () - sf->to_str0 ();
+  int off = ps->start_location_.start () - sf->c_str ();
 
   scm_seek (port, scm_long2num (off), scm_long2num (SEEK_SET));
   SCM from = scm_ftell (port);

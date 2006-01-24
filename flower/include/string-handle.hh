@@ -37,7 +37,7 @@ public:
   String_handle (String_handle const &src);
 
   Byte const *to_bytes () const;
-  char const *to_str0 () const;
+  char const *c_str () const;
   Byte *get_bytes ();
   char *get_str0 ();
   bool is_binary_bo () const;

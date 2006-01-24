@@ -64,7 +64,7 @@ class String_data
 
   void operator += (char const *str0);
 
-  char const *to_str0 () const;
+  char const *c_str () const;
 
   char *get_str0 ();
 

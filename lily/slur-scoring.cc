@@ -435,7 +435,7 @@ Slur_score_state::get_best_curve ()
 
   // debug quanting
   slur_->set_property ("quant-score",
-		       scm_makfrom0str (configurations_[opt_idx]->score_card_.to_str0 ()));
+		       scm_makfrom0str (configurations_[opt_idx]->score_card_.c_str ()));
 
 #endif
 

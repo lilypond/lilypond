@@ -76,8 +76,6 @@ Paper_system::internal_get_property (SCM sym) const
     return scm_cdr (s);
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
-
-     
   return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
 }
 

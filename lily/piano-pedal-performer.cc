@@ -132,7 +132,7 @@ Piano_pedal_performer::try_music (Music *r)
 	{
 	  String nm = p->name_ + String ("Event");
 	  if (ly_is_equal (r->get_property ("name"),
-			   scm_str2symbol (nm.to_str0 ())))
+			   scm_str2symbol (nm.c_str ())))
 	    {
 	      Direction d = to_dir (r->get_property ("span-direction"));
 	      p->event_drul_[d] = r;

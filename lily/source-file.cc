@@ -50,10 +50,10 @@ gulp_file (String filename, int *filesize)
 {
   /* "b" must ensure to open literally, avoiding text (CR/LF)
      conversions.  */
-  FILE *f = fopen (filename.to_str0 (), "rb");
+  FILE *f = fopen (filename.c_str (), "rb");
   if (!f)
     {
-      warning (_f ("can't open file: `%s'", filename.to_str0 ()));
+      warning (_f ("can't open file: `%s'", filename.c_str ()));
       return 0;
     }
 
@@ -84,7 +84,7 @@ Source_file::Source_file (String filename, String data)
   istream_ = 0;
   contents_str0_ = data.get_copy_str0 ();
   length_ = data.length ();
-  pos_str0_ = to_str0 ();
+  pos_str0_ = c_str ();
   init_port ();
 
   for (int i = 0; i < length_; i++)
@@ -106,7 +106,7 @@ Source_file::Source_file (String filename_string)
       contents_str0_ = gulp_file (filename_string, &length_);
     }
   
-  pos_str0_ = to_str0 ();
+  pos_str0_ = c_str ();
 
   init_port ();
 
@@ -135,7 +135,7 @@ Source_file::get_istream ()
   if (!istream_)
     {
       if (length ()) // can-t this be done without such a hack?
-	istream_ = new istringstream (to_str0 ());
+	istream_ = new istringstream (c_str ());
       else
 	{
 	  istream_ = new istringstream ("");
@@ -149,7 +149,7 @@ Source_file::get_istream ()
 String
 Source_file::file_line_column_string (char const *context_str0) const
 {
-  if (!to_str0 ())
+  if (!c_str ())
     return " (" + _ ("position unknown") + ")";
   else
     {
@@ -196,7 +196,7 @@ Source_file::line_slice (char const *pos_str0) const
   if (!contains (pos_str0))
     return Slice (0, 0);
 
-  char const *data_str0 = to_str0 ();
+  char const *data_str0 = c_str ();
   char const *eof_C_ = data_str0 + length ();
 
   if (pos_str0 == eof_C_)
@@ -227,7 +227,7 @@ Source_file::line_string (char const *pos_str0) const
     return "";
 
   Slice line = line_slice (pos_str0);
-  char const *data_str0 = to_str0 ();
+  char const *data_str0 = c_str ();
   return String ((Byte const *)data_str0 + line[LEFT], line.length ());
 }
 
@@ -247,12 +247,12 @@ Source_file::get_counts (char const *pos_str0,
   *line_number = get_line (pos_str0);
 
   Slice line = line_slice (pos_str0);
-  char const *data = to_str0 ();
+  char const *data = c_str ();
   Byte const *line_start = (Byte const *)data + line[LEFT];
 
   int left = (Byte const *) pos_str0 - line_start;
   String line_begin (line_start, left);
-  char const *line_chars = line_begin.to_str0 ();
+  char const *line_chars = line_begin.c_str ();
 
   *column = 0;
   *line_char = 0;
@@ -301,7 +301,7 @@ Source_file::get_counts (char const *pos_str0,
 bool
 Source_file::contains (char const *pos_str0) const
 {
-  return (pos_str0 && (pos_str0 >= to_str0 ()) && (pos_str0 <= to_str0 () + length ()));
+  return (pos_str0 && (pos_str0 >= c_str ()) && (pos_str0 <= c_str () + length ()));
 }
 
 int
@@ -339,7 +339,7 @@ Source_file::length () const
 }
 
 char const *
-Source_file::to_str0 () const
+Source_file::c_str () const
 {
   return contents_str0_;
 }
@@ -356,7 +356,7 @@ Source_file::set_pos (char const *pos_str0)
 char const *
 Source_file::seek_str0 (int n)
 {
-  char const *new_str0 = to_str0 () + n;
+  char const *new_str0 = c_str () + n;
   if (n < 0)
     new_str0 += length ();
   if (contains (new_str0))

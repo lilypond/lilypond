@@ -20,7 +20,7 @@ properties_to_pango_description (SCM chain, Real text_size)
   if (scm_is_string (name))
     {
       String name_str = ly_scm2string (name);
-      description = pango_font_description_from_string (name_str.to_str0 ());
+      description = pango_font_description_from_string (name_str.c_str ());
     }
   else
     {
@@ -140,7 +140,7 @@ symbols_to_pango_font_description (SCM family,
     family_str = ly_scm2string (family);
 
   pango_font_description_set_family (description,
-				     family_str.to_str0 ());
+				     family_str.c_str ());
   pango_font_description_set_style (description,
 				    symbol_to_pango_style (style));
   pango_font_description_set_variant (description,

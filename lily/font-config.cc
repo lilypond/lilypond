@@ -44,10 +44,10 @@ init_fontconfig ()
   for (int i = 0; i < dirs.size (); i++)
     {
       String dir = dirs[i];
-      if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.to_str0 ()))
-	error (_f ("adding font directory: %s", dir.to_str0 ()));
+      if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.c_str ()))
+	error (_f ("adding font directory: %s", dir.c_str ()));
       else if (be_verbose_global)
-	message (_f ("adding font directory: %s", dir.to_str0 ()));
+	message (_f ("adding font directory: %s", dir.c_str ()));
     }
 
   FcConfigBuildFonts (font_config_global);

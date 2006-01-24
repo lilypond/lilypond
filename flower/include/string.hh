@@ -95,7 +95,6 @@ public:
   Byte *get_copy_byte () const;
   char *get_copy_str0 () const;
 
-  char const *to_str0 () const;
   Byte const *to_bytes () const;
   char *get_str0 ();
   Byte *get_bytes ();
@@ -105,9 +104,7 @@ public:
   /// concatenate s
   void operator += (char const *s) { strh_ += s; }
   void operator += (String s);
-
-  bool is_empty () const;
-
+  
   void append (String);
   void prepend (String);
 
@@ -135,12 +132,11 @@ public:
   /// signed comparison,  analogous to memcmp;
   static int compare (String const &s1, const String &s2);
 
-  /// index of rightmost c 
-  int index_last (char c) const;
-
   /// index of rightmost element of string (???)
   int index_last (char const *string) const;
 
+  int index_last (char c) const;
+  
   int index (char c) const;
 
   /// index of leftmost occurance of STRING

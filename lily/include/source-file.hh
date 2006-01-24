@@ -32,7 +32,7 @@ public:
 
   virtual ~Source_file ();
 
-  char const *to_str0 () const;
+  char const *c_str () const;
   virtual String quote_input (char const *pos_str0) const;
   istream *get_istream ();
   bool contains (char const *pos_str0) const;

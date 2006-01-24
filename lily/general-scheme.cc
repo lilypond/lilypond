@@ -33,10 +33,10 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 
   String nm = ly_scm2string (name);
   String file_name = global_path.find (nm);
-  if (file_name.is_empty ())
+  if (file_name.empty ())
     return SCM_BOOL_F;
 
-  return scm_makfrom0str (file_name.to_str0 ());
+  return scm_makfrom0str (file_name.c_str ());
 }
 
 /*
@@ -216,7 +216,7 @@ LY_DEFINE (ly_output_backend, "ly:output-backend",
 	   0, 0, 0, (),
 	   "Return name of output backend.")
 {
-  return scm_makfrom0str (output_backend_global.to_str0 ());
+  return scm_makfrom0str (output_backend_global.c_str ());
 }
 
 LY_DEFINE (ly_output_formats, "ly:output-formats",
@@ -229,7 +229,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   SCM lst = SCM_EOL;
   int output_formats_count = output_formats.size ();
   for (int i = 0; i < output_formats_count; i++)
-    lst = scm_cons (scm_makfrom0str (output_formats[i].to_str0 ()), lst);
+    lst = scm_cons (scm_makfrom0str (output_formats[i].c_str ()), lst);
 
   return lst;
 }
@@ -273,7 +273,7 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 	   0, 0, 0, (),
 	   "Return effective prefix.")
 {
-  return scm_makfrom0str (prefix_directory.to_str0 ());
+  return scm_makfrom0str (prefix_directory.c_str ());
 }
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",

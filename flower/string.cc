@@ -56,16 +56,11 @@ String::String (int n, char c)
   *this = String_convert::char_string (c, n);
 }
 
-char const *
-String::c_str () const
-{
-  return to_str0 ();
-}
 
 bool
 String::empty () const
 {
-  return is_empty ();
+  return !length ();
 }
 
 int
@@ -225,11 +220,15 @@ String::get_str0 ()
   return strh_.get_str0 ();
 }
 
+#ifndef DISALLOW_OLD_STRING
 bool
 String::is_empty () const
 {
   return !length ();
 }
+#endif
+
+
 /**
    Do a signed comparison,  analogous to memcmp;
 */
@@ -257,7 +256,7 @@ String::index_last (char const c) const
   if (!length ())
     return -1;
 
-  char const *me = strh_.to_str0 ();
+  char const *me = strh_.c_str ();
   char const *p = (char const *)memrchr ((Byte *)me, length (), c);
   if (p)
     return p - me;
@@ -296,7 +295,7 @@ or   -1 if not found.
 int
 String::index (char c) const
 {
-  char const *me = strh_.to_str0 ();
+  char const *me = strh_.c_str ();
   char const *p = (char const *) memchr (me, c, length ());
   if (p)
     return p - me;
@@ -312,11 +311,11 @@ String::index (char c) const
 int
 String::index (String searchfor) const
 {
-  char const *me = strh_.to_str0 ();
+  char const *me = strh_.c_str ();
 
   char const *p
     = (char const *) memmem (me, length (),
-			     searchfor.to_str0 (), searchfor.length ());
+			     searchfor.c_str (), searchfor.length ());
 
   if (p)
     return p - me;
@@ -338,7 +337,7 @@ String::index_any (String set) const
   if (!n)
     return -1;
 
-  void const *me = (void const *) strh_.to_str0 ();
+  void const *me = (void const *) strh_.c_str ();
   for (int i = 0; i < set.length (); i++)
     {
       char *found = (char *) memchr (me, set[i], n);
@@ -450,7 +449,7 @@ void
 String::print_on (ostream &os) const
 {
   if (!strh_.is_binary_bo ())
-    os << to_str0 ();
+    os << c_str ();
   else
     for (int i = 0; i < length (); i++)
       os << (Byte) (*this)[ i ];
