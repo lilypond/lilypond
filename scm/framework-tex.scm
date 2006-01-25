@@ -11,6 +11,8 @@
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
 	     (ice-9 format)
+	     (scm page)
+	     (scm paper-system)
 	     (guile)
 	     (srfi srfi-1)
 	     (srfi srfi-13)

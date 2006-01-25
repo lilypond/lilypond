@@ -13,6 +13,8 @@
 	     (ice-9 format)
 	     (guile)
 	     (scm framework-ps)
+	     (scm paper-system)
+	     (scm page)
 	     (scm output-ps)
 	     (srfi srfi-1)
 	     (srfi srfi-13)

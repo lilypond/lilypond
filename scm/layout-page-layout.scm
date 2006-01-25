@@ -75,7 +75,7 @@
 
 
 
-(define (post-process-pages pages)
+(define (post-process-pages layout pages)
   (if (ly:get-option 'write-page-layout)
       (write-page-breaks pages)))
 

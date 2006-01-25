@@ -9,6 +9,7 @@
 	    output-classic-framework-tex))
 
 (use-modules (ice-9 regex)
+	     (scm paper-system)
 	     (ice-9 string-fun)
 	     (ice-9 format)
 	     (guile)
