@@ -70,7 +70,7 @@
 
      <br>(everything about LilyPond)
      
-<li><a class="title"href="../examples.html">Examples</a>
+<li><a class="title" href="../examples.html">Examples</a>
 
      <br>(see some examples)
 
@@ -117,8 +117,7 @@
           <td valign="baseline" class="left-column">
           &nbsp;
           <ul>
-            <li> <a class="title"  href="http://lilypond.org/" class="title"
-                >lilypond.org</a>
+            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
               <br>(the website)
           </ul>
           </td>
@@ -133,7 +132,5 @@
         </tr>
       </tbody>
     </table>
-    <p>
-
   </body>
 </html>

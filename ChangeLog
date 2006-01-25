@@ -1,3 +1,7 @@
+2006-01-25  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/index.html.in: clean up.
+
 2006-01-25  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/putting.itely: another new untested doc section.
