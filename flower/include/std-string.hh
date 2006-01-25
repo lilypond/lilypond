@@ -14,12 +14,19 @@
 #define Std_string String
 #define to_std_string to_string
 class String;
+typedef int ssize;
+#define NPOS -1
+
 #include "string.hh"
 
 #else
 
 #include <string>
 // #warning Using std::string
+using namespace std;
+typedef size_t ssize;
+
+#define NPOS std::string::npos
 
 namespace std {
 

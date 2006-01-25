@@ -41,14 +41,34 @@ String::operator Std_string () const
 
 /* std::string interface */
 
+#if 0
+// FIXME, use .SUBSTR () ?
 String::String (String const &s, int pos, int n)
 {
-  if (n == -1)
+  if (n == -1 || n == INT_MAX || n == NPOS)
     n = s.length () - pos;
   if (pos == 0)
     *this = s.left_string (n);
   else
     *this = s.right_string (s.length () - pos).left_string (n);
+}
+#endif
+
+String
+String::substr (int pos, int n) const
+{
+#if 0
+  if (n == -1 || n == INT_MAX || n == NPOS)
+    n = length () - pos;
+  return cut_string (pos, n);
+#else
+  if (n == -1 || n == INT_MAX || n == NPOS)
+    n = length () - pos;
+  if (pos == 0)
+    return left_string (n);
+  else
+    return right_string (length () - pos).left_string (n);
+#endif
 }
 
 String::String (int n, char c)
@@ -56,6 +76,12 @@ String::String (int n, char c)
   *this = String_convert::char_string (c, n);
 }
 
+
+char const *
+String::data () const
+{
+  return (char const*) to_bytes ();
+}
 
 bool
 String::empty () const
@@ -76,9 +102,9 @@ String::find (String &s, int pos) const
     return index (s);
   String f = right_string (length () - pos);
   int n = f.index (s);
-  if (n != -1)
+  if (n != NPOS)
     return pos + n;
-  return -1;
+  return NPOS;
 }
 
 int
@@ -90,7 +116,7 @@ String::rfind (char c) const
 String
 String::replace (int pos, int n, String str)
 {
-  return String (*this, 0, pos) + str + String (*this, pos + n);
+  return this->substr (0, pos) + str + this->substr (pos + n);
 }
 
 
@@ -245,41 +271,20 @@ int
 String::index_last (char const c) const
 {
   if (!length ())
-    return -1;
+    return NPOS;
 
   char const *me = strh_.c_str ();
   char const *p = (char const *)memrchr ((Byte *)me, length (), c);
   if (p)
     return p - me;
-  return -1;
-}
-
-int
-String::index_last (char const *string) const // UGK!
-{
-  assert (false);		// broken
-  int len = strlen (string); // ugrh
-  if (!length () || !len)
-    return -1;
-
-  int next_i = index (string);
-  if (next_i == -1)
-    return -1;
-
-  int index_i = 0;
-  while (next_i >= 0)
-    {
-      index_i += next_i;
-      next_i = right_string (length () - index_i - len).index (string);
-    }
-  return index_i;
+  return NPOS;
 }
 
 /** find  a character.
 
 @return
 the index of the leftmost character #c# (0 <= return < length ()),
-or   -1 if not found.
+or   NPOS if not found.
 
 ? should return length ()?, as in string.left_string (index (delimiter))
 */
@@ -290,7 +295,7 @@ String::index (char c) const
   char const *p = (char const *) memchr (me, c, length ());
   if (p)
     return p - me;
-  return -1;
+  return NPOS;
 }
 
 /**
@@ -311,14 +316,14 @@ String::index (String searchfor) const
   if (p)
     return p - me;
 
-  return -1;
+  return NPOS;
 }
 
 /** find chars of a set.
 
 @return
 
-the index of the leftmost occurance of an element of #set#.  -1 if
+the index of the leftmost occurance of an element of #set#.  NPOS if
 nothing is found.
 */
 int
@@ -326,7 +331,7 @@ String::index_any (String set) const
 {
   int n = length ();
   if (!n)
-    return -1;
+    return NPOS;
 
   void const *me = (void const *) strh_.c_str ();
   for (int i = 0; i < set.length (); i++)
@@ -335,7 +340,7 @@ String::index_any (String set) const
       if (found)
 	return found - (char const *)me;
     }
-  return -1;
+  return NPOS;
 }
 
 String
@@ -452,7 +457,7 @@ String::substitute (String find, String replace)
 {
   int n = find.length ();
   int m = replace.length ();
-  for (int i = index (find), j = 0; i > -1;
+  for (int i = index (find), j = 0; i != NPOS;
        i = right_string (length () - j).index (find))
     {
       *this = left_string (i + j)
@@ -466,7 +471,7 @@ String::substitute (String find, String replace)
 String
 String::substitute (char find, char replace)
 {
-  for (int i = index (find); i > - 1; i = index (find))
+  for (int i = index (find); i != NPOS; i = index (find))
     (*this)[i] = replace;
   return *this;
 }

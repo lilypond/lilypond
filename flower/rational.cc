@@ -269,16 +269,16 @@ Rational::operator -= (Rational r)
   return (*this += r);
 }
 
-String
+Std_string
 Rational::to_string () const
 {
   if (is_infinity ())
     {
-      String s (sign_ > 0 ? "" : "-");
-      return String (s + "infinity");
+      Std_string s (sign_ > 0 ? "" : "-");
+      return Std_string (s + "infinity");
     }
 
-  String s = ::to_string (num ());
+  Std_string s = ::to_string (num ());
   if (den () != 1 && num ())
     s += "/" + ::to_string (den ());
   return s;

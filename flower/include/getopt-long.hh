@@ -4,9 +4,6 @@
 #include <cstdio>
 
 #include "std-string.hh"
-using namespace std;
-
-#include "string.hh"
 
 /**
    a struct this for initialising the commandline options.

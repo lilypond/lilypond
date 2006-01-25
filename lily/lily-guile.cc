@@ -356,7 +356,7 @@ ly_assoc_cdr (SCM key, SCM alist)
 }
 
 SCM
-ly_string_array_to_scm (Array<String> a)
+ly_string_array_to_scm (Array<Std_string> a)
 {
   SCM s = SCM_EOL;
   for (int i = a.size () - 1; i >= 0; i--)

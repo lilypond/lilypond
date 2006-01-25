@@ -25,18 +25,18 @@ Lilypond_version::Lilypond_version (String str)
   minor_ = 0;
   patch_ = 0;
   
-  Array<String> version;
+  Array<Std_string> version;
   version = String_convert::split (str, '.');
 
   if (version.size () > 0 && isdigit (version[0][0]))
-    major_ = version[0].to_int ();
+    major_ = String_convert::dec2int (version[0]);
   if (version.size () > 1 && isdigit (version[1][0]))
-    minor_ = version[1].to_int ();
+    minor_ = String_convert::dec2int (version[1]);
   
   patch_ = 0;
   if (version.size () >= 3
       && isdigit (version[2][0]))
-    patch_ = version[2].to_int ();
+    patch_ = String_convert::dec2int (version[2]);
 
   if (version.size () >= 4)
     extra_patch_string_ = version[3];

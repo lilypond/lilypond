@@ -12,10 +12,6 @@
 #include "array.hh"
 #include "std-string.hh"
 
-#if 0// STD_STRING
-#include "string.hh"
-#endif
-
 class File_name
 {
 public:

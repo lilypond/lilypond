@@ -8,9 +8,11 @@
 #define OFFSET_HH
 
 #include "axis.hh"
+#include "std-string.hh"
 #include "string.hh"
 #include "real.hh"
 
+class Offset;
 Offset complex_multiply (Offset, Offset);
 Offset complex_divide (Offset, Offset);
 Offset complex_exp (Offset);
@@ -92,7 +94,7 @@ public:
     coordinate_a_[X_AXIS] = coordinate_a_[Y_AXIS] = 0.0;
   }
 
-  String to_string () const;
+  Std_string to_string () const;
 
   Offset &mirror (Axis a)
   {

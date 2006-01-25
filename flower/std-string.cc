@@ -20,21 +20,15 @@ namespace std {
     return Std_string (n, c);
   }
 
-#define FIND_FAILED string::npos
-#define SIZE_T size_t
 #else /* !STD_STRING */
-
-#define FIND_FAILED -1
-#define SIZE_T int
 
 #endif /* STD_STRING */
 
 Std_string &
 replace_all (Std_string &str, Std_string find, Std_string replace)
 {
-  int len = find.length ();
-  for (SIZE_T i = str.find (find); i != FIND_FAILED; i = str.find (find,
-								   i + len))
+  ssize len = find.length ();
+  for (ssize i = str.find (find); i != NPOS; i = str.find (find, i + len))
     str = str.replace (i, len, replace);
   return str;
 }
