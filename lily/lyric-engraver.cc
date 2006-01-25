@@ -90,7 +90,7 @@ get_voice_to_lyrics (Context *lyrics)
   else
     {
       int idx = nm.index_last ('-');
-      if (idx >= 0)
+      if (idx != NPOS)
 	nm = nm.left_string (idx);
     }
 
