@@ -18,7 +18,7 @@ Interval_t<Real>::infinity ()
 }
 
 template<>
-String
+Std_string
 Interval_t<Real>::T_to_string (Real r)
 {
   return ::to_string (r);
@@ -32,7 +32,7 @@ Interval_t<int>::infinity ()
 }
 
 template<>
-String
+Std_string
 Interval_t<int>::T_to_string (int i)
 {
   return ::to_string (i);
@@ -40,4 +40,3 @@ Interval_t<int>::T_to_string (int i)
 
 template INTERVAL__INSTANTIATE (int);
 template INTERVAL__INSTANTIATE (Real);
-

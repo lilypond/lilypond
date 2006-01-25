@@ -10,11 +10,11 @@
 
 
 #ifndef STANDALONE
-String
+Std_string
 Offset::to_string () const
 {
-  String s;
-  s = String (" (") + ::to_string (coordinate_a_[X_AXIS]) + ", "
+  Std_string s;
+  s = Std_string (" (") + ::to_string (coordinate_a_[X_AXIS]) + ", "
     + ::to_string (coordinate_a_[Y_AXIS]) + ")";
   return s;
 }

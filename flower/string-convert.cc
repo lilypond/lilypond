@@ -27,18 +27,18 @@ using namespace std;
 */
 static const int STRING_BUFFER_LEN = 1024;
 
-String
+Std_string
 String_convert::bool_string (bool b)
 {
-  return String (b ? "true" : "false");
+  return Std_string (b ? "true" : "false");
 }
 
-String
-String_convert::bin2hex (String bin_string)
+Std_string
+String_convert::bin2hex (Std_string bin_string)
 {
-  String str;
-  Byte const *byte = bin_string.to_bytes ();
-  for (int i = 0; i < bin_string.length (); i++)
+  Std_string str;
+  Byte const *byte = (Byte const*)bin_string.data ();
+  for (ssize i = 0; i < bin_string.length (); i++)
     {
       str += to_string ((char)nibble2hex_byte (*byte >> 4));
       str += to_string ((char)nibble2hex_byte (*byte++));
@@ -47,18 +47,18 @@ String_convert::bin2hex (String bin_string)
 }
 
 int
-String_convert::bin2int (String bin_string)
+String_convert::bin2int (Std_string bin_string)
 {
   return bin2unsigned (bin_string);
 }
 
 unsigned
-String_convert::bin2unsigned (String bin_string)
+String_convert::bin2unsigned (Std_string bin_string)
 {
   assert (bin_string.length () <= (int)sizeof (unsigned));
 
   unsigned result_u = 0;
-  for (int i = 0; i < bin_string.length (); i++)
+  for (ssize i = 0; i < bin_string.length (); i++)
     {
       result_u <<= 8;
       result_u += (Byte)bin_string[ i ];
@@ -66,9 +66,9 @@ String_convert::bin2unsigned (String bin_string)
   return result_u;
 }
 
-// breendet imp from String
+// breendet imp from Std_string
 int
-String_convert::dec2int (String dec_string)
+String_convert::dec2int (Std_string dec_string)
 {
   if (!dec_string.length ())
     return 0;
@@ -80,17 +80,17 @@ String_convert::dec2int (String dec_string)
   return (int)l;
 }
 
-String
+Std_string
 String_convert::i64_string (I64 i64, char const *fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
 	    (fmt ? fmt : "%Ld"), i64); // assume radix 10
-  return String (buffer);
+  return Std_string (buffer);
 }
-// breendet imp from String
+// breendet imp from Std_string
 double
-String_convert::dec2double (String dec_string)
+String_convert::dec2double (Std_string dec_string)
 {
   if (!dec_string.length ())
     return 0;
@@ -101,14 +101,14 @@ String_convert::dec2double (String dec_string)
 }
 
 int
-String_convert::hex2bin (String hex_string, String &bin_string_r)
+String_convert::hex2bin (Std_string hex_string, Std_string &bin_string_r)
 {
   if (hex_string.length () % 2)
     hex_string = "0" + hex_string;
 
   bin_string_r = "";
-  Byte const *byte = hex_string.to_bytes ();
-  int i = 0;
+  Byte const *byte = (Byte const*) hex_string.data ();
+  ssize i = 0;
   while (i < hex_string.length ())
     {
       int high_i = hex2nibble (*byte++);
@@ -121,10 +121,10 @@ String_convert::hex2bin (String hex_string, String &bin_string_r)
   return 0;
 }
 
-String
-String_convert::hex2bin (String hex_string)
+Std_string
+String_convert::hex2bin (Std_string hex_string)
 {
-  String str;
+  Std_string str;
   //  silly, asserts should alway be "on"!
   //    assert (!hex2bin (hex_string, str) );
   int error_i = hex2bin (hex_string, str);
@@ -145,7 +145,7 @@ String_convert::hex2nibble (Byte byte)
 }
 
 // stupido.  Should use int_string ()
-String
+Std_string
 String_convert::int2dec (int i, int length_i, char ch)
 {
   char fill_char = ch;
@@ -153,17 +153,17 @@ String_convert::int2dec (int i, int length_i, char ch)
     fill_char = '0';
 
   // ugh
-  String dec_string = to_string (i);
+  Std_string dec_string = to_string (i);
 
   // ugh
   return to_string (fill_char, length_i - dec_string.length ()) + dec_string;
 }
 
 // stupido.  Should use int_string ()
-String
-String_convert::unsigned2hex (unsigned u, int length_i, char fill_char)
+Std_string
+String_convert::unsigned2hex (unsigned u, ssize length, char fill_char)
 {
-  String str;
+  Std_string str;
   if (!u)
     str = "0";
 
@@ -177,14 +177,14 @@ String_convert::unsigned2hex (unsigned u, int length_i, char fill_char)
   str += int_string (u, "%x");	// hmm. %lx vs. %x -> portability?
 #endif
 
-  str = to_string (fill_char, length_i - str.length ()) + str;
-  while ((str.length () > length_i) && (str[ 0 ] == 'f'))
-    str = str.cut_string (2, INT_MAX);
+  str = to_string (fill_char, length - str.length ()) + str;
+  while ((str.length () > length) && (str[ 0 ] == 'f'))
+    str = str.substr (2);
 
   return str;
 }
 
-String
+Std_string
 String_convert::int2hex (int i, int length_i, char fill_char)
 {
   return unsigned2hex ((unsigned)i, length_i, fill_char);
@@ -204,16 +204,16 @@ String_convert::nibble2hex_byte (Byte byte)
    @param
    #fmt# is a printf style format, default assumes "%d" as format.
 */
-String
+Std_string
 String_convert::int_string (int i, char const *fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
 	    (fmt ? fmt : "%d"), i); // assume radix 10
-  return String (buffer);
+  return Std_string (buffer);
 }
 
-String
+Std_string
 String_convert::form_string (char const *format, ...)
 {
   va_list args;
@@ -221,15 +221,15 @@ String_convert::form_string (char const *format, ...)
   char buffer[STRING_BUFFER_LEN];
   vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
   va_end (args);
-  return String (buffer);
+  return Std_string (buffer);
 }
 
-String
+Std_string
 String_convert::vform_string (char const *format, va_list args)
 {
   char buffer[STRING_BUFFER_LEN];
   vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
-  return String (buffer);
+  return Std_string (buffer);
 }
 
 /**
@@ -237,13 +237,13 @@ String_convert::vform_string (char const *format, va_list args)
 
    @param #fmt# is a printf style format, default assumes "%lf" as format
 */
-String
+Std_string
 String_convert::double_string (double f, char const *fmt)
 {
   char buf[STRING_BUFFER_LEN];
 
   snprintf (buf, STRING_BUFFER_LEN, fmt ? fmt : "%f", f);
-  return String (buf);
+  return Std_string (buf);
 }
 
 /**
@@ -252,29 +252,33 @@ String_convert::double_string (double f, char const *fmt)
    @param
    #n# is a repetition count, default value is 1
 */
-String
+Std_string
 String_convert::char_string (char c, int n)
 {
   n = n >= 0 ? n : 0;
   char *ch = new char[ n ];
   memset (ch, c, n);
-  String s ((Byte *)ch, n);
+#if STD_STRING
+  Std_string s (ch, n);
+#else
+  Std_string s ((Byte*) ch, n);
+#endif
   delete[] ch;
   return s;
 }
 
-String
+Std_string
 String_convert::rational_string (Rational r)
 {
   return r.to_string ();
 }
 
-String
+Std_string
 String_convert::pointer_string (void const *l)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN, "%p", l); // assume radix 10
-  return String (buffer);
+  return Std_string (buffer);
 }
 
 /**
@@ -283,57 +287,57 @@ String_convert::pointer_string (void const *l)
    @param
    #n# is the number of nonzero digits
 */
-String
+Std_string
 String_convert::precision_string (double x, int n)
 {
-  String format = "%." + to_string (max (0, n - 1)) + "e";
-  String str = double_string (abs (x), format.c_str ());
+  Std_string format = "%." + to_string (max (0, n - 1)) + "e";
+  Std_string str = double_string (abs (x), format.c_str ());
 
-  int exp = str.right_string (3).to_int ();
-  str = str.left_string (str.length () - 4);
+  int exp = dec2int (str.substr (str.length () - 3));
+  str = str.substr (0, str.length () - 4);
 
   while (str[str.length () - 1] == '0')
-    str = str.left_string (str.length () - 1);
+    str = str.substr (0, str.length () - 1);
   if (str[str.length () - 1] == '.')
-    str = str.left_string (str.length () - 1);
+    str = str.substr (0, str.length () - 1);
 
   if (exp == 0)
     return (sign (x) > 0 ? str : "-" + str);
 
-  str = str.left_string (1) + str.cut_string (2, INT_MAX);
-  int dot = 1 + exp;
+  str = str.substr (0, 1) + str.substr (2);
+  ssize dot = 1 + exp;
   if (dot <= 0)
     str = "0." + to_string ('0', -dot) + str;
   else if (dot >= str.length ())
     str += to_string ('0', dot - str.length ());
   else if ((dot > 0) && (dot < str.length ()))
-    str = str.left_string (dot) + "." + str.cut_string (dot, INT_MAX);
+    str = str.substr (0, dot) + "." + str.substr (dot);
   else
     assert (0);
 
   return (sign (x) > 0 ? str : "-" + str);
 }
 
-Array<String>
-String_convert::split (String str, char c)
+Array<Std_string>
+String_convert::split (Std_string str, char c)
 {
-  Array<String> a;
-  int i = str.index (c);
-  while (i >= 0)
+  Array<Std_string> a;
+  ssize i = str.find (c);
+  while (i != NPOS)
     {
-      String s = str.left_string (i);
+      Std_string s = str.substr (0, i);
       a.push (s);
       while (str[++i] == c)
 	;
-      str = str.cut_string (i, INT_MAX);
-      i = str.index (c);
+      str = str.substr (i);
+      i = str.find (c);
     }
   if (str.length ())
     a.push (str);
   return a;
 }
 
-String
+Std_string
 String_convert::long_string (long l)
 {
   char s[STRING_BUFFER_LEN];
@@ -341,8 +345,8 @@ String_convert::long_string (long l)
   return s;
 }
 
-String
-String_convert::pad_to (String s, int n)
+Std_string
+String_convert::pad_to (Std_string s, int n)
 {
-  return s + to_string (' ', max (n - s.length (), 0));
+  return s + Std_string (max (int(n - s.length ()), 0), ' ');
 }

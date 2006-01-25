@@ -10,9 +10,8 @@
 #include <cassert>
 #include <cstdlib>
 
-using namespace std;
-
 #include "config.hh"
+#include "string.hh"
 
 #if !HAVE_GETTEXT
 inline char *

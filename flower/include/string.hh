@@ -19,8 +19,6 @@ class ostream;
 #endif
 
 #include "std-string.hh"
-using namespace std;
-
 #include "arithmetic-operator.hh"
 #include "string-handle.hh"
 
@@ -67,13 +65,16 @@ public:
 
   /* std::string interface */
   char const *c_str () const;
+  char const *data () const;
   bool empty () const;
   int find (String &s, int pos=0) const;
   int find (char c) const;
   int rfind (char c) const;
   String replace (int pos, int n, String str);
 
-  String (String const &, int pos, int n=-1);
+  String substr (int pos=0, int n=NPOS) const;
+
+  //String (String const &, int pos, int n=NPOS);
   String (int n, char c);
 
 protected:
@@ -132,9 +133,7 @@ public:
   /// signed comparison,  analogous to memcmp;
   static int compare (String const &s1, const String &s2);
 
-  /// index of rightmost element of string (???)
-  int index_last (char const *string) const;
-
+  /// index of rightmost character C in string
   int index_last (char c) const;
   
   int index (char c) const;

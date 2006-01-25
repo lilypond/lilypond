@@ -23,7 +23,6 @@
 #define GUILE_ELLIPSIS 
 #endif
 
-
 #include "guile-compatibility.hh"
 #include "interval.hh"
 #include "lily-guile-macros.hh"

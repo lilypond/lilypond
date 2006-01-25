@@ -9,6 +9,8 @@
 #ifndef RATIONAL_HH
 #define RATIONAL_HH
 
+#include "std-string.hh"
+
 #include "string.hh"
 
 /**
@@ -67,7 +69,7 @@ public:
   Rational &operator %= (Rational);
   static int compare (Rational const &, Rational const &);
   int sign () const;
-  String to_string () const;
+  Std_string to_string () const;
 };
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, /);

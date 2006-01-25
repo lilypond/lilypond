@@ -42,10 +42,10 @@ File_path::parse_path (Std_string p)
   while ((len = p.length ()))
     {
       int i = p.find (PATHSEP);
-      if (i < 0)
+      if (i == NPOS)
 	i = len;
-      append (String (p, 0, i));
-      p = String (p, i + 1);
+      append (p.substr (0, i));
+      p = p.substr (min (int(len), i + 1));
     }
 }
 
@@ -113,7 +113,7 @@ File_path::find (Std_string name) const
     return name;
 
 #ifdef __MINGW32__
-  if (name.find ('\\') >= 0)
+  if (name.find ('\\') != NPOS)
     programming_error ("file name not normalized: " + name);
 #endif /* __MINGW32__ */
 

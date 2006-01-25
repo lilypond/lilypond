@@ -11,12 +11,12 @@
 
 #include <cassert>
 
+#include "interval.hh"
+#include "string.hh"
+
 // MacOS 10.3 problems:
 // #include <cmath>
 using namespace std;
-
-#include "interval.hh"
-#include "string.hh"
 
 template<class T>
 int
@@ -105,15 +105,15 @@ Interval_t<T>::intersect (Interval_t<T> h)
 }
 
 template<class T>
-String
+Std_string
 Interval_t<T>::to_string () const
 {
   if (is_empty ())
     return "[empty]";
-  String s ("[");
+  Std_string s ("[");
 
-  return (s + T_to_string (elem (LEFT)) + String (",")
-	  + T_to_string (elem (RIGHT)) + String ("]"));
+  return (s + T_to_string (elem (LEFT)) + Std_string (",")
+	  + T_to_string (elem (RIGHT)) + Std_string ("]"));
 }
 
 template<class T>

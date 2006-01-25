@@ -94,24 +94,24 @@ File_name::File_name (Std_string file_name)
 #endif
 
   int i = file_name.find (ROOTSEP);
-  if (i >= 0)
+  if (i != NPOS)
     {
-      root_ = Std_string (file_name, 0, i);
-      file_name = Std_string (file_name, i + 1);
+      root_ = file_name.substr (0, i);
+      file_name = file_name.substr (i + 1);
     }
 
   i = file_name.rfind (DIRSEP);
-  if (i >= 0)
+  if (i != NPOS)
     {
-      dir_ = Std_string (file_name, 0, i);
-      file_name = Std_string (file_name, i + 1);
+      dir_ = file_name.substr (0, i);
+      file_name = file_name.substr (i + 1);
     }
 
   i = file_name.rfind ('.');
-  if (i >= 0)
+  if (i != NPOS)
     {
-      base_ = Std_string (file_name, 0, i);
-      ext_ = Std_string (file_name, i + 1);
+      base_ = file_name.substr (0, i);
+      ext_ = file_name.substr (i + 1);
     }
   else
     base_ = file_name;
