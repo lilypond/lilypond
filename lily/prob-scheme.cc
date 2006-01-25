@@ -9,23 +9,33 @@
 #include "prob.hh"
 
 LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
-	   2, 1, 0, (SCM system, SCM sym, SCM value),
-	   "Set property @var{sym} of @var{system} to @var{value}")
+	   2, 1, 0, (SCM obj, SCM sym, SCM value),
+	   "Set property @var{sym} of @var{obj} to @var{value}")
 {
-  Prob *ps = unsmob_prob (system);
-  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "Prob");
+  Prob *ps = unsmob_prob (obj);
+  SCM_ASSERT_TYPE (ps, obj, SCM_ARG1, __FUNCTION__, "Prob");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   ps->internal_set_property (sym, value);
   return SCM_UNSPECIFIED;
 }
 
+/*
+  Hmm, this is not orthogonal.
+ */
+LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
+	   2, 1, 0, (SCM obj, SCM sym),
+	   "Is boolean prop @var{sym} set?")
+{
+  return scm_equal_p (SCM_BOOL_T, ly_prob_property (obj, sym, SCM_BOOL_F));
+}
+
 LY_DEFINE (ly_prob_property, "ly:prob-property",
-	   2, 1, 0, (SCM system, SCM sym, SCM dfault),
+	   2, 1, 0, (SCM obj, SCM sym, SCM dfault),
 	   "Return the value for @var{sym}.")
 {
-  Prob *ps = unsmob_prob (system);
-  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "Prob");
+  Prob *ps = unsmob_prob (obj);
+  SCM_ASSERT_TYPE (ps, obj, SCM_ARG1, __FUNCTION__, "Prob");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   if (dfault == SCM_UNDEFINED)
@@ -39,7 +49,7 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
 }
 
 LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
-	   1, 0, 0,
+	   2, 0, 0,
 	   (SCM obj, SCM type),
 	   "If obj the specified prob-type?")
 {
@@ -48,13 +58,22 @@ LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
 }
 
 LY_DEFINE (ly_make_prob, "ly:make-prob",
-	   2, 0, 0,
-	   (SCM type, SCM init),
+	   2, 0, 1,
+	   (SCM type, SCM init, SCM rest),
 	   "Create a Prob.")
 {
   Prob *pr = new Prob (type, init);
-  SCM x = pr->self_scm () ;
-  return scm_gc_unprotect_object (x);
+
+  for (SCM s = rest;
+       scm_is_pair (s) && scm_is_pair (scm_cdr (s)); s = scm_cddr (s))
+    {
+      SCM sym = scm_car (s);
+      SCM val = scm_cadr (s);
+
+      pr->internal_set_property (sym, val);
+    }
+  
+  return pr->unprotect ();
 }
 
   

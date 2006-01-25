@@ -193,7 +193,7 @@
   (let* ((filename (format "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter (open-file filename "wb") "tex"))
 	 (paper (ly:paper-book-paper book))
-	 (pages (ly:paper-book-pages book))
+	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
 	 (last-page (car (last-pair pages)))
 	 (with-extents
 	  (eq? #t (ly:output-def-lookup paper 'dump-extents))))
@@ -201,14 +201,14 @@
      (lambda (x)
        (ly:outputter-dump-string outputter x))
      (list
-      (header paper (length pages) #f)
+      (header paper (length page-stencils) #f)
       (define-fonts paper)
       (header-end)))
     (ly:outputter-dump-string outputter "\\lilypondnopagebreak\n")
     (for-each
      (lambda (page)
        (dump-page outputter page (eq? last-page page) with-extents))
-     pages)
+     page-stencils)
     (ly:outputter-dump-string outputter "\\lilypondend\n")
     (ly:outputter-close outputter)
     (postprocess-output book framework-tex-module filename

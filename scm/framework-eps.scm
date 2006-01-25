@@ -103,7 +103,8 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 
 (define-public (output-framework basename book scopes fields)
   (output-scopes scopes fields basename)
-  (dump-stencils-as-EPSes (ly:paper-book-pages book) book basename))
+  (dump-stencils-as-EPSes
+   (map page-stencil (ly:paper-book-pages book)) book basename))
   
 
 ; redefine to imports from framework-ps

@@ -12,7 +12,8 @@
 	    page-property
 	    page-set-property!
 	    page-prev
-	    page-height
+	    page-printable-height
+	    layout->page-init
 	    page-lines
 	    page-force 
 	    page-penalty
@@ -21,6 +22,7 @@
 	    page-page-number
 	    page-system-numbers
 	    page-stencil
+	    page-free-height
 	    page? 
 	    ))
 
@@ -35,18 +37,23 @@
 
 (define page-module (current-module))
 
-(define (make-page . args)
-  (apply ly:make-prob (append
-		       (list 'page '())
-		       args)))
+(define (make-page init  . args)
+  (let*
+      ((p (apply ly:make-prob (append
+			       (list 'page init)
+			       args))))
 
+    (page-set-property! p 'head-stencil (page-header p))
+    (page-set-property! p 'foot-stencil (page-footer p))
+    
+    p))
+	
 (define page-property ly:prob-property)
+(define page-set-property! ly:prob-set-property!)
 (define (page-property? page sym)
   (eq? #t (page-property page sym)))
-
 (define (page? x)  (ly:prob-type? x 'page))
 
-(define page-set-property! ly:prob-set-property!)
 
 ;; define accessors. 
 (for-each
@@ -62,8 +69,6 @@
 (define (page-system-numbers node)
   (map (lambda (ps) (ly:prob-property ps 'number))
        (page-lines node)))
-
-
 
 (define (annotate-page stencil layout)
   (let*
@@ -99,15 +104,19 @@
     
     stencil))
 
-(define (annotate-space-left page-stencil layout bottom-edge)
+(define (annotate-space-left page)
   (let*
-      ((arrow (annotate-y-interval layout
-				"space left"
-				(cons (- bottom-edge)  (car (ly:stencil-extent page-stencil Y)))
-				#t)))
-    
+      ((p-book (page-property page 'paper-book))
+       (layout (ly:paper-book-paper page))
+       (arrow (annotate-y-interval layout
+				   "space left"
+				   (cons (- (page-property page 'bottom-edge))
+					 (page-property page  'bottom-system-edge))
+				   #t)))
+
     (set! arrow (ly:stencil-translate-axis arrow 8 X))
-    (ly:stencil-add page-stencil arrow)))
+
+    arrow))
 
 
 
@@ -176,7 +185,6 @@
        (offsets (page-configuration page))
        (number (page-page-number page))
        (last? (page-property page 'is-last))
-
        )
        
       (page-headfoot layout scopes number
@@ -188,34 +196,56 @@
 		    'footsep)
 		dir last?)))
 
-(define (page-footer page)
+(define (page-header page)
   (page-header-or-footer page UP))
 
-(define (page-header page)
+(define (page-footer page)
   (page-header-or-footer page DOWN))
+
+(define (layout->page-init layout)
+  "Alist of settings for page layout"
+  (let*
+      ((vsize (ly:output-def-lookup layout 'vsize))
+       (hsize (ly:output-def-lookup layout 'hsize))
+
+       (lmargin (ly:output-def-lookup layout 'leftmargin))
+       (leftmargin (if lmargin
+		       lmargin
+		       (/ (- hsize
+			     (ly:output-def-lookup layout 'linewidth)) 2)))
+       
+       (bottom-edge (- vsize
+		       (ly:output-def-lookup layout 'bottommargin)))
+       (top-margin (ly:output-def-lookup layout 'topmargin))
+       )
+    
+    `((vsize . ,vsize)
+      (hsize . ,hsize)
+      (left-margin . ,leftmargin)
+      (top-margin . ,top-margin)
+      (bottom-edge . ,bottom-edge)
+      )))
 
 (define (make-page-stencil page)
   "Construct a stencil representing the page from LINES.
 
  Offsets is a list of increasing numbers. They must be negated to
 create offsets.
- "
+"
+
+  
 
   (let*
       ((p-book (page-property page 'paper-book))
+       (prop (lambda (sym) (page-property page sym)))
        (layout (ly:paper-book-paper p-book))
        (scopes (ly:paper-book-scopes p-book))
        (lines (page-lines page))
        (offsets (page-configuration page))
        (number (page-page-number page))
-       (last? (page-property page 'is-last))
-
-       (topmargin (ly:output-def-lookup layout 'topmargin))
 
        ;; TODO: naming vsize/hsize not analogous to TeX.
 
-       (vsize (ly:output-def-lookup layout 'vsize))
-       (hsize (ly:output-def-lookup layout 'hsize))
        
        (system-xoffset (ly:output-def-lookup layout 'horizontalshift 0.0))
        (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
@@ -224,29 +254,16 @@ create offsets.
 						       (layout-extract-page-properties layout)
 						       system-separator-markup)
 				     #f))
-       (lmargin (ly:output-def-lookup layout 'leftmargin))
-       (leftmargin (if lmargin
-		       lmargin
-		       (/ (- hsize
-			     (ly:output-def-lookup layout 'linewidth)) 2)))
-
-       (rightmargin (ly:output-def-lookup layout 'rightmargin))
-       (bottom-edge (- vsize
-		       (ly:output-def-lookup layout 'bottommargin)))
-
-       (head (page-header page))
        
-       (foot (page-footer page))
-
-       (head-height (if (ly:stencil? head)
-			(interval-length (ly:stencil-extent head Y))
+       (head-height (if (ly:stencil? (prop 'head-stencil))
+			(interval-length (ly:stencil-extent (prop 'head-stencil) Y))
 			0.0))
 
-       (height-proc (ly:output-def-lookup layout 'page-music-height))
+       (page-stencil (ly:make-stencil
+		      '()
+		      (cons (prop 'left-margin) (prop 'hsize))
+		      (cons (- (prop 'top-margin)) 0)))
 
-       (page-stencil (ly:make-stencil '()
-				      (cons leftmargin hsize)
-				      (cons (- topmargin) 0)))
        (last-system #f)
        (last-y 0.0)
        (add-to-page (lambda (stencil y)
@@ -255,7 +272,7 @@ create offsets.
 					    (ly:stencil-translate stencil
 								  (cons
 								   system-xoffset
-								   (- 0 head-height y topmargin))
+								   (- 0 head-height y (prop 'top-margin)))
 
 								  )))))
        (add-system
@@ -278,8 +295,9 @@ create offsets.
 			     (cdr (paper-system-staff-extents system))))))
 	    (set! last-system system)
 	    (set! last-y y))))
+       (head (prop 'head-stencil))
+       (foot (prop 'foot-stencil))
        )
-
 
     (if (annotate? layout)
 	(begin
@@ -287,12 +305,6 @@ create offsets.
 		    lines)
 	  (paper-system-annotate-last (car (last-pair lines)) layout)))
     
-    
-    (if #f
-	(display (list
-		  "leftmargin " leftmargin "rightmargin " rightmargin
-		  )))
-
     (set! page-stencil (ly:stencil-combine-at-edge
 			page-stencil Y DOWN
 			(if (and
@@ -304,16 +316,15 @@ create offsets.
 
     (map add-system (zip lines offsets))
 
-    (if (annotate? layout)
-	(set!
-	 page-stencil
-	 (annotate-space-left page-stencil layout
-			      (- bottom-edge
-				 (if (ly:stencil? foot)
-				     (interval-length (ly:stencil-extent foot Y))
-				     0)))
-	 ))
+    (ly:prob-set-property! page 'bottom-system-edge
+			   (car (ly:stencil-extent page-stencil Y)))
+    (ly:prob-set-property! page 'space-left
+			   (car (ly:stencil-extent page-stencil Y)))
 
+    (if (annotate? layout)
+	(set! page-stencil
+	      (ly:stencil-add page-stencil
+			      (annotate-space-left page))))
     
     (if (and (ly:stencil? foot)
 	     (not (ly:stencil-empty? foot)))
@@ -323,20 +334,18 @@ create offsets.
 	       (ly:stencil-translate
 		foot
 		(cons 0
-		      (+ (- bottom-edge)
+		      (+ (- (prop 'bottom-edge))
 			 (- (car (ly:stencil-extent foot Y)))))))))
 
     (set! page-stencil
-	  (ly:stencil-translate page-stencil (cons leftmargin 0)))
+	  (ly:stencil-translate page-stencil (cons (prop 'left-margin) 0)))
 
     ;; annotation.
     (if (annotate? layout)
 	(set! page-stencil (annotate-page layout page-stencil)))
-    
 
     page-stencil))
               
-
 
 (define (page-stencil page)
   (if (not (ly:stencil? (page-property page 'stencil)))
@@ -347,7 +356,7 @@ create offsets.
       (page-set-property! page 'stencil (make-page-stencil page)))
   (page-property page 'stencil))
 
-(define (page-height page)
+(define (calc-printable-height page)
   "Printable area for music and titles; matches default-page-make-stencil."
   (let*
       ((p-book (page-property page 'paper-book))
@@ -359,8 +368,8 @@ create offsets.
 	       (ly:output-def-lookup layout 'topmargin)
 	       (ly:output-def-lookup layout 'bottommargin)))
        
-       (head (page-headfoot layout scopes number 'make-header 'headsep UP last?))
-       (foot (page-headfoot layout scopes number 'make-footer 'footsep DOWN last?))
+       (head (page-property page 'head-stencil))
+       (foot (page-property page 'foot-stencil))
        (available
 	(- h (if (ly:stencil? head)
 		 (interval-length (ly:stencil-extent head Y))
@@ -371,3 +380,10 @@ create offsets.
     
     ;; (display (list "\n available" available head foot))
     available))
+
+(define (page-printable-height page)
+  (if (not (number? (page-property page 'printable-height)))
+      (page-set-property! page 'printable-height (calc-printable-height page)))
+  
+  (page-property page 'printable-height))
+

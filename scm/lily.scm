@@ -34,6 +34,8 @@ similar to chord syntax")
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
+	      (write-page-layout #f
+				 "dump page layout settings.") 
 	      (debug-gc #f
 			"dump GC protection info"))))
 

@@ -91,8 +91,8 @@
 	(word-space . 0.6)))
 
     #(define page-breaking optimal-page-breaks)
-    #(define page-music-height default-page-music-height )
-    #(define page-make-stencil default-page-make-stencil )
+%    #(define page-music-height default-page-music-height )
+%    #(define page-make-stencil default-page-make-stencil )
 
     #(define make-header (marked-up-headfoot 'oddHeaderMarkup 'evenHeaderMarkup))
     #(define make-footer (marked-up-headfoot 'oddFooterMarkup 'evenFooterMarkup))

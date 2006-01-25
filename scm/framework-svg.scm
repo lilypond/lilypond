@@ -25,10 +25,10 @@
 	 (unit-length (ly:output-def-lookup paper 'outputscale))
 	 (output-scale (* lily-unit->mm-factor
 			  unit-length))
-	 (pages (ly:paper-book-pages book))
+	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
 	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
-	 (page-count (length pages))
+	 (page-count (length page-stencils))
 	 (hsize (ly:output-def-lookup paper 'hsize))
 	 (vsize (ly:output-def-lookup paper 'vsize))
 	 (page-width (inexact->exact (ceiling (* output-scale hsize))))
@@ -59,7 +59,7 @@
      (lambda (page)
        (set! page-number (1+ page-number))
        (dump-page outputter page page-number page-count landscape? page-set?))
-     pages)
+     page-stencils)
     
     (if page-set? (eo 'pageSet) "")
     (dump

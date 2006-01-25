@@ -288,7 +288,6 @@ Paper_book::systems ()
 	    header_0_ = header;
 	}
       else if (Music_output *mop = unsmob_music_output (scm_car (s)))
-
 	{
 	  if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
 	    {
