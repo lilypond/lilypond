@@ -1,3 +1,7 @@
+2006-01-25  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/putting.itely: another new untested doc section.
+
 2006-01-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/: more imports.

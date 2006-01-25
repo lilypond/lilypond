@@ -374,9 +374,9 @@ be anything from a single note to a huge
 
 @example
 @{
-  \new GrandStaff @{
-	  insert the whole score of a Wager opera in here
-	@}
+  \new GrandStaff <<
+	  insert the whole score of a Wagner opera in here
+	>>
 @}
 @end example
 
@@ -425,6 +425,140 @@ names you want.
 
 For a complete definition
 of the input format, see @ref{File structure}.
+
+
+@node Score is a single musical expression
+@section Score is a single musical expression
+
+In the previous section, @ref{How LilyPond files work},
+we saw the general organization of LilyPond input
+files.  But we seemed to skip over the most important
+part: how do we figure out what to write after
+@code{\score}?
+
+We didn't skip over it at all.  The big mystery is simply
+that there @emph{is} no mystery.  This line explains it
+all:
+
+@example
+A @code{\score} must begin with a single music expression.
+@end example.
+
+@noindent
+You may find it useful to review
+@ref{Music expressions explained}.  In that section, we
+saw how to build big music expressions from small
+pieces -- we started from notes, then chords, etc.  Now
+we're going to start from a big music expression and
+work our way down.
+
+@example
+\score @{
+  @{   % this brace begins the overall music expression
+    \new GrandStaff <<
+      insert the whole score of a Wagner opera in here
+    >>
+  @}   % this brace ends the overall music expression
+	\layout @{ @}
+@}
+@end example
+
+A whole Wagner opera would easily double the length of
+this manual, so let's just do a singer and piano.  We
+don't need a @code{GrandStaff} for this ensemble, so we
+shall remove it.  We @emph{do} need a singer and a piano,
+though.
+
+@example
+\score @{
+  @{
+    <<
+		  \context Staff = singer @{
+			@}
+			\context PianoStaff = piano {@
+			@}
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+Remember that we use @code{<<} and @code{>>} to show
+simultaneous music.  And we definitely want to show
+the vocal part and piano part at the same time!
+
+@example
+\score @{
+  @{
+    <<
+		  \context Staff = singer @{
+			  \context Voice = vocal @{ @}
+				\lyricsto vocal \new Lyrics @{ @}
+			@}
+			\context PianoStaff = piano {@
+			  \context Staff = upper @{ @}
+				\context Staff = lower @{ @}
+			@}
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+Now we have a lot more details.  We have the singer's
+staff.  It contains a @code{Voice} (in LilyPond, this
+term refers to a set of notes, not necessarily vocal
+notes -- for example, a violin generally plays one
+voice) and some lyrics.  The piano contains an upper
+staff (right hand) and a lower staff (left hand).
+
+At this stage, we could start filling in notes.  Inside
+the curly braces next to @code{\context Voice = vocal},
+we could start writing
+
+@example
+\relative c'' @{
+  a4 b c d
+@}
+@end example
+
+But if we did that, the @code{\score} section would
+get pretty long, and it would be harder to understand
+what was happening.  So let's use identifiers (or
+variables) instead.
+
+@example
+melody = @{ @}
+text = @{ @}
+upper = @{ @}
+lower = @{ @}
+\score @{
+  @{
+    <<
+		  \context Staff = singer @{
+			  \context Voice = vocal @{ \melody @}
+				\lyricsto vocal \new Lyrics @{ \text @}
+			@}
+			\context PianoStaff = piano {@
+			  \context Staff = upper @{ \upper @}
+				\context Staff = lower @{ \lower @}
+			@}
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+@noindent
+Remember that you can use any names you like.
+
+When writing a @code{\score} section, or when reading
+one, just take it slowly and carefully.  Start with
+the outer layer, then work on each smaller
+layer.  It also really helps to be strict with
+indentation -- make sure that each item on the same
+layer starts on the same horizontal position in your
+text editor!
 
 
 @node Troubleshooting (taking it all apart)
