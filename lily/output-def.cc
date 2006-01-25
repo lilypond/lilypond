@@ -26,9 +26,11 @@
 Output_def::Output_def ()
 {
   scope_ = SCM_EOL;
+  parser_ = 0;
   parent_ = 0;
-  smobify_self ();
 
+  smobify_self ();
+  
   scope_ = ly_make_anonymous_module (false);
 }
 
@@ -36,6 +38,7 @@ Output_def::Output_def (Output_def const &s)
 {
   scope_ = SCM_EOL;
   parent_ = 0;
+  parser_ = s.parser_;
   smobify_self ();
 
   input_origin_ = s.input_origin_;
@@ -50,6 +53,12 @@ Output_def::~Output_def ()
 
 IMPLEMENT_SMOBS (Output_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Output_def);
+
+Lily_parser *
+Output_def::get_parser () const
+{
+  return parent_ ? parent_->get_parser () : parser_;
+}
 
 SCM
 Output_def::mark_smob (SCM m)

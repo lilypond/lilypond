@@ -530,6 +530,7 @@
     (postprocess-output book framework-ps-module
 			(format "~a.preview.eps" basename)
 			(cons "png" (ly:output-formats)))))
+
 (if #f
     (define-public (output-preview-framework basename book scopes fields)
 

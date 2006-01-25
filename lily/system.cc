@@ -374,8 +374,6 @@ System::get_paper_system ()
 		       scm_cons (ly_symbol2scm ("combine-stencil"),
 				 exprs));
 
-
-
   Grob *left_bound = this->get_bound (LEFT);
   SCM prop_init = left_bound->get_property ("line-break-system-details");
   Prob *pl = make_paper_system (prop_init);
@@ -455,6 +453,12 @@ System::columns () const
   return columns;
 }
 
+Paper_score*
+System::paper_score () const
+{
+  return pscore_;
+}
+
 int
 System::get_rank () const
 {
@@ -471,6 +475,8 @@ get_root_system (Grob *me)
 
   return dynamic_cast<System*> (system_grob); 
 }
+
+
 
 ADD_INTERFACE (System, "system-interface",
 	       "This is the toplevel object: each object in a score "

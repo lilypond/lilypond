@@ -38,18 +38,23 @@
  */
 class Output_def   
 {
+
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Output_def, Output_def);
   DECLARE_SMOBS (Output_def, );
 public:
   SCM scope_;
-  Output_def * parent_;
+  Output_def *parent_;
+  
   Input input_origin_;
   String user_key_;
 
+  Lily_parser *parser_;
+  Lily_parser *get_parser () const;
+  
   Output_def (Output_def const&);
   Output_def ();
-  
+
   /*
     variables.
    */

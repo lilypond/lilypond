@@ -78,6 +78,7 @@ Score_engraver::initialize ()
 
   Object_key const *sys_key = context ()->get_grob_key ("System");
   pscore_->typeset_system (new System (props, sys_key));
+  
   system_ = pscore_->root_system ();
   context ()->set_property ("rootSystem", system_->self_scm ());
 

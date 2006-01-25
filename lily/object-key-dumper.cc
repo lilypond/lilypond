@@ -57,11 +57,9 @@ Object_key_dumper::serialize_key (Object_key const *key)
       if (Object_key const *sub_key = unsmob_key (scm_car (s)))
 	scm_set_car_x (s, dump_key (sub_key));
       else if (Moment *mom = unsmob_moment (scm_car (s)))
-	{
-	  scm_set_car_x (s,
-			 scm_list_2 (ly_symbol2scm ("unquote"),
-				     mom->as_scheme ()));
-	}
+	scm_set_car_x (s,
+		       scm_list_2 (ly_symbol2scm ("unquote"),
+				   mom->as_scheme ()));
     }
 
   file_contents_ = scm_cons (scm_list_3 (ly_symbol2scm ("define-key"),

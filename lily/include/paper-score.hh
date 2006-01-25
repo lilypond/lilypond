@@ -19,10 +19,9 @@ class Paper_score : public Music_output
   System *system_;
   SCM systems_;
   SCM paper_systems_;
-
 public:
   Paper_score (Output_def *);
-
+  
   DECLARE_CLASSNAME(Paper_score);
 
   Output_def *layout () const;

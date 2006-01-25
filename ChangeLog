@@ -1,5 +1,20 @@
 2006-01-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/layout-page-layout.scm (write-page-breaks): record tweaks
+	for different \score blocks separately.
+	(post-process-pages): put write-page-layout into paper block.
+
+	* lily/output-def.cc (get_parser): new file.
+
+	* lily/output-def-scheme.cc (LY_DEFINE): ly:output-def-parser, new
+	file.
+
+	* lily/include/output-def.hh (class Output_def): add parser_ member.
+
+	* input/regression/page-layout-twopass.ly (Module): new file.
+
+	* scm/lily.scm: remove cpp hack.
+
 	* lily/lyric-engraver.cc (get_voice_to_lyrics): use NPOS everywhere.
 
 2006-01-25  Jan Nieuwenhuizen  <janneke@gnu.org>
@@ -16,7 +31,7 @@
 
 	* flower/interval.cc: 
 	* flower/include/interval.hh: 
-	
+
 	* flower/string-convert.cc: 
 	* flower/include/string-convert.hh: Use std::string [interface].
 	Update callers.

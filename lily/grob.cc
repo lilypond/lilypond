@@ -15,7 +15,6 @@
 #include "warn.hh"
 #include "pointer-group-interface.hh"
 #include "misc.hh"
-#include "paper-score.hh"
 #include "stencil.hh"
 #include "warn.hh"
 #include "system.hh"
@@ -24,13 +23,8 @@
 #include "misc.hh"
 #include "music.hh"
 #include "item.hh"
-#include "paper-score.hh"
 #include "ly-smobs.icc"
 #include "output-def.hh"
-
-
-
-
 
 Grob *
 Grob::clone (int count) const

@@ -264,6 +264,16 @@ Context::get_grob_key (String name)
   if (!use_object_keys)
     return 0;
 
+  return create_grob_key (name);
+}
+
+/*
+  We want to have a key for some objects anyway, so we can invent a
+  unique identifier for each (book,score) tuple.
+*/
+Object_key const *
+Context::create_grob_key (String name)
+{
   int disambiguation_count = 0;
   if (grob_counts_.find (name) != grob_counts_.end ())
     disambiguation_count = grob_counts_[name];

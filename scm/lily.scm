@@ -34,10 +34,9 @@ similar to chord syntax")
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
-	      (write-page-layout #f
-				 "dump page layout settings.") 
 	      (debug-gc #f
-			"dump GC protection info"))))
+			"dump GC protection info"))
+	    ))
 
 ;; FIXME: stray statement
 (define-scheme-options)
@@ -88,9 +87,6 @@ similar to chord syntax")
 
 
 
-;; cpp hack to get useful error message
-(define ifdef "First run this through cpp.")
-(define ifndef "First run this through cpp.")
 
 ;; gettext wrapper for guile < 1.7.2
 (if (defined? 'gettext)

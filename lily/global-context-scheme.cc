@@ -36,8 +36,8 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 	   "An interpretation context is set up,\n"
 	   "and @var{mus} is interpreted with it.  \n"
 	   "The context is returned in its final state.\n"
-
-	   "\n\nOptionally, this routine takes an Object-key to\n"
+	   "\n\n"
+	   "Optionally, this routine takes an Object-key to\n"
 	   "to uniquely identify the Score block containing it.\n")
 {
   Output_def *odef = unsmob_output_def (output_def);
@@ -56,7 +56,8 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 
   Cpu_timer timer;
 
-  Global_context *trans = new Global_context (odef, music->get_length (), unsmob_key (key));
+  Global_context *trans = new Global_context (odef, music->get_length (),
+					      unsmob_key (key));
   if (!trans)
     {
       programming_error ("no toplevel translator");
@@ -68,7 +69,6 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   SCM protected_iter = Music_iterator::get_static_get_iterator (music);
   Music_iterator *iter = unsmob_iterator (protected_iter);
   iter->init_translator (music, trans);
-
   iter->construct_children ();
 
   if (!iter->ok ())

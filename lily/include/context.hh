@@ -50,6 +50,8 @@ protected:
 
 public:
   Object_key const *key () const { return key_; }
+
+  Object_key const *create_grob_key (String);
   Object_key const *get_grob_key (String);
   Object_key const *get_context_key (String, String);
 
