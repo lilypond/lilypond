@@ -118,7 +118,7 @@
    ly:set-option
    ly:set-point-and-click
    ly:spanner-broken-into
-   ly:spanner-get-bound
+   ly:spanner-bound
    ly:spanner?
    ly:stencil-add
    ly:stencil-aligned-to

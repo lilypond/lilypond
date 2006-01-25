@@ -25,7 +25,7 @@
 ;     (pretty-print (ly:stencil-expr page) file)
      (write (ly:stencil-expr page) file)
      )
-   (ly:paper-book-pages book))))
+   (map page-stencil (ly:paper-book-pages book)))))
 
 (define-public output-classic-framework output-framework)
 

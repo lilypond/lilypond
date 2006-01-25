@@ -2673,3 +2673,10 @@ def conv (str):
 
 conversions.append (((2, 7, 24), conv,
 		     """deprecate number-visibility""")) 
+
+def conv (str):
+	str = re.sub (r"ly:spanner-get-bound", "ly:spanner-bound", str)
+	return str
+
+conversions.append (((2, 7, 28), conv,
+		     """ly:spanner-get-bound -> ly:spanner-bound"""))

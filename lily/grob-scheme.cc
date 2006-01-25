@@ -85,7 +85,7 @@ LY_DEFINE (ly_grob_object, "ly:grob-object",
   return sc->internal_get_object (sym);
 }
 
-LY_DEFINE (ly_spanner_get_bound, "ly:spanner-get-bound",
+LY_DEFINE (ly_spanner_get_bound, "ly:spanner-bound",
 	   2, 0, 0, (SCM slur, SCM dir),
 	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
 	   "for left, and @code{1} for right.")

@@ -190,7 +190,8 @@ System::get_paper_systems ()
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
       system->post_processing ();
-      scm_vector_set_x (lines, scm_from_int (i), system->get_paper_system ());
+      scm_vector_set_x (lines, scm_from_int (i),
+			system->get_paper_system ());
 
       if (be_verbose_global)
 	progress_indication (to_string (i) + "]");
@@ -394,7 +395,9 @@ System::get_paper_system ()
 	}
       pl->set_property ("refpoint-Y-extent", ly_interval2scm (staff_refpoints));
     }
-  
+
+  pl->set_property ("system-grob", this->self_scm ()); 
+
   return pl->unprotect ();
 }
 

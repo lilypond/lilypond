@@ -1,4 +1,24 @@
+2006-01-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/page.scm (make-page): add footer/header.
+	(annotate-space-left): revise: only take page argument.
+	(layout->page-init): new function.
+
+	* scm/layout-page-layout.scm (write-page-breaks): preliminary
+	version of the system/spacing/linebreak hack writing to the output
+
+	* lily/prob-scheme.cc (LY_DEFINE): take optional 'key val args in ly:make-prob.
+
+	* lily/grob-scheme.cc (LY_DEFINE): ly:spanner-get-bound -> ly:spanner-bound
+
 2006-01-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/stencil.scm (annotate-y-interval): move from layout-page-layout.scm
+
+	* scm/paper-system.scm (paper-system-annotate): new file. Handle paper-system.
+
+	* scm/layout-page-layout.scm (optimal-page-breaks): move all page
+	handling to page.scm
 
 	* lily/prob-scheme.cc (LY_DEFINE): new file.
 	(LY_DEFINE): functions ly:make-prob , ly:prob-type? , ly:prob-(set-)property(!)

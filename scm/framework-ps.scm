@@ -12,6 +12,7 @@
 	     (ice-9 string-fun)
 	     (ice-9 format)
 	     (guile)
+	     (scm page)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (lily))
@@ -424,10 +425,11 @@
 		     (open-file filename "wb")
 		     "ps"))
 	 (paper (ly:paper-book-paper book))
-	 (pages (ly:paper-book-pages book))
+	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
+	 
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
 	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
-	 (page-count (length pages))
+	 (page-count (length page-stencils))
 	 (port (ly:outputter-port outputter)))
 
     (output-scopes scopes fields basename)
@@ -438,7 +440,7 @@
      (lambda (page)
        (set! page-number (1+ page-number))
        (dump-page outputter page page-number page-count landscape?))
-     pages)
+     page-stencils)
 
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)

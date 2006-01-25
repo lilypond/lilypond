@@ -120,7 +120,7 @@
 
 	 (go (make <gnome-outputter>
 	       #:name name
-	       #:page-stencils (list->vector (ly:paper-book-pages book))
+	       #:page-stencils (list->vector (map page-stencil (ly:paper-book-pages book)))
 	       #:canvas-width page-width
 	       #:canvas-height page-height
 	       #:window-width

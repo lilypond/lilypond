@@ -11,8 +11,73 @@
 	     (scm page)
 	     )
 
+(define (write-page-breaks pages) 
+  "Dump page breaks"
+
+  
+  (define tweaks '())
+
+  (define (record when property-pairs)
+    (set! tweaks
+	  (acons when property-pairs
+		 tweaks)))
+
+  (define (moment->skip mom)
+    (format "s1*~a/~a"
+	    (ly:moment-main-numerator mom)
+	    (ly:moment-main-denominator mom)))
+  
+  (define (dump-tweaks out-port tweak-list last-moment)
+    (if (not (null? tweak-list))
+	(let*
+	    ((now (caar tweak-list))
+	     (diff (ly:moment-sub now last-moment))
+	     (these-tweaks (cdar tweak-list))
+	     (skip (moment->skip diff))
+
+	     (base (format "\\overrideProperty
+	#\"Score.NonMusicalPaperColumn\"
+	#'line-break-system-details
+        #'~a" these-tweaks))
+	     )
+
+	  (format out-port "\\skip ~a\n~a\n" skip base)
+	  (dump-tweaks out-port (cdr tweak-list) now)
+	)
+
+	))
+  
+  (define (handle-page page)
+    (define (handle-system sys)
+      (let*
+	  ((props '((line-break . #t))))
+
+	(if (equal? (car (page-lines page)) sys)
+	    (set! props (cons '(page-break . #t)
+			      props)))
+
+	(if (not (ly:prob-property? sys 'is-title))
+	    (record (ly:grob-property (ly:spanner-bound (ly:prob-property sys 'system-grob) LEFT) 'when)
+		  props))
+	))
+    (for-each handle-system (page-lines page)))
+  
+  
+  (for-each handle-page pages)
+
+  (let*
+      ((out-port (open-output-file "breaks.ly")))
+
+    (display "{" out-port)
+    (dump-tweaks out-port (reverse tweaks) (ly:make-moment 0 1))
+    (display "}" out-port)
+  ))
 
 
+
+(define (post-process-pages pages)
+  (if (ly:get-option 'write-page-layout)
+      (write-page-breaks pages)))
 
 
 
@@ -28,12 +93,13 @@
 ;; - raggedbottom? raggedlastbottom?
 
 (define-public (optimal-page-breaks lines paper-book)
-  "Return pages as a list starting with 1st page. Each page is a 'page prob.
-
-"
+  "Return pages as a list starting with 1st page. Each page is a 'page Prob."
 
   (define MAXPENALTY 1e9)
   (define paper (ly:paper-book-paper paper-book))
+
+  ;; ugh.
+  (define page-alist (layout->page-init (ly:paper-book-paper paper-book))) 
   (define scopes (ly:paper-book-scopes paper-book))
   (define force-equalization-factor #f)
   (define (get-path node done)
@@ -54,7 +120,6 @@ is what have collected so far, and has ascending page numbers."
 	 (inter-system-space (ly:output-def-lookup paper 'betweensystemspace))
 	 (relative-force (/ force inter-system-space))
 	 (abs-relative-force (abs relative-force)))
-
 
       (+ (* abs-relative-force (+ abs-relative-force 1))
 	 prev-penalty
@@ -206,16 +271,17 @@ CURRENT-BEST is the best result sofar, or #f."
                               (1+ (page-page-number (car best-paths)))))
 
 	   (this-page (make-page
+		       page-alist
 		       'paper-book paper-book
-		       'is-last last? 
+		       'is-last last?
 		       'page-number this-page-num))
-		       
+
 	   (ragged-all? (eq? #t (ly:output-def-lookup paper 'raggedbottom)))
 	   (ragged-last? (eq? #t (ly:output-def-lookup paper 'raggedlastbottom)))
 	   (ragged? (or ragged-all?
 			(and ragged-last?
 			     last?)))
-           (height (page-height  this-page))
+           (height (page-printable-height this-page))
 	   (vertical-spacing (space-systems height current-lines ragged?))
 	   (satisfied-constraints (car vertical-spacing))
            (force (if satisfied-constraints
@@ -316,9 +382,7 @@ DONE."
 	 (break-nodes (get-path best-break-node '()))
 	 )
 
-
-    (set! (page-property (car (last-pair break-nodes)) 'is-last) #t)
-
+    (page-set-property! (car (last-pair break-nodes)) 'is-last #t)
     (if #f; (ly:get-option 'verbose)
 	(begin
 	  (display (list
@@ -327,6 +391,8 @@ DONE."
 		   "\npenalties " (map page-penalty break-nodes)
 		   "\nconfigs " (map page-configuration break-nodes))))
 
-    (let ((stencils (map page-stencil break-nodes)))
-      (ly:progress "\n")
-      stencils)))
+    ;; construct page stencils.
+    (for-each page-stencil break-nodes)
+    (post-process-pages paper break-nodes)
+    
+    break-nodes))
