@@ -309,7 +309,8 @@ assertBeamSlope =
      (append
       (list chain-grob-member-functions `(,cons 0 0))
       (check-slope-callbacks comp))))))
-    
+
+
 parallelMusic =
 #(def-music-function (parser location voice-ids music) (list? ly:music?)
   "Define parallel music sequences, separated by '|' (bar check signs),
@@ -397,3 +398,11 @@ Example:
         voice-ids voices))
  ;; Return an empty sequence. this function is actually a "void" function.
  (make-music 'SequentialMusic 'void #t))
+
+
+
+
+%% this is a stub. Write your own to suit the spacing tweak output.
+spacingTweaks =
+#(def-music-function (parser location parameters) (list?)
+   (make-music 'SequentialMusic 'void #t))

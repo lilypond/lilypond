@@ -55,7 +55,7 @@ Midi_stream::operator << (Midi_item const &midi_c_r)
   if (do_midi_debugging_global)
     {
       str = String_convert::bin2hex (str) + "\n";
-      for (int i = str.index ("0a"); i >= 0; i = str.index ("0a"))
+      for (int i = str.index ("0a"); i != NPOS; i = str.index ("0a"))
 	{
 	  str[i] = '\n';
 	  str[i + 1] = '\t';

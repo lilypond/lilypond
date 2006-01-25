@@ -49,7 +49,7 @@ split_string (String s, char c)
 	  continue;
 	}
 
-      if (i < 0)
+      if (i == NPOS)
 	i = s.length ();
 
       rv.push (s.cut_string (0, i));

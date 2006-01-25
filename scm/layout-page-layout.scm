@@ -21,12 +21,27 @@
     (set! tweaks
 	  (acons when property-pairs
 		 tweaks)))
-
+  (define (graceless-moment mom)
+    (ly:make-moment
+     (ly:moment-main-numerator mom)
+     (ly:moment-main-denominator mom)
+     0 0))
+     
   (define (moment->skip mom)
-    (format "s1*~a/~a"
-	    (ly:moment-main-numerator mom)
-	    (ly:moment-main-denominator mom)))
-  
+    (let*
+	((main (if (> (ly:moment-main-numerator mom) 0)
+		   (format "\\skip 1*~a/~a"
+			   (ly:moment-main-numerator mom)
+			   (ly:moment-main-denominator mom))
+		   ""))
+	 (grace (if (< (ly:moment-grace-numerator mom) 0)
+		    (format "\\grace { \\skip 1*~a/~a }"
+			    (- (ly:moment-grace-numerator mom))
+			    (ly:moment-grace-denominator mom))
+		    "")))
+
+      (format "~a~a" main grace)))
+    
   (define (dump-tweaks out-port tweak-list last-moment)
     (if (not (null? tweak-list))
 	(let*
@@ -34,31 +49,51 @@
 	     (diff (ly:moment-sub now last-moment))
 	     (these-tweaks (cdar tweak-list))
 	     (skip (moment->skip diff))
-
-	     (base (format "\\overrideProperty
-	#\"Score.NonMusicalPaperColumn\"
-	#'line-break-system-details
-        #'~a" these-tweaks))
+	     (line-break-str (if (assoc-get 'line-break these-tweaks #f)
+				 "\\break\n"
+				 ""))
+	     (page-break-str (if (assoc-get 'page-break these-tweaks #f)
+				 "\\pageBreak\n"
+				 ""))
+	     (space-tweaks (format "\\spacingTweaks #'~a\n"
+				   (with-output-to-string
+				     (lambda ()
+				       (pretty-print
+				   
+					(assoc-get 'spacing-parameters these-tweaks '()))))
+				     ))
+	     (base (format "~a~a~a"
+			   line-break-str
+			   page-break-str
+			   space-tweaks))
 	     )
 
-	  (format out-port "\\skip ~a\n~a\n" skip base)
-	  (dump-tweaks out-port (cdr tweak-list) now)
-	)
-
-	))
+	  (format out-port "~a\n~a\n" skip base)
+	  (dump-tweaks out-port (cdr tweak-list) (graceless-moment now))
+	)))
   
   (define (handle-page page)
+    (define index 0)
     (define (handle-system sys)
       (let*
-	  ((props '((line-break . #t))))
+	  ((props `((line-break . #t)
+		    (spacing-parameters
+		     . ((system-Y-extent . ,(paper-system-extent sys Y))
+			(system-refpoint-Y-extent . ,(paper-system-staff-extents sys))
+			(system-index . ,index)
+			(page-system-count . ,(length (page-lines page)))
+			(page-printable-height . ,(page-printable-height page)) 
+			(page-space-left . ,(page-property page 'space-left))))
+		    )))
 
 	(if (equal? (car (page-lines page)) sys)
 	    (set! props (cons '(page-break . #t)
 			      props)))
-
 	(if (not (ly:prob-property? sys 'is-title))
 	    (record (ly:grob-property (ly:spanner-bound (ly:prob-property sys 'system-grob) LEFT) 'when)
 		  props))
+
+	(set! index (1+ index))
 	))
     (for-each handle-system (page-lines page)))
   

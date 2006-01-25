@@ -157,8 +157,8 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
   String ps_name;
   if (!ps_name_str0
       && file_name != ""
-      && (file_name.index (".otf") >= 0
-	  || file_name.index (".cff") >= 0))
+      && (file_name.index (".otf") != NPOS
+	  || file_name.index (".cff") != NPOS))
     {
 
       /* UGH: kludge a PS name for OTF/CFF fonts.  */
@@ -169,7 +169,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
       name = name.left_string (idx);
 
       int slash_idx = name.index_last ('/');
-      if (slash_idx >= 0)
+      if (slash_idx != NPOS)
 	name = name.right_string (name.length () - slash_idx - 1);
 
       String initial = name.cut_string (0, 1);

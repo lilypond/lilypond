@@ -499,7 +499,7 @@ parse_argv (int argc, char **argv)
 	    String key = arg;
 	    String val = "#t";
 
-	    if (eq >= 0)
+	    if (eq != NPOS)
 	      {
 		key = arg.left_string (eq);
 		val = arg.right_string (arg.length () - eq - 1);
