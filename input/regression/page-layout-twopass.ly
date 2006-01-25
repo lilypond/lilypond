@@ -1,32 +1,30 @@
-blabla = {
-\break
-\pageBreak
-\spacingTweaks #'((system-Y-extent -11.050006 . 0.0)
- (system-refpoint-Y-extent -4.0 . -4.0)
- (system-index . 0)
- (page-system-count . 3)
- (page-printable-height . 148.438777952756)
- (page-space-left . -47.1596563937008))
-
-
-\skip 1*2/1\grace { \skip 1*1/16 }
-\break
-\spacingTweaks #'((system-Y-extent -11.050006 . 0.347445669291338)
- (system-refpoint-Y-extent -4.0 . -4.0)
- (system-index . 1)
- (page-system-count . 3)
- (page-printable-height . 148.438777952756)
- (page-space-left . -47.1596563937008))
-
-
-\skip 1*1/1
-\break
-\spacingTweaks #'((system-Y-extent -8.0 . 0.313302362204724)
- (system-refpoint-Y-extent -4.0 . -4.0)
- (system-index . 2)
- (page-system-count . 3)
- (page-printable-height . 148.438777952756)
- (page-space-left . -47.1596563937008))
-
-
+\header
+{
+  texidoc = "Page breaking details can be stored for later reference." 
 }
+
+
+\paper  {
+  #(define write-page-layout #t)
+}
+bla = \new Staff {
+  c1 c1
+  \break
+  \grace { c16 } c1\break
+  \repeat unfold 5 \relative { c1 c1 c1 }
+}
+
+\book {
+  \score {
+    \bla
+    \layout {
+      #(define tweak-key "blabla")
+    }
+  }
+}
+
+tweakFileName = #(format "~a-page-layout.ly" (ly:parser-output-name parser))
+
+#(newline)
+#(ly:progress "Including file: ~a" tweakFileName)
+\include \tweakFileName
