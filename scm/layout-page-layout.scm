@@ -127,18 +127,13 @@
 	(set! index (1+ index))
 	))
     (for-each handle-system (page-lines page)))
-  
-  
+
   (for-each handle-page pages)
   (dump-all-tweaks))
 
-
-
 (define (post-process-pages layout pages)
-  (if (ly:output-def-lookup layout 'write-page-layout)
+  (if (ly:output-def-lookup layout 'write-page-layout #f)
       (write-page-breaks pages)))
-
-
 
 ;;; optimal page breaking
 
