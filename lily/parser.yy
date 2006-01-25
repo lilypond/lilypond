@@ -703,7 +703,7 @@ score_body:
 		}
 		else
 		{
-			$$->defs_.push ($2);
+			$$->add_output_def ($2);
 		}
 		$2->unprotect ();
 	}

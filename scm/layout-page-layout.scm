@@ -11,22 +11,36 @@
 	     (scm page)
 	     )
 
+
 (define (write-page-breaks pages) 
   "Dump page breaks"
 
-  
-  (define tweaks '())
+  (define tweaks (make-hash-table 23))
 
-  (define (record when property-pairs)
-    (set! tweaks
-	  (acons when property-pairs
-		 tweaks)))
+  (define (record what property-pairs)
+    (let*
+	((key (ly:output-def-lookup (ly:grob-layout what)
+				    'tweak-key
+				    "tweaks"
+				    ))
+	 (when (ly:grob-property what 'when))
+	 )
+
+      (if (not (hash-ref tweaks key))
+	  (hash-set! tweaks key '()))
+
+      (hash-set! tweaks key
+		 (acons when property-pairs
+			(hash-ref tweaks key)))
+      
+      ))
+
   (define (graceless-moment mom)
     (ly:make-moment
      (ly:moment-main-numerator mom)
      (ly:moment-main-denominator mom)
      0 0))
-     
+
   (define (moment->skip mom)
     (let*
 	((main (if (> (ly:moment-main-numerator mom) 0)
@@ -71,7 +85,24 @@
 	  (format out-port "~a\n~a\n" skip base)
 	  (dump-tweaks out-port (cdr tweak-list) (graceless-moment now))
 	)))
-  
+
+  (define (dump-all-tweaks)
+    (let*
+     ((paper (ly:paper-book-paper (page-property  (car pages) 'paper-book)))
+      (parser (ly:output-def-parser paper))
+      (name  (format "~a-page-layout.ly"
+		     (ly:parser-output-name parser)))
+      (out-port (open-output-file name)))
+      
+     (ly:progress "Writing page layout to ~a" name)
+     (hash-for-each
+      (lambda (key val)
+	(format out-port "~a = {" key)
+	(dump-tweaks out-port (reverse val) (ly:make-moment 0 1))
+	 (display "}" out-port))
+       tweaks)
+     ))
+
   (define (handle-page page)
     (define index 0)
     (define (handle-system sys)
@@ -90,8 +121,8 @@
 	    (set! props (cons '(page-break . #t)
 			      props)))
 	(if (not (ly:prob-property? sys 'is-title))
-	    (record (ly:grob-property (ly:spanner-bound (ly:prob-property sys 'system-grob) LEFT) 'when)
-		  props))
+	    (record  (ly:spanner-bound (ly:prob-property sys 'system-grob) LEFT)
+		     props))
 
 	(set! index (1+ index))
 	))
@@ -99,19 +130,12 @@
   
   
   (for-each handle-page pages)
-
-  (let*
-      ((out-port (open-output-file "breaks.ly")))
-
-    (display "{" out-port)
-    (dump-tweaks out-port (reverse tweaks) (ly:make-moment 0 1))
-    (display "}" out-port)
-  ))
+  (dump-all-tweaks))
 
 
 
 (define (post-process-pages layout pages)
-  (if (ly:get-option 'write-page-layout)
+  (if (ly:output-def-lookup layout 'write-page-layout)
       (write-page-breaks pages)))
 
 

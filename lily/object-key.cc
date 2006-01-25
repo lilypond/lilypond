@@ -155,7 +155,9 @@ Copied_key::derived_mark () const
 SCM
 Copied_key::as_scheme () const
 {
-  return scm_list_2 (original_ ? original_->self_scm () : SCM_BOOL_F, scm_from_int (copy_count_));
+  return scm_list_2 (original_
+		     ? original_->self_scm ()
+		     : SCM_BOOL_F, scm_from_int (copy_count_));
 }
 
 Object_key *
@@ -164,3 +166,4 @@ Copied_key::from_scheme (SCM a)
   return new Copied_key (unsmob_key (scm_car (a)),
 			 scm_to_int (scm_list_ref (a, scm_from_int (1))));
 }
+

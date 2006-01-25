@@ -14,7 +14,7 @@
 #include "output-def.hh"
 #include "system.hh"
 #include "font-interface.hh"
-
+#include "paper-score.hh"
 
 
 LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
@@ -254,7 +254,8 @@ LY_DEFINE (ly_grob_key, "ly:grob-key",
 {
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "Grob");
-  return me->key ()->self_scm ();
+  
+  return me->key () ?  me->key ()->self_scm () : SCM_EOL;
 }
 
 LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",

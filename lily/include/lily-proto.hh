@@ -72,6 +72,7 @@ class Keyword_table;
 class Ligature_bracket_engraver;
 class Ligature_engraver;
 class Lily_lexer;
+class Lily_parser;
 class Lilypond_context_key;
 class Lilypond_grob_key;
 class Line_group_engraver_group;

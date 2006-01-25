@@ -81,6 +81,7 @@ Book::add_score (SCM s)
   scores_ = scm_cons (s, scores_);
 }
 
+
 /* Concatenate all score outputs into a Paper_book
  */
 Paper_book *

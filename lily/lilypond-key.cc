@@ -22,7 +22,8 @@ Lilypond_grob_key::Lilypond_grob_key (Object_key const *context,
 void
 Lilypond_grob_key::derived_mark () const
 {
-  scm_gc_mark (context_->self_scm ());
+  if (context_)
+    scm_gc_mark (context_->self_scm ());
 }
 
 // todo: reverse order of comparison for efficiency reasons.

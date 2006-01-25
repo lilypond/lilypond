@@ -26,6 +26,7 @@ class System : public Spanner
   Paper_score *pscore_;	// ugh.
   
 public:
+  Paper_score *paper_score () const;
   int get_rank () const;
   void post_processing ();
   SCM get_paper_system ();

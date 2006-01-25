@@ -24,15 +24,17 @@ class Score : public Input
   SCM music_;
 
 public:
-  String user_key_;
   Link_array<Output_def> defs_;
+  String user_key_;
   SCM header_;
   bool error_found_;
 
   Score ();
   Score (Score const &);
 
+  
   SCM get_music () const;
+  void add_output_def (Output_def *def);
   void set_music (SCM music);
   SCM book_rendering (Output_def *, Output_def *, Object_key *);
 };

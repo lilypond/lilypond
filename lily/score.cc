@@ -9,6 +9,7 @@
 #include "score.hh"
 
 #include <cstdio>
+
 using namespace std;
 
 #include "book.hh"
@@ -22,8 +23,8 @@ using namespace std;
 #include "paper-book.hh"
 #include "paper-score.hh"
 #include "warn.hh"
-
 #include "music.hh"
+
 #include "ly-smobs.icc"
 
 Score::Score ()
@@ -119,7 +120,7 @@ default_rendering (SCM music, SCM outdef,
     }
 
   SCM context = ly_run_translator (music, scaled_def, key);
-
+  
   SCM output_as_scm = ly_format_output (context);
   Music_output *output = unsmob_music_output (output_as_scm);
 
@@ -230,4 +231,10 @@ SCM
 Score::get_music () const
 {
   return music_;
+}
+
+void
+Score::add_output_def (Output_def *def)
+{
+  defs_.push (def);
 }

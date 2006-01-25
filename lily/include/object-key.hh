@@ -27,8 +27,8 @@ protected:
   virtual void derived_mark () const;
   virtual int get_type () const;
   virtual int do_compare (Object_key const *other) const;
-  virtual SCM as_scheme () const;
 public:
+  virtual SCM as_scheme () const;
   static Object_key *from_scheme (SCM);
   static Object_key *undump (SCM);
   int compare (Object_key const *other) const;

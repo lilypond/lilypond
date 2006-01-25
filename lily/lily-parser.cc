@@ -194,7 +194,8 @@ get_layout (Lily_parser *parser)
   Output_def *layout = unsmob_output_def (id);
   layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-layout"), SCM_BOOL_T);
-
+  layout->parser_ = parser;
+    
   return layout;
 }
 
@@ -205,6 +206,7 @@ get_midi (Lily_parser *parser)
   Output_def *layout = unsmob_output_def (id);
   layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-midi"), SCM_BOOL_T);
+  layout->parser_ = parser;
   return layout;
 }
 
@@ -216,6 +218,7 @@ get_paper (Lily_parser *parser)
 
   layout = layout ? dynamic_cast<Output_def *> (layout->clone ()) : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
+  layout->parser_ = parser;
   return layout;
 }
 
