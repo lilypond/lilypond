@@ -13,6 +13,7 @@
 	     (ice-9 format)
 	     (guile)
 	     (scm page)
+	     (scm paper-system)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (lily))

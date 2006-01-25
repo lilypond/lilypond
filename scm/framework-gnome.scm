@@ -9,7 +9,11 @@
 
 (define-module (scm framework-gnome))
 
-(use-modules (guile) (oop goops) (lily))
+(use-modules (guile)
+	     (oop goops)
+	     (scm page)
+	     (scm paper-system)
+	     (lily))
 
 (use-modules
  (srfi srfi-2)

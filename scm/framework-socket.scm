@@ -4,6 +4,7 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
+	     (scm paper-system)
 	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-1)

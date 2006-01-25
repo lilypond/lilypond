@@ -9,6 +9,7 @@
 
 (use-modules (guile)
 	     (lily)
+	     (scm page)
 	     (scm output-svg))
 
 (use-modules (srfi srfi-1)
