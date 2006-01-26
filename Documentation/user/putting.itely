@@ -442,7 +442,7 @@ all:
 
 @example
 A @code{\score} must begin with a single music expression.
-@end example.
+@end example
 
 @noindent
 You may find it useful to review
