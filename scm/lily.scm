@@ -31,6 +31,7 @@ similar to chord syntax")
 	      (gui #f "running from gui; redirect stderr to log file")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
+	      (safe #f "Run safely")
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")

@@ -101,6 +101,7 @@
 	(dump-tweaks out-port (reverse val) (ly:make-moment 0 1))
 	 (display "}" out-port))
        tweaks)
+     (close-port out-port)
      ))
 
   (define (handle-page page)

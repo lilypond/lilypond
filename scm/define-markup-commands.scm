@@ -747,6 +747,25 @@ any sort of property supported by @internalsref{font-interface} and
   (interpret-markup layout (cons (list new-prop) props) arg))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; files
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def-markup-command (verbatim-file layout props name) (string?)
+  "Read the contents of a file, and include verbatimly"
+
+  (interpret-markup
+   layout props
+   (if  (ly:get-option 'safe)
+	"Cannot read file in Safe mode"
+	(let*
+	    ((str (ly:gulp-file name))
+	     (lines (string-split str #\n)))
+
+	  (make-typewriter-markup
+	   (make-column-markup lines)))
+	)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fonts.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -4,10 +4,10 @@
 
 @ifhtml
 @macro inputfileref{DIR,NAME}
-@uref{../../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{../../\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 @macro usermanref{NAME}
-@inforef{\NAME\,,../../user/lilypond/lilypond}@c
+@inforef{\NAME\,,../user/lilypond/lilypond}@c
 @end macro
 @end ifhtml
 
@@ -48,10 +48,12 @@ the @uref{../,LilyPond Documentation}
 @itemize @bullet
 @item Alignments of staves may be tuned per system.   
 @lilypond[]
+#(set-global-staff-size 13)
+
 \relative c'' \new StaffGroup <<
-      \new Staff { c1 c }
-      \new Staff { c c  }
-      \new Staff { 
+  \new Staff { c1 c }
+  \new Staff { c c  }
+  \new Staff { 
 	\overrideProperty
 	#"Score.NonMusicalPaperColumn"
 	#'line-break-system-details
@@ -62,8 +64,8 @@ the @uref{../,LilyPond Documentation}
 	#'line-break-system-details
 	#'((alignment-offsets . (0 -15 -20)))
 	c1 
-      }
-    >>
+  }
+>>
 @end lilypond
 
 This feature was sponsored by Trevor Bača.
@@ -104,7 +106,7 @@ This feature was sponsored by Trevor Bača and Nicolas Sceaux.
 @item A linebreaking configuration can now be saved as a @file{.ly}
 file automatically. This allows vertical alignments to be stretched to
 fit pages in a second formatting run. See
-@inputfileref{input/regression/,page-layout-twopass.ly} for an
+@inputfileref{input/regression,page-layout-twopass.ly} for an
 example.
 
 This feature was sponsored by Trevor Bača and Nicolas Sceaux.

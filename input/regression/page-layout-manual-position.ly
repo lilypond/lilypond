@@ -8,6 +8,7 @@ systems may be placed absolutely on the printable area of the page."
 
 }
 
+\version "2.7.29"
 
 #(set-default-paper-size "a6" 'portrait)
 
