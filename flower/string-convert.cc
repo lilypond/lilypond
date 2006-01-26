@@ -6,7 +6,6 @@
 
 #include "string-convert.hh"
 
-#include <publib.h>
 #include <cstring>
 #include <cstdio>
 using namespace std;
