@@ -182,7 +182,7 @@ setup_paths (char const *argv0_ptr)
       std::string prefix = getenv ("LILYPOND_RELOCATE_PREFIX");
 #ifdef __MINGW32__
       /* Normalize file name.  */
-      prefix = File_name (prefix).to_string ().get_copy_str0 ();
+      prefix = File_name (prefix).to_string ();
 #endif /* __MINGW32__ */
       prefix_relocation (prefix);
       std::string bindir = prefix + "/bin";
@@ -237,11 +237,13 @@ setup_paths (char const *argv0_ptr)
   /* FIXME: use LILYPOND_DATADIR.  */
   if (char const *env = getenv ("LILYPONDPREFIX"))
     {
+
 #ifdef __MINGW32__
       /* Normalize file name.  */
-      env = File_name (env).to_string ().get_copy_str0 ();
-#endif
+      prefix_directory = File_name (env).to_string ();
+#else
       prefix_directory = env;
+#endif
     }
 
   global_path.append ("");
