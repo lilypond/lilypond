@@ -6,6 +6,8 @@
 
 }
 
+\version "2.7.29"
+
 \book {
   \score {
     \relative c'' \new StaffGroup <<

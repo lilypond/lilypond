@@ -173,11 +173,15 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, std::string str) c
 
       ssize slash_idx = name.rfind ('/');
       if (slash_idx != NPOS)
-	name = name.substr (slash_idx - 1);
-
+	{
+	  slash_idx ++; 
+	  name = name.substr (slash_idx,
+			      name.length () - slash_idx);
+	}
+      
       std::string initial = name.substr (0, 1);
       initial = String_convert::to_upper (initial);
-      name = name.substr (1);
+      name = name.substr (1, name.length () - 1);
       name = String_convert::to_lower (name);
       ps_name = initial + name;
     }

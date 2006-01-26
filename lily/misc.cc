@@ -45,7 +45,7 @@ split_string (std::string s, char c)
 
       if (i == 0)
 	{
-	  s = s.substr (1);
+	  s = s.substr (1, s.length () -1);
 	  continue;
 	}
 
@@ -53,7 +53,7 @@ split_string (std::string s, char c)
 	i = s.length ();
 
       rv.push (s.substr (0, i));
-      s = s.substr (i);
+      s = s.substr (i, s.length () - i);
     }
 
   return rv;

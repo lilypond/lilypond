@@ -174,7 +174,7 @@ Source_file::quote_input (char const *pos_str0) const
   std::string context = line.substr (0, ch)
     + to_string ('\n')
     + to_string (' ', col)
-    + line.substr (ch);
+    + line.substr (ch, line.length()-ch);
   return context;
 }
 

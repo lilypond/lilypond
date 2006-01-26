@@ -179,7 +179,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   std::string varstr = ly_scm2string (scm_symbol_to_string (var));
   if (varstr.substr (0, 3) == std::string ("no-"))
     {
-      var = ly_symbol2scm (varstr.substr (3).c_str ());
+      var = ly_symbol2scm (varstr.substr (3, varstr.length () -3).c_str ());
       val = scm_from_bool (!to_boolean (val));
     }
 
