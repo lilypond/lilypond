@@ -50,17 +50,15 @@ dos_to_posix (std::string file_name)
 }
 #endif /* __CYGWIN__ */
 
-#ifdef __MINGW32__
 /** Use slash as directory separator.  On Windows, they can pretty
     much be exchanged.  */
 static std::string
 slashify (std::string file_name)
 {
-  file_name.substitute ('\\', '/');
-  file_name.substitute ("//", "/");
+  replace_all (file_name, '\\', '/');
+  replace_all (file_name, std::String ("//"), "/");
   return file_name;
 }
-#endif /* __MINGW32__ */
 
 /* Join components to full file_name. */
 std::string
