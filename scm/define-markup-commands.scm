@@ -759,7 +759,7 @@ any sort of property supported by @internalsref{font-interface} and
 	"Cannot read file in Safe mode"
 	(let*
 	    ((str (ly:gulp-file name))
-	     (lines (string-split str #\n)))
+	     (lines (string-split str #\nl)))
 
 	  (make-typewriter-markup
 	   (make-column-markup lines)))
