@@ -146,37 +146,20 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 void
 Align_interface::align_elements_to_extents (Grob *me, Axis a)
 {
-  Real extra_space = 0.0;
   Spanner *me_spanner = dynamic_cast<Spanner *> (me);
-  if (a == Y_AXIS
-      && me_spanner)
-    {
-#if 0
-      /*
-	TODO: messes up for figured bass alignments. 
-       */
-      if (me_spanner->get_bound (LEFT)->break_status_dir () == CENTER)
-	me->warning (_ ("vertical alignment called before line-breaking. "
-			"Only do cross-staff spanners with PianoStaff."));
-#endif
 
-      SCM details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
-      SCM extra_space_handle = scm_assoc (ly_symbol2scm ("alignment-extra-space"), details);
 
-      extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
-				       ? scm_cdr (extra_space_handle)
-				       : SCM_EOL,
-				       extra_space);
-    }
+  SCM line_break_details = SCM_EOL;
+  if (a == Y_AXIS && me_spanner)
+    line_break_details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
   
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
-					       DOWN);
+					   DOWN);
 
   Interval threshold = robust_scm2interval (me->get_property ("threshold"),
 					    Interval (0, Interval::infinity ()));
 
   Array<Interval> dims;
-
   Link_array<Grob> elems;
 
   extract_grob_set (me, "elements", all_grobs);
@@ -202,10 +185,17 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
 	     ? me->get_property ("self-alignment-X")
 	     : me->get_property ("self-alignment-Y"));
 
-  Array<Real> translates;
   Interval total;
   Real where = 0;
+  Real extra_space = 0.0;
+  SCM extra_space_handle = scm_assq (ly_symbol2scm ("alignment-extra-space"), line_break_details);
 
+  extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
+				   ? scm_cdr (extra_space_handle)
+				   : SCM_EOL,
+				   extra_space);
+  
+  Array<Real> translates;
   for (int j = 0; j < elems.size (); j++)
     {
       Real dy = -dims[j][-stacking_dir];
@@ -224,6 +214,19 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
       translates.push (where);
     }
 
+  SCM offsets_handle = scm_assq (ly_symbol2scm ("alignment-offsets"), line_break_details);
+  if (scm_is_pair (offsets_handle))
+    {
+      int i = 0;
+ 
+      for (SCM s = scm_cdr (offsets_handle); scm_is_pair (s) && i < translates.size (); s = scm_cdr (s), i++)
+	{
+	  if (scm_is_number (scm_car (s)))
+	    translates[i] = scm_to_double (scm_car (s));
+	}
+    }
+
+  
   Real center_offset = 0.0;
   
   /*

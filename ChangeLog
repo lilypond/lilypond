@@ -1,5 +1,11 @@
 2006-01-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/alignment-vertical-manual-setting.ly (Module):
+	new file.
+
+	* lily/align-interface.cc (align_elements_to_extents): overwrite
+	translations with numbers in alignment-offsets from left bound
+
 	* scm/page.scm (make-page-stencil): read X-offset from paper-system.
 	(page-translate-systems): new function: take into account Y-offset.
 
