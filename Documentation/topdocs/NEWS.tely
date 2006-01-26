@@ -47,6 +47,44 @@ the @uref{../,LilyPond Documentation}
 
 @itemize @bullet
 
+@item Systems individual systems may be positioned manually.
+
+@lilypond[]
+\header{
+  tagline = "lily was here"
+}
+
+#(set-default-paper-size "a7" 'landscape)
+\paper {
+  headsep = 0.0
+  footsep = 0.0
+  }
+\book {
+ \score {
+   \relative c'' {
+     c1\break
+      \overrideProperty 
+      #"Score.NonMusicalPaperColumn"
+      #'line-break-system-details
+      #'((Y-offset . 24.5)
+         (X-offset . -7.5))
+      c1 
+   }
+   }
+ \paper {
+   annotatepage = ##t
+   annotateheaders = ##t
+ }
+}
+@end lilypond
+
+This feature was sponsored by Trevor Bača and Nicolas Sceaux.
+
+@item A linebreaking configuration can now be saved as a @file{.ly}
+file automatically. This allows vertical alignments to be stretched to
+fit pages in a second formatting run. This feature was sponsored by  
+Trevor Bača and Nicolas Sceaux.
+
 @item The tie formatting for chords has been further polished. More
 cases are handled gracefully, and all scoring parameters may now be
 changed through the @code{details} property of the @code{Tie} grob.

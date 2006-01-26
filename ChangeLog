@@ -1,3 +1,13 @@
+2006-01-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/page.scm (make-page-stencil): read X-offset from paper-system.
+	(page-translate-systems): new function: take into account Y-offset.
+
+	* Documentation/topdocs/NEWS.tely (Top): document new features.
+
+	* input/regression/page-layout-manual-position.ly (Module): new
+	file.
+
 2006-01-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/file-path.cc (path::parse_path): Oops.

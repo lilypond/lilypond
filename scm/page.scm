@@ -64,11 +64,25 @@
     (lambda (pg)
       (page-property pg j))))
  
- '(page-number prev lines force penalty configuration lines))
+ '(page-number prev lines force penalty lines))
 
-(define (page-system-numbers node)
+(define (page-system-numbers page)
   (map (lambda (ps) (ly:prob-property ps 'number))
-       (page-lines node)))
+       (page-lines page)))
+
+(define (page-translate-systems page)
+  (for-each
+
+   (lambda (sys-off)
+     (let*
+	 ((sys (car sys-off))
+	  (off (cadr sys-off)))
+
+       (if (not (number? (ly:prob-property sys 'Y-offset)))
+	   (ly:prob-set-property! sys 'Y-offset off))))
+   
+   (zip (page-property page 'lines)
+	(page-property page 'configuration))))
 
 (define (annotate-page layout stencil)
   (let*
@@ -147,7 +161,8 @@
 
 	  
 	  ;; add arrow markers 
-	  (if (annotate? layout)
+	  (if (or (annotate? layout)
+		  (ly:output-def-lookup layout 'annotateheaders #f)) 
 	      (set! head-stencil
 		    (ly:stencil-add
 		     (ly:stencil-translate-axis
@@ -182,7 +197,6 @@
        (layout (ly:paper-book-paper p-book))
        (scopes (ly:paper-book-scopes p-book))
        (lines (page-lines page))
-       (offsets (page-configuration page))
        (number (page-page-number page))
        (last? (page-property page 'is-last))
        )
@@ -235,13 +249,13 @@ create offsets.
 
   
 
+  (page-translate-systems page)
   (let*
       ((p-book (page-property page 'paper-book))
        (prop (lambda (sym) (page-property page sym)))
        (layout (ly:paper-book-paper p-book))
        (scopes (ly:paper-book-scopes p-book))
        (lines (page-lines page))
-       (offsets (page-configuration page))
        (number (page-page-number page))
 
        ;; TODO: naming vsize/hsize not analogous to TeX.
@@ -266,29 +280,31 @@ create offsets.
 
        (last-system #f)
        (last-y 0.0)
-       (add-to-page (lambda (stencil y)
+       (add-to-page (lambda (stencil x y)
 		      (set! page-stencil
 			    (ly:stencil-add page-stencil
 					    (ly:stencil-translate stencil
 								  (cons
-								   system-xoffset
+								   (+ system-xoffset x)
 								   (- 0 head-height y (prop 'top-margin)))
 
 								  )))))
        (add-system
-	(lambda (stencil-position)
-	  (let* ((system (car stencil-position))
-		 (stencil (paper-system-stencil system))
-		 (y (cadr stencil-position))
+	(lambda (system)
+	  (let* ((stencil (paper-system-stencil system))
+		 (y (ly:prob-property system 'Y-offset))
 		 (is-title (paper-system-title?
-			    (car stencil-position))))
-	    (add-to-page stencil y)
+			    system)))
+	    (add-to-page stencil
+			 (ly:prob-property system 'X-offset 0.0)
+			 y)
 	    (if (and (ly:stencil? system-separator-stencil)
 		     last-system
 		     (not (paper-system-title? system))
 		     (not (paper-system-title? last-system)))
 		(add-to-page
 		 system-separator-stencil
+		 0
 		 (average (- last-y
 			     (car (paper-system-staff-extents last-system)))
 			  (- y
@@ -299,7 +315,9 @@ create offsets.
        (foot (prop 'foot-stencil))
        )
 
-    (if (annotate? layout)
+    (if (or (annotate? layout)
+	    (ly:output-def-lookup layout 'annotatesystems #f))
+
 	(begin
 	  (for-each (lambda (sys) (paper-system-annotate sys layout))
 		    lines)
@@ -314,7 +332,7 @@ create offsets.
 			    (ly:make-stencil "" (cons 0 0) (cons 0 0)))
 			    0. 0.))
 
-    (map add-system (zip lines offsets))
+    (map add-system lines)
 
     (ly:prob-set-property! page 'bottom-system-edge
 			   (car (ly:stencil-extent page-stencil Y)))
@@ -341,7 +359,8 @@ create offsets.
 	  (ly:stencil-translate page-stencil (cons (prop 'left-margin) 0)))
 
     ;; annotation.
-    (if (annotate? layout)
+    (if (or (annotate? layout)
+	    (ly:output-def-lookup layout 'annotatepage #f))
 	(set! page-stencil (annotate-page layout page-stencil)))
 
     page-stencil))

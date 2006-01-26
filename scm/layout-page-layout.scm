@@ -135,10 +135,8 @@
   (if (ly:output-def-lookup layout 'write-page-layout #f)
       (write-page-breaks pages)))
 
-;;; optimal page breaking
-
-;;; This is not optimal page breaking, this is optimal distribution of
-;;; lines over pages; line breaks are a given.
+;; Optimal distribution of
+;; lines over pages; line breaks are a given.
 
 ;; TODO:
 ;;
@@ -157,6 +155,7 @@
   (define scopes (ly:paper-book-scopes paper-book))
   (define force-equalization-factor #f)
   (define (get-path node done)
+    
     "Follow NODE.PREV, and return as an ascending list of pages. DONE
 is what have collected so far, and has ascending page numbers."
 
@@ -319,7 +318,6 @@ corresponding to DONE-LINES.
 
 CURRENT-BEST is the best result sofar, or #f."
 
-
     (let* ((this-page-num (if (null? best-paths)
                               (ly:output-def-lookup paper 'firstpagenumber)
                               (1+ (page-page-number (car best-paths)))))
@@ -433,8 +431,7 @@ DONE."
 	(ly:output-def-lookup paper 'verticalequalizationfactor 0.3))
   
   (let* ((best-break-node (walk-lines '() '() lines))
-	 (break-nodes (get-path best-break-node '()))
-	 )
+	 (break-nodes (get-path best-break-node '())))
 
     (page-set-property! (car (last-pair break-nodes)) 'is-last #t)
     (if #f; (ly:get-option 'verbose)
