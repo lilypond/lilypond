@@ -3,6 +3,7 @@
   texidoc = "Page breaking details can be stored for later reference." 
 }
 
+\version "2.7.29"
 
 \paper  {
   #(define write-page-layout #t)
@@ -26,5 +27,12 @@ bla = \new Staff {
 tweakFileName = #(format "~a-page-layout.ly" (ly:parser-output-name parser))
 
 #(newline)
-#(ly:progress "Including file: ~a" tweakFileName)
-\include \tweakFileName
+#(ly:progress "Including file: '~a'" tweakFileName)
+
+
+\markup {
+  \column {
+    \line { contents of \typewriter tweakFileName: }
+    \smaller \verbatim-file #tweakFileName
+  }
+}

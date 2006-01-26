@@ -1,5 +1,10 @@
 2006-01-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-markup-commands.scm (verbatim-file): new markup
+	command \verbatim-file
+
+	* Documentation/topdocs/NEWS.tely: fixup URLs
+
 	* input/regression/alignment-vertical-manual-setting.ly (Module):
 	new file.
 
