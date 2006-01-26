@@ -70,7 +70,7 @@
   (map (lambda (ps) (ly:prob-property ps 'number))
        (page-lines node)))
 
-(define (annotate-page stencil layout)
+(define (annotate-page layout stencil)
   (let*
       ((topmargin (ly:output-def-lookup layout 'topmargin))
        (vsize (ly:output-def-lookup layout 'vsize))
