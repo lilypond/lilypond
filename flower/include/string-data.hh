@@ -91,7 +91,6 @@ class String_data
 #define INLINE inline
 #endif
 #include "string-data.icc"
-
 #endif
 
 #endif // STRING_DATA_HH

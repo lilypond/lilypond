@@ -15,9 +15,7 @@
 #define memmove mymemmove
 #endif
 
-#ifdef STRING_UTILS_INLINED
-#undef STRING_UTILS_INLINED
-#endif
+#ifndef STRING_UTILS_INLINED
 
 #ifdef INLINE
 #undef INLINE
@@ -47,5 +45,7 @@ mymemmove (void *dest, void const *src, size_t n)
   return memcpy (dest, src, n);
 }
 #endif
+
+#endif /* STRING_UTILS_INLINED */
 
 #endif /* !STD_STRING */
