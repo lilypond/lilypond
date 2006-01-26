@@ -476,7 +476,7 @@ though.
     <<
 		  \context Staff = singer @{
 			@}
-			\context PianoStaff = piano {@
+			\context PianoStaff = piano @{
 			@}
     >>
   @}
@@ -496,7 +496,7 @@ the vocal part and piano part at the same time!
 			  \context Voice = vocal @{ @}
 				\lyricsto vocal \new Lyrics @{ @}
 			@}
-			\context PianoStaff = piano {@
+			\context PianoStaff = piano @{
 			  \context Staff = upper @{ @}
 				\context Staff = lower @{ @}
 			@}
@@ -540,7 +540,7 @@ lower = @{ @}
 			  \context Voice = vocal @{ \melody @}
 				\lyricsto vocal \new Lyrics @{ \text @}
 			@}
-			\context PianoStaff = piano {@
+			\context PianoStaff = piano @{
 			  \context Staff = upper @{ \upper @}
 				\context Staff = lower @{ \lower @}
 			@}
