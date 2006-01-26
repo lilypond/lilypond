@@ -6,7 +6,7 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "string.hh"
+#include "std-string.hh"
 #include "input-smob.hh"
 
 /* We don't use IMPLEMENT_TYPE_P, since the smobification part is
@@ -28,7 +28,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
-  String m = ly_scm2string (msg);
+  std::string m = ly_scm2string (msg);
   ip->message (m);
 
   return SCM_UNSPECIFIED;

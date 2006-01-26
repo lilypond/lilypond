@@ -6,10 +6,11 @@
   (c) 2001--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "simple-music-iterator.hh"
-#include "music.hh"
 #include "context.hh"
 #include "input.hh"
+#include "international.hh"
+#include "music.hh"
+#include "simple-music-iterator.hh"
 
 /*
   Check bar checks. We do this outside the engravers so that you can

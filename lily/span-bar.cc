@@ -53,7 +53,7 @@ Span_bar::print (SCM smobbed_me)
   if (!scm_is_string (glyph))
     return SCM_EOL;
 
-  String glyph_string = ly_scm2string (glyph);
+  std::string glyph_string = ly_scm2string (glyph);
 
   /* compose span_bar_mol */
   Array<Interval> extents;
@@ -116,7 +116,7 @@ Span_bar::width (SCM smob)
   if (!me->is_live ())
     return ly_interval2scm (Interval ());
   
-  String gl = ly_scm2string (gn);
+  std::string gl = ly_scm2string (gn);
 
   /*
     urg.
@@ -177,7 +177,7 @@ Span_bar::calc_glyph_name (SCM smob)
       return SCM_UNSPECIFIED;
     }
 
-  String type = ly_scm2string (gl);
+  std::string type = ly_scm2string (gl);
   if (type == "|:")
     type = ".|";
   else if (type == ":|")

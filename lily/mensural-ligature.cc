@@ -7,14 +7,15 @@
   Pal Benko <benkop@freestart.hu>
 */
 
-
 #include "mensural-ligature.hh"
-#include "item.hh"
+
 #include "font-interface.hh"
+#include "international.hh"
+#include "item.hh"
 #include "lookup.hh"
-#include "staff-symbol-referencer.hh"
 #include "note-head.hh"
 #include "output-def.hh"
+#include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
 /*

@@ -113,10 +113,10 @@ Paper_column::print (SCM p)
 {
   Grob *me = unsmob_grob (p);
 
-  String r = to_string (Paper_column::get_rank (me));
+  std::string r = to_string (Paper_column::get_rank (me));
 
   Moment *mom = unsmob_moment (me->get_property ("when"));
-  String when = mom ? mom->to_string () : "?/?";
+  std::string when = mom ? mom->to_string () : "?/?";
 
   SCM properties = Font_interface::text_font_alist_chain (me);
 

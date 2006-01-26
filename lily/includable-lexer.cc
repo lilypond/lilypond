@@ -12,11 +12,13 @@
 using namespace std;
 
 #include "config.hh"
+
 #include "file-path.hh"
+#include "international.hh"
+#include "main.hh"
 #include "source-file.hh"
 #include "source.hh"
 #include "warn.hh"
-#include "main.hh"
 
 #ifndef YY_BUF_SIZE
 #define YY_BUF_SIZE 16384
@@ -44,7 +46,7 @@ Includable_lexer::Includable_lexer ()
 
 /** Set the new input file to NAME, remember old file.  */
 void
-Includable_lexer::new_input (String name, Sources *sources)
+Includable_lexer::new_input (std::string name, Sources *sources)
 {
   if (!allow_includes_b_)
     {
@@ -55,7 +57,7 @@ Includable_lexer::new_input (String name, Sources *sources)
   Source_file *file = sources->get_file (name);
   if (!file)
     {
-      String msg = _f ("can't find file: `%s'", name);
+      std::string msg = _f ("can't find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
 		 sources->path_->to_string ().c_str ());
@@ -69,7 +71,7 @@ Includable_lexer::new_input (String name, Sources *sources)
     state_stack_.push (yy_current_buffer);
 
   if (be_verbose_global)
-    progress_indication (String ("[") + name);
+    progress_indication (std::string ("[") + name);
 
   include_stack_.push (file);
 
@@ -81,7 +83,7 @@ Includable_lexer::new_input (String name, Sources *sources)
 }
 
 void
-Includable_lexer::new_input (String name, String data, Sources *sources)
+Includable_lexer::new_input (std::string name, std::string data, Sources *sources)
 {
   Source_file *file = new Source_file (name, data);
   sources->add (file);
@@ -92,7 +94,7 @@ Includable_lexer::new_input (String name, String data, Sources *sources)
     state_stack_.push (yy_current_buffer);
 
   if (be_verbose_global)
-    progress_indication (String ("[") + name);
+    progress_indication (std::string ("[") + name);
   include_stack_.push (file);
 
   yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));

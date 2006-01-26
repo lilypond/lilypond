@@ -10,7 +10,7 @@
 #define TRANSLATOR_HH
 
 #include "global-ctor.hh"
-#include "string.hh"
+#include "std-string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "input.hh"

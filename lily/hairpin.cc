@@ -7,17 +7,19 @@
 */
 
 #include "hairpin.hh"
-#include "staff-symbol-referencer.hh"
-#include "line-interface.hh"
-#include "spanner.hh"
-#include "font-interface.hh"
+
 #include "dimensions.hh"
-#include "output-def.hh"
-#include "warn.hh"
-#include "paper-column.hh"
+#include "font-interface.hh"
+#include "international.hh"
+#include "line-interface.hh"
 #include "lookup.hh"
-#include "text-interface.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "text-interface.hh"
+#include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Hairpin, after_line_breaking, 1);
 SCM

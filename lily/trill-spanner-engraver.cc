@@ -13,9 +13,11 @@
   automatically is the end of the trill?
 */
 
+#include "engraver.hh"
+
+#include "international.hh"
 #include "note-column.hh"
 #include "side-position-interface.hh"
-#include "engraver.hh"
 
 #include "translator.icc"
 

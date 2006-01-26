@@ -66,7 +66,7 @@ Modified_font_metric::count () const
 }
 
 Offset
-Modified_font_metric::attachment_point (String s) const
+Modified_font_metric::attachment_point (std::string s) const
 {
   Offset o = orig_->attachment_point (s);
   return o * magnification_;
@@ -80,7 +80,7 @@ Modified_font_metric::get_indexed_wxwy (int k) const
 }
 
 int
-Modified_font_metric::name_to_index (String s) const
+Modified_font_metric::name_to_index (std::string s) const
 {
   return orig_->name_to_index (s);
 }
@@ -104,17 +104,17 @@ Modified_font_metric::derived_mark () const
 
 /* TODO: put this klutchness behind ly:option switch.  */
 Box
-Modified_font_metric::tex_kludge (String text) const
+Modified_font_metric::tex_kludge (std::string text) const
 {
   Interval ydims;
   Real w = 0;
-  for (int i = 0; i < text.length (); i++)
+  for (ssize i = 0; i < text.length (); i++)
     {
       switch (text[i])
 	{
 	case '\\':
 	  /* Accent marks use width of base letter */
-	  if (i +1 < text.length ())
+	  if (i < text.length () - 1)
 	    {
 	      if (text[i + 1]=='\'' || text[i + 1]=='`' || text[i + 1]=='"'
 		  || text[i + 1]=='^')
@@ -159,7 +159,7 @@ Modified_font_metric::tex_kludge (String text) const
 }
 
 Stencil
-Modified_font_metric::text_stencil (String text) const
+Modified_font_metric::text_stencil (std::string text) const
 {
   Box b;
   if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))
@@ -177,7 +177,7 @@ Modified_font_metric::text_stencil (String text) const
 }
 
 Box
-Modified_font_metric::text_dimension (String text) const
+Modified_font_metric::text_dimension (std::string text) const
 {
   SCM stext = scm_makfrom0str (text.c_str ());
   Box b = lookup_tex_text_dimension (orig_, stext);
@@ -197,7 +197,7 @@ Modified_font_metric::text_dimension (String text) const
 
   Real w = 0.0;
 
-  for (int i = 0; i < text.length (); i++)
+  for (ssize i = 0; i < text.length (); i++)
     {
       Box b = get_ascii_char ((unsigned char)text[i]);
 
@@ -223,7 +223,7 @@ Modified_font_metric::sub_fonts () const
   return orig_->sub_fonts ();
 }
 
-String
+std::string
 Modified_font_metric::font_name () const
 {
   return original_font ()->font_name ();

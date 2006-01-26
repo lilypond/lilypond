@@ -9,11 +9,12 @@
 #include "gregorian-ligature-engraver.hh"
 
 #include "gregorian-ligature.hh"
-#include "warn.hh"
-#include "staff-symbol-referencer.hh"
-#include "spanner.hh"
+#include "international.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "warn.hh"
 
 /*
  * This abstract class is the common superclass for all ligature

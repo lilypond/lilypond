@@ -14,28 +14,29 @@
 using namespace std;
 
 #include "directional-element-interface.hh"
-#include "staff-symbol.hh"
-#include "misc.hh"
 #include "dots.hh"
-#include "warn.hh"
 #include "font-interface.hh"
+#include "international.hh"
+#include "lookup.hh"
+#include "misc.hh"
 #include "music.hh"
+#include "output-def.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
-#include "lookup.hh"
-#include "output-def.hh"
+#include "staff-symbol.hh"
+#include "warn.hh"
 
 /*
   clean up the mess left by ledger line handling.
 */
 static Stencil
-internal_print (Grob *me, String *font_char)
+internal_print (Grob *me, std::string *font_char)
 {
   SCM style = me->get_property ("style");
   if (!scm_is_symbol (style))
     style = ly_symbol2scm ("default");
 
-  String suffix = to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
+  std::string suffix = to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
   if (style != ly_symbol2scm ("default"))
     {
       SCM gn = me->get_property ("glyph-name");
@@ -45,12 +46,12 @@ internal_print (Grob *me, String *font_char)
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
-  String idx = "noteheads.s" + suffix;
+  std::string idx = "noteheads.s" + suffix;
 
   Stencil out = fm->find_by_name (idx);
   if (out.is_empty ())
     {
-      String prefix = "noteheads.";
+      std::string prefix = "noteheads.";
       Grob *stem = unsmob_grob (me->get_object ("stem"));
       Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
 
@@ -93,7 +94,7 @@ Note_head::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  String idx;
+  std::string idx;
   return internal_print (me, &idx).smobbed_copy ();
 }
 
@@ -112,7 +113,7 @@ Note_head::calc_stem_attachment (SCM smob)
 {
   Grob *me  = unsmob_grob (smob);
   Font_metric *fm = Font_interface::get_default_font (me);
-  String key;
+  std::string key;
   internal_print (me, &key);
 
   Offset att;

@@ -7,9 +7,11 @@
 */
 
 #include "paper-score.hh"
-#include "book.hh"
+
 #include "all-font-metrics.hh"
+#include "book.hh"
 #include "gourlay-breaking.hh"
+#include "international.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "output-def.hh"

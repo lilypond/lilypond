@@ -6,8 +6,9 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "music.hh"
 #include "input.hh"
+#include "international.hh"
+#include "music.hh"
 #include "pitch.hh"
 
 class Relative_octave_check
@@ -35,7 +36,7 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
 
       if (result != *check_p)
 	{
-	  String s = _ ("Failed octave check, got: ");
+	  std::string s = _ ("Failed octave check, got: ");
 	  s += result.to_string ();
 
 	  m->origin ()->warning (s);

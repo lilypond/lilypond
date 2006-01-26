@@ -11,13 +11,14 @@
 #include "arpeggio.hh"
 #include "context.hh"
 #include "engraver.hh"
+#include "international.hh"
+#include "music.hh"
+#include "pitch.hh"
 #include "protected-scm.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
 #include "tie.hh"
 #include "warn.hh"
-#include "music.hh"
-#include "pitch.hh"
 
 #include "translator.icc"
 
@@ -531,7 +532,7 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
       && note->is_mus_type ("note-event"))
     {
       /*
-	String harmonics usually don't have accidentals.
+	std::string harmonics usually don't have accidentals.
       */
       if (to_boolean (get_property ("harmonicAccidentals"))
 	  || !ly_is_equal (info.grob ()->get_property ("style"),

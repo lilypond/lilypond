@@ -10,6 +10,9 @@
 
 #include <cstdlib>
 #include <cstdio>
+
+#include "international.hh"
+
 using namespace std;
 
 /* Is progress indication at NEWLINE?  */
@@ -17,7 +20,7 @@ static bool progress_newline = true;
 
 /* Display user information that is not a full message.  */
 void
-progress_indication (String s)
+progress_indication (std::string s)
 {
   /* Test if all silly progress_indication ("\n") can be dropped now.  */
   if (s == "\n")
@@ -31,7 +34,7 @@ progress_indication (String s)
 
 /* Display a single user message.  Always starts on a new line.  */
 void
-message (String s)
+message (std::string s)
 {
   if (!progress_newline)
     fputc ('\n', stderr);
@@ -40,27 +43,27 @@ message (String s)
 
 /* Display a warning message.  Always starts on a new line.  */
 void
-warning (String s)
+warning (std::string s)
 {
   message (_f ("warning: %s", s.c_str ()) + "\n");
 }
 
 void
-non_fatal_error (String s)
+non_fatal_error (std::string s)
 {
   message (_f ("error: %s", s.c_str ()) + "\n");
 }
 
 /* Display an error message.  Always starts on a new line.  */
 void
-error (String s)
+error (std::string s)
 {
   non_fatal_error (s);
   exit (1);
 }
 
 void
-programming_error (String s)
+programming_error (std::string s)
 {
   message (_f ("programming error: %s", s) + "\n");
   message (_ ("continuing, cross fingers") + "\n");

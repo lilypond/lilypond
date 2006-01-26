@@ -6,18 +6,20 @@
   (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "beam.hh"
-#include "repeated-music.hh"
-#include "stem.hh"
-#include "rhythmic-head.hh"
-#include "engraver-group.hh"
-#include "warn.hh"
-#include "misc.hh"
-#include "spanner.hh"
-#include "item.hh"
-#include "chord-tremolo-iterator.hh"
-#include "stem-tremolo.hh"
 #include "math.h" // ceil
+
+#include "beam.hh"
+#include "chord-tremolo-iterator.hh"
+#include "engraver-group.hh"
+#include "international.hh"
+#include "item.hh"
+#include "misc.hh"
+#include "repeated-music.hh"
+#include "rhythmic-head.hh"
+#include "spanner.hh"
+#include "stem-tremolo.hh"
+#include "stem.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 
@@ -157,7 +159,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 	Beam::add_stem (beam_, s);
       else
 	{
-	  String s = _ ("stem must have Rhythmic structure");
+	  std::string s = _ ("stem must have Rhythmic structure");
 	  if (info.music_cause ())
 	    info.music_cause ()->origin ()->warning (s);
 	  else

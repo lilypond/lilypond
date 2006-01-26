@@ -8,10 +8,11 @@
 
 #include "axis-group-engraver.hh"
 
-#include "spanner.hh"
 #include "axis-group-interface.hh"
-#include "warn.hh"
 #include "context.hh"
+#include "international.hh"
+#include "spanner.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 

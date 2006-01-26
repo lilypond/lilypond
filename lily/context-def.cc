@@ -11,15 +11,15 @@
 
 #include "context-def.hh"
 
+#include "engraver-group.hh"
 #include "engraver.hh"
+#include "international.hh"
 #include "output-def.hh"
+#include "performer-group.hh"
 #include "performer.hh"
 #include "score-context.hh"
 #include "translator-group.hh"
 #include "warn.hh"
-
-#include "engraver-group.hh"
-#include "performer-group.hh"
 
 Context_def::Context_def ()
 {

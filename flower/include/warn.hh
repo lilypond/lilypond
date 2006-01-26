@@ -9,13 +9,13 @@
 #ifndef WARN_HH
 #define WARN_HH
 
-#include "string.hh"
+#include "std-string.hh"
 
-void error (String s);
-void message (String s);
-void non_fatal_error (String);
-void programming_error (String s);
-void progress_indication (String s);
-void warning (String s);
+void error (std::string s);
+void message (std::string s);
+void non_fatal_error (std::string);
+void programming_error (std::string s);
+void progress_indication (std::string s);
+void warning (std::string s);
 
 #endif /* WARN_HH */

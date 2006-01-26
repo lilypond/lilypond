@@ -9,7 +9,7 @@
 #include <cstring>
 using namespace std;
 
-#include "string.hh"
+#include "std-string.hh"
 #include "lily-guile.hh"
 
 static SCM doc_hash_table;
@@ -25,7 +25,7 @@ void ly_add_function_documentation (SCM func,
   if (!doc_hash_table)
     doc_hash_table = scm_permanent_object (scm_c_make_hash_table (59));
 
-  String s = String (" - ") + "LilyPond procedure: " + fname + " " + varlist
+  std::string s = std::string (" - ") + "LilyPond procedure: " + fname + " " + varlist
     + "\n" + doc;
 
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),

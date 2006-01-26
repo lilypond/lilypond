@@ -12,12 +12,12 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#include "string.hh"
+#include "std-string.hh"
 
 void init_freetype ();
 extern FT_Library freetype2_library;
 
-FT_Face open_ft_face (String str);
+FT_Face open_ft_face (std::string str);
 
 #endif /* FREETYPE_HH */
 

@@ -13,14 +13,14 @@
 #include "lily-proto.hh"
 #include "parray.hh"
 #include "object-key.hh"
-#include "string.hh"
+#include "std-string.hh"
 
 class Book : public Input
 {
   DECLARE_SMOBS (Book, foo);
 
 public:
-  String user_key_;
+  std::string user_key_;
   SCM header_;
   Output_def *paper_;
   SCM scores_;

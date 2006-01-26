@@ -8,18 +8,17 @@
 
 #include "note-collision.hh"
 
-
-#include "warn.hh"
+#include "axis-group-interface.hh"
+#include "dot-column.hh"
+#include "international.hh"
 #include "note-column.hh"
 #include "note-head.hh"
-#include "rhythmic-head.hh"
 #include "output-def.hh"
-#include "axis-group-interface.hh"
-#include "stem.hh"
-#include "side-position-interface.hh"
-#include "dot-column.hh"
 #include "pointer-group-interface.hh"
-
+#include "rhythmic-head.hh"
+#include "side-position-interface.hh"
+#include "stem.hh"
+#include "warn.hh"
 
 
 void

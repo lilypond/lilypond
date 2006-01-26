@@ -12,12 +12,13 @@
 #include <algorithm>
 using namespace std;
 
-#include "warn.hh"
-#include "staff-symbol-referencer.hh"
-#include "stem.hh"
+#include "align-interface.hh"
+#include "international.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
-#include "align-interface.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem.hh"
+#include "warn.hh"
 
 Real
 get_detail (SCM alist, SCM sym, Real def)
@@ -61,7 +62,7 @@ struct Quant_score
   Real demerits;
 
 #if DEBUG_QUANTING
-  String score_card_;
+  std::string score_card_;
 #endif
 };
 

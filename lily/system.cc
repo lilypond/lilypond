@@ -8,22 +8,22 @@
 
 #include "system.hh"
 
-
 #include "align-interface.hh"
-#include "axis-group-interface.hh"
-#include "warn.hh"
-#include "main.hh"
-#include "paper-column.hh"
-#include "output-def.hh"
-#include "paper-score.hh"
-#include "warn.hh"
 #include "all-font-metrics.hh"
+#include "axis-group-interface.hh"
+#include "grob-array.hh"
+#include "international.hh"
+#include "main.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
+#include "paper-system.hh"
+#include "pointer-group-interface.hh"
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "paper-system.hh"
 #include "tweak-registration.hh"
-#include "grob-array.hh"
-#include "pointer-group-interface.hh"
+#include "warn.hh"
+#include "warn.hh"
 
 System::System (System const &src, int count)
   : Spanner (src, count)

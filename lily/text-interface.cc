@@ -32,7 +32,7 @@ Text_interface::interpret_string (SCM layout_smob,
   SCM_ASSERT_TYPE (scm_is_string (markup), markup, SCM_ARG3,
 		   __FUNCTION__, "string");
 
-  String str = ly_scm2string (markup);
+  std::string str = ly_scm2string (markup);
 
   Font_metric *fm = select_encoded_font (layout, props);
   return fm->text_stencil (str).smobbed_copy ();

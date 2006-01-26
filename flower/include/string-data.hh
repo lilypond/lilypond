@@ -11,6 +11,8 @@
 
 #include "flower-proto.hh"
 
+namespace std {
+  
 /**Internal String struct.
    the data itself. Handles simple tasks (resizing, resetting)
 */
@@ -65,8 +67,8 @@ class String_data
   void operator += (char const *str0);
 
   char const *c_str () const;
-
-  char *get_str0 ();
+ 
+  char *get_c_str ();
 
   Byte const *to_bytes () const;
 
@@ -81,6 +83,8 @@ class String_data
   Byte operator [] (int j) const;
   bool is_binary_bo () const;
 };
+
+}
 
 #ifdef STRING_UTILS_INLINED
 #ifndef INLINE

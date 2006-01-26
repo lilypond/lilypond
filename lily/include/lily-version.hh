@@ -9,11 +9,11 @@
 #ifndef LILY_VERSION_HH
 #define LILY_VERSION_HH
 
-#include "string.hh"
+#include "std-string.hh"
 
-String version_string ();
-String gnu_lilypond_string ();
-String gnu_lilypond_version_string ();
+std::string version_string ();
+std::string gnu_lilypond_string ();
+std::string gnu_lilypond_version_string ();
 
 #endif // LILY_VERSION_HH
 

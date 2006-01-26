@@ -10,21 +10,19 @@
 
 #include <cstring>
 
-#include "main.hh"
 #include "input-smob.hh"
-#include "warn.hh"
-#include "pointer-group-interface.hh"
-#include "misc.hh"
-#include "stencil.hh"
-#include "warn.hh"
-#include "system.hh"
+#include "international.hh"
 #include "item.hh"
-#include "stencil.hh"
+#include "main.hh"
 #include "misc.hh"
 #include "music.hh"
-#include "item.hh"
-#include "ly-smobs.icc"
 #include "output-def.hh"
+#include "pointer-group-interface.hh"
+#include "stencil.hh"
+#include "system.hh"
+#include "warn.hh"
+
+#include "ly-smobs.icc"
 
 Grob *
 Grob::clone (int count) const
@@ -432,7 +430,7 @@ Grob::fixup_refpoint ()
   MESSAGES
 ****************************************************************/
 void
-Grob::warning (String s) const
+Grob::warning (std::string s) const
 {
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
@@ -445,7 +443,7 @@ Grob::warning (String s) const
 }
 
 
-String
+std::string
 Grob::name () const
 {
   SCM meta = get_property ("meta");
@@ -455,7 +453,7 @@ Grob::name () const
 }
 
 void
-Grob::programming_error (String s) const
+Grob::programming_error (std::string s) const
 {
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))

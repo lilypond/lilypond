@@ -8,9 +8,10 @@
 */
 
 #include "engraver.hh"
-#include "side-position-interface.hh"
+#include "international.hh"
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
+#include "side-position-interface.hh"
 
 #include "translator.icc"
 

@@ -7,8 +7,9 @@
 */
 
 #include "context.hh"
-#include "music-wrapper-iterator.hh"
 #include "direction.hh"
+#include "international.hh"
+#include "music-wrapper-iterator.hh"
 
 class Auto_change_iterator : public Music_wrapper_iterator
 {
@@ -25,7 +26,7 @@ protected:
 private:
   SCM split_list_;
   Direction where_dir_;
-  void change_to (Music_iterator *, SCM, String);
+  void change_to (Music_iterator *, SCM, std::string);
   Moment start_moment_;
 
   Context_handle up_;
@@ -34,7 +35,7 @@ private:
 
 void
 Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
-				 String to_id)
+				 std::string to_id)
 {
   Context *current = it->get_outlet ();
   Context *last = 0;
@@ -57,7 +58,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
 
   if (current && current->id_string () == to_id)
     {
-      String msg;
+      std::string msg;
       msg += _f ("can't change, already in translator: %s", to_id);
     }
 
@@ -100,7 +101,7 @@ Auto_change_iterator::process (Moment m)
       if (d && d != where_dir_)
 	{
 	  where_dir_ = d;
-	  String to_id = (d >= 0) ? "up" : "down";
+	  std::string to_id = (d >= 0) ? "up" : "down";
 	  change_to (child_iter_,
 		     ly_symbol2scm ("Staff"),
 		     to_id);

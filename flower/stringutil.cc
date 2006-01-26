@@ -8,6 +8,9 @@
 
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl> */
 
+#if !STD_STRING
+
+
 #ifdef STRING_DEBUG
 #define memmove mymemmove
 #endif
@@ -22,8 +25,12 @@
 
 #define INLINE
 
+#include <algorithm>
+
 #include "string-data.hh"
-#include "string.hh"
+#include "string-handle.hh"
+
+#include "std-string.hh"
 
 #include "string-data.icc"
 #include "string-handle.icc"
@@ -40,3 +47,5 @@ mymemmove (void *dest, void const *src, size_t n)
   return memcpy (dest, src, n);
 }
 #endif
+
+#endif /* !STD_STRING */

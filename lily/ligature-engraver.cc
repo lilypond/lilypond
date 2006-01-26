@@ -8,12 +8,13 @@
 
 #include "ligature-engraver.hh"
 
-#include "spanner.hh"
-#include "score-engraver.hh"
+#include "context.hh"
+#include "international.hh"
 #include "note-head.hh"
 #include "rest.hh"
+#include "score-engraver.hh"
+#include "spanner.hh"
 #include "warn.hh"
-#include "context.hh"
 
 #include "translator.icc"
 

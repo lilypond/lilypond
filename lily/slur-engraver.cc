@@ -6,11 +6,13 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "slur.hh"
-#include "note-column.hh"
+#include "engraver.hh"
+
 #include "context.hh"
 #include "directional-element-interface.hh"
-#include "engraver.hh"
+#include "international.hh"
+#include "note-column.hh"
+#include "slur.hh"
 #include "spanner.hh"
 #include "tie.hh"
 #include "warn.hh"

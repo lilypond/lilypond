@@ -24,7 +24,7 @@ public:
   int index_;
 
 #if DEBUG_SLUR_SCORING
-  String score_card_;
+  std::string score_card_;
 #endif
 
   Slur_configuration ();

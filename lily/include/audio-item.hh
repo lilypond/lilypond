@@ -47,9 +47,9 @@ public:
 class Audio_instrument : public Audio_item
 {
 public:
-  Audio_instrument (String instrument_string);
+  Audio_instrument (std::string instrument_string);
 
-  String str_;
+  std::string str_;
 };
 
 class Audio_note : public Audio_item
@@ -68,7 +68,7 @@ public:
 class Audio_piano_pedal : public Audio_item
 {
 public:
-  String type_string_;
+  std::string type_string_;
   Direction dir_;
 };
 
@@ -81,10 +81,10 @@ public:
       MARKER, CUE_POINT
     };
 
-  Audio_text (Audio_text::Type type, String text_string);
+  Audio_text (Audio_text::Type type, std::string text_string);
 
   Type type_;
-  String text_string_;
+  std::string text_string_;
 };
 
 class Audio_tempo : public Audio_item

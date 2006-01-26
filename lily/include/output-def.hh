@@ -9,7 +9,7 @@
 #ifndef MUSIC_OUTPUT_DEF_HH
 #define MUSIC_OUTPUT_DEF_HH
 
-#include "string.hh"
+#include "std-string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "smobs.hh"
@@ -47,7 +47,7 @@ public:
   Output_def *parent_;
   
   Input input_origin_;
-  String user_key_;
+  std::string user_key_;
 
   Lily_parser *parser_;
   Lily_parser *get_parser () const;
@@ -58,7 +58,7 @@ public:
   /*
     variables.
    */
-  SCM c_variable (String id) const;
+  SCM c_variable (std::string id) const;
   SCM lookup_variable (SCM sym) const;
   void set_variable (SCM sym, SCM val);
   Real get_dimension (SCM symbol) const;

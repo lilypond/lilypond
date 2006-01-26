@@ -38,22 +38,22 @@ public:
   SCM get_char_table () const;
   SCM glyph_list () const;
     
-  String get_otf_table (String tag) const;
-  static SCM make_otf (String);
-  virtual String font_name () const;
+  std::string get_otf_table (std::string tag) const;
+  static SCM make_otf (std::string);
+  virtual std::string font_name () const;
   virtual ~Open_type_font ();
-  virtual Offset attachment_point (String) const;
+  virtual Offset attachment_point (std::string) const;
   virtual int count () const;
   virtual Box get_indexed_char (int) const;
-  virtual int name_to_index (String) const;
-  //virtual unsigned glyph_name_to_charcode (String) const;
+  virtual int name_to_index (std::string) const;
+  //virtual unsigned glyph_name_to_charcode (std::string) const;
   virtual unsigned index_to_charcode (int) const;
   virtual void derived_mark () const;
   virtual SCM sub_fonts () const;
   virtual Real design_size () const;
 };
 
-String get_otf_table (FT_Face face, String tag);
-FT_Face open_ft_face (String str);
+std::string get_otf_table (FT_Face face, std::string tag);
+FT_Face open_ft_face (std::string str);
 
 #endif /* OPEN_TYPE_FONT_HH */

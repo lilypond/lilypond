@@ -8,12 +8,14 @@
   some code shamelessly copied from GNU fontutils-0.6/tfm/tfm_input.c
 */
 
-#include "file-name.hh"
 #include "tfm.hh"
-#include "tfm-reader.hh"
-#include "string-convert.hh"
-#include "warn.hh"
+
 #include "dimensions.hh"
+#include "file-name.hh"
+#include "international.hh"
+#include "string-convert.hh"
+#include "tfm-reader.hh"
+#include "warn.hh"
 
 static Tex_font_char_metric dummy_static_char_metric;
 
@@ -89,7 +91,7 @@ Tex_font_metric::get_ascii_char (int a) const
 }
 
 SCM
-Tex_font_metric::make_tfm (String file_name)
+Tex_font_metric::make_tfm (std::string file_name)
 {
   Tex_font_metric *tfm = new Tex_font_metric;
   Tex_font_metric_reader reader (file_name);
@@ -116,14 +118,14 @@ Tex_font_metric::design_size () const
   return info_.design_size * point_constant;
 }
 
-String
+std::string
 Tex_font_metric::font_name () const
 {
   return font_name_;
 }
 
 int
-Tex_font_metric::name_to_index (String) const
+Tex_font_metric::name_to_index (std::string) const
 {
   assert (false);
   return 0;

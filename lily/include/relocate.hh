@@ -12,9 +12,9 @@
 
 
 
-#include "string.hh"
+#include "std-string.hh"
 
-int sane_putenv (char const *key, String value, bool overwrite);
+int sane_putenv (char const *key, std::string value, bool overwrite);
 void setup_paths (char const *argv0);
 extern bool relocate_binary;
 

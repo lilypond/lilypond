@@ -19,7 +19,7 @@ properties_to_pango_description (SCM chain, Real text_size)
   PangoFontDescription *description = 0;
   if (scm_is_string (name))
     {
-      String name_str = ly_scm2string (name);
+      std::string name_str = ly_scm2string (name);
       description = pango_font_description_from_string (name_str.c_str ());
     }
   else
@@ -133,7 +133,7 @@ symbols_to_pango_font_description (SCM family,
 {
   PangoFontDescription *description = pango_font_description_new ();
 
-  String family_str = "roman";
+  std::string family_str = "roman";
   if (scm_is_symbol (family))
     family_str = ly_symbol2string (family);
   else if (scm_is_string (family))

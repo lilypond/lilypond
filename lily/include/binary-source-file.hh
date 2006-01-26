@@ -11,7 +11,7 @@
 class Binary_source_file : public Source_file
 {
 public:
-  Binary_source_file (String &file_name_string);
+  Binary_source_file (std::string &file_name_string);
   virtual ~Binary_source_file ();
 
   U8 get_U8 ();
@@ -20,7 +20,7 @@ public:
   Byte get_Byte () {return get_U8 (); }
   int get_int () { return get_U32 (); }
 
-  virtual String quote_input (char const *pos_str0) const;
+  virtual std::string quote_input (char const *pos_str0) const;
   virtual int get_line (char const *pos_str0) const;
 };
 

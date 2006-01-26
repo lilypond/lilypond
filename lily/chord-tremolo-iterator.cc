@@ -9,6 +9,7 @@
 #include "chord-tremolo-iterator.hh"
 
 #include "input.hh"
+#include "international.hh"
 #include "repeated-music.hh"
 
 void

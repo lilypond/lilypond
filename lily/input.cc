@@ -11,8 +11,9 @@
 #include <cstdio>
 using namespace std;
 
-#include "source.hh"
+#include "international.hh"
 #include "source-file.hh"
+#include "source.hh"
 #include "warn.hh"
 
 Input::Input (Input const &i)
@@ -66,7 +67,7 @@ Input::set_location (Input const &i_start, Input const &i_end)
   [file:line:column:][warning:]message
 */
 void
-Input::message (String s) const
+Input::message (std::string s) const
 {
   if (source_file_)
     s = location_string () + ": " + s + "\n"
@@ -75,13 +76,13 @@ Input::message (String s) const
 }
 
 void
-Input::warning (String s) const
+Input::warning (std::string s) const
 {
   message (_f ("warning: %s", s));
 }
 
 void
-Input::error (String s) const
+Input::error (std::string s) const
 {
   message (_f ("error: %s", s));
   // UGH, fix naming or usage
@@ -89,12 +90,12 @@ Input::error (String s) const
 }
 
 void
-Input::non_fatal_error (String s) const
+Input::non_fatal_error (std::string s) const
 {
   message (_f ("error: %s", s));
 }
 
-String
+std::string
 Input::location_string () const
 {
   if (source_file_)
@@ -102,7 +103,7 @@ Input::location_string () const
   return " (" + _ ("position unknown") + ")";
 }
 
-String
+std::string
 Input::line_number_string () const
 {
   if (source_file_)
@@ -110,7 +111,7 @@ Input::line_number_string () const
   return "?";
 }
 
-String
+std::string
 Input::file_string () const
 {
   if (source_file_)

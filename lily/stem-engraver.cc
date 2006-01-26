@@ -6,9 +6,12 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include "engraver.hh"
+
 #include "context.hh"
 #include "directional-element-interface.hh"
-#include "engraver.hh"
+#include "duration.hh"
+#include "international.hh"
 #include "item.hh"
 #include "misc.hh"
 #include "rhythmic-head.hh"
@@ -16,7 +19,6 @@
 #include "staff-symbol-referencer.hh"
 #include "stem-tremolo.hh"
 #include "stem.hh"
-#include "duration.hh"
 
 /**
    Make stems upon receiving noteheads.

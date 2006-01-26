@@ -8,7 +8,7 @@
 
 #include "input-smob.hh"
 
-#include "string.hh"
+#include "std-string.hh"
 
 #include "ly-smobs.icc"
 
@@ -26,7 +26,7 @@ SCM mark_smob (SCM)
 static int
 print_smob (SCM s, SCM port, scm_print_state *)
 {
-  String str = "#<location " + unsmob_input (s)->location_string () + ">";
+  std::string str = "#<location " + unsmob_input (s)->location_string () + ">";
   scm_puts (str.c_str (), port);
   return 1;
 }

@@ -106,7 +106,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
   /* FIXME: 1000 should relate to paper size.  */
   if (fabs (total_off) > 1000)
     {
-      String msg
+      std::string msg
 	= String_convert::form_string ("Improbable offset for grob %s: %f%s",
 				       me->name ().c_str (), total_off,
 				       INTERNAL_UNIT);

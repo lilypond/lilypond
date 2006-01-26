@@ -20,7 +20,7 @@ Interval_t<Rational>::infinity ()
 }
 
 template<>
-Std_string
+std::string
 Interval_t<Rational>::T_to_string (Rational a)
 {
   return a.to_string ();

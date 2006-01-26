@@ -6,10 +6,11 @@
   (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "simple-music-iterator.hh"
 #include "context.hh"
-#include "music.hh"
 #include "input.hh"
+#include "international.hh"
+#include "music.hh"
+#include "simple-music-iterator.hh"
 
 /**
    Iterate a property.

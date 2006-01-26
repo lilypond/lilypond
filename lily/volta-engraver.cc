@@ -7,14 +7,16 @@
 */
 
 #include "engraver.hh"
-#include "context.hh"
-#include "volta-bracket.hh"
-#include "note-column.hh"
+
 #include "bar-line.hh"
+#include "context.hh"
+#include "international.hh"
+#include "note-column.hh"
 #include "side-position-interface.hh"
-#include "warn.hh"
 #include "staff-symbol.hh"
 #include "text-interface.hh"
+#include "volta-bracket.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 

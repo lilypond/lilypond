@@ -11,13 +11,14 @@ using namespace std;
 
 #include "engraver.hh"
 
+#include "axis-group-interface.hh"
 #include "bar-line.hh"
 #include "context.hh"
-#include "item.hh"
-#include "warn.hh"
-#include "text-interface.hh"
 #include "grob-array.hh"
-#include "axis-group-interface.hh"
+#include "international.hh"
+#include "item.hh"
+#include "text-interface.hh"
+#include "warn.hh"
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,

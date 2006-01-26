@@ -36,7 +36,7 @@ protected:
 public:
   Prob (SCM, SCM);
   Prob (Prob const &);
-  virtual String name () const;
+  virtual std::string name () const;
   SCM type () const { return type_; }
   SCM get_property_alist (bool mutble) const;
   SCM internal_get_property (SCM sym) const;

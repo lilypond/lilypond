@@ -23,19 +23,19 @@
 
 class File_path
 {
-  Array<Std_string> dirs_;
+  Array<std::string> dirs_;
 public:
-  Array<Std_string> directories () const;
-  Std_string find (Std_string name) const;
-  Std_string find (Std_string name, char const *extensions[]);
-  Std_string to_string () const;
-  bool try_append (Std_string str);
-  void append (Std_string str);
-  void parse_path (Std_string);
-  void prepend (Std_string str);
+  Array<std::string> directories () const;
+  std::string find (std::string name) const;
+  std::string find (std::string name, char const *extensions[]);
+  std::string to_string () const;
+  bool try_append (std::string str);
+  void append (std::string str);
+  void parse_path (std::string);
+  void prepend (std::string str);
 };
 
-bool is_file (Std_string file_name);
-bool is_dir (Std_string file_name);
+bool is_file (std::string file_name);
+bool is_dir (std::string file_name);
 
 #endif /* FILE_PATH */

@@ -9,11 +9,11 @@
 */
 
 #include "engraver.hh"
-
-#include "warn.hh"
+#include "international.hh"
 #include "item.hh"
-#include "spanner.hh"
 #include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "warn.hh"
 
 class Hyphen_engraver : public Engraver
 {

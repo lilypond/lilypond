@@ -14,6 +14,7 @@ using namespace std;
 #include "audio-column.hh"
 #include "audio-staff.hh"
 #include "file-name.hh"
+#include "international.hh"
 #include "lily-version.hh"
 #include "main.hh"
 #include "midi-item.hh"
@@ -88,8 +89,8 @@ Performance::output_header_track (Midi_stream &midi_stream)
   midi_track.channel_ = 9;
 
   // perhaps multiple text events?
-  String id_string;
-  String str = String (_ ("Creator: "));
+  std::string id_string;
+  std::string str = std::string (_ ("Creator: "));
   id_string = String_convert::pad_to (gnu_lilypond_version_string (), 30);
   str += id_string;
 
@@ -112,7 +113,7 @@ Performance::output_header_track (Midi_stream &midi_stream)
   str = _ ("at ");
   time_t t (time (0));
   str += ctime (&t);
-  str = str.left_string (str.length () - 1);
+  str = str.substr (0, str.length () - 1);
   str = String_convert::pad_to (str, 60);
 
   Audio_text at_a (Audio_text::TEXT, str);
@@ -149,7 +150,7 @@ Performance::add_element (Audio_element *p)
 }
 
 void
-Performance::write_output (String out)
+Performance::write_output (std::string out)
 {
   if (out == "-")
     out = "lelie.midi";

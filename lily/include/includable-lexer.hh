@@ -13,7 +13,7 @@
 #include <FlexLexer.h>
 #endif
 
-#include "string.hh"
+#include "std-string.hh"
 #include "parray.hh"
 #include "lily-proto.hh"
 
@@ -39,11 +39,11 @@ public:
   ~Includable_lexer ();
 
   /// store dependencies for Makefile stuff.
-  Array<String> file_name_strings_;
+  Array<std::string> file_name_strings_;
 
   Source_file *get_source_file () const;
-  void new_input (String s, Sources *);
-  void new_input (String name, String data, Sources *);
+  void new_input (std::string s, Sources *);
+  void new_input (std::string name, std::string data, Sources *);
 
   char const *here_str0 () const;
 };

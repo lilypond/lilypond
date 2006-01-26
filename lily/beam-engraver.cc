@@ -6,18 +6,19 @@
   (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "engraver.hh"
 #include "beam.hh"
+#include "beaming.hh"
+#include "context.hh"
+#include "drul-array.hh"
+#include "duration.hh"
+#include "engraver.hh"
+#include "international.hh"
+#include "item.hh"
+#include "rest.hh"
+#include "score-engraver.hh"
+#include "spanner.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "beaming.hh"
-#include "score-engraver.hh"
-#include "rest.hh"
-#include "drul-array.hh"
-#include "item.hh"
-#include "spanner.hh"
-#include "context.hh"
-#include "duration.hh"
 
 #include "translator.icc"
 
@@ -242,7 +243,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   Music *m = info.ultimate_music_cause ();
   if (!m->is_mus_type ("rhythmic-event"))
     {
-      String s = _ ("stem must have Rhythmic structure");
+      std::string s = _ ("stem must have Rhythmic structure");
       if (info.music_cause ())
 	info.music_cause ()->origin ()->warning (s);
       else

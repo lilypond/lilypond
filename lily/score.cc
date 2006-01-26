@@ -15,15 +15,16 @@ using namespace std;
 #include "book.hh"
 #include "cpu-timer.hh"
 #include "global-context.hh"
+#include "international.hh"
 #include "lily-parser.hh"
 #include "lilypond-key.hh"
 #include "main.hh"
+#include "music.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "paper-score.hh"
 #include "warn.hh"
-#include "music.hh"
 
 #include "ly-smobs.icc"
 

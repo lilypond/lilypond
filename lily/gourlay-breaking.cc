@@ -12,16 +12,17 @@
 #include <cstdio>
 using namespace std;
 
-#include "warn.hh"
+#include "international.hh"
 #include "main.hh"
+#include "output-def.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
-#include "output-def.hh"
 #include "simple-spacer.hh"
 #include "system.hh"
+#include "warn.hh"
 
 /// How often to print operator pacification marks?
-const int HAPPY_DOTS_I = 3;
+const int HAPPY_DOTS = 3;
 
 /**
    Helper to trace back an optimal path
@@ -173,13 +174,13 @@ Gourlay_breaking::do_solve () const
       bnod.line_ = optimal_paths[bnod.prev_break_].line_ + 1;
       optimal_paths.push (bnod);
 
-      if (! (break_idx % HAPPY_DOTS_I))
-	progress_indication (String ("[") + to_string (break_idx) + "]");
+      if (! (break_idx % HAPPY_DOTS))
+	progress_indication (std::string ("[") + to_string (break_idx) + "]");
     }
 
   /* do the last one */
-  if (breaks.size () % HAPPY_DOTS_I)
-    progress_indication (String ("[") + to_string (breaks.size ()) + "]");
+  if (breaks.size () % HAPPY_DOTS)
+    progress_indication (std::string ("[") + to_string (breaks.size ()) + "]");
 
   progress_indication ("\n");
 

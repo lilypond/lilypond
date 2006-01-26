@@ -19,11 +19,12 @@ using namespace std;
 
 #include "custos.hh"
 #include "direction.hh"
+#include "font-interface.hh"
+#include "international.hh"
+#include "item.hh"
+#include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
-#include "note-head.hh"
-#include "item.hh"
-#include "font-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Custos, print, 1);
 SCM
@@ -32,7 +33,7 @@ Custos::print (SCM smob)
   Item *me = (Item *)unsmob_grob (smob);
 
   SCM scm_style = me->get_property ("style");
-  String style;
+  std::string style;
   if (scm_is_symbol (scm_style))
     style = ly_symbol2string (scm_style);
   else
@@ -52,7 +53,7 @@ Custos::print (SCM smob)
   int pos = Staff_symbol_referencer::get_rounded_position (me);
   int sz = Staff_symbol_referencer::line_count (me) - 1;
 
-  String font_char = "custodes." + style + ".";
+  std::string font_char = "custodes." + style + ".";
   if (pos < neutral_pos)
     font_char += "u";
   else if (pos > neutral_pos)

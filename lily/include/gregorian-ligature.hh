@@ -10,13 +10,13 @@
 #define GREGORIAN_LIGATURE_HH
 
 class Grob;
-class String;
+#include "std-string.hh"
 
 class Gregorian_ligature
 {
 public:
   static bool has_interface (Grob *);
-  static String prefixes_to_str (Grob *);
+  static std::string prefixes_to_str (Grob *);
 };
 
 /*

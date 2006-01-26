@@ -24,10 +24,10 @@ class Lily_lexer : public Includable_lexer
   DECLARE_SMOBS (Lily_lexer,);
 
 private:
-  int lookup_keyword (String);
-  int scan_bare_word (String);
-  SCM scan_markup_word (String);
-  int scan_escaped_word (String);
+  int lookup_keyword (std::string);
+  int scan_bare_word (std::string);
+  SCM scan_markup_word (std::string);
+  int scan_escaped_word (std::string);
   int identifier_type (SCM);
   char escaped_char (char) const;
 
@@ -35,7 +35,7 @@ private:
   SCM scopes_;
   SCM start_module_;
 public:
-  String main_input_name_;
+  std::string main_input_name_;
   void *lexval;
   Input *lexloc;
   bool is_main_input_;
@@ -65,7 +65,7 @@ public:
 
   void start_main_input ();
 
-  SCM lookup_identifier (String s);
+  SCM lookup_identifier (std::string s);
   SCM lookup_identifier_symbol (SCM s);
   void push_chord_state (SCM tab);
   void push_figuredbass_state ();

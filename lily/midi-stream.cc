@@ -11,15 +11,16 @@
 #include <cerrno>
 using namespace std;
 
+#include "international.hh"
+#include "main.hh"
+#include "midi-item.hh"
+#include "misc.hh"
+#include "program-option.hh"
 #include "stream.hh"
 #include "string-convert.hh"
-#include "main.hh"
-#include "misc.hh"
-#include "midi-item.hh"
 #include "warn.hh"
-#include "program-option.hh"
 
-Midi_stream::Midi_stream (String file_name)
+Midi_stream::Midi_stream (std::string file_name)
 {
   file_name_string_ = file_name;
   out_file_ = fopen (file_name.c_str (), "wb");
@@ -33,12 +34,11 @@ Midi_stream::~Midi_stream ()
 }
 
 Midi_stream &
-Midi_stream::operator << (String str)
+Midi_stream::operator << (std::string str)
 {
   size_t sz = sizeof (Byte);
   size_t n = str.length ();
-  size_t written = fwrite (str.get_bytes (),
-			   sz, n, out_file_);
+  size_t written = fwrite (str.data (), sz, n, out_file_);
 
   if (written != sz * n)
     warning (_ ("can't write to file: `%s'"));
@@ -49,13 +49,13 @@ Midi_stream::operator << (String str)
 Midi_stream &
 Midi_stream::operator << (Midi_item const &midi_c_r)
 {
-  String str = midi_c_r.to_string ();
+  std::string str = midi_c_r.to_string ();
 
   // ugh, should have separate debugging output with Midi*::print routines
   if (do_midi_debugging_global)
     {
       str = String_convert::bin2hex (str) + "\n";
-      for (int i = str.index ("0a"); i != NPOS; i = str.index ("0a"))
+      for (ssize i = str.find ("0a"); i != NPOS; i = str.find ("0a"))
 	{
 	  str[i] = '\n';
 	  str[i + 1] = '\t';

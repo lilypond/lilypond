@@ -13,14 +13,15 @@
 #include <cstdio>
 using namespace std;
 
-#include "spanner.hh"
+#include "international.hh"
 #include "item.hh"
-#include "pitch.hh"
-#include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 #include "output-def.hh"
-#include "warn.hh"
+#include "pitch.hh"
 #include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "warn.hh"
 
 /*
   TODO: Add support for cubic spline segments.
@@ -37,7 +38,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
   Offset hvpadding = 0.5 * hpadding + vpadding;
 
   SCM shape_scm = me->get_property ("style");
-  String shape;
+  std::string shape;
 
   if (scm_is_symbol (shape_scm))
     shape = ly_symbol2string (shape_scm);
@@ -52,7 +53,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
   Array<Offset> points;
   points.clear ();
   int size = bottom_points.size ();
-  if (String::compare (shape, "leftsided-stairs") == 0)
+  if (shape == "leftsided-stairs")
     {
       for (int i = 0; i < size - 1; i++)
 	{
@@ -63,7 +64,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
 	}
     }
-  else if (String::compare (shape, "rightsided-stairs") == 0)
+  else if (shape == "rightsided-stairs")
     {
       for (int i = 0; i < size - 1; i++)
 	{
@@ -74,7 +75,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
 	}
     }
-  else if (String::compare (shape, "centered-stairs") == 0)
+  else if (shape == "centered-stairs")
     {
       Real left_xmid = bottom_points[0][X_AXIS];
       for (int i = 0; i < size - 1; i++)
@@ -97,7 +98,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 		     + hvpadding);
       out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
     }
-  else if (String::compare (shape, "ramp") == 0)
+  else if (shape == "ramp")
     {
       points.push (bottom_points[0] - vpadding + hpadding);
       for (int i = 1; i < size - 1; i++)

@@ -94,6 +94,10 @@ tree-share = $(tree-prefix)/share
 tree-share-prefix = $(tree-share)/lilypond/$(TOPLEVEL_VERSION)
 tree-lib-prefix = $(tree-lib)/lilypond/$(TOPLEVEL_VERSION)
 
+C_DIRS = flower lily
+c-clean:
+	$(foreach i, $(C_DIRS), $(MAKE) -C $(i) clean &&) true
+
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
 web-clean:

@@ -28,7 +28,7 @@ sign (int i)
   else return 0;
 }
 
-Array<String> split_string (String s, char c);
+Array<std::string> split_string (std::string s, char c);
 
 inline Real
 linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)

@@ -20,7 +20,7 @@ public:
   DECLARE_CLASSNAME(Change_iterator);
 
 private:
-  void error (String);
+  void error (std::string);
 };
 
 #endif

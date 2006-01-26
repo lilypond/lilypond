@@ -9,7 +9,6 @@
 
 #include "axis.hh"
 #include "std-string.hh"
-#include "string.hh"
 #include "real.hh"
 
 class Offset;
@@ -94,7 +93,7 @@ public:
     coordinate_a_[X_AXIS] = coordinate_a_[Y_AXIS] = 0.0;
   }
 
-  Std_string to_string () const;
+  std::string to_string () const;
 
   Offset &mirror (Axis a)
   {
@@ -112,6 +111,7 @@ public:
   }
 };
 
+#include "arithmetic-operator.hh"
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, -);
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, *);

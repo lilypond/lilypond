@@ -33,37 +33,38 @@ using namespace std;
 #include "freetype.hh"
 #include "getopt-long.hh"
 #include "global-ctor.hh"
+#include "international.hh"
 #include "lily-guile.hh"
 #include "lily-version.hh"
 #include "misc.hh"
 #include "output-def.hh"
+#include "program-option.hh"
+#include "relocate.hh"
 #include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"
-#include "program-option.hh"
-#include "relocate.hh"
 
 /*
  * Global options that can be overridden through command line.
  */
 
 /* Names of header fields to be dumped to a separate file. */
-Array<String> dump_header_fieldnames_global;
+Array<std::string> dump_header_fieldnames_global;
 
 /* Name of initialisation file. */
-String init_name_global;
+std::string init_name_global;
 
 /* Selected output backend
    One of (gnome, ps [default], eps, scm, svg, tex, texstr)") */
-String output_backend_global = "ps";
+std::string output_backend_global = "ps";
 /* Output formats to generate.  */
-String output_format_global = "";
+std::string output_format_global = "";
 
 bool is_pango_format_global;
 bool is_TeX_format_global;
 
 /* Current output name. */
-String output_name_global;
+std::string output_name_global;
 
 /* Run in safe mode? */
 bool be_safe_global = false;
@@ -76,8 +77,8 @@ bool be_verbose_global = false;
 
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
-String init_scheme_code_string;
-String init_scheme_variables;
+std::string init_scheme_code_string;
+std::string init_scheme_variables;
 
 /* Generate preview of first system.  */
 bool make_preview = false;
@@ -135,10 +136,10 @@ static char const *WARRANTY
 /* Where the init files live.  Typically:
    LILYPOND_DATADIR = /usr/share/lilypond
 */
-String prefix_directory;
+std::string prefix_directory;
 
 /* The jail specification: USER,GROUP,JAIL,DIR. */
-String jail_spec;
+std::string jail_spec;
 
 /*  The option parser */
 static Getopt_long *option_parser = 0;
@@ -275,9 +276,9 @@ warranty ()
 }
 
 static void
-prepend_load_path (String dir)
+prepend_load_path (std::string dir)
 {
-  String s = "(set! %load-path (cons \"" + dir + "\" %load-path))";
+  std::string s = "(set! %load-path (cons \"" + dir + "\" %load-path))";
   scm_c_eval_string (s.c_str ());
 }
 
@@ -299,7 +300,7 @@ do_chroot_jail ()
       USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
     };
 
-  Array<Std_string> components = String_convert::split (jail_spec, ',');
+  Array<std::string> components = String_convert::split (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
       error (_f ("expected %d arguments with jail, found: %d", JAIL_MAX,
@@ -450,7 +451,7 @@ setup_localisation ()
      Disable localisation of float values.  This breaks TeX output.  */
   setlocale (LC_NUMERIC, "C");
 
-  String localedir = LOCALEDIR;
+  std::string localedir = LOCALEDIR;
   if (char const *env = getenv ("LILYPOND_LOCALEDIR"))
     localedir = env;
 
@@ -460,7 +461,7 @@ setup_localisation ()
 }
 
 static void
-add_output_format (String format)
+add_output_format (std::string format)
 {
   if (output_format_global != "")
     output_format_global += ",";
@@ -477,32 +478,32 @@ parse_argv (int argc, char **argv)
       switch (opt->shortname_char_)
 	{
 	case 0:
-	  if (String (opt->longname_str0_) == "dvi"
-	      || String (opt->longname_str0_) == "pdf"
-	      || String (opt->longname_str0_) == "png"
-	      || String (opt->longname_str0_) == "ps"
-	      || String (opt->longname_str0_) == "tex")
+	  if (std::string (opt->longname_str0_) == "dvi"
+	      || std::string (opt->longname_str0_) == "pdf"
+	      || std::string (opt->longname_str0_) == "png"
+	      || std::string (opt->longname_str0_) == "ps"
+	      || std::string (opt->longname_str0_) == "tex")
 	    add_output_format (opt->longname_str0_);
-	  else if (String (opt->longname_str0_) == "preview")
+	  else if (std::string (opt->longname_str0_) == "preview")
 	    make_preview = true;
-	  else if (String (opt->longname_str0_) == "no-pages")
+	  else if (std::string (opt->longname_str0_) == "no-pages")
 	    make_print = false;
-	  else if (String (opt->longname_str0_) == "relocate")
+	  else if (std::string (opt->longname_str0_) == "relocate")
 	    relocate_binary = true;
 	  break;
 
 	case 'd':
 	  {
-	    String arg (option_parser->optional_argument_str0_);
-	    int eq = arg.index ('=');
+	    std::string arg (option_parser->optional_argument_str0_);
+	    ssize eq = arg.find ('=');
 
-	    String key = arg;
-	    String val = "#t";
+	    std::string key = arg;
+	    std::string val = "#t";
 
 	    if (eq != NPOS)
 	      {
-		key = arg.left_string (eq);
-		val = arg.right_string (arg.length () - eq - 1);
+		key = arg.substr (0, eq);
+		val = arg.substr (eq + 1);
 	      }
 
 	    init_scheme_variables
@@ -516,7 +517,7 @@ parse_argv (int argc, char **argv)
 	  break;
 	case 'o':
 	  {
-	    String s = option_parser->optional_argument_str0_;
+	    std::string s = option_parser->optional_argument_str0_;
 	    File_name file_name (s);
 	    output_name_global = file_name.to_string ();
 	  }

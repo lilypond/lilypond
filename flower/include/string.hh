@@ -6,6 +6,10 @@
   introduced Class String_handle
 */
 
+#ifndef STD_STRING_HH
+#error string.hh is obsolete, use std-string.hh
+#endif
+
 #ifndef STRING_HH
 #define STRING_HH
 
@@ -18,102 +22,62 @@ class ostream;
 #endif
 #endif
 
-#include "std-string.hh"
 #include "arithmetic-operator.hh"
 #include "string-handle.hh"
 
-/**
+namespace std {
 
-Intuitive string class. provides
-\begin{itemize}
-\item
-ref counting through #String_handle#
-\item
-conversion from bool, int, double, char* , char.
-\item
-to be moved to String_convert:
-conversion to int, upcase, downcase
-
-\item
-printable.
-
-\item
-indexing (index_i, index_any_i, last_index_i)
-
-\item
-cutting (left_string, right_string, mid_string)
-
-\item
-concat (+=, +)
-
-\item
-signed comparison (<, >, ==, etc)
-
-\item
-No operator[] is provided, since this would be enormously  slow. If needed,
-convert to char const* .
-\end{itemize}
-*/
 class String
 {
 public:
 
-#if STD_STRING
-  String (Std_string const &);
-  operator Std_string () const;
-#endif /* STD_STRING */
+  /* partial std::string interface */
+  String ();
+  String (int n, char c);
+  String (char const *source);
+  String (char const *, int n);
+  String (String const &, int pos, ssize n=NPOS);
 
-  /* std::string interface */
+  String &operator = (String const &source);
+  /// concatenate s
+  void operator += (char const *s) { strh_ += s; }
+  void operator += (String s);
+  char &operator [] (int n);
+  char operator [] (int n) const;
+
+
   char const *c_str () const;
   char const *data () const;
   bool empty () const;
-  int find (String &s, int pos=0) const;
-  int find (char c) const;
+  int find (String s, int pos=0) const;
+  int find (char c, int pos=0) const;
+  int find (char const *c, int pos=0) const;
   int rfind (char c) const;
   String replace (int pos, int n, String str);
 
-  String substr (int pos=0, int n=NPOS) const;
+  String substr (int pos=0, ssize n=NPOS) const;
+  int compare (String const &s) const;
 
-  //String (String const &, int pos, int n=NPOS);
-  String (int n, char c);
+  void append (String);
+  int length () const;
+
+  String insert (ssize pos, String);
+  ssize copy (char *s, ssize n, ssize pos=0) const;
 
 protected:
   String_handle strh_;
 
   bool null_terminated ();
 
-public:
-
-  /** init to empty string. This is needed because other
-      constructors are provided.*/
-  String ();
-
-  /// String s = "abc";
-  String (char const *source);
-  String (Byte const *byte, int length_i);
-
+private:
   ///  return "new"-ed copy of contents
   Byte *get_copy_byte () const;
   char *get_copy_str0 () const;
 
   Byte const *to_bytes () const;
-  char *get_str0 ();
   Byte *get_bytes ();
 
-  String &operator = (String const &source);
-
-  /// concatenate s
-  void operator += (char const *s) { strh_ += s; }
-  void operator += (String s);
-  
-  void append (String);
   void prepend (String);
-
-  /**
-     Return a char.  UNSAFE because it may change strlen () result
-  */
-  char &operator [] (int n);
-  char operator [] (int n) const;
 
   /// return n leftmost chars
   String left_string (int n) const;
@@ -121,16 +85,12 @@ public:
   /// return n rightmost chars
   String right_string (int n) const;
 
-  /// return the "esrever" of *this
-  void reverse ();
-
   /// return a piece starting at index (first char = index_i 0), length n
   String cut_string (int index_i, int n) const;
 
   /// cut out a middle piece, return remainder
   String nomid_string (int index_i, int n) const;
 
-  /// signed comparison,  analogous to memcmp;
   static int compare (String const &s1, const String &s2);
 
   /// index of rightmost character C in string
@@ -143,16 +103,10 @@ public:
 
   int index_any (String) const;
 
-  void to_upper ();
-  void to_lower ();
-
 #ifdef STREAM_SUPPORT
   /// provide Stream output
   void print_on (ostream &os) const;
 #endif
-
-  /// the length of the string
-  int length () const;
 
   /// convert to an integer
   int to_int () const;
@@ -163,36 +117,6 @@ public:
   String substitute (String find, String replace);
   String substitute (char find, char replace);
 };
-
-/*
-  better to clutter global namespace, than suffer *ugh, ugh, ugh*
-  implicit conversions.
-
-  it might be cool to have no type-checking at all in a language,
-  but once there is, having this silently circumvented is a nightmare.
-
-  whenever implicit conversions seem necessary (e.g. operator << ()),
-  use Scalar as the generic type iso String.
-*/
-
-/// for completeness (=handy)
-String to_string (String s);
-String to_string (char c, int n = 1);
-String to_string (int i, char const *format = 0);
-String to_string (double f, char const *format = 0);
-String to_string (long b);
-String to_string (bool b);
-String to_string (char const *format, ...);
-
-/*
-  technically incorrect, but lets keep it here: this is a
-  catch all place for this stuff.
-*/
-
-#include "international.hh"
-#include "compare.hh"
-
-INSTANTIATE_COMPARE (String const &, String::compare);
 
 #ifdef STRING_UTILS_INLINED
 #ifndef INLINE
@@ -213,4 +137,13 @@ IMPLEMENT_ARITHMETIC_OPERATOR (String, +);
 ostream &operator << (ostream &os, String d);
 #endif
 
-#endif
+}
+
+/*
+  technically incorrect, but lets keep it here: this is a
+  catch all place for this stuff.
+*/
+#include "international.hh"
+
+
+#endif /* STRING_HH */

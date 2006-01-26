@@ -8,17 +8,18 @@
 */
 
 #include "coherent-ligature-engraver.hh"
+#include "font-interface.hh"
+#include "international.hh"
 #include "mensural-ligature.hh"
 #include "music.hh"
-#include "warn.hh"
-#include "spanner.hh"
-#include "paper-column.hh"
 #include "note-column.hh"
-#include "rhythmic-head.hh"
 #include "note-head.hh"
-#include "staff-symbol-referencer.hh"
 #include "output-def.hh"
-#include "font-interface.hh"
+#include "paper-column.hh"
+#include "rhythmic-head.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "warn.hh"
 
 /*
  * TODO: accidentals are aligned with the first note;

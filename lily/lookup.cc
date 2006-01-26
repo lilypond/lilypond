@@ -451,40 +451,40 @@ Stencil
 Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 {
   Stencil m;
-  String sym = ly_scm2string (scm_car (s));
-  String reg = ly_scm2string (scm_car (scm_cdr (s)));
+  std::string sym = ly_scm2string (scm_car (s));
+  std::string reg = ly_scm2string (scm_car (scm_cdr (s)));
 
   if (sym == "Discant")
     {
       Stencil r = fm->find_by_name ("accordion.accDiscant");
       m.add_stencil (r);
-      if (reg.left_string (1) == "F")
+      if (reg.substr (0, 1) == "F")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
       int eflag = 0x00;
-      if (reg.left_string (3) == "EEE")
+      if (reg.substr (0, 3) == "EEE")
 	{
 	  eflag = 0x07;
-	  reg = reg.right_string (reg.length () - 3);
+	  reg = reg.substr (3);
 	}
-      else if (reg.left_string (2) == "EE")
+      else if (reg.substr (0, 2) == "EE")
 	{
 	  eflag = 0x05;
-	  reg = reg.right_string (reg.length () - 2);
+	  reg = reg.substr (2);
 	}
-      else if (reg.left_string (2) == "Eh")
+      else if (reg.substr (0, 2) == "Eh")
 	{
 	  eflag = 0x04;
-	  reg = reg.right_string (reg.length () - 2);
+	  reg = reg.substr (2);
 	}
-      else if (reg.left_string (1) == "E")
+      else if (reg.substr (0, 1) == "E")
 	{
 	  eflag = 0x02;
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
       if (eflag & 0x02)
 	{
@@ -506,7 +506,7 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
 	}
-      if (reg.left_string (2) == "SS")
+      if (reg.substr (0, 2) == "SS")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (0.5 * staff_space PT, Y_AXIS);
@@ -514,26 +514,26 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  m.add_stencil (d);
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 2);
+	  reg = reg.substr (2);
 	}
-      if (reg.left_string (1) == "S")
+      if (reg.substr (0, 1) == "S")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (0.5 * staff_space PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
     }
   else if (sym == "Freebase")
     {
       Stencil r = fm->find_by_name ("accordion.accFreebase");
       m.add_stencil (r);
-      if (reg.left_string (1) == "F")
+      if (reg.substr (0, 1) == "F")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
       if (reg == "E")
 	{
@@ -546,22 +546,22 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
     {
       Stencil r = fm->find_by_name ("accordion.accBayanbase");
       m.add_stencil (r);
-      if (reg.left_string (1) == "T")
+      if (reg.substr (0, 1) == "T")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
       /* include 4' reed just for completeness. You don't want to use this. */
-      if (reg.left_string (1) == "F")
+      if (reg.substr (0, 1) == "F")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
-      if (reg.left_string (2) == "EE")
+      if (reg.substr (0, 2) == "EE")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
@@ -569,55 +569,55 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 	  m.add_stencil (d);
 	  d.translate_axis (-0.8 * staff_space PT, X_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 2);
+	  reg = reg.substr (2);
 	}
-      if (reg.left_string (1) == "E")
+      if (reg.substr (0, 1) == "E")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
     }
   else if (sym == "Stdbase")
     {
       Stencil r = fm->find_by_name ("accordion.accStdbase");
       m.add_stencil (r);
-      if (reg.left_string (1) == "T")
+      if (reg.substr (0, 1) == "T")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 3.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
-      if (reg.left_string (1) == "F")
+      if (reg.substr (0, 1) == "F")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
-      if (reg.left_string (1) == "M")
+      if (reg.substr (0, 1) == "M")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 2 PT, Y_AXIS);
 	  d.translate_axis (staff_space PT, X_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
-      if (reg.left_string (1) == "E")
+      if (reg.substr (0, 1) == "E")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 1.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
-      if (reg.left_string (1) == "S")
+      if (reg.substr (0, 1) == "S")
 	{
 	  Stencil d = fm->find_by_name ("accordion.accDot");
 	  d.translate_axis (staff_space * 0.5 PT, Y_AXIS);
 	  m.add_stencil (d);
-	  reg = reg.right_string (reg.length () - 1);
+	  reg = reg.substr (1);
 	}
     }
   /* ugh maybe try to use regular font for S.B. and B.B and only use one font

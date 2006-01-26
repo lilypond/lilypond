@@ -9,13 +9,7 @@
 #ifndef STRING_ICC
 #define STRING_ICC
 
-/// for completeness (=handy)
-INLINE
-String
-to_string (String s)
-{
-  return s;
-}
+namespace std {
 
 INLINE
 char const *
@@ -77,6 +71,8 @@ String::String (char const *source)
 {
   assert (source);
   strh_ = source;
+}
+
 }
 
 #endif /* STRING_ICC */

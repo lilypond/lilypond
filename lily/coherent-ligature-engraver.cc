@@ -116,8 +116,8 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
       return;
     }
 
-  String name = parent->name ();
-  if (!String::compare (name, "PaperColumn"))
+  std::string name = parent->name ();
+  if (name != "PaperColumn")
     {
       // Change column not only for targeted item (NoteColumn), but
       // also for all associated grobs (NoteSpacing, SeparationItem).

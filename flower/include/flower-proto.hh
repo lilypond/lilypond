@@ -19,6 +19,15 @@ template<class T> struct Link_list;
 template<class T> struct Interval_t;
 template<class T> struct PQueue;
 
+typedef unsigned char Byte;
+namespace std {
+  struct String_data;
+  struct String_handle;
+  //struct String;
+}
+struct String_convert;
+
+#include "std-string.hh"
 #include "real.hh"
 
 typedef Interval_t<Real> Interval;
@@ -29,10 +38,6 @@ struct Rational;
 class File_name;
 class File_path;
 struct Getopt_long;
-struct String_data;
-struct String_handle;
-struct String_convert;
-struct String;
 
 struct Text_stream;
 struct Data_file;
@@ -46,7 +51,6 @@ typedef unsigned U32;
 typedef int I32;
 typedef long long I64;
 
-typedef unsigned char Byte;
 
 struct Duration;
 struct Duration_iterator;
