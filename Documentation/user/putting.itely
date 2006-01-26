@@ -10,6 +10,7 @@ how to solve common problems.
 * Extending the templates::     
 * Fixing overlapping notation::  
 * How LilyPond files work::     
+* Score is a single musical expression::  
 * Troubleshooting (taking it all apart)::  
 @end menu
 
@@ -599,12 +600,12 @@ then comment out all of the bass music (but leave
 @code{\bass} in the @code{\score} uncommented.
 
 @example
-bass = \relative c' {
-%{
+bass = \relative c' @{
+%@{
   c4 c c c
   d d d d
-%}
-}
+%@}
+@}
 @end example
 
 Now start slowly uncommenting more and more of the
