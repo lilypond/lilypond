@@ -756,7 +756,7 @@ any sort of property supported by @internalsref{font-interface} and
   (interpret-markup
    layout props
    (if  (ly:get-option 'safe)
-	"Cannot read file in Safe mode"
+	"verbatim-file disabled in safe mode"
 	(let*
 	    ((str (ly:gulp-file name))
 	     (lines (string-split str #\nl)))
