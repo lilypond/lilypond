@@ -6,9 +6,11 @@
   (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "engraver.hh"
+
+#include "international.hh"
 #include "note-column.hh"
 #include "side-position-interface.hh"
-#include "engraver.hh"
 
 class Text_spanner_engraver : public Engraver
 {

@@ -11,7 +11,7 @@
 
 #include "string-data.hh"
 
-#include <algorithm>
+//#include <algorithm>
 #include <cassert>
 #include <cstring>
 #include <memory>
@@ -21,6 +21,8 @@ const int INITIALMAX = 8;
 
 #include <sys/types.h>
 
+namespace std {
+  
 INLINE void
 String_data::OKW ()
 {
@@ -157,7 +159,7 @@ String_data::c_str () const
   return (char const *)data_byte_;
 }
 INLINE char *
-String_data::get_str0 ()
+String_data::get_c_str ()
 {
   return (char *)data_byte_;
 }
@@ -204,6 +206,8 @@ String_data::operator [] (int j) const
 {
   assert (j >= 0 && j <= length_);
   return data_byte_[j];
+}
+
 }
 
 #endif // __STRING_UTIL_CC //

@@ -9,11 +9,12 @@
 #include "event-chord-iterator.hh"
 
 #include "context.hh"
-#include "warn.hh"
-#include "music.hh"
-#include "input.hh"
-#include "pitch.hh"
 #include "duration.hh"
+#include "input.hh"
+#include "international.hh"
+#include "music.hh"
+#include "pitch.hh"
+#include "warn.hh"
 
 Event_chord_iterator::Event_chord_iterator ()
 {

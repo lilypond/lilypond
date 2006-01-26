@@ -9,12 +9,13 @@
 
 #include "context.hh"
 #include "engraver.hh"
+#include "international.hh"
 #include "item.hh"
 #include "main.hh"
-#include "spanner.hh"
-#include "warn.hh"
 #include "paper-column.hh"
 #include "simple-closure.hh"
+#include "spanner.hh"
+#include "warn.hh"
 
 SCM
 lookup_nested_property (SCM alist,

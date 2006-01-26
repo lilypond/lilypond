@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 
 #include "file-path.hh"
+#include "international.hh"
 #include "main.hh"
 #include "warn.hh"
 
@@ -36,14 +37,14 @@ init_fontconfig ()
   if (!is_file ((char*)cache_file))
     message (_f ("Rebuilding FontConfig cache %s. this may take a while...", cache_file));
 			
-  Array<String> dirs;
+  Array<std::string> dirs;
 
   dirs.push (prefix_directory + "/fonts/otf/");
   dirs.push (prefix_directory + "/fonts/type1/");
   
   for (int i = 0; i < dirs.size (); i++)
     {
-      String dir = dirs[i];
+      std::string dir = dirs[i];
       if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.c_str ()))
 	error (_f ("adding font directory: %s", dir.c_str ()));
       else if (be_verbose_global)

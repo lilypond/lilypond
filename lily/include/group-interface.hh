@@ -10,7 +10,7 @@
 #define GROUP_INTERFACE_HH
 
 #include "grob.hh"
-#include "string.hh"
+#include "std-string.hh"
 /**
    Look at Score element ELT as thing which has a list property called
    NAME_. Normally the list would contain Grobs, but

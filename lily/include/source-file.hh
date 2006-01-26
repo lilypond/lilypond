@@ -9,10 +9,11 @@
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
 
+#include "std-string.hh"
+
 #include <iostream>
 using namespace std;
 
-#include "string.hh"
 #include "protected-scm.hh"
 #include "parray.hh"
 
@@ -27,19 +28,19 @@ using namespace std;
 class Source_file
 {
 public:
-  Source_file (String fn);
-  Source_file (String, String);
+  Source_file (std::string fn);
+  Source_file (std::string, std::string);
 
   virtual ~Source_file ();
 
   char const *c_str () const;
-  virtual String quote_input (char const *pos_str0) const;
+  virtual std::string quote_input (char const *pos_str0) const;
   istream *get_istream ();
   bool contains (char const *pos_str0) const;
   int length () const;
   virtual int get_line (char const *pos_str0) const;
-  String name_string () const;
-  String file_line_column_string (char const *str0) const;
+  std::string name_string () const;
+  std::string file_line_column_string (char const *str0) const;
 
   // return start + n
   char const *seek_str0 (int n);
@@ -48,11 +49,11 @@ public:
   // return here + n bytes
   char const *forward_str0 (int n);
   char const *pos_str0 () { return pos_str0_; }
-  String get_string (int n);
+  std::string get_string (int n);
   void set_pos (char const *pos_str0);
 public:
   Slice line_slice (char const *pos_str0) const;
-  String line_string (char const *pos_str0) const;
+  std::string line_string (char const *pos_str0) const;
   void get_counts (char const *pos_str0, int *, int *, int *) const;
 
   /*
@@ -63,7 +64,7 @@ public:
   char const *pos_str0_;
 
   SCM get_port () const;
-  String name_;
+  std::string name_;
 
 private:
   Link_array<char> newline_locations_;
@@ -76,7 +77,7 @@ private:
   Protected_scm str_port_;
 };
 
-char *gulp_file (String fn, int *len);
+char *gulp_file (std::string fn, int *len);
 
 #endif /* SOURCE_FILE_HH */
 

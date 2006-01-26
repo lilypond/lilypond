@@ -8,6 +8,7 @@
 
 #include "accidental-interface.hh"
 #include "font-interface.hh"
+#include "international.hh"
 #include "item.hh"
 #include "output-def.hh"
 #include "pitch.hh"
@@ -141,8 +142,8 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 /*
   todo: this sort of stuff in Scheme. --hwn.
 */
-String
-Accidental_interface::get_fontcharname (String style, int alteration)
+std::string
+Accidental_interface::get_fontcharname (std::string style, int alteration)
 {
   if (alteration == DOUBLE_FLAT
       || alteration == DOUBLE_SHARP)
@@ -201,7 +202,7 @@ Accidental_interface::print (SCM smob)
     }
 
   SCM scm_style = me->get_property ("style");
-  String style;
+  std::string style;
   if (scm_is_symbol (scm_style))
     style = ly_symbol2string (scm_style);
   else
@@ -231,7 +232,7 @@ Accidental_interface::print (SCM smob)
        scm_is_pair (s); s = scm_cdr (s))
     {
       int alteration = scm_to_int (scm_car (s));
-      String font_char = get_fontcharname (style, alteration);
+      std::string font_char = get_fontcharname (style, alteration);
       Stencil acc (fm->find_by_name ("accidentals." + font_char));
 
       if (acc.is_empty ())

@@ -10,12 +10,12 @@
 
 
 #ifndef STANDALONE
-Std_string
+std::string
 Offset::to_string () const
 {
-  Std_string s;
-  s = Std_string (" (") + ::to_string (coordinate_a_[X_AXIS]) + ", "
-    + ::to_string (coordinate_a_[Y_AXIS]) + ")";
+  std::string s;
+  s = std::string (" (") + std::to_string (coordinate_a_[X_AXIS]) + ", "
+    + std::to_string (coordinate_a_[Y_AXIS]) + ")";
   return s;
 }
 #endif

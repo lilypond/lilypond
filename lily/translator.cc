@@ -164,9 +164,9 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   Acknowledge_information inf;
   inf.function_ = ptr;
 
-  String interface_name (func_name);
+  std::string interface_name (func_name);
 
-  interface_name = interface_name.substitute ('_', '-');
+  interface_name = replace_all (interface_name, '_', '-');
   interface_name += "-interface";
 
   inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.c_str ()));

@@ -9,9 +9,9 @@
 #ifndef KPATH_HH
 #define KPATH_HH
 
-class String;
+#include "std-string.hh"
 
-String kpathsea_find_tfm (char const *name);
+std::string kpathsea_find_tfm (char const *name);
 void initialize_kpathsea (char *av0);
 
 #endif /* KPATH_HH */

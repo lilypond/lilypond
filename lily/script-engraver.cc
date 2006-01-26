@@ -6,15 +6,17 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include "engraver.hh"
+
 #include "context.hh"
 #include "directional-element-interface.hh"
-#include "engraver.hh"
-#include "slur.hh"
+#include "international.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "rhythmic-head.hh"
 #include "script-interface.hh"
 #include "side-position-interface.hh"
+#include "slur.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"

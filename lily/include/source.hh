@@ -6,8 +6,10 @@
 
 #ifndef SOURCE_HH
 #define SOURCE_HH
+
 #include "cons.hh"
 #include "flower-proto.hh"
+#include "std-string.hh"
 
 /*   A set of sourcefiles.  */
 class Sources
@@ -20,7 +22,7 @@ public:
   Sources ();
   ~Sources ();
 
-  Source_file *get_file (String &file_name);
+  Source_file *get_file (std::string &file_name);
   Source_file *get_sourcefile (char const *);
   void add (Source_file *sourcefile);
   void set_path (File_path *);

@@ -410,8 +410,8 @@ Part_combine_iterator::process (Moment m)
 	solo2 ();
       else if (scm_is_symbol (tag))
 	{
-	  String s = "Unknown split directive: "
-	    + (scm_is_symbol (tag) ? ly_symbol2string (tag) : String ("not a symbol"));
+	  std::string s = "Unknown split directive: "
+	    + (scm_is_symbol (tag) ? ly_symbol2string (tag) : std::string ("not a symbol"));
 	  programming_error (s);
 	}
     }

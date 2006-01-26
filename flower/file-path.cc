@@ -9,6 +9,8 @@
 
 #include "file-path.hh"
 
+#include "std-string.hh"
+
 #include <cstdio>
 #include <cerrno>
 using namespace std;
@@ -29,28 +31,34 @@ using namespace std;
 #define PATHSEP ':'
 #endif
 
-Array<Std_string>
+Array<std::string>
 File_path::directories () const
 {
   return dirs_;
 }
 
+#include <algorithm>
 void
-File_path::parse_path (Std_string p)
+File_path::parse_path (std::string p)
 {
-  int len;
+  ssize len;
   while ((len = p.length ()))
     {
-      int i = p.find (PATHSEP);
+      ssize i = p.find (PATHSEP);
       if (i == NPOS)
 	i = len;
       append (p.substr (0, i));
-      p = p.substr (min (int(len), i + 1));
+      //p = p.substr (min (len, i + 1));
+      //ssize x = min (len, i + 1);
+      ssize a = len;
+      ssize b = i + 1;
+      ssize x = std::max (a, b);
+      p = p.substr (x);
     }
 }
 
 bool
-is_file (Std_string file_name)
+is_file (std::string file_name)
 {
 #if 0 /* Check if directory. TODO: encapsulate for autoconf */
   struct stat sbuf;
@@ -79,7 +87,7 @@ is_file (Std_string file_name)
 }
 
 bool
-is_dir (Std_string file_name)
+is_dir (std::string file_name)
 {
 #if !STAT_MACROS_BROKEN
   struct stat sbuf;
@@ -106,8 +114,8 @@ directory, in this order.
 @return
 The file name if found, or empty string if not found. */
 
-Std_string
-File_path::find (Std_string name) const
+std::string
+File_path::find (std::string name) const
 {
   if (!name.length () || (name == "-"))
     return name;
@@ -125,14 +133,14 @@ File_path::find (Std_string name) const
   for (int i = 0; i < dirs_.size (); i++)
     {
       File_name file_name (name);
-      File_name dir = (Std_string) dirs_[i];
+      File_name dir = (std::string) dirs_[i];
       file_name.root_ = dir.root_;
       dir.root_ = "";
       if (file_name.dir_.empty ())
 	file_name.dir_ = dir.to_string ();
       else if (!dir.to_string ().empty ())
 	file_name.dir_ = dir.to_string ()
-	  + ::to_string (DIRSEP) + file_name.dir_;
+	  + std::to_string (DIRSEP) + file_name.dir_;
       if (is_file (file_name.to_string ()))
 	return file_name.to_string ();
     }
@@ -146,21 +154,21 @@ File_path::find (Std_string name) const
 
   where EXT is from EXTENSIONS.
 */
-Std_string
-File_path::find (Std_string name, char const *extensions[])
+std::string
+File_path::find (std::string name, char const *extensions[])
 {
   if (name.empty () || name == "-")
     return name;
   
   File_name file_name (name);
-  Std_string orig_ext = file_name.ext_;
+  std::string orig_ext = file_name.ext_;
   for (int i = 0; extensions[i]; i++)
     {
       file_name.ext_ = orig_ext;
       if (*extensions[i] && !file_name.ext_.empty ())
 	file_name.ext_ += ".";
       file_name.ext_ += extensions[i];
-      Std_string found = find (file_name.to_string ());
+      std::string found = find (file_name.to_string ());
       if (!found.empty ())
 	return found;
     }
@@ -170,7 +178,7 @@ File_path::find (Std_string name, char const *extensions[])
 
 /** Append a directory, return false if failed.  */
 bool
-File_path::try_append (Std_string s)
+File_path::try_append (std::string s)
 {
   if (s == "")
     s = ".";
@@ -182,27 +190,27 @@ File_path::try_append (Std_string s)
   return false;
 }
 
-Std_string
+std::string
 File_path::to_string () const
 {
-  Std_string s;
+  std::string s;
   for (int i = 0; i < dirs_.size (); i++)
     {
       s = s + dirs_[i];
       if (i < dirs_.size () - 1)
-	s += ::to_string (PATHSEP);
+	s += std::to_string (PATHSEP);
     }
   return s;
 }
 
 void
-File_path::append (Std_string str)
+File_path::append (std::string str)
 {
   dirs_.push (str);
 }
 
 void
-File_path::prepend (Std_string str)
+File_path::prepend (std::string str)
 {
   dirs_.insert (str, 0);
 }

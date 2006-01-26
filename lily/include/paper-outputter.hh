@@ -11,7 +11,7 @@
 
 #include "lily-proto.hh"
 #include "array.hh"
-#include "string.hh"
+#include "std-string.hh"
 #include "protected-scm.hh"
 #include "smobs.hh"
 
@@ -22,7 +22,7 @@
 class Paper_outputter
 {
   SCM output_module_;
-  String file_name_;
+  std::string file_name_;
   SCM file_;
 
 public:
@@ -32,13 +32,13 @@ public:
   SCM file () const;
   SCM dump_string (SCM);
   void output_scheme (SCM scm);
-  Paper_outputter (SCM port, String format);
+  Paper_outputter (SCM port, std::string format);
   SCM scheme_to_string (SCM);
   void output_stencil (Stencil);
   void close ();
 };
 
-Paper_outputter *get_paper_outputter (String, String);
+Paper_outputter *get_paper_outputter (std::string, std::string);
 DECLARE_UNSMOB (Paper_outputter, outputter);
 
 #endif /* PAPER_OUTPUTTER_HH */

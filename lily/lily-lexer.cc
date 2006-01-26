@@ -12,14 +12,15 @@
 #include <sstream>
 using namespace std;
 
-#include "scm-hash.hh"
+#include "international.hh"
 #include "interval.hh"
-#include "parser.hh"
 #include "keyword.hh"
-#include "warn.hh"
-#include "source-file.hh"
 #include "main.hh"
 #include "moment.hh"
+#include "parser.hh"
+#include "scm-hash.hh"
+#include "source-file.hh"
+#include "warn.hh"
 
 static Keyword_ent the_key_tab[]
 = {
@@ -171,7 +172,7 @@ Lily_lexer::set_current_scope ()
 }
 
 int
-Lily_lexer::lookup_keyword (String s)
+Lily_lexer::lookup_keyword (std::string s)
 {
   return keytable_->lookup (s.c_str ());
 }
@@ -190,7 +191,7 @@ Lily_lexer::lookup_identifier_symbol (SCM sym)
 }
 
 SCM
-Lily_lexer::lookup_identifier (String name)
+Lily_lexer::lookup_identifier (std::string name)
 {
   return lookup_identifier_symbol (ly_symbol2scm (name.c_str ()));
 }
@@ -220,7 +221,7 @@ Lily_lexer::set_identifier (SCM name, SCM s)
     {
       if (lookup_keyword (ly_symbol2string (sym)) >= 0)
 	{
-	  String symstr = ly_symbol2string (sym);
+	  std::string symstr = ly_symbol2string (sym);
 	  warning (_f ("identifier name is a keyword: `%s'", symstr.c_str ()));
 	}
 

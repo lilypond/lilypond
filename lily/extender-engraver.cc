@@ -10,10 +10,11 @@
 
 #include "context.hh"
 #include "engraver.hh"
-#include "pointer-group-interface.hh"
+#include "international.hh"
 #include "item.hh"
 #include "lyric-extender.hh"
 #include "note-head.hh"
+#include "pointer-group-interface.hh"
 #include "warn.hh"
 
 void completize_extender (Spanner *sp);

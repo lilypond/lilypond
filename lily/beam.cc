@@ -25,18 +25,20 @@
 */
 
 #include "beam.hh"
-#include "interval-set.hh"
-#include "directional-element-interface.hh"
+
 #include "beaming.hh"
-#include "misc.hh"
-#include "least-squares.hh"
-#include "stem.hh"
-#include "output-def.hh"
-#include "lookup.hh"
-#include "pointer-group-interface.hh"
-#include "staff-symbol-referencer.hh"
+#include "directional-element-interface.hh"
+#include "international.hh"
+#include "interval-set.hh"
 #include "item.hh"
+#include "least-squares.hh"
+#include "lookup.hh"
+#include "misc.hh"
+#include "output-def.hh"
+#include "pointer-group-interface.hh"
 #include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem.hh"
 #include "warn.hh"
 
 #if DEBUG_QUANTING
@@ -498,7 +500,7 @@ Beam::print (SCM grob)
 	should be switchable for those who want to twiddle with the
 	parameters.
       */
-      String str;
+      std::string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;

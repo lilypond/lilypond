@@ -108,7 +108,7 @@ Slur::print (SCM smob)
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
       && scm_is_string (quant_score))
     {
-      String str;
+      std::string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup

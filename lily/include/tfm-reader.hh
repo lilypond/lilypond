@@ -20,7 +20,7 @@ class Tex_font_metric_reader
 private:
   Real get_U32_fix ();
   Real get_U32_fix_scaled ();
-  String get_bcpl_string ();
+  std::string get_bcpl_string ();
   void read_header ();
   void read_params ();
   void read_char_metrics ();
@@ -32,7 +32,7 @@ private:
   Binary_source_file input_;
 
 public:
-  Tex_font_metric_reader (String name);
+  Tex_font_metric_reader (std::string name);
 
   Tfm_info info_;
   Tfm_header header_;

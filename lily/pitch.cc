@@ -7,8 +7,10 @@
 */
 
 #include "pitch.hh"
-#include "warn.hh"
+
 #include "main.hh"
+#include "string-convert.hh"
+#include "warn.hh"
 
 #include "ly-smobs.icc"
 
@@ -164,13 +166,13 @@ pitch_interval (Pitch const &from, Pitch const &to)
 char const *accname[] = {"eses", "eseh", "es", "eh", "",
 			 "ih", "is", "isih", "isis"};
 
-String
+std::string
 Pitch::to_string () const
 {
   int n = (notename_ + 2) % 7;
-  String s = ::to_string (char (n + 'a'));
+  std::string s = std::to_string (char (n + 'a'));
   if (alteration_)
-    s += String (accname[alteration_ - DOUBLE_FLAT]);
+    s += std::string (accname[alteration_ - DOUBLE_FLAT]);
 
   if (octave_ >= 0)
     {
@@ -182,7 +184,7 @@ Pitch::to_string () const
     {
       int o = (-octave_) - 1;
       while (o--)
-	s += ::to_string (',');
+	s += std::to_string (',');
     }
 
   return s;

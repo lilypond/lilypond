@@ -36,9 +36,9 @@ public:
   ~Pango_font ();
 
   SCM font_file_name () const;
-  void register_font_file (String, String);
-  Stencil text_stencil (String) const;
-  Stencil pango_item_string_stencil (PangoItem const *, String) const;
+  void register_font_file (std::string, std::string);
+  Stencil text_stencil (std::string) const;
+  Stencil pango_item_string_stencil (PangoItem const *, std::string) const;
 
   virtual void derived_mark () const;
 };

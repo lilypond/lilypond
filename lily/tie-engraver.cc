@@ -6,17 +6,19 @@
   (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "tie.hh"
+#include "engraver.hh"
+
 #include "context.hh"
+#include "grob-pitch-tuple.hh"
+#include "international.hh"
+#include "item.hh"
+#include "note-head.hh"
 #include "protected-scm.hh"
 #include "spanner.hh"
-#include "tie-column.hh"
-#include "engraver.hh"
-#include "item.hh"
-#include "grob-pitch-tuple.hh"
-#include "warn.hh"
-#include "note-head.hh"
 #include "staff-symbol-referencer.hh"
+#include "tie-column.hh"
+#include "tie.hh"
+#include "warn.hh"
 
 /**
    Manufacture ties.  Acknowledge noteheads, and put them into a

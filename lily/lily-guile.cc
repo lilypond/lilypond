@@ -75,7 +75,7 @@ ly_quote_scm (SCM s)
   return scm_list_n (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
 }
 
-String
+std::string
 ly_symbol2string (SCM s)
 {
   /*
@@ -85,15 +85,15 @@ ly_symbol2string (SCM s)
   return ly_scm2string (str);
 }
 
-String
-gulp_file_to_string (String fn, bool must_exist, int size)
+std::string
+gulp_file_to_string (std::string fn, bool must_exist, int size)
 {
-  String s = global_path.find (fn);
+  std::string s = global_path.find (fn);
   if (s == "")
     {
       if (must_exist)
 	{
-	  String e = _f ("can't find file: `%s'", fn);
+	  std::string e = _f ("can't find file: `%s'", fn);
 	  e += " ";
 	  e += _f ("(load path: `%s')", global_path.to_string ());
 	  error (e);
@@ -107,7 +107,7 @@ gulp_file_to_string (String fn, bool must_exist, int size)
 
   int n = size;
   char *str = gulp_file (s, &n);
-  String result ((Byte *) str, n);
+  std::string result (str, n);
   delete[] str;
 
   if (be_verbose_global)
@@ -126,12 +126,12 @@ extern "C" {
   }
 };
 
-String
+std::string
 ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
-  return String ((Byte *)scm_i_string_chars (str),
-		 (int) scm_i_string_length (str));
+  return std::string (scm_i_string_chars (str),
+		     (int) scm_i_string_length (str));
 }
 
 char *
@@ -356,7 +356,7 @@ ly_assoc_cdr (SCM key, SCM alist)
 }
 
 SCM
-ly_string_array_to_scm (Array<Std_string> a)
+ly_string_array_to_scm (Array<std::string> a)
 {
   SCM s = SCM_EOL;
   for (int i = a.size () - 1; i >= 0; i--)
@@ -370,9 +370,9 @@ parse_symbol_list (char const *symbols)
 {
   while (isspace (*symbols))
     *symbols++;
-  String s = symbols;
-  s.substitute ('\n', ' ');
-  s.substitute ('\t', ' ');
+  std::string s = symbols;
+  replace_all (s, '\n', ' ');
+  replace_all (s, '\t', ' ');
   return ly_string_array_to_scm (String_convert::split (s, ' '));
 }
 
@@ -394,14 +394,14 @@ ly_truncate_list (int k, SCM lst)
   return lst;
 }
 
-String
+std::string
 print_scm_val (SCM val)
 {
-  String realval = ly_scm2string (ly_write2scm (val));
+  std::string realval = ly_scm2string (ly_write2scm (val));
   if (realval.length () > 200)
-    realval = realval.left_string (100)
+    realval = realval.substr (0, 100)
       + "\n :\n :\n"
-      + realval.right_string (100);
+      + realval.substr (realval.length () - 100);
   return realval;
 }
 

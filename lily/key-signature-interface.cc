@@ -8,12 +8,13 @@
   keyplacement by Mats Bengtsson
 */
 
-#include "item.hh"
-#include "output-def.hh"
-#include "font-interface.hh"
-#include "staff-symbol-referencer.hh"
-#include "lookup.hh"
 #include "accidental-interface.hh"
+#include "font-interface.hh"
+#include "international.hh"
+#include "item.hh"
+#include "lookup.hh"
+#include "output-def.hh"
+#include "staff-symbol-referencer.hh"
 
 struct Key_signature_interface
 {
@@ -91,7 +92,7 @@ Key_signature_interface::print (SCM smob)
   Real inter = Staff_symbol_referencer::staff_space (me) / 2.0;
 
   SCM scm_style = me->get_property ("style");
-  String style;
+  std::string style;
   if (scm_is_symbol (scm_style))
     style = ly_symbol2string (scm_style);
   else
@@ -115,7 +116,7 @@ Key_signature_interface::print (SCM smob)
   for (SCM s = newas; scm_is_pair (s); s = scm_cdr (s))
     {
       int alteration = scm_to_int (scm_cdar (s));
-      String font_char
+      std::string font_char
 	= Accidental_interface::get_fontcharname (style, alteration);
       Stencil acc (fm->find_by_name ("accidentals." + font_char));
 

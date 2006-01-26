@@ -8,19 +8,21 @@
 */
 
 #include "lily-parser.hh"
-#include "text-metrics.hh"
+
 #include "book.hh"
-#include "lilypond-key.hh"
-#include "lily-version.hh"
-#include "main.hh"
+#include "file-name.hh"
+#include "file-path.hh"
+#include "international.hh"
 #include "lily-lexer.hh"
+#include "lily-version.hh"
+#include "lilypond-key.hh"
+#include "main.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "parser.hh"
 #include "score.hh"
-#include "file-name.hh"
-#include "file-path.hh"
 #include "source.hh"
+#include "text-metrics.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"
@@ -80,7 +82,7 @@ Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 
 /* Process one .ly file, or book.  */
 void
-Lily_parser::parse_file (String init, String name, String out_name)
+Lily_parser::parse_file (std::string init, std::string name, std::string out_name)
 {
   if (output_backend_global == "tex")
     try_load_text_metrics (out_name);
@@ -100,7 +102,7 @@ Lily_parser::parse_file (String init, String name, String out_name)
   lexer_->new_input (init, sources_);
 
   File_name f (name);
-  String s = global_path.find (f.base_ + ".twy");
+  std::string s = global_path.find (f.base_ + ".twy");
   s = gulp_file_to_string (s, false, -1);
   scm_eval_string (scm_makfrom0str (s.c_str ()));
 
@@ -130,7 +132,7 @@ Lily_parser::parse_file (String init, String name, String out_name)
 }
 
 void
-Lily_parser::parse_string (String ly_code)
+Lily_parser::parse_string (std::string ly_code)
 {
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
@@ -163,14 +165,14 @@ Lily_parser::here_str0 () const
 }
 
 void
-Lily_parser::parser_error (String s)
+Lily_parser::parser_error (std::string s)
 {
   lexer_->here_input ().error (_ (s.c_str ()));
   error_level_ = 1;
 }
 
 void
-Lily_parser::parser_error (Input const &i, String s)
+Lily_parser::parser_error (Input const &i, std::string s)
 {
   i.error (s);
   error_level_ = 1;

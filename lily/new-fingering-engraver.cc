@@ -6,14 +6,16 @@
   (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "warn.hh"
 #include "engraver.hh"
+
+#include "international.hh"
+#include "rhythmic-head.hh"
+#include "script-interface.hh"
+#include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "stem.hh"
-#include "rhythmic-head.hh"
-#include "self-alignment-interface.hh"
-#include "script-interface.hh"
 #include "stem.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 

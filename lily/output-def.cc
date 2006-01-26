@@ -127,7 +127,7 @@ Output_def::lookup_variable (SCM sym) const
 }
 
 SCM
-Output_def::c_variable (String s) const
+Output_def::c_variable (std::string s) const
 {
   return lookup_variable (ly_symbol2scm (s.c_str ()));
 }

@@ -15,7 +15,7 @@
 #include "parray.hh"
 #include "smobs.hh"
 #include "virtual-methods.hh"
-#include "string.hh"
+#include "std-string.hh"
 
 class Score : public Input
 {
@@ -25,7 +25,7 @@ class Score : public Input
 
 public:
   Link_array<Output_def> defs_;
-  String user_key_;
+  std::string user_key_;
   SCM header_;
   bool error_found_;
 

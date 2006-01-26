@@ -26,7 +26,7 @@ Bar_line::print (SCM smob)
   
   if (scm_is_string (s) && scm_is_number (barsize))
     {
-      String str = ly_scm2string (s);
+      std::string str = ly_scm2string (s);
       Real sz = robust_scm2double (barsize, 0);
       if (sz <= 0)
 	return SCM_EOL;
@@ -37,7 +37,7 @@ Bar_line::print (SCM smob)
 }
 
 Stencil
-Bar_line::compound_barline (Grob *me, String str, Real h,
+Bar_line::compound_barline (Grob *me, std::string str, Real h,
 			    bool rounded)
 {
   Real kern = robust_scm2double (me->get_property ("kern"), 1);

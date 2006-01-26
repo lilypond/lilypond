@@ -74,24 +74,25 @@ using namespace std;
 #include "book.hh"
 #include "context-def.hh"
 #include "dimensions.hh"
-#include "music.hh"
 #include "file-path.hh"
 #include "input-smob.hh"
 #include "input.hh"
+#include "international.hh"
 #include "lily-guile.hh"
+#include "lily-lexer.hh"
+#include "lily-parser.hh"
 #include "lilypond-input-version.hh"
 #include "main.hh"
 #include "misc.hh"
-#include "lily-lexer.hh"
-#include "lily-parser.hh"
-#include "paper-book.hh"
+#include "music.hh"
+#include "music.hh"
 #include "output-def.hh"
-#include "scm-hash.hh"
+#include "paper-book.hh"
 #include "program-option.hh"
+#include "scm-hash.hh"
 #include "score.hh"
 #include "text-interface.hh"
 #include "warn.hh"
-#include "music.hh"
 
 %}
 
@@ -100,7 +101,7 @@ using namespace std;
 	Book *book;
 	Output_def *outputdef;
 	SCM scm;
-	String *string;
+	std::string *string;
  	Music *music;
  	Score *score;
  	int i;
@@ -2742,7 +2743,7 @@ run_music_function (Lily_parser *parser, SCM expr)
 bool
 is_regular_identifier (SCM id)
 {
-  String str = ly_scm2string (id);
+  std::string str = ly_scm2string (id);
   char const *s = str.c_str ();
 
   bool v = true;

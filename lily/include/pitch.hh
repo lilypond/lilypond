@@ -57,7 +57,7 @@ public:
   int steps () const;
   int semitone_pitch () const;
   int quartertone_pitch () const;
-  String to_string () const;
+  std::string to_string () const;
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Pitch,);

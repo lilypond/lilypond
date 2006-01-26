@@ -35,7 +35,7 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 {
   extern SCM ly_music_p_proc;
   
-  String str = "";
+  std::string str = "";
   for (SCM s = signature; scm_is_pair (s); s = scm_cdr (s))
     {
       if (str != "")

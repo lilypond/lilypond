@@ -7,7 +7,7 @@
 */
 
 #include "lily-guile.hh"
-#include "string.hh"
+#include "std-string.hh"
 
 static SCM all_ifaces;
 

@@ -102,8 +102,9 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
       SCM glyph = bar_grob->get_property ("glyph-name");
       Grob *staff_sym = Staff_symbol_referencer::get_staff_symbol (bar_grob);
 
-      String glyph_string = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
-      if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
+      std::string glyph_string = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
+      if (glyph_string.substr (0, 1) == "|"
+	  || glyph_string.substr (0, 1) == ".")
 	{
 	  Grob *common = bar_grob->common_refpoint (staff_sym, Y_AXIS);
 	  Interval bar_size = bar_grob->extent (common, Y_AXIS);

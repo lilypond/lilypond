@@ -1,5 +1,5 @@
 /*
-  std-string.hh -- declare Std_string
+  std-string.hh -- declare std::string
 
   source file of the GNU LilyPond music typesetter
 
@@ -11,56 +11,61 @@
 
 #if !STD_STRING
 
-#define Std_string String
-#define to_std_string to_string
-class String;
-typedef int ssize;
-#define NPOS -1
+/* Also declare string, in the wrong way.  */
+#include <algorithm>
+#include <iostream>
+#include <sstream>
 
-#include "string.hh"
+#endif
 
-#else
 
+
+#include "compare.hh"
+
+#if STD_STRING
 #include <string>
-// #warning Using std::string
-using namespace std;
-typedef size_t ssize;
+#endif
 
-#define NPOS std::string::npos
+#if STD_STRING
 
 namespace std {
 
-#if 0
-  class Std_string : public string
-  {
-  public:
-    Std_string ();
-    Std_string (char const*);
-    Std_string (Std_string const&, int pos, int n=npos);
-    ///Std_string (String const&, int pos, int n);
-    ////Std_string (String const &);
-    ////operator String ();
-  };
-#else  
-  typedef string Std_string;
-#endif
+  typedef size_t ssize;
+#define NPOS std::string::npos
+  // typedef string std::string;
+}
 
-  //operator Std_string (String const&);
+#else /* ! STD_STRING */
 
-  Std_string to_std_string (Std_string s);
-  Std_string to_std_string (char c, int n = 1);
-  Std_string to_std_string (int i, char const *format = 0);
-  Std_string to_std_string (double f, char const *format = 0);
-  Std_string to_std_string (long b);
-  Std_string to_std_string (bool b);
-  Std_string to_std_string (char const *format, ...);
+namespace std {
+
+#define string String
+  using namespace std;
+  class String;
+  typedef int ssize;
+#define NPOS -1
+}
+
+#include "string.hh"
 
 #endif /* STD_STRING */
 
-  Std_string &replace_all (Std_string &str, Std_string find, Std_string replace);
-#if STD_STRING
-}
-#endif
+namespace std {
+
+  std::string to_string (std::string s);
+  std::string to_string (char c, int n = 1);
+  std::string to_string (int i, char const *format = 0);
+  std::string to_string (double f, char const *format = 0);
+  std::string to_string (long b);
+  std::string to_string (bool b);
+  std::string to_string (char const *format, ...);
   
+  std::string &replace_all (std::string &str, std::string find, std::string replace);
+  std::string &replace_all (std::string &str, char find, char replace);
+  char *string_copy (std::string s);
+  
+  int string_compare (std::string const &, std::string const &);
+  INSTANTIATE_COMPARE (std::string const &, string_compare);
+}
 
 #endif /* STD_STRING_HH */

@@ -11,16 +11,17 @@
 #include <cmath>		// ceil
 using namespace std;
 
+#include "accidental-placement.hh"
 #include "axis-group-interface.hh"
+#include "directional-element-interface.hh"
+#include "international.hh"
+#include "note-head.hh"
+#include "output-def.hh"
+#include "pointer-group-interface.hh"
+#include "rest.hh"
+#include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "output-def.hh"
-#include "staff-symbol-referencer.hh"
-#include "rest.hh"
-#include "note-head.hh"
-#include "accidental-placement.hh"
-#include "pointer-group-interface.hh"
-#include "directional-element-interface.hh"
 
 /*
   TODO: figure out if we can prune this class. This is just an

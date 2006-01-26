@@ -6,10 +6,12 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include "engraver-group.hh"
+
+#include "international.hh"
+#include "misc.hh"
 #include "time-signature.hh"
 #include "warn.hh"
-#include "engraver-group.hh"
-#include "misc.hh"
 
 /**
    generate time_signatures.

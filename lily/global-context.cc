@@ -11,13 +11,14 @@
 #include <cstdio>
 using namespace std;
 
-#include "warn.hh"
-#include "music.hh"
-#include "music-iterator.hh"
-#include "score-context.hh"
 #include "context-def.hh"
-#include "output-def.hh"
+#include "international.hh"
 #include "lilypond-key.hh"
+#include "music-iterator.hh"
+#include "music.hh"
+#include "output-def.hh"
+#include "score-context.hh"
+#include "warn.hh"
 
 Global_context::Global_context (Output_def *o, Moment final, Object_key *key)
   : Context (new Lilypond_context_key (key,

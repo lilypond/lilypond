@@ -17,13 +17,13 @@ class Lilypond_grob_key : public Object_key
 {
   Object_key const *context_;
   Moment creation_moment_;
-  String grob_name_;
+  std::string grob_name_;
   int disambiguation_count_;
 
 public:
   Lilypond_grob_key (Object_key const *context,
 		     Moment start,
-		     String name, int);
+		     std::string name, int);
 
   static Object_key *from_scheme (SCM);
 protected:
@@ -37,15 +37,15 @@ class Lilypond_context_key : public Object_key
 {
   Object_key const *parent_context_;
   Moment start_moment_;
-  String context_name_;
-  String id_;
+  std::string context_name_;
+  std::string id_;
   int disambiguation_count_;
 
 public:
   Lilypond_context_key (Object_key const *parent,
 			Moment start,
-			String type,
-			String id,
+			std::string type,
+			std::string id,
  			int count);
 
   static Object_key *from_scheme (SCM);
@@ -59,10 +59,10 @@ protected:
 class Lilypond_general_key : public Object_key
 {
   Object_key const *parent_;
-  String name_;
+  std::string name_;
   int disambiguation_count_;
 public:
-  Lilypond_general_key (Object_key const *parent, String name,
+  Lilypond_general_key (Object_key const *parent, std::string name,
 			int count);
 
   static Object_key *from_scheme (SCM);

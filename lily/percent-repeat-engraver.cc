@@ -9,15 +9,16 @@
 
 #include "score-engraver.hh"
 
-#include "repeated-music.hh"
-#include "global-context.hh"
-#include "warn.hh"
-#include "misc.hh"
-#include "spanner.hh"
-#include "item.hh"
-#include "percent-repeat-iterator.hh"
 #include "bar-line.hh"
+#include "global-context.hh"
+#include "international.hh"
+#include "item.hh"
+#include "misc.hh"
+#include "percent-repeat-iterator.hh"
+#include "repeated-music.hh"
 #include "side-position-interface.hh"
+#include "spanner.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 

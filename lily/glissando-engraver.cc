@@ -6,10 +6,11 @@
   (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "warn.hh"
-#include "spanner.hh"
-#include "rhythmic-head.hh"
 #include "engraver.hh"
+#include "international.hh"
+#include "rhythmic-head.hh"
+#include "spanner.hh"
+#include "warn.hh"
 
 /**
    Create line-spanner grobs for glissandi lines that connect note
@@ -87,7 +88,7 @@ Glissando_engraver::finalize ()
 {
   if (line_)
     {
-      String msg = _ ("unterminated glissando");
+      std::string msg = _ ("unterminated glissando");
 
       if (event_)
 	event_->origin ()->warning (msg);

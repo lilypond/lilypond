@@ -9,7 +9,7 @@
 #include "lily-guile.hh"
 #include "warn.hh"
 #include "main.hh"
-#include "string.hh"
+#include "std-string.hh"
 #include "protected-scm.hh"
 
 #ifdef MODULE_GC_KLUDGE

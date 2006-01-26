@@ -11,7 +11,7 @@
 
 #include "std-string.hh"
 
-#include "string.hh"
+#include "std-string.hh"
 
 /**
    Rational numbers.  Included is support for + and - infinity.
@@ -69,9 +69,10 @@ public:
   Rational &operator %= (Rational);
   static int compare (Rational const &, Rational const &);
   int sign () const;
-  Std_string to_string () const;
+  std::string to_string () const;
 };
 
+#include "arithmetic-operator.hh"
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, /);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, *);

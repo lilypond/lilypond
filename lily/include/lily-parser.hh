@@ -39,7 +39,7 @@ public:
   Lily_lexer *lexer_;
   Sources *sources_;
   Duration default_duration_;
-  String output_basename_;
+  std::string output_basename_;
 
   int fatal_error_;
   int error_level_;
@@ -52,10 +52,10 @@ public:
 
   void do_init_file ();
   void do_yyparse ();
-  void parse_file (String init, String name, String out_name);
-  void parse_string (String ly_code);
-  void parser_error (String);
-  void parser_error (Input const &, String);
+  void parse_file (std::string init, std::string name, std::string out_name);
+  void parse_string (std::string ly_code);
+  void parser_error (std::string);
+  void parser_error (Input const &, std::string);
   void set_yydebug (bool);
 };
 

@@ -7,11 +7,13 @@
 */
 
 #include "music.hh"
-#include "music-sequence.hh"
+
 #include "duration.hh"
 #include "input-smob.hh"
+#include "international.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
+#include "music-sequence.hh"
 #include "pitch.hh"
 #include "score.hh"
 #include "warn.hh"

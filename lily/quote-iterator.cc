@@ -6,13 +6,15 @@
   (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "context.hh"
-#include "music.hh"
-#include "music-sequence.hh"
-#include "lily-guile.hh"
 #include "music-wrapper-iterator.hh"
-#include "warn.hh"
+
+#include "context.hh"
 #include "input.hh"
+#include "international.hh"
+#include "lily-guile.hh"
+#include "music-sequence.hh"
+#include "music.hh"
+#include "warn.hh"
 
 class Quote_iterator : public Music_wrapper_iterator
 {

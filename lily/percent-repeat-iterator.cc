@@ -8,8 +8,9 @@
 
 #include "percent-repeat-iterator.hh"
 
-#include "repeated-music.hh"
 #include "input.hh"
+#include "international.hh"
+#include "repeated-music.hh"
 
 IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 

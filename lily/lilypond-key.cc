@@ -10,7 +10,7 @@
 
 Lilypond_grob_key::Lilypond_grob_key (Object_key const *context,
 				      Moment start,
-				      String name,
+				      std::string name,
 				      int disambiguation_count)
 {
   context_ = context;
@@ -41,7 +41,7 @@ Lilypond_grob_key::do_compare (Object_key const *key) const
   if (c)
     return c;
 
-  c = String::compare (grob_name_, other->grob_name_);
+  c = grob_name_.compare (other->grob_name_);
   if (c)
     return c;
 
@@ -87,8 +87,8 @@ Lilypond_context_key::derived_mark () const
 
 Lilypond_context_key::Lilypond_context_key (Object_key const *parent,
 					    Moment start,
-					    String type,
-					    String id,
+					    std::string type,
+					    std::string id,
 					    int count)
 {
   disambiguation_count_ = count;
@@ -120,11 +120,11 @@ Lilypond_context_key::do_compare (Object_key const *key) const
   if (c)
     return c;
 
-  c = String::compare (context_name_, other->context_name_);
+  c = context_name_.compare (other->context_name_);
   if (c)
     return c;
 
-  c = String::compare (id_, other->id_);
+  c = id_.compare (other->id_);
   if (c)
     return c;
 
@@ -177,7 +177,7 @@ Lilypond_general_key::derived_mark () const
 }
 
 Lilypond_general_key::Lilypond_general_key (Object_key const *parent,
-					    String name,
+					    std::string name,
 					    int count)
 {
   parent_ = parent;
@@ -198,7 +198,7 @@ Lilypond_general_key::do_compare (Object_key const *key)const
   else if (other->parent_)
     return 1;
 
-  int c = String::compare (name_, other->name_);
+  int c = name_.compare (other->name_);
   if (c)
     return c;
 

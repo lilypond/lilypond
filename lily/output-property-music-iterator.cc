@@ -6,8 +6,10 @@
   (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "input.hh"
 #include "simple-music-iterator.hh"
+
+#include "input.hh"
+#include "international.hh"
 #include "music.hh"
 
 class Output_property_music_iterator : public Simple_music_iterator

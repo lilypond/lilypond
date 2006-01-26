@@ -9,9 +9,9 @@
 #ifndef FILE_NAME_MAP_HH
 #define FILE_NAME_MAP_HH
 
-#include "string.hh"
+#include "std-string.hh"
 
-String map_file_name (String s);
+std::string map_file_name (std::string s);
 
 #endif /* FILE_NAME_MAP_HH */
 

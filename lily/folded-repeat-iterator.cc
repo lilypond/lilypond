@@ -8,10 +8,11 @@
 
 #include "folded-repeat-iterator.hh"
 
+#include "context.hh"
 #include "input.hh"
+#include "international.hh"
 #include "repeated-music.hh"
 #include "simultaneous-music-iterator.hh"
-#include "context.hh"
 
 Folded_repeat_iterator::Folded_repeat_iterator ()
 {

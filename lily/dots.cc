@@ -26,7 +26,7 @@ Dots::print (SCM d)
 
   if (scm_is_number (c))
     {
-      Stencil d = Font_interface::get_default_font (sc)->find_by_name (String ("dots.dot"));
+      Stencil d = Font_interface::get_default_font (sc)->find_by_name (std::string ("dots.dot"));
       Real dw = d.extent (X_AXIS).length ();
 
       /*

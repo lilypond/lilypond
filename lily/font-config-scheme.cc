@@ -8,7 +8,7 @@
 */
 
 #include "lily-guile.hh"
-#include "string.hh"
+#include "std-string.hh"
 
 #include <fontconfig/fontconfig.h>
 

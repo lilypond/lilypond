@@ -20,7 +20,7 @@ public:
 
   Duration ();
   Duration (int, int);
-  String to_string () const;
+  std::string to_string () const;
 
   Duration compressed (Rational) const;
   Rational get_length () const;

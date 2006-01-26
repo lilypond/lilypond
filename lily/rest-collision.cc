@@ -11,16 +11,17 @@
 #include <cmath>		// ceil.
 using namespace std;
 
-#include "warn.hh"
-#include "note-column.hh"
-#include "stem.hh"
-#include "rhythmic-head.hh"
-#include "output-def.hh"
-#include "rest.hh"
-#include "pointer-group-interface.hh"
-#include "staff-symbol-referencer.hh"
-#include "duration.hh"
 #include "directional-element-interface.hh"
+#include "duration.hh"
+#include "international.hh"
+#include "note-column.hh"
+#include "output-def.hh"
+#include "pointer-group-interface.hh"
+#include "rest.hh"
+#include "rhythmic-head.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem.hh"
+#include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback, 1);
 SCM

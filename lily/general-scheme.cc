@@ -16,7 +16,7 @@ using namespace std;
 #include "international.hh"
 #include "libc-extension.hh"
 #include "lily-guile.hh"
-#include "string.hh"
+#include "std-string.hh"
 #include "misc.hh"
 #include "warn.hh"
 #include "version.hh"
@@ -31,8 +31,8 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
 
-  String nm = ly_scm2string (name);
-  String file_name = global_path.find (nm);
+  std::string nm = ly_scm2string (name);
+  std::string file_name = global_path.find (nm);
   if (file_name.empty ())
     return SCM_BOOL_F;
 
@@ -56,8 +56,8 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
       sz = scm_to_int (size);
     }
   
-  String contents = gulp_file_to_string (ly_scm2string (name), true, sz);
-  return scm_from_locale_stringn (contents.get_str0 (), contents.length ());
+  std::string contents = gulp_file_to_string (ly_scm2string (name), true, sz);
+  return scm_from_locale_stringn (contents.c_str (), contents.length ());
 }
 
 LY_DEFINE (ly_error, "ly:error",
@@ -224,7 +224,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
 	   "Formats passed to --format as a list of strings, "
 	   "used for the output.")
 {
-  Array<String> output_formats = split_string (output_format_global, ',');
+  Array<std::string> output_formats = split_string (output_format_global, ',');
 
   SCM lst = SCM_EOL;
   int output_formats_count = output_formats.size ();

@@ -9,9 +9,8 @@
 #include "gregorian-ligature.hh"
 
 #include "grob.hh"
-#include "string.hh"
 
-void check_prefix (String name, int mask, int prefix_set, String *str)
+void check_prefix (std::string name, int mask, int prefix_set, std::string *str)
 {
   if (prefix_set & mask)
     {
@@ -21,10 +20,10 @@ void check_prefix (String name, int mask, int prefix_set, String *str)
     }
 }
 
-String
+std::string
 Gregorian_ligature::prefixes_to_str (Grob *primitive)
 {
-  String str;
+  std::string str;
   int prefix_set
     = scm_to_int (primitive->get_property ("prefix-set"));
   check_prefix ("virga", VIRGA, prefix_set, &str);

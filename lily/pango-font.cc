@@ -14,8 +14,10 @@
 
 #include "dimensions.hh"
 #include "file-name.hh"
+#include "international.hh"
 #include "lookup.hh"
 #include "main.hh"
+#include "string-convert.hh"
 #include "warn.hh"
 
 #if HAVE_PANGO_FT2
@@ -60,7 +62,7 @@ Pango_font::~Pango_font ()
 }
 
 void
-Pango_font::register_font_file (String filename, String ps_name)
+Pango_font::register_font_file (std::string filename, std::string ps_name)
 {
   scm_hash_set_x (physical_font_tab_,
 		  scm_makfrom0str (ps_name.c_str ()),
@@ -74,7 +76,7 @@ Pango_font::derived_mark () const
 }
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
+Pango_font::pango_item_string_stencil (PangoItem const *item, std::string str) const
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
@@ -142,7 +144,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
   char *file_name_as_ptr = 0;
   FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name_as_ptr);
 
-  String file_name;
+  std::string file_name;
   if (file_name_as_ptr)
     {
       /* Normalize file name.  */
@@ -154,28 +156,29 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, String str) const
   if (!ps_name_str0)
     warning (_f ("no PostScript font name for font `%s'", file_name));
 
-  String ps_name;
+  std::string ps_name;
   if (!ps_name_str0
       && file_name != ""
-      && (file_name.index (".otf") != NPOS
-	  || file_name.index (".cff") != NPOS))
+      && (file_name.find (".otf") != NPOS
+	  || file_name.find (".cff") != NPOS))
     {
 
       /* UGH: kludge a PS name for OTF/CFF fonts.  */
-      String name = file_name;
-      int idx = max (file_name.index (".otf"),
-		     file_name.index (".cff"));
+      std::string name = file_name;
+      ssize idx = file_name.find (".otf");
+      if (idx == NPOS)
+	idx = file_name.find (".cff");
 
-      name = name.left_string (idx);
+      name = name.substr (0, idx);
 
-      int slash_idx = name.index_last ('/');
+      ssize slash_idx = name.rfind ('/');
       if (slash_idx != NPOS)
-	name = name.right_string (name.length () - slash_idx - 1);
+	name = name.substr (slash_idx - 1);
 
-      String initial = name.cut_string (0, 1);
-      initial.to_upper ();
-      name = name.nomid_string (0, 1);
-      name.to_lower ();
+      std::string initial = name.substr (0, 1);
+      initial = String_convert::to_upper (initial);
+      name = name.substr (1);
+      name = String_convert::to_lower (name);
       ps_name = initial + name;
     }
   else if (ps_name_str0)
@@ -206,7 +209,7 @@ Pango_font::physical_font_tab () const
 }
 
 Stencil
-Pango_font::text_stencil (String str) const
+Pango_font::text_stencil (std::string str) const
 {
   GList *items
     = pango_itemize (context_,

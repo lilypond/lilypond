@@ -22,8 +22,8 @@ public:
   TRANSLATOR_DECLARATIONS (Staff_performer);
   ~Staff_performer ();
 
-  String new_instrument_string ();
-  String instrument_string_;
+  std::string new_instrument_string ();
+  std::string instrument_string_;
 
 protected:
   virtual void acknowledge_audio_element (Audio_element_info info);
@@ -77,7 +77,7 @@ Staff_performer::initialize ()
 void
 Staff_performer::process_music ()
 {
-  String str = new_instrument_string ();
+  std::string str = new_instrument_string ();
   if (str.length ())
     {
       instrument_name_ = new Audio_text (Audio_text::INSTRUMENT_NAME, str);
@@ -124,7 +124,7 @@ Staff_performer::finalize ()
   audio_staff_ = 0;
 }
 
-String
+std::string
 Staff_performer::new_instrument_string ()
 {
   // mustn't ask Score for instrument: it will return piano!

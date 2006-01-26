@@ -25,7 +25,7 @@ public:
   void output_header_track (Midi_stream &midi_stream_r);
 
   void print () const;
-  void write_output (String filename);
+  void write_output (std::string filename);
 
   Link_array<Audio_staff> audio_staffs_;
   Cons<Audio_element> *audio_element_list_;

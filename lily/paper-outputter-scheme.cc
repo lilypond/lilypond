@@ -7,8 +7,10 @@
 */
 
 #include "paper-outputter.hh"
-#include "warn.hh"
+
+#include "international.hh"
 #include "stencil.hh"
+#include "warn.hh"
 
 LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 	   2, 0, 0, (SCM port, SCM format),
@@ -20,9 +22,9 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
   SCM_ASSERT_TYPE (scm_is_string (format), format, SCM_ARG2, __FUNCTION__,
 		   "String");
 
-  String f = ly_scm2string (format);
+  std::string f = ly_scm2string (format);
 
-  String output_name = "<unknown>";
+  std::string output_name = "<unknown>";
 
   SCM port_name = scm_port_filename (port);
   if (scm_is_string (port_name))

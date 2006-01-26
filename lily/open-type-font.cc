@@ -15,6 +15,7 @@ using namespace std;
 #include <freetype/tttables.h>
 
 #include "dimensions.hh"
+#include "international.hh"
 #include "modified-font-metric.hh"
 #include "warn.hh"
 
@@ -43,8 +44,8 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   return 0;
 }
 
-String
-Open_type_font::get_otf_table (String tag) const
+std::string
+Open_type_font::get_otf_table (std::string tag) const
 {
   return ::get_otf_table (face_, tag);
 }
@@ -58,7 +59,7 @@ load_scheme_table (char const *tag_str, FT_Face face)
   SCM tab = SCM_EOL;
   if (buffer)
     {
-      String contents ((Byte const *)buffer, length);
+      std::string contents ((char const*)buffer, length);
       contents = "(quote (" + contents + "))";
 
       tab = scm_c_eval_string (contents.c_str ());
@@ -88,17 +89,17 @@ Open_type_font::~Open_type_font ()
 /*
   UGH fix naming
 */
-String
-get_otf_table (FT_Face face, String tag)
+std::string
+get_otf_table (FT_Face face, std::string tag)
 {
   FT_ULong len;
   FT_Byte *tab = load_table (tag.c_str (), face, &len);
 
-  return String (tab, len);
+  return std::string ((char const*) tab, len);
 }
 
 FT_Face
-open_ft_face (String str)
+open_ft_face (std::string str)
 {
   FT_Face face;
   int error_code = FT_New_Face (freetype2_library, str.c_str (), 0, &face);
@@ -112,7 +113,7 @@ open_ft_face (String str)
 }
 
 SCM
-Open_type_font::make_otf (String str)
+Open_type_font::make_otf (std::string str)
 {
   FT_Face face = open_ft_face (str);
   Open_type_font *otf = new Open_type_font (face);
@@ -146,7 +147,7 @@ Open_type_font::derived_mark () const
 }
 
 Offset
-Open_type_font::attachment_point (String glyph_name) const
+Open_type_font::attachment_point (std::string glyph_name) const
 {
   SCM sym = ly_symbol2scm (glyph_name.c_str ());
   SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
@@ -222,7 +223,7 @@ Open_type_font::get_indexed_char (int signed_idx) const
 }
 
 int
-Open_type_font::name_to_index (String nm) const
+Open_type_font::name_to_index (std::string nm) const
 {
   char *nm_str = (char *) nm.c_str ();
   if (int idx = FT_Get_Name_Index (face_, nm_str))
@@ -282,7 +283,7 @@ Open_type_font::get_global_table () const
   return lily_global_table_;
 }
 
-String
+std::string
 Open_type_font::font_name () const
 {
   return FT_Get_Postscript_Name (face_);

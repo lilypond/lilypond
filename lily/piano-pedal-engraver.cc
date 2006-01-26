@@ -10,13 +10,15 @@
 */
 
 #include "engraver.hh"
-#include "lily-guile.hh"
-#include "side-position-interface.hh"
-#include "staff-symbol-referencer.hh"
+
 #include "axis-group-interface.hh"
 #include "context.hh"
 #include "directional-element-interface.hh"
+#include "international.hh"
+#include "lily-guile.hh"
 #include "note-column.hh"
+#include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
 /*
@@ -150,7 +152,7 @@ Piano_pedal_engraver::try_music (Music *m)
     {
       for (Pedal_info *p = info_list_; p->name_; p++)
 	{
-	  String nm = p->name_ + String ("Event");
+	  std::string nm = p->name_ + std::string ("Event");
 	  if (ly_is_equal (m->get_property ("name"),
 			   scm_str2symbol (nm.c_str ())))
 	    {
@@ -172,7 +174,7 @@ Piano_pedal_engraver::process_music ()
 	{
 	  if (!p->line_spanner_)
 	    {
-	      String name = String (p->name_) + "PedalLineSpanner";
+	      std::string name = std::string (p->name_) + "PedalLineSpanner";
 	      Music *rq = (p->event_drul_[START] ? p->event_drul_[START] : p->event_drul_[STOP]);
 	      p->line_spanner_ = make_spanner (name.c_str (), rq->self_scm ());
 	    }
@@ -190,7 +192,7 @@ Piano_pedal_engraver::process_music ()
 	    mixed:   Ped. _____/\____|
 	  */
 
-	  String prop = String ("pedal") + p->name_ + "Style";
+	  std::string prop = std::string ("pedal") + p->name_ + "Style";
 	  SCM style = get_property (prop.c_str ());
 
 	  bool mixed = style == ly_symbol2scm ("mixed");
@@ -211,14 +213,14 @@ void
 Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 {
   SCM s = SCM_EOL;
-  SCM strings = get_property (("pedal" + String (p->name_) + "Strings").c_str ());
+  SCM strings = get_property (("pedal" + std::string (p->name_) + "Strings").c_str ());
 
   if (scm_ilength (strings) < 3)
     {
       Music *m = p->event_drul_[START];
       if (!m) m = p->event_drul_ [STOP];
 
-      String msg = _f ("expect 3 strings for piano pedals, found: %d",
+      std::string msg = _f ("expect 3 strings for piano pedals, found: %d",
 		       scm_ilength (strings));
       if (m)
 	m->origin ()->warning (msg);
@@ -269,7 +271,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 
   if (scm_is_string (s))
     {
-      String propname = String (p->name_) + "Pedal";
+      std::string propname = std::string (p->name_) + "Pedal";
 
       p->item_ = make_item (propname.c_str (), (p->event_drul_[START]
 						  ? p->event_drul_[START]
@@ -291,7 +293,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 {
   if (!p->bracket_ && p->event_drul_[STOP])
     {
-      String msg = _f ("can't find start of piano pedal bracket: `%s'", p->name_);
+      std::string msg = _f ("can't find start of piano pedal bracket: `%s'", p->name_);
       p->event_drul_[STOP]->origin ()->warning (msg);
       p->event_drul_[STOP] = 0;
     }

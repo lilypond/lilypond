@@ -6,19 +6,21 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "all-font-metrics.hh"
-#include "warn.hh"
-#include "main.hh"
-#include "system.hh"
 #include "score-engraver.hh"
-#include "paper-score.hh"
-#include "paper-column.hh"
-#include "output-def.hh"
+
+#include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
 #include "context-def.hh"
 #include "global-context.hh"
+#include "international.hh"
+#include "main.hh"
 #include "open-type-font.hh"
+#include "output-def.hh"
 #include "paper-column-engraver.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
+#include "system.hh"
+#include "warn.hh"
 
 Score_engraver::Score_engraver ()
 {

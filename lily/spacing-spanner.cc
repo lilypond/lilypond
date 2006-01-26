@@ -6,24 +6,25 @@
   (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include <math.h>
+#include "spacing-spanner.hh"
 
+#include <math.h>
 #include <cstdio>
 using namespace std;
 
-#include "spacing-spanner.hh"
-#include "paper-column.hh"
-#include "output-def.hh"
-#include "paper-score.hh"
-#include "system.hh"
+#include "international.hh"
+#include "main.hh"
 #include "moment.hh"
 #include "note-spacing.hh"
-#include "main.hh"
-#include "warn.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
 #include "pointer-group-interface.hh"
 #include "spaceable-grob.hh"
-#include "staff-spacing.hh"
 #include "spacing-interface.hh"
+#include "staff-spacing.hh"
+#include "system.hh"
+#include "warn.hh"
 
 
 /*

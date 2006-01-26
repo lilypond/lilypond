@@ -9,7 +9,7 @@
 #ifndef MUSIC_OUTPUT_HH
 #define MUSIC_OUTPUT_HH
 
-#include "string.hh"
+#include "std-string.hh"
 #include "lily-proto.hh"
 #include "protected-scm.hh"
 #include "smobs.hh"

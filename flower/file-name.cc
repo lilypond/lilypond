@@ -36,8 +36,8 @@ using namespace std;
 #endif
 
 #ifdef __CYGWIN__
-static Std_string
-dos_to_posix (Std_string file_name)
+static std::string
+dos_to_posix (std::string file_name)
 {
   char buf[PATH_MAX] = "";
   char *s = file_name.get_copy_str0 ();
@@ -53,8 +53,8 @@ dos_to_posix (Std_string file_name)
 #ifdef __MINGW32__
 /** Use slash as directory separator.  On Windows, they can pretty
     much be exchanged.  */
-static Std_string
-slashify (Std_string file_name)
+static std::string
+slashify (std::string file_name)
 {
   file_name.substitute ('\\', '/');
   file_name.substitute ("//", "/");
@@ -63,25 +63,25 @@ slashify (Std_string file_name)
 #endif /* __MINGW32__ */
 
 /* Join components to full file_name. */
-Std_string
+std::string
 File_name::to_string () const
 {
-  Std_string s;
+  std::string s;
   if (!root_.empty ())
-    s = root_ + ::to_std_string (ROOTSEP);
+    s = root_ + std::to_string (ROOTSEP);
   if (!dir_.empty ())
     {
       s += dir_;
       if (!base_.empty () || !ext_.empty ())
-	s += ::to_std_string (DIRSEP);
+	s += std::to_string (DIRSEP);
     }
   s += base_;
   if (!ext_.empty ())
-    s += ::to_std_string (EXTSEP) + ext_;
+    s += std::to_string (EXTSEP) + ext_;
   return s;
 }
 
-File_name::File_name (Std_string file_name)
+File_name::File_name (std::string file_name)
 {
 #ifdef __CYGWIN__
   /* All system functions would work, even if we do not convert to
@@ -93,7 +93,7 @@ File_name::File_name (Std_string file_name)
   file_name = slashify (file_name);
 #endif
 
-  int i = file_name.find (ROOTSEP);
+  ssize i = file_name.find (ROOTSEP);
   if (i != NPOS)
     {
       root_ = file_name.substr (0, i);
@@ -129,6 +129,6 @@ File_name::is_absolute () const
 #if 0 //STD_STRING
 File_name::File_name (String file_name)
 {
-  *this = File_name (Std_string (file_name));
+  *this = File_name (std::string (file_name));
 }
 #endif

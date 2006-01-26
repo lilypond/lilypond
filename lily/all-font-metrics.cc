@@ -8,16 +8,17 @@
 
 #include "all-font-metrics.hh"
 
-#include "open-type-font.hh"
+#include "international.hh"
 #include "main.hh"
-#include "warn.hh"
-#include "tfm.hh"
-#include "scm-hash.hh"
+#include "open-type-font.hh"
 #include "pango-font.hh"
+#include "scm-hash.hh"
+#include "tfm.hh"
+#include "warn.hh"
 
 static char const *default_font_str0_ = "cmr10";
 
-All_font_metrics::All_font_metrics (String path)
+All_font_metrics::All_font_metrics (std::string path)
 {
   tfm_dict_ = new Scheme_hash_table;
   otf_dict_ = new Scheme_hash_table;
@@ -73,7 +74,7 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
   if (!pango_dict_->try_retrieve (key, &val))
     {
       if (be_verbose_global)
-	progress_indication ("[" + String (pango_fn));
+	progress_indication ("[" + std::string (pango_fn));
 
       Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
 				       description,
@@ -96,11 +97,11 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
 
 #endif
 
-String
-kpathsea_find_file (String name, String ext)
+std::string
+kpathsea_find_file (std::string name, std::string ext)
 {
   name += "." + ext;
-  String path = global_path.find (name);
+  std::string path = global_path.find (name);
   if (path.length () > 0)
     return path;
 
@@ -123,14 +124,14 @@ kpathsea_find_file (String name, String ext)
 }
 
 Open_type_font *
-All_font_metrics::find_otf (String name)
+All_font_metrics::find_otf (std::string name)
 {
   SCM sname = ly_symbol2scm (name.c_str ());
   SCM name_string = scm_makfrom0str (name.c_str ());
   SCM val;
   if (!otf_dict_->try_retrieve (sname, &val))
     {
-      String file_name;
+      std::string file_name;
 
       if (file_name.empty ())
 	file_name = search_path_.find (name + ".otf");
@@ -156,20 +157,20 @@ All_font_metrics::find_otf (String name)
 }
 
 Tex_font_metric *
-All_font_metrics::find_tfm (String name)
+All_font_metrics::find_tfm (std::string name)
 {
   SCM sname = ly_symbol2scm (name.c_str ());
   SCM name_string = scm_makfrom0str (name.c_str ());
   SCM val;
   if (!tfm_dict_->try_retrieve (sname, &val))
     {
-      String file_name;
+      std::string file_name;
 
       if (file_name.empty ())
 	{
 	  /* FIXME: should add "cork-" prefix to lm* fonts.  How to do
 	     that, cleanly?  */
-	  String p = kpathsea_find_file (name, "tfm");
+	  std::string p = kpathsea_find_file (name, "tfm");
 	  if (p.length ())
 	    file_name = p;
 	}
@@ -198,7 +199,7 @@ All_font_metrics::find_tfm (String name)
 }
 
 Font_metric *
-All_font_metrics::find_font (String name)
+All_font_metrics::find_font (std::string name)
 {
   Font_metric *f = find_otf (name);
 
@@ -213,7 +214,7 @@ All_font_metrics::find_font (String name)
       warning (_ ("loading default font"));
     }
 
-  String def_name = default_font_str0_;
+  std::string def_name = default_font_str0_;
 
   if (!f)
     f = find_tfm (def_name);

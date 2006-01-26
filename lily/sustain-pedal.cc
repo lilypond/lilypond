@@ -44,18 +44,18 @@ Sustain_pedal::print (SCM smob)
   if (!scm_is_string (glyph))
     return mol.smobbed_copy ();
 
-  String text = ly_scm2string (glyph);
+  std::string text = ly_scm2string (glyph);
 
-  for (int i = 0; i < text.length (); i++)
+  for (ssize i = 0; i < text.length (); i++)
     {
-      String idx ("pedal.");
-      if (text.cut_string (i, 3) == "Ped")
+      std::string idx ("pedal.");
+      if (text.substr (i, 3) == "Ped")
 	{
 	  idx += "Ped";
 	  i += 2;
 	}
       else
-	idx += String (&text.to_bytes ()[i], 1);
+	idx += std::string (&text.c_str ()[i], 1);
       Stencil m = Font_interface::get_default_font (e)->find_by_name (idx);
       if (!m.is_empty ())
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0, 0);

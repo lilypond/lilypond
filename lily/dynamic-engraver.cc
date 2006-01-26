@@ -12,15 +12,16 @@
 #include "directional-element-interface.hh"
 #include "engraver.hh"
 #include "hairpin.hh"
+#include "international.hh"
 #include "interval.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
+#include "pointer-group-interface.hh"
 #include "script-interface.hh"
+#include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
-#include "self-alignment-interface.hh"
-#include "pointer-group-interface.hh"
 
 #include "translator.icc"
 
@@ -186,7 +187,7 @@ Dynamic_engraver::process_music ()
     {
       if (current_cresc_ev_)
 	{
-	  String msg = _ ("already have a decrescendo");
+	  std::string msg = _ ("already have a decrescendo");
 	  if (current_cresc_ev_->is_mus_type ("decrescendo-event"))
 	    msg = _ ("already have a crescendo");
 
@@ -204,7 +205,7 @@ Dynamic_engraver::process_music ()
 	    TODO: Use symbols.
 	  */
 
-	  String start_type
+	  std::string start_type
 	    = ly_symbol2string (current_cresc_ev_->get_property ("name"));
 
 	  /*

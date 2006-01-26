@@ -11,6 +11,7 @@
 
 #include "tfm-reader.hh"
 
+#include "international.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
@@ -19,7 +20,7 @@
   (1 << 20)
 static const Real fix_to_real (Fix f);
 
-Tex_font_metric_reader::Tex_font_metric_reader (String name)
+Tex_font_metric_reader::Tex_font_metric_reader (std::string name)
   : input_ (name)
 {
 
@@ -54,11 +55,11 @@ Tex_font_metric_reader::get_U32_fix_scaled ()
   return get_U32_fix () * info_.design_size;
 }
 
-String
+std::string
 Tex_font_metric_reader::get_bcpl_string ()
 {
   U8 length_u8 = input_.get_U8 ();
-  String str = input_.get_string (length_u8);
+  std::string str = input_.get_string (length_u8);
   return str;
 }
 

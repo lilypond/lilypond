@@ -11,6 +11,7 @@
 
 #include "flower-proto.hh"
 
+namespace std {
 /**
    Reference counting for strings.
 
@@ -39,7 +40,7 @@ public:
   Byte const *to_bytes () const;
   char const *c_str () const;
   Byte *get_bytes ();
-  char *get_str0 ();
+  char *get_c_str ();
   bool is_binary_bo () const;
   void operator = (String_handle const &src);
   void operator += (char const *s);
@@ -55,6 +56,8 @@ public:
   void trunc (int j);
   int length () const;
 };
+
+}
 
 #ifdef STRING_UTILS_INLINED
 #ifndef INLINE

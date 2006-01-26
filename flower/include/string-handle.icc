@@ -17,6 +17,8 @@ using namespace std;
 #include "string-data.hh"
 #include "string-handle.hh"
 
+namespace std {
+  
 INLINE void
 String_handle::down ()
 {
@@ -74,7 +76,7 @@ String_handle::get_bytes ()
 }
 
 INLINE char *
-String_handle::get_str0 ()
+String_handle::get_c_str ()
 {
   copy ();
   return (char *)data->get_bytes ();
@@ -160,6 +162,8 @@ INLINE bool
 String_handle::is_binary_bo () const
 {
   return data->is_binary_bo ();
+}
+
 }
 
 #endif

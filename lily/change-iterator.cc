@@ -9,23 +9,24 @@
 #include "change-iterator.hh"
 
 #include "context.hh"
+#include "input.hh"
+#include "international.hh"
 #include "music.hh"
 #include "warn.hh"
-#include "input.hh"
 
 void
-Change_iterator::error (String reason)
+Change_iterator::error (std::string reason)
 {
-  String to_type = ly_symbol2string (get_music ()->get_property ("change-to-type"));
-  String to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
+  std::string to_type = ly_symbol2string (get_music ()->get_property ("change-to-type"));
+  std::string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
-  String warn1 = _f ("can't change `%s' to `%s'", to_type, to_id)
+  std::string warn1 = _f ("can't change `%s' to `%s'", to_type, to_id)
     + ": " + reason;
 
   /*
     GUHG!
   */
-  String warn2= "Change_iterator::process (): "
+  std::string warn2= "Change_iterator::process (): "
     + get_outlet ()->context_name () + " = `"
     + get_outlet ()->id_string () + "': ";
   warning (warn2);
@@ -42,7 +43,7 @@ Change_iterator::process (Moment m)
   Context *last = 0;
 
   SCM to_type = get_music ()->get_property ("change-to-type");
-  String to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
+  std::string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
   /* find the type  of translator that we're changing.
 
@@ -56,7 +57,7 @@ Change_iterator::process (Moment m)
 
   if (current && current->id_string () == to_id)
     {
-      String msg;
+      std::string msg;
       msg += _f ("can't change, already in translator: %s", to_id);
     }
 

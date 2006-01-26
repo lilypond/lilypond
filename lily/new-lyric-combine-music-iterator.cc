@@ -7,10 +7,11 @@
 */
 
 #include "context.hh"
-#include "music.hh"
 #include "grob.hh"
-#include "music-iterator.hh"
 #include "input.hh"
+#include "international.hh"
+#include "music-iterator.hh"
+#include "music.hh"
 
 class Lyric_combine_music_iterator : public Music_iterator
 {
@@ -182,7 +183,7 @@ Lyric_combine_music_iterator::find_voice ()
       while (t && t->get_parent_context ())
 	t = t->get_parent_context ();
 
-      String name = ly_scm2string (voice_name);
+      std::string name = ly_scm2string (voice_name);
       Context *voice = find_context_below (t, ly_symbol2scm ("Voice"), name);
 
       if (voice)
@@ -236,7 +237,7 @@ Lyric_combine_music_iterator::do_quit ()
     {
       SCM voice_name = get_music ()->get_property ("associated-context");
 
-      String name;
+      std::string name;
       if (scm_is_string (voice_name))
 	name = ly_scm2string (voice_name);
 

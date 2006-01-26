@@ -3,66 +3,59 @@
 
   (c) 1997--2006 Han-Wen Nienhuys & Jan Nieuwenhuizen
 */
+#if !STD_STRING
 
 #ifndef _GNU_SOURCE // we want memmem
 #define _GNU_SOURCE
 #endif
 
-#include "string.hh"
+#include "std-string.hh"
 
 #include <cstdlib>
 #include <cstdio>
 #include <cassert>
 #include <cstring>
 
-#include <iostream>
 using namespace std;
 
 #include "libc-extension.hh"
 #include "string-convert.hh"
 
-/* std::string conversion helpers */
-
-#if STD_STRING
-
-#include "std-string.hh"
-
-String::String (Std_string const &s)
-{
-  *this = String (s.c_str ());
-}
-
-String::operator Std_string () const
-{
-  return Std_string (this->c_str ());
-}
-
-#endif
-
 /* std::string interface */
 
-#if 0
-// FIXME, use .SUBSTR () ?
-String::String (String const &s, int pos, int n)
+namespace std {
+
+String::String (char const *s, int n)
 {
-  if (n == -1 || n == INT_MAX || n == NPOS)
-    n = s.length () - pos;
-  if (pos == 0)
-    *this = s.left_string (n);
-  else
-    *this = s.right_string (s.length () - pos).left_string (n);
+  strh_.set ((Byte const *)s, n);
 }
-#endif
+
+String::String (String const &s, int pos, ssize n)
+{
+  *this = s.substr (pos, n);
+}
+
+String::String (int n, char c)
+{
+  *this = String_convert::char_string (c, n);
+}
+
+String &
+String::operator = (String const &source)
+{
+  strh_ = source.strh_;
+  return *this;
+}
 
 String
-String::substr (int pos, int n) const
+String::substr (int pos, ssize n) const
 {
-#if 0
-  if (n == -1 || n == INT_MAX || n == NPOS)
+#if 1
+  if (n == (ssize)-1 || n == (ssize)INT_MAX || n == NPOS)
     n = length () - pos;
   return cut_string (pos, n);
 #else
-  if (n == -1 || n == INT_MAX || n == NPOS)
+  if (n == (ssize)-1 || n == (ssize)INT_MAX || n == NPOS)
     n = length () - pos;
   if (pos == 0)
     return left_string (n);
@@ -71,11 +64,37 @@ String::substr (int pos, int n) const
 #endif
 }
 
-String::String (int n, char c)
+String
+String::insert (ssize pos, String s)
 {
-  *this = String_convert::char_string (c, n);
+  *this = substr (0, pos) + s + substr (pos + 1);
+  return *this;
 }
 
+ssize
+String::copy (char *buf, ssize n, ssize pos) const
+{
+  assert (pos == 0);
+  memcpy (buf, strh_.to_bytes (), strh_.length () + 1);
+  return n; // ?
+}
+
+int
+String::compare (String const &s) const
+{
+  char const *p1 = c_str ();
+  char const *p2 = s.c_str ();
+  if (p1 == p2)
+    return 0;
+
+  /*
+    don't forget the terminating '\0'
+  */
+  int f = min (length (), s.length ());
+  int cmp_length = 1+ f;
+  int i = memcmp (p1, p2, cmp_length);
+  return i;
+}
 
 char const *
 String::data () const
@@ -90,18 +109,28 @@ String::empty () const
 }
 
 int
-String::find (char c) const
+String::find (char c, int pos) const
 {
-  return index (c);
+  String f = right_string (length () - pos);
+  ssize n = f.index (c);
+  if (n != NPOS)
+    return pos + n;
+  return NPOS;
 }
 
 int
-String::find (String &s, int pos) const
+String::find (char const *c, int pos) const
+{
+  return find (String (c), pos);
+}
+
+int
+String::find (String s, int pos) const
 {
   if (!pos)
     return index (s);
   String f = right_string (length () - pos);
-  int n = f.index (s);
+  ssize n = f.index (s);
   if (n != NPOS)
     return pos + n;
   return NPOS;
@@ -119,9 +148,34 @@ String::replace (int pos, int n, String str)
   return this->substr (0, pos) + str + this->substr (pos + n);
 }
 
+void
+String::append (String s)
+{
+  strh_.append (s.to_bytes (), s.length ());
+}
+
+void
+String::operator += (String s)
+{
+  append (s);
+}
+
+int
+String::length () const
+{
+  return strh_.length ();
+}
+
+
 
 
 /* String */
+
+int
+String::compare (String const &s1, String const &s2)
+{
+  return s1.compare (s2);
+}
 
 #ifdef STRING_DEBUG
 void *mymemmove (void *dest, void const *src, size_t n);
@@ -145,76 +199,8 @@ String::get_copy_str0 () const
 }
 
 
-/*
-  copying, constructing.
-*/
-String &
-String::operator = (String const &source)
-{
-  strh_ = source.strh_;
-  return *this;
-}
 
-String::String (Byte const *byte, int len_i)
-{
-  strh_.set (byte, len_i);
-}
-
-/**
-   @see
-   String_convert::
-*/
-String
-to_string (char c, int n)
-{
-  return String_convert::char_string (c, n);
-}
-
-String
-to_string (double f, char const *format)
-{
-  return String_convert::double_string (f, format);
-}
-
-String
-to_string (int i, char const *format)
-{
-  return String_convert::int_string (i, format);
-}
-
-String
-to_string (bool b)
-{
-  return String_convert::bool_string (b);
-}
-String
-to_string (long b)
-{
-  return String_convert::long_string (b);
-}
-
-String
-to_string (char const *format, ...)
-{
-  va_list args;
-  va_start (args, format);
-  String str = String_convert::vform_string (format, args);
-  va_end (args);
-  return str;
-}
-
-
-void
-String::append (String s)
-{
-  strh_.append (s.to_bytes (), s.length ());
-}
-void
-String::operator += (String s)
-{
-  append (s);
-}
-
+#if 0
 void
 String::prepend (String s)
 {
@@ -222,11 +208,8 @@ String::prepend (String s)
   *this = s;
 }
 
-int
-String::length () const
-{
-  return strh_.length ();
-}
+#endif
+
 
 Byte const *
 String::to_bytes () const
@@ -238,32 +221,6 @@ Byte *
 String::get_bytes ()
 {
   return strh_.get_bytes ();
-}
-
-char *
-String::get_str0 ()
-{
-  return strh_.get_str0 ();
-}
-
-/**
-   Do a signed comparison,  analogous to memcmp;
-*/
-int
-String::compare (String const &s1, String const &s2)
-{
-  Byte const *p1 = s1.to_bytes ();
-  Byte const *p2 = s2.to_bytes ();
-  if (p1 == p2)
-    return 0;
-
-  /*
-    don't forget the terminating '\0'
-  */
-  int f = min (s1.length (), s2.length ());
-  int cmp_length = 1+ f;
-  int i = memcmp (p1, p2, cmp_length);
-  return i;
 }
 
 
@@ -367,7 +324,7 @@ String::right_string (int n) const
   if (n < 1)
     return "";
 
-  return String (strh_.to_bytes () + length () - n, n);
+  return String (strh_.c_str () + length () - n, n);
 }
 
 String
@@ -399,27 +356,9 @@ String::cut_string (int index_i, int n) const
   if ((n > length ()) || (index_i + n > length ()))
     n = length () - index_i;
 
-  return String (to_bytes () + index_i, n);
+  return String (c_str () + index_i, n);
 }
 
-
-void
-String::to_upper ()
-{
-  strnupr (get_str0 (), length ());
-}
-
-void
-String::to_lower ()
-{
-  strnlwr (get_str0 (), length ());
-}
-
-void
-String::reverse ()
-{
-  memrev (get_bytes (), length ());
-}
 
 int
 String::to_int () const
@@ -434,6 +373,8 @@ String::to_double () const
 }
 
 #ifdef STREAM_SUPPORT
+#include <iostream>
+
 ostream &
 operator << (ostream &os, String d)
 {
@@ -457,7 +398,7 @@ String::substitute (String find, String replace)
 {
   int n = find.length ();
   int m = replace.length ();
-  for (int i = index (find), j = 0; i != NPOS;
+  for (ssize i = index (find), j = 0; i != NPOS;
        i = right_string (length () - j).index (find))
     {
       *this = left_string (i + j)
@@ -471,7 +412,11 @@ String::substitute (String find, String replace)
 String
 String::substitute (char find, char replace)
 {
-  for (int i = index (find); i != NPOS; i = index (find))
+  for (ssize i = index (find); i != NPOS; i = index (find))
     (*this)[i] = replace;
   return *this;
 }
+
+}
+
+#endif /* !STD_STRING */

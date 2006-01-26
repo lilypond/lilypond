@@ -7,7 +7,9 @@
 */
 
 #include "performer.hh"
+
 #include "audio-item.hh"
+#include "international.hh"
 #include "music.hh"
 
 /*

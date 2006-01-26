@@ -11,6 +11,7 @@
 #include <cstdio>
 using namespace std;
 
+#include "international.hh"
 #include "main.hh"
 #include "paper-book.hh"
 #include "source-file.hh"

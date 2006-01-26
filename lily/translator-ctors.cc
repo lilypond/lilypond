@@ -7,6 +7,8 @@
 */
 
 #include "translator.hh"
+
+#include "international.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
 

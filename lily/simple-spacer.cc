@@ -11,14 +11,15 @@
 
 #include <cstdio>
 
+#include "column-x-positions.hh"
+#include "dimensions.hh"
+#include "international.hh"
 #include "libc-extension.hh"	// isinf
-#include "simple-spacer.hh"
 #include "paper-column.hh"
+#include "simple-spacer.hh"
+#include "spaceable-grob.hh"
 #include "spring.hh"
 #include "warn.hh"
-#include "column-x-positions.hh"
-#include "spaceable-grob.hh"
-#include "dimensions.hh"
 
 /*
   A simple spacing constraint solver. The approach:

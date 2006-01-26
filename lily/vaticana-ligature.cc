@@ -8,14 +8,14 @@
 
 #include "vaticana-ligature.hh"
 
-
-#include "item.hh"
+#include "bezier.hh"
 #include "font-interface.hh"
+#include "international.hh"
+#include "item.hh"
 #include "lookup.hh"
-#include "staff-symbol-referencer.hh"
 #include "note-head.hh"
 #include "output-def.hh"
-#include "bezier.hh"
+#include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
 Stencil
@@ -197,7 +197,7 @@ vaticana_brew_primitive (Grob *me)
       return Stencil ();
     }
 
-  String glyph_name = ly_scm2string (glyph_name_scm);
+  std::string glyph_name = ly_scm2string (glyph_name_scm);
 
   Stencil out;
   Real thickness = robust_scm2double (me->get_property ("thickness"), 1);
@@ -223,7 +223,7 @@ vaticana_brew_primitive (Grob *me)
   bool add_cauda = to_boolean (me->get_property ("add-cauda"));
   bool add_join = to_boolean (me->get_property ("add-join"));
 
-  if (!String::compare (glyph_name, ""))
+  if (glyph_name == "")
     {
       /*
        * This is an empty head.  This typically applies for the right
@@ -237,7 +237,7 @@ vaticana_brew_primitive (Grob *me)
       out
 	= Lookup::blank (Box (Interval (0, 0.5 * flexa_width), Interval (0, 0)));
     }
-  else if (!String::compare (glyph_name, "flexa"))
+  else if (glyph_name == "flexa")
     out = vaticana_brew_flexa (me, true, line_thickness);
   else
     {

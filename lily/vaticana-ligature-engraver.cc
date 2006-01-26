@@ -7,14 +7,16 @@
 */
 
 #include "gregorian-ligature-engraver.hh"
-#include "gregorian-ligature.hh"
-#include "vaticana-ligature.hh"
-#include "spanner.hh"
-#include "staff-symbol-referencer.hh"
+
 #include "font-interface.hh"
-#include "warn.hh"
+#include "gregorian-ligature.hh"
+#include "international.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "vaticana-ligature.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 
@@ -198,7 +200,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 					"ignoring grob");
 	  continue;
 	}
-      String glyph_name = ly_scm2string (glyph_name_scm);
+      std::string glyph_name = ly_scm2string (glyph_name_scm);
 
       int delta_pitch = 0;
       if (prev_primitive) /* urgh, need prev_primitive only here */
@@ -236,8 +238,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	    - Font_interface::get_default_font (primitive)->
 	    find_by_name ("noteheads.s" + glyph_name).extent (X_AXIS).length ();
 	}
-      else if (!String::compare (glyph_name, "flexa")
-	       || !String::compare (glyph_name, ""))
+      else if (glyph_name == "flexa" || glyph_name == "")
 	{
 	  /*
 	   * This head represents either half of a flexa shape.
@@ -290,7 +291,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	      ligature_width -= join_thickness;
 	    }
 	}
-      else if (!String::compare (glyph_name, ""))
+      else if (glyph_name == "")
 	{
 	  /*
 	   * This is the 2nd (virtual) head of flexa shape.  Join it
@@ -342,7 +343,7 @@ check_for_prefix_loss (Item *primitive)
     = scm_to_int (primitive->get_property ("prefix-set"));
   if (prefix_set & ~PES_OR_FLEXA)
     {
-      String prefs = Gregorian_ligature::prefixes_to_str (primitive);
+      std::string prefs = Gregorian_ligature::prefixes_to_str (primitive);
       primitive->warning (_f ("ignored prefix (es) `%s' of this head according "
 			      "to restrictions of the selected ligature style",
 			      prefs.c_str ()));
@@ -361,7 +362,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   int prev_prefix_set = 0;
   int prev_context_info = 0;
   int prev_delta_pitch = 0;
-  String prev_glyph_name = "";
+  std::string prev_glyph_name = "";
   for (int i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
@@ -396,7 +397,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        * this decision must be made here in the engraver rather than in
        * the backend).
        */
-      String glyph_name;
+      std::string glyph_name;
       if (prefix_set & VIRGA)
 	{
 	  glyph_name = "vaticana.punctum";
@@ -504,7 +505,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        * head of a pes, and if it is a punctum.
        */
       if ((context_info & FLEXA_LEFT) && ! (context_info & PES_UPPER))
-	if (!String::compare (glyph_name, "vaticana.punctum"))
+	if (glyph_name == "vaticana.punctum")
 	  primitive->set_property ("add-cauda", ly_bool2scm (true));
 
       /*
@@ -543,7 +544,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	{
 	  if ((context_info & PES_UPPER) && (context_info & STACKED_HEAD))
 	    {
-	      if (!String::compare (prev_glyph_name, "vaticana.punctum"))
+	      if (prev_glyph_name == "vaticana.punctum")
 		if (prev_delta_pitch > 1)
 		  prev_glyph_name = "vaticana.lpes";
 		else

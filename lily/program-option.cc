@@ -12,10 +12,11 @@
 #include <cstring>
 using namespace std;
 
-#include "string-convert.hh"
-#include "parse-scm.hh"
-#include "warn.hh"
+#include "international.hh"
 #include "main.hh"
+#include "parse-scm.hh"
+#include "string-convert.hh"
+#include "warn.hh"
 
 /* Write midi as formatted ascii stream? */
 bool do_midi_debugging_global;
@@ -79,26 +80,26 @@ void internal_set_option (SCM var, SCM val)
     }
 }
 
-const int HELP_INDENT = 30;
-const int INDENT = 2;
-const int SEPARATION = 5;
+ssize const HELP_INDENT = 30;
+ssize const INDENT = 2;
+ssize const SEPARATION = 5;
 
 /*
   Hmmm. should do in SCM / C++  ?
 */
-static String
+static std::string
 get_help_string ()
 {
   SCM alist = ly_hash2alist (option_hash);
   SCM convertor = ly_lily_module_constant ("scm->string");
 
-  Array<String> opts;
+  Array<std::string> opts;
 
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      String opt_spec
+      std::string opt_spec
 	= String_convert::char_string (' ', INDENT)
 	+ ly_symbol2string (sym)
 	+ " ("
@@ -115,27 +116,28 @@ get_help_string ()
 
       SCM opt_help_scm
 	= scm_object_property (sym, ly_symbol2scm ("program-option-documentation"));
-      String opt_help = ly_scm2string (opt_help_scm);
-      opt_help.substitute (String ("\n"),
-			   String ("\n")
-			   + String_convert::char_string (' ', HELP_INDENT));
+      std::string opt_help = ly_scm2string (opt_help_scm);
+      replace_all (opt_help,
+		   std::string ("\n"),
+		   std::string ("\n")
+		   + String_convert::char_string (' ', HELP_INDENT));
 
       opts.push (opt_spec + opt_help + "\n");
     }
 
-  String help ("Options supported by ly:set-option\n\n");
-  opts.sort (String::compare);
+  std::string help ("Options supported by ly:set-option\n\n");
+  opts.sort (string_compare);
   for (int i = 0; i < opts.size (); i++)
     help += opts[i];
 
-  help += String ("\n");
+  help += std::string ("\n");
   return help;
 }
 
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
 	   "Print ly:set-option usage")
 {
-  String help = get_help_string ();
+  std::string help = get_help_string ();
   fputs (help.c_str (), stdout);
 
   exit (0);
@@ -174,10 +176,10 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
 
-  String varstr = ly_scm2string (scm_symbol_to_string (var));
-  if (varstr.left_string (3) == String ("no-"))
+  std::string varstr = ly_scm2string (scm_symbol_to_string (var));
+  if (varstr.substr (0, 3) == std::string ("no-"))
     {
-      var = ly_symbol2scm (varstr.nomid_string (0, 3).c_str ());
+      var = ly_symbol2scm (varstr.substr (3).c_str ());
       val = scm_from_bool (!to_boolean (val));
     }
 

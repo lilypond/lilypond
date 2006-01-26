@@ -8,13 +8,14 @@
 
 #include "midi-item.hh"
 
-#include "warn.hh"
-#include "main.hh"
-#include "misc.hh"
-#include "string-convert.hh"
-#include "midi-stream.hh"
 #include "duration.hh"
+#include "international.hh"
+#include "main.hh"
+#include "midi-stream.hh"
+#include "misc.hh"
 #include "program-option.hh"
+#include "string-convert.hh"
+#include "warn.hh"
 
 #include "killing-cons.tcc"
 
@@ -51,25 +52,25 @@ Midi_item::get_midi (Audio_item *a)
 }
 
 void
-Midi_chunk::set (String header_string, String data_string, String footer_string)
+Midi_chunk::set (std::string header_string, std::string data_string, std::string footer_string)
 {
   data_string_ = data_string;
   footer_string_ = footer_string;
   header_string_ = header_string;
 }
 
-String
+std::string
 Midi_chunk::data_string () const
 {
   return data_string_;
 }
 
-String
+std::string
 Midi_chunk::to_string () const
 {
-  String str = header_string_;
-  String dat = data_string ();
-  String length_string = String_convert::int2hex (dat.length ()
+  std::string str = header_string_;
+  std::string dat = data_string ();
+  std::string length_string = String_convert::int2hex (dat.length ()
 						  + footer_string_.length (), 8, '0');
   length_string = String_convert::hex2bin (length_string);
 
@@ -85,10 +86,10 @@ Midi_duration::Midi_duration (Real seconds_f)
   seconds_ = seconds_f;
 }
 
-String
+std::string
 Midi_duration::to_string () const
 {
-  return String ("<duration: ") + ::to_string (seconds_) + ">";
+  return std::string ("<duration: ") + std::to_string (seconds_) + ">";
 }
 
 Midi_event::Midi_event (Moment delta_mom, Midi_item *midi)
@@ -100,30 +101,30 @@ Midi_event::Midi_event (Moment delta_mom, Midi_item *midi)
 /*
   ugh. midi output badly broken since grace note hackage.
 */
-String
+std::string
 Midi_event::to_string () const
 {
   Rational rat_dt = (delta_mom_.main_part_ * Rational (384)
 		     + delta_mom_.grace_part_ * Rational (100)) * Rational (4);
   int delta_i = rat_dt.to_int ();
 
-  String delta_string = Midi_item::i2varint_string (delta_i);
-  String midi_string = midi_->to_string ();
+  std::string delta_string = Midi_item::i2varint_string (delta_i);
+  std::string midi_string = midi_->to_string ();
   assert (midi_string.length ());
   return delta_string + midi_string;
 }
 
 Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
 {
-  String str;
+  std::string str;
 
-  String format_string = String_convert::int2hex (format_i, 4, '0');
+  std::string format_string = String_convert::int2hex (format_i, 4, '0');
   str += String_convert::hex2bin (format_string);
 
-  String tracks_string = String_convert::int2hex (tracks_i, 4, '0');
+  std::string tracks_string = String_convert::int2hex (tracks_i, 4, '0');
   str += String_convert::hex2bin (tracks_string);
 
-  String tempo_string = String_convert::int2hex (clocks_per_4_i, 4, '0');
+  std::string tempo_string = String_convert::int2hex (clocks_per_4_i, 4, '0');
   str += String_convert::hex2bin (tempo_string);
 
   set ("MThd", str, "");
@@ -132,10 +133,10 @@ Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
 Midi_instrument::Midi_instrument (Audio_instrument *a)
 {
   audio_ = a;
-  audio_->str_.to_lower ();
+  audio_->str_ = String_convert::to_lower (audio_->str_);
 }
 
-String
+std::string
 Midi_instrument::to_string () const
 {
   Byte program_byte = 0;
@@ -152,8 +153,8 @@ Midi_instrument::to_string () const
   else
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.c_str ()));
 
-  String str = ::to_string ((char) (0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
-  str += ::to_string ((char)program_byte);
+  std::string str = std::to_string ((char) (0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
+  str += std::to_string ((char)program_byte);
   return str;
 }
 
@@ -166,7 +167,7 @@ Midi_item::~Midi_item ()
 {
 }
 
-String
+std::string
 Midi_item::i2varint_string (int i)
 {
   int buffer_i = i & 0x7f;
@@ -177,10 +178,10 @@ Midi_item::i2varint_string (int i)
       buffer_i += (i & 0x7f);
     }
 
-  String str;
+  std::string str;
   while (1)
     {
-      str += ::to_string ((char)buffer_i);
+      str += std::to_string ((char)buffer_i);
       if (buffer_i & 0x80)
 	buffer_i >>= 8;
       else
@@ -194,10 +195,10 @@ Midi_key::Midi_key (Audio_key *a)
   audio_ = a;
 }
 
-String
+std::string
 Midi_key::to_string () const
 {
-  String str = "ff5902";
+  std::string str = "ff5902";
   str += String_convert::int2hex (audio_->accidentals_, 2, '0');
   if (audio_->major_)
     str += String_convert::int2hex (0, 2, '0');
@@ -212,13 +213,13 @@ Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
   clocks_per_1_ = 18;
 }
 
-String
+std::string
 Midi_time_signature::to_string () const
 {
   int num = audio_->beats_;
   int den = audio_->one_beat_;
 
-  String str = "ff5804";
+  std::string str = "ff5804";
   str += String_convert::int2hex (num, 2, '0');
   str += String_convert::int2hex (intlog2 (den), 2, '0');
   str += String_convert::int2hex (clocks_per_1_, 2, '0');
@@ -260,11 +261,11 @@ Midi_note::get_pitch () const
   return p;
 }
 
-String
+std::string
 Midi_note::to_string () const
 {
   Byte status_byte = (char) (0x90 + channel_);
-  String str = "";
+  std::string str = "";
   int finetune;
 
   // print warning if fine tuning was needed, HJJ
@@ -278,15 +279,15 @@ Midi_note::to_string () const
       // The pitch wheel range (of 4 semitones) is multiplied by the cents.
       finetune += (PITCH_WHEEL_RANGE *get_fine_tuning ()) / (4 * 100);
 
-      str += ::to_string ((char) (0xE0 + channel_));
-      str += ::to_string ((char) (finetune & 0x7F));
-      str += ::to_string ((char) (finetune >> 7));
-      str += ::to_string ((char) (0x00));
+      str += std::to_string ((char) (0xE0 + channel_));
+      str += std::to_string ((char) (finetune & 0x7F));
+      str += std::to_string ((char) (finetune >> 7));
+      str += std::to_string ((char) (0x00));
     }
 
-  str += ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_pitch () + c0_pitch_i_));
-  str += ::to_string ((char)dynamic_byte_);
+  str += std::to_string ((char)status_byte);
+  str += std::to_string ((char) (get_pitch () + c0_pitch_i_));
+  str += std::to_string ((char)dynamic_byte_);
 
   return str;
 }
@@ -304,22 +305,22 @@ Midi_note_off::Midi_note_off (Midi_note *n)
   aftertouch_byte_ = 64;
 }
 
-String
+std::string
 Midi_note_off::to_string () const
 {
   Byte status_byte = (char) (0x80 + channel_);
 
-  String str = ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_pitch () + Midi_note::c0_pitch_i_));
-  str += ::to_string ((char)aftertouch_byte_);
+  std::string str = std::to_string ((char)status_byte);
+  str += std::to_string ((char) (get_pitch () + Midi_note::c0_pitch_i_));
+  str += std::to_string ((char)aftertouch_byte_);
 
   if (get_fine_tuning () != 0)
     {
       // Move pitch wheel back to the central position.
-      str += ::to_string ((char) 0x00);
-      str += ::to_string ((char) (0xE0 + channel_));
-      str += ::to_string ((char) (PITCH_WHEEL_CENTER &0x7F));
-      str += ::to_string ((char) (PITCH_WHEEL_CENTER >> 7));
+      str += std::to_string ((char) 0x00);
+      str += std::to_string ((char) (0xE0 + channel_));
+      str += std::to_string ((char) (PITCH_WHEEL_CENTER &0x7F));
+      str += std::to_string ((char) (PITCH_WHEEL_CENTER >> 7));
     }
 
   return str;
@@ -330,11 +331,11 @@ Midi_dynamic::Midi_dynamic (Audio_dynamic *a)
   audio_ = a;
 }
 
-String
+std::string
 Midi_dynamic::to_string () const
 {
   Byte status_byte = (char) (0xB0 + channel_);
-  String str = ::to_string ((char)status_byte);
+  std::string str = std::to_string ((char)status_byte);
 
   /*
     Main volume controller (per channel):
@@ -349,8 +350,8 @@ Midi_dynamic::to_string () const
   if (volume > full_scale)
     volume = (int)full_scale;
 
-  str += ::to_string ((char)0x07);
-  str += ::to_string ((char)volume);
+  str += std::to_string ((char)0x07);
+  str += std::to_string ((char)volume);
   return str;
 }
 
@@ -359,21 +360,21 @@ Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal *a)
   audio_ = a;
 }
 
-String
+std::string
 Midi_piano_pedal::to_string () const
 {
   Byte status_byte = (char) (0xB0 + channel_);
-  String str = ::to_string ((char)status_byte);
+  std::string str = std::to_string ((char)status_byte);
 
   if (audio_->type_string_ == "Sostenuto")
-    str += ::to_string ((char)0x42);
+    str += std::to_string ((char)0x42);
   else if (audio_->type_string_ == "Sustain")
-    str += ::to_string ((char)0x40);
+    str += std::to_string ((char)0x40);
   else if (audio_->type_string_ == "UnaCorda")
-    str += ::to_string ((char)0x43);
+    str += std::to_string ((char)0x43);
 
   int pedal = ((1 - audio_->dir_) / 2) * 0x7f;
-  str += ::to_string ((char)pedal);
+  str += std::to_string ((char)pedal);
   return str;
 }
 
@@ -382,11 +383,11 @@ Midi_tempo::Midi_tempo (Audio_tempo *a)
   audio_ = a;
 }
 
-String
+std::string
 Midi_tempo::to_string () const
 {
   int useconds_per_4_i = 60 * (int)1e6 / audio_->per_minute_4_;
-  String str = "ff5103";
+  std::string str = "ff5103";
   str += String_convert::int2hex (useconds_per_4_i, 6, '0');
   return String_convert::hex2bin (str);
 }
@@ -396,10 +397,10 @@ Midi_text::Midi_text (Audio_text *a)
   audio_ = a;
 }
 
-String
+std::string
 Midi_text::to_string () const
 {
-  String str = "ff" + String_convert::int2hex (audio_->type_, 2, '0');
+  std::string str = "ff" + String_convert::int2hex (audio_->type_, 2, '0');
   str = String_convert::hex2bin (str);
   str += i2varint_string (audio_->text_string_.length ());
   str += audio_->text_string_;
@@ -435,12 +436,12 @@ Midi_track::Midi_track ()
     //				  "00" "ff59" "02" "ff" "00"
     ;
 
-  String data_string;
+  std::string data_string;
   // only for format 0 (currently using format 1)?
   data_string += String_convert::hex2bin (data_str0);
 
   char const *footer_str0 = "00" "ff2f" "00";
-  String footer_string = String_convert::hex2bin (footer_str0);
+  std::string footer_string = String_convert::hex2bin (footer_str0);
 
   set ("MTrk", data_string, footer_string);
 }
@@ -454,10 +455,10 @@ Midi_track::add (Moment delta_time_mom, Midi_item *midi)
   event_p_list_.append (new Killing_cons<Midi_event> (e, 0));
 }
 
-String
+std::string
 Midi_track::data_string () const
 {
-  String str = Midi_chunk::data_string ();
+  std::string str = Midi_chunk::data_string ();
   if (do_midi_debugging_global)
     str += "\n";
   for (Cons<Midi_event> *i = event_p_list_.head_; i; i = i->next_)

@@ -6,15 +6,16 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "warn.hh"
-#include "music-output.hh"
-#include "output-def.hh"
-#include "music-iterator.hh"
-#include "music.hh"
 #include "cpu-timer.hh"
 #include "global-context.hh"
-#include "object-key.hh"
+#include "international.hh"
 #include "main.hh"
+#include "music-iterator.hh"
+#include "music-output.hh"
+#include "music.hh"
+#include "object-key.hh"
+#include "output-def.hh"
+#include "warn.hh"
 
 LY_DEFINE (ly_format_output, "ly:format-output",
 	   1, 0, 0, (SCM context),

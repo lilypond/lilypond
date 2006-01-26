@@ -9,7 +9,7 @@
 
 
 #include "misc.hh"
-#include "string.hh"
+#include "std-string.hh"
 
 /*
   Return the 2-log, rounded down
@@ -35,25 +35,25 @@ log_2 (double x)
   return log (x) / log (2.0);
 }
 
-Array<String>
-split_string (String s, char c)
+Array<std::string>
+split_string (std::string s, char c)
 {
-  Array<String> rv;
+  Array<std::string> rv;
   while (s.length ())
     {
-      int i = s.index (c);
+      ssize i = s.find (c);
 
       if (i == 0)
 	{
-	  s = s.nomid_string (0, 1);
+	  s = s.substr (1);
 	  continue;
 	}
 
       if (i == NPOS)
 	i = s.length ();
 
-      rv.push (s.cut_string (0, i));
-      s = s.nomid_string (0, i);
+      rv.push (s.substr (0, i));
+      s = s.substr (i);
     }
 
   return rv;

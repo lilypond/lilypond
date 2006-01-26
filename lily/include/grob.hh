@@ -73,7 +73,7 @@ public:
   bool is_live () const;
 
   /* naming. */
-  String name () const;
+  std::string name () const;
 
   /* Properties */
   SCM get_property_alist_chain (SCM) const;
@@ -85,8 +85,8 @@ public:
   void internal_set_object (SCM sym, SCM val);
 
   /* messages */  
-  void warning (String) const;
-  void programming_error (String) const;
+  void warning (std::string) const;
+  void programming_error (std::string) const;
 
 
   /* class hierarchy */

@@ -18,22 +18,23 @@
 #include <cmath>		// rint
 using namespace std;
 
-#include "lookup.hh"
-#include "directional-element-interface.hh"
-#include "note-head.hh"
-#include "warn.hh"
-#include "output-def.hh"
-#include "rhythmic-head.hh"
-#include "font-interface.hh"
-#include "paper-column.hh"
-#include "misc.hh"
 #include "beam.hh"
-#include "rest.hh"
-#include "pointer-group-interface.hh"
-#include "staff-symbol-referencer.hh"
-#include "side-position-interface.hh"
+#include "directional-element-interface.hh"
 #include "dot-column.hh"
+#include "font-interface.hh"
+#include "international.hh"
+#include "lookup.hh"
+#include "misc.hh"
+#include "note-head.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
+#include "rest.hh"
+#include "rhythmic-head.hh"
+#include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
 #include "stem-tremolo.hh"
+#include "warn.hh"
 
 void
 Stem::set_beaming (Grob *me, int beam_count, Direction d)
@@ -547,7 +548,7 @@ Stem::flag (Grob *me)
     TODO: maybe property stroke-style should take different values,
     e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
     '() or "grace").  */
-  String flag_style;
+  std::string flag_style;
 
   SCM flag_style_scm = me->get_property ("flag-style");
   if (scm_is_symbol (flag_style_scm))
@@ -558,8 +559,8 @@ Stem::flag (Grob *me)
 
   bool adjust = true;
 
-  String staffline_offs;
-  if (String::compare (flag_style, "mensural") == 0)
+  std::string staffline_offs;
+  if (flag_style == "mensural")
     /* Mensural notation: For notes on staff lines, use different
        flags than for notes between staff lines.  The idea is that
        flags are always vertically aligned with the staff lines,
@@ -581,7 +582,7 @@ Stem::flag (Grob *me)
     staffline_offs = "";
 
   char dir = (get_grob_direction (me) == UP) ? 'u' : 'd';
-  String font_char = flag_style
+  std::string font_char = flag_style
     + to_string (dir) + staffline_offs + to_string (log);
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil flag = fm->find_by_name ("flags." + font_char);
@@ -591,10 +592,10 @@ Stem::flag (Grob *me)
   SCM stroke_style_scm = me->get_property ("stroke-style");
   if (scm_is_string (stroke_style_scm))
     {
-      String stroke_style = ly_scm2string (stroke_style_scm);
+      std::string stroke_style = ly_scm2string (stroke_style_scm);
       if (!stroke_style.empty ())
 	{
-	  String font_char = to_string (dir) + stroke_style;
+	  std::string font_char = to_string (dir) + stroke_style;
 	  Stencil stroke = fm->find_by_name ("flags." + font_char);
 	  if (stroke.is_empty ())
 	    me->warning (_f ("flag stroke `%s' not found", font_char));

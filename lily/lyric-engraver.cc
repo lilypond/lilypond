@@ -83,15 +83,15 @@ get_voice_to_lyrics (Context *lyrics)
     return c;
 
   SCM voice_name = lyrics->get_property ("associatedVoice");
-  String nm = lyrics->id_string ();
+  std::string nm = lyrics->id_string ();
 
   if (scm_is_string (voice_name))
     nm = ly_scm2string (voice_name);
   else
     {
-      int idx = nm.index_last ('-');
+      ssize idx = nm.rfind ('-');
       if (idx != NPOS)
-	nm = nm.left_string (idx);
+	nm = nm.substr (0, idx);
     }
 
   Context *parent = lyrics;

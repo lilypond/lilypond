@@ -12,10 +12,10 @@ using namespace std;
 #include "file-name-map.hh"
 #include "lily-guile.hh"
 
-map<String, String> file_name_map_global;
+map<std::string, std::string> file_name_map_global;
 
-String
-map_file_name (String s)
+std::string
+map_file_name (std::string s)
 {
   if (file_name_map_global.find (s) != file_name_map_global.end ())
     s = file_name_map_global[s];

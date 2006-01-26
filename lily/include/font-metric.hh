@@ -20,21 +20,21 @@ class Font_metric
 
 public:
   SCM description_;
-  String file_name_;
+  std::string file_name_;
 
-  virtual Stencil text_stencil (String) const;
-  virtual Box text_dimension (String) const;
-  virtual String font_name () const;
+  virtual Stencil text_stencil (std::string) const;
+  virtual Box text_dimension (std::string) const;
+  virtual std::string font_name () const;
   virtual int count () const;
-  virtual Offset attachment_point (String) const;
+  virtual Offset attachment_point (std::string) const;
   virtual Offset get_indexed_wxwy (int) const;
   virtual Box get_indexed_char (int index) const;
   virtual Box get_ascii_char (int ascii) const;
-  virtual int name_to_index (String) const;
+  virtual int name_to_index (std::string) const;
   virtual unsigned index_to_charcode (int) const;
   virtual int index_to_ascii (int) const;
   virtual Real design_size () const;
-  virtual Stencil find_by_name (String) const;
+  virtual Stencil find_by_name (std::string) const;
   virtual Stencil get_indexed_char_stencil (int k) const;
   virtual Stencil get_ascii_char_stencil (int k) const;
   virtual SCM sub_fonts () const;
@@ -51,7 +51,7 @@ protected:
   Font_metric ();
 };
 
-int get_encoded_index (Font_metric *m, String input_coding, int code);
+int get_encoded_index (Font_metric *m, std::string input_coding, int code);
 
 class Simple_font_metric : public Font_metric
 {

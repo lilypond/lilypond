@@ -2,7 +2,7 @@
 #define DIMENSIONS_HH
 
 #include "real.hh"
-class String;
+#include "std-string.hh"
 
 const Real INCH_TO_PT = 72.270;
 const Real CM_TO_PT = (INCH_TO_PT / 2.54);
@@ -37,7 +37,7 @@ const Real PT_TO_MM = (1.0 / MM_TO_PT);
 
 #endif
 
-String print_dimen (Real);
+std::string print_dimen (Real);
 const Real point_constant = 1 PT;
 const Real inch_constant = 1 INCH;
 const Real cm_constant = 1 CM;

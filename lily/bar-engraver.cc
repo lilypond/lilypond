@@ -21,7 +21,7 @@ class Bar_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Bar_engraver);
-  void request_bar (String type_string);
+  void request_bar (std::string type_string);
 
 protected:
   virtual void finalize ();

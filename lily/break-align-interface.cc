@@ -9,15 +9,16 @@
 
 #include "break-align-interface.hh"
 
+#include "align-interface.hh"
+#include "axis-group-interface.hh"
+#include "dimensions.hh"
+#include "international.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
-#include "axis-group-interface.hh"
 #include "warn.hh"
-#include "dimensions.hh"
-#include "output-def.hh"
-#include "paper-column.hh"
-#include "align-interface.hh"
 
 
 MAKE_SCHEME_CALLBACK (Break_align_interface, self_align_callback, 1);
@@ -182,11 +183,11 @@ Break_align_interface::calc_positioning_done (SCM smob)
       bool entry_found = scm_is_pair (entry);
       if (!entry_found)
 	{
-	  String sym_string;
+	  std::string sym_string;
 	  if (scm_is_symbol (rsym))
 	    sym_string = ly_symbol2string (rsym);
 
-	  String orig_string;
+	  std::string orig_string;
 	  if (unsmob_grob (l->get_property ("cause")))
 	    orig_string = unsmob_grob (l->get_property ("cause"))->name ();
 

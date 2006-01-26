@@ -35,7 +35,7 @@ Note_name_engraver::try_music (Music *m)
 void
 Note_name_engraver::process_music ()
 {
-  String s;
+  std::string s;
   for (int i = 0; i < events_.size (); i++)
     {
       if (i)

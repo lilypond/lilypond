@@ -19,13 +19,13 @@ Lilypond_version::Lilypond_version (int major, int minor, int patch)
   patch_ = patch;
 }
 
-Lilypond_version::Lilypond_version (String str)
+Lilypond_version::Lilypond_version (std::string str)
 {
   major_ = 0; 
   minor_ = 0;
   patch_ = 0;
   
-  Array<Std_string> version;
+  Array<std::string> version;
   version = String_convert::split (str, '.');
 
   if (version.size () > 0 && isdigit (version[0][0]))
@@ -42,10 +42,10 @@ Lilypond_version::Lilypond_version (String str)
     extra_patch_string_ = version[3];
 }
 
-String
+std::string
 Lilypond_version::to_string () const
 {
-  return ::to_string (major_) + "." + ::to_string (minor_) + "." + ::to_string (patch_);
+  return std::to_string (major_) + "." + std::to_string (minor_) + "." + std::to_string (patch_);
 }
 
 Lilypond_version::operator int () const
