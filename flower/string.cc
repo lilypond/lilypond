@@ -50,18 +50,9 @@ String::operator = (String const &source)
 String
 String::substr (int pos, ssize n) const
 {
-#if 1
   if (n == (ssize)-1 || n == (ssize)INT_MAX || n == NPOS)
     n = length () - pos;
   return cut_string (pos, n);
-#else
-  if (n == (ssize)-1 || n == (ssize)INT_MAX || n == NPOS)
-    n = length () - pos;
-  if (pos == 0)
-    return left_string (n);
-  else
-    return right_string (length () - pos).left_string (n);
-#endif
 }
 
 String
