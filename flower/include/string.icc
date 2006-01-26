@@ -11,6 +11,9 @@
 
 namespace std {
 
+  bool operator == (String const&, String const&);
+  bool operator != (String const&, String const&);
+  
 INLINE
 char const *
 String::c_str () const

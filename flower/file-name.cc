@@ -56,7 +56,7 @@ static std::string
 slashify (std::string file_name)
 {
   replace_all (file_name, '\\', '/');
-  replace_all (file_name, std::String ("//"), "/");
+  replace_all (file_name, std::string ("//"), "/");
   return file_name;
 }
 

@@ -19,7 +19,6 @@
 #endif
 
 
-
 #include "compare.hh"
 
 #if STD_STRING
@@ -32,7 +31,7 @@ namespace std {
 
   typedef size_t ssize;
 #define NPOS std::string::npos
-  // typedef string std::string;
+
 }
 
 #else /* ! STD_STRING */
@@ -44,6 +43,7 @@ namespace std {
   class String;
   typedef int ssize;
 #define NPOS -1
+
 }
 
 #include "string.hh"
@@ -52,20 +52,22 @@ namespace std {
 
 namespace std {
 
-  std::string to_string (std::string s);
-  std::string to_string (char c, int n = 1);
-  std::string to_string (int i, char const *format = 0);
-  std::string to_string (double f, char const *format = 0);
-  std::string to_string (long b);
-  std::string to_string (bool b);
-  std::string to_string (char const *format, ...);
+  string to_string (string s);
+  string to_string (char c, int n = 1);
+  string to_string (int i, char const *format = 0);
+  string to_string (double f, char const *format = 0);
+  string to_string (long b);
+  string to_string (bool b);
+  string to_string (char const *format, ...);
   
-  std::string &replace_all (std::string &str, std::string find, std::string replace);
-  std::string &replace_all (std::string &str, char find, char replace);
-  char *string_copy (std::string s);
+  string &replace_all (string &str, string find, string replace);
+  string &replace_all (string &str, char find, char replace);
+  char *string_copy (string s);
   
-  int string_compare (std::string const &, std::string const &);
-  INSTANTIATE_COMPARE (std::string const &, string_compare);
+  int string_compare (string const &, string const &);
+
+  INSTANTIATE_COMPARE (string const &, string_compare);
 }
+
 
 #endif /* STD_STRING_HH */

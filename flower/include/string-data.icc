@@ -11,7 +11,6 @@
 
 #include "string-data.hh"
 
-//#include <algorithm>
 #include <cassert>
 #include <cstring>
 #include <memory>

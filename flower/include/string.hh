@@ -118,14 +118,6 @@ private:
   String substitute (char find, char replace);
 };
 
-#ifdef STRING_UTILS_INLINED
-#ifndef INLINE
-#define INLINE inline
-#endif
-#include "string.icc"
-/* we should be resetting INLINE. oh well. */
-#endif
-
 // because char const* also has an operator ==, this is for safety:
 bool operator == (String s1, char const *s2);
 bool operator == (char const *s1, String s2);
@@ -139,11 +131,12 @@ ostream &operator << (ostream &os, String d);
 
 }
 
-/*
-  technically incorrect, but lets keep it here: this is a
-  catch all place for this stuff.
-*/
-#include "international.hh"
-
+#ifdef STRING_UTILS_INLINED
+#ifndef INLINE
+#define INLINE inline
+#endif
+#include "string.icc"
+/* we should be resetting INLINE. oh well. */
+#endif
 
 #endif /* STRING_HH */
