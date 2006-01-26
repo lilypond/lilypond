@@ -9,9 +9,7 @@
 #include "std-string.hh"
 #include "string-convert.hh"
 
-#if STD_STRING
 namespace std {
-#endif
   
   std::string
   to_string (std::string s)
@@ -92,7 +90,4 @@ namespace std {
     return a.compare (b);
   }
 
-#if STD_STRING
 }
-
-#endif
