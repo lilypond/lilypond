@@ -1,5 +1,9 @@
 2006-01-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/putting.itely (Score is a single musical
+	expression): typo.
+	(Score is a single musical expression): more typos.
+
 	* scm/page.scm (annotate-space-left): thinko.
 	(annotate-page): more thinkos.
 
