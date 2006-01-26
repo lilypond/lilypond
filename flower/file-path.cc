@@ -48,12 +48,7 @@ File_path::parse_path (std::string p)
       if (i == NPOS)
 	i = len;
       append (p.substr (0, i));
-      //p = p.substr (min (len, i + 1));
-      //ssize x = min (len, i + 1);
-      ssize a = len;
-      ssize b = i + 1;
-      ssize x = std::max (a, b);
-      p = p.substr (x);
+      p = p.substr (std::min (len, i + 1));
     }
 }
 
