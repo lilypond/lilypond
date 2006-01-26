@@ -107,7 +107,7 @@
 (define (annotate-space-left page)
   (let*
       ((p-book (page-property page 'paper-book))
-       (layout (ly:paper-book-paper page))
+       (layout (ly:paper-book-paper p-book))
        (arrow (annotate-y-interval layout
 				   "space left"
 				   (cons (- (page-property page 'bottom-edge))

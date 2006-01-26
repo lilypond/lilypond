@@ -49,5 +49,7 @@ LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
 	   1, 0, 0, (SCM pb),
 	   "Return pages in book PB.")
 {
-  return unsmob_paper_book (pb)->paper_->self_scm ();
+  Paper_book *pbook = unsmob_paper_book (pb);
+  SCM_ASSERT_TYPE(pbook, pb, SCM_ARG1, __FUNCTION__, "Paper_book");
+  return pbook->paper_->self_scm ();
 }
