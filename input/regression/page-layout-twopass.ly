@@ -29,6 +29,7 @@ tweakFileName = #(format "~a-page-layout.ly" (ly:parser-output-name parser))
 #(newline)
 #(ly:progress "Including file: '~a'" tweakFileName)
 
+%% unfortunately: the following doesn't show up in lp-book output
 
 \markup {
   \column {
