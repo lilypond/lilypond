@@ -855,7 +855,7 @@ scan_fraction (std::string frac)
 {
 	ssize i = frac.find ('/');
 	std::string left = frac.substr (0, i);
-	std::string right = frac.substr (i - 1);
+	std::string right = frac.substr (i + 1, (frac.length () - i + 1));
 
 	int n = String_convert::dec2int (left);
 	int d = String_convert::dec2int (right);

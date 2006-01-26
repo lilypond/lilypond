@@ -420,3 +420,4 @@ String::substitute (char find, char replace)
 }
 
 #endif /* !STD_STRING */
+

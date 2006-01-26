@@ -37,6 +37,11 @@ File_path::directories () const
   return dirs_;
 }
 
+/*
+  TODO: use split_string.
+  
+ */
+
 #include <algorithm>
 void
 File_path::parse_path (std::string p)
