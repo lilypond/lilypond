@@ -430,9 +430,17 @@ Slur_score_state::get_best_curve ()
     }
 
 #if DEBUG_SLUR_SCORING
-  configurations_[opt_idx]->score_card_ += to_string ("=%.2f", opt);
-  configurations_[opt_idx]->score_card_ += to_string ("i%d", opt_idx);
-
+  if (opt_idx >= 0)
+    {
+      configurations_[opt_idx]->score_card_ += to_string ("=%.2f", opt);
+      configurations_[opt_idx]->score_card_ += to_string ("i%d", opt_idx);
+    }
+  else
+    {
+      programming_error ("No optimal slur found. Guessing 0.");
+      opt_idx = 0;
+    }
+  
   // debug quanting
   slur_->set_property ("quant-score",
 		       scm_makfrom0str (configurations_[opt_idx]->score_card_.c_str ()));
