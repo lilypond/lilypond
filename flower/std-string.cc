@@ -20,7 +20,7 @@ namespace std {
   std::string
   to_string (char c, int n)
   {
-    return std::string (n, c);
+    return std::string (max (n, 0), c);
   }
 
   std::string

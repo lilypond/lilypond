@@ -616,7 +616,16 @@ main (int argc, char **argv)
 
   setup_paths (argv[0]);
   setup_guile_env ();
-  scm_boot_guile (argc, argv, main_with_guile, 0);
+
+  /* Debugging aid.  */
+  try
+    {
+      scm_boot_guile (argc, argv, main_with_guile, 0);
+    }
+  catch (exception e)
+    {
+      error (_f ("exception caught: %s", e.what ()));
+    };
 
   /* Only reachable if GUILE exits.  That is an error.  */
   return 1;
