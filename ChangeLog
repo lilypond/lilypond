@@ -1,8 +1,14 @@
+2006-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): remove libkpathsea notes.
+
 2006-01-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Fix -DSTRING_UTILS_INLINED.
 
 2006-01-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PATCH_LEVEL): release 2.7.29
 
 	* lily/relocate.cc (setup_paths): mingw uses std string too.
 

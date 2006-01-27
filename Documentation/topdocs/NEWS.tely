@@ -348,15 +348,15 @@ or down, depending on the number of stems in the beam.
 
 @item
 Support for figured bass has been rewritten. Now it supports
-continuation lines, slashed figures, and its figures, brackets, and alignments may
-tuned separately.
+continuation lines, slashed figures, and its figures, brackets, and
+alignments may tuned separately.
 
 @lilypond[raggedright,fragment]
 <<
-\relative { c4 c c c }
-\figures {
-  \set useBassFigureExtenders = ##t
-  <6+ 4 3> <6 4 3> <4 3+> <5/ 7/\+>
+  \relative { c4 c c c }
+  \figures {
+    \set useBassFigureExtenders = ##t
+    <6+ 4 3> <6 4 3> <4 3+> <5/ 7/\+>
 } >>
 @end lilypond
 
