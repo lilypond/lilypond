@@ -1,3 +1,10 @@
+2006-01-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/main.cc (main): Debugging aid: catch exceptions.
+
+	* flower/std-string.cc (to_string): Robustication.  Fixes midi
+	output with std::string.
+
 2006-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/INSTALL.texi (Top): remove libkpathsea notes.
