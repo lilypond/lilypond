@@ -1272,9 +1272,7 @@
 
     (RepeatSlash
      . (
-
 	(stencil . ,Percent_repeat_item_interface::beat_slash)
-
 	(thickness . 0.48)
 	(slope . 1.7)
 	(meta . ((class . Item)

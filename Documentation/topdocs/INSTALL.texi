@@ -293,22 +293,6 @@ $ make
 @end example
 @end quotation
 
-@subsection Linking to kpathsea
-
-If kpathsea and the corresponding header files are installed in some
-directory where GCC does not search by default, for example in
-@file{/usr/local/lib/} and @file{/usr/local/include/} respectively,
-you have to explicitly tell configure where to find it.  To do this
-
-@itemize
-@item @code{rm config.cache}
-@item @code{export LDFLAGS=-L/usr/share/texmf/lib}
-@item @code{export CPPFLAGS=-I/usr/share/texmf/include}
-@item @code{./configure}
-@end itemize
-Once configure has found them, the paths are stored in
-@file{config.make} and will be used even if you don't have the
-environment variables set during make.
 
 
 @unnumberedsubsec Gcc-3.0.4
