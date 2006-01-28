@@ -1,5 +1,11 @@
 2006-01-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/feta-bolletjes.mf (overdone_heads): solfa_noteheight, a
+	little less than noteheight, to prevent overlaps in chords.
+
+	* lily/note-collision.cc (check_meshing_chords): wipe upper FA
+	head, and fudge stem-attachment.
+
 	* scm/lily-library.scm (not): define hash-for-each for guile 1.6
 
 	* lily/slur-scoring.cc (get_best_curve): handle opt_idx < 0 case.

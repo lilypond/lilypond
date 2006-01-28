@@ -75,10 +75,15 @@ check_meshing_chords (Grob *me,
       && !to_boolean (me->get_property ("merge-differently-headed")))
     merge_possible = false;
 
-  merge_possible = merge_possible &&
-    !(nu->get_property ("style") == ly_symbol2scm ("fa")
-      && nd->get_property ("style") == ly_symbol2scm ("fa"));
-  
+  if (merge_possible
+      && nu->get_property ("style") == ly_symbol2scm ("fa")
+      && nd->get_property ("style") == ly_symbol2scm ("fa"))
+    {
+      Interval uphead_size = nu->extent (nu, Y_AXIS);
+      Offset att =  Offset (0.0, -1.0);
+      nu->set_property ("stem-attachment", ly_offset2scm (att));
+      nu->set_property ("transparent", SCM_BOOL_T); 
+    }
   
   /* Should never merge quarter and half notes, as this would make
      them indistinguishable.  */
