@@ -25,7 +25,7 @@
 
 	* lily/main.cc (main): Debugging aid: catch exceptions.
 
-	* flower/std-string.cc (to_string): Robustication.  Fixes midi
+	* flower/std-string.cc (to_string): Robustification.  Fixes midi
 	output with std::string.
 
 2006-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
