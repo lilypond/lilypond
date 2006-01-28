@@ -1,5 +1,7 @@
 2006-01-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily-library.scm (not): define hash-for-each for guile 1.6
+
 	* lily/slur-scoring.cc (get_best_curve): handle opt_idx < 0 case.
 
 2006-01-27  Jan Nieuwenhuizen  <janneke@gnu.org>

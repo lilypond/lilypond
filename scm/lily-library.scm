@@ -204,7 +204,12 @@ found."
 (if (not (defined? 'hash-table?)) ;; guile 1.6 compat
     (begin
       (define hash-table? vector?)
-
+      (define-public (hash-for-each proc tab)
+	(hash-fold (lambda (k v prior)
+		     (proc k v)
+		     #f)
+		   #f
+		   tab))
       (define-public (hash-table->alist t)
 	"Convert table t to list"
 	(apply append (vector->list t))))
