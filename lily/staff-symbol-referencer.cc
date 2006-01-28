@@ -42,7 +42,7 @@ Staff_symbol_referencer::on_line (Grob *me, int pos)
 bool
 Staff_symbol_referencer::on_staff_line (Grob *me, int pos)
 {
-  return on_line (me, pos) && fabs (pos) <= 2 * staff_radius (me);
+  return on_line (me, pos) && abs (pos) <= 2 * staff_radius (me);
 }
 
 Grob *
