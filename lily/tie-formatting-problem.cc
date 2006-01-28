@@ -334,7 +334,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir) const
       if (h < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
 	{
 	  if (!Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos)
-	      && fabs (pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
+	      && abs (pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
 	    {
 	      conf->center_tie_vertically (details_);
 	    }

@@ -1,5 +1,10 @@
 2006-01-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/staff-symbol-referencer.cc (on_staff_line): idem.
+
+	* lily/tie-formatting-problem.cc
+	(set_ties_config_standard_directions): use abs iso fabs for ints.
+
 	* Documentation/topdocs/INSTALL.texi (Top): document ncsb requirement.
 
 	* mf/feta-bolletjes.mf (overdone_heads): solfa_noteheight, a
