@@ -72,6 +72,10 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20050624 or newer.
 
+@item New Century Schoolbook fonts, as PFB files. These are shipped
+with X11 and Ghostscript, and are named @file{c059033l.pfb}
+@file{c059036l.pfb}, @file{c059013l.pfb} and @file{c059016l.pfb}
+
 @item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.9 or
 newer),
 
