@@ -236,6 +236,7 @@ for i in range(0,32):
 
 sys.stdout.write ('%%{\n %s \n %%}' % copyright)
 sys.stdout.write (r"""
+\version "2.7.29"
 #(set-global-staff-size 11)
 
 \header {
@@ -274,8 +275,7 @@ stemme%s =  {
 sys.stdout.write (r"""
 <<
   \override Score.BarNumber  #'padding = #2.5
-  \override Score.autoBeamSettings
-    #'(end * * * *) = #(ly:make-moment 1 4)
+  #(override-auto-beam-setting '(end * * * *) 1 4)
   \set Score.skipBars = ##t
   \context StaffGroup <<
     \override StaffGroup.Stem #'direction = #UP
@@ -299,12 +299,10 @@ sys.stdout.write (r""">>
 	%vsize = 42.0 \cm
 }
 \layout {
- \context {
-  \translator {
-    \StaffContext 
+  \context {
+    \Staff 
     \override StaffSymbol #'line-count  = #3
     minimumVerticalExtent = #'(-3 . 3)
   }
- }
 }
 """)
