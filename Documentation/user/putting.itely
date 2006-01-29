@@ -64,6 +64,26 @@ in the number of @code{@{} and @code{@}}.
 
 @end itemize
 
+If you are entering music from an existing score (ie typesetting a
+piece of public domain music),
+
+@itemize @bullet
+
+@item Enter one manuscript (the physical copy) line at a time, and
+check each line when you finish it.  You may use the
+@code{showLastLength} command to speed up processing -- see
+@ref{Skipping corrected music}.
+
+@item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
+in the input file whenever the manuscript has a line break.  This
+makes it much easier to compare the LilyPond music to the original
+music.  When you are finished proofreading your score, you may
+define @code{mBreak = @{ @}} to remove all those line breaks.  This
+will allow LilyPond to place line breaks wherever it feels are
+best.
+
+@end itemize
+
 
 @node Extending the templates
 @section Extending the templates
@@ -550,7 +570,9 @@ lower = @{ @}
 @end example
 
 @noindent
-Remember that you can use any names you like.
+Remember that you can use almost any name you like.  The
+limitations on identifier names are detailed in
+@ref{File structure}.
 
 When writing a @code{\score} section, or when reading
 one, just take it slowly and carefully.  Start with
@@ -569,8 +591,9 @@ compile.  The messages that LilyPond gives may help
 you find the error, but in many cases you need to do some
 investigation to determine the source of the problem.
 
-The most powerful tool for this purpose is the
-comment (@code{%} and @code{%@{ ... %@}}).  If you don't
+The most powerful tools for this purpose are the
+single line comment (indicated by @code{%}) and the block
+comment (indicated by @code{%@{ ... %@}}).  If you don't
 know where a problem is, start commenting out huge portions
 of your input file.  After you comment out a section, try
 compiling the file again.  If it works, then the problem
