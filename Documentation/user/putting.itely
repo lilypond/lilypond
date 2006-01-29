@@ -344,8 +344,7 @@ examples.  They all need at least curly braces to compile
 @}
 @end example
 
-@noindent
-but most examples also make use of the @code{\relative c'}
+Most examples also make use of the @code{\relative c'}
 (or @code{c''}) command.  This is not necessary to merely
 compile the examples, but in most cases the output will
 look very odd if you omit the @code{\relative c'}.
@@ -365,7 +364,7 @@ correct output, it is shorthand for
 \score @{
   \relative c'' @{
     c4 a b c
-	@}
+  @}
 @}
 @end example
 
@@ -376,8 +375,8 @@ be anything from a single note to a huge
 @example
 @{
   \new GrandStaff <<
-	  insert the whole score of a Wagner opera in here
-	>>
+    insert the whole score of a Wagner opera in here
+  >>
 @}
 @end example
 
@@ -390,10 +389,10 @@ The @code{\score} can contain other things, such as
 @example
 \score @{
   @{ c'4 a b c' @}
-	\layout @{ @}
-	\paper @{ @}
-	\midi @{ @}
-	\header @{ @}
+  \layout @{ @}
+  \paper @{ @}
+  \midi @{ @}
+  \header @{ @}
 @}
 @end example
 
@@ -417,12 +416,11 @@ melody = \relative c' @{
 @end example
 
 When LilyPond looks at this file, it takes the value of
-@code{melody} (ie everything to the right of the
-@code{melody = }) and inserts it whenever it sees
+@code{melody} and inserts it whenever it sees
 @code{\melody}.  There's nothing special about the
-name @code{melody}, @code{global}, @code{pianorighthand},
-or @code{foofoobarbaz}.  You can use whatever variable
-names you want.
+names -- it could be @code{melody}, @code{global},
+@code{pianorighthand}, or @code{foofoobarbaz}.  You
+can use whatever variable names you want.
 
 For a complete definition
 of the input format, see @ref{File structure}.
@@ -460,7 +458,7 @@ work our way down.
       insert the whole score of a Wagner opera in here
     >>
   @}   % this brace ends the overall music expression
-	\layout @{ @}
+  \layout @{ @}
 @}
 @end example
 
@@ -474,10 +472,10 @@ though.
 \score @{
   @{
     <<
-		  \context Staff = singer @{
-			@}
-			\context PianoStaff = piano @{
-			@}
+      \context Staff = singer @{
+      @}
+      \context PianoStaff = piano @{
+      @}
     >>
   @}
   \layout @{ @}
@@ -492,14 +490,14 @@ the vocal part and piano part at the same time!
 \score @{
   @{
     <<
-		  \context Staff = singer @{
-			  \context Voice = vocal @{ @}
-				\lyricsto vocal \new Lyrics @{ @}
-			@}
-			\context PianoStaff = piano @{
-			  \context Staff = upper @{ @}
-				\context Staff = lower @{ @}
-			@}
+      \context Staff = singer @{
+        \context Voice = vocal @{ @}
+        \lyricsto vocal \new Lyrics @{ @}
+      @}
+      \context PianoStaff = piano @{
+        \context Staff = upper @{ @}
+        \context Staff = lower @{ @}
+      @}
     >>
   @}
   \layout @{ @}
@@ -507,11 +505,12 @@ the vocal part and piano part at the same time!
 @end example
 
 Now we have a lot more details.  We have the singer's
-staff.  It contains a @code{Voice} (in LilyPond, this
+staff: it contains a @code{Voice} (in LilyPond, this
 term refers to a set of notes, not necessarily vocal
 notes -- for example, a violin generally plays one
-voice) and some lyrics.  The piano contains an upper
-staff (right hand) and a lower staff (left hand).
+voice) and some lyrics.  We also have a piano staff:
+it contains an upper staff (right hand) and a lower
+staff (left hand).
 
 At this stage, we could start filling in notes.  Inside
 the curly braces next to @code{\context Voice = vocal},
@@ -536,14 +535,14 @@ lower = @{ @}
 \score @{
   @{
     <<
-		  \context Staff = singer @{
-			  \context Voice = vocal @{ \melody @}
-				\lyricsto vocal \new Lyrics @{ \text @}
-			@}
-			\context PianoStaff = piano @{
-			  \context Staff = upper @{ \upper @}
-				\context Staff = lower @{ \lower @}
-			@}
+      \context Staff = singer @{
+        \context Voice = vocal @{ \melody @}
+        \lyricsto vocal \new Lyrics @{ \text @}
+      @}
+      \context PianoStaff = piano @{
+        \context Staff = upper @{ \upper @}
+        \context Staff = lower @{ \lower @}
+      @}
     >>
   @}
   \layout @{ @}
@@ -582,20 +581,21 @@ something that works.
 In an extreme case, you might end up with only
 
 @example
-\score @{ <<
-  % \melody
-	% \harmony
-	% \bass
->>
+\score @{
+  <<
+    % \melody
+    % \harmony
+    % \bass
+  >>
   \layout@{@}
 @}
 @end example
 
 @noindent
-(in other words, an empty file)
+(in other words, a file without any music)
 
 If that happens, don't give up.  Uncomment a bit -- say,
-the bass part -- and see if it works.  If it doesn't,
+the bass part -- and see if it works.  If it doesn't work,
 then comment out all of the bass music (but leave
 @code{\bass} in the @code{\score} uncommented.
 
