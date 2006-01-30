@@ -53,19 +53,16 @@ This is done with the \parallelMusic function,
   
 @lilypond[verbatim,raggedright]
 \parallelMusic #'(voiceA voiceB) {
-  %% first bar group
   r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
   c'2                                c'2                                |
   r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
   c'2                                c'2                                |
 }
 \new StaffGroup <<
-  \context Staff = "up" <<
+  \new Staff
     \new Voice \voiceA 
-  >>
-  \context Staff = "down" <<
+  \new Staff
     \new Voice \voiceC 
-  >>
 >> 
 @end lilypond
 
