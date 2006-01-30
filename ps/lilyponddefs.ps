@@ -27,41 +27,6 @@
 	grestore
 } bind def
 
-
-/place-box {
-	/object exch def
-	gsave
-	% exch translate
-	translate
-	0 0 moveto
-	object
-	grestore
-} bind def
-
-
-% start-system
-/start-system {
-    gsave
-} bind def
-
-/start-page {
-    gsave
-    0
-    vsize translate
-} bind def
-
-
-/stop-system {
-	/the-line exch def
-	the-line stroke grestore
-} bind def
-
-
-/end-lilypond-output {
-%	showpage
-} bind def
-
-
 /init-lilypond-parameters {
 	staff-line-thickness setlinewidth
 	staff-height init-paper

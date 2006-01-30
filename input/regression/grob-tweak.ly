@@ -1,7 +1,7 @@
 \header
 {
 
-  texidoc = "With the @code{\tweak} function, individual grobs that
+  texidoc = "With the @code{\\tweak} function, individual grobs that
   are directly caused by events may be tuned directly."
 
 }

@@ -176,10 +176,10 @@
 	  (if (and (< 0 (interval-length x-ext))
 		   (< 0 (interval-length y-ext)))
 	      (format "~a ~a ~a ~a (textedit://~a:~a:~a:~a) mark_URI\n"
-		      (+ (car offset) (car x-ext))
-		      (+ (cdr offset) (car y-ext))
-		      (+ (car offset) (cdr x-ext))
-		      (+ (cdr offset) (cdr y-ext))
+		      (ly:number->string (+ (car offset) (car x-ext)))
+		      (ly:number->string (+ (cdr offset) (car y-ext)))
+		      (ly:number->string (+ (car offset) (cdr x-ext)))
+		      (ly:number->string (+ (cdr offset) (cdr y-ext)))
 
 		      ;; TODO
 		      ;; full escaping.
@@ -206,8 +206,15 @@
   "")
 
 (define (placebox x y s) 
-  (string-append 
-   (ly:number->string x) " " (ly:number->string y) " { " s " } place-box\n"))
+  (format
+   "gsave ~a ~a translate
+0 0 moveto
+~a
+grestore\n"
+
+   (ly:number->string x)
+   (ly:number->string y)
+   s))
 
 (define (polygon points blotdiameter filled?)
   (string-append
