@@ -5,7 +5,7 @@
  composer ="J.S. Bach"
  title = "Wenn wir in hoechsten Noten sein"
  subtitle = "Analysis from Gene Biringer's Schenker Text, Ex. 5-27"
- opus = "BWV641"
+%% "BWV641"
  enteredby = "Kris Shaffer"
  
 }

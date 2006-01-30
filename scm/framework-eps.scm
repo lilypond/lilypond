@@ -57,7 +57,7 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 
 	  (dump-stencil-as-EPS
 	   paper line (format "~a-~a" basename count)
-	   (ly:output-def-lookup paper 'force-eps-font-include))
+	   (ly:get-option 'eps-font-include))
 	  
 	  (dump-stencils-as-separate-EPS rest (1+ count)))))
 
