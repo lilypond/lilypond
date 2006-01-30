@@ -598,7 +598,7 @@ comment (indicated by @code{%@{ ... %@}}).  If you don't
 know where a problem is, start commenting out huge portions
 of your input file.  After you comment out a section, try
 compiling the file again.  If it works, then the problem
-must exist in the portion you just commented.  If it doens't
+must exist in the portion you just commented.  If it doesn't
 work, then keep on commenting out material until you have
 something that works.
 
