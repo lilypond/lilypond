@@ -122,11 +122,11 @@
 	"")
     "%%EndPageSetup\n"
 
-    "start-page { "
+    "gsave 0 vsize translate "
     "set-ps-scale-to-lily-scale "
     "\n"))
   (ly:outputter-dump-stencil outputter page)
-  (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
+  (ly:outputter-dump-string outputter "stroke grestore \nshowpage\n"))
 
 (define (supplies-or-needs paper load-fonts?)
   (define (extract-names font)
@@ -492,9 +492,9 @@
 
     (display header port)
     (write-preamble paper load-fonts? port)
-    (display "start-system { set-ps-scale-to-lily-scale \n" port)
+    (display "gsave set-ps-scale-to-lily-scale \n" port)
     (ly:outputter-dump-stencil outputter dump-me)
-    (display "} stop-system\n%%Trailer\n%%EOF\n" port)
+    (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))
 
 (define-public (output-preview-framework basename book scopes fields)

@@ -190,43 +190,43 @@ normally inserted before elements on a line.
 	     
 	#f)))
 
-(def-markup-command (epsfile layout props file-name) (string?)
-  "Inline an EPS image. The image is scaled such that 10 PS units is
-one staff-space."
+(def-markup-command (epsfile layout props axis size file-name) (number? number? string?)
+  "Inline an EPS image. The image is scaled along @var{axis} to
+@var{size}."
 
   (if (ly:get-option 'safe)
       (interpret-markup layout props "not allowed in safe") 
       (let*
 	  ((contents (ly:gulp-file file-name))
 	   (bbox (get-postscript-bbox contents))
+	   (bbox-size (if (= axis X)
+			  (- (list-ref bbox 2) (list-ref bbox 0))
+			  (- (list-ref bbox 3) (list-ref bbox 1))
+			  ))
+	   (factor (exact->inexact (/ size bbox-size)))
 	   (scaled-bbox
-	    (if bbox
-		(map (lambda (x) (/ x 10)) bbox)
-		(begin
-		  (ly:warning (_ "can't find bounding box of `~a'")
-			   file-name)
-		  '()))))
-	
+	    (map (lambda (x) (* factor x)) bbox)))
 
 	(if bbox
-	    
 	    (ly:make-stencil
 	     (list
 	      'embedded-ps
-	      (string-append
+	      (format
 
-	       ; adobe 5002.
-	       "BeginEPSF "
-	       "0.1 0.1 scale "
-	       (format "\n%%BeginDocument: ~a\n" file-name)
-	       contents
-	       "%%EndDocument\n"
-	       "EndEPSF\n"
-	       ))
+	       "BeginEPSF
+~a ~a scale
+%%BeginDocument: ~a
+~a
+%%EndDocument
+EndEPSF"
+	       factor factor
+	       file-name
+	       contents))
 	     (cons (list-ref scaled-bbox 0) (list-ref scaled-bbox 2))
 	     (cons (list-ref scaled-bbox 1) (list-ref scaled-bbox 3)))
 	    
-	    (ly:make-stencil "" '(0 . 0) '(0 . 0))))))  
+	    (ly:make-stencil "" '(0 . 0) '(0 . 0)))
+	)))
 
 
 (def-markup-command (postscript layout props str) (string?)

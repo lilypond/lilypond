@@ -538,6 +538,7 @@ Slur_score_state::get_base_attachments () const
 	      && !Stem::is_invisible (stem)
 	      && extremes_[d].stem_dir_ == dir_
 	      && Stem::get_beaming (stem, -d)
+	      && Stem::get_beam (stem)
 	      && (!spanner_less (slur_, Stem::get_beam (stem))
 		  || has_same_beam_))
 	    y = extremes_[d].stem_extent_[Y_AXIS][dir_];
