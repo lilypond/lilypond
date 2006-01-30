@@ -697,7 +697,7 @@ Markup texts are rendered above, between or below the scores or music
 expressions, wherever they appear.
 
 @item
-An indentifier, such as
+An identifier, such as
 @example
 foo = @{ c4 d e d @}
 @end example
