@@ -158,7 +158,7 @@
       (string-append 
        desc
        (if (pair? aliases)
-	   (string-append "\n\n This context is also known as: \n\n"
+	   (string-append "\n\n This context also accepts commands for the following context(s):\n\n"
 			  (human-listify aliases))
 	   "")
        "\n\nThis context creates the following layout objects: \n\n"
