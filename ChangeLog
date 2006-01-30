@@ -1,5 +1,10 @@
 2006-01-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily.scm (define-scheme-options): rename option
+	preview-include-book-title to book-title-preview
+	(define-scheme-options): move force-eps-font-include (from paper
+	block) to eps-font-include -d option.
+
 	* VERSION (PATCH_LEVEL): release 2.7.30
 
 	* input/bach-schenker.ly (staffPiano): new file.
