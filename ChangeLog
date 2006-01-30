@@ -3,6 +3,8 @@
 	* scm/document-translation.scm: clarify "this context is also
 	known as".  Thanks, Werner!
 
+	* Documentation/user/putting.itely: small fixes from Don Blaheta.
+
 2006-01-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/lily.scm (define-scheme-options): rename option
