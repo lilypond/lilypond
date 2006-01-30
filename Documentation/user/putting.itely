@@ -436,7 +436,8 @@ melody = \relative c' @{
 @end example
 
 When LilyPond looks at this file, it takes the value of
-@code{melody} and inserts it whenever it sees
+@code{melody} (everything after the equals sign) and
+inserts it whenever it sees
 @code{\melody}.  There's nothing special about the
 names -- it could be @code{melody}, @code{global},
 @code{pianorighthand}, or @code{foofoobarbaz}.  You
