@@ -47,9 +47,23 @@ the @uref{../,LilyPond Documentation}
 
 @itemize @bullet
 
+@ignore
+
+HINTS
+
+* only show verbatim input for syntax/input changes
+
+* try to be as brief possible in those cases
+
+* don't try to provide real-world examples, they often get too big,
+which scares away people.
+ 
+
+@end ignore
+
 @item
 Music may for multiple parts can be interleaved, similar to MUP input.
-This is done with the \parallelMusic function,
+This is done with the @code{\parallelMusic} function,
   
 @lilypond[verbatim,raggedright]
 \parallelMusic #'(voiceA voiceB) {
@@ -62,7 +76,7 @@ This is done with the \parallelMusic function,
   \new Staff
     \new Voice \voiceA 
   \new Staff
-    \new Voice \voiceC 
+    \new Voice \voiceB
 >> 
 @end lilypond
 
