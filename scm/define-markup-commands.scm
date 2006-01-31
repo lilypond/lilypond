@@ -195,39 +195,9 @@ normally inserted before elements on a line.
 @var{size}."
 
   (if (ly:get-option 'safe)
-      (interpret-markup layout props "not allowed in safe") 
-      (let*
-	  ((contents (ly:gulp-file file-name))
-	   (bbox (get-postscript-bbox contents))
-	   (bbox-size (if (= axis X)
-			  (- (list-ref bbox 2) (list-ref bbox 0))
-			  (- (list-ref bbox 3) (list-ref bbox 1))
-			  ))
-	   (factor (exact->inexact (/ size bbox-size)))
-	   (scaled-bbox
-	    (map (lambda (x) (* factor x)) bbox)))
-
-	(if bbox
-	    (ly:make-stencil
-	     (list
-	      'embedded-ps
-	      (format
-
-	       "BeginEPSF
-~a ~a scale
-%%BeginDocument: ~a
-~a
-%%EndDocument
-EndEPSF"
-	       factor factor
-	       file-name
-	       contents))
-	     (cons (list-ref scaled-bbox 0) (list-ref scaled-bbox 2))
-	     (cons (list-ref scaled-bbox 1) (list-ref scaled-bbox 3)))
-	    
-	    (ly:make-stencil "" '(0 . 0) '(0 . 0)))
-	)))
-
+      (interpret-markup layout props "not allowed in safe")
+      (eps-file->stencil axis size file-name)
+      ))
 
 (def-markup-command (postscript layout props str) (string?)
   "This inserts @var{str} directly into the output as a PostScript

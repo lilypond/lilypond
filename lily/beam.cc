@@ -140,16 +140,18 @@ Beam::calc_direction (SCM smob)
 	  me->suicide ();
 	  return SCM_UNSPECIFIED;
 	}
-      else
+      else 
 	{
-	  d = to_dir (stems[0]->get_property ("default-direction"));
+	  Grob *stem = first_visible_stem (me);
+	  d = to_dir (stem->get_property ("default-direction"));
 	}
     }
 
-  
   if (count >= 1)
     {
-      d = get_default_dir (me);
+      if (!d)
+	d = get_default_dir (me);
+      
       consider_auto_knees (me);
     }
 
