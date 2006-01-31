@@ -175,7 +175,7 @@ def do_one_file (infile_name):
 			result = re.sub (lilypond_version_re_str,
 					 '\\' + newversion, result)
 		elif add_version:
-
+			result = newversion + '\n' + result
 			
 		error_file.write ('\n')			
 	

@@ -721,3 +721,22 @@ procedure_arity (SCM proc)
   SCM fixed = scm_car (arity);
   return scm_to_int (fixed);
 }
+
+std::string
+mangle_cxx_identifier (std::string cxx_id)
+{
+  if (cxx_id.substr (0, 3) == "ly_")
+    cxx_id = cxx_id.replace (0, 3, "ly:");
+  else
+    {
+      cxx_id = String_convert::to_lower (cxx_id);
+      cxx_id = "ly:" + cxx_id;
+    }
+  if (cxx_id.substr (cxx_id.length () - 2) == "_p")
+    cxx_id = cxx_id.replace (cxx_id.length () - 2, 1, "?");
+  else if (cxx_id.substr (cxx_id.length () - 2) == "_x")
+    cxx_id = cxx_id.replace (cxx_id.length () - 2, 1, "!");
+
+  cxx_id = replace_all (cxx_id, '_', '-');
+  return cxx_id;
+}

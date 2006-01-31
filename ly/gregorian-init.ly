@@ -1,4 +1,4 @@
-\version "2.7.14"
+\version "2.7.31"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation
@@ -56,7 +56,7 @@ caesura = {
   \breathe
 }
 divisioMinima = {
-  \once \override BreathingSign  #'stencil = #Breathing_sign::divisio_minima
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-minima
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \override BreathingSign  #'extra-X-extent = #'(-1.0 . 0)
@@ -64,7 +64,7 @@ divisioMinima = {
   \breathe
 }
 divisioMaior = {
-  \once \override BreathingSign  #'stencil = #Breathing_sign::divisio_maior
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maior
   \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -73,7 +73,7 @@ divisioMaior = {
   \breathe
 }
 divisioMaxima = {
-  \once \override BreathingSign  #'stencil = #Breathing_sign::divisio_maxima
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::divisio-maxima
   \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -82,7 +82,7 @@ divisioMaxima = {
   \breathe
 }
 finalis = {
-  \once \override BreathingSign  #'stencil = #Breathing_sign::finalis
+  \once \override BreathingSign  #'stencil = #ly:breathing-sign::finalis
   \once \override BreathingSign  #'Y-offset = #0
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.

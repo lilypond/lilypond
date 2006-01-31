@@ -551,7 +551,7 @@ debugging")
      (stem-info ,pair? "caching of stem parameters")
      (note-columns ,pair? "list of NoteColumn grobs.")
 
-;;; add-join would be enough if in Mensural_ligature::brew_ligature_primitive
+;;; add-join would be enough if in ly:mensural-ligature::brew-ligature-primitive
 ;;; the next note could be seen
      (join-right-amount ,number? "")
 

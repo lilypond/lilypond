@@ -319,7 +319,7 @@ fragment.
     (if (and (memq 'note-head-interface interfaces)
              (memq pos '(-2 -3 -5)))
         (begin
-          (ly:grob-set-property! grob 'stencil Text_interface::print)
+          (ly:grob-set-property! grob 'stencil ly:text-interface::print)
           (ly:grob-set-property! grob 'font-family 'roman)
           (ly:grob-set-property!
            grob 'text
@@ -336,7 +336,7 @@ fragment.
    \set autoBeaming = ##f
    \time 2/4
    <d f g>4
-   \once \override NoteHead #'stencil = #Note_head::brew_ez_stencil
+   \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
    <d f g>
    \once \override NoteHead #'style = #'cross
    <d f g>

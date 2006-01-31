@@ -1,5 +1,5 @@
 
-\version "2.7.14"
+\version "2.7.31"
 \header {
 texidoc = "@cindex Circle
 
@@ -19,5 +19,5 @@ c1
 c2 d^\markup{\circle \finger "2"}
 \override Score.BarNumber #'break-visibility = #all-visible
 \override Score.BarNumber  #'stencil
-  = #(make-stencil-circler 0.1 0.25 Text_interface::print)
+  = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
 }

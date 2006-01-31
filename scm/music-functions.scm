@@ -841,7 +841,7 @@ if appropriate.
     (if (and (equal? nm object-name)
 	     (procedure? cb))
 	(begin
-	  (ly:grob-set-property! grob 'stencil  Balloon_interface::print)
+	  (ly:grob-set-property! grob 'stencil  ly:balloon-interface::print)
 	  (set! (ly:grob-property grob 'original-stencil) cb)
 	  (set! (ly:grob-property grob 'balloon-text) text)
 	  (set! (ly:grob-property grob 'balloon-text-offset) off)

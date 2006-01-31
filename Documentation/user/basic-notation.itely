@@ -3010,7 +3010,7 @@ measure rest with a different print function,
 
 @lilypond[fragment,verbatim]
 \override MultiMeasureRest #'stencil
-  = #Multi_measure_rest::percent
+  = #ly:multi-measure-rest::percent
 R1
 @end lilypond
 

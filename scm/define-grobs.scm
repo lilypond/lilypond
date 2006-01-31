@@ -22,9 +22,9 @@
 	(avoid-slur . inside)
 	(cautionary-style . parentheses)
 
-	(stencil . ,Accidental_interface::print)
+	(stencil . ,ly:accidental-interface::print)
 	(after-line-breaking
-	 . ,Accidental_interface::after_line_breaking)
+	 . ,ly:accidental-interface::after-line-breaking)
 					
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
@@ -32,15 +32,15 @@
     
     (AccidentalSuggestion
      . (
-	(stencil . ,Accidental_interface::print)
+	(stencil . ,ly:accidental-interface::print)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
-			,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent))
-			,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
+			,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
+			,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . ,CENTER)
 	(cautionary . #t)
 	(cautionary-style . smaller)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(cautionary-style . parentheses)
 	(direction . ,UP)
 	(staff-padding . 0.25)
@@ -57,8 +57,8 @@
      . (
 	(left-padding . 0.2)
 
-	(positioning-done . ,Accidental_placement::calc_positioning_done)
-	(X-extent . ,Axis_group_interface::width)		      
+	(positioning-done . ,ly:accidental-placement::calc-positioning-done)
+	(X-extent . ,ly:axis-group-interface::width)		      
 	
 	;; this is quite small, but it is very ugly to have
 	;; accs closer to the previous note than to the next one.
@@ -68,8 +68,8 @@
     (Ambitus
      . (
 	(axes . (0 1))
-	(X-extent . ,Axis_group_interface::width)
-	(X-extent . ,Axis_group_interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
+	(X-extent . ,ly:axis-group-interface::height)
 
 	(space-alist . (
 			(clef . (extra-space . 0.5))
@@ -88,11 +88,11 @@
     (AmbitusLine
      . (
 
-	(stencil . ,Ambitus::print)
+	(stencil . ,ly:ambitus::print)
 
 	(join-heads . #t)
 	(thickness . 2)
-	(X-offset . ,Self_alignment_interface::centered_on_x_parent)
+	(X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
 
 	(meta . ((class . Item)
 		 (interfaces . (ambitus-interface
@@ -102,12 +102,12 @@
      . (
 	(font-family . music)
 	(padding . 0.5)
-	(X-offset . ,Side_position_interface::x_aligned_side)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(cautionary-style . parentheses)
 
-	(stencil . ,Accidental_interface::print)
-	(after-line-breaking . ,Accidental_interface::after_line_breaking)
+	(stencil . ,ly:accidental-interface::print)
+	(after-line-breaking . ,ly:accidental-interface::after-line-breaking)
 	(side-axis . ,X)
 	
 	(meta . ((class . Item)
@@ -121,10 +121,10 @@
      . (
 	(duration-log . 2)
 
-	(stencil . ,Note_head::print)
+	(stencil . ,ly:note-head::print)
 	(glyph-name . ,note-head::calc-glyph-name)
 	
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				note-head-interface
@@ -134,10 +134,10 @@
 				ledgered-interface))))))
 
     (Arpeggio
-     . ((X-extent . ,Arpeggio::width)
-	(stencil . ,Arpeggio::print)
-	(Y-offset . ,Staff_symbol_referencer::callback)
-	(X-offset . ,Side_position_interface::x_aligned_side)
+     . ((X-extent . ,ly:arpeggio::width)
+	(stencil . ,ly:arpeggio::print)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(padding . 0.5)
 	(side-axis . ,X)
@@ -156,9 +156,9 @@
 	(break-visibility . ,all-visible)
 	(breakable . #t)
 
-	(stencil . ,Bar_line::print)
+	(stencil . ,ly:bar-line::print)
 	(glyph-name . ,bar-line::calc-glyph-name)
-	(bar-size .  ,Bar_line::calc_bar_size)
+	(bar-size .  ,ly:bar-line::calc-bar-size)
 	
 	(space-alist . (
 			(time-signature . (extra-space . 0.75))
@@ -186,16 +186,16 @@
 
     (BarNumber
      . (
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 	(breakable . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
 	(direction . ,UP)
 	(font-family . roman)
 	(font-size . -2)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
-	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(self-alignment-X . 1)
 
 	(meta .
@@ -210,7 +210,7 @@
     (BassFigure
      . (
 	;
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
@@ -220,7 +220,7 @@
     (BassFigureBracket
      . (
 	;
-	(stencil . ,Enclosing_bracket::print)
+	(stencil . ,ly:enclosing-bracket::print)
 
 	(edge-height . (0.2 . 0.2))
 	(meta . ((class . Item)
@@ -229,9 +229,9 @@
     (BassFigureContinuation
      . (
 
-	(stencil . ,Figured_bass_continuation::print)
+	(stencil . ,ly:figured-bass-continuation::print)
 
-	(Y-offset . ,Figured_bass_continuation::center_on_figures)
+	(Y-offset . ,ly:figured-bass-continuation::center-on-figures)
 	(meta . ((class . Spanner)
 		 (interfaces . (figured-bass-continuation-interface))
 		 ))))
@@ -239,7 +239,7 @@
      . (
 	(axes . (,Y))
 
-	(Y-extent . ,Axis_group_interface::height)
+	(Y-extent . ,ly:axis-group-interface::height)
 
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
@@ -250,8 +250,8 @@
 	(axes . (,Y))
 	(threshold . (2 . 1000))
 
-	(positioning-done . ,Align_interface::calc_positioning_done)
-	(Y-extent . ,Axis_group_interface::height)
+	(positioning-done . ,ly:align-interface::calc-positioning-done)
+	(Y-extent . ,ly:axis-group-interface::height)
 					
 	(stacking-dir . -1)
 	(meta . ((class . Spanner)
@@ -267,19 +267,19 @@
 			(ly:make-simple-closure
 			 (list chain-grob-member-functions
 			   `(,cons 0 0)
-			   Beam::calc_least_squares_positions
-			   Beam::slope_damping
-			   Beam::shift_region_to_valid
-			   Beam::quanting
+			   ly:beam::calc-least-squares-positions
+			   ly:beam::slope-damping
+			   ly:beam::shift-region-to-valid
+			   ly:beam::quanting
 			   ))))
 
 	;; this is a hack to set stem lengths, if positions is set.
-	(quantized-positions . ,Beam::set_stem_lengths)
-	(concaveness . ,Beam::calc_concaveness)
-	(direction . ,Beam::calc_direction)
-	(shorten . ,Beam::calc_stem_shorten)
-	(beaming . ,Beam::calc_beaming)
-	(stencil . ,Beam::print)
+	(quantized-positions . ,ly:beam::set-stem-lengths)
+	(concaveness . ,ly:beam::calc-concaveness)
+	(direction . ,ly:beam::calc-direction)
+	(shorten . ,ly:beam::calc-stem-shorten)
+	(beaming . ,ly:beam::calc-beaming)
+	(stencil . ,ly:beam::print)
 
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
@@ -314,8 +314,8 @@
 	(breakable . #t)
 	(stacking-dir . 1)
 
-	(positioning-done . ,Break_align_interface::calc_positioning_done)
-	(X-extent . ,Axis_group_interface::width)
+	(positioning-done . ,ly:break-align-interface::calc-positioning-done)
+	(X-extent . ,ly:axis-group-interface::width)
 					
 	(break-align-orders . ;; end of line
 			    #((instrument-name
@@ -361,7 +361,7 @@
      . (
 	(axes . (0))
 
-	(X-extent . ,Axis_group_interface::width)
+	(X-extent . ,ly:axis-group-interface::width)
 
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -381,10 +381,10 @@
 			(first-note . (fixed-space . 1.0)) ;huh?
 			(right-edge . (extra-space . 0.1))))
 
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
 	(text . ,(make-musicglyph-markup "scripts.rcomma"))
-	(Y-offset . ,Breathing_sign::offset_callback)
+	(Y-offset . ,ly:breathing-sign::offset-callback)
 	(break-visibility . ,begin-of-line-invisible)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
@@ -395,8 +395,8 @@
     (Clef
      . (
 
-	(stencil . ,Clef::print)
-	(glyph-name . ,Clef::calc_glyph_name)
+	(stencil . ,ly:clef::print)
+	(glyph-name . ,ly:clef::calc-glyph-name)
 					
 	(breakable . #t)
 	(font-family . music)
@@ -410,7 +410,7 @@
 			(first-note . (minimum-fixed-space . 5.0))
 			(next-note . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))))
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (clef-interface
 				staff-symbol-referencer-interface
@@ -420,7 +420,7 @@
     (ClusterSpannerBeacon
      . (
 
-	(Y-extent . ,Cluster_beacon::height)
+	(Y-extent . ,ly:cluster-beacon::height)
 
 	(meta . ((class . Item)
 		 (interfaces . (cluster-beacon-interface))))))
@@ -428,8 +428,8 @@
     (ClusterSpanner
      . (
 
-	(springs-and-rods . ,Spanner::set_spacing_rods)
-	(stencil . ,Cluster::print)
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
+	(stencil . ,ly:cluster::print)
 
 
 	(minimum-length . 0.0)
@@ -441,8 +441,8 @@
     (ChordName
      . (
 
-	(stencil . ,Text_interface::print)
-	(after-line-breaking . ,Chord_name::after_line_breaking)
+	(stencil . ,ly:text-interface::print)
+	(after-line-breaking . ,ly:chord-name::after-line-breaking)
 	
 	(word-space . 0.0)
 	(font-family . sans)
@@ -457,11 +457,11 @@
     (CombineTextScript
      . (
 
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
 	(no-spacing-rods . #t)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
-	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(direction . ,UP)
 	(padding . 0.5)
 	(staff-padding . 0.5)
@@ -481,12 +481,12 @@
 	(break-align-symbol . custos)
 	(breakable . #t)
 
-	(stencil . ,Custos::print)
+	(stencil . ,ly:custos::print)
 
 	(break-visibility . ,end-of-line-visible)
 	(style . vaticana)
 	(neutral-direction . ,DOWN)
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(space-alist . (
 			(first-note . (minimum-fixed-space . 0.0))
 			(right-edge . (extra-space . 0.1))))
@@ -502,10 +502,10 @@
 	(axes . (0))
 	(direction . ,RIGHT)
 
-	(positioning-done . ,Dot_column::calc_positioning_done) 
-	(X-extent . ,Axis_group_interface::width)
+	(positioning-done . ,ly:dot-column::calc-positioning-done) 
+	(X-extent . ,ly:axis-group-interface::width)
 	
-	(X-offset . ,Dot_column::side_position)
+	(X-offset . ,ly:dot-column::side-position)
 	(meta . ((class . Item)
 		 (interfaces . (dot-column-interface
 				axis-group-interface))))))
@@ -513,7 +513,7 @@
     (Dots
      . (
 
-	(stencil . ,Dots::print)
+	(stencil . ,ly:dots::print)
 
 	(dot-count . 1)
 	(meta . ((class . Item)
@@ -523,7 +523,7 @@
 
     (DoublePercentRepeat
      . (
-	(stencil . ,Percent_repeat_item_interface::double_percent)
+	(stencil . ,ly:percent-repeat-item-interface::double-percent)
 	(breakable . #t)
 	(slope . 1.0)
 	(font-encoding . fetaMusic)
@@ -539,10 +539,10 @@
     (DoublePercentRepeatCounter
      . (
 
-	(stencil . ,Text_interface::print)
-	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_y_parent))
-						  ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(stencil . ,ly:text-interface::print)
+	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-y-parent))
+						  ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(font-encoding . fetaNumber)
 	(self-alignment-X . 0)
 	(font-size . -2) 
@@ -559,7 +559,7 @@
     (DynamicLineSpanner
      . (
 	(axes . (1))
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(staff-padding . 0.1)
 	(padding . 0.6)
 	(avoid-slur . outside)
@@ -568,8 +568,8 @@
 	(direction . ,DOWN)
 	(side-axis . ,Y)
 
-	(Y-extent . ,Axis_group_interface::height)
-	(X-extent . ,Axis_group_interface::width)
+	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
 
 
 	(meta . ((class . Spanner)
@@ -583,12 +583,12 @@
 
 	;; todo.
 
-	(stencil . ,Text_interface::print)
-	(direction . ,Script_interface::calc_direction)
+	(stencil . ,ly:text-interface::print)
+	(direction . ,ly:script-interface::calc-direction)
 
-	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(self-alignment-X . 0)
-	(Y-offset . ,Self_alignment_interface::y_aligned_on_self)
+	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(self-alignment-Y . 0)
 	(font-series . bold)
 	(font-encoding . fetaDynamic)
@@ -606,7 +606,7 @@
     (DynamicTextSpanner
      . (
 
-	(stencil . ,Dynamic_text_spanner::print)
+	(stencil . ,ly:dynamic-text-spanner::print)
 
 	;; rather ugh with NCSB
 	;; (font-series . bold)
@@ -638,8 +638,8 @@
 	(self-alignment-Y . 0)
 	(script-priority . 100)
 
-	(stencil . ,Text_interface::print)
-	(direction . ,Script_interface::calc_direction)
+	(stencil . ,ly:text-interface::print)
+	(direction . ,ly:script-interface::calc-direction)
 
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
@@ -660,8 +660,8 @@
 	(X-extent . #f)
 	(Y-extent . #f)
 
-	(stencil . ,Line_spanner::print)
-	(after-line-breaking . ,Line_spanner::after_line_breaking)
+	(stencil . ,ly:line-spanner::print)
+	(after-line-breaking . ,ly:line-spanner::after-line-breaking)
 	
 
 	(meta . ((class . Spanner)
@@ -678,13 +678,13 @@
     (GridLine
      . (
 
-	(X-extent  . ,Grid_line_interface::width)
-	(stencil . ,Grid_line_interface::print)
+	(X-extent  . ,ly:grid-line-interface::width)
+	(stencil . ,ly:grid-line-interface::print)
 
 	(self-alignment-X . ,CENTER)
 	(X-offset . ,(ly:make-simple-closure
-		      `(,+  ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent))
-			    ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
+		      `(,+  ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
+			    ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(layer . 0)
 	(meta . ((class . Item)
 		 (interfaces . (self-alignment-interface
@@ -694,16 +694,16 @@
      . (
 
 
-	(stencil . ,Hairpin::print)
-	(springs-and-rods . ,Spanner::set_spacing_rods)
-	(after-line-breaking . ,Hairpin::after_line_breaking)
+	(stencil . ,ly:hairpin::print)
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
+	(after-line-breaking . ,ly:hairpin::after-line-breaking)
 
 	(thickness . 1.0)
 	(height . 0.6666)
 	(minimum-length . 2.0)
 	(bound-padding . 1.0)
 	(self-alignment-Y . 0)
-	(Y-offset . ,Self_alignment_interface::y_aligned_on_self)
+	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(meta . ((class . Spanner)
 		 (interfaces . (hairpin-interface
 				line-interface
@@ -714,8 +714,8 @@
     (HorizontalBracket
      . (
 	(thickness . 1.0)
-	(stencil . ,Horizontal_bracket::print)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(stencil . ,ly:horizontal-bracket::print)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(padding . 0.2)
 	(staff-padding . 0.2)
 	(direction . ,DOWN)
@@ -729,8 +729,8 @@
     (InstrumentName
      . (
 	(breakable . #t)
-	(Y-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::y_aligned_on_self))
-						  ,(ly:make-simple-closure (list Side_position_interface::y_aligned_on_support_refpoints)))))
+	(Y-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::y-aligned-on-self))
+						  ,(ly:make-simple-closure (list ly:side-position-interface::y-aligned-on-support-refpoints)))))
 	
 	;; This direction is for aligned_on_support_refpoints
 	;; (?) --hwn
@@ -739,7 +739,7 @@
 			(left-edge . (extra-space . 1.0))))
 
 	(self-alignment-Y . 0)
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 	(break-align-symbol . instrument-name)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -754,7 +754,7 @@
     (KeyCancellation
      . (
 
-	(stencil . ,Key_signature_interface::print)
+	(stencil . ,ly:key-signature-interface::print)
 
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
@@ -762,7 +762,7 @@
 			(key-signature . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(break-align-symbol . key-cancellation)
 	(break-visibility . ,begin-of-line-invisible)
 	(breakable . #t)
@@ -774,14 +774,14 @@
     (KeySignature
      . (
 
-	(stencil . ,Key_signature_interface::print)
+	(stencil . ,ly:key-signature-interface::print)
 
 	(space-alist . (
 			(time-signature . (extra-space . 1.15))
 			(staff-bar . (extra-space . 1.1))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))))
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(break-align-symbol . key-signature)
 	(break-visibility . ,begin-of-line-visible)
 	(breakable . #t)
@@ -793,9 +793,9 @@
     (LaissezVibrerTie
      . (
 
-	(stencil  . ,Tie::print)
-	(control-points . ,Laissez_vibrer_tie::calc_control_points)
-	(direction . ,Laissez_vibrer_tie::calc_direction)
+	(stencil  . ,ly:tie::print)
+	(control-points . ,ly:laissez-vibrer-tie::calc-control-points)
+	(direction . ,ly:laissez-vibrer-tie::calc-direction)
 	
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
@@ -809,7 +809,7 @@
      . (
 	(X-extent . #f)
 	(Y-extent . #f)
-	(positioning-done . ,Laissez_vibrer_tie_column::calc_positioning_done)
+	(positioning-done . ,ly:laissez-vibrer-tie-column::calc-positioning-done)
 	(meta . ((class . Item)
 		 (interfaces . (laissez-vibrer-tie-column-interface))
 		 ))
@@ -818,9 +818,9 @@
     (LedgerLineSpanner
      . (
 
-	(springs-and-rods . ,Ledger_line_spanner::set_spacing_rods)
+	(springs-and-rods . ,ly:ledger-line-spanner::set-spacing-rods)
 
-	(stencil . ,Ledger_line_spanner::print)
+	(stencil . ,ly:ledger-line-spanner::print)
 
 	(X-extent . #f)
 	(Y-extent . #f)
@@ -861,8 +861,8 @@
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
 	(direction . ,UP)
-	(positions . ,Tuplet_bracket::calc_positions)
-	(stencil . ,Tuplet_bracket::print)
+	(positions . ,ly:tuplet-bracket::calc-positions)
+	(stencil . ,ly:tuplet-bracket::print)
 	
 	(meta . ((class . Spanner)
 		 (interfaces . (tuplet-bracket-interface
@@ -877,9 +877,9 @@
 	(minimum-length . 0.3)
 	(minimum-distance . 0.1)
 	(padding . 0.07)
-	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
+	(springs-and-rods . ,ly:hyphen-spanner::set-spacing-rods)
 	
-	(stencil . ,Hyphen_spanner::print)
+	(stencil . ,ly:hyphen-spanner::print)
 
 	(Y-extent . (0 . 0))
 	(meta . ((class . Spanner)
@@ -891,7 +891,7 @@
     (LyricExtender
      . (
 
-	(stencil . ,Lyric_extender::print)
+	(stencil . ,ly:lyric-extender::print)
 
 	(thickness . 0.8) ; linethickness
 	(minimum-length . 1.5)
@@ -902,7 +902,7 @@
 
     (LyricSpace
      . ((minimum-distance . 0.3)
-	(springs-and-rods . ,Hyphen_spanner::set_spacing_rods)
+	(springs-and-rods . ,ly:hyphen-spanner::set-spacing-rods)
 	(padding . 0.0)
 	(Y-extent . #f)
 	(X-extent . #f)
@@ -914,9 +914,9 @@
     (LyricText
      . (
 
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
-	(X-offset . ,Self_alignment_interface::aligned_on_x_parent)
+	(X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
 	(self-alignment-X . 0)
 	(word-space . 0.6)
 	(font-series . bold-narrow)
@@ -931,10 +931,10 @@
 
     (MeasureGrouping
      . (
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 
-	(stencil . ,Measure_grouping::print)
+	(stencil . ,ly:measure-grouping::print)
 
 	(padding . 2)
 	(direction . ,UP)
@@ -954,7 +954,7 @@
      . (
 	(thickness . 1.4)
 	(flexa-width . 2.0)
-	(stencil . ,Mensural_ligature::print)
+	(stencil . ,ly:mensural-ligature::print)
 
 	(meta . ((class . Spanner)
 		 (interfaces . (mensural-ligature-interface
@@ -963,9 +963,9 @@
     (MetronomeMark
      . (
 
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(direction . ,UP)
 	(padding . 0.8)
 	(side-axis . ,Y)
@@ -978,9 +978,9 @@
 
     (MultiMeasureRest
      . (
-	(stencil . ,Multi_measure_rest::print)
-	(springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(stencil . ,ly:multi-measure-rest::print)
+	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(staff-position . 0)
 	(expand-limit . 10)
 	(thick-thickness . 6.6)
@@ -996,12 +996,12 @@
 
     (MultiMeasureRestNumber
      . (
-	(springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
-	(stencil . ,Text_interface::print)
+	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
+	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure
-		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self))
-			   ,(ly:make-simple-closure (list Self_alignment_interface::x_centered_on_y_parent)))))
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+		      `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self))
+			   ,(ly:make-simple-closure (list ly:self-alignment-interface::x-centered-on-y-parent)))))
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 
 	(self-alignment-X . 0)
@@ -1019,12 +1019,12 @@
 
     (MultiMeasureRestText
      . (
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure
-		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_centered_on_y_parent))
-			   ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
+		      `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::x-centered-on-y-parent))
+			   ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
 	
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(self-alignment-X . 0)
 	(direction . ,UP)
 	(padding . 0.2)
@@ -1040,9 +1040,9 @@
      . (
 	(axes . (0 1))
 
-	(X-extent . ,Axis_group_interface::width)
-	(Y-extent . ,Axis_group_interface::height)
-	(positioning-done . ,Note_collision_interface::calc_positioning_done)
+	(X-extent . ,ly:axis-group-interface::width)
+	(Y-extent . ,ly:axis-group-interface::height)
+	(positioning-done . ,ly:note-collision-interface::calc-positioning-done)
 	
 	(meta . ((class . Item)
 		 (interfaces . (note-collision-interface
@@ -1051,8 +1051,8 @@
     (NoteColumn
      . (
 	(axes . (0 1))
-	(X-extent . ,Axis_group_interface::width)
-	(Y-extent . ,Axis_group_interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
+	(Y-extent . ,ly:axis-group-interface::height)
 
 	(meta . ((class . Item)
 		 (interfaces . (axis-group-interface
@@ -1061,11 +1061,11 @@
     (NoteHead
      . (
 
-	(stencil . ,Note_head::print)
-	(stem-attachment . ,Note_head::calc_stem_attachment)
+	(stencil . ,ly:note-head::print)
+	(stem-attachment . ,ly:note-head::calc-stem-attachment)
 	(glyph-name . ,note-head::calc-glyph-name) 
-	(Y-offset . ,Staff_symbol_referencer::callback)
-	(X-offset . ,Note_head::stem_x_shift)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
+	(X-offset . ,ly:note-head::stem-x-shift)
 	(meta . ((class . Item)
 		 (interfaces . (rhythmic-grob-interface
 				rhythmic-head-interface
@@ -1089,7 +1089,7 @@
     (NoteName
      . (
 
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
 	(meta . ((class . Item)
 		 (interfaces . (note-name-interface
@@ -1101,12 +1101,12 @@
 	(self-alignment-X . 0)
 	(break-visibility . ,begin-of-line-visible)
 	(X-offset . ,(ly:make-simple-closure
-		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self))
-			   ,(ly:make-simple-closure (list Self_alignment_interface::centered_on_x_parent)))))
+		      `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self))
+			   ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent)))))
 	
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
 
 	;; no Y dimensions, because of lyrics under tenor clef.
@@ -1123,9 +1123,9 @@
 
     (OttavaBracket
      . (
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 
-	(stencil . ,Ottava_bracket::print)
+	(stencil . ,ly:ottava-bracket::print)
 
 	(font-shape . italic)
 	(shorten-pair . (0.0 . -0.6))
@@ -1147,9 +1147,9 @@
      . (
 	(axes . (0))
 
-	(before-line-breaking . ,Paper_column::before_line_breaking)
-	;; (stencil . ,Paper_column::print)
-	(X-extent . ,Axis_group_interface::width)
+	(before-line-breaking . ,ly:paper-column::before-line-breaking)
+	;; (stencil . ,ly:paper-column::print)
+	(X-extent . ,ly:axis-group-interface::width)
 	
 
 	;; debugging
@@ -1162,11 +1162,11 @@
     (PhrasingSlur
      . ((details . ,default-slur-details)
 
-	(control-points . ,Slur::calc_control_points)
-	(direction . ,Slur::calc_direction)
-	(springs-and-rods . ,Spanner::set_spacing_rods)
-	(Y-extent . ,Slur::height)
-	(stencil . ,Slur::print)		      
+	(control-points . ,ly:slur::calc-control-points)
+	(direction . ,ly:slur::calc-direction)
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
+	(Y-extent . ,ly:slur::height)
+	(stencil . ,ly:slur::print)		      
 	
 
 	(thickness . 1.1)
@@ -1180,9 +1180,9 @@
      . (
 	(axes . (0))
 
-	(before-line-breaking . ,Paper_column::before_line_breaking)
-	(X-extent . ,Axis_group_interface::width)
-	;;		      (stencil . ,Paper_column::print)
+	(before-line-breaking . ,ly:paper-column::before-line-breaking)
+	(X-extent . ,ly:axis-group-interface::width)
+	;;		      (stencil . ,ly:paper-column::print)
 	
 	(breakable . #t)
 
@@ -1197,8 +1197,8 @@
     (PercentRepeat
      . (
 
-	(springs-and-rods . ,Multi_measure_rest::set_spacing_rods)
-	(stencil . ,Multi_measure_rest::percent)
+	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
+	(stencil . ,ly:multi-measure-rest::percent)
 
 	(slope . 1.0)
 	(thickness . 0.48)
@@ -1209,11 +1209,11 @@
 				percent-repeat-interface))))))
     (PercentRepeatCounter
      . (
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure
-		      `(,+ ,(ly:make-simple-closure (list Self_alignment_interface::x_centered_on_y_parent))
-			   ,(ly:make-simple-closure (list Self_alignment_interface::x_aligned_on_self)))))
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+		      `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::x-centered-on-y-parent))
+			   ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(self-alignment-X . 0)
 	(direction . ,UP)
 	(padding . 0.2)
@@ -1231,7 +1231,7 @@
     (PianoPedalBracket
      . (
 
-	(stencil . ,Piano_pedal_bracket::print)
+	(stencil . ,ly:piano-pedal-bracket::print)
 
 	(style . line)
 	(bound-padding . 1.0)
@@ -1247,14 +1247,14 @@
 
     (RehearsalMark
      . (
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+ ,(ly:make-simple-closure
-			     `(,Self_alignment_interface::x_aligned_on_self))
+			     `(,ly:self-alignment-interface::x-aligned-on-self))
 			   ,(ly:make-simple-closure
-			     `(,Self_alignment_interface::centered_on_x_parent)))
+			     `(,ly:self-alignment-interface::centered-on-x-parent)))
 		      ))
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(self-alignment-X . 0)
 	(direction . ,UP)
 	(breakable . #t)
@@ -1272,17 +1272,17 @@
 
     (RepeatSlash
      . (
-	(stencil . ,Percent_repeat_item_interface::beat_slash)
+	(stencil . ,ly:percent-repeat-item-interface::beat-slash)
 	(thickness . 0.48)
 	(slope . 1.7)
 	(meta . ((class . Item)
 		 (interfaces . (percent-repeat-interface))))))
     (Rest
      . (
-	(stencil . ,Rest::print)
-	(X-extent . ,Rest::width)
-	(Y-extent . ,Rest::height)
-	(Y-offset . ,Rest::y_offset_callback)
+	(stencil . ,ly:rest::print)
+	(X-extent . ,ly:rest::width)
+	(Y-extent . ,ly:rest::height)
+	(Y-offset . ,ly:rest::y-offset-callback)
 	(minimum-distance . 0.25)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -1294,7 +1294,7 @@
     (RestCollision
      . (
 	(minimum-distance . 0.75)
-	(positioning-done . ,Rest_collision::calc_positioning_done)
+	(positioning-done . ,ly:rest-collision::calc-positioning-done)
 					
 	(meta . ((class . Item)
 		 (interfaces . (rest-collision-interface))))))
@@ -1308,11 +1308,11 @@
 	(padding . 0.20)
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
-	(X-offset . , Self_alignment_interface::centered_on_x_parent)
+	(X-offset . , ly:self-alignment-interface::centered-on-x-parent)
 	
 
-	(stencil . ,Script_interface::print)
-	(direction . ,Script_interface::calc_direction)
+	(stencil . ,ly:script-interface::print)
+	(direction . ,ly:script-interface::calc-direction)
 
 	(font-encoding . fetaMusic)
 	(meta . ((class . Item)
@@ -1323,7 +1323,7 @@
     (ScriptColumn
      . (
 
-	(before-line-breaking . ,Script_column::before_line_breaking)
+	(before-line-breaking . ,ly:script-column::before-line-breaking)
 
 	(meta . ((class . Item)
 		 (interfaces . (script-column-interface))))))
@@ -1339,7 +1339,7 @@
     (SeparatingGroupSpanner
      . (
 
-	(springs-and-rods . ,Separating_group_spanner::set_spacing_rods)
+	(springs-and-rods . ,ly:separating-group-spanner::set-spacing-rods)
 
 	(meta . ((class . Spanner)
 		 (interfaces . (only-prebreak-interface
@@ -1349,15 +1349,15 @@
     (Slur
      . ((details . ,default-slur-details)
 
-	(control-points . ,Slur::calc_control_points)
-	(direction . ,Slur::calc_direction)
-	(springs-and-rods . ,Spanner::set_spacing_rods)
-	(Y-extent . ,Slur::height)
-	(stencil . ,Slur::print)
+	(control-points . ,ly:slur::calc-control-points)
+	(direction . ,ly:slur::calc-direction)
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
+	(Y-extent . ,ly:slur::height)
+	(stencil . ,ly:slur::print)
 	
 	(thickness . 1.0)
 	(minimum-length . 1.5)
-					; Slur::height)
+					; ly:slur::height)
 	(height-limit . 2.0)
 	(ratio . 0.25)
 	(meta . ((class . Spanner)
@@ -1366,7 +1366,7 @@
     (SpacingSpanner
      . (
 
-	(springs-and-rods . ,Spacing_spanner::set_springs)
+	(springs-and-rods . ,ly:spacing-spanner::set-springs)
 	(average-spacing-wishes . #t)
 	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
@@ -1383,11 +1383,11 @@
 	(layer . 0)
 	(breakable . #t)
 
-	(stencil . ,Span_bar::print)
-	(bar-size . ,Span_bar::calc_bar_size)
-	(X-extent . ,Span_bar::width)
-	(glyph-name . ,Span_bar::calc_glyph_name)
-	(before-line-breaking . ,Span_bar::before_line_breaking)
+	(stencil . ,ly:span-bar::print)
+	(bar-size . ,ly:span-bar::calc-bar-size)
+	(X-extent . ,ly:span-bar::width)
+	(glyph-name . ,ly:span-bar::calc-glyph-name)
+	(before-line-breaking . ,ly:span-bar::before-line-breaking)
 
 	;; ugh duplication!
 
@@ -1405,11 +1405,11 @@
 
     (StanzaNumber
      . (
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
 	(font-series . bold)
 	(padding . 1.0)
-	(X-offset . ,Side_position_interface::x_aligned_side)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(side-axis . ,X)
 	(direction . ,LEFT)
 	(meta . ((class . Item)
@@ -1450,10 +1450,10 @@
     (SostenutoPedal
      . (
 
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 
 	(direction . ,RIGHT)
-	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(no-spacing-rods . #t)
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
 	(font-shape . italic)
@@ -1467,9 +1467,9 @@
      . (
 	(axes . (1))
 
-	(X-extent . ,Axis_group_interface::height)
+	(X-extent . ,ly:axis-group-interface::height)
 
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 
 	(padding . 1.2)
@@ -1482,8 +1482,8 @@
 
     (StaffSymbol
      . (
-	(Y-extent . ,Staff_symbol::height)
-	(stencil . ,Staff_symbol::print)
+	(Y-extent . ,ly:staff-symbol::height)
+	(stencil . ,ly:staff-symbol::print)
 	(line-count . 5)
 	(ledger-line-thickness . (1.0 . 0.1))
 	(layer . 0)
@@ -1492,15 +1492,15 @@
 
     (Stem
      . (
-	(direction . ,Stem::calc_direction)
-	(default-direction . ,Stem::calc_default_direction)
-	(stem-end-position . ,Stem::calc_stem_end_position)
-	(stem-info . ,Stem::calc_stem_info)
-	(positioning-done . ,Stem::calc_positioning_done)
-	(stencil . ,Stem::print)
-	(X-extent . ,Stem::width)
-	(Y-extent . ,Stem::height)
-	(length . ,Stem::calc_length)
+	(direction . ,ly:stem::calc-direction)
+	(default-direction . ,ly:stem::calc-default-direction)
+	(stem-end-position . ,ly:stem::calc-stem-end-position)
+	(stem-info . ,ly:stem::calc-stem-info)
+	(positioning-done . ,ly:stem::calc-positioning-done)
+	(stencil . ,ly:stem::print)
+	(X-extent . ,ly:stem::width)
+	(Y-extent . ,ly:stem::height)
+	(length . ,ly:stem::calc-length)
 	
 	(thickness . 1.3)
 
@@ -1539,16 +1539,16 @@
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.
 
-	(X-offset . ,Stem::offset_callback)
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(X-offset . ,ly:stem::offset-callback)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (stem-interface
 				font-interface))))))
 
     (StemTremolo
      . (
-	(Y-extent . ,Stem_tremolo::height)
-	(stencil . ,Stem_tremolo::print)
+	(Y-extent . ,ly:stem-tremolo::height)
+	(stencil . ,ly:stem-tremolo::print)
 	(X-extent . #f)
 	(beam-width . 1.6) ; staff-space
 	(beam-thickness . 0.48) ; staff-space
@@ -1558,11 +1558,11 @@
     (SustainPedal
      . (
 	(no-spacing-rods . #t)
-	(stencil . ,Sustain_pedal::print)
+	(stencil . ,ly:sustain-pedal::print)
 	(self-alignment-X . 0)
 	(direction . ,RIGHT)
 	(padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
-	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (piano-pedal-interface
 				text-spanner-interface
@@ -1573,8 +1573,8 @@
     (SustainPedalLineSpanner
      . (
 	(axes . (1))
-	(X-extent . ,Axis_group_interface::height)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(X-extent . ,ly:axis-group-interface::height)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(padding . 1.2)
 	(staff-padding . 1.2)
@@ -1588,8 +1588,8 @@
     (System
      . (
 	(axes . (0 1))
-	(X-extent . ,Axis_group_interface::width)
-	(Y-extent . ,Axis_group_interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
+	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . System)
 		 (interfaces . (system-interface
 				axis-group-interface))))))
@@ -1598,9 +1598,9 @@
      . (
 	(style . brace)
 	(padding . 0.3)
-	(stencil . ,System_start_delimiter::print)
+	(stencil . ,ly:system-start-delimiter::print)
 	(collapse-height . 5.0)
-	(X-offset . ,Side_position_interface::x_aligned_side)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(font-encoding . fetaBraces)
 	(Y-extent . #f)
@@ -1612,9 +1612,9 @@
     (SystemStartSquare
      . (
 	(Y-extent . #f)
-	(X-offset . ,Side_position_interface::x_aligned_side)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
-	(stencil . ,System_start_delimiter::print)
+	(stencil . ,ly:system-start-delimiter::print)
 	(style . line-bracket)
 	(thickness . 1.0)
 	(meta . ((class . Spanner)
@@ -1625,9 +1625,9 @@
      . (
 	(Y-extent . #f)
 	(padding . 0.8)
-	(X-offset . ,Side_position_interface::x_aligned_side)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
-	(stencil . ,System_start_delimiter::print)
+	(stencil . ,ly:system-start-delimiter::print)
 	(style . bracket)
 	(collapse-height . 5.0)
 	(thickness . 0.45)
@@ -1640,11 +1640,11 @@
      . (
 	(Y-extent . #f)
 	(padding . 0.0)
-	(X-offset . ,Side_position_interface::x_aligned_side)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(style . bar-line)
 	(thickness . 1.6)
-	(stencil . ,System_start_delimiter::print)
+	(stencil . ,ly:system-start-delimiter::print)
 	(meta . ((class . Spanner)
 		 (interfaces . (side-position-interface
 				system-start-delimiter-interface))))))
@@ -1653,8 +1653,8 @@
     (TabNoteHead
      . (
 
-	(stencil . ,Text_interface::print)
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(stencil . ,ly:text-interface::print)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(font-size . -2)
 	(stem-attachment . (1.0 . 1.35))
 	(font-series . bold)
@@ -1669,15 +1669,15 @@
     (TextScript
      . (
 	(no-spacing-rods . #t)
-	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(direction . ,DOWN)
 
 	;; sync with Fingering ?
 	(padding . 0.5)
 	(staff-padding . 0.5)
 
-	(stencil . ,Text_interface::print)
-	(direction . ,Script_interface::calc_direction)
+	(stencil . ,ly:text-interface::print)
+	(direction . ,ly:script-interface::calc-direction)
 
 	(avoid-slur . around)
 	(slur-padding . 0.5)
@@ -1691,8 +1691,8 @@
 
     (TextSpanner
      . (
-	(stencil . ,Text_spanner::print)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(stencil . ,ly:text-spanner::print)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(font-shape . italic)
 	(style . dashed-line)
 	(staff-padding . 0.8)
@@ -1707,10 +1707,10 @@
 
     (Tie
      . (
-	(control-points . ,Tie::calc_control_points)
+	(control-points . ,ly:tie::calc-control-points)
 	(avoid-slur . inside)
-	(direction . ,Tie::calc_direction)
-	(stencil . ,Tie::print)
+	(direction . ,ly:tie::calc-direction)
+	(stencil . ,ly:tie::print)
 	(details . (
 		    ;; for a full list, see tie-helper.cc
 		    (ratio . 0.333)
@@ -1733,8 +1733,8 @@
 
     (TieColumn
      . (
-	(positioning-done . ,Tie_column::calc_positioning_done)
-	(before-line-breaking . ,Tie_column::before_line_breaking)
+	(positioning-done . ,ly:tie-column::calc-positioning-done)
+	(before-line-breaking . ,ly:tie-column::before-line-breaking)
 	(X-extent . #f)
 	(Y-extent . #f)
 	(meta . ((class . Spanner)
@@ -1742,7 +1742,7 @@
 
     (TimeSignature
      . (
-	(stencil . ,Time_signature::print)
+	(stencil . ,ly:time-signature::print)
 	(break-align-symbol . time-signature)
 	(break-visibility . ,all-visible)
 	(space-alist . (
@@ -1758,14 +1758,14 @@
 
     (TrillSpanner
      . (
-	(stencil . ,Dynamic_text_spanner::print)
+	(stencil . ,ly:dynamic-text-spanner::print)
 	(edge-text . ,(cons (make-musicglyph-markup "scripts.trill")
 			    ""))
 	(style . trill)
 	(staff-padding . 1.0)
 	(padding . 0.5)
 	(direction . ,UP)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
@@ -1773,12 +1773,12 @@
 				font-interface))))))
 
     (TrillPitchAccidental
-     . ((X-offset . ,Side_position_interface::x_aligned_side)
+     . ((X-offset . ,ly:side-position-interface::x-aligned-side)
 	(padding . 0.2)
 	(direction . ,LEFT)
 	(font-size . -4)
 	(side-axis . ,X)
-	(stencil . ,Accidental_interface::print)
+	(stencil . ,ly:accidental-interface::print)
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
 				accidental-interface
@@ -1786,7 +1786,7 @@
 				font-interface))))))
 
     (TrillPitchGroup
-     . ((X-offset . ,Side_position_interface::x_aligned_side)
+     . ((X-offset . ,ly:side-position-interface::x-aligned-side)
 	(axes . (,X))
 	(font-size . -4)
 	(stencil . ,parenthesize-elements)
@@ -1803,9 +1803,9 @@
 
     (TrillPitchHead
      . (
-	(stencil . ,Note_head::print)
+	(stencil . ,ly:note-head::print)
 	(duration-log . 2)
-	(Y-offset . ,Staff_symbol_referencer::callback)
+	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(font-size . -4)
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
@@ -1823,11 +1823,11 @@
 	(shorten-pair . (-0.2 . -0.2))
 	(staff-padding . 0.25)
 	
-	(direction  . ,Tuplet_bracket::calc_direction)
-	(positions . ,Tuplet_bracket::calc_positions)
-	(connect-to-neighbor . ,Tuplet_bracket::calc_connect_to_neighbors)
-	(control-points . ,Tuplet_bracket::calc_control_points)
-	(stencil . ,Tuplet_bracket::print)
+	(direction  . ,ly:tuplet-bracket::calc-direction)
+	(positions . ,ly:tuplet-bracket::calc-positions)
+	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
+	(control-points . ,ly:tuplet-bracket::calc-control-points)
+	(stencil . ,ly:tuplet-bracket::print)
 	
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
@@ -1835,7 +1835,7 @@
 
     (TupletNumber
      . (
-	(stencil . ,Tuplet_number::print)
+	(stencil . ,ly:tuplet-number::print)
 	(font-shape . italic)
 	(font-size . -2)
 	(avoid-slur . inside)
@@ -1845,13 +1845,13 @@
     
     (UnaCordaPedal
      . (
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 	(font-shape . italic)
 	(no-spacing-rods . #t)
 	(self-alignment-X . 0)
 	(direction . ,RIGHT)
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
-	(X-offset . ,Self_alignment_interface::x_aligned_on_self)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				self-alignment-interface
@@ -1860,8 +1860,8 @@
     (UnaCordaPedalLineSpanner
      . (
 	(axes . (1))
-	(X-extent . ,Axis_group_interface::height)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(X-extent . ,ly:axis-group-interface::height)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(padding . 1.2)
 	(staff-padding . 1.2)
@@ -1876,7 +1876,7 @@
      . (
 	(thickness . 0.6)
 	(flexa-width . 2.0)
-	(stencil . ,Vaticana_ligature::print)
+	(stencil . ,ly:vaticana-ligature::print)
 	(meta . ((class . Spanner)
 		 (interfaces . (vaticana-ligature-interface
 				font-interface))))))
@@ -1884,10 +1884,10 @@
     (VerticalAlignment
      . (
 	(axes . (1))
-	(positioning-done . ,Align_interface::calc_positioning_done)
-	(after-line-breaking . ,Align_interface::stretch_after_break)
-	(Y-extent . ,Axis_group_interface::height)
-	(X-extent . ,Axis_group_interface::width)
+	(positioning-done . ,ly:align-interface::calc-positioning-done)
+	(after-line-breaking . ,ly:align-interface::stretch-after-break)
+	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
 	(stacking-dir . -1)
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface
@@ -1895,9 +1895,9 @@
     (VerticalAxisGroup
      . (
 	(axes . (1))
-	(Y-offset . ,Hara_kiri_group_spanner::force_hara_kiri_callback)
-	(Y-extent . ,Hara_kiri_group_spanner::y_extent)
-	(X-extent . ,Axis_group_interface::width)
+	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
+	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
+	(X-extent . ,ly:axis-group-interface::width)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				hara-kiri-group-interface
@@ -1906,11 +1906,11 @@
     (VocalName
      . (
 	(breakable . #t)
-	(Y-offset . ,Side_position_interface::y_aligned_on_support_refpoints)
+	(Y-offset . ,ly:side-position-interface::y-aligned-on-support-refpoints)
 	(direction . ,CENTER)
 	(space-alist . ((left-edge . (extra-space . 1.0))))
 	(break-align-symbol . instrument-name)
-	(stencil . ,Text_interface::print)
+	(stencil . ,ly:text-interface::print)
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -1924,12 +1924,12 @@
 
     (VoltaBracket
      . (
-	(stencil . ,Volta_bracket_interface::print)
-	(after-line-breaking . ,Volta_bracket_interface::after_line_breaking)
+	(stencil . ,ly:volta-bracket-interface::print)
+	(after-line-breaking . ,ly:volta-bracket-interface::after-line-breaking)
 	(direction . ,UP)
 	(padding . 1)
 	(font-encoding . fetaNumber)
-	(Y-offset . ,Side_position_interface::y_aligned_side)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(thickness . 1.6)  ;;  linethickness
 	(edge-height . (2.0 . 2.0)) ;; staffspace;
@@ -1952,8 +1952,8 @@
 	(breakable . #t)
 	(X-extent . #f)
 	(Y-extent . #f)
-	(stencil . ,Line_spanner::print)
-	(after-line-breaking . ,Line_spanner::after_line_breaking)
+	(stencil . ,ly:line-spanner::print)
+	(after-line-breaking . ,ly:line-spanner::after-line-breaking)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-spanner-interface
 				line-interface))))

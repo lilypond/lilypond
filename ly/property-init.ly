@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.7.14"
+\version "2.7.31"
 
 stemUp = \override Stem  #'direction = #UP
 stemDown = \override Stem  #'direction = #DOWN 
@@ -52,7 +52,7 @@ tieSolid = {
 }
 
 setEasyHeads = \sequential {
-  \override NoteHead  #'stencil = #Note_head::brew_ez_stencil
+  \override NoteHead  #'stencil = #ly:note-head::brew-ez-stencil
   \override NoteHead #'font-size = #-7
   \override NoteHead #'font-family = #'sans
   \override NoteHead #'font-series = #'bold
@@ -151,7 +151,7 @@ arpeggioNeutral = \sequential {
   \revert Arpeggio  #'arpeggio-direction
 }
 arpeggioBracket = \sequential {
-  \override Arpeggio #'stencil = #Arpeggio::brew_chord_bracket
+  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
 }
 
 glissando = #(make-music 'GlissandoEvent)

@@ -4,7 +4,7 @@
 
 #(set-global-staff-size 16)
 
-\version "2.6.0"
+\version "2.7.31"
 
 \header {
   title = "Romanzen"
@@ -249,7 +249,7 @@ leftb =  \transpose c cis {
     #(set-accidental-style 'piano-cautionary)
     \override PianoStaff.NoteCollision   #'merge-differently-dotted = ##t
     \set PianoStaff.connectArpeggios = ##t
-    \override PianoStaff.Arpeggio #'print-function = #Arpeggio::brew_chord_bracket
+    \override PianoStaff.Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
 
     \override PianoStaff.InstrumentName #'font-size = #6
     \override PianoStaff.InstrumentName #'font-shape = #'italic
