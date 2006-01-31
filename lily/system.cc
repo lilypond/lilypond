@@ -66,7 +66,7 @@ int
 System::spanner_count () const
 {
   int k = 0;
-  for (int i = all_elements_->size (); i--;)
+  for (vsize i = all_elements_->size (); i--;)
     if (dynamic_cast<Spanner *> (all_elements_->grob (i)))
       k++;
   return k;
@@ -88,7 +88,7 @@ System::typeset_grob (Grob *elem)
 void
 System::derived_mark () const
 {
-  if (!all_elements_->is_empty ())
+  if (!all_elements_->empty ())
     {
       Grob **ptr = &all_elements_->array_reference ().elem_ref (0);
       Grob **end = ptr + all_elements_->size ();
@@ -108,14 +108,14 @@ System::derived_mark () const
 static void
 fixup_refpoints (Link_array<Grob> const &grobs)
 {
-  for (int i = grobs.size (); i--;)
+  for (vsize i = grobs.size (); i--;)
     grobs[i]->fixup_refpoint ();
 }
 
 SCM
 System::get_paper_systems ()
 {
-  for (int i = 0; i < all_elements_->size (); i++)
+  for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
       if (g->internal_has_interface (ly_symbol2scm ("only-prebreak-interface")))
@@ -139,12 +139,12 @@ System::get_paper_systems ()
     fixups must be done in broken line_of_scores, because new elements
     are put over there.  */
   int count = 0;
-  for (int i = 0; i < broken_intos_.size (); i++)
+  for (vsize i = 0; i < broken_intos_.size (); i++)
     {
       Grob *se = broken_intos_[i];
 
       extract_grob_set (se, "all-elements", all_elts);
-      for (int j = 0; j < all_elts.size (); j++)
+      for (vsize j = 0; j < all_elts.size (); j++)
 	{
 	  Grob *g = all_elts[j];
 	  g->fixup_refpoint ();
@@ -158,7 +158,7 @@ System::get_paper_systems ()
   */
   fixup_refpoints (all_elements_->array ());
 
-  for (int i = 0; i < all_elements_->size (); i++)
+  for (vsize i = 0; i < all_elements_->size (); i++)
     all_elements_->grob (i)->handle_broken_dependencies ();
 
   handle_broken_dependencies ();
@@ -200,9 +200,9 @@ System::get_paper_systems ()
 }
 
 void
-System::break_into_pieces (Array<Column_x_positions> const &breaking)
+System::break_into_pieces (std::vector<Column_x_positions> const &breaking)
 {
-  for (int i = 0; i < breaking.size (); i++)
+  for (vsize i = 0; i < breaking.size (); i++)
     {
       System *system = dynamic_cast<System *> (clone (i));
       system->rank_ = i;
@@ -211,14 +211,14 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
       pscore_->typeset_system (system);
 
       system->set_bound (LEFT, c[0]);
-      system->set_bound (RIGHT, c.top ());
-      for (int j = 0; j < c.size (); j++)
+      system->set_bound (RIGHT, c.back ());
+      for (vsize j = 0; j < c.size (); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
 	  dynamic_cast<Paper_column *> (c[j])->system_ = system;
 	}
       set_loose_columns (system, &breaking[i]);
-      broken_intos_.push (system);
+      broken_intos_.push_back (system);
     }
 }
 
@@ -236,7 +236,7 @@ System::add_column (Paper_column *p)
 
   p->rank_
     = ga->size ()
-    ? Paper_column::get_rank (ga->array ().top ()) + 1
+    ? Paper_column::get_rank (ga->array ().back ()) + 1
     : 0;
 
   ga->add (p);
@@ -261,7 +261,7 @@ apply_tweaks (Grob *g, bool broken)
 void
 System::pre_processing ()
 {
-  for (int i = 0; i < all_elements_->size (); i++)
+  for (vsize i = 0; i < all_elements_->size (); i++)
     all_elements_->grob (i)->discretionary_processing ();
 
   if (be_verbose_global)
@@ -272,15 +272,15 @@ System::pre_processing ()
     array, and should be processed before the original is potentially
     killed.
   */
-  for (int i = all_elements_->size (); i--;)
+  for (vsize i = all_elements_->size (); i--;)
     all_elements_->grob (i)->handle_prebroken_dependencies ();
 
   fixup_refpoints (all_elements_->array ());
 
-  for (int i = 0; i < all_elements_->size (); i++)
+  for (vsize i = 0; i < all_elements_->size (); i++)
     apply_tweaks (all_elements_->grob (i), false);
 
-  for (int i = 0; i < all_elements_->size (); i++)
+  for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
       (void) g->get_property ("before-line-breaking");
@@ -289,7 +289,7 @@ System::pre_processing ()
   message (_ ("Calculating line breaks..."));
   progress_indication (" ");
 
-  for (int i = 0; i < all_elements_->size (); i++)
+  for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *e = all_elements_->grob (i);
       (void) e->get_property ("springs-and-rods");
@@ -299,7 +299,7 @@ System::pre_processing ()
 void
 System::post_processing ()
 {
-  for (int i = 0; i < all_elements_->size (); i++)
+  for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
 
@@ -321,7 +321,7 @@ System::post_processing ()
   all_elts_sorted.default_sort ();
   all_elts_sorted.uniq ();
   this->get_stencil ();
-  for (int i = all_elts_sorted.size (); i--;)
+  for (vsize i = all_elts_sorted.size (); i--;)
     {
       Grob *g = all_elts_sorted[i];
       g->get_stencil ();
@@ -338,7 +338,7 @@ System::get_paper_system ()
 
   /* Output stencils in three layers: 0, 1, 2.  Default layer: 1. */
   for (int i = 0; i < LAYER_COUNT; i++)
-    for (int j = all_elements_->size (); j--;)
+    for (vsize j = all_elements_->size (); j--;)
       {
 	Grob *g = all_elements_->grob (j);
 	Stencil st = g->get_print_stencil ();
@@ -386,7 +386,7 @@ System::get_paper_system ()
       Interval staff_refpoints;
       staff_refpoints.set_empty ();
       extract_grob_set (this, "spaceable-staves", staves);
-      for (int i = staves.size (); i--;)
+      for (vsize i = staves.size (); i--;)
 	{
 	  Grob *g = staves[i];
 	  staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
@@ -408,7 +408,7 @@ System::broken_col_range (Item const *left, Item const *right) const
   right = right->get_column ();
 
   extract_grob_set (this, "columns", cols);
-  int i = 0;
+  vsize i = 0;
   while (i < cols.size ()
 	 && cols[i] != left)
     i++;
@@ -421,7 +421,7 @@ System::broken_col_range (Item const *left, Item const *right) const
     {
       Paper_column *c = dynamic_cast<Paper_column *> (cols[i]);
       if (Item::is_breakable (c) && !c->system_)
-	ret.push (c);
+	ret.push_back (c);
       i++;
     }
 
@@ -447,7 +447,7 @@ System::columns () const
   for (int i = 0; i <= last_breakable; i++)
     {
       if (Paper_column::is_used (ro_columns[i]))
-	columns.push (ro_columns[i]);
+	columns.push_back (ro_columns[i]);
     }
 
   return columns;

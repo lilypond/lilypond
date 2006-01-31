@@ -30,9 +30,9 @@ binomial_coefficient (Real over, int under)
 }
 
 void
-scale (Array<Offset> *array, Real x, Real y)
+scale (std::vector<Offset> *array, Real x, Real y)
 {
-  for (int i = 0; i < array->size (); i++)
+  for (vsize i = 0; i < array->size (); i++)
     {
       (*array)[i][X_AXIS] = x * (*array)[i][X_AXIS];
       (*array)[i][Y_AXIS] = y * (*array)[i][Y_AXIS];
@@ -40,17 +40,17 @@ scale (Array<Offset> *array, Real x, Real y)
 }
 
 void
-rotate (Array<Offset> *array, Real phi)
+rotate (std::vector<Offset> *array, Real phi)
 {
   Offset rot (complex_exp (Offset (0, phi)));
-  for (int i = 0; i < array->size (); i++)
+  for (vsize i = 0; i < array->size (); i++)
     (*array)[i] = complex_multiply (rot, (*array)[i]);
 }
 
 void
-translate (Array<Offset> *array, Offset o)
+translate (std::vector<Offset> *array, Offset o)
 {
-  for (int i = 0; i < array->size (); i++)
+  for (vsize i = 0; i < array->size (); i++)
     (*array)[i] += o;
 }
 
@@ -67,7 +67,7 @@ Real
 Bezier::get_other_coordinate (Axis a, Real x) const
 {
   Axis other = Axis ((a +1) % NO_AXES);
-  Array<Real> ts = solve_point (a, x);
+  std::vector<Real> ts = solve_point (a, x);
 
   if (ts.size () == 0)
     {
@@ -169,10 +169,10 @@ Bezier::polynomial (Axis a) const
 /**
    Remove all numbers outside [0, 1] from SOL
 */
-Array<Real>
-filter_solutions (Array<Real> sol)
+std::vector<Real>
+filter_solutions (std::vector<Real> sol)
 {
-  for (int i = sol.size (); i--;)
+  for (vsize i = sol.size (); i--;)
     if (sol[i] < 0 || sol[i] > 1)
       sol.del (i);
   return sol;
@@ -181,7 +181,7 @@ filter_solutions (Array<Real> sol)
 /**
    find t such that derivative is proportional to DERIV
 */
-Array<Real>
+std::vector<Real>
 Bezier::solve_derivative (Offset deriv) const
 {
   Polynomial xp = polynomial (X_AXIS);
@@ -197,13 +197,13 @@ Bezier::solve_derivative (Offset deriv) const
 /*
   Find t such that curve_point (t)[AX] == COORDINATE
 */
-Array<Real>
+std::vector<Real>
 Bezier::solve_point (Axis ax, Real coordinate) const
 {
   Polynomial p (polynomial (ax));
   p.coefs_[0] -= coordinate;
 
-  Array<Real> sol (p.solve ());
+  std::vector<Real> sol (p.solve ());
   return filter_solutions (sol);
 }
 
@@ -217,10 +217,10 @@ Bezier::extent (Axis a) const
   Offset d;
   d[Axis (o)] = 1.0;
   Interval iv;
-  Array<Real> sols (solve_derivative (d));
-  sols.push (1.0);
-  sols.push (0.0);
-  for (int i = sols.size (); i--;)
+  std::vector<Real> sols (solve_derivative (d));
+  sols.push_back (1.0);
+  sols.push_back (0.0);
+  for (vsize i = sols.size (); i--;)
     {
       Offset o (curve_point (sols[i]));
       iv.unite (Interval (o[a], o[a]));

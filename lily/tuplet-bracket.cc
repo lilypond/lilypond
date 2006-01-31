@@ -81,7 +81,7 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool
     return 0;
 
   Drul_array<Grob*> stems (Note_column::get_stem (cols[0]),
-			   Note_column::get_stem (cols.top ()));
+			   Note_column::get_stem (cols.back ()));
 
   if (dynamic_cast<Item*> (stems[RIGHT])->get_column ()
       != me->get_bound (RIGHT)->get_column())
@@ -105,7 +105,7 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool
       return 0;
     }
 
-  *equally_long = (beam_stems[0] == stems[LEFT] && beam_stems.top () == stems[RIGHT]);
+  *equally_long = (beam_stems[0] == stems[LEFT] && beam_stems.back () == stems[RIGHT]);
   return beams[LEFT];
 }
 
@@ -128,7 +128,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
       
       Spanner *orig_spanner = dynamic_cast<Spanner*> (me->original ());
 
-      int neighbor_idx = me->get_break_index () - break_dir;
+      vsize neighbor_idx = me->get_break_index () - break_dir;
       if (break_dir
 	  && d == RIGHT
 	  && neighbor_idx < orig_spanner->broken_intos_.size ())
@@ -208,9 +208,9 @@ Tuplet_bracket::calc_control_points (SCM smob)
 	      - overshoot[LEFT];
 	}
       else if (d == RIGHT
-	       && (columns.is_empty ()
+	       && (columns.empty ()
 		   || (bounds[d]->get_column ()
-		       != dynamic_cast<Item *> (columns.top ())->get_column ())))
+		       != dynamic_cast<Item *> (columns.back ())->get_column ())))
 	{
 	  /*
 	    TODO: make padding tunable?
@@ -435,7 +435,7 @@ void
 Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
 {
   extract_grob_set (me, "note-columns", columns);
-  int l = 0;
+  vsize l = 0;
   while (l < columns.size () && Note_column::has_rests (columns[l]))
     l++;
 
@@ -521,17 +521,17 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
 
-  Array<Offset> points;
-  points.push (Offset (x0 - x0, staff[dir]));
-  points.push (Offset (x1 - x0, staff[dir]));
+  std::vector<Offset> points;
+  points.push_back (Offset (x0 - x0, staff[dir]));
+  points.push_back (Offset (x1 - x0, staff[dir]));
 
-  for (int i = 0; i < columns.size (); i++)
+  for (vsize i = 0; i < columns.size (); i++)
     {
       Interval note_ext = columns[i]->extent (commony, Y_AXIS);
       Real notey = note_ext[dir] - me->relative_coordinate (commony, Y_AXIS);
 
       Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
-      points.push (Offset (x, notey));
+      points.push_back (Offset (x, notey));
     }
 
   /*
@@ -541,7 +541,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
     We assume that the smaller bracket is 1.0 space high.
   */
   Real ss = Staff_symbol_referencer::staff_space (me);
-  for (int i = 0; i < tuplets.size (); i++)
+  for (vsize i = 0; i < tuplets.size (); i++)
     {
       Interval tuplet_x (tuplets[i]->extent (commonx, X_AXIS));
       Interval tuplet_y (tuplets[i]->extent (commony, Y_AXIS));
@@ -571,13 +571,13 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 	    y += dir * my_height[d];
 #endif
 
-	  points.push (Offset (tuplet_x[d] - x0, y));
+	  points.push_back (Offset (tuplet_x[d] - x0, y));
 	}
       while (flip (&d) != LEFT);
     }
 
   Real factor = (columns.size () > 1) ? 1 / (x1 - x0) : 1.0;
-  for (int i = 0; i < points.size (); i++)
+  for (vsize i = 0; i < points.size (); i++)
     {
       Real x = points[i][X_AXIS];
       Real tuplety = (*dy) * x * factor;
@@ -667,7 +667,7 @@ Tuplet_bracket::get_default_dir (Grob *me)
 {
   Drul_array<int> dirs (0, 0);
   extract_grob_set (me, "note-columns", columns);
-  for (int i = 0; i < columns.size (); i++)
+  for (vsize i = 0; i < columns.size (); i++)
     {
       Grob *nc = columns[i];
       Direction d = Note_column::dir (nc);

@@ -64,16 +64,16 @@ Includable_lexer::new_input (std::string name, Sources *sources)
       LexerError (msg.c_str ());
       return;
     }
-  file_name_strings_.push (file->name_string ());
+  file_name_strings_.push_back (file->name_string ());
 
-  char_count_stack_.push (0);
+  char_count_stack_.push_back (0);
   if (yy_current_buffer)
-    state_stack_.push (yy_current_buffer);
+    state_stack_.push_back (yy_current_buffer);
 
   if (be_verbose_global)
     progress_indication (std::string ("[") + name);
 
-  include_stack_.push (file);
+  include_stack_.push_back (file);
 
   /* Ugh. We'd want to create a buffer from the bytes directly.
 
@@ -87,15 +87,15 @@ Includable_lexer::new_input (std::string name, std::string data, Sources *source
 {
   Source_file *file = new Source_file (name, data);
   sources->add (file);
-  file_name_strings_.push (name);
+  file_name_strings_.push_back (name);
 
-  char_count_stack_.push (0);
+  char_count_stack_.push_back (0);
   if (yy_current_buffer)
-    state_stack_.push (yy_current_buffer);
+    state_stack_.push_back (yy_current_buffer);
 
   if (be_verbose_global)
     progress_indication (std::string ("[") + name);
-  include_stack_.push (file);
+  include_stack_.push_back (file);
 
   yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
 }
@@ -106,43 +106,44 @@ Includable_lexer::new_input (std::string name, std::string data, Sources *source
 bool
 Includable_lexer::close_input ()
 {
-  include_stack_.pop ();
-  char_count_stack_.pop ();
+  include_stack_.pop_back ();
+  char_count_stack_.pop_back ();
   if (be_verbose_global)
     progress_indication ("]");
   yy_delete_buffer (yy_current_buffer);
 #if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
   yy_current_buffer = 0;
 #endif
-  if (state_stack_.is_empty ())
+  if (state_stack_.empty ())
     {
 #if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
       yy_current_buffer = 0;
 #endif
       return false;
     }
-  yy_switch_to_buffer (state_stack_.pop ());
+  yy_switch_to_buffer (state_stack_.back ());
+  state_stack_.pop_back ();
   return true;
 }
 
 char const *
 Includable_lexer::here_str0 () const
 {
-  if (include_stack_.is_empty ())
+  if (include_stack_.empty ())
     return 0;
-  return include_stack_.top ()->c_str () + char_count_stack_.top ();
+  return include_stack_.back ()->c_str () + char_count_stack_.back ();
 }
 
 Includable_lexer::~Includable_lexer ()
 {
-  while (!include_stack_.is_empty ())
+  while (!include_stack_.empty ())
     close_input ();
 }
 
 Source_file *
 Includable_lexer::get_source_file () const
 {
-  if (include_stack_.is_empty ())
+  if (include_stack_.empty ())
     return 0;
-  return include_stack_.top ();
+  return include_stack_.back ();
 }

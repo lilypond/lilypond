@@ -60,7 +60,7 @@ Note_column::head_positions_interval (Grob *me)
   iv.set_empty ();
 
   extract_grob_set (me, "note-heads", heads);
-  for (int i = 0; i < heads.size (); i++)
+  for (vsize i = 0; i < heads.size (); i++)
     {
       Grob *se = heads[i];
 
@@ -162,7 +162,7 @@ Note_column::accidentals (Grob *me)
 {
   extract_grob_set (me, "note-heads", heads);
   Grob *acc = 0;
-  for (int i = 0; i < heads.size (); i++)
+  for (vsize i = 0; i < heads.size (); i++)
     {
       Grob *h = heads[i];
       acc = h ? unsmob_grob (h->get_object ("accidental-grob")) : 0;

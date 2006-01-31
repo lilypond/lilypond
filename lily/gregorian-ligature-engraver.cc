@@ -84,10 +84,10 @@ void fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive
   fix_prefix ("pes_or_flexa", LINEA, current_set, min_set, max_set, primitive);
 }
 
-void check_and_fix_all_prefixes (Array<Grob_info> primitives)
+void check_and_fix_all_prefixes (std::vector<Grob_info> primitives)
 {
   /* Check for illegal head modifier combinations */
-  for (int i = 0; i < primitives.size (); i++)
+  for (vsize i = 0; i < primitives.size (); i++)
     {
       Grob *primitive = primitives[i].grob ();
 
@@ -195,13 +195,13 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
  * Marks those heads that participate in a pes or flexa.
  */
 void
-provide_context_info (Array<Grob_info> primitives)
+provide_context_info (std::vector<Grob_info> primitives)
 {
   Grob *prev_primitive = 0;
   int prev_prefix_set = 0;
   int prev_context_info = 0;
   int prev_pitch = 0;
-  for (int i = 0; i < primitives.size (); i++)
+  for (vsize i = 0; i < primitives.size (); i++)
     {
       Grob *primitive = primitives[i].grob ();
       Music *music_cause = primitives[i].music_cause ();
@@ -242,7 +242,7 @@ provide_context_info (Array<Grob_info> primitives)
 
 void
 Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
-					     Array<Grob_info> primitives)
+					     std::vector<Grob_info> primitives)
 {
   // apply style-independent checking and transformation
   check_and_fix_all_prefixes (primitives);

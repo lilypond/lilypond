@@ -52,7 +52,7 @@ Global_context::add_moment_to_process (Moment m)
   if (m < now_mom_)
     programming_error ("trying to freeze in time");
 
-  for (int i = 0; i < extra_mom_pq_.size (); i++)
+  for (vsize i = 0; i < extra_mom_pq_.size (); i++)
     if (extra_mom_pq_[i] == m)
       return;
   extra_mom_pq_.insert (m);

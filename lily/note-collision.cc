@@ -23,8 +23,8 @@
 
 void
 check_meshing_chords (Grob *me,
-		      Drul_array<Array<Real> > *offsets,
-		      Drul_array<Array<Slice> > const &extents,
+		      Drul_array<std::vector<Real> > *offsets,
+		      Drul_array<std::vector<Slice> > const &extents,
 		      Drul_array<Link_array<Grob> > const &clash_groups)
 
 {
@@ -41,15 +41,15 @@ check_meshing_chords (Grob *me,
   Grob *nu = Note_column::first_head (cu);
   Grob *nd = Note_column::first_head (cd);
 
-  Array<int> ups = Stem::note_head_positions (Note_column::get_stem (cu));
-  Array<int> dps = Stem::note_head_positions (Note_column::get_stem (cd));
+  std::vector<int> ups = Stem::note_head_positions (Note_column::get_stem (cu));
+  std::vector<int> dps = Stem::note_head_positions (Note_column::get_stem (cd));
 
   /* Too far apart to collide.  */
-  if (ups[0] > dps.top () + 1)
+  if (ups[0] > dps.back () + 1)
     return;
 
   // FIXME: what's this?
-  bool merge_possible = (ups[0] >= dps[0]) && (ups.top () >= dps.top ());
+  bool merge_possible = (ups[0] >= dps[0]) && (ups.back () >= dps.back ());
 
   /* Do not merge notes typeset in different style. */
   if (!ly_is_equal (nu->get_property ("style"),
@@ -127,8 +127,7 @@ check_meshing_chords (Grob *me,
   bool distant_half_collide = false;
   bool full_collide = false;
 
-  int i = 0, j = 0;
-  while (i < ups.size () && j < dps.size ())
+  for (vsize i = 0, j = 0; i < ups.size () && j < dps.size (); )
     {
       if (abs (ups[i] - dps[j]) == 1)
 	{
@@ -140,9 +139,9 @@ check_meshing_chords (Grob *me,
 	}
       else if (ups[i] == dps[j])
 	full_collide = true;
-      else if (ups[i] > dps[0] && ups[i] < dps.top ())
+      else if (ups[i] > dps[0] && ups[i] < dps.back ())
 	merge_possible = false;
-      else if (dps[j] > ups[0] && dps[j] < ups.top ())
+      else if (dps[j] > ups[0] && dps[j] < ups.back ())
 	merge_possible = false;
 
       if (ups[i] < dps[j])
@@ -165,7 +164,7 @@ check_meshing_chords (Grob *me,
 
   Real shift_amount = 1;
 
-  bool touch = (ups[0] >= dps.top ());
+  bool touch = (ups[0] >= dps.back ());
   if (touch)
     shift_amount *= -1;
 
@@ -269,7 +268,7 @@ check_meshing_chords (Grob *me,
   Direction d = UP;
   do
     {
-      for (int i = 0; i < clash_groups[d].size (); i++)
+      for (vsize i = 0; i < clash_groups[d].size (); i++)
 	(*offsets)[d][i] += d * shift_amount;
     }
   while ((flip (&d)) != UP);
@@ -286,7 +285,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   Direction d = UP;
   do
     {
-      for (int i = cg[d].size(); i--; )
+      for (vsize i = cg[d].size(); i--; )
 	{
 	  /*
 	    Trigger positioning
@@ -313,14 +312,14 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   Link_array<Grob> done;
   Real left_most = 1e6;
 
-  Array<Real> amounts;
+  std::vector<Real> amounts;
   for (; scm_is_pair (hand); hand = scm_cdr (hand))
     {
       Grob *s = unsmob_grob (scm_caar (hand));
       Real amount = scm_to_double (scm_cdar (hand)) * wid;
 
-      done.push (s);
-      amounts.push (amount);
+      done.push_back (s);
+      amounts.push_back (amount);
       if (amount < left_most)
 	left_most = amount;
     }
@@ -331,14 +330,14 @@ Note_collision_interface::calc_positioning_done (SCM smob)
 
       if (!done.find (s))
 	{
-	  done.push (s);
-	  amounts.push (amount);
+	  done.push_back (s);
+	  amounts.push_back (amount);
 	  if (amount < left_most)
 	    left_most = amount;
 	}
     }
 
-  for (int i = 0; i < amounts.size (); i++)
+  for (vsize i = 0; i < amounts.size (); i++)
     done[i]->translate_axis (amounts[i] - left_most, X_AXIS);
 
   return SCM_BOOL_T;
@@ -350,11 +349,11 @@ Note_collision_interface::get_clash_groups (Grob *me)
   Drul_array<Link_array<Grob> > clash_groups;
 
   extract_grob_set (me, "elements", elements);
-  for (int i = 0; i < elements.size (); i++)
+  for (vsize i = 0; i < elements.size (); i++)
     {
       Grob *se = elements[i];
       if (Note_column::has_interface (se))
-	clash_groups[Note_column::dir (se)].push (se);
+	clash_groups[Note_column::dir (se)].push_back (se);
     }
 
   Direction d = UP;
@@ -378,27 +377,27 @@ Note_collision_interface::automatic_shift (Grob *me,
 					   Drul_array < Link_array<Grob>
 					   > clash_groups)
 {
-  Drul_array < Array<int> > shifts;
+  Drul_array < std::vector<int> > shifts;
   SCM tups = SCM_EOL;
 
   Direction d = UP;
   do
     {
-      Array<int> &shift (shifts[d]);
+      std::vector<int> &shift (shifts[d]);
       Link_array<Grob> &clashes (clash_groups[d]);
 
-      for (int i = 0; i < clashes.size (); i++)
+      for (vsize i = 0; i < clashes.size (); i++)
 	{
 	  SCM sh
 	    = clashes[i]->get_property ("horizontal-shift");
 
 	  if (scm_is_number (sh))
-	    shift.push (scm_to_int (sh));
+	    shift.push_back (scm_to_int (sh));
 	  else
-	    shift.push (0);
+	    shift.push_back (0);
 	}
 
-      for (int i = 1; i < shift.size (); i++)
+      for (vsize i = 1; i < shift.size (); i++)
 	{
 	  if (shift[i - 1] == shift[i])
 	    {
@@ -409,18 +408,18 @@ Note_collision_interface::automatic_shift (Grob *me,
     }
   while ((flip (&d)) != UP);
 
-  Drul_array<Array<Slice> > extents;
-  Drul_array<Array<Real> > offsets;
+  Drul_array<std::vector<Slice> > extents;
+  Drul_array<std::vector<Real> > offsets;
   d = UP;
   do
     {
-      for (int i = 0; i < clash_groups[d].size (); i++)
+      for (vsize i = 0; i < clash_groups[d].size (); i++)
 	{
 	  Slice s (Note_column::head_positions_interval (clash_groups[d][i]));
 	  s[LEFT]--;
 	  s[RIGHT]++;
-	  extents[d].push (s);
-	  offsets[d].push (d * 0.5 * i);
+	  extents[d].push_back (s);
+	  offsets[d].push_back (d * 0.5 * i);
 	}
     }
   while ((flip (&d)) != UP);
@@ -436,13 +435,13 @@ Note_collision_interface::automatic_shift (Grob *me,
 
   do
     {
-      for (int i = 1; i < clash_groups[d].size (); i++)
+      for (vsize i = 1; i < clash_groups[d].size (); i++)
 	{
 	  Slice prev = extents[d][i - 1];
 	  prev.intersect (extents[d][i]);
 	  if (prev.length () > 0
 	      || (extents[-d].size () && d * (extents[d][i][-d] - extents[-d][0][d]) < 0))
-	    for (int j = i; j < clash_groups[d].size (); j++)
+	    for (vsize j = i; j < clash_groups[d].size (); j++)
 	      offsets[d][j] += d * 0.5;
 	}
     }
@@ -456,7 +455,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 
   do
     {
-      for (int i = 0; i < clash_groups[d].size (); i++)
+      for (vsize i = 0; i < clash_groups[d].size (); i++)
 	tups = scm_cons (scm_cons (clash_groups[d][i]->self_scm (),
 				   scm_from_double (offsets[d][i])),
 			 tups);
@@ -472,7 +471,7 @@ Note_collision_interface::forced_shift (Grob *me)
   SCM tups = SCM_EOL;
 
   extract_grob_set (me, "elements", elements);
-  for (int i = 0; i < elements.size (); i++)
+  for (vsize i = 0; i < elements.size (); i++)
     {
       Grob *se = elements[i];
 

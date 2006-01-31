@@ -9,7 +9,7 @@
 #ifndef FILE_NAME_HH
 #define FILE_NAME_HH
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "std-string.hh"
 
 class File_name

@@ -91,13 +91,13 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
   /*
     ascending in duration
   */
-  Array<Rational> durations;
-  Array<int> counts;
+  std::vector<Rational> durations;
+  std::vector<int> counts;
 
   Rational shortest_in_measure;
   shortest_in_measure.set_infinite (1);
 
-  for (int i = 0; i < cols.size (); i++)
+  for (vsize i = 0; i < cols.size (); i++)
     {
       if (Paper_column::is_musical (cols[i]))
 	{
@@ -117,7 +117,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
       else if (!shortest_in_measure.is_infinity ()
 	       && Item::is_breakable (cols[i]))
 	{
-	  int j = 0;
+	  vsize j = 0;
 	  for (; j < durations.size (); j++)
 	    {
 	      if (durations[j] > shortest_in_measure)
@@ -135,8 +135,8 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 
 	  if (durations.size () == j)
 	    {
-	      durations.push (shortest_in_measure);
-	      counts.push (1);
+	      durations.push_back (shortest_in_measure);
+	      counts.push_back (1);
 	    }
 
 	  shortest_in_measure.set_infinite (1);
@@ -145,7 +145,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 
   int max_idx = -1;
   int max_count = 0;
-  for (int i = durations.size (); i--;)
+  for (vsize i = durations.size (); i--;)
     {
       if (counts[i] >= max_count)
 	{
@@ -230,7 +230,7 @@ Spacing_spanner::generate_springs (Grob *me,
 {
   Paper_column *next = 0;
   Paper_column *next_next = 0;
-  for (int i = cols.size (); i--;)
+  for (vsize i = cols.size (); i--;)
     {
       Paper_column *col = dynamic_cast<Paper_column *> (cols[i]);
       if (next)
@@ -272,7 +272,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	happens after the current note (this is set in the grob
 	property SPACING-SEQUENCE.
       */
-      for (int i = 0; i < neighbors.size (); i++)
+      for (vsize i = 0; i < neighbors.size (); i++)
 	{
 	  Grob *wish = neighbors[i];
 
@@ -386,7 +386,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
     {
       extract_grob_set (l, "spacing-wishes", wishes);
 
-      for (int i = 0; i < wishes.size (); i++)
+      for (vsize i = 0; i < wishes.size (); i++)
 	{
 	  Item *spacing_grob = dynamic_cast<Item *> (wishes[i]);
 

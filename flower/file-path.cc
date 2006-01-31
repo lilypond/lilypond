@@ -31,7 +31,7 @@ using namespace std;
 #define PATHSEP ':'
 #endif
 
-Array<std::string>
+std::vector<std::string>
 File_path::directories () const
 {
   return dirs_;
@@ -130,7 +130,7 @@ File_path::find (std::string name) const
   if (file_name.dir_[0] == DIRSEP && is_file (file_name.to_string ()))
     return file_name.to_string ();
 
-  for (int i = 0; i < dirs_.size (); i++)
+  for (vsize i = 0; i < dirs_.size (); i++)
     {
       File_name file_name (name);
       File_name dir = (std::string) dirs_[i];
@@ -194,7 +194,7 @@ std::string
 File_path::to_string () const
 {
   std::string s;
-  for (int i = 0; i < dirs_.size (); i++)
+  for (vsize i = 0; i < dirs_.size (); i++)
     {
       s = s + dirs_[i];
       if (i < dirs_.size () - 1)
@@ -206,7 +206,7 @@ File_path::to_string () const
 void
 File_path::append (std::string str)
 {
-  dirs_.push (str);
+  dirs_.push_back (str);
 }
 
 void

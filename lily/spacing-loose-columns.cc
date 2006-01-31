@@ -57,10 +57,10 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	      if (!left->get_system ())
 		left = left->find_prebroken_piece (RIGHT);
 
-	      clique.push (left);
+	      clique.push_back (left);
 	    }
 
-	  clique.push (loose);
+	  clique.push_back (loose);
 
 	  divide_over++;
 	  loose = right = re->get_column ();
@@ -69,19 +69,19 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       if (!right->get_system ())
 	right = right->find_prebroken_piece (LEFT);
 
-      clique.push (right);
+      clique.push_back (right);
 
       Grob *common = right->common_refpoint (left, X_AXIS);
-      Item *finished_right_column = clique.top ();
+      Item *finished_right_column = clique.back ();
 
-      for (int j = clique.size () - 2; j > 0; j--)
+      for (vsize j = clique.size () - 2; j > 0; j--)
 	{
 	  int count = 0;
 	  Real total_space = 0.0;
 	  Real total_fixed = 0.0;
 
 	  extract_grob_set (col, "spacing-wishes", wishes);
-	  for (int i = 0; i < wishes.size (); i++)
+	  for (vsize i = 0; i < wishes.size (); i++)
 	    {
 	      Grob *spacing = wishes[i];
 	      Real space = 0.0;

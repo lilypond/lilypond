@@ -22,7 +22,7 @@ Polynomial::eval (Real x) const
   Real p = 0.0;
 
   // horner's scheme
-  for (int i = coefs_.size (); i--;)
+  for (vsize i = coefs_.size (); i--;)
     p = x * p + coefs_[i];
 
   return p;
@@ -36,10 +36,10 @@ Polynomial::multiply (const Polynomial &p1, const Polynomial &p2)
   int deg = p1.degree () + p2.degree ();
   for (int i = 0; i <= deg; i++)
     {
-      dest.coefs_.push (0);
+      dest.coefs_.push_back (0);
       for (int j = 0; j <= i; j++)
 	if (i - j <= p2.degree () && j <= p1.degree ())
-	  dest.coefs_.top () += p1.coefs_[j] * p2.coefs_[i - j];
+	  dest.coefs_.back () += p1.coefs_[j] * p2.coefs_[i - j];
     }
 
   return dest;
@@ -50,7 +50,7 @@ Polynomial::differentiate ()
 {
   for (int i = 1; i <= degree (); i++)
     coefs_[i - 1] = coefs_[i] * i;
-  coefs_.pop ();
+  coefs_.pop_back ();
 }
 
 Polynomial
@@ -88,16 +88,16 @@ Polynomial::clean ()
     We only do relative comparisons. Absolute comparisons break down in
     degenerate cases.  */
   while (degree () > 0
-	 && (fabs (coefs_.top ()) < FUDGE * fabs (coefs_.top (1))
-	     || !coefs_.top ()))
-    coefs_.pop ();
+	 && (fabs (coefs_.back ()) < FUDGE * fabs (coefs_.top (1))
+	     || !coefs_.back ()))
+    coefs_.pop_back ();
 }
 
 void
 Polynomial::operator += (Polynomial const &p)
 {
   while (degree () < p.degree ())
-    coefs_.push (0.0);
+    coefs_.push_back (0.0);
 
   for (int i = 0; i <= p.degree (); i++)
     coefs_[i] += p.coefs_[i];
@@ -107,7 +107,7 @@ void
 Polynomial::operator -= (Polynomial const &p)
 {
   while (degree () < p.degree ())
-    coefs_.push (0.0);
+    coefs_.push_back (0.0);
 
   for (int i = 0; i <= p.degree (); i++)
     coefs_[i] -= p.coefs_[i];
@@ -154,7 +154,7 @@ Polynomial::set_mod (const Polynomial &u, const Polynomial &v)
   while (k >= 0 && coefs_[k] == 0.0)
     k--;
 
-  coefs_.set_size (1+ ((k < 0) ? 0 : k));
+  coefs_.resize (1+ ((k < 0) ? 0 : k));
   return degree ();
 }
 
@@ -174,17 +174,17 @@ Polynomial::check_sol (Real x) const
 }
 
 void
-Polynomial::check_sols (Array<Real> roots) const
+Polynomial::check_sols (std::vector<Real> roots) const
 {
-  for (int i = 0; i < roots.size (); i++)
+  for (vsize i = 0; i < roots.size (); i++)
     check_sol (roots[i]);
 }
 
 Polynomial::Polynomial (Real a, Real b)
 {
-  coefs_.push (a);
+  coefs_.push_back (a);
   if (b)
-    coefs_.push (b);
+    coefs_.push_back (b);
 }
 
 /* cubic root. */
@@ -203,10 +203,10 @@ iszero (Real r)
   return !r;
 }
 
-Array<Real>
+std::vector<Real>
 Polynomial::solve_cubic ()const
 {
-  Array<Real> sol;
+  std::vector<Real> sol;
 
   /* normal form: x^3 + Ax^2 + Bx + C = 0 */
   Real A = coefs_[2] / coefs_[3];
@@ -229,15 +229,15 @@ Polynomial::solve_cubic ()const
   if (iszero (D))
     {
       if (iszero (q)) {	/* one triple solution */
-	sol.push (0);
-	sol.push (0);
-	sol.push (0);
+	sol.push_back (0);
+	sol.push_back (0);
+	sol.push_back (0);
       }
       else {		/* one single and one double solution */
 	Real u = cubic_root (-q);
 
-	sol.push (2 * u);
-	sol.push (-u);
+	sol.push_back (2 * u);
+	sol.push_back (-u);
       }
     }
   else if (D < 0)
@@ -246,9 +246,9 @@ Polynomial::solve_cubic ()const
       Real phi = 1.0 / 3 * acos (-q / sqrt (-cb));
       Real t = 2 * sqrt (-p);
 
-      sol.push (t * cos (phi));
-      sol.push (-t * cos (phi + M_PI / 3));
-      sol.push (-t * cos (phi - M_PI / 3));
+      sol.push_back (t * cos (phi));
+      sol.push_back (-t * cos (phi + M_PI / 3));
+      sol.push_back (-t * cos (phi - M_PI / 3));
     }
   else
     {
@@ -257,13 +257,13 @@ Polynomial::solve_cubic ()const
       Real u = cubic_root (sqrt_D - q);
       Real v = -cubic_root (sqrt_D + q);
 
-      sol.push (u + v);
+      sol.push_back (u + v);
     }
 
   /* resubstitute */
   Real sub = 1.0 / 3 * A;
 
-  for (int i = sol.size (); i--;)
+  for (vsize i = sol.size (); i--;)
     {
       sol[i] -= sub;
 
@@ -278,13 +278,13 @@ Polynomial::solve_cubic ()const
 Real
 Polynomial::lc () const
 {
-  return coefs_.top ();
+  return coefs_.back ();
 }
 
 Real &
 Polynomial::lc ()
 {
-  return coefs_.top ();
+  return coefs_.back ();
 }
 
 int
@@ -295,10 +295,10 @@ Polynomial::degree ()const
 /*
   all roots of quadratic eqn.
 */
-Array<Real>
+std::vector<Real>
 Polynomial::solve_quadric ()const
 {
-  Array<Real> sol;
+  std::vector<Real> sol;
   /* normal form: x^2 + px + q = 0 */
   Real p = coefs_[1] / (2 * coefs_[2]);
   Real q = coefs_[0] / coefs_[2];
@@ -309,23 +309,23 @@ Polynomial::solve_quadric ()const
     {
       D = sqrt (D);
 
-      sol.push (D - p);
-      sol.push (-D - p);
+      sol.push_back (D - p);
+      sol.push_back (-D - p);
     }
   return sol;
 }
 
 /* solve linear equation */
-Array<Real>
+std::vector<Real>
 Polynomial::solve_linear ()const
 {
-  Array<Real> s;
+  std::vector<Real> s;
   if (coefs_[1])
-    s.push (-coefs_[0] / coefs_[1]);
+    s.push_back (-coefs_[0] / coefs_[1]);
   return s;
 }
 
-Array<Real>
+std::vector<Real>
 Polynomial::solve () const
 {
   Polynomial *me = (Polynomial *) this;
@@ -340,7 +340,7 @@ Polynomial::solve () const
     case 3:
       return solve_cubic ();
     }
-  Array<Real> s;
+  std::vector<Real> s;
   return s;
 }
 

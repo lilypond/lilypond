@@ -9,7 +9,7 @@
 #ifndef MUSIC_ITERATOR_HH
 #define MUSIC_ITERATOR_HH
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"
 #include "context-handle.hh"

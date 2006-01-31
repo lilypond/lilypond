@@ -67,9 +67,9 @@ Accidental_placement::split_accidentals (Grob *accs,
 	Grob *a = unsmob_grob (scm_car (s));
 
 	if (unsmob_grob (a->get_object ("tie")))
-	  break_reminder->push (a);
+	  break_reminder->push_back (a);
 	else
-	  real_acc->push (a);
+	  real_acc->push_back (a);
       }
 }
 
@@ -94,7 +94,7 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
     which = &ra;
 
   Interval extent;
-  for (int i = 0; i < which->size (); i++)
+  for (vsize i = 0; i < which->size (); i++)
     extent.unite (which->elem (i)->extent (item_col, X_AXIS));
 
   if (!extent.is_empty ())
@@ -108,10 +108,10 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 
 struct Accidental_placement_entry
 {
-  Array<Skyline_entry> left_skyline_;
-  Array<Skyline_entry> right_skyline_;
+  std::vector<Skyline_entry> left_skyline_;
+  std::vector<Skyline_entry> right_skyline_;
   Interval vertical_extent_;
-  Array<Box> extents_;
+  std::vector<Box> extents_;
   Link_array<Grob> grobs_;
   Real offset_;
   int notename_;
@@ -157,9 +157,8 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
 
   apes->clear ();
 
-  int i = 0;
   int parity = 1;
-  while (i < asc.size ())
+  for (vsize i = 0; i < asc.size ();)
     {
       Accidental_placement_entry *a = 0;
       if (parity)
@@ -167,7 +166,7 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
       else
 	a = asc[i++];
 
-      apes->push (a);
+      apes->push_back (a);
       parity = !parity;
     }
 
@@ -238,9 +237,9 @@ Accidental_placement::calc_positioning_done (SCM smob)
       ape->notename_ = scm_to_int (scm_caar (s));
 
       for (SCM t = scm_cdar (s); scm_is_pair (t); t = scm_cdr (t))
-	ape->grobs_.push (unsmob_grob (scm_car (t)));
+	ape->grobs_.push_back (unsmob_grob (scm_car (t)));
 
-      apes.push (ape);
+      apes.push_back (ape);
     }
 
   Grob *common[] = {me, 0};
@@ -250,10 +249,10 @@ Accidental_placement::calc_positioning_done (SCM smob)
     extents if we're sure that we've found the right common refpoint
   */
   Link_array<Grob> note_cols, heads;
-  for (int i = apes.size (); i--;)
+  for (vsize i = apes.size (); i--;)
     {
       Accidental_placement_entry *ape = apes[i];
-      for (int j = ape->grobs_.size (); j--;)
+      for (vsize j = ape->grobs_.size (); j--;)
 	{
 	  Grob *a = ape->grobs_[j];
 
@@ -266,9 +265,9 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
 	  Grob *col = head->get_parent (X_AXIS);
 	  if (Note_column::has_interface (col))
-	    note_cols.push (col);
+	    note_cols.push_back (col);
 	  else
-	    heads.push (head);
+	    heads.push_back (head);
 	}
     }
 
@@ -276,7 +275,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
     This is a little kludgy: to get all notes, we look if there are
     collisions as well.
   */
-  for (int i = note_cols.size (); i--;)
+  for (vsize i = note_cols.size (); i--;)
     {
       Grob *c = note_cols[i]->get_parent (X_AXIS);
       if (Note_collision_interface::has_interface (c))
@@ -287,27 +286,27 @@ Accidental_placement::calc_positioning_done (SCM smob)
 	}
     }
 
-  for (int i = note_cols.size (); i--;)
+  for (vsize i = note_cols.size (); i--;)
     heads.concat (extract_grob_array (note_cols[i], "note-heads"));
 
   heads.default_sort ();
   heads.uniq ();
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
 
-  for (int i = apes.size (); i--;)
+  for (vsize i = apes.size (); i--;)
     {
       Accidental_placement_entry *ape = apes[i];
       ape->left_skyline_ = empty_skyline (LEFT);
       ape->right_skyline_ = empty_skyline (RIGHT);
 
-      for (int j = apes[i]->grobs_.size (); j--;)
+      for (vsize j = apes[i]->grobs_.size (); j--;)
 	{
 	  Grob *a = apes[i]->grobs_[j];
 
-	  Array<Box> boxes = Accidental_interface::accurate_boxes (a, common);
+	  std::vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
 
 	  ape->extents_.concat (boxes);
-	  for (int j = boxes.size (); j--;)
+	  for (vsize j = boxes.size (); j--;)
 	    {
 	      insert_extent_into_skyline (&ape->left_skyline_, boxes[j], Y_AXIS, LEFT);
 	      insert_extent_into_skyline (&ape->right_skyline_, boxes[j], Y_AXIS, RIGHT);
@@ -316,11 +315,11 @@ Accidental_placement::calc_positioning_done (SCM smob)
     }
 
   Interval total;
-  for (int i = apes.size (); i--;)
+  for (vsize i = apes.size (); i--;)
     {
       Interval y;
 
-      for (int j = apes[i]->extents_.size (); j--;)
+      for (vsize j = apes[i]->extents_.size (); j--;)
 	y.unite (apes[i]->extents_[j][Y_AXIS]);
       apes[i]->vertical_extent_ = y;
       total.unite (y);
@@ -330,9 +329,9 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
   Accidental_placement_entry *head_ape = new Accidental_placement_entry;
   common[X_AXIS] = common_refpoint_of_array (heads, common[X_AXIS], X_AXIS);
-  Array<Skyline_entry> head_skyline (empty_skyline (LEFT));
-  Array<Box> head_extents;
-  for (int i = heads.size (); i--;)
+  std::vector<Skyline_entry> head_skyline (empty_skyline (LEFT));
+  std::vector<Box> head_extents;
+  for (vsize i = heads.size (); i--;)
     {
       Box b (heads[i]->extent (common[X_AXIS], X_AXIS),
 	     heads[i]->extent (common[Y_AXIS], Y_AXIS));
@@ -345,13 +344,13 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
   Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
 
-  Array<Skyline_entry> left_skyline = head_ape->left_skyline_;
+  std::vector<Skyline_entry> left_skyline = head_ape->left_skyline_;
   heighten_skyline (&left_skyline,
 		    -robust_scm2double (me->get_property ("right-padding"), 0));
   /*
     Add accs entries right-to-left.
   */
-  for (int i = apes.size (); i-- > 0;)
+  for (vsize i = apes.size (); i-- > 0;)
     {
       Real offset
 	= -skyline_meshing_distance (apes[i]->right_skyline_, left_skyline);
@@ -362,27 +361,27 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
       apes[i]->offset_ = offset;
 
-      Array<Skyline_entry> new_left_skyline = apes[i]->left_skyline_;
+      std::vector<Skyline_entry> new_left_skyline = apes[i]->left_skyline_;
       heighten_skyline (&new_left_skyline, apes[i]->offset_);
       merge_skyline (&new_left_skyline, left_skyline, LEFT);
       left_skyline = new_left_skyline;
     }
 
-  for (int i = apes.size (); i--;)
+  for (vsize i = apes.size (); i--;)
     {
       Accidental_placement_entry *ape = apes[i];
-      for (int j = ape->grobs_.size (); j--;)
+      for (vsize j = ape->grobs_.size (); j--;)
 	ape->grobs_[j]->translate_axis (ape->offset_, X_AXIS);
     }
 
   Interval left_extent, right_extent;
   Accidental_placement_entry *ape = apes[0];
 
-  for (int i = ape->extents_.size (); i--;)
+  for (vsize i = ape->extents_.size (); i--;)
     left_extent.unite (ape->offset_ + ape->extents_[i][X_AXIS]);
 
-  ape = apes.top ();
-  for (int i = ape->extents_.size (); i--;)
+  ape = apes.back ();
+  for (vsize i = ape->extents_.size (); i--;)
     right_extent.unite (ape->offset_ + ape->extents_[i][X_AXIS]);
 
   left_extent[LEFT] -= robust_scm2double (me->get_property ("left-padding"), 0);
@@ -392,7 +391,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
   me->flush_extent_cache (X_AXIS);
   me->set_property ("X-extent", scm_width);
 
-  for (int i = apes.size (); i--;)
+  for (vsize i = apes.size (); i--;)
     delete apes[i];
 
   return SCM_BOOL_T;

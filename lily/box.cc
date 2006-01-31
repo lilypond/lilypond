@@ -9,7 +9,7 @@
 #include "ly-smobs.icc"
 
 #include "box.hh"
-#include "array.hh"
+#include "std-vector.hh"
 
 void
 Box::translate (Offset o)

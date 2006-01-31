@@ -148,10 +148,10 @@ substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
 			       ? & temporary_substition_array
 			       : &new_arr->array_reference ());
 
-  new_grobs->set_size (old_grobs.size ());
+  new_grobs->resize (old_grobs.size ());
   Grob **array = (Grob **) new_grobs->accesses ();
   Grob **ptr = array;
-  for (int i = 0; i < old_grobs.size (); i++)
+  for (vsize i = 0; i < old_grobs.size (); i++)
     {
       Grob *orig = old_grobs[i];
       Grob *new_grob = substitute_grob (orig);
@@ -159,7 +159,7 @@ substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
 	*ptr++ = new_grob;
     }
 
-  new_grobs->set_size (ptr - array);
+  new_grobs->resize (ptr - array);
   if (new_arr == grob_arr)
     new_arr->set_array (*new_grobs);
 }
@@ -225,7 +225,7 @@ spanner_system_range (Spanner *sp)
     {
       if (sp->broken_intos_.size ())
 	rv = Slice (sp->broken_intos_[0]->get_system ()->get_rank (),
-		    sp->broken_intos_.top ()->get_system ()->get_rank ());
+		    sp->broken_intos_.back ()->get_system ()->get_rank ());
     }
   return rv;
 }
@@ -337,7 +337,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
   int spanner_index = len;
   int item_index = 0;
 
-  for (int i = 0; i < grob_array->size (); i++)
+  for (vsize i = 0; i < grob_array->size (); i++)
     {
       Grob *g = grob_array->grob (i);
 
@@ -356,15 +356,15 @@ Spanner::fast_substitute_grob_array (SCM sym,
   qsort (vec, item_index,
 	 sizeof (Substitution_entry), &Substitution_entry::item_compare);
 
-  Array<Slice> item_indices;
-  Array<Slice> spanner_indices;
+  std::vector<Slice> item_indices;
+  std::vector<Slice> spanner_indices;
   for (int i = 0; i <= system_range.length (); i++)
     {
-      item_indices.push (Slice (len, 0));
-      spanner_indices.push (Slice (len, 0));
+      item_indices.push_back (Slice (len, 0));
+      spanner_indices.push_back (Slice (len, 0));
     }
 
-  Array<Slice> *arrs[]
+  std::vector<Slice> *arrs[]
     = {
     &item_indices, &spanner_indices
   };
@@ -380,14 +380,14 @@ Spanner::fast_substitute_grob_array (SCM sym,
     is a waste of time -- the staff-spanners screw up the
     ordering, since they go across the entire score.
   */
-  for (int i = spanner_indices.size (); i--;)
+  for (vsize i = spanner_indices.size (); i--;)
     spanner_indices[i] = Slice (spanner_index, len - 1);
 
   assert (item_index <= spanner_index);
 
-  assert ((broken_intos_.size () == system_range.length () + 1)
-	  || (broken_intos_.is_empty () && system_range.length () == 0));
-  for (int i = 0; i < broken_intos_.size (); i++)
+  assert ((broken_intos_.size () == (vsize)system_range.length () + 1)
+	  || (broken_intos_.empty () && system_range.length () == 0));
+  for (vsize i = 0; i < broken_intos_.size (); i++)
     {
       Grob *sc = broken_intos_[i];
       System *l = sc->get_system ();
@@ -488,7 +488,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
     fast_done = s->fast_substitute_grob_array (sym, grob_array);
 
   if (!fast_done)
-    for (int i = 0; i < s->broken_intos_.size (); i++)
+    for (vsize i = 0; i < s->broken_intos_.size (); i++)
       {
 	Grob *sc = s->broken_intos_[i];
 	System *l = sc->get_system ();

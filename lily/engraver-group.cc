@@ -17,7 +17,7 @@
 void
 Engraver_group::announce_grob (Grob_info info)
 {
-  announce_infos_.push (info);
+  announce_infos_.push_back (info);
 
   Engraver_group *dad_eng
     = context_->get_parent_context ()
@@ -36,7 +36,7 @@ Engraver_group::acknowledge_grobs ()
   SCM name_sym = ly_symbol2scm ("name");
   SCM meta_sym = ly_symbol2scm ("meta");
 
-  for (int j = 0; j < announce_infos_.size (); j++)
+  for (vsize j = 0; j < announce_infos_.size (); j++)
     {
       Grob_info info = announce_infos_[j];
 

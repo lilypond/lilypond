@@ -8,7 +8,7 @@
 #ifndef POLY_H
 #define POLY_H
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "arithmetic-operator.hh"
 #include "real.hh"
 
@@ -19,7 +19,7 @@ struct Polynomial
   int degree ()const;
 
   /// coefficients 
-  Array<Real> coefs_;
+  std::vector<Real> coefs_;
 
   // leading coef
   Real &lc ();
@@ -28,8 +28,8 @@ struct Polynomial
   Real lc () const;
   void print () const;
   Real eval (Real) const;
-  void print_sols (Array<Real>) const;
-  void check_sols (Array<Real>) const;
+  void print_sols (std::vector<Real>) const;
+  void check_sols (std::vector<Real>) const;
   void check_sol (Real x) const;
   static Polynomial multiply (const Polynomial &p1, const Polynomial &p2);
   static Polynomial power (int exponent, const Polynomial &src);
@@ -55,11 +55,11 @@ struct Polynomial
 
   void debug_clean ();
 
-  Array<Real> solve_quadric ()const;
-  Array<Real> solve_cubic ()const;
-  Array<Real> solve_linear ()const;
+  std::vector<Real> solve_quadric ()const;
+  std::vector<Real> solve_cubic ()const;
+  std::vector<Real> solve_linear ()const;
 
-  Array<Real> solve () const;
+  std::vector<Real> solve () const;
 };
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, -);

@@ -203,22 +203,22 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
     if (Context_def *t = unsmob_context_def (find_context_def (odef,
 							       scm_car (s))))
-      accepteds.push (t);
+      accepteds.push_back (t);
 
   Link_array<Context_def> best_result;
-  for (int i = 0; i < accepteds.size (); i++)
+  for (vsize i = 0; i < accepteds.size (); i++)
     {
       /* do not check aliases, because \context Staff should not
 	 create RhythmicStaff. */
       if (ly_is_equal (accepteds[i]->get_context_name (), type_sym))
 	{
-	  best_result.push (accepteds[i]);
+	  best_result.push_back (accepteds[i]);
 	  return best_result;
 	}
     }
 
-  int best_depth = INT_MAX;
-  for (int i = 0; i < accepteds.size (); i++)
+  vsize best_depth = UINT_MAX;
+  for (vsize i = 0; i < accepteds.size (); i++)
     {
       Context_def *g = accepteds[i];
 

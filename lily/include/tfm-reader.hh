@@ -26,8 +26,8 @@ private:
   void read_char_metrics ();
   Tex_font_char_metric read_char_metric (Char_code code);
   Tex_font_char_metric read_char ();
-  void read_lig_kern_program (Array<Tfm_ligature> *ligatures,
-			      Array<Tfm_kern> *kerns);
+  void read_lig_kern_program (std::vector<Tfm_ligature> *ligatures,
+			      std::vector<Tfm_kern> *kerns);
 
   Binary_source_file input_;
 
@@ -36,8 +36,8 @@ public:
 
   Tfm_info info_;
   Tfm_header header_;
-  Array<Tex_font_char_metric> char_metrics_;
-  Array<int> ascii_to_metric_idx_;
+  std::vector<Tex_font_char_metric> char_metrics_;
+  std::vector<int> ascii_to_metric_idx_;
 };
 
 #endif /* TFM_READER_HH */

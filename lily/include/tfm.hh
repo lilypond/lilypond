@@ -16,7 +16,7 @@
 #ifndef TFM_HH
 #define TFM_HH
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "font-metric.hh"
 
 /* The type.  */
@@ -132,8 +132,8 @@ struct Tex_font_char_metric
   Char_code code_;
   Real width_, height_, depth_, italic_correction_;
   Fix width_fix_, height_fix_, depth_fix_, italic_correction_fix_;
-  Array<Tfm_kern> kerns_;
-  Array<Tfm_ligature> ligatures_;
+  std::vector<Tfm_kern> kerns_;
+  std::vector<Tfm_ligature> ligatures_;
 
   Tex_font_char_metric ();
 
@@ -158,8 +158,8 @@ public:
 protected:
   Tfm_info info_;
   Tfm_header header_;
-  Array<Tex_font_char_metric> char_metrics_;
-  Array<int> ascii_to_metric_idx_;
+  std::vector<Tex_font_char_metric> char_metrics_;
+  std::vector<int> ascii_to_metric_idx_;
   SCM encoding_table_;
   std::string font_name_;
 private:

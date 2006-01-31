@@ -139,7 +139,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
     contain a lot of noteheads, superlinear performance is too slow.
   */
   extract_item_set (me, "note-heads", heads);
-  for (int i = heads.size (); i--;)
+  for (vsize i = heads.size (); i--;)
     {
       Item *h = heads[i];
 
@@ -206,7 +206,7 @@ Ledger_line_spanner::print (SCM smob)
 
   extract_grob_set (me, "note-heads", heads);
 
-  if (heads.is_empty ())
+  if (heads.empty ())
     return SCM_EOL;
 
   // find size of note heads.
@@ -231,13 +231,13 @@ Ledger_line_spanner::print (SCM smob)
     {
       Axis a = Axis (i);
       common[a] = common_refpoint_of_array (heads, me, a);
-      for (int i = heads.size (); i--;)
+      for (vsize i = heads.size (); i--;)
 	if (Grob *g = unsmob_grob (me->get_object ("accidental-grob")))
 	  common[a] = common[a]->common_refpoint (g, a);
     }
 
   Ledger_requests reqs;
-  for (int i = heads.size (); i--;)
+  for (vsize i = heads.size (); i--;)
     {
       Item *h = dynamic_cast<Item *> (heads[i]);
 
@@ -302,7 +302,7 @@ Ledger_line_spanner::print (SCM smob)
   // create ledgers for note heads
   Real ledgerlinethickness
     = Staff_symbol::get_ledger_line_thickness (staff);
-  for (int i = heads.size (); i--;)
+  for (vsize i = heads.size (); i--;)
     {
       Item *h = dynamic_cast<Item *> (heads[i]);
 

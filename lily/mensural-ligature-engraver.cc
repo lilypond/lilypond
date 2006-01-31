@@ -46,15 +46,15 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 
 protected:
   virtual Spanner *create_ligature_spanner ();
-  virtual void build_ligature (Spanner *ligature, Array<Grob_info> primitives);
+  virtual void build_ligature (Spanner *ligature, std::vector<Grob_info> primitives);
 
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
 private:
-  void transform_heads (Array<Grob_info> primitives);
-  void propagate_properties (Spanner *ligature, Array<Grob_info> primitives);
-  void fold_up_primitives (Array<Grob_info> primitives);
+  void transform_heads (std::vector<Grob_info> primitives);
+  void propagate_properties (Spanner *ligature, std::vector<Grob_info> primitives);
+  void fold_up_primitives (std::vector<Grob_info> primitives);
 };
 
 Mensural_ligature_engraver::Mensural_ligature_engraver ()
@@ -70,7 +70,7 @@ Mensural_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
+Mensural_ligature_engraver::transform_heads (std::vector<Grob_info> primitives)
 {
   if (primitives.size () < 2)
     {
@@ -87,7 +87,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
   bool prev_semibrevis = false;
   Item *prev_primitive = NULL;
 
-  for (int i = 0, s = primitives.size (); i < s; i++)
+  for (vsize i = 0, s = primitives.size (); i < s; i++)
     {
       Grob_info info = primitives[i];
       Item *primitive = dynamic_cast<Item *> (info.grob ());
@@ -296,7 +296,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
  */
 void
 Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
-						  Array<Grob_info> primitives)
+						  std::vector<Grob_info> primitives)
 {
   Real thickness
     = robust_scm2double (ligature->get_property ("thickness"), 1.4);
@@ -316,7 +316,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 
   Real half_flexa_width = 0.5 * (flexa_width + thickness);
 
-  for (int i = 0; i < primitives.size (); i++)
+  for (vsize i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
       int output = scm_to_int (primitive->get_property ("primitive"));
@@ -352,11 +352,11 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 }
 
 void
-Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
+Mensural_ligature_engraver::fold_up_primitives (std::vector<Grob_info> primitives)
 {
   Item *first = 0;
   Real distance = 0;
-  for (int i = 0; i < primitives.size (); i++)
+  for (vsize i = 0; i < primitives.size (); i++)
     {
       Item *current = dynamic_cast<Item *> (primitives[i].grob ());
       if (i == 0)
@@ -375,7 +375,7 @@ Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
 
 void
 Mensural_ligature_engraver::build_ligature (Spanner *ligature,
-					    Array<Grob_info> primitives)
+					    std::vector<Grob_info> primitives)
 {
   transform_heads (primitives);
   propagate_properties (ligature, primitives);

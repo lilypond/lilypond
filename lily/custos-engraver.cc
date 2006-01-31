@@ -38,7 +38,7 @@ private:
   Item *create_custos ();
   bool custos_permitted_;
   Link_array<Grob> custodes_;
-  Array<Pitch> pitches_;
+  std::vector<Pitch> pitches_;
 };
 
 Custos_engraver::Custos_engraver ()
@@ -85,7 +85,7 @@ Custos_engraver::acknowledge_note_head (Grob_info info)
 	don't look at the staff-position, since we can't be sure
 	whether Clef_engraver already applied a vertical shift.
       */
-      pitches_.push (*unsmob_pitch (m->get_property ("pitch")));
+      pitches_.push_back (*unsmob_pitch (m->get_property ("pitch")));
     }
 }
 
@@ -97,7 +97,7 @@ Custos_engraver::process_acknowledged ()
 
   if (custos_permitted_)
     {
-      for (int i = pitches_.size (); i--;)
+      for (vsize i = pitches_.size (); i--;)
 	{
 	  Item *c = create_custos ();
 
@@ -119,7 +119,7 @@ Custos_engraver::create_custos ()
 {
   Item *custos = make_item ("Custos", SCM_EOL);
 
-  custodes_.push (custos);
+  custodes_.push_back (custos);
 
   return custos;
 }
@@ -127,7 +127,7 @@ Custos_engraver::create_custos ()
 void
 Custos_engraver::finalize ()
 {
-  for (int i = custodes_.size (); i--;)
+  for (vsize i = custodes_.size (); i--;)
     custodes_[i]->suicide ();
   custodes_.clear ();
 }

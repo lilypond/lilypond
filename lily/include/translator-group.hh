@@ -40,7 +40,7 @@ class Translator_group
 {
 private:
   void precompute_method_bindings ();
-  Array<Translator_method_binding>
+  std::vector<Translator_method_binding>
   precomputed_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   Translator_group_void_method

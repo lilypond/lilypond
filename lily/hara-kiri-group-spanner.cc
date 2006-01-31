@@ -45,7 +45,7 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
 
   Link_array<Grob> childs;
   Axis_group_interface::get_children (me, &childs);
-  for (int i = 0; i < childs.size (); i++)
+  for (vsize i = 0; i < childs.size (); i++)
     childs[i]->suicide ();
 
   /*

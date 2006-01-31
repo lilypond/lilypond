@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "tie-configuration.hh"
 
-void set_chord_outline (Array<Skyline_entry> *skyline,
+void set_chord_outline (std::vector<Skyline_entry> *skyline,
 			Link_array<Item> bounds,
 			Grob *common,
 			Direction d);
@@ -25,7 +25,7 @@ void final_shape_adjustment (Tie_configuration &conf,
 			     Tie_formatting_problem const&,
 			     Grob *staff_referencer);
 void
-set_chord_outlines (Drul_array< Array<Skyline_entry> > *skyline_drul,
+set_chord_outlines (Drul_array< std::vector<Skyline_entry> > *skyline_drul,
 		    Link_array<Grob> ties,
 		    Grob *common);
 

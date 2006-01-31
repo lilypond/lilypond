@@ -35,10 +35,10 @@ log_2 (double x)
   return log (x) / log (2.0);
 }
 
-Array<std::string>
+std::vector<std::string>
 split_string (std::string s, char c)
 {
-  Array<std::string> rv;
+  std::vector<std::string> rv;
   while (s.length ())
     {
       ssize i = s.find (c);
@@ -52,7 +52,7 @@ split_string (std::string s, char c)
       if (i == NPOS)
 	i = s.length ();
 
-      rv.push (s.substr (0, i));
+      rv.push_back (s.substr (0, i));
       s = s.substr (i, s.length () - i);
     }
 

@@ -9,7 +9,7 @@
 #define MAIN_HH
 
 #include "lily-proto.hh"
-#include "array.hh"
+#include "std-vector.hh"
 #include "std-string.hh"
 
 void debug_init ();
@@ -20,13 +20,13 @@ void add_score (Score *s);
 void set_default_output (std::string s);
 std::string find_file (std::string);
 void call_constructors ();
-Array<std::string> get_inclusion_names ();
-void set_inclusion_names (Array<std::string>);
+std::vector<std::string> get_inclusion_names ();
+void set_inclusion_names (std::vector<std::string>);
 
 extern std::string init_name_global;
 
 /* options */
-extern Array<std::string> dump_header_fieldnames_global;
+extern std::vector<std::string> dump_header_fieldnames_global;
 extern std::string output_backend_global;
 extern std::string output_name_global;
 extern bool be_safe_global;
@@ -47,7 +47,7 @@ extern bool make_preview;
 extern bool make_print;
 
 /* misc */
-extern Array<std::string> failed_files;
+extern std::vector<std::string> failed_files;
 extern int exit_status_global;
 extern File_path global_path;
 extern const char *LILYPOND_DATADIR;

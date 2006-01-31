@@ -30,11 +30,9 @@ LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
   SCM_ASSERT_TYPE (me, grob_arr, SCM_ARG1, __FUNCTION__, "Grob_array");
   SCM_ASSERT_TYPE (scm_is_integer (index), index, SCM_ARG2, __FUNCTION__, "integer");
 
-  int i = scm_to_int (index);
-  if (i < 0 || i >= me->size ())
-    {
-      scm_out_of_range (NULL, scm_from_int (i)); 
-    }
+  vsize i = scm_to_unsigned (index);
+  if (i == VPOS || i >= me->size ())
+    scm_out_of_range (NULL, scm_from_unsigned (i)); 
   
   return me->grob (i)->self_scm ();
 }

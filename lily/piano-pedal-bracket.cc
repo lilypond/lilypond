@@ -48,7 +48,8 @@ Piano_pedal_bracket::print (SCM smob)
       if (broken[d])
 	{
 	  if (orig
-	      && ((d == RIGHT && me->get_break_index () != orig->broken_intos_.size () - 1)
+	      && ((d == RIGHT
+		   && me->get_break_index () != orig->broken_intos_.size () - 1)
 		  || (d == LEFT && me->get_break_index ())))
 	    height[d] = 0.0;
 	  else

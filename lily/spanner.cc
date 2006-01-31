@@ -73,7 +73,7 @@ Spanner::do_break_processing ()
 
 	      assert (span->get_system ());
 	      span->get_system ()->typeset_grob (span);
-	      broken_intos_.push (span);
+	      broken_intos_.push_back (span);
 	    }
 	}
       while ((flip (&d)) != LEFT);
@@ -84,9 +84,9 @@ Spanner::do_break_processing ()
       Link_array<Item> break_points = root->broken_col_range (left, right);
 
       break_points.insert (left, 0);
-      break_points.push (right);
+      break_points.push_back (right);
 
-      for (int i = 1; i < break_points.size (); i++)
+      for (vsize i = 1; i < break_points.size (); i++)
 	{
 	  Drul_array<Item *> bounds;
 	  bounds[LEFT] = break_points[i - 1];
@@ -120,12 +120,12 @@ Spanner::do_break_processing ()
 	  else
 	    {
 	      bounds[LEFT]->get_system ()->typeset_grob (span);
-	      broken_intos_.push (span);
+	      broken_intos_.push_back (span);
 	    }
 	}
     }
   broken_intos_.sort (Spanner::compare);
-  for (int i = broken_intos_.size ();i--;)
+  for (vsize i = broken_intos_.size ();i--;)
     broken_intos_[i]->break_index_ = i;
 }
 
@@ -294,7 +294,7 @@ Spanner::derived_mark () const
   while (flip (&d) != LEFT)
     ;
 
-  for (int i = broken_intos_.size (); i--;)
+  for (vsize i = broken_intos_.size (); i--;)
     scm_gc_mark (broken_intos_[i]->self_scm ());
 }
 

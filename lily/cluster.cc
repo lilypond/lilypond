@@ -27,7 +27,7 @@ using namespace std;
   TODO: Add support for cubic spline segments.
 */
 Stencil
-brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_points)
+brew_cluster_piece (Grob *me, std::vector<Offset> bottom_points, std::vector<Offset> top_points)
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me) / 2;
 
@@ -50,7 +50,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
     }
 
   Stencil out;
-  Array<Offset> points;
+  std::vector<Offset> points;
   points.clear ();
   int size = bottom_points.size ();
   if (shape == "leftsided-stairs")
@@ -100,14 +100,14 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
     }
   else if (shape == "ramp")
     {
-      points.push (bottom_points[0] - vpadding + hpadding);
+      points.push_back (bottom_points[0] - vpadding + hpadding);
       for (int i = 1; i < size - 1; i++)
-	points.push (bottom_points[i] - vpadding);
-      points.push (bottom_points[size - 1] - vpadding - hpadding);
-      points.push (top_points[size - 1] + vpadding - hpadding);
+	points.push_back (bottom_points[i] - vpadding);
+      points.push_back (bottom_points[size - 1] - vpadding - hpadding);
+      points.push_back (top_points[size - 1] + vpadding - hpadding);
       for (int i = size - 2; i > 0; i--)
-	points.push (top_points[i] + vpadding);
-      points.push (top_points[0] + vpadding + hpadding);
+	points.push_back (top_points[i] + vpadding);
+      points.push_back (top_points[0] + vpadding + hpadding);
       out.add_stencil (Lookup::round_filled_polygon (points, blotdiameter));
     }
   else
@@ -134,7 +134,7 @@ Cluster::print (SCM smob)
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
 
   Link_array<Grob> const &cols = extract_grob_array (me, "columns");
-  if (cols.is_empty ())
+  if (cols.empty ())
     {
       me->warning (_ ("junking empty cluster"));
       me->suicide ();
@@ -144,8 +144,8 @@ Cluster::print (SCM smob)
 
   commonx = common_refpoint_of_array (cols, commonx, X_AXIS);
   Grob *commony = common_refpoint_of_array (cols, me, Y_AXIS);
-  Array<Offset> bottom_points;
-  Array<Offset> top_points;
+  std::vector<Offset> bottom_points;
+  std::vector<Offset> top_points;
 
   Real left_coord = left_bound->relative_coordinate (commonx, X_AXIS);
 
@@ -154,15 +154,15 @@ Cluster::print (SCM smob)
     line with the center of the note heads?
 
   */
-  for (int i = 0; i < cols.size (); i++)
+  for (vsize i = 0; i < cols.size (); i++)
     {
       Grob *col = cols[i];
 
       Interval yext = col->extent (commony, Y_AXIS);
 
       Real x = col->relative_coordinate (commonx, X_AXIS) - left_coord;
-      bottom_points.push (Offset (x, yext[DOWN]));
-      top_points.push (Offset (x, yext[UP]));
+      bottom_points.push_back (Offset (x, yext[DOWN]));
+      top_points.push_back (Offset (x, yext[UP]));
     }
 
   /*

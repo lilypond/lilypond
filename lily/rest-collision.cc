@@ -95,7 +95,7 @@ Rest_collision::calc_positioning_done (SCM smob)
   Link_array<Grob> rests;
   Link_array<Grob> notes;
 
-  for (int i = 0; i < elts.size (); i++)
+  for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *e = elts[i];
       if (unsmob_grob (e->get_object ("rest")))
@@ -107,10 +107,10 @@ Rest_collision::calc_positioning_done (SCM smob)
 	  if (st && unsmob_grob (st->get_object ("beam")))
 	    continue;
 
-	  rests.push (e);
+	  rests.push_back (e);
 	}
       else
-	notes.push (e);
+	notes.push_back (e);
     }
 
   /*
@@ -138,13 +138,13 @@ Rest_collision::calc_positioning_done (SCM smob)
 	center one should be centered on the staff.
       */
       Drul_array<Link_array<Grob> > ordered_rests;
-      for (int i = 0; i < rests.size (); i++)
+      for (vsize i = 0; i < rests.size (); i++)
 	{
 	  Grob *r = Note_column::get_rest (rests[i]);
 
 	  Direction d = get_grob_direction (r);
 	  if (d)
-	    ordered_rests[d].push (rests[i]);
+	    ordered_rests[d].push_back (rests[i]);
 	  else
 	    rests[d]->warning (_ ("can't resolve rest collision: rest direction not set"));
 	}
@@ -171,23 +171,23 @@ Rest_collision::calc_positioning_done (SCM smob)
       common = common_refpoint_of_array (ordered_rests[UP], common, Y_AXIS);
 
       Real diff
-	= (ordered_rests[DOWN].top ()->extent (common, Y_AXIS)[UP]
-	   - ordered_rests[UP].top ()->extent (common, Y_AXIS)[DOWN]) / staff_space;
+	= (ordered_rests[DOWN].back ()->extent (common, Y_AXIS)[UP]
+	   - ordered_rests[UP].back ()->extent (common, Y_AXIS)[DOWN]) / staff_space;
 
       if (diff > 0)
 	{
 	  int amount_down = (int) ceil (diff / 2);
 	  diff -= amount_down;
-	  Note_column::translate_rests (ordered_rests[DOWN].top (),
+	  Note_column::translate_rests (ordered_rests[DOWN].back (),
 					-2 * amount_down);
 	  if (diff > 0)
-	    Note_column::translate_rests (ordered_rests[UP].top (),
+	    Note_column::translate_rests (ordered_rests[UP].back (),
 					  2 * int (ceil (diff)));
 	}
 
       do
 	{
-	  for (int i = ordered_rests[d].size () -1; i-- > 0;)
+	  for (vsize i = ordered_rests[d].size () -1; i-- > 0;)
 	    {
 	      Real last_y = ordered_rests[d][i + 1]->extent (common, Y_AXIS)[d];
 	      Real y = ordered_rests[d][i]->extent (common, Y_AXIS)[-d];
@@ -209,7 +209,7 @@ Rest_collision::calc_positioning_done (SCM smob)
       Grob *rcol = 0;
       Direction dir = CENTER;
 
-      for (int i = rests.size (); !rcol && i--;)
+      for (vsize i = rests.size (); !rcol && i--;)
 	if (Note_column::dir (rests[i]))
 	  {
 	    dir = Note_column::dir (rests[i]);
@@ -229,7 +229,7 @@ Rest_collision::calc_positioning_done (SCM smob)
       Real minimum_dist = robust_scm2double (me->get_property ("minimum-distance"), 1.0) * staff_space;
 
       Interval notedim;
-      for (int i = 0; i < notes.size (); i++)
+      for (vsize i = 0; i < notes.size (); i++)
 	notedim.unite (notes[i]->extent (common, Y_AXIS));
 
       Real dist

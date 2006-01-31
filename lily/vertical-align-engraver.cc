@@ -120,7 +120,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 	  Link_array<Grob> &arr = ga->array_reference ();
 
 	  Grob *added = arr.pop ();
-	  for (int i = 0; i < arr.size (); i++)
+	  for (vsize i = 0; i < arr.size (); i++)
 	    {
 	      if (arr[i] == before_grob)
 		{

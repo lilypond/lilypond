@@ -29,7 +29,7 @@ struct Spring_description
 class Simple_spacer
 {
 public:
-  Array<Spring_description> springs_;
+  std::vector<Spring_description> springs_;
   Real force_;
   Real indent_;
   Real line_len_;

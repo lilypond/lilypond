@@ -227,7 +227,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * shrinked polygon). --jr
  */
 Stencil
-Lookup::round_filled_polygon (Array<Offset> const &points,
+Lookup::round_filled_polygon (std::vector<Offset> const &points,
 			      Real blotdiameter)
 {
   /* TODO: Maybe print a warning if one of the above limitations
@@ -238,7 +238,7 @@ Lookup::round_filled_polygon (Array<Offset> const &points,
 
 #ifndef NDEBUG
   /* remove consecutive duplicate points */
-  for (int i = 0; i < points.size (); i++)
+  for (vsize i = 0; i < points.size (); i++)
     {
       int next_i = (i + 1) % points.size ();
       Real d = (points[i] - points[next_i]).length ();
@@ -256,10 +256,10 @@ Lookup::round_filled_polygon (Array<Offset> const &points,
     return Line_interface::make_line (blotdiameter, points[0], points[1]);
 
   /* shrink polygon in size by 0.5 * blotdiameter */
-  Array<Offset> shrunk_points;
-  shrunk_points.set_size (points.size ());
+  std::vector<Offset> shrunk_points;
+  shrunk_points.resize (points.size ());
   bool ccw = 1; // true, if three adjacent points are counterclockwise ordered
-  for (int i = 0; i < points.size (); i++)
+  for (vsize i = 0; i < points.size (); i++)
     {
       int i0 = i;
       int i1 = (i + 1) % points.size ();
@@ -304,7 +304,7 @@ Lookup::round_filled_polygon (Array<Offset> const &points,
   /* build scm expression and bounding box */
   SCM shrunk_points_scm = SCM_EOL;
   Box box;
-  for (int i = 0; i < shrunk_points.size (); i++)
+  for (vsize i = 0; i < shrunk_points.size (); i++)
     {
       SCM x = scm_from_double (shrunk_points[i][X_AXIS]);
       SCM y = scm_from_double (shrunk_points[i][Y_AXIS]);
@@ -649,7 +649,7 @@ Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
 #if 0 /*  TODO */
-  Array<Offset> points;
+  std::vector<Offset> points;
   Real blotdiameter = 0.0;
 
   Offset p1 (0, 0);

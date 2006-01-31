@@ -42,8 +42,8 @@ struct Rhythmic_tuple
 class Spacing_engraver : public Engraver
 {
   PQueue<Rhythmic_tuple> playing_durations_;
-  Array<Rhythmic_tuple> now_durations_;
-  Array<Rhythmic_tuple> stopped_durations_;
+  std::vector<Rhythmic_tuple> now_durations_;
+  std::vector<Rhythmic_tuple> stopped_durations_;
   Moment now_;
   Spanner *spacing_;
 
@@ -129,7 +129,7 @@ Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
 	{
 	  Moment len = r->get_length ();
 	  Rhythmic_tuple t (i, now_mom () + len);
-	  now_durations_.push (t);
+	  now_durations_.push_back (t);
 	}
     }
 }
@@ -150,7 +150,7 @@ Spacing_engraver::stop_translation_timestep ()
 
   Moment shortest_playing;
   shortest_playing.set_infinite (1);
-  for (int i = 0; i < playing_durations_.size (); i++)
+  for (vsize i = 0; i < playing_durations_.size (); i++)
     {
       Music *mus = playing_durations_[i].info_.music_cause ();
       if (mus)
@@ -162,7 +162,7 @@ Spacing_engraver::stop_translation_timestep ()
   Moment starter;
   starter.set_infinite (1);
 
-  for (int i = 0; i < now_durations_.size (); i++)
+  for (vsize i = 0; i < now_durations_.size (); i++)
     {
       Moment m = now_durations_[i].info_.music_cause ()->get_length ();
       if (m.to_bool ())
@@ -191,7 +191,7 @@ Spacing_engraver::start_translation_timestep ()
   while (playing_durations_.size () && playing_durations_.front ().end_ < now_)
     playing_durations_.delmin ();
   while (playing_durations_.size () && playing_durations_.front ().end_ == now_)
-    stopped_durations_.push (playing_durations_.get ());
+    stopped_durations_.push_back (playing_durations_.get ());
 }
 
 ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);

@@ -56,16 +56,16 @@ Span_bar::print (SCM smobbed_me)
   std::string glyph_string = ly_scm2string (glyph);
 
   /* compose span_bar_mol */
-  Array<Interval> extents;
+  std::vector<Interval> extents;
   Grob *model_bar = 0;
-  for (int i = elements.size (); i--;)
+  for (vsize i = elements.size (); i--;)
     {
       Grob *bar = elements[i];
       Interval ext = bar->extent (refp, Y_AXIS);
       if (ext.is_empty ())
 	continue;
 
-      extents.push (ext);
+      extents.push_back (ext);
       model_bar = bar;
     }
 
@@ -75,7 +75,7 @@ Span_bar::print (SCM smobbed_me)
   extents.sort (&Interval::left_comparison);
 
   Stencil span_bar;
-  for (int i = 1; i < extents.size (); i++)
+  for (vsize i = 1; i < extents.size (); i++)
     {
       Interval prev_extent = extents[i - 1];
       Interval ext = extents[i];
@@ -132,7 +132,7 @@ Span_bar::before_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "elements", elements);
-  if (elements.is_empty ())
+  if (elements.empty ())
     me->suicide ();
 
   return SCM_UNSPECIFIED;
@@ -167,7 +167,7 @@ Span_bar::calc_glyph_name (SCM smob)
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "elements", elements);
   SCM gl = SCM_EOL;
-  for (int i = elements.size ();
+  for (vsize i = elements.size ();
        i-- && !scm_is_string (gl);)
     gl = elements[i]->get_property ("glyph-name");
 

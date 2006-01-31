@@ -53,7 +53,7 @@ Drum_note_performer::process_music ()
 	  Audio_note *p = new Audio_note (*pit, n->get_length (), 0);
 	  Audio_element_info info (p, n);
 	  announce_element (info);
-	  notes_.push (p);
+	  notes_.push_back (p);
 	}
     }
 
@@ -66,7 +66,7 @@ Drum_note_performer::stop_translation_timestep ()
   // why don't grace notes show up here?
   // --> grace notes effectively do not get delayed
   Moment now = now_mom ();
-  for (int i = 0; i < notes_.size (); i++)
+  for (vsize i = 0; i < notes_.size (); i++)
     play_element (notes_[i]);
   notes_.clear ();
   note_evs_.clear ();
@@ -77,7 +77,7 @@ Drum_note_performer::try_music (Music *ev)
 {
   if (ev->is_mus_type ("note-event"))
     {
-      note_evs_.push (ev);
+      note_evs_.push_back (ev);
       return true;
     }
   else if (ev->is_mus_type ("busy-playing-event"))

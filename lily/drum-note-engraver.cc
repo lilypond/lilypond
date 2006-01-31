@@ -43,7 +43,7 @@ Drum_notes_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-event"))
     {
-      events_.push (m);
+      events_.push_back (m);
       return true;
     }
   else if (m->is_mus_type ("busy-playing-event"))
@@ -56,7 +56,7 @@ void
 Drum_notes_engraver::process_music ()
 {
   SCM tab = 0;
-  for (int i = 0; i < events_.size (); i++)
+  for (vsize i = 0; i < events_.size (); i++)
     {
       if (!tab)
 	tab = get_property ("drumStyleTable");
@@ -79,7 +79,7 @@ Drum_notes_engraver::process_music ()
 
 	  d->set_parent (note, Y_AXIS);
 
-	  dots_.push (d);
+	  dots_.push_back (d);
 	}
 
       SCM drum_type = ev->get_property ("drum-type");
@@ -108,18 +108,18 @@ Drum_notes_engraver::process_music ()
 
 	      p->set_parent (note, Y_AXIS);
 	      Side_position_interface::add_support (p, note);
-	      scripts_.push (p);
+	      scripts_.push_back (p);
 	    }
 	}
 
-      notes_.push (note);
+      notes_.push_back (note);
     }
 }
 
 void
 Drum_notes_engraver::acknowledge_stem (Grob_info inf)
 {
-  for (int i = 0; i < scripts_.size (); i++)
+  for (vsize i = 0; i < scripts_.size (); i++)
     {
       Grob *e = scripts_[i];
 
@@ -133,7 +133,7 @@ Drum_notes_engraver::acknowledge_stem (Grob_info inf)
 void
 Drum_notes_engraver::acknowledge_note_column (Grob_info inf)
 {
-  for (int i = 0; i < scripts_.size (); i++)
+  for (vsize i = 0; i < scripts_.size (); i++)
     {
       Grob *e = scripts_[i];
 

@@ -40,7 +40,7 @@ public:
   TRANSLATOR_DECLARATIONS (Tuplet_engraver);
 
 protected:
-  Array<Tuplet_description> tuplets_;
+  std::vector<Tuplet_description> tuplets_;
   Link_array<Spanner> last_tuplets_;
   DECLARE_ACKNOWLEDGER (note_column);
   virtual bool try_music (Music *r);
@@ -67,7 +67,7 @@ Tuplet_engraver::try_music (Music *music)
 	  if (unsmob_moment (s))
 	    d.span_stop_ = min (d.span_stop_, (now_mom () + *unsmob_moment (s)).main_part_);
 
-	  tuplets_.push (d);
+	  tuplets_.push_back (d);
 	}
       return true;
     }
@@ -81,7 +81,7 @@ Tuplet_engraver::process_music ()
     return;
 
   tuplets_.sort (&Tuplet_description::compare);
-  for (int i = 0; i < tuplets_.size (); i++)
+  for (vsize i = 0; i < tuplets_.size (); i++)
     {
       if (tuplets_[i].bracket_)
 	continue;
@@ -111,7 +111,7 @@ Tuplet_engraver::process_music ()
 void
 Tuplet_engraver::acknowledge_note_column (Grob_info inf)
 {
-  for (int j = 0; j < tuplets_.size (); j++)
+  for (vsize j = 0; j < tuplets_.size (); j++)
     if (tuplets_[j].bracket_)
       {
 	Item *i = dynamic_cast<Item *> (inf.grob ());
@@ -126,13 +126,13 @@ Tuplet_engraver::start_translation_timestep ()
   Moment now = now_mom ();
 
   last_tuplets_.clear ();
-  if (tuplets_.is_empty ())
+  if (tuplets_.empty ())
     return;
 
   Moment tsdmom = robust_scm2moment (get_property ("tupletSpannerDuration"), Moment (0));
   bool full_length = to_boolean (get_property ("tupletFullLength"));
 
-  for (int i = tuplets_.size (); i--;)
+  for (vsize i = tuplets_.size (); i--;)
     {
       Rational tsd = tsdmom.main_part_;
 
@@ -154,8 +154,8 @@ Tuplet_engraver::start_translation_timestep ()
 		  tuplets_[i].number_->set_bound (RIGHT,
 						  tuplets_[i].bracket_->get_bound (LEFT));
 		}
-	      last_tuplets_.push (tuplets_[i].bracket_);
-	      last_tuplets_.push (tuplets_[i].number_);
+	      last_tuplets_.push_back (tuplets_[i].bracket_);
+	      last_tuplets_.push_back (tuplets_[i].number_);
 	      
 	      tuplets_[i].bracket_ = 0;
 	      tuplets_[i].number_ = 0;
@@ -175,7 +175,7 @@ Tuplet_engraver::finalize ()
 {
   if (to_boolean (get_property ("tupletFullLength")))
     {
-      for (int i = 0; i < last_tuplets_.size (); i++)
+      for (vsize i = 0; i < last_tuplets_.size (); i++)
 	{
 	  Item *col = unsmob_item (get_property ("currentCommandColumn"));
 	  last_tuplets_[i]->set_bound (RIGHT, col);

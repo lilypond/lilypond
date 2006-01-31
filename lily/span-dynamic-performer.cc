@@ -41,8 +41,8 @@ private:
   Real last_volume_;
   Music *span_start_event_;
   Drul_array<Music *> span_events_;
-  Array<Audio_dynamic_tuple> dynamic_tuples_;
-  Array<Audio_dynamic_tuple> finished_dynamic_tuples_;
+  std::vector<Audio_dynamic_tuple> dynamic_tuples_;
+  std::vector<Audio_dynamic_tuple> finished_dynamic_tuples_;
   Direction dir_;
   Direction finished_dir_;
 };
@@ -74,7 +74,7 @@ Span_dynamic_performer::process_music ()
 			       : span_events_[STOP]);
       announce_element (info);
       Audio_dynamic_tuple a = { audio_, now_mom () };
-      dynamic_tuples_.push (a);
+      dynamic_tuples_.push_back (a);
     }
 
   if (span_events_[STOP])
@@ -101,11 +101,11 @@ Span_dynamic_performer::process_music ()
 
       dynamic_tuples_.clear ();
       Audio_dynamic_tuple a = { audio_, now_mom () };
-      dynamic_tuples_.push (a);
+      dynamic_tuples_.push_back (a);
     }
 
   if (span_events_[STOP])
-    finished_dynamic_tuples_.top ().audio_->volume_ = last_volume_;
+    finished_dynamic_tuples_.back ().audio_->volume_ = last_volume_;
 
   if (span_events_[START])
     dynamic_tuples_[0].audio_->volume_ = last_volume_;
@@ -120,7 +120,7 @@ Span_dynamic_performer::stop_translation_timestep ()
   if (finished_dynamic_tuples_.size () > 1)
     {
       Real start_volume = finished_dynamic_tuples_[0].audio_->volume_;
-      Real dv = finished_dynamic_tuples_.top ().audio_->volume_
+      Real dv = finished_dynamic_tuples_.back ().audio_->volume_
 	- start_volume;
       /*
 	urg.
@@ -138,12 +138,12 @@ Span_dynamic_performer::stop_translation_timestep ()
 	  // urg.  20%: about two volume steps
 	  dv = (Real)finished_dir_ * 0.2;
 	  if (!start_volume)
-	    start_volume = finished_dynamic_tuples_.top
-	      ().audio_->volume_ - dv;
+	    start_volume = finished_dynamic_tuples_.back ().audio_->volume_
+	      - dv;
 	}
       Moment start_mom = finished_dynamic_tuples_[0].mom_;
-      Moment dt = finished_dynamic_tuples_.top ().mom_ - start_mom;
-      for (int i = 0; i < finished_dynamic_tuples_.size (); i++)
+      Moment dt = finished_dynamic_tuples_.back ().mom_ - start_mom;
+      for (vsize i = 0; i < finished_dynamic_tuples_.size (); i++)
 	{
 	  Audio_dynamic_tuple *a = &finished_dynamic_tuples_[i];
 	  Real volume = start_volume + dv * (Real) (a->mom_ - start_mom).main_part_

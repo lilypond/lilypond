@@ -64,7 +64,7 @@ is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
     such a borderline case.)
 
   */
-  if (lns.is_empty () || rns.is_empty ())
+  if (lns.empty () || rns.empty ())
     return false;
 
   Item *l_neighbor = dynamic_cast<Item *> (lns[0]);
@@ -98,13 +98,13 @@ is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
     in any case, we don't want to move bar lines.
   */
   extract_grob_set (c, "elements", elts);
-  for (int i = elts.size (); i--;)
+  for (vsize i = elts.size (); i--;)
     {
       Grob *g = elts[i];
       if (g && Break_align_interface::has_interface (g))
 	{
 	  extract_grob_set (g, "elements", gelts);
-	  for (int j = gelts.size (); j--;)
+	  for (vsize j = gelts.size (); j--;)
 	    {
 	      Grob *h = gelts[j];
 
@@ -131,7 +131,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 {
   Link_array<Grob> newcols;
 
-  for (int i = 0; i < cols->size (); i++)
+  for (vsize i = 0; i < cols->size (); i++)
     {
       Grob *c = cols->elem (i);
 
@@ -143,8 +143,8 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 	  extract_grob_set (c, "right-neighbors", rns_arr);
 	  extract_grob_set (c, "left-neighbors", lns_arr);
 
-	  SCM lns = lns_arr.size () ? lns_arr.top ()->self_scm () : SCM_BOOL_F;
-	  SCM rns = rns_arr.size () ? rns_arr.top ()->self_scm () : SCM_BOOL_F;
+	  SCM lns = lns_arr.size () ? lns_arr.back ()->self_scm () : SCM_BOOL_F;
+	  SCM rns = rns_arr.size () ? rns_arr.back ()->self_scm () : SCM_BOOL_F;
 
 	  /*
 	    Either object can be non existent, if the score ends
@@ -171,7 +171,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 	      Item *rc = dynamic_cast<Item *> (d == LEFT ? c : next_door[RIGHT]);
 
 	      extract_grob_set (lc, "spacing-wishes", wishes);
-	      for (int k = wishes.size (); k--;)
+	      for (vsize k = wishes.size (); k--;)
 		{
 		  Grob *sp = wishes[k];
 		  if (Note_spacing::left_column (sp) != lc
@@ -218,7 +218,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 	  r.add_to_cols ();
 	}
       else
-	newcols.push (c);
+	newcols.push_back (c);
     }
 
   *cols = newcols;
@@ -230,14 +230,14 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 void
 Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> const &cols)
 {
-  for (int i = 0; i < cols.size (); i++)
+  for (vsize i = 0; i < cols.size (); i++)
     {
       SCM right_neighbors = Grob_array::make_array ();
       Grob_array *rn_arr = unsmob_grob_array (right_neighbors);
       int min_rank = 100000;	// inf.
 
       extract_grob_set (cols[i], "spacing-wishes", wishes);
-      for (int k = wishes.size (); k--;)
+      for (vsize k = wishes.size (); k--;)
 	{
 	  Item *wish = dynamic_cast<Item *> (wishes[k]);
 
@@ -272,7 +272,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> const &cols)
 	  extract_grob_set (rc, "left-neighbors", lns_arr);
 	  if (lns_arr.size ())
 	    {
-	      Item *it = dynamic_cast<Item *> (lns_arr.top ());
+	      Item *it = dynamic_cast<Item *> (lns_arr.back ());
 	      maxrank = Paper_column::get_rank (it->get_column ());
 	    }
 
@@ -302,7 +302,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> const &cols)
 void
 Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> const &cols)
 {
-  for (int i = 0; i < cols.size (); i++)
+  for (vsize i = 0; i < cols.size (); i++)
     {
       Item *it = dynamic_cast<Item *> (cols[i]);
       if (!Item::is_breakable (it) && !Paper_column::is_musical (it))
@@ -314,7 +314,7 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> const &cols)
 	sloppy with typing left/right-neighbors should take list, but paper-column found instead.
       */
       extract_grob_set (cols[i], "left-neighbors", lns);
-      if (lns.is_empty () && i)
+      if (lns.empty () && i)
 	{
 	  SCM ga_scm = Grob_array::make_array ();
 	  Grob_array *ga = unsmob_grob_array (ga_scm);
@@ -322,7 +322,7 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> const &cols)
 	  cols[i]->set_object ("left-neighbors", ga_scm);
 	}
       extract_grob_set (cols[i], "right-neighbors", rns);
-      if (rns.is_empty () && i < cols.size () - 1)
+      if (rns.empty () && i < cols.size () - 1)
 	{
 	  SCM ga_scm = Grob_array::make_array ();
 	  Grob_array *ga = unsmob_grob_array (ga_scm);

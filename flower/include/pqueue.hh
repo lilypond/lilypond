@@ -8,7 +8,7 @@
 
 #ifndef PQUEUE_HH
 #define PQUEUE_HH
-#include "array.hh"
+#include "std-vector.hh"
 
 template<class K, class T>
 struct PQueue_ent
@@ -35,11 +35,11 @@ template<class T>
 class PQueue
 {
   Array<T> heap_array_;
-  T &elt (int i)
+  T &elt (vsize i)
   {
     return heap_array_[i - 1];
   }
-  T const &elt (int i) const
+  T const &elt (vsize i) const
   {
     return heap_array_[i - 1];
   }
@@ -48,22 +48,34 @@ public:
       priority might fuck up the invariants
 
       @param 1 <= i < size () */
-  T &operator [] (int i) { return heap_array_[i]; }
-  T operator [] (int i) const { return heap_array_[i]; }
+  T &operator [] (vsize i)
+  {
+    return heap_array_[i];
+  }
+  T operator [] (vsize i) const
+  {
+    return heap_array_[i];
+  }
   void OK () const
   {
 #ifndef NDEBUG
-    for (int i = 2; i <= size (); i++)
+    for (vsize i = 2; i <= size (); i++)
       assert (compare (elt (i / 2), elt (i)) <= 0);
 #endif
   }
-  T front () const { return elt (1); }
-  int size () const { return heap_array_.size (); }
+  T front () const
+  {
+    return elt (1);
+  }
+  vsize size () const
+  {
+    return heap_array_.size ();
+  }
   void insert (T v)
   {
-    heap_array_.push (v);
-    int i = heap_array_.size ();
-    int j = i / 2;
+    heap_array_.push_back (v);
+    vsize i = heap_array_.size ();
+    vsize j = i / 2;
     while (j)
       {
 	if (compare (elt (j), v) > 0)
@@ -87,10 +99,10 @@ public:
   void delmin ()
   {
     assert (size ());
-    T last = heap_array_.top ();
+    T last = heap_array_.back ();
 
-    int mini = 2;
-    int lasti = 1;
+    vsize mini = 2;
+    vsize lasti = 1;
 
     while (mini < size ())
       {
@@ -103,7 +115,7 @@ public:
 	mini *= 2;
       }
     elt (lasti) = last;
-    heap_array_.pop ();
+    heap_array_.pop_back ();
     OK ();
   }
   T get ()

@@ -25,7 +25,7 @@ Tex_font_metric_reader::Tex_font_metric_reader (std::string name)
 {
 
   for (int i = 0; i < TFM_SIZE; i++)
-    ascii_to_metric_idx_.push (-1);
+    ascii_to_metric_idx_.push_back (-1);
 
   read_header ();
   read_params ();
@@ -163,7 +163,7 @@ Tex_font_metric_reader::read_char_metrics ()
       Tex_font_char_metric tfm_char = read_char_metric (i);
       if (tfm_char.exists_)
 	ascii_to_metric_idx_[tfm_char.code_] = char_metrics_.size ();
-      char_metrics_.push (tfm_char);
+      char_metrics_.push_back (tfm_char);
     }
 }
 
@@ -255,7 +255,7 @@ Tex_font_metric_reader::read_char ()
 #define KERN_FLAG 128
 
 void
-Tex_font_metric_reader::read_lig_kern_program (Array<Tfm_ligature> *ligatures, Array<Tfm_kern> *kerns)
+Tex_font_metric_reader::read_lig_kern_program (std::vector<Tfm_ligature> *ligatures, std::vector<Tfm_kern> *kerns)
 {
   bool end_b;
 
@@ -277,14 +277,14 @@ Tex_font_metric_reader::read_lig_kern_program (Array<Tfm_ligature> *ligatures, A
 	  kern_element.kern = get_U32_fix_scaled ();
 	  input_.set_pos (old_pos);
 
-	  kerns->push (kern_element);
+	  kerns->push_back (kern_element);
 	}
       else
 	{
 	  Tfm_ligature ligature_element;
 	  ligature_element.character = next_char;
 	  ligature_element.ligature = remainder;
-	  ligatures->push (ligature_element);
+	  ligatures->push_back (ligature_element);
 	}
     }
   while (!end_b);

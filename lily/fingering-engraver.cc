@@ -36,7 +36,7 @@ Fingering_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("fingering-event"))
     {
-      events_.push (m);
+      events_.push_back (m);
       return true;
     }
   return false;
@@ -45,14 +45,14 @@ Fingering_engraver::try_music (Music *m)
 void
 Fingering_engraver::acknowledge_stem (Grob_info inf)
 {
-  for (int i = 0; i < fingerings_.size (); i++)
+  for (vsize i = 0; i < fingerings_.size (); i++)
     Side_position_interface::add_support (fingerings_[i], inf.grob ());
 }
 
 void
 Fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 {
-  for (int i = 0; i < fingerings_.size (); i++)
+  for (vsize i = 0; i < fingerings_.size (); i++)
     {
       Grob *t = fingerings_[i];
       Side_position_interface::add_support (t, inf.grob ());
@@ -64,7 +64,7 @@ Fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 void
 Fingering_engraver::process_music ()
 {
-  for (int i = events_.size (); i--;)
+  for (vsize i = events_.size (); i--;)
     {
       SCM dir = events_[i]->get_property ("direction");
       make_script (to_dir (dir), events_[i], i);
@@ -115,7 +115,7 @@ Fingering_engraver::make_script (Direction d, Music *r, int i)
   SCM dig = r->get_property ("digit");
   fingering->set_property ("text", scm_number_to_string (dig, scm_from_int (10)));
 
-  fingerings_.push (fingering);
+  fingerings_.push_back (fingering);
 }
 
 void

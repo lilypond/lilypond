@@ -7,7 +7,7 @@
 #ifndef KEYWORD_HH
 #define KEYWORD_HH
 
-#include "array.hh"
+#include "std-vector.hh"
 
 /* for the keyword table */
 struct Keyword_ent
@@ -21,10 +21,10 @@ struct Keyword_ent
 */
 struct Keyword_table
 {
-  Array<Keyword_ent> table_;
+  std::vector<Keyword_ent> table_;
 
   Keyword_table (Keyword_ent *);
-  int lookup (char const *s) const;
+  vsize lookup (char const *s) const;
 };
 
 #endif // KEYWORD_HH

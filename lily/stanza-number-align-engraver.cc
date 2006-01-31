@@ -37,21 +37,21 @@ void
 Stanza_number_align_engraver::acknowledge_lyric_syllable (Grob_info gi)
 {
   Grob *h = gi.grob ();
-  lyrics_.push (h);
+  lyrics_.push_back (h);
 }
 
 void
 Stanza_number_align_engraver::acknowledge_stanza_number (Grob_info gi)
 {
   Grob *h = gi.grob ();
-  stanza_numbers_.push (h);
+  stanza_numbers_.push_back (h);
 }
 
 void
 Stanza_number_align_engraver::stop_translation_timestep ()
 {
-  for (int i = lyrics_.size (); i--;)
-    for (int j = stanza_numbers_.size (); j--;)
+  for (vsize i = lyrics_.size (); i--;)
+    for (vsize j = stanza_numbers_.size (); j--;)
       Side_position_interface::add_support (stanza_numbers_[j], lyrics_[i]);
 
   stanza_numbers_.clear ();

@@ -44,7 +44,7 @@ Enclosing_bracket::print (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
   extract_grob_set (me, "elements", elements);
-  if (elements.is_empty ())
+  if (elements.empty ())
     {
       me->suicide ();
       return SCM_EOL;

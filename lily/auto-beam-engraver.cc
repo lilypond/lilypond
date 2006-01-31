@@ -182,7 +182,7 @@ Auto_beam_engraver::create_beam ()
   if (to_boolean (get_property ("skipTypesetting")))
     return 0;
 
-  for (int i = 0; i < stems_->size (); i++)
+  for (vsize i = 0; i < stems_->size (); i++)
     if (Stem::get_beam ((*stems_)[i]))
       return 0;
 
@@ -193,7 +193,7 @@ Auto_beam_engraver::create_beam ()
   Spanner *beam = new Spanner (beam_settings_,
 			       context ()->get_grob_key ("Beam"));
 
-  for (int i = 0; i < stems_->size (); i++)
+  for (vsize i = 0; i < stems_->size (); i++)
     Beam::add_stem (beam, (*stems_)[i]);
 
   announce_grob (beam, (*stems_)[0]->self_scm ());
@@ -387,7 +387,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
 
   grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
 		       durlog - 2);
-  stems_->push (stem);
+  stems_->push_back (stem);
   last_add_mom_ = now;
   extend_mom_ = max (extend_mom_, now) + m->get_length ();
 }

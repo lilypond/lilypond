@@ -302,7 +302,7 @@ BOM_UTF8	\357\273\277
 	{
 		yyinput ();
 	}
-	char_count_stack_.top () += n;
+	char_count_stack_.back () += n;
 
 	if (unpack_identifier (sval) != SCM_UNDEFINED)
 	{

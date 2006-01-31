@@ -40,7 +40,7 @@ Grob_info::origin_contexts (Translator *end) const
   Link_array<Context> r;
   do
     {
-      r.push (t);
+      r.push_back (t);
       t = t->get_parent_context ();
     }
   while (t && t != end->context ());

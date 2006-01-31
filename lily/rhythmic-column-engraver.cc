@@ -101,12 +101,12 @@ Rhythmic_column_engraver::process_acknowledged ()
 	  add_spacing_item (note_column_);
 	}
 
-      for (int i = 0; i < rheads_.size (); i++)
+      for (vsize i = 0; i < rheads_.size (); i++)
 	{
 	  if (!rheads_[i]->get_parent (X_AXIS))
 	    Note_column::add_head (note_column_, rheads_[i]);
 	}
-      rheads_.set_size (0);
+      rheads_.resize (0);
     }
 
   if (note_column_)
@@ -133,7 +133,7 @@ Rhythmic_column_engraver::acknowledge_stem (Grob_info i)
 void
 Rhythmic_column_engraver::acknowledge_rhythmic_head (Grob_info i)
 {
-  rheads_.push (i.grob ());
+  rheads_.push_back (i.grob ());
 }
 
 void

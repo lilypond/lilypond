@@ -19,7 +19,7 @@ Audio_column::Audio_column (Moment at_mom)
 void
 Audio_column::add_audio_item (Audio_item *l)
 {
-  audio_items_.push (l);
+  audio_items_.push_back (l);
   l->audio_column_ = this;
 }
 

@@ -27,7 +27,7 @@
  *
  * A concrete ligature engraver must subclass this class and provide
  * functions create_ligature_spanner () and typeset_ligature
- * (Spanner *, Array<Grob_info>).  Subclasses of this class basically
+ * (Spanner *, std::vector<Grob_info>).  Subclasses of this class basically
  * fall into two categories.
  *
  * The first category consists of engravers that engrave ligatures in
@@ -193,7 +193,7 @@ Ligature_engraver::acknowledge_note_head (Grob_info info)
 {
   if (ligature_)
     {
-      primitives_.push (info);
+      primitives_.push_back (info);
       if (info.grob () && (brew_ligature_primitive_proc != SCM_EOL))
 	{
 	  info.grob ()->set_property ("stencil", brew_ligature_primitive_proc);

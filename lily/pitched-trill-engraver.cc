@@ -50,12 +50,12 @@ Pitched_trill_engraver::Pitched_trill_engraver ()
 void
 Pitched_trill_engraver::acknowledge_dots (Grob_info info)
 {
-  heads_.push (info.grob ());
+  heads_.push_back (info.grob ());
 }
 void
 Pitched_trill_engraver::acknowledge_note_head (Grob_info info)
 {
-  heads_.push (info.grob ());
+  heads_.push_back (info.grob ());
 }
 
 void
@@ -122,7 +122,7 @@ void
 Pitched_trill_engraver::stop_translation_timestep ()
 {
   if (trill_group_)
-    for (int i = 0; i < heads_.size (); i++)
+    for (vsize i = 0; i < heads_.size (); i++)
       Side_position_interface::add_support (trill_group_, heads_[i]);
 
   heads_.clear ();

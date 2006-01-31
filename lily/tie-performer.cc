@@ -17,8 +17,8 @@ class Tie_performer : public Performer
 {
   Music *event_;
   Music *last_event_;
-  Array<Audio_element_info> now_heads_;
-  Array<Audio_element_info> heads_to_tie_;
+  std::vector<Audio_element_info> now_heads_;
+  std::vector<Audio_element_info> heads_to_tie_;
 
   bool ties_created_;
 
@@ -60,8 +60,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   if (Audio_note *an = dynamic_cast<Audio_note *> (inf.elem_))
     {
-      now_heads_.push (inf);
-      for (int i = heads_to_tie_.size (); i--;)
+      now_heads_.push_back (inf);
+      for (vsize i = heads_to_tie_.size (); i--;)
 	{
 	  Music *right_mus = inf.event_;
 

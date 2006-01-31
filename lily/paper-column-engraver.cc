@@ -71,7 +71,7 @@ Paper_column_engraver::initialize ()
 void
 Paper_column_engraver::acknowledge_item (Grob_info gi)
 {
-  items_.push (gi.item ());
+  items_.push_back (gi.item ());
 }
 
 void
@@ -168,7 +168,7 @@ Paper_column_engraver::process_music ()
 void
 Paper_column_engraver::stop_translation_timestep ()
 {
-  for (int i = 0; i < items_.size (); i++)
+  for (vsize i = 0; i < items_.size (); i++)
     {
       Item *elem = items_[i];
       if (!elem->get_parent (X_AXIS)

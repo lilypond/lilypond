@@ -32,7 +32,7 @@ protected:
   void start_translation_timestep ();
   void stop_translation_timestep ();
 
-  Array<Grob_pq_entry> started_now_;
+  std::vector<Grob_pq_entry> started_now_;
 };
 
 Grob_pq_engraver::Grob_pq_engraver ()
@@ -82,7 +82,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
       e.grob_ = gi.grob ();
       e.end_ = end;
 
-      started_now_.push (e);
+      started_now_.push_back (e);
     }
 }
 
@@ -98,7 +98,7 @@ Grob_pq_engraver::stop_translation_timestep ()
   started_now_.sort (Grob_pq_entry::compare);
   SCM lst = SCM_EOL;
   SCM *tail = &lst;
-  for (int i = 0; i < started_now_.size (); i++)
+  for (vsize i = 0; i < started_now_.size (); i++)
     {
       *tail = scm_acons (started_now_[i].end_.smobbed_copy (),
 			 started_now_[i].grob_->self_scm (),

@@ -38,14 +38,14 @@ Slur::calc_direction (SCM smob)
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "note-columns", encompasses);
 
-  if (encompasses.is_empty ())
+  if (encompasses.empty ())
     {
       me->suicide ();
       return SCM_BOOL_F;
     }
 
   Direction d = DOWN;
-  for (int i = 0; i < encompasses.size (); i++)
+  for (vsize i = 0; i < encompasses.size (); i++)
     {
       if (Note_column::dir (encompasses[i]) < 0)
 	{
@@ -64,7 +64,8 @@ Slur::height (SCM smob)
 
   // FIXME uncached
   Stencil *m = me->get_stencil ();
-  return m ? ly_interval2scm (m->extent (Y_AXIS)) : ly_interval2scm (Interval ());
+  return m ? ly_interval2scm (m->extent (Y_AXIS))
+    : ly_interval2scm (Interval ());
 }
 
 /*
@@ -76,7 +77,7 @@ Slur::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "note-columns", encompasses);
-  if (encompasses.is_empty ())
+  if (encompasses.empty ())
     {
       me->suicide ();
       return SCM_EOL;

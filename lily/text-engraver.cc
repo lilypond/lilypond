@@ -37,7 +37,7 @@ Text_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("text-script-event"))
     {
-      evs_.push (m);
+      evs_.push_back (m);
       return true;
     }
   return false;
@@ -46,7 +46,7 @@ Text_engraver::try_music (Music *m)
 void
 Text_engraver::acknowledge_rhythmic_head (Grob_info inf)
 {
-  for (int i = 0; i < texts_.size (); i++)
+  for (vsize i = 0; i < texts_.size (); i++)
     {
       Grob *t = texts_[i];
       Side_position_interface::add_support (t, inf.grob ());
@@ -66,14 +66,14 @@ Text_engraver::acknowledge_rhythmic_head (Grob_info inf)
 void
 Text_engraver::acknowledge_stem (Grob_info inf)
 {
-  for (int i = 0; i < texts_.size (); i++)
+  for (vsize i = 0; i < texts_.size (); i++)
     Side_position_interface::add_support (texts_[i], inf.grob ());
 }
 
 void
 Text_engraver::acknowledge_stem_tremolo (Grob_info info)
 {
-  for (int i = 0; i < texts_.size (); i++)
+  for (vsize i = 0; i < texts_.size (); i++)
     Side_position_interface::add_support (texts_[i], info.grob ());
 }
 
@@ -82,7 +82,7 @@ Text_engraver::process_acknowledged ()
 {
   if (texts_.size ())
     return;
-  for (int i = 0; i < evs_.size (); i++)
+  for (vsize i = 0; i < evs_.size (); i++)
     {
       Music *r = evs_[i];
 
@@ -110,7 +110,7 @@ Text_engraver::process_acknowledged ()
       SCM mark = r->get_property ("text");
 
       text->set_property ("text", mark);
-      texts_.push (text);
+      texts_.push_back (text);
     }
 }
 

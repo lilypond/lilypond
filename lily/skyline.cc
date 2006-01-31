@@ -29,7 +29,7 @@
   skyline[...].width_ forms a partition of the real interval, where
   the segments are adjacent, and ascending. Hence we have
 
-  skyline.top ().width_[RIGHT] = inf
+  skyline.back ().width_[RIGHT] = inf
   skyline[0].width_[LEFT] = -inf
 */
 
@@ -42,7 +42,7 @@ const Real EPS = 1e-12;
   binsearch.
 */
 void
-insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
+insert_extent_into_skyline (std::vector<Skyline_entry> *line, Box b, Axis line_axis,
 			    Direction d)
 {
   Interval extent = b[line_axis];
@@ -54,7 +54,7 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
   /*
     Intersect each segment of LINE with EXTENT, and if non-empty, insert relevant segments.
   */
-  for (int i = line->size (); i--;)
+  for (vsize i = line->size (); i--;)
     {
       Interval w = line->elem (i).width_;
       w.intersect (extent);
@@ -83,11 +83,11 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
 }
 
 void
-merge_skyline (Array<Skyline_entry> *a1,
-	       Array<Skyline_entry> const &a2,
+merge_skyline (std::vector<Skyline_entry> *a1,
+	       std::vector<Skyline_entry> const &a2,
 	       Direction dir)
 {
-  for (int i = 0; i < a2.size (); i++)
+  for (vsize i = 0; i < a2.size (); i++)
     {
       Box b;
       b[X_AXIS] = a2[i].width_;
@@ -98,10 +98,10 @@ merge_skyline (Array<Skyline_entry> *a1,
     }
 }
 
-Array<Skyline_entry>
+std::vector<Skyline_entry>
 empty_skyline (Direction d)
 {
-  Array<Skyline_entry> skyline;
+  std::vector<Skyline_entry> skyline;
 
   Interval i;
   i.set_empty ();
@@ -109,15 +109,15 @@ empty_skyline (Direction d)
   Skyline_entry e;
   e.width_ = i;
   e.height_ = -d * infinity_f;
-  skyline.push (e);
+  skyline.push_back (e);
   return skyline;
 }
 
-Array<Skyline_entry>
-extents_to_skyline (Array<Box> const &extents, Axis a, Direction d)
+std::vector<Skyline_entry>
+extents_to_skyline (std::vector<Box> const &extents, Axis a, Direction d)
 {
 
-  Array<Skyline_entry> skyline = empty_skyline (d);
+  std::vector<Skyline_entry> skyline = empty_skyline (d);
 
   /*
     This makes a cubic algorithm (array  insertion is O (n),
@@ -126,7 +126,7 @@ extents_to_skyline (Array<Box> const &extents, Axis a, Direction d)
     We could do a lot better (n log (n), using a balanced tree) but
     that seems overkill for now.
   */
-  for (int j = extents.size (); j--;)
+  for (vsize j = extents.size (); j--;)
     insert_extent_into_skyline (&skyline, extents[j], a, d);
 
   return skyline;
@@ -139,8 +139,8 @@ extents_to_skyline (Array<Box> const &extents, Axis a, Direction d)
   This is an O (n) algorithm.
 */
 Real
-skyline_meshing_distance (Array<Skyline_entry> const &buildings,
-			  Array<Skyline_entry> const &clouds)
+skyline_meshing_distance (std::vector<Skyline_entry> const &buildings,
+			  std::vector<Skyline_entry> const &clouds)
 {
   int i = buildings.size () -1;
   int j = clouds.size () -1;
@@ -176,14 +176,14 @@ Skyline_entry::Skyline_entry (Interval i, Real r)
 }
 
 void
-heighten_skyline (Array<Skyline_entry> *buildings, Real ground)
+heighten_skyline (std::vector<Skyline_entry> *buildings, Real ground)
 {
-  for (int i = 0; i < buildings->size (); i++)
+  for (vsize i = 0; i < buildings->size (); i++)
     buildings->elem_ref (i).height_ += ground;
 }
 
 Real
-skyline_height (Array<Skyline_entry> const &buildings,
+skyline_height (std::vector<Skyline_entry> const &buildings,
 		Real airplane,
 		Direction sky_dir)
 {
@@ -192,7 +192,7 @@ skyline_height (Array<Skyline_entry> const &buildings,
   /*
     Ugh! linear, should be O(log n).
    */
-  for (int i = 0; i < buildings.size (); i++)
+  for (vsize i = 0; i < buildings.size (); i++)
     if (buildings[i].width_.contains (airplane))
       h = sky_dir * max (sky_dir * h,
 			 sky_dir * buildings[i].height_);

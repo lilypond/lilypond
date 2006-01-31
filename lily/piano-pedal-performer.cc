@@ -85,7 +85,7 @@ Piano_pedal_performer::process_music ()
 	      Audio_piano_pedal *a = new Audio_piano_pedal;
 	      a->type_string_ = std::string (p->name_);
 	      a->dir_ = STOP;
-	      audios_.push (a);
+	      audios_.push_back (a);
               Audio_element_info info(a, p->event_drul_[STOP]);
               announce_element (info);
 	    }
@@ -98,7 +98,7 @@ Piano_pedal_performer::process_music ()
 	  Audio_piano_pedal *a = new Audio_piano_pedal;
 	  a->type_string_ = std::string (p->name_);
 	  a->dir_ = START;
-	  audios_.push (a);
+	  audios_.push_back (a);
           Audio_element_info info(a, p->event_drul_[START]);
           announce_element (info);
 	}
@@ -110,7 +110,7 @@ Piano_pedal_performer::process_music ()
 void
 Piano_pedal_performer::stop_translation_timestep ()
 {
-  for (int i = 0; i < audios_.size (); i++)
+  for (vsize i = 0; i < audios_.size (); i++)
     play_element (audios_[i]);
   audios_.clear ();
 }

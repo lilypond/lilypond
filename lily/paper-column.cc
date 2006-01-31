@@ -159,7 +159,7 @@ Paper_column::before_line_breaking (SCM grob)
 
   Link_array<Grob> &array (ga->array_reference ());
 
-  for (int i = array.size (); i--;)
+  for (vsize i = array.size (); i--;)
     {
       Grob *g = array[i];
 

@@ -31,7 +31,7 @@ Output_property_engraver::try_music (Music* m)
 {
   if (m->is_mus_type ("layout-instruction"))
     {
-      props_.push (m);
+      props_.push_back (m);
       return true;
     }
   return false;
@@ -40,7 +40,7 @@ Output_property_engraver::try_music (Music* m)
 void
 Output_property_engraver::acknowledge_grob (Grob_info inf)
 {
-  for (int i = props_.size (); i--;)
+  for (vsize i = props_.size (); i--;)
     {
       Music *o = props_[i];
       Context *d = inf.context ();

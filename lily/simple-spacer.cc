@@ -132,7 +132,7 @@ Real
 Simple_spacer::active_blocking_force () const
 {
   Real bf = -infinity_f;
-  for (int i = 0; i < springs_.size (); i++)
+  for (vsize i = 0; i < springs_.size (); i++)
     if (springs_[i].is_active_)
       bf = max (bf, springs_[i].block_force_);
   return bf;
@@ -151,7 +151,7 @@ Simple_spacer::active_springs_stiffness () const
 
       Real max_block_force = -infinity_f;
       int max_i = -1;
-      for (int i = 0; i < springs_.size (); i++)
+      for (vsize i = 0; i < springs_.size (); i++)
 	{
 	  if (springs_[i].block_force_ > max_block_force)
 	    {
@@ -169,7 +169,7 @@ void
 Simple_spacer::set_active_states ()
 {
   /* float comparison is safe, since force is only copied.  */
-  for (int i = 0; i < springs_.size (); i++)
+  for (vsize i = 0; i < springs_.size (); i++)
     if (springs_[i].is_active_
 	&& springs_[i].block_force_ >= force_)
       {
@@ -182,7 +182,7 @@ Real
 Simple_spacer::configuration_length () const
 {
   Real l = 0.;
-  for (int i = 0; i < springs_.size (); i++)
+  for (vsize i = 0; i < springs_.size (); i++)
     l += springs_[i].length (force_);
 
   return l;
@@ -292,11 +292,11 @@ Simple_spacer_wrapper::solve (Column_x_positions *positions, bool ragged)
     We used to have a penalty for compression, no matter what, but that
     fucked up wtk1-fugue2 (taking 3 full pages.)
   */
-  positions->config_.push (spacer_->indent_);
-  for (int i = 0; i < spacer_->springs_.size (); i++)
+  positions->config_.push_back (spacer_->indent_);
+  for (vsize i = 0; i < spacer_->springs_.size (); i++)
     {
       Real l = spacer_->springs_[i].length ((ragged) ? 0.0 : spacer_->force_);
-      positions->config_.push (positions->config_.top () + l);
+      positions->config_.push_back (positions->config_.back () + l);
       /*
 	we have l>= 0 here, up to rounding errors
       */
@@ -309,7 +309,7 @@ Simple_spacer_wrapper::solve (Column_x_positions *positions, bool ragged)
   if (ragged)
     {
       positions->satisfies_constraints_
-	= positions->config_.top () < spacer_->line_len_;
+	= positions->config_.back () < spacer_->line_len_;
     }
   else
     positions->satisfies_constraints_ = spacer_->is_active ();
@@ -365,7 +365,7 @@ Simple_spacer::add_spring (Real ideal, Real inverse_hooke)
 
       active_count_++;
     }
-  springs_.push (desc);
+  springs_.push_back (desc);
 }
 
 static int
@@ -381,14 +381,14 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
   Link_array<Grob> cols (icols);
   cols.clear ();
 
-  for (int i = 0; i < icols.size (); i++)
+  for (vsize i = 0; i < icols.size (); i++)
     if (scm_is_pair (icols[i]->get_object ("between-cols")))
-      loose_cols_.push (icols[i]);
+      loose_cols_.push_back (icols[i]);
     else
-      cols.push (icols[i]);
+      cols.push_back (icols[i]);
 
   spaced_cols_ = cols;
-  for (int i = 0; i < cols.size () - 1; i++)
+  for (vsize i = 0; i < cols.size () - 1; i++)
     {
       Spring_smob *spring = 0;
 
@@ -412,7 +412,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
       spacer_->add_spring (ideal, inverse_hooke);
     }
 
-  for (int i = 0; i < cols.size () - 1; i++)
+  for (vsize i = 0; i < cols.size () - 1; i++)
     {
       for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
 	   scm_is_pair (s); s = scm_cdr (s))

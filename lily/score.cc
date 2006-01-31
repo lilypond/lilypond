@@ -51,7 +51,7 @@ Score::mark_smob (SCM s)
   Score *sc = (Score *) SCM_CELL_WORD_1 (s);
 
   scm_gc_mark (sc->header_);
-  for (int i = sc->defs_.size (); i--;)
+  for (vsize i = sc->defs_.size (); i--;)
     scm_gc_mark (sc->defs_[i]->self_scm ());
   return sc->music_;
 }
@@ -81,10 +81,10 @@ Score::Score (Score const &s)
   else
     music_ = SCM_EOL;
 
-  for (int i = 0, n = s.defs_.size (); i < n; i++)
+  for (vsize i = 0, n = s.defs_.size (); i < n; i++)
     {
       Output_def *copy = s.defs_[i]->clone ();
-      defs_.push (copy);
+      defs_.push_back (copy);
       copy->unprotect ();
     }
   header_ = ly_make_anonymous_module (false);
@@ -237,5 +237,5 @@ Score::get_music () const
 void
 Score::add_output_def (Output_def *def)
 {
-  defs_.push (def);
+  defs_.push_back (def);
 }

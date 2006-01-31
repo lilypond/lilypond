@@ -17,19 +17,19 @@ int tabcmp (Keyword_ent const &p1, Keyword_ent const &p2)
 Keyword_table::Keyword_table (Keyword_ent *tab)
 {
   while (tab->name_)
-    table_.push (*tab++);
+    table_.push_back (*tab++);
 
   table_.sort (tabcmp);
 }
 
-int
+vsize
 Keyword_table::lookup (char const *s) const
 {
   Keyword_ent e;
   e.name_ = s;
-  int idx = binary_search (table_, e, tabcmp);
-  if (idx >= 0)
+  vsize idx = binary_search (table_, e, tabcmp);
+  if (idx != VPOS)
     return table_[idx].tokcode_;
   else
-    return -1;
+    return VPOS;
 }

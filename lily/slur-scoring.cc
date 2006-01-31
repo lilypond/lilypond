@@ -285,7 +285,7 @@ Slur_score_state::fill (Grob *me)
   columns_
     = internal_extract_grob_array (me, ly_symbol2scm ("note-columns"));
 
-  if (columns_.is_empty ())
+  if (columns_.empty ())
     {
       me->suicide ();
       return;
@@ -336,8 +336,8 @@ Slur_score_state::fill (Grob *me)
     = get_y_attachment_range ();
 
   configurations_ = enumerate_attachments (end_ys);
-  for (int i = 0; i < columns_.size (); i++)
-    encompass_infos_.push (get_encompass_info (columns_[i]));
+  for (vsize i = 0; i < columns_.size (); i++)
+    encompass_infos_.push_back (get_encompass_info (columns_[i]));
 
   extra_encompass_infos_ = get_extra_encompass_infos ();
   valid_ = true;
@@ -417,9 +417,9 @@ Slur_score_state::get_best_curve ()
   else
 #endif
     {
-      for (int i = 0; i < configurations_.size (); i++)
+      for (vsize i = 0; i < configurations_.size (); i++)
 	configurations_[i]->score (*this);
-      for (int i = 0; i < configurations_.size (); i++)
+      for (vsize i = 0; i < configurations_.size (); i++)
 	{
 	  if (configurations_[i]->score_ < opt)
 	    {
@@ -457,7 +457,7 @@ Slur_score_state::get_closest_index (SCM inspect_quants) const
 
   int opt_idx = -1;
   Real mindist = 1e6;
-  for (int i = 0; i < configurations_.size (); i++)
+  for (vsize i = 0; i < configurations_.size (); i++)
     {
       Real d = fabs (configurations_[i]->attachment_[LEFT][Y_AXIS] - ins[LEFT])
 	+ fabs (configurations_[i]->attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
@@ -567,7 +567,7 @@ Slur_score_state::get_base_attachments () const
 	    x = extremes_[d].bound_->extent (common_[X_AXIS], X_AXIS)[d];
 	  else
 	    x = slur_->get_broken_left_end_align ();
-	  Grob *col = (d == LEFT) ? columns_[0] : columns_.top ();
+	  Grob *col = (d == LEFT) ? columns_[0] : columns_.back ();
 
 	  if (extremes_[-d].bound_ != col)
 	    {
@@ -631,13 +631,13 @@ Slur_score_state::move_away_from_staffline (Real y,
   return y;
 }
 
-Array<Offset>
+std::vector<Offset>
 Slur_score_state::generate_avoid_offsets () const
 {
-  Array<Offset> avoid;
+  std::vector<Offset> avoid;
   Link_array<Grob> encompasses = columns_;
 
-  for (int i = 0; i < encompasses.size (); i++)
+  for (vsize i = 0; i < encompasses.size (); i++)
     {
       if (extremes_[LEFT].note_column_ == encompasses[i]
 	  || extremes_[RIGHT].note_column_ == encompasses[i])
@@ -646,11 +646,11 @@ Slur_score_state::generate_avoid_offsets () const
       Encompass_info inf (get_encompass_info (encompasses[i]));
       Real y = dir_ * (max (dir_ * inf.head_, dir_ * inf.stem_));
 
-      avoid.push (Offset (inf.x_, y + dir_ * parameters_.free_head_distance_));
+      avoid.push_back (Offset (inf.x_, y + dir_ * parameters_.free_head_distance_));
     }
 
   extract_grob_set (slur_, "encompass-objects", extra_encompasses);
-  for (int i = 0; i < extra_encompasses.size (); i++)
+  for (vsize i = 0; i < extra_encompasses.size (); i++)
     {
       if (Slur::has_interface (extra_encompasses[i]))
 	{
@@ -662,7 +662,7 @@ Slur_score_state::generate_avoid_offsets () const
 		       small_slur->relative_coordinate (common_[Y_AXIS], Y_AXIS));
 
 	  z[Y_AXIS] += dir_ * parameters_.free_slur_distance_;
-	  avoid.push (z);
+	  avoid.push_back (z);
 	}
       else if (extra_encompasses[i]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
 	{
@@ -672,7 +672,7 @@ Slur_score_state::generate_avoid_offsets () const
 
 	  if (!xe.is_empty ()
 	      && !ye.is_empty ())
-	    avoid.push (Offset (xe.center(), ye[dir_]));
+	    avoid.push_back (Offset (xe.center(), ye[dir_]));
 	}
     }  
   return avoid;
@@ -684,8 +684,8 @@ Slur_score_state::generate_curves () const
   Real r_0 = robust_scm2double (slur_->get_property ("ratio"), 0.33);
   Real h_inf = staff_space_ * scm_to_double (slur_->get_property ("height-limit"));
 
-  Array<Offset> avoid = generate_avoid_offsets ();
-  for (int i = 0; i < configurations_.size (); i++)
+  std::vector<Offset> avoid = generate_avoid_offsets ();
+  for (vsize i = 0; i < configurations_.size (); i++)
     configurations_[i]->generate_curve (*this, r_0, h_inf, avoid);
 }
 
@@ -768,7 +768,7 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 	  s.attachment_ = os;
 	  s.index_ = scores.size ();
 
-	  scores.push (new Slur_configuration (s));
+	  scores.push_back (new Slur_configuration (s));
 
 	  os[RIGHT][Y_AXIS] += dir_ * staff_space_ / 2;
 	}
@@ -780,12 +780,12 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
   return scores;
 }
 
-Array<Extra_collision_info>
+std::vector<Extra_collision_info>
 Slur_score_state::get_extra_encompass_infos () const
 {
   extract_grob_set (slur_, "encompass-objects", encompasses);
-  Array<Extra_collision_info> collision_infos;
-  for (int i = encompasses.size (); i--;)
+  std::vector<Extra_collision_info> collision_infos;
+  for (vsize i = encompasses.size (); i--;)
     {
       if (Slur::has_interface (encompasses[i]))
 	{
@@ -820,7 +820,7 @@ Slur_score_state::get_extra_encompass_infos () const
 					 xext,
 					 yext,
 					 parameters_.extra_object_collision_penalty_);
-	      collision_infos.push (info);
+	      collision_infos.push_back (info);
 	    }
 	}
       else
@@ -868,7 +868,7 @@ Slur_score_state::get_extra_encompass_infos () const
 	  ye.widen (thickness_ * 0.5);
 	  xe.widen (thickness_ * 1.0);
 	  Extra_collision_info info (g, xp, xe, ye, penalty);
-	  collision_infos.push (info);
+	  collision_infos.push_back (info);
 	}
     }
 

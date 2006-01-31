@@ -62,7 +62,7 @@ Lyric_performer::try_music (Music *event)
 {
   if (event->is_mus_type ("lyric-event"))
     {
-      events_.push (event);
+      events_.push_back (event);
       return true;
     }
   return false;

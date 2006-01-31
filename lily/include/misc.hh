@@ -12,7 +12,7 @@
 #include <cstdlib>
 using namespace std;
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "interval.hh"
 
 double log_2 (double x);
@@ -28,7 +28,7 @@ sign (int i)
   else return 0;
 }
 
-Array<std::string> split_string (std::string s, char c);
+std::vector<std::string> split_string (std::string s, char c);
 
 inline Real
 linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)

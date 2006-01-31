@@ -121,9 +121,9 @@ Lily_parser::parse_file (std::string init, std::string name, std::string out_nam
 
   scm_set_current_module (mod);
 
-  if (!define_spots_.is_empty ())
+  if (!define_spots_.empty ())
     {
-      define_spots_.top ().warning (_ ("braces don't match"));
+      define_spots_.back ().warning (_ ("braces don't match"));
       error_level_ = 1;
     }
 
@@ -148,9 +148,9 @@ Lily_parser::parse_string (std::string ly_code)
   do_yyparse ();
   scm_set_current_module (mod);
 
-  if (!define_spots_.is_empty ())
+  if (!define_spots_.empty ())
     {
-      if (define_spots_.is_empty ()
+      if (define_spots_.empty ()
 	  && !error_level_)
 	programming_error ("define_spots_ don't match, but error_level_ not set.");
     }

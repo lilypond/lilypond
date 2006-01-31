@@ -43,7 +43,7 @@ Span_bar_engraver::acknowledge_bar_line (Grob_info i)
   if (depth && Bar_line::has_interface (i.grob ()))
     {
       Item *it = dynamic_cast<Item *> (i.grob ());
-      bars_.push (it);
+      bars_.push_back (it);
 
       if (bars_.size () >= 2 && !spanbar_)
 	{
@@ -59,7 +59,7 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
-      for (int i = 0; i < bars_.size (); i++)
+      for (vsize i = 0; i < bars_.size (); i++)
 	Span_bar::add_bar (spanbar_, bars_[i]);
 
       SCM vissym = ly_symbol2scm ("break-visibility");
@@ -69,7 +69,7 @@ Span_bar_engraver::stop_translation_timestep ()
 
       spanbar_ = 0;
     }
-  bars_.set_size (0);
+  bars_.resize (0);
 }
 
 #include "translator.icc"

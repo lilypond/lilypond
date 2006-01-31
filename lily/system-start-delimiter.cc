@@ -96,7 +96,7 @@ System_start_delimiter::print (SCM smob)
 
   Interval ext;
   int non_empty_count = 0;
-  for (int i = elts.size (); i--;)
+  for (vsize i = elts.size (); i--;)
     {
       Spanner *sp = dynamic_cast<Spanner *> (elts[i]);
 

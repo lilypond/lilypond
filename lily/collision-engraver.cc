@@ -32,7 +32,7 @@ Collision_engraver::process_acknowledged ()
   if (!col_)
     col_ = make_item ("NoteCollision", SCM_EOL);
 
-  for (int i = 0; i < note_columns_.size (); i++)
+  for (vsize i = 0; i < note_columns_.size (); i++)
     Note_collision_interface::add_column (col_, note_columns_[i]);
 }
 
@@ -45,7 +45,7 @@ Collision_engraver::acknowledge_note_column (Grob_info i)
       if (Note_column::has_rests (i.grob ()) || i.grob ()->get_parent (X_AXIS))
 	return;
 
-      note_columns_.push (i.grob ());
+      note_columns_.push_back (i.grob ());
     }
 }
 

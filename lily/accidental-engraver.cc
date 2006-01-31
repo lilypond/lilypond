@@ -82,7 +82,7 @@ public:
 
   Grob *accidental_placement_;
 
-  Array<Accidental_entry> accidentals_;
+  std::vector<Accidental_entry> accidentals_;
   Link_array<Spanner> ties_;
 };
 
@@ -304,13 +304,13 @@ Accidental_engraver::get_bar_number ()
 void
 Accidental_engraver::process_acknowledged ()
 {
-  if (accidentals_.size () && !accidentals_.top ().done_)
+  if (accidentals_.size () && !accidentals_.back ().done_)
     {
       SCM accidentals = get_property ("autoAccidentals");
       SCM cautionaries = get_property ("autoCautionaries");
       int barnum = get_bar_number ();
 
-      for (int i = 0; i < accidentals_.size (); i++)
+      for (vsize i = 0; i < accidentals_.size (); i++)
 	{
 	  if (accidentals_[i].done_)
 	    continue;
@@ -406,9 +406,9 @@ Accidental_engraver::make_standard_accidental (Music *note,
     We add the accidentals to the support of the arpeggio,
     so it is put left of the accidentals.
   */
-  for (int i = 0; i < left_objects_.size (); i++)
+  for (vsize i = 0; i < left_objects_.size (); i++)
     Side_position_interface::add_support (left_objects_[i], a);
-  for (int i = 0; i < right_objects_.size (); i++)
+  for (vsize i = 0; i < right_objects_.size (); i++)
     Side_position_interface::add_support (a, right_objects_[i]);
 
   a->set_parent (support, Y_AXIS);
@@ -451,10 +451,10 @@ Accidental_engraver::finalize ()
 void
 Accidental_engraver::stop_translation_timestep ()
 {
-  for (int j = ties_.size (); j--;)
+  for (vsize j = ties_.size (); j--;)
     {
       Grob *r = Tie::head (ties_[j], RIGHT);
-      for (int i = accidentals_.size (); i--;)
+      for (vsize i = accidentals_.size (); i--;)
 	if (accidentals_[i].head_ == r)
 	  {
 	    if (Grob *g = accidentals_[i].accidental_)
@@ -467,7 +467,7 @@ Accidental_engraver::stop_translation_timestep ()
 	  }
     }
 
-  for (int i = accidentals_.size (); i--;)
+  for (vsize i = accidentals_.size (); i--;)
     {
       int barnum = get_bar_number ();
 
@@ -544,7 +544,7 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
 	  entry.origin_ = entry.origin_engraver_->context ();
 	  entry.melodic_ = note;
 
-	  accidentals_.push (entry);
+	  accidentals_.push_back (entry);
 	}
     }
 }
@@ -552,19 +552,19 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
 void
 Accidental_engraver::acknowledge_tie (Grob_info info)
 {
-  ties_.push (dynamic_cast<Spanner *> (info.grob ()));
+  ties_.push_back (dynamic_cast<Spanner *> (info.grob ()));
 }
 
 void
 Accidental_engraver::acknowledge_arpeggio (Grob_info info)
 {
-  left_objects_.push (info.grob ());
+  left_objects_.push_back (info.grob ());
 }
 
 void
 Accidental_engraver::acknowledge_finger (Grob_info info)
 {
-  left_objects_.push (info.grob ());
+  left_objects_.push_back (info.grob ());
 }
 
 void

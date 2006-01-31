@@ -13,13 +13,13 @@
 #include "ly-smobs.icc"
 
 Item *
-Grob_array::item (int i)
+Grob_array::item (vsize i)
 {
   return dynamic_cast<Item *> (grobs_.elem (i));
 }
 
 Spanner *
-Grob_array::spanner (int i)
+Grob_array::spanner (vsize i)
 {
   return dynamic_cast<Spanner *> (grobs_.elem (i));
 }
@@ -48,7 +48,7 @@ Grob_array::mark_smob (SCM s)
 
 #if 0  /* see System::derived_mark () const */
   Grob_array *ga = unsmob_grob_array (s);
-  for (int i = 0; i < ga->grobs_.size (); i++)
+  for (vsize i = 0; i < ga->grobs_.size (); i++)
     scm_gc_mark (ga->grobs_[i]->self_scm ());
 #endif
   return SCM_UNDEFINED;
@@ -60,7 +60,7 @@ Grob_array::print_smob (SCM arr, SCM port, scm_print_state*)
   scm_puts ("#<Grob_array", port);
 
   Grob_array *grob_arr = unsmob (arr);
-  for (int i = 0; i < grob_arr->size (); i++)
+  for (vsize i = 0; i < grob_arr->size (); i++)
     {
       scm_display (grob_arr->grob (i)->self_scm (), port);
       scm_puts (" ", port);
@@ -83,9 +83,9 @@ Grob_array::clear ()
 }
 
 bool
-Grob_array::is_empty () const
+Grob_array::empty () const
 {
-  return grobs_.is_empty ();
+  return grobs_.empty ();
 }
 
 void

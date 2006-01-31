@@ -43,9 +43,9 @@ struct Finger_tuple
 
 class New_fingering_engraver : public Engraver
 {
-  Array<Finger_tuple> fingerings_;
-  Array<Finger_tuple> articulations_;
-  Array<Finger_tuple> string_numbers_;
+  std::vector<Finger_tuple> fingerings_;
+  std::vector<Finger_tuple> articulations_;
+  std::vector<Finger_tuple> string_numbers_;
 
   Link_array<Grob> heads_;
   Grob *stem_;
@@ -59,7 +59,7 @@ protected:
   void add_fingering (Grob *, Music *, Music *);
   void add_script (Grob *, Music *, Music *);
   void add_string (Grob *, Music *, Music *);
-  void position_scripts (SCM orientations, Array<Finger_tuple> *);
+  void position_scripts (SCM orientations, std::vector<Finger_tuple> *);
 };
 
 void
@@ -95,7 +95,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 	}
     }
 
-  heads_.push (inf.grob ());
+  heads_.push_back (inf.grob ());
 }
 
 void
@@ -119,7 +119,7 @@ New_fingering_engraver::add_script (Grob *head,
     {
       ft.script_ = g;
 
-      articulations_.push (ft);
+      articulations_.push_back (ft);
 
       ft.script_->set_parent (head, X_AXIS);
     }
@@ -159,7 +159,7 @@ New_fingering_engraver::add_fingering (Grob *head,
   ft.note_event_ = hevent;
   ft.head_ = head;
 
-  fingerings_.push (ft);
+  fingerings_.push_back (ft);
 }
 
 void
@@ -182,14 +182,14 @@ New_fingering_engraver::add_string (Grob *head,
   ft.note_event_ = hevent;
   ft.head_ = head;
 
-  string_numbers_.push (ft);
+  string_numbers_.push_back (ft);
 }
 
 void
 New_fingering_engraver::position_scripts (SCM orientations,
-					  Array<Finger_tuple> *scripts)
+					  std::vector<Finger_tuple> *scripts)
 {
-  for (int i = 0; i < scripts->size (); i++)
+  for (vsize i = 0; i < scripts->size (); i++)
     if (stem_ && to_boolean (scripts->elem (i).script_->get_property ("add-stem-support")))
       Side_position_interface::add_support (scripts->elem (i).script_, stem_);
 
@@ -202,20 +202,20 @@ New_fingering_engraver::position_scripts (SCM orientations,
     to the note head, and write a more flexible function for
     positioning the fingerings, setting both X and Y coordinates.
   */
-  for (int i = 0; i < scripts->size (); i++)
+  for (vsize i = 0; i < scripts->size (); i++)
     (*scripts)[i].position_ = scm_to_int ((*scripts)[i].head_->get_property ("staff-position"));
 
-  for (int i = scripts->size (); i--;)
-    for (int j = heads_.size (); j--;)
+  for (vsize i = scripts->size (); i--;)
+    for (vsize j = heads_.size (); j--;)
       Side_position_interface::add_support ((*scripts)[i].script_, heads_[j]);
 
-  Array<Finger_tuple> up, down, horiz;
-  for (int i = scripts->size (); i--;)
+  std::vector<Finger_tuple> up, down, horiz;
+  for (vsize i = scripts->size (); i--;)
     {
       SCM d = (*scripts)[i].finger_event_->get_property ("direction");
       if (to_dir (d))
 	{
-	  ((to_dir (d) == UP) ? up : down).push ((*scripts)[i]);
+	  ((to_dir (d) == UP) ? up : down).push_back ((*scripts)[i]);
 	  scripts->del (i);
 	}
     }
@@ -230,11 +230,14 @@ New_fingering_engraver::position_scripts (SCM orientations,
   if (left_p || right_p)
     {
       if (up_p && !up.size () && scripts->size ())
-	up.push (scripts->pop ());
+	{
+	  up.push_back (scripts->back ());
+	  scripts->pop_back ();
+	}
 
       if (down_p && !down.size () && scripts->size ())
 	{
-	  down.push ((*scripts)[0]);
+	  down.push_back ((*scripts)[0]);
 	  scripts->del (0);
 	}
 
@@ -262,7 +265,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       scripts->clear ();
     }
 
-  for (int i = 0; i < horiz.size (); i++)
+  for (vsize i = 0; i < horiz.size (); i++)
     {
       Finger_tuple ft = horiz[i];
       Grob *f = ft.script_;
@@ -279,10 +282,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
   int finger_prio = 200;
 
   Direction d = DOWN;
-  Drul_array< Array<Finger_tuple> > vertical (down, up);
+  Drul_array< std::vector<Finger_tuple> > vertical (down, up);
   do
     {
-      for (int i = 0; i < vertical[d].size (); i++)
+      for (vsize i = 0; i < vertical[d].size (); i++)
 	{
 	  Finger_tuple ft = vertical[d][i];
 	  Grob *f = ft.script_;
@@ -317,11 +320,11 @@ New_fingering_engraver::stop_translation_timestep ()
       string_numbers_.clear ();
     }
 
-  for (int i = articulations_.size (); i--;)
+  for (vsize i = articulations_.size (); i--;)
     {
       Grob *script = articulations_[i].script_;
 
-      for (int j = heads_.size (); j--;)
+      for (vsize j = heads_.size (); j--;)
 	Side_position_interface::add_support (script, heads_[j]);
 
       if (stem_ && to_dir (script->get_property ("side-relative-direction")))

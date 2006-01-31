@@ -57,9 +57,9 @@ struct Break_node
 };
 
 void
-print_break_nodes (Array<Break_node> const &arr)
+print_break_nodes (std::vector<Break_node> const &arr)
 {
-  for (int i = 0; i < arr.size (); i++)
+  for (vsize i = 0; i < arr.size (); i++)
     {
       printf ("node %d: ", i);
       arr[i].print ();
@@ -74,23 +74,23 @@ print_break_nodes (Array<Break_node> const &arr)
    TODO: should rewrite. See the function in scm/page-layout.scm for
    inspiration.
 */
-Array<Column_x_positions>
+std::vector<Column_x_positions>
 Gourlay_breaking::do_solve () const
 {
-  Array<Break_node> optimal_paths;
+  std::vector<Break_node> optimal_paths;
   Link_array<Grob> all
     = pscore_->root_system ()->columns ();
 
-  Array<int> breaks = find_break_indices ();
+  std::vector<int> breaks = find_break_indices ();
 
   Break_node first_node;
-  optimal_paths.push (first_node);
+  optimal_paths.push_back (first_node);
 
   bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("raggedright"));
   bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("raggedlast"));
 
   Real worst_force = 0.0;
-  for (int break_idx = 1; break_idx < breaks.size (); break_idx++)
+  for (vsize break_idx = 1; break_idx < breaks.size (); break_idx++)
     {
       /*
 	start with a short line, add measures. At some point
@@ -102,12 +102,13 @@ Gourlay_breaking::do_solve () const
 
       Real minimal_demerits = infinity_f;
 
-      for (int start_idx = break_idx; start_idx--;)
+      for (vsize start_idx = break_idx; start_idx--;)
 	{
-	  Link_array<Grob> line = all.slice (breaks[start_idx], breaks[break_idx] + 1);
+	  Link_array<Grob> line = all.slice (breaks[start_idx],
+					     breaks[break_idx] + 1);
 
 	  line[0] = dynamic_cast<Item *> (line[0])->find_prebroken_piece (RIGHT);
-	  line.top () = dynamic_cast<Item *> (line.top ())->find_prebroken_piece (LEFT);
+	  line.back () = dynamic_cast<Item *> (line.back ())->find_prebroken_piece (LEFT);
 
 	  Column_x_positions cp;
 	  cp.cols_ = line;
@@ -172,7 +173,7 @@ Gourlay_breaking::do_solve () const
 	  bnod.line_config_ = minimal_sol;
 	}
       bnod.line_ = optimal_paths[bnod.prev_break_].line_ + 1;
-      optimal_paths.push (bnod);
+      optimal_paths.push_back (bnod);
 
       if (! (break_idx % HAPPY_DOTS))
 	progress_indication (std::string ("[") + to_string (break_idx) + "]");
@@ -184,14 +185,14 @@ Gourlay_breaking::do_solve () const
 
   progress_indication ("\n");
 
-  Array<int> final_breaks;
-  Array<Column_x_positions> lines;
+  std::vector<int> final_breaks;
+  std::vector<Column_x_positions> lines;
 
   /* skip 0-th element, since it is a "dummy" elt*/
-  for (int i = optimal_paths.size () - 1; i > 0;)
+  for (vsize i = optimal_paths.size () - 1; i > 0;)
     {
-      final_breaks.push (i);
-      int prev = optimal_paths[i].prev_break_;
+      final_breaks.push_back (i);
+      vsize prev = optimal_paths[i].prev_break_;
       assert (i > prev);
       i = prev;
     }
@@ -199,17 +200,17 @@ Gourlay_breaking::do_solve () const
   if (be_verbose_global)
     {
       message (_f ("Optimal demerits: %f",
-		   optimal_paths.top ().demerits_) + "\n");
+		   optimal_paths.back ().demerits_) + "\n");
     }
 
-  if (optimal_paths.top ().demerits_ >= infinity_f)
+  if (optimal_paths.back ().demerits_ >= infinity_f)
     warning (_ ("no feasible line breaking found"));
 
-  for (int i = final_breaks.size (); i--;)
+  for (vsize i = final_breaks.size (); i--;)
     {
       Column_x_positions cp (optimal_paths[final_breaks[i]].line_config_);
 
-      lines.push (cp);
+      lines.push_back (cp);
       if (!cp.satisfies_constraints_)
 	warning (_ ("can't find line breaking that satisfies constraints"));
     }
@@ -232,7 +233,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 				    Column_x_positions const &this_one) const
 {
   Real break_penalties = 0.0;
-  Grob *pc = this_one.cols_.top ();
+  Grob *pc = this_one.cols_.back ();
   if (pc->original ())
     {
       SCM pen = pc->get_property ("penalty");

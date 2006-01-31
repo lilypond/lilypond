@@ -49,7 +49,7 @@ Axis_group_interface::relative_group_extent (Link_array<Grob> const &elts,
 					     Grob *common, Axis a)
 {
   Interval r;
-  for (int i = 0; i < elts.size (); i++)
+  for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *se = elts[i];
       Interval dims = se->extent (common, a);
@@ -90,13 +90,13 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
 void
 Axis_group_interface::get_children (Grob *me, Link_array<Grob> *found)
 {
-  found->push (me);
+  found->push_back (me);
 
   if (!has_interface (me))
     return;
 
   extract_grob_set (me, "elements", elements);
-  for (int i = 0; i < elements.size (); i++)
+  for (vsize i = 0; i < elements.size (); i++)
     {
       Grob *e = elements[i];
       Axis_group_interface::get_children (e, found);

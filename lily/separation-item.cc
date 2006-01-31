@@ -39,7 +39,7 @@ Separation_item::conditional_width (Grob *me, Grob *left)
   Paper_column *pc = item->get_column ();
 
   extract_grob_set (me, "conditional-elements", elts);
-  for (int i = 0; i < elts.size (); i++)
+  for (vsize i = 0; i < elts.size (); i++)
     {
       Item *il = dynamic_cast<Item *> (elts[i]);
       if (pc != il->get_column ())
@@ -74,7 +74,7 @@ Separation_item::width (Grob *me)
   Interval w;
 
   extract_grob_set (me, "elements", elts);
-  for (int i = 0; i < elts.size (); i++)
+  for (vsize i = 0; i < elts.size (); i++)
     {
       Item *il = dynamic_cast<Item *> (elts[i]);
       if (pc != il->get_column ())
@@ -123,7 +123,7 @@ Separation_item::extremal_break_aligned_grob (Grob *me,
   Grob *last_grob = 0;
 
   extract_grob_set (me, "elements", elts);
-  for (int i = elts.size (); i--;)
+  for (vsize i = elts.size (); i--;)
     {
       Grob *break_item = elts[i];
       if (!scm_is_symbol (break_item->get_property ("break-align-symbol")))

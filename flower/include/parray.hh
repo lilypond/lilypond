@@ -9,7 +9,7 @@
 #ifndef PARRAY_HH
 #define PARRAY_HH
 
-#include "array.hh"
+#include "std-vector.hh"
 
 /**
    an array of pointers.
@@ -25,9 +25,32 @@ class Link_array : private Array<void *>
     :Array<void *> (v)
   {
   }
+
 public:
   Link_array ()
-  {}
+  {
+  }
+
+  T *const &back() const
+  {
+    return (T * const &) Array<void *>::back();
+  }
+
+  T *&back ()
+  {
+    return (T *&) Array<void *>::back ();
+  }
+
+  /* Flower compat */
+  Array<void *>::del;
+  Array<void *>::unordered_del;
+  Array<void *>::size;
+  Array<void *>::clear;
+  Array<void *>::resize;
+  Array<void *>::empty;
+  Array<void *>::reverse;
+  Array<void *>::pop_back;
+  Array<void *>::tighten_maxsize;
 
   static int default_compare (T *const &p1, T *const &p2)
   {
@@ -69,25 +92,29 @@ public:
   }
   T *pop ()
   {
-    return (T *) Array<void *>::pop ();
+    T* t = (T *) Array<void *>::back ();
+    pop_back ();
+    return t;
   }
-  void insert (T *t, int i)
+  void insert (T *t, vsize i)
   {
     Array<void *>::insert (t, i);
   }
-  void push (T *t)
+  void push_back (T *t)
   {
-    Array<void *>::push (t);
+    Array<void *>::push_back (t);
   }
+
   /// return last entry
-  T *top (int j = 0) const
+  T *top (int j) const
   {
     return (T *) Array<void *>::top (j);
   }
-  T *& top (int i = 0)
+  T *& top (int i)
   {
     return (T *&) Array<void *>::top (i);
   }
+
   void substitute (T *old, T *new_p)
   {
     int i;
@@ -117,19 +144,11 @@ public:
   void uniq ()
   {
     Link_array<T> ls;
-    for (int i = 0; i < size (); i++)
+    for (vsize i = 0; i < size (); i++)
       if (!i || elem (i - 1) != elem (i))
-	ls.push (elem (i));
+	ls.push_back (elem (i));
     *this = ls;
   }
-  Array<void *>::del;
-  Array<void *>::unordered_del;
-  Array<void *>::size;
-  Array<void *>::clear;
-  Array<void *>::set_size;
-  Array<void *>::is_empty;
-  Array<void *>::reverse;
-  Array<void *>::tighten_maxsize;
 
   T *& boundary (int d, int i)
   {
@@ -167,7 +186,7 @@ public:
   }
   int find_index (T const *t) const
   {
-    for (int i = 0; i < size (); i++)
+    for (vsize i = 0; i < size (); i++)
       if (elem (i) == t)
 	return i;
     return -1;
@@ -187,8 +206,8 @@ Link_array<T>
 typecasts (Link_array<V> const &a, T * /* dummy */)
 {
   Link_array<T> ret;
-  for (int i = a.size (); i--;)
-    ret.push (dynamic_cast<T *> (a[i]));	// ugh?
+  for (vsize i = a.size (); i--;)
+    ret.push_back (dynamic_cast<T *> (a[i]));	// ugh?
   return ret;
 }
 
@@ -216,7 +235,7 @@ template<class T>
 void
 junk_pointers (Link_array<T> &a)
 {
-  for (int i = 0; i < a.size (); i++)
+  for (vsize i = 0; i < a.size (); i++)
     delete a[i];
   a.clear ();
 }

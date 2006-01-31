@@ -92,7 +92,7 @@ Separating_line_group_engraver::finalize ()
   sep_span_->set_bound (RIGHT, unsmob_grob (ccol));
   sep_span_ = 0;
 
-  for (int i = 0; i < last_spacings_.note_spacings_.size (); i++)
+  for (vsize i = 0; i < last_spacings_.note_spacings_.size (); i++)
     {
       Pointer_group_interface::add_grob (last_spacings_.note_spacings_[i],
 					 ly_symbol2scm ("right-items"),
@@ -119,7 +119,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 
   if (Note_spacing::has_interface (it))
     {
-      current_spacings_.note_spacings_.push (it);
+      current_spacings_.note_spacings_.push_back (it);
       return;
     }
 

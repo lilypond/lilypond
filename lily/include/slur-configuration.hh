@@ -30,7 +30,7 @@ public:
   Slur_configuration ();
 
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf,
-		       Array<Offset> const &);
+		       std::vector<Offset> const &);
   void score (Slur_score_state const &);
 protected:
   void score_extra_encompass (Slur_score_state const &);

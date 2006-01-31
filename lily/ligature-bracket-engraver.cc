@@ -22,7 +22,7 @@ class Ligature_bracket_engraver : public Ligature_engraver
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void typeset_ligature (Spanner *ligature,
-				 Array<Grob_info> primitives);
+				 std::vector<Grob_info> primitives);
   DECLARE_ACKNOWLEDGER (rest);
   DECLARE_ACKNOWLEDGER (note_column);
 public:
@@ -40,7 +40,7 @@ Ligature_bracket_engraver::create_ligature_spanner ()
 }
 
 void
-Ligature_bracket_engraver::typeset_ligature (Spanner *, Array<Grob_info>)
+Ligature_bracket_engraver::typeset_ligature (Spanner *, std::vector<Grob_info>)
 {
   // no real ligature to typeset; the LigatureBracket just does it
 }

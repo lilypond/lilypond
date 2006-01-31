@@ -21,7 +21,7 @@ public:
   
   static bool has_interface (Grob *);
   static std::string get_fontcharname (std::string style, int alteration);
-  static Array<Box> accurate_boxes (Grob *me,
+  static std::vector<Box> accurate_boxes (Grob *me,
 							  Grob **common);
 };
 

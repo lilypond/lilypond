@@ -11,7 +11,7 @@
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
-#include "array.hh"
+#include "std-vector.hh"
 #include "smobs.hh"
 
 struct Engraver_dispatch_entry
@@ -22,7 +22,7 @@ struct Engraver_dispatch_entry
 
 class Engraver_dispatch_list
 {
-  Array<Engraver_dispatch_entry> dispatch_entries_;
+  std::vector<Engraver_dispatch_entry> dispatch_entries_;
 public:
   void apply (Grob_info);
   SCM static create (SCM trans_list,

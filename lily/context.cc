@@ -132,7 +132,7 @@ Context::create_unique_context (SCM n, SCM operations)
       Context *current = this;
 
       // start at 1.  The first one (index 0) will be us.
-      for (int i = 0; i < path.size (); i++)
+      for (vsize i = 0; i < path.size (); i++)
 	{
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
@@ -190,7 +190,7 @@ Context::find_create_context (SCM n, std::string id, SCM operations)
       Context *current = this;
 
       // start at 1.  The first one (index 0) will be us.
-      for (int i = 0; i < path.size (); i++)
+      for (vsize i = 0; i < path.size (); i++)
 	{
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 

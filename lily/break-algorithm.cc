@@ -15,15 +15,15 @@
 #include "cpu-timer.hh"
 #include "simple-spacer.hh"
 
-Array<int>
+std::vector<int>
 Break_algorithm::find_break_indices () const
 {
   Link_array<Grob> all = pscore_->root_system ()->columns ();
-  Array<int> retval;
+  std::vector<int> retval;
 
-  for (int i = 0; i < all.size (); i++)
+  for (vsize i = 0; i < all.size (); i++)
     if (Item::is_breakable (all[i]))
-      retval.push (i);
+      retval.push_back (i);
 
   if (linewidth_ <= 0)
     while (retval.size () > 2)
@@ -38,9 +38,9 @@ Break_algorithm::find_breaks () const
   Link_array<Grob> all = pscore_->root_system ()->columns ();
   Link_array<Grob> retval;
 
-  for (int i = 0; i < all.size (); i++)
+  for (vsize i = 0; i < all.size (); i++)
     if (Item::is_breakable (all[i]))
-      retval.push (all[i]);
+      retval.push_back (all[i]);
 
   if (linewidth_ <= 0)
     while (retval.size () > 2)
@@ -88,10 +88,10 @@ Break_algorithm::set_pscore (Paper_score *s)
   linewidth_ = s->layout ()->get_dimension (ly_symbol2scm ("linewidth"));
 }
 
-Array<Column_x_positions>
+std::vector<Column_x_positions>
 Break_algorithm::solve () const
 {
-  Array<Column_x_positions> h= do_solve ();
+  std::vector<Column_x_positions> h= do_solve ();
 
   return h;
 }

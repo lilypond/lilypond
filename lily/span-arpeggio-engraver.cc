@@ -42,7 +42,7 @@ void
 Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info info)
 {
   if (info.origin_contexts (this).size ()) // huh? what's this test for? 
-    arpeggios_.push (info.grob ());
+    arpeggios_.push_back (info.grob ());
 }
 
 void
@@ -69,15 +69,15 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	we do this very late, to make sure we also catch `extra'
 	side-pos support like accidentals.
       */
-      for (int j = 0; j < arpeggios_.size (); j++)
+      for (vsize j = 0; j < arpeggios_.size (); j++)
 	{
 	  extract_grob_set (arpeggios_[j], "stems", stems);
-	  for (int i = stems.size (); i--;)
+	  for (vsize i = stems.size (); i--;)
 	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("stems"),
 					       stems[i]);
 
 	  extract_grob_set (arpeggios_[j], "side-support-elements", sses);
-	  for (int i = sses.size (); i--;)
+	  for (vsize i = sses.size (); i--;)
 	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("side-support-elements"),
 					       sses[i]);
 

@@ -179,20 +179,20 @@ is_number_pair (SCM p)
 }
 
 typedef void (*Void_fptr) ();
-Array<Void_fptr> *scm_init_funcs_;
+std::vector<Void_fptr> *scm_init_funcs_;
 
 void add_scm_init_func (void (*f) ())
 {
   if (!scm_init_funcs_)
-    scm_init_funcs_ = new Array<Void_fptr>;
+    scm_init_funcs_ = new std::vector<Void_fptr>;
 
-  scm_init_funcs_->push (f);
+  scm_init_funcs_->push_back (f);
 }
 
 void
 ly_init_ly_module (void *)
 {
-  for (int i = scm_init_funcs_->size (); i--;)
+  for (vsize i = scm_init_funcs_->size (); i--;)
     (scm_init_funcs_->elem (i)) ();
 
   if (be_verbose_global)
@@ -356,11 +356,11 @@ ly_assoc_cdr (SCM key, SCM alist)
 }
 
 SCM
-ly_string_array_to_scm (Array<std::string> a)
+ly_string_array_to_scm (std::vector<std::string> a)
 {
   SCM s = SCM_EOL;
-  for (int i = a.size () - 1; i >= 0; i--)
-    s = scm_cons (ly_symbol2scm (a[i].c_str ()), s);
+  for (vsize i = a.size (); i ; i--)
+    s = scm_cons (ly_symbol2scm (a[i - 1].c_str ()), s);
   return s;
 }
 

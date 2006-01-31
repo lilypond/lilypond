@@ -212,7 +212,7 @@ Dot_column::calc_positioning_done (SCM smob)
       dots when merging.
     */
     Grob *c = 0;
-    for (int i = dots.size (); i--;)
+    for (vsize i = dots.size (); i--;)
       {
 	Grob *n = dots[i]->get_parent (Y_AXIS);
 	if (c)
@@ -220,7 +220,7 @@ Dot_column::calc_positioning_done (SCM smob)
 	else
 	  c = n;
       }
-    for (int i = dots.size (); i--;)
+    for (vsize i = dots.size (); i--;)
       {
 	Grob *n = dots[i]->get_parent (Y_AXIS);
 	n->relative_coordinate (c, X_AXIS);
@@ -228,12 +228,12 @@ Dot_column::calc_positioning_done (SCM smob)
   }
 
   dots.sort (compare_position);
-  for (int i = dots.size (); i--;)
+  for (vsize i = dots.size (); i--;)
     if (!dots[i]->is_live ())
       dots.del (i);
 
   Dot_configuration cfg;
-  for (int i = 0;i < dots.size (); i++)
+  for (vsize i = 0;i < dots.size (); i++)
     {
       Dot_position dp;
       dp.dot_ = dots[i];
