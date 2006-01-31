@@ -33,20 +33,19 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
 
   std::vector<Direction> dirs;
   for (vsize i = 0; i < stems.size (); i++)
-    {
-      dirs.push_back (to_dir (stems[i]->get_property ("default-direction")));
-    }
+    dirs.push_back (to_dir (stems[i]->get_property ("default-direction")));
 
-  int last_nonneutral = -1;
-  int next_nonneutral = 0;
-  while (next_nonneutral < dirs.size() &&  !dirs[next_nonneutral])
-    next_nonneutral ++;
+  vsize last_nonneutral = VPOS;
+  vsize next_nonneutral = 0;
+  while (next_nonneutral != VPOS && next_nonneutral < dirs.size ()
+	 &&  !dirs[next_nonneutral])
+    next_nonneutral++;
 
-  while (last_nonneutral < dirs.size () - 1) 
+  while (last_nonneutral == VPOS || last_nonneutral < dirs.size () - 1) 
     {
       Direction d1 = CENTER;
       Direction d2 = CENTER;
-      if (last_nonneutral >= 0)
+      if (last_nonneutral != VPOS)
 	d1 = dirs[last_nonneutral];
       if (next_nonneutral < dirs.size ())
 	d2 = dirs[next_nonneutral];
@@ -61,20 +60,20 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
       else
 	total = to_dir (me->get_property ("neutral-direction"));
       
-      for (int i = last_nonneutral + 1; i <  next_nonneutral; i++)
+      for (vsize i = last_nonneutral + 1; i <  next_nonneutral; i++)
 	stems[i]->set_property ("neutral-direction", scm_from_int (total));
 
 
       last_nonneutral = next_nonneutral;
       while (last_nonneutral < dirs.size ()
 	     && dirs[last_nonneutral])
-	last_nonneutral ++;
+	last_nonneutral++;
       next_nonneutral = last_nonneutral;
-      last_nonneutral --;
+      last_nonneutral--;
 
       while (next_nonneutral < dirs.size ()
 	     && !dirs[next_nonneutral])
-	next_nonneutral ++;
+	next_nonneutral++;
     }
 
   me->suicide ();
