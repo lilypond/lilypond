@@ -77,7 +77,7 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
 int
 Tex_font_metric::count () const
 {
-  for (int i = ascii_to_metric_idx_.size (); i--;)
+  for (vsize i = ascii_to_metric_idx_.size (); i--;)
     if (ascii_to_metric_idx_[i] != -1)
       return i + 1;
   return 0;

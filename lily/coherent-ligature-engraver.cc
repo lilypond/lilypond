@@ -35,7 +35,7 @@
  * - collapse superflous space after each ligature (TODO).
  *
  * Concrete subclasses must implement function build_ligature (Spanner
- * *, Array<Grob_info>).  This function is responsible for actually
+ * *, std::vector<Grob_info>).  This function is responsible for actually
  * building the ligature by transforming the array of noteheads.
  *
  * Currently, there are two subclasses: Gregorian_ligature_engraver
@@ -125,7 +125,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 
       extract_item_set (parent, "elements", elements);
 
-      for (int i = elements.size (); i--;)
+      for (vsize i = elements.size (); i--;)
 	{
 	  Item *sibling = elements[i];
 	  if ((sibling)
@@ -159,18 +159,18 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
  * occurs within the broken ligatures any more.
  */
 void
-Coherent_ligature_engraver::collect_accidentals (Spanner *, Array<Grob_info>)
+Coherent_ligature_engraver::collect_accidentals (Spanner *, std::vector<Grob_info>)
 {
   /* TODO */
 }
 
 void
-compute_delta_pitches (Array<Grob_info> primitives)
+compute_delta_pitches (std::vector<Grob_info> primitives)
 {
   int prev_pitch = 0;
   int delta_pitch = 0;
   Item *prev_primitive = 0, *primitive = 0;
-  for (int i = 0; i < primitives.size (); i++)
+  for (vsize i = 0; i < primitives.size (); i++)
     {
       primitive = dynamic_cast<Item *> (primitives[i].grob ());
       Music *music_cause = primitives[i].music_cause ();
@@ -190,7 +190,7 @@ compute_delta_pitches (Array<Grob_info> primitives)
 
 void
 Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
-					      Array<Grob_info> primitives)
+					      std::vector<Grob_info> primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties

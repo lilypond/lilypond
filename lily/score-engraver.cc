@@ -111,15 +111,15 @@ Score_engraver::one_time_step ()
 void
 Score_engraver::announce_grob (Grob_info info)
 {
-  announce_infos_.push (info);
+  announce_infos_.push_back (info);
   pscore_->root_system ()->typeset_grob (info.grob ());
-  elems_.push (info.grob ());
+  elems_.push_back (info.grob ());
 }
 
 void
 Score_engraver::typeset_all ()
 {
-  for (int i = 0; i < elems_.size (); i++)
+  for (vsize i = 0; i < elems_.size (); i++)
     {
       Grob *elem = elems_[i];
 

@@ -57,7 +57,7 @@ Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
   problem.set_manual_tie_configuration (manual_configs);
 
   Ties_configuration base = problem.generate_optimal_chord_configuration ();
-  for (int i = 0; i < lv_ties.size(); i++)
+  for (vsize i = 0; i < lv_ties.size(); i++)
     {
       Tie::set_control_points (lv_ties[i], problem.common_x_refpoint (), base[i],
 			       problem.details_);

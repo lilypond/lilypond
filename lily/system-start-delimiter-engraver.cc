@@ -79,7 +79,7 @@ Bracket_nesting_group::create_grobs (Engraver *engraver, SCM default_type)
   delimiter_ = make_spanner_from_properties (engraver, type,
 					     SCM_EOL, ly_symbol2string (type).c_str ());
 
-  for (int i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0 ; i < children_.size (); i++)
     {
       children_[i]->create_grobs (engraver, default_type);
     }
@@ -89,7 +89,7 @@ void
 Bracket_nesting_group::add_support (Grob *g)
 {
   Side_position_interface::add_support (g, delimiter_);
-  for (int i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0 ; i < children_.size (); i++)
     {
       children_[i]->add_support (g);
     }
@@ -97,7 +97,7 @@ Bracket_nesting_group::add_support (Grob *g)
 
 Bracket_nesting_group::~Bracket_nesting_group ()
 {
-  for (int i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0 ; i < children_.size (); i++)
     delete children_[i];
 }
 
@@ -105,7 +105,7 @@ void
 Bracket_nesting_group::set_bound (Direction d, Grob *g)
 {
   delimiter_->set_bound (d, g);
-  for (int i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0 ; i < children_.size (); i++)
     {
       children_[i]->set_bound (d, g);
     }
@@ -117,7 +117,7 @@ Bracket_nesting_group::set_nesting_support (Grob *parent)
   if (parent)
     Side_position_interface::add_support (delimiter_, parent);
   
-  for (int i = 0 ; i < children_.size (); i++)
+  for (vsize i = 0 ; i < children_.size (); i++)
     {
       children_[i]->set_nesting_support (delimiter_);
     }
@@ -134,7 +134,7 @@ Bracket_nesting_group::from_list (SCM x)
 	{
 	  Bracket_nesting_group *node = new Bracket_nesting_group;
 	  node->from_list (entry);
-	  children_.push (node);
+	  children_.push_back (node);
 	}
       else if (entry == ly_symbol2scm ("SystemStartBrace")
 	       || entry == ly_symbol2scm ("SystemStartBracket")
@@ -144,7 +144,7 @@ Bracket_nesting_group::from_list (SCM x)
 	symbol_ = entry;
       else
 	{
-	  children_.push (new Bracket_nesting_staff (0));
+	  children_.push_back (new Bracket_nesting_staff (0));
 	}
     }
 }
@@ -152,7 +152,7 @@ Bracket_nesting_group::from_list (SCM x)
 bool
 Bracket_nesting_group::add_staff (Grob *grob)
 {
-  for (int i = 0; i < children_.size (); i++)
+  for (vsize i = 0; i < children_.size (); i++)
     {
       if (children_[i]->add_staff (grob))
 	{
@@ -225,7 +225,7 @@ System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 
   if (!succ)
     {
-      nesting_->children_.push  (new Bracket_nesting_staff (0));
+      nesting_->children_.push_back (new Bracket_nesting_staff (0));
       nesting_->add_staff (staff);
     }
 }

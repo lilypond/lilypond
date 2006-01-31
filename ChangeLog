@@ -1,3 +1,11 @@
+2006-01-31  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* configure.in (--enable-std-vector): New option.
+	(--enable-std-string): On by default.
+
+	* flower/include/std-vector.hh: New file.  Enable switch to
+	std::vector, update client code.
+
 2006-01-30  Graham Percival  <gpermus@gmail.com>
 
 	* scm/document-translation.scm: clarify "this context is also

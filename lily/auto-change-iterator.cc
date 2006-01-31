@@ -22,7 +22,7 @@ protected:
   virtual void do_quit ();
   virtual void construct_children ();
   virtual void process (Moment);
-  Array<Pitch> pending_pitch (Moment) const;
+  std::vector<Pitch> pending_pitch (Moment) const;
 private:
   SCM split_list_;
   Direction where_dir_;

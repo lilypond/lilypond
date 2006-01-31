@@ -26,7 +26,7 @@ Note_name_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-event"))
     {
-      events_.push (m);
+      events_.push_back (m);
       return true;
     }
   return false;
@@ -36,7 +36,7 @@ void
 Note_name_engraver::process_music ()
 {
   std::string s;
-  for (int i = 0; i < events_.size (); i++)
+  for (vsize i = 0; i < events_.size (); i++)
     {
       if (i)
 	s += " ";
@@ -51,7 +51,7 @@ Note_name_engraver::process_music ()
     {
       Item *t = make_item ("NoteName", events_[0]->self_scm ());
       t->set_property ("text", scm_makfrom0str (s.c_str ()));
-      texts_.push (t);
+      texts_.push_back (t);
     }
 }
 

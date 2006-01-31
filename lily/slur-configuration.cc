@@ -25,10 +25,10 @@ avoid_staff_line (Slur_score_state const &state,
 		  Bezier bez)
 {
   Offset horiz (1, 0);
-  Array<Real> ts = bez.solve_derivative (horiz);
+  std::vector<Real> ts = bez.solve_derivative (horiz);
 
   /* TODO: handle case of broken slur.  */
-  if (!ts.is_empty ()
+  if (!ts.empty ()
       && (state.extremes_[LEFT].staff_ == state.extremes_[RIGHT].staff_)
       && state.extremes_[LEFT].staff_ && state.extremes_[RIGHT].staff_)
     {
@@ -64,7 +64,7 @@ avoid_staff_line (Slur_score_state const &state,
 
 Real
 fit_factor (Offset dz_unit, Offset dz_perp,
-	    Bezier curve, Direction d, Array<Offset> const &avoid)
+	    Bezier curve, Direction d, std::vector<Offset> const &avoid)
 {
   Real fit_factor = 0.0;
   Offset x0 = curve.control_[0];
@@ -76,7 +76,7 @@ fit_factor (Offset dz_unit, Offset dz_perp,
   curve_xext.add_point (curve.control_[0][X_AXIS]);
   curve_xext.add_point (curve.control_[3][X_AXIS]);
 
-  for (int i = 0; i < avoid.size (); i++)
+  for (vsize i = 0; i < avoid.size (); i++)
     {
       Offset z = (avoid[i] - x0);
       Offset p (dot_product (z, dz_unit),
@@ -98,7 +98,7 @@ fit_factor (Offset dz_unit, Offset dz_perp,
 void
 Slur_configuration::generate_curve (Slur_score_state const &state,
 				    Real r_0, Real h_inf,
-				    Array<Offset> const &avoid)
+				    std::vector<Offset> const &avoid)
 {
   Offset dz = attachment_[RIGHT]- attachment_[LEFT];;
   Offset dz_unit = dz;
@@ -180,8 +180,8 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
     Distances for heads that are between slur and line between
     attachment points.
   */
-  Array<Real> convex_head_distances;
-  for (int j = 0; j < state.encompass_infos_.size (); j++)
+  std::vector<Real> convex_head_distances;
+  for (vsize j = 0; j < state.encompass_infos_.size (); j++)
     {
       Real x = state.encompass_infos_[j].x_;
 
@@ -200,7 +200,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 	  if (state.dir_ * head_dy < 0)
 	    {
 	      demerit += state.parameters_.head_encompass_penalty_;
-	      convex_head_distances.push (0.0);
+	      convex_head_distances.push_back (0.0);
 	    }
 	  else
 	    {
@@ -225,7 +225,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 		= state.dir_ * max (state.dir_ * state.encompass_infos_[j].get_point (state.dir_), state.dir_ * line_y);
 	      Real d = fabs (closest - y);
 
-	      convex_head_distances.push (d);
+	      convex_head_distances.push_back (d);
 	    }
 	}
 
@@ -258,7 +258,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
     {
       Real avg_distance = 0.0;
       Real min_dist = infinity_f;
-      for (int j = 0; j < convex_head_distances.size (); j++)
+      for (vsize j = 0; j < convex_head_distances.size (); j++)
 	{
 	  min_dist = min (min_dist, convex_head_distances[j]);
 	  avg_distance += convex_head_distances[j];
@@ -302,7 +302,7 @@ void
 Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 {
   Real demerit = 0.0;
-  for (int j = 0; j < state.extra_encompass_infos_.size (); j++)
+  for (vsize j = 0; j < state.extra_encompass_infos_.size (); j++)
     {
       Drul_array<Offset> attachment = attachment_;
       Extra_collision_info const &info (state.extra_encompass_infos_[j]);

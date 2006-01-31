@@ -47,7 +47,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 
   /* UGR, FIXME, these are default \layout blocks once again.  They
      suck. */
-  for (int i = 0; !score_def && i < sc->defs_.size (); i++)
+  for (vsize i = 0; !score_def && i < sc->defs_.size (); i++)
     if (sc->defs_[i]->c_variable ("is-layout") == SCM_BOOL_T)
       score_def = sc->defs_[i];
 
@@ -97,11 +97,11 @@ LY_DEFINE (ly_score_process, "ly:score-process",
     ? score->header_
     : default_header;
 
-  for (int i = 0; i < score->defs_.size (); i++)
+  for (vsize i = 0; i < score->defs_.size (); i++)
     default_rendering (score->get_music (), score->defs_[i]->self_scm (),
 		       default_paper, header, basename, key->self_scm ());
 
-  if (score->defs_.is_empty ())
+  if (score->defs_.empty ())
     {
       default_rendering (score->get_music (),
 			 default_layout,

@@ -74,7 +74,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 	dim.unite (staff_extents);
     }
 
-  for (int i = 0; i < support.size (); i++)
+  for (vsize i = 0; i < support.size (); i++)
     {
       Grob *e = support[i];
       if (e)

@@ -38,7 +38,7 @@ Script_column_engraver::stop_translation_timestep ()
 {
   if (scol_)
     {
-      for (int i = 0; i < scripts_.size (); i++)
+      for (vsize i = 0; i < scripts_.size (); i++)
 	if (Side_position_interface::get_axis (scripts_[i]) == Y_AXIS)
 	  Script_column::add_staff_sided (scol_, scripts_[i]);
     }
@@ -54,7 +54,7 @@ Script_column_engraver::acknowledge_side_position (Grob_info inf)
   if (thing)
     {
       if (!Item::is_breakable (thing))
-	scripts_.push (thing);
+	scripts_.push_back (thing);
     }
 }
 

@@ -18,13 +18,13 @@ Line_interface::make_arrow (Offset begin, Offset end,
 			    Real length, Real width)
 {
   Real angle = (end - begin).arg ();
-  Array<Offset> points;
+  std::vector<Offset> points;
 
-  points.push (Offset (0, 0));
-  points.push (Offset (-length, width));
-  points.push (Offset (-length, -width));
+  points.push_back (Offset (0, 0));
+  points.push_back (Offset (-length, width));
+  points.push_back (Offset (-length, -width));
 
-  for (int i = 0; i < points.size (); i++)
+  for (vsize i = 0; i < points.size (); i++)
     points[i] = points[i] * complex_exp (Offset (0, angle)) + end;
 
   return Lookup::round_filled_polygon (points, thick);

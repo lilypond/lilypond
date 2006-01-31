@@ -271,18 +271,18 @@ setup_paths (char const *argv0_ptr)
   char *suffixes[] = {"ly", "ps", "scm", 0 };
 
   
-  Array<std::string> dirs;
+  std::vector<std::string> dirs;
   for (char **s = suffixes; *s; s++)
     {
       std::string path = prefix_directory + to_string ('/') + std::string (*s);
-      dirs.push (path);
+      dirs.push_back (path);
     }
 
 
-  dirs.push (prefix_directory + "/fonts/otf/");
-  dirs.push (prefix_directory + "/fonts/type1/");
-  dirs.push (prefix_directory + "/fonts/svg/");
+  dirs.push_back (prefix_directory + "/fonts/otf/");
+  dirs.push_back (prefix_directory + "/fonts/type1/");
+  dirs.push_back (prefix_directory + "/fonts/svg/");
   
-  for (int i = 0; i < dirs.size (); i++)
+  for (vsize i = 0; i < dirs.size (); i++)
     global_path.prepend (dirs[i]);
 }

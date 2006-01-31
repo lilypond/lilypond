@@ -116,7 +116,7 @@ completize_extender (Spanner *sp)
     {
       extract_item_set (sp, "heads", heads);
       if (heads.size ())
-	sp->set_bound (RIGHT, heads.top ());
+	sp->set_bound (RIGHT, heads.back ());
     }
 }
 

@@ -52,14 +52,14 @@ Accidental_interface::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-Array<Box>
+std::vector<Box>
 Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 {
   Box b;
   b[X_AXIS] = a->extent (a, X_AXIS);
   b[Y_AXIS] = a->extent (a, Y_AXIS);
 
-  Array<Box> boxes;
+  std::vector<Box> boxes;
 
   bool parens = false;
   if (to_boolean (a->get_property ("cautionary")))
@@ -93,8 +93,8 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 	    stem[Y_AXIS] *= 1.1;
 	    bulb[Y_AXIS][UP] *= .35;
 
-	    boxes.push (bulb);
-	    boxes.push (stem);
+	    boxes.push_back (bulb);
+	    boxes.push_back (stem);
 	  }
 	  break;
 	case NATURAL:
@@ -111,9 +111,9 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 	    rstem[X_AXIS][LEFT] = rstem[X_AXIS].linear_combination (1.0 / 3.0);
 	    lstem[Y_AXIS][DOWN] = belly[Y_AXIS][DOWN];
 	    rstem[Y_AXIS][UP] = belly[Y_AXIS][UP];
-	    boxes.push (belly);
-	    boxes.push (lstem);
-	    boxes.push (rstem);
+	    boxes.push_back (belly);
+	    boxes.push_back (lstem);
+	    boxes.push_back (rstem);
 	  }
 	  break;
 	  /*
@@ -123,11 +123,11 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
     }
 
   if (!boxes.size ())
-    boxes.push (b);
+    boxes.push_back (b);
 
   Offset o (a->relative_coordinate (common[X_AXIS], X_AXIS),
 	    a->relative_coordinate (common[Y_AXIS], Y_AXIS));
-  for (int i = boxes.size (); i--;)
+  for (vsize i = boxes.size (); i--;)
     boxes[i].translate (o);
 
   return boxes;

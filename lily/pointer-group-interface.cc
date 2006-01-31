@@ -60,8 +60,8 @@ internal_extract_item_array (Grob const *elt, SCM symbol)
 {
   Grob_array *arr = unsmob_grob_array (elt->internal_get_object (symbol));
   Link_array<Item> items;
-  for (int i = 0; arr && i < arr->size (); i++)
-    items.push (arr->item (i));
+  for (vsize i = 0; arr && i < arr->size (); i++)
+    items.push_back (arr->item (i));
 
   return items;
 }

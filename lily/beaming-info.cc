@@ -31,7 +31,7 @@ Beaming_info_list::best_splitpoint_index (Moment &beat_length, bool subdivide) c
   int minidx = -1;
   Moment beat_pos;
 
-  for (int i = 1; i < infos_.size (); i++)
+  for (vsize i = 1; i < infos_.size (); i++)
     {
       beat_pos = infos_[i].start_mom_ / beat_length;
       int den = beat_pos.den ();
@@ -98,7 +98,7 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
 void
 Beaming_info_list::add_stem (Moment m, int b)
 {
-  infos_.push (Beaming_info (m, b));
+  infos_.push_back (Beaming_info (m, b));
 }
 
 void
@@ -107,6 +107,6 @@ Beaming_info_list::clip_edges ()
   if (infos_.size ())
     {
       infos_[0].beams_i_drul_[LEFT] = 0;
-      infos_.top().beams_i_drul_[RIGHT] = 0;
+      infos_.back ().beams_i_drul_[RIGHT] = 0;
     }
 }

@@ -34,7 +34,7 @@ struct Script_tuple
 
 class Script_engraver : public Engraver
 {
-  Array<Script_tuple> scripts_;
+  std::vector<Script_tuple> scripts_;
   Spanner *slur_;
 
 protected:
@@ -72,7 +72,7 @@ Script_engraver::try_music (Music *m)
 
       Script_tuple t;
       t.event_ = m;
-      scripts_.push (t);
+      scripts_.push_back (t);
       return true;
     }
   return false;
@@ -151,7 +151,7 @@ void make_script_from_event (Grob *p,  Context *tg,
 void
 Script_engraver::process_music ()
 {
-  for (int i = 0; i < scripts_.size (); i++)
+  for (vsize i = 0; i < scripts_.size (); i++)
     {
       Music *music = scripts_[i].event_;
 
@@ -201,7 +201,7 @@ Script_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
   if (info.music_cause ())
     {
-      for (int i = 0; i < scripts_.size (); i++)
+      for (vsize i = 0; i < scripts_.size (); i++)
  	{
 	  Grob *e = scripts_[i].script_;
 
@@ -224,7 +224,7 @@ Script_engraver::acknowledge_note_column (Grob_info info)
 
      As the note head to put it on is not known now, postpone this
      decision to Script_interface::calc_direction ().  */
-  for (int i = 0; i < scripts_.size (); i++)
+  for (vsize i = 0; i < scripts_.size (); i++)
     {
       Grob *e = scripts_[i].script_;
 

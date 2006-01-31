@@ -10,7 +10,7 @@
 #define PAPER_OUTPUTTER_HH
 
 #include "lily-proto.hh"
-#include "array.hh"
+#include "std-vector.hh"
 #include "std-string.hh"
 #include "protected-scm.hh"
 #include "smobs.hh"

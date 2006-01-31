@@ -60,7 +60,7 @@ Cluster_spanner_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("cluster-note-event"))
     {
-      cluster_notes_.push (m);
+      cluster_notes_.push_back (m);
       return true;
     }
   else if (m->is_mus_type ("busy-playing-event"))
@@ -80,7 +80,7 @@ Cluster_spanner_engraver::process_music ()
       int pmax = INT_MIN;
       int pmin = INT_MAX;
 
-      for (int i = 0; i < cluster_notes_.size (); i++)
+      for (vsize i = 0; i < cluster_notes_.size (); i++)
 	{
 	  Pitch *pit = unsmob_pitch (cluster_notes_[i]->get_property ("pitch"));
 

@@ -236,7 +236,7 @@ Lily_lexer::set_identifier (SCM name, SCM s)
 void
 Lily_lexer::LexerError (char const *s)
 {
-  if (include_stack_.is_empty ())
+  if (include_stack_.empty ())
     message (_f ("error at EOF: %s", s) + "\n");
   else
     {
@@ -285,7 +285,7 @@ Lily_lexer::add_lexed_char (int count)
   char const *start = here_str0 ();
   lexloc->set (get_source_file (),
 	       start, start + count);
-  char_count_stack_.top () += count;
+  char_count_stack_.back () += count;
 }
 
 #include "ly-smobs.icc"

@@ -65,7 +65,7 @@ SCM
 dump_fields ()
 {
   SCM fields = SCM_EOL;
-  for (int i = dump_header_fieldnames_global.size (); i--;)
+  for (vsize i = dump_header_fieldnames_global.size (); i--;)
     fields
       = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].c_str ()),
 		  fields);

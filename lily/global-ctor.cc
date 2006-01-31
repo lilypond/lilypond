@@ -8,21 +8,21 @@
 
 #include "global-ctor.hh"
 
-#include "array.hh"
+#include "std-vector.hh"
 
-static Array<Global_ctor> *ctor_global_statics_;
+static std::vector<Global_ctor> *ctor_global_statics_;
 
 void
 add_constructor (Global_ctor c)
 {
   if (!ctor_global_statics_)
-    ctor_global_statics_ = new Array<Global_ctor>;
-  ctor_global_statics_->push (c);
+    ctor_global_statics_ = new std::vector<Global_ctor>;
+  ctor_global_statics_->push_back (c);
 }
 
 void
 call_constructors ()
 {
-  for (int i = 0; i < ctor_global_statics_->size (); i++)
+  for (vsize i = 0; i < ctor_global_statics_->size (); i++)
     (ctor_global_statics_->elem (i)) ();
 }

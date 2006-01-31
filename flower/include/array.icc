@@ -5,7 +5,7 @@
 */
 
 #if 0
-#include "array.hh"
+#include "std-vector.hh"
 #ifdef INLINE
 #undef INLINE
 #endif
@@ -18,9 +18,9 @@
 */
 
 template<class T> INLINE void
-arrcpy (T *dest, T const *src, int count)
+arrcpy (T *dest, T const *src, vsize count)
 {
-  for (int i_shadows_local = 0; i_shadows_local < count; i_shadows_local++)
+  for (vsize i_shadows_local = 0; i_shadows_local < count; i_shadows_local++)
 #ifdef __powerpc__
     {
       /*
@@ -38,17 +38,21 @@ arrcpy (T *dest, T const *src, int count)
 }
 
 template<class T> INLINE void
-Array<T>::insert (T k, int j)
+Array<T>::insert (T k, vsize j)
 {
-  assert (j >= 0 && j <= size_);
-  set_size (size_ + 1);
-  for (int i = size_ - 1; i > j; i--)
+#if !STD_VECTOR
+    assert (j >= 0 && j <= size_);
+#else
+    assert (j <= size_);
+#endif
+  resize (size_ + 1);
+  for (vsize i = size_ - 1; i > j; i--)
     array_[i] = array_[i - 1];
   array_[j] = k;
 }
 
 template<class T> INLINE void
-Array<T>::sort (int (*compare) (T const &, T const &), int lower, int upper)
+Array<T>::sort (int (*compare) (T const &, T const &), vsize lower, vsize upper)
 {
   if (lower < 0)
     {
@@ -58,8 +62,8 @@ Array<T>::sort (int (*compare) (T const &, T const &), int lower, int upper)
   if (lower >= upper)
     return;
   swap (lower, (lower + upper) / 2);
-  int last = lower;
-  for (int i = lower +1; i <= upper; i++)
+  vsize last = lower;
+  for (vsize i = lower +1; i <= upper; i++)
     if (compare (array_[i], array_[lower]) < 0)
       swap (++last, i);
   swap (lower, last);
@@ -70,8 +74,8 @@ Array<T>::sort (int (*compare) (T const &, T const &), int lower, int upper)
 template<class T> INLINE void
 Array<T>::reverse ()
 {
-  int h = size_ / 2;
-  for (int i = 0, j = size_ - 1; i < h; i++, j--)
+  vsize h = size_ / 2;
+  for (vsize i = 0, j = size_ - 1; i < h; i++, j--)
     swap (i, j);
 }
 
@@ -79,7 +83,11 @@ template<class T> INLINE
 void
 Array<T>::OK () const
 {
+#if !STD_VECTOR
   assert (max_ >= size_ && size_ >= 0);
+#else
+  assert (max_ >= size_);
+#endif
   if (max_)
     assert (array_);
 }
@@ -97,12 +105,16 @@ Array<T>::remove_array ()
 
 template<class T> INLINE
 Array<T>
-Array<T>::slice (int lower, int upper) const
+Array<T>::slice (vsize lower, vsize upper) const
 {
+#if !STD_VECTOR
   assert (lower >= 0 && lower <= upper && upper <= size_);
+#else
+  assert (lower <= upper && upper <= size_);
+#endif
   Array<T> r;
-  int s = upper - lower;
-  r.set_size (s);
+  vsize s = upper - lower;
+  r.resize (s);
   arrcpy (r.array_, array_ + lower, s);
   return r;
 }
@@ -111,8 +123,8 @@ template<class T>
 void
 binary_search_bounds (Array<T> const &table,
 		      T const &key, int (*compare) (T const &, T const &),
-		      int *lo,
-		      int *hi)
+		      vsize *lo,
+		      vsize *hi)
 {
   int cmp;
   int result;
@@ -136,19 +148,20 @@ binary_search_bounds (Array<T> const &table,
   lookup with binsearch, return array index.
 */
 template<class T>
-int
+vsize
 binary_search (Array<T> const &table,
 	       T const &key, int (*compare) (T const &, T const &),
-	       int lo = 0,
-	       int hi = -1)
+	       vsize lo=0,
+	       vsize hi=VPOS)
 {
-  if (hi < 0)
+  if (hi == VPOS)
     hi = table.size ();
 
   binary_search_bounds (table, key, compare, &lo, &hi);
 
   if (! (*compare) (key, table[lo]))
     return lo;
-  else
-    return -1;              /* not found */
+
+  /* not found */
+  return VPOS;
 }

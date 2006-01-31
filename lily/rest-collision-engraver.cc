@@ -34,7 +34,7 @@ void
 Rest_collision_engraver::process_acknowledged ()
 {
   if (rest_collision_
-      || note_columns_.is_empty ()
+      || note_columns_.empty ()
       || !rest_count_
       || (note_columns_.size () == rest_count_
 	  && rest_count_ < 2))
@@ -42,14 +42,14 @@ Rest_collision_engraver::process_acknowledged ()
 
   rest_collision_ = make_item ("RestCollision", SCM_EOL);
 
-  for (int i = 0; i < note_columns_.size (); i++)
+  for (vsize i = 0; i < note_columns_.size (); i++)
     Rest_collision::add_column (rest_collision_, note_columns_[i]);
 }
 
 void
 Rest_collision_engraver::acknowledge_note_column (Grob_info i)
 {
-  note_columns_.push (i.grob ());
+  note_columns_.push_back (i.grob ());
   if (Note_column::has_rests (i.grob ()))
     rest_count_++;
 }

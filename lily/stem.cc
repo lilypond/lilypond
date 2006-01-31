@@ -155,7 +155,7 @@ Stem::extremal_heads (Grob *me)
   Drul_array<Grob *> exthead (0, 0);
   extract_grob_set (me, "note-heads", heads);
 
-  for (int i = heads.size (); i--;)
+  for (vsize i = heads.size (); i--;)
     {
       Grob *n = heads[i];
       int p = Staff_symbol_referencer::get_rounded_position (n);
@@ -181,18 +181,18 @@ integer_compare (int const &a, int const &b)
 }
 
 /* The positions, in ascending order.  */
-Array<int>
+std::vector<int>
 Stem::note_head_positions (Grob *me)
 {
-  Array<int> ps;
+  std::vector<int> ps;
   extract_grob_set (me, "note-heads", heads);
 
-  for (int i = heads.size (); i--;)
+  for (vsize i = heads.size (); i--;)
     {
       Grob *n = heads[i];
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
-      ps.push (p);
+      ps.push_back (p);
     }
 
   ps.sort (integer_compare);
@@ -233,7 +233,7 @@ Stem::calc_stem_end_position (SCM smob)
   
   Real ss = Staff_symbol_referencer::staff_space (me);
   int durlog = duration_log (me);
-  Array<Real> a;
+  std::vector<Real> a;
 
   /* WARNING: IN HALF SPACES */
   Real length = robust_scm2double (me->get_property ("length"), 7);
@@ -385,13 +385,13 @@ Stem::calc_positioning_done (SCM smob)
     }
   
   Real w = hed->extent (hed, X_AXIS)[dir];
-  for (int i = 0; i < heads.size (); i++)
+  for (vsize i = 0; i < heads.size (); i++)
     heads[i]->translate_axis (w - heads[i]->extent (heads[i], X_AXIS)[dir],
 			      X_AXIS);
 
   bool parity = true;
   Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
-  for (int i = 1; i < heads.size (); i++)
+  for (vsize i = 1; i < heads.size (); i++)
     {
       Real p = Staff_symbol_referencer::get_position (heads[i]);
       Real dy = fabs (lastpos- p);
@@ -770,7 +770,7 @@ Stem::offset_callback (SCM smob)
       extract_grob_set (me, "rests", rests);
       if (rests.size ())
 	{
-	  Grob *rest = rests.top ();
+	  Grob *rest = rests.back ();
 	  r = rest->extent (rest, X_AXIS).center ();
 	}
     }

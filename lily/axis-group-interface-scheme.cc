@@ -26,7 +26,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   if (!ga)
     {
       for (SCM s = elements; scm_is_pair (s); s = scm_cdr (s))
-	elts.push (unsmob_grob (scm_car (s)));
+	elts.push_back (unsmob_grob (scm_car (s)));
     }
 
   Interval ext = Axis_group_interface::relative_group_extent (ga ? ga->array () : elts,

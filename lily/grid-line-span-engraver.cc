@@ -34,7 +34,7 @@ Grid_line_span_engraver::acknowledge_grid_point (Grob_info i)
   if (depth)
     {
       Item *it = dynamic_cast<Item *> (i.grob ());
-      lines_.push (it);
+      lines_.push_back (it);
 
       if (lines_.size () >= 2 && !spanline_)
 	{
@@ -49,12 +49,12 @@ Grid_line_span_engraver::stop_translation_timestep ()
 {
   if (spanline_)
     {
-      for (int i = 0; i < lines_.size (); i++)
+      for (vsize i = 0; i < lines_.size (); i++)
 	Grid_line_interface::add_grid_point (spanline_, lines_[i]);
 
       spanline_ = 0;
     }
-  lines_.set_size (0);
+  lines_.resize (0);
 }
 
 #include "translator.icc"

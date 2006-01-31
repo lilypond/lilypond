@@ -48,7 +48,7 @@ Performance::output (Midi_stream &midi_stream)
   output_header_track (midi_stream);
   message (_ ("Track...") + " ");
   int channel = 0;
-  for (int i = 0; i < audio_staffs_.size (); i++)
+  for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
       if (be_verbose_global)
@@ -145,7 +145,7 @@ void
 Performance::add_element (Audio_element *p)
 {
   if (Audio_staff *s = dynamic_cast<Audio_staff *> (p))
-    audio_staffs_.push (s);
+    audio_staffs_.push_back (s);
   audio_element_list_ = new Killing_cons<Audio_element> (p, audio_element_list_);
 }
 

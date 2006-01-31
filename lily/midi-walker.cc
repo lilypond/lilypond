@@ -58,7 +58,7 @@ Midi_walker::do_start_note (Midi_note *note)
   Moment stop_mom = note->get_length () + ptr->audio_column_->at_mom ();
 
   bool play_start = true;
-  for (int i = 0; i < stop_note_queue.size (); i++)
+  for (vsize i = 0; i < stop_note_queue.size (); i++)
     {
       /* if this pith already in queue */
       if (stop_note_queue[i].val->get_pitch () == note->get_pitch ())

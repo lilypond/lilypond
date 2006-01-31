@@ -69,7 +69,7 @@ Multi_measure_rest_engraver::try_music (Music *event)
     }
   else if (event->is_mus_type ("multi-measure-text-event"))
     {
-      text_events_.push (event);
+      text_events_.push_back (event);
       return true;
     }
   return false;
@@ -85,11 +85,11 @@ Multi_measure_rest_engraver::process_music ()
 
       Spanner *sp
 	= make_spanner ("MultiMeasureRestNumber", rest_ev_->self_scm ());
-      numbers_.push (sp);
+      numbers_.push_back (sp);
 
       if (text_events_.size ())
 	{
-	  for (int i = 0; i < text_events_.size (); i++)
+	  for (vsize i = 0; i < text_events_.size (); i++)
 	    {
 
 	      Music *e = text_events_[i];
@@ -101,7 +101,7 @@ Multi_measure_rest_engraver::process_music ()
 	      if (is_direction (dir))
 		sp->set_property ("direction", dir);
 
-	      numbers_.push (sp);
+	      numbers_.push_back (sp);
 	    }
 
 	  /*
@@ -111,7 +111,7 @@ Multi_measure_rest_engraver::process_music ()
 	  do
 	    {
 	      Grob *last = 0;
-	      for (int i = 0; i < numbers_.size (); i++)
+	      for (vsize i = 0; i < numbers_.size (); i++)
 		{
 		  if (scm_from_int (d) == numbers_[i]->get_property ("direction"))
 		    {
@@ -124,7 +124,7 @@ Multi_measure_rest_engraver::process_music ()
 	  while (flip (&d) != DOWN);
 	}
 
-      for (int i = 0; i < numbers_.size (); i++)
+      for (vsize i = 0; i < numbers_.size (); i++)
 	{
 	  Side_position_interface::add_support (numbers_[i], mmrest_);
 	  numbers_[i]->set_parent (mmrest_, Y_AXIS);
@@ -157,14 +157,14 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       if (last_rest_)
 	{
 	  add_bound_item (last_rest_, last_command_item_);
-	  for (int i = 0; i < last_numbers_.size (); i++)
+	  for (vsize i = 0; i < last_numbers_.size (); i++)
 	    add_bound_item (last_numbers_[i], last_command_item_);
 	}
 
       if (mmrest_)
 	{
 	  add_bound_item (mmrest_, last_command_item_);
-	  for (int i = 0; i < numbers_.size (); i++)
+	  for (vsize i = 0; i < numbers_.size (); i++)
 	    add_bound_item (numbers_[i], last_command_item_);
 
 	  last_command_item_ = 0;

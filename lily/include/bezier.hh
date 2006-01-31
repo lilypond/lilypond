@@ -24,8 +24,8 @@ public:
   void translate (Offset);
 
   Real get_other_coordinate (Axis a, Real x) const;
-  Array<Real> solve_point (Axis, Real coordinate) const;
-  Array<Real> solve_derivative (Offset) const;
+  std::vector<Real> solve_point (Axis, Real coordinate) const;
+  std::vector<Real> solve_derivative (Offset) const;
   Interval extent (Axis) const;
   Interval control_point_extent (Axis) const;
   
@@ -37,15 +37,15 @@ public:
 
   /*
     Bezier curves always have 4 control points. Making this into an
-    Array<> gives unnecessary overhead, and makes debugging a royal
+    std::vector<> gives unnecessary overhead, and makes debugging a royal
     pain.  */
 
   Offset control_[4];
 };
 
-void scale (Array<Offset> *array, Real xscale, Real yscale);
-void rotate (Array<Offset> *array, Real phi);
-void translate (Array<Offset> *array, Offset o);
+void scale (std::vector<Offset> *array, Real xscale, Real yscale);
+void rotate (std::vector<Offset> *array, Real phi);
+void translate (std::vector<Offset> *array, Offset o);
 
 Bezier slur_shape (Real width, Real height_limit,
 		   Real height_proportion);

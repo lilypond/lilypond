@@ -24,13 +24,13 @@ class Grob_array
 public:
   bool ordered () const { return ordered_; }
   void set_ordered (bool b) { ordered_ = b; }
-  Item *item (int i);
-  Spanner *spanner (int i);
-  Grob *grob (int i) { return grobs_.elem (i); }
-  int size () const { return grobs_.size (); }
-  bool is_empty () const;
+  Item *item (vsize i);
+  Spanner *spanner (vsize i);
+  Grob *grob (vsize i) { return grobs_.elem (i); }
+  vsize size () const { return grobs_.size (); }
+  bool empty () const;
   void clear ();
-  void add (Grob *x) { grobs_.push (x); }
+  void add (Grob *x) { grobs_.push_back (x); }
   void set_array (Link_array<Grob> const &src);
   Link_array<Grob> &array_reference ();
   Link_array<Grob> const &array () const;

@@ -76,11 +76,11 @@ struct Tie_configuration_variation
 
 class Tie_formatting_problem
 {
-  Drul_array< Array<Skyline_entry> > chord_outlines_;
+  Drul_array< std::vector<Skyline_entry> > chord_outlines_;
   Drul_array< Box > stem_extents_;
   set<int> dot_positions_;
   Interval dot_x_;
-  Array<Tie_specification> specifications_;
+  std::vector<Tie_specification> specifications_;
   
   Tie_configuration_map possibilities_;
 
@@ -89,7 +89,7 @@ class Tie_formatting_problem
   
   Tie_configuration *get_configuration (int position, Direction dir);
   Tie_configuration *generate_configuration (int position, Direction dir) const;
-  Array<Tie_configuration_variation> get_variations (Ties_configuration const &ties);
+  std::vector<Tie_configuration_variation> get_variations (Ties_configuration const &ties);
 
   Real score_configuration (Tie_configuration const &) const;
   Real score_aptitude (Tie_configuration const &, Tie_specification const &) const;

@@ -43,8 +43,7 @@ properties_to_pango_description (SCM chain, Real text_size)
 				 0.0);
   Real size = text_size * pow (2.0, step / 6.0);
 
-  pango_font_description_set_size (description,
-				   gint (size * PANGO_SCALE));
+  pango_font_description_set_size (description, gint (size * PANGO_SCALE));
   return description;
 }
 

@@ -12,14 +12,14 @@
 
 void
 minimise_least_squares (Real *coef, Real *offset,
-			Array<Offset> const &input)
+			std::vector<Offset> const &input)
 {
   Real sx = 0.0;
   Real sy = 0.0;
   Real sqx = 0.0;
   Real sxy = 0.0;
 
-  for (int i = 0; i < input.size ();i++)
+  for (vsize i = 0; i < input.size ();i++)
     {
       Real x = input[i][X_AXIS];
       Real y = input[i][Y_AXIS];

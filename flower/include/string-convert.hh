@@ -37,6 +37,7 @@ public:
   static unsigned hex2unsigned (std::string str);
   static std::string hex2bin (std::string str);
   static std::string int_string (int i, char const *fmt = 0);
+  static std::string unsigned_string (unsigned);
   static std::string long_string (long);
   static std::string int2hex (int i, int length_i, char ch);
   static std::string unsigned2hex (unsigned u, ssize length, char ch);
@@ -44,7 +45,7 @@ public:
   static std::string rational_string (Rational);
   static std::string pointer_string (void const *);
   static std::string precision_string (double x, int n);
-  static Array<std::string> split (std::string str, char c);
+  static std::vector<std::string> split (std::string str, char c);
   static std::string i64_string (I64, char const *fmt = 0);
   static std::string to_lower (std::string s);
   static std::string to_upper (std::string s);

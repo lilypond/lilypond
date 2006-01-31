@@ -9,7 +9,7 @@
 #ifndef TRANSLATOR_ICC
 #define TRANSLATOR_ICC
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "translator.hh"
 
 /**
@@ -31,7 +31,7 @@
   ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
 #define ADD_TRANSLATOR(classname, desc, grobs, accepted, read, write)	\
-  Array<Acknowledge_information> classname::acknowledge_static_array_;	\
+  std::vector<Acknowledge_information> classname::acknowledge_static_array_;	\
   IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);			\
   ADD_THIS_TRANSLATOR (classname);					\
   Engraver_void_function_engraver_grob_info				\
@@ -92,11 +92,11 @@
 
 void add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
 		       char const *func_name,
-		       Array<Acknowledge_information> *ack_array);
+		       std::vector<Acknowledge_information> *ack_array);
 
 Engraver_void_function_engraver_grob_info
 generic_get_acknowledger (SCM sym,
-			  Array<Acknowledge_information> const *ack_array);
+			  std::vector<Acknowledge_information> const *ack_array);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)					\
   void CLASS ## NAME ## _ack_adder ()					\

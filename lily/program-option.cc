@@ -93,7 +93,7 @@ get_help_string ()
   SCM alist = ly_hash2alist (option_hash);
   SCM convertor = ly_lily_module_constant ("scm->string");
 
-  Array<std::string> opts;
+  std::vector<std::string> opts;
 
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -122,12 +122,12 @@ get_help_string ()
 		   std::string ("\n")
 		   + String_convert::char_string (' ', HELP_INDENT));
 
-      opts.push (opt_spec + opt_help + "\n");
+      opts.push_back (opt_spec + opt_help + "\n");
     }
 
   std::string help ("Options supported by ly:set-option\n\n");
   opts.sort (string_compare);
-  for (int i = 0; i < opts.size (); i++)
+  for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
 
   help += std::string ("\n");

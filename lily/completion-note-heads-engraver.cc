@@ -81,7 +81,7 @@ Completion_heads_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-event"))
     {
-      note_events_.push (m);
+      note_events_.push_back (m);
 
       is_first_ = true;
       Moment musiclen = m->get_length ();
@@ -192,15 +192,14 @@ Completion_heads_engraver::process_music ()
   if (orig && note_dur.get_length () != orig->get_length ())
     {
       if (!scratch_note_events_.size ())
-	for (int i = 0; i < note_events_.size (); i++)
+	for (vsize i = 0; i < note_events_.size (); i++)
 	  {
 	    Music *m = note_events_[i]->clone ();
-	    scratch_note_events_.push (m);
+	    scratch_note_events_.push_back (m);
 	  }
     }
 
-  for (int i = 0;
-       left_to_do_ && i < note_events_.size (); i++)
+  for (vsize i = 0; left_to_do_ && i < note_events_.size (); i++)
     {
       Music *event = note_events_[i];
       if (scratch_note_events_.size ())
@@ -229,7 +228,7 @@ Completion_heads_engraver::process_music ()
 	    d->set_property ("dot-count", scm_from_int (dots));
 
 	  d->set_parent (note, Y_AXIS);
-	  dots_.push (d);
+	  dots_.push_back (d);
 	}
 
       Pitch *pit = unsmob_pitch (event->get_property ("pitch"));
@@ -240,18 +239,18 @@ Completion_heads_engraver::process_music ()
 	pos += scm_to_int (c0);
 
       note->set_property ("staff-position", scm_from_int (pos));
-      notes_.push (note);
+      notes_.push_back (note);
     }
 
   if (prev_notes_.size () == notes_.size ())
     {
-      for (int i = 0; i < notes_.size (); i++)
+      for (vsize i = 0; i < notes_.size (); i++)
 	{
 	  Grob *p = make_spanner ("Tie", SCM_EOL);
 	  Tie::set_head (p, LEFT, prev_notes_[i]);
 	  Tie::set_head (p, RIGHT, notes_[i]);
 
-	  ties_.push (p);
+	  ties_.push_back (p);
 	}
     }
 
@@ -276,7 +275,7 @@ Completion_heads_engraver::stop_translation_timestep ()
 
   dots_.clear ();
 
-  for (int i = scratch_note_events_.size (); i--;)
+  for (vsize i = scratch_note_events_.size (); i--;)
     scratch_note_events_[i]->unprotect ();
 
   scratch_note_events_.clear ();

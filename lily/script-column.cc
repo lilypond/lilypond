@@ -45,7 +45,7 @@ Script_column::before_line_breaking (SCM smob)
   Link_array<Grob> staff_sided;
 
   extract_grob_set (me, "scripts", scripts);
-  for (int i = 0; i < scripts.size (); i++)
+  for (vsize i = 0; i < scripts.size (); i++)
     {
       Grob *sc = scripts[i];
 
@@ -54,10 +54,10 @@ Script_column::before_line_breaking (SCM smob)
       */
       if (sc->get_property_data (ly_symbol2scm ("X-offset")) !=
 	  Side_position_interface::x_aligned_side_proc)
-	staff_sided.push (sc);
+	staff_sided.push_back (sc);
     }
 
-  for (int i = 0; i < staff_sided.size (); i++)
+  for (vsize i = 0; i < staff_sided.size (); i++)
     {
       Grob *g = staff_sided[i];
       Direction d = get_grob_direction (g);

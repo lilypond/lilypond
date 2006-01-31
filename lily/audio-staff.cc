@@ -15,7 +15,7 @@
 void
 Audio_staff::add_audio_item (Audio_item *l)
 {
-  audio_items_.push (l);
+  audio_items_.push_back (l);
 }
 
 void

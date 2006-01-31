@@ -86,17 +86,16 @@ void
 Slur_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *e = info.grob ();
-  for (int i = slurs_.size (); i--;)
+  for (vsize i = slurs_.size (); i--;)
     Slur::add_column (slurs_[i], e);
-  for (int i = end_slurs_.size (); i--;)
+  for (vsize i = end_slurs_.size (); i--;)
     Slur::add_column (end_slurs_[i], e);
 }
 
 void
 Slur_engraver::acknowledge_extra_object (Grob_info info)
 {
-  if (slurs_.is_empty ()
-      && end_slurs_.is_empty ())
+  if (slurs_.empty () && end_slurs_.empty ())
     return ;
   
   Grob *e = info.grob ();
@@ -104,9 +103,9 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
   if (Tie::has_interface (e)
       || avoid == ly_symbol2scm ("inside"))
     {
-      for (int i = slurs_.size (); i--;)
+      for (vsize i = slurs_.size (); i--;)
 	Slur::add_extra_encompass (slurs_[i], e);
-      for (int i = end_slurs_.size (); i--;)
+      for (vsize i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
   else if (avoid == ly_symbol2scm ("outside")
@@ -189,7 +188,7 @@ Slur_engraver::process_music ()
       slurs_.clear ();
     }
 
-  if (events_[START] && slurs_.is_empty ())
+  if (events_[START] && slurs_.empty ())
     {
       Music *ev = events_[START];
 
@@ -200,14 +199,14 @@ Slur_engraver::process_music ()
       if (updown && !double_slurs)
 	set_grob_direction (slur, updown);
 
-      slurs_.push (slur);
+      slurs_.push_back (slur);
 
       if (double_slurs)
 	{
 	  set_grob_direction (slur, DOWN);
 	  slur = make_spanner ("Slur", events_[START]->self_scm ());
 	  set_grob_direction (slur, UP);
-	  slurs_.push (slur);
+	  slurs_.push_back (slur);
 	}
     }
   set_melisma (slurs_.size ());

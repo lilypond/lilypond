@@ -68,12 +68,12 @@ Break_align_interface::ordered_elements (Grob *grob)
     {
       SCM sym = scm_car (order);
 
-      for (int i = writable_elts.size (); i--;)
+      for (vsize i = writable_elts.size (); i--;)
 	{
 	  Grob *g = writable_elts[i];
 	  if (g && sym == g->get_property ("break-align-symbol"))
 	    {
-	      new_elts.push (g);
+	      new_elts.push_back (g);
 	      writable_elts.del (i);
 	    }
 	}
@@ -96,31 +96,31 @@ Break_align_interface::calc_positioning_done (SCM smob)
   Item *me = dynamic_cast<Item *> (grob);
 
   Link_array<Grob> elems = ordered_elements (me);
-  Array<Interval> extents;
+  std::vector<Interval> extents;
 
   int last_nonempty = -1;
-  for (int i = 0; i < elems.size (); i++)
+  for (vsize i = 0; i < elems.size (); i++)
     {
       Interval y = elems[i]->extent (elems[i], X_AXIS);
-      extents.push (y);
+      extents.push_back (y);
       if (!y.is_empty ())
 	last_nonempty = i;
     }
 
-  int idx = 0;
+  vsize idx = 0;
   while (idx < extents.size () && extents[idx].is_empty ())
     idx++;
 
-  Array<Real> offsets;
-  offsets.set_size (elems.size ());
-  for (int i = 0; i < offsets.size ();i++)
+  std::vector<Real> offsets;
+  offsets.resize (elems.size ());
+  for (vsize i = 0; i < offsets.size ();i++)
     offsets[i] = 0.0;
 
   Real extra_right_space = 0.0;
-  int edge_idx = -1;
+  vsize edge_idx = VPOS;
   while (idx < elems.size ())
     {
-      int next_idx = idx + 1;
+      vsize next_idx = idx + 1;
       while (next_idx < elems.size ()
 	     && extents[next_idx].is_empty ())
 	next_idx++;
@@ -138,11 +138,11 @@ Break_align_interface::calc_positioning_done (SCM smob)
       */
       extract_grob_set (l, "elements", elts);
 
-      for (int i = elts.size (); i--;)
+      for (vsize i = elts.size (); i--;)
 	{
 	  Grob *elt = elts[i];
 
-	  if (edge_idx < 0
+	  if (edge_idx == VPOS
 	      && elt->get_property ("break-align-symbol")
 	      == ly_symbol2scm ("left-edge"))
 	    edge_idx = idx;
@@ -165,7 +165,7 @@ Break_align_interface::calc_positioning_done (SCM smob)
       if (r)
 	{
 	  extract_grob_set (r, "elements", elts);
-	  for (int i = elts.size ();
+	  for (vsize i = elts.size ();
 	       !scm_is_symbol (rsym) && i--;)
 	    {
 	      Grob *elt = elts[i];
@@ -226,7 +226,7 @@ Break_align_interface::calc_positioning_done (SCM smob)
   Interval total_extent;
 
   Real alignment_off = 0.0;
-  for (int i = 0; i < offsets.size (); i++)
+  for (vsize i = 0; i < offsets.size (); i++)
     {
       here += offsets[i];
       if (i == edge_idx)
@@ -239,11 +239,11 @@ Break_align_interface::calc_positioning_done (SCM smob)
 
   if (me->break_status_dir () == LEFT)
     alignment_off = -total_extent[RIGHT] - extra_right_space;
-  else if (edge_idx < 0)
+  else if (edge_idx == VPOS)
     alignment_off = -total_extent[LEFT];
 
   here = alignment_off;
-  for (int i = 0; i < offsets.size (); i++)
+  for (vsize i = 0; i < offsets.size (); i++)
     {
       here += offsets[i];
       elems[i]->translate_axis (here, X_AXIS);

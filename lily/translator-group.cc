@@ -176,7 +176,7 @@ Translator_group::precompute_method_bindings ()
       for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
 	{
 	  if (ptrs[i])
-	    precomputed_method_bindings_[i].push (Translator_method_binding (tr, ptrs[i]));
+	    precomputed_method_bindings_[i].push_back (Translator_method_binding (tr, ptrs[i]));
 	}
     }
 
@@ -186,8 +186,8 @@ Translator_group::precompute_method_bindings ()
 void
 Translator_group::precomputed_translator_foreach (Translator_precompute_index idx)
 {
-  Array<Translator_method_binding> &bindings (precomputed_method_bindings_[idx]);
-  for (int i = 0; i < bindings.size (); i++)
+  std::vector<Translator_method_binding> &bindings (precomputed_method_bindings_[idx]);
+  for (vsize i = 0; i < bindings.size (); i++)
     bindings[i].invoke ();
 }
 

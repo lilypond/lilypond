@@ -57,7 +57,7 @@ Lyric_extender::print (SCM smob)
     = left_point + (robust_scm2double (minlen, 0));
 
   if (heads.size ())
-    right_point = max (right_point, heads.top ()->extent (common, X_AXIS)[RIGHT]);
+    right_point = max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
   Real pad = 2* h;

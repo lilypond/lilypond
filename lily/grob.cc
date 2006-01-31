@@ -610,7 +610,7 @@ common_refpoint_of_list (SCM elist, Grob *common, Axis a)
 Grob *
 common_refpoint_of_array (Link_array<Grob> const &arr, Grob *common, Axis a)
 {
-  for (int i = arr.size (); i--;)
+  for (vsize i = arr.size (); i--;)
     if (Grob *s = arr[i])
       {
 	if (common)

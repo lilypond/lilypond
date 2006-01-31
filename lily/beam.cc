@@ -91,7 +91,7 @@ Beam::get_beam_count (Grob *me)
   int m = 0;
 
   extract_grob_set (me, "stems", stems);
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
       m = max (m, (Stem::beam_multiplicity (stem).length () + 1));
@@ -218,7 +218,7 @@ Beam::calc_beaming (SCM smob)
   
   SCM last_beaming = scm_cons (SCM_EOL, scm_list_1 (scm_from_int (0)));
   Direction last_dir = CENTER;
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *this_stem = stems[i];
       SCM this_beaming = this_stem->get_property ("beaming");
@@ -300,7 +300,7 @@ Beam::print (SCM grob)
   else
     {
       x0 = stems[0]->relative_coordinate (xcommon, X_AXIS);
-      dx = stems.top ()->relative_coordinate (xcommon, X_AXIS) - x0;
+      dx = stems.back ()->relative_coordinate (xcommon, X_AXIS) - x0;
     }
 
   SCM posns = me->get_property ("quantized-positions");
@@ -330,7 +330,7 @@ Beam::print (SCM grob)
   Stencil the_beam;
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
 
-  for (int i = 0; i <= stems.size (); i++)
+  for (vsize i = 0; i <= stems.size (); i++)
     {
       Grob *stem = (i < stems.size ()) ? stems[i] : 0;
 
@@ -346,25 +346,25 @@ Beam::print (SCM grob)
       SCM left = (i > 0) ? scm_cdr (last_beaming) : SCM_EOL;
       SCM right = stem ? scm_car (this_beaming) : SCM_EOL;
 
-      Array<int> full_beams;
-      Array<int> lfliebertjes;
-      Array<int> rfliebertjes;
+      std::vector<int> full_beams;
+      std::vector<int> lfliebertjes;
+      std::vector<int> rfliebertjes;
 
       for (SCM s = left;
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  int b = scm_to_int (scm_car (s));
 	  if (scm_c_memq (scm_car (s), right) != SCM_BOOL_F)
-	    full_beams.push (b);
+	    full_beams.push_back (b);
 	  else
-	    lfliebertjes.push (b);
+	    lfliebertjes.push_back (b);
 	}
       for (SCM s = right;
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  int b = scm_to_int (scm_car (s));
 	  if (scm_c_memq (scm_car (s), left) == SCM_BOOL_F)
-	    rfliebertjes.push (b);
+	    rfliebertjes.push_back (b);
 	}
 
       Drul_array<Real> break_overshoot
@@ -401,7 +401,7 @@ Beam::print (SCM grob)
 	}
 
       int k = 0;
-      for (int j = full_beams.size (); j--;)
+      for (vsize j = full_beams.size (); j--;)
 	{
 	  Stencil b (whole);
 
@@ -460,7 +460,7 @@ Beam::print (SCM grob)
 
 	  Stencil rhalf = Lookup::beam (slope, rw, thick, blot);
 	  Stencil lhalf = Lookup::beam (slope, lw, thick, blot);
-	  for (int j = lfliebertjes.size (); j--;)
+	  for (vsize j = lfliebertjes.size (); j--;)
 	    {
 	      Stencil b (lhalf);
 	      b.translate_axis (last_xposn - x0 - last_stem_width /2,
@@ -470,7 +470,7 @@ Beam::print (SCM grob)
 				Y_AXIS);
 	      the_beam.add_stencil (b);
 	    }
-	  for (int j = rfliebertjes.size (); j--;)
+	  for (vsize j = rfliebertjes.size (); j--;)
 	    {
 	      Stencil b (rhalf);
 	      b.translate_axis (xposn - x0 - rw + stem_width / 2, X_AXIS);
@@ -526,7 +526,7 @@ Beam::get_default_dir (Grob *me)
 
   extract_grob_set (me, "stems", stems);
 
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
       Direction stem_dir = CENTER;
@@ -570,7 +570,7 @@ Beam::set_stem_directions (Grob *me, Direction d)
 {
   extract_grob_set (me, "stems", stems);
 
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
 
@@ -608,8 +608,8 @@ Beam::consider_auto_knees (Grob *me)
   Grob *common = common_refpoint_of_array (stems, me, Y_AXIS);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Array<Interval> head_extents_array;
-  for (int i = 0; i < stems.size (); i++)
+  std::vector<Interval> head_extents_array;
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
       if (Stem::is_invisible (stem))
@@ -635,7 +635,7 @@ Beam::consider_auto_knees (Grob *me)
 	      head_extents[-stemdir] = -stemdir * infinity_f;
 	    }
 	}
-      head_extents_array.push (head_extents);
+      head_extents_array.push_back (head_extents);
 
       gaps.remove_interval (head_extents);
     }
@@ -643,7 +643,7 @@ Beam::consider_auto_knees (Grob *me)
   Interval max_gap;
   Real max_gap_len = 0.0;
 
-  for (int i = gaps.allowed_regions_.size () -1; i >= 0; i--)
+  for (vsize i = gaps.allowed_regions_.size () -1; i != VPOS ;i--)
     {
       Interval gap = gaps.allowed_regions_[i];
 
@@ -670,7 +670,7 @@ Beam::consider_auto_knees (Grob *me)
   if (max_gap_len > threshold)
     {
       int j = 0;
-      for (int i = 0; i < stems.size (); i++)
+      for (vsize i = 0; i < stems.size (); i++)
 	{
 	  Grob *stem = stems[i];
 	  if (Stem::is_invisible (stem))
@@ -779,7 +779,7 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
   if (count < 1)
     return ly_interval2scm (pos);
   
-  Array<Real> x_posns;
+  std::vector<Real> x_posns;
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);
@@ -795,12 +795,12 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
 		  + lvs->relative_coordinate (commony, Y_AXIS) - my_y);
 
   Real x0 = first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
 
       Real x = s->relative_coordinate (commonx, X_AXIS) - x0;
-      x_posns.push (x);
+      x_posns.push_back (x);
     }
   Real dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS) - x0;
 
@@ -839,13 +839,13 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
     }
   else
     {
-      Array<Offset> ideals;
-      for (int i = 0; i < stems.size (); i++)
+      std::vector<Offset> ideals;
+      for (vsize i = 0; i < stems.size (); i++)
 	{
 	  Grob *s = stems[i];
 	  if (Stem::is_invisible (s))
 	    continue;
-	  ideals.push (Offset (x_posns[i],
+	  ideals.push_back (Offset (x_posns[i],
 			       Stem::get_stem_info (s).ideal_y_
 			       + s->relative_coordinate (commony, Y_AXIS)
 			       - my_y));
@@ -885,7 +885,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
   /*
     Code dup.
   */
-  Array<Real> x_posns;
+  std::vector<Real> x_posns;
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);
@@ -896,12 +896,12 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
     return posns;
 
   Real x0 = fvs->relative_coordinate (commonx, X_AXIS);
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
 
       Real x = s->relative_coordinate (commonx, X_AXIS) - x0;
-      x_posns.push (x);
+      x_posns.push_back (x);
     }
 
   Grob *lvs = last_visible_stem (me);
@@ -925,7 +925,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
   */
   Interval feasible_left_point;
   feasible_left_point.set_full ();
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
       if (Stem::is_invisible (s))
@@ -1127,7 +1127,7 @@ Beam::set_stem_lengths (SCM smob)
   Real xl = fvs ? fvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
   Real xr = lvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
 
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
       if (Stem::is_invisible (s))
@@ -1157,7 +1157,7 @@ Beam::set_beaming (Grob *me, Beaming_info_list const *beaming)
   extract_grob_set (me, "stems", stems);
 
   Direction d = LEFT;
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       /*
 	Don't overwrite user settings.
@@ -1188,7 +1188,7 @@ Beam::forced_stem_count (Grob *me)
   extract_grob_set (me, "stems", stems);
 
   int f = 0;
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
 
@@ -1212,7 +1212,7 @@ Beam::visible_stem_count (Grob *me)
 {
   extract_grob_set (me, "stems", stems);
   int c = 0;
-  for (int i = stems.size (); i--;)
+  for (vsize i = stems.size (); i--;)
     {
       if (!Stem::is_invisible (stems[i]))
 	c++;
@@ -1225,7 +1225,7 @@ Beam::first_visible_stem (Grob *me)
 {
   extract_grob_set (me, "stems", stems);
 
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       if (!Stem::is_invisible (stems[i]))
 	return stems[i];
@@ -1238,7 +1238,7 @@ Beam::last_visible_stem (Grob *me)
 {
   extract_grob_set (me, "stems", stems);
 
-  for (int i = stems.size (); i--;)
+  for (vsize i = stems.size (); i--;)
     {
       if (!Stem::is_invisible (stems[i]))
 	return stems[i];
@@ -1353,7 +1353,7 @@ Beam::is_knee (Grob *me)
   bool knee = false;
   int d = 0;
   extract_grob_set (me, "stems", stems);
-  for (int i = stems.size (); i--;)
+  for (vsize i = stems.size (); i--;)
     {
       Direction dir = get_grob_direction (stems[i]);
       if (d && d != dir)
@@ -1375,7 +1375,7 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
   extract_grob_set (me, "stems", stems);
   int bc = 0;
 
-  for (int i = stems.size (); i--;)
+  for (vsize i = stems.size (); i--;)
     {
       /*
 	Should we take invisible stems into account?

@@ -110,13 +110,13 @@ Volta_bracket_interface::after_line_breaking (SCM smob)
  
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == (Spanner *)me);
 
-  bool broken_last_bracket = orig_span && (orig_span->broken_intos_.top () == (Spanner *)me);
+  bool broken_last_bracket = orig_span && (orig_span->broken_intos_.back () == (Spanner *)me);
 
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
 
   extract_grob_set (me, "bars", bars);
-  Grob *endbar = bars.size () ? bars.top () : 0;
+  Grob *endbar = bars.size () ? bars.back () : 0;
   SCM glyph = endbar ? endbar->get_property ("glyph") : SCM_EOL;
 
   std::string str;

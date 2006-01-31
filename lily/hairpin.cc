@@ -95,7 +95,7 @@ Hairpin::print (SCM smob)
 	    {
 	      bool neighbor_found = false;
 	      extract_grob_set (me, "adjacent-hairpins", pins);
-	      for (int i = 0; i < pins.size (); i++)
+	      for (vsize i = 0; i < pins.size (); i++)
 		{
 		  /*
 		    FIXME: this will fuck up in case of polyphonic

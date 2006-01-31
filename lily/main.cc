@@ -49,7 +49,7 @@ using namespace std;
  */
 
 /* Names of header fields to be dumped to a separate file. */
-Array<std::string> dump_header_fieldnames_global;
+std::vector<std::string> dump_header_fieldnames_global;
 
 /* Name of initialisation file. */
 std::string init_name_global;
@@ -300,7 +300,7 @@ do_chroot_jail ()
       USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
     };
 
-  Array<std::string> components = String_convert::split (jail_spec, ',');
+  std::vector<std::string> components = String_convert::split (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
       error (_f ("expected %d arguments with jail, found: %d", JAIL_MAX,
@@ -543,7 +543,7 @@ parse_argv (int argc, char **argv)
 
 	case 'H':
 	  dump_header_fieldnames_global
-	    .push (option_parser->optional_argument_str0_);
+	    .push_back (option_parser->optional_argument_str0_);
 	  break;
 	case 'I':
 	  global_path.append (option_parser->optional_argument_str0_);

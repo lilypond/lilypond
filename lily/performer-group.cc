@@ -23,7 +23,7 @@ ADD_TRANSLATOR_GROUP (Performer_group,
 void
 Performer_group::announce_element (Audio_element_info info)
 {
-  announce_infos_.push (info);
+  announce_infos_.push_back (info);
   Translator_group *t
     = context ()->get_parent_context ()->implementation ();
 
@@ -34,7 +34,7 @@ Performer_group::announce_element (Audio_element_info info)
 void
 Performer_group::acknowledge_audio_elements ()
 {
-  for (int j = 0; j < announce_infos_.size (); j++)
+  for (vsize j = 0; j < announce_infos_.size (); j++)
     {
       Audio_element_info info = announce_infos_[j];
 

@@ -45,7 +45,7 @@ Score_performer::play_element (Audio_element *p)
 void
 Score_performer::announce_element (Audio_element_info info)
 {
-  announce_infos_.push (info);
+  announce_infos_.push_back (info);
 }
 
 void

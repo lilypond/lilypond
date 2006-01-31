@@ -56,7 +56,7 @@ Axis_group_engraver::finalize ()
 void
 Axis_group_engraver::acknowledge_grob (Grob_info i)
 {
-  elts_.push (i.grob ());
+  elts_.push_back (i.grob ());
 }
 
 /*
@@ -69,7 +69,7 @@ Axis_group_engraver::process_acknowledged ()
   if (!staffline_)
     return;
 
-  for (int i = 0; i < elts_.size (); i++)
+  for (vsize i = 0; i < elts_.size (); i++)
     {
       if (!unsmob_grob (elts_[i]->get_object ("axis-group-parent-Y")))
 	{

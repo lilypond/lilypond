@@ -93,7 +93,7 @@ Tie_column::calc_positioning_done (SCM smob)
 
   Ties_configuration base = problem.generate_optimal_chord_configuration ();
 
-  for (int i = 0; i < base.size(); i++)
+  for (vsize i = 0; i < base.size(); i++)
     {
       Tie::set_control_points (ties[i], problem.common_x_refpoint (),
 			       base[i],

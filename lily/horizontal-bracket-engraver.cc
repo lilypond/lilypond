@@ -60,7 +60,7 @@ Horizontal_bracket_engraver::try_music (Music *m)
       else
 	{
 	  push_count_++;
-	  events_.push (m);
+	  events_.push_back (m);
 	}
 
       if (pop_count_ && push_count_)
@@ -74,7 +74,7 @@ Horizontal_bracket_engraver::try_music (Music *m)
 void
 Horizontal_bracket_engraver::acknowledge_note_column (Grob_info gi)
 {
-  for (int i = 0; i < bracket_stack_.size (); i++)
+  for (vsize i = 0; i < bracket_stack_.size (); i++)
     {
       Side_position_interface::add_support (bracket_stack_[i], gi.grob ());
       Pointer_group_interface::add_grob (bracket_stack_[i],
@@ -91,14 +91,14 @@ Horizontal_bracket_engraver::process_music ()
     {
       Spanner *sp = make_spanner ("HorizontalBracket", events_[k]->self_scm ());
 
-      for (int i = 0; i < bracket_stack_.size (); i++)
+      for (vsize i = 0; i < bracket_stack_.size (); i++)
 	{
 	  /*
 	    sp is the smallest, it should be added to the bigger brackets.
 	  */
 	  Side_position_interface::add_support (bracket_stack_[i], sp);
 	}
-      bracket_stack_.push (sp);
+      bracket_stack_.push_back (sp);
     }
 }
 

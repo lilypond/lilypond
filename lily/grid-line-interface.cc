@@ -25,7 +25,7 @@ Grid_line_interface::print (SCM smobbed_me)
   Grob *refp = common_refpoint_of_array (elts, me, Y_AXIS);
   Interval iv;
 
-  for (int i = 0; i < elts.size (); i++)
+  for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *point = elts[i];
 

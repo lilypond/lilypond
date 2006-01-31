@@ -9,7 +9,7 @@
 #ifndef INTERVAL_SET_HH
 #define INTERVAL_SET_HH
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "interval.hh"
 
 /*
@@ -21,7 +21,7 @@
 */
 struct Interval_set
 {
-  Array<Interval> allowed_regions_;
+  std::vector<Interval> allowed_regions_;
 
   Interval_set ();
   void set_full ();

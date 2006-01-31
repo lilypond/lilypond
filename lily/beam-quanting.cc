@@ -78,11 +78,11 @@ struct Quant_score
 */
 
 int
-best_quant_score_idx (Array<Quant_score> const &qscores)
+best_quant_score_idx (std::vector<Quant_score> const &qscores)
 {
   Real best = 1e6;
   int best_idx = -1;
-  for (int i = qscores.size (); i--;)
+  for (vsize i = qscores.size (); i--;)
     {
       if (qscores[i].demerits < best)
 	{
@@ -123,8 +123,8 @@ Beam::quanting (SCM smob, SCM posns)
   Real quants [] = {straddle, sit, inter, hang };
 
   int num_quants = int (sizeof (quants) / sizeof (Real));
-  Array<Real> quantsl;
-  Array<Real> quantsr;
+  std::vector<Real> quantsl;
+  std::vector<Real> quantsr;
 
   /*
     going to REGION_SIZE == 2, yields another 0.6 second with
@@ -141,9 +141,9 @@ Beam::quanting (SCM smob, SCM posns)
   */
   Link_array<Grob> stems
     = extract_grob_array (me, "stems");
-  Array<Stem_info> stem_infos;
-  Array<Real> base_lengths;
-  Array<Real> stem_xposns;
+  std::vector<Stem_info> stem_infos;
+  std::vector<Real> base_lengths;
+  std::vector<Real> stem_xposns;
 
   Drul_array<bool> dirs_found (0, 0);
   Grob *common[2];
@@ -163,21 +163,21 @@ Beam::quanting (SCM smob, SCM posns)
     stem_y != 0.0, when we're cross staff.
 
   */
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
 
       Stem_info si (Stem::get_stem_info (s));
       si.scale (1 / ss);
-      stem_infos.push (si);
-      dirs_found[stem_infos.top ().dir_] = true;
+      stem_infos.push_back (si);
+      dirs_found[stem_infos.back ().dir_] = true;
 
       bool f = to_boolean (s->get_property ("french-beaming"))
 	&& s != lvs && s != fvs;
 
-      base_lengths.push (calc_stem_y (me, s, common, xl, xr,
+      base_lengths.push_back (calc_stem_y (me, s, common, xl, xr,
 				      Interval (0, 0), f) / ss);
-      stem_xposns.push (s->relative_coordinate (common[X_AXIS], X_AXIS));
+      stem_xposns.push_back (s->relative_coordinate (common[X_AXIS], X_AXIS));
     }
 
   bool xstaff = false;
@@ -188,7 +188,7 @@ Beam::quanting (SCM smob, SCM posns)
     }
 
   Direction ldir = Direction (stem_infos[0].dir_);
-  Direction rdir = Direction (stem_infos.top ().dir_);
+  Direction rdir = Direction (stem_infos.back ().dir_);
   bool is_knee = dirs_found[LEFT] && dirs_found[RIGHT];
 
   int region_size = (int) parameters.REGION_SIZE;
@@ -205,28 +205,28 @@ Beam::quanting (SCM smob, SCM posns)
   for (int i = -region_size; i < region_size; i++)
     for (int j = 0; j < num_quants; j++)
       {
-	quantsl.push (i + quants[j] + int (yl));
-	quantsr.push (i + quants[j] + int (yr));
+	quantsl.push_back (i + quants[j] + int (yl));
+	quantsr.push_back (i + quants[j] + int (yr));
       }
 
-  Array<Quant_score> qscores;
+  std::vector<Quant_score> qscores;
 
-  for (int l = 0; l < quantsl.size (); l++)
-    for (int r = 0; r < quantsr.size (); r++)
+  for (vsize l = 0; l < quantsl.size (); l++)
+    for (vsize r = 0; r < quantsr.size (); r++)
       {
 	Quant_score qs;
 	qs.yl = quantsl[l];
 	qs.yr = quantsr[r];
 	qs.demerits = 0.0;
 
-	qscores.push (qs);
+	qscores.push_back (qs);
       }
 
   /* This is a longish function, but we don't separate this out into
      neat modular separate subfunctions, as the subfunctions would be
      called for many values of YL, YR. By precomputing various
      parameters outside of the loop, we can save a lot of time. */
-  for (int i = qscores.size (); i--;)
+  for (vsize i = qscores.size (); i--;)
     {
       Real d = score_slopes_dy (qscores[i].yl, qscores[i].yr,
 				dy_mus, yr- yl,
@@ -242,12 +242,12 @@ Beam::quanting (SCM smob, SCM posns)
   Real rad = Staff_symbol_referencer::staff_radius (me);
   Drul_array<int> edge_beam_counts
     (Stem::beam_multiplicity (stems[0]).length () + 1,
-     Stem::beam_multiplicity (stems.top ()).length () + 1);
+     Stem::beam_multiplicity (stems.back ()).length () + 1);
 
   Real beam_translation = get_beam_translation (me) / ss;
 
   Real reasonable_score = (is_knee) ? 200000 : 100;
-  for (int i = qscores.size (); i--;)
+  for (vsize i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
 	Real d = score_forbidden_quants (qscores[i].yl, qscores[i].yr,
@@ -260,7 +260,7 @@ Beam::quanting (SCM smob, SCM posns)
 #endif
       }
 
-  for (int i = qscores.size (); i--;)
+  for (vsize i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
 	Real d = score_stem_lengths (stems, stem_infos,
@@ -284,10 +284,8 @@ Beam::quanting (SCM smob, SCM posns)
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
 
-      int i = 0;
-
       Real mindist = 1e6;
-      for (; i < qscores.size (); i++)
+      for (vsize i = 0; i < qscores.size (); i++)
 	{
 	  Real d = fabs (qscores[i].yl- ins[LEFT]) + fabs (qscores[i].yr - ins[RIGHT]);
 	  if (d < mindist)
@@ -330,9 +328,9 @@ Beam::quanting (SCM smob, SCM posns)
 
 Real
 Beam::score_stem_lengths (Link_array<Grob> const &stems,
-			  Array<Stem_info> const &stem_infos,
-			  Array<Real> const &base_stem_ys,
-			  Array<Real> const &stem_xs,
+			  std::vector<Stem_info> const &stem_infos,
+			  std::vector<Real> const &base_stem_ys,
+			  std::vector<Real> const &stem_xs,
 			  Real xl, Real xr,
 			  bool knee,
 			  Real yl, Real yr,
@@ -343,7 +341,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
   Drul_array<Real> score (0, 0);
   Drul_array<int> count (0, 0);
 
-  for (int i = 0; i < stems.size (); i++)
+  for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
       if (Stem::is_invisible (s))

@@ -37,11 +37,16 @@ Source_file::load_stdin ()
   length_ = 0;
 
   int c;
-  Array<char> chs;		// ugh.
+#if STD_VECTOR
+  std::vector<char> &chs = *new std::vector<char>; // ugh. ugh.
+#else
+  std::vector<char> chs;		// ugh.
+#endif
+  
   while ((c = fgetc (stdin)) != EOF)
-    chs.push (c);
+    chs.push_back (c);
 
-  chs.push (0);
+  chs.push_back (0);
   length_ = chs.size ();
   contents_str0_ = chs.remove_array ();
 }
@@ -90,7 +95,7 @@ Source_file::Source_file (std::string filename, std::string data)
 
   for (int i = 0; i < length_; i++)
     if (contents_str0_[i] == '\n')
-      newline_locations_.push (contents_str0_ + i);
+      newline_locations_.push_back (contents_str0_ + i);
 }
 
 Source_file::Source_file (std::string filename_string)
@@ -113,7 +118,7 @@ Source_file::Source_file (std::string filename_string)
 
   for (int i = 0; i < length_; i++)
     if (contents_str0_[i] == '\n')
-      newline_locations_.push (contents_str0_ + i);
+      newline_locations_.push_back (contents_str0_ + i);
 }
 
 void

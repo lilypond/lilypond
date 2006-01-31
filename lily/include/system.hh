@@ -38,7 +38,7 @@ public:
   int element_count () const;
   int spanner_count () const;
 
-  void break_into_pieces (Array<Column_x_positions> const &);
+  void break_into_pieces (std::vector<Column_x_positions> const &);
   static bool has_interface (Grob *);
 
   Link_array<Item> broken_col_range (Item const *, Item const *) const;

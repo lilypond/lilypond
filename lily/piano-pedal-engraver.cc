@@ -264,8 +264,8 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	  if (previous_.size ())
 	    // add extra space below the previous already-occuring pedal
 	    Side_position_interface::add_support (p->line_spanner_,
-						  previous_.top ());
-	  previous_.push (p->line_spanner_);
+						  previous_.back ());
+	  previous_.push_back (p->line_spanner_);
 	}
     }
 
@@ -386,9 +386,9 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 	    // position new pedal spanner below the current one
 	    */
 	  if (previous_.size ())
-	    Side_position_interface::add_support (p->line_spanner_, previous_.top ());
+	    Side_position_interface::add_support (p->line_spanner_, previous_.back ());
 
-	  previous_.push (p->line_spanner_);
+	  previous_.push_back (p->line_spanner_);
 	}
     }
 

@@ -83,7 +83,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
   Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
 
   extract_grob_set (me, "elements", elts);
-  for (int i = elts.size ();
+  for (vsize i = elts.size ();
        i-- > 1;)
     {
       Item *r = dynamic_cast<Item *> (elts[i]);

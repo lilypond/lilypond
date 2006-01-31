@@ -60,12 +60,12 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
   else
     spacer.my_solve_linelen ();
 
-  Array<Real> posns;
-  posns.push (0.0);
-  for (int i = 0; i < spacer.springs_.size (); i++)
+  std::vector<Real> posns;
+  posns.push_back (0.0);
+  for (vsize i = 0; i < spacer.springs_.size (); i++)
     {
       Real l = spacer.springs_[i].length ((is_ragged) ? 0.0 : spacer.force_);
-      posns.push (posns.top () + l);
+      posns.push_back (posns.back () + l);
     }
 
   SCM force_return = SCM_BOOL_F;
@@ -74,11 +74,11 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
     force_return = scm_from_double (spacer.force_);
 
   if (is_ragged
-      && posns.top () > spacer.line_len_)
+      && posns.back () > spacer.line_len_)
     force_return = SCM_BOOL_F;
 
   SCM retval = SCM_EOL;
-  for (int i = posns.size (); i--;)
+  for (vsize i = posns.size (); i--;)
     retval = scm_cons (scm_from_double (posns[i]), retval);
 
   retval = scm_cons (force_return, retval);

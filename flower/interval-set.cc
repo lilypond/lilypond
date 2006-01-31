@@ -27,13 +27,13 @@ Interval_set::set_full ()
   allowed_regions_.clear ();
   Interval s;
   s.set_full ();
-  allowed_regions_.push (s);
+  allowed_regions_.push_back (s);
 }
 
 void
 Interval_set::remove_interval (Interval rm)
 {
-  for (int i = 0; i < allowed_regions_.size ();)
+  for (vsize i = 0; i < allowed_regions_.size ();)
     {
       Interval s = rm;
 

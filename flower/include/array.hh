@@ -6,6 +6,10 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
+#ifndef STD_VECTOR_HH
+#error array.hh is obsolete, use std-vector.hh
+#endif
+
 #include <cassert>
 using namespace std;
 
@@ -13,6 +17,7 @@ using namespace std;
 #define INLINE inline
 #endif
 
+namespace std {
 /// copy a bare (C-)array from #src# to #dest# sized  #count#
 template<class T> void arrcpy (T *dest, T const *src, int count);
 
@@ -35,13 +40,13 @@ class Array
 {
 protected:
   /// maximum length of array.
-  int max_;
+  vsize max_;
 
   /// the data itself
   T *array_;
 
   /// stretch or shrink  array.
-  void remax (int newmax)
+  void remax (vsize newmax)
   {
     T *newarr = new T[newmax];
     size_ = (newmax < size_) ? newmax : size_;
@@ -51,9 +56,61 @@ protected:
     array_ = newarr;
     max_ = newmax;
   }
-  int size_;
+  vsize size_;
 
 public:
+  /* std::vector interface */
+  Array ()
+  {
+    array_ = 0;
+    max_ = 0;
+    size_ = 0;
+  }
+
+  Array (Array const &src)
+  {
+    array_ = src.copys ();
+    max_ = size_ = src.size_;
+  }
+
+  T const &back () const
+  {
+    return (*this)[size_ - 1];
+  }
+
+  T &back ()
+  {
+    return (*this)[size_ - 1];
+  }
+
+  bool empty () const
+  {
+    return !size_;
+  }
+
+  void pop_back ()
+  {
+    assert (!empty ());
+    resize (size () - 1);
+  }
+
+  vsize size () const
+  {
+    return size_;
+  }
+
+  /** set the size_ to #s#.
+      POST: size () == s.
+      Warning: contents are unspecified */
+  void resize (vsize s)
+  {
+    if (s > max_)
+      remax (s);
+    size_ = s;
+  }
+
+
+
   /// check invariants
   void OK () const;
   /** report the size_.
@@ -61,45 +118,36 @@ public:
       {setsize_}
   */
 
-  int size () const
-  {
-    return size_;
-  }
-
   /// POST: size () == 0
   void clear ()
   {
     size_ = 0;
   }
 
-  Array (T *tp, int n)
+  Array (T *tp, vsize n)
   {
     array_ = new T[n];
     max_ = size_ = n;
     arrcpy (array_, tp, n);
   }
 
-  Array ()
-  { array_ = 0; max_ = 0; size_ = 0; }
-
   // ugh, get around gcc 2.8.1 ice; see bezier.cc
-  Array (int i)
+  Array (vsize i)
   {
     max_ = size_ = i;
     array_ = new T[i];
   }
 
-  /** set the size_ to #s#.
-      POST: size () == s.
-      Warning: contents are unspecified */
-  void set_size (int s)
+  /// tighten array size_.
+  void tighten_maxsize ()
   {
-    if (s > max_) remax (s);
-    size_ = s;
+    remax (size_);
   }
 
   ~Array ()
-  { delete[] array_; }
+  {
+    delete[] array_;
+  }
 
   /// return a  "new"ed copy of array 
   T *copys () const
@@ -115,47 +163,40 @@ public:
   }
   void operator = (Array const &src)
   {
-    set_size (src.size_);
+    resize (src.size_);
     arrcpy (array_, src.array_, size_);
-  }
-  Array (Array const &src)
-  {
-    array_ = src.copys ();
-    max_ = size_ = src.size_;
-  }
-
-  /// tighten array size_.
-  void tighten_maxsize ()
-  {
-    remax (size_);
   }
 
   T *remove_array ();
 
   /// access element
-  T &operator [] (int i)
+  T &operator [] (vsize i)
   {
     return elem_ref (i);
   }
   /// access element
-  T const &operator [] (int i) const
+  T const &operator [] (vsize i) const
   {
     return elem_ref (i);
   }
   /// access element
-  T &elem_ref (int i) const
+  T &elem_ref (vsize i) const
   {
+#if !STD_VECTOR
     assert (i >= 0 && i < size_);
+#else
+    assert (i < size_);
+#endif
     return ((T *)array_)[i];
   }
   /// access element
-  T elem (int i) const
+  T elem (vsize i) const
   {
     return elem_ref (i);
   }
 
   /// add to the end of array
-  void push (T x)
+  void push_back (T x)
   {
     if (size_ == max_)
       remax (2 * max_ + 1);
@@ -164,26 +205,29 @@ public:
     // vars
     array_[size_++] = x;
   }
+#if 0
   /// remove and return last entry 
   T pop ()
   {
-    assert (!is_empty ());
+    assert (!empty ());
     T l = top (0);
-    set_size (size () - 1);
+    resize (size () - 1);
     return l;
   }
+#endif
+
   /// access last entry
-  T &top (int j = 0)
+  T &top (vsize j)
   {
     return (*this)[size_ - j - 1];
   }
   /// return last entry
-  T top (int j = 0) const
+  T top (vsize j) const
   {
     return (*this)[size_ - j - 1];
   }
 
-  T &boundary (int dir, int idx)
+  T &boundary (int dir, vsize idx)
   {
     assert (dir);
     if (dir == 1)
@@ -191,7 +235,7 @@ public:
     else
       return elem_ref (idx);
   }
-  T boundary (int dir, int idx) const
+  T boundary (int dir, vsize idx) const
   {
     assert (dir);
     if (dir == 1)
@@ -199,46 +243,48 @@ public:
     else
       return elem (idx);
   }
-  void swap (int i, int j)
+  void swap (vsize i, vsize j)
   {
     T t ((*this)[i]);
     (*this)[i] = (*this)[j];
     (*this)[j] = t;
   }
-  bool is_empty () const
-  { return !size_; }
 
-  void insert (T k, int j);
+  void insert (T k, vsize j);
   /**
      remove  i-th element, and return it.
   */
-  T get (int i)
+  T get (vsize i)
   {
     T t = elem (i);
     del (i);
     return t;
   }
-  void unordered_del (int i)
+  void unordered_del (vsize i)
   {
-    elem_ref (i) = top ();
-    set_size (size () -1);
+    elem_ref (i) = back ();
+    resize (size () -1);
   }
-  void del (int i)
+  void del (vsize i)
   {
-    assert (i >= 0&& i < size_);
+#if !STD_VECTOR
+    assert (i >= 0 && i < size_);
+#else
+    assert (i < size_);
+#endif
     arrcpy (array_ + i, array_ + i + 1, size_ - i - 1);
     size_--;
   }
   // quicksort.
   void sort (int (*compare) (T const &, T const &),
-	     int lower = -1, int upper = -1);
+	     vsize lower=VPOS, vsize upper=VPOS);
   void concat (Array<T> const &src)
   {
-    int s = size_;
-    set_size (size_ + src.size_);
+    vsize s = size_;
+    resize (size_ + src.size_);
     arrcpy (array_ + s, src.array_, src.size_);
   }
-  Array<T> slice (int lower, int upper) const;
+  Array<T> slice (vsize lower, vsize upper) const;
   void reverse ();
 };
 
@@ -254,5 +300,7 @@ int default_compare (T const &a, T const &b)
 }
 
 #include "array.icc"
+
+}
 
 #endif

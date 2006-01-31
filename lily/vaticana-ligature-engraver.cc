@@ -34,7 +34,7 @@ private:
 			       int context_info, int delta_pitch);
   bool is_stacked_head (int prefix_set,
 			int context_info);
-  Real align_heads (Array<Grob_info> primitives,
+  Real align_heads (std::vector<Grob_info> primitives,
 		    Real flexa_width,
 		    Real thickness);
 
@@ -44,7 +44,7 @@ public:
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
-				Array<Grob_info> primitives);
+				std::vector<Grob_info> primitives);
 };
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
@@ -145,7 +145,7 @@ Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, in
 }
 
 Real
-Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
+Vaticana_ligature_engraver::align_heads (std::vector<Grob_info> primitives,
 					 Real flexa_width,
 					 Real thickness)
 {
@@ -180,7 +180,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 
   Item *prev_primitive = 0;
   int prev_prefix_set = 0;
-  for (int i = 0; i < primitives.size (); i++)
+  for (vsize i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
       int prefix_set
@@ -352,7 +352,7 @@ check_for_prefix_loss (Item *primitive)
 
 void
 Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
-					     Array<Grob_info> primitives)
+					     std::vector<Grob_info> primitives)
 {
   Real flexa_width = robust_scm2double (ligature->get_property ("flexa-width"), 2);
 
@@ -363,7 +363,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   int prev_context_info = 0;
   int prev_delta_pitch = 0;
   std::string prev_glyph_name = "";
-  for (int i = 0; i < primitives.size (); i++)
+  for (vsize i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
 

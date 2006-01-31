@@ -48,6 +48,12 @@ namespace std {
   }
 
   std::string
+  to_string (unsigned u)
+  {
+    return String_convert::unsigned_string (u);
+  }
+
+  std::string
   to_string (char const *format, ...)
   {
     va_list args;

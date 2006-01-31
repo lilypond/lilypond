@@ -66,7 +66,7 @@ struct Figured_bass_engraver : public Engraver
   void center_continuations (Link_array<Spanner> const &consecutive_lines);
   void center_repeated_continuations ();
 protected:
-  Array<Figure_group> groups_;
+  std::vector<Figure_group> groups_;
   Spanner *alignment_;
   Link_array<Music> new_musics_;
   bool continuation_;
@@ -86,7 +86,7 @@ protected:
 void
 Figured_bass_engraver::derived_mark () const
 {
-  for (int i = 0; i < groups_.size (); i++)
+  for (vsize i = 0; i < groups_.size (); i++)
     {
       scm_gc_mark (groups_[i].number_);
       scm_gc_mark (groups_[i].alteration_);
@@ -96,13 +96,13 @@ Figured_bass_engraver::derived_mark () const
 void
 Figured_bass_engraver::stop_translation_timestep ()
 {
-  if (groups_.is_empty ()
+  if (groups_.empty ()
       || now_mom ().main_part_ < stop_moment_.main_part_
       || now_mom ().grace_part_ < Rational (0))
     return ;
   
   bool found = false;
-  for (int i = 0; !found && i < groups_.size (); i++)
+  for (vsize i = 0; !found && i < groups_.size (); i++)
     found  = found  || groups_[i].current_music_;
 
   if (!found)
@@ -126,10 +126,8 @@ Figured_bass_engraver::start_translation_timestep ()
   
   rest_event_ = 0;
   new_musics_.clear ();
-  for (int i = 0; i < groups_.size (); i++)
-    {
-      groups_[i].current_music_ = 0;
-    }
+  for (vsize i = 0; i < groups_.size (); i++)
+    groups_[i].current_music_ = 0;
   continuation_ = false;
 }
 
@@ -147,7 +145,7 @@ Figured_bass_engraver::try_music (Music *m)
       stop_moment_ = now_mom () + m->get_length ();
      
       SCM fig = m->get_property ("figure");
-      for (int i = 0; i < groups_.size (); i++)
+      for (vsize i = 0; i < groups_.size (); i++)
 	{
 	  if (!groups_[i].current_music_
 	      && ly_is_equal (groups_[i].number_, fig))
@@ -160,7 +158,7 @@ Figured_bass_engraver::try_music (Music *m)
 	    }
 	}
 
-      new_musics_.push (m);
+      new_musics_.push_back (m);
 
       return true;
     }
@@ -172,13 +170,13 @@ Figured_bass_engraver::center_continuations (Link_array<Spanner> const &consecut
   if (consecutive_lines.size () == 2)
     {
       Link_array<Grob> left_figs;
-      for (int j = consecutive_lines.size(); j--;)
-	left_figs.push (consecutive_lines[j]->get_bound (LEFT));
+      for (vsize j = consecutive_lines.size(); j--;)
+	left_figs.push_back (consecutive_lines[j]->get_bound (LEFT));
 
       SCM  ga = Grob_array::make_array ();
       unsmob_grob_array (ga)->set_array (left_figs);
 
-      for (int j = consecutive_lines.size(); j--;)
+      for (vsize j = consecutive_lines.size(); j--;)
 	consecutive_lines[j]->set_object ("figures",
 					  unsmob_grob_array (ga)->smobbed_copy ());
     }
@@ -188,18 +186,16 @@ void
 Figured_bass_engraver::center_repeated_continuations ()
 {  
   Link_array<Spanner> consecutive_lines;
-  for (int i = 0; i <= groups_.size(); i++)
+  for (vsize i = 0; i <= groups_.size(); i++)
     {
       if (i < groups_.size ()
 	  && groups_[i].continuation_line_
-	  && (consecutive_lines.is_empty ()
+	  && (consecutive_lines.empty ()
 	      || (consecutive_lines[0]->get_bound(LEFT)->get_column ()
 	          == groups_[i].continuation_line_->get_bound (LEFT)->get_column ()
 		  && consecutive_lines[0]->get_bound(RIGHT)->get_column ()
 	          == groups_[i].continuation_line_->get_bound (RIGHT)->get_column ())))
-	{
-	  consecutive_lines.push (groups_[i].continuation_line_);	  
-	}
+	consecutive_lines.push_back (groups_[i].continuation_line_);	  
       else 
 	{
 	  center_continuations (consecutive_lines);
@@ -226,25 +222,23 @@ Figured_bass_engraver::add_brackets ()
 {
   Link_array<Grob> encompass;
   bool inside = false;
-  for (int i = 0; i < groups_.size (); i ++)
+  for (vsize i = 0; i < groups_.size (); i ++)
     {
       if (!groups_[i].current_music_)
 	continue;
       
       if (to_boolean (groups_[i].current_music_->get_property ("bracket-start")))	
-	{
-	  inside = true;
-	}
+	inside = true;
 
       if (inside && groups_[i].figure_item_)
-	encompass.push (groups_[i].figure_item_);
+	encompass.push_back (groups_[i].figure_item_);
 
        if (to_boolean (groups_[i].current_music_->get_property ("bracket-stop")))
 	{
 	  inside = false;
 
 	  Item * brack = make_item ("BassFigureBracket", groups_[i].current_music_->self_scm ());
-	  for (int j = 0; j < encompass.size (); j++)
+	  for (vsize j = 0; j < encompass.size (); j++)
 	    {
 	      Pointer_group_interface::add_grob (brack,
 						 ly_symbol2scm ("elements"),
@@ -265,14 +259,14 @@ Figured_bass_engraver::process_music ()
     }
   
   if (!continuation_
-      && new_musics_.is_empty ())
+      && new_musics_.empty ())
     {
       clear_spanners ();
       return;
     }
 
   if (!new_music_found_)
-    return ;
+    return;
   
   new_music_found_ = false;
 
@@ -285,7 +279,7 @@ Figured_bass_engraver::process_music ()
       if (to_boolean (get_property ("figuredBassCenterContinuations")))
 	center_repeated_continuations ();
       alignment_ = 0;
-      for (int i = 0; i < groups_.size (); i++)
+      for (vsize i = 0; i < groups_.size (); i++)
 	{
 	  groups_[i].group_ = 0;
 	  groups_[i].continuation_line_ = 0;
@@ -293,21 +287,19 @@ Figured_bass_engraver::process_music ()
     }
   
   if (!continuation_)
-    {
-      clear_spanners ();
-    }
+    clear_spanners ();
   
-  int k = 0;
-  for (int i = 0; i < new_musics_.size (); i++)
+  vsize k = 0;
+  for (vsize i = 0; i < new_musics_.size (); i++)
     {
-      while (k < groups_.size() &&
-	     groups_[k].current_music_)
+      while (k < groups_.size ()
+	     && groups_[k].current_music_)
 	k++;
       
       if (k >= groups_.size ())
 	{
 	  Figure_group group;
-	  groups_.push (group);
+	  groups_.push_back (group);
 	}
       
       groups_[k].current_music_ = new_musics_[i];
@@ -315,7 +307,7 @@ Figured_bass_engraver::process_music ()
       k++;
     }
 
-  for (int i = 0; i < groups_.size (); i++)
+  for (vsize i = 0; i < groups_.size (); i++)
     {
       if (!groups_[i].is_continuation ())
 	{
@@ -326,8 +318,8 @@ Figured_bass_engraver::process_music ()
 
   if (use_extenders)
     {
-      Array<int> junk_continuations;
-      for (int i = 0; i < groups_.size(); i++)
+      std::vector<int> junk_continuations;
+      for (vsize i = 0; i < groups_.size(); i++)
 	{
 	        Figure_group &group = groups_[i];
 
@@ -351,7 +343,7 @@ Figured_bass_engraver::process_music ()
 		}
 	    }
 	  else if (group.continuation_line_) 
-	    junk_continuations.push (i); 
+	    junk_continuations.push_back (i); 
 	}
 
       /*
@@ -360,21 +352,21 @@ Figured_bass_engraver::process_music ()
       Link_array<Spanner> consecutive;
       if (to_boolean (get_property ("figuredBassCenterContinuations")))
 	{
-	  for (int i = 0; i <= junk_continuations.size (); i++)
+	  for (vsize i = 0; i <= junk_continuations.size (); i++)
 	    {
 	      if (i < junk_continuations.size()
 		  && (i == 0 || junk_continuations[i-1] == junk_continuations[i] - 1))
-		consecutive.push (groups_[junk_continuations[i]].continuation_line_);
+		consecutive.push_back (groups_[junk_continuations[i]].continuation_line_);
 	      else 
 		{
 		  center_continuations (consecutive);
 		  consecutive.clear ();
 		  if (i < junk_continuations.size ())
-		    consecutive.push (groups_[junk_continuations[i]].continuation_line_);
+		    consecutive.push_back (groups_[junk_continuations[i]].continuation_line_);
 		}
 	    }
 	}
-      for (int i = 0; i < junk_continuations.size (); i++)
+      for (vsize i = 0; i < junk_continuations.size (); i++)
 	groups_[junk_continuations[i]].continuation_line_ = 0;
     }
   
@@ -394,7 +386,7 @@ Figured_bass_engraver::create_grobs ()
   alignment_->set_bound (RIGHT, muscol);
 
   SCM proc = get_property ("figuredBassFormatter");
-  for (int i = 0; i < groups_.size(); i++)
+  for (vsize i = 0; i < groups_.size(); i++)
     {
       Figure_group &group = groups_[i];
       
@@ -460,19 +452,20 @@ ADD_TRANSLATOR (Figured_bass_engraver,
 		/* create */
 		"BassFigure "
 		"BassFigureAlignment "
-		"BassFigureBracket",
+		"BassFigureBracket "
 		"BassFigureContinuation "
 		"BassFigureLine "
-
+		,
 		/* accept */
 		"bass-figure-event rest-event",
 
 		/* read */
-		"figuredBassCenterContinuations "
-		"implicitBassFigures "
-		"figuredBassFormatter "
 		"figuredBassAlterationDirection "
-		"useBassFigureExtenders",
+		"figuredBassCenterContinuations "
+		"figuredBassFormatter "
+		"implicitBassFigures "
+		"useBassFigureExtenders "
+		,
 
 		/* write */
 		"");

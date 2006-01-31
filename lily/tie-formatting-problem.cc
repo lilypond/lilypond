@@ -64,10 +64,10 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
 {
   Real staff_space = Staff_symbol_referencer::staff_space (bounds[0]);
 
-  Array<Box> boxes;
+  std::vector<Box> boxes;
 
   Grob *stem = 0;
-  for (int i = 0; i < bounds.size (); i++)
+  for (vsize i = 0; i < bounds.size (); i++)
     {
       Grob *head = bounds[i];
       if (!Note_head::has_interface (head))
@@ -81,7 +81,7 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
 		  (p+1) * 0.5 * staff_space);
 
       Interval x = head->extent (x_refpoint_, X_AXIS);
-      boxes.push (Box (x, y));
+      boxes.push_back (Box (x, y));
 
       Grob *dots = Rhythmic_head::get_dots (head);
       if (d == LEFT && dots)
@@ -95,7 +95,7 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
 	  dot_x_.unite (x);
 	  
 	  y *= staff_space * 0.5;
-	  // boxes.push (Box (x, y));
+	  // boxes.push_back (Box (x, y));
 	}
     }
 
@@ -107,7 +107,7 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
       chord_outlines_[d].elem_ref (0).height_ = x; 
     }
 	  
-  for (int i = 0; i < boxes.size (); i++)
+  for (vsize i = 0; i < boxes.size (); i++)
     insert_extent_into_skyline (&chord_outlines_[d]  ,
 				boxes[i], Y_AXIS, -d);
 
@@ -164,7 +164,7 @@ void
 Tie_formatting_problem::from_tie (Grob *tie)
 {
   Link_array<Grob> ties;
-  ties.push (tie);
+  ties.push_back (tie);
   from_ties (ties);
 
   details_.from_grob (tie);
@@ -179,11 +179,11 @@ Tie_formatting_problem::common_x_refpoint () const
 void
 Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
 {
-  if (ties.is_empty ())
+  if (ties.empty ())
     return;
   
   x_refpoint_ = ties[0];
-  for (int i = 0; i < ties.size (); i++)
+  for (vsize i = 0; i < ties.size (); i++)
     {
       x_refpoint_ = dynamic_cast<Spanner*> (ties[i])->get_bound (LEFT)->common_refpoint (x_refpoint_, X_AXIS); 
       x_refpoint_ = dynamic_cast<Spanner*> (ties[i])->get_bound (RIGHT)->common_refpoint (x_refpoint_, X_AXIS); 
@@ -196,11 +196,11 @@ Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
     {
       Link_array<Item> bounds;
       
-      for (int i = 0; i < ties.size (); i++)
+      for (vsize i = 0; i < ties.size (); i++)
 	{
 	  Item *it = dynamic_cast<Spanner*> (ties[i])->get_bound (d);
 					     
-	  bounds.push (it);
+	  bounds.push_back (it);
 	}
       
       set_chord_outline (bounds, d);
@@ -208,7 +208,7 @@ Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
   while (flip (&d) != LEFT);
 
 
-  for (int i = 0; i < ties.size (); i++)
+  for (vsize i = 0; i < ties.size (); i++)
     {
       Tie_specification spec;
       
@@ -226,20 +226,20 @@ Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
 	}
       while (flip (&d) != LEFT);
       
-      specifications_.push (spec);
+      specifications_.push_back (spec);
     }
 }
 
 void
 Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
 {
-  if (lv_ties.is_empty ())
-    return ;
+  if (lv_ties.empty ())
+    return;
   
   details_.from_grob (lv_ties[0]);
   Link_array<Item> heads;
   
-  for (int i = 0; i < lv_ties.size (); i++)
+  for (vsize i = 0; i < lv_ties.size (); i++)
     {
       Tie_specification spec;
       Item *head = unsmob_item (lv_ties[i]->get_object ("note-head"));
@@ -253,12 +253,12 @@ Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
 	}
 
       spec.note_head_drul_[LEFT] = head;
-      heads.push (head);
-      specifications_.push (spec);
+      heads.push_back (head);
+      specifications_.push_back (spec);
     }
 
   x_refpoint_ = lv_ties [0];
-  for (int i = 0; i < lv_ties.size (); i++)
+  for (vsize i = 0; i < lv_ties.size (); i++)
     {
       x_refpoint_ = lv_ties[i]->common_refpoint (x_refpoint_, X_AXIS); 
     }
@@ -267,7 +267,7 @@ Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
 
   Real right_most = - infinity_f;   
 
-  for (int i = 0; i < chord_outlines_[LEFT].size (); i++)
+  for (vsize i = 0; i < chord_outlines_[LEFT].size (); i++)
     {
       right_most = max (right_most, chord_outlines_[LEFT][i].height_);
     }
@@ -276,7 +276,7 @@ Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
   right_entry.width_.set_full ();
   right_entry.height_ = right_most + 1.5;
   
-  chord_outlines_[RIGHT].push (right_entry);
+  chord_outlines_[RIGHT].push_back (right_entry);
 }
 
 
@@ -485,14 +485,14 @@ Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const 
   int region_size = 3;
   for (int i = 0; i < region_size; i ++)
     {
-      confs.push (generate_configuration (pos + i * dir, dir));
+      confs.push_back (generate_configuration (pos + i * dir, dir));
     }
 
-  Array<Real> scores;
+  std::vector<Real> scores;
 
   int best_idx = -1;
   Real best_score = 1e6;
-  for (int i = 0; i < confs.size (); i ++)
+  for (vsize i = 0; i < confs.size (); i ++)
     {
       Real score = 0.0;
       score += score_configuration (*confs[i]);
@@ -506,7 +506,7 @@ Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const 
     }
 
   Tie_configuration best = *confs[best_idx];
-  for (int i = 0; i < confs.size (); i++)
+  for (vsize i = 0; i < confs.size (); i++)
     delete confs[i];
 
   return best;
@@ -534,7 +534,7 @@ Tie_formatting_problem::score_ties_aptitude (Ties_configuration const &ties) con
       return infinity_f;
     }
 
-  for (int i = 0; i < ties.size (); i++)
+  for (vsize i = 0; i < ties.size (); i++)
     score += score_aptitude (ties[i], specifications_[i]);
 
   return score;
@@ -551,14 +551,14 @@ Real
 Tie_formatting_problem::score_ties_configuration (Ties_configuration const &ties) const
 {
   Real score = 0.0;
-  for (int i = 0; i < ties.size (); i++)
+  for (vsize i = 0; i < ties.size (); i++)
     {
       score += score_configuration (ties[i]);
     }
 
   Real last_edge = 0.0;
   Real last_center = 0.0;
-  for (int i = 0; i < ties.size (); i++)
+  for (vsize i = 0; i < ties.size (); i++)
     {
       Bezier b (ties[i].get_transformed_bezier (details_));
 	
@@ -591,15 +591,15 @@ Tie_formatting_problem::score_ties_configuration (Ties_configuration const &ties
 
   score +=
     details_.outer_tie_length_symmetry_penalty_factor_
-    * fabs (ties[0].attachment_x_.length () - ties.top().attachment_x_.length ());
+    * fabs (ties[0].attachment_x_.length () - ties.back ().attachment_x_.length ());
   
   score +=
     details_.outer_tie_vertical_distance_symmetry_penalty_factor_
     * (fabs (specifications_[0].position_
 	     - (ties[0].position_ * 0.5 * details_.staff_space_ + ties[0].delta_y_))
        -
-       fabs (specifications_.top ().position_
-	     - (ties.top().position_ * 0.5 * details_.staff_space_ + ties.top().delta_y_)));
+       fabs (specifications_.back ().position_
+	     - (ties.back ().position_ * 0.5 * details_.staff_space_ + ties.back ().delta_y_)));
   
   return score;
 }
@@ -612,7 +612,7 @@ Ties_configuration
 Tie_formatting_problem::generate_ties_configuration (Ties_configuration const &ties_config)
 {
   Ties_configuration copy;
-  for (int i = 0; i < ties_config.size (); i++)
+  for (vsize i = 0; i < ties_config.size (); i++)
     {
       Tie_configuration * ptr = get_configuration (ties_config[i].position_, ties_config[i].dir_);
       if (specifications_[i].has_manual_position_)
@@ -621,7 +621,7 @@ Tie_formatting_problem::generate_ties_configuration (Ties_configuration const &t
 	    = (specifications_[i].manual_position_ - ties_config[i].position_)
 	    * 0.5 * details_.staff_space_;
 	}
-      copy.push (*ptr);
+      copy.push_back (*ptr);
     }
   
   return copy;
@@ -631,7 +631,7 @@ Ties_configuration
 Tie_formatting_problem::generate_base_chord_configuration () 
 {
   Ties_configuration ties_config;
-  for (int i = 0;  i < specifications_.size (); i ++)
+  for (vsize i = 0;  i < specifications_.size (); i ++)
     {
       Tie_configuration conf;
       if (specifications_[i].has_manual_dir_)
@@ -646,11 +646,11 @@ Tie_formatting_problem::generate_base_chord_configuration ()
 	{
 	  conf.position_ = specifications_[i].position_;
 	}
-      ties_config.push (conf);
+      ties_config.push_back (conf);
     }
 
   set_ties_config_standard_directions (&ties_config);
-  for (int i = 0; i < ties_config.size (); i++)
+  for (vsize i = 0; i < ties_config.size (); i++)
     if (!specifications_[i].manual_position_)
       ties_config[i].position_ += ties_config[i].dir_;
 
@@ -663,7 +663,7 @@ Ties_configuration
 Tie_formatting_problem::generate_optimal_chord_configuration ()
 {
   Ties_configuration base = generate_base_chord_configuration ();
-  Array<Tie_configuration_variation> vars = get_variations (base);
+  std::vector<Tie_configuration_variation> vars = get_variations (base);
 
   Ties_configuration best = base;
   Real best_score = score_ties (best);
@@ -672,7 +672,7 @@ Tie_formatting_problem::generate_optimal_chord_configuration ()
     This simply is 1-opt: we have K substitions, and we try applying
     exactly every one for each.
   */
-  for (int i = 0; i < vars.size (); i++)
+  for (vsize i = 0; i < vars.size (); i++)
     {
       Ties_configuration variant = base;
       variant[vars[i].index_] = *vars[i].suggestion_;
@@ -691,18 +691,18 @@ Tie_formatting_problem::generate_optimal_chord_configuration ()
 void
 Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration *tie_configs)
 {
-  if (tie_configs->is_empty ())
+  if (tie_configs->empty ())
     return ;
   
   if (!tie_configs->elem (0).dir_)
     tie_configs->elem_ref (0).dir_ = DOWN;
-  if (!tie_configs->top().dir_)
-    tie_configs->top().dir_ = UP;
+  if (!tie_configs->back ().dir_)
+    tie_configs->back ().dir_ = UP;
 
   /*
     Seconds
    */
-  for (int i = 1; i < tie_configs->size (); i++)
+  for (vsize i = 1; i < tie_configs->size (); i++)
     {
       Real diff = (tie_configs->elem (i-1).position_
 		   - tie_configs->elem (i).position_);
@@ -716,7 +716,7 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
 	}
     }
 
-  for (int i = 1; i < tie_configs->size() - 1; i++)
+  for (vsize i = 1; i < tie_configs->size() - 1; i++)
     {
       Tie_configuration &conf = tie_configs->elem_ref (i);
       if (conf.dir_)
@@ -737,14 +737,14 @@ Tie_configuration_variation::Tie_configuration_variation ()
   suggestion_ = 0;
 }
 
-Array<Tie_configuration_variation>
+std::vector<Tie_configuration_variation>
 Tie_formatting_problem::get_variations (Ties_configuration const &ties) 
 {
   Real center_distance_tolerance = 0.25;
   
-  Array<Tie_configuration_variation> vars;
+  std::vector<Tie_configuration_variation> vars;
   Real last_center = 0.0;
-  for (int i = 0; i < ties.size (); i++)
+  for (vsize i = 0; i < ties.size (); i++)
     {
       Bezier b (ties[i].get_transformed_bezier (details_));
 	
@@ -762,7 +762,7 @@ Tie_formatting_problem::get_variations (Ties_configuration const &ties)
 						       - ties[i].dir_,
 						       -ties[i].dir_);
 
-		  vars.push (var);
+		  vars.push_back (var);
 		}
 
 	      if (!specifications_[i-1].has_manual_dir_)
@@ -773,7 +773,7 @@ Tie_formatting_problem::get_variations (Ties_configuration const &ties)
 						       - ties[i-1].dir_,
 						       - ties[i-1].dir_);
 
-		  vars.push (var);
+		  vars.push_back (var);
 		}
 	    }
 	}
@@ -791,7 +791,7 @@ Tie_formatting_problem::get_variations (Ties_configuration const &ties)
 	  var.index_ = (d == DOWN) ? 0 : ties.size () - 1;
 	  var.suggestion_ = get_configuration (ties.boundary (d, 0).position_ + d,
 					       d);
-	  vars.push (var);
+	  vars.push_back (var);
 	}
     }
   while (flip (&d) !=  DOWN);
@@ -802,9 +802,9 @@ Tie_formatting_problem::get_variations (Ties_configuration const &ties)
 void
 Tie_formatting_problem::set_manual_tie_configuration (SCM manual_configs)
 {
-  int k = 0;
+  vsize k = 0;
   for (SCM s = manual_configs;
-       scm_is_pair (s) && k < specifications_.size(); s = scm_cdr (s))
+       scm_is_pair (s) && k < specifications_.size (); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       if (scm_is_pair (entry))

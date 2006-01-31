@@ -49,7 +49,7 @@ class Tie_engraver : public Engraver
 {
   Music *event_;
   Link_array<Grob> now_heads_;
-  Array<Head_event_tuple> heads_to_tie_;
+  std::vector<Head_event_tuple> heads_to_tie_;
   Link_array<Grob> ties_;
 
   Spanner *tie_column_;
@@ -70,7 +70,7 @@ void
 Tie_engraver::derived_mark () const
 {
   Engraver::derived_mark ();
-  for (int i = 0; i < heads_to_tie_.size (); i++)
+  for (vsize i = 0; i < heads_to_tie_.size (); i++)
     scm_gc_mark (heads_to_tie_[i].tie_definition_);
 }
 
@@ -100,8 +100,8 @@ void
 Tie_engraver::acknowledge_note_head (Grob_info i)
 {
   Grob *h = i.grob ();
-  now_heads_.push (h);
-  for (int i = heads_to_tie_.size (); i--;)
+  now_heads_.push_back (h);
+  for (vsize i = heads_to_tie_.size (); i--;)
     {
       Grob *th = heads_to_tie_[i].head_;
       Music *right_mus = unsmob_music (h->get_property ("cause"));
@@ -120,7 +120,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	  Tie::set_head (p, LEFT, th);
 	  Tie::set_head (p, RIGHT, h);
 
-	  ties_.push (p);
+	  ties_.push_back (p);
 	  heads_to_tie_.del (i);
 	}
     }
@@ -129,7 +129,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
     tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
 
   if (tie_column_)
-    for (int i = ties_.size (); i--;)
+    for (vsize i = ties_.size (); i--;)
       Tie_column::add_tie (tie_column_, ties_[i]);
 }
 
@@ -148,7 +148,7 @@ Tie_engraver::stop_translation_timestep ()
       if (!to_boolean (get_property ("tieWaitForNote")))
 	heads_to_tie_.clear ();
 
-      for (int i = 0; i < ties_.size (); i++)
+      for (vsize i = 0; i < ties_.size (); i++)
 	typeset_tie (ties_[i]);
 
       ties_.clear ();
@@ -163,9 +163,9 @@ Tie_engraver::stop_translation_timestep ()
       if (!to_boolean (get_property ("tieWaitForNote")))
 	heads_to_tie_.clear ();
 
-      for (int i = 0; i < now_heads_.size (); i++)
+      for (vsize i = 0; i < now_heads_.size (); i++)
 	{
-	  heads_to_tie_.push (Head_event_tuple (now_heads_[i], event_,
+	  heads_to_tie_.push_back (Head_event_tuple (now_heads_[i], event_,
 						start_definition));
 	}
     }

@@ -9,7 +9,7 @@
 #ifndef FILE_PATH_HH
 #define FILE_PATH_HH
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "std-string.hh"
 
 /**
@@ -23,9 +23,10 @@
 
 class File_path
 {
-  Array<std::string> dirs_;
+  std::vector<std::string> dirs_;
+
 public:
-  Array<std::string> directories () const;
+  std::vector<std::string> directories () const;
   std::string find (std::string name) const;
   std::string find (std::string name, char const *extensions[]);
   std::string to_string () const;

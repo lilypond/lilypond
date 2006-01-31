@@ -134,7 +134,7 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
   *compound_space = 0.0;
   int wish_count = 0;
   
-  for (int i = right_items.size (); i--;)
+  for (vsize i = right_items.size (); i--;)
     {
       Grob *g = right_items[i];
 
@@ -148,7 +148,7 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
       wish_count ++;
       
       extract_grob_set (g, "elements", elts);
-      for (int j = elts.size (); j--;)
+      for (vsize j = elts.size (); j--;)
 	{
 	  Real space = 0.0;
 	  Real fixed = 0.0;
@@ -176,7 +176,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
   Item *me_item = dynamic_cast<Item *> (me);
 
   extract_grob_set (me, "left-items", items);
-  for (int i = items.size (); i--;)
+  for (vsize i = items.size (); i--;)
     {
       Grob *cand = items[i];
       if (cand && Separation_item::has_interface (cand))

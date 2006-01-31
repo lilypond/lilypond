@@ -9,7 +9,7 @@
 #ifndef SKYLINE_HH
 #define SKYLINE_HH
 
-#include "array.hh"
+#include "std-vector.hh"
 #include "box.hh"
 
 struct Skyline_entry
@@ -21,20 +21,20 @@ struct Skyline_entry
 };
 
 void
-merge_skyline (Array<Skyline_entry> *a1, Array<Skyline_entry> const &a2,
+merge_skyline (std::vector<Skyline_entry> *a1, std::vector<Skyline_entry> const &a2,
 	       Direction);
-void insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
+void insert_extent_into_skyline (std::vector<Skyline_entry> *line, Box b, Axis line_axis,
 				 Direction d);
-Array<Skyline_entry>
-extents_to_skyline (Array<Box> const &extents, Axis a, Direction d);
-Array<Skyline_entry> empty_skyline (Direction d);
-void heighten_skyline (Array<Skyline_entry> *buildings, Real ground);
+std::vector<Skyline_entry>
+extents_to_skyline (std::vector<Box> const &extents, Axis a, Direction d);
+std::vector<Skyline_entry> empty_skyline (Direction d);
+void heighten_skyline (std::vector<Skyline_entry> *buildings, Real ground);
 Real
-skyline_meshing_distance (Array<Skyline_entry> const &buildings,
-			  Array<Skyline_entry> const &clouds);
+skyline_meshing_distance (std::vector<Skyline_entry> const &buildings,
+			  std::vector<Skyline_entry> const &clouds);
 
 Real
-skyline_height (Array<Skyline_entry> const &buildings,
+skyline_height (std::vector<Skyline_entry> const &buildings,
 		Real airplane, Direction sky_dir);
 
 #endif /* SKYLINE_HH */

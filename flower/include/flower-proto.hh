@@ -10,25 +10,27 @@
 
 char const *flower_version_str0 ();
 
-template<class T> struct Link_array;
-template<class T> struct Array;
 template<class T, class K> struct Assoc;
 template<class K, class V> struct Hash_table;
 template<class K, class V> struct Hash_table_iter;
-template<class T> struct Link_list;
-template<class T> struct Interval_t;
-template<class T> struct PQueue;
 
 typedef unsigned char Byte;
 namespace std {
   struct String_data;
   struct String_handle;
-  //struct String;
 }
 struct String_convert;
 
 #include "std-string.hh"
+#include "std-vector.hh"
 #include "real.hh"
+
+//template<class T> struct Array;
+template<class T> struct Link_array;
+template<class T> struct Link_list;
+template<class T> struct Interval_t;
+template<class T> struct PQueue;
+
 
 typedef Interval_t<Real> Interval;
 

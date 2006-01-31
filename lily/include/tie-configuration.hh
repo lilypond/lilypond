@@ -14,7 +14,7 @@
 #include "direction.hh"
 #include "interval.hh"
 #include "compare.hh"
-#include "array.hh"
+#include "std-vector.hh"
 
 class Tie_configuration
 {
@@ -40,7 +40,7 @@ public:
 
 INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
 
-typedef Array<Tie_configuration> Ties_configuration;
+typedef std::vector<Tie_configuration> Ties_configuration;
 
 #endif /* TIE_CONFIGURATION_HH */
 

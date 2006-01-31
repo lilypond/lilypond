@@ -42,7 +42,7 @@ Note_heads_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-event"))
     {
-      note_evs_.push (m);
+      note_evs_.push_back (m);
       return true;
     }
   else if (m->is_mus_type ("busy-playing-event"))
@@ -54,7 +54,7 @@ Note_heads_engraver::try_music (Music *m)
 void
 Note_heads_engraver::process_music ()
 {
-  for (int i = 0; i < note_evs_.size (); i++)
+  for (vsize i = 0; i < note_evs_.size (); i++)
     {
       Music *ev = note_evs_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
@@ -73,7 +73,7 @@ Note_heads_engraver::process_music ()
 
 	  d->set_parent (note, Y_AXIS);
 
-	  dots_.push (d);
+	  dots_.push_back (d);
 	}
 
       Pitch *pit = unsmob_pitch (ev->get_property ("pitch"));
@@ -112,7 +112,7 @@ Note_heads_engraver::process_music ()
 	    note->set_property ("style", style);
 	}
 
-      notes_.push (note);
+      notes_.push_back (note);
     }
 }
 

@@ -17,7 +17,7 @@ void
 Engraver_dispatch_list::apply (Grob_info gi)
 {
   Translator *origin = gi.origin_translator ();
-  for (int i = 0; i < dispatch_entries_.size (); i++)
+  for (vsize i = 0; i < dispatch_entries_.size (); i++)
     {
       Engraver_dispatch_entry const &e (dispatch_entries_[i]);
       if (e.engraver_ == origin)
@@ -52,7 +52,7 @@ Engraver_dispatch_list::create (SCM trans_list,
 	  if (ptr)
 	    {
 	      entry.function_ = ptr;
-	      list->dispatch_entries_.push (entry);
+	      list->dispatch_entries_.push_back (entry);
 	      found = true;
 	    }
 	}

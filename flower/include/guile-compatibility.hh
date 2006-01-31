@@ -52,6 +52,8 @@ inline int ly_c_number_p (SCM x) { return SCM_NUMBERP (x); }
 #define scm_is_number(x) (scm_number_p (x) == SCM_BOOL_T)
 inline int ly_scm2int (SCM x) { return scm_num2int (x, 0, "ly_scm2int"); }
 #define scm_to_int(x) (ly_scm2int (x))
+inline int ly_scm2unsigned (SCM x) { return scm_num2uint (x, 0, "ly_scm2unsigned"); }
+#define scm_to_unsigned(x) (ly_scm2unsigned (x))
 inline int ly_c_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
 #define scm_is_symbol(x) ly_c_symbol_p (x)
 inline int ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
@@ -69,6 +71,11 @@ inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_to_double(x) (ly_scm2double (x))
 #define scm_from_double(x) (scm_make_real (x))
 
-#endif /* SCM_MINOR_VERSION < 7 */
+#else /* !SCM_MINOR_VERSION < 7 */
+
+#define scm_to_unsigned(x) scm_to_uint32 (x)
+#define scm_from_unsigned(x) scm_from_unsigned_integer (x)
+
+#endif /* !SCM_MINOR_VERSION < 7 */
 
 #endif /* GUILE_COMPATIBILITY_HH */

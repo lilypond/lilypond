@@ -72,7 +72,7 @@ Phrasing_slur_engraver::try_music (Music *m)
 	}
       else if (d == STOP)
 	{
-	  if (slurs_.is_empty ())
+	  if (slurs_.empty ())
 	    return false;
 
 	  events_[STOP] = m;
@@ -86,9 +86,9 @@ void
 Phrasing_slur_engraver::acknowledge_note_column (Grob_info info)
 {
   Grob *e = info.grob ();
-  for (int i = slurs_.size (); i--;)
+  for (vsize i = slurs_.size (); i--;)
     Slur::add_column (slurs_[i], e);
-  for (int i = end_slurs_.size (); i--;)
+  for (vsize i = end_slurs_.size (); i--;)
     Slur::add_column (end_slurs_[i], e);
 }
 
@@ -101,9 +101,9 @@ Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
   if (Tie::has_interface (e)
       || avoid == ly_symbol2scm ("inside"))
     {
-      for (int i = slurs_.size (); i--;)
+      for (vsize i = slurs_.size (); i--;)
 	Slur::add_extra_encompass (slurs_[i], e);
-      for (int i = end_slurs_.size (); i--;)
+      for (vsize i = end_slurs_.size (); i--;)
 	Slur::add_extra_encompass (end_slurs_[i], e);
     }
   else if (avoid == ly_symbol2scm ("outside")
@@ -179,7 +179,7 @@ Phrasing_slur_engraver::process_music ()
       slurs_.clear ();
     }
 
-  if (events_[START] && slurs_.is_empty ())
+  if (events_[START] && slurs_.empty ())
     {
       Music *ev = events_[START];
 
@@ -188,7 +188,7 @@ Phrasing_slur_engraver::process_music ()
       if (updown)
 	set_grob_direction (slur, updown);
 
-      slurs_.push (slur);
+      slurs_.push_back (slur);
     }
 }
 

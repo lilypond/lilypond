@@ -55,7 +55,7 @@ Ottava_bracket::print (SCM smob)
 	{
 	  extract_grob_set (b, "note-heads", heads);
 	  common = common_refpoint_of_array (heads, common, X_AXIS);
-	  for (int i = 0; i < heads.size (); i++)
+	  for (vsize i = 0; i < heads.size (); i++)
 	    {
 	      Grob *h = heads[i];
 	      Grob *dots = Rhythmic_head::get_dots (h);
@@ -87,7 +87,7 @@ Ottava_bracket::print (SCM smob)
       if (Note_column::has_interface (b))
 	{
 	  extract_grob_set (b, "note-heads", heads);
-	  for (int i = 0; i < heads.size (); i++)
+	  for (vsize i = 0; i < heads.size (); i++)
 	    {
 	      Grob *h = heads[i];
 	      ext.unite (h->extent (common, X_AXIS));

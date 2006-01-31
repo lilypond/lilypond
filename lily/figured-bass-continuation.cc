@@ -34,7 +34,7 @@ Figured_bass_continuation::center_on_figures (SCM grob)
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (grob));
   extract_grob_set (me, "figures", figures);
-  if (figures.is_empty ())
+  if (figures.empty ())
     return scm_from_double (0.0);
   Grob *common = common_refpoint_of_array (figures, me, Y_AXIS);
 

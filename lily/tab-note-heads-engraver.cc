@@ -50,12 +50,12 @@ Tab_note_heads_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("note-event"))
     {
-      note_events_.push (m);
+      note_events_.push_back (m);
       return true;
     }
   else if (m->is_mus_type ("string-number-event"))
     {
-      tabstring_events_.push (m);
+      tabstring_events_.push_back (m);
       return true;
     }
   else if (m->is_mus_type ("busy-playing-event"))
@@ -68,7 +68,7 @@ void
 Tab_note_heads_engraver::process_music ()
 {
   int j = 0;
-  for (int i = 0; i < note_events_.size (); i++)
+  for (vsize i = 0; i < note_events_.size (); i++)
     {
       SCM stringTunings = get_property ("stringTunings");
       int number_of_strings = ((int) ly_length (stringTunings));
@@ -123,7 +123,7 @@ Tab_note_heads_engraver::process_music ()
 
 	  d->set_parent (note, Y_AXIS);
 
-	  dots_.push (d);
+	  dots_.push_back (d);
 	}
 
       SCM scm_pitch = event->get_property ("pitch");
@@ -150,7 +150,7 @@ Tab_note_heads_engraver::process_music ()
       note->set_property ("text", text);
 
       note->set_property ("staff-position", scm_from_int (pos));
-      notes_.push (note);
+      notes_.push_back (note);
     }
 }
 

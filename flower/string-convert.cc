@@ -12,7 +12,7 @@ using namespace std;
 
 #include "libc-extension.hh"
 #include "rational.hh"
-#include "array.hh"
+#include "std-vector.hh"
 
 /**
    A safe length for stringconversion buffers.
@@ -318,22 +318,22 @@ String_convert::precision_string (double x, int n)
   return (sign (x) > 0 ? str : "-" + str);
 }
 
-Array<std::string>
+std::vector<std::string>
 String_convert::split (std::string str, char c)
 {
-  Array<std::string> a;
+  std::vector<std::string> a;
   ssize i = str.find (c);
   while (i != NPOS)
     {
       std::string s = str.substr (0, i);
-      a.push (s);
+      a.push_back (s);
       while (str[++i] == c)
 	;
       str = str.substr (i);
       i = str.find (c);
     }
   if (str.length ())
-    a.push (str);
+    a.push_back (str);
   return a;
 }
 
@@ -342,6 +342,14 @@ String_convert::long_string (long l)
 {
   char s[STRING_BUFFER_LEN];
   sprintf (s, "%ld", l);
+  return s;
+}
+
+std::string
+String_convert::unsigned_string (unsigned u)
+{
+  char s[STRING_BUFFER_LEN];
+  sprintf (s, "%ud", u);
   return s;
 }
 

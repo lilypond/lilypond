@@ -58,11 +58,11 @@ Paper_score::typeset_system (System *system)
   system->unprotect ();
 }
 
-Array<Column_x_positions>
+std::vector<Column_x_positions>
 Paper_score::calc_breaking ()
 {
   Break_algorithm *algorithm = 0;
-  Array<Column_x_positions> sol;
+  std::vector<Column_x_positions> sol;
 
   algorithm = new Gourlay_breaking;
   algorithm->set_pscore (this);
@@ -88,11 +88,11 @@ Paper_score::process ()
      doubly, also done in Score_engraver */
   Link_array<Grob> pc (system_->columns ());
   pc[0]->set_property ("breakable", SCM_BOOL_T);
-  pc.top ()->set_property ("breakable", SCM_BOOL_T);
+  pc.back ()->set_property ("breakable", SCM_BOOL_T);
 
   system_->pre_processing ();
 
-  Array<Column_x_positions> breaking = calc_breaking ();
+  std::vector<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
 
   paper_systems_ = system_->get_paper_systems ();
