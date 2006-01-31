@@ -2680,3 +2680,10 @@ def conv (str):
 
 conversions.append (((2, 7, 28), conv,
 		     """ly:spanner-get-bound -> ly:spanner-bound"""))
+
+def conv (str):
+	str = re.sub (r'\epsfile *#"', r'\\epsfile #X #10 #"', str)
+	return str
+
+conversions.append (((2, 7, 30), conv,
+		     """\\epsfile"""))

@@ -1,5 +1,7 @@
 2006-01-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* flower/include/guile-compatibility.hh (scm_from_unsigned): add scm_from_unsigned().
+
 	* lily/beam.cc (calc_direction): take dir from visible stem in
 	degenerate case.
 
