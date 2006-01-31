@@ -213,8 +213,7 @@ This feature was sponsored by Trent Johnston.
 This rewrite was sponsored by Trent Johnston.
 
 @item String arguments for music functions may be specified without
-@code{#} marks. This allows syntactical constructs (like \clef and
-\bar) to be expressed in generic music functions.
+@code{#} marks. Now, \clef and \bar are also music functions.
 
 @item Ties in chords are also formatted using a scoring based
 formatting. This reduces the number of collisions for ties in chords,

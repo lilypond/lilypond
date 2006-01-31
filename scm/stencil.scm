@@ -215,3 +215,38 @@ encloses the contents.
 			   (ly:stencil-extent annotation X)
 			   (cons 10000 -10000)))
     annotation))
+
+
+(define-public (eps-file->stencil axis size file-name)
+  (let*
+      ((contents (ly:gulp-file file-name))
+       (bbox (get-postscript-bbox contents))
+       (bbox-size (if (= axis X)
+		      (- (list-ref bbox 2) (list-ref bbox 0))
+		      (- (list-ref bbox 3) (list-ref bbox 1))
+		      ))
+       (factor (exact->inexact (/ size bbox-size)))
+       (scaled-bbox
+	(map (lambda (x) (* factor x)) bbox)))
+
+    (if bbox
+	(ly:make-stencil
+	 (list
+	  'embedded-ps
+	  (string-append
+	   (format
+	   "BeginEPSF
+~a ~a scale
+%%BeginDocument: ~a
+" 	   factor factor
+	   file-name
+	   )
+	   contents
+	   "%%EndDocument
+EndEPSF"))
+	
+	 (cons (list-ref scaled-bbox 0) (list-ref scaled-bbox 2))
+	 (cons (list-ref scaled-bbox 1) (list-ref scaled-bbox 3)))
+	
+	(ly:make-stencil "" '(0 . 0) '(0 . 0)))
+    ))
