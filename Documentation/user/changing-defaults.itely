@@ -1149,8 +1149,8 @@ does not amount to much.  The initialization file
      (self-alignment-X . 0)
      (self-alignment-Y . 0)
      (script-priority . 100)
-     (stencil . ,Text_interface::print)
-     (direction . ,Script_interface::calc_direction)
+     (stencil . ,ly:text-interface::print)
+     (direction . ,ly:script-interface::calc-direction)
      (font-encoding . fetaNumber)
      (font-size . -5) 		; don't overlap when next to heads.
      (meta . ((class . Item)
@@ -1336,7 +1336,7 @@ of the broken tie is translated up.
 When applying this trick, the new @code{after-line-breaking} callback
 should also call the old one @code{after-line-breaking}, if there is
 one.  For example, if using this with @code{Hairpin},
-@code{Hairpin::after_line_breaking} should also be called.
+@code{ly:hairpin::after-line-breaking} should also be called.
 
 
 @item Some objects cannot be changed with @code{\override} for

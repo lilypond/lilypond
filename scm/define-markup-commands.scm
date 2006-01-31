@@ -146,7 +146,7 @@ thickness and padding around the markup."
 ;;FIXME: is this working? 
 (def-markup-command (strut layout props) ()
   "Create a box of the same height as the space in the current font."
-  (let ((m (Text_interface::interpret_markup layout props " ")))
+  (let ((m (ly:text-interface::interpret-markup layout props " ")))
     (ly:make-stencil (ly:stencil-expr m)
 		     '(1000 . -1000)
 		     (ly:stencil-extent m X)
@@ -993,13 +993,13 @@ letter 'A'."
 (def-markup-command (markletter layout props num) (integer?)
   "Make a markup letter for @var{num}.  The letters start with A to Z
  (skipping I), and continues with double letters."
-  (Text_interface::interpret_markup layout props
+  (ly:text-interface::interpret-markup layout props
     (number->markletter-string number->mark-letter-vector num)))
 
 (def-markup-command (markalphabet layout props num) (integer?)
    "Make a markup letter for @var{num}.  The letters start with A to Z
  and continues with double letters."
-   (Text_interface::interpret_markup layout props
+   (ly:text-interface::interpret-markup layout props
      (number->markletter-string number->mark-alphabet-vector num)))
 
 

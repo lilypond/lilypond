@@ -1,6 +1,6 @@
 %% Toplevel initialisation file. 
 
-% switch on debugging.
+%% switch on debugging.
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 

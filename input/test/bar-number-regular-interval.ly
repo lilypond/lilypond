@@ -5,7 +5,7 @@ Bar numbers can be printed at regular intervals, inside a box or a circle.
 
 " }
 
-\version "2.7.14"
+\version "2.7.31"
 
 \relative c'{
    \override Score.BarNumber  #'break-visibility = #end-of-line-invisible
@@ -13,11 +13,11 @@ Bar numbers can be printed at regular intervals, inside a box or a circle.
    \override Score.BarNumber #'font-size = #2
 
    \override Score.BarNumber  #'stencil
-   = #(make-stencil-boxer 0.1 0.25 Text_interface::print)
+   = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
    \repeat unfold 5 { c1 } \bar "|"
 
    \override Score.BarNumber  #'stencil
-   = #(make-stencil-circler 0.1 0.25 Text_interface::print)
+   = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
    \repeat unfold 4 { c1 } \bar "|."
 }
 

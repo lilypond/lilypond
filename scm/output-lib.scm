@@ -80,7 +80,7 @@
 	 (layout (ly:grob-layout grob))
 	 (defs (ly:output-def-lookup layout 'text-font-defaults))
 	 (props (ly:grob-alist-chain grob defs))
-	 (circle (Text_interface::interpret_markup
+	 (circle (ly:text-interface::interpret-markup
 		  layout props (make-circle-markup text))))
     circle))
 
@@ -178,7 +178,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (first-bar-number-invisible barnum) (> barnum 1))
 
-;; See documentation of Item::visibility_lambda_
+;; See documentation of ly:item::visibility-lambda-
 (define-public begin-of-line-visible
   #(#f #f #t))
 (define-public end-of-line-visible

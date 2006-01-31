@@ -21,7 +21,7 @@ where x is one of \\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.")
      . (
 	(description . "Call the argument with the current context during interpreting phase")
 	(types . (general-music apply-context))
-	(iterator-ctor . ,Apply_context_iterator::constructor)
+	(iterator-ctor . ,ly:apply-context-iterator::constructor)
 	))
     (ApplyOutputEvent
      . (
@@ -36,7 +36,7 @@ arguments to func are 1. the grob, 2. the originating context,
 3. context where FUNC is called.
 
 ")
-	(iterator-ctor . ,Output_property_music_iterator::constructor)
+	(iterator-ctor . ,ly:output-property-music-iterator::constructor)
 	(types . (general-music layout-instruction))
 	))
     (ArpeggioEvent 
@@ -65,9 +65,9 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
     (AutoChangeMusic
      . (
 	(description .	"Used for making voices that switch between piano staves automatically.")
-	(iterator-ctor . ,Auto_change_iterator::constructor)
-	(start-callback . ,Music_wrapper::start_callback)
-	(length-callback . ,Music_wrapper::length_callback)
+	(iterator-ctor . ,ly:auto-change-iterator::constructor)
+	(start-callback . ,ly:music-wrapper::start-callback)
+	(length-callback . ,ly:music-wrapper::length-callback)
 	(types . (general-music music-wrapper-music auto-change-instruction))
 	))
     (BarCheck
@@ -75,7 +75,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	(description .
 		     "Check whether this music coincides with the start of the measure.")
 	(types . (general-music bar-check))
-	(iterator-ctor . ,Bar_check_iterator::constructor)
+	(iterator-ctor . ,ly:bar-check-iterator::constructor)
 	))
     (BassFigureEvent
      . (
@@ -117,7 +117,7 @@ Syntax:
 	(description .	"Change staffs in Piano staff. 
 
 Syntax @code{\\translator Staff = @var{new-id}}.")
-	(iterator-ctor . , Change_iterator::constructor)
+	(iterator-ctor . , ly:change-iterator::constructor)
 	(types . (general-music translator-change-instruction))
 	))
 
@@ -132,9 +132,9 @@ Syntax @code{\\translator Staff = @var{new-id}}.")
     (ContextSpeccedMusic
      . (
 	(description .	"Interpret the argument music within a specific context.")
-	(iterator-ctor . ,Context_specced_music_iterator::constructor)
-	(length-callback . ,Music_wrapper::length_callback)
-	(start-callback . ,Music_wrapper::start_callback)
+	(iterator-ctor . ,ly:context-specced-music-iterator::constructor)
+	(length-callback . ,ly:music-wrapper::length-callback)
+	(start-callback . ,ly:music-wrapper::start-callback)
 	(types . (context-specification general-music music-wrapper-music))
 	))
     
@@ -166,9 +166,9 @@ Syntax: @var{note}\\cr
     (EventChord
      . (
 	(description .	"Internally used to group a set of events.")
-	(iterator-ctor . ,Event_chord_iterator::constructor)
-	(length-callback . ,Music_sequence::maximum_length_callback)
-	(to-relative-callback . ,Music_sequence::event_chord_relative_callback)
+	(iterator-ctor . ,ly:event-chord-iterator::constructor)
+	(length-callback . ,ly:music-sequence::maximum-length-callback)
+	(to-relative-callback . ,ly:music-sequence::event-chord-relative-callback)
 	(types . (general-music event-chord simultaneous-music))
 	))
 
@@ -191,9 +191,9 @@ Syntax: @var{note}\\cr
     (GraceMusic
      . (
 	(description .	"Interpret the argument as grace notes. ")
-	(start-callback . ,Grace_music::start_callback)
+	(start-callback . ,ly:grace-music::start-callback)
 	(length . ,ZERO-MOMENT)
-	(iterator-ctor . ,Grace_iterator::constructor)
+	(iterator-ctor . ,ly:grace-iterator::constructor)
 	(types . (grace-music music-wrapper-music general-music))
 	))
     (NoteGroupingEvent
@@ -243,9 +243,9 @@ Syntax: @var{note}\\laissezVibrer.")
 Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 
 	(types . (general-music lyric-combine-music))
-	(length-callback . ,Lyric_combine_music::length_callback)
-	(start-callback . ,Music_sequence::first_start_callback)
-	(iterator-ctor . ,Old_lyric_combine_music_iterator::constructor)
+	(length-callback . ,ly:lyric-combine-music::length-callback)
+	(start-callback . ,ly:music-sequence::first-start-callback)
+	(iterator-ctor . ,ly:old-lyric-combine-music-iterator::constructor)
 	))
     
     (LyricCombineMusic
@@ -255,7 +255,7 @@ Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 Syntax @var{\\lyricsto }@var{voicename} @var{lyrics}.")
 	(length . ,ZERO-MOMENT)
 	(types . (general-music lyric-combine-music))
-	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
+	(iterator-ctor . ,ly:lyric-combine-music-iterator::constructor)
 	))
 
     (LyricEvent
@@ -302,9 +302,9 @@ Syntax
 to group start-mmrest, skip, stop-mmrest sequence. 
 
 Syntax @code{R2.*5} for 5 measures in 3/4 time.")
-	(length-callback . ,Music_sequence::cumulative_length_callback)
-	(start-callback . ,Music_sequence::first_start_callback)
-	(iterator-ctor . ,Sequential_music_iterator::constructor)
+	(length-callback . ,ly:music-sequence::cumulative-length-callback)
+	(start-callback . ,ly:music-sequence::first-start-callback)
+	(iterator-ctor . ,ly:sequential-music-iterator::constructor)
 	(types . (general-music sequential-music))
 	))
     
@@ -338,7 +338,7 @@ individually.
 Syntax @code{\\outputproperty @var{predicate} @var{prop}
 = @var{val}}.")
 
-	(iterator-ctor . ,Output_property_music_iterator::constructor)
+	(iterator-ctor . ,ly:output-property-music-iterator::constructor)
 	(types . (general-music layout-instruction))
 	))
     
@@ -351,16 +351,16 @@ SYNTAX
 @code{\\override [ @var{Ctxt} . ] @var{Obj} @var{prop} = @var{val}}
 ")
 	(types . (general-music layout-instruction))
-	(iterator-ctor . ,Push_property_iterator::constructor)
+	(iterator-ctor . ,ly:push-property-iterator::constructor)
 	))
     (PartCombineMusic
      . (
 	(description .	"Combine two parts on a staff, either merged or
 as separate voices.")
-	(length-callback . ,Music_sequence::maximum_length_callback)
-	(start-callback . ,Music_sequence::minimum_start_callback)
+	(length-callback . ,ly:music-sequence::maximum-length-callback)
+	(start-callback . ,ly:music-sequence::minimum-start-callback)
 	(types . (general-music part-combine-music))
-	(iterator-ctor . ,Part_combine_iterator::constructor)
+	(iterator-ctor . ,ly:part-combine-iterator::constructor)
 	))
     (PhrasingSlurEvent
      . (
@@ -376,7 +376,7 @@ Syntax NOTE \\(  and \\) NOTE")
 
 Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(types . (layout-instruction general-music))
-	(iterator-ctor . ,Property_iterator::constructor)
+	(iterator-ctor . ,ly:property-iterator::constructor)
 	))
 
     (PropertyUnset
@@ -384,7 +384,7 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(description .	"Remove the definition of a context @code{\\property}.")
 
 	(types . (layout-instruction general-music))
-	(iterator-ctor . ,Property_unset_iterator::constructor)
+	(iterator-ctor . ,ly:property-unset-iterator::constructor)
 	))
     
     (PesOrFlexaEvent
@@ -399,15 +399,15 @@ goes down).")
     (QuoteMusic
      . (
 	(description . "Quote preprocessed snippets of music. ")
-	(iterator-ctor . ,Quote_iterator::constructor)
-	(length-callback . ,Music_wrapper::length_callback)
-	(start-callback . ,Music_wrapper::start_callback)
+	(iterator-ctor . ,ly:quote-iterator::constructor)
+	(length-callback . ,ly:music-wrapper::length-callback)
+	(start-callback . ,ly:music-wrapper::start-callback)
 	(types . (general-music music-wrapper-music))
 	))
     
     (RelativeOctaveCheck
      . ((description . "Check if a pitch is in the correct octave.")
-	(to-relative-callback . ,Relative_octave_check::relative_callback)
+	(to-relative-callback . ,ly:relative-octave-check::relative-callback)
 	(types . (general-music relative-octave-check))
 	))
     
@@ -440,7 +440,7 @@ previously added property from a graphical object definition
  ")
 
 	(types . (general-music layout-instruction))
-	(iterator-ctor . ,	Pop_property_iterator::constructor)
+	(iterator-ctor . ,	ly:pop-property-iterator::constructor)
 	))
 
     (SequentialMusic
@@ -449,9 +449,9 @@ previously added property from a graphical object definition
 
 Syntax \\sequential @{..@} or simply @{..@} .")
 
-	(length-callback . ,Music_sequence::cumulative_length_callback)
-	(start-callback . ,Music_sequence::first_start_callback)
-	(iterator-ctor . ,Sequential_music_iterator::constructor)
+	(length-callback . ,ly:music-sequence::cumulative-length-callback)
+	(start-callback . ,ly:music-sequence::first-start-callback)
+	(iterator-ctor . ,ly:sequential-music-iterator::constructor)
 	(types . (general-music sequential-music))
 	))
 
@@ -478,12 +478,12 @@ Syntax \\sequential @{..@} or simply @{..@} .")
 
 SYNTAX
 
-@code{ \\simultaneous @{ .. @}} or < .. >.")
+@code{ \\simultaneous @{ .. @}} or << .. >>.")
 
-	(iterator-ctor . ,Simultaneous_music_iterator::constructor)
-	(start-callback . ,Music_sequence::minimum_start_callback)
-	(length-callback . ,Music_sequence::maximum_length_callback)
-	(to-relative-callback . ,Music_sequence::simultaneous_relative_callback)
+	(iterator-ctor . ,ly:simultaneous-music-iterator::constructor)
+	(start-callback . ,ly:music-sequence::minimum-start-callback)
+	(length-callback . ,ly:music-sequence::maximum-length-callback)
+	(to-relative-callback . ,ly:music-sequence::simultaneous-relative-callback)
 	
 	(types . (general-music simultaneous-music))
 	))
@@ -492,7 +492,8 @@ SYNTAX
      . (
 	(description . "Start or end slur. 
 
-Syntax NOTE(	 and )NOTE")
+Syntax NOTE(	 and NOTE) ")
+
 	(types . (general-music span-event event slur-event))
 	))
     
@@ -527,19 +528,19 @@ Syntax NOTE(	 and )NOTE")
 Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 @code{\\times 2/3 @{ ... @}} for triplets.
  ")
-	(length-callback . ,Music_wrapper::length_callback)
-	(start-callback . ,Music_wrapper::start_callback)
-	(iterator-ctor . ,Time_scaled_music_iterator::constructor)
+	(length-callback . ,ly:music-wrapper::length-callback)
+	(start-callback . ,ly:music-wrapper::start-callback)
+	(iterator-ctor . ,ly:time-scaled-music-iterator::constructor)
 	(types . (time-scaled-music music-wrapper-music general-music))
 	))
     
     (TransposedMusic
      . (
 	(description .	"Music that has been transposed.")
-	(iterator-ctor . ,Music_wrapper_iterator::constructor)
-	(start-callback . ,Music_wrapper::start_callback)
-	(length-callback . ,Music_wrapper::length_callback)
-	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
+	(iterator-ctor . ,ly:music-wrapper-iterator::constructor)
+	(start-callback . ,ly:music-wrapper::start-callback)
+	(length-callback . ,ly:music-wrapper::length-callback)
+	(to-relative-callback . ,ly:relative-octave-music::no-relative-callback)
 	(types . (music-wrapper-music general-music transposed-music))
 	))
 
@@ -547,19 +548,19 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
      . (
 	(description .	"Music that can not be converted from relative to absolute notation.
 For example, transposed music.")
-	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
-	(iterator-ctor . ,Music_wrapper_iterator::constructor)
-	(length-callback . ,Music_wrapper::length_callback)
+	(to-relative-callback . ,ly:relative-octave-music::no-relative-callback)
+	(iterator-ctor . ,ly:music-wrapper-iterator::constructor)
+	(length-callback . ,ly:music-wrapper::length-callback)
 	(types . (music-wrapper-music general-music unrelativable-music))
 	))
 
     (RelativeOctaveMusic
      . (
 	(description .	"Music that was entered in relative octave notation.")
-	(to-relative-callback . ,Relative_octave_music::relative_callback)
-	(iterator-ctor . ,Music_wrapper_iterator::constructor)
-	(length-callback . ,Music_wrapper::length_callback)
-	(start-callback . ,Music_wrapper::start_callback)
+	(to-relative-callback . ,ly:relative-octave-music::relative-callback)
+	(iterator-ctor . ,ly:music-wrapper-iterator::constructor)
+	(length-callback . ,ly:music-wrapper::length-callback)
+	(start-callback . ,ly:music-wrapper::start-callback)
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
     (ScriptEvent
@@ -578,7 +579,7 @@ does not create staffs or voices implicitly.
 
 Syntax: @code{\\skip }@var{duration}.")
 	(length-callback . ,ly:music-duration-length)
-	(iterator-ctor . ,Simple_music_iterator::constructor)
+	(iterator-ctor . ,ly:simple-music-iterator::constructor)
 	(types . (general-music event rhythmic-event skip-event))
 	))
     
@@ -659,38 +660,38 @@ Syntax: @code{\\\\}")
 
     (VoltaRepeatedMusic
      . (
-	(iterator-ctor . ,Volta_repeat_iterator::constructor)
+	(iterator-ctor . ,ly:volta-repeat-iterator::constructor)
 	(description . "")
-	(start-callback .  ,Repeated_music::first_start)
-	(length-callback . ,Repeated_music::volta_music_length)
+	(start-callback .  ,ly:repeated-music::first-start)
+	(length-callback . ,ly:repeated-music::volta-music-length)
 	(types . (general-music repeated-music volta-repeated-music))
 	))
     
     (UnfoldedRepeatedMusic
      . (
-	(iterator-ctor . ,Unfolded_repeat_iterator::constructor)
+	(iterator-ctor . ,ly:unfolded-repeat-iterator::constructor)
 	(description .	"")
-	(start-callback .  ,Repeated_music::first_start)
+	(start-callback .  ,ly:repeated-music::first-start)
 	(types . (general-music repeated-music unfolded-repeated-music))
-	(length-callback . ,Repeated_music::unfolded_music_length)
+	(length-callback . ,ly:repeated-music::unfolded-music-length)
 	))
     (PercentRepeatedMusic
      . (
 	(description .	"Repeats encoded by percents.")
-	(iterator-ctor . ,Percent_repeat_iterator::constructor)
-	(start-callback .  ,Repeated_music::first_start)
-	(length-callback . ,Repeated_music::unfolded_music_length)
+	(iterator-ctor . ,ly:percent-repeat-iterator::constructor)
+	(start-callback .  ,ly:repeated-music::first-start)
+	(length-callback . ,ly:repeated-music::unfolded-music-length)
 	(types . (general-music repeated-music percent-repeated-music))
 	))
     
     (TremoloRepeatedMusic
      . (
-	(iterator-ctor . ,Chord_tremolo_iterator::constructor)
+	(iterator-ctor . ,ly:chord-tremolo-iterator::constructor)
 	(description .	"Repeated notes denoted by tremolo beams.")
-	(start-callback .  ,Repeated_music::first_start)
+	(start-callback .  ,ly:repeated-music::first-start)
 
 	;; the length of the repeat is handled by shifting the note logs
-	(length-callback . ,Repeated_music::folded_music_length)
+	(length-callback . ,ly:repeated-music::folded-music-length)
 	(types . (general-music repeated-music tremolo-repeated-music))
 	
 	))
@@ -698,9 +699,9 @@ Syntax: @code{\\\\}")
     (FoldedRepeatedMusic
      . (
 	(description .	"Repeats with alternatives placed in parallel. ")
-	(iterator-ctor	. ,Folded_repeat_iterator::constructor)
-	(start-callback .  ,Repeated_music::minimum_start)
-	(length-callback . ,Repeated_music::folded_music_length)
+	(iterator-ctor	. ,ly:folded-repeat-iterator::constructor)
+	(start-callback .  ,ly:repeated-music::minimum-start)
+	(length-callback . ,ly:repeated-music::folded-music-length)
 	(types . (general-music repeated-music folded-repeated-music))
 	))
     ))

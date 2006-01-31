@@ -1,5 +1,5 @@
 
-\version "2.7.13" 
+\version "2.7.31" 
 \header {
 
   texidoc = "The @code{\applyOutput} expression is the most flexible way to
@@ -21,7 +21,7 @@ position.
    (if (and (memq 'note-head-interface ifs)
 	(memq sp '(-2 -3 -5)))
     (begin
-     (ly:grob-set-property! gr 'stencil Text_interface::print)
+     (ly:grob-set-property! gr 'stencil ly:text-interface::print)
      (ly:grob-set-property! gr 'font-family 'roman)
      (ly:grob-set-property!
       gr 'text

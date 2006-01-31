@@ -3,7 +3,7 @@
   texidoc = "With balloon texts, objects in the output can be marked,
 with lines and explanatory text added."
 }
-\version "2.7.13"
+\version "2.7.31"
 
 \layout{ raggedright = ##t }
 
@@ -12,8 +12,8 @@ with lines and explanatory text added."
   \relative c'  {
 
     %% by hand:
-    \once\override Stem #'stencil = #Balloon_interface::print
-    \once\override Stem #'original-stencil = #Stem::print
+    \once\override Stem #'stencil = #ly:balloon-interface::print
+    \once\override Stem #'original-stencil = #ly:stem::print
     \once\override Stem #'balloon-text = #"I'm a stem"
     \once\override Stem #'balloon-text-offset = #'(3 . 4)
     \once\override Stem #'balloon-text-props

@@ -53,18 +53,18 @@
 
 
 (define-public (check-quant-callbacks l r)
-  (list Beam::calc_least_squares_positions
-	Beam::slope_damping
-	Beam::shift_region_to_valid
-	Beam::quanting
+  (list ly:beam::calc-least-squares-positions
+	ly:beam::slope-damping
+	ly:beam::shift-region-to-valid
+	ly:beam::quanting
 	(check-beam-quant l r)
 	))
 			
 
 (define-public (check-slope-callbacks comparison)
-  (list Beam::calc_least_squares_positions
-	Beam::slope_damping
-	Beam::shift_region_to_valid
-	Beam::quanting
+  (list ly:beam::calc-least-squares-positions
+	ly:beam::slope-damping
+	ly:beam::shift-region-to-valid
+	ly:beam::quanting
 	(check-beam-slope-sign comparison)	
 	))

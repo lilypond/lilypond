@@ -6,9 +6,6 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-/*
-  UGH. too many includes.
-*/
 
 #include "music-iterator.hh"
 

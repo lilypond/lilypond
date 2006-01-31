@@ -2687,3 +2687,17 @@ def conv (str):
 
 conversions.append (((2, 7, 30), conv,
 		     """\\epsfile"""))
+
+
+def conv (str):
+	def sub_cxx_id (m):
+		str = m.group(1)
+		return 'ly:' + str.lower ().replace ('_','-')
+		
+	str = re.sub (r'([A-Z][a-z_0-9]+::[a-z_0-9]+)',
+		      sub_cxx_id, str)
+	return str
+
+conversions.append (((2, 7, 31), conv,
+		     """Foo_bar::bla_bla -> ly:foo-bar::bla-bla"""))
+

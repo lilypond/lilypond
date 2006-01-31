@@ -391,7 +391,7 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
       empty-markup))
 
 
-(define-public interpret-markup Text_interface::interpret_markup)
+(define-public interpret-markup ly:text-interface::interpret-markup)
 (define-public (prepend-alist-chain key val chain)
   (cons (acons key val (car chain)) (cdr chain)))
 

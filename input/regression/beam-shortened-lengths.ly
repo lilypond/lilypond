@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.31"
 
 \header{
   texidoc="Beams in unnatural direction, have shortened stems, but do not look too short."
@@ -13,9 +13,9 @@
     (ly:make-simple-closure
      (list chain-grob-member-functions
       `(,cons 0 0)
-      Beam::calc_least_squares_positions
-      Beam::slope_damping
-      Beam::shift_region_to_valid
+      ly:beam::calc-least-squares-positions
+      ly:beam::slope-damping
+      ly:beam::shift-region-to-valid
     )))
   
   \stemUp

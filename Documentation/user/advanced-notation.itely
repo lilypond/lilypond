@@ -1541,7 +1541,7 @@ tsMarkup =\markup {
 }
 
 {
-  \override Staff.TimeSignature #'stencil = #Text_interface::print
+  \override Staff.TimeSignature #'stencil = #ly:text-interface::print
   \override Staff.TimeSignature #'text = #tsMarkup
   \time 3/2
   c'2 \bar ":" c'4 c'4.

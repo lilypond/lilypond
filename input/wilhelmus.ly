@@ -1,4 +1,4 @@
-\version "2.7.14"
+\version "2.7.31"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -173,7 +173,7 @@ oneHalfNoteTime = \markup {
       \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(2 . 2)
       
       %% Custom time signature
-      \override Staff.TimeSignature #'stencil = #Text_interface::print
+      \override Staff.TimeSignature #'stencil = #ly:text-interface::print
       \override Staff.TimeSignature #'text = #oneHalfNoteTime
       \noclefs
     
