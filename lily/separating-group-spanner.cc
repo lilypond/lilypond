@@ -17,7 +17,7 @@
 void
 Separating_group_spanner::find_rods (Item *r,
 				     Link_array<Grob> const &separators,
-				     int idx,
+				     vsize idx,
 				     Real padding)
 {
 
@@ -27,7 +27,7 @@ Separating_group_spanner::find_rods (Item *r,
     most cases, the interesting L will just be the first entry of
     NEXT, making it linear in most of the cases.
   */
-  for (; idx >= 0; idx--)
+  for (; idx != VPOS; idx--)
     {
       Item *l = dynamic_cast<Item *> (separators[idx]);
       Item *lb = l->find_prebroken_piece (RIGHT);
@@ -83,8 +83,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
   Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
 
   extract_grob_set (me, "elements", elts);
-  for (vsize i = elts.size ();
-       i-- > 1;)
+  for (vsize i = elts.size (); i-- > 1;)
     {
       Item *r = dynamic_cast<Item *> (elts[i]);
       if (!r)
