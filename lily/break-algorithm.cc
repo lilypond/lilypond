@@ -27,7 +27,7 @@ Break_algorithm::find_break_indices () const
 
   if (linewidth_ <= 0)
     while (retval.size () > 2)
-      retval.del (1);
+      retval.erase (retval.begin () + 1);
 
   return retval;
 }
@@ -44,7 +44,7 @@ Break_algorithm::find_breaks () const
 
   if (linewidth_ <= 0)
     while (retval.size () > 2)
-      retval.del (1);
+      retval.erase (retval.begin () + 1);
 
   return retval;
 }

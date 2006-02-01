@@ -41,15 +41,18 @@ public:
     return (T *&) Array<void *>::back ();
   }
 
-  /* Flower compat */
-  Array<void *>::del;
-  Array<void *>::unordered_del;
-  Array<void *>::size;
+  Array<void *>::begin;
   Array<void *>::clear;
+  Array<void *>::erase;
   Array<void *>::resize;
+  Array<void *>::size;
   Array<void *>::empty;
-  Array<void *>::reverse;
   Array<void *>::pop_back;
+
+
+  /* Flower compat */
+  Array<void *>::unordered_del;
+  Array<void *>::reverse;
   Array<void *>::tighten_maxsize;
 
   static int default_compare (T *const &p1, T *const &p2)
@@ -122,7 +125,7 @@ public:
       if (new_p)
 	elem_ref (i) = new_p;
       else
-	del (i);
+	erase (begin () + i);
   }
   void unordered_substitute (T *old, T *new_p)
   {
@@ -137,6 +140,7 @@ public:
   {
     sort (default_compare);
   }
+
   // quicksort.
   void sort (int (*compare) (T *const &, T *const &),
 	     int lower = -1, int upper = -1);
@@ -171,9 +175,14 @@ public:
   {
     return (T **) Array<void *>::accesses ();
   }
-  T *get (int i)
+  /**
+     remove  i-th element, and return it.
+  */
+  T *get (vsize i)
   {
-    return (T *) Array<void *>::get (i);
+    T *t = elem (i);
+    Array<void*>::erase (Array<void*>::begin () + i);
+    return t;
   }
   Link_array<T>
   slice (int l, int u) const
@@ -268,8 +277,8 @@ binsearch (Array<T> const &arr, T t, int (*compare) (T const &, T const &))
 
   if (!compare (t, arr[lo]))
     return lo;
-  else
-    return -1;              /* not found */
+  /* not found */
+  return -1;
 }
 
 template<class T>
@@ -301,8 +310,8 @@ binsearch_links (Link_array<T> const &arr, T *t,
 
   if (!compare (t, arr[lo]))
     return lo;
-  else
-    return -1;              /* not found */
+  /* not found */
+  return -1;
 }
 
 template<class T>

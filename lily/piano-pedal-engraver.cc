@@ -440,7 +440,7 @@ Piano_pedal_engraver::del_linespanner (Spanner *g)
 {
   int idx = previous_.find_index (g);
   if (idx >= 0)
-    previous_.del (idx);
+    previous_.erase (previous_.begin () + idx);
 }
 
 void

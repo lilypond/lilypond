@@ -174,7 +174,7 @@ filter_solutions (std::vector<Real> sol)
 {
   for (vsize i = sol.size (); i--;)
     if (sol[i] < 0 || sol[i] > 1)
-      sol.del (i);
+      sol.erase (sol.begin () + i);
   return sol;
 }
 

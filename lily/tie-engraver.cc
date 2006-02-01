@@ -121,7 +121,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	  Tie::set_head (p, RIGHT, h);
 
 	  ties_.push_back (p);
-	  heads_to_tie_.del (i);
+	  heads_to_tie_.erase (heads_to_tie_.begin () + i);
 	}
     }
 

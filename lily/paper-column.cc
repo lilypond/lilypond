@@ -164,9 +164,8 @@ Paper_column::before_line_breaking (SCM grob)
       Grob *g = array[i];
 
       if (!g || !g->is_live ())
-	{			// UGH . potentially quadratic.
-	  array.del (i);
-	}
+	/* UGH . potentially quadratic. */
+	array.erase (array.begin () + i);
     }
 
   return SCM_UNSPECIFIED;

@@ -216,7 +216,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       if (to_dir (d))
 	{
 	  ((to_dir (d) == UP) ? up : down).push_back ((*scripts)[i]);
-	  scripts->del (i);
+	  scripts->erase (scripts->begin () + i);
 	}
     }
 
@@ -238,7 +238,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       if (down_p && !down.size () && scripts->size ())
 	{
 	  down.push_back ((*scripts)[0]);
-	  scripts->del (0);
+	  scripts->erase (scripts->begin ());
 	}
 
       horiz.concat (*scripts);
