@@ -1,6 +1,9 @@
 2006-02-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/include/std-vector.hh (slice): Remove.
+	(sort): Bugfix.
+
+	* flower/test-std.cc (vector_sort): New test.
 
 2006-02-01  Graham Percival  <gpermus@gmail.com>
 

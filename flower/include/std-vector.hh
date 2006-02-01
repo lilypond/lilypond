@@ -163,13 +163,7 @@ namespace std {
     }
 
     void
-    sort (int vsize=VPOS, vsize b=VPOS, vsize e=VPOS)
-    {
-      ::std::sort (iter (b), iter(e));
-    }
-
-    void
-    sort (int (*compare) (T const &, T const &), int b=-1, int e=-1)
+    sort (int (*compare) (T const &, T const &), vsize b=0, int e=VPOS)
     {
       ::std::sort (iter (b), iter(e), compare);
     }
