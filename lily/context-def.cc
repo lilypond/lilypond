@@ -217,7 +217,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
 	}
     }
 
-  vsize best_depth = UINT_MAX;
+  vsize best_depth = INT_MAX;
   for (vsize i = 0; i < accepteds.size (); i++)
     {
       Context_def *g = accepteds[i];
