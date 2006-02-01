@@ -59,11 +59,25 @@ BOOST_AUTO_UNIT_TEST (vector_slice)
 #endif
 }
 
+BOOST_AUTO_UNIT_TEST (vector_sort)
+{
+  vector<int> v;
+  v.push_back (2);
+  v.push_back (1);
+  v.push_back (0);
+  v.sort (default_compare);
+  print (v);
+  BOOST_CHECK_EQUAL (v[0], 0);
+  BOOST_CHECK_EQUAL (v[1], 1);
+  BOOST_CHECK_EQUAL (v[2], 2);
+}
+
 test_suite*
 init_unit_test_suite (int, char**)
 {
   test_suite *test = BOOST_TEST_SUITE("std::Flower");
   test->add (BOOST_TEST_CASE (vector_erase));
   test->add (BOOST_TEST_CASE (vector_slice));
+  test->add (BOOST_TEST_CASE (vector_sort));
   return test;
 }
