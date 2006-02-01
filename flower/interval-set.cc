@@ -52,7 +52,7 @@ Interval_set::remove_interval (Interval rm)
 	      allowed_regions_.insert (before, i);
 	      i++;
 	    }
-	  allowed_regions_.del (i);
+	  allowed_regions_.erase (allowed_regions_.begin () + i);
 	  if (!after.is_empty () && after.length () > 0.0)
 	    {
 	      allowed_regions_.insert (after, i);

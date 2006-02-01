@@ -230,7 +230,7 @@ Dot_column::calc_positioning_done (SCM smob)
   dots.sort (compare_position);
   for (vsize i = dots.size (); i--;)
     if (!dots[i]->is_live ())
-      dots.del (i);
+      dots.erase (dots.begin () + i);
 
   Dot_configuration cfg;
   for (vsize i = 0;i < dots.size (); i++)

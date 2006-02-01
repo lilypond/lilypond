@@ -110,7 +110,7 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 	Hara_kiri_group_spanner::consider_suicide (elems[j]);
 
       if (!elems[j]->is_live ())
-	elems.del (j);
+	elems.erase (elems.begin () + j);
     }
 
   for (vsize j = 0; j < elems.size (); j++)

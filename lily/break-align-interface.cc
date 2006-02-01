@@ -74,7 +74,7 @@ Break_align_interface::ordered_elements (Grob *grob)
 	  if (g && sym == g->get_property ("break-align-symbol"))
 	    {
 	      new_elts.push_back (g);
-	      writable_elts.del (i);
+	      writable_elts.erase (writable_elts.begin () + i);
 	    }
 	}
     }

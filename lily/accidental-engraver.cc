@@ -462,7 +462,7 @@ Accidental_engraver::stop_translation_timestep ()
 		g->set_object ("tie", ties_[j]->self_scm ());
 		accidentals_[i].tied_ = true;
 	      }
-	    ties_.del (j);
+	    ties_.erase (ties_.begin () + j);
 	    break;
 	  }
     }

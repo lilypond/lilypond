@@ -97,7 +97,7 @@ Beam::calc_concaveness (SCM smob)
   for (vsize i = stems.size (); i--;)
     {
       if (Stem::is_invisible (stems[i]))
-	stems.del (i);
+	stems.erase (stems.begin () + i);
       else
 	{
 	  if (Direction dir = get_grob_direction (stems[i]))

@@ -166,7 +166,7 @@ Tuplet_engraver::start_translation_timestep ()
 	}
 
       if (now.main_part_ >= tuplets_[i].stop_)
-	tuplets_.del (i);
+	tuplets_.erase (tuplets_.begin () + i);
     }
 }
 

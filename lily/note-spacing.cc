@@ -227,7 +227,7 @@ Note_spacing::right_column (Grob *me)
       for (vsize i = right.size (); i--;)
 	{
 	  if (dynamic_cast<Item *> (right[i])->get_column () != mincol)
-	    right.del (i);
+	    right.erase (right.begin () + i);
 	}
     }
 

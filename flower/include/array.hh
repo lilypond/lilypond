@@ -109,20 +109,81 @@ public:
     size_ = s;
   }
 
+  T*
+  data ()
+  {
+    return array_;
+  }
+
+  typedef T* iterator;
+
+  iterator
+  begin ()
+  {
+    return data ();
+  }
+
+  iterator const
+  begin () const
+  {
+    return data ();
+  }
+  
+  iterator
+  end ()
+  {
+    return data () + size_;
+  }
+
+  iterator const
+  end () const
+  {
+    return data () + size_;
+  }
+
+  void clear ()
+  {
+    resize (0);
+  }
+
+  /* std::vector uses unchecked variant for [] */
+  T &operator [] (vsize i)
+  {
+    return elem_ref (i);
+  }
+
+  /* std::vector uses unchecked variant for [] */
+  T const &operator [] (vsize i) const
+  {
+    return elem_ref (i);
+  }
+
+  iterator
+  erase (iterator p)
+  {
+    vsize i = p - data ();
+#if !STD_VECTOR
+    assert (i >= 0 && i < size_);
+#else
+    assert (i < size_);
+#endif
+    arrcpy (array_ + i, array_ + i + 1, size_ - i - 1);
+    size_--;
+    return p;
+  }
 
 
+
+
+  /* Flower intererface */
+
+  
   /// check invariants
   void OK () const;
   /** report the size_.
       @see
       {setsize_}
   */
-
-  /// POST: size () == 0
-  void clear ()
-  {
-    size_ = 0;
-  }
 
   Array (T *tp, vsize n)
   {
@@ -169,16 +230,6 @@ public:
 
   T *remove_array ();
 
-  /// access element
-  T &operator [] (vsize i)
-  {
-    return elem_ref (i);
-  }
-  /// access element
-  T const &operator [] (vsize i) const
-  {
-    return elem_ref (i);
-  }
   /// access element
   T &elem_ref (vsize i) const
   {
@@ -251,29 +302,11 @@ public:
   }
 
   void insert (T k, vsize j);
-  /**
-     remove  i-th element, and return it.
-  */
-  T get (vsize i)
-  {
-    T t = elem (i);
-    del (i);
-    return t;
-  }
+
   void unordered_del (vsize i)
   {
     elem_ref (i) = back ();
     resize (size () -1);
-  }
-  void del (vsize i)
-  {
-#if !STD_VECTOR
-    assert (i >= 0 && i < size_);
-#else
-    assert (i < size_);
-#endif
-    arrcpy (array_ + i, array_ + i + 1, size_ - i - 1);
-    size_--;
   }
   // quicksort.
   void sort (int (*compare) (T const &, T const &),

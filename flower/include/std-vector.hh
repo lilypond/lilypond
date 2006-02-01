@@ -41,7 +41,6 @@ namespace std {
   {
   public:
     typedef typename __vector<T>::iterator iterator;
-    //typedef int (*compare) (T *const&, T *const&);
 
     vector<T> () : __vector<T> ()
     {
@@ -106,12 +105,6 @@ namespace std {
 	return this->top (i);
       else
 	return this->at (i);
-    }
-
-    T
-    del (vsize i)
-    {
-      return *__vector<T>::erase (iter (i));
     }
 
     T const &
