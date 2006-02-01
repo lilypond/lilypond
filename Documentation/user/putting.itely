@@ -493,10 +493,10 @@ though.
 \score @{
   @{
     <<
-      \context Staff = singer @{
-      @}
-      \context PianoStaff = piano @{
-      @}
+      \context Staff = singer <<
+      >>
+      \context PianoStaff = piano <<
+      >>
     >>
   @}
   \layout @{ @}
@@ -511,14 +511,14 @@ the vocal part and piano part at the same time!
 \score @{
   @{
     <<
-      \context Staff = singer @{
+      \context Staff = singer <<
         \context Voice = vocal @{ @}
-        \lyricsto vocal \new Lyrics @{ @}
-      @}
-      \context PianoStaff = piano @{
+      >>
+      \new Lyrics \lyricsto vocal \new Lyrics @{ @}
+      \context PianoStaff = piano <<
         \context Staff = upper @{ @}
         \context Staff = lower @{ @}
-      @}
+      >>
     >>
   @}
   \layout @{ @}
@@ -556,14 +556,14 @@ lower = @{ @}
 \score @{
   @{
     <<
-      \context Staff = singer @{
+      \context Staff = singer <<
         \context Voice = vocal @{ \melody @}
-        \lyricsto vocal \new Lyrics @{ \text @}
-      @}
-      \context PianoStaff = piano @{
+      >>
+      \new Lyrics \lyricsto vocal \new Lyrics @{ \text @}
+      \context PianoStaff = piano <<
         \context Staff = upper @{ \upper @}
         \context Staff = lower @{ \lower @}
-      @}
+      >>
     >>
   @}
   \layout @{ @}
