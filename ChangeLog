@@ -8,6 +8,12 @@
 
 2006-02-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/lily-guile-macros.hh (MAKE_SCHEME_CALLBACK): use
+	std::string not String. 
+
+	* lily/context-def.cc (path_to_acceptable_context): use INT_MAX
+	iso UINT_MAX.
+
 	* lily/prob.cc (Prob): copy type_ too.
 
 	* lily/lily-guile.cc (mangle_cxx_identifier): new

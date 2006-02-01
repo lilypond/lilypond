@@ -93,7 +93,7 @@ std::string mangle_cxx_identifier (std::string);
   void									\
   TYPE ## _ ## FUNC ## _init_functions ()				\
   {									\
-    std::string id = mangle_cxx_identifier (String (#TYPE) + "::" + String (#FUNC));\
+    std::string id = mangle_cxx_identifier (std::string (#TYPE) + "::" + std::string (#FUNC)); \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),			\
 					       (ARGCOUNT), 0, 0,	\
 					       (Scheme_function_unknown) TYPE::FUNC); \
