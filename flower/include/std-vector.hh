@@ -41,33 +41,32 @@ namespace std {
   {
   public:
     typedef typename __vector<T>::iterator iterator;
+    typedef typename __vector<T>::const_iterator const_iterator;
 
     vector<T> () : __vector<T> ()
     {
     }
 
-    vector<T> (iterator const b, iterator const e) : __vector<T> (b, e)
+    vector<T> (const_iterator b, const_iterator e) : __vector<T> (b, e)
     {
     }
 
-    vector<T> (vsize b, vsize e) : __vector<T> (iter (b), iter (e))
-    {
-    }
-
-    iterator iter (vsize n)
+    iterator
+    iter (vsize n)
     {
       if (n == VPOS)
 	return this->end ();
       return __vector<T>::begin () + n;
     }
 
-    iterator const iter (vsize n) const
+    const_iterator
+    iter (vsize n) const
     {
       if (n == VPOS)
 	return this->end ();
       return __vector<T>::begin () + n;
     }
-
+    
     void
     insert (T k, vsize i)
     {
@@ -163,12 +162,6 @@ namespace std {
       ::std::reverse (this->begin (), this->end ());
     }
 
-    vector<T>
-    slice (vsize b, vsize e) const
-    {
-      return vector<T> (b, e);
-    }
-
     void
     sort (int vsize=VPOS, vsize b=VPOS, vsize e=VPOS)
     {
@@ -210,7 +203,7 @@ namespace std {
 		 vsize b=0, vsize e=VPOS)
   {
     //(void) compare;
-    vector<T>::iterator const i = find (v.iter (b), v.iter (e), key);
+    typename vector<T>::const_iterator i = find (v.iter (b), v.iter (e), key);
     if (i != v.end ())
       return i - v.begin ();
     return VPOS;
