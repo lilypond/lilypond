@@ -1,5 +1,7 @@
 2006-02-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/prob.cc (Prob): copy type_ too.
+
 	* lily/lily-guile.cc (mangle_cxx_identifier): new
 	function. Class_bla::foo_bar_[px] ->
 	ly:class-bla::foo-bar[?!]. Changes throughout
