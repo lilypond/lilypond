@@ -260,6 +260,7 @@ namespace std {
     return VPOS;
   }
 #endif
+
 }
 
 
@@ -268,14 +269,18 @@ namespace std {
 
 namespace std {
 
+#ifndef Array  
 #define vector Array
-  using namespace std;
+#endif
 
-  #ifndef VSIZE
-  #define VSIZE
+  using namespace std;
+  
+#ifndef VSIZE
+#define VSIZE
   typedef int vsize;
-  #define VPOS -1
-  #endif
+#define VPOS -1
+#endif
+
 }
 
 
