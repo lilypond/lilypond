@@ -246,8 +246,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
   else if (up_p && down_p)
     {
       int center = scripts->size () / 2;
-      down.concat (scripts->slice (0, center));
-      up.concat (scripts->slice (center, scripts->size ()));
+      down.concat (std::vector<Finger_tuple> (scripts->begin (),
+					      scripts->begin () + center));
+      up.concat (std::vector<Finger_tuple> (scripts->begin () + center,
+					    scripts->end ()));
     }
   else if (up_p)
     {

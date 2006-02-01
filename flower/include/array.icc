@@ -104,19 +104,12 @@ Array<T>::remove_array ()
 }
 
 template<class T> INLINE
-Array<T>
-Array<T>::slice (vsize lower, vsize upper) const
+Array<T>::Array (const_iterator b, const_iterator e)
 {
-#if !STD_VECTOR
-  assert (lower >= 0 && lower <= upper && upper <= size_);
-#else
-  assert (lower <= upper && upper <= size_);
-#endif
-  Array<T> r;
-  vsize s = upper - lower;
-  r.resize (s);
-  arrcpy (r.array_, array_ + lower, s);
-  return r;
+  vsize n = e - b;
+  array_ = new T[n];
+  max_ = size_ = n;
+  arrcpy (array_, b, n);
 }
 
 template<class T>

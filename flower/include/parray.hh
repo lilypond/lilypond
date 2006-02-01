@@ -21,7 +21,7 @@ template<class T>
 class Link_array : private Array<void *>
 {
 
-  Link_array (Array<void *> v)
+  Link_array (Array<void *> const &v)
     :Array<void *> (v)
   {
   }
@@ -73,6 +73,7 @@ public:
     : Array<void *> (src)
   {
   }
+
   /// access element
   T *elem (int i) const
   {
@@ -187,7 +188,7 @@ public:
   Link_array<T>
   slice (int l, int u) const
   {
-    return Array<void *>::slice (l, u);
+    return Array<void *>::Array (begin () + l, begin () + u);
   }
   void concat (Link_array<T> const &a2)
   {

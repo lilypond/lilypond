@@ -38,7 +38,8 @@ template<class T> void arrcpy (T *dest, T const *src, int count);
 template<class T>
 class Array
 {
-protected:
+public:
+
   /// maximum length of array.
   vsize max_;
 
@@ -60,6 +61,9 @@ protected:
 
 public:
   /* std::vector interface */
+  typedef T* iterator;
+  typedef T const* const_iterator;
+
   Array ()
   {
     array_ = 0;
@@ -73,6 +77,8 @@ public:
     max_ = size_ = src.size_;
   }
 
+  Array (const_iterator begin, const_iterator end);
+    
   T const &back () const
   {
     return (*this)[size_ - 1];
@@ -115,7 +121,11 @@ public:
     return array_;
   }
 
-  typedef T* iterator;
+  T const*
+  data () const
+  {
+    return array_;
+  }
 
   iterator
   begin ()
@@ -123,7 +133,7 @@ public:
     return data ();
   }
 
-  iterator const
+  const_iterator
   begin () const
   {
     return data ();
@@ -135,7 +145,7 @@ public:
     return data () + size_;
   }
 
-  iterator const
+  const_iterator
   end () const
   {
     return data () + size_;
@@ -143,7 +153,8 @@ public:
 
   void clear ()
   {
-    resize (0);
+    //resize (0);
+    size_ = 0;
   }
 
   /* std::vector uses unchecked variant for [] */
@@ -317,7 +328,6 @@ public:
     resize (size_ + src.size_);
     arrcpy (array_ + s, src.array_, src.size_);
   }
-  Array<T> slice (vsize lower, vsize upper) const;
   void reverse ();
 };
 
