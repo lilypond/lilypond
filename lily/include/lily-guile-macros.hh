@@ -83,7 +83,7 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
 #define DECLARE_SCHEME_CALLBACK(NAME, ARGS)	\
   static SCM NAME ARGS;				\
   static SCM NAME ## _proc
-
+ 
 /*
   Make TYPE::FUNC available as a Scheme function.
 */
