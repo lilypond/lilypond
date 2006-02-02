@@ -1,3 +1,7 @@
+2006-02-02  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/topdocs/NEWS.itely: grammar fix from Laura.
+
 2006-02-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* flower/file-path.cc (is_file): remove if 0 section.
