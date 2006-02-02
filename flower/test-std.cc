@@ -114,7 +114,11 @@ BOOST_AUTO_UNIT_TEST (vector_insert)
 
 BOOST_AUTO_UNIT_TEST (parray_concat)
 {
+#if 1
   Link_array<int> u, v;
+#else
+  vector<int*> u, v;
+#endif  
   int a[5] = { 0, 1, 2, 3, 4 };
   u.push_back (&a[0]);
   u.push_back (&a[1]);

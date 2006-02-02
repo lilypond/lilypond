@@ -1,5 +1,7 @@
 2006-02-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* flower/include/std-vector.hh (boundary): Oops, reverse.
+
 	* flower/string-convert.cc (convert::unsigned_string): Bugfix:
 	remove superfluous `d'.
 
