@@ -124,6 +124,8 @@ ACCENT		\\[`'"^]
 NATIONAL	[\001-\006\021-\027\031\036\200-\377]
 TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
 WORD		{A}{AN}*
+DASHED_WORD		{A}({AN}|-)*
+DASHED_KEY_WORD		\\{DASHED_WORD}
 ALPHAWORD	{A}+
 DIGIT		{N}
 UNSIGNED	{N}+
@@ -212,7 +214,7 @@ BOM_UTF8	\357\273\277
 	LexerError (_ ("quoted string expected after \\version").c_str ());
 	yy_pop_state ();
 }
-<sourcefilename>>. 	{
+<sourcefilename>. 	{
 	LexerError (_ ("quoted string expected after \\sourcefilename").c_str ());
 	yy_pop_state ();
 }
@@ -559,6 +561,14 @@ BOM_UTF8	\357\273\277
  	  	yyterminate ();
 }
 
+<INITIAL>{
+	{DASHED_WORD}	{
+		return scan_bare_word (YYText ());
+	}
+	{DASHED_KEY_WORD}	{
+		return scan_escaped_word (YYText () + 1);
+	}
+}
 
 {WORD}	{
 	return scan_bare_word (YYText ());

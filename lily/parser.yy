@@ -342,6 +342,7 @@ If we give names, Bison complains.
 
 %type <outputdef> output_def_body
 %type <outputdef> output_def_head
+%type <outputdef> output_def_head_with_mode_switch
 %type <outputdef> output_def
 %type <outputdef> paper_block 
 
@@ -531,8 +532,12 @@ assignment:
 	assignment_id '=' identifier_init  {
 		if (! is_regular_identifier ($1))
 		{
+#if 0
+			/* no longer valid with dashes in \paper{} block. */ 
 			@1.warning (_ ("identifier should have alphabetic characters only"));
+#endif
 		}
+
 
 	        THIS->lexer_->set_identifier ($1, $3);
 
@@ -758,21 +763,25 @@ output_def_head:
 	}
 	;
 
+output_def_head_with_mode_switch:
+	output_def_head {
+		THIS->lexer_->push_initial_state ();
+		$$ = $1;
+	}
+	;
 
 output_def_body:
-	output_def_head '{' {
+	output_def_head_with_mode_switch '{' {
 		$$ = $1;
 		$$->input_origin_.set_spot (@$);
-		THIS->lexer_->push_initial_state ();
 	}
-	| output_def_head '{' OUTPUT_DEF_IDENTIFIER 	{
+	| output_def_head_with_mode_switch '{' OUTPUT_DEF_IDENTIFIER 	{
 		$1->unprotect ();
 		Output_def *o = unsmob_output_def ($3);
 		o->input_origin_.set_spot (@$);
 		$$ = o;
 		THIS->lexer_->remove_scope ();
 		THIS->lexer_->add_scope (o->scope_);
-		THIS->lexer_->push_initial_state ();
 	}
 	| output_def_body assignment  {
 

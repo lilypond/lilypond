@@ -4,6 +4,12 @@
 
 2006-02-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/parser.yy (output_def_head_with_mode_switch): new
+	production. Result: dashes and underscores may be used in the
+	\paper block.
+
+	* lily/lexer.ll: add DASHED_WORD.  Accept in INITIAL mode.
+
 	* python/convertrules.py (conv): oops. One slash too much.
 
 2006-02-02  Jan Nieuwenhuizen  <janneke@gnu.org>

@@ -130,7 +130,6 @@
    (ly:number->string y2) " lineto stroke"))
 
 (define (embedded-ps string)
-  (display (list "len " (string-length string) "\n"))
   string)
 
 (define (glyph-string
