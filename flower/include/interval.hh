@@ -20,29 +20,28 @@
 template<class T>
 struct Interval_t : public Drul_array<T>
 {
-  Drul_array<T>::elem;
-  Drul_array<T>::elem_ref;
+  Drul_array<T>::at;
 
   static T infinity ();
   static std::string T_to_string (T arg);
   T center () const;
   void translate (T t)
   {
-    elem_ref (LEFT) += t;
-    elem_ref (RIGHT) += t;
+    at (LEFT) += t;
+    at (RIGHT) += t;
   }
   void widen (T t)
   {
-    elem_ref (LEFT) -= t;
-    elem_ref (RIGHT) += t;
+    at (LEFT) -= t;
+    at (RIGHT) += t;
   }
 
   T distance (T t) const
   {
-    if (t > elem (RIGHT))
-      return T (t - elem (RIGHT));
-    else if (t < elem (LEFT))
-      return T (elem (LEFT) - t);
+    if (t > at (RIGHT))
+      return T (t - at (RIGHT));
+    else if (t < at (LEFT))
+      return T (at (LEFT) - t);
     else
       return T (0);
   }
@@ -54,8 +53,8 @@ struct Interval_t : public Drul_array<T>
   void intersect (Interval_t<T> h);
   void add_point (T p)
   {
-    elem_ref (LEFT) = min (elem (LEFT), p);
-    elem_ref (RIGHT) = max (elem (RIGHT), p);
+    at (LEFT) = min (at (LEFT), p);
+    at (RIGHT) = max (at (RIGHT), p);
   }
   T length () const;
   T delta () const;
@@ -67,7 +66,7 @@ struct Interval_t : public Drul_array<T>
   */
   bool is_empty () const
   {
-    return elem (LEFT) > elem (RIGHT);
+    return at (LEFT) > at (RIGHT);
   }
   bool superset (Interval_t<T> const &) const;
   Interval_t ()
@@ -90,16 +89,16 @@ struct Interval_t : public Drul_array<T>
 
   Interval_t<T> &operator += (T r)
   {
-    elem_ref (LEFT) += r;
-    elem_ref (RIGHT) += r;
+    at (LEFT) += r;
+    at (RIGHT) += r;
     return *this;
   }
   Interval_t<T> &operator *= (T r)
   {
     if (!is_empty ())
       {
-	elem_ref (LEFT) *= r;
-	elem_ref (RIGHT) *= r;
+	at (LEFT) *= r;
+	at (RIGHT) *= r;
 	if (r < T (0))
 	  swap ();
       }
@@ -108,7 +107,7 @@ struct Interval_t : public Drul_array<T>
 
   Real linear_combination (Real x) const
   {
-    Drul_array<Real> da (elem (LEFT), elem (RIGHT));
+    Drul_array<Real> da (at (LEFT), at (RIGHT));
     return ::linear_combination (da, x);
   }
   std::string to_string () const;
@@ -116,17 +115,17 @@ struct Interval_t : public Drul_array<T>
   bool contains (T r) const;
   void negate ()
   {
-    T r = -elem (LEFT);
-    T l = -elem (RIGHT);
-    elem_ref (LEFT) = l;
-    elem_ref (RIGHT) = r;
+    T r = -at (LEFT);
+    T l = -at (RIGHT);
+    at (LEFT) = l;
+    at (RIGHT) = r;
   }
 
   void swap ()
   {
-    T t = elem (LEFT);
-    elem_ref (LEFT) = elem (RIGHT);
-    elem_ref (RIGHT) = t;
+    T t = at (LEFT);
+    at (LEFT) = at (RIGHT);
+    at (RIGHT) = t;
   }
 
   static int left_comparison (Interval_t<T> const &a, Interval_t<T> const &b)
@@ -216,7 +215,7 @@ inline T
 Interval_t<T>::center () const
 {
   assert (!is_empty ());
-  return (elem (LEFT) + elem (RIGHT)) / T (2);
+  return (at (LEFT) + at (RIGHT)) / T (2);
 }
 
 typedef Interval_t<Real> Interval;

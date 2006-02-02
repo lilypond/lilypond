@@ -290,7 +290,7 @@ Ledger_line_spanner::print (SCM smob)
 		       && !staff_extent.contains (i->second[d].position_
 						  - sign (i->second[d].position_)));
 		  Real limit = (center + (both ? which * gap / 2 : 0));
-		  lr.ledger_extent_.elem_ref (-which)
+		  lr.ledger_extent_.at (-which)
 		    = which * max (which * lr.ledger_extent_[-which], which * limit);
 		}
 	      while (flip (&which) != LEFT);

@@ -133,10 +133,10 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 
   for (vsize i = 0; i < cols->size (); i++)
     {
-      Grob *c = cols->elem (i);
+      Grob *c = cols->at (i);
 
       bool loose = (i > 0 && i < cols->size () - 1)
-	&& is_loose_column (cols->elem (i - 1), c, cols->elem (i + 1), options);
+	&& is_loose_column (cols->at (i - 1), c, cols->at (i + 1), options);
 
       if (loose)
 	{
@@ -159,8 +159,8 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 	    Set distance constraints for loose columns
 	  */
 	  Drul_array<Grob *> next_door;
-	  next_door[LEFT] = cols->elem (i - 1);
-	  next_door[RIGHT] = cols->elem (i + 1);
+	  next_door[LEFT] = cols->at (i - 1);
+	  next_door[RIGHT] = cols->at (i + 1);
 	  Direction d = LEFT;
 	  Drul_array<Real> dists (0, 0);
 
@@ -212,8 +212,8 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
 
 	  Rod r;
 	  r.distance_ = dists[LEFT] + dists[RIGHT];
-	  r.item_drul_[LEFT] = dynamic_cast<Item *> (cols->elem (i - 1));
-	  r.item_drul_[RIGHT] = dynamic_cast<Item *> (cols->elem (i + 1));
+	  r.item_drul_[LEFT] = dynamic_cast<Item *> (cols->at (i - 1));
+	  r.item_drul_[RIGHT] = dynamic_cast<Item *> (cols->at (i + 1));
 
 	  r.add_to_cols ();
 	}

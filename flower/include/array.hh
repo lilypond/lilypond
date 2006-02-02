@@ -17,6 +17,12 @@ using namespace std;
 #define INLINE inline
 #endif
 
+#if !STD_VECTOR
+#define index_assert(i) (assert (i >= 0 && i < size_));
+#else
+#define index_assert(i) (assert (i != VPOS && i < size_));
+#endif
+
 namespace std {
 /// copy a bare (C-)array from #src# to #dest# sized  #count#
 template<class T> void arrcpy (T *dest, T const *src, int count);
@@ -157,33 +163,48 @@ public:
     size_ = 0;
   }
 
-  /* std::vector uses unchecked variant for [] */
-  T &operator [] (vsize i)
+  T &
+  at (vsize i)
   {
-    return elem_ref (i);
+    return (*this)[i];
   }
 
-  /* std::vector uses unchecked variant for [] */
+  T const &
+  at (vsize i) const
+  {
+    return (*this)[i];
+  }
+
+  T &operator [] (vsize i)
+  {
+    return array_[i];
+  }
+
   T const &operator [] (vsize i) const
   {
-    return elem_ref (i);
+    return array_[i];
   }
 
   iterator
   erase (iterator p)
   {
     vsize i = p - data ();
-#if !STD_VECTOR
-    assert (i >= 0 && i < size_);
-#else
-    assert (i < size_);
-#endif
+    index_assert (i);
     arrcpy (array_ + i, array_ + i + 1, size_ - i - 1);
     size_--;
     return p;
   }
 
+  /// add to the end of array
+  void push_back (T x)
+  {
+    if (size_ == max_)
+      remax (2 * max_ + 1);
 
+    // T::operator= (T &) is called here. Safe to use with automatic
+    // vars
+    array_[size_++] = x;
+  }
 
 
   /* Flower intererface */
@@ -241,43 +262,6 @@ public:
 
   T *remove_array ();
 
-  /// access element
-  T &elem_ref (vsize i) const
-  {
-#if !STD_VECTOR
-    assert (i >= 0 && i < size_);
-#else
-    assert (i < size_);
-#endif
-    return ((T *)array_)[i];
-  }
-  /// access element
-  T elem (vsize i) const
-  {
-    return elem_ref (i);
-  }
-
-  /// add to the end of array
-  void push_back (T x)
-  {
-    if (size_ == max_)
-      remax (2 * max_ + 1);
-
-    // T::operator= (T &) is called here. Safe to use with automatic
-    // vars
-    array_[size_++] = x;
-  }
-#if 0
-  /// remove and return last entry 
-  T pop ()
-  {
-    assert (!empty ());
-    T l = top (0);
-    resize (size () - 1);
-    return l;
-  }
-#endif
-
   /// access last entry
   T &top (vsize j)
   {
@@ -295,7 +279,7 @@ public:
     if (dir == 1)
       return top (idx);
     else
-      return elem_ref (idx);
+      return at (idx);
   }
   T boundary (int dir, vsize idx) const
   {
@@ -303,7 +287,7 @@ public:
     if (dir == 1)
       return top (idx);
     else
-      return elem (idx);
+      return at (idx);
   }
   void swap (vsize i, vsize j)
   {
@@ -316,7 +300,7 @@ public:
 
   void unordered_del (vsize i)
   {
-    elem_ref (i) = back ();
+    at (i) = back ();
     resize (size () -1);
   }
   void concat (Array<T> const &src)

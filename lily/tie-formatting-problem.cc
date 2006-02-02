@@ -104,7 +104,7 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
   if (bounds[0]->break_status_dir ())
     {
       Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-d];
-      chord_outlines_[d].elem_ref (0).height_ = x; 
+      chord_outlines_[d].at (0).height_ = x; 
     }
 	  
   for (vsize i = 0; i < boxes.size (); i++)
@@ -694,8 +694,8 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
   if (tie_configs->empty ())
     return ;
   
-  if (!tie_configs->elem (0).dir_)
-    tie_configs->elem_ref (0).dir_ = DOWN;
+  if (!tie_configs->at (0).dir_)
+    tie_configs->at (0).dir_ = DOWN;
   if (!tie_configs->back ().dir_)
     tie_configs->back ().dir_ = UP;
 
@@ -704,21 +704,21 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
    */
   for (vsize i = 1; i < tie_configs->size (); i++)
     {
-      Real diff = (tie_configs->elem (i-1).position_
-		   - tie_configs->elem (i).position_);
+      Real diff = (tie_configs->at (i-1).position_
+		   - tie_configs->at (i).position_);
 
       if (fabs (diff) <= 1)
 	{
-	  if (!tie_configs->elem (i-1).dir_)
-	    tie_configs->elem_ref (i-1).dir_ = DOWN;
-	  if (!tie_configs->elem (i).dir_)
-	    tie_configs->elem_ref (i).dir_ = UP;
+	  if (!tie_configs->at (i-1).dir_)
+	    tie_configs->at (i-1).dir_ = DOWN;
+	  if (!tie_configs->at (i).dir_)
+	    tie_configs->at (i).dir_ = UP;
 	}
     }
 
   for (vsize i = 1; i < tie_configs->size() - 1; i++)
     {
-      Tie_configuration &conf = tie_configs->elem_ref (i);
+      Tie_configuration &conf = tie_configs->at (i);
       if (conf.dir_)
 	continue;
 

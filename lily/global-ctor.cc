@@ -24,5 +24,5 @@ void
 call_constructors ()
 {
   for (vsize i = 0; i < ctor_global_statics_->size (); i++)
-    (ctor_global_statics_->elem (i)) ();
+    (ctor_global_statics_->at (i)) ();
 }

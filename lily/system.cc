@@ -90,7 +90,7 @@ System::derived_mark () const
 {
   if (!all_elements_->empty ())
     {
-      Grob **ptr = &all_elements_->array_reference ().elem_ref (0);
+      Grob **ptr = &all_elements_->array_reference ()[0];
       Grob **end = ptr + all_elements_->size ();
       while (ptr < end)
 	{

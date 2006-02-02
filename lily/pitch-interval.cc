@@ -12,27 +12,27 @@
 
 Pitch_interval::Pitch_interval (Pitch p1, Pitch p2)
 {
-  elem_ref (LEFT) = p1;
-  elem_ref (RIGHT) = p2;
+  at (LEFT) = p1;
+  at (RIGHT) = p2;
 }
 
 Pitch_interval::Pitch_interval ()
 {
-  elem_ref (LEFT) = Pitch (100, 0, 0);
-  elem_ref (RIGHT) = Pitch (-100, 0, 0);
+  at (LEFT) = Pitch (100, 0, 0);
+  at (RIGHT) = Pitch (-100, 0, 0);
 }
 
 bool
 Pitch_interval::is_empty () const
 {
-  return elem (LEFT) > elem (RIGHT);
+  return at (LEFT) > at (RIGHT);
 }
 
 void
 Pitch_interval::add_point (Pitch p)
 {
-  if (elem_ref (LEFT) > p)
-    elem_ref (LEFT) = p;
-  if (elem_ref (RIGHT) < p)
-    elem_ref (RIGHT) = p;
+  if (at (LEFT) > p)
+    at (LEFT) = p;
+  if (at (RIGHT) < p)
+    at (RIGHT) = p;
 }
