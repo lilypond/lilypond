@@ -1,7 +1,12 @@
 2006-02-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/include/std-vector.hh
+	* flower/include/array.hh (reverse, swap): Detach from class.
+	Update users.
+	
+	* flower/include/std-vector.hh
 	* flower/include/array.hh (concat): Globally change to insert ().
+
 	
 	* flower/include/std-vector.hh
 	* flower/include/parray.hh

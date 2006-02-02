@@ -70,6 +70,7 @@ private:
   Link_array<char> newline_locations_;
   istream *istream_;
   char *contents_str0_;
+  std::vector<char> chs_;
   int length_;
   void load_stdin ();
   void init_port ();

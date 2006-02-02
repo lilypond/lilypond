@@ -35,20 +35,14 @@ void
 Source_file::load_stdin ()
 {
   length_ = 0;
-
+  chs_.clear ();
   int c;
-#if STD_VECTOR
-  std::vector<char> &chs = *new std::vector<char>; // ugh. ugh.
-#else
-  std::vector<char> chs;		// ugh.
-#endif
-  
   while ((c = fgetc (stdin)) != EOF)
-    chs.push_back (c);
+    chs_.push_back (c);
 
-  chs.push_back (0);
-  length_ = chs.size ();
-  contents_str0_ = chs.remove_array ();
+  chs_.push_back (0);
+  length_ = chs_.size ();
+  contents_str0_ = &chs_[0];
 }
 
 char *

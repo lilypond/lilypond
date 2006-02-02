@@ -191,8 +191,8 @@ Cluster::print (SCM smob)
 	}
     }
 
-  bottom_points.reverse ();
-  top_points.reverse ();
+  reverse (bottom_points);
+  reverse (top_points);
 
   Stencil out = brew_cluster_piece (me, bottom_points, top_points);
   out.translate_axis (- me->relative_coordinate (commony, Y_AXIS), Y_AXIS);

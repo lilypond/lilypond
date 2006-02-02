@@ -53,7 +53,6 @@ public:
 
   /* Flower compat */
   Array<void *>::unordered_del;
-  Array<void *>::reverse;
   Array<void *>::tighten_maxsize;
 
   static int default_compare (T *const &p1, T *const &p2)
@@ -213,6 +212,20 @@ public:
     else
       return 0;
   }
+
+  void swap (vsize i, vsize j)
+  {
+    T *t ((*this)[i]);
+    (*this)[i] = (*this)[j];
+    (*this)[j] = t;
+  }
+  void
+  reverse ()
+  {
+    vsize h = size () / 2;
+    for (vsize i = 0, j = size () - 1; i < h; i++, j--)
+      swap (i, j);
+  }
 };
 
 template<class T, class V>
@@ -343,6 +356,7 @@ binary_search_bounds (Link_array<T> const &table,
     }
   while (*hi - *lo > 1);
 }
+
 
 #endif // PARRAY_HH
 
