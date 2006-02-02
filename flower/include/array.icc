@@ -51,24 +51,25 @@ Array<T>::insert (T k, vsize j)
   array_[j] = k;
 }
 
-template<class T> INLINE void
-Array<T>::sort (int (*compare) (T const &, T const &), vsize lower, vsize upper)
+template<typename T> INLINE void
+vector_sort (Array<T> &v, int (*compare) (T const &, T const &),
+	     vsize lower=-1, vsize upper=-1)
 {
   if (lower < 0)
     {
       lower = 0;
-      upper = size () - 1;
+      upper = v.size () - 1;
     }
   if (lower >= upper)
     return;
-  swap (lower, (lower + upper) / 2);
+  v.swap (lower, (lower + upper) / 2);
   vsize last = lower;
   for (vsize i = lower +1; i <= upper; i++)
-    if (compare (array_[i], array_[lower]) < 0)
-      swap (++last, i);
+    if (compare (v.array_[i], v.array_[lower]) < 0)
+      v.swap (++last, i);
   swap (lower, last);
-  sort (compare, lower, last - 1);
-  sort (compare, last + 1, upper);
+  vector_sort (v, compare, lower, last - 1);
+  vector_sort (v, compare, last + 1, upper);
 }
 
 template<class T> INLINE void

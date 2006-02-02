@@ -401,7 +401,7 @@ Beam::print (SCM grob)
 	  gap_count = scm_to_int (me->get_property ("gap-count"));
 	  gapped = Lookup::beam (slope, w - 2 * gap_length, thick, blot);
 
-	  full_beams.sort (default_compare);
+	  vector_sort (full_beams, default_compare);
 	  if (stem_dir == UP)
 	    full_beams.reverse ();
 	}

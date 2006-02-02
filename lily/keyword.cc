@@ -19,7 +19,7 @@ Keyword_table::Keyword_table (Keyword_ent *tab)
   while (tab->name_)
     table_.push_back (*tab++);
 
-  table_.sort (tabcmp);
+  vector_sort (table_, tabcmp);
 }
 
 vsize
