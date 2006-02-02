@@ -67,7 +67,7 @@ vector_sort (Array<T> &v, int (*compare) (T const &, T const &),
   for (vsize i = lower +1; i <= upper; i++)
     if (compare (v.array_[i], v.array_[lower]) < 0)
       v.swap (++last, i);
-  swap (lower, last);
+  v.swap (lower, last);
   vector_sort (v, compare, lower, last - 1);
   vector_sort (v, compare, last + 1, upper);
 }
