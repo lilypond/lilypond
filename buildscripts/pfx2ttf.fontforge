@@ -4,7 +4,14 @@ Open($1);
 MergeKern($2)
 
 # Remove the No. glyph - for want of better FF fix.  
-Select("afii61352")
-Cut();
+err = SelectIf("afii61352");
+if ( err > 0 )
+   Cut();
+elseif ( err == 0 )
+   Print("Could not find \"numero\" glyph");
+elseif ( err < 0 )
+   Print("An error occurred while searching for the \"numero\" glyph");
+endif
+
 Generate($3 + $fontname + ".ttf");
 

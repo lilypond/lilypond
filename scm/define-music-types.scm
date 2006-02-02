@@ -122,8 +122,7 @@ Syntax @code{\\translator Staff = @var{new-id}}.")
 	))
 
     (ClusterNoteEvent
-     . (
-	(description .	"A note that is part of a cluster.")
+     . ((description .	"A note that is part of a cluster.")
 
 	;; not a note-event, to ensure that Note_engraver doesn't eat it. 
 	(types . (general-music cluster-note-event melodic-event rhythmic-event event))
