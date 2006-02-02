@@ -144,7 +144,7 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
       Interval y;
       if (boxes.size())
 	{
-	  Box b = boxes.boundary (updowndir, 0);
+	  Box b = boundary (boxes, updowndir, 0);
 	  x = b[X_AXIS];
 	  x[-d] =  b[X_AXIS].linear_combination (-d / 2);
 	  y[-updowndir] = b[Y_AXIS][updowndir];
@@ -785,12 +785,12 @@ Tie_formatting_problem::get_variations (Ties_configuration const &ties)
   Direction d = DOWN;
   do
     {
-      if (ties.boundary (d, 0).dir_ == d)
+      if (boundary (ties, d, 0).dir_ == d)
 	{
 	  Tie_configuration_variation var;
 	  var.index_ = (d == DOWN) ? 0 : ties.size () - 1;
-	  var.suggestion_ = get_configuration (ties.boundary (d, 0).position_ + d,
-					       d);
+	  var.suggestion_ = get_configuration (boundary (ties, d, 0).position_
+					       + d, d);
 	  vars.push_back (var);
 	}
     }

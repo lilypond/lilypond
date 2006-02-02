@@ -283,34 +283,6 @@ public:
     arrcpy (array_, src.array_, size_);
   }
 
-  /// access last entry
-  T &top (vsize j)
-  {
-    return (*this)[size_ - j - 1];
-  }
-  /// return last entry
-  T top (vsize j) const
-  {
-    return (*this)[size_ - j - 1];
-  }
-
-  T &boundary (int dir, vsize idx)
-  {
-    assert (dir);
-    if (dir == 1)
-      return top (idx);
-    else
-      return at (idx);
-  }
-  T boundary (int dir, vsize idx) const
-  {
-    assert (dir);
-    if (dir == 1)
-      return top (idx);
-    else
-      return at (idx);
-  }
-
   void unordered_del (vsize i)
   {
     at (i) = back ();
@@ -318,17 +290,36 @@ public:
   }
 };
 
-#if 0
-  template<class T>
-  void
-  swap (T *a, T *b)
+  template<typename T>
+  T const &
+  back (Array<T> const &v, vsize i)
   {
-    T t = *a;
-    *a = *b;
-    *b = t;
+    return v[v.size () - i - 1];
   }
-#endif
-  
+
+  template<typename T>
+  T&
+  back (Array<T> &v, vsize i)
+  {
+    return v[v.size () - i - 1];
+  }
+
+  template<typename T>
+  T const &
+  boundary (Array<T> const &v, int dir, vsize i)
+  {
+    assert (dir);
+    return v[dir == 1 ? i : v.size () - 1 - i];
+  }
+
+  template<typename T>
+  T &
+  boundary (Array<T> &v, int dir, vsize i)
+  {
+    assert (dir);
+    return v[dir == 1 ? i : v.size () - 1 - i];
+  }
+
   template<class T>
   void
   reverse (Array<T> &v)

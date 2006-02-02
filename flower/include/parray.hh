@@ -112,14 +112,13 @@ public:
     Array<void *>::push_back (t);
   }
 
-  /// return last entry
-  T *top (int j) const
+  T *top (vsize j)
   {
-    return (T *) Array<void *>::top (j);
+    return (*this)[size_ - j - 1];
   }
-  T *& top (int i)
+  T *& top (vsize j) const
   {
-    return (T *&) Array<void *>::top (i);
+    return (*this)[size_ - j - 1];
   }
 
   void substitute (T *old, T *new_p)

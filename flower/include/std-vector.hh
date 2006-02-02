@@ -23,9 +23,7 @@
 
 #if STD_VECTOR
 
-#define vector __vector
 #include <vector>
-#undef vector
 
 namespace std {
 
@@ -35,55 +33,35 @@ namespace std {
   #define VPOS UINT_MAX
   #endif
 
-  /* Interface without pointer arithmetic (iterator) semantics.  */
   template<typename T>
-  class vector : public __vector<T>
+  T const &
+  boundary (vector<T> const &v, int dir, vsize i)
   {
-  public:
-    typedef typename __vector<T>::iterator iterator;
-    typedef typename __vector<T>::const_iterator const_iterator;
+    assert (dir);
+    return v[dir == 1 ? i : v.size () - 1 - i];
+  }
 
-    vector<T> () : __vector<T> ()
-    {
-    }
+  template<typename T>
+  T &
+  boundary (vector<T> &v, int dir, vsize i)
+  {
+    assert (dir);
+    return v[dir == 1 ? i : v.size () - 1 - i];
+  }
 
-    vector<T> (const_iterator b, const_iterator e) : __vector<T> (b, e)
-    {
-    }
+  template<typename T>
+  T const &
+  back (vector<T> const &v, vsize i)
+  {
+    return v[v.size () - i - 1];
+  }
 
-    /* Flower-Array compatibility.  */
-    T const &
-    boundary (int dir, vsize i) const
-    {
-      assert (dir);
-      if (dir == 1)
-	return this->top (i);
-      else
-	return this->at (i);
-    }
-
-    T &
-    boundary (int dir, vsize i)
-    {
-      assert (dir);
-      if (dir == 1)
-	return this->top (i);
-      else
-	return this->at (i);
-    }
-
-    T const &
-    top (vsize i) const
-    {
-      return (*this)[this->size () - i - 1];
-    }
-
-    T&
-    top (vsize i)
-    {
-      return (*this)[this->size () - i - 1];
-    }
-  };
+  template<typename T>
+  T&
+  back (vector<T> &v, vsize i)
+  {
+    return v[v.size () - i - 1];
+  }
   
 #if 0
   template<typename T>
