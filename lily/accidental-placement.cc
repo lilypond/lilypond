@@ -305,7 +305,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
 	  std::vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
 
-	  ape->extents_.concat (boxes);
+	  ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
 	  for (vsize j = boxes.size (); j--;)
 	    {
 	      insert_extent_into_skyline (&ape->left_skyline_, boxes[j], Y_AXIS, LEFT);

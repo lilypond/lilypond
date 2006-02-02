@@ -37,21 +37,6 @@ arrcpy (T *dest, T const *src, vsize count)
 #endif
 }
 
-template<class T> INLINE void
-Array<T>::insert (iterator b, T k)
-{
-  vsize j = b - array_;
-#if !STD_VECTOR
-    assert (j >= 0 && j <= size_);
-#else
-    assert (j <= size_);
-#endif
-  resize (size_ + 1);
-  for (vsize i = size_ - 1; i > j; i--)
-    array_[i] = array_[i - 1];
-  array_[j] = k;
-}
-
 template<typename T> INLINE void
 vector_sort (Array<T> &v, int (*compare) (T const &, T const &),
 	     vsize lower=-1, vsize upper=-1)

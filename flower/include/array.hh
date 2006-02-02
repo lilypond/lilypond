@@ -25,7 +25,7 @@ using namespace std;
 
 namespace std {
 /// copy a bare (C-)array from #src# to #dest# sized  #count#
-template<class T> void arrcpy (T *dest, T const *src, int count);
+template<class T> void arrcpy (T *dest, T const *src, vsize count);
 
 /**
    Scaleable array/stack template, for a type T with default constructor.
@@ -195,6 +195,29 @@ public:
     return p;
   }
 
+  void
+  insert (iterator b, T k)
+  {
+    vsize j = b - array_;
+    resize (size_ + 1);
+    index_assert (j);
+    for (vsize i = size_ - 1; i > j; i--)
+      array_[i] = array_[i - 1];
+    array_[j] = k;
+  }
+
+  void
+  insert (iterator pos, const_iterator b, const_iterator e)
+  {
+    vsize j = pos - array_;
+    vsize k = e - b;
+    resize (size_ + k);
+    for (vsize i = size_ - 1; i > j + k; i--)
+      array_[i] = array_[i - k];
+    for (vsize i = j; i < j + k; i++)
+      array_[i] = b[i - j];
+  }
+
   /// add to the end of array
   void push_back (T x)
   {
@@ -296,18 +319,10 @@ public:
     (*this)[j] = t;
   }
 
-  void insert (iterator j, T k);
-
   void unordered_del (vsize i)
   {
     at (i) = back ();
     resize (size () -1);
-  }
-  void concat (Array<T> const &src)
-  {
-    vsize s = size_;
-    resize (size_ + src.size_);
-    arrcpy (array_ + s, src.array_, src.size_);
   }
   void reverse ();
 };

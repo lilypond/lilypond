@@ -52,12 +52,6 @@ namespace std {
     }
 
     /* Flower-Array compatibility.  */
-    void
-    concat (vector<T> const &v)
-    {
-      __vector<T>::insert (this->end (), v.begin (), v.end ());
-    }
-
     T const &
     boundary (int dir, vsize i) const
     {

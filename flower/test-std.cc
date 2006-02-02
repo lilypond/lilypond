@@ -3,6 +3,8 @@
 #endif
 #include "std-vector.hh"
 
+#include "parray.hh"
+
 #include <iostream>
 
 #include <boost/test/auto_unit_test.hpp>
@@ -22,6 +24,16 @@ print (vector<T> v)
     cout << "v[" << i << "] = " << v[i] << endl;
   cout << endl;
 }
+
+template<typename T>
+void
+print (Link_array<T> v)
+{
+  for (vsize i = 0; i < v.size (); i++)
+    cout << "v[" << i << "] = " << *v[i] << endl;
+  cout << endl;
+}
+
 
 BOOST_AUTO_UNIT_TEST (vector_erase)
 {
@@ -91,6 +103,48 @@ BOOST_AUTO_UNIT_TEST (vector_insert)
   v.insert (v.end (), 2);
 #endif  
   BOOST_CHECK_EQUAL (v.back (), 2);
+  vector<int> u;
+  u.insert (u.begin (), v.begin (), v.end ());
+  BOOST_CHECK_EQUAL (u.size (), v.size ());
+  u.clear ();
+  u.insert (u.end (), v.begin (), v.end ());
+  BOOST_CHECK_EQUAL (u.size (), v.size ());
+  u.clear ();
+}
+
+BOOST_AUTO_UNIT_TEST (parray_concat)
+{
+  Link_array<int> u, v;
+  int a[5] = { 0, 1, 2, 3, 4 };
+  u.push_back (&a[0]);
+  u.push_back (&a[1]);
+  u.push_back (&a[2]);
+  v.push_back (&a[3]);
+  v.push_back (&a[4]);
+  u.concat (v);
+  BOOST_CHECK_EQUAL (u[0], &a[0]);
+  BOOST_CHECK_EQUAL (u[1], &a[1]);
+  BOOST_CHECK_EQUAL (u[2], &a[2]);
+  BOOST_CHECK_EQUAL (u[3], &a[3]);
+  BOOST_CHECK_EQUAL (u[4], &a[4]);
+  BOOST_CHECK_EQUAL (u.size (), vsize (5));
+  u.concat (v);
+  BOOST_CHECK_EQUAL (u.size (), vsize (7));
+
+  u.clear ();
+  v.clear ();
+  v.push_back (&a[0]);
+  v.push_back (&a[1]);
+  v.push_back (&a[2]);
+  v.push_back (&a[3]);
+  v.push_back (&a[4]);
+  u.concat (v);
+  BOOST_CHECK_EQUAL (u[0], &a[0]);
+  BOOST_CHECK_EQUAL (u[1], &a[1]);
+  BOOST_CHECK_EQUAL (u[2], &a[2]);
+  BOOST_CHECK_EQUAL (u[3], &a[3]);
+  BOOST_CHECK_EQUAL (u[4], &a[4]);
+  BOOST_CHECK_EQUAL (u.size (), vsize (5));
 }
 
 test_suite*
@@ -101,5 +155,6 @@ init_unit_test_suite (int, char**)
   test->add (BOOST_TEST_CASE (vector_slice));
   test->add (BOOST_TEST_CASE (vector_sorting));
   test->add (BOOST_TEST_CASE (vector_insert));
+  test->add (BOOST_TEST_CASE (parray_concat));
   return test;
 }
