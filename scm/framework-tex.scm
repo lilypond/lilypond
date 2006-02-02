@@ -157,10 +157,7 @@
      (sanitize-tex-string texpaper)
      (if landscape? ",landscape" "")
      "}%\n"
-     (tex-string-def
-      "lilypondpaper" 'interscoreline
-      (ly:number->string
-       (* scale (ly:output-def-lookup paper 'interscoreline)))))))
+     )))
 
 (define (header-end)
   (string-append

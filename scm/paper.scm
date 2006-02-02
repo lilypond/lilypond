@@ -11,7 +11,7 @@
 		       betweensystemspace betweensystempadding
 		       linewidth indent hsize vsize horizontalshift
 		       staffspace linethickness ledgerlinethickness
-		       blotdiameter interscoreline leftmargin rightmargin)))
+		       blotdiameter leftmargin rightmargin)))
 
 (define-public (layout-set-staff-size sz)
   "Function to be called inside a \\layout{} block to set the staff size."
@@ -49,7 +49,7 @@
     (module-define! m 'linethickness lt)
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
     (module-define! m 'blotdiameter (* 0.4 pt))
-    (module-define! m 'interscoreline (* 4 mm))))
+    ))
 
 (define-safe-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
