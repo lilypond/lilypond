@@ -62,7 +62,7 @@ which scares away people.
 @end ignore
 
 @item
-Music may for multiple parts can be interleaved, similar to MUP input.
+Music for multiple parts can be interleaved, similar to MUP input.
 This is done with the @code{\parallelMusic} function,
   
 @lilypond[verbatim,raggedright]
