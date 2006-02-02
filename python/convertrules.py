@@ -2696,6 +2696,39 @@ def conv (str):
 		
 	str = re.sub (r'([A-Z][a-z_0-9]+::[a-z_0-9]+)',
 		      sub_cxx_id, str)
+
+	identifier_subs = [
+		('inputencoding', 'input-encoding'),
+		('printpagenumber', 'print-page-number'),
+		('outputscale', 'output-scale'),
+		('betweensystemspace', 'between-system-space'),
+		('betweensystempadding', 'between-system-padding'),
+		('pagetopspace', 'page-top-space'),
+		('raggedright', 'ragged-right'),
+		('raggedbottom', 'ragged-bottom'),
+		('raggedlastbottom', 'ragged-last-bottom'),
+		('aftertitlespace', 'after-title-space'),
+		('beforetitlespace', 'before-title-space'),
+		('betweentitlespace', 'between-title-space'),
+		('topmargin', 'top-margin'),
+		('bottommargin', 'bottom-margin'),
+		('headsep', 'heap-separation'),
+		('footsep', 'foot-separation'),
+		('rightmargin', 'right-margin'),
+		('leftmargin', 'left-margin'),
+		('firstpagenumber', 'first-page-number'),
+		('printfirstpagenumber', 'print-first-page-number'),
+		('hsize', 'paper-width'),
+		('vsize', 'paper-height'),
+		('horizontalshift', 'horizontal-shift'),
+		('staffspace', 'staff-space'),
+		('linethickness', 'line-thickness'),
+		('ledgerlinethickness', 'ledger-line-thickness'),
+		('blotdiameter', 'blot-diameter'),
+		('staffheight', 'staff-height'),
+		('linewidth', 'line-width')
+		]
+	
 	return str
 
 conversions.append (((2, 7, 31), conv,
