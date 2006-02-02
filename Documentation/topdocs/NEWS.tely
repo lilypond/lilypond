@@ -334,9 +334,9 @@ a @code{InstrumentName} grob is defined to be
 ,(ly:make-simple-closure
   `(,+
     ,(ly:make-simple-closure
-      (,Self_alignment_interface::y_aligned_on_self))
+      (,ly:self-alignment-interface::y-aligned-on-self))
     ,(ly:make-simple-closure
-      (,Side_position_interface::y_aligned_on_support_refpoints)))
+      (,ly:side-position-interface::y-aligned-on-support-refpoints)))
 @end verbatim
 
 @noindent
@@ -344,8 +344,8 @@ During execution, the @code{Y-offset} of an @code{InstrumentName} is computed
 as
 
 @example
-(+ (Self_alignment_interface::y_aligned_on_self @var{grob})
-   (Self_alignment_interface::y_aligned_on_support_refpoints @var{grob}))
+(+ (ly:self-alignment-interface::y-aligned-on-self @var{grob})
+   (ly:self-alignment-interface::y-aligned-on-support-refpoints @var{grob}))
 @end example
 
 
@@ -506,7 +506,7 @@ if the appropriate @code{spring-and-rods} callback is set.
 
 @lilypond[relative=2,fragment,raggedright]
 \override MultiMeasureRestText #'springs-and-rods
-  = #Multi_measure_rest::set_text_rods
+  = #ly:multi-measure-rest::set-text-rods
 c1 R1 R1^"Very long long long text" 
 @end lilypond
 
