@@ -3,7 +3,7 @@
   texidoc = "The epsfile markup command reads an EPS file"
 
 }
-\version "2.7.13"
+\version "2.7.31"
 
 #(let* ((port (open-output-file "box.eps")))
 
@@ -14,4 +14,4 @@ closepath stroke" port)
 
   (close port))
 
-{ c''4-\markup { \box \epsfile #"box.eps" } } 
+{ c''4-\markup { \box \epsfile #X #10 #"box.eps" } } 
