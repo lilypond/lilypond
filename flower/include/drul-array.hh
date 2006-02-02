@@ -19,23 +19,23 @@ template<class T>
 struct Drul_array
 {
   T array_[2];
-  T &elem_ref (Direction d)
+  T &at (Direction d)
   {
     assert (d == 1 || d == -1);
     return array_[ (d + 1) / 2];
   }
-  T elem (Direction d) const
+  T const &at (Direction d) const
   {
     assert (d == 1 || d == -1);
     return array_[ (d + 1) / 2];
   }
   T &operator [] (Direction d)
   {
-    return elem_ref (d);
+    return at (d);
   }
-  T operator [] (Direction d) const
+  T const& operator [] (Direction d) const
   {
-    return elem (d);
+    return at (d);
   }
   Drul_array ()
   {
@@ -51,15 +51,15 @@ template<class T>
 void
 scale_drul (Drul_array<T> *dr, T x)
 {
-  dr->elem_ref (LEFT) *= x;
-  dr->elem_ref (RIGHT) *= x;
+  dr->at (LEFT) *= x;
+  dr->at (RIGHT) *= x;
 }
 
 inline Real
 linear_combination (Drul_array<Real> const &d, Real x)
 {
-  return ((1.0 - x) * Real (d.elem (LEFT))
-	  + (x + 1.0) * Real (d.elem (RIGHT))) * 0.5;
+  return ((1.0 - x) * Real (d.at (LEFT))
+	  + (x + 1.0) * Real (d.at (RIGHT))) * 0.5;
 }
 
 #endif /* DRUL_ARRAY_HH */

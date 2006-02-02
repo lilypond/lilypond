@@ -95,7 +95,7 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 
   Interval extent;
   for (vsize i = 0; i < which->size (); i++)
-    extent.unite (which->elem (i)->extent (item_col, X_AXIS));
+    extent.unite (which->at (i)->extent (item_col, X_AXIS));
 
   if (!extent.is_empty ())
     {

@@ -56,26 +56,26 @@ insert_extent_into_skyline (std::vector<Skyline_entry> *line, Box b, Axis line_a
   */
   for (vsize i = line->size (); i--;)
     {
-      Interval w = line->elem (i).width_;
+      Interval w = line->at (i).width_;
       w.intersect (extent);
 
       if (extent[LEFT] >= w[RIGHT])
 	break;
 
-      Real my_height = line->elem (i).height_;
+      Real my_height = line->at (i).height_;
 
       if (!w.is_empty ()
 	  && w.length () > EPS
 	  && d * (my_height - stick_out) < 0)
 	{
-	  Interval e1 (line->elem (i).width_[LEFT], extent[LEFT]);
-	  Interval e3 (extent[RIGHT], line->elem (i).width_[RIGHT]);
+	  Interval e1 (line->at (i).width_[LEFT], extent[LEFT]);
+	  Interval e3 (extent[RIGHT], line->at (i).width_[RIGHT]);
 
 	  if (!e3.is_empty () && e3.length () > EPS)
 	    line->insert (line->begin () + i + 1, Skyline_entry (e3, my_height));
 
-	  line->elem_ref (i).height_ = stick_out;
-	  line->elem_ref (i).width_ = w;
+	  line->at (i).height_ = stick_out;
+	  line->at (i).width_ = w;
 	  if (!e1.is_empty () && e1.length () > EPS)
 	    line->insert (line->begin () + i, Skyline_entry (e1, my_height));
 	}
@@ -179,7 +179,7 @@ void
 heighten_skyline (std::vector<Skyline_entry> *buildings, Real ground)
 {
   for (vsize i = 0; i < buildings->size (); i++)
-    buildings->elem_ref (i).height_ += ground;
+    buildings->at (i).height_ += ground;
 }
 
 Real

@@ -51,13 +51,13 @@ namespace std {
     {
     }
 
+    /* Flower-Array compatibility.  */
     void
     concat (vector<T> const &v)
     {
       __vector<T>::insert (this->end (), v.begin (), v.end ());
     }
 
-    /* Flower-Array compatibility.  */
     T const &
     boundary (int dir, vsize i) const
     {
@@ -78,53 +78,14 @@ namespace std {
 	return this->at (i);
     }
 
-    T const &
-    elem (vsize i) const
-    {
-      return this->at (i);
-    }
-
-    T &
-    elem (vsize i)
-    {
-      return this->at (i);
-    }
-
-#if 1 // FIXME, silly, but keep for s/r
-    T const &
-    elem_ref (vsize i) const
-    {
-      return elem (i);
-    }
-
-    T &
-    elem_ref (vsize i)
-    {
-      return elem (i);
-    }
-#endif
-
-#if 0
-    T *
-    remove_array ()
-    {
-      // FIXME, no algorithm for this?
-      T *p = new T[this->size ()];
-      for (vsize i = 0; i < this->size (); i++)
-	p[i] = (*this)[i];
-      this->clear ();
-      return p;
-    }
-#else
     T *
     remove_array ()
     {
       T *p = &(*this)[0];
-      // forget array?
-      //this->resize (0);
+      /* FIXME: forget array? */
+      /* this->resize (0); */
       return p;
     }
-#endif
 
     void
     reverse ()

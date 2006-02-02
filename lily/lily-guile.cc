@@ -193,7 +193,7 @@ void
 ly_init_ly_module (void *)
 {
   for (vsize i = scm_init_funcs_->size (); i--;)
-    (scm_init_funcs_->elem (i)) ();
+    (scm_init_funcs_->at (i)) ();
 
   if (be_verbose_global)
     {

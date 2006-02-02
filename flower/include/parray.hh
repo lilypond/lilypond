@@ -75,25 +75,24 @@ public:
   {
   }
 
-  /// access element
-  T *elem (int i) const
+  T *at (int i)
   {
-    return elem_ref (i);
+    return (T *) Array<void *>::at (i);
   }
-  T *&elem_ref (int i) const
+  T const *at (int i) const
   {
-    return (T *&) Array<void *>::elem_ref (i);
+    return (T const *) Array<void *>::at (i);
   }
 
   /// access element
   T *&operator [] (int i)
   {
-    return (T *&) Array<void *>::elem_ref (i);
+    return (T *&) Array<void *>::at (i);
   }
   /// access element
   T *const operator [] (int i) const
   {
-    return (T *const) Array<void *>::elem (i);
+    return (T *const) Array<void *>::at (i);
   }
   T *pop ()
   {
@@ -125,7 +124,7 @@ public:
     int i;
     while ((i = find_index (old)) >= 0)
       if (new_p)
-	elem_ref (i) = new_p;
+	at (i) = new_p;
       else
 	erase (begin () + i);
   }
@@ -134,7 +133,7 @@ public:
     int i;
     while ((i = find_index (old)) >= 0)
       if (new_p)
-	elem_ref (i) = new_p;
+	at (i) = new_p;
       else
 	unordered_del (i);
   }
@@ -151,8 +150,8 @@ public:
   {
     Link_array<T> ls;
     for (vsize i = 0; i < size (); i++)
-      if (!i || elem (i - 1) != elem (i))
-	ls.push_back (elem (i));
+      if (!i || at (i - 1) != at (i))
+	ls.push_back (at (i));
     *this = ls;
   }
 
@@ -162,7 +161,7 @@ public:
     if (d == 1)
       return top (i);
     else
-      return elem_ref (i);
+      return at (i);
   }
   T *boundary (int d, int i)const
   {
@@ -170,7 +169,7 @@ public:
     if (d == 1)
       return top (i);
     else
-      return elem_ref (i);
+      return at (i);
   }
 
   T ** accesses () const
@@ -182,7 +181,7 @@ public:
   */
   T *get (vsize i)
   {
-    T *t = elem (i);
+    T *t = at (i);
     Array<void*>::erase (Array<void*>::begin () + i);
     return t;
   }
@@ -198,15 +197,15 @@ public:
   int find_index (T const *t) const
   {
     for (vsize i = 0; i < size (); i++)
-      if (elem (i) == t)
+      if (at (i) == t)
 	return i;
     return -1;
   }
-  T *find (T const *t) const
+  T const *find (T const *t) const
   {
     int i = find_index (t);
     if (i >= 0)
-      return elem (i);
+      return at (i);
     else
       return 0;
   }
@@ -235,7 +234,7 @@ Link_array<T>::sort (int (*compare) (T *const &, T *const &), int lower, int upp
   swap (lower, (lower + upper) / 2);
   int last = lower;
   for (int i = lower +1; i <= upper; i++)
-    if (compare (elem (i), elem (lower)) < 0)
+    if (compare (at (i), at (lower)) < 0)
       swap (++last, i);
   swap (lower, last);
   sort (compare, lower, last - 1);

@@ -15,13 +15,13 @@
 Item *
 Grob_array::item (vsize i)
 {
-  return dynamic_cast<Item *> (grobs_.elem (i));
+  return dynamic_cast<Item *> (grobs_.at (i));
 }
 
 Spanner *
 Grob_array::spanner (vsize i)
 {
-  return dynamic_cast<Spanner *> (grobs_.elem (i));
+  return dynamic_cast<Spanner *> (grobs_.at (i));
 }
 
 Grob_array::Grob_array ()

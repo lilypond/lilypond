@@ -190,8 +190,8 @@ New_fingering_engraver::position_scripts (SCM orientations,
 					  std::vector<Finger_tuple> *scripts)
 {
   for (vsize i = 0; i < scripts->size (); i++)
-    if (stem_ && to_boolean (scripts->elem (i).script_->get_property ("add-stem-support")))
-      Side_position_interface::add_support (scripts->elem (i).script_, stem_);
+    if (stem_ && to_boolean (scripts->at (i).script_->get_property ("add-stem-support")))
+      Side_position_interface::add_support (scripts->at (i).script_, stem_);
 
   /*
     This is not extremely elegant, but we have to do a little

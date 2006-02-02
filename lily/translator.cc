@@ -178,8 +178,8 @@ generic_get_acknowledger (SCM sym, std::vector<Acknowledge_information> const *a
 {
   for (vsize i = 0; i < ack_array->size (); i++)
     {
-      if (ack_array->elem (i).symbol_ == sym)
-	return ack_array->elem (i).function_;
+      if (ack_array->at (i).symbol_ == sym)
+	return ack_array->at (i).function_;
     }
   return 0;
 }

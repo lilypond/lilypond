@@ -26,7 +26,7 @@ public:
   void set_ordered (bool b) { ordered_ = b; }
   Item *item (vsize i);
   Spanner *spanner (vsize i);
-  Grob *grob (vsize i) { return grobs_.elem (i); }
+  Grob *grob (vsize i) { return grobs_.at (i); }
   vsize size () const { return grobs_.size (); }
   bool empty () const;
   void clear ();

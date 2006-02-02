@@ -22,13 +22,13 @@ template<class T>
 int
 _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b)
 {
-  if (a.elem (LEFT) == b.elem (LEFT) && a.elem (RIGHT) == b.elem (RIGHT))
+  if (a.at (LEFT) == b.at (LEFT) && a.at (RIGHT) == b.at (RIGHT))
     return 0;
 
-  if (a.elem (LEFT) <= b.elem (LEFT) && a.elem (RIGHT) >= b.elem (RIGHT))
+  if (a.at (LEFT) <= b.at (LEFT) && a.at (RIGHT) >= b.at (RIGHT))
     return 1;
 
-  if (a.elem (LEFT) >= b.elem (LEFT) && a.elem (RIGHT) <= b.elem (RIGHT))
+  if (a.at (LEFT) >= b.at (LEFT) && a.at (RIGHT) <= b.at (RIGHT))
     return -1;
 
   return -2;
@@ -58,33 +58,33 @@ template<class T>
 void
 Interval_t<T>::set_empty ()
 {
-  elem_ref (LEFT) = (T) infinity ();
-  elem_ref (RIGHT) = (T) -infinity ();
+  at (LEFT) = (T) infinity ();
+  at (RIGHT) = (T) -infinity ();
 }
 
 template<class T>
 void
 Interval_t<T>::set_full ()
 {
-  elem_ref (LEFT) = (T) -infinity ();
-  elem_ref (RIGHT) = (T) infinity ();
+  at (LEFT) = (T) -infinity ();
+  at (RIGHT) = (T) infinity ();
 }
 
 template<class T>
 T
 Interval_t<T>::length () const
 {
-  if (elem (RIGHT) <= elem (LEFT))
+  if (at (RIGHT) <= at (LEFT))
     return 0;
   else
-    return elem (RIGHT) - elem (LEFT);
+    return at (RIGHT) - at (LEFT);
 }
 
 template<class T>
 T
 Interval_t<T>::delta () const
 {
-  return elem (RIGHT) - elem (LEFT);
+  return at (RIGHT) - at (LEFT);
 }
 
 /* smallest Interval which includes *this and #h#  */
@@ -92,16 +92,16 @@ template<class T>
 void
 Interval_t<T>::unite (Interval_t<T> h)
 {
-  elem_ref (LEFT) = min (h.elem (LEFT), elem (LEFT));
-  elem_ref (RIGHT) = max (h.elem (RIGHT), elem (RIGHT));
+  at (LEFT) = min (h.at (LEFT), at (LEFT));
+  at (RIGHT) = max (h.at (RIGHT), at (RIGHT));
 }
 
 template<class T>
 void
 Interval_t<T>::intersect (Interval_t<T> h)
 {
-  elem_ref (LEFT) = max (h.elem (LEFT), elem (LEFT));
-  elem_ref (RIGHT) = min (h.elem (RIGHT), elem (RIGHT));
+  at (LEFT) = max (h.at (LEFT), at (LEFT));
+  at (RIGHT) = min (h.at (RIGHT), at (RIGHT));
 }
 
 template<class T>
@@ -112,15 +112,15 @@ Interval_t<T>::to_string () const
     return "[empty]";
   std::string s ("[");
 
-  return (s + T_to_string (elem (LEFT)) + std::string (",")
-	  + T_to_string (elem (RIGHT)) + std::string ("]"));
+  return (s + T_to_string (at (LEFT)) + std::string (",")
+	  + T_to_string (at (RIGHT)) + std::string ("]"));
 }
 
 template<class T>
 bool
 Interval_t<T>::contains (T r) const
 {
-  return r >= elem (LEFT) && r <= elem (RIGHT);
+  return r >= at (LEFT) && r <= at (RIGHT);
 }
 
 #define INTERVAL__INSTANTIATE(T) struct Interval_t<T>;			\
