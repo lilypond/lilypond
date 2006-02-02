@@ -70,10 +70,27 @@ BOOST_AUTO_UNIT_TEST (vector_sorting)
 #else
   vector_sort (v, default_compare);
 #endif
-  print (v);
   BOOST_CHECK_EQUAL (v[0], 0);
   BOOST_CHECK_EQUAL (v[1], 1);
   BOOST_CHECK_EQUAL (v[2], 2);
+}
+
+BOOST_AUTO_UNIT_TEST (vector_insert)
+{
+  vector<int> v;
+  v.push_back (0);
+#if VECTOR_INSERT
+  v.insert (1, 0);
+#else
+  v.insert (v.begin (), 1);
+#endif  
+  BOOST_CHECK_EQUAL (v[0], 1);
+#if VECTOR_INSERT
+  v.insert (2, v.size ());
+#else
+  v.insert (v.end (), 2);
+#endif  
+  BOOST_CHECK_EQUAL (v.back (), 2);
 }
 
 test_suite*
@@ -83,5 +100,6 @@ init_unit_test_suite (int, char**)
   test->add (BOOST_TEST_CASE (vector_erase));
   test->add (BOOST_TEST_CASE (vector_slice));
   test->add (BOOST_TEST_CASE (vector_sorting));
+  test->add (BOOST_TEST_CASE (vector_insert));
   return test;
 }

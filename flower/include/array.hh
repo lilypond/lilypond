@@ -312,7 +312,7 @@ public:
     (*this)[j] = t;
   }
 
-  void insert (T k, vsize j);
+  void insert (iterator j, T k);
 
   void unordered_del (vsize i)
   {

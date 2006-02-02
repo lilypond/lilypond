@@ -51,34 +51,6 @@ namespace std {
     {
     }
 
-    iterator
-    iter (vsize n)
-    {
-      if (n == VPOS)
-	return this->end ();
-      return __vector<T>::begin () + n;
-    }
-
-    const_iterator
-    iter (vsize n) const
-    {
-      if (n == VPOS)
-	return this->end ();
-      return __vector<T>::begin () + n;
-    }
-    
-    void
-    insert (T k, vsize i)
-    {
-      __vector<T>::insert (this->iter (i), k);
-    }
-
-    void
-    insert (vector<T> &v, vsize i)
-    {
-      __vector<T>::insert (iter (i), v.begin (), v.end ());
-    }
-
     void
     concat (vector<T> const &v)
     {

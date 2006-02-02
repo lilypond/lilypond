@@ -83,7 +83,7 @@ Spanner::do_break_processing ()
       System *root  = get_root_system (this);
       Link_array<Item> break_points = root->broken_col_range (left, right);
 
-      break_points.insert (left, 0);
+      break_points.insert (break_points.begin () + 0, left);
       break_points.push_back (right);
 
       for (vsize i = 1; i < break_points.size (); i++)

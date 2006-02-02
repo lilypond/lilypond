@@ -124,12 +124,12 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 	    {
 	      if (arr[i] == before_grob)
 		{
-		  arr.insert (added, i);
+		  arr.insert (arr.begin () + i, added);
 		  break;
 		}
 	      else if (arr[i] == after_grob)
 		{
-		  arr.insert (added, i + 1);
+		  arr.insert (arr.begin () + i + 1, added);
 		  break;
 		}
 	    }
