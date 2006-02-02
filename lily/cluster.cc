@@ -184,8 +184,9 @@ Cluster::print (SCM smob)
 	      Interval v = col->extent (next_commony, Y_AXIS);
 	      Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
 
-	      bottom_points.insert (Offset (x, v[DOWN]), 0);
-	      top_points.insert (Offset (x, v[UP]), 0);
+	      bottom_points.insert (bottom_points.begin (),
+				    Offset (x, v[DOWN]));
+	      top_points.insert (top_points.begin (), Offset (x, v[UP]));
 	    }
 	}
     }

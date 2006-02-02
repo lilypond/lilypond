@@ -49,13 +49,13 @@ Interval_set::remove_interval (Interval rm)
 
 	  if (!before.is_empty () && before.length () > 0.0)
 	    {
-	      allowed_regions_.insert (before, i);
+	      allowed_regions_.insert (allowed_regions_.begin () + i, before);
 	      i++;
 	    }
 	  allowed_regions_.erase (allowed_regions_.begin () + i);
 	  if (!after.is_empty () && after.length () > 0.0)
 	    {
-	      allowed_regions_.insert (after, i);
+	      allowed_regions_.insert (allowed_regions_.begin () + i, after);
 	      i++;
 	    }
 	}

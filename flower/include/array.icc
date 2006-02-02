@@ -38,8 +38,9 @@ arrcpy (T *dest, T const *src, vsize count)
 }
 
 template<class T> INLINE void
-Array<T>::insert (T k, vsize j)
+Array<T>::insert (iterator b, T k)
 {
+  vsize j = b - array_;
 #if !STD_VECTOR
     assert (j >= 0 && j <= size_);
 #else

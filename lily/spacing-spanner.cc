@@ -122,8 +122,8 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 	    {
 	      if (durations[j] > shortest_in_measure)
 		{
-		  counts.insert (1, j);
-		  durations.insert (shortest_in_measure, j);
+		  counts.insert (counts.begin () + j, 1);
+		  durations.insert (durations.begin () + j, shortest_in_measure);
 		  break;
 		}
 	      else if (durations[j] == shortest_in_measure)

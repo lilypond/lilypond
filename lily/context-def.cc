@@ -227,7 +227,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
       if (result.size () && result.size () < best_depth)
 	{
 	  best_depth = result.size ();
-	  result.insert (g, 0);
+	  result.insert (result.begin (), g);
 	  best_result = result;
 	}
     }

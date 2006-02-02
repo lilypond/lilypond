@@ -72,12 +72,12 @@ insert_extent_into_skyline (std::vector<Skyline_entry> *line, Box b, Axis line_a
 	  Interval e3 (extent[RIGHT], line->elem (i).width_[RIGHT]);
 
 	  if (!e3.is_empty () && e3.length () > EPS)
-	    line->insert (Skyline_entry (e3, my_height), i + 1);
+	    line->insert (line->begin () + i + 1, Skyline_entry (e3, my_height));
 
 	  line->elem_ref (i).height_ = stick_out;
 	  line->elem_ref (i).width_ = w;
 	  if (!e1.is_empty () && e1.length () > EPS)
-	    line->insert (Skyline_entry (e1, my_height), i);
+	    line->insert (line->begin () + i, Skyline_entry (e1, my_height));
 	}
     }
 }

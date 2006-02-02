@@ -101,9 +101,9 @@ public:
     pop_back ();
     return t;
   }
-  void insert (T *t, vsize i)
+  void insert (iterator b, T *t)
   {
-    Array<void *>::insert (t, i);
+    Array<void *>::insert (b, t);
   }
   void push_back (T *t)
   {

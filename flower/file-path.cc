@@ -212,5 +212,5 @@ File_path::append (std::string str)
 void
 File_path::prepend (std::string str)
 {
-  dirs_.insert (str, 0);
+  dirs_.insert (dirs_.begin (), str);
 }
