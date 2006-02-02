@@ -349,7 +349,7 @@ std::string
 String_convert::unsigned_string (unsigned u)
 {
   char s[STRING_BUFFER_LEN];
-  sprintf (s, "%ud", u);
+  sprintf (s, "%u", u);
   return s;
 }
 

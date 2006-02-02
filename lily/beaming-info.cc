@@ -53,8 +53,8 @@ Beaming_info_list::beam_extend_count (Direction d) const
   if (infos_.size () == 1)
     return infos_[0].beams_i_drul_[d];
 
-  Beaming_info thisbeam = infos_.boundary (d, 0);
-  Beaming_info next = infos_.boundary (d, 1);
+  Beaming_info thisbeam = boundary (infos_, d, 0);
+  Beaming_info next = boundary (infos_, d, 1);
 
   return min (thisbeam.beams_i_drul_[-d], next.beams_i_drul_[d]);
 }
@@ -87,7 +87,7 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
   do
     {
       if (splits[d].infos_.size () != 1)
-	splits[d].infos_.boundary (-d, 0).beams_i_drul_[-d] = middle_beams;
+	boundary (splits[d].infos_, -d, 0).beams_i_drul_[-d] = middle_beams;
     }
   while (flip (&d) != LEFT);
 
