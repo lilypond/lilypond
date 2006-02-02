@@ -195,7 +195,7 @@ Stem::note_head_positions (Grob *me)
       ps.push_back (p);
     }
 
-  ps.sort (integer_compare);
+  vector_sort (ps, integer_compare);
   return ps;
 }
 

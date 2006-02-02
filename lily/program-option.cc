@@ -126,7 +126,7 @@ get_help_string ()
     }
 
   std::string help ("Options supported by ly:set-option\n\n");
-  opts.sort (string_compare);
+  vector_sort (opts, string_compare);
   for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
 

@@ -80,7 +80,7 @@ Tuplet_engraver::process_music ()
   if (!tuplets_.size ())
     return;
 
-  tuplets_.sort (&Tuplet_description::compare);
+  vector_sort (tuplets_, Tuplet_description::compare);
   for (vsize i = 0; i < tuplets_.size (); i++)
     {
       if (tuplets_[i].bracket_)

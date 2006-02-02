@@ -42,6 +42,7 @@ public:
   }
 
   Array<void *>::begin;
+  Array<void *>::end;
   Array<void *>::clear;
   Array<void *>::erase;
   Array<void *>::resize;

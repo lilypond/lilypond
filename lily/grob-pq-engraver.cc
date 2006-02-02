@@ -95,7 +95,7 @@ Grob_pq_engraver::stop_translation_timestep ()
   while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) == now)
     busy = scm_cdr (busy);
 
-  started_now_.sort (Grob_pq_entry::compare);
+  vector_sort (started_now_, Grob_pq_entry::compare);
   SCM lst = SCM_EOL;
   SCM *tail = &lst;
   for (vsize i = 0; i < started_now_.size (); i++)

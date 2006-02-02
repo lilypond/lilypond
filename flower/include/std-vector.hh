@@ -162,12 +162,6 @@ namespace std {
       ::std::reverse (this->begin (), this->end ());
     }
 
-    void
-    sort (int (*compare) (T const &, T const &), vsize b=0, int e=VPOS)
-    {
-      ::std::sort (iter (b), iter(e), compare);
-    }
-
     void swap (vsize i, vsize j)
     {
       T t ((*this)[i]);
@@ -248,6 +242,48 @@ namespace std {
   }
 #endif
 
+
+#if 0
+  /* FIXME: the simple test works, but lily barfs.  */
+  template<typename T>
+  void
+  vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
+	       vsize lower=VPOS, vsize upper=VPOS)
+  {
+    typename vector<T>::iterator b = v.begin ();
+    typename vector<T>::iterator e = v.begin ();
+    if (lower == VPOS)
+      {
+	lower = 0;
+	upper = v.size ();
+      }
+    ::std::sort (b + lower, e + upper, compare);
+  }
+#else
+  // ugh, c&p
+template<typename T> void
+vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
+	     vsize lower=VPOS, vsize upper=VPOS)
+{
+  if (lower == VPOS)
+    {
+      lower = 0;
+      upper = v.size () - 1;
+    }
+  if (upper == VPOS || lower >= upper)
+    return;
+  v.swap (lower, (lower + upper) / 2);
+  vsize last = lower;
+  for (vsize i = lower +1; i <= upper; i++)
+    if (compare (v[i], v[lower]) < 0)
+      v.swap (++last, i);
+  v.swap (lower, last);
+  vector_sort (v, compare, lower, last - 1);
+  vector_sort (v, compare, last + 1, upper);
+}
+  
+#endif
+
 }
 
 
@@ -272,6 +308,18 @@ namespace std {
 
 
 #endif /* STD_VECTOR */
+
+template<typename T>
+int default_compare (T const &a, T const &b)
+{
+   if (a < b)
+     return -1;
+   else if (a > b)
+     return 1;
+   else
+     return 0;
+}
+ 
 
 #include "array.hh"
 

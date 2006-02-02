@@ -319,9 +319,6 @@ public:
     elem_ref (i) = back ();
     resize (size () -1);
   }
-  // quicksort.
-  void sort (int (*compare) (T const &, T const &),
-	     vsize lower=VPOS, vsize upper=VPOS);
   void concat (Array<T> const &src)
   {
     vsize s = size_;
@@ -330,17 +327,6 @@ public:
   }
   void reverse ();
 };
-
-template<class T>
-int default_compare (T const &a, T const &b)
-{
-  if (a < b)
-    return -1;
-  else if (a > b)
-    return 1;
-  else
-    return 0;
-}
 
 #include "array.icc"
 
