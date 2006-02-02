@@ -143,7 +143,11 @@ Beam::calc_direction (SCM smob)
       else 
 	{
 	  Grob *stem = first_visible_stem (me);
-	  d = to_dir (stem->get_property ("default-direction"));
+
+	  /*
+	    ugh: stems[0] case happens for chord tremolo.
+	  */
+	  d = to_dir ((stem ? stem : stems[0])->get_property ("default-direction"));
 	}
     }
 
