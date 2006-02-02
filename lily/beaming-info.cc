@@ -92,7 +92,7 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
   while (flip (&d) != LEFT);
 
   infos_ = splits[LEFT].infos_;
-  infos_.concat (splits[RIGHT].infos_);
+  infos_.insert (infos_.end (), splits[RIGHT].infos_.begin (), splits[RIGHT].infos_.end ());
 
   clip_edges ();
 }

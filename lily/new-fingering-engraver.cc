@@ -241,19 +241,17 @@ New_fingering_engraver::position_scripts (SCM orientations,
 	  scripts->erase (scripts->begin ());
 	}
 
-      horiz.concat (*scripts);
+      horiz.insert (horiz.end (), scripts->begin (), scripts->end ());
     }
   else if (up_p && down_p)
     {
       int center = scripts->size () / 2;
-      down.concat (std::vector<Finger_tuple> (scripts->begin (),
-					      scripts->begin () + center));
-      up.concat (std::vector<Finger_tuple> (scripts->begin () + center,
-					    scripts->end ()));
+      down.insert (down.end (), scripts->begin (), scripts->begin () + center);
+      up.insert (up.end (), scripts->begin () + center, scripts->end ());
     }
   else if (up_p)
     {
-      up.concat (*scripts);
+      up.insert (up.end (), scripts->begin (), scripts->end ());
       scripts->clear ();
     }
   else
@@ -263,7 +261,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
 	  warning (_ ("no placement found for fingerings"));
 	  warning (_ ("placing below"));
 	}
-      down.concat (*scripts);
+      down.insert (down.end (), scripts->begin (), scripts->end ());
       scripts->clear ();
     }
 

@@ -104,6 +104,10 @@ public:
   {
     Array<void *>::insert (b, t);
   }
+  void insert (iterator pos, const_iterator b, const_iterator e)
+  {
+    Array<void *>::insert (pos, b, e);
+  }
   void push_back (T *t)
   {
     Array<void *>::push_back (t);
@@ -192,7 +196,7 @@ public:
   }
   void concat (Link_array<T> const &a2)
   {
-    Array<void *>::concat (a2);
+    Array<void *>::insert (end (), a2.begin (), a2.end ());
   }
   int find_index (T const *t) const
   {
