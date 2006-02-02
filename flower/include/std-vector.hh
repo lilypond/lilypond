@@ -72,30 +72,6 @@ namespace std {
 	return this->at (i);
     }
 
-    T *
-    remove_array ()
-    {
-      T *p = &(*this)[0];
-      /* FIXME: forget array? */
-      /* this->resize (0); */
-      return p;
-    }
-
-    void
-    reverse ()
-    {
-      // CHECKME: for a simple vector, like vector<int>, this should
-      // expand to memrev.
-      ::std::reverse (this->begin (), this->end ());
-    }
-
-    void swap (vsize i, vsize j)
-    {
-      T t ((*this)[i]);
-      (*this)[i] = (*this)[j];
-      (*this)[j] = t;
-    }
-
     T const &
     top (vsize i) const
     {
@@ -187,6 +163,16 @@ namespace std {
     ::std::sort (b + lower, e + upper, compare);
   }
 #else
+
+  template<typename T>
+  void
+  swap (T *a, T *b)
+  {
+    T t = *a;
+    *a = *b;
+    *b = t;
+  }
+
   // ugh, c&p
 template<typename T> void
 vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
@@ -199,16 +185,25 @@ vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
     }
   if (upper == VPOS || lower >= upper)
     return;
-  v.swap (lower, (lower + upper) / 2);
+  swap (v[lower], v[(lower + upper) / 2]);
   vsize last = lower;
   for (vsize i = lower +1; i <= upper; i++)
     if (compare (v[i], v[lower]) < 0)
-      v.swap (++last, i);
-  v.swap (lower, last);
+      swap (v[++last], v[i]);
+  swap (v[lower], v[last]);
   vector_sort (v, compare, lower, last - 1);
   vector_sort (v, compare, last + 1, upper);
 }
-  
+
+  template<typename T>
+  void
+  reverse (vector<T> &v)
+  {
+    // CHECKME: for a simple vector, like vector<int>, this should
+    // expand to memrev.
+    ::std::reverse (v.begin (), v.end ());
+  }
+
 #endif
 
 }

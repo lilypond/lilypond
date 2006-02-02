@@ -403,7 +403,7 @@ Beam::print (SCM grob)
 
 	  vector_sort (full_beams, default_compare);
 	  if (stem_dir == UP)
-	    full_beams.reverse ();
+	    reverse (full_beams);
 	}
 
       int k = 0;

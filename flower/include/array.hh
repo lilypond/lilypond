@@ -283,8 +283,6 @@ public:
     arrcpy (array_, src.array_, size_);
   }
 
-  T *remove_array ();
-
   /// access last entry
   T &top (vsize j)
   {
@@ -312,20 +310,33 @@ public:
     else
       return at (idx);
   }
-  void swap (vsize i, vsize j)
-  {
-    T t ((*this)[i]);
-    (*this)[i] = (*this)[j];
-    (*this)[j] = t;
-  }
 
   void unordered_del (vsize i)
   {
     at (i) = back ();
     resize (size () -1);
   }
-  void reverse ();
 };
+
+#if 0
+  template<class T>
+  void
+  swap (T *a, T *b)
+  {
+    T t = *a;
+    *a = *b;
+    *b = t;
+  }
+#endif
+  
+  template<class T>
+  void
+  reverse (Array<T> &v)
+  {
+    vsize h = v.size () / 2;
+    for (vsize i = 0, j = v.size () - 1; i < h; i++, j--)
+      swap (v[i], v[j]);
+  }
 
 #include "array.icc"
 

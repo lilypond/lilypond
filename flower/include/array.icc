@@ -48,22 +48,14 @@ vector_sort (Array<T> &v, int (*compare) (T const &, T const &),
     }
   if (lower >= upper)
     return;
-  v.swap (lower, (lower + upper) / 2);
+  swap (v[lower], v[(lower + upper) / 2]);
   vsize last = lower;
   for (vsize i = lower +1; i <= upper; i++)
     if (compare (v.array_[i], v.array_[lower]) < 0)
-      v.swap (++last, i);
-  v.swap (lower, last);
+      swap (v[++last], v[i]);
+  swap (v[lower], v[last]);
   vector_sort (v, compare, lower, last - 1);
   vector_sort (v, compare, last + 1, upper);
-}
-
-template<class T> INLINE void
-Array<T>::reverse ()
-{
-  vsize h = size_ / 2;
-  for (vsize i = 0, j = size_ - 1; i < h; i++, j--)
-    swap (i, j);
 }
 
 template<class T> INLINE
@@ -77,17 +69,6 @@ Array<T>::OK () const
 #endif
   if (max_)
     assert (array_);
-}
-
-template<class T> INLINE
-T *
-Array<T>::remove_array ()
-{
-  T *p = array_;
-  size_ = 0;
-  max_ = 0;
-  array_ = 0;
-  return p;
 }
 
 template<class T> INLINE
