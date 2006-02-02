@@ -60,15 +60,6 @@ File_path::parse_path (std::string p)
 bool
 is_file (std::string file_name)
 {
-#if 0 /* Check if directory. TODO: encapsulate for autoconf */
-  struct stat sbuf;
-  if (stat (file_name.c_str (), &sbuf) != 0)
-    return false;
-
-  if (! (sbuf.st_mode & __S_IFREG))
-    return false;
-#endif
-
 #if !STAT_MACROS_BROKEN
   struct stat sbuf;
   if (stat (file_name.c_str (), &sbuf) != 0)
