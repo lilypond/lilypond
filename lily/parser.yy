@@ -963,7 +963,6 @@ Simple_music:
 	| context_change
 	;
 
-
 optional_context_mod:
 	/**/ { $$ = SCM_EOL; }
 	| WITH { THIS->lexer_->push_initial_state (); }
@@ -981,7 +980,6 @@ context_mod_list:
 	}
 	;
 
-
 Composite_music:
 	Prefix_composite_music { $$ = $1; }
 	| Grouped_music_list { $$ = $1; }
@@ -991,7 +989,6 @@ Grouped_music_list:
 	Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
 	;
-
 
 function_scm_argument:
 	embedded_scm  
