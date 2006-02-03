@@ -55,8 +55,8 @@ class Dynamic_engraver : public Engraver
 
   Drul_array<Music *> accepted_spanevents_drul_;
 
-  Link_array<Note_column> pending_columns_;
-  Link_array<Grob> pending_elements_;
+  Link_array__Note_column_ pending_columns_;
+  Link_array__Grob_ pending_elements_;
 
   void typeset_all ();
 

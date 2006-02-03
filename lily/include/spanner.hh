@@ -36,7 +36,7 @@ class Spanner : public Grob
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
 
-  Link_array<Spanner> broken_intos_;
+  Link_array__Spanner_ broken_intos_;
 
   int get_break_index () const;
 

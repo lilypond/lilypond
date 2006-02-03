@@ -25,7 +25,7 @@ public:
   static void get_bounds (Grob *, Grob **, Grob **);
   static void add_column (Grob *me, Item *);
   static void add_beam (Grob *me, Grob *);
-  static Grob *parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equally_long);
+  static Grob *parallel_beam (Grob *me, Link_array__Grob_ const &cols, bool *equally_long);
   static void calc_position_and_height (Grob *, Real *, Real *dy);
   static Stencil make_bracket (Grob *me, Axis protusion_axis,
 			       Offset dz, Drul_array<Real> height,

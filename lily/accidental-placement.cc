@@ -57,8 +57,8 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
 */
 void
 Accidental_placement::split_accidentals (Grob *accs,
-					 Link_array<Grob> *break_reminder,
-					 Link_array<Grob> *real_acc)
+					 Link_array__Grob_ *break_reminder,
+					 Link_array__Grob_ *real_acc)
 {
   for (SCM acs = accs->get_object ("accidental-grobs"); scm_is_pair (acs);
        acs = scm_cdr (acs))
@@ -82,11 +82,11 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 						      Item *item_col,
 						      Grob *left_object)
 {
-  Link_array<Grob> br, ra;
-  Link_array<Grob> *which = 0;
+  Link_array__Grob_ br, ra;
+  Link_array__Grob_ *which = 0;
 
   Accidental_placement::split_accidentals (me, &br, &ra);
-  br.concat (ra);
+  concat (br, ra);
 
   if (dynamic_cast<Item *> (left_object)->break_status_dir () == RIGHT)
     which = &br;
@@ -112,7 +112,7 @@ struct Accidental_placement_entry
   std::vector<Skyline_entry> right_skyline_;
   Interval vertical_extent_;
   std::vector<Box> extents_;
-  Link_array<Grob> grobs_;
+  Link_array__Grob_ grobs_;
   Real offset_;
   int notename_;
   Accidental_placement_entry ()
@@ -149,11 +149,11 @@ int ape_rcompare (Accidental_placement_entry *const &a,
   placement
 */
 void
-stagger_apes (Link_array<Accidental_placement_entry> *apes)
+stagger_apes (Link_array__Accidental_placement_entry_ *apes)
 {
-  Link_array<Accidental_placement_entry> asc = *apes;
+  Link_array__Accidental_placement_entry_ asc = *apes;
 
-  asc.sort (&ape_compare);
+  vector_sort (asc, &ape_compare);
 
   apes->clear ();
 
@@ -162,7 +162,10 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
     {
       Accidental_placement_entry *a = 0;
       if (parity)
-	a = asc.pop ();
+	{
+	  a = asc.back ();
+	  asc.pop_back ();
+	}
       else
 	a = asc[i++];
 
@@ -170,7 +173,7 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
       parity = !parity;
     }
 
-  apes->reverse ();
+  reverse (*apes);
 }
 
 /*
@@ -230,7 +233,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
     TODO: there is a bug in this code. If two accs are on the same
     Y-position, they share an Ape, and will be printed in overstrike.
   */
-  Link_array<Accidental_placement_entry> apes;
+  Link_array__Accidental_placement_entry_ apes;
   for (SCM s = accs; scm_is_pair (s); s = scm_cdr (s))
     {
       Accidental_placement_entry *ape = new Accidental_placement_entry;
@@ -248,7 +251,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
     First we must extract *all* pointers. We can only determine
     extents if we're sure that we've found the right common refpoint
   */
-  Link_array<Grob> note_cols, heads;
+  Link_array__Grob_ note_cols, heads;
   for (vsize i = apes.size (); i--;)
     {
       Accidental_placement_entry *ape = apes[i];
@@ -282,15 +285,15 @@ Accidental_placement::calc_positioning_done (SCM smob)
 	{
 	  extract_grob_set (c, "elements", gs);
 
-	  note_cols.concat (gs);
+	  concat (note_cols, gs);
 	}
     }
 
   for (vsize i = note_cols.size (); i--;)
-    heads.concat (extract_grob_array (note_cols[i], "note-heads"));
+    concat (heads, extract_grob_array (note_cols[i], "note-heads"));
 
-  heads.default_sort ();
-  heads.uniq ();
+  vector_sort (heads, default_compare);
+  uniq (heads);
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
 
   for (vsize i = apes.size (); i--;)

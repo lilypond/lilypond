@@ -11,11 +11,11 @@
 
 #include "lily-proto.hh"
 #include "smobs.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 
 class Grob_array
 {
-  Link_array<Grob> grobs_;
+  Link_array__Grob_ grobs_;
   bool ordered_;
 
   DECLARE_SIMPLE_SMOBS (Grob_array,);
@@ -31,15 +31,15 @@ public:
   bool empty () const;
   void clear ();
   void add (Grob *x) { grobs_.push_back (x); }
-  void set_array (Link_array<Grob> const &src);
-  Link_array<Grob> &array_reference ();
-  Link_array<Grob> const &array () const;
+  void set_array (Link_array__Grob_ const &src);
+  Link_array__Grob_ &array_reference ();
+  Link_array__Grob_ const &array () const;
   static SCM make_array ();
 };
 
 DECLARE_UNSMOB (Grob_array, grob_array);
 
-Link_array<Grob> const &ly_scm2link_array (SCM x);
+Link_array__Grob_ const &ly_scm2link_array (SCM x);
 SCM grob_list_to_grob_array (SCM lst);
 
 #endif /* GROB_ARRAY_HH */

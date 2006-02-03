@@ -87,7 +87,7 @@ Beam::calc_concaveness (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  Link_array<Grob> stems
+  Link_array__Grob_ stems
     = extract_grob_array (me, "stems");
 
   if (is_knee (me))

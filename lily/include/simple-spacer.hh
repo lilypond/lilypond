@@ -9,7 +9,7 @@
 #ifndef SIMPLE_SPACER_HH
 #define SIMPLE_SPACER_HH
 
-#include "parray.hh"
+#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
 
@@ -56,11 +56,11 @@ public:
 struct Simple_spacer_wrapper
 {
   Simple_spacer *spacer_;
-  Link_array<Grob> spaced_cols_;
-  Link_array<Grob> loose_cols_;
+  Link_array__Grob_ spaced_cols_;
+  Link_array__Grob_ loose_cols_;
 
   Simple_spacer_wrapper ();
-  void add_columns (Link_array<Grob> const &);
+  void add_columns (Link_array__Grob_ const &);
   void solve (Column_x_positions *, bool);
   ~Simple_spacer_wrapper ();
 private:

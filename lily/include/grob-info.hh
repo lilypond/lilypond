@@ -11,7 +11,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 
 /*
   Data container for broadcasts.
@@ -29,7 +29,7 @@ public:
   Context *context () const;
   Music *music_cause () const;
   Music *ultimate_music_cause () const;
-  Link_array<Context> origin_contexts (Translator *) const;
+  Link_array__Context_ origin_contexts (Translator *) const;
   Grob_info (Translator *, Grob *);
   Grob_info ();
 

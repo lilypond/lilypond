@@ -18,6 +18,8 @@ typedef unsigned char Byte;
 namespace std {
   struct String_data;
   struct String_handle;
+  //template<class T> struct Array;
+  template<class T> struct Link_array;
 }
 struct String_convert;
 
@@ -25,8 +27,6 @@ struct String_convert;
 #include "std-vector.hh"
 #include "real.hh"
 
-//template<class T> struct Array;
-template<class T> struct Link_array;
 template<class T> struct Link_list;
 template<class T> struct Interval_t;
 template<class T> struct PQueue;

@@ -9,7 +9,7 @@
 #ifndef BEAMING_HH
 #define BEAMING_HH
 
-#include "parray.hh"
+#include "std-vector.hh"
 #include "moment.hh"
 
 struct Beaming_info

@@ -34,7 +34,7 @@ protected:
   int breaks_;			// used for stat printing
   Paper_column *command_column_;
   Paper_column *musical_column_;
-  Link_array<Item> items_;
+  Link_array__Item_ items_;
   bool first_;
   Moment last_moment_;
 public:

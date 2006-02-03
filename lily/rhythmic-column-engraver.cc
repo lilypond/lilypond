@@ -41,7 +41,7 @@
 
 class Rhythmic_column_engraver : public Engraver
 {
-  Link_array<Grob> rheads_;
+  Link_array__Grob_ rheads_;
   Grob *stem_;
   Grob *note_column_;
   Grob *dotcol_;

@@ -70,7 +70,7 @@ Tie_column::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "ties", ro_ties);
-  Link_array<Grob> ties (ro_ties);
+  Link_array__Grob_ ties (ro_ties);
   if (!ties.size ())
     return SCM_BOOL_T;
 
@@ -82,7 +82,7 @@ Tie_column::calc_positioning_done (SCM smob)
       return SCM_BOOL_T;
     }
   
-  ties.sort (&Tie::compare);
+  vector_sort (ties, &Tie::compare);
 
   Tie_formatting_problem problem;
   problem.from_ties (ties);

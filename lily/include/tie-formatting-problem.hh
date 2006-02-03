@@ -11,7 +11,7 @@
 #define TIE_FORMATTING_PROBLEM_HH
 
 #include "drul-array.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "skyline.hh"
 #include "lily-proto.hh"
 #include "tie-configuration.hh"
@@ -110,10 +110,10 @@ public:
   Ties_configuration generate_optimal_chord_configuration ();
   Ties_configuration generate_ties_configuration (Ties_configuration const &);
   Tie_configuration find_optimal_tie_configuration (Tie_specification const &) const;
-  void from_ties (Link_array<Grob> const &ties);
+  void from_ties (Link_array__Grob_ const &ties);
   void from_tie (Grob *tie);
-  void from_lv_ties (Link_array<Grob> const &);
-  void set_chord_outline (Link_array<Item>, Direction);
+  void from_lv_ties (Link_array__Grob_ const &);
+  void set_chord_outline (Link_array__Item_, Direction);
   void set_manual_tie_configuration (SCM);
   Interval get_attachment (Real) const;
   Grob *common_x_refpoint () const;

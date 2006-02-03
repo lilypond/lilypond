@@ -14,8 +14,8 @@ class Note_name_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
-  Link_array<Music> events_;
-  Link_array<Item> texts_;
+  Link_array__Music_ events_;
+  Link_array__Item_ texts_;
   virtual bool try_music (Music *m);
   void process_music ();
   void stop_translation_timestep ();

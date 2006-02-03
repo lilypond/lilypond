@@ -18,7 +18,7 @@
 std::vector<int>
 Break_algorithm::find_break_indices () const
 {
-  Link_array<Grob> all = pscore_->root_system ()->columns ();
+  Link_array__Grob_ all = pscore_->root_system ()->columns ();
   std::vector<int> retval;
 
   for (vsize i = 0; i < all.size (); i++)
@@ -32,11 +32,11 @@ Break_algorithm::find_break_indices () const
   return retval;
 }
 
-Link_array<Grob>
+Link_array__Grob_
 Break_algorithm::find_breaks () const
 {
-  Link_array<Grob> all = pscore_->root_system ()->columns ();
-  Link_array<Grob> retval;
+  Link_array__Grob_ all = pscore_->root_system ()->columns ();
+  Link_array__Grob_ retval;
 
   for (vsize i = 0; i < all.size (); i++)
     if (Item::is_breakable (all[i]))
@@ -50,7 +50,7 @@ Break_algorithm::find_breaks () const
 }
 
 Simple_spacer_wrapper *
-Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
+Break_algorithm::generate_spacing_problem (Link_array__Grob_ const &curline,
 					   Interval line) const
 {
   Simple_spacer_wrapper *spw = new Simple_spacer_wrapper;

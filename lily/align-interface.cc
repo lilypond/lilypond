@@ -88,7 +88,7 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 
   extract_grob_set (me, "elements", elem_source);
 
-  Link_array<Grob> elems (elem_source); // writable..
+  Link_array__Grob_ elems (elem_source); // writable..
 
   Real where_f = 0;
 
@@ -160,7 +160,7 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
 					    Interval (0, Interval::infinity ()));
 
   std::vector<Interval> dims;
-  Link_array<Grob> elems;
+  Link_array__Grob_ elems;
 
   extract_grob_set (me, "elements", all_grobs);
   for (vsize i = 0; i < all_grobs.size (); i++)

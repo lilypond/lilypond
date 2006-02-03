@@ -48,7 +48,7 @@ namespace std {
 
 #include "string.hh"
 
-#endif /* STD_STRING */
+#endif /* ! STD_STRING */
 
 namespace std {
 

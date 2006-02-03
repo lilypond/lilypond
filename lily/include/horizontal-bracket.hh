@@ -17,7 +17,7 @@ struct Horizontal_bracket
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static Stencil make_bracket (Grob *, Real, Axis, Direction);
   static Stencil make_enclosing_bracket (Grob *me, Grob *refpoint,
-					 Link_array<Grob> grobs,
+					 Link_array__Grob_ grobs,
 					 Axis a, Direction dir);
   static bool has_interface (Grob *);
 };

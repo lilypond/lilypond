@@ -22,7 +22,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   SCM_ASSERT_TYPE (unsmob_grob (common), common, SCM_ARG2, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
-  Link_array<Grob> elts;
+  Link_array__Grob_ elts;
   if (!ga)
     {
       for (SCM s = elements; scm_is_pair (s); s = scm_cdr (s))

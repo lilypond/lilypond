@@ -9,8 +9,13 @@
 #ifndef PARRAY_HH
 #define PARRAY_HH
 
-#include "std-vector.hh"
+#ifndef STD_VECTOR_HH
+#error array.hh is obsolete, use std-vector.hh
+#endif
 
+using namespace std;
+
+namespace std {
 /**
    an array of pointers.
 
@@ -42,6 +47,7 @@ public:
   }
 
   Array<void *>::begin;
+  Array<void *>::data;
   Array<void *>::end;
   Array<void *>::clear;
   Array<void *>::erase;
@@ -71,6 +77,15 @@ public:
 
   Link_array (Link_array<T> const &src)
     : Array<void *> (src)
+  {
+  }
+
+  /* std::vector interface */
+  //typedef T** iterator;
+  //typedef T* const* iterator_const;
+
+  Link_array (const_iterator begin, const_iterator end)
+    : Array<void *> (begin, end)
   {
   }
 
@@ -174,10 +189,18 @@ public:
       return at (i);
   }
 
-  T ** accesses () const
+  T **
+  data ()
   {
-    return (T **) Array<void *>::accesses ();
+    return (T**) Array<void *>::data ();
   }
+
+  T * const*
+  data () const
+  {
+    return (T**) Array<void *>::data ();
+  }
+
   /**
      remove  i-th element, and return it.
   */
@@ -266,42 +289,10 @@ junk_pointers (Link_array<T> &a)
   a.clear ();
 }
 
-/*
-  lookup with binsearch, return tokencode.
-*/
 template<class T>
 int
-binsearch (Array<T> const &arr, T t, int (*compare) (T const &, T const &))
-{
-  int cmp;
-  int result;
-  int lo = 0;
-  int hi = arr.size ();
-
-  /* binary search */
-  do
-    {
-      cmp = (lo + hi) / 2;
-
-      result = compare (t, arr[cmp]);
-
-      if (result < 0)
-	hi = cmp;
-      else
-	lo = cmp;
-    }
-  while (hi - lo > 1);
-
-  if (!compare (t, arr[lo]))
-    return lo;
-  /* not found */
-  return -1;
-}
-
-template<class T>
-int
-binsearch_links (Link_array<T> const &arr, T *t,
-		 int (*compare) (T *const &, T *const &))
+binary_search (Link_array<T> const &arr, T *t,
+	       int (*compare) (T *const &, T *const &))
 {
   int cmp;
   int result;
@@ -356,6 +347,59 @@ binary_search_bounds (Link_array<T> const &table,
   while (*hi - *lo > 1);
 }
 
+template<class T>
+void
+reverse (Link_array<T> &v)
+{
+  vsize h = v.size () / 2;
+  for (vsize i = 0, j = v.size () - 1; i < h; i++, j--)
+    swap (v[i], v[j]);
+}
+
+template<typename T>
+void
+concat (Link_array<T> &v, Link_array<T> const& w)
+{
+  v.insert (v.end (), w.begin (), w.end ());
+}
+
+template<typename T>
+void
+vector_sort (Link_array<T> &v, int (*compare) (T *const &, T * const &),
+	     vsize lower=-1, vsize upper=-1)
+{
+  if (lower < 0)
+    {
+      lower = 0;
+      upper = v.size () - 1;
+    }
+  if (lower >= upper)
+    return;
+  swap (v[lower], v[(lower + upper) / 2]);
+  vsize last = lower;
+  for (vsize i = lower +1; i <= upper; i++)
+    if (compare (v[i], v[lower]) < 0)
+      swap (v[++last], v[i]);
+  swap (v[lower], v[last]);
+  vector_sort (v, compare, lower, last - 1);
+  vector_sort (v, compare, last + 1, upper);
+}
+
+template<typename T>
+void
+uniq (Link_array<T> &v)
+{
+  v.uniq ();
+}
+
+template<typename T>
+typename Array<void *>::const_iterator
+find (Link_array<T> const &v, T * const& key)
+{
+  return v.begin () + v.find_index (key);
+}
+
+}
 
 #endif // PARRAY_HH
 

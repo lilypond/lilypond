@@ -77,13 +77,13 @@ public:
     to store all information before we can really create the
     accidentals.
   */
-  Link_array<Grob> left_objects_;
-  Link_array<Grob> right_objects_;
+  std::vector<Grob*> left_objects_;
+  std::vector<Grob*> right_objects_;
 
   Grob *accidental_placement_;
 
   std::vector<Accidental_entry> accidentals_;
-  Link_array<Spanner> ties_;
+  std::vector<Spanner*> ties_;
 };
 
 /*

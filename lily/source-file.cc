@@ -324,7 +324,7 @@ Source_file::get_line (char const *pos_str0) const
 
   binary_search_bounds (newline_locations_,
 			pos_str0,
-			Link_array<char>::default_compare,
+			default_compare,
 			&lo, &hi);
 
   if (*pos_str0 == '\n')

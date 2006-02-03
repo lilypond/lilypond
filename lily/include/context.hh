@@ -92,7 +92,7 @@ public:
 				std::string id, SCM ops);
   Context *create_unique_context (SCM context_name,
 				  SCM ops);
-  Link_array<Context> path_to_acceptable_context (SCM alias,
+  Link_array__Context_ path_to_acceptable_context (SCM alias,
 						  Output_def *) const;
 };
 

@@ -15,7 +15,7 @@ class Rest_collision_engraver : public Engraver
 {
   Item *rest_collision_;
   int rest_count_;
-  Link_array<Grob> note_columns_;
+  Link_array__Grob_ note_columns_;
 protected:
   DECLARE_ACKNOWLEDGER (note_column);
   void process_acknowledged ();

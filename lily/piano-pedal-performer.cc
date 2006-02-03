@@ -36,7 +36,7 @@ protected:
   void start_translation_timestep ();
 
 private:
-  Link_array<Audio_piano_pedal> audios_;
+  Link_array__Audio_piano_pedal_ audios_;
   Pedal_info *info_alist_;
 };
 

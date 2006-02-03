@@ -37,27 +37,6 @@ arrcpy (T *dest, T const *src, vsize count)
 #endif
 }
 
-template<typename T> INLINE void
-vector_sort (Array<T> &v, int (*compare) (T const &, T const &),
-	     vsize lower=-1, vsize upper=-1)
-{
-  if (lower < 0)
-    {
-      lower = 0;
-      upper = v.size () - 1;
-    }
-  if (lower >= upper)
-    return;
-  swap (v[lower], v[(lower + upper) / 2]);
-  vsize last = lower;
-  for (vsize i = lower +1; i <= upper; i++)
-    if (compare (v.array_[i], v.array_[lower]) < 0)
-      swap (v[++last], v[i]);
-  swap (v[lower], v[last]);
-  vector_sort (v, compare, lower, last - 1);
-  vector_sort (v, compare, last + 1, upper);
-}
-
 template<class T> INLINE
 void
 Array<T>::OK () const

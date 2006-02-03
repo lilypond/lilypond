@@ -15,8 +15,8 @@
 
 class Fingering_engraver : public Engraver
 {
-  Link_array<Music> events_;
-  Link_array<Item> fingerings_;
+  Link_array__Music_ events_;
+  Link_array__Item_ fingerings_;
 
 public:
   TRANSLATOR_DECLARATIONS (Fingering_engraver);

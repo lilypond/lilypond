@@ -139,7 +139,7 @@ Beam::quanting (SCM smob, SCM posns)
     Do stem computations.  These depend on YL and YR linearly, so we can
     precompute for every stem 2 factors.
   */
-  Link_array<Grob> stems
+  Link_array__Grob_ stems
     = extract_grob_array (me, "stems");
   std::vector<Stem_info> stem_infos;
   std::vector<Real> base_lengths;
@@ -327,7 +327,7 @@ Beam::quanting (SCM smob, SCM posns)
 }
 
 Real
-Beam::score_stem_lengths (Link_array<Grob> const &stems,
+Beam::score_stem_lengths (Link_array__Grob_ const &stems,
 			  std::vector<Stem_info> const &stem_infos,
 			  std::vector<Real> const &base_stem_ys,
 			  std::vector<Real> const &stem_xs,

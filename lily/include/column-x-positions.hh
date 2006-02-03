@@ -7,13 +7,13 @@
 #ifndef COLUMN_X_POSITIONS_HH
 #define COLUMN_X_POSITIONS_HH
 
-#include "parray.hh"
+#include "std-vector.hh"
 #include "lily-proto.hh"
 
 struct Column_x_positions
 {
-  Link_array<Grob> cols_;
-  Link_array<Grob> loose_cols_;
+  Link_array__Grob_ cols_;
+  Link_array__Grob_ loose_cols_;
 
   std::vector<Real> config_;
   Real force_;

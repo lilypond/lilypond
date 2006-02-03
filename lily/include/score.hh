@@ -12,7 +12,7 @@
 #include "lily-proto.hh"
 
 #include "input.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "smobs.hh"
 #include "virtual-methods.hh"
 #include "std-string.hh"
@@ -24,7 +24,7 @@ class Score : public Input
   SCM music_;
 
 public:
-  Link_array<Output_def> defs_;
+  Link_array__Output_def_ defs_;
   std::string user_key_;
   SCM header_;
   bool error_found_;

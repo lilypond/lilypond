@@ -10,12 +10,13 @@
 #define SOURCE_FILE_HH
 
 #include "std-string.hh"
+#include "std-vector.hh"
+#include "lily-proto.hh"
 
 #include <iostream>
 using namespace std;
 
 #include "protected-scm.hh"
-#include "parray.hh"
 
 /**
    class for reading and mapping a file.
@@ -67,7 +68,7 @@ public:
   std::string name_;
 
 private:
-  Link_array<char> newline_locations_;
+  Link_array__char_ newline_locations_;
   istream *istream_;
   char *contents_str0_;
   std::vector<char> chs_;

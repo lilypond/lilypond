@@ -14,7 +14,7 @@
 class Collision_engraver : public Engraver
 {
   Item *col_;
-  Link_array<Grob> note_columns_;
+  Link_array__Grob_ note_columns_;
 
 protected:
   DECLARE_ACKNOWLEDGER (note_column);

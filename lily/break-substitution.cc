@@ -139,17 +139,17 @@ do_break_substitution (SCM src)
 /*
   Perform substitution on GROB_LIST using a constant amount of stack.
 */
-Link_array<Grob> temporary_substition_array;
+Link_array__Grob_ temporary_substition_array;
 void
 substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
 {
-  Link_array<Grob> &old_grobs (grob_arr->array_reference ());
-  Link_array<Grob> *new_grobs (new_arr == grob_arr
+  Link_array__Grob_ &old_grobs (grob_arr->array_reference ());
+  Link_array__Grob_ *new_grobs (new_arr == grob_arr
 			       ? & temporary_substition_array
 			       : &new_arr->array_reference ());
 
   new_grobs->resize (old_grobs.size ());
-  Grob **array = (Grob **) new_grobs->accesses ();
+  Grob **array = (Grob **) new_grobs->data ();
   Grob **ptr = array;
   for (vsize i = 0; i < old_grobs.size (); i++)
     {

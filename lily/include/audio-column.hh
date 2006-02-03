@@ -9,7 +9,7 @@
 
 #include "lily-proto.hh"
 #include "moment.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "audio-element.hh"
 
 /**
@@ -24,7 +24,7 @@ public:
   void add_audio_item (Audio_item *i);
   Moment at_mom () const;
 
-  Link_array<Audio_item> audio_items_;
+  Link_array__Audio_item_ audio_items_;
 
 private:
   Audio_column (Audio_column const &);

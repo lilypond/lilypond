@@ -33,11 +33,11 @@ Grob_info::music_cause () const
   return unsmob_music (cause);
 }
 
-Link_array<Context>
+Link_array__Context_
 Grob_info::origin_contexts (Translator *end) const
 {
   Context *t = origin_trans_->context ();
-  Link_array<Context> r;
+  Link_array__Context_ r;
   do
     {
       r.push_back (t);

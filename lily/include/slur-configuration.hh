@@ -10,7 +10,7 @@
 #define SLUR_CONFIGURATION_HH
 
 #include "bezier.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "main.hh"
 
 class Slur_configuration

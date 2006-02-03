@@ -11,7 +11,7 @@
 
 #include "duration.hh"
 #include "input.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "pitch.hh"
 
 /**

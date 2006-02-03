@@ -28,8 +28,8 @@ protected:
   void process_music ();
 
 private:
-  Link_array<Music> note_evs_;
-  Link_array<Audio_note> notes_;
+  Link_array__Music_ note_evs_;
+  Link_array__Audio_note_ notes_;
 };
 
 void
@@ -45,7 +45,8 @@ Note_performer::process_music ()
 
       while (note_evs_.size ())
 	{
-	  Music *n = note_evs_.pop ();
+	  Music *n = note_evs_.back ();
+	  note_evs_.pop_back ();
 	  SCM pit = n->get_property ("pitch");
 
 	  if (Pitch *pitp = unsmob_pitch (pit))

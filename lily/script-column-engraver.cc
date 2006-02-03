@@ -18,7 +18,7 @@
 class Script_column_engraver : public Engraver
 {
   Grob *scol_;
-  Link_array<Item> scripts_;
+  Link_array__Item_ scripts_;
 
 public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);

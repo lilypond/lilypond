@@ -81,7 +81,7 @@ Spanner::do_break_processing ()
   else
     {
       System *root  = get_root_system (this);
-      Link_array<Item> break_points = root->broken_col_range (left, right);
+      Link_array__Item_ break_points = root->broken_col_range (left, right);
 
       break_points.insert (break_points.begin () + 0, left);
       break_points.push_back (right);
@@ -124,7 +124,7 @@ Spanner::do_break_processing ()
 	    }
 	}
     }
-  broken_intos_.sort (Spanner::compare);
+  vector_sort (broken_intos_, Spanner::compare);
   for (vsize i = broken_intos_.size ();i--;)
     broken_intos_[i]->break_index_ = i;
 }
@@ -238,12 +238,10 @@ Spanner::get_system () const
 Grob *
 Spanner::find_broken_piece (System *l) const
 {
-  int idx = binsearch_links (broken_intos_, (Spanner *)l, Spanner::compare);
-
-  if (idx < 0)
-    return 0;
-  else
+  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::compare);
+  if (idx != VPOS)
     return broken_intos_ [idx];
+  return 0;
 }
 
 int
@@ -337,7 +335,7 @@ int
 broken_spanner_index (Spanner *sp)
 {
   Spanner *parent = dynamic_cast<Spanner *> (sp->original ());
-  return parent->broken_intos_.find_index (sp);
+  return find (parent->broken_intos_, sp) - parent->broken_intos_.begin ();
 }
 
 Spanner *

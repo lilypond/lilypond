@@ -376,9 +376,9 @@ compare_paper_column_rank (Grob *const &a,
 }
 
 void
-Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
+Simple_spacer_wrapper::add_columns (Link_array__Grob_ const &icols)
 {
-  Link_array<Grob> cols (icols);
+  Link_array__Grob_ cols (icols);
   cols.clear ();
 
   for (vsize i = 0; i < icols.size (); i++)
@@ -418,8 +418,8 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Grob *other = unsmob_grob (scm_caar (s));
-	  int j = binsearch_links (cols, other, &compare_paper_column_rank);
-	  if (j >= 0 && cols[j] == other)
+	  vsize j = binary_search (cols, other, &compare_paper_column_rank);
+	  if (j != VPOS && cols[j] == other)
 	    spacer_->add_rod (i, j, scm_to_double (scm_cdar (s)));
 	}
 

@@ -126,10 +126,10 @@ is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
   between.
 */
 void
-Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
+Spacing_spanner::prune_loose_columns (Grob *me, Link_array__Grob_ *cols,
 				      Spacing_options const *options)
 {
-  Link_array<Grob> newcols;
+  Link_array__Grob_ newcols;
 
   for (vsize i = 0; i < cols->size (); i++)
     {
@@ -228,7 +228,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols,
   Set neighboring columns determined by the spacing-wishes grob property.
 */
 void
-Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> const &cols)
+Spacing_spanner::set_explicit_neighbor_columns (Link_array__Grob_ const &cols)
 {
   for (vsize i = 0; i < cols.size (); i++)
     {
@@ -300,7 +300,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> const &cols)
   yet. Only do breakable non-musical columns, and musical columns.
 */
 void
-Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> const &cols)
+Spacing_spanner::set_implicit_neighbor_columns (Link_array__Grob_ const &cols)
 {
   for (vsize i = 0; i < cols.size (); i++)
     {

@@ -14,7 +14,7 @@
 #endif
 
 #include "std-string.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "lily-proto.hh"
 
 // GIGA urg!
@@ -29,7 +29,7 @@ class Includable_lexer : public yyFlexLexer
 
 protected:
   bool close_input ();
-  Link_array<Source_file> include_stack_;
+  Link_array__Source_file_ include_stack_;
   std::vector<int> char_count_stack_;
 
 public:

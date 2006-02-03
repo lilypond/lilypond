@@ -128,7 +128,7 @@ Item *unsmob_item (SCM);
 
 /* refpoints */
 Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
-Grob *common_refpoint_of_array (Link_array<Grob> const &, Grob *, Axis a);
+Grob *common_refpoint_of_array (Link_array__Grob_ const &, Grob *, Axis a);
 System *get_root_system (Grob *me);
 
 /* extents */ 

@@ -133,7 +133,7 @@ Cluster::print (SCM smob)
 
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
 
-  Link_array<Grob> const &cols = extract_grob_array (me, "columns");
+  Link_array__Grob_ const &cols = extract_grob_array (me, "columns");
   if (cols.empty ())
     {
       me->warning (_ ("junking empty cluster"));
@@ -175,7 +175,7 @@ Cluster::print (SCM smob)
       if (spanner->get_break_index () < orig->broken_intos_.size () - 1)
 	{
 	  Spanner *next = orig->broken_intos_[spanner->get_break_index () + 1];
-	  Link_array<Grob> const &next_cols = extract_grob_array (next, "columns");
+	  Link_array__Grob_ const &next_cols = extract_grob_array (next, "columns");
 	  if (next_cols.size () > 0)
 	    {
 	      Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);

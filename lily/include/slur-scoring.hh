@@ -11,7 +11,7 @@
 
 #include "box.hh"
 #include "lily-proto.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "lily-guile.hh"
 
 struct Slur_score_parameters
@@ -104,7 +104,7 @@ struct Slur_score_state
   bool has_same_beam_;
 
   Real musical_dy_;
-  Link_array<Grob> columns_;
+  Link_array__Grob_ columns_;
   std::vector<Encompass_info> encompass_infos_;
   std::vector<Extra_collision_info> extra_encompass_infos_;
 
@@ -112,7 +112,7 @@ struct Slur_score_state
   Slur_score_parameters parameters_;
   Drul_array<Bound_info> extremes_;
   Drul_array<Offset> base_attachments_;
-  Link_array<Slur_configuration> configurations_;
+  Link_array__Slur_configuration_ configurations_;
   Real staff_space_;
   Real thickness_;
 
@@ -126,7 +126,7 @@ struct Slur_score_state
   std::vector<Offset> generate_avoid_offsets () const;
   Drul_array<Bound_info> get_bound_info () const;
   void generate_curves () const;
-  Link_array<Slur_configuration> enumerate_attachments (Drul_array<Real> end_ys) const;
+  Link_array__Slur_configuration_ enumerate_attachments (Drul_array<Real> end_ys) const;
   Drul_array<Offset> get_base_attachments () const;
   Drul_array<Real> get_y_attachment_range () const;
   Encompass_info get_encompass_info (Grob *col) const;

@@ -42,7 +42,7 @@ Script_column::before_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Drul_array<SCM> scripts_drul (SCM_EOL, SCM_EOL);
-  Link_array<Grob> staff_sided;
+  Link_array__Grob_ staff_sided;
 
   extract_grob_set (me, "scripts", scripts);
   for (vsize i = 0; i < scripts.size (); i++)

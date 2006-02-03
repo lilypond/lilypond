@@ -25,8 +25,8 @@ protected:
   void process_music ();
 
 private:
-  Link_array<Music> note_evs_;
-  Link_array<Audio_note> notes_;
+  Link_array__Music_ note_evs_;
+  Link_array__Audio_note_ notes_;
 };
 
 Drum_note_performer::Drum_note_performer ()
@@ -40,7 +40,8 @@ Drum_note_performer::process_music ()
 
   while (note_evs_.size ())
     {
-      Music *n = note_evs_.pop ();
+      Music *n = note_evs_.back ();
+      note_evs_.pop_back ();
       SCM sym = n->get_property ("drum-type");
       SCM defn = SCM_EOL;
 

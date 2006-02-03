@@ -12,7 +12,7 @@
 #include "moment.hh"
 #include "translator.hh"
 
-#include "parray.hh"
+#include "std-vector.hh"
 
 class Timing_translator : public Translator
 {
