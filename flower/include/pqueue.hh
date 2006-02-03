@@ -34,7 +34,7 @@ int compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
 template<class T>
 class PQueue
 {
-  Array<T> heap_array_;
+  std::vector<T> heap_array_;
   T &elt (vsize i)
   {
     return heap_array_[i - 1];

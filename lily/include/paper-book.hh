@@ -8,7 +8,7 @@
 #ifndef PAPER_BOOK_HH
 #define PAPER_BOOK_HH
 
-#include "parray.hh"
+#include "std-vector.hh"
 #include "protected-scm.hh"
 #include "smobs.hh"
 

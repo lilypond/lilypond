@@ -1,9 +1,10 @@
+
+
 #if !STD_VECTOR
 #define Array flower_vector
 #endif
+#define HAVE_BOOST_LAMBDA 1
 #include "std-vector.hh"
-
-#include "parray.hh"
 
 #include <iostream>
 
@@ -16,6 +17,8 @@ using boost::unit_test::test_suite;
 #define vector flower_vector
 #endif
 
+using namespace std;
+
 template<typename T>
 void
 print (vector<T> v)
@@ -25,6 +28,7 @@ print (vector<T> v)
   cout << endl;
 }
 
+#if !STD_VECTOR
 template<typename T>
 void
 print (Link_array<T> v)
@@ -33,7 +37,7 @@ print (Link_array<T> v)
     cout << "v[" << i << "] = " << *v[i] << endl;
   cout << endl;
 }
-
+#endif
 
 BOOST_AUTO_UNIT_TEST (vector_erase)
 {
@@ -114,7 +118,7 @@ BOOST_AUTO_UNIT_TEST (vector_insert)
 
 BOOST_AUTO_UNIT_TEST (parray_concat)
 {
-#if 1
+#if !STD_VECTOR
   Link_array<int> u, v;
 #else
   vector<int*> u, v;
@@ -125,14 +129,14 @@ BOOST_AUTO_UNIT_TEST (parray_concat)
   u.push_back (&a[2]);
   v.push_back (&a[3]);
   v.push_back (&a[4]);
-  u.concat (v);
+  concat (u, v);
   BOOST_CHECK_EQUAL (u[0], &a[0]);
   BOOST_CHECK_EQUAL (u[1], &a[1]);
   BOOST_CHECK_EQUAL (u[2], &a[2]);
   BOOST_CHECK_EQUAL (u[3], &a[3]);
   BOOST_CHECK_EQUAL (u[4], &a[4]);
   BOOST_CHECK_EQUAL (u.size (), vsize (5));
-  u.concat (v);
+  concat (u, v);
   BOOST_CHECK_EQUAL (u.size (), vsize (7));
 
   u.clear ();
@@ -142,13 +146,34 @@ BOOST_AUTO_UNIT_TEST (parray_concat)
   v.push_back (&a[2]);
   v.push_back (&a[3]);
   v.push_back (&a[4]);
-  u.concat (v);
+  concat (u, v);
   BOOST_CHECK_EQUAL (u[0], &a[0]);
   BOOST_CHECK_EQUAL (u[1], &a[1]);
   BOOST_CHECK_EQUAL (u[2], &a[2]);
   BOOST_CHECK_EQUAL (u[3], &a[3]);
   BOOST_CHECK_EQUAL (u[4], &a[4]);
   BOOST_CHECK_EQUAL (u.size (), vsize (5));
+}
+
+BOOST_AUTO_UNIT_TEST (parray_uniq)
+{
+  vector<int> v;
+  v.push_back (0);
+  v.push_back (1);
+  v.push_back (0);
+  vector_sort (v, default_compare);
+  uniq (v);
+  BOOST_CHECK_EQUAL (v.size (), vsize (2));
+}
+
+BOOST_AUTO_UNIT_TEST (vector_search)
+{
+  vector<int> v;
+  v.push_back (0);
+  v.push_back (1);
+  v.push_back (2);
+  vsize i = binary_search (v, 1, &default_compare);
+  BOOST_CHECK_EQUAL (i, vsize (1));
 }
 
 test_suite*
@@ -160,5 +185,7 @@ init_unit_test_suite (int, char**)
   test->add (BOOST_TEST_CASE (vector_sorting));
   test->add (BOOST_TEST_CASE (vector_insert));
   test->add (BOOST_TEST_CASE (parray_concat));
+  test->add (BOOST_TEST_CASE (parray_uniq));
+  test->add (BOOST_TEST_CASE (vector_search));
   return test;
 }

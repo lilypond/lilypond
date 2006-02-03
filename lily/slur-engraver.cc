@@ -26,8 +26,8 @@ class Slur_engraver : public Engraver
 {
   Drul_array<Music *> events_;
   Music *running_slur_start_;
-  Link_array<Grob> slurs_;
-  Link_array<Grob> end_slurs_;
+  Link_array__Grob_ slurs_;
+  Link_array__Grob_ end_slurs_;
 
   void set_melisma (bool);
 

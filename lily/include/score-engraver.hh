@@ -17,7 +17,7 @@ class Score_engraver : public virtual Score_translator,
 {
   System *system_;
 
-  Link_array<Grob> elems_;
+  Link_array__Grob_ elems_;
   Paper_score *pscore_;
 
   void typeset_all ();

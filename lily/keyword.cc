@@ -30,6 +30,5 @@ Keyword_table::lookup (char const *s) const
   vsize idx = binary_search (table_, e, tabcmp);
   if (idx != VPOS)
     return table_[idx].tokcode_;
-  else
-    return VPOS;
+  return VPOS;
 }

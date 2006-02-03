@@ -3,12 +3,12 @@
 
   Distributed under GNU GPL
 */
-#ifndef ARRAY_H
-#define ARRAY_H
-
 #ifndef STD_VECTOR_HH
 #error array.hh is obsolete, use std-vector.hh
 #endif
+
+#ifndef ARRAY_H
+#define ARRAY_H
 
 #include <cassert>
 using namespace std;
@@ -273,10 +273,6 @@ public:
     return Tarray;
   }
 
-  T const *accesses () const
-  {
-    return array_;
-  }
   void operator = (Array const &src)
   {
     resize (src.size_);
@@ -327,6 +323,35 @@ public:
     vsize h = v.size () / 2;
     for (vsize i = 0, j = v.size () - 1; i < h; i++, j--)
       swap (v[i], v[j]);
+  }
+
+  template<typename T>
+  void
+  concat (Array<T> &v, Array<T> const& w)
+  {
+    v.insert (v.end (), w.begin (), w.end ());
+  }
+
+  template<typename T>
+  void
+  vector_sort (Array<T> &v, int (*compare) (T const &, T const &),
+	       vsize lower=-1, vsize upper=-1)
+  {
+    if (lower < 0)
+      {
+	lower = 0;
+	upper = v.size () - 1;
+      }
+    if (lower >= upper)
+      return;
+    swap (v[lower], v[(lower + upper) / 2]);
+    vsize last = lower;
+    for (vsize i = lower +1; i <= upper; i++)
+      if (compare (v.array_[i], v.array_[lower]) < 0)
+	swap (v[++last], v[i]);
+    swap (v[lower], v[last]);
+    vector_sort (v, compare, lower, last - 1);
+    vector_sort (v, compare, last + 1, upper);
   }
 
 #include "array.icc"

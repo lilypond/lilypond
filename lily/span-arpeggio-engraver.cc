@@ -30,7 +30,7 @@ protected:
 
 private:
   Item *span_arpeggio_;
-  Link_array<Grob> arpeggios_;
+  Link_array__Grob_ arpeggios_;
 };
 
 Span_arpeggio_engraver::Span_arpeggio_engraver ()

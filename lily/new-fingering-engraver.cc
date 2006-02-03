@@ -47,7 +47,7 @@ class New_fingering_engraver : public Engraver
   std::vector<Finger_tuple> articulations_;
   std::vector<Finger_tuple> string_numbers_;
 
-  Link_array<Grob> heads_;
+  Link_array__Grob_ heads_;
   Grob *stem_;
 
 public:

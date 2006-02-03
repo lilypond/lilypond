@@ -86,7 +86,7 @@ Paper_score::process ()
      down the road.
 
      doubly, also done in Score_engraver */
-  Link_array<Grob> pc (system_->columns ());
+  Link_array__Grob_ pc (system_->columns ());
   pc[0]->set_property ("breakable", SCM_BOOL_T);
   pc.back ()->set_property ("breakable", SCM_BOOL_T);
 

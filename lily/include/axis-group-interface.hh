@@ -19,13 +19,13 @@ struct Axis_group_interface
   static SCM generic_group_extent (Grob *me, Axis a);
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (height, (SCM smob));
-  static Interval relative_group_extent (Link_array<Grob> const &list,
+  static Interval relative_group_extent (Link_array__Grob_ const &list,
 					 Grob *common, Axis);
 
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);
-  static void get_children (Grob *, Link_array<Grob> *);
+  static void get_children (Grob *, Link_array__Grob_ *);
   static bool has_interface (Grob *);
 };
 

@@ -19,7 +19,7 @@ class Laissez_vibrer_engraver : public Engraver
 
   Music *event_;
   Grob *lv_column_;
-  Link_array<Grob> lv_ties_;
+  Link_array__Grob_ lv_ties_;
   
   void stop_translation_timestep (); 
   DECLARE_ACKNOWLEDGER (note_head);

@@ -635,7 +635,7 @@ std::vector<Offset>
 Slur_score_state::generate_avoid_offsets () const
 {
   std::vector<Offset> avoid;
-  Link_array<Grob> encompasses = columns_;
+  Link_array__Grob_ encompasses = columns_;
 
   for (vsize i = 0; i < encompasses.size (); i++)
     {
@@ -689,10 +689,10 @@ Slur_score_state::generate_curves () const
     configurations_[i]->generate_curve (*this, r_0, h_inf, avoid);
 }
 
-Link_array<Slur_configuration>
+Link_array__Slur_configuration_
 Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 {
-  Link_array<Slur_configuration> scores;
+  Link_array__Slur_configuration_ scores;
 
   Drul_array<Offset> os;
   os[LEFT] = base_attachments_[LEFT];

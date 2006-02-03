@@ -17,7 +17,7 @@ class Dot_column_engraver : public Engraver
 {
   Grob *dotcol_;
   Grob *stem_;
-  Link_array<Item> heads_;
+  Link_array__Item_ heads_;
 public:
   TRANSLATOR_DECLARATIONS (Dot_column_engraver);
 

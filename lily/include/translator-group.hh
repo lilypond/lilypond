@@ -10,7 +10,7 @@
 #define TRANSLATOR_GROUP_HH
 
 #include "translator.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 
 typedef void (Translator:: *Translator_method) (void);
 typedef void (Translator_group:: *Translator_group_method) (void);

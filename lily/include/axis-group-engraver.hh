@@ -19,7 +19,7 @@ class Axis_group_engraver : public Engraver
 {
 protected:
   Spanner *staffline_;
-  Link_array<Grob> elts_;
+  Link_array__Grob_ elts_;
   void process_music ();
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER (grob);

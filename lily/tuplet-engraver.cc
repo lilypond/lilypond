@@ -41,7 +41,7 @@ public:
 
 protected:
   std::vector<Tuplet_description> tuplets_;
-  Link_array<Spanner> last_tuplets_;
+  Link_array__Spanner_ last_tuplets_;
   DECLARE_ACKNOWLEDGER (note_column);
   virtual bool try_music (Music *r);
   virtual void finalize ();

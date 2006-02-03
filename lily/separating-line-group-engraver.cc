@@ -24,7 +24,7 @@
 struct Spacings
 {
   Item *staff_spacing_;
-  Link_array<Item> note_spacings_;
+  Link_array__Item_ note_spacings_;
 
   Spacings ()
   {

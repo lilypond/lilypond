@@ -10,7 +10,7 @@
 #include "stem.hh"
 #include "note-head.hh"
 #include "tie.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "spanner.hh"
 #include "item.hh"
 #include "staff-symbol-referencer.hh"

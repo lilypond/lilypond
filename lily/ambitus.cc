@@ -30,7 +30,9 @@ Ambitus::print (SCM smob)
       && heads.size () > 1)
     {
       Grob *common
-	= common_refpoint_of_array (heads.slice (0, 2), me, Y_AXIS);
+	= common_refpoint_of_array (Link_array__Grob_ (heads.begin (),
+						       heads.begin () + 2),
+				    me, Y_AXIS);
 
       Grob *minh = heads[0];
       Grob *maxh = heads[1];

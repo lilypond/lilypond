@@ -92,8 +92,8 @@ Rest_collision::calc_positioning_done (SCM smob)
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "elements", elts);
 
-  Link_array<Grob> rests;
-  Link_array<Grob> notes;
+  Link_array__Grob_ rests;
+  Link_array__Grob_ notes;
 
   for (vsize i = 0; i < elts.size (); i++)
     {
@@ -137,7 +137,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 	This is incomplete: in case of an uneven number of rests, the
 	center one should be centered on the staff.
       */
-      Drul_array<Link_array<Grob> > ordered_rests;
+      Drul_array<Link_array__Grob_ > ordered_rests;
       for (vsize i = 0; i < rests.size (); i++)
 	{
 	  Grob *r = Note_column::get_rest (rests[i]);
@@ -151,7 +151,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 
       Direction d = LEFT;
       do
-	ordered_rests[d].sort (Note_column::shift_compare);
+	vector_sort (ordered_rests[d], Note_column::shift_compare);
       while (flip (&d) != LEFT)
 	;
 

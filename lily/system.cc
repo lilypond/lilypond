@@ -106,7 +106,7 @@ System::derived_mark () const
 }
 
 static void
-fixup_refpoints (Link_array<Grob> const &grobs)
+fixup_refpoints (Link_array__Grob_ const &grobs)
 {
   for (vsize i = grobs.size (); i--;)
     grobs[i]->fixup_refpoint ();
@@ -207,7 +207,7 @@ System::break_into_pieces (std::vector<Column_x_positions> const &breaking)
       System *system = dynamic_cast<System *> (clone (i));
       system->rank_ = i;
 
-      Link_array<Grob> c (breaking[i].cols_);
+      Link_array__Grob_ c (breaking[i].cols_);
       pscore_->typeset_system (system);
 
       system->set_bound (LEFT, c[0]);
@@ -317,9 +317,9 @@ System::post_processing ()
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
 
-  Link_array<Grob> all_elts_sorted (all_elements_->array ());
-  all_elts_sorted.default_sort ();
-  all_elts_sorted.uniq ();
+  Link_array__Grob_ all_elts_sorted (all_elements_->array ());
+  vector_sort (all_elts_sorted, default_compare);
+  uniq (all_elts_sorted);
   this->get_stencil ();
   for (vsize i = all_elts_sorted.size (); i--;)
     {
@@ -399,10 +399,10 @@ System::get_paper_system ()
   return pl->unprotect ();
 }
 
-Link_array<Item>
+Link_array__Item_
 System::broken_col_range (Item const *left, Item const *right) const
 {
-  Link_array<Item> ret;
+  Link_array__Item_ ret;
 
   left = left->get_column ();
   right = right->get_column ();
@@ -430,7 +430,7 @@ System::broken_col_range (Item const *left, Item const *right) const
 
 /** Return all columns, but filter out any unused columns , since they might
     disrupt the spacing problem. */
-Link_array<Grob>
+Link_array__Grob_
 System::columns () const
 {
   extract_grob_set (this, "columns", ro_columns);
@@ -443,7 +443,7 @@ System::columns () const
 	break;
     }
 
-  Link_array<Grob> columns;
+  Link_array__Grob_ columns;
   for (int i = 0; i <= last_breakable; i++)
     {
       if (Paper_column::is_used (ro_columns[i]))

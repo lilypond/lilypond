@@ -45,7 +45,7 @@ Break_align_interface::self_align_callback (SCM smob)
 
   So we return the correct order as an array.
 */
-Link_array<Grob>
+Link_array__Grob_
 Break_align_interface::ordered_elements (Grob *grob)
 {
   Item *me = dynamic_cast<Item *> (grob);
@@ -56,14 +56,14 @@ Break_align_interface::ordered_elements (Grob *grob)
       || scm_c_vector_length (order_vec) < 3)
     return elts;
 
-  Link_array<Grob> writable_elts (elts);
+  Link_array__Grob_ writable_elts (elts);
   SCM order = scm_vector_ref (order_vec,
 			      scm_from_int (me->break_status_dir () + 1));
 
   /*
     Copy in order specified in BREAK-ALIGN-ORDER.
   */
-  Link_array<Grob> new_elts;
+  Link_array__Grob_ new_elts;
   for (; scm_is_pair (order); order = scm_cdr (order))
     {
       SCM sym = scm_car (order);
@@ -95,7 +95,7 @@ Break_align_interface::calc_positioning_done (SCM smob)
   Grob *grob = unsmob_grob (smob);  
   Item *me = dynamic_cast<Item *> (grob);
 
-  Link_array<Grob> elems = ordered_elements (me);
+  Link_array__Grob_ elems = ordered_elements (me);
   std::vector<Interval> extents;
 
   int last_nonempty = -1;

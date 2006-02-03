@@ -63,12 +63,12 @@ struct Figured_bass_engraver : public Engraver
   void add_brackets ();
   void create_grobs ();
 
-  void center_continuations (Link_array<Spanner> const &consecutive_lines);
+  void center_continuations (Link_array__Spanner_ const &consecutive_lines);
   void center_repeated_continuations ();
 protected:
   std::vector<Figure_group> groups_;
   Spanner *alignment_;
-  Link_array<Music> new_musics_;
+  Link_array__Music_ new_musics_;
   bool continuation_;
   bool new_music_found_;
   
@@ -165,11 +165,11 @@ Figured_bass_engraver::try_music (Music *m)
 }
 
 void
-Figured_bass_engraver::center_continuations (Link_array<Spanner> const &consecutive_lines)
+Figured_bass_engraver::center_continuations (Link_array__Spanner_ const &consecutive_lines)
 {
   if (consecutive_lines.size () == 2)
     {
-      Link_array<Grob> left_figs;
+      Link_array__Grob_ left_figs;
       for (vsize j = consecutive_lines.size(); j--;)
 	left_figs.push_back (consecutive_lines[j]->get_bound (LEFT));
 
@@ -185,7 +185,7 @@ Figured_bass_engraver::center_continuations (Link_array<Spanner> const &consecut
 void
 Figured_bass_engraver::center_repeated_continuations ()
 {  
-  Link_array<Spanner> consecutive_lines;
+  Link_array__Spanner_ consecutive_lines;
   for (vsize i = 0; i <= groups_.size(); i++)
     {
       if (i < groups_.size ()
@@ -220,7 +220,7 @@ Figured_bass_engraver::clear_spanners ()
 void
 Figured_bass_engraver::add_brackets ()
 {
-  Link_array<Grob> encompass;
+  Link_array__Grob_ encompass;
   bool inside = false;
   for (vsize i = 0; i < groups_.size (); i ++)
     {
@@ -349,7 +349,7 @@ Figured_bass_engraver::process_music ()
       /*
 	Ugh, repeated code.
        */
-      Link_array<Spanner> consecutive;
+      Link_array__Spanner_ consecutive;
       if (to_boolean (get_property ("figuredBassCenterContinuations")))
 	{
 	  for (vsize i = 0; i <= junk_continuations.size (); i++)

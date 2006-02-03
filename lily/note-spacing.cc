@@ -39,7 +39,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   Interval left_head_wid;
   do
     {
-      Link_array<Grob> const &items (ly_scm2link_array (props [d]));
+      Link_array__Grob_ const &items (ly_scm2link_array (props [d]));
       for (vsize i = items.size (); i--;)
 	{
 	  Item *it = dynamic_cast<Item *> (items[i]);
@@ -223,7 +223,7 @@ Note_spacing::right_column (Grob *me)
 
   if (prune && a)
     {
-      Link_array<Grob> &right = a->array_reference ();
+      Link_array__Grob_ &right = a->array_reference ();
       for (vsize i = right.size (); i--;)
 	{
 	  if (dynamic_cast<Item *> (right[i])->get_column () != mincol)
@@ -269,7 +269,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 
   do
     {
-      Link_array<Grob> const &items (ly_scm2link_array (props [d]));
+      Link_array__Grob_ const &items (ly_scm2link_array (props [d]));
       for (vsize i = 0; i < items.size (); i++)
 	{
 	  Item *it = dynamic_cast<Item *> (items[i]);

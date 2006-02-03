@@ -41,8 +41,8 @@ public:
   void break_into_pieces (std::vector<Column_x_positions> const &);
   static bool has_interface (Grob *);
 
-  Link_array<Item> broken_col_range (Item const *, Item const *) const;
-  Link_array<Grob> columns () const;
+  Link_array__Item_ broken_col_range (Item const *, Item const *) const;
+  Link_array__Grob_ columns () const;
 
   void add_column (Paper_column *);
   void typeset_grob (Grob *);

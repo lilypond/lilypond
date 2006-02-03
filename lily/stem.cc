@@ -367,12 +367,12 @@ Stem::calc_positioning_done (SCM smob)
     return SCM_BOOL_T;
 
   extract_grob_set (me, "note-heads", ro_heads);
-  Link_array<Grob> heads (ro_heads);
-  heads.sort (compare_position);
+  Link_array__Grob_ heads (ro_heads);
+  vector_sort (heads, compare_position);
   Direction dir = get_grob_direction (me);
 
   if (dir < 0)
-    heads.reverse ();
+    reverse (heads);
 
   Real thick = thickness (me);
 

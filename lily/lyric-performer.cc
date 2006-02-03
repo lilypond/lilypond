@@ -21,7 +21,7 @@ protected:
    void process_music ();
 
 private:
-  Link_array<Music> events_;
+  Link_array__Music_ events_;
   Audio_text *audio_;
 };
 

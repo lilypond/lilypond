@@ -7,7 +7,7 @@
 #ifndef PERFORMANCE_HH
 #define PERFORMANCE_HH
 
-#include "parray.hh"
+#include "std-vector.hh"
 #include "cons.hh"
 #include "music-output.hh"
 
@@ -27,7 +27,7 @@ public:
   void print () const;
   void write_output (std::string filename);
 
-  Link_array<Audio_staff> audio_staffs_;
+  Link_array__Audio_staff_ audio_staffs_;
   Cons<Audio_element> *audio_element_list_;
   Output_def *midi_;
 };

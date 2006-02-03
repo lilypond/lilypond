@@ -14,7 +14,7 @@
 #include "tie-configuration.hh"
 
 void set_chord_outline (std::vector<Skyline_entry> *skyline,
-			Link_array<Item> bounds,
+			Link_array__Item_ bounds,
 			Grob *common,
 			Direction d);
 void set_tie_config_directions (Ties_configuration *tie_configs_ptr);
@@ -26,7 +26,7 @@ void final_shape_adjustment (Tie_configuration &conf,
 			     Grob *staff_referencer);
 void
 set_chord_outlines (Drul_array< std::vector<Skyline_entry> > *skyline_drul,
-		    Link_array<Grob> ties,
+		    Link_array__Grob_ ties,
 		    Grob *common);
 
 void

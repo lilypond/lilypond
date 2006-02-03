@@ -16,7 +16,7 @@
 
 void
 Separating_group_spanner::find_rods (Item *r,
-				     Link_array<Grob> const &separators,
+				     Link_array__Grob_ const &separators,
 				     vsize idx,
 				     Real padding)
 {

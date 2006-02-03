@@ -37,7 +37,7 @@ public:
 private:
   Item *create_custos ();
   bool custos_permitted_;
-  Link_array<Grob> custodes_;
+  Link_array__Grob_ custodes_;
   std::vector<Pitch> pitches_;
 };
 

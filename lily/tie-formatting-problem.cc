@@ -59,7 +59,7 @@ Tie_formatting_problem::~Tie_formatting_problem ()
 }
 
 void
-Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
+Tie_formatting_problem::set_chord_outline (Link_array__Item_ bounds,
 					   Direction d)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (bounds[0]);
@@ -163,7 +163,7 @@ Tie_formatting_problem::set_chord_outline (Link_array<Item> bounds,
 void
 Tie_formatting_problem::from_tie (Grob *tie)
 {
-  Link_array<Grob> ties;
+  Link_array__Grob_ ties;
   ties.push_back (tie);
   from_ties (ties);
 
@@ -177,7 +177,7 @@ Tie_formatting_problem::common_x_refpoint () const
 }
 
 void
-Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
+Tie_formatting_problem::from_ties (Link_array__Grob_ const &ties)
 {
   if (ties.empty ())
     return;
@@ -194,7 +194,7 @@ Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
   Direction d = LEFT;
   do
     {
-      Link_array<Item> bounds;
+      Link_array__Item_ bounds;
       
       for (vsize i = 0; i < ties.size (); i++)
 	{
@@ -231,13 +231,13 @@ Tie_formatting_problem::from_ties (Link_array<Grob> const &ties)
 }
 
 void
-Tie_formatting_problem::from_lv_ties (Link_array<Grob> const &lv_ties)
+Tie_formatting_problem::from_lv_ties (Link_array__Grob_ const &lv_ties)
 {
   if (lv_ties.empty ())
     return;
   
   details_.from_grob (lv_ties[0]);
-  Link_array<Item> heads;
+  Link_array__Item_ heads;
   
   for (vsize i = 0; i < lv_ties.size (); i++)
     {
@@ -477,7 +477,7 @@ Tie_formatting_problem::score_configuration (Tie_configuration const &conf) cons
 Tie_configuration
 Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const &spec) const
 {
-  Link_array<Tie_configuration> confs;
+  Link_array__Tie_configuration_ confs;
 
   int pos = spec.position_;
   Direction dir = spec.manual_dir_;

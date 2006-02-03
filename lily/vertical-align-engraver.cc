@@ -117,9 +117,10 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       if (before_grob || after_grob)
 	{
 	  Grob_array *ga = unsmob_grob_array (valign_->get_object ("elements"));
-	  Link_array<Grob> &arr = ga->array_reference ();
+	  Link_array__Grob_ &arr = ga->array_reference ();
 
-	  Grob *added = arr.pop ();
+	  Grob *added = arr.back ();
+	  arr.pop_back ();
 	  for (vsize i = 0; i < arr.size (); i++)
 	    {
 	      if (arr[i] == before_grob)

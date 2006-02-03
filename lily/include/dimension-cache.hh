@@ -10,7 +10,7 @@
 #define DIMENSION_CACHE_HH
 
 #include "lily-proto.hh"
-#include "parray.hh"
+#include "std-vector.hh"
 #include "dimension-cache-callback.hh"
 #include "lily-guile.hh"
 

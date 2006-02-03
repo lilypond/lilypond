@@ -19,8 +19,8 @@ class Horizontal_bracket_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);
-  Link_array<Spanner> bracket_stack_;
-  Link_array<Music> events_;
+  Link_array__Spanner_ bracket_stack_;
+  Link_array__Music_ events_;
   int pop_count_;
   int push_count_;
 
@@ -106,10 +106,8 @@ void
 Horizontal_bracket_engraver::stop_translation_timestep ()
 {
   for (int i = pop_count_; i--;)
-    {
-      if (bracket_stack_.size ())
-	bracket_stack_.pop ();
-    }
+    if (bracket_stack_.size ())
+      bracket_stack_.pop_back ();
   pop_count_ = 0;
   push_count_ = 0;
 }

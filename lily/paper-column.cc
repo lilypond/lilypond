@@ -157,7 +157,7 @@ Paper_column::before_line_breaking (SCM grob)
   if (!ga)
     return SCM_UNSPECIFIED;
 
-  Link_array<Grob> &array (ga->array_reference ());
+  Link_array__Grob_ &array (ga->array_reference ());
 
   for (vsize i = array.size (); i--;)
     {

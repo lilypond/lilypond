@@ -18,10 +18,10 @@ using namespace std;
 
 class Drum_notes_engraver : public Engraver
 {
-  Link_array<Item> notes_;
-  Link_array<Item> dots_;
-  Link_array<Item> scripts_;
-  Link_array<Music> events_;
+  Link_array__Item_ notes_;
+  Link_array__Item_ dots_;
+  Link_array__Item_ scripts_;
+  Link_array__Music_ events_;
 
 public:
   TRANSLATOR_DECLARATIONS (Drum_notes_engraver);

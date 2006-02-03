@@ -124,7 +124,7 @@ Context::create_unique_context (SCM n, SCM operations)
   /*
     TODO: use accepts_list_.
   */
-  Link_array<Context_def> path
+  Link_array__Context_def_ path
     = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
 
   if (path.size ())
@@ -182,7 +182,7 @@ Context::find_create_context (SCM n, std::string id, SCM operations)
   /*
     TODO: use accepts_list_.
   */
-  Link_array<Context_def> path
+  Link_array__Context_def_ path
     = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
 
   if (path.size ())

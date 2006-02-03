@@ -72,7 +72,7 @@ flatten_number_pair_property (Grob *me,
 
 
 Grob *
-Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array<Grob> const &cols, bool *equally_long)
+Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array__Grob_ const &cols, bool *equally_long)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
 

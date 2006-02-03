@@ -38,7 +38,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       Item *left = 0;
       Item *right = 0;
 
-      Link_array<Item> clique;
+      Link_array__Item_ clique;
       while (1)
 	{
 	  SCM between = loose->get_object ("between-cols");

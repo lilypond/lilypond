@@ -204,7 +204,7 @@ SCM
 Dot_column::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);  
-  Link_array<Grob> dots
+  Link_array__Grob_ dots
     = extract_grob_array (me, "dots");
 
   { /*
@@ -227,7 +227,7 @@ Dot_column::calc_positioning_done (SCM smob)
       }
   }
 
-  dots.sort (compare_position);
+  vector_sort (dots, &compare_position);
   for (vsize i = dots.size (); i--;)
     if (!dots[i]->is_live ())
       dots.erase (dots.begin () + i);

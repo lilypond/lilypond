@@ -79,7 +79,7 @@ private:
     occurs simultaneously then extra space can be added between them.
   */
 
-  Link_array<Spanner> previous_;
+  Link_array__Spanner_ previous_;
   void del_linespanner (Spanner *);
 
   void create_text_grobs (Pedal_info *p, bool);
@@ -438,8 +438,8 @@ Piano_pedal_engraver::finalize ()
 void
 Piano_pedal_engraver::del_linespanner (Spanner *g)
 {
-  int idx = previous_.find_index (g);
-  if (idx >= 0)
+  vsize idx = find (previous_, g) - previous_.begin ();
+  if (idx != VPOS && idx < previous_.size ())
     previous_.erase (previous_.begin () + idx);
 }
 

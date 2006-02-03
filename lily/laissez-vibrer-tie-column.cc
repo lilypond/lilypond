@@ -42,9 +42,9 @@ Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
   Grob *me = unsmob_grob (smob);
   
   extract_grob_set (me, "ties", lv_ro_ties);
-  Link_array<Grob> lv_ties (lv_ro_ties);
+  Link_array__Grob_ lv_ties (lv_ro_ties);
 
-  lv_ties.sort (&Laissez_vibrer_tie::compare);
+  vector_sort (lv_ties, &Laissez_vibrer_tie::compare);
 
   Ties_configuration ties_config;
   
