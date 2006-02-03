@@ -179,6 +179,16 @@ BOOST_AUTO_UNIT_TEST (vector_search)
 test_suite*
 init_unit_test_suite (int, char**)
 {
+  vsize i = 0;
+  vsize j = 0;
+  vector<int> v;
+  binary_search_bounds (v, 1, &default_compare, &i, &j);
+  //binary_search_bounds (v, 1, &default_compare, 0, 0);
+  
+  //Link_array<char> w;
+  vector<char*> w;
+  binary_search_bounds (w, (char*)1, &default_compare, &i, &j);
+  
   test_suite *test = BOOST_TEST_SUITE("std::Flower");
   test->add (BOOST_TEST_CASE (vector_erase));
   test->add (BOOST_TEST_CASE (vector_slice));
