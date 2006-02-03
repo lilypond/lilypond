@@ -1,3 +1,16 @@
+2006-02-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* flower/include/std-vector.hh[STD_VECTOR]: Do not include
+	array.hh, parray.hh at all.  Getting ready to flip the
+	configure default.
+
+	* lily/include/lily-proto.hh (Link_array__char_): Bugfix.
+
+	* lily/source-file.cc (file::get_line): Help binary_search_bounds
+	a bit.
+
+	* lily/include/lily-proto.hh (Link_array__char_): Bugfix.
+
 2006-02-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* flower/include/array.hh: typo. 

@@ -180,11 +180,7 @@ typedef void (*Translator_void_method_ptr) (Translator *);
 
 /* FIXME: when Link_array is dropped, do grand s/r to vector<TYPE*>.  */
 #if STD_VECTOR
-
-// FIXME: does not work with sourc-file.cc
-// #define Link_array__char_ std::vector<char*>
-
-#define Link_array__char_ Link_array<char>
+#define Link_array__char_ std::vector<char*>
 #define Link_array__Grob_ std::vector<Grob*>
 #define Link_array__Accidental_placement_entry_ std::vector<Accidental_placement_entry*>
 #define Link_array__Audio_item_ std::vector<Audio_item*>

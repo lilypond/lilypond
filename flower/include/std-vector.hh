@@ -125,31 +125,6 @@ namespace std {
     while (*hi - *lo > 1);
   }
 
-  template<class T>
-  void
-  binary_search_bounds (vector<T> const &table,
-			T const *key, int (*compare) (T *const &, T *const &),
-			int *lo,
-			int *hi)
-  {
-    int cmp;
-    int result;
-
-    /* binary search */
-    do
-      {
-	cmp = (*lo + *hi) / 2;
-
-	result = (*compare) ((T *) key, table[cmp]);
-
-	if (result < 0)
-	  *hi = cmp;
-	else
-	  *lo = cmp;
-      }
-    while (*hi - *lo > 1);
-  }
-  
 #if 0
   template<typename T>
   vsize
@@ -310,10 +285,10 @@ namespace std {
 
 }
 
-#endif /* STD_VECTOR */
-
 #include "array.hh"
 #include "parray.hh"
+
+#endif /* !STD_VECTOR */
 
 using namespace std;
 
