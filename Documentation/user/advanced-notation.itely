@@ -202,12 +202,14 @@ Program reference: @internalsref{RehearsalMark}.
 @cindex typeset text
 
 Use @code{\markup} to typeset text.  Commands are entered with the
-backslash @code{\}.
+backslash @code{\}.  To enter @code{\} and @code{#}, use double
+quotation marks.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { hello }
 c1_\markup { hi there }
 c1^\markup { hi \bold there, is \italic anyone home? }
+c1_\markup { "\special #characters" }
 @end lilypond
 
 @noindent
