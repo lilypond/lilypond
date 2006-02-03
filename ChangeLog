@@ -1,3 +1,7 @@
+2006-02-02  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/advanced-notation.itely: doc "\#" in text.
+
 2006-02-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/include/pqueue.hh: Derive from std::vector.
