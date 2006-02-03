@@ -1,3 +1,7 @@
+2006-02-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* flower/include/array.hh: typo. 
+
 2006-02-02  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/advanced-notation.itely: doc "\#" in text.

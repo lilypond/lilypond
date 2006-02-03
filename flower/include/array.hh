@@ -305,7 +305,7 @@ public:
   boundary (Array<T> const &v, int dir, vsize i)
   {
     assert (dir);
-    return v[dir = -1 ? i : v.size () - 1 - i];
+    return v[dir == -1 ? i : v.size () - 1 - i];
   }
 
   template<typename T>
