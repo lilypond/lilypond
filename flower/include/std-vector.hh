@@ -41,7 +41,6 @@ int default_compare (T *const &a, T *const &b)
 
 #if !STD_VECTOR
 /* Also declare vector, in the wrong way.  */
-#include <algorithm>
 #include <iostream>
 #include <sstream>
 #endif
@@ -50,7 +49,45 @@ int default_compare (T *const &a, T *const &b)
 
 #if STD_VECTOR
 
+#include "config.hh"
+
+#if HAVE_STL_DATA_METHOD
 #include <vector>
+#else /* !HAVE_STL_DATA_METHOD */
+#define vector __vector
+#include <vector>
+#undef vector
+namespace std {
+  /* Interface without pointer arithmetic (iterator) semantics.  */
+  template<typename T>
+  class vector : public __vector<T>
+  {
+  public:
+    typedef typename __vector<T>::iterator iterator;
+    typedef typename __vector<T>::const_iterator const_iterator;
+    
+    vector<T> () : __vector<T> ()
+    {
+    }
+    
+    vector<T> (const_iterator b, const_iterator e) : __vector<T> (b, e)
+    {
+    }
+    
+    T*
+    data ()
+    {
+      return &(*this)[0];
+    }
+    
+    T const*
+    data () const
+    {
+      return &(*this)[0];
+    }
+  };
+}
+#endif /* !HAVE_STL_DATA_METHOD */
 
 namespace std {
 

@@ -43,6 +43,12 @@
 /* define if you have snprintf */
 #define HAVE_SNPRINTF 0
 
+/* define if you have lrint */
+#define HAVE_LRINT 0
+
+/* define if you have stl data () method */
+#define HAVE_STL_DATA_METHOD 0
+
 /* define if you have vsnprintf */
 #define HAVE_VSNPRINTF 0
 
