@@ -728,7 +728,7 @@ AC_DEFUN(STEPMAKE_INIT, [
                             do `make conf=CONF' to get output in ./out-CONF],
     [CONFIGURATION=$enableval])
 
-    ##'
+    ##'`#
 
     test -n "$CONFIGURATION" && CONFIGSUFFIX="-$CONFIGURATION"
     CONFIGFILE=config$CONFIGSUFFIX
@@ -1037,6 +1037,25 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
 ])
+
+AC_DEFUN(STEPMAKE_STL_DATA_METHOD, [
+    AC_LANG_PUSH(C++)
+    AC_CACHE_CHECK([for stl.data () method],
+	[stepmake_stl_data_method],
+	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+#include <vector>
+using namespace std;
+vector <int> v;
+(void) v.data ();
+]])],
+	    [stepmake_stl_data_method=yes],
+	    [stepmake_stl_data_method=no]))
+    if test $stepmake_stl_data_method = yes; then
+	AC_DEFINE(HAVE_STL_DATA_METHOD, 1, [define if stl classes have data () method])
+    fi
+    AC_LANG_POP(C++)
+])
+
 
 AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
     # ugh

@@ -1,3 +1,15 @@
+2006-02-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* .cvsignore: Add out*, out-www, config-*.  Remove lots of cruft.
+
+	* flower/include/std-vector.hh[!HAVE_STL_DATA_METHOD]: Workaround.
+
+	* config.hh.in (HAVE_STL_DATA_METHOD): Add.
+
+	* stepmake/aclocal.m4 (STEPMAKE_STL_DATA_METHOD): New function.
+
+	* configure.in: Use it.
+
 2006-02-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/music-functions.scm (pitch-of-note): new function.
