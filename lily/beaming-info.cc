@@ -77,8 +77,7 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
 
   do
     splits[d].beamify (beat_length, subdivide);
-  while (flip (&d) != LEFT)
-    ;
+  while (flip (&d) != LEFT);
 
   int middle_beams = (split ? 1
 		      : min (splits[RIGHT].beam_extend_count (LEFT),

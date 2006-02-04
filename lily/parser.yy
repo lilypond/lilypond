@@ -451,9 +451,6 @@ toplevel_expression:
 	lilypond_header {
 		THIS->lexer_->set_identifier (ly_symbol2scm ("$defaultheader"), $1);
 	}
-	| add_quote {
-	
-	}
 	| book_block {
 		Book *book = $1;
 		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-book-handler");
@@ -871,6 +868,7 @@ Alternative_music:
 Repeated_music:
 	REPEAT simple_string bare_unsigned Music Alternative_music
 	{
+		/*TODO: move to Scheme.*/
 		Music *beg = $4;
 		int times = $3;
 		SCM alts = scm_is_pair ($5) ? scm_car ($5) : SCM_EOL;
@@ -1064,9 +1062,9 @@ Prefix_composite_music:
 	}
 
 	| TIMES fraction Music 	
-
 	{
-		int n = scm_to_int (scm_car ($2)); int d = scm_to_int (scm_cdr ($2));
+		int n = scm_to_int (scm_car ($2));
+		int d = scm_to_int (scm_cdr ($2));
 		Music *mp = $3;
 
 		$$= MY_MAKE_MUSIC ("TimeScaledMusic");
@@ -1568,15 +1566,6 @@ music_function_chord_body:
 	;
 
 
-add_quote:
-	ADDQUOTE string Music {
-		SCM adder = ly_lily_module_constant ("add-quotable");
-		
-		scm_call_2 (adder, $2, $3->self_scm ());
-		$3->unprotect();
-	}
-	;
-
 command_element:
 	command_event {
 		$$ = MY_MAKE_MUSIC ("EventChord");
@@ -1591,12 +1580,6 @@ command_element:
 		skip->set_property ("duration", $2);
 		skip->set_spot (@$);
 		$$ = skip;
-	}
-	| OCTAVE pitch {
-		Music *m = MY_MAKE_MUSIC ("RelativeOctaveCheck");
-		$$ = m;
-		$$->set_spot (@$);
-		$$->set_property ("pitch", $2);
 	}
 	| E_BRACKET_OPEN {
 		Music *m = MY_MAKE_MUSIC ("LigatureEvent");

@@ -1,3 +1,12 @@
+2006-02-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/music-functions.scm (pitch-of-note): new function.
+
+	* ly/music-functions-init.ly: add \octave and \addquote
+
+	* lily/parser.yy (music_function_chord_body): softcode \octave.
+	(lilypond_header): softcode \addquote
+
 2006-02-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/include/std-vector.hh[STD_VECTOR]: Do not include

@@ -406,3 +406,20 @@ Example:
 spacingTweaks =
 #(def-music-function (parser location parameters) (list?)
    (make-music 'SequentialMusic 'void #t))
+
+octave =
+#(def-music-function (parser location pitch-note) (ly:music?)
+   "octave check"
+
+   (make-music 'RelativeOctaveCheck
+	       'origin location
+	       'pitch (pitch-of-note pitch-note) 
+	       ))
+
+addquote =
+#(def-music-function (parser location name music) (string? ly:music?)
+   "Add a piece of music to be quoted "
+   (add-quotable name music)
+   (make-music 'SequentialMusic 'void #t))
+
+   
