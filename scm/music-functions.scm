@@ -963,3 +963,14 @@ use GrandStaff as a context. "
 	   (ly:make-duration 0 0) '())))
     (ly:music-compress skip (ly:music-length mus))
     skip))
+
+(define-public (pitch-of-note event-chord)
+
+  (let*
+      ((evs (filter (lambda (x) (memq 'note-event (ly:music-property x 'types)))
+		    (ly:music-property event-chord 'elements))))
+
+    (if (pair? evs)
+	(ly:music-property (car evs) 'pitch)
+	#f)))
+       

@@ -26,7 +26,6 @@ static Keyword_ent the_key_tab[]
 = {
   {"accepts", ACCEPTS},
   {"addlyrics", ADDLYRICS},
-  {"addquote", ADDQUOTE},
   {"alias", ALIAS},
   {"alternative", ALTERNATIVE},
   {"book", BOOK},
@@ -57,7 +56,6 @@ static Keyword_ent the_key_tab[]
   {"new", NEWCONTEXT},
   {"notemode", NOTEMODE},
   {"objectid", OBJECTID},
-  {"octave", OCTAVE},
   {"once", ONCE},
   {"override", OVERRIDE},
   {"paper", PAPER},
