@@ -16,7 +16,7 @@ LILYPOND_WORDS_DEPENDS =\
 STEPMAKE_TEMPLATES=install-out
 
 # vimdir defined in config.make
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 local-install:
 	for a in compiler ftdetect ftplugin indent syntax; do \
@@ -30,7 +30,7 @@ local-uninstall:
 		-rmdir -p $(DESTDIR)$(vimdir)/$$a ; \
 	done
 
-$(LILYPOND_WORDS): 
+$(LILYPOND_WORDS):
 	cd $(top-src-dir) && $(PYTHON) buildscripts/lilypond-words.py --words --vim --dir=$(top-build-dir)/vim/$(outconfbase)
 
 all: $(LILYPOND_WORDS)

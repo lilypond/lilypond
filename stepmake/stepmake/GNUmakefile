@@ -14,7 +14,7 @@ STEPMAKE_TEMPLATES=makedir install www
 
 # bootstrap stepmake:
 #
--include $(depth)/make/stepmake.make 
+-include $(depth)/make/stepmake.make
 
 ifeq ($(PACKAGE),STEPMAKE)
 INSTALLATION_DIR=$(datadir)/stepmake

@@ -7,10 +7,10 @@ LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
 ## Hmm, would this work?  No -- if we really want examples, move
 ## to other dir (input/) comes to mind.
 ## examples = font20 ancient-font
-## LOCALSTEPMAKE_TEMPLATES += ly mutopia 
+## LOCALSTEPMAKE_TEMPLATES += ly mutopia
 
 EXTRA_DIST_FILES= README
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 TITLE=LilyPond Tips and Tricks

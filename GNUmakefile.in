@@ -30,7 +30,7 @@ INSTALLATION_FILES=$(config_make) VERSION
 # bootstrap stepmake:
 #
 STEPMAKE_TEMPLATES=toplevel po install
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 doc: 
 	$(MAKE) -C Documentation

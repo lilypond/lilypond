@@ -3,7 +3,7 @@ depth = ..
 STEPMAKE_TEMPLATES=script install po
 EXTRA_DIST_FILES=pfx2ttf.fontforge
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 # Should we install these? This should be handled by sysadmin or
 # packager but if she forgets...

@@ -7,7 +7,7 @@ ifeq ($(CYGWIN_BUILD)$(MINGW_BUILD),)
 else
 ifneq ($(CYGWIN_BUILD),)
   SHARED_LIB_PREFIX = cyg
-  SHARED_LIB_SUFFIX = 
+  SHARED_LIB_SUFFIX =
   SHARED_LIB_VERSION = $(subst .,-,$(VERSION))
   SHARED_LIB_VERSION_SUFFIX = .dll
 #  ALL_LDFLAGS += -Wl,--image-base=0x10000000 -Wl,--out-implib,lib$(NAME).a
@@ -15,7 +15,7 @@ ifneq ($(CYGWIN_BUILD),)
 endif
 ifneq ($(MINGW_BUILD),)
   SHARED_LIB_PREFIX = lib
-  SHARED_LIB_SUFFIX = 
+  SHARED_LIB_SUFFIX =
   SHARED_LIB_VERSION = $(subst .,-,$(VERSION))
   SHARED_LIB_VERSION_SUFFIX = .dll
 ##  ALL_LDFLAGS += -Wl,--image-base=0x10000000 -Wl,--out-implib,lib$(NAME).a

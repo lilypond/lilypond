@@ -1,6 +1,6 @@
 # Toplevel_version.make
 
-ifeq ($(configure-srcdir), .) 
+ifeq ($(configure-srcdir), .)
 include $(depth)/VERSION
 else
 include $(configure-srcdir)/VERSION

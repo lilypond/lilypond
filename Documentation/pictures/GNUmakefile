@@ -28,7 +28,7 @@ $(outdir)/%.png: %.xpm
 
 $(outdir)/%-48.png: %.xpm
 	convert -sample 48 -depth 24 $< $@
-		   
+		
 $(outdir)/%-32.png: %.xpm
 	convert -depth 24 -sample 32 $< $@
 

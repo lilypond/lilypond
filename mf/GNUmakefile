@@ -3,7 +3,7 @@ depth = ..
 STEPMAKE_TEMPLATES=metafont install install-out
 LOCALSTEPMAKE_TEMPLATES=lilypond
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 AF_FILES = $(call src-wildcard,*.af)
 
@@ -116,7 +116,7 @@ $(outdir)/$(PFA_PREFIX)emmentaler-23.otf $(outdir)/$(PFA_PREFIX)emmentaler-23.pf
 $(outdir)/$(PFA_PREFIX)emmentaler-26.otf $(outdir)/$(PFA_PREFIX)emmentaler-26.pfa: $(outdir)/feta26.pfa $(outdir)/feta-alphabet26.pfa $(outdir)/parmesan26.pfa
 
 
-$(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) 
+$(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<))
 	cat $< \
 		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
 		$(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
@@ -126,8 +126,8 @@ $(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa: $(outdir)/aybabtu.subf
 $(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa $(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfa)
 
 $(outdir)/aybabtu.fontname:
-	echo -n 'aybabtu' > $@ 
-$(outdir)/aybabtu.subfonts: 
+	echo -n 'aybabtu' > $@
+$(outdir)/aybabtu.subfonts:
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
 $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
@@ -145,16 +145,16 @@ install-fc-cache:
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa) $(PFA_OTF_FILES)
 
-# Make tfm files first, log files last, 
+# Make tfm files first, log files last,
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(NCSB_TTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) $(outdir)/fonts.cache-1 
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(NCSB_TTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) $(outdir)/fonts.cache-1
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 
+INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6
 
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
@@ -222,11 +222,11 @@ $(outdir)/$(redhat-package):
 	wget  --passive-ftp -P $(outdir) http://lilypond.org/download/binaries/Fedora-4/$(redhat-package)
 
 get-rpm-fonts: $(outdir)/$(redhat-package)
-	cd $(outdir) ; rm -rf usr/ # (root alert!) 
+	cd $(outdir) ; rm -rf usr/ # (root alert!)
 	cd $(outdir) ; rpm2cpio $(redhat-package) | cpio -uid '*.pfa' '*.svg'
 	cp `find $(outdir)/usr/ -name '*.pfa' -o -name '*.svg'` $(outdir)/
 
-# change this dependency 
+# change this dependency
 get-fonts: get-rpm-fonts
 get-pfa: get-rpm-fonts
 
@@ -240,7 +240,7 @@ fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.s
 
 
 local-clean:
-	rm -f mfplain.mem mfplain.log 
+	rm -f mfplain.mem mfplain.log
 	rm -f *.tfm *.log
 
 $(outdir)/%.enc.in: %.enc

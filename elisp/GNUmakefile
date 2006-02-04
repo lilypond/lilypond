@@ -10,7 +10,7 @@ INSTALLATION_OUT_FILES=$(outdir)/lilypond-words.el
 
 STEPMAKE_TEMPLATES=elisp install install-out
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 LILYPOND_WORDS = $(outdir)/lilypond-words.el
 LILYPOND_WORDS_DEPENDS =\
@@ -19,7 +19,7 @@ LILYPOND_WORDS_DEPENDS =\
   $(top-src-dir)/scm/markup.scm \
   $(top-src-dir)/ly/engraver-init.ly
 
-$(LILYPOND_WORDS): 
+$(LILYPOND_WORDS):
 	cd $(top-src-dir) && $(PYTHON) buildscripts/lilypond-words.py --el --dir=$(top-build-dir)/elisp/$(outconfbase)
 
 all: $(LILYPOND_WORDS)

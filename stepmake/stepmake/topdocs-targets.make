@@ -1,5 +1,5 @@
 
-default: local-doc 
+default: local-doc
 
 copy-to-top:  $(TO_TOP_FILES)
 	$(foreach i, $(TO_TOP_FILES), \

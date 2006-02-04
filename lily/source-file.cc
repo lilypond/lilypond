@@ -323,7 +323,7 @@ Source_file::get_line (char const *pos_str0) const
     return hi;
 
   binary_search_bounds (newline_locations_,
-			(char const*)pos_str0,
+			(char const*&)pos_str0,
 			default_compare,
 			&lo, &hi);
 

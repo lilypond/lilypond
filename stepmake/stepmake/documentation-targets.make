@@ -1,5 +1,5 @@
 # do we need this?
 default:
 
-local-WWW: $(OUTHTML_FILES) 
+local-WWW: $(OUTHTML_FILES)
 

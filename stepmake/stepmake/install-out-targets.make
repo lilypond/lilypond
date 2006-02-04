@@ -12,7 +12,7 @@ local-install-outfiles: $(INSTALLATION_OUT_FILES) $(foreach suff, $(INSTALLATION
 		($(INSTALLPY) -d $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/ || true) && \
 		$(INSTALLPY) -c -m 644 $(INSTALLATION_OUT_FILES$(suff)) $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/ && ) true
 
-local-uninstall: local-uninstall-outfiles local-uninstall-files 
+local-uninstall: local-uninstall-outfiles local-uninstall-files
 
 local-uninstall-files:
 

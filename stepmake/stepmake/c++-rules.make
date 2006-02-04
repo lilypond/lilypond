@@ -22,10 +22,10 @@ $(outdir)/%.hh: %.yy
 	-mv -f $(outdir)/$(*F).cc.h $@  # bison < 1.30
 	-mv $(*F).tab.hh $@
 	rm -f $(*F).tab.c $(*F).tab.cc # bison < 1.30
-	rm -f $(outdir)/$(*F).cc # avoid recompiling the .cc file 
+	rm -f $(outdir)/$(*F).cc # avoid recompiling the .cc file
 
 $(outdir)/%.cc: %.ll
-	$(FLEX) -Cfe -p -p -o$@ $< 
+	$(FLEX) -Cfe -p -p -o$@ $<
 
 $(outdir)/%-rc.o: $(outdir)/%.rc
 	$(WINDRES) $(WINDRES_FLAGS) -o$@ $<
