@@ -1,6 +1,6 @@
 # Don't remove $(outdir)/.log's.  Logs are a target!
 
-$(outdir)/%.0: %.mf $(outdir)/mfplain.mem  
+$(outdir)/%.0: %.mf $(outdir)/mfplain.mem
 	-$(METAPOST) "&$(outdir)/mfplain \mode=lowres; \mag=1.0; nonstopmode; input $<"
 
 $(outdir)/mfplain.mem: $(MFPLAIN_MP)

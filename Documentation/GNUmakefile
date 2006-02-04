@@ -8,7 +8,7 @@ LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-che
 README_TOP_FILES= DEDICATION THANKS ChangeLog
 EXTRA_DIST_FILES= texinfo.css
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 default: local-doc
 

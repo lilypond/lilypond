@@ -14,10 +14,10 @@ $(outdir)/%.pdf.omf: %.texi
 	$(call GENERATE_OMF,pdf)
 
 $(outdir)/%.ps.gz.omf: %.texi
-	$(call GENERATE_OMF,ps.gz) 
+	$(call GENERATE_OMF,ps.gz)
 
 # Generic rule not possible?
-$(outdir)/%/%.html: $(outdir)/%.texi 
+$(outdir)/%/%.html: $(outdir)/%.texi
 	$(MAKEINFO) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 
 

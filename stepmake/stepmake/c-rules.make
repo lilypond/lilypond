@@ -19,12 +19,12 @@ $(outdir)/%.c: %.y
 $(outdir)/%.h: %.y
 	$(BISON) -d $<
 	mv $(*F).tab.h $@
-	rm -f $(*F).tab.c # if this happens in the wrong order it triggers recompile of the .cc file 
+	rm -f $(*F).tab.c # if this happens in the wrong order it triggers recompile of the .cc file
 
 $(outdir)/%.c: %.l
 	$(FLEX) -Cfe -p -p -o$@ $<
 # could be faster:
-#	$(FLEX) -8 -Cf -o$@ $< 
+#	$(FLEX) -8 -Cf -o$@ $<
 
 $(outdir)/%.rc.o: $(outdir)/%.rc
 	$(WINDRES) $(WINDRES_FLAGS) -o$@ $<

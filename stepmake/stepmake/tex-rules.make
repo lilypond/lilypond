@@ -31,6 +31,6 @@ $(outdir)/%.pdf: $(outdir)/%.dvi
 
 
 # without -dSAFER
-# gs 8.15 complains of safety of loading a ttf directly 
+# gs 8.15 complains of safety of loading a ttf directly
 
 

@@ -9,7 +9,7 @@ OUT_DIST_FILES= $(strip $(OUTLSM_FILES) $(OUTSPEC_FILES))
 
 EXTRA_DIST_FILES += $(MAKE_FILES)
 
-# these two outdir FILES are distributed, since they make sense to have 
+# these two outdir FILES are distributed, since they make sense to have
 # without running configure and make.
 
 at-dir = $(doc-dir)/

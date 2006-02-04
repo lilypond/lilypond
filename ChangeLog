@@ -1,5 +1,10 @@
 2006-02-04  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Remove trailing whitespace from makefiles.
+	
+	* flower/include/std-vector.hh: Add binary_search_bounds workaround
+	for earlier gcc.
+
 	* .cvsignore: Add out*, out-www, config-*.  Remove lots of cruft.
 
 	* flower/include/std-vector.hh[!HAVE_STL_DATA_METHOD]: Workaround.

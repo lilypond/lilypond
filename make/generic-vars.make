@@ -1,11 +1,11 @@
 # title	   package specific variables
 # file	   make/Variables.make
 #
-# do not change this file for site-wide extensions; please use 
-# make/$(outdir)/Site.make; 
+# do not change this file for site-wide extensions; please use
+# make/$(outdir)/Site.make;
 #
-# Any change in files in this directory (make/) would be distributed, if 
-# you do make dist 
+# Any change in files in this directory (make/) would be distributed, if
+# you do make dist
 #
 
 buildscript-dir = $(src-depth)/buildscripts
@@ -20,7 +20,7 @@ make-dir = $(src-depth)/make
 include-flower = $(src-depth)/flower/include
 
 
-LILYPOND_INCLUDES = $(include-flower) $(depth)/flower/$(outdir) 
+LILYPOND_INCLUDES = $(include-flower) $(depth)/flower/$(outdir)
 
 
 # should use to create .spec ?

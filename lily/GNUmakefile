@@ -5,7 +5,7 @@ NAME = lilypond
 SUBDIRS = include
 
 MODULE_LIBS=$(depth)/flower
-MODULE_INCLUDES= $(depth)/flower/include 
+MODULE_INCLUDES= $(depth)/flower/include
 
 # need this to convert between function pointers and member function pointers.
 MODULE_CXXFLAGS= -Wno-pmf-conversions
@@ -17,7 +17,7 @@ STEPMAKE_TEMPLATES=c c++ executable po help2man
 # list parser.hh first: making parser.hh removes parser.cc
 OUT_DIST_FILES=$(addprefix $(outdir)/,parser.hh parser.cc)
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 ifeq ($(HAVE_LIBKPATHSEA_SO),no)
 MODULE_LDFLAGS += $(KPATHSEA_LIBS)
@@ -44,12 +44,12 @@ $(top-build-dir)/Documentation/pictures/$(outbase)/lilypond.ico:
 	$(MAKE) -C $(top-build-dir)/Documentation/pictures
 
 $(outdir)/lilypond.ico: $(top-build-dir)/Documentation/pictures/$(outbase)/lilypond.ico
-	cp $< $@ 
+	cp $< $@
 $(top-build-dir)/Documentation/pictures/$(outbase)/ly.ico:
 	$(MAKE) -C $(top-build-dir)/Documentation/pictures
 
 $(outdir)/ly.ico: $(top-build-dir)/Documentation/pictures/$(outbase)/ly.ico
-	cp $< $@ 
+	cp $< $@
 endif
 
 ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'

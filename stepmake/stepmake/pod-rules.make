@@ -13,8 +13,8 @@ POD2HTML_5004=$(POD2HTML) --noindex --infile $< --outfile=$@;  sh $(depth)/bin/a
 
 do_pod2html=$($(POD2HTML_VERSION))
 
-$(outdir)/%.html: $(outdir)/%.pod 
-	$(do_pod2html) 
+$(outdir)/%.html: $(outdir)/%.pod
+	$(do_pod2html)
 
 $(outdir)/%.pod: %.pod
 	cp $< $@

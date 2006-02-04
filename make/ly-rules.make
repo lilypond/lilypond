@@ -35,7 +35,7 @@ $(outdir)/%.pdf.omf: %.tely
 	$(call GENERATE_OMF,pdf)
 
 $(outdir)/%.ps.gz.omf: %.tely
-	$(call GENERATE_OMF,ps.gz) 
+	$(call GENERATE_OMF,ps.gz)
 
 $(outdir)/%.html.omf: $(outdir)/%.texi
 	$(call GENERATE_OMF,html)
@@ -44,4 +44,4 @@ $(outdir)/%.pdf.omf: $(outdir)/%.texi
 	$(call GENERATE_OMF,pdf)
 
 $(outdir)/%.ps.gz.omf: $(outdir)/%.texi
-	$(call GENERATE_OMF,ps.gz) 
+	$(call GENERATE_OMF,ps.gz)

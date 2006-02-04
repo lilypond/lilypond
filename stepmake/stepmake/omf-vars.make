@@ -2,4 +2,4 @@
 #empty
 #
 
-OMF_FILES += 
+OMF_FILES +=

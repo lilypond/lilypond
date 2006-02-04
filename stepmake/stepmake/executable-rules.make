@@ -1,6 +1,6 @@
 
-define MODULE_LIB_template \
-$(1)/$(outdir)/library.a : \
+define MODULE_LIB_template
+$(1)/$(outdir)/library.a :
 	$(MAKE) -C $(1)
 endef
 

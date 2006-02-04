@@ -14,14 +14,14 @@ clean: local-clean
 
 ifneq ($(strip $(depth)),.)
 dist:
-	make -C $(depth) dist
+	$(MAKE) -C $(depth) dist
 endif
 
-distclean: clean 
+distclean: clean
 	$(LOOP)
 	$(MAKE) local-distclean
 
-maintainerclean: 
+maintainerclean:
 	$(LOOP)
 	$(MAKE)	local-maintainerclean
 	$(MAKE) local-distclean
@@ -133,7 +133,7 @@ local-uninstall:
 
 installextradoc:
 	-$(INSTALLPY) -d $(DESTDIR)$(prefix)/doc/$(package)
-	cp -r $(EXTRA_DOC_FILES) $(prefix)/doc/$(package) 
+	cp -r $(EXTRA_DOC_FILES) $(prefix)/doc/$(package)
 
 include $(outdir)/dummy.dep $(wildcard $(outdir)/*.dep) # expect a warning here
 
@@ -164,7 +164,7 @@ diff:
 	$(PYTHON) $(step-bindir)/package-diff.py  --outdir=$(top-src-dir)/$(outdir) --package=$(top-src-dir) $(makeflags)
 	-ln -f $(depth)/$(outdir)/$(distname).diff.gz $(patch-dir)
 
-release: 
+release:
 	$(PYTHON) $(step-bindir)/release.py --outdir=$(top-src-dir)/$(outdir) --package=$(top-src-dir)
 
 
@@ -180,6 +180,6 @@ WWW: local-WWW
 WWW-post: local-WWW-post
 	$(LOOP)
 
-web: 
+web:
 	$(MAKE) out=www WWW
 	$(MAKE) out=www WWW-post

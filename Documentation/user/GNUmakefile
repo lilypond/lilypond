@@ -33,7 +33,7 @@ LOCALSTEPMAKE_TEMPLATES=lilypond ly
 TEXINPUTS=$(top-src-dir)/tex::
 export TEXINPUTS
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 dvi: $(DVI_FILES)
 
@@ -127,7 +127,7 @@ endif
 local-install-WWW: local-install-info
 local-uninstall-WWW: local-uninstall-info
 
-default: 
+default:
 
 
 local-help: extra-local-help
@@ -152,7 +152,7 @@ $(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
-# symbolic links to save space 
+# symbolic links to save space
 	(cd $(outdir)/lilypond/ ; ln -sf ../*.png ../*.ly . )
 
 #
@@ -181,10 +181,10 @@ $(outdir)/music-glossary/index.html: $(outdir)/music-glossary.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/music-glossary --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 	find $(outdir)/music-glossary/ -name '*'.png -o -name '*'.ly | xargs rm -f
-# symbolic links to save space 
+# symbolic links to save space
 	(cd $(outdir)/music-glossary/ ; ln -sf ../*.png ../*.ly . )
 
-$(outdir)/lilypond.xml: $(outdir)/lilypond.texi 
+$(outdir)/lilypond.xml: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$@ --docbook $<
 
@@ -236,14 +236,14 @@ $(outdir)/%.bib: %.bib
 	ln -f $< $@
 
 local-clean:
-	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
+	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk
 	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals $(outdir)/music-glossary
 
 # lilypond.texi deps
 $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(top-src-dir)/mf
 
-$(outdir)/lilypond.texi: $(ITELY_FILES) $(ITEXI_FILES) 
+$(outdir)/lilypond.texi: $(ITELY_FILES) $(ITEXI_FILES)
 $(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
 # Prevent building music-glossary.texi from default target

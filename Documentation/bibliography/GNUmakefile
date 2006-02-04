@@ -9,7 +9,7 @@ EXTRA_DIST_FILES= $(BIB_FILES) $(wildcard *.bst)
 STEPMAKE_TEMPLATES=tex documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 dvi: $(DVI_FILES) $(OUT_BIB_FILES)
 

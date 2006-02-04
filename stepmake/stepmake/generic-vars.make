@@ -79,14 +79,14 @@ DIST_FILES=$(EXTRA_DIST_FILES) GNUmakefile $(ALL_SOURCES) $(call src-wildcard,SC
 DOCDIR=$(depth)/$(outdir)
 
 #?
-STRIPDEBUG=true 
+STRIPDEBUG=true
 STRIP=strip --strip-debug
 DO_STRIP=true
 
 LOOP=$(foreach i,  $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(i) $@ &&) true
 
 ETAGS_FLAGS =
-CTAGS_FLAGS = 
+CTAGS_FLAGS =
 
 makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
 

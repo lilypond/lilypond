@@ -22,7 +22,7 @@ $(outdir)/%.sh: %.sh $(config_make)
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
-default: $(OUT_POSTINSTALLS) $(OUTIN_FILES) 
+default: $(OUT_POSTINSTALLS) $(OUTIN_FILES)
 
 INSTALLATION_OUT_SUFFIXES=1
 

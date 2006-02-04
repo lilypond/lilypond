@@ -30,7 +30,7 @@ $(MAKE_TARGETS): scons
 scons:
 	@echo "warning: $(SCONS_USER) detected, rerouting to scons"
 	cd $(depth) && scons $(here) $(MAKECMDGOALS)
-	false 
+	false
 endif
 endif
 
@@ -75,7 +75,7 @@ BUILD_VERSION=1
 
 outdir=$(outroot)/$(outbase)
 
-# why not generic ?? 
+# why not generic ??
 config_h=$(top-build-dir)/config$(CONFIGSUFFIX).hh
 
 # The outdir that was configured for: best guess to find binaries
@@ -87,7 +87,7 @@ stepdir = $(stepmake)/stepmake
 # for stepmake package
 # stepdir = $(depth)/stepmake
 
-STEPMAKE_TEMPLATES := generic $(STEPMAKE_TEMPLATES) 
+STEPMAKE_TEMPLATES := generic $(STEPMAKE_TEMPLATES)
 LOCALSTEPMAKE_TEMPLATES:= generic $(LOCALSTEPMAKE_TEMPLATES)
 
 # Don't try to outsmart us, you puny computer!
@@ -109,11 +109,11 @@ all:
 
 include $(addprefix $(stepdir)/,$(addsuffix -vars.make, $(STEPMAKE_TEMPLATES)))
 
-# ugh. need to do this because of PATH :=$(top-src-dir)/..:$(PATH) 
-include $(addprefix $(depth)/make/,$(addsuffix -vars.make, $(LOCALSTEPMAKE_TEMPLATES))) 
+# ugh. need to do this because of PATH :=$(top-src-dir)/..:$(PATH)
+include $(addprefix $(depth)/make/,$(addsuffix -vars.make, $(LOCALSTEPMAKE_TEMPLATES)))
 
 
-include $(addprefix $(depth)/make/,$(addsuffix -rules.make, $(LOCALSTEPMAKE_TEMPLATES))) 
-include $(addprefix $(stepdir)/,$(addsuffix -rules.make, $(STEPMAKE_TEMPLATES))) 
-include $(addprefix $(depth)/make/,$(addsuffix -targets.make, $(LOCALSTEPMAKE_TEMPLATES))) 
-include $(addprefix $(stepdir)/,$(addsuffix -targets.make, $(STEPMAKE_TEMPLATES))) 
+include $(addprefix $(depth)/make/,$(addsuffix -rules.make, $(LOCALSTEPMAKE_TEMPLATES)))
+include $(addprefix $(stepdir)/,$(addsuffix -rules.make, $(STEPMAKE_TEMPLATES)))
+include $(addprefix $(depth)/make/,$(addsuffix -targets.make, $(LOCALSTEPMAKE_TEMPLATES)))
+include $(addprefix $(stepdir)/,$(addsuffix -targets.make, $(STEPMAKE_TEMPLATES)))

@@ -86,7 +86,35 @@ namespace std {
       return &(*this)[0];
     }
   };
+
+  /* FIXME: it appears that choosing this function is broken when stl
+     has no data () member too...  */
+  template<typename T>
+  void
+  binary_search_bounds (vector<T*> const &table,
+			T const *key, int (*compare) (T *const &, T *const &),
+			unsigned *lo,
+			unsigned *hi)
+  {
+    int cmp;
+    int result;
+
+    /* binary search */
+    do
+      {
+	cmp = (*lo + *hi) / 2;
+
+	result = (*compare) ((T *) key, table[cmp]);
+
+	if (result < 0)
+	  *hi = cmp;
+	else
+	  *lo = cmp;
+      }
+    while (*hi - *lo > 1);
+  }
 }
+
 #endif /* !HAVE_STL_DATA_METHOD */
 
 namespace std {
@@ -163,18 +191,20 @@ namespace std {
   }
 
 #if 0
+  /* FIXME: what if COMPARE is named: int operator == (T const&, T const&),
+     wouldn't that work for most uses of BINARY_SEARCH?
+  */
   template<typename T>
   vsize
-  //  binary_search (std::vector<T> const &v,
   binary_search (vector<T> const &v,
 		 T const &key, int (*compare) (T const &, T const &),
 		 vsize b=0, vsize e=VPOS)
   {
-    //(void) compare;
     if (e == VPOS)
       e = v.size ();
     typename vector<T>::const_iterator i = find (v.begin () + b,
-						 v.begin () + e, key);
+						 v.begin () + e,
+						 key);
     if (i != v.end ())
       return i - v.begin ();
     return VPOS;

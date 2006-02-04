@@ -1,5 +1,5 @@
 # title	   makefile for po
-# file	   po/Makefile 
+# file	   po/Makefile
 
 depth = ..
 
@@ -10,11 +10,11 @@ POT_FILES = $(call src-wildcard,*.pot)
 PO_FILES = $(call src-wildcard,*.po)
 MO_FILES = $(addprefix $(outdir)/, $(PO_FILES:.po=.mo))
 HELP_CATALOGS = $(PO_FILES:%.po=%)
-CATALOGS = $(HELP_CATALOGS:lilypond=) 
+CATALOGS = $(HELP_CATALOGS:lilypond=)
 EXTRA_DIST_FILES = TODO $(PO_FILES) $(POT_FILES)
 STEPMAKE_TEMPLATES=podir
 
-include $(depth)/make/stepmake.make 
+include $(depth)/make/stepmake.make
 
 default: $(MO_FILES)
 
