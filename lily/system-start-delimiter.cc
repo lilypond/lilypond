@@ -8,18 +8,16 @@
 
 #include "system-start-delimiter.hh"
 
-
-#include "spanner.hh"
-#include "axis-group-interface.hh"
-#include "output-def.hh"
-#include "font-interface.hh"
 #include "all-font-metrics.hh"
-#include "staff-symbol-referencer.hh"
-#include "lookup.hh"
+#include "axis-group-interface.hh"
+#include "font-interface.hh"
 #include "item.hh"
 #include "line-interface.hh"
-
+#include "lookup.hh"
+#include "output-def.hh"
 #include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
 
 Stencil
 System_start_delimiter::staff_bracket (Grob *me, Real height)
@@ -151,8 +149,9 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   SCM alist = scm_list_n (fam, SCM_UNDEFINED);
   fm = select_font (me->layout (), scm_list_n (alist, SCM_UNDEFINED));
 
-  int lo = 0;
-  int hi = max (fm->count () - 1, 2);
+  int
+    lo = 0;
+  int hi = max ((int) fm->count () - 1, 2);
 
   /* do a binary search for each Y, not very efficient, but passable?  */
   Box b;

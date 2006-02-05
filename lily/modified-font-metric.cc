@@ -44,7 +44,7 @@ Modified_font_metric::design_size () const
 }
 
 Box
-Modified_font_metric::get_indexed_char (int i) const
+Modified_font_metric::get_indexed_char (vsize i) const
 {
   Box b = orig_->get_indexed_char (i);
   b.scale (magnification_);
@@ -52,14 +52,14 @@ Modified_font_metric::get_indexed_char (int i) const
 }
 
 Box
-Modified_font_metric::get_ascii_char (int i) const
+Modified_font_metric::get_ascii_char (vsize i) const
 {
   Box b = orig_->get_ascii_char (i);
   b.scale (magnification_);
   return b;
 }
 
-int
+vsize
 Modified_font_metric::count () const
 {
   return orig_->count ();
@@ -73,26 +73,26 @@ Modified_font_metric::attachment_point (std::string s) const
 }
 
 Offset
-Modified_font_metric::get_indexed_wxwy (int k) const
+Modified_font_metric::get_indexed_wxwy (vsize k) const
 {
   Offset o = orig_->get_indexed_wxwy (k);
   return o * magnification_;
 }
 
-int
+vsize
 Modified_font_metric::name_to_index (std::string s) const
 {
   return orig_->name_to_index (s);
 }
 
-unsigned
-Modified_font_metric::index_to_charcode (int i) const
+vsize
+Modified_font_metric::index_to_charcode (vsize i) const
 {
   return orig_->index_to_charcode (i);
 }
 
-int
-Modified_font_metric::index_to_ascii (int k) const
+vsize
+Modified_font_metric::index_to_ascii (vsize k) const
 {
   return orig_->index_to_ascii (k);
 }

@@ -176,6 +176,9 @@ $(tree-share-prefix)/mf-link-tree link-mf-tree: $(tree-share-prefix)/lilypond-fo
 		ln -s ../../../../../../mf/$(outconfbase)/*.pfa .
 
 
+TAGS.make: dummy
+	etags -o $@ $(find $(srcdir) -name 'GNUmakefile*' -o -name '*.make')
+
 local-clean: build-dir-setup-clean
 build-dir-setup-clean:
 	cd $(top-build-dir) && rm -rf share

@@ -40,17 +40,17 @@ public:
     
   std::string get_otf_table (std::string tag) const;
   static SCM make_otf (std::string);
-  virtual std::string font_name () const;
-  virtual ~Open_type_font ();
-  virtual Offset attachment_point (std::string) const;
-  virtual int count () const;
-  virtual Box get_indexed_char (int) const;
-  virtual int name_to_index (std::string) const;
-  //virtual unsigned glyph_name_to_charcode (std::string) const;
-  virtual unsigned index_to_charcode (int) const;
-  virtual void derived_mark () const;
-  virtual SCM sub_fonts () const;
-  virtual Real design_size () const;
+  std::string font_name () const;
+  ~Open_type_font ();
+  Offset attachment_point (std::string) const;
+  vsize count () const;
+  Box get_indexed_char (vsize) const;
+  vsize name_to_index (std::string) const;
+  //vsize glyph_name_to_charcode (std::string) const;
+  vsize index_to_charcode (vsize) const;
+  void derived_mark () const;
+  SCM sub_fonts () const;
+  Real design_size () const;
 };
 
 std::string get_otf_table (FT_Face face, std::string tag);

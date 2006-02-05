@@ -37,7 +37,7 @@ public:
   Tfm_info info_;
   Tfm_header header_;
   std::vector<Tex_font_char_metric> char_metrics_;
-  std::vector<int> ascii_to_metric_idx_;
+  std::vector<vsize> ascii_to_metric_idx_;
 };
 
 #endif /* TFM_READER_HH */

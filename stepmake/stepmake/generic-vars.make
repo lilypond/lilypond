@@ -83,7 +83,7 @@ STRIPDEBUG=true
 STRIP=strip --strip-debug
 DO_STRIP=true
 
-LOOP=$(foreach i,  $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(i) $@ &&) true
+LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C $(i) $@ &&) true
 
 ETAGS_FLAGS =
 CTAGS_FLAGS =
