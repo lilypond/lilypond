@@ -21,8 +21,8 @@ public:
   TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);
   Link_array__Spanner_ bracket_stack_;
   Link_array__Music_ events_;
-  int pop_count_;
-  int push_count_;
+  vsize pop_count_;
+  vsize push_count_;
 
   virtual bool try_music (Music *);
   void stop_translation_timestep ();
@@ -87,17 +87,13 @@ Horizontal_bracket_engraver::acknowledge_note_column (Grob_info gi)
 void
 Horizontal_bracket_engraver::process_music ()
 {
-  for (int k = 0; k < push_count_; k++)
+  for (vsize k = 0; k < push_count_; k++)
     {
       Spanner *sp = make_spanner ("HorizontalBracket", events_[k]->self_scm ());
 
       for (vsize i = 0; i < bracket_stack_.size (); i++)
-	{
-	  /*
-	    sp is the smallest, it should be added to the bigger brackets.
-	  */
-	  Side_position_interface::add_support (bracket_stack_[i], sp);
-	}
+	/* sp is the smallest, it should be added to the bigger brackets.  */
+	Side_position_interface::add_support (bracket_stack_[i], sp);
       bracket_stack_.push_back (sp);
     }
 }

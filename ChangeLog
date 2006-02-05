@@ -1,5 +1,15 @@
 2006-02-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* stepmake/stepmake/generic-vars.make (LOOP): Add PLUS to keep -j
+	jobserver going.
+
+	* configure.in (std_vector): On by default.
+
+	* lily/include/font-metric.hh:
+	* lily/include/tfm-reader.hh: 
+	* lily/include/spanner.hh: Use unsigned for indices and sizes.
+	Update users.
+
 	* Documentation/user/changing-defaults.itely: Fix link v2.5, out-www.
 
 2006-02-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>

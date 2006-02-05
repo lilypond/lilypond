@@ -125,11 +125,11 @@ Spanner::do_break_processing ()
 	}
     }
   vector_sort (broken_intos_, Spanner::compare);
-  for (vsize i = broken_intos_.size ();i--;)
+  for (vsize i = broken_intos_.size (); i--;)
     broken_intos_[i]->break_index_ = i;
 }
 
-int
+vsize
 Spanner::get_break_index () const
 {
   return break_index_;

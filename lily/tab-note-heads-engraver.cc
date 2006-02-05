@@ -91,7 +91,7 @@ Tab_note_heads_engraver::process_music ()
       if (!tabstring_event && j < tabstring_events_.size ())
 	{
 	  tabstring_event = tabstring_events_[j];
-	  if (j +1 < tabstring_events_.size ())
+	  if (j + 1 < tabstring_events_.size ())
 	    j++;
 	}
 

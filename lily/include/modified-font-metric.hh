@@ -15,15 +15,15 @@
 struct Modified_font_metric : public Font_metric
 {
 public:
-  virtual Box text_dimension (std::string) const;
-  virtual Stencil text_stencil (std::string) const;
+  Box text_dimension (std::string) const;
+  Stencil text_stencil (std::string) const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
-  virtual int count () const;
-  virtual Offset get_indexed_wxwy (int) const;
-  virtual Offset attachment_point (std::string) const;
-  virtual int name_to_index (std::string) const;
-  virtual unsigned index_to_charcode (int) const;
+  vsize count () const;
+  Offset get_indexed_wxwy (vsize) const;
+  Offset attachment_point (std::string) const;
+  vsize name_to_index (std::string) const;
+  vsize index_to_charcode (vsize) const;
   Font_metric *original_font () const;
 
 protected:
@@ -31,13 +31,13 @@ protected:
   Real magnification_;
 
   Modified_font_metric (Font_metric *fm, Real magnification);
-  virtual SCM sub_fonts () const;
-  virtual std::string font_name () const;
-  virtual Real design_size () const;
-  virtual void derived_mark () const;
-  virtual Box get_indexed_char (int) const;
-  virtual int index_to_ascii (int) const;
-  virtual Box get_ascii_char (int) const;
+  SCM sub_fonts () const;
+  std::string font_name () const;
+  Real design_size () const;
+  void derived_mark () const;
+  Box get_indexed_char (vsize) const;
+  vsize index_to_ascii (vsize) const;
+  Box get_ascii_char (vsize) const;
   Box tex_kludge (std::string) const;
 };
 

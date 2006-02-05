@@ -43,9 +43,9 @@ if test "$std_string" = "yes"; then
     DEFINES="$DEFINES -DSTD_STRING=1"
 fi
 
-std_vector=no
+std_vector=yes
 AC_ARG_ENABLE(std-string,
-    [  --enable-std-vector     compile with experimental std::vector.  Default: off],
+    [  --enable-std-vector     compile with std::vector.  Default: on],
     [std_vector=$enableval])
 if test "$std_vector" = "yes"; then
     # Store in config.make rather than in config.hh and have every

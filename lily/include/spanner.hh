@@ -29,7 +29,7 @@
 class Spanner : public Grob
 {
   Drul_array<Item *> spanned_drul_;
-  int break_index_;
+  vsize break_index_;
 
   DECLARE_CLASSNAME(Spanner);
 
@@ -38,7 +38,7 @@ public:
 
   Link_array__Spanner_ broken_intos_;
 
-  int get_break_index () const;
+  vsize get_break_index () const;
 
   // todo: move to somewhere else.
   Real get_broken_left_end_align () const;

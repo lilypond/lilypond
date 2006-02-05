@@ -127,7 +127,7 @@ broken_trend_y (Slur_score_state const &state, Direction hdir)
   Real by = 0.0;
   if (Spanner *mother = dynamic_cast<Spanner *> (state.slur_->original ()))
     {
-      int k = broken_spanner_index (state.slur_);
+      vsize k = broken_spanner_index (state.slur_);
       int j = k + hdir;
       if (j < 0 || j >= mother->broken_intos_.size ())
 	return by;
@@ -163,7 +163,7 @@ Slur_score_state::set_next_direction ()
 
   if (Spanner *mother = dynamic_cast<Spanner *> (slur_->original ()))
     {
-      int k = broken_spanner_index (slur_);
+      vsize k = broken_spanner_index (slur_);
       int j = k + 1;
       if (j < 0 || j >= mother->broken_intos_.size ())
 	return;

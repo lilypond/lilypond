@@ -63,10 +63,10 @@ Tex_font_metric::derived_mark () const
 }
 
 Tex_font_char_metric const *
-Tex_font_metric::find_ascii (int ascii, bool warn) const
+Tex_font_metric::find_ascii (vsize ascii, bool warn) const
 {
-  if (ascii >= 0 && ascii < ascii_to_metric_idx_.size ()
-      && ascii_to_metric_idx_[ascii] >= 0)
+  if (ascii != VPOS && ascii < ascii_to_metric_idx_.size ()
+      && ascii_to_metric_idx_[ascii] != VPOS)
     return &char_metrics_[ascii_to_metric_idx_ [ascii]];
   else if (warn)
     warning (_f ("can't find ascii character: %d", ascii));
@@ -74,17 +74,17 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
 }
 
 /* UGH: glyphs need not be consecutive in TFM. */
-int
+vsize
 Tex_font_metric::count () const
 {
   for (vsize i = ascii_to_metric_idx_.size (); i--;)
-    if (ascii_to_metric_idx_[i] != -1)
+    if (ascii_to_metric_idx_[i] != VPOS)
       return i + 1;
   return 0;
 }
 
 Box
-Tex_font_metric::get_ascii_char (int a) const
+Tex_font_metric::get_ascii_char (vsize a) const
 {
   Box b = find_ascii (a)->dimensions ();
   return b;
@@ -124,7 +124,7 @@ Tex_font_metric::font_name () const
   return font_name_;
 }
 
-int
+vsize
 Tex_font_metric::name_to_index (std::string) const
 {
   assert (false);

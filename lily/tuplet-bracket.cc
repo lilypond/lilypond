@@ -128,7 +128,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
       
       Spanner *orig_spanner = dynamic_cast<Spanner*> (me->original ());
 
-      vsize neighbor_idx = me->get_break_index () - break_dir;
+      int neighbor_idx = me->get_break_index () - break_dir;
       if (break_dir
 	  && d == RIGHT
 	  && neighbor_idx < orig_spanner->broken_intos_.size ())
@@ -435,11 +435,11 @@ void
 Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
 {
   extract_grob_set (me, "note-columns", columns);
-  vsize l = 0;
+  int l = 0;
   while (l < columns.size () && Note_column::has_rests (columns[l]))
     l++;
 
-  int r = columns.size ()- 1;
+  int r = columns.size () - 1;
   while (r >= l && Note_column::has_rests (columns[r]))
     r--;
 

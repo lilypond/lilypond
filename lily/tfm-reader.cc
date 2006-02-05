@@ -24,8 +24,8 @@ Tex_font_metric_reader::Tex_font_metric_reader (std::string name)
   : input_ (name)
 {
 
-  for (int i = 0; i < TFM_SIZE; i++)
-    ascii_to_metric_idx_.push_back (-1);
+  for (vsize i = 0; i < TFM_SIZE; i++)
+    ascii_to_metric_idx_.push_back (VPOS);
 
   read_header ();
   read_params ();

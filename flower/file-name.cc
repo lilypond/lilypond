@@ -52,7 +52,10 @@ dos_to_posix (std::string file_name)
 
 /** Use slash as directory separator.  On Windows, they can pretty
     much be exchanged.  */
-static std::string
+#if 0
+static /* avoid warning */
+#endif 
+std::string
 slashify (std::string file_name)
 {
   replace_all (file_name, '\\', '/');

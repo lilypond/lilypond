@@ -143,15 +143,16 @@ struct Tex_font_char_metric
 class Tex_font_metric : public Simple_font_metric
 {
   DECLARE_CLASSNAME(Tex_font_metric);
+
 public:
   static SCM make_tfm (std::string file_name);
 
-  virtual int count () const;
-  virtual Box get_ascii_char (int) const;
-  virtual Real design_size () const;
-  virtual void derived_mark () const;
-  virtual int name_to_index (std::string) const;
-  virtual std::string font_name () const;
+  vsize count () const;
+  Box get_ascii_char (vsize) const;
+  Real design_size () const;
+  void derived_mark () const;
+  vsize name_to_index (std::string) const;
+  std::string font_name () const;
 
   Tfm_info const &info () const;
 
@@ -159,11 +160,12 @@ protected:
   Tfm_info info_;
   Tfm_header header_;
   std::vector<Tex_font_char_metric> char_metrics_;
-  std::vector<int> ascii_to_metric_idx_;
+  std::vector<vsize> ascii_to_metric_idx_;
   SCM encoding_table_;
   std::string font_name_;
+
 private:
-  Tex_font_char_metric const *find_ascii (int ascii, bool warn = true) const;
+  Tex_font_char_metric const *find_ascii (vsize ascii, bool warn = true) const;
   Tex_font_metric ();
 };
 
