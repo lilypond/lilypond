@@ -178,6 +178,7 @@ protected:
   Bracket_nesting_group *nesting_;
   
   DECLARE_ACKNOWLEDGER (system_start_delimiter);
+  DECLARE_ACKNOWLEDGER (system_start_text);
   DECLARE_ACKNOWLEDGER (staff_symbol);
 
   void process_music ();
@@ -188,8 +189,6 @@ System_start_delimiter_engraver::System_start_delimiter_engraver ()
 {
   nesting_ = 0;
 }
-
-
 
 void
 System_start_delimiter_engraver::process_music ()
@@ -231,6 +230,13 @@ System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 }
 
 
+
+void
+System_start_delimiter_engraver::acknowledge_system_start_text (Grob_info inf)
+{
+  nesting_->add_support (inf.grob ());
+}
+
 void
 System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info inf)
 {
@@ -241,10 +247,18 @@ System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info i
 
 ADD_ACKNOWLEDGER (System_start_delimiter_engraver, staff_symbol);
 ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_delimiter);
+ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_text);
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,
 		/* doc */ "Creates a system start delimiter (ie. SystemStart@{Bar, Brace, Bracket@} spanner",
-		/* create */ "SystemStartSquare SystemStartBrace SystemStartBracket SystemStartBar",
+		/* create */ "SystemStartSquare "
+		"SystemStartBrace "
+		"SystemStartBracket "
+		"SystemStartBar",
 		/* accept */ "",
-		/* read */ "systemStartDelimiter systemStartDelimiterHierarchy currentCommandColumn",
+		/* read */
+		"systemStartDelimiter "
+		"systemStartDelimiterHierarchy "
+		"currentCommandColumn",
+
 		/* write */ "");

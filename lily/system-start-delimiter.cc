@@ -7,7 +7,7 @@
 */
 
 #include "system-start-delimiter.hh"
-
+#include "text-interface.hh" 
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
 #include "font-interface.hh"
@@ -76,6 +76,23 @@ System_start_delimiter::line_bracket (Grob *me, Real height)
 }
 
 Stencil
+System_start_delimiter::text (Grob *me_grob, Real h)
+{
+  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+  SCM t = me->get_property ("text");
+  if (me->get_break_index () == 0)
+    t = me->get_property ("long-text");
+	   
+	   
+  SCM chain = Font_interface::text_font_alist_chain (me);
+
+  SCM scm_stencil = Text_interface::interpret_markup (me->layout ()->self_scm (), chain, t);
+  if (Stencil *p = unsmob_stencil (scm_stencil))
+    return *p;
+  return Stencil();
+}
+
+Stencil
 System_start_delimiter::simple_bar (Grob *me, Real h)
 {
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
@@ -130,6 +147,8 @@ System_start_delimiter::print (SCM smob)
     m = simple_bar (me, len);
   else if (glyph_sym == ly_symbol2scm ("line-bracket"))
     m = line_bracket (me, len);
+  else if (glyph_sym == ly_symbol2scm ("text"))
+    m = text (me, len);
 
   m.translate_axis (ext.center (), Y_AXIS);
   return m.smobbed_copy ();
@@ -181,5 +200,7 @@ ADD_INTERFACE (System_start_delimiter, "system-start-delimiter-interface",
 	       /* properties */
 	       "collapse-height "
 	       "style "
+	       "text "
+	       "long-text " 
 	       "thickness "
 	       );

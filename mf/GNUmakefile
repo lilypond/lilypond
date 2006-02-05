@@ -247,7 +247,7 @@ $(outdir)/%.enc.in: %.enc
 	cp $< $@
 
 
-$(NCSB_TTFS): $(addsuffix .pfb,$(addprefix $(NCSB_DIR)/,$(NCSB_SOURCE_FILES)))
+$(NCSB_TTFS): $(addsuffix .pfb,$(addprefix $(NCSB_DIR)/,$(NCSB_SOURCE_FILES))) $(buildscript-dir)/pfx2ttf.fontforge
 	$(foreach i,$(NCSB_SOURCE_FILES), \
 		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
 			$(NCSB_DIR)/$(i).pfb $(NCSB_DIR)/$(i).afm $(outdir)/ && ) true
