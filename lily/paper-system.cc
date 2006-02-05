@@ -23,7 +23,6 @@ paper_system_set_stencil (Prob *prob, Stencil s)
 
   if (is_number_pair (yext))
     {
-      
       Box b = s.extent_box();
       b[Y_AXIS] = ly_scm2interval (yext);
 
