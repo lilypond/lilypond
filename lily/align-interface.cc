@@ -49,6 +49,7 @@ Align_interface::stretch_after_break (SCM grob)
 
   Spanner *me_spanner = dynamic_cast<Spanner *> (me);
   extract_grob_set (me, "elements", elems);
+
   if (me_spanner && elems.size ())
     {
       Grob *common = common_refpoint_of_array (elems, me, Y_AXIS);

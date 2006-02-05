@@ -30,6 +30,12 @@ public:
   TRANSLATOR_DECLARATIONS (Hara_kiri_engraver);
 };
 
+
+Hara_kiri_engraver::Hara_kiri_engraver ()
+{
+  interesting_ = SCM_EOL;
+}
+
 void
 Hara_kiri_engraver::derived_mark () const
 {
@@ -70,10 +76,6 @@ Hara_kiri_engraver::acknowledge_grob (Grob_info i)
     }
 }
 
-Hara_kiri_engraver::Hara_kiri_engraver ()
-{
-  interesting_ = SCM_EOL;
-}
 
 ADD_ACKNOWLEDGER (Hara_kiri_engraver, grob);
 ADD_TRANSLATOR (Hara_kiri_engraver,

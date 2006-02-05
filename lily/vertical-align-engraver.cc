@@ -113,7 +113,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       Grob *after_grob = unsmob_grob (after);
 
       Align_interface::add_element (valign_, i.grob ());
-
+	
       if (before_grob || after_grob)
 	{
 	  Grob_array *ga = unsmob_grob_array (valign_->get_object ("elements"));

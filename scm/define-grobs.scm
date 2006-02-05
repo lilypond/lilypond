@@ -313,10 +313,8 @@
      . (
 	(breakable . #t)
 	(stacking-dir . 1)
-
 	(positioning-done . ,ly:break-align-interface::calc-positioning-done)
 	(X-extent . ,ly:axis-group-interface::width)
-					
 	(break-align-orders . ;; end of line
 			    #((instrument-name
 			       left-edge
@@ -360,9 +358,7 @@
     (BreakAlignGroup
      . (
 	(axes . (0))
-
 	(X-extent . ,ly:axis-group-interface::width)
-
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
 				axis-group-interface))))))
@@ -729,8 +725,11 @@
     (InstrumentName
      . (
 	(breakable . #t)
-	(Y-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::y-aligned-on-self))
-						  ,(ly:make-simple-closure (list ly:side-position-interface::y-aligned-on-support-refpoints)))))
+	(Y-offset . ,(ly:make-simple-closure
+		      `(,+ ,(ly:make-simple-closure
+			     (list ly:self-alignment-interface::y-aligned-on-self))
+			   ,(ly:make-simple-closure
+			     (list ly:side-position-interface::y-aligned-on-support-refpoints)))))
 	
 	;; This direction is for aligned_on_support_refpoints
 	;; (?) --hwn
@@ -962,9 +961,7 @@
 
     (MetronomeMark
      . (
-
 	(stencil . ,ly:text-interface::print)
-
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(direction . ,UP)
 	(padding . 0.8)
@@ -1896,6 +1893,7 @@
      . (
 	(axes . (1))
 	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
+
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
 	(X-extent . ,ly:axis-group-interface::width)
 	(meta . ((class . Spanner)

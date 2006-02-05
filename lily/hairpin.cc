@@ -26,7 +26,14 @@ SCM
 Hairpin::after_line_breaking (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  consider_suicide (me);
 
+  return SCM_UNSPECIFIED;
+}
+
+void
+Hairpin::consider_suicide (Spanner*me)
+{
   Drul_array<bool> broken;
   Drul_array<Item *> bounds;
   Direction d = LEFT;
@@ -41,7 +48,7 @@ Hairpin::after_line_breaking (SCM smob)
       && ly_is_equal (bounds[RIGHT]->get_column ()->get_property ("when"),
 		      bounds[LEFT]->get_property ("when")))
     me->suicide ();
-  return SCM_UNSPECIFIED;
+  
 }
 
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
@@ -51,6 +58,7 @@ Hairpin::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
 
+  consider_suicide (me);
   SCM s = me->get_property ("grow-direction");
   if (!is_direction (s))
     {
@@ -70,6 +78,18 @@ Hairpin::print (SCM smob)
       broken[d] = bounds[d]->break_status_dir () != CENTER;
     }
   while (flip (&d) != LEFT);
+  if (broken[RIGHT])
+    {
+      Spanner *orig = dynamic_cast<Spanner*> (me->original ());
+      if (me->get_break_index ()
+	  < orig->broken_intos_.size () - 1)
+	{
+	  Spanner *next = orig->broken_intos_[me->get_break_index () + 1];
+	  Stencil *s = next->get_stencil ();
+	  if (!s || s->is_empty ())
+	    broken[RIGHT] = false;
+	}
+    }
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
   Drul_array<Real> x_points;

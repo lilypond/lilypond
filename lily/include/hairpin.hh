@@ -19,6 +19,7 @@ struct Hairpin
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  static void consider_suicide (Spanner*);
   static bool has_interface (Grob *);
 };
 
