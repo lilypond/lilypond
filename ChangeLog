@@ -1,3 +1,8 @@
+2006-02-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/changing-defaults.itely (Changing defaults):
+	Fix link, v2.5, out-www.
+
 2006-01-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/NEWS.tely (Top): Fix two out-www bugs.
