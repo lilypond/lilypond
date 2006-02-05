@@ -54,8 +54,19 @@ Instrument_name_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
+      SCM support = get_property ("instrumentSupport");
       text_->set_object ("side-support-elements",
-			 grob_list_to_grob_array (get_property ("instrumentSupport")));
+			 grob_list_to_grob_array (support));
+
+      /*
+	Hack to get texts on piano staves to disappear.
+       */
+      if (!text_->get_parent (Y_AXIS)
+	  && scm_is_pair (support))
+	{
+	  Axis_group_interface::add_element (unsmob_grob (scm_car (support)),
+					     text_);
+	}
       text_ = 0;
     }
 
@@ -113,13 +124,15 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
   */
   if (dynamic_cast<Spanner *> (info.grob ())
       && ((Axis_group_interface::has_interface (info.grob ())
-	   && Axis_group_interface::has_axis (info.grob (), Y_AXIS)))
-      && !Align_interface::has_interface (info.grob ()))
+	   && Axis_group_interface::has_axis (info.grob (), Y_AXIS))))
     {
-      SCM nl = scm_cons (info.grob ()->self_scm (),
-			 get_property ("instrumentSupport"));
+      if (!Align_interface::has_interface (info.grob ()))
+	{
+	  SCM nl = scm_cons (info.grob ()->self_scm (),
+			     get_property ("instrumentSupport"));
 
-      context ()->set_property ("instrumentSupport", nl);
+	  context ()->set_property ("instrumentSupport", nl);
+	}
     }
 }
 

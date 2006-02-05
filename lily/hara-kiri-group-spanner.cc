@@ -58,26 +58,30 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
   We can't rely on offsets and dimensions of elements in a hara-kiri
   group. Use a callback to make sure that hara-kiri has been done
   before asking for offsets.  */
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback, 2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, after_line_breaking, 1);
 SCM
-Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob, SCM axis)
+Hara_kiri_group_spanner::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  (void) axis;
+  consider_suicide (me);
+  return SCM_UNSPECIFIED;
+}
 
-  assert (scm_to_int (axis) == Y_AXIS);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback, 1);
+SCM
+Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
   consider_suicide (me);
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_parent_callback, 2);
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_y_parent_callback, 1);
 SCM
-Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM smob, SCM axis)
+Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 {
   Grob *daughter = unsmob_grob (smob);
-  Axis a = (Axis) scm_to_int (axis);
-  assert (a == Y_AXIS);
-  force_hara_kiri_callback (daughter->get_parent (a)->self_scm (), axis);
+  force_hara_kiri_callback (daughter->get_parent (Y_AXIS)->self_scm ());
   return scm_from_double (0.0);
 }
 
