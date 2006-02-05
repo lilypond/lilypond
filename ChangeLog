@@ -1,3 +1,7 @@
+2006-02-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/changing-defaults.itely: Fix link v2.5, out-www.
+
 2006-02-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-ps.scm (dump-stencil-as-EPS): don't hardcode left
