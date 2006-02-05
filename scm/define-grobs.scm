@@ -316,7 +316,7 @@
 	(positioning-done . ,ly:break-align-interface::calc-positioning-done)
 	(X-extent . ,ly:axis-group-interface::width)
 	(break-align-orders . ;; end of line
-			    #((instrument-name
+			    #((
 			       left-edge
 			       ambitus
 			       breathing-sign
@@ -328,7 +328,7 @@
 			       custos)
 
 			      ;; unbroken
-			      (instrument-name
+			      (
 			       left-edge
 			       ambitus
 			       breathing-sign
@@ -340,7 +340,7 @@
 			       time-signature custos)
 
 			      ;; begin of line
-			      (instrument-name
+			      (
 			       left-edge
 			       ambitus
 			       breathing-sign
@@ -724,31 +724,18 @@
 				spanner-interface))))))
     (InstrumentName
      . (
-	(breakable . #t)
-	(Y-offset . ,(ly:make-simple-closure
-		      `(,+ ,(ly:make-simple-closure
-			     (list ly:self-alignment-interface::y-aligned-on-self))
-			   ,(ly:make-simple-closure
-			     (list ly:side-position-interface::y-aligned-on-support-refpoints)))))
-	
-	;; This direction is for aligned_on_support_refpoints
-	;; (?) --hwn
-	(direction . ,CENTER)
-	(space-alist . (
-			(left-edge . (extra-space . 1.0))))
-
-	(self-alignment-Y . 0)
-	(stencil . ,ly:text-interface::print)
-	(break-align-symbol . instrument-name)
-	(break-visibility . ,begin-of-line-visible)
-	(baseline-skip . 2)
-	(side-axis . ,X)
-	(meta . ((class . Item)
-		 (interfaces . (font-interface
-				self-alignment-interface
+	(style . text)
+	(padding . 0.3)
+	(stencil . ,ly:system-start-delimiter::print)
+	(collapse-height . 5.0)
+	(X-offset . ,ly:side-position-interface::x-aligned-side)
+	(direction . ,LEFT)
+	(Y-offset . -0.75)
+	(Y-extent . #f)
+	(meta . ((class . Spanner)
+		 (interfaces . (system-start-text-interface
 				side-position-interface
-				text-interface
-				break-aligned-interface))))))
+				font-interface))))))
 
     (KeyCancellation
      . (
@@ -1606,6 +1593,7 @@
 				side-position-interface
 				font-interface))))))
 
+
     (SystemStartSquare
      . (
 	(Y-extent . #f)
@@ -1901,24 +1889,6 @@
 				hara-kiri-group-interface
 				vertically-spaceable-interface))))))
 
-    (VocalName
-     . (
-	(breakable . #t)
-	(Y-offset . ,ly:side-position-interface::y-aligned-on-support-refpoints)
-	(direction . ,CENTER)
-	(space-alist . ((left-edge . (extra-space . 1.0))))
-	(break-align-symbol . instrument-name)
-	(stencil . ,ly:text-interface::print)
-	(break-align-symbol . clef)
-	(break-visibility . ,begin-of-line-visible)
-	(baseline-skip . 2)
-	(side-axis . ,Y)
-	(meta . ((class . Item)
-		 (interfaces . (font-interface
-				self-alignment-interface
-				side-position-interface
-				text-interface
-				break-aligned-interface))))))
 
     (VoltaBracket
      . (

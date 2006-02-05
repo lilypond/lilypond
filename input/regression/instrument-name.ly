@@ -20,9 +20,13 @@ PianoStaff.
 
 \context PianoStaff <<
   \context Staff = "treble"    {
-    \set PianoStaff.instrument = "Piano "
-    \set Staff.instrument = "Right " { c''4 }}
-  \context Staff = "bass" { \set Staff.instrument = "Left " \clef bass c4 }>>
+    \set PianoStaff.instrument = "Piano"
+    \set Staff.instrument = "Right" { c''4 }}
+  \context Staff = "bass" {
+    \set Staff.instrument = "Left"
+    \clef bass c4
+  }
+>>
 
 
 
