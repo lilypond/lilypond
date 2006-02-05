@@ -1,5 +1,9 @@
 2006-02-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (dump-stencil-as-EPS): don't hardcode left
+	EPS edge at 0, but take minimum with left-overshoot. This fixes
+	cut off system start delims. 
+
 	* lily/instrument-name-engraver.cc (stop_translation_timestep):
 	hack: add to axis group if not added yet. This fixes hara kiri'd
 	piano staves.

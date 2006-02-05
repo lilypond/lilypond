@@ -462,16 +462,21 @@
 		   (inexact->exact
 		    (round (* x scale mm-to-bigpoint)))) mmbox)))
 
-    (list (car box) (cadr box)
+    (list (car box)
+	  (cadr box)
 	  (max (1+ (car box)) (caddr box))
-	  (max (1+ (cadr box)) (cadddr box)))))
+	  (max (1+ (cadr box)) (cadddr box))
+	  )))
 
+  (display (ly:stencil-extent dump-me X))
   (let* ((outputter (ly:make-paper-outputter
 		     ;; FIXME: better wrap open/open-file,
 		     ;; content-mangling is always bad.
 		     ;; MINGW hack: need to have "b"inary for embedding CFFs
 		     (open-file (format "~a.eps" filename) "wb")
 		     "ps"))
+
+	 (left-overshoot -3)
 	 (port (ly:outputter-port outputter))
 	 (xext (ly:stencil-extent dump-me X))
 	 (yext (ly:stencil-extent dump-me Y))
@@ -483,9 +488,12 @@
 		     (equal? (format #f "~S" x) "+#.#")
 		     (equal? (format #f "~S" x) "-#.#"))
 		 0.0 x))
-	   ;; set left of X to 0, to prevent barnumbers
-	   ;; from sticking out of margin.
-	   (list 0.0 (car yext) (cdr xext) (cdr yext))))
+
+	   ;; the left-overshoot is to make sure that
+	   ;; bar numbers  stick out of margin uniformly.
+	   ;;
+	   (list (min left-overshoot (car xext))
+		 (car yext) (cdr xext) (cdr yext))))
 	 (rounded-bbox (mm-to-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts?)))
