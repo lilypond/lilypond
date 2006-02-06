@@ -347,7 +347,7 @@ indications per string.
          (default-dot-position (if (eq? finger-code 'in-dot) (- 0.95 default-dot-radius) 0.6))  ; move up to make room for bigger if labeled
          (dot-radius (chain-assoc-get 'dot-radius props default-dot-radius))  ; needed for both draw-dots and draw-barre
          (dot-position (chain-assoc-get 'dot-position props default-dot-position)) ; needed for both draw-dots and draw-barre
-         (th (* (ly:output-def-lookup layout 'linethickness)
+         (th (* (ly:output-def-lookup layout 'line-thickness)
                 (chain-assoc-get 'thickness props 0.5))) ; needed for both draw-frets and draw-strings
                 
          (alignment (chain-assoc-get 'align-dir props -0.4)) ; needed only here

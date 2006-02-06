@@ -163,7 +163,7 @@ Vaticana_ligature_engraver::align_heads (std::vector<Grob_info> primitives,
     = dynamic_cast<Item *> (primitives[0].grob ())->get_column ();
 
   Real join_thickness
-    = thickness * column->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+    = thickness * column->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
   /*
    * Amount of extra space two put between some particular

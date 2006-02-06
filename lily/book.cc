@@ -98,7 +98,7 @@ Book::process (Output_def *default_paper,
     return 0;
   
   Paper_book *paper_book = new Paper_book ();
-  Real scale = scm_to_double (paper->c_variable ("outputscale"));
+  Real scale = scm_to_double (paper->c_variable ("output-scale"));
   Output_def *scaled_bookdef = scale_output_def (paper, scale);
 
   Object_key *key = new Lilypond_general_key (0, user_key_, 0);

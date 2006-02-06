@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.32"
 
 \paper {
 
@@ -15,15 +15,15 @@
 
     %% This is weird; `everyone' uses LATIN1?  How does I select TeX
     %% input encoding in EMACS? -- jcn
-    %%%%inputencoding = #"TeX"
-    inputencoding = #"latin1"
-    printpagenumber = ##t
+    %%%%input-encoding = #"TeX"
+    input-encoding = #"latin1"
+    print-page-number = ##t
 
     %%
     %% 20pt staff, 5 pt = 1.75 mm
     %%
 
-    outputscale = #1.7573
+    output-scale = #1.7573
     
     #(define-public book-title (marked-up-title 'bookTitleMarkup))
     #(define-public score-title (marked-up-title 'scoreTitleMarkup))
@@ -49,32 +49,32 @@
     %% this dimension includes the extent of the
     %% staves themselves.
     %%
-    betweensystemspace = #(* 20 mm)
+    between-system-space = #(* 20 mm)
     
     
     %%
     %% fixed space between systems.
     %%
-    betweensystempadding = #(* 4 mm)
+    between-system-padding = #(* 4 mm)
 
-    aftertitlespace = 5 \mm
-    beforetitlespace = 10 \mm
-    betweentitlespace = 2 \mm
+    after-title-space = 5 \mm
+    before-title-space = 10 \mm
+    between-title-space = 2 \mm
 
 
     %%
     %% Small staves are aligned so they come out on the same place on
     %% across different pages.
     %%
-    pagetopspace = #(* 12 mm)
+    page-top-space = #(* 12 mm)
 
     
-    raggedbottom = ##f
+    ragged-bottom = ##f
 
     %%
     %% looks best for shorter scores.
     %%
-    raggedlastbottom= ##t
+    ragged-last-bottom= ##t
 
     #(define font-defaults
       '((font-encoding . fetaMusic)))
@@ -100,14 +100,13 @@
 
     \include "titling-init.ly"
 
+    top-margin = 5 \mm
+    bottom-margin = 6 \mm
+    heap-separation = 4 \mm
+    foot-separation = 4 \mm
+    right-margin = 10 \mm
 
-    topmargin = 5 \mm
-    bottommargin = 6 \mm
-    headsep = 4 \mm
-    footsep = 4 \mm
-    rightmargin = 10 \mm
-
-    leftmargin = ##f
-    firstpagenumber = #1
-    printfirstpagenumber =##f
+    left-margin = ##f
+    first-page-number = #1
+    print-first-page-number =##f
   }

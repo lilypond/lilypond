@@ -702,7 +702,7 @@ Stem::print (SCM smob)
   // URG
   Real stem_width = thickness (me);
   Real blot
-    = me->layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+    = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   Box b = Box (Interval (-stem_width / 2, stem_width / 2),
 	       Interval (stem_y[DOWN] * half_space, stem_y[UP] * half_space));
@@ -723,7 +723,7 @@ Stem::get_translated_flag (Grob *me)
     {
       Direction d = get_grob_direction (me);
       Real blot
-	= me->layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+	= me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
       Real stem_width = thickness (me);
       Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
       Real y2 = robust_scm2double (me->get_property ("stem-end-position"), 0.0);

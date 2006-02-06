@@ -91,7 +91,7 @@
 			(inexact->exact
 			 (round (* 1000
 				   (ly:font-magnification font)
-				   (ly:paper-outputscale paper)))))))
+				   (ly:paper-output-scale paper)))))))
 	     sub-fonts)))))
 
 (define (simple-font-load-command paper font)
@@ -102,7 +102,7 @@
     (inexact->exact
      (round (* 1000
 	       (ly:font-magnification font)
-	       (ly:paper-outputscale paper))))))
+	       (ly:paper-output-scale paper))))))
 
 (define (font-load-command paper font)
   (if (pair? (ly:font-sub-fonts font))
@@ -113,14 +113,14 @@
   (string-append
    ;; UGH. FIXME.
    "\\def\\lilypondpaperunit{mm}%\n"
-   (tex-number-def "lilypondpaper" 'outputscale
+   (tex-number-def "lilypondpaper" 'output-scale
 		   (number->string (exact->inexact
-				    (ly:paper-outputscale paper))))
+				    (ly:paper-output-scale paper))))
    (tex-string-def "lilypondpaper" 'papersize
 		   (eval 'papersizename (ly:output-def-scope paper)))
    ;; paper/layout?
-   (tex-string-def "lilypondpaper" 'inputencoding
-		   (eval 'inputencoding (ly:output-def-scope paper)))
+   (tex-string-def "lilypondpaper" 'input-encoding
+		   (eval 'input-encoding (ly:output-def-scope paper)))
 
    (apply string-append
 	  (map (lambda (x) (font-load-command paper x))
@@ -133,7 +133,7 @@
 		     "{" (sanitize-tex-string str) "}%\n")))
 
 (define (header paper page-count classic?)
-  (let ((scale (ly:output-def-lookup paper 'outputscale))
+  (let ((scale (ly:output-def-lookup paper 'output-scale))
 	(texpaper (string-append
 		   (ly:output-def-lookup paper 'papersizename)
 		   "paper"))
@@ -151,8 +151,8 @@
 	 "")
 
      (tex-string-def
-      "lilypondpaper" 'linewidth
-      (ly:number->string (* scale (ly:output-def-lookup paper 'linewidth))))
+      "lilypondpaper" 'line-width
+      (ly:number->string (* scale (ly:output-def-lookup paper 'line-width))))
      "\\def\\lilyponddocumentclassoptions{"
      (sanitize-tex-string texpaper)
      (if landscape? ",landscape" "")

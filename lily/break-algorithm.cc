@@ -85,7 +85,7 @@ void
 Break_algorithm::set_pscore (Paper_score *s)
 {
   pscore_ = s;
-  linewidth_ = s->layout ()->get_dimension (ly_symbol2scm ("linewidth"));
+  linewidth_ = s->layout ()->get_dimension (ly_symbol2scm ("line-width"));
 }
 
 std::vector<Column_x_positions>

@@ -203,10 +203,10 @@ vaticana_brew_primitive (Grob *me)
   Real thickness = robust_scm2double (me->get_property ("thickness"), 1);
 
   Real line_thickness
-    = thickness * me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+    = thickness * me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
   Real blotdiameter
-    = (me->layout ()->get_dimension (ly_symbol2scm ("blotdiameter")));
+    = (me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter")));
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
 

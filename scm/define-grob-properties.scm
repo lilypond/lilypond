@@ -64,7 +64,7 @@ Choices include @code{curved} and @code{straight}.")
 			     "Spacing is based on the shortest notes in a piece. Normally, pieces are spaced as if notes at least as short as this are present.")
      (baseline-skip ,ly:dimension? "Distance between base lines of
  multiple lines of text.")
-     (beam-thickness ,ly:dimension? "thickness, measured in staffspace.")
+     (beam-thickness ,ly:dimension? "thickness, measured in staff-space.")
      (beam-width ,ly:dimension? "width of the tremolo sign.")
      (beamed-stem-shorten ,list? "How much to shorten beamed stems,
 when their direction is forced. It is a list, since the value is different
@@ -231,7 +231,7 @@ of the @code{spacing-increment}.")
 
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
      (hair-thickness ,number? "Thickness of the thin line in a bar line.")
-     (height ,ly:dimension? "Height of an object in staffspace.")
+     (height ,ly:dimension? "Height of an object in staff-space.")
      (height-limit ,ly:dimension? "Maximum slur height: the longer the
 slur, the closer it is to this height.")
 
@@ -386,7 +386,7 @@ duration. Typically, the width of a note head. See also
      (springs-and-rods ,boolean? "Dummy variable for triggering spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
      (staff-space ,ly:dimension? "Amount of space between staff lines,
-expressed in global staffspace.")
+expressed in global staff-space.")
      (staff-position ,number? "Vertical position, measured in half
 staff spaces, counted from the middle line.")
      
@@ -416,9 +416,9 @@ this property.")
 words. The default RIGHT is for roman text. Arabic or hebrew should
 use LEFT.")
      (thick-thickness ,number? "Bar line thickness, measured in
-@code{linethickness}.")
+@code{line-thickness}.")
      (thickness ,number? "Bar line thickness, measured in
-@code{linethickness}.")
+@code{line-thickness}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
 
      (threshold ,number-pair? "(@var{min} . @var{max}), where

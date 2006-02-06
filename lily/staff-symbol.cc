@@ -35,7 +35,7 @@ Staff_symbol::print (SCM smob)
 
     --hwn.
   */
-  Real t = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   t *= robust_scm2double (me->get_property ("thickness"), 1.0);
 
   Direction d = LEFT;
@@ -125,7 +125,7 @@ Staff_symbol::staff_space (Grob *me)
 Real
 Staff_symbol::get_line_thickness (Grob *me)
 {
-  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
   return robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 }
@@ -144,7 +144,7 @@ SCM
 Staff_symbol::height  (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Real t = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   t *= robust_scm2double (me->get_property ("thickness"), 1.0);
   
   SCM line_positions = me->get_property ("line-positions");

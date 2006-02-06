@@ -91,7 +91,7 @@ LY_DEFINE (ly_layout_def_p, "ly:layout-def?",
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 	   1, 0, 0, (SCM bp),
-	   "Get outputscale for BP.")
+	   "Get output-scale for BP.")
 {
   Output_def *b = unsmob_output_def (bp);
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");

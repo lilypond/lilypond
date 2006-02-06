@@ -168,7 +168,6 @@ def do_one_file (infile_name):
 	(last, result) = do_conversion (infile.read (), from_version, to_version)
 	infile.close ()
 
-
 	if last:
 		newversion = r'\version "%s"' % tup_to_str (last)
 		if lilypond_version_re.search (result):

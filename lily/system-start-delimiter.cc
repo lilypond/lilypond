@@ -55,7 +55,7 @@ Stencil
 System_start_delimiter::line_bracket (Grob *me, Real height)
 {
   Real thick
-    = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"))
+    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
     * robust_scm2double (me->get_property ("thickness"), 1);
   Real w = 0.8;
   
@@ -95,7 +95,7 @@ System_start_delimiter::text (Grob *me_grob, Real h)
 Stencil
 System_start_delimiter::simple_bar (Grob *me, Real h)
 {
-  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
   return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h / 2, h / 2)),
 				   lt);

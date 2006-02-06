@@ -30,7 +30,7 @@ LY_DEFINE (ly_make_score, "ly:make-score",
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 	   2, 1, 0, (SCM score, SCM layout, SCM key),
 	   "Run @var{score} through @var{layout}, an output definition, "
-	   "scaled to correct outputscale already, "
+	   "scaled to correct output-scale already, "
 	   "return a list of layout-lines. "
 	   "\nTake optional Object_key argument.")
 {

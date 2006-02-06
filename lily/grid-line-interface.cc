@@ -38,7 +38,7 @@ Grid_line_interface::print (SCM smobbed_me)
       return SCM_EOL;
     }
 
-  Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
     * staffline;
 
@@ -55,7 +55,7 @@ Grid_line_interface::width (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)
     * staffline;
 

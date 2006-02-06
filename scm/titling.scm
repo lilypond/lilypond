@@ -6,8 +6,8 @@
 ;;;;          Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-public (layout-extract-page-properties layout)
-  (list (append `((linewidth . ,(ly:paper-get-number
-				 layout 'linewidth)))
+  (list (append `((line-width . ,(ly:paper-get-number
+				 layout 'line-width)))
 		(ly:output-def-lookup layout 'text-font-defaults))))
 
 ;;;;;;;;;;;;;;;;;;

@@ -143,7 +143,7 @@
 ;;
 ;; - density scoring
 ;; - separate function for word-wrap style breaking?
-;; - raggedbottom? raggedlastbottom?
+;; - ragged-bottom? ragged-last-bottom?
 
 (define-public (optimal-page-breaks lines paper-book)
   "Return pages as a list starting with 1st page. Each page is a 'page Prob."
@@ -171,7 +171,7 @@ is what have collected so far, and has ascending page numbers."
 	   (prev-penalty (if (null? best-paths)
 			     0.0
 			     (page-penalty (car best-paths))))
-	 (inter-system-space (ly:output-def-lookup paper 'betweensystemspace))
+	 (inter-system-space (ly:output-def-lookup paper 'between-system-space))
 	 (relative-force (/ force inter-system-space))
 	 (abs-relative-force (abs relative-force)))
 
@@ -183,10 +183,10 @@ is what have collected so far, and has ascending page numbers."
 
   (define (space-systems page-height lines ragged?)
     (let* ((global-inter-system-space
-	    (ly:output-def-lookup paper 'betweensystemspace))
+	    (ly:output-def-lookup paper 'between-system-space))
 	   (top-space
-	    (ly:output-def-lookup paper 'pagetopspace))
-	   (global-fixed-dist (ly:output-def-lookup paper 'betweensystempadding))
+	    (ly:output-def-lookup paper 'page-top-space))
+	   (global-fixed-dist (ly:output-def-lookup paper 'between-system-padding))
 	   
 	   (system-vector (list->vector
 			   (append lines
@@ -254,11 +254,11 @@ is what have collected so far, and has ascending page numbers."
 		     (ideal (+
 			     (cond
 			      ((and title2? title1?)
-			       (ly:output-def-lookup paper 'betweentitlespace))
+			       (ly:output-def-lookup paper 'between-title-space))
 			      (title1?
-			       (ly:output-def-lookup paper 'aftertitlespace))
+			       (ly:output-def-lookup paper 'after-title-space))
 			      (title2?
-			       (ly:output-def-lookup paper 'beforetitlespace))
+			       (ly:output-def-lookup paper 'before-title-space))
 			      (else between-space))
 			     fixed))
 		     (hooke (/ 1 (- ideal fixed))))
@@ -283,7 +283,7 @@ is what have collected so far, and has ascending page numbers."
 	   (rods (map calc-rod (iota (1- system-count))))
 
 	   ;; we don't set ragged based on amount space left.
-	   ;; raggedbottomlast = ##T is much more predictable
+	   ;; ragged-bottomlast = ##T is much more predictable
 	   (result (ly:solve-spring-rod-problem
 		    springs rods space
 		    ragged?))
@@ -320,7 +320,7 @@ corresponding to DONE-LINES.
 CURRENT-BEST is the best result sofar, or #f."
 
     (let* ((this-page-num (if (null? best-paths)
-                              (ly:output-def-lookup paper 'firstpagenumber)
+                              (ly:output-def-lookup paper 'first-page-number)
                               (1+ (page-page-number (car best-paths)))))
 
 	   (this-page (make-page
@@ -329,8 +329,8 @@ CURRENT-BEST is the best result sofar, or #f."
 		       'is-last last?
 		       'page-number this-page-num))
 
-	   (ragged-all? (eq? #t (ly:output-def-lookup paper 'raggedbottom)))
-	   (ragged-last? (eq? #t (ly:output-def-lookup paper 'raggedlastbottom)))
+	   (ragged-all? (eq? #t (ly:output-def-lookup paper 'ragged-bottom)))
+	   (ragged-last? (eq? #t (ly:output-def-lookup paper 'ragged-last-bottom)))
 	   (ragged? (or ragged-all?
 			(and ragged-last?
 			     last?)))

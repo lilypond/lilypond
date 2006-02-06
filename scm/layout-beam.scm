@@ -13,7 +13,7 @@
 "
   (let* ((thick (ly:grob-property beam 'thickness))
 	 (layout (ly:grob-layout beam))
-	 (lthick (ly:output-def-lookup layout 'linethickness))
+	 (lthick (ly:output-def-lookup layout 'line-thickness))
 	 (staff-thick lthick) ; fixme.
 	 (quant->coord (lambda (p q)
 			 (if (= 2 (abs q))

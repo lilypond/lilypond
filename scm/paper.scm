@@ -6,12 +6,12 @@
 
 (define-public (set-paper-dimension-variables mod)
   (module-define! mod 'dimension-variables
-		  '(pt mm cm in staffheight staff-space
-		       pagetopspace
-		       betweensystemspace betweensystempadding
-		       linewidth indent hsize vsize horizontalshift
-		       staffspace linethickness ledgerlinethickness
-		       blotdiameter leftmargin rightmargin)))
+		  '(pt mm cm in staff-height staff-space
+		       page-top-space
+		       between-system-space between-system-padding
+		       line-width indent paper-width paper-height horizontal-shift
+		       staff-space line-thickness ledgerline-thickness
+		       blot-diameter left-margin right-margin)))
 
 (define-public (layout-set-staff-size sz)
   "Function to be called inside a \\layout{} block to set the staff size."
@@ -35,20 +35,20 @@
 
     (module-define! m 'text-font-size (* 12 (/ sz (* 20 pt))))
     
-    (module-define! m 'outputscale ss)
+    (module-define! m 'output-scale ss)
     (module-define! m 'fonts
 		    (if tex-backend?
 			(make-cmr-tree (/  sz (* 20 pt)))
 			(make-century-schoolbook-tree
 			 (/ sz (* 20 pt)))))
-    (module-define! m 'staffheight sz)
+    (module-define! m 'staff-height sz)
     (module-define! m 'staff-space ss)
-    (module-define! m 'staffspace ss)
+    (module-define! m 'staff-space ss)
 
     ;; !! synchronize with feta-params.mf
-    (module-define! m 'linethickness lt)
-    (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
-    (module-define! m 'blotdiameter (* 0.4 pt))
+    (module-define! m 'line-thickness lt)
+    (module-define! m 'ledgerline-thickness (+ (* 0.5 pt) (/ ss 10)))
+    (module-define! m 'blot-diameter (* 0.4 pt))
     ))
 
 (define-safe-public (set-global-staff-size sz)
@@ -88,9 +88,9 @@
 (define (set-paper-dimensions m w h)
   "M is a module (i.e. layout->scope_ )"
   (let* ((mm (eval 'mm m)))
-    (module-define! m 'hsize w)
-    (module-define! m 'vsize h)
-    (module-define! m 'linewidth (- w (* 20 mm)))
+    (module-define! m 'paper-width w)
+    (module-define! m 'paper-height h)
+    (module-define! m 'line-width (- w (* 20 mm)))
     (module-define! m 'indent (/ w 14))
 
     ;; page layout - what to do with (printer specific!) margin settings?
@@ -152,7 +152,7 @@
 	     (module-define! scope v
 			     (/ val scale))
 
-	     ;; spurious warnings, eg. for hsize, vsize. 
+	     ;; spurious warnings, eg. for paper-width, paper-height. 
 	     ;; (ly:warning (_ "not a number, ~S = ~S " v  val))
 	     )))
      

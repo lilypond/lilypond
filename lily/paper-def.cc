@@ -15,7 +15,7 @@
 Real
 output_scale (Output_def *od)
 {
-  return scm_to_double (od->lookup_variable (ly_symbol2scm ("outputscale")));
+  return scm_to_double (od->lookup_variable (ly_symbol2scm ("output-scale")));
 }
 
 SCM

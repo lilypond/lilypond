@@ -70,7 +70,7 @@ Staff_symbol_referencer::line_thickness (Grob *me)
   Grob *st = get_staff_symbol (me);
   if (st)
     return Staff_symbol::get_line_thickness (st);
-  return me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  return me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 }
 
 Real

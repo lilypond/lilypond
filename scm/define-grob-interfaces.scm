@@ -14,6 +14,13 @@
    "An accidental, printed as a suggestion (typically: vertically over a note)"
    '())
 
+
+(ly:add-interface
+ 'bass-figure-interface
+ "A bass figure text"
+ '(implicit))
+
+
 (ly:add-interface
  'dynamic-interface
    "Any kind of loudness sign"
@@ -108,9 +115,9 @@ are interesting enough to maintain a hara-kiri staff."
  '())
 
 (ly:add-interface
- 'bass-figure-interface
- "A bass figure text"
- '(implicit))
+ 'system-start-text-interface
+ "A text at the beginning of a system."
+ '(text long-text collapse-height style))
 
 ;;; todo: this is not typesetting info. Move to interpretation.
 (ly:add-interface

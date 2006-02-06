@@ -19,11 +19,11 @@
 /init-paper {
 	gsave
 	clippath pathbbox newpath
-	/vsize exch def
-	/hsize exch def pop pop pop
+	/paper-height exch def
+	/paper-width exch def pop pop pop
 	% FIXME
 	/top-margin 2 def
-	hsize line-width sub 2 div /left-margin exch def
+	paper-width line-width sub 2 div /left-margin exch def
 	grestore
 } bind def
 

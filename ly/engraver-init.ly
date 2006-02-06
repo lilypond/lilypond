@@ -1,4 +1,4 @@
-\version "2.7.14"
+\version "2.7.32"
 
 \context {
   \name "Global"
@@ -35,7 +35,7 @@
   \consists "Rest_collision_engraver"
   \consists "Accidental_engraver"
   \consists "Piano_pedal_engraver"
-  \consists "New_instrument_name_engraver"
+  \consists "Instrument_name_engraver"
   \consists "String_number_engraver"
   \consists "Axis_group_engraver"
 
@@ -144,7 +144,7 @@ contained staves are not connected vertically."
   \consists "Staff_symbol_engraver"
   \consists "Pitch_squash_engraver"
   \consists "Time_signature_engraver"
-  \consists "New_instrument_name_engraver"
+  \consists "Instrument_name_engraver"
   \consists "Axis_group_engraver"
   
   \accepts "Voice"
@@ -284,7 +284,7 @@ contained staves are not connected vertically."
   \override VerticalAlignment #'self-alignment-Y = #0
 
   \consists "Vertical_align_engraver"
-  \consists "New_instrument_name_engraver"
+  \consists "Instrument_name_engraver"
   
   instrument = #'()
   instr = #'()
@@ -343,7 +343,7 @@ printing of a single line of lyrics.  "
   \consists "Extender_engraver"
   \consists "Hyphen_engraver"
   \consists "Stanza_number_engraver"
-  \consists "New_instrument_name_engraver"
+  \consists "Instrument_name_engraver"
   \consists "Skip_event_swallow_translator"
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"

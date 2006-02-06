@@ -17,7 +17,7 @@ class FatalConversionError:
 conversions = []
 
 error_file = sys.stderr 
-lilypond_version_re_str = '\\\\version *\"([^"]+)\"'
+lilypond_version_re_str = '\\\\version *\"[0-9.]+"'
 lilypond_version_re = re.compile (lilypond_version_re_str)
 
 
@@ -2696,7 +2696,13 @@ def conv (str):
 		
 	str = re.sub (r'([A-Z][a-z_0-9]+::[a-z_0-9]+)',
 		      sub_cxx_id, str)
+	return str
 
+conversions.append (((2, 7, 31), conv,
+		     """Foo_bar::bla_bla -> ly:foo-bar::bla-bla"""))
+
+
+def conv (str):
 	identifier_subs = [
 		('inputencoding', 'input-encoding'),
 		('printpagenumber', 'print-page-number'),
@@ -2716,8 +2722,8 @@ def conv (str):
 		('footsep', 'foot-separation'),
 		('rightmargin', 'right-margin'),
 		('leftmargin', 'left-margin'),
-		('firstpagenumber', 'first-page-number'),
 		('printfirstpagenumber', 'print-first-page-number'),
+		('firstpagenumber', 'first-page-number'),
 		('hsize', 'paper-width'),
 		('vsize', 'paper-height'),
 		('horizontalshift', 'horizontal-shift'),
@@ -2729,8 +2735,12 @@ def conv (str):
 		('linewidth', 'line-width')
 		]
 	
+	for (a,b)  in identifier_subs:
+		### for C++:
+		## str = re.sub ('"%s"' % a, '"%s"' b, str)
+		
+		str = re.sub (a, b, str)
 	return str
 
-conversions.append (((2, 7, 31), conv,
-		     """Foo_bar::bla_bla -> ly:foo-bar::bla-bla"""))
-
+conversions.append (((2, 7, 32), conv,
+		     """foobar -> foo-bar for \paper, \layout"""))

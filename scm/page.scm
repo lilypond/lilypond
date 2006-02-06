@@ -86,9 +86,9 @@
 
 (define (annotate-page layout stencil)
   (let*
-      ((topmargin (ly:output-def-lookup layout 'topmargin))
-       (vsize (ly:output-def-lookup layout 'vsize))
-       (bottommargin (ly:output-def-lookup layout 'bottommargin))
+      ((top-margin (ly:output-def-lookup layout 'top-margin))
+       (paper-height (ly:output-def-lookup layout 'paper-height))
+       (bottom-margin (ly:output-def-lookup layout 'bottom-margin))
        (add-stencil (lambda (y)
 		      (set! stencil
 			    (ly:stencil-add stencil y))
@@ -96,23 +96,23 @@
 
     (add-stencil
      (ly:stencil-translate-axis 
-      (annotate-y-interval layout "vsize"
-			   (cons (- vsize) 0)
+      (annotate-y-interval layout "paper-height"
+			   (cons (- paper-height) 0)
 			   #t)
       1 X))
     
 
     (add-stencil
      (ly:stencil-translate-axis 
-      (annotate-y-interval layout "topmargin"
-			   (cons (- topmargin) 0)
+      (annotate-y-interval layout "top-margin"
+			   (cons (- top-margin) 0)
 			   #t)
       2 X))
     
     (add-stencil
      (ly:stencil-translate-axis 
-      (annotate-y-interval layout "bottommargin"
-			   (cons (- vsize) (- bottommargin vsize))
+      (annotate-y-interval layout "bottom-margin"
+			   (cons (- paper-height) (- bottom-margin paper-height))
 			   #t)
       2 X))
     
@@ -171,15 +171,15 @@
 					   (cons (min 0 (* dir sep))
 						 (max 0 (* dir sep)))
 					   #t)
-		      (/ (ly:output-def-lookup layout 'linewidth) 2)
+		      (/ (ly:output-def-lookup layout 'line-width) 2)
 		      X)
 		     (if (= dir UP)
 			 (ly:stencil-translate-axis
 			  (annotate-y-interval layout
-					      "pagetopspace"
+					      "page-top-space"
 					      (cons
 					       (- (min 0 (* dir sep))
-						  (ly:output-def-lookup layout 'pagetopspace))
+						  (ly:output-def-lookup layout 'page-top-space))
 					       (min 0 (* dir sep)))
 					      #t)
 			  (+ 7 (interval-center (ly:stencil-extent head-stencil X))) X)
@@ -206,8 +206,8 @@
 		    'make-header
 		    'make-footer)
 		(if (= dir UP)
-		    'headsep
-		    'footsep)
+		    'heap-separation
+		    'foot-separation)
 		dir last?)))
 
 (define (page-header page)
@@ -219,23 +219,22 @@
 (define (layout->page-init layout)
   "Alist of settings for page layout"
   (let*
-      ((vsize (ly:output-def-lookup layout 'vsize))
-       (hsize (ly:output-def-lookup layout 'hsize))
+      ((paper-height (ly:output-def-lookup layout 'paper-height))
+       (paper-width (ly:output-def-lookup layout 'paper-width))
 
-       (lmargin (ly:output-def-lookup layout 'leftmargin))
-       (leftmargin (if lmargin
+       (lmargin (ly:output-def-lookup layout 'left-margin))
+       (left-margin (if lmargin
 		       lmargin
-		       (/ (- hsize
-			     (ly:output-def-lookup layout 'linewidth)) 2)))
-       
-       (bottom-edge (- vsize
-		       (ly:output-def-lookup layout 'bottommargin)))
-       (top-margin (ly:output-def-lookup layout 'topmargin))
+		       (/ (- paper-width
+			     (ly:output-def-lookup layout 'line-width)) 2)))
+       (bottom-edge (- paper-height
+		       (ly:output-def-lookup layout 'bottom-margin)) )
+       (top-margin (ly:output-def-lookup layout 'top-margin))
        )
     
-    `((vsize . ,vsize)
-      (hsize . ,hsize)
-      (left-margin . ,leftmargin)
+    `((paper-height . ,paper-height)
+      (paper-width . ,paper-width)
+      (left-margin . ,left-margin)
       (top-margin . ,top-margin)
       (bottom-edge . ,bottom-edge)
       )))
@@ -258,10 +257,10 @@ create offsets.
        (lines (page-lines page))
        (number (page-page-number page))
 
-       ;; TODO: naming vsize/hsize not analogous to TeX.
+       ;; TODO: naming paper-height/paper-width not analogous to TeX.
 
        
-       (system-xoffset (ly:output-def-lookup layout 'horizontalshift 0.0))
+       (system-xoffset (ly:output-def-lookup layout 'horizontal-shift 0.0))
        (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
        (system-separator-stencil (if (markup? system-separator-markup)
 				     (interpret-markup layout
@@ -275,7 +274,7 @@ create offsets.
 
        (page-stencil (ly:make-stencil
 		      '()
-		      (cons (prop 'left-margin) (prop 'hsize))
+		      (cons (prop 'left-margin) (prop 'paper-width))
 		      (cons (- (prop 'top-margin)) 0)))
 
        (last-system #f)
@@ -383,9 +382,9 @@ create offsets.
        (scopes (ly:paper-book-scopes p-book))
        (number (page-page-number page))
        (last? (page-property page 'is-last))
-       (h (- (ly:output-def-lookup layout 'vsize)
-	       (ly:output-def-lookup layout 'topmargin)
-	       (ly:output-def-lookup layout 'bottommargin)))
+       (h (- (ly:output-def-lookup layout 'paper-height)
+	       (ly:output-def-lookup layout 'top-margin)
+	       (ly:output-def-lookup layout 'bottom-margin)))
        
        (head (page-property page 'head-stencil))
        (foot (page-property page 'foot-stencil))

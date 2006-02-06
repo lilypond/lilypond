@@ -87,7 +87,7 @@ the PDF backend."
 		    width (+ (* width slope)  (/ thickness -2))
 		    width (+ (* width slope)  (/ thickness 2))
 		    0 (/ thickness 2))
-	       ,(ly:output-def-lookup layout 'blotdiameter)
+	       ,(ly:output-def-lookup layout 'blot-diameter)
 	       #t)
      (cons 0 width)
      (cons (+ (- half) (car yext))
@@ -319,7 +319,7 @@ gsave /ecrm10 findfont
 	 (text-dir (chain-assoc-get 'text-direction props RIGHT))
 	 (word-count (length stencils))
 	 (word-space (chain-assoc-get 'word-space props))
-	 (line-width (chain-assoc-get 'linewidth props))
+	 (line-width (chain-assoc-get 'line-width props))
 	 (fill-space
 	 	(cond
 			((= word-count 1) 
@@ -452,7 +452,7 @@ determines the space between each markup in @var{args}."
 (define (wordwrap-markups layout props args justify)
   (let*
       ((baseline-skip (chain-assoc-get 'baseline-skip props))
-       (line-width (chain-assoc-get 'linewidth props))
+       (line-width (chain-assoc-get 'line-width props))
        (word-space (chain-assoc-get 'word-space props))
        (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
        (lines (wordwrap-stencils
@@ -466,21 +466,21 @@ determines the space between each markup in @var{args}."
 
 (def-markup-command (justify layout props args) (markup-list?)
   "Like wordwrap, but with lines stretched to justify the margins.
-Use @code{\\override #'(linewidth . X)} to set linewidth, where X
+Use @code{\\override #'(line-width . X)} to set line-width, where X
 is the number of staff spaces."
 
   (wordwrap-markups layout props args #t))
 
 (def-markup-command (wordwrap layout props args) (markup-list?)
-  "Simple wordwrap.  Use @code{\\override #'(linewidth . X)} to set
-linewidth, where X is the number of staff spaces."
+  "Simple wordwrap.  Use @code{\\override #'(line-width . X)} to set
+line-width, where X is the number of staff spaces."
 
   (wordwrap-markups layout props args #f))
 
 (define (wordwrap-string layout props justify arg) 
   (let*
       ((baseline-skip (chain-assoc-get 'baseline-skip props))
-       (line-width (chain-assoc-get 'linewidth props))
+       (line-width (chain-assoc-get 'line-width props))
        (word-space (chain-assoc-get 'word-space props))
        
        (para-strings (regexp-split

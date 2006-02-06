@@ -64,10 +64,10 @@
        (bbox-extent (paper-system-extent system Y))
        (refp-extent (ly:prob-property system 'refpoint-Y-extent))
        (next-space (ly:prob-property system 'next-space
-					     (ly:output-def-lookup layout 'betweensystemspace)
+					     (ly:output-def-lookup layout 'between-system-space)
 					     ))
        (next-padding (ly:prob-property system 'next-padding
-					       (ly:output-def-lookup layout 'betweensystempadding)
+					       (ly:output-def-lookup layout 'between-system-padding)
 					       ))
 		     
        )

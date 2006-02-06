@@ -107,7 +107,7 @@ default_rendering (SCM music, SCM outdef,
   /* ugh.  */
   if (bpd->c_variable ("is-paper") == SCM_BOOL_T)
     {
-      Real scale = scm_to_double (bpd->c_variable ("outputscale"));
+      Real scale = scm_to_double (bpd->c_variable ("output-scale"));
 
       Output_def *def = scale_output_def (unsmob_output_def (outdef), scale);
       Output_def *bdef = scale_output_def (bpd, scale);
@@ -164,7 +164,7 @@ Score::book_rendering (Output_def *layoutbook,
   Real scale = 1.0;
 
   if (layoutbook && layoutbook->c_variable ("is-paper") == SCM_BOOL_T)
-    scale = scm_to_double (layoutbook->c_variable ("outputscale"));
+    scale = scm_to_double (layoutbook->c_variable ("output-scale"));
 
   SCM outputs = SCM_EOL;
   SCM *tail = &outputs;

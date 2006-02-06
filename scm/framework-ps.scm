@@ -63,7 +63,7 @@
 	   (plain (ps-font-command font))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
-	   (ops (ly:output-def-lookup paper 'outputscale))
+	   (ops (ly:output-def-lookup paper 'output-scale))
 	   (scaling (* ops magnification designsize)))
 
       ;; Bluesky pfbs have UPCASE names (sigh.)
@@ -99,15 +99,15 @@
    "/lily-output-units "
      (number->string mm-to-bigpoint)
      " def %% millimeter\n"
-   (output-entry "staff-line-thickness" 'linethickness)
-   (output-entry "line-width" 'linewidth)
+   (output-entry "staff-line-thickness" 'line-thickness)
+   (output-entry "line-width" 'line-width)
    (output-entry "paper-size" 'papersizename)
-   (output-entry "staff-height" 'staffheight)	;junkme.
+   (output-entry "staff-height" 'staff-height)	;junkme.
    "/output-scale "
-     (number->string (ly:output-def-lookup layout 'outputscale))
+     (number->string (ly:output-def-lookup layout 'output-scale))
      " def\n"
-   (output-entry "page-height" 'vsize)
-   (output-entry "page-width" 'hsize)))
+   (output-entry "page-height" 'paper-height)
+   (output-entry "page-width" 'paper-width)))
 
 (define (dump-page outputter page page-number page-count landscape?)
   (ly:outputter-dump-string
@@ -122,7 +122,7 @@
 	"")
     "%%EndPageSetup\n"
 
-    "gsave 0 vsize translate "
+    "gsave 0 paper-height translate "
     "set-ps-scale-to-lily-scale "
     "\n"))
   (ly:outputter-dump-stencil outputter page)
@@ -429,7 +429,7 @@
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
 	 
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
-	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
+	 (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
 	 (page-count (length page-stencils))
 	 (port (ly:outputter-port outputter)))
 
@@ -456,7 +456,7 @@
 
 (define-public (dump-stencil-as-EPS paper dump-me filename load-fonts?)
   (define (mm-to-bp-box mmbox)
-    (let* ((scale (ly:output-def-lookup paper 'outputscale))
+    (let* ((scale (ly:output-def-lookup paper 'output-scale))
 	   (box (map
 		 (lambda (x)
 		   (inexact->exact
@@ -508,7 +508,7 @@
 (define-public (output-preview-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
-	 (scale (ly:output-def-lookup paper 'outputscale))
+	 (scale (ly:output-def-lookup paper 'output-scale))
 	 (to-dump-systems '()))
 
     ;; skip booktitles.
@@ -544,7 +544,7 @@
 
       (let* ((paper (ly:paper-book-paper book))
 	     (systems (ly:paper-book-systems book))
-	     (scale (ly:output-def-lookup paper 'outputscale))
+	     (scale (ly:output-def-lookup paper 'output-scale))
 	     (titles (take-while paper-system-title? systems))
 	     (non-title (find (lambda (x)
 				(not (paper-system-title? x))) systems))

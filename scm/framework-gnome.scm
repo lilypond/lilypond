@@ -111,12 +111,12 @@
 
 (define (gnome-main book name)
   (let* ((paper (ly:paper-book-paper book))
-	 (hsize (ly:output-def-lookup paper 'hsize))
-	 (vsize (ly:output-def-lookup paper 'vsize))
-	 (page-width (inexact->exact (ceiling (* OUTPUT-SCALE hsize))))
-	 (page-height (inexact->exact (ceiling (* OUTPUT-SCALE vsize))))
-	 ;;(page-width (inexact->exact (ceiling hsize)))
-	 ;;(page-height (inexact->exact (ceiling vsize)))
+	 (paper-width (ly:output-def-lookup paper 'paper-width))
+	 (paper-height (ly:output-def-lookup paper 'paper-height))
+	 (page-width (inexact->exact (ceiling (* OUTPUT-SCALE paper-width))))
+	 (page-height (inexact->exact (ceiling (* OUTPUT-SCALE paper-height))))
+	 ;;(page-width (inexact->exact (ceiling paper-width)))
+	 ;;(page-height (inexact->exact (ceiling paper-height)))
 
 	 (screen-width (gdk-screen-width))
 	 (screen-height (gdk-screen-height))
