@@ -179,7 +179,6 @@ typedef void (*Translator_void_method_ptr) (Translator *);
 
 
 /* FIXME: when Link_array is dropped, do grand s/r to vector<TYPE*>.  */
-#if STD_VECTOR
 
 #include "std-vector.hh"
 
@@ -202,27 +201,5 @@ typedef void (*Translator_void_method_ptr) (Translator *);
 #define Link_array__Source_file_ std::vector<Source_file*>
 #define Link_array__Spanner_ std::vector<Spanner*>
 #define Link_array__Tie_configuration_ std::vector<Tie_configuration*>
-#else /* !STD_VECTOR */
-#define Link_array__char_ Link_array<char>
-#define Link_array__Grob_ Link_array<Grob>
-#define Link_array__Accidental_placement_entry_ Link_array<Accidental_placement_entry>
-#define Link_array__Audio_item_ Link_array<Audio_item>
-#define Link_array__Audio_note_ Link_array<Audio_note>
-#define Link_array__Audio_piano_pedal_ Link_array<Audio_piano_pedal>
-#define Link_array__Audio_staff_ Link_array<Audio_staff>
-#define Link_array__Bracket_nesting_node_ Link_array<Bracket_nesting_node>
-#define Link_array__Context_ Link_array<Context>
-#define Link_array__Context_def_ Link_array<Context_def>
-#define Link_array__Grob_ Link_array<Grob>
-#define Link_array__Item_ Link_array<Item>
-#define Link_array__Music_ Link_array<Music>
-#define Link_array__Note_column_ Link_array<Note_column>
-#define Link_array__Output_def_ Link_array<Output_def>
-#define Link_array__Slur_configuration_ Link_array<Slur_configuration>
-#define Link_array__Source_file_ Link_array<Source_file>
-#define Link_array__Spanner_ Link_array<Spanner>
-#define Link_array__Tie_configuration_ Link_array<Tie_configuration>
-#endif /* !STD_VECTOR */
-
 
 #endif /* LILY_PROTO_HH */
