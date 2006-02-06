@@ -71,11 +71,14 @@ which scares away people.
 }
 @end verbatim
 
+@noindent
+The same holds for analogous options in lilypond-book.
+
 @item
 Music for multiple parts can be interleaved, similar to MUP input.
 This is done with the @code{\parallelMusic} function,
   
-@lilypond[verbatim,raggedright]
+@lilypond[verbatim,ragged-right]
 \parallelMusic #'(voiceA voiceB) {
   r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
   c'2                                c'2                                |
@@ -166,7 +169,7 @@ This refinement was sponsored by Steve Doonan.
 @item Positions of staff lines may now be set individually, for
 example
 
-@lilypond[raggedright]
+@lilypond[ragged-right]
 \new Staff  \relative c' {
   \override Staff.StaffSymbol #'line-positions = #'(-7 -2 0 7)
   g c f b e a
@@ -186,7 +189,7 @@ Stem direction on the center staff line are now interpolated between
 neighbors. This results in less stem direction changes, leading to a
 more even appearance. For example,
 
-@lilypond[raggedright]
+@lilypond[ragged-right]
 \relative c'' {
   c4 b c b
   c c c r
@@ -200,7 +203,7 @@ This feature was sponsored by Mike Rolish and Basil Crow.
 Slurs now avoid @code{TupletNumber}s, and tuplet numbers may enter the
 staff.
 
-@lilypond[raggedright]
+@lilypond[ragged-right]
 \relative {
   \slurUp
   \override TupletBracket #'bracket-visibility = ##f
@@ -228,7 +231,7 @@ This rewrite was sponsored by Trent Johnston.
 @item Ties in chords are also formatted using a scoring based
 formatting. This reduces the number of collisions for ties in chords,
 
-@lilypond[raggedright,fragment,relative=2]
+@lilypond[ragged-right,fragment,relative=2]
   <b  d f g> ~  <b  d f g> 
 @end lilypond
 
@@ -240,7 +243,7 @@ This rewrite was sponsored by Steve Doonan.
 @item With the @code{\tweak} music function, layout objects that are directly
 connected to input may be tuned easily,
 
-@lilypond[relative=2,fragment,verbatim,raggedright]
+@lilypond[relative=2,fragment,verbatim,ragged-right]
 <
   \tweak #'font-size #3  c
   \tweak #'color #red d
@@ -271,7 +274,7 @@ This feature has been sponsored by Bertalan Fodor.
 @item Texts set in a TrueType font are now kerned. This requires CVS
 Pango or Pango 1.12.
 
-@lilypond[relative=2,fragment,raggedright]
+@lilypond[relative=2,fragment,ragged-right]
   c4^"VAVAVAffififl"
 @end lilypond
 
@@ -285,7 +288,7 @@ This fix was sponsored by Black Trash Productions.
 @item The horizontal location of rehearsal marks can be adjusted by
 setting the @code{rehearsalMarkAlignSymbol} property,
 
-@lilypond[raggedright]
+@lilypond[ragged-right]
 \relative {
   c1
   \key cis \major
@@ -309,7 +312,7 @@ This feature was sponsored by Trevor Bača.
 It's now possible to easily create deeply nested system start
 delimiters,
 
-@lilypond[raggedright]
+@lilypond[ragged-right]
 \new StaffGroup 
 \relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
@@ -396,7 +399,7 @@ Support for figured bass has been rewritten. Now it supports
 continuation lines, slashed figures, and its figures, brackets, and
 alignments may tuned separately.
 
-@lilypond[raggedright,fragment]
+@lilypond[ragged-right,fragment]
 <<
   \relative { c4 c c c }
   \figures {
@@ -426,7 +429,7 @@ The default paper size may now be set from the command line using
 Beamlets may stick out of the side of beams.
 
 
-@lilypond[fragment,raggedright,relative=2]
+@lilypond[fragment,ragged-right,relative=2]
 {
   \override Beam #'break-overshoot = #'(-0.5 . 0.5) 
   \set stemLeftBeamCount = #2
@@ -445,7 +448,7 @@ This feature was sponsored by Trevor Bača.
 Vertical alignments of staves can now be tuned easily for individual
 systems.
 
-@lilypond[raggedright]
+@lilypond[ragged-right]
 #(set-global-staff-size 13)
 \relative c'' <<
   \new PianoStaff <<
@@ -486,7 +489,7 @@ These features were sponsored by Trevor Bača and Nicolas Sceaux.
 @item
 The slope of a stem-tremolo may be set manually
 
-@lilypond[fragment,relative=1,raggedright]
+@lilypond[fragment,relative=1,ragged-right]
 c8:16[ 
 \once \override StemTremolo #'slope = #0.45
 c:16 c:16 c:16 ]
@@ -497,7 +500,7 @@ This feature was sponsored by Sven Axelsson.
 @item
 Laissez vibrer ties can be created with @code{\laissezVibrer},
 
-@lilypond[fragment,raggedright,relative=1]
+@lilypond[fragment,ragged-right,relative=1]
   <c e g>\laissezVibrer r  <d f>\laissezVibrer
 @end lilypond
 
@@ -514,7 +517,7 @@ This feature was sponsored by Aaron Mehl.
 Texts over multi measure rests can stretch the corresponding measure,
 if the appropriate @code{spring-and-rods} callback is set.
 
-@lilypond[relative=2,fragment,raggedright]
+@lilypond[relative=2,fragment,ragged-right]
 \override MultiMeasureRestText #'springs-and-rods
   = #ly:multi-measure-rest::set-text-rods
 c1 R1 R1^"Very long long long text" 
@@ -528,7 +531,7 @@ Formatting of ties in chords has been improved. Ties no longer collide
 with note heads and stems. In addition, it is possible to manually
 specify tie formatting
 
-@lilypond[relative=2, fragment,raggedright]
+@lilypond[relative=2, fragment,ragged-right]
   <a c d f> ~ <a c d f>
   
   \override TieColumn #'tie-configuration =
@@ -544,7 +547,7 @@ Dell¡.
 Formatting of isolated, single ties has been improved. Now, ties avoid
 staff lines, flags and dots, without compromising their shape.
 
-@lilypond[fragment,raggedright]
+@lilypond[fragment,ragged-right]
 \relative c'' {
   \stemUp
   c16 c2...~ c16 ~ c2... |
@@ -561,7 +564,7 @@ Dell¡.
 With the @code{countPercentRepeats} property,
 percent repeats get incremental numbers to indicate the accumulated repeat count.
 
-@lilypond[relative=2,fragment,raggedright]
+@lilypond[relative=2,fragment,ragged-right]
 \set countPercentRepeats = ##t
 \repeat percent 4 { c1 }
 \time 2/4
@@ -628,7 +631,7 @@ Proportional notation is supported.  Notes can be spaced proportional
 to their time-difference by assigning a duration to
 @code{proportionalNotationDuration}. For example,
 
-@lilypond[relative=2,fragment,raggedright]
+@lilypond[relative=2,fragment,ragged-right]
 <<
   \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
   \new Staff { c8[ c c c c c]  c4 c2 r2 }
@@ -660,7 +663,7 @@ This feature was sponsored by Trevor Bača.
 Endings of broken tuplet brackets can be tuned.  For example, you can
 add arrows to the brackets,
 
-@lilypond[fragment,raggedright,relative=2]
+@lilypond[fragment,ragged-right,relative=2]
 \override TupletBracket
  #'edge-text = #(cons
              (markup #:arrow-head X LEFT #f)
@@ -691,7 +694,7 @@ These glyphs have been sponsored by Trevor Bača.
 @item
 Nested tuplets are automatically positioned,
 
-@lilypond[fragment,raggedright,relative=2]
+@lilypond[fragment,ragged-right,relative=2]
 \set tupletNumberFormatFunction = #fraction-tuplet-formatter
 \times 4/6 {
   a4 a 
