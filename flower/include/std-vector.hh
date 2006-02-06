@@ -50,6 +50,13 @@ int default_compare (T *const &a, T *const &b)
 #undef vector
 
 namespace std {
+
+  #ifndef VSIZE
+  #define VSIZE
+  typedef size_t vsize;
+  #define VPOS UINT_MAX
+  #endif
+  
   /* Interface without pointer arithmetic (iterator) semantics.  */
   template<typename T>
   class vector : public __vector<T>
@@ -85,10 +92,10 @@ namespace std {
   void
   binary_search_bounds (vector<T*> const &table,
 			T const *key, int (*compare) (T *const &, T *const &),
-			unsigned *lo,
-			unsigned *hi)
+			vsize *lo,
+			vsize *hi)
   {
-    int cmp;
+    vsize cmp;
     int result;
 
     /* binary search */
