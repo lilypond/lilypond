@@ -1,5 +1,7 @@
 2006-02-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* configure.in (gui_b): excise std_string option.
+
 	* flower/string.cc (Module): excise flower array & string
 
 	* flower/include/std-string.hh: excise flower string.

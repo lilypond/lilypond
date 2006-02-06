@@ -127,9 +127,3 @@ File_name::is_absolute () const
   return (dir_.length () && dir_[0] == DIRSEP) || root_.length ();
 }
 
-#if 0 //STD_STRING
-File_name::File_name (String file_name)
-{
-  *this = File_name (std::string (file_name));
-}
-#endif
