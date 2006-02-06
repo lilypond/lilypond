@@ -34,15 +34,7 @@ AC_ARG_ENABLE(gui,
     [gui_b=$enableval])
 
 
-std_vector=yes
-AC_ARG_ENABLE(std-string,
-    [  --enable-std-vector     compile with std::vector.  Default: on],
-    [std_vector=$enableval])
-if test "$std_vector" = "yes"; then
-    # Store in config.make rather than in config.hh and have every
-    # source file depend on that.
-    DEFINES="$DEFINES -DSTD_VECTOR=1"
-fi
+
 
 NCSB_DIR=unknown
 AC_ARG_WITH(ncsb-dir,
