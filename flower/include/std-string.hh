@@ -8,49 +8,15 @@
 
 #ifndef STD_STRING_HH
 #define STD_STRING_HH
-
-#if !STD_STRING
-
-/* Also declare string, in the wrong way.  */
-#include <algorithm>
-#include <iostream>
-#include <sstream>
-
-#endif
-
-
+ 
 #include "compare.hh"
 
-#if STD_STRING
 #include <string>
-#endif
-
-#if STD_STRING
 
 namespace std {
 
   typedef size_t ssize;
 #define NPOS std::string::npos
-
-}
-
-#else /* ! STD_STRING */
-
-namespace std {
-
-#define string String
-  using namespace std;
-  class String;
-  typedef int ssize;
-#define NPOS -1
-
-}
-
-#include "string.hh"
-
-#endif /* ! STD_STRING */
-
-namespace std {
 
   string to_string (string s);
   string to_string (char c, int n = 1);
