@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
   texidoc="
@@ -15,5 +15,5 @@ Breaks can be encouraged and discouraged using @code{\\break} and
 }
 \layout {
   indent = 0.0
-  linewidth = 4.0\cm
+  line-width = 4.0\cm
 }

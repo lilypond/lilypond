@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 % definitely wil be renamed to something.
 %{
@@ -44,7 +44,7 @@ a piece. "
 		}
 	>>
   	\layout {
-		raggedright = ##t
+		ragged-right = ##t
 		\context{
 			\Score
 

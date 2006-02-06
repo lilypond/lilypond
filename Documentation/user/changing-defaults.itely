@@ -153,7 +153,7 @@ A practical application of @code{\new} is a score with many
 staves.  Each part that should be on its own staff, is preceded with 
 @code{\new Staff}.
 
-@lilypond[quote,verbatim,relative=2,raggedright,fragment]
+@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
 << \new Staff { c4 c }
    \new Staff { d4 d }
 >>
@@ -203,7 +203,7 @@ They are combined by sending both to the same @context{Voice} context,
    \context Voice = "A" \arts
 >>
 @end example
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 music = { c4 c4 }
 arts = { s4-. s4-> }
 \relative c'' <<
@@ -447,7 +447,7 @@ time signature.
 @cindex polymetric scores
 @cindex Time signatures, multiple
 
-@lilypond[quote,relative=1,raggedright,verbatim,fragment]
+@lilypond[quote,relative=1,ragged-right,verbatim,fragment]
 \new Score \with {
   \remove "Timing_translator"
   \remove "Default_bar_line_engraver"
@@ -660,7 +660,7 @@ The next example shows how to build a different type of
 @code{Voice}, but prints centered slash noteheads only.  It can be used
 to indicate improvisation in Jazz pieces,
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \layout { \context {
   \name ImproVoice
   \type "Engraver_group"
@@ -1311,7 +1311,7 @@ if yes, it sets @code{extra-offset}.
 This procedure is installed into @internalsref{Tie}, so the last part
 of the broken tie is translated up.
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 #(define (my-callback grob)
   (let* (
          ; have we been split? 

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -7,7 +7,7 @@ does not extend past a rest, or past the next lyric syllable."
 
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \relative c''{
     d8( e f) r4. 

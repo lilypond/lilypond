@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header { texidoc = "@cindex Stem Extend
 Extending stems to the center line may be prevented using @code{no-stem-extend}.
@@ -21,6 +21,6 @@ Extending stems to the center line may be prevented using @code{no-stem-extend}.
 	>>
 	
   }
-  \layout { raggedright = ##t}  
+  \layout { ragged-right = ##t}  
 }
 

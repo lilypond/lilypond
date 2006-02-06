@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
   texidoc = "Note heads are flipped on the stem to prevent collisions.
@@ -8,7 +8,7 @@ It also works for whole heads that have invisible stems.
 
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \relative c''
 \context Voice {

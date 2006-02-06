@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 texidoc="
@@ -11,7 +11,7 @@ in unbroken state.
 }
 
 \layout {
-    raggedright = ##t 
+    ragged-right = ##t 
     indent=0.
 }
 

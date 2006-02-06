@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.32"
 
 forcedLastBreak =  { \break }
 
@@ -16,8 +16,7 @@ forcedLastBreak =  { \break }
             
 
 #(define (assert-system-count-override count)
-  (ly:export #{ \override NoteHead
-     #'after-line-breaking-callback
+  (ly:export #{ \override NoteHead #'after-line-breaking
        = #(lambda (smob) (assert-system-count smob $count))
   #}))
 
@@ -165,15 +164,15 @@ smallerPaper = \layout {
   }
   
   indent = 5.6 \mm
-  linewidth = 146.8 \mm
+  line-width = 146.8 \mm
 }
 
 \paper {
-  raggedbottom = ##t
+  ragged-bottom = ##t
   indent = 7. \mm
-  linewidth =183.5 \mm
-  betweensystemspace = 25\mm 
-  betweensystempadding = 0\mm
+  line-width =183.5 \mm
+  between-system-space = 25\mm 
+  between-system-padding = 0\mm
 
 %%  annotatespacing = ##t
 }

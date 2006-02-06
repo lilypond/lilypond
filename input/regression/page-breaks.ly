@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -24,7 +24,7 @@
 }
 
 \paper {
-  raggedlastbottom = ##f
+  ragged-last-bottom = ##f
 
   bookTitleMarkup = \markup {
     \override #'(baseline-skip . -3)

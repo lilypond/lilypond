@@ -4,8 +4,8 @@
   may be forbidden. "
 
 }
-\version "2.7.13"
-\paper { raggedright = ##t }
+\version "2.7.32"
+\paper { ragged-right = ##t }
 
 \figures {
   \set useBassFigureExtenders = ##t

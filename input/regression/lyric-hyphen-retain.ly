@@ -7,10 +7,10 @@ its @code{minimum-length} setting."
 
 }
 
-\version "2.7.22"
+\version "2.7.32"
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 

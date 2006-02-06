@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Rests get a little less space, since they are narrower.
 However, the quarter rest in feta font is relatively wide, causing this 
@@ -8,7 +8,7 @@ effect to be very small.
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 \relative c'' \context Staff {
   \time 12/4

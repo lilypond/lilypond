@@ -8,9 +8,9 @@ quoted. In this example, a 16th rests is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
 
 }
-\version "2.7.13"
+\version "2.7.32"
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 

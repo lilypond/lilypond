@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
   texidoc = "The second and third notes should not get accidentals,
@@ -8,7 +8,7 @@
 
 }
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 mus =  	\relative c' {

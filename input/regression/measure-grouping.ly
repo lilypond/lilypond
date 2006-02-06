@@ -7,7 +7,7 @@ brackets above beats when the beats of a time signature are grouped.  "
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 
 %% TODO: should have 2/4 + 5/8 time sig style.
@@ -24,7 +24,7 @@ brackets above beats when the beats of a time signature are grouped.  "
   g8 a4 g a4.->
 }
 \layout  {
-  raggedright = ##t
+  ragged-right = ##t
   \context { \Staff
 	     \consists "Measure_grouping_engraver"
 	   }

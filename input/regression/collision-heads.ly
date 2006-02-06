@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc =
 
@@ -9,7 +9,7 @@ if the black note heads are from 8th or shorter notes.
   
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \context Staff  \relative c'' <<

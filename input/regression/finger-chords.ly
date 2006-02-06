@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "With the new chord syntax, it is possible to associate
@@ -9,7 +9,7 @@ horizontal fingerings to notes.
 "
 
 }
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 

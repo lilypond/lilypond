@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header { texidoc = "
 
@@ -25,7 +25,7 @@ texts, so they should be switched off.
 			}
 	>>
 	\layout{
-		linewidth=140.\mm
+		line-width=140.\mm
 		\context {
 			\Voice
 			printPartCombineTexts = ##f

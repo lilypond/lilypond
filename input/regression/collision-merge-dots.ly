@@ -2,9 +2,9 @@
 
     texidoc = "When merging heads, the dots are merged too."
     }
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
-\version "2.7.13"
+\version "2.7.32"
 
 {
   \relative c'' \new Staff {

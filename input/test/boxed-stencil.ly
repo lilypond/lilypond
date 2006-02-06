@@ -1,5 +1,5 @@
 
-\version "2.7.31"
+\version "2.7.32"
 \header {
   texidoc = "@cindex Boxed Stencil
 
@@ -7,7 +7,7 @@ The @code{print-function} can be overridden to draw a box around an arbitrary
 grob. " }
 
 
-\layout{raggedright = ##t}
+\layout{ragged-right = ##t}
 \relative c''  {
 
   \override TextScript  #'stencil =

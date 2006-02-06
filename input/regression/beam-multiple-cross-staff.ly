@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Kneed beams (often happens with cross-staff beams)
@@ -9,7 +9,7 @@ to the last beam.
 }
 
 \layout {
-  raggedright= ##t
+  ragged-right= ##t
 }
 
 \context PianoStaff \relative c' <<

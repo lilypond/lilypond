@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
     
     texidoc = "If collision resolution finds dotted note head must
@@ -6,7 +6,7 @@
 
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \relative c {
   \key d \minor

@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
     texidoc = "@cindex Bars Always
@@ -14,6 +14,6 @@ By setting @code{barAlways} and @code{defaultBarType}, barlines may be inserted 
 		\set Score.barAlways = ##t
 		\set Score.defaultBarType = ":|:"
 		c4 c4 c4 c4 }
-	\layout{raggedright = ##t}
+	\layout{ragged-right = ##t}
 }
 

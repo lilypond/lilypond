@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 
@@ -13,7 +13,7 @@ lyrics ignores any other rhythms in the piece."
 
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 

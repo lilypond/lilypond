@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 	texidoc = "If two forced accidentals happen at the same time, only one
 	sharp sign is printed."
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \transpose c c'
 \context Staff <<

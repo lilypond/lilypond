@@ -10,9 +10,9 @@ They have fixed size. Their formatting can be tuned with
 "
   }
 
-\version "2.7.13"
+\version "2.7.32"
 \paper {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 \relative {

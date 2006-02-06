@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc = "
 The line-spanners connects to the Y position of the note  on the next line.
@@ -9,7 +9,7 @@ printed.
 
 }
 
-\layout{  raggedright = ##t }
+\layout{  ragged-right = ##t }
 
 
 

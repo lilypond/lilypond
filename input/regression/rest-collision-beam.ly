@@ -3,10 +3,10 @@
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 fig =   \relative c' {
   <a c e>8[ r <c e a> r <e a c> r <a c e>]

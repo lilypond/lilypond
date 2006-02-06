@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   
   texidoc = "In complex configurations of knee beaming, according to
@@ -9,7 +9,7 @@ beam. This is in disagreement with the current algorithm."
   
 }
 
-\layout { raggedright = ##t} 
+\layout { ragged-right = ##t} 
 
 \relative c'
 {

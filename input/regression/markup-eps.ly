@@ -3,13 +3,13 @@
   texidoc = "The epsfile markup command reads an EPS file"
 
 }
-\version "2.7.31"
+\version "2.7.32"
 
 #(let* ((port (open-output-file "box.eps")))
 
   (display "%!PS-Adobe-3.0 EPSF-3.0
 %%BoundingBox: 5 5 105 105
-10 setlinewidth 10 10 moveto 0 90 rlineto 90 0 rlineto 0 -90 rlineto
+10 setline-width 10 10 moveto 0 90 rlineto 90 0 rlineto 0 -90 rlineto
 closepath stroke" port)
 
   (close port))

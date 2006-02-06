@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
     texidoc="@cindex Beam Position Control
 
@@ -16,6 +16,6 @@ Beam positions may be controlled manually, by overriding the @code{positions} se
 	\override Beam  #'positions = #'(0 . 1)
 	 c[ c]
   }
-\layout{raggedright = ##t}
+\layout{ragged-right = ##t}
 }
 

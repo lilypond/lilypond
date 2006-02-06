@@ -6,10 +6,10 @@ signature. @code{AmbitusNoteHead} grobs also have ledger lines.
 
 "
 }
-\version "2.7.13"
+\version "2.7.32"
 
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
     \context {
 	\Voice
 	\consists Ambitus_engraver

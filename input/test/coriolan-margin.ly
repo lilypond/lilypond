@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -103,8 +103,8 @@ violoncello =  \relative c' {
 
 \paper {
     indent=10.0\mm
-    linewidth=150.0\mm
-    raggedbottom = ##t 
+    line-width=150.0\mm
+    ragged-bottom = ##t 
 }
 
 #(set-global-staff-size 16)
@@ -151,7 +151,7 @@ violoncello =  \relative c' {
     % this is ignored?
     \paper {
 	indent=10.0\mm
-	linewidth=150.0\mm
+	line-width=150.0\mm
     }
 }
 

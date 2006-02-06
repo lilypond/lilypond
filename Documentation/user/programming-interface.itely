@@ -235,7 +235,7 @@ properties using the functions @code{ly:music-property} and
 
 An example is a function that reverses the order of elements in
 its argument,
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 #(define (rev-music-1 m)
   (ly:music-set-property! m 'elements 
     (reverse (ly:music-property m 'elements)))
@@ -369,7 +369,7 @@ produce a single @code{$} character).  This makes the creation of simple
 functions straightforward.  In the following example, a function
 setting the TextScript's padding is defined:
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 #(use-modules (ice-9 optargs))
 #(define* (textpad padding #:optional once?)
   (ly:export   ; this is necessary for using the expression
@@ -393,7 +393,7 @@ Here, the variable @code{padding} is a number; music expression
 variables may also be used in a similar fashion, as in the following
 example:
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 #(define (with-padding padding)
   (lambda (music)
    #{ \override TextScript #'padding = #$padding
@@ -424,7 +424,7 @@ this new expression.  Thus, this example is equivalent to:
 
 This function may also be defined as a music function:
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 withPadding =
   #(def-music-function (parser location padding music) (number? ly:music?)
     #{ \override TextScript #'padding = #$padding
@@ -648,7 +648,7 @@ The final result is as follows:
 @}
 @end example
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 #(def-markup-command (smallcaps layout props str) (string?)
   "Print the string argument in small caps.  Syntax: \\smallcaps #\"string\""
   (interpret-markup layout props

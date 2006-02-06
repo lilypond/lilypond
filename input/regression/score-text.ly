@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -7,7 +7,7 @@
 }
 
 \paper {
-    linewidth = #110
+    line-width = #110
 }
 
 %% using Book and Score to get text in lilypond-book 

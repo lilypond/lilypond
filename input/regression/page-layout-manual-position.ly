@@ -8,12 +8,12 @@ systems may be placed absolutely on the printable area of the page."
 
 }
 
-\version "2.7.29"
+\version "2.7.32"
 
 #(set-default-paper-size "a6" 'portrait)
 
 \paper {
-  linewidth = 5.0\cm
+  line-width = 5.0\cm
   headerMarkup = "header"
   indent =0.0
   annotatespacing = ##f

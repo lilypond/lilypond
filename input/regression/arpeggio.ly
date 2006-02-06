@@ -1,12 +1,12 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc="
 Arpeggios are supported, both cross-staff and broken single staff.
 "
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \context PianoStaff << 

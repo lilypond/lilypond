@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
   texidoc=" By default, text is set with empty horizontal dimensions.  
@@ -16,7 +16,7 @@ to control the horizontal size of text.  " }
   c_"very wide and long text" c
 }
 \layout {
-  linewidth = 3.0\cm
+  line-width = 3.0\cm
 }
 
 

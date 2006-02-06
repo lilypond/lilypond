@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Downstem notes following a barline are
 printed with some extra space. This is an optical correction similar
@@ -9,7 +9,7 @@ Accidentals after the barline get some space as well.
 "
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c''
 {

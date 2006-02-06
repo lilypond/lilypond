@@ -4,7 +4,7 @@ longgrace = \override Stem  #'stroke-style = #'()
 endlonggrace = \revert Stem #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.5.13"
+\version "2.7.32"
   
 cresc =  {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
@@ -30,7 +30,7 @@ cresc =  {
     }
     \context {
         \Staff
-        minimumVerticalExtent = #'(-2.5 . 3.5)
+        \override VerticalAxisGroup #'minimum-Y-extent = #'(-2.5 . 3.5)
     }
 }
 
@@ -39,12 +39,12 @@ cresc =  {
     % #(define fonts my-sheet)
 
     % stress page breaking on a6 paper:
-    % linewidth = 80 \mm
-    % hsize = 105 \mm
-    % vsize = 149 \mm
+    % line-width = 80 \mm
+    % paper-width = 105 \mm
+    % paper-height = 149 \mm
     
     indent = 10. \mm
-    linewidth = 189. \mm
+    line-width = 189. \mm
 
 }
 

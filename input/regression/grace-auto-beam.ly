@@ -1,10 +1,10 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header
 {
   texidoc = "The autobeamer is not confused by grace notes."
 }
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 
 

@@ -1,12 +1,12 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
   texidoc = "Accidentals sticking out to the left
 of a note will take a little more space, but only if the spacing is tight." 
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c'' {
   \time 8/4

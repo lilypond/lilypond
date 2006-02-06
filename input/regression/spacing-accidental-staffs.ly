@@ -1,11 +1,11 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header { 
   texidoc = "Accidentals in different staves do not affect the
 spacing of the eighth notes here."
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c'' <<
   \new Staff {

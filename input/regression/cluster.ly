@@ -1,10 +1,10 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Clusters are a device to denote that a complete range of
 notes is to be played."
 }
-  \layout { raggedright = ##t }
+  \layout { ragged-right = ##t }
 
 
 fragment = \relative c' {

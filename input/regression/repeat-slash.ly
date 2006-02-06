@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Within a bar, beat repeats denote that a music snippet should be
 played again."
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \relative c'
 \context Voice {

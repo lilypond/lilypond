@@ -4,11 +4,11 @@
 "
     }
 
-\version "2.7.13"
+\version "2.7.32"
 
 vone =  \relative a' { g4 g f f e e d d }
 vtwo =  \relative a' { e4 e f f g g a a }
-\layout { raggedright = ##t } 
+\layout { ragged-right = ##t } 
 
 \partcombine \vone \vtwo
  

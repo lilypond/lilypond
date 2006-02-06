@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 
@@ -9,7 +9,7 @@ produced with explicit staff switches)."
 }
 
 \layout{
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 \context PianoStaff <<

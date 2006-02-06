@@ -27,8 +27,8 @@ The first example gives you a staff with notes, suitable for a solo
 instrument or a melodic fragment.  Cut and paste this into a file,
 add notes, and you're finished!
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -52,8 +52,8 @@ automatic beaming, which is common for vocal parts.  If you want to use
 automatic beaming, you'll have to change or comment out the relevant
 line.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -83,8 +83,8 @@ text = \lyricmode {
 
 Want to prepare a lead sheet with a melody and chords?  Look no further!
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -116,8 +116,8 @@ harmonies = \chordmode {
 
 This template allows you to prepare a song with melody, words, and chords.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -157,8 +157,8 @@ harmonies = \chordmode {
 
 Here is a simple piano staff.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -191,8 +191,8 @@ lower = \relative c {
 Here is a typical song format: one staff with the melody and lyrics, with
 piano accompaniment underneath.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 melody = \relative c'' {
    \clef treble
    \key c \major
@@ -247,8 +247,8 @@ lower = \relative c {
 Instead of having a full staff for the melody and lyrics, you can place
 the lyrics between the piano staff (and omit the separate melody staff).
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -294,8 +294,8 @@ staffs.  This requires a bit of tweaking to implement, but
 since the template is right here, you don't have to do the
 tweaking yourself.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 upper = \relative c'' {
   \clef treble
   \key c \major
@@ -391,8 +391,8 @@ pedal = {
 This template demonstrates a string quartet.  It also uses a @code{\global}
 section for time and key signatures.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 
 global= {
   \time 4/4
@@ -452,7 +452,7 @@ contains all the music definitions.  The other files -- @code{score.ly},
 
 @verbatim
 %%%%% piece.ly
-\version "2.6.0"
+\version "2.7.32"
 
 global= {
   \time 4/4
@@ -498,7 +498,7 @@ music = {
 
 
 %%%%% score.ly
-\version "2.6.0"
+\version "2.7.32"
 \include "piece.ly"
 #(set-global-staff-size 14)
 \score {
@@ -509,7 +509,7 @@ music = {
 
 
 %%%%% vn1.ly
-\version "2.6.0"
+\version "2.7.32"
 \include "piece.ly"
 \score { 
   \keepWithTag #'vn1 \music
@@ -518,7 +518,7 @@ music = {
 
 
 %%%%% vn2.ly
-\version "2.6.0"
+\version "2.7.32"
 \include "piece.ly"
 \score { 
   \keepWithTag #'vn2 \music
@@ -527,7 +527,7 @@ music = {
 
 
 %%%%% vla.ly
-\version "2.6.0"
+\version "2.7.32"
 \include "piece.ly"
 \score { 
   \keepWithTag #'vla \music
@@ -536,7 +536,7 @@ music = {
 
 
 %%%%% vlc.ly
-\version "2.6.0"
+\version "2.7.32"
 \include "piece.ly"
 \score { 
   \keepWithTag #'vlc \music
@@ -555,8 +555,8 @@ it's often useful to include a section which is included in all
 parts.  For example, the time signature and key signatures are almost
 always the same for all parts.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 global = {
    \key c \major
    \time 4/4
@@ -635,8 +635,8 @@ can use a music definition more than once.  If you make any changes
 to the vocal notes (say, tenorMusic), then the changes will also
 apply to the piano reduction.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 global = {
    \key c \major
    \time 4/4
@@ -737,8 +737,8 @@ mensural music; in fact, the meter often changed after every few
 notes.  As a compromise, bar lines are often printed between the
 staves rather than on the staves.
 
-@lilypond[quote,verbatim,linewidth=11.0\cm]
-\version "2.6.0"
+@lilypond[quote,verbatim,line-width=11.0\cm]
+\version "2.7.32"
 
 global = {
   \set Score.skipBars = ##t
@@ -973,10 +973,10 @@ is within a @code{\transpose} section.
 @c     make whatever changes I feel like.
 
 @c FIXME: produces a warning ; key change merge.
-@c The `linewidth' argument is for the \header.
+@c The `line-width' argument is for the \header.
 
-@lilypond[quote,verbatim,raggedright,linewidth]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right,line-width]
+\version "2.7.32"
 \header {
   title = "Song"
   subtitle = "(tune)"
@@ -1240,9 +1240,9 @@ music.  For example, Mutopia lists the composer of the famous D major
 violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 "Petr Tchaikowski" on your music.
 
-@ The `linewidth' is for \header.
-@lilypond[quote,verbatim,raggedright,linewidth]
-\version "2.6.0"
+@ The `line-width' is for \header.
+@lilypond[quote,verbatim,ragged-right,line-width]
+\version "2.7.32"
 \header {
   dedication = "dedication"
   title = "Title"
@@ -1296,7 +1296,7 @@ music.  Gregorian music has no measure, no stems; it uses only half and
 quarter notes, and two types of barlines, a short one indicating a rest,
 and a second one indicating a breath mark.
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 barOne = { \once \override Staff.BarLine #'bar-size = #2
   \bar "|" }
 barTwo = { \once \override Staff.BarLine #'extra-offset = #'(0 . 2)
@@ -1362,13 +1362,13 @@ is written in Texinfo.
 
 Texinfo text
 
-@@lilypond[verbatim,fragment,raggedright]
+@@lilypond[verbatim,fragment,ragged-right]
 a4 b c d
 @@end lilypond
 
 More Texinfo text
 
-@@lilypond[verbatim,fragment,raggedright]
+@@lilypond[verbatim,fragment,ragged-right]
 d4 c b a
 @@end lilypond
 

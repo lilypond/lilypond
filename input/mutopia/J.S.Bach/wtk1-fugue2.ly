@@ -41,7 +41,7 @@
 
 
 
-\version "2.6.0"
+\version "2.7.32"
 
 
 
@@ -223,7 +223,7 @@ bassdux = \context Voice = "three"  \relative c' {
 	}
     }
     \paper {
-	linewidth = 18.0 \cm
-	raggedlastbottom = ##f
+	line-width = 18.0 \cm
+	ragged-last-bottom = ##f
     }
 }

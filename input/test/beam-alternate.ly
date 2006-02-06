@@ -8,13 +8,13 @@
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 wipeNote = {
     \once \override NoteHead #'transparent = ##t
     \once \override Stem #'transparent = ##t 
 }
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 
 \relative c''<< {

@@ -33,4 +33,4 @@ also included in the user-manual.
 %}
 
 %% Optional version number
-\version "2.6.0"
+\version "2.7.32"

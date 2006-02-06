@@ -5,10 +5,10 @@ normal notes, if possible. They should never be longer, even if that
 would lead to beam quanting program. "
 	 
     }
-\version "2.7.13"
+\version "2.7.32"
 
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 
 %    "debug-beam-quanting" = ##t 
 }

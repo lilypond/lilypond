@@ -19,10 +19,10 @@ that otherwise don't fit in a space
 }
 \layout {
   indent = #0.0
-  raggedright = ##t
+  ragged-right = ##t
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 frag =
 \relative c'' {

@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc = "Here @code{startGraceMusic} should set @code{no-stem-extend} to 
 true; the two grace beams should be the same here.
@@ -8,7 +8,7 @@ true; the two grace beams should be the same here.
 
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }  
 
 \context Voice \relative c {

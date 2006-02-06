@@ -1,6 +1,6 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {texidoc="Markup scripts may be stacked."}
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 {
   c''^\markup {
     "a"

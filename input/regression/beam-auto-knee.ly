@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header
 {
@@ -8,7 +8,7 @@ beam fits in a gap between note heads that is larger than a predefined
 threshold.
 "
 }
-\layout{ raggedright = ##t }
+\layout{ ragged-right = ##t }
 
 \context Staff \relative c''{ 
   c'8[ c,,]  c8[ e']

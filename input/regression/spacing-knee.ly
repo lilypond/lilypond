@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "For knees, the spacing correction is such that the
@@ -7,7 +7,7 @@ width of the note heads and the thickness of the stem.
 "
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 {
   g''8[ g g'' g''] 

@@ -4,10 +4,10 @@ texidoc  = "Stem directions and head positions are taken into account for spacin
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 \paper {
-  raggedright = ##t
+  ragged-right = ##t
   indent = #0.0
 }
 

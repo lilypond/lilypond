@@ -204,7 +204,7 @@ Copyright @copyright{} 1999--2005 by the authors
 
 @c Not yet debugged or reported.  This crashes gs-8.01:
 @c compiling gs-8.01 right now... -- jcn
-@lilypond[raggedright]
+@lilypond[ragged-right]
 \score {
     \context Lyrics {
         \override Score.RehearsalMark #'self-alignment-X = #LEFT
@@ -215,7 +215,7 @@ Copyright @copyright{} 1999--2005 by the authors
      }
      \layout {
          indent = 0.0\pt
-         raggedright = ##t
+         ragged-right = ##t
      }
 }
 @end lilypond

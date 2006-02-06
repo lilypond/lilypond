@@ -4,7 +4,7 @@
 
 #(set-global-staff-size 16)
 
-\version "2.7.31"
+\version "2.7.32"
 
 \header {
   title = "Romanzen"
@@ -241,7 +241,7 @@ leftb =  \transpose c cis {
     indent = 0.5 \in
     % textheight = 29.8 \cm
     pagenumber = no
-    linewidth = 17.0 \cm
+    line-width = 17.0 \cm
 }  
 		       
 \score { 

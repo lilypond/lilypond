@@ -1,11 +1,11 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
   texidoc = "Tuplet-spanner should not put (visible) brackets on
 beams even if they're auto generated."
 }
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \relative c' {
   \set tupletSpannerDuration = #(ly:make-moment 1 4)

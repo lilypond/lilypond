@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 \header { texidoc = "
 A voicelet (a very short voice to get polyphonic chords correct)
 should not confuse the spacing engine."
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 
 {  \context Staff \relative c' {

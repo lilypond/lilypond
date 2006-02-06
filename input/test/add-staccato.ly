@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -27,7 +27,7 @@ example staccato dots are added to the notes."
   \relative c'' {
     a b \applyMusic #(lambda (x) (music-map add-staccato x)) { c c } 
   }
-  \layout{ raggedright = ##t }
+  \layout{ ragged-right = ##t }
 }
 
 

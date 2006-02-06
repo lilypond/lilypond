@@ -6,10 +6,10 @@
     respectively."
 
 }
-\version "2.7.13"
+\version "2.7.32"
 
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \relative c'' { 
   c4 \< c4 \!

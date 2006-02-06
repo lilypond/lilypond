@@ -1,5 +1,5 @@
 
-\version "2.7.14"
+\version "2.7.32"
 \header {
     
 texidoc = "The notation problem, creating a certain symbol,
@@ -22,7 +22,7 @@ Staff context.
 "
 
     }
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \include "engraver-example.ily"
 

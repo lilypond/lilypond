@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
     texidoc = "In french style beaming, the stems do not go between beams."
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \relative c'
 {

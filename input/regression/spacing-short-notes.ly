@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   
   texidoc = "Notes that are shorter than the common shortest note get a
@@ -10,7 +10,7 @@ eighth note. "
 
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c''
 {

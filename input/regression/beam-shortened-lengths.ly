@@ -1,10 +1,10 @@
 
-\version "2.7.31"
+\version "2.7.32"
 
 \header{
   texidoc="Beams in unnatural direction, have shortened stems, but do not look too short."
 }
-\layout{ raggedright = ##t }
+\layout{ ragged-right = ##t }
 
 
 \relative c'{

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -6,7 +6,7 @@
       positioned correctly when there are collisions."
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 
 \relative c'' {

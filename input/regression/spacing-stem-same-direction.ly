@@ -1,12 +1,12 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "For juxtaposed chords with the same direction, a
 slight optical correction is used. It is constant, and works only if
 two chords have no common head-positions range."
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c'' {
   \stemDown

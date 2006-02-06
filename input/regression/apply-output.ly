@@ -1,5 +1,5 @@
 
-\version "2.7.31" 
+\version "2.7.32" 
 \header {
 
   texidoc = "The @code{\applyOutput} expression is the most flexible way to
@@ -10,7 +10,7 @@ position.
 "
 
 }
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 #(define  (mc-squared gr org cur)
   (let*

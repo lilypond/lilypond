@@ -1,4 +1,4 @@
-\version "2.7.31"
+\version "2.7.32"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -36,7 +36,7 @@ setMargins = {
   %% first line left margin
   %% justified:
   %% \context Staff \applyContext #(set-extra-space 'TimeSignature 'first-note 4.5)
-  %% raggedright:
+  %% ragged-right:
   \context Staff \applyContext #(set-extra-space 'TimeSignature 'first-note 9.5)
   
   %% next lines left margin
@@ -58,7 +58,7 @@ myBreak = { \bar "" \break }
 
 \layout {
   indent = 0.0\mm
-  linewidth = 120.0\mm
+  line-width = 120.0\mm
   textheight = 270.0\mm
 }
 
@@ -88,7 +88,7 @@ voice =  \relative c' {
 
   %% justified lines:
   %%\override Staff.BarLine #'extra-offset = #'(12 . 0)
-  %% raggedright:
+  %% ragged-right:
   \override Staff.BarLine #'extra-offset = #'(23 . 0)
   \bar "|."
 }
@@ -146,7 +146,7 @@ oneHalfNoteTime = \markup {
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 
   \context {
     \Score

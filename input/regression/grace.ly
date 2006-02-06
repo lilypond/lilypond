@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 
@@ -12,7 +12,7 @@ Main note scripts do not end up on the grace note.
 "
 }
 
-\layout {raggedright = ##t}
+\layout {ragged-right = ##t}
 
 \context Voice = VA \relative c'' {
   \grace b8 c4\fermata

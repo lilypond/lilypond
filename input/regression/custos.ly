@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc = "Custodes may be engraved in various styles."
 }
@@ -8,7 +8,7 @@
     \Staff
     \consists Custos_engraver
   }
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 

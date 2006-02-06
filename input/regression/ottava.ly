@@ -10,7 +10,7 @@ string can be tuned with @code{Staff.ottavation}.
 "
 
 }
-\version "2.7.13"
+\version "2.7.32"
 
 %% . There must be a minimum distance between the octavation line and the
 %%   topmost staff line, taking into account the height of the closing
@@ -32,7 +32,7 @@ string can be tuned with @code{Staff.ottavation}.
 %%   by the user).  The same holds for `8va' and `15ma'.
 
 
-\layout { raggedright = ##t} 
+\layout { ragged-right = ##t} 
 
 \relative c'''  {
   a b c a

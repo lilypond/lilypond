@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc="
 A sharp sign after a double sharp sign, as well as a flat sign
@@ -9,7 +9,7 @@ natural sign.
 }
 
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 thenotes =  \relative cis' {
   \time 4/4

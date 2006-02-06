@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 \header
 {
   texidoc = "Melismata are triggered by manual beams." 
 }
 
-  \layout { raggedright = ##t }
+  \layout { ragged-right = ##t }
 
 
 

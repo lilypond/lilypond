@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 
@@ -12,7 +12,7 @@ much to correct."
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 

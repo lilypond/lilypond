@@ -5,8 +5,8 @@ length can be set with @code{stemlet-length}."
 
 }
 
-\version "2.7.13"
-\layout { raggedright = ##t }
+\version "2.7.32"
+\layout { ragged-right = ##t }
 
 \relative {
     \override Stem #'stemlet-length = #0.75

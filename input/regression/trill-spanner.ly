@@ -2,9 +2,9 @@
     texidoc = "Trill spanner"
 }
 
-\version "2.7.13"
+\version "2.7.32"
 \layout {
-    raggedright = ##T
+    ragged-right = ##T
 }
 \relative \new Voice {
     << { c1 \startTrillSpan }

@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 
     
@@ -25,16 +25,16 @@ This file is best viewed outside the collated files document.
   }
 
 \paper {
-    %hsize = 2\cm
-    %vsize = 2\cm
-    topmargin = 2\cm
-    bottommargin = 2\cm
-    %headsep = 7\cm
-    %footsep = 7\cm
-    raggedbottom = ##t
-    raggedlastbottom = ##t
-    leftmargin = 3\cm
-    linewidth = 15\cm
+    %paper-width = 2\cm
+    %paper-height = 2\cm
+    top-margin = 2\cm
+    bottom-margin = 2\cm
+    %heap-separation = 7\cm
+    %foot-separation = 7\cm
+    ragged-bottom = ##t
+    ragged-last-bottom = ##t
+    left-margin = 3\cm
+    line-width = 15\cm
     %rigthmargin = 3\cm
     interscoreline = 3\cm
 }
@@ -48,7 +48,7 @@ This file is best viewed outside the collated files document.
             }
         }
         \header {piece = "Piece I"}
-        \layout {linewidth = 13\cm}
+        \layout {line-width = 13\cm}
     }
     \score {
         \relative c'' {
@@ -60,6 +60,6 @@ This file is best viewed outside the collated files document.
 	  breakbefore = ##f
 	  piece = "Piece II"
 	}
-        \layout {linewidth = 9\cm}
+        \layout {line-width = 9\cm}
     }
 }

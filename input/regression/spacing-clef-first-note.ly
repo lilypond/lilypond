@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Clef changes at the start of a line get much more space
@@ -7,7 +7,7 @@ than clef changes halfway the line."
 }
 
   \layout {
-    raggedright = ##t
+    ragged-right = ##t
     \context {
       \Staff
       \remove Time_signature_engraver

@@ -495,8 +495,8 @@ here for reference.
     - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
  remove-tag isn't changed.
     - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
- firstpagenumber isn't changed.
-    - firstpagenumber no => printfirstpagenumber = ##f
+ first-page-number isn't changed.
+    - first-page-number no => printfirst-page-number = ##f
  Line breaks in header strings aren't converted.
     - \\\\  as line break in \header strings => \markup \center-align <
       "First Line" "Second Line" >
@@ -550,14 +550,14 @@ following example, the accidental touches the note head.
 
 Using Mac OSX 10.3.7, fink package lilypond-devel
 
-\version "2.5.18"
+\version "2.7.32"
 \relative c''@{
    a4 b cis d
 @}
 @end example
 
 @lilypond[quote]
-\version "2.5.18"
+\version "2.7.32"
 \relative c''{
   \override Accidental #'extra-offset = #'(1.0 . 0)
   a4 b cis d
@@ -714,7 +714,7 @@ toplevel
 @example
 \layout @{
   % movements are non-justified by default    
-  raggedright = ##t
+  ragged-right = ##t
 @}
 
 \header @{

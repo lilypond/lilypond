@@ -2,9 +2,9 @@
   texidoc = "Excercise all output functions"
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
-\paper { raggedright = ##t }
+\paper { ragged-right = ##t }
 
 \relative {
   \new StaffGroup \new PianoStaff <<

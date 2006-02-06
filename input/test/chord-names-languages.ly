@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header  {
     texidoc = "@cindex Chord Names German
 The english naming of chords (default) can be changed to german 
@@ -21,7 +21,7 @@ scm = \chordmode {
 
 
 \layout {
-    raggedright = ##t 
+    ragged-right = ##t 
     \context {\ChordNames \consists Instrument_name_engraver }
 }
 

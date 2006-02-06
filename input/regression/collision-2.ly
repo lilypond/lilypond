@@ -1,9 +1,9 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 texidoc = "Single head notes may collide. "
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \context Staff  \transpose c c' <<  

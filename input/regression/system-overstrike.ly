@@ -1,7 +1,7 @@
-\version "2.7.13"
-\header { texidoc = "By setting betweensystempadding to a negative
+\version "2.7.32"
+\header { texidoc = "By setting between-system-padding to a negative
 value, it is possible to eliminate the anti-collision constraints.
-Then  setting @code{betweensystemspace} to a low (nonzero) value,
+Then  setting @code{between-system-space} to a low (nonzero) value,
 print  systems in overstrike.
 
 Unfortunately, this does not show in the colllated texinfo document. Run this example stand-alone to see the effect.
@@ -10,9 +10,9 @@ Unfortunately, this does not show in the colllated texinfo document. Run this ex
 }
 
 \paper {
-    raggedbottom =##t
-    betweensystempadding = - 4\cm
-    betweensystemspace = 3\mm
+    ragged-bottom =##t
+    between-system-padding = - 4\cm
+    between-system-space = 3\mm
 }
 
 {

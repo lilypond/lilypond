@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -33,7 +33,7 @@ voice =  \transpose c c' {
 }
 
 \paper {
-    linethickness = \staffspace / 5.0
+    line-thickness = \staff-space / 5.0
 }
 \score {
     \context ChoirStaff <<

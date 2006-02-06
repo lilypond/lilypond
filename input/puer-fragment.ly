@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.32"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -81,7 +81,7 @@ verba = \context Lyrics = "verba" \lyricmode {
 }
 
 \paper  {
-    linethickness = \staffspace / 7.0
+    line-thickness = \staff-space / 7.0
 }
 
 \score {
@@ -90,10 +90,10 @@ verba = \context Lyrics = "verba" \lyricmode {
     \lyricsto "cantus" \verba
   >>
   \layout {
-    linewidth = 137.0\mm
+    line-width = 137.0\mm
     width = 137.0\mm
     indent = 0.0
-    raggedright = ##t
+    ragged-right = ##t
     packed = ##t
     \context {
       \Score

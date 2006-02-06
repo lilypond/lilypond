@@ -224,13 +224,13 @@ Currently, you cannot include @code{@{} or @code{@}} within
 @code{\lilypond@{@}}, so this command is only useful with the
 @code{fragment} option.
 
-The default linewidth of the music will be adjusted by examining the
+The default line-width of the music will be adjusted by examining the
 commands in the document preamble, the part of the document before
 @code{\begin@{document@}}.  The @command{lilypond-book} command sends
 these to La@TeX{} to find out how wide the text is.  The line width for
 the music fragments is then adjusted to the text width.  Note that this
 heuristic algorithm can fail easily; in such cases it is necessary to
-use the @code{linewidth} music fragment option.
+use the @code{line-width} music fragment option.
 
 @cindex titling and lilypond-book
 @cindex @code{\header} in La@TeX{} documents
@@ -426,10 +426,10 @@ The following options are available for LilyPond commands:
 @item staffsize=@var{ht}
 Set staff size to @var{ht}, which is measured in points.
 
-@item raggedright
-Produce ragged-right lines with natural spacing (i.e., @code{raggedright
+@item ragged-right
+Produce ragged-right lines with natural spacing (i.e., @code{ragged-right
 = ##t} is added to the LilyPond snippet).  This is the default for the
-@code{\lilypond@{@}} command if no @code{linewidth} option is present.
+@code{\lilypond@{@}} command if no @code{line-width} option is present.
 It is also the default for the @code{lilypond} environment if the
 @code{fragment} option is set, and no line width is explicitly
 specified.
@@ -438,8 +438,8 @@ specified.
 Produce lines with packed spacing (i.e., @code{packed = ##t} is added
 to the LilyPond snippet).
 
-@item linewidth
-@itemx linewidth=@var{size}\@var{unit}
+@item line-width
+@itemx line-width=@var{size}\@var{unit}
 Set line width to @var{size}, using @var{unit} as units.  @var{unit} is
 one of the following strings: @code{cm}, @code{mm}, @code{in}, or
 @code{pt}.  This option affects LilyPond output (this is, the staff
@@ -448,9 +448,9 @@ length of the music snippet), not the text layout.
 If used without an argument, set line width to a default value (as
 computed with a heuristic algorithm).
 
-If no @code{linewidth} option is given, @command{lilypond-book} tries to
+If no @code{line-width} option is given, @command{lilypond-book} tries to
 guess a default for @code{lilypond} environments which don't use the
-@code{raggedright} option.
+@code{ragged-right} option.
 
 @item notime
 Do not print the time signature, and turns off the timing (key signature,

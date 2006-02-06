@@ -15,7 +15,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
 %}
 
 \layout { 
-  raggedright = ##t
+  ragged-right = ##t
   indent = #0
   \context {
     \Staff
@@ -25,7 +25,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
 
 
 
-\version "2.7.13"
+\version "2.7.32"
 
 {
   \fatText

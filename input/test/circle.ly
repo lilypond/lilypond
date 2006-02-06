@@ -1,5 +1,5 @@
 
-\version "2.7.31"
+\version "2.7.32"
 \header {
 texidoc = "@cindex Circle
 
@@ -8,7 +8,7 @@ Circles can be drawn around various objects.
 "
 }
 
-\layout{raggedright = ##t}
+\layout{ragged-right = ##t}
 
 \relative c'{
 c1

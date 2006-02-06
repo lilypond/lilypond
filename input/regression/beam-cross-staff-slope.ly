@@ -1,9 +1,9 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc = "Cross staff  (kneed) beams do not cause extreme slopes."
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \context PianoStaff <<
   \context Staff = "up"

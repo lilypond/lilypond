@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
     texidoc = " Easy-notation (or Ez-notation) prints names in note heads.
@@ -7,7 +7,7 @@ You also get ledger lines, of course."
 
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 } 
 
 \relative {

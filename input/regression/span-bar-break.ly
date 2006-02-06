@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -7,7 +7,7 @@ barline is drawn between the staves, but the @code{:|} is not."
 
 }
 
-\layout{ raggedright = ##t }
+\layout{ ragged-right = ##t }
 
 
 \new PianoStaff <<

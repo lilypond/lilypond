@@ -257,73 +257,73 @@ The default layout responds to the following settings in the
 
 @quotation
 @table @code
-@cindex @code{firstpagenumber}
-@item firstpagenumber
+@cindex @code{first-page-number}
+@item first-page-number
 The value of the page number of the first page.  Default is@tie{}1.
 
-@cindex @code{printfirstpagenumber}
-@item printfirstpagenumber
+@cindex @code{printfirst-page-number}
+@item printfirst-page-number
 If set to true, will print the page number in the first page.  Default is
 false.
 
-@cindex @code{printpagenumber}
-@item printpagenumber
+@cindex @code{print-page-number}
+@item print-page-number
 If set to false, page numbers will not be printed.
 
-@cindex @code{hsize}
-@item hsize
+@cindex @code{paper-width}
+@item paper-width
 The width of the page.
 
-@cindex @code{vsize}
-@item vsize
+@cindex @code{paper-height}
+@item paper-height
 The height of the page.
 
-@cindex @code{topmargin}
-@item topmargin
+@cindex @code{top-margin}
+@item top-margin
 Margin between header and top of the page.
 
-@cindex @code{bottommargin}
-@item bottommargin
+@cindex @code{bottom-margin}
+@item bottom-margin
 Margin between footer and bottom of the page.
 
-@cindex @code{leftmargin}
-@item leftmargin
+@cindex @code{left-margin}
+@item left-margin
 Margin between the left side of the page and the beginning of the music.
 
-@cindex @code{linewidth}
-@item linewidth
+@cindex @code{line-width}
+@item line-width
 The length of the systems.
 
-@cindex @code{headsep}
-@item headsep
+@cindex @code{heap-separation}
+@item heap-separation
 Distance between the top-most music system and the page header.
 
-@cindex @code{footsep}
-@item footsep
+@cindex @code{foot-separation}
+@item foot-separation
 Distance between the bottom-most music system and the page footer.
 
-@cindex @code{pagetopspace}
+@cindex @code{page-top-space}
 Distance from the top of the printable area to the center of the first
 staff. This only works for staves which are vertically small. Big staves
 are set with the top of their bounding box aligned to the top of the
 printable area.
 
-@cindex @code{raggedbottom}
-@item raggedbottom
+@cindex @code{ragged-bottom}
+@item ragged-bottom
 If set to true, systems will not be spread across the page.
 
 This should be set false for pieces that have only two or three
 systems per page, for example orchestral scores.
  
-@cindex @code{raggedlastbottom}
-@item raggedlastbottom
+@cindex @code{ragged-last-bottom}
+@item ragged-last-bottom
 If set to false, systems will be spread to fill the last page.
 
 Pieces that amply fill two pages or more should have this set to
 true.
 
-@cindex @code{betweensystemspace}
-@item betweensystemspace
+@cindex @code{between-system-space}
+@item between-system-space
 This dimensions determines the distance between systems.  It is the
 ideal distance between the center of the bottom staff of one system
 and the center of the top staff of the next system.
@@ -331,8 +331,8 @@ and the center of the top staff of the next system.
 Increasing this will provide a more even appearance of the page at the
 cost of using more vertical space.
 
-@cindex @code{betweensystempadding}
-@item betweensystempadding
+@cindex @code{between-system-padding}
+@item between-system-padding
 This dimension is the minimum amount of white space that will always
 be present between the bottom-most symbol of one system, and the
 top-most of the next system.
@@ -341,24 +341,24 @@ Increasing this will put systems whose bounding boxes almost touch
 farther apart.
 
 
-@cindex @code{horizontalshift}
-@item horizontalshift
+@cindex @code{horizontal-shift}
+@item horizontal-shift
 All systems (including titles and system separators) are shifted by
 this amount to the right. Page markup, such as headers and footers are
 not affected by this. The purpose of this variable is to make space
 for instrument names at the left.
 
-@cindex @code{aftertitlespace}
-@item aftertitlespace
+@cindex @code{after-title-space}
+@item after-title-space
 Amount of space between the title and the first system.
 
-@cindex @code{aftertitlespace}
-@item beforetitlespace 
+@cindex @code{after-title-space}
+@item before-title-space 
 Amount of space between the last system of the previous piece and the
 title of the next.
 
-@cindex @code{betweentitlespace}
-@item betweentitlespace
+@cindex @code{between-title-space}
+@item between-title-space
 Amount of space between consecutive titles (e.g., the title of the
 book and the title of a piece).
 
@@ -375,7 +375,7 @@ systems.  This is often used for orchestral scores.
 The markup command @code{\slashSeparator} is provided as a sensible
 default,  for example
 
-@lilypond[raggedright]
+@lilypond[ragged-right]
 \paper {
   systemSeparatorMarkup = \slashSeparator
 }
@@ -391,10 +391,10 @@ Example:
 
 @example
 \paper@{
-  hsize = 2\cm
-  topmargin = 3\cm
-  bottommargin = 3\cm
-  raggedlastbottom = ##t
+  paper-width = 2\cm
+  top-margin = 3\cm
+  bottom-margin = 3\cm
+  ragged-last-bottom = ##t
 @}
 @end example
 
@@ -405,7 +405,7 @@ value has to be multiplied in the example
 
 @example
 \paper @{
-  #(define bottommargin (* 2 cm)) 
+  #(define bottom-margin (* 2 cm)) 
 @}
 @end example
 
@@ -432,9 +432,9 @@ page given the system to put on it.
 
 @refbugs
 
-The option rightmargin is defined but doesn't set the right margin
+The option right-margin is defined but doesn't set the right margin
 yet.  The value for the right margin has to be defined adjusting the
-values of the leftmargin and linewidth.
+values of the left-margin and line-width.
 
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
@@ -517,7 +517,7 @@ at the line break before the system to be changed. The distance
 @code{15} is distributed over all staves that have a fixed distance
 alignment.  For example,
 
-@lilypond[raggedright, fragment, relative=2, staffsize=13]
+@lilypond[ragged-right, fragment, relative=2, staffsize=13]
 \new StaffGroup <<
   \new Staff { 
     c1\break 
@@ -537,14 +537,14 @@ The distance for @code{alignment-extra-space} may also be negative.
 
 
 To change the amount of space between systems, use
-@code{betweensystemspace}.  A score with only one staff is still
-considered to have systems, so setting @code{betweensystemspace} will
+@code{between-system-space}.  A score with only one staff is still
+considered to have systems, so setting @code{between-system-space} will
 be much more useful than changing @code{minimum-Y-extent} of a Staff
 context.
 
 @example
 \paper @{
-  betweensystemspace = 10\mm
+  between-system-space = 10\mm
 @}
 @end example
 
@@ -554,9 +554,9 @@ then use the following
 
 @example
 \paper @{
-  betweensystempadding = #1
-  raggedbottom=##f
-  raggedlastbottom=##f
+  between-system-padding = #1
+  ragged-bottom=##f
+  ragged-last-bottom=##f
 @}
 @end example
 
@@ -652,7 +652,7 @@ at the line break before the system to be changed. The distance
 @code{15} is distributed over all staves that have a fixed distance
 alignment.  For example,
 
-@lilypond[raggedright, fragment, relative=2, staffsize=13]
+@lilypond[ragged-right, fragment, relative=2, staffsize=13]
 \new PianoStaff <<
   \new Staff { 
     c1\break 
@@ -749,7 +749,7 @@ for controlling the stem/bar line spacing.  The following example shows
 these corrections, once with default settings, and once with
 exaggerated corrections:
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 {
   c'4 e''4 e'4 b'4 |
   b'4 e''4 b'4 e''4|
@@ -790,27 +790,27 @@ No work-around exists for decreasing the amount of space.
 @cindex breaking pages
 
 @cindex @code{indent}
-@cindex @code{linewidth}
-@cindex @code{raggedright}
+@cindex @code{line-width}
+@cindex @code{ragged-right}
 
-@c Although linewidth can be set in \layout, it should be set in paper
+@c Although line-width can be set in \layout, it should be set in paper
 @c block, to get page layout right.
 @c Setting indent in \paper block makes not much sense, but it works.
 
 @c Bit verbose and vague, use examples?
 The most basic settings influencing the spacing are @code{indent} and
-@code{linewidth}.  They are set in the @code{\layout} block.  They
+@code{line-width}.  They are set in the @code{\layout} block.  They
 control the indentation of the first line of music, and the lengths of
 the lines.
 
-If @code{raggedright} is set to true in the @code{\layout} block, then
+If @code{ragged-right} is set to true in the @code{\layout} block, then
 the lines are justified at their natural length.  This is useful for
 short fragments, and for checking how tight the natural spacing is.
 
 @cindex page layout
 @cindex vertical spacing
 
-The option @code{raggedlast} is similar to @code{raggedright}, but
+The option @code{raggedlast} is similar to @code{ragged-right}, but
 only affects the last line of the piece.  No restrictions are put on
 that line.  The result is similar to formatting text paragraphs.  In a
 paragraph, the last line simply takes its natural length.
@@ -1042,10 +1042,10 @@ Centered at the bottom of the last page.
 Here is a demonstration of the fields available.  Note that you
 may use any @ref{Text markup} commands in the header.
 
-@lilypond[quote,verbatim,linewidth=11.0\cm]
+@lilypond[quote,verbatim,line-width=11.0\cm]
 \paper {
-  linewidth = 9.0\cm
-  vsize = 10.0\cm
+  line-width = 9.0\cm
+  paper-height = 10.0\cm
 }
 
 \book {
@@ -1105,7 +1105,7 @@ Here is a short example.
 If you define the @code{\header} inside the @code{\score} block, then
 normally only the @code{piece} and @code{opus} headers will be printed.
 
-@lilypond[quote,verbatim,linewidth=11.0\cm]
+@lilypond[quote,verbatim,line-width=11.0\cm]
 \score {
   { c'4 }
   \header {

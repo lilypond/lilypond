@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Oppositely stemmed chords,  meshing into each other,
 are resolved."
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \context Staff  \transpose c c' {

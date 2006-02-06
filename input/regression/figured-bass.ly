@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -15,7 +15,7 @@ You can also enter markup strings. The vertical alignment may also be tuned.
 }
 
 
-\paper { raggedright = ##t }
+\paper { ragged-right = ##t }
 
 
 <<

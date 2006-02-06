@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header
 {
 
@@ -18,6 +18,6 @@ of the melisma."
   \lyricsto A \context Lyrics \lyricmode { a __ a __ ha }
 >>
   \layout {
-    raggedright = ##t
+    ragged-right = ##t
   }
 

@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.32"
 \header {
   title =	"Title"
   subtitle =	"Subtitle"
@@ -23,7 +23,7 @@
   maintainer = "Jan Nieuwenhuizen"
   maintainerEmail = "janneke@gnu.org"
   lastupdated =	 "2001/Mar/19"
-  mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
+  mutopiapublicdomain = "\\parbox{\paper-width}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
     and placed in the public domain by " + \maintainer +

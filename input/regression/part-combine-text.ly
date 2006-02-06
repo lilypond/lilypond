@@ -9,9 +9,9 @@ texts accordingly.
     }
 
 
-\version "2.7.13"
+\version "2.7.32"
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 vone =  \relative a' { R1 a2    r4 r a a a a }
 vtwo =  \relative a' { R1 f4 f4 f4 f f f a a  }

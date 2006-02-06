@@ -3,9 +3,9 @@
   texidoc = "Ties avoid collisions with dots."
 }
 
-\version "2.7.23"
+\version "2.7.32"
 
-\paper { raggedright = ##T }
+\paper { ragged-right = ##T }
 
 \relative c'' {
   \time 12/8

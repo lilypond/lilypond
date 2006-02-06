@@ -11,10 +11,10 @@ You can leave a Tie alone by introducing a non-pair value
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 

@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 texidoc="@cindex Smart Transpose
@@ -73,7 +73,7 @@ music =  \relative c' { c4 d  e f g a b  c }
     \transpose c deses \music
     \applyMusic #naturalise \transpose c deses \music
   }
-  \layout { raggedright = ##t}
+  \layout { ragged-right = ##t}
 }
 
 

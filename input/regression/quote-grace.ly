@@ -5,9 +5,9 @@
   to an unquoted note is not quoted."
 
 }
-\paper { raggedright= ##t }
+\paper { ragged-right= ##t }
 
-\version "2.7.13"
+\version "2.7.32"
 quoted = \relative c'' {
   R1
   \grace g16 f4 \grace a16 bes4 \grace b16 c4 c4

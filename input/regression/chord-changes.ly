@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
   texidoc="Property chordChanges: display chord names only when
@@ -7,7 +7,7 @@ chord name after a line break.
 "
 }
 
-\layout{ raggedright = ##t }
+\layout{ ragged-right = ##t }
 
 
 scheme = \chordmode {

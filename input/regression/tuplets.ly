@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
   
   texidoc="
@@ -16,7 +16,7 @@ direction as the bracket. The endings can be adjusted with
 "
 
 }
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \context Voice \relative c'' {

@@ -26,7 +26,7 @@ picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 Try it on this image
 
-@lilypond[fragment,quote,raggedright,relative=2]
+@lilypond[fragment,quote,ragged-right,relative=2]
 c-\markup { \bold \huge { Click here.  } }
 @end lilypond
 @end ifhtml
@@ -171,7 +171,7 @@ s16_" "
 Remember to enclose the notes and commands in curly braces
 @code{@{@tie{}@dots{}@tie{}@}} to convert it to printable output.
 
-@lilypond[fragment,quote,noindent,linewidth=55\staffspace]
+@lilypond[fragment,quote,noindent,line-width=55\staff-space]
 \time 3/4
 \clef bass
 c2 e4 g2.
@@ -414,7 +414,7 @@ For more information on beams, see @ref{Manual beams}.
 
 Here are key signatures, accidentals and ties in action
 
-@lilypond[fragment,quote,noindent,linewidth=50\staffspace,verbatim]
+@lilypond[fragment,quote,noindent,line-width=50\staff-space,verbatim]
 \relative c'' {
   \time 4/4
   \key g \minor
@@ -459,7 +459,7 @@ c'4 c'' c''' \clef bass c c,
 
 An example of the use of quotes is in the following Mozart fragment
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \key a \major
 \time 6/8
 cis''8. d''16 cis''8 e''4 e''8
@@ -495,7 +495,7 @@ Since most music has small intervals, pieces can be written almost
 without octavation quotes in relative mode.  The previous example is
 entered as
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \relative {
   \key a \major
   \time 6/8
@@ -665,7 +665,7 @@ We can now typeset a melody with two staves
 
 @c TODO: (c) status of this Paul McCartney (?) song (let's all stand together)
 
-@lilypond[fragment,quote,verbatim,raggedright]
+@lilypond[fragment,quote,verbatim,ragged-right]
 \relative <<
   \new Staff {
     \time 3/4
@@ -911,7 +911,7 @@ statement marks for which version of LilyPond the file was written.
 To mark a file for version 2.6.0, use
 
 @example
-\version "2.6.0"
+\version "2.7.32"
 @end example
 
 @noindent
@@ -937,7 +937,7 @@ I want to break free
 
 Consider the melody
 
-@lilypond[quote,verbatim,fragment,raggedright]
+@lilypond[quote,verbatim,fragment,ragged-right]
 \relative {
   r4 c \times 2/3 { f g g }
   \times 2/3 { g4( a2) }
@@ -947,7 +947,7 @@ Consider the melody
 The lyrics can be set to these notes, combining both with the
 @code{\addlyrics} keyword
 
-@lilypond[quote,verbatim,fragment,raggedright]
+@lilypond[quote,verbatim,fragment,ragged-right]
 <<
   \relative {
     r4 c \times 2/3 { f g g }
@@ -968,7 +968,7 @@ line}.  It is entered as two underscores, i.e.,
 @{ I want to break free __ @}
 @end example 
 
-@lilypond[fragment,quote,raggedright]
+@lilypond[fragment,quote,ragged-right]
 <<
   \relative {
     r4 c \times 2/3 { f g g }
@@ -985,7 +985,7 @@ resulting in a centered hyphen between two syllables
 Twin -- kle twin -- kle
 @end example
 
-@lilypond[fragment,quote,raggedright]
+@lilypond[fragment,quote,ragged-right]
 <<
   \relative {
     \time 2/4
@@ -1011,7 +1011,7 @@ discussed in @ref{Vocal music}.
 In popular music, it is common to denote accompaniment with chord names.
 Such chords can be entered like notes,
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 \chordmode { c2 f4. g8 }
 @end lilypond
 
@@ -1022,7 +1022,7 @@ This mode is switched on with @code{\chordmode}
 Other chords can be created by adding modifiers after a colon.  The
 following example shows a few common modifiers
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 \chordmode { c2 f4:m g4:maj7 gis1:dim7 }
 @end lilypond
 
@@ -1032,7 +1032,7 @@ of @code{\chordmode}.  This uses the same syntax as @code{\chordmode},
 but renders the notes in a @code{ChordNames} context, with the
 following result.
  
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
 @end lilypond
 
@@ -1049,7 +1049,7 @@ a lead sheet, for example,
 @}
 @end example
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 <<
   \chords { r2 c:sus4 f } 
   \relative {
@@ -1193,7 +1193,7 @@ later by preceding the name with a backslash, i.e., @code{\namedMusic}.
 In the next example, a two-note motive is repeated two times by using
 variable substitution
 
-@lilypond[quote,raggedright,verbatim,nofragment]
+@lilypond[quote,ragged-right,verbatim,nofragment]
 seufzer = {
   e'4( dis'4)
 }
@@ -1219,7 +1219,7 @@ places.  The following example uses the above variables
 @example
 \paper @{
   \aFivePaper
-  linewidth = \width
+  line-width = \width
 @}
 @{ c4^\name @}
 @end example
@@ -1278,7 +1278,7 @@ the file, so @code{hornNotes} is defined afterwards.  The command
 tuning of a normal French Horn in@tie{}F.  The transposition can be seen
 in the following output
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \transpose f c' \relative c {
   \time 2/4
   r4 f8 a cis4 f e d
@@ -1308,7 +1308,7 @@ This command sets the property @code{skipBars} in the
 @code{Score} context to true (@code{##t}).  Prepending the rest and
 this option to the music above, leads to the following result
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \transpose f c' \relative c {
   \time 2/4
   \set Score.skipBars = ##t 
@@ -1335,7 +1335,7 @@ that the other voice is in @code{bassoonNotes} in the file
 @noindent
 leading to 
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \relative c <<
   \new Staff {
     \time 2/4 R2*3

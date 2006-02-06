@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Measure repeats may be nested with beat repeats."
 }
 
 \paper {
-  raggedright = ##t
+  ragged-right = ##t
 }
 \relative c'' \context Voice {
   \set Score.skipBars = ##t

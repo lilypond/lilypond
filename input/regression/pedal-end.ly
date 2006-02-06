@@ -1,11 +1,11 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Unterminated piano pedal brackets run to the end of the piece. "
 
 }
 
-\layout { raggedright  = ##t }
+\layout { ragged-right  = ##t }
 
 
 {

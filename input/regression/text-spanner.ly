@@ -1,10 +1,10 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc= "Text spanners should not repeat start text when broken."
 }
 \layout {
-    raggedright = ##t 
+    ragged-right = ##t 
 }
 
 \relative c'' {

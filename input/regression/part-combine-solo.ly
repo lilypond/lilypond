@@ -17,9 +17,9 @@ Solo 1/2 can not be used when a spanner is active, so there is no solo
 vone =  \relative a' { d4 r8 d8 d8 r8 d8 r8 d2 ~ d2 ~ d4 }
 vtwo =  \relative g' { g4.   g8 r2          g4 r4 r2  g4 } 
 
-\version "2.7.13"
+\version "2.7.32"
 
-\paper { raggedright = ##t } 
+\paper { ragged-right = ##t } 
 
     
 << \set Score.skipBars = ##t

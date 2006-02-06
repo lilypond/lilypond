@@ -5,9 +5,9 @@
 start of the next non-tuplet note.  "
 
 }
-\version "2.7.13"
+\version "2.7.32"
 
-\paper { raggedright = ##t
+\paper { ragged-right = ##t
 indent = 0.0 }
 
 \relative c'' \new Voice \with {

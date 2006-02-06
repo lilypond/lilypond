@@ -53,13 +53,13 @@ above or below notes by using a string @code{c^"text"}.  By default,
 these indications do not influence the note spacing, but by using the
 command @code{\fatText}, the widths will be taken into account
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c4^"longtext" \fatText c4_"longlongtext" c4
 @end lilypond
 
 More complex formatting may also be added to a note by using the
 markup command,
-@lilypond[fragment,raggedright,verbatim,quote]
+@lilypond[fragment,ragged-right,verbatim,quote]
 c'4^\markup { bla \bold bla }
 @end lilypond
 
@@ -105,7 +105,7 @@ notes of the spanner.
 The string to be printed, as well as the style, is set through object
 properties
 
-@lilypond[quote,raggedright,fragment,relative=1,verbatim]
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 c1
 \textSpannerDown
 \override TextSpanner #'edge-text = #'("rall " . "")
@@ -148,7 +148,7 @@ but it can also be used to put signs like coda,
 segno, and fermata on a bar line.  Use @code{\markup} to
 access the appropriate symbol
 
-@lilypond[fragment,quote,raggedright,verbatim,relative=2]
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 c1 \mark \markup { \musicglyph #"scripts.ufermata" }
 c1
 @end lilypond
@@ -179,7 +179,7 @@ To print the mark at the end of the current line, use
 @code{\mark} is often useful for adding text to the end of bar.  In
 such cases, changing the @code{#'self-alignment} is very useful
 
-@lilypond[fragment,quote,raggedright,verbatim,relative=2]
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 \override Score.RehearsalMark
   #'break-visibility = #begin-of-line-invisible
 c1 c c c4 c c c
@@ -243,7 +243,7 @@ Text can also be placed on its own, away from any @code{\score}
 block.  This is primarily used in a @code{\book} (see
 @ref{Multiple movements}).
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \markup{ Here is some text. }
 @end lilypond
 
@@ -408,7 +408,7 @@ It is possible to nest music inside markups, by adding a @code{\score}
 block to a markup expression.  Such a score must contain a @code{\layout}
 block.
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 \relative {
   c4 d^\markup {
     \score {
@@ -541,7 +541,7 @@ with dynamics.  Use @code{make-dynamic-script} to create these marks.
 
 @cindex make-dynamic-script
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 sfzp = #(make-dynamic-script "sfzp")
 \relative c' {
   c4 c c\sfzp c
@@ -554,7 +554,7 @@ sfzp = #(make-dynamic-script "sfzp")
 It is also possible to print dynamics in round parenthesis or square
 brackets.  These are often used for adding editorial dynamics.
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 rndf = \markup{ \center-align {\line { \bold{\italic (}
   \dynamic f \bold{\italic )} }} }
 boxf = \markup{ \bracket { \dynamic f } }
@@ -598,7 +598,7 @@ multi-measure rest.  This expansion is controlled by the property
 @code{Score.skipBars}.  If this is set to true, empty measures will not
 be expanded, and the appropriate number is added automatically
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 4/4 r1 | R1 | R1*2
 \set Score.skipBars = ##t R1*17 R1*4
 @end lilypond
@@ -607,7 +607,7 @@ The @code{1} in @code{R1} is similar to the duration notation used for
 notes.  Hence, for time signatures other than 4/4, you must enter other
 durations.  This can be done with augmentation dots or fractions
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \set Score.skipBars = ##t
 \time 3/4
 R2. | R2.*2
@@ -624,7 +624,7 @@ If there are only a few measures of rest, LilyPond prints ``church rests''
 (a series of rectangles) in the staff.  To replace that with a simple
 rest, use @code{MultiMeasureRest.expand-limit}.
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \set Score.skipBars = ##t
 R1*2 | R1*5 | R1*9
 \override MultiMeasureRest #'expand-limit = 1
@@ -640,7 +640,7 @@ Texts can be added to multi-measure rests by using the
 A variable (@code{\fermataMarkup}) is provided for
 adding fermatas
 
-@lilypond[quote,raggedright,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \set Score.skipBars = ##t
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
@@ -650,7 +650,7 @@ R2.^\fermataMarkup
 Warning!  This text is created by @code{MultiMeasureRestText}, not
 @code{TextScript}.
 
-@lilypond[quote,raggedright,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \override TextScript #'padding = #5
 R1^"low"
 \override MultiMeasureRestText #'padding = #5
@@ -712,7 +712,7 @@ Metronome settings can be entered as follows
 In the MIDI output, they are interpreted as a tempo change.  In the
 layout output, a metronome marking is printed
 @cindex @code{\tempo}
-@lilypond[quote,raggedright,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \tempo 8.=120 c''1
 @end lilypond
 
@@ -726,7 +726,7 @@ the metronome marking invisible
 @end example
 
 To print other metronome markings, use these markup commands
-@lilypond[quote,raggedright,verbatim,relative,fragment]
+@lilypond[quote,ragged-right,verbatim,relative,fragment]
 c4^\markup {
   (
   \smaller \general-align #Y #DOWN \note #"16." #1
@@ -765,7 +765,7 @@ further away from the staff.
 
 To print a rehearsal mark, use the @code{\mark} command
 
-@lilypond[quote,raggedright,fragment,verbatim,relative=2]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c1 \mark \default
 c1 \mark \default
 c1 \mark #8
@@ -792,7 +792,7 @@ as argument.  It should return a markup object.  In the following
 example, @code{markFormatter} is set to a canned procedure.  After a
 few measures, it is set to function that produces a boxed number.
 
-@lilypond[fragment,quote,raggedright,verbatim,relative=2]
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 \set Score.markFormatter = #format-mark-numbers
 c1 \mark \default
 c1 \mark \default
@@ -838,12 +838,12 @@ beginning of each line.  This is illustrated in the following example,
 whose source is available as
 @inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}
 
-@lilypondfile[raggedright,quote]{bar-number-regular-interval.ly}
+@lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
 
 Bar numbers can be typeset manually by tweaking the
 @code{markFormatter} property
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 \relative c' {
   \set Score.markFormatter
     = #(lambda (mark context)
@@ -859,7 +859,7 @@ Bar numbers can be typeset manually by tweaking the
 Bar numbers can be manually changed by setting the
 @code{Staff.currentBarNumber} property
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 \relative c' {
   \repeat unfold 4 {c4 c c c} \break
   \set Score.currentBarNumber = #50
@@ -896,7 +896,7 @@ and @internalsref{Staff}.@code{instr}.  This will print a string before
 the start of the staff.  For the first staff, @code{instrument} is
 used, for the following ones, @code{instr} is used.
 
-@lilypond[quote,verbatim,raggedright,relative=1,fragment]
+@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
 \set Staff.instrument = "Ploink "
 \set Staff.instr = "Plk "
 c1
@@ -907,7 +907,7 @@ c''
 You can also use markup texts to construct more complicated instrument
 names, for example
 
-@lilypond[quote,fragment,verbatim,raggedright]
+@lilypond[quote,fragment,verbatim,ragged-right]
 \set Staff.instrument = \markup {
   \column { "Clarinetti"
             \line { "in B" \smaller \flat } } }
@@ -916,7 +916,7 @@ c''1
 
 If you wish to center the instrument names, you must center all of them
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 { <<
 \new Staff {
   \set Staff.instrument = \markup {
@@ -1016,7 +1016,7 @@ the staff.  They are created by invoking the function
 @cindex 15ma
 @cindex octavation
 
-@lilypond[quote,raggedright,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \relative c''' {
   a2 b
   #(set-octavation 1)
@@ -1032,7 +1032,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
 @code{centralCPosition}.  For overriding the text of the bracket, set
 @code{ottavation} after invoking @code{set-octavation}, i.e.,
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 {
   #(set-octavation 1)
   \set Staff.ottavation = #"8"
@@ -1107,7 +1107,7 @@ commands, tagged expressions can be filtered.  For example,
 @end example
 would yield
 
-@lilypondfile[raggedright,quote]{tag-filter.ly}
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
 
 The argument of the @code{\tag} command should be a symbol. It's 
 possible to put multiple tags on a piece of music, with multiple
@@ -1168,7 +1168,7 @@ The following example demonstrates the basic functionality of the part
 combiner: putting parts on one staff, and setting stem directions and
 polyphony
 
-@lilypond[quote,verbatim,raggedright,fragment]
+@lilypond[quote,verbatim,ragged-right,fragment]
 \new Staff \partcombine
   \relative g' { g g a( b) c c r r }
   \relative g' { g g r4 r e e g g }
@@ -1184,7 +1184,7 @@ first part (with context called @code{one}) always gets up stems, and
 If you just want the merging parts, and not the textual markings, you
 may set the property @code{printPartCombineTexts} to false
 
-@lilypond[quote,verbatim,raggedright,fragment,relative=2]
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 \new Staff <<
   \set Staff.printPartCombineTexts = ##f
   \partcombine
@@ -1197,7 +1197,7 @@ To change the text that is printed for solos or merging, you may
 set the @code{soloText}, @code{soloIIText}, and @code{aDueText}
 properties.
 
-@lilypond[quote,verbatim,raggedright,fragment,relative=2]
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 \new Staff <<
   \set Score.soloText = #"ichi"
   \set Score.soloIIText = #"ni"
@@ -1262,7 +1262,7 @@ multi-measure rests) are removed.  The context definition is stored in
 @code{\RemoveEmptyStaffContext} variable.  Observe how the second staff
 in this example disappears in the second line
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \layout {
   \context { \RemoveEmptyStaffContext }
 }
@@ -1343,7 +1343,7 @@ rests at the beginning.
 Quotations take into account the transposition of both source and target
 instruments, if they are specified using the @code{\transposition} command.
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \addquote clarinet \relative c' {
   \transposition bes
   f4 fis g gis
@@ -1408,7 +1408,7 @@ the staff in effect becomes polyphonic for a moment.  The argument
 first or second voice.
 
 
-@lilypond[verbatim,raggedright]
+@lilypond[verbatim,ragged-right]
 smaller = {
   \set fontSize = #-2
   \override Stem #'length-fraction = #0.8
@@ -1481,7 +1481,7 @@ as argument, and generate a @code{\skip} or multi-rest, exactly as
 long as the piece.  The use of @code{mmrest-of-length} is demonstrated
 in the following example.
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 cadenza = \relative c' {
   c4 d8 << { e f g } \\ { d4. } >>
   g4 f2 g4 g
@@ -1532,7 +1532,7 @@ faked.  In the next example, the markup for the time signature is
 created with a markup text.  This markup text is inserted in the
 @internalsref{TimeSignature} grob.
 
-@lilypond[verbatim,raggedright]
+@lilypond[verbatim,ragged-right]
 % create 2/4 + 5/8
 tsMarkup =\markup {
   \number {
@@ -1588,7 +1588,7 @@ Now, each staff has its own time signature.
 >>
 @end example
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \layout{
   \context{
      \Score
@@ -1638,7 +1638,7 @@ used in parallel.  In the second staff, shown durations are multiplied by
 2/3, so that 2/3 * 9/8 = 3/4, and in the third staff, shown durations are
 multiplied by 3/5, so that 3/5 * 10/8 = 3/4.
 
-@lilypond[quote,raggedright,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' { <<
   \new Staff {
     \time 3/4
@@ -1707,7 +1707,7 @@ in the measure, so the next bar line will fall at 2/4 + 3/8.  The
 3/8 arises because 5/4 normally has 10/8, but we have manually
 set the measure position to be 7/8 and 10/8 - 7/8 = 3/8.
 
-@lilypond[quote,raggedright,verbatim,relative,fragment]
+@lilypond[quote,ragged-right,verbatim,relative,fragment]
 \set Score.measureLength = #(ly:make-moment 5 4)
 c1 c4
 c1 c4
@@ -1728,7 +1728,7 @@ A cluster indicates a continuous range of pitches to be played.  They
 can be denoted as the envelope of a set of notes.  They are entered by
 applying the function @code{makeClusters} to a sequence of
 chords, e.g.,
-@lilypond[quote,raggedright,relative=2,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 \makeClusters { <c e > <b f'> }
 @end lilypond
 
@@ -1736,7 +1736,7 @@ The following example (from
 @inputfileref{input/@/regression,cluster@/.ly}) shows what the result
 looks like
 
-@lilypondfile[raggedright,quote]{cluster.ly}
+@lilypondfile[ragged-right,quote]{cluster.ly}
 
 Ordinary notes and clusters can be put together in the same staff,
 even simultaneously.  In such a case no attempt is made to
@@ -1765,7 +1765,7 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 In contemporary music notation, special fermata symbols denote breaks
 of differing lengths.  The following fermatas are supported
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 <<
   \oldaddlyrics {
     b'2
@@ -1808,7 +1808,7 @@ notes on guitar; diamonds are used for harmonics on string instruments,
 etc.  There is a shorthand (@code{\harmonic}) for diamond shapes; the
 other notehead styles are produced by tweaking the property
 
-@lilypond[raggedright,relative=1,fragment,verbatim,quote]
+@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
 c4 d
 \override NoteHead #'style = #'cross
 e f
@@ -1831,7 +1831,7 @@ Program reference: @internalsref{NoteHead}.
 Trills that should be executed on an explicitly specified pitch can be
 typeset with the command @code{pitchedTrill}, 
 
-@lilypond[raggedright,verbatim,fragment]
+@lilypond[ragged-right,verbatim,fragment]
   \pitchedTrill c'4\startTrillSpan fis
   f'\stopTrillSpan
 @end lilypond
@@ -1846,7 +1846,7 @@ Feathered beams are not supported natively, but they can be faked by
 forcing two beams to overlap.  Here is an example,
 
 @c don't change relative setting witout changing positions!
-@lilypond[raggedright,relative=1,fragment,verbatim,quote]
+@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
 \new Staff <<
   \new Voice
   {
@@ -1883,7 +1883,7 @@ There are shortcuts @code{\improvisationOn} (and an accompanying
 @code{\improvisationOff}) for this command sequence.  They are used in
 the following example
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 \new Staff \with {
   \consists Pitch_squash_engraver
 } \transpose c c' {
@@ -1919,7 +1919,7 @@ balloon.  The primary purpose of this feature is to explain notation.
 
 The following example demonstrates its use.
 
-@lilypond[quote,verbatim,fragment,raggedright,relative=2]
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \context Voice {
   \applyOutput
     #(add-balloon-text 'NoteHead "heads, or tails?"
@@ -1982,7 +1982,7 @@ emptymusic = {
 Hidden (or invisible or transparent) notes can be useful in preparing theory
 or composition exercises.
 
-@lilypond[quote,raggedright,verbatim,relative=2,fragment]
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 c4 d4
 \hideNotes
 e4 f4
@@ -1996,7 +1996,7 @@ to include that in your score -- string instruments use this notation
 when doing pizzicato to indicate that the note should ring for as long
 as possible.
 
-@lilypond[quote,raggedright,verbatim,relative=0,fragment]
+@lilypond[quote,ragged-right,verbatim,relative=0,fragment]
 \clef bass
 << {
   c4^"pizz"( \hideNotes c)
@@ -2053,7 +2053,7 @@ combinations are possible, eg.,
 The `easy play' note head includes a note name inside the head.  It is
 used in music for beginners
 
-@lilypond[quote,raggedright,verbatim,fragment,staffsize=26]
+@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
   \setEasyHeads
   c'2 e'4 f' | g'1
 @end lilypond
@@ -2082,7 +2082,7 @@ brackets.  To use this, add the @internalsref{Horizontal_bracket_engraver}
 to @internalsref{Staff} context.  A bracket is started with
 @code{\startGroup} and closed with @code{\stopGroup}
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \score {
   \relative c'' {
     c4\startGroup\startGroup
@@ -2109,7 +2109,7 @@ Examples: @inputfileref{input/@/regression,note@/-group@/-bracket@/.ly}.
 Individual objects may be assigned colors.  You may use the
 color names listed in the @ref{List of colors}.
 
-@lilypond[quote,raggedright,verbatim,fragment,relative=1]
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \override NoteHead #'color = #red
 c4 c
 \override NoteHead #'color = #(x11-color 'LimeGreen)
@@ -2148,7 +2148,7 @@ This example, illustrates the use of x11-color.  Notice that the stem
 color remains black after being set to (x11-color 'Boggle), which is
 deliberate nonsense.
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 {
   \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
   \set Staff.instrument = \markup {
@@ -2228,7 +2228,7 @@ individually for each voice.  Apart from that, the rule is similar to
 As a result, accidentals from one voice do not get canceled in other
 voices, which is often an unwanted result
 
-@lilypond[quote,raggedright,relative=1,fragment,verbatim]
+@lilypond[quote,ragged-right,relative=1,fragment,verbatim]
 \context Staff <<
   #(set-accidental-style 'voice)
   <<
@@ -2251,7 +2251,7 @@ accidentals also are canceled in other octaves.  Furthermore,
 in the same octave, they also get canceled in the following
 measure
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 #(set-accidental-style 'modern)
 cis' c'' cis'2 | c'' c'
 @end lilypond
@@ -2261,7 +2261,7 @@ cis' c'' cis'2 | c'' c'
 This rule is similar to @code{modern}, but the ``extra'' accidentals
 (the ones not typeset by @code{default}) are typeset as cautionary
 accidentals.  They are printed in reduced size or with parentheses
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 #(set-accidental-style 'modern-cautionary)
 cis' c'' cis'2 | c'' c'
 @end lilypond
@@ -2297,7 +2297,7 @@ accidentals typeset as cautionaries.
 @cindex @code{no-reset} accidental style
 This is the same as @code{default} but with accidentals lasting
 ``forever'' and not only until the next measure
-@lilypond[quote,raggedright,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 #(set-accidental-style 'no-reset)
 c1 cis cis c
 @end lilypond
@@ -2308,7 +2308,7 @@ are not remembered at all---and hence all accidentals are
 typeset relative to the key signature, regardless of what was
 before in the music
 
-@lilypond[quote,raggedright,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 #(set-accidental-style 'forget)
 \key d\major c4 c cis cis d d dis dis
 @end lilypond
@@ -2390,7 +2390,7 @@ node, use
 You can force the beam settings to only take effect on beams whose shortest
 note is a certain duration
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 2/4
 #(override-auto-beam-setting '(end 1 16 * *) 1 16)
 a16 a a a a a a a |
@@ -2402,7 +2402,7 @@ a32 a a a a16 a a a a a |
 You can force the beam settings to only take effect in certain time
 signatures
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 5/8
 #(override-auto-beam-setting '(end * * 5 8) 2 8)
 c8 c d d d
@@ -2423,7 +2423,7 @@ be, p, q, n, m, a, b and context are the same as above.  Note that the
 default rules are specified in @file{scm/@/auto@/-beam@/.scm},
 so you can revert rules that you did not explicitly create.
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 4/4
 a16 a a a a a a a a a a a a a a a
 #(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
@@ -2433,7 +2433,7 @@ a16 a a a a a a a a a a a a a a a
 The rule in a revert-auto-beam-setting statement must exactly match the
 original rule.  That is, no wildcard expansion is taken into account.
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 1/4
 #(override-auto-beam-setting '(end 1 16 1 4) 1 8)
 a16 a a a

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc = "There are three different kinds of grace types: the base 
 grace switches to smaller type, the appoggiatura inserts also a slur, and the
@@ -6,7 +6,7 @@ acciaccatura inserts a slur and slashes the stem."
     }
 
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 \relative c'' {

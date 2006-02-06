@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.7.14"
+\version "2.7.32"
 manuscriptBreak = { \break }
 
 
@@ -36,11 +36,11 @@ manuscriptBreak = { \break }
 
 \paper  {
 %#(set-global-staff-size (* 5.8 mm))
-    linewidth = #(* mm 160)
+    line-width = #(* mm 160)
     indent = 8\mm
     interscoreline = 2.\mm
-    betweensystemspace = 15\mm
-    raggedbottom = ##t 
+    between-system-space = 15\mm
+    ragged-bottom = ##t 
     }
 
 modernAccidentals = {

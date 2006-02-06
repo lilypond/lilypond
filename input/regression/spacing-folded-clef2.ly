@@ -1,4 +1,4 @@
-\version "2.7.31"
+\version "2.7.32"
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if
@@ -7,7 +7,7 @@ can show where columns are in the score."
 }
 
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 
     \context {
 	\Score

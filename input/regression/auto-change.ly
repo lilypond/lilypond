@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -9,7 +9,7 @@ note. When central C is reached, staff is not yet switched (by default).
 
 "
 }
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \context PianoStaff <<
   \context Staff = "up" {

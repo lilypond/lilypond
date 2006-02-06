@@ -1,9 +1,9 @@
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc = "Stripped version of trip.ly.  Staves should be of correct length."
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \context PianoStaff  \relative c'' <<

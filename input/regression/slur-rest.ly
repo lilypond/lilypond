@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header
 {
   texidoc ="Slurs may be placed over rest. The slur will avoid colliding with
@@ -8,7 +8,7 @@ the rest.
 "
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 { \stemDown c'4 ( r4  c'2)
 
   \relative c'' { 

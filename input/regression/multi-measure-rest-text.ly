@@ -1,4 +1,4 @@
-\version "2.7.31"
+\version "2.7.32"
 
 \header  {
 
@@ -13,7 +13,7 @@ measures stretch to accomodate wide texts.
 
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 {
   \time 3/4
   \set Score.skipBars = ##t

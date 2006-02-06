@@ -1,8 +1,8 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "In nested syntax, graces are still properly handled."
 }
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \relative c'' {
   f1

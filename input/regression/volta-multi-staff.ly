@@ -5,8 +5,8 @@
 
 }
 
-\layout { raggedright = ##t }
-\version "2.7.13"
+\layout { ragged-right = ##t }
+\version "2.7.32"
 
 
 vmus =  { \repeat volta 2 c1 \alternative { d e } } 

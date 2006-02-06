@@ -8,11 +8,11 @@
 }
 
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
   
 
 
-\version "2.7.13" % to be updated
+\version "2.7.32" % to be updated
 
 #(def-markup-command (upcase paper props str) (string?)
   "Upcase the string characters. Syntax: \\upcase #\"string\""

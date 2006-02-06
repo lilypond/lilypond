@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 % probably should be merged into refman.
 \header{
     texidoc = "@cindex Dynamic Piu Forte
@@ -7,7 +7,7 @@ Più forte dynamics is produced using @code{\markup}. " }
 
 piuf =	\markup {  \italic "più" \dynamic "f" }
 
-\layout{raggedright = ##t}
+\layout{ragged-right = ##t}
 
 \relative c''{
   c-\piuf

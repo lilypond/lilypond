@@ -5,9 +5,9 @@ By setting @code{markFormatter} we may choose a different style of mark printing
 	  
       }
 
-\version "2.7.13"
+\version "2.7.32"
 
-\paper { raggedright = ##t } 
+\paper { ragged-right = ##t } 
 
 \relative c''{
   \set Score.markFormatter = #format-mark-numbers 

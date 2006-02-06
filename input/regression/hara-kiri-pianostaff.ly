@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header { texidoc =
 
@@ -19,7 +19,7 @@ alignment; this should not confuse the mechanism.
 }
 
 \layout {
-  raggedright= ##t
+  ragged-right= ##t
   \context {
     \RemoveEmptyStaffContext
   }

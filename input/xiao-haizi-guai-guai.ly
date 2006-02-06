@@ -4,7 +4,7 @@
 %%  hai2zi5: child,
 %%  guai1-guai1: well-behaved)
 
-\version "2.6.0"
+\version "2.7.32"
 
 \header {
   title = "小孩子乖乖"

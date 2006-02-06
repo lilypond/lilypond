@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
     texidoc = "The property @code{chordNameExceptions} can used
@@ -22,7 +22,7 @@ theMusic = \chordmode {
     c:7sus4 c:dim7/+f
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 << \context ChordNames \theMusic
    \context Voice \theMusic

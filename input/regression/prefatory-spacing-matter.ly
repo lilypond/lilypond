@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Distances between prefatory items (e.g. clef, bar,
@@ -11,7 +11,7 @@ bar-line is different from the start of line.
 }
 
 \layout  {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 \relative c'' {

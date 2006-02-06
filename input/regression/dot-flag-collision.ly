@@ -1,9 +1,9 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Dots move to the right when a collision with the (up)flag happens."
 }
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 
 \relative c''

@@ -11,9 +11,9 @@ last note."
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 quoteMe = \relative c' { fis4 r16  a8.-> b4(-\ff~  b16 c8.  b) }

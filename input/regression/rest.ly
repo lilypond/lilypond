@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
   texidoc="
@@ -8,7 +8,7 @@ whole rest are centered on the middle staff line.
 "
 }
 
-\paper { raggedright = ##t } 
+\paper { ragged-right = ##t } 
 
 {
   \time 4/4

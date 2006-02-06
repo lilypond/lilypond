@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
 
   texidoc=" Beams on ledgered notes should always reach the middle staff
@@ -10,7 +10,7 @@ note beams.  Override with @code{no-stem-extend}.  "
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }  
 
 

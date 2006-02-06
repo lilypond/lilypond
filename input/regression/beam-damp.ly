@@ -1,9 +1,9 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header { texidoc = "@cindex Beam Damp
 Beams are less steep than the notes they encompass. " }
 \layout{
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 \relative c''{

@@ -1,4 +1,4 @@
-\version "2.7.13" 
+\version "2.7.32" 
 
 \header {
 
@@ -7,7 +7,7 @@
 
 }
 
-\layout { raggedright = ##t } 
+\layout { ragged-right = ##t } 
 
 \chordmode { c:13 c:13.11 c:m13 }
 

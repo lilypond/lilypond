@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 
 \header {
@@ -14,7 +14,7 @@ the output."
 }
 
 \layout {
-  linewidth = 70 * 5 \pt
+  line-width = 70 * 5 \pt
 }
 
 \relative c'' {

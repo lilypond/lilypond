@@ -1,10 +1,10 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Instrument names are also printed on  partial starting measures."
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 
 

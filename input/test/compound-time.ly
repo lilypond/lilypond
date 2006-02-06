@@ -1,5 +1,5 @@
 
-\version "2.7.14"
+\version "2.7.32"
 \header {
 texidoc = "@cindex compound time
 @cindex plus
@@ -10,7 +10,7 @@ compound time.
 "
 }
 
-\layout{raggedright = ##t}
+\layout{ragged-right = ##t}
 
 #(define (compound-time grob one two num)
   (interpret-markup

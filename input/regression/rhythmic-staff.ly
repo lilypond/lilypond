@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header
 {
 
@@ -6,7 +6,7 @@
 have the size for a 5 line staff. The whole rest hangs from the
 rhythmic staff."  }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \context RhythmicStaff
 {
