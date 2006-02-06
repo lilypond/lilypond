@@ -10,6 +10,9 @@
  
 }
 
+%% See http://www.shaffermusic.com/doc/schenker/index.html for more information
+%% 
+
 
 \version "2.7.32"
 
