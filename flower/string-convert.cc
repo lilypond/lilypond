@@ -258,11 +258,8 @@ String_convert::char_string (char c, int n)
   n = n >= 0 ? n : 0;
   char *ch = new char[ n ];
   memset (ch, c, n);
-#if STD_STRING
   std::string s (ch, n);
-#else
-  std::string s (ch, n);
-#endif
+  
   delete[] ch;
   return s;
 }
