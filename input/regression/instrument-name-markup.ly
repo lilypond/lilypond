@@ -7,9 +7,9 @@ including alterations. "
 }
 
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
-\version "2.7.13"
+\version "2.7.32"
 
 textFlat = \markup {\smaller \flat}
 

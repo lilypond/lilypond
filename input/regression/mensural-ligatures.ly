@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
   texidoc = "Mensural ligatures show different shapes, depending on the
@@ -315,7 +315,7 @@
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
   packed = ##t
   indent = 0.0
   \context {

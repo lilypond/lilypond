@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Grace notes do tricky things with timing. If a measure
@@ -9,7 +9,7 @@ breaks should be possible at grace notes, and the bar number should be
 printed correctly.
 "
 }
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 
 \relative c'' { c1 \break

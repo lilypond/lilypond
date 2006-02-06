@@ -3,9 +3,9 @@
 texidoc = "Ties behave properly at line breaks."
   }
 
-\version "2.7.13"
+\version "2.7.32"
 
-\paper { raggedright = ##t } 
+\paper { ragged-right = ##t } 
 
 \relative c'
 {

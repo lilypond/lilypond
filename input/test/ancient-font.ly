@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -211,7 +211,7 @@ lowerStaff = \context MensuralStaff = "lowerStaff" <<
 >>
 
 \paper {
-	linethickness = #(/ staffspace 5.0)
+	line-thickness = #(/ staff-space 5.0)
 }
 
 \score {
@@ -221,7 +221,7 @@ lowerStaff = \context MensuralStaff = "lowerStaff" <<
     >>
     \layout {
 % do we want to keep these settings? -gp
-	linewidth = 17.25\cm
+	line-width = 17.25\cm
 	textheight = 26.0\cm
 	indent = 0.0
 	\context {

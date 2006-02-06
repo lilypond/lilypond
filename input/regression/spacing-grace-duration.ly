@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Spacing uses the duration of the notes, but disregards
@@ -9,7 +9,7 @@
 "
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c''
 \context Voice 

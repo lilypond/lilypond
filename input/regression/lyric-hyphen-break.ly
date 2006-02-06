@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -25,7 +25,7 @@ they go past the first note. "
 >>
   \layout   {
     indent = 0.0 \cm
-    linewidth = 3.4 \cm
+    line-width = 3.4 \cm
 
     \context {
       \Staff \remove "Time_signature_engraver"

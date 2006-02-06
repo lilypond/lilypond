@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
 texidoc="
 Key signatures may appear on key changes, even without a barline.  
@@ -12,7 +12,7 @@ are created also on a clef change.
 
 
 \paper {
-    raggedright = ##T
+    ragged-right = ##T
 }
 
 \relative

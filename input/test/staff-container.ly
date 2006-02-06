@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -59,7 +59,7 @@ what you would expect.)
 	    \remove Clef_engraver
 	    \remove Time_signature_engraver
 	}
-	raggedright=##t
+	ragged-right=##t
     }
 }
 

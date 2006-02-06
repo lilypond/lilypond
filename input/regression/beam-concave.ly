@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header{
 
   texidoc = "Fully concave beams should be horizontal. Informally spoken,
@@ -49,7 +49,7 @@ rossBeams = \relative c'' {
 }
 
 \layout{
-  raggedright = ##t
+  ragged-right = ##t
   #(define debug-beam-quanting #t)
 }
 

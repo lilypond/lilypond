@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header { texidoc = "By setting @code{Staff.keySignature} directly,
 key signatures can be set invidually per pitch.
@@ -7,7 +7,7 @@ key signatures can be set invidually per pitch.
 
       }
 \layout {
-    raggedright = ##T
+    ragged-right = ##T
 }
 \relative c'
 \new Staff {

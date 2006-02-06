@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 
 #(if (not (defined? 'pieceTagLine))
@@ -16,6 +16,6 @@ This example puts the current version in the title via Scheme.
 " 
 }
 
-\layout {raggedright=##t}
+\layout {ragged-right=##t}
 { c'4 }
 

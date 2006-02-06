@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header{
 
   texidoc="
@@ -19,7 +19,7 @@ are used then a different symbol is used.
     \Score
     skipBars = ##t
   }
-  raggedright = ##t	
+  ragged-right = ##t	
 }
 
 

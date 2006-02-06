@@ -1,9 +1,9 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Also in the nested syntax here, grace notes appear rightly."
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \context Voice \relative c'' {
 

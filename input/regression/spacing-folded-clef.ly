@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 texidoc = "A clef can be folded below notes in a different staff, if
 this does not disrupt the flow of the notes."
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c'' <<
     \new Staff  { c4  c16[ c c  c] c4 c4 }

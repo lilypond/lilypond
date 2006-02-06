@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc = "@cindex Rests
 
@@ -10,7 +10,7 @@ Rests may be used in various styles.
 
 \layout {
     indent = 0.0
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 \context Staff \relative c {

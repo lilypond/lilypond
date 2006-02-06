@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
     texidoc = "When too few alternatives are present, the first
@@ -6,7 +6,7 @@ alternative is repeated, by printing a range for the 1st repeat."
 
 }
 
-\paper { raggedright = ##t } 
+\paper { ragged-right = ##t } 
 
 
 \relative c'' \context Voice {

@@ -1,10 +1,10 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Pieces may begin with grace notes."
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c' \context Staff  { 
   \grace {  a'16[ f]  } g1

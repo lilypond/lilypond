@@ -6,9 +6,9 @@
 
     }
 
-\version "2.7.13"
+\version "2.7.32"
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 \relative  { c8 c-\noBeam c c }

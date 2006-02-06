@@ -1,9 +1,9 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {texidoc = "@cindex Slur, dotted, dashed
 The appearance of slurs may be changed from solid to dotted or dashed.
 "
 } 
-\layout{ raggedright=##t }
+\layout{ ragged-right=##t }
 
 
 \relative c'{

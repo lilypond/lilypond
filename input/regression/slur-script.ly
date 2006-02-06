@@ -9,10 +9,10 @@
     scripts can be moved manually."
 }
 
-\version "2.7.13"
+\version "2.7.32"
 \layout {
   indent = 0\mm
-  raggedright = ##t
+  ragged-right = ##t
 }
 \relative
 {

@@ -13,11 +13,11 @@ each system.  "
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 \paper {
   indent = #0.0
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 

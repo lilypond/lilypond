@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -8,7 +8,7 @@ the break alignment."
   
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 {
   a a a a \break

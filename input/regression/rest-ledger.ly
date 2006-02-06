@@ -1,11 +1,11 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 texidoc = "Whole and half rests moving outside the staff should get
 ledger lines."
 }
 
 
-\paper { raggedright = ##t } 
+\paper { ragged-right = ##t } 
 
 {
    \override Rest  #'staff-position = #4

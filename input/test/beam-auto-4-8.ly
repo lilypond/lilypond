@@ -1,5 +1,5 @@
 
-%% \version "2.7.13"
+%% \version "2.7.32"
 
 %% keep for now, although merging into beam-auto-override is a possibility.
 \header {
@@ -8,7 +8,7 @@ You can override the automatic beaming settings.
 "
 }
 
-\layout{raggedright = ##t}
+\layout{ragged-right = ##t}
 
 \relative c''{
   \time 4/8

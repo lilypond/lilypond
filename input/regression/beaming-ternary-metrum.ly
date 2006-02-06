@@ -1,9 +1,9 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Automatic beaming works also in ternary time sigs."
 }
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative c'' {
   \time 6/8

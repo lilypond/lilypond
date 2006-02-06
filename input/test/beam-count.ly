@@ -1,5 +1,5 @@
 
-%%\version "2.7.13"
+%%\version "2.7.32"
 \header{
 	texidoc="@cindex Beam Count
 
@@ -8,7 +8,7 @@ two sets of four 32nds are joined, as if they were 8th notes.
 
 " }
 
-\layout { raggedright = ##t}  
+\layout { ragged-right = ##t}  
 
 \relative {
   %% This has now (2.5.21) changed, (end * * * *) no longer

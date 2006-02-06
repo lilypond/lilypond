@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Upstem notes before a barline are printed with some extra
@@ -8,7 +8,7 @@ space. This is an optical correction similar to juxtaposed stems.
 
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 \relative e'
 {

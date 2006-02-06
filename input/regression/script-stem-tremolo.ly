@@ -3,9 +3,9 @@
   texidoc = "Scripts avoid stem tremolos even if there is no visible stem."
 
 }
-\version "2.7.16"
+\version "2.7.32"
 
-\layout {raggedright =##t}
+\layout {ragged-right =##t}
 {
   \stemDown
   g'1:32_"foo"

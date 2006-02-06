@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
 	texidoc="@cindex Beam Isknee
 
@@ -10,7 +10,7 @@ Beams can be placed across a @code{PianoStaff}.
 }
 
 \layout{
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 \context PianoStaff <<

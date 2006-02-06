@@ -1,10 +1,10 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc = "Once properties take effect during a single time step only."
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \relative c' {
     c4

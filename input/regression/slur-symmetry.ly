@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header
 {
   texidoc = "Symmetric figures should lead to symmetric slurs."
@@ -6,7 +6,7 @@
 }
 
 \layout{
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 

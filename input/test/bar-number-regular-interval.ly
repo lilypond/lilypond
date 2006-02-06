@@ -5,7 +5,7 @@ Bar numbers can be printed at regular intervals, inside a box or a circle.
 
 " }
 
-\version "2.7.31"
+\version "2.7.32"
 
 \relative c'{
    \override Score.BarNumber  #'break-visibility = #end-of-line-invisible

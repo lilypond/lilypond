@@ -2,7 +2,7 @@
     texidoc = "Lyrics are not lowered despite the presence of an octavation 8."
 }
 
-\version "2.7.14"
+\version "2.7.32"
 \layout {
     \context {
 	\Staff
@@ -12,7 +12,7 @@
 	\Lyrics
 	\override VerticalAxisGroup #'minimum-Y-extent = ##f
     }
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 \relative { \clef "G_8" c c c c }

@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc="
 Rests should not collide with beams, stems and noteheads.  Rests may
@@ -10,7 +10,7 @@ cases.
 "
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 scale =  \relative c' {
   c8 d e f g a b c c d e f g a b c

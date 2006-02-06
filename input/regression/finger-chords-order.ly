@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -7,7 +7,7 @@ is independent of up/down direction."
 
 }
 
-\paper { raggedright = ##t }
+\paper { ragged-right = ##t }
 
 \relative {
 	%% input order is not 1 2 3 , output is.

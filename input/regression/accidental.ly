@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
   texidoc="
@@ -8,7 +8,7 @@ fourth show forced and courtesy accidentals.
 "
 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 foo = \relative c''   {   \key as \major dis4 dis dis!^"force" dis? }
 

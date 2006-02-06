@@ -12,9 +12,9 @@
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 %    #(define debug-slur-scoring #t)
 }
 

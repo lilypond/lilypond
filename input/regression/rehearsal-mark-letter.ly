@@ -8,8 +8,8 @@ after Z, double letters are used.  The mark may be set with
 
 }
 
-\version "2.7.13"
-\paper { raggedright = ##t } 
+\version "2.7.32"
+\paper { ragged-right = ##t } 
 
 \relative c'' {
   c1  \mark \default

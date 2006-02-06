@@ -6,7 +6,7 @@ for instance, bracketed (B) and non-bracketed (NB).
 }
 
 
-\version "2.7.13"
+\version "2.7.32"
 
 
 
@@ -25,9 +25,11 @@ for instance, bracketed (B) and non-bracketed (NB).
   \times 2/3 {  c8[ c c]  }
   
   \tupletUp
-  \override TupletBracket  #'number-visibility = ##f
+  \override TupletBracket  #'number-visibility % number-visibility is deprecated. Tune the TupletNumber instead
+ = ##f
   \times 2/3 { c8^""^""^"up, no digit"  c[ c]  }
-  \revert TupletBracket #'number-visibility
+  \revert TupletBracket #'number-visibility % number-visibility is deprecated. Tune the TupletNumber instead
+
 
   \override TupletBracket  #'bracket-visibility = ##t
   \override TupletBracket  #'edge-height = #'(0.0 . 0.0)

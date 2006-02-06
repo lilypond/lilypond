@@ -12,9 +12,9 @@ The marking is left aligned with the time signature, if there is one.
   
 }
 
-\layout {  raggedright = ##t }
+\layout {  ragged-right = ##t }
 
-\version "2.7.13"
+\version "2.7.32"
 
 \relative c'' {
   \tempo \breve = 100 c1 c1 \tempo 8.. = 50 c1

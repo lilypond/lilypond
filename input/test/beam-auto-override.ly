@@ -1,6 +1,6 @@
 
 %% ugh
-%% \version "2.7.13"
+%% \version "2.7.32"
 
 \header {
 
@@ -24,7 +24,7 @@ The @code{autoBeaming} can also be turned off.
 
 %% TODO: check doc string. -hw
 
-\layout{raggedright = ##t}
+\layout{ragged-right = ##t}
 \relative c''{
   %% This has now (2.5.21) changed, (end * * * *) no longer
   %% masks the default config entry ('(end * * 2 4) 1 4))

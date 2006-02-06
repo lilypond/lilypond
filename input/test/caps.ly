@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 texidoc = "@cindex Capital Letters
 The font can be changed to small caps.
@@ -13,6 +13,6 @@ shapeNorm = \revert LyricText #'font-shape
   \context Lyrics \lyricmode { 
     what4 is4 \shapeSC The8  Ma -- trix? }
   >>
-  \layout { raggedright = ##t}
+  \layout { ragged-right = ##t}
 }
 

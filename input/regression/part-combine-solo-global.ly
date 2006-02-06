@@ -5,8 +5,8 @@
 
 }
 
-\version "2.7.13"
-\paper { raggedright = ##t } 
+\version "2.7.32"
+\paper { ragged-right = ##t } 
 
 \new Staff
     \partcombine  \relative c'' {

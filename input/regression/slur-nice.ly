@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc="
 Slurs should look nice and symmetric.  The curvature may increase
@@ -20,7 +20,7 @@ run through noteheads or stems.
   \stemDown c( f,  c')
 }
 \layout{
-  linewidth = 120.\mm
+  line-width = 120.\mm
 }
 
 

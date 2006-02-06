@@ -3,10 +3,10 @@
 
 }
 
-\version "2.7.18"
+\version "2.7.32"
 
 \paper {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 \new StaffGroup

@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -13,7 +13,7 @@ be increased.
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 \relative c'' {

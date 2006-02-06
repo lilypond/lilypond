@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 
 \header {
@@ -14,7 +14,7 @@ This example prints a bar-number during processing on stdout.
 
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \relative c'' {

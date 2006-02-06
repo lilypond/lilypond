@@ -7,11 +7,11 @@ large on smaller staves."
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 \layout {
   #(layout-set-staff-size 6)
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 <<

@@ -1,12 +1,12 @@
 %% regression test for fret diagram markups
 
 
-\version "2.7.13"
+\version "2.7.32"
 
 \paper {
 
   %% stretch to prevent diagrams from colliding.
-  linewidth = 18.0 \cm
+  line-width = 18.0 \cm
 }
 
 

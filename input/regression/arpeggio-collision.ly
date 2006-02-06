@@ -1,10 +1,10 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header  {
 texidoc = "Arpeggio stays clear of accidentals and flipped note heads."
 }
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
   \context{
     \Staff
     connectArpeggios = ##t

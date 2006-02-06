@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc ="Polyphonic rhythms and rests do not disturb
@@ -6,7 +6,7 @@
 
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 {
   \clef violin

@@ -1,11 +1,11 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
   texidoc ="Broken volta spanners behave correctly at their left edge in all cases."
 
 }
 
-\layout { raggedright =##t }
+\layout { ragged-right =##t }
 
 %{
 

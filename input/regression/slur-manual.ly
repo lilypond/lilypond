@@ -6,9 +6,9 @@ positioning of the slur. It selects the slur configuration closest to
 the given pair. "
   
   }
-\version "2.7.13"
+\version "2.7.32"
 
-\paper { raggedright = ##T }
+\paper { ragged-right = ##T }
 \relative {
   \override Slur #'positions = #'(-4 . -5)
   e( f g)

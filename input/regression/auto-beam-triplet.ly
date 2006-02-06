@@ -4,8 +4,8 @@
   texidoc = "Automatic beaming is also done on tuplets."
 }
 
-\version "2.7.13"
-\layout { raggedright= ##t }
+\version "2.7.32"
+\layout { ragged-right= ##t }
 
 \relative c''{
   c8 c c c

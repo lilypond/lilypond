@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -9,7 +9,7 @@ Asymmetric slurs are created by setting @code{eccentricity}."
 
 }
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 baseWalk =  \relative c {

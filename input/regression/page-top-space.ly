@@ -1,10 +1,10 @@
 \header {
 
-  texidoc = "By setting @code{pagetopspace,} the Y position of the
+  texidoc = "By setting @code{page-top-space,} the Y position of the
 first system can be forced to be uniform."
 
 }
-\version "2.7.13"
+\version "2.7.32"
 
 #(set-default-paper-size "a6")
 
@@ -22,7 +22,7 @@ first system can be forced to be uniform."
   }
 
   \paper {
-    pagetopspace = 3 \cm
+    page-top-space = 3 \cm
   }
 }
 

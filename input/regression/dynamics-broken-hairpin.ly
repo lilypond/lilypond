@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
 texidoc = "Broken crescendi should be open on one side."
 }
@@ -8,7 +8,7 @@ texidoc = "Broken crescendi should be open on one side."
   c1 \< \break c1\!  \> \break c1\!
 }
 \layout {
-  linewidth = 4.\cm
+  line-width = 4.\cm
 }
 
 

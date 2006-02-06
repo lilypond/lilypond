@@ -10,7 +10,7 @@ and dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 #(define (notes-to-skip m)
   "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
@@ -27,7 +27,7 @@ Scripts and dynamics are maintained.
 )
 
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  } 
 

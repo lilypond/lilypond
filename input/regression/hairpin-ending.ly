@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
 
@@ -9,7 +9,7 @@ into them."
 
 }
 
-\layout { raggedright = ##t } 
+\layout { ragged-right = ##t } 
 
 \relative c'' {
   c4 \> c4 c4\! c4_\ff \> c4 c4\!\p

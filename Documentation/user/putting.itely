@@ -34,7 +34,7 @@ problems:
 
 @itemize @bullet
 @item Include @code{\version} numbers in every file.  Note that all
-templates contain a @code{\version "2.6.0"} string.  We
+templates contain a @code{\version "2.7.32"} string.  We
 highly recommend that you always include the @code{\version}, no matter
 how small your file is.  Speaking from personal experience, it's
 quite frustrating to try to remember which version of LilyPond you were
@@ -98,7 +98,7 @@ cello.  In this case, we would start with ``Notes and lyrics'' (for the
 soprano part).
 
 @example
-\version "2.6.0"
+\version "2.7.32"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -127,7 +127,7 @@ text = \lyricmode @{
 Now we want to add a cello part.  Let's look at the ``Notes only'' example:
 
 @example
-\version "2.6.0"
+\version "2.7.32"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -163,7 +163,7 @@ normally use bass clef.  We'll also give the cello some different
 notes.
 
 @example
-\version "2.6.0"
+\version "2.7.32"
 sopranoMusic = \relative c' @{
   \clef treble
   \key c \major
@@ -232,8 +232,8 @@ more than one thing (in this case staff) happening at once.  The
 This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
-@lilypond[quote,verbatim,raggedright]
-\version "2.6.0"
+@lilypond[quote,verbatim,ragged-right]
+\version "2.7.32"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
@@ -279,7 +279,7 @@ This may come as a surprise, but LilyPond isn't perfect.  Some notation
 elements can overlap.  This is unfortunate, but (in most cases) is easily
 solved.
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
 
@@ -292,7 +292,7 @@ instead) and the note.  In LilyPond, this is called the
 less (it varies with each object).  We want to increase it, so let's
 try 1.5
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \once \override TextScript #'padding = #1.5
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
@@ -312,7 +312,7 @@ cause other problems.  When we move objects with @code{extra-offset},
 the movement is done after LilyPond has placed all other objects.  This means
 that the result can overlap with other objects.
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
@@ -322,7 +322,7 @@ movement (left is negative); the second number controls the vertial
 movement (up is positive).  After a bit of experimenting, we decided
 that these values look good
 
-@lilypond[quote,fragment,raggedright,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
@@ -369,7 +369,7 @@ Most examples also make use of the @code{\relative c'}
 compile the examples, but in most cases the output will
 look very odd if you omit the @code{\relative c'}.
 
-@lilypond[quote,fragment,raggedright,verbatim]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \relative c'' {
   c4 a b c
 }

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
     texidoc="
@@ -7,7 +7,7 @@ Different text styles are used for various purposes.
 }
 
 \paper {
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 \relative c'' \context Staff {

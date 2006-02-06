@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 texidoc="
@@ -8,7 +8,7 @@ If the @code{Note_heads_engraver} is replaced by the @code{Completion_heads_engr
 "
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \new Voice \with {

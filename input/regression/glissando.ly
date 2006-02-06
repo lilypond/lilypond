@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 
@@ -23,7 +23,7 @@ The engraver does no time-keeping, so it involves some trickery to get
   c4 \glissando c,, \glissando c' \glissando d
 }
 \layout{
-  linewidth = 50.\mm indent = 0
+  line-width = 50.\mm indent = 0
  
 }
 

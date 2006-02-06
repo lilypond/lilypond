@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 % this chart is used in the manual too.
 
@@ -50,7 +50,7 @@ This chart shows all articulations, or scripts, that feta font contains.
       }
     >>
     \layout {
-      linewidth = 5.1\in
+      line-width = 5.1\in
       indent = 0.0\mm
     }
   }

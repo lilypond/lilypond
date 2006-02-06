@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 
 \header {
@@ -7,7 +7,7 @@
   "Beaming can be overidden for individual stems."
 }
 \layout{ 
-  raggedright = ##t 
+  ragged-right = ##t 
 }
 
 \relative c'' {

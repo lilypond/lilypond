@@ -4,8 +4,8 @@ independent on prefatory matter in other staves."
 	}
 
 
-\version "2.7.13"
-\layout { raggedright = ##t }
+\version "2.7.32"
+\layout { ragged-right = ##t }
 
 
 << \new Staff  { R1 } 

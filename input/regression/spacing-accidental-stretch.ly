@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
   texidoc = "Accidentals do not influence the amount of stretchable space.
@@ -7,9 +7,9 @@ The accidental does add a little non-stretchable space.
 "
 }
 
-%% not raggedright!!
+%% not ragged-right!!
 \layout {
-  linewidth = 18.\cm
+  line-width = 18.\cm
 }
 \relative c'' \context GrandStaff {
   #(set-accidental-style 'piano-cautionary)

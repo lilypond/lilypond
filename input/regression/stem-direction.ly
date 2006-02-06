@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 texidoc="
@@ -10,7 +10,7 @@ notes, and up for low notes.
 }
 
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 }  
 \context Voice \relative c {
     b''4 ~ b8(b8) e4 e,

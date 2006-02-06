@@ -16,7 +16,7 @@ output for printing of the source of this example (commenting one line).
 
     }
 
-\version "2.7.13"
+\version "2.7.32"
 
 \score {
 \new Staff  \relative c'' {
@@ -27,7 +27,7 @@ output for printing of the source of this example (commenting one line).
 
     c4 c4 }
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 }
 
 

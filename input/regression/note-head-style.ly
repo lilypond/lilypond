@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc="
 Note head shapes may be set from several choices.  
@@ -13,7 +13,7 @@ dimensions.
 
 \layout {
   indent = 0.0
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 pattern = <<

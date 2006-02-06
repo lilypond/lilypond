@@ -11,7 +11,7 @@
 }
 
 
-\version "2.7.28"
+\version "2.7.32"
 
 staffPiano = \new PianoStaff {
   \set Score.timing = ##f
@@ -276,7 +276,7 @@ staffPiano = \new PianoStaff {
   }
 
   \layout  {
-    raggedright = ##t
+    ragged-right = ##t
     \context { \Staff \remove "Time_signature_engraver" }
   }
 }

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
   texidoc = "Each grob can have a color assigned to it.
@@ -6,7 +6,7 @@ Use the @code{\override} and @code{\revert} expressions to set the
 @code{color} property."
 }
 
-\paper { raggedright = ##t }
+\paper { ragged-right = ##t }
 
 \relative {
   \override Accidental #'color = #darkgreen

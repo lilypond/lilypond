@@ -1,10 +1,10 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc = "Beaming can be also given explicitly."
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \relative c'
 {

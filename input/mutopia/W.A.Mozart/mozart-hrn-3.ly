@@ -41,7 +41,7 @@ virtuoso that taught in Geneva.
 
 %}
 
-\version "2.6.0"
+\version "2.7.32"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"
@@ -49,8 +49,8 @@ virtuoso that taught in Geneva.
 \include "mozart-hrn3-rondo.ily"
 
 \paper {
-    betweensystempadding = 0.0
-    betweensystemspace = 20 \mm
+    between-system-padding = 0.0
+    between-system-space = 20 \mm
 }
 
 

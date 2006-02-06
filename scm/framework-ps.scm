@@ -468,7 +468,6 @@
 	  (max (1+ (cadr box)) (cadddr box))
 	  )))
 
-  (display (ly:stencil-extent dump-me X))
   (let* ((outputter (ly:make-paper-outputter
 		     ;; FIXME: better wrap open/open-file,
 		     ;; content-mangling is always bad.

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Rests can have pitches--these will be affected by
@@ -7,7 +7,7 @@ beam/rest collision resolving will leave it alone."
 
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \relative c'' 
 {

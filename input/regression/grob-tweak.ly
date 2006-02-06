@@ -6,9 +6,9 @@
 
 }
 
-\version "2.7.22"
+\version "2.7.32"
 \paper {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 {

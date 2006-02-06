@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 % possible rename to bar-lines-foo.  -gp
 
 \header{ texidoc = "@cindex Bar Lines Remove
@@ -14,7 +14,7 @@ have been removed.
     d c b a
   }
   \layout {
-    raggedright = ##t
+    ragged-right = ##t
     \context {
       \Staff
       whichBar = #""

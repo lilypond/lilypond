@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header {
   texidoc = "The staff is a grob (graphical object) which may be adjusted as well, for example, to have 6 thick lines and a slightly large @code{staff-space}.
@@ -7,7 +7,7 @@ However, beams remain correctly quantized."
 }
 
 \layout  {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 

@@ -5,10 +5,10 @@ This may not work if the slur starts after the tuplet.  "
   
 }
 
-\version "2.7.24"
+\version "2.7.32"
 
 \paper {
-  raggedright = ##t
+  ragged-right = ##t
 %  #(define debug-slur-scoring #t)
 }
 

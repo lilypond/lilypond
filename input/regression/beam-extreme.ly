@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -10,8 +10,8 @@ under normal circumstances, these beams would get knees here
 }
 
 \layout{
-  %%    raggedright = ##t
-  raggedright = ##t
+  %%    ragged-right = ##t
+  ragged-right = ##t
 }
 
 extreme = \relative c'' {

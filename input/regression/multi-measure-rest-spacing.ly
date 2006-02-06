@@ -5,10 +5,10 @@ extra spacing column is created. This should not cause problems."
 }
 
   \layout {
-    raggedright = ##t
+    ragged-right = ##t
   }
 
-\version "2.7.13"
+\version "2.7.32"
 
 
 <<

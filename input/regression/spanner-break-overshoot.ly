@@ -8,9 +8,9 @@ prefatory matter."
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
-\paper { raggedright = ##t }
+\paper { ragged-right = ##t }
 
 \relative c'' {
   \override Beam #'break-overshoot = #'(1.0 . 2.0)

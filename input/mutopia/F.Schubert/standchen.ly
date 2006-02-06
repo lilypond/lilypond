@@ -30,7 +30,7 @@ instrument = "Piano"
   maintainer = "Jan Nieuwenhuizen"
   maintainerEmail = "janneke@gnu.org"
   lastupdated =	 "2001/Apr/27"
-  mutopiapublicdomain = "\\parbox[b]{\\hsize}{\\thefooter\\quad\\small
+  mutopiapublicdomain = "\\parbox[b]{\\paper-width}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
     and placed in the public domain by " + \maintainer +
@@ -40,7 +40,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.5.18"
+\version "2.7.32"
 
 #(set-global-staff-size 16)
 
@@ -401,9 +401,7 @@ trebleStaff = \context Staff = "treble"<<
 	\global
 	{
 	  \clef treble
-	  #(override-auto-beam-setting
-	    '(begin * * * *) @var{a} @var{b}
-	    (ly:make-moment 0 1))
+
 	  \trebleIntro 
 	  \trebleVerseOne 
 	  \trebleEentje
@@ -441,12 +439,12 @@ bassStaff = \context Staff = "bass"<<
     \layout {
 				% Use
 				%   textheight = 280.\mm
-				%   linewidth = 190.\mm
+				%   line-width = 190.\mm
 				% to get this on 3 pages of a4.
 	
 				% Mandatory Mutopia settings yield 4 pages :(
 	textheight = 270.0\mm
-	linewidth = 180.0\mm
+	line-width = 180.0\mm
 
 	\context { \RemoveEmptyStaffContext }
     }

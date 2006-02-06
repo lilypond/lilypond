@@ -1,11 +1,11 @@
-\version "2.7.13"
+\version "2.7.32"
 
 
 \header {
   texidoc = "Percent repeats are not skipped, even when @code{skipBars} is set."
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
 \context Staff <<

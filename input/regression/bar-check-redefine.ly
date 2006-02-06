@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc = "The meaning of @code{|} is stored in the
 identifier @code{pipeSymbol}."
@@ -6,7 +6,7 @@ identifier @code{pipeSymbol}."
 
 pipeSymbol = \bar "||"
 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 
 { c'2 | c'2 | }

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
   texidoc="
@@ -7,7 +7,7 @@ bracket should be equal.
 "
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \context Staff\relative c''  {
   \repeat "volta" 2 { c1 \break } \alternative { d e }

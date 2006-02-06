@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.6.0"
+\version "2.7.32"
 
 %{
  Header for Petites Preludes.
@@ -31,7 +31,7 @@
   maintainer = "Jan Nieuwenhuizen"
   maintainerEmail = "janneke@gnu.org"
   lastupdated =	 "2003/Aug/22"
-  mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
+  mutopiapublicdomain = "\\parbox{\paper-width}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
     and placed in the public domain by " + \maintainer +
@@ -150,7 +150,7 @@ global = {
 		>>
 	>>
 	\layout{
-		linewidth = 17.0 \cm  
+		line-width = 17.0 \cm  
 		\context {
 		    \Score
 		    \override SpacingSpanner #'spacing-increment = #2.0

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 % possible rename to scheme- something.  -gp
 \header { texidoc = "@cindex Scheme Music Creation
@@ -25,6 +25,6 @@ fooMusic = #(seq-music-list
                    (make-note (list (make-note-req (ly:make-pitch 1 1 0) (ly:make-duration 2 0))))))
      
 \score { \fooMusic 
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 }
 

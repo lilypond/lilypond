@@ -5,11 +5,11 @@
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 \markup {
   this is normal  text
-  \override #'(linewidth . 60)
+  \override #'(line-width . 60)
   \wordwrap {
     This is a test of the wordwrapping function.
     1 This is a test of the wordwrapping function.
@@ -22,7 +22,7 @@
 
 \markup {
   this is normal  text
-  \override #'(linewidth . 40)
+  \override #'(line-width . 40)
   \justify {
     This is a test of the wordwrapping function, but with justification.
     1 This is a test of the wordwrapping function, but with justification.
@@ -35,7 +35,7 @@
 
 \markup {
 
-  \override #'(linewidth . 40)
+  \override #'(line-width . 40)
 
 {  \wordwrap-string #" Om mani padme hum Om mani padme hum Om mani
 padme hum Om mani padme hum Om mani padme hum Om mani padme hum Om

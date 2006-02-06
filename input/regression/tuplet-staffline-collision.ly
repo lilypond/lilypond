@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "Horizontal tuplet brackets are shifted vertically
@@ -7,7 +7,7 @@ to avoid staff line collisions."
 
 }
 
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 \context Voice\relative c'' {
   \times 2/3 { b'4 b b }

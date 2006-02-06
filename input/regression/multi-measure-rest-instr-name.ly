@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc = "There are both long and short instrument names.
@@ -8,7 +8,7 @@ multimeasure rests. "
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
   \context {
     \Staff
     \consists Instrument_name_engraver

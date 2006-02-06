@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.7.14"
+\version "2.7.32"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
@@ -18,10 +18,10 @@ ignoreMelismaOff = \unset ignoreMelismata
 \paper  {
 				%#(set-global-staff-size (* 5.8 mm))
   indent = #(* mm 4)
-  linewidth = #(* mm 140)
+  line-width = #(* mm 140)
   interscoreline = 2.\mm
-  betweensystemspace = 15\mm
-  raggedbottom = ##t 
+  between-system-space = 15\mm
+  ragged-bottom = ##t 
 }
 
 modernAccidentals = {

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc="
 Staff margins are also markings attached to barlines.  They should be
@@ -9,7 +9,7 @@ PianoStaff.
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 

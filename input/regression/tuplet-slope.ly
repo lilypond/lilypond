@@ -12,10 +12,10 @@ The bracket direction is determined by the dominating stem direction.
 }
 
 \layout {
-  raggedright = ##t 
+  ragged-right = ##t 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
 \new Voice {
   \relative c'' {

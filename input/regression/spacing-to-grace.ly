@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
 
   texidoc ="Space from a normal note (or barline) to a grace note is
@@ -7,7 +7,7 @@
   
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 
 \context Voice 

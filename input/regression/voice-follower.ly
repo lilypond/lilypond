@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 
 \header { texidoc= "
@@ -10,7 +10,7 @@ can be printed automatically. This is enabled if the property
 }
 
 \layout{ 
-  raggedright = ##t 
+  ragged-right = ##t 
 }
 
 \relative c'

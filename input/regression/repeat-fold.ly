@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 texidoc="
@@ -7,7 +7,7 @@ should not be more alternatives than repeats.
 "
 }
 
-\paper { raggedright = ##t } 
+\paper { ragged-right = ##t } 
 
 \context Staff  \relative c'' {
     \repeat fold 3 { c^"3x 0alt" d }

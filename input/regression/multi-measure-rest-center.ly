@@ -1,11 +1,11 @@
-\version "2.7.13"
+\version "2.7.32"
 \header
 {
   texidoc = "The multimeasure rest is centered exactly between bar lines."
 
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 
 

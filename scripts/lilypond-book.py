@@ -17,7 +17,7 @@ TODO:
     *  this script is too complex. Modularize.
     
     *  ly-options: intertext?
-    *  --linewidth?
+    *  --line-width?
     *  eps in latex / eps by lilypond -b ps?
     *  check latex parameters, twocolumn, multicolumn?
     *  use --png --ps --pdf for making images?
@@ -140,7 +140,7 @@ HTML = 'html'
 INDENT = 'indent'
 LATEX = 'latex'
 LAYOUT = 'layout'
-LINEWIDTH = 'linewidth'
+LINE_WIDTH = 'line-width'
 NOFRAGMENT = 'nofragment'
 NOINDENT = 'noindent'
 NOQUOTE = 'noquote'
@@ -415,9 +415,9 @@ ly_options = {
 	PAPER: {
 		INDENT: r'''indent = %(indent)s''',
 
-		LINEWIDTH: r'''linewidth = %(linewidth)s''',
+		LINE_WIDTH: r'''line-width = %(line-width)s''',
 
-		QUOTE: r'''linewidth = %(linewidth)s - 2.0 * %(exampleindent)s''',
+		QUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
 
 		RAGGEDRIGHT: r'''raggedright = ##t''',
 
@@ -616,7 +616,7 @@ FULL_LY = '''
 %% ****************************************************************
 '''
 
-texinfo_linewidths = {
+texinfo_line_widths = {
 	'@afourpaper': '160\\mm',
 	'@afourwide': '6.5\\in',
 	'@afourlatex': '150\\mm',
@@ -636,7 +636,7 @@ def classic_lilypond_book_compatibility (key, value):
 	if m:
 		return ('staffsize', m.group (1))
 
-	if key == 'indent' or key == 'linewidth':
+	if key == 'indent' or key == 'line-width':
 		m = re.match ('([-.0-9]+)(cm|in|mm|pt|staffspace)', value)
 		if m:
 			f = float (m.group (1))
@@ -680,13 +680,13 @@ def invokes_lilypond ():
 
 def set_default_options (source):
 	global default_ly_options
-	if not default_ly_options.has_key (LINEWIDTH):
+	if not default_ly_options.has_key (LINE_WIDTH):
 		if format == LATEX:
 			textwidth = get_latex_textwidth (source)
-			default_ly_options[LINEWIDTH] = \
+			default_ly_options[LINE_WIDTH] = \
 			  '''%.0f\\pt''' % textwidth
 		elif format == TEXINFO:
-			for (k, v) in texinfo_linewidths.items ():
+			for (k, v) in texinfo_line_widths.items ():
 				# FIXME: @layout is usually not in
 				# chunk #0:
 				#
@@ -696,7 +696,7 @@ def set_default_options (source):
 				# source.
 				# s = chunks[0].replacement_text ()
 				if re.search (k, source[:1024]):
-					default_ly_options[LINEWIDTH] = v
+					default_ly_options[LINE_WIDTH] = v
 					break
 
 class Chunk:
@@ -792,42 +792,42 @@ class Lilypond_snippet (Snippet):
 				else:
 					self.option_dict[i] = None
 
-		has_linewidth = self.option_dict.has_key (LINEWIDTH)
-		no_linewidth_value = 0
+		has_line_width = self.option_dict.has_key (LINE_WIDTH)
+		no_line_width_value = 0
 
-		# If LINEWIDTH is used without parameter, set it to default.
-		if has_linewidth and self.option_dict[LINEWIDTH] == None:
-			no_linewidth_value = 1
-			del self.option_dict[LINEWIDTH]
+		# If LINE_WIDTH is used without parameter, set it to default.
+		if has_line_width and self.option_dict[LINE_WIDTH] == None:
+			no_line_width_value = 1
+			del self.option_dict[LINE_WIDTH]
 
 		for i in default_ly_options.keys ():
 			if i not in self.option_dict.keys ():
 				self.option_dict[i] = default_ly_options[i]
 
-		if not has_linewidth:
+		if not has_line_width:
 			if type == 'lilypond' or FRAGMENT in self.option_dict.keys ():
 				self.option_dict[RAGGEDRIGHT] = None
 
 			if type == 'lilypond':
-				if LINEWIDTH in self.option_dict.keys ():
-					del self.option_dict[LINEWIDTH]
+				if LINE_WIDTH in self.option_dict.keys ():
+					del self.option_dict[LINE_WIDTH]
 			else:
 				if RAGGEDRIGHT in self.option_dict.keys ():
-					if LINEWIDTH in self.option_dict.keys ():
-						del self.option_dict[LINEWIDTH]
+					if LINE_WIDTH in self.option_dict.keys ():
+						del self.option_dict[LINE_WIDTH]
 
 			if QUOTE in self.option_dict.keys () or type == 'lilypond':
-				if LINEWIDTH in self.option_dict.keys ():
-					del self.option_dict[LINEWIDTH]
+				if LINE_WIDTH in self.option_dict.keys ():
+					del self.option_dict[LINE_WIDTH]
 
 		if not INDENT in self.option_dict.keys ():
 			self.option_dict[INDENT] = '0\\mm'
 
-		# The QUOTE pattern from ly_options only emits the `linewidth'
+		# The QUOTE pattern from ly_options only emits the `line-width'
 		# keyword.
-		if has_linewidth and QUOTE in self.option_dict.keys ():
-			if no_linewidth_value:
-				del self.option_dict[LINEWIDTH]
+		if has_line_width and QUOTE in self.option_dict.keys ():
+			if no_line_width_value:
+				del self.option_dict[LINE_WIDTH]
 			else:
 				del self.option_dict[QUOTE]
 
@@ -864,7 +864,7 @@ class Lilypond_snippet (Snippet):
 		# To set @exampleindent locally to zero, we use the @format
 		# environment for non-quoted snippets.
 		override[EXAMPLEINDENT] = r'0.4\in'
-		override[LINEWIDTH] = texinfo_linewidths['@smallbook']
+		override[LINE_WIDTH] = texinfo_line_widths['@smallbook']
 		override.update (default_ly_options)
 
 		option_list = []

@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 
 \header{
 texidoc="
@@ -8,7 +8,7 @@ lyrics do not collide with barlines.
 }
 
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 <<

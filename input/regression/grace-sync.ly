@@ -1,9 +1,9 @@
-\version "2.7.13"
+\version "2.7.32"
 \header  {
   texidoc = "Grace notes in different voices/staves are synchronized."
 }
 
-\layout { raggedright = ##t}
+\layout { ragged-right = ##t}
 
 
 \relative c'' <<

@@ -8,7 +8,7 @@
     passed to LaTeX and dvips to help it find the uncb font."
 
 }
-\version "2.7.13"
+\version "2.7.32"
 
 \paper
 {
@@ -26,11 +26,11 @@
 #(system "afm2tfm `kpsewhich uncb8a.afm` uncb8a.tfm") 
 
 \layout {
-    linewidth = 160 \mm - 2.0 * 9.0 \mm
+    line-width = 160 \mm - 2.0 * 9.0 \mm
 
     
     indent = 0.0\mm
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 {

@@ -1,6 +1,6 @@
-\layout{ raggedright = ##t}
+\layout{ ragged-right = ##t}
 
-\version "2.7.31"
+\version "2.7.32"
 
 \header{
   texidoc="Beamed stems have standard lengths if possible. Quantization is switched off in this example."

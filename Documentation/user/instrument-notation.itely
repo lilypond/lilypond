@@ -90,7 +90,7 @@ The autochanger switches on basis of the pitch (middle C is the turning
 point), and it looks ahead skipping over rests to switch in
 advance.  Here is a practical example
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 \context PianoStaff
   \autochange \relative c'
   {
@@ -163,7 +163,7 @@ L.v. ties (laissez vibrer) indicate that notes must not be damped at the
 end. It is used in notation for piano, harp and other string and
 percussion instruments. They can be entered using @code{\laissezVibrer},
 
-@lilypond[fragment,raggedright,verbatim,relative=1]
+@lilypond[fragment,ragged-right,verbatim,relative=1]
 <c f g>\laissezVibrer 
 @end lilypond
 
@@ -189,7 +189,7 @@ Piano pedal instruction can be expressed by attaching
 @code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
 note or chord
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 c'4\sustainDown c'4\sustainUp
 @end lilypond
 
@@ -202,7 +202,7 @@ information.
 Pedals can also be indicated by a sequence of brackets, by setting the
 @code{pedalSustainStyle} property to bracket objects
 
-@lilypond[quote,raggedright,fragment,verbatim,relative=2]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'bracket
 c\sustainDown d e
 b\sustainUp\sustainDown
@@ -213,7 +213,7 @@ A third style of pedal notation is a mixture of text and brackets,
 obtained by setting the @code{pedalSustainStyle} property to
 @code{mixed}
 
-@lilypond[quote,raggedright,fragment,verbatim,relative=2]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'mixed
 c\sustainDown d e
 b\sustainUp\sustainDown
@@ -224,7 +224,7 @@ The default `*Ped.' style for sustain and damper pedals corresponds to
 style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
 default.
 
-@lilypond[quote,raggedright,fragment,verbatim,relative=2]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
 
@@ -235,7 +235,7 @@ For fine-tuning the appearance of a pedal bracket, the properties
 modified.  For example, the bracket may be extended to the right edge
 of the note head
 
-@lilypond[quote,raggedright,fragment,verbatim,relative=2]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
@@ -258,7 +258,7 @@ Whenever a voice switches to another staff, a line connecting the notes
 can be printed automatically.  This is switched on by setting
 @code{followVoice} to true
 
-@lilypond[quote,raggedright,fragment,relative=1,verbatim]
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new PianoStaff <<
   \context Staff=one {
     \set followVoice = ##t
@@ -289,7 +289,7 @@ Chords that cross staves may be produced by increasing the length
 of the stem in the lower staff, so it reaches the stem in the upper
 staff, or vice versa.
 
-@lilypond[raggedright,verbatim,quote]
+@lilypond[ragged-right,verbatim,quote]
 stemExtend = \once \override Stem #'length = #22
 noFlag = \once \override Stem #'flag-style = #'no-flag
 \context PianoStaff <<
@@ -330,7 +330,7 @@ entered by name.  Internally, the chords are represented as a set of
 pitches, so they can be transposed
 
 
-@lilypond[quote,raggedright,verbatim,raggedright]
+@lilypond[quote,ragged-right,verbatim,ragged-right]
 twoWays = \transpose c c' {
   \chordmode {
     c1 f:sus4 bes/f
@@ -364,7 +364,7 @@ In chord mode sets of pitches (chords) are entered with normal note
 names.  A chord is entered by the root, which is entered like a
 normal pitch
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { es4. d8 c2 }
 @end lilypond
 
@@ -445,7 +445,7 @@ Modifiers can be mixed with additions
 Since an unaltered 11 does not sound good when combined with an
 unaltered 3, the 11 is removed in this case (unless it is added
 explicitly)
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c:13 c:13.11 c:m13 }
 @end lilypond
 
@@ -454,7 +454,7 @@ explicitly)
 An inversion (putting one pitch of the chord on the bottom), as well
 as bass notes, can be specified by appending
 @code{/}@var{pitch} to the chord
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c1 c/g c/f }
 @end lilypond
 @cindex @code{/+}
@@ -462,7 +462,7 @@ as bass notes, can be specified by appending
 A bass note can be added instead transposed out of the chord,
 by using @code{/+}@var{pitch}.
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c1 c/+g c/+f }
 @end lilypond
 
@@ -479,7 +479,7 @@ Each step can only be present in a chord once.  The following
 simply produces the augmented chord, since @code{5+} is interpreted
 last
 @cindex clusters
-@lilypond[quote,raggedright,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \chordmode { c:5.5-.5+ }
 @end lilypond
 
@@ -495,7 +495,7 @@ For displaying printed chord names, use the @internalsref{ChordNames} context.
 The chords may be entered either using the notation
 described above, or directly using @code{<} and @code{>}
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 harmonies = {
   \chordmode {a1 b c} <d' f' a'> <e' g' b'>
 }
@@ -510,7 +510,7 @@ You can make the chord changes stand out by setting
 display chord names when there is a change in the chords scheme and at
 the start of a new line
 
-@lilypond[quote,verbatim,raggedright]
+@lilypond[quote,verbatim,ragged-right]
 harmonies = \chordmode {
   c1:m c:m \break c:m c:m d
 }
@@ -527,7 +527,7 @@ necessary.  Chords may also be printed separately.  It may be necessary
 to add @internalsref{Volta_engraver} and @internalsref{Bar_engraver}
 for showing repeats.
 
-@lilypond[raggedright,verbatim]
+@lilypond[ragged-right,verbatim]
 \new ChordNames \with {
   \override BarLine #'bar-size = #4
   voltaOnThisStaff = ##t
@@ -590,7 +590,7 @@ it is major.  Predefined options are @code{whiteTriangleMarkup} and
 Different parts of a chord name are normally separated by a
 slash.  By setting @code{chordNameSeparator}, you can specify other
 separators, e.g.,
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \context ChordNames \chordmode {
   c:7sus4
   \set chordNameSeparator
@@ -627,7 +627,7 @@ The predefined variables @code{\germanChords},
 set these variables.  The effect is
 demonstrated here,
 
-@lilypondfile[raggedright]{chord-names-languages.ly}
+@lilypondfile[ragged-right]{chord-names-languages.ly}
 
 There are also two other chord name schemes implemented: an alternate
 Jazz chord notation, and a systematic scheme called Banter chords.  The
@@ -731,7 +731,7 @@ The easiest way to add lyrics to a melody is to append
 @noindent
 to a melody.  Here is an example,
 
-@lilypond[raggedright,verbatim,fragment,quote]
+@lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
 \relative { c2 e4 g2. }
 \addlyrics { play the game }
@@ -740,7 +740,7 @@ to a melody.  Here is an example,
 More stanzas can be added by adding more
 @code{\addlyrics} sections
 
-@lilypond[raggedright,verbatim,fragment,quote]
+@lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
 \relative { c2 e4 g2. }
 \addlyrics { play the game }
@@ -756,7 +756,7 @@ of the main score block.  Notice that there are two
 different ways to force linebreaks when using
 @code{\markup}.
 
-@lilypond[raggedright,verbatim,quote]
+@lilypond[ragged-right,verbatim,quote]
 melody = \relative c' {
 e d c d | e e e e |
 d d e d | c1 |
@@ -987,7 +987,7 @@ an unslurred group of notes to be a melisma, insert @code{\melisma}
 after the first note of the group, and @code{\melismaEnd} after the
 last one, e.g.,
 
-@lilypond[quote,relative=2,raggedright,fragment,verbatim]
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
 <<
   \context Voice = "lala" {
     \time 3/4
@@ -1040,7 +1040,7 @@ will not be formatted properly.
 
 Here is an example demonstrating manual lyric durations,
 
-@lilypond[relative=1,raggedright,verbatim,fragment,quote]
+@lilypond[relative=1,ragged-right,verbatim,fragment,quote]
 << \context Voice = melody {
      \time 3/4
      c2 e4 g2.
@@ -1100,7 +1100,7 @@ There has one tricky aspect.  The setting for @code{ignoreMelismata}
 must be set one syllable @emph{before} the non-melismatic syllable
 in the text, as shown here,
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 <<
   \relative \context Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1130,7 +1130,7 @@ standard.  This can be achieved by insert @code{\skip}s into the
 lyrics.  For every @code{\skip}, the text will be delayed another note.
 For example,
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 \relative { c c g' }
 \addlyrics {
   twin -- \skip 4
@@ -1147,7 +1147,7 @@ More complex variations in text underlay are possible.  It is possible
 to switch the melody for a line of lyrics during the text.  This is
 done by setting the @code{associatedVoice} property.  In the example
 
-@lilypond[raggedright,quote]
+@lilypond[ragged-right,quote]
 <<
   \relative \context Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1257,7 +1257,7 @@ set @code{melismaBusyProperties}, as is done in the example above.
 To increase the space between lyrics, use the @code{SeparationItem}
 property.
 
-@lilypond[relative,verbatim,fragment,quote,raggedright]
+@lilypond[relative,verbatim,fragment,quote,ragged-right]
 { 
   c c c c
   \override Score.SeparationItem #'padding = #5
@@ -1283,7 +1283,7 @@ property.
 
 Stanza numbers can be added by setting @code{stanza}, e.g.,
 
-@lilypond[quote,raggedright,verbatim,relative=2,fragment]
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
@@ -1302,7 +1302,7 @@ the line, just like instrument names.  They are created by setting
 @code{vocalName}.  A short version may be entered as @code{vocNam}.
 
 
-@lilypond[fragment,raggedright,quote,verbatim,relative=2]
+@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
 \new Voice {
   \time 3/4 g2 e4 a2 f4 g2.
 } \addlyrics {
@@ -1317,7 +1317,7 @@ the line, just like instrument names.  They are created by setting
 You can display alternate (or divisi) lyrics by naming voice
 contexts and attaching lyrics to those specific contexts.
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 \score{ <<
   \context Voice = "melody" {
     \relative c' {
@@ -1338,7 +1338,7 @@ contexts and attaching lyrics to those specific contexts.
 You can use this trick to display different lyrics for a repeated
 section.
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 \score{ <<
   \context Voice = melody \relative c' {
     c2 e | g e | c1 |
@@ -1388,7 +1388,7 @@ for example,
 
 This results in the following output
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \layout {
   \context {
     \Staff
@@ -1406,7 +1406,7 @@ ambitus per staff rather than per each voice, add the
 @internalsref{Ambitus_engraver} to the @internalsref{Staff} context
 rather than to the @internalsref{Voice} context.  Here is an example,
 
-@lilypond[verbatim,raggedright,quote]
+@lilypond[verbatim,ragged-right,quote]
 \new Staff \with {
   \consists "Ambitus_engraver"
 }
@@ -1491,7 +1491,7 @@ Sometimes you might want to show only the rhythm of a melody.  This
 can be done with the rhythmic staff.  All pitches of notes on such a
 staff are squashed, and the staff itself has a single line
 
-@lilypond[quote,raggedright,fragment,relative=1,verbatim]
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \context RhythmicStaff {
   \time 4/4
   c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
@@ -1517,7 +1517,7 @@ similar to the standard mode for entering notes.  Each piece of
 percussion has a full name and an abbreviated name, and both can be used
 in input files
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \drums {
   hihat hh bassdrum bd
 }
@@ -1544,7 +1544,7 @@ of percussion.
 To typeset the music, the notes must be interpreted in a
 @internalsref{DrumStaff} and @internalsref{DrumVoice} contexts
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
 down = \drummode { bassdrum4 snare8 bd r bd sn4 }
   \new DrumStaff <<
@@ -1557,7 +1557,7 @@ The above example shows verbose polyphonic notation.  The short
 polyphonic notation, described in @ref{Polyphony}, can also be used if
 the @internalsref{DrumVoice}s are instantiated by hand first.  For example,
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \new DrumStaff <<
   \context DrumVoice = "1" { s1 *2 }
   \context DrumVoice = "2" { s1 *2 }
@@ -1581,7 +1581,7 @@ The following variables have been predefined
 @item drums-style
 This is the default.  It typesets a typical drum kit on a five-line staff
 
-@lilypond[quote,linewidth=10.0\cm]
+@lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
   cymc cyms cymr hh hhc hho hhho hhp
   cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
@@ -1616,7 +1616,7 @@ on the three middle lines you use @code{tommh}, @code{tomml}, and
 @item timbales-style
 This typesets timbales on a two line staff
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 nam = \lyricmode { timh ssh timl ssl cb }
 mus = \drummode { timh ssh timl ssl cb s16 }
 
@@ -1641,7 +1641,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
 @item congas-style
 This typesets congas on a two line staff
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
 mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 
@@ -1667,7 +1667,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 @item bongos-style
 This typesets bongos on a two line staff
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
 mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 
@@ -1693,7 +1693,7 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 @item percussion-style
 To typeset all kinds of simple percussion on one line staves.
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
 mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 
@@ -1717,7 +1717,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 If you do not like any of the predefined lists you can define your own
 list at the top of your file
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 #(define mydrums '(
          (bassdrum     default   #f         -1)
          (snare        default   #f         0)
@@ -1770,7 +1770,7 @@ for this purpose instead.
 String numbers can be added to chords, by indicating the string number
 with @code{\}@var{number}, 
 
-@lilypond[relative,relative=1,raggedright,fragment]
+@lilypond[relative,relative=1,ragged-right,fragment]
 <c\1 e\2 g\3>
 @end lilypond
 
@@ -1798,7 +1798,7 @@ defaults to the standard guitar tuning (with 6 strings).  The notes
 are printed as tablature, by using @internalsref{TabStaff} and
 @internalsref{TabVoice} contexts
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \context TabStaff {
   a,4\5 c'\2 a\3 e'\1
   e\4 c'\2 a\3 e'\1
@@ -1818,7 +1818,7 @@ e16 fis gis a b4
 \set TabStaff.minimumFret = #8
 e16 fis gis a b4
 @end example
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 frag = {
   \key e \major
   e16 fis gis a b4
@@ -1857,7 +1857,7 @@ numbers of semitones to subtract or add, starting the specified pitch
 by default middle C, in string order.  In the next example,
 @code{stringTunings} is set for the pitches e, a, d, and g
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \context TabStaff <<
   \set TabStaff.stringTunings = #'(-5 -10 -15 -20)
   {
@@ -1884,7 +1884,7 @@ Fret diagrams can be added to music as a markup to the desired note.  The
 markup contains information about the desired fret diagram, as shown in the
 following example
 
-@lilypond[verbatim, raggedright, quote]
+@lilypond[verbatim, ragged-right, quote]
 \context Voice {
   d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
   d' d' d'
@@ -1930,7 +1930,7 @@ Examples: @inputfileref{input/@/test,fret@/-diagram@/.ly}
 This example demonstrates how to include guitar position and
 barring indications.
 
-@lilypond[quote,raggedright,fragment,verbatim,relative=0]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=0]
 \clef "G_8"
 b16 d16 g16 b16 e16
 \textSpannerDown
@@ -1983,7 +1983,7 @@ write @code{\taor} instead of
 notes in the appropiate octaves, so you do not need to worry about
 @code{\relative} or @code{\transpose}.
 
-@lilypond[raggedright,verbatim,quote,notime]
+@lilypond[ragged-right,verbatim,quote,notime]
 \include "bagpipe.ly"
 { \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
 @end lilypond
@@ -2167,7 +2167,7 @@ note heads.
 
 The following example demonstrates the @code{neomensural} style
 
-@lilypond[quote,fragment,raggedright,verbatim]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
 \override NoteHead #'style = #'neomensural
 a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
@@ -2198,7 +2198,7 @@ Use the @code{style} property of grob @internalsref{Accidental} to
 select ancient accidentals.   Supported styles are
 @code{mensural}, @code{vaticana}, @code{hufnagel}, and @code{medicaea}.
 
-@lilypond[quote,raggedright,staffsize=26]
+@lilypond[quote,ragged-right,staffsize=26]
 \score {
 {
   \fatText
@@ -2274,7 +2274,7 @@ in historic prints of the 16th century.
 
 The following example demonstrates the @code{neomensural} style
 
-@lilypond[quote,fragment,raggedright,verbatim]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
 \override Rest #'style = #'neomensural
 r\longa r\breve r1 r2 r4 r8 r16
@@ -2542,7 +2542,7 @@ Use the @code{flag-style} property of grob @internalsref{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
 only the @code{mensural} style is supported
 
-@lilypond[quote,fragment,raggedright,verbatim]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \override Stem #'flag-style = #'mensural
 \override Stem #'thickness = #1.0
 \override NoteHead #'style = #'mensural
@@ -2582,7 +2582,7 @@ to get a particular mensural signature glyph with the @code{\time n/m}
 command, @code{n} and @code{m} have to be chosen according to the
 following table
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \layout {
   indent = 0.0
   \context {
@@ -2626,7 +2626,7 @@ style mimics the look of historical printings of the 16th century.
 
 The following examples show the differences in style,
 
-@lilypond[raggedright,fragment,relative=1,quote]
+@lilypond[ragged-right,fragment,relative=1,quote]
 {
   \fatText
 
@@ -2683,7 +2683,7 @@ In addition to the standard articulation signs described in section
 provided.  These are specifically designed for use with notation in
 Editio Vaticana style.
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \include "gregorian-init.ly"
 \score {
   \context VaticanaVoice {
@@ -2739,7 +2739,7 @@ as shown in the following example
 
 The result looks like this
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \score {
 {
   a'1
@@ -2757,7 +2757,7 @@ The custos glyph is selected by the @code{style} property.  The styles
 supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 @code{mensural}.  They are demonstrated in the following fragment
 
-@lilypond[quote,raggedright,fragment]
+@lilypond[quote,ragged-right,fragment]
 \new Lyrics \lyricmode {
   \markup { \column {
     \typewriter "vaticana"
@@ -2810,7 +2810,7 @@ and @code{\finalis} at proper places in the input.  Some editions use
 Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 @code{\caesura}
 
-@lilypondfile[quote,raggedright]{divisiones.ly}
+@lilypondfile[quote,ragged-right]{divisiones.ly}
 
 @refcommands
 
@@ -2853,7 +2853,7 @@ this particular type of ligature.  By default, the
 @internalsref{LigatureBracket} engraver just puts a square bracket
 above the ligature
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \transpose c c' {
   \[ g c a f d' \]
   a g f
@@ -2942,7 +2942,7 @@ s4
 s4
 \[ e'1 a g\breve \]
 @end example
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \score {
   \transpose c c' {
     \set Score.timing = ##f
@@ -2972,7 +2972,7 @@ Without replacing @internalsref{Ligature_bracket_engraver} with
 @internalsref{Mensural_ligature_engraver}, the same music transcribes
 to the following
 
-@lilypond[quote,raggedright]
+@lilypond[quote,ragged-right]
 \transpose c c' {
   \set Score.timing = ##f
   \set Score.defaultBarType = "empty"
@@ -3041,7 +3041,7 @@ Deminutae}
 @item
 @code{1. Punctum}
 @tab
-@lilypond[staffsize=26,linewidth=1.5\cm]
+@lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3056,7 +3056,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=2.5\cm]
+@lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3075,7 +3075,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3089,7 +3089,7 @@ Deminutae}
 @item
 @code{2. Virga}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3105,7 +3105,7 @@ Deminutae}
 @item
 @code{3. Apostropha vel Stropha}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3116,7 +3116,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3131,7 +3131,7 @@ Deminutae}
 @item
 @code{4. Oriscus}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3147,7 +3147,7 @@ Deminutae}
 @item
 @code{5. Clivis vel Flexa}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3158,7 +3158,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=2.0\cm]
+@lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3173,7 +3173,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3187,7 +3187,7 @@ Deminutae}
 @item
 @code{6. Podatus vel Pes}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3198,7 +3198,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=2.0\cm]
+@lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3213,7 +3213,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3227,7 +3227,7 @@ Deminutae}
 @item
 @code{7. Pes Quassus}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3238,7 +3238,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3253,7 +3253,7 @@ Deminutae}
 @item
 @code{8. Quilisma Pes}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3264,7 +3264,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3279,7 +3279,7 @@ Deminutae}
 @item
 @code{9. Podatus Initio Debilis}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3290,7 +3290,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3305,7 +3305,7 @@ Deminutae}
 @item
 @code{10. Torculus}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3316,7 +3316,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3327,7 +3327,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3341,7 +3341,7 @@ Deminutae}
 @item
 @code{11. Torculus Initio Debilis}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3352,7 +3352,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3363,7 +3363,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3377,7 +3377,7 @@ Deminutae}
 @item
 @code{12. Porrectus}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3388,7 +3388,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3399,7 +3399,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3413,7 +3413,7 @@ Deminutae}
 @item
 @code{13. Climacus}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3425,7 +3425,7 @@ Deminutae}
 }
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3436,7 +3436,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3450,7 +3450,7 @@ Deminutae}
 @item
 @code{14. Scandicus}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3461,7 +3461,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3472,7 +3472,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3486,7 +3486,7 @@ Deminutae}
 @item
 @code{15. Salicus}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3497,7 +3497,7 @@ Deminutae}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3512,7 +3512,7 @@ Deminutae}
 @item
 @code{16. Trigonus}
 @tab
-@lilypond[staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -3914,7 +3914,7 @@ initialize all relevant context properties and grob properties to
 proper values, so you can immediately go ahead entering the chant, as
 the following excerpt demonstrates
 
-@lilypond[quote,raggedright,packed,verbatim]
+@lilypond[quote,ragged-right,packed,verbatim]
 \include "gregorian-init.ly"
 \score {
   <<
@@ -3951,7 +3951,7 @@ style.  These contexts initialize all relevant context properties and
 grob properties to proper values, so you can immediately go ahead
 entering the chant, as the following excerpt demonstrates
 
-@lilypond[quote,raggedright,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 \score {
   <<
     \context MensuralVoice = "discantus" \transpose c c' {
@@ -4007,7 +4007,7 @@ Program reference: @internalsref{Accidental_engraver} engraver and the
 
 LilyPond has support for figured bass
 
-@lilypond[quote,raggedright,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim,fragment]
 <<
   \context Voice { \clef bass dis4 c d ais g fis}
   \context FiguredBass \figuremode {
@@ -4028,7 +4028,7 @@ In figures input mode, a group of bass figures is delimited by
 @example
 <4 6>
 @end example
-@lilypond[quote,raggedright,fragment]
+@lilypond[quote,ragged-right,fragment]
 \context FiguredBass
 \figuremode { <4 6> }
 @end lilypond
@@ -4040,7 +4040,7 @@ diminished fifths and sevenths can be obtained with @code{5/} and @code{7/}.
 @example
 <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
 @end example
-@lilypond[quote,raggedright,fragment]
+@lilypond[quote,ragged-right,fragment]
 \figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
 @end lilypond
 
@@ -4051,7 +4051,7 @@ strings and text markups, see @ref{Overview of text markup commands}.
 @example
 < [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >
 @end example
-@lilypond[quote,raggedright,fragment]
+@lilypond[quote,ragged-right,fragment]
 \context FiguredBass
 \figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
 @end lilypond
@@ -4163,7 +4163,7 @@ This section includes extra information for writing for instruments.
 Artificial harmonics are notated with a different notehead style.  They
 are entered by marking the harmonic pitch with @code{\harmonic}.
 
-@lilypond[raggedright,verbatim,quote,fragment,relative=1]
+@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
 <c g'\harmonic>4
 @end lilypond
 

@@ -6,9 +6,9 @@ to the distance for the given duration."
 
 }
 
-\version "2.7.13"
+\version "2.7.32"
 
-\paper { raggedright = ##t }
+\paper { ragged-right = ##t }
 
 \relative c''
 <<

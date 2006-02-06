@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc = "@cindex Scheme Move Text
 Objects, like text, can be moved around by using some Scheme code.
@@ -15,6 +15,6 @@ Objects, like text, can be moved around by using some Scheme code.
       'extra-offset '(-3.5 . -4.5))
     a^2^"m.d."
   }
-  \layout { raggedright = ##t}
+  \layout { ragged-right = ##t}
 }
 

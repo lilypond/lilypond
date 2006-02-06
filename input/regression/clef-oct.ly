@@ -1,12 +1,12 @@
 
-\version "2.7.13" \header {
+\version "2.7.32" \header {
 
     texidoc = "Octavation signs may be added to clefs.  These
 octavation signs may be placed below or above (meaning an octave
 higher or lower), and can take any value, including 15 for two octaves."
 
 }
-\layout { raggedright = ##t  }
+\layout { ragged-right = ##t  }
 
 
 \relative c'' {

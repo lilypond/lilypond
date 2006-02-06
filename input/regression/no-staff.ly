@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 % possible rename to staff-something.  -gp
 
 \header{ texidoc = "@cindex Staff Remove
@@ -8,7 +8,7 @@ corresponding engraver.
 }
 
 \layout {
-    raggedright = ##t
+    ragged-right = ##t
 }
 
 \relative \new Staff \with {

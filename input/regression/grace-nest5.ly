@@ -1,9 +1,9 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header {
   texidoc = "Graces notes may have the same duration as the main note."
 }
-\layout { raggedright = ##t }
+\layout { ragged-right = ##t }
 
 \relative c'' {
   s2 <f>4

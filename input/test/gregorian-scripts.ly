@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header {
     texidoc  = "@cindex Gregorian Scripts
 
@@ -27,7 +27,7 @@ FIXME: episem stops one notehead too early.
 \include "gregorian-init.ly"
 
 \paper {
-    linethickness = \staffspace / 5.0
+    line-thickness = \staff-space / 5.0
 }
 
 \score {
@@ -48,9 +48,9 @@ FIXME: episem stops one notehead too early.
     }
   }
   \layout {
-    linewidth = 70.0
+    line-width = 70.0
     width = 60.0
     indent = 0.0
-    raggedright = ##t
+    ragged-right = ##t
   }
 }

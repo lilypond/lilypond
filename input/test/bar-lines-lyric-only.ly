@@ -1,4 +1,4 @@
-\version "2.7.13"
+\version "2.7.32"
 \header { texidoc = "@cindex Bar line lyric only
 You can move @code{Bar_engraver} and @code{Span_bar_engraver} to 
 a different engraving context, if you want, for example, bar lines 
@@ -16,7 +16,7 @@ on lyrics. "
 
 
     \layout  {
-	raggedright = ##t
+	ragged-right = ##t
 	\context {
 	    \Lyrics
 	    \consists Bar_engraver

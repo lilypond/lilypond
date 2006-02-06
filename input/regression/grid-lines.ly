@@ -5,7 +5,7 @@
 staves synchronized with the notes."
 
 }
-\version "2.7.14"
+\version "2.7.32"
 
 skips =
 {
@@ -50,7 +50,7 @@ skips =
 }
 
 \layout {
-  raggedright = ##t
+  ragged-right = ##t
 }
 \new Score 
 \with {

@@ -1,5 +1,5 @@
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
 
   texidoc="Simple beams on middle staffline are allowed to be
@@ -9,7 +9,7 @@
 }
 
 \layout{
-  raggedright = ##t
+  ragged-right = ##t
   indent = 0
 }
 

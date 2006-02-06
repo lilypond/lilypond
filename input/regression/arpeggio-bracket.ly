@@ -1,7 +1,7 @@
-\layout { raggedright= ##t }
+\layout { ragged-right= ##t }
 
 
-\version "2.7.13"
+\version "2.7.32"
 \header{
   texidoc="
 A square bracket on the left indicates that the player should not
