@@ -1,5 +1,7 @@
 2006-02-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* flower/std-string.cc (std): add to_string(long unsigned).
+
 	* configure.in (gui_b): excise std_string option.
 	(gui_b): excise std_vector option.
 

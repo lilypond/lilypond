@@ -78,6 +78,8 @@ System_start_delimiter::line_bracket (Grob *me, Real height)
 Stencil
 System_start_delimiter::text (Grob *me_grob, Real h)
 {
+  (void) h;
+  
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
   SCM t = me->get_property ("text");
   if (me->get_break_index () == 0)
