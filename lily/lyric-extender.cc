@@ -30,7 +30,7 @@ Lyric_extender::print (SCM smob)
     common = common->common_refpoint (right_text, X_AXIS);
 
   common = common->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Real sl = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real sl = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
   extract_grob_set (me, "heads", heads);
 

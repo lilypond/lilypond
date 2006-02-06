@@ -122,7 +122,7 @@ list of @code{BassFigureEvent}s, a context, and the grob to format.")
 
 
      (middleCPosition ,number? "Place of the middle C, measured in half
-staffspaces.  Usually determined by looking at @code{clefPosition} and
+staff-spaces.  Usually determined by looking at @code{clefPosition} and
 @code{clefGlyph}.")
 
      (chordNameFunction ,procedure?
@@ -430,7 +430,7 @@ for repeated bass figures")
 
      (verticalExtent ,number-pair? "Hard coded vertical extent.  The format
 is a pair of dimensions, for example, this sets the sizes of a staff
-to 10 (5+5) staffspaces high.
+to 10 (5+5) staff-spaces high.
 
 @example
 \\set Staff.verticalExtent = #'(-5.0 . 5.0)

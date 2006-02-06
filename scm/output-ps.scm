@@ -215,11 +215,11 @@ grestore\n"
    (ly:number->string y)
    s))
 
-(define (polygon points blotdiameter filled?)
+(define (polygon points blot-diameter filled?)
   (string-append
    (ly:numbers->string points) " "
    (ly:number->string (/ (length points) 2)) " "
-   (ly:number->string blotdiameter)
+   (ly:number->string blot-diameter)
    (if filled? " true " " false ")
    " draw_polygon"))
 

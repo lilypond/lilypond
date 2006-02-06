@@ -51,7 +51,7 @@ Figured_bass_continuation::print (SCM grob)
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (grob));
 
   Real thick =
-    me->layout ()->get_dimension (ly_symbol2scm ("linethickness"))
+    me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
     * robust_scm2double (me->get_property ("thickness"), 1);
   
   Interval spanned;

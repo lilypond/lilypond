@@ -15,10 +15,10 @@
 
 #include "translator.icc"
 
-class New_instrument_name_engraver : public Engraver
+class Instrument_name_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS (New_instrument_name_engraver);
+  TRANSLATOR_DECLARATIONS (Instrument_name_engraver);
 
 protected:
   Spanner *text_spanner_;
@@ -28,13 +28,13 @@ protected:
   void process_music ();
 };
 
-New_instrument_name_engraver::New_instrument_name_engraver ()
+Instrument_name_engraver::Instrument_name_engraver ()
 {
   text_spanner_ = 0;
 }
 
 void
-New_instrument_name_engraver::process_music ()
+Instrument_name_engraver::process_music ()
 {
   if (!text_spanner_)
     {
@@ -60,7 +60,7 @@ New_instrument_name_engraver::process_music ()
 }
 
 void
-New_instrument_name_engraver::acknowledge_axis_group (Grob_info info)
+Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 {
   if (text_spanner_ 
       && dynamic_cast<Spanner *> (info.grob ())
@@ -74,7 +74,7 @@ New_instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 }
 
 void
-New_instrument_name_engraver::finalize ()
+Instrument_name_engraver::finalize ()
 {
   if (text_spanner_)
     {
@@ -85,9 +85,9 @@ New_instrument_name_engraver::finalize ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (New_instrument_name_engraver, axis_group);
+ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
 
-ADD_TRANSLATOR (New_instrument_name_engraver,
+ADD_TRANSLATOR (Instrument_name_engraver,
 
 		/* doc */
 		"Creates a system start text for instrument or vocal names.",

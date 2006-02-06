@@ -23,17 +23,17 @@
 					      (ly:output-backend)))
 	 (dump (lambda (str) (display str (ly:outputter-port outputter))))
    	 (paper (ly:paper-book-paper book))
-	 (unit-length (ly:output-def-lookup paper 'outputscale))
+	 (unit-length (ly:output-def-lookup paper 'output-scale))
 	 (output-scale (* lily-unit->mm-factor
 			  unit-length))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
-	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
+	 (page-number (1- (ly:output-def-lookup paper 'first-page-number)))
 	 (page-count (length page-stencils))
-	 (hsize (ly:output-def-lookup paper 'hsize))
-	 (vsize (ly:output-def-lookup paper 'vsize))
-	 (page-width (inexact->exact (ceiling (* output-scale hsize))))
-	 (page-height (inexact->exact (ceiling (* output-scale vsize))))
+	 (paper-width (ly:output-def-lookup paper 'paper-width))
+	 (paper-height (ly:output-def-lookup paper 'paper-height))
+	 (page-width (inexact->exact (ceiling (* output-scale paper-width))))
+	 (page-height (inexact->exact (ceiling (* output-scale paper-height))))
 	 (page-set? (or (> page-count 1) landscape?)))
 
     (ly:outputter-output-scheme outputter

@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.32"
 
 slashSeparator = \markup {
   \hcenter
@@ -70,7 +70,7 @@ scoreTitleMarkup = \markup { \column {
 
 #(define (first-page layout props arg)
   (if (= (chain-assoc-get 'page:page-number props -1) 
-         (ly:output-def-lookup layout 'firstpagenumber))   (interpret-markup layout props arg)
+         (ly:output-def-lookup layout 'first-page-number))   (interpret-markup layout props arg)
    empty-stencil))
 
 #(define (last-page layout props arg)
@@ -80,27 +80,27 @@ scoreTitleMarkup = \markup { \column {
 
 #(define (not-first-page layout props arg)
   (if (not (= (chain-assoc-get 'page:page-number props -1)
-              (ly:output-def-lookup layout 'firstpagenumber)))
+              (ly:output-def-lookup layout 'first-page-number)))
    (interpret-markup layout props arg)
    empty-stencil))
 
 %% unused
 #(define (not-single-page layout props arg)
   (if (not (and (= (chain-assoc-get 'page:page-number props -1) 
-                   (ly:output-def-lookup layout 'firstpagenumber))
+                   (ly:output-def-lookup layout 'first-page-number))
                (chain-assoc-get 'page:last? props -1)))
    (interpret-markup layout props arg)
    empty-stencil))
 
 #(define (print-page-number layout props arg)
-  (if (eq? (ly:output-def-lookup layout 'printpagenumber) #t)
+  (if (eq? (ly:output-def-lookup layout 'print-page-number) #t)
    (interpret-markup layout props arg)
    empty-stencil))
 
 #(define (print-page-number-check-first layout props arg)
   (if (or (not (= (chain-assoc-get 'page:page-number props -1) 
-                  (ly:output-def-lookup layout 'firstpagenumber)))
-          (eq? (ly:output-def-lookup layout 'printfirstpagenumber) #t))
+                  (ly:output-def-lookup layout 'first-page-number)))
+          (eq? (ly:output-def-lookup layout 'printfirst-page-number) #t))
    (print-page-number layout props arg)
    empty-stencil))
 

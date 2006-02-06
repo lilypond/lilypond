@@ -1,6 +1,6 @@
 % -*-Scheme-*-
 
-\version "2.6.0"
+\version "2.7.32"
 
 %% need SRFI-1 filter 
 
@@ -391,7 +391,7 @@ Example:
    ;;
    ;; bind voice identifiers to the voices
    (map (lambda (voice-id voice)
-          (ly:parser-define! parser voice-id 
+          (ly:parser-define!! parser voice-id 
                              (make-music 'SequentialMusic 
                                'origin location
                                'elements voice)))

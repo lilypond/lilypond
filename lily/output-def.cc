@@ -144,7 +144,7 @@ Output_def::set_variable (SCM sym, SCM val)
 Interval
 line_dimensions_int (Output_def *def, int n)
 {
-  Real lw = def->get_dimension (ly_symbol2scm ("linewidth"));
+  Real lw = def->get_dimension (ly_symbol2scm ("line-width"));
   Real ind = n ? 0.0 : def->get_dimension (ly_symbol2scm ("indent"));
   return Interval (ind, lw);
 }

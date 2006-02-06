@@ -5,8 +5,8 @@
 ;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-;;;; distances are given in linethickness (thicknesses) and
-;;;; staffspace (distances)
+;;;; distances are given in line-thickness (thicknesses) and
+;;;; staff-space (distances)
 
 ;;;; WARNING: the meta field should be the last one.
 ;;;; WARNING: don't use anonymous functions for initialization.
@@ -174,7 +174,7 @@
 	;; Ross. page 151 lists other values, we opt for a leaner look
 	;;
 	;; TODO:
-	;; kern should scale with linethickness too.
+	;; kern should scale with line-thickness too.
 	(kern . 3.0)
 	(thin-kern . 3.0)
 	(hair-thickness . 1.9)
@@ -287,7 +287,7 @@
 
 	;; Whe have some unreferenced problems here.
 	;;
-	;; If we shorten beamed stems less than normal stems (1 staffspace),
+	;; If we shorten beamed stems less than normal stems (1 staff-space),
 	;; or high order less than 8th beams, patterns like
 	;;     c''4 [c''8 c''] c''4 [c''16 c]
 	;; are ugly (different stem lengths).
@@ -879,7 +879,7 @@
 
 	(stencil . ,ly:lyric-extender::print)
 
-	(thickness . 0.8) ; linethickness
+	(thickness . 0.8) ; line-thickness
 	(minimum-length . 1.5)
 	(Y-extent . (0 . 0))
 	(meta . ((class . Spanner)
@@ -1899,8 +1899,8 @@
 	(font-encoding . fetaNumber)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
-	(thickness . 1.6)  ;;  linethickness
-	(edge-height . (2.0 . 2.0)) ;; staffspace;
+	(thickness . 1.6)  ;;  line-thickness
+	(edge-height . (2.0 . 2.0)) ;; staff-space;
 	(minimum-space . 5)
 	(font-size . -4)
 	(meta . ((class . Spanner)

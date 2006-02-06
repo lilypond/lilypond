@@ -116,7 +116,7 @@
 (define (number->dim x)
   (string-append
    ;;ugh ly:* in backend needs compatibility func for standalone output
-   (ly:number->string x) " \\outputscale "))
+   (ly:number->string x) " \\output-scale "))
 
 (define (placebox x y s) 
   (string-append
@@ -147,8 +147,8 @@
 (define (resetcolor)
   (string-append "\\color[rgb]{0,0,0}\n"))
 
-(define (polygon points blotdiameter fill)
-  (embedded-ps (list 'polygon `(quote ,points) blotdiameter fill)))
+(define (polygon points blot-diameter fill)
+  (embedded-ps (list 'polygon `(quote ,points) blot-diameter fill)))
 
 (define (draw-line thick fx fy tx ty)
   (embedded-ps (list 'draw-line thick fx fy tx ty)))

@@ -292,7 +292,7 @@ Slur_score_state::fill (Grob *me)
     }
 
   staff_space_ = Staff_symbol_referencer::staff_space (me);
-  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 
   dir_ = get_grob_direction (me);

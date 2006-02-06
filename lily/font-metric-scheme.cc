@@ -123,7 +123,7 @@ LY_DEFINE (ly_font_name, "ly:font-name",
 LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 	   (SCM font),
 	   "Given the font metric @var{font}, return the "
-	   "magnification, relative to the current outputscale.")
+	   "magnification, relative to the current outputs-cale.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
@@ -133,7 +133,7 @@ LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
 	   (SCM font),
 	   "Given the font metric @var{font}, return the "
-	   "design size, relative to the current outputscale.")
+	   "design size, relative to the current output-scale.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
