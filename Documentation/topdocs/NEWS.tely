@@ -60,6 +60,16 @@ which scares away people.
  
 
 @end ignore
+@item Multi-word
+ variables in the @code{\paper} and @code{\layout} block are now
+ separated with dashes, i.e.
+
+@verbatim
+\paper {
+  ragged-right = ##t
+  top-margin = 5 \cm
+}
+@end verbatim
 
 @item
 Music for multiple parts can be interleaved, similar to MUP input.
