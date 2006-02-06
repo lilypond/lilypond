@@ -48,6 +48,12 @@ namespace std {
   }
 
   std::string
+  to_string (long unsigned b)
+  {
+    return String_convert::unsigned_string (b);
+  }
+
+  std::string
   to_string (unsigned u)
   {
     return String_convert::unsigned_string (u);

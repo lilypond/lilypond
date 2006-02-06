@@ -23,6 +23,7 @@ namespace std {
   string to_string (int i, char const *format = 0);
   string to_string (double f, char const *format = 0);
   string to_string (long);
+  string to_string (long unsigned);
   string to_string (unsigned);
   string to_string (bool b);
   string to_string (char const *format, ...);
