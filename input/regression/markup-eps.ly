@@ -9,7 +9,7 @@
 
   (display "%!PS-Adobe-3.0 EPSF-3.0
 %%BoundingBox: 5 5 105 105
-10 setline-width 10 10 moveto 0 90 rlineto 90 0 rlineto 0 -90 rlineto
+10 setlinewidth 10 10 moveto 0 90 rlineto 90 0 rlineto 0 -90 rlineto
 closepath stroke" port)
 
   (close port))

@@ -39,16 +39,7 @@ int default_compare (T *const &a, T *const &b)
     return 0;
 }
 
-#if !STD_VECTOR
-/* Also declare vector, in the wrong way.  */
-#include <iostream>
-#include <sstream>
-#endif
-
 #include "compare.hh"
-
-#if STD_VECTOR
-
 #include "config.hh"
 
 #if HAVE_STL_DATA_METHOD
@@ -57,6 +48,7 @@ int default_compare (T *const &a, T *const &b)
 #define vector __vector
 #include <vector>
 #undef vector
+
 namespace std {
   /* Interface without pointer arithmetic (iterator) semantics.  */
   template<typename T>
@@ -333,29 +325,6 @@ namespace std {
 #endif /* HAVE_BOOST_LAMBDA */
 
 }
-
-#else /* ! STD_VECTOR */
-
-namespace std {
-
-#ifndef Array  
-#define vector Array
-#endif
-
-  using namespace std;
-  
-#ifndef VSIZE
-#define VSIZE
-  typedef int vsize;
-#define VPOS -1
-#endif
-
-}
-
-#include "array.hh"
-#include "parray.hh"
-
-#endif /* !STD_VECTOR */
 
 using namespace std;
 

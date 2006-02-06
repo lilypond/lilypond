@@ -153,7 +153,7 @@ PAPER = 'paper'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
 QUOTE = 'quote'
-RAGGEDRIGHT = 'raggedright'
+RAGGED_RIGHT = 'ragged-right'
 RELATIVE = 'relative'
 STAFFSIZE = 'staffsize'
 TEXIDOC = 'texidoc'
@@ -419,7 +419,7 @@ ly_options = {
 
 		QUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
 
-		RAGGEDRIGHT: r'''raggedright = ##t''',
+		RAGGED_RIGHT: r'''ragged-right = ##t''',
 
 		PACKED: r'''packed = ##t''',
 	},
@@ -626,7 +626,7 @@ texinfo_line_widths = {
 
 def classic_lilypond_book_compatibility (key, value):
 	if key == 'singleline' and value == None:
-		return (RAGGEDRIGHT, None)
+		return (RAGGED_RIGHT, None)
 
 	m = re.search ('relative\s*([-0-9])', key)
 	if m:
@@ -806,13 +806,13 @@ class Lilypond_snippet (Snippet):
 
 		if not has_line_width:
 			if type == 'lilypond' or FRAGMENT in self.option_dict.keys ():
-				self.option_dict[RAGGEDRIGHT] = None
+				self.option_dict[RAGGED_RIGHT] = None
 
 			if type == 'lilypond':
 				if LINE_WIDTH in self.option_dict.keys ():
 					del self.option_dict[LINE_WIDTH]
 			else:
-				if RAGGEDRIGHT in self.option_dict.keys ():
+				if RAGGED_RIGHT in self.option_dict.keys ():
 					if LINE_WIDTH in self.option_dict.keys ():
 						del self.option_dict[LINE_WIDTH]
 
