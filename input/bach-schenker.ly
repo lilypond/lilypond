@@ -276,6 +276,7 @@ staffPiano = \new PianoStaff {
   }
 
   \layout  {
+    indent = 0.0
     ragged-right = ##t
     \context { \Staff \remove "Time_signature_engraver" }
   }
