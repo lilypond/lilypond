@@ -2,6 +2,8 @@
 
 	* Documentation/user/global.itely: fix line-width in (text) docs.
 
+	* Documentation/user/lilypond-book.itely: same.
+
 2006-02-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/NEWS.tely (Top): document new variable

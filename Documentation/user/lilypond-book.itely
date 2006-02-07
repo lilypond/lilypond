@@ -224,7 +224,7 @@ Currently, you cannot include @code{@{} or @code{@}} within
 @code{\lilypond@{@}}, so this command is only useful with the
 @code{fragment} option.
 
-The default line-width of the music will be adjusted by examining the
+The default line width of the music will be adjusted by examining the
 commands in the document preamble, the part of the document before
 @code{\begin@{document@}}.  The @command{lilypond-book} command sends
 these to La@TeX{} to find out how wide the text is.  The line width for
