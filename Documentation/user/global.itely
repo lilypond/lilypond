@@ -434,7 +434,7 @@ page given the system to put on it.
 
 The option right-margin is defined but doesn't set the right margin
 yet.  The value for the right margin has to be defined adjusting the
-values of the left-margin and line-width.
+values of @code{left-margin} and @code{line-width}.
 
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
