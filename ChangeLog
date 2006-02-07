@@ -1,3 +1,7 @@
+2006-02-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/NEWS.tely (Top): Mention code cleanup.
+
 2006-02-07  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/global.itely: fix line-width in (text) docs.
