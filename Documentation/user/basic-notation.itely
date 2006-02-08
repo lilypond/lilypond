@@ -506,6 +506,19 @@ made invisible.
 @code{\stemNeutral}.
 
 
+@commonprop
+
+To change the direction of stems in the middle of the staff, use
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+a4 b c b
+\override Stem #'neutral-direction = #up
+a4 b c b
+\override Stem #'neutral-direction = #down
+a4 b c b
+@end lilypond
+
+
 @node Alternate music entry
 @section Alternate music entry
 @cindex Music entry
