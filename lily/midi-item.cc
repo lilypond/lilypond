@@ -216,9 +216,17 @@ Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
 std::string
 Midi_time_signature::to_string () const
 {
-  int num = audio_->beats_;
+  int num = abs (audio_->beats_);
+  if (num > 255)
+    {
+      warning ("Time signature with more than 255 beats. Truncating");
+      num = 255;
+    }
+
   int den = audio_->one_beat_;
 
+
+  
   std::string str = "ff5804";
   str += String_convert::int2hex (num, 2, '0');
   str += String_convert::int2hex (intlog2 (den), 2, '0');

@@ -10,6 +10,18 @@
 \paper  {
   % change for other default global staff size. 
   myStaffSize = #20
+
+
+  %{
+
+  run
+
+      lilypond -dshow-available-fonts blabla
+
+  to show all fonts available in the process log.  
+  
+  %}
+
   
   #(define fonts
     (make-pango-font-tree "Times New Roman"

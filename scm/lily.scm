@@ -37,7 +37,10 @@ similar to chord syntax")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
 	      (debug-gc #f
-			"dump GC protection info"))
+			"dump GC protection info")
+	      (show-available-fonts #f
+				    "List  font names available.")
+	      )
 	    ))
 
 ;; FIXME: stray statement
@@ -102,8 +105,6 @@ similar to chord syntax")
     (primitive-load file-name)
     (if (ly:get-option 'verbose)
 	(ly:progress "]"))))
-
-(define-public TEX_STRING_HASHLIMIT 10000000)
 
 ;; Cygwin
 ;; #(CYGWIN_NT-5.1 Hostname 1.5.12(0.116/4/2) 2004-11-10 08:34 i686)
@@ -351,6 +352,8 @@ The syntax is the same as `define*-public'."
 		   (string<? (car x) (car y)))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
   
@@ -376,6 +379,12 @@ The syntax is the same as `define*-public'."
 
 (define-public (lilypond-all files)
 
+  (if (ly:get-option 'show-available-fonts)
+      (begin
+	(ly:font-config-display-fonts)
+	(exit 0)
+	))
+  
   (let* ((failed '())
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))

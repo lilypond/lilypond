@@ -26,6 +26,8 @@
   (if (string? what)
       what
       ""))
+
+(define TEX_STRING_HASHLIMIT 10000000)
 (define-public (text font str)
   (call-with-output-string
    (lambda (port)
