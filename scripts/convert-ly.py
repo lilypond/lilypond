@@ -36,6 +36,9 @@ global re;re = ly.re
 
 from convertrules import *
 
+lilypond_version_re_str = '\\\\version *\"([0-9.]+)"'
+lilypond_version_re = re.compile (lilypond_version_re_str)
+
 
 help_summary = _ (
 '''Update LilyPond input to newer version.  By default, update from the
