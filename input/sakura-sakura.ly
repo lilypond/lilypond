@@ -2,6 +2,7 @@
 
 \version "2.7.32"
 
+
 \header {
   title = "さくら さくら"
   subtitle = "(Sakura, sakura)"
@@ -24,6 +25,21 @@
       | d,4 e b'8[ a] f4 | e1 \bar "|."
     }
     \addlyrics {
+
+
+      %{
+
+      Try the following if the default font doesn't work for you,
+      run
+
+      lilypond -dshow-available-fonts blabla
+
+      this will show all fonts available to LilyPond, substitute
+      FAMILY-NAME below and uncomment
+      
+      %}
+      %% \override Lyrics . LyricText #'font-name = #"FAMILY-NAME"
+      
       さ く ら さ く ら
       の や ま も さ と も
       み わ た す か ぎ り
