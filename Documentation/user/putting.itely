@@ -47,7 +47,7 @@ it quicker.  How often is ``every so often''?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
 very complex music, every bar.
 
-@item One bar per line.  If there is anything complicated, either in the music
+@item One bar per line of text.  If there is anything complicated, either in the music
 itself or in the output you desire, it's often good to write only one bar
 per line.  Saving screen space by cramming eight bars per line just isn't
 worth it if you have to `debug' your files.
@@ -65,12 +65,13 @@ in the number of @code{@{} and @code{@}}.
 @end itemize
 
 If you are entering music from an existing score (ie typesetting a
-piece of public domain music),
+piece of existing sheet music),
 
 @itemize @bullet
 
-@item Enter one manuscript (the physical copy) line at a time, and
-check each line when you finish it.  You may use the
+@item Enter one manuscript (the physical copy) system at a time (but still
+only one bar per line of text), and
+check each system when you finish it.  You may use the
 @code{showLastLength} command to speed up processing -- see
 @ref{Skipping corrected music}.
 
