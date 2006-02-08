@@ -15,13 +15,7 @@ class FatalConversionError:
 	pass
 
 conversions = []
-
 error_file = sys.stderr 
-lilypond_version_re_str = '\\\\version *\"[0-9.]+"'
-lilypond_version_re = re.compile (lilypond_version_re_str)
-
-
-
 
 def conv(str):
 	if re.search ('\\\\multi', str):
