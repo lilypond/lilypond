@@ -57,12 +57,13 @@ HINTS
 
 * don't try to provide real-world examples, they often get too big,
 which scares away people.
- 
+
+* Write complete sentences.
+
+* only show user-visible changes. 
 
 @end ignore
 
-@item Internal code cleanup.  The legacy Array, Link_array and String classes
-are replaced by std::string and std::vector.
 
 @item Multi-word
  variables in the @code{\paper} and @code{\layout} block are now
