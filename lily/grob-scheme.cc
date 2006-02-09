@@ -47,17 +47,23 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 }
 
 LY_DEFINE (ly_grob_property, "ly:grob-property",
-	   2, 0, 0, (SCM grob, SCM sym),
+	   2, 1, 0, (SCM grob, SCM sym, SCM deflt),
 	   "Return the value of a value in grob @var{g} of property @var{sym}. "
-	   "It will return @code{'()} (end-of-list) "
+	   "It will return @code{'()} or @var{deflt} (if specified) "
 	   "if  @var{sym} is undefined in @var{g}."
 	   "\n\n")
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  if (deflt == SCM_UNDEFINED)
+    deflt = SCM_EOL;
 
-  return sc->internal_get_property (sym);
+  SCM retval = sc->internal_get_property (sym);
+  if (retval == SCM_EOL)
+    retval = deflt;
+  
+  return retval;
 }
 
 
@@ -134,11 +140,20 @@ LY_DEFINE (ly_get_extent, "ly:grob-extent",
 {
   Grob *sc = unsmob_grob (grob);
   Grob *ref = unsmob_grob (refp);
+  
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
-  return ly_interval2scm (sc->extent (ref, Axis (scm_to_int (axis))));
+  Axis a = Axis (scm_to_int (axis));
+
+    
+  if (ref->common_refpoint (sc, a) != ref)
+    {
+      // ugh. should use other error message
+      SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
+    }
+  return ly_interval2scm (sc->extent (ref, a));
 }
 
 LY_DEFINE (ly_grob_parent, "ly:grob-parent",
