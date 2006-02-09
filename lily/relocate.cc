@@ -106,7 +106,7 @@ prefix_relocation (std::string prefix)
   std::string bindir = prefix + "/bin";
   std::string datadir = prefix + "/share";
   std::string localedir = datadir + "/locale";
-  std::string lilypond_datadir = datadir + "/lilypond/" TOPLEVEL_VERSION;
+  std::string lilypond_datadir = datadir + "/lilypond/";
 
   if (is_dir (lilypond_datadir + "/" + TOPLEVEL_VERSION))
     prefix_directory = lilypond_datadir + "/" + TOPLEVEL_VERSION;
