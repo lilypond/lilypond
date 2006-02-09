@@ -108,8 +108,10 @@ prefix_relocation (std::string prefix)
   std::string localedir = datadir + "/locale";
   std::string lilypond_datadir = datadir + "/lilypond/" TOPLEVEL_VERSION;
 
-  if (is_dir (lilypond_datadir))
-    prefix_directory = lilypond_datadir;
+  if (is_dir (lilypond_datadir + "/" + TOPLEVEL_VERSION))
+    prefix_directory = lilypond_datadir + "/" + TOPLEVEL_VERSION;
+  else if (is_dir (lilypond_datadir + "/current"))
+    prefix_directory = lilypond_datadir + "/current";
 
 #if HAVE_GETTEXT
   if (is_dir (localedir))
@@ -261,9 +263,12 @@ setup_paths (char const *argv0_ptr)
   */
   
   struct stat statbuf;
-  std::string build_prefix = prefix_directory + "/share/lilypond/" TOPLEVEL_VERSION;
-  if (stat (build_prefix.c_str (), &statbuf) == 0)
-    prefix_directory = build_prefix;
+  std::string build_prefix_current = prefix_directory + "/share/lilypond/" "current";
+  std::string build_prefix_version = prefix_directory + "/share/lilypond/" TOPLEVEL_VERSION;
+  if (stat (build_prefix_version.c_str (), &statbuf) == 0)
+    prefix_directory = build_prefix_version;
+  else if (stat (build_prefix_current.c_str (), &statbuf) == 0)
+    prefix_directory = build_prefix_current;
 
   
   /* Adding mf/out make lilypond unchanged source directory, when setting

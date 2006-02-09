@@ -1141,6 +1141,15 @@
 				axis-group-interface
 				spaceable-grob-interface))))))
 
+    (ParenthesesItem
+     . (
+	(stencil . ,parentheses-item::print)
+	(font-size . -6)
+	(padding . 0.2)
+	(meta . ((class . Item)
+		 (interfaces . (parentheses-interface font-interface))))
+	
+	      ))
     (PhrasingSlur
      . ((details . ,default-slur-details)
 

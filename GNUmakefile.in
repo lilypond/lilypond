@@ -83,16 +83,16 @@ local-WWW-post:
 		tar -C $(outdir)/web-root/ -xf -  
 	cd $(outdir)/web-root/ &&  \
 		for a in `find . -name out-www`; do \
-			mv $$a/* $$a/.. ; \
-			rmdir $$a ; \
+			rsync -a  --link-dest $$a/ $$a/ $$a/.. ; \
+			rm -rf $$a ; \
 		done
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
 tree-lib = $(tree-prefix)/lib
 tree-share = $(tree-prefix)/share
-tree-share-prefix = $(tree-share)/lilypond/$(TOPLEVEL_VERSION)
-tree-lib-prefix = $(tree-lib)/lilypond/$(TOPLEVEL_VERSION)
+tree-share-prefix = $(tree-share)/lilypond/current
+tree-lib-prefix = $(tree-lib)/lilypond/current
 
 C_DIRS = flower lily
 c-clean:

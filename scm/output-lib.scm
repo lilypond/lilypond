@@ -268,21 +268,49 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public darkyellow  '(0.0 0.5 0.5))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Pitch Trill Heads
+;; * Pitch Trill Heads
+;; * Parentheses
 
 (define (parenthesize-elements grob)
   (let*
       ((elts (ly:grob-object grob 'elements))
        (x-ext (ly:relative-group-extent elts grob X))
+
        (font (ly:grob-default-font grob))
        (lp (ly:font-get-glyph font "accidentals.leftparen"))
        (rp (ly:font-get-glyph font "accidentals.rightparen"))
-       (padding 0.1))
+       (padding (ly:grob-property grob 'padding 0.1))
 
     (ly:stencil-add
      (ly:stencil-translate-axis lp (- (car x-ext) padding) X)
      (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))
+  )))
+
+
+(define (parenthesize-element me grob)
+  (let*
+      ((x-ext (ly:grob-extent grob grob X))
+       (y-center
+	(interval-center (ly:grob-extent grob grob Y)))
+       (font (ly:grob-default-font me))
+       (lp (ly:font-get-glyph font "accidentals.leftparen"))
+       (rp (ly:font-get-glyph font "accidentals.rightparen"))
+       (padding (ly:grob-property grob 'padding 0.1))
+       )
+
+    (ly:stencil-add
+     (ly:stencil-translate lp
+			   (cons
+			    (- (car x-ext) padding)
+			    y-center))
+     (ly:stencil-translate rp
+			   (cons
+			    (+ (cdr x-ext) padding)
+			    y-center)))
   ))
+
+(define (parentheses-item::print me)
+  (parenthesize-element me (ly:grob-parent me Y)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
@@ -294,3 +322,4 @@ centered, X==1 is at the right, X == -1 is at the left."
    funcs)
 
   value)
+

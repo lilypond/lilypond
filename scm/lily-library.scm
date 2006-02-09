@@ -325,7 +325,9 @@ found."
 
 (define-public (interval-center x)
   "Center the number-pair X, when an interval"
-  (/ (+ (car x) (cdr x)) 2))
+  (if (interval-empty? x)
+      0.0
+      (/ (+ (car x) (cdr x)) 2)))
 
 (define-public interval-start car)
 (define-public interval-end cdr)

@@ -63,7 +63,16 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+@item Items  directly connected with a music input element may be
+parenthesized, for example,
 
+
+@lilypond[verbatim,ragged-right,fragment]
+c4 -\parenthesize -.
+<d \parenthesize fis a> 
+@end lilypond
+
+This feature was sponsored by Ramana Kumar.
 
 @item Multi-word
  variables in the @code{\paper} and @code{\layout} block are now

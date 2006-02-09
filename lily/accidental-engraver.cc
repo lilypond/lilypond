@@ -387,7 +387,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 
 Grob *
 Accidental_engraver::make_standard_accidental (Music *note,
-					       Grob *support,
+					       Grob *note_head,
 					       Engraver *trans)
 {
 
@@ -399,7 +399,7 @@ Accidental_engraver::make_standard_accidental (Music *note,
   Grob *a
     = make_grob_from_properties (trans,
 				 ly_symbol2scm ("Accidental"),
-				 note->self_scm (),
+				 note_head->self_scm (),
 				 "Accidental");
 
   /*
@@ -411,27 +411,28 @@ Accidental_engraver::make_standard_accidental (Music *note,
   for (vsize i = 0; i < right_objects_.size (); i++)
     Side_position_interface::add_support (a, right_objects_[i]);
 
-  a->set_parent (support, Y_AXIS);
+  a->set_parent (note_head, Y_AXIS);
 
   if (!accidental_placement_)
     accidental_placement_ = make_item ("AccidentalPlacement",
 				       a->self_scm ());
   Accidental_placement::add_accidental (accidental_placement_, a);
 
-  support->set_object ("accidental-grob", a->self_scm ());
+  note_head->set_object ("accidental-grob", a->self_scm ());
 
   return a;
 }
 
 Grob *
 Accidental_engraver::make_suggested_accidental (Music *note,
-						Grob *note_head, Engraver *trans)
+						Grob *note_head,
+						Engraver *trans)
 {
 
   Grob *a
     = make_grob_from_properties (trans,
 				 ly_symbol2scm ("AccidentalSuggestion"),
-				 note->self_scm (),
+				 note_head->self_scm (),
 				 "AccidentalSuggestion");
 
   Side_position_interface::add_support (a, note_head);

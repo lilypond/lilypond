@@ -67,6 +67,7 @@ can only be defined as initializer in @file{define-music-types.scm}.")
 		 "This pitch was octavated by how many octaves?
 For chord inversions, this is negative.")
      (origin ,ly:input-location? "where was this piece of music defined?")
+     (parenthesize ,boolean? "Enclose resulting objects in parentheses?")
      (page-penalty ,number? "Penalty for page break hint.")
      (penalty ,number? "Penalty for line break hint.")
      (pitch ,ly:pitch? "the pitch of this note")

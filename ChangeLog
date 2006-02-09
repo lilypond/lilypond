@@ -1,3 +1,20 @@
+2006-02-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/relocate.cc (prefix_relocation): allow "current"
+	iso. TOPLEVEL_VERSION for share/lilypond/ suffix. This makes
+	changing VERSION in a lily tree less painful.
+
+	* input/regression/parenthesize.ly: new file. 
+
+	* scm/output-lib.scm (parenthesize-element): new function.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add ParenthesesItem.
+
+	* lily/parenthesis-engraver.cc (acknowledge_grob): new file.
+
+	* lily/accidental-engraver.cc (make_standard_accidental): reroute
+	cause: accidentals are caused by note heads, not note events. 
+
 2006-02-08  Graham Percival  <gpermus@gmail.com>
 
 	* darwin.patch: small patch from Erlend, thanks!

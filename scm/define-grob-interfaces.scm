@@ -94,6 +94,11 @@
  '())
 
 (ly:add-interface
+ 'parentheses-interface
+ "Parentheses for other objects"
+ '())
+
+(ly:add-interface
  'piano-pedal-interface
  "A piano pedal sign"
  '())

@@ -423,3 +423,9 @@ addquote =
    (make-music 'SequentialMusic 'void #t))
 
    
+parenthesize =
+#(def-music-function (parser loc arg) (ly:music?)
+   "Tag @var{arg} to be parenthesized."
+
+   (set! (ly:music-property arg 'parenthesize) #t)
+   arg)
