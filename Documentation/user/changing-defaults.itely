@@ -1232,50 +1232,59 @@ the @internalsref{Fingering_engraver} plug-in says
 Fingering_engraver is part of contexts: @dots{} @b{@internalsref{Voice}}
 @end quotation
 
+@node Objects connected to the input
+@subsection Objects connected to the input
+
+In some cases, it is possible to take a short-cut for tuning graphical
+objects. For objects that result directly from a piece of the input,
+you can use the @code{\tweak} function, for example
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \tweak #'color #red d
+  g
+  \tweak #'duration-log #1  a
+>4-\tweak #'padding #10 -. 
+@end lilypond
+
+As you can see, properties are set directly in the objects directly,
+without mentioning the grob name or context where this should be
+applied.
+
+This technique only works for objects that are directly connected to
+an @internalsref{event} from the input, for example
+
+@itemize @bullet
+@item note heads, caused by chord-pitch.
+@item articulation signs, caused by articulation instructions
+@end itemize
+
+It notably does not work for stems and accidentals (these are caused
+by note heads, not by music events), clefs (these are not caused by
+music inputs, but rather by the change of a property value).
+ 
+In a similar vein, objects may be parenthesized by prefixing
+@code{\parenthesize} to the music event, 
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \parenthesize  d
+  g
+>4-\parenthesize -. 
+@end lilypond
+
+
+
+
 @node Difficult tweaks
 @subsection Difficult tweaks
 
 There are a few classes of difficult adjustments.  
 
 @itemize @bullet
-First, when there are
-several of the same objects at one point, and you want to adjust only
-one.  
 
-For example, if you want to change only one note head in a chord.
-
-In this case, the @code{\applyOutput} function must be used.  The
-next example defines a Scheme function @code{set-position-font-size}
-that sets the @code{font-size} property, but only  
-on objects that have @internalsref{note-head-interface} and are at the
-right Y-position.
-
-@lilypond[quote,verbatim]
-#(define ((set-position-font-size pos size) grob origin current)
-  (let*
-      ((meta (ly:grob-property grob 'meta))
-       (interfaces (cdr (assoc 'interfaces meta)))
-       (position (ly:grob-property grob 'staff-position)))
-   (if (and
-        ; is this a note head?
-        (memq 'note-head-interface interfaces)
-
-        ; is the Y coordinate right?
-        (= pos position))
-
-      ; then do it.
-      (set! (ly:grob-property grob 'font-size) size))))
-
-\relative {
-  c
-  \applyOutput #(set-position-font-size -2 4)
-  <c e g>
-}
-@end lilypond
-
-@noindent
-A similar technique can be used for accidentals.  In that case, the
-function should check for @code{accidental-interface}.
 
 @item
 Another difficult adjustment is the appearance of spanner objects,
