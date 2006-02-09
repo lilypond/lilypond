@@ -3,8 +3,8 @@
 ifeq ($(LILYPOND_EXTERNAL_BINARY),)
 # environment settings.
 export PATH:=$(top-build-dir)/lily/$(outconfbase):$(top-build-dir)/buildscripts/$(outconfbase):$(top-build-dir)/scripts/$(outconfbase):$(PATH):
-export LILYPONDPREFIX:=$(build_lilypond_datadir)/$(TOPLEVEL_VERSION)
-export DVIPSHEADERS:=$(top-build-dir)/mf/out::
+export LILYPONDPREFIX:=$(build_lilypond_datadir)/current
+bexport DVIPSHEADERS:=$(top-build-dir)/mf/out::
 export LILYPOND_BINARY=$(top-build-dir)/lily/$(outconfbase)/lilypond
 else
 

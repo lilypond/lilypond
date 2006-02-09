@@ -1,5 +1,9 @@
 2006-02-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/changing-defaults.itely (Difficult tweaks):
+	remove applyOutput example.
+	(Objects connected to the input): document \tweak, \parenthesize
+
 	* lily/relocate.cc (prefix_relocation): allow "current"
 	iso. TOPLEVEL_VERSION for share/lilypond/ suffix. This makes
 	changing VERSION in a lily tree less painful.
