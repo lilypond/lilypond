@@ -1,4 +1,6 @@
-2006-02-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+2006-02-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION: release 2.7.33
 
 	* lily/relocate.cc (prefix_relocation): oops. One TOPLEVEL_VERSION
 	too many.
