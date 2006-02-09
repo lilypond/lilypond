@@ -67,7 +67,7 @@ which scares away people.
 parenthesized, for example,
 
 
-@lilypond[verbatim,ragged-right,fragment]
+@lilypond[verbatim,ragged-right,fragment,relative=2]
 c4 -\parenthesize -.
 <d \parenthesize fis a> 
 @end lilypond
