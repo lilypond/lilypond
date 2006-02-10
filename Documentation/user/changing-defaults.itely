@@ -828,6 +828,7 @@ for many situations.  The next section will discuss the general use of
 * Navigating the program reference::  
 * Layout interfaces::           
 * Determining the grob property::  
+* Objects connected to the input::  
 * Difficult tweaks::            
 @end menu
 
