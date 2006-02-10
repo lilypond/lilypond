@@ -1,9 +1,36 @@
+2006-02-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/parenthesis-engraver.cc (acknowledge_grob): don't do
+	set_parent() for parentheses. This will make it show up in bbox
+	calculations.
+
+	* scm/output-lib.scm (parentheses-item::print): rewrite, using
+	ly:grob-common* functions.
+
+	* lily/grob-scheme.cc (LY_DEFINE):
+	ly:grob-common-refpoint-of-array: new function 
+	ly:grob-common-refpoint: new function 
+	ly:grob-relative-coordinate: new function 
+
+	* lily/instrument-name-engraver.cc (process_music): use
+	Text_interface::is_markup(). This fixes \markup on instrument names.  
+
+	* scm/define-grobs.scm (all-grob-descriptions): set line-thickness
+	for ties and slurs.
+
+	* lily/slur.cc (print): idem.
+
+	* lily/tie.cc: add line-thickness for ties. 
+
 2006-02-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-svg.scm: Document diversion from GNU coding standards
 	as a workaround for a bug in Microsoft Internet Explorer.
 
 2006-02-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/instrument-name-engraver.cc (process_music): use
+	is_markup() iso. is_string()
 
 	* Documentation/user/changing-defaults.itely (Module): add menu entry.
 

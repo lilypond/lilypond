@@ -12,6 +12,7 @@
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
 #include "align-interface.hh"
+#include "text-interface.hh"
 
 #include "translator.icc"
 
@@ -41,18 +42,19 @@ Instrument_name_engraver::process_music ()
       SCM long_text = get_property ("instrument");
       SCM short_text = get_property ("instr");
 
-      if (! (scm_is_string (long_text)
-	     || scm_is_string (short_text)))
+      if (!(Text_interface::is_markup (long_text)
+	    || Text_interface::is_markup (short_text)))
 	{
 	  long_text = get_property ("vocalName");
 	  short_text = get_property ("vocNam");
 	}
   
-      if (scm_is_string (long_text)
-	  || scm_is_string (short_text))
+      if (Text_interface::is_markup (long_text)
+	  || Text_interface::is_markup (short_text))
 	{
 	  text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
-	  text_spanner_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+	  text_spanner_->set_bound (LEFT,
+				    unsmob_grob (get_property ("currentCommandColumn")));
 	  text_spanner_->set_property ("text", short_text);
 	  text_spanner_->set_property ("long-text", long_text);
 	}

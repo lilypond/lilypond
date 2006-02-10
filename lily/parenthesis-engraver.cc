@@ -14,6 +14,7 @@
 #include "music.hh"
 #include "grob.hh"
 #include "item.hh"
+#include "pointer-group-interface.hh"
 
 #include "translator.icc"
 
@@ -28,8 +29,6 @@ protected:
 Parenthesis_engraver::Parenthesis_engraver()
 {
 }
-
-
 
 void
 Parenthesis_engraver::acknowledge_grob (Grob_info info)
@@ -46,8 +45,8 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
 						       victim->self_scm (),
 						       "ParenthesesItem");
 
-	      paren->set_parent (victim, Y_AXIS);
-	      paren->set_parent (victim, X_AXIS);
+	      Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
+	      
 	      Real size = robust_scm2double (paren->get_property ("font-size"), 0.0)
 		+ robust_scm2double (victim->get_property ("font-size"), 0.0);
 	      paren->set_property ("font-size", scm_from_double (size));
