@@ -201,7 +201,9 @@ Tie::calc_control_points (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-
+/*
+  TODO: merge witnh Slur::print.
+ */
 MAKE_SCHEME_CALLBACK (Tie, print, 1);
 SCM
 Tie::print (SCM smob)
@@ -211,8 +213,8 @@ Tie::print (SCM smob)
   SCM cp = me->get_property ("control-points");
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
-  Real base_thick = robust_scm2double (me->get_property ("thickness"), 1);
-  Real thick = base_thick * staff_thick;
+  Real base_thick = staff_thick * robust_scm2double (me->get_property ("thickness"), 1);
+  Real line_thick = staff_thick * robust_scm2double (me->get_property ("line-thickness"), 1);
 
   Bezier b;
   int i = 0;
@@ -228,13 +230,13 @@ Tie::print (SCM smob)
   SCM f = me->get_property ("dash-fraction");
   if (scm_is_number (p) && scm_is_number (f))
     a = Lookup::dashed_slur (b,
-			     thick,
+			     line_thick,
 			     robust_scm2double (p, 1.0),
 			     robust_scm2double (f, 0));
   else
     a = Lookup::slur (b,
-		      get_grob_direction (me) * staff_thick,
-		      thick);
+		      get_grob_direction (me) * base_thick,
+		      line_thick);
 
   return a.smobbed_copy ();
 }
@@ -253,6 +255,7 @@ ADD_INTERFACE (Tie,
 	       "dash-period "
 	       "details "
 	       "direction "
+	       "line-thickness " 
 	       "thickness "
 	       );
 

@@ -156,6 +156,32 @@ LY_DEFINE (ly_get_extent, "ly:grob-extent",
   return ly_interval2scm (sc->extent (ref, a));
 }
 
+
+LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
+	   3, 0, 0, (SCM grob, SCM refp, SCM axis),
+	   "Get the coordinate in @var{axis} direction of @var{grob} relative to "
+	   "the grob @var{refp}")
+{
+  Grob *sc = unsmob_grob (grob);
+  Grob *ref = unsmob_grob (refp);
+  
+  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+
+  Axis a = Axis (scm_to_int (axis));
+
+    
+  if (ref->common_refpoint (sc, a) != ref)
+    {
+      // ugh. should use other error message
+      SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
+    }
+
+  return scm_from_double (sc->relative_coordinate (ref,a));
+}
+
+
 LY_DEFINE (ly_grob_parent, "ly:grob-parent",
 	   2, 0, 0, (SCM grob, SCM axis),
 	   "Get the parent of @var{grob}.  @var{axis} is 0 for the X-axis, "
@@ -281,4 +307,39 @@ LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
   SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
 
   return Font_interface::get_default_font (gr)->self_scm ();
+}
+
+LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
+	   3, 0, 0,  (SCM grob, SCM other, SCM axis),
+	   "Find the common refpoint of @var{grob} and @var{other} for @var{axis}."
+	   )
+{
+  
+  Grob *gr = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  Grob *o = unsmob_grob (other);
+  SCM_ASSERT_TYPE (o, other, SCM_ARG2, __FUNCTION__, "grob");
+
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+
+  Grob *refp = gr->common_refpoint (o,  Axis (scm_to_int (axis)));
+  return refp ? refp->self_scm () : SCM_BOOL_F;
+}
+
+LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
+	   3, 0, 0,  (SCM grob, SCM others, SCM axis),
+	   "Find the common refpoint of @var{grob} and @var{others} "
+	   "(a grob-array) for @var{axis}."
+	   )
+{
+  Grob *gr = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  Grob_array *ga = unsmob_grob_array (others);
+  SCM_ASSERT_TYPE (ga, others, SCM_ARG2, __FUNCTION__, "grob array");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+
+  Grob *refp = common_refpoint_of_array (ga->array (), gr, Axis (scm_to_int (axis)));
+  return refp ? refp->self_scm () : SCM_BOOL_F;
 }

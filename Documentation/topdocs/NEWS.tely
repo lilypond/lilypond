@@ -63,12 +63,14 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
-@item Items  directly connected with a music input element may be
+
+
+
+@item Items directly connected with a music input element may be
 parenthesized, for example,
 
-
 @lilypond[verbatim,ragged-right,fragment,relative=2]
-c4 -\parenthesize -.
+c4-\parenthesize -.
 <d \parenthesize fis a> 
 @end lilypond
 

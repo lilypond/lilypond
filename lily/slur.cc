@@ -84,8 +84,11 @@ Slur::print (SCM smob)
     }
 
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
-  Real base_thick = robust_scm2double (me->get_property ("thickness"), 1);
-  Real thick = base_thick * staff_thick;
+  Real base_thick = staff_thick
+    * robust_scm2double (me->get_property ("thickness"), 1);
+  Real line_thick = staff_thick
+    * robust_scm2double (me->get_property ("line-thickness"), 1);
+
   Bezier one = get_curve (me);
   Stencil a;
 
@@ -95,12 +98,12 @@ Slur::print (SCM smob)
   SCM p = me->get_property ("dash-period");
   SCM f = me->get_property ("dash-fraction");
   if (scm_is_number (p) && scm_is_number (f))
-    a = Lookup::dashed_slur (one, thick, robust_scm2double (p, 1.0),
+    a = Lookup::dashed_slur (one, line_thick, robust_scm2double (p, 1.0),
 			     robust_scm2double (f, 0));
   else
     a = Lookup::slur (one,
-		      get_grob_direction (me) * staff_thick * 1.0,
-		      thick);
+		      get_grob_direction (me) * base_thick,
+		      line_thick);
 
 #if DEBUG_SLUR_SCORING
   SCM quant_score = me->get_property ("quant-score");

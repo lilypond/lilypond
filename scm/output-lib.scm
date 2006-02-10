@@ -271,46 +271,47 @@ centered, X==1 is at the right, X == -1 is at the left."
 ;; * Pitch Trill Heads
 ;; * Parentheses
 
-(define (parenthesize-elements grob)
+(define (parenthesize-elements grob . rest)
   (let*
-      ((elts (ly:grob-object grob 'elements))
-       (x-ext (ly:relative-group-extent elts grob X))
+      (
+       (refp (if (null? rest)
+		 grob
+		 (car rest)))
+       (elts (ly:grob-object grob 'elements))
+       (x-ext (ly:relative-group-extent elts refp X))
 
        (font (ly:grob-default-font grob))
        (lp (ly:font-get-glyph font "accidentals.leftparen"))
        (rp (ly:font-get-glyph font "accidentals.rightparen"))
-       (padding (ly:grob-property grob 'padding 0.1))
+       (padding (ly:grob-property grob 'padding 0.1)))
 
     (ly:stencil-add
      (ly:stencil-translate-axis lp (- (car x-ext) padding) X)
      (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))
-  )))
-
-
-(define (parenthesize-element me grob)
-  (let*
-      ((x-ext (ly:grob-extent grob grob X))
-       (y-center
-	(interval-center (ly:grob-extent grob grob Y)))
-       (font (ly:grob-default-font me))
-       (lp (ly:font-get-glyph font "accidentals.leftparen"))
-       (rp (ly:font-get-glyph font "accidentals.rightparen"))
-       (padding (ly:grob-property grob 'padding 0.1))
-       )
-
-    (ly:stencil-add
-     (ly:stencil-translate lp
-			   (cons
-			    (- (car x-ext) padding)
-			    y-center))
-     (ly:stencil-translate rp
-			   (cons
-			    (+ (cdr x-ext) padding)
-			    y-center)))
   ))
 
+
 (define (parentheses-item::print me)
-  (parenthesize-element me (ly:grob-parent me Y)))
+  (let*
+      ((elts (ly:grob-object me 'elements))
+       (y-ref (ly:grob-common-refpoint-of-array me elts Y))
+       (x-ref (ly:grob-common-refpoint-of-array me elts X))
+       (stencil (parenthesize-elements me x-ref))
+       (elt-y-ext  (ly:relative-group-extent elts y-ref Y))
+       (y-center (interval-center elt-y-ext)))
+
+    (ly:stencil-translate
+     stencil
+     (cons
+      (-
+       (ly:grob-relative-coordinate me x-ref X))
+      (-
+       y-center
+       (ly:grob-relative-coordinate me y-ref Y))))
+    ))
+
+       
+       
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
