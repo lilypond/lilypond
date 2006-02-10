@@ -849,10 +849,12 @@
 	(direction . ,UP)
 	(positions . ,ly:tuplet-bracket::calc-positions)
 	(stencil . ,ly:tuplet-bracket::print)
-	
+	(staff-padding . 0.25)
+	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
+	(control-points . ,ly:tuplet-bracket::calc-control-points)
 	(meta . ((class . Spanner)
-		 (interfaces . (tuplet-bracket-interface
-				line-interface))))))
+		 (interfaces . (line-interface
+				tuplet-bracket-interface))))))
 
     (LyricHyphen
      . (

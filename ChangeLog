@@ -1,3 +1,9 @@
+2006-02-10  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* scm/define-grobs.scm (LigatureBracket): Maintenance bugfix: add
+	new connect-to-neighbor, control-points and staff-padding
+	properties to make ligature brackets showing up again.
+
 2006-02-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION: release 2.7.33
