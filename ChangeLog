@@ -1,5 +1,7 @@
 2006-02-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/paper-defaults.ly: typo.
+
 	* lily/parenthesis-engraver.cc (acknowledge_grob): don't do
 	set_parent() for parentheses. This will make it show up in bbox
 	calculations.

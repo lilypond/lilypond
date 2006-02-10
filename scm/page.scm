@@ -206,7 +206,7 @@
 		    'make-header
 		    'make-footer)
 		(if (= dir UP)
-		    'heap-separation
+		    'head-separation
 		    'foot-separation)
 		dir last?)))
 

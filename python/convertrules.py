@@ -2712,7 +2712,7 @@ def conv (str):
 		('betweentitlespace', 'between-title-space'),
 		('topmargin', 'top-margin'),
 		('bottommargin', 'bottom-margin'),
-		('headsep', 'heap-separation'),
+		('headsep', 'head-separation'),
 		('footsep', 'foot-separation'),
 		('rightmargin', 'right-margin'),
 		('leftmargin', 'left-margin'),
