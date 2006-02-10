@@ -64,7 +64,8 @@ which scares away people.
 
 @end ignore
 
-
+@item Thicknesses of tie and slurs may be  tuned separately for the
+endings and the middle part.
 
 @item Items directly connected with a music input element may be
 parenthesized, for example,
@@ -144,8 +145,8 @@ This feature was sponsored by Trevor Bača.
 
 #(set-default-paper-size "a7" 'landscape)
 \paper {
-  headsep = 0.0
-  footsep = 0.0
+  head-separation = 0.0
+  foot-separation = 0.0
   }
 \book {
  \score {

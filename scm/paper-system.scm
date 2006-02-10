@@ -48,6 +48,7 @@
   
 (define-public (paper-system-annotate system layout)
   "Add arrows and texts to indicate which lengths are set."
+  
   (let*
       ((annotations (ly:make-stencil '() (cons 0 2) (cons 0 0)))
        (append-stencil
@@ -69,7 +70,6 @@
        (next-padding (ly:prob-property system 'next-padding
 					       (ly:output-def-lookup layout 'between-system-padding)
 					       ))
-		     
        )
 
     (if (number-pair? bbox-extent)
@@ -89,8 +89,6 @@
 	  (annotate-property "next-space"
 			     (interval-translate (cons (- next-space) 0) (car refp-extent))
 		       #t)))
-	
-    
 
     (set! (ly:prob-property system 'stencil)
 	  (ly:stencil-add
