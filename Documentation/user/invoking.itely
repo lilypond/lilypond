@@ -679,7 +679,22 @@ A compound music expression, such as
 
 This will add the piece in a @code{\score} and format it in a
 single book together with all other toplevel @code{\score}s and music
-expressions.
+expressions.  In other words, a file containing only the above
+music expression will be translated into
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        @{ c'4 d' e'2 @}
+      @}
+    @}
+  @}
+	\layout @{ @}
+	\header @{ @}
+@}
+@end example
  
 This behavior can be changed by setting the variable
 @code{toplevel-music-handler} at toplevel.  The default handler is
