@@ -1,3 +1,9 @@
+2006-02-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/stem-tremolo.cc (get_beam_translation): new function.
+	(calc_slope): new function.
+	(height): don't use real slope.
+
 2006-02-10  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* scm/define-grobs.scm (LigatureBracket): Maintenance bugfix: add
