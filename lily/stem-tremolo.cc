@@ -32,44 +32,47 @@ Stem_tremolo::dim_callback (SCM e)
   return ly_interval2scm (Interval (-space, space));
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 1);
+
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_slope, 1)
 SCM
-Stem_tremolo::height (SCM smob)
+Stem_tremolo::calc_slope (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Spanner *beam = Stem::get_beam (stem);
 
-  /* TODO: fixme. uncached? */
-  return ly_interval2scm (me->get_stencil ()
-			  ? me->get_stencil ()->extent (Y_AXIS)
-			  : Interval());
+  if (beam)
+    {
+      Real dy = 0;
+      SCM s = beam->get_property ("quantized-positions");
+      if (is_number_pair (s))
+	dy = - scm_to_double (scm_car (s)) + scm_to_double (scm_cdr (s));
+
+      Grob *s2 = Beam::last_visible_stem (beam);
+      Grob *s1 = Beam::first_visible_stem (beam);
+      
+      Grob *common = s1->common_refpoint (s2, X_AXIS);
+      Real dx = s2->relative_coordinate (common, X_AXIS) -
+	s1->relative_coordinate (common, X_AXIS);
+
+      return scm_from_double (dx ? dy / dx : 0);
+    }
+  else
+    return scm_from_double (0.25);
 }
 
-Stencil
-Stem_tremolo::raw_stencil (Grob *me)
+Real
+Stem_tremolo::get_beam_translation (Grob *me)
 {
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   Spanner *beam = Stem::get_beam (stem);
 
-  SCM slope = me->get_property ("slope");
-  Real dydx = 0.25;
-  if (scm_is_number (slope))
-    {
-      dydx = robust_scm2double (slope, 0.0);
-    }
-  else
-    {
-      if (beam)
-	{
-	  Real dy = 0;
-	  SCM s = beam->get_property ("positions");
-	  if (is_number_pair (s))
-	    dy = - scm_to_double (scm_car (s)) + scm_to_double (scm_cdr (s));
+  return  beam ? Beam::get_beam_translation (beam) : 0.81;
+}
 
-	  Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
-	    - Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
-	  dydx = dx ? dy / dx : 0;
-	}
-    }
+Stencil
+Stem_tremolo::raw_stencil (Grob *me, Real slope)
+{
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thick = robust_scm2double (me->get_property ("beam-thickness"), 1);
   Real width = robust_scm2double (me->get_property ("beam-width"), 1);
@@ -78,14 +81,10 @@ Stem_tremolo::raw_stencil (Grob *me)
   width *= ss;
   thick *= ss;
 
-  Stencil a (Lookup::beam (dydx, width, thick, blot));
-  a.translate (Offset (-width * 0.5, width * 0.5 * dydx));
+  Stencil a (Lookup::beam (slope, width, thick, blot));
+  a.translate (Offset (-width * 0.5, width * 0.5 * slope));
 
-  int tremolo_flags = 0;
-  SCM s = me->get_property ("flag-count");
-  if (scm_is_number (s))
-    tremolo_flags = scm_to_int (s);
-
+  int tremolo_flags = robust_scm2int (me->get_property ("flag-count"), 0);
   if (!tremolo_flags)
     {
       programming_error ("no tremolo flags");
@@ -95,7 +94,7 @@ Stem_tremolo::raw_stencil (Grob *me)
     }
 
   /* Who the fuck is 0.81 ? --hwn.   */
-  Real beam_translation = beam ? Beam::get_beam_translation (beam) : 0.81;
+  Real beam_translation = get_beam_translation(me);
 
   Stencil mol;
   for (int i = 0; i < tremolo_flags; i++)
@@ -106,6 +105,23 @@ Stem_tremolo::raw_stencil (Grob *me)
     }
   return mol;
 }
+
+
+
+MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 1);
+SCM
+Stem_tremolo::height (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  /*
+    Cannot use the real slope, since it looks at the Beam.
+   */
+  Stencil s1 (raw_stencil (me, 0.35));
+
+  return ly_interval2scm (s1.extent (Y_AXIS));
+}
+
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, print, 1);
 SCM
@@ -129,7 +145,8 @@ Stem_tremolo::print (SCM grob)
     ? Beam::get_beam_translation (beam)
     : 0.81;
 
-  Stencil mol = raw_stencil (me);
+  Stencil mol = raw_stencil (me, robust_scm2double (me->get_property ("slope"),
+						    0.25));
   Interval mol_ext = mol.extent (Y_AXIS);
   Real ss = Staff_symbol_referencer::staff_space (me);
 

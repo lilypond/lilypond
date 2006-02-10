@@ -568,6 +568,7 @@ of the @code{#'direction} layout property."
   "Put @code{args} in a centered column. "
   (let* ((mols (map (lambda (x) (interpret-markup layout props x)) args))
          (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
+    
     (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) cmols)))
 
 (def-markup-command (vcenter layout props arg) (markup?)

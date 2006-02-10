@@ -18,9 +18,11 @@ public:
 
   static bool has_interface (Grob *);
   DECLARE_SCHEME_CALLBACK (dim_callback, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (calc_slope, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
-  static Stencil raw_stencil (Grob *);
+  static Stencil raw_stencil (Grob *, Real);
+  static Real get_beam_translation (Grob *me);
 };
 
 #endif /* ABBREV_HH */

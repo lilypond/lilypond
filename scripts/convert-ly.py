@@ -26,6 +26,8 @@ if os.environ.has_key ('LILYPONDPREFIX'):
 
 if os.path.exists (os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')):
 	datadir = os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')
+elif os.path.exists (os.path.join (datadir, 'share/lilypond/current/')):
+	datadir = os.path.join (datadir, 'share/lilypond/current/')
 
 sys.path.insert (0, os.path.join (datadir, 'python'))
 

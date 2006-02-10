@@ -331,7 +331,7 @@ Stem::calc_length (SCM smob)
       (Stem_tremolo::raw_stencil () looks at the beam.) --hwn  */
 
       Real minlen = 1.0
-	+ 2 * Stem_tremolo::raw_stencil (t_flag).extent (Y_AXIS).length ()
+	+ 2 * t_flag->extent (t_flag, Y_AXIS).length ()
 	/ ss;
 
       if (durlog >= 3)

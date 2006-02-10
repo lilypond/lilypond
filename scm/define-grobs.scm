@@ -1543,6 +1543,7 @@
 	(Y-extent . ,ly:stem-tremolo::height)
 	(stencil . ,ly:stem-tremolo::print)
 	(X-extent . #f)
+	(slope . ,ly:stem-tremolo::calc-slope)
 	(beam-width . 1.6) ; staff-space
 	(beam-thickness . 0.48) ; staff-space
 	(meta . ((class . Item)
