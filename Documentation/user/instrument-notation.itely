@@ -768,8 +768,8 @@ it's fleece was white as snow.
 }
 
 \score{ <<
-  \context Voice = one { \melody }
-  \lyricsto "one" \new Lyrics \text
+  \context Voice = "one" { \melody }
+  \new Lyrics \lyricsto "one" \text
 	>>
   \layout { }
 }
@@ -809,8 +809,8 @@ fancy things, in which case you should investigate
 is the same as
 
 @example
-\context Voice = blah @{ music @}
-\lyricsto "blah" \new lyrics @{ LYRICS @}
+\context Voice = "blah" @{ music @}
+\new Lyrics \lyricsto "blah" @{ LYRICS @}
 @end example
 
 @refbugs
@@ -943,7 +943,7 @@ automatically.  In this case, it is no longer necessary to enter the
 correct duration for each syllable.  This is achieved by combining the
 melody and the lyrics with the @code{\lyricsto} expression
 @example
-\lyricsto @var{name} \new Lyrics @dots{}
+\new Lyrics \lyricsto @var{name} @dots{}
 @end example
 
 This aligns the lyrics to the
@@ -965,7 +965,7 @@ hierarchy of staves and lyrics first, e.g.,
 @end example
 and then combine the appropriate melodies and lyric lines
 @example
-\lyricsto "soprano" \context Lyrics = sopranoLyrics
+\context Lyrics = sopranoLyrics \lyricsto "soprano"
   @emph{the lyrics}
 @end example
 
@@ -997,7 +997,7 @@ last one, e.g.,
     \melismaEnd
     e2
   }
-  \lyricsto "lala" \new Lyrics {
+  \new Lyrics \lyricsto "lala" {
     la di __ daah
   }
 >>
@@ -1344,12 +1344,12 @@ section.
     c2 e | g e | c1 |
     \context Voice = verse \repeat volta 2 {c4 d e f | g1 | }
     a2 b | c1}
-  \lyricsto melody  \context Lyrics = mainlyrics \lyricmode {
+  \context Lyrics = mainlyrics \lyricsto melody \lyricmode {
     do mi sol mi do
     la si do }
-  \lyricsto verse \context Lyrics = mainlyrics \lyricmode {
+  \context Lyrics = mainlyrics \lyricsto verse \lyricmode {
    do re mi fa sol }
-  \lyricsto verse \context Lyrics = repeatlyrics \lyricmode {
+  \context Lyrics = repeatlyrics \lyricsto verse \lyricmode {
    dodo rere mimi fafa solsol }
 >>
 }
@@ -3931,7 +3931,7 @@ the following excerpt demonstrates
         \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
       }
     }
-    \lyricsto "cantus" \new Lyrics {
+    \new Lyrics \lyricsto "cantus" {
       San- ctus, San- ctus, San- ctus
     }
   >>
@@ -3964,7 +3964,7 @@ entering the chant, as the following excerpt demonstrates
         fis\longa^\signumcongruentiae
       }
     }
-    \lyricsto "discantus" \new Lyrics {
+    \new Lyrics \lyricsto "discantus" {
       San -- ctus, San -- ctus, San -- ctus
     }
   >>

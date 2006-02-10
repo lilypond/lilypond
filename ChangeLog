@@ -2,6 +2,9 @@
 
 	* Documentation/user/invoking.itely: add example to File structure.
 
+	* Documentation/user/ instrument-notation.itely, cheatsheet.itely,
+	examples.itely, putting.itely: {\new|\context} Lyrics \lyricsto.
+
 2006-02-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/paper-defaults.ly: typo.
