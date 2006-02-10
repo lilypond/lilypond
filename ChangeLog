@@ -1,3 +1,7 @@
+2006-02-10  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/invoking.itely: add example to File structure.
+
 2006-02-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/paper-defaults.ly: typo.
