@@ -137,7 +137,7 @@ Percent_repeat_engraver::try_music (Music *m)
 void
 Percent_repeat_engraver::process_music ()
 {
-  if (repeat_ && now_mom () == next_moment_)
+  if (repeat_ && now_mom ().main_part_ == next_moment_.main_part_)
     {
       count_ ++; 
       if (repeat_sign_type_ == MEASURE)
@@ -156,7 +156,6 @@ Percent_repeat_engraver::process_music ()
 	    {
 	      percent_counter_
 		= make_spanner ("PercentRepeatCounter", repeat_->self_scm ());
-
 
 	      SCM text = scm_number_to_string (scm_from_int (count_),
 					       scm_from_int (10));
@@ -197,6 +196,7 @@ Percent_repeat_engraver::process_music ()
 	  get_score_engraver ()->forbid_breaks ();
 	}
       next_moment_ = next_moment_ + body_length_;
+      next_moment_.grace_part_ = Rational (0);
     }
 }
 
@@ -235,7 +235,7 @@ Percent_repeat_engraver::typeset_perc ()
 void
 Percent_repeat_engraver::start_translation_timestep ()
 {
-  if (stop_mom_ == now_mom ())
+  if (stop_mom_.main_part_ == now_mom ().main_part_)
     {
       if (percent_)
 	{
