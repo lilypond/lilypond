@@ -114,11 +114,11 @@ text = \lyricmode @{
 
 \score@{
   <<
-    \context Voice = one @{
+    \context Voice = "one" @{
       \autoBeamOff
       \melody
     @}
-    \lyricsto "one" \new Lyrics \text
+    \new Lyrics \lyricsto "one" \text
   >>
   \layout @{ @}
   \midi @{ \tempo 4=60 @}
@@ -187,11 +187,11 @@ celloMusic = \relative c @{
 
 \score@{
   <<
-    \context Voice = one @{
+    \context Voice = "one" @{
       \autoBeamOff
       \sopranoMusic
     @}
-    \lyricsto "one" \new Lyrics \sopranoLyrics
+    \new Lyrics \lyricsto "one" \sopranoLyrics
   >>
   \layout @{ @}
   \midi @{ \tempo 4=60 @}
@@ -214,16 +214,16 @@ more than one thing (in this case staff) happening at once.  The
 
 @example
 \score@{
-<<
   <<
-    \context Voice = one @{
-      \autoBeamOff
-      \sopranoMusic
-    @}
-    \lyricsto "one" \new Lyrics \sopranoLyrics
+    <<
+      \context Voice = "one" @{
+        \autoBeamOff
+        \sopranoMusic
+      @}
+      \new Lyrics \lyricsto "one" \sopranoLyrics
+    >>
+    \new Staff \celloMusic
   >>
-  \new Staff \celloMusic
->>
   \layout @{ @}
   \midi @{ \tempo 4=60 @}
 @}
@@ -257,14 +257,14 @@ celloMusic = \relative c {
 
 \score{
   <<
-  <<
-    \context Voice = one {
-      \autoBeamOff
-      \sopranoMusic
-    }
-    \lyricsto "one" \new Lyrics \sopranoLyrics
-  >>
-  \new Staff \celloMusic
+    <<
+      \context Voice = "one" {
+        \autoBeamOff
+        \sopranoMusic
+      }
+      \new Lyrics \lyricsto "one" \sopranoLyrics
+    >>
+    \new Staff \celloMusic
   >>
   \layout { }
   \midi { \tempo 4=60 }

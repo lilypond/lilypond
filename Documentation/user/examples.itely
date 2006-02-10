@@ -68,11 +68,11 @@ text = \lyricmode {
 
 \score{
    <<
-      \context Voice = one {
+      \context Voice = "one" {
          \autoBeamOff
          \melody
       }
-      \lyricsto "one" \new Lyrics \text
+      \new Lyrics \lyricsto "one" \text
    >>
    \layout { }
    \midi { \tempo 4=60 }
@@ -140,11 +140,11 @@ harmonies = \chordmode {
          \set chordChanges = ##t
          \harmonies
       }
-   \context Voice = one {
+   \context Voice = "one" {
       \autoBeamOff
       \melody
    }
-   \lyricsto "one" \new Lyrics \text
+   \new Lyrics \lyricsto "one" \text
    >>
    \layout { }
    \midi { \tempo 4=60 }
@@ -223,11 +223,11 @@ lower = \relative c {
 
 \score {
    <<
-      \context Voice = mel {
+      \context Voice = "mel" {
           \autoBeamOff
           \melody
       }
-      \lyricsto mel \new Lyrics \text
+      \new Lyrics \lyricsto mel \text
 
       \context PianoStaff <<
          \context Staff = upper \upper
@@ -271,8 +271,8 @@ text = \lyricmode {
 
 \score {
   \context GrandStaff <<
-    \context Staff = upper { \context Voice = singer \upper }
-    \lyricsto "singer" \new Lyrics \text
+    \context Staff = upper { \context Voice = "singer" \upper }
+    \new Lyrics \lyricsto "singer" \text
     \context Staff = lower {
       \clef bass
       \lower
