@@ -232,10 +232,9 @@
 
 (define (placebox x y expr)
   (entity 'g
-	  
-	  ;; FIXME -- JCN
-	  ;;(dispatch expr)
 	  expr
+	  ;; FIXME: Not using GNU coding standards [translate ()] here
+	  ;; to work around a bug in Microsoft Internet Explorer 6.0
 	  `(transform . ,(format #f "translate(~f, ~f)"
 				 x (- y)))))
 
