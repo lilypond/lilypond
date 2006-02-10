@@ -102,7 +102,7 @@
 
     top-margin = 5 \mm
     bottom-margin = 6 \mm
-    heap-separation = 4 \mm
+    head-separation = 4 \mm
     foot-separation = 4 \mm
     right-margin = 10 \mm
 
