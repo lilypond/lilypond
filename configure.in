@@ -163,11 +163,6 @@ STEPMAKE_PERL(OPTIONAL)
 # makeinfo--but hopefully won't report makeinfo problems.
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.7)
 
-if test "$optimise_b" = yes; then
-    DEFINES="$DEFINES -DSTRING_UTILS_INLINED"
-    AC_DEFINE(STRINGS_UTILS_INLINED)
-fi
-
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
 # Gather requirements and generate output.

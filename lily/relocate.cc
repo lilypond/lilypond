@@ -144,10 +144,20 @@ framework_relocation (string prefix)
   prepend_env_path ("GS_FONTPATH", font_dir);
 #endif
 
-  /* FIXME: *cough* 8.15 *cough* */
-  prepend_env_path ("GS_FONTPATH", datadir + "/ghostscript/8.15/fonts");
-  prepend_env_path ("GS_LIB", datadir + "/ghostscript/8.15/Resource");
-  prepend_env_path ("GS_LIB", datadir + "/ghostscript/8.15/lib");
+  string gs_version =
+#ifdef GHOSTSCRIPT_VERSION
+    GHOSTSCRIPT_VERSION
+#else
+    "8.15"
+#endif
+    ;
+  
+  if (char const *cur = getenv ("LILYPOND_GS_VERSION"))
+    gs_version = cur;
+  
+  prepend_env_path ("GS_FONTPATH", datadir + "/ghostscript/" + gs_version + "/fonts");
+  prepend_env_path ("GS_LIB", datadir + "/ghostscript/" + gs_version + "/Resource");
+  prepend_env_path ("GS_LIB", datadir + "/ghostscript/" + gs_version + "/lib");
 
   prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
   prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
