@@ -27,16 +27,16 @@ using namespace std;
 */
 static const int STRING_BUFFER_LEN = 1024;
 
-std::string
+string
 String_convert::bool_string (bool b)
 {
-  return std::string (b ? "true" : "false");
+  return string (b ? "true" : "false");
 }
 
-std::string
-String_convert::bin2hex (std::string bin_string)
+string
+String_convert::bin2hex (string bin_string)
 {
-  std::string str;
+  string str;
   Byte const *byte = (Byte const*)bin_string.data ();
   for (ssize i = 0; i < bin_string.length (); i++)
     {
@@ -47,13 +47,13 @@ String_convert::bin2hex (std::string bin_string)
 }
 
 int
-String_convert::bin2int (std::string bin_string)
+String_convert::bin2int (string bin_string)
 {
   return bin2unsigned (bin_string);
 }
 
 unsigned
-String_convert::bin2unsigned (std::string bin_string)
+String_convert::bin2unsigned (string bin_string)
 {
   assert (bin_string.length () <= (int)sizeof (unsigned));
 
@@ -66,9 +66,9 @@ String_convert::bin2unsigned (std::string bin_string)
   return result_u;
 }
 
-// breendet imp from std::string
+// breendet imp from string
 int
-String_convert::dec2int (std::string dec_string)
+String_convert::dec2int (string dec_string)
 {
   if (!dec_string.length ())
     return 0;
@@ -80,17 +80,17 @@ String_convert::dec2int (std::string dec_string)
   return (int)l;
 }
 
-std::string
+string
 String_convert::i64_string (I64 i64, char const *fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
 	    (fmt ? fmt : "%Ld"), i64); // assume radix 10
-  return std::string (buffer);
+  return string (buffer);
 }
-// breendet imp from std::string
+// breendet imp from string
 double
-String_convert::dec2double (std::string dec_string)
+String_convert::dec2double (string dec_string)
 {
   if (!dec_string.length ())
     return 0;
@@ -101,7 +101,7 @@ String_convert::dec2double (std::string dec_string)
 }
 
 int
-String_convert::hex2bin (std::string hex_string, std::string &bin_string_r)
+String_convert::hex2bin (string hex_string, string &bin_string_r)
 {
   if (hex_string.length () % 2)
     hex_string = "0" + hex_string;
@@ -121,10 +121,10 @@ String_convert::hex2bin (std::string hex_string, std::string &bin_string_r)
   return 0;
 }
 
-std::string
-String_convert::hex2bin (std::string hex_string)
+string
+String_convert::hex2bin (string hex_string)
 {
-  std::string str;
+  string str;
   //  silly, asserts should alway be "on"!
   //    assert (!hex2bin (hex_string, str) );
   int error_i = hex2bin (hex_string, str);
@@ -145,7 +145,7 @@ String_convert::hex2nibble (Byte byte)
 }
 
 // stupido.  Should use int_string ()
-std::string
+string
 String_convert::int2dec (int i, int length_i, char ch)
 {
   char fill_char = ch;
@@ -153,17 +153,17 @@ String_convert::int2dec (int i, int length_i, char ch)
     fill_char = '0';
 
   // ugh
-  std::string dec_string = to_string (i);
+  string dec_string = to_string (i);
 
   // ugh
   return to_string (fill_char, length_i - dec_string.length ()) + dec_string;
 }
 
 // stupido.  Should use int_string ()
-std::string
+string
 String_convert::unsigned2hex (unsigned u, ssize length, char fill_char)
 {
-  std::string str;
+  string str;
   if (!u)
     str = "0";
 
@@ -184,7 +184,7 @@ String_convert::unsigned2hex (unsigned u, ssize length, char fill_char)
   return str;
 }
 
-std::string
+string
 String_convert::int2hex (int i, int length_i, char fill_char)
 {
   return unsigned2hex ((unsigned)i, length_i, fill_char);
@@ -204,16 +204,16 @@ String_convert::nibble2hex_byte (Byte byte)
    @param
    #fmt# is a printf style format, default assumes "%d" as format.
 */
-std::string
+string
 String_convert::int_string (int i, char const *fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
 	    (fmt ? fmt : "%d"), i); // assume radix 10
-  return std::string (buffer);
+  return string (buffer);
 }
 
-std::string
+string
 String_convert::form_string (char const *format, ...)
 {
   va_list args;
@@ -221,15 +221,15 @@ String_convert::form_string (char const *format, ...)
   char buffer[STRING_BUFFER_LEN];
   vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
   va_end (args);
-  return std::string (buffer);
+  return string (buffer);
 }
 
-std::string
+string
 String_convert::vform_string (char const *format, va_list args)
 {
   char buffer[STRING_BUFFER_LEN];
   vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
-  return std::string (buffer);
+  return string (buffer);
 }
 
 /**
@@ -237,13 +237,13 @@ String_convert::vform_string (char const *format, va_list args)
 
    @param #fmt# is a printf style format, default assumes "%lf" as format
 */
-std::string
+string
 String_convert::double_string (double f, char const *fmt)
 {
   char buf[STRING_BUFFER_LEN];
 
   snprintf (buf, STRING_BUFFER_LEN, fmt ? fmt : "%f", f);
-  return std::string (buf);
+  return string (buf);
 }
 
 /**
@@ -252,30 +252,30 @@ String_convert::double_string (double f, char const *fmt)
    @param
    #n# is a repetition count, default value is 1
 */
-std::string
+string
 String_convert::char_string (char c, int n)
 {
   n = n >= 0 ? n : 0;
   char *ch = new char[ n ];
   memset (ch, c, n);
-  std::string s (ch, n);
+  string s (ch, n);
   
   delete[] ch;
   return s;
 }
 
-std::string
+string
 String_convert::rational_string (Rational r)
 {
   return r.to_string ();
 }
 
-std::string
+string
 String_convert::pointer_string (void const *l)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN, "%p", l); // assume radix 10
-  return std::string (buffer);
+  return string (buffer);
 }
 
 /**
@@ -284,11 +284,11 @@ String_convert::pointer_string (void const *l)
    @param
    #n# is the number of nonzero digits
 */
-std::string
+string
 String_convert::precision_string (double x, int n)
 {
-  std::string format = "%." + to_string (max (0, n - 1)) + "e";
-  std::string str = double_string (abs (x), format.c_str ());
+  string format = "%." + to_string (max (0, n - 1)) + "e";
+  string str = double_string (abs (x), format.c_str ());
 
   int exp = dec2int (str.substr (str.length () - 3));
   str = str.substr (0, str.length () - 4);
@@ -315,14 +315,14 @@ String_convert::precision_string (double x, int n)
   return (sign (x) > 0 ? str : "-" + str);
 }
 
-std::vector<std::string>
-String_convert::split (std::string str, char c)
+vector<string>
+String_convert::split (string str, char c)
 {
-  std::vector<std::string> a;
+  vector<string> a;
   ssize i = str.find (c);
   while (i != NPOS)
     {
-      std::string s = str.substr (0, i);
+      string s = str.substr (0, i);
       a.push_back (s);
       while (str[++i] == c)
 	;
@@ -334,7 +334,7 @@ String_convert::split (std::string str, char c)
   return a;
 }
 
-std::string
+string
 String_convert::long_string (long l)
 {
   char s[STRING_BUFFER_LEN];
@@ -342,7 +342,7 @@ String_convert::long_string (long l)
   return s;
 }
 
-std::string
+string
 String_convert::unsigned_string (unsigned u)
 {
   char s[STRING_BUFFER_LEN];
@@ -350,26 +350,26 @@ String_convert::unsigned_string (unsigned u)
   return s;
 }
 
-std::string
-String_convert::pad_to (std::string s, int n)
+string
+String_convert::pad_to (string s, int n)
 {
-  return s + std::string (max (int(n - s.length ()), 0), ' ');
+  return s + string (max (int(n - s.length ()), 0), ' ');
 }
 
-std::string
-String_convert::to_upper (std::string s)
+string
+String_convert::to_upper (string s)
 {
   return strnupr ((char *)s.c_str (), s.length ());
 }
 
-std::string
-String_convert::to_lower (std::string s)
+string
+String_convert::to_lower (string s)
 {
   return strnlwr ((char *)s.c_str (), s.length ());
 }
 
-std::string
-String_convert::reverse (std::string s)
+string
+String_convert::reverse (string s)
 {
   return (char*) memrev ((unsigned char *)s.data (), s.length ());
 }

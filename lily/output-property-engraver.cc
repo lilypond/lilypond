@@ -18,7 +18,7 @@ class Output_property_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Output_property_engraver);
 protected:
-  Link_array__Music_ props_;
+  vector<Music*> props_;
   DECLARE_ACKNOWLEDGER (grob)
 
   void stop_translation_timestep ();

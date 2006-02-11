@@ -32,7 +32,7 @@ protected:
   void start_translation_timestep ();
   void stop_translation_timestep ();
 
-  std::vector<Grob_pq_entry> started_now_;
+  vector<Grob_pq_entry> started_now_;
 };
 
 Grob_pq_engraver::Grob_pq_engraver ()

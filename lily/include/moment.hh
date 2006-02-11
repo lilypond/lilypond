@@ -46,7 +46,7 @@ public:
   /*
     Deliver a copy of THIS as a smobified SCM
   */
-  std::string to_string () const;
+  string to_string () const;
   static int compare (Moment const &, Moment const &);
   SCM as_scheme () const;
 };

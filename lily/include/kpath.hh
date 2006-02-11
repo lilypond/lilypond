@@ -11,7 +11,7 @@
 
 #include "std-string.hh"
 
-std::string kpathsea_find_tfm (char const *name);
+string kpathsea_find_tfm (char const *name);
 void initialize_kpathsea (char *av0);
 
 #endif /* KPATH_HH */

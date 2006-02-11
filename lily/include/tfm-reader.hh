@@ -20,24 +20,24 @@ class Tex_font_metric_reader
 private:
   Real get_U32_fix ();
   Real get_U32_fix_scaled ();
-  std::string get_bcpl_string ();
+  string get_bcpl_string ();
   void read_header ();
   void read_params ();
   void read_char_metrics ();
   Tex_font_char_metric read_char_metric (Char_code code);
   Tex_font_char_metric read_char ();
-  void read_lig_kern_program (std::vector<Tfm_ligature> *ligatures,
-			      std::vector<Tfm_kern> *kerns);
+  void read_lig_kern_program (vector<Tfm_ligature> *ligatures,
+			      vector<Tfm_kern> *kerns);
 
   Binary_source_file input_;
 
 public:
-  Tex_font_metric_reader (std::string name);
+  Tex_font_metric_reader (string name);
 
   Tfm_info info_;
   Tfm_header header_;
-  std::vector<Tex_font_char_metric> char_metrics_;
-  std::vector<vsize> ascii_to_metric_idx_;
+  vector<Tex_font_char_metric> char_metrics_;
+  vector<vsize> ascii_to_metric_idx_;
 };
 
 #endif /* TFM_READER_HH */

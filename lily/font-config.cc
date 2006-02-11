@@ -37,14 +37,14 @@ init_fontconfig ()
   if (!is_file ((char*)cache_file))
     message (_f ("Rebuilding FontConfig cache %s. this may take a while...", cache_file));
 			
-  std::vector<std::string> dirs;
+  vector<string> dirs;
 
   dirs.push_back (prefix_directory + "/fonts/otf/");
   dirs.push_back (prefix_directory + "/fonts/type1/");
   
   for (vsize i = 0; i < dirs.size (); i++)
     {
-      std::string dir = dirs[i];
+      string dir = dirs[i];
       if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.c_str ()))
 	error (_f ("adding font directory: %s", dir.c_str ()));
       else if (be_verbose_global)

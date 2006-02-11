@@ -29,7 +29,7 @@ protected:
 
 private:
   Music *rest_ev_;
-  Link_array__Music_ text_events_;
+  vector<Music*> text_events_;
   int start_measure_;
   Rational last_main_moment_;
   Moment stop_moment_;
@@ -39,8 +39,8 @@ private:
   Spanner *last_rest_;
   Spanner *mmrest_;
 
-  Link_array__Spanner_ numbers_;
-  Link_array__Spanner_ last_numbers_;
+  vector<Spanner*> numbers_;
+  vector<Spanner*> last_numbers_;
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()

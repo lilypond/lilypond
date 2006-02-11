@@ -17,7 +17,7 @@
 class Type_swallow_translator : public Translator
 {
 protected:
-  std::string swallow_string_;
+  string swallow_string_;
   bool try_music (Music *);
 public:
   VIRTUAL_COPY_CONS (Translator);

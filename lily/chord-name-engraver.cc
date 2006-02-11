@@ -31,7 +31,7 @@ private:
   void add_note (Music *);
 
   Item *chord_name_;
-  Link_array__Music_ notes_;
+  vector<Music*> notes_;
 
   SCM last_chord_;
 };

@@ -18,8 +18,8 @@
 */
 class Text_engraver : public Engraver
 {
-  Link_array__Music_ evs_;
-  Link_array__Item_ texts_;
+  vector<Music*> evs_;
+  vector<Item*> texts_;
 public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
 protected:

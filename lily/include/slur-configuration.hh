@@ -24,13 +24,13 @@ public:
   int index_;
 
 #if DEBUG_SLUR_SCORING
-  std::string score_card_;
+  string score_card_;
 #endif
 
   Slur_configuration ();
 
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf,
-		       std::vector<Offset> const &);
+		       vector<Offset> const &);
   void score (Slur_score_state const &);
 protected:
   void score_extra_encompass (Slur_score_state const &);

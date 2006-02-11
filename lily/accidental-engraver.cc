@@ -77,13 +77,13 @@ public:
     to store all information before we can really create the
     accidentals.
   */
-  std::vector<Grob*> left_objects_;
-  std::vector<Grob*> right_objects_;
+  vector<Grob*> left_objects_;
+  vector<Grob*> right_objects_;
 
   Grob *accidental_placement_;
 
-  std::vector<Accidental_entry> accidentals_;
-  std::vector<Spanner*> ties_;
+  vector<Accidental_entry> accidentals_;
+  vector<Spanner*> ties_;
 };
 
 /*
@@ -533,7 +533,7 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
       && note->is_mus_type ("note-event"))
     {
       /*
-	std::string harmonics usually don't have accidentals.
+	string harmonics usually don't have accidentals.
       */
       if (to_boolean (get_property ("harmonicAccidentals"))
 	  || !ly_is_equal (info.grob ()->get_property ("style"),

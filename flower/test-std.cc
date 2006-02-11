@@ -189,7 +189,7 @@ init_unit_test_suite (int, char**)
   vector<char*> w;
   binary_search_bounds (w, (char*)1, &default_compare, &i, &j);
   
-  test_suite *test = BOOST_TEST_SUITE("std::Flower");
+  test_suite *test = BOOST_TEST_SUITE("Flower");
   test->add (BOOST_TEST_CASE (vector_erase));
   test->add (BOOST_TEST_CASE (vector_slice));
   test->add (BOOST_TEST_CASE (vector_sorting));

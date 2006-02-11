@@ -87,19 +87,19 @@ ssize const SEPARATION = 5;
 /*
   Hmmm. should do in SCM / C++  ?
 */
-static std::string
+static string
 get_help_string ()
 {
   SCM alist = ly_hash2alist (option_hash);
   SCM convertor = ly_lily_module_constant ("scm->string");
 
-  std::vector<std::string> opts;
+  vector<string> opts;
 
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      std::string opt_spec
+      string opt_spec
 	= String_convert::char_string (' ', INDENT)
 	+ ly_symbol2string (sym)
 	+ " ("
@@ -116,28 +116,28 @@ get_help_string ()
 
       SCM opt_help_scm
 	= scm_object_property (sym, ly_symbol2scm ("program-option-documentation"));
-      std::string opt_help = ly_scm2string (opt_help_scm);
+      string opt_help = ly_scm2string (opt_help_scm);
       replace_all (opt_help,
-		   std::string ("\n"),
-		   std::string ("\n")
+		   string ("\n"),
+		   string ("\n")
 		   + String_convert::char_string (' ', HELP_INDENT));
 
       opts.push_back (opt_spec + opt_help + "\n");
     }
 
-  std::string help ("Options supported by ly:set-option\n\n");
+  string help ("Options supported by ly:set-option\n\n");
   vector_sort (opts, string_compare);
   for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
 
-  help += std::string ("\n");
+  help += string ("\n");
   return help;
 }
 
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
 	   "Print ly:set-option usage")
 {
-  std::string help = get_help_string ();
+  string help = get_help_string ();
   fputs (help.c_str (), stdout);
 
   exit (0);
@@ -176,8 +176,8 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
 
-  std::string varstr = ly_scm2string (scm_symbol_to_string (var));
-  if (varstr.substr (0, 3) == std::string ("no-"))
+  string varstr = ly_scm2string (scm_symbol_to_string (var));
+  if (varstr.substr (0, 3) == string ("no-"))
     {
       var = ly_symbol2scm (varstr.substr (3, varstr.length () -3).c_str ());
       val = scm_from_bool (!to_boolean (val));

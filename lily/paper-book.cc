@@ -104,7 +104,7 @@ Paper_book::output (SCM output_channel)
   if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);
 
-  std::string mod_nm = "scm framework-" + output_backend_global;
+  string mod_nm = "scm framework-" + output_backend_global;
 
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
   if (make_print)
@@ -144,8 +144,8 @@ Paper_book::classic_output (SCM output)
   if (ly_is_module (header_0_))
     scopes = scm_cons (header_0_, scopes);
 
-  std::string format = output_backend_global;
-  std::string mod_nm = "scm framework-" + format;
+  string format = output_backend_global;
+  string mod_nm = "scm framework-" + format;
 
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");

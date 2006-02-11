@@ -10,13 +10,13 @@
 
 #include "std-vector.hh"
 
-static std::vector<Global_ctor> *ctor_global_statics_;
+static vector<Global_ctor> *ctor_global_statics_;
 
 void
 add_constructor (Global_ctor c)
 {
   if (!ctor_global_statics_)
-    ctor_global_statics_ = new std::vector<Global_ctor>;
+    ctor_global_statics_ = new vector<Global_ctor>;
   ctor_global_statics_->push_back (c);
 }
 

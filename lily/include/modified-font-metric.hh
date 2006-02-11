@@ -15,14 +15,14 @@
 struct Modified_font_metric : public Font_metric
 {
 public:
-  Box text_dimension (std::string) const;
-  Stencil text_stencil (std::string) const;
+  Box text_dimension (string) const;
+  Stencil text_stencil (string) const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   vsize count () const;
   Offset get_indexed_wxwy (vsize) const;
-  Offset attachment_point (std::string) const;
-  vsize name_to_index (std::string) const;
+  Offset attachment_point (string) const;
+  vsize name_to_index (string) const;
   vsize index_to_charcode (vsize) const;
   Font_metric *original_font () const;
 
@@ -32,13 +32,13 @@ protected:
 
   Modified_font_metric (Font_metric *fm, Real magnification);
   SCM sub_fonts () const;
-  std::string font_name () const;
+  string font_name () const;
   Real design_size () const;
   void derived_mark () const;
   Box get_indexed_char (vsize) const;
   vsize index_to_ascii (vsize) const;
   Box get_ascii_char (vsize) const;
-  Box tex_kludge (std::string) const;
+  Box tex_kludge (string) const;
 };
 
 #endif /* MODIFIED_FONT_METRIC_HH */

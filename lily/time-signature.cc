@@ -54,7 +54,7 @@ Time_signature::print (SCM smob)
 Stencil
 Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 {
-  std::string style = ly_scm2string (scm_symbol_to_string (scm_style));
+  string style = ly_scm2string (scm_symbol_to_string (scm_style));
 
   if (style == "numbered")
     return numbered_time_signature (me, n, d);
@@ -70,7 +70,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 	return numbered_time_signature (me, n, d);
     }
 
-  std::string char_name = style + to_string (n) + to_string (d);
+  string char_name = style + to_string (n) + to_string (d);
   me->set_property ("font-encoding", ly_symbol2scm ("fetaMusic"));
   Stencil out = Font_interface::get_default_font (me)
     ->find_by_name ("timesig." + char_name);

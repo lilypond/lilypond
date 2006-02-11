@@ -40,8 +40,8 @@ public:
   TRANSLATOR_DECLARATIONS (Tuplet_engraver);
 
 protected:
-  std::vector<Tuplet_description> tuplets_;
-  Link_array__Spanner_ last_tuplets_;
+  vector<Tuplet_description> tuplets_;
+  vector<Spanner*> last_tuplets_;
   DECLARE_ACKNOWLEDGER (note_column);
   virtual bool try_music (Music *r);
   virtual void finalize ();

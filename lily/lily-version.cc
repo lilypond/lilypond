@@ -11,27 +11,27 @@
 #include "config.hh"
 #include "version.hh"
 
-std::string
+string
 version_string ()
 {
-  std::string str = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
-  std::string mpl ("." MY_PATCH_LEVEL);
+  string str = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
+  string mpl ("." MY_PATCH_LEVEL);
   if (mpl != ".")
     str += mpl;
   return str;
 }
 
-std::string
+string
 gnu_lilypond_string ()
 {
-  std::string str = "GNU LilyPond";
+  string str = "GNU LilyPond";
   return str;
 }
 
-std::string
+string
 gnu_lilypond_version_string ()
 {
-  std::string str = gnu_lilypond_string () + " " + version_string ();
+  string str = gnu_lilypond_string () + " " + version_string ();
   return str;
 }
 

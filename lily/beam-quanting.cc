@@ -62,7 +62,7 @@ struct Quant_score
   Real demerits;
 
 #if DEBUG_QUANTING
-  std::string score_card_;
+  string score_card_;
 #endif
 };
 
@@ -78,7 +78,7 @@ struct Quant_score
 */
 
 int
-best_quant_score_idx (std::vector<Quant_score> const &qscores)
+best_quant_score_idx (vector<Quant_score> const &qscores)
 {
   Real best = 1e6;
   int best_idx = -1;
@@ -123,8 +123,8 @@ Beam::quanting (SCM smob, SCM posns)
   Real quants [] = {straddle, sit, inter, hang };
 
   int num_quants = int (sizeof (quants) / sizeof (Real));
-  std::vector<Real> quantsl;
-  std::vector<Real> quantsr;
+  vector<Real> quantsl;
+  vector<Real> quantsr;
 
   /*
     going to REGION_SIZE == 2, yields another 0.6 second with
@@ -139,11 +139,11 @@ Beam::quanting (SCM smob, SCM posns)
     Do stem computations.  These depend on YL and YR linearly, so we can
     precompute for every stem 2 factors.
   */
-  Link_array__Grob_ stems
+  vector<Grob*> stems
     = extract_grob_array (me, "stems");
-  std::vector<Stem_info> stem_infos;
-  std::vector<Real> base_lengths;
-  std::vector<Real> stem_xposns;
+  vector<Stem_info> stem_infos;
+  vector<Real> base_lengths;
+  vector<Real> stem_xposns;
 
   Drul_array<bool> dirs_found (0, 0);
   Grob *common[2];
@@ -209,7 +209,7 @@ Beam::quanting (SCM smob, SCM posns)
 	quantsr.push_back (i + quants[j] + int (yr));
       }
 
-  std::vector<Quant_score> qscores;
+  vector<Quant_score> qscores;
 
   for (vsize l = 0; l < quantsl.size (); l++)
     for (vsize r = 0; r < quantsr.size (); r++)
@@ -327,10 +327,10 @@ Beam::quanting (SCM smob, SCM posns)
 }
 
 Real
-Beam::score_stem_lengths (Link_array__Grob_ const &stems,
-			  std::vector<Stem_info> const &stem_infos,
-			  std::vector<Real> const &base_stem_ys,
-			  std::vector<Real> const &stem_xs,
+Beam::score_stem_lengths (vector<Grob*> const &stems,
+			  vector<Stem_info> const &stem_infos,
+			  vector<Real> const &base_stem_ys,
+			  vector<Real> const &stem_xs,
 			  Real xl, Real xr,
 			  bool knee,
 			  Real yl, Real yr,

@@ -16,7 +16,7 @@ class Gregorian_ligature
 {
 public:
   static bool has_interface (Grob *);
-  static std::string prefixes_to_str (Grob *);
+  static string prefixes_to_str (Grob *);
 };
 
 /*

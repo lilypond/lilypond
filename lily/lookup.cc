@@ -227,7 +227,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * shrinked polygon). --jr
  */
 Stencil
-Lookup::round_filled_polygon (std::vector<Offset> const &points,
+Lookup::round_filled_polygon (vector<Offset> const &points,
 			      Real blotdiameter)
 {
   /* TODO: Maybe print a warning if one of the above limitations
@@ -256,7 +256,7 @@ Lookup::round_filled_polygon (std::vector<Offset> const &points,
     return Line_interface::make_line (blotdiameter, points[0], points[1]);
 
   /* shrink polygon in size by 0.5 * blotdiameter */
-  std::vector<Offset> shrunk_points;
+  vector<Offset> shrunk_points;
   shrunk_points.resize (points.size ());
   bool ccw = 1; // true, if three adjacent points are counterclockwise ordered
   for (vsize i = 0; i < points.size (); i++)
@@ -451,8 +451,8 @@ Stencil
 Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 {
   Stencil m;
-  std::string sym = ly_scm2string (scm_car (s));
-  std::string reg = ly_scm2string (scm_car (scm_cdr (s)));
+  string sym = ly_scm2string (scm_car (s));
+  string reg = ly_scm2string (scm_car (scm_cdr (s)));
 
   if (sym == "Discant")
     {
@@ -649,7 +649,7 @@ Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
 #if 0 /*  TODO */
-  std::vector<Offset> points;
+  vector<Offset> points;
   Real blotdiameter = 0.0;
 
   Offset p1 (0, 0);

@@ -72,10 +72,10 @@ public:
   
 static Real score_slopes_dy (Real, Real, Real, Real, Real, bool, Beam_quant_parameters const *);
 
-  static Real score_stem_lengths (Link_array__Grob_ const &stems,
-				  std::vector<Stem_info> const &stem_infos,
-				  std::vector<Real> const &base_stem_ys,
-				  std::vector<Real> const &stem_xs,
+  static Real score_stem_lengths (vector<Grob*> const &stems,
+				  vector<Stem_info> const &stem_infos,
+				  vector<Real> const &base_stem_ys,
+				  vector<Real> const &stem_xs,
 				  Real xl, Real xr,
 				  bool knee,
 				  Real yl, Real yr, Beam_quant_parameters const *);

@@ -86,7 +86,7 @@ print_header (void *out, FT_Face face)
 #define CHUNKSIZE 65534
 
 static void
-print_body (void *out, std::string name)
+print_body (void *out, string name)
 {
   FILE *fd = fopen (name.c_str (), "rb");
 
@@ -152,7 +152,7 @@ print_trailer (void *out,
 }
 
 static void
-create_type42_font (void *out, std::string name)
+create_type42_font (void *out, string name)
 {
   FT_Face face = open_ft_face (name);
 
@@ -170,7 +170,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
 {
   SCM_ASSERT_TYPE (scm_is_string (ttf_file_name), ttf_file_name,
 		   SCM_ARG1, __FUNCTION__, "string");
-  std::string file_name = ly_scm2string (ttf_file_name);
+  string file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)
     progress_indication ("[" + file_name);
 
@@ -196,7 +196,7 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
   SCM_ASSERT_TYPE (scm_is_string (ttf_file_name), ttf_file_name,
 		   SCM_ARG1, __FUNCTION__, "string");
 
-  std::string file_name = ly_scm2string (ttf_file_name);
+  string file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)
     progress_indication ("[" + file_name);
 

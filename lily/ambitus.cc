@@ -30,7 +30,7 @@ Ambitus::print (SCM smob)
       && heads.size () > 1)
     {
       Grob *common
-	= common_refpoint_of_array (Link_array__Grob_ (heads.begin (),
+	= common_refpoint_of_array (vector<Grob*> (heads.begin (),
 						       heads.begin () + 2),
 				    me, Y_AXIS);
 

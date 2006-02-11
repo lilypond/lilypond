@@ -34,7 +34,7 @@ struct Script_tuple
 
 class Script_engraver : public Engraver
 {
-  std::vector<Script_tuple> scripts_;
+  vector<Script_tuple> scripts_;
   Spanner *slur_;
 
 protected:

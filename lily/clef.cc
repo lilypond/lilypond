@@ -23,7 +23,7 @@ Clef::calc_glyph_name (SCM smob)
 
   if (scm_is_string (glyph))
     {
-      std::string str = ly_scm2string (glyph);
+      string str = ly_scm2string (glyph);
 
       if (to_boolean (s->get_property ("non-default"))
 	  && s->break_status_dir () != RIGHT
@@ -48,7 +48,7 @@ Clef::print (SCM smob)
   if (!scm_is_string (glyph_scm))
     return SCM_EOL;
 
-  std::string glyph = std::string (ly_scm2string (glyph_scm));
+  string glyph = string (ly_scm2string (glyph_scm));
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil out = fm->find_by_name (glyph);
   if (out.is_empty ())

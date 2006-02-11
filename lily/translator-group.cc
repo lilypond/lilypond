@@ -186,7 +186,7 @@ Translator_group::precompute_method_bindings ()
 void
 Translator_group::precomputed_translator_foreach (Translator_precompute_index idx)
 {
-  std::vector<Translator_method_binding> &bindings (precomputed_method_bindings_[idx]);
+  vector<Translator_method_binding> &bindings (precomputed_method_bindings_[idx]);
   for (vsize i = 0; i < bindings.size (); i++)
     bindings[i].invoke ();
 }

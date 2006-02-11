@@ -27,7 +27,7 @@ using namespace std;
   TODO: Add support for cubic spline segments.
 */
 Stencil
-brew_cluster_piece (Grob *me, std::vector<Offset> bottom_points, std::vector<Offset> top_points)
+brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_points)
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me) / 2;
 
@@ -38,7 +38,7 @@ brew_cluster_piece (Grob *me, std::vector<Offset> bottom_points, std::vector<Off
   Offset hvpadding = 0.5 * hpadding + vpadding;
 
   SCM shape_scm = me->get_property ("style");
-  std::string shape;
+  string shape;
 
   if (scm_is_symbol (shape_scm))
     shape = ly_symbol2string (shape_scm);
@@ -50,7 +50,7 @@ brew_cluster_piece (Grob *me, std::vector<Offset> bottom_points, std::vector<Off
     }
 
   Stencil out;
-  std::vector<Offset> points;
+  vector<Offset> points;
   points.clear ();
   int size = bottom_points.size ();
   if (shape == "leftsided-stairs")
@@ -133,7 +133,7 @@ Cluster::print (SCM smob)
 
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
 
-  Link_array__Grob_ const &cols = extract_grob_array (me, "columns");
+  vector<Grob*> const &cols = extract_grob_array (me, "columns");
   if (cols.empty ())
     {
       me->warning (_ ("junking empty cluster"));
@@ -144,8 +144,8 @@ Cluster::print (SCM smob)
 
   commonx = common_refpoint_of_array (cols, commonx, X_AXIS);
   Grob *commony = common_refpoint_of_array (cols, me, Y_AXIS);
-  std::vector<Offset> bottom_points;
-  std::vector<Offset> top_points;
+  vector<Offset> bottom_points;
+  vector<Offset> top_points;
 
   Real left_coord = left_bound->relative_coordinate (commonx, X_AXIS);
 
@@ -175,7 +175,7 @@ Cluster::print (SCM smob)
       if (spanner->get_break_index () < orig->broken_intos_.size () - 1)
 	{
 	  Spanner *next = orig->broken_intos_[spanner->get_break_index () + 1];
-	  Link_array__Grob_ const &next_cols = extract_grob_array (next, "columns");
+	  vector<Grob*> const &next_cols = extract_grob_array (next, "columns");
 	  if (next_cols.size () > 0)
 	    {
 	      Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);

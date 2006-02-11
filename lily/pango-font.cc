@@ -62,7 +62,7 @@ Pango_font::~Pango_font ()
 }
 
 void
-Pango_font::register_font_file (std::string filename, std::string ps_name)
+Pango_font::register_font_file (string filename, string ps_name)
 {
   scm_hash_set_x (physical_font_tab_,
 		  scm_makfrom0str (ps_name.c_str ()),
@@ -76,7 +76,7 @@ Pango_font::derived_mark () const
 }
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoItem const *item, std::string str) const
+Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
@@ -144,7 +144,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, std::string str) c
   char *file_name_as_ptr = 0;
   FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name_as_ptr);
 
-  std::string file_name;
+  string file_name;
   if (file_name_as_ptr)
     {
       /* Normalize file name.  */
@@ -156,7 +156,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, std::string str) c
   if (!ps_name_str0)
     warning (_f ("no PostScript font name for font `%s'", file_name));
 
-  std::string ps_name;
+  string ps_name;
   if (!ps_name_str0
       && file_name != ""
       && (file_name.find (".otf") != NPOS
@@ -164,7 +164,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, std::string str) c
     {
 
       /* UGH: kludge a PS name for OTF/CFF fonts.  */
-      std::string name = file_name;
+      string name = file_name;
       ssize idx = file_name.find (".otf");
       if (idx == NPOS)
 	idx = file_name.find (".cff");
@@ -179,7 +179,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, std::string str) c
 			      name.length () - slash_idx);
 	}
       
-      std::string initial = name.substr (0, 1);
+      string initial = name.substr (0, 1);
       initial = String_convert::to_upper (initial);
       name = name.substr (1, name.length () - 1);
       name = String_convert::to_lower (name);
@@ -213,7 +213,7 @@ Pango_font::physical_font_tab () const
 }
 
 Stencil
-Pango_font::text_stencil (std::string str) const
+Pango_font::text_stencil (string str) const
 {
   GList *items
     = pango_itemize (context_,

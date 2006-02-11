@@ -30,7 +30,7 @@ binomial_coefficient (Real over, int under)
 }
 
 void
-scale (std::vector<Offset> *array, Real x, Real y)
+scale (vector<Offset> *array, Real x, Real y)
 {
   for (vsize i = 0; i < array->size (); i++)
     {
@@ -40,7 +40,7 @@ scale (std::vector<Offset> *array, Real x, Real y)
 }
 
 void
-rotate (std::vector<Offset> *array, Real phi)
+rotate (vector<Offset> *array, Real phi)
 {
   Offset rot (complex_exp (Offset (0, phi)));
   for (vsize i = 0; i < array->size (); i++)
@@ -48,7 +48,7 @@ rotate (std::vector<Offset> *array, Real phi)
 }
 
 void
-translate (std::vector<Offset> *array, Offset o)
+translate (vector<Offset> *array, Offset o)
 {
   for (vsize i = 0; i < array->size (); i++)
     (*array)[i] += o;
@@ -67,7 +67,7 @@ Real
 Bezier::get_other_coordinate (Axis a, Real x) const
 {
   Axis other = Axis ((a +1) % NO_AXES);
-  std::vector<Real> ts = solve_point (a, x);
+  vector<Real> ts = solve_point (a, x);
 
   if (ts.size () == 0)
     {
@@ -169,8 +169,8 @@ Bezier::polynomial (Axis a) const
 /**
    Remove all numbers outside [0, 1] from SOL
 */
-std::vector<Real>
-filter_solutions (std::vector<Real> sol)
+vector<Real>
+filter_solutions (vector<Real> sol)
 {
   for (vsize i = sol.size (); i--;)
     if (sol[i] < 0 || sol[i] > 1)
@@ -181,7 +181,7 @@ filter_solutions (std::vector<Real> sol)
 /**
    find t such that derivative is proportional to DERIV
 */
-std::vector<Real>
+vector<Real>
 Bezier::solve_derivative (Offset deriv) const
 {
   Polynomial xp = polynomial (X_AXIS);
@@ -197,13 +197,13 @@ Bezier::solve_derivative (Offset deriv) const
 /*
   Find t such that curve_point (t)[AX] == COORDINATE
 */
-std::vector<Real>
+vector<Real>
 Bezier::solve_point (Axis ax, Real coordinate) const
 {
   Polynomial p (polynomial (ax));
   p.coefs_[0] -= coordinate;
 
-  std::vector<Real> sol (p.solve ());
+  vector<Real> sol (p.solve ());
   return filter_solutions (sol);
 }
 
@@ -217,7 +217,7 @@ Bezier::extent (Axis a) const
   Offset d;
   d[Axis (o)] = 1.0;
   Interval iv;
-  std::vector<Real> sols (solve_derivative (d));
+  vector<Real> sols (solve_derivative (d));
   sols.push_back (1.0);
   sols.push_back (0.0);
   for (vsize i = sols.size (); i--;)

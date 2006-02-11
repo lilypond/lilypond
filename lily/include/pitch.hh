@@ -57,7 +57,7 @@ public:
   int steps () const;
   int semitone_pitch () const;
   int quartertone_pitch () const;
-  std::string to_string () const;
+  string to_string () const;
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Pitch,);
@@ -82,7 +82,7 @@ DECLARE_UNSMOB (Pitch, pitch);
 
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
-int compare (std::vector<Pitch> *, std::vector<Pitch> *);
+int compare (vector<Pitch> *, vector<Pitch> *);
 extern SCM pitch_less_proc;
 Pitch pitch_interval (Pitch const &from, Pitch const &to);
 

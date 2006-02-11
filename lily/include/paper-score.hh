@@ -28,7 +28,7 @@ public:
   System *root_system () const;
 
   void typeset_system (System *);
-  std::vector<Column_x_positions> calc_breaking ();
+  vector<Column_x_positions> calc_breaking ();
 
   SCM get_paper_systems () const;
 protected:

@@ -174,7 +174,7 @@ Polynomial::check_sol (Real x) const
 }
 
 void
-Polynomial::check_sols (std::vector<Real> roots) const
+Polynomial::check_sols (vector<Real> roots) const
 {
   for (vsize i = 0; i < roots.size (); i++)
     check_sol (roots[i]);
@@ -203,10 +203,10 @@ iszero (Real r)
   return !r;
 }
 
-std::vector<Real>
+vector<Real>
 Polynomial::solve_cubic ()const
 {
-  std::vector<Real> sol;
+  vector<Real> sol;
 
   /* normal form: x^3 + Ax^2 + Bx + C = 0 */
   Real A = coefs_[2] / coefs_[3];
@@ -295,10 +295,10 @@ Polynomial::degree ()const
 /*
   all roots of quadratic eqn.
 */
-std::vector<Real>
+vector<Real>
 Polynomial::solve_quadric ()const
 {
-  std::vector<Real> sol;
+  vector<Real> sol;
   /* normal form: x^2 + px + q = 0 */
   Real p = coefs_[1] / (2 * coefs_[2]);
   Real q = coefs_[0] / coefs_[2];
@@ -316,16 +316,16 @@ Polynomial::solve_quadric ()const
 }
 
 /* solve linear equation */
-std::vector<Real>
+vector<Real>
 Polynomial::solve_linear ()const
 {
-  std::vector<Real> s;
+  vector<Real> s;
   if (coefs_[1])
     s.push_back (-coefs_[0] / coefs_[1]);
   return s;
 }
 
-std::vector<Real>
+vector<Real>
 Polynomial::solve () const
 {
   Polynomial *me = (Polynomial *) this;
@@ -340,7 +340,7 @@ Polynomial::solve () const
     case 3:
       return solve_cubic ();
     }
-  std::vector<Real> s;
+  vector<Real> s;
   return s;
 }
 

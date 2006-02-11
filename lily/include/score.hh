@@ -24,8 +24,8 @@ class Score : public Input
   SCM music_;
 
 public:
-  Link_array__Output_def_ defs_;
-  std::string user_key_;
+  vector<Output_def*> defs_;
+  string user_key_;
   SCM header_;
   bool error_found_;
 

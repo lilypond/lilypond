@@ -47,7 +47,7 @@ public:
   Output_def *parent_;
   
   Input input_origin_;
-  std::string user_key_;
+  string user_key_;
 
   Lily_parser *parser_;
   Lily_parser *get_parser () const;
@@ -58,7 +58,7 @@ public:
   /*
     variables.
    */
-  SCM c_variable (std::string id) const;
+  SCM c_variable (string id) const;
   SCM lookup_variable (SCM sym) const;
   void set_variable (SCM sym, SCM val);
   Real get_dimension (SCM symbol) const;

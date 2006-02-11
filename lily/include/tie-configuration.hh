@@ -40,7 +40,7 @@ public:
 
 INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
 
-typedef std::vector<Tie_configuration> Ties_configuration;
+typedef vector<Tie_configuration> Ties_configuration;
 
 #endif /* TIE_CONFIGURATION_HH */
 

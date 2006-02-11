@@ -41,7 +41,7 @@ public:
   SCM get_translator_names (SCM) const;
   void set_acceptor (SCM accepts, bool add);
 
-  Link_array__Context_def_ path_to_acceptable_context (SCM type_string,
+  vector<Context_def*> path_to_acceptable_context (SCM type_string,
 						      Output_def *) const;
   Context *instantiate (SCM extra_ops, Object_key const *);
 

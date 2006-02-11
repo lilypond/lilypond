@@ -51,10 +51,10 @@ LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
 
   char ctag [5] = "    ";
 
-  std::string tag_string = ly_scm2string (tag);
+  string tag_string = ly_scm2string (tag);
   strncpy (ctag, tag_string.c_str (), tag_string.length ());
 
-  std::string tab = otf->get_otf_table (std::string (ctag));
+  string tab = otf->get_otf_table (string (ctag));
 
   return scm_from_locale_stringn ((char const *) tab.data (), tab.length ());
 }

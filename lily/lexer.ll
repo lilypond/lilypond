@@ -57,21 +57,21 @@ RH 7 fix (?)
 */
 #define isatty HORRIBLEKLUDGE
 
-void strip_trailing_white (std::string&);
-void strip_leading_white (std::string&);
-std::string lyric_fudge (std::string s);
+void strip_trailing_white (string&);
+void strip_leading_white (string&);
+string lyric_fudge (string s);
 int music_function_type (SCM);
-SCM lookup_markup_command (std::string s);
-bool is_valid_version (std::string s);
+SCM lookup_markup_command (string s);
+bool is_valid_version (string s);
 
 
 #define start_quote()	\
 	yy_push_state (quote);\
-	yylval.string = new std::string
+	yylval.string = new string
 
 #define start_lyric_quote()	\
 	yy_push_state (lyric_quote);\
-	yylval.string = new std::string
+	yylval.string = new string
 
 #define yylval \
 	(*(YYSTYPE*)lexval)
@@ -87,7 +87,7 @@ LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 */
 
 
-SCM scan_fraction (std::string);
+SCM scan_fraction (string);
 SCM (* scm_parse_error_handler) (void *);
 
 
@@ -186,7 +186,7 @@ BOM_UTF8	\357\273\277
 	yy_push_state (sourcefilename);
 }
 <version>\"[^"]*\"     { /* got the version number */
-	std::string s (YYText () + 1);
+	string s (YYText () + 1);
 	s = s.substr (0, s.rfind ('\"'));
 
 	yy_pop_state ();
@@ -198,7 +198,7 @@ BOM_UTF8	\357\273\277
 
 }
 <sourcefilename>\"[^"]*\"     {
-	std::string s (YYText () + 1);
+	string s (YYText () + 1);
 	s = s.substr (0, s.rfind ('\"'));
 
 	yy_pop_state ();
@@ -250,14 +250,14 @@ BOM_UTF8	\357\273\277
 	yy_push_state (incl);
 }
 <incl>\"[^"]*\"   { /* got the include file name */
-	std::string s (YYText ()+1);
+	string s (YYText ()+1);
 	s = s.substr (0, s.rfind ('"'));
 
 	new_input (s, sources_);
 	yy_pop_state ();
 }
 <incl>\\{BLACK}*{WHITE} { /* got the include identifier */
-	std::string s = YYText () + 1;
+	string s = YYText () + 1;
 	strip_trailing_white (s);
 	if (s.length () && (s[s.length () - 1] == ';'))
 	  s = s.substr (0, s.length () - 1);
@@ -267,7 +267,7 @@ BOM_UTF8	\357\273\277
 		new_input (ly_scm2string (sid), sources_);
 		yy_pop_state ();
 	} else { 
-	    std::string msg (_f ("wrong or undefined identifier: `%s'", s ));
+	    string msg (_f ("wrong or undefined identifier: `%s'", s ));
 
 	    LexerError (msg.c_str ());
 	    SCM err = scm_current_error_port ();
@@ -349,15 +349,15 @@ BOM_UTF8	\357\273\277
 	}
 
 	{DIGIT}		{
-		yylval.i = String_convert::dec2int (std::string (YYText ()));
+		yylval.i = String_convert::dec2int (string (YYText ()));
 		return DIGIT;
 	}
 	{UNSIGNED}		{
-		yylval.i = String_convert::dec2int (std::string (YYText ()));
+		yylval.i = String_convert::dec2int (string (YYText ()));
 		return UNSIGNED;
 	}
 	{E_UNSIGNED}	{
-		yylval.i = String_convert::dec2int (std::string (YYText () +1));
+		yylval.i = String_convert::dec2int (string (YYText () +1));
 		return E_UNSIGNED;
 	}
 	\" {
@@ -380,7 +380,7 @@ BOM_UTF8	\357\273\277
 		yy_pop_state ();
 
 		/* yylval is union. Must remember STRING before setting SCM*/
-		std::string *sp = yylval.string;
+		string *sp = yylval.string;
 		yylval.scm = scm_makfrom0str (sp->c_str ());
 		delete sp;
 		return STRING;
@@ -401,7 +401,7 @@ BOM_UTF8	\357\273\277
 		yy_pop_state ();
 
 		/* yylval is union. Must remember STRING before setting SCM*/
-		std::string *sp = yylval.string;
+		string *sp = yylval.string;
 		yylval.scm = scm_makfrom0str (sp->c_str ());
 		delete sp;
 		return LYRICS_STRING;
@@ -420,7 +420,7 @@ BOM_UTF8	\357\273\277
 		return FRACTION;
 	}
 	{UNSIGNED}		{
-		yylval.i = String_convert::dec2int (std::string (YYText ()));
+		yylval.i = String_convert::dec2int (string (YYText ()));
 		return UNSIGNED;
 	}
 	{NOTECOMMAND}	{
@@ -428,7 +428,7 @@ BOM_UTF8	\357\273\277
 	}
 	{LYRICS} {
 		/* ugr. This sux. */
-		std::string s (YYText ()); 
+		string s (YYText ()); 
 		if (s == "__")
 			return yylval.i = EXTENDER;
 		if (s == "--")
@@ -460,7 +460,7 @@ BOM_UTF8	\357\273\277
 		return FRACTION;
 	}
 	{UNSIGNED}		{
-		yylval.i = String_convert::dec2int (std::string (YYText ()));
+		yylval.i = String_convert::dec2int (string (YYText ()));
 		return UNSIGNED;
 	}
 	\" {
@@ -495,7 +495,7 @@ BOM_UTF8	\357\273\277
 		return SCORE;
 	}
 	{MARKUPCOMMAND} {
-		std::string str (YYText () + 1);
+		string str (YYText () + 1);
 		SCM s = lookup_markup_command (str);
 
 		if (scm_is_pair (s) && scm_is_symbol (scm_cdr (s)) ) {
@@ -531,7 +531,7 @@ BOM_UTF8	\357\273\277
 		return YYText ()[0];
 	}
 	[^#{}"\\ \t\n\r\f]+ {
-		std::string s (YYText ()); 
+		string s (YYText ()); 
 
 		char c = s[s.length () - 1];
 		/* brace open is for not confusing dumb tools.  */
@@ -587,7 +587,7 @@ BOM_UTF8	\357\273\277
 }
 
 {UNSIGNED}	{
-	yylval.i = String_convert::dec2int (std::string (YYText ()));
+	yylval.i = String_convert::dec2int (string (YYText ()));
 	return UNSIGNED;
 }
 
@@ -637,7 +637,7 @@ BOM_UTF8	\357\273\277
 }
 
 <*>.		{
-	std::string msg = _f ("invalid character: `%c'", YYText ()[0]);
+	string msg = _f ("invalid character: `%c'", YYText ()[0]);
 	LexerError (msg.c_str ());
 	return YYText ()[0];
 }
@@ -699,7 +699,7 @@ Lily_lexer::identifier_type (SCM sid)
 
 
 int
-Lily_lexer::scan_escaped_word (std::string str)
+Lily_lexer::scan_escaped_word (string str)
 {
 	// use more SCM for this.
 
@@ -724,7 +724,7 @@ Lily_lexer::scan_escaped_word (std::string str)
 		return identifier_type (sid);
 	}
 
-	std::string msg (_f ("unknown escaped string: `\\%s'", str));	
+	string msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.c_str ());
 
 	yylval.scm = scm_makfrom0str (str.c_str ());
@@ -733,7 +733,7 @@ Lily_lexer::scan_escaped_word (std::string str)
 }
 
 int
-Lily_lexer::scan_bare_word (std::string str)
+Lily_lexer::scan_bare_word (string str)
 {
 	SCM sym = ly_symbol2scm (str.c_str ());
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
@@ -784,11 +784,11 @@ Lily_lexer::is_figure_state () const
 }
 
 /*
- urg, belong to std::string (_convert)
+ urg, belong to string (_convert)
  and should be generalised 
  */
 void
-strip_leading_white (std::string&s)
+strip_leading_white (string&s)
 {
 	ssize i = 0;
 	for (;  i < s.length (); i++)
@@ -799,7 +799,7 @@ strip_leading_white (std::string&s)
 }
 
 void
-strip_trailing_white (std::string&s)
+strip_trailing_white (string&s)
 {
 	ssize i = s.length ();	
 	while (i--) 
@@ -816,7 +816,7 @@ Lilypond_version oldest_version ("2.3.22");
 
 
 bool
-is_valid_version (std::string s)
+is_valid_version (string s)
 {
   Lilypond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
   Lilypond_version ver (s);
@@ -833,8 +833,8 @@ is_valid_version (std::string s)
 /*
   substitute _ and \,
 */
-std::string
-lyric_fudge (std::string s)
+string
+lyric_fudge (string s)
 {
   char *chars = string_copy (s);
 
@@ -844,7 +844,7 @@ lyric_fudge (std::string s)
 	*p = ' ';
     }
   
-  s = std::string (chars);
+  s = string (chars);
   delete[] chars;
 
   ssize i = 0;	
@@ -861,11 +861,11 @@ lyric_fudge (std::string s)
 Convert "NUM/DEN" into a '(NUM . DEN) cons.
 */
 SCM
-scan_fraction (std::string frac)
+scan_fraction (string frac)
 {
 	ssize i = frac.find ('/');
-	std::string left = frac.substr (0, i);
-	std::string right = frac.substr (i + 1, (frac.length () - i + 1));
+	string left = frac.substr (0, i);
+	string right = frac.substr (i + 1, (frac.length () - i + 1));
 
 	int n = String_convert::dec2int (left);
 	int d = String_convert::dec2int (right);
@@ -873,7 +873,7 @@ scan_fraction (std::string frac)
 }
 
 SCM
-lookup_markup_command (std::string s)
+lookup_markup_command (string s)
 {
 	SCM proc = ly_lily_module_constant ("lookup-markup-command");
 	return scm_call_1 (proc, scm_makfrom0str (s.c_str ()));

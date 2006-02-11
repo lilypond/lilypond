@@ -376,9 +376,9 @@ compare_paper_column_rank (Grob *const &a,
 }
 
 void
-Simple_spacer_wrapper::add_columns (Link_array__Grob_ const &icols)
+Simple_spacer_wrapper::add_columns (vector<Grob*> const &icols)
 {
-  Link_array__Grob_ cols (icols);
+  vector<Grob*> cols (icols);
   cols.clear ();
 
   for (vsize i = 0; i < icols.size (); i++)

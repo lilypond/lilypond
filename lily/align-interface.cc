@@ -89,13 +89,13 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 
   extract_grob_set (me, "elements", elem_source);
 
-  Link_array__Grob_ elems (elem_source); // writable..
+  vector<Grob*> elems (elem_source); // writable..
 
   Real where_f = 0;
 
   Interval v;
   v.set_empty ();
-  std::vector<Real> translates;
+  vector<Real> translates;
 
   for (vsize j = elems.size (); j--;)
     {
@@ -160,8 +160,8 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   Interval threshold = robust_scm2interval (me->get_property ("threshold"),
 					    Interval (0, Interval::infinity ()));
 
-  std::vector<Interval> dims;
-  Link_array__Grob_ elems;
+  vector<Interval> dims;
+  vector<Grob*> elems;
 
   extract_grob_set (me, "elements", all_grobs);
   for (vsize i = 0; i < all_grobs.size (); i++)
@@ -196,7 +196,7 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
 				   : SCM_EOL,
 				   extra_space);
   
-  std::vector<Real> translates;
+  vector<Real> translates;
   for (vsize j = 0; j < elems.size (); j++)
     {
       Real dy = -dims[j][-stacking_dir];
@@ -233,7 +233,7 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   /*
     also move the grobs that were empty, to maintain spatial order.
   */
-  std::vector<Real> all_translates;
+  vector<Real> all_translates;
   if (translates.size ())
     {
       Real w = translates[0];

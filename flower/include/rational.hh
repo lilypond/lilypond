@@ -69,7 +69,7 @@ public:
   Rational &operator %= (Rational);
   static int compare (Rational const &, Rational const &);
   int sign () const;
-  std::string to_string () const;
+  string to_string () const;
 };
 
 #include "arithmetic-operator.hh"

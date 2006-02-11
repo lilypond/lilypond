@@ -29,13 +29,13 @@ Grob_array::Grob_array ()
   ordered_ = false;
 }
 
-Link_array__Grob_ &
+vector<Grob*> &
 Grob_array::array_reference ()
 {
   return grobs_;
 }
 
-Link_array__Grob_ const &
+vector<Grob*> const &
 Grob_array::array () const
 {
   return grobs_;
@@ -89,7 +89,7 @@ Grob_array::empty () const
 }
 
 void
-Grob_array::set_array (Link_array__Grob_ const &src)
+Grob_array::set_array (vector<Grob*> const &src)
 {
   grobs_ = src;
 }

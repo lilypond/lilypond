@@ -25,11 +25,11 @@ Audio_element_info::Audio_element_info ()
   origin_trans_ = 0;
 }
 
-Link_array__Context_
+vector<Context*>
 Audio_element_info::origin_contexts (Translator *end) const
 {
   Context *t = origin_trans_->context ();
-  Link_array__Context_ r;
+  vector<Context*> r;
   do
     {
       r.push_back (t);

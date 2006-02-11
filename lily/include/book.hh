@@ -20,7 +20,7 @@ class Book : public Input
   DECLARE_SMOBS (Book, foo);
 
 public:
-  std::string user_key_;
+  string user_key_;
   SCM header_;
   Output_def *paper_;
   SCM scores_;

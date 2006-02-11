@@ -25,7 +25,7 @@ void ly_add_function_documentation (SCM func,
   if (!doc_hash_table)
     doc_hash_table = scm_permanent_object (scm_c_make_hash_table (59));
 
-  std::string s = std::string (" - ") + "LilyPond procedure: " + fname + " " + varlist
+  string s = string (" - ") + "LilyPond procedure: " + fname + " " + varlist
     + "\n" + doc;
 
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),

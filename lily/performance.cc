@@ -89,8 +89,8 @@ Performance::output_header_track (Midi_stream &midi_stream)
   midi_track.channel_ = 9;
 
   // perhaps multiple text events?
-  std::string id_string;
-  std::string str = std::string (_ ("Creator: "));
+  string id_string;
+  string str = string (_ ("Creator: "));
   id_string = String_convert::pad_to (gnu_lilypond_version_string (), 30);
   str += id_string;
 
@@ -150,7 +150,7 @@ Performance::add_element (Audio_element *p)
 }
 
 void
-Performance::write_output (std::string out)
+Performance::write_output (string out)
 {
   if (out == "-")
     out = "lelie.midi";

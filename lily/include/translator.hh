@@ -27,7 +27,7 @@ struct Acknowledge_information
   NAME ();								\
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);				\
   static SCM static_description_;					\
-  static std::vector<Acknowledge_information> acknowledge_static_array_;	\
+  static vector<Acknowledge_information> acknowledge_static_array_;	\
   virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]); \
   virtual SCM static_translator_description () const;			\
   virtual SCM translator_description () const;				\

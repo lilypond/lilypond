@@ -113,10 +113,10 @@ Paper_column::print (SCM p)
 {
   Grob *me = unsmob_grob (p);
 
-  std::string r = to_string (Paper_column::get_rank (me));
+  string r = to_string (Paper_column::get_rank (me));
 
   Moment *mom = unsmob_moment (me->get_property ("when"));
-  std::string when = mom ? mom->to_string () : "?/?";
+  string when = mom ? mom->to_string () : "?/?";
 
   SCM properties = Font_interface::text_font_alist_chain (me);
 
@@ -157,7 +157,7 @@ Paper_column::before_line_breaking (SCM grob)
   if (!ga)
     return SCM_UNSPECIFIED;
 
-  Link_array__Grob_ &array (ga->array_reference ());
+  vector<Grob*> &array (ga->array_reference ());
 
   for (vsize i = array.size (); i--;)
     {

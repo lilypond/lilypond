@@ -26,11 +26,11 @@ using namespace std;
 */
 class Tab_note_heads_engraver : public Engraver
 {
-  Link_array__Item_ notes_;
+  vector<Item*> notes_;
 
-  Link_array__Item_ dots_;
-  Link_array__Music_ note_events_;
-  Link_array__Music_ tabstring_events_;
+  vector<Item*> dots_;
+  vector<Music*> note_events_;
+  vector<Music*> tabstring_events_;
 public:
   TRANSLATOR_DECLARATIONS (Tab_note_heads_engraver);
 

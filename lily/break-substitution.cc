@@ -139,12 +139,12 @@ do_break_substitution (SCM src)
 /*
   Perform substitution on GROB_LIST using a constant amount of stack.
 */
-Link_array__Grob_ temporary_substition_array;
+vector<Grob*> temporary_substition_array;
 void
 substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
 {
-  Link_array__Grob_ &old_grobs (grob_arr->array_reference ());
-  Link_array__Grob_ *new_grobs (new_arr == grob_arr
+  vector<Grob*> &old_grobs (grob_arr->array_reference ());
+  vector<Grob*> *new_grobs (new_arr == grob_arr
 			       ? & temporary_substition_array
 			       : &new_arr->array_reference ());
 
@@ -356,15 +356,15 @@ Spanner::fast_substitute_grob_array (SCM sym,
   qsort (vec, item_index,
 	 sizeof (Substitution_entry), &Substitution_entry::item_compare);
 
-  std::vector<Slice> item_indices;
-  std::vector<Slice> spanner_indices;
+  vector<Slice> item_indices;
+  vector<Slice> spanner_indices;
   for (int i = 0; i <= system_range.length (); i++)
     {
       item_indices.push_back (Slice (len, 0));
       spanner_indices.push_back (Slice (len, 0));
     }
 
-  std::vector<Slice> *arrs[]
+  vector<Slice> *arrs[]
     = {
     &item_indices, &spanner_indices
   };

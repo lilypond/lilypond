@@ -35,10 +35,10 @@ log_2 (double x)
   return log (x) / log (2.0);
 }
 
-std::vector<std::string>
-split_string (std::string s, char c)
+vector<string>
+split_string (string s, char c)
 {
-  std::vector<std::string> rv;
+  vector<string> rv;
   while (s.length ())
     {
       ssize i = s.find (c);

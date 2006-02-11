@@ -66,7 +66,7 @@ Modified_font_metric::count () const
 }
 
 Offset
-Modified_font_metric::attachment_point (std::string s) const
+Modified_font_metric::attachment_point (string s) const
 {
   Offset o = orig_->attachment_point (s);
   return o * magnification_;
@@ -80,7 +80,7 @@ Modified_font_metric::get_indexed_wxwy (vsize k) const
 }
 
 vsize
-Modified_font_metric::name_to_index (std::string s) const
+Modified_font_metric::name_to_index (string s) const
 {
   return orig_->name_to_index (s);
 }
@@ -104,7 +104,7 @@ Modified_font_metric::derived_mark () const
 
 /* TODO: put this klutchness behind ly:option switch.  */
 Box
-Modified_font_metric::tex_kludge (std::string text) const
+Modified_font_metric::tex_kludge (string text) const
 {
   Interval ydims;
   Real w = 0;
@@ -159,7 +159,7 @@ Modified_font_metric::tex_kludge (std::string text) const
 }
 
 Stencil
-Modified_font_metric::text_stencil (std::string text) const
+Modified_font_metric::text_stencil (string text) const
 {
   Box b;
   if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))
@@ -177,7 +177,7 @@ Modified_font_metric::text_stencil (std::string text) const
 }
 
 Box
-Modified_font_metric::text_dimension (std::string text) const
+Modified_font_metric::text_dimension (string text) const
 {
   SCM stext = scm_makfrom0str (text.c_str ());
   Box b = lookup_tex_text_dimension (orig_, stext);
@@ -223,7 +223,7 @@ Modified_font_metric::sub_fonts () const
   return orig_->sub_fonts ();
 }
 
-std::string
+string
 Modified_font_metric::font_name () const
 {
   return original_font ()->font_name ();

@@ -37,8 +37,8 @@ public:
 private:
   Item *create_custos ();
   bool custos_permitted_;
-  Link_array__Grob_ custodes_;
-  std::vector<Pitch> pitches_;
+  vector<Grob*> custodes_;
+  vector<Pitch> pitches_;
 };
 
 Custos_engraver::Custos_engraver ()

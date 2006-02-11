@@ -13,7 +13,7 @@
 class Grid_line_span_engraver : public Engraver
 {
   Item *spanline_;
-  Link_array__Item_ lines_;
+  vector<Item*> lines_;
 
 public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);

@@ -20,7 +20,7 @@
   (1 << 20)
 static const Real fix_to_real (Fix f);
 
-Tex_font_metric_reader::Tex_font_metric_reader (std::string name)
+Tex_font_metric_reader::Tex_font_metric_reader (string name)
   : input_ (name)
 {
 
@@ -55,11 +55,11 @@ Tex_font_metric_reader::get_U32_fix_scaled ()
   return get_U32_fix () * info_.design_size;
 }
 
-std::string
+string
 Tex_font_metric_reader::get_bcpl_string ()
 {
   U8 length_u8 = input_.get_U8 ();
-  std::string str = input_.get_string (length_u8);
+  string str = input_.get_string (length_u8);
   return str;
 }
 
@@ -255,7 +255,7 @@ Tex_font_metric_reader::read_char ()
 #define KERN_FLAG 128
 
 void
-Tex_font_metric_reader::read_lig_kern_program (std::vector<Tfm_ligature> *ligatures, std::vector<Tfm_kern> *kerns)
+Tex_font_metric_reader::read_lig_kern_program (vector<Tfm_ligature> *ligatures, vector<Tfm_kern> *kerns)
 {
   bool end_b;
 

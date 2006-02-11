@@ -15,7 +15,7 @@
 class Engraver_group : public virtual Translator_group
 {
 protected:
-  std::vector<Grob_info> announce_infos_;
+  vector<Grob_info> announce_infos_;
   SCM acknowledge_hash_table_;
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Engraver_group);

@@ -105,15 +105,15 @@ Interval_t<T>::intersect (Interval_t<T> h)
 }
 
 template<class T>
-std::string
+string
 Interval_t<T>::to_string () const
 {
   if (is_empty ())
     return "[empty]";
-  std::string s ("[");
+  string s ("[");
 
-  return (s + T_to_string (at (LEFT)) + std::string (",")
-	  + T_to_string (at (RIGHT)) + std::string ("]"));
+  return (s + T_to_string (at (LEFT)) + string (",")
+	  + T_to_string (at (RIGHT)) + string ("]"));
 }
 
 template<class T>

@@ -197,7 +197,7 @@ vaticana_brew_primitive (Grob *me)
       return Stencil ();
     }
 
-  std::string glyph_name = ly_scm2string (glyph_name_scm);
+  string glyph_name = ly_scm2string (glyph_name_scm);
 
   Stencil out;
   Real thickness = robust_scm2double (me->get_property ("thickness"), 1);

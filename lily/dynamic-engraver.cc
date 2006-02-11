@@ -55,8 +55,8 @@ class Dynamic_engraver : public Engraver
 
   Drul_array<Music *> accepted_spanevents_drul_;
 
-  Link_array__Note_column_ pending_columns_;
-  Link_array__Grob_ pending_elements_;
+  vector<Note_column*> pending_columns_;
+  vector<Grob*> pending_elements_;
 
   void typeset_all ();
 
@@ -187,7 +187,7 @@ Dynamic_engraver::process_music ()
     {
       if (current_cresc_ev_)
 	{
-	  std::string msg = _ ("already have a decrescendo");
+	  string msg = _ ("already have a decrescendo");
 	  if (current_cresc_ev_->is_mus_type ("decrescendo-event"))
 	    msg = _ ("already have a crescendo");
 
@@ -205,7 +205,7 @@ Dynamic_engraver::process_music ()
 	    TODO: Use symbols.
 	  */
 
-	  std::string start_type
+	  string start_type
 	    = ly_symbol2string (current_cresc_ev_->get_property ("name"));
 
 	  /*

@@ -60,17 +60,17 @@ Duration::get_length () const
   return mom * factor_;
 }
 
-std::string
+string
 Duration::to_string () const
 {
-  std::string s;
+  string s;
 
   if (durlog_ < 0)
-    s = "log = " + std::to_string (durlog_);
+    s = "log = " + ::to_string (durlog_);
   else
-    s = std::to_string (1 << durlog_);
+    s = ::to_string (1 << durlog_);
 
-  s += std::to_string ('.', dots_);
+  s += ::to_string ('.', dots_);
   if (factor_ != Moment (Rational (1, 1)))
     s += "*" + factor_.to_string ();
   return s;

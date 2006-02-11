@@ -10,7 +10,7 @@
 #include "directional-element-interface.hh"
 
 bool
-is_concave_single_notes (std::vector<int> const &positions, Direction beam_dir)
+is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
 {
   Interval covering;
   covering.add_point (positions[0]);
@@ -57,7 +57,7 @@ is_concave_single_notes (std::vector<int> const &positions, Direction beam_dir)
 }
 
 Real
-calc_positions_concaveness (std::vector<int> const &positions, Direction beam_dir)
+calc_positions_concaveness (vector<int> const &positions, Direction beam_dir)
 {
   Real dy = positions.back () - positions[0];
   Real slope = dy / Real (positions.size () - 1);
@@ -87,7 +87,7 @@ Beam::calc_concaveness (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  Link_array__Grob_ stems
+  vector<Grob*> stems
     = extract_grob_array (me, "stems");
 
   if (is_knee (me))
@@ -108,8 +108,8 @@ Beam::calc_concaveness (SCM smob)
   if (stems.size () <= 2)
     return SCM_UNSPECIFIED;
 
-  std::vector<int> close_positions;
-  std::vector<int> far_positions;
+  vector<int> close_positions;
+  vector<int> far_positions;
   for (vsize i = 0; i < stems.size (); i++)
     {
       /*

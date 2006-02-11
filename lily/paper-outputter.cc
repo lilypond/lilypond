@@ -29,13 +29,13 @@ using namespace std;
 
 #include "ly-smobs.icc"
 
-Paper_outputter::Paper_outputter (SCM port, std::string format)
+Paper_outputter::Paper_outputter (SCM port, string format)
 {
   file_ = port;
   output_module_ = SCM_EOL;
   smobify_self ();
 
-  std::string module_name = "scm output-" + format;
+  string module_name = "scm output-" + format;
   output_module_ = scm_c_resolve_module (module_name.c_str ());
 }
 

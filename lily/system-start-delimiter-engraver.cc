@@ -32,7 +32,7 @@ public:
 struct Bracket_nesting_group : public Bracket_nesting_node
 {
   Spanner *delimiter_;
-  Link_array__Bracket_nesting_node_ children_;
+  vector<Bracket_nesting_node*> children_;
   SCM symbol_;
 
   void from_list (SCM ); 

@@ -21,9 +21,9 @@ public:
 protected:
   Gregorian_ligature_engraver ();
   virtual bool try_music (Music *);
-  virtual void build_ligature (Spanner *ligature, std::vector<Grob_info> primitives);
+  virtual void build_ligature (Spanner *ligature, vector<Grob_info> primitives);
   virtual void transform_heads (Spanner *ligature,
-				std::vector<Grob_info> primitives) = 0;
+				vector<Grob_info> primitives) = 0;
   void stop_translation_timestep ();
 };
 

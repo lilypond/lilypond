@@ -28,7 +28,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
-  std::string m = ly_scm2string (msg);
+  string m = ly_scm2string (msg);
   ip->message (m);
 
   return SCM_UNSPECIFIED;

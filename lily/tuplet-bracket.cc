@@ -72,7 +72,7 @@ flatten_number_pair_property (Grob *me,
 
 
 Grob *
-Tuplet_bracket::parallel_beam (Grob *me_grob, Link_array__Grob_ const &cols, bool *equally_long)
+Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols, bool *equally_long)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
 
@@ -521,7 +521,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
 
-  std::vector<Offset> points;
+  vector<Offset> points;
   points.push_back (Offset (x0 - x0, staff[dir]));
   points.push_back (Offset (x1 - x0, staff[dir]));
 

@@ -88,7 +88,7 @@ Glissando_engraver::finalize ()
 {
   if (line_)
     {
-      std::string msg = _ ("unterminated glissando");
+      string msg = _ ("unterminated glissando");
 
       if (event_)
 	event_->origin ()->warning (msg);

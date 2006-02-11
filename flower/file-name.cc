@@ -36,8 +36,8 @@ using namespace std;
 #endif
 
 #ifdef __CYGWIN__
-static std::string
-dos_to_posix (std::string file_name)
+static string
+dos_to_posix (string file_name)
 {
   char buf[PATH_MAX] = "";
   char *s = file_name.get_copy_str0 ();
@@ -55,34 +55,34 @@ dos_to_posix (std::string file_name)
 #if 0
 static /* avoid warning */
 #endif 
-std::string
-slashify (std::string file_name)
+string
+slashify (string file_name)
 {
   replace_all (file_name, '\\', '/');
-  replace_all (file_name, std::string ("//"), "/");
+  replace_all (file_name, string ("//"), "/");
   return file_name;
 }
 
 /* Join components to full file_name. */
-std::string
+string
 File_name::to_string () const
 {
-  std::string s;
+  string s;
   if (!root_.empty ())
-    s = root_ + std::to_string (ROOTSEP);
+    s = root_ + ::to_string (ROOTSEP);
   if (!dir_.empty ())
     {
       s += dir_;
       if (!base_.empty () || !ext_.empty ())
-	s += std::to_string (DIRSEP);
+	s += ::to_string (DIRSEP);
     }
   s += base_;
   if (!ext_.empty ())
-    s += std::to_string (EXTSEP) + ext_;
+    s += ::to_string (EXTSEP) + ext_;
   return s;
 }
 
-File_name::File_name (std::string file_name)
+File_name::File_name (string file_name)
 {
 #ifdef __CYGWIN__
   /* All system functions would work, even if we do not convert to

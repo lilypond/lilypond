@@ -26,9 +26,9 @@ public:
   /// factory
   static Midi_item *get_midi (Audio_item *a);
 
-  static std::string i2varint_string (int i);
+  static string i2varint_string (int i);
 
-  virtual std::string to_string () const = 0;
+  virtual string to_string () const = 0;
 
   int channel_;
 };
@@ -43,7 +43,7 @@ public:
 
   Moment delta_mom_;
   Midi_item *midi_;
-  std::string to_string () const;
+  string to_string () const;
 };
 
 /**
@@ -52,15 +52,15 @@ public:
 class Midi_chunk : public Midi_item
 {
 public:
-  void set (std::string header_string, std::string data_string, std::string footer_string);
-  virtual std::string to_string () const;
-  virtual std::string data_string () const;
+  void set (string header_string, string data_string, string footer_string);
+  virtual string to_string () const;
+  virtual string data_string () const;
   DECLARE_CLASSNAME(Midi_chunk);
 
 private:
-  std::string data_string_;
-  std::string footer_string_;
-  std::string header_string_;
+  string data_string_;
+  string footer_string_;
+  string header_string_;
 };
 
 class Midi_duration : public Midi_item
@@ -68,7 +68,7 @@ class Midi_duration : public Midi_item
 public:
   Midi_duration (Real seconds_f);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
   Real seconds_;
 };
 
@@ -89,7 +89,7 @@ public:
   Midi_instrument (Audio_instrument *);
 
   DECLARE_CLASSNAME(Midi_instrument);
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_instrument *audio_;
 };
@@ -100,7 +100,7 @@ public:
   Midi_key (Audio_key *);
   DECLARE_CLASSNAME(Midi_key);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_key *audio_;
 };
@@ -111,7 +111,7 @@ public:
   Midi_time_signature (Audio_time_signature *);
   DECLARE_CLASSNAME(Midi_time_signature);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_time_signature *audio_;
   int clocks_per_1_;
@@ -129,7 +129,7 @@ public:
   Moment get_length () const;
   int get_pitch () const;
   int get_fine_tuning () const;
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_note *audio_;
 
@@ -146,7 +146,7 @@ public:
   Midi_note_off (Midi_note *);
   DECLARE_CLASSNAME(Midi_note_off);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Midi_note *on_;
   Byte aftertouch_byte_;
@@ -164,7 +164,7 @@ public:
 
   Midi_text (Audio_text *);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_text *audio_;
 };
@@ -175,7 +175,7 @@ public:
   Midi_dynamic (Audio_dynamic *);
   DECLARE_CLASSNAME(Midi_dynamic);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_dynamic *audio_;
 };
@@ -186,7 +186,7 @@ public:
   Midi_piano_pedal (Audio_piano_pedal *);
   DECLARE_CLASSNAME(Midi_piano_pedal);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_piano_pedal *audio_;
 };
@@ -197,7 +197,7 @@ public:
   Midi_tempo (Audio_tempo *);
   DECLARE_CLASSNAME(Midi_tempo);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_tempo *audio_;
 };
@@ -216,7 +216,7 @@ public:
   Midi_track ();
 
   void add (Moment delta_time_mom, Midi_item *midi);
-  virtual std::string data_string () const;
+  virtual string data_string () const;
 };
 
 #endif // MIDI_ITEM_HH

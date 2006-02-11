@@ -22,7 +22,7 @@ Context_specced_music_iterator::construct_children ()
 {
   SCM ct = get_music ()->get_property ("context-type");
 
-  std::string c_id;
+  string c_id;
   SCM ci = get_music ()->get_property ("context-id");
   if (scm_is_string (ci))
     c_id = ly_scm2string (ci);

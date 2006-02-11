@@ -269,18 +269,18 @@ Rational::operator -= (Rational r)
   return (*this += r);
 }
 
-std::string
+string
 Rational::to_string () const
 {
   if (is_infinity ())
     {
-      std::string s (sign_ > 0 ? "" : "-");
-      return std::string (s + "infinity");
+      string s (sign_ > 0 ? "" : "-");
+      return string (s + "infinity");
     }
 
-  std::string s = std::to_string (num ());
+  string s = ::to_string (num ());
   if (den () != 1 && num ())
-    s += "/" + std::to_string (den ());
+    s += "/" + ::to_string (den ());
   return s;
 }
 

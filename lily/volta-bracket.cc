@@ -119,7 +119,7 @@ Volta_bracket_interface::after_line_breaking (SCM smob)
   Grob *endbar = bars.size () ? bars.back () : 0;
   SCM glyph = endbar ? endbar->get_property ("glyph") : SCM_EOL;
 
-  std::string str;
+  string str;
   if (scm_is_string (glyph))
     str = ly_scm2string (glyph);
   else

@@ -15,16 +15,19 @@ template<class K, class V> struct Hash_table;
 template<class K, class V> struct Hash_table_iter;
 
 typedef unsigned char Byte;
-namespace std {
-  struct String_data;
-  struct String_handle;
-  //template<class T> struct Array;
-  template<class T> struct Link_array;
-}
 struct String_convert;
 
+#if 0
+namespace std {
+struct string;
+template<typename T> struct vector;
+}
+#else
 #include "std-string.hh"
 #include "std-vector.hh"
+#endif
+using namespace std;
+
 #include "real.hh"
 
 template<class T> struct Link_list;

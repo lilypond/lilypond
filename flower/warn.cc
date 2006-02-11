@@ -20,7 +20,7 @@ static bool progress_newline = true;
 
 /* Display user information that is not a full message.  */
 void
-progress_indication (std::string s)
+progress_indication (string s)
 {
   /* Test if all silly progress_indication ("\n") can be dropped now.  */
   if (s == "\n")
@@ -34,7 +34,7 @@ progress_indication (std::string s)
 
 /* Display a single user message.  Always starts on a new line.  */
 void
-message (std::string s)
+message (string s)
 {
   if (!progress_newline)
     fputc ('\n', stderr);
@@ -43,27 +43,27 @@ message (std::string s)
 
 /* Display a warning message.  Always starts on a new line.  */
 void
-warning (std::string s)
+warning (string s)
 {
   message (_f ("warning: %s", s.c_str ()) + "\n");
 }
 
 void
-non_fatal_error (std::string s)
+non_fatal_error (string s)
 {
   message (_f ("error: %s", s.c_str ()) + "\n");
 }
 
 /* Display an error message.  Always starts on a new line.  */
 void
-error (std::string s)
+error (string s)
 {
   non_fatal_error (s);
   exit (1);
 }
 
 void
-programming_error (std::string s)
+programming_error (string s)
 {
   message (_f ("programming error: %s", s) + "\n");
   message (_ ("continuing, cross fingers") + "\n");

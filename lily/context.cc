@@ -124,7 +124,7 @@ Context::create_unique_context (SCM n, SCM operations)
   /*
     TODO: use accepts_list_.
   */
-  Link_array__Context_def_ path
+  vector<Context_def*> path
     = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
 
   if (path.size ())
@@ -161,7 +161,7 @@ Context::create_unique_context (SCM n, SCM operations)
 }
 
 Context *
-Context::find_create_context (SCM n, std::string id, SCM operations)
+Context::find_create_context (SCM n, string id, SCM operations)
 {
   /*
     Don't create multiple score contexts.
@@ -182,7 +182,7 @@ Context::find_create_context (SCM n, std::string id, SCM operations)
   /*
     TODO: use accepts_list_.
   */
-  Link_array__Context_def_ path
+  vector<Context_def*> path
     = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
 
   if (path.size ())
@@ -194,7 +194,7 @@ Context::find_create_context (SCM n, std::string id, SCM operations)
 	{
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
-	  std::string this_id = "";
+	  string this_id = "";
 	  if (i == path.size () -1)
 	    this_id = id;
 
@@ -224,10 +224,10 @@ Context::find_create_context (SCM n, std::string id, SCM operations)
 
 Context *
 Context::create_context (Context_def *cdef,
-			 std::string id,
+			 string id,
 			 SCM ops)
 {
-  std::string type = ly_symbol2string (cdef->get_context_name ());
+  string type = ly_symbol2string (cdef->get_context_name ());
   Object_key const *key = get_context_key (type, id);
   Context *new_context
     = cdef->instantiate (ops, key);
@@ -240,12 +240,12 @@ Context::create_context (Context_def *cdef,
 }
 
 Object_key const *
-Context::get_context_key (std::string type, std::string id)
+Context::get_context_key (string type, string id)
 {
   if (!use_object_keys)
     return 0;
 
-  std::string now_key = type + "@" + id;
+  string now_key = type + "@" + id;
 
   int disambiguation_count = 0;
   if (context_counts_.find (now_key) != context_counts_.end ())
@@ -260,7 +260,7 @@ Context::get_context_key (std::string type, std::string id)
 }
 
 Object_key const *
-Context::get_grob_key (std::string name)
+Context::get_grob_key (string name)
 {
   if (!use_object_keys)
     return 0;
@@ -273,7 +273,7 @@ Context::get_grob_key (std::string name)
   unique identifier for each (book,score) tuple.
 */
 Object_key const *
-Context::create_grob_key (std::string name)
+Context::create_grob_key (string name)
 {
   int disambiguation_count = 0;
   if (grob_counts_.find (name) != grob_counts_.end ())
@@ -314,7 +314,7 @@ Context::get_default_interpreter ()
       SCM nm = default_child_context_name ();
       SCM st = find_context_def (get_output_def (), nm);
 
-      std::string name = ly_symbol2string (nm);
+      string name = ly_symbol2string (nm);
       Context_def *t = unsmob_context_def (st);
       if (!t)
 	{
@@ -425,7 +425,7 @@ Context::remove_context (Context *trans)
 */
 Context *
 find_context_below (Context *where,
-		    SCM type, std::string id)
+		    SCM type, string id)
 {
   if (where->is_alias (type))
     {
@@ -458,7 +458,7 @@ Context::context_name_symbol () const
   return td->get_context_name ();
 }
 
-std::string
+string
 Context::context_name () const
 {
   return ly_symbol2string (context_name_symbol ());

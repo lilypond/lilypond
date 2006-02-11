@@ -60,7 +60,7 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
   else
     spacer.my_solve_linelen ();
 
-  std::vector<Real> posns;
+  vector<Real> posns;
   posns.push_back (0.0);
   for (vsize i = 0; i < spacer.springs_.size (); i++)
     {

@@ -35,7 +35,7 @@
  * - collapse superflous space after each ligature (TODO).
  *
  * Concrete subclasses must implement function build_ligature (Spanner
- * *, std::vector<Grob_info>).  This function is responsible for actually
+ * *, vector<Grob_info>).  This function is responsible for actually
  * building the ligature by transforming the array of noteheads.
  *
  * Currently, there are two subclasses: Gregorian_ligature_engraver
@@ -116,7 +116,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
       return;
     }
 
-  std::string name = parent->name ();
+  string name = parent->name ();
   if (name != "PaperColumn")
     {
       // Change column not only for targeted item (NoteColumn), but
@@ -159,13 +159,13 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
  * occurs within the broken ligatures any more.
  */
 void
-Coherent_ligature_engraver::collect_accidentals (Spanner *, std::vector<Grob_info>)
+Coherent_ligature_engraver::collect_accidentals (Spanner *, vector<Grob_info>)
 {
   /* TODO */
 }
 
 void
-compute_delta_pitches (std::vector<Grob_info> primitives)
+compute_delta_pitches (vector<Grob_info> primitives)
 {
   int prev_pitch = 0;
   int delta_pitch = 0;
@@ -190,7 +190,7 @@ compute_delta_pitches (std::vector<Grob_info> primitives)
 
 void
 Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
-					      std::vector<Grob_info> primitives)
+					      vector<Grob_info> primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties

@@ -29,11 +29,11 @@
 
 
 int
-sane_putenv (char const *key, std::string value, bool overwrite)
+sane_putenv (char const *key, string value, bool overwrite)
 {
   if (overwrite || !getenv (key))
     {
-      std::string combine = std::string (key) + "=" + value;
+      string combine = string (key) + "=" + value;
       char *s = strdup (combine.c_str ());
       return putenv (s);
     }
@@ -42,7 +42,7 @@ sane_putenv (char const *key, std::string value, bool overwrite)
 }
 
 static int
-set_env_file (char const *key, std::string value, bool overwrite = false)
+set_env_file (char const *key, string value, bool overwrite = false)
 {
   if (is_file (value))
     return sane_putenv (key, value, overwrite);
@@ -52,7 +52,7 @@ set_env_file (char const *key, std::string value, bool overwrite = false)
 }
 
 static int
-set_env_dir (char const *key, std::string value)
+set_env_dir (char const *key, string value)
 {
   if (is_dir (value))
     return sane_putenv (key, value, false);
@@ -62,7 +62,7 @@ set_env_dir (char const *key, std::string value)
 }
 
 static int
-prepend_env_path (char const *key, std::string value)
+prepend_env_path (char const *key, string value)
 {
   if (is_dir (value))
     {
@@ -79,10 +79,10 @@ prepend_env_path (char const *key, std::string value)
   return -1;
 }
 
-std::string
-dir_name (std::string const file_name)
+string
+dir_name (string const file_name)
 {
-  std::string s = file_name;
+  string s = file_name;
   replace_all (s, '\\', '/');
   ssize n = s.length ();
   if (n && s[n - 1] == '/')
@@ -96,17 +96,17 @@ dir_name (std::string const file_name)
 #endif
 
 void
-prefix_relocation (std::string prefix)
+prefix_relocation (string prefix)
 {
   if (be_verbose_global)
     warning (_f ("Relocation: compile prefix=%s, new prefix=%s",
 		 prefix_directory,
 		 prefix.c_str ()));
   
-  std::string bindir = prefix + "/bin";
-  std::string datadir = prefix + "/share";
-  std::string localedir = datadir + "/locale";
-  std::string lilypond_datadir = datadir + "/lilypond/";
+  string bindir = prefix + "/bin";
+  string datadir = prefix + "/share";
+  string localedir = datadir + "/locale";
+  string lilypond_datadir = datadir + "/lilypond/";
 
   if (is_dir (lilypond_datadir + "/" + TOPLEVEL_VERSION))
     prefix_directory = lilypond_datadir + "/" + TOPLEVEL_VERSION;
@@ -122,15 +122,15 @@ prefix_relocation (std::string prefix)
 }
 
 void
-framework_relocation (std::string prefix)
+framework_relocation (string prefix)
 {
   if (be_verbose_global)
     warning (_f ("Relocation: framework_prefix=%s", prefix));
 
-  std::string bindir = prefix + "/bin";
-  std::string datadir = prefix + "/share";
-  std::string libdir = prefix + "/lib";
-  std::string sysconfdir = prefix + "/etc";
+  string bindir = prefix + "/bin";
+  string datadir = prefix + "/share";
+  string libdir = prefix + "/lib";
+  string sysconfdir = prefix + "/etc";
 
   /* need otherwise dynamic .so's aren't found.   */
   prepend_env_path ("DYLD_LIBRARY_PATH", libdir);
@@ -163,13 +163,13 @@ framework_relocation (std::string prefix)
   prepend_env_path ("PATH", bindir);
 }
 
-std::string
+string
 get_working_directory ()
 {
   char cwd[PATH_MAX];
   getcwd (cwd, PATH_MAX);
 
-  return std::string (cwd);
+  return string (cwd);
 }
 
 void
@@ -181,18 +181,18 @@ setup_paths (char const *argv0_ptr)
   if (relocate_binary
       && getenv ("LILYPOND_RELOCATE_PREFIX"))
     {
-      std::string prefix = getenv ("LILYPOND_RELOCATE_PREFIX");
+      string prefix = getenv ("LILYPOND_RELOCATE_PREFIX");
 #ifdef __MINGW32__
       /* Normalize file name.  */
       prefix = File_name (prefix).to_string ();
 #endif /* __MINGW32__ */
       prefix_relocation (prefix);
-      std::string bindir = prefix + "/bin";
+      string bindir = prefix + "/bin";
       framework_relocation (bindir + "/" FRAMEWORKDIR);
     }
   else if (relocate_binary)
     {
-      std::string argv0_abs;
+      string argv0_abs;
       if (argv0_filename.is_absolute ())
 	{
 	  argv0_abs = argv0_filename.to_string ();
@@ -202,7 +202,7 @@ setup_paths (char const *argv0_ptr)
       else if (argv0_filename.dir_.length ())
 	{
 	  argv0_abs = get_working_directory ()
-	    + "/" + std::string (argv0_filename.to_string ());
+	    + "/" + string (argv0_filename.to_string ());
 	  if (be_verbose_global)
 	    warning (_f ("Relocation: from cwd: argv0=%s", argv0_ptr));
 	}
@@ -227,12 +227,12 @@ setup_paths (char const *argv0_ptr)
 	    programming_error ("can't find absolute argv0.");
 	}
 
-      std::string bindir = dir_name (argv0_abs);
-      std::string argv0_prefix = dir_name (bindir);
-      std::string compile_prefix = dir_name (dir_name (dir_name (prefix_directory)));
+      string bindir = dir_name (argv0_abs);
+      string argv0_prefix = dir_name (bindir);
+      string compile_prefix = dir_name (dir_name (dir_name (prefix_directory)));
       if (argv0_prefix != compile_prefix)
 	prefix_relocation (argv0_prefix);
-      if (argv0_prefix != compile_prefix || std::string (FRAMEWORKDIR) != "..")
+      if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
 	framework_relocation (bindir + "/" FRAMEWORKDIR);
     }
 
@@ -263,8 +263,8 @@ setup_paths (char const *argv0_ptr)
   */
   
   struct stat statbuf;
-  std::string build_prefix_current = prefix_directory + "/share/lilypond/" "current";
-  std::string build_prefix_version = prefix_directory + "/share/lilypond/" TOPLEVEL_VERSION;
+  string build_prefix_current = prefix_directory + "/share/lilypond/" "current";
+  string build_prefix_version = prefix_directory + "/share/lilypond/" TOPLEVEL_VERSION;
   if (stat (build_prefix_version.c_str (), &statbuf) == 0)
     prefix_directory = build_prefix_version;
   else if (stat (build_prefix_current.c_str (), &statbuf) == 0)
@@ -276,10 +276,10 @@ setup_paths (char const *argv0_ptr)
   char *suffixes[] = {"ly", "ps", "scm", 0 };
 
   
-  std::vector<std::string> dirs;
+  vector<string> dirs;
   for (char **s = suffixes; *s; s++)
     {
-      std::string path = prefix_directory + to_string ('/') + std::string (*s);
+      string path = prefix_directory + to_string ('/') + string (*s);
       dirs.push_back (path);
     }
 

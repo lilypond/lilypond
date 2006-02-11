@@ -159,7 +159,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 	Beam::add_stem (beam_, s);
       else
 	{
-	  std::string s = _ ("stem must have Rhythmic structure");
+	  string s = _ ("stem must have Rhythmic structure");
 	  if (info.music_cause ())
 	    info.music_cause ()->origin ()->warning (s);
 	  else

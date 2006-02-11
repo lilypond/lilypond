@@ -631,11 +631,11 @@ Slur_score_state::move_away_from_staffline (Real y,
   return y;
 }
 
-std::vector<Offset>
+vector<Offset>
 Slur_score_state::generate_avoid_offsets () const
 {
-  std::vector<Offset> avoid;
-  Link_array__Grob_ encompasses = columns_;
+  vector<Offset> avoid;
+  vector<Grob*> encompasses = columns_;
 
   for (vsize i = 0; i < encompasses.size (); i++)
     {
@@ -684,15 +684,15 @@ Slur_score_state::generate_curves () const
   Real r_0 = robust_scm2double (slur_->get_property ("ratio"), 0.33);
   Real h_inf = staff_space_ * scm_to_double (slur_->get_property ("height-limit"));
 
-  std::vector<Offset> avoid = generate_avoid_offsets ();
+  vector<Offset> avoid = generate_avoid_offsets ();
   for (vsize i = 0; i < configurations_.size (); i++)
     configurations_[i]->generate_curve (*this, r_0, h_inf, avoid);
 }
 
-Link_array__Slur_configuration_
+vector<Slur_configuration*>
 Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 {
-  Link_array__Slur_configuration_ scores;
+  vector<Slur_configuration*> scores;
 
   Drul_array<Offset> os;
   os[LEFT] = base_attachments_[LEFT];
@@ -780,11 +780,11 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
   return scores;
 }
 
-std::vector<Extra_collision_info>
+vector<Extra_collision_info>
 Slur_score_state::get_extra_encompass_infos () const
 {
   extract_grob_set (slur_, "encompass-objects", encompasses);
-  std::vector<Extra_collision_info> collision_infos;
+  vector<Extra_collision_info> collision_infos;
   for (vsize i = encompasses.size (); i--;)
     {
       if (Slur::has_interface (encompasses[i]))

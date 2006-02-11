@@ -20,9 +20,9 @@ using namespace std;
 
 class Note_heads_engraver : public Engraver
 {
-  Link_array__Item_ notes_;
-  Link_array__Item_ dots_;
-  Link_array__Music_ note_evs_;
+  vector<Item*> notes_;
+  vector<Item*> dots_;
+  vector<Music*> note_evs_;
 
 public:
   TRANSLATOR_DECLARATIONS (Note_heads_engraver);

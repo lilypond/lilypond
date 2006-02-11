@@ -119,7 +119,7 @@ Prob::get_property_alist (bool m) const
   return (m) ? mutable_property_alist_ : immutable_property_alist_;
 }
 
-std::string
+string
 Prob::name () const
 {
   SCM nm = get_property ("name");

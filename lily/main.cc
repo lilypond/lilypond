@@ -49,22 +49,22 @@ using namespace std;
  */
 
 /* Names of header fields to be dumped to a separate file. */
-std::vector<std::string> dump_header_fieldnames_global;
+vector<string> dump_header_fieldnames_global;
 
 /* Name of initialisation file. */
-std::string init_name_global;
+string init_name_global;
 
 /* Selected output backend
    One of (gnome, ps [default], eps, scm, svg, tex, texstr)") */
-std::string output_backend_global = "ps";
+string output_backend_global = "ps";
 /* Output formats to generate.  */
-std::string output_format_global = "";
+string output_format_global = "";
 
 bool is_pango_format_global;
 bool is_TeX_format_global;
 
 /* Current output name. */
-std::string output_name_global;
+string output_name_global;
 
 /* Run in safe mode? */
 bool be_safe_global = false;
@@ -77,8 +77,8 @@ bool be_verbose_global = false;
 
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
-std::string init_scheme_code_string;
-std::string init_scheme_variables;
+string init_scheme_code_string;
+string init_scheme_variables;
 
 /* Generate preview of first system.  */
 bool make_preview = false;
@@ -136,10 +136,10 @@ static char const *WARRANTY
 /* Where the init files live.  Typically:
    LILYPOND_DATADIR = /usr/share/lilypond
 */
-std::string prefix_directory;
+string prefix_directory;
 
 /* The jail specification: USER,GROUP,JAIL,DIR. */
-std::string jail_spec;
+string jail_spec;
 
 /*  The option parser */
 static Getopt_long *option_parser = 0;
@@ -276,9 +276,9 @@ warranty ()
 }
 
 static void
-prepend_load_path (std::string dir)
+prepend_load_path (string dir)
 {
-  std::string s = "(set! %load-path (cons \"" + dir + "\" %load-path))";
+  string s = "(set! %load-path (cons \"" + dir + "\" %load-path))";
   scm_c_eval_string (s.c_str ());
 }
 
@@ -300,7 +300,7 @@ do_chroot_jail ()
       USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
     };
 
-  std::vector<std::string> components = String_convert::split (jail_spec, ',');
+  vector<string> components = String_convert::split (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
       error (_f ("expected %d arguments with jail, found: %d", JAIL_MAX,
@@ -451,7 +451,7 @@ setup_localisation ()
      Disable localisation of float values.  This breaks TeX output.  */
   setlocale (LC_NUMERIC, "C");
 
-  std::string localedir = LOCALEDIR;
+  string localedir = LOCALEDIR;
   if (char const *env = getenv ("LILYPOND_LOCALEDIR"))
     localedir = env;
 
@@ -461,7 +461,7 @@ setup_localisation ()
 }
 
 static void
-add_output_format (std::string format)
+add_output_format (string format)
 {
   if (output_format_global != "")
     output_format_global += ",";
@@ -478,27 +478,27 @@ parse_argv (int argc, char **argv)
       switch (opt->shortname_char_)
 	{
 	case 0:
-	  if (std::string (opt->longname_str0_) == "dvi"
-	      || std::string (opt->longname_str0_) == "pdf"
-	      || std::string (opt->longname_str0_) == "png"
-	      || std::string (opt->longname_str0_) == "ps"
-	      || std::string (opt->longname_str0_) == "tex")
+	  if (string (opt->longname_str0_) == "dvi"
+	      || string (opt->longname_str0_) == "pdf"
+	      || string (opt->longname_str0_) == "png"
+	      || string (opt->longname_str0_) == "ps"
+	      || string (opt->longname_str0_) == "tex")
 	    add_output_format (opt->longname_str0_);
-	  else if (std::string (opt->longname_str0_) == "preview")
+	  else if (string (opt->longname_str0_) == "preview")
 	    make_preview = true;
-	  else if (std::string (opt->longname_str0_) == "no-pages")
+	  else if (string (opt->longname_str0_) == "no-pages")
 	    make_print = false;
-	  else if (std::string (opt->longname_str0_) == "relocate")
+	  else if (string (opt->longname_str0_) == "relocate")
 	    relocate_binary = true;
 	  break;
 
 	case 'd':
 	  {
-	    std::string arg (option_parser->optional_argument_str0_);
+	    string arg (option_parser->optional_argument_str0_);
 	    ssize eq = arg.find ('=');
 
-	    std::string key = arg;
-	    std::string val = "#t";
+	    string key = arg;
+	    string val = "#t";
 
 	    if (eq != NPOS)
 	      {
@@ -517,7 +517,7 @@ parse_argv (int argc, char **argv)
 	  break;
 	case 'o':
 	  {
-	    std::string s = option_parser->optional_argument_str0_;
+	    string s = option_parser->optional_argument_str0_;
 	    File_name file_name (s);
 	    output_name_global = file_name.to_string ();
 	  }

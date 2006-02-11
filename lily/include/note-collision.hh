@@ -26,10 +26,10 @@
 class Note_collision_interface
 {
 public:
-  static SCM automatic_shift (Grob *, Drul_array<Link_array__Grob_ >);
+  static SCM automatic_shift (Grob *, Drul_array<vector<Grob*> >);
   static SCM forced_shift (Grob *);
 
-  static Drul_array<Link_array__Grob_ > get_clash_groups (Grob *me);
+  static Drul_array<vector<Grob*> > get_clash_groups (Grob *me);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM smob));
   static void add_column (Grob *me, Grob *ncol);
   static bool has_interface (Grob *);

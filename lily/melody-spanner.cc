@@ -31,7 +31,7 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
   
   extract_grob_set (me, "stems", stems);
 
-  std::vector<Direction> dirs;
+  vector<Direction> dirs;
   for (vsize i = 0; i < stems.size (); i++)
     dirs.push_back (to_dir (stems[i]->get_property ("default-direction")));
 

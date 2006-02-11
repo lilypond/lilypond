@@ -243,7 +243,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   Music *m = info.ultimate_music_cause ();
   if (!m->is_mus_type ("rhythmic-event"))
     {
-      std::string s = _ ("stem must have Rhythmic structure");
+      string s = _ ("stem must have Rhythmic structure");
       if (info.music_cause ())
 	info.music_cause ()->origin ()->warning (s);
       else

@@ -40,26 +40,26 @@ Pointer_group_interface::add_grob (Grob *me, SCM sym, Grob *p)
   arr->add (p);
 }
 
-static Link_array__Grob_ empty_array;
+static vector<Grob*> empty_array;
 
-Link_array__Grob_ const &
+vector<Grob*> const &
 ly_scm2link_array (SCM x)
 {
   Grob_array *arr = unsmob_grob_array (x);
   return arr ? arr->array () : empty_array;
 }
 
-Link_array__Grob_ const &
+vector<Grob*> const &
 internal_extract_grob_array (Grob const *elt, SCM symbol)
 {
   return ly_scm2link_array (elt->internal_get_object (symbol));
 }
 
-Link_array__Item_
+vector<Item*>
 internal_extract_item_array (Grob const *elt, SCM symbol)
 {
   Grob_array *arr = unsmob_grob_array (elt->internal_get_object (symbol));
-  Link_array__Item_ items;
+  vector<Item*> items;
   for (vsize i = 0; arr && i < arr->size (); i++)
     items.push_back (arr->item (i));
 

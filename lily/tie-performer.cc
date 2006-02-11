@@ -17,8 +17,8 @@ class Tie_performer : public Performer
 {
   Music *event_;
   Music *last_event_;
-  std::vector<Audio_element_info> now_heads_;
-  std::vector<Audio_element_info> heads_to_tie_;
+  vector<Audio_element_info> now_heads_;
+  vector<Audio_element_info> heads_to_tie_;
 
   bool ties_created_;
 

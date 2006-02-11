@@ -30,8 +30,8 @@ private:
   int iterator_count_;
   bool init_;
 
-  map<std::string, int> grob_counts_;
-  map<std::string, int> context_counts_;
+  map<string, int> grob_counts_;
+  map<string, int> context_counts_;
 
 protected:
   Object_key const *key_;
@@ -43,19 +43,19 @@ protected:
   SCM accepts_list_;
   SCM aliases_;
   Translator_group *implementation_;
-  std::string id_string_;
+  string id_string_;
 
   friend class Context_def;
   void clear_key_disambiguations ();
 
 public:
   Object_key const *key () const { return key_; }
-  Object_key const *create_grob_key (std::string);
-  Object_key const *get_grob_key (std::string);
-  Object_key const *get_context_key (std::string, std::string);
+  Object_key const *create_grob_key (string);
+  Object_key const *get_grob_key (string);
+  Object_key const *get_context_key (string, string);
 
-  Context *create_context (Context_def *, std::string, SCM);
-  std::string id_string () const { return id_string_; }
+  Context *create_context (Context_def *, string, SCM);
+  string id_string () const { return id_string_; }
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
 
@@ -72,7 +72,7 @@ public:
 
   Context *remove_context (Context *trans);
   void check_removal ();
-  std::string context_name () const;
+  string context_name () const;
   SCM context_name_symbol () const;
   Global_context *get_global_context () const;
 
@@ -89,10 +89,10 @@ public:
   bool try_music (Music *);
 
   Context *find_create_context (SCM context_name,
-				std::string id, SCM ops);
+				string id, SCM ops);
   Context *create_unique_context (SCM context_name,
 				  SCM ops);
-  Link_array__Context_ path_to_acceptable_context (SCM alias,
+  vector<Context*> path_to_acceptable_context (SCM alias,
 						  Output_def *) const;
 };
 
@@ -106,7 +106,7 @@ void execute_general_pushpop_property (Context *context,
 				       SCM context_property, SCM grob_property_path, SCM val);
 SCM updated_grob_properties (Context *tg, SCM sym);
 Context *find_context_below (Context *where,
-			     SCM type_sym, std::string id);
+			     SCM type_sym, string id);
 bool melisma_busy (Context *);
 
 Context *get_voice_to_lyrics (Context *lyrics);

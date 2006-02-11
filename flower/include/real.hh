@@ -13,7 +13,7 @@
 #include <climits>
 
 /*
-  MacOS 10.3 uses g++ 3.3 which doesn't have std::isinf()
+  MacOS 10.3 uses g++ 3.3 which doesn't have isinf()
  */
 // #include <cmath>
 #include <math.h>

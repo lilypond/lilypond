@@ -59,12 +59,12 @@ Tie_formatting_problem::~Tie_formatting_problem ()
 }
 
 void
-Tie_formatting_problem::set_chord_outline (Link_array__Item_ bounds,
+Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
 					   Direction d)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (bounds[0]);
 
-  std::vector<Box> boxes;
+  vector<Box> boxes;
 
   Grob *stem = 0;
   for (vsize i = 0; i < bounds.size (); i++)
@@ -163,7 +163,7 @@ Tie_formatting_problem::set_chord_outline (Link_array__Item_ bounds,
 void
 Tie_formatting_problem::from_tie (Grob *tie)
 {
-  Link_array__Grob_ ties;
+  vector<Grob*> ties;
   ties.push_back (tie);
   from_ties (ties);
 
@@ -177,7 +177,7 @@ Tie_formatting_problem::common_x_refpoint () const
 }
 
 void
-Tie_formatting_problem::from_ties (Link_array__Grob_ const &ties)
+Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
 {
   if (ties.empty ())
     return;
@@ -194,7 +194,7 @@ Tie_formatting_problem::from_ties (Link_array__Grob_ const &ties)
   Direction d = LEFT;
   do
     {
-      Link_array__Item_ bounds;
+      vector<Item*> bounds;
       
       for (vsize i = 0; i < ties.size (); i++)
 	{
@@ -231,13 +231,13 @@ Tie_formatting_problem::from_ties (Link_array__Grob_ const &ties)
 }
 
 void
-Tie_formatting_problem::from_lv_ties (Link_array__Grob_ const &lv_ties)
+Tie_formatting_problem::from_lv_ties (vector<Grob*> const &lv_ties)
 {
   if (lv_ties.empty ())
     return;
   
   details_.from_grob (lv_ties[0]);
-  Link_array__Item_ heads;
+  vector<Item*> heads;
   
   for (vsize i = 0; i < lv_ties.size (); i++)
     {
@@ -477,7 +477,7 @@ Tie_formatting_problem::score_configuration (Tie_configuration const &conf) cons
 Tie_configuration
 Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const &spec) const
 {
-  Link_array__Tie_configuration_ confs;
+  vector<Tie_configuration*> confs;
 
   int pos = spec.position_;
   Direction dir = spec.manual_dir_;
@@ -488,7 +488,7 @@ Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const 
       confs.push_back (generate_configuration (pos + i * dir, dir));
     }
 
-  std::vector<Real> scores;
+  vector<Real> scores;
 
   int best_idx = -1;
   Real best_score = 1e6;
@@ -663,7 +663,7 @@ Ties_configuration
 Tie_formatting_problem::generate_optimal_chord_configuration ()
 {
   Ties_configuration base = generate_base_chord_configuration ();
-  std::vector<Tie_configuration_variation> vars = get_variations (base);
+  vector<Tie_configuration_variation> vars = get_variations (base);
 
   Ties_configuration best = base;
   Real best_score = score_ties (best);
@@ -737,12 +737,12 @@ Tie_configuration_variation::Tie_configuration_variation ()
   suggestion_ = 0;
 }
 
-std::vector<Tie_configuration_variation>
+vector<Tie_configuration_variation>
 Tie_formatting_problem::get_variations (Ties_configuration const &ties) 
 {
   Real center_distance_tolerance = 0.25;
   
-  std::vector<Tie_configuration_variation> vars;
+  vector<Tie_configuration_variation> vars;
   Real last_center = 0.0;
   for (vsize i = 0; i < ties.size (); i++)
     {
