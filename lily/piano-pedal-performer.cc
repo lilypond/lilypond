@@ -36,7 +36,7 @@ protected:
   void start_translation_timestep ();
 
 private:
-  Link_array__Audio_piano_pedal_ audios_;
+  vector<Audio_piano_pedal*> audios_;
   Pedal_info *info_alist_;
 };
 
@@ -79,11 +79,11 @@ Piano_pedal_performer::process_music ()
       if (p->event_drul_[STOP])
 	{
 	  if (!p->start_event_)
-	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", std::string (p->name_)));
+	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", string (p->name_)));
 	  else
 	    {
 	      Audio_piano_pedal *a = new Audio_piano_pedal;
-	      a->type_string_ = std::string (p->name_);
+	      a->type_string_ = string (p->name_);
 	      a->dir_ = STOP;
 	      audios_.push_back (a);
               Audio_element_info info(a, p->event_drul_[STOP]);
@@ -96,7 +96,7 @@ Piano_pedal_performer::process_music ()
 	{
 	  p->start_event_ = p->event_drul_[START];
 	  Audio_piano_pedal *a = new Audio_piano_pedal;
-	  a->type_string_ = std::string (p->name_);
+	  a->type_string_ = string (p->name_);
 	  a->dir_ = START;
 	  audios_.push_back (a);
           Audio_element_info info(a, p->event_drul_[START]);
@@ -132,7 +132,7 @@ Piano_pedal_performer::try_music (Music *r)
     {
       for (Pedal_info *p = info_alist_; p->name_; p++)
 	{
-	  std::string nm = p->name_ + std::string ("Event");
+	  string nm = p->name_ + string ("Event");
 	  if (ly_is_equal (r->get_property ("name"),
 			   scm_str2symbol (nm.c_str ())))
 	    {

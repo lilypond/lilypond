@@ -33,7 +33,7 @@ Custos::print (SCM smob)
   Item *me = (Item *)unsmob_grob (smob);
 
   SCM scm_style = me->get_property ("style");
-  std::string style;
+  string style;
   if (scm_is_symbol (scm_style))
     style = ly_symbol2string (scm_style);
   else
@@ -53,7 +53,7 @@ Custos::print (SCM smob)
   int pos = Staff_symbol_referencer::get_rounded_position (me);
   int sz = Staff_symbol_referencer::line_count (me) - 1;
 
-  std::string font_char = "custodes." + style + ".";
+  string font_char = "custodes." + style + ".";
   if (pos < neutral_pos)
     font_char += "u";
   else if (pos > neutral_pos)

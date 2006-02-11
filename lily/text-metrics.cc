@@ -19,7 +19,7 @@ lookup_tex_text_dimension (Font_metric *font, SCM text)
   Box b;
 
   SCM limit = ly_lily_module_constant ("TEX_STRING_HASHLIMIT");
-  std::string key_str = ly_scm2string (font->font_file_name ());
+  string key_str = ly_scm2string (font->font_file_name ());
   int hash_code = scm_to_int (scm_hash (text, limit));
   key_str = to_string (hash_code) + key_str;
 
@@ -70,12 +70,12 @@ LY_DEFINE (ly_load_text_dimensions, "ly:load-text-dimensions",
 }
 
 void
-try_load_text_metrics (std::string basename)
+try_load_text_metrics (string basename)
 {
-  std::string path = global_path.find (basename + ".textmetrics");
+  string path = global_path.find (basename + ".textmetrics");
   if (path != "")
     {
-      std::string contents (gulp_file_to_string (path, true, -1));
+      string contents (gulp_file_to_string (path, true, -1));
       contents = "(quote (" + contents + "))";
 
       SCM lst = scm_c_eval_string (contents.c_str ());

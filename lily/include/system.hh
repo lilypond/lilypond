@@ -38,11 +38,11 @@ public:
   int element_count () const;
   int spanner_count () const;
 
-  void break_into_pieces (std::vector<Column_x_positions> const &);
+  void break_into_pieces (vector<Column_x_positions> const &);
   static bool has_interface (Grob *);
 
-  Link_array__Item_ broken_col_range (Item const *, Item const *) const;
-  Link_array__Grob_ columns () const;
+  vector<Item*> broken_col_range (Item const *, Item const *) const;
+  vector<Grob*> columns () const;
 
   void add_column (Paper_column *);
   void typeset_grob (Grob *);

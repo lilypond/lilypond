@@ -52,14 +52,14 @@ Accidental_interface::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-std::vector<Box>
+vector<Box>
 Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 {
   Box b;
   b[X_AXIS] = a->extent (a, X_AXIS);
   b[Y_AXIS] = a->extent (a, Y_AXIS);
 
-  std::vector<Box> boxes;
+  vector<Box> boxes;
 
   bool parens = false;
   if (to_boolean (a->get_property ("cautionary")))
@@ -142,8 +142,8 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 /*
   todo: this sort of stuff in Scheme. --hwn.
 */
-std::string
-Accidental_interface::get_fontcharname (std::string style, int alteration)
+string
+Accidental_interface::get_fontcharname (string style, int alteration)
 {
   if (alteration == DOUBLE_FLAT
       || alteration == DOUBLE_SHARP)
@@ -202,7 +202,7 @@ Accidental_interface::print (SCM smob)
     }
 
   SCM scm_style = me->get_property ("style");
-  std::string style;
+  string style;
   if (scm_is_symbol (scm_style))
     style = ly_symbol2string (scm_style);
   else
@@ -232,7 +232,7 @@ Accidental_interface::print (SCM smob)
        scm_is_pair (s); s = scm_cdr (s))
     {
       int alteration = scm_to_int (scm_car (s));
-      std::string font_char = get_fontcharname (style, alteration);
+      string font_char = get_fontcharname (style, alteration);
       Stencil acc (fm->find_by_name ("accidentals." + font_char));
 
       if (acc.is_empty ())

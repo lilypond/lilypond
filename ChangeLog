@@ -1,3 +1,12 @@
+2006-02-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* flower/include/std-string.hh: 
+	* flower/include/std-vector.hh: Finish std:: conversion; move
+	flower extensions from std:: namespace.  Update users.
+
+	* lily/include/lily-proto.hh: Replace Link_array__*_ macros by
+	their expansion to vector<*>.  Update users.
+
 2006-02-10  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/invoking.itely: add example to File structure.

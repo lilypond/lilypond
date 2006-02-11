@@ -17,17 +17,17 @@ class Midi_item;
 /// Midi outputfile
 struct Midi_stream
 {
-  Midi_stream (std::string file_name_string);
+  Midi_stream (string file_name_string);
   ~Midi_stream ();
 
-  Midi_stream &operator << (std::string str);
+  Midi_stream &operator << (string str);
   Midi_stream &operator << (Midi_item const &midi_c_r);
   Midi_stream &operator << (int i);
 
   void open ();
 
   FILE *out_file_;
-  std::string file_name_string_;
+  string file_name_string_;
 };
 
 #endif // MIDI_STREAM_HH

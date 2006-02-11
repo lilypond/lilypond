@@ -18,7 +18,7 @@ Line_interface::make_arrow (Offset begin, Offset end,
 			    Real length, Real width)
 {
   Real angle = (end - begin).arg ();
-  std::vector<Offset> points;
+  vector<Offset> points;
 
   points.push_back (Offset (0, 0));
   points.push_back (Offset (-length, width));

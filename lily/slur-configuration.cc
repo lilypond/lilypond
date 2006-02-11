@@ -25,7 +25,7 @@ avoid_staff_line (Slur_score_state const &state,
 		  Bezier bez)
 {
   Offset horiz (1, 0);
-  std::vector<Real> ts = bez.solve_derivative (horiz);
+  vector<Real> ts = bez.solve_derivative (horiz);
 
   /* TODO: handle case of broken slur.  */
   if (!ts.empty ()
@@ -64,7 +64,7 @@ avoid_staff_line (Slur_score_state const &state,
 
 Real
 fit_factor (Offset dz_unit, Offset dz_perp,
-	    Bezier curve, Direction d, std::vector<Offset> const &avoid)
+	    Bezier curve, Direction d, vector<Offset> const &avoid)
 {
   Real fit_factor = 0.0;
   Offset x0 = curve.control_[0];
@@ -98,7 +98,7 @@ fit_factor (Offset dz_unit, Offset dz_perp,
 void
 Slur_configuration::generate_curve (Slur_score_state const &state,
 				    Real r_0, Real h_inf,
-				    std::vector<Offset> const &avoid)
+				    vector<Offset> const &avoid)
 {
   Offset dz = attachment_[RIGHT]- attachment_[LEFT];;
   Offset dz_unit = dz;
@@ -180,7 +180,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
     Distances for heads that are between slur and line between
     attachment points.
   */
-  std::vector<Real> convex_head_distances;
+  vector<Real> convex_head_distances;
   for (vsize j = 0; j < state.encompass_infos_.size (); j++)
     {
       Real x = state.encompass_infos_[j].x_;

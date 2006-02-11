@@ -56,7 +56,7 @@ private:
   */
   Moment shortest_mom_;
   Spanner *finished_beam_;
-  Link_array__Item_ *stems_;
+  vector<Item*> *stems_;
 
   int process_acknowledged_count_;
   Moment last_add_mom_;
@@ -210,7 +210,7 @@ Auto_beam_engraver::begin_beam ()
       return;
     }
 
-  stems_ = new Link_array__Item_;
+  stems_ = new vector<Item*>;
   grouping_ = new Beaming_info_list;
   beam_settings_ = updated_grob_properties (context (), ly_symbol2scm ("Beam"));
 

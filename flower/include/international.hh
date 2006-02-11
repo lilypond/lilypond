@@ -22,14 +22,14 @@
 /**
    Internationalisation: _ ("to be translated") gets "translated" by GNU gettext
 */
-std::string _ (char const *ch);
+string _ (char const *ch);
 
 /**
    Internationalisation: _f ("Usage: %s [FILE]", "lilypond") gets "translated" by
    GNU gettext
 */
-std::string _f (char const *format, ...);
-std::string _f (char const *format, std::string s, std::string s2 = "", std::string s3 = "");
+string _f (char const *format, ...);
+string _f (char const *format, string s, string s2 = "", string s3 = "");
 
 #endif // INTERNATIONAL_HH
 

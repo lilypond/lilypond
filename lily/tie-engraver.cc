@@ -48,9 +48,9 @@ struct Head_event_tuple
 class Tie_engraver : public Engraver
 {
   Music *event_;
-  Link_array__Grob_ now_heads_;
-  std::vector<Head_event_tuple> heads_to_tie_;
-  Link_array__Grob_ ties_;
+  vector<Grob*> now_heads_;
+  vector<Head_event_tuple> heads_to_tie_;
+  vector<Grob*> ties_;
 
   Spanner *tie_column_;
 

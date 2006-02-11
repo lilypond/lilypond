@@ -66,7 +66,7 @@ Repeat_acknowledge_engraver::process_music ()
 
   SCM cs = get_property ("repeatCommands");
 
-  std::string s = "";
+  string s = "";
   bool start = false;
   bool end = false;
   bool volta_found = false;

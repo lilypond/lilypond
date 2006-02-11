@@ -170,7 +170,7 @@ Lily_lexer::set_current_scope ()
 }
 
 int
-Lily_lexer::lookup_keyword (std::string s)
+Lily_lexer::lookup_keyword (string s)
 {
   return keytable_->lookup (s.c_str ());
 }
@@ -189,7 +189,7 @@ Lily_lexer::lookup_identifier_symbol (SCM sym)
 }
 
 SCM
-Lily_lexer::lookup_identifier (std::string name)
+Lily_lexer::lookup_identifier (string name)
 {
   return lookup_identifier_symbol (ly_symbol2scm (name.c_str ()));
 }
@@ -219,7 +219,7 @@ Lily_lexer::set_identifier (SCM name, SCM s)
     {
       if (lookup_keyword (ly_symbol2string (sym)) >= 0)
 	{
-	  std::string symstr = ly_symbol2string (sym);
+	  string symstr = ly_symbol2string (sym);
 	  warning (_f ("identifier name is a keyword: `%s'", symstr.c_str ()));
 	}
 

@@ -27,17 +27,17 @@ public:
   char const *end () const;
 
   void set (Source_file *, char const *, char const *);
-  void warning (std::string) const; // should use member func?
-  void non_fatal_error (std::string) const;
-  void error (std::string) const;
-  void message (std::string) const;
+  void warning (string) const; // should use member func?
+  void non_fatal_error (string) const;
+  void error (string) const;
+  void message (string) const;
   void set_spot (Input const &);
   void step_forward ();
   void set_location (Input const &, Input const &);
   Input spot () const;
-  std::string location_string () const;
-  std::string line_number_string () const;
-  std::string file_string ()const;
+  string location_string () const;
+  string line_number_string () const;
+  string file_string ()const;
 
   int line_number ()const;
   int column_number ()const;

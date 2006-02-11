@@ -18,12 +18,12 @@ public:
 
 protected:
   virtual void build_ligature (Spanner *ligature,
-			       std::vector<Grob_info> primitives) = 0;
+			       vector<Grob_info> primitives) = 0;
   virtual void typeset_ligature (Spanner *ligature,
-				 std::vector<Grob_info> primitives);
+				 vector<Grob_info> primitives);
   virtual void get_set_column (Item *, Paper_column *);
 private:
-  void collect_accidentals (Spanner *, std::vector<Grob_info>);
+  void collect_accidentals (Spanner *, vector<Grob_info>);
 };
 
 #endif // COHERENT_LIGATURE_ENGRAVER_HH

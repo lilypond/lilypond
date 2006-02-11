@@ -192,20 +192,20 @@ Context_def::get_default_child (SCM user_mod) const
   return name;
 }
 
-Link_array__Context_def_
+vector<Context_def*>
 Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
 {
   assert (scm_is_symbol (type_sym));
 
   SCM accepted = get_accepted (SCM_EOL);
 
-  Link_array__Context_def_ accepteds;
+  vector<Context_def*> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
     if (Context_def *t = unsmob_context_def (find_context_def (odef,
 							       scm_car (s))))
       accepteds.push_back (t);
 
-  Link_array__Context_def_ best_result;
+  vector<Context_def*> best_result;
   for (vsize i = 0; i < accepteds.size (); i++)
     {
       /* do not check aliases, because \context Staff should not
@@ -222,7 +222,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
     {
       Context_def *g = accepteds[i];
 
-      Link_array__Context_def_ result
+      vector<Context_def*> result
 	= g->path_to_acceptable_context (type_sym, odef);
       if (result.size () && result.size () < best_depth)
 	{

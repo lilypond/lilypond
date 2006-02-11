@@ -181,10 +181,10 @@ integer_compare (int const &a, int const &b)
 }
 
 /* The positions, in ascending order.  */
-std::vector<int>
+vector<int>
 Stem::note_head_positions (Grob *me)
 {
-  std::vector<int> ps;
+  vector<int> ps;
   extract_grob_set (me, "note-heads", heads);
 
   for (vsize i = heads.size (); i--;)
@@ -233,7 +233,7 @@ Stem::calc_stem_end_position (SCM smob)
   
   Real ss = Staff_symbol_referencer::staff_space (me);
   int durlog = duration_log (me);
-  std::vector<Real> a;
+  vector<Real> a;
 
   /* WARNING: IN HALF SPACES */
   Real length = robust_scm2double (me->get_property ("length"), 7);
@@ -367,7 +367,7 @@ Stem::calc_positioning_done (SCM smob)
     return SCM_BOOL_T;
 
   extract_grob_set (me, "note-heads", ro_heads);
-  Link_array__Grob_ heads (ro_heads);
+  vector<Grob*> heads (ro_heads);
   vector_sort (heads, compare_position);
   Direction dir = get_grob_direction (me);
 
@@ -548,7 +548,7 @@ Stem::flag (Grob *me)
     TODO: maybe property stroke-style should take different values,
     e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
     '() or "grace").  */
-  std::string flag_style;
+  string flag_style;
 
   SCM flag_style_scm = me->get_property ("flag-style");
   if (scm_is_symbol (flag_style_scm))
@@ -559,7 +559,7 @@ Stem::flag (Grob *me)
 
   bool adjust = true;
 
-  std::string staffline_offs;
+  string staffline_offs;
   if (flag_style == "mensural")
     /* Mensural notation: For notes on staff lines, use different
        flags than for notes between staff lines.  The idea is that
@@ -582,7 +582,7 @@ Stem::flag (Grob *me)
     staffline_offs = "";
 
   char dir = (get_grob_direction (me) == UP) ? 'u' : 'd';
-  std::string font_char = flag_style
+  string font_char = flag_style
     + to_string (dir) + staffline_offs + to_string (log);
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil flag = fm->find_by_name ("flags." + font_char);
@@ -592,10 +592,10 @@ Stem::flag (Grob *me)
   SCM stroke_style_scm = me->get_property ("stroke-style");
   if (scm_is_string (stroke_style_scm))
     {
-      std::string stroke_style = ly_scm2string (stroke_style_scm);
+      string stroke_style = ly_scm2string (stroke_style_scm);
       if (!stroke_style.empty ())
 	{
-	  std::string font_char = to_string (dir) + stroke_style;
+	  string font_char = to_string (dir) + stroke_style;
 	  Stencil stroke = fm->find_by_name ("flags." + font_char);
 	  if (stroke.is_empty ())
 	    me->warning (_f ("flag stroke `%s' not found", font_char));

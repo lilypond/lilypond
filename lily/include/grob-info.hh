@@ -29,7 +29,7 @@ public:
   Context *context () const;
   Music *music_cause () const;
   Music *ultimate_music_cause () const;
-  Link_array__Context_ origin_contexts (Translator *) const;
+  vector<Context*> origin_contexts (Translator *) const;
   Grob_info (Translator *, Grob *);
   Grob_info ();
 

@@ -25,11 +25,11 @@ class Lily_parser
   DECLARE_SMOBS (Lily_parser,);
   friend int yyparse (void *);
 
-  std::vector<Input> define_spots_;
+  vector<Input> define_spots_;
 
   char const *here_str0 () const;
   Simultaneous_music *get_chord (Pitch tonic,
-				 std::vector<Pitch> *adds, std::vector<Pitch> *subs,
+				 vector<Pitch> *adds, vector<Pitch> *subs,
 				 Pitch *inversion, Pitch *bass, Duration d);
   void set_chord_tremolo (int type_i);
   void set_last_duration (Duration const *);
@@ -39,7 +39,7 @@ public:
   Lily_lexer *lexer_;
   Sources *sources_;
   Duration default_duration_;
-  std::string output_basename_;
+  string output_basename_;
 
   int fatal_error_;
   int error_level_;
@@ -52,10 +52,10 @@ public:
 
   void do_init_file ();
   void do_yyparse ();
-  void parse_file (std::string init, std::string name, std::string out_name);
-  void parse_string (std::string ly_code);
-  void parser_error (std::string);
-  void parser_error (Input const &, std::string);
+  void parse_file (string init, string name, string out_name);
+  void parse_string (string ly_code);
+  void parser_error (string);
+  void parser_error (Input const &, string);
   void set_yydebug (bool);
 };
 

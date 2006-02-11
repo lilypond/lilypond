@@ -27,7 +27,7 @@
  *
  * A concrete ligature engraver must subclass this class and provide
  * functions create_ligature_spanner () and typeset_ligature
- * (Spanner *, std::vector<Grob_info>).  Subclasses of this class basically
+ * (Spanner *, vector<Grob_info>).  Subclasses of this class basically
  * fall into two categories.
  *
  * The first category consists of engravers that engrave ligatures in

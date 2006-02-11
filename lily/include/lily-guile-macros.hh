@@ -87,13 +87,13 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
 /*
   Make TYPE::FUNC available as a Scheme function.
 */
-std::string mangle_cxx_identifier (std::string);
+string mangle_cxx_identifier (string);
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)			\
   SCM TYPE ::FUNC ## _proc;						\
   void									\
   TYPE ## _ ## FUNC ## _init_functions ()				\
   {									\
-    std::string id = mangle_cxx_identifier (std::string (#TYPE) + "::" + std::string (#FUNC)); \
+    string id = mangle_cxx_identifier (string (#TYPE) + "::" + string (#FUNC)); \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),			\
 					       (ARGCOUNT), 0, 0,	\
 					       (Scheme_function_unknown) TYPE::FUNC); \

@@ -29,19 +29,19 @@ using namespace std;
 class Source_file
 {
 public:
-  Source_file (std::string fn);
-  Source_file (std::string, std::string);
+  Source_file (string fn);
+  Source_file (string, string);
 
   virtual ~Source_file ();
 
   char const *c_str () const;
-  virtual std::string quote_input (char const *pos_str0) const;
+  virtual string quote_input (char const *pos_str0) const;
   istream *get_istream ();
   bool contains (char const *pos_str0) const;
   int length () const;
   virtual int get_line (char const *pos_str0) const;
-  std::string name_string () const;
-  std::string file_line_column_string (char const *str0) const;
+  string name_string () const;
+  string file_line_column_string (char const *str0) const;
 
   // return start + n
   char const *seek_str0 (int n);
@@ -50,11 +50,11 @@ public:
   // return here + n bytes
   char const *forward_str0 (int n);
   char const *pos_str0 () { return pos_str0_; }
-  std::string get_string (int n);
+  string get_string (int n);
   void set_pos (char const *pos_str0);
 public:
   Slice line_slice (char const *pos_str0) const;
-  std::string line_string (char const *pos_str0) const;
+  string line_string (char const *pos_str0) const;
   void get_counts (char const *pos_str0, int *, int *, int *) const;
 
   /*
@@ -65,13 +65,13 @@ public:
   char const *pos_str0_;
 
   SCM get_port () const;
-  std::string name_;
+  string name_;
 
 private:
-  Link_array__char_ newline_locations_;
+  vector<char*> newline_locations_;
   istream *istream_;
   char *contents_str0_;
-  std::vector<char> chs_;
+  vector<char> chs_;
   int length_;
   void load_stdin ();
   void init_port ();
@@ -79,7 +79,7 @@ private:
   Protected_scm str_port_;
 };
 
-char *gulp_file (std::string fn, int *len);
+char *gulp_file (string fn, int *len);
 
 #endif /* SOURCE_FILE_HH */
 

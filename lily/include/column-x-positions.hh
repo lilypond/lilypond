@@ -12,10 +12,10 @@
 
 struct Column_x_positions
 {
-  Link_array__Grob_ cols_;
-  Link_array__Grob_ loose_cols_;
+  vector<Grob*> cols_;
+  vector<Grob*> loose_cols_;
 
-  std::vector<Real> config_;
+  vector<Real> config_;
   Real force_;
   bool satisfies_constraints_;
 

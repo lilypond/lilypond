@@ -29,7 +29,7 @@ struct Spring_description
 class Simple_spacer
 {
 public:
-  std::vector<Spring_description> springs_;
+  vector<Spring_description> springs_;
   Real force_;
   Real indent_;
   Real line_len_;
@@ -56,11 +56,11 @@ public:
 struct Simple_spacer_wrapper
 {
   Simple_spacer *spacer_;
-  Link_array__Grob_ spaced_cols_;
-  Link_array__Grob_ loose_cols_;
+  vector<Grob*> spaced_cols_;
+  vector<Grob*> loose_cols_;
 
   Simple_spacer_wrapper ();
-  void add_columns (Link_array__Grob_ const &);
+  void add_columns (vector<Grob*> const &);
   void solve (Column_x_positions *, bool);
   ~Simple_spacer_wrapper ();
 private:

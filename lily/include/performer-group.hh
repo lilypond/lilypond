@@ -24,7 +24,7 @@ public:
   virtual int get_tempo () const;
 
 protected:
-  std::vector<Audio_element_info> announce_infos_;
+  vector<Audio_element_info> announce_infos_;
 
 private:
   void acknowledge_audio_elements ();

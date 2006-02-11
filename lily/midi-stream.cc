@@ -20,7 +20,7 @@ using namespace std;
 #include "string-convert.hh"
 #include "warn.hh"
 
-Midi_stream::Midi_stream (std::string file_name)
+Midi_stream::Midi_stream (string file_name)
 {
   file_name_string_ = file_name;
   out_file_ = fopen (file_name.c_str (), "wb");
@@ -34,7 +34,7 @@ Midi_stream::~Midi_stream ()
 }
 
 Midi_stream &
-Midi_stream::operator << (std::string str)
+Midi_stream::operator << (string str)
 {
   size_t sz = sizeof (Byte);
   size_t n = str.length ();
@@ -49,7 +49,7 @@ Midi_stream::operator << (std::string str)
 Midi_stream &
 Midi_stream::operator << (Midi_item const &midi_c_r)
 {
-  std::string str = midi_c_r.to_string ();
+  string str = midi_c_r.to_string ();
 
   // ugh, should have separate debugging output with Midi*::print routines
   if (do_midi_debugging_global)

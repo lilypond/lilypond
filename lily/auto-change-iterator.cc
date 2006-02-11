@@ -22,11 +22,11 @@ protected:
   virtual void do_quit ();
   virtual void construct_children ();
   virtual void process (Moment);
-  std::vector<Pitch> pending_pitch (Moment) const;
+  vector<Pitch> pending_pitch (Moment) const;
 private:
   SCM split_list_;
   Direction where_dir_;
-  void change_to (Music_iterator *, SCM, std::string);
+  void change_to (Music_iterator *, SCM, string);
   Moment start_moment_;
 
   Context_handle up_;
@@ -35,7 +35,7 @@ private:
 
 void
 Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
-				 std::string to_id)
+				 string to_id)
 {
   Context *current = it->get_outlet ();
   Context *last = 0;
@@ -58,7 +58,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
 
   if (current && current->id_string () == to_id)
     {
-      std::string msg;
+      string msg;
       msg += _f ("can't change, already in translator: %s", to_id);
     }
 
@@ -101,7 +101,7 @@ Auto_change_iterator::process (Moment m)
       if (d && d != where_dir_)
 	{
 	  where_dir_ = d;
-	  std::string to_id = (d >= 0) ? "up" : "down";
+	  string to_id = (d >= 0) ? "up" : "down";
 	  change_to (child_iter_,
 		     ly_symbol2scm ("Staff"),
 		     to_id);

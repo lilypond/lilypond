@@ -40,11 +40,11 @@ Sources::set_path (File_path *f)
    @return 0 if no file found
 */
 Source_file *
-Sources::get_file (std::string &file_string) //UGH
+Sources::get_file (string &file_string) //UGH
 {
   if ((file_string != "-") && path_)
     {
-      std::string file_string_o = path_->find (file_string);
+      string file_string_o = path_->find (file_string);
       if ((file_string_o == "") && (file_string != ""))
 	return 0;
       file_string = file_string_o;

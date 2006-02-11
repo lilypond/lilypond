@@ -103,7 +103,7 @@ struct Tfm_info
   Char_code first_charcode, last_charcode;
   U32 checksum;
   Real design_size;
-  std::string coding_scheme;
+  string coding_scheme;
   unsigned parameter_count;
   // Real parameters [Tex_font_metric::MAX_FONTDIMENS];
   Real parameters [TFM_MAX_FONTDIMENS];
@@ -132,8 +132,8 @@ struct Tex_font_char_metric
   Char_code code_;
   Real width_, height_, depth_, italic_correction_;
   Fix width_fix_, height_fix_, depth_fix_, italic_correction_fix_;
-  std::vector<Tfm_kern> kerns_;
-  std::vector<Tfm_ligature> ligatures_;
+  vector<Tfm_kern> kerns_;
+  vector<Tfm_ligature> ligatures_;
 
   Tex_font_char_metric ();
 
@@ -145,24 +145,24 @@ class Tex_font_metric : public Simple_font_metric
   DECLARE_CLASSNAME(Tex_font_metric);
 
 public:
-  static SCM make_tfm (std::string file_name);
+  static SCM make_tfm (string file_name);
 
   vsize count () const;
   Box get_ascii_char (vsize) const;
   Real design_size () const;
   void derived_mark () const;
-  vsize name_to_index (std::string) const;
-  std::string font_name () const;
+  vsize name_to_index (string) const;
+  string font_name () const;
 
   Tfm_info const &info () const;
 
 protected:
   Tfm_info info_;
   Tfm_header header_;
-  std::vector<Tex_font_char_metric> char_metrics_;
-  std::vector<vsize> ascii_to_metric_idx_;
+  vector<Tex_font_char_metric> char_metrics_;
+  vector<vsize> ascii_to_metric_idx_;
   SCM encoding_table_;
-  std::string font_name_;
+  string font_name_;
 
 private:
   Tex_font_char_metric const *find_ascii (vsize ascii, bool warn = true) const;

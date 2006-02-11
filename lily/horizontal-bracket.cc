@@ -47,7 +47,7 @@ Horizontal_bracket::make_bracket (Grob *me,
 
 Stencil
 Horizontal_bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
-					    Link_array__Grob_ grobs,
+					    vector<Grob*> grobs,
 					    Axis a, Direction dir)
 {
   Grob *common = common_refpoint_of_array (grobs, refpoint, a);

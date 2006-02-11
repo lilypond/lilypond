@@ -36,7 +36,7 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
 
       if (result != *check_p)
 	{
-	  std::string s = _ ("Failed octave check, got: ");
+	  string s = _ ("Failed octave check, got: ");
 	  s += result.to_string ();
 
 	  m->origin ()->warning (s);

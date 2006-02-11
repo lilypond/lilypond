@@ -49,7 +49,7 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   Moment *r = (Moment *) SCM_CELL_WORD_1 (s);
 
   scm_puts ("#<Mom ", port);
-  std::string str = r->to_string ();
+  string str = r->to_string ();
   scm_puts ((char *)str.c_str (), port);
   scm_puts (">", port);
 
@@ -153,10 +153,10 @@ Moment::set_infinite (int k)
   main_part_.set_infinite (k);
 }
 
-std::string
+string
 Moment::to_string () const
 {
-  std::string s = main_part_.to_string ();
+  string s = main_part_.to_string ();
   if (grace_part_)
     s += "G" + grace_part_.to_string ();
   return s;

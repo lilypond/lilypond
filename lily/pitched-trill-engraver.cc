@@ -35,7 +35,7 @@ private:
   Item *trill_group_;
   Item *trill_accidental_;
 
-  Link_array__Grob_ heads_;
+  vector<Grob*> heads_;
 
   void make_trill (Music *);
 };

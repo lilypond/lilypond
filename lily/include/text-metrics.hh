@@ -12,7 +12,7 @@
 #include "lily-guile.hh"
 #include "box.hh"
 
-void try_load_text_metrics (std::string);
+void try_load_text_metrics (string);
 SCM ly_load_text_dimensions (SCM);
 Box lookup_tex_text_dimension (Font_metric *font,
 			       SCM text);

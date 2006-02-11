@@ -79,7 +79,7 @@ private:
     occurs simultaneously then extra space can be added between them.
   */
 
-  Link_array__Spanner_ previous_;
+  vector<Spanner*> previous_;
   void del_linespanner (Spanner *);
 
   void create_text_grobs (Pedal_info *p, bool);
@@ -152,7 +152,7 @@ Piano_pedal_engraver::try_music (Music *m)
     {
       for (Pedal_info *p = info_list_; p->name_; p++)
 	{
-	  std::string nm = p->name_ + std::string ("Event");
+	  string nm = p->name_ + string ("Event");
 	  if (ly_is_equal (m->get_property ("name"),
 			   scm_str2symbol (nm.c_str ())))
 	    {
@@ -174,7 +174,7 @@ Piano_pedal_engraver::process_music ()
 	{
 	  if (!p->line_spanner_)
 	    {
-	      std::string name = std::string (p->name_) + "PedalLineSpanner";
+	      string name = string (p->name_) + "PedalLineSpanner";
 	      Music *rq = (p->event_drul_[START] ? p->event_drul_[START] : p->event_drul_[STOP]);
 	      p->line_spanner_ = make_spanner (name.c_str (), rq->self_scm ());
 	    }
@@ -192,7 +192,7 @@ Piano_pedal_engraver::process_music ()
 	    mixed:   Ped. _____/\____|
 	  */
 
-	  std::string prop = std::string ("pedal") + p->name_ + "Style";
+	  string prop = string ("pedal") + p->name_ + "Style";
 	  SCM style = get_property (prop.c_str ());
 
 	  bool mixed = style == ly_symbol2scm ("mixed");
@@ -213,14 +213,14 @@ void
 Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 {
   SCM s = SCM_EOL;
-  SCM strings = get_property (("pedal" + std::string (p->name_) + "Strings").c_str ());
+  SCM strings = get_property (("pedal" + string (p->name_) + "Strings").c_str ());
 
   if (scm_ilength (strings) < 3)
     {
       Music *m = p->event_drul_[START];
       if (!m) m = p->event_drul_ [STOP];
 
-      std::string msg = _f ("expect 3 strings for piano pedals, found: %d",
+      string msg = _f ("expect 3 strings for piano pedals, found: %d",
 		       scm_ilength (strings));
       if (m)
 	m->origin ()->warning (msg);
@@ -271,7 +271,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 
   if (scm_is_string (s))
     {
-      std::string propname = std::string (p->name_) + "Pedal";
+      string propname = string (p->name_) + "Pedal";
 
       p->item_ = make_item (propname.c_str (), (p->event_drul_[START]
 						  ? p->event_drul_[START]
@@ -293,7 +293,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 {
   if (!p->bracket_ && p->event_drul_[STOP])
     {
-      std::string msg = _f ("can't find start of piano pedal bracket: `%s'", p->name_);
+      string msg = _f ("can't find start of piano pedal bracket: `%s'", p->name_);
       p->event_drul_[STOP]->origin ()->warning (msg);
       p->event_drul_[STOP] = 0;
     }

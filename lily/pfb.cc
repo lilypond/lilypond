@@ -77,7 +77,7 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
   SCM_ASSERT_TYPE (scm_is_string (pfb_file_name), pfb_file_name,
 		   SCM_ARG1, __FUNCTION__, "string");
 
-  std::string file_name = ly_scm2string (pfb_file_name);
+  string file_name = ly_scm2string (pfb_file_name);
   int len = -1;
 
   if (be_verbose_global)
@@ -103,12 +103,12 @@ LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
   SCM_ASSERT_TYPE (scm_is_string (otf_file_name), otf_file_name,
 		   SCM_ARG1, __FUNCTION__, "string");
 
-  std::string file_name = ly_scm2string (otf_file_name);
+  string file_name = ly_scm2string (otf_file_name);
   if (be_verbose_global)
     progress_indication ("[" + file_name);
 
   FT_Face face = open_ft_face (file_name);
-  std::string table = get_otf_table (face, "CFF ");
+  string table = get_otf_table (face, "CFF ");
 
   SCM asscm = scm_from_locale_stringn ((char *) table.data (),
 				       table.length ());

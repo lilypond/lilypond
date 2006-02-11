@@ -15,11 +15,11 @@
 #include "cpu-timer.hh"
 #include "simple-spacer.hh"
 
-std::vector<int>
+vector<int>
 Break_algorithm::find_break_indices () const
 {
-  Link_array__Grob_ all = pscore_->root_system ()->columns ();
-  std::vector<int> retval;
+  vector<Grob*> all = pscore_->root_system ()->columns ();
+  vector<int> retval;
 
   for (vsize i = 0; i < all.size (); i++)
     if (Item::is_breakable (all[i]))
@@ -32,11 +32,11 @@ Break_algorithm::find_break_indices () const
   return retval;
 }
 
-Link_array__Grob_
+vector<Grob*>
 Break_algorithm::find_breaks () const
 {
-  Link_array__Grob_ all = pscore_->root_system ()->columns ();
-  Link_array__Grob_ retval;
+  vector<Grob*> all = pscore_->root_system ()->columns ();
+  vector<Grob*> retval;
 
   for (vsize i = 0; i < all.size (); i++)
     if (Item::is_breakable (all[i]))
@@ -50,7 +50,7 @@ Break_algorithm::find_breaks () const
 }
 
 Simple_spacer_wrapper *
-Break_algorithm::generate_spacing_problem (Link_array__Grob_ const &curline,
+Break_algorithm::generate_spacing_problem (vector<Grob*> const &curline,
 					   Interval line) const
 {
   Simple_spacer_wrapper *spw = new Simple_spacer_wrapper;
@@ -88,10 +88,10 @@ Break_algorithm::set_pscore (Paper_score *s)
   linewidth_ = s->layout ()->get_dimension (ly_symbol2scm ("line-width"));
 }
 
-std::vector<Column_x_positions>
+vector<Column_x_positions>
 Break_algorithm::solve () const
 {
-  std::vector<Column_x_positions> h= do_solve ();
+  vector<Column_x_positions> h= do_solve ();
 
   return h;
 }

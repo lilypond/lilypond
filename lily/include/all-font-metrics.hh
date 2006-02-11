@@ -35,7 +35,7 @@ class All_font_metrics
 
   All_font_metrics (All_font_metrics const &);
 public:
-  All_font_metrics (std::string search_path);
+  All_font_metrics (string search_path);
   ~All_font_metrics ();
 
 #if HAVE_PANGO_FT2
@@ -44,9 +44,9 @@ public:
 			       Real scale);
 #endif
 
-  Tex_font_metric *find_tfm (std::string);
-  Font_metric *find_font (std::string name);
-  Open_type_font *find_otf (std::string name);
+  Tex_font_metric *find_tfm (string);
+  Font_metric *find_font (string name);
+  Open_type_font *find_otf (string name);
   SCM font_descriptions () const;
 };
 

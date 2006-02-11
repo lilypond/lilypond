@@ -25,8 +25,8 @@ protected:
   void process_music ();
 
 private:
-  Link_array__Music_ note_evs_;
-  Link_array__Audio_note_ notes_;
+  vector<Music*> note_evs_;
+  vector<Audio_note*> notes_;
 };
 
 Drum_note_performer::Drum_note_performer ()

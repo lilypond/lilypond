@@ -41,10 +41,10 @@ SCM ly_to_symbol (SCM scm);
 
 extern SCM global_lily_module;
 
-std::string gulp_file_to_string (std::string fn, bool must_exist, int size);
+string gulp_file_to_string (string fn, bool must_exist, int size);
 
-std::string ly_scm2string (SCM s);
-std::string ly_symbol2string (SCM);
+string ly_scm2string (SCM s);
+string ly_symbol2string (SCM);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
@@ -67,7 +67,7 @@ Offset robust_scm2offset (SCM, Offset);
 
 SCM ly_quote_scm (SCM s);
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
-std::string print_scm_val (SCM val);
+string print_scm_val (SCM val);
 SCM ly_number2string (SCM s);
 
 SCM parse_symbol_list (char const *);
@@ -121,7 +121,7 @@ extern "C" {
   void ly_display_scm (SCM s);
 }
 
-void read_lily_scm_file (std::string);
+void read_lily_scm_file (string);
 void ly_c_init_guile ();
 
 bool is_direction (SCM s);

@@ -75,7 +75,7 @@ ly_quote_scm (SCM s)
   return scm_list_n (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
 }
 
-std::string
+string
 ly_symbol2string (SCM s)
 {
   /*
@@ -85,15 +85,15 @@ ly_symbol2string (SCM s)
   return ly_scm2string (str);
 }
 
-std::string
-gulp_file_to_string (std::string fn, bool must_exist, int size)
+string
+gulp_file_to_string (string fn, bool must_exist, int size)
 {
-  std::string s = global_path.find (fn);
+  string s = global_path.find (fn);
   if (s == "")
     {
       if (must_exist)
 	{
-	  std::string e = _f ("can't find file: `%s'", fn);
+	  string e = _f ("can't find file: `%s'", fn);
 	  e += " ";
 	  e += _f ("(load path: `%s')", global_path.to_string ());
 	  error (e);
@@ -107,7 +107,7 @@ gulp_file_to_string (std::string fn, bool must_exist, int size)
 
   int n = size;
   char *str = gulp_file (s, &n);
-  std::string result (str, n);
+  string result (str, n);
   delete[] str;
 
   if (be_verbose_global)
@@ -126,11 +126,11 @@ extern "C" {
   }
 };
 
-std::string
+string
 ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
-  return std::string (scm_i_string_chars (str),
+  return string (scm_i_string_chars (str),
 		     (int) scm_i_string_length (str));
 }
 
@@ -179,12 +179,12 @@ is_number_pair (SCM p)
 }
 
 typedef void (*Void_fptr) ();
-std::vector<Void_fptr> *scm_init_funcs_;
+vector<Void_fptr> *scm_init_funcs_;
 
 void add_scm_init_func (void (*f) ())
 {
   if (!scm_init_funcs_)
-    scm_init_funcs_ = new std::vector<Void_fptr>;
+    scm_init_funcs_ = new vector<Void_fptr>;
 
   scm_init_funcs_->push_back (f);
 }
@@ -356,7 +356,7 @@ ly_assoc_cdr (SCM key, SCM alist)
 }
 
 SCM
-ly_string_array_to_scm (std::vector<std::string> a)
+ly_string_array_to_scm (vector<string> a)
 {
   SCM s = SCM_EOL;
   for (vsize i = a.size (); i ; i--)
@@ -370,7 +370,7 @@ parse_symbol_list (char const *symbols)
 {
   while (isspace (*symbols))
     *symbols++;
-  std::string s = symbols;
+  string s = symbols;
   replace_all (s, '\n', ' ');
   replace_all (s, '\t', ' ');
   return ly_string_array_to_scm (String_convert::split (s, ' '));
@@ -394,10 +394,10 @@ ly_truncate_list (int k, SCM lst)
   return lst;
 }
 
-std::string
+string
 print_scm_val (SCM val)
 {
-  std::string realval = ly_scm2string (ly_write2scm (val));
+  string realval = ly_scm2string (ly_write2scm (val));
   if (realval.length () > 200)
     realval = realval.substr (0, 100)
       + "\n :\n :\n"
@@ -722,8 +722,8 @@ procedure_arity (SCM proc)
   return scm_to_int (fixed);
 }
 
-std::string
-mangle_cxx_identifier (std::string cxx_id)
+string
+mangle_cxx_identifier (string cxx_id)
 {
   if (cxx_id.substr (0, 3) == "ly_")
     cxx_id = cxx_id.replace (0, 3, "ly:");

@@ -57,8 +57,8 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
 */
 void
 Accidental_placement::split_accidentals (Grob *accs,
-					 Link_array__Grob_ *break_reminder,
-					 Link_array__Grob_ *real_acc)
+					 vector<Grob*> *break_reminder,
+					 vector<Grob*> *real_acc)
 {
   for (SCM acs = accs->get_object ("accidental-grobs"); scm_is_pair (acs);
        acs = scm_cdr (acs))
@@ -82,8 +82,8 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 						      Item *item_col,
 						      Grob *left_object)
 {
-  Link_array__Grob_ br, ra;
-  Link_array__Grob_ *which = 0;
+  vector<Grob*> br, ra;
+  vector<Grob*> *which = 0;
 
   Accidental_placement::split_accidentals (me, &br, &ra);
   concat (br, ra);
@@ -108,11 +108,11 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 
 struct Accidental_placement_entry
 {
-  std::vector<Skyline_entry> left_skyline_;
-  std::vector<Skyline_entry> right_skyline_;
+  vector<Skyline_entry> left_skyline_;
+  vector<Skyline_entry> right_skyline_;
   Interval vertical_extent_;
-  std::vector<Box> extents_;
-  Link_array__Grob_ grobs_;
+  vector<Box> extents_;
+  vector<Grob*> grobs_;
   Real offset_;
   int notename_;
   Accidental_placement_entry ()
@@ -149,9 +149,9 @@ int ape_rcompare (Accidental_placement_entry *const &a,
   placement
 */
 void
-stagger_apes (Link_array__Accidental_placement_entry_ *apes)
+stagger_apes (vector<Accidental_placement_entry*> *apes)
 {
-  Link_array__Accidental_placement_entry_ asc = *apes;
+  vector<Accidental_placement_entry*> asc = *apes;
 
   vector_sort (asc, &ape_compare);
 
@@ -233,7 +233,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
     TODO: there is a bug in this code. If two accs are on the same
     Y-position, they share an Ape, and will be printed in overstrike.
   */
-  Link_array__Accidental_placement_entry_ apes;
+  vector<Accidental_placement_entry*> apes;
   for (SCM s = accs; scm_is_pair (s); s = scm_cdr (s))
     {
       Accidental_placement_entry *ape = new Accidental_placement_entry;
@@ -251,7 +251,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
     First we must extract *all* pointers. We can only determine
     extents if we're sure that we've found the right common refpoint
   */
-  Link_array__Grob_ note_cols, heads;
+  vector<Grob*> note_cols, heads;
   for (vsize i = apes.size (); i--;)
     {
       Accidental_placement_entry *ape = apes[i];
@@ -306,7 +306,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
 	{
 	  Grob *a = apes[i]->grobs_[j];
 
-	  std::vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
+	  vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
 
 	  ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
 	  for (vsize j = boxes.size (); j--;)
@@ -332,8 +332,8 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
   Accidental_placement_entry *head_ape = new Accidental_placement_entry;
   common[X_AXIS] = common_refpoint_of_array (heads, common[X_AXIS], X_AXIS);
-  std::vector<Skyline_entry> head_skyline (empty_skyline (LEFT));
-  std::vector<Box> head_extents;
+  vector<Skyline_entry> head_skyline (empty_skyline (LEFT));
+  vector<Box> head_extents;
   for (vsize i = heads.size (); i--;)
     {
       Box b (heads[i]->extent (common[X_AXIS], X_AXIS),
@@ -347,7 +347,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
   Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
 
-  std::vector<Skyline_entry> left_skyline = head_ape->left_skyline_;
+  vector<Skyline_entry> left_skyline = head_ape->left_skyline_;
   heighten_skyline (&left_skyline,
 		    -robust_scm2double (me->get_property ("right-padding"), 0));
   /*
@@ -364,7 +364,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
       apes[i]->offset_ = offset;
 
-      std::vector<Skyline_entry> new_left_skyline = apes[i]->left_skyline_;
+      vector<Skyline_entry> new_left_skyline = apes[i]->left_skyline_;
       heighten_skyline (&new_left_skyline, apes[i]->offset_);
       merge_skyline (&new_left_skyline, left_skyline, LEFT);
       left_skyline = new_left_skyline;

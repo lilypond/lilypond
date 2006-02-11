@@ -45,7 +45,7 @@ Break_align_interface::self_align_callback (SCM smob)
 
   So we return the correct order as an array.
 */
-Link_array__Grob_
+vector<Grob*>
 Break_align_interface::ordered_elements (Grob *grob)
 {
   Item *me = dynamic_cast<Item *> (grob);
@@ -56,14 +56,14 @@ Break_align_interface::ordered_elements (Grob *grob)
       || scm_c_vector_length (order_vec) < 3)
     return elts;
 
-  Link_array__Grob_ writable_elts (elts);
+  vector<Grob*> writable_elts (elts);
   SCM order = scm_vector_ref (order_vec,
 			      scm_from_int (me->break_status_dir () + 1));
 
   /*
     Copy in order specified in BREAK-ALIGN-ORDER.
   */
-  Link_array__Grob_ new_elts;
+  vector<Grob*> new_elts;
   for (; scm_is_pair (order); order = scm_cdr (order))
     {
       SCM sym = scm_car (order);
@@ -95,8 +95,8 @@ Break_align_interface::calc_positioning_done (SCM smob)
   Grob *grob = unsmob_grob (smob);  
   Item *me = dynamic_cast<Item *> (grob);
 
-  Link_array__Grob_ elems = ordered_elements (me);
-  std::vector<Interval> extents;
+  vector<Grob*> elems = ordered_elements (me);
+  vector<Interval> extents;
 
   int last_nonempty = -1;
   for (vsize i = 0; i < elems.size (); i++)
@@ -111,7 +111,7 @@ Break_align_interface::calc_positioning_done (SCM smob)
   while (idx < extents.size () && extents[idx].is_empty ())
     idx++;
 
-  std::vector<Real> offsets;
+  vector<Real> offsets;
   offsets.resize (elems.size ());
   for (vsize i = 0; i < offsets.size ();i++)
     offsets[i] = 0.0;
@@ -183,11 +183,11 @@ Break_align_interface::calc_positioning_done (SCM smob)
       bool entry_found = scm_is_pair (entry);
       if (!entry_found)
 	{
-	  std::string sym_string;
+	  string sym_string;
 	  if (scm_is_symbol (rsym))
 	    sym_string = ly_symbol2string (rsym);
 
-	  std::string orig_string;
+	  string orig_string;
 	  if (unsmob_grob (l->get_property ("cause")))
 	    orig_string = unsmob_grob (l->get_property ("cause"))->name ();
 

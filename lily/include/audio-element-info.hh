@@ -22,7 +22,7 @@ public:
   Music *event_;
   Translator *origin_trans_;
 
-  Link_array__Context_ origin_contexts (Translator *) const;
+  vector<Context*> origin_contexts (Translator *) const;
 
   Audio_element_info (Audio_element *, Music *);
   Audio_element_info ();

@@ -30,7 +30,7 @@ Font_metric::design_size () const
 }
 
 Stencil
-Font_metric::find_by_name (std::string s) const
+Font_metric::find_by_name (string s) const
 {
   replace_all (s, '-', 'M');
   int idx = name_to_index (s);
@@ -83,7 +83,7 @@ Font_metric::get_indexed_char (vsize k) const
 }
 
 vsize
-Font_metric::name_to_index (std::string) const
+Font_metric::name_to_index (string) const
 {
   return VPOS;
 }
@@ -129,10 +129,10 @@ Font_metric::font_file_name () const
   return scm_car (description_);
 }
 
-std::string
+string
 Font_metric::font_name () const
 {
-  std::string s ("unknown");
+  string s ("unknown");
   return s;
 }
 
@@ -168,7 +168,7 @@ Font_metric::get_indexed_char_stencil (vsize code) const
 }
 
 Offset
-Font_metric::attachment_point (std::string) const
+Font_metric::attachment_point (string) const
 {
   return Offset (0, 0);
 }
@@ -180,7 +180,7 @@ Font_metric::sub_fonts () const
 }
 
 Stencil
-Font_metric::text_stencil (std::string str) const
+Font_metric::text_stencil (string str) const
 {
   SCM lst = scm_list_3 (ly_symbol2scm ("text"),
 			this->self_scm (),
@@ -191,7 +191,7 @@ Font_metric::text_stencil (std::string str) const
 }
 
 Box
-Font_metric::text_dimension (std::string) const
+Font_metric::text_dimension (string) const
 {
   return Box (Interval (0, 0), Interval (0, 0));
 }

@@ -11,7 +11,7 @@
 #include "midi-item.hh"
 #include "audio-column.hh"
 
-Audio_instrument::Audio_instrument (std::string instrument_string)
+Audio_instrument::Audio_instrument (string instrument_string)
 {
   str_ = instrument_string;
 }
@@ -62,7 +62,7 @@ Audio_time_signature::Audio_time_signature (int beats, int one_beat)
   one_beat_ = one_beat;
 }
 
-Audio_text::Audio_text (Audio_text::Type type, std::string text_string)
+Audio_text::Audio_text (Audio_text::Type type, string text_string)
 {
   text_string_ = text_string;
   type_ = type;

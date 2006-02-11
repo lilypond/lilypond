@@ -67,7 +67,7 @@ Input::set_location (Input const &i_start, Input const &i_end)
   [file:line:column:][warning:]message
 */
 void
-Input::message (std::string s) const
+Input::message (string s) const
 {
   if (source_file_)
     s = location_string () + ": " + s + "\n"
@@ -76,13 +76,13 @@ Input::message (std::string s) const
 }
 
 void
-Input::warning (std::string s) const
+Input::warning (string s) const
 {
   message (_f ("warning: %s", s));
 }
 
 void
-Input::error (std::string s) const
+Input::error (string s) const
 {
   message (_f ("error: %s", s));
   // UGH, fix naming or usage
@@ -90,12 +90,12 @@ Input::error (std::string s) const
 }
 
 void
-Input::non_fatal_error (std::string s) const
+Input::non_fatal_error (string s) const
 {
   message (_f ("error: %s", s));
 }
 
-std::string
+string
 Input::location_string () const
 {
   if (source_file_)
@@ -103,7 +103,7 @@ Input::location_string () const
   return " (" + _ ("position unknown") + ")";
 }
 
-std::string
+string
 Input::line_number_string () const
 {
   if (source_file_)
@@ -111,7 +111,7 @@ Input::line_number_string () const
   return "?";
 }
 
-std::string
+string
 Input::file_string () const
 {
   if (source_file_)

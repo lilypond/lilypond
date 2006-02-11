@@ -352,9 +352,9 @@ Beam::print (SCM grob)
       SCM left = (i > 0) ? scm_cdr (last_beaming) : SCM_EOL;
       SCM right = stem ? scm_car (this_beaming) : SCM_EOL;
 
-      std::vector<int> full_beams;
-      std::vector<int> lfliebertjes;
-      std::vector<int> rfliebertjes;
+      vector<int> full_beams;
+      vector<int> lfliebertjes;
+      vector<int> rfliebertjes;
 
       for (SCM s = left;
 	   scm_is_pair (s); s = scm_cdr (s))
@@ -506,7 +506,7 @@ Beam::print (SCM grob)
 	should be switchable for those who want to twiddle with the
 	parameters.
       */
-      std::string str;
+      string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
@@ -614,7 +614,7 @@ Beam::consider_auto_knees (Grob *me)
   Grob *common = common_refpoint_of_array (stems, me, Y_AXIS);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  std::vector<Interval> head_extents_array;
+  vector<Interval> head_extents_array;
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
@@ -785,7 +785,7 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
   if (count < 1)
     return ly_interval2scm (pos);
   
-  std::vector<Real> x_posns;
+  vector<Real> x_posns;
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);
@@ -845,7 +845,7 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
     }
   else
     {
-      std::vector<Offset> ideals;
+      vector<Offset> ideals;
       for (vsize i = 0; i < stems.size (); i++)
 	{
 	  Grob *s = stems[i];
@@ -891,7 +891,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
   /*
     Code dup.
   */
-  std::vector<Real> x_posns;
+  vector<Real> x_posns;
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);

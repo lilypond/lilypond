@@ -46,15 +46,15 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 
 protected:
   virtual Spanner *create_ligature_spanner ();
-  virtual void build_ligature (Spanner *ligature, std::vector<Grob_info> primitives);
+  virtual void build_ligature (Spanner *ligature, vector<Grob_info> primitives);
 
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
 private:
-  void transform_heads (std::vector<Grob_info> primitives);
-  void propagate_properties (Spanner *ligature, std::vector<Grob_info> primitives);
-  void fold_up_primitives (std::vector<Grob_info> primitives);
+  void transform_heads (vector<Grob_info> primitives);
+  void propagate_properties (Spanner *ligature, vector<Grob_info> primitives);
+  void fold_up_primitives (vector<Grob_info> primitives);
 };
 
 Mensural_ligature_engraver::Mensural_ligature_engraver ()
@@ -70,7 +70,7 @@ Mensural_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Mensural_ligature_engraver::transform_heads (std::vector<Grob_info> primitives)
+Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 {
   if (primitives.size () < 2)
     {
@@ -296,7 +296,7 @@ Mensural_ligature_engraver::transform_heads (std::vector<Grob_info> primitives)
  */
 void
 Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
-						  std::vector<Grob_info> primitives)
+						  vector<Grob_info> primitives)
 {
   Real thickness
     = robust_scm2double (ligature->get_property ("thickness"), 1.4);
@@ -352,7 +352,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 }
 
 void
-Mensural_ligature_engraver::fold_up_primitives (std::vector<Grob_info> primitives)
+Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> primitives)
 {
   Item *first = 0;
   Real distance = 0;
@@ -375,7 +375,7 @@ Mensural_ligature_engraver::fold_up_primitives (std::vector<Grob_info> primitive
 
 void
 Mensural_ligature_engraver::build_ligature (Spanner *ligature,
-					    std::vector<Grob_info> primitives)
+					    vector<Grob_info> primitives)
 {
   transform_heads (primitives);
   propagate_properties (ligature, primitives);

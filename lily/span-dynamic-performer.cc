@@ -41,8 +41,8 @@ private:
   Real last_volume_;
   Music *span_start_event_;
   Drul_array<Music *> span_events_;
-  std::vector<Audio_dynamic_tuple> dynamic_tuples_;
-  std::vector<Audio_dynamic_tuple> finished_dynamic_tuples_;
+  vector<Audio_dynamic_tuple> dynamic_tuples_;
+  vector<Audio_dynamic_tuple> finished_dynamic_tuples_;
   Direction dir_;
   Direction finished_dir_;
 };

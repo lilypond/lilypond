@@ -24,7 +24,7 @@ protected:
   void stop_translation_timestep ();
   virtual void finalize ();
 private:
-  Link_array__Music_ cluster_notes_;
+  vector<Music*> cluster_notes_;
   Item *beacon_;
 
   void typeset_grobs ();

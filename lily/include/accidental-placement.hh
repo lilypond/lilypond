@@ -21,8 +21,8 @@ public:
 						  Item *item_col,
 						  Grob *acc);
   static void split_accidentals (Grob *accs,
-				 Link_array__Grob_ *break_reminder,
-				 Link_array__Grob_ *real_acc);
+				 vector<Grob*> *break_reminder,
+				 vector<Grob*> *real_acc);
 
   DECLARE_SCHEME_CALLBACK(calc_positioning_done, (SCM));
   static bool has_interface (Grob *);

@@ -2732,7 +2732,7 @@ run_music_function (Lily_parser *parser, SCM expr)
 bool
 is_regular_identifier (SCM id)
 {
-  std::string str = ly_scm2string (id);
+  string str = ly_scm2string (id);
   char const *s = str.c_str ();
 
   bool v = true;

@@ -91,7 +91,7 @@ Tex_font_metric::get_ascii_char (vsize a) const
 }
 
 SCM
-Tex_font_metric::make_tfm (std::string file_name)
+Tex_font_metric::make_tfm (string file_name)
 {
   Tex_font_metric *tfm = new Tex_font_metric;
   Tex_font_metric_reader reader (file_name);
@@ -118,14 +118,14 @@ Tex_font_metric::design_size () const
   return info_.design_size * point_constant;
 }
 
-std::string
+string
 Tex_font_metric::font_name () const
 {
   return font_name_;
 }
 
 vsize
-Tex_font_metric::name_to_index (std::string) const
+Tex_font_metric::name_to_index (string) const
 {
   assert (false);
   return 0;

@@ -430,7 +430,7 @@ Grob::fixup_refpoint ()
   MESSAGES
 ****************************************************************/
 void
-Grob::warning (std::string s) const
+Grob::warning (string s) const
 {
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
@@ -443,7 +443,7 @@ Grob::warning (std::string s) const
 }
 
 
-std::string
+string
 Grob::name () const
 {
   SCM meta = get_property ("meta");
@@ -453,7 +453,7 @@ Grob::name () const
 }
 
 void
-Grob::programming_error (std::string s) const
+Grob::programming_error (string s) const
 {
   SCM cause = self_scm ();
   while (Grob *g = unsmob_grob (cause))
@@ -608,7 +608,7 @@ common_refpoint_of_list (SCM elist, Grob *common, Axis a)
 }
 
 Grob *
-common_refpoint_of_array (Link_array__Grob_ const &arr, Grob *common, Axis a)
+common_refpoint_of_array (vector<Grob*> const &arr, Grob *common, Axis a)
 {
   for (vsize i = arr.size (); i--;)
     if (Grob *s = arr[i])

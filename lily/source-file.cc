@@ -46,7 +46,7 @@ Source_file::load_stdin ()
 }
 
 char *
-gulp_file (std::string filename, int *filesize)
+gulp_file (string filename, int *filesize)
 {
   /* "b" must ensure to open literally, avoiding text (CR/LF)
      conversions.  */
@@ -78,7 +78,7 @@ gulp_file (std::string filename, int *filesize)
   return str;
 }
 
-Source_file::Source_file (std::string filename, std::string data)
+Source_file::Source_file (string filename, string data)
 {
   name_ = filename;
   istream_ = 0;
@@ -92,7 +92,7 @@ Source_file::Source_file (std::string filename, std::string data)
       newline_locations_.push_back (contents_str0_ + i);
 }
 
-Source_file::Source_file (std::string filename_string)
+Source_file::Source_file (string filename_string)
 {
   name_ = filename_string;
   istream_ = 0;
@@ -146,7 +146,7 @@ Source_file::get_istream ()
   return istream_;
 }
 
-std::string
+string
 Source_file::file_line_column_string (char const *context_str0) const
 {
   if (!c_str ())
@@ -161,7 +161,7 @@ Source_file::file_line_column_string (char const *context_str0) const
     }
 }
 
-std::string
+string
 Source_file::quote_input (char const *pos_str0) const
 {
   if (!contains (pos_str0))
@@ -169,15 +169,15 @@ Source_file::quote_input (char const *pos_str0) const
 
   int l, ch, col;
   get_counts (pos_str0, &l, &ch, &col);
-  std::string line = line_string (pos_str0);
-  std::string context = line.substr (0, ch)
+  string line = line_string (pos_str0);
+  string context = line.substr (0, ch)
     + to_string ('\n')
     + to_string (' ', col)
     + line.substr (ch, line.length()-ch);
   return context;
 }
 
-std::string
+string
 Source_file::name_string () const
 {
   return map_file_name (name_);
@@ -220,7 +220,7 @@ Source_file::line_slice (char const *pos_str0) const
   return Slice (begin_str0 - data_str0, end_str0 - data_str0);
 }
 
-std::string
+string
 Source_file::line_string (char const *pos_str0) const
 {
   if (!contains (pos_str0))
@@ -228,7 +228,7 @@ Source_file::line_string (char const *pos_str0) const
 
   Slice line = line_slice (pos_str0);
   char const *data_str0 = c_str ();
-  return std::string (data_str0 + line[LEFT], line.length ());
+  return string (data_str0 + line[LEFT], line.length ());
 }
 
 void
@@ -251,7 +251,7 @@ Source_file::get_counts (char const *pos_str0,
   char const *line_start = (char const *)data + line[LEFT];
 
   ssize left = (char const *) pos_str0 - line_start;
-  std::string line_begin (line_start, left);
+  string line_begin (line_start, left);
   char const *line_chars = line_begin.c_str ();
 
   *column = 0;
@@ -380,10 +380,10 @@ Source_file::forward_str0 (int n)
   return old_pos;
 }
 
-std::string
+string
 Source_file::get_string (int n)
 {
-  std::string str = std::string ((char const *)forward_str0 (n), n);
+  string str = string ((char const *)forward_str0 (n), n);
   return str;
 }
 

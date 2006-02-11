@@ -42,7 +42,7 @@ const Real EPS = 1e-12;
   binsearch.
 */
 void
-insert_extent_into_skyline (std::vector<Skyline_entry> *line, Box b, Axis line_axis,
+insert_extent_into_skyline (vector<Skyline_entry> *line, Box b, Axis line_axis,
 			    Direction d)
 {
   Interval extent = b[line_axis];
@@ -83,8 +83,8 @@ insert_extent_into_skyline (std::vector<Skyline_entry> *line, Box b, Axis line_a
 }
 
 void
-merge_skyline (std::vector<Skyline_entry> *a1,
-	       std::vector<Skyline_entry> const &a2,
+merge_skyline (vector<Skyline_entry> *a1,
+	       vector<Skyline_entry> const &a2,
 	       Direction dir)
 {
   for (vsize i = 0; i < a2.size (); i++)
@@ -98,10 +98,10 @@ merge_skyline (std::vector<Skyline_entry> *a1,
     }
 }
 
-std::vector<Skyline_entry>
+vector<Skyline_entry>
 empty_skyline (Direction d)
 {
-  std::vector<Skyline_entry> skyline;
+  vector<Skyline_entry> skyline;
 
   Interval i;
   i.set_empty ();
@@ -113,11 +113,11 @@ empty_skyline (Direction d)
   return skyline;
 }
 
-std::vector<Skyline_entry>
-extents_to_skyline (std::vector<Box> const &extents, Axis a, Direction d)
+vector<Skyline_entry>
+extents_to_skyline (vector<Box> const &extents, Axis a, Direction d)
 {
 
-  std::vector<Skyline_entry> skyline = empty_skyline (d);
+  vector<Skyline_entry> skyline = empty_skyline (d);
 
   /*
     This makes a cubic algorithm (array  insertion is O (n),
@@ -139,8 +139,8 @@ extents_to_skyline (std::vector<Box> const &extents, Axis a, Direction d)
   This is an O (n) algorithm.
 */
 Real
-skyline_meshing_distance (std::vector<Skyline_entry> const &buildings,
-			  std::vector<Skyline_entry> const &clouds)
+skyline_meshing_distance (vector<Skyline_entry> const &buildings,
+			  vector<Skyline_entry> const &clouds)
 {
   int i = buildings.size () -1;
   int j = clouds.size () -1;
@@ -176,14 +176,14 @@ Skyline_entry::Skyline_entry (Interval i, Real r)
 }
 
 void
-heighten_skyline (std::vector<Skyline_entry> *buildings, Real ground)
+heighten_skyline (vector<Skyline_entry> *buildings, Real ground)
 {
   for (vsize i = 0; i < buildings->size (); i++)
     buildings->at (i).height_ += ground;
 }
 
 Real
-skyline_height (std::vector<Skyline_entry> const &buildings,
+skyline_height (vector<Skyline_entry> const &buildings,
 		Real airplane,
 		Direction sky_dir)
 {

@@ -23,21 +23,21 @@ protected:
   Paper_score *pscore_;
   Real linewidth_;
 
-  Link_array__Grob_ find_breaks () const;
-  std::vector<int> find_break_indices () const;
+  vector<Grob*> find_breaks () const;
+  vector<int> find_break_indices () const;
   void solve_line (Column_x_positions *) const;
-  bool feasible (Link_array__Grob_ const &) const;
+  bool feasible (vector<Grob*> const &) const;
 
-  Simple_spacer_wrapper *generate_spacing_problem (Link_array__Grob_ const &,
+  Simple_spacer_wrapper *generate_spacing_problem (vector<Grob*> const &,
 						   Interval) const;
-  virtual std::vector<Column_x_positions> do_solve () const = 0;
+  virtual vector<Column_x_positions> do_solve () const = 0;
 
 public:
   virtual ~Break_algorithm ();
   Simple_spacer *(*get_line_spacer) ();
   Break_algorithm ();
   void set_pscore (Paper_score *);
-  std::vector<Column_x_positions> solve () const;
+  vector<Column_x_positions> solve () const;
 };
 
 #endif // BREAK_HH

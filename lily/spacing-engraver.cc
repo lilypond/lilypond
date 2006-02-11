@@ -42,8 +42,8 @@ struct Rhythmic_tuple
 class Spacing_engraver : public Engraver
 {
   PQueue<Rhythmic_tuple> playing_durations_;
-  std::vector<Rhythmic_tuple> now_durations_;
-  std::vector<Rhythmic_tuple> stopped_durations_;
+  vector<Rhythmic_tuple> now_durations_;
+  vector<Rhythmic_tuple> stopped_durations_;
   Moment now_;
   Spanner *spacing_;
 

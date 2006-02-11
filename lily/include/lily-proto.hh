@@ -8,6 +8,7 @@
 
 #ifndef LILY_PROTO_HH
 #define LILY_PROTO_HH
+
 #include "flower-proto.hh"
 
 class All_font_metrics;
@@ -176,30 +177,5 @@ class yyFlexLexer;
 
 typedef void (*Engraver_void_function_engraver_grob_info) (Engraver *, Grob_info);
 typedef void (*Translator_void_method_ptr) (Translator *);
-
-
-/* FIXME: when Link_array is dropped, do grand s/r to vector<TYPE*>.  */
-
-#include "std-vector.hh"
-
-#define Link_array__char_ std::vector<char*>
-#define Link_array__Grob_ std::vector<Grob*>
-#define Link_array__Accidental_placement_entry_ std::vector<Accidental_placement_entry*>
-#define Link_array__Audio_item_ std::vector<Audio_item*>
-#define Link_array__Audio_note_ std::vector<Audio_note*>
-#define Link_array__Audio_piano_pedal_ std::vector<Audio_piano_pedal*>
-#define Link_array__Audio_staff_ std::vector<Audio_staff*>
-#define Link_array__Bracket_nesting_node_ std::vector<Bracket_nesting_node*>
-#define Link_array__Context_ std::vector<Context*>
-#define Link_array__Context_def_ std::vector<Context_def*>
-#define Link_array__Grob_ std::vector<Grob*>
-#define Link_array__Item_ std::vector<Item*>
-#define Link_array__Music_ std::vector<Music*>
-#define Link_array__Note_column_ std::vector<Note_column*>
-#define Link_array__Output_def_ std::vector<Output_def*>
-#define Link_array__Slur_configuration_ std::vector<Slur_configuration*>
-#define Link_array__Source_file_ std::vector<Source_file*>
-#define Link_array__Spanner_ std::vector<Spanner*>
-#define Link_array__Tie_configuration_ std::vector<Tie_configuration*>
 
 #endif /* LILY_PROTO_HH */

@@ -10,7 +10,7 @@
 
 Lilypond_grob_key::Lilypond_grob_key (Object_key const *context,
 				      Moment start,
-				      std::string name,
+				      string name,
 				      int disambiguation_count)
 {
   context_ = context;
@@ -87,8 +87,8 @@ Lilypond_context_key::derived_mark () const
 
 Lilypond_context_key::Lilypond_context_key (Object_key const *parent,
 					    Moment start,
-					    std::string type,
-					    std::string id,
+					    string type,
+					    string id,
 					    int count)
 {
   disambiguation_count_ = count;
@@ -177,7 +177,7 @@ Lilypond_general_key::derived_mark () const
 }
 
 Lilypond_general_key::Lilypond_general_key (Object_key const *parent,
-					    std::string name,
+					    string name,
 					    int count)
 {
   parent_ = parent;

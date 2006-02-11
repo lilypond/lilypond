@@ -22,7 +22,7 @@ dependencies to the spanbars.
 class Span_bar_engraver : public Engraver
 {
   Item *spanbar_;
-  Link_array__Item_ bars_;
+  vector<Item*> bars_;
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);

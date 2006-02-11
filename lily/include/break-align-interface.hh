@@ -14,7 +14,7 @@
 class Break_align_interface
 {
 public:
-  static Link_array__Grob_ ordered_elements (Grob *me);
+  static vector<Grob*> ordered_elements (Grob *me);
   static bool has_interface (Grob *);
   static void add_element (Grob *me, Grob *add);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));

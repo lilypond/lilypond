@@ -73,7 +73,7 @@ public:
   bool is_live () const;
 
   /* naming. */
-  std::string name () const;
+  string name () const;
 
   /* Properties */
   SCM get_property_alist_chain (SCM) const;
@@ -85,8 +85,8 @@ public:
   void internal_set_object (SCM sym, SCM val);
 
   /* messages */  
-  void warning (std::string) const;
-  void programming_error (std::string) const;
+  void warning (string) const;
+  void programming_error (string) const;
 
 
   /* class hierarchy */
@@ -128,7 +128,7 @@ Item *unsmob_item (SCM);
 
 /* refpoints */
 Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
-Grob *common_refpoint_of_array (Link_array__Grob_ const &, Grob *, Axis a);
+Grob *common_refpoint_of_array (vector<Grob*> const &, Grob *, Axis a);
 System *get_root_system (Grob *me);
 
 /* extents */ 

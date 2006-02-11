@@ -93,7 +93,7 @@ public:
     coordinate_a_[X_AXIS] = coordinate_a_[Y_AXIS] = 0.0;
   }
 
-  std::string to_string () const;
+  string to_string () const;
 
   Offset &mirror (Axis a)
   {

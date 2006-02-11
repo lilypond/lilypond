@@ -1,5 +1,5 @@
 /*
-  std-string.hh -- declare std::string
+  std-string.hh -- declare string
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,29 +13,28 @@
 
 #include <string>
 
-namespace std {
+using namespace std;
 
-  typedef size_t ssize;
-#define NPOS std::string::npos
+typedef size_t ssize;
+#define NPOS string::npos
 
-  string to_string (string s);
-  string to_string (char c, int n = 1);
-  string to_string (int i, char const *format = 0);
-  string to_string (double f, char const *format = 0);
-  string to_string (long);
-  string to_string (long unsigned);
-  string to_string (unsigned);
-  string to_string (bool b);
-  string to_string (char const *format, ...);
+string to_string (string s);
+string to_string (char c, int n=1);
+string to_string (int i, char const *format=0);
+string to_string (double f, char const *format=0);
+string to_string (long);
+string to_string (long unsigned);
+string to_string (unsigned);
+string to_string (bool b);
+string to_string (char const *format, ...);
   
-  string &replace_all (string &str, string find, string replace);
-  string &replace_all (string &str, char find, char replace);
-  char *string_copy (string s);
-  
-  int string_compare (string const &, string const &);
+string &replace_all (string &str, string find, string replace);
+string &replace_all (string &str, char find, char replace);
+char *string_copy (string s);
 
-  INSTANTIATE_COMPARE (string const &, string_compare);
-}
+int string_compare (string const &, string const &);
+
+INSTANTIATE_COMPARE (string const &, string_compare);
 
 
 #endif /* STD_STRING_HH */

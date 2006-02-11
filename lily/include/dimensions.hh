@@ -37,7 +37,7 @@ const Real PT_TO_MM = (1.0 / MM_TO_PT);
 
 #endif
 
-std::string print_dimen (Real);
+string print_dimen (Real);
 const Real point_constant = 1 PT;
 const Real inch_constant = 1 INCH;
 const Real cm_constant = 1 CM;

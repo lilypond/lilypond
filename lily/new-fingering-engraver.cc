@@ -43,11 +43,11 @@ struct Finger_tuple
 
 class New_fingering_engraver : public Engraver
 {
-  std::vector<Finger_tuple> fingerings_;
-  std::vector<Finger_tuple> articulations_;
-  std::vector<Finger_tuple> string_numbers_;
+  vector<Finger_tuple> fingerings_;
+  vector<Finger_tuple> articulations_;
+  vector<Finger_tuple> string_numbers_;
 
-  Link_array__Grob_ heads_;
+  vector<Grob*> heads_;
   Grob *stem_;
 
 public:
@@ -59,7 +59,7 @@ protected:
   void add_fingering (Grob *, Music *, Music *);
   void add_script (Grob *, Music *, Music *);
   void add_string (Grob *, Music *, Music *);
-  void position_scripts (SCM orientations, std::vector<Finger_tuple> *);
+  void position_scripts (SCM orientations, vector<Finger_tuple> *);
 };
 
 void
@@ -187,7 +187,7 @@ New_fingering_engraver::add_string (Grob *head,
 
 void
 New_fingering_engraver::position_scripts (SCM orientations,
-					  std::vector<Finger_tuple> *scripts)
+					  vector<Finger_tuple> *scripts)
 {
   for (vsize i = 0; i < scripts->size (); i++)
     if (stem_ && to_boolean (scripts->at (i).script_->get_property ("add-stem-support")))
@@ -209,7 +209,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     for (vsize j = heads_.size (); j--;)
       Side_position_interface::add_support ((*scripts)[i].script_, heads_[j]);
 
-  std::vector<Finger_tuple> up, down, horiz;
+  vector<Finger_tuple> up, down, horiz;
   for (vsize i = scripts->size (); i--;)
     {
       SCM d = (*scripts)[i].finger_event_->get_property ("direction");
@@ -282,7 +282,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
   int finger_prio = 200;
 
   Direction d = DOWN;
-  Drul_array< std::vector<Finger_tuple> > vertical (down, up);
+  Drul_array< vector<Finger_tuple> > vertical (down, up);
   do
     {
       for (vsize i = 0; i < vertical[d].size (); i++)

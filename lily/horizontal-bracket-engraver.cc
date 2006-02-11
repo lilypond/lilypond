@@ -19,8 +19,8 @@ class Horizontal_bracket_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);
-  Link_array__Spanner_ bracket_stack_;
-  Link_array__Music_ events_;
+  vector<Spanner*> bracket_stack_;
+  vector<Music*> events_;
   vsize pop_count_;
   vsize push_count_;
 

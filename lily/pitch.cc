@@ -166,13 +166,13 @@ pitch_interval (Pitch const &from, Pitch const &to)
 char const *accname[] = {"eses", "eseh", "es", "eh", "",
 			 "ih", "is", "isih", "isis"};
 
-std::string
+string
 Pitch::to_string () const
 {
   int n = (notename_ + 2) % 7;
-  std::string s = std::to_string (char (n + 'a'));
+  string s = ::to_string (char (n + 'a'));
   if (alteration_)
-    s += std::string (accname[alteration_ - DOUBLE_FLAT]);
+    s += string (accname[alteration_ - DOUBLE_FLAT]);
 
   if (octave_ >= 0)
     {
@@ -184,7 +184,7 @@ Pitch::to_string () const
     {
       int o = (-octave_) - 1;
       while (o--)
-	s += std::to_string (',');
+	s += ::to_string (',');
     }
 
   return s;

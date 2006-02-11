@@ -21,8 +21,8 @@ public:
   TRANSLATOR_DECLARATIONS (Stanza_number_align_engraver);
 
 protected:
-  Link_array__Grob_ lyrics_;
-  Link_array__Grob_ stanza_numbers_;
+  vector<Grob*> lyrics_;
+  vector<Grob*> stanza_numbers_;
 
   DECLARE_ACKNOWLEDGER (lyric_syllable);
   DECLARE_ACKNOWLEDGER (stanza_number);

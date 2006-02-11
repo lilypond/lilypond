@@ -86,25 +86,25 @@ Getopt_long::parselong ()
   return found_option_;
 }
 
-std::string
+string
 Long_option_init::to_string () const
 {
-  std::string str;
+  string str;
   if (shortname_char_)
     str += "-" + shortname_char_;
   if (shortname_char_ && longname_str0_)
     str += ", ";
   if (longname_str0_)
-    str += std::string ("`--") + longname_str0_ + "'";
+    str += string ("`--") + longname_str0_ + "'";
   return str;
 }
 
-std::string
+string
 Long_option_init::str_for_help () const
 {
-  std::string s;
+  string s;
   if (shortname_char_)
-    s = "-" + std::to_string (shortname_char_);
+    s = "-" + ::to_string (shortname_char_);
   else
     s = "  ";
 
@@ -133,7 +133,7 @@ Getopt_long::report (Errorcod c)
   if (!error_out_)
     return;
 
-  std::string str = arg_value_char_a_a_[0];
+  string str = arg_value_char_a_a_[0];
   str += ": ";
   switch (c)
     {
@@ -147,9 +147,9 @@ Getopt_long::report (Errorcod c)
       break;
     case E_UNKNOWNOPTION:
       str += _f ("unrecognized option: `%s'",
-		 std::string (argument_index_
-			     ? std::string ("-" + std::string (1, arg_value_char_a_a_[array_index_][argument_index_]))
-			 : std::string (arg_value_char_a_a_[array_index_])));
+		 string (argument_index_
+			     ? string ("-" + string (1, arg_value_char_a_a_[array_index_][argument_index_]))
+			 : string (arg_value_char_a_a_[array_index_])));
       break;
     case E_ILLEGALARG:
       str += _f ("invalid argument `%s' to option `%s'",
@@ -296,23 +296,23 @@ Getopt_long::get_next_arg ()
 
 const int EXTRA_SPACES = 5;
 
-std::string
+string
 Long_option_init::table_string (Long_option_init *l)
 {
-  std::string tabstr = "";
+  string tabstr = "";
 
   int wid = 0;
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
-    wid = std::max (int(wid), int(l[i].str_for_help ().length ()));
+    wid = max (int(wid), int(l[i].str_for_help ().length ()));
 
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
     {
-      std::string s = "  " + l[i].str_for_help ();
-      s += std::string (wid - s.length () + EXTRA_SPACES, ' ');
+      string s = "  " + l[i].str_for_help ();
+      s += string (wid - s.length () + EXTRA_SPACES, ' ');
 
-      std::string help_text (gettext (l[i].help_str0_));
+      string help_text (gettext (l[i].help_str0_));
       replace_all (help_text, "\n",
-		   "\n" + std::string (wid + EXTRA_SPACES + 2, ' '));
+		   "\n" + string (wid + EXTRA_SPACES + 2, ' '));
       tabstr += s + help_text + "\n";
     }
 

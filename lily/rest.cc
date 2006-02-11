@@ -57,8 +57,8 @@ Rest::y_offset_callback (SCM smob)
 /*
   make this function easily usable in C++
 */
-std::string
-Rest::glyph_name (Grob *me, int balltype, std::string style, bool try_ledgers)
+string
+Rest::glyph_name (Grob *me, int balltype, string style, bool try_ledgers)
 {
   bool is_ledgered = false;
   if (try_ledgers && (balltype == 0 || balltype == 1))
@@ -75,7 +75,7 @@ Rest::glyph_name (Grob *me, int balltype, std::string style, bool try_ledgers)
       is_ledgered |= (balltype == 1) && (pos <= -rad - 2 || pos > +rad);
     }
 
-  std::string actual_style (style.c_str ());
+  string actual_style (style.c_str ());
 
   if ((style == "mensural") || (style == "neomensural"))
     {
@@ -128,13 +128,13 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 
   int balltype = scm_to_int (balltype_scm);
 
-  std::string style;
+  string style;
   SCM style_scm = me->get_property ("style");
   if (scm_is_symbol (style_scm))
     style = ly_scm2string (scm_symbol_to_string (style_scm));
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  std::string font_char = glyph_name (me, balltype, style, ledgered);
+  string font_char = glyph_name (me, balltype, style, ledgered);
   Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
     me->warning (_f ("rest `%s' not found", font_char.c_str ()));

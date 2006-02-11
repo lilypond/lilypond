@@ -30,13 +30,13 @@ using namespace std;
   clean up the mess left by ledger line handling.
 */
 static Stencil
-internal_print (Grob *me, std::string *font_char)
+internal_print (Grob *me, string *font_char)
 {
   SCM style = me->get_property ("style");
   if (!scm_is_symbol (style))
     style = ly_symbol2scm ("default");
 
-  std::string suffix = to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
+  string suffix = to_string (min (robust_scm2int (me->get_property ("duration-log"), 2), 2));
   if (style != ly_symbol2scm ("default"))
     {
       SCM gn = me->get_property ("glyph-name");
@@ -46,12 +46,12 @@ internal_print (Grob *me, std::string *font_char)
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
-  std::string idx = "noteheads.s" + suffix;
+  string idx = "noteheads.s" + suffix;
 
   Stencil out = fm->find_by_name (idx);
   if (out.is_empty ())
     {
-      std::string prefix = "noteheads.";
+      string prefix = "noteheads.";
       Grob *stem = unsmob_grob (me->get_object ("stem"));
       Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
 
@@ -94,7 +94,7 @@ Note_head::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  std::string idx;
+  string idx;
   return internal_print (me, &idx).smobbed_copy ();
 }
 
@@ -113,7 +113,7 @@ Note_head::calc_stem_attachment (SCM smob)
 {
   Grob *me  = unsmob_grob (smob);
   Font_metric *fm = Font_interface::get_default_font (me);
-  std::string key;
+  string key;
   internal_print (me, &key);
 
   Offset att;

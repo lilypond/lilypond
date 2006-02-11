@@ -15,15 +15,15 @@
 class File_name
 {
 public:
-  std::string root_;
-  std::string dir_;
-  std::string base_;
-  std::string ext_;
+  string root_;
+  string dir_;
+  string base_;
+  string ext_;
 
-  File_name (std::string);
+  File_name (string);
 
   bool is_absolute () const;
-  std::string to_string () const;
+  string to_string () const;
 };
 
 #endif /* FILE_NAME */

@@ -35,7 +35,7 @@ using namespace std;
 */
 Rational
 Spacing_spanner::effective_shortest_duration (Grob *me,
-					      Link_array__Grob_ const &all)
+					      vector<Grob*> const &all)
 {
   SCM preset_shortest = me->get_property ("common-shortest-duration");
   Rational global_shortest;
@@ -61,7 +61,7 @@ Spacing_spanner::set_springs (SCM smob)
   /*
     can't use get_system() ? --hwn.
   */
-  Link_array__Grob_ all (get_root_system (me)->columns ());
+  vector<Grob*> all (get_root_system (me)->columns ());
 
   set_explicit_neighbor_columns (all);
 
@@ -86,13 +86,13 @@ Spacing_spanner::set_springs (SCM smob)
   stuff, then.
 */
 Rational
-Spacing_spanner::find_shortest (Grob *me, Link_array__Grob_ const &cols)
+Spacing_spanner::find_shortest (Grob *me, vector<Grob*> const &cols)
 {
   /*
     ascending in duration
   */
-  std::vector<Rational> durations;
-  std::vector<int> counts;
+  vector<Rational> durations;
+  vector<int> counts;
 
   Rational shortest_in_measure;
   shortest_in_measure.set_infinite (1);
@@ -225,7 +225,7 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
 
 void
 Spacing_spanner::generate_springs (Grob *me,
-				   Link_array__Grob_ const &cols,
+				   vector<Grob*> const &cols,
 				   Spacing_options const *options)
 {
   Paper_column *next = 0;

@@ -14,8 +14,8 @@ class Note_name_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
-  Link_array__Music_ events_;
-  Link_array__Item_ texts_;
+  vector<Music*> events_;
+  vector<Item*> texts_;
   virtual bool try_music (Music *m);
   void process_music ();
   void stop_translation_timestep ();
@@ -35,7 +35,7 @@ Note_name_engraver::try_music (Music *m)
 void
 Note_name_engraver::process_music ()
 {
-  std::string s;
+  string s;
   for (vsize i = 0; i < events_.size (); i++)
     {
       if (i)

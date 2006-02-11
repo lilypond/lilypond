@@ -11,11 +11,11 @@
 
 #include "std-string.hh"
 
-void error (std::string s);
-void message (std::string s);
-void non_fatal_error (std::string);
-void programming_error (std::string s);
-void progress_indication (std::string s);
-void warning (std::string s);
+void error (string s);
+void message (string s);
+void non_fatal_error (string);
+void programming_error (string s);
+void progress_indication (string s);
+void warning (string s);
 
 #endif /* WARN_HH */

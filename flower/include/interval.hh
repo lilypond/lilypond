@@ -23,7 +23,7 @@ struct Interval_t : public Drul_array<T>
   Drul_array<T>::at;
 
   static T infinity ();
-  static std::string T_to_string (T arg);
+  static string T_to_string (T arg);
   T center () const;
   void translate (T t)
   {
@@ -110,7 +110,7 @@ struct Interval_t : public Drul_array<T>
     Drul_array<Real> da (at (LEFT), at (RIGHT));
     return ::linear_combination (da, x);
   }
-  std::string to_string () const;
+  string to_string () const;
 
   bool contains (T r) const;
   void negate ()

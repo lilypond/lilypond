@@ -21,7 +21,7 @@
 */
 struct Interval_set
 {
-  std::vector<Interval> allowed_regions_;
+  vector<Interval> allowed_regions_;
 
   Interval_set ();
   void set_full ();

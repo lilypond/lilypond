@@ -14,7 +14,7 @@
 class Separating_group_spanner
 {
   static void find_rods (Item *,
-			 Link_array__Grob_ const &separators,
+			 vector<Grob*> const &separators,
 			 vsize idx,
 			 Real);
 public:

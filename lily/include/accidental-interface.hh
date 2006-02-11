@@ -20,8 +20,8 @@ public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   
   static bool has_interface (Grob *);
-  static std::string get_fontcharname (std::string style, int alteration);
-  static std::vector<Box> accurate_boxes (Grob *me,
+  static string get_fontcharname (string style, int alteration);
+  static vector<Box> accurate_boxes (Grob *me,
 							  Grob **common);
 };
 

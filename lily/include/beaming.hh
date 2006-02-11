@@ -28,7 +28,7 @@ struct Beaming_info
 */
 struct Beaming_info_list
 {
-  std::vector<Beaming_info> infos_;
+  vector<Beaming_info> infos_;
 
   int beam_extend_count (Direction) const;
   int best_splitpoint_index (Moment &beat_length, bool subdivide) const;

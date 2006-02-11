@@ -41,7 +41,7 @@ private:
   Midi_track *track_;
   Audio_staff *staff_;
   vsize index_;
-  Link_array__Audio_item_ *items_;
+  vector<Audio_item*> *items_;
   PQueue<Midi_note_event> stop_note_queue;
   Moment last_mom_;
 };

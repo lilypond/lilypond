@@ -21,8 +21,8 @@ public:
   static void add_grob (Grob *, SCM nm, SCM x);
 };
 
-Link_array__Grob_ const &internal_extract_grob_array (Grob const *elt, SCM symbol);
-Link_array__Item_ internal_extract_item_array (Grob const *elt, SCM symbol);
+vector<Grob*> const &internal_extract_grob_array (Grob const *elt, SCM symbol);
+vector<Item*> internal_extract_item_array (Grob const *elt, SCM symbol);
 
 #define extract_grob_array(x, prop) internal_extract_grob_array (x, ly_symbol2scm (prop))
 #define extract_item_array(x, prop) internal_extract_item_array (x, ly_symbol2scm (prop))
@@ -32,9 +32,9 @@ Link_array__Item_ internal_extract_item_array (Grob const *elt, SCM symbol);
   representation of grob sets again.
 */
 #define extract_grob_set(grob, prop, set)				\
-  Link_array__Grob_ const &set (internal_extract_grob_array (grob, ly_symbol2scm (prop)))
+  vector<Grob*> const &set (internal_extract_grob_array (grob, ly_symbol2scm (prop)))
 #define extract_item_set(grob, prop, set)				\
-  Link_array__Item_ set (internal_extract_item_array (grob, ly_symbol2scm (prop)))
+  vector<Item*> set (internal_extract_item_array (grob, ly_symbol2scm (prop)))
 
 #endif /* POINTER_GROUP_INTERFACE_HH */
 

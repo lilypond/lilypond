@@ -12,7 +12,7 @@ using namespace std;
 #include "binary-source-file.hh"
 #include "string-convert.hh"
 
-Binary_source_file::Binary_source_file (std::string &file_name_string)
+Binary_source_file::Binary_source_file (string &file_name_string)
   : Source_file (file_name_string)
 {
 }
@@ -21,7 +21,7 @@ Binary_source_file::~Binary_source_file ()
 {
 }
 
-std::string
+string
 Binary_source_file::quote_input (char const *pos_str0) const
 {
   assert (this);
@@ -31,18 +31,18 @@ Binary_source_file::quote_input (char const *pos_str0) const
   char const *begin_str0 = max (pos_str0 - 8, c_str ());
   char const *end_str0 = min (pos_str0 + 7, c_str () + length ());
 
-  std::string pre_string (begin_str0, pos_str0 - begin_str0);
+  string pre_string (begin_str0, pos_str0 - begin_str0);
   pre_string = String_convert::bin2hex (pre_string);
   for (ssize i = 2; i < pre_string.length (); i += 3)
     pre_string = pre_string.substr (0, i)
       + " " + pre_string.substr (i, NPOS);
-  std::string post_string (pos_str0, end_str0 - pos_str0);
+  string post_string (pos_str0, end_str0 - pos_str0);
   post_string = String_convert::bin2hex (post_string);
   for (ssize i = 2; i < post_string.length (); i += 3)
     post_string = post_string.substr (0, i)
       + " " + post_string.substr (i, NPOS);
 
-  std::string str = pre_string
+  string str = pre_string
     + to_string ('\n')
     + to_string (' ', pre_string.length () + 1)
     + post_string;

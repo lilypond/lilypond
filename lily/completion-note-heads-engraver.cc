@@ -43,13 +43,13 @@ using namespace std;
 
 class Completion_heads_engraver : public Engraver
 {
-  Link_array__Item_ notes_;
-  Link_array__Item_ prev_notes_;
-  Link_array__Grob_ ties_;
+  vector<Item*> notes_;
+  vector<Item*> prev_notes_;
+  vector<Grob*> ties_;
 
-  Link_array__Item_ dots_;
-  Link_array__Music_ note_events_;
-  Link_array__Music_ scratch_note_events_;
+  vector<Item*> dots_;
+  vector<Music*> note_events_;
+  vector<Music*> scratch_note_events_;
 
   Moment note_end_mom_;
   bool is_first_;

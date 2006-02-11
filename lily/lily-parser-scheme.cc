@@ -39,7 +39,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   char const *file = scm_i_string_chars (name);
   char const *extensions[] = {"ly", "", 0};
 
-  std::string file_name = global_path.find (file, extensions);
+  string file_name = global_path.find (file, extensions);
 
   /* By default, use base name of input file for output file name,
      write output to cwd; do not use root and directory parts of input
@@ -83,13 +83,13 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	out_file_name = File_name (output_name_global);
     }
 
-  std::string init;
+  string init;
   if (!init_name_global.empty ())
     init = init_name_global;
   else
     init = "init.ly";
 
-  std::string out_file = out_file_name.to_string ();
+  string out_file = out_file_name.to_string ();
 
   if (init.length () && global_path.find (init).empty ())
     {
@@ -110,7 +110,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       Sources sources;
       sources.set_path (&global_path);
 
-      std::string mapped_fn = map_file_name (file_name);
+      string mapped_fn = map_file_name (file_name);
       message (_f ("Processing `%s'", mapped_fn.c_str ()));
       progress_indication ("\n");
 

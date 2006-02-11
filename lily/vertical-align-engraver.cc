@@ -98,7 +98,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
 {
   if (qualifies (i))
     {
-      std::string id = i.context ()->id_string ();
+      string id = i.context ()->id_string ();
 
       scm_hash_set_x (id_to_group_hashtab_, scm_makfrom0str (id.c_str ()),
 		      i.grob ()->self_scm ());
@@ -117,7 +117,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       if (before_grob || after_grob)
 	{
 	  Grob_array *ga = unsmob_grob_array (valign_->get_object ("elements"));
-	  Link_array__Grob_ &arr = ga->array_reference ();
+	  vector<Grob*> &arr = ga->array_reference ();
 
 	  Grob *added = arr.back ();
 	  arr.pop_back ();

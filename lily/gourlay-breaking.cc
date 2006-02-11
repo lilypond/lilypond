@@ -57,7 +57,7 @@ struct Break_node
 };
 
 void
-print_break_nodes (std::vector<Break_node> const &arr)
+print_break_nodes (vector<Break_node> const &arr)
 {
   for (vsize i = 0; i < arr.size (); i++)
     {
@@ -74,14 +74,14 @@ print_break_nodes (std::vector<Break_node> const &arr)
    TODO: should rewrite. See the function in scm/page-layout.scm for
    inspiration.
 */
-std::vector<Column_x_positions>
+vector<Column_x_positions>
 Gourlay_breaking::do_solve () const
 {
-  std::vector<Break_node> optimal_paths;
-  Link_array__Grob_ all
+  vector<Break_node> optimal_paths;
+  vector<Grob*> all
     = pscore_->root_system ()->columns ();
 
-  std::vector<int> breaks = find_break_indices ();
+  vector<int> breaks = find_break_indices ();
 
   Break_node first_node;
   optimal_paths.push_back (first_node);
@@ -104,7 +104,7 @@ Gourlay_breaking::do_solve () const
 
       for (vsize start_idx = break_idx; start_idx--;)
 	{
-	  Link_array__Grob_ line (all.begin () + breaks[start_idx],
+	  vector<Grob*> line (all.begin () + breaks[start_idx],
 				  all.begin () + breaks[break_idx] + 1);
 
 	  line[0] = dynamic_cast<Item *> (line[0])->find_prebroken_piece (RIGHT);
@@ -176,17 +176,17 @@ Gourlay_breaking::do_solve () const
       optimal_paths.push_back (bnod);
 
       if (! (break_idx % HAPPY_DOTS))
-	progress_indication (std::string ("[") + to_string (break_idx) + "]");
+	progress_indication (string ("[") + to_string (break_idx) + "]");
     }
 
   /* do the last one */
   if (breaks.size () % HAPPY_DOTS)
-    progress_indication (std::string ("[") + to_string (breaks.size ()) + "]");
+    progress_indication (string ("[") + to_string (breaks.size ()) + "]");
 
   progress_indication ("\n");
 
-  std::vector<int> final_breaks;
-  std::vector<Column_x_positions> lines;
+  vector<int> final_breaks;
+  vector<Column_x_positions> lines;
 
   /* skip 0-th element, since it is a "dummy" elt*/
   for (vsize i = optimal_paths.size () - 1; i > 0;)

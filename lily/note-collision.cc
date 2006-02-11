@@ -23,9 +23,9 @@
 
 void
 check_meshing_chords (Grob *me,
-		      Drul_array<std::vector<Real> > *offsets,
-		      Drul_array<std::vector<Slice> > const &extents,
-		      Drul_array<Link_array__Grob_ > const &clash_groups)
+		      Drul_array<vector<Real> > *offsets,
+		      Drul_array<vector<Slice> > const &extents,
+		      Drul_array<vector<Grob*> > const &clash_groups)
 
 {
   if (!extents[UP].size () || ! extents[DOWN].size ())
@@ -41,8 +41,8 @@ check_meshing_chords (Grob *me,
   Grob *nu = Note_column::first_head (cu);
   Grob *nd = Note_column::first_head (cd);
 
-  std::vector<int> ups = Stem::note_head_positions (Note_column::get_stem (cu));
-  std::vector<int> dps = Stem::note_head_positions (Note_column::get_stem (cd));
+  vector<int> ups = Stem::note_head_positions (Note_column::get_stem (cu));
+  vector<int> dps = Stem::note_head_positions (Note_column::get_stem (cd));
 
   /* Too far apart to collide.  */
   if (ups[0] > dps.back () + 1)
@@ -280,7 +280,7 @@ SCM
 Note_collision_interface::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);  
-  Drul_array<Link_array__Grob_ > cg = get_clash_groups (me);
+  Drul_array<vector<Grob*> > cg = get_clash_groups (me);
 
   Direction d = UP;
   do
@@ -309,10 +309,10 @@ Note_collision_interface::calc_positioning_done (SCM smob)
     }
   while (flip (&d) != UP);
 
-  Link_array__Grob_ done;
+  vector<Grob*> done;
   Real left_most = 1e6;
 
-  std::vector<Real> amounts;
+  vector<Real> amounts;
   for (; scm_is_pair (hand); hand = scm_cdr (hand))
     {
       Grob *s = unsmob_grob (scm_caar (hand));
@@ -344,10 +344,10 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-Drul_array < Link_array__Grob_ >
+Drul_array < vector<Grob*> >
 Note_collision_interface::get_clash_groups (Grob *me)
 {
-  Drul_array<Link_array__Grob_ > clash_groups;
+  Drul_array<vector<Grob*> > clash_groups;
 
   extract_grob_set (me, "elements", elements);
   for (vsize i = 0; i < elements.size (); i++)
@@ -360,7 +360,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
   Direction d = UP;
   do
     {
-      Link_array__Grob_ &clashes (clash_groups[d]);
+      vector<Grob*> &clashes (clash_groups[d]);
       vector_sort (clashes, Note_column::shift_compare);
     }
   while ((flip (&d)) != UP);
@@ -375,17 +375,17 @@ Note_collision_interface::get_clash_groups (Grob *me)
 */
 SCM
 Note_collision_interface::automatic_shift (Grob *me,
-					   Drul_array < Link_array__Grob_
+					   Drul_array < vector<Grob*>
 					   > clash_groups)
 {
-  Drul_array < std::vector<int> > shifts;
+  Drul_array < vector<int> > shifts;
   SCM tups = SCM_EOL;
 
   Direction d = UP;
   do
     {
-      std::vector<int> &shift (shifts[d]);
-      Link_array__Grob_ &clashes (clash_groups[d]);
+      vector<int> &shift (shifts[d]);
+      vector<Grob*> &clashes (clash_groups[d]);
 
       for (vsize i = 0; i < clashes.size (); i++)
 	{
@@ -409,8 +409,8 @@ Note_collision_interface::automatic_shift (Grob *me,
     }
   while ((flip (&d)) != UP);
 
-  Drul_array<std::vector<Slice> > extents;
-  Drul_array<std::vector<Real> > offsets;
+  Drul_array<vector<Slice> > extents;
+  Drul_array<vector<Real> > offsets;
   d = UP;
   do
     {

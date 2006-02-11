@@ -159,12 +159,12 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
 void
 add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
 		  char const *func_name,
-		  std::vector<Acknowledge_information> *ack_array)
+		  vector<Acknowledge_information> *ack_array)
 {
   Acknowledge_information inf;
   inf.function_ = ptr;
 
-  std::string interface_name (func_name);
+  string interface_name (func_name);
 
   interface_name = replace_all (interface_name, '_', '-');
   interface_name += "-interface";
@@ -174,7 +174,7 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
 }
 
 Engraver_void_function_engraver_grob_info
-generic_get_acknowledger (SCM sym, std::vector<Acknowledge_information> const *ack_array)
+generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_array)
 {
   for (vsize i = 0; i < ack_array->size (); i++)
     {

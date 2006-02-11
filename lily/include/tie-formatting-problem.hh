@@ -76,11 +76,11 @@ struct Tie_configuration_variation
 
 class Tie_formatting_problem
 {
-  Drul_array< std::vector<Skyline_entry> > chord_outlines_;
+  Drul_array< vector<Skyline_entry> > chord_outlines_;
   Drul_array< Box > stem_extents_;
   set<int> dot_positions_;
   Interval dot_x_;
-  std::vector<Tie_specification> specifications_;
+  vector<Tie_specification> specifications_;
   
   Tie_configuration_map possibilities_;
 
@@ -89,7 +89,7 @@ class Tie_formatting_problem
   
   Tie_configuration *get_configuration (int position, Direction dir);
   Tie_configuration *generate_configuration (int position, Direction dir) const;
-  std::vector<Tie_configuration_variation> get_variations (Ties_configuration const &ties);
+  vector<Tie_configuration_variation> get_variations (Ties_configuration const &ties);
 
   Real score_configuration (Tie_configuration const &) const;
   Real score_aptitude (Tie_configuration const &, Tie_specification const &) const;
@@ -110,10 +110,10 @@ public:
   Ties_configuration generate_optimal_chord_configuration ();
   Ties_configuration generate_ties_configuration (Ties_configuration const &);
   Tie_configuration find_optimal_tie_configuration (Tie_specification const &) const;
-  void from_ties (Link_array__Grob_ const &ties);
+  void from_ties (vector<Grob*> const &ties);
   void from_tie (Grob *tie);
-  void from_lv_ties (Link_array__Grob_ const &);
-  void set_chord_outline (Link_array__Item_, Direction);
+  void from_lv_ties (vector<Grob*> const &);
+  void set_chord_outline (vector<Item*>, Direction);
   void set_manual_tie_configuration (SCM);
   Interval get_attachment (Real) const;
   Grob *common_x_refpoint () const;

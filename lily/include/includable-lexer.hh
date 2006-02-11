@@ -25,12 +25,12 @@ typedef struct yy_buffer_state *YY_BUFFER_STATE;
 */
 class Includable_lexer : public yyFlexLexer
 {
-  std::vector<YY_BUFFER_STATE> state_stack_;
+  vector<YY_BUFFER_STATE> state_stack_;
 
 protected:
   bool close_input ();
-  Link_array__Source_file_ include_stack_;
-  std::vector<int> char_count_stack_;
+  vector<Source_file*> include_stack_;
+  vector<int> char_count_stack_;
 
 public:
   bool allow_includes_b_;
@@ -39,11 +39,11 @@ public:
   ~Includable_lexer ();
 
   /// store dependencies for Makefile stuff.
-  std::vector<std::string> file_name_strings_;
+  vector<string> file_name_strings_;
 
   Source_file *get_source_file () const;
-  void new_input (std::string s, Sources *);
-  void new_input (std::string name, std::string data, Sources *);
+  void new_input (string s, Sources *);
+  void new_input (string name, string data, Sources *);
 
   char const *here_str0 () const;
 };

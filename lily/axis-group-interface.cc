@@ -45,7 +45,7 @@ Axis_group_interface::has_axis (Grob *me, Axis a)
 }
 
 Interval
-Axis_group_interface::relative_group_extent (Link_array__Grob_ const &elts,
+Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
 					     Grob *common, Axis a)
 {
   Interval r;
@@ -88,7 +88,7 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
 }
 
 void
-Axis_group_interface::get_children (Grob *me, Link_array__Grob_ *found)
+Axis_group_interface::get_children (Grob *me, vector<Grob*> *found)
 {
   found->push_back (me);
 

@@ -68,9 +68,9 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
   Drul_array<Beaming_info_list> splits;
   int m = best_splitpoint_index (beat_length, subdivide);
   bool split = subdivide && (m & at_beat); m = m & ~at_beat;
-  splits[LEFT].infos_ = std::vector<Beaming_info> (infos_.begin (),
+  splits[LEFT].infos_ = vector<Beaming_info> (infos_.begin (),
 						   infos_.begin () + m);
-  splits[RIGHT].infos_ = std::vector<Beaming_info> (infos_.begin () + m,
+  splits[RIGHT].infos_ = vector<Beaming_info> (infos_.begin () + m,
 						    infos_.end ());
 
   Direction d = LEFT;
