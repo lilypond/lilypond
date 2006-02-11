@@ -1,7 +1,11 @@
 2006-02-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* configure.in (LINK_GXX_STATICALLY): strip -DSTRING_UTILS_INLINED options.
-	(reloc_b): excise --enable-framework-dir 
+	* scm/define-grobs.scm (all-grob-descriptions): center instrument
+	names vertically
+
+	* configure.in (LINK_GXX_STATICALLY): strip -DSTRING_UTILS_INLINED
+	options.
+	(reloc_b): excise --enable-framework-dir
 
 	* lily/relocate.cc (framework_relocation): use getenv
 	LILYPOND_GS_VERSION or -DGHOSTSCRIPT_VERSION to set GS version.

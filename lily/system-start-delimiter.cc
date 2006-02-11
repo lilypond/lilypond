@@ -85,10 +85,13 @@ System_start_delimiter::text (Grob *me_grob, Real h)
   if (me->get_break_index () == 0)
     t = me->get_property ("long-text");
 	   
-	   
+  
   SCM chain = Font_interface::text_font_alist_chain (me);
 
-  SCM scm_stencil = Text_interface::interpret_markup (me->layout ()->self_scm (), chain, t);
+  SCM scm_stencil = Text_interface::is_markup (t)
+    ? Text_interface::interpret_markup (me->layout ()->self_scm (), chain, t)
+    : SCM_EOL;
+  
   if (Stencil *p = unsmob_stencil (scm_stencil))
     return *p;
   return Stencil();
