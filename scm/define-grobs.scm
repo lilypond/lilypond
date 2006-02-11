@@ -727,11 +727,10 @@
 	(style . text)
 	(padding . 0.3)
 	(stencil . ,ly:system-start-delimiter::print)
-	(collapse-height . 5.0)
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
-	(Y-offset . -0.75)
-	(Y-extent . #f)
+	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
+	(self-alignment-Y . ,CENTER)
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-text-interface
 				side-position-interface

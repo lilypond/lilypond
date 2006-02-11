@@ -117,51 +117,54 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
     g,8 r r g16 r16\fermata 
     }
 
-\book {
+  \book {
     \score {
-	<< \time 6/8
-	   \new Staff \with {
-	     fontSize = #-3
-	     \override StaffSymbol #'staff-space = #(magstep -3)
-	   } <<
-	       \context Staff #(set-accidental-style 'modern)
-	       \melody >>
-	   \lyricsto "singer" \new Lyrics \firstVerse
-	   \lyricsto "singer" \new Lyrics \secondVerse
-	   \new PianoStaff << 
-	       \set PianoStaff.instrument = \markup {
-		   \bold
-		   \bigger\bigger\bigger\bigger \huge "2." \hspace #1.0 }
-	       \context Staff = up <<
-		 \pianoRH
-		 \pianoLH
-		 >>
-	       \context Staff = down { \clef bass \skip 1*2 }
-	   >> 
+      << \time 6/8
+	 \new Staff \with {
+	   fontSize = #-3
+	   \override StaffSymbol #'staff-space = #(magstep -3)
+	 } <<
+	   \context Staff #(set-accidental-style 'modern)
+	   \melody >>
+	 \lyricsto "singer" \new Lyrics \firstVerse
+	 \lyricsto "singer" \new Lyrics \secondVerse
+	 \new PianoStaff << 
+	   \set PianoStaff.instrument = \markup {
+	     \bold
+	     \bigger\bigger\bigger\bigger
+	     \huge
+	     "2."
+	   }
+	   \context Staff = up <<
+	     \pianoRH
+	     \pianoLH
+	   >>
+	   \context Staff = down { \clef bass \skip 1*2 }
+	 >> 
        >>
 
-	\layout {
-	    \context {
-		\Lyrics
-		\override VerticalAxisGroup #'minimum-Y-extent = #'(-0.85 . 2.2)
-		\override LyricText #'font-size = #-1
-	    }
-	    \context {
-		\Score
-		\override Beam #'thickness = #0.55
-		\override Beam #'auto-knee-gap = #4.0
-		\override SpacingSpanner #'spacing-increment = #1.0
-		\override Stem #'stemlet-length = #0.5
-		\override Slur #'height-limit = #1.5
-	    }
-	    \context {
-		\PianoStaff
-		\override VerticalAlignment #'forced-distance = #10
-	    }
+      \layout {
+	\context {
+	  \Lyrics
+	  \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.85 . 2.2)
+	  \override LyricText #'font-size = #-1
 	}
-	\midi {
-	    \tempo 4 = 70
+	\context {
+	  \Score
+	  \override Beam #'thickness = #0.55
+	  \override Beam #'auto-knee-gap = #4.0
+	  \override SpacingSpanner #'spacing-increment = #1.0
+	  \override Stem #'stemlet-length = #0.5
+	  \override Slur #'height-limit = #1.5
 	}
+	\context {
+	  \PianoStaff
+	  \override VerticalAlignment #'forced-distance = #10
+	}
+      }
+      \midi {
+	\tempo 4 = 70
+      }
     }
-}
+  }
 
