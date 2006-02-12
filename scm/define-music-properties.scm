@@ -38,6 +38,7 @@ TODO: consider making type into symbol ")
      (compress-procedure ,procedure? "compress this music expression. Argument 1: the music, arg 2: factor")
      (context-id ,string? "name of context")
      (context-type ,symbol?  "type of context")
+     (create-new ,boolean? "Create a fresh context.") 
      (descend-only ,boolean? "If set, this @code{\\context} will only
 descend in the context tree.")
      (denominator ,integer? "denominator in a time signature")

@@ -9,12 +9,11 @@
 #ifndef CONTEXT_HH
 #define CONTEXT_HH
 
-#include <map>
-using namespace std;
 
 #include "moment.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
+#include "context-key-manager.hh"
 
 class Context
 {
@@ -30,14 +29,11 @@ private:
   int iterator_count_;
   bool init_;
 
-  map<string, int> grob_counts_;
-  map<string, int> context_counts_;
-
 protected:
-  Object_key const *key_;
   Context *daddy_context_;
   SCM definition_;
-
+  Context_key_manager key_manager_;
+  
   SCM properties_scm_;
   SCM context_list_;
   SCM accepts_list_;
@@ -48,11 +44,10 @@ protected:
   friend class Context_def;
   void clear_key_disambiguations ();
 
+  
 public:
-  Object_key const *key () const { return key_; }
-  Object_key const *create_grob_key (string);
-  Object_key const *get_grob_key (string);
-  Object_key const *get_context_key (string, string);
+  Object_key const *get_grob_key (string name);
+  Object_key const *get_context_key (string name, string id);
 
   Context *create_context (Context_def *, string, SCM);
   string id_string () const { return id_string_; }
@@ -90,7 +85,7 @@ public:
 
   Context *find_create_context (SCM context_name,
 				string id, SCM ops);
-  Context *create_unique_context (SCM context_name,
+  Context *create_unique_context (SCM context_name, string context_id,
 				  SCM ops);
   vector<Context*> path_to_acceptable_context (SCM alias,
 						  Output_def *) const;

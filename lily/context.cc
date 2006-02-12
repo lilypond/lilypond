@@ -10,7 +10,6 @@
 
 #include "context-def.hh"
 #include "international.hh"
-#include "lilypond-key.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
 #include "output-def.hh"
@@ -46,7 +45,8 @@ Context::check_removal ()
     }
 }
 
-Context::Context (Context const &)
+Context::Context (Context const &src)
+  : key_manager_ (src.key_manager_)
 {
   assert (false);
 }
@@ -85,8 +85,8 @@ Context::add_context (Context *t)
 
 
 Context::Context (Object_key const *key)
+  : key_manager_ (key)
 {
-  key_ = key;
   daddy_context_ = 0;
   init_ = false;
   aliases_ = SCM_EOL;
@@ -106,26 +106,25 @@ Context::Context (Object_key const *key)
     UGH UGH
     const correctness.
   */
-  if (key_)
-    ((Object_key *)key)->unprotect ();
+  key_manager_.unprotect();
 }
 
 /* TODO:  this shares code with find_create_context ().  */
 Context *
-Context::create_unique_context (SCM n, SCM operations)
+Context::create_unique_context (SCM name, string id, SCM operations)
 {
   /*
     Don't create multiple score contexts.
   */
   if (dynamic_cast<Global_context *> (this)
       && dynamic_cast<Global_context *> (this)->get_score_context ())
-    return get_score_context ()->create_unique_context (n, operations);
+    return get_score_context ()->create_unique_context (name, id, operations);
 
   /*
     TODO: use accepts_list_.
   */
   vector<Context_def*> path
-    = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
+    = unsmob_context_def (definition_)->path_to_acceptable_context (name, get_output_def ());
 
   if (path.size ())
     {
@@ -134,10 +133,15 @@ Context::create_unique_context (SCM n, SCM operations)
       // start at 1.  The first one (index 0) will be us.
       for (vsize i = 0; i < path.size (); i++)
 	{
-	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
-
+	  SCM ops = SCM_EOL;
+	  string id_str = "\\new";
+	  if (i == path.size () - 1)
+	    {
+	      ops = operations;
+	      id_str = id;
+	    }
 	  current = current->create_context (path[i],
-					     "\\new",
+					     id_str,
 					     ops);
 	}
 
@@ -150,11 +154,11 @@ Context::create_unique_context (SCM n, SCM operations)
   */
   Context *ret = 0;
   if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
-    ret = daddy_context_->create_unique_context (n, operations);
+    ret = daddy_context_->create_unique_context (name, id, operations);
   else
     {
       warning (_f ("can't find or create new `%s'",
-		   ly_symbol2string (n).c_str ()));
+		   ly_symbol2string (name).c_str ()));
       ret = 0;
     }
   return ret;
@@ -228,7 +232,7 @@ Context::create_context (Context_def *cdef,
 			 SCM ops)
 {
   string type = ly_symbol2string (cdef->get_context_name ());
-  Object_key const *key = get_context_key (type, id);
+  Object_key const *key = key_manager_.get_context_key (now_mom(), type, id);
   Context *new_context
     = cdef->instantiate (ops, key);
 
@@ -237,55 +241,6 @@ Context::create_context (Context_def *cdef,
   apply_property_operations (new_context, ops);
 
   return new_context;
-}
-
-Object_key const *
-Context::get_context_key (string type, string id)
-{
-  if (!use_object_keys)
-    return 0;
-
-  string now_key = type + "@" + id;
-
-  int disambiguation_count = 0;
-  if (context_counts_.find (now_key) != context_counts_.end ())
-    disambiguation_count = context_counts_[now_key];
-
-  context_counts_[now_key] = disambiguation_count + 1;
-
-  return new Lilypond_context_key (key (),
-				   now_mom (),
-				   type, id,
-				   disambiguation_count);
-}
-
-Object_key const *
-Context::get_grob_key (string name)
-{
-  if (!use_object_keys)
-    return 0;
-
-  return create_grob_key (name);
-}
-
-/*
-  We want to have a key for some objects anyway, so we can invent a
-  unique identifier for each (book,score) tuple.
-*/
-Object_key const *
-Context::create_grob_key (string name)
-{
-  int disambiguation_count = 0;
-  if (grob_counts_.find (name) != grob_counts_.end ())
-    disambiguation_count = grob_counts_[name];
-  grob_counts_[name] = disambiguation_count + 1;
-
-  Object_key *k = new Lilypond_grob_key (key (),
-					 now_mom (),
-					 name,
-					 disambiguation_count);
-
-  return k;
 }
 
 /*
@@ -522,12 +477,23 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
+Object_key const *
+Context::get_grob_key (string name)
+{
+  return key_manager_.get_grob_key (now_mom (), name);
+}
+
+Object_key const *
+Context::get_context_key (string name, string id)
+{
+  return key_manager_.get_context_key (now_mom (), name, id);
+}
+
 SCM
 Context::mark_smob (SCM sm)
 {
   Context *me = (Context *) SCM_CELL_WORD_1 (sm);
-  if (me->key_)
-    scm_gc_mark (me->key_->self_scm ());
+  me->key_manager_.gc_mark();
 
   scm_gc_mark (me->context_list_);
   scm_gc_mark (me->aliases_);
@@ -583,8 +549,7 @@ Context::clear_key_disambiguations ()
   if (!use_object_keys)
     return;
 
-  grob_counts_.clear ();
-  context_counts_.clear ();
+  key_manager_.clear ();
   for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))
     unsmob_context (scm_car (s))->clear_key_disambiguations ();
 }

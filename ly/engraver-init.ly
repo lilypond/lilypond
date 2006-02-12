@@ -350,7 +350,10 @@ printing of a single line of lyrics.  "
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
   \override SeparationItem #'padding = #0.2
-  \override InstrumentName #'Y-offset = #0.0 
+  \override InstrumentName #'self-alignment-Y = ##f
+
+  %% sync with define-grobs.scm ;
+  \override InstrumentName #'font-size = #1.0
 
   %% make sure that barlines aren't collapsed, when
   %% Bar_engraver is there.
