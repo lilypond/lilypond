@@ -63,6 +63,12 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+@item Newly created contexts may also be named with the following
+syntax,
+
+@verbatim
+\new Voice = "alto" ... 
+@end verbatim
 
 @item Thicknesses of tie and slurs may be  tuned separately for the
 endings and the middle part.
