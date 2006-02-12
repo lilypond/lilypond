@@ -1,5 +1,7 @@
 2006-02-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): document \new syntax.
+
 	* scm/define-music-properties.scm (all-music-properties):
 	create-new property.
 
