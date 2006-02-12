@@ -391,6 +391,7 @@ Accidental_engraver::make_standard_accidental (Music *note,
 					       Engraver *trans)
 {
 
+  (void)note;
   /*
     We construct the accidentals at the originating Voice
     level, so that we get the property settings for
@@ -428,7 +429,7 @@ Accidental_engraver::make_suggested_accidental (Music *note,
 						Grob *note_head,
 						Engraver *trans)
 {
-
+  (void) note;
   Grob *a
     = make_grob_from_properties (trans,
 				 ly_symbol2scm ("AccidentalSuggestion"),

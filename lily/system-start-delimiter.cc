@@ -91,9 +91,15 @@ System_start_delimiter::text (Grob *me_grob, Real h)
   SCM scm_stencil = Text_interface::is_markup (t)
     ? Text_interface::interpret_markup (me->layout ()->self_scm (), chain, t)
     : SCM_EOL;
+
   
   if (Stencil *p = unsmob_stencil (scm_stencil))
-    return *p;
+    {
+      SCM align_y  = me_grob->get_property ("self-alignment-Y");
+      if (scm_is_number (align_y))
+	p->align_to (Y_AXIS, robust_scm2double (align_y, 0.0));
+      return *p;
+    }
   return Stencil();
 }
 
@@ -206,6 +212,7 @@ ADD_INTERFACE (System_start_delimiter, "system-start-delimiter-interface",
 	       "collapse-height "
 	       "style "
 	       "text "
-	       "long-text " 
+	       "long-text "
+	       "self-alignment-Y "
 	       "thickness "
 	       );

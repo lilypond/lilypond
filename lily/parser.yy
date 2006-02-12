@@ -112,7 +112,7 @@ using namespace std;
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
 Music *property_op_to_music (SCM op);
-Music *context_spec_music (SCM type, SCM id, Music *m, SCM ops);
+Music *context_spec_music (SCM type, SCM id, Music *m, SCM ops, bool create_new);
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
 
@@ -399,6 +399,7 @@ If we give names, Bison complains.
 %type <scm> object_id_setting
 %type <scm> octave_check
 %type <scm> optional_context_mod
+%type <scm> optional_id
 %type <scm> optional_notemode_duration
 %type <scm> pitch
 %type <scm> pitch_also_in_chords
@@ -1045,20 +1046,23 @@ Generic_prefix_music_scm:
 	}
 	;
 
+optional_id:
+	/**/ { $$ = SCM_EOL; }
+	| '=' simple_string {
+		$$ = $2;
+	}
+	;	
+
+
 Prefix_composite_music:
 	Generic_prefix_music_scm {
 		$$ = run_music_function (THIS, $1);
 	}
-	| CONTEXT simple_string '=' simple_string optional_context_mod Music {
-		$$ = context_spec_music ($2, $4, $6, $5);
-
+	| CONTEXT    simple_string optional_id optional_context_mod Music {
+		$$ = context_spec_music ($2, $3, $5, $4, false);
 	}
-	| CONTEXT simple_string optional_context_mod Music {
-		$$ = context_spec_music ($2, SCM_UNDEFINED, $4, $3);
-	}
-	| NEWCONTEXT simple_string optional_context_mod Music {
-		$$ = context_spec_music ($2, get_next_unique_context_id (), $4,
-			$3);
+	| NEWCONTEXT simple_string optional_id optional_context_mod Music {
+		$$ = context_spec_music ($2, $3, $5, $4, true);
 	}
 
 	| TIMES fraction Music 	
@@ -1103,8 +1107,7 @@ Prefix_composite_music:
 		THIS->lexer_->pop_state ();
 	}
 	| mode_changing_head_with_context optional_context_mod Grouped_music_list {
-		$$ = context_spec_music ($1, get_next_unique_context_id (),
-					 $3, $2);
+		$$ = context_spec_music ($1, SCM_UNDEFINED, $3, $2, true);
 		if ($1 == ly_symbol2scm ("ChordNames"))
 		{
 		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
@@ -1220,7 +1223,7 @@ re_rhythmed_music:
 			name = get_next_unique_lyrics_context_id ();
 			voice = context_spec_music (scm_makfrom0str ("Voice"),
 						    name,
-						    voice, SCM_EOL);
+						    voice, SCM_EOL, false);
 		}
 
 		SCM context = scm_makfrom0str ("Lyrics");
@@ -1232,7 +1235,7 @@ re_rhythmed_music:
 			Music *music = unsmob_music (scm_car (s));
 			Music *com = make_lyric_combine_music (name, music);
 			Music *csm = context_spec_music (context,
-				get_next_unique_context_id (), com, SCM_EOL);
+				SCM_UNDEFINED, com, SCM_EOL, true);
 			lst = scm_cons (csm->self_scm (), lst);
 		}
 		all->set_property ("elements", scm_cons (voice->self_scm (),
@@ -1328,14 +1331,14 @@ music_property_def:
 			ly_symbol2scm ("push"),
 			scm_cadr ($2),
 			$5, $3));
-		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL, false);
 	}
 	| OVERRIDE context_prop_spec embedded_scm  embedded_scm '=' scalar {
 		$$ = property_op_to_music (scm_list_5 (
 			ly_symbol2scm ("push"),
 			scm_cadr ($2),
 			$6, $4, $3));
-		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL, false);
 	}
 	| REVERT context_prop_spec embedded_scm {
 		$$ = property_op_to_music (scm_list_3 (
@@ -1343,20 +1346,20 @@ music_property_def:
 			scm_cadr ($2),
 			$3));
 
-		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL, false);
 	}
 	| SET context_prop_spec '=' scalar {
 		$$ = property_op_to_music (scm_list_3 (
 			ly_symbol2scm ("assign"),
 			scm_cadr ($2),
 			$4));
-		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL, false);
 	}
 	| UNSET context_prop_spec {
 		$$ = property_op_to_music (scm_list_2 (
 			ly_symbol2scm ("unset"),
 			scm_cadr ($2)));
-		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
+		$$= context_spec_music (scm_car ($2), SCM_UNDEFINED, $$, SCM_EOL, false);
 	}
 	| ONCE music_property_def {
 		SCM e = $2->get_property ("element");
@@ -1622,16 +1625,16 @@ command_element:
 					 sounds_as_c.smobbed_copy());
 		$$->set_spot (@$);
 		$$ = context_spec_music (ly_symbol2scm ("Staff"), SCM_UNDEFINED,
-			$$, SCM_EOL);
+			$$, SCM_EOL, false);
 	}
 	| PARTIAL duration_length  	{
 		Moment m = - unsmob_duration ($2)->get_length ();
 		Music *p = set_property_music (ly_symbol2scm ( "measurePosition"),m.smobbed_copy ());
 		p->set_spot (@$);
 		p = context_spec_music (ly_symbol2scm ("Timing"), SCM_UNDEFINED,
-					p, SCM_EOL);
+					p, SCM_EOL, false);
 		p = context_spec_music (ly_symbol2scm ("Score"), SCM_UNDEFINED,
-					p, SCM_EOL);
+					p, SCM_EOL, false);
 		$$ = p;
 	}
 
@@ -2657,7 +2660,7 @@ property_op_to_music (SCM op)
 }
 
 Music*
-context_spec_music (SCM type, SCM id, Music *m, SCM ops)
+context_spec_music (SCM type, SCM id, Music *m, SCM ops, bool create_new)
 {
 	Music *csm = MY_MAKE_MUSIC ("ContextSpeccedMusic");
 
@@ -2667,6 +2670,8 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 	csm->set_property ("context-type",
 		scm_is_symbol (type) ? type : scm_string_to_symbol (type));
 	csm->set_property ("property-operations", ops);
+	if (create_new)
+		csm->set_property ("create-new", SCM_BOOL_T);
 
 	if (scm_is_string (id))
 		csm->set_property ("context-id", id);

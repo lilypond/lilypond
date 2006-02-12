@@ -1,3 +1,19 @@
+2006-02-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-music-properties.scm (all-music-properties):
+	create-new property.
+
+	* lily/context-specced-music-iterator.cc (construct_children):
+	inspect 'create-new property iso. magical $uniqueContextId context
+	id.
+
+	* lily/parser.yy (optional_id): allow \new "Bar" = "foo" too.
+
+	* lily/context-key-manager.cc (Module): new file. Encapsulate
+	object key generation.
+
+	* lily/include/context-key-manager.hh (Module): new file.
+
 2006-02-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-grobs.scm (all-grob-descriptions): center instrument

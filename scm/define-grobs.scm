@@ -729,7 +729,6 @@
 	(stencil . ,ly:system-start-delimiter::print)
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
-	(Y-offset . ,ly:self-alignment-interface::y-aligned-on-self)
 	(self-alignment-Y . ,CENTER)
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-text-interface
