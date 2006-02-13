@@ -14,7 +14,7 @@ Main note scripts do not end up on the grace note.
 
 \layout {ragged-right = ##t}
 
-\context Voice = VA \relative c'' {
+\new Voice \relative c'' {
   \grace b8 c4\fermata
   \grace {  c32[ cis32] } gis4
   \grace {  cis32[ dis32] } e4

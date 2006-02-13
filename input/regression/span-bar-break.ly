@@ -11,11 +11,11 @@ barline is drawn between the staves, but the @code{:|} is not."
 
 
 \new PianoStaff <<
-  \context Staff = "up" {
+  \new Staff = "up" {
     \bar "|:" r1
     \bar ":|" \break r1
   }
-  \context Staff = "down" { r r }
+  \new Staff = "down" { r r }
 >>
 
 

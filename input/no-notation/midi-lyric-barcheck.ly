@@ -9,7 +9,7 @@ this examples causes no bar checks in MIDI.
     }
 \score {
 
-    <<\relative c'' \context Voice = A {
+    <<\relative c'' \new Voice =  A {
 	\autoBeamOff
 	c8[ c] c2.
 	c1~c4 c2.

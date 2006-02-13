@@ -9,7 +9,7 @@ included in LilyPond's support of ancient notation.
 }
 
 
-upperStaff = \context GregorianStaff = "upperStaff" <<
+upperStaff = \new GregorianStaff =  "upperStaff" <<
   \context GregorianVoice <<
     \set Score.timing = ##f
 %   \set Score.forceAccidental = ##t %%%%%%%% FIXME: what happened to this property?
@@ -112,7 +112,7 @@ upperStaff = \context GregorianStaff = "upperStaff" <<
   >>
 >>
 
-lowerStaff = \context MensuralStaff = "lowerStaff" <<
+lowerStaff = \new MensuralStaff =  "lowerStaff" <<
   \context MensuralVoice <<
     
     % this is broken until further notice -- see refman

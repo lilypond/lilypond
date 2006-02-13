@@ -6,7 +6,7 @@
 \layout { ragged-right = ##t}
 
 \context PianoStaff <<
-  \context Staff = "up"
+  \new Staff = "up"
   \relative c'' <<
     {
       \stemDown
@@ -25,7 +25,7 @@
       
     } \\
   >>
-  \context Staff = "down" {
+  \new Staff = "down" {
     \time 3/8 \clef bass s4.*3 }
 >>
 

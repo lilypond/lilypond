@@ -16,12 +16,12 @@
     \lyricsto "one"  \new Lyrics  {
       Do mi nus ex
     }
-    \context Voice = "one" {
+    \new Voice = "one" {
       \voiceOne
       bes'4 bes'4
       bes'4 bes'4
     }
-    \context Voice = "two" {
+    \new Voice = "two" {
       \voiceTwo
       ees'8 r8 r8 r8 ees' r8 r8 r8 
     }

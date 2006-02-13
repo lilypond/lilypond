@@ -9,7 +9,7 @@ behave well, wherever the switching point is.
 }
 
 \context PianoStaff <<
-  \context Staff = "one" \relative c'{
+  \new Staff = "one" \relative c'{
     \stemUp  c8[ c \change Staff=two \stemUp c c]
     c[ c c c]
     \change Staff=one
@@ -21,7 +21,7 @@ behave well, wherever the switching point is.
     \stemUp  c8[ c \change Staff=one \stemDown c c]
     r2
   }
-  \context Staff = "two" \relative c'{
+  \new Staff = "two" \relative c'{
     \clef bass
     s1
     s1

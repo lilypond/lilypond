@@ -4,7 +4,7 @@
 
 \score { 
   \context Voice \relative c {
-    \context Voice=VoiceOne
+    \new Voice = VoiceOne
 	\grace {
   \override Stem  #'stroke-style = #"grace"
    c8 

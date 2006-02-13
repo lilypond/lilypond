@@ -13,13 +13,13 @@ to the last beam.
 }
 
 \context PianoStaff \relative c' <<
-  \context Staff = SA {
+  \new Staff = SA {
     \stemDown
     c8[ c16 \change Staff = SB \stemUp c16 ]
     \stemNeutral
     f[ g \change Staff = SA a c] 
   }
-  \context Staff = SB \relative c' {
+  \new Staff = SB \relative c' {
     \clef bass
     b8[ b16 \stemUp b,,16 ]
 

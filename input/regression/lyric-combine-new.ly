@@ -9,7 +9,7 @@
 
 
 <<
-  \context Voice = "bla" \relative c'' {
+  \new Voice = "bla" \relative c'' {
     \autoBeamOff
     c2( d4) e8[ c b c] f4
   }

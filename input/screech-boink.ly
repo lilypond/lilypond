@@ -7,7 +7,7 @@
 
 \score {
      \context PianoStaff <<
-	\context Staff = "up" {
+	\new Staff =  "up" {
 	    \time 4/8
 	    \key c \minor
 
@@ -32,7 +32,7 @@
 	   >>
 	}
 
-	\context Staff = "down" {
+	\new Staff =  "down" {
 	    \clef bass
 	    \key c \minor
 	    \set subdivideBeams = ##f

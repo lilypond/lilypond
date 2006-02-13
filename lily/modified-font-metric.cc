@@ -180,15 +180,18 @@ Box
 Modified_font_metric::text_dimension (string text) const
 {
   SCM stext = scm_makfrom0str (text.c_str ());
-  Box b = lookup_tex_text_dimension (orig_, stext);
-  if (!b[Y_AXIS].is_empty ())
-    {
-      b.scale (magnification_);
-      return b;
-    }
-
+  
+  Box b;
   if (output_backend_global == "tex")
     {
+      b = lookup_tex_text_dimension (orig_, stext);
+
+      if (!b[Y_AXIS].is_empty ())
+	{
+	  b.scale (magnification_);
+	  return b;
+	}
+
       b = tex_kludge (text);
       return b;
     }

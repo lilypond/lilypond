@@ -24,7 +24,7 @@ before the ligature (not demonstrated in this example)."
 %%% but this is intentional for editorial purposes (simplifies some
 %%% global search/replace operations in emacs).
 
-cantus = \context VaticanaVoice = "cantus"  {
+cantus = \new VaticanaVoice = "cantus"  {
   \[ g4\melisma %%% Pu-
     \pes
     d'\melismaEnd
@@ -75,7 +75,7 @@ cantus = \context VaticanaVoice = "cantus"  {
   \divisioMaxima
 }
 
-verba = \context Lyrics = "verba" \lyricmode {
+verba = \new Lyrics = "verba" \lyricmode {
   Pu -- er na -- tus est no -- bis,
   et fi -- li -- us da -- tus est no -- bis:
 }

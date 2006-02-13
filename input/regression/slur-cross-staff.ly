@@ -9,7 +9,7 @@ Slurs behave decently when broken across a linebreak.
 
 
 \context PianoStaff <<
-  \context Staff = "one" \relative c'{
+  \new Staff = "one" \relative c'{
     \stemUp \slurUp
     c4( c \change Staff=two c  c) |
     \change Staff=one
@@ -39,7 +39,7 @@ Slurs behave decently when broken across a linebreak.
     c4( \change Staff=one c c \change Staff=two  c)
     r1
   }
-  \context Staff = "two" \relative c'{
+  \new Staff = "two" \relative c'{
     \clef bass
     s1 s1 s1 s1 s1 s1 s1 s1 s1 s1
   }

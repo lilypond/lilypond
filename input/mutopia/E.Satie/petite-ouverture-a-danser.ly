@@ -30,8 +30,7 @@ global =  {
   \bar "|."
 }
   
-i = \context Staff \relative c''{
-  \context Voice = "i"
+i = \context Staff \relative c''\new Voice {
   \voiceOne
 
   c8.( es16 bes4 ~ |  bes8) r c8.( bes16 | des4 c8. bes16 | c4 ~  c8) r |
@@ -58,8 +57,7 @@ i = \context Staff \relative c''{
   
 }
 
-ii = \context Staff \relative c'{
-  \context Voice = "ii"
+ii = \context Staff \relative c'\new Voice{
   \voiceTwo
 
   r8 <es as> r <des f> | r <es g> r <es as> | r <f as> r <f as> |
@@ -96,8 +94,7 @@ ii = \context Staff \relative c'{
  
 }
 
-lower = \context Staff  \relative c{
-  \context Voice = "iii"
+lower = \context Staff  \relative c \new Voice{
 
   <as as'>4 <es es'> | r <as as'> | <des, des'> <f f'> | <c c'> r |
   <as as'> <des des'> | <bes bes'> r | <des des'> <bes bes'> |
@@ -126,13 +123,13 @@ lower = \context Staff  \relative c{
 
 \score {
     \context PianoStaff <<
-	\context Staff = "treble" << 
+	\new Staff = "treble" << 
 	    \global 
 	    \clef violin
 	    \i
 	    \ii
 	>>
-	\context Staff = "bass" <<
+	\new Staff = "bass" <<
 	    \global
 	    \clef bass
 	    \lower

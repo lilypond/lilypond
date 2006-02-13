@@ -13,7 +13,7 @@ extra spacing column is created. This should not cause problems."
 
 <<
   \set Score.skipBars = ##t
-  \context Staff = "flute"  \new Voice { 
+  \new Staff \new Voice { 
     <<  { R1*40 }  { s1*0_"bla" }>> 
   }
 >>

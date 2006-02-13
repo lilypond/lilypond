@@ -10,9 +10,9 @@ anywhere in the vertical alignment. "
 }
 
 \relative <<
-  \context Staff = "1" { c4 c s2 }
-  \context Staff = "2" { c4  c s2 }
-  \context Staff = "3" { c4  c s2 }
+  \new Staff = "1" { c4 c s2 }
+  \new Staff = "2" { c4  c s2 }
+  \new Staff = "3" { c4  c s2 }
   { \skip 2
     <<
       \lyrics {

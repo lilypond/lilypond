@@ -381,7 +381,7 @@ allLyrics = {
 	    \lyricThrough 
 } }
 
-vocals = \context Voice = "leise"  {
+vocals = \new Voice =  "leise"  {
 	\clef treble
  	% certainly no auto-beaming for vocals
  	\autoBeamOff
@@ -396,7 +396,7 @@ vocals = \context Voice = "leise"  {
 	R1 * 3/4 * 6
 }
 
-trebleStaff = \context Staff = "treble"<< 
+trebleStaff = \new Staff =  "treble"<< 
         \set Staff.midiInstrument = "acoustic grand"
 	\global
 	{
@@ -410,7 +410,7 @@ trebleStaff = \context Staff = "treble"<<
 	}
 >>
 
-bassStaff = \context Staff = "bass"<<
+bassStaff = \new Staff =  "bass"<<
         \set Staff.midiInstrument = "acoustic grand"
 	\global
 	\clef bass

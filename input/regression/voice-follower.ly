@@ -16,12 +16,12 @@ can be printed automatically. This is enabled if the property
 \relative c'
 \context PianoStaff <<
   \set PianoStaff.followVoice = ##t
-  \context Staff = "one" \context Voice {
+  \new Staff = "one" \context Voice {
     c1
     \change Staff=two
     b2 a
   }
-  \context Staff = "two" {\clef bass \skip 1*2 }
+  \new Staff = "two" {\clef bass \skip 1*2 }
 >>
 
 

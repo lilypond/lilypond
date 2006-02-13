@@ -14,7 +14,7 @@
 
 
 <<
-  \relative c' \context Voice = "bla" {
+  \relative c' \new Voice = "bla" {
     \autoBeamOff
     c4( c16 d c b)  c4
     d16[ e f g]

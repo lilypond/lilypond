@@ -13,7 +13,7 @@
 <<
   \chords {s2 c c c d}
   
-  \context Voice=mel {
+  \new Voice =mel {
 
     %% A chord for ukelele
     a'2 ^\markup

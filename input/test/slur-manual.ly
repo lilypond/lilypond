@@ -13,11 +13,11 @@
 \score {
      \new PianoStaff
     <<
-	\context Staff = "up" {
+	\new Staff =  "up" {
 	    \clef bass
 	    s1 * 4
 	} 
-	\context Staff = "down" \relative c <<
+	\new Staff =  "down" \relative c <<
 	    s1*4
 	    {
 	    \clef bass

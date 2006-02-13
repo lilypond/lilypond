@@ -17,6 +17,6 @@ B = \relative c' { \cueDuring #"qA" #1 { R1 } | f4 e d c  | }
 \layout { ragged-right = ##t }
 
 <<
-    \context Staff = "A" \A
-    \context Staff = "B" \B
+    \new Staff \A
+    \new Staff \B
 >>

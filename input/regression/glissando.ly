@@ -12,7 +12,7 @@ The engraver does no time-keeping, so it involves some trickery to get
 }
 
 
-\context Staff = "one" \relative c''{
+\new Staff \relative c''{
 				% gliss non gliss and 
   c4 \glissando d e \glissando f \glissando \break
 				% consecutive 
@@ -22,9 +22,10 @@ The engraver does no time-keeping, so it involves some trickery to get
   \override Glissando  #'style = #'zigzag
   c4 \glissando c,, \glissando c' \glissando d
 }
+
 \layout{
-  line-width = 50.\mm indent = 0
- 
+  line-width = 50.\mm
+  indent = 0
 }
 
 

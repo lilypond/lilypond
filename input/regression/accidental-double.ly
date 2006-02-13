@@ -9,8 +9,8 @@
 \transpose c c'
 \context Staff <<
   \key g \major
-  \context Voice = "va" { \stemUp c' fis! }
-  \context Voice = "vb" { \stemDown c fis! }
+  \new Voice { \stemUp c' fis! }
+  \new Voice { \stemDown c fis! }
 >>
 
 
