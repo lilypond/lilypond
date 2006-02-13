@@ -27,6 +27,8 @@
 #include "version.hh"
 #include "warn.hh"
 
+const char * FRAMEWORKDIR = "..";
+
 
 int
 sane_putenv (char const *key, string value, bool overwrite)
@@ -198,7 +200,7 @@ setup_paths (char const *argv0_ptr)
 #endif /* __MINGW32__ */
       prefix_relocation (prefix);
       string bindir = prefix + "/bin";
-      framework_relocation (bindir + "/" FRAMEWORKDIR);
+      framework_relocation (bindir);
     }
   else if (relocate_binary)
     {
