@@ -245,7 +245,7 @@ setup_paths (char const *argv0_ptr)
       if (argv0_prefix != compile_prefix)
 	prefix_relocation (argv0_prefix);
       if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
-	framework_relocation (bindir + "/" FRAMEWORKDIR);
+	framework_relocation (bindir + "/" + FRAMEWORKDIR);
     }
 
   /* FIXME: use LILYPOND_DATADIR.  */
