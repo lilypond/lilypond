@@ -66,7 +66,7 @@
 	    <li>
 <a class="title" href="user/lilypond/index.html">User manual</a>
 (in <a class="title" href="user/lilypond.pdf">PDF</a>, in
-<a class="title" href="user/lilypond.html">one big page, ~4Mb</a>)
+<a class="title" href="user/lilypond.html">one big page</a> ~ 4 Mb)
 
      <br>(everything about LilyPond)
      
@@ -75,12 +75,12 @@
      <br>(see some examples)
 
 <li><a class="title" href="../input/test/collated-files.html">Tips and tricks</a>
-(in  <a class="title" href="../input/test/collated-files.pdf">PDF</a>)
+(~ 2 Mb, in  <a class="title" href="../input/test/collated-files.pdf">PDF</a>)
 
      <br>(for advanced users)
  <li><a class="title" href="user/music-glossary/index.html">Glossary</a>
 (in <a class="title" href="user/music-glossary.pdf">PDF</a>, in
-<a class="title" href="user/music-glossary.html">one big page</a>)
+<a class="title" href="user/music-glossary.html">one big page</a> ~ 1 Mb)
 
      <br>(for non-English users)
 	  </ul>
@@ -90,12 +90,12 @@
 	  <ul>
 	    <li>
  <a  class="title" href="user/lilypond-internals/index.html">Program reference</a>
- (in <a class="title" href="user/lilypond-internals.html">one big page</a>)
+ (in <a class="title" href="user/lilypond-internals.html">one big page</a> ~ 1 Mb)
 
      <br>(definitions for tweaking)
 
 	    <li>
-     <a  class="title" href="../input/regression/collated-files.html">Regression tests</a> (in <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>) ~ 2.4Mb
+     <a  class="title" href="../input/regression/collated-files.html">Regression tests</a> (~ 5 Mb, in <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>)
 
      <br>(for developers)
 
