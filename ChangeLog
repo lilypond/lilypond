@@ -1,5 +1,7 @@
 2006-02-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* config.hh.in: remove @FRAMEWORKDIR@
+
 	* lily/system-start-text.cc (get_stencil): new file: separate out
 	system-start-delimiter text support.
 
