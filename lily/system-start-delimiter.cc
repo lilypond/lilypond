@@ -76,34 +76,6 @@ System_start_delimiter::line_bracket (Grob *me, Real height)
 }
 
 Stencil
-System_start_delimiter::text (Grob *me_grob, Real h)
-{
-  (void) h;
-  
-  Spanner *me = dynamic_cast<Spanner*> (me_grob);
-  SCM t = me->get_property ("text");
-  if (me->get_break_index () == 0)
-    t = me->get_property ("long-text");
-	   
-  
-  SCM chain = Font_interface::text_font_alist_chain (me);
-
-  SCM scm_stencil = Text_interface::is_markup (t)
-    ? Text_interface::interpret_markup (me->layout ()->self_scm (), chain, t)
-    : SCM_EOL;
-
-  
-  if (Stencil *p = unsmob_stencil (scm_stencil))
-    {
-      SCM align_y  = me_grob->get_property ("self-alignment-Y");
-      if (scm_is_number (align_y))
-	p->align_to (Y_AXIS, robust_scm2double (align_y, 0.0));
-      return *p;
-    }
-  return Stencil();
-}
-
-Stencil
 System_start_delimiter::simple_bar (Grob *me, Real h)
 {
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
@@ -158,8 +130,6 @@ System_start_delimiter::print (SCM smob)
     m = simple_bar (me, len);
   else if (glyph_sym == ly_symbol2scm ("line-bracket"))
     m = line_bracket (me, len);
-  else if (glyph_sym == ly_symbol2scm ("text"))
-    m = text (me, len);
 
   m.translate_axis (ext.center (), Y_AXIS);
   return m.smobbed_copy ();
@@ -172,7 +142,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   /* We go through the style sheet to lookup the font file
      name.  This is better than using find_font directly,
      esp. because that triggers mktextfm for non-existent
->     fonts. */
+     fonts. */
   SCM fam = scm_cons (ly_symbol2scm ("font-encoding"),
 		      ly_symbol2scm ("fetaBraces"));
 
@@ -204,15 +174,13 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   return stil;
 }
 
-ADD_INTERFACE (System_start_delimiter, "system-start-delimiter-interface",
+ADD_INTERFACE (System_start_delimiter,
+	       "system-start-delimiter-interface",
 	       "The brace, bracket or bar in front of the system. "
 	       ,
 
 	       /* properties */
 	       "collapse-height "
 	       "style "
-	       "text "
-	       "long-text "
-	       "self-alignment-Y "
 	       "thickness "
 	       );
