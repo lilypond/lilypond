@@ -1,6 +1,8 @@
 2006-02-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-`	* THANKS: add Don.
+	* input/**ly: replace \context with \new where appropriate.
+	
+	* THANKS: add Don.
 
 	* lily/slur-scoring.cc (get_base_attachments): use
 	robust_relative_extent. This fixes problems with empty paper-columns. 
