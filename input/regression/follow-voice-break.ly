@@ -15,12 +15,12 @@ printed.
 
 \context PianoStaff <<
   \set PianoStaff.followVoice = ##t	    
-  \context Staff = "one" \relative c''{
+  \new Staff = "one" \relative c''{
     a1 \break
     \change Staff=two
     a,
   }
-  \context Staff = "two" { \clef bass \skip 1*2 }
+  \new Staff = "two" { \clef bass \skip 1*2 }
 >>
 
 

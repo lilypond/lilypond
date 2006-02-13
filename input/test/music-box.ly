@@ -73,8 +73,8 @@ endc =  {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
 
 \score {
    \transpose c c' \context PianoStaff <<
-       \context Staff = "up"   { \clef "G"  }
-       \context Staff = "down" { \clef "F" }
+       \new Staff = "up"   { \clef "G"  }
+       \new Staff = "down" { \clef "F" }
        { \applyMusic #transform {
 	   \pat {c e g c' e' }
 	   \pat {c d a d' f' }

@@ -5,17 +5,17 @@ texidoc = "a staff should really die, if no one's referencing it."
 }
 \score {
  {
-    \context Staff = "q" {
+    \new Staff =  "q" {
        { a' b' c' d' }
     }
 
     \break
 
     \context PianoStaff <<
-      \context Staff = "i" {
+      \new Staff =  "i" {
          { a' b' c' d' }
       }
-      \context Staff = "ii" {
+      \new Staff =  "ii" {
          { \clef "bass" a b c d }
       }
     >>

@@ -732,6 +732,7 @@
 	(self-alignment-Y . ,CENTER)
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-text-interface
+				system-start-delimiter-interface
 				side-position-interface
 				font-interface))))))
 

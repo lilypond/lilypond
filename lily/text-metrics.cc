@@ -18,6 +18,10 @@ lookup_tex_text_dimension (Font_metric *font, SCM text)
 {
   Box b;
 
+  /*
+    Actually, it's defined in framework-texstr, but let's see how long
+    it takes before we get a bugreport. HWN 13/2/2006.
+   */
   SCM limit = ly_lily_module_constant ("TEX_STRING_HASHLIMIT");
   string key_str = ly_scm2string (font->font_file_name ());
   int hash_code = scm_to_int (scm_hash (text, limit));

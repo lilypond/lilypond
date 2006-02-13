@@ -177,8 +177,8 @@ oneHalfNoteTime = \markup {
       \override Staff.TimeSignature #'text = #oneHalfNoteTime
       \noclefs
     
-      \context Voice = "voice" \voice
-      \context Voice = "stich" \stich
+      \new Voice =  "voice" \voice
+      \new Voice =  "stich" \stich
     >>
     \lyricsto "voice" \new Lyrics {
       \override VerticalAxisGroup #'minimum-Y-extent = #'(2 . 2)

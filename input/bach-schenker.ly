@@ -21,7 +21,7 @@ staffPiano = \new PianoStaff {
   \set PianoStaff.followVoice = ##t
 
   <<
-    \context Staff = "RH" {  % Right hand 
+    \new Staff {  % Right hand 
       \clef treble
       \key g \major
       \relative c'' {
@@ -147,7 +147,7 @@ staffPiano = \new PianoStaff {
       \bar "|."
     }
   }
-   \context Staff = "LH" {  % Left hand 			
+   \new Staff {  % Left hand 			
      \clef bass
      \key g \major
      \relative c' {

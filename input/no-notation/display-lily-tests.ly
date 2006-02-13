@@ -221,6 +221,7 @@ test = #(def-music-function (parser location result-info strings) (string? pair?
 
   %% Context creation
   \test #"" ##[ \new Staff { c d } #]			% ContextSpeccedMusic
+  \test #"" ##[ \new Staff = "up" { c d } #]			% ContextSpeccedMusic
   \test #"" ##[ \context Staff { c d } #]
   \test #"" ##[ \context Staff = "up" { c d } #]
   \test #"" ##[

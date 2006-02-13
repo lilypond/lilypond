@@ -111,31 +111,31 @@ violoncello =  \relative c' {
 \book {
     \score {
       << 
-	\context StaffGroup ="legni" << 
-	  \context Staff ="flauti" \flauti
-	  \context Staff ="oboi" \oboi
-	  \context Staff ="clarinetti" \clarinetti 
-	  \context Staff ="fagotti" \fagotti 
+	\new StaffGroup = "legni" << 
+	  \new Staff = "flauti" \flauti
+	  \new Staff = "oboi" \oboi
+	  \new Staff = "clarinetti" \clarinetti 
+	  \new Staff = "fagotti" \fagotti 
 	>>
-	\context StaffGroup ="ottoni" <<
-	  \context Staff ="corni" \corni
-	  \context Staff ="trombe" \trombe
+	\new StaffGroup = "ottoni" <<
+	  \new Staff = "corni" \corni
+	  \new Staff = "trombe" \trombe
 	>>
-	\context StaffGroup ="timpani" <<
-	  \context Staff ="timpani" \timpani
+	\new StaffGroup = "timpani" <<
+	  \new Staff = "timpani" \timpani
 	 { 
 	   \skip 1 
 	   % Hmm: this forces a staff-bracket, that's good!
 	   % However, I can't find where is decided on staff-bracket yes/no
 	 }
 	>>
-	\context StaffGroup ="archi" <<
-	  \context GrandStaff ="violini" <<
-	    \context Staff ="violinoI" \violinoI
-	    \context Staff ="violinoII" \violinoII
+	\new StaffGroup = "archi" <<
+	  \new GrandStaff = "violini" <<
+	    \new Staff = "violinoI" \violinoI
+	    \new Staff = "violinoII" \violinoII
 	  >>
-	  \context Staff ="viola" \viola
-	  \context Staff ="violoncello" \violoncello
+	  \new Staff = "viola" \viola
+	  \new Staff = "violoncello" \violoncello
 	>>
       >>
       \layout {

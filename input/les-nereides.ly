@@ -240,14 +240,14 @@ middleDynamics = {
 
 theScore = \score{
     \context PianoStaff <<
-        \context Staff = "treble" <<
+        \new Staff = "treble" <<
 	    \treble
 	    \trebleTwo
         >>
 	\new Dynamics <<
 	    \middleDynamics
 	>>
-        \context Staff = "bass" <<
+        \new Staff = "bass" <<
 	    \clef bass
 	    \bass
 	    \bassTwo

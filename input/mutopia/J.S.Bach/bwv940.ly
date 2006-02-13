@@ -12,6 +12,8 @@
 %}
 
 
+
+
 \header{
   title =	 "Praeludium"
   composer =	 "Johann Sebastian Bach (1685-1750)"
@@ -136,17 +138,17 @@ global = {
 
 \score{
 	% Allegretto
-	\context PianoStaff <<
-		\context Staff = "upper" <<
+	\new PianoStaff <<
+		\new Staff = "upper" <<
 			\global
-			\context Voice = "i"\one
-			\context Voice = "ii" \two
+			\new Voice = "i"\one
+			\new Voice = "ii" \two
 		>>
-		\context Staff = "lower" <<
+		\new Staff = "lower" <<
 			\global
 			\clef "bass"
-			\context Voice = "iii" \three
-			\context Voice = "iv" \four
+			\new Voice = "iii" \three
+			\new Voice = "iv" \four
 		>>
 	>>
 	\layout{

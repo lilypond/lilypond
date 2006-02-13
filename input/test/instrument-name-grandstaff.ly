@@ -5,11 +5,11 @@ individual @code{Staff}s. " }
 
 \score {
   
-   \context GrandStaff <<
-    \context Staff = "treble"    {
+   \new GrandStaff <<
+    \new Staff =  "treble"    {
       \set GrandStaff.instrument = "Violini  "
       \set Staff.instrument = " vn I" { c''4 }}
-    \context Staff = "bass" { \set Staff.instrument = " vn II" c''4 }>>
+    \new Staff =  "bass" { \set Staff.instrument = " vn II" c''4 }>>
 
 
 \layout {

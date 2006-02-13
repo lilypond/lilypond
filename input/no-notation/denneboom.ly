@@ -66,7 +66,7 @@ verseOne = {
 	\oden
 }
 
-verseOneStaff = \context Lyrics = "one" 
+verseOneStaff = \new Lyrics =  "one" 
 	\verseOne
 
 
@@ -77,7 +77,7 @@ verseTwo = {
 	\oden
 }
 
-verseTwoStaff = \context Lyrics = "two" 
+verseTwoStaff = \new Lyrics =  "two" 
 	\verseTwo
 
 

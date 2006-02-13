@@ -13,10 +13,10 @@ time and key signatures and clef at the beginning of the extra stave.
 \score {
    {
     \relative c' {
-      \context Staff = One { c4 d e f }
+      \new Staff = One { c4 d e f }
       <<
         {c d e f | c d e f | c c c c | c c c c }
-        \context TemporaryStaff = Two { c4 c8 d e4 f | c d e f |
+        \new TemporaryStaff = Two { c4 c8 d e4 f | c d e f |
           c c c c | c c c8 b c b |}
       >>
       c4 d e f |

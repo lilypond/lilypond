@@ -117,31 +117,31 @@ violoncello =  \relative c' {
 
 \score {
   << 
-    \context StaffGroup ="legni" << 
-      \context Staff ="flauti" \flauti
-      \context Staff ="oboi" \oboi
-      \context Staff ="clarinetti" \clarinetti 
-      \context Staff ="fagotti" \fagotti 
+    \new StaffGroup = "legni" << 
+      \new Staff = "flauti" \flauti
+      \new Staff = "oboi" \oboi
+      \new Staff = "clarinetti" \clarinetti 
+      \new Staff = "fagotti" \fagotti 
     >>
-    \context StaffGroup ="ottoni" <<
-      \context Staff ="corni" \corni
-      \context Staff ="trombe" \trombe
+    \new StaffGroup = "ottoni" <<
+      \new Staff = "corni" \corni
+      \new Staff = "trombe" \trombe
     >>
-    \context StaffGroup ="timpani" <<
-      \context Staff ="timpani" \timpani
+    \new StaffGroup = "timpani" <<
+      \new Staff = "timpani" \timpani
      { 
        \skip 1 
        % Hmm: this forces a staff-bracket, that's good!
        % However, I can't find where is decided on staff-bracket yes/no
      }
     >>
-    \context StaffGroup ="archi" <<
-      \context GrandStaff ="violini" <<
-        \context Staff ="violino1" \violinoI
-        \context Staff ="violino2" \violinoII
+    \new StaffGroup = "archi" <<
+      \new GrandStaff = "violini" <<
+        \new Staff = "violino1" \violinoI
+        \new Staff = "violino2" \violinoII
       >>
-      \context Staff ="viola" \viola
-      \context Staff ="violoncello" \violoncello
+      \new Staff = "viola" \viola
+      \new Staff = "violoncello" \violoncello
     >>
   >>
 

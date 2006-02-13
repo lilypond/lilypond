@@ -549,10 +549,16 @@ line-width, where X is the number of staff spaces."
 (def-markup-command (column layout props args) (markup-list?)
   "Stack the markups in @var{args} vertically.  The property
 @code{baseline-skip} determines the space between each markup in @var{args}."
-  (stack-lines
-   -1 0.0 (chain-assoc-get 'baseline-skip props)
-   (remove ly:stencil-empty?
-	   (map (lambda (m) (interpret-markup layout props m)) args))))
+
+  (let*
+      ((arg-stencils (map (lambda (m) (interpret-markup layout props m)) args))
+       (skip (chain-assoc-get 'baseline-skip props)))
+
+    
+    (stack-lines
+     -1 0.0 skip
+     (remove ly:stencil-empty? arg-stencils))))
+
 
 (def-markup-command (dir-column layout props args) (markup-list?)
   "Make a column of args, going up or down, depending on the setting

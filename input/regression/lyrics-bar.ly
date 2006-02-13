@@ -12,7 +12,7 @@ lyrics do not collide with barlines.
 }
 
 <<
-    \context Staff = "foo" \with
+    \new Staff \with
     {
 %	\remove "Bar_engraver"	
 	}
@@ -29,7 +29,7 @@ lyrics do not collide with barlines.
     \lyrics {
 	no Bar_Engraver_Bar_Engraver_Bar_Engraver 
     }
-    \context Staff = "bar" \with {
+    \new Staff \with {
 %		\remove "Bar_engraver"	
     } { b1 b1 }
 >>

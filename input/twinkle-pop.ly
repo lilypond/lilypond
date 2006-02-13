@@ -20,7 +20,7 @@ melodie = \relative c'' {
   | f4 f  | e e  | d d | c2 \bar "|."
 }
 
-acc = \chordmode {
+acc = \chords {
   c2 c f c
   f c g:7 c
   g f c  g:7
@@ -30,7 +30,7 @@ acc = \chordmode {
   f c g:7 c
 }
 
-text = \lyricmode{ 
+text = \lyrics { 
   \override LyricText  #'font-shape = #'italic
 
   Ah!4 vous dir -- ai -- je ma man2
@@ -44,9 +44,9 @@ text = \lyricmode{
 
 \score {
   <<  
-    \context ChordNames \acc
-    \context Staff = "melody" \melodie
-    \context Lyrics \text
+    \acc
+    \new Staff = "melody" \melodie
+    \text
   >>
   \header{
     title = "Ah, vous dirais-je, maman "

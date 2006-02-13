@@ -10,7 +10,7 @@ of the melisma."
 
 
 << 
-  \context Voice=A  {
+  \new Voice =A  {
     a1 ( a1 \break
     a) a2( b) \break
     a2 
