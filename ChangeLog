@@ -1,3 +1,10 @@
+2006-02-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* GNUmakefile.in: remove $(VERSION) symlink.
+
+
+	* lily/relocate.cc (setup_paths): add + 
+
 2006-02-13  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/index.html.in: specify sizes for all big HTML pages.
