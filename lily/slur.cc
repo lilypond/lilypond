@@ -239,14 +239,17 @@ ADD_INTERFACE (Slur, "slur-interface",
 	       "control-points "
 	       "dash-fraction "
 	       "dash-period "
+	       "details "
 	       "direction "
 	       "eccentricity "
 	       "encompass-objects "
 	       "height-limit "
+	       "line-thickness "
 	       "note-columns "
 	       "positions "
 	       "quant-score "
 	       "ratio "
-	       "details "
-	       "thickness ");
+	       "thickness "
+
+	       );
 
