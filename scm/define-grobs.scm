@@ -724,15 +724,13 @@
 				spanner-interface))))))
     (InstrumentName
      . (
-	(style . text)
 	(padding . 0.3)
-	(stencil . ,ly:system-start-delimiter::print)
+	(stencil . ,ly:system-start-text::print)
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(self-alignment-Y . ,CENTER)
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-text-interface
-				system-start-delimiter-interface
 				side-position-interface
 				font-interface))))))
 

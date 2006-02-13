@@ -27,7 +27,6 @@ public:
   static Stencil staff_brace (Grob *, Real);
   static Stencil simple_bar (Grob *, Real);
   static Stencil line_bracket (Grob *, Real);
-  static Stencil text (Grob *, Real);
   
 };
 
