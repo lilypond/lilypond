@@ -1046,7 +1046,7 @@ AC_DEFUN(STEPMAKE_STL_DATA_METHOD, [
 #include <vector>
 using namespace std;
 vector <int> v;
-(void) v.data ();
+void *p = v.data ();
 ]])],
 	    [stepmake_stl_data_method=yes],
 	    [stepmake_stl_data_method=no]))

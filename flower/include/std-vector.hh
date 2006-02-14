@@ -60,18 +60,18 @@ typedef size_t vsize;
 namespace std {
 
   /* Interface without pointer arithmetic (iterator) semantics.  */
-  template<typename T>
-  class vector : public __vector<T>
+  template<typename T, typename A=std::allocator<T> >
+  class vector : public __vector<T, A>
   {
   public:
     typedef typename __vector<T>::iterator iterator;
     typedef typename __vector<T>::const_iterator const_iterator;
     
-    vector<T> () : __vector<T> ()
+    vector<T, A> () : __vector<T, A> ()
     {
     }
     
-    vector<T> (const_iterator b, const_iterator e) : __vector<T> (b, e)
+    vector<T, A> (const_iterator b, const_iterator e) : __vector<T, A> (b, e)
     {
     }
     
@@ -88,32 +88,6 @@ namespace std {
     }
   };
 
-  /* FIXME: it appears that choosing this function is broken when stl
-     has no data () member too...  */
-  template<typename T>
-  void
-  binary_search_bounds (vector<T*> const &table,
-			T const *key, int (*compare) (T *const &, T *const &),
-			vsize *lo,
-			vsize *hi)
-  {
-    vsize cmp;
-    int result;
-
-    /* binary search */
-    do
-      {
-	cmp = (*lo + *hi) / 2;
-
-	result = (*compare) ((T *) key, table[cmp]);
-
-	if (result < 0)
-	  *hi = cmp;
-	else
-	  *lo = cmp;
-      }
-    while (*hi - *lo > 1);
-  }
 } /* namespace std */
 
 #endif /* !HAVE_STL_DATA_METHOD */
@@ -174,6 +148,31 @@ binary_search_bounds (vector<T> const &table,
       cmp = (*lo + *hi) / 2;
 
       result = (*compare) (key, table[cmp]);
+
+      if (result < 0)
+	*hi = cmp;
+      else
+	*lo = cmp;
+    }
+  while (*hi - *lo > 1);
+}
+
+template<typename T>
+void
+binary_search_bounds (vector<T*> const &table,
+		      T const *key, int (*compare) (T *const &, T *const &),
+		      vsize *lo,
+		      vsize *hi)
+{
+  vsize cmp;
+  int result;
+
+  /* binary search */
+  do
+    {
+      cmp = (*lo + *hi) / 2;
+
+      result = (*compare) ((T *) key, table[cmp]);
 
       if (result < 0)
 	*hi = cmp;

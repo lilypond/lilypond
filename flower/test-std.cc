@@ -1,8 +1,9 @@
-
+#define STD_VECTOR 1
 
 #if !STD_VECTOR
 #define Array flower_vector
 #endif
+
 #define HAVE_BOOST_LAMBDA 1
 #include "std-vector.hh"
 
