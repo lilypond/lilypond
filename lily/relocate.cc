@@ -150,7 +150,7 @@ framework_relocation (string prefix)
 #ifdef GHOSTSCRIPT_VERSION
     GHOSTSCRIPT_VERSION
 #else
-    "8.15"
+    "ghostscript-version-undefined"
 #endif
     ;
   
