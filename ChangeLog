@@ -1,7 +1,9 @@
 2006-02-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* GNUmakefile.in: remove $(VERSION) symlink.
+	* lily/relocate.cc (framework_relocation): show canary if
+	GHOSTSCRIPT_VERSION undefined.
 
+	* GNUmakefile.in: remove $(VERSION) symlink.
 
 	* lily/relocate.cc (setup_paths): add + 
 
