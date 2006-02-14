@@ -1,4 +1,3 @@
-
 /*
   fflower-proto.hh -- typenames in flowerlib
 
@@ -17,15 +16,8 @@ template<class K, class V> struct Hash_table_iter;
 typedef unsigned char Byte;
 struct String_convert;
 
-#if 0
-namespace std {
-struct string;
-template<typename T> struct vector;
-}
-#else
 #include "std-string.hh"
 #include "std-vector.hh"
-#endif
 using namespace std;
 
 #include "real.hh"
