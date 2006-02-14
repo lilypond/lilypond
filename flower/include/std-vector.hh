@@ -47,7 +47,7 @@ int default_compare (T *const &a, T *const &b)
 #ifndef VSIZE
 #define VSIZE
 typedef size_t vsize;
-#define VPOS UINT_MAX
+#define VPOS ((vsize) -1)
 #endif
 
 #if HAVE_STL_DATA_METHOD

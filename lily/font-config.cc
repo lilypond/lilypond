@@ -50,7 +50,9 @@ init_fontconfig ()
       else if (be_verbose_global)
 	message (_f ("adding font directory: %s", dir.c_str ()));
     }
-
+  
+  if (be_verbose_global)
+    progress_indication ("Building font database.\n");
   FcConfigBuildFonts (font_config_global);
   FcConfigSetCurrent (font_config_global);
   if (be_verbose_global)
