@@ -9,6 +9,16 @@ There are other tools that produce LilyPond input, for example GUI
 sequencers and XML converters.  Refer to the
 @uref{http://@/lilypond@/.org,website} for more details.
 
+These are separate programs from lilypond itself, and are run
+on the command-line.  By ``command-line'', we mean the command
+line in the operating system.  Windows users
+might be more familiar with the terms ``DOS shell'' or
+``command shell''; OSX users might be more familiar with the
+terms ``terminal'' or ``console''.  Describing how to use
+this part of an operating system is outside the scope of this
+manual; please consult other documentation on this topic if
+you are unfamiliar with the command-line.
+
 
 
 @menu
@@ -55,6 +65,9 @@ It is invoked from the command-line as follows,
 midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
+Note that by ``command-line'', we mean the command line of the
+operating system.  See @ref{Converting from other formats} for
+more information about this.
 
 The following options are supported by @command{midi2ly}.
 
@@ -124,6 +137,10 @@ It is invoked from the command-line as follows.
 etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
 
+Note that by ``command-line'', we mean the command line of the
+operating system.  See @ref{Converting from other formats} for
+more information about this.
+
 The following options are supported by @command{etf2ly}:
 
 @table @code
@@ -148,11 +165,13 @@ confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 for representing music notation.
 
 @command{musicxml2ly} extracts the notes from part-wise MusicXML
-files, and writes it to a .ly file.
+files, and writes it to a .ly file.  It is invoked from the command-line.
 
+Note that by ``command-line'', we mean the command line of the
+operating system.  See @ref{Converting from other formats} for
+more information about this.
 
 The following options are supported by @command{musicxml2ly}:
-
 
 @table @code
 @item -h,--help
