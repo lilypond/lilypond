@@ -481,6 +481,7 @@ function is to protect objects from being garbage collected.")
      (direction-source ,ly:grob? "in case side-relative-direction is
 set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")
+     (dots ,ly:grob-array? "multiple Dots objects.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (glyph-name ,string? "a name of character within font.")
      (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
