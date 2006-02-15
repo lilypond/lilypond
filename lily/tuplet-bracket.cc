@@ -435,11 +435,11 @@ void
 Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
 {
   extract_grob_set (me, "note-columns", columns);
-  int l = 0;
+  vsize l = 0;
   while (l < columns.size () && Note_column::has_rests (columns[l]))
     l++;
 
-  int r = columns.size () - 1;
+  vsize r = columns.size () - 1;
   while (r >= l && Note_column::has_rests (columns[r]))
     r--;
 

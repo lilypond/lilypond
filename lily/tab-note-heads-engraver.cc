@@ -67,7 +67,7 @@ Tab_note_heads_engraver::try_music (Music *m)
 void
 Tab_note_heads_engraver::process_music ()
 {
-  int j = 0;
+  vsize j = 0;
   for (vsize i = 0; i < note_events_.size (); i++)
     {
       SCM stringTunings = get_property ("stringTunings");

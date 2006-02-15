@@ -9,11 +9,8 @@
 #define PAPER_BOOK_HH
 
 #include "std-vector.hh"
-#include "protected-scm.hh"
 #include "smobs.hh"
-
-class Output_def;
-class Stencil;
+#include "lily-proto.hh"
 
 /** Paper_book collects headers, systems (Paper_system) and texts, and
     exports them to the output backend, either as systems or as

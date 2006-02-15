@@ -129,7 +129,7 @@ broken_trend_y (Slur_score_state const &state, Direction hdir)
     {
       vsize k = broken_spanner_index (state.slur_);
       int j = int (k) + hdir;
-      if (j < 0 || j >= mother->broken_intos_.size ())
+      if (j < 0 || vsize (j) >= mother->broken_intos_.size ())
 	return by;
 
       Grob *neighbor = mother->broken_intos_[j];
@@ -139,7 +139,7 @@ broken_trend_y (Slur_score_state const &state, Direction hdir)
 	= broken_spanner_index (dynamic_cast<Spanner *> (state.common_[Y_AXIS]));
       int common_j = common_k + hdir;
 
-      if (common_j < 0 || common_j >= common_mother->broken_intos_.size ())
+      if (common_j < 0 || vsize (common_j) >= common_mother->broken_intos_.size ())
 	return by;
 
       Grob *common_next_system = common_mother->broken_intos_[common_j];
@@ -163,9 +163,8 @@ Slur_score_state::set_next_direction ()
 
   if (Spanner *mother = dynamic_cast<Spanner *> (slur_->original ()))
     {
-      vsize k = broken_spanner_index (slur_);
-      vsize j = k + 1;
-      if (j < 0 || j >= mother->broken_intos_.size ())
+      vsize j = 1 + broken_spanner_index (slur_);
+      if (j >= mother->broken_intos_.size ())
 	return;
 
       Grob *neighbor = mother->broken_intos_[j];
