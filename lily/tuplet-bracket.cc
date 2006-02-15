@@ -644,9 +644,6 @@ Tuplet_bracket::calc_positions (SCM smob)
       Real lp = scm_to_double (scm_car (ps));
       Real rp = scm_to_double (scm_cdr (ps));
 
-      /*
-	duh. magic.
-      */
       Real ss = Staff_symbol_referencer::staff_space (me);
       
       offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));

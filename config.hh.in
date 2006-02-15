@@ -55,20 +55,8 @@
 /* define if you have yyFlexLexer.yy_current_buffer */
 #undef HAVE_FLEXLEXER_YY_CURRENT_BUFFER
 
-/* define if you want KPATHSEA */
-#define KPATHSEA @KPATHSEA@
-
 /* define if you have grp header */
 #define HAVE_GRP_H 0
-
-/* define if you have kpatsea header */
-#define HAVE_KPATHSEA_KPATHSEA_H 0
-
-/* define if you have kpse_find_file */
-#define HAVE_KPSE_FIND_FILE 0
-
-/* define if you have kpse_find_tfm */
-#define HAVE_KPSE_FIND_TFM 0
 
 /* define if you have pwd header */
 #define HAVE_PWD_H 0
@@ -109,9 +97,6 @@
 
 /* define if you have pango FT2 binding */
 #define HAVE_PANGO_FT2 0
-
-/* define if you have libkpathsea.so */
-#define HAVE_LIBKPATHSEA_SO 0
 
 /* define if you have utf8/wchar.h */
 #define HAVE_UTF8_WCHAR_H 0
