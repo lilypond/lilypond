@@ -128,7 +128,11 @@ Note_heads_engraver::stop_translation_timestep ()
 
 ADD_TRANSLATOR (Note_heads_engraver,
 		/* doc */ "Generate noteheads.",
-		/* create */ "NoteHead Dots",
-		/* accept */ "note-event busy-playing-event",
+		/* create */
+		"NoteHead "
+		"Dots",
+		/* accept */
+		"note-event "
+		"busy-playing-event",
 		/* read */ "middleCPosition",
 		/* write */ "");

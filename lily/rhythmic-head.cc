@@ -55,7 +55,7 @@ ADD_INTERFACE (Rhythmic_head,
 	       "Note head or rest",
 	       
 	       "dot "
-	       "duration-log"
+	       "duration-log "
 	       "stem "
 	       );
 
