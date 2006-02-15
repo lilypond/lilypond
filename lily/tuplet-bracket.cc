@@ -128,7 +128,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
       
       Spanner *orig_spanner = dynamic_cast<Spanner*> (me->original ());
 
-      int neighbor_idx = me->get_break_index () - break_dir;
+      vsize neighbor_idx = me->get_break_index () - break_dir;
       if (break_dir
 	  && d == RIGHT
 	  && neighbor_idx < orig_spanner->broken_intos_.size ())
@@ -141,8 +141,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 
       connect_to_other[d]
 	= (break_dir
-	   && (neighbor_idx < orig_spanner->broken_intos_.size ()
-	       && neighbor_idx >= 0)
+	   && neighbor_idx < orig_spanner->broken_intos_.size ()
 	   && orig_spanner->broken_intos_[neighbor_idx]->is_live ());
     }
   while (flip (&d) != LEFT);
@@ -648,8 +647,13 @@ Tuplet_bracket::calc_positions (SCM smob)
       /*
 	duh. magic.
       */
+      Real ss = Staff_symbol_referencer::staff_space (me);
+      
       offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));
-      dy = rp - lp;
+      dy = (rp - lp);
+
+      dy *= ss;
+      offset *= ss;	
     }
 
   
