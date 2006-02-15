@@ -89,9 +89,6 @@
 /* define if you have sstream */
 #define HAVE_SSTREAM 0
 
-/* define if you have pango 1.6 */
-#define HAVE_PANGO16 0
-
 /* define if you have fontconfig */
 #define HAVE_FONTCONFIG 0
 

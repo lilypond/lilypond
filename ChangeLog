@@ -1,5 +1,7 @@
 2006-02-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* config.hh.in: remove HAVE_PANGO_16
+
 	* lily/tuplet-bracket.cc (calc_positions): multiply with
 	staff-space for beam case. This fixes tuplets+beams on scaled
 	staves.
