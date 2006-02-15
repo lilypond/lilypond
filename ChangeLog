@@ -1,6 +1,7 @@
 2006-02-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* lily/dot-column.cc (side_position): reach stem via dots-> head->stem.
+	* lily/dot-column.cc (side_position): reach stem via dots->
+	head->stem. Inspect all stems for dot collisions. 
 
 	* lily/dot-column-engraver.cc (class Dot_column_engraver): excise
 	stem handling.
