@@ -1,3 +1,9 @@
+2006-02-15  Graham Percival  <gpermus@gmail.com>
+
+	* scm/translation-functions.scm: circle patch from Erlend, thanks!
+
+	* THANKS: moved Erlend Aasland to contributors.
+
 2006-02-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* config.hh.in: remove HAVE_PANGO_16
