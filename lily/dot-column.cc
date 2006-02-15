@@ -31,20 +31,26 @@ SCM
 Dot_column::side_position (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
-  if (stem
-      && !Stem::get_beam (stem)
-      && Stem::duration_log (stem) > 2
-      && !Stem::is_invisible (stem))
-    {
-      /*
-	trigger stem end & direction calculation.
-
-	This will add the stem to the support if a flag collision happens.
-      */
-      stem->get_property ("stem-end-position");
-    }
+  extract_grob_set (me, "dots", dots);
   
+  for (vsize i = 0; i  < dots.size (); i++)
+    {
+      Grob *head = dots[i]->get_parent (Y_AXIS);
+      Grob *stem = head ? unsmob_grob (head->get_object ("stem")) : 0;
+      if (stem
+	  && !Stem::get_beam (stem)
+	  && Stem::duration_log (stem) > 2
+	  && !Stem::is_invisible (stem))
+	{
+	  /*
+	    trigger stem end & direction calculation.
+	    
+	    This will add the stem to the support if a flag collision happens.
+	  */
+	  stem->get_property ("stem-end-position");
+	}
+    }
+
   return Side_position_interface::x_aligned_side (smob);
 }
 
@@ -290,7 +296,8 @@ ADD_INTERFACE (Dot_column,
 	       "clash with staff lines ",
 
 	       /* properties */
+	       "dots "
 	       "positioning-done "
 	       "direction "
-	       "stem");
+	       );
 

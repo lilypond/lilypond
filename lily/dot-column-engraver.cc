@@ -10,20 +10,17 @@
 #include "dot-column.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
-#include "stem.hh"
 #include "translator.icc"
 
 class Dot_column_engraver : public Engraver
 {
   Grob *dotcol_;
-  Grob *stem_;
   vector<Item*> heads_;
 public:
   TRANSLATOR_DECLARATIONS (Dot_column_engraver);
 
 protected:
 
-  DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
 
   void stop_translation_timestep ();
@@ -32,23 +29,13 @@ protected:
 Dot_column_engraver::Dot_column_engraver ()
 {
   dotcol_ = 0;
-  stem_ = 0;
 }
 
 void
 Dot_column_engraver::stop_translation_timestep ()
 {
-  /*
-    Add the stem to the support so dots stay clear of flags.
-
-    See [Ross, p 171]
-  */
-  if (stem_ && dotcol_)
-    dotcol_->set_object ("stem", stem_->self_scm ());
-
   dotcol_ = 0;
   heads_.clear ();
-  stem_ = 0;
 }
 
 void
@@ -64,13 +51,7 @@ Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
     }
 }
 
-void
-Dot_column_engraver::acknowledge_stem (Grob_info info)
-{
-  stem_ = info.grob ();
-}
 
-ADD_ACKNOWLEDGER (Dot_column_engraver, stem);
 ADD_ACKNOWLEDGER (Dot_column_engraver, rhythmic_head);
 ADD_TRANSLATOR (Dot_column_engraver,
 		/* doc */ "Engraves dots on dotted notes shifted to the right of the note.\n"
