@@ -254,6 +254,14 @@ Paper_book::add_score_title (SCM header)
     }
 }
 
+#if  0
+SCM
+Paper_book::system_specs ()
+{
+  
+}
+#endif
+
 SCM
 Paper_book::systems ()
 {
@@ -308,6 +316,7 @@ Paper_book::systems ()
 	}
       else if (scm_is_vector (scm_car (s)))
 	{
+	  programming_error ("Vector case?");
 	  /*
 	    UGH. code dup.
 	  */

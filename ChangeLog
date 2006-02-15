@@ -1,3 +1,7 @@
+2006-02-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* flower/include/std-vector.hh: don't include config.hh
+
 2006-02-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/include/std-vector.hh: Better wrapper compatibility with

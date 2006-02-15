@@ -9,10 +9,6 @@
 */
 
 #include "cluster.hh"
-
-#include <cstdio>
-using namespace std;
-
 #include "international.hh"
 #include "item.hh"
 #include "lookup.hh"
@@ -25,7 +21,7 @@ using namespace std;
 
 /*
   TODO: Add support for cubic spline segments.
-*/
+ */
 Stencil
 brew_cluster_piece (Grob *me, vector<Offset> bottom_points, vector<Offset> top_points)
 {

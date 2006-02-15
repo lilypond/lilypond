@@ -27,7 +27,7 @@
 #include "version.hh"
 #include "warn.hh"
 
-const char * FRAMEWORKDIR = "..";
+#define FRAMEWORKDIR ".."
 
 
 int

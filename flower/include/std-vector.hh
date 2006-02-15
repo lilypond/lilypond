@@ -42,7 +42,6 @@ int default_compare (T *const &a, T *const &b)
 }
 
 #include "compare.hh"
-#include "config.hh"
 
 #ifndef VSIZE
 #define VSIZE
