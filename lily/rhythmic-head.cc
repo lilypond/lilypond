@@ -48,7 +48,14 @@ Rhythmic_head::duration_log (Grob *me)
   return scm_is_number (s) ? scm_to_int (s) : 0;
 }
 
-ADD_INTERFACE (Rhythmic_head, "rhythmic-head-interface",
+ADD_INTERFACE (Rhythmic_head,
+
+	       "rhythmic-head-interface",
+
 	       "Note head or rest",
-	       "dot stem duration-log");
+	       
+	       "dot "
+	       "duration-log"
+	       "stem "
+	       );
 

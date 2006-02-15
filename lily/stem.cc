@@ -261,11 +261,12 @@ Stem::calc_stem_end_position (SCM smob)
       if (dots)
 	{
 	  Real dp = Staff_symbol_referencer::get_position (dots);
-	  Real flagy = flag (me).extent (Y_AXIS)[-dir] * 2 / ss;
+	  Interval flag_yext = flag (me).extent (Y_AXIS) * (2 / ss) + stem_end;
 
 	  /* Very gory: add myself to the X-support of the parent,
 	     which should be a dot-column. */
-	  if (dir * (stem_end + flagy - dp) < 0.5)
+	  
+	  if (flag_yext.distance (dp) < 0.5)
 	    {
 	      Grob *par = dots->get_parent (X_AXIS);
 

@@ -256,6 +256,7 @@ Paper_book::get_score_title (SCM header)
   return SCM_BOOL_F;
 }
 
+
 SCM
 Paper_book::get_system_specs ()
 {

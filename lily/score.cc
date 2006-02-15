@@ -135,9 +135,7 @@ default_rendering (SCM music, SCM outdef,
       if (ly_is_module (header))
 	paper_book->add_score (header);
 
-      SCM systems = pscore->get_paper_systems ();
-      paper_book->add_score (systems);
-
+      paper_book->add_score (pscore->self_scm ());
       paper_book->classic_output (outname);
       paper_book->unprotect ();
     }

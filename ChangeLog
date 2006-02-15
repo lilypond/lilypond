@@ -1,5 +1,16 @@
 2006-02-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/dot-column.cc (side_position): reach stem via dots-> head->stem.
+
+	* lily/dot-column-engraver.cc (class Dot_column_engraver): excise
+	stem handling.
+
+	* lily/bar-number-engraver.cc (process_music): document function
+	of whichBar.
+
+	* lily/score.cc (default_rendering): add pscore, not systems
+	themselves.
+
 	* lily/paper-book.cc (get_system_specs): separate generation of
 	titles and systems.
 
