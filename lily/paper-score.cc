@@ -115,3 +115,4 @@ Paper_score::get_paper_systems () const
 {
   return paper_systems_;
 }
+

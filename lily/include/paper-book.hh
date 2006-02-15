@@ -25,6 +25,9 @@ class Paper_book
   SCM performances_;
 
   void add_score_title (SCM);
+  SCM get_score_title (SCM);
+  SCM get_system_specs ();
+  
 public:
   SCM header_;
   SCM header_0_;
@@ -41,6 +44,7 @@ public:
   SCM pages ();
   Stencil book_title ();
   Stencil score_title (SCM);
+  
   void classic_output (SCM output_channel);
   void output (SCM output_channel);
 };
