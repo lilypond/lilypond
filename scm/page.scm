@@ -32,7 +32,7 @@
 
 
 (define (annotate? layout)
-  (eq? #t (ly:output-def-lookup layout 'annotatespacing)))
+  (eq? #t (ly:output-def-lookup layout 'annotate-spacing)))
 
 
 (define page-module (current-module))

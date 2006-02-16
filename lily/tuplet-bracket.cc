@@ -438,16 +438,16 @@ Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
   while (l < columns.size () && Note_column::has_rests (columns[l]))
     l++;
 
-  vsize r = columns.size () - 1;
-  while (r >= l && Note_column::has_rests (columns[r]))
+  vsize r = columns.size ();
+  while (r > l && Note_column::has_rests (columns[r-1]))
     r--;
 
   *left = *right = 0;
 
-  if (l <= r)
+  if (l < r)
     {
       *left = columns[l];
-      *right = columns[r];
+      *right = columns[r-1];
     }
 }
 

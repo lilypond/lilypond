@@ -359,10 +359,12 @@ CURRENT-BEST is the best result sofar, or #f."
                            force user-penalty
 			   best-paths))
 
-           (better? (or
-                     (not current-best)
-                     (< total-penalty (page-penalty current-best))))
-           (new-best (if better?
+           (is-better (or
+		       (not current-best)
+		       (and
+			satisfied-constraints
+			(< total-penalty (page-penalty current-best)))))
+           (new-best (if is-better
 			 (begin
 			   (map
 			    (lambda (x)
@@ -387,7 +389,7 @@ CURRENT-BEST is the best result sofar, or #f."
             "\nuser pen " user-penalty
 	    "\nsatisfied-constraints" satisfied-constraints
 	    "\nlast? " last? "ragged?" ragged?
-            "\nbetter? " better? " total-penalty " total-penalty "\n"
+            "\nis-better " is-better " total-penalty " total-penalty "\n"
 	    "\nconfig " positions
             "\nforce " force
 	    "\nlines: " current-lines "\n")))
