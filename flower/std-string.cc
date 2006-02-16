@@ -99,3 +99,23 @@ string_compare (string const &a, string const &b)
 {
   return a.compare (b);
 }
+
+#include "std-vector.hh"
+vector<string>
+string_split (string str, char c)
+{
+  vector<string> a;
+  ssize i = str.find (c);
+  while (i != NPOS)
+    {
+      string s = str.substr (0, i);
+      a.push_back (s);
+      while (str[++i] == c)
+	;
+      str = str.substr (i);
+      i = str.find (c);
+    }
+  if (str.length ())
+    a.push_back (str);
+  return a;
+}
