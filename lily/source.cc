@@ -32,22 +32,20 @@ Sources::set_path (File_path *f)
 /**
    open a file
 
-   @param file_string the file to be opened, name might be changed if it
-   is found in a search path. UGH!
-
-   @return 0 if no file found
+   File_string the file to be opened, name might be changed if it is
+   found in a search path.
 */
 Source_file *
-Sources::get_file (string &file_string) //UGH
+Sources::get_file (string *file_string) //UGH
 {
-  if ((file_string != "-") && path_)
+  if (*file_string != "-" && path_)
     {
-      string file_string_o = path_->find (file_string);
-      if ((file_string_o == "") && (file_string != ""))
+      string file_string_o = path_->find (*file_string);
+      if ((file_string_o == "") && (*file_string != ""))
 	return 0;
-      file_string = file_string_o;
+      *file_string = file_string_o;
     }
-  Source_file *f = new Source_file (file_string);
+  Source_file *f = new Source_file (*file_string);
   add (f);
   return f;
 }
