@@ -19,11 +19,11 @@ public:
   Stencil text_stencil (string) const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
-  vsize count () const;
-  Offset get_indexed_wxwy (vsize) const;
+  size_t count () const;
+  Offset get_indexed_wxwy (size_t) const;
   Offset attachment_point (string) const;
-  vsize name_to_index (string) const;
-  vsize index_to_charcode (vsize) const;
+  size_t name_to_index (string) const;
+  size_t index_to_charcode (size_t) const;
   Font_metric *original_font () const;
 
 protected:
@@ -35,9 +35,9 @@ protected:
   string font_name () const;
   Real design_size () const;
   void derived_mark () const;
-  Box get_indexed_char (vsize) const;
-  vsize index_to_ascii (vsize) const;
-  Box get_ascii_char (vsize) const;
+  Box get_indexed_char (size_t) const;
+  size_t index_to_ascii (size_t) const;
+  Box get_ascii_char (size_t) const;
   Box tex_kludge (string) const;
 };
 

@@ -9,6 +9,8 @@
 #ifndef ACCIDENTAL_INTERFACE_HH
 #define ACCIDENTAL_INTERFACE_HH
 
+#include "std-vector.hh"
+
 #include "box.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"

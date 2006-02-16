@@ -82,7 +82,6 @@ DECLARE_UNSMOB (Pitch, pitch);
 
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
-int compare (vector<Pitch> *, vector<Pitch> *);
 extern SCM pitch_less_proc;
 Pitch pitch_interval (Pitch const &from, Pitch const &to);
 

@@ -460,7 +460,7 @@ Midi_track::add (Moment delta_time_mom, Midi_item *midi)
   assert (delta_time_mom >= Moment (0));
 
   Midi_event *e = new Midi_event (delta_time_mom, midi);
-  event_p_list_.append (new Killing_cons<Midi_event> (e, 0));
+  events_.push_back (e);
 }
 
 string
@@ -469,9 +469,11 @@ Midi_track::data_string () const
   string str = Midi_chunk::data_string ();
   if (do_midi_debugging_global)
     str += "\n";
-  for (Cons<Midi_event> *i = event_p_list_.head_; i; i = i->next_)
+
+  for (vector<Midi_event*>::const_iterator i (events_.begin());
+       i != events_.end(); i ++)
     {
-      str += i->car_->to_string ();
+      str += (*i)->to_string ();
       if (do_midi_debugging_global)
 	str += "\n";
     }
@@ -483,4 +485,9 @@ char const *
 Midi_item::name () const
 {
    return this->class_name ();
+}
+
+Midi_track::~Midi_track ()
+{
+  junk_pointers (events_);
 }

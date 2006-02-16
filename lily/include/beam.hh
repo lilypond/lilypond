@@ -10,6 +10,7 @@
 #ifndef BEAM_HH
 #define BEAM_HH
 
+#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "stem-info.hh"

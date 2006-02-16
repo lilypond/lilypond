@@ -315,24 +315,6 @@ String_convert::precision_string (double x, int n)
   return (sign (x) > 0 ? str : "-" + str);
 }
 
-vector<string>
-String_convert::split (string str, char c)
-{
-  vector<string> a;
-  ssize i = str.find (c);
-  while (i != NPOS)
-    {
-      string s = str.substr (0, i);
-      a.push_back (s);
-      while (str[++i] == c)
-	;
-      str = str.substr (i);
-      i = str.find (c);
-    }
-  if (str.length ())
-    a.push_back (str);
-  return a;
-}
 
 string
 String_convert::long_string (long l)

@@ -7,8 +7,8 @@
 #ifndef MIDI_ITEM_HH
 #define MIDI_ITEM_HH
 
-#include "cons.hh"
 #include "audio-item.hh"
+#include "std-vector.hh"
 
 /**
    Any piece of midi information.
@@ -211,9 +211,10 @@ public:
   /*
     Compensate for starting grace notes.
   */
-  Cons_list<Midi_event> event_p_list_;
+  vector<Midi_event*> events_;
 
   Midi_track ();
+  ~Midi_track ();
 
   void add (Moment delta_time_mom, Midi_item *midi);
   virtual string data_string () const;

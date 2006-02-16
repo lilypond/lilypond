@@ -300,7 +300,7 @@ do_chroot_jail ()
       USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
     };
 
-  vector<string> components = String_convert::split (jail_spec, ',');
+  vector<string> components = split_string (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
       error (_f ("expected %d arguments with jail, found: %d", JAIL_MAX,

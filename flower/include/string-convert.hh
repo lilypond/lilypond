@@ -45,7 +45,7 @@ public:
   static string rational_string (Rational);
   static string pointer_string (void const *);
   static string precision_string (double x, int n);
-  static vector<string> split (string str, char c);
+  //  static vector<string> split (string str, char c);
   static string i64_string (I64, char const *fmt = 0);
   static string to_lower (string s);
   static string to_upper (string s);

@@ -9,6 +9,7 @@
 #ifndef AXIS_GROUP_INTERFACE_HH
 #define AXIS_GROUP_INTERFACE_HH
 
+#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 

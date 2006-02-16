@@ -12,6 +12,7 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "rational.hh"
+#include "std-vector.hh"
 
 struct Spacing_options
 {
