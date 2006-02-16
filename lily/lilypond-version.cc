@@ -26,7 +26,7 @@ Lilypond_version::Lilypond_version (string str)
   patch_ = 0;
   
   vector<string> version;
-  version = split_string (str, '.');
+  version = string_split (str, '.');
 
   if (version.size () > 0 && isdigit (version[0][0]))
     major_ = String_convert::dec2int (version[0]);

@@ -65,21 +65,25 @@ namespace std {
   public:
     typedef typename __vector<T>::iterator iterator;
     typedef typename __vector<T>::const_iterator const_iterator;
-    
+
     vector<T, A> () : __vector<T, A> ()
     {
     }
-    
+
+    vector<T, A> (vector<T, A> const& v) : __vector<T, A> (v)
+    {
+    }
+
     vector<T, A> (const_iterator b, const_iterator e) : __vector<T, A> (b, e)
     {
     }
-    
+
     T*
     data ()
     {
       return &(*this)[0];
     }
-    
+
     T const*
     data () const
     {
@@ -127,7 +131,7 @@ concat (vector<T> &v, vector<T> const& w)
 {
   v.insert (v.end (), w.begin (), w.end ());
 }
-  
+
 template<class T>
 void
 binary_search_bounds (vector<T> const &table,
@@ -268,7 +272,7 @@ vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
   vector_sort (v, compare, last + 1, upper);
 }
 #endif
-  
+
 template<typename T>
 void
 reverse (vector<T> &v)
@@ -322,5 +326,7 @@ junk_pointers (vector<T> &v)
   v.clear ();
 }
 #endif /* HAVE_BOOST_LAMBDA */
+
+vector<string> string_split (string str, char c);
 
 #endif /* STD_VECTOR_HH */

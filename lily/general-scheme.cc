@@ -224,7 +224,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
 	   "Formats passed to --format as a list of strings, "
 	   "used for the output.")
 {
-  vector<string> output_formats = split_string (output_format_global, ',');
+  vector<string> output_formats = string_split (output_format_global, ',');
 
   SCM lst = SCM_EOL;
   int output_formats_count = output_formats.size ();

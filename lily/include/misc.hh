@@ -28,8 +28,6 @@ sign (int i)
   else return 0;
 }
 
-vector<string> split_string (string s, char c);
-
 inline Real
 linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)
 {

@@ -36,24 +36,11 @@ File_path::directories () const
   return dirs_;
 }
 
-/*
-  TODO: use split_string.
-  
- */
-
 #include <algorithm>
 void
 File_path::parse_path (string p)
 {
-  ssize len;
-  while ((len = p.length ()))
-    {
-      ssize i = p.find (PATHSEP);
-      if (i == NPOS)
-	i = len;
-      append (p.substr (0, i));
-      p = p.substr (min (len, i + 1));
-    }
+  concat (dirs_, string_split (p, PATHSEP));
 }
 
 bool
