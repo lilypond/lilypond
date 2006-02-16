@@ -23,8 +23,6 @@ using namespace std;
 #include "string-convert.hh"
 #include "warn.hh"
 
-#include "killing-cons.tcc"
-
 Performance::Performance ()
 {
   midi_ = 0;

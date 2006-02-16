@@ -8,7 +8,6 @@
 
 #include "source.hh"
 
-#include "killing-cons.tcc"
 #include "source-file.hh"
 #include "file-path.hh"
 
