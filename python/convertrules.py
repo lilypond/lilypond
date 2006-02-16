@@ -2726,7 +2726,8 @@ def conv (str):
 		('ledgerlinethickness', 'ledger-line-thickness'),
 		('blotdiameter', 'blot-diameter'),
 		('staffheight', 'staff-height'),
-		('linewidth', 'line-width')
+		('linewidth', 'line-width'),
+		('annotatespacing', 'annotate-spacing')
 		]
 	
 	for (a,b)  in identifier_subs:

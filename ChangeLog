@@ -1,3 +1,15 @@
+2006-02-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/layout-page-layout.scm (optimal-page-breaks): only consider
+	the force=10000 case if we don't have a current-best. 
+
+	* lily/tuplet-bracket.cc (get_bounds): don't do (size() - 1) for
+	vsize 
+
+	* flower/include/flower-proto.hh: remove outdated templates.
+
+	* scm/page.scm: use annotate-spacing
+
 2006-02-15  Graham Percival  <gpermus@gmail.com>
 
 	* scm/translation-functions.scm: circle patch from Erlend, thanks!
