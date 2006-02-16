@@ -54,7 +54,7 @@ Includable_lexer::new_input (string name, Sources *sources)
       return;
     }
 
-  Source_file *file = sources->get_file (name);
+  Source_file *file = sources->get_file (&name);
   if (!file)
     {
       string msg = _f ("can't find file: `%s'", name);
