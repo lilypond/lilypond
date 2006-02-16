@@ -17,13 +17,17 @@ using namespace std;
 char const *
 demangle_classname (type_info const &);
 
-/* Virtual copy constructor.  Make up for C++'s lack of a standard
-   factory or clone () function.  Uses a typeof hack.  Usage:
+/*
 
-   class Foo : Baseclass
-   {
-   VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
-   }; */
+Virtual copy constructor.  Make up for C++'s lack of a standard
+factory or clone () function.  Usage:
+
+class Foo : Baseclass
+{
+VIRTUAL_COPY_CONSTRUCTOR (Baseclass, Foo);
+};
+
+*/
 
 #define DECLARE_CLASSNAME(name) \
   virtual const char *class_name () const {	\
