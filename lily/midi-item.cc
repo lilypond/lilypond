@@ -17,8 +17,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
-#include "killing-cons.tcc"
-
 #define PITCH_WHEEL_TOP 0x3FFF
 #define PITCH_WHEEL_CENTER 0x2000
 #define PITCH_WHEEL_BOTTOM 0x0000
