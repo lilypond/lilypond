@@ -64,32 +64,32 @@ Font_metric::~Font_metric ()
 {
 }
 
-vsize
+size_t
 Font_metric::count () const
 {
   return 0;
 }
 
 Box
-Font_metric::get_ascii_char (vsize) const
+Font_metric::get_ascii_char (size_t) const
 {
   return Box (Interval (0, 0), Interval (0, 0));
 }
 
 Box
-Font_metric::get_indexed_char (vsize k) const
+Font_metric::get_indexed_char (size_t k) const
 {
   return get_ascii_char (k);
 }
 
-vsize
+size_t
 Font_metric::name_to_index (string) const
 {
-  return VPOS;
+  return (size_t)-1;
 }
 
 Offset
-Font_metric::get_indexed_wxwy (vsize) const
+Font_metric::get_indexed_wxwy (size_t) const
 {
   return Offset (0, 0);
 }
@@ -136,20 +136,20 @@ Font_metric::font_name () const
   return s;
 }
 
-vsize
-Font_metric::index_to_ascii (vsize i) const
+size_t
+Font_metric::index_to_ascii (size_t i) const
 {
   return i;
 }
 
-vsize
-Font_metric::index_to_charcode (vsize i) const
+size_t
+Font_metric::index_to_charcode (size_t i) const
 {
   return index_to_ascii (i);
 }
 
 Stencil
-Font_metric::get_ascii_char_stencil (vsize code) const
+Font_metric::get_ascii_char_stencil (size_t code) const
 {
   SCM at = scm_list_3 (ly_symbol2scm ("char"), self_scm (),
 		       scm_from_unsigned (code));
@@ -158,9 +158,9 @@ Font_metric::get_ascii_char_stencil (vsize code) const
 }
 
 Stencil
-Font_metric::get_indexed_char_stencil (vsize code) const
+Font_metric::get_indexed_char_stencil (size_t code) const
 {
-  vsize idx = index_to_ascii (code);
+  size_t idx = index_to_ascii (code);
   SCM at = scm_list_3 (ly_symbol2scm ("char"), self_scm (),
 		       scm_from_unsigned (idx));
   Box b = get_indexed_char (code);

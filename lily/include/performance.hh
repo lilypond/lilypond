@@ -8,7 +8,6 @@
 #define PERFORMANCE_HH
 
 #include "std-vector.hh"
-#include "cons.hh"
 #include "music-output.hh"
 
 /* MIDI output.  */
@@ -28,7 +27,7 @@ public:
   void write_output (string filename);
 
   vector<Audio_staff*> audio_staffs_;
-  Cons<Audio_element> *audio_element_list_;
+  vector<Audio_element*> audio_elements_;
   Output_def *midi_;
 };
 

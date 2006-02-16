@@ -163,7 +163,7 @@ Open_type_font::attachment_point (string glyph_name) const
 }
 
 Box
-Open_type_font::get_indexed_char (vsize signed_idx) const
+Open_type_font::get_indexed_char (size_t signed_idx) const
 {
   if (SCM_HASHTABLE_P (lily_index_to_bbox_table_))
     {
@@ -176,9 +176,9 @@ Open_type_font::get_indexed_char (vsize signed_idx) const
 
   if (SCM_HASHTABLE_P (lily_character_table_))
     {
-      const vsize len = 256;
+      const size_t len = 256;
       char name[len];
-      vsize code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
+      size_t code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
       if (code)
 	warning (_f ("FT_Get_Glyph_Name() returned error: %d", code));
 
@@ -223,22 +223,23 @@ Open_type_font::get_indexed_char (vsize signed_idx) const
   return b;
 }
 
-vsize
+size_t
 Open_type_font::name_to_index (string nm) const
 {
   char *nm_str = (char *) nm.c_str ();
-  if (vsize idx = FT_Get_Name_Index (face_, nm_str))
+  if (size_t idx = FT_Get_Name_Index (face_, nm_str))
     return idx;
-  return VPOS;
+  
+  return (size_t) -1;
 }
 
-vsize
-Open_type_font::index_to_charcode (vsize i) const
+size_t
+Open_type_font::index_to_charcode (size_t i) const
 {
   return ((Open_type_font *) this)->index_to_charcode_map_[i];
 }
 
-vsize
+size_t
 Open_type_font::count () const
 {
   return ((Open_type_font *) this)->index_to_charcode_map_.size ();
@@ -299,9 +300,9 @@ Open_type_font::glyph_list () const
   
   for (int i = 0; i < face_->num_glyphs; i++)
     {
-      const vsize len = 256;
+      const size_t len = 256;
       char name[len];
-      vsize code = FT_Get_Glyph_Name (face_, i, name, len);
+      size_t code = FT_Get_Glyph_Name (face_, i, name, len);
       if (code)
 	warning (_f ("FT_Get_Glyph_Name() returned error: %d", code));
 

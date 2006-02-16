@@ -13,7 +13,7 @@
 #include "font-metric.hh"
 #include "config.hh"
 
-#if HAVE_PANGO16
+#if HAVE_PANGO_FT2
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
 #endif

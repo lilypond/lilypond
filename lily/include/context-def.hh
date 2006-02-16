@@ -9,6 +9,7 @@
 #ifndef CONTEXT_DEF_HH
 #define CONTEXT_DEF_HH
 
+#include "std-vector.hh"
 #include "lily-proto.hh"
 #include "smobs.hh"
 #include "input.hh"

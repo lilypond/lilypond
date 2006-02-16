@@ -28,12 +28,11 @@ using namespace std;
 Performance::Performance ()
 {
   midi_ = 0;
-  audio_element_list_ = 0;
 }
 
 Performance::~Performance ()
 {
-  delete audio_element_list_;
+  junk_pointers (audio_elements_);
 }
 
 void
@@ -146,7 +145,8 @@ Performance::add_element (Audio_element *p)
 {
   if (Audio_staff *s = dynamic_cast<Audio_staff *> (p))
     audio_staffs_.push_back (s);
-  audio_element_list_ = new Killing_cons<Audio_element> (p, audio_element_list_);
+
+  audio_elements_.push_back (p);
 }
 
 void

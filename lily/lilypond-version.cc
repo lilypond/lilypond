@@ -10,7 +10,7 @@
 
 #include "lilypond-input-version.hh"
 #include "string-convert.hh"
-#include "std-vector.hh"
+#include "misc.hh"
 
 Lilypond_version::Lilypond_version (int major, int minor, int patch)
 {
@@ -26,7 +26,7 @@ Lilypond_version::Lilypond_version (string str)
   patch_ = 0;
   
   vector<string> version;
-  version = String_convert::split (str, '.');
+  version = split_string (str, '.');
 
   if (version.size () > 0 && isdigit (version[0][0]))
     major_ = String_convert::dec2int (version[0]);

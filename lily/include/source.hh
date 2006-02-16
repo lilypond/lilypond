@@ -7,15 +7,14 @@
 #ifndef SOURCE_HH
 #define SOURCE_HH
 
-#include "cons.hh"
 #include "flower-proto.hh"
-#include "std-string.hh"
+#include "std-vector.hh"
 
 /*   A set of sourcefiles.  */
 class Sources
 {
   Sources (Sources const &) {}
-  Cons<Source_file> *sourcefile_list_;
+  vector<Source_file*> sourcefiles_;
   bool is_binary_;
 
 public:

@@ -13,7 +13,6 @@ typedef unsigned char Byte;
 struct String_convert;
 
 #include "std-string.hh"
-#include "std-vector.hh"
 using namespace std;
 
 #include "real.hh"

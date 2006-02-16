@@ -14,7 +14,6 @@
 
 Sources::Sources ()
 {
-  sourcefile_list_ = 0;
   path_ = 0;
   is_binary_ = false;
 }
@@ -57,25 +56,24 @@ Sources::get_file (string &file_string) //UGH
 void
 Sources::add (Source_file *sourcefile)
 {
-  sourcefile_list_ = new Killing_cons<Source_file> (sourcefile, sourcefile_list_);
+  sourcefiles_.push_back (sourcefile);
 }
 
 Sources::~Sources ()
 {
-  delete sourcefile_list_;
+  junk_pointers (sourcefiles_);
 }
-/**
-   search the list for file whose map contains pointer #str0#
 
-   @return 0 if not found.
-*/
 Source_file *
 Sources::get_sourcefile (char const *str0)
 {
+  for (vector<Source_file*>::iterator i = sourcefiles_.begin();
+       i != sourcefiles_.end (); i++)
+    {
+      if ((*i)->contains (str0))
+	return *i;
+    }
 
-  for (Cons<Source_file> *i = sourcefile_list_; i; i = i->next_)
-    if (i->car_->contains (str0))
-      return i->car_;
   return 0;
 }
 

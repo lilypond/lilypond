@@ -9,14 +9,13 @@
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
 
-#include "std-string.hh"
+#include "flower-proto.hh"
 #include "std-vector.hh"
 #include "lily-proto.hh"
+#include "protected-scm.hh"
 
 #include <iostream>
 using namespace std;
-
-#include "protected-scm.hh"
 
 /**
    class for reading and mapping a file.

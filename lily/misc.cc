@@ -36,6 +36,26 @@ log_2 (double x)
 }
 
 vector<string>
+split_string (string str, char c)
+{
+  vector<string> a;
+  ssize i = str.find (c);
+  while (i != NPOS)
+    {
+      string s = str.substr (0, i);
+      a.push_back (s);
+      while (str[++i] == c)
+	;
+      str = str.substr (i);
+      i = str.find (c);
+    }
+  if (str.length ())
+    a.push_back (str);
+  return a;
+}
+
+#if 0
+vector<string>
 split_string (string s, char c)
 {
   vector<string> rv;
@@ -58,6 +78,7 @@ split_string (string s, char c)
 
   return rv;
 }
+#endif
 
 
 Real

@@ -22,21 +22,28 @@ public:
   SCM description_;
   string file_name_;
 
+
   virtual Stencil text_stencil (string) const;
   virtual Box text_dimension (string) const;
   virtual string font_name () const;
-  virtual vsize count () const;
+  virtual size_t count () const;
   virtual Offset attachment_point (string) const;
-  virtual Offset get_indexed_wxwy (vsize) const;
-  virtual Box get_indexed_char (vsize index) const;
-  virtual Box get_ascii_char (vsize ascii) const;
-  virtual vsize name_to_index (string) const;
-  virtual vsize index_to_charcode (vsize) const;
-  virtual vsize index_to_ascii (vsize) const;
+  virtual Offset get_indexed_wxwy (size_t) const;
+  virtual Box get_indexed_char (size_t index) const;
+  virtual Box get_ascii_char (size_t ascii) const;
+
+  /*
+    WTF are these vsize ?
+
+    Font_metric is not related to vector<> 
+   */
+  virtual size_t name_to_index (string) const;
+  virtual size_t index_to_charcode (size_t) const;
+  virtual size_t index_to_ascii (size_t) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (string) const;
-  virtual Stencil get_indexed_char_stencil (vsize k) const;
-  virtual Stencil get_ascii_char_stencil (vsize k) const;
+  virtual Stencil get_indexed_char_stencil (size_t k) const;
+  virtual Stencil get_ascii_char_stencil (size_t k) const;
   virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const;
   DECLARE_SMOBS (Font_metric,);

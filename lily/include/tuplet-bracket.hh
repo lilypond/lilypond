@@ -9,6 +9,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "std-vector.hh"
 
 class Tuplet_bracket
 {

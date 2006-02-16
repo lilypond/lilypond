@@ -15,6 +15,7 @@
 #include "virtual-methods.hh"
 #include "input.hh"
 #include "smobs.hh"
+#include "std-vector.hh"
 
 struct Acknowledge_information
 {

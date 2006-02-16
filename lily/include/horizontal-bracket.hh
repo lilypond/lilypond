@@ -11,6 +11,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "std-vector.hh"
 
 struct Horizontal_bracket
 {
