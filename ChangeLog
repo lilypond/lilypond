@@ -1,3 +1,7 @@
+2006-02-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/include/pango-font.hh: HAVE_PANGO_FT2 iso. HAVE_PANGO_16
+
 2006-02-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/test-file.cc: New file.
