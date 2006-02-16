@@ -1,5 +1,8 @@
 2006-02-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/paper-book.hh (class Paper_book):
+	make get_system_specs() public.
+
 	* scm/layout-page-layout.scm (optimal-page-breaks): only consider
 	the force=10000 case if we don't have a current-best. 
 
