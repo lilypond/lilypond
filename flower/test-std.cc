@@ -12,13 +12,12 @@
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
-using boost::unit_test::test_suite;
-
 #if !STD_VECTOR
 #define vector flower_vector
 #endif
 
 using namespace std;
+using boost::unit_test::test_suite;
 
 template<typename T>
 void
@@ -177,6 +176,34 @@ BOOST_AUTO_UNIT_TEST (vector_search)
   BOOST_CHECK_EQUAL (i, vsize (1));
 }
 
+#if 0
+#include "file-name.hh"
+string slashify (string file_name);
+
+BOOST_AUTO_UNIT_TEST (mingw_slashify)
+{
+  File_name f = string ("foe.ly");
+  string s = slashify (f.to_string ());
+  cout << s << endl;
+  BOOST_CHECK_EQUAL (s, "foe.ly");
+  f = string ("/tmp/x.ly");
+  s = slashify (f.to_string ());
+  cout << s << endl;
+  BOOST_CHECK_EQUAL (s, "/tmp/x.ly");
+  f = string ("c:/tmp/x.ly");
+  s = slashify (f.to_string ());
+  cout << s << endl;
+  BOOST_CHECK_EQUAL (s, "c:/tmp/x.ly");
+  f = string ("\\tmp\\x.ly");
+  s = slashify (f.to_string ());
+  cout << s << endl;
+  BOOST_CHECK_EQUAL (s, "/tmp/x.ly");
+}
+#endif
+
+void mingw_slashify ();
+void file_find ();
+
 test_suite*
 init_unit_test_suite (int, char**)
 {
@@ -198,5 +225,7 @@ init_unit_test_suite (int, char**)
   test->add (BOOST_TEST_CASE (parray_concat));
   test->add (BOOST_TEST_CASE (parray_uniq));
   test->add (BOOST_TEST_CASE (vector_search));
+  test->add (BOOST_TEST_CASE (mingw_slashify));
+  test->add (BOOST_TEST_CASE (file_find));
   return test;
 }
