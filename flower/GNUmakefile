@@ -9,4 +9,8 @@ README_FILES = NEWS-1.0 NEWS-1.1.46 README TODO
 EXTRA_DIST_FILES= VERSION $(README_FILES) $(SCRIPTS)
 STEPMAKE_TEMPLATES=library c++ po test
 
+# test uses LILYPONDPREFIX
+LOCALSTEPMAKE_TEMPLATES=lilypond
+TEST_MODULE_LIBS = ../flower
+
 include $(depth)/make/stepmake.make
