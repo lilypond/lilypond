@@ -240,10 +240,10 @@ ADD_INTERFACE (Side_position_interface, "side-position-interface",
 	       "direction-source "
 	       "minimum-space "
 	       "padding "
+	       "quantize-position "
 	       "side-axis "
 	       "side-relative-direction "
 	       "side-support-elements "
 	       "slur-padding "
 	       "staff-padding "
-	       "quantize-position "
 	       );

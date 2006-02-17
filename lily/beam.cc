@@ -100,12 +100,6 @@ Beam::get_beam_count (Grob *me)
 }
 
 
-/* After pre-processing all directions should be set.
-   Several post-processing routines (stem, slur, script) need stem/beam
-   direction.
-   Currenly, this means that beam has set all stem's directions.
-   [Alternatively, stems could set its own directions, according to
-   their beam, during 'final-pre-processing'.] */
 MAKE_SCHEME_CALLBACK (Beam, calc_direction, 1);
 SCM
 Beam::calc_direction (SCM smob)
@@ -522,16 +516,34 @@ Beam::print (SCM grob)
   return the_beam.smobbed_copy ();
 }
 
+#define iterof(i,s) typeof((s).begin()) i((s).begin())
+
 Direction
 Beam::get_default_dir (Grob *me)
 {
-  Drul_array<int> total;
-  total[UP] = total[DOWN] = 0;
-  Drul_array<int> count;
-  count[UP] = count[DOWN] = 0;
-
   extract_grob_set (me, "stems", stems);
 
+  Drul_array<Real> extremes (0.0, 0.0);
+  for (iterof (s, stems); s != stems.end (); s++)
+    {
+      Interval positions = Stem::head_positions (*s);
+      Direction d = DOWN;
+      do
+	{
+	  if (sign (positions[d]) == d)
+	    extremes[d] = d * max (d * positions[d], d * extremes[d]);
+	}
+      while (flip (&d) != DOWN);
+    }
+
+  if (extremes[UP] > extremes[DOWN])
+    return DOWN;
+  else if (extremes[UP] < extremes[DOWN])
+    return UP;
+
+  Drul_array<int> total (0, 0);
+  Drul_array<int> count (0, 0);
+ 
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
