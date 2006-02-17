@@ -1,5 +1,7 @@
 2006-02-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* configure.in (HOST_ARCH): determine HOST_ARCH in configure.
+
 	* lily/relocate.cc (setup_paths): oops.
 
 2006-02-17  Heikki Junes  <hjunes@cc.hut.fi>

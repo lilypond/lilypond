@@ -35,6 +35,8 @@ PACKAGE = @PACKAGE@
 package = @package@
 PACKAGE_NAME = @PACKAGE_NAME@
 
+HOST_ARCH=@HOST_ARCH@
+
 ################################################################
 ## FILESYSTEM
 ################################################################
@@ -140,4 +142,6 @@ TAR = @TAR@
 WINDRES = @WINDRES@
 YACC = @YACC@
 ZIP = @ZIP@
+
+
 

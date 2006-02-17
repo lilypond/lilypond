@@ -98,10 +98,6 @@ OUTIN_FILES = $(addprefix $(outdir)/, $(IN_FILES:%.in=%))
 
 ALL_SOURCES = $(SOURCE_FILES)
 
-# Check if we are building for Cygwin
-#
-HOST_ARCH=$(shell $(CC) -dumpmachine)
-
 ifeq (cygwin,$(findstring cygwin,$(HOST_ARCH)))
 CYGWIN_BUILD = yes
 endif
