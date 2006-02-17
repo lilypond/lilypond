@@ -536,9 +536,9 @@ Beam::get_default_dir (Grob *me)
       while (flip (&d) != DOWN);
     }
 
-  if (extremes[UP] > extremes[DOWN])
+  if (abs (extremes[UP]) > -extremes[DOWN])
     return DOWN;
-  else if (extremes[UP] < extremes[DOWN])
+  else if (extremes[UP] < -extremes[DOWN])
     return UP;
 
   Drul_array<int> total (0, 0);
