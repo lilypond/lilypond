@@ -1,5 +1,7 @@
 2006-02-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PATCH_LEVEL): bump VERSION.
+
 	* mf/GNUmakefile: explicit rules for emmentaler/aybabtu
 	dependencies. Necessary for -jX builds.  
 
