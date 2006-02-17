@@ -1,3 +1,7 @@
+2006-02-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/relocate.cc (setup_paths): Yet another const fix.
+
 2006-02-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* configure.in (HOST_ARCH): determine HOST_ARCH in configure.
