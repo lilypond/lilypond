@@ -171,7 +171,7 @@ ADD_INTERFACE (Text_spanner,
 	       "dash-period "
 	       "edge-height "
 	       "edge-text "
-	       "enclose-bounds"
+	       "enclose-bounds "
 	       "shorten-pair "
 	       "style "
 	       "thickness "

@@ -44,14 +44,10 @@ TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
 ENC_FILES = $(TEXTABLES:.tex=.enc)
 TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)\
  $(SAUTER_FONTS:%=$(outdir)/%.tfm)
-FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 
 
 ENCODING_FILE=$(findstring $(<F:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
-
-
-
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 	cat $^ > $@
@@ -66,55 +62,23 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 #
 # 2. are not included with teTeX
 #
+define MAKE_OTF
+	(cd $(outdir) && $(FONTFORGE) -script $(1))
+	$(PYTHON) $(buildscript-dir)/substitute-encoding.py --outdir=$(outdir) $(2)
+endef
 
-$(outdir)/$(PFA_PREFIX)%.pfa $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
-	(cd $(outdir) && $(FONTFORGE) -script $(notdir $<))
-	$(PYTHON) $(buildscript-dir)/substitute-encoding.py --outdir=$(outdir) $@
-	-rm -f $(outdir)/*.scale.pfa
+define EMMENTALER_RULE
+$(outdir)/$(PFA_PREFIX)emmentaler-$(1).pfa $(outdir)/emmentaler-$(1).otf $(outdir)/emmentaler-$(1).svg: $(outdir)/emmentaler-$(1).pe $(outdir)/feta$(1).pfa  $(outdir)/feta-alphabet$(1).pfa  $(outdir)/parmesan$(1).pfa 
+	$(call MAKE_OTF,emmentaler-$(1).pe, $(outdir)/PFAemmentaler-$(1).pfa)
+endef
 
-# ugh, this does not work
+$(foreach size, $(STAFF_SIZES), $(eval $(call EMMENTALER_RULE,$(size))))
+
+$(outdir)/$(PFA_PREFIX)aybabtu.pfa $(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa)
+	$(call MAKE_OTF,aybabtu.pe, $(outdir)/PFAaybabtu.pfa)
+	-rm -f $(outdir)/*.scale.{pfa,afm}
+
 $(outdir)/%.pfa: $(outdir)/%.log
-$(outdir)/feta-alphabet%.pfa: $(outdir)/feta-alphabet%.log
-$(outdir)/emmentaler-%.otf $(outdir)/$(PFA_PREFIX)emmentaler-%.pfa $(outdir)/emmentaler%.svg: $(outdir)/feta%.pfa $(outdir)/feta-alphabet%.pfa $(outdir)/parmesan%.pfa
-
-# AARGH?
-
-$(outdir)/feta11.pfa: $(outdir)/feta11.log
-$(outdir)/feta13.pfa: $(outdir)/feta13.log
-$(outdir)/feta14.pfa: $(outdir)/feta14.log
-$(outdir)/feta16.pfa: $(outdir)/feta16.log
-$(outdir)/feta18.pfa: $(outdir)/feta18.log
-$(outdir)/feta20.pfa: $(outdir)/feta20.log
-$(outdir)/feta23.pfa: $(outdir)/feta23.log
-$(outdir)/feta26.pfa: $(outdir)/feta26.log
-
-$(outdir)/feta-alphabet11.pfa: $(outdir)/feta-alphabet11.log
-$(outdir)/feta-alphabet13.pfa: $(outdir)/feta-alphabet13.log
-$(outdir)/feta-alphabet14.pfa: $(outdir)/feta-alphabet14.log
-$(outdir)/feta-alphabet16.pfa: $(outdir)/feta-alphabet16.log
-$(outdir)/feta-alphabet18.pfa: $(outdir)/feta-alphabet18.log
-$(outdir)/feta-alphabet20.pfa: $(outdir)/feta-alphabet20.log
-$(outdir)/feta-alphabet23.pfa: $(outdir)/feta-alphabet23.log
-$(outdir)/feta-alphabet26.pfa: $(outdir)/feta-alphabet26.log
-
-$(outdir)/parmesan11.pfa: $(outdir)/parmesan11.log
-$(outdir)/parmesan13.pfa: $(outdir)/parmesan13.log
-$(outdir)/parmesan14.pfa: $(outdir)/parmesan14.log
-$(outdir)/parmesan16.pfa: $(outdir)/parmesan16.log
-$(outdir)/parmesan18.pfa: $(outdir)/parmesan18.log
-$(outdir)/parmesan20.pfa: $(outdir)/parmesan20.log
-$(outdir)/parmesan23.pfa: $(outdir)/parmesan23.log
-$(outdir)/parmesan26.pfa: $(outdir)/parmesan26.log
-
-$(outdir)/$(PFA_PREFIX)emmentaler-11.otf $(outdir)/$(PFA_PREFIX)emmentaler-11.pfa: $(outdir)/feta11.pfa $(outdir)/feta-alphabet11.pfa $(outdir)/parmesan11.pfa
-$(outdir)/$(PFA_PREFIX)emmentaler-13.otf $(outdir)/$(PFA_PREFIX)emmentaler-13.pfa: $(outdir)/feta13.pfa $(outdir)/feta-alphabet13.pfa $(outdir)/parmesan13.pfa
-$(outdir)/$(PFA_PREFIX)emmentaler-14.otf $(outdir)/$(PFA_PREFIX)emmentaler-14.pfa: $(outdir)/feta14.pfa $(outdir)/feta-alphabet14.pfa $(outdir)/parmesan14.pfa
-$(outdir)/$(PFA_PREFIX)emmentaler-16.otf $(outdir)/$(PFA_PREFIX)emmentaler-16.pfa: $(outdir)/feta16.pfa $(outdir)/feta-alphabet16.pfa $(outdir)/parmesan16.pfa
-$(outdir)/$(PFA_PREFIX)emmentaler-18.otf $(outdir)/$(PFA_PREFIX)emmentaler-18.pfa: $(outdir)/feta18.pfa $(outdir)/feta-alphabet18.pfa $(outdir)/parmesan18.pfa
-$(outdir)/$(PFA_PREFIX)emmentaler-20.otf $(outdir)/$(PFA_PREFIX)emmentaler-20.pfa: $(outdir)/feta20.pfa $(outdir)/feta-alphabet20.pfa $(outdir)/parmesan20.pfa
-$(outdir)/$(PFA_PREFIX)emmentaler-23.otf $(outdir)/$(PFA_PREFIX)emmentaler-23.pfa: $(outdir)/feta23.pfa $(outdir)/feta-alphabet23.pfa $(outdir)/parmesan23.pfa
-$(outdir)/$(PFA_PREFIX)emmentaler-26.otf $(outdir)/$(PFA_PREFIX)emmentaler-26.pfa: $(outdir)/feta26.pfa $(outdir)/feta-alphabet26.pfa $(outdir)/parmesan26.pfa
-
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<))
 	cat $< \
@@ -233,7 +197,7 @@ get-pfa: get-rpm-fonts
 
 ##
 ## todo: this also depends on .tfm, FIXME.
-$(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%list.ly $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
+$(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py --global-lisp=$(outdir)/$(<F:.log=.otf-gtable) --lisp=$(outdir)/$(<F:.log=.lisp) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep) --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) $<
 
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
