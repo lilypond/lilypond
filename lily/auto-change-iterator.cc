@@ -63,22 +63,24 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
     }
 
   if (current)
-    if (last)
-      {
-	Context *dest
-	  = it->get_outlet ()->find_create_context (to_type_sym, to_id, SCM_EOL);
-	current->remove_context (last);
-	dest->add_context (last);
-      }
-    else
-      {
-	/*
-	  We could change the current translator's id, but that would make
-	  errors hard to catch
+    {
+      if (last)
+	{
+	  Context *dest
+	    = it->get_outlet ()->find_create_context (to_type_sym, to_id, SCM_EOL);
+	  current->remove_context (last);
+	  dest->add_context (last);
+	}
+      else
+	{
+	  /*
+	    We could change the current translator's id, but that would make
+	    errors hard to catch
 
-	*/
-      }
-  else;
+	  */
+	  ;
+	}
+    }
 }
 
 void
