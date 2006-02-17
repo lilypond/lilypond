@@ -1,3 +1,8 @@
+2006-02-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/GNUmakefile: explicit rules for emmentaler/aybabtu
+	dependencies. Necessary for -jX builds.  
+
 2006-02-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/relocate.cc (setup_paths): Yet another const fix.
