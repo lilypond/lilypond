@@ -184,7 +184,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a)
 	      || (Note_head::has_interface (head)
 		  && sign (Staff_symbol_referencer::get_position (head)) == - dir))
 	    {
-	      o += dir *(rounded - position) * 0.5 * ss;
+	      o += (rounded - position) * 0.5 * ss;
 	      if (Staff_symbol_referencer::on_line (me, int (rounded)))
 		o += dir * 0.5 * ss;
 	    }
