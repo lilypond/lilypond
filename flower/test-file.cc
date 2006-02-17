@@ -1,6 +1,7 @@
 #define HAVE_BOOST_LAMBDA 1
 #include "std-vector.hh"
 
+#include <unistd.h>
 #include <iostream>
 
 #include <boost/test/auto_unit_test.hpp>
