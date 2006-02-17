@@ -117,7 +117,7 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
     {
       r.item_drul_[d] = sp->get_bound (d);
       if (r.item_drul_[d])
-	r.distance_ += r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
+	r.distance_ += -d * r.item_drul_[d]->extent (r.item_drul_[d], X_AXIS)[-d];
     }
   while (flip (&d) != LEFT);
 
