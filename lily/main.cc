@@ -184,7 +184,7 @@ static Long_option_init options_static[]
   {0, 0, 0, 0}
 };
 
-const char *LILYPOND_DATADIR = PACKAGE_DATADIR "/" TOPLEVEL_VERSION;
+char const *LILYPOND_DATADIR = PACKAGE_DATADIR "/" TOPLEVEL_VERSION;
 
 static void
 env_var_info (FILE *out, char const *key)
@@ -590,7 +590,7 @@ parse_argv (int argc, char **argv)
 void
 setup_guile_env ()
 {
-  char *yield = getenv ("LILYPOND_GC_YIELD");
+  const char *yield = getenv ("LILYPOND_GC_YIELD");
   bool overwrite = true;
   if (!yield)
     {
