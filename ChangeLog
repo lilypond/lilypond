@@ -1,5 +1,11 @@
 2006-02-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/c++-rules.make ($(outdir)/%.cc
+	$(outdir)/%.hh): generate h and c in one rule; otherwise -jX
+	builds don't work. 
+
+	* VERSION: release 2.7.35
+
 	* lily/beam.cc (get_default_dir): oops. Take abs () for
 	extremes[DOWN].
 	(get_default_dir): use extreme position criterion only in absence
