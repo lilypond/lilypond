@@ -2,6 +2,8 @@
 
 	* lily/beam.cc (get_default_dir): oops. Take abs () for
 	extremes[DOWN].
+	(get_default_dir): use extreme position criterion only in absence
+	of forced stem directions.
 
 	* VERSION (PATCH_LEVEL): bump VERSION.
 
