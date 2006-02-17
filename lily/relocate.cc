@@ -289,7 +289,7 @@ setup_paths (char const *argv0_ptr)
 
   
   vector<string> dirs;
-  for (char **s = suffixes; *s; s++)
+  for (char const **s = suffixes; *s; s++)
     {
       string path = prefix_directory + to_string ('/') + string (*s);
       dirs.push_back (path);
