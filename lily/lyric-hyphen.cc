@@ -128,15 +128,20 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE (Hyphen_spanner, "lyric-hyphen-interface",
-	       "A centered hyphen is a simple line between lyrics used to divide syllables",
+ADD_INTERFACE (Hyphen_spanner,
+
+	       "lyric-hyphen-interface",
+	       
+	       "A centered hyphen is a simple line between "
+	       "lyrics used to divide syllables",
 
 	       /* props */
+	       "dash-period "
+	       "height "
+	       "length"
+	       "minimum-distance "
+	       "minimum-length "
 	       "padding "
 	       "thickness "
-	       "height "
-	       "dash-period "
-	       "minimum-length "
-	       "minimum-distance "
-	       "length");
+	       );
 
