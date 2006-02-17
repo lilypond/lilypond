@@ -536,21 +536,20 @@ Beam::get_default_dir (Grob *me)
       while (flip (&d) != DOWN);
     }
 
-  if (abs (extremes[UP]) > -extremes[DOWN])
-    return DOWN;
-  else if (extremes[UP] < -extremes[DOWN])
-    return UP;
-
   Drul_array<int> total (0, 0);
   Drul_array<int> count (0, 0);
- 
+
+  bool force_dir = false;
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
       Direction stem_dir = CENTER;
       SCM stem_dir_scm = s->get_property_data (ly_symbol2scm ("direction"));
       if (is_direction (stem_dir_scm))
-	stem_dir = to_dir (stem_dir_scm);
+	{
+	  stem_dir = to_dir (stem_dir_scm);
+	  force_dir = true;
+	}
       else
 	stem_dir = to_dir (s->get_property ("default-direction"));
 
@@ -564,6 +563,15 @@ Beam::get_default_dir (Grob *me)
 	}
     }
 
+
+  if (!force_dir)
+    {
+      if (abs (extremes[UP]) > -extremes[DOWN])
+	return DOWN;
+      else if (extremes[UP] < -extremes[DOWN])
+	return UP;
+    }
+  
   Direction dir = CENTER;
   Direction d = CENTER;
   if ((d = (Direction) sign (count[UP] - count[DOWN])))
