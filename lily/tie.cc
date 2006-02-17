@@ -96,17 +96,27 @@ Tie::get_position (Grob *me)
 Direction
 Tie::get_default_dir (Grob *me)
 {
-  Item *sl = head (me, LEFT) ? Rhythmic_head::get_stem (head (me, LEFT)) : 0;
-  Item *sr = head (me, RIGHT) ? Rhythmic_head::get_stem (head (me, RIGHT)) : 0;
-  if (sl && sr)
+  Drul_array<Grob*> stems;
+  Direction d = LEFT;
+  do
     {
-      if (get_grob_direction (sl) == UP
-	  && get_grob_direction (sr) == UP)
+      Grob *stem = head (me, d) ? Rhythmic_head::get_stem (head (me, d)) : 0;
+      if (stem)
+	stem = Stem::is_invisible (stem) ? 0 : stem;
+
+      stems[d] = stem;
+    }
+  while (flip (&d)!= LEFT);
+  
+  if (stems[LEFT] && stems[RIGHT])
+    {
+      if (get_grob_direction (stems[LEFT]) == UP
+	  && get_grob_direction (stems[RIGHT]) == UP)
 	return DOWN;
     }
-  else if (sl || sr)
+  else if (stems[LEFT] || stems[RIGHT])
     {
-      Item *s = sl ? sl : sr;
+      Grob *s = stems[LEFT] ? stems[LEFT] : stems[RIGHT];
       return -get_grob_direction (s);
     }
 
