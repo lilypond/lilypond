@@ -376,9 +376,7 @@
 			(clef . (minimum-space . 2.0))
 			(first-note . (fixed-space . 1.0)) ;huh?
 			(right-edge . (extra-space . 0.1))))
-
 	(stencil . ,ly:text-interface::print)
-
 	(text . ,(make-musicglyph-markup "scripts.rcomma"))
 	(Y-offset . ,ly:breathing-sign::offset-callback)
 	(break-visibility . ,begin-of-line-invisible)
@@ -390,10 +388,8 @@
 
     (Clef
      . (
-
 	(stencil . ,ly:clef::print)
 	(glyph-name . ,ly:clef::calc-glyph-name)
-					
 	(breakable . #t)
 	(font-family . music)
 	(break-align-symbol . clef)
@@ -415,19 +411,14 @@
 
     (ClusterSpannerBeacon
      . (
-
 	(Y-extent . ,ly:cluster-beacon::height)
-
 	(meta . ((class . Item)
 		 (interfaces . (cluster-beacon-interface))))))
 
     (ClusterSpanner
      . (
-
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(stencil . ,ly:cluster::print)
-
-
 	(minimum-length . 0.0)
 	(padding . 0.25)
 	(style . ramp)
@@ -436,10 +427,8 @@
 
     (ChordName
      . (
-
 	(stencil . ,ly:text-interface::print)
 	(after-line-breaking . ,ly:chord-name::after-line-breaking)
-	
 	(word-space . 0.0)
 	(font-family . sans)
 	(font-size . 1.5)
@@ -452,9 +441,7 @@
 
     (CombineTextScript
      . (
-
 	(stencil . ,ly:text-interface::print)
-
 	(no-spacing-rods . #t)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
@@ -476,9 +463,7 @@
      . (
 	(break-align-symbol . custos)
 	(breakable . #t)
-
 	(stencil . ,ly:custos::print)
-
 	(break-visibility . ,end-of-line-visible)
 	(style . vaticana)
 	(neutral-direction . ,DOWN)
@@ -497,10 +482,8 @@
      . (
 	(axes . (0))
 	(direction . ,RIGHT)
-
 	(positioning-done . ,ly:dot-column::calc-positioning-done) 
 	(X-extent . ,ly:axis-group-interface::width)
-	
 	(X-offset . ,ly:dot-column::side-position)
 	(meta . ((class . Item)
 		 (interfaces . (dot-column-interface
@@ -508,9 +491,7 @@
 
     (Dots
      . (
-
 	(stencil . ,ly:dots::print)
-
 	(dot-count . 1)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -534,7 +515,6 @@
 
     (DoublePercentRepeatCounter
      . (
-
 	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-y-parent))
 						  ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
@@ -563,11 +543,8 @@
 	(minimum-space . 1.2)
 	(direction . ,DOWN)
 	(side-axis . ,Y)
-
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
-
-
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				dynamic-interface
@@ -601,7 +578,6 @@
 
     (DynamicTextSpanner
      . (
-
 	(stencil . ,ly:dynamic-text-spanner::print)
 
 	;; rather ugh with NCSB
@@ -673,10 +649,8 @@
 
     (GridLine
      . (
-
 	(X-extent  . ,ly:grid-line-interface::width)
 	(stencil . ,ly:grid-line-interface::print)
-
 	(self-alignment-X . ,CENTER)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+  ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
@@ -688,12 +662,9 @@
 
     (Hairpin
      . (
-
-
 	(stencil . ,ly:hairpin::print)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(after-line-breaking . ,ly:hairpin::after-line-breaking)
-
 	(thickness . 1.0)
 	(height . 0.6666)
 	(minimum-length . 2.0)
@@ -736,9 +707,7 @@
 
     (KeyCancellation
      . (
-
 	(stencil . ,ly:key-signature-interface::print)
-
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar . (extra-space . 0.6))
@@ -749,16 +718,13 @@
 	(break-align-symbol . key-cancellation)
 	(break-visibility . ,begin-of-line-invisible)
 	(breakable . #t)
-
 	(meta . ((class . Item)
 		 (interfaces . (key-signature-interface
 				font-interface
 				break-aligned-interface))))))
     (KeySignature
      . (
-
 	(stencil . ,ly:key-signature-interface::print)
-
 	(space-alist . (
 			(time-signature . (extra-space . 1.15))
 			(staff-bar . (extra-space . 1.1))
@@ -768,18 +734,15 @@
 	(break-align-symbol . key-signature)
 	(break-visibility . ,begin-of-line-visible)
 	(breakable . #t)
-
 	(meta . ((class . Item)
 		 (interfaces . (key-signature-interface
 				font-interface
 				break-aligned-interface))))))
     (LaissezVibrerTie
      . (
-
 	(stencil  . ,ly:tie::print)
 	(control-points . ,ly:laissez-vibrer-tie::calc-control-points)
 	(direction . ,ly:laissez-vibrer-tie::calc-direction)
-	
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
 	(thickness . 1.0)
@@ -800,7 +763,6 @@
 
     (LedgerLineSpanner
      . (
-
 	(springs-and-rods . ,ly:ledger-line-spanner::set-spacing-rods)
 
 	(stencil . ,ly:ledger-line-spanner::print)

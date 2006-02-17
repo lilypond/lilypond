@@ -123,7 +123,8 @@ Dynamic_text_spanner::print (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  if (!span_points.is_empty ())
+  if (!span_points.is_empty ()
+      && span_points.length () > robust_scm2double (me->get_property ("dash-period"), 0.0))
     {
       Stencil l = Line_spanner::line_stencil (me,
 					      Offset (span_points[LEFT], 0),

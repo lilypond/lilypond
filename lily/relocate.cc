@@ -285,7 +285,7 @@ setup_paths (char const *argv0_ptr)
   
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */
-  char *suffixes[] = {"ly", "ps", "scm", 0 };
+  char const *suffixes[] = {"ly", "ps", "scm", 0 };
 
   
   vector<string> dirs;
