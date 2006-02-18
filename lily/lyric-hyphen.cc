@@ -138,7 +138,7 @@ ADD_INTERFACE (Hyphen_spanner,
 	       /* props */
 	       "dash-period "
 	       "height "
-	       "length"
+	       "length "
 	       "minimum-distance "
 	       "minimum-length "
 	       "padding "
