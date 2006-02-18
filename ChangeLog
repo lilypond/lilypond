@@ -1,3 +1,7 @@
+2006-02-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/lyric-hyphen.cc: typo.
+
 2006-02-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* stepmake/stepmake/c++-rules.make ($(outdir)/%.cc
