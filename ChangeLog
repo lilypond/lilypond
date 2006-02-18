@@ -1,3 +1,7 @@
+2006-02-18  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/index.html.in: fix spelling: thankyous.
+
 2006-02-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/lyric-hyphen.cc: typo.
