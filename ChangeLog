@@ -7,6 +7,10 @@
 
 2006-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/stencil.scm (annotate-y-interval): use it.
+
+	* scm/lily-library.scm (interval-sane?): new function.
+
 	* buildscripts/mf-to-table.py (Char_metric.__init__): remove
 	tfm_checksum stuff.
 
