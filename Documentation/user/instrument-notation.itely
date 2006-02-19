@@ -91,7 +91,7 @@ point), and it looks ahead skipping over rests to switch in
 advance.  Here is a practical example
 
 @lilypond[quote,verbatim,ragged-right]
-\context PianoStaff
+\new PianoStaff
   \autochange \relative c'
   {
     g4 a b c d r4 a g
@@ -136,10 +136,10 @@ usually the setup for a score will start with a setup of the staves,
 
 @example
 <<
-  \context Staff = up @{
+  \new Staff = "up" @{
     \skip 1 * 10  % @emph{keep staff alive}
     @}
-  \context Staff = down @{
+  \new Staff = "down" @{
     \skip 1 * 10  % @emph{idem}
     @}
 >>
@@ -149,7 +149,7 @@ usually the setup for a score will start with a setup of the staves,
 and the @context{Voice} is inserted afterwards
 
 @example
-\context Staff = down
+\new Staff = down
   \new Voice @{ @dots{} \change Staff = up @dots{} @}
 @end example
 
@@ -260,13 +260,13 @@ can be printed automatically.  This is switched on by setting
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new PianoStaff <<
-  \context Staff=one {
+  \new Staff="one" {
     \set followVoice = ##t
     c1
     \change Staff=two
     b2 a
   }
-  \context Staff=two { \clef bass \skip 1*2 }
+  \new Staff="two" { \clef bass \skip 1*2 }
 >>
 @end lilypond
 
@@ -292,7 +292,7 @@ staff, or vice versa.
 @lilypond[ragged-right,verbatim,quote]
 stemExtend = \once \override Stem #'length = #22
 noFlag = \once \override Stem #'flag-style = #'no-flag
-\context PianoStaff <<
+\new PianoStaff <<
   \new Staff {
     \stemDown \stemExtend
     f'4
@@ -340,8 +340,8 @@ twoWays = \transpose c c' {
   <f bes d'>
 }
 
-<< \context ChordNames \twoWays
-   \context Voice \twoWays >>
+<< \new ChordNames \twoWays
+   \new Voice \twoWays >>
 @end lilypond
 
 This example also shows that the chord printing routines do not try to
@@ -500,8 +500,8 @@ harmonies = {
   \chordmode {a1 b c} <d' f' a'> <e' g' b'>
 }
 <<
-  \context ChordNames \harmonies
-  \context Staff \harmonies
+  \new ChordNames \harmonies
+  \new Staff \harmonies
 >>
 @end lilypond
 
@@ -515,10 +515,10 @@ harmonies = \chordmode {
   c1:m c:m \break c:m c:m d
 }
 <<
-  \context ChordNames {
+  \new ChordNames {
     \set chordChanges = ##t
     \harmonies }
-  \context Staff \transpose c c' \harmonies
+  \new Staff \transpose c c' \harmonies
 >>
 @end lilypond
 
@@ -591,7 +591,7 @@ Different parts of a chord name are normally separated by a
 slash.  By setting @code{chordNameSeparator}, you can specify other
 separators, e.g.,
 @lilypond[quote,ragged-right,fragment,verbatim]
-\context ChordNames \chordmode {
+\new ChordNames \chordmode {
   c:7sus4
   \set chordNameSeparator
     = \markup { \typewriter "|" }
@@ -718,6 +718,18 @@ Checking to make sure that text scripts and lyrics are within the margins is a r
 \override Score.PaperColumn #'keep-inside-line = ##t 
 @end example
 
+To make lyrics avoid barlines as well, use
+@example
+\layout{
+  \context {
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \override BarLine #'transparent = ##t
+  }
+}
+@end example
+
 
 @node Setting simple songs
 @subsection Setting simple songs
@@ -768,7 +780,7 @@ it's fleece was white as snow.
 }
 
 \score{ <<
-  \context Voice = "one" { \melody }
+  \new Voice = "one" { \melody }
   \new Lyrics \lyricsto "one" \text
 	>>
   \layout { }
@@ -809,7 +821,7 @@ fancy things, in which case you should investigate
 is the same as
 
 @example
-\context Voice = "blah" @{ music @}
+\new Voice = "blah" @{ music @}
 \new Lyrics \lyricsto "blah" @{ LYRICS @}
 @end example
 
@@ -930,7 +942,7 @@ Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
 
 Lyrics are printed by interpreting them in a @internalsref{Lyrics} context
 @example
-\context Lyrics \lyricmode @dots{}
+\new Lyrics \lyricmode @dots{}
 @end example
 
 @cindex automatic syllable durations
@@ -956,11 +968,11 @@ then the lyrics are specified with @code{\lyricsto}.  The command
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.,
 @example
-\context ChoirStaff <<
-  \context Lyrics = sopranoLyrics @{ s1 @}
-  \context Voice = soprano @{ @emph{music} @}
-  \context Lyrics = tenorLyrics @{ s1 @}
-  \context Voice = tenor @{ @emph{music} @}
+\new ChoirStaff <<
+  \new Lyrics = "sopranoLyrics" @{ s1 @}
+  \new Voice = "soprano" @{ @emph{music} @}
+  \new Lyrics = "tenorLyrics" @{ s1 @}
+  \new Voice = "tenor" @{ @emph{music} @}
 >>
 @end example
 and then combine the appropriate melodies and lyric lines
@@ -973,7 +985,7 @@ and then combine the appropriate melodies and lyric lines
 The final input would resemble
 
 @example
-<<\context ChoirStaff << @emph{setup the music} >>
+<<\new ChoirStaff << @emph{setup the music} >>
   \lyricsto "soprano" @emph{etc}
   \lyricsto "alto" @emph{etc}
   @emph{etc}
@@ -989,7 +1001,7 @@ last one, e.g.,
 
 @lilypond[quote,relative=2,ragged-right,fragment,verbatim]
 <<
-  \context Voice = "lala" {
+  \new Voice = "lala" {
     \time 3/4
     f4 g8
     \melisma
@@ -1041,7 +1053,7 @@ will not be formatted properly.
 Here is an example demonstrating manual lyric durations,
 
 @lilypond[relative=1,ragged-right,verbatim,fragment,quote]
-<< \context Voice = melody {
+<< \new Voice = "melody" {
      \time 3/4
      c2 e4 g2.
   }
@@ -1102,7 +1114,7 @@ in the text, as shown here,
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \relative \context Voice = "lahlah" {
+  \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     \slurDotted
@@ -1149,11 +1161,11 @@ done by setting the @code{associatedVoice} property.  In the example
 
 @lilypond[ragged-right,quote]
 <<
-  \relative \context Voice = "lahlah" {
+  \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     <<
-      \context Voice = alternative {
+      \new Voice = "alternative" {
         \voiceOne
         \times 2/3 {
           % show associations clearly.
@@ -1319,12 +1331,12 @@ contexts and attaching lyrics to those specific contexts.
 
 @lilypond[verbatim,ragged-right,quote]
 \score{ <<
-  \context Voice = "melody" {
+  \new Voice = "melody" {
     \relative c' {
       c4
       <<
         { \voiceOne c8 e }
-        \context Voice = splitpart { \voiceTwo c4 }
+        \new Voice = "splitpart" { \voiceTwo c4 }
       >>
       \oneVoice c4 c | c
     }
@@ -1340,16 +1352,16 @@ section.
 
 @lilypond[verbatim,ragged-right,quote]
 \score{ <<
-  \context Voice = melody \relative c' {
+  \new Voice = "melody" \relative c' {
     c2 e | g e | c1 |
-    \context Voice = verse \repeat volta 2 {c4 d e f | g1 | }
+    \new Voice = "verse" \repeat volta 2 {c4 d e f | g1 | }
     a2 b | c1}
-  \context Lyrics = mainlyrics \lyricsto melody \lyricmode {
+  \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
     do mi sol mi do
     la si do }
-  \context Lyrics = mainlyrics \lyricsto verse \lyricmode {
+  \new Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
    do re mi fa sol }
-  \context Lyrics = repeatlyrics \lyricsto verse \lyricmode {
+  \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
    dodo rere mimi fafa solsol }
 >>
 }
@@ -1471,6 +1483,9 @@ notated by cross noteheads.  This is demonstrated in
 @ref{Special noteheads}.
 
 
+
+
+
 @node Rhythmic music
 @section Rhythmic music
 
@@ -1492,7 +1507,7 @@ can be done with the rhythmic staff.  All pitches of notes on such a
 staff are squashed, and the staff itself has a single line
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\context RhythmicStaff {
+\new RhythmicStaff {
   \time 4/4
   c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
 }
@@ -1559,8 +1574,8 @@ the @internalsref{DrumVoice}s are instantiated by hand first.  For example,
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new DrumStaff <<
-  \context DrumVoice = "1" { s1 *2 }
-  \context DrumVoice = "2" { s1 *2 }
+  \new DrumVoice = "1" { s1 *2 }
+  \new DrumVoice = "2" { s1 *2 }
   \drummode {
     bd4 sn4 bd4 sn4
     <<
@@ -1596,7 +1611,7 @@ mus = \drummode {
        \override Stem #'Y-extent-callback = ##f
        \override VerticalAxisGroup #'minimum-Y-extent = #'(-4.0 . 5.0)
      } \mus
-     \context Lyrics \nam
+     \new Lyrics \nam
   >>
   \layout {
     \context {
@@ -1621,7 +1636,7 @@ nam = \lyricmode { timh ssh timl ssl cb }
 mus = \drummode { timh ssh timl ssl cb s16 }
 
 <<
-  \context DrumStaff \with {
+  \new DrumStaff \with {
     \remove Bar_engraver
     \remove Time_signature_engraver
     \override Stem #'transparent = ##t
@@ -1631,7 +1646,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
     \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.0 . 4.0)
     drumStyleTable = #timbales-style
   } \mus
-  \context Lyrics {
+  \new Lyrics {
     \override LyricText #'font-family = #'typewriter
     \nam
   }
@@ -1646,7 +1661,7 @@ nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
 mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 
 <<
-  \context DrumStaff \with {
+  \new DrumStaff \with {
     \remove Bar_engraver
     \remove Time_signature_engraver
     drumStyleTable = #congas-style
@@ -1657,7 +1672,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
     \override Stem #'transparent = ##t
     \override Stem #'Y-extent-callback = ##f
   } \mus
-  \context Lyrics {
+  \new Lyrics {
     \override LyricText #'font-family = #'typewriter
     \nam
   }
@@ -1672,7 +1687,7 @@ nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
 mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 
 <<
-  \context DrumStaff\with {
+  \new DrumStaff \with {
     \remove Bar_engraver
     \remove Time_signature_engraver
     \override StaffSymbol #'line-count = #2
@@ -1683,7 +1698,7 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
     \override Stem #'transparent = ##t
     \override Stem #'Y-extent-callback = ##f
   } \mus
-  \context Lyrics {
+  \new Lyrics {
     \override LyricText #'font-family = #'typewriter
     \nam
   }
@@ -1698,7 +1713,7 @@ nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
 mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 
 <<
-  \context DrumStaff\with{
+  \new DrumStaff \with{
     \remove Bar_engraver
     drumStyleTable = #percussion-style
     \override StaffSymbol #'line-count = #1
@@ -1706,7 +1721,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
     \override Stem #'transparent = ##t
     \override Stem #'Y-extent-callback = ##f
   } \mus
-  \context Lyrics {
+  \new Lyrics {
     \override LyricText #'font-family = #'typewriter
     \nam
   }
@@ -1799,7 +1814,7 @@ are printed as tablature, by using @internalsref{TabStaff} and
 @internalsref{TabVoice} contexts
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\context TabStaff {
+\new TabStaff {
   a,4\5 c'\2 a\3 e'\1
   e\4 c'\2 a\3 e'\1
 }
@@ -1825,9 +1840,9 @@ frag = {
   \set TabStaff.minimumFret = #8
   e16 fis gis a b4
 }
-  \context StaffGroup <<
-    \context Staff { \clef "G_8" \frag }
-    \context TabStaff { \frag }
+  \new StaffGroup <<
+    \new Staff { \clef "G_8" \frag }
+    \new TabStaff { \frag }
   >>
 @end lilypond
 
@@ -1858,7 +1873,7 @@ by default middle C, in string order.  In the next example,
 @code{stringTunings} is set for the pitches e, a, d, and g
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\context TabStaff <<
+\new TabStaff <<
   \set TabStaff.stringTunings = #'(-5 -10 -15 -20)
   {
     a,4 c' a e' e c' a e'
@@ -1885,7 +1900,7 @@ markup contains information about the desired fret diagram, as shown in the
 following example
 
 @lilypond[verbatim, ragged-right, quote]
-\context Voice {
+\new Voice {
   d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
   d' d' d'
   fis'^\markup \override #'(size . 0.75) {
@@ -2686,7 +2701,7 @@ Editio Vaticana style.
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian-init.ly"
 \score {
-  \context VaticanaVoice {
+  \new VaticanaVoice {
     \override Staff.StaffSymbol #'color = #red
     \override Staff.LedgerLineSpanner #'color = #red
     \override TextScript #'font-family = #'typewriter
@@ -3918,7 +3933,7 @@ the following excerpt demonstrates
 \include "gregorian-init.ly"
 \score {
   <<
-    \context VaticanaVoice = "cantus" {
+    \new VaticanaVoice = "cantus" {
       \override Staff.StaffSymbol #'color = #red
       \override Staff.LedgerLineSpanner #'color = #red
       \override Score.BarNumber #'transparent = ##t {
@@ -3954,7 +3969,7 @@ entering the chant, as the following excerpt demonstrates
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \context MensuralVoice = "discantus" \transpose c c' {
+    \new MensuralVoice = "discantus" \transpose c c' {
       \override Score.BarNumber #'transparent = ##t {
         c'1\melisma bes a g\melismaEnd
         f\breve
@@ -4009,8 +4024,8 @@ LilyPond has support for figured bass
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 <<
-  \context Voice { \clef bass dis4 c d ais g fis}
-  \context FiguredBass \figuremode {
+  \new Voice { \clef bass dis4 c d ais g fis}
+  \new FiguredBass \figuremode {
     < 6 >4 < 7\+ >8 < 6+ [_!] >
     < 6 >4 <6 5 [3+] >
     < _ >4 < 6 5/>4
@@ -4029,7 +4044,7 @@ In figures input mode, a group of bass figures is delimited by
 <4 6>
 @end example
 @lilypond[quote,ragged-right,fragment]
-\context FiguredBass
+\new FiguredBass
 \figuremode { <4 6> }
 @end lilypond
 
@@ -4052,7 +4067,7 @@ strings and text markups, see @ref{Overview of text markup commands}.
 < [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >
 @end example
 @lilypond[quote,ragged-right,fragment]
-\context FiguredBass
+\new FiguredBass
 \figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
 @end lilypond
 

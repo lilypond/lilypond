@@ -807,6 +807,10 @@ of @code{format-mark-numbers} (the default format), @code{format-mark-box-number
 @code{format-mark-letters} and @code{format-mark-box-letters}.
 These can be used as inspiration for other formatting functions.
 
+You may use @code{format-mark-barnumbers}, @code{format-mark-box-barnumbers},
+and @code{format-mark-circle-barnumbers} to get bar numbers instead of
+incremented numbers or letters.
+
 
 @seealso
 
@@ -1424,7 +1428,7 @@ smaller = {
 \new Staff \relative  <<
 
   % setup a context for  cue  notes.
-  \context Voice = cue { \smaller \skip 1*21 }
+  \new Voice = "cue" { \smaller \skip 1*21 }
   
   \set Score.skipBars = ##t
   
@@ -1788,7 +1792,7 @@ of differing lengths.  The following fermatas are supported
     _\verylongfermata
     r
   }
-  \context Lyrics \lyricmode {
+  \new Lyrics \lyricmode {
     \override LyricText #'font-family = #'typewriter
     "shortfermata" "fermata" "longfermata" "verylongfermata"
   }
@@ -1920,7 +1924,7 @@ balloon.  The primary purpose of this feature is to explain notation.
 The following example demonstrates its use.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-\context Voice {
+\new Voice {
   \applyOutput
     #(add-balloon-text 'NoteHead "heads, or tails?"
     '(1 . -3))
@@ -1964,8 +1968,8 @@ emptymusic = {
   defaultBarType = #""
   \remove Bar_number_engraver
 } <<
-  \context Staff \emptymusic
-  \context TabStaff \emptymusic
+  \new Staff \emptymusic
+  \new TabStaff \emptymusic
 >>
 @end lilypond
 
@@ -2229,7 +2233,7 @@ As a result, accidentals from one voice do not get canceled in other
 voices, which is often an unwanted result
 
 @lilypond[quote,ragged-right,relative=1,fragment,verbatim]
-\context Staff <<
+\new Staff <<
   #(set-accidental-style 'voice)
   <<
     { es g } \\

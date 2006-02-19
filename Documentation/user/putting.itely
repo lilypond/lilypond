@@ -114,7 +114,7 @@ text = \lyricmode @{
 
 \score@{
   <<
-    \context Voice = "one" @{
+    \new Voice = "one" @{
       \autoBeamOff
       \melody
     @}
@@ -187,7 +187,7 @@ celloMusic = \relative c @{
 
 \score@{
   <<
-    \context Voice = "one" @{
+    \new Voice = "one" @{
       \autoBeamOff
       \sopranoMusic
     @}
@@ -216,7 +216,7 @@ more than one thing (in this case staff) happening at once.  The
 \score@{
   <<
     <<
-      \context Voice = "one" @{
+      \new Voice = "one" @{
         \autoBeamOff
         \sopranoMusic
       @}
@@ -258,7 +258,7 @@ celloMusic = \relative c {
 \score{
   <<
     <<
-      \context Voice = "one" {
+      \new Voice = "one" {
         \autoBeamOff
         \sopranoMusic
       }
@@ -494,9 +494,9 @@ though.
 \score @{
   @{
     <<
-      \context Staff = singer <<
+      \new Staff = "singer" <<
       >>
-      \context PianoStaff = piano <<
+      \new PianoStaff = piano <<
       >>
     >>
   @}
@@ -512,13 +512,13 @@ the vocal part and piano part at the same time!
 \score @{
   @{
     <<
-      \context Staff = singer <<
-        \context Voice = vocal @{ @}
+      \new Staff = "singer" <<
+        \new Voice = "vocal" @{ @}
       >>
       \new Lyrics \lyricsto vocal \new Lyrics @{ @}
-      \context PianoStaff = piano <<
-        \context Staff = upper @{ @}
-        \context Staff = lower @{ @}
+      \new PianoStaff = "piano" <<
+        \new Staff = "upper" @{ @}
+        \new Staff = "lower" @{ @}
       >>
     >>
   @}
@@ -535,7 +535,7 @@ it contains an upper staff (right hand) and a lower
 staff (left hand).
 
 At this stage, we could start filling in notes.  Inside
-the curly braces next to @code{\context Voice = vocal},
+the curly braces next to @code{\new Voice = vocal},
 we could start writing
 
 @example
@@ -557,13 +557,13 @@ lower = @{ @}
 \score @{
   @{
     <<
-      \context Staff = singer <<
-        \context Voice = vocal @{ \melody @}
+      \new Staff = "singer" <<
+        \new Voice = "vocal" @{ \melody @}
       >>
       \new Lyrics \lyricsto vocal \new Lyrics @{ \text @}
-      \context PianoStaff = piano <<
-        \context Staff = upper @{ \upper @}
-        \context Staff = lower @{ \lower @}
+      \new PianoStaff = "piano" <<
+        \new Staff = "upper" @{ \upper @}
+        \new Staff = "lower" @{ \lower @}
       >>
     >>
   @}

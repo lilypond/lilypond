@@ -1,3 +1,10 @@
+2006-02-19  Graham Percival  <gpermus@gmail.com>
+
+	* darwin.patch: trivial linenumber update.
+
+	* Documentation/user/ {various}: `\context foo = named' changed
+	to `\new foo = "name"' in docs.
+
 2006-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* buildscripts/mf-to-table.py (Char_metric.__init__): remove

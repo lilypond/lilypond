@@ -68,7 +68,7 @@ text = \lyricmode {
 
 \score{
    <<
-      \context Voice = "one" {
+      \new Voice = "one" {
          \autoBeamOff
          \melody
       }
@@ -100,11 +100,11 @@ harmonies = \chordmode {
 
 \score {
    <<
-      \context ChordNames {
+      \new ChordNames {
          \set chordChanges = ##t
          \harmonies
       }
-   \context Staff = one \melody
+   \new Staff \melody
    >>
 
    \layout{ }
@@ -136,11 +136,11 @@ harmonies = \chordmode {
 
 \score {
    <<
-      \context ChordNames {
+      \new ChordNames {
          \set chordChanges = ##t
          \harmonies
       }
-   \context Voice = "one" {
+   \new Voice = "one" {
       \autoBeamOff
       \melody
    }
@@ -176,10 +176,10 @@ lower = \relative c {
 }
 
 \score {
-   \context PianoStaff <<
+   \new PianoStaff <<
       \set PianoStaff.instrument = "Piano  "
-      \context Staff = upper \upper
-      \context Staff = lower \lower
+      \new Staff = "upper" \upper
+      \new Staff = "lower" \lower
    >>
    \layout { }
    \midi { \tempo 4=60 }
@@ -223,15 +223,15 @@ lower = \relative c {
 
 \score {
    <<
-      \context Voice = "mel" {
+      \new Voice = "mel" {
           \autoBeamOff
           \melody
       }
       \new Lyrics \lyricsto mel \text
 
-      \context PianoStaff <<
-         \context Staff = upper \upper
-         \context Staff = lower \lower
+      \new PianoStaff <<
+         \new Staff = "upper" \upper
+         \new Staff = "lower" \lower
       >>
    >>
    \layout {
@@ -270,10 +270,10 @@ text = \lyricmode {
 }
 
 \score {
-  \context GrandStaff <<
-    \context Staff = upper { \context Voice = "singer" \upper }
+  \new GrandStaff <<
+    \new Staff = upper { \new Voice = "singer" \upper }
     \new Lyrics \lyricsto "singer" \text
-    \context Staff = lower {
+    \new Staff = lower {
       \clef bass
       \lower
     }
@@ -322,14 +322,14 @@ pedal = {
 }
 
 \score {
-  \context PianoStaff <<
-    \context Staff=upper \upper
-    \context Dynamics=dynamics \dynamics
-    \context Staff=lower <<
+  \new PianoStaff <<
+    \new Staff = "upper" \upper
+    \new Dynamics = "dynamics" \dynamics
+    \new Staff = "lower" <<
       \clef bass
       \lower
     >>
-    \context Dynamics=pedal \pedal
+    \new Dynamics = "pedal" \pedal
   >>
   \layout {
     \context {
@@ -364,10 +364,10 @@ pedal = {
   }
 }
 \score {
-  \context PianoStaff <<
-    \context Staff=upper << \upper \dynamics >>
-    \context Staff=lower << \lower \dynamics >>
-    \context Dynamics=pedal \pedal
+  \new PianoStaff <<
+    \new Staff = "upper" << \upper \dynamics >>
+    \new Staff = "lower" << \lower \dynamics >>
+    \n ew Dynamics = "pedal" \pedal
   >>
   \midi {
     \context {
@@ -591,24 +591,25 @@ bassWords = \lyricmode {
 }
 
 \score {
-   \context ChoirStaff <<
-      \context Lyrics = sopranos { s1 }
-      \context Staff = women <<
-         \context Voice =
-           sopranos { \voiceOne << \global \sopMusic >> }
-         \context Voice =
-           altos { \voiceTwo << \global \altoMusic >> }
+   \new ChoirStaff <<
+      \new Lyrics = sopranos { s1 }
+      \new Staff = women <<
+         \new Voice =
+           "sopranos" { \voiceOne << \global \sopMusic >> }
+         \new Voice =
+           "altos" { \voiceTwo << \global \altoMusic >> }
       >>
-      \context Lyrics = altos { s1 }
-      \context Lyrics = tenors { s1 }
-      \context Staff = men <<
+      \new Lyrics = "altos" { s1 }
+      \new Lyrics = "tenors" { s1 }
+      \new Staff = men <<
          \clef bass
-         \context Voice =
-           tenors { \voiceOne <<\global \tenorMusic >> }
-         \context Voice =
-           basses { \voiceTwo <<\global \bassMusic >> }
+         \new Voice =
+           "tenors" { \voiceOne <<\global \tenorMusic >> }
+         \new Voice =
+           "basses" { \voiceTwo <<\global \bassMusic >> }
       >>
-      \context Lyrics = basses { s1 }
+      \new Lyrics = basses { s1 }
+
       \context Lyrics = sopranos \lyricsto sopranos \sopWords
       \context Lyrics = altos \lyricsto altos \altoWords
       \context Lyrics = tenors \lyricsto tenors \tenorWords
@@ -662,6 +663,7 @@ tenorMusic = \relative c' {
 tenorWords = \lyricmode {
    hu hu hu hu
 }
+
 bassMusic = \relative c {
    c4 c g c
 }
@@ -669,42 +671,33 @@ bassWords = \lyricmode {
    ho ho ho ho
 }
 
-\layout {
-  \context {
-         % a little smaller so lyrics
-         % can be closer to the staff
-         \Staff
-          \override VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
-  }
-}
+\score {
+  <<
+    \new ChoirStaff <<
+      \new Lyrics = sopranos { s1 }
+      \new Staff = women <<
+        \new Voice =
+          "sopranos" { \voiceOne << \global \sopMusic >> }
+        \new Voice =
+          "altos" { \voiceTwo << \global \altoMusic >> }
+      >>
+      \new Lyrics = "altos" { s1 }
+      \new Lyrics = "tenors" { s1 }
+      \new Staff = men <<
+        \clef bass
+        \new Voice =
+          "tenors" { \voiceOne <<\global \tenorMusic >> }
+        \new Voice =
+          "basses" { \voiceTwo <<\global \bassMusic >> }
+      >>
+      \new Lyrics = basses { s1 }
 
-<<
-  \context ChoirStaff
-  <<
-    \context Lyrics = sopranos { s1 }
-    \context Staff = women <<
-      \context Voice =
-        sopranos { \voiceOne << \global \sopMusic >> }
-      \context Voice =
-        altos { \voiceTwo << \global \altoMusic >> }
+      \context Lyrics = sopranos \lyricsto sopranos \sopWords
+      \context Lyrics = altos \lyricsto altos \altoWords
+      \context Lyrics = tenors \lyricsto tenors \tenorWords
+      \context Lyrics = basses \lyricsto basses \bassWords
     >>
-    \context Lyrics = altos { s1 }
-    \context Lyrics = tenors { s1 }
-    \context Staff = men <<
-      \clef bass
-      \context Voice =
-        tenors { \voiceOne <<\global \tenorMusic >> }
-      \context Voice =
-        basses { \voiceTwo <<\global \bassMusic >> }
-    >>
-    \context Lyrics = basses { s1 }
-    \context Lyrics = sopranos \lyricsto sopranos \sopWords
-    \context Lyrics = altos \lyricsto altos \altoWords
-    \context Lyrics = tenors \lyricsto tenors \tenorWords
-    \context Lyrics = basses \lyricsto basses \bassWords
-  >>
-  \new PianoStaff
-  <<
+  \new PianoStaff <<
     \new Staff <<
       \set Staff.printPartCombineTexts = ##f
       \partcombine
@@ -719,7 +712,15 @@ bassWords = \lyricmode {
       << \global \bassMusic >>
     >>
   >>
->>
+  \layout {
+    \context {
+      % a little smaller so lyrics
+      % can be closer to the staff
+      \Staff
+        \override VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
+    }
+  }
+}
 @end lilypond
 
 
@@ -923,23 +924,23 @@ bassusLyrics = \lyricmode {
 }
 
 \score {
-  \context StaffGroup = choirStaff <<
-    \context Voice =
-      discantusNotes << \global \discantusNotes >>
-    \context Lyrics =
-      discantusLyrics \lyricsto discantusNotes { \discantusLyrics }
-    \context Voice =
-      altusNotes << \global \altusNotes >>
-    \context Lyrics =
-      altusLyrics \lyricsto altusNotes { \altusLyrics }
-    \context Voice =
-      tenorNotes << \global \tenorNotes >>
-    \context Lyrics =
-      tenorLyrics \lyricsto tenorNotes { \tenorLyrics }
-    \context Voice =
-      bassusNotes << \global \bassusNotes >>
-    \context Lyrics =
-      bassusLyrics \lyricsto bassusNotes { \bassusLyrics }
+  \new StaffGroup = choirStaff <<
+    \Voice =
+      "discantusNotes" << \global \discantusNotes >>
+    \new Lyrics =
+      "discantusLyrics" \lyricsto discantusNotes { \discantusLyrics }
+    \new Voice =
+      "altusNotes" << \global \altusNotes >>
+    \new Lyrics =
+      "altusLyrics" \lyricsto altusNotes { \altusLyrics }
+    \new Voice =
+      "tenorNotes" << \global \tenorNotes >>
+    \new Lyrics =
+      "tenorLyrics" \lyricsto tenorNotes { \tenorLyrics }
+    \new Voice =
+      "bassusNotes" << \global \bassusNotes >>
+    \new Lyrics =
+      "bassusLyrics" \lyricsto bassusNotes { \bassusLyrics }
   >>
   \layout {
     \context {
@@ -1032,7 +1033,7 @@ trumpet = {
   \global
   \set Staff.instrument = #"Trumpet"
   \clef treble
-  \context Staff <<
+  \new Staff <<
     \trpt
   >>
 }
@@ -1049,7 +1050,7 @@ altosax = {
   \global
   \set Staff.instrument = #"Alto Sax"
   \clef treble
-  \context Staff <<
+  \new Staff <<
     \alto
   >>
 }
@@ -1066,7 +1067,7 @@ barisax = {
   \global
   \set Staff.instrument = #"Bari Sax"
   \clef treble
-  \context Staff <<
+  \new Staff <<
     \bari
   >>
 }
@@ -1083,7 +1084,7 @@ trombone = {
   \global
   \set Staff.instrument = #"Trombone"
   \clef bass
-  \context Staff <<
+  \new Staff <<
     \tbone
   >>
 }
@@ -1103,7 +1104,7 @@ guitar = {
   \global
   \set Staff.instrument = #"Guitar"
   \clef treble
-  \context Staff <<
+  \new Staff <<
     \gtr
   >>
 }
@@ -1135,26 +1136,26 @@ PianoRH = {
   \clef treble
   \global
   \set Staff.midiInstrument = "acoustic grand"
-  \context Staff <<
-    \context Voice = one \rhUpper
-    \context Voice = two \rhLower
+  \new Staff <<
+    \new Voice = "one" \rhUpper
+    \new Voice = "two" \rhLower
   >>
 }
 PianoLH = {
   \clef bass
   \global
   \set Staff.midiInstrument = "acoustic grand"
-  \context Staff <<
-    \context Voice = one \lhUpper
-    \context Voice = two \lhLower
+  \new Staff <<
+    \new Voice = "one" \lhUpper
+    \new Voice = "two" \lhLower
   >>
 }
 
 piano = {
-  \context PianoStaff <<
+  \new PianoStaff <<
     \set PianoStaff.instrument = #"Piano"
-    \context Staff = upper \PianoRH
-    \context Staff = lower \PianoLH
+    \new Staff = "upper" \PianoRH
+    \new Staff = "lower" \PianoLH
   >>
 }
 
@@ -1167,7 +1168,7 @@ bass = {
   \global
   \set Staff.instrument = #"Bass"
   \clef bass
-  \context Staff <<
+  \new Staff <<
     \Bass
   >>
 }
@@ -1197,19 +1198,19 @@ drumContents = {
 
 \score {
   <<
-    \context StaffGroup = horns <<
-      \context Staff = trumpet \trumpet
-      \context Staff = altosax \altosax
-      \context ChordNames = barichords \bariharmony
-      \context Staff = barisax \barisax
-      \context Staff = trombone \trombone
+    \new StaffGroup = "horns" <<
+      \new Staff = "trumpet" \trumpet
+      \new Staff = "altosax" \altosax
+      \new ChordNames = "barichords" \bariharmony
+      \new Staff = "barisax" \barisax
+      \new Staff = "trombone" \trombone
     >>
 
-    \context StaffGroup = rhythm <<
-      \context ChordNames = chords \gtrharmony
-      \context Staff = guitar \guitar
-      \context PianoStaff = piano \piano
-      \context Staff = bass \bass
+    \new StaffGroup = "rhythm" <<
+      \new ChordNames = "chords" \gtrharmony
+      \new Staff = "guitar" \guitar
+      \new PianoStaff = piano" \piano
+      \new Staff = "bass" \bass
       \new DrumStaff { \drumContents }
     >>
   >>
