@@ -88,8 +88,9 @@ ADD_INTERFACE (Horizontal_bracket,
 	       "A horizontal bracket encompassing notes.",
 
 	       /* props */		  
-	       "columns "
 	       "bracket-flare "
+	       "columns "
+	       "edge-height "
 	       "shorten-pair "
-	       "edge-height");
+	       );
 

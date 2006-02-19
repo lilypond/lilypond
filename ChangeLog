@@ -1,3 +1,10 @@
+2006-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/enclosing-bracket.cc (width): new function.
+
+	* lily/align-interface.cc (align_elements_to_extents): reinstate
+	warning.
+
 2006-02-18  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/index.html.in: fix spelling: thankyous.

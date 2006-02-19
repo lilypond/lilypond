@@ -13,6 +13,7 @@
 #include "pointer-group-interface.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "grob-array.hh"
+#include "international.hh"
 
 /*
   TODO: for vertical spacing, should also include a rod & spring
@@ -27,7 +28,7 @@ Align_interface::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   SCM axis = scm_car (me->get_property ("axes"));
-  Axis ax = (Axis)scm_to_int (axis);
+  Axis ax = Axis (scm_to_int (axis));
 
   SCM force = me->get_property ("forced-distance");
   if (scm_is_number (force))
@@ -152,7 +153,14 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
 
   SCM line_break_details = SCM_EOL;
   if (a == Y_AXIS && me_spanner)
-    line_break_details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+    {
+      line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+
+      if (!me->get_system ())
+	me->warning (_ ("vertical alignment called before line-breaking.\n"
+			"Only do cross-staff spanners with PianoStaff."));
+
+    }
   
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					   DOWN);
