@@ -1,3 +1,9 @@
+2006-02-19 Erik Sandberg  <mandolaerik@gmail.com>
+
+	* scm/output-lib.scm: swap darkcyan/darkyellow
+
+	* THANKS: Add bughunters.
+
 2006-02-19  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/programming-interfaces.itely: fixed example.
