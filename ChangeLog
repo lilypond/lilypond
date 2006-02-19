@@ -1,3 +1,7 @@
+2006-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-lib.scm (cyan): swap yellow and cyan.
+
 2006-02-19  Graham Percival  <gpermus@gmail.com>
 
 	* darwin.patch: trivial linenumber update.
