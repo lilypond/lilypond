@@ -87,10 +87,24 @@ written as
 @{ #(ly:export (make-sequential-music (list newLa))) @}
 @end example
 
+Scheme code is evaluated as soon as the parser encounters it.  To
+define some scheme code in a macro (to be called later), use
+
+@example
+#(define (nopc)
+  (ly:set-option 'point-and-click #f))
+#(nopc)
+
+...
+\nopc
+{ c'4 }
+@end example
+
 @refbugs
 
 Mixing Scheme and LilyPond identifiers is not possible with the
 @code{--safe} option.
+
 
 @node Internal music representation
 @subsection Internal music representation

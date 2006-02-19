@@ -715,7 +715,7 @@ version will print flats
 
 @lilypond[quote,ragged-right,verbatim]
 mus = { \key d \major cis d fis g }
-\context Staff {
+\new Staff {
   \clef "F" \mus
   \clef "G"
   \transpose c g' \mus
@@ -1247,7 +1247,7 @@ connected between different staves of a StaffGroup
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
-  \context StaffGroup <<
+  \new StaffGroup <<
     \new Staff {
       e'4 d'
       \bar "||"
@@ -1849,7 +1849,7 @@ will put the grace note at 7/8 of the main note.
 The same effect can be achieved manually by doing
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\context Voice {
+\new Voice {
   << { d1^\trill_( }
      { s2 \grace { c16[ d] } } >>
   c4)
@@ -1909,7 +1909,7 @@ Program reference: @internalsref{GraceMusic}.
 @refbugs
 
 A score that starts with a @code{\grace} section needs an explicit
-@code{\context Voice} declaration, otherwise the main note and the grace
+@code{\new Voice} declaration, otherwise the main note and the grace
 note end up on different staves.
 
 Grace note synchronization can also lead to surprises.  Staff notation,
@@ -2350,7 +2350,7 @@ The direction of the arpeggio is sometimes denoted by adding an
 arrowhead to the wiggly line
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\context Voice {
+\new Voice {
   \arpeggioUp
   <c e g c>\arpeggio
   \arpeggioDown
@@ -2366,7 +2366,7 @@ in both staves and set
 @internalsref{PianoStaff}.@code{connectArpeggios}
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\context PianoStaff <<
+\new PianoStaff <<
   \set PianoStaff.connectArpeggios = ##t
   \new Staff { <c' e g c>\arpeggio }
   \new Staff { \clef bass <c,, e g>\arpeggio }
@@ -2502,8 +2502,8 @@ is equivalent to
 
 @example
 <<
-  \context Voice = "1" @{ \voiceOne \upper @}
-  \context Voice = "2" @{ \voiceTwo \lower @}
+  \new Voice = "1" @{ \voiceOne \upper @}
+  \new Voice = "2" @{ \voiceTwo \lower @}
 >>
 @end example
 
@@ -2594,7 +2594,7 @@ Normally, note heads with a different number of dots are not merged, but
 when the object property @code{merge-differently-dotted} is set in
 the @internalsref{NoteCollision} object, they are merged
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-\context Voice << {
+\new Voice << {
   g8 g8
   \override Staff.NoteCollision
     #'merge-differently-dotted = ##t
@@ -2605,7 +2605,7 @@ the @internalsref{NoteCollision} object, they are merged
 Similarly, you can merge half note heads with eighth notes, by setting
 @code{merge-differently-headed}
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\context Voice << {
+\new Voice << {
   c8 c4.
   \override Staff.NoteCollision
     #'merge-differently-headed = ##t
@@ -2616,7 +2616,7 @@ LilyPond also vertically shifts rests that are opposite of a stem,
 for example
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\context Voice << c''4 \\ r4 >>
+\new Voice << c''4 \\ r4 >>
 @end lilypond
 
 
@@ -2784,7 +2784,7 @@ c1
 @end lilypond
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\context Staff {
+\new Staff {
   \partial 4
   \repeat volta 4 { e | c2 d2 | e2 f2 | }
   \alternative { { g4 g g } { a | a a a a | b2. } }

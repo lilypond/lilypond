@@ -1104,6 +1104,7 @@ Here is a short example.
 
 If you define the @code{\header} inside the @code{\score} block, then
 normally only the @code{piece} and @code{opus} headers will be printed.
+Note that the music expression must come before the @code{\header}.
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
 \score {

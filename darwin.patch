@@ -1,7 +1,7 @@
 diff -ruN stepmake/stepmake/c++-rules.make lilypond-2.7.11/stepmake/stepmake/c++-rules.make
 --- stepmake/stepmake/c++-rules.make	2005-10-02 09:14:45.000000000 -0700
 +++ stepmake/stepmake/c++-rules.make	2005-10-02 09:15:10.000000000 -0700
-@@ -26,6 +26,7 @@
+@@ -17,6 +17,7 @@
  
  $(outdir)/%.cc: %.ll
  	$(FLEX) -Cfe -p -p -o$@ $<
