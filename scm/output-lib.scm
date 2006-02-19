@@ -255,9 +255,9 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public red         '(1.0 0.0 0.0))
 (define-public green       '(0.0 1.0 0.0))
 (define-public blue        '(0.0 0.0 1.0))
-(define-public cyan        '(1.0 1.0 0.0))
+(define-public cyan        '(0.0 1.0 1.0))
 (define-public magenta     '(1.0 0.0 1.0))
-(define-public yellow      '(0.0 1.0 1.0))
+(define-public yellow      '(1.0 1.0 0.0))
 
 (define-public grey        '(0.5 0.5 0.5))
 (define-public darkred     '(0.5 0.0 0.0))
