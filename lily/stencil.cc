@@ -8,8 +8,7 @@
 
 #include "stencil.hh"
 
-
-#include "dimensions.hh"
+#include "main.hh"
 #include "font-metric.hh"
 #include "input-smob.hh"
 #include "string-convert.hh"
@@ -95,6 +94,8 @@ Stencil::translate (Offset o)
 			     + "\n"
 			     + "Setting to zero.");
 	  o[a] = 0.0;
+	  if (strict_infinity_checking)
+	    scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
 	}
       incr (a);
     }

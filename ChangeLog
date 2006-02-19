@@ -1,5 +1,11 @@
 2006-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/stencil.scm (annotate-y-interval): robustify: print nan/inf
+	markers when necessary.
+
+	* lily/program-option.cc (internal_set_option): add
+	strict_infinity_checking option.
+
 	* scm/output-lib.scm (cyan): swap yellow and cyan.
 
 2006-02-19  Graham Percival  <gpermus@gmail.com>

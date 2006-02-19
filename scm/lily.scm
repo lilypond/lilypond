@@ -34,6 +34,7 @@ similar to chord syntax")
 					 "delete unusable PostScript files")
 	      (safe #f "Run safely")
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
+	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
 	      (debug-gc #f

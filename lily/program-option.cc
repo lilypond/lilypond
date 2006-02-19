@@ -32,6 +32,8 @@ bool profile_property_accesses = false;
   crash if internally the wrong type is used for a grob property.
 */
 bool do_internal_type_checking_global;
+bool strict_infinity_checking = false; 
+
 
 static SCM option_hash;
 
@@ -76,6 +78,11 @@ void internal_set_option (SCM var, SCM val)
   else if (var == ly_symbol2scm ("object-keys"))
     {
       use_object_keys = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("strict-infinity-checking"))
+    {
+      strict_infinity_checking = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
 }

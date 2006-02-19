@@ -365,7 +365,7 @@ create offsets.
     page-stencil))
               
 
-(define (page-stencil page)
+(define-public (page-stencil page)
   (if (not (ly:stencil? (page-property page 'stencil)))
 
       ;; todo: make tweakable.

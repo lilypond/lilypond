@@ -14,8 +14,7 @@ using namespace std;
 
 #include "note-head.hh"
 #include "warn.hh"
-#include "warn.hh"
-#include "dimensions.hh"
+#include "main.hh"
 #include "staff-symbol-referencer.hh"
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
@@ -107,11 +106,12 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
   if (fabs (total_off) > 1000)
     {
       string msg
-	= String_convert::form_string ("Improbable offset for grob %s: %f%s",
-				       me->name ().c_str (), total_off,
-				       INTERNAL_UNIT);
+	= String_convert::form_string ("Improbable offset for grob %s: %f",
+				       me->name ().c_str (), total_off);
 
       programming_error (msg);
+      if (strict_infinity_checking)
+	scm_misc_error (__FUNCTION__, "Improbable offset.", SCM_EOL);
     }
   return scm_from_double (total_off);
 }
