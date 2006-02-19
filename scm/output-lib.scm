@@ -263,9 +263,9 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public darkred     '(0.5 0.0 0.0))
 (define-public darkgreen   '(0.0 0.5 0.0))
 (define-public darkblue    '(0.0 0.0 0.5))
-(define-public darkcyan    '(0.5 0.5 0.0))
+(define-public darkcyan    '(0.0 0.5 0.5))
 (define-public darkmagenta '(0.5 0.0 0.5))
-(define-public darkyellow  '(0.0 0.5 0.5))
+(define-public darkyellow  '(0.5 0.5 0.0))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; * Pitch Trill Heads
