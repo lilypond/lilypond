@@ -10,6 +10,7 @@
 	     (srfi srfi-1)
 	     (ice-9 pretty-print)
 	     (srfi srfi-13)
+	     (scm page)
 	     (lily))
 
 (define-public (output-framework basename book scopes fields )

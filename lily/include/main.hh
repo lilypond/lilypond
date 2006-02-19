@@ -37,7 +37,7 @@ extern bool is_TeX_format_global;
 extern bool point_and_click_global;
 extern string prefix_directory;
 extern bool use_object_keys;
-
+extern bool strict_infinity_checking;
 /*
   todo: collect in Output_option struct?
 */
