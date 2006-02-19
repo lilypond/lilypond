@@ -177,7 +177,7 @@ encloses the contents.
 ;; spacing variables 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (annotate-y-interval layout name extent is-length?)
+(define-public (annotate-y-interval layout name extent is-length)
   ;; do something sensible for 0,0 intervals. 
   (set! extent (interval-widen extent 0.001))
   (let*
@@ -192,10 +192,15 @@ encloses the contents.
 		      (make-whiteout-markup (make-simple-markup name))
 		      (make-whiteout-markup
 		       (make-simple-markup
-			(if is-length?
-			    (format "~$" (interval-length extent))
-			    (format "(~$,~$)" (car extent)
-				    (cdr extent)))))))))
+			(begin
+			  (display extent)
+			(cond
+			 ((interval-empty? extent) "empty")
+			 ((not (interval-sane? extent)) "insane")
+			 (is-length (format "~$" (interval-length extent)))
+			 (else
+			  (format "(~$,~$)" (car extent)
+				    (cdr extent)))))))))))
        (arrows
 	(ly:stencil-translate-axis 
 	 (dimension-arrows (cons 0 (interval-length extent)))

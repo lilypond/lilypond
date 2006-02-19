@@ -316,6 +316,9 @@ found."
       (cons (cons (car coords) (cadr coords))
 	    (ly:list->offsets accum (cddr coords)))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; intervals
+
 (define-public (interval-length x)
   "Length of the number-pair X, when an interval"
   (max 0 (- (cdr x) (car x))))
@@ -349,6 +352,16 @@ found."
 (define-public (interval-union i1 i2)
    (cons (min (car i1) (car i2))
 	 (max (cdr i1) (cdr i2))))
+
+(define-public (interval-sane? i)
+  (not (or  (nan? (car i))
+	    (inf? (car i))
+	    (nan? (cdr i))
+	    (inf? (cdr i)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+
 
 (define-public (write-me message x)
   "Return X.  Display MESSAGE and write X.  Handy for debugging,
