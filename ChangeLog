@@ -1,5 +1,10 @@
 2006-02-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/pictures/GNUmakefile (local-dist): loose the rule
+	spaghetti for icons.
+
+	* buildscripts/genicon.py (program_name): new file.
+
 	* lily/tie-formatting-problem.cc (set_chord_outline): put dots
 	in outline too.  
 	(generate_configuration): for small ties, also look for collisions
