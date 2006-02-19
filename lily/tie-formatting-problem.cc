@@ -65,6 +65,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
   Real staff_space = Staff_symbol_referencer::staff_space (bounds[0]);
 
   vector<Box> boxes;
+  vector<Box> head_boxes;
 
   Grob *stem = 0;
   for (vsize i = 0; i < bounds.size (); i++)
@@ -81,26 +82,26 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
 		  (p+1) * 0.5 * staff_space);
 
       Interval x = head->extent (x_refpoint_, X_AXIS);
+      head_boxes.push_back (Box (x, y));
       boxes.push_back (Box (x, y));
 
       Grob *dots = Rhythmic_head::get_dots (head);
       if (d == LEFT && dots)
 	{
 	  Interval x = dots->extent (x_refpoint_, X_AXIS);
-	  Interval y (-0.5, 0.5);
 	  int p = int (Staff_symbol_referencer::get_position (dots));
-	  y.translate (p);
 
 	  dot_positions_.insert (p);
 	  dot_x_.unite (x);
+
+	  Interval y (dots->extent (dots, Y_AXIS));
+	  y.translate (p * staff_space * 0.5);
 	  
-	  y *= staff_space * 0.5;
-	  // boxes.push_back (Box (x, y));
+	  boxes.push_back (Box (x, y));
 	}
     }
 
   chord_outlines_[d] = empty_skyline (-d);
-
   if (bounds[0]->break_status_dir ())
     {
       Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-d];
@@ -142,9 +143,9 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
     {
       Interval x;
       Interval y;
-      if (boxes.size())
+      if (head_boxes.size())
 	{
-	  Box b = boundary (boxes, updowndir, 0);
+	  Box b = boundary (head_boxes, updowndir, 0);
 	  x = b[X_AXIS];
 	  x[-d] =  b[X_AXIS].linear_combination (-d / 2);
 	  y[-updowndir] = b[Y_AXIS][updowndir];
@@ -299,7 +300,7 @@ Tie_formatting_problem::get_configuration (int pos, Direction dir)
     }
 
   
-  Tie_configuration *conf = generate_configuration (pos,dir);
+  Tie_configuration *conf = generate_configuration (pos, dir);
   possibilities_[key] = conf;
   return conf;
 }
@@ -320,6 +321,21 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir) const
   conf->attachment_x_ = get_attachment (y + conf->delta_y_);
 
   Real h =  conf->height (details_);
+
+  if (h <  details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
+    {
+      /*
+	This is less sensible for long ties, since those are more
+	horizontal.
+      */
+      Interval close_by = get_attachment (y
+					  + conf->delta_y_
+					  + (dir * details_.intra_space_threshold_ * 0.25
+					     * details_.staff_space_));
+      
+      conf->attachment_x_.intersect (close_by);
+    }
+  
   if (!conf->delta_y_)
     {
       /*
@@ -776,12 +792,22 @@ Tie_formatting_problem::get_variations (Ties_configuration const &ties)
 		  vars.push_back (var);
 		}
 	    }
+	  else if (dot_positions_.find (ties[i].position_) != dot_positions_.end ()
+		   && !specifications_[i].has_manual_position_)
+	    {
+	      Tie_configuration_variation var;
+	      var.index_ = i;
+	      var.suggestion_ = get_configuration (ties[i].position_  + ties[i].dir_,
+						   ties[i].dir_);
+	      vars.push_back (var);
+	    }
+	  
 	}
 
       last_center = center;
     }
 
-  /*  TODO: switch off? */
+  /* TODO: switch off? */
   Direction d = DOWN;
   do
     {
@@ -811,15 +837,15 @@ Tie_formatting_problem::set_manual_tie_configuration (SCM manual_configs)
 	{
 	  Tie_specification &spec = specifications_[k];
 
-	  if (scm_is_number (scm_cdr (entry)))
-	    {
-	      spec.has_manual_dir_ = true;
-	      spec.manual_dir_ = Direction (scm_to_int (scm_cdr (entry)));
-	    }
 	  if (scm_is_number (scm_car (entry)))
 	    {
 	      spec.has_manual_position_ = true;
 	      spec.manual_position_ = scm_to_double (scm_car (entry));
+	    }
+	  if (scm_is_number (scm_cdr (entry)))
+	    {
+	      spec.has_manual_dir_ = true;
+	      spec.manual_dir_ = Direction (scm_to_int (scm_cdr (entry)));
 	    }
 	}	  
       k ++;

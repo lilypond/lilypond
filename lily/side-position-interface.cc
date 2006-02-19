@@ -180,7 +180,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a)
 	  Real rounded = directed_round (position, dir);
 	  Grob *head = me->get_parent (X_AXIS);
       
-	  if (rounded <= 2 * Staff_symbol_referencer::staff_radius (me) 
+	  if (fabs (rounded) <= 2 * Staff_symbol_referencer::staff_radius (me) 
 	      || (Note_head::has_interface (head)
 		  && sign (Staff_symbol_referencer::get_position (head)) == - dir))
 	    {
