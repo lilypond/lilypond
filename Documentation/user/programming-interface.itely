@@ -93,12 +93,12 @@ define some scheme code in a macro (to be called later), use
 @example
 #(define (nopc)
   (ly:set-option 'point-and-click #f))
-#(nopc)
 
 ...
-\nopc
+#(nopc)
 { c'4 }
 @end example
+
 
 @refbugs
 
