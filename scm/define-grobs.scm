@@ -219,18 +219,15 @@
 				font-interface))))))
     (BassFigureBracket
      . (
-	;
 	(stencil . ,ly:enclosing-bracket::print)
-
+	(X-extent . ,ly:enclosing-bracket::width)
 	(edge-height . (0.2 . 0.2))
 	(meta . ((class . Item)
 		 (interfaces . (enclosing-bracket-interface)) ))
 	))
     (BassFigureContinuation
      . (
-
 	(stencil . ,ly:figured-bass-continuation::print)
-
 	(Y-offset . ,ly:figured-bass-continuation::center-on-figures)
 	(meta . ((class . Spanner)
 		 (interfaces . (figured-bass-continuation-interface))
@@ -238,9 +235,7 @@
     (BassFigureLine
      . (
 	(axes . (,Y))
-
 	(Y-extent . ,ly:axis-group-interface::height)
-
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				))))))
@@ -249,10 +244,8 @@
      . (
 	(axes . (,Y))
 	(threshold . (2 . 1000))
-
 	(positioning-done . ,ly:align-interface::calc-positioning-done)
 	(Y-extent . ,ly:axis-group-interface::height)
-					
 	(stacking-dir . -1)
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface
