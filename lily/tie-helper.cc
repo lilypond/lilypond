@@ -35,8 +35,9 @@ Tie_details::from_grob (Grob *me)
   
   wrong_direction_offset_penalty_ = get_real_detail("wrong-direction-offset-penalty", 10);
   
-  length_penalty_factor_ = get_real_detail("length-penalty-factor", 1.0);
-  min_length_ = get_real_detail("min-length", 0.333);
+  min_length_ = get_real_detail("min-length", 1.0);
+  min_length_penalty_factor_ = get_real_detail("min-length-penalty-factor", 1.0);
+
 
   // in half-space
   center_staff_line_clearance_ = get_real_detail ("center-staff-line-clearance", 0.4);

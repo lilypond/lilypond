@@ -435,7 +435,9 @@ Tie_formatting_problem::score_configuration (Tie_configuration const &conf) cons
   Real penalty = 0.0;
   Real length = conf.attachment_x_.length ();
 
-  penalty += peak_around (0.5 * details_.min_length_, details_.min_length_, length);
+  penalty +=
+    details_.min_length_penalty_factor_
+    * peak_around (0.33 * details_.min_length_, details_.min_length_, length);
 
   Real tip_pos = conf.position_ + conf.delta_y_ / 0.5 * details_.staff_space_;
   Real tip_y = tip_pos * details_.staff_space_ * 0.5;

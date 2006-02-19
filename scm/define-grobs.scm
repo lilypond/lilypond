@@ -1668,6 +1668,7 @@
 		    (stem-gap . 0.35)
 		    (height-limit . 1.0)
 		    (horizontal-distance-penalty-factor . 10)
+		    (min-length-penalty-factor . 20)
 		    (tie-tie-collision-distance . 0.45) 
 		    (tie-tie-collision-penalty . 25.0)
 		    (intra-space-threshold . 1.25)
