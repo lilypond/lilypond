@@ -329,4 +329,6 @@ junk_pointers (vector<T> &v)
 
 vector<string> string_split (string str, char c);
 
+#define iterof(i,s) typeof((s).begin()) i((s).begin())
+
 #endif /* STD_VECTOR_HH */

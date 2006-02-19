@@ -516,8 +516,6 @@ Beam::print (SCM grob)
   return the_beam.smobbed_copy ();
 }
 
-#define iterof(i,s) typeof((s).begin()) i((s).begin())
-
 Direction
 Beam::get_default_dir (Grob *me)
 {

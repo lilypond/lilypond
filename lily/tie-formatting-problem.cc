@@ -259,9 +259,9 @@ Tie_formatting_problem::from_lv_ties (vector<Grob*> const &lv_ties)
 
   x_refpoint_ = lv_ties [0];
   for (vsize i = 0; i < lv_ties.size (); i++)
-    {
-      x_refpoint_ = lv_ties[i]->common_refpoint (x_refpoint_, X_AXIS); 
-    }
+    x_refpoint_ = lv_ties[i]->common_refpoint (x_refpoint_, X_AXIS); 
+  for (vsize i = 0; i < heads.size (); i++)
+    x_refpoint_ = heads[i]->common_refpoint (x_refpoint_, X_AXIS); 
 
   set_chord_outline (heads, LEFT);
 
