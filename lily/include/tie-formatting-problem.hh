@@ -28,7 +28,7 @@ struct Tie_details
   Real stem_gap_; 
   Real between_length_limit_;
   Real wrong_direction_offset_penalty_;
-  Real length_penalty_factor_;
+  Real min_length_penalty_factor_;
   Real min_length_;
   Real tip_staff_line_clearance_;
   Real center_staff_line_clearance_;
