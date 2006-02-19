@@ -13,9 +13,6 @@ import string
 import re
 import time
 
-
-postfixes = ['log', 'dvi', '2602gf', 'tfm']
-
 def read_log_file (fn):
 	str = open (fn).read ()
 	str = re.sub ('\n', '', str)
@@ -40,21 +37,6 @@ def read_log_file (fn):
 class Char_metric:
 	def __init__ (self):
 		pass
-
-
-def tfm_checksum (fn):
-	sys.stderr.write ("Reading checksum from `%s'\n" % fn)
-	s = open (fn).read ()
-	s = s[ 12 * 2 : ]
-	cs_bytes = s[:4]
-
-	shift = 24
-	cs = 0
-	for b in cs_bytes:
-		cs = cs  + (long (ord (b)) << shift)
-		shift = shift - 8
-
-	return cs
 
 font_family = 'feta'
 
@@ -258,7 +240,6 @@ base = re.sub ('.tex$', '', texfile_nm)
 
 for filenm in files:
 	(g, m, deps) = parse_logfile (filenm)
-	cs = tfm_checksum (re.sub ('.log$', '.tfm', filenm))
 
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
 	enc_name = 'FetaEncoding'
