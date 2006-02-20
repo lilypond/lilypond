@@ -1,3 +1,7 @@
+2006-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/pictures/GNUmakefile ($(outdir)/%.ico): typo.
+
 2006-02-19 Erik Sandberg  <mandolaerik@gmail.com>
 
 	* scm/output-lib.scm: swap darkcyan/darkyellow

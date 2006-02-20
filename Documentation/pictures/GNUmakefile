@@ -12,7 +12,7 @@ include $(depth)/make/stepmake.make
 ifeq ($(PLATFORM_WINDOWS),yes)
 
 $(outdir)/%.ico: %.xpm
-	$(PYTHON) $(buildscript-dir)/genico.py $< $@
+	$(PYTHON) $(buildscript-dir)/genicon.py $< $@
 
 default: $(lilypond-icon) $(ly-icon)
 
