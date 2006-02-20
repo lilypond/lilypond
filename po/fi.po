@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-21 22:05+0200\n"
-"PO-Revision-Date: 2005-12-21 22:16+0200\n"
+"POT-Creation-Date: 2006-02-20 19:27+0200\n"
+"PO-Revision-Date: 2006-02-20 19:40+0200\n"
 "Last-Translator: hjunes <>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,20 +33,20 @@ msgstr "Ole hyvä ja katso ohjekirjasta yksityiskohdat, ja päivitä käsin."
 msgid "%s has been replaced by %s"
 msgstr "%s on korvattu %s:lla"
 
-#: convertrules.py:2401
+#: convertrules.py:2395
 msgid "LilyPond source must be UTF-8"
 msgstr "LilyPond lähdekoodin täytyy olla UTF-8 muodossa"
 
-#: convertrules.py:2404
+#: convertrules.py:2398
 msgid "Try the texstrings backend"
 msgstr "Koeta tex-merkkijonon käyttöä"
 
-#: convertrules.py:2407
+#: convertrules.py:2401
 #, python-format
 msgid "Do something like: %s"
 msgstr "Tee jotain tällaista: %s"
 
-#: convertrules.py:2410
+#: convertrules.py:2404
 msgid "Or save as UTF-8 in your editor"
 msgstr "Tai talleta UTF-8 -muodossa editorissasi"
 
@@ -65,25 +65,25 @@ msgstr "Poimittiin %s"
 msgid "Writing fonts to %s"
 msgstr "Kirjoitetaan fontit osoitteeseen `%s'"
 
-#: lilylib.py:66 midi2ly.py:147 mup2ly.py:108
+#: lilylib.py:66 midi2ly.py:148 mup2ly.py:108
 #, python-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s by"
 
-#: lilylib.py:70 midi2ly.py:152 mup2ly.py:113
+#: lilylib.py:70 midi2ly.py:153 mup2ly.py:113
 msgid "Distributed under terms of the GNU General Public License."
 msgstr "Levitettävissä ehdoilla GNU General Public License."
 
-#: lilylib.py:72 midi2ly.py:153 mup2ly.py:114
+#: lilylib.py:72 midi2ly.py:154 mup2ly.py:114
 msgid "It comes with NO WARRANTY."
 msgstr "Se toimitetaan ILMAN TAKUUTA."
 
-#: lilylib.py:79 warn.cc:45 input.cc:80
+#: lilylib.py:79 warn.cc:48 input.cc:81
 #, c-format, python-format
 msgid "warning: %s"
 msgstr "varoitus: %s"
 
-#: lilylib.py:82 warn.cc:51 input.cc:86 input.cc:94
+#: lilylib.py:82 warn.cc:54 input.cc:87 input.cc:95
 #, c-format, python-format
 msgid "error: %s"
 msgstr "virhe: %s"
@@ -93,12 +93,12 @@ msgstr "virhe: %s"
 msgid "Exiting (%d)..."
 msgstr "Lopetetaan (%d)..."
 
-#: lilylib.py:154 midi2ly.py:234 mup2ly.py:197
+#: lilylib.py:154 midi2ly.py:235 mup2ly.py:197
 #, python-format
 msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Käyttö: %s [OPTIOT]... TIEDOSTO"
 
-#: lilylib.py:158 midi2ly.py:238 mup2ly.py:201 main.cc:255
+#: lilylib.py:158 midi2ly.py:239 mup2ly.py:201 main.cc:256
 #, c-format
 msgid "Options:"
 msgstr "Optiot:"
@@ -118,16 +118,16 @@ msgstr "Binääritiedosto %s on versiota %s, etsitään versiota %s"
 msgid "Opening pipe `%s'"
 msgstr "Avataan putki `%s'"
 
-#: lilylib.py:231 lilypond-book.py:1262
+#: lilylib.py:231 lilypond-book.py:1264
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "`%s' epäonnistui (%d)"
 
-#: lilylib.py:236 lilylib.py:295 lilypond-book.py:1263
+#: lilylib.py:236 lilylib.py:295 lilypond-book.py:1265
 msgid "The error log is as follows:"
 msgstr "Virheloki on seuraava:"
 
-#: lilylib.py:267 midi2ly.py:271 mup2ly.py:235
+#: lilylib.py:267 midi2ly.py:272 mup2ly.py:235
 #, python-format
 msgid "Invoking `%s'"
 msgstr "Kutsutaan `%s'"
@@ -142,11 +142,11 @@ msgstr "Ajetaan %s..."
 msgid "`%s' failed (%s)"
 msgstr "`%s' epäonnistui (%s)"
 
-#: lilylib.py:291 midi2ly.py:277 mup2ly.py:243
+#: lilylib.py:291 midi2ly.py:278 mup2ly.py:243
 msgid "(ignored)"
 msgstr "(sivuutetaan)"
 
-#: lilylib.py:309 midi2ly.py:287 mup2ly.py:253
+#: lilylib.py:309 midi2ly.py:288 mup2ly.py:253
 #, python-format
 msgid "Cleaning %s..."
 msgstr "Siivotaan pois %s..."
@@ -156,7 +156,7 @@ msgstr "Siivotaan pois %s..."
 msgid "%s exited with status: %d"
 msgstr "%s lopetettiin tilassa %d"
 
-#: convert-ly.py:41
+#: convert-ly.py:46
 msgid ""
 "Update LilyPond input to newer version.  By default, update from the\n"
 "version taken from the \\version command, to the current LilyPond version.\n"
@@ -174,67 +174,67 @@ msgstr ""
 "  convert-ly -e old.ly\n"
 "  convert-ly --from=2.3.28 --to 2.5.21 foobar.ly\n"
 
-#: convert-ly.py:54
+#: convert-ly.py:59
 msgid "edit in place"
 msgstr "editoi paikassaan"
 
-#: convert-ly.py:55 convert-ly.py:60
+#: convert-ly.py:60 convert-ly.py:65
 msgid "VERSION"
 msgstr "VERSIO"
 
-#: convert-ly.py:56
+#: convert-ly.py:61
 msgid "start from VERSION [default: \\version found in file]"
 msgstr "aloita versiosta VERSIO [oletus: \\version joka on tiedostossa]"
 
-#: convert-ly.py:57 lilypond-book.py:94 midi2ly.py:111 mup2ly.py:75
-#: main.cc:168
+#: convert-ly.py:62 lilypond-book.py:94 midi2ly.py:112 mup2ly.py:75
+#: main.cc:169
 msgid "print this help"
 msgstr "näytä tämä opaste"
 
-#: convert-ly.py:58
+#: convert-ly.py:63
 msgid "do not add \\version command if missing"
 msgstr "älä lisää \\version komentoa jos se puuttuu"
 
-#: convert-ly.py:59
+#: convert-ly.py:64
 msgid "print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
 msgstr "tulosta säännöt [oletus: --from=0, --to=@TOPLEVEL_VERSION@]"
 
-#: convert-ly.py:60
+#: convert-ly.py:65
 msgid "convert to VERSION [default: @TOPLEVEL_VERSION@]"
 msgstr "muunnaa versioon VERSIO [oletus: @TOPLEVEL_VERSION@]"
 
-#: convert-ly.py:61
+#: convert-ly.py:66
 msgid "print program version\""
 msgstr "tulosta ohjelman versionumero\""
 
-#: convert-ly.py:102
+#: convert-ly.py:107
 msgid "Applying conversion: "
 msgstr "Toteutetaan muunnos: "
 
-#: convert-ly.py:114
+#: convert-ly.py:119
 msgid "error while converting"
 msgstr "virhe muunnettaessa"
 
-#: convert-ly.py:116 score-engraver.cc:75
+#: convert-ly.py:121 score-engraver.cc:73
 msgid "Aborting"
 msgstr "Keskeytetään"
 
-#: convert-ly.py:140
+#: convert-ly.py:145
 #, python-format
 msgid "Processing `%s'... "
 msgstr "Prosessoidaan `%s'..."
 
-#: convert-ly.py:211 lilypond-book.py:1581 midi2ly.py:1056
+#: convert-ly.py:215 lilypond-book.py:1583 midi2ly.py:1057
 #, python-format
 msgid "getopt says: `%s'"
 msgstr "getopt sanoo: `%s'"
 
-#: convert-ly.py:261 source-file.cc:56
+#: convert-ly.py:265 source-file.cc:56
 #, c-format, python-format
 msgid "can't open file: `%s'"
 msgstr "tiedostoa ei voitu avata: `%s'"
 
-#: convert-ly.py:268
+#: convert-ly.py:272
 #, python-format
 msgid "can't determine version for `%s'. Skipping"
 msgstr "ei voitu määrittää `%s':lle versiota. Sivuutetaan"
@@ -277,7 +277,7 @@ msgstr "FILTER"
 msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr "putkita palaset kohteen FILTER läpi [convert-ly -n -]"
 
-#: lilypond-book.py:95 lilypond-book.py:97 main.cc:170
+#: lilypond-book.py:95 lilypond-book.py:97 main.cc:171
 msgid "DIR"
 msgstr "HAKEMISTO"
 
@@ -309,9 +309,10 @@ msgstr ""
 msgid ""
 "do not alter the number of newline characters in output\n"
 "\t  .tex files. Useful when the LaTeX package srcltx is used"
-msgstr ""
+msgstr "älä muuta uusi rivi -merkkien määrää tulostuksessa\n"
+"\t  .tex tiedostot. Käytännöllinen kun LaTeX paketti srcltx on käytössä"
 
-#: lilypond-book.py:108 midi2ly.py:116 mup2ly.py:78 main.cc:181
+#: lilypond-book.py:108 midi2ly.py:117 mup2ly.py:78 main.cc:182
 msgid "be verbose"
 msgstr "tulosta runsaasti käsittelytietoa"
 
@@ -319,210 +320,210 @@ msgstr "tulosta runsaasti käsittelytietoa"
 msgid "print version information"
 msgstr "tulosta versioinformaatio"
 
-#: lilypond-book.py:112 midi2ly.py:118 mup2ly.py:80 main.cc:182
+#: lilypond-book.py:112 midi2ly.py:119 mup2ly.py:80 main.cc:183
 msgid "show warranty and copyright"
 msgstr "näytä takuu ja copyright"
 
-#: lilypond-book.py:650
+#: lilypond-book.py:652
 #, python-format
 msgid "file not found: %s"
 msgstr "tiedostoa %s ei löydy"
 
-#: lilypond-book.py:887
+#: lilypond-book.py:889
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr "vanhentunut ly-optio käytössä: %s=%s"
 
-#: lilypond-book.py:890
+#: lilypond-book.py:892
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr "yhteensopivuusmuodon käännös: %s=%s"
 
-#: lilypond-book.py:894
+#: lilypond-book.py:896
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr "vanhentunut ly-optio käytössä: %s"
 
-#: lilypond-book.py:897
+#: lilypond-book.py:899
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr "yhteensopivuusmuodon käännös: %s"
 
-#: lilypond-book.py:916
+#: lilypond-book.py:918
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr "sivuutetaan tuntematon ly -optio: %s"
 
-#: lilypond-book.py:1245
+#: lilypond-book.py:1247
 #, python-format
 msgid "Opening filter `%s'"
 msgstr "Avataan filtteri `%s'"
 
-#: lilypond-book.py:1428
+#: lilypond-book.py:1430
 msgid "Writing snippets..."
 msgstr "Kirjoitetaan palasia..."
 
-#: lilypond-book.py:1433
+#: lilypond-book.py:1435
 msgid "Processing..."
 msgstr "Prosessoidaan..."
 
-#: lilypond-book.py:1437
+#: lilypond-book.py:1439
 msgid "All snippets are up to date..."
 msgstr "Kaikki palaset on päivitetty"
 
-#: lilypond-book.py:1447
+#: lilypond-book.py:1449
 #, python-format
 msgid "can't determine format for: %s"
 msgstr "ei löytynyt formaattia: %s"
 
-#: lilypond-book.py:1458
+#: lilypond-book.py:1460
 #, python-format
 msgid "%s is up to date."
 msgstr "%s on päivitetty."
 
-#: lilypond-book.py:1464 mup2ly.py:1282
+#: lilypond-book.py:1466 mup2ly.py:1282
 #, python-format
 msgid "Writing `%s'..."
 msgstr "Kirjoitetaan `%s'..."
 
-#: lilypond-book.py:1506
+#: lilypond-book.py:1508
 msgid "Output would overwrite input file; use --output."
 msgstr "Tuloste kirjautuisi syötetiedoston päälle; käytä --output."
 
-#: lilypond-book.py:1510
+#: lilypond-book.py:1512
 #, python-format
 msgid "Reading %s..."
 msgstr "Luetaan %s..."
 
-#: lilypond-book.py:1529
+#: lilypond-book.py:1531
 msgid "Dissecting..."
 msgstr "Analysoidaan..."
 
-#: lilypond-book.py:1545
+#: lilypond-book.py:1547
 #, python-format
 msgid "Compiling %s..."
 msgstr "Kootaan %s..."
 
-#: lilypond-book.py:1554
+#: lilypond-book.py:1556
 #, python-format
 msgid "Processing include: %s"
 msgstr "Prosessoidaan sisällytetävä: %s"
 
-#: lilypond-book.py:1568
+#: lilypond-book.py:1570
 #, python-format
 msgid "Removing `%s'"
 msgstr "Poistetaan `%s'"
 
-#: lilypond-book.py:1667
+#: lilypond-book.py:1669
 #, python-format
 msgid "Writing fonts to %s..."
 msgstr "Kirjoitetaan fontteja hakemistoon %s..."
 
-#: lilypond-book.py:1679
+#: lilypond-book.py:1681
 msgid "option --psfonts not used"
 msgstr "optiota --psfonts=FILE ei käytetty"
 
-#: lilypond-book.py:1680
+#: lilypond-book.py:1682
 msgid "processing with dvips will have no fonts"
 msgstr "prosessointi dvips:illä ei sisällä fontteja"
 
-#: lilypond-book.py:1686
+#: lilypond-book.py:1688
 msgid "DVIPS usage:"
 msgstr "DVIPS käyttö:"
 
 #. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 #. original_dir = os.getcwd ()
 #. keep_temp_dir_p = 0
-#: midi2ly.py:105
+#: midi2ly.py:106
 msgid "Convert MIDI to LilyPond source."
 msgstr "Muunna MIDI LilyPond -muotoon."
 
-#: midi2ly.py:108
+#: midi2ly.py:109
 msgid "print absolute pitches"
 msgstr "tulosta tarkat äänenkorkeudet"
 
-#: midi2ly.py:109 midi2ly.py:114
+#: midi2ly.py:110 midi2ly.py:115
 msgid "DUR"
 msgstr "PIT"
 
-#: midi2ly.py:109
+#: midi2ly.py:110
 msgid "quantise note durations on DUR"
 msgstr "kvantisoi nuottipituuden PIT perusteella"
 
 # tulosta yksikäsitteiset nuottipituudet
-#: midi2ly.py:110
+#: midi2ly.py:111
 msgid "print explicit durations"
 msgstr "tulosta yksikäsitteiset nuottipituudet"
 
-#: midi2ly.py:112
+#: midi2ly.py:113
 msgid "ALT[:MINOR]"
 msgstr "ETUMERKIT[:MOLLI]"
 
-#: midi2ly.py:112
+#: midi2ly.py:113
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr "aseta sävellaji: ETUMERKIT=+ylennykset|-alennukset; MOLLI=1"
 
-#: midi2ly.py:113 main.cc:171 main.cc:172
+#: midi2ly.py:114 main.cc:172 main.cc:178
 msgid "FILE"
 msgstr "TIEDOSTO"
 
-#: midi2ly.py:113 mup2ly.py:76
+#: midi2ly.py:114 mup2ly.py:76
 msgid "write output to FILE"
 msgstr "tulosta tiedostoon TIEDOSTO"
 
-#: midi2ly.py:114
+#: midi2ly.py:115
 msgid "quantise note starts on DUR"
 msgstr "nuottien kvantisointi alkukohtana PIT"
 
-#: midi2ly.py:115
+#: midi2ly.py:116
 msgid "DUR*NUM/DEN"
 msgstr "PIT*OSOITTAJA/NIMITTÄJÄ"
 
 # tuplet = Wertaufteilung nach: Peter Giger: Die Kunst des Rhythmus, Seite 25
-#: midi2ly.py:115
+#: midi2ly.py:116
 msgid "allow tuplet durations DUR*NUM/DEN"
 msgstr "salli tupletti -pituudet PIT*OSOITTAJA/NIMITTÄJÄ"
 
-#: midi2ly.py:117 mup2ly.py:79 main.cc:180
+#: midi2ly.py:118 mup2ly.py:79 main.cc:181
 msgid "print version number"
 msgstr "tulosta versionumero"
 
-#: midi2ly.py:119
+#: midi2ly.py:120
 msgid "treat every text as a lyric"
 msgstr "käsittele kaikki tekstit lyriikkana"
 
-#: midi2ly.py:160 mup2ly.py:121 lily-library.scm:468 lily-library.scm:476
+#: midi2ly.py:161 mup2ly.py:121 lily-library.scm:480 lily-library.scm:488
 msgid "warning: "
 msgstr "varoitus: "
 
-#: midi2ly.py:175 midi2ly.py:1056 midi2ly.py:1121 mup2ly.py:124 mup2ly.py:138
+#: midi2ly.py:176 midi2ly.py:1057 midi2ly.py:1122 mup2ly.py:124 mup2ly.py:138
 msgid "error: "
 msgstr "virhe: "
 
-#: midi2ly.py:176 mup2ly.py:139
+#: midi2ly.py:177 mup2ly.py:139
 msgid "Exiting ... "
 msgstr "Lopettaa ... "
 
-#: midi2ly.py:242
+#: midi2ly.py:243
 #, python-format
 msgid "Report bugs via %s."
 msgstr "Raportoi virheet osoitteeseen %s."
 
-#: midi2ly.py:275 mup2ly.py:240
+#: midi2ly.py:276 mup2ly.py:240
 #, python-format
 msgid "command exited with value %d"
 msgstr "komento lopetettiin tilassa %d"
 
-#: midi2ly.py:1040
+#: midi2ly.py:1041
 #, python-format
 msgid "%s output to `%s'..."
 msgstr "%s tulostetaan paikkaan `%s'..."
 
-#: midi2ly.py:1071
+#: midi2ly.py:1072
 msgid "Example:"
 msgstr "Esimerkki:"
 
-#: midi2ly.py:1121
+#: midi2ly.py:1122
 msgid "no files specified on command line."
 msgstr "tiedostoja ei annettu komentorivillä."
 
@@ -552,191 +553,161 @@ msgstr "kontekstia ei ole: %s"
 msgid "Processing `%s'..."
 msgstr "Prosessoidaan `%s'..."
 
-#: musicxml2ly.py:387
+#: musicxml2ly.py:391
 #, python-format
 msgid "Usage: %s\n"
-msgstr ""
+msgstr "Käyttö: %s\n"
 
-#: getopt-long.cc:143
+#: getopt-long.cc:141
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "optio `%s' vaatii argumentin"
 
-#: getopt-long.cc:147
+#: getopt-long.cc:145
 #, c-format
 msgid "option `%s' doesn't allow an argument"
 msgstr "optio `%s' ei salli argumenttia"
 
-#: getopt-long.cc:151
+#: getopt-long.cc:149
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "tunnistamaton optio: `%s'"
 
-#: getopt-long.cc:158
+#: getopt-long.cc:155
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "epäkelpo argumentti `%s' optiolle `%s'"
 
-#: warn.cc:65 grob.cc:470
+#: warn.cc:68 grob.cc:462
 #, c-format
 msgid "programming error: %s"
 msgstr "ohjelmointivirhe: %s"
 
-#: warn.cc:66
+#: warn.cc:69
 msgid "continuing, cross fingers"
 msgstr "jatketaan, ristitään kädet"
 
-#: accidental-engraver.cc:237
+#: accidental-engraver.cc:238
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr "Korotusmerkkien ladontalista täytyy alkaa konteksti-nimellä: %s"
 
-#: accidental-engraver.cc:265
+#: accidental-engraver.cc:266
 #, c-format
 msgid "ignoring unknown accidental: %s"
 msgstr "sivutetaan tuntematan etumerkki: %s"
 
-#: accidental-engraver.cc:281
+#: accidental-engraver.cc:282
 #, c-format
 msgid "pair or context-name expected for accidental rule, found %s"
 msgstr "pari tai konteksti-nimi oletettiin korotusmerkkisäännölle, löytyi %s"
 
-#: accidental.cc:238 key-signature-interface.cc:123
+#: accidental.cc:239 key-signature-interface.cc:124
 #, c-format
 msgid "accidental `%s' not found"
 msgstr "korotusmerkkiä `%s' ei löydy"
 
-#: afm.cc:143
-#, c-format
-msgid "parsing AFM file: `%s'"
-msgstr "jäsennetään AFM-tiedostoa: `%s'"
-
-#: align-interface.cc:159
+#: align-interface.cc:160
 msgid ""
-"vertical alignment called before line-breaking. Only do cross-staff spanners "
-"with PianoStaff."
+"vertical alignment called before line-breaking.\n"
+"Only do cross-staff spanners with PianoStaff."
 msgstr ""
-"pystysyora sijoittelu kutsuttiin ennen rivinkatkaisua. Viivaston ylittävät "
-"ladokkeet tehdään vain PianoStaff:in yhteydessä"
+"pystysyora sijoittelu kutsuttiin ennen rivinkatkaisua.\n"
+"Viivaston ylittävät ladokkeet tehdään vain PianoStaff:in yhteydessä"
 
-#. FIXME: broken sentence
-#: all-font-metrics.cc:186
-#, c-format
-msgid "checksum mismatch for font file: `%s'"
-msgstr "virhesumma ei täsmää fonttitiedostolle: `%s'"
-
-#: all-font-metrics.cc:188
-#, c-format
-msgid "does not match: `%s'"
-msgstr "ei täsmää: `%s'"
-
-#: all-font-metrics.cc:194
-msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
-msgstr ""
-"Uudista kaikki .afm -tiedosto, ja poista kaikki .pk ja .tfm -tiedostot."
-
-#: all-font-metrics.cc:196
-msgid "Rerun with -V to show font paths."
-msgstr "Aja uudelleen lisäten -V nähdäksesi fonttipolut."
-
-#: all-font-metrics.cc:198
-msgid "A script for removing font-files is delivered with the source-code:"
-msgstr ""
-"Skripti fonttitiedostojen poistamista varten toimitetaan lähdekoodin mukana:"
-
-#: all-font-metrics.cc:307
+#: all-font-metrics.cc:213
 #, c-format
 msgid "can't find font: `%s'"
 msgstr "ei löytynyt fonttia: `%s'"
 
-#: all-font-metrics.cc:308
+#: all-font-metrics.cc:214
 msgid "loading default font"
 msgstr "ladataan oletusfontti"
 
-#: all-font-metrics.cc:323
+#: all-font-metrics.cc:224
 #, c-format
 msgid "can't find default font: `%s'"
 msgstr "ei löytynyt oletusfonttia: `%s'"
 
-#: all-font-metrics.cc:324 includable-lexer.cc:60 lily-parser-scheme.cc:96
+#: all-font-metrics.cc:225 includable-lexer.cc:62 lily-parser-scheme.cc:97
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(hakupolku: `%s')"
 
-#: all-font-metrics.cc:325 volta-engraver.cc:155
+#: all-font-metrics.cc:226 volta-engraver.cc:157
 msgid "giving up"
 msgstr "luovutetaan"
 
-#: apply-context-iterator.cc:33
+#: apply-context-iterator.cc:34
 msgid "\\applycontext argument is not a procedure"
 msgstr "\\applycontext vaatii funktioargumentin"
 
-#: auto-change-iterator.cc:61 change-iterator.cc:60
+#: auto-change-iterator.cc:62 change-iterator.cc:61
 #, c-format
 msgid "can't change, already in translator: %s"
 msgstr "ei voitu vaihtaa, oli jo tulkitsijassa: %s"
 
-#: axis-group-engraver.cc:78
+#: axis-group-engraver.cc:79
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr "Axis_group_engraver: vertikaaliryhmällä on jo vanhempi"
 
-#: axis-group-engraver.cc:79
+#: axis-group-engraver.cc:80
 msgid "are there two Axis_group_engravers?"
 msgstr "onko käytössä kaksi Axis_group_engraver:ia?"
 
-#: axis-group-engraver.cc:80
+#: axis-group-engraver.cc:81
 msgid "removing this vertical group"
 msgstr "poistetaan tämä vertikaaliryhmä"
 
-#: bar-check-iterator.cc:72
+#: bar-check-iterator.cc:73
 #, c-format
 msgid "barcheck failed at: %s"
 msgstr "tahtiviivan tarkistus epäonnistui kohdassa: %s"
 
-#: beam-engraver.cc:135
+#: beam-engraver.cc:136
 msgid "already have a beam"
 msgstr "palkki löytyi jo"
 
-#: beam-engraver.cc:204
+#: beam-engraver.cc:205
 msgid "unterminated beam"
 msgstr "päättämätön palkki"
 
-#: beam-engraver.cc:245 chord-tremolo-engraver.cc:160
+#: beam-engraver.cc:246 chord-tremolo-engraver.cc:162
 msgid "stem must have Rhythmic structure"
 msgstr "varrella on oltava Rhytmic -rakenne"
 
-#: beam-engraver.cc:258
+#: beam-engraver.cc:259
 msgid "stem doesn't fit in beam"
 msgstr "varsi ei sovi palkkiin"
 
-#: beam-engraver.cc:259
+#: beam-engraver.cc:260
 msgid "beam was started here"
 msgstr "palkki aloitettiin täältä"
 
-#: beam-quanting.cc:306
+#: beam-quanting.cc:305
 msgid "no feasible beam position"
 msgstr "ei löytynyt sopivaa palkin paikkaa"
 
-#: beam.cc:129
+#: beam.cc:125
 msgid "removing beam with less than two stems"
 msgstr "poistetaan palkki jolla olisi vähemmän kuin kaksi pystyviivaa"
 
-#: beam.cc:955
+#: beam.cc:980
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr "toimivaa alkuasettelua ei löytynyt: hyvää palkkikaltevuuta ei löytyne"
 
-#: break-align-interface.cc:193
+#: break-align-interface.cc:194
 #, c-format
 msgid "No spacing entry from %s to `%s'"
 msgstr "Ei välistyksen syöttöä paikasta %s paikkaan `%s'"
 
-#: change-iterator.cc:22
+#: change-iterator.cc:23
 #, c-format
 msgid "can't change `%s' to `%s'"
 msgstr "ei voitu vaihtaa `%s' tilalle `%s'"
 
 #. FIXME: constant error message.
-#: change-iterator.cc:81
+#: change-iterator.cc:82
 msgid "can't find context to switch to"
 msgstr "ei löytynyt kontekstia johon vaihtaa"
 
@@ -745,40 +716,40 @@ msgstr "ei löytynyt kontekstia johon vaihtaa"
 #.
 #. last->translator_id_string () = get_change
 #. ()->change_to_id_string ();
-#: change-iterator.cc:90
+#: change-iterator.cc:91
 #, c-format
 msgid "not changing to same context type: %s"
 msgstr "ei vaihdettu samaan konteksti tyyppiin: %s"
 
 #. FIXME: uncomprehensable message
-#: change-iterator.cc:94
+#: change-iterator.cc:95
 msgid "none of these in my family"
 msgstr "ei yksikään näistä perheessäni"
 
-#: chord-tremolo-engraver.cc:94
+#: chord-tremolo-engraver.cc:96
 #, c-format
 msgid "expect 2 elements for chord tremolo, found %d"
 msgstr "odotettiin 2 elementtiä sointutremololle, löytyi %d"
 
-#: chord-tremolo-engraver.cc:130
+#: chord-tremolo-engraver.cc:132
 msgid "unterminated chord tremolo"
 msgstr "päättämätön sointutremolo"
 
-#: chord-tremolo-iterator.cc:59
+#: chord-tremolo-iterator.cc:60
 msgid "no one to print a tremolos"
 msgstr "tremoloa ei voitu tulostaa"
 
-#: clef.cc:54
+#: clef.cc:55
 #, c-format
 msgid "clef `%s' not found"
 msgstr "avainta `%s' ei löydy"
 
-#: cluster.cc:113
+#: cluster.cc:110
 #, c-format
 msgid "unknown cluster style `%s'"
 msgstr "tuntematon klusterityyli: `%s'"
 
-#: cluster.cc:138
+#: cluster.cc:135
 msgid "junking empty cluster"
 msgstr "heitetään pois tyhjä klusteri"
 
@@ -812,72 +783,73 @@ msgstr "ohjelmalla ei ole tyyppiä: `%s'"
 msgid "can't find: `%s'"
 msgstr "ei löytynyt `%s'"
 
-#: context-property.cc:76
+#: context-property.cc:77
 msgid "need symbol arguments for \\override and \\revert"
 msgstr "tarvitaan symboliargumentti funktioille \\override ja \\revert"
 
-#: context.cc:155
+#: context.cc:160
 #, c-format
 msgid "can't find or create new `%s'"
 msgstr "ei löydetty tai ei luotu uutta `%s'"
 
-#: context.cc:217
+#: context.cc:222
 #, c-format
 msgid "can't find or create `%s' called `%s'"
 msgstr "ei löydetty tai ei luotu `%s' nimeltä `%s'"
 
-#: context.cc:310
+#: context.cc:276
 #, c-format
 msgid "can't find or create: `%s'"
 msgstr "ei löydetty tai ei luotu: `%s'"
 
-#: custos.cc:76
+#: custos.cc:77
 #, c-format
 msgid "custos `%s' not found"
 msgstr "custos `%s' ei löytynyt"
 
-#: dynamic-engraver.cc:180 span-dynamic-performer.cc:82
+#: dynamic-engraver.cc:181 span-dynamic-performer.cc:84
 msgid "can't find start of (de)crescendo"
 msgstr "ei löytynyt alkua (de)crescendolle"
 
-#: dynamic-engraver.cc:189
+#: dynamic-engraver.cc:190
 msgid "already have a decrescendo"
 msgstr "decresendo jo käytössä"
 
-#: dynamic-engraver.cc:191
+#: dynamic-engraver.cc:192
 msgid "already have a crescendo"
 msgstr "crescendo jo käytössä"
 
-#: dynamic-engraver.cc:194
+#: dynamic-engraver.cc:195
 msgid "cresc starts here"
 msgstr "cresc aloitettiin tästä"
 
-#: dynamic-engraver.cc:314
+#: dynamic-engraver.cc:315
 msgid "unterminated (de)crescendo"
 msgstr "päättämätön (de)crescendo"
 
-#: event-chord-iterator.cc:52 output-property-music-iterator.cc:29
+#: event-chord-iterator.cc:53 output-property-music-iterator.cc:31
 #, c-format
 msgid "junking event: `%s'"
 msgstr "hylätään tapahtuma: `%s'"
 
-#: extender-engraver.cc:130 extender-engraver.cc:139
+#: extender-engraver.cc:131 extender-engraver.cc:140
 msgid "unterminated extender"
 msgstr "päättämätön pidennys"
 
-#: folded-repeat-iterator.cc:62
+#: folded-repeat-iterator.cc:63
 msgid "no one to print a repeat brace"
 msgstr "kukaan ei voinut tulostaa toistoa"
 
-#: font-config.cc:25
+#: font-config.cc:28
 msgid "Initializing FontConfig..."
 msgstr "Alustetaan FontConfig..."
 
-#: font-config.cc:28
-msgid "initializing FontConfig failed"
-msgstr "FontConfig:in alustaminen epäonnistui"
+#: font-config.cc:38
+#, c-format
+msgid "Rebuilding FontConfig cache %s. this may take a while..."
+msgstr "Käännetään uudelleen FontConfig välimuisti %s. tämä voi kestää hetken..."
 
-#: font-config.cc:40 font-config.cc:42
+#: font-config.cc:49 font-config.cc:51
 #, c-format
 msgid "adding font directory: %s"
 msgstr "lisätään fonttihakemisto: %s"
@@ -890,88 +862,88 @@ msgstr "ääretön tai NaN kohdattiin kun tehtiin reaalilukumuunnosta"
 msgid "setting to zero"
 msgstr "asetetaan nollaksi"
 
-#: glissando-engraver.cc:90
+#: glissando-engraver.cc:91
 msgid "unterminated glissando"
 msgstr "päättämätön glissando"
 
-#: global-context-scheme.cc:49 global-context-scheme.cc:76
+#: global-context-scheme.cc:50 global-context-scheme.cc:77
 msgid "no music found in score"
 msgstr "Laita musiikkia viivastolle"
 
-#: global-context-scheme.cc:66
+#: global-context-scheme.cc:68
 msgid "Interpreting music... "
 msgstr "Tulkitaan musiikkia..."
 
-#: global-context-scheme.cc:87
+#: global-context-scheme.cc:88
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr "kulunut aika: %.2f sekuntia"
 
-#: global-context.cc:158
+#: global-context.cc:159
 #, c-format
 msgid "can't find `%s' context"
 msgstr "ei löytynyt kontekstia `%s'"
 
-#: gourlay-breaking.cc:200
+#: gourlay-breaking.cc:202
 #, c-format
 msgid "Optimal demerits: %f"
 msgstr "Optimaalinen heikennys: %f"
 
-#: gourlay-breaking.cc:205
+#: gourlay-breaking.cc:207
 msgid "no feasible line breaking found"
 msgstr "Ei löytynyt sopivaa viivan katkaisukohtaa"
 
-#: gourlay-breaking.cc:213
+#: gourlay-breaking.cc:215
 msgid "can't find line breaking that satisfies constraints"
 msgstr "ei löytynyt sopivaa rivin katkaisukohtaa joka täyttäisi ehdot"
 
-#: gregorian-ligature-engraver.cc:60
+#: gregorian-ligature-engraver.cc:61
 #, c-format
 msgid "\\%s ignored"
 msgstr "\\%s sivuutettiin"
 
-#: gregorian-ligature-engraver.cc:65
+#: gregorian-ligature-engraver.cc:66
 #, c-format
 msgid "implied \\%s added"
 msgstr "lisättiin vihjattu \\%s"
 
 #. ligature may not start with 2nd head of pes or flexa
-#: gregorian-ligature-engraver.cc:213
+#: gregorian-ligature-engraver.cc:214
 msgid "can't apply `\\~' on first head of ligature"
 msgstr "di voitu käyttää `\\~' ligaturen alkupäässä"
 
 #. (pitch == prev_pitch)
-#: gregorian-ligature-engraver.cc:225
+#: gregorian-ligature-engraver.cc:226
 msgid "can't apply `\\~' on heads with identical pitch"
 msgstr "ei voitu käyttää `\\~' identtisien nuotinkorkeuksien päissä"
 
-#: grob-interface.cc:46
+#: grob-interface.cc:48
 #, c-format
 msgid "Unknown interface `%s'"
 msgstr "Tuntematon rajapinta `%s'"
 
-#: grob-interface.cc:57
+#: grob-interface.cc:59
 #, c-format
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr "Ladokkeella `%s' ei ole rajapintaa ominaisuudella `%s'"
 
-#: grob.cc:250
+#: grob.cc:242
 msgid "Infinity or NaN encountered"
 msgstr "ääretön tai NaN kohdattiin"
 
-#: hairpin.cc:128
+#: hairpin.cc:149
 msgid "decrescendo too small"
 msgstr "liian lyhyt decrescendo"
 
-#: hairpin.cc:129
+#: hairpin.cc:150
 msgid "crescendo too small"
 msgstr "liian lyhyt crescendo"
 
-#: horizontal-bracket-engraver.cc:57
+#: horizontal-bracket-engraver.cc:58
 msgid "don't have that many brackets"
 msgstr "ei ole käytössä niin monia sulkeita"
 
-#: horizontal-bracket-engraver.cc:66
+#: horizontal-bracket-engraver.cc:67
 msgid "conflicting note group events"
 msgstr "ristiriitainen nuottiryhmä -tapaus"
 
@@ -983,44 +955,44 @@ msgstr "päättämätön tavuviiva"
 msgid "unterminated hyphen; removing"
 msgstr "päättämätön tavuviiva"
 
-#: includable-lexer.cc:51
+#: includable-lexer.cc:53
 msgid "include files are not allowed in safe mode"
 msgstr "sisällytettävät tiedostot eivät ole sallittuja turvatilassa"
 
-#: includable-lexer.cc:58 lily-guile.cc:96 lily-parser-scheme.cc:103
+#: includable-lexer.cc:60 lily-guile.cc:96 lily-parser-scheme.cc:104
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "tiedostoa ei löydy: `%s'"
 
-#: input.cc:102 source-file.cc:153 source-file.cc:168
+#: input.cc:103 source-file.cc:153 source-file.cc:168
 msgid "position unknown"
 msgstr "sijainti tuntematon:"
 
-#: ligature-engraver.cc:99
+#: ligature-engraver.cc:100
 msgid "can't find start of ligature"
 msgstr "ei löytynyt alkua ligature:lle"
 
-#: ligature-engraver.cc:104
+#: ligature-engraver.cc:105
 msgid "no right bound"
 msgstr "ei oikeata reunaa"
 
-#: ligature-engraver.cc:126
+#: ligature-engraver.cc:127
 msgid "already have a ligature"
 msgstr "ligature löytyi jo"
 
-#: ligature-engraver.cc:135
+#: ligature-engraver.cc:136
 msgid "no left bound"
 msgstr "ei vasenta reunaa"
 
-#: ligature-engraver.cc:179
+#: ligature-engraver.cc:180
 msgid "unterminated ligature"
 msgstr "päättämätön ligature"
 
-#: ligature-engraver.cc:208
+#: ligature-engraver.cc:209
 msgid "ignoring rest: ligature may not contain rest"
 msgstr "ligature ei voi sisältää taukoa; sivuutetaan tauko"
 
-#: ligature-engraver.cc:209
+#: ligature-engraver.cc:210
 msgid "ligature was started here"
 msgstr "ligature alkoi tästä"
 
@@ -1029,63 +1001,63 @@ msgstr "ligature alkoi tästä"
 msgid "(load path: `%s')"
 msgstr "(hakupolku: `%s')"
 
-#: lily-guile.cc:436
+#: lily-guile.cc:441
 #, c-format
 msgid "can't find property type-check for `%s' (%s)."
 msgstr "Ei löytynyt tyyppitarkistusta ominaisuudelle `%s' (%s)."
 
-#: lily-guile.cc:439
+#: lily-guile.cc:444
 msgid "perhaps a typing error?"
 msgstr "ehkä näppäilyvirhe?"
 
-#: lily-guile.cc:445
+#: lily-guile.cc:450
 msgid "doing assignment anyway"
 msgstr "suoritetaan tehtävä joka tapauksessa"
 
-#: lily-guile.cc:457
+#: lily-guile.cc:462
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "tyypin `%s' tarkistus epäonnistui; arvon `%s' on oltava tyyppiä `%s'"
 
-#: lily-lexer.cc:224
+#: lily-lexer.cc:223
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr "tunnistenimi on avainsana: `%s'"
 
-#: lily-lexer.cc:239
+#: lily-lexer.cc:238
 #, c-format
 msgid "error at EOF: %s"
 msgstr "virhe tiedoston lopussa (EOF): %s"
 
-#: lily-parser-scheme.cc:28
+#: lily-parser-scheme.cc:29
 #, c-format
 msgid "deprecated function called: %s"
 msgstr "vanhentunut funktiokutsu: %s"
 
-#: lily-parser-scheme.cc:75
+#: lily-parser-scheme.cc:76
 #, c-format
 msgid "Changing working directory to `%s'"
 msgstr "Vaihdetaan työhakemistoksi `%s'"
 
-#: lily-parser-scheme.cc:95
+#: lily-parser-scheme.cc:96
 #, c-format
 msgid "can't find init file: `%s'"
 msgstr "tiedostoa ei löydy: `%s'"
 
-#: lily-parser-scheme.cc:113
+#: lily-parser-scheme.cc:114
 #, c-format
 msgid "Processing `%s'"
 msgstr "Prosessoidaan `%s'..."
 
-#: lily-parser.cc:95
+#: lily-parser.cc:97
 msgid "Parsing..."
 msgstr "Jäsennetään..."
 
-#: lily-parser.cc:124
+#: lily-parser.cc:126
 msgid "braces don't match"
 msgstr "aaltosulkumerkit eivät täsmää"
 
-#: main.cc:115
+#: main.cc:116
 #, c-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -1097,7 +1069,7 @@ msgstr ""
 "ja olet tervetullut muuttamaan ohjelmaa ja/tai levittämään siitä kopioita\n"
 "tietyillä ehdoilla. Suorita `%s --warranty' saadaksesi lisäinformaatiota.\n"
 
-#: main.cc:121
+#: main.cc:122
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -1127,11 +1099,11 @@ msgstr ""
 "Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
 "Boston, MA 02111-1307, USA.\n"
 
-#: main.cc:152
+#: main.cc:153
 msgid "BACK"
 msgstr "PÄÄ"
 
-#: main.cc:152
+#: main.cc:153
 msgid ""
 "use backend BACK (gnome, ps,eps,\n"
 "scm, svg, tex, texstr)\n"
@@ -1141,11 +1113,11 @@ msgstr ""
 "scm, svg, tex, texstr)\n"
 "default: PS"
 
-#: main.cc:154
+#: main.cc:155
 msgid "SYM=VAL"
 msgstr "SYM=VAL"
 
-#: main.cc:155
+#: main.cc:156
 msgid ""
 "set a Scheme program option. Uses #t if VAL is not specified\n"
 "Try -dhelp for help."
@@ -1153,67 +1125,63 @@ msgstr ""
 "aseta Scheme -ohjelman optio. Käyttää #t jos VAL ei ole määritelty\n"
 "Koeta -dhelp saadaksesi lisäapua."
 
-#: main.cc:158
+#: main.cc:159
 msgid "EXPR"
 msgstr "LAUSEKE"
 
-#: main.cc:158
+#: main.cc:159
 msgid "evaluate scheme code"
 msgstr "suorita scheme koodi"
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:161
+#: main.cc:162
 msgid "FORMATs"
 msgstr "FORMAATIT"
 
-#: main.cc:161
+#: main.cc:162
 msgid "dump FORMAT,...  Also as separate options:"
 msgstr "vedosta FORMAATTI,...  Myös erilliset optiot:"
 
-#: main.cc:162
+#: main.cc:163
 msgid "generate DVI (tex backend only)"
 msgstr "tuota DVI (vain käytettäessä tex -päätä)"
 
-#: main.cc:163
-msgid "relocate using directory of lilypond program"
-msgstr ""
-
 #: main.cc:164
+msgid "relocate using directory of lilypond program"
+msgstr "paikallista käyttäen lilypond ohjelman hakemistoa"
+
+#: main.cc:165
 msgid "generate PDF (default)"
 msgstr "tuota PDF (oletus)"
 
-#: main.cc:165
+#: main.cc:166
 msgid "generate PNG"
 msgstr "tuota PNG"
 
-#: main.cc:166
+#: main.cc:167
 msgid "generate PostScript"
 msgstr "tuota PostScript"
 
-#: main.cc:167
+#: main.cc:168
 msgid "generate TeX (tex backend only)"
 msgstr "tuota TeX (vain käytettäessä tex -päätä)"
 
-#: main.cc:169
+#: main.cc:170
 msgid "FIELD"
 msgstr "KENTTÄ"
 
-#: main.cc:169
+#: main.cc:170
 msgid "dump a header field to file BASENAME.FIELD"
 msgstr "kirjoita otsake tiedostoon PERUSNIMI.KENTTÄ"
 
-#: main.cc:170
+#: main.cc:171
 msgid "add DIR to search path"
 msgstr "lisää HAKEMISTO hakupolkuun"
 
-#: main.cc:171
+#: main.cc:172
 msgid "use FILE as init file"
 msgstr "käytä TIEDOSTO alustustiedostona"
-
-#: main.cc:172
-msgid "write output to FILE (suffix will be added)"
-msgstr "tulosta tiedostoon TIEDOSTO (pääte lisätään)"
 
 #: main.cc:174
 msgid "USER,GROUP,JAIL,DIR"
@@ -1232,14 +1200,18 @@ msgid "do not generate printed output"
 msgstr "älä tuota tulostetta"
 
 #: main.cc:178
+msgid "write output to FILE (suffix will be added)"
+msgstr "tulosta tiedostoon TIEDOSTO (pääte lisätään)"
+
+#: main.cc:179
 msgid "generate a preview of the first system"
 msgstr "tee kuva ensimmäisestä kokonaisuudesta"
 
-#: main.cc:179
+#: main.cc:180
 msgid "disallow unsafe Scheme and PostScript operations"
-msgstr ""
+msgstr "älä salli turvattomia Scheme ja PostScript -operaatioita"
 
-#: main.cc:220
+#: main.cc:221
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1249,115 +1221,120 @@ msgstr ""
 "%s  ja muut."
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:247
+#: main.cc:248
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Käyttö: %s [OPTIO]... TIEDOSTO..."
 
-#: main.cc:249
+#: main.cc:250
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Lado musiikki ja/tai tuota MIDI tiedostosta TIEDOSTO."
 
-#: main.cc:251
+#: main.cc:252
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr "LilyPond tuottaa kaunista musiikkinotaatiota."
 
-#: main.cc:253
+#: main.cc:254
 #, c-format
 msgid "For more information, see %s"
 msgstr "Lisätietoja varten, katso %s."
 
-#: main.cc:259
+#: main.cc:260
 #, c-format
 msgid "Report bugs via %s"
 msgstr "Raportoi virheet osoitteeseen %s."
 
-#: main.cc:305
+#: main.cc:306
 #, c-format
 msgid "expected %d arguments with jail, found: %d"
 msgstr "odotettiin %d argumenttia jail:ille, löytyi: %d"
 
-#: main.cc:319
+#: main.cc:320
 #, c-format
 msgid "no such user: %s"
 msgstr "käyttäjää ei löydy: `%s'"
 
-#: main.cc:321
+#: main.cc:322
 #, c-format
 msgid "can't get user id from user name: %s: %s"
 msgstr "ei saatu käyttäjä-id:tä käyttäjänimestä: %s: %s"
 
-#: main.cc:336
+#: main.cc:337
 #, c-format
 msgid "no such group: %s"
 msgstr "ryhmää ei ole: %s"
 
-#: main.cc:338
+#: main.cc:339
 #, c-format
 msgid "can't get group id from group name: %s: %s"
 msgstr "ei voitu saada ryhmä -id:tä ryhmänimestä: %s: %s"
 
-#: main.cc:346
+#: main.cc:347
 #, c-format
 msgid "can't chroot to: %s: %s"
 msgstr "chroot ei onnistunut: %s: %s"
 
-#: main.cc:353
+#: main.cc:354
 #, c-format
 msgid "can't change group id to: %d: %s"
 msgstr "ei voitu korvata ryhmän id:tä : %d: %s"
 
-#: main.cc:359
+#: main.cc:360
 #, c-format
 msgid "can't change user id to: %d: %s"
 msgstr "ei voitu vaihtaa käyttäjä-id:tä : %d: %s"
 
-#: main.cc:365
+#: main.cc:366
 #, c-format
 msgid "can't change working directory to: %s: %s"
 msgstr "työhakemiston vaihto ei onnistunut: %s: %s"
 
-#: main.cc:414
+#: main.cc:413
 #, c-format
 msgid "Evaluating %s"
 msgstr "Määritetään %s"
 
+#: main.cc:627
+#, c-format
+msgid "exception caught: %s"
+msgstr "napattiin poikkeus: %s"
+
 #. FIXME: constant error message.
-#: mark-engraver.cc:130
+#: mark-engraver.cc:131
 msgid "rehearsalMark must have integer value"
 msgstr "rehearsalMark vaatii kokonaislukuargumentin"
 
-#: mark-engraver.cc:136
+#: mark-engraver.cc:137
 msgid "mark label must be a markup object"
 msgstr "merkinnän on oltava markup -objekti"
 
-#: mensural-ligature-engraver.cc:76
+#: mensural-ligature-engraver.cc:77
 msgid "ligature with less than 2 heads -> skipping"
 msgstr "ligatuuri vähemmällä kuin 2:lla nuottipäällä -> ohitetaan"
 
-#: mensural-ligature-engraver.cc:103
+#: mensural-ligature-engraver.cc:104
 msgid "cannot determine pitch of ligature primitive -> skipping"
 msgstr "ei voitu määrittää nuottikorkeutta ligatuurin osalle -> ohitetaan"
 
-#: mensural-ligature-engraver.cc:117
+#: mensural-ligature-engraver.cc:118
 msgid "single note ligature - skipping"
 msgstr "priimi-intervalli ligatuurissa -> ohitetaan"
 
-#: mensural-ligature-engraver.cc:129
+#: mensural-ligature-engraver.cc:130
 msgid "prime interval within ligature -> skipping"
 msgstr "priimi-intervalli ligatuurissa -> ohitetaan"
 
-#: mensural-ligature-engraver.cc:141
+#: mensural-ligature-engraver.cc:142
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr "mensuraaliligatuuri: kesto ei ollut Mx, L, B tai S -> ohitetaan"
 
-#: mensural-ligature-engraver.cc:189
+#: mensural-ligature-engraver.cc:190
 msgid "semibrevis must be followed by another one -> skipping"
 msgstr "semibrevis vaatii samantyyppisen seuraavaksi -> ohitetaan"
 
-#: mensural-ligature-engraver.cc:200
+#: mensural-ligature-engraver.cc:201
 msgid ""
 "semibreves can only appear at the beginning of a ligature,\n"
 "and there may be only zero or two of them"
@@ -1365,7 +1342,7 @@ msgstr ""
 "semibreve:t voivat esiintyä vain ligaturen alussa,\n"
 "ja niitä voi olla vain nolla tai kaksi"
 
-#: mensural-ligature-engraver.cc:227
+#: mensural-ligature-engraver.cc:228
 msgid ""
 "invalid ligatura ending:\n"
 "when the last note is a descending brevis,\n"
@@ -1377,33 +1354,33 @@ msgstr ""
 "toiseksi viimeisen nuotin on oltava joku muu,\n"
 "tai ligaturan täytyy olla LB tai SSB"
 
-#: mensural-ligature-engraver.cc:347
+#: mensural-ligature-engraver.cc:348
 msgid "unexpected case fall-through"
 msgstr "odottamaton tapauksen raukeaminen"
 
-#: mensural-ligature.cc:140
+#: mensural-ligature.cc:141
 msgid "Mensural_ligature: unexpected case fall-through"
 msgstr "Mensural_ligature: odottamaton tapauksen raukeaminen"
 
-#: mensural-ligature.cc:191
+#: mensural-ligature.cc:192
 msgid "Mensural_ligature: (join_right == 0)"
 msgstr "Mensural_ligature: (join_right == 0)"
 
-#: midi-item.cc:153
+#: midi-item.cc:152
 #, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr "ei löytynyt MIDI-instrumenttia: `%s'"
 
-#: midi-item.cc:257
+#: midi-item.cc:264
 msgid "silly pitch"
 msgstr "sekava äänenkorkeus"
 
-#: midi-item.cc:273
+#: midi-item.cc:280
 #, c-format
 msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr "kokeellinen: viritetään väliaisesti (%d senttiä) kanavaa."
 
-#: midi-stream.cc:27
+#: midi-stream.cc:28
 #, c-format
 msgid "can't open for write: %s: %s"
 msgstr "tiedostoa ei voitu avata kirjoitettavaksi: %s: `%s'"
@@ -1413,49 +1390,49 @@ msgstr "tiedostoa ei voitu avata kirjoitettavaksi: %s: `%s'"
 msgid "can't write to file: `%s'"
 msgstr "tiedostoon ei voitu kirjoittaa: `%s'"
 
-#: music.cc:172
+#: music.cc:140
 #, c-format
 msgid "octave check failed; expected %s, found: %s"
 msgstr "oktaavitarkistus epäonnistui; oletettiin %s, löydettiin: %s"
 
-#: music.cc:235
+#: music.cc:203
 #, c-format
 msgid "transposition by %s makes alteration larger than double"
 msgstr "transponointi %s:N verran tekee muutokset suuremmaksi kuin kaksi"
 
-#: new-fingering-engraver.cc:82
+#: new-fingering-engraver.cc:84
 msgid "can't add text scripts to individual note heads"
 msgstr "ei voitu lisätä tekstinpätkiä yksittäisiin nuotteihin"
 
 #.
 #. music for the softenon children?
 #.
-#: new-fingering-engraver.cc:151
+#: new-fingering-engraver.cc:153
 msgid "music for the martians."
 msgstr "musiikkia marsilaisille."
 
-#: new-fingering-engraver.cc:256
+#: new-fingering-engraver.cc:261
 msgid "no placement found for fingerings"
 msgstr "sormitukselle ei löytynyt paikkaa"
 
-#: new-fingering-engraver.cc:257
+#: new-fingering-engraver.cc:262
 msgid "placing below"
 msgstr "sijoitetaan alle"
 
-#: new-lyric-combine-music-iterator.cc:243
+#: new-lyric-combine-music-iterator.cc:244
 #, c-format
 msgid "cannot find Voice `%s'"
 msgstr "ei löydetty Voice `%s'"
 
-#: note-collision.cc:401
+#: note-collision.cc:405
 msgid "ignoring too many clashing note columns"
 msgstr "liian monta törmäävää nuottisaraketta"
 
-#: note-column.cc:122
+#: note-column.cc:123
 msgid "can't have note heads and rests together on a stem"
 msgstr "ei voinut olla nuotinpäitä ja taukoja yhtäaikaa palkissa"
 
-#: note-head.cc:66
+#: note-head.cc:67
 #, c-format
 msgid "note head `%s' not found"
 msgstr "nuottipäätä `%s' ei löytynyt"
@@ -1464,173 +1441,196 @@ msgstr "nuottipäätä `%s' ei löytynyt"
 msgid "NoteEvent without pitch"
 msgstr "NoteEvent ilman nuottikorkeutta"
 
-#: open-type-font.cc:32
+#: open-type-font.cc:33
 #, c-format
 msgid "can't allocate %d bytes"
 msgstr "ei voitu varata %d bittiä"
 
-#: open-type-font.cc:36
+#: open-type-font.cc:37
 #, c-format
 msgid "can't load font table: %s"
 msgstr "ei voitu ladata fonttitaulukkoa: `%s'"
 
-#: open-type-font.cc:107
+#: open-type-font.cc:108
 #, c-format
 msgid "unsupported font format: %s"
 msgstr "tukematon fonttimuoto: %s"
 
-#: open-type-font.cc:109
+#: open-type-font.cc:110
 #, c-format
 msgid "unknown error: %d reading font file: %s"
 msgstr "tuntematon virhe: %d lukee fonttitiedostoa: %s"
 
-#: open-type-font.cc:181
+#: open-type-font.cc:183 open-type-font.cc:307
 #, c-format
 msgid "FT_Get_Glyph_Name() returned error: %d"
 msgstr "FT_Get_Glyph_Name() palautti virheen: %d"
 
-#: pango-font.cc:155
+#: pango-font.cc:157
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr "ei PostScript fonttinimeä fontille `%s'"
 
-#: pango-font.cc:198
+#: pango-font.cc:205
 msgid "FreeType face has no PostScript font name"
 msgstr "FreeType muodolla ei ollut PostScript fonttinimeä"
 
-#: paper-outputter-scheme.cc:31
+#: paper-outputter-scheme.cc:33
 #, c-format
 msgid "Layout output to `%s'..."
 msgstr "Aseta tulostus paikkaan `%s'..."
 
-#: paper-score.cc:77
+#: paper-score.cc:79
 #, c-format
 msgid "Element count %d (spanners %d) "
 msgstr "Elementtien määrä: %d (ladokkeita: %d)"
 
-#: paper-score.cc:81
+#: paper-score.cc:83
 msgid "Preprocessing graphical objects..."
 msgstr "Esiprosessoidaan graafisia kohteita..."
 
-#: parse-scm.cc:82
+#: parse-scm.cc:83
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr "GUILE antoi virheen lausekkeelle, joka alkoi täältä"
 
-#: percent-repeat-engraver.cc:208
+#: percent-repeat-engraver.cc:209
 msgid "unterminated percent repeat"
 msgstr "päättämätön prosenttitoisto"
 
-#: percent-repeat-iterator.cc:51
+#: percent-repeat-iterator.cc:52
 msgid "no one to print a percent"
 msgstr "kukaan ei voinut tulostaa prosenttia"
 
-#: performance.cc:48
+#: performance.cc:46
 msgid "Track..."
 msgstr "Jälki..."
 
-#: performance.cc:72
+#: performance.cc:70
 msgid "MIDI channel wrapped around"
 msgstr "MIDI kanava kietaistiin ympäri"
 
-#: performance.cc:73
+#: performance.cc:71
 msgid "remapping modulo 16"
 msgstr "kuvataan uudelleen modulo 16"
 
-#: performance.cc:92
+#: performance.cc:90
 msgid "Creator: "
 msgstr "Tekijä: "
 
-#: performance.cc:112
+#: performance.cc:110
 msgid "at "
 msgstr "kohdassa "
 
-#: performance.cc:163
+#: performance.cc:162
 #, c-format
 msgid "MIDI output to `%s'..."
 msgstr "Tehdään MIDI-tuloste `%s'..."
 
-#: phrasing-slur-engraver.cc:168
+#: phrasing-slur-engraver.cc:170
 msgid "unterminated phrasing slur"
 msgstr "päättämätön fraaseerauskaari"
 
-#: piano-pedal-engraver.cc:221
+#: piano-pedal-engraver.cc:223
 #, c-format
 msgid "expect 3 strings for piano pedals, found: %d"
 msgstr "odotettiin 3 merkkijonoa pianopedaalille, löytyi: %d"
 
-#: piano-pedal-engraver.cc:236 piano-pedal-engraver.cc:247
-#: piano-pedal-performer.cc:80
+#: piano-pedal-engraver.cc:238 piano-pedal-engraver.cc:249
+#: piano-pedal-performer.cc:82
 #, c-format
 msgid "can't find start of piano pedal: `%s'"
 msgstr "ei löydetty alkua pianopedaalille: `%s'"
 
-#: piano-pedal-engraver.cc:294
+#: piano-pedal-engraver.cc:296
 #, c-format
 msgid "can't find start of piano pedal bracket: `%s'"
 msgstr "ei löydetty alkua pianopedaalimerkinnälle: `%s'"
 
-#: program-option.cc:186
+#: program-option.cc:195
 #, c-format
 msgid "no such internal option: %s"
 msgstr "tuntematon sisäinen optio: %s"
 
-#: property-iterator.cc:80
+#: property-iterator.cc:81
 #, c-format
 msgid "not a grob name, `%s'"
 msgstr "ei ole graafisen objektin (grob) nimi: `%s'."
 
-#: quote-iterator.cc:253
+#: quote-iterator.cc:255
 #, c-format
 msgid "in quotation: junking event %s"
 msgstr "sitaatissa: hylätään tapahtuma `%s'"
 
-#: relative-octave-check.cc:38
+#: relative-octave-check.cc:39
 msgid "Failed octave check, got: "
 msgstr "Oktaavitarkistus epäonnistui, saatiin: "
 
-#: relocate.cc:49
+#: relocate.cc:52
 #, c-format
-msgid "no such file: %s"
-msgstr "tiedostoa ei löydy: `%s'"
+msgid "no such file: %s for %s"
+msgstr "tiedostoa ei löydy: %s kohteelle %s"
 
-#: relocate.cc:59
-#, c-format
-msgid "%s=%s\n"
-msgstr ""
-
-#: relocate.cc:67
+#: relocate.cc:62 relocate.cc:80
 #, c-format
 msgid "no such directory: %s for %s"
 msgstr "hakemistoa ei löydy: %s kohteelle %s"
 
-#: relocate.cc:88
+#: relocate.cc:72
+#, c-format
+msgid "%s=%s\n"
+msgstr "%s=%s\n"
+
+#: relocate.cc:104
 #, c-format
 msgid "Relocation: compile prefix=%s, new prefix=%s"
 msgstr "Paikantaminen: käännös-etuliite=%s, uusi etuliite=%s"
 
-#: rest-collision.cc:148
+#: relocate.cc:130
+#, c-format
+msgid "Relocation: framework_prefix=%s"
+msgstr "Paikantaminen: framework_prefix=%s"
+
+#: relocate.cc:212
+#, c-format
+msgid "Relocation: is absolute: argv0=%s"
+msgstr "Paikantaminen: absoluuttinen: argv0=%s"
+
+#: relocate.cc:219
+#, c-format
+msgid "Relocation: from cwd: argv0=%s"
+msgstr "Paikantaminen: nykyisestä polusta: argv0=%s"
+
+#: relocate.cc:228
+#, c-format
+msgid ""
+"Relocation: from PATH=%s\n"
+"argv0=%s"
+msgstr "Paikantaminen: polusta PATH=%s\n"
+"argv0=%s"
+
+#: rest-collision.cc:149
 msgid "can't resolve rest collision: rest direction not set"
 msgstr "ei voida määrittää taukojen törmäystä: tauon suuntaa ei asetettu"
 
-#: rest-collision.cc:162 rest-collision.cc:207
+#: rest-collision.cc:163 rest-collision.cc:208
 msgid "too many colliding rests"
 msgstr "liian monta törmäävää taukoa"
 
-#: rest.cc:139
+#: rest.cc:140
 #, c-format
 msgid "rest `%s' not found"
 msgstr "taukoa `%s' ei löytynyt, "
 
-#: score-engraver.cc:69
+#: score-engraver.cc:67
 #, c-format
 msgid "cannot find `%s'"
 msgstr "`%s' ei lyötynyt"
 
-#: score-engraver.cc:71
+#: score-engraver.cc:69
 msgid "Music font has not been installed properly."
 msgstr "Fontteja ei oltu asennettu kunnolla."
 
-#: score-engraver.cc:73
+#: score-engraver.cc:71
 #, c-format
 msgid "Search path `%s'"
 msgstr "Hakupolku `%s'"
@@ -1648,24 +1648,24 @@ msgid "errors found, ignoring music expression"
 msgstr "virheitä löytyi, sivuutetaan musiikki-ilmaisu"
 
 #. FIXME:
-#: script-engraver.cc:103
+#: script-engraver.cc:105
 msgid "don't know how to interpret articulation: "
 msgstr "ei tiedetä kuinka tulkita artikulaatio: "
 
-#: script-engraver.cc:104
+#: script-engraver.cc:106
 msgid "scheme encoding: "
 msgstr "scheme koodaus: "
 
-#: simple-spacer.cc:405
+#: simple-spacer.cc:406
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr "Ei jousta sarakkeen %d ja sitä seuraavan välillä"
 
-#: slur-engraver.cc:171
+#: slur-engraver.cc:176
 msgid "unterminated slur"
 msgstr "päättämätön kaari"
 
-#: slur-engraver.cc:180
+#: slur-engraver.cc:185
 msgid "can't end slur"
 msgstr "ei löytynyt kaaren loppua"
 
@@ -1674,35 +1674,35 @@ msgstr "ei löytynyt kaaren loppua"
 msgid "expected to read %d characters, got %d"
 msgstr "odotettiin %d merkkiä, saatiin %d"
 
-#: spacing-spanner.cc:47
+#: spacing-spanner.cc:48
 #, c-format
 msgid "Global shortest duration is %s"
 msgstr "Yleinen lyhin kesto on %s"
 
-#: stem-engraver.cc:91
+#: stem-engraver.cc:93
 msgid "tremolo duration is too long"
 msgstr "tremolon kesto on liian pitkä"
 
 #. FIXME:
-#: stem-engraver.cc:128
+#: stem-engraver.cc:130
 #, c-format
 msgid "adding note head to incompatible stem (type = %d)"
 msgstr "lisätään nuottipää sopimattomaan varteen (tyyppi = %d)"
 
-#: stem-engraver.cc:130
+#: stem-engraver.cc:132
 msgid "maybe input should specify polyphonic voices"
 msgstr "ehkä syötteen täytyisi määrittää moniäänisiä ääniä"
 
-#: stem.cc:97
+#: stem.cc:98
 msgid "weird stem size, check for narrow beams"
 msgstr "outo varren koko, koeta lyhyempiä palkkeja"
 
-#: stem.cc:585
+#: stem.cc:591
 #, c-format
 msgid "flag `%s' not found"
 msgstr "lippua `%s' ei löydetty"
 
-#: stem.cc:596
+#: stem.cc:602
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "lipun piirtoa `%s' ei löytynyt"
@@ -1712,50 +1712,50 @@ msgstr "lipun piirtoa `%s' ei löytynyt"
 msgid "Element count %d."
 msgstr "Elementtien määrä: %d."
 
-#: system.cc:267
+#: system.cc:268
 #, c-format
 msgid "Grob count %d"
 msgstr "Graafisien objektien (grob) määrä: %d "
 
-#: system.cc:288
+#: system.cc:289
 msgid "Calculating line breaks..."
 msgstr "Lasketaan rivinvaihtoja..."
 
-#: text-spanner-engraver.cc:60
+#: text-spanner-engraver.cc:62
 msgid "can't find start of text spanner"
 msgstr "ei löydetty alkua tekstileikkeelle"
 
-#: text-spanner-engraver.cc:72
+#: text-spanner-engraver.cc:74
 msgid "already have a text spanner"
 msgstr "tekstileike löytyi jo"
 
-#: text-spanner-engraver.cc:132
+#: text-spanner-engraver.cc:134
 msgid "unterminated text spanner"
 msgstr "päättämätön tekstileike"
 
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
-#: tfm-reader.cc:106
+#: tfm-reader.cc:107
 #, c-format
 msgid "TFM header of `%s' has only %u word (s)"
 msgstr "TFM-otsakkeessa `%s' on vain %u sana(a)"
 
-#: tfm-reader.cc:139
+#: tfm-reader.cc:140
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr ""
 "%s: TFM-tiedostossa on %u parametria, mikä on enemmän kuin maksimimäärä %u"
 
-#: tfm.cc:70
+#: tfm.cc:72
 #, c-format
 msgid "can't find ascii character: %d"
 msgstr "ei löydetty ASCII-merkkiä: %d"
 
-#: tie-engraver.cc:179
+#: tie-engraver.cc:181
 msgid "lonely tie"
 msgstr "yksinäinen sidos"
 
-#: time-scaled-music-iterator.cc:22
+#: time-scaled-music-iterator.cc:24
 msgid "no one to print a tuplet start bracket"
 msgstr "ketään ei löytynyt tulostamaan tupletin alkusulkua"
 
@@ -1764,36 +1764,36 @@ msgstr "ketään ei löytynyt tulostamaan tupletin alkusulkua"
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
-#: time-signature-engraver.cc:61
+#: time-signature-engraver.cc:63
 #, c-format
 msgid "strange time signature found: %d/%d"
 msgstr "löydettiin outo aikamerkintä: %d/%d"
 
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
-#: time-signature.cc:81
+#: time-signature.cc:82
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr "aikamerkintäsymbolia `%s' ei löytynyt; vaihdetaan numeroituun tyyliin"
 
-#: translator-ctors.cc:50
+#: translator-ctors.cc:52
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "tuntematon tulkitsija: `%s'"
 
-#: trill-spanner-engraver.cc:69
+#: trill-spanner-engraver.cc:71
 msgid "can't find start of trill spanner"
 msgstr "ei löydetty alkua trilliladokkeelle"
 
-#: trill-spanner-engraver.cc:81
+#: trill-spanner-engraver.cc:83
 msgid "already have a trill spanner"
 msgstr "trilliladoke löytyi jo"
 
-#: trill-spanner-engraver.cc:140
+#: trill-spanner-engraver.cc:142
 msgid "unterminated trill spanner"
 msgstr "päättymätön trilliladoke"
 
-#: vaticana-ligature-engraver.cc:346
+#: vaticana-ligature-engraver.cc:347
 #, c-format
 msgid ""
 "ignored prefix (es) `%s' of this head according to restrictions of the "
@@ -1802,7 +1802,7 @@ msgstr ""
 "sivuutetaan prefiksi (t) `%s' tälle nuottipäälle valitun ligatuurityylin "
 "mukaisesti"
 
-#: vaticana-ligature-engraver.cc:583
+#: vaticana-ligature-engraver.cc:584
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
 msgstr ""
@@ -1821,144 +1821,145 @@ msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
 msgstr "Vaticana_ligature: nollayhdiste (delta_pitch == 0)"
 
 #. fixme: be more verbose.
-#: volta-engraver.cc:140
+#: volta-engraver.cc:142
 msgid "can't end volta spanner"
 msgstr "ei löydetty loppua volta ladokkeelle"
 
-#: volta-engraver.cc:150
+#: volta-engraver.cc:152
 msgid "already have a volta spanner, ending that one prematurely"
 msgstr "löytyi ja volta-ladoke, lopetetaan se ennenaikaisesti"
 
-#: volta-engraver.cc:154
+#: volta-engraver.cc:156
 msgid "also already have an ended spanner"
 msgstr "myös tekstileike päätettiin jo"
 
-#: parser.yy:533
+#. no longer valid with dashes in \paper{} block.
+#: parser.yy:535
 msgid "identifier should have alphabetic characters only"
 msgstr "tunnisteessa saa olla vain aakkosellisia merkkejä"
 
-#: parser.yy:701
+#: parser.yy:705
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper ei voi olla käytössä \\score:ssa, käytä \\layout sen sijaan"
 
-#: parser.yy:725
+#: parser.yy:729
 msgid "need \\paper for paper block"
 msgstr "tarvitaan \\paper paperiryhmälle"
 
-#: parser.yy:870
+#: parser.yy:879
 msgid "more alternatives than repeats"
 msgstr "enemmän vaihtoehtoja kuin kertauksia"
 
-#: parser.yy:907
+#: parser.yy:916
 #, c-format
 msgid "expect 2 elements for Chord tremolo, found %d"
 msgstr "odotetaan 2 elementtiä Chord tremololle, löytyi %d"
 
-#: parser.yy:1308
+#: parser.yy:1316
 msgid "Grob name should be alphanumeric"
 msgstr "Graafiseen objectiin täytyy olla kirjain tai numero"
 
-#: parser.yy:1688
+#: parser.yy:1681
 msgid "second argument must be pitch list"
 msgstr "toisen argumentin on oltava äänenkorkeuslista"
 
-#: parser.yy:1731 parser.yy:1736 parser.yy:2242
+#: parser.yy:1724 parser.yy:1729 parser.yy:2235
 msgid "have to be in Lyric mode for lyrics"
 msgstr "täytyy olla Lyrics -moodissa lyriikkaa varten"
 
-#: parser.yy:1829
+#: parser.yy:1822
 msgid "expecting string as script definition"
 msgstr "oletetaan merkkijonon olevan skriptimäärittely"
 
-#: parser.yy:1988 parser.yy:2038
+#: parser.yy:1981 parser.yy:2031
 #, c-format
 msgid "not a duration: %d"
 msgstr "ei ole kesto: %d"
 
-#: parser.yy:2161
+#: parser.yy:2154
 msgid "have to be in Note mode for notes"
 msgstr "täytyy olla Note -moodissa nuotteja varten"
 
-#: parser.yy:2255
+#: parser.yy:2248
 msgid "have to be in Chord mode for chords"
 msgstr "täytyy olla Chord -moodissa sointuja varten"
 
-#: parser.yy:2735
+#: parser.yy:2730
 msgid "music head function must return Music object"
 msgstr "päämusiikkifuntion täytyy palauttaa Music objecti"
 
-#: lexer.ll:156
+#: lexer.ll:158
 msgid "stray UTF-8 BOM encountered"
 msgstr "satunnainen UTF-8 BOM (osaluettelo) havaittu"
 
-#: lexer.ll:160
+#: lexer.ll:162
 msgid "Skipping UTF-8 BOM"
 msgstr "Sivuutetaan UTF-8 BOM (osaluettelo)"
 
-#: lexer.ll:204
+#: lexer.ll:206
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr "Avataan syöte: `%s'"
 
-#: lexer.ll:212
+#: lexer.ll:214
 msgid "quoted string expected after \\version"
 msgstr "lainausmerkittyä merkkijonoa ei löytynyt kohteen \\version jälkeen"
 
-#: lexer.ll:216
-msgid "quoted string expected after \\renameinput"
-msgstr "lainausmerkittyä merkkijonoa ei löytynyt kohteen \\renameinput jälkeen"
+#: lexer.ll:218
+msgid "quoted string expected after \\sourcefilename"
+msgstr "odotettiin lainausmerkittyä merkkijonoa \\sourcefilename:n jälkeen"
 
-#: lexer.ll:229
+#: lexer.ll:231
 msgid "EOF found inside a comment"
 msgstr "EOF löytyi kommentin sisältä"
 
-#: lexer.ll:244
+#: lexer.ll:246
 msgid "\\maininput not allowed outside init files"
 msgstr "\\maininput ei ole sallittu init-alustustiedoston ulkopuolella"
 
-#: lexer.ll:268
+#: lexer.ll:270
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "väärä tai määrittämätön tunniste: `%s'"
 
 #. backup rule
-#: lexer.ll:277
+#: lexer.ll:279
 msgid "end quote missing"
 msgstr "jälkimmäinen lainaismerkki puuttuu"
 
-#: lexer.ll:439
+#: lexer.ll:441
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr "Sulkumerkki löytyi lyriikan lopussa.  Unohditko välilyönnin?"
 
-#: lexer.ll:538
+#: lexer.ll:540
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr "Sulkumerkki löytyi lyriikan lopussa.  Unohditko välilyönnin?"
 
-#: lexer.ll:629
+#: lexer.ll:640
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "epäkelpo merkki: `%c'"
 
-#: lexer.ll:716 lexer.ll:717
+#: lexer.ll:727 lexer.ll:728
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "tuntematon koodinvaihtomerkillinen merkkijono: `\\\\%s'"
 
-#: lexer.ll:814 lexer.ll:815
+#: lexer.ll:825 lexer.ll:826
 #, c-format
 msgid "Incorrect lilypond version: %s (%s, %s)"
 msgstr "Epäkelpo lilypond versio: %s (%s, %s)"
 
-#: lexer.ll:815 lexer.ll:816
+#: lexer.ll:826 lexer.ll:827
 msgid "Consider updating the input with the convert-ly script"
 msgstr "Harkitse syötteen päivittämistä convert-ly scriptillä"
 
 #. TODO: print location
-#: lexer.ll:936 lexer.ll:937
+#: lexer.ll:946 lexer.ll:947
 msgid "can't find signature for music function"
 msgstr "ei löytynyt aikamerkintää musiikkifunktiolle"
 
-#: backend-library.scm:19 lily.scm:423 ps-to-png.scm:88
+#: backend-library.scm:19 lily.scm:436 ps-to-png.scm:88
 #, lisp-format
 msgid "Invoking `~a'..."
 msgstr "Kutsutaan `~a'..."
@@ -1968,7 +1969,7 @@ msgstr "Kutsutaan `~a'..."
 msgid "`~a' failed (~a)"
 msgstr "`~a' epäonnistui (~a)"
 
-#: backend-library.scm:84 framework-tex.scm:340 framework-tex.scm:365
+#: backend-library.scm:84 framework-tex.scm:339 framework-tex.scm:364
 #, lisp-format
 msgid "Converting to `~a'..."
 msgstr "Muunnetaan kohteeksi `~a'..."
@@ -1989,37 +1990,32 @@ msgstr "Kirjoitetaan otsaketietue `~a' kohteeseen `~a'..."
 msgid "symbol ~S redefined"
 msgstr "symbol ~S määriteltiin uudelleen"
 
-#: define-markup-commands.scm:206
-#, lisp-format
-msgid "can't find bounding box of `~a'"
-msgstr "ei löytynyt `~a':n rajauskehystä (bounding box)"
-
-#: define-markup-commands.scm:274
+#: define-markup-commands.scm:244
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 "systeemejä ei löytynyt \\score merkinnässä, onko siinä \\layout blokkia?"
 
-#: define-markup-commands.scm:1129
+#: define-markup-commands.scm:1132
 #, lisp-format
 msgid "not a valid duration string: ~a"
 msgstr "ei ole sallittu keston merkkijono: ~a"
 
-#: define-music-types.scm:738
+#: define-music-types.scm:737
 #, lisp-format
 msgid "symbol expected: ~S"
 msgstr "odotettiin symboli: ~S"
 
-#: define-music-types.scm:741
+#: define-music-types.scm:740
 #, lisp-format
 msgid "can't find music object: ~S"
 msgstr "ei löytynyt musiikkiobjektia: ~S"
 
-#: define-music-types.scm:761
+#: define-music-types.scm:760
 #, lisp-format
 msgid "unknown repeat type `~S'"
 msgstr "tuntematon toistotyyppi `~S'"
 
-#: define-music-types.scm:762
+#: define-music-types.scm:761
 msgid "See music-types.scm for supported repeats"
 msgstr "Katso tiedostosta music-types.scm tuetut toistotyypit"
 
@@ -2053,42 +2049,42 @@ msgstr "Kirjoitetaan ~S..."
 msgid "can't find description for property ~S (~S)"
 msgstr "ei löytynyt kuvausta ominaisuudelle ~S (~S)"
 
-#: framework-eps.scm:69 framework-eps.scm:70
+#: framework-eps.scm:71 framework-eps.scm:72
 #, lisp-format
 msgid "Writing ~a..."
 msgstr "Kirjoitetaan ~a..."
 
-#: framework-ps.scm:263
+#: framework-ps.scm:265
 #, lisp-format
 msgid "can't embed ~S=~S"
 msgstr "ei voitu upottaa ~S=~S"
 
-#: framework-ps.scm:309
+#: framework-ps.scm:316
 #, lisp-format
 msgid "can't extract file matching ~a from ~a"
 msgstr "Ei voitu poimia sopivaa tiedoa ~a:sta ~a:han"
 
-#: framework-ps.scm:326
+#: framework-ps.scm:333
 #, lisp-format
 msgid "don't know how to embed ~S=~S"
 msgstr "ei tiedetä kuinka upottaa ~S=~S"
 
-#: framework-ps.scm:358
+#: framework-ps.scm:365
 #, lisp-format
 msgid "don't know how to embed font ~s ~s ~s"
 msgstr "ei tiedetä kuinka sijoittaa fontti ~s ~s ~s"
 
-#: framework-ps.scm:553
+#: framework-ps.scm:569
 #, lisp-format
 msgid "can't convert <stdout> to ~S"
 msgstr "ei voida konvertoida <stdout> ~S:ksi"
 
-#: framework-ps.scm:570 framework-ps.scm:573
+#: framework-ps.scm:586 framework-ps.scm:589
 #, lisp-format
 msgid "can't generate ~S using the postscript back-end"
 msgstr "ei voida generoida ~S käyttäen postscript päänä"
 
-#: framework-ps.scm:580
+#: framework-ps.scm:596
 msgid ""
 "nThe PostScript backend does not support the 'classic'\n"
 "framework. Use the EPS backend instead,\n"
@@ -2103,7 +2099,7 @@ msgstr ""
 "\n"
 "tai poista lilypond-book -ominaiset asetukset syötteestä.\n"
 
-#: framework-tex.scm:357
+#: framework-tex.scm:356
 #, lisp-format
 msgid "TeX file name must not contain whitespace: `~a'"
 msgstr "TeX -tiedostoniemessä ei saa olla välilyöntejä: `~a'"
@@ -2118,35 +2114,35 @@ msgstr "Virhe palkin laskennassa.  Odotettiin (~S,~S), löytyi ~S."
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr "Virhe palkin laskennassa.  Odotettiin ~S 0, löytyi ~S."
 
-#: layout-page-layout.scm:714
+#: layout-page-layout.scm:432
 msgid "Calculating page breaks..."
 msgstr "Lasketaan sivunvaihtoja..."
 
-#: lily-library.scm:437
+#: lily-library.scm:449
 #, lisp-format
 msgid "unknown unit: ~S"
 msgstr "tuntematon yksikkö: ~S"
 
-#: lily-library.scm:470
+#: lily-library.scm:482
 #, lisp-format
 msgid "no \\version statement found,  add~afor future compatibility"
 msgstr "ei \\version määrittelyä löytynyt,  lisää~ayhteensopivuuden varalle"
 
-#: lily-library.scm:477
+#: lily-library.scm:489
 msgid "old relative compatibility not used"
 msgstr "vanhaa relative -yhteensopivuutta ei käytetty"
 
-#: lily.scm:167
+#: lily.scm:169
 #, lisp-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "väärä tyyppi argumentille ~a.  Odotettiin ~a, löytyi ~s"
 
-#: lily.scm:370 lily.scm:413
+#: lily.scm:374 lily.scm:426
 #, lisp-format
 msgid "failed files: ~S"
 msgstr "epäonniset tiedostot: ~S"
 
-#: lily.scm:404
+#: lily.scm:416
 #, lisp-format
 msgid "Redirecting output to ~a..."
 msgstr "Ohjataan tulosteet paikkaan ~a..."
@@ -2172,17 +2168,17 @@ msgstr "oletettiin musiikkia: ~S"
 msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
 msgstr "Tahtiviivan tarkistus epäonnistui.  Odotettiin: ~a, löytyi: ~a"
 
-#: music-functions.scm:725
+#: music-functions.scm:736
 #, lisp-format
 msgid "can't find quoted music `~S'"
 msgstr "ei löytynyt lainusmerkittyä musiikkai `~S'"
 
-#: music-functions.scm:933
+#: music-functions.scm:944
 #, lisp-format
 msgid "unknown accidental style: ~S"
 msgstr "tuntematan kortusmerkkityyli: ~S"
 
-#: output-ps.scm:273
+#: output-ps.scm:279
 msgid "utf-8-string encountered in PS backend"
 msgstr "utf8-merkkijono havaittu PS päässä"
 
@@ -2233,6 +2229,36 @@ msgstr "~a komento lopetettiin tilassa: ~S"
 #: to-xml.scm:190
 msgid "assertion failed"
 msgstr "ajaminen epäonnistui"
+
+#~ msgid "parsing AFM file: `%s'"
+#~ msgstr "jäsennetään AFM-tiedostoa: `%s'"
+
+#~ msgid "checksum mismatch for font file: `%s'"
+#~ msgstr "virhesumma ei täsmää fonttitiedostolle: `%s'"
+
+#~ msgid "does not match: `%s'"
+#~ msgstr "ei täsmää: `%s'"
+
+#~ msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
+#~ msgstr ""
+#~ "Uudista kaikki .afm -tiedosto, ja poista kaikki .pk ja .tfm -tiedostot."
+
+#~ msgid "Rerun with -V to show font paths."
+#~ msgstr "Aja uudelleen lisäten -V nähdäksesi fonttipolut."
+
+#~ msgid "A script for removing font-files is delivered with the source-code:"
+#~ msgstr ""
+#~ "Skripti fonttitiedostojen poistamista varten toimitetaan lähdekoodin "
+#~ "mukana:"
+
+#~ msgid "initializing FontConfig failed"
+#~ msgstr "FontConfig:in alustaminen epäonnistui"
+
+#~ msgid "no such file: %s"
+#~ msgstr "tiedostoa ei löydy: `%s'"
+
+#~ msgid "can't find bounding box of `~a'"
+#~ msgstr "ei löytynyt `~a':n rajauskehystä (bounding box)"
 
 #~ msgid "can't dlopen: %s: %s"
 #~ msgstr "tiedostoa ei voitu avata: %s: %s"

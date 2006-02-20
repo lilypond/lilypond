@@ -1,3 +1,7 @@
+2006-02-20  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* po/fi.po: update.
+
 2006-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* make/lilypond-vars.make (LILYPOND_BOOK_FLAGS): don't run
