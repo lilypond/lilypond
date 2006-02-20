@@ -96,7 +96,7 @@ define some scheme code in a macro (to be called later), use
 
 ...
 #(nopc)
-{ c'4 }
+@{ c'4 @}
 @end example
 
 
