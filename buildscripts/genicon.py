@@ -9,7 +9,7 @@ output = os.path.abspath (sys.argv[2])
 program_name= os.path.split (sys.argv[0])[1]
 
 dir = tempfile.mktemp (program_name)
-os.mkdir (temp_dir, 0777)
+os.mkdir (dir, 0777)
 os.chdir(dir)
 
 def system (c):
