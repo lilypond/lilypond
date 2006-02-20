@@ -25,7 +25,7 @@ CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 LILYPOND_BOOK_INCLUDES = -I $(src-dir)/ -I $(outdir) -I $(input-dir) -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(top-build-dir)/mf/$(outconfbase)/  -I $(top-build-dir)/mf/out/
 LILYPOND_BOOK_LILYPOND_FLAGS=-dgs-font-load
-LILYPOND_BOOK_FLAGS = --process="$(LILYPOND_BINARY) --verbose --backend=eps --formats=ps,png --header=texidoc -I $(top-src-dir)/input/test -dinternal-type-checking -danti-alias-factor=2 $(LILYPOND_BOOK_LILYPOND_FLAGS)"
+LILYPOND_BOOK_FLAGS = --process="$(LILYPOND_BINARY) --backend=eps --formats=ps,png --header=texidoc -I $(top-src-dir)/input/test -dinternal-type-checking -danti-alias-factor=2 $(LILYPOND_BOOK_LILYPOND_FLAGS)"
 
 
 #texi-html for www only:
