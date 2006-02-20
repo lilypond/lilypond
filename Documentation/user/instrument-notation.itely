@@ -720,14 +720,14 @@ Checking to make sure that text scripts and lyrics are within the margins is a r
 
 To make lyrics avoid barlines as well, use
 @example
-\layout{
-  \context {
+\layout @{
+  \context @{
     \Lyrics
       \consists "Bar_engraver"
       \consists "Separating_line_group_engraver"
       \override BarLine #'transparent = ##t
-  }
-}
+  @}
+@}
 @end example
 
 
