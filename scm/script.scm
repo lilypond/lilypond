@@ -122,7 +122,8 @@
 	  ((script-stencil . (feta . ("turn" . "turn")))
 	   (direction  . 1)))
 	 ("open" .
-	  ((script-stencil . (feta . ("open" . "open")))
+	  ((avoid-slur . outside)
+		 (script-stencil . (feta . ("open" . "open")))
 	   (direction  . 1)))
 	 ("flageolet" .
 	  ((script-stencil . (feta . ("flageolet" . "flageolet")))
