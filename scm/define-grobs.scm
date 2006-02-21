@@ -718,16 +718,18 @@
 		 (interfaces . (key-signature-interface
 				font-interface
 				break-aligned-interface))))))
-    (LaissezVibrerTie
+    
+    
+   (LaissezVibrerTie
      . (
 	(stencil  . ,ly:tie::print)
-	(control-points . ,ly:laissez-vibrer-tie::calc-control-points)
-	(direction . ,ly:laissez-vibrer-tie::calc-direction)
+	(control-points . ,ly:semi-tie::calc-control-points)
+	(direction . ,ly:semi-tie::calc-direction)
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
 	(thickness . 1.0)
 	(meta . ((class . Item)
-		 (interfaces . (laissez-vibrer-tie-interface))
+		 (interfaces . (semi-tie-interface))
 		 ))
 	))
 
@@ -735,9 +737,10 @@
      . (
 	(X-extent . #f)
 	(Y-extent . #f)
-	(positioning-done . ,ly:laissez-vibrer-tie-column::calc-positioning-done)
+	(head-direction . ,LEFT)
+	(positioning-done . ,ly:semi-tie-column::calc-positioning-done)
 	(meta . ((class . Item)
-		 (interfaces . (laissez-vibrer-tie-column-interface))
+		 (interfaces . (semi-tie-column-interface))
 		 ))
 	))
 
@@ -1180,6 +1183,30 @@
 	(slope . 1.7)
 	(meta . ((class . Item)
 		 (interfaces . (percent-repeat-interface))))))
+    (RepeatTie
+     . (
+	(stencil  . ,ly:tie::print)
+	(control-points . ,ly:semi-tie::calc-control-points)
+	(direction . ,ly:semi-tie::calc-direction)
+	(details . ((ratio . 0.333)
+		    (height-limit . 1.0)))
+	(thickness . 1.0)
+	(meta . ((class . Item)
+		 (interfaces . (semi-tie-interface))
+		 ))
+	))
+
+    (RepeatTieColumn
+     . (
+	(X-extent . #f)
+	(Y-extent . #f)
+	(head-direction . ,RIGHT)
+	(positioning-done . ,ly:semi-tie-column::calc-positioning-done)
+	(meta . ((class . Item)
+		 (interfaces . (semi-tie-column-interface))
+		 ))
+	))
+
     (Rest
      . (
 	(stencil . ,ly:rest::print)

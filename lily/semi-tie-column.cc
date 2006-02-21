@@ -1,5 +1,5 @@
 /*
-  laissez-vibrer-tie-column.cc -- implement Laissez_vibrer_tie_column
+  semi-tie-column.cc -- implement Semi_tie_column
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,8 +7,8 @@
 
 */
 
-#include "laissez-vibrer-tie-column.hh"
-#include "laissez-vibrer-tie.hh"
+#include "semi-tie-column.hh"
+#include "semi-tie.hh"
 #include "grob.hh"
 #include "tie-column.hh"
 #include "tie.hh"
@@ -21,12 +21,13 @@
 #include "tie-column-format.hh"
 
 
-ADD_INTERFACE(Laissez_vibrer_tie_column,
-	      "laissez-vibrer-tie-column-interface",
+ADD_INTERFACE(Semi_tie_column,
+	      "semi-tie-column-interface",
 	      "The interface for a column of l.v. ties.",
 
 	      /* properties */
 	      "positioning-done "
+	      "head-direction "
 	      "tie-configuration "
 	      );
 			   
@@ -35,23 +36,23 @@ ADD_INTERFACE(Laissez_vibrer_tie_column,
 /*
   Cut & paste from tie-column.cc
  */   
-MAKE_SCHEME_CALLBACK(Laissez_vibrer_tie_column, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK(Semi_tie_column, calc_positioning_done, 1);
 SCM
-Laissez_vibrer_tie_column::calc_positioning_done (SCM smob)
+Semi_tie_column::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   
   extract_grob_set (me, "ties", lv_ro_ties);
   vector<Grob*> lv_ties (lv_ro_ties);
 
-  vector_sort (lv_ties, &Laissez_vibrer_tie::compare);
+  vector_sort (lv_ties, &Semi_tie::compare);
 
   Ties_configuration ties_config;
   
 
   Tie_formatting_problem problem;
   
-  problem.from_lv_ties (lv_ties);
+  problem.from_semi_ties (lv_ties, to_dir (me->get_property ("head-direction")));
 
   SCM manual_configs = me->get_property ("tie-configuration");
   problem.set_manual_tie_configuration (manual_configs);

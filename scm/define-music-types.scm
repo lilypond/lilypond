@@ -230,7 +230,6 @@ Syntax: @var{note}\\laissezVibrer.")
     (LigatureEvent
      . (
 	(description .	"(docme).")
-
 	(span-type . ligature)
 	(types . (general-music span-event ligature-event event))
 	))
@@ -413,14 +412,15 @@ goes down).")
     (RepeatedMusic
      . (
 	(description .	"Repeat music in different ways")
-	(type .	 repeated-music)
 	(types . (general-music repeated-music))
 	))
-    
+    (RepeatTieEvent
+     . ((description . "Ties for starting a second volta bracket.")
+	(types . (general-music event repeat-tie-event))
+	))
     (Event
      . (
 	(description .	"Atomic music event.")
-
 	(types . (general-music event))
 	))
     

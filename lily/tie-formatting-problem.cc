@@ -252,7 +252,7 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
 }
 
 void
-Tie_formatting_problem::from_lv_ties (vector<Grob*> const &lv_ties)
+Tie_formatting_problem::from_semi_ties (vector<Grob*> const &lv_ties, Direction head_dir)
 {
   if (lv_ties.empty ())
     return;
@@ -273,7 +273,7 @@ Tie_formatting_problem::from_lv_ties (vector<Grob*> const &lv_ties)
 	  spec.position_ = int (Staff_symbol_referencer::get_position (head));
 	}
 
-      spec.note_head_drul_[LEFT] = head;
+      spec.note_head_drul_[head_dir] = head;
       heads.push_back (head);
       specifications_.push_back (spec);
     }
@@ -284,20 +284,21 @@ Tie_formatting_problem::from_lv_ties (vector<Grob*> const &lv_ties)
   for (vsize i = 0; i < heads.size (); i++)
     x_refpoint_ = heads[i]->common_refpoint (x_refpoint_, X_AXIS); 
 
-  set_chord_outline (heads, LEFT);
+  set_chord_outline (heads, head_dir);
 
-  Real right_most = - infinity_f;   
+  Real extremal = head_dir * infinity_f;   
 
-  for (vsize i = 0; i < chord_outlines_[LEFT].size (); i++)
+  for (vsize i = 0; i < chord_outlines_[head_dir].size (); i++)
     {
-      right_most = max (right_most, chord_outlines_[LEFT][i].height_);
+      extremal = head_dir * min (head_dir * extremal,
+				   head_dir * chord_outlines_[head_dir][i].height_);
     }
 
   Skyline_entry right_entry;
   right_entry.width_.set_full ();
-  right_entry.height_ = right_most + 1.5;
+  right_entry.height_ = extremal - head_dir * 1.5;
   
-  chord_outlines_[RIGHT].push_back (right_entry);
+  chord_outlines_[-head_dir].push_back (right_entry);
 }
 
 

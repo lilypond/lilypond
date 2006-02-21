@@ -1,5 +1,26 @@
 2006-02-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-music-types.scm (music-descriptions): add RepeatTieEvent
+
+	* lily/repeat-tie-engraver.cc (acknowledge_note_head): new file. cut & paste
+	froum Laissez_vibrer_engraver.
+
+	* ly/declarations-init.ly (repeatTie): add \repeatTie
+
+	* scm/define-grobs.scm (all-grob-descriptions): add RepeatTie, RepeatTieColumn
+
+	* scm/define-grob-properties.scm (all-user-grob-properties): add
+	head-direction property.
+
+	* lily/tie-formatting-problem.cc (from_semi_ties): rename from
+	from_lv_ties. Take head direction argument.
+
+	* lily/semi-tie-column.cc: rename from
+	laissez-vibrer-tie-column.cc. Rename class too.
+
+	* lily/semi-tie.cc: rename from laissez-vibrer-tie.cc. Rename
+	class too.
+
 	* lily/paper-score.cc (find_break_indices): move from Break_algorithm.
 
 	* lily/break-algorithm.cc (find_break_indices): remove linewidth <
