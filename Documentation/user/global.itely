@@ -760,6 +760,33 @@ exaggerated corrections:
 }
 @end lilypond
 
+Proportional notation is supported; see @ref{Proportional notation}.
+
+@c  check this before release  --gp
+Symbol sizes (such as accidentals) may be disregarded for determining
+horizontal spacing,
+
+@lilypond[quote,ragged-right,relative=2,fragment]
+<<
+  \time 2/4
+  \new Staff { c16[ c c c c c c c] c[ c c c c c c c] }
+  \new Staff {
+          c16[ cisis ces cis c cisis ces cis]
+    \override Score.SpacingSpanner #'uniform-stretching = ##t 
+          c16[ cisis ces cis c cisis ces cis]
+  }
+>>
+@end lilypond
+
+
+When @code{strict-note-spacing} is set, notes are spaced without
+regard for clefs, bar lines, and grace notes,
+
+@lilypond[quote,ragged-right,relative=2,fragment]
+\override Score.SpacingSpanner #'strict-note-spacing = ##t 
+\new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
+@end lilypond
+
 
 @seealso
 
@@ -865,6 +892,12 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 @seealso
 
 Internals: @internalsref{BreakEvent}.
+
+A linebreaking configuration can now be saved as a @code{.ly} file
+automatically.  This allows vertical alignments to be stretched to
+fit pages in a second formatting run.  This is fairly new and
+complicated; see @inputfileref{input/regression/,page-layout-twopass.ly}
+for details.
 
 
 @node Page breaking
