@@ -2705,6 +2705,7 @@ def conv (str):
 		('betweensystempadding', 'between-system-padding'),
 		('pagetopspace', 'page-top-space'),
 		('raggedright', 'ragged-right'),
+		('raggedlast', 'ragged-last'),
 		('raggedbottom', 'ragged-bottom'),
 		('raggedlastbottom', 'ragged-last-bottom'),
 		('aftertitlespace', 'after-title-space'),

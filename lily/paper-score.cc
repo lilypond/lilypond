@@ -63,8 +63,16 @@ Paper_score::calc_breaking ()
 {
   Break_algorithm *algorithm = 0;
   vector<Column_x_positions> sol;
-
-  algorithm = new Gourlay_breaking;
+  
+  int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
+  if (system_count)
+    {
+      Constrained_breaking *b = new Constrained_breaking;
+      algorithm = b;
+    }
+  else
+    algorithm = new Gourlay_breaking;
+  
   algorithm->set_pscore (this);
   sol = algorithm->solve ();
   delete algorithm;
