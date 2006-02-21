@@ -1739,6 +1739,11 @@ b8 b b
 c4 c1
 @end lilypond
 
+@noindent
+As the example illustrates, @code{make-moment n m} constructs
+a duration of n*m notes, where n is any integer and m is a
+lilypond duration.
+
 
 @node Proportional notation
 @subsection Proportional notation
