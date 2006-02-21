@@ -42,7 +42,7 @@ related constructs, such as stems, tuplets and ties.
 * Augmentation dots::           
 * Tuplets::                     
 * Scaling durations::           
-* Stems::
+* Stems::                       
 @end menu
 
 
@@ -822,7 +822,7 @@ is processed.
 @cindex @code{skipTypesetting}
 @cindex @code{showLastLength}
 
-When entering or copying music, only the music near the end (where you
+When entering or copying music, usually only the music near the end (where you
 are adding notes) is interesting to view and correct.  To speed up
 this correction process, it is possible to skip typesetting of all but
 the last few measures. This is achieved by putting
@@ -1455,6 +1455,7 @@ This section deals with notation that affects groups of notes.
 * Ties::                        
 * Slurs::                       
 * Phrasing slurs::              
+* Laissez vibrer ties::         
 * Automatic beams::             
 * Manual beams::                
 * Grace notes::                 
@@ -1650,6 +1651,29 @@ You cannot have simultaneous phrasing slurs.
 @seealso
 
 Program reference: @internalsref{PhrasingSlur}.
+
+
+@node Laissez vibrer ties
+@subsection Laissez vibrer ties
+@cindex Laissez vibrer
+@cindex Ties, laissez vibrer
+
+L.v. ties (laissez vibrer) indicate that notes must not be damped at the
+end. It is used in notation for piano, harp and other string and
+percussion instruments. They can be entered using @code{\laissezVibrer},
+
+@lilypond[fragment,ragged-right,verbatim,relative=1]
+<c f g>\laissezVibrer 
+@end lilypond
+
+@seealso
+
+Program reference: 
+@internalsref{LaissezVibrerTie}
+@internalsref{LaissezVibrerTieColumn}
+
+Example files:
+@inputfileref{input/regression,laissez-vibrer-tie.ly}
 
 
 @node Automatic beams
@@ -1946,7 +1970,7 @@ notes and rhythms.
 * Fingering instructions::      
 * Dynamics::                    
 * Breath marks::                
-* Running trills::              
+* Trills::                      
 * Glissando::                   
 * Arpeggio::                    
 @end menu
@@ -2266,8 +2290,10 @@ Program reference: @internalsref{BreathingSign}.
 Examples: @inputfileref{input/@/regression,breathing@/-sign@/.ly}.
 
 
-@node Running trills
-@subsection Running trills
+@node Trills
+@subsection Trills
+
+Short trills are printed like normal articulation; see @ref{Articulations}.
 
 Long running trills are made with @code{\startTrillSpan} and
 @code{\stopTrillSpan},
@@ -2278,6 +2304,20 @@ Long running trills are made with @code{\startTrillSpan} and
      { s2. \grace { d16[\stopTrillSpan e] } } >>
   c4 }
 @end lilypond
+
+@cindex Pitched trills
+
+Trills that should be executed on an explicitly specified pitch can be
+typeset with the command @code{pitchedTrill}, 
+
+@c  if bug fixed, remove ! in f1   --gp
+@lilypond[ragged-right,verbatim,fragment,relative=1]
+\pitchedTrill c4\startTrillSpan fis
+f!\stopTrillSpan
+@end lilypond
+
+The first argument is the main note.  The pitch of the second
+is printed as a stemless note head in parentheses.
 
 
 @refcommands
@@ -2527,7 +2567,7 @@ melody is now in a single voice context.
   \voiceOne
   << 	
     { g4 f e | d2 e2 }
-    \context Voice="1" { \voiceTwo
+    \new Voice="1" { \voiceTwo
       r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
       \oneVoice
     }
