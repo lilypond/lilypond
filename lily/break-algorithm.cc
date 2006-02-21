@@ -15,23 +15,6 @@
 #include "cpu-timer.hh"
 #include "simple-spacer.hh"
 
-vector<int>
-Break_algorithm::find_break_indices () const
-{
-  vector<Grob*> all = pscore_->root_system ()->columns ();
-  vector<int> retval;
-
-  for (vsize i = 0; i < all.size (); i++)
-    if (Item::is_breakable (all[i]))
-      retval.push_back (i);
-
-  if (linewidth_ <= 0)
-    while (retval.size () > 2)
-      retval.erase (retval.begin () + 1);
-
-  return retval;
-}
-
 vector<Grob*>
 Break_algorithm::find_breaks () const
 {
@@ -42,9 +25,6 @@ Break_algorithm::find_breaks () const
     if (Item::is_breakable (all[i]))
       retval.push_back (all[i]);
 
-  if (linewidth_ <= 0)
-    while (retval.size () > 2)
-      retval.erase (retval.begin () + 1);
 
   return retval;
 }
@@ -89,10 +69,9 @@ Break_algorithm::set_pscore (Paper_score *s)
 }
 
 vector<Column_x_positions>
-Break_algorithm::solve () const
+Break_algorithm::solve () 
 {
-  vector<Column_x_positions> h= do_solve ();
-
+  vector<Column_x_positions> h;
   return h;
 }
 

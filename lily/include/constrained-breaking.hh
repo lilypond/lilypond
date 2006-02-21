@@ -18,7 +18,7 @@
 struct Constrained_break_node
 {
   /** the number of bars in all the systems before this one
-  */
+   */
   int prev_;
 
   /** unlike the Gourlay breaker, this is the sum of all demerits up to,
@@ -49,46 +49,46 @@ struct Constrained_break_node
 */
 class Constrained_breaking : public Break_algorithm
 {
-  public:
-    std::vector<Column_x_positions> do_solve ();
-    Constrained_breaking ();
-    Constrained_breaking (std::vector<int> const &start_col_posns);
+public:
+  std::vector<Column_x_positions> solve ();
+  Constrained_breaking ();
+  Constrained_breaking (std::vector<int> const &start_col_posns);
 
-    std::vector<Column_x_positions> get_solution(int start, int end, int sys_count);
-    Real get_demerits (int start, int end, int sys_count);
-    Real get_force (int start, int end, int sys_count);
-    Real get_penalty (int start, int end, int sys_count);
-    int get_max_systems (int start, int end);
-    int get_min_systems (int start, int end);
+  std::vector<Column_x_positions> get_solution(int start, int end, int sys_count);
+  Real get_demerits (int start, int end, int sys_count);
+  Real get_force (int start, int end, int sys_count);
+  Real get_penalty (int start, int end, int sys_count);
+  int get_max_systems (int start, int end);
+  int get_min_systems (int start, int end);
 
-    /* get the page penalty of system number sys with the given breaking */
-    Real get_page_penalty (int start, int end, int sys_count, int sys);
+  /* get the page penalty of system number sys with the given breaking */
+  Real get_page_penalty (int start, int end, int sys_count, int sys);
 
-  private:
-    int valid_systems_;
-    int systems_;
+  int systems_;
+private:
+  int valid_systems_;
 
-    /* the (i,j)th entry is the column configuration for breaking between
-     * columns i and j */
-    std::vector<Column_x_positions> cols_;
-    int cols_rank_;
+  /* the (i,j)th entry is the column configuration for breaking
+  between columns i and j */
+  std::vector<Column_x_positions> cols_;
+  int cols_rank_;
 
-    /* the [i](j,k)th entry is the score for fitting the first k bars onto the
-     * first j systems, starting at the i'th allowed starting column */
-    std::vector<std::vector<Constrained_break_node> > state_;
+  /* the [i](j,k)th entry is the score for fitting the first k bars onto the
+   first j systems, starting at the i'th allowed starting column */
+  std::vector<std::vector<Constrained_break_node> > state_;
 
-    vector<int> start_;         /* the columns at which we might be asked to start breaking */
-    vector<int> starting_breakpoints_; /* the corresponding index in breaks_ */
+  vector<int> start_;         /* the columns at which we might be asked to start breaking */
+  vector<int> starting_breakpoints_; /* the corresponding index in breaks_ */
 
-    vector<Grob*> all_;
-    std::vector<int> breaks_;
+  vector<Grob*> all_;
+  std::vector<int> breaks_;
 
-    void prepare_solution (int start, int end, int sys_count, int *rank, int *brk);
+  void prepare_solution (vsize start, int end, int sys_count, int *rank, int *brk);
 
-    void combine_demerits (Column_x_positions const &, Column_x_positions const &,
-                           Real *force, Real *pen, Real *dem) const;
+  void combine_demerits (Column_x_positions const &, Column_x_positions const &,
+			 Real *force, Real *pen, Real *dem) const;
 
-    bool calc_subproblem(int start, int systems, int max_break_index);
-    void resize ();
+  bool calc_subproblem(int start, int systems, int max_break_index);
+  void resize ();
 };
 #endif /* CONSTRAINED_BREAKING_HH */

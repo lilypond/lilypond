@@ -75,13 +75,13 @@ print_break_nodes (vector<Break_node> const &arr)
    inspiration.
 */
 vector<Column_x_positions>
-Gourlay_breaking::do_solve () const
+Gourlay_breaking::solve () 
 {
   vector<Break_node> optimal_paths;
   vector<Grob*> all
     = pscore_->root_system ()->columns ();
 
-  vector<int> breaks = find_break_indices ();
+  vector<int> breaks = pscore_->find_break_indices ();
 
   Break_node first_node;
   optimal_paths.push_back (first_node);
