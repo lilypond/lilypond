@@ -64,6 +64,15 @@ which scares away people.
 
 @end ignore
 
+@item Ties may now be attached to the left side of a note with
+@code{\repeatTie}, for use with volta repeats.
+
+@lilypond[relative=2,fragment,ragged-right]
+r4 <c e g>\repeatTie
+@end lilypond
+
+This feature was sponsored by Steve Doonan.
+
 @item Newly created contexts may also be named with the following
 syntax,
 
