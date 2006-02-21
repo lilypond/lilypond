@@ -22,6 +22,7 @@
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"
+#include "constrained-breaking.hh"
 
 Paper_score::Paper_score (Output_def *layout)
 {
@@ -58,6 +59,21 @@ Paper_score::typeset_system (System *system)
   system->unprotect ();
 }
 
+
+vector<int>
+Paper_score::find_break_indices () const
+{
+  vector<Grob*> all = root_system ()->columns ();
+  vector<int> retval;
+
+  for (vsize i = 0; i < all.size (); i++)
+    if (Item::is_breakable (all[i]))
+      retval.push_back (i);
+
+  return retval;
+}
+
+
 vector<Column_x_positions>
 Paper_score::calc_breaking ()
 {
@@ -67,8 +83,9 @@ Paper_score::calc_breaking ()
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
     {
-      Constrained_breaking *b = new Constrained_breaking;
+      Constrained_breaking *b = new Constrained_breaking (/* FIXME */);
       algorithm = b;
+      b->systems_ = system_count;
     }
   else
     algorithm = new Gourlay_breaking;

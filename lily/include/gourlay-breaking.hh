@@ -16,7 +16,7 @@
 */
 struct Gourlay_breaking : public Break_algorithm
 {
-  vector<Column_x_positions> do_solve () const;
+  vector<Column_x_positions> solve ();
   Gourlay_breaking ();
   Real combine_demerits (Column_x_positions const &, Column_x_positions const &) const;
 };

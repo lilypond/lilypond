@@ -29,7 +29,7 @@ public:
 
   void typeset_system (System *);
   vector<Column_x_positions> calc_breaking ();
-
+  vector<int> find_break_indices () const;
   SCM get_paper_systems () const;
 protected:
   virtual void process ();
