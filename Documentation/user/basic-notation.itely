@@ -716,7 +716,9 @@ transposed up to E-major with
 @end example
 
 Consider a part written for violin (a C instrument).  If
-this part is to be played on the A clarinet, the following
+this part is to be played on the A clarinet (for which an
+A is notated as a C, and which sounds a minor third lower
+than notated), the following
 transposition will produce the appropriate part
 
 @example
