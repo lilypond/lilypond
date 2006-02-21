@@ -453,6 +453,10 @@ used once
 \times 2/3 { c8 c c c c c }
 @end lilypond
 
+@noindent
+For more information about @code{make-moment}, see
+@ref{Time administration}.
+
 The format of the number is determined by the property
 @code{tupletNumberFormatFunction}.  The default prints only the
 denominator, but if it is set to the Scheme function
@@ -1786,6 +1790,10 @@ c16[ c c c c c c c]
 c16[ c c c c c c c]
 @end lilypond
 @cindex @code{subdivideBeams}
+
+@noindent
+For more information about @code{make-moment}, see
+@ref{Time administration}.
 
 Line breaks are normally forbidden when beams cross bar lines.  This
 behavior can be changed by setting @code{allowBeamBreak}.
