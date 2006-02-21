@@ -1838,12 +1838,12 @@ of differing lengths.  The following fermatas are supported
     "shortfermata" "fermata" "longfermata" "verylongfermata"
   }
 >>
-@end lilypond
+@end li lypond
 
 See @ref{Articulations} for general instructions how to apply scripts
 such as fermatas to notes.
 
-@end lilypond
+@end ignore
 
 
 @node Special noteheads
