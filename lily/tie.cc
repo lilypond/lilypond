@@ -7,22 +7,25 @@
 */
 
 #include "tie.hh"
-#include "spanner.hh"
-#include "lookup.hh"
-#include "output-def.hh"
-#include "rhythmic-head.hh"
+
+#include "main.hh"
 #include "bezier.hh"
-#include "paper-column.hh"
-#include "warn.hh"
-#include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
-#include "bezier.hh"
-#include "stem.hh"
-#include "note-head.hh"
-#include "tie-column.hh"
+#include "font-interface.hh"
 #include "grob-array.hh"
-#include "tie-formatting-problem.hh"
+#include "lookup.hh"
+#include "note-head.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
+#include "rhythmic-head.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem.hh"
+#include "text-interface.hh"
+#include "tie-column.hh"
 #include "tie-configuration.hh"
+#include "tie-formatting-problem.hh"
+#include "warn.hh"
 
 
 int
@@ -247,6 +250,24 @@ Tie::print (SCM smob)
     a = Lookup::slur (b,
 		      get_grob_direction (me) * base_thick,
 		      line_thick);
+
+#if DEBUG_TIE_SCORING
+  SCM quant_score = me->get_property ("quant-score");
+
+  if (to_boolean (me->layout ()
+		  ->lookup_variable (ly_symbol2scm ("debug-tie-scoring")))
+      && scm_is_string (quant_score))
+    {
+      string str;
+      SCM properties = Font_interface::text_font_alist_chain (me);
+
+      Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
+				    (me->layout ()->self_scm (), properties,
+				     quant_score));
+      tm.translate_axis (b.control_[0][Y_AXIS]*2, Y_AXIS);
+      a.add_at_edge (X_AXIS, RIGHT, tm, 1.0, 0);
+    }
+#endif
 
   return a.smobbed_copy ();
 }

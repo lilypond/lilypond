@@ -61,5 +61,7 @@ extern const char *LILYPOND_DATADIR;
 */
 
 #define DEBUG_SLUR_SCORING 1
+#define DEBUG_TIE_SCORING 1
+#define DEBUG_BEAM_SCORING 1
 
 #endif /* MAIN_HH */

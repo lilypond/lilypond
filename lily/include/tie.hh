@@ -24,13 +24,7 @@ public:
   static Grob *head (Grob *, Direction);
   static int get_column_rank (Grob *, Direction);
   static int get_position (Grob *);
-  static Direction get_default_dir (Grob *);
-
-#if 0
-  static void get_configuration (Grob *, Tie_configuration *,
-				 Tie_formatting_problem const &);
-#endif
-  
+  static Direction get_default_dir (Grob *);  
   static void set_control_points (Grob *, Grob *,
 				  Tie_configuration const&,
 				  Tie_details const&);

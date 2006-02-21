@@ -27,6 +27,8 @@ Tie_configuration::Tie_configuration ()
   dir_ = CENTER;
   position_ = 0;
   delta_y_ = 0.0;
+  score_ = 0.0;
+  scored_ = false;
 }
 
 
@@ -83,6 +85,16 @@ Tie_configuration::distance (Tie_configuration const &a,
     return d + (2 + (a.dir_ - b.dir_));
 }
 
+
+void
+Tie_configuration::add_score (Real s, string desc)
+{
+  assert (!scored_);
+  score_ += s;
+  if (s)
+    score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
+}
+
 Real
 Tie_configuration::height (Tie_details const &details) const
 {
@@ -91,4 +103,54 @@ Tie_configuration::height (Tie_details const &details) const
   return slur_shape (l,
 		     details.height_limit_,
 		     details.ratio_).curve_point (0.5)[Y_AXIS]; 
+}
+
+Ties_configuration::Ties_configuration()
+{
+  score_ = 0.0;
+  scored_ = false;
+}
+
+void
+Ties_configuration::reset_score ()
+{
+  score_ = 0.0;
+  scored_ = false;
+  score_card_ = "";
+  tie_score_cards_.clear ();
+}
+
+void
+Ties_configuration::add_tie_score (Real s, int i, string desc)
+{
+  assert (!scored_);
+  score_ += s;
+  if (s)
+    {
+      while (tie_score_cards_.size () < size ())
+	tie_score_cards_.push_back ("");
+
+      tie_score_cards_[i] += to_string ("%s=%.2f ", desc.c_str (), s);
+    }
+}
+
+void
+Ties_configuration::add_score (Real s, string desc)
+{
+  assert (!scored_);
+  score_ += s;
+  if (s)
+    score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
+}
+
+Real
+Ties_configuration::score () const
+{
+  return score_;
+}
+
+string
+Ties_configuration::card () const
+{
+  return score_card_;
 }

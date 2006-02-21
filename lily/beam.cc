@@ -28,6 +28,7 @@
 
 #include "beaming.hh"
 #include "directional-element-interface.hh"
+#include "main.hh"
 #include "international.hh"
 #include "interval-set.hh"
 #include "item.hh"
@@ -41,7 +42,7 @@
 #include "stem.hh"
 #include "warn.hh"
 
-#if DEBUG_QUANTING
+#if DEBUG_BEAM_SCORING
 #include "text-interface.hh" // debug output.
 #include "font-interface.hh" // debug output.
 #endif
@@ -489,9 +490,9 @@ Beam::print (SCM grob)
 			   X_AXIS);
   the_beam.translate_axis (pos[LEFT], Y_AXIS);
 
-#if (DEBUG_QUANTING)
+#if (DEBUG_BEAM_SCORING)
   SCM quant_score = me->get_property ("quant-score");
-  SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"));
+  SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"));
   if (to_boolean (debug) && scm_is_string (quant_score))
     {
 

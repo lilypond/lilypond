@@ -21,11 +21,9 @@
      . (
 	(avoid-slur . inside)
 	(cautionary-style . parentheses)
-
 	(stencil . ,ly:accidental-interface::print)
 	(after-line-breaking
 	 . ,ly:accidental-interface::after-line-breaking)
-					
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
@@ -70,7 +68,6 @@
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
 	(X-extent . ,ly:axis-group-interface::height)
-
 	(space-alist . (
 			(clef . (extra-space . 0.5))
 			(key-signature . (extra-space . 0.0))
@@ -87,13 +84,10 @@
 
     (AmbitusLine
      . (
-
 	(stencil . ,ly:ambitus::print)
-
 	(join-heads . #t)
 	(thickness . 2)
 	(X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
-
 	(meta . ((class . Item)
 		 (interfaces . (ambitus-interface
 				staff-symbol-referencer-interface
@@ -105,11 +99,9 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(cautionary-style . parentheses)
-
 	(stencil . ,ly:accidental-interface::print)
 	(after-line-breaking . ,ly:accidental-interface::after-line-breaking)
 	(side-axis . ,X)
-	
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
 				accidental-interface
@@ -120,10 +112,8 @@
     (AmbitusNoteHead
      . (
 	(duration-log . 2)
-
 	(stencil . ,ly:note-head::print)
 	(glyph-name . ,note-head::calc-glyph-name)
-	
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -209,9 +199,7 @@
 
     (BassFigure
      . (
-	;
 	(stencil . ,ly:text-interface::print)
-
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				rhythmic-grob-interface
@@ -624,11 +612,8 @@
 	(breakable . #t)
 	(X-extent . #f)
 	(Y-extent . #f)
-
 	(stencil . ,ly:line-spanner::print)
 	(after-line-breaking . ,ly:line-spanner::after-line-breaking)
-	
-
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
 				line-spanner-interface))))))
@@ -646,8 +631,10 @@
 	(stencil . ,ly:grid-line-interface::print)
 	(self-alignment-X . ,CENTER)
 	(X-offset . ,(ly:make-simple-closure
-		      `(,+  ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
-			    ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
+		      `(,+  ,(ly:make-simple-closure
+			      (list ly:self-alignment-interface::centered-on-x-parent))
+			    ,(ly:make-simple-closure
+			      (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(layer . 0)
 	(meta . ((class . Item)
 		 (interfaces . (self-alignment-interface
@@ -757,9 +744,7 @@
     (LedgerLineSpanner
      . (
 	(springs-and-rods . ,ly:ledger-line-spanner::set-spacing-rods)
-
 	(stencil . ,ly:ledger-line-spanner::print)
-
 	(X-extent . #f)
 	(Y-extent . #f)
 	(minimum-length-fraction . 0.25)
@@ -818,9 +803,7 @@
 	(minimum-distance . 0.1)
 	(padding . 0.07)
 	(springs-and-rods . ,ly:hyphen-spanner::set-spacing-rods)
-	
 	(stencil . ,ly:hyphen-spanner::print)
-
 	(Y-extent . (0 . 0))
 	(meta . ((class . Spanner)
 		 (interfaces . (lyric-interface
@@ -830,9 +813,7 @@
 
     (LyricExtender
      . (
-
 	(stencil . ,ly:lyric-extender::print)
-
 	(thickness . 0.8) ; line-thickness
 	(minimum-length . 1.5)
 	(Y-extent . (0 . 0))
@@ -871,9 +852,7 @@
      . (
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
-
 	(stencil . ,ly:measure-grouping::print)
-
 	(padding . 2)
 	(direction . ,UP)
 	(thickness . 1)
@@ -893,7 +872,6 @@
 	(thickness . 1.4)
 	(flexa-width . 2.0)
 	(stencil . ,ly:mensural-ligature::print)
-
 	(meta . ((class . Spanner)
 		 (interfaces . (mensural-ligature-interface
 				font-interface))))))
@@ -939,7 +917,6 @@
 			   ,(ly:make-simple-closure (list ly:self-alignment-interface::x-centered-on-y-parent)))))
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
-
 	(self-alignment-X . 0)
 	(direction . ,UP)
 	(padding . 0.4)
@@ -975,11 +952,9 @@
     (NoteCollision
      . (
 	(axes . (0 1))
-
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(positioning-done . ,ly:note-collision-interface::calc-positioning-done)
-	
 	(meta . ((class . Item)
 		 (interfaces . (note-collision-interface
 				axis-group-interface))))))
@@ -989,14 +964,12 @@
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
-
 	(meta . ((class . Item)
 		 (interfaces . (axis-group-interface
 				note-column-interface))))))
 
     (NoteHead
      . (
-
 	(stencil . ,ly:note-head::print)
 	(stem-attachment . ,ly:note-head::calc-stem-attachment)
 	(glyph-name . ,note-head::calc-glyph-name) 
@@ -1017,16 +990,13 @@
 	;; Changed this from 0.75.
 	;; If you ever change this back, please document! --hwn
 	(knee-spacing-correction . 1.0)
-
 	(meta . ((class . Item)
 		 (interfaces . (spacing-interface
 				note-spacing-interface))))))
 
     (NoteName
      . (
-
 	(stencil . ,ly:text-interface::print)
-
 	(meta . ((class . Item)
 		 (interfaces . (note-name-interface
 				text-interface
@@ -1041,9 +1011,7 @@
 			   ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent)))))
 	
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
-
 	(stencil . ,ly:text-interface::print)
-
 
 	;; no Y dimensions, because of lyrics under tenor clef.
 	(Y-extent . (0 . 0))
@@ -1060,9 +1028,7 @@
     (OttavaBracket
      . (
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
-
 	(stencil . ,ly:ottava-bracket::print)
-
 	(font-shape . italic)
 	(shorten-pair . (0.0 . -0.6))
 	(staff-padding . 1.0)
@@ -1106,14 +1072,11 @@
 	      ))
     (PhrasingSlur
      . ((details . ,default-slur-details)
-
 	(control-points . ,ly:slur::calc-control-points)
 	(direction . ,ly:slur::calc-direction)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(Y-extent . ,ly:slur::height)
 	(stencil . ,ly:slur::print)		      
-	
-
 	(thickness . 1.1)
 	(minimum-length . 1.5)
 	(height-limit . 2.0)
@@ -1124,7 +1087,6 @@
     (NonMusicalPaperColumn
      . (
 	(axes . (0))
-
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(X-extent . ,ly:axis-group-interface::width)
 	;;		      (stencil . ,ly:paper-column::print)
@@ -1141,10 +1103,8 @@
 
     (PercentRepeat
      . (
-
 	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
 	(stencil . ,ly:multi-measure-rest::percent)
-
 	(slope . 1.0)
 	(thickness . 0.48)
 	(font-encoding . fetaMusic)
@@ -1175,9 +1135,7 @@
     ;; an example of a text spanner
     (PianoPedalBracket
      . (
-
 	(stencil . ,ly:piano-pedal-bracket::print)
-
 	(style . line)
 	(bound-padding . 1.0)
 	(direction . ,DOWN)
@@ -1240,7 +1198,6 @@
      . (
 	(minimum-distance . 0.75)
 	(positioning-done . ,ly:rest-collision::calc-positioning-done)
-					
 	(meta . ((class . Item)
 		 (interfaces . (rest-collision-interface))))))
 
@@ -1258,7 +1215,6 @@
 
 	(stencil . ,ly:script-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
-
 	(font-encoding . fetaMusic)
 	(meta . ((class . Item)
 		 (interfaces . (script-interface
@@ -1267,9 +1223,7 @@
 
     (ScriptColumn
      . (
-
 	(before-line-breaking . ,ly:script-column::before-line-breaking)
-
 	(meta . ((class . Item)
 		 (interfaces . (script-column-interface))))))
 
@@ -1283,9 +1237,7 @@
 
     (SeparatingGroupSpanner
      . (
-
 	(springs-and-rods . ,ly:separating-group-spanner::set-spacing-rods)
-
 	(meta . ((class . Spanner)
 		 (interfaces . (only-prebreak-interface
 				spacing-interface
@@ -1293,17 +1245,14 @@
 
     (Slur
      . ((details . ,default-slur-details)
-
 	(control-points . ,ly:slur::calc-control-points)
 	(direction . ,ly:slur::calc-direction)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(Y-extent . ,ly:slur::height)
 	(stencil . ,ly:slur::print)
-	
 	(thickness . 1.2)
 	(line-thickness . 0.8)
 	(minimum-length . 1.5)
-					; ly:slur::height)
 	(height-limit . 2.0)
 	(ratio . 0.25)
 	(meta . ((class . Spanner)
@@ -1311,7 +1260,6 @@
 
     (SpacingSpanner
      . (
-
 	(springs-and-rods . ,ly:spacing-spanner::set-springs)
 	(average-spacing-wishes . #t)
 	(grace-space-factor . 0.6)
@@ -1328,7 +1276,6 @@
 	(Y-extent . ())
 	(layer . 0)
 	(breakable . #t)
-
 	(stencil . ,ly:span-bar::print)
 	(bar-size . ,ly:span-bar::calc-bar-size)
 	(X-extent . ,ly:span-bar::width)
@@ -1352,7 +1299,6 @@
     (StanzaNumber
      . (
 	(stencil . ,ly:text-interface::print)
-
 	(font-series . bold)
 	(padding . 1.0)
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
@@ -1366,9 +1312,7 @@
 
     (StringNumber
      . (
-
 	(stencil . ,print-circled-text-callback)
-
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)
@@ -1395,9 +1339,7 @@
 
     (SostenutoPedal
      . (
-
 	(stencil . ,ly:text-interface::print)
-
 	(direction . ,RIGHT)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(no-spacing-rods . #t)
@@ -1412,12 +1354,9 @@
     (SostenutoPedalLineSpanner
      . (
 	(axes . (1))
-
 	(X-extent . ,ly:axis-group-interface::height)
-
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
-
 	(padding . 1.2)
 	(minimum-space . 1.0)
 	(direction . ,DOWN)
@@ -1447,9 +1386,7 @@
 	(X-extent . ,ly:stem::width)
 	(Y-extent . ,ly:stem::height)
 	(length . ,ly:stem::calc-length)
-	
 	(thickness . 1.3)
-
 	(details
 	 . (
 	    ;; 3.5 (or 3 measured from note head) is standard length
@@ -1600,7 +1537,6 @@
 
     (TabNoteHead
      . (
-
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(font-size . -2)
@@ -1659,6 +1595,7 @@
 	(avoid-slur . inside)
 	(direction . ,ly:tie::calc-direction)
 	(stencil . ,ly:tie::print)
+	(font-size . -6)
 	(details . (
 		    ;; for a full list, see tie-helper.cc
 		    (ratio . 0.333)
@@ -1674,6 +1611,8 @@
 		    (intra-space-threshold . 1.25)
 		    (outer-tie-vertical-distance-symmetry-penalty-factor . 10)
 		    (outer-tie-length-symmetry-penalty-factor . 10)
+		    (outer-tie-vertical-gap . 0.25)
+		    (multi-tie-region-size . 1)
 		    (between-length-limit . 1.0)))
 	(thickness . 1.2)
 	(line-thickness . 0.8)

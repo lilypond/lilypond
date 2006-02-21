@@ -97,9 +97,6 @@ private:
   static int forced_stem_count (Grob *);
 };
 
-#ifndef NDEBUG
-#define DEBUG_QUANTING 1
-#endif
 
 #endif /* BEAM_HH */
 
