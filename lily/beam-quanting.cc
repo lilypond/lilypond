@@ -19,6 +19,7 @@ using namespace std;
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
+#include "main.hh"
 
 Real
 get_detail (SCM alist, SCM sym, Real def)
@@ -61,7 +62,7 @@ struct Quant_score
   Real yr;
   Real demerits;
 
-#if DEBUG_QUANTING
+#if DEBUG_BEAM_SCORING
   string score_card_;
 #endif
 };
@@ -234,7 +235,7 @@ Beam::quanting (SCM smob, SCM posns)
 				xstaff, &parameters);
       qscores[i].demerits += d;
 
-#if DEBUG_QUANTING
+#if DEBUG_BEAM_SCORING
       qscores[i].score_card_ += to_string ("S%.2f", d);
 #endif
     }
@@ -255,7 +256,7 @@ Beam::quanting (SCM smob, SCM posns)
 					 edge_beam_counts, ldir, rdir, &parameters);
 	qscores[i].demerits += d;
 
-#if DEBUG_QUANTING
+#if DEBUG_BEAM_SCORING
 	qscores[i].score_card_ += to_string (" F %.2f", d);
 #endif
       }
@@ -270,16 +271,16 @@ Beam::quanting (SCM smob, SCM posns)
 				     qscores[i].yl, qscores[i].yr, &parameters);
 	qscores[i].demerits += d;
 
-#if DEBUG_QUANTING
+#if DEBUG_BEAM_SCORING
 	qscores[i].score_card_ += to_string (" L %.2f", d);
 #endif
       }
 
   int best_idx = best_quant_score_idx (qscores);
 
-#if DEBUG_QUANTING
+#if DEBUG_BEAM_SCORING
   SCM inspect_quants = me->get_property ("inspect-quants");
-  if (to_boolean (me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
+  if (to_boolean (me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring")))
       && scm_is_pair (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
@@ -311,9 +312,9 @@ Beam::quanting (SCM smob, SCM posns)
 					  qscores[best_idx].yr);
     }
   
-#if DEBUG_QUANTING
+#if DEBUG_BEAM_SCORING
   if (best_idx >= 0
-      && to_boolean (me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"))))
+      && to_boolean (me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"))))
     {
       qscores[best_idx].score_card_ += to_string ("i%d", best_idx);
 

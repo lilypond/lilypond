@@ -2739,3 +2739,10 @@ def conv (str):
 
 conversions.append (((2, 7, 32), conv,
 		     """foobar -> foo-bar for \paper, \layout"""))
+
+def conv (str):
+	str = re.sub ('debug-beam-quanting', 'debug-beam-scoring', str)
+	return str
+
+conversions.append (((2, 7, 32), conv,
+		     """debug-beam-quanting -> debug-beam-scoring"""))

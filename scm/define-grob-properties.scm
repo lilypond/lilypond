@@ -507,7 +507,15 @@ where this is set in.")
      (heads ,ly:grob-array? "List of note heads.")
      (items-worth-living ,ly:grob-array? "A list of interesting items. If
 empty in a particular staff, then that staff is erased.")
-     (details ,list? "alist of parameters for detailed grob behavior.")
+     (details ,list? "alist of parameters for detailed grob behavior.
+
+more information on the allowed parameters can be found by inspecting
+lily/slur-scoring.cc, lily/beam-quanting.cc, and
+lily/tie-formatting-problem.cc.  Setting @code{debug-tie-scoring},
+@code{debug-beam-scoring} or @code{debug-slur-scoring} also provides
+useful clues.
+
+")
      (note-heads ,ly:grob-array? "List of note head grobs")
      (note-head ,ly:grob? "A single note head")
      (side-support-elements ,ly:grob-array? "the support, a list of grobs.")

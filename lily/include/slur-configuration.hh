@@ -23,9 +23,7 @@ public:
 
   int index_;
 
-#if DEBUG_SLUR_SCORING
   string score_card_;
-#endif
 
   Slur_configuration ();
 
