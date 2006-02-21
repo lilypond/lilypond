@@ -36,7 +36,6 @@ handle this cross-staffing behavior.  In this section we discuss the
 @menu
 * Automatic staff changes::     
 * Manual staff switches::       
-* Laissez vibrer ties::         
 * Pedals::                      
 * Staff switch lines::          
 * Cross staff stems::           
@@ -153,28 +152,6 @@ and the @context{Voice} is inserted afterwards
   \new Voice @{ @dots{} \change Staff = up @dots{} @}
 @end example
 
-
-@node Laissez vibrer ties
-@subsection Laissez vibrer ties
-@cindex Laissez vibrer
-@cindex Ties,  laissez vibrer
-
-L.v. ties (laissez vibrer) indicate that notes must not be damped at the
-end. It is used in notation for piano, harp and other string and
-percussion instruments. They can be entered using @code{\laissezVibrer},
-
-@lilypond[fragment,ragged-right,verbatim,relative=1]
-<c f g>\laissezVibrer 
-@end lilypond
-
-@seealso
-
-Program reference: 
-@internalsref{LaissezVibrerTie}
-@internalsref{LaissezVibrerTieColumn}
-
-Example files:
-@inputfileref{input/regression,laissez-vibrer-tie.ly}
 
 @node Pedals
 @subsection Pedals

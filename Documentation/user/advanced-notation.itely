@@ -1522,7 +1522,6 @@ LilyPond is limited.
 * Clusters::                    
 * Special fermatas::            
 * Special noteheads::           
-* Pitched trills::              
 * Feathered beams::             
 * Improvisation::               
 @end menu
@@ -1829,19 +1828,6 @@ To see all notehead styles, please see
 
 Program reference: @internalsref{NoteHead}.
 
-@node Pitched trills
-@subsection Pitched trills
-
-Trills that should be executed on an explicitly specified pitch can be
-typeset with the command @code{pitchedTrill}, 
-
-@lilypond[ragged-right,verbatim,fragment]
-  \pitchedTrill c'4\startTrillSpan fis
-  f'\stopTrillSpan
-@end lilypond
-
-The first argument is the main note. The absolute pitch of the second
-is printed as a stemless note head in parentheses.
 
 @node Feathered beams
 @subsection Feathered beams
