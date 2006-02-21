@@ -1541,6 +1541,16 @@ automatic note splitting (see @ref{Automatic note splitting}).  This
 mechanism automatically splits long notes, and ties them across bar
 lines.
 
+When a second alternative of a repeat starts with a tied note, you
+have to repeat the tie. This can be achieved with @code{\repeatTie},
+eg.
+
+@lilypond[fragment,quote,ragged-right,relative=2]
+r <c e g>\repeatTie
+@end lilypond
+
+@cindex repeating ties
+@cindex volta brackets and ties
 
 @commonprop
 
