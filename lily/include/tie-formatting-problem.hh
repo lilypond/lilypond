@@ -87,7 +87,7 @@ public:
   Tie_configuration find_optimal_tie_configuration (Tie_specification const &) const;
   void from_ties (vector<Grob*> const &ties);
   void from_tie (Grob *tie);
-  void from_lv_ties (vector<Grob*> const &);
+  void from_semi_ties (vector<Grob*> const &, Direction head_dir);
   void set_chord_outline (vector<Item*>, Direction);
   void set_manual_tie_configuration (SCM);
   Interval get_attachment (Real) const;

@@ -1,5 +1,5 @@
 /*
-  laissez-vibrer-tie.cc -- implement Laissez_vibrer_tie
+  semi-tie.cc -- implement Semi_tie
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,17 +7,19 @@
 
 */
 
-#include "laissez-vibrer-tie-column.hh"
-#include "laissez-vibrer-tie.hh"
+#include "semi-tie-column.hh"
+#include "semi-tie.hh"
 #include "directional-element-interface.hh"
 #include "grob.hh"
 #include "tie.hh"
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
 
-ADD_INTERFACE(Laissez_vibrer_tie,
-	      "laissez-vibrer-tie-interface",
-	      "The interface for l.v. tie items.",
+ADD_INTERFACE(Semi_tie,
+	      
+	      "semi-tie-interface",
+	      
+	      "A tie which is only on one side connected to note heads. ",
 
 	      /* properties */
 	      "control-points "
@@ -27,34 +29,34 @@ ADD_INTERFACE(Laissez_vibrer_tie,
 	      "thickness "
 	      );
 
-MAKE_SCHEME_CALLBACK(Laissez_vibrer_tie, calc_control_points, 1)
+MAKE_SCHEME_CALLBACK(Semi_tie, calc_control_points, 1)
 SCM
-Laissez_vibrer_tie::calc_control_points (SCM smob)
+Semi_tie::calc_control_points (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  if (Laissez_vibrer_tie_column::has_interface (me->get_parent (Y_AXIS)))
+  if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
     {
       me->get_parent (Y_AXIS)->get_property ("positioning-done");
     }
   else
     {
-      programming_error ("lv tie without Laissez_vibrer_tie_column. Killing lv tie."); 
+      programming_error ("lv tie without Semi_tie_column. Killing lv tie."); 
       me->suicide (); 
     }
   
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK(Laissez_vibrer_tie, calc_direction, 1)
+MAKE_SCHEME_CALLBACK(Semi_tie, calc_direction, 1)
 SCM
-Laissez_vibrer_tie::calc_direction (SCM smob)
+Semi_tie::calc_direction (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  if (Laissez_vibrer_tie_column::has_interface (me->get_parent (Y_AXIS)))
+  if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
     me->get_parent (Y_AXIS)->get_property("positioning-done");
   else
     {
-      programming_error ("lv tie without Laissez_vibrer_tie_column"); 
+      programming_error ("lv tie without Semi_tie_column"); 
       set_grob_direction (me, UP);
     }
 
@@ -62,14 +64,14 @@ Laissez_vibrer_tie::calc_direction (SCM smob)
 }
 
 int
-Laissez_vibrer_tie::get_position (Grob *me)
+Semi_tie::get_position (Grob *me)
 {
   Grob *h = unsmob_grob (me->get_object ("note-head"));
   return (int) rint (Staff_symbol_referencer::get_position (h));
 }
 
 int
-Laissez_vibrer_tie::compare (Grob *const &s1,
+Semi_tie::compare (Grob *const &s1,
 			     Grob *const &s2)
 {
   return sign (get_position (s1) - get_position (s2));

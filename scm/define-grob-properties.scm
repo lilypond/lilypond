@@ -231,6 +231,7 @@ of the @code{spacing-increment}.")
 
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
      (hair-thickness ,number? "Thickness of the thin line in a bar line.")
+     (head-direction ,ly:dir? "Are the note heads left or right in a semitie?")
      (height ,ly:dimension? "Height of an object in staff-space.")
      (height-limit ,ly:dimension? "Maximum slur height: the longer the
 slur, the closer it is to this height.")

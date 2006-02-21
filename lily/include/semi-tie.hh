@@ -1,5 +1,5 @@
 /*
-  laissez-vibrer-tie.hh -- declare Laissez_vibrer_tie
+  semi-tie.hh -- declare Laissez_vibrer_tie
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,14 +7,14 @@
 
 */
 
-#ifndef TIE_LAISSEZ_VIBRER_HH
-#define TIE_LAISSEZ_VIBRER_HH
+#ifndef SEMI_TIE_HH
+#define SEMI_TIE_HH
 
 
 #include "grob-interface.hh"
 #include "lily-guile.hh"
 
-struct Laissez_vibrer_tie
+struct Semi_tie
 {
   static bool has_interface (Grob *);
   
@@ -25,4 +25,4 @@ struct Laissez_vibrer_tie
   static int get_position (Grob *);
 };
 
-#endif /* TIE_LAISSEZ_VIBRER_HH */
+#endif /* SEMI_TIE_HH */
