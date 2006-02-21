@@ -2369,8 +2369,6 @@ is printed as a stemless note head in parentheses.
 
 @seealso
 
-This manual: @ref{Pitched trills}.
-
 Program reference: @internalsref{TrillSpanner}.
 
 
