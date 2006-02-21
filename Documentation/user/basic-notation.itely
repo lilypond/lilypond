@@ -144,6 +144,16 @@ ceses4 ces cis c
 ceses4 ces cis c
 @end lilypond
 
+@cindex Musica ficta
+
+Suggested accidentals (used in notating musica ficta) may
+be written with @code{suggestAccidentals}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\set suggestAccidentals = ##t
+ais4 bis
+@end lilypond
+
 
 @seealso
 
@@ -167,8 +177,8 @@ after the pitch.  A cautionary accidental
 question mark `@code{?}' after the pitch.  These extra accidentals
 can be used to produce natural signs, too.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-cis' cis' cis'! cis'? c c? c! c
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+cis cis cis! cis? c c? c! c
 @end lilypond
 
 
@@ -540,6 +550,7 @@ website for more information.
 * Barnumber check::             
 * Skipping corrected music::    
 * Automatic note splitting::    
+* Writing music in parallel::   
 @end menu
 
 
@@ -896,6 +907,26 @@ Examples: @inputfileref{input/@/regression,completion@/-heads@/.ly}.
 
 Program reference: @internalsref{Completion_heads_engraver}.
 
+
+@node Writing music in parallel
+@subsection Writing music in parallel
+@cindex Writing music in parallel
+@cindex Interleaved music
+
+Music for multiple parts can be interleaved
+
+@lilypond[quote,fragment,verbatim,relative=1]
+\parallelMusic #'(voiceA voiceB) {
+  r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
+  c'2                                c'2                                |
+  r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
+  c'2                                c'2                                |
+}
+\new StaffGroup <<
+  \new Staff \new Voice \voiceA
+  \new Staff \new Voice \voiceB
+>>
+@end lilypond
 
 
 @node Staff notation

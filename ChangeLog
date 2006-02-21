@@ -3,6 +3,9 @@
 	* Documentation/user/ *-notation.itely: misc minor editing,
 	shifting doc sections around.
 
+	* Documentation/user/ *-notation-itely, global.itely,
+	changing-defaults.itely: added new stuff from NEWS.
+
 2006-02-20  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* po/fi.po: update.

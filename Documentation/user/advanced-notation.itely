@@ -187,6 +187,25 @@ c1 c c c4 c c c
 \mark "D.S. al Fine "
 @end lilypond
 
+Text marks may be aligned with notation objects other than
+bar lines,
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\relative {
+  c1
+  \key cis \major
+  \clef alto
+  \set Score.rehearsalMarkAlignSymbol = #'key-signature
+  \mark "on-key"
+  cis
+ \key ces \major
+  \set Score.rehearsalMarkAlignSymbol = #'clef
+  \clef treble
+  \mark "on clef"
+  ces
+}
+@end lilypond
+
 
 @seealso
 
@@ -1519,8 +1538,8 @@ LilyPond is limited.
 @menu
 * Polymetric notation::         
 * Time administration::         
+* Proportional notation::       
 * Clusters::                    
-* Special fermatas::            
 * Special noteheads::           
 * Feathered beams::             
 * Improvisation::               
@@ -1721,6 +1740,21 @@ c4 c1
 @end lilypond
 
 
+@node Proportional notation
+@subsection Proportional notation
+@cindex Proportional notation
+
+Notes can be spaced proportional to their time-difference by
+assigning a duration to @code{proportionalNotationDuration}
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+<<
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \new Staff { c8[ c c c c c]  c4 c2 r2 }
+  \new Staff { c2  \times 2/3 { c8 c c } c4 c1 }
+>>
+@end lilypond
+
 
 @node Clusters
 @subsection Clusters
@@ -1759,16 +1793,19 @@ Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
 accurately.  Use @code{<g a>8 <e a>8} instead.
 
 
+@ignore
 
-@node Special fermatas
-@subsection Special fermatas
+This is covered in articulation; does it really need its
+own doc section?  -gp
+@n ode Special fermatas
+@s ubsection Special fermatas
 
-@cindex fermatas, special
+@c index fermatas, special
 
 In contemporary music notation, special fermata symbols denote breaks
 of differing lengths.  The following fermatas are supported
 
-@lilypond[quote,ragged-right]
+@li lypond[quote,ragged-right]
 <<
   \oldaddlyrics {
     b'2
@@ -1800,6 +1837,8 @@ of differing lengths.  The following fermatas are supported
 
 See @ref{Articulations} for general instructions how to apply scripts
 such as fermatas to notes.
+
+@end lilypond
 
 
 @node Special noteheads
