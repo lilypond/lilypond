@@ -238,6 +238,7 @@ ADD_INTERFACE (Slur, "slur-interface",
 	       "A slur",
 	       
 	       /* properties */
+	       "avoid-slur " 	/* UGH. */
 	       "control-points "
 	       "dash-fraction "
 	       "dash-period "
