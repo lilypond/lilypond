@@ -926,7 +926,7 @@ bassusLyrics = \lyricmode {
 
 \score {
   \new StaffGroup = choirStaff <<
-    \Voice =
+    \new Voice =
       "discantusNotes" << \global \discantusNotes >>
     \new Lyrics =
       "discantusLyrics" \lyricsto discantusNotes { \discantusLyrics }
