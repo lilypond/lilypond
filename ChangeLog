@@ -1,5 +1,10 @@
 2006-02-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/GNUmakefile: remove $(CROSS) support from
+	Documentation/user/GNUmakefile. Use --disable-documentation for that.
+
+	* VERSION (PATCH_LEVEL): release 2.7.36
+
 	* lily/slur.cc: add avoid-slur (ugh.)
 	
 	* lily/slur-configuration.cc (fit_factor): oops, skip point if
