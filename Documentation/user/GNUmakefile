@@ -250,9 +250,6 @@ $(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 $(outdir)/music-glossary.nexi:
 
 # Rules for the automatically generated documentation
-# When cross-compiling, we don't have lilypond, so we fake
-ifneq ($(CROSS),yes)
-
 
 # There used to be a dependency on a dummy target, to force a rebuild
 # of lilypond-internals every time.  however, this triggers
@@ -268,15 +265,6 @@ $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(LILYPOND_
 $(outdir)/interfaces.itexi: dummy
 	cd $(outdir) && lilypond $(top-src-dir)/ly/generate-interface-doc
 
-else
-
-$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
-	touch $@
-	touch $(outdir)/$(*F).nexi
-
-$(outdir)/programming-interface.texi:
-	cp dummy-interfaces.itexi $@
-endif
 
 local-clean: local-delete
 
