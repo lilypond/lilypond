@@ -1210,7 +1210,7 @@ drumContents = {
     \new StaffGroup = "rhythm" <<
       \new ChordNames = "chords" \gtrharmony
       \new Staff = "guitar" \guitar
-      \new PianoStaff = piano" \piano
+      \new PianoStaff = "piano" \piano
       \new Staff = "bass" \bass
       \new DrumStaff { \drumContents }
     >>
