@@ -367,7 +367,7 @@ pedal = {
   \new PianoStaff <<
     \new Staff = "upper" << \upper \dynamics >>
     \new Staff = "lower" << \lower \dynamics >>
-    \n ew Dynamics = "pedal" \pedal
+    \new Dynamics = "pedal" \pedal
   >>
   \midi {
     \context {
@@ -711,6 +711,7 @@ bassWords = \lyricmode {
       << \global \tenorMusic >>
       << \global \bassMusic >>
     >>
+   >>
   >>
   \layout {
     \context {

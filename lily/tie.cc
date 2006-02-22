@@ -287,6 +287,7 @@ ADD_INTERFACE (Tie,
 	       "details "
 	       "direction "
 	       "line-thickness " 
+	       "quant-score "
 	       "thickness "
 	       );
 
