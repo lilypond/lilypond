@@ -10,7 +10,7 @@
   \relative c'' <<
     {
       \stemDown
-      f16( \> d b\! \change Staff = down \stemUp
+      f16( d b \change Staff = down \stemUp
       \clef treble g ~ < g e>8)
       
       e[ \change Staff = up

@@ -9,12 +9,14 @@
 */
 
 #include "engraver.hh"
+
+#include "axis-group-interface.hh"
 #include "note-head.hh"
 #include "pitch-interval.hh"
+#include "pointer-group-interface.hh"
 #include "protected-scm.hh"
-#include "staff-symbol-referencer.hh"
-#include "axis-group-interface.hh"
 #include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh" 
 
 #include "translator.icc"
 
@@ -160,8 +162,9 @@ Ambitus_engraver::finalize ()
 	}
       while (flip (&d) != DOWN);
 
-      ambitus_->set_object ("note-heads", scm_list_2 (heads_[DOWN]->self_scm (),
-						      heads_[UP]->self_scm ()));
+
+      Pointer_group_interface::add_grob (ambitus_, ly_symbol2scm ("note-heads"), heads_[DOWN]);
+      Pointer_group_interface::add_grob (ambitus_, ly_symbol2scm ("note-heads"), heads_[UP]);
     }
   else
     {
