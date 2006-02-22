@@ -1282,6 +1282,7 @@
 	(minimum-length . 1.5)
 	(height-limit . 2.0)
 	(ratio . 0.25)
+	(avoid-slur . inside)
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
@@ -1381,9 +1382,10 @@
     (SostenutoPedalLineSpanner
      . (
 	(axes . (1))
-	(X-extent . ,ly:axis-group-interface::height)
+	(Y-extent . ,ly:axis-group-interface::height)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
+	(staff-padding . 1.0)
 	(padding . 1.2)
 	(minimum-space . 1.0)
 	(direction . ,DOWN)
@@ -1442,10 +1444,6 @@
 
 	    ))
 
-
-	;; default stem direction for note on middle line
-	(neutral-direction . ,DOWN)
-
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.
 
@@ -1484,7 +1482,7 @@
     (SustainPedalLineSpanner
      . (
 	(axes . (1))
-	(X-extent . ,ly:axis-group-interface::height)
+	(Y-extent . ,ly:axis-group-interface::height)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(padding . 1.2)
@@ -1776,7 +1774,7 @@
     (UnaCordaPedalLineSpanner
      . (
 	(axes . (1))
-	(X-extent . ,ly:axis-group-interface::height)
+	(Y-extent . ,ly:axis-group-interface::height)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(padding . 1.2)

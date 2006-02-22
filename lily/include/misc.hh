@@ -37,5 +37,6 @@ linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)
 
 Real directed_round (Real f, Direction d);
 
+Real peak_around (Real epsilon,  Real threshold, Real x);
 #endif
 

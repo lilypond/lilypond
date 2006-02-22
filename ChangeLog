@@ -1,5 +1,24 @@
 2006-02-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/slur-configuration.cc (fit_factor): oops, skip point if
+	intersection gets smaller. This fixes slurs over extreme points.
+
+	* lily/melody-engraver.cc (stop_translation_timestep): ignore
+	stems with neutral-direction set.
+
+	* lily/piano-pedal-engraver.cc (create_text_grobs): idem.
+
+	* lily/open-type-font.cc (load_table): format error.
+
+	* lily/change-iterator.cc (process): format fix.
+
+	* flower/include/international.hh (_f): idem.
+
+	* flower/include/std-string.hh: add format printf attribute.
+
+	* scm/define-grobs.scm (all-grob-descriptions): height of all
+	PedalLineSpanner is Y-extent property. Fixes pedal-ped.ly
+
 	* lily/ambitus-engraver.cc (finalize): use grob_array. This fixes
 	ambitus lines.
 

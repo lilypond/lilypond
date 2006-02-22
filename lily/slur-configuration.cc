@@ -85,7 +85,7 @@ fit_factor (Offset dz_unit, Offset dz_perp,
       Real eps = 0.01;
       Interval pext = eps * Interval (-1,1) + p[X_AXIS];
       pext.intersect (curve_xext);
-      if (pext.is_empty () || pext.length () <= 2.1* eps)
+      if (pext.is_empty () || pext.length () <= 1.999 * eps)
 	continue;
 
       Real y = curve.get_other_coordinate (X_AXIS, p[X_AXIS]);
@@ -170,6 +170,17 @@ Slur_configuration::Slur_configuration ()
   index_ = -1;
 };
 
+
+void
+Slur_configuration::add_score (Real s, string desc)
+{
+  if (s)
+    {
+      score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
+      score_ += s;
+    }
+}
+
 void
 Slur_configuration::score_encompass (Slur_score_state const &state)
 {
@@ -251,9 +262,8 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 	    / state.encompass_infos_.size ();
 	}
     }
-
-  Real variance_penalty = 0.0;
-
+  add_score (demerit, "encompass");
+  
   if (convex_head_distances.size ())
     {
       Real avg_distance = 0.0;
@@ -281,27 +291,21 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 	as penalty.
       */
       avg_distance /= n;
-      variance_penalty = state.parameters_.head_slur_distance_max_ratio_;
+      Real variance_penalty = state.parameters_.head_slur_distance_max_ratio_;
       if (min_dist > 0.0)
 	variance_penalty
 	  = min ((avg_distance / (min_dist + state.parameters_.absolute_closeness_measure_) - 1.0), variance_penalty);
 
       variance_penalty = max (variance_penalty, 0.0);
       variance_penalty *= state.parameters_.head_slur_distance_factor_;
+
+      add_score (variance_penalty, "variance");
     }
-
-#if DEBUG_SLUR_SCORING
-  score_card_ += to_string ("C%.2f", demerit);
-  score_card_ += to_string ("D%.2f", variance_penalty);
-#endif
-
-  score_ += demerit + variance_penalty;
 }
 
 void
 Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 {
-  Real demerit = 0.0;
   for (vsize j = 0; j < state.extra_encompass_infos_.size (); j++)
     {
       Drul_array<Offset> attachment = attachment_;
@@ -363,20 +367,14 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
       else
 	programming_error ("unknown avoidance type");
 
-      Real epsilon = 0.1;
-      Real factor
-	= (1.0 / (max (dist, 0.0) + epsilon * state.parameters_.extra_encompass_free_distance_));
-      Real threshold 
-	= 1.0 / ((1 + epsilon) * state.parameters_.extra_encompass_free_distance_);
+      dist = max (dist, 0.0);
       
-      demerit
-	+= max (info.penalty_ * (factor - threshold), 0.0);
+      Real penalty = info.penalty_ * peak_around (0.1 * state.parameters_.extra_encompass_free_distance_,
+						  state.parameters_.extra_encompass_free_distance_,
+						  dist);
+      
+      add_score (penalty, "extra");
     }
-#if DEBUG_SLUR_SCORING
-  score_card_ += to_string ("X%.2f", demerit);
-#endif
-  
-  score_ += demerit;
 }
 
 void
@@ -401,10 +399,7 @@ Slur_configuration::score_edges (Slur_score_state const &state)
       demerit *= exp (state.dir_ * d * slope
 		      * state.parameters_.edge_slope_exponent_);
 
-      score_ += demerit;
-#if DEBUG_SLUR_SCORING
-      score_card_ += to_string ("E%.2f", demerit);
-#endif
+      add_score (demerit, "edge");
     }
   while (flip (&d) != LEFT);
 }
@@ -447,14 +442,11 @@ Slur_configuration ::score_slopes (Slur_score_state const &state)
       ? state.parameters_.same_slope_penalty_ / 10
       : state.parameters_.same_slope_penalty_;
 
-#if DEBUG_SLUR_SCORING
-  score_card_ += to_string ("S%.2f", demerit);
-#endif
-  score_ += demerit;
+  add_score (demerit, "slope");
 }
 
 void
-Slur_configuration::score (Slur_score_state const &state)
+Slur_configuration::calculate_score (Slur_score_state const &state)
 {
   score_extra_encompass (state);
   score_slopes (state);

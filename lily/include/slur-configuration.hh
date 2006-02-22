@@ -15,21 +15,25 @@
 
 class Slur_configuration
 {
+  Real score_;
+  string score_card_;
+
 public:
   Drul_array<Offset> attachment_;
-  Real score_;
   Bezier curve_;
   Real height_;
 
   int index_;
 
-  string score_card_;
-
   Slur_configuration ();
 
+  Real score () const { return score_; }
+  string card () const { return score_card_; } 
+  void add_score (Real, string);
+  
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf,
 		       vector<Offset> const &);
-  void score (Slur_score_state const &);
+  void calculate_score (Slur_score_state const &);
 protected:
   void score_extra_encompass (Slur_score_state const &);
   void score_slopes (Slur_score_state const &);

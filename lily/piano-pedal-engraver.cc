@@ -220,7 +220,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       Music *m = p->event_drul_[START];
       if (!m) m = p->event_drul_ [STOP];
 
-      string msg = _f ("expect 3 strings for piano pedals, found: %d",
+      string msg = _f ("expect 3 strings for piano pedals, found: %ld",
 		       scm_ilength (strings));
       if (m)
 	m->origin ()->warning (msg);
@@ -511,16 +511,31 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 }
 
 #include "translator.icc"
+
 ADD_ACKNOWLEDGER (Piano_pedal_engraver, note_column);
+
 ADD_TRANSLATOR (Piano_pedal_engraver,
-		/* doc */ "Engrave piano pedal symbols and brackets.",
-		/* create */ "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
-		/* accept */ "pedal-event",
-		/* read */ "currentCommandColumn "
+
+		/* doc */
+		"Engrave piano pedal symbols and brackets.",
+
+		/* create */
+		"SostenutoPedal "
+		"SostenutoPedalLineSpanner "
+		"SustainPedal "
+		"SustainPedalLineSpanner "
+		"UnaCordaPedal "
+		"UnaCordaPedalLineSpanner ",
+
+		/* accept */
+		"pedal-event",
+
+		/* read */
+		"currentCommandColumn "
 		"pedalSostenutoStrings "
-		"pedalSustainStrings "
-		"pedalUnaCordaStrings "
 		"pedalSostenutoStyle "
+		"pedalSustainStrings "
 		"pedalSustainStyle "
+		"pedalUnaCordaStrings "
 		"pedalUnaCordaStyle",
 		/* write */ "");

@@ -43,3 +43,15 @@ directed_round (Real f, Direction d)
     return ceil (f);
 }
 
+
+
+/*
+   0 at threshold,  1 at 0, with 1/x falloff.
+ */
+Real
+peak_around (Real epsilon,  Real threshold, Real x)
+{
+  if (x < 0)
+    return 1.0;
+  return max (- epsilon * (x - threshold) / ((x + epsilon)  * threshold), 0.0);
+}

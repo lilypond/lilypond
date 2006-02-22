@@ -20,7 +20,7 @@
     (free-slur-distance . 0.8)
     (extra-object-collision-penalty . 50)
     (accidental-collision . 3)
-    (extra-encompass-free-distance . 0.3)
+    (extra-encompass-free-distance . 0.8)
     (head-slur-distance-max-ratio . 3)
     (head-slur-distance-factor . 10)
     (absolute-closeness-measure . 0.3)

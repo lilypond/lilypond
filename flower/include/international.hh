@@ -28,7 +28,8 @@ string _ (char const *ch);
    Internationalisation: _f ("Usage: %s [FILE]", "lilypond") gets "translated" by
    GNU gettext
 */
-string _f (char const *format, ...);
+string _f (char const *format, ...)
+  	   __attribute__ ((format (printf, 1, 2)));
 string _f (char const *format, string s, string s2 = "", string s3 = "");
 
 #endif // INTERNATIONAL_HH
