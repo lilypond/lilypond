@@ -727,7 +727,7 @@ details about complicated or unusual notation.
 explains how to fine tune layout.
 
 @item
-@emph{@ref{Output formats}}
+@emph{@ref{Global issues}}
 discusses issues which affect the global output, such as selecting
 paper size or which MIDI instruments to use.
 

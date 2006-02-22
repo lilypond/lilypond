@@ -269,7 +269,7 @@ of this and other documentation.
                                    instruments.
 * Advanced notation::              Less frequently used notation.
 * Changing defaults::              Tuning output.
-* Output formats::                 What LilyPond produces.
+* Global issues::                  What LilyPond produces.
 
 * Interfaces for programmers::
 * LilyPond-book::                  Integrating text and music.

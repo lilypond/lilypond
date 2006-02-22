@@ -15,6 +15,7 @@
 struct Slur_score_parameters
 {
   int region_size_;
+
   Real head_encompass_penalty_;
   Real stem_encompass_penalty_;
   Real closeness_factor_;
@@ -28,6 +29,7 @@ struct Slur_score_parameters
   Real accidental_collision_;
   Real free_slur_distance_;
   Real free_head_distance_;
+  Real extra_encompass_collision_distance_;
   Real extra_encompass_free_distance_;
   Real absolute_closeness_measure_;
   Real edge_slope_exponent_;
