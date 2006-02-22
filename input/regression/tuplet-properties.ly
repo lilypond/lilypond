@@ -25,11 +25,9 @@ for instance, bracketed (B) and non-bracketed (NB).
   \times 2/3 {  c8[ c c]  }
   
   \tupletUp
-  \override TupletBracket  #'number-visibility % number-visibility is deprecated. Tune the TupletNumber instead
- = ##f
+  \override TupletNumber #'transparent = ##t
   \times 2/3 { c8^""^""^"up, no digit"  c[ c]  }
-  \revert TupletBracket #'number-visibility % number-visibility is deprecated. Tune the TupletNumber instead
-
+  \revert TupletNumber #'transparent
 
   \override TupletBracket  #'bracket-visibility = ##t
   \override TupletBracket  #'edge-height = #'(0.0 . 0.0)
