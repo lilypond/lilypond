@@ -1,5 +1,7 @@
 2006-02-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/examples.itely (Ancient notation templates): typo.
+
 	* scripts/lilypond-book.py (main): scrap invokes_lilypond(). 
 
 	* Documentation/user/basic-notation.itely (Ties): document \repeatTie.
