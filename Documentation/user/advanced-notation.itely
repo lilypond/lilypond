@@ -28,12 +28,16 @@ This chapter deals with rarely-used and advanced notation.
 This section explains how to include text (with various formatting) in
 your scores.
 
+@cindex Text, other languages
+To write non-ascii text (such as characters from other languages), simply
+insert the characters directly into the lilypond file.  The file must be
+saved as UTF-8.  For more information, see @ref{Text encoding}.
+
 @menu
 * Text scripts::                
 * Text spanners::               
 * Text marks::                  
 * Text markup::                 
-* Text encoding::               
 * Nested scores::               
 * Overview of text markup commands::  
 * Font selection::              
@@ -365,59 +369,6 @@ backend is used.  In this case, LilyPond does not account for them so
 texts will be spaced slightly too wide.
 
 Syntax errors for markup mode are confusing.
-
-
-@node Text encoding
-@subsection Text encoding
-
-LilyPond uses the Pango library to format multi-lingual texts, and
-does not perform any input-encoding conversions.  This means that any
-text, be it title, lyric text, or musical instruction containing
-non-ASCII characters, must be utf-8.  Easiest to enter such texts is
-by using a Unicode-aware editor, and save using utf-8 encoding.  Most
-popular modern editors have utf-8 support, for example, vim, Emacs,
-jEdit, and GEdit do.
-
-Depending on the fonts installed, the following fragment shows Hebrew
-and Cyrillic lyrics,
-
-@cindex Cyrillic
-@cindex Hebrew
-@cindex ASCII, non
-
-@lilypondfile[fontload]{utf-8.ly}
-
-The @TeX{} backend does not handle encoding specially at all.  Strings
-in the input are put in the output as-is.  Extents of text items in the
-@TeX{} backend, are determined by reading a file created via the
-@file{texstr} backend,
-
-@example
-lilypond -b texstr input/les-nereides.ly
-latex les-nereides.texstr
-@end example
-
-The last command produces @file{les-nereides.textmetrics}, which is
-read when you execute
-
-@example
-lilypond -b tex input/les-nereides.ly
-@end example
-
-Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
-suitable LaTeX wrappers to load appropriate La@TeX{} packages for
-interpreting non-ASCII strings.
-
-To use a Unicode escape sequence, use
-
-@example
-#(ly:export (ly:wide-char->utf-8 #x2014))
-@end example
-
-
-@seealso
-
-@inputfileref{input/regression,utf-8.ly}
 
 
 @node Nested scores
@@ -1529,10 +1480,22 @@ In the 20th century, composers have greatly expanded the musical
 vocabulary.  With this expansion, many innovations in musical notation
 have been tried.  The book ``Music Notation in the 20th century'' by
 Kurt Stone gives a comprehensive overview (see @ref{Literature
-list}).  In general, the use of new, innovative notation makes a piece
-harder to understand and perform and its use should therefore be
-avoided.  For this reason, support for contemporary notation in
-LilyPond is limited.
+list}).
+
+This section describes notation that does
+not fit into traditional notation categories, such as pitches,
+tuplet beams, and articulation.  For contemporary notation
+that fits into traditional notation categories, such as
+microtones, nested tuplet beams, and unusual fermatas, please
+see those sections of the documentation.
+
+
+@c I don't think we should discourage modern composers who might
+@c want to sponsor new features.  :)
+@c  In general, the use of new, innovative notation makes a piece
+@c harder to understand and perform and its use should therefore be
+@c avoided.  For this reason, support for contemporary notation in
+@c LilyPond is limited.
 
 
 @menu

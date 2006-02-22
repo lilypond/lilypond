@@ -5,198 +5,536 @@
 @c     M-x texinfo-all-menus-update
 @c to automatically fill in these menus before saving changes
 
-@node Output formats
-@chapter Output formats
+@node Global issues
+@chapter Global issues
 
-This is a placeholder until I can write a nice intro for this chapter.
-
-@menu
-* Paper output::                
-* Sound output::                
-@end menu
-
-
-@node Paper output
-@section Paper output
-
-The global paper layout is determined by three factors: the page layout, the
-line breaks, and the spacing.  These all influence each other.  The
-choice of spacing determines how densely each system of music is set.
-This influences where line breaks are chosen, and thus ultimately, how
-many pages a piece of music takes.
-
-Globally spoken, this procedure happens in three steps: first,
-flexible distances (``springs'') are chosen, based on durations.  All
-possible line breaking combinations are tried, and the one with the
-best results -- a layout that has uniform density and requires as
-little stretching or cramping as possible -- is chosen.
-
-After spacing and linebreaking, the systems are distributed across
-pages, taking into account the size of the page, and the size of the
-titles.
-
-
+This section deals with general lilypond issues, rather than
+specific notation.
 
 @menu
-* Setting global staff size::   
-* Selecting notation font size::  
-* Paper size::                  
-* Page formatting::             
-* Score layout::                
-* Vertical spacing::            
-* Vertical spacing of piano staves::  
-* Horizontal spacing::          
-* Line length::                 
-* Line breaking::               
-* Page breaking::               
+* Input files::                 
+* Music expressions again::     
+* Titles and headers::          
+* Paper and pages::             
+* Music layout::                
 * Multiple movements::          
-* Creating titles::             
+* MIDI output::                 
 @end menu
 
 
-@node Setting global staff size
-@subsection Setting global staff size
+@node Input files
+@section Input files
 
-@cindex font size, setting
-@cindex staff size, setting
-@cindex @code{layout} file
+The main format of input for LilyPond are text files.  By convention,
+these files end with ``@code{.ly}''.
 
-To set the global staff size, use @code{set-global-staff-size}.
+@menu
+* File structure (introduction)::  
+* File structure::              
+* Including LilyPond files::    
+* Text encoding::               
+@end menu
+
+
+@node File structure (introduction)
+@subsection File structure (introduction)
+
+A basic example of a lilypond input file is
 
 @example
-#(set-global-staff-size 14)
+\version "2.8.0"
+\score @{
+  @{ @}     % this is a single music expression;
+            % all the music goes in here.
+  \header @{ @}
+  \layout @{ @}
+  \midi @{ @}
+@}
 @end example
 
 @noindent
-This sets the global default size to 14pt staff height and scales all
-fonts accordingly.
+There are many variations of this basic pattern, but this
+example serves as a useful starting place.
 
-The Feta font provides musical symbols at eight different
-sizes.  Each font is tuned for a different staff size: at a smaller size
-the font becomes heavier, to match the relatively heavier staff lines.
-The recommended font sizes are listed in the following table:
+The major part of this manual is concerned with entering various
+forms of music in LilyPond.  However, many music expressions are not
+valid input on their own, for example, a @code{.ly} file containing
+only a note
+@example
+c'4
+@end example
 
-@quotation
-@multitable @columnfractions .15 .2 .22 .2
+@noindent
+will result in a parsing error.  Instead, music should be inside other
+expressions, which may be put in a file by themselves.  Such
+expressions are called toplevel expressions.  The next section enumerates
+them all.
 
-@item @b{font name}
-@tab @b{staff height (pt)}
-@tab @b{staff height (mm)}
-@tab @b{use}
 
-@item feta11
-@tab 11.22
-@tab 3.9 
-@tab pocket scores
+@node File structure
+@subsection File structure
 
-@item feta13
-@tab 12.60
-@tab 4.4
-@tab
- 
-@item feta14
-@tab 14.14
-@tab 5.0
-@tab 
+A @code{.ly} file contains any number of toplevel expressions, where a
+toplevel expression is one of the following
 
-@item feta16
-@tab 15.87
-@tab 5.6
-@tab 
+@itemize @bullet
+@item
+An output definition, such as @code{\paper}, @code{\midi}, and
+@code{\layout}.  Such a definition at the toplevel changes the default
+settings for the block entered.
 
-@item feta18
-@tab 17.82
-@tab 6.3
-@tab song books
+@item
+A @code{\header} block.  This sets the global header block.  This
+is the block containing the definitions for book-wide settings, like
+composer, title, etc. 
 
-@item feta20
-@tab 20
-@tab 7.0
-@tab standard parts 
+@item
+An @code{\addquote} statement.  See @ref{Quoting other voices}
+for more information.
 
-@item feta23
-@tab 22.45 
-@tab 7.9
-@tab 
+@item
+A @code{\score} block.  This score will be collected with other
+toplevel scores, and combined as a single @code{\book}.
 
-@item feta26
-@tab 25.2 
-@tab 8.9
-@tab
-@c modern rental material?
+This behavior can be changed by setting the variable
+@code{toplevel-score-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
 
-@end multitable
-@end quotation
+The @code{\score} must begin with music, and may contain only
+one music block.
 
-These fonts are available in any sizes.  The context property
-@code{fontSize} and the layout property @code{staff-space} (in
-@internalsref{StaffSymbol}) can be used to tune the size for individual
-staves.  The sizes of individual staves are relative to the global size.
+@item
+A @code{\book} block logically combines multiple movements
+(i.e., multiple @code{\score} blocks) in one document.  A number of
+@code{\scores} creates a single output file, where all movement are
+concatenated.
+
+This behavior can be changed by setting the variable
+@code{toplevel-book-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
+
+@item
+A compound music expression, such as
+@example
+@{ c'4 d' e'2 @}
+@end example
+
+This will add the piece in a @code{\score} and format it in a
+single book together with all other toplevel @code{\score}s and music
+expressions.  In other words, a file containing only the above
+music expression will be translated into
 
 @example
-
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        @{ c'4 d' e'2 @}
+      @}
+    @}
+  @}
+	\layout @{ @}
+	\header @{ @}
+@}
 @end example
+ 
+This behavior can be changed by setting the variable
+@code{toplevel-music-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
+
+@item
+A markup text, a verse for example
+@example
+\markup @{
+   2.  The first line verse two.
+@}
+@end example
+
+Markup texts are rendered above, between or below the scores or music
+expressions, wherever they appear.
+
+@item
+An identifier, such as
+@example
+foo = @{ c4 d e d @}
+@end example
+
+This can be used later on in the file by entering @code{\foo}.  The
+name of an identifier should have alphabetic characters only; no
+numbers, underscores or dashes.
+
+@end itemize
+
+The following example shows three things that may be entered at
+toplevel
+
+@example
+\layout @{
+  % movements are non-justified by default    
+  ragged-right = ##t
+@}
+
+\header @{
+   title = "Do-re-mi"
+@}
+   
+@{ c'4 d' e2 @}
+@end example
+
+
+At any point in a file, any of the following lexical instructions can
+be entered:
+
+@itemize @bullet
+@item @code{\version}
+@item @code{\include}
+@item @code{\renameinput}
+@end itemize 
+
+
+@node Including LilyPond files
+@subsection Including LilyPond files
+
+@cindex @code{\include}
+@cindex including files
+
+A large project may be split up into separate files.  To refer to another
+file, use
+
+@example
+\include "otherfile.ly"
+@end example
+
+The line @code{\include "file.ly"} is equivalent to pasting the contents
+of file.ly into the current file at the place where you have the
+\include.  For example, for a large project you might write separate files
+for each instrument part and create a ``full score'' file which brings
+together the individual instrument files.
+
+The initialization of LilyPond is done in a number of files that are
+included by default when you start the program, normally transparent to the
+user.  Run lilypond --verbose to see a list of paths and files that Lily
+finds.
+
+Files placed in directory @file{PATH/TO/share/lilypond/VERSION/ly/} (where
+VERSION is in the form ``2.6.1'') are on the path and available to
+@code{\include}.  Files in the
+current working directory are available to \include, but a file of the same
+name in LilyPond's installation takes precedence.  Files are
+available to \include from directories in the search path specified as an
+option when invoking @code{lilypond --include=DIR} which adds DIR to the search
+path.
+
+The @code{\include} statement can use full path information, but with the Unix
+convention @code{"/"} rather than the DOS/Windows @code{"\"}.  For example,
+if @file{stuff.ly} is located one directory higher than the current working
+directory, use
+
+@example
+\include "../stuff.ly"
+@end example
+
+
+@node Text encoding
+@subsection Text encoding
+
+LilyPond uses the Pango library to format multi-lingual texts, and
+does not perform any input-encoding conversions.  This means that any
+text, be it title, lyric text, or musical instruction containing
+non-ASCII characters, must be utf-8.  Easiest to enter such texts is
+by using a Unicode-aware editor, and save using utf-8 encoding.  Most
+popular modern editors have utf-8 support, for example, vim, Emacs,
+jEdit, and GEdit do.
+
+Depending on the fonts installed, the following fragment shows Hebrew
+and Cyrillic lyrics,
+
+@cindex Cyrillic
+@cindex Hebrew
+@cindex ASCII, non
+
+@lilypondfile[fontload]{utf-8.ly}
+
+The @TeX{} backend does not handle encoding specially at all.  Strings
+in the input are put in the output as-is.  Extents of text items in the
+@TeX{} backend, are determined by reading a file created via the
+@file{texstr} backend,
+
+@example
+lilypond -b texstr input/les-nereides.ly
+latex les-nereides.texstr
+@end example
+
+The last command produces @file{les-nereides.textmetrics}, which is
+read when you execute
+
+@example
+lilypond -b tex input/les-nereides.ly
+@end example
+
+Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
+suitable LaTeX wrappers to load appropriate La@TeX{} packages for
+interpreting non-ASCII strings.
+
+To use a Unicode escape sequence, use
+
+@example
+#(ly:export (ly:wide-char->utf-8 #x2014))
+@end example
+
 
 @seealso
 
-This manual: @ref{Selecting notation font size}.
+@inputfileref{input/regression,utf-8.ly}
 
 
-@node Selecting notation font size
-@subsection Selecting notation font size
 
-The easiest method of setting the font size of any context, is by
-setting the @code{fontSize} property.
+@c  FIXME: --must-- delete/modify this before 2.8.0!!!  -gp
+@node Music expressions again
+@section Music expressions again
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
-\set fontSize = #-4
-c f
-\set fontSize = #3
-g
+Should we include anything about this here?
+
+
+@node Titles and headers
+@section Titles and headers
+
+Almost all printed music includes a title and the composer's name;
+some pieces include a lot more information.
+
+@menu
+* Creating titles::             
+* Custom titles::               
+@end menu
+
+
+@node Creating titles
+@subsection Creating titles
+
+Titles are created for each @code{\score} block, and over a
+@code{\book}.
+
+The contents of the titles are taken from the @code{\header} blocks.
+The header block for a book supports the following
+@table @code
+@item dedication
+The dedicatee of the music, centered at the top of the first page.
+
+@item title
+The title of the music, centered just below the dedication.
+
+@item subtitle
+Subtitle, centered below the title.
+
+@item subsubtitle
+Subsubtitle, centered below the subtitle.
+
+@item poet
+Name of the poet, flush-left below the subtitle.
+
+@item composer
+Name of the composer, flush-right below the subtitle.
+
+@item meter
+Meter string, flush-left below the poet.
+
+@item opus
+Name of the opus, flush-right below the composer.
+
+@item arranger
+Name of the arranger, flush-right below the opus.
+
+@item instrument
+Name of the instrument, centered below the arranger.  Also
+centered at the top of pages (other than the first page).
+
+@item piece
+Name of the piece, flush-left below the instrument.
+
+@cindex page breaks, forcing
+@item breakbefore
+This forces the title to start on a new page (set to ##t or ##f).
+
+@item copyright
+Copyright notice, centered at the bottom of the first page.  To
+insert the copyright symbol, see @ref{Text encoding}.
+
+@item tagline
+Centered at the bottom of the last page.
+
+@end table
+
+Here is a demonstration of the fields available.  Note that you
+may use any @ref{Text markup} commands in the header.
+
+@lilypond[quote,verbatim,line-width=11.0\cm]
+\paper {
+  line-width = 9.0\cm
+  paper-height = 10.0\cm
+}
+
+\book {
+  \header {
+    dedication = "dedicated to me"
+    title = \markup \center-align { "Title first line" "Title second line, longer" }
+    subtitle = "the subtitle,"
+    subsubtitle = #(string-append "subsubtitle LilyPond version " (lilypond-version))
+    poet = "Poet"
+    composer =  \markup \center-align { "composer" \small "(1847-1973)" }
+    texttranslator = "Text Translator"
+    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge "r" }
+    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize #-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "nger" }
+    instrument = \markup \bold \italic "instrument"
+    piece = "Piece"
+  }
+
+  \score {
+    { c'1 }
+    \header {
+      piece = "piece1"
+      opus = "opus1" 
+    }
+  }
+  \markup {
+      and now...
+  }
+  \score {
+    { c'1 }
+    \header {
+      piece = "piece2"
+      opus = "opus2" 
+    }
+  }
+}
 @end lilypond
 
+As demonstrated before, you can use multiple @code{\header} blocks. 
+When same fields appear in different blocks, the latter is used.  
+Here is a short example.
+
+@example 
+\header @{
+  composer = "Composer"
+@}
+\header @{
+  title = "Title"
+@}
+\score @{
+  \new Staff @{ c'4 @}
+  \header @{
+    title = "New title"  % overwrite previous one
+  @}
+@}
+@end example
+
+If you define the @code{\header} inside the @code{\score} block, then
+normally only the @code{piece} and @code{opus} headers will be printed.
+Note that the music expression must come before the @code{\header}.
+
+@lilypond[quote,verbatim,line-width=11.0\cm]
+\score {
+  { c'4 }
+  \header {
+    title = "title"  % not printed
+    piece = "piece"
+    opus = "opus"
+  }
+}
+@end lilypond
+
+@cindex @code{printallheaders}
 @noindent
-It does not change the size of variable symbols, such as beams or
-slurs.
+You may change this behavior (and print all the headers when defining
+@code{\header} inside @code{\score}) by using
 
-Internally, the @code{fontSize} context property will cause the
-@code{font-size} property to be set in all layout objects.  The value
-of @code{font-size} is a number indicating the size relative to the
-standard size for the current staff height.  Each step up is an
-increase of approximately 12% of the font size.  Six steps is exactly a
-factor two.  The Scheme function @code{magstep} converts a
-@code{font-size} number to a scaling factor.
+@example
+\paper@{
+  printallheaders=##t
+@}
+@end example
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
-\override NoteHead #'font-size = #-4
-c f
-\override NoteHead #'font-size = #3
-g
-@end lilypond
 
-LilyPond has fonts in different design sizes.  The music fonts for
-smaller sizes are chubbier, while the text fonts are relatively wider.
-Font size changes are achieved by scaling the design size that is
-closest to the desired size.  The standard font size (for
-@code{font-size} equals 0), depends on the standard staff height.  For
-a 20pt staff, a 10pt font is selected.
+@node Custom titles
+@subsection Custom titles
 
-The @code{font-size} property can only be set on layout objects that
-use fonts. These are the ones supporting the
-@internalsref{font-interface} layout interface.
+A more advanced option is to change the definitions of the following
+variables in the @code{\paper} block.  The init file
+@file{ly/titling-init.ly} lists the default layout.
 
-@refcommands
+@table @code
+@cindex @code{bookTitleMarkup}
+@item bookTitleMarkup
+  This is the title put over an entire @code{\book} block.  Typically,
+  it has the composer and the title of the piece
+  
+@cindex @code{scoreTitleMarkup}
+@item scoreTitleMarkup
+  This is the title put over a @code{\score} block within a
+@code{\book}.  Typically, it has the name of the movement (@code{piece}
+field).
 
-The following commands set @code{fontSize} for the current voice:
+@cindex @code{oddHeaderMarkup}
+@item oddHeaderMarkup
+  This is the page header for odd-numbered pages. 
 
-@cindex @code{\tiny}
-@code{\tiny}, 
-@cindex @code{\small}
-@code{\small}, 
-@cindex @code{\normalsize}
-@code{\normalsize}.
+@cindex @code{evenHeaderMarkup}
+@item evenHeaderMarkup
+  This is the page header for even-numbered pages.  If unspecified,
+  the odd header is used instead.
+
+  By default, headers are defined such that the page number is on the
+  outside edge, and the instrument is centered.
+
+@cindex @code{oddFooterMarkup}
+@item oddFooterMarkup
+  This is the page footer for odd-numbered pages. 
+  
+@cindex @code{evenFotterMarkup}
+@item evenFooterMarkup
+  This is the page footer for even-numbered pages.  If unspecified,
+  the odd header is used instead.
+
+  By default, the footer has the copyright notice on the first, and
+  the tagline on the last page.
+@end table
+
+
+@cindex \paper
+@cindex header
+@cindex footer
+@cindex page layout
+@cindex titles
+
+The following definition will put the title flush left, and the
+composer flush right on a single line.
+
+@verbatim
+\paper {
+  bookTitleMarkup = \markup {
+   \fill-line {
+     \fromproperty #'header:title
+     \fromproperty #'header:composer
+   }
+  }
+}
+@end verbatim
+
+
+@refbugs
+
+The @code{breakbefore=##t} header requires that there is a @code{piece} header as well.  It may be used as a normal header, or left  blank (@code{=""}) as in the example above, but it must be present.
+
+
+
+@node Paper and pages
+@section Paper and pages
+
+This section deals with the display of music on physical paper.
+
+@menu
+* Paper size::                  
+* Page formatting::             
+@end menu
 
 
 @node Paper size
@@ -438,6 +776,187 @@ values of @code{left-margin} and @code{line-width}.
 
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
+
+
+
+@node Music layout
+@section Music layout
+
+This section deals with the manner in which the music is printed
+within the boundaries defined by the @code{\paper} block.
+
+The global paper layout is determined by three factors: the page layout, the
+line breaks, and the spacing.  These all influence each other.  The
+choice of spacing determines how densely each system of music is set.
+This influences where line breaks are chosen, and thus ultimately, how
+many pages a piece of music takes.
+
+Globally spoken, this procedure happens in three steps: first,
+flexible distances (``springs'') are chosen, based on durations.  All
+possible line breaking combinations are tried, and the one with the
+best results -- a layout that has uniform density and requires as
+little stretching or cramping as possible -- is chosen.
+
+After spacing and linebreaking, the systems are distributed across
+pages, taking into account the size of the page, and the size of the
+titles.
+
+@menu
+* Setting global staff size::   
+* Selecting notation font size::  
+* Score layout::                
+* Vertical spacing::            
+* Vertical spacing of piano staves::  
+* Horizontal spacing::          
+* Line length::                 
+* Line breaking::               
+* Page breaking::               
+@end menu
+
+
+@node Setting global staff size
+@subsection Setting global staff size
+
+@cindex font size, setting
+@cindex staff size, setting
+@cindex @code{layout} file
+
+To set the global staff size, use @code{set-global-staff-size}.
+
+@example
+#(set-global-staff-size 14)
+@end example
+
+@noindent
+This sets the global default size to 14pt staff height and scales all
+fonts accordingly.
+
+The Feta font provides musical symbols at eight different
+sizes.  Each font is tuned for a different staff size: at a smaller size
+the font becomes heavier, to match the relatively heavier staff lines.
+The recommended font sizes are listed in the following table:
+
+@quotation
+@multitable @columnfractions .15 .2 .22 .2
+
+@item @b{font name}
+@tab @b{staff height (pt)}
+@tab @b{staff height (mm)}
+@tab @b{use}
+
+@item feta11
+@tab 11.22
+@tab 3.9 
+@tab pocket scores
+
+@item feta13
+@tab 12.60
+@tab 4.4
+@tab
+ 
+@item feta14
+@tab 14.14
+@tab 5.0
+@tab 
+
+@item feta16
+@tab 15.87
+@tab 5.6
+@tab 
+
+@item feta18
+@tab 17.82
+@tab 6.3
+@tab song books
+
+@item feta20
+@tab 20
+@tab 7.0
+@tab standard parts 
+
+@item feta23
+@tab 22.45 
+@tab 7.9
+@tab 
+
+@item feta26
+@tab 25.2 
+@tab 8.9
+@tab
+@c modern rental material?
+
+@end multitable
+@end quotation
+
+These fonts are available in any sizes.  The context property
+@code{fontSize} and the layout property @code{staff-space} (in
+@internalsref{StaffSymbol}) can be used to tune the size for individual
+staves.  The sizes of individual staves are relative to the global size.
+
+@example
+
+@end example
+
+@seealso
+
+This manual: @ref{Selecting notation font size}.
+
+
+@node Selecting notation font size
+@subsection Selecting notation font size
+
+The easiest method of setting the font size of any context, is by
+setting the @code{fontSize} property.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\set fontSize = #-4
+c f
+\set fontSize = #3
+g
+@end lilypond
+
+@noindent
+It does not change the size of variable symbols, such as beams or
+slurs.
+
+Internally, the @code{fontSize} context property will cause the
+@code{font-size} property to be set in all layout objects.  The value
+of @code{font-size} is a number indicating the size relative to the
+standard size for the current staff height.  Each step up is an
+increase of approximately 12% of the font size.  Six steps is exactly a
+factor two.  The Scheme function @code{magstep} converts a
+@code{font-size} number to a scaling factor.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\override NoteHead #'font-size = #-4
+c f
+\override NoteHead #'font-size = #3
+g
+@end lilypond
+
+LilyPond has fonts in different design sizes.  The music fonts for
+smaller sizes are chubbier, while the text fonts are relatively wider.
+Font size changes are achieved by scaling the design size that is
+closest to the desired size.  The standard font size (for
+@code{font-size} equals 0), depends on the standard staff height.  For
+a 20pt staff, a 10pt font is selected.
+
+The @code{font-size} property can only be set on layout objects that
+use fonts. These are the ones supporting the
+@internalsref{font-interface} layout interface.
+
+@refcommands
+
+The following commands set @code{fontSize} for the current voice:
+
+@cindex @code{\tiny}
+@code{\tiny}, 
+@cindex @code{\small}
+@code{\small}, 
+@cindex @code{\normalsize}
+@code{\normalsize}.
 
 
 @node Score layout
@@ -938,7 +1457,7 @@ The @code{breakbefore=##t} header requires that there is a @code{piece} header a
 
 
 @node Multiple movements
-@subsection Multiple movements
+@section Multiple movements
 
 @cindex bibliographic information
 @cindex titles
@@ -1016,225 +1535,9 @@ the top of the file is inserted.
 @end example
 
 
-@node Creating titles
-@subsection Creating titles
 
-Titles are created for each @code{\score} block, and over a
-@code{\book}.
-
-The contents of the titles are taken from the @code{\header} blocks.
-The header block for a book supports the following
-@table @code
-@item dedication
-The dedicatee of the music, centered at the top of the first page.
-
-@item title
-The title of the music, centered just below the dedication.
-
-@item subtitle
-Subtitle, centered below the title.
-
-@item subsubtitle
-Subsubtitle, centered below the subtitle.
-
-@item poet
-Name of the poet, flush-left below the subtitle.
-
-@item composer
-Name of the composer, flush-right below the subtitle.
-
-@item meter
-Meter string, flush-left below the poet.
-
-@item opus
-Name of the opus, flush-right below the composer.
-
-@item arranger
-Name of the arranger, flush-right below the opus.
-
-@item instrument
-Name of the instrument, centered below the arranger.  Also
-centered at the top of pages (other than the first page).
-
-@item piece
-Name of the piece, flush-left below the instrument.
-
-@cindex page breaks, forcing
-@item breakbefore
-This forces the title to start on a new page (set to ##t or ##f).
-
-@item copyright
-Copyright notice, centered at the bottom of the first page.  To
-insert the copyright symbol, see @ref{Text encoding}.
-
-@item tagline
-Centered at the bottom of the last page.
-
-@end table
-
-Here is a demonstration of the fields available.  Note that you
-may use any @ref{Text markup} commands in the header.
-
-@lilypond[quote,verbatim,line-width=11.0\cm]
-\paper {
-  line-width = 9.0\cm
-  paper-height = 10.0\cm
-}
-
-\book {
-  \header {
-    dedication = "dedicated to me"
-    title = \markup \center-align { "Title first line" "Title second line, longer" }
-    subtitle = "the subtitle,"
-    subsubtitle = #(string-append "subsubtitle LilyPond version " (lilypond-version))
-    poet = "Poet"
-    composer =  \markup \center-align { "composer" \small "(1847-1973)" }
-    texttranslator = "Text Translator"
-    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge "r" }
-    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize #-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "nger" }
-    instrument = \markup \bold \italic "instrument"
-    piece = "Piece"
-  }
-
-  \score {
-    { c'1 }
-    \header {
-      piece = "piece1"
-      opus = "opus1" 
-    }
-  }
-  \markup {
-      and now...
-  }
-  \score {
-    { c'1 }
-    \header {
-      piece = "piece2"
-      opus = "opus2" 
-    }
-  }
-}
-@end lilypond
-
-As demonstrated before, you can use multiple @code{\header} blocks. 
-When same fields appear in different blocks, the latter is used.  
-Here is a short example.
-
-@example 
-\header @{
-  composer = "Composer"
-@}
-\header @{
-  title = "Title"
-@}
-\score @{
-  \new Staff @{ c'4 @}
-  \header @{
-    title = "New title"  % overwrite previous one
-  @}
-@}
-@end example
-
-If you define the @code{\header} inside the @code{\score} block, then
-normally only the @code{piece} and @code{opus} headers will be printed.
-Note that the music expression must come before the @code{\header}.
-
-@lilypond[quote,verbatim,line-width=11.0\cm]
-\score {
-  { c'4 }
-  \header {
-    title = "title"  % not printed
-    piece = "piece"
-    opus = "opus"
-  }
-}
-@end lilypond
-
-@cindex @code{printallheaders}
-@noindent
-You may change this behavior (and print all the headers when defining
-@code{\header} inside @code{\score}) by using
-
-@example
-\paper@{
-  printallheaders=##t
-@}
-@end example
-
-
-@commonprop
-
-A more advanced option is to change the definitions of the following
-variables in the @code{\paper} block.  The init file
-@file{ly/titling-init.ly} lists the default layout.
-
-@table @code
-@cindex @code{bookTitleMarkup}
-@item bookTitleMarkup
-  This is the title put over an entire @code{\book} block.  Typically,
-  it has the composer and the title of the piece
-  
-@cindex @code{scoreTitleMarkup}
-@item scoreTitleMarkup
-  This is the title put over a @code{\score} block within a
-@code{\book}.  Typically, it has the name of the movement (@code{piece}
-field).
-
-@cindex @code{oddHeaderMarkup}
-@item oddHeaderMarkup
-  This is the page header for odd-numbered pages. 
-
-@cindex @code{evenHeaderMarkup}
-@item evenHeaderMarkup
-  This is the page header for even-numbered pages.  If unspecified,
-  the odd header is used instead.
-
-  By default, headers are defined such that the page number is on the
-  outside edge, and the instrument is centered.
-
-@cindex @code{oddFooterMarkup}
-@item oddFooterMarkup
-  This is the page footer for odd-numbered pages. 
-  
-@cindex @code{evenFotterMarkup}
-@item evenFooterMarkup
-  This is the page footer for even-numbered pages.  If unspecified,
-  the odd header is used instead.
-
-  By default, the footer has the copyright notice on the first, and
-  the tagline on the last page.
-@end table
-
-
-@cindex \paper
-@cindex header
-@cindex footer
-@cindex page layout
-@cindex titles
-
-The following definition will put the title flush left, and the
-composer flush right on a single line.
-
-@verbatim
-\paper {
-  bookTitleMarkup = \markup {
-   \fill-line {
-     \fromproperty #'header:title
-     \fromproperty #'header:composer
-   }
-  }
-}
-@end verbatim
-
-
-@refbugs
-
-The @code{breakbefore=##t} header requires that there is a @code{piece} header as well.  It may be used as a normal header, or left  blank (@code{=""}) as in the example above, but it must be present.
-
-
-
-@node Sound output
-@section Sound output
+@node MIDI output
+@section MIDI output
 
 @cindex Sound
 @cindex MIDI
