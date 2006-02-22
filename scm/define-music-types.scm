@@ -415,7 +415,8 @@ goes down).")
 	(types . (general-music repeated-music))
 	))
     (RepeatTieEvent
-     . ((description . "Ties for starting a second volta bracket.")
+     . (
+	(description . "Ties for starting a second volta bracket.")
 	(types . (general-music event repeat-tie-event))
 	))
     (Event
