@@ -531,7 +531,8 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
   Music *note = info.music_cause ();
   if (note
-      && note->is_mus_type ("note-event"))
+      && (note->is_mus_type ("note-event")
+	  || note->is_mus_type ("trill-span-event")))
     {
       /*
 	string harmonics usually don't have accidentals.
