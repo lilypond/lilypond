@@ -57,6 +57,8 @@ Slur_score_parameters::fill (Grob *me)
     = get_detail (details, ly_symbol2scm ("accidental-collision"));
   extra_encompass_free_distance_
     = get_detail (details, ly_symbol2scm ("extra-encompass-free-distance"));
+  extra_encompass_collision_distance_
+    = get_detail (details, ly_symbol2scm ("extra-encompass-collision-distance"));
   head_slur_distance_factor_
     = get_detail (details, ly_symbol2scm ("head-slur-distance-factor"));
   head_slur_distance_max_ratio_
