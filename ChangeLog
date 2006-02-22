@@ -1,3 +1,11 @@
+2006-02-22  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ invoking.itely, advanced-notation.itely,
+	global.itely: long-awaited "let's make chapter 10 not suck"
+	update.  Rearrange chapter 10; now called "global issues",
+	addresses file structure, etc.  Some info from other files
+	moved into global.itely.
+
 2006-02-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/examples.itely (Ancient notation templates): typo.
