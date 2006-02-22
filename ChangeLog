@@ -1,5 +1,7 @@
 2006-02-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (main): scrap invokes_lilypond(). 
+
 	* Documentation/user/basic-notation.itely (Ties): document \repeatTie.
 
 	* Documentation/topdocs/NEWS.tely (Top): document \repeatTie.
