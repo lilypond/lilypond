@@ -69,7 +69,7 @@ prepend_env_path (char const *key, string value)
   if (is_dir (value))
     {
       if (be_verbose_global)
-	progress_indication (_f ("%s=%s\n", key, value.c_str ())); 
+	progress_indication (_f ("%s=%s (prepend)\n", key, value.c_str ())); 
 
       if (char const *cur = getenv (key))
 	value += to_string (PATHSEP) + cur;
