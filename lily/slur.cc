@@ -115,6 +115,8 @@ Slur::print (SCM smob)
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
+      properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
+				 properties);
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
 				    (me->layout ()->self_scm (), properties,
 				     quant_score));

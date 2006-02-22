@@ -9,22 +9,24 @@
 
 
 #include "slur-scoring.hh"
-#include "libc-extension.hh"
-#include "slur-configuration.hh"
+
+#include "accidental-interface.hh"
 #include "beam.hh"
 #include "directional-element-interface.hh"
-#include "pointer-group-interface.hh"
-#include "slur.hh"
+#include "libc-extension.hh"
+#include "main.hh"
 #include "note-column.hh"
 #include "output-def.hh"
+#include "paper-column.hh"
 #include "pitch.hh"
+#include "pointer-group-interface.hh"
+#include "slur-configuration.hh"
+#include "slur.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "paper-column.hh"
-#include "accidental-interface.hh"
 
 /*
   TODO:
@@ -62,61 +64,6 @@ Slur_score_state::Slur_score_state ()
 Slur_score_state::~Slur_score_state ()
 {
   junk_pointers (configurations_);
-}
-
-Real
-get_detail (SCM alist, SCM sym)
-{
-  SCM entry = scm_assq (sym, alist);
-  return robust_scm2double (scm_is_pair (entry)
-			    ? scm_cdr (entry)
-			    : SCM_EOL,
-			    0.0);
-}
-
-void
-Slur_score_parameters::fill (Grob *me)
-{
-  SCM details = me->get_property ("details");
-
-  region_size_
-    = (int) get_detail (details, ly_symbol2scm ("region-size"));
-  head_encompass_penalty_
-    = get_detail (details, ly_symbol2scm ("head-encompass-penalty"));
-  stem_encompass_penalty_
-    = get_detail (details, ly_symbol2scm ("stem-encompass-penalty"));
-  closeness_factor_
-    = get_detail (details, ly_symbol2scm ("closeness-factor"));
-  edge_attraction_factor_
-    = get_detail (details, ly_symbol2scm ("edge-attraction-factor"));
-  same_slope_penalty_
-    = get_detail (details, ly_symbol2scm ("same-slope-penalty"));
-  steeper_slope_factor_
-    = get_detail (details, ly_symbol2scm ("steeper-slope-factor"));
-  non_horizontal_penalty_
-    = get_detail (details, ly_symbol2scm ("non-horizontal-penalty"));
-  max_slope_
-    = get_detail (details, ly_symbol2scm ("max-slope"));
-  max_slope_factor_
-    = get_detail (details, ly_symbol2scm ("max-slope-factor"));
-  free_head_distance_
-    = get_detail (details, ly_symbol2scm ("free-head-distance"));
-  absolute_closeness_measure_
-    = get_detail (details, ly_symbol2scm ("absolute-closeness-measure"));
-  extra_object_collision_penalty_
-    = get_detail (details, ly_symbol2scm ("extra-object-collision-penalty"));
-  accidental_collision_
-    = get_detail (details, ly_symbol2scm ("accidental-collision"));
-  extra_encompass_free_distance_
-    = get_detail (details, ly_symbol2scm ("extra-encompass-free-distance"));
-  head_slur_distance_factor_
-    = get_detail (details, ly_symbol2scm ("head-slur-distance-factor"));
-  head_slur_distance_max_ratio_
-    = get_detail (details, ly_symbol2scm ("head-slur-distance-max-ratio"));
-  free_slur_distance_
-    = get_detail (details, ly_symbol2scm ("free-slur-distance"));
-  edge_slope_exponent_
-    = get_detail (details, ly_symbol2scm ("edge-slope-exponent"));
 }
 
 Real
@@ -404,46 +351,49 @@ Slur_score_state::get_best_curve ()
   Real opt = 1e6;
 
 #if DEBUG_SLUR_SCORING
+  bool debug_slurs = to_boolean (slur_->layout ()
+				 ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
   SCM inspect_quants = slur_->get_property ("inspect-quants");
-  if (to_boolean (slur_->layout ()
-		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
+  if (debug_slurs
       && scm_is_pair (inspect_quants))
     {
       opt_idx = get_closest_index (inspect_quants);
-      configurations_[opt_idx]->score (*this);
-      opt = configurations_[opt_idx]->score_;
+      configurations_[opt_idx]->calculate_score (*this);
+      opt = configurations_[opt_idx]->score ();
     }
   else
 #endif
     {
       for (vsize i = 0; i < configurations_.size (); i++)
-	configurations_[i]->score (*this);
+	configurations_[i]->calculate_score (*this);
       for (vsize i = 0; i < configurations_.size (); i++)
 	{
-	  if (configurations_[i]->score_ < opt)
+	  if (configurations_[i]->score () < opt)
 	    {
-	      opt = configurations_[i]->score_;
+	      opt = configurations_[i]->score ();
 	      opt_idx = i;
 	    }
 	}
     }
 
 #if DEBUG_SLUR_SCORING
-  if (opt_idx >= 0)
+  if (debug_slurs)
     {
-      configurations_[opt_idx]->score_card_ += to_string ("=%.2f", opt);
-      configurations_[opt_idx]->score_card_ += to_string ("i%d", opt_idx);
-    }
-  else
-    {
-      programming_error ("No optimal slur found. Guessing 0.");
-      opt_idx = 0;
-    }
+      string total;
+      if (opt_idx >= 0)
+	{
+	  total = configurations_[opt_idx]->card ();
+	  total += to_string ("TOTAL=%.2f idx=%d", configurations_[opt_idx]->score (), opt_idx); 
+	}
+      else
+	{
+	  programming_error ("No optimal slur found. Guessing 0.");
+	  total = "no sol?";
+	}
   
-  // debug quanting
-  slur_->set_property ("quant-score",
-		       scm_makfrom0str (configurations_[opt_idx]->score_card_.c_str ()));
-
+      slur_->set_property ("quant-score",
+			   scm_makfrom0str (total.c_str ()));
+    }
 #endif
 
   return configurations_[opt_idx]->curve_;
@@ -796,7 +746,7 @@ Slur_score_state::get_extra_encompass_infos () const
 
 	  for (int k = 0; k < 3; k++)
 	    {
-	      Direction hdir = Direction (k / 2 - 1);
+	      Direction hdir = Direction (k - 1);
 
 	      /*
 		Only take bound into account if small slur starts
@@ -815,7 +765,7 @@ Slur_score_state::get_extra_encompass_infos () const
 	      Interval xext (-1, 1);
 	      xext = xext * (thickness_ * 2) + z[X_AXIS];
 	      Extra_collision_info info (small_slur,
-					 k - 1.0,
+					 hdir,
 					 xext,
 					 yext,
 					 parameters_.extra_object_collision_penalty_);

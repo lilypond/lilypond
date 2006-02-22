@@ -308,7 +308,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
     {
       Translator *t = get_translator (scm_car (s));
       if (!t)
-	warning (_f ("can't find: `%s'", s));
+	warning (_f ("can't find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
       else
 	{
 	  Translator *tr = t->clone ();

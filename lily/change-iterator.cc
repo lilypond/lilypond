@@ -88,7 +88,7 @@ Change_iterator::process (Moment m)
 
 	   last->translator_id_string () = get_change
 	   ()->change_to_id_string (); */
-	error (_f ("not changing to same context type: %s", to_type));
+	error (_f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ()));
       }
   else
     /* FIXME: uncomprehensable message */

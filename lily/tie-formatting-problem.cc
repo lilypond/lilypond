@@ -13,6 +13,7 @@
 #include "directional-element-interface.hh"
 #include "item.hh"
 #include "libc-extension.hh"
+#include "misc.hh"
 #include "note-head.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh" 
@@ -22,15 +23,6 @@
 #include "tie.hh"
 #include "warn.hh"
 
-/*
-   0 at threshold,  1 at 0, with 1/x falloff.
- */
-Real peak_around (Real epsilon,  Real threshold, Real x)
-{
-  if (x < 0)
-    return 1.0;
-  return max (- epsilon * (x - threshold) / ((x + epsilon)  * threshold), 0.0);
-}
 
 void
 Tie_formatting_problem::print_ties_configuration (Ties_configuration const *ties)

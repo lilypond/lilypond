@@ -30,7 +30,7 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
     {
       FT_Byte *buffer = (FT_Byte *) malloc (*length);
       if (buffer == NULL)
-	error (_f ("can't allocate %d bytes", *length));
+	error (_f ("can't allocate %lu bytes", *length));
 
       error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length);
       if (error_code)
