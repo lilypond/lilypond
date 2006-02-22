@@ -1,3 +1,9 @@
+2006-02-22 Erik Sandberg  <mandolaerik@gmail.com>
+
+	* input/regression/: upgraded syntax for some files.
+
+	* THANKS: Add bughunters.
+
 2006-02-22  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ invoking.itely, advanced-notation.itely,
