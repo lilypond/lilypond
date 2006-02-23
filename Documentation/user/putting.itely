@@ -289,9 +289,9 @@ e4^\markup{ \italic ritenuto } g b e
 The easiest solution is to increase the distance between the object
 (in this case text, but it could easily be fingerings or dynamics
 instead) and the note.  In LilyPond, this is called the
-@code{padding} property.  For most objects, it is around 1.0 or
-less (it varies with each object).  We want to increase it, so let's
-try 1.5
+@code{padding} property; it is measured in staff spaces.  For most
+objects, this value is around 1.0 or less (it varies with each
+object). We want to increase it, so let's try 1.5
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \once \override TextScript #'padding = #1.5
