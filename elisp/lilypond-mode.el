@@ -367,6 +367,13 @@ in LilyPond-include-path."
   (interactive)
   (LilyPond-command (LilyPond-command-menu "MidiAll") 'LilyPond-get-master-file))
 
+(defun count-matches-as-number (re)
+  "Count-matches in emacs 22 backwards-incompatibly returns a number"
+  (let ((result (count-matches re)))
+    (if (stringp result)
+	(string-to-number result)
+      result)))
+    
 (defun count-rexp (start end rexp)
   "Print number of found regular expressions in the region."
   (interactive "r")
@@ -374,7 +381,7 @@ in LilyPond-include-path."
     (save-restriction
       (narrow-to-region start end)
       (goto-char (point-min))
-      (count-matches rexp))))
+      (count-matches-as-number rexp))))
 
 (defun count-midi-words ()
   "Check number of midi-scores before the curser."
@@ -393,8 +400,8 @@ in LilyPond-include-path."
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
 			 (substring (LilyPond-get-master-file) 0 -3); suppose ".ly"
 		       LilyPond-region-file-prefix))
-	(allcount (string-to-number (substring (count-midi-words) 0 -12)))
-	(count (string-to-number (substring (count-midi-words-backwards) 0 -12))))
+	(allcount (count-midi-words))
+	(count (count-midi-words-backwards)))
     (concat  fnameprefix
 	     (if (and (> allcount 1) (> count 0)) ; not first score
 		 (if (eq count allcount)          ; last score
@@ -407,7 +414,7 @@ in LilyPond-include-path."
   (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
 			 (substring (LilyPond-get-master-file) 0 -3); suppose ".ly"
 		       LilyPond-region-file-prefix))
-	(allcount (string-to-number (substring (count-midi-words) 0 -12))))
+	(allcount (count-midi-words)))
     (concat (if (> allcount 0)  ; at least one midi-score
 		(concat fnameprefix ".midi "))
 	    (if (> allcount 1)  ; more than one midi-score
