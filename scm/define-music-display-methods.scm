@@ -726,17 +726,16 @@ Otherwise, return #f."
 
 (define-display-method ContextSpeccedMusic (expr)
   (let ((id    (ly:music-property expr 'context-id))
+        (create-new (ly:music-property expr 'create-new))
 	(music (ly:music-property expr 'element))
 	(operations (ly:music-property expr 'property-operations))
 	(ctype (ly:music-property expr 'context-type)))
     (format #f "~a ~a~a~a ~a"
-	    (if (and (not (null? id)) 
-		     (equal? id "$uniqueContextId"))
+	    (if (and (not (null? create-new)) create-new)
 		"\\new"
 		"\\context")
 	    ctype
-	    (if (or (null? id)
-		    (equal? id "$uniqueContextId"))
+	    (if (null? id)
 		""
 		(format #f " = ~s" id))
 	    (if (null? operations)
@@ -756,7 +755,7 @@ Otherwise, return #f."
 ;; special cases: \figures \lyrics \drums
 (define-extra-display-method ContextSpeccedMusic (expr)
   (with-music-match (expr (music 'ContextSpeccedMusic
-				 context-id "$uniqueContextId"
+                                 create-new #t
 				 property-operations ?op
 				 context-type ?context-type
 				 element ?sequence))
@@ -929,15 +928,11 @@ Otherwise, return #f."
 (define-extra-display-method ContextSpeccedMusic (expr)
   "If `expr' is a bar, return \"\\bar ...\".
 Otherwise, return #f."
-  (with-music-match (expr (music
-			   'ContextSpeccedMusic
-			   element (music
-				    'ContextSpeccedMusic
-				    context-type 'Timing
-				    element (music
-					     'PropertySet
-					     value ?bar-type
-					     symbol 'whichBar))))
+  (with-music-match (expr (music 'ContextSpeccedMusic
+                                 context-type 'Timing
+                                 element (music 'PropertySet
+                                                value ?bar-type
+                                                symbol 'whichBar)))
      (format #f "\\bar \"~a\"~a" ?bar-type (new-line->lily-string))))
 
 ;;; \partial
@@ -986,20 +981,20 @@ Otherwise, return #f."
 ;;;
 
 (define-display-method ApplyOutputEvent (applyoutput)
-  (let ((proc (ly:music-property applyoutput 'procedure))))
-    (format #f "\\applyoutput #~a"
+  (let ((proc (ly:music-property applyoutput 'procedure)))
+    (format #f "\\applyOutput #~a"
 	    (or (procedure-name proc)
 		(with-output-to-string
 		  (lambda ()
-		    (pretty-print (procedure-source proc)))))))
+		    (pretty-print (procedure-source proc))))))))
 
 (define-display-method ApplyContext (applycontext)
-  (let ((proc (ly:music-property applycontext 'procedure))))
-    (format #f "\\applycontext #~a"
+  (let ((proc (ly:music-property applycontext 'procedure)))
+    (format #f "\\applyContext #~a"
 	    (or (procedure-name proc)
 		(with-output-to-string
 		  (lambda ()
-		    (pretty-print (procedure-source proc)))))))
+		    (pretty-print (procedure-source proc))))))))
 
 ;;; \partcombine
 (define-display-method PartCombineMusic (expr)
@@ -1065,13 +1060,11 @@ Otherwise, return #f."
   (with-music-match (expr (music 'SimultaneousMusic
 				 elements ((music 'ContextSpeccedMusic
 						  context-id ?id
-						  ;;property-operations '()
 						  context-type 'Voice
 						  element ?note-sequence)
 					   (music 'ContextSpeccedMusic
-						  context-id "$uniqueContextId"
-						  ;;property-operations '()
 						  context-type 'Lyrics
+                                                  create-new #t
 						  element (music 'LyricCombineMusic
 								 associated-context ?associated-id
 								 element ?lyric-sequence)))))
