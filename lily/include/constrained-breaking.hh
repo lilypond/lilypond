@@ -12,16 +12,16 @@
 
 #include "break-algorithm.hh"
 
-/**
+/*
    Helper to trace back an optimal path
 */
 struct Constrained_break_node
 {
-  /** the number of bars in all the systems before this one
-   */
+  /* the number of bars in all the systems before this one
+  */
   int prev_;
 
-  /** unlike the Gourlay breaker, this is the sum of all demerits up to,
+  /* unlike the Gourlay breaker, this is the sum of all demerits up to,
    * and including, this line */
   Real demerits_;
   Real force_;
@@ -44,7 +44,7 @@ struct Constrained_break_node
   }
 };
 
-/**
+/*
    A dynamic programming solution to breaking scores into lines
 */
 class Constrained_breaking : public Break_algorithm
@@ -54,27 +54,29 @@ public:
   Constrained_breaking ();
   Constrained_breaking (std::vector<int> const &start_col_posns);
 
-  std::vector<Column_x_positions> get_solution(int start, int end, int sys_count);
-  Real get_demerits (int start, int end, int sys_count);
-  Real get_force (int start, int end, int sys_count);
-  Real get_penalty (int start, int end, int sys_count);
-  int get_max_systems (int start, int end);
-  int get_min_systems (int start, int end);
+  std::vector<Column_x_positions> get_solution(vsize start, vsize end, vsize sys_count);
+  Real get_demerits (vsize start, vsize end, vsize sys_count);
+  Real get_force (vsize start, vsize end, vsize sys_count);
+  Real get_penalty (vsize start, vsize end, vsize sys_count);
+  int get_max_systems (vsize start, vsize end);
+  int get_min_systems (vsize start, vsize end);
 
   /* get the page penalty of system number sys with the given breaking */
-  Real get_page_penalty (int start, int end, int sys_count, int sys);
+  Real get_page_penalty (vsize start, vsize end, vsize sys_count, vsize sys);
 
-  int systems_;
+  void resize (vsize systems);
+
 private:
-  int valid_systems_;
+  vsize valid_systems_;
+  vsize systems_;
 
-  /* the (i,j)th entry is the column configuration for breaking
-  between columns i and j */
+  /* the (i,j)th entry is the column configuration for breaking between
+    columns i and j */
   std::vector<Column_x_positions> cols_;
-  int cols_rank_;
+  vsize cols_rank_;
 
   /* the [i](j,k)th entry is the score for fitting the first k bars onto the
-   first j systems, starting at the i'th allowed starting column */
+    first j systems, starting at the i'th allowed starting column */
   std::vector<std::vector<Constrained_break_node> > state_;
 
   vector<int> start_;         /* the columns at which we might be asked to start breaking */
@@ -83,12 +85,12 @@ private:
   vector<Grob*> all_;
   std::vector<int> breaks_;
 
-  void prepare_solution (vsize start, int end, int sys_count, int *rank, int *brk);
+  Column_x_positions space_line (vsize start_col, vsize end_col);
+  void prepare_solution (vsize start, vsize end, vsize sys_count, vsize *rank, vsize *brk);
 
   void combine_demerits (Column_x_positions const &, Column_x_positions const &,
-			 Real *force, Real *pen, Real *dem) const;
+                         Real *force, Real *pen, Real *dem) const;
 
-  bool calc_subproblem(int start, int systems, int max_break_index);
-  void resize ();
+  bool calc_subproblem(vsize start, vsize systems, vsize max_break_index);
 };
 #endif /* CONSTRAINED_BREAKING_HH */

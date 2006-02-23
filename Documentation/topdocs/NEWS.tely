@@ -64,6 +64,12 @@ which scares away people.
 
 @end ignore
 
+@item A score may now be specified to take a fixed number of
+systems, by setting the @code{system-count} variable in the
+@code{\layout} block.
+
+This feature was contributed by Joe Neeman.
+
 @item Ties may now be attached to the left side of a note with
 @code{\repeatTie}, for use with volta repeats.
 

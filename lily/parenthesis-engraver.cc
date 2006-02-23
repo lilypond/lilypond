@@ -70,7 +70,8 @@ ADD_TRANSLATOR (Parenthesis_engraver,
 		/* doc */ "Parenthesize objects whose music cause has the @code{parenthesize} "
 		"property.",
 		
-		/* create */ "ParenthesesItem",
+		/* create */
+		"ParenthesesItem ",
 		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

@@ -96,7 +96,7 @@
 (ly:add-interface
  'parentheses-interface
  "Parentheses for other objects"
- '())
+ '(padding))
 
 (ly:add-interface
  'piano-pedal-interface

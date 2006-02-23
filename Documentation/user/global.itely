@@ -660,6 +660,11 @@ If set to false, systems will be spread to fill the last page.
 Pieces that amply fill two pages or more should have this set to
 true.
 
+@cindex @code{system-count}
+@item system-count
+This variable, if set, specifies into how many lines a score should be
+broken.
+
 @cindex @code{between-system-space}
 @item between-system-space
 This dimensions determines the distance between systems.  It is the
