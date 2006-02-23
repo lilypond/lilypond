@@ -1,3 +1,7 @@
+2006-02-23  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ tutorial, global: minor changes.
+
 2006-02-23  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* mf/GNUmakefile: add '\' in multi-line "define ... endef"

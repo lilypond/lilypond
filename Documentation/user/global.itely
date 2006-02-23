@@ -650,7 +650,7 @@ printable area.
 @item ragged-bottom
 If set to true, systems will not be spread across the page.
 
-This should be set false for pieces that have only two or three
+This should be set to true for pieces that have only two or three
 systems per page, for example orchestral scores.
  
 @cindex @code{ragged-last-bottom}
