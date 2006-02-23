@@ -2,6 +2,8 @@
 
 	* Documentation/index.html.in: changes concern the previous release.
 
+	* input/regression/+.ly: cultivate typographical terminology.
+
 2006-02-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/GNUmakefile: remove $(CROSS) support from
