@@ -1,3 +1,8 @@
+2006-02-23  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ basic-notation, advanced-notation,
+	global.itely: minor fixes from mailist.
+
 2006-02-23  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/index.html.in: changes concern the previous release.

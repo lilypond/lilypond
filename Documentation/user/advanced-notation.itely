@@ -1704,7 +1704,7 @@ c4 c1
 
 @noindent
 As the example illustrates, @code{ly:make-moment n m} constructs a
-duration of n/m, for example @code{ly:make-moment 1 8} is an eighth
+duration of n/m of a whole note.  For example, @code{ly:make-moment 1 8} is an eighth
 note duration and @code{ly:make-moment 7 16} is the duration of
 seven sixteenths notes.
 
