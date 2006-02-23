@@ -83,9 +83,9 @@ Paper_score::calc_breaking ()
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
     {
-      Constrained_breaking *b = new Constrained_breaking (/* FIXME */);
+      Constrained_breaking *b = new Constrained_breaking;
+      b->resize (system_count);
       algorithm = b;
-      b->systems_ = system_count;
     }
   else
     algorithm = new Gourlay_breaking;
