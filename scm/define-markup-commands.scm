@@ -107,7 +107,14 @@ thickness and padding around the markup."
 
 (def-markup-command (filled-box layout props xext yext blot)
   (number-pair? number-pair? number?)
-  "Draw a box with rounded corners of dimensions @var{xext} and @var{yext}."
+  "Draw a box with rounded corners of dimensions @var{xext} and
+@var{yext}.  For example,
+@verbatim
+\\filled-box #'(-.3 . 1.8) #'(-.3 . 1.8) #0
+@end verbatim
+create a box extending horizontally from -0.3 to 1.8 and
+vertically from -0.3 up to 1.8, with corners formed from a
+circle of diameter 0 (ie sharp corners)."
   (ly:round-filled-box
    xext yext blot))
 
