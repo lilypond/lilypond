@@ -1,3 +1,11 @@
+2006-02-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* elisp/lilypond-mode.el (count-matches-as-number): New funtion
+	for emacs < 22 compatibility.
+	(count-rexp): Use it.
+	(LilyPond-string-current-midi, LilyPond-string-all-midi): Remove
+	substring juggling (Milan Zamazal).
+
 2006-02-23  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ basic-notation, advanced-notation,
