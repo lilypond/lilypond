@@ -120,6 +120,9 @@ available, and exit.
 @item -h,--help
 Show a summary of usage.
 
+@item -H,--header=FIELD
+Dump a header field to file BASENAME.FIELD
+
 @item --include, -I=@var{directory}
 Add @var{directory} to the search path for input files.
 @cindex file searching

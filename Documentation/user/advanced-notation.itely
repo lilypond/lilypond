@@ -200,13 +200,19 @@ bar lines,
   \key cis \major
   \clef alto
   \set Score.rehearsalMarkAlignSymbol = #'key-signature
-  \mark "on-key"
+  \mark "on key"
   cis
- \key ces \major
+  \key ces \major
   \set Score.rehearsalMarkAlignSymbol = #'clef
   \clef treble
   \mark "on clef"
   ces
+  \set Score.rehearsalMarkAlignSymbol = #'time-signature
+  \key d \minor
+  \clef tenor
+  \time 3/4
+  \mark "on time"
+  c
 }
 @end lilypond
 

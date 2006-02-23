@@ -1287,20 +1287,20 @@ such symbols and force uniform equal-duration spacing, use
 @code{Score.SpacingSpanner #'uniform-stretching}.  This
 property can only be changed at the beginning of a score,
 
-@lilypond[quote,ragged-right,relative=2,fragment]
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 \new Score \with {
   \override SpacingSpanner #'uniform-stretching = ##t
 } <<
   \new Staff{
     \times 4/5 {
-      c'8 c'8 c'8 c'8 c'8
+      c8 c8 c8 c8 c8
     }
-    c'8 c'8 c'8 c'8
+    c8 c8 c8 c8
   }
   \new Staff{
-    c'8 c'8 c'8 c'8
+    c8 c8 c8 c8
     \times 4/5 {
-      c'8 c'8 c'8 c'8 c'8
+      c8 c8 c8 c8 c8
     }
   }
 >>
@@ -1310,7 +1310,7 @@ property can only be changed at the beginning of a score,
 When @code{strict-note-spacing} is set, notes are spaced without
 regard for clefs, bar lines, and grace notes,
 
-@lilypond[quote,ragged-right,relative=2,fragment]
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 \override Score.SpacingSpanner #'strict-note-spacing = ##t 
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
