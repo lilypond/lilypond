@@ -650,7 +650,7 @@ the @code{d} will generate a warning, because a @code{d''} is expected
 found.  In the output, the octave is corrected to be a @code{d''} and
 the next note is calculated relative to @code{d''} instead of @code{d'}.
 
-There is also a syntax that is separate from the notes.  The syntax
+There is also an octave check that produces no visible output.  The syntax
 
 @example
 \octave @var{pitch}
@@ -658,7 +658,7 @@ There is also a syntax that is separate from the notes.  The syntax
 
 This checks that @var{pitch} (without quotes) yields @var{pitch} (with
 quotes) in \relative mode.  If not, a warning is printed, and the
-octave is corrected.
+octave is corrected.  The @var{pitch} is not printed as a note.
 
 In the example below, the first check passes without incident, since
 the @code{e} (in relative mode) is within a fifth of @code{a'}.  However,

@@ -241,8 +241,8 @@ directory, use
 LilyPond uses the Pango library to format multi-lingual texts, and
 does not perform any input-encoding conversions.  This means that any
 text, be it title, lyric text, or musical instruction containing
-non-ASCII characters, must be utf-8.  Easiest to enter such texts is
-by using a Unicode-aware editor, and save using utf-8 encoding.  Most
+non-ASCII characters, must be utf-8.  The easiest way to enter such text is
+by using a Unicode-aware editor and saving the file with utf-8 encoding.  Most
 popular modern editors have utf-8 support, for example, vim, Emacs,
 jEdit, and GEdit do.
 
@@ -632,8 +632,8 @@ Margin between the left side of the page and the beginning of the music.
 @item line-width
 The length of the systems.
 
-@cindex @code{heap-separation}
-@item heap-separation
+@cindex @code{head-separation}
+@item head-separation
 Distance between the top-most music system and the page header.
 
 @cindex @code{foot-separation}
@@ -1281,18 +1281,27 @@ exaggerated corrections:
 
 Proportional notation is supported; see @ref{Proportional notation}.
 
-@c  check this before release  --gp
-Symbol sizes (such as accidentals) may be disregarded for determining
-horizontal spacing,
+By default, spacing in tuplets depends on various non-duration
+factors (such as accidentals, clef changes, etc).  To disregard
+such symbols and force uniform equal-duration spacing, use
+@code{Score.SpacingSpanner #'uniform-stretching}.  This
+property can only be changed at the beginning of a score,
 
 @lilypond[quote,ragged-right,relative=2,fragment]
-<<
-  \time 2/4
-  \new Staff { c16[ c c c c c c c] c[ c c c c c c c] }
-  \new Staff {
-          c16[ cisis ces cis c cisis ces cis]
-    \override Score.SpacingSpanner #'uniform-stretching = ##t 
-          c16[ cisis ces cis c cisis ces cis]
+\new Score \with {
+  \override SpacingSpanner #'uniform-stretching = ##t
+} <<
+  \new Staff{
+    \times 4/5 {
+      c'8 c'8 c'8 c'8 c'8
+    }
+    c'8 c'8 c'8 c'8
+  }
+  \new Staff{
+    c'8 c'8 c'8 c'8
+    \times 4/5 {
+      c'8 c'8 c'8 c'8 c'8
+    }
   }
 >>
 @end lilypond
@@ -1628,6 +1637,27 @@ in the @code{\midi@{@}} section.
   @}
 @}
 @end example
+
+
+@refbugs
+
+Unterminated (de)crescendos will not render properly in the midi file,
+resulting in silent passages of music.  The workaround is to explicitly
+terminate the (de)crescendo.  For example,
+
+@example
+@{ a\< b c d\f @}
+@end example
+
+@noindent
+will not work properly but
+
+@example
+@{ a\< b c d\!\f @}
+@end example
+
+@noindent
+will.
 
 
 @node MIDI block
