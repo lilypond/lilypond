@@ -83,12 +83,16 @@ the result looks like this
 c d e f g a b
 @end lilypond
 
-Every piece of LilyPond input needs to have @{ curly braces @} placed
+Every piece of LilyPond input needs to have @{curly braces@} placed
 around the input.  For the rest of this manual, most examples will
 omit these braces, but don't forget them in your own music!
 
+In addition, many examples use @code{relative} mode.  This is explained
+in @ref{Octave entry}; for now simply be aware that some examples
+should be placed inside @code{\relative @{ @emph{...music...} @}}
+
 @cindex Case sensitive
-In addition, LilyPond input is case sensitive.  @code{ @{ c d e @} } is
+Finally, LilyPond input is case sensitive.  @code{ @{ c d e @} } is
 valid input; @code{ @{ C D E @} } will produce an error message.
 
 The @rglos{duration} of a note is specified by a number after the note
