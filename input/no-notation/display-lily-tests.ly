@@ -240,9 +240,12 @@ test = #(def-music-function (parser location result-info strings) (string? pair?
   \test #"" ##[ \revert Staff . Stem #'thickness #]	% RevertProperty
   \test #"" ##[ \revert Beam #'thickness #]
 
+  %% \applyOutput
+  \test #"" ##[ \applyOutput #(lambda (arg) ()) #]
+  %% \applyContext
+  \test #"" ##[ \applyContext #(lambda (arg) ()) #]
+
   %% \partial
-
-
   \test #"" ##[ \partial 2 #]
   \test #"" ##[ \partial 8. #]
   \test #"TODO? exotic durations in \\partial" ##[ \partial 4*2/3 #]
@@ -254,5 +257,6 @@ test = #(def-music-function (parser location result-info strings) (string? pair?
   %% Cue notes
   \test #"" ##[ \cueDuring #"foo" #1 { c d } #]
   \test #"" ##[ \quoteDuring #"foo" { c d } #]
+
 }
 

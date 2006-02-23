@@ -12,18 +12,17 @@
       (set! var-idx (1+ var-idx))
       (string->symbol (format #f "lilyvartmp~a"
                               (list->string (map (lambda (chr)
-                                                   (integer->char (+ (char->integer #\a) (- (char->integer chr)
-                                                                                            (char->integer #\0)))))
+                                                   (integer->char (+ (char->integer #\a)
+                                                                     (- (char->integer chr)
+                                                                        (char->integer #\0)))))
                                                  (string->list (number->string var-idx)))))))))
 
 (define-public (ly:parse-string-result str parser)
   "Parse `str', which is supposed to contain a music expression."
-  (let ((music-sym (gen-lily-sym)))
-    (ly:parser-parse-string
-     parser
-     (format #f "parseStringResult = { ~a }" str))
-
-    (ly:parser-lookup parser 'parseStringResult)))
+  (ly:parser-parse-string
+   parser
+   (format #f "parseStringResult = \\notemode { ~a }" str))
+  (ly:parser-lookup parser 'parseStringResult))
 
 (define-public (read-lily-expression chr port)
   "Read a #{ lily music expression #} from port and return
@@ -35,7 +34,6 @@ character."
     (define (create-binding! val)
       "Create a new symbol, bind it to `val' and return it."
       (let ((tmp-symbol (gen-lily-sym)))
-
         (set! bindings (cons (cons tmp-symbol val) bindings))
         tmp-symbol))
     
@@ -55,42 +53,34 @@ character."
              (cons (create-binding! (cadr form)) (remove-dollars! (cddr form))))
             (else ;; (something ...)
              (cons (remove-dollars! (car form)) (remove-dollars! (cdr form))))))
-    (let*
-	((lily-string (call-with-output-string
+    
+    (let ((lily-string (call-with-output-string
                         (lambda (out)
                           (do ((c (read-char port) (read-char port)))
-                             ((and (char=? c #\#)
-                                   (char=? (peek-char port) #\})) ;; we stop when #} is encoutered
-                              (read-char port))
-                           (cond
-                            ;; a $form expression
-                            ((and (char=? c #\$) (not (char=? (peek-char port) #\$)))
-                             (format out "\\~a" (create-binding! (read port))))
-                            ;; just a $ character
-                            ((and (char=? c #\$) (char=? (peek-char port) #\$))
-			     ;; pop the second $
-                             (display (read-char port) out))
-                            ;; a #scheme expression
-                            ((char=? c #\#)
-                             (let ((expr (read port)))
-                               (format out "#~s" (if (eq? '$ expr)
-                                                     (create-binding! (read port))
-                                                     (remove-dollars! expr)))))
-                            ;; other caracters
-                            (else
-                             (display c out)))))))
-
-	  (result
-	   `(let ((parser-clone (ly:clone-parser parser)))
-	      ,@(map (lambda (binding)
-		       `(ly:parser-define! parser-clone ',(car binding) ,(cdr binding)))
-		     (reverse bindings))
-	      (ly:parse-string-result ,lily-string parser-clone))
-	  ))
-
-      
-	     
-      result
-      )))
+                              ((and (char=? c #\#)
+                                    (char=? (peek-char port) #\})) ;; we stop when #} is encoutered
+                               (read-char port))
+                            (cond
+                             ;; a $form expression
+                             ((and (char=? c #\$) (not (char=? (peek-char port) #\$)))
+                              (format out "\\~a" (create-binding! (read port))))
+                             ;; just a $ character
+                             ((and (char=? c #\$) (char=? (peek-char port) #\$))
+                              ;; pop the second $
+                              (display (read-char port) out))
+                             ;; a #scheme expression
+                             ((char=? c #\#)
+                              (let ((expr (read port)))
+                                (format out "#~s" (if (eq? '$ expr)
+                                                      (create-binding! (read port))
+                                                      (remove-dollars! expr)))))
+                             ;; other caracters
+                             (else
+                              (display c out))))))))
+      `(let ((parser-clone (ly:clone-parser parser)))
+         ,@(map (lambda (binding)
+                  `(ly:parser-define! parser-clone ',(car binding) ,(cdr binding)))
+                (reverse bindings))
+         (ly:parse-string-result ,lily-string parser-clone)))))
 
 (read-hash-extend #\{ read-lily-expression)
