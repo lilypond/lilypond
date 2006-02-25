@@ -20,12 +20,9 @@ FETA_MF_FILES = $(call src-wildcard,feta[0-9]*.mf)\
 
 STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
-PFA_PREFIX = PFA
 
 OTF_FILES = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.otf)\
  $(outdir)/aybabtu.otf
-PFA_OTF_FILES = $(STAFF_SIZES:%=$(outdir)/$(PFA_PREFIX)emmentaler-%.pfa)\
- $(outdir)/$(PFA_PREFIX)aybabtu.pfa
 PE_SCRIPTS = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.pe)\
  $(STAFF_SIZES:%=$(outdir)/emmentaler-%.dep)
 OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table)\
@@ -85,9 +82,9 @@ $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst fet
 		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
 		$(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
 
-$(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
+$(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
 
-$(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa $(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfa)
+$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfa)
 
 $(outdir)/aybabtu.fontname:
 	echo -n 'aybabtu' > $@
@@ -97,7 +94,7 @@ $(outdir)/aybabtu.subfonts:
 $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
-$(outdir)/fonts.cache-1: $(PFA_OTF_FILES) $(PFA_FILES) $(OTF_FILES)
+$(outdir)/fonts.cache-1: $(PFA_FILES) $(OTF_FILES)
 	cd $(outdir) ; fc-cache .
 
 local-install: install-fc-cache
@@ -107,7 +104,7 @@ install-fc-cache:
 	fc-cache $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff)))
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
-PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa) $(PFA_OTF_FILES)
+PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice

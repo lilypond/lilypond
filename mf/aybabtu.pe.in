@@ -82,5 +82,3 @@ LoadTableFromFile("LILY", "aybabtu.otf-gtable")
 
 Generate("aybabtu.otf");
 Generate("aybabtu.svg");
-SetFontNames("PFAAybabtu-Regular", "PFAAybabtu", "PFAAybabtu Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
-Generate("PFAaybabtu.pfa");
