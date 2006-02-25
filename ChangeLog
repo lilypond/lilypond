@@ -1,3 +1,14 @@
+2006-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/aybabtu.pe.in (i): remove PFAaybabtu generation
+
+	* buildscripts/gen-emmentaler-scripts.py (i): remove PFAemmentaler
+	generation
+
+	* scm/framework-ps.scm: remove font name munging.
+
+	* Documentation/topdocs/INSTALL.texi (Top): bump GS requirement.
+
 2006-02-25  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/markup.scm (define-markup-command): change
@@ -21,6 +32,7 @@
 2006-02-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (main): write Makefile dependencies file. 
+	(output): add comments to lp-book latex output.
 
 	* GNUmakefile.in (footifymail): use gmane address for webpage bug
 	address.

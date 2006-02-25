@@ -28,7 +28,7 @@
   (/ 72 25.4))
 
 (define-public (ps-font-command font)
-  (let* ((name (munge-lily-font-name (ly:font-file-name font)))
+  (let* ((name (ly:font-file-name font))
 	 (magnify (ly:font-magnification font)))
 
     (string-append
@@ -55,7 +55,7 @@
   (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
-			 (munge-lily-font-name specced-font-name)
+			  specced-font-name
 			 (ly:font-file-name font)))
 	   (command (ps-font-command font))
 
@@ -132,7 +132,7 @@
   (define (extract-names font)
     (if (ly:pango-font? font)
 	(map car (ly:pango-font-physical-fonts font))
-	(list (munge-lily-font-name (ly:font-name font)))))
+	(list  (ly:font-name font))))
 
   (let* ((fonts (ly:paper-fonts paper))
 	 (names (apply append (map extract-names fonts))))
@@ -194,13 +194,6 @@
    (output-variables paper)
    "%%EndSetup\n"))
 
-(define-public (munge-lily-font-name name)
-  ;; FIXME: this fixes PFAPAFemmentaler.pfapfa, and also
-  ;; PFAaybabtu.otf.pfa, but the second case now produces aybabtu.otf,
-  ;; which still fails because .otf files cannot be embedded.
-  (regexp-substitute/global #f "^([eE]mmentaler|[aA]ybabtu)"
-			    name 'pre "PFA" 1 'post))
-
 (define (cff-font? font)
   (let*
       ((cff-string (ly:otf-font-table-data font "CFF ")))
@@ -254,13 +247,13 @@
 	   (bare-file-name (ly:find-file file-name)))
 
       (cons
-       (munge-lily-font-name name)
+       name
        (cond
-	((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
-	 (ps-load-file (ly:find-file
-			(format "~a.pfa" (munge-lily-font-name file-name)))))
+ 	((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
+ 	 (ps-load-file (ly:find-file
+ 			(format "~a.otf"  file-name))))
 	((string? bare-file-name)
-	 (ps-load-file (munge-lily-font-name file-name)))
+	 (ps-load-file file-name))
 	(else
 	 (ly:warning (_ "can't embed ~S=~S") name file-name)
 	  "")))))
@@ -340,11 +333,9 @@
 	   (bare-file-name (ly:find-file file-name)))
       
       (cons
-       (munge-lily-font-name name)
+       name
        (cond
-	((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
-	 (cached-file-contents
-	  (format "~a.pfa" (munge-lily-font-name file-name))))
+
 	((and
 	  (eq? PLATFORM 'darwin)
 	  bare-file-name (string-match "\\.dfont" bare-file-name))
