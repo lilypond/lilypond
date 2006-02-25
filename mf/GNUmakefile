@@ -59,20 +59,16 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 #
 # 2. are not included with teTeX
 #
-define MAKE_OTF
-	(cd $(outdir) && $(FONTFORGE) -script $(1))
-	$(PYTHON) $(buildscript-dir)/substitute-encoding.py --outdir=$(outdir) $(2)
-endef
 
 define EMMENTALER_RULE \
-$(outdir)/$(PFA_PREFIX)emmentaler-$(1).pfa $(outdir)/emmentaler-$(1).otf $(outdir)/emmentaler-$(1).svg: $(outdir)/emmentaler-$(1).pe $(outdir)/feta$(1).pfa  $(outdir)/feta-alphabet$(1).pfa  $(outdir)/parmesan$(1).pfa \
-	$(call MAKE_OTF,emmentaler-$(1).pe, $(outdir)/PFAemmentaler-$(1).pfa)
+$(outdir)/emmentaler-$(1).otf $(outdir)/emmentaler-$(1).svg: $(outdir)/emmentaler-$(1).pe $(outdir)/feta$(1).pfa  $(outdir)/feta-alphabet$(1).pfa  $(outdir)/parmesan$(1).pfa \
+	cd $(outdir) && $(FONTFORGE) -script emmentaler-$(1).pe
 endef
 
 $(foreach size, $(STAFF_SIZES), $(eval $(call EMMENTALER_RULE,$(size))))
 
-$(outdir)/$(PFA_PREFIX)aybabtu.pfa $(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa)
-	$(call MAKE_OTF,aybabtu.pe, $(outdir)/PFAaybabtu.pfa)
+$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa)
+	cd $(outdir) && $(FONTFORGE) -script aybabtu.pe
 	-rm -f $(outdir)/*.scale.{pfa,afm}
 
 $(outdir)/%.pfa: $(outdir)/%.log

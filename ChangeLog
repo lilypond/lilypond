@@ -1,5 +1,9 @@
 2006-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/substitute-encoding.py (Module): remove file.
+
+	* mf/GNUmakefile: more PFA strippage.
+
 	* mf/aybabtu.pe.in (i): remove PFAaybabtu generation
 
 	* buildscripts/gen-emmentaler-scripts.py (i): remove PFAemmentaler
