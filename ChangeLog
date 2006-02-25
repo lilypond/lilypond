@@ -1,3 +1,10 @@
+2006-02-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (main): write Makefile dependencies file. 
+
+	* GNUmakefile.in (footifymail): use gmane address for webpage bug
+	address.
+
 2006-02-23  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ tutorial, global: minor changes.
