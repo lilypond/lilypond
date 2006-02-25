@@ -60,7 +60,9 @@ final-install:
 web-ext = html midi pdf png txt ly
 
 footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
-footifymail = MAILADDRESS=bug-lilypond@gnu.org
+footifymail = MAILADDRESS='http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
+
+
 
 local-WWW-post:
 # need UTF8 setting in case this is hosted on a website. 

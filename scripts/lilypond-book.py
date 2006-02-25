@@ -1464,6 +1464,10 @@ def write_if_updated (file_name, lines):
 	open (file_name, 'w').writelines (lines)
 	ly.progress ('\n')
 
+def note_input_file (name, inputs=[]):
+	inputs.append (name)
+	return inputs
+
 def do_file (input_filename):
 	# Ugh.
 	if not input_filename or input_filename == '-':
@@ -1478,6 +1482,8 @@ def do_file (input_filename):
 						       + input_filename)[:-1]
 		else:
 			input_fullname = find_file (input_filename)
+
+		note_input_file (input_fullname)
 		in_handle = open (input_fullname)
 
 	if input_filename == '-':
@@ -1686,6 +1692,16 @@ def main ():
 		ly.progress ('\n')
 		ly.progress ("    dvips -h %(psfonts_file)s %(output)s" % vars ())
 		ly.progress ('\n')
+
+	inputs = note_input_file ('')
+	inputs.pop ()
+	dep_file = os.path.join (output_name, os.path.splitext (file)[0] + '.dep')
+	final_output_file = os.path.join (output_name,
+					  os.path.splitext (os.path.basename (file))[0]
+					  + '.%s' % format)
+	
+	os.chdir (original_dir)
+	open (dep_file, 'w').write ('%s: %s' % (final_output_file, ' '.join (inputs)))
 
 if __name__ == '__main__':
 	main ()
