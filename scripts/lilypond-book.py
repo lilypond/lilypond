@@ -475,21 +475,21 @@ output = {
 
 	##
 	LATEX: {
-		OUTPUT: r'''{
-\parindent 0pt
-\catcode`\@=12
-\ifx\preLilyPondExample \undefined
-  \relax
-\else
-  \preLilyPondExample
-\fi
-\def\lilypondbook{}
-\input %(base)s-systems.tex
-\ifx\postLilyPondExample \undefined
-  \relax
-\else
-  \postLilyPondExample
-\fi
+		OUTPUT: r'''{%%
+\parindent 0pt%%
+\catcode`\@=12%%
+\ifx\preLilyPondExample \undefined%%
+  \relax%%
+\else%%
+  \preLilyPondExample%%
+\fi%%
+\def\lilypondbook{}%%
+\input %(base)s-systems.tex%%
+\ifx\postLilyPondExample \undefined%%
+  \relax%%
+\else%%
+  \postLilyPondExample%%
+\fi%%
 }''',
 
 		PRINTFILENAME: '''\\texttt{%(filename)s}
