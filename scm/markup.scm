@@ -20,9 +20,9 @@ The function should return a stencil (i.e. a formatted, ready to
 print object).
 
 
-To add a function, use the def-markup-command utility.
+To add a function, use the define-markup-command utility.
 
-  (def-markup-command (mycommand layout prop arg1 ...) (arg1-type? ...)
+  (define-markup-command (mycommand layout prop arg1 ...) (arg1-type? ...)
     \"my command usage and description\"
     ...function body...)
 
@@ -35,10 +35,10 @@ The command is now available in markup mode, e.g.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup definer utilities
-;;; `def-markup-command' can be used both for built-in markup
+;;; `define-markup-command' can be used both for built-in markup
 ;;; definitions and user defined markups.
 
-(defmacro-public def-markup-command (command-and-args signature . body)
+(defmacro-public define-markup-command (command-and-args signature . body)
   "
 
 * Define a COMMAND-markup function after command-and-args and body,
@@ -51,11 +51,11 @@ register COMMAND-markup and its signature,
 * define a make-COMMAND-markup function.
 
 Syntax:
-  (def-markup-command (COMMAND layout props arg1 arg2 ...) (arg1-type? arg2-type? ...)
+  (define-markup-command (COMMAND layout props arg1 arg2 ...) (arg1-type? arg2-type? ...)
     \"documentation string\"
     ...command body...)
  or:
-  (def-markup-command COMMAND (arg1-type? arg2-type? ...)
+  (define-markup-command COMMAND (arg1-type? arg2-type? ...)
     function)
 "
   (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))

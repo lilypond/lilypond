@@ -668,7 +668,7 @@ without context specification. Called  from parser."
 
 
 (defmacro-public def-grace-function (start stop)
-  `(def-music-function (parser location music) (ly:music?)
+  `(define-music-function (parser location music) (ly:music?)
      (make-music 'GraceMusic
 		 'origin location
 		 'element (make-music 'SequentialMusic
@@ -676,10 +676,10 @@ without context specification. Called  from parser."
 						      music
 						      (ly:music-deep-copy ,stop))))))
 
-(defmacro-public def-music-function (args signature . body)
+(defmacro-public define-music-function (args signature . body)
   "Helper macro for `ly:make-music-function'.
 Syntax:
-  (def-music-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
+  (define-music-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
 "
   `(ly:make-music-function (list ,@signature)

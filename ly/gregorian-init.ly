@@ -119,7 +119,7 @@ episemFinis = #(make-span-event 'TextSpanEvent STOP)
 				       'elements (list
 						  (make-span-event 'LigatureEvent STOP)))))))
 
-ligature = #(def-music-function
+ligature = #(define-music-function
 	      (location music) (ly:music?)
 	      (make-ligature music))
 
@@ -144,7 +144,7 @@ ligature = #(def-music-function
 % % \[ \virga x \inclinatum y \inclinatum z ... \]
 %
 %#(defmacro def-climacus-function (start stop)
-%  `(def-music-function (location music) (ly:music?)
+%  `(define-music-function (location music) (ly:music?)
 %     (make-music 'SequentialMusic
 %        'elements (list 'LigatureStartEvent
 %			(ly:music-deep-copy ,start)

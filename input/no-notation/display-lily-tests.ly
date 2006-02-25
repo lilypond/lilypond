@@ -1,4 +1,4 @@
-\version "2.7.6"
+\version "2.7.36"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format))
@@ -34,7 +34,7 @@
 #(define (lily-string->markup str)
    (make-column-markup (string-split str #\NewLine)))
 
-test = #(def-music-function (parser location result-info strings) (string? pair?)
+test = #(define-music-function (parser location result-info strings) (string? pair?)
          (display-lily-init parser)
           (let ((input (car strings))
                 (output (cdr strings)))

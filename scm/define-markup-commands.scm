@@ -24,13 +24,13 @@
 ;; geometric shapes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-markup-command (draw-circle layout props radius thickness fill)
+(define-markup-command (draw-circle layout props radius thickness fill)
   (number? number? boolean?)
   "A circle of radius @var{radius}, thickness @var{thickness} and
 optionally filled."
   (make-circle-stencil radius thickness fill))
 
-(def-markup-command (triangle layout props filled) (boolean?)
+(define-markup-command (triangle layout props filled) (boolean?)
   "A triangle, filled or not"
   (let*
       ((th (chain-assoc-get 'thickness props  0.1))
@@ -51,7 +51,7 @@ optionally filled."
      (cons 0 (* .86 ex))
      )))
 
-(def-markup-command (circle layout props arg) (markup?)
+(define-markup-command (circle layout props arg) (markup?)
   "Draw a circle around @var{arg}.  Use @code{thickness},
 @code{circle-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup."
@@ -63,7 +63,7 @@ thickness and padding around the markup."
 	 (m (interpret-markup layout props arg)))
     (circle-stencil m th pad)))
 
-(def-markup-command (with-url layout props url arg) (string? markup?)
+(define-markup-command (with-url layout props url arg) (string? markup?)
   "Add a link to URL @var{url} around @var{arg}. This only works in
 the PDF backend."
   (let* ((stil (interpret-markup layout props arg))
@@ -74,7 +74,7 @@ the PDF backend."
     (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
 
 
-(def-markup-command (beam layout props width slope thickness)
+(define-markup-command (beam layout props width slope thickness)
   (number? number? number?)
   "Create a beam with the specified parameters."
   (let* ((y (* slope width))
@@ -93,7 +93,7 @@ the PDF backend."
      (cons (+ (- half) (car yext))
 	   (+ half (cdr yext))))))
 
-(def-markup-command (box layout props arg) (markup?)
+(define-markup-command (box layout props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup."
@@ -105,7 +105,7 @@ thickness and padding around the markup."
 	 (m (interpret-markup layout props arg)))
     (box-stencil m th pad)))
 
-(def-markup-command (filled-box layout props xext yext blot)
+(define-markup-command (filled-box layout props xext yext blot)
   (number-pair? number-pair? number?)
   "Draw a box with rounded corners of dimensions @var{xext} and
 @var{yext}.  For example,
@@ -118,7 +118,7 @@ circle of diameter 0 (ie sharp corners)."
   (ly:round-filled-box
    xext yext blot))
 
-(def-markup-command (whiteout layout props arg) (markup?)
+(define-markup-command (whiteout layout props arg) (markup?)
   "Provide a white underground for @var{arg}"
   (let* ((stil (interpret-markup layout props
 				 (make-with-color-markup black arg)))
@@ -133,7 +133,7 @@ circle of diameter 0 (ie sharp corners)."
 
     (ly:stencil-add white stil)))
 
-(def-markup-command (pad-markup layout props padding arg) (number? markup?)
+(define-markup-command (pad-markup layout props padding arg) (number? markup?)
   "Add space around a markup object."
 
   (let*
@@ -151,7 +151,7 @@ circle of diameter 0 (ie sharp corners)."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;FIXME: is this working? 
-(def-markup-command (strut layout props) ()
+(define-markup-command (strut layout props) ()
   "Create a box of the same height as the space in the current font."
   (let ((m (ly:text-interface::interpret-markup layout props " ")))
     (ly:make-stencil (ly:stencil-expr m)
@@ -161,7 +161,7 @@ circle of diameter 0 (ie sharp corners)."
 
 
 ;; todo: fix negative space
-(def-markup-command (hspace layout props amount) (number?)
+(define-markup-command (hspace layout props amount) (number?)
   "This produces a invisible object taking horizontal space.
 @example 
 \\markup @{ A \\hspace #2.0 B @} 
@@ -178,7 +178,7 @@ normally inserted before elements on a line.
 ;; importing graphics.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-markup-command (stencil layout props stil) (ly:stencil?)
+(define-markup-command (stencil layout props stil) (ly:stencil?)
   "Stencil as markup"
   stil)
 
@@ -197,7 +197,7 @@ normally inserted before elements on a line.
 	     
 	#f)))
 
-(def-markup-command (epsfile layout props axis size file-name) (number? number? string?)
+(define-markup-command (epsfile layout props axis size file-name) (number? number? string?)
   "Inline an EPS image. The image is scaled along @var{axis} to
 @var{size}."
 
@@ -206,7 +206,7 @@ normally inserted before elements on a line.
       (eps-file->stencil axis size file-name)
       ))
 
-(def-markup-command (postscript layout props str) (string?)
+(define-markup-command (postscript layout props str) (string?)
   "This inserts @var{str} directly into the output as a PostScript
 command string.  Due to technicalities of the output backends,
 different scales should be used for the @TeX{} and PostScript backend,
@@ -240,7 +240,7 @@ gsave /ecrm10 findfont
    '(0 . 0) '(0 . 0)))
 
 
-(def-markup-command (score layout props score) (ly:score?)
+(define-markup-command (score layout props score) (ly:score?)
   "Inline an image of music."
   (let* ((output (ly:score-embedded-format score layout)))
 
@@ -251,7 +251,7 @@ gsave /ecrm10 findfont
 	  (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
 	  empty-stencil))))
 
-(def-markup-command (null layout props) ()
+(define-markup-command (null layout props) ()
   "An empty markup with extents of a single point"
 
   point-stencil)
@@ -260,7 +260,7 @@ gsave /ecrm10 findfont
 ;; basic formatting.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-markup-command (simple layout props str) (string?)
+(define-markup-command (simple layout props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
   (interpret-markup layout props str))
@@ -302,7 +302,7 @@ gsave /ecrm10 findfont
 	(/ (+ (car text-widths) (car (cdr text-widths))) 2))
      (get-fill-space word-count line-width (cdr text-widths))))))
 
-(def-markup-command (fill-line layout props markups)
+(define-markup-command (fill-line layout props markups)
   (markup-list?)
   "Put @var{markups} in a horizontal line of width @var{line-width}.
    The markups are spaced/flushed to fill the entire line.
@@ -360,7 +360,7 @@ gsave /ecrm10 findfont
 	(stack-stencils-padding-list X
 				     RIGHT fill-space-normal line-stencils))))
 	
-(def-markup-command (line layout props args) (markup-list?)
+(define-markup-command (line layout props args) (markup-list?)
   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between each markup in @var{args}."
   (let*
@@ -471,14 +471,14 @@ determines the space between each markup in @var{args}."
 
     (stack-lines DOWN 0.0 baseline-skip lines)))
 
-(def-markup-command (justify layout props args) (markup-list?)
+(define-markup-command (justify layout props args) (markup-list?)
   "Like wordwrap, but with lines stretched to justify the margins.
 Use @code{\\override #'(line-width . X)} to set line-width, where X
 is the number of staff spaces."
 
   (wordwrap-markups layout props args #t))
 
-(def-markup-command (wordwrap layout props args) (markup-list?)
+(define-markup-command (wordwrap layout props args) (markup-list?)
   "Simple wordwrap.  Use @code{\\override #'(line-width . X)} to set
 line-width, where X is the number of staff spaces."
 
@@ -519,23 +519,23 @@ line-width, where X is the number of staff spaces."
     (stack-lines DOWN 0.0 baseline-skip (apply append para-lines))))
 
 
-(def-markup-command (wordwrap-string layout props arg) (string?)
+(define-markup-command (wordwrap-string layout props arg) (string?)
   "Wordwrap a string. Paragraphs may be separated with double newlines"
   (wordwrap-string layout props  #f arg))
   
-(def-markup-command (justify-string layout props arg) (string?)
+(define-markup-command (justify-string layout props arg) (string?)
   "Justify a string. Paragraphs may be separated with double newlines"
   (wordwrap-string layout props #t arg))
 
 
-(def-markup-command (wordwrap-field layout props symbol) (symbol?)
+(define-markup-command (wordwrap-field layout props symbol) (symbol?)
    (let* ((m (chain-assoc-get symbol props)))
      (if (string? m)
       (interpret-markup layout props
        (list wordwrap-string-markup m))
       (ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
 
-(def-markup-command (justify-field layout props symbol) (symbol?)
+(define-markup-command (justify-field layout props symbol) (symbol?)
 -   (let* ((m (chain-assoc-get symbol props)))
      (if (string? m)
       (interpret-markup layout props
@@ -544,7 +544,7 @@ line-width, where X is the number of staff spaces."
 
 
 
-(def-markup-command (combine layout props m1 m2) (markup? markup?)
+(define-markup-command (combine layout props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
   (let* ((s1 (interpret-markup layout props m1))
 	 (s2 (interpret-markup layout props m2)))
@@ -553,7 +553,7 @@ line-width, where X is the number of staff spaces."
 ;;
 ;; TODO: should extract baseline-skip from each argument somehow..
 ;; 
-(def-markup-command (column layout props args) (markup-list?)
+(define-markup-command (column layout props args) (markup-list?)
   "Stack the markups in @var{args} vertically.  The property
 @code{baseline-skip} determines the space between each markup in @var{args}."
 
@@ -567,7 +567,7 @@ line-width, where X is the number of staff spaces."
      (remove ly:stencil-empty? arg-stencils))))
 
 
-(def-markup-command (dir-column layout props args) (markup-list?)
+(define-markup-command (dir-column layout props args) (markup-list?)
   "Make a column of args, going up or down, depending on the setting
 of the @code{#'direction} layout property."
   (let* ((dir (chain-assoc-get 'direction props)))
@@ -577,39 +577,39 @@ of the @code{#'direction} layout property."
      (chain-assoc-get 'baseline-skip props)
      (map (lambda (x) (interpret-markup layout props x)) args))))
 
-(def-markup-command (center-align layout props args) (markup-list?)
+(define-markup-command (center-align layout props args) (markup-list?)
   "Put @code{args} in a centered column. "
   (let* ((mols (map (lambda (x) (interpret-markup layout props x)) args))
          (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
     
     (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) cmols)))
 
-(def-markup-command (vcenter layout props arg) (markup?)
+(define-markup-command (vcenter layout props arg) (markup?)
   "Align @code{arg} to its Y center. "
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-aligned-to mol Y CENTER)))
 
-(def-markup-command (hcenter layout props arg) (markup?)
+(define-markup-command (hcenter layout props arg) (markup?)
   "Align @code{arg} to its X center. "
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-aligned-to mol X CENTER)))
 
-(def-markup-command (right-align layout props arg) (markup?)
+(define-markup-command (right-align layout props arg) (markup?)
   "Align @var{arg} on its right edge. "
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X RIGHT)))
 
-(def-markup-command (left-align layout props arg) (markup?)
+(define-markup-command (left-align layout props arg) (markup?)
   "Align @var{arg} on its left edge. "
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X LEFT)))
 
-(def-markup-command (general-align layout props axis dir arg)  (integer? number? markup?)
+(define-markup-command (general-align layout props axis dir arg)  (integer? number? markup?)
   "Align @var{arg} in @var{axis} direction to the @var{dir} side."
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m axis dir)))
 
-(def-markup-command (halign layout props dir arg) (number? markup?)
+(define-markup-command (halign layout props dir arg) (number? markup?)
   "Set horizontal alignment. If @var{dir} is @code{-1}, then it is
 left-aligned, while @code{+1} is right. Values in between interpolate
 alignment accordingly."
@@ -618,14 +618,14 @@ alignment accordingly."
 
 
 
-(def-markup-command (with-dimensions layout props x y arg) (number-pair? number-pair? markup?)
+(define-markup-command (with-dimensions layout props x y arg) (number-pair? number-pair? markup?)
   "Set the dimensions of @var{arg} to @var{x} and @var{y}."
   
   (let* ((m (interpret-markup layout props arg)))
     (ly:make-stencil (ly:stencil-expr m) x y)))
 
 
-(def-markup-command (pad-around layout props amount arg) (number? markup?)
+(define-markup-command (pad-around layout props amount arg) (number? markup?)
 
   "Add padding @var{amount} all around @var{arg}. "
   
@@ -641,7 +641,7 @@ alignment accordingly."
    ))
 
 
-(def-markup-command (pad-x layout props amount arg) (number? markup?)
+(define-markup-command (pad-x layout props amount arg) (number? markup?)
 
   "Add padding @var{amount} around @var{arg} in the X-direction. "
   (let*
@@ -656,7 +656,7 @@ alignment accordingly."
    ))
 
 
-(def-markup-command (put-adjacent layout props arg1 axis dir arg2) (markup? integer? ly:dir?  markup?)
+(define-markup-command (put-adjacent layout props arg1 axis dir arg2) (markup? integer? ly:dir?  markup?)
 
   "Put @var{arg2} next to @var{arg1}, without moving @var{arg1}.  "
   
@@ -666,7 +666,7 @@ alignment accordingly."
     (ly:stencil-combine-at-edge m1 axis dir m2 0.0 0.0)
   ))
 
-(def-markup-command (transparent layout props arg) (markup?)
+(define-markup-command (transparent layout props arg) (markup?)
   "Make the argument transparent"
   (let*
       ((m (interpret-markup layout props arg))
@@ -679,7 +679,7 @@ alignment accordingly."
 		     x y)))
 
 
-(def-markup-command (pad-to-box layout props x-ext y-ext arg) (number-pair? number-pair? markup?)
+(define-markup-command (pad-to-box layout props x-ext y-ext arg) (number-pair? number-pair? markup?)
   "Make @var{arg} take at least @var{x-ext}, @var{y-ext} space"
 
   (let*
@@ -697,7 +697,7 @@ alignment accordingly."
 ;; property
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-markup-command (fromproperty layout props symbol) (symbol?)
+(define-markup-command (fromproperty layout props symbol) (symbol?)
   "Read the @var{symbol} from property settings, and produce a stencil
   from the markup contained within. If @var{symbol} is not defined, it
   returns an empty markup"
@@ -707,7 +707,7 @@ alignment accordingly."
 	(ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
 
 
-(def-markup-command (on-the-fly layout props procedure arg) (symbol? markup?)
+(define-markup-command (on-the-fly layout props procedure arg) (symbol? markup?)
   "Apply the @var{procedure} markup command to
 @var{arg}. @var{procedure} should take a single argument."
   (let* ((anonymous-with-signature (lambda (layout props arg) (procedure layout props arg))))
@@ -718,7 +718,7 @@ alignment accordingly."
 
 
 
-(def-markup-command (override layout props new-prop arg) (pair? markup?)
+(define-markup-command (override layout props new-prop arg) (pair? markup?)
   "Add the first argument in to the property list.  Properties may be
 any sort of property supported by @internalsref{font-interface} and
 @internalsref{text-interface}, for example
@@ -734,7 +734,7 @@ any sort of property supported by @internalsref{font-interface} and
 ;; files
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-markup-command (verbatim-file layout props name) (string?)
+(define-markup-command (verbatim-file layout props name) (string?)
   "Read the contents of a file, and include verbatimly"
 
   (interpret-markup
@@ -754,26 +754,26 @@ any sort of property supported by @internalsref{font-interface} and
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(def-markup-command (bigger layout props arg) (markup?)
+(define-markup-command (bigger layout props arg) (markup?)
   "Increase the font size relative to current setting"
   (interpret-markup layout props
    `(,fontsize-markup 1 ,arg)))
 
-(def-markup-command (smaller layout props arg) (markup?)
+(define-markup-command (smaller layout props arg) (markup?)
   "Decrease the font size relative to current setting"
   (interpret-markup layout props
    `(,fontsize-markup -1 ,arg)))
 
-(def-markup-command larger (markup?) bigger-markup)
+(define-markup-command larger (markup?) bigger-markup)
 
-(def-markup-command (finger layout props arg) (markup?)
+(define-markup-command (finger layout props arg) (markup?)
   "Set the argument as small numbers."
   (interpret-markup layout
                     (cons '((font-size . -5) (font-encoding . fetaNumber)) props)
                     arg))
 
 
-(def-markup-command (fontsize layout props increment arg) (number? markup?)
+(define-markup-command (fontsize layout props increment arg) (number? markup?)
   "Add @var{increment} to the font-size. Adjust baseline skip accordingly."
 
   (let* ((fs (chain-assoc-get 'font-size props 0))
@@ -787,7 +787,7 @@ any sort of property supported by @internalsref{font-interface} and
 
 
 ;; FIXME -> should convert to font-size.
-(def-markup-command (magnify layout props sz arg) (number? markup?)
+(define-markup-command (magnify layout props sz arg) (number? markup?)
   "Set the font magnification for the its argument. In the following
 example, the middle A will be 10% larger:
 @example
@@ -801,53 +801,53 @@ Use @code{\\fontsize} otherwise."
    (prepend-alist-chain 'font-magnification sz props)
    arg))
 
-(def-markup-command (bold layout props arg) (markup?)
+(define-markup-command (bold layout props arg) (markup?)
   "Switch to bold font-series"
   (interpret-markup layout (prepend-alist-chain 'font-series 'bold props) arg))
 
-(def-markup-command (sans layout props arg) (markup?)
+(define-markup-command (sans layout props arg) (markup?)
   "Switch to the sans serif family"
   (interpret-markup layout (prepend-alist-chain 'font-family 'sans props) arg))
 
-(def-markup-command (number layout props arg) (markup?)
+(define-markup-command (number layout props arg) (markup?)
   "Set font family to @code{number}, which yields the font used for
 time signatures and fingerings.  This font only contains numbers and
 some punctuation. It doesn't have any letters.  "
   (interpret-markup layout (prepend-alist-chain 'font-encoding 'fetaNumber props) arg))
 
-(def-markup-command (roman layout props arg) (markup?)
+(define-markup-command (roman layout props arg) (markup?)
   "Set font family to @code{roman}."
   (interpret-markup layout (prepend-alist-chain 'font-family 'roman props) arg))
 
-(def-markup-command (huge layout props arg) (markup?)
+(define-markup-command (huge layout props arg) (markup?)
   "Set font size to +2."
   (interpret-markup layout (prepend-alist-chain 'font-size 2 props) arg))
 
-(def-markup-command (large layout props arg) (markup?)
+(define-markup-command (large layout props arg) (markup?)
   "Set font size to +1."
   (interpret-markup layout (prepend-alist-chain 'font-size 1 props) arg))
 
-(def-markup-command (normalsize layout props arg) (markup?)
+(define-markup-command (normalsize layout props arg) (markup?)
   "Set font size to default."
   (interpret-markup layout (prepend-alist-chain 'font-size 0 props) arg))
 
-(def-markup-command (small layout props arg) (markup?)
+(define-markup-command (small layout props arg) (markup?)
   "Set font size to -1."
   (interpret-markup layout (prepend-alist-chain 'font-size -1 props) arg))
 
-(def-markup-command (tiny layout props arg) (markup?)
+(define-markup-command (tiny layout props arg) (markup?)
   "Set font size to -2."
   (interpret-markup layout (prepend-alist-chain 'font-size -2 props) arg))
 
-(def-markup-command (teeny layout props arg) (markup?)
+(define-markup-command (teeny layout props arg) (markup?)
   "Set font size to -3."
   (interpret-markup layout (prepend-alist-chain 'font-size -3 props) arg))
 
-(def-markup-command (caps layout props arg) (markup?)
+(define-markup-command (caps layout props arg) (markup?)
   "Set @code{font-shape} to @code{caps}."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
-(def-markup-command (dynamic layout props arg) (markup?)
+(define-markup-command (dynamic layout props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
 @b{z}, @b{p}, and @b{r}.  When producing phrases, like ``pi@`{u} @b{f}'', the
 normal words (like ``pi@`{u}'') should be done in a different font.  The
@@ -855,7 +855,7 @@ recommend font for this is bold and italic"
   (interpret-markup
    layout (prepend-alist-chain 'font-encoding 'fetaDynamic props) arg))
 
-(def-markup-command (text layout props arg) (markup?)
+(define-markup-command (text layout props arg) (markup?)
   "Use a text font instead of music symbol or music alphabet font."  
 
   ;; ugh - latin1
@@ -863,26 +863,26 @@ recommend font for this is bold and italic"
 		    arg))
 
 
-(def-markup-command (italic layout props arg) (markup?)
+(define-markup-command (italic layout props arg) (markup?)
   "Use italic @code{font-shape} for @var{arg}. "
   (interpret-markup layout (prepend-alist-chain 'font-shape 'italic props) arg))
 
-(def-markup-command (typewriter layout props arg) (markup?)
+(define-markup-command (typewriter layout props arg) (markup?)
   "Use @code{font-family} typewriter for @var{arg}."
   (interpret-markup
    layout (prepend-alist-chain 'font-family 'typewriter props) arg))
 
-(def-markup-command (upright layout props arg) (markup?)
+(define-markup-command (upright layout props arg) (markup?)
   "Set font shape to @code{upright}.  This is the opposite of @code{italic}."
   (interpret-markup
    layout (prepend-alist-chain 'font-shape 'upright props) arg))
 
-(def-markup-command (medium layout props arg) (markup?)
+(define-markup-command (medium layout props arg) (markup?)
   "Switch to medium font-series (in contrast to bold)."
   (interpret-markup layout (prepend-alist-chain 'font-series 'medium props)
 		    arg))
 
-(def-markup-command (normal-text layout props arg) (markup?)
+(define-markup-command (normal-text layout props arg) (markup?)
   "Set all font related properties (except the size) to get the default normal text font, no matter what font was used earlier."
   ;; ugh - latin1
   (interpret-markup layout
@@ -895,44 +895,44 @@ recommend font for this is bold and italic"
 ;; symbols.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-markup-command (doublesharp layout props) ()
+(define-markup-command (doublesharp layout props) ()
   "Draw a double sharp symbol."
 
   (interpret-markup layout props (markup #:musicglyph "accidentals.4")))
 
-(def-markup-command (sesquisharp layout props) ()
+(define-markup-command (sesquisharp layout props) ()
   "Draw a 3/2 sharp symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.3")))
 
-(def-markup-command (sharp layout props) ()
+(define-markup-command (sharp layout props) ()
   "Draw a sharp symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.2")))
 
-(def-markup-command (semisharp layout props) ()
+(define-markup-command (semisharp layout props) ()
   "Draw a semi sharp symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.1")))
 
-(def-markup-command (natural layout props) ()
+(define-markup-command (natural layout props) ()
   "Draw a natural symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.0")))
 
-(def-markup-command (semiflat layout props) ()
+(define-markup-command (semiflat layout props) ()
   "Draw a semiflat."
   (interpret-markup layout props (markup #:musicglyph "accidentals.M1")))
 
-(def-markup-command (flat layout props) ()
+(define-markup-command (flat layout props) ()
   "Draw a flat symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.M2")))
 
-(def-markup-command (sesquiflat layout props) ()
+(define-markup-command (sesquiflat layout props) ()
   "Draw a 3/2 flat symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.M3")))
 
-(def-markup-command (doubleflat layout props) ()
+(define-markup-command (doubleflat layout props) ()
   "Draw a double flat symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.M4")))
 
-(def-markup-command (with-color layout props color arg) (color? markup?)
+(define-markup-command (with-color layout props color arg) (color? markup?)
   "Draw @var{arg} in color specified by @var{color}"
 
   (let* ((stil (interpret-markup layout props arg)))
@@ -947,7 +947,7 @@ recommend font for this is bold and italic"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(def-markup-command (arrow-head layout props axis direction filled)
+(define-markup-command (arrow-head layout props axis direction filled)
   (integer? ly:dir? boolean?)
   "produce an arrow head in specified direction and axis. Use the filled head if @var{filled} is  specified."
   (let*
@@ -962,7 +962,7 @@ recommend font for this is bold and italic"
 				     props))
      name)))
 
-(def-markup-command (musicglyph layout props glyph-name) (string?)
+(define-markup-command (musicglyph layout props glyph-name) (string?)
   "This is converted to a musical symbol, e.g. @code{\\musicglyph
 #\"accidentals.0\"} will select the natural sign from the music font.
 See @usermanref{The Feta font} for  a complete listing of the possible glyphs."
@@ -971,12 +971,12 @@ See @usermanref{The Feta font} for  a complete listing of the possible glyphs."
 				   props))
    glyph-name))
 
-(def-markup-command (lookup layout props glyph-name) (string?)
+(define-markup-command (lookup layout props glyph-name) (string?)
   "Lookup a glyph by name."
   (ly:font-get-glyph (ly:paper-get-font layout props)
 		     glyph-name))
 
-(def-markup-command (char layout props num) (integer?)
+(define-markup-command (char layout props num) (integer?)
   "Produce a single character, e.g. @code{\\char #65} produces the 
 letter 'A'."
   (ly:get-glyph (ly:paper-get-font layout props) num))
@@ -1004,13 +1004,13 @@ letter 'A'."
 		       (number->markletter-string vec (remainder n lst)))
 	(make-string 1 (vector-ref vec n)))))
 
-(def-markup-command (markletter layout props num) (integer?)
+(define-markup-command (markletter layout props num) (integer?)
   "Make a markup letter for @var{num}.  The letters start with A to Z
  (skipping I), and continues with double letters."
   (ly:text-interface::interpret-markup layout props
     (number->markletter-string number->mark-letter-vector num)))
 
-(def-markup-command (markalphabet layout props num) (integer?)
+(define-markup-command (markalphabet layout props num) (integer?)
    "Make a markup letter for @var{num}.  The letters start with A to Z
  and continues with double letters."
    (ly:text-interface::interpret-markup layout props
@@ -1018,7 +1018,7 @@ letter 'A'."
 
 
 
-(def-markup-command (slashed-digit layout props num) (integer?)
+(define-markup-command (slashed-digit layout props num) (integer?)
   "A feta number, with slash. This is for use in the context of
 figured bass notation"
   (let*
@@ -1065,7 +1065,7 @@ figured bass notation"
 
 ;; TODO: better syntax.
 
-(def-markup-command (note-by-number layout props log dot-count dir) (number? number? number?)
+(define-markup-command (note-by-number layout props log dot-count dir) (number? number? number?)
   "Construct a note symbol, with stem.  By using fractional values for
 @var{dir}, you can obtain longer or shorter stems."
   (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)) props)))
@@ -1138,7 +1138,7 @@ figured bass notation"
                 (if dots (string-length dots) 0)))
         (ly:error (_ "not a valid duration string: ~a") duration-string))))
 
-(def-markup-command (note layout props duration dir) (string? number?)
+(define-markup-command (note layout props duration dir) (string? number?)
   "This produces a note with a stem pointing in @var{dir} direction, with
 the @var{duration} for the note head type and augmentation dots. For
 example, @code{\\note #\"4.\" #-0.75} creates a dotted quarter note, with
@@ -1151,7 +1151,7 @@ a shortened down stem."
 ;; translating.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-markup-command (lower layout props amount arg) (number? markup?)
+(define-markup-command (lower layout props amount arg) (number? markup?)
   "
 Lower @var{arg}, by the distance @var{amount}.
 A negative @var{amount} indicates raising, see also @code{\\raise}.
@@ -1160,7 +1160,7 @@ A negative @var{amount} indicates raising, see also @code{\\raise}.
 			     (- amount) Y))
 
 
-(def-markup-command (raise layout props amount arg) (number? markup?)
+(define-markup-command (raise layout props amount arg) (number? markup?)
   "
 Raise @var{arg}, by the distance @var{amount}.
 A negative @var{amount} indicates lowering, see also @code{\\lower}.
@@ -1179,7 +1179,7 @@ positions it next to the staff cancels any shift made with
 and/or @code{extra-offset} properties. "
   (ly:stencil-translate-axis (interpret-markup layout props arg) amount Y))
 
-(def-markup-command (fraction layout props arg1 arg2) (markup? markup?)
+(define-markup-command (fraction layout props arg1 arg2) (markup? markup?)
   "Make a fraction of two markups."
   (let* ((m1 (interpret-markup layout props arg1))
          (m2 (interpret-markup layout props arg2)))
@@ -1202,13 +1202,13 @@ and/or @code{extra-offset} properties. "
 
 
 
-(def-markup-command (normal-size-super layout props arg) (markup?)
+(define-markup-command (normal-size-super layout props arg) (markup?)
   "Set @var{arg} in superscript with a normal font size."
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
    (* 0.5 (chain-assoc-get 'baseline-skip props)) Y))
 
-(def-markup-command (super layout props arg) (markup?)
+(define-markup-command (super layout props arg) (markup?)
   "
 @cindex raising text
 @cindex lowering text
@@ -1234,7 +1234,7 @@ Raising and lowering texts can be done with @code{\\super} and
    (* 0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
-(def-markup-command (translate layout props offset arg) (number-pair? markup?)
+(define-markup-command (translate layout props offset arg) (number-pair? markup?)
   "This translates an object. Its first argument is a cons of numbers
 @example
 A \\translate #(cons 2 -3) @{ B C @} D
@@ -1248,7 +1248,7 @@ that.
   (ly:stencil-translate (interpret-markup  layout props arg)
 			offset))
 
-(def-markup-command (sub layout props arg) (markup?)
+(define-markup-command (sub layout props arg) (markup?)
   "Set @var{arg} in subscript."
   (ly:stencil-translate-axis
    (interpret-markup
@@ -1258,7 +1258,7 @@ that.
    (* -0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
-(def-markup-command (normal-size-sub layout props arg) (markup?)
+(define-markup-command (normal-size-sub layout props arg) (markup?)
   "Set @var{arg} in subscript, in a normal font size."
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
@@ -1269,19 +1269,19 @@ that.
 ;; brackets.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def-markup-command (hbracket layout props arg) (markup?)
+(define-markup-command (hbracket layout props arg) (markup?)
   "Draw horizontal brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m X th (* 2.5 th) th)))
 
-(def-markup-command (bracket layout props arg) (markup?)
+(define-markup-command (bracket layout props arg) (markup?)
   "Draw vertical brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))
 
-(def-markup-command (bracketed-y-column layout props indices args)
+(define-markup-command (bracketed-y-column layout props indices args)
   (list? markup-list?)
   "Make a column of the markups in @var{args}, putting brackets around
 the elements marked in @var{indices}, which is a list of numbers.

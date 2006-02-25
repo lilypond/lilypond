@@ -12,20 +12,20 @@ the @code{TextScript} grob.
           
       }
 
-\version "2.7.32"
+\version "2.7.36"
 \layout { ragged-right = ##t }
 
-withPaddingA = #(def-music-function (parser location padding music) (number? ly:music?)
+withPaddingA = #(define-music-function (parser location padding music) (number? ly:music?)
 		 #{ \override TextScript #'padding = #$padding
 		 $music 
 		 \revert TextScript #'padding #})
 
-withPaddingB = #(def-music-function (parser location padding music) (number? ly:music?)
+withPaddingB = #(define-music-function (parser location padding music) (number? ly:music?)
 		 #{ \override TextScript #'padding = #$(* padding 2)
 		 $music 
 		 \revert TextScript #'padding #})
 
-withPaddingC = #(def-music-function (parser location padding music) (number? ly:music?)
+withPaddingC = #(define-music-function (parser location padding music) (number? ly:music?)
 		 #{ \override TextScript #'padding = #(+ 1 $(* padding 2))
 		    $music 
 		    \revert TextScript #'padding #})

@@ -215,12 +215,12 @@ applyMusic = #(ly:make-music-function
                   (func music)))
 @end example
 
-A @code{def-music-function} macro is introduced on top of
+A @code{define-music-function} macro is introduced on top of
 @code{ly:make-music-function} to ease the definition of music
 functions:
 
 @example
-applyMusic = #(def-music-function (parser location func music)
+applyMusic = #(define-music-function (parser location func music)
                 (procedure? ly:music?)
                 (func music))
 @end example
@@ -440,7 +440,7 @@ This function may also be defined as a music function:
 
 @lilypond[quote,verbatim,ragged-right]
 withPadding =
-  #(def-music-function (parser location padding music) (number? ly:music?)
+  #(define-music-function (parser location padding music) (number? ly:music?)
     #{ \override TextScript #'padding = #$padding
        $music 
        \revert TextScript #'padding #})
@@ -568,9 +568,9 @@ of this section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 @subsection Markup command definition
 
 New markup commands can be defined
-with the @code{def-markup-command} scheme macro.
+with the @code{define-markup-command} scheme macro.
 @lisp
-(def-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
+(define-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
             (@var{arg1-type?} @var{arg2-type?} ...)
   ..command body..)
 @end lisp
@@ -600,11 +600,11 @@ This selects the caps font by setting the @code{font-shape} property to
 @code{#'caps} for interpreting @code{Text-in-caps}.
 
 To make the above available as @code{\smallcaps} command, we have to
-define a function using @code{def-markup-command}.  The command should
+define a function using @code{define-markup-command}.  The command should
 take a single argument, of type markup.  Therefore, the start of the
 definition should read
 @example
-(def-markup-command (smallcaps layout props argument) (markup?)
+(define-markup-command (smallcaps layout props argument) (markup?)
 @end example
 
 @noindent
@@ -638,7 +638,7 @@ that takes into account the necessary translation, and uses the newly
 defined @code{\smallcaps} command:
 
 @example
-#(def-markup-command (character layout props name) (string?)
+#(define-markup-command (character layout props name) (string?)
   "Print the character name in small caps, translated to the left and
   top.  Syntax: \\character #\"name\""
   (interpret-markup layout props 
@@ -663,7 +663,7 @@ The final result is as follows:
 @end example
 
 @lilypond[quote,ragged-right]
-#(def-markup-command (smallcaps layout props str) (string?)
+#(define-markup-command (smallcaps layout props str) (string?)
   "Print the string argument in small caps.  Syntax: \\smallcaps #\"string\""
   (interpret-markup layout props
    (make-line-markup
@@ -675,7 +675,7 @@ The final result is as follows:
                       #:tiny (string-upcase (substring s 1)))))
          (string-split str #\Space)))))
 
-#(def-markup-command (character layout props name) (string?)
+#(define-markup-command (character layout props name) (string?)
   "Print the character name in small caps, translated to the left and
   top.  Syntax: \\character #\"name\""
   (interpret-markup layout props 
@@ -693,7 +693,7 @@ the small caps font by setting a string in upcase with the first
 letter a little larger:
 
 @example
-#(def-markup-command (smallcaps layout props str) (string?)
+#(define-markup-command (smallcaps layout props str) (string?)
   "Print the string argument in small caps."
   (interpret-markup layout props
    (make-line-markup
