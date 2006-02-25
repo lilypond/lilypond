@@ -1,3 +1,23 @@
+2006-02-25  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/markup.scm (define-markup-command): change
+	def-markup-command to define-markup-command
+
+	* scm/music-functions.scm (define-music-function): change
+	def-music-function to define-music-function.
+
+	* python/convertrules.py (conv): rules for def-music-function
+	and def-markup-commands
+
+	* Documentation/user/programming-interface.itely,
+	input/no-notation/display-lily-tests.ly,
+	input/regression/lily-in-scheme.ly,
+	input/regression/markup-user.ly,
+	input/regression/music-function.ly, input/regression/tie-chord.ly,
+	scm/fret-diagrams.scm, ly/music-functions-init.ly,
+	ly/gregorian-init.ly: use new macro names (define-music-function,
+	define-markup-command).
+
 2006-02-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (main): write Makefile dependencies file. 

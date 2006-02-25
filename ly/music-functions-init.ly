@@ -7,7 +7,7 @@
 #(use-modules (srfi srfi-1))  
 
 
-tweak = #(def-music-function (parser location sym val arg)
+tweak = #(define-music-function (parser location sym val arg)
 	   (symbol? scheme? ly:music?)
 
 	   "Add @code{sym . val} to the @code{tweaks} property of @var{arg}."
@@ -19,7 +19,7 @@ tweak = #(def-music-function (parser location sym val arg)
 		   (ly:music-property arg 'tweaks)))
 	   arg)
 
-tag = #(def-music-function (parser location tag arg)
+tag = #(define-music-function (parser location tag arg)
    (symbol? ly:music?)
 
    "Add @var{tag} to the @code{tags} property of @var{arg}."
@@ -31,7 +31,7 @@ tag = #(def-music-function (parser location tag arg)
    arg)
 
 clef =
-#(def-music-function (parser location type)
+#(define-music-function (parser location type)
    (string?)
    
    "Set the current clef."
@@ -39,18 +39,18 @@ clef =
    (make-clef-set type))
 
 bar =
-#(def-music-function (parser location type)
+#(define-music-function (parser location type)
    (string?)
    (context-spec-music
     (make-property-set 'whichBar type)
     'Timing))
 
 applyMusic =
-#(def-music-function (parser location func music) (procedure? ly:music?)
+#(define-music-function (parser location func music) (procedure? ly:music?)
                (func music))
 
 oldaddlyrics =
-#(def-music-function (parser location music lyrics) (ly:music? ly:music?)
+#(define-music-function (parser location music lyrics) (ly:music? ly:music?)
 
               (make-music 'OldLyricCombineMusic 
                           'origin location
@@ -65,25 +65,25 @@ appoggiatura =
 #(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic)
 
 partcombine =
-#(def-music-function (parser location part1 part2) (ly:music? ly:music?)
+#(define-music-function (parser location part1 part2) (ly:music? ly:music?)
                 (make-part-combine-music (list part1 part2)))
 
 autochange =
-#(def-music-function (parser location music) (ly:music?)
+#(define-music-function (parser location music) (ly:music?)
                (make-autochange-music music))
 
 applyContext =
-#(def-music-function (parser location proc) (procedure?)
+#(define-music-function (parser location proc) (procedure?)
                  (make-music 'ApplyContext 
                    'origin location
                    'procedure proc))
 
 musicMap =
-#(def-music-function (parser location proc mus) (procedure? ly:music?)
+#(define-music-function (parser location proc mus) (procedure? ly:music?)
 	     (music-map proc mus))
 
 displayMusic =
-#(def-music-function (parser location music) (ly:music?)
+#(define-music-function (parser location music) (ly:music?)
 		 (display-scheme-music music)
 		 music)
 
@@ -93,18 +93,18 @@ displayMusic =
 #(use-modules (scm display-lily))
 #(display-lily-init parser)
 displayLilyMusic =
-#(def-music-function (parser location music) (ly:music?)
+#(define-music-function (parser location music) (ly:music?)
    (display-lily-music music)
    music)
 
 applyOutput =
-#(def-music-function (parser location proc) (procedure?)
+#(define-music-function (parser location proc) (procedure?)
                 (make-music 'ApplyOutputEvent 
                   'origin location
                   'procedure proc))
 
 overrideProperty =
-#(def-music-function (parser location name property value)
+#(define-music-function (parser location name property value)
    (string? symbol? scheme?)
 
 
@@ -137,29 +137,29 @@ or @code{\"GrobName\"}"
       context-name)))
 
 breathe =
-#(def-music-function (parser location) ()
+#(define-music-function (parser location) ()
             (make-music 'EventChord 
               'origin location
               'elements (list (make-music 'BreathingSignEvent))))
 
 
 unfoldRepeats =
-#(def-music-function (parser location music) (ly:music?)
+#(define-music-function (parser location music) (ly:music?)
 		  (unfold-repeats music))
 
 compressMusic =
-#(def-music-function
+#(define-music-function
 		  (parser location fraction music) (number-pair? ly:music?)
 		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
 
 makeClusters =
-#(def-music-function
+#(define-music-function
 		(parser location arg) (ly:music?)
 		(music-map note-to-cluster arg))
 
 
 removeWithTag = 
-#(def-music-function
+#(define-music-function
   (parser location tag music) (symbol? ly:music?)
   (music-filter
    (lambda (m)
@@ -169,7 +169,7 @@ removeWithTag =
  music))
 	      
 keepWithTag =
-#(def-music-function
+#(define-music-function
   (parser location tag music) (symbol? ly:music?)
   (music-filter
    (lambda (m)
@@ -183,10 +183,10 @@ keepWithTag =
 
 %% Todo:
 %% doing
-%% def-music-function in a .scm causes crash.
+%% define-music-function in a .scm causes crash.
 
 cueDuring = 
-#(def-music-function
+#(define-music-function
   (parser location what dir main-music)
   (string? ly:dir? ly:music?)
   (make-music 'QuoteMusic
@@ -199,7 +199,7 @@ cueDuring =
 
 
 quoteDuring = #
-(def-music-function
+(define-music-function
   (parser location what main-music)
   (string? ly:music?)
   (make-music 'QuoteMusic
@@ -210,7 +210,7 @@ quoteDuring = #
 
 
 pitchedTrill =
-#(def-music-function
+#(define-music-function
    (parser location main-note secondary-note)
    (ly:music? ly:music?)
    (let*
@@ -237,7 +237,7 @@ pitchedTrill =
      main-note))
 
 killCues =
-#(def-music-function
+#(define-music-function
    (parser location music)
    (ly:music?)
    (music-map
@@ -251,7 +251,7 @@ afterGraceFraction =
 #(cons 6 8)
 
 afterGrace =
-#(def-music-function
+#(define-music-function
   (parser location main grace)
   (ly:music? ly:music?)
 
@@ -277,7 +277,7 @@ afterGrace =
 
 
 barNumberCheck =
-#(def-music-function (parser location n) (integer?)
+#(define-music-function (parser location n) (integer?)
    (make-music 'ApplyContext 
 	       'origin location
 	       'procedure 
@@ -292,7 +292,7 @@ barNumberCheck =
 
 % for regression testing purposes.
 assertBeamQuant =
-#(def-music-function (parser location l r) (pair? pair?)
+#(define-music-function (parser location l r) (pair? pair?)
   (make-grob-property-override 'Beam 'positions
    (ly:make-simple-closure
     (ly:make-simple-closure
@@ -302,7 +302,7 @@ assertBeamQuant =
     
 % for regression testing purposes.
 assertBeamSlope =
-#(def-music-function (parser location comp) (procedure?)
+#(define-music-function (parser location comp) (procedure?)
   (make-grob-property-override 'Beam 'positions
    (ly:make-simple-closure
     (ly:make-simple-closure
@@ -312,7 +312,7 @@ assertBeamSlope =
 
 
 parallelMusic =
-#(def-music-function (parser location voice-ids music) (list? ly:music?)
+#(define-music-function (parser location voice-ids music) (list? ly:music?)
   "Define parallel music sequences, separated by '|' (bar check signs),
 and assign them to the identifiers provided in @var{voice-ids}.
 
@@ -404,11 +404,11 @@ Example:
 
 %% this is a stub. Write your own to suit the spacing tweak output.
 spacingTweaks =
-#(def-music-function (parser location parameters) (list?)
+#(define-music-function (parser location parameters) (list?)
    (make-music 'SequentialMusic 'void #t))
 
 octave =
-#(def-music-function (parser location pitch-note) (ly:music?)
+#(define-music-function (parser location pitch-note) (ly:music?)
    "octave check"
 
    (make-music 'RelativeOctaveCheck
@@ -417,14 +417,14 @@ octave =
 	       ))
 
 addquote =
-#(def-music-function (parser location name music) (string? ly:music?)
+#(define-music-function (parser location name music) (string? ly:music?)
    "Add a piece of music to be quoted "
    (add-quotable name music)
    (make-music 'SequentialMusic 'void #t))
 
    
 parenthesize =
-#(def-music-function (parser loc arg) (ly:music?)
+#(define-music-function (parser loc arg) (ly:music?)
    "Tag @var{arg} to be parenthesized."
 
    (set! (ly:music-property arg 'parenthesize) #t)

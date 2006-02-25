@@ -2747,3 +2747,12 @@ def conv (str):
 
 conversions.append (((2, 7, 32), conv,
 		     """debug-beam-quanting -> debug-beam-scoring"""))
+
+
+def conv (str):
+	str = re.sub ('def-music-function', 'define-music-function', str)
+	str = re.sub ('def-markup-command', 'define-markup-command', str)
+	return str
+
+conversions.append (((2, 7, 36), conv,
+		    """def-(music-function|markup-command) -> define-(music-function|markup-command)"""))

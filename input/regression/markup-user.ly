@@ -2,7 +2,7 @@
 \header {
 
   texidoc = "Own markup commands may be defined by using the
-    @code{def-markup-command} scheme macro."
+    @code{define-markup-command} scheme macro."
 
 
 }
@@ -12,9 +12,9 @@
   
 
 
-\version "2.7.32" % to be updated
+\version "2.7.36"
 
-#(def-markup-command (upcase paper props str) (string?)
+#(define-markup-command (upcase paper props str) (string?)
   "Upcase the string characters. Syntax: \\upcase #\"string\""
   (interpret-markup paper props (make-simple-markup (string-upcase str))))
 

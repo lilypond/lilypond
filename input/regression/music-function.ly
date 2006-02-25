@@ -7,9 +7,9 @@ demonstrate a @code{\myBar} function, which works similar to
 @code{\bar}, but is implemented completely in Scheme."
 
 }
-\version "2.7.32"
+\version "2.7.36"
 
-myBar = #(def-music-function (parser location bar-type) (string?)
+myBar = #(define-music-function (parser location bar-type) (string?)
           (context-spec-music
            (context-spec-music (make-property-set 'whichBar bar-type) 'Timing)
            'Score))
@@ -17,6 +17,6 @@ myBar = #(def-music-function (parser location bar-type) (string?)
 \layout { ragged-right = ##t }
 
 {
-    d4 \myBar #"|:" d4
+    d4 \myBar "|:" d4
 }
 
