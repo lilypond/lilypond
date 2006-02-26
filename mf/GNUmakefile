@@ -60,8 +60,8 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 # 2. are not included with teTeX
 #
 
-define EMMENTALER_RULE \
-$(outdir)/emmentaler-$(1).otf $(outdir)/emmentaler-$(1).svg: $(outdir)/emmentaler-$(1).pe $(outdir)/feta$(1).pfa  $(outdir)/feta-alphabet$(1).pfa  $(outdir)/parmesan$(1).pfa \
+define EMMENTALER_RULE
+$(outdir)/emmentaler-$(1).otf $(outdir)/emmentaler-$(1).svg: $(outdir)/emmentaler-$(1).pe $(outdir)/feta$(1).pfa  $(outdir)/feta-alphabet$(1).pfa  $(outdir)/parmesan$(1).pfa
 	cd $(outdir) && $(FONTFORGE) -script emmentaler-$(1).pe
 endef
 

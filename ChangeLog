@@ -6,6 +6,9 @@
 
 2006-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile ($(outdir)/emmentaler-$(1).otf
+	$(outdir)/emmentaler-$(1).svg): remove backslashes from define endef.
+
 	* buildscripts/substitute-encoding.py (Module): remove file.
 
 	* mf/GNUmakefile: more PFA strippage.
