@@ -439,12 +439,6 @@
     (postprocess-output book framework-ps-module filename
 			 (ly:output-formats))))
 
-(if (not (defined? 'nan?))
-    (define (nan? x) #f))
-
-(if (not (defined? 'inf?))
-    (define (inf? x) #f))
-
 (define-public (dump-stencil-as-EPS paper dump-me filename load-fonts?)
   (define (mm-to-bp-box mmbox)
     (let* ((scale (ly:output-def-lookup paper 'output-scale))

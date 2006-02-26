@@ -1,3 +1,9 @@
+2006-02-26  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/framework-ps.scm: 	
+	* scm/lily-library.scm (nan?, inf?): Move guile 1.6 compatibility
+	layer for inf? and nan? from framework-ps to lily-library.
+
 2006-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* buildscripts/substitute-encoding.py (Module): remove file.
