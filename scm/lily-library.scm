@@ -317,6 +317,15 @@ found."
 	    (ly:list->offsets accum (cddr coords)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; numbers
+
+(if (not (defined? 'nan?)) ;; guile 1.6 compat
+    (define-public (nan? x) #f))
+
+(if (not (defined? 'inf?))
+    (define-public (inf? x) #f))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; intervals
 
 (define-public (interval-length x)
