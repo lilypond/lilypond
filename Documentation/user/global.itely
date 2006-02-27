@@ -84,6 +84,11 @@ An output definition, such as @code{\paper}, @code{\midi}, and
 settings for the block entered.
 
 @item
+A direct scheme expression, such as
+@code{#(set-default-paper-size "a7" 'landscape)} or
+@code{#(ly:set-option 'point-and-click #f)}.
+
+@item
 A @code{\header} block.  This sets the global header block.  This
 is the block containing the definitions for book-wide settings, like
 composer, title, etc. 
@@ -1352,6 +1357,7 @@ No work-around exists for decreasing the amount of space.
 @cindex @code{indent}
 @cindex @code{line-width}
 @cindex @code{ragged-right}
+@cindex @code{ragged-last}
 
 @c Although line-width can be set in \layout, it should be set in paper
 @c block, to get page layout right.
@@ -1370,7 +1376,7 @@ short fragments, and for checking how tight the natural spacing is.
 @cindex page layout
 @cindex vertical spacing
 
-The option @code{raggedlast} is similar to @code{ragged-right}, but
+The option @code{ragged-last} is similar to @code{ragged-right}, but
 only affects the last line of the piece.  No restrictions are put on
 that line.  The result is similar to formatting text paragraphs.  In a
 paragraph, the last line simply takes its natural length.
@@ -1378,6 +1384,14 @@ paragraph, the last line simply takes its natural length.
 @c While Knuth TeX uses natural length, lead typesetters use the same
 @c stretch as the previous line.  eTeX uses \lastlinefit to
 @c interpolate between both these solutions.
+
+@example
+\layout @{
+  indent = #0
+  line-width = #150
+  ragged-last = ##t
+@}
+@end example
 
 
 @node Line breaking
