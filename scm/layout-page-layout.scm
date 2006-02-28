@@ -106,6 +106,12 @@
 
   (define (handle-page page)
     (define index 0)
+    (define music-system-heights
+      (map-in-order (lambda (sys)
+		      (* -1 (car (paper-system-extent sys Y))))
+		    (remove (lambda (sys)
+			      (ly:prob-property? sys 'is-title))
+			    (page-lines page))))
     (define (handle-system sys)
       (let*
 	  ((props `((line-break . #t)
@@ -113,6 +119,7 @@
 		     . ((system-Y-extent . ,(paper-system-extent sys Y))
 			(system-refpoint-Y-extent . ,(paper-system-staff-extents sys))
 			(system-index . ,index)
+			(music-system-heights . ,music-system-heights)
 			(page-system-count . ,(length (page-lines page)))
 			(page-printable-height . ,(page-printable-height page)) 
 			(page-space-left . ,(page-property page 'space-left))))

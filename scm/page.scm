@@ -124,7 +124,13 @@
        (layout (ly:paper-book-paper p-book))
        (arrow (annotate-y-interval layout
 				   "space left"
-				   (cons (- (page-property page 'bottom-edge))
+				   (cons (- 0.0
+					    (page-property page 'bottom-edge)
+					    (let ((foot (page-property page 'foot-stencil)))
+					      (if (and (ly:stencil? foot)
+						       (not (ly:stencil-empty? foot)))
+						  (car (ly:stencil-extent foot Y))
+						  0.0)))
 					 (page-property page  'bottom-system-edge))
 				   #t)))
 
@@ -336,7 +342,12 @@ create offsets.
     (ly:prob-set-property! page 'bottom-system-edge
 			   (car (ly:stencil-extent page-stencil Y)))
     (ly:prob-set-property! page 'space-left
-			   (car (ly:stencil-extent page-stencil Y)))
+			   (+ (prop 'bottom-edge)
+			      (prop 'bottom-system-edge)
+			      (if (and (ly:stencil? foot)
+				       (not (ly:stencil-empty? foot)))
+				  (car (ly:stencil-extent foot Y))
+				  0.0)))
 
     (if (annotate? layout)
 	(set! page-stencil
