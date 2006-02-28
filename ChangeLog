@@ -1,3 +1,8 @@
+2006-02-28  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ advanced-notation, global: more (final)
+	docs for music expressions, removed special fermatas.
+
 2006-02-27  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ basic-notation, global: minor changes

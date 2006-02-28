@@ -1768,54 +1768,6 @@ Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
 accurately.  Use @code{<g a>8 <e a>8} instead.
 
 
-@ignore
-
-This is covered in articulation; does it really need its
-own doc section?  -gp
-@n ode Special fermatas
-@s ubsection Special fermatas
-
-@c index fermatas, special
-
-In contemporary music notation, special fermata symbols denote breaks
-of differing lengths.  The following fermatas are supported
-
-@li lypond[quote,ragged-right]
-<<
-  \oldaddlyrics {
-    b'2
-    ^\shortfermata
-    _\shortfermata
-    r
-
-    b'
-    ^\fermata
-    _\fermata
-    r
-
-    b'
-    ^\longfermata
-    _\longfermata
-    r
-
-    b'
-    ^\verylongfermata
-    _\verylongfermata
-    r
-  }
-  \new Lyrics \lyricmode {
-    \override LyricText #'font-family = #'typewriter
-    "shortfermata" "fermata" "longfermata" "verylongfermata"
-  }
->>
-@end li lypond
-
-See @ref{Articulations} for general instructions how to apply scripts
-such as fermatas to notes.
-
-@end ignore
-
-
 @node Special noteheads
 @subsection Special noteheads
 
