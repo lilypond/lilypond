@@ -1,3 +1,13 @@
+2006-02-28  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/layout-page-layout.scm (write-page-breaks): add a
+	music-system-heights property to the page layout output.
+
+	* scm/page.scm (make-page-stencil): take footer into account when
+	computing the 'space-left page property
+	(annotate-space-left): take footer into account when annonating
+	space left.
+
 2006-02-28  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ advanced-notation, global: more (final)
