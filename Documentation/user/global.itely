@@ -13,7 +13,7 @@ specific notation.
 
 @menu
 * Input files::                 
-* Music expressions again::     
+* A single music expression::   
 * Titles and headers::          
 * Paper and pages::             
 * Music layout::                
@@ -105,8 +105,8 @@ This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
 defined in the init file @file{scm/@/lily@/.scm}.
 
-The @code{\score} must begin with music, and may contain only
-one music block.
+The @code{\score} must begin with a music expression, and may
+contain only one music expression.
 
 @item
 A @code{\book} block logically combines multiple movements
@@ -294,11 +294,48 @@ To use a Unicode escape sequence, use
 
 
 
-@c  FIXME: --must-- delete/modify this before 2.8.0!!!  -gp
-@node Music expressions again
-@section Music expressions again
+@node A single music expression
+@section A single music expression
 
-Should we include anything about this here?
+A @code{\score} must contain a single music expression.  However,
+this music expression may be of any size.  Recall that music
+expressions may be included inside other expressions to form
+larger expressions.  All of these examples are single music
+expressions; note the curly braces @{ @} or angle brackets <<
+>> at the beginning and ending of the music.
+
+@example
+@{ c'4 c' c' c' @}
+@end example
+
+@lilypond[ragged-right,verbatim,quote]
+{
+  { c'4 c' c' c'}
+  { d'4 d' d' d'}
+}
+@end example
+
+@lilypond[ragged-right,verbatim,quote]
+<<
+  \new Staff { c'4 c' c' c' }
+  \new Staff { d'4 d' d' d' }
+>>
+@end example
+
+@example
+@{
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff @{ \flute @}
+      \new Staff @{ \oboe @}
+    >>
+    \new StaffGroup <<
+      \new Staff @{ \violinI @}
+      \new Staff @{ \violinII @}
+    >>
+  >>
+@}
+@end example
 
 
 @node Titles and headers
