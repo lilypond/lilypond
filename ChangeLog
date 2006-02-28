@@ -1,3 +1,7 @@
+2006-02-28  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/index.html.in: clarify.
+
 2006-02-28  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/layout-page-layout.scm (write-page-breaks): add a
