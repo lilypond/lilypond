@@ -38,6 +38,41 @@ program_name = sys.argv[0]
 version = '@TOPLEVEL_VERSION@'
 if version == '@' + 'TOPLEVEL_VERSION' + '@':
 	version = '(unknown version)'	   # uGUHGUHGHGUGH
+
+
+################################################################
+# Users of python modules should include this snippet.
+#
+libdir = '@local_lilypond_libdir@'
+if not os.path.isdir (libdir):
+        libdir = '@lilypond_libdir@'
+
+# ugh
+datadir = '@local_lilypond_datadir@'
+if os.environ.has_key ('LILYPONDPREFIX'):
+	datadir = os.environ['LILYPONDPREFIX']
+	while datadir[-1] == os.sep:
+		datadir= datadir[:-1]
+	libdir = datadir.replace ('/share/', '/lib/')
+
+if os.path.exists (os.path.join (datadir, 'lib/lilypond/@TOPLEVEL_VERSION@/')):
+	libdir = os.path.join (libdir, 'lib/lilypond/@TOPLEVEL_VERSION@/')
+        
+if os.path.exists (os.path.join (datadir, 'lib/lilypond/current/')):
+	libdir = os.path.join (libdir, 'lib/lilypond/current/')
+        
+sys.path.insert (0, os.path.join (libdir, 'python'))
+
+# dynamic relocation, for GUB binaries.
+bindir = os.path.split (sys.argv[0])[0]
+for p in ['share', 'lib']:
+	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
+	sys.path.insert (0, datadir)
+
+################################################################
+
+import lilylib as ly
+_ = ly._
   
 finale_clefs= ['treble', 'alto', 'tenor', 'bass', 'percussion', 'treble_8', 'bass_8', 'baritone']
 
@@ -1151,60 +1186,53 @@ class Etf_file:
 def identify():
 	sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
 
-def help ():
-	sys.stdout.write("""Usage: etf2ly [OPTIONS]... ETF-FILE
+def warranty ():
+	identify ()
+	sys.stdout.write ('''
+Copyright (c) %s by
 
-Convert ETF to LilyPond.
+  Han-Wen Nienhuys
+  Jan Nieuwenhuizen
 
-Options:
-  -h, --help          print this help
-  -o, --output=FILE   set output filename to FILE
-  -v, --version       show version information
+%s
+%s
+''' % ( '2001--2006',
+       _('Distributed under terms of the GNU General Public License.'),
+       _('It comes with NO WARRANTY.')))
 
-Enigma Transport Format is a format used by Coda Music Technology's
+
+
+def get_option_parser ():
+	p = ly.get_option_parser (usage='etf2ly [OPTIONS]... ETF-FILE',
+				  version="etf2ly (LilyPond) @TOPLEVEL_VERSION@",
+				  description=_("""Enigma Transport Format is a format used by Coda Music Technology's
 Finale product. This program will convert a subset of ETF to a
-ready-to-use lilypond file.
+ready-to-use lilypond file."""))
+	p.add_option ('-o', '--output', help=_("write output to FILE"),
+		      metavar=_("FILE"),
+		      action='store')
+	p.add_option ('-w', '--warranty', help=_ ("show warranty"),
+		      action='store_true',
+		      ),
 
-Report bugs via
+	p.add_option_group  ('bugs',
+			     description='''Report bugs via http://post.gmane.org/post.php'''
+			     '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+	return p
 
-  http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs
-
-Written by  Han-Wen Nienhuys <hanwen@cs.uu.nl>.
-
-""")
-
-def print_version ():
-	sys.stdout.write (r"""etf2ly (GNU lilypond) %s
-
-This is free software.  It is covered by the GNU General Public License,
-and you are welcome to change it and/or distribute copies of it under
-certain conditions.  Invoke as `midi2ly --warranty' for more information.
-
-Copyright (c) 2000--2006 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
-""" % version)
-
-
-
-(options, files) = getopt.getopt (sys.argv[1:], 'vo:h', ['help','version', 'output='])
-out_filename = None
-
-for opt in options:
-	o = opt[0]
-	a = opt[1]
-	if o== '--help' or o == '-h':
-		help ()
+def do_options ():
+	opt_parser = get_option_parser()
+	(options,args) = opt_parser.parse_args ()
+	if options.warranty:
+		warranty ()
 		sys.exit (0)
-	if o == '--version' or o == '-v':
-		print_version ()
-		sys.exit(0)
-		
-	if o == '--output' or o == '-o':
-		out_filename = a
-	else:
-		print o
-		raise getopt.error
 
+	return (options,args)
+
+(options, files) = do_options()
 identify()
+
+out_filename = options.output
 
 e = None
 for f in files:
