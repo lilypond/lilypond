@@ -36,7 +36,7 @@ sys.path.insert (0, os.path.join (datadir, 'python'))
 bindir = os.path.split (sys.argv[0])[0]
 for p in ['share', 'lib']:
 	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
-	sys.path.insert (0, os.path.join (datadir))
+	sys.path.insert (0, datadir)
 
 import lilylib as ly
 import fontextract
