@@ -1,5 +1,8 @@
 2006-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/global.itely (A single music expression):
+	close @lilypond properly
+
 	* lily/volta-bracket.cc (modify_edge_height): change from
 	after_line_breaking_callback. Suicide last bracket if appropriate.
  
