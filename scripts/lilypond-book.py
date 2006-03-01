@@ -682,7 +682,7 @@ def classic_lilypond_book_compatibility (key, value):
 	return (None, None)
 
 def find_file (name):
-	for i in include_path:
+	for i in global_options.include_path:
 		full = os.path.join (i, name)
 		if os.path.exists (full):
 			return full
