@@ -1,3 +1,17 @@
+2006-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/ps-to-png.scm (ps-page-count): prevent null characters
+	entering C code.
+
+2006-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/lilylib.py (get_global_option): ughness for extracting
+	global options from lilylib.
+	(NonDentedHeadingFormatter.format_heading): move from musicxml2ly
+
+	* scripts/lilypond-book.py (get_option_parser): use optparse for
+	option handling. 
+
 2006-02-28  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/index.html.in: clarify.

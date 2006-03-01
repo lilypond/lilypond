@@ -45,16 +45,16 @@
 (define (gulp-port port max-length)
   (let ((str (make-string max-length)))
     (read-string!/partial str port 0 max-length)
-   str))
+    str))
 
 (define (gulp-file nm len)
 
   ;; string routines barf when strlen() != string-length,.
   ;; which may happen as side effect of read-string!/partial.
   
-;  (gulp-port (open-file nm "r") len))
+					;  (gulp-port (open-file nm "r") len))
   (ly:gulp-file nm len))
-  
+
 
 (define BOUNDING-BOX-RE
   "^%%BoundingBox: (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)")
@@ -69,7 +69,7 @@
  ~S\
  -c showpage\
  -c quit 2>~S"
-			  file-name bbox))
+		      file-name bbox))
 	 (status (system cmd))
 	 (s (gulp-file d bbox 10240))
 	 (m (string-match BOUNDING_BOX_RE s)))
@@ -105,22 +105,26 @@
 	 (percentage (* 100 (/ 1.0 factor)))
 	 (old (string-append file ".old")))
 
-  (rename-file file old)
-  (my-system be-verbose
-	     #t
-	     (format #f "convert -scale \"~a%\" ~a ~a" percentage old file))
-  (delete-file old)
-  ))
-
+    (rename-file file old)
+    (my-system be-verbose
+	       #t
+	       (format #f "convert -scale \"~a%\" ~a ~a" percentage old file))
+    (delete-file old)
+    ))
 
 (define-public (ps-page-count ps-name)
   (let*
-      ((header (gulp-file ps-name 10240))
-       (match (string-match "%%Pages: ([0-9]+)" header))
-       (count (if match
-		  (string->number (match:substring match 1))
-		  0)))
-    count))
+      ((byte-count 10240)
+       (header (gulp-file ps-name byte-count))
+       (first-null (string-index header #\nul))
+       (match (string-match "%%Pages: ([0-9]+)"
+			    (if (number? first-null)
+				(substring header 0 first-null)
+				header))))
+
+    (if match
+	(string->number (match:substring match 1))
+	0)))
 
 (define-public (make-ps-images ps-name . rest)
   (let-optional
@@ -132,7 +136,6 @@
 	 )
    
    (let* ((base (basename (re-sub "[.]e?ps" "" ps-name)))
-	  (header (gulp-file ps-name 10240))
 	  (png1 (string-append base ".png"))
 	  (pngn (string-append base "-page%d.png"))
 	  (page-count (ps-page-count ps-name))
@@ -144,9 +147,9 @@
 	  ;; can't use pngalpha device, since IE is broken.
 	  ;;
 	  (gs-variable-options
-	    (if multi-page?
-		(format #f "-sPAPERSIZE=~a" paper-size)
-		"-dEPSCrop"))
+	   (if multi-page?
+	       (format #f "-sPAPERSIZE=~a" paper-size)
+	       "-dEPSCrop"))
 
 	  (cmd (format #f "~a\
  ~a\
@@ -159,11 +162,11 @@
  -r~S\
  ~S\
  -c quit"
-			   (search-gs)
-			   (if verbose? "" "-q")
-			   gs-variable-options
-			   output-file 
-			   (* aa-factor resolution) ps-name))
+		       (search-gs)
+		       (if verbose? "" "-q")
+		       gs-variable-options
+		       output-file 
+		       (* aa-factor resolution) ps-name))
 	  (status 0)
 	  (files '()))
 
@@ -200,5 +203,5 @@
      (if (not (= 1 aa-factor))
 	 (for-each  (lambda (f) (scale-down-image verbose? aa-factor f))
 		    files))
-			    
+
      files)))
