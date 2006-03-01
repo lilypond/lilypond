@@ -12,7 +12,6 @@ buildscript-dir = $(src-depth)/buildscripts
 script-dir = $(src-depth)/scripts
 input-dir = $(src-depth)/input
 
-
 flower-dir = $(src-depth)/flower
 lily-dir = $(src-depth)/lily
 mi2mu-dir = $(src-depth)/mi2mu

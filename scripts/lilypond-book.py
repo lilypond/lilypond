@@ -686,6 +686,7 @@ def find_file (name):
 		full = os.path.join (i, name)
 		if os.path.exists (full):
 			return full
+		
 	ly.error (_ ("file not found: %s") % name + '\n')
 	ly.exit (1)
 	return ''
@@ -1625,7 +1626,9 @@ def do_options ():
 		options.format = TEXINFO
 	options.use_hash = True
 	options.pseudo_filter = False
-	
+
+	options.include_path =  map (os.path.abspath, options.include_path)
+
 	global global_options
 	global_options = options
 	return args

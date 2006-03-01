@@ -83,6 +83,7 @@ def error (s):
 	sys.stderr.write (__main__.program_name + ": " + _ ("error: %s") % s + '\n')
 	
 def exit (i):
+	be_verbose = get_global_option('verbose_p', 'verbose')
 	if be_verbose:
 		raise _ ('Exiting (%d)...') % i
 	else:
@@ -315,6 +316,7 @@ Exit status of CMD '''
 	return status
 
 def cleanup_temp ():
+	be_verbose = get_global_option('verbose_p', 'verbose')
 	if not __main__.keep_temp_dir_p:
 		if be_verbose:
 			progress (_ ("Cleaning %s...") % __main__.temp_dir)
