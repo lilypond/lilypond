@@ -76,14 +76,36 @@ import os
 
 program_name = sys.argv[0]
 
+
+datadir = '@local_lilypond_datadir@'
+if not os.path.isdir (datadir):
+	datadir = '@lilypond_datadir@'
+
+sys.path.insert (0, os.path.join (datadir, 'python'))
+
+if os.environ.has_key ('LILYPONDPREFIX'):
+	datadir = os.environ['LILYPONDPREFIX']
+	while datadir[-1] == os.sep:
+		datadir= datadir[:-1]
+		
+	datadir = os.path.join (datadir, "share/lilypond/current/")
+sys.path.insert (0, os.path.join (datadir, 'python'))
+
+# dynamic relocation, for GUB binaries.
+bindir = os.path.split (sys.argv[0])[0]
+for p in ['share', 'lib']:
+	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
+	sys.path.insert (0, os.path.join (datadir))
+
+import lilylib as ly
+global _;_=ly._
+
 version = '@TOPLEVEL_VERSION@'
 if version == '@' + 'TOPLEVEL_VERSION' + '@':
 	version = '(unknown version)'		# uGUHGUHGHGUGH  
 
 UNDEF = 255
 state = UNDEF
-strict = 0
-preserve_beams = 0
 voice_idx_dict = {}
 header = {}
 header['footnotes'] = ''
@@ -108,7 +130,7 @@ midi_specs = ''
 
 def error (msg):
 	sys.stderr.write (msg)
-	if strict:
+	if global_options.strict:
 		sys.exit (1)
 	
 
@@ -925,7 +947,7 @@ def clear_bar_acc(state):
 
 # if we are parsing a beam, close it off
 def close_beam_state(state):
-	if state.parsing_beam and preserve_beams:
+	if state.parsing_beam and global_options.beams:
 		state.parsing_beam = 0
 		voices_append_back( ']' )
 
@@ -1015,7 +1037,7 @@ def try_parse_note (str, parser_state):
 	if slur_end:
 		voices_append ('-)' *slur_end )
 
-	if preserve_beams and \
+	if global_options.beams and \
 	   str[0] in '^=_ABCDEFGabcdefg' and \
 	   not parser_state.parsing_beam and \
 	   not parser_state.parsing_tuplet:
@@ -1321,27 +1343,7 @@ def parse_file (fn):
 def identify():
 	sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
 
-def help ():
-	print r"""
-Convert ABC to lilypond.
-
-Usage: abc2ly [OPTIONS]... ABC-FILE
-
-Options:
-  -h, --help          print this help
-  -o, --output=FILE   set output filename to FILE
-  -v, --version       show version information
-  -s, --strict        be strict about succes
-  -b, --beams         preserve ABC's notion of beams
-  
-This program converts ABC music files (see
-http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input.
-
-
-Report bugs via
-
-  http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs
-
+authors = """
 Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>, Laura Conrad
 <lconrad@laymusic.org>, Roy Rankin <Roy.Rankin@@alcatel.com.au>.
 """
@@ -1349,29 +1351,27 @@ Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>, Laura Conrad
 def print_version ():
 	print r"""abc2ly (GNU lilypond) %s""" % version
 
+def get_option_parser ():
+	p = ly.get_option_parser (usage='abc2ly [OPTIONS] FILE',
+				  version="abc2ly (LilyPond) @TOPLEVEL_VERSION@",
+				  description=_('''This program converts ABC music files (see
+http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input.'''))
+
+	p.add_option ('-o', '--output', metavar='FILE',help=_("set output filename to FILE"),
+		      action='store')
+	p.add_option ('-s', '--strict', help=_("be strict about succes"),
+		      action='store_true')
+	p.add_option ('-b', '--beams', help=_("preserve ABC's notion of beams"))
+	p.add_option_group  ('bugs',
+			     description='''Report bugs via http://post.gmane.org/post.php'''
+			     '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+	
+	return p
 
 
-(options, files) = getopt.getopt (sys.argv[1:], 'vo:hsb', ['help','version', 'output=', 'strict', 'beams'])
-out_filename = ''
+option_parser = get_option_parser()
+(global_options, files) = option_parser.parse_args()
 
-for opt in options:
-	o = opt[0]
-	a = opt[1]
-	if o== '--help' or o == '-h':
-		help ()
-		sys.exit (0)
-	elif o == '--version' or o == '-v':
-		print_version ()
-		sys.exit(0)
-	elif o == '--strict' or o == '-s':
-		strict = 1
-	elif o == '--output' or o == '-o':
-		out_filename = a
-	elif o == '--beams' or o == '-b':
-		preserve_beams = 1
-	else:
-		print o
-		raise getopt.error
 
 identify()
 
@@ -1383,10 +1383,10 @@ for f in files:
 	sys.stderr.write ('Parsing `%s\'...\n' % f)
 	parse_file (f)
 
-	if not out_filename:
-		out_filename = os.path.basename (os.path.splitext (f)[0]) + ".ly"
-	sys.stderr.write ('lilypond output to: `%s\'...' % out_filename)
-	outf = open (out_filename, 'w')
+	if not global_options.output:
+		global_options.output = os.path.basename (os.path.splitext (f)[0]) + ".ly"
+	sys.stderr.write ('lilypond output to: `%s\'...' % global_options.output)
+	outf = open (global_options.output, 'w')
 
 # don't substitute @VERSION@. We want this to reflect
 # the last version that was verified to work.

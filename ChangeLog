@@ -1,5 +1,9 @@
 2006-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/midi2ly.py: optparse, strip lilylib copy. 
+
+	* scripts/abc2ly.py (voices): use optparse.
+
 	* stepmake/stepmake/generic-vars.make: new function absdir.
 
 	* scripts/convert-ly.py (bindir): use optparse, argv[0] relocation.

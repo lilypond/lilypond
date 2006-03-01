@@ -50,10 +50,16 @@ if os.path.exists (os.path.join (datadir, 'lib/lilypond/current/')):
         
 sys.path.insert (0, os.path.join (libdir, 'python'))
 
+# dynamic relocation, for GUB binaries.
+bindir = os.path.split (sys.argv[0])[0]
+for p in ['share', 'lib']:
+	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
+	sys.path.insert (0, datadir)
+
 ################################################################
 
 import midi
-
+import lilylib as ly
 
 ################################################################
 ################ CONSTANTS
@@ -62,22 +68,18 @@ import midi
 output_name = ''
 LINE_BELL = 60
 scale_steps = [0,2,4,5,7,9,11]
+global_options = None
+
 
 clocks_per_1 = 1536
 clocks_per_4 = 0
-key = 0
+
 time = 0
 reference_note = 0
-start_quant = 0
 start_quant_clocks = 0
-duration_quant = 0
-duration_quant_clocks = 0
-allowed_tuplets = []
-allowed_tuplet_clocks = []
-absolute_p = 0
-explicit_durations_p = 0
-text_lyrics_p = 0
 
+duration_quant_clocks = 0
+allowed_tuplet_clocks = []
 
 
 ################################################################
@@ -96,48 +98,6 @@ program_name = sys.argv[0]
 program_version = '@TOPLEVEL_VERSION@'
 
 errorport = sys.stderr
-verbose_p = 0
-
-# temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
-# original_dir = os.getcwd ()
-# keep_temp_dir_p = 0
-
-
-help_summary = _ ("Convert MIDI to LilyPond source.")
-
-option_definitions = [
-	('', 'a', 'absolute-pitches', _ ("print absolute pitches")),
-	(_ ("DUR"), 'd', 'duration-quant', _ ("quantise note durations on DUR")),
-	('', 'e', 'explicit-durations', _ ("print explicit durations")),
-	('', 'h', 'help', _ ("print this help")),
-	(_ ("ALT[:MINOR]"), 'k', 'key', _ ("set key: ALT=+sharps|-flats; MINOR=1")),
-	(_ ("FILE"), 'o', 'output', _ ("write output to FILE")),
-	(_ ("DUR"), 's', 'start-quant', _ ("quantise note starts on DUR")),
-	(_ ("DUR*NUM/DEN"), 't', 'allow-tuplet', _ ("allow tuplet durations DUR*NUM/DEN")),
-	('', 'V', 'verbose', _ ("be verbose")),
-	('', 'v', 'version', _ ("print version number")),
-	('', 'w', 'warranty', _ ("show warranty and copyright")),
-	('', 'x', 'text-lyrics', _ ("treat every text as a lyric")),
-	]
-
-################################################################
-# lilylib.py -- options and stuff
-# 
-# source file of the GNU LilyPond music typesetter
-
-import os
-
-try:
-	import gettext
-	gettext.bindtextdomain ('lilypond', localedir)
-	gettext.textdomain ('lilypond')
-	_ = gettext.gettext
-except:
-	def _ (s):
-		return s
-
-if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.5.17'
 
 def identify ():
 	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
@@ -147,11 +107,11 @@ def warranty ():
 	sys.stdout.write ('\n')
 	sys.stdout.write (_ ('Copyright (c) %s by') % ' 2001--2006')
 	sys.stdout.write ('\n')
-	sys.stdout.write ('  Han-Wen Nienhuys')
-	sys.stdout.write ('  Jan Nieuwenhuizen')
+	sys.stdout.write ('  Han-Wen Nienhuys\n')
+	sys.stdout.write ('  Jan Nieuwenhuizen\n')
 	sys.stdout.write ('\n\n')
-	sys.stdout.write (_ ("Distributed under terms of the GNU General Public License."))
-        sys.stdout.write (_ ("It comes with NO WARRANTY."))
+	sys.stdout.write (_ ("Distributed under terms of the GNU General Public License.") + '\n')
+        sys.stdout.write (_ ("It comes with NO WARRANTY.") + '\n')
 	sys.stdout.write ('\n')
 
 def progress (s):
@@ -161,143 +121,17 @@ def warning (s):
 	progress (_ ("warning: ") + s)
 		
 def error (s):
-
-
-	'''Report the error S.  Exit by raising an exception. Please
-	do not abuse by trying to catch this error. If you do not want
-	a stack trace, write to the output directly.
-
-	RETURN VALUE
-
-	None
-	
-	'''
-	
 	progress (_ ("error: ") + s)
 	raise _ ("Exiting ... ")
 
-def getopt_args (opts):
-	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
-	short = ''
-	long = []
-	for o in opts:
-		if o[1]:
-			short = short + o[1]
-			if o[0]:
-				short = short + ':'
-		if o[2]:
-			l = o[2]
-			if o[0]:
-				l = l + '='
-			long.append (l)
-	return (short, long)
-
-def option_help_str (o):
-	'''Transform one option description (4-tuple ) into neatly formatted string'''
-	sh = '  '	
-	if o[1]:
-		sh = '-%s' % o[1]
-
-	sep = '  '
-	if o[1] and o[2]:
-		sep = ', '
-		
-	long = ''
-	if o[2]:
-		long= '--%s' % o[2]
-
-	arg = ''
-	if o[0]:
-		if o[2]:
-			arg = '='
-		arg = arg + o[0]
-	return '  ' + sh + sep + long + arg
-
-
-def options_help_str (opts):
-	'''Convert a list of options into a neatly formatted string'''
-	w = 0
-	strs =[]
-	helps = []
-
-	for o in opts:
-		s = option_help_str (o)
-		strs.append ((s, o[3]))
-		if len (s) > w:
-			w = len (s)
-
-	str = ''
-	for s in strs:
-		str = str + '%s%s%s\n' % (s[0], ' ' * (w - len(s[0])  + 3), s[1])
-	return str
-
-def help ():
-	ls = [(_ ("Usage: %s [OPTIONS]... FILE") % program_name),
-		('\n\n'),
-		(help_summary),
-		('\n\n'),
-		(_ ("Options:")),
-		('\n'),
-		(options_help_str (option_definitions)),
-		('\n\n'),
-		(_ ("Report bugs via %s.") %
-		 "http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"),
-		('\n')]
-	map (sys.stdout.write, ls)
-	
-def setup_temp ():
-	"""
-	Create a temporary directory, and return its name. 
-	"""
-	global temp_dir
-	if not keep_temp_dir_p:
-		temp_dir = tempfile.mktemp (program_name)
-	try:
-		os.mkdir (temp_dir, 0777)
-	except OSError:
-		pass
-
-	return temp_dir
-
-
 def system (cmd, ignore_error = 0):
-	"""Run CMD. If IGNORE_ERROR is set, don't complain when CMD returns non zero.
-
-	RETURN VALUE
-
-	Exit status of CMD
-	"""
-	
-	if verbose_p:
-		progress (_ ("Invoking `%s\'") % cmd)
-	st = os.system (cmd)
-	if st:
-		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
-		msg = name + ': ' + _ ("command exited with value %d") % st
-		if ignore_error:
-			warning (msg + ' ' + _ ("(ignored)") + ' ')
-		else:
-			error (msg)
-
-	return st
-
-
-def cleanup_temp ():
-	if not keep_temp_dir_p:
-		if verbose_p:
-			progress (_ ("Cleaning %s...") % temp_dir)
-		shutil.rmtree (temp_dir)
-
+	return ly.system (cmd, ignore_error=ignore_error)
 
 def strip_extension (f, ext):
 	(p, e) = os.path.splitext (f)
 	if e == ext:
 		e = ''
 	return p + e
-
-################################################################
-# END Library
-################################################################
 
 
 
@@ -313,7 +147,7 @@ class Duration:
 	def dur_num_den (self, clocks):
 		for i in range (len (allowed_tuplet_clocks)):
 			if clocks == allowed_tuplet_clocks[i]:
-				return allowed_tuplets[i]
+				return global_options.allowed_tuplets[i]
 
 		dur = 0; num = 1; den = 1;
 		g = gcd (clocks, clocks_per_1)
@@ -367,7 +201,7 @@ class Note:
 		n = self.names[(self.pitch) % 12]
  		a = self.alterations[(self.pitch) % 12]
 
-		if a and key.flats:
+		if a and global_options.key.flats:
 			a = - self.alterations[(self.pitch) % 12]
 			n = (n - a) % 7
 
@@ -399,6 +233,7 @@ class Note:
 
 		o = self.pitch / 12 - 4
 
+		key = global_options.key
 		if key.minor:
 			# as -> gis
 			if key.sharps == 0 and key.flats == 0 \
@@ -444,7 +279,7 @@ class Note:
 		global reference_note
 		s = chr ((self.notename + 2)  % 7 + ord ('a'))
 		s = s + self.alteration_names[self.alteration + 2]
-		if absolute_p:
+		if global_options.absolute_pitches:
 			commas = self.octave
 		else:
 			delta = self.pitch - reference_note.pitch
@@ -462,7 +297,7 @@ class Note:
 			s = s + "," * -commas
 
 		## FIXME: compile fix --jcn
-		if dump_dur and (explicit_durations_p \
+		if dump_dur and (global_options.explicit_durations \
 		   or Duration.compare (self.duration,
 					reference_note.duration)):
 			s = s + self.duration.dump ()
@@ -588,7 +423,7 @@ class Text:
 		if self.type == midi.LYRIC:
 			s = '"%s"' % self.text
 			d = Duration (self.clocks)
-			if explicit_durations_p \
+			if global_options.explicit_durations \
 			   or Duration.compare (d,
 						reference_note.duration):
 				s = s + Duration (self.clocks).dump ()
@@ -724,7 +559,7 @@ def events_on_channel (channel):
 				key = k
 
 			elif e[1][1] == midi.LYRIC \
-			     or (text_lyrics_p and e[1][1] == midi.TEXT_EVENT):
+			     or (global_options.text_lyrics and e[1][1] == midi.TEXT_EVENT):
 				if last_lyric:
 					last_lyric.clocks = t - last_time
 					events.append ((last_time, last_lyric))
@@ -735,11 +570,11 @@ def events_on_channel (channel):
 			     and e[1][1] <= midi.CUE_POINT:
 				events.append ((t, Text (e[1][1], e[1][2])))
 			else:
-				if verbose_p:
+				if global_options.verbose:
 					sys.stderr.write ("SKIP: %s\n" % `e`)
 				pass
 		else:
-			if verbose_p:
+			if global_options.verbose:
 				sys.stderr.write ("SKIP: %s\n" % `e`)
 			pass
 
@@ -923,7 +758,7 @@ def dump_track (channels, n):
 		if item and item.__class__ == Note:
 			skip = 's'
 			s = s + '%s = ' % (track + channel)
-			if not absolute_p:
+			if not global_options.absolute_pitches:
 				s = s + '\\relative c '
 		elif item and item.__class__ == Text:
 			skip = '" "'
@@ -990,8 +825,8 @@ def guess_clef (track):
 
 def convert_midi (in_file, out_file):
 	global clocks_per_1, clocks_per_4, key
-	global start_quant, start_quant_clocks
-	global duration_quant, duration_quant_clocks
+	global start_quant_clocks
+	global  duration_quant_clocks
 	global allowed_tuplet_clocks
 
 	str = open (in_file).read ()
@@ -1000,14 +835,14 @@ def convert_midi (in_file, out_file):
 	clocks_per_1 = midi_dump[0][1]
 	clocks_per_4 = clocks_per_1 / 4
 	
-	if start_quant:
-		start_quant_clocks = clocks_per_1 / start_quant
+	if global_options.start_quant:
+		start_quant_clocks = clocks_per_1 / global_options.start_quant
 
-	if duration_quant:
-		duration_quant_clocks = clocks_per_1 / duration_quant
+	if global_options.duration_quant:
+		duration_quant_clocks = clocks_per_1 / global_options.duration_quant
 
 	allowed_tuplet_clocks = []
-	for (dur, num, den) in allowed_tuplets:
+	for (dur, num, den) in global_options.allowed_tuplets:
 		allowed_tuplet_clocks.append (clocks_per_1 * num / (dur * den))
 
 	tracks = []
@@ -1049,79 +884,98 @@ def convert_midi (in_file, out_file):
 	handle.close ()
 
 
-(sh, long) = getopt_args (option_definitions)
-try:
-	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
-except getopt.error, s:
-	errorport.write ('\n')
-	errorport.write (_ ("error: ") + _ ("getopt says: `%s\'" % s))
-	errorport.write ('\n')
-	errorport.write ('\n')
-	help ()
-	sys.exit (2)
-	
-for opt in options:	
-	o = opt[0]
-	a = opt[1]
+def get_option_parser ():
+	p = ly.get_option_parser (usage='midi2ly [OPTIONS] FILE',
+				  version="midi2ly (LilyPond) @TOPLEVEL_VERSION@",
+				  description=_('''Convert MIDI to LilyPond source.'''))
 
-	if 0:
-		pass
-	elif o == '--help' or o == '-h':
-		help ()
-		errorport.write ('\n')
-		errorport.write (_ ("Example:"))
-		errorport.write  (r'''
+	p.add_option ('-a', '--absolute-pitches',
+		      action='store_true',
+		      help=_ ("print absolute pitches"))
+	p.add_option ('-d', '--duration-quant',
+		      metavar= _("DUR"),
+		      help=_("quantise note durations on DUR"))
+	p.add_option ('-e', '--explicit-durations',
+		      action='store_true',
+		      help=_ ("print explicit durations"))
+	p.add_option('-k', '--key', help=_ ("set key: ALT=+sharps|-flats; MINOR=1"),
+		     metavar=_ ("ALT[:MINOR]"),
+		     default='0'),
+	p.add_option ('-o', '--output', help=_("write output to FILE"),
+		      metavar=_("FILE"),
+		      action='store')
+	p.add_option ('-s', '--start-quant',help= _ ("quantise note starts on DUR"),
+		      metavar=_ ("DUR"))
+	p.add_option ('-t', '--allow-tuplet',
+		      metavar=_ ("DUR*NUM/DEN"),
+		      action = "append",
+		      dest="allowed_tuplets",
+		      help=_ ("allow tuplet durations DUR*NUM/DEN"),
+		      default=[])
+	p.add_option ('-V', '--verbose', help=_ ("be verbose"),
+		      action='store_true',
+		      ),
+	p.add_option ('-w', '--warranty', help=_ ("show warranty"),
+		      action='store_true',
+		      ),
+	p.add_option ('-x', '--text-lyrics', help=_("treat every text as a lyric"),
+		      action='store_true')
+
+	p.add_option_group (_ ("example"),
+			    description = r'''
     midi2ly --key=-2:1 --duration-quant=32 \
         --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
 ''')
-		sys.exit (0)
-	elif o == '--output' or o == '-o':
-		output_name = a
-	elif o == '--verbose' or o == '-V':
-		verbose_p = 1
-	elif o == '--version' or o == '-v':
-		identify ()
-		sys.exit (0)
-	elif o == '--warranty' or o == '-w':
-		status = system ('lilypond -w', ignore_error = 1)
-		if status:
-			warranty ()
-		sys.exit (0)
+	
+	p.add_option_group  ('bugs',
+			     description='''Report bugs via http://post.gmane.org/post.php'''
+			     '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+	
+	return p
 
 
-	elif o == '--absolute-pitches' or o == '-a':
-		absolute_p = 1
-	elif o == '--duration-quant' or o == '-d':
-		duration_quant = string.atoi (a)
-	elif o == '--explicit-durations' or o == '-e':
-		explicit_durations_p = 1
-	elif o == '--key' or o == '-k':
-		(alterations, minor) = map (string.atoi, string.split (a + ':0', ':'))[0:2]
+
+def do_options ():
+	opt_parser = get_option_parser()
+	(options, args) = opt_parser.parse_args ()
+
+	if not args or args[0] == '-':
+		opt_parser.print_help ()
+		sys.stderr.write ('\n%s: %s %s\n' % (program_name, _ ("error: "),
+						     _ ("no files specified on command line.")))
+		sys.exit (2)
+
+	if options.duration_quant:
+		options.duration_quant = string.atoi (options.duration_quant)
+
+	if options.warranty:
+		warranty ()
+		sys.exit (0)
+	if 1:
+		(alterations, minor) = map (string.atoi, string.split (options.key + ':0', ':'))[0:2]
  		sharps = 0
  		flats = 0
  		if alterations >= 0:
  			sharps = alterations
  		else:
  			flats = - alterations
-		key = Key (sharps, flats, minor)
-	elif o == '--start-quant' or o == '-s':
-		start_quant = string.atoi (a)
-	elif o == '--allow-tuplet' or o == '-t':
-		a = string.replace (a, '/', '*')
-		tuplet = map (string.atoi, string.split (a, '*'))
-		allowed_tuplets.append (tuplet)
-	# lots of midi files use plain text for lyric events
-	elif o == '--text-lyrics' or o == '-x':
-		text_lyrics_p = 1
+
+		options.key = Key (sharps, flats, minor)
+
+		
+	if options.start_quant:
+		options.start_quant = string.atoi (a)
+		
+	options.allowed_tuplets = [map (string.atoi, a.replace ('/','*').split ('*'))
+				for a in options.allowed_tuplets]
+	
+	global global_options
+	global_options = options
+
+	return args
 
 
-if not files or files[0] == '-':
-
-	# FIXME: read from stdin when files[0] = '-'
-	help ()
-	errorport.write (program_name + ":" + _ ("error: ") + _ ("no files specified on command line.") + '\n')
-	sys.exit (2)
-
+files = do_options()
 
 for f in files:
 	g = f
