@@ -34,6 +34,10 @@ import stat
 import string
 import tempfile
 import commands
+import optparse
+import os
+import sys
+import re
 
 # Users of python modules should include this snippet
 # and customize variables below.
@@ -43,37 +47,47 @@ import commands
 
 # If set, LILYPONDPREFIX must take prevalence.
 # if datadir is not set, we're doing a build and LILYPONDPREFIX.
-import getopt, os, sys
+
+################
+# RELOCATION
+################
+
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
 	datadir = '@lilypond_datadir@'
+
+sys.path.insert (0, os.path.join (datadir, 'python'))
+
 if os.environ.has_key ('LILYPONDPREFIX'):
 	datadir = os.environ['LILYPONDPREFIX']
 	while datadir[-1] == os.sep:
 		datadir= datadir[:-1]
 		
 	datadir = os.path.join (datadir, "share/lilypond/current/")
-	
 sys.path.insert (0, os.path.join (datadir, 'python'))
 
-# Customize these.
-#if __name__ == '__main__':
+# dynamic relocation, for GUB binaries.
+bindir = os.path.split (sys.argv[0])[0]
+for p in ['share', 'lib']:
+	datadir = os.path.abspath (bindir + '../%s/lilypond/current/python/' % p)
+	sys.path.insert (0, os.path.join (datadir))
+
 
 import lilylib as ly
 import fontextract
 global _;_=ly._
-global re;re = ly.re
+
 
 # Lilylib globals.
 program_version = '@TOPLEVEL_VERSION@'
 program_name = os.path.basename (sys.argv[0])
-verbose_p = 0
-pseudo_filter_p = 0
+
 original_dir = os.getcwd ()
 backend = 'ps'
 
 help_summary = _ (
 '''Process LilyPond snippets in hybrid HTML, LaTeX, or texinfo document.
+
 Example usage:
 
    lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
@@ -84,48 +98,57 @@ Example usage:
 copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
 
-option_definitions = [
-	(_ ("FMT"), 'f', 'format',
-	  _ ('''use output format FMT (texi [default], texi-html,
-		latex, html)''')),
-	(_ ("FILTER"), 'F', 'filter',
-	  _ ("pipe snippets through FILTER [convert-ly -n -]")),
-	('', 'h', 'help',
-	  _ ("print this help")),
-	(_ ("DIR"), 'I', 'include',
-	  _ ("add DIR to include path")),
-	(_ ("DIR"), 'o', 'output',
-	  _ ("write output to DIR")),
-	(_ ("COMMAND"), 'P', 'process',
-	  _ ("process ly_files using COMMAND FILE...")),
-	('', '', 'psfonts',
-	  _ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
-	  must use this with dvips -h INPUT.psfonts''')),
-	('', '', 'keep-line-breaks',
-	  _ ('''do not alter the number of newline characters in output
-	  .tex files. Useful when the LaTeX package srcltx is used''')),
-	('', 'V', 'verbose',
-	  _ ("be verbose")),
-	('', 'v', 'version',
-	  _ ("print version information")),
-	('', 'w', 'warranty',
-	  _ ("show warranty and copyright")),
-]
+def get_option_parser ():
+	p = ly.get_option_parser (usage='lilypond-book [OPTIONS] FILE',
+				  version="@TOPLEVEL_VERSION@",
+				  description=help_summary)
 
-include_path = [os.path.abspath (os.getcwd ())]
+	p.add_option ('-F', '--filter', metavar=_ ("FILTER"),
+		      action="store",
+		      dest="filter_cmd",
+		      help=_ ("pipe snippets through FILTER [convert-ly -n -]"),
+		      default=None)
+	p.add_option ('-f', '--format', help=_('''use output format FORMAT (texi [default], texi-html, latex, html)'''),
+		      action='store')
+	p.add_option ("-I", '--include', help=_('add DIR to include path'),
+		      metavar="DIR",
+		      action='append', dest='include_path',
+		      default=[os.path.abspath (os.getcwd ())])
+	
+	p.add_option ("-o", '--output', help=_('write output to DIR'),
+		      metavar="DIR",
+		      action='store', dest='output_name', default=None)
+	p.add_option ('-P', '--process', metavar=_("COMMAND"),
+		      help = _ ("process ly_files using COMMAND FILE..."),
+		      action='store', 
+		      dest='process_cmd', default='lilypond -b eps')
+	
+	p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
+		      help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX'''
+			      '''must use this with dvips -h INPUT.psfonts'''),
+		      default=None)
+	p.add_option ('-V', '--verbose', help=_("be verbose"), action="store_true",
+		      dest="verbose")
+		      
+	p.add_option ('-w', '--warranty', help=_("show warranty and copyright"),
+		      action='store_true'),
+
+	
+	p.add_option_group  ('bugs',
+			     description='''Report bugs via http://post.gmane.org/post.php'''
+			     '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+	
+	return p
+
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 
 # Only use installed binary when we are installed too.
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 	lilypond_binary = 'lilypond'
 
-psfonts_p = 0
-srcltx_p = 0
-use_hash_p = 1
-format = 0
-output_name = ''
-filter_cmd = 0
-process_cmd = ''
+global_options = None
+
+
 default_ly_options = { 'alt': "[image of music]" }
 
 #
@@ -374,6 +397,9 @@ snippet_res = {
 	},
 }
 
+
+
+
 format_res = {
 	HTML: {
 		'intertext': r',?\s*intertext=\".*?\"',
@@ -550,6 +576,17 @@ output = {
 	},
 }
 
+#
+# Maintain line numbers.
+#
+
+## TODO
+if 0:
+	for f in [HTML, LATEX]:
+		for s in (QUOTE, VERBATIM):
+			output[f][s] = output[f][s].replace("\n"," ")
+
+
 PREAMBLE_LY = '''%%%% Generated by %(program_name)s
 %%%% Options: [%(option_string)s]
 
@@ -665,24 +702,24 @@ def verbatim_texinfo (s):
 
 def split_options (option_string):
 	if option_string:
-		if format == HTML:
+		if global_options.format == HTML:
 			options = re.findall('[\w\.-:]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|\S+))?',option_string)
 			for i in range(len(options)):
 				options[i] = re.sub('^([^=]+=\s*)(?P<q>["\'])(.*)(?P=q)','\g<1>\g<3>',options[i])
 			return options
 		else:
-			return re.split (format_res[format]['option_sep'],
+			return re.split (format_res[global_options.format]['option_sep'],
 					 option_string)
 	return []
 
 def set_default_options (source):
 	global default_ly_options
 	if not default_ly_options.has_key (LINE_WIDTH):
-		if format == LATEX:
+		if global_options.format == LATEX:
 			textwidth = get_latex_textwidth (source)
 			default_ly_options[LINE_WIDTH] = \
 			  '''%.0f\\pt''' % textwidth
-		elif format == TEXINFO:
+		elif global_options.format == TEXINFO:
 			for (k, v) in texinfo_line_widths.items ():
 				# FIXME: @layout is usually not in
 				# chunk #0:
@@ -750,7 +787,7 @@ class Snippet (Chunk):
 class Include_snippet (Snippet):
 	def processed_filename (self):
 		f = self.substring ('filename')
-		return os.path.splitext (f)[0] + format2ext[format]
+		return os.path.splitext (f)[0] + format2ext[global_options.format]
 
 	def replacement_text (self):
 		s = self.match.group ('match')
@@ -952,7 +989,7 @@ class Lilypond_snippet (Snippet):
 	def basename (self):
 		if FILENAME in self.option_dict:
 			return self.option_dict[FILENAME]
-		if use_hash_p:
+		if global_options.use_hash:
 			return 'lily-%d' % self.get_hash ()
 		raise 'to be done'
 
@@ -973,7 +1010,7 @@ class Lilypond_snippet (Snippet):
 		     and os.path.exists (system_file)\
 		     and os.stat (system_file)[stat.ST_SIZE] \
 		     and re.match ('% eof', open (system_file).readlines ()[-1])
-		if ok and (not use_hash_p or FILENAME in self.option_dict):
+		if ok and (not global_options.use_hash or FILENAME in self.option_dict):
 			ok = (self.full_ly () == open (ly_file).read ())
 		if ok:
 			# TODO: Do something smart with target formats
@@ -984,7 +1021,7 @@ class Lilypond_snippet (Snippet):
 	def png_is_outdated (self):
 		base = self.basename ()
 		ok = self.ly_is_outdated ()
-		if format == HTML or format == TEXINFO:
+		if global_options.format in (HTML, TEXINFO):
 			ok = ok and os.path.exists (base + '.eps')
 
 			page_count = 0
@@ -1040,7 +1077,7 @@ class Lilypond_snippet (Snippet):
 	def output_html (self):
 		str = ''
 		base = self.basename ()
-		if format == HTML:
+		if global_options.format == HTML:
 			str += self.output_print_filename (HTML)
 			if VERBATIM in self.option_dict:
 				verb = verbatim_html (self.substring ('code'))
@@ -1068,21 +1105,25 @@ class Lilypond_snippet (Snippet):
 			str += output[TEXINFO][OUTPUTIMAGE] % vars ()
 
 		base = self.basename ()
-		str += output[format][OUTPUT] % vars ()
+		str += output[global_options.format][OUTPUT] % vars ()
 		return str
 
 	def output_latex (self):
 		str = ''
 		base = self.basename ()
-		if format == LATEX:
+		if global_options.format == LATEX:
 			str += self.output_print_filename (LATEX)
 			if VERBATIM in self.option_dict:
 				verb = self.substring ('code')
 				str += (output[LATEX][VERBATIM] % vars ())
-			elif srcltx_p:
-				breaks = self.ly ().count ("\n")
-				str += "".ljust (breaks, "\n").replace ("\n","%\n")
+		
 		str += (output[LATEX][OUTPUT] % vars ())
+
+		## todo: maintain breaks
+		if 0:
+			breaks = self.ly ().count ("\n")
+			str += "".ljust (breaks, "\n").replace ("\n","%\n")
+		
 		if QUOTE in self.option_dict:
 			str = output[LATEX][QUOTE] % vars ()
 		return str
@@ -1092,7 +1133,7 @@ class Lilypond_snippet (Snippet):
 		if PRINTFILENAME in self.option_dict:
 			base = self.basename ()
 			filename = self.substring ('filename')
-			str = output[format][PRINTFILENAME] % vars ()
+			str = output[global_options.format][PRINTFILENAME] % vars ()
 
 		return str
 
@@ -1163,7 +1204,7 @@ def find_linestarts (s):
 def find_toplevel_snippets (s, types):
 	res = {}
 	for i in types:
-		res[i] = ly.re.compile (snippet_res[format][i])
+		res[i] = ly.re.compile (snippet_res[global_options.format][i])
 
 	snippets = []
 	index = 0
@@ -1189,6 +1230,7 @@ def find_toplevel_snippets (s, types):
 		for type in types:
 			if not found[type] or found[type][0] < index:
 				found[type] = None
+				
 				m = res[type].search (s[index:endex])
 				if not m:
 					continue
@@ -1204,7 +1246,8 @@ def find_toplevel_snippets (s, types):
 					line_number += 1
 
 				line_number += 1
-				snip = cl (type, m, format, line_number)
+				snip = cl (type, m, global_options.format, line_number)
+
 				found[type] = (start, snip)
 
 			if found[type] \
@@ -1240,7 +1283,7 @@ def find_toplevel_snippets (s, types):
 	return snippets
 
 def filter_pipe (input, cmd):
-	if verbose_p:
+	if global_options.verbose:
 		ly.progress (_ ("Opening filter `%s'") % cmd)
 
 	(stdin, stdout, stderr) = os.popen3 (cmd)
@@ -1264,13 +1307,13 @@ def filter_pipe (input, cmd):
 		sys.stderr.write (stderr.read ())
 		ly.exit (status)
 
-	if verbose_p:
+	if global_options.verbose:
 		ly.progress ('\n')
 
 	return output
 
 def run_filter (s):
-	return filter_pipe (s, filter_cmd)
+	return filter_pipe (s, global_options.filter_cmd)
 
 def is_derived_class (cl, baseclass):
 	if cl == baseclass:
@@ -1431,7 +1474,7 @@ def do_process_cmd (chunks, input_name):
 	if ly_outdated:
 		ly.progress (_ ("Processing..."))
 		ly.progress ('\n')
-		process_snippets (process_cmd, ly_outdated, texstr_outdated, png_outdated)
+		process_snippets (global_options.process_cmd, ly_outdated, texstr_outdated, png_outdated)
 	else:
 		ly.progress (_ ("All snippets are up to date..."))
 	ly.progress ('\n')
@@ -1476,7 +1519,7 @@ def do_file (input_filename):
 	else:
 		if os.path.exists (input_filename):
 			input_fullname = input_filename
-		elif format == LATEX and ly.search_exe_path ('kpsewhich'): 
+		elif global_options.format == LATEX and ly.search_exe_path ('kpsewhich'): 
 			# urg python interface to libkpathsea?
 			input_fullname = ly.read_pipe ('kpsewhich '
 						       + input_filename)[:-1]
@@ -1493,16 +1536,16 @@ def do_file (input_filename):
 			     (os.path.splitext (input_filename)[0])
 
 	# Only default to stdout when filtering.
-	if output_name == '-' or (not output_name and filter_cmd):
+	if global_options.output_name == '-' or (not global_options.output_name and global_options.filter_cmd):
 		output_filename = '-'
 		output_file = sys.stdout
 	else:
-		# don't complain when output_name is existing
-		output_filename = input_base + format2ext[format]
-		if output_name:
-			if not os.path.isdir (output_name):
-				os.mkdir (output_name, 0777)
-			os.chdir (output_name)
+		# don't complain when global_options.output_name is existing
+		output_filename = input_base + format2ext[global_options.format]
+		if global_options.output_name:
+			if not os.path.isdir (global_options.output_name):
+				os.mkdir (global_options.output_name, 0777)
+			os.chdir (global_options.output_name)
 		else: 
 			if os.path.exists (input_filename) \
 			   and os.path.exists (output_filename) \
@@ -1534,7 +1577,7 @@ def do_file (input_filename):
 		ly.progress (_ ("Dissecting..."))
 		chunks = find_toplevel_snippets (source, snippet_types)
 
-		if format == LATEX:
+		if global_options.format == LATEX:
 			for c in chunks:
 				if (c.is_plain () and
 				    re.search (r"\\begin *{document}", c.replacement_text())):
@@ -1542,10 +1585,10 @@ def do_file (input_filename):
 					break
 		ly.progress ('\n')
 
-		if filter_cmd:
+		if global_options.filter_cmd:
 			write_if_updated (output_filename,
 					  [c.filter_text () for c in chunks])
-		elif process_cmd:
+		elif global_options.process_cmd:
 			do_process_cmd (chunks, input_fullname)
 			ly.progress (_ ("Compiling %s...") % output_filename)
 			ly.progress ('\n')
@@ -1575,61 +1618,17 @@ def do_file (input_filename):
 		raise Compile_error
 
 def do_options ():
-	global format, output_name, psfonts_p, srcltx_p
-	global filter_cmd, process_cmd, verbose_p
+	opt_parser = get_option_parser()
+	(options, args) = opt_parser.parse_args ()
 
-	(sh, long) = ly.getopt_args (option_definitions)
-	try:
-		(options, files) = getopt.getopt (sys.argv[1:], sh, long)
-	except getopt.error, s:
-		sys.stderr.write ('\n')
-		ly.error (_ ("getopt says: `%s'" % s))
-		sys.stderr.write ('\n')
-		ly.help ()
-		ly.exit (2)
-
-	for opt in options:
-		o = opt[0]
-		a = opt[1]
-
-		if 0:
-			pass
-		elif o == '--filter' or o == '-F':
-			filter_cmd = a
-			process_cmd = 0
-		elif o == '--format' or o == '-f':
-			format = a
-			if a == 'texi-html' or a == 'texi':
-				format = TEXINFO
-		elif o == '--tex-backend ':
-			backend = 'tex'
-		elif o == '--help' or o == '-h':
-			ly.help ()
-			sys.exit (0)
-		elif o == '--include' or o == '-I':
-			include_path.append (os.path.join (original_dir,
-							   os.path.abspath (a)))
-		elif o == '--output' or o == '-o':
-			output_name = a
-		elif o == '--process' or o == '-P':
-			process_cmd = a
-			filter_cmd = 0
-		elif o == '--version' or o == '-v':
-			ly.identify (sys.stdout)
-			sys.exit (0)
-		elif o == '--verbose' or o == '-V':
-			verbose_p = 1
-		elif o == '--psfonts':
-			psfonts_p = 1 
-		elif o == '--keep-line-breaks':
-			srcltx_p = 1 
-			for s in (OUTPUT, QUOTE, VERBATIM):
-				output[LATEX][s] = output[LATEX][s].replace("\n"," ")
-		elif o == '--warranty' or o == '-w':
-			if 1 or status:
-				ly.warranty ()
-			sys.exit (0)
-	return files
+	if options.format in ('texi-html', 'texi'):
+		options.format = TEXINFO
+	options.use_hash = True
+	options.pseudo_filter = False
+	
+	global global_options
+	global_options = options
+	return args
 
 def main ():
 	files = do_options ()
@@ -1642,50 +1641,49 @@ def main ():
 	basename = os.path.splitext (file)[0]
 	basename = os.path.split (basename)[1]
 	
-	global process_cmd, format
-	if not format:
-		format = guess_format (files[0])
+	if not global_options.format:
+		global_options.format = guess_format (files[0])
 
 	formats = 'ps'
-	if format == TEXINFO or format == HTML:
+	if global_options.format in (TEXINFO, HTML):
 		formats += ',png'
-	if process_cmd == '':
-		process_cmd = lilypond_binary \
+	if global_options.process_cmd == '':
+		global_options.process_cmd = lilypond_binary \
 			      + ' --formats=%s --backend eps ' % formats
 
-	if process_cmd:
-		process_cmd += string.join ([(' -I %s' % commands.mkarg (p))
-					     for p in include_path])
+	if global_options.process_cmd:
+		global_options.process_cmd += string.join ([(' -I %s' % commands.mkarg (p))
+							    for p in global_options.include_path])
 
 	ly.identify (sys.stderr)
 
 	try:
 		chunks = do_file (file)
-		if psfonts_p:
-			fontextract.verbose = verbose_p
+		if global_options.psfonts:
+			fontextract.verbose = global_options.verbose
 			snippet_chunks = filter (lambda x: is_derived_class (x.__class__,
 									      Lilypond_snippet),
 						 chunks)
 
 			psfonts_file = basename + '.psfonts' 
-			if not verbose_p:
+			if not global_options.verbose:
 				ly.progress (_ ("Writing fonts to %s...") % psfonts_file)
 			fontextract.extract_fonts (psfonts_file,
 						   [x.basename() + '.eps'
 						    for x in snippet_chunks])
-			if not verbose_p:
+			if not global_options.verbose:
 				ly.progress ('\n')
 			
 	except Compile_error:
 		ly.exit (1)
 
-	if format == TEXINFO or format == LATEX:
-		if not psfonts_p:
+	if global_options.format in (TEXINFO, LATEX):
+		if not global_options.psfonts:
 			ly.warning (_ ("option --psfonts not used"))
 			ly.warning (_ ("processing with dvips will have no fonts"))
 
-		psfonts_file = os.path.join (output_name, basename + '.psfonts')
-		output = os.path.join (output_name, basename +  '.dvi' )
+		psfonts_file = os.path.join (global_options.output_name, basename + '.psfonts')
+		output = os.path.join (global_options.output_name, basename +  '.dvi' )
 		
 		ly.progress ('\n')
 		ly.progress (_ ("DVIPS usage:"))
@@ -1695,10 +1693,12 @@ def main ():
 
 	inputs = note_input_file ('')
 	inputs.pop ()
-	dep_file = os.path.join (output_name, os.path.splitext (file)[0] + '.dep')
-	final_output_file = os.path.join (output_name,
-					  os.path.splitext (os.path.basename (file))[0]
-					  + '.%s' % format)
+
+	base_file_name = os.path.splitext (os.path.basename (file))[0]
+	dep_file = os.path.join (global_options.output_name, base_file_name + '.dep')
+	final_output_file = os.path.join (global_options.output_name,
+					  base_file_name
+					  + '.%s' % global_options.format)
 	
 	os.chdir (original_dir)
 	open (dep_file, 'w').write ('%s: %s' % (final_output_file, ' '.join (inputs)))

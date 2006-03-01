@@ -7,6 +7,7 @@ import os
 import string
 from gettext import gettext as _
 
+
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
 	datadir = '@lilypond_datadir@'
@@ -25,6 +26,8 @@ sys.path.insert (0, os.path.join (datadir, 'python'))
 
 import musicxml
 import musicexp
+import lilylib as ly
+
 from rational import Rational
 
 
@@ -368,34 +371,9 @@ def get_all_voices (parts):
 		
 	return all_ly_voices
 
-class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
-    def format_heading(self, heading):
-	    if heading:
-		    return heading[0].upper() + heading[1:] + ':\n'
-	    return ''
-    def format_option_strings(self, option):
-	    sep = ' '
-	    if option._short_opts and option._long_opts:
-		    sep = ','
-
-	    metavar = ''
-	    if option.takes_value():
-		    metavar = '=' + option.metavar or option.dest.upper()
-
-	    return "%3s%s %s%s" % (" ".join (option._short_opts),
-				   sep,
-				   " ".join (option._long_opts),
-				   metavar)
-
-    def format_usage(self, usage):
-        return _("Usage: %s\n") % usage
-    
-    def format_description(self, description):
-	    return description
-  
 
 def option_parser ():
-	p = optparse.OptionParser(usage='musicxml2ly FILE.xml',
+	p = ly.get_option_parser(usage='musicxml2ly FILE.xml',
 				  version = """%prog (LilyPond) @TOPLEVEL_VERSION@
 
 This program is free software.  It is covered by the GNU General Public
@@ -426,7 +404,6 @@ Copyright (c) 2005--2006 by
 
 	p.add_option_group  ('', description = '''Report bugs via http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs
 ''')
-	p.formatter = NonDentedHeadingFormatter () 
 	return p
 
 def music_xml_voice_name_to_lily_name (part, name):

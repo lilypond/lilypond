@@ -20,6 +20,7 @@ import shutil
 import string
 import sys
 import tempfile
+import optparse
 
 ################################################################
 # Users of python modules should include this snippet
@@ -82,7 +83,7 @@ def error (s):
 	sys.stderr.write (__main__.program_name + ": " + _ ("error: %s") % s + '\n')
 	
 def exit (i):
-	if __main__.verbose_p:
+	if be_verbose:
 		raise _ ('Exiting (%d)...') % i
 	else:
 		sys.exit (i)
@@ -212,7 +213,7 @@ def read_pipe (cmd, mode = 'r'):
 	
 	redirect = ''
 	error_log_file = ''
-	if __main__.verbose_p:
+	if be_verbose:
 		progress (_ ("Opening pipe `%s\'") % cmd)
 	else:
 		error_log_file = error_log (command_name (cmd))
@@ -230,7 +231,7 @@ def read_pipe (cmd, mode = 'r'):
 	if status:
 		error (_ ("`%s\' failed (%d)") % (cmd, exit_status))
 		
-		if not __main__.verbose_p:
+		if not be_verbose:
 			contents = open (error_log_file).read ()
 			if contents:
 				error (_ ("The error log is as follows:"))
@@ -242,13 +243,19 @@ def read_pipe (cmd, mode = 'r'):
 
 		exit (1)
 		
-	if __main__.verbose_p:
+	if be_verbose:
 		progress ('\n')
 
 	if error_log_file:
 		os.unlink (error_log_file)
 		
 	return output
+
+def get_global_option (old, new):
+	try:
+		return __main__.__dict__[old]
+	except KeyError:
+		return __main__.global_options.__dict__[new]
 
 def system (cmd, ignore_error = 0, progress_p = 0):
 	
@@ -261,8 +268,12 @@ Exit status of CMD '''
 
 	name = command_name (cmd)
 	error_log_file = ''
+
+	## UGH
+	be_verbose = get_global_option('verbose_p', 'verbose')
+	pseudo_filter = get_global_option ('pseudo_filter_p', 'pseudo_filter')
 	
-	if __main__.verbose_p:
+	if be_verbose:
 		progress_p = 1
 		progress (_ ("Invoking `%s\'") % cmd)
 	else:
@@ -272,7 +283,7 @@ Exit status of CMD '''
 	if not progress_p:
 		error_log_file = error_log (name)
 		redirect = ' 1>/dev/null 2>' + error_log_file
-	elif __main__.pseudo_filter_p:
+	elif pseudo_filter:
 		redirect = ' 1>/dev/null'
 
 	status = os.system (cmd + redirect)
@@ -287,7 +298,7 @@ Exit status of CMD '''
 		
 		msg = _ ("`%s\' failed (%s)") % (name, exit_type)
 		if ignore_error:
-			if __main__.verbose_p:
+			if be_verbose:
 				warning (msg + ' ' + _ ("(ignored)"))
 		else:
 			error (msg)
@@ -305,10 +316,10 @@ Exit status of CMD '''
 
 def cleanup_temp ():
 	if not __main__.keep_temp_dir_p:
-		if __main__.verbose_p:
+		if be_verbose:
 			progress (_ ("Cleaning %s...") % __main__.temp_dir)
 		shutil.rmtree (__main__.temp_dir)
-		if __main__.verbose_p:
+		if be_verbose:
 			progress ('\n')
 
 
@@ -414,3 +425,33 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 		os.rename (pngn % 1, png1)
  	files = glob.glob (png1) + glob.glob (re.sub ('%d', '*', pngn))
 	return files
+
+class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
+    def format_heading(self, heading):
+	    if heading:
+		    return heading[0].upper() + heading[1:] + ':\n'
+	    return ''
+    def format_option_strings(self, option):
+	    sep = ' '
+	    if option._short_opts and option._long_opts:
+		    sep = ','
+
+	    metavar = ''
+	    if option.takes_value():
+		    metavar = '=%s' % option.metavar or option.dest.upper()
+
+	    return "%3s%s %s%s" % (" ".join (option._short_opts),
+				   sep,
+				   " ".join (option._long_opts),
+				   metavar)
+
+    def format_usage(self, usage):
+        return _("Usage: %s\n") % usage
+    
+    def format_description(self, description):
+	    return description
+
+def get_option_parser (*args, **kwargs): 
+	p = optparse.OptionParser (*args, **kwargs)
+	p.formatter = NonDentedHeadingFormatter () 
+	return p
