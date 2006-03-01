@@ -1822,7 +1822,6 @@
     (VoltaBracket
      . (
 	(stencil . ,ly:volta-bracket-interface::print)
-	(after-line-breaking . ,ly:volta-bracket-interface::after-line-breaking)
 	(direction . ,UP)
 	(padding . 1)
 	(font-encoding . fetaNumber)

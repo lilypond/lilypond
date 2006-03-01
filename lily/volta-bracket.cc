@@ -63,6 +63,10 @@ Volta_bracket_interface::print (SCM smob)
       */
     }
 
+  modify_edge_height (me);
+  if (!me->is_live ())
+    return SCM_EOL;
+  
   Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
 						      Interval (1.0, 1.0));
   Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
@@ -101,17 +105,13 @@ Volta_bracket_interface::print (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK(Volta_bracket_interface,after_line_breaking, 1);
-SCM
-Volta_bracket_interface::after_line_breaking (SCM smob)
+void
+Volta_bracket_interface::modify_edge_height (Spanner *me)
 {
-  Spanner *me = unsmob_spanner (smob);
   Spanner *orig_span = dynamic_cast<Spanner *> (me->original ());
  
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == (Spanner *)me);
-
   bool broken_last_bracket = orig_span && (orig_span->broken_intos_.back () == (Spanner *)me);
-
   bool no_vertical_start = orig_span && !broken_first_bracket;
   bool no_vertical_end = orig_span && !broken_last_bracket;
 
@@ -144,8 +144,10 @@ Volta_bracket_interface::after_line_breaking (SCM smob)
 
       me->set_property ("edge-height", ly_interval2scm (edge_height));
     }
-  
-  return SCM_UNSPECIFIED;
+
+  if (broken_last_bracket && no_vertical_end && no_vertical_start
+      && !broken_first_bracket)
+    me->suicide ();
 }
 
 void

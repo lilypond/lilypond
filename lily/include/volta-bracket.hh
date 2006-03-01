@@ -14,7 +14,7 @@ class Volta_bracket_interface
 public:
   static bool has_interface (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  static void modify_edge_height (Spanner *);
   static void add_column (Grob *, Grob *col);
   static void add_bar (Grob *me, Item *bar);
 };
