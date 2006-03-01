@@ -10,7 +10,7 @@
 	(NonDentedHeadingFormatter.format_heading): move from musicxml2ly
 
 	* scripts/lilypond-book.py (get_option_parser): use optparse for
-	option handling. 
+	option handling.  Put options in global_options variable.
 
 2006-02-28  Heikki Junes  <hjunes@cc.hut.fi>
 
