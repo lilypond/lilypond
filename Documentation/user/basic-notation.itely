@@ -2362,10 +2362,9 @@ Long running trills are made with @code{\startTrillSpan} and
 Trills that should be executed on an explicitly specified pitch can be
 typeset with the command @code{pitchedTrill}, 
 
-@c  if bug fixed, remove ! in f1   --gp
 @lilypond[ragged-right,verbatim,fragment,relative=1]
 \pitchedTrill c4\startTrillSpan fis
-f!\stopTrillSpan
+f\stopTrillSpan
 @end lilypond
 
 The first argument is the main note.  The pitch of the second
