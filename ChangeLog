@@ -1,5 +1,7 @@
 2006-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/lilylib.py: strip getopt support
+
 	* scripts/etf2ly.py (do_options): use optparse
 
 	* scripts/midi2ly.py: optparse, strip lilylib copy. 
