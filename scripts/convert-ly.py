@@ -15,26 +15,32 @@ import sys
 import __main__
 import getopt
 import string
+import re
+
 
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
 	datadir = '@lilypond_datadir@'
+
+sys.path.insert (0, os.path.join (datadir, 'python'))
+
 if os.environ.has_key ('LILYPONDPREFIX'):
 	datadir = os.environ['LILYPONDPREFIX']
 	while datadir[-1] == os.sep:
-		datadir = datadir[:-1]
-
-if os.path.exists (os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')):
-	datadir = os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')
-elif os.path.exists (os.path.join (datadir, 'share/lilypond/current/')):
-	datadir = os.path.join (datadir, 'share/lilypond/current/')
-
+		datadir= datadir[:-1]
+		
+	datadir = os.path.join (datadir, "share/lilypond/current/")
 sys.path.insert (0, os.path.join (datadir, 'python'))
+
+# dynamic relocation, for GUB binaries.
+bindir = os.path.split (sys.argv[0])[0]
+for p in ['share', 'lib']:
+	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
+	sys.path.insert (0, os.path.join (datadir))
 
 import lilylib as ly
 import fontextract
 global _;_=ly._
-global re;re = ly.re
 
 from convertrules import *
 
@@ -55,21 +61,50 @@ Examples:
 copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
 
-option_definitions = [
-	('', 'e', 'edit',_('edit in place')),
-	(_('VERSION'), 'f', 'from',
-	 _('start from VERSION [default: \\version found in file]')),
-	('', 'h', 'help',_('print this help')),
-	('',  'n', 'no-version',_ ('do not add \\version command if missing')),
-	('','s', 'show-rules', _('print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]')),
-	(_('VERSION'), 't', 'to',_('convert to VERSION [default: @TOPLEVEL_VERSION@]')),
-	('','v','version',_('print program version"'))
-]	
-
 program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
 
 add_version = 1
+
+
+def get_option_parser ():
+	p = ly.get_option_parser (usage='lilypond-book [OPTIONS] FILE',
+				  version="@TOPLEVEL_VERSION@",
+				  description=help_summary)
+
+	p.add_option ('-f', '--from', 
+		      action="store",
+		      metavar=_ ("VERSION"),
+		      dest="from_version",
+		      help=_('start from VERSION [default: \\version found in file]'),
+		      default='')
+	
+	p.add_option ('-e', '--edit', help=_('edit in place'),
+		      action='store_true')
+	p.add_option ('-n', '--no-version',
+		      help=_ ('do not add \\version command if missing'),
+		      action='store_true',
+		      dest='skip_version_add',
+		      default=False)
+	
+	p.add_option ("-s", '--show-rules',
+		      help=_('print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]'),
+		      action='store_true', default=False)
+	
+	p.add_option ('-t', '--to',
+		      help=_('convert to VERSION [default: @TOPLEVEL_VERSION@]'),
+		      metavar=_('VERSION'),
+		      action='store',
+		      dest="to_version",
+		      default='')
+
+	p.add_option_group  ('bugs',
+			     description='''Report bugs via http://post.gmane.org/post.php'''
+			     '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+	
+	return p
+
+
 
 def str_to_tuple (s):
 	return tuple (map (string.atoi, string.split (s, '.')))
@@ -145,21 +180,21 @@ def do_one_file (infile_name):
 	sys.stderr.write (_ ("Processing `%s\'... ") % infile_name)
 	sys.stderr.write ('\n')
 	outfile_name = ''
-	if __main__.edit:
+	if global_options.edit:
 		outfile_name = infile_name + '.NEW'
-	elif __main__.outfile_name:
-		outfile_name = __main__.outfile_name
+	elif global_options.outfile_name:
+		outfile_name = global_options.outfile_name
 
-	if __main__.from_version:
-		from_version = __main__.from_version
+	if global_options.from_version:
+		from_version = global_options.from_version
 	else:
 		guess = guess_lilypond_version (infile_name)
 		if not guess:
 			raise UnknownVersion ()
 		from_version = str_to_tuple (guess)
 
-	if __main__.to_version:
-		to_version = __main__.to_version
+	if global_options.to_version:
+		to_version = global_options.to_version
 	else:
 		to_version = latest_version ()
 
@@ -183,7 +218,7 @@ def do_one_file (infile_name):
 			
 		error_file.write ('\n')			
 	
-		if __main__.edit:
+		if global_options.edit:
 			try:
 				os.remove(infile_name + '~')
 			except:
@@ -198,65 +233,35 @@ def do_one_file (infile_name):
 
 	sys.stderr.flush ()
 
-edit = 0
-to_version = ()
-from_version = ()
-outfile_name = ''
-show_rules_p = 0
-
 def do_options ():
-	global from_version, to_version, edit, show_rules_p, add_version
+	opt_parser = get_option_parser()
+	(options, args) = opt_parser.parse_args ()
 
-	(sh, long) = ly.getopt_args (option_definitions)
-	try:
-		(options, files) = getopt.getopt (sys.argv[1:], sh, long)
-	except getopt.error, s:
-		sys.stderr.write ('\n')
-		ly.error (_ ("getopt says: `%s'" % s))
-		sys.stderr.write ('\n')
-		ly.help ()
-		ly.exit (2)
 
-	for opt in options:
-		o = opt[0]
-		a = opt[1]
+	if options.from_version:
+		options.from_version = str_to_tuple (options.from_version)
+	if options.to_version:
+		options.to_version = str_to_tuple (options.to_version)
 
-		if o == '--help' or o == '-h':
-			ly.help ()
-			sys.exit (0)
-		elif o == '--version' or o == '-v':
-			ly.identify (sys.stdout)
-			sys.exit (0)
-		elif o== '--from' or o=='-f':
-			from_version = str_to_tuple (a)
-		elif o== '--to' or o=='-t':
-			to_version = str_to_tuple (a)
-		elif o== '--edit' or o == '-e':
-			edit = 1
-		elif o== '--show-rules' or o == '-s':
-			show_rules_p = 1
-		elif o == '--no-version' or o == '-n':
-			add_version = 0
-		else:
-			print o
-			raise getopt.error
+	options.outfile_name = ''
+	global global_options
+	global_options = options
 
-	return files
+	if not args:
+		opt_parser.print_help ()
+		sys.exit (2)
 
+	return args
 
 def main ():
 	files = do_options ()
 
 	# should parse files[] to read \version?
-	if show_rules_p:
+	if global_options.show_rules:
 		show_rules (sys.stdout, from_version, to_version)
 		sys.exit (0)
 
 	ly.identify (sys.stderr)
-
-	if not files:
-		ly.help ()
-		sys.exit (2)
 
 	for f in files:
 		if f == '-':
