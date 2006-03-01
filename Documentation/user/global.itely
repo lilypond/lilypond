@@ -313,14 +313,14 @@ expressions; note the curly braces @{ @} or angle brackets <<
   { c'4 c' c' c'}
   { d'4 d' d' d'}
 }
-@end example
+@end lilypond
 
 @lilypond[ragged-right,verbatim,quote]
 <<
   \new Staff { c'4 c' c' c' }
   \new Staff { d'4 d' d' d' }
 >>
-@end example
+@end lilypond
 
 @example
 @{
