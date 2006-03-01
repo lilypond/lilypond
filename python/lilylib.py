@@ -12,7 +12,6 @@
 ### subst: \(help_summary\|keep_temp_dir_p\|option_definitions\|original_dir\|program_name\|pseudo_filter_p\|temp_dir\|verbose_p\)
 
 import __main__
-import getopt
 import glob
 import os
 import re
@@ -88,83 +87,7 @@ def exit (i):
 		raise _ ('Exiting (%d)...') % i
 	else:
 		sys.exit (i)
-		
-def getopt_args (opts):
-	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
-	short = ''
-	long = []
-	for o in opts:
-		if o[1]:
-			short = short + o[1]
-			if o[0]:
-				short = short + ':'
-		if o[2]:
-			l = o[2]
-			if o[0]:
-				l = l + '='
-			long.append (l)
-	return (short, long)
-
-def option_help_str (o):
-	'''Transform one option description (4-tuple) into neatly formatted string'''
-	sh = '  '	
-	if o[1]:
-		sh = '-%s' % o[1]
-
-	sep = '  '
-	if o[1] and o[2]:
-		sep = ', '
-		
-	long = ''
-	if o[2]:
-		long= '--%s' % o[2]
-
-	arg = ''
-	if o[0]:
-		if o[2]:
-			arg = '='
-		arg = arg + o[0]
-	return '  ' + sh + sep + long + arg
-
-
-def options_help_str (opts):
-	'''Convert a list of options into a neatly formatted string'''
-	w = 0
-	strs =[]
-	helps = []
-
-	for o in opts:
-		s = option_help_str (o)
-		strs.append ((s, o[3]))
-		if len (s) > w:
-			w = len (s)
-
-	str = ''
-	for s in strs:
-		first = 1
-		for ss in re.split ('\n\s*', s[1]):
-			if first:
-				str = str + '%s%s%s\n' \
-					% (s[0], ' ' * (w - len (s[0]) + 3), ss)
-				first = 0
-			else:
-				str = str + '%s%s\n' \
-					% (' ' * (w + 3), ss)
-	return str
-
-def help ():
-	ls = [(_ ("Usage: %s [OPTIONS]... FILE") % __main__.program_name),
-	      ('\n\n'),
-	      (__main__.help_summary),
-	      ('\n\n'),
-	      (_ ("Options:")),
-	      ('\n'),
-	      (options_help_str (__main__.option_definitions)),
-	      ('\n\n'),
-	      (_ ("Report bugs to %s.") % 'bug-lilypond@gnu.org'),
-	      ('\n')]
-	map (sys.stdout.write, ls)
-
+	
 def lilypond_version (binary):
 	p = read_pipe ('%s --version ' % binary)
 
