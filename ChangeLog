@@ -1,5 +1,7 @@
 2006-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/stepmake/generic-vars.make: new function absdir.
+
 	* scripts/convert-ly.py (bindir): use optparse, argv[0] relocation.
 
 	* scripts/lilypond-book.py (find_file): use global_options for

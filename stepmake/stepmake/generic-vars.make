@@ -2,6 +2,9 @@ top-build-dir = $(shell cd $(depth) && pwd)
 build-dir = $(shell cd . && pwd)
 tree-dir = $(subst $(top-build-dir),,$(build-dir))
 
+absdir = $(shell cd $(1) ; pwd)
+
+
 ifneq ($(configure-srcdir),.)
 srcdir-build = 1
 endif
