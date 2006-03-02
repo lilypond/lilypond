@@ -1,5 +1,7 @@
 2006-03-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* cygwin/GNUmakefile: Install fixes.
+
 	* scripts/GNUmakefile (SEXECUTABLES): Install fix: remove mup2ly.
 
 	* lily/note-head.cc (head::get_balltype): Compile fix.
