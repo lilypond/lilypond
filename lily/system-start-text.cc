@@ -56,7 +56,18 @@ System_start_text::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
 
-  extract_grob_set (me, "elements", elts);
+  extract_grob_set (me, "elements", all_elts);
+  vector<Grob*> elts;
+  for (vsize i = 0; i < all_elts.size (); i++)
+    if (all_elts[i]->is_live ())
+      elts.push_back (all_elts[i]);
+
+  if (!elts.size ())
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+  
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
 
   Interval ext;

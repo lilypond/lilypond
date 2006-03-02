@@ -1,3 +1,10 @@
+2006-03-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/system-start-text.cc (print): suicide if we don't have any
+	elements. Fixes hara kiri'd instrument names.
+
+	* scripts/mup2ly.py (Module): remove.
+
 2006-03-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/global.itely (A single music expression):
