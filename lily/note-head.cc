@@ -143,7 +143,7 @@ int
 Note_head::get_balltype (Grob *me)
 {
   SCM s = me->get_property ("duration-log");
-  return scm_is_number (s) ? min (scm_to_int (s), 2) : 0;
+  return scm_is_number (s) ? min (int (scm_to_int (s)), 2) : 0;
 }
 
 ADD_INTERFACE (Note_head, "note-head-interface",
