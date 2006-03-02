@@ -991,12 +991,14 @@ class Lilypond_snippet (Snippet):
 					    '\n  ') % vars ()
 		preamble_string = string.join (compose_dict[PREAMBLE],
 					       '\n  ') % override
-
+		
 		font_dump_setting = ''
 		if FONTLOAD in self.option_dict:
 			font_dump_setting = '#(define-public force-eps-font-include #t)\n'
 
-		return (PREAMBLE_LY + body) % vars ()
+		d = globals().copy()
+		d.update (locals())
+		return (PREAMBLE_LY + body) % d
 
 	# TODO: Use md5?
 	def get_hash (self):

@@ -1,5 +1,8 @@
 2006-03-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (Lilypond_snippet.compose_ly): don't
+	use __main__
+
 	* lily/accidental-engraver.cc (make_standard_accidental): only add
 	support for side-axis is X_AXIS. Fixes text-spacing-accidental.ly
 
