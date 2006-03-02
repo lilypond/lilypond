@@ -61,13 +61,8 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 #
 
 
-## No \ escaping for newlines!
-define EMMENTALER_RULE
-$(outdir)/emmentaler-$(1).otf $(outdir)/emmentaler-$(1).svg: $(outdir)/emmentaler-$(1).pe $(outdir)/feta$(1).pfa  $(outdir)/feta-alphabet$(1).pfa  $(outdir)/parmesan$(1).pfa
-	cd $(outdir) && $(FONTFORGE) -script emmentaler-$(1).pe
-endef
-
-$(foreach size, $(STAFF_SIZES), $(eval $(call EMMENTALER_RULE,$(size))))
+$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfa  $(outdir)/feta-alphabet%.pfa  $(outdir)/parmesan%.pfa
+	cd $(outdir) && $(FONTFORGE) -script $(notdir $(subst otf,pe,$@))
 
 $(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa)
 	cd $(outdir) && $(FONTFORGE) -script aybabtu.pe
