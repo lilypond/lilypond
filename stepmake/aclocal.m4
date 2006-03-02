@@ -450,7 +450,7 @@ using namespace std;
 EOF
 	FLEXLEXER_FILE=`$CXX -E conftest.cc | \
 	  sed 's!# 1 "\(.*FlexLexer.h\)"!@FLEXLEXER@\1@@!g' | grep '@@' | \
-	  sed 's!.*@FLEXLEXER@\(.*\)@@.*$!\1!g' ` >& /dev/null
+	  sed 's!.*@FLEXLEXER@\(.*\)@@.*$!\1!g' ` 1> /dev/null 2> /dev/null
 	rm conftest.cc
 	AC_SUBST(FLEXLEXER_FILE)
         AC_MSG_RESULT($FLEXLEXER_FILE)
@@ -1256,11 +1256,11 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
     AC_CYGWIN
     AC_MINGW32
 
-    if test "$CYGWIN" == "yes"; then
+    if test "$CYGWIN" = "yes"; then
 	LN_S='cp -r' # Cygwin symbolic links do not work for native apps.
 	program_suffix=.exe
 	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
-    elif test "$MINGW32" == "yes"; then
+    elif test "$MINGW32" = "yes"; then
 	LN='cp -r'
 	LN_S='cp -r'
 	program_suffix=.exe
@@ -1277,7 +1277,7 @@ AC_DEFUN(STEPMAKE_WINDOWS, [
     AC_SUBST(program_suffix)
 
     AC_MSG_CHECKING([for some flavor of Windows])
-    if test "$CYGWIN$MINGW32" == "nono"; then
+    if test "$CYGWIN$MINGW32" = "nono"; then
         PLATFORM_WINDOWS=no
     else
         PLATFORM_WINDOWS=yes
