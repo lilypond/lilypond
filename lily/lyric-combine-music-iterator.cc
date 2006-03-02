@@ -33,6 +33,7 @@ private:
   bool start_new_syllable ();
   void find_voice ();
 
+  bool pending_grace_lyric_;
   bool music_found_;
   bool made_association_;
   Context *lyrics_context_;
@@ -43,7 +44,7 @@ private:
 };
 
 /*
-  Ugh, why static?
+  Ugh; this is a hack, let's not export this hack, so static.
 */
 static Music *busy_ev;
 static Music *start_ev;
@@ -53,6 +54,7 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
   music_found_ = false;
   made_association_ = false;
+  pending_grace_lyric_ = false;
   lyric_iter_ = 0;
   music_context_ = 0;
   lyrics_context_ = 0;
@@ -202,8 +204,9 @@ Lyric_combine_music_iterator::find_voice ()
 }
 
 void
-Lyric_combine_music_iterator::process (Moment)
+Lyric_combine_music_iterator::process (Moment mom)
 {
+  (void) mom;
   find_voice ();
   if (!music_context_)
     return;
@@ -221,8 +224,17 @@ Lyric_combine_music_iterator::process (Moment)
     }
 
   if (music_context_
-      && start_new_syllable () && lyric_iter_->ok ())
+      && (start_new_syllable () || pending_grace_lyric_)
+      && lyric_iter_->ok ())
     {
+      if (music_context_->now_mom ().grace_part_)
+	{
+	  pending_grace_lyric_ = true;
+	  return;
+	}
+      else
+	pending_grace_lyric_ = false;
+      
       Moment m = lyric_iter_->pending_moment ();
       lyric_iter_->process (m);
 
