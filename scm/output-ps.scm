@@ -181,8 +181,11 @@
 		      (ly:number->string (+ (cdr offset) (cdr y-ext)))
 
 		      ;; TODO
-		      ;; full escaping.
-		      (string-regexp-substitute " " "%20" file)
+		      ;;full escaping.
+
+		      ;; backslash is interpreted by GS.
+		      (string-regexp-substitute "\\\\" "/" 
+				      (string-regexp-substitute " " "%20" file))
 		      (cadr location)
 		      (caddr location)
 		      (cadddr location))

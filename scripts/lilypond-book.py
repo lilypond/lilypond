@@ -28,13 +28,10 @@ TODO:
 
 '''
 
-import __main__
-import glob
 import stat
 import string
 import tempfile
 import commands
-import optparse
 import os
 import sys
 import re
@@ -68,9 +65,11 @@ sys.path.insert (0, os.path.join (datadir, 'python'))
 
 # dynamic relocation, for GUB binaries.
 bindir = os.path.split (sys.argv[0])[0]
-for p in ['share', 'lib']:
-	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
-	sys.path.insert (0, os.path.join (datadir))
+
+
+for prefix_component in ['share', 'lib']:
+	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % prefix_component)
+	sys.path.insert (0, datadir)
 
 
 import lilylib as ly
@@ -112,7 +111,7 @@ def warranty ():
 %s
 %s
 '''  ( _('Copyright (c) %s by') % '2001--2006',
-       authors
+       authors,
        _('Distributed under terms of the GNU General Public License.'),
        _('It comes with NO WARRANTY.')))
 
@@ -149,8 +148,9 @@ def get_option_parser ():
 	p.add_option ('-V', '--verbose', help=_("be verbose"), action="store_true",
 		      dest="verbose")
 		      
-	p.add_option ('-w', '--warranty', help=_("show warranty and copyright"),
-		      action='store_true'),
+	p.add_option ('-w', '--warranty',
+		      help=_("show warranty and copyright"),
+		      action='store_true')
 
 	
 	p.add_option_group  ('bugs',
@@ -973,7 +973,7 @@ class Lilypond_snippet (Snippet):
 
 		# URGS
 		if RELATIVE in override.keys () and override[RELATIVE]:
-			relative = string.atoi (override[RELATIVE])
+			relative = int (override[RELATIVE])
 
 		relative_quotes = ''
 
@@ -982,8 +982,6 @@ class Lilypond_snippet (Snippet):
 			relative_quotes += ',' * (- relative)
 		elif relative > 0:
 			relative_quotes += "'" * relative
-
-		program_name = __main__.program_name
 
 		paper_string = string.join (compose_dict[PAPER],
 					    '\n  ') % override
@@ -1101,7 +1099,7 @@ class Lilypond_snippet (Snippet):
 			str += self.output_print_filename (HTML)
 			if VERBATIM in self.option_dict:
 				verb = verbatim_html (self.substring ('code'))
-				str += write (output[HTML][VERBATIM] % vars ())
+				str += output[HTML][VERBATIM] % vars ()
 			if QUOTE in self.option_dict:
 				str = output[HTML][QUOTE] % vars ()
 
@@ -1387,30 +1385,30 @@ def get_latex_textwidth (source):
 	m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
 	preamble = source[:m.start (0)]
 	latex_document = LATEX_INSPECTION_DOCUMENT % vars ()
-	# Workaround problems with unusable $TMP on Cygwin:
-	tempfile.tempdir = ''
-	tmpfile = tempfile.mktemp('.tex')
+	
+	(handle, tmpfile) = tempfile.mkstemp('.tex')
 	logfile = os.path.splitext (tmpfile)[0] + '.log'
 	open (tmpfile,'w').write (latex_document)
 	ly.system ('latex %s' % tmpfile)
 	parameter_string = open (logfile).read()
+	
 	os.unlink (tmpfile)
 	os.unlink (logfile)
 
 	columns = 0
 	m = re.search ('columns=([0-9.]*)', parameter_string)
 	if m:
-		columns = string.atoi (m.group (1))
+		columns = int (m.group (1))
 
 	columnsep = 0
 	m = re.search ('columnsep=([0-9.]*)pt', parameter_string)
 	if m:
-		columnsep = string.atof (m.group (1))
+		columnsep = float (m.group (1))
 
 	textwidth = 0
 	m = re.search ('textwidth=([0-9.]*)pt', parameter_string)
 	if m:
-		textwidth = string.atof (m.group (1))
+		textwidth = float (m.group (1))
 		if columns:
 			textwidth = (textwidth - columnsep) / columns
 
@@ -1528,6 +1526,7 @@ def write_if_updated (file_name, lines):
 	ly.progress ('\n')
 
 def note_input_file (name, inputs=[]):
+	## hack: inputs is mutable!
 	inputs.append (name)
 	return inputs
 
