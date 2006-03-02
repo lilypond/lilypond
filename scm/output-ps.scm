@@ -154,7 +154,7 @@
 		       (g (cadddr item))
 		       (prefix (if  (string? g) "/" "")))
 
-		    (format #f " gsave ~a~a glyphshow grestore ~a ~a rmoveto \n" prefix g (+ w x) y)
+		    (format #f " gsave ~a~a glyphshow grestore ~$ ~$ rmoveto \n" prefix g (+ w x) y)
 		    ))
 		w-x-y-named-glyphs))))
 
@@ -174,7 +174,7 @@
 
 	  (if (and (< 0 (interval-length x-ext))
 		   (< 0 (interval-length y-ext)))
-	      (format "~a ~a ~a ~a (textedit://~a:~a:~a:~a) mark_URI\n"
+	      (format "~$ ~$ ~$ ~$ (textedit://~a:~a:~a:~a) mark_URI\n"
 		      (ly:number->string (+ (car offset) (car x-ext)))
 		      (ly:number->string (+ (cdr offset) (car y-ext)))
 		      (ly:number->string (+ (car offset) (cdr x-ext)))

@@ -1,6 +1,7 @@
 2006-03-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-ps.scm (grob-cause): replace backslashes by /
+	(glyph-string): use ~$ for less decimals for glyph-string and grob-cause.
 
 2006-03-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
