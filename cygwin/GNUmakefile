@@ -24,12 +24,10 @@ $(outdir)/%.sh: %.sh $(config_make)
 
 default: $(OUT_POSTINSTALLS) $(OUTIN_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1
-
 # Avoid collapsed directory constructs '//'
-etc=$(patsubst %/, %, $(dir $(prefix)))/etc
-INSTALLATION_DIR=$(etc)/postinstall
-INSTALLATION_FILES=$(OUT_POSTINSTALLS)
+etc=$(patsubst %/,%, $(dir $(prefix)))/etc
+INSTALLATION_OUT_DIR=$(etc)/postinstall
+INSTALLATION_OUT_FILES=$(OUT_POSTINSTALLS)
 
 endif
 
