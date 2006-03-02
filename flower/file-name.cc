@@ -40,10 +40,10 @@ static string
 dos_to_posix (string file_name)
 {
   char buf[PATH_MAX] = "";
-  char *s = file_name.get_copy_str0 ();
+  char s[PATH_MAX];
+  file_name.copy (s, PATH_MAX - 1);
   /* ugh: char const* argument gets modified.  */
   int fail = cygwin_conv_to_posix_path (s, buf);
-  delete s;
   if (!fail)
     return buf;
   return file_name;
