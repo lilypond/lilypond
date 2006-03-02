@@ -97,9 +97,24 @@ Example usage:
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
 
+	
+################################################################
+def exit (i):
+	if global_options.verbose:
+		raise _ ('Exiting (%d)...') % i
+	else:
+		sys.exit (i)
 
 def identify ():
 	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
+
+progress=sys.stderr.write
+
+def warning (s):
+	sys.stderr.write (program_name + ": " + _ ("warning: %s") % s + '\n')
+
+def error (s):
+	sys.stderr.write (program_name + ": " + _ ("error: %s") % s + '\n')
 
 def warranty ():
 	identify ()
@@ -706,8 +721,8 @@ def find_file (name):
 		if os.path.exists (full):
 			return full
 		
-	ly.error (_ ("file not found: %s") % name + '\n')
-	ly.exit (1)
+	error (_ ("file not found: %s") % name + '\n')
+	exit (1)
 	return ''
 
 def verbatim_html (s):
@@ -939,17 +954,17 @@ class Lilypond_snippet (Snippet):
 			  classic_lilypond_book_compatibility (key, value)
 			if c_key:
 				if c_value:
-					ly.warning \
+					warning \
 					  (_ ("deprecated ly-option used: %s=%s" \
 					    % (key, value)))
-					ly.warning \
+					warning \
 					  (_ ("compatibility mode translation: %s=%s" \
 					    % (c_key, c_value)))
 				else:
-					ly.warning \
+					warning \
 					  (_ ("deprecated ly-option used: %s" \
 					    % key))
-					ly.warning \
+					warning \
 					  (_ ("compatibility mode translation: %s" \
 					    % c_key))
 
@@ -969,7 +984,7 @@ class Lilypond_snippet (Snippet):
 					break
 
 			if not found and key not in simple_options:
-				ly.warning (_ ("ignoring unknown ly option: %s") % key)
+				warning (_ ("ignoring unknown ly option: %s") % key)
 
 		# URGS
 		if RELATIVE in override.keys () and override[RELATIVE]:
@@ -1304,7 +1319,7 @@ def find_toplevel_snippets (s, types):
 
 def filter_pipe (input, cmd):
 	if global_options.verbose:
-		ly.progress (_ ("Opening filter `%s'") % cmd)
+		progress (_ ("Opening filter `%s'") % cmd)
 
 	(stdin, stdout, stderr) = os.popen3 (cmd)
 	stdin.write (input)
@@ -1321,14 +1336,14 @@ def filter_pipe (input, cmd):
 	signal = 0x0f & status
 	if status or (not output and error):
 		exit_status = status >> 8
-		ly.error (_ ("`%s' failed (%d)") % (cmd, exit_status))
-		ly.error (_ ("The error log is as follows:"))
+		error (_ ("`%s' failed (%d)") % (cmd, exit_status))
+		error (_ ("The error log is as follows:"))
 		sys.stderr.write (error)
 		sys.stderr.write (stderr.read ())
-		ly.exit (status)
+		exit (status)
 
 	if global_options.verbose:
-		ly.progress ('\n')
+		progress ('\n')
 
 	return output
 
@@ -1357,7 +1372,7 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 				    ignore_error = 1, progress_p = 1)
 
 		if status:
-			ly.error ('Process %s exited unsuccessfully.' % cmd)
+			error ('Process %s exited unsuccessfully.' % cmd)
 			raise Compile_error
 
 	# UGH
@@ -1487,17 +1502,17 @@ def do_process_cmd (chunks, input_name):
 			    and x.png_is_outdated (),
 		  chunks)
 
-	ly.progress (_ ("Writing snippets..."))
+	progress (_ ("Writing snippets..."))
 	map (Lilypond_snippet.write_ly, ly_outdated)
-	ly.progress ('\n')
+	progress ('\n')
 
 	if ly_outdated:
-		ly.progress (_ ("Processing..."))
-		ly.progress ('\n')
+		progress (_ ("Processing..."))
+		progress ('\n')
 		process_snippets (global_options.process_cmd, ly_outdated, texstr_outdated, png_outdated)
 	else:
-		ly.progress (_ ("All snippets are up to date..."))
-	ly.progress ('\n')
+		progress (_ ("All snippets are up to date..."))
+	progress ('\n')
 
 def guess_format (input_filename):
 	format = None
@@ -1506,9 +1521,9 @@ def guess_format (input_filename):
 		# FIXME
 		format = ext2format[e]
 	else:
-		ly.error (_ ("can't determine format for: %s" \
+		error (_ ("can't determine format for: %s" \
 			     % input_filename))
-		ly.exit (1)
+		exit (1)
 	return format
 
 def write_if_updated (file_name, lines):
@@ -1517,15 +1532,15 @@ def write_if_updated (file_name, lines):
 		oldstr = f.read ()
 		new_str = string.join (lines, '')
 		if oldstr == new_str:
-			ly.progress (_ ("%s is up to date.") % file_name)
-			ly.progress ('\n')
+			progress (_ ("%s is up to date.") % file_name)
+			progress ('\n')
 			return
 	except:
 		pass
 
-	ly.progress (_ ("Writing `%s'...") % file_name)
+	progress (_ ("Writing `%s'...") % file_name)
 	open (file_name, 'w').writelines (lines)
-	ly.progress ('\n')
+	progress ('\n')
 
 def note_input_file (name, inputs=[]):
 	## hack: inputs is mutable!
@@ -1541,9 +1556,7 @@ def do_file (input_filename):
 		if os.path.exists (input_filename):
 			input_fullname = input_filename
 		elif global_options.format == LATEX and ly.search_exe_path ('kpsewhich'): 
-			# urg python interface to libkpathsea?
-			input_fullname = ly.read_pipe ('kpsewhich '
-						       + input_filename)[:-1]
+			input_fullname = os.read_pipe ('kpsewhich ' + input_filename).read()[:-1]
 		else:
 			input_fullname = find_file (input_filename)
 
@@ -1571,14 +1584,14 @@ def do_file (input_filename):
 			if os.path.exists (input_filename) \
 			   and os.path.exists (output_filename) \
 			   and os.path.samefile (output_filename, input_fullname):
-			   ly.error (
+			   error (
 			   _ ("Output would overwrite input file; use --output."))
-			   ly.exit (2)
+			   exit (2)
 
 	try:
-		ly.progress (_ ("Reading %s...") % input_fullname)
+		progress (_ ("Reading %s...") % input_fullname)
 		source = in_handle.read ()
-		ly.progress ('\n')
+		progress ('\n')
 
 		set_default_options (source)
 
@@ -1595,7 +1608,7 @@ def do_file (input_filename):
 			'include',
 			'lilypond',
 		)
-		ly.progress (_ ("Dissecting..."))
+		progress (_ ("Dissecting..."))
 		chunks = find_toplevel_snippets (source, snippet_types)
 
 		if global_options.format == LATEX:
@@ -1604,15 +1617,15 @@ def do_file (input_filename):
 				    re.search (r"\\begin *{document}", c.replacement_text())):
 					modify_preamble (c)
 					break
-		ly.progress ('\n')
+		progress ('\n')
 
 		if global_options.filter_cmd:
 			write_if_updated (output_filename,
 					  [c.filter_text () for c in chunks])
 		elif global_options.process_cmd:
 			do_process_cmd (chunks, input_fullname)
-			ly.progress (_ ("Compiling %s...") % output_filename)
-			ly.progress ('\n')
+			progress (_ ("Compiling %s...") % output_filename)
+			progress ('\n')
 			write_if_updated (output_filename,
 					  [s.replacement_text ()
 					   for s in chunks])
@@ -1620,8 +1633,8 @@ def do_file (input_filename):
 		def process_include (snippet):
 			os.chdir (original_dir)
 			name = snippet.substring ('filename')
-			ly.progress (_ ("Processing include: %s") % name)
-			ly.progress ('\n')
+			progress (_ ("Processing include: %s") % name)
+			progress ('\n')
 			return do_file (name)
 
 		include_chunks = map (process_include,
@@ -1634,8 +1647,8 @@ def do_file (input_filename):
 		
 	except Compile_error:
 		os.chdir (original_dir)
-		ly.progress (_ ("Removing `%s'") % output_filename)
-		ly.progress ('\n')
+		progress (_ ("Removing `%s'") % output_filename)
+		progress ('\n')
 		raise Compile_error
 
 def do_options ():
@@ -1645,7 +1658,6 @@ def do_options ():
 	if options.format in ('texi-html', 'texi'):
 		options.format = TEXINFO
 	options.use_hash = True
-	options.pseudo_filter = False
 
 	options.include_path =  map (os.path.abspath, options.include_path)
 
@@ -1657,7 +1669,7 @@ def main ():
 	files = do_options ()
 	if not files or len (files) > 1:
 		ly.help ()
-		ly.exit (2)
+		exit (2)
 
 	file = files[0]
 
@@ -1690,29 +1702,29 @@ def main ():
 
 			psfonts_file = basename + '.psfonts' 
 			if not global_options.verbose:
-				ly.progress (_ ("Writing fonts to %s...") % psfonts_file)
+				progress (_ ("Writing fonts to %s...") % psfonts_file)
 			fontextract.extract_fonts (psfonts_file,
 						   [x.basename() + '.eps'
 						    for x in snippet_chunks])
 			if not global_options.verbose:
-				ly.progress ('\n')
+				progress ('\n')
 			
 	except Compile_error:
-		ly.exit (1)
+		exit (1)
 
 	if global_options.format in (TEXINFO, LATEX):
 		if not global_options.psfonts:
-			ly.warning (_ ("option --psfonts not used"))
-			ly.warning (_ ("processing with dvips will have no fonts"))
+			warning (_ ("option --psfonts not used"))
+			warning (_ ("processing with dvips will have no fonts"))
 
 		psfonts_file = os.path.join (global_options.output_name, basename + '.psfonts')
 		output = os.path.join (global_options.output_name, basename +  '.dvi' )
 		
-		ly.progress ('\n')
-		ly.progress (_ ("DVIPS usage:"))
-		ly.progress ('\n')
-		ly.progress ("    dvips -h %(psfonts_file)s %(output)s" % vars ())
-		ly.progress ('\n')
+		progress ('\n')
+		progress (_ ("DVIPS usage:"))
+		progress ('\n')
+		progress ("    dvips -h %(psfonts_file)s %(output)s" % vars ())
+		progress ('\n')
 
 	inputs = note_input_file ('')
 	inputs.pop ()
