@@ -56,8 +56,6 @@ for p in ['share', 'lib']:
 	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
 	sys.path.insert (0, datadir)
 
-################################################################
-
 import midi
 import lilylib as ly
 
@@ -114,7 +112,7 @@ Copyright (c) %s by
 %s
 '''  ( '2001--2006',
        _('Distributed under terms of the GNU General Public License.'),
-       _('It comes with NO WARRANTY.'))
+       _('It comes with NO WARRANTY.')))
 
 
 def progress (s):
