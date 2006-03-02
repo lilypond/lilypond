@@ -1,5 +1,7 @@
 2006-03-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PACKAGE_NAME): release 2.7.37
+
 	* python/lilylib.py (ps_page_count): remove make_ps_images().
 	(ps_page_count): remove mkdir_p
 	(system): remove cleanup_temp.
