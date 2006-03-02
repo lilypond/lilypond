@@ -108,7 +108,8 @@ def exit (i):
 def identify ():
 	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
 
-progress=sys.stderr.write
+def progress (s):
+	sys.stderr.write (s)
 
 def warning (s):
 	sys.stderr.write (program_name + ": " + _ ("warning: %s") % s + '\n')
@@ -1690,7 +1691,7 @@ def main ():
 		global_options.process_cmd += string.join ([(' -I %s' % commands.mkarg (p))
 							    for p in global_options.include_path])
 
-	ly.identify (sys.stderr)
+	identify ()
 
 	try:
 		chunks = do_file (file)

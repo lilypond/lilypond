@@ -7,6 +7,7 @@
 	(error_log): remove pseudo_filter_p
 	remove read_pipe
 	remove cp_to_dir
+	remove identify
 
 	* scripts/lilypond-book.py (Lilypond_snippet.compose_ly): don't
 	use __main__
