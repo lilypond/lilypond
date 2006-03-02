@@ -57,21 +57,6 @@ except:
 		return s
 underscore = _
 
-def identify (port):
-	port.write ('%s (GNU LilyPond) %s\n' % (__main__.program_name, __main__.program_version))
-
-def warranty ():
-	identify (sys.stdout)
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ ("Copyright (c) %s by") % '1998--2006')
-	sys.stdout.write ('\n')
-	map (lambda x: sys.stdout.write ('  %s\n' % x), __main__.copyright)
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ ("Distributed under terms of the GNU General Public License."))
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ ("It comes with NO WARRANTY."))
-	sys.stdout.write ('\n')
-
 def progress (s):
 	sys.stderr.write (s)
 

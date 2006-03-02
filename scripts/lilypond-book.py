@@ -95,8 +95,27 @@ Example usage:
    lilypond-book --process='lilypond -I include' BOOK
 ''')
 
-copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
+authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
+
+
+def identify ():
+	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
+
+def warranty ():
+	identify ()
+	sys.stdout.write ('''
+%s
+
+%s
+
+%s
+%s
+'''  ( _('Copyright (c) %s by') % '2001--2006',
+       authors
+       _('Distributed under terms of the GNU General Public License.'),
+       _('It comes with NO WARRANTY.')))
+
 
 def get_option_parser ():
 	p = ly.get_option_parser (usage='lilypond-book [OPTIONS] FILE',

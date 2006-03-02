@@ -13,7 +13,7 @@
 	  ((avoid-slur . around)
 	   (quantize-position . #t)
 	   (script-stencil . (feta . ("sforzato" .  "sforzato")))
-	   (side-relative-direction . -1)))	 
+	   (side-relative-direction . -1)))
          ("espressivo" .
 	  ((avoid-slur . around)
 	   (quantize-position . #t)
