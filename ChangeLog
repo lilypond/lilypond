@@ -1,5 +1,13 @@
 2006-03-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/lilylib.py (ps_page_count): remove make_ps_images().
+	(ps_page_count): remove mkdir_p
+	(system): remove cleanup_temp.
+	(exit): remove lilypond_version_(check)
+	(error_log): remove pseudo_filter_p
+	remove read_pipe
+	remove cp_to_dir
+
 	* scripts/lilypond-book.py (Lilypond_snippet.compose_ly): don't
 	use __main__
 
