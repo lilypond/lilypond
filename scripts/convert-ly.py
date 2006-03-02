@@ -12,8 +12,6 @@
 
 import os
 import sys
-import __main__
-import getopt
 import string
 import re
 
@@ -39,7 +37,6 @@ for p in ['share', 'lib']:
 	sys.path.insert (0, datadir)
 
 import lilylib as ly
-import fontextract
 global _;_=ly._
 
 from convertrules import *
@@ -65,6 +62,30 @@ program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
 
 add_version = 1
+
+def warning (s):
+	sys.stderr.write (program_name + ": " + _ ("warning: %s") % s + '\n')
+
+def error (s):
+	sys.stderr.write (program_name + ": " + _ ("error: %s") % s + '\n')
+
+def identify (port=sys.stderr):
+	port.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
+
+def warranty ():
+	identify ()
+	sys.stdout.write ('''
+Copyright (c) %s by
+
+  Han-Wen Nienhuys
+  Jan Nieuwenhuizen
+
+%s
+%s
+'''  ( '2001--2006',
+       _('Distributed under terms of the GNU General Public License.'),
+       _('It comes with NO WARRANTY.')))
+
 
 
 def get_option_parser ():
@@ -107,7 +128,7 @@ def get_option_parser ():
 
 
 def str_to_tuple (s):
-	return tuple (map (string.atoi, string.split (s, '.')))
+	return tuple (map (int, string.split (s, '.')))
 
 def tup_to_str (t):
 	return string.join (map (lambda x: '%s' % x, list (t)), '.')
@@ -179,12 +200,9 @@ class UnknownVersion:
 def do_one_file (infile_name):
 	sys.stderr.write (_ ("Processing `%s\'... ") % infile_name)
 	sys.stderr.write ('\n')
-	outfile_name = ''
-	if global_options.edit:
-		outfile_name = infile_name + '.NEW'
-	elif global_options.outfile_name:
-		outfile_name = global_options.outfile_name
 
+	from_version = None
+	to_version = None
 	if global_options.from_version:
 		from_version = global_options.from_version
 	else:
@@ -258,23 +276,23 @@ def main ():
 
 	# should parse files[] to read \version?
 	if global_options.show_rules:
-		show_rules (sys.stdout, from_version, to_version)
+		show_rules (sys.stdout, global_options.from_version, global_options.to_version)
 		sys.exit (0)
 
-	ly.identify (sys.stderr)
+	identify (sys.stderr)
 
 	for f in files:
 		if f == '-':
 			f = ''
 		elif not os.path.isfile (f):
-			ly.error (_ ("can't open file: `%s'") % f)
+			error (_ ("can't open file: `%s'") % f)
 			if len (files) == 1:
 				sys.exit (1)
 			continue
 		try:
 			do_one_file (f)
 		except UnknownVersion:
-			ly.error (_ ("can't determine version for `%s'. Skipping") % f)
+			error (_ ("can't determine version for `%s'. Skipping") % f)
 
 	sys.stderr.write ('\n')
 

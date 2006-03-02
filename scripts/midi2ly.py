@@ -10,23 +10,22 @@
 
 '''
 TODO:
-   * test on weird and unquantised midi input (lily-devel)
-   * update doc and manpage
+	* test on weird and unquantised midi input (lily-devel)
+	* update doc and manpage
 
-   * simply insert clef changes whenever too many ledger lines
-     [to avoid tex capacity exceeded]
-   * do not ever quant skips
-   * better lyrics handling
-   * [see if it is feasible to] move ly-classes to library for use in
-     other converters, while leaving midi specific stuff here
+	* simply insert clef changes whenever too many ledger lines
+		[to avoid tex capacity exceeded]
+	* do not ever quant skips
+	* better lyrics handling
+	* [see if it is feasible to] move ly-classes to library for use in
+		other converters, while leaving midi specific stuff here
 '''
 
-import getopt
 import os
 import string
 import sys
 
-       
+
 ################################################################
 # Users of python modules should include this snippet.
 #
@@ -44,16 +43,17 @@ if os.environ.has_key ('LILYPONDPREFIX'):
 
 if os.path.exists (os.path.join (datadir, 'lib/lilypond/@TOPLEVEL_VERSION@/')):
 	libdir = os.path.join (libdir, 'lib/lilypond/@TOPLEVEL_VERSION@/')
-        
+
 if os.path.exists (os.path.join (datadir, 'lib/lilypond/current/')):
 	libdir = os.path.join (libdir, 'lib/lilypond/current/')
-        
+
 sys.path.insert (0, os.path.join (libdir, 'python'))
 
 # dynamic relocation, for GUB binaries.
 bindir = os.path.split (sys.argv[0])[0]
-for p in ['share', 'lib']:
-	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
+
+for prefix_component in ['share', 'lib']:
+	datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % prefix_component)
 	sys.path.insert (0, datadir)
 
 import midi
@@ -299,8 +299,7 @@ class Note:
 
 		## FIXME: compile fix --jcn
 		if dump_dur and (global_options.explicit_durations \
-		   or Duration.compare (self.duration,
-					reference_note.duration)):
+		   or self.duration.compare (reference_note.duration)):
 			s = s + self.duration.dump ()
 
 		reference_note = self
@@ -362,8 +361,7 @@ class Key:
 		self.minor = minor
 
 	def dump (self):
-		global key
-		key = self
+		global_options.key = self
 
 		s = ''
 		if self.sharps and self.flats:
@@ -425,8 +423,7 @@ class Text:
 			s = '"%s"' % self.text
 			d = Duration (self.clocks)
 			if global_options.explicit_durations \
-			   or Duration.compare (d,
-						reference_note.duration):
+			   or d.compare (reference_note.duration):
 				s = s + Duration (self.clocks).dump ()
 			s = s + ' '
 		else:
@@ -556,8 +553,7 @@ def events_on_channel (channel):
 				# ugh, must set key while parsing
 				# because Note init uses key
 				# Better do Note.calc () at dump time?
-				global key
-				key = k
+				global_options.key = k
 
 			elif e[1][1] == midi.LYRIC \
 			     or (global_options.text_lyrics and e[1][1] == midi.TEXT_EVENT):
@@ -636,8 +632,8 @@ def gcd (a,b):
 def dump_skip (skip, clocks):
 	return skip + Duration (clocks).dump () + ' '
 
-def dump (self):
-	return self.dump ()
+def dump (d):
+	return d.dump ()
 
 def dump_chord (ch):
 	s = ''
@@ -679,9 +675,9 @@ def dump_bar_line (last_bar_t, t, bar_count):
 
 			
 def dump_channel (thread, skip):
-	global key, reference_note, time
+	global reference_note, time
 
-	key = Key (0, 0, 0)
+	global_options.key = Key (0, 0, 0)
 	time = Time (4, 4)
 	# urg LilyPond doesn't start at c4, but
 	# remembers from previous tracks!
@@ -844,14 +840,14 @@ def convert_midi (in_file, out_file):
 
 	allowed_tuplet_clocks = []
 	for (dur, num, den) in global_options.allowed_tuplets:
-		allowed_tuplet_clocks.append (clocks_per_1 * num / (dur * den))
+		allowed_tuplet_clocks.append (clocks_per_1 / den)
 
 	tracks = []
 	for t in midi_dump[1]:
-		key = Key (0, 0, 0)
+		global_options.key = Key (0, 0, 0)
 		tracks.append (split_track (t))
 
-	tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, f)
+	tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, in_file)
 
         
 	s = ''
@@ -874,9 +870,9 @@ def convert_midi (in_file, out_file):
                 i += 1
 	s = s + '  >>\n}\n'
 
- 	progress (_ ("%s output to `%s'...") % ('LY', o))
+ 	progress (_ ("%s output to `%s'...") % ('LY', out_file))
 
-	if o == '-':
+	if out_file == '-':
 		handle = sys.stdout
 	else:
 		handle = open (out_file, 'w')
@@ -913,10 +909,10 @@ def get_option_parser ():
 		      dest="allowed_tuplets",
 		      help=_ ("allow tuplet durations DUR*NUM/DEN"),
 		      default=[])
-	p.add_option ('-V', '--verbose', help=_ ("be verbose"),
-		      action='store_true',
+	p.add_option ('-V', '--verbose', help=_("be verbose"),
+		      action='store_true'
 		      ),
-	p.add_option ('-w', '--warranty', help=_ ("show warranty"),
+	p.add_option ('-w', '--warranty', help=_("show warranty"),
 		      action='store_true',
 		      ),
 	p.add_option ('-x', '--text-lyrics', help=_("treat every text as a lyric"),
@@ -947,13 +943,13 @@ def do_options ():
 		sys.exit (2)
 
 	if options.duration_quant:
-		options.duration_quant = string.atoi (options.duration_quant)
+		options.duration_quant = int (options.duration_quant)
 
 	if options.warranty:
 		warranty ()
 		sys.exit (0)
 	if 1:
-		(alterations, minor) = map (string.atoi, string.split (options.key + ':0', ':'))[0:2]
+		(alterations, minor) = map (int, string.split (options.key + ':0', ':'))[0:2]
  		sharps = 0
  		flats = 0
  		if alterations >= 0:
@@ -965,9 +961,9 @@ def do_options ():
 
 		
 	if options.start_quant:
-		options.start_quant = string.atoi (a)
+		options.start_quant = int (options.start_quant)
 		
-	options.allowed_tuplets = [map (string.atoi, a.replace ('/','*').split ('*'))
+	options.allowed_tuplets = [map (int, a.replace ('/','*').split ('*'))
 				for a in options.allowed_tuplets]
 	
 	global global_options
@@ -975,33 +971,34 @@ def do_options ():
 
 	return args
 
+def main():
+	files = do_options()
 
-files = do_options()
+	for f in files:
+		g = f
+		g = strip_extension (g, '.midi')
+		g = strip_extension (g, '.mid')
+		g = strip_extension (g, '.MID')
+		(outdir, outbase) = ('','')
 
-for f in files:
-	g = f
-	g = strip_extension (g, '.midi')
-	g = strip_extension (g, '.mid')
-	g = strip_extension (g, '.MID')
-	(outdir, outbase) = ('','')
+		if not output_name:
+			outdir = '.'
+			outbase = os.path.basename (g)
+			o = os.path.join (outdir, outbase + '-midi.ly')
+		elif output_name[-1] == os.sep:
+			outdir = output_name
+			outbase = os.path.basename (g)
+			os.path.join (outdir, outbase + '-gen.ly')
+		else:
+			o = output_name
+			(outdir, outbase) = os.path.split (o)
 
-	if not output_name:
-		outdir = '.'
-		outbase = os.path.basename (g)
-		o = os.path.join (outdir, outbase + '-midi.ly')
-	elif output_name[-1] == os.sep:
-		outdir = output_name
-		outbase = os.path.basename (g)
-		os.path.join (outdir, outbase + '-gen.ly')
-	else:
-		o = output_name
- 		(outdir, outbase) = os.path.split (o)
+		if outdir != '.' and outdir != '':
+			try:
+				os.mkdir (outdir, 0777)
+			except OSError:
+				pass
 
-	if outdir != '.' and outdir != '':
-		try:
-			os.mkdir (outdir, 0777)
-		except OSError:
-			pass
-
-	convert_midi (f, o)
-
+		convert_midi (f, o)
+if __name__ == '__main__':
+	main()

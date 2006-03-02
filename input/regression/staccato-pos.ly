@@ -3,10 +3,10 @@
 
 \header{
 
-  texidoc=" The staccato dot (and all scripts with follow-into-staff
-set) must not be on staff lines. The staccato dot is close to the
-notehead. If the head is in a space, then the dot is in the space next
-to it.  "
+  texidoc=" Some scripts must have quantized postions. VErtical
+ position descend monotonously for a descending scale.  The staccato
+ dot is close to the notehead. If the head is in a space, then the dot
+ is in the space next to it.  "
 
 }
 
@@ -14,12 +14,16 @@ to it.  "
   ragged-right = ##t
 }
 
-
-\context Voice \relative c' {
-  e'4-. f-. g-. d-. c-. b-.
-  \stemDown
-  e,-. d-. c-. b-. a-. g-.    
+\context Voice {
+  \relative c' {
+    e'4-. f-. g-. d-. c-. b-.
+    \stemDown
+    e,-. d-. c-. b-. a-. g-.    
+  }
+  \relative c'' {
+    \stemUp		 
+    d-> c-> b-> a-> g-> f-> e-> d->
+    d'
+    d-. c-. b-. a-. g-. f-. e-. d-. 
+  }  
 }
-  
-
-

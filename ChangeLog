@@ -1,5 +1,20 @@
 2006-03-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/midi2ly.py (Key.dump): pychecker cleanups.
+
+	* python/lilylib.py (underscore): remove identify() , warranty()
+
+	* ps/music-drawing-routines.ps: change Border routine for GSView
+	compatibility.
+
+	* lily/stem.cc (height): use quantize-positions.  This triggers
+	set_stem_lengths, so scripts on beamed stems are handled correctly.
+
+	* lily/side-position-interface.cc (aligned_side): check if edges
+	of script are inside staff. Fixes accent of edge of the staff.
+
+	* input/regression/staccato-pos.ly: more examples.
+
 	* stepmake/aclocal.m4 (depth): fix bashism.
 
 	* lily/lyric-combine-music-iterator.cc: move from

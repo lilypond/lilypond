@@ -509,7 +509,8 @@ Stem::height (SCM smob)
   Grob *beam = get_beam (me);
   if (beam)
     {
-      beam->get_property ("positions");
+      /* trigger set-stem-lengths. */
+      beam->get_property ("quantized-positions");
     }
 
   /*
