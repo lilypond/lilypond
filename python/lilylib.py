@@ -18,7 +18,6 @@ import re
 import shutil
 import string
 import sys
-import tempfile
 import optparse
 
 ################################################################
@@ -94,18 +93,6 @@ def lilypond_version_check (binary, req):
 			sys.exit (1)
 	
 	
-def setup_temp ():
-	
-	''' Create a temporary directory, and return its name. '''
-	
-	if not __main__.keep_temp_dir_p:
-		__main__.temp_dir = tempfile.mktemp (__main__.program_name)
-	try:
-		os.mkdir (__main__.temp_dir, 0700)
-	except OSError:
-		pass
-
-	return __main__.temp_dir
 
 def command_name (cmd):
 	# Strip all stuf after command,
