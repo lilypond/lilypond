@@ -271,7 +271,7 @@ grestore\n"
   "\n unknown\n")
 
 (define (url-link url x y)
-  (format "~a ~a ~a ~a (~a) mark_URI"
+  (format "~$ ~$ ~$ ~$ (~a) mark_URI"
 	  (car x)
 	  (car y)
 	  (cdr x)
