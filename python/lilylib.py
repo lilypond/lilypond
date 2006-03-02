@@ -55,6 +55,7 @@ except:
 	def _ (s):
 		return s
 underscore = _
+progress = sys.stderr.write 
 
 
 def command_name (cmd):
