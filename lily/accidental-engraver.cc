@@ -408,7 +408,14 @@ Accidental_engraver::make_standard_accidental (Music *note,
     so it is put left of the accidentals.
   */
   for (vsize i = 0; i < left_objects_.size (); i++)
-    Side_position_interface::add_support (left_objects_[i], a);
+    {
+      if (left_objects_[i]->get_property ("side-axis") == scm_from_int (X_AXIS))
+	Side_position_interface::add_support (left_objects_[i], a);
+    }
+
+  /*
+    Hmm. Junkme? 
+   */
   for (vsize i = 0; i < right_objects_.size (); i++)
     Side_position_interface::add_support (a, right_objects_[i]);
 
@@ -586,6 +593,7 @@ ADD_ACKNOWLEDGER (Accidental_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Accidental_engraver, tie);
 
 ADD_TRANSLATOR (Accidental_engraver,
+		
 		"Make accidentals.  "
 		"Catch note heads, ties and notices key-change events.  "
 		"This engraver usually lives at Staff level, but "
