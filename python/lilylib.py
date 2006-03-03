@@ -19,6 +19,7 @@ import shutil
 import string
 import sys
 import optparse
+import tempfile
 
 ################################################################
 # Users of python modules should include this snippet
