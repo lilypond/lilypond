@@ -1,3 +1,7 @@
+2006-03-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/lilylib.py: add tempfile.
+
 2006-03-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PACKAGE_NAME): release 2.7.37
