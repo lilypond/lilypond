@@ -126,8 +126,8 @@ def warranty ():
 
 %s
 %s
-'''  ( _('Copyright (c) %s by') % '2001--2006',
-       authors,
+''' % ( _('Copyright (c) %s by') % '2001--2006',
+	' '.join (authors),
        _('Distributed under terms of the GNU General Public License.'),
        _('It comes with NO WARRANTY.')))
 
@@ -161,7 +161,9 @@ def get_option_parser ():
 		      help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX'''
 			      '''must use this with dvips -h INPUT.psfonts'''),
 		      default=None)
-	p.add_option ('-V', '--verbose', help=_("be verbose"), action="store_true",
+	p.add_option ('-V', '--verbose', help=_("be verbose"),
+		      action="store_true",
+		      default=False,
 		      dest="verbose")
 		      
 	p.add_option ('-w', '--warranty',
@@ -1653,24 +1655,29 @@ def do_file (input_filename):
 		raise Compile_error
 
 def do_options ():
-	opt_parser = get_option_parser()
-	(options, args) = opt_parser.parse_args ()
-
-	if options.format in ('texi-html', 'texi'):
-		options.format = TEXINFO
-	options.use_hash = True
-
-	options.include_path =  map (os.path.abspath, options.include_path)
 
 	global global_options
-	global_options = options
+
+	opt_parser = get_option_parser()
+	(global_options, args) = opt_parser.parse_args ()
+
+	if global_options.format in ('texi-html', 'texi'):
+		global_options.format = TEXINFO
+	global_options.use_hash = True
+
+	global_options.include_path =  map (os.path.abspath, global_options.include_path)
+	
+	if global_options.warranty:
+		warranty ()
+		exit (0)
+	if not args or len (args) > 1:
+		opt_parser.print_help ()
+		exit (2)
+		
 	return args
 
 def main ():
 	files = do_options ()
-	if not files or len (files) > 1:
-		ly.help ()
-		exit (2)
 
 	file = files[0]
 
