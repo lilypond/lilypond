@@ -79,6 +79,9 @@ cello                     lead 6 (voice)
 
 @subsubheading Normal colors
 
+@cindex List of colors
+@cindex Colors, list of
+
 @verbatim
 black       white          red         green
 blue        cyan           magenta     yellow
