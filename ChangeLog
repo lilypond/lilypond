@@ -1,3 +1,10 @@
+2006-03-05 Erik Sandberg  <mandolaerik@gmail.com>
+
+	* scm/music-functions.scm (music->make-music): bugfix,
+	KeyChangeEvents are now handled correctly.
+
+	* scripts/lilypond-book.py: Add --debug option.
+
 2006-03-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* python/lilylib.py: add tempfile.
