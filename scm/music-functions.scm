@@ -129,11 +129,7 @@ that is, for a music expression, a (make-music ...) form."
 	   ',(ly:music-property obj 'name)
 	   ,@(apply append (map (lambda (prop)
                                   `(',(car prop)
-                                    ,(if (and (not (markup? (cdr prop)))
-                                              (list? (cdr prop))
-                                              (pair? (cdr prop))) ;; property is a non-empty list
-                                         `(list ,@(map music->make-music (cdr prop)))
-                                         (music->make-music (cdr prop)))))
+				    ,(music->make-music (cdr prop))))
                                 (remove (lambda (prop)
                                           (eqv? (car prop) 'origin))
                                         (ly:music-mutable-properties obj))))))
@@ -163,6 +159,13 @@ that is, for a music expression, a (make-music ...) form."
 	(;; an empty list (avoid having an unquoted empty list)
 	 (null? obj)
 	 `'())
+	(;; a proper list
+	 (list? obj)
+	 `(list ,@(map music->make-music obj)))
+	(;; a pair
+	 (pair? obj)
+	 `(cons ,(music->make-music (car obj)) 
+		,(music->make-music (cdr obj))))
 	(else
 	 obj)))
 
