@@ -138,6 +138,7 @@ drumPitchNames =
    (trim . mutetriangle)
    (tri . triangle)
    (trio . opentriangle)
+   (tt . tamtam)
    (ua . oneup)
    (ub . twoup)
    (uc . threeup)

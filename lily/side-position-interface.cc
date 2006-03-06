@@ -118,6 +118,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_on_support_refpoints, 1);
+
 SCM
 Side_position_interface::y_aligned_on_support_refpoints (SCM smob)
 {

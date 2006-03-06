@@ -182,8 +182,8 @@ Returns `obj'.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (shift-one-duration-log music shift dot)
-  "  add SHIFT to ly:duration-log and optionally 
+(define-public (shift-one-duration-log music shift dot)
+  "  add SHIFT to duration-log of 'duration in music and optionally 
   a dot to any note encountered. This scales the music up by a factor 
   2^shift * (2 - (1/2)^dot)"
   (let ((d (ly:music-property music 'duration)))
