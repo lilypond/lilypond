@@ -78,6 +78,12 @@ applyContext =
                    'origin location
                    'procedure proc))
 
+shiftDurations =
+#(define-music-function (parser location dur dots arg) (integer? integer? ly:music?)
+   (music-map
+    (lambda (x)
+      (shift-one-duration-log x dur dots)) arg))
+
 musicMap =
 #(define-music-function (parser location proc mus) (procedure? ly:music?)
 	     (music-map proc mus))
