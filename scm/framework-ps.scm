@@ -24,9 +24,6 @@
 ;;(define pdebug stderr)
 (define (pdebug . rest) #f)
 
-(define mm-to-bigpoint
-  (/ 72 25.4))
-
 (define-public (ps-font-command font)
   (let* ((name (ly:font-file-name font))
 	 (magnify (ly:font-magnification font)))
@@ -97,7 +94,7 @@
 
   (string-append
    "/lily-output-units "
-     (number->string mm-to-bigpoint)
+     (number->string (/ (ly:bp 1)))
      " def %% millimeter\n"
    (output-entry "staff-line-thickness" 'line-thickness)
    (output-entry "line-width" 'line-width)
@@ -113,9 +110,7 @@
   (ly:outputter-dump-string
    outputter
    (string-append
-    "%%Page: "
-    (number->string page-number) " " (number->string page-count) "\n"
-
+    (format "%%Page: ~a ~a\n" page-number page-number)
     "%%BeginPageSetup\n"
     (if landscape?
 	"page-width output-scale lily-output-units mul mul 0 translate 90 rotate\n"
@@ -160,7 +155,23 @@
 		 (supplies-or-needs paper load-fonts?)
 		 "%%EndComments\n"))
 
-(define (page-header paper page-count load-fonts?)
+(define (ps-document-media paper) 
+  (format "%%DocumentMedia: ~a ~$ ~$ ~a ~a ~a\n"
+	  (ly:output-def-lookup paper 'papersizename)
+	  (/ (*
+	      (ly:output-def-lookup paper 'output-scale)
+	      (ly:output-def-lookup paper 'paper-width)) (ly:bp 1))
+	  (/ (*
+	      (ly:output-def-lookup paper 'paper-height)
+	      (ly:output-def-lookup paper 'output-scale))
+	     (ly:bp 1))
+	  80  ;; weight
+	  "()" ;; color
+	  "()"  ;; type
+	  ))
+
+
+(define (file-header paper page-count load-fonts?)
   (string-append "%!PS-Adobe-3.0\n"
 		 "%%Creator: LilyPond "
 		 (lilypond-version)
@@ -172,8 +183,7 @@
 		 (if (eq? (ly:output-def-lookup paper 'landscape) #t)
 		     "Landscape\n"
 		     "Portrait\n")
-		 "%%DocumentPaperSizes: "
-		 (ly:output-def-lookup paper 'papersizename) "\n"
+		 (ps-document-media paper)
 		 (supplies-or-needs paper load-fonts?)
 		 "%%EndComments\n"))
 
@@ -393,6 +403,7 @@
 	   (pfas (map font-loader font-names)))
       pfas))
 
+  (display "%%BeginProlog\n" port)
   (if load-fonts?
       (for-each
        (lambda (f)
@@ -406,7 +417,10 @@
   ;; adobe note 5002: should initialize variables before loading routines.
   (display (procset "music-drawing-routines.ps") port)
   (display (procset "lilyponddefs.ps") port)
-  (display "init-lilypond-parameters\n" port))
+
+  (display "%%EndProlog\n" port)
+  
+  (display "%%BeginSetup\ninit-lilypond-parameters\n%%EndSetup\n\n" port))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
@@ -425,7 +439,11 @@
 	 (port (ly:outputter-port outputter)))
 
     (output-scopes scopes fields basename)
-    (display (page-header paper page-count #t) port)
+    (display (file-header paper page-count #t) port)
+    (display "\n%%BeginDefaults
+%%PageMedia: a4
+%%EndDefaults\n" port)
+
     (write-preamble paper #t port)
 
     (for-each
@@ -440,12 +458,12 @@
 			 (ly:output-formats))))
 
 (define-public (dump-stencil-as-EPS paper dump-me filename load-fonts?)
-  (define (mm-to-bp-box mmbox)
+  (define (to-bp-box mmbox)
     (let* ((scale (ly:output-def-lookup paper 'output-scale))
 	   (box (map
 		 (lambda (x)
 		   (inexact->exact
-		    (round (* x scale mm-to-bigpoint)))) mmbox)))
+		    (round (/ (* x scale) (ly:bp 1))))) mmbox)))
 
     (list (car box)
 	  (cadr box)
@@ -478,7 +496,7 @@
 	   ;;
 	   (list (min left-overshoot (car xext))
 		 (car yext) (cdr xext) (cdr yext))))
-	 (rounded-bbox (mm-to-bp-box bbox))
+	 (rounded-bbox (to-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts?)))
 

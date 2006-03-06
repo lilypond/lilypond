@@ -1,5 +1,7 @@
 2006-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/paper.scm (paper-alist): no decimals for Ax paper sizes. 
+
 	* ly/engraver-init.ly: init vocalName to nil.
 
 2006-03-05 Erik Sandberg  <mandolaerik@gmail.com>
