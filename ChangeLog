@@ -1,3 +1,7 @@
+2006-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/engraver-init.ly: init vocalName to nil.
+
 2006-03-05 Erik Sandberg  <mandolaerik@gmail.com>
 
 	* scm/music-functions.scm (music->make-music): bugfix,

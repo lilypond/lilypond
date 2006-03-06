@@ -90,6 +90,8 @@
   \name "InnerChoirStaff"
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
+  vocalName = #'()
+  vocNam = #'()
 
   \accepts "Staff"
   \accepts "DrumStaff"
@@ -110,9 +112,8 @@
   \accepts "InnerStaffGroup"
   \description "Identical to @code{StaffGroup} except that the
 contained staves are not connected vertically."
-  
-}
 
+}
 
 \context{
   \type "Engraver_group"
