@@ -67,7 +67,7 @@ By setting @code{annotatespacing}, we can see the effect of each property.
   }
   \paper {
     ragged-last-bottom = ##f
-    annotatespacing = ##t
+    annotate-spacing = ##t
     between-system-space = 1.0
     #(set! text-font-defaults
       (acons
