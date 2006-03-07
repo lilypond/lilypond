@@ -210,7 +210,6 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 	    : ((fabs (bezext[RIGHT] - x) < EPS)
 	       ? curve.control_[3][Y_AXIS]
 	       : curve.get_other_coordinate (X_AXIS, x));
-	  consider[k] = true;
 
 	  /* Request shift if slur is contained script's Y, or if
 	     script is inside slur and avoid == outside.  */
@@ -221,13 +220,11 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     }
 
   Real avoidance_offset = 0.0;
-  if (do_shift)
-    {
-      for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
-	avoidance_offset = dir * (max (dir * avoidance_offset,
-			     dir * (ys[k] - yext[-dir] + dir * slur_padding)));
-    }
-
+  for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
+    if (consider[k]) 
+      avoidance_offset = dir * (max (dir * avoidance_offset,
+				     dir * (ys[k] - yext[-dir] + dir * slur_padding)));
+  
   return scm_from_double (scm_to_double (offset_scm) + avoidance_offset);
 }
 
