@@ -1,3 +1,20 @@
+2006-03-07    <hanwen@xs4all.nl>
+
+	* lily/spacing-basic.cc (standard_breakable_column_spacing): also
+	consider columns that have originals.  Unifies spacing for mm
+	rests around line breaks.
+
+	* lily/multi-measure-rest.cc (set_spacing_rods): read bound-padding.
+	(set_text_rods): idem.
+	(calculate_spacing_rods): new function: share code between
+	set_text_rods and set_spacing_rods.
+	(set_text_rods): take extents of bounds into account.  
+
+2006-03-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/basic-notation.itely (Writing music in
+	parallel): don't use relative.
+
 2006-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/music-functions-init.ly (Module): add shiftDurations

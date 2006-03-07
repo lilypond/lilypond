@@ -16,8 +16,9 @@ import pipes
 
 
 _debug = 0
-
 _prune = ['(*)']
+package_diff_dir = '/tmp/package-diff.%s/' % os.getlogin () 
+
 def system (cmd):
 	print cmd
 	s = os.system (cmd)
@@ -95,7 +96,7 @@ def help ():
 
 def cleanup ():
 	global from_diff, to_diff, original_dir
-	os.chdir ('/tmp/package-diff')
+	os.chdir (package_diff_dir)
 	sys.stderr.write ('Cleaning ... ')
 	system ('rm -fr %s %s' % (from_diff, to_diff))
 	sys.stderr.write ('\n')
@@ -287,9 +288,9 @@ if release:
 import tempfile
 original_dir = os.getcwd ();
 
-system ('rm -rf /tmp/package-diff') 
+system ('rm -rf %s' % package_diff_dir) 
 try:
-	os.mkdir ('/tmp/package-diff')
+	os.mkdir (package_diff_dir)
 except:
 	pass
 
@@ -317,11 +318,11 @@ if not patch_name:
 
 	patch_name = compat_abspath (patch_name)
 
-from_diff = '/tmp/package-diff/' + from_diff
-to_diff =  '/tmp/package-diff/' + to_diff
+from_diff = package_diff_dir + from_diff
+to_diff =  package_diff_dir + to_diff
 
 if not from_src:
-	os.chdir ('/tmp/package-diff')
+	os.chdir (package_diff_dir)
 	untar (released_tarball (flags.from_version))
 	os.chdir (original_dir)
 else:
@@ -334,7 +335,7 @@ else:
 
 
 if not to_src:
-	os.chdir ('/tmp/package-diff')
+	os.chdir (package_diff_dir)
 	untar (released_tarball (flags.to_version))
 	os.chdir (original_dir)
 else:

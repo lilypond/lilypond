@@ -44,7 +44,10 @@ similar to chord syntax")
 	      )
 	    ))
 
-;; FIXME: stray statement
+
+;; need to do this in the beginning. Other parts of the
+;; Scheme init depend on these options.
+;;
 (define-scheme-options)
 
 (if (defined? 'set-debug-cell-accesses!)

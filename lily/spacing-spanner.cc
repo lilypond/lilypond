@@ -228,16 +228,16 @@ Spacing_spanner::generate_springs (Grob *me,
 				   vector<Grob*> const &cols,
 				   Spacing_options const *options)
 {
-  Paper_column *next = 0;
-  Paper_column *next_next = 0;
-  for (vsize i = cols.size (); i--;)
+  Paper_column *prev = 0;
+  for (vsize i = 0; i < cols.size (); i++)
     {
       Paper_column *col = dynamic_cast<Paper_column *> (cols[i]);
-      if (next)
-	generate_pair_spacing (me, col, next, next_next, options);
+      Paper_column *next = (i < cols.size()-1) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
+      
+      if (i > 0)
+	generate_pair_spacing (me, prev, col, next, options);
 
-      next_next = next;
-      next = col;
+      prev = col;
     }
 }
 

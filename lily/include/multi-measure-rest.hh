@@ -23,6 +23,8 @@ public:
   DECLARE_SCHEME_CALLBACK (set_text_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (centered_stencil, (SCM));
 
+
+  static void calculate_spacing_rods (Grob *me, Real length);
   static Stencil big_rest (Grob *, Real);
   static Stencil symbol_stencil (Grob *, Real);
   static Stencil church_rest (Grob *, Font_metric *, int, Real);

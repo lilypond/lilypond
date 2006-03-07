@@ -21,6 +21,7 @@
 
 Paper_column_engraver::Paper_column_engraver ()
 {
+  last_moment_.main_part_ = Rational (-1,1); 
   command_column_ = 0;
   musical_column_ = 0;
   breaks_ = 0;
