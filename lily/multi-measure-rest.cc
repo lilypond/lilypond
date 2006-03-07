@@ -279,17 +279,14 @@ Multi_measure_rest::add_column (Grob *me, Item *c)
   add_bound_item (dynamic_cast<Spanner *> (me), c);
 }
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods, 1);
-SCM
-Multi_measure_rest::set_spacing_rods (SCM smob)
+void
+Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
 {
-  Grob *me = unsmob_grob (smob);
-
   Spanner *sp = dynamic_cast<Spanner *> (me);
   if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
-      return SCM_UNSPECIFIED;
+      return ;
     }
 
   Item *li = sp->get_bound (LEFT)->get_column ();
@@ -301,8 +298,6 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 			      {lb, ri},
 			      {li, rb},
 			      {lb, rb}};
-
-  Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
 
   for (int i = 0; i < 4; i++)
     {
@@ -318,70 +313,41 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 
       rod.distance_ = li->extent (li, X_AXIS)[BIGGER]
 	- ri->extent (ri, X_AXIS)[SMALLER]
-	/* 2.0 = magic! */
-	+ sym_width + 2.0;
+	+ length
+	+ 2 * robust_scm2double (me->get_property ("bound-padding"), 1.0);
 
       Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0);
       rod.distance_ = max (rod.distance_, minlen);
       rod.add_to_cols ();
     }
-  return SCM_UNSPECIFIED;
 }
 
-/*
-  Ugh. Cut & paste.
- */
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods, 1);
+SCM
+Multi_measure_rest::set_spacing_rods (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
+  calculate_spacing_rods (me, sym_width);
+
+  return SCM_UNSPECIFIED;  
+}
+  
 MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_text_rods, 1);
 SCM
 Multi_measure_rest::set_text_rods (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-
-  Spanner *sp = dynamic_cast<Spanner *> (me);
-  if (! (sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
-    {
-      programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
-      return SCM_UNSPECIFIED;
-    }
-
-  Item *li = sp->get_bound (LEFT)->get_column ();
-  Item *ri = sp->get_bound (RIGHT)->get_column ();
-  Item *lb = li->find_prebroken_piece (RIGHT);
-  Item *rb = ri->find_prebroken_piece (LEFT);
-
-  Item *combinations[4][2] = {{li, ri},
-			      {lb, ri},
-			      {li, rb},
-			      {lb, rb}};
-
   Stencil *stil = me->get_stencil ();
 
   /* FIXME uncached */
   Real len = (stil && !stil->extent (X_AXIS).is_empty ())
     ? stil->extent (X_AXIS).length ()
     : 0.0;
+  calculate_spacing_rods (me, len);
 
-  for (int i = 0; i < 4; i++)
-    {
-      Item *li = combinations[i][0];
-      Item *ri = combinations[i][1];
-
-      if (!li || !ri)
-	continue;
-
-      Rod rod;
-      rod.item_drul_[LEFT] = li;
-      rod.item_drul_[RIGHT] = ri;
-
-      rod.distance_ = len; 
-
-      Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0);
-      rod.distance_ = max (rod.distance_, minlen);
-      rod.add_to_cols ();
-    }
   return SCM_UNSPECIFIED;
 }
-
 
 ADD_INTERFACE (Multi_measure_rest, "multi-measure-rest-interface",
 	       "A rest that spans a whole number of measures.",
@@ -392,5 +358,6 @@ ADD_INTERFACE (Multi_measure_rest, "multi-measure-rest-interface",
 	       "hair-thickness "
 	       "thick-thickness "
 	       "use-breve-rest "
+	       "bound-padding "
 	       "minimum-length");
 

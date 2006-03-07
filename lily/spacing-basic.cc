@@ -93,7 +93,8 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
     }
   while (flip (&d) != LEFT);
 
-  if (l->is_breakable (l) && r->is_breakable (r))
+  if ((l->is_breakable (l) || l->original ())
+      && (r->is_breakable (r) || r->original ()))
     {
       Moment *dt = unsmob_moment (l->get_property ("measure-length"));
       Moment mlen (1);

@@ -922,7 +922,7 @@ Program reference: @internalsref{Completion_heads_engraver}.
 
 Music for multiple parts can be interleaved
 
-@lilypond[quote,fragment,verbatim,relative=1]
+@lilypond[quote,fragment,verbatim]
 \parallelMusic #'(voiceA voiceB) {
   r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
   c'2                                c'2                                |

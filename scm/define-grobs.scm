@@ -913,7 +913,8 @@
 
     (MultiMeasureRestNumber
      . (
-	(springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
+	(bound-padding  . 2.0)
+	(springs-and-rods . ,ly:multi-measure-rest::set-text-rods)
 	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+ ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self))
