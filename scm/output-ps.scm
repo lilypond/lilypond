@@ -175,10 +175,10 @@
 	  (if (and (< 0 (interval-length x-ext))
 		   (< 0 (interval-length y-ext)))
 	      (format "~$ ~$ ~$ ~$ (textedit://~a:~a:~a:~a) mark_URI\n"
-		      (ly:number->string (+ (car offset) (car x-ext)))
-		      (ly:number->string (+ (cdr offset) (car y-ext)))
-		      (ly:number->string (+ (car offset) (cdr x-ext)))
-		      (ly:number->string (+ (cdr offset) (cdr y-ext)))
+		      (+ (car offset) (car x-ext))
+		      (+ (cdr offset) (car y-ext))
+		      (+ (car offset) (cdr x-ext))
+		      (+ (cdr offset) (cdr y-ext))
 
 		      ;; TODO
 		      ;;full escaping.

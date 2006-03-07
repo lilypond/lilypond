@@ -153,13 +153,13 @@ Slur_engraver::acknowledge_tuplet_number (Grob_info info)
 void
 Slur_engraver::acknowledge_script (Grob_info info)
 {
-  acknowledge_extra_object (info);
+  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
+    acknowledge_extra_object (info);
 }
 
 void
 Slur_engraver::acknowledge_text_script (Grob_info info)
 {
-  //  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("DynamicText")))
   acknowledge_extra_object (info);
 }
 
