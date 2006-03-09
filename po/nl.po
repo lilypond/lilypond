@@ -1950,8 +1950,8 @@ msgid "quoted string expected after \\version"
 msgstr "tekst tussen aanhalingstekens verwacht na \\version"
 
 #: lexer.ll:205
-msgid "quoted string expected after \\renameinput"
-msgstr "tekst tussen aanhalingstekens verwacht na \\renameinput"
+msgid "quoted string expected after \\sourcefilename"
+msgstr "tekst tussen aanhalingstekens verwacht na \\sourcefilename"
 
 #: lexer.ll:218
 msgid "EOF found inside a comment"

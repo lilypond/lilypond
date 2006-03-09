@@ -1957,7 +1957,7 @@ msgid "quoted string expected after \\version"
 msgstr ""
 
 #: lexer.ll:205
-msgid "quoted string expected after \\renameinput"
+msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
 #: lexer.ll:218

@@ -1,4 +1,18 @@
+2006-03-08  Joe Neeman  <joeneeman@gmail.com>
+	
+	* lily/constrained-breaking.cc (get_max_systems): used to return a
+	much too big value
+	(combine_demerits): use pointers to reduce copying data
+	(calc_subproblem): idem
+	(get_page_penalty): add page turn penalties
+	
 2006-03-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/invoking.itely (Invoking lilypond): better
+	explanation of -e usage.
+
+	* lily/main.cc (main_with_guile): don't append to
+	init_scheme_code_string
 
 	* tex/texinfo.tex (sectionheading, q.v.): don't center @image.
 

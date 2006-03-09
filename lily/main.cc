@@ -402,7 +402,7 @@ main_with_guile (void *, int, char **)
 	+ init_scheme_variables + "))";
 
       init_scheme_code_string
-	+= "(begin #t "
+	= "(begin #t "
 	+ init_scheme_variables
 	+ init_scheme_code_string
 	+ ")";

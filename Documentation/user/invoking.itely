@@ -52,7 +52,24 @@ The following options are supported:
 @item -e,--evaluate=@var{expr}
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
 Multiple @code{-e} options may be given, they will be evaluated
-sequentially.  
+sequentially.
+
+The expression will be evaluated in the @code{guile-user} module, so
+if you want to use definitions in @var{expr}, use
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+on the command-line, and include
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@noindent
+at the top of the @code{.ly} file. 
 
 @item -f,--format=@var{format}
 which formats should be written.  Choices are @code{svg}, @code{ps},

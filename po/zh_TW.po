@@ -1899,8 +1899,8 @@ msgid "quoted string expected after \\version"
 msgstr "\\version 後應該是加上引號的字串"
 
 #: lexer.ll:205
-msgid "quoted string expected after \\renameinput"
-msgstr "\\renameinput 後應該是加上引號的字串"
+msgid "quoted string expected after \\sourcefilename"
+msgstr "\\sourcefilename 後應該是加上引號的字串"
 
 #: lexer.ll:218
 msgid "EOF found inside a comment"

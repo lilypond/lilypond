@@ -1926,8 +1926,8 @@ msgid "quoted string expected after \\version"
 msgstr "zitierte Zeichenkette hinter \\version erwartet"
 
 #: lexer.ll:205
-msgid "quoted string expected after \\renameinput"
-msgstr "zitierte Zeichenkette hinter \\renameinput erwartet"
+msgid "quoted string expected after \\sourcefilename"
+msgstr "zitierte Zeichenkette hinter \\sourcefilename erwartet"
 
 #: lexer.ll:218
 msgid "EOF found inside a comment"
