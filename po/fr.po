@@ -1927,8 +1927,8 @@ msgid "quoted string expected after \\version"
 msgstr "\\version doit être suivi d'une chaîne entre guillemets"
 
 #: lexer.ll:205
-msgid "quoted string expected after \\renameinput"
-msgstr "\\renameinput doit être suivi d'une chaîne entre guillemets"
+msgid "quoted string expected after \\sourcefilename"
+msgstr "\\sourcefilename doit être suivi d'une chaîne entre guillemets"
 
 #: lexer.ll:218
 msgid "EOF found inside a comment"

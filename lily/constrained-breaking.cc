@@ -82,8 +82,8 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
       if (0 == sys && j > 0)
         break; /* the first line cannot have its first break after the beginning */
 
-      Column_x_positions const &cur = cols_[(j + start_col)*cols_rank_ + brk];
-      Column_x_positions prev;
+      Column_x_positions const *cur = &cols_[(j + start_col)*cols_rank_ + brk];
+      Column_x_positions const *prev = NULL;
       Real prev_dem = 0;
 
       if (sys > 0)
@@ -97,7 +97,7 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
       Real dem;
       Real force;
       Real pen;
-      combine_demerits(prev, cur, &force, &pen, &dem);
+      combine_demerits (prev, cur, &force, &pen, &dem);
       dem += prev_dem;
       if (isinf (dem))
         continue;
@@ -229,7 +229,7 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
               for (vsize cur_sys = sys; cur_sys != VPOS; cur_sys--)
                 {
                   assert (brk != VPOS);
-                  ret.push_back( st[cur_sys*rank + brk].line_config_ );
+                  ret.push_back( *st[cur_sys*rank + brk].line_config_ );
                   brk = st[cur_sys*rank + brk].prev_;
                 }
               reverse (ret);
@@ -284,7 +284,7 @@ Constrained_breaking::get_penalty (vsize start, vsize end, vsize sys_count)
 }
 
 Real
-Constrained_breaking::get_page_penalty (vsize start, vsize end, vsize sys_count, vsize sys_num)
+Constrained_breaking::get_page_penalty (vsize start, vsize end, vsize sys_count, vsize sys_num, bool turn)
 {
   vsize rank;
   vsize brk;
@@ -296,16 +296,21 @@ Constrained_breaking::get_page_penalty (vsize start, vsize end, vsize sys_count,
 
   if (brk == VPOS) /* we didn't satisfy constraints */
     return 0;
-  vector<Grob*> &cols = state_[start][sys*rank + brk].line_config_.cols_;
+  vector<Grob*> const &cols = state_[start][sys*rank + brk].line_config_->cols_;
   if (cols.empty ())
     return 0;
 
-  Grob *pc = cols.back ();
+  Grob const *pc = cols.back ();
   if (pc->original ())
     {
       SCM pen = pc->get_property ("page-penalty");
-      if (scm_is_number (pen) && fabs (scm_to_double (pen)) < 10000)
-	return scm_to_double (pen);
+      SCM turn_pen = pc->get_property ("page-turn-penalty");
+      Real ret = 0;
+      if (!turn && scm_is_number (pen) && fabs (scm_to_double (pen)) < 10000)
+	ret = scm_to_double (pen);
+      if (turn && scm_is_number (turn_pen) && fabs (scm_to_double (turn_pen)) < 10000)
+        ret = scm_to_double (turn_pen);
+      return ret;
     }
   return 0;
 }
@@ -331,13 +336,13 @@ Constrained_breaking::get_min_systems (vsize start, vsize end)
         return sys_count + 1;
     }
   /* no possible breaks satisfy constraints */
-  return 0;
+  return 1;
 }
 
 int
 Constrained_breaking::get_max_systems (vsize start, vsize end)
 {
-  vsize brk = (end >= start_.size ()) ? breaks_.size () - 1 : start_[end];
+  vsize brk = (end >= start_.size ()) ? breaks_.size () - 1 : starting_breakpoints_[end];
   return brk - starting_breakpoints_[start];
 }
 
@@ -369,20 +374,22 @@ Constrained_breaking::Constrained_breaking (vector<int> const &start)
 }
 
 void
-Constrained_breaking::combine_demerits (Column_x_positions const &prev,
-                                        Column_x_positions const &col,
+Constrained_breaking::combine_demerits (Column_x_positions const *prev,
+                                        Column_x_positions const *col,
                                         Real *force,
                                         Real *penalty,
                                         Real *demerits) const
 {
+  Real prev_f = prev ? prev->force_ : 0;
+
   *penalty = 0;
-  if (col.cols_.empty () || !col.satisfies_constraints_)
+  if (col->cols_.empty () || !col->satisfies_constraints_)
     *force = infinity_f;
   else
     {
-      *force = col.force_;
+      *force = col->force_;
 
-      Grob *pc = col.cols_.back ();
+      Grob *pc = col->cols_.back ();
       if (pc->original ())
         {
           SCM pen = pc->get_property ("penalty");
@@ -391,6 +398,6 @@ Constrained_breaking::combine_demerits (Column_x_positions const &prev,
         }
     }
 
-  *demerits = (*force) * (*force) + abs (prev.force_ - *force) + *penalty;
+  *demerits = (*force) * (*force) + abs (prev_f - *force) + *penalty;
 }
 

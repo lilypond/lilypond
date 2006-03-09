@@ -26,7 +26,7 @@ struct Constrained_break_node
   Real demerits_;
   Real force_;
   Real penalty_;
-  Column_x_positions line_config_;
+  Column_x_positions const *line_config_;
 
   Constrained_break_node ()
   {
@@ -34,7 +34,7 @@ struct Constrained_break_node
     demerits_ = infinity_f;
     force_ = infinity_f;
     penalty_ = 0;
-    line_config_.satisfies_constraints_ = false;
+    line_config_ = 0;
   }
 
   void print () const
@@ -62,7 +62,7 @@ public:
   int get_min_systems (vsize start, vsize end);
 
   /* get the page penalty of system number sys with the given breaking */
-  Real get_page_penalty (vsize start, vsize end, vsize sys_count, vsize sys);
+  Real get_page_penalty (vsize start, vsize end, vsize sys_count, vsize sys, bool turn);
 
   void resize (vsize systems);
 
@@ -88,7 +88,7 @@ private:
   Column_x_positions space_line (vsize start_col, vsize end_col);
   void prepare_solution (vsize start, vsize end, vsize sys_count, vsize *rank, vsize *brk);
 
-  void combine_demerits (Column_x_positions const &, Column_x_positions const &,
+  void combine_demerits (Column_x_positions const *, Column_x_positions const *,
                          Real *force, Real *pen, Real *dem) const;
 
   bool calc_subproblem(vsize start, vsize systems, vsize max_break_index);
