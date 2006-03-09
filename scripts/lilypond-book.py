@@ -607,8 +607,8 @@ output = {
 ''',
 
 		VERBATIM: r'''@exampleindent 0
-@example
-%(verb)s@end example
+@verbatim
+%(verb)s@end verbatim
 ''',
 	},
 }
@@ -732,11 +732,6 @@ def verbatim_html (s):
 	return re.sub ('>', '&gt;',
 		       re.sub ('<', '&lt;',
 			       re.sub ('&', '&amp;', s)))
-
-def verbatim_texinfo (s):
-	return re.sub ('{', '@{',
-		       re.sub ('}', '@}',
-			       re.sub ('@', '@@', s)))
 
 def split_options (option_string):
 	if option_string:
@@ -1191,7 +1186,7 @@ class Lilypond_snippet (Snippet):
 				str += '@include %(texidoc)s\n\n' % vars ()
 
 		if VERBATIM in self.option_dict:
-			verb = verbatim_texinfo (self.substring ('code'))
+			verb = self.substring ('code')
 			str += (output[TEXINFO][VERBATIM] % vars ())
 			if not QUOTE in self.option_dict:
 				str = output[TEXINFO][NOQUOTE] % vars ()
