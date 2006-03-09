@@ -162,8 +162,8 @@ is entered as @code{(first . second)} and, like symbols, they must be quoted,
 @end example 
 
 This assigns the pair (1, 2) to the @code{extra-offset} property of the
-TextScript object.  This moves the object 1 staff space to the right,
-and 2 spaces up.
+TextScript object.  These numbers are measured in staff-spaces, so
+this command moves the object 1 staff space to the right, and 2 spaces up.
 
 The two elements of a pair may be arbitrary values, for example
 

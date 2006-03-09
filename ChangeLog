@@ -1,3 +1,8 @@
+2006-03-08  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/scheme-tutorial.itely: clarifies distances
+	measured in staff-spaces.
+
 2006-03-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/slur.cc (outside_slur_callback): only calculate offsets if
