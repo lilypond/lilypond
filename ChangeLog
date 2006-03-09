@@ -1,5 +1,7 @@
 2006-03-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* tex/texinfo.tex (sectionheading, q.v.): don't center @image.
+
 	* Documentation/user/invoking.itely: add note about MacOS X scripts.
 
 	* scripts/convert-ly.py (do_options): don't print help for
