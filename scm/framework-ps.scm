@@ -196,13 +196,12 @@
 "
     file-name (cached-file-contents file-name))))
 
-(define (setup paper)
+(define (setup-variables paper)
   (string-append
    "\n"
-   "%%BeginSetup\n"
    (define-fonts paper)
    (output-variables paper)
-   "%%EndSetup\n"))
+   ))
 
 (define (cff-font? font)
   (let*
@@ -232,7 +231,6 @@
 	   (string-length binary-data)))
 	 (footer "\n%%EndData
 %%EndResource
-%%EOF
 %%EndResource\n"))
 
     (string-append
@@ -412,7 +410,7 @@
 	 (display "\n%%EndFont\n" port))
        (load-fonts paper)))
 
-  (display (setup paper) port)
+  (display (setup-variables paper) port)
 
   ;; adobe note 5002: should initialize variables before loading routines.
   (display (procset "music-drawing-routines.ps") port)
