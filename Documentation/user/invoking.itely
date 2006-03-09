@@ -7,6 +7,7 @@ This chapter details the technicalities of running LilyPond.
 
 @menu
 * Invoking lilypond::           
+* Notes for the MacOS X app::   
 * Error messages::              
 * Updating files with convert-ly::  
 * Reporting bugs::              
@@ -299,6 +300,17 @@ uses more CPU time. The default value is @code{70}.
 
 @end table
 
+
+@node Notes for the MacOS X app
+@section Notes for the MacOS X app
+
+The scripts (such as lilypond-book, convert-ly, abc2ly, etc.) are also
+included inside MacOS X .app. They can be run from the command line by
+invoking them directly, e.g. 
+
+@example
+@var{path/to}/LilyPond.app/Contents/Resources/bin/convert-ly
+@end example 
 
 @node Error messages
 @section Error messages

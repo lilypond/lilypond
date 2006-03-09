@@ -110,6 +110,7 @@ def get_option_parser ():
 	
 	p.add_option ("-s", '--show-rules',
 		      help=_('print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]'),
+		      dest='show_rules',
 		      action='store_true', default=False)
 	
 	p.add_option ('-t', '--to',
@@ -265,7 +266,7 @@ def do_options ():
 	global global_options
 	global_options = options
 
-	if not args:
+	if not args and not options.show_rules:
 		opt_parser.print_help ()
 		sys.exit (2)
 

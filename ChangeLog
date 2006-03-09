@@ -1,5 +1,10 @@
 2006-03-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/invoking.itely: add note about MacOS X scripts.
+
+	* scripts/convert-ly.py (do_options): don't print help for
+	--show-rules rule.
+
 	* tex/texinfo.tex: patch texinfo.tex to leave single quotes in
 	@code and @example. Update from texinfo.tex from CVS.
 
