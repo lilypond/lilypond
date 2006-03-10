@@ -158,7 +158,7 @@ $(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
 #
 # One big page manual
 #
-$(outdir)/lilypond.html: $(outdir)/lilypond.texi
+$(outdir)/lilypond.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
 
 #
