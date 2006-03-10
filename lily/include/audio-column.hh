@@ -26,6 +26,10 @@ public:
 
   vector<Audio_item*> audio_items_;
 
+protected:
+  void offset_at_mom (Moment m);
+  friend class Score_performer;
+
 private:
   Audio_column (Audio_column const &);
 

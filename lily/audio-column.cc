@@ -29,3 +29,9 @@ Audio_column::at_mom () const
   return at_mom_;
 }
 
+void
+Audio_column::offset_at_mom (Moment m)
+{
+  at_mom_ += m;
+}
+
