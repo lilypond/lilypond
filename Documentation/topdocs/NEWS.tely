@@ -64,6 +64,9 @@ which scares away people.
 
 @end ignore
 
+@item LilyPond PostScript output is now also compatible with GSView, a
+PostScript viewer for the Windows platform.
+
 @item The property @code{Score.skipTypesetting} is also respected
 by the MIDI output now.
 
@@ -99,7 +102,7 @@ parenthesized, for example,
 
 @lilypond[verbatim,ragged-right,fragment,relative=2]
 c4-\parenthesize -.
-<d \parenthesize fis a> 
+<d \parenthesize f a> 
 @end lilypond
 
 This feature was sponsored by Ramana Kumar.
@@ -188,8 +191,8 @@ This feature was sponsored by Trevor Bača.
    }
    }
  \paper {
-   annotatepage = ##t
-   annotateheaders = ##t
+   annotate-page = ##t
+   annotate-headers = ##t
  }
 }
 @end lilypond
@@ -524,7 +527,7 @@ individually.  The dimensions that can be tuned can be visualized.
 #(set-default-paper-size "a7" 'landscape)
 \book {
  \score { { c4 } }
- \paper { annotatespacing = ##t }
+ \paper { annotate-spacing = ##t }
 }
 @end lilypond
 
