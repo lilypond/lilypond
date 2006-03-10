@@ -6,6 +6,7 @@
   (c) 1996--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "moment.hh"
 #include "score-performer.hh"
 
 #include "audio-column.hh"
@@ -28,6 +29,7 @@ ADD_TRANSLATOR_GROUP (Score_performer,
 Score_performer::Score_performer ()
 {
   performance_ = 0;
+  skipping_ = false;
 }
 
 Score_performer::~Score_performer ()
@@ -68,8 +70,27 @@ Score_performer::finish ()
 void
 Score_performer::one_time_step ()
 {
-  precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
-  do_announces ();
+  if (to_boolean (context ()->get_property ("skipTypesetting")))
+    {
+      if (!skipping_)
+        {
+	  skip_start_mom_ = audio_column_->at_mom ();
+	  skipping_ = true;
+        }
+    }
+  else
+    {
+      if (skipping_)
+        {
+	  offset_mom_ -= audio_column_->at_mom () - skip_start_mom_;
+	  skipping_ = false;
+	}
+
+      audio_column_->offset_at_mom (offset_mom_);
+      precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
+      do_announces ();
+    }
+
   precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
 }
 

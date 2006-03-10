@@ -64,6 +64,11 @@ which scares away people.
 
 @end ignore
 
+@item The property @code{Score.skipTypesetting} is also respected
+by the MIDI output now.
+
+This feature was contributed by Johannes Schindelin.
+
 @item A score may now be specified to take a fixed number of
 systems, by setting the @code{system-count} variable in the
 @code{\layout} block.

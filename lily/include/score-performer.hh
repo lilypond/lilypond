@@ -37,6 +37,9 @@ private:
   void header (Midi_stream &);
 
   Audio_column *audio_column_;
+  bool skipping_;
+  Moment skip_start_mom_;
+  Moment offset_mom_;
 };
 
 #endif // SCORE_PERFORMER_HH

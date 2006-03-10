@@ -860,6 +860,10 @@ Skipping parts of a score can be controlled in a more fine-grained
 fashing with the property @code{Score.skipTypesetting}.  When it is
 set, no typesetting is performed at all.
 
+This property is also used to control output to the MIDI file. Note that
+it skips all events, including tempo and instrument changes. You have
+been warned.
+
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c'' {
   c8 d
