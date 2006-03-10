@@ -5199,7 +5199,7 @@ where each line of input produces a line of output.}
 % Don't replace quotes with curly quotes. This makes cut & pasting
 % from a PDF file problematic.
 % 
-\def\singlequotechar{\char'15}
+\def\singlequotechar{\char'15\relax}
 \begingroup
   \catcode`\^^I=\active
   \gdef\tabexpand{%
