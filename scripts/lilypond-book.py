@@ -1403,8 +1403,9 @@ def get_latex_textwidth (source):
 	
 	(handle, tmpfile) = tempfile.mkstemp('.tex')
 	logfile = os.path.splitext (tmpfile)[0] + '.log'
+	logfile = os.path.split (logfile)[1]
 	open (tmpfile,'w').write (latex_document)
-	ly.system ('latex %s' % tmpfile)
+	ly.system ('latex %s' % tmpfile, be_verbose=global_options.verbose)
 	parameter_string = open (logfile).read()
 	
 	os.unlink (tmpfile)

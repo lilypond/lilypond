@@ -1,3 +1,8 @@
+2006-03-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (get_latex_textwidth): look for latex
+	log in output dir.
+
 2006-03-08  Johannes Schindelin  <Johannes.Schindelin@gmx.de>
 
 	* lily/audio-column.cc, lily/score-performer.cc: MIDI output now
