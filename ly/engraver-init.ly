@@ -515,13 +515,13 @@ AncientRemoveEmptyStaffContext = \context {
   pedalSostenutoStrings = #'("Sost. Ped." "*Sost. Ped." "*") 
   pedalSostenutoStyle = #'mixed
 
-
   harmonicAccidentals = ##t 
   fingeringOrientations = #'(up down)
   stringNumberOrientations = #'(up down)
   tupletNumberFormatFunction = #denominator-tuplet-formatter
   markFormatter = #format-mark-letters
-  rehearsalMark = #1 
+  rehearsalMark = #1
+  rehearsalMarkAlignSymbol = #'staff-bar
   subdivideBeams = ##f
   allowBeamBreak = ##f
   extraNatural = ##t
