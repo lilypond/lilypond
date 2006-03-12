@@ -6,11 +6,6 @@
 # (c) 1998--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-###  subst:\(^\|[^._a-z]\)\(abspath\|identify\|warranty\|progress\|warning\|error\|exit\|getopt_args\|option_help_str\|options_help_str\|help\|setup_temp\|read_pipe\|system\|cleanup_temp\|strip_extension\|cp_to_dir\|mkdir_p\|init\) *(
-###  replace:\1ly.\2 (
-
-### subst: \(help_summary\|keep_temp_dir_p\|option_definitions\|original_dir\|program_name\|pseudo_filter_p\|temp_dir\|verbose_p\)
-
 import __main__
 import glob
 import os
@@ -21,6 +16,13 @@ import sys
 import optparse
 import subprocess
 
+## windows mingw cross compile doesn't have selectmodule.so
+have_select = True
+try:
+	import select
+except ImportError:
+	have_select = False
+	
 ################################################################
 # Users of python modules should include this snippet
 # and customize variables below.
@@ -94,6 +96,9 @@ def system (cmd,
 
 	log = ''
 
+	if not have_select:
+		show_progress = True
+
 	if show_progress:
 		retval = proc.wait()
 	else:
@@ -139,13 +144,6 @@ def print_environment ():
 	for (k,v) in os.environ.items ():
 		sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
 
-
-def ps_page_count (ps_name):
-	header = open (ps_name).read (1024)
-	m = re.search ('\n%%Pages: ([0-9]+)', header)
-	if m:
-		return string.atoi (m.group (1))
-	return 0
 
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):

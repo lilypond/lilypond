@@ -117,6 +117,13 @@ def warning (s):
 def error (s):
 	sys.stderr.write (program_name + ": " + _ ("error: %s") % s + '\n')
 
+def ps_page_count (ps_name):
+	header = open (ps_name).read (1024)
+	m = re.search ('\n%%Pages: ([0-9]+)', header)
+	if m:
+		return string.atoi (m.group (1))
+	return 0
+
 def warranty ():
 	identify ()
 	sys.stdout.write ('''
@@ -1059,7 +1066,7 @@ class Lilypond_snippet (Snippet):
 
 			page_count = 0
 			if ok:
-				page_count = ly.ps_page_count (base + '.eps')
+				page_count = ps_page_count (base + '.eps')
 			
 			if page_count == 1:
 				ok = ok and os.path.exists (base + '.png')
@@ -1102,7 +1109,7 @@ class Lilypond_snippet (Snippet):
 		   and (not os.path.exists (single) \
 			or (os.stat (multiple)[stat.ST_MTIME] \
 			    > os.stat (single)[stat.ST_MTIME])):
-			count = ly.ps_page_count ('%(base)s.eps' % vars ())
+			count = ps_page_count ('%(base)s.eps' % vars ())
 			images = ['%s-page%d.png' % (base, a) for a in range (1, count+1)]
 			images = tuple (images)
 		return images
