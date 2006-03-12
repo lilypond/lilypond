@@ -79,6 +79,8 @@ cello                     lead 6 (voice)
 
 @subsubheading Normal colors
 
+Usage syntax is detailed in @ref{Coloring objects}.
+
 @cindex List of colors
 @cindex Colors, list of
 
