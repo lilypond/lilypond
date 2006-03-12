@@ -1,3 +1,7 @@
+2006-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py (get_option_parser): 
+
 2006-03-11  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ changing-defaults, global, scheme-tutorial,

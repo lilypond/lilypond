@@ -89,7 +89,7 @@ Copyright (c) %s by
 
 
 def get_option_parser ():
-	p = ly.get_option_parser (usage='lilypond-book [OPTIONS] FILE',
+	p = ly.get_option_parser (usage='convert-ly [OPTIONS] FILE',
 				  version="@TOPLEVEL_VERSION@",
 				  description=help_summary)
 
