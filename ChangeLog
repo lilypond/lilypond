@@ -1,3 +1,7 @@
+2006-03-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/lilylib.py (print_environment): move ps_page_count to lilypond-book.py
+
 2006-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/music-glossary.tely (G clef): fix clef alignments.
