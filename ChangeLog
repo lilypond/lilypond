@@ -1,3 +1,9 @@
+2006-03-12  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/instrument-notation.itely (Setting simple
+	songs): Added \book{...} around the full example, so the separate
+	markups are included in the printed example. 
+
 2006-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (get_latex_textwidth): explicitly close tmphandle.

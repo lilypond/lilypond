@@ -756,25 +756,27 @@ text = \lyricmode {
 it's fleece was white as snow.
 }
 
-\score{ <<
-  \new Voice = "one" { \melody }
-  \new Lyrics \lyricsto "one" \text
+\book{
+  \score{ <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
 	>>
-  \layout { }
-}
-\markup { \column{
-  \line{ Verse 2. }
-  \line{ All the children laughed and played }
-  \line{ To see a lamb at school. }
+    \layout { }
   }
-}
-\markup{
-  \wordwrap-string #"
-  Verse 3.
+  \markup { \column{
+    \line{ Verse 2. }
+    \line{ All the children laughed and played }
+    \line{ To see a lamb at school. }
+    }
+  }
+  \markup{
+    \wordwrap-string #"
+    Verse 3.
 
-  Mary took it home again,
+    Mary took it home again,
 
-  It was against the rule."
+    It was against the rule."
+  }
 }
 @end lilypond
 
