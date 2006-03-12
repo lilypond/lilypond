@@ -188,13 +188,19 @@
 		 "%%EndComments\n"))
 
 (define (procset file-name)
-  (string-append
-   (format
+  (format
     "%%BeginResource: procset (~a) 1 0
 ~a
 %%EndResource
 "
-    file-name (cached-file-contents file-name))))
+    file-name (cached-file-contents file-name)))
+
+(define (embed-document file-name)
+  (format "%%BeginDocument: ~a
+~a
+%%EndDocument
+" 
+    file-name (cached-file-contents file-name)))
 
 (define (setup-variables paper)
   (string-append
@@ -323,7 +329,7 @@
 	
       (cond
        ((and file-name (string-match "\\.pfa" downcase-file-name))
-	(cached-file-contents file-name))
+	(embed-document file-name))
        ((and file-name (string-match "\\.pfb" downcase-file-name))
 	(ly:pfb->pfa file-name))
        ((and file-name (string-match "\\.ttf" downcase-file-name))
