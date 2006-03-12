@@ -9,8 +9,8 @@
 @direntry
 @ignore
 (I think)
-Current version of the manual: 2.6.0
-Please update this whenever you run convert-ly on the docs.
+Current version of the manual: 2.7.23
+****** Please update this whenever you run convert-ly on the docs.
 
 convert-ly --from=... --to=... --no-version *.itely
  
@@ -44,7 +44,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 
 @ignore
-@omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
 @omfdescription User manual of the LilyPond music engraving system
 @omftype user manual
 @omfcategory Applications|Publishing
@@ -243,7 +243,7 @@ Copyright 1999--2005 by the authors
 @top GNU LilyPond --- The music typesetter
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the user manual for GNU LilyPond 2.7.x series.
+This is the user manual for GNU LilyPond 2.8.x series.
 @ifhtml
 (See the bottom of this page for the exact version number).
 @end ifhtml
