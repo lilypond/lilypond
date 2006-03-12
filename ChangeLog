@@ -1,5 +1,10 @@
 2006-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/music-glossary.tely (G clef): fix clef alignments.
+
+	* scm/framework-ps.scm (embed-document): new function. Use to
+	embed PFA files.
+
 	* ly/engraver-init.ly: init rehearsalMarkAlignSymbol to staff-bar.
 
 2006-03-12  Mats Bengtsson  <mabe@drongo.s3.kth.se>

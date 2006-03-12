@@ -2400,28 +2400,30 @@ the notes must be played an octave higher while 8 below the clef symbol
 indicates playing or singing an octave lower (most tenor parts in choral
 scores are notated like that).
 
-@lilypond[fragment,notime,line-width=13.0\cm]
-\set Score.automaticBars = ##f
-\override Staff.Clef #'full-size-change = ##t
-%\override Score.LyricText #'font-style = #'large
-\oldaddlyrics
-\relative c'' {
-  \clef french
-  g1 s s
-  \clef treble
-  g s s
-  \clef "G^8"
-  g s s
-  \clef "G_8"
-  g s s
-}
-\context Lyrics \lyrics {
-  \override Lyrics .LyricText #'self-alignment-X = #-1
-  "french violin clef  "
-  "violin clef  "
-  "octaved up  "
-  "octaved down"
-}
+@lilypond[fragment,notime,ragged-right]
+<<
+  \set Score.automaticBars = ##f
+  \override Staff.Clef #'full-size-change = ##t
+
+  \relative c'' {
+    \set Score.proportionalNotationDuration = #(ly:make-moment 1 8)
+    \clef french
+    g1
+    \clef treble
+    g
+    \clef "G^8"
+    g
+    \clef "G_8"
+    g
+  }
+  \context Lyrics \lyrics {
+    \override Lyrics . LyricText #'X-offset = #-5
+    "french violin clef"
+    "violin clef"
+    "octaved up"
+    "octaved down"
+  }
+>>
 @end lilypond
 
 @node glissando
