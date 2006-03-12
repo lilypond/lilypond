@@ -1,9 +1,9 @@
 2006-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (get_latex_textwidth): explicitly close tmphandle.
+
 	* python/lilylib.py (system): rewrite system() using
 	subprocess. Remove >& redirection trickery.
-
-	* scripts/convert-ly.py (get_option_parser): 
 
 2006-03-11  Graham Percival  <gpermus@gmail.com>
 
