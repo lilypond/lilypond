@@ -1678,7 +1678,12 @@ their two extremes.  The fractions can be adjusted by
 For each type of MIDI instrument, a volume range can be defined.  This
 gives a basic equalizer control, which can enhance the quality of
 the MIDI output remarkably.  The equalizer can be controlled by
-setting @code{instrumentEqualizer}.
+setting @code{instrumentEqualizer}, or by setting
+
+@example
+\set Staff.midiMinimumVolume = #0.2
+\set Staff.midiMaximumVolume = #0.8
+@end example
 
 To remove dynamics from the MIDI output, insert the following lines
 in the @code{\midi@{@}} section.
