@@ -19,7 +19,7 @@ import shutil
 import string
 import sys
 import optparse
-import tempfile
+import subprocess
 
 ################################################################
 # Users of python modules should include this snippet
@@ -65,61 +65,58 @@ def command_name (cmd):
 	cmd = re.match ('([\(\)]*)([^\\\ ]*)', cmd).group (2)
 	return os.path.basename (cmd)
 
-def error_log (name):
-	name = re.sub('[^a-z]','x', name)
-	return tempfile.mktemp ('%s.errorlog' % name)
-
-
-def system (cmd, ignore_error = 0, progress_p = 0, be_verbose=0):
+def system (cmd,
+	      ignore_error=False,
+	      progress_p=True,
+	      be_verbose=False,
+	      log_file=None):
 	
-	'''System CMD.  If IGNORE_ERROR, do not complain when CMD
-returns non zero.  If PROGRESS_P, always show progress.
-
-RETURN VALUE
-
-Exit status of CMD '''
-
+	show_progress= progress_p 
 	name = command_name (cmd)
 	error_log_file = ''
 
 	if be_verbose:
-		progress_p = 1
+		show_progress = 1
 		progress (_ ("Invoking `%s\'") % cmd)
 	else:
 		progress ( _("Running %s...") % name)
 
-	redirect = ''
-	if not progress_p:
-		error_log_file = error_log (name)
-		redirect = ' 1>/dev/null 2>' + error_log_file
 
-	status = os.system (cmd + redirect)
-	signal = 0x0f & status
-	exit_status = status >> 8
-	
-	if status:
+	stdout_setting = None
+	if not show_progress:
+		stdout_setting = subprocess.PIPE
 		
-		exit_type =  'status %d' % exit_status
-		if signal:
-			exit_type = 'signal %d' % signal 
-		
-		msg = _ ("`%s\' failed (%s)") % (name, exit_type)
+	proc = subprocess.Popen (cmd,
+				 shell=True,
+				 universal_newlines=True,
+				 stdout=stdout_setting,
+				 stderr=stdout_setting)
+
+	log = ''
+
+	if show_progress:
+		retval = proc.wait()
+	else:
+		log = proc.communicate ()
+		retval = proc.returncode
+
+
+	if retval:
+		print >>sys.stderr, 'command failed:', cmd
+		if retval < 0:
+		    print >>sys.stderr, "Child was terminated by signal", -retval
+		elif retval > 0:
+		    print >>sys.stderr, "Child returned", retval
+
 		if ignore_error:
-			if be_verbose:
-				warning (msg + ' ' + _ ("(ignored)"))
+			print >>sys.stderr, "Error ignored"
 		else:
-			error (msg)
-			if not progress_p and error_log_file:
-				error (_ ("The error log is as follows:"))
-				sys.stderr.write (open (error_log_file).read ())
-			if error_log_file:
-				os.unlink (error_log_file)
-			exit (1)
+			if not show_progress:
+				print log[0]
+				print log[1]
+			sys.exit (1)
 
-	if error_log_file:
-		os.unlink (error_log_file)
-	progress ('\n')
-	return status
+	return abs (retval)
 
 def strip_extension (f, ext):
 	(p, e) = os.path.splitext (f)
