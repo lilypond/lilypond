@@ -1367,11 +1367,8 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	status = 0
 	def my_system (cmd):
 		status = ly.system (cmd,
-				    ignore_error = 1, progress_p = 1)
-
-		if status:
-			error ('Process %s exited unsuccessfully.' % cmd)
-			raise Compile_error
+				    be_verbose=global_options.verbose, 
+				    progress_p= 1)
 
 	# UGH
 	# the --process=CMD switch is a bad idea
