@@ -1,5 +1,8 @@
 2006-03-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/bin/add-html-footer.py (mail_address_url): don't add
+	mailto: to http:// 
+
 	* python/lilylib.py (print_environment): move ps_page_count to lilypond-book.py
 
 2006-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
