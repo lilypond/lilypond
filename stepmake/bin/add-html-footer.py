@@ -23,6 +23,10 @@ try:
 except KeyError:
 	pass
 
+mail_address_url= 'mailto:' + mail_address
+if re.search ("http://", mail_address):
+	mail_address_url = mail_address
+	
 webmaster= mail_address
 try:
 	webmaster= os.environ['WEBMASTER']
@@ -51,7 +55,7 @@ built = r"""
 This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
 </font>
 <address><font size="-1">
-Report errors to &lt;<a href="mailto:%(mail_address)s">%(mail_address)s</a>&gt;.</font></address>
+Report errors to &lt;<a href="%(mail_address_url)s">%(mail_address)s</a>&gt;.</font></address>
 </p>
 </div>
 
