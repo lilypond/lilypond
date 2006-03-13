@@ -1,3 +1,7 @@
+2006-03-13 Heikki Junes  <hjunes@cc.hut.fi>
+
+	* po/fi.po: update.
+
 2006-03-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* stepmake/bin/add-html-footer.py (mail_address_url): don't add
