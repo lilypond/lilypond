@@ -1,3 +1,10 @@
+2006-03-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond-book.py (LATEX_INSPECTION_DOCUMENT): Use the
+	file descriptor returned by tempfile.mkstemp() when writing
+	to tmpfile and closing it. Solves problem with unlink(tmpfile)
+	on mingw.
+
 2006-03-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* po/fi.po: newline bugfix.
