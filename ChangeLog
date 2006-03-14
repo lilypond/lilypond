@@ -1,3 +1,7 @@
+2006-03-14  Graham Percival  <gpermus@gmail.com>
+
+	* Documentaiton/user/global.itely: small fix from mailist.
+
 2006-03-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (LATEX_INSPECTION_DOCUMENT): Use the
