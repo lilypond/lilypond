@@ -1409,7 +1409,7 @@ def get_latex_textwidth (source):
 	logfile = os.path.splitext (tmpfile)[0] + '.log'
 	logfile = os.path.split (logfile)[1]
 
-	tmp_handle = open (tmpfile,'w')
+	tmp_handle = os.fdopen (handle,'w')
 	tmp_handle.write (latex_document)
 	tmp_handle.close ()
 	
