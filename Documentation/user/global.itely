@@ -618,6 +618,10 @@ and wider line widths will be set correspondingly.
 #(set-default-paper-size "a6" 'landscape)
 @end example 
 
+Setting the paper size will adjust a number of @code{\paper} variables
+(such as margins).  To use a particular paper size with altered
+@code{\paper} variables, set the paper size before setting the variables.
+
 
 @node Page formatting
 @subsection Page formatting
