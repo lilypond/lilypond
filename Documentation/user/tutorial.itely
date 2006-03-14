@@ -1143,8 +1143,8 @@ Again, these expressions can be nested arbitrarily
   >>
   \new Staff <<
     \clef bass
-    { <c, g>1 ~ <c g>4 } \\
-    { e,4 d e2 ~ e4}
+    { <c g>1 ~ <c g>4 } \\
+    { e,,4 d e2 ~ e4}
   >>
 >>
 @end lilypond

@@ -1,3 +1,8 @@
+2006-03-13  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ changing-defaults, instrument-notation,
+	tutorial: small fixes from mailist, mostly from Mats.  Thanks!
+
 2006-03-13 Heikki Junes  <hjunes@cc.hut.fi>
 
 	* po/fi.po: update.
