@@ -965,7 +965,7 @@ Distances in LilyPond are measured in staff-spaces, while most
 thickness properties are measured in line-thickness.  Some
 properties are different; for example, the thickness of beams
 is measured in staff-spaces.  For more information, see the
-relevant portion of the internals documentation.
+relevant portion of the program reference.
 
 More specific overrides are also possible.  The next section
 discusses in depth how to figure out these statements for yourself.

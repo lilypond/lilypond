@@ -826,10 +826,11 @@ like notes, but with pitches replaced by text.  For example,
 \lyricmode @{ Twin-4 kle4 twin- kle litt- le star2 @}
 @end example
 
-There is a difference between @code{\addlyrics} and
-@code{\lyricmode}.  @code{\addlyrics} and @code{\lyricsto}
-ignore all durations and aligns syllables to notes; @code{\lyricmode}
-uses the durations specified.
+There are two main methods to specify the horizontal placement
+of the syllables, either by specifying the duration of each syllable
+explicitly, like in the example above, or by automatically aligning
+the lyrics to a melody or other voice of music, using @code{\addlyrics}
+or @code{\lyricsto}.  For more details see @ref{The Lyrics context}.
 
 A word lyrics mode begins with an alphabetic character, and ends with
 any space or digit.  The following characters can be any character
