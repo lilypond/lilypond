@@ -459,12 +459,12 @@ Here is a short example.
   composer = "Composer"
 @}
 \header @{
-  title = "Title"
+  piece = "Piece"
 @}
 \score @{
   \new Staff @{ c'4 @}
   \header @{
-    title = "New title"  % overwrite previous one
+    piece = "New piece"  % overwrite previous one
   @}
 @}
 @end example
