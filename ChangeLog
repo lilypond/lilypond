@@ -1,3 +1,7 @@
+2006-03-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/paper.scm (paper-alist): Rounding fixes.
+
 2006-03-13  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ changing-defaults, instrument-notation,
@@ -12,7 +16,8 @@
 	* stepmake/bin/add-html-footer.py (mail_address_url): don't add
 	mailto: to http:// 
 
-	* python/lilylib.py (print_environment): move ps_page_count to lilypond-book.py
+	* python/lilylib.py (print_environment): move ps_page_count to
+	lilypond-book.py
 
 2006-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
