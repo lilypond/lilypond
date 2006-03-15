@@ -1,5 +1,8 @@
 2006-03-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/spacing-spanner.cc (musical_column_spacing): crude fix for
+	breakable items after uniformly stretched notes.
+
 	* lily/tie-formatting-problem.cc (set_chord_outline): initialize
 	outline with outer edge of note heads. This prevents infinity
 	problems with tied whole notes.
