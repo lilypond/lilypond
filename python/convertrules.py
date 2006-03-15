@@ -2676,6 +2676,17 @@ conversions.append (((2, 7, 28), conv,
 		     """ly:spanner-get-bound -> ly:spanner-bound"""))
 
 def conv (str):
+	for a in ['beamed-lengths', 'beamed-minimum-free-lengths',
+		  'beamed-extreme-minimum-free-lengths']:
+		str = re.sub (r"\\override\s+Stem\s+#'%s" % a,
+			      r"\\override Stem #'details #'%s" % a,
+			      str)
+	return str
+
+conversions.append (((2, 7, 29), conv,
+		     """override Stem #'beamed-* -> #'details #'beamed-*"""))
+
+def conv (str):
 	str = re.sub (r'\epsfile *#"', r'\epsfile #X #10 #"', str)
 	return str
 

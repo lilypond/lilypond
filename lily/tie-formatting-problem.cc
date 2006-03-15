@@ -113,7 +113,17 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
       Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-dir];
       chord_outlines_[dir].at (0).height_ = x; 
     }
-	  
+  else
+    {
+      Interval x;      
+      for (vsize i = 0; i < head_boxes.size (); i++)
+	{
+	  x.unite (head_boxes[i][X_AXIS]);
+	}
+
+      chord_outlines_[dir].at (0).height_ = x[dir];
+    }
+
   for (vsize i = 0; i < boxes.size (); i++)
     insert_extent_into_skyline (&chord_outlines_[dir]  ,
 				boxes[i], Y_AXIS, -dir);

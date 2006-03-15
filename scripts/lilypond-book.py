@@ -1562,8 +1562,8 @@ def do_file (input_filename):
 	else:
 		if os.path.exists (input_filename):
 			input_fullname = input_filename
-		elif global_options.format == LATEX and ly.search_exe_path ('kpsewhich'): 
-			input_fullname = os.read_pipe ('kpsewhich ' + input_filename).read()[:-1]
+		elif global_options.format == LATEX and ly.search_exe_path ('kpsewhich'):
+			input_fullname = os.popen ('kpsewhich ' + input_filename).read()[:-1]
 		else:
 			input_fullname = find_file (input_filename)
 
