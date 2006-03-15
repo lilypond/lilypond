@@ -322,6 +322,7 @@
 		       (ly:pt 12)))))))
 
   (add-node 'upright 'normal) 
+  (add-node 'caps 'normal) 
   (add-node 'upright 'bold) 
   (add-node 'italic 'normal)
   (add-node 'italic 'bold))
