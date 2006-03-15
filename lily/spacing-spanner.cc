@@ -260,7 +260,20 @@ Spacing_spanner::musical_column_spacing (Grob *me,
   Real compound_fixed_note_space = 0.0;
 
   if (options->stretch_uniformly_)
-    compound_note_space = base_note_space;
+    {
+      compound_note_space = base_note_space;
+            
+      if (!Paper_column::is_musical (right_col))
+	{
+	  /*
+	    Crude fix for notes that lead up to barlines and time sigs.
+	  */
+	  Interval lext = right_col->extent (right_col, X_AXIS);
+	  if (!lext.is_empty ())
+	    compound_note_space += -lext[LEFT];
+	}
+      
+    }
   else
     {
       int wish_count = 0;
