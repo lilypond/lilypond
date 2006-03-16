@@ -1309,7 +1309,7 @@ There are a few classes of difficult adjustments.
 
 
 @item
-Another difficult adjustment is the appearance of spanner objects,
+One type of difficult adjustment is the appearance of spanner objects,
 such as slur and tie.  Initially, only one of these objects is created,
 and they can be adjusted with the normal mechanism.  However, in some
 cases the spanners cross line breaks.  If this happens, these objects
