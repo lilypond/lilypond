@@ -110,9 +110,9 @@ contain only one music expression.
 
 @item
 A @code{\book} block logically combines multiple movements
-(i.e., multiple @code{\score} blocks) in one document.  A number of
-@code{\scores} creates a single output file, where all movement are
-concatenated.
+(i.e., multiple @code{\score} blocks) in one document.  If there are
+a number of @code{\scores}, a single output file will be created
+in which all movements are concatenated.
 
 This behavior can be changed by setting the variable
 @code{toplevel-book-handler} at toplevel.  The default handler is
@@ -694,7 +694,7 @@ printable area.
 
 @cindex @code{ragged-bottom}
 @item ragged-bottom
-If set to true, systems will not be spread across the page.  This
+If set to true, systems will not be spread vertically across the page.  This
 does not affect the last page.
 
 This should be set to true for pieces that have only two or three
@@ -702,7 +702,7 @@ systems per page, for example orchestral scores.
  
 @cindex @code{ragged-last-bottom}
 @item ragged-last-bottom
-If set to false, systems will be spread to fill the last page.
+If set to false, systems will be spread vertically to fill the last page.
 
 Pieces that amply fill two pages or more should have this set to
 true.
@@ -1412,7 +1412,8 @@ control the indentation of the first line of music, and the lengths of
 the lines.
 
 If @code{ragged-right} is set to true in the @code{\layout} block, then
-the lines are justified at their natural length.  This is useful for
+systems ends at their natural horizontal length, instead of being spread
+horizontally to fill the whole line.  This is useful for
 short fragments, and for checking how tight the natural spacing is.
 
 @cindex page layout
@@ -1421,7 +1422,7 @@ short fragments, and for checking how tight the natural spacing is.
 The option @code{ragged-last} is similar to @code{ragged-right}, but
 only affects the last line of the piece.  No restrictions are put on
 that line.  The result is similar to formatting text paragraphs.  In a
-paragraph, the last line simply takes its natural length.
+paragraph, the last line simply takes its natural horizontal length.
 @c Note that for text there are several options for the last line.
 @c While Knuth TeX uses natural length, lead typesetters use the same
 @c stretch as the previous line.  eTeX uses \lastlinefit to
@@ -1487,6 +1488,18 @@ automatically.  This allows vertical alignments to be stretched to
 fit pages in a second formatting run.  This is fairly new and
 complicated; see @inputfileref{input/regression/,page-layout-twopass.ly}
 for details.
+
+@refbugs
+
+Line breaks can only occur if there is a ``proper'' bar line.  A note
+which is hanging over a bar line is not proper, such as
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+c4 c2 c2 \break   % this does nothing
+c2 c4 |           % a break here would work
+c4 c2 c4 ~ \break % as does this break
+c4 c2 c4
+@end lilypond
 
 
 @node Page breaking
