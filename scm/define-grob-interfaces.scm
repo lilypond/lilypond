@@ -81,7 +81,7 @@
 (ly:add-interface
  'multi-measure-interface
  "Multi measure rest, and the text or number that is printed over it."
- '())
+ '(bound-padding))
 
 (ly:add-interface
 'note-name-interface
