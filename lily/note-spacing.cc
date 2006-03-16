@@ -141,7 +141,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	  /*
 	    Add that which sticks out a lot.
 	  */
-	  + max (0.0, -extents[RIGHT][LEFT] - (base_space - increment))));
+	  + max (0.0, -extents[RIGHT][LEFT] - (base_space - 0.5 * increment))));
 
   /*
     We don't do complicated stuff: (base_space - increment) is the
