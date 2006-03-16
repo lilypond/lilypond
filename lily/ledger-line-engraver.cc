@@ -62,6 +62,7 @@ Ledger_line_engraver::stop_spanner ()
   if (span_)
     {
       span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      Pointer_group_interface::set_ordered (span_, ly_symbol2scm ("elements"), false);
       span_ = 0;
     }
 }

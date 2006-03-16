@@ -82,6 +82,8 @@ Instrument_name_engraver::finalize ()
     {
       text_spanner_->set_bound (RIGHT,
 				unsmob_grob (get_property ("currentCommandColumn")));
+
+      Pointer_group_interface::set_ordered (text_spanner_, ly_symbol2scm ("elements"), false);
     }
 }
 

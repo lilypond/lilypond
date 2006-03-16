@@ -9,6 +9,7 @@
 #include "axis-group-engraver.hh"
 
 #include "axis-group-interface.hh"
+#include "pointer-group-interface.hh"
 #include "context.hh"
 #include "international.hh"
 #include "spanner.hh"
@@ -50,6 +51,8 @@ Axis_group_engraver::finalize ()
     {
       Grob *it = unsmob_grob (get_property ("currentCommandColumn"));
       staffline_->set_bound (RIGHT, it);
+
+      Pointer_group_interface::set_ordered (staffline_, ly_symbol2scm ("elements"), false);
     }
 }
 
@@ -101,5 +104,9 @@ ADD_TRANSLATOR (Axis_group_engraver,
 		/* doc */ "Group all objects created in this context in a VerticalAxisGroup spanner.",
 		/* create */ "VerticalAxisGroup",
 		/* accept */ "",
-		/* read */ "verticalExtent minimumVerticalExtent extraVerticalExtent",
+		/* read */
+		"verticalExtent "
+		"minimumVerticalExtent "
+		"extraVerticalExtent ",
+
 		/* write */ "");

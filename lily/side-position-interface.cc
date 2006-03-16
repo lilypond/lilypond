@@ -26,7 +26,7 @@ using namespace std;
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("side-support-elements"), e);
+  Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("side-support-elements"), e);
 }
 
 Direction

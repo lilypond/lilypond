@@ -19,6 +19,9 @@ public:
   static int count (Grob *, SCM);
   static void add_grob (Grob *, SCM nm, Grob *e);
   static void add_grob (Grob *, SCM nm, SCM x);
+  static void add_unordered_grob (Grob *, SCM nm, Grob *);
+  static void set_ordered (Grob *, SCM, bool);
+  static Grob_array *get_grob_array (Grob*, SCM);
 };
 
 vector<Grob*> const &internal_extract_grob_array (Grob const *elt, SCM symbol);
