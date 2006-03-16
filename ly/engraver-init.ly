@@ -190,7 +190,10 @@ contained staves are not connected vertically."
   \consists "Breathing_sign_engraver"
   \consists "Note_heads_engraver"
   \consists "Rest_engraver"
-  \consists "Melody_engraver"
+
+  %% switch on to make stem directions interpolate for the
+  %% center line.
+  %  \consists "Melody_engraver"
 
   \consists "Stem_engraver"
   \consists "Beam_engraver"

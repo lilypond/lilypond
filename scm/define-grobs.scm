@@ -1287,6 +1287,34 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
+ (SostenutoPedal
+     . (
+	(stencil . ,ly:text-interface::print)
+	(direction . ,RIGHT)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+	(no-spacing-rods . #t)
+	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
+	(font-shape . italic)
+	(self-alignment-X . 0)
+	(meta . ((class . Item)
+		 (interfaces . (text-interface
+				self-alignment-interface
+				font-interface))))))
+
+    (SostenutoPedalLineSpanner
+     . (
+	(axes . (1))
+	(Y-extent . ,ly:axis-group-interface::height)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(side-axis . ,Y)
+	(staff-padding . 1.0)
+	(padding . 1.2)
+	(minimum-space . 1.0)
+	(direction . ,DOWN)
+	(meta . ((class . Spanner)
+		 (interfaces . (piano-pedal-interface
+				axis-group-interface
+				side-position-interface))))))
     (SpacingSpanner
      . (
 	(springs-and-rods . ,ly:spacing-spanner::set-springs)
@@ -1339,24 +1367,6 @@
 				text-interface
 				font-interface))))))
 
-    (StringNumber
-     . (
-	(stencil . ,print-circled-text-callback)
-	(padding . 0.5)
-	(staff-padding . 0.5)
-	(self-alignment-X . 0)
-	(self-alignment-Y . 0)
-	(script-priority . 100)
-	(font-encoding . fetaNumber)
-	(font-size . -5) 		; don't overlap when next to heads.
-	(meta . ((class . Item)
-		 (interfaces . (string-number-interface
-				font-interface
-				text-script-interface
-				text-interface
-				side-position-interface
-				self-alignment-interface
-				item-interface))))))
 
     (StaffSpacing
      . (
@@ -1366,35 +1376,7 @@
 		 (interfaces . (spacing-interface
 				staff-spacing-interface))))))
 
-    (SostenutoPedal
-     . (
-	(stencil . ,ly:text-interface::print)
-	(direction . ,RIGHT)
-	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
-	(no-spacing-rods . #t)
-	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
-	(font-shape . italic)
-	(self-alignment-X . 0)
-	(meta . ((class . Item)
-		 (interfaces . (text-interface
-				self-alignment-interface
-				font-interface))))))
-
-    (SostenutoPedalLineSpanner
-     . (
-	(axes . (1))
-	(Y-extent . ,ly:axis-group-interface::height)
-	(Y-offset . ,ly:side-position-interface::y-aligned-side)
-	(side-axis . ,Y)
-	(staff-padding . 1.0)
-	(padding . 1.2)
-	(minimum-space . 1.0)
-	(direction . ,DOWN)
-	(meta . ((class . Spanner)
-		 (interfaces . (piano-pedal-interface
-				axis-group-interface
-				side-position-interface))))))
-
+   
     (StaffSymbol
      . (
 	(Y-extent . ,ly:staff-symbol::height)
@@ -1410,6 +1392,7 @@
 	(direction . ,ly:stem::calc-direction)
 	(default-direction . ,ly:stem::calc-default-direction)
 	(stem-end-position . ,ly:stem::calc-stem-end-position)
+	(neutral-direction . ,DOWN)
 	(stem-info . ,ly:stem::calc-stem-info)
 	(positioning-done . ,ly:stem::calc-positioning-done)
 	(stencil . ,ly:stem::print)
@@ -1465,6 +1448,25 @@
 	(meta . ((class . Item)
 		 (interfaces . (stem-tremolo-interface))))))
 
+    (StringNumber
+     . (
+	(stencil . ,print-circled-text-callback)
+	(padding . 0.5)
+	(staff-padding . 0.5)
+	(self-alignment-X . 0)
+	(self-alignment-Y . 0)
+	(script-priority . 100)
+	(font-encoding . fetaNumber)
+	(font-size . -5) 		; don't overlap when next to heads.
+	(meta . ((class . Item)
+		 (interfaces . (string-number-interface
+				font-interface
+				text-script-interface
+				text-interface
+				side-position-interface
+				self-alignment-interface
+				item-interface))))))
+    
     (SustainPedal
      . (
 	(no-spacing-rods . #t)

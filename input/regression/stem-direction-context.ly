@@ -6,9 +6,10 @@
 }
 
 \version "2.7.32"
-
-
-\relative c'' \new Voice {
+\relative c'' \new Voice \with {
+     \consists "Melody_engraver"
+     \revert Stem #'neutral-direction
+} {
   c4 b c b
   c c c c
   b a b a
