@@ -45,9 +45,9 @@ Vertically_spaced_contexts_engraver::acknowledge_vertically_spaceable (Grob_info
       if (scm_memq (ly_symbol2scm (orig->context_name ().c_str ()),
 		    spaceable) != SCM_BOOL_F)
 	{
-	  Pointer_group_interface::add_grob (system_,
-					     ly_symbol2scm ("spaceable-staves"),
-					     gi.grob ());
+	  Pointer_group_interface::add_unordered_grob (system_,
+						       ly_symbol2scm ("spaceable-staves"),
+						       gi.grob ());
 	}
     }
 }

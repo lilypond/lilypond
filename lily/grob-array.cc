@@ -26,7 +26,7 @@ Grob_array::spanner (vsize i)
 
 Grob_array::Grob_array ()
 {
-  ordered_ = false;
+  ordered_ = true;
 }
 
 vector<Grob*> &

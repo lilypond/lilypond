@@ -27,7 +27,14 @@ Pointer_group_interface::add_grob (Grob *me, SCM sym, SCM p)
 }
 
 void
-Pointer_group_interface::add_grob (Grob *me, SCM sym, Grob *p)
+Pointer_group_interface::set_ordered (Grob *me, SCM sym, bool ordered)
+{
+  Grob_array *arr = get_grob_array (me, sym);
+  arr->set_ordered (ordered);
+}
+
+Grob_array *
+Pointer_group_interface::get_grob_array (Grob *me, SCM sym)
 {
   SCM scm_arr = me->internal_get_object (sym);
   Grob_array *arr = unsmob_grob_array (scm_arr);
@@ -37,7 +44,22 @@ Pointer_group_interface::add_grob (Grob *me, SCM sym, Grob *p)
       arr = unsmob_grob_array (scm_arr);
       me->internal_set_object (sym, scm_arr);
     }
+  return arr;
+}
+
+void
+Pointer_group_interface::add_grob (Grob *me, SCM sym, Grob *p)
+{
+  Grob_array *arr = get_grob_array (me, sym);
   arr->add (p);
+}
+
+void
+Pointer_group_interface::add_unordered_grob (Grob *me, SCM sym, Grob *p)
+{
+  Grob_array *arr = get_grob_array (me, sym);
+  arr->add (p);
+  arr->set_ordered (false);
 }
 
 static vector<Grob*> empty_array;

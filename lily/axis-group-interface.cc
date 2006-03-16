@@ -33,6 +33,8 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
 			      me->self_scm ());
     }
 
+  /* must be ordered, because Align_interface also uses
+     Axis_group_interface  */
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), e);
 }
 

@@ -106,7 +106,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 void
 Separating_group_spanner::add_spacing_unit (Grob *me, Item *i)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), i);
+  Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("elements"), i);
 }
 
 ADD_INTERFACE (Separating_group_spanner, "separation-spanner-interface",

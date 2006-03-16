@@ -88,7 +88,7 @@ Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 void
 Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("items-worth-living"), n);
+  Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("items-worth-living"), n);
 }
 
 ADD_INTERFACE (Hara_kiri_group_spanner, "hara-kiri-group-interface",
