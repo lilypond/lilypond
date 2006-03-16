@@ -6,10 +6,10 @@
   Sven Axelsson, the Murray Pipes & Drums of Gothenburg
   (http://www.murrays.nu)
   
-  $Id: bagpipe.ly,v 1.10 2006/02/06 01:13:58 hanwen Exp $
+  $Id: bagpipe.ly,v 1.11 2006/03/16 13:28:24 hanwen Exp $
 %}
 
-\version "2.7.32"
+\version "2.7.36"
 
 % Notes of the scale of the Great Highland Bagpipe. Extra high notes for bombarde.
 % Flat notes used mainly in some modern music.

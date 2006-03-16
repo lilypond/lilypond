@@ -63,6 +63,6 @@ pitchnamesDeutsch = #`(
 
 pitchnames = \pitchnamesDeutsch
 
-\version "2.7.32"
+\version "2.7.36"
 
 #(ly:parser-set-note-names parser pitchnames)
