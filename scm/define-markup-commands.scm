@@ -1074,12 +1074,12 @@ figured bass notation"
          (head-glyph (ly:font-get-glyph
 		      font
 		      (string-append "noteheads.s" (number->string (min log 2)))))
-         (stem-thickness 0.13)
+         (stem-thickness 0.13) ;; TODO: should scale with font-size. 
          (stemy (* dir stem-length))
          (attachx (if (> dir 0)
                       (- (cdr (ly:stencil-extent head-glyph X)) stem-thickness)
                       0))
-         (attachy (* dir 0.28))
+         (attachy (* (magstep size) (* dir 0.28)))
          (stem-glyph (and (> log 0)
 			  (ly:round-filled-box
 			   (cons attachx (+ attachx  stem-thickness))
