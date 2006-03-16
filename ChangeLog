@@ -1,5 +1,7 @@
 2006-03-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/main.cc (do_chroot_jail): printf format fix.
+
 	* lily/tie-formatting-problem.cc (generate_configuration):
 	multiply y-shift for dot with direction.
  
