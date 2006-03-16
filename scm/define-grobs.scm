@@ -1552,7 +1552,9 @@
     (SystemStartBar
      . (
 	(Y-extent . #f)
-	(padding . 0.0)
+
+	;; ugh--hardcoded. 
+	(padding . -0.1)  ;; bar must cover rounded ending of staff line.
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(style . bar-line)
