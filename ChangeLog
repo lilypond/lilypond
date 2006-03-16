@@ -1,5 +1,8 @@
 2006-03-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/note-spacing.cc (get_spacing): heighten threshold where
+	accidentals/arpeggios influence previous spacing fully.
+
 	* lily/rest.cc (y_offset_callback): only use direction if
 	staff-position wasn't set before.
 
