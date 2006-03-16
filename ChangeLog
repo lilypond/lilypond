@@ -1,5 +1,7 @@
 2006-03-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/test/engraver-example.ily: update version number.
+
 	* VERSION (PACKAGE_NAME): release 2.7.39
 
 	* lily/note-spacing.cc (get_spacing): heighten threshold where
