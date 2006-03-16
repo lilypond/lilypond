@@ -1,4 +1,4 @@
-\version "2.7.32"
+\version "2.7.39"
 
 \header {
   texidoc = "Text set in TrueType Fonts that contain kerning tables, are kerned. "

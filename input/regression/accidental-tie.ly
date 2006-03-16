@@ -1,4 +1,4 @@
-\version "2.7.32"
+\version "2.7.39"
 
 \header {
   texidoc = "The second and third notes should not get accidentals,

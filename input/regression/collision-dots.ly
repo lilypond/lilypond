@@ -5,7 +5,7 @@
   on the right side."
 }
 
-\version "2.7.32"
+\version "2.7.39"
 \layout { ragged-right= ##t }
 
 % todo: b2 (up) + b8 down looks strange compared to c2up + b8. (down)

@@ -1,4 +1,4 @@
-\version "2.7.32"
+\version "2.7.39"
 
 \header {
   texidoc ="Broken volta spanners behave correctly at their left edge in all cases."

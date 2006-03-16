@@ -1,5 +1,5 @@
 
-\version "2.6.0"
+\version "2.7.39"
 % candidate for regression.  -gp
 \header {
   texidoc="Converting LilyPond input to MIDI and then again back with

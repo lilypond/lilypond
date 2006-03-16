@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.6.0"
+\version "2.7.39"
 
 \header { texidoc = "@cindex Transposing
 The transposing property leaves output invariant, but has effect on MIDI. "
@@ -19,7 +19,7 @@ The transposing property leaves output invariant, but has effect on MIDI. "
 	\set Staff.transposing = #12 c
 	
   }
-  \layout { raggedright = ##t } 
+  \layout { ragged-right = ##t } 
   \midi { }
 }
 

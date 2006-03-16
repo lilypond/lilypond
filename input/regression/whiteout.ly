@@ -5,7 +5,7 @@ markup.  The whitening effect only is only guaranteed for staff lines,
 since staff lines are in a different layer.  "
 
 }
-\version "2.7.32"
+\version "2.7.39"
 
 \paper
 {
