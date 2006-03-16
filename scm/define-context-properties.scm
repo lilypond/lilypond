@@ -101,6 +101,7 @@ note.")
      (barCheckSynchronize ,boolean? "If true then reset @code{measurePosition}
 when finding a barcheck.")
 
+     (barNumberAlignSymbol ,symbol? "Which break-align-symbol to align the bar number with.")
      (barNumberVisibility ,procedure? "Procedure that takes an int and
 returns whether the corresponding bar number should be printed")
      (bassStaffProperties ,list? "Alist of property settings to apply

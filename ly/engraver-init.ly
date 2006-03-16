@@ -525,6 +525,7 @@ AncientRemoveEmptyStaffContext = \context {
   markFormatter = #format-mark-letters
   rehearsalMark = #1
   rehearsalMarkAlignSymbol = #'staff-bar
+  barNumberAlignSymbol = #'staff-bar
   subdivideBeams = ##f
   allowBeamBreak = ##f
   extraNatural = ##t

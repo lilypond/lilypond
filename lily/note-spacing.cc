@@ -111,6 +111,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
   /*
     We look at the width of the note head, since smaller heads get less space
+
     eg. a quarter rest gets almost 0.5 ss less horizontal space than a note.
 
     What is sticking out of the note head (eg. a flag), doesn't get

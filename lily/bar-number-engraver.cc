@@ -70,7 +70,7 @@ Bar_number_engraver::acknowledge_break_aligned (Grob_info inf)
   Grob *s = inf.grob ();
   if (text_
       && dynamic_cast<Item *> (s)
-      && s->get_property ("break-align-symbol") == ly_symbol2scm ("left-edge"))
+      && s->get_property ("break-align-symbol") == get_property ("barNumberAlignSymbol"))
     {
       /*
 	By default this would land on the Paper_column -- so why
@@ -99,6 +99,9 @@ Bar_number_engraver::create_items ()
   text_ = make_item ("BarNumber", SCM_EOL);
 }
 
+
+ADD_ACKNOWLEDGER(Bar_number_engraver,break_aligned);
+
 ADD_TRANSLATOR (Bar_number_engraver,
 		/* doc */ "A bar number is created whenever measurePosition "
 		"is zero and when there is a bar line (ie. when @code{whichBar} is set. "
@@ -110,8 +113,9 @@ ADD_TRANSLATOR (Bar_number_engraver,
 		/* create */ "BarNumber",
 		/* accept */ "",
 		/* read */
+		"barNumberAlignSymbol "
 		"currentBarNumber "
 		"whichBar "
 		"stavesFound "
-		"barNumberVisibility",
+		"barNumberVisibility ",
 		/* write */ "");
