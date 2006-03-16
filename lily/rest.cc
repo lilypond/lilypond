@@ -29,6 +29,8 @@ Rest::y_offset_callback (SCM smob)
 
   Real amount = robust_scm2double (me->get_property ("staff-position"), 0)
     * 0.5 * ss;
+  bool position_override = amount;
+  
   if (line_count % 2)
     {
       if (duration_log == 0 && line_count > 1)
@@ -46,10 +48,11 @@ Rest::y_offset_callback (SCM smob)
   if (dot && duration_log >= -1 && duration_log <= 1) // UGH again.
     {
       dot->set_property ("staff-position",
-		       scm_from_int ((duration_log == 0) ? -1 : 1));
+			 scm_from_int ((duration_log == 0) ? -1 : 1));
     }
 
-  amount += 2 * ss * get_grob_direction (me);; 
+  if (!position_override)
+    amount += 2 * ss * get_grob_direction (me);; 
   
   return scm_from_double (amount);
 }
