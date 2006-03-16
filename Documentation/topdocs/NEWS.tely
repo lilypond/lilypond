@@ -232,11 +232,15 @@ It was sponsored by among others, Mark van den Borre,
 and Muziekacademie Lede.
 
 @item
-Stem direction on the center staff line are now interpolated between
-neighbors. This results in less stem direction changes, leading to a
-more even appearance. For example,
+Stem direction on the center staff line can now be interpolated
+between neighbors. This results in less stem direction changes,
+leading to a more even appearance. For example,
 
 @lilypond[ragged-right]
+\new Voice \with {
+  \consists "Melody_engraver"
+  \override Stem
+}
 \relative c'' {
   c4 b c b
   c c c r
