@@ -340,7 +340,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir) const
   bool y_tune = true;
   if (dot_positions_.find (pos) != dot_positions_.end ())
     {
-      conf->delta_y_ += 0.25 * details_.staff_space_;
+      conf->delta_y_ += dir * 0.25 * details_.staff_space_;
       y_tune = false;
     }
 		
