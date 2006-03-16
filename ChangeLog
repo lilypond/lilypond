@@ -1,5 +1,8 @@
 2006-03-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/tutorial.itely (Commenting input files):
+	update version numbers in doc. 
+
 	* scm/define-grob-interfaces.scm (multi-measure-interface): add
 	bound-padding to multi-measure-interface
 

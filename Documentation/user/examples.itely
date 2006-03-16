@@ -28,7 +28,7 @@ instrument or a melodic fragment.  Cut and paste this into a file,
 add notes, and you're finished!
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -53,7 +53,7 @@ automatic beaming, you'll have to change or comment out the relevant
 line.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -84,7 +84,7 @@ text = \lyricmode {
 Want to prepare a lead sheet with a melody and chords?  Look no further!
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -117,7 +117,7 @@ harmonies = \chordmode {
 This template allows you to prepare a song with melody, words, and chords.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -158,7 +158,7 @@ harmonies = \chordmode {
 Here is a simple piano staff.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -192,7 +192,7 @@ Here is a typical song format: one staff with the melody and lyrics, with
 piano accompaniment underneath.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 melody = \relative c'' {
    \clef treble
    \key c \major
@@ -248,7 +248,7 @@ Instead of having a full staff for the melody and lyrics, you can place
 the lyrics between the piano staff (and omit the separate melody staff).
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -295,7 +295,7 @@ since the template is right here, you don't have to do the
 tweaking yourself.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 upper = \relative c'' {
   \clef treble
   \key c \major
@@ -392,7 +392,7 @@ This template demonstrates a string quartet.  It also uses a @code{\global}
 section for time and key signatures.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 
 global= {
   \time 4/4
@@ -452,7 +452,7 @@ contains all the music definitions.  The other files -- @code{score.ly},
 
 @verbatim
 %%%%% piece.ly
-\version "2.7.32"
+\version "2.7.39"
 
 global= {
   \time 4/4
@@ -498,7 +498,7 @@ music = {
 
 
 %%%%% score.ly
-\version "2.7.32"
+\version "2.7.39"
 \include "piece.ly"
 #(set-global-staff-size 14)
 \score {
@@ -509,7 +509,7 @@ music = {
 
 
 %%%%% vn1.ly
-\version "2.7.32"
+\version "2.7.39"
 \include "piece.ly"
 \score { 
   \keepWithTag #'vn1 \music
@@ -518,7 +518,7 @@ music = {
 
 
 %%%%% vn2.ly
-\version "2.7.32"
+\version "2.7.39"
 \include "piece.ly"
 \score { 
   \keepWithTag #'vn2 \music
@@ -527,7 +527,7 @@ music = {
 
 
 %%%%% vla.ly
-\version "2.7.32"
+\version "2.7.39"
 \include "piece.ly"
 \score { 
   \keepWithTag #'vla \music
@@ -536,7 +536,7 @@ music = {
 
 
 %%%%% vlc.ly
-\version "2.7.32"
+\version "2.7.39"
 \include "piece.ly"
 \score { 
   \keepWithTag #'vlc \music
@@ -556,7 +556,7 @@ parts.  For example, the time signature and key signatures are almost
 always the same for all parts.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 global = {
    \key c \major
    \time 4/4
@@ -637,7 +637,7 @@ to the vocal notes (say, tenorMusic), then the changes will also
 apply to the piano reduction.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.32"
+\version "2.7.39"
 global = {
    \key c \major
    \time 4/4
@@ -740,7 +740,7 @@ notes.  As a compromise, bar lines are often printed between the
 staves rather than on the staves.
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
-\version "2.7.32"
+\version "2.7.39"
 
 global = {
   \set Score.skipBars = ##t
@@ -978,7 +978,7 @@ is within a @code{\transpose} section.
 @c The `line-width' argument is for the \header.
 
 @lilypond[quote,verbatim,ragged-right,line-width]
-\version "2.7.32"
+\version "2.7.39"
 \header {
   title = "Song"
   subtitle = "(tune)"
@@ -1244,7 +1244,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @lilypond[quote,verbatim,ragged-right,line-width]
-\version "2.7.32"
+\version "2.7.39"
 \header {
   dedication = "dedication"
   title = "Title"

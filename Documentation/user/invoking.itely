@@ -599,7 +599,6 @@ Using Mac OSX 10.3.7, fink package lilypond-devel
 @end verbatim
 
 @lilypond[quote]
-\version "2.7.32"
 \layout { ragged-right = ##t }
 \relative c''{
   \override Accidental #'extra-offset = #'(1.0 . 0)
