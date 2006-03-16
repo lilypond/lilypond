@@ -303,7 +303,7 @@ do_chroot_jail ()
   vector<string> components = string_split (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
-      error (_f ("expected %d arguments with jail, found: %d", JAIL_MAX,
+      error (_f ("expected %d arguments with jail, found: %u", JAIL_MAX,
 		 components.size ()));
       exit (2);
     }
