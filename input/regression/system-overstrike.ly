@@ -1,4 +1,4 @@
-\version "2.7.32"
+\version "2.7.39"
 \header { texidoc = "By setting between-system-padding to a negative
 value, it is possible to eliminate the anti-collision constraints.
 Then  setting @code{between-system-space} to a low (nonzero) value,

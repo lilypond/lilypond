@@ -3,7 +3,7 @@
   texidoc = "Ties avoid collisions with dots."
 }
 
-\version "2.7.32"
+\version "2.7.39"
 
 \paper { ragged-right = ##T }
 

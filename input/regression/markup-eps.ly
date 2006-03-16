@@ -3,7 +3,7 @@
   texidoc = "The epsfile markup command reads an EPS file"
 
 }
-\version "2.7.32"
+\version "2.7.39"
 
 #(let* ((port (open-output-file "box.eps")))
 

@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.39"
 \header{
 texidoc="crashes lily"
 }
@@ -10,6 +10,6 @@ texidoc="crashes lily"
     c2. r8 c8 \< \break \! c1
   }
 }
-\layout { linewidth = 5.\cm}
+\layout { line-width = 5.\cm}
 }
 

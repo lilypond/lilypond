@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.39"
 \header {
 
     texidoc = "Lyrics in MIDI are aligned to ties and beams:

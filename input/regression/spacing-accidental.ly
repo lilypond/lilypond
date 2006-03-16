@@ -1,5 +1,5 @@
 
-\version "2.7.32"
+\version "2.7.39"
 
 \header {
   texidoc = "Accidentals sticking out to the left

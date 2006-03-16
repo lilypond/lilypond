@@ -1,4 +1,4 @@
-\version "2.7.32"
+\version "2.7.39"
 \header {texidoc = "@cindex Slur, dotted, dashed
 The appearance of slurs may be changed from solid to dotted or dashed.
 "

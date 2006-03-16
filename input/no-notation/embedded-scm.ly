@@ -1,4 +1,4 @@
-\version "2.6.0"
+\version "2.7.39"
 \header {
     
     texidoc = "@cindex Embedded scm
@@ -16,7 +16,7 @@ output, ``hello world'' is printed to the console.
 
 \score {
 	\relative c' { c }
-	\layout {raggedright = ##t}
+	\layout {ragged-right = ##t}
 }
 
 

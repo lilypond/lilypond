@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.6.0"
+\version "2.7.39"
 \header {
 texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a notes, where groups stop one after
@@ -148,7 +148,7 @@ violoncello =  \relative c' {
   \layout {
   	\layoutSixteen
   	indent=100.0\mm
-  	linewidth=150.0\mm
+  	line-width=150.0\mm
     \context {
       \RemoveEmptyStaffContext
     }
