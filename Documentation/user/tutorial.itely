@@ -237,9 +237,9 @@ programmer-oriented editor will do, for example Notepad.  Do not use a
 word processor, since these insert formatting codes that will confuse
 LilyPond.} and enter
 
-@example
-@{ c'4 e' g' @}
-@end example
+@verbatim
+{ c'4 e' g' }
+@end verbatim
 
 Save it on the desktop as @file{test.ly} and make sure that it is not
 called @file{test.ly.TXT}.  Double clicking @file{test.ly} will process
@@ -256,9 +256,9 @@ installed already, refer to the file @file{INSTALL.txt}.}  In your
 text editor, enter the following input and save the file as
 @file{test.ly}
 
-@example
-@{ c'4 e' g' @}
-@end example
+@verbatim
+{ c'4 e' g' }
+@end verbatim
 
 @noindent
 To process @file{test.ly}, proceed as follows

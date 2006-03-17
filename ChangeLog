@@ -1,3 +1,8 @@
+2006-03-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/tutorial.itely (First steps): change example
+	to verbatim.  
+
 2006-03-17  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ examples, advanced: minor changes from mailist.
@@ -5,6 +10,8 @@
 	* THANKS: add Geoff Horton, for documentation stuff.
 
 2006-03-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/lilylib.py (system): revert have_select kludge.
 
 	* Documentation/user/tutorial.itely (Commenting input files):
 	update version numbers in doc. 
