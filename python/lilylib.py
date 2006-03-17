@@ -17,11 +17,11 @@ import optparse
 import subprocess
 
 ## windows mingw cross compile doesn't have selectmodule.so
-have_select = True
+have_fcntl = True
 try:
-	import select
+	import fcntl
 except ImportError:
-	have_select = False
+	have_fcntl = False
 	
 ################################################################
 # Users of python modules should include this snippet
@@ -95,9 +95,6 @@ def system (cmd,
 				 stderr=stdout_setting)
 
 	log = ''
-
-	if not have_select:
-		show_progress = True
 
 	if show_progress:
 		retval = proc.wait()
