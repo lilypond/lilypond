@@ -1246,13 +1246,13 @@ set @code{melismaBusyProperties}, as is done in the example above.
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
 
-To increase the space between lyrics, use the @code{SeparationItem}
-property.
+To increase the spacing between lyrics, set the minimum-distance property of
+LyricSpace.
 
 @lilypond[relative,verbatim,fragment,quote,ragged-right]
 { 
   c c c c
-  \override Score.SeparationItem #'padding = #5
+  \override Lyrics.LyricSpace #'minimum-distance = #1.0
   c c c c
 }
 \addlyrics {
@@ -1261,6 +1261,26 @@ property.
 }
 @end lilypond
 
+To make this change for all lyrics in the score, set the property in the layout.
+
+@lilypond[relative,verbatim,quote,ragged-right]
+\score {
+  {
+  c c c c
+  c c c c
+  }
+  \addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+  }
+  \layout {
+    \context {
+      \Lyrics
+      \override LyricSpace #'minimum-distance = #1.0
+    }
+  }
+}
+@end lilypond
 
 
 @node More stanzas

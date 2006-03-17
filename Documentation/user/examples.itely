@@ -1291,7 +1291,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 }
 @end lilypond
 
-@subsection Gregorian template
+@subsection Gregorian transcription template
 
 This example demonstrates how to do modern transcriptions of Gregorian
 music.  Gregorian music has no measure, no stems; it uses only half and
@@ -1314,7 +1314,12 @@ chant = \relative c' {
 }
 \score {
   \chant
-  \layout{ }
+  \layout{
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+    }
+  }
   \midi { \tempo 4=60 }
 }
 @end lilypond
