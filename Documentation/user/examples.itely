@@ -488,10 +488,10 @@ Cello = \new Voice { \relative c' {
 
 music = {
   <<
-    \tag #'(score vn1) \new Staff { << \global \Violinone >> }
-    \tag #'(score vn2) \new Staff { << \global \Violintwo>> }
-    \tag #'(score vla) \new Staff { << \global \Viola>> }
-    \tag #'(score vlc) \new Staff { << \global \Cello>> }
+    \tag #'score \tag #'vn1 \new Staff { << \global \Violinone >> }
+    \tag #'score \tag #'vn2 \new Staff { << \global \Violintwo>> }
+    \tag #'score \tag #'vla \new Staff { << \global \Viola>> }
+    \tag #'score \tag #'vlc \new Staff { << \global \Cello>> }
   >>
 }
 

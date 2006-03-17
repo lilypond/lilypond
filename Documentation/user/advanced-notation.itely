@@ -847,6 +847,22 @@ Bar numbers can be manually changed by setting the
 }
 @end lilypond
 
+Bar numbers can be removed entirely by removing the Bar number
+engraver from the score.
+
+@lilypond[verbatim,ragged-right,quote,relative=2]
+\layout {
+  \context {
+    \Score
+    \remove "Bar_number_engraver"
+  }
+}
+{
+c4 c c c \break
+c4 c c c
+}
+@end lilypond
+
 
 @seealso
 
