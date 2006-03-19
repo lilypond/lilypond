@@ -847,6 +847,72 @@ some punctuation. It doesn't have any letters.  "
   "Set @code{font-shape} to @code{caps}."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
+;; Poor man's caps
+(define-markup-command (smallCaps layout props text) (markup?)
+  "Turn @code{text}, which should be a string, to small caps.
+@example
+\\markup \\smallCaps \"Text between double quotes\"
+@end example
+"
+  (define (make-small-caps-markup chars)
+    (cond ((null? chars)
+	   (markup))
+	  ((char-whitespace? (car chars))
+	   (markup #:fontsize -2 #:simple (string-upcase (list->string (cdr chars)))))
+	  (else
+	   (markup #:hspace -1
+		   #:fontsize -2 #:simple (string-upcase (list->string chars))))))
+  (define (make-not-small-caps-markup chars)
+    (cond ((null? chars)
+	   (markup))
+	  ((char-whitespace? (car chars))
+	   (markup #:simple (list->string (cdr chars))))
+	  (else
+	   (markup #:hspace -1
+		   #:simple (list->string chars)))))
+  (define (small-caps-aux done-markups current-chars rest-chars small? after-space?)
+    (cond ((null? rest-chars)
+	   ;; the end of the string: build the markup
+	   (make-line-markup (reverse! (cons ((if small?
+						  make-small-caps-markup
+						  make-not-small-caps-markup)
+					      (reverse! current-chars))
+					     done-markups))))
+	  ((char-whitespace? (car rest-chars))
+	   ;; a space char.
+	   (small-caps-aux done-markups current-chars (cdr rest-chars) small? #t))
+	  ((or (and small? (char-lower-case? (car rest-chars)))
+	       (and (not small?) (not (char-lower-case? (car rest-chars)))))
+	   ;; same case
+	   ;; add the char to the current char list
+	   (small-caps-aux done-markups
+			   (cons (car rest-chars)
+				 (if after-space? 
+				     (cons #\space current-chars)
+				     current-chars))
+			   (cdr rest-chars) 
+			   small?
+			   #f))
+	  (else
+	   ;; case change
+	   ;; make a markup with current chars, and start a new list with new char
+	   (small-caps-aux (cons ((if small?
+				      make-small-caps-markup
+				      make-not-small-caps-markup)
+				  (reverse! current-chars))
+				 done-markups)
+			   (if after-space?
+			       (list (car rest-chars) #\space)
+			       (list (car rest-chars)))
+			   (cdr rest-chars)
+			   (not small?)
+			   #f))))
+  (interpret-markup layout props (small-caps-aux (list) 
+						 (list) 
+						 (cons #\space (string->list text))
+						 #f
+						 #f)))
+
 (define-markup-command (dynamic layout props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
 @b{z}, @b{p}, and @b{r}.  When producing phrases, like ``pi@`{u} @b{f}'', the

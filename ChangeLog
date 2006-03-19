@@ -1,3 +1,9 @@
+2006-03-19  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/define-markup-commands.scm (smallCaps): new markup command
+	for turning a text to small caps using smaller font size and upper
+	casing.
+
 2006-03-17  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ examples, instrument-notation,
