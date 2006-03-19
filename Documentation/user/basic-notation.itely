@@ -2537,7 +2537,7 @@ to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
 each of these contexts, vertical direction of slurs, stems, etc., is set
 appropriately.  
 
-These voices are all seperate from the voice that contains the notes just 
+These voices are all separate from the voice that contains the notes just 
 outside the @code{<< \\ >>} construct.  This should be noted when making 
 changes at the voice level.  This also means that slurs and ties cannot go 
 into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
