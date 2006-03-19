@@ -1105,9 +1105,11 @@ would yield
 
 @lilypondfile[ragged-right,quote]{tag-filter.ly}
 
-The argument of the @code{\tag} command should be a symbol. It's 
-possible to put multiple tags on a piece of music, with multiple
-@code{\tag} entries, 
+The arguments of the @code{\tag} command should be a symbol
+(such as @code{#'score} or @code{#'part}), followed by a
+music expression.  It is possible to put multiple tags on
+a piece of music with multiple @code{\tag} entries,
+
 @example
   \tag #'original-part \tag #'transposed-part @dots{}
 @end example
