@@ -2,6 +2,9 @@
 
 	* THANKS: move small doc contributors to SUGGESTIONS.
 
+	* Documentation/user/ basic-notation, advanced-notation,
+	global: small changes from mailist.
+
 2006-03-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/advanced-notation.itely (Text marks): update
