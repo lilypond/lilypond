@@ -207,15 +207,18 @@ Dynamic_engraver::process_music ()
 
 	  string start_type
 	    = ly_symbol2string (current_cresc_ev_->get_property ("name"));
-
-	  /*
-	    ugh. Use push/pop?
-	  */
+	  
 	  if (start_type == "DecrescendoEvent")
 	    start_type = "decrescendo";
 	  else if (start_type == "CrescendoEvent")
 	    start_type = "crescendo";
+	  
+				       
 
+	  /*
+	    UGH. TODO: should read from original event, so appearance
+	    may be altered with \tweak.
+	   */
 	  SCM s = get_property ((start_type + "Spanner").c_str ());
 	  if (!scm_is_symbol (s) || s == ly_symbol2scm ("hairpin"))
 	    {

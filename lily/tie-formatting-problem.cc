@@ -242,7 +242,13 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
 	}
 	  
       spec.position_ = Tie::get_position (ties[i]);
-
+      if (scm_is_number (ties[i]->get_property ("staff-position")))
+	{
+	  spec.manual_position_ = scm_to_double (ties[i]->get_property ("staff-position"));
+	  spec.has_manual_position_ = true;
+	  spec.position_ = int (my_round (spec.manual_position_));
+	}
+      
       do
 	{
 	  spec.note_head_drul_[d] = Tie::head (ties[i], d);
@@ -566,6 +572,15 @@ Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const 
   for (int i = 0; i < details_.single_tie_region_size_; i ++)
     {
       confs.push_back (generate_configuration (pos + i * dir, dir));
+      
+      if (spec.has_manual_position_)
+	{
+	  confs.back ()->delta_y_
+	    = (spec.manual_position_ - spec.position_)
+	    * 0.5 * details_.staff_space_;
+
+	  break;
+	}
     }
 
   vector<Real> scores;

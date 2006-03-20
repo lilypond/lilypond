@@ -44,6 +44,8 @@
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
+#include "paper-column.hh"
+#include "moment.hh"
 
 static Item *
 get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
@@ -64,7 +66,8 @@ flatten_number_pair_property (Grob *me,
 			      Direction xdir,  SCM sym)
 {
   Drul_array<Real> zero (0, 0);
-  Drul_array<Real> pair = robust_scm2drul (me->internal_get_property (sym), zero);
+  Drul_array<Real> pair
+    = robust_scm2drul (me->internal_get_property (sym), zero);
   pair[xdir] = 0.0;
   
   me->internal_set_property (sym, ly_interval2scm (pair));
@@ -105,7 +108,8 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols, bool *e
       return 0;
     }
 
-  *equally_long = (beam_stems[0] == stems[LEFT] && beam_stems.back () == stems[RIGHT]);
+  *equally_long =
+    (beam_stems[0] == stems[LEFT] && beam_stems.back () == stems[RIGHT]);
   return beams[LEFT];
 }
 
@@ -206,12 +210,16 @@ Tuplet_bracket::calc_control_points (SCM smob)
 	    x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS)[RIGHT]
 	      - overshoot[LEFT];
 	}
+      
       else if (d == RIGHT
 	       && (columns.empty ()
 		   || (bounds[d]->get_column ()
 		       != dynamic_cast<Item *> (columns.back ())->get_column ())))
 	{
 	  /*
+	    We're connecting to a column, for the last bit of a broken
+	    fullLength bracket.
+	    
 	    TODO: make padding tunable?
 	  */
 	  Real padding = 1.0;
@@ -219,7 +227,9 @@ Tuplet_bracket::calc_control_points (SCM smob)
 	  if (bounds[d]->break_status_dir ())
 	    padding = 0.0;
 	  
-	  x_span[d] = robust_relative_extent (bounds[d], commonx, X_AXIS) [LEFT] - padding;
+	  x_span[d]
+	    = robust_relative_extent (bounds[d], commonx, X_AXIS) [LEFT]
+	    - padding;
 	}
     }
   while (flip (&d) != LEFT);
@@ -556,19 +566,11 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 	  Real y
 	    = tuplet_y.linear_combination (d * sign (other_dy));
 
-#if 0
 	  /*
-	    Let's not take padding into account for nested tuplets.
+	    We don't take padding into account for nested tuplets.
 	    the edges can come very close to the stems, likewise for
 	    nested tuplets?
 	  */
-	  Drul_array<Real> my_height
-	    = robust_scm2drul (me->get_property ("edge-height"),
-			       Interval (0, 0));
-	  if (dynamic_cast<Spanner *> (tuplets[i])->get_bound (d)
-	      == me->get_bound (d))
-	    y += dir * my_height[d];
-#endif
 
 	  points.push_back (Offset (tuplet_x[d] - x0, y));
 	}
@@ -622,9 +624,21 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_positions, 1);
 SCM
 Tuplet_bracket::calc_positions (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Spanner *me = unsmob_spanner (smob);
   extract_grob_set (me, "note-columns", columns);
 
+
+  /*
+    Don't print if it doesn't span time.
+   */
+  if (robust_scm2moment (me->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
+      == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0)))
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+
+  
   Direction dir = get_grob_direction (me);
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);

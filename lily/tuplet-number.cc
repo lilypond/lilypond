@@ -8,6 +8,8 @@
 */
 
 #include "tuplet-bracket.hh"
+#include "moment.hh"
+#include "paper-column.hh"
 #include "text-interface.hh"
 #include "spanner.hh"
 #include "lookup.hh"
@@ -23,13 +25,30 @@ MAKE_SCHEME_CALLBACK(Tuplet_number, print, 1);
 SCM 
 Tuplet_number::print (SCM smob)
 {
+  Spanner *me = unsmob_spanner (smob);
+  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket")); 
+
+  if (!tuplet || !tuplet->is_live ())
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+
+  /*
+    Don't print if it doesn't span time.
+   */
+  if (robust_scm2moment (tuplet->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
+      == robust_scm2moment (tuplet->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0)))
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+  
   Stencil *stc = unsmob_stencil (Text_interface::print (smob));
 
   stc->align_to (X_AXIS, CENTER);
   stc->align_to (Y_AXIS, CENTER);
 
-  Spanner *me = unsmob_spanner (smob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket")); 
   SCM cpoints =  tuplet->get_property ("control-points");
   Drul_array<Offset> points;
   points[LEFT] = ly_scm2offset (scm_car (cpoints));

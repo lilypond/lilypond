@@ -71,7 +71,7 @@ Tie::get_position (Grob *me)
     {
       Grob *h = head (me, d);
       if (h)
-	return (int) Staff_symbol_referencer::get_position (h);
+	return (int) rint (Staff_symbol_referencer::get_position (h));
     }
   while (flip (&d) != LEFT);
 
@@ -206,7 +206,7 @@ Tie::calc_control_points (SCM smob)
       (void) yparent->get_property ("positioning-done");
     }
 
-  if (!scm_is_pair (me->get_property ("control-points")))
+  if (!scm_is_pair (me->get_property_data (ly_symbol2scm ("control-points"))))
     {
       set_default_control_points (me);
     }
@@ -288,6 +288,7 @@ ADD_INTERFACE (Tie,
 	       "direction "
 	       "line-thickness " 
 	       "quant-score "
+	       "staff-position "
 	       "thickness "
 	       );
 
