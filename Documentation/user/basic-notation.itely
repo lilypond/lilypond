@@ -2232,7 +2232,8 @@ c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
 A crescendo mark is started with @code{\<} and terminated with
 @code{\!} or an absolute dynamic.  A decrescendo is started with
 @code{\>} and is also terminated with @code{\!} or an absolute
-dynamic.  Because these marks are bound to notes, you must
+dynamic.  @code{\cr} and @code{\decr} may be used instead of
+@code{\<} and @code{\>}.  Because these marks are bound to notes, you must
 use spacer notes if multiple marks are needed during one note
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]

@@ -1056,11 +1056,12 @@ more systems onto one page.
 
 Normally staves are stacked vertically.  To make staves maintain a
 distance, their vertical size is padded.  This is done with the
-property @code{minimum-Y-extent}.  It takes a pair of numbers, so
-if you want to make it smaller than its default @code{#'(-4 . 4)},
-then you could set. When applied to a
+property @code{minimum-Y-extent}.  When applied to a
 @internalsref{VerticalAxisGroup}, it controls the size of a horizontal
-line, such as a staff or a line of lyrics.  
+line, such as a staff or a line of lyrics.  @code{minimum-Y-extent}
+takes a pair of numbers, so
+if you want to make it smaller than its default @code{#'(-4 . 4)}
+then you could set
 
 @example
 \override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
