@@ -1,5 +1,7 @@
 2006-03-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PATCH_LEVEL): bump version.
+
 	* input/test/instrument-name-align.ly: new file.
 
 	* scm/define-markup-commands.scm (hcenter-in): add hcenter-in.
