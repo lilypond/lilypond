@@ -185,16 +185,23 @@
 	(font-size . -2)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
-	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
-	(self-alignment-X . 1)
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+
+			,(ly:make-simple-closure
+			  (list ly:break-alignment-align-interface::self-align-callback))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 
+	(self-alignment-X . 1)
+	(break-align-symbol . left-edge)
 	(meta .
 	      ((class . Item)
 	       (interfaces . (side-position-interface
 			      text-interface
+			      break-alignment-align-interface
 			      self-alignment-interface
 			      font-interface
-			      break-aligned-interface))))
+			      ))))
 	))
 
     (BassFigure
@@ -1156,11 +1163,12 @@
      . (
 	(stencil . ,ly:text-interface::print)
 	(X-offset . ,(ly:make-simple-closure
-		      `(,+ ,(ly:make-simple-closure
-			     `(,ly:self-alignment-interface::x-aligned-on-self))
-			   ,(ly:make-simple-closure
-			     `(,ly:self-alignment-interface::centered-on-x-parent)))
-		      ))
+		      `(,+
+			,(ly:make-simple-closure
+			  (list ly:break-alignment-align-interface::self-align-callback))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self)))))
+
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(self-alignment-X . 0)
 	(direction . ,UP)
@@ -1168,10 +1176,12 @@
 	(font-size . 2)
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
+	(break-align-symbol . staff-bar)
 	(padding . 0.8)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				side-position-interface
+				break-alignment-align-interface
 				font-interface
 				mark-interface
 				self-alignment-interface))))))

@@ -2,7 +2,8 @@
 \header {
 
   texidoc = "The rehearsal mark is put on top a breakable symbol,
-  according to the value of @code{rehearsalMarkAlignSymbol}."
+  according to the value of @code{break-align-symbol} value of the
+  @code{RehearsalMark}. The same holds for @code{BarNumber} grobs."
 
 }
 
@@ -12,11 +13,11 @@
   c1 \mark "foo"
   \key cis \major
   \clef alto
-  \set Score.rehearsalMarkAlignSymbol = #'key-signature
+  \override Score.RehearsalMark #'break-align-symbol = #'key-signature
   \mark "on-key"
   cis
- \key ces \major
-  \set Score.rehearsalMarkAlignSymbol = #'clef
+  \key ces \major
+  \override Score.RehearsalMark #'break-align-symbol = #'clef
   \clef treble
   \mark "on clef"
   ces

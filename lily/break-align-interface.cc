@@ -45,22 +45,36 @@ Break_align_interface::self_align_callback (SCM smob)
 
   So we return the correct order as an array.
 */
+SCM
+Break_align_interface::break_align_order (Item *me)
+{
+  SCM order_vec = me->get_property ("break-align-orders");
+  if (!scm_is_vector (order_vec)
+      || scm_c_vector_length (order_vec) < 3)
+    return SCM_BOOL_F;
+
+  SCM order = scm_vector_ref (order_vec,
+			      scm_from_int (me->break_status_dir () + 1));
+
+
+  return order;
+}
+
+  
 vector<Grob*>
 Break_align_interface::ordered_elements (Grob *grob)
 {
   Item *me = dynamic_cast<Item *> (grob);
   extract_grob_set (me, "elements", elts);
 
-  SCM order_vec = me->get_property ("break-align-orders");
-  if (!scm_is_vector (order_vec)
-      || scm_c_vector_length (order_vec) < 3)
+
+  SCM order = break_align_order (me);
+
+  if (order == SCM_BOOL_F)
     return elts;
-
+  
   vector<Grob*> writable_elts (elts);
-  SCM order = scm_vector_ref (order_vec,
-			      scm_from_int (me->break_status_dir () + 1));
-
-  /*
+   /*
     Copy in order specified in BREAK-ALIGN-ORDER.
   */
   vector<Grob*> new_elts;
@@ -143,8 +157,8 @@ Break_align_interface::calc_positioning_done (SCM smob)
 	  Grob *elt = elts[i];
 
 	  if (edge_idx == VPOS
-	      && elt->get_property ("break-align-symbol")
-	      == ly_symbol2scm ("left-edge"))
+	      && (elt->get_property ("break-align-symbol")
+		  == ly_symbol2scm ("left-edge")))
 	    edge_idx = idx;
 
 	  SCM l = elt->get_property ("space-alist");
@@ -217,7 +231,11 @@ Break_align_interface::calc_positioning_done (SCM smob)
 	    offsets[next_idx] = max (extents[idx][RIGHT], distance);
 	}
       else
-	extra_right_space = distance;
+	{
+	  extra_right_space = distance;
+	  if (idx < offsets.size() - 1)
+	    offsets[idx+1] = extents[idx][RIGHT] + distance;
+	}
 
       idx = next_idx;
     }
@@ -287,4 +305,56 @@ ADD_INTERFACE (Break_align_interface, "break-alignment-interface",
 	       /* properties */
 	       "positioning-done "
 	       "break-align-orders");
+
+
+MAKE_SCHEME_CALLBACK(Break_alignment_align_interface, self_align_callback, 1)
+SCM
+Break_alignment_align_interface::self_align_callback (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+  Item *alignment = dynamic_cast<Item*> (me->get_parent (X_AXIS));
+  if (!Break_align_interface::has_interface (alignment))
+    return scm_from_int (0);
+
+  SCM my_align = me->get_property ("break-align-symbol");
+  SCM order = Break_align_interface::break_align_order (alignment);
+
+  vector<Grob*> elements = Break_align_interface::ordered_elements (alignment);
+  if (elements.size () == 0)
+    return scm_from_int (0);
+  
+  int last_idx_found = -1;
+  vsize i = 0;
+  for (SCM s = order; scm_is_pair (order); s = scm_cdr (s))  
+    {
+      if (i < elements.size ()
+	  && elements[i]->get_property ("break-align-symbol") == scm_car (s))
+	{
+	  last_idx_found = i;
+	  i ++;
+	}
+
+      if (scm_car (s) == my_align)
+	break ;
+    }	
+
+  Direction which_edge = LEFT;
+  if (vsize (last_idx_found + 1) < elements.size())
+    last_idx_found ++;
+  else
+    which_edge = RIGHT;
+  
+  Grob *common = me->common_refpoint (elements[last_idx_found], X_AXIS);
+
+  return scm_from_double (robust_relative_extent (elements[last_idx_found], common, X_AXIS)[which_edge]
+			  - me->relative_coordinate (common, X_AXIS));
+}
+
+ADD_INTERFACE (Break_alignment_align_interface, "break-alignment-align-interface",
+	       "Object that is aligned on a break aligment. ",
+
+	       /* properties */
+	       "break-align-symbol "
+	       )
+
 

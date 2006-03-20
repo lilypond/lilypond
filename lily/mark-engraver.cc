@@ -39,6 +39,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
 
+  DECLARE_ACKNOWLEDGER (break_alignment);
   DECLARE_ACKNOWLEDGER (break_aligned);
 };
 
@@ -48,13 +49,20 @@ Mark_engraver::Mark_engraver ()
   mark_ev_ = 0;
 }
 
+/*
+  This is a flawed approach, since various break-aligned objects may
+  not appear depending on key signature etc.
+
+   We keep it in case someone puts the engraver in a lower context than score.
+ */
 void
 Mark_engraver::acknowledge_break_aligned (Grob_info inf)
 {
   Grob *s = inf.grob ();
   if (text_
-      && (get_property ("rehearsalMarkAlignSymbol")
-	  == s->get_property ("break-align-symbol"))
+      && !text_->get_parent (X_AXIS)
+      && (text_->get_property_data (ly_symbol2scm ("break-align-symbol"))
+	  == s->get_property_data (ly_symbol2scm ("break-align-symbol")))
       && Axis_group_interface::has_interface (s))
     {
       /*
@@ -64,6 +72,18 @@ Mark_engraver::acknowledge_break_aligned (Grob_info inf)
       text_->set_parent (s, X_AXIS);
     }
 }
+
+void
+Mark_engraver::acknowledge_break_alignment (Grob_info inf)
+{
+  Grob *s = inf.grob ();
+  if (text_
+      && dynamic_cast<Item *> (s))
+    {
+      text_->set_parent (s, X_AXIS);
+    }
+}
+
 
 void
 Mark_engraver::stop_translation_timestep ()
@@ -141,6 +161,7 @@ Mark_engraver::process_music ()
 #include "translator.icc"
 
 ADD_ACKNOWLEDGER (Mark_engraver, break_aligned);
+ADD_ACKNOWLEDGER (Mark_engraver, break_alignment);
 
 ADD_TRANSLATOR (Mark_engraver,
 		/* doc */ "This engraver will create RehearsalMark objects. "

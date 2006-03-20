@@ -1,5 +1,19 @@
 2006-03-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/break-align-interface.cc (self_align_callback): new
+	interface, new function. Look at complete alignment. This handles
+	tunable break alignments in case break-align-symbols are missing.
+
+	* lily/bar-number-engraver.cc (acknowledge_break_alignment): new function
+
+	* lily/mark-engraver.cc (acknowledge_break_alignment): new function.
+
+	* python/convertrules.py (conv): mark/bar number alignment rule.
+
+	* lily/break-align-interface.cc (calc_positioning_done): also
+	store offset from last visible break-alignment to its
+	neighbor. This makes alignment on non-visible objects more reliable.
+
 	* po/lilypond.pot (Module): ran po-replace.
 
 	* input/regression/tie-single-manual.ly (Module): new file.
