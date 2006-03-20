@@ -122,7 +122,9 @@ Tie::get_default_dir (Grob *me)
       Grob *s = stems[LEFT] ? stems[LEFT] : stems[RIGHT];
       return -get_grob_direction (s);
     }
-
+  else if (int p = get_position (me))
+    return Direction (sign (p));
+  
   return UP;
 }
 

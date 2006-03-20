@@ -469,9 +469,11 @@
     (let* ((scale (ly:output-def-lookup paper 'output-scale))
 	   (box (map
 		 (lambda (x)
-		   (inexact->exact
-		    (round (/ (* x scale) (ly:bp 1))))) mmbox)))
-
+		   (if (or (nan? x) (inf? x))
+		       0
+		       (inexact->exact
+			(round (/ (* x scale) (ly:bp 1)))))) mmbox)))
+      
     (list (car box)
 	  (cadr box)
 	  (max (1+ (car box)) (caddr box))
