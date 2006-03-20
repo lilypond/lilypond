@@ -170,7 +170,12 @@ ADD_TRANSLATOR (Mark_engraver,
 		"to a different context, "
 		"@ref{Staff_collecting_engraver} must move along, otherwise all marks"
 		"end up on the same Y-location",
+		
 		/* create */ "RehearsalMark",
 		/* accept */ "mark-event",
-		/* read */ "rehearsalMark rehearsalMarkAlignSymbol markFormatter stavesFound",
+		/* read */
+		"markFormatter "
+		"rehearsalMark "
+		"stavesFound ",
+		
 		/* write */ "");
