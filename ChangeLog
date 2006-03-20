@@ -1,5 +1,7 @@
 2006-03-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* po/lilypond.pot (Module): ran po-replace.
+
 	* input/regression/tie-single-manual.ly (Module): new file.
 
 	* lily/tie-formatting-problem.cc (find_optimal_tie_configuration):
