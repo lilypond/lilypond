@@ -1,3 +1,16 @@
+2006-03-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/tie-single-manual.ly (Module): new file.
+
+	* lily/tie-formatting-problem.cc (find_optimal_tie_configuration):
+	look at has_manual_position_.
+	(from_ties): set has_manual_position_ if tie has staff-position set.
+
+	* lily/tuplet-bracket.cc (calc_positions): idem.
+
+	* lily/tuplet-number.cc (print): don't print tupletnumber if it
+	doesn't span time.
+
 2006-03-19  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/define-markup-commands.scm (smallCaps): new markup command
