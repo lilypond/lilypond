@@ -2770,5 +2770,13 @@ conversions.append (((2, 7, 36), conv,
 		    """def-(music-function|markup-command) -> define-(music-function|markup-command)"""))
 
 
-conversions.append (((2, 7, 39), lambda x: x,
-		    "Minimum version for 2.8"))
+
+def conv (str):
+	str = re.sub (r'\\set\s+Score\s*\.\s*barNumberAlignSymbol\s*=',
+		      r"\\override Score.BarNumber #'break-align-symbol = ", str)
+	str = re.sub (r'\\set\s*Score\s*\.\s*rehearsalMarkAlignSymbol\s*=',
+		      r"\\override Score.RehearsalMark #'break-align-symbol = ", str)
+	return str
+
+conversions.append (((2, 7, 40), conv,
+		    "rehearsalMarkAlignSymbol/barNumberAlignSymbol -> break-align-symbol"))
