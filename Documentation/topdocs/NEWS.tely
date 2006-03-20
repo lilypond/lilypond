@@ -1,3 +1,4 @@
+\version "2.7.40"
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @setfilename NEWS.info
 @settitle NEWS
@@ -344,11 +345,11 @@ setting the @code{rehearsalMarkAlignSymbol} property,
   c1
   \key cis \major
   \clef alto
-  \set Score.rehearsalMarkAlignSymbol = #'key-signature
+  \override Score.RehearsalMark #'break-align-symbol =  #'key-signature
   \mark "on-key"
   cis
  \key ces \major
-  \set Score.rehearsalMarkAlignSymbol = #'clef
+  \override Score.RehearsalMark #'break-align-symbol =  #'clef
   \clef treble
   \mark "on clef"
   ces
