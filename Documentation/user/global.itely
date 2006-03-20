@@ -766,11 +766,14 @@ The markup command @code{\slashSeparator} is provided as a sensible
 default,  for example
 
 @lilypond[ragged-right]
-\paper {
-  systemSeparatorMarkup = \slashSeparator
+\book {
+  \score {
+    \relative { c1 \break c1 }
+  }
+  \paper {
+    systemSeparatorMarkup = \slashSeparator
+  }
 }
-
-\relative { c1 \break c1 }
 @end lilypond
 
 

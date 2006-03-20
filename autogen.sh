@@ -7,7 +7,6 @@ case $1 in
     --noconf*) NOCONFIGURE=true;;
 esac
 
-touch stepmake/bin/install-sh
 if [ ! -f aclocal.m4 -o stepmake/aclocal.m4 -nt aclocal.m4 ]; then
     echo "stepmake/aclocal.m4 is newer.  Copying file." 
     cp -f stepmake/aclocal.m4 aclocal.m4

@@ -1,3 +1,7 @@
+2006-03-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/abc2ly.py (option_parser): update to 2.7.40
+
 2006-03-20  Graham Percival  <gpermus@gmail.com>
 
 	* THANKS: move small doc contributors to SUGGESTIONS.
