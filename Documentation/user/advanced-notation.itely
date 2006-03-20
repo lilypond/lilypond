@@ -199,15 +199,15 @@ bar lines,
   c1
   \key cis \major
   \clef alto
-  \set Score.rehearsalMarkAlignSymbol = #'key-signature
+  \override Score.RehearsalMark #'break-align-symbol = #'key-signature
   \mark "on key"
   cis
   \key ces \major
-  \set Score.rehearsalMarkAlignSymbol = #'clef
+  \override Score.RehearsalMark #'break-align-symbol = #'clef
   \clef treble
   \mark "on clef"
   ces
-  \set Score.rehearsalMarkAlignSymbol = #'time-signature
+  \set Score.RehearsalMark #'break-align-symbol = #'time-signature
   \key d \minor
   \clef tenor
   \time 3/4
