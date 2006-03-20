@@ -11,13 +11,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-13 17:35+0200\n"
+"POT-Creation-Date: 2006-03-20 12:53+0100\n"
 "PO-Revision-Date: 2006-03-14 13:04+0100\n"
 "Last-Translator: hjunes <>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: convertrules.py:9
 #, python-format
@@ -75,7 +75,7 @@ msgstr "Kutsutaan `%s'"
 msgid "Running %s..."
 msgstr "Ajetaan %s..."
 
-#: lilylib.py:168
+#: lilylib.py:165
 #, python-format
 msgid "Usage: %s\n"
 msgstr "Käyttö: %s\n"
@@ -84,7 +84,8 @@ msgstr "Käyttö: %s\n"
 msgid ""
 "This program converts ABC music files (see\n"
 "http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input."
-msgstr "Tämä ohjelma kääntää ABC musiikkitiedostoja (katso\n"
+msgstr ""
+"Tämä ohjelma kääntää ABC musiikkitiedostoja (katso\n"
 "http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) LilyPond syötteeksi"
 
 #: abc2ly.py:1360
@@ -557,15 +558,15 @@ msgstr "\\applycontext vaatii funktioargumentin"
 msgid "can't change, already in translator: %s"
 msgstr "ei voitu vaihtaa, oli jo tulkitsijassa: %s"
 
-#: axis-group-engraver.cc:79
+#: axis-group-engraver.cc:82
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr "Axis_group_engraver: vertikaaliryhmällä on jo vanhempi"
 
-#: axis-group-engraver.cc:80
+#: axis-group-engraver.cc:83
 msgid "are there two Axis_group_engravers?"
 msgstr "onko käytössä kaksi Axis_group_engraver:ia?"
 
-#: axis-group-engraver.cc:81
+#: axis-group-engraver.cc:84
 msgid "removing this vertical group"
 msgstr "poistetaan tämä vertikaaliryhmä"
 
@@ -742,7 +743,7 @@ msgstr "crescendo jo käytössä"
 msgid "cresc starts here"
 msgstr "cresc aloitettiin tästä"
 
-#: dynamic-engraver.cc:315
+#: dynamic-engraver.cc:318
 msgid "unterminated (de)crescendo"
 msgstr "päättämätön (de)crescendo"
 
@@ -1189,8 +1190,8 @@ msgid "Report bugs via %s"
 msgstr "Raportoi virheet osoitteeseen %s."
 
 #: main.cc:306
-#, c-format
-msgid "expected %d arguments with jail, found: %d"
+#, fuzzy, c-format
+msgid "expected %d arguments with jail, found: %u"
 msgstr "odotettiin %d argumenttia jail:ille, löytyi: %d"
 
 #: main.cc:320
@@ -1554,7 +1555,7 @@ msgstr "ei voida määrittää taukojen törmäystä: tauon suuntaa ei asetettu"
 msgid "too many colliding rests"
 msgstr "liian monta törmäävää taukoa"
 
-#: rest.cc:140
+#: rest.cc:143
 #, c-format
 msgid "rest `%s' not found"
 msgstr "taukoa `%s' ei löytynyt, "
@@ -1883,17 +1884,17 @@ msgstr "epäkelpo merkki: `%c'"
 msgid "unknown escaped string: `\\%s'"
 msgstr "tuntematon koodinvaihtomerkillinen merkkijono: `\\\\%s'"
 
-#: lexer.ll:825
+#: lexer.ll:824
 #, c-format
 msgid "Incorrect lilypond version: %s (%s, %s)"
 msgstr "Epäkelpo lilypond versio: %s (%s, %s)"
 
-#: lexer.ll:826
+#: lexer.ll:825
 msgid "Consider updating the input with the convert-ly script"
 msgstr "Harkitse syötteen päivittämistä convert-ly scriptillä"
 
 #. TODO: print location
-#: lexer.ll:946
+#: lexer.ll:945
 msgid "can't find signature for music function"
 msgstr "ei löytynyt aikamerkintää musiikkifunktiolle"
 
@@ -1933,7 +1934,7 @@ msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 "systeemejä ei löytynyt \\score merkinnässä, onko siinä \\layout blokkia?"
 
-#: define-markup-commands.scm:1139
+#: define-markup-commands.scm:1205
 #, lisp-format
 msgid "not a valid duration string: ~a"
 msgstr "ei ole sallittu keston merkkijono: ~a"
@@ -1992,37 +1993,37 @@ msgstr "ei löytynyt kuvausta ominaisuudelle ~S (~S)"
 msgid "Writing ~a..."
 msgstr "Kirjoitetaan ~a..."
 
-#: framework-ps.scm:272
+#: framework-ps.scm:275
 #, lisp-format
 msgid "can't embed ~S=~S"
 msgstr "ei voitu upottaa ~S=~S"
 
-#: framework-ps.scm:323
+#: framework-ps.scm:326
 #, lisp-format
 msgid "can't extract file matching ~a from ~a"
 msgstr "Ei voitu poimia sopivaa tiedoa ~a:sta ~a:han"
 
-#: framework-ps.scm:340
+#: framework-ps.scm:343
 #, lisp-format
 msgid "don't know how to embed ~S=~S"
 msgstr "ei tiedetä kuinka upottaa ~S=~S"
 
-#: framework-ps.scm:370
+#: framework-ps.scm:373
 #, lisp-format
 msgid "don't know how to embed font ~s ~s ~s"
 msgstr "ei tiedetä kuinka sijoittaa fontti ~s ~s ~s"
 
-#: framework-ps.scm:576
+#: framework-ps.scm:579
 #, lisp-format
 msgid "can't convert <stdout> to ~S"
 msgstr "ei voida konvertoida <stdout> ~S:ksi"
 
-#: framework-ps.scm:593 framework-ps.scm:596
+#: framework-ps.scm:596 framework-ps.scm:599
 #, lisp-format
 msgid "can't generate ~S using the postscript back-end"
 msgstr "ei voida generoida ~S käyttäen postscript päänä"
 
-#: framework-ps.scm:603
+#: framework-ps.scm:606
 msgid ""
 "nThe PostScript backend does not support the 'classic'\n"
 "framework. Use the EPS backend instead,\n"
