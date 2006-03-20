@@ -583,6 +583,9 @@ or
 \relative @var{musicexpr}
 @end example
 
+@noindent
+@code{c'} is used as the default if no starting pitch is defined.
+
 The octave of notes that appear in @var{musicexpr} are calculated as
 follows: if no octave changing marks are used, the basic interval
 between this and the last note is always taken to be a fourth or
