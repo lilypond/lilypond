@@ -358,6 +358,12 @@ c'4^\markup{ raised }
 c'4^\markup{ \hspace #0 \raise #1.5 raised }
 @end lilypond
 
+Some situations (such as dynamic marks) have preset font-related
+properties.  If you are creating text in such situations, it
+is advisable to cancel those properties with
+@code{normal-text}.  See @ref{Overview of text markup commands}
+for more details.
+
 
 @seealso
 
