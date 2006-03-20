@@ -679,7 +679,8 @@ alignment accordingly."
 		     x y)))
 
 
-(define-markup-command (pad-to-box layout props x-ext y-ext arg) (number-pair? number-pair? markup?)
+(define-markup-command (pad-to-box layout props x-ext y-ext arg)
+  (number-pair? number-pair? markup?)
   "Make @var{arg} take at least @var{x-ext}, @var{y-ext} space"
 
   (let*
@@ -691,6 +692,17 @@ alignment accordingly."
 		     (interval-union x-ext x)
 		     (interval-union y-ext y))))
 
+
+(define-markup-command (hcenter-in layout props length arg)
+  (number? markup?)
+  "Center @var{arg} horizontally within a box of extending
+@var{length}/2 to the left and right."
+
+  (interpret-markup layout props
+		    (make-pad-to-box-markup
+		     (cons (/ length -2) (/ length 2))
+		     '(0 . 0)
+		     (make-hcenter-markup arg))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
