@@ -1,5 +1,12 @@
 2006-03-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/test/instrument-name-align.ly: new file.
+
+	* scm/define-markup-commands.scm (hcenter-in): add hcenter-in.
+
+	* input/test/instrument-name-align.ly: new file. Document how to
+	align instrument names.
+
 	* lily/mark-engraver.cc: remove properties.
 
 	* scm/define-context-properties.scm
