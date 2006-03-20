@@ -207,7 +207,7 @@ bar lines,
   \clef treble
   \mark "on clef"
   ces
-  \set Score.RehearsalMark #'break-align-symbol = #'time-signature
+  \override Score.RehearsalMark #'break-align-symbol = #'time-signature
   \key d \minor
   \clef tenor
   \time 3/4
