@@ -2,8 +2,15 @@
 
   texidoc = "The minimum distance between lyrics are determined by the
 @code{minimum-distance} of @code{LyricHyphen} and
-@code{LyricSpace}. The hyphen is omitted when it would be shorter than
-its @code{minimum-length} setting."
+@code{LyricSpace}.
+
+The ideal length of a hyphen is determined by its @code{length}
+property, but it may be shortened down to @code{minimum-length} in
+tight situations. If in this it still does not fit, the hyphen will be
+omitted.
+
+Like all overrides within @code{\lyricsto} and @code{\addlyrics}, the
+effect of a setting is delayed is one syllable."
 
 }
 
@@ -24,9 +31,14 @@ its @code{minimum-length} setting."
 }
 \addlyrics
 {
-   syl -- lab word
-   \once \override LyricHyphen #'minimum-distance = #0.0
-   syl -- lab word
-   \override LyricSpace #'minimum-distance = #0.0
-   syl -- lab word
+  %% tight spacing: hyphen disappears 
+  syl -- lab word
+
+  %% increase minimum-distance: forces more space, so hyphen reappears
+  \override LyricHyphen #'minimum-distance = #1.0
+  syl -- lab word
+
+  %% minimum-distance 0 for LyricSpace: this places words next to each other. 
+  \override LyricSpace #'minimum-distance = #0.0
+  syl -- lab word
 }

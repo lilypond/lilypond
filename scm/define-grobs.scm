@@ -803,6 +803,17 @@
 		 (interfaces . (line-interface
 				tuplet-bracket-interface))))))
 
+
+    (LyricExtender
+     . (
+	(stencil . ,ly:lyric-extender::print)
+	(thickness . 0.8) ; line-thickness
+	(minimum-length . 1.5)
+	(Y-extent . (0 . 0))
+	(meta . ((class . Spanner)
+		 (interfaces . (lyric-interface
+				lyric-extender-interface))))))
+
     (LyricHyphen
      . (
 	(thickness . 1.3)
@@ -821,18 +832,8 @@
 				lyric-hyphen-interface
 				spanner-interface))))))
 
-    (LyricExtender
-     . (
-	(stencil . ,ly:lyric-extender::print)
-	(thickness . 0.8) ; line-thickness
-	(minimum-length . 1.5)
-	(Y-extent . (0 . 0))
-	(meta . ((class . Spanner)
-		 (interfaces . (lyric-interface
-				lyric-extender-interface))))))
-
     (LyricSpace
-     . ((minimum-distance . 0.3)
+     . ((minimum-distance . 0.45)
 	(springs-and-rods . ,ly:hyphen-spanner::set-spacing-rods)
 	(padding . 0.0)
 	(Y-extent . #f)
@@ -1059,12 +1060,10 @@
     (PaperColumn
      . (
 	(axes . (0))
-
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	;; (stencil . ,ly:paper-column::print)
 	(X-extent . ,ly:axis-group-interface::width)
 	
-
 	;; debugging
 	;;		         (font-size . -6) (font-name . "sans") (Y-extent . #f)
 	(meta . ((class . Paper_column)
@@ -1073,14 +1072,13 @@
 				spaceable-grob-interface))))))
 
     (ParenthesesItem
-     . (
-	(stencil . ,parentheses-item::print)
+     . ((stencil . ,parentheses-item::print)
 	(font-size . -6)
 	(padding . 0.2)
 	(meta . ((class . Item)
 		 (interfaces . (parentheses-interface font-interface))))
-	
-	      ))
+	))
+    
     (PhrasingSlur
      . ((details . ,default-slur-details)
 	(control-points . ,ly:slur::calc-control-points)
