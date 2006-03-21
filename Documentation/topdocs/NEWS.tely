@@ -31,6 +31,8 @@ See user manual, \NAME\
 @documentencoding utf-8
 @documentlanguage en
 
+@finalout
+
 @ifnottex
 @node Top
 @top
@@ -145,7 +147,9 @@ This feature was contributed by Nicolas Sceaux.
 @item Alignments of staves may be tuned per system.   
 @lilypond[]
 #(set-global-staff-size 13)
-
+\paper {
+  line-width = 8\cm
+}
 \relative c'' \new StaffGroup <<
   \new Staff { c1 c }
   \new Staff { c c  }
@@ -239,7 +243,7 @@ leading to a more even appearance. For example,
 @lilypond[ragged-right]
 \new Voice \with {
   \consists "Melody_engraver"
-  \revert Stem #'neutral-direction
+  \override Stem #'neutral-direction = #'()
 }
 \relative c'' {
   c4 b c b

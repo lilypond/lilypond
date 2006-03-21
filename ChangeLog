@@ -1,5 +1,9 @@
 2006-03-21  Han-Wen Nienhuys  <lilydev@localhost.localdomain>
 
+	* input/regression/stem-direction-context.ly: idem.
+
+	* Documentation/topdocs/NEWS.tely (Top): fix interpolation example.
+
 	* THANKS: add Mats.
 
 	* input/regression/page-layout-twopass.ly: comment out \markup so
