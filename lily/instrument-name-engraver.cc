@@ -53,8 +53,10 @@ Instrument_name_engraver::process_music ()
 	  || Text_interface::is_markup (short_text))
 	{
 	  text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
+	  Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
 	  text_spanner_->set_bound (LEFT,
 				    unsmob_grob (get_property ("currentCommandColumn")));
+	  Axis_group_interface::add_element (col, text_spanner_);
 	  text_spanner_->set_property ("text", short_text);
 	  text_spanner_->set_property ("long-text", long_text);
 	}
