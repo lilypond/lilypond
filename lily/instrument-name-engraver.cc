@@ -13,6 +13,7 @@
 #include "axis-group-interface.hh"
 #include "align-interface.hh"
 #include "text-interface.hh"
+#include "system.hh"
 
 #include "translator.icc"
 
@@ -53,10 +54,9 @@ Instrument_name_engraver::process_music ()
 	  || Text_interface::is_markup (short_text))
 	{
 	  text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
+	  
 	  Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
-	  text_spanner_->set_bound (LEFT,
-				    unsmob_grob (get_property ("currentCommandColumn")));
-	  Axis_group_interface::add_element (col, text_spanner_);
+	  text_spanner_->set_bound (LEFT, col);
 	  text_spanner_->set_property ("text", short_text);
 	  text_spanner_->set_property ("long-text", long_text);
 	}
@@ -86,6 +86,16 @@ Instrument_name_engraver::finalize ()
 				unsmob_grob (get_property ("currentCommandColumn")));
 
       Pointer_group_interface::set_ordered (text_spanner_, ly_symbol2scm ("elements"), false);
+
+      System *system = get_root_system (text_spanner_);
+
+      /*
+	UGH, should handle this in Score_engraver.
+       */
+      if (system)
+	Axis_group_interface::add_element (system, text_spanner_);
+      else
+	text_spanner_->programming_error ("can't find root system");
     }
 }
 
@@ -101,7 +111,8 @@ ADD_TRANSLATOR (Instrument_name_engraver,
 		/* create */
 		"InstrumentName ",
 		
-		/* accept */ "",
+		/* accept */
+		"",
 		
 		/* read */
 		"vocNam vocalName instrument instr "

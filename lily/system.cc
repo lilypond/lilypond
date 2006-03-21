@@ -484,6 +484,6 @@ ADD_INTERFACE (System, "system-interface",
 
 	       /* properties */
 	       "all-elements "
+	       "columns "
 	       "spaceable-staves "
-	       "columns"
 	       )
