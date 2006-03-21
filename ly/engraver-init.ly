@@ -325,7 +325,8 @@ contained staves are not connected vertically."
 
   "Groups staffs while adding a bracket on the left side, grouping
 the staves together.  The bar lines of the contained staves are
-connected vertically.  "
+connected vertically.  StaffGroup only consists of a collection of
+staffs, with a bracket in front and spanning bar lines. "
   
   \accepts "InnerChoirStaff"
   \accepts "ChoirStaff"

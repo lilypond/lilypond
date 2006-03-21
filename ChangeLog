@@ -1,3 +1,7 @@
+2006-03-21  Graham Percival  <gpermus@gmail.com>
+
+	* ly/engraver-init.ly: add info about StaffGroup.
+
 2006-03-21  Han-Wen Nienhuys  <lilydev@localhost.localdomain>
 
 	* input/regression/stem-direction-context.ly: idem.
