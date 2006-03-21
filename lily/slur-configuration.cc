@@ -174,6 +174,12 @@ Slur_configuration::Slur_configuration ()
 void
 Slur_configuration::add_score (Real s, string desc)
 {
+  if (s < 0)
+    {
+      programming_error ("Negative demerits found for slur. Ignoring");
+      s = 0.0;
+    }
+  
   if (s)
     {
       score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
