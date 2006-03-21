@@ -1,5 +1,7 @@
 2006-03-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (dump-stencil-as-EPS): remove debugging code.
+
 	* lily/instrument-name-engraver.cc (process_music): kludge: add
 	InstrumentName spanner to axis group of left bound. Fixes chopped
 	off instrument names in EPS images.

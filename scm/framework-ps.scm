@@ -491,7 +491,6 @@
 	 (port (ly:outputter-port outputter))
 	 (xext (ly:stencil-extent dump-me X))
 	 (yext (ly:stencil-extent dump-me Y))
-	 (foo (display (list xext yext "\n")))
 	 (bbox
 	  (map
 	   (lambda (x)
