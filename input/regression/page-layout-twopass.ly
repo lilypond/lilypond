@@ -27,9 +27,14 @@ bla = \new Staff {
 tweakFileName = #(format "~a-page-layout.ly" (ly:parser-output-name parser))
 
 #(newline)
-#(ly:progress "Including file: '~a'" tweakFileName)
 
 %% unfortunately: the following doesn't show up in lp-book output
+
+%% if the following is there, the tweak file will be overwritten.
+
+%{
+
+#(ly:progress "Including file: '~a'" tweakFileName)
 
 \markup {
   \column {
@@ -37,3 +42,5 @@ tweakFileName = #(format "~a-page-layout.ly" (ly:parser-output-name parser))
     \smaller \verbatim-file #tweakFileName
   }
 }
+
+%}
