@@ -1,5 +1,7 @@
 2006-03-21  Han-Wen Nienhuys  <lilydev@localhost.localdomain>
 
+	* THANKS: add Mats.
+
 	* input/regression/page-layout-twopass.ly: comment out \markup so
 	tweak-file is left.
 
