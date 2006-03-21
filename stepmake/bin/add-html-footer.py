@@ -55,7 +55,7 @@ built = r"""
 This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
 </font>
 <address><font size="-1">
-Report errors to &lt;<a href="%(mail_address_url)s">%(mail_address)s</a>&gt;.</font></address>
+Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.</font></address>
 </p>
 </div>
 
