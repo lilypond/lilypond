@@ -1,5 +1,9 @@
 2006-03-21  Han-Wen Nienhuys  <lilydev@localhost.localdomain>
 
+	* lily/instrument-name-engraver.cc (finalize): add to instrument
+	name global System. This also fixes chopped instrument names, but
+	doesn't crash when there are slurs/beams.
+
 	* lily/slur-configuration.cc (add_score): disallow negative slur
 	scores.
 	
