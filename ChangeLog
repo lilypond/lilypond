@@ -1,5 +1,10 @@
-2006-03-22  Han-Wen Nienhuys  <lilydev@localhost.localdomain>
+2006-03-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/user/preface.itely (Preface): remove "notes for
+	2.6" section.
+
+	* branch lilypond_2_8
+	
 	* scripts/lilypond-book.py (samefile): new function, for windoze
 	compatibility.
 
