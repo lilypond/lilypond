@@ -1554,6 +1554,14 @@ def note_input_file (name, inputs=[]):
 	inputs.append (name)
 	return inputs
 
+def samefile (f1, f2):
+	try:
+		return os.path.samefile (f1, f2)
+	except AttributeError:		# Windoze
+		f1 = re.sub ("//*", "/", f1)
+		f2 = re.sub ("//*", "/", f2)
+		return f1 == f2
+
 def do_file (input_filename):
 	# Ugh.
 	if not input_filename or input_filename == '-':
@@ -1590,7 +1598,7 @@ def do_file (input_filename):
 		else: 
 			if os.path.exists (input_filename) \
 			   and os.path.exists (output_filename) \
-			   and os.path.samefile (output_filename, input_fullname):
+			   and samefile (output_filename, input_fullname):
 			   error (
 			   _ ("Output would overwrite input file; use --output."))
 			   exit (2)
