@@ -17,6 +17,9 @@ contributed over 100 lines of code.
 
 @c Authors are encouraged to maintain their own entry.
 
+@c Sorted by family name.
+
+
 Core code:
 
 @itemize @bullet
@@ -36,9 +39,13 @@ Core code:
     Breathing signs.
 @item @email{wl@@gnu.org, Werner Lemberg},
     @TeX{} glue code.
+@item @email{joe@@neeman.com, Joe Neeman}, 
+    @uref{http://www.xs4all.nl/~hanwen/},
+    Constrained line breaking.
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
     Main author.
+
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
     Main author.

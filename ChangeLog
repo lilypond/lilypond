@@ -5,6 +5,8 @@
 
 2006-03-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/AUTHORS.texi (Top): add Joe Neeman.
+
 	* branch lilypond_2_8
 
 2006-03-22  Han-Wen Nienhuys  <lilydev@localhost.localdomain>
