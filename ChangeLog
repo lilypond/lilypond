@@ -1,5 +1,7 @@
 2006-03-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): change to 2.8
+
 	* VERSION (PATCH_LEVEL): bump version to 2.8
 
 	* Documentation/user/preface.itely (Preface): remove "notes for
