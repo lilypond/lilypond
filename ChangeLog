@@ -1,3 +1,7 @@
+2006-03-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* branch lilypond_2_8
+
 2006-03-22  Han-Wen Nienhuys  <lilydev@localhost.localdomain>
 
 	* scripts/lilypond-book.py (samefile): new function, for windoze
