@@ -3,7 +3,7 @@
   texidoc = "Quarter tone notation is supported, including
     threequarters flat."
 }
-\version "2.7.39"
+\version "2.8.0"
 \layout { ragged-right = ##t }
 
 \relative c'' {

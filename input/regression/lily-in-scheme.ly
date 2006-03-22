@@ -12,7 +12,7 @@ the @code{TextScript} grob.
           
       }
 
-\version "2.7.39"
+\version "2.8.0"
 \layout { ragged-right = ##t }
 
 withPaddingA = #(define-music-function (parser location padding music) (number? ly:music?)

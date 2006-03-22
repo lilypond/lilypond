@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.8.0"
 \header { texidoc = "@cindex Bar line lyric only
 You can move @code{Bar_engraver} and @code{Span_bar_engraver} to 
 a different engraving context, if you want, for example, bar lines 
