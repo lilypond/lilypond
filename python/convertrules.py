@@ -2780,3 +2780,10 @@ def conv (str):
 
 conversions.append (((2, 7, 40), conv,
 		    "rehearsalMarkAlignSymbol/barNumberAlignSymbol -> break-align-symbol"))
+
+
+def conv (str):
+	return str
+
+conversions.append (((2, 8, 0), conv,
+		    "bump version number for release"))
