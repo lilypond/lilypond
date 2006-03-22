@@ -22,7 +22,7 @@ that otherwise don't fit in a space
   ragged-right = ##t
 }
 
-\version "2.7.39"
+\version "2.8.0"
 
 frag =
 \relative c'' {

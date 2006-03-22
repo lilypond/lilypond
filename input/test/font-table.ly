@@ -9,7 +9,7 @@
   evenFooterMarkup = \markup {}
   }
 
-\version "2.7.39"
+\version "2.8.0"
 
 #(define (doc-char name)
   (make-line-markup

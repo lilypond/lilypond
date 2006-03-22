@@ -47,34 +47,3 @@ music.  May it help you create lots of beautiful music!
 Han-Wen and Jan
 
 Utrecht/Eindhoven, The Netherlands, July 2002.
-
-@menu
-* Notes for version 2.6::       
-@end menu
-
-@node Notes for version 2.6
-@unnumberedsec Notes for version 2.6
-
-For years, LilyPond has been associated with @TeX{}, for its design,
-syntax and, last but not least, since it used @TeX{} as an output
-engine. Starting with 2.6, the latter has changed. By default,
-LilyPond now produces PostScript directly.  This makes it easier to
-install, quicker to operate and more versatile.
-
-Under the hood, this was made possible by use of the Pango library,
-which does typesetting of multilingual text.  This means that you can
-easily typeset Chinese, Russian or Minoic lyrics.  Another result is
-the SVG output. You can create SVG pictures of music notation directly
-from LilyPond. 
-
-There are also small improvements.  This release has numerous extra
-features, such as color support, string-number notation, arrowed
-glissandi.  Moreover, it is now possible to commission features. For a
-small fee, we (the core developers) can implement the features that
-you sorely need. Examples of sponsored features in 2.6 are solfa notation,
-stemlets, starting and stopping staves.
-
-
-Han-Wen and Jan
-
-Utrecht/Eindhoven, The Netherlands, May 2005.

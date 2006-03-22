@@ -1,5 +1,5 @@
 
-\version "2.7.39"
+\version "2.8.0"
 \header {
     texidoc= "Text spanners should not repeat start text when broken."
 }

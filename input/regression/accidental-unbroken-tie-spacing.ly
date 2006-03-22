@@ -4,7 +4,7 @@ texidoc = "Tied accidentaled notes (which cause reminder accidentals) do not
 wreak havoc in the spacing when unbroken."
 }
 
-\version "2.7.39"
+\version "2.8.0"
 \layout {
   ragged-right = ##t
 }
