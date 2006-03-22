@@ -216,6 +216,27 @@ bar lines,
 }
 @end lilypond
 
+Although text marks are normally only printed above the topmost
+staff, you may alter this to print them on every staff,
+
+@lilypond[quote,ragged-right,verbatim,relative=2]
+{
+  \new Score \with {
+    \remove "Mark_engraver"
+  }
+  <<
+    \new Staff \with {
+      \consists "Mark_engraver"
+    }
+    { c''1 \mark "foo" c'' }
+    \new Staff \with {
+      \consists "Mark_engraver"
+    }
+    { c'1 \mark "foo" c' }
+  >>
+}
+@end lilypond
+
 
 @seealso
 
@@ -936,6 +957,25 @@ If you wish to center the instrument names, you must center all of them
 
 For longer instrument names, it may be useful to increase the
 @code{indent} setting in the @code{\layout} block.
+
+To center instrument names while leaving extra space to the right,
+
+@lilypond[quote,verbatim,ragged-right]
+\new StaffGroup \relative
+<<
+  \new Staff {
+    \set Staff.instrument
+    = \markup { \hcenter-in #10 "blabla" }
+    c1 c1
+  }
+  \new Staff {
+    \set Staff.instrument
+    = \markup { \hcenter-in #10 "blo" }
+    c1 c1
+  }
+>>
+@end lilypond
+
 
 @seealso
 
