@@ -1,3 +1,8 @@
+2006-03-22  Han-Wen Nienhuys  <lilydev@localhost.localdomain>
+
+	* scripts/lilypond-book.py (samefile): new function, for windoze
+	compatibility.
+
 2006-03-21  Graham Percival  <gpermus@gmail.com>
 
 	* ly/engraver-init.ly: add info about StaffGroup.
