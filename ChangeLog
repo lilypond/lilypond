@@ -1,3 +1,9 @@
+2006-03-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/topdocs/NEWS.tely: clear for 2.9 cycle.
+
+	* VERSION (PATCH_LEVEL): bump to 2.9.0
+
 2006-03-22  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/advanced-notation.itely: minor fixes
