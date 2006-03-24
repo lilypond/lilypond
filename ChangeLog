@@ -1,3 +1,8 @@
+2006-03-23  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ lilypond.tely, music-glossary,
+	preface: housekeeping; 2005->2006, remove "notes for 2.6"
+
 2006-03-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/topdocs/NEWS.tely: clear for 2.9 cycle.
