@@ -814,7 +814,8 @@ can.}
 
 The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\paper}.  The default
-implementations are in @file{scm/@/page@/-layout@/.scm}.
+implementations are in @file{ly/@/paper@/-defaults@/.ly} and
+@file{ly/@/titling@/-init@/.ly}.
 
 The page layout itself is done by two functions in the
 @code{\paper} block, @code{page-music-height} and
@@ -1142,13 +1143,13 @@ The vertical spacing on a page can also be changed for each system individually.
 Some examples are found in the example file
 @inputfileref{input/regression/,page-spacing.ly}.
 
-When setting @code{annotatespacing} in the @code{\paper} block LilyPond
+When setting @code{annotate-spacing} in the @code{\paper} block LilyPond
 will graphically indicate the dimensions of properties that may be set
 for page spacing,
 
 @lilypond[verbatim]
 #(set-default-paper-size "a7" 'landscape)
-\paper { annotatespacing = ##t }
+\paper { annotate-spacing = ##t }
 { c4 }
 @end lilypond
 
