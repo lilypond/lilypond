@@ -1,3 +1,10 @@
+2006-03-24  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/topdocs/NEWS.tely: add @end itemize
+
+	* Documentation/user/ global, advanced-notation: minor
+	stuff from mailist.
+
 2006-03-23  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ lilypond.tely, music-glossary,

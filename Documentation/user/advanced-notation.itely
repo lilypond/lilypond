@@ -2010,22 +2010,6 @@ e4 f4
 g4 a
 @end lilypond
 
-Hidden notes are also great for performing weird tricks.  For example,
-slurs cannot be attached to rests or spacer rests, but you may wish
-to include that in your score -- string instruments use this notation
-when doing pizzicato to indicate that the note should ring for as long
-as possible.
-
-@lilypond[quote,ragged-right,verbatim,relative=0,fragment]
-\clef bass
-<< {
-  c4^"pizz"( \hideNotes c)
-  \unHideNotes c( \hideNotes c)
-} {
-  s4 r s r
-} >>
-@end lilypond
-
 
 @node Shape note heads 
 @subsection Shape note heads 
