@@ -354,7 +354,14 @@ Note_collision_interface::get_clash_groups (Grob *me)
     {
       Grob *se = elements[i];
       if (Note_column::has_interface (se))
-	clash_groups[Note_column::dir (se)].push_back (se);
+	{
+	  if (!Note_column::dir (se))
+	    {
+	      se->programming_error ("note-column has no direction");
+	    }
+	  else
+	    clash_groups[Note_column::dir (se)].push_back (se);
+	}
     }
 
   Direction d = UP;
