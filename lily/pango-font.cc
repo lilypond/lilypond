@@ -88,6 +88,16 @@ Pango_font::get_index_to_charcode_map (string key, FT_Face face)
   return &charcode_maps_[key];
 }
 
+void
+get_unicode_name (char*s, FT_ULong code)
+{
+  if (code > 0xFFFF)
+    sprintf (s,  "u%06lX", char_code);
+  else
+    sprintf (s,  "uni%04lX", char_code);
+}
+
+
 Stencil
 Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 {
@@ -147,9 +157,9 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
       if (glyph_name[0] == '\0' && cmap)
 	{
 	  FT_ULong char_code = cmap->find (pg)->second;
-	  
-	  sprintf (glyph_name,  "uni%04lX", char_code);
+	  get_unicode_name (glyph_name, char_code);
 	}
+      
   
       if (glyph_name[0] == '\0')
 	{
