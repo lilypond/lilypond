@@ -1,3 +1,13 @@
+2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/topdocs/INSTALL.texi (Top): update versions.
+
+	* lily/note-collision.cc (get_clash_groups): only consider when
+	Note_column::dir <> CENTER. Backportme.
+
+	* scripts/lilypond-book.py (get_option_parser): init output_name
+	to ''. Backportme.
+
 2006-03-24  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/topdocs/NEWS.tely: add @end itemize
@@ -11,6 +21,8 @@
 	preface: housekeeping; 2005->2006, remove "notes for 2.6"
 
 2006-03-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* mf/GNUmakefile: don't install .enc files.
 
 	* Documentation/topdocs/NEWS.tely: clear for 2.9 cycle.
 

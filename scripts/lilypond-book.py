@@ -158,7 +158,8 @@ def get_option_parser ():
 	
 	p.add_option ("-o", '--output', help=_('write output to DIR'),
 		      metavar="DIR",
-		      action='store', dest='output_name', default=None)
+		      action='store', dest='output_name',
+		      default='')
 	p.add_option ('-P', '--process', metavar=_("COMMAND"),
 		      help = _ ("process ly_files using COMMAND FILE..."),
 		      action='store', 
