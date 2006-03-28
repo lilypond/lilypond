@@ -2302,6 +2302,13 @@ new line are not printed.  To change this behavior, use
 \override Score.Hairpin #'after-line-breaking = ##t
 @end example
 
+Text style dynamic changes (such as cresc. and dim.) are printed with a
+dashed line showing their extent.  To surpress printing this line, use
+
+@example
+\override DynamicTextSpanner #'dash-period = #-1.0
+@end example
+
 
 @refcommands
 

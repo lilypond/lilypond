@@ -6,6 +6,11 @@
 
 	* THANKS: update for 2.9, add section for Documentation helpers.
 
+	* Documentation/topdocs/NEWS.tely: compile fix.
+
+	* Documentation/user/ basic-notation, global, advanced-notation,
+	examples.itely: minor fixes from mailist.
+
 2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* mf/feta-bolletjes.mf: match width of solfa notes with normal

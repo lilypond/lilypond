@@ -833,6 +833,9 @@ values of @code{left-margin} and @code{line-width}.
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
 
+The titles (from the @code{\header@{@}} section) are treated as a
+system, so @code{ragged-bottom} and @code{ragged-last-bottom} will
+add space between the titles and the first system of the score.
 
 
 @node Music layout
