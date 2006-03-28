@@ -1,3 +1,8 @@
+2006-03-28  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/advanced-notation.itely: backport fixes
+	from 2.9.  (this is mostly a test; more backporting will occur)
+
 2006-03-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/topdocs/NEWS.tely (Top): change to 2.8
