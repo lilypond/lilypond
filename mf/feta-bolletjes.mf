@@ -246,38 +246,6 @@ if test > 0:
 	fet_endchar;
 fi;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%
-%% fonts for "small style"
-%% 
-
-fet_beginchar ("Half notehead (quarter size)", "s1small");
-	draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0.0);
-	undraw_inside_ellipse (3.25, 33, 0.81, 2.8 stafflinethickness#);
-
-	draw_staff (-2, 2, 0);
-fet_endchar;
-
-
-%% copy of normal.
-fet_beginchar ("Quart notehead (quarter size)", "s2small");
-	% used to have 32. With 31, they are slightly bolder.
-	draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0);
-	black_notehead_width# := charwd;
-
-	draw_staff (-2, 2, 0);
-fet_endchar;
-
-%% smaller.
-fet_beginchar ("Whole notehead (quarter size)", "s0small");
-	draw_outside_ellipse (1.60 - puff_up_factor / 3.0, 0, 0.707, 0);
-	undraw_inside_ellipse (1.30, 125 - puff_up_factor * 10,
-			       0.68, 2 stafflinethickness#);
-
-	draw_staff (-2, 2, 0);
-fet_endchar;
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

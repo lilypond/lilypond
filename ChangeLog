@@ -2,6 +2,7 @@
 
 	* mf/feta-bolletjes.mf (overdone_heads): add small style (ugly)
 	note heads, for uniform widths in shape note output.
+	(overdone_heads): hmm. remove them again.
 
 	* scripts/lilypond-book.py (output): add links to filenames.
 
