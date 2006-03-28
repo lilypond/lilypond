@@ -68,18 +68,6 @@ load_scheme_table (char const *tag_str, FT_Face face)
   return tab;
 }
 
-Index_to_charcode_map
-make_index_to_charcode_map (FT_Face face)
-{
-  Index_to_charcode_map m;
-  FT_ULong charcode;
-  FT_UInt gindex;
-
-  for (charcode = FT_Get_First_Char (face, &gindex); gindex != 0;
-       charcode = FT_Get_Next_Char (face, charcode, &gindex))
-    m[gindex] = charcode;
-  return m;
-}
 
 Open_type_font::~Open_type_font ()
 {

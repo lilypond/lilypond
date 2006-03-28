@@ -6,8 +6,8 @@
 %input feta-eindelijk;
 %input feta-toevallig;
 %input feta-puntje;
-%input feta-bolletjes;	
-input feta-arrow;	
+input feta-bolletjes;	
+%input feta-arrow;	
 %input feta-schrift;	
 %input feta-schrift;
 %input feta-banier;
