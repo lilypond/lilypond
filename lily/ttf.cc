@@ -165,7 +165,7 @@ print_trailer (void *out,
 
       if (!glyph_name[0])
 	{
-	  sprintf (glyph_name, "uni%04lX", ic_map[i]);
+	  get_unicode_name (glyph_name, ic_map[i]);
 	}
       
       lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);

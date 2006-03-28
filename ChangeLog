@@ -1,5 +1,9 @@
 2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/ttf.cc (print_trailer): use it.
+
+	* lily/pango-font.cc (get_unicode_name): new function.
+
 	* lily/ttf.cc (make_index_to_charcode_map): move function from
 	open-type-font.cc
 	(print_trailer): substitute uniXXXX name if applicable. 
