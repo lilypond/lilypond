@@ -14,7 +14,6 @@ beautiful printed scores!
 * Vocal ensembles::             
 * Ancient notation templates::  
 * Jazz combo::                  
-* Other templates::             
 * Lilypond-book templates::     
 @end menu
 
@@ -958,6 +957,55 @@ bassusLyrics = \lyricmode {
 @end lilypond
 
 
+@subsection Gregorian transcription template
+
+This example demonstrates how to do modern transcriptions of Gregorian
+music.  Gregorian music has no measure, no stems; it uses only half and
+quarter notes, and two types of barlines, a short one indicating a rest,
+and a second one indicating a breath mark.
+
+@lilypond[quote,verbatim,ragged-right]
+\include "gregorian-init.ly"
+\version "2.8.0"
+
+chant = \relative c' {
+  \set Score.timing = ##f
+  f4 a2 \divisioMinima
+  g4 b a2 f2 \divisioMaior
+  g4( f) f( g) a2 \finalis
+}
+
+verba = \lyricmode {
+  Lo -- rem ip -- sum do -- lor sit a -- met
+}
+
+\score {
+  \new Staff <<
+    \new Voice = "melody" {
+      \chant
+    }
+    \new Lyrics = "one" \lyricsto melody \verba
+  >>
+
+  \layout {
+    \context {
+      \Staff
+      \remove "Time_signature_engraver"
+      \remove "Bar_engraver"
+      \override Stem #'transparent = ##t
+    }
+    \context {
+      \Voice
+      \override Stem #'length = #0
+    }
+    \context {
+      \Score
+      barAlways = ##t
+    }
+  }
+}
+@end lilypond
+
 
 @node Jazz combo
 @section Jazz combo
@@ -1230,9 +1278,15 @@ drumContents = {
 }
 @end lilypond
 
-@node Other templates
-@section Other templates
-@subsection All headers
+@ignore
+
+This isn't very useful, and only duplicates material in
+"global issues".  And if this info changes, this section often
+gets forgotten.
+
+@no de Other templates
+@se ction Other templates
+@su bsection All headers
 
 This template displays all available headers.  Some of them are only
 used in the Mutopia project; they don't affect the printed output at
@@ -1243,7 +1297,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 "Petr Tchaikowski" on your music.
 
 @ The `line-width' is for \header.
-@lilypond[quote,verbatim,ragged-right,line-width]
+@li lypond[quote,verbatim,ragged-right,line-width]
 \version "2.7.39"
 \header {
   dedication = "dedication"
@@ -1290,39 +1344,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
   }
 }
 @end lilypond
-
-@subsection Gregorian transcription template
-
-This example demonstrates how to do modern transcriptions of Gregorian
-music.  Gregorian music has no measure, no stems; it uses only half and
-quarter notes, and two types of barlines, a short one indicating a rest,
-and a second one indicating a breath mark.
-
-@lilypond[quote,verbatim,ragged-right]
-barOne = { \once \override Staff.BarLine #'bar-size = #2
-  \bar "|" }
-barTwo = { \once \override Staff.BarLine #'extra-offset = #'(0 . 2)
-  \once \override Staff.BarLine #'bar-size = #2
-  \bar "|" }
-chant = \relative c' {
-  \set Score.timing = ##f
-  \override Staff.Stem #'transparent = ##t
-
-  f4 a2 \barTwo
-  g4 a2 f2 \barOne
-  g4( f) f( g) a2
-}
-\score {
-  \chant
-  \layout{
-    \context {
-      \Staff
-      \remove "Time_signature_engraver"
-    }
-  }
-  \midi { \tempo 4=60 }
-}
-@end lilypond
+@end ignore
 
 
 @node Lilypond-book templates
