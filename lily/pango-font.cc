@@ -75,6 +75,19 @@ Pango_font::derived_mark () const
   scm_gc_mark (physical_font_tab_);
 }
 
+
+Index_to_charcode_map const *
+Pango_font::get_index_to_charcode_map (string key, FT_Face face)
+{
+  if (charcode_maps_.find (key) == charcode_maps_.end ())
+    charcode_maps_[key] = make_index_to_charcode_map (face);
+
+  if (charcode_maps_.find (key) == charcode_maps_.end ())
+    return 0;
+  
+  return &charcode_maps_[key];
+}
+
 Stencil
 Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 {
@@ -101,10 +114,25 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 		   PANGO_ASCENT (ink_rect)));
 
   b.scale (scale_);
+  char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
+  FcPattern *fcpat = fcfont->font_pattern;
+  char *file_name_as_ptr = 0;
+  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name_as_ptr);
 
+  string file_name;
+  if (file_name_as_ptr)
+    {
+      /* Normalize file name.  */
+      file_name = File_name (file_name_as_ptr).to_string ();
+    }
+  
   SCM glyph_exprs = SCM_EOL;
   SCM *tail = &glyph_exprs;
-
+      
+  Index_to_charcode_map const *cmap = 0;
+  if  (! (ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES))
+    cmap = ((Pango_font*)this)->get_index_to_charcode_map (file_name, ftface);
+  
   bool cid_keyed = false;
   for (int i = 0; i < pgs->num_glyphs; i++)
     {
@@ -116,6 +144,13 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
       FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
 
       SCM char_id;
+      if (glyph_name[0] == '\0' && cmap)
+	{
+	  FT_ULong char_code = cmap->find (pg)->second;
+	  
+	  sprintf (glyph_name,  "uni%04lX", char_code);
+	}
+  
       if (glyph_name[0] == '\0')
 	{
 	  /*
@@ -140,18 +175,6 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
   Real size = pango_font_description_get_size (descr)
     / (Real (PANGO_SCALE));
 
-  FcPattern *fcpat = fcfont->font_pattern;
-  char *file_name_as_ptr = 0;
-  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name_as_ptr);
-
-  string file_name;
-  if (file_name_as_ptr)
-    {
-      /* Normalize file name.  */
-      file_name = File_name (file_name_as_ptr).to_string ();
-    }
-  
-  char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
 
   if (!ps_name_str0)
     warning (_f ("no PostScript font name for font `%s'", file_name));

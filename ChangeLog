@@ -1,5 +1,10 @@
 2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* mf/feta-bolletjes.mf (overdone_heads): add small style (ugly)
+	note heads, for uniform widths in shape note output.
+
+	* scripts/lilypond-book.py (output): add links to filenames.
+
 	* Documentation/topdocs/INSTALL.texi (Top): update versions.
 
 	* lily/note-collision.cc (get_clash_groups): only consider when

@@ -603,7 +603,14 @@ output = {
 @end html
 ''',
 
-		PRINTFILENAME: '''@file{%(filename)s}
+		PRINTFILENAME: '''
+@html
+<a href="%(filename)s">
+@end html
+@file{%(filename)s}
+@html
+</a>
+@end html
 	''',
 
 		QUOTE: r'''@quotation

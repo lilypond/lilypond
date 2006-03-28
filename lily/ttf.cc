@@ -15,6 +15,22 @@
 #include "warn.hh"
 #include "lily-guile.hh"
 #include "main.hh"
+#include "open-type-font.hh"
+
+
+Index_to_charcode_map
+make_index_to_charcode_map (FT_Face face)
+{
+  Index_to_charcode_map m;
+  FT_ULong charcode;
+  FT_UInt gindex;
+  
+  FT_Select_Charmap(face, FT_ENCODING_UNICODE);
+  for (charcode = FT_Get_First_Char (face, &gindex); gindex != 0;
+       charcode = FT_Get_Next_Char (face, charcode, &gindex))
+    m[gindex] = charcode;
+  return m;
+}
 
 /*
   Based on ttfps by Juliusz Chroboczek
@@ -132,20 +148,31 @@ print_trailer (void *out,
 
   lily_cookie_fprintf (out, "/CharStrings %d dict dup begin\n", mp->numGlyphs);
 
+  Index_to_charcode_map ic_map (make_index_to_charcode_map (face));
 
-  if (face->face_flags & FT_FACE_FLAG_GLYPH_NAMES)
-    for (int i = 0; i < mp->numGlyphs; i++)
-      {
-	FT_Error error = FT_Get_Glyph_Name (face, i, glyph_name,
-					    GLYPH_NAME_LEN);
-	if (error)
-	  programming_error ("print_trailer(): FT_Get_Glyph_Name() returned error");
-	else
-	  lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
+  for (int i = 0; i < mp->numGlyphs; i++)
+    {
+      glyph_name[0] = 0;
+      if (face->face_flags & FT_FACE_FLAG_GLYPH_NAMES)
+	{
+	  FT_Error error = FT_Get_Glyph_Name (face, i, glyph_name,
+					      GLYPH_NAME_LEN);
+	  if (error)
+	    programming_error ("print_trailer(): FT_Get_Glyph_Name() returned error");
+	  else
+	    glyph_name[0] = 0;
+	}
 
-	if (! (i % 5))
-	  lily_cookie_fprintf (out, "\n");
-      }
+      if (!glyph_name[0])
+	{
+	  sprintf (glyph_name, "uni%04lX", ic_map[i]);
+	}
+      
+      lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
+
+      if (! (i % 5))
+	lily_cookie_fprintf (out, "\n");
+    }
 
   lily_cookie_fprintf (out, "end readonly def\n");
   lily_cookie_fprintf (out, "FontName currentdict end definefont pop\n");
