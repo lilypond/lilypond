@@ -4,6 +4,9 @@
 
 2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* mf/feta-bolletjes.mf: match width of solfa notes with normal
+	note heads.
+
 	* lily/ttf.cc (print_trailer): use it.
 
 	* lily/pango-font.cc (get_unicode_name): new function.

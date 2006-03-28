@@ -26,8 +26,14 @@ picture remember_pic;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 save black_notehead_width, noteheight;
-save slash_thick, slash_slope, overdone_heads, solfa_noteheight;
-numeric black_notehead_width, noteheight, slash_thick;
+save half_notehead_width, whole_notehead_width, slash_thick;
+save slash_slope, overdone_heads, solfa_noteheight;
+
+numeric noteheight;
+numeric slash_thick;
+numeric black_notehead_width;
+numeric whole_notehead_width;
+numeric half_notehead_width;
 
 
 fet_begingroup ("noteheads");
@@ -191,6 +197,8 @@ fet_beginchar ("Whole notehead", "s0");
 	undraw_inside_ellipse (1.30, 125 - puff_up_factor * 10,
 			       0.68, 2 stafflinethickness#);
 
+	whole_notehead_width# := charwd;
+
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
@@ -212,6 +220,8 @@ fi;
 fet_beginchar ("Half notehead", "s1");
 	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
 	undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
+
+	half_notehead_width# := charwd;
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
@@ -888,14 +898,16 @@ fi;
 %
 
 save solfa_pen_thick;
-solfa_pen_thick# = 2 stafflinethickness#;
+solfa_pen_thick# = 1.75 stafflinethickness#;
 define_blacker_pixels (solfa_pen_thick);
 
 
-solfa_whole_width := 1.8;
-solfa_half_width := 1.35;
-solfa_quarter_width := 1.35;
+save solfa_base_notewidth;
+solfa_base_notewidth# := black_notehead_width#;
 
+solfa_whole_width := whole_notehead_width# / black_notehead_width#;
+solfa_half_width := half_notehead_width# / black_notehead_width#;
+solfa_quarter_width := 1.0;
 
 def draw_do_head (expr width_factor, dir) =
 	save p_in, p_out;
@@ -903,7 +915,7 @@ def draw_do_head (expr width_factor, dir) =
 	path p_in, p_out;
 	pair left_dist, right_dist;
 
-	set_char_box (0, width_factor * solfa_noteheight#,
+	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
 	pickup pencircle scaled solfa_pen_thick;
