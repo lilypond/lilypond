@@ -92,7 +92,7 @@ void
 get_unicode_name (char*s, FT_ULong code)
 {
   if (code > 0xFFFF)
-    sprintf (s,  "u%06lX", code);
+    sprintf (s,  "u%lX", code);
   else
     sprintf (s,  "uni%04lX", code);
 }
