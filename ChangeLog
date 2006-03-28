@@ -1,3 +1,7 @@
+2006-03-28  Graham Percival  <gpermus@gmail.com>
+
+	* THANKS: update for 2.9, add section for Documentation helpers.
+
 2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/ttf.cc (print_trailer): use it.
