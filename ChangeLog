@@ -1,3 +1,7 @@
+2006-03-28  Werner Lemberg  <wl@gnu.org>
+
+	* lily/pango-font.cc (get_unicode_name): Fix `uXXXXX' glyph names.
+
 2006-03-28  Graham Percival  <gpermus@gmail.com>
 
 	* THANKS: update for 2.9, add section for Documentation helpers.
