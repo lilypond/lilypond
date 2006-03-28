@@ -1,5 +1,12 @@
 2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/ttf.cc (make_index_to_charcode_map): move function from
+	open-type-font.cc
+	(print_trailer): substitute uniXXXX name if applicable. 
+
+	* lily/pango-font.cc (get_index_to_charcode_map): new function.
+	(pango_item_string_stencil): use it to generate uniXXXX names.
+
 	* mf/feta-bolletjes.mf (overdone_heads): add small style (ugly)
 	note heads, for uniform widths in shape note output.
 	(overdone_heads): hmm. remove them again.
