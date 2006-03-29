@@ -4,7 +4,7 @@
 first system can be forced to be uniform."
 
 }
-\version "2.8.0"
+\version "2.7.39"
 
 #(set-default-paper-size "a6")
 

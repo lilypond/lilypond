@@ -8,7 +8,7 @@ names in padded boxes with @code{\markup}."
 
 }
 
-\version "2.8.0"
+\version "2.7.39"
 
 \paper {
   line-width = 15\cm

@@ -1,4 +1,4 @@
-\version "2.8.0"
+\version "2.7.39"
 \header{
   texidoc="
 Staff margins are also markings attached to barlines.  They should be

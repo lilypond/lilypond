@@ -1,4 +1,4 @@
-\version "2.8.0"
+\version "2.7.39"
 % TODO: move stuff from ancient-font into here?  See comment
 % for ancient-font.ly
 \header {

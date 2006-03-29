@@ -178,8 +178,15 @@ Tuplet_bracket::calc_control_points (SCM smob)
 
   extract_grob_set (me, "note-columns", columns);
 
+  SCM scm_positions = me->get_property ("positions");
+  if (!me->is_live ())
+    return SCM_EOL;
+  
+  if (!scm_is_pair (scm_positions))
+    programming_error ("Positions should be number pair");
+    
   Drul_array<Real> positions
-    = ly_scm2realdrul (me->get_property ("positions"));
+    = robust_scm2drul (scm_positions, Drul_array<Real> (0,0));
 
   Grob *commonx = get_common_x (me);
   Direction dir = get_grob_direction (me);
@@ -626,7 +633,6 @@ Tuplet_bracket::calc_positions (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
   extract_grob_set (me, "note-columns", columns);
-
 
   /*
     Don't print if it doesn't span time.

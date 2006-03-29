@@ -1,5 +1,5 @@
 
-\version "2.8.0"
+\version "2.7.39"
 \header{
   texidoc="Slurs should not get confused by augmentation dots.  With a lot
 of dots, the problems becomes more visible."

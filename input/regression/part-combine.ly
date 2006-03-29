@@ -11,7 +11,7 @@
 
 \layout { ragged-right = ##t }
 
-\version "2.8.0"
+\version "2.7.39"
 
 vone =  \relative a' {
   g2 g    g  g4 g f' c c( c) c c  c ~ c

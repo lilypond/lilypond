@@ -70,7 +70,7 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @itemize
 
-@item @uref{http://fontforge.sf.net/,FontForge} 20050624 or newer.
+@item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
 
 @item New Century Schoolbook fonts, as PFB files. These are shipped
 with X11 and Ghostscript, and are named @file{c059033l.pfb}
@@ -83,17 +83,16 @@ You will need to install some additional packages to get mftrace to
 work.
 
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
-(version 1.6.5 or newer).  If you are installing binary packages, you
+(version 1.6.7 or newer).  If you are installing binary packages, you
 may need to install guile-devel or guile-dev or libguile-dev too.
 
 @item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.8 or newer).
 
 @item
- @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 3.3 or
-newer).  EGCS and 2.x are known to cause crashes.
+ @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
+newer). 
 
-@item @uref{http://www.python.org,Python} (version 2.1 or newer except
-for Cygwin/Mingw where version 2.3 or newer is needed).
+@item @uref{http://www.python.org,Python} (version 2.3 or newer)
 
 @item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 

@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.8.0"
+\version "2.7.39"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 

@@ -8,7 +8,7 @@ include $(depth)/make/stepmake.make
 AF_FILES = $(call src-wildcard,*.af)
 
 # hangs on feta23
-MFTRACE_FLAGS=  # --simplify
+MFTRACE_FLAGS=  --simplify
 
 EXTRA_DIST_FILES += README feta.tex
 
@@ -124,10 +124,6 @@ INSTALLATION_OUT_FILES4=$(SVG_FILES)
 
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
 INSTALLATION_OUT_FILES5=$(PFA_FILES)
-
-INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/ps/
-INSTALLATION_OUT_FILES6=$(ENC_FILES)
-
 
 export MFINPUTS:=.:$(MFINPUTS)
 
