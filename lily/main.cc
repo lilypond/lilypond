@@ -211,6 +211,7 @@ dir_info (FILE *out)
       env_var_info (out, "GS_LIB");
       env_var_info (out, "GUILE_LOAD_PATH");
       env_var_info (out, "PANGO_RC_FILE");
+      env_var_info (out, "PANGO_PREFIX");
       env_var_info (out, "PATH");
     }
 }
