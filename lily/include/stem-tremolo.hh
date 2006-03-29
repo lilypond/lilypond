@@ -17,11 +17,13 @@ class Stem_tremolo
 public:
 
   static bool has_interface (Grob *);
-  DECLARE_SCHEME_CALLBACK (dim_callback, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_slope, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_width, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
-  static Stencil raw_stencil (Grob *, Real);
+  DECLARE_SCHEME_CALLBACK (calc_style, (SCM));
+  static Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
+  static Stencil raw_stencil (Grob *, Real, Direction stemdir);
   static Real get_beam_translation (Grob *me);
 };
 
