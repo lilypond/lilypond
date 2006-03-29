@@ -27,7 +27,11 @@ class Pango_font : public Font_metric
   Real scale_;
   Real output_scale_;
   SCM physical_font_tab_;
-  Direction text_direction_; 
+  Direction text_direction_;
+
+  map<string, Index_to_charcode_map > charcode_maps_;
+
+  Index_to_charcode_map const *get_index_to_charcode_map (string postscript_name, FT_Face face);
 public:
   SCM physical_font_tab () const;
   Pango_font (PangoFT2FontMap *,

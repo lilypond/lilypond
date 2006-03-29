@@ -13,7 +13,7 @@ By setting @code{annotatespacing}, we can see the effect of each property.
 
 }
 
-\version "2.8.0"
+\version "2.7.39"
 
 #(set-global-staff-size 11)
 

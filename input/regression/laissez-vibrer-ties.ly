@@ -10,7 +10,7 @@ They have fixed size. Their formatting can be tuned with
 "
   }
 
-\version "2.8.0"
+\version "2.7.39"
 \paper {
   ragged-right = ##t
 }

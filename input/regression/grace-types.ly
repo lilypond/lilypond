@@ -1,4 +1,4 @@
-\version "2.8.0"
+\version "2.7.39"
 \header {
     texidoc = "There are three different kinds of grace types: the base 
 grace switches to smaller type, the appoggiatura inserts also a slur, and the

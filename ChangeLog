@@ -1,3 +1,116 @@
+2006-03-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* backports:
+
+	* input/regression/stem-tremolo-position.ly: new file.
+
+	* lily/stem-tremolo.cc: remove Stem_tremolo::dim_callback
+
+2006-03-28  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/stem-tremolo.cc (print): position
+	the tremolo depending only on the end of the stem
+	and not on the notehead
+	(raw_stencil): center, on the middle staff line, the
+	flag that is closest to the end of the stem (previously
+	the bottom flag)
+	(calc_width): add this callback to shorten a tremolo when
+	it is beamed or it is stemup with a flag
+	(style): add this callback to make a tremolo rectangular when
+	it is beamed or it is stemup with a flag
+	(rotated_box): this is like Lookup::beam but makes a rotated
+	rectangle instead of a parallelogram
+
+	* lily/stem.cc (calc_stem_info): make sure the stem
+	is long enough to fit the tremolo
+	(calc-length): reduce the length of tremolo stems since the
+	tremolo code is now capable of better positioning
+
+	* scm/define-grobs.scm: make calc_width the default beam-width
+	callback for stem-tremolo and add the style callback
+		
+2006-03-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/tuplet-bracket.cc (calc_control_points): handle suicide
+	case. 
+
+2006-03-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/ttf.cc (make_index_to_charcode_map): restore old
+	cmap. 
+
+2006-03-28  Werner Lemberg  <wl@gnu.org>
+
+	* lily/pango-font.cc (get_unicode_name): Fix `uXXXXX' glyph names.
+
+2006-03-28  Graham Percival  <gpermus@gmail.com>
+
+	* THANKS: update for 2.9, add section for Documentation helpers.
+
+	* Documentation/topdocs/NEWS.tely: compile fix.
+
+	* Documentation/user/ basic-notation, global, advanced-notation,
+	examples.itely: minor fixes from mailist.
+
+2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* mf/feta-bolletjes.mf: match width of solfa notes with normal
+	note heads. 
+
+	* lily/ttf.cc (print_trailer): use it.
+
+	* lily/pango-font.cc (get_unicode_name): new function.
+
+	* lily/ttf.cc (make_index_to_charcode_map): move function from
+	open-type-font.cc
+	(print_trailer): substitute uniXXXX name if applicable. 
+
+	* lily/pango-font.cc (get_index_to_charcode_map): new function.
+	(pango_item_string_stencil): use it to generate uniXXXX names.
+  
+	* mf/feta-bolletjes.mf (overdone_heads): add small style (ugly)
+	note heads, for uniform widths in shape note output.
+	(overdone_heads): hmm. remove them again.
+  
+	* scripts/lilypond-book.py (output): add links to filenames.
+
+	* Documentation/topdocs/INSTALL.texi (Top): update versions.
+
+	* lily/note-collision.cc (get_clash_groups): only consider when
+	Note_column::dir <> CENTER. 
+
+	* scripts/lilypond-book.py (get_option_parser): init output_name
+	to ''. 
+
+2006-03-24  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/topdocs/NEWS.tely: add @end itemize
+
+	* Documentation/user/ global, advanced-notation: minor
+	stuff from mailist.
+
+2006-03-23  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ lilypond.tely, music-glossary,
+	preface: housekeeping; 2005->2006, remove "notes for 2.6"
+
+2006-03-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* mf/GNUmakefile: don't install .enc files.
+
+	* Documentation/topdocs/NEWS.tely: clear for 2.9 cycle.
+
+	* VERSION (PATCH_LEVEL): bump to 2.9.0
+
+2006-03-22  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/advanced-notation.itely: minor fixes
+	from mailist.
+
+2006-03-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/topdocs/AUTHORS.texi (Top): add Joe Neeman.
+	
 2006-03-28  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/advanced-notation.itely: backport fixes
@@ -3329,17 +3442,17 @@
 
 	* scm/lily.scm: Remove horrendous running-from-gui? kludge.
 	(lilypond-main): Redirect to gui-main if 'gui is set.
-	Backportme.
+	
 
 	* scripts/midi2ly.py (datadir): Add libdir iso datadir to path,
 	for alternative installations kludging s/share/lib/g
-	LILYPONDPREFIX. Backportme.
+	LILYPONDPREFIX. 
 
 	* SConstruct (libdir_package_version): Define.
 
 	* python/SConscript: 
 	* python/GNUmakefile (INSTALLATION_OUT_DIR): Install binary .so
-	module in libdir.  Backportme.
+	module in libdir.  
 
 2005-10-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 

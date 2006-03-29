@@ -4,7 +4,7 @@ independent on prefatory matter in other staves."
 	}
 
 
-\version "2.8.0"
+\version "2.7.39"
 \layout { ragged-right = ##t }
 
 

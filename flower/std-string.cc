@@ -101,6 +101,7 @@ string_compare (string const &a, string const &b)
 }
 
 #include "std-vector.hh"
+
 vector<string>
 string_split (string str, char c)
 {

@@ -1,4 +1,4 @@
-\version "2.8.0"
+\version "2.7.39"
 
 \header { 
 texidoc = "Applying the standard function @code{unfold-repeats} unfolds 

@@ -1,7 +1,7 @@
 \header { texidoc = "A heavy-bar system start delimiter may be created by tuning the @code{SystemStartBar} grob."
 	} 
 
-\version "2.8.0"
+\version "2.7.39"
 
 \paper {
   ragged-right = ##t

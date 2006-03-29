@@ -1,4 +1,4 @@
-\version "2.8.0"
+\version "2.7.39"
 
 \header{ texidoc = "@cindex Tabulature
 A sample tablature, with both normal staff and tab.

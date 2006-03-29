@@ -11,7 +11,7 @@ You can leave a Tie alone by introducing a non-pair value
 
 }
 
-\version "2.8.0"
+\version "2.7.39"
 
 \layout {
   ragged-right = ##t
