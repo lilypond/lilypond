@@ -1,3 +1,7 @@
+2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/ttf.cc (print_trailer): oops. Backport brown paper bag bugfix.
+
 2006-03-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* backports:
