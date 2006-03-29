@@ -1,3 +1,13 @@
+2006-03-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/tuplet-bracket.cc (calc_control_points): handle suicide
+	case. Backportme.
+
+2006-03-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/ttf.cc (make_index_to_charcode_map): restore old
+	cmap. Backportme.
+
 2006-03-28  Werner Lemberg  <wl@gnu.org>
 
 	* lily/pango-font.cc (get_unicode_name): Fix `uXXXXX' glyph names.
@@ -14,7 +24,7 @@
 2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* mf/feta-bolletjes.mf: match width of solfa notes with normal
-	note heads.
+	note heads. Backportme.
 
 	* lily/ttf.cc (print_trailer): use it.
 
