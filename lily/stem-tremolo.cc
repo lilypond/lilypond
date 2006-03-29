@@ -18,21 +18,6 @@
 #include "stem.hh"
 #include "warn.hh"
 
-/* TODO: lengthen stem if necessary  */
-
-MAKE_SCHEME_CALLBACK (Stem_tremolo, dim_callback, 1);
-
-/* todo: init with cons.  */
-SCM
-Stem_tremolo::dim_callback (SCM e)
-{
-  Grob *se = unsmob_grob (e);
-
-  Real space = Staff_symbol_referencer::staff_space (se);
-  return ly_interval2scm (Interval (-space, space));
-}
-
-
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_slope, 1)
 SCM
 Stem_tremolo::calc_slope (SCM smob)
@@ -58,7 +43,38 @@ Stem_tremolo::calc_slope (SCM smob)
       return scm_from_double (dx ? dy / dx : 0);
     }
   else
-    return scm_from_double (0.25);
+    /* down stems with flags should have more sloped trems (helps avoid
+       flag/stem collisions without making the stem very long) */
+    return scm_from_double (
+        (Stem::duration_log (stem) >= 3 && get_grob_direction (stem) == DOWN) ?
+          0.40 : 0.25);
+}
+
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_width, 1)
+SCM
+Stem_tremolo::calc_width (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Direction stemdir = get_grob_direction (stem);
+  bool beam = Stem::get_beam (stem);
+  bool flag = Stem::duration_log (stem) >= 3 && !beam;
+
+  /* beamed stems and up-stems with flags have shorter tremolos */
+  return scm_from_double (((stemdir == UP && flag) || beam)? 1.0 : 1.5);
+}
+
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_style, 1)
+SCM
+Stem_tremolo::calc_style (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Direction stemdir = get_grob_direction (stem);
+  bool beam = Stem::get_beam (stem);
+  bool flag = Stem::duration_log (stem) >= 3 && !beam;
+
+  return ly_symbol2scm (((stemdir == UP && flag) || beam) ? "rectangle" : "default");
 }
 
 Real
@@ -70,19 +86,42 @@ Stem_tremolo::get_beam_translation (Grob *me)
   return  beam ? Beam::get_beam_translation (beam) : 0.81;
 }
 
+/* FIXME: move to Lookup? */
 Stencil
-Stem_tremolo::raw_stencil (Grob *me, Real slope)
+Stem_tremolo::rotated_box (Real slope, Real width, Real thick, Real blot)
+{
+  vector<Offset> pts;
+  Offset rot (1, slope);
+
+  thick -= 2*blot;
+  width -= 2*blot;
+  rot /= sqrt (1 + slope*slope);
+  pts.push_back (Offset (0, -thick / 2) * rot);
+  pts.push_back (Offset (width, -thick / 2) * rot);
+  pts.push_back (Offset (width, thick / 2) * rot);
+  pts.push_back (Offset (0, thick / 2) * rot);
+  return Lookup::round_filled_polygon (pts, blot);
+}
+
+Stencil
+Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction stemdir)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thick = robust_scm2double (me->get_property ("beam-thickness"), 1);
   Real width = robust_scm2double (me->get_property ("beam-width"), 1);
   Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+  SCM style = me->get_property ("style");
+  if (!scm_is_symbol (style))
+    style = ly_symbol2scm ("default");
 
   width *= ss;
   thick *= ss;
 
-  Stencil a (Lookup::beam (slope, width, thick, blot));
-  a.translate (Offset (-width * 0.5, width * 0.5 * slope));
+  Stencil a = style == ly_symbol2scm ("rectangle") ?
+    rotated_box (slope, width, thick, blot) :
+    Lookup::beam (slope, width, thick, blot);
+  a.align_to (X_AXIS, CENTER);
+  a.align_to (Y_AXIS, CENTER);
 
   int tremolo_flags = robust_scm2int (me->get_property ("flag-count"), 0);
   if (!tremolo_flags)
@@ -93,14 +132,13 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope)
       return Stencil ();
     }
 
-  /* Who the fuck is 0.81 ? --hwn.   */
   Real beam_translation = get_beam_translation(me);
 
   Stencil mol;
   for (int i = 0; i < tremolo_flags; i++)
     {
       Stencil b (a);
-      b.translate_axis (beam_translation * i, Y_AXIS);
+      b.translate_axis (beam_translation * i * stemdir * -1, Y_AXIS);
       mol.add_stencil (b);
     }
   return mol;
@@ -117,7 +155,7 @@ Stem_tremolo::height (SCM smob)
   /*
     Cannot use the real slope, since it looks at the Beam.
    */
-  Stencil s1 (raw_stencil (me, 0.35));
+  Stencil s1 (raw_stencil (me, 0.35, UP));
 
   return ly_interval2scm (s1.extent (Y_AXIS));
 }
@@ -146,7 +184,8 @@ Stem_tremolo::print (SCM grob)
     : 0.81;
 
   Stencil mol = raw_stencil (me, robust_scm2double (me->get_property ("slope"),
-						    0.25));
+						    0.25), stemdir);
+
   Interval mol_ext = mol.extent (Y_AXIS);
   Real ss = Staff_symbol_referencer::staff_space (me);
 
@@ -160,37 +199,26 @@ Stem_tremolo::print (SCM grob)
 
   Real end_y
     = Stem::stem_end_position (stem) * ss / 2
-    - stemdir * (beam_count * beamthickness
-		 + (max (beam_count -1, 0) * beam_translation));
+    - stemdir * max (beam_count, 1) * beam_translation;
 
-  /* FIXME: the 0.33 ss is to compensate for the size of the note head.  */
-  Real chord_start_y = Stem::chord_start_y (stem) + 0.33 * ss * stemdir;
-
-  Real padding = beam_translation;
-
-  /* if there is a flag, just above/below the notehead.
-     if there is not enough space, center on remaining space,
-     else one beamspace away from stem end.  */
   if (!beam && Stem::duration_log (stem) >= 3)
     {
-      mol.align_to (Y_AXIS, -stemdir);
-      mol.translate_axis (chord_start_y + 0.5 * stemdir, Y_AXIS);
+      end_y -= stemdir * (Stem::duration_log (stem) - 2) * beam_translation;
+      if (stemdir == UP)
+        end_y -= stemdir * beam_translation * 0.5;
     }
-  else if (stemdir * (end_y - chord_start_y) - 2 * padding - mol_ext.length ()
-	   < 0.0)
-    mol.translate_axis (0.5 * (end_y + chord_start_y) - mol_ext.center (),
-			Y_AXIS);
-  else
-    mol.translate_axis (end_y - stemdir * beam_translation -mol_ext [stemdir],
-			Y_AXIS);
+  mol.translate_axis (end_y, Y_AXIS);
 
   return mol.smobbed_copy ();
 }
 
 ADD_INTERFACE (Stem_tremolo, "stem-tremolo-interface",
 	       "A beam slashing a stem to indicate a tremolo.",
-	       "stem "
-	       "slope "
-	       "beam-width "
+
 	       "beam-thickness "
-	       "flag-count");
+	       "beam-width "
+	       "flag-count "
+	       "stem "
+               "style "
+	       "slope "
+	       );

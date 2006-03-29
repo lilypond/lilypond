@@ -335,17 +335,21 @@ Stem::calc_length (SCM smob)
 	+ 2 * t_flag->extent (t_flag, Y_AXIS).length ()
 	/ ss;
 
+      /* We don't want to add the whole extent of the flag because the trem
+         and the flag can overlap partly. beam_translation gives a good
+         approximation */
       if (durlog >= 3)
-	{
-	  Interval flag_ext = flag (me).extent (Y_AXIS);
-	  if (!flag_ext.is_empty ())
-	    minlen += 2 * flag_ext.length () / ss;
+        {
+          Real beam_trans = Stem_tremolo::get_beam_translation (t_flag);
+          /* the obvious choice is (durlog - 2) here, but we need a bit more space. */
+          minlen += 2 * (durlog - 1.5) * beam_trans;
 
-	  /* The clash is smaller for down stems (since the tremolo is
-	     angled up.) */
-	  if (dir == DOWN)
-	    minlen -= 1.0;
-	}
+          /* up-stems need even a little more space to avoid collisions. This
+             needs to be in sync with the tremolo positioning code in
+             Stem_tremolo::print */
+          if (dir == UP)
+            minlen += beam_trans;
+        }
       length = max (length, minlen + 1.0);
     }
   
@@ -798,7 +802,6 @@ Stem::get_stem_info (Grob *me)
   return si;
 }
 
-/* TODO: add extra space for tremolos!  */
 MAKE_SCHEME_CALLBACK(Stem, calc_stem_info, 1);
 SCM
 Stem::calc_stem_info (SCM smob)
@@ -847,6 +850,13 @@ Stem::calc_stem_info (SCM smob)
     * staff_space
     * length_fraction;
 
+  Real height_of_my_trem = 0.0;
+  Grob *trem = unsmob_grob (me->get_object ("tremolo-flag"));
+  if (trem)
+      height_of_my_trem = trem->extent (trem, Y_AXIS).length ()
+        /* hack a bit of space around the trem. */
+        + beam_translation;
+
   /* UGH
      It seems that also for ideal minimum length, we must use
      the maximum beam count (for this direction):
@@ -859,6 +869,7 @@ Stem::calc_stem_info (SCM smob)
 
   Real ideal_minimum_length = ideal_minimum_free
     + height_of_my_beams
+    + height_of_my_trem
     /* stem only extends to center of beam */
     - 0.5 * beam_thickness;
 
@@ -908,17 +919,10 @@ Stem::calc_stem_info (SCM smob)
     * staff_space
     * length_fraction;
 
-  Real minimum_length = minimum_free
+  Real minimum_length = max (minimum_free, height_of_my_trem)
     + height_of_my_beams
     /* stem only extends to center of beam */
     - 0.5 * beam_thickness;
-
-  if (Grob *tremolo = unsmob_grob (me->get_object ("tremolo-flag")))
-    {
-      Interval y_ext = tremolo->extent (tremolo, Y_AXIS);
-      y_ext.widen (0.5);	// FIXME. Should be tunable? 
-      minimum_length = max (minimum_length, y_ext.length ());
-    }
 
   ideal_y *= my_dir;
   Real minimum_y = note_start + minimum_length;
