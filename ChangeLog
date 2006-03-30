@@ -1,3 +1,9 @@
+2006-03-30  Joe Neeman  <joeneeman@gmail.com>
+	
+	* lily/chord-tremolo-engraver.cc (acknowledge_stem): set the
+	stem-tremolo object in the stem (or else the stem might not be
+	long enough).
+
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/ttf.cc (print_trailer): only print existing glyphs.
