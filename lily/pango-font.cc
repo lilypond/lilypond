@@ -140,7 +140,8 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
   SCM *tail = &glyph_exprs;
       
   Index_to_charcode_map const *cmap = 0;
-  if  (! (ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES))
+  bool has_glyph_names = ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES;
+  if  (! has_glyph_names)
     cmap = ((Pango_font*)this)->get_index_to_charcode_map (file_name, ftface);
   
   bool cid_keyed = false;
@@ -151,8 +152,14 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
       PangoGlyph pg = pgi->glyph;
       PangoGlyphGeometry ggeo = pgi->geometry;
 
-      FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
-
+      glyph_name[0] = '\0';
+      if (has_glyph_names)
+	{
+	  int errorcode = FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
+	  if (errorcode)
+	    programming_error ("FT_Get_Glyph_Name returns error");
+	}
+      
       SCM char_id = SCM_EOL;
       if (glyph_name[0] == '\0'
 	  && cmap
@@ -164,8 +171,13 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 	  FT_ULong char_code = cmap->find (pg)->second;
 	  get_unicode_name (glyph_name, char_code);
 	}
-      
-  
+
+      if (glyph_name[0] ==  '\0' && has_glyph_names)
+	{
+	  programming_error ("Glyph has no name, but font supports glyph naming");
+	  continue;
+	}
+	  
       if (glyph_name[0] == '\0')
 	{
 	  /*
