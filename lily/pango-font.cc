@@ -153,7 +153,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 
       FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
 
-      SCM char_id;
+      SCM char_id = SCM_EOL;
       if (glyph_name[0] == '\0'
 	  && cmap
 
