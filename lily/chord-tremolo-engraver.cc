@@ -176,6 +176,7 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
       stem_tremolo_->set_object ("stem",
 				 info.grob ()->self_scm ());
       stem_tremolo_->set_parent (info.grob (), X_AXIS);
+      info.grob ()->set_object ("tremolo-flag", stem_tremolo_->self_scm ());
     }
 }
 
