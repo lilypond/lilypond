@@ -1,5 +1,8 @@
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/pango-font.cc (pango_item_string_stencil): use
+	scm_from_uint32 ()
+
 	* mf/GNUmakefile ($(outdir)/emmentaler-%.otf
 	$(outdir)/emmentaler-%.svg): remove canary.
 
