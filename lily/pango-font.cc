@@ -172,7 +172,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 	    CID entry
 	  */
 	  cid_keyed = true;
-	  char_id = scm_from_int (pg);
+	  char_id = scm_from_uint32 (pg);
 	}
       else
 	char_id = scm_makfrom0str (glyph_name);
