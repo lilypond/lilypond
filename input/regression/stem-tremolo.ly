@@ -5,7 +5,13 @@
 Stem tremolos or rolls are tremolo signs that look like beam segments
 crossing stems.  If the stem is in a beam, the tremolo must be parallel
 to the beam.  If the stem is invisible (e.g. on a whole note), the
-tremolo must be centered on the note.
+tremolo must be centered on the note. If the note has a flag (eg. an
+unbeamed 8th note), the tremolo should be shortened if the stem is up
+and tilted extra if the stem is down.
+
+The tremolos should be positioned a fixed distance from the end of the
+stems unless there is no stem, in which case they should be positioned
+a fixed distance from the note head.
 "
 }
 
@@ -27,7 +33,7 @@ tremolo must be centered on the note.
   c,16:32 c: c c a16:32 a: a a
   c8:16 g: d: a:
   c8:32 f: b: e:
-  \transpose c c { f''8:256[ f'8: f'':] }
+  f8:256[ f,8: f':] f: \noBeam f,,: \noBeam c16:32 \noBeam c'':
 }
 
 

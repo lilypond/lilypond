@@ -1,3 +1,11 @@
+2006-03-30  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/stem-tremolo.cc (print): for whole notes (and breves, etc.)
+	position the tremolo based on the position of the notehead.
+
+	* input/regression/stem-tremolo.ly: add example of unbeamed eighth
+	notes and update the texidoc line with the new positioning rules.
+
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/ttf.cc (print_trailer): oops. Backport brown paper bag bugfix.

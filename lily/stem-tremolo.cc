@@ -175,6 +175,7 @@ Stem_tremolo::print (SCM grob)
 
   Spanner *beam = Stem::get_beam (stem);
   Direction stemdir = get_grob_direction (stem);
+  bool whole_note = Stem::duration_log (stem) <= 0;
   if (stemdir == 0)
     stemdir = UP;
 
@@ -183,8 +184,11 @@ Stem_tremolo::print (SCM grob)
     ? Beam::get_beam_translation (beam)
     : 0.81;
 
+  /* for a whole note, we position relative to the notehead, so we want the
+     stencil aligned on the flag closest to the head */
+  Direction stencil_dir = whole_note ? -stemdir : stemdir;
   Stencil mol = raw_stencil (me, robust_scm2double (me->get_property ("slope"),
-						    0.25), stemdir);
+						    0.25), stencil_dir);
 
   Interval mol_ext = mol.extent (Y_AXIS);
   Real ss = Staff_symbol_referencer::staff_space (me);
@@ -206,6 +210,14 @@ Stem_tremolo::print (SCM grob)
       end_y -= stemdir * (Stem::duration_log (stem) - 2) * beam_translation;
       if (stemdir == UP)
         end_y -= stemdir * beam_translation * 0.5;
+    }
+  if (whole_note)
+    {
+      /* we shouldn't position relative to the end of the stem since the stem
+         is invisible */
+      vector<int> nhp = Stem::note_head_positions (stem);
+      Real note_head = (stemdir == UP ? nhp.back () : nhp[0]);
+      end_y = note_head + stemdir * 2.0;
     }
   mol.translate_axis (end_y, Y_AXIS);
 
