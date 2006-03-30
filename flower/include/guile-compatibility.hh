@@ -42,6 +42,7 @@ inline SCM scm_cadar (SCM x) { return SCM_CADAR (x); }
 #define scm_from_int(x) SCM_MAKINUM (x)
 #define scm_from_unsigned_integer(x) scm_uint2num (x)
 #define scm_from_unsigned(x) scm_uint2num (x)
+#define scm_from_uint32(x) scm_uint2num (x)
 #define scm_is_integer(x) SCM_INUMP (x)
 #define scm_is_string(x) SCM_STRINGP (x)
 #define scm_hash_table_p scm_vector_p

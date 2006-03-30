@@ -1,5 +1,12 @@
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/pango-font.cc (pango_item_string_stencil): more robustness.
+
+	* VERSION (PATCH_LEVEL): bump version number.
+
+	* flower/include/guile-compatibility.hh (scm_from_uint32): add
+	scm_from_uint32 ()
+
 	* lily/pango-font.cc (pango_item_string_stencil): use
 	scm_from_uint32 ()
 
