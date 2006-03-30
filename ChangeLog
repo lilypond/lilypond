@@ -1,3 +1,7 @@
+2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/ttf.cc (print_trailer): only print existing glyphs.
+
 2006-03-30  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/stem-tremolo.cc (print): for whole notes (and breves, etc.)
