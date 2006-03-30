@@ -84,7 +84,7 @@ $(outdir)/aybabtu.fontname:
 $(outdir)/aybabtu.subfonts:
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
-$(outdir)/pe-script-canary: $(buildscript-dir)/gen-emmentaler-scripts.py
+$(PE_SCRIPTS) $(outdir)/pe-script-canary: $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
 $(outdir)/fonts.cache-1: $(PFA_FILES) $(OTF_FILES)
