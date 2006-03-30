@@ -1410,6 +1410,12 @@ LATEX_INSPECTION_DOCUMENT = r'''
 # Do we need anything else besides `textwidth'?
 def get_latex_textwidth (source):
 	m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
+	if m == None:
+		warning (_ ("Can't find \\begin{document} in LaTeX document"))
+		
+		## what's a sensible default?
+		return 550.0
+	
 	preamble = source[:m.start (0)]
 	latex_document = LATEX_INSPECTION_DOCUMENT % vars ()
 	
