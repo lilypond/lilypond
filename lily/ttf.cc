@@ -139,6 +139,7 @@ print_body (void *out, string name)
   fclose (fd);
 }
 
+
 static void
 print_trailer (void *out,
 	       FT_Face face)
@@ -153,6 +154,7 @@ print_trailer (void *out,
 
   Index_to_charcode_map ic_map (make_index_to_charcode_map (face));
 
+  int output_count = 0;
   for (int i = 0; i < mp->numGlyphs; i++)
     {
       glyph_name[0] = 0;
@@ -167,14 +169,19 @@ print_trailer (void *out,
 	    }
 	}
 
-      if (!glyph_name[0])
+      if (!glyph_name[0] && ic_map.find (i) != ic_map.end ())
 	{
-	  get_unicode_name (glyph_name, ic_map[i]);
+	  FT_ULong ucode = ic_map[i];
+	  get_unicode_name (glyph_name, ucode);
+	}
+
+      if (glyph_name[0])
+	{
+	  lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
+	  output_count ++;
 	}
       
-      lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
-
-      if (! (i % 5))
+      if (! (output_count % 5))
 	lily_cookie_fprintf (out, "\n");
     }
 
