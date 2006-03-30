@@ -533,7 +533,7 @@ example,
 
 @seealso
 
-Examples: @file{ly/@/font@/-family@/-override.ly}
+Examples: @inputfileref{input/@/regression,font@/-family@/-override.ly}.
 
 
 @node New dynamic marks

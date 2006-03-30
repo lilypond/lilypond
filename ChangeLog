@@ -1,3 +1,8 @@
+2006-03-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/advanced-notation.itely (Font selection):
+	Corrected reference to the font-family-override.ly example.
+
 2006-03-30  Joe Neeman  <joeneeman@gmail.com>
 	
 	* lily/chord-tremolo-engraver.cc (acknowledge_stem): set the
