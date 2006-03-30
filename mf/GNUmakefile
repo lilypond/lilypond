@@ -61,7 +61,7 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 #
 
 
-$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfa  $(outdir)/feta-alphabet%.pfa  $(outdir)/parmesan%.pfa
+$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/pe-script-canary $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfa  $(outdir)/feta-alphabet%.pfa  $(outdir)/parmesan%.pfa
 	cd $(outdir) && $(FONTFORGE) -script $(notdir $(basename ,$@).pe)
 
 $(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa)
@@ -84,7 +84,7 @@ $(outdir)/aybabtu.fontname:
 $(outdir)/aybabtu.subfonts:
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
-$(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
+$(outdir)/pe-script-canary: $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
 $(outdir)/fonts.cache-1: $(PFA_FILES) $(OTF_FILES)
