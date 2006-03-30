@@ -1,3 +1,11 @@
+2006-03-30  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/stem-tremolo.cc (print): for whole notes (and breves, etc.)
+	position the tremolo based on the position of the notehead.
+
+	* input/regression/stem-tremolo.ly: add example of unbeamed eighth
+	notes and update the texidoc line with the new positioning rules.
+	
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/ttf.cc (print_trailer): don't always use uXXX glyphname.
@@ -2618,7 +2626,7 @@
 	* scm/music-functions.scm: Make phrasing slurs follow voice direction
 
 	* scripts/lilypond-book.py: Introduce option
-        --preserve-line-breaks, for usage with srcltx
+	    --preserve-line-breaks, for usage with srcltx
 
 2005-12-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
@@ -5285,7 +5293,7 @@
 	* ly/init.ly:
 	* scm/lily-library.scm (print-score-with-defaults): renamed
 	$globalheader to $defaultheader
-        
+	    
 	* Documentation/user/global.itely (Creating titles): added short
 	explanation that multiple headers are useable.
 
@@ -6449,7 +6457,7 @@
 
 	* ly/property-init.ly: Added tieDashed.
 
-        * THANKS: Added some bughunters for 2.5.
+	* THANKS: Added some bughunters for 2.5.
 
 2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
@@ -7382,8 +7390,8 @@
 
 2005-05-11  Heikki Junes  <hjunes@cc.hut.fi>
 
-        * Documentation/topdocs/{AUTHORS.texi,INSTALL.texi,README.texi}:
-        Specify `@documentencoding utf-8' for html, ignore warnings.
+	* Documentation/topdocs/{AUTHORS.texi,INSTALL.texi,README.texi}:
+	Specify `@documentencoding utf-8' for html, ignore warnings.
 
 2005-05-11  Erik Sandberg  <ersa9195@student.uu.se>
 
