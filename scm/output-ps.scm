@@ -143,8 +143,14 @@
 		      cid?
 		      w-x-y-named-glyphs)
 
-  (format #f "gsave \n/~a ~a output-scale div selectfont\n~a grestore"
+  (format #f "gsave
+  /~a ~a ~a output-scale div scalefont setfont\n~a grestore"
 	  postscript-font-name
+
+	  ;; with normal findfont, GS throws /typecheck for glyphshow.
+	  (if cid?
+	      " /CIDFont findresource "
+	      " findfont")
 	  size
 	  (string-append
 	    (apply
