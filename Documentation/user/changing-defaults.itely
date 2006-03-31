@@ -1047,13 +1047,20 @@ This engraver creates the following layout objects: @internalsref{Fingering}.
 
 In other words, once the @code{FingerEvent}s are interpreted, the
 @code{Fingering_engraver} plug-in will process them.
+
+@ignore
+@c  I can't figure out what this is supposed to mean.  -gp
+
 The @code{Fingering_engraver} is also listed to create
 @internalsref{Fingering} objects,
 
-
-Lo and behold, that is also the
+@c  old info?  it doesn't make any sense to me with our current docs.
+This is also the
 second bit of information listed under @b{See also} in the Notation
-manual.  By clicking around in the program reference, we can follow the
+manual.
+@end ignore
+
+By clicking around in the program reference, we can follow the
 flow of information within the program, either forward (like we did
 here), or backwards, following links like this:
 
@@ -1283,7 +1290,7 @@ an @internalsref{event} from the input, for example
 @end itemize
 
 It notably does not work for stems and accidentals (these are caused
-by note heads, not by music events), clefs (these are not caused by
+by note heads, not by music events) or clefs (these are not caused by
 music inputs, but rather by the change of a property value).
  
 In a similar vein, objects may be parenthesized by prefixing
