@@ -1,3 +1,9 @@
+2006-03-30  Graham Percival  <gpermus@gmail.com>
+
+	* scm/lily-library.scm: make "no version" warning message more polite.
+
+	* lily/music.cc: add double quotes to failed octave check.
+
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/pango-font.cc (pango_item_string_stencil): more robustness.
