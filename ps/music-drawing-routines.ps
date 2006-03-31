@@ -241,10 +241,7 @@ grestore
 % JUNKME: Use color.  
 /draw_white_text  % text scale font
 {
-  %font
-  findfont
-  %scale
-  exch scalefont setfont
+  exch selectfont
   1 setgray
   0 0 moveto
   %-0.05 -0.05 moveto
@@ -276,5 +273,19 @@ grestore
 	stroke
 } bind def
 
+/print_letter {
+	currentpoint
+	3 2 roll
+	glyphshow
+	moveto
+} bind def
 
+/print_glyphs {
+	-1 1
+	{
+		3 mul -3 roll
+		print_letter
+		rmoveto
+	}for
+}bind def
 %end music-drawing-routines.ps
