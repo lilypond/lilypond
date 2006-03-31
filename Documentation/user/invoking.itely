@@ -329,6 +329,19 @@ invoking them directly, e.g.
 @var{path/to}/LilyPond.app/Contents/Resources/bin/convert-ly
 @end example 
 
+Alternatively, you may add this directory to your path.  Modify (or create)
+a file called @code{.profile} in your home directory such that it contains
+
+@example
+export PATH=$PATH:@var{path/to}/LilyPond.app/Contents/Resources/bin
+@end example
+
+@noindent
+This file should end with a blank line.
+
+Note that @var{path/to} will generally be @code{/Applications/}.
+
+
 @node Error messages
 @section Error messages
 
