@@ -4,6 +4,10 @@
 
 	* lily/music.cc: add double quotes to failed octave check.
 
+	* Documentation/user/ advanced-notation, changing-defaults,
+	instrument-notation, invoking, music-glossary: whole bunch of minor
+	fixes from mailist.
+
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/pango-font.cc (pango_item_string_stencil): more robustness.

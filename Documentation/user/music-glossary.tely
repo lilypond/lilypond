@@ -2367,7 +2367,7 @@ variants of the base chords.
 \context Voice \relative c'' {
   <g e c >1 < a f d > < b g e >
   <c a f > < d b g > < e c a > < f d b > }
-\context Lyrics \lyrics { T Sp Dp S D Tp "\ \ D{\\kern-5pt}$\\mid$" }
+\context Lyrics \lyrics { T Sp Dp S D Tp \markup{ D\translate #(cons -2 0) {"|"}  } }
 @end lilypond
 
 @node G
