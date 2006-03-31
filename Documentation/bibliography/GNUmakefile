@@ -3,8 +3,8 @@
 depth=../..
 
 OUT_BIB_FILES = $(addprefix $(outdir)/, $(BIB_FILES))
-BIB_FILES= $(wildcard *.bib)
-EXTRA_DIST_FILES= $(BIB_FILES) $(wildcard *.bst)
+EXTRA_DIST_FILES= $(BIB_FILES) $(call src-wildcard,*.bst) 
+BIB_FILES= $(call src-wildcard,*.bib)
 
 STEPMAKE_TEMPLATES=tex documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
