@@ -1,5 +1,7 @@
 2006-03-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/output-ps.scm (glyph-string): revert cid selectfont.
+
 	* scm/framework-ps.scm:
 	Patch by David Feuer.
 	
