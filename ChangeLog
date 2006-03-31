@@ -5,6 +5,12 @@
 
 2006-03-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/bibliography/GNUmakefile ($(outdir)/%.html): set
+	BSTINPUTS
+	($(outdir)/%.html): backport of fix.
+
+	* VERSION: release 2.8.1
+
 	* lily/pango-font.cc (pango_item_string_stencil): update from 2.9.x
 
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>

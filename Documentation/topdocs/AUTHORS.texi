@@ -40,7 +40,6 @@ Core code:
 @item @email{wl@@gnu.org, Werner Lemberg},
     @TeX{} glue code.
 @item @email{joe@@neeman.com, Joe Neeman}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
     Constrained line breaking.
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
