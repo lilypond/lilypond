@@ -7,17 +7,16 @@
 
 	* scm/output-ps.scm (glyph-string): revert cid selectfont.
 
+2006-03-31  David Feuer  <david.feuer@gmail.com>
+	
 	* scm/framework-ps.scm:
-	Patch by David Feuer.
 	
 	* scm/output-ps.scm: glyph-string now produces smaller, more
 	readable, and probably faster PostScript.  Several findfont
 	scalefont setfont instances changed to selectfont
 	Hacked-up string-appends changed to formats.
-	Patch by David Feuer.
 
 	* ps/music-drawing-routines.ps: add print_letter, print_glyphs.
-	Patch by David Feuer.
 	
 2006-03-30  Graham Percival  <gpermus@gmail.com>
 
