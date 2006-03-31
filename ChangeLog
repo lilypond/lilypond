@@ -1,5 +1,10 @@
 2006-03-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/bibliography/GNUmakefile ($(outdir)/%.html): set
+	BSTINPUTS. 
+
+	* Documentation/topdocs/AUTHORS.texi (Top): add David Feuer.
+
 	* scm/output-ps.scm (glyph-string): revert cid selectfont.
 
 	* scm/framework-ps.scm:

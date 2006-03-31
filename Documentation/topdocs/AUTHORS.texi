@@ -27,6 +27,8 @@ Core code:
    Color support, tablature improvements, trivial \mark stuff
 @item @email{benkop@@freestart.hu,Pal Benko},
     Ancient notation.
+@item @email{david.feuer@@gmail.com, David Feuer},
+    PS output code refactoring.
 @item @email{bernard@@fong-hurley.org.uk, Bernard Hurley},
     X11 color.
 @item @email{jiba@@tuxfamily.org, Jean-Baptiste Lamy},
@@ -40,7 +42,6 @@ Core code:
 @item @email{wl@@gnu.org, Werner Lemberg},
     @TeX{} glue code.
 @item @email{joe@@neeman.com, Joe Neeman}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
     Constrained line breaking.
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},

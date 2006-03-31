@@ -163,7 +163,7 @@
 			(g (cadddr item))
 			(prefix (if  (string? g) "/" "")))
 
-		       (format #f "~f ~f ~a~a\n" (round2 (+ w x))
+		       (format #f "  ~f ~f ~a~a\n" (round2 (+ w x))
 			       (round2 y) prefix g)
 		       ))
 		   w-x-y-named-glyphs))
