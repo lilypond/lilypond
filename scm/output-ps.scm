@@ -54,18 +54,35 @@
 (define (ps-encoding text)
   (escape-parentheses text))
 
+(define (round2 num)
+  (/ (round (* 100 num)) 100))
+
+(define (round4 num)
+  (/ (round (* 10000 num)) 10000))
+
+(define (str4 num)
+  (format #f "~f" (round4 num)))
+
+(define (number-pair->string4 numpair)
+  (format #f "~f ~f" (round4 (car numpair)) (round4 (cdr numpair))))
+
+(define (numbers->string4 numlist)
+  (string-join (map str4 numlist) " "))
+
 ;; FIXME: lily-def
 (define-public (ps-string-def prefix key val)
-  (string-append "/" prefix (symbol->string key) " ("
-		 (escape-parentheses val)
-		 ") def\n"))
-
+  (format #f "/ ~a~a (~a) def\n"
+	  prefix
+	  (symbol->string key)
+	  (escape-parentheses val)))
 
 (define (ps-number-def prefix key val)
   (let ((s (if (integer? val)
 	       (ly:number->string val)
 	       (ly:number->string (exact->inexact val)))))
-    (string-append "/" prefix (symbol->string key) " " s " def\n")))
+    (format #f "/~a~a ~a def\n"
+	    prefix
+	    (symbol->string key) s)))
 
 
 ;;;
@@ -74,89 +91,78 @@
 
 ;; two beziers
 (define (bezier-sandwich lst thick)
-  (string-append 
-   (string-join (map ly:number-pair->string lst) " ")
-   " "
-   (ly:number->string thick)
-   " draw_bezier_sandwich"))
+  (format #f "~a ~a draw_bezier_sandwich" 
+	  (string-join (map number-pair->string4 lst) " ")
+	  (str4 thick)))
 
 (define (char font i)
-  (string-append 
-   (ps-font-command font) " setfont " 
-   "(\\" (ly:inexact->string i 8) ") show"))
+  (format #f "~a (\\~a) show"
+   (ps-font-command font)
+   (ly:inexact->string i 8)))
 
 (define (circle radius thick fill)
-  (format
-   "~a ~a ~a draw_circle" radius thick
+  (format #f
+   "~f ~f ~a draw_circle" (round4 radius) (round4 thick)
    (if fill
        "true "
        "false ")))
 
 (define (dashed-line thick on off dx dy)
-  (string-append 
-   (ly:number->string dx) " "
-   (ly:number->string dy) " "
-   (ly:number->string thick)
-   " [ "
-   (ly:number->string on) " "
-   (ly:number->string off)
-   " ] 0 draw_dashed_line"))
+  (format #f "~a ~a ~a [ ~a ~a ] 0 draw_dashed_line"
+   (str4 dx)
+   (str4 dy)
+   (str4 thick)
+   (str4 on)
+   (str4 off)))
 
 ;; what the heck is this interface ?
 (define (dashed-slur thick on off l)
-  (string-append 
-   (string-join (map ly:number-pair->string l) " ")
-   " "
-   (ly:number->string thick) 
-   " [ "
-   (ly:number->string on)
-   " "   
-   (ly:number->string off)
-   " ] 0 draw_dashed_slur"))
+  (format #f "~a ~a [ ~a ~a ] 0 draw_dashed_slur"
+	  (string-join (map number-pair->string4 l) " ")
+	  (str4 thick)
+	  (str4 on)
+	  (str4 off)))
 
 (define (dot x y radius)
-  (string-append
-   " "
-   (ly:numbers->string
-    (list x y radius)) " draw_dot"))
+  (format #f " ~a draw_dot"
+   (numbers->string4 (list x y radius))))
 
 (define (draw-line thick x1 y1 x2 y2)
-  (string-append 
-   "1 setlinecap 1 setlinejoin "
-   (ly:number->string thick) " setlinewidth "
-   (ly:number->string x1) " "
-   (ly:number->string y1) " moveto "
-   (ly:number->string x2) " "
-   (ly:number->string y2) " lineto stroke"))
+  (format #f "1 setlinecap 1 setlinejoin ~a setlinewidth ~a ~a moveto ~a ~a lineto stroke"
+   (str4 thick)
+   (str4 x1)
+   (str4 y1)
+   (str4 x2)
+   (str4 y2)))
 
 (define (embedded-ps string)
   string)
 
-(define (glyph-string
-	 postscript-font-name
-	 size cid?
-	 w-x-y-named-glyphs)
+(define (glyph-string postscript-font-name
+		      size
+		      cid?
+		      w-x-y-named-glyphs)
 
-  (format #f "gsave 
-  /~a ~a ~a output-scale div scalefont setfont\n~a grestore"
+  (format #f "gsave \n/~a ~a output-scale div selectfont\n~a grestore"
 	  postscript-font-name
-	  (if cid?
-	      " /CIDFont findresource "
-	      " findfont")
 	  size
-	  (apply
-	   string-append
-	   (map (lambda  (item)
-		  (let*
-		      ((w (car item))
-		       (x (cadr item))
-		       (y (caddr item))
-		       (g (cadddr item))
-		       (prefix (if  (string? g) "/" "")))
+	  (string-append
+	    (apply
+	      string-append
+	      (map (lambda  (item)
+		     (let*
+		       ((w (car item))
+			(x (cadr item))
+			(y (caddr item))
+			(g (cadddr item))
+			(prefix (if  (string? g) "/" "")))
 
-		    (format #f " gsave ~a~a glyphshow grestore ~$ ~$ rmoveto \n" prefix g (+ w x) y)
-		    ))
-		w-x-y-named-glyphs))))
+		       (format #f "~f ~f ~a~a\n" (round2 (+ w x))
+			       (round2 y) prefix g)
+		       ))
+		   w-x-y-named-glyphs))
+	    (format #f "~a print_glyphs" (length w-x-y-named-glyphs)))
+	  ))
 
 (define (grob-cause offset grob)
   (let* ((cause (ly:grob-property grob 'cause))
@@ -174,7 +180,7 @@
 
 	  (if (and (< 0 (interval-length x-ext))
 		   (< 0 (interval-length y-ext)))
-	      (format "~$ ~$ ~$ ~$ (textedit://~a:~a:~a:~a) mark_URI\n"
+	      (format #f "~$ ~$ ~$ ~$ (textedit://~a:~a:~a:~a) mark_URI\n"
 		      (+ (car offset) (car x-ext))
 		      (+ (cdr offset) (car y-ext))
 		      (+ (car offset) (cdr x-ext))
@@ -194,57 +200,53 @@
 (define (lily-def key val)
   (let ((prefix "lilypondlayout"))
     (if (string=?
-	 (substring key 0 (min (string-length prefix) (string-length key)))
-	 prefix)
-	(string-append "/" key " {" val "} bind def\n")
-	(string-append "/" key " (" val ") def\n"))))
+	  (substring key 0 (min (string-length prefix) (string-length key)))
+	  prefix)
+      (string-append "/" key " {" val "} bind def\n")
+      (string-append "/" key " (" val ") def\n"))))
 
 (define (named-glyph font glyph)
-  (string-append 
-   (ps-font-command font) " setfont " 
-   "/" glyph " glyphshow "))
+  (format #f "~a /~a glyphshow " ;;Why is there a space at the end?
+	  (ps-font-command font)
+	  glyph))
 
 (define (no-origin)
   "")
 
 (define (placebox x y s) 
-  (format
-   "gsave ~a ~a translate
+  (format #f
+"gsave ~a ~a translate
 0 0 moveto
 ~a
 grestore\n"
 
-   (ly:number->string x)
-   (ly:number->string y)
+   (str4 x)
+   (str4 y)
    s))
 
 (define (polygon points blot-diameter filled?)
-  (string-append
-   (ly:numbers->string points) " "
-   (ly:number->string (/ (length points) 2)) " "
-   (ly:number->string blot-diameter)
-   (if filled? " true " " false ")
-   " draw_polygon"))
+  (format #f "~a ~a ~a ~a draw_polygon"
+	  (numbers->string4 points)
+	  (str4 (/ (length points) 2))
+	  (str4 blot-diameter)
+	  (if filled? "true" "false")))
 
 (define (repeat-slash wid slope thick)
-  (string-append
-   (ly:numbers->string (list wid slope thick))
-   " draw_repeat_slash"))
+  (format #f "~a draw_repeat_slash"
+   (numbers->string4 (list wid slope thick))))
 
 ;; restore color from stack
-(define (resetcolor)
-  (string-append "setrgbcolor\n"))
+(define (resetcolor) "setrgbcolor\n")
 
 (define (round-filled-box x y width height blotdiam)
-  (string-append
-   (ly:numbers->string
-    (list x y width height blotdiam)) " draw_round_box"))
+  (format #f "~a draw_round_box"
+	  (numbers->string4
+	    (list x y width height blotdiam))))
 
 ;; save current color on stack and set new color
 (define (setcolor r g b)
-  (string-append "currentrgbcolor "
-  (ly:numbers->string (list r g b))
-  " setrgbcolor\n"))
+  (format #f "currentrgbcolor ~a setrgbcolor\n"
+	  (numbers->string4 (list r g b))))
 
 (define (text font s)
   ;; (ly:warning (_ "TEXT backend-command encountered in Pango backend"))
@@ -256,7 +258,7 @@ grestore\n"
 	 (out-vec (decode-byte-string s)))
 
     (string-append
-     (ps-font-command font) " setfont "
+     (ps-font-command font) " "
      (string-join
       (vector->list
        (vector-for-each
@@ -271,7 +273,7 @@ grestore\n"
   "\n unknown\n")
 
 (define (url-link url x y)
-  (format "~$ ~$ ~$ ~$ (~a) mark_URI"
+  (format #f "~$ ~$ ~$ ~$ (~a) mark_URI"
 	  (car x)
 	  (car y)
 	  (cdr x)
@@ -282,14 +284,11 @@ grestore\n"
   (ly:warning (_ "utf-8-string encountered in PS backend")))
 
 
-
 (define (zigzag-line centre? zzw zzh thick dx dy)
-  (string-append
-   (if centre? "true" "false") " "
-   (ly:number->string zzw) " "
-   (ly:number->string zzh) " "
-   (ly:number->string thick) " "
-   "0 0 "
-   (ly:number->string dx) " "
-   (ly:number->string dy)
-   " draw_zigzag_line"))
+  (format #f "~a ~a ~a ~a 0 0 ~a ~a draw_zigzag_line"
+   (if centre? "true" "false")
+   (str4 zzw)
+   (str4 zzh)
+   (str4 thick)
+   (str4 dx)
+   (str4 dy)))

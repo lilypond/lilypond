@@ -1,3 +1,17 @@
+2006-03-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/framework-ps.scm:
+	Patch by David Feuer.
+	
+	* scm/output-ps.scm: glyph-string now produces smaller, more
+	readable, and probably faster PostScript.  Several findfont
+	scalefont setfont instances changed to selectfont
+	Hacked-up string-appends changed to formats.
+	Patch by David Feuer.
+
+	* ps/music-drawing-routines.ps: add print_letter, print_glyphs.
+	Patch by David Feuer.
+	
 2006-03-30  Graham Percival  <gpermus@gmail.com>
 
 	* scm/lily-library.scm: make "no version" warning message more polite.
@@ -7,6 +21,13 @@
 	* Documentation/user/ advanced-notation, changing-defaults,
 	instrument-notation, invoking, music-glossary: whole bunch of minor
 	fixes from mailist.
+
+2006-03-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/bibliography/GNUmakefile ($(outdir)/%.html): use
+	$(buildscriptdir) iso. depth.
+
+	* VERSION (PACKAGE_NAME): release 2.9.1
 
 2006-03-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
