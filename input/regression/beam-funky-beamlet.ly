@@ -11,9 +11,21 @@ should be pointing to the note head.
 \layout { ragged-right = ##t}
 
 \relative c' {
-  c16 c''8 c,,16
-  c16 c''8 c16
-  c16 c,,8 c16          
+  \once \override Stem #'direction = #UP
+  c16
+  \once \override Stem #'direction = #DOWN
+
+  c''8 c,,16
+  \once \override Stem #'direction = #UP
+  c16
+  \once \override Stem #'direction = #DOWN
+
+  c''8 c16
+  \once \override Stem #'direction = #DOWN
   
+  c16 c,,8
+  \once \override Stem #'direction = #UP
+
+  c16          
 }
 	  

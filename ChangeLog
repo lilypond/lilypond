@@ -1,3 +1,7 @@
+2006-04-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/music-functions.scm (quote-substitute): set iterators-ctor
+
 2006-03-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/bibliography/GNUmakefile ($(outdir)/%.html): set

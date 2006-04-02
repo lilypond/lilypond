@@ -98,6 +98,7 @@ partCombineListener = \layout {
     }
     \context {
 	\Score
+	ignoreQuotes = ##t 
 	skipTypesetting = ##t
 	ignoreBarChecks = ##t 
     }

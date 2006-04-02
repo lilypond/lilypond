@@ -28,7 +28,7 @@ public:
   SCM event_vector_;
   int event_idx_;
   int end_idx_;
-
+  
   SCM transposed_musics_;
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -107,7 +107,7 @@ void
 Quote_iterator::construct_children ()
 {
   Music_wrapper_iterator::construct_children ();
-
+      
   SCM name = get_music ()->get_property ("quoted-context-type");
   SCM id = get_music ()->get_property ("quoted-context-id");
 

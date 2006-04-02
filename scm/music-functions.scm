@@ -701,7 +701,7 @@ Syntax:
 	     (cue-voice (if (eq? 1 dir) 0 1))
 	     (main-music (ly:music-property quote-music 'element))
 	     (return-value quote-music))
-	
+
 	(if (or (eq? 1 dir) (eq? -1 dir))
 	    
 	    ;; if we have stem dirs, change both quoted and main music
@@ -732,11 +732,15 @@ Syntax:
 	 (quoted-vector (if (string? quoted-name)
 			    (hash-ref quote-tab quoted-name #f)
 			    #f)))
+
     
     (if (string? quoted-name)
-	(if  (vector? quoted-vector)
-	     (set! (ly:music-property music 'quoted-events) quoted-vector)
-	     (ly:warning (_ "can't find quoted music `~S'" quoted-name))))
+	(if (vector? quoted-vector)
+	    (begin
+	      (set! (ly:music-property music 'quoted-events) quoted-vector)
+	      (set! (ly:music-property music 'iterator-ctor)
+		    ly:quote-iterator::constructor))
+	    (ly:warning (_ "can't find quoted music `~S'" quoted-name))))
     music))
 
 
@@ -818,6 +822,7 @@ if appropriate.
    (lambda (x parser)
      (skip-to-last x parser)
    )))
+
 
 ;;;;;;;;;;;;;;;;;
 ;; lyrics

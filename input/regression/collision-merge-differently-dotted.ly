@@ -1,7 +1,8 @@
 \version "2.7.39"
 \header {
     
-    texidoc = "If NoteCollision has merge-differently-dotted = ##t note
+    texidoc = "If @code{NoteCollision} has
+ @code{merge-differently-dotted = ##t} note
 heads that have differing dot counts may be merged anyway.  Dots
 should not disappear when merging similar note heads."
     
