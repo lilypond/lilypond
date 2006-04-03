@@ -8,7 +8,7 @@
 
 }
 \paper {
-  linewidth = 15\cm
+  line-width = 15\cm
   bookTitleMarkup = \markup {
   \column {
    \fill-line {
