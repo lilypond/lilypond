@@ -652,6 +652,7 @@
 	(stencil . ,ly:hairpin::print)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(after-line-breaking . ,ly:hairpin::after-line-breaking)
+	(circled-tip . #f)
 	(thickness . 1.0)
 	(height . 0.6666)
 	(minimum-length . 2.0)
