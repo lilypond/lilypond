@@ -94,6 +94,21 @@ Hairpin::print (SCM smob)
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
   Drul_array<Real> x_points;
 
+  /*
+    Use the height and thickness of the hairpin when making a circled tip
+  */
+  bool circled_tip = ly_scm2bool (me->get_property ("circled-tip"));
+  Real height = robust_scm2double (me->get_property ("height"), 0.2) *
+		Staff_symbol_referencer::staff_space (me);
+  /*
+    FIXME: 0.65 is just a guess...
+  */
+  Real rad = height * 0.65;
+  Real thick = 1.0;
+  if (circled_tip)
+    thick = robust_scm2double (me->get_property ("thickness"), 1.0)
+	    * Staff_symbol_referencer::line_thickness (me);
+
   do
     {
       Item *b = bounds[d];
@@ -130,14 +145,24 @@ Hairpin::print (SCM smob)
 		    neighbor_found = true;
 		}
 
-	      /*
-		If we're hung on a paper column, that means we're not
-		adjacent to a text-dynamic, and we may move closer. We
-		make the padding a little smaller, here.
-	      */
 	      Interval e = robust_relative_extent (b, common, X_AXIS);
-	      x_points[d]
-		= neighbor_found ? e.center () - d * padding / 3 : e[d];
+	      if (neighbor_found)
+		{
+		  /*
+		    Handle back-to-back hairpins with a circle in the middle
+		  */
+		  if (circled_tip && (grow_dir != d))
+		    x_points[d] = e.center () + d * (rad - thick / 2.0);
+		  /*
+		    If we're hung on a paper column, that means we're not
+		    adjacent to a text-dynamic, and we may move closer. We
+		    make the padding a little smaller, here.
+		  */
+		  else
+		    x_points[d] = e.center () - d * padding / 3;
+		}
+	      else
+		x_points[d] = e[d];
 	    }
 	}
     }
@@ -152,8 +177,6 @@ Hairpin::print (SCM smob)
     }
 
   bool continued = broken[Direction (-grow_dir)];
-  Real height = robust_scm2double (me->get_property ("height"), 0.2) *
-    Staff_symbol_referencer::staff_space (me);
 
   Real starth, endh;
   if (grow_dir < 0)
@@ -172,10 +195,45 @@ Hairpin::print (SCM smob)
   */
 
   Stencil mol;
-  mol = Line_interface::line (me, Offset (0, starth), Offset (width, endh));
+  Real x = 0.0;
+
+  /*
+    Compensate for size of circle
+  */
+  Direction tip_dir = -grow_dir;
+  if (circled_tip && !broken[tip_dir])
+    {
+      if (grow_dir > 0)
+	x = rad * 2.0;
+      else if (grow_dir < 0)
+	width -= rad *2.0;
+    }
+  mol = Line_interface::line (me, Offset (x, starth), Offset (width, endh));
   mol.add_stencil (Line_interface::line (me,
-					 Offset (0, -starth),
+					 Offset (x, -starth),
 					 Offset (width, -endh)));
+
+  /*
+    Support al/del niente notation by putting a circle at the
+    tip of the (de)crescendo.
+  */
+  if (circled_tip)
+    {
+      Box extent (Interval (-rad, rad), Interval (-rad, rad));
+      
+      /* Hmmm, perhaps we should have a Lookup::circle () method? */
+      Stencil circle(extent,
+		     scm_list_4 (ly_symbol2scm ("circle"),
+				 scm_from_double (rad),
+				 scm_from_double (thick),
+				 SCM_BOOL_F));
+
+      /*
+	don't add another circle the hairpin is broken
+      */
+      if (!broken[tip_dir])
+	mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0, 0);
+    }
 
   mol.translate_axis (x_points[LEFT]
 		      - bounds[LEFT]->relative_coordinate (common, X_AXIS),
@@ -186,8 +244,8 @@ Hairpin::print (SCM smob)
 ADD_INTERFACE (Hairpin, "hairpin-interface",
 	       "A hairpin crescendo/decrescendo.",
 	       "adjacent-hairpins "
+	       "circled-tip "
 	       "bound-padding "
 	       "grow-direction "
 	       "height "
 	       );
-

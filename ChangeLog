@@ -1,6 +1,14 @@
+2006-04-03  Erlend Aasland  <erlenda@gmail.com>
+
+	* lily/hairpin.cc (print): add support for circled tip
+
+	* scm/define-grob-properties.scm: add circled-tip parameter
+
+	* scm/define-grobs.scm: init circled-tip to false
+	
 2006-04-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* scm/music-functions.scm (quote-substitute): set iterators-ctor
+	* scm/music-functions.scm (quote-substitute): set iterators-ctor. Backportme.
 
 2006-03-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
@@ -121,12 +129,12 @@
 2006-03-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/tuplet-bracket.cc (calc_control_points): handle suicide
-	case. Backportme.
+	case. 
 
 2006-03-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/ttf.cc (make_index_to_charcode_map): restore old
-	cmap. Backportme.
+	cmap. 
 
 2006-03-28  Werner Lemberg  <wl@gnu.org>
 
@@ -144,7 +152,7 @@
 2006-03-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* mf/feta-bolletjes.mf: match width of solfa notes with normal
-	note heads. Backportme.
+	note heads. 
 
 	* lily/ttf.cc (print_trailer): use it.
 
@@ -166,10 +174,10 @@
 	* Documentation/topdocs/INSTALL.texi (Top): update versions.
 
 	* lily/note-collision.cc (get_clash_groups): only consider when
-	Note_column::dir <> CENTER. Backportme.
+	Note_column::dir <> CENTER. 
 
 	* scripts/lilypond-book.py (get_option_parser): init output_name
-	to ''. Backportme.
+	to ''. 
 
 2006-03-24  Graham Percival  <gpermus@gmail.com>
 

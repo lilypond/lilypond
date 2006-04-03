@@ -498,6 +498,7 @@ set, which grob to get the direction from .")
      (bounded-by-me ,ly:grob-array? "list of spanners that have this
 column as start/begin point. Only columns that have grobs or act as
 bounds are spaced.")
+     (circled-tip ,boolean? "Put a circle at start/end of hairpins (al/del niente)")
      (columns ,ly:grob-array? "list of grobs, typically containing
 paper-columns or note-column objects.")
      (conditional-elements ,ly:grob-array? "Internal use only")
