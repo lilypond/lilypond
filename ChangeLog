@@ -1,5 +1,9 @@
 2006-04-03  Erlend Aasland  <erlenda@gmail.com>
 
+	* input/regression/hairpin-circled.ly: new file
+
+2006-04-03  Erlend Aasland  <erlenda@gmail.com>
+
 	* lily/hairpin.cc (print): add support for circled tip
 
 	* scm/define-grob-properties.scm: add circled-tip parameter
