@@ -1,3 +1,27 @@
+2006-04-03  David Feuer  <David.Feuer@gmail.com>
+
+	* lilyponddefs.ps (set-ps-scale-to-lily-scale): Fixed code duplication.
+
+	* Cleaned up interfaces between PostScript and Scheme, and moved
+	computations from PostScript to Scheme:
+
+	* music-drawing-routines.ps
+	(*SF, stroke_and_fill): new procedures.  Replaced stroke and fill
+	with stroke_and_fill throughout.
+	(euclidean_length, print_letter, draw_box): Deleted unused
+	 procedures.  If someone needs draw_box, implement it using
+	 draw_round_box; don't duplicate code.
+	(print_glyphs, draw_round_box, draw_polygon, draw_repeat_slash):
+	Refactored/cleaned up interfaces.
+	(mark_URI): Moved.
+
+	* output-ps.scm: reordered arguments to PostScript functions to
+	match new interfaces
+	(glyph-string): Rewrote glyph-string.
+	(grob-cause): Replaced string-append with format.
+	(repeat-slash): Rewrote to do computation here.
+	(round-filled-box): Rewrote to do computation here.
+
 2006-04-04  Erlend Aasland  <erlenda@gmail.com>
 
 	* stepmake/stepmake/generic-targets.make: add cvs-clean target

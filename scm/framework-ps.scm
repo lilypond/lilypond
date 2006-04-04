@@ -43,9 +43,6 @@
   (define (define-font command fontname scaling)
     (string-append
       "/" command " { /" fontname " " (ly:number->string scaling) " output-scale div selectfont } bind def\n"))
-;    (string-append
-;     "/" command " { /" fontname " findfont "
-;     (ly:number->string scaling) " output-scale div scalefont } bind def\n"))
 
   (define (standard-tex-font? x)
     (or (equal? (substring x 0 2) "ms")

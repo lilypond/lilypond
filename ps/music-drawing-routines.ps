@@ -7,8 +7,59 @@
 
 % TODO: use dicts or prefixes to prevent namespace pollution.
 
+% Emulation code from Postscript Language Reference.
+
+/*SF
+{
+	exch findfont exch
+	dup type /arraytype eq
+		{makefont}
+		{scalefont}
+	ifelse
+	setfont
+} bind def
+
+/languagelevel where
+	{pop languagelevel}
+	{1}
+ifelse
+
+2 lt
+	{ /selectfont /*SF load def }
+if
+
+% end emulation code
+
 /pdfmark where
 {pop} {userdict /pdfmark /cleartomark load put} ifelse
+
+
+% llx lly urx ury URI
+/mark_URI
+% It's possible to eliminate the coordinate variables by doing [ /Rect [ 7 3
+% roll.  That is, however, kind of ugly.  It would be nice if this procedure
+% were only included when PDF marks are enabled.
+{
+    /command exch def
+    /ury exch def
+    /urx exch def
+    /lly exch def
+    /llx exch def
+    [
+	/Rect [ llx lly urx ury ]
+	
+	/Border [ 0 0 0 ]
+
+        /Action
+	    <<
+		/Subtype /URI
+		/URI command
+	    >>
+        /Subtype /Link
+    /ANN
+    pdfmark
+}
+bind def
 
 % from adobe tech note 5002. 
 /BeginEPSF { %def
@@ -27,7 +78,6 @@
       } if
     } if
 } bind def
-
 
 /EndEPSF { %def
   count op_count sub {pop} repeat % Clean up stacks
@@ -54,28 +104,6 @@
 } bind def
 
 
-% llx lly urx ury URI
-/mark_URI
-{
-    /command exch def
-    /ury exch def
-    /urx exch def
-    /lly exch def
-    /llx exch def
-    [
-	/Rect [ llx lly urx ury ]
-	/Border [ 0 0 0 ]
-
-        /Action
-	    <<
-		/Subtype /URI
-		/URI command
-	    >>
-        /Subtype /Link
-    /ANN
-    pdfmark
-}
-bind def
 
 /set_tex_dimen
 {
@@ -83,110 +111,56 @@ bind def
 } bind def
 
 
-
-/euclidean_length
-{
-	1 copy mul exch 1 copy mul add sqrt
+/stroke_and_fill {
+	gsave
+		stroke
+	grestore
+	fill
 } bind def
 
-% FIXME.  translate to middle of box.
-% Nice rectangle with rounded corners
-/draw_box % breapth width depth height
+/draw_round_box % x y width height blot
 {
-%	currentdict /testing known {
-		%% real thin lines for testing
-		/blot 0.005 def
-%	}{
-%		/blot blot-diameter def
-%	} ifelse
-
+	setlinewidth
 	0 setlinecap
-	blot setlinewidth
 	1 setlinejoin
-
-	blot 2 div sub /h exch def
-	blot 2 div sub /d exch def
-	blot 2 div sub /w exch def
-	blot 2 div sub /b exch def
-
-	b neg d neg moveto
-	b w add 0 rlineto
-	0 d h add rlineto
-	b w add neg 0 rlineto
-	0 d h add neg rlineto
 
 	currentdict /testing known {
 		%% outline only, for testing:
-		stroke
 	}{
-		closepath gsave stroke grestore fill
+		4 copy
+		rectfill
 	} ifelse
+	rectstroke
 } bind def
 
-
-/draw_round_box % breapth width depth height blot
+/draw_polygon % fill? x(n) y(n) x(n-1) y(n-1) ... x(0) y(0) n blot
 {
-	/blot exch def
+	setlinewidth %set to blot
 
 	0 setlinecap
-	blot setlinewidth
 	1 setlinejoin
 
-	blot 2 div sub /h exch def
-	blot 2 div sub /d exch def
-	blot 2 div sub /w exch def
-	blot 2 div sub /b exch def
-
-	b neg d neg moveto
-	b w add 0 rlineto
-	0 d h add rlineto
-	b w add neg 0 rlineto
-	0 d h add neg rlineto
-
-	currentdict /testing known {
-		%% outline only, for testing:
-		stroke
-	}{
-		closepath gsave stroke grestore fill
-	} ifelse
-} bind def
-
-/draw_polygon % x(n) y(n) x(n-1) y(n-1) ... x(1) y(1) n blot fill
-{
-	/fillp exch def
-	/blot exch def
-
-	0 setlinecap
-	blot setlinewidth
-	1 setlinejoin
-
-	/points exch def
-	2 copy
-	moveto
-	1 1 points { pop lineto } for
+	3 1 roll
+	moveto % x(0) y(0)
+	{ lineto } repeat % n times
 	closepath 
-	fillp {
-		gsave stroke grestore fill
+	{ %fill?
+		stroke_and_fill
 	}{
 		stroke
 	} ifelse
 } bind def
 
-/draw_repeat_slash % width slope thick
+/draw_repeat_slash % x-width width height
 {
+	2 index % duplicate x-width
 	1 setlinecap
 	1 setlinejoin
-
-	/beamthick exch def
-	/slope exch def
-	/width exch def
-	beamthick beamthick slope div euclidean_length
-	  /xwid exch def
+	
 	0 0 moveto
-	xwid 0  rlineto
-	width slope width mul rlineto
-	xwid neg 0 rlineto
-      %  width neg width angle sin mul neg rlineto
+	  0  rlineto % x-width 0
+	     rlineto % width height
+	neg 0 rlineto % -x-width 0
 	closepath fill
 } bind def
 
@@ -201,27 +175,24 @@ bind def
 	lineto
 	curveto
 	closepath
-	gsave
-	fill
-	grestore
-	stroke
+	stroke_and_fill
 } bind def
 
 /draw_dot % x1 y2 R
 {
 %	0 360 arc fill stroke
-	0 360 arc closepath fill stroke
+	0 360 arc closepath stroke_and_fill
 } bind def
 
-/draw_circle % R T F
+/draw_circle % F R T
 {
-	/filled exch def
 	setlinewidth
 	dup 0 moveto
 	0 exch 0 exch
 	0 360 arc closepath
-	gsave stroke grestore
-	filled { fill } if 
+		{ stroke_and_fill } 
+		{ stroke }
+	ifelse
 } bind def
 
 
@@ -273,19 +244,13 @@ grestore
 	stroke
 } bind def
 
-/print_letter {
-	currentpoint
-	3 2 roll
-	glyphshow
-	moveto
-} bind def
-
 /print_glyphs {
-	-1 1
 	{
-		3 mul -3 roll
-		print_letter
+		currentpoint
+		3 2 roll
+		glyphshow
+		moveto
 		rmoveto
-	}for
+	}repeat
 }bind def
 %end music-drawing-routines.ps

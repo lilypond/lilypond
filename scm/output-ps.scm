@@ -48,6 +48,9 @@
 	     (lily))
 
 ;;; helper functions, not part of output interface
+;;;
+
+
 (define (escape-parentheses s)
   (regexp-substitute/global #f "(^|[^\\])([\\(\\)])" s 'pre 1 "\\" 2 'post))
 
@@ -102,10 +105,11 @@
 
 (define (circle radius thick fill)
   (format #f
-   "~f ~f ~a draw_circle" (round4 radius) (round4 thick)
+   "~a ~f ~f draw_circle"
    (if fill
-       "true "
-       "false ")))
+     "true"
+     "false")
+   (round4 radius) (round4 thick)))
 
 (define (dashed-line thick on off dx dy)
   (format #f "~a ~a ~a [ ~a ~a ] 0 draw_dashed_line"
@@ -143,32 +147,31 @@
 		      cid?
 		      w-x-y-named-glyphs)
 
-  (format #f "gsave
-  /~a ~a ~a output-scale div scalefont setfont\n~a grestore"
-	  postscript-font-name
-
-	  ;; with normal findfont, GS throws /typecheck for glyphshow.
+  (define (glyph-spec w x y g)
+    (let ((prefix (if (string? g) "/" "")))
+      (format #f "~f ~f ~a~a"
+	      (round2 (+ w x))
+	      (round2 y)
+	      prefix g)))
+  
+  (format #f
 	  (if cid?
-	      " /CIDFont findresource "
-	      " findfont")
-	  size
-	  (string-append
-	    (apply
-	      string-append
-	      (map (lambda  (item)
-		     (let*
-		       ((w (car item))
-			(x (cadr item))
-			(y (caddr item))
-			(g (cadddr item))
-			(prefix (if  (string? g) "/" "")))
+"gsave
+/~a /CIDFont findresource ~a output-scale div scalefont setfont
+~a
+~a print_glyphs
+grestore"
 
-		       (format #f "  ~f ~f ~a~a\n" (round2 (+ w x))
-			       (round2 y) prefix g)
-		       ))
-		   w-x-y-named-glyphs))
-	    (format #f "~a print_glyphs" (length w-x-y-named-glyphs)))
-	  ))
+"gsave\n/~a ~a output-scale div selectfont
+~a
+~a print_glyphs
+grestore")
+	  postscript-font-name
+	  size
+	  (string-join (map (lambda (x) (apply glyph-spec x))
+			    (reverse w-x-y-named-glyphs)) "\n")
+	  (length w-x-y-named-glyphs)))
+
 
 (define (grob-cause offset grob)
   (let* ((cause (ly:grob-property grob 'cause))
@@ -208,8 +211,8 @@
     (if (string=?
 	  (substring key 0 (min (string-length prefix) (string-length key)))
 	  prefix)
-      (string-append "/" key " {" val "} bind def\n")
-      (string-append "/" key " (" val ") def\n"))))
+      (format "/~a { ~a } bind def\n" key val)
+      (format "/~a (~a) def\n" key val))))
 
 (define (named-glyph font glyph)
   (format #f "~a /~a glyphshow " ;;Why is there a space at the end?
@@ -226,28 +229,38 @@
 ~a
 grestore\n"
 
-   (str4 x)
-   (str4 y)
-   s))
+  (str4 x)
+  (str4 y)
+  s))
 
 (define (polygon points blot-diameter filled?)
   (format #f "~a ~a ~a ~a draw_polygon"
+	  (if filled? "true" "false")
 	  (numbers->string4 points)
-	  (str4 (/ (length points) 2))
-	  (str4 blot-diameter)
-	  (if filled? "true" "false")))
+	  (number->string (- (/ (length points) 2) 1))
+	  (str4 blot-diameter)))
 
-(define (repeat-slash wid slope thick)
-  (format #f "~a draw_repeat_slash"
-   (numbers->string4 (list wid slope thick))))
+(define (repeat-slash width slope beam-thickness)
+  (define (euclidean-length x y)
+    (sqrt (+ (* x x) (* y y))))
+
+  (let ((x-width (euclidean-length slope (/ beam-thickness slope)))
+	(height (* width slope)))
+    (format #f "~a draw_repeat_slash"
+	    (numbers->string4 (list x-width width height)))))
 
 ;; restore color from stack
 (define (resetcolor) "setrgbcolor\n")
 
-(define (round-filled-box x y width height blotdiam)
-  (format #f "~a draw_round_box"
-	  (numbers->string4
-	    (list x y width height blotdiam))))
+(define (round-filled-box left right bottom top blotdiam)
+  (let* ((halfblot (/ blotdiam 2))
+	 (x (- halfblot left))
+	 (width (- right (+ halfblot x)))
+	 (y (- halfblot bottom))
+	 (height (- top (+ halfblot y))))
+    (format #f "~a draw_round_box"
+	    (numbers->string4
+	      (list x y width height blotdiam)))))
 
 ;; save current color on stack and set new color
 (define (setcolor r g b)
@@ -260,6 +273,7 @@ grestore\n"
   
   (let* ((space-length (cdar (ly:text-dimension font " ")))
 	 (space-move (string-append (number->string space-length)
+				    ;; how much precision do we need here?
 				    " 0.0 rmoveto "))
 	 (out-vec (decode-byte-string s)))
 
