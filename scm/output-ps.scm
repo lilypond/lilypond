@@ -122,22 +122,23 @@
 ;; what the heck is this interface ?
 (define (dashed-slur thick on off l)
   (format #f "~a ~a [ ~a ~a ] 0 draw_dashed_slur"
-	  (string-join (map number-pair->string4 l) " ")
+	  (let ((control-points (append (cddr l) (list (car l) (cadr l)))))
+	    (string-join (map number-pair->string4 control-points) " "))
 	  (str4 thick)
 	  (str4 on)
 	  (str4 off)))
 
 (define (dot x y radius)
   (format #f " ~a draw_dot"
-   (numbers->string4 (list x y radius))))
+   (numbers->string4 (list radius x y))))
 
 (define (draw-line thick x1 y1 x2 y2)
-  (format #f "1 setlinecap 1 setlinejoin ~a setlinewidth ~a ~a moveto ~a ~a lineto stroke"
-   (str4 thick)
-   (str4 x1)
-   (str4 y1)
-   (str4 x2)
-   (str4 y2)))
+  (format #f "~a ~a ~a ~a ~a draw_line"
+	  (str4 (- x2 x1))
+	  (str4 (- y2 y1))
+	  (str4 x1)
+	  (str4 y1)
+	  (str4 thick)))
 
 (define (embedded-ps string)
   string)
@@ -156,16 +157,13 @@
   
   (format #f
 	  (if cid?
-"gsave
-/~a /CIDFont findresource ~a output-scale div scalefont setfont
+"/~a /CIDFont findresource ~a output-scale div scalefont setfont
 ~a
-~a print_glyphs
-grestore"
+~a print_glyphs"
 
-"gsave\n/~a ~a output-scale div selectfont
+"/~a ~a output-scale div selectfont
 ~a
-~a print_glyphs
-grestore")
+~a print_glyphs")
 	  postscript-font-name
 	  size
 	  (string-join (map (lambda (x) (apply glyph-spec x))
@@ -224,11 +222,8 @@ grestore")
 
 (define (placebox x y s) 
   (format #f
-"gsave ~a ~a translate
-0 0 moveto
-~a
-grestore\n"
-
+"~a ~a moveto
+~a\n"
   (str4 x)
   (str4 y)
   s))
@@ -260,7 +255,7 @@ grestore\n"
 	 (height (- top (+ halfblot y))))
     (format #f "~a draw_round_box"
 	    (numbers->string4
-	      (list x y width height blotdiam)))))
+	      (list width height x y blotdiam)))))
 
 ;; save current color on stack and set new color
 (define (setcolor r g b)

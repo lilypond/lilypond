@@ -118,20 +118,39 @@ bind def
 	fill
 } bind def
 
-/draw_round_box % x y width height blot
-{
+/vector_add { % x1 y1 x2 y2 vector_add x1+x2 y1+y2
+	exch
+	4 1 roll
+	add
+	3 1 roll
+	add
+	exch
+} bind def
+
+/draw_round_box % width height x y blot
+currentdict /testing known
+{{
+	setlinewidth
+	0 setlinecap
+	1 setlinejoin
+	
+	rmoveto
+	currentpoint
+	4 2 roll
+	rectstroke
+}}
+{{
 	setlinewidth
 	0 setlinecap
 	1 setlinejoin
 
-	currentdict /testing known {
-		%% outline only, for testing:
-	}{
-		4 copy
-		rectfill
-	} ifelse
+	rmoveto
+	currentpoint
+	4 2 roll
+	4 copy
+	rectfill
 	rectstroke
-} bind def
+}} ifelse bind def
 
 /draw_polygon % fill? x(n) y(n) x(n-1) y(n-1) ... x(0) y(0) n blot
 {
@@ -141,8 +160,12 @@ bind def
 	1 setlinejoin
 
 	3 1 roll
-	moveto % x(0) y(0)
-	{ lineto } repeat % n times
+	/polygon_x
+	currentpoint
+	/polygon_y exch def
+	def
+	rmoveto % x(0) y(0)
+	{ polygon_x polygon_y vector_add lineto } repeat % n times
 	closepath 
 	{ %fill?
 		stroke_and_fill
@@ -157,7 +180,6 @@ bind def
 	1 setlinecap
 	1 setlinejoin
 	
-	0 0 moveto
 	  0  rlineto % x-width 0
 	     rlineto % width height
 	neg 0 rlineto % -x-width 0
@@ -167,6 +189,8 @@ bind def
 % this is for drawing slurs.
 /draw_bezier_sandwich  % thickness controls
 {
+	gsave
+	currentpoint translate
     % round ending and round beginning
     1 setlinejoin 1 setlinecap
 	setlinewidth
@@ -176,19 +200,22 @@ bind def
 	curveto
 	closepath
 	stroke_and_fill
+	grestore
 } bind def
 
-/draw_dot % x1 y2 R
+/draw_dot % radius x y
 {
-%	0 360 arc fill stroke
+	rmoveto
+	currentpoint
+	3 2 roll
 	0 360 arc closepath stroke_and_fill
 } bind def
 
 /draw_circle % F R T
 {
 	setlinewidth
-	dup 0 moveto
-	0 exch 0 exch
+	dup 0 rmoveto
+	currentpoint 3 2 roll
 	0 360 arc closepath
 		{ stroke_and_fill } 
 		{ stroke }
@@ -196,52 +223,38 @@ bind def
 } bind def
 
 
-% JUNKME. use color & circle. 
-/draw_white_dot % x1 y2 R
+/draw_line % dx dy x1 y1 thickness
 {
-%	0 360 arc fill stroke
-	0 360 arc closepath % fill stroke
-gsave
- 1 setgray fill
-grestore
-%	0 360 arc closepath % fill stroke
-  0.05 setlinewidth 0 setgray stroke
-} bind def
-
-
-% JUNKME: Use color.  
-/draw_white_text  % text scale font
-{
-  exch selectfont
-  1 setgray
-  0 0 moveto
-  %-0.05 -0.05 moveto
-  % text
-  show
-} bind def
-
-
-/draw_dashed_line % dash thickness dx dy
-{
+	setlinewidth
 	1 setlinecap
 	1 setlinejoin
-	setdash
-	setlinewidth
-	0 0 moveto
-	lineto
+	rmoveto
+	rlineto
 	stroke
 } bind def
 
-/draw_dashed_slur % dash thickness controls
+/draw_dashed_line % dx dy thickness dashpattern
 {
 	1 setlinecap
 	1 setlinejoin
 	setdash
 	setlinewidth
-	8 -2 roll
+	rlineto
+	stroke
+} bind def
+
+/draw_dashed_slur % controls thickness dash
+{
+gsave
+	currentpoint translate
+	1 setlinecap
+	1 setlinejoin
+	setdash
+	setlinewidth
 	moveto
 	curveto
 	stroke
+grestore
 } bind def
 
 /print_glyphs {
