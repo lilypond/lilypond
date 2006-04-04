@@ -1,5 +1,7 @@
 2006-04-03  David Feuer  <David.Feuer@gmail.com>
 
+	* music-drawing-routines.ps: remove superfluous gsave/grestore pairs.
+
 	* lilyponddefs.ps (set-ps-scale-to-lily-scale): Fixed code duplication.
 
 	* Cleaned up interfaces between PostScript and Scheme, and moved
