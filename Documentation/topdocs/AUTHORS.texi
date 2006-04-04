@@ -24,7 +24,9 @@ Core code:
 
 @itemize @bullet
 @item @email{erlenda@@gmail.com,Erlend Aasland}
-   Color support, tablature improvements, trivial \mark stuff
+   Color support, tablature improvements, trivial \mark stuff,
+al-niente hairpins.
+   
 @item @email{benkop@@freestart.hu,Pal Benko},
     Ancient notation.
 @item @email{david.feuer@@gmail.com, David Feuer},
