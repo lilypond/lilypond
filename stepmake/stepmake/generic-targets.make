@@ -21,6 +21,11 @@ distclean: clean
 	$(LOOP)
 	$(MAKE) local-distclean
 
+cvs-clean:
+	$(MAKE) local-distclean
+	find . -type d -name out | xargs rm -rf
+	rm -f aclocal.m4 configure
+
 maintainerclean:
 	$(LOOP)
 	$(MAKE)	local-maintainerclean

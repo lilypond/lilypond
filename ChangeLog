@@ -1,3 +1,10 @@
+2006-04-04  Erlend Aasland  <erlenda@gmail.com>
+
+	* stepmake/stepmake/generic-targets.make: add cvs-clean target
+
+	* stepmake/stepmake/toplevel- targets.make: print help info about
+	cvs-clean
+
 2006-04-03  Erlend Aasland  <erlenda@gmail.com>
 
 	* input/regression/hairpin-circled.ly: new file
