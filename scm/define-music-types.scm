@@ -397,7 +397,7 @@ goes down).")
     (QuoteMusic
      . (
 	(description . "Quote preprocessed snippets of music. ")
-	(iterator-ctor . ,ly:quote-iterator::constructor)
+	(iterator-ctor . ,ly:music-wrapper-iterator::constructor)
 	(length-callback . ,ly:music-wrapper::length-callback)
 	(start-callback . ,ly:music-wrapper::start-callback)
 	(types . (general-music music-wrapper-music))
