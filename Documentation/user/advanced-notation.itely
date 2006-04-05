@@ -130,6 +130,15 @@ c2\startTextSpan b c\stopTextSpan a
 @code{textSpannerNeutral}.
 
 
+@commonprop
+
+To print a solid line, use
+
+@example
+\override TextSpanner #'dash-fraction = #'() 
+@end example
+
+
 @seealso
 
 Program reference: @internalsref{TextSpanner}.
@@ -450,7 +459,7 @@ to.
 @itemize @bullet
 @item @code{font-encoding}
 is a symbol that sets layout of the glyphs.  This should only be set to
-select different types of non-text fonts, eg.
+select different types of non-text fonts, e.g.
 
 @code{fetaBraces} for piano staff braces, @code{fetaMusic} the
 standard music font, including ancient glyphs, @code{fetaDynamic} for
@@ -1507,7 +1516,7 @@ Cue notes have smaller font sizes.
 @c Yes, this is good practice.  Otherwise, the start of the original
 @c part can only be seen from the font size.  This is not good enough
 @c for sight-reading.  It is possilbe to use other
-@c markers (eg. a big close-bracket over the staff) to indicate the cue notes are
+@c markers (e.g. a big close-bracket over the staff) to indicate the cue notes are
 @c finished.
 @c -hwn
 
@@ -2047,8 +2056,7 @@ scale is determined by  the @code{\key} command
 Shape note heads are implemented through the @code{shapeNoteStyles}
 property.  Its value is a vector of symbols.  The k-th element indicates
 the style to use for the k-th step of the scale.  Arbitrary
-combinations are possible, eg.,
-
+combinations are possible, e.g.
 
 @lilypond[verbatim,relative=1,fragment]
   \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)

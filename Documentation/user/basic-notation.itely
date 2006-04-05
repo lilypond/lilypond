@@ -134,7 +134,7 @@ espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
 
 @commonprop
 
-In accordance with standard typsetting rules, a natural sign is printed
+In accordance with standard typesetting rules, a natural sign is printed
 before a sharp or flat if a previous accidental needs to be
 cancelled.  To change this behaviour, use
 @code{\set Staff.extraNatural = ##f}
@@ -248,16 +248,18 @@ must be done with multi-measure rests.  They can be used for a
 single bar as well as many bars, and are discussed in
 @ref{Multi measure rests}.
 
-
-A rest's vertical position may be explicitly specified by entering a
-note with the @code{\rest} keyword appended, the rest will be placed at
-the note's place.  This makes manual formatting in polyphonic music
-easier.  Automatic rest collision formatting will leave these rests
-alone
+To explicitly specify a rest's vertical position, write a note
+followed by @code{\rest}.  A rest will be placed in the position
+where the note would appear,
 
 @lilypond[fragment,quote,ragged-right,verbatim]
 a'4\rest d'4\rest
 @end lilypond
+
+@noindent
+This makes manual formatting of
+polyphonic music much easier, since the automatic rest collision
+formatter will leave these rests alone.
 
 @seealso
 
@@ -368,7 +370,7 @@ duration.  The default for the first note is a quarter note.
 
 @cindex @code{.}
 
-To obtain dotted note lenghts, simply add a dot (`@code{.}') to
+To obtain dotted note lengths, simply add a dot (`@code{.}') to
 the number.  Double-dotted notes are produced in a similar way.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -754,7 +756,7 @@ begins on concert D, one would write
 \transpose c bes @{ e4 @dots{} @}
 @end example
 
-To print this music in B-flat again (ie producing a trumpet part,
+To print this music in B-flat again (i.e. producing a trumpet part,
 instead of a concert pitch conductor's score) you would wrap the
 existing music with another @code{transpose}
 
@@ -860,7 +862,7 @@ file. For longer pieces, rendering only a small part is often an order
 of magnitude quicker than rendering it completely
 
 Skipping parts of a score can be controlled in a more fine-grained
-fashing with the property @code{Score.skipTypesetting}.  When it is
+fashion with the property @code{Score.skipTypesetting}.  When it is
 set, no typesetting is performed at all.
 
 This property is also used to control output to the MIDI file. Note that
@@ -987,7 +989,7 @@ pitches.  The clef is set with the @code{\clef} command
 @cindex varbaritone clef
 @cindex subbass clef
 
-Supported clefs finclude
+Supported clefs include
 @table @code
 @item treble, violin, G, G2
  G clef on 2nd line
@@ -1536,7 +1538,7 @@ exactly the same concept
 @noindent
 Ties are used either when the note crosses a bar line, or when dots
 cannot be used to denote the rhythm.  When using ties, larger note
-values should be aligned to subdivisions of the measure, eg.
+values should be aligned to subdivisions of the measure, such as
 
 @lilypond[fragment,quote,ragged-right]
 \relative {
@@ -1551,7 +1553,6 @@ lines.
 
 When a second alternative of a repeat starts with a tied note, you
 have to repeat the tie. This can be achieved with @code{\repeatTie},
-eg.
 
 @lilypond[fragment,quote,ragged-right,relative=2]
 r <c e g>\repeatTie
@@ -2508,7 +2509,7 @@ arpeggios in one @internalsref{PianoStaff} at the same point in time.
 @node Polyphony
 @section Polyphony
 
-Polyphony in music refers to having more than one voice occuring in
+Polyphony in music refers to having more than one voice occurring in
 a piece of music.  Polyphony in LilyPond refers to having more than
 one voice on the same staff.
 
@@ -2557,7 +2558,7 @@ same voice.  Here is the same example, with different noteheads for each
 voice.  Note that the change to the note-head style in the main voice does not affect
 the inside of the @code{<< \\ >>} constructs.  Also, the change to the second
 voice in the first @code{<< \\ >>} construct is effective in the second
-@code{<< \\ >>}, and the voice is tied accross the two constructs.
+@code{<< \\ >>}, and the voice is tied across the two constructs.
 
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
@@ -2664,7 +2665,7 @@ The correct definition of the voices allows the melody to be slurred.
 }
 @end lilypond
 
-Avoiding the @code{\\} seperator also allows nesting polyphony 
+Avoiding the @code{\\} separator also allows nesting polyphony 
 constructs, which in some case might be a more natural way to typeset
 the music.
 
