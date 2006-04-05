@@ -734,8 +734,11 @@ Syntax:
 			    #f)))
     
     (if (string? quoted-name)
-	(if  (vector? quoted-vector)
-	     (set! (ly:music-property music 'quoted-events) quoted-vector)
+	(if (vector? quoted-vector)
+	    (begin
+	      (set! (ly:music-property music 'quoted-events) quoted-vector)
+	      (set! (ly:music-property music 'iterator-ctor)
+		    ly:quote-iterator::constructor))
 	     (ly:warning (_ "can't find quoted music `~S'" quoted-name))))
     music))
 
