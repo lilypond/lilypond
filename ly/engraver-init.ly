@@ -582,7 +582,7 @@ AncientRemoveEmptyStaffContext = \context {
   )
 
   keepAliveInterfaces = #'(rhythmic-grob-interface lyric-interface percent-repeat-interface)
-  quotedEventTypes = #'(note-event rest-event time-scaled-music tie-event)
+  quotedEventTypes = #'(note-event rest-event time-scaled-music tie-event beam-event)
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
   verticallySpacedContexts = #'(Staff)

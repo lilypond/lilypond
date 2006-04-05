@@ -1,3 +1,7 @@
+2006-03-04  Werner Lemberg  <wl@gnu.org>
+
+	* ly/engraver-init.ly (\Score): Add beam-event to quotedEventTypes.
+
 2006-04-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/musicxml2ly.py (bindir): add dynamic
