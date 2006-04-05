@@ -59,12 +59,12 @@ the first time, but if you want to go back and change something two
 or three years later, you won't know how your file is structured if you
 didn't comment the file.
 
-@item Ident your braces.  A lot of problems are caused by an imbalance
+@item Indent your braces.  A lot of problems are caused by an imbalance
 in the number of @code{@{} and @code{@}}.
 
 @end itemize
 
-If you are entering music from an existing score (ie typesetting a
+If you are entering music from an existing score (i.e. typesetting a
 piece of existing sheet music),
 
 @itemize @bullet
@@ -319,7 +319,7 @@ e4^\markup{ \italic ritenuto } g b e
 @end lilypond
 
 With @code{extra-offset}, the first number controls the horizontal
-movement (left is negative); the second number controls the vertial
+movement (left is negative); the second number controls the vertical
 movement (up is positive).  After a bit of experimenting, we decided
 that these values look good
 
