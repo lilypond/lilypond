@@ -1,3 +1,8 @@
+2006-04-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scripts/musicxml2ly.py (bindir): add dynamic
+	relocation. Backportme.
+
 2006-04-04  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ basic-notation, advanced-notation, putting,
