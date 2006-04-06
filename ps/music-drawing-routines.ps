@@ -128,29 +128,18 @@ bind def
 } bind def
 
 /draw_round_box % width height x y blot
-currentdict /testing known
-{{
-	setlinewidth
-	0 setlinecap
-	1 setlinejoin
-	
-	rmoveto
-	currentpoint
-	4 2 roll
-	rectstroke
-}}
-{{
-	setlinewidth
+{
+	setlinewidth % w h x y
 	0 setlinecap
 	1 setlinejoin
 
-	rmoveto
-	currentpoint
-	4 2 roll
+	rmoveto % w h
+	currentpoint % w h x1 y1
+	4 2 roll % x1 y1 w h
 	4 copy
 	rectfill
 	rectstroke
-}} ifelse bind def
+} bind def
 
 /draw_polygon % fill? x(n) y(n) x(n-1) y(n-1) ... x(0) y(0) n blot
 {
@@ -174,7 +163,7 @@ currentdict /testing known
 	} ifelse
 } bind def
 
-/draw_repeat_slash % x-width width height
+/draw_repeat_slash % x-width width height draw_repeat_slash
 {
 	2 index % duplicate x-width
 	1 setlinecap
@@ -203,7 +192,7 @@ currentdict /testing known
 	grestore
 } bind def
 
-/draw_dot % radius x y
+/draw_dot % radius x y draw_dot
 {
 	rmoveto
 	currentpoint
@@ -211,11 +200,12 @@ currentdict /testing known
 	0 360 arc closepath stroke_and_fill
 } bind def
 
-/draw_circle % F R T
+/draw_circle % filled? radius thickness draw_circle
 {
-	setlinewidth
+	setlinewidth	% f? r
+	currentpoint	% f? r x0 y0
+	3 2 roll	% f? x0 y0 r
 	dup 0 rmoveto
-	currentpoint 3 2 roll
 	0 360 arc closepath
 		{ stroke_and_fill } 
 		{ stroke }
@@ -223,22 +213,22 @@ currentdict /testing known
 } bind def
 
 
-/draw_line % dx dy x1 y1 thickness
+/draw_line % dx dy x1 y1 thickness draw_line
 {
-	setlinewidth
+	setlinewidth % dx dy x1 y1
 	1 setlinecap
 	1 setlinejoin
-	rmoveto
+	rmoveto % dx dy
 	rlineto
 	stroke
 } bind def
 
-/draw_dashed_line % dx dy thickness dashpattern
+/draw_dashed_line % dx dy thickness dashpattern draw_dashed_line
 {
 	1 setlinecap
 	1 setlinejoin
-	setdash
-	setlinewidth
+	setdash % dx dy thickness
+	setlinewidth %dx dy
 	rlineto
 	stroke
 } bind def
@@ -257,12 +247,13 @@ gsave
 grestore
 } bind def
 
-/print_glyphs {
+/print_glyphs % dx dy glyph print_glyphs
+{
 	{
-		currentpoint
-		3 2 roll
-		glyphshow
-		moveto
+		currentpoint %dx dy glyph x0 y0
+		3 2 roll %dx dy x0 y0 glyph
+		glyphshow % dx dy x0 y0
+		moveto % dx dy
 		rmoveto
 	}repeat
 }bind def

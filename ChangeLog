@@ -1,3 +1,16 @@
+2006-04-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/slur.cc (print): only set font-size if not set yet.
+
+	* lily/slur-configuration.cc (add_score): improved layout of debug
+	scoring output.
+
+2006-04-05  David Feuer  <David.Feuer@gmail.com>
+
+	* music-drawing-routines.ps (draw_round_box): removed testing artifact.
+	(draw_circle): Hopefully fixed regression.
+	Improved documentation for several procedures.
+	
 2006-03-04  Werner Lemberg  <wl@gnu.org>
 
 	* ly/engraver-init.ly (\Score): Add beam-event to quotedEventTypes.
@@ -5,7 +18,7 @@
 2006-04-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/musicxml2ly.py (bindir): add dynamic
-	relocation. Backportme.
+	relocation. 
 
 2006-04-04  Graham Percival  <gpermus@gmail.com>
 
@@ -26,8 +39,8 @@
 	(*SF, stroke_and_fill): new procedures.  Replaced stroke and fill
 	with stroke_and_fill throughout.
 	(euclidean_length, print_letter, draw_box): Deleted unused
-	 procedures.  If someone needs draw_box, implement it using
-	 draw_round_box; don't duplicate code.
+	procedures.  If someone needs draw_box, implement it using
+	draw_round_box; don't duplicate code.
 	(print_glyphs, draw_round_box, draw_polygon, draw_repeat_slash):
 	Refactored/cleaned up interfaces.
 	(mark_URI): Moved.
@@ -61,7 +74,7 @@
 2006-04-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/music-functions.scm (quote-substitute): set
-	iterators-ctor. Backportme.
+	iterators-ctor. 
 
 2006-03-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 

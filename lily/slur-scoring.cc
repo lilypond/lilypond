@@ -383,7 +383,7 @@ Slur_score_state::get_best_curve ()
       if (opt_idx >= 0)
 	{
 	  total = configurations_[opt_idx]->card ();
-	  total += to_string ("TOTAL=%.2f idx=%d", configurations_[opt_idx]->score (), opt_idx); 
+	  total += to_string (" TOTAL=%.2f idx=%d", configurations_[opt_idx]->score (), opt_idx); 
 	}
       else
 	{
