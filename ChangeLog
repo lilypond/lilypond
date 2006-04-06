@@ -1,5 +1,8 @@
 2006-04-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/parser.yy (music_function_musicless_prefix): fold together
+	definitions of signature (SCM*) (Music|post_event|chord_body_element)
+
 	* lily/slur.cc (print): only set font-size if not set yet.
 
 	* lily/slur-configuration.cc (add_score): improved layout of debug
