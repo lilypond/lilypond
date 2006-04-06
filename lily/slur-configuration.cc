@@ -182,7 +182,9 @@ Slur_configuration::add_score (Real s, string desc)
   
   if (s)
     {
-      score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
+      if (score_card_.length () > 0)
+	score_card_ += ", ";
+      score_card_ += to_string ("%s=%.2f", desc.c_str (), s);
       score_ += s;
     }
 }
@@ -405,7 +407,9 @@ Slur_configuration::score_edges (Slur_score_state const &state)
       demerit *= exp (state.dir_ * d * slope
 		      * state.parameters_.edge_slope_exponent_);
 
-      add_score (demerit, "edge");
+
+      string dir_str = d == LEFT ? "L" : "R";
+      add_score (demerit, dir_str + " edge");
     }
   while (flip (&d) != LEFT);
 }
