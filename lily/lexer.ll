@@ -878,74 +878,56 @@ lookup_markup_command (string s)
 	return scm_call_1 (proc, scm_makfrom0str (s.c_str ()));
 }
 
+struct Parser_signature
+{
+	char *symbol;
+	int token_type;
+};
+static SCM signature_hash_table;
+
+static void init_signature_hash_table ()
+{
+	signature_hash_table = scm_gc_protect_object (scm_c_make_hash_table (31));
+	Parser_signature sigs[]  = {
+		{"scm", MUSIC_FUNCTION_SCM},
+		{"music", MUSIC_FUNCTION_MUSIC},
+		{"scm-music", MUSIC_FUNCTION_SCM_MUSIC},
+		{"scm-scm", MUSIC_FUNCTION_SCM_SCM},
+		{"music-music", MUSIC_FUNCTION_MUSIC_MUSIC},
+		{"scm-music-music", MUSIC_FUNCTION_SCM_MUSIC_MUSIC},
+		{"scm-scm-music", MUSIC_FUNCTION_SCM_SCM_MUSIC},
+		{"scm-scm-scm-music", MUSIC_FUNCTION_SCM_SCM_SCM_SCM_MUSIC},
+		{"scm-scm-scm-scm-music", MUSIC_FUNCTION_SCM_SCM_SCM_MUSIC},
+		{"scm-scm-scm", MUSIC_FUNCTION_SCM_SCM_SCM},
+		{"markup", MUSIC_FUNCTION_MARKUP},
+		{"markup-music", MUSIC_FUNCTION_MARKUP_MUSIC},
+		{"markup-markup", MUSIC_FUNCTION_MARKUP_MARKUP},
+		{"markup-music-music", MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC},
+		{"markup-markup-music", MUSIC_FUNCTION_MARKUP_MARKUP_MUSIC},
+		{"noarg", MUSIC_FUNCTION},
+		{0,0}
+	};
+
+	for (int i = 0; sigs[i].symbol; i++)
+		scm_hashq_set_x (signature_hash_table, scm_gc_protect_object (ly_symbol2scm (sigs[i].symbol)),
+				 scm_from_int (sigs[i].token_type));
+}
 
 int
 music_function_type (SCM func)
 {
-	SCM type = scm_object_property (func, ly_symbol2scm ("music-function-signature-keyword"));
-	if (type == ly_symbol2scm ("scm"))
-	{
-		return MUSIC_FUNCTION_SCM;
-	}
-	else if (type == ly_symbol2scm ("music"))
-	{
-		return MUSIC_FUNCTION_MUSIC;
-	}
-	else if (type == ly_symbol2scm ("scm-music"))
-	{
-		return MUSIC_FUNCTION_SCM_MUSIC;
-	}
-	else if (type == ly_symbol2scm ("scm-scm"))
-	{
-		return MUSIC_FUNCTION_SCM_SCM;
-	}
-	else if (type == ly_symbol2scm ("music-music"))
-	{
-		return MUSIC_FUNCTION_MUSIC_MUSIC;
-	}
-	else if (type == ly_symbol2scm ("scm-music-music"))
-	{
-		return MUSIC_FUNCTION_SCM_MUSIC_MUSIC;
-	}
-	else if (type == ly_symbol2scm ("scm-scm-music"))
-	{
-		return MUSIC_FUNCTION_SCM_SCM_MUSIC;
-	}
-	else if (type == ly_symbol2scm ("scm-scm-scm"))
-	{
-		return MUSIC_FUNCTION_SCM_SCM_SCM;
-	}
-	else if (type == ly_symbol2scm ("markup"))
-	{
-		return MUSIC_FUNCTION_MARKUP;
-	}
-	else if (type == ly_symbol2scm ("markup-music"))
-	{
-		return MUSIC_FUNCTION_MARKUP_MUSIC;
-	}
-	else if (type == ly_symbol2scm ("markup-markup"))
-	{
-		return MUSIC_FUNCTION_MARKUP_MARKUP;
-	}
-	else if (type == ly_symbol2scm ("markup-music-music"))
-	{
-		return MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC;
-	}
-	else if (type == ly_symbol2scm ("markup-markup-music"))
-	{
-		return MUSIC_FUNCTION_MARKUP_MARKUP_MUSIC;
-	}
-	else if (type == ly_symbol2scm ("noarg"))
-	{
-		return MUSIC_FUNCTION;
-	}
-	else
-		{
-		/* TODO: print location */
-		error (_ ("can't find signature for music function"));
-		}
+	if (!signature_hash_table)
+		init_signature_hash_table ();
 
-	return MUSIC_FUNCTION_SCM;
+	SCM type = scm_object_property (func, ly_symbol2scm ("music-function-signature-keyword"));
+	SCM token_type = scm_hashq_ref (signature_hash_table, type, SCM_BOOL_F);
+	if (!scm_is_number (token_type))
+		{
+		programming_error (_ ("can't find signature for music function"));
+		return MUSIC_FUNCTION_SCM;
+		}
+	
+	return scm_to_int (token_type);
 }
 
 /* Shut up lexer warnings.  */
