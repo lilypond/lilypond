@@ -1,3 +1,10 @@
+2006-04-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scripts/lilypond-book.py
+	(Lilypond_snippet.output_print_filename): backport href fix
+
+	* scm/backend-library.scm (search-gs): backport gs searching fix.
+
 2006-04-06  Werner Lemberg  <wl@gnu.org>
 
 	* ly/engraver-init.ly (\Score): Add beam-event to quotedEventTypes
