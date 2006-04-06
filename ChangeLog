@@ -1,5 +1,7 @@
 2006-04-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/lilypond-book.py (output): fix printfilename.
+
 	* lily/parser.yy (music_function_musicless_prefix): fold together
 	definitions of signature (SCM*) (Music|post_event|chord_body_element)
 

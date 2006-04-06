@@ -605,7 +605,7 @@ output = {
 
 		PRINTFILENAME: '''
 @html
-<a href="%(filename)s">
+<a href="%(base)s.ly">
 @end html
 @file{%(filename)s}
 @html
