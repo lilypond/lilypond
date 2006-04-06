@@ -45,7 +45,7 @@
     (helper path names)))
 
 (define-public (search-gs)
-  (search-executable '("gs-nox" "gs-8.15" "gs")))
+  (search-executable '("gs")))
 
 (define-public (postscript->pdf papersizename name)
   (let* ((pdf-name (string-append (basename name ".ps") ".pdf"))
