@@ -1,5 +1,7 @@
 2006-04-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/parser.yy (Generic_prefix_music_scm): append lists, not objects.
+
 	* scm/backend-library.scm (search-gs): oops.
 
 2006-04-06  Han-Wen Nienhuys  <hanwen@lilypond.org>

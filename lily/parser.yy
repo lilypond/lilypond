@@ -1011,7 +1011,7 @@ Generic_prefix_music_scm:
 		$$ = scm_list_3 ($1, make_input (@$), $2);
 	}
 	| music_function_musicless_prefix Music {
-		$$ = ly_append2 ($1, $2->self_scm ());
+		$$ = ly_append2 ($1, scm_list_1 ($2->self_scm ()));
 		$2->unprotect ();
 	}
 	| MUSIC_FUNCTION_SCM_SCM function_scm_argument function_scm_argument {
