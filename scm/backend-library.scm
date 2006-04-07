@@ -47,7 +47,7 @@
 (define-public (search-gs)
   
   ;; must be sure that we don't catch stuff from old GUBs.
-  (search-executable '("gs"))
+  (search-executable '("gs")))
 
 (define-public (postscript->pdf papersizename name)
   (let* ((pdf-name (string-append (basename name ".ps") ".pdf"))
