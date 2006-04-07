@@ -161,6 +161,7 @@ similar to chord syntax")
 (define (type-check-list location signature arguments)
   "Typecheck a list of arguments against a list of type
 predicates. Print a message at LOCATION if any predicate failed."
+
   (define (recursion-helper signature arguments count) 
     (define (helper pred? arg count) 
       (if (not (pred? arg))
@@ -178,6 +179,7 @@ predicates. Print a message at LOCATION if any predicate failed."
 	#t
 	(and (helper (car signature) (car arguments) count)
 	     (recursion-helper (cdr signature) (cdr arguments) (1+ count)))))
+
   (recursion-helper signature arguments 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
