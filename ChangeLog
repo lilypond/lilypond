@@ -1,3 +1,7 @@
+2006-04-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/backend-library.scm (search-gs): oops.
+
 2006-04-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/lilypond-book.py (output): use base, not filename for href.
