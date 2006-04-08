@@ -4,6 +4,9 @@
 
 	* scm/define-context-properties.scm: update old \property override.
 
+	* Documentation/user/ advanced-notation, global, lilypond-book:
+	more minor doc updates.
+
 2006-04-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/parser.yy (Generic_prefix_music_scm): append lists, not objects.

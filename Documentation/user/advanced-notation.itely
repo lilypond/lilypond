@@ -61,6 +61,9 @@ command @code{\fatText}, the widths will be taken into account
 c4^"longtext" \fatText c4_"longlongtext" c4
 @end lilypond
 
+@noindent
+To prevent text from influencing spacing, use @code{\emptyText}.
+
 More complex formatting may also be added to a note by using the
 markup command,
 @lilypond[fragment,ragged-right,verbatim,quote]
@@ -1985,6 +1988,9 @@ Examples: @inputfileref{input/@/regression,balloon@/.ly}.
 
 @node Blank music sheet
 @subsection Blank music sheet
+
+@cindex Sheet music, empty
+@cindex Staves, blank sheet
 
 A blank music sheet can be produced also by using invisible notes, and
 removing @code{Bar_number_engraver}.
