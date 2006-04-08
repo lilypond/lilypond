@@ -414,12 +414,11 @@ Normally a tuplet bracket is as wide as the
 property, you can make brackets last shorter.  Example
 
 @example
-@@lilypond[verbatim,fragment]
-context Voice \\times 2/3 @{
-  property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
-  c-[8 c c-] c-[ c c-]
+@{
+\\times 2/3 @{
+\\set tupletSpannerDuration = #(ly:make-moment 1 4)
+\times 2/3 { c8 c c c c c }
 @}
-@@end lilypond
 @end example
 .")
 
