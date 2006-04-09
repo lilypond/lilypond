@@ -1,3 +1,9 @@
+2006-04-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/advanced-notation.itely (Polymetric
+	notation): Update the example to use the "+" symbol and add link
+	to input/test/compound-time.ly.
+
 2006-04-08  Graham Percival  <gpermus@gmail.com>
 
 	* scm/define-grob-properties.scm: clarify docs for #'direction.

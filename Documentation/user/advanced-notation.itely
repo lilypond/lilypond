@@ -1605,14 +1605,15 @@ see those sections of the documentation.
 Double time signatures are not supported explicitly, but they can be
 faked.  In the next example, the markup for the time signature is
 created with a markup text.  This markup text is inserted in the
-@internalsref{TimeSignature} grob.
+@internalsref{TimeSignature} grob. See also 
+@inputfileref{input/@/test,compound@/-time@/.ly}).
 
 @lilypond[verbatim,ragged-right]
 % create 2/4 + 5/8
 tsMarkup =\markup {
-  \number {
+  \override #'(baseline-skip . 2) \number {
     \column { "2" "4" }
-    \musicglyph #"scripts.stopped"
+    \lower #1 "+"
     \bracket \column { "5" "8" }
   }
 }
