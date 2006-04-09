@@ -641,9 +641,9 @@ To graphically display the dimensions of properties that may
 be altered for page formatting, use
 
 @example
-\paper {
+\paper @{
   annotate-spacing = ##t
-}
+@}
 @end example
 
 @noindent
