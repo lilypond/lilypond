@@ -1,3 +1,7 @@
+2006-04-10  Erlend Aasland  <erlenda@gmail.com>
+
+	* mf/GNUmakefile: fix for mftrace version >= 1.2.0
+
 2006-04-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/define-context-properties.scm (all-user-translation-properties): 

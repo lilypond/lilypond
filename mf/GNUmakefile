@@ -138,7 +138,7 @@ tree-regen:
 	${MAKE} -C $(top-build-dir) link-mf-tree
 
 pfa_warning:
-ifneq ($(shell $(MFTRACE) --version | sed 's/ .*//'),mftrace)
+ifneq ($(shell $(MFTRACE) --version | head -n 1 | sed 's/ .*//'),mftrace)
 	@echo ""
 	@echo "ERROR: mftrace not found"
 	@echo ""
