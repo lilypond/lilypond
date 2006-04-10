@@ -143,7 +143,8 @@ dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
      
      (default-direction ,ly:dir? "Direction determined by note head positions.")
-     (direction ,ly:dir? "Up or down, left or right?")
+     (direction ,ly:dir? "#UP or #DOWN, #LEFT or #RIGHT?  (or a numerical value, #UP=1, #DOWN=-1, #LEFT=-1, #RIGHT=1, CENTER=0)")
+
      (dot-color ,symbol? "Color of dots.  Options include 
 @code{black} and @code{white}.")
      (dot-radius ,number? "Radius of dots.")

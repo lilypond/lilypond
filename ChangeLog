@@ -5,6 +5,8 @@
 	* scm/define-context-properties.scm: backport fix for
 	old \property stuff.
 
+	* scm/define-grob-properties.scm: backport updated direction docs.
+
 2006-04-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/lilypond-book.py
