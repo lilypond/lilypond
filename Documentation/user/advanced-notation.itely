@@ -622,7 +622,7 @@ multi-measure rest.  This expansion is controlled by the property
 be expanded, and the appropriate number is added automatically
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\time 4/4 r1 | R1 | R1*2
+\time 4/4 r1 | R1 | R1*2 \time 3/4 R2. \time 2/4 R2 \time 4/4
 \set Score.skipBars = ##t R1*17 R1*4
 @end lilypond
 
@@ -2408,7 +2408,7 @@ the change should be made.  The default is @code{'Voice}.
 @end itemize
 
 For example, if automatic beams should always end on the first quarter
-node, use
+note, use
 
 @example
 #(override-auto-beam-setting '(end * * * *) 1 4)

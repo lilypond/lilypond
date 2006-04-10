@@ -5029,7 +5029,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab @strong{UK}
   @tab @strong{I}
-  @tab @strong{F}
+  @tab @strong{F (note name / rest name)}
 @item
   @tab @strong{D}
   @tab @strong{NL}
@@ -5059,7 +5059,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item @strong{breve}
   @tab breve
   @tab breve
-  @tab brève
+  @tab brève / double-pause
 @item
   @tab Brevis
   @tab brevis
@@ -5074,7 +5074,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item @strong{whole}
   @tab semi@-breve
   @tab semi@-breve
-  @tab ronde
+  @tab ronde / pause
 @item
   @tab Ganze
   @tab hele
@@ -5089,7 +5089,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item @strong{half}
   @tab minim
   @tab minima
-  @tab blanche
+  @tab blanche / demi-pause
 @item
   @tab Halbe
   @tab halve
@@ -5104,7 +5104,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item @strong{quarter}
   @tab crotchet
   @tab semiminima
-  @tab noire
+  @tab noire / soupir
 @item
   @tab Viertel
   @tab kwart
@@ -5119,7 +5119,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item @strong{eighth}
   @tab quaver
   @tab croma
-  @tab croche
+  @tab croche / semi-pause
 @item
   @tab Achtel
   @tab achtste
@@ -5134,7 +5134,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item @strong{sixteenth}
   @tab semiquaver
   @tab semicroma
-  @tab double croche
+  @tab double croche / quart de soupir
 @item
   @tab Sechzehntel
   @tab zestiende
@@ -5149,7 +5149,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item @strong{thirty-second}
   @tab demisemiquaver
   @tab biscroma
-  @tab triple croche
+  @tab triple croche / huitième de soupir
 @item
   @tab Zweiunddreissigstel
   @tab tweeendertigste
@@ -5164,7 +5164,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item @strong{sixty-fourth}
   @tab hemidemisemiquaver
   @tab semibiscroma
-  @tab quadruple croche
+  @tab quadruple croche / seizième de soupir
 @item
   @tab Vierundsechzigstel
   @tab vierenzestigste
