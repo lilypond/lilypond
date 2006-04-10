@@ -417,7 +417,6 @@ property, you can make brackets last shorter.  Example
 
 @example
 @{
-\\times 2/3 @{
 \\set tupletSpannerDuration = #(ly:make-moment 1 4)
 \\times 2/3 @{ c8 c c c c c @}
 @}
