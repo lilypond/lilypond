@@ -580,6 +580,10 @@ dvips -o -h yourfile.psfonts -Ppdf yourfile.dvi
 ps2pdf yourfile.ps
 @end example
 
+The @file{.dvi} file created by this process will not contain
+noteheads.  This is normal; if you follow the instructions, they
+will be included in the @file{.ps} and @file{.pdf} files.
+
 To produce a Texinfo document (in any output format), follow the normal
 procedures for Texinfo (this is, either call @command{texi2dvi} or
 @command{makeinfo}, depending on the output format you want to

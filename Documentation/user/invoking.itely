@@ -119,7 +119,8 @@ This mode is used by default by lilypond-book.
 @item -d,--define-default=@var{var}=@var{val}
 This sets the internal program option @var{var} to the Scheme value
 @var{val}. If @var{val} is not supplied, then @var{#t} is used. To
-switch off an option, @code{no-} may be prefixed to @var{var}, eg.
+switch off an option, @code{no-} may be prefixed to @var{var}, e.g.
+
 @example
 -dno-point-and-click
 @end example
@@ -259,7 +260,7 @@ be a single directory writable by this user, which should be passed in
 
 @item Preparing the jail
 LilyPond needs to read a number of files while running.  All these files
-are to be copied into the jail, under the same path they apper in the
+are to be copied into the jail, under the same path they appear in the
 real root filesystem.  The entire content of the LilyPond installation
 (e.g., @file{/usr/share/lilypond})
 should be copied.
@@ -412,7 +413,7 @@ test.ly:2:19: error: not a duration: 5:
 @end example
 
 These locations are LilyPond's best guess about where the warning or
-error occured, but (by their very nature) warnings and errors occur
+error occurred, but (by their very nature) warnings and errors occur
 when something unexpected happens.  If you can't see an error in the
 indicated line of your input file, try checking one or two lines
 above the indicated position.

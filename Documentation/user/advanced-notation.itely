@@ -61,6 +61,9 @@ command @code{\fatText}, the widths will be taken into account
 c4^"longtext" \fatText c4_"longlongtext" c4
 @end lilypond
 
+@noindent
+To prevent text from influencing spacing, use @code{\emptyText}.
+
 More complex formatting may also be added to a note by using the
 markup command,
 @lilypond[fragment,ragged-right,verbatim,quote]
@@ -128,6 +131,15 @@ c2\startTextSpan b c\stopTextSpan a
 @code{textSpannerDown},
 @cindex textSpannerNeutral
 @code{textSpannerNeutral}.
+
+
+@commonprop
+
+To print a solid line, use
+
+@example
+\override TextSpanner #'dash-fraction = #'() 
+@end example
 
 
 @seealso
@@ -450,7 +462,7 @@ to.
 @itemize @bullet
 @item @code{font-encoding}
 is a symbol that sets layout of the glyphs.  This should only be set to
-select different types of non-text fonts, eg.
+select different types of non-text fonts, e.g.
 
 @code{fetaBraces} for piano staff braces, @code{fetaMusic} the
 standard music font, including ancient glyphs, @code{fetaDynamic} for
@@ -610,7 +622,7 @@ multi-measure rest.  This expansion is controlled by the property
 be expanded, and the appropriate number is added automatically
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\time 4/4 r1 | R1 | R1*2
+\time 4/4 r1 | R1 | R1*2 \time 3/4 R2. \time 2/4 R2 \time 4/4
 \set Score.skipBars = ##t R1*17 R1*4
 @end lilypond
 
@@ -1507,7 +1519,7 @@ Cue notes have smaller font sizes.
 @c Yes, this is good practice.  Otherwise, the start of the original
 @c part can only be seen from the font size.  This is not good enough
 @c for sight-reading.  It is possilbe to use other
-@c markers (eg. a big close-bracket over the staff) to indicate the cue notes are
+@c markers (e.g. a big close-bracket over the staff) to indicate the cue notes are
 @c finished.
 @c -hwn
 
@@ -1593,14 +1605,15 @@ see those sections of the documentation.
 Double time signatures are not supported explicitly, but they can be
 faked.  In the next example, the markup for the time signature is
 created with a markup text.  This markup text is inserted in the
-@internalsref{TimeSignature} grob.
+@internalsref{TimeSignature} grob. See also 
+@inputfileref{input/@/test,compound@/-time@/.ly}).
 
 @lilypond[verbatim,ragged-right]
 % create 2/4 + 5/8
 tsMarkup =\markup {
-  \number {
+  \override #'(baseline-skip . 2) \number {
     \column { "2" "4" }
-    \musicglyph #"scripts.stopped"
+    \lower #1 "+"
     \bracket \column { "5" "8" }
   }
 }
@@ -1977,6 +1990,9 @@ Examples: @inputfileref{input/@/regression,balloon@/.ly}.
 @node Blank music sheet
 @subsection Blank music sheet
 
+@cindex Sheet music, empty
+@cindex Staves, blank sheet
+
 A blank music sheet can be produced also by using invisible notes, and
 removing @code{Bar_number_engraver}.
 
@@ -2047,8 +2063,7 @@ scale is determined by  the @code{\key} command
 Shape note heads are implemented through the @code{shapeNoteStyles}
 property.  Its value is a vector of symbols.  The k-th element indicates
 the style to use for the k-th step of the scale.  Arbitrary
-combinations are possible, eg.,
-
+combinations are possible, e.g.
 
 @lilypond[verbatim,relative=1,fragment]
   \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
@@ -2393,7 +2408,7 @@ the change should be made.  The default is @code{'Voice}.
 @end itemize
 
 For example, if automatic beams should always end on the first quarter
-node, use
+note, use
 
 @example
 #(override-auto-beam-setting '(end * * * *) 1 4)
