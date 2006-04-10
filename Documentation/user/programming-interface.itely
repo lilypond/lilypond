@@ -589,7 +589,7 @@ a list of alists, containing all active properties.
 @end table
 
 As a simple example, we show how to add a @code{\smallcaps} command,
-which selects @TeX{}'s small caps font.  Normally, we could select the
+which selects a small caps font.  Normally, we could select the
 small caps font as follows:
 
 @example
@@ -718,6 +718,10 @@ the markups built for each token are put in a line by
 @code{(make-line-markup ...)}.  Finally, the resulting markup is passed
 to the @code{interpret-markup} function, with the @code{layout} and
 @code{props} arguments.
+
+Note: there is now an internal command @code{\smallCaps} which can
+be used to set text in small caps.  See
+@ref{Overview of text markup commands} for details.
 
 
 
