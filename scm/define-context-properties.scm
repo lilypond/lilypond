@@ -343,9 +343,11 @@ with other voices is preserved.
 
 
 @example
-@@lilypond[fragment,verbatim,center]
-r1 r1*3 R1*3 \\\\property Score.skipBars= ##t r1*3 R1*3
-@@end lilypond
+@{
+r1 r1*3 R1*3
+\\set Score.skipBars= ##t
+r1*3 R1*3
+@}
 @end example
 ")
      (skipTypesetting ,boolean?
