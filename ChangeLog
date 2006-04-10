@@ -2,6 +2,9 @@
 
 	* Documentation/user/*: backport doc changes from 2.9.
 
+	* scm/define-context-properties.scm: backport fix for
+	old \property stuff.
+
 2006-04-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/lilypond-book.py
