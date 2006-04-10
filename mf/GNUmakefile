@@ -129,7 +129,7 @@ export MFINPUTS:=.:$(MFINPUTS)
 
 
 
-default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
+default: $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 
 .PHONY: tree-regen
 
@@ -137,49 +137,14 @@ default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 tree-regen:
 	${MAKE} -C $(top-build-dir) link-mf-tree
 
-pfa_warning:
-ifneq ($(shell $(MFTRACE) --version | head -n 1 | sed 's/ .*//'),mftrace)
-	@echo ""
-	@echo "ERROR: mftrace not found"
-	@echo ""
-	@echo "For obtaining PFA/SVG fonts, either install mftrace "
-	@echo "(see http://www.xs4all.nl/~hanwen/mftrace/ ),"
-	@echo "or try one of the following commands in this directory: "
-	@echo ""
-	@echo " make get-fonts "
-	@echo " make get-rpm-fonts "
-	@echo " make get-deb-fonts "
-	@echo ""
-	@echo "These commands will try to download the files from internet."
-	@false
-endif
-
-
 debian-mirror=http://ftp.us.debian.org
 debian-package =lilypond_$(TOPLEVEL_VERSION)-1_i386.deb
 $(outdir)/$(debian-package):
 	wget --passive-ftp -P $(outdir) $(debian-mirror)/debian/pool/main/l/lilypond/$(debian-package)
 
-get-deb-fonts: $(outdir)/$(debian-package)
-	rm -rf $(outdir)/./usr
-	ar p $< data.tar.gz | \
-		tar -C $(outdir) -zvxf - '*.pfa' '*.svg'
-	cp `find $(outdir)/usr/ -name '*.pfa' -o -name '*.svg'` $(outdir)/
-
-
 redhat-package=lilypond-$(TOPLEVEL_VERSION)-1.i386.rpm
 $(outdir)/$(redhat-package):
 	wget  --passive-ftp -P $(outdir) http://lilypond.org/download/binaries/Fedora-4/$(redhat-package)
-
-get-rpm-fonts: $(outdir)/$(redhat-package)
-	cd $(outdir) ; rm -rf usr/ # (root alert!)
-	cd $(outdir) ; rpm2cpio $(redhat-package) | cpio -uid '*.pfa' '*.svg'
-	cp `find $(outdir)/usr/ -name '*.pfa' -o -name '*.svg'` $(outdir)/
-
-# change this dependency
-get-fonts: get-rpm-fonts
-get-pfa: get-rpm-fonts
-
 
 ##
 ## todo: this also depends on .tfm, FIXME.

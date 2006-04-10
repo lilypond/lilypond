@@ -1,3 +1,8 @@
+2006-04-10  Erlend Aasland  <erlenda@gmail.com>
+
+	* mf/GNUmakefile: remove redundant mftrace check. Also remove
+	get-pfa and get-*-fonts targets.
+
 2006-04-10  Graham Percival  <gpermus@gmail.com>
 
 	* THANKS, Documentation/user/ basic-notation, advanced-notation,
