@@ -634,6 +634,23 @@ Setting the paper size will adjust a number of @code{\paper} variables
 LilyPond will do page layout, set margins, and add headers and
 footers to each page.
 
+@cindex @code{annotate-spacing}
+@cindex Spacing, display of properties
+
+To graphically display the dimensions of properties that may
+be altered for page formatting, use
+
+@example
+\paper @{
+  annotate-spacing = ##t
+@}
+@end example
+
+@noindent
+All units dimensions are measured in staff spaces. The pairs
+(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
+@var{b} the upper edge of the interval.
+
 The default layout responds to the following settings in the
 @code{\paper} block.
 

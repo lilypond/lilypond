@@ -4093,7 +4093,7 @@ In this case, the extender lines always replace existing figures.
 The @code{FiguredBass} context doesn't pay attention to the actual
 bass line. As a consequence, you may have to insert extra figures to
 get extender lines below all notes, and you may have to add @code{\!}
-to avoid getting an extender line, eg.
+to avoid getting an extender line, e.g.
 
 @lilypond[relative=1]
 <<
