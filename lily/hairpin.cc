@@ -101,9 +101,9 @@ Hairpin::print (SCM smob)
   Real height = robust_scm2double (me->get_property ("height"), 0.2) *
 		Staff_symbol_referencer::staff_space (me);
   /*
-    FIXME: 0.65 is just a guess...
+    FIXME: 0.525 is still just a guess...
   */
-  Real rad = height * 0.65;
+  Real rad = height * 0.525;
   Real thick = 1.0;
   if (circled_tip)
     thick = robust_scm2double (me->get_property ("thickness"), 1.0)
