@@ -1,3 +1,7 @@
+2006-04-11  Graham Percival  <gpermus@gmail.com>
+
+	* scm/define-context-properties.scm: typo.
+
 2006-04-13  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* scm/define-music-types.scm: disposed "docme".
