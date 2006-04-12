@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@node Putting it all together
-@chapter Putting it all together
+@node Working on LilyPond projects
+@chapter Working on LilyPond projects
 
 This section explains how to use the rest of the documentation and
 how to solve common problems.

@@ -2,6 +2,8 @@
 
 	* scm/define-context-properties.scm: typo.
 
+	* Documentation/user/ : many more small updates.
+
 2006-04-13  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* scm/define-music-types.scm: disposed "docme".

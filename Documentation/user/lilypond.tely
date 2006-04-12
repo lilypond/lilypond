@@ -262,7 +262,7 @@ of this and other documentation.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
 * Example templates::              Larger examples.
-* Putting it all together::        Demonstrates real-life LilyPond usage.
+* Working on LilyPond projects::   Demonstrates real-life LilyPond usage.
 * Running LilyPond::               Operation.
 * Basic notation::                 Standard musical notation.
 * Instrument-specific notation::   Notation that is only used for some

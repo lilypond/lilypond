@@ -1,4 +1,3 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
 @node Running LilyPond
 @chapter Running LilyPond
 
@@ -121,6 +120,8 @@ This sets the internal program option @var{var} to the Scheme value
 @var{val}. If @var{val} is not supplied, then @var{#t} is used. To
 switch off an option, @code{no-} may be prefixed to @var{var}, e.g.
 
+@cindex point and click, command line
+
 @example
 -dno-point-and-click
 @end example
@@ -131,9 +132,16 @@ is the same as
 -dpoint-and-click='#f'
 @end example
 
-@cindex point and click
+Another notable option is
 
-Setting the @code{help} option will print a summary of the options
+@example
+-dpaper-size=\"letter\"
+@end example
+
+@noindent
+Note that the string must be enclosed in escaped quotes ( @code{\"} ).
+
+Setting the @code{-dhelp} option will print a summary of the options
 available, and exit.
 
 @item -h,--help

@@ -1199,9 +1199,12 @@ measure is subdivided in 2, 2, 2 and 3.  This is passed to
 }
 @end lilypond
 
+
 @seealso
 
 Program reference: @internalsref{TimeSignature}, and @internalsref{Timing_translator}.
+
+Examples: @inputfileref{input/@/test,compound@/-time@/.ly}.
 
 
 @refbugs
@@ -1489,7 +1492,8 @@ Program reference: @internalsref{StaffSymbol}.
 
 Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
 @inputfileref{input/@/test@/,ossia.ly},
-@inputfileref{input/@/test,staff@/-size@/.ly}.
+@inputfileref{input/@/test,staff@/-size@/.ly},
+@inputfileref{input/@/regression,staff@/-line@/-positions@/.ly}.
 
 
 
@@ -2245,6 +2249,13 @@ c\< c\! d\> e\!
 @noindent
 A hairpin starts at the left edge of the beginning note and ends on the
 right edge of the ending note.
+
+In some situations the @code{\espressivo} articulation mark may
+be suitable to indicate a crescendo and decrescendo on the one note,
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c2 b4 a g1\espressivo
+@end lilypond
 
 This may give rise to very short hairpins.  Use @code{minimum-length}
 in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
