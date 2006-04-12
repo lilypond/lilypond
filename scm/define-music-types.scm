@@ -229,7 +229,7 @@ Syntax: @var{note}\\laissezVibrer.")
 	))
     (LigatureEvent
      . (
-	(description .	"(docme).")
+	(description .	"Start or end a ligature.")
 	(span-type . ligature)
 	(types . (general-music span-event ligature-event event))
 	))
