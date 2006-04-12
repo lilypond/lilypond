@@ -270,8 +270,8 @@ quotation marks.
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { hello }
 c1_\markup { hi there }
-c1^\markup { hi \bold there, is \italic anyone home? }
-c1_\markup { "\special #characters" }
+c1^\markup { hi \bold there, is \italic {anyone home?} }
+c1_\markup { "\special {weird} #characters" }
 @end lilypond
 
 @noindent
