@@ -403,7 +403,7 @@ Switch off for cadenzas.")
      (tremoloFlags ,integer? "Number of tremolo flags to add if no
 number is specified.")
 
-     (tupletFullLength ,boolean? "If set, the tuplet is printed upto
+     (tupletFullLength ,boolean? "If set, the tuplet is printed up to
 the start of the next note.")
      (tupletNumberFormatFunction
       ,procedure?
