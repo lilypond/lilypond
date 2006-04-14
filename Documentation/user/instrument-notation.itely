@@ -3881,6 +3881,20 @@ Trigonus
 @code{\[ \stropha b \stropha b \stropha a \]}
 @end multitable
 
+The ligatures listed above mainly serve as a limited, but still
+representative pool of Gregorian ligature examples.  Virtually, within
+the ligature delimiters @code{\[} and @code{\]}, any number of heads
+may be accumulated to form a single ligature, and head prefixes like
+@code{\pes}, @code{\flexa}, @code{\virga}, @code{\inclinatum},
+etc. may be mixed in as desired.  The use of the set of rules that
+underlies the construction of the ligatures in the above table is
+accordingly extrapolated.  This way, infinitely many different
+ligatures can be created.
+
+@c TODO: create a regression or tips & tricks example document with
+@c even more Gregorian ligatures, and add a link to this document
+@c here.
+
 @refcommands
 
 The following head prefixes are supported
@@ -3902,7 +3916,11 @@ The following head prefixes are supported
 @cindex @code{\quilisma}
 @code{\quilisma},
 @cindex @code{\deminutum}
-@code{\deminutum}.
+@code{\deminutum},
+@cindex @code{\cavum}
+@code{\cavum},
+@cindex @code{\linea}
+@code{\linea}.
 
 Head prefixes can be accumulated, though restrictions apply.  For
 example, either @code{\descendens} or @code{\ascendens} can be applied
