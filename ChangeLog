@@ -3,6 +3,10 @@
 	* Documentation/user/ various: small updates from Cameron
 	and Juergen, thanks!
 
+	* Documentation/user/ various: small updates of my own.
+
+	* THANKS: 2.7 -> 2.8.
+
 2006-04-11  Graham Percival  <gpermus@gmail.com>
 
 	* scm/define-context-properties.scm: typo.

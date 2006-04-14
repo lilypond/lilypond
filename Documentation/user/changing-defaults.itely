@@ -1293,19 +1293,6 @@ It notably does not work for stems and accidentals (these are caused
 by note heads, not by music events) or clefs (these are not caused by
 music inputs, but rather by the change of a property value).
  
-In a similar vein, objects may be parenthesized by prefixing
-@code{\parenthesize} to the music event, 
-
-@lilypond[relative=2,fragment,verbatim,ragged-right]
-<
-  c
-  \parenthesize  d
-  g
->4-\parenthesize -. 
-@end lilypond
-
-
-
 
 @node Difficult tweaks
 @subsection Difficult tweaks

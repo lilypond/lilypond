@@ -611,7 +611,7 @@ Here is an example of a good bug report:
 It seems that placement of accidentals is broken.  In the
 following example, the accidental touches the note head.
 
-Using Mac OSX 10.3.7, fink package lilypond-devel
+Using Mac OSX 10.3.7, lilypond 2.7.32
 
 \version "2.7.32"
 \layout { ragged-right = ##t }
