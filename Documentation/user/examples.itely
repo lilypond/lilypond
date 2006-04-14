@@ -959,10 +959,9 @@ bassusLyrics = \lyricmode {
 
 @subsection Gregorian transcription template
 
-This example demonstrates how to do modern transcriptions of Gregorian
+This example demonstrates how to do modern transcription of Gregorian
 music.  Gregorian music has no measure, no stems; it uses only half and
-quarter notes, and two types of barlines, a short one indicating a rest,
-and a second one indicating a breath mark.
+quarter noteheads, and special marks, indicating rests of different length.
 
 @lilypond[quote,verbatim,ragged-right]
 \include "gregorian-init.ly"
@@ -1033,8 +1032,12 @@ is within a @code{\transpose} section.
   composer = "Me"
   meter = "moderato"
   piece = "Swing"
-  tagline = "LilyPond example file by Amelie Zapf,
-             Berlin 07/07/2003"
+  tagline = \markup {
+    \column {
+      "LilyPond example file by Amelie Zapf,"
+      "Berlin 07/07/2003"
+    }
+  }
   texidoc = "Jazz tune for combo
              (horns, guitar, piano, bass, drums)."
 }
@@ -1082,7 +1085,7 @@ trumpet = {
   \global
   \set Staff.instrument = #"Trumpet"
   \clef treble
-  \new Staff <<
+  <<
     \trpt
   >>
 }
@@ -1099,7 +1102,7 @@ altosax = {
   \global
   \set Staff.instrument = #"Alto Sax"
   \clef treble
-  \new Staff <<
+  <<
     \alto
   >>
 }
@@ -1116,7 +1119,7 @@ barisax = {
   \global
   \set Staff.instrument = #"Bari Sax"
   \clef treble
-  \new Staff <<
+  <<
     \bari
   >>
 }
@@ -1133,7 +1136,7 @@ trombone = {
   \global
   \set Staff.instrument = #"Trombone"
   \clef bass
-  \new Staff <<
+  <<
     \tbone
   >>
 }
@@ -1153,7 +1156,7 @@ guitar = {
   \global
   \set Staff.instrument = #"Guitar"
   \clef treble
-  \new Staff <<
+  <<
     \gtr
   >>
 }
@@ -1185,7 +1188,7 @@ PianoRH = {
   \clef treble
   \global
   \set Staff.midiInstrument = "acoustic grand"
-  \new Staff <<
+  <<
     \new Voice = "one" \rhUpper
     \new Voice = "two" \rhLower
   >>
@@ -1194,14 +1197,14 @@ PianoLH = {
   \clef bass
   \global
   \set Staff.midiInstrument = "acoustic grand"
-  \new Staff <<
+  <<
     \new Voice = "one" \lhUpper
     \new Voice = "two" \lhLower
   >>
 }
 
 piano = {
-  \new PianoStaff <<
+  <<
     \set PianoStaff.instrument = #"Piano"
     \new Staff = "upper" \PianoRH
     \new Staff = "lower" \PianoLH
@@ -1217,7 +1220,7 @@ bass = {
   \global
   \set Staff.instrument = #"Bass"
   \clef bass
-  \new Staff <<
+  <<
     \Bass
   >>
 }

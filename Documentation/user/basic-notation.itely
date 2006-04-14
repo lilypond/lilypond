@@ -3134,9 +3134,10 @@ Measure repeats of more than 2 measures get a counter, if you switch
 on the @code{countPercentRepeats} property,
 
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
+\new Voice {
 \set countPercentRepeats = ##t
-\new Voice
   \repeat "percent" 4 { c1 }
+}
 @end lilypond
 
 
