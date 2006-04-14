@@ -1950,6 +1950,7 @@ teaching tools in addition to great musical scores.
 * Easy Notation note heads::    
 * Analysis brackets::           
 * Coloring objects::            
+* Parentheses::                 
 @end menu
 
 @node Balloon help
@@ -2206,14 +2207,40 @@ An x11 color is not necessarily exactly the same shade as a similarly
 named normal color. 
 
 
+@node Parentheses
+@subsection Parentheses
+
+@cindex ghost notes
+@cindex notes, ghost
+@cindex notes, parenthesized
+
+Objects may be parenthesized by prefixing @code{\parenthesize} to the music event, 
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \parenthesize d
+  g
+>4-\parenthesize -. 
+@end lilypond
+
+
 @node Automatic notation
 @section Automatic notation
 
 This section describes how to change the way that accidentals and
 beams are automatically displayed.
 
-FIXME: this might get moved into Changing Defaults.  Please send
-opinions to lilypond-devel.  Thanks!  :)
+@c FIXME: this might get moved into Changing Defaults.  Please send
+@c opinions to lilypond-devel.  Thanks!  :)
+@c    wow, this is embarrassing.  I changed added this a year
+@c    ago, and it was supposed to be a "fix in 2 weeks" thing.
+@c    unfortunately, I forgot to add -gp to it, so when I was
+@c    searching for last-minute stuff before 2.8 came out, I
+@c    missed it.  :(
+@c
+@c  BTW, this will definitely be moved.  :)
+
 
 @menu
 * Automatic accidentals::       
