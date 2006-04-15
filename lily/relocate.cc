@@ -11,9 +11,6 @@
 
 #include "config.hh"
 
-#include <sys/stat.h>
-#include <unistd.h>
-
 #if HAVE_GETTEXT
 #include <libintl.h>
 #endif
@@ -79,18 +76,6 @@ prepend_env_path (char const *key, string value)
   else if (be_verbose_global)
     warning (_f ("no such directory: %s for %s", value, key));
   return -1;
-}
-
-string
-dir_name (string const file_name)
-{
-  string s = file_name;
-  replace_all (s, '\\', '/');
-  ssize n = s.length ();
-  if (n && s[n - 1] == '/')
-    s[n - 1] = 0;
-  s = s.substr (0, s.rfind ('/'));
-  return s;
 }
 
 #ifdef __MINGW32__
@@ -173,15 +158,6 @@ framework_relocation (string prefix)
   set_env_dir ("PANGO_PREFIX", prefix);
   
   prepend_env_path ("PATH", bindir);
-}
-
-string
-get_working_directory ()
-{
-  char cwd[PATH_MAX];
-  getcwd (cwd, PATH_MAX);
-
-  return string (cwd);
 }
 
 void
@@ -274,14 +250,12 @@ setup_paths (char const *argv0_ptr)
 
   */
   
-  struct stat statbuf;
   string build_prefix_current = prefix_directory + "/share/lilypond/" "current";
   string build_prefix_version = prefix_directory + "/share/lilypond/" TOPLEVEL_VERSION;
-  if (stat (build_prefix_version.c_str (), &statbuf) == 0)
+  if (is_dir (build_prefix_version.c_str ()))
     prefix_directory = build_prefix_version;
-  else if (stat (build_prefix_current.c_str (), &statbuf) == 0)
+  else if (is_dir (build_prefix_current.c_str ()))
     prefix_directory = build_prefix_current;
-
   
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */

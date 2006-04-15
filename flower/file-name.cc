@@ -11,6 +11,8 @@
 
 #include <cstdio>
 #include <cerrno>
+#include <unistd.h>
+
 using namespace std;
 
 #include "config.hh"
@@ -61,6 +63,27 @@ slashify (string file_name)
   replace_all (file_name, '\\', '/');
   replace_all (file_name, string ("//"), "/");
   return file_name;
+}
+
+string
+dir_name (string const file_name)
+{
+  string s = file_name;
+  s = slashify (s);
+  ssize n = s.length ();
+  if (n && s[n - 1] == '/')
+    s[n - 1] = 0;
+  s = s.substr (0, s.rfind ('/'));
+  return s;
+}
+
+string
+get_working_directory ()
+{
+  char cwd[PATH_MAX];
+  getcwd (cwd, PATH_MAX);
+
+  return string (cwd);
 }
 
 /* Join components to full file_name. */

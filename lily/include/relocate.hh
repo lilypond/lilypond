@@ -10,8 +10,6 @@
 #ifndef RELOCATE_HH
 #define RELOCATE_HH
 
-
-
 #include "std-string.hh"
 
 int sane_putenv (char const *key, string value, bool overwrite);
