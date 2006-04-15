@@ -91,6 +91,12 @@ finalis = {
   \breathe
 }
 
+augmentum = {
+  %%% TODO: A ligature head postfix that indicates that an
+  %%% augmentum dot should be appended to the right end of
+  %%% the surrounding ligature.  [Not yet implemented.]
+}
+
 %
 % declare articulation shortcuts
 %
@@ -152,6 +158,63 @@ ligature = #(define-music-function
 %                        (ly:music-deep-copy ,stop)
 %			'LigatureStopEvent))))
 %climacus = #(def-climacus-function startSequentialMusic stopSequentialMusic)
+
+\layout {
+    indent = 0.0
+    packed = ##t
+
+    %%% TODO: should raggedright be the default?
+    %ragged-right = ##t
+    ragged-last = ##t
+
+    %%% FIXME: line-thickness should be set here to a slightly
+    %%% thicker value as the default; but we can not set it here,
+    %%% since neither \staff-space nor #staff-space is yet defined
+    %%% when lily comes across the following line.
+    %line-thickness = \staff-space / 7.0
+
+    \context {
+	\VaticanaStaff
+	 \override StaffSymbol #'color = #red
+	 \override LedgerLineSpanner #'color = #red
+    }
+    \context {
+	\Score
+	\remove "Bar_number_engraver"
+
+	%%%
+	%%% FIXME: Musicologically seen, timing should be set to #f.
+	%%% Unfortunately, setting it to #f will result in no
+	%%% line-breakable items being created, such that the whole
+	%%% music will end up in a single line.  Therefore, we
+	%%% currently set it to #t, until the ligature code is fixed
+	%%% to automatically insert breakable items.
+	%%%
+	timing = ##t
+
+	%%%
+	%%% FIXME: Setting barAlways to #t would fix the above
+	%%% "timing = ##t" problem, but, surprisingly, it increases
+	%%% the space between ligatures.  Hence, we set it to #f.
+	%%%
+	barAlways = ##f
+
+	\override SpacingSpanner #'packed-spacing = ##t
+
+	%%%
+	%%% TODO: Play around with the following SpacingSpanner
+	%%% settings to yield better spacing between ligatures.
+	%%%
+	%%% FIXME: setting #'spacing-increment to a small value
+	%%% causes tons of "programming error: adding reverse spring,
+	%%% setting to unit" messages.
+	%%%
+	%\override SpacingSpanner #'shortest-duration-space = #0
+	%\override SpacingSpanner #'average-spacing-wishes = ##f
+	%\override SpacingSpanner #'spacing-increment = #0.0
+	%\override SpacingSpanner #'uniform-stretching = ##t
+    }
+}
 
 %
 % example layout block for gregorian chant notation

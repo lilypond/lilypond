@@ -1,3 +1,9 @@
+2006-04-16  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* ly/engraver.ly: Remove obsolete comments.
+
+	* ly/gregorian-init.ly: Define default layout block.
+
 2006-04-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/lily-parser-scheme.cc: Use them to fix --output=DIR/BASE

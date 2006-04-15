@@ -761,9 +761,6 @@ AncientRemoveEmptyStaffContext = \context {
   \override Custos #'style = #'vaticana
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #DOWN
-
-  %% Score.timing = ##f
-  %% Score.barAlways = ##t
 }
 
 \context {
@@ -866,9 +863,6 @@ AncientRemoveEmptyStaffContext = \context {
   \override Custos #'style = #'mensural
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #DOWN
-
-  %% Score.timing = ##f
-  %% Score.barAlways = ##t
 }
 
 
