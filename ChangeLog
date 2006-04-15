@@ -4,6 +4,8 @@
 
 	* ly/gregorian-init.ly: Define default layout block.
 
+	* input/puer-fragment.ly: Updated and extended.
+
 2006-04-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/lily-parser-scheme.cc: Use them to fix --output=DIR/BASE
