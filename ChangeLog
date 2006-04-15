@@ -1,3 +1,16 @@
+2006-04-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/lily-parser-scheme.cc: Use them to fix --output=DIR/BASE
+	pdf conversion behaviour.
+
+	* flower/file-name.cc (dir_name)
+	(get_working_directory): Move from relocate.cc.
+
+	* lily/relocate.cc (setup_paths): Remove rogue stat calls.
+	
+	* lily/relocate.cc: Encapsulate sys/stat.h in
+	HAVE_STAT_H.
+
 2006-04-14  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ various: small updates from Cameron

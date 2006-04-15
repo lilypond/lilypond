@@ -65,19 +65,20 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   if (!output_name_global.empty ())
     {
       /* Interpret --output=DIR to mean --output=DIR/BASE.  */
+      string dir;
       if (is_dir (output_name_global))
 	{
-	  char cwd[PATH_MAX];
-	  getcwd (cwd, PATH_MAX);
-
-	  if (output_name_global != cwd)
-	    {
-	      global_path.prepend (cwd);
-	      message (_f ("Changing working directory to `%s'",
-			   output_name_global.c_str ()));
-	      chdir (output_name_global.c_str ());
-	    }
+	  dir = output_name_global;
 	  output_name_global = "";
+	}
+      else
+	dir = dir_name (output_name_global);
+      if (dir != "" && dir != "." && dir != get_working_directory ())
+	{
+	  global_path.prepend (get_working_directory ());
+	  message (_f ("Changing working directory to `%s'",
+		       dir.c_str ()));
+	  chdir (dir.c_str ());
 	}
       else
 	out_file_name = File_name (output_name_global);
