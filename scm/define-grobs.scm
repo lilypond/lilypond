@@ -1580,7 +1580,7 @@
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(font-size . -2)
-	(stem-attachment . (1.0 . 1.35))
+	(stem-attachment . (0.0 . 1.35))
 	(font-series . bold)
 	(meta . ((class . Item)
 		 (interfaces
