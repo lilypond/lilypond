@@ -1,3 +1,7 @@
+2006-04-17  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/define-grobs.scm: fix stem-attachment for tablature note heads.
+
 2006-04-16  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* ly/engraver.ly: Remove obsolete comments.
