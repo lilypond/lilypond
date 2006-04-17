@@ -1773,6 +1773,7 @@ for this purpose instead.
 * String number indications::   
 * Tablatures basic::            
 * Non-guitar tablatures::       
+* Banjo tablatures::       
 * Fret diagrams::               
 * Other guitar issues::         
 @end menu
@@ -1861,15 +1862,15 @@ chord.
 @subsection Non-guitar tablatures
 @cindex Non-guitar tablatures
 
-You can change the number of strings, by setting the number of lines
-in the @internalsref{TabStaff}.
-
 You can change the tuning of the strings.  A string tuning is given as
 a Scheme list with one integer number for each string, the number
 being the pitch (measured in semitones relative to middle C) of an
 open string.  The numbers specified for @code{stringTuning} are the
 numbers of semitones to subtract or add, starting the specified pitch
-by default middle C, in string order.  In the next example,
+by default middle C, in string order.  LilyPond automatically calculates
+the number of strings by looking at @code{stringTuning}.
+
+In the next example,
 @code{stringTunings} is set for the pitches e, a, d, and g
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -1881,13 +1882,63 @@ by default middle C, in string order.  In the next example,
 >>
 @end lilypond
 
+LilyPond comes with predefined string tunings for banjo, guitar and bass guitar.
+
+@example
+\set TabStaff.stringTunings = #bass-tuning
+@end example
+
+The default string tuning is @code{guitar-tuning} (the standard EADGBE tuning).
+Some other predefined tunings are @code{guitar-open-g-tuning},
+@code{mandolin-tuning} and @code{banjo-open-g-tuning}.
+
+@seealso
+
+The file @file{scm/@/output@/-lib@/.scm} contains the predefined string tunings.
+Program reference: @internalsref{Tab_note_heads_engraver}.
+
 @refbugs
 
 No guitar special effects have been implemented.
 
+
+
+@node Banjo tablatures
+@subsection Banjo tablatures
+@cindex Banjo tablatures
+
+LilyPond has basic support for five stringed banjo.  When making tablatures
+for five stringed banjo, use the banjo tablature format function to get correct
+fret numbers for the fifth string:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff <<
+  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
+  \set TabStaff.stringTunings = #banjo-open-g-tuning
+  {
+    \stemDown
+    g8 d' g'\5 a b g e d' |
+    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+    g4
+  }
+>>
+@end lilypond
+
+A number of common tunings for banjo are predefined in LilyPond:
+@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
+@code{banjo-open-d-tuning} (aDF#AD) and @code{banjo-open-dm-tuning}
+(aDFAD).
+
+These tunings may be converted to four string banjo tunings using the
+@code{four-string-banjo} function:
+
+@example
+\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
+@end example
+
 @seealso
 
-Program reference: @internalsref{Tab_note_heads_engraver}.
+The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
 
 
 @node Fret diagrams
