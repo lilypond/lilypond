@@ -1,3 +1,10 @@
+2006-04-18  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* scripts/GNUmakefile: bugfix: run help2man only after scripts have 
+	been generated. Fixes "can't get `--help'" bug after make clean.
+
+	* THANKS: alphabetize contributors.
+
 2006-04-17  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/instrument-notation.itely: added Erlend's
