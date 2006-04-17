@@ -9,6 +9,10 @@
 
 	* ps/music-drawing-routines.ps (draw_dashed_line): fix dash pattern bug.
 
+	* scm/output-lib.scm: add some more predefined string tunings.
+
+	* Documentation/user/instrument-notation.itely: and doc them.
+
 2006-04-16  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* ly/engraver.ly: Remove obsolete comments.

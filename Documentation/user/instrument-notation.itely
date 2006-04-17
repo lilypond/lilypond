@@ -1882,7 +1882,8 @@ In the next example,
 >>
 @end lilypond
 
-LilyPond comes with predefined string tunings for banjo, guitar and bass guitar.
+LilyPond comes with predefined string tunings for banjo, mandolin, guitar
+and bass guitar.
 
 @example
 \set TabStaff.stringTunings = #bass-tuning
