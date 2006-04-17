@@ -1,3 +1,8 @@
+2006-04-17  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/define-grobs.scm: backport stem-attachment fix for tablature
+	note heads.
+
 2006-04-09  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/*: backport doc changes from 2.9.
