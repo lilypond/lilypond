@@ -1,3 +1,8 @@
+2006-04-18  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* scripts/GNUmakefile: revert last "fix", which rather broke make.
+	Earlier successive `make' commands finally compiled ok.
+
 2006-04-18  Erlend Aasland <erlenda@gmail.com>
 
 	* lily/include/stem-tremolo.hh:
