@@ -86,23 +86,6 @@ Stem_tremolo::get_beam_translation (Grob *me)
   return  beam ? Beam::get_beam_translation (beam) : 0.81;
 }
 
-/* FIXME: move to Lookup? */
-Stencil
-Stem_tremolo::rotated_box (Real slope, Real width, Real thick, Real blot)
-{
-  vector<Offset> pts;
-  Offset rot (1, slope);
-
-  thick -= 2*blot;
-  width -= 2*blot;
-  rot /= sqrt (1 + slope*slope);
-  pts.push_back (Offset (0, -thick / 2) * rot);
-  pts.push_back (Offset (width, -thick / 2) * rot);
-  pts.push_back (Offset (width, thick / 2) * rot);
-  pts.push_back (Offset (0, thick / 2) * rot);
-  return Lookup::round_filled_polygon (pts, blot);
-}
-
 Stencil
 Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction stemdir)
 {
@@ -117,9 +100,12 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction stemdir)
   width *= ss;
   thick *= ss;
 
-  Stencil a = style == ly_symbol2scm ("rectangle") ?
-    rotated_box (slope, width, thick, blot) :
-    Lookup::beam (slope, width, thick, blot);
+  Stencil a;
+  if (style == ly_symbol2scm ("rectangle"))
+    a = Lookup::rotated_box (slope, width, thick, blot);
+  else
+    a = Lookup::beam (slope, width, thick, blot);
+
   a.align_to (X_AXIS, CENTER);
   a.align_to (Y_AXIS, CENTER);
 

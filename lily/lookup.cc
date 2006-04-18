@@ -111,6 +111,22 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction)
 }
 
 Stencil
+Lookup::rotated_box (Real slope, Real width, Real thick, Real blot)
+{
+  vector<Offset> pts;
+  Offset rot (1, slope);
+
+  thick -= 2*blot;
+  width -= 2*blot;
+  rot /= sqrt (1 + slope*slope);
+  pts.push_back (Offset (0, -thick / 2) * rot);
+  pts.push_back (Offset (width, -thick / 2) * rot);
+  pts.push_back (Offset (width, thick / 2) * rot);
+  pts.push_back (Offset (0, thick / 2) * rot);
+  return Lookup::round_filled_polygon (pts, blot);
+}
+
+Stencil
 Lookup::horizontal_line (Interval w, Real th)
 {
   SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
