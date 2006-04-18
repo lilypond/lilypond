@@ -3,6 +3,8 @@
 	* scripts/GNUmakefile: revert last "fix", which rather broke make.
 	Earlier successive `make' commands finally compiled ok.
 
+	* Documentation/topdocs/INSTALL.texi: require mftrace 1.1.19.
+
 2006-04-18  Erlend Aasland <erlenda@gmail.com>
 
 	* lily/include/stem-tremolo.hh:
