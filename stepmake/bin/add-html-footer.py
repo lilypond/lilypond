@@ -58,8 +58,6 @@ This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
 Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.</font></address>
 </p>
 </div>
-
-
 """
 
 
@@ -223,14 +221,12 @@ def do_file (f):
 			s = doctype + s
 
 	if re.search (footer_tag, s) == None:
-		s = s + footer_tag + '\n'
-
 		if re.search ('(?i)</body', s):
-			s = re.sub ('(?i)</body>', footer + '</BODY>', s, 1)
+			s = re.sub ('(?i)</body>', footer_tag + footer + '\n' + '</BODY>', s, 1)
 		elif re.search ('(?i)</html', s):		
-			s = re.sub ('(?i)</html>', footer + '</HTML>', s, 1)
+			s = re.sub ('(?i)</html>', footer_tag + footer + '\n' + '</HTML>', s, 1)
 		else:
-			s = s + footer
+			s = s + footer_tag + footer + '\n'
 
 		s = i18n (f, s)
 
@@ -357,8 +353,18 @@ def i18n (file_name, page):
 	languages = ''
 	if language_menu:
 		languages = LANGUAGES_TEMPLATE % vars ()
+	else:
+		languages = LANGUAGES_TEMPLATE % vars ()
 
-	return page + languages
+	# Put language menu before '</body>' and '</html>' tags
+	if re.search ('(?i)</body', page):
+		page = re.sub ('(?i)</body>', languages + '</BODY>', page, 1)
+	elif re.search ('(?i)</html', page):		
+		page = re.sub ('(?i)</html>', languages + '</HTML>', page, 1)
+	else:
+		page = page + languages
+
+	return page
 	## end i18n
 
 for f in files:
