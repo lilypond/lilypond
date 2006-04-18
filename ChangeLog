@@ -1,5 +1,10 @@
 2006-04-18  Heikki Junes  <hjunes@cc.hut.fi>
 
+	* stepmake/bin/add-html-footer.py: fix footer position in
+	generated html files: before </body> and </html> tags.
+
+2006-04-18  Heikki Junes  <hjunes@cc.hut.fi>
+
 	* scripts/GNUmakefile: revert last "fix", which rather broke make.
 	Earlier successive `make' commands finally compiled ok.
 
