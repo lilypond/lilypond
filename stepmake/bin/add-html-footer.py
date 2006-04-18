@@ -353,8 +353,6 @@ def i18n (file_name, page):
 	languages = ''
 	if language_menu:
 		languages = LANGUAGES_TEMPLATE % vars ()
-	else:
-		languages = LANGUAGES_TEMPLATE % vars ()
 
 	# Put language menu before '</body>' and '</html>' tags
 	if re.search ('(?i)</body', page):
