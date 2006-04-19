@@ -48,7 +48,8 @@ check_meshing_chords (Grob *me,
   if (ups[0] > dps.back () + 1)
     return;
 
-  // FIXME: what's this?
+  /* Merge heads if the notes lie the same line, or if the "stem-up-note" is
+     above the "stem-down-note". */
   bool merge_possible = (ups[0] >= dps[0]) && (ups.back () >= dps.back ());
 
   /* Do not merge notes typeset in different style. */
