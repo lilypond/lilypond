@@ -14,7 +14,6 @@
 #include "note-column.hh"
 #include "slur.hh"
 #include "spanner.hh"
-#include "tie.hh"
 #include "warn.hh"
 
 /*
@@ -92,33 +91,10 @@ Phrasing_slur_engraver::acknowledge_note_column (Grob_info info)
     Slur::add_column (end_slurs_[i], e);
 }
 
-/* FIXME: cut + paste job from Slur:: */
 void
 Phrasing_slur_engraver::acknowledge_extra_object (Grob_info info)
 {
-  Grob *e = info.grob ();
-  SCM avoid = e->get_property ("avoid-slur");
-  if (Tie::has_interface (e)
-      || avoid == ly_symbol2scm ("inside"))
-    {
-      for (vsize i = slurs_.size (); i--;)
-	Slur::add_extra_encompass (slurs_[i], e);
-      for (vsize i = end_slurs_.size (); i--;)
-	Slur::add_extra_encompass (end_slurs_[i], e);
-    }
-  else if (avoid == ly_symbol2scm ("outside")
-	   || avoid == ly_symbol2scm ("around"))
-    {
-      Grob *slur = slurs_.size () ? slurs_[0] : 0;
-      slur = (end_slurs_.size () && !slur)
-	? end_slurs_[0] : slur;
-
-      if (slur)
-	{
-	  chain_offset_callback (e, Slur::outside_slur_callback_proc, Y_AXIS);
-	  e->set_object ("slur", slur->self_scm ());
-	}
-    }
+  Slur::auxiliary_acknowledge_extra_object (info, slurs_, end_slurs_);
 }
 
 void
