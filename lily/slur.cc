@@ -24,6 +24,7 @@
 #include "staff-symbol.hh"
 #include "stem.hh"
 #include "text-interface.hh"
+#include "tie.hh"
 #include "warn.hh"
 #include "slur-scoring.hh"
 
@@ -231,6 +232,44 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   return scm_from_double (scm_to_double (offset_scm) + avoidance_offset);
 }
 
+/*
+ * Used by Slur_engraver:: and Phrasing_slur_engraver::
+ */
+void
+Slur::auxiliary_acknowledge_extra_object (Grob_info info,
+  vector<Grob*>& slurs, vector<Grob*>& end_slurs)
+{
+  if (slurs.empty () && end_slurs.empty ())
+    return;
+  
+  Grob *e = info.grob ();
+  SCM avoid = e->get_property ("avoid-slur");
+  if (Tie::has_interface (e)
+      || avoid == ly_symbol2scm ("inside"))
+    {
+      for (vsize i = slurs.size (); i--;)
+	add_extra_encompass (slurs[i], e);
+      for (vsize i = end_slurs.size (); i--;)
+	add_extra_encompass (end_slurs[i], e);
+    }
+  else if (avoid == ly_symbol2scm ("outside")
+	   || avoid == ly_symbol2scm ("around"))
+    {
+      Grob *slur;
+      if (end_slurs.size () && !slurs.size ())
+	slur = end_slurs[0];
+      else
+	slur = slurs[0];
+
+      if (slur)
+	{
+	  chain_offset_callback (e, outside_slur_callback_proc, Y_AXIS);
+	  e->set_object ("slur", slur->self_scm ());
+	}
+    }
+  else
+    e->warning ("Ignoring grob for slur. avoid-slur not set?");
+}
 
 
 ADD_INTERFACE (Slur, "slur-interface",

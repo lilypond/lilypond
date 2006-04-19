@@ -1,3 +1,15 @@
+2006-04-19  Erlend Aasland <erlenda@gmail.com>
+
+	* lily/include/slur.hh:
+	* lily/slur.cc:
+	* lily/phrasing-slur-engraver.cc:
+	* lily/slur-engraver.cc: Fix 'cut & paste' code by merging
+	acknowledge_extra_object () from Phrasing_slur_engraver:: and
+	Slur_engraver:: and putting it in
+	Slur::auxiliary_acknowledge_extra_object ().
+
+	* ps/music-drawing-routines.ps (draw_dashed_slur): fix another bug
+
 2006-04-18  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* stepmake/bin/add-html-footer.py: fix footer position in
@@ -16,8 +28,8 @@
 	* lily/stem-tremolo.cc: move rotated_box () to Lookup:: and update
 	callers.
 
-	* lily/lookup.cc: add rotated_box ()
-	* lily/include/lookup.hh:
+	* lily/lookup.cc:
+	* lily/include/lookup.hh: add rotated_box ()
 
 2006-04-18  Heikki Junes  <hjunes@cc.hut.fi>
 
