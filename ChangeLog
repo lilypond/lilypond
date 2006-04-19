@@ -10,6 +10,8 @@
 
 	* ps/music-drawing-routines.ps (draw_dashed_slur): fix another bug
 
+	* lily/note-collision.cc: fix a comment
+
 2006-04-18  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* stepmake/bin/add-html-footer.py: fix footer position in
