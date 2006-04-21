@@ -1847,6 +1847,17 @@ frag = {
   >>
 @end lilypond
 
+
+@commonprop
+
+To print tablatures with stems down and horizontal beams,
+initialize the @code{TabStaff} with this code:
+
+@example
+\stemDown
+\override Beam #'damping = #100000
+@end example
+
 @seealso
 
 Program reference: @internalsref{TabStaff}, @internalsref{TabVoice}.
