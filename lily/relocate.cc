@@ -277,3 +277,130 @@ setup_paths (char const *argv0_ptr)
   for (vsize i = 0; i < dirs.size (); i++)
     global_path.prepend (dirs[i]);
 }
+
+
+
+string
+expand_environment_variables (string orig)
+{
+  const char *start_ptr = orig.c_str();
+  const char *ptr = orig.c_str();
+  size_t len = orig.length();
+
+  string out;
+  while (ptr < start_ptr + len)
+    {
+      char *dollar = strchr (ptr, '$');
+      
+      if (dollar != NULL)
+	{
+	  char *start_var = dollar + 1;
+	  char *end_var = start_var;
+	  char *start_next = end_var;
+	  
+	  out += string (ptr, dollar - ptr);
+	  ptr = dollar;
+
+	  if (*start_var == '{')
+	    {
+	      start_var ++;
+	      
+	      end_var = strchr (start_var, '}');
+	      
+	      if (end_var == NULL)
+		{
+		  end_var = start_var + len;
+		  start_next = end_var;
+		}
+	      else
+		{
+		  start_next = end_var + 1; 
+		}
+	    }
+	  else 
+	    {
+	      /*
+		Hmm. what to do for $1 , $~ etc.?
+	       */
+	      do
+		{
+		  end_var ++;
+		}
+	      while (isalnum (*end_var) || *end_var == '_');
+	      start_next = end_var;
+	    }
+
+	  if (start_var < end_var)
+	    {
+	      string var_name (start_var, end_var - start_var);
+	      const char *value = getenv (var_name.c_str());
+	      if (value != NULL)
+		out += string (value);
+
+	      ptr = start_next;
+	    }
+	}
+      else
+	break;
+
+    }
+
+  out += ptr;
+
+  return out;
+}
+
+
+string
+read_line (FILE *f)
+{
+  string out;
+  
+  int c = 0;
+  while ((c = fgetc (f)) != EOF && c != '\n')
+    out += c;
+
+  return out;
+}
+
+void
+read_relocation_file (string filename)
+{
+  char const *cname = filename.c_str ();
+  FILE *f = fopen (cname, "r");
+  if (!f)
+    error (_f ("can't open file %s", cname));
+
+  while (!feof (f))
+    {
+      string line = read_line (f);
+      size_t idx = line.find (' ');
+      if (idx == NPOS)
+	continue;
+      
+      string command = line.substr (0, idx);
+      line = line.substr (idx + 1);
+      
+      if (idx == NPOS)
+	continue;
+      idx = line.find ('=');
+
+      string variable = line.substr (0, idx);
+      string value = line.substr (idx + 1);
+
+      value = expand_environment_variables (value);
+
+      if (command == "set")
+	sane_putenv (variable.c_str(), value, true);
+      else if (command == "setdir")
+	set_env_dir (variable.c_str(), value);
+      else if (command == "setfile")
+	set_env_file (variable.c_str(), value);
+      else if (command == "prependdir")
+	prepend_env_path (variable.c_str (), value);
+      else
+	error ( _f("Unknown relocation command %s", command));
+    }
+
+  fclose (f);
+}

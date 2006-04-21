@@ -604,11 +604,14 @@ setup_guile_env ()
   sane_putenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
 }
 
+void read_relocation_file(string);
 int
 main (int argc, char **argv)
 {
   if (getenv ("LILYPOND_VERBOSE"))
     be_verbose_global = true;
+
+  read_relocation_file ("test.reloc");
 
   setup_localisation ();
   parse_argv (argc, argv);
