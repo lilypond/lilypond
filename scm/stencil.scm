@@ -19,7 +19,9 @@
    ((null? stils) empty-stencil)
    ((null? (cdr stils)) (car stils))
    (else (ly:stencil-combine-at-edge
-	  (car stils) axis dir (stack-stencils-padding-list axis dir (cdr padding) (cdr stils))
+	  (car stils)
+	  axis dir
+	  (stack-stencils-padding-list axis dir (cdr padding) (cdr stils))
 	  (car padding)))))
 
 (define-public (centered-stencil stencil)
@@ -246,7 +248,10 @@ encloses the contents.
 	  'embedded-ps
 	  (string-append
 	   (format
-	   "BeginEPSF
+	   "
+gsave
+currentpoint translate
+BeginEPSF
 ~a ~a scale
 %%BeginDocument: ~a
 " 	   factor factor
@@ -254,7 +259,9 @@ encloses the contents.
 	   )
 	   contents
 	   "%%EndDocument
-EndEPSF"))
+EndEPSF
+grestore
+"))
 	
 	 (cons (list-ref scaled-bbox 0) (list-ref scaled-bbox 2))
 	 (cons (list-ref scaled-bbox 1) (list-ref scaled-bbox 3)))

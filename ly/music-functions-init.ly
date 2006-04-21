@@ -80,6 +80,9 @@ applyContext =
 
 shiftDurations =
 #(define-music-function (parser location dur dots arg) (integer? integer? ly:music?)
+   ""
+
+   
    (music-map
     (lambda (x)
       (shift-one-duration-log x dur dots)) arg))
