@@ -630,11 +630,6 @@ AncientRemoveEmptyStaffContext = \context {
 
   \description "Context for drawing notes in a Tab staff. "
 
-  %% Draws all stems/beams out of the staff (and not in the middle of the staff !)
-  %% This feature is now disabled because most of the tab does not use it.
-  %%\override Beam #'damping = #100000
-  %%\override Stem #'up-to-staff = ##t
-
   %% TabStaff increase the staff-space, which in turn
   %% increases beam thickness and spacing; beams are
   %% too big. We have to adjust the beam settings:
