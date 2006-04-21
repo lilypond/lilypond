@@ -1,3 +1,7 @@
+2006-04-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/stencil.scm (eps-file->stencil): fix EPS PS embedding code 
+
 2006-04-21  Erlend Aasland  <erlenda@gmail.com>
 
 	* ly/engraver-init.ly: remove old comments from TabVoice

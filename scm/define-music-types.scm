@@ -324,7 +324,6 @@ Syntax
     (NoteEvent
      . (
 	(description .	"A note.")
-
 	(types . (general-music event note-event rhythmic-event melodic-event))
 	))
     

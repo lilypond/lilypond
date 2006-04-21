@@ -46,7 +46,8 @@
 
 (define-public (object-type obj)
   (match-predicate obj type-p-name-alist))
-
+(define-public (object-type-name obj)
+  (type-name (match-predicate obj type-p-name-alist)))
 (define-public (type-name predicate)
   (let ((entry (assoc predicate type-p-name-alist)))
     (if (pair? entry) (cdr entry)
