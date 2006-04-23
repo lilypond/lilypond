@@ -1359,7 +1359,7 @@ section.
   \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
     do mi sol mi do
     la si do }
-  \new Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
+  \context Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
    do re mi fa sol }
   \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
    dodo rere mimi fafa solsol }
