@@ -1,3 +1,6 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+
 @node Running LilyPond
 @chapter Running LilyPond
 
@@ -8,9 +11,8 @@ This chapter details the technicalities of running LilyPond.
 * Invoking lilypond::           
 * Notes for the MacOS X app::   
 * Error messages::              
-* Updating files with convert-ly::  
-* Reporting bugs::              
 * Editor support::              
+* Point and click::             
 @end menu
 
 @node Invoking lilypond
@@ -427,207 +429,6 @@ indicated line of your input file, try checking one or two lines
 above the indicated position.
 
 
-@node Updating files with convert-ly
-@section Updating with @command{convert-ly}
-
-@cindex Updating a LilyPond file
-@cindex @code{convert-ly}
-
-The LilyPond input syntax is routinely changed to simplify it or improve
-it in different ways.  As a side effect of this, the LilyPond interpreter
-often is no longer compatible with older input files.  To remedy this,
-the program @command{convert-ly} can be used to deal with most of the
-syntax changes between LilyPond versions.
-
-It uses @code{\version} statements in the input files to detect the
-old version number.  In most cases, to upgrade your input file it is
-sufficient to run@footnote{MacOS X users may execute this command
-under the menu entry @samp{Compile > Update syntax}.}
-
-@example
-convert-ly -e myfile.ly
-@end example
-
-If there are no changes to myfile.ly and file called myfile.ly.NEW
-is created, then myfile.ly is already updated.
-
-@command{convert-ly} always converts up to the last syntax change handled by
-it.  This means that the @code{\version} number left in the file is
-usually lower than the version of @command{convert-ly} itself.
-
-To upgrade LilyPond fragments in texinfo files, use
-
-@example
-convert-ly --from=... --to=... --no-version *.itely
-@end example
-
-To upgrade many files at once, combine @code{convert-ly} with
-standard unix commands.  This example will upgrade all @code{.ly}
-files in the current directory
-
-@example
-for f in *.ly; do convert-ly -e $f; done;
-@end example
-
-In general, the program is invoked as follows:
-
-@example
-convert-ly [@var{option}]@dots{} @var{file}@dots{}
-@end example
-
-
-The following options can be given:
-
-@table @code
-@item -e,--edit
-Do an inline edit of the input file.  Overrides @code{--output}.
-
-@item -f,--from=@var{from-patchlevel}
-Set the version to convert from.  If this is not set, @command{convert-ly}
-will guess this, on the basis of @code{\version} strings in the file.
-
-@item -n,--no-version
-Normally, @command{convert-ly} adds a @code{\version} indicator 
-to the output.  Specifying this option suppresses this.  
-
-@item -s, --show-rules
-Show all known conversions and exit.
-
-@item --to=@var{to-patchlevel}
-Set the goal version of the conversion.  It defaults to the latest
-available version.
-
-@item -h, --help
-Print usage help.
-@end table
-
-
-@refbugs
-
-Not all language changes are handled.  Only one output option can be
-specified.
-
-
-@c  We might want to make this a completely new section, along with more
-@c  info about how to upgrade old input files.  -gp
-
-@ignore
-Copy and paste from CVS, last updated
-Aug 18, 2005
-
-http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/convert-ly.txt?rev=HEAD&content-type=text/plain
-@end ignore
-@verbatim
-
-There are a few things that the convert-ly cannot handle. Here's a list of limitations
-that the community has complained about.
-
-This bug report structure has been chosen because convert-ly has a structure that doesn't
-allow to smoothly implement all needed changes. Thus this is just a wishlist, placed
-here for reference.
-
-1.6->2.0:
- Doesn't always convert figured bass correctly, specifically things like {< >}. Mats' comment on working around this:
-   To be able to run convert-ly
-   on it, I first replaced all occurencies of '{<' to some dummy like '{#'
-   and similarly I replaced '>}' with '&}'. After the conversion, I could
-   then change back from '{ #' to '{ <' and from '& }' to '> }'.
- Doesn't convert all text markup correctly. In the old markup syntax,
- it was possible to group a number of markup commands together within parentheses, e.g.
-   -#'((bold italic) "string")
-   This will incorrectly be converted into
-   -\markup{{\bold italic} "string"}
-   instead of the correct
-   -\markup{\bold \italic "string"}
-2.0->2.2:
- Doesn't handle \partcombine
- Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple stanzas.
-2.0->2.4:
- \magnify isn't changed to \fontsize.
-    - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
- remove-tag isn't changed.
-    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
- first-page-number isn't changed.
-    - first-page-number no => printfirst-page-number = ##f
- Line breaks in header strings aren't converted.
-    - \\\\  as line break in \header strings => \markup \center-align <
-      "First Line" "Second Line" >
- Crescendo and decrescendo terminators aren't converted.
-    - \rced => \!
-    - \rc => \!
-2.2->2.4:
- \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly converted.
-2.4.2->2.5.9
- \markup{ \center-align <{ ... }> } should be converted to:
- \markup{ \center-align {\line { ... }} }
- but now, \line is missing.
-2.4->2.6
- Special LaTeX characters such as $~$ in text are not converted to UTF8.
-
-@end verbatim
-
-
-@node Reporting bugs
-@section Reporting bugs
-
-@cindex bugs
-@cindex reporting bugs
-
-If you have input that results in a crash or an erroneous output, then
-that is a bug.  We try to respond to bug-reports promptly, and fix them as
-soon as possible.  Help us by sending a defective input file, so we can
-reproduce the problem. Send the report via:
-
-@example
-@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs}
-@end example
-
-A few tips:
-@itemize @bullet
-
-@item Try to produce a very small input file which demonstrates the problem;
-one or two bars is often sufficient to reproduce a bug. The smaller the
-input file is, the easier it is for us to debug the problem.
-
-@item Don't forget to tell which version of LilyPond you use!
-
-@item If possible, use @code{ragged-right} in your example. This makes sure
-that the bug can be reproduced in all paper sizes.
-@end itemize
-
-@ignore
-@c the bug database is not up to date enough. 
-
-When you've found a bug, have a look at our
-@uref{http://@/lilypond@/.org/@/doc/@/v2.5/@/bugs/,bug database} to see if
-it has already been reported.  You could also try to do a few searches
-on the mailing list for the bug.  Sometimes the bug will have already
-been reported and a fix or workaround is already known.
-@end ignore
-
-Here is an example of a good bug report:
-
-@verbatim
-It seems that placement of accidentals is broken.  In the
-following example, the accidental touches the note head.
-
-Using Mac OSX 10.3.7, lilypond 2.7.32
-
-\version "2.7.32"
-\layout { ragged-right = ##t }
-\relative c'' {
-   a4 b cis d
-}
-@end verbatim
-
-@lilypond[quote]
-\layout { ragged-right = ##t }
-\relative c''{
-  \override Accidental #'extra-offset = #'(1.0 . 0)
-  a4 b cis d
-}
-@end lilypond
-
 @node Editor support
 @section Editor support
 
@@ -679,4 +480,84 @@ All these editors can be made to jump into the input file to the source
 of a symbol in the graphical output.  See @ref{Point and click}.
 
 
+@node Point and click
+@section Point and click
+@cindex point and click
+
+
+Point and click lets you find notes in the input by clicking on them
+in the PDF viewer.  This makes it easier to find input that causes
+some error in the sheet music.
+
+When this functionality is active, LilyPond adds hyperlinks to the PDF
+file. These hyperlinks are sent to the web-browser, which opens a
+text-editor with the cursor in the right place. 
+
+To make this chain work, you should configure your PDF viewer to
+follow hyperlinks using the @file{lilypond-invoke-editor} script
+supplied with LilyPond.
+
+For Xpdf on Unix, the following should be present in
+@file{xpdfrc}@footnote{On unix, this file is found either in
+@file{/etc/xpdfrc} or as @file{.xpdfrc} in your home directory.}
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+The program @file{lilypond-invoke-editor} is a small helper
+program. It will invoke an editor for the special @code{textedit}
+URIs, and run a web browser for others.  It tests the environment
+variable @code{EDITOR} for the following patterns,
+
+@table @code
+@item emacs
+  this will invoke
+@example
+emacsclient --no-wait +@var{line}:@var{column} @var{file}
+@end example
+@item vim
+  this will invoke
+@example
+gvim --remote +:@var{line}:norm@var{char} @var{file}
+@end example
+
+@item nedit
+this will invoke
+@example
+  nc -noask +@var{line} @var{file}'
+@end example
+@end table
+
+The environment variable @code{LYEDITOR} is used to override this. It
+contains the command line to start the editor, where @code{%(file)s},
+@code{%(column)s}, @code{%(line)s} is replaced with the file, column
+and line respectively. The  setting
+
+@example
+emacsclient --no-wait +%(line)s:%(column)s %(file)s
+@end example
+
+@noindent
+for @code{LYEDITOR} is equivalent to the standard emacsclient
+invocation.
+
+
+@cindex file size, output
+
+The point and click links enlarge the output files significantly. For
+reducing the size of PDF and PS files, point and click may be switched
+off by issuing
+
+@example
+#(ly:set-option 'point-and-click #f)
+@end example
+
+@noindent
+in a @file{.ly} file.  Alternately, you may pass this as an command-line
+option
+
+@example
+lilypond -dno-point-and-click file.ly
+@end example
 
