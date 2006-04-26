@@ -159,6 +159,12 @@ staves.  Each part that should be on its own staff, is preceded with
 >>
 @end lilypond
 
+The @code{\new} command may also give a name to the context,
+
+@example
+\new @var{type} = @var{id} @var{music}
+@end example
+
 @cindex @code{\context}
 
 Like @code{\new}, the @code{\context} command also directs a music
