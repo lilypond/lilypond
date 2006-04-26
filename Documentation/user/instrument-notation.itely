@@ -676,9 +676,9 @@ way is to use the @code{\addlyrics} function.
 * Hyphens and extenders::       
 * The Lyrics context::          
 * Melismata::                   
-* Another way of entring lyrics::  
+* Another way of entering lyrics::  
 * Flexibility in alignment::    
-* More stanzas::                
+* More about stanzas::          
 * Ambitus::                     
 * Other vocal issues::          
 @end menu
@@ -733,50 +733,6 @@ More stanzas can be added by adding more
 \addlyrics { speel het spel }
 \addlyrics { joue le jeu }
 @end lilypond
-
-Sometimes it is appropriate to have one stanza set
-to the music, and the rest added in verse form at
-the end of the piece.  This can be accomplished by adding
-the extra verses into a @code{\markup} section outside
-of the main score block.  Notice that there are two
-different ways to force linebreaks when using
-@code{\markup}.
-
-@lilypond[ragged-right,verbatim,quote]
-melody = \relative c' {
-e d c d | e e e e |
-d d e d | c1 |
-}
-
-text = \lyricmode {
-\set stanza = "1." Ma- ry had a lit- tle lamb,
-its fleece was white as snow.
-}
-
-\book{
-  \score{ <<
-    \new Voice = "one" { \melody }
-    \new Lyrics \lyricsto "one" \text
-	>>
-    \layout { }
-  }
-  \markup { \column{
-    \line{ Verse 2. }
-    \line{ All the children laughed and played }
-    \line{ To see a lamb at school. }
-    }
-  }
-  \markup{
-    \wordwrap-string #"
-    Verse 3.
-
-    Mary took it home again,
-
-    It was against the rule."
-  }
-}
-@end lilypond
-
 
 The command @code{\addlyrics} cannot handle polyphony settings.  For these cases you should use @code{\lyricsto} and @code{\lyricmode}.
 
@@ -850,10 +806,10 @@ it with utf-8 encoding.  See @ref{Text encoding} for more info.
 To use normal quotes in lyrics, add a backslash before the
 quotes.  For example,
 
-@c  FIXME: make this a real example.  -gp
-@code{\lyricmode @{ "\"I" am so "lonely"\", said she @}}, would
-render: "I am so  lonely", said she.
-
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
+\addlyrics {   "\"I" am so  "lone- ly"\", said she }
+@end lilypond
 
 The full definition of a word start in Lyrics mode is somewhat more
 complex.
@@ -864,7 +820,6 @@ through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
 any 8-bit character with ASCII code over 127, or a two-character
 combination of a backslash followed by one of @code{`}, @code{'},
 @code{"}, or @code{^}.
-
 
 
 @seealso
@@ -931,7 +886,7 @@ then the lyrics are specified with @code{\lyricsto}.  The command
 @code{\lyricsto} switches to @code{\lyricmode} mode automatically, so the
 @code{\lyricmode} keyword may be omitted.
 
-The following example uses different commands for entring lyrics.
+The following example uses different commands for entering lyrics.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 << 
@@ -1073,8 +1028,8 @@ Melismata are not detected automatically, and extender lines must be
 inserted by hand.
 
 
-@node Another way of entring lyrics
-@subsection Another way of entring lyrics
+@node Another way of entering lyrics
+@subsection Another way of entering lyrics
 
 Lyrics can also be entered without @code{\lyricsto}.  In this case the
 duration of each syllable must be entered explicitly, for example,
@@ -1321,8 +1276,8 @@ To make this change for all lyrics in the score, set the property in the layout.
 @end lilypond
 
 
-@node More stanzas
-@subsection More stanzas
+@node More about stanzas
+@subsection More about stanzas
 
 @cindex phrasing, in lyrics
 
@@ -1346,6 +1301,50 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 @end lilypond
 
 These numbers are put just before the start of first syllable.
+
+Sometimes it is appropriate to have one stanza set
+to the music, and the rest added in verse form at
+the end of the piece.  This can be accomplished by adding
+the extra verses into a @code{\markup} section outside
+of the main score block.  Notice that there are two
+different ways to force linebreaks when using
+@code{\markup}.
+
+@lilypond[ragged-right,verbatim,quote]
+melody = \relative c' {
+e d c d | e e e e |
+d d e d | c1 |
+}
+
+text = \lyricmode {
+\set stanza = "1." Ma- ry had a lit- tle lamb,
+its fleece was white as snow.
+}
+
+\book{
+  \score{ <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
+	>>
+    \layout { }
+  }
+  \markup { \column{
+    \line{ Verse 2. }
+    \line{ All the children laughed and played }
+    \line{ To see a lamb at school. }
+    }
+  }
+  \markup{
+    \wordwrap-string #"
+    Verse 3.
+
+    Mary took it home again,
+
+    It was against the rule."
+  }
+}
+@end lilypond
+
 
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
