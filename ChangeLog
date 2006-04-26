@@ -8,6 +8,10 @@
 
 	* Documentation/user/ various: first round of doc reorg.
 
+	* Documentation/user/baer-flat-bw.png: remove alpha bit from
+	graphic; this probably causes problems on some pdf
+	viewers, notably Adobe Acrobat.
+
 2006-04-24  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/instrument-notation.itely: many alterations
