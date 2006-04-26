@@ -11,6 +11,12 @@
 
 #include "config.hh"
 
+
+/* TODO: autoconf support */
+
+#include <sys/types.h>
+#include <dirent.h>
+
 #if HAVE_GETTEXT
 #include <libintl.h>
 #endif
@@ -114,6 +120,8 @@ framework_relocation (string prefix)
   if (be_verbose_global)
     warning (_f ("Relocation: framework_prefix=%s", prefix));
 
+  sane_putenv ("INSTALLER_ROOT", prefix, true);
+	       
   string bindir = prefix + "/bin";
   string datadir = prefix + "/share";
   string libdir = prefix + "/lib";
@@ -260,7 +268,6 @@ setup_paths (char const *argv0_ptr)
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */
   char const *suffixes[] = {"ly", "ps", "scm", 0 };
-
   
   vector<string> dirs;
   for (char const **s = suffixes; *s; s++)
@@ -268,8 +275,7 @@ setup_paths (char const *argv0_ptr)
       string path = prefix_directory + to_string ('/') + string (*s);
       dirs.push_back (path);
     }
-
-
+  
   dirs.push_back (prefix_directory + "/fonts/otf/");
   dirs.push_back (prefix_directory + "/fonts/type1/");
   dirs.push_back (prefix_directory + "/fonts/svg/");
@@ -403,4 +409,19 @@ read_relocation_file (string filename)
     }
 
   fclose (f);
+}
+
+void
+read_relocation_dir (string dirname)
+{
+  DIR *dir = opendir  (dirname.c_str ());
+
+  while (struct dirent *ent = readdir (dir))
+    {
+      File_name name (ent->d_name);
+      if (name.ext_ == "reloc")
+	{
+	  read_relocation_file (name.to_string ());
+	}
+    }
 }
