@@ -3,6 +3,11 @@
 	* Documentation/user/instrument-notation.itely: a few more fixes
 	from Eduardo, thanks!
 
+	* Documentation/user/README.txt: new file; contains info on
+	style that used to be in lilypond.tely.
+
+	* Documentation/user/ various: first round of doc reorg.
+
 2006-04-24  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/instrument-notation.itely: many alterations
