@@ -46,7 +46,7 @@ GUILE is not reset after processing a @code{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
 
-@section Command line options
+@subsection Command line options
 
 The following options are supported:
 
@@ -306,7 +306,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @end table
 
 
-@section Environment variables
+@subsection Environment variables
 
 
 @cindex LANG
