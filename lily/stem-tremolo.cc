@@ -202,8 +202,8 @@ Stem_tremolo::print (SCM grob)
       /* we shouldn't position relative to the end of the stem since the stem
          is invisible */
       vector<int> nhp = Stem::note_head_positions (stem);
-      Real note_head = (stemdir == UP ? nhp.back () : nhp[0]);
-      end_y = note_head + stemdir * 2.0;
+      Real note_head = (stemdir == UP ? nhp.back () : nhp[0]) * ss / 2;
+      end_y = note_head + stemdir * 1.5;
     }
   mol.translate_axis (end_y, Y_AXIS);
 
