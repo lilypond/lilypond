@@ -2202,6 +2202,7 @@ Examples: @inputfileref{input/@/regression,finger@/-chords@/.ly}.
 @subsection Dynamics
 
 @cindex Dynamics
+@cindex @code{\pppp}
 @cindex @code{\ppp}
 @cindex @code{\pp}
 @cindex @code{\p}
@@ -2220,9 +2221,10 @@ Examples: @inputfileref{input/@/regression,finger@/-chords@/.ly}.
 @cindex @code{\rfz}
 
 Absolute dynamic marks are specified using a command after a note
-@code{c4\ff}.  The available dynamic marks are @code{\ppp},
+@code{c4\ff}.  The available dynamic marks are @code{\ppppp},
+@code{\pppp}, @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
-@code{\fff}, @code{\fff}, @code{\fp}, @code{\sf}, @code{\sff},
+@code{\fff}, @code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff},
 @code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
