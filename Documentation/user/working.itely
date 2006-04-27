@@ -168,7 +168,8 @@ violin = \new Staff { \fragA \fragA \fragB \fragA }
 }
 @end lilypond
 
-However, you can also use these identifiers (also known as variables, macros, or (user-defined) command) for tweaks:
+However, you can also use these identifiers (also known as
+variables, macros, or (user-defined) command) for tweaks:
 
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup{ \italic \bold dolce }
@@ -190,7 +191,12 @@ violin = \relative c'' {
 }
 @end lilypond
 
-These identifiers are obviously useful for saving typing.  But they're worth considering even if you only use them once -- they reduce complexity.  Let's look at the @code{violin} part without any identifiers:
+These identifiers are obviously useful for saving
+typing.  But they're worth considering even if you
+only use them once -- they reduce complexity.  Let's
+look at the previous example without any
+identifiers.  It's a lot harder to read, especially
+the last line.
 
 @example
 violin = \relative c'' @{
@@ -198,11 +204,35 @@ violin = \relative c'' @{
     c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
     \once \override TextScript #'padding = #5.0 
     c4.^"hi there!" d8 e' f g d |
-    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @} b8 c4 c-. |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @} b8 c4 c-. |
   @}
 @}
 @end example
 
-It's a lot harder to read, especially the last line.
+So far we've seen static substitution -- when LilyPond
+sees @code{\padText}, it replaces it with the stuff that
+we've defined it to be (ie the stuff to the right of
+@code{padtext=}).
+
+LilyPond can handle non-static substitution, too (you
+can think of these as functions).
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function (parser location padding) (number?)
+ #{
+    \once \override TextScript #'padding = #$padding
+ #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
 
 
