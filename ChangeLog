@@ -1,3 +1,8 @@
+2006-04-26  Graham Percival  <gpermus@gmail.com>
+
+	* input/regression/lyric-combine-polyphonic.ly: fixed test
+	(no more "can't find context `one'" error).
+
 2006-04-25  Joe Neeman <joeneeman@gmail.com>
 
 	* lily/stem-tremolo.cc (print): fix whole note tremolo placement
