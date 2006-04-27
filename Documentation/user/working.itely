@@ -1,0 +1,208 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Working on LilyPond projects
+@chapter Working on LilyPond projects
+
+This section explains a how to solve or avoid certain common
+problems.  If you have programming experience, many of these
+tips may seem obvious; you may wish to simply skim this
+chapter.
+
+
+@menu
+* Suggestions for writing LilyPond files::  
+* Troubleshooting (taking it all apart)::  
+* Saving typing with identifiers::  
+@end menu
+
+
+@node Suggestions for writing LilyPond files
+@section Suggestions for writing LilyPond files
+
+Now you're ready to begin writing larger LilyPond files -- not just the
+little examples in the tutorial, but whole pieces.  But how should you
+go about doing it?
+
+The best answer is ``however you want to do it.''  As long as LilyPond
+can understand your files and produces the output that you want, it
+doesn't matter what your files look like.  That said, sometimes we
+make mistakes when writing files.  If LilyPond can't understand your
+files, or produces output that you don't like, how do you fix the
+problem?
+
+Here are a few suggestions that can help you to avoid or fix
+problems:
+
+@itemize @bullet
+@item @strong{Include @code{\version} numbers in every file}.  Note that all
+templates contain a @code{\version "2.8.0"} string.  We
+highly recommend that you always include the @code{\version}, no matter
+how small your file is.  Speaking from personal experience, it's
+quite frustrating to try to remember which version of LilyPond you were
+using a few years ago.  @code{convert-ly} requires you to declare
+which version of LilyPond you used.
+
+@item @strong{Include checks}: @ref{Bar check}s and @ref{Octave check}s.  If you
+include checks every so often, then if you make a mistake, you can pinpoint
+it quicker.  How often is ``every so often''?  It depends on the complexity
+of the music.  For very simple music, perhaps just once or twice.  For
+very complex music, perhaps every bar.
+
+@item @strong{One bar per line of text}.  If there is anything complicated, either in the music
+itself or in the output you desire, it's often good to write only one bar
+per line.  Saving screen space by cramming eight bars per line just isn't
+worth it if you have to `debug' your files.
+
+@item @strong{Comment your files}, with either bar numbers (every so often) or
+references to musical themes (``second theme in violins'', ``fourth
+variation'').  You may not need it when you're writing the piece for
+the first time, but if you want to go back and change something two
+or three years later, you won't know how your file is structured if you
+didn't comment the file.
+
+@item @strong{Indent your braces}.  A lot of problems are caused by an imbalance
+in the number of @code{@{} and @code{@}}.
+
+@end itemize
+
+
+
+
+If you are entering music from an existing score (i.e. typesetting a
+piece of existing sheet music),
+
+@itemize @bullet
+
+@item Enter one manuscript (the physical copy) system at a time (but still
+only one bar per line of text), and
+check each system when you finish it.  You may use the
+@code{showLastLength} command to speed up processing -- see
+@ref{Skipping corrected music}.
+
+@item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
+in the input file whenever the manuscript has a line break.  This
+makes it much easier to compare the LilyPond music to the original
+music.  When you are finished proofreading your score, you may
+define @code{mBreak = @{ @}} to remove all those line breaks.  This
+will allow LilyPond to place line breaks wherever it feels are
+best.
+
+@end itemize
+
+
+@node Troubleshooting (taking it all apart)
+@section Troubleshooting (taking it all apart)
+
+Sooner or later, you will write a file that LilyPond cannot
+compile.  The messages that LilyPond gives may help
+you find the error, but in many cases you need to do some
+investigation to determine the source of the problem.
+
+The most powerful tools for this purpose are the
+single line comment (indicated by @code{%}) and the block
+comment (indicated by @code{%@{ ... %@}}).  If you don't
+know where a problem is, start commenting out huge portions
+of your input file.  After you comment out a section, try
+compiling the file again.  If it works, then the problem
+must exist in the portion you just commented.  If it doesn't
+work, then keep on commenting out material until you have
+something that works.
+
+In an extreme case, you might end up with only
+
+@example
+\score @{
+  <<
+    % \melody
+    % \harmony
+    % \bass
+  >>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+(in other words, a file without any music)
+
+If that happens, don't give up.  Uncomment a bit -- say,
+the bass part -- and see if it works.  If it doesn't work,
+then comment out all of the bass music (but leave
+@code{\bass} in the @code{\score} uncommented.
+
+@example
+bass = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
+@}
+@end example
+
+Now start slowly uncommenting more and more of the
+@code{bass} part until you find the problem line.
+
+
+@node Saving typing with identifiers
+@section Saving typing with identifiers
+
+By this point, you've seen this kind of thing:
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+You may even realize that this could be useful in minimalist music:
+
+@lilypond[quote,verbatim,ragged-right]
+fragA = \relative c'' { a4 a8. b16 }
+fragB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragA \fragA \fragB \fragA }
+\score {
+  {
+    \violin
+  }
+}
+@end lilypond
+
+However, you can also use these identifiers (also known as variables, macros, or (user-defined) command) for tweaks:
+
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup{ \italic \bold dolce }
+padText = { \once \override TextScript #'padding = #5.0 }
+fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+violin = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+\score {
+  {
+    \violin
+  }
+\layout{ragged-right=##t}
+}
+@end lilypond
+
+These identifiers are obviously useful for saving typing.  But they're worth considering even if you only use them once -- they reduce complexity.  Let's look at the @code{violin} part without any identifiers:
+
+@example
+violin = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript #'padding = #5.0 
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @} b8 c4 c-. |
+  @}
+@}
+@end example
+
+It's a lot harder to read, especially the last line.
+
+

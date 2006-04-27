@@ -1,91 +1,17 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@node Working on LilyPond projects
-@chapter Working on LilyPond projects
+@node Putting it all together
+@chapter Putting it all together
 
-This section explains how to use the rest of the documentation and
-how to solve common problems.
+This chapter is an extention of the tutorial, dealing with FIXME.
+
 
 @menu
-* Suggestions for writing LilyPond files::  
 * Extending the templates::     
-* Fixing overlapping notation::  
 * How LilyPond files work::     
 * Score is a single musical expression::  
-* Troubleshooting (taking it all apart)::  
+* Organizing larger pieces::    
+* An orchestral part::          
 @end menu
-
-
-@node Suggestions for writing LilyPond files
-@section Suggestions for writing LilyPond files
-
-Now you're ready to begin writing larger LilyPond files -- not just the
-little examples in the tutorial, but whole pieces.  But how should you
-go about doing it?
-
-The best answer is ``however you want to do it.''  As long as LilyPond
-can understand your files and produces the output that you want, it
-doesn't matter what your files look like.  That said, sometimes we
-make mistakes when writing files.  If LilyPond can't understand your
-files, or produces output that you don't like, how do you fix the
-problem?
-
-Here are a few suggestions that can help you to avoid or fix
-problems:
-
-@itemize @bullet
-@item Include @code{\version} numbers in every file.  Note that all
-templates contain a @code{\version "2.7.32"} string.  We
-highly recommend that you always include the @code{\version}, no matter
-how small your file is.  Speaking from personal experience, it's
-quite frustrating to try to remember which version of LilyPond you were
-using a few years ago.  @code{convert-ly} requires you to declare
-which version of LilyPond you used.
-
-@item Include checks: See @ref{Bar check} and @ref{Octave check}.  If you
-include checks every so often, then if you make a mistake, you can pinpoint
-it quicker.  How often is ``every so often''?  It depends on the complexity
-of the music.  For very simple music, perhaps just once or twice.  For
-very complex music, every bar.
-
-@item One bar per line of text.  If there is anything complicated, either in the music
-itself or in the output you desire, it's often good to write only one bar
-per line.  Saving screen space by cramming eight bars per line just isn't
-worth it if you have to `debug' your files.
-
-@item Comment your files, with either bar numbers (every so often) or
-references to musical themes (``second theme in violins'', ``fourth
-variation'').  You may not need it when you're writing the piece for
-the first time, but if you want to go back and change something two
-or three years later, you won't know how your file is structured if you
-didn't comment the file.
-
-@item Indent your braces.  A lot of problems are caused by an imbalance
-in the number of @code{@{} and @code{@}}.
-
-@end itemize
-
-If you are entering music from an existing score (i.e. typesetting a
-piece of existing sheet music),
-
-@itemize @bullet
-
-@item Enter one manuscript (the physical copy) system at a time (but still
-only one bar per line of text), and
-check each system when you finish it.  You may use the
-@code{showLastLength} command to speed up processing -- see
-@ref{Skipping corrected music}.
-
-@item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
-in the input file whenever the manuscript has a line break.  This
-makes it much easier to compare the LilyPond music to the original
-music.  When you are finished proofreading your score, you may
-define @code{mBreak = @{ @}} to remove all those line breaks.  This
-will allow LilyPond to place line breaks wherever it feels are
-best.
-
-@end itemize
-
-
 
 
 @node Extending the templates
@@ -273,72 +199,6 @@ celloMusic = \relative c {
 }
 @end lilypond
 
-
-
-@node Fixing overlapping notation
-@section Fixing overlapping notation
-
-This may come as a surprise, but LilyPond isn't perfect.  Some notation
-elements can overlap.  This is unfortunate, but (in most cases) is easily
-solved.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
-
-@cindex padding
-
-The easiest solution is to increase the distance between the object
-(in this case text, but it could easily be fingerings or dynamics
-instead) and the note.  In LilyPond, this is called the
-@code{padding} property; it is measured in staff spaces.  For most
-objects, this value is around 1.0 or less (it varies with each
-object). We want to increase it, so let's try 1.5
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\once \override TextScript #'padding = #1.5
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
-
-That looks better, but it isn't quite big enough.  After experimenting
-with a few values, we think 2.3 is the best number in this case.  However,
-this number is merely the result of experimentation and my personal
-taste in notation.  Try the above example with 2.3... but also try higher
-(and lower) numbers.  Which do you think looks the best?
-
-@cindex extra-offset
-
-Another solution gives us complete control over placing the object -- we
-can move it horizontally or vertically.  This is done with the
-@code{extra-offset} property.  It is slightly more complicated and can
-cause other problems.  When we move objects with @code{extra-offset},
-the movement is done after LilyPond has placed all other objects.  This means
-that the result can overlap with other objects.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
-
-With @code{extra-offset}, the first number controls the horizontal
-movement (left is negative); the second number controls the vertical
-movement (up is positive).  After a bit of experimenting, we decided
-that these values look good
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
-
-@noindent
-Again, these numbers are simply the result of a few experiments and
-looking at the output.  You might prefer the text to be slightly higher,
-or to the left, or whatever.  Try it and look at the result!
-
-
-@seealso
-
-This manual: @ref{The \override command}, @ref{Common tweaks}.
 
 
 @node How LilyPond files work
@@ -587,54 +447,187 @@ layer starts on the same horizontal position in your
 text editor!
 
 
-@node Troubleshooting (taking it all apart)
-@section Troubleshooting (taking it all apart)
+@node Organizing larger pieces
+@section Organizing larger pieces
 
-Sooner or later, you will write a file that LilyPond cannot
-compile.  The messages that LilyPond gives may help
-you find the error, but in many cases you need to do some
-investigation to determine the source of the problem.
+When all of the elements discussed earlier are combined to produce
+larger files, the @code{\score} blocks get a lot bigger, because the
+music expressions are longer, and, in the case of polyphonic pieces,
+more deeply nested.  Such large expressions can become unwieldy.
 
-The most powerful tools for this purpose are the
-single line comment (indicated by @code{%}) and the block
-comment (indicated by @code{%@{ ... %@}}).  If you don't
-know where a problem is, start commenting out huge portions
-of your input file.  After you comment out a section, try
-compiling the file again.  If it works, then the problem
-must exist in the portion you just commented.  If it doesn't
-work, then keep on commenting out material until you have
-something that works.
-
-In an extreme case, you might end up with only
+By using variables, also known as identifiers, it is possible to break
+up complex music expressions.  An identifier is assigned as follows
 
 @example
-\score @{
-  <<
-    % \melody
-    % \harmony
-    % \bass
-  >>
-  \layout@{@}
+namedMusic = @{ @dots{} @}
+@end example
+
+@noindent
+The contents of the music expression @code{namedMusic}, can be used
+later by preceding the name with a backslash, i.e., @code{\namedMusic}.
+In the next example, a two-note motive is repeated two times by using
+variable substitution
+
+@lilypond[quote,ragged-right,verbatim,nofragment]
+seufzer = {
+  e'4( dis'4)
+}
+{ \seufzer \seufzer }
+@end lilypond
+
+The name of an identifier should have alphabetic characters only; no
+numbers, underscores or dashes.  The assignment should be outside of
+running music.
+
+It is possible to use variables for many other types of objects in the
+input.  For example,
+
+@example
+width = 4.5\cm
+name = "Wendy"
+aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+@end example
+
+Depending on its contents, the identifier can be used in different
+places.  The following example uses the above variables
+
+@example
+\paper @{
+  \aFivePaper
+  line-width = \width
+@}
+@{ c4^\name @}
+@end example
+
+More information on the possible uses of identifiers is given in the
+technical manual, in @ref{Input variables and Scheme}.
+@c fixme: the ref is too technical.
+
+
+@node An orchestral part
+@section An orchestral part
+
+In orchestral music, all notes are printed twice.  Once in a part for
+the musicians, and once in a full score for the conductor.  Identifiers can
+be used to avoid double work.  The music is entered once, and stored in
+a variable.  The contents of that variable is then used to generate
+both the part and the full score.
+
+It is convenient to define the notes in a special file.  For example,
+suppose that the file @file{horn-music.ly} contains the following part
+of a horn/@/bassoon duo
+
+@example
+hornNotes = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
 @}
 @end example
 
 @noindent
-(in other words, a file without any music)
-
-If that happens, don't give up.  Uncomment a bit -- say,
-the bass part -- and see if it works.  If it doesn't work,
-then comment out all of the bass music (but leave
-@code{\bass} in the @code{\score} uncommented.
+Then, an individual part is made by putting the following in a file
 
 @example
-bass = \relative c' @{
-%@{
-  c4 c c c
-  d d d d
-%@}
+\include "horn-music.ly"
+\header @{
+  instrument = "Horn in F"
+@}
+
+@{
+ \transpose f c' \hornNotes
 @}
 @end example
 
-Now start slowly uncommenting more and more of the
-@code{bass} part until you find the problem line.
+The line
+
+@example
+\include "horn-music.ly"
+@end example
+
+@noindent
+substitutes the contents of @file{horn-music.ly} at this position in
+the file, so @code{hornNotes} is defined afterwards.  The command
+@code{\transpose f@tie{}c'} indicates that the argument, being
+@code{\hornNotes}, should be transposed by a fifth upwards.  Sounding
+@samp{f} is denoted by notated @code{c'}, which corresponds with the
+tuning of a normal French Horn in@tie{}F.  The transposition can be seen
+in the following output
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+In ensemble pieces, one of the voices often does not play for many
+measures.  This is denoted by a special rest, the multi-measure
+rest.  It is entered with a capital @samp{R} followed by a duration
+(1@tie{}for a whole note, 2@tie{}for a half note, etc.).  By multiplying the
+duration, longer rests can be constructed.  For example, this rest
+takes 3@tie{}measures in 2/4 time
+
+@example
+R2*3
+@end example
+
+When printing the part, multi-rests
+must be condensed.  This is done by setting a run-time variable
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+This command sets the property @code{skipBars} in the
+@code{Score} context to true (@code{##t}).  Prepending the rest and
+this option to the music above, leads to the following result
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t 
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+
+The score is made by combining all of the music together.  Assuming
+that the other voice is in @code{bassoonNotes} in the file
+@file{bassoon-music.ly}, a score is made with
+
+@example
+\include "bassoon-music.ly"
+\include "horn-music.ly"
+
+<<
+  \new Staff \hornNotes
+  \new Staff \bassoonNotes
+>>
+@end example
+
+@noindent
+leading to 
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
+
+More in-depth information on preparing parts and scores can be found
+in the notation manual; see @ref{Orchestral music}.
+
+Setting run-time variables (`properties') is discussed in
+@ref{Changing context properties on the fly}.
+
 

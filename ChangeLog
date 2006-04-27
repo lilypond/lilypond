@@ -1,3 +1,10 @@
+2006-04-27  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ tweaks.itely, working.itely: new
+	files, being more advanced "learning manual" chapters.
+
+	* Documentation/user/ tutorial, putting, lilypond: reorg.
+
 2006-04-26  Graham Percival  <gpermus@gmail.com>
 
 	* input/regression/lyric-combine-polyphonic.ly: fixed test
