@@ -446,9 +446,11 @@
 
     (output-scopes scopes fields basename)
     (display (file-header paper page-count #t) port)
-    (display "\n%%BeginDefaults
-%%PageMedia: a4
-%%EndDefaults\n" port)
+
+    
+    ;; don't do BeginDefaults PageMedia: A4 
+    ;; not necessary and wrong
+    
 
     (write-preamble paper #t port)
 

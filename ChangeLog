@@ -1,3 +1,7 @@
+2006-04-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/framework-ps.scm (output-framework): remove PageMedia
+
 2006-04-27  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ tweaks.itely, working.itely: new
