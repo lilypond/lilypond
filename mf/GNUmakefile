@@ -44,7 +44,7 @@ TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)\
 
 
 ENCODING_FILE=$(findstring $(<F:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
-MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
+MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(outdir)/$(ENCODING_FILE),) --no-afm
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 	cat $^ > $@
