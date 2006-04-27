@@ -1,0 +1,77 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Tweaking output
+@chapter Tweaking output
+
+Tweak explanation.
+
+
+@menu
+* Fixing overlapping notation::  
+@end menu
+
+
+@node Fixing overlapping notation
+@section Fixing overlapping notation
+
+This may come as a surprise, but LilyPond isn't perfect.  Some notation
+elements can overlap.  This is unfortunate, but (in most cases) is easily
+solved.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+@cindex padding
+
+The easiest solution is to increase the distance between the object
+(in this case text, but it could easily be fingerings or dynamics
+instead) and the note.  In LilyPond, this is called the
+@code{padding} property; it is measured in staff spaces.  For most
+objects, this value is around 1.0 or less (it varies with each
+object). We want to increase it, so let's try 1.5
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\once \override TextScript #'padding = #1.5
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+That looks better, but it isn't quite big enough.  After experimenting
+with a few values, we think 2.3 is the best number in this case.  However,
+this number is merely the result of experimentation and my personal
+taste in notation.  Try the above example with 2.3... but also try higher
+(and lower) numbers.  Which do you think looks the best?
+
+@cindex extra-offset
+
+Another solution gives us complete control over placing the object -- we
+can move it horizontally or vertically.  This is done with the
+@code{extra-offset} property.  It is slightly more complicated and can
+cause other problems.  When we move objects with @code{extra-offset},
+the movement is done after LilyPond has placed all other objects.  This means
+that the result can overlap with other objects.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+With @code{extra-offset}, the first number controls the horizontal
+movement (left is negative); the second number controls the vertical
+movement (up is positive).  After a bit of experimenting, we decided
+that these values look good
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+@noindent
+Again, these numbers are simply the result of a few experiments and
+looking at the output.  You might prefer the text to be slightly higher,
+or to the left, or whatever.  Try it and look at the result!
+
+
+@seealso
+
+This manual: @ref{The \override command}, @ref{Common tweaks}.
+

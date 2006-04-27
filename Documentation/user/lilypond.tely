@@ -116,14 +116,14 @@ of this and other documentation.
 @include dedication.itely
 
 @menu
-Learning manual / User manual / FIXME title
+Learning manual
 
 * Preface::                        Preface.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
+* Putting it all together:: Advanced tutorial?  FIXME title
 * Working on LilyPond projects::   Demonstrates real-life LilyPond usage.
-* space1:: temporary filler chapter
-* space2:: ditto.  Hey, this is the unstable branch!  :)
+* Tweaking output:: Tutorial-style explanation of chapters 10 and 11. FIXME title
 
 Notation reference
 
@@ -161,10 +161,8 @@ Appendices
 @include introduction.itely 
 @include tutorial.itely
 @include putting.itely
-@node space1
-@chapter space1
-@node space2
-@chapter space2
+@include working.itely
+@include tweaks.itely
 
 @include basic-notation.itely
 @include instrument-notation.itely
