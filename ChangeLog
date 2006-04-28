@@ -1,3 +1,8 @@
+2006-04-28  Graham Percival  <gpermus@gmail.com>
+
+	* Documentaiton/user/ various: major new sections in the
+	Learning manual, slight reorg elsewhere.
+
 2006-04-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/framework-ps.scm (output-framework): remove PageMedia
