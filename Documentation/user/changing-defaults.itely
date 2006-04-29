@@ -170,7 +170,7 @@ context already earlier with the same name.
 @cindex @code{\context}
 
 Like @code{\new}, the @code{\context} command also directs a music
-expression to a context object, but gives the context an extra name  The
+expression to a context object, but gives the context an explicit name.  The
 syntax is
 
 @example
