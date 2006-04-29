@@ -164,11 +164,13 @@ The @code{\new} command may also give a name to the context,
 @example
 \new @var{type} = @var{id} @var{music}
 @end example
+However, this user specified name is only used if there is no other
+context already earlier with the same name.
 
 @cindex @code{\context}
 
 Like @code{\new}, the @code{\context} command also directs a music
-expression to a context object, but gives the context an extra name.  The
+expression to a context object, but gives the context an extra name  The
 syntax is
 
 @example

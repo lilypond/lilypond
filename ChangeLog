@@ -1,3 +1,8 @@
+2006-04-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/changing-defaults.itely (Creating contexts):
+	Clarify \new semantics.
+
 2006-04-28  Graham Percival  <gpermus@gmail.com>
 
 	* Documentaiton/user/ various: major new sections in the
