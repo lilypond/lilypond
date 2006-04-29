@@ -178,7 +178,9 @@ syntax is
 @end example
 
 This form will search for an existing context of type @var{type}
-called @var{id}.  If that context does not exist yet, it is created.
+called @var{id}.  If that context does not exist yet, the result is
+identical to @code{\new} @var{type} = @var{id} @var{music}, i.e. 
+a new context with the specified name is created.
 This is useful if the context is referred to later on.  For example, when
 setting lyrics the melody is in a named context
 
