@@ -1,3 +1,7 @@
+2006-04-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/convertrules.py (conv): indent 4 for python files.
+
 2006-04-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/changing-defaults.itely (Creating contexts):
