@@ -6,312 +6,311 @@ from rational import Rational
 
 from xml.dom import minidom, Node
 
-
 class Xml_node:
-	def __init__ (self):
-		self._children = []
-		self._data = None
-		self._original = None
-		self._name = 'xml_node'
-		self._parent = None
+    def __init__ (self):
+	self._children = []
+	self._data = None
+	self._original = None
+	self._name = 'xml_node'
+	self._parent = None
 
-	def is_first (self):
-        	return self._parent.get_typed_children (self.__class__)[0] == self
+    def is_first (self):
+	return self._parent.get_typed_children (self.__class__)[0] == self
 
-	def original (self):
-		return self._original 
-	def get_name (self):
-		return self._name
-	
-	def get_text (self):
-		if self._data:
-			return self._data
+    def original (self):
+	return self._original 
+    def get_name (self):
+	return self._name
 
-		if not self._children:
-			return ''
-		
-		return ''.join ([c.get_text () for c in self._children])
+    def get_text (self):
+	if self._data:
+	    return self._data
 
-	def get_typed_children (self, klass):
-		return [c for c in self._children if isinstance(c, klass)]
-	
-	def get_named_children (self, nm):
-		return self.get_typed_children (class_dict[nm])
+	if not self._children:
+	    return ''
 
-	def get_named_child (self, nm):
-		return self.get_maybe_exist_named_child (nm)
+	return ''.join ([c.get_text () for c in self._children])
 
-	def get_children (self, predicate):
-		return [c for c in self._children if predicate(c)]
+    def get_typed_children (self, klass):
+	return [c for c in self._children if isinstance(c, klass)]
 
-	def get_all_children (self):
-		return self._children
+    def get_named_children (self, nm):
+	return self.get_typed_children (class_dict[nm])
 
-	def get_maybe_exist_named_child (self, name):
-		return self.get_maybe_exist_typed_child (class_dict[name])
-	
-	def get_maybe_exist_typed_child (self, klass):
-		cn = self.get_typed_children (klass)
-		if len (cn)==0:
-			return None
-		elif len (cn) == 1:
-			return cn[0]
-		else:
-			raise "More than 1 child", klass
-		
-	def get_unique_typed_child (self, klass):
-		cn = self.get_typed_children(klass)
-		if len (cn) <> 1:
-			print self.__dict__ 
-			raise 'Child is not unique for', (klass, 'found', cn)
+    def get_named_child (self, nm):
+	return self.get_maybe_exist_named_child (nm)
 
-		return cn[0]
-	
+    def get_children (self, predicate):
+	return [c for c in self._children if predicate(c)]
+
+    def get_all_children (self):
+	return self._children
+
+    def get_maybe_exist_named_child (self, name):
+	return self.get_maybe_exist_typed_child (class_dict[name])
+
+    def get_maybe_exist_typed_child (self, klass):
+	cn = self.get_typed_children (klass)
+	if len (cn)==0:
+	    return None
+	elif len (cn) == 1:
+	    return cn[0]
+	else:
+	    raise "More than 1 child", klass
+
+    def get_unique_typed_child (self, klass):
+	cn = self.get_typed_children(klass)
+	if len (cn) <> 1:
+	    print self.__dict__ 
+	    raise 'Child is not unique for', (klass, 'found', cn)
+
+	return cn[0]
+
 class Music_xml_node (Xml_node):
-	def __init__ (self):
-		Xml_node.__init__ (self)
-		self.duration = Rational (0)
-		self.start = Rational (0)
-		
+    def __init__ (self):
+	Xml_node.__init__ (self)
+	self.duration = Rational (0)
+	self.start = Rational (0)
+
 
 class Duration (Music_xml_node):
-	def get_length (self):
-		dur = string.atoi (self.get_text ()) * Rational (1,4)
-		return dur
-		
-class Hash_comment (Music_xml_node):
-	pass
-		
-class Pitch (Music_xml_node):
-	def get_step (self):
-		ch = self.get_unique_typed_child (class_dict[u'step'])
-		step = ch.get_text ().strip ()
-		return step
-	def get_octave (self):
-		ch = self.get_unique_typed_child (class_dict[u'octave'])
+    def get_length (self):
+	dur = string.atoi (self.get_text ()) * Rational (1,4)
+	return dur
 
-		step = ch.get_text ().strip ()
-		return string.atoi (step)
-	
-	def get_alteration (self):
-		ch = self.get_maybe_exist_typed_child (class_dict[u'alter'])
-		alter = 0
-		if ch:
-			alter = string.atoi (ch.get_text ().strip ())
-		return alter
+class Hash_comment (Music_xml_node):
+    pass
+
+class Pitch (Music_xml_node):
+    def get_step (self):
+	ch = self.get_unique_typed_child (class_dict[u'step'])
+	step = ch.get_text ().strip ()
+	return step
+    def get_octave (self):
+	ch = self.get_unique_typed_child (class_dict[u'octave'])
+
+	step = ch.get_text ().strip ()
+	return string.atoi (step)
+
+    def get_alteration (self):
+	ch = self.get_maybe_exist_typed_child (class_dict[u'alter'])
+	alter = 0
+	if ch:
+	    alter = string.atoi (ch.get_text ().strip ())
+	return alter
 
 class Measure_element (Music_xml_node):
-	def get_voice_id (self):
-		voice_id = self.get_maybe_exist_named_child ('voice')
-		if voice_id:
-			return voice_id.get_text ()
-		else:
-			return None
-		
-	def is_first (self):
-		cn = self._parent.get_typed_children (self.__class__)
-		cn = [c for c in cn if c.get_voice_id () == self.get_voice_id ()]
-		return cn[0] == self
-	
+    def get_voice_id (self):
+	voice_id = self.get_maybe_exist_named_child ('voice')
+	if voice_id:
+	    return voice_id.get_text ()
+	else:
+	    return None
+
+    def is_first (self):
+	cn = self._parent.get_typed_children (self.__class__)
+	cn = [c for c in cn if c.get_voice_id () == self.get_voice_id ()]
+	return cn[0] == self
+
 class Attributes (Measure_element):
-	def __init__ (self):
-		Measure_element.__init__ (self)
-		self._dict = {}
-	
-	def set_attributes_from_previous (self, dict):
-		self._dict.update (dict)
-	def read_self (self):
-		for c in self.get_all_children ():
-			self._dict[c.get_name()] = c
+    def __init__ (self):
+	Measure_element.__init__ (self)
+	self._dict = {}
 
-	def get_named_attribute (self, name):
-		return self._dict[name]
-		
+    def set_attributes_from_previous (self, dict):
+	self._dict.update (dict)
+    def read_self (self):
+	for c in self.get_all_children ():
+	    self._dict[c.get_name()] = c
+
+    def get_named_attribute (self, name):
+	return self._dict[name]
+
 class Note (Measure_element):
-	def get_duration_log (self):
-		ch = self.get_maybe_exist_typed_child (class_dict[u'type'])
+    def get_duration_log (self):
+	ch = self.get_maybe_exist_typed_child (class_dict[u'type'])
 
-		if ch:
-			log = ch.get_text ().strip()
-			return 	{'eighth': 3,
-				 'quarter': 2,
-				 'half': 1,
-				 '16th': 4,
-				 '32nd': 5,
-				 'breve': -1,
-				 'long': -2,
-				 'whole': 0} [log]
-		else:
-			return 0
-		
-	def get_factor (self):
-		return 1
-	
-	def get_pitches (self):
-		return self.get_typed_children (class_dict[u'pitch'])
+	if ch:
+	    log = ch.get_text ().strip()
+	    return 	{'eighth': 3,
+		     'quarter': 2,
+		     'half': 1,
+		     '16th': 4,
+		     '32nd': 5,
+		     'breve': -1,
+		     'long': -2,
+		     'whole': 0} [log]
+	else:
+	    return 0
+
+    def get_factor (self):
+	return 1
+
+    def get_pitches (self):
+	return self.get_typed_children (class_dict[u'pitch'])
 
 class Part_list (Music_xml_node):
-	pass
-		
+    pass
+
 class Measure(Music_xml_node):
-	def get_notes (self):
-		return self.get_typed_children (class_dict[u'note'])
+    def get_notes (self):
+	return self.get_typed_children (class_dict[u'note'])
 
 
 class Musicxml_voice:
-	def __init__ (self):
-		self._elements = []
-		self._staves = {}
-		self._start_staff = None
-		
-	def add_element (self, e):
-		self._elements.append (e)
-		if (isinstance (e, Note)
-		    and e.get_maybe_exist_typed_child (Staff)):
-			name = e.get_maybe_exist_typed_child (Staff).get_text ()
+    def __init__ (self):
+	self._elements = []
+	self._staves = {}
+	self._start_staff = None
 
-			if not self._start_staff:
-				self._start_staff = name
-			self._staves[name] = True
+    def add_element (self, e):
+	self._elements.append (e)
+	if (isinstance (e, Note)
+	    and e.get_maybe_exist_typed_child (Staff)):
+	    name = e.get_maybe_exist_typed_child (Staff).get_text ()
 
-	def insert (self, idx, e):
-		self._elements.insert (idx, e)
+	    if not self._start_staff:
+		self._start_staff = name
+	    self._staves[name] = True
 
-	
+    def insert (self, idx, e):
+	self._elements.insert (idx, e)
+
+
 
 class Part (Music_xml_node):
-	def __init__ (self):
-		self._voices = []
-		
-	def interpret (self):
-		"""Set durations and starting points."""
-		
-		now = Rational (0)
-		factor = Rational (1)
-		attr_dict = {}
-		measures = self.get_typed_children (Measure)
+    def __init__ (self):
+	self._voices = []
 
-		for m in measures:
-			for n in m.get_all_children ():
-				dur = Rational (0)
-				
-				if n.__class__ == Attributes:
-					n.set_attributes_from_previous (attr_dict)
-					n.read_self ()
-					attr_dict = n._dict.copy ()
-					
-					factor = Rational (1,
-							   string.atoi (attr_dict['divisions']
-									.get_text ()))
-				elif (n.get_maybe_exist_typed_child (Duration)
-				      and not n.get_maybe_exist_typed_child (Chord)):
-					mxl_dur = n.get_maybe_exist_typed_child (Duration)
-					dur = mxl_dur.get_length () * factor
-					if n.get_name() == 'backup':
-						dur = - dur
-					if n.get_maybe_exist_typed_child (Grace):
-						dur = Rational (0)
-						
-				n._when = now
-				n._duration = dur
-				now += dur
+    def interpret (self):
+	"""Set durations and starting points."""
 
-	def extract_voices (part):
-		voices = {}
-		measures = part.get_typed_children (Measure)
-		elements = []
-		for m in measures:
-			elements.extend (m.get_all_children ())
+	now = Rational (0)
+	factor = Rational (1)
+	attr_dict = {}
+	measures = self.get_typed_children (Measure)
 
-		start_attr = None
-		for n in elements:
-			voice_id = n.get_maybe_exist_typed_child (class_dict['voice'])
+	for m in measures:
+	    for n in m.get_all_children ():
+		dur = Rational (0)
 
-			if not (voice_id or isinstance (n, Attributes)):
-				continue
+		if n.__class__ == Attributes:
+		    n.set_attributes_from_previous (attr_dict)
+		    n.read_self ()
+		    attr_dict = n._dict.copy ()
 
-			if isinstance (n, Attributes) and not start_attr:
-				start_attr = n
-				continue
+		    factor = Rational (1,
+				       string.atoi (attr_dict['divisions']
+						    .get_text ()))
+		elif (n.get_maybe_exist_typed_child (Duration)
+		      and not n.get_maybe_exist_typed_child (Chord)):
+		    mxl_dur = n.get_maybe_exist_typed_child (Duration)
+		    dur = mxl_dur.get_length () * factor
+		    if n.get_name() == 'backup':
+			dur = - dur
+		    if n.get_maybe_exist_typed_child (Grace):
+			dur = Rational (0)
 
-			if isinstance (n, Attributes):
-				for v in voices.values ():
-					v.add_element (n)
-				continue
-			
-			id = voice_id.get_text ()
-			if not voices.has_key (id):
-				voices[id] = Musicxml_voice()
+		n._when = now
+		n._duration = dur
+		now += dur
 
-			voices[id].add_element (n)
+    def extract_voices (part):
+	voices = {}
+	measures = part.get_typed_children (Measure)
+	elements = []
+	for m in measures:
+	    elements.extend (m.get_all_children ())
 
-		if start_attr:
-			for (k,v) in voices.items ():
-				v.insert (0, start_attr)
-		
-		part._voices = voices
+	start_attr = None
+	for n in elements:
+	    voice_id = n.get_maybe_exist_typed_child (class_dict['voice'])
 
-	def get_voices (self):
-		return self._voices
+	    if not (voice_id or isinstance (n, Attributes)):
+		continue
+
+	    if isinstance (n, Attributes) and not start_attr:
+		start_attr = n
+		continue
+
+	    if isinstance (n, Attributes):
+		for v in voices.values ():
+		    v.add_element (n)
+		continue
+
+	    id = voice_id.get_text ()
+	    if not voices.has_key (id):
+		voices[id] = Musicxml_voice()
+
+	    voices[id].add_element (n)
+
+	if start_attr:
+	    for (k,v) in voices.items ():
+		v.insert (0, start_attr)
+
+	part._voices = voices
+
+    def get_voices (self):
+	return self._voices
 
 class Notations (Music_xml_node):
-	def get_tie (self):
-		ts = self.get_named_children ('tied')
-		starts = [t for t in ts if t.type == 'start']
-		if starts:
-			return starts[0]
-		else:
-			return None
-	
-	def get_tuplet (self):
-		return self.get_maybe_exist_typed_child (Tuplet)
-	
+    def get_tie (self):
+	ts = self.get_named_children ('tied')
+	starts = [t for t in ts if t.type == 'start']
+	if starts:
+	    return starts[0]
+	else:
+	    return None
+
+    def get_tuplet (self):
+	return self.get_maybe_exist_typed_child (Tuplet)
+
 class Time_modification(Music_xml_node):
-	def get_fraction (self):
-		b = self.get_maybe_exist_typed_child (class_dict['actual-notes'])
-		a = self.get_maybe_exist_typed_child (class_dict['normal-notes'])
-		return (string.atoi(a.get_text ()), string.atoi (b.get_text ()))
+    def get_fraction (self):
+	b = self.get_maybe_exist_typed_child (class_dict['actual-notes'])
+	a = self.get_maybe_exist_typed_child (class_dict['normal-notes'])
+	return (string.atoi(a.get_text ()), string.atoi (b.get_text ()))
 
 class Accidental (Music_xml_node):
-	def __init__ (self):
-		Music_xml_node.__init__ (self)
-		self.editorial = False
-		self.cautionary = False
-		
-		
+    def __init__ (self):
+	Music_xml_node.__init__ (self)
+	self.editorial = False
+	self.cautionary = False
+
+
 class Tuplet(Music_xml_node):
-	pass
+    pass
 
 class Slur (Music_xml_node):
-	def get_type (self):
-		return self.type
+    def get_type (self):
+	return self.type
 
 class Beam (Music_xml_node):
-	def get_type (self):
-		return self.get_text ()
+    def get_type (self):
+	return self.get_text ()
 
 class Chord (Music_xml_node):
-	pass
+    pass
 
 class Dot (Music_xml_node):
-	pass
+    pass
 
 class Alter (Music_xml_node):
-	pass
+    pass
 
 class Rest (Music_xml_node):
-	pass
+    pass
 class Mode (Music_xml_node):
-	pass
+    pass
 class Tied (Music_xml_node):
-	pass
-	
+    pass
+
 class Type (Music_xml_node):
-	pass
+    pass
 class Grace (Music_xml_node):
-	pass
+    pass
 class Staff (Music_xml_node):
-	pass
+    pass
 
 class_dict = {
 	'#comment': Hash_comment,
@@ -340,76 +339,76 @@ class_dict = {
 }
 
 def name2class_name (name):
-	name = name.replace ('-', '_')
-	name = name.replace ('#', 'hash_')
-	name = name[0].upper() + name[1:].lower()
-	
-	return str (name)
-	
-def create_classes (names, dict):
-	for n in names:
-		if dict.has_key (n):
-			continue
+    name = name.replace ('-', '_')
+    name = name.replace ('#', 'hash_')
+    name = name[0].upper() + name[1:].lower()
 
-		class_name = name2class_name (n)
-		klass = new.classobj (class_name, (Music_xml_node,) , {})
-		dict[n] = klass
-	
+    return str (name)
+
+def create_classes (names, dict):
+    for n in names:
+	if dict.has_key (n):
+	    continue
+
+	class_name = name2class_name (n)
+	klass = new.classobj (class_name, (Music_xml_node,) , {})
+	dict[n] = klass
+
 def element_names (node, dict):
-	dict[node.nodeName] = 1
-	for cn in node.childNodes:
-		element_names (cn, dict)
-	return dict
+    dict[node.nodeName] = 1
+    for cn in node.childNodes:
+	element_names (cn, dict)
+    return dict
 
 def demarshal_node (node):
-	name = node.nodeName
-	klass = class_dict[name]
-	py_node = klass()
-	py_node._name = name
-	py_node._children = [demarshal_node (cn) for cn in node.childNodes]
-	for c in py_node._children:
-		c._parent = py_node
-		
-	if node.attributes:
-		
-		for (nm, value) in node.attributes.items():
-			py_node.__dict__[nm] = value
+    name = node.nodeName
+    klass = class_dict[name]
+    py_node = klass()
+    py_node._name = name
+    py_node._children = [demarshal_node (cn) for cn in node.childNodes]
+    for c in py_node._children:
+	c._parent = py_node
 
-	py_node._data = None
-	if node.nodeType == node.TEXT_NODE and node.data:
-		py_node._data = node.data 
+    if node.attributes:
 
-	py_node._original = node
-	return py_node
-		
+	for (nm, value) in node.attributes.items():
+	    py_node.__dict__[nm] = value
+
+    py_node._data = None
+    if node.nodeType == node.TEXT_NODE and node.data:
+	py_node._data = node.data 
+
+    py_node._original = node
+    return py_node
+
 def strip_white_space (node):
-	node._children = \
-	[c for c in node._children
-	 if not (c._original.nodeType == Node.TEXT_NODE and
-		 re.match (r'^\s*$', c._data))]
-	
-	for c in node._children:
-		strip_white_space (c)
+    node._children = \
+    [c for c in node._children
+     if not (c._original.nodeType == Node.TEXT_NODE and
+	     re.match (r'^\s*$', c._data))]
+
+    for c in node._children:
+	strip_white_space (c)
 
 def create_tree (name):
-	doc = minidom.parse(name)
-	node = doc.documentElement
-	names = element_names (node, {}).keys()
-	create_classes (names, class_dict)
-    
-	return demarshal_node (node)
-	
+    doc = minidom.parse(name)
+    node = doc.documentElement
+    names = element_names (node, {}).keys()
+    create_classes (names, class_dict)
+
+    return demarshal_node (node)
+
 def test_musicxml (tree):
-	m = tree._children[-2]
-	print m
-	
+    m = tree._children[-2]
+    print m
+
 def read_musicxml (name):
-	tree = create_tree (name)
-	strip_white_space (tree)
-	return tree
+    tree = create_tree (name)
+    strip_white_space (tree)
+    return tree
 
 if __name__  == '__main__':
-	tree = read_musicxml ('BeetAnGeSample.xml')
-	test_musicxml (tree)
+    tree = read_musicxml ('BeetAnGeSample.xml')
+    test_musicxml (tree)
 
 
