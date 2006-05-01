@@ -237,11 +237,11 @@ class Note:
         key = global_options.key
         if key.minor:
             # as -> gis
-            if key.sharps == 0 and key.flats == 0 \
-             and n == 5 and a == -1:
+            if (key.sharps == 0 and key.flats == 0
+                and n == 5 and a == -1):
                 n = 4; a = 1
             # des -> cis
-               elif key.flats == 1 and n == 1 and a == -1:
+            elif key.flats == 1 and n == 1 and a == -1:
                 n = 0; a = 1
             # ges -> fis
             elif key.flats == 2 and n == 4 and a == -1:
