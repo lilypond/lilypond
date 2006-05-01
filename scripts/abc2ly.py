@@ -536,7 +536,7 @@ def try_parse_tuplet_begin (str, state):
         dig = str[1]
         str = str[2:]
         prev_tuplet_state = state.parsing_tuplet
-         state.parsing_tuplet = string.atoi (dig[0])
+        state.parsing_tuplet = string.atoi (dig[0])
         if prev_tuplet_state:
             voices_append ("}")                
         voices_append ("\\times %s {" % tup_lookup[dig])
