@@ -12,6 +12,11 @@
 
 #include "std-string.hh"
 
+void read_relocation_dir (string dirname);
+void read_relocation_file (string filename);
+string read_line (FILE *f);
+string expand_environment_variables (string orig);
+
 int sane_putenv (char const *key, string value, bool overwrite);
 void setup_paths (char const *argv0);
 extern bool relocate_binary;
