@@ -1,5 +1,8 @@
 2006-05-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/tie-formatting-problem.cc (set_column_chord_outline): new
+	function: store outlines per column rank.
+
 	* lily/include/tie-configuration.hh (class Tie_configuration): add
 	column_ranks_ to specification and configuration, to distinguish
 	between ties for different heads in arpegiated chords.
