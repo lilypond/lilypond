@@ -1,10 +1,11 @@
 \header
 {
 
-  texidoc = "when @code{tieWaitForNote} is set, the right-tied note
- does not have to follow the lef-tied note directly. When
- @code{tieWaitForNote} is set to false, any tie will erase all pending
- ties."
+  texidoc =
+
+  "when @code{tieWaitForNote} is set, the right-tied note does not
+ have to follow the lef-tied note directly. When @code{tieWaitForNote}
+ is set to false, any tie will erase all pending ties."
   
 }
 
@@ -21,4 +22,6 @@
   \set tieWaitForNote = ##f
   <c e> ~
   <c e c'>
+  |
+
 }

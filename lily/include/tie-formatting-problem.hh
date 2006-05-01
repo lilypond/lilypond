@@ -73,12 +73,14 @@ struct Tie_configuration_variation
   Tie_configuration_variation ();
 };
 
-typedef   map <int, vector<Skyline_entry> > Chord_outline_map ;
+typedef map <int, vector<Skyline_entry> > Chord_outline_map;
+typedef map <int, Box> Column_extent_map;
 class Tie_formatting_problem
 {
   Chord_outline_map chord_outlines_;
-  Drul_array< Box > stem_extents_;
-  Drul_array< Box > head_extents_;
+  Column_extent_map stem_extents_;
+  Column_extent_map head_extents_;
+  
   set<int> dot_positions_;
   Interval dot_x_;
   vector<Tie_specification> specifications_;
@@ -109,6 +111,9 @@ public:
   Tie_details details_;
   void print_ties_configuration (Ties_configuration const *);
 
+  Interval get_stem_extent (int, Axis) const; 
+  Interval get_head_extent (int, Axis) const; 
+  
 public:
   Tie_formatting_problem ();
   ~Tie_formatting_problem ();
