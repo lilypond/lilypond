@@ -32,7 +32,6 @@
 
 #define FRAMEWORKDIR ".."
 
-
 int
 sane_putenv (char const *key, string value, bool overwrite)
 {
@@ -118,6 +117,10 @@ prefix_relocation (string prefix)
   prepend_env_path ("PATH", bindir);
 }
 
+/*
+  UGH : this is a complete mess.
+ */
+
 void
 framework_relocation (string prefix)
 {
@@ -174,10 +177,12 @@ framework_relocation (string prefix)
 
 #endif
   
-  
   prepend_env_path ("PATH", bindir);
 }
 
+/*
+  UGH : this is a complete mess.
+ */
 void
 setup_paths (char const *argv0_ptr)
 {
@@ -187,13 +192,14 @@ setup_paths (char const *argv0_ptr)
   if (relocate_binary
       && getenv ("LILYPOND_RELOCATE_PREFIX"))
     {
-      string prefix = getenv ("LILYPOND_RELOCATE_PREFIX");
+      prefix_directory = getenv ("LILYPOND_RELOCATE_PREFIX");
 #ifdef __MINGW32__
       /* Normalize file name.  */
-      prefix = File_name (prefix).to_string ();
+      prefix_directory = File_name (prefix_directory).to_string ();
 #endif /* __MINGW32__ */
-      prefix_relocation (prefix);
-      string bindir = prefix + "/bin";
+      
+      prefix_relocation (prefix_directory);
+      string bindir = prefix_directory + "/bin";
       framework_relocation (bindir);
     }
   else if (relocate_binary)
@@ -237,15 +243,20 @@ setup_paths (char const *argv0_ptr)
       string argv0_prefix = dir_name (bindir);
       string compile_prefix = dir_name (dir_name (dir_name (prefix_directory)));
       if (argv0_prefix != compile_prefix)
-	prefix_relocation (argv0_prefix);
+	{
+	  prefix_relocation (argv0_prefix);
+	  prefix_directory = argv0_prefix;
+	}
       if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
-	framework_relocation (bindir + "/" + FRAMEWORKDIR);
+	{
+	  framework_relocation (bindir + "/" + FRAMEWORKDIR);
+	  prefix_directory = bindir + "/" + FRAMEWORKDIR;
+	}
     }
 
   /* FIXME: use LILYPOND_DATADIR.  */
   if (char const *env = getenv ("LILYPONDPREFIX"))
     {
-
 #ifdef __MINGW32__
       /* Normalize file name.  */
       prefix_directory = File_name (env).to_string ();
