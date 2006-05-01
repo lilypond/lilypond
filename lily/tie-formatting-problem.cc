@@ -40,13 +40,14 @@ Tie_formatting_problem::print_ties_configuration (Ties_configuration const *ties
 }
 
 Interval
-Tie_formatting_problem::get_attachment (Real y) const
+Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
 {
   Interval attachments;
   Direction d = LEFT;
   do
     {
-      attachments[d] = skyline_height (chord_outlines_[d], y, -d);
+      Chord_outline_map::const_iterator i (chord_outlines_.find (columns[d]));
+      attachments[d] = skyline_height ((*i).second, y, -d);
     }
   while (flip (&d) != LEFT);
   
@@ -66,8 +67,9 @@ Tie_formatting_problem::~Tie_formatting_problem ()
 }
 
 void
-Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
-					   Direction dir)
+Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
+						  Direction dir,
+						  int column_rank)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (bounds[0]);
 
@@ -80,7 +82,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
       Grob *head = bounds[i];
       if (!Note_head::has_interface (head))
 	continue;
-      
+	  
       if (!stem)
 	stem = unsmob_grob (head->get_object ("stem"));
 	  
@@ -107,26 +109,27 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
 	  boxes.push_back (Box (x, y));
 	}
     }
-
-  chord_outlines_[dir] = empty_skyline (-dir);
+  
+  chord_outlines_[column_rank] = empty_skyline (-dir);
+      
   if (bounds[0]->break_status_dir ())
     {
       Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-dir];
-      chord_outlines_[dir].at (0).height_ = x; 
+      chord_outlines_[column_rank].at (0).height_ = x; 
     }
   else
     {
-      Interval x;      
-      for (vsize i = 0; i < head_boxes.size (); i++)
+      Interval x;
+      for (vsize j = 0; j < head_boxes.size (); j++)
 	{
-	  x.unite (head_boxes[i][X_AXIS]);
+	  x.unite (head_boxes[j][X_AXIS]);
 	}
-
-      chord_outlines_[dir].at (0).height_ = x[dir];
+      
+      chord_outlines_[column_rank].at (0).height_ = x[dir];
     }
-
+      
   for (vsize i = 0; i < boxes.size (); i++)
-    insert_extent_into_skyline (&chord_outlines_[dir]  ,
+    insert_extent_into_skyline (&chord_outlines_[column_rank]  ,
 				boxes[i], Y_AXIS, -dir);
 
   if (stem
@@ -142,7 +145,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
       y.add_point (Stem::head_positions (stem)[-stemdir]
 		   * staff_space * .5);
 	  
-      insert_extent_into_skyline (&chord_outlines_[dir], Box (x,y), Y_AXIS, -dir);
+      insert_extent_into_skyline (&chord_outlines_[column_rank], Box (x,y), Y_AXIS, -dir);
 
       stem_extents_[dir].unite (Box (x,y));
 
@@ -150,7 +153,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
 	{
 	  Box flag_box = Stem::get_translated_flag (stem).extent_box ();
 	  flag_box.translate( Offset (x[RIGHT], X_AXIS));
-	  insert_extent_into_skyline (&chord_outlines_[dir], flag_box,
+	  insert_extent_into_skyline (&chord_outlines_[column_rank], flag_box,
 				      Y_AXIS, -dir);
 	}
     }
@@ -170,7 +173,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
 	}
 
       if (!x.is_empty ())
-	insert_extent_into_skyline (&chord_outlines_[dir],
+	insert_extent_into_skyline (&chord_outlines_[column_rank],
 				    Box (x,y),
 				    Y_AXIS, -dir);
     }
@@ -182,6 +185,32 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
       head_extents_[dir].unite (head_boxes[i]);
     }
 }
+
+void
+Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
+					   Direction dir)
+
+{
+  vector<int> ranks;
+  for (vsize i = 0; i < bounds.size (); i++)
+    ranks.push_back (bounds[i]->get_column ()->get_rank ());
+
+  vector_sort (ranks, default_compare);
+  uniq (ranks);
+
+  for (vsize i = 0; i < ranks.size (); i++)
+    {
+      vector<Item*> col_items;
+      for (vsize j = 0; j < bounds.size (); j ++)
+	{
+	  if (bounds[j]->get_column ()->get_rank () == ranks[i])
+	    col_items.push_back (bounds[j]);
+	}
+
+      set_column_chord_outline (col_items, dir, ranks[i]);
+    }
+}
+  
 
 
 void
@@ -360,8 +389,6 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
       conf->delta_y_ += dir * 0.25 * details_.staff_space_;
       y_tune = false;
     }
-		
-	   
   
   if (y_tune
       && max (fabs (head_extents_[LEFT][Y_AXIS][dir] - y),
@@ -375,7 +402,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 
   if (y_tune)
     {
-      conf->attachment_x_ = get_attachment (y + conf->delta_y_);
+      conf->attachment_x_ = get_attachment (y + conf->delta_y_, conf->column_ranks_);
       Real h =  conf->height (details_);
       
       /*
@@ -418,7 +445,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 	}
     }
   
-  conf->attachment_x_ = get_attachment (y + conf->delta_y_);
+  conf->attachment_x_ = get_attachment (y + conf->delta_y_, conf->column_ranks_);
   if (conf->height (details_) < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
     {
       /*
@@ -428,7 +455,8 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
       Interval close_by = get_attachment (y
 					  + conf->delta_y_
 					  + (dir * details_.intra_space_threshold_ * 0.25
-					     * details_.staff_space_));
+					     * details_.staff_space_),
+					  conf->column_ranks_);
       
       conf->attachment_x_.intersect (close_by);
     }
@@ -444,10 +472,11 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 	continue;
 
       conf->attachment_x_[d] =
-	d* min (d * conf->attachment_x_[d],
-		d * (stem_extents_[d][X_AXIS][-d] - d * details_.stem_gap_));
+	d * min (d * conf->attachment_x_[d],
+		 d * (stem_extents_[d][X_AXIS][-d] - d * details_.stem_gap_));
     }
   while (flip (&d) != LEFT);
+  
   return conf;
 }
 
@@ -612,7 +641,12 @@ Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const 
 	}
     }
 
-  Tie_configuration best = *confs[best_idx];
+  if (best_idx < 0)
+    programming_error ("No best tie configuration found.");
+
+  Tie_configuration best
+    = (best_idx >= 0) ?  *confs[best_idx] : *confs[0];
+  
   for (vsize i = 0; i < confs.size (); i++)
     delete confs[i];
 
@@ -761,6 +795,8 @@ Tie_formatting_problem::generate_base_chord_configuration ()
 	{
 	  conf.position_ = specifications_[i].position_;
 	}
+
+      conf.column_ranks_ = specifications_[i].column_ranks_;
       ties_config.push_back (conf);
     }
 

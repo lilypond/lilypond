@@ -73,9 +73,10 @@ struct Tie_configuration_variation
   Tie_configuration_variation ();
 };
 
+typedef   map <int, vector<Skyline_entry> > Chord_outline_map ;
 class Tie_formatting_problem
 {
-  Drul_array< vector<Skyline_entry> > chord_outlines_;
+  Chord_outline_map chord_outlines_;
   Drul_array< Box > stem_extents_;
   Drul_array< Box > head_extents_;
   set<int> dot_positions_;
@@ -121,8 +122,9 @@ public:
   void from_tie (Grob *tie);
   void from_semi_ties (vector<Grob*> const &, Direction head_dir);
   void set_chord_outline (vector<Item*>, Direction);
+  void set_column_chord_outline (vector<Item*>, Direction, int rank);
   void set_manual_tie_configuration (SCM);
-  Interval get_attachment (Real) const;
+  Interval get_attachment (Real, Drul_array<int>) const;
   Grob *common_x_refpoint () const;
 };
 
