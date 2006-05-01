@@ -1,5 +1,7 @@
 2006-05-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/lilypond-words.py (F): indent fix.
+
 	* input/regression/tie-arpeggio-collision.ly: new file.
 
 	* lily/tie-formatting-problem.cc (set_column_chord_outline): new
