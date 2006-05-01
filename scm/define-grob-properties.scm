@@ -165,7 +165,7 @@ edges '(@var{left-text} . @var{right-text}).")
      ;; remove me? 
      (extra-X-extent ,number-pair? "A grob is enlarged in X dimension
 by this much.")
-     (extra-Y-extent ,number-pair? "See @code{extra-Y-extent}.")
+     (extra-Y-extent ,number-pair? "See @code{extra-X-extent}.")
      
      (X-extent ,number-pair? "Hard coded extent in X direction. ")
      (Y-extent ,number-pair? "See @code{X-extent}.")
@@ -298,7 +298,7 @@ notation for some types of polyphonic music. ")
 and notes or beam.")
      (minimum-X-extent ,number-pair? "Minimum size of an object in X
 dimension, measured in staff space.")
-     (minimum-Y-extent ,number-pair? "See @code{minimum-Y-extent}.")
+     (minimum-Y-extent ,number-pair? "See @code{minimum-X-extent}.")
      (minimum-length ,ly:dimension? "Try to make a spanner at least
 this long. This requires an appropriate callback for the
 @code{springs-and-rods} property.")

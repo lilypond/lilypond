@@ -1,3 +1,8 @@
+2006-05-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	Correct typo, thanks to Eduardo.
+
 2006-05-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* buildscripts/lilypond-words.py (F): indent fix.
