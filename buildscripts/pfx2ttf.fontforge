@@ -13,5 +13,5 @@ elseif ( err < 0 )
    Print("An error occurred while searching for the \"numero\" glyph");
 endif
 
-Generate($3 + $fontname + ".ttf");
+Generate($3 + $fontname + ".otf");
 
