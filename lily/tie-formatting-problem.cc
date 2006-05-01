@@ -9,6 +9,7 @@
 
 #include "tie-formatting-problem.hh"
 
+#include "paper-column.hh"
 #include "bezier.hh" 
 #include "directional-element-interface.hh"
 #include "item.hh"
@@ -252,9 +253,10 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
       do
 	{
 	  spec.note_head_drul_[d] = Tie::head (ties[i], d);
+	  spec.column_ranks_[d] =
+	    dynamic_cast<Spanner*> (ties[i])->get_bound (d)->get_column ()->get_rank ();
 	}
       while (flip (&d) != LEFT);
-      
       specifications_.push_back (spec);
     }
 }
@@ -317,31 +319,40 @@ Tie_formatting_problem::get_tie_specification (int i) const
 }
 
 
+/*
+  Return configuration, create it if necessary. 
+*/
 Tie_configuration*
-Tie_formatting_problem::get_configuration (int pos, Direction dir) const
+Tie_formatting_problem::get_configuration (int pos, Direction dir, Drul_array<int> columns) const
 {
-  pair<int,int> key (pos, dir);
+  int key_components[] = {
+    pos, dir, columns[LEFT], columns[RIGHT]
+  };
+  Tuple<int,4> key (key_components);
+    
   Tie_configuration_map::const_iterator f = possibilities_.find (key);
-							      
   if (f != possibilities_.end ())
     {
       return (*f).second;
     }
 
   
-  Tie_configuration *conf = generate_configuration (pos, dir);
+  Tie_configuration *conf = generate_configuration (pos, dir, columns);
   ((Tie_formatting_problem*) this)->possibilities_[key] = conf;
   return conf;
 }
 
 Tie_configuration*
-Tie_formatting_problem::generate_configuration (int pos, Direction dir) const
+Tie_formatting_problem::generate_configuration (int pos, Direction dir,
+						Drul_array<int> columns) const
 {
   Tie_configuration *conf = new Tie_configuration;
   conf->position_ = pos;
   conf->dir_ = dir;
+  
+  conf->column_ranks_ = columns;
+  
   Real y = conf->position_ * 0.5 * details_.staff_space_;
-
 
   bool y_tune = true;
   if (dot_positions_.find (pos) != dot_positions_.end ())
@@ -571,7 +582,8 @@ Tie_formatting_problem::find_optimal_tie_configuration (Tie_specification const 
 
   for (int i = 0; i < details_.single_tie_region_size_; i ++)
     {
-      confs.push_back (generate_configuration (pos + i * dir, dir));
+      confs.push_back (generate_configuration (pos + i * dir, dir,
+					       spec.column_ranks_));
       
       if (spec.has_manual_position_)
 	{
@@ -616,8 +628,15 @@ Tie_specification::Tie_specification ()
   manual_dir_ = CENTER;
   note_head_drul_[LEFT] =
     note_head_drul_[RIGHT] = 0;
+  column_ranks_[RIGHT] =
+    column_ranks_[LEFT] = 0;
 }
 
+int
+Tie_specification::column_span () const
+{
+  return column_ranks_[RIGHT] - column_ranks_[LEFT];
+}
 
 void
 Tie_formatting_problem::score_ties_aptitude (Ties_configuration *ties) const
@@ -709,7 +728,8 @@ Tie_formatting_problem::generate_ties_configuration (Ties_configuration const &t
   Ties_configuration copy;
   for (vsize i = 0; i < ties_config.size (); i++)
     {
-      Tie_configuration * ptr = get_configuration (ties_config[i].position_, ties_config[i].dir_);
+      Tie_configuration * ptr = get_configuration (ties_config[i].position_, ties_config[i].dir_,
+						   ties_config[i].column_ranks_);
       if (specifications_[i].has_manual_position_)
 	{
 	  ptr->delta_y_
@@ -814,10 +834,19 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
    */
   for (vsize i = 1; i < tie_configs->size (); i++)
     {
-      Real diff = (tie_configs->at (i-1).position_
-		   - tie_configs->at (i).position_);
-
-      if (fabs (diff) <= 1)
+      Real diff = (tie_configs->at (i).position_
+		   -tie_configs->at (i-1).position_);
+		   
+      Real span_diff 
+	= specifications_[i].column_span () - specifications_[i-1].column_span ();
+      if (span_diff && fabs (diff) <= 2)
+	{
+	  if  (span_diff > 0)
+	    tie_configs->at (i).dir_ = UP;
+	  else if (span_diff < 0)
+	    tie_configs->at (i-1).dir_ = DOWN;  
+	}
+      else if (fabs (diff) <= 1)
 	{
 	  if (!tie_configs->at (i-1).dir_)
 	    tie_configs->at (i-1).dir_ = DOWN;
@@ -861,7 +890,8 @@ Tie_formatting_problem::generate_extremal_tie_variations (Ties_configuration con
 	    Tie_configuration_variation var;
 	    var.index_ = (d == DOWN) ? 0 : ties.size () - 1;
 	    var.suggestion_ = get_configuration (boundary (ties, d, 0).position_
-						 + d * i, d);
+						 + d * i, d,
+						 boundary (ties, d, 0).column_ranks_);
 	    vars.push_back (var);
 	  }
     }
@@ -894,7 +924,10 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 		  var.index_ = i;
 		  var.suggestion_ = get_configuration (specifications_[i].position_
 						       - ties[i].dir_,
-						       -ties[i].dir_);
+						       - ties[i].dir_,
+
+						       ties[i].column_ranks_
+						       );
 
 		  vars.push_back (var);
 		}
@@ -905,7 +938,8 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 		  var.index_ = i-1;
 		  var.suggestion_ = get_configuration (specifications_[i-1].position_
 						       - ties[i-1].dir_,
-						       - ties[i-1].dir_);
+						       - ties[i-1].dir_,
+						       specifications_[i-1].column_ranks_);
 
 		  vars.push_back (var);
 		}
@@ -915,8 +949,8 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 		{
 		  Tie_configuration_variation var;
 		  var.index_ = i-1;
-		  var.suggestion_ = get_configuration (specifications_[i-1].position_
-						       - 1, DOWN);
+		  var.suggestion_ = get_configuration (specifications_[i-1].position_ - 1, DOWN,
+						       specifications_[i-1].column_ranks_);
 		  vars.push_back (var);
 		}
 	      if (i == ties.size() && !specifications_[i].has_manual_position_
@@ -925,7 +959,8 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 		  Tie_configuration_variation var;
 		  var.index_ = i;
 		  var.suggestion_ = get_configuration (specifications_[i].position_
-						       + 1, UP);
+						       + 1, UP,
+						       specifications_[i].column_ranks_);
 		  vars.push_back (var);
 		}
 	    }
@@ -935,7 +970,8 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 	      Tie_configuration_variation var;
 	      var.index_ = i;
 	      var.suggestion_ = get_configuration (ties[i].position_  + ties[i].dir_,
-						   ties[i].dir_);
+						   ties[i].dir_,
+						   ties[i].column_ranks_);
 	      vars.push_back (var);
 	    }
 	  

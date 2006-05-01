@@ -25,6 +25,7 @@ class Tie_configuration
   Real score_;
   bool scored_;
   friend class Tie_formatting_problem;
+
 public:
   Real score () const { return score_; }
   string card () const { return score_card_; }
@@ -32,7 +33,8 @@ public:
   int position_;
   Direction dir_;
   Real delta_y_;
-
+  Drul_array<int> column_ranks_;
+  
   /* computed. */
   Interval attachment_x_;
 
