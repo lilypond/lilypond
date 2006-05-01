@@ -5,6 +5,8 @@
 
 2006-05-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/GNUmakefile (SEXECUTABLES): remove lilypond-ps2png.scm
+
 	* buildscripts/lilypond-words.py (F): indent fix.
 
 	* input/regression/tie-arpeggio-collision.ly: new file.
