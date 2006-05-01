@@ -122,11 +122,14 @@ framework_relocation (string prefix)
 
   sane_putenv ("INSTALLER_ROOT", prefix, true);
 	       
+  read_relocation_dir (prefix + "/etc/relocate/");
+
+#ifdef OLD_RELOCATION
   string bindir = prefix + "/bin";
   string datadir = prefix + "/share";
   string libdir = prefix + "/lib";
   string sysconfdir = prefix + "/etc";
-
+  
   /* need otherwise dynamic .so's aren't found.   */
   prepend_env_path ("DYLD_LIBRARY_PATH", libdir);
   
@@ -157,13 +160,15 @@ framework_relocation (string prefix)
   prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
   prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
   prepend_env_path ("GS_LIB", datadir + "/gs/lib");
-
+  
   prepend_env_path ("GUILE_LOAD_PATH", datadir
 		    + to_string ("/guile/%d.%d",
 				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
-
   set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
   set_env_dir ("PANGO_PREFIX", prefix);
+
+#endif
+  
   
   prepend_env_path ("PATH", bindir);
 }

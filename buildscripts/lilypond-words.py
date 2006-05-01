@@ -13,22 +13,22 @@ notes = []
 
 # keywords not otherwise found
 for line in ['include','maininput','version']:
-    kw = kw + [line]
+  kw = kw + [line]
 
 # the main keywords
 F = open('lily/lily-lexer.cc', 'r')
 for line in F.readlines():
-    m = re.search(r"(\s*{\")(.*)(\",\s*.*},\s*\n)",line)
-    if m:
-	kw = kw + [m.group(2)]
+  m = re.search(r"(\s*{\")(.*)(\",\s*.*},\s*\n)",line)
+  if m:
+    kw = kw + [m.group(2)]
 F.close()
 
 # keywords in markup
 F = open('scm/markup.scm', 'r')
 for line in F.readlines():
-    m = re.search(r"^(\s*\(cons\s*)([a-z-]*)(-markup)",line)
-    if m:
-	kw = kw + [m.group(2)]
+  m = re.search(r"^(\s*\(cons\s*)([a-z-]*)(-markup)",line)
+  if m:
+    kw = kw + [m.group(2)]
 F.close()
 
 # identifiers and keywords
@@ -45,12 +45,12 @@ for name in [
 'ly/script-init.ly',
 'ly/spanners-init.ly',
 ]:
-    F = open(name, 'r')
-    for line in F.readlines():
-        m = re.search(r"^([a-zA-Z]+)(\s*=)",line)
-        if m:
-	    kw = kw + [m.group(1)]
-    F.close()
+  F = open(name, 'r')
+  for line in F.readlines():
+    m = re.search(r"^([a-zA-Z]+)(\s*=)",line)
+    if m:
+      kw = kw + [m.group(1)]
+  F.close()
 
 # more identifiers
 for name in [
@@ -58,12 +58,12 @@ for name in [
 'ly/declarations-init.ly',
 'ly/params-init.ly',
 ]:
-    F = open(name, 'r')
-    for line in F.readlines():
-        m = re.search(r"^(\s*)([a-zA-Z]+)(\s*=)",line)
-        if m:
-	    kw = kw + [m.group(2)]
-    F.close()
+  F = open(name, 'r')
+  for line in F.readlines():
+    m = re.search(r"^(\s*)([a-zA-Z]+)(\s*=)",line)
+    if m:
+      kw = kw + [m.group(2)]
+  F.close()
 
 # note names
 for name in [
@@ -80,105 +80,105 @@ for name in [
 'ly/svenska.ly',
 'ly/vlaams.ly',
 ]:
-    F = open(name, 'r')
-    for line in F.readlines():
-	m = re.search(r"^(\s*\()([a-z]+)([^l]+ly:make-pitch)",line)
-	if m:
-	    notes = notes + ['' + m.group(2)]
-    F.close()
+  F = open(name, 'r')
+  for line in F.readlines():
+    m = re.search(r"^(\s*\()([a-z]+)([^l]+ly:make-pitch)",line)
+    if m:
+      notes = notes + ['' + m.group(2)]
+  F.close()
 
 
-    
+  
 # reserved words
 for name in [
 'ly/engraver-init.ly',
 'ly/performer-init.ly',
 ]:
-    F = open(name, 'r')
-    for line in F.readlines():
-      	for pattern in [
-	r"^(\s*.consists\s+\")([a-zA-Z_]+)(\")",
-	r"([\\]name\s+[\"]?)([a-zA-Z_]+)([\"]?)",
-	r"(\s+)([a-zA-Z_]+)(\s*[\\]((set)|(override)))",
-	]:
-	    m = re.search(pattern,line)
-	    if m:
-	        rw = rw + ['' + m.group(2)]
-    F.close()
+  F = open(name, 'r')
+  for line in F.readlines():
+       for pattern in [
+    r"^(\s*.consists\s+\")([a-zA-Z_]+)(\")",
+    r"([\\]name\s+[\"]?)([a-zA-Z_]+)([\"]?)",
+    r"(\s+)([a-zA-Z_]+)(\s*[\\]((set)|(override)))",
+    ]:
+      m = re.search(pattern,line)
+      if m:
+        rw = rw + ['' + m.group(2)]
+  F.close()
 
 # the output file
 outdir = '.';
 suffix = ['skip','skip','skip'];
 outs  = ['','',''];
 for s in sys.argv[1:]:
-    if s == '--words':
-        suffix[0] = '';
-    if s == '--el':
-        suffix[1] = '.el';
-    if s == '--vim':
-        suffix[2] = '.vim';
-    m = re.search(r"(--dir=)(\S*)",s)
-    if m:
-        outdir = m.group(2)
+  if s == '--words':
+    suffix[0] = '';
+  if s == '--el':
+    suffix[1] = '.el';
+  if s == '--vim':
+    suffix[2] = '.vim';
+  m = re.search(r"(--dir=)(\S*)",s)
+  if m:
+    outdir = m.group(2)
 
 if '' in suffix:
-    outs[0] = open(outdir+'/lilypond-words'+suffix[0], 'w')
+  outs[0] = open(outdir+'/lilypond-words'+suffix[0], 'w')
 if '.el' in suffix:
-    outs[1] = open(outdir+'/lilypond-words'+suffix[1], 'w')
+  outs[1] = open(outdir+'/lilypond-words'+suffix[1], 'w')
 if '.vim' in suffix:
-    outs[2] = open(outdir+'/lilypond-words'+suffix[2], 'w')
+  outs[2] = open(outdir+'/lilypond-words'+suffix[2], 'w')
 
 # alphabetically ordered words
 kw.sort()
 kw.reverse()
 prevline = ''
 if '.vim' in suffix:
-  outs[2].write('syn match lilyKeyword \"[-_^]\\?\\\\\\(');
+ outs[2].write('syn match lilyKeyword \"[-_^]\\?\\\\\\(');
 for line in kw:
-    if line != prevline:
-	if '' in suffix:
-    	    outs[0].write('\\\\' + line + '\n')
-        if '.el' in suffix:
-    	    outs[1].write('\\\\' + line + '\n')
-        if '.vim' in suffix:
-    	    outs[2].write(line + '\\|')
-    prevline = line
+  if line != prevline:
+    if '' in suffix:
+        outs[0].write('\\\\' + line + '\n')
+    if '.el' in suffix:
+        outs[1].write('\\\\' + line + '\n')
+    if '.vim' in suffix:
+        outs[2].write(line + '\\|')
+  prevline = line
 if '.vim' in suffix:
-    outs[2].write('n\\)\\(\\A\\|\\n\\)\"me=e-1\n')
+  outs[2].write('n\\)\\(\\A\\|\\n\\)\"me=e-1\n')
 
 rw.sort()
 rw.reverse()
 prevline = ''
 if '.vim' in suffix:
-    outs[2].write('syn match lilyReservedWord \"\\(\\A\\|\\n\\)\\(')
+  outs[2].write('syn match lilyReservedWord \"\\(\\A\\|\\n\\)\\(')
 for line in rw:
-    if line != prevline:
-        if '' in suffix:
-            outs[0].write(line + '\n')
-        if '.el' in suffix:
-            outs[1].write(line + '\n')
-        if '.vim' in suffix:
-    	    outs[2].write(line + '\\|')
-    prevline = line
+  if line != prevline:
+    if '' in suffix:
+      outs[0].write(line + '\n')
+    if '.el' in suffix:
+      outs[1].write(line + '\n')
+    if '.vim' in suffix:
+        outs[2].write(line + '\\|')
+  prevline = line
 if '.vim' in suffix:
-    outs[2].write('Score\\)\\(\\A\\|\\n\\)\"ms=s+1,me=e-1\n')
+  outs[2].write('Score\\)\\(\\A\\|\\n\\)\"ms=s+1,me=e-1\n')
 
 notes.sort()
 notes.reverse()
 prevline = ''
 if '.vim' in suffix:
-    outs[2].write('syn match lilyNote \"\\<\\(\\(\\(');
+  outs[2].write('syn match lilyNote \"\\<\\(\\(\\(');
 for line in notes:
-    if line != prevline:
-        if '' in suffix:
-            outs[0].write(line + '\n')
-        if '.el' in suffix:
-            outs[1].write(line + '\n')
-        if '.vim' in suffix:
-    	    outs[2].write(line + '\\|')
-    prevline = line
+  if line != prevline:
+    if '' in suffix:
+      outs[0].write(line + '\n')
+    if '.el' in suffix:
+      outs[1].write(line + '\n')
+    if '.vim' in suffix:
+        outs[2].write(line + '\\|')
+  prevline = line
 if '.vim' in suffix:
-    outs[2].write('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')
+  outs[2].write('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')
 
 # the menu in lilypond-mode.el
 for line in [
@@ -203,13 +203,13 @@ for line in [
 '//times - % { _ } -',
 '//transpose - % { _ } -',
 ]:
-    # urg. escape char '/' is replaced with '\\' which python writes as a '\'.
-    if '.el' in suffix:
-        outs[1].write(string.join(string.split(line,'/'),'\\') + '\n')
- 
+  # urg. escape char '/' is replaced with '\\' which python writes as a '\'.
+  if '.el' in suffix:
+    outs[1].write(string.join(string.split(line,'/'),'\\') + '\n')
+
 if '' in suffix:
-    outs[0].close()
+  outs[0].close()
 if '.el' in suffix:
-    outs[1].close()
+  outs[1].close()
 if '.vim' in suffix:
-    outs[2].close()
+  outs[2].close()
