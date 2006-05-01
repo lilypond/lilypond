@@ -88,23 +88,18 @@ for name in [
   F.close()
 
 
-  
+
 # reserved words
-for name in [
-'ly/engraver-init.ly',
-'ly/performer-init.ly',
-]:
-  F = open(name, 'r')
-  for line in F.readlines():
-       for pattern in [
-    r"^(\s*.consists\s+\")([a-zA-Z_]+)(\")",
-    r"([\\]name\s+[\"]?)([a-zA-Z_]+)([\"]?)",
-    r"(\s+)([a-zA-Z_]+)(\s*[\\]((set)|(override)))",
-    ]:
-      m = re.search(pattern,line)
-      if m:
-        rw = rw + ['' + m.group(2)]
-  F.close()
+for name in ['ly/engraver-init.ly',
+             'ly/performer-init.ly']:
+  f = open(name, 'r')
+  for line in f.readlines():
+      for pattern in [r"^(\s*.consists\s+\")([a-zA-Z_]+)(\")",
+                      r"([\\]name\s+[\"]?)([a-zA-Z_]+)([\"]?)",
+                      r"(\s+)([a-zA-Z_]+)(\s*[\\]((set)|(override)))"]:
+          m = re.search(pattern,line)
+          if m:
+              rw = rw + ['' + m.group(2)]
 
 # the output file
 outdir = '.';
