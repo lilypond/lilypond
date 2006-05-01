@@ -147,7 +147,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	  
       insert_extent_into_skyline (&chord_outlines_[column_rank], Box (x,y), Y_AXIS, -dir);
 
-      stem_extents_[dir].unite (Box (x,y));
+      stem_extents_[column_rank].unite (Box (x,y));
 
       if (dir == LEFT)
 	{
@@ -179,10 +179,10 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
     }
   while (flip (&updowndir) != DOWN);
   
-  head_extents_[dir].set_empty ();
+  head_extents_[column_rank].set_empty ();
   for (vsize i = 0; i < head_boxes.size (); i++)
     {
-      head_extents_[dir].unite (head_boxes[i]);
+      head_extents_[column_rank].unite (head_boxes[i]);
     }
 }
 
@@ -391,12 +391,12 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
     }
   
   if (y_tune
-      && max (fabs (head_extents_[LEFT][Y_AXIS][dir] - y),
-	      fabs (head_extents_[RIGHT][Y_AXIS][dir] - y)) < 0.25
+      && max (fabs (get_head_extent (columns[LEFT], Y_AXIS)[dir] - y),
+	      fabs (get_head_extent (columns[RIGHT],Y_AXIS)[dir] - y)) < 0.25
       && !Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
     {
       conf->delta_y_ =
-	(head_extents_[LEFT][Y_AXIS][dir] - y)
+	(get_head_extent (columns[LEFT], Y_AXIS)[dir] - y)
 	+ dir * details_.outer_tie_vertical_gap_;
     }
 
@@ -467,17 +467,29 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
   do
     {
       Real y = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
-      if (stem_extents_[d][X_AXIS].is_empty ()
-	  || !stem_extents_[d][Y_AXIS].contains (y))
+      if (get_stem_extent (conf->column_ranks_[d], X_AXIS).is_empty ()
+	  || !get_stem_extent (conf->column_ranks_[d], Y_AXIS).contains (y))
 	continue;
 
       conf->attachment_x_[d] =
 	d * min (d * conf->attachment_x_[d],
-		 d * (stem_extents_[d][X_AXIS][-d] - d * details_.stem_gap_));
+		 d * (get_stem_extent (conf->column_ranks_[d], X_AXIS)[-d] - d * details_.stem_gap_));
     }
   while (flip (&d) != LEFT);
   
   return conf;
+}
+
+Interval
+Tie_formatting_problem::get_head_extent (int col, Axis a) const
+{
+  return (*head_extents_.find (col)).second[a];
+}
+
+Interval
+Tie_formatting_problem::get_stem_extent (int col, Axis a) const
+{
+  return (*stem_extents_.find (col)).second[a];
 }
 
 /**
