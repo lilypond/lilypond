@@ -13,19 +13,19 @@ os.mkdir (dir, 0777)
 os.chdir(dir)
 
 def system (c):
-	print c
-	if os.system (c):
-		raise 'barf'
+    print c
+    if os.system (c):
+        raise 'barf'
 
 outputs = []
 for sz in [48,32,16] :
-	
-	for depth in [24,8]:
-		out = '%(base)s-%(sz)d-%(depth)d.png' % locals()
-		system ('convert -depth %(depth)d -sample %(sz)d %(input)s %(out)s' %
-			locals ())
-		outputs.append (out)
-		
+    
+    for depth in [24,8]:
+        out = '%(base)s-%(sz)d-%(depth)d.png' % locals()
+        system ('convert -depth %(depth)d -sample %(sz)d %(input)s %(out)s' %
+            locals ())
+        outputs.append (out)
+        
 system('icotool --output %s --create %s' % (output, ' '.join (outputs)))
-system('rm -rf %(dir)s' % locals()) 		
+system('rm -rf %(dir)s' % locals())                 
 

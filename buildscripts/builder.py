@@ -9,47 +9,47 @@ Import ('env')
 # utility
 
 def add_suffixes (target, source, env, target_suffixes, src_suffixes):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + map (lambda x: base + x, target_suffixes),
-		source + map (lambda x: base + x, src_suffixes))
+    base = os.path.splitext (str (target[0]))[0]
+    return (target + map (lambda x: base + x, target_suffixes),
+        source + map (lambda x: base + x, src_suffixes))
 
 # junkme; see _concat
 def join_path (path, infix=os.pathsep, prefix = ''):
-	def dir (x):
-		if x and x[0] == '#':
-			return env['srcdir'] + x[1:]
-		return x
-	return string.join (map (lambda x: prefix + dir (x), path), infix)
+    def dir (x):
+        if x and x[0] == '#':
+            return env['srcdir'] + x[1:]
+        return x
+    return string.join (map (lambda x: prefix + dir (x), path), infix)
 
 
 def src_glob (s):
-	here = os.getcwd ()
-	os.chdir (env.Dir ('.').srcnode ().abspath)
-	result = glob.glob (s)
-	os.chdir (here)
-	return result
+    here = os.getcwd ()
+    os.chdir (env.Dir ('.').srcnode ().abspath)
+    result = glob.glob (s)
+    os.chdir (here)
+    return result
 
 Export ('src_glob')
 
 def base_glob (s):
-	return map (lambda x: os.path.splitext (x)[0], src_glob (s))
+    return map (lambda x: os.path.splitext (x)[0], src_glob (s))
 
 Export ('base_glob')
 
 def install (target, dir):
-	dest = env['DESTDIR'] + dir
-	if type (target) == type ([]):
-		map (lambda x: env.Install (dir, x), target)
-	else:
-		env.Install (dir, target)
-	env.Alias ('install', dir)
+    dest = env['DESTDIR'] + dir
+    if type (target) == type ([]):
+        map (lambda x: env.Install (dir, x), target)
+    else:
+        env.Install (dir, target)
+    env.Alias ('install', dir)
 
 Export ('install')
 
 def _fixme (s):
-	x = string.replace (s, '#', env['srcdir'])
-	x = string.replace (x, '@', env['absbuild'])
-	return x
+    x = string.replace (s, '#', env['srcdir'])
+    x = string.replace (x, '@', env['absbuild'])
+    return x
 
 # Clean separation between generic action + flags and actual
 # configuration and flags in environment for this build.
@@ -58,7 +58,7 @@ def _fixme (s):
 
 
 HH = Builder (action = 'bison -d -o ${TARGET.base}.cc $SOURCE',
-	      suffix = '.hh', src_suffix = '.yy')
+       suffix = '.hh', src_suffix = '.yy')
 env.Append (BUILDERS = {'HH' : HH})
 
 
@@ -66,82 +66,82 @@ env.Append (BUILDERS = {'HH' : HH})
 # some of these commands in the ENVironment.
 
 env.Append (
-	_fixme = _fixme,
-	##ABC2LY = 'abc2ly',
-	##LILYPOND = 'lilypond',
-	LILYOND_BOOK = 'lilypond-book',
+    _fixme = _fixme,
+    ##ABC2LY = 'abc2ly',
+    ##LILYPOND = 'lilypond',
+    LILYOND_BOOK = 'lilypond-book',
 
-	#ugr
-	#LILYPOND_BOOK_FORMAT = 'texi',
-	LILYPOND_BOOK_FORMAT = '',
-	#LILYPOND_BOOK_FLAGS = ['--format=$LILYPOND_BOOK_FORMAT'],
-	LILYPOND_BOOK_FLAGS = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond --backend=eps --formats=ps,png --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'" ''',
+    #ugr
+    #LILYPOND_BOOK_FORMAT = 'texi',
+    LILYPOND_BOOK_FORMAT = '',
+    #LILYPOND_BOOK_FLAGS = ['--format=$LILYPOND_BOOK_FORMAT'],
+    LILYPOND_BOOK_FLAGS = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond --backend=eps --formats=ps,png --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'" ''',
 
-	LILYPOND_PATH = [],
-	# The SCons way around FOO_PATH:
-	##LILYPOND_INCFLAGS = '$( ${_concat(INCPREFIX, LILYPOND_PATH, INCSUFFIX, __env__, RDirs)} $)',
-	LILYPOND_INCFLAGS = '$( ${_concat(INCPREFIX, LILYPOND_PATH, INCSUFFIX, __env__)} $)',
+    LILYPOND_PATH = [],
+    # The SCons way around FOO_PATH:
+    ##LILYPOND_INCFLAGS = '$( ${_concat(INCPREFIX, LILYPOND_PATH, INCSUFFIX, __env__, RDirs)} $)',
+    LILYPOND_INCFLAGS = '$( ${_concat(INCPREFIX, LILYPOND_PATH, INCSUFFIX, __env__)} $)',
 
-	MAKEINFO_PATH = [],
-	MAKEINFO_FLAGS = [],
-	MAKEINFO_INCFLAGS = '$( ${_concat(INCPREFIX, MAKEINFO_PATH, INCSUFFIX, __env__, RDirs)} $)',
-	# should not be necessary
-	# PYTHONPATH = ['$absbuild/python/$out'],
-	TEXI2DVI_FLAGS = [],
-	_TEXI2DVI_FLAGS = '$( ${_concat(" ", TEXI2DVI_FLAGS,)} $)',
-	)
+    MAKEINFO_PATH = [],
+    MAKEINFO_FLAGS = [],
+    MAKEINFO_INCFLAGS = '$( ${_concat(INCPREFIX, MAKEINFO_PATH, INCSUFFIX, __env__, RDirs)} $)',
+    # should not be necessary
+    # PYTHONPATH = ['$absbuild/python/$out'],
+    TEXI2DVI_FLAGS = [],
+    _TEXI2DVI_FLAGS = '$( ${_concat(" ", TEXI2DVI_FLAGS,)} $)',
+    )
 
 TXT =\
-    Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCFLAGS\
-    --no-split --no-headers $SOURCE',
-	       suffix = '.txt', src_suffix = '.texi')
+  Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCFLAGS\
+  --no-split --no-headers $SOURCE',
+       suffix = '.txt', src_suffix = '.texi')
 env.Append (BUILDERS = {'TXT': TXT})
 
 INFO =\
-     Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCFLAGS $SOURCE',
-	      suffix = '.info', src_suffix = '.texi')
+  Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCFLAGS $SOURCE',
+       suffix = '.info', src_suffix = '.texi')
 env.Append (BUILDERS = {'INFO': INFO})
 
 HTML =\
-     Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCLUDES\
-     --html --no-split --no-headers $MAKEINFO_FLAGS $SOURCE',
+  Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCLUDES\
+  --html --no-split --no-headers $MAKEINFO_FLAGS $SOURCE',
 suffix = '.html', src_suffix = '.texi')
 env.Append (BUILDERS = {'HTML': HTML})
 
 TEXI =\
-     Builder (action =
-	      '$LILYPOND_BOOK --output=${TARGET.dir} \
-	      --include=${TARGET.dir} $LILYPOND_INCFLAGS \
-	      --process="$LILYPOND $LILYPOND_INCFLAGS" \
-	      $LILYPOND_BOOK_FLAGS \
-	      $SOURCE',
-	      suffix = '.texi', src_suffix = '.tely')
+  Builder (action =
+       '$LILYPOND_BOOK --output=${TARGET.dir} \
+       --include=${TARGET.dir} $LILYPOND_INCFLAGS \
+       --process="$LILYPOND $LILYPOND_INCFLAGS" \
+       $LILYPOND_BOOK_FLAGS \
+       $SOURCE',
+       suffix = '.texi', src_suffix = '.tely')
 env.Append (BUILDERS = {'TEXI': TEXI})
 
 TEXIDVI =\
-	Builder (action = 'cd ${TARGET.dir} && \
-	texi2dvi --batch $_TEXI2DVI_FLAGS ${SOURCE.file}',
-		 suffix = '.dvi', src_suffix = '.texi')
+    Builder (action = 'cd ${TARGET.dir} && \
+    texi2dvi --batch $_TEXI2DVI_FLAGS ${SOURCE.file}',
+        suffix = '.dvi', src_suffix = '.texi')
 env.Append (BUILDERS = {'TEXIDVI': TEXIDVI})
 
 DVIPS =\
-      Builder (action = 'TEXINPUTS=${TARGET.dir}:$$TEXINPUTS $DVIPS -o $TARGET $DVIPS_FLAGS $SOURCE',
-	       suffix = '.ps', src_suffix = '.dvi')
+   Builder (action = 'TEXINPUTS=${TARGET.dir}:$$TEXINPUTS $DVIPS -o $TARGET $DVIPS_FLAGS $SOURCE',
+       suffix = '.ps', src_suffix = '.dvi')
 env.Append (BUILDERS = {'DVIPS': DVIPS})
 
 DVIPDF =\
-      Builder (action = 'TEXINPUTS=${TARGET.dir}:$$TEXINPUTS $DVIPS -o $TARGET -Ppdf $DVIPS_FLAGS $SOURCE',
-	       suffix = '.pdfps', src_suffix = '.dvi')
+   Builder (action = 'TEXINPUTS=${TARGET.dir}:$$TEXINPUTS $DVIPS -o $TARGET -Ppdf $DVIPS_FLAGS $SOURCE',
+       suffix = '.pdfps', src_suffix = '.dvi')
 env.Append (BUILDERS = {'DVIPDF': DVIPDF})
 
 PSPDF =\
-      Builder (action = 'ps2pdf $PSPDF_FLAGS $SOURCE $TARGET',
-	       suffix = '.pdf', src_suffix = '.pdfps')
+   Builder (action = 'ps2pdf $PSPDF_FLAGS $SOURCE $TARGET',
+       suffix = '.pdf', src_suffix = '.pdfps')
 env.Append (BUILDERS = {'PSPDF': PSPDF})
 
 PNG2EPS =\
-	Builder (action = 'convert $SOURCE $TARGET',
-		 suffix = '.eps', src_suffix = '.png')
+    Builder (action = 'convert $SOURCE $TARGET',
+        suffix = '.eps', src_suffix = '.png')
 env.Append (BUILDERS = {'PNG2EPS': PNG2EPS})
 
 
@@ -151,52 +151,52 @@ env.Append (BUILDERS = {'PNG2EPS': PNG2EPS})
 
 env.Append (
 
-	#urg
-	BSTINPUTS = '${SOURCE.dir}:${TARGET.dir}:',
-	BIB2HTML = '$PYTHON $srcdir/buildscripts/bib2html.py',
+    #urg
+    BSTINPUTS = '${SOURCE.dir}:${TARGET.dir}:',
+    BIB2HTML = '$PYTHON $srcdir/buildscripts/bib2html.py',
 )
 
 
 def add_ps_target (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + [base + '.ps'], source)
+    base = os.path.splitext (str (target[0]))[0]
+    return (target + [base + '.ps'], source)
 
 lilypond =\
-	 Builder (action = '$LILYPOND --output=${TARGET.base} --include=${TARGET.dir} $SOURCE',
-		  suffix = '.pdf', src_suffix = '.ly')
-##		    emitter = add_ps_target)
+    Builder (action = '$LILYPOND --output=${TARGET.base} --include=${TARGET.dir} $SOURCE',
+         suffix = '.pdf', src_suffix = '.ly')
+##                    emitter = add_ps_target)
 env.Append (BUILDERS = {'LilyPond': lilypond})
 
 ABC = Builder (action = '$ABC2LY --output=${TARGET} --strict $SOURCE',
-	       suffix = '.ly', src_suffix = '.abc')
+       suffix = '.ly', src_suffix = '.abc')
 env.Append (BUILDERS = {'ABC': ABC})
 
 def add_log_target (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + [base + '.log'], source)
+    base = os.path.splitext (str (target[0]))[0]
+    return (target + [base + '.log'], source)
 
 def add_tfm_target (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + [base + '.tfm'], source)
+    base = os.path.splitext (str (target[0]))[0]
+    return (target + [base + '.tfm'], source)
 
 def add_lisp_enc_tex_ly_target (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + [base + '.lisp', base + '.enc', base + '.tex',
-			  base + 'list.ly'],
-		source)
+    base = os.path.splitext (str (target[0]))[0]
+    return (target + [base + '.lisp', base + '.enc', base + '.tex',
+             base + 'list.ly'],
+        source)
 
 def add_cff_cffps_svg (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + [base + '.cff', base + '.cff.ps', base + '.svg'],
-		source)
+    base = os.path.splitext (str (target[0]))[0]
+    return (target + [base + '.cff', base + '.cff.ps', base + '.svg'],
+        source)
 
 a = 'cd ${TARGET.dir} \
 && MFINPUTS=.:${SOURCE.dir}:$srcdir/${SOURCE.dir}: \
 $MF "\\mode:=$MFMODE; nonstopmode; input ${SOURCE.filebase};" \
 | grep -v "@\|>>\|w:\|h:";'
 tfm = Builder (action = a, suffix = '.tfm', src_suffix = '.mf',
-#	       emitter = lambda t, s, e: add_suffixes (t, s, e, ['.log'], []))
-	       emitter = add_log_target)
+#               emitter = lambda t, s, e: add_suffixes (t, s, e, ['.log'], []))
+       emitter = add_log_target)
 env.Append (BUILDERS = {'TFM': tfm})
 
 a = '$PYTHON $MF_TO_TABLE_PY \
@@ -208,12 +208,12 @@ a = '$PYTHON $MF_TO_TABLE_PY \
 --ly=${TARGET.base}list.ly \
 ${TARGET.base}.log'
 gtable = Builder (action = a, suffix = '.otf-gtable', src_suffix = '.log',
-		  emitter = add_lisp_enc_tex_ly_target)
+         emitter = add_lisp_enc_tex_ly_target)
 env.Append (BUILDERS = {'GTABLE': gtable})
 
 def add_enc_src (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target, source + [base + '.enc'])
+    base = os.path.splitext (str (target[0]))[0]
+    return (target, source + [base + '.enc'])
 
 # FIXME UGH, should fix --output option for mftrace
 a = 'cd ${TARGET.dir} && \
@@ -225,19 +225,19 @@ $$encoding $__verbose \
 ${SOURCE.file}'
 
 pfa = Builder (action = a,
-	       suffix = '.pfa',
-	       src_suffix = '.mf',
-	       emitter = add_enc_src)
+       suffix = '.pfa',
+       src_suffix = '.mf',
+       emitter = add_enc_src)
 env.Append (BUILDERS = {'PFA': pfa})
 
 a = ['(cd ${TARGET.dir} && $FONTFORGE -script ${SOURCE.file})',
 #     '$PYTHON $srcdir/buildscripts/ps-embed-cff.py ${SOURCE.base}.cff $$(cat ${SOURCE.base}.fontname) ${SOURCE.base}.cff.ps',
-     'rm -f ${TARGET.dir}/*.scale.pfa']
+  'rm -f ${TARGET.dir}/*.scale.pfa']
 otf = Builder (action = a,
-	       suffix = '.otf',
-	       src_suffix = '.pe',
-#	       emitter = add_cff_cffps_svg
-	       )
+       suffix = '.otf',
+       src_suffix = '.pe',
+#               emitter = add_cff_cffps_svg
+       )
 env.Append (BUILDERS = {'OTF': otf})
 
 
@@ -276,38 +276,38 @@ atvars = [
 
 # naming
 def at_copy (target, source, env):
-    n = str (source[0])
-    s = open (n).read ()
-    for i in atvars:
-	    if env.has_key (i):
-		    s = string.replace (s, '@%s@'% i, env[i])
-    t = str (target[0])
-    open (t, 'w').write (s)
-    # wugh
-    if os.path.basename (os.path.dirname (str (target[0]))) == 'bin':
-	    os.chmod (t, 0755)
+  n = str (source[0])
+  s = open (n).read ()
+  for i in atvars:
+      if env.has_key (i):
+          s = string.replace (s, '@%s@'% i, env[i])
+  t = str (target[0])
+  open (t, 'w').write (s)
+  # wugh
+  if os.path.basename (os.path.dirname (str (target[0]))) == 'bin':
+      os.chmod (t, 0755)
 
 AT_COPY = Builder (action = at_copy, src_suffix = ['.in', '.py', '.sh',])
 env.Append (BUILDERS = {'AT_COPY': AT_COPY})
 
 # naming
 def at_copy_ext (target, source, env):
-    n = str (source[0])
-    s = open (n).read ()
-    for i in atvars:
-	    if env.has_key (i):
-		    s = string.replace (s, '@%s@'% i, env[i])
-    # whugh
-    e = os.path.splitext (n)[1]
-    t = str (target[0]) + e
-    open (t, 'w').write (s)
+  n = str (source[0])
+  s = open (n).read ()
+  for i in atvars:
+      if env.has_key (i):
+          s = string.replace (s, '@%s@'% i, env[i])
+  # whugh
+  e = os.path.splitext (n)[1]
+  t = str (target[0]) + e
+  open (t, 'w').write (s)
 
 AT_COPY_EXT = Builder (action = at_copy_ext, src_suffix = ['.py', '.sh',])
 env.Append (BUILDERS = {'AT_COPY_EXT': AT_COPY_EXT})
 
 
 MO = Builder (action = 'msgfmt -o $TARGET $SOURCE',
-	      suffix = '.mo', src_suffix = '.po')
+       suffix = '.mo', src_suffix = '.po')
 env.Append (BUILDERS = {'MO': MO})
 
 # ' '; ?
@@ -316,9 +316,9 @@ a = ugh + 'xgettext --default-domain=lilypond --join \
 --output-dir=${TARGET.dir} --add-comments \
 --keyword=_ --keyword=_f --keyword=_i $SOURCES'
 PO = Builder (action = a, suffix = '.pot',
-	      src_suffix = ['.cc', '.hh', '.py'], multi = 1)
+       src_suffix = ['.cc', '.hh', '.py'], multi = 1)
 env['potarget'] = os.path.join (env['absbuild'], 'po', env['out'],
-				'lilypond.pot')
+                'lilypond.pot')
 env['pocommand'] = a
 
 ugh = '; mv ${TARGET} ${SOURCE}'
@@ -339,54 +339,54 @@ env.Append (BUILDERS = {'LYS2TELY': LYS2TELY})
 
 def mutopia (ly = None, abc = None):
 
-	# FIXME: ugr, huh?  The values from ../SConstruct get appended
-	# to the predefined values from this builder context:
+    # FIXME: ugr, huh?  The values from ../SConstruct get appended
+    # to the predefined values from this builder context:
 
-	# abc2ly/usr/bin/python ..../abc2.py
+    # abc2ly/usr/bin/python ..../abc2.py
 
-	# Override them again to fix web build...
+    # Override them again to fix web build...
 
-	
-	#BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
-	#BUILD_LILYPOND = '$absbuild/$out/lilypond ${__verbose}'
-	e = env.Copy (
-		#LILYPOND = BUILD_LILYPOND,
-		#ABC2LY = BUILD_ABC2LY,
-	)
-	
-	if not abc:
-		abc = base_glob ('*.abc')
-	if not ly:
-		ly = base_glob ('*.ly') + map (e.ABC, abc)
-	pdf = map (e.LilyPond, ly)
-	
-	# We need lily and mf to build these.
-	env.Depends (pdf, ['#/lily', '#/mf'])
-	env.Alias ('doc', pdf)
+    
+    #BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
+    #BUILD_LILYPOND = '$absbuild/$out/lilypond ${__verbose}'
+    e = env.Copy (
+        #LILYPOND = BUILD_LILYPOND,
+        #ABC2LY = BUILD_ABC2LY,
+    )
+    
+    if not abc:
+        abc = base_glob ('*.abc')
+    if not ly:
+        ly = base_glob ('*.ly') + map (e.ABC, abc)
+    pdf = map (e.LilyPond, ly)
+    
+    # We need lily and mf to build these.
+    env.Depends (pdf, ['#/lily', '#/mf'])
+    env.Alias ('doc', pdf)
 
 Export ('mutopia')
 
 
 def collate (title = 'collated files'):
-	ly = base_glob ('*.ly')
-	
-	e = env.Copy (
-		TITLE = title,
-		LILYPOND_BOOK_FLAGS = '''--process="lilypond --backend=eps --formats=ps,png --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'" ''',
-																       __verbose = ' --verbose',
-																       )
-	#
-	tely = e.LYS2TELY ('collated-files', ly)
-	texi = e.TEXI (tely)
-	# We need lily and mf to build these.
-	env.Depends (texi, ['#/lily', '#/mf'])
-	dvi = e.TEXIDVI (texi)
-	pspdf = e.DVIPDF (dvi)
-	pdf = e.PSPDF (pspdf)
-	html = e.HTML (texi)
+    ly = base_glob ('*.ly')
+    
+    e = env.Copy (
+        TITLE = title,
+        LILYPOND_BOOK_FLAGS = '''--process="lilypond --backend=eps --formats=ps,png --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'" ''',
+                                                                   __verbose = ' --verbose',
+                                                                   )
+    #
+    tely = e.LYS2TELY ('collated-files', ly)
+    texi = e.TEXI (tely)
+    # We need lily and mf to build these.
+    env.Depends (texi, ['#/lily', '#/mf'])
+    dvi = e.TEXIDVI (texi)
+    pspdf = e.DVIPDF (dvi)
+    pdf = e.PSPDF (pspdf)
+    html = e.HTML (texi)
 
-	env.Alias ('doc', pdf)
-	env.Alias ('doc', html)
+    env.Alias ('doc', pdf)
+    env.Alias ('doc', html)
 
 Export ('collate')
 
