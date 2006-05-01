@@ -40,6 +40,10 @@ sane_putenv (char const *key, string value, bool overwrite)
     {
       string combine = string (key) + "=" + value;
       char *s = strdup (combine.c_str ());
+
+      if (be_verbose_global)
+	progress_indication (_f ("Setting %s to %s\n" , key, value.c_str ())); 
+			     
       return putenv (s);
     }
   
@@ -379,7 +383,7 @@ void
 read_relocation_file (string filename)
 {
   if (be_verbose_global)
-    progress_indication (_f ("Relocation file %s", filename.c_str ()));
+    progress_indication (_f ("Relocation file %s\n", filename.c_str ()));
       
   char const *cname = filename.c_str ();
   FILE *f = fopen (cname, "r");
