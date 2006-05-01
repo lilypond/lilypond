@@ -1,5 +1,7 @@
 2006-05-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/abc2ly.py (dump_score): indent of 4 for python code. 
+
 	* configure.in (LINK_GXX_STATICALLY): remove locate() call.
 
 2006-04-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
