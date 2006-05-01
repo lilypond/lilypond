@@ -1,5 +1,10 @@
 #!@PYTHON@
 
+
+###
+# FIXME: coding standards!
+###
+
 # Created 01 September 2003 by Heikki Junes.
 # Generates lilypond-words.el for (X)Emacs and lilypond-words[.vim] for Vim.
 
@@ -21,7 +26,6 @@ for line in F.readlines():
   m = re.search(r"(\s*{\")(.*)(\",\s*.*},\s*\n)",line)
   if m:
     kw = kw + [m.group(2)]
-F.close()
 
 # keywords in markup
 F = open('scm/markup.scm', 'r')
@@ -29,35 +33,30 @@ for line in F.readlines():
   m = re.search(r"^(\s*\(cons\s*)([a-z-]*)(-markup)",line)
   if m:
     kw = kw + [m.group(2)]
-F.close()
 
 # identifiers and keywords
-for name in [
-'ly/chord-modifiers-init.ly',
-'ly/dynamic-scripts-init.ly',
-'ly/engraver-init.ly',
-'ly/grace-init.ly',
-'ly/gregorian-init.ly',
-'ly/music-functions-init.ly',
-'ly/performer-init.ly',
-'ly/property-init.ly',
-'ly/scale-definitions-init.ly',
-'ly/script-init.ly',
-'ly/spanners-init.ly',
-]:
+for name in ['ly/chord-modifiers-init.ly',
+             'ly/dynamic-scripts-init.ly',
+             'ly/engraver-init.ly',
+             'ly/grace-init.ly',
+             'ly/gregorian-init.ly',
+             'ly/music-functions-init.ly',
+             'ly/performer-init.ly',
+             'ly/property-init.ly',
+             'ly/scale-definitions-init.ly',
+             'ly/script-init.ly',
+             'ly/spanners-init.ly']:
   F = open(name, 'r')
   for line in F.readlines():
     m = re.search(r"^([a-zA-Z]+)(\s*=)",line)
     if m:
       kw = kw + [m.group(1)]
-  F.close()
 
 # more identifiers
-for name in [
-'ly/declarations-init.ly',
-'ly/declarations-init.ly',
-'ly/params-init.ly',
-]:
+for name in ['ly/declarations-init.ly',
+             'ly/declarations-init.ly',
+             'ly/params-init.ly',
+             ]:
   F = open(name, 'r')
   for line in F.readlines():
     m = re.search(r"^(\s*)([a-zA-Z]+)(\s*=)",line)
@@ -66,27 +65,24 @@ for name in [
   F.close()
 
 # note names
-for name in [
-'ly/catalan.ly',
-'ly/deutsch.ly',
-'ly/drumpitch-init.ly',
-'ly/english.ly',
-'ly/espanol.ly',
-'ly/italiano.ly',
-'ly/nederlands.ly',
-'ly/norsk.ly',
-'ly/portugues.ly',
-'ly/suomi.ly',
-'ly/svenska.ly',
-'ly/vlaams.ly',
-]:
+for name in ['ly/catalan.ly',
+             'ly/deutsch.ly',
+             'ly/drumpitch-init.ly',
+             'ly/english.ly',
+             'ly/espanol.ly',
+             'ly/italiano.ly',
+             'ly/nederlands.ly',
+             'ly/norsk.ly',
+             'ly/portugues.ly',
+             'ly/suomi.ly',
+             'ly/svenska.ly',
+             'ly/vlaams.ly',
+             ]:
   F = open(name, 'r')
   for line in F.readlines():
     m = re.search(r"^(\s*\()([a-z]+)([^l]+ly:make-pitch)",line)
     if m:
       notes = notes + ['' + m.group(2)]
-  F.close()
-
 
 
 # reserved words
@@ -176,35 +172,27 @@ if '.vim' in suffix:
   outs[2].write('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')
 
 # the menu in lilypond-mode.el
-for line in [
-'/( - _ /) -',
-'/[ - _ /] -',
-'< - _ > -',
-'<< - _ >> -',
-'///( - _ ///) -',
-'///[ - _ ///] -',
-'///< - _ ///! -',
-'///> - _ ///! -',
-'//center - / << _ >> -',
-'//column - / << _ >> -',
-'//context/ Staff/ = - % { _ } -',
-'//context/ Voice/ = - % { _ } -',
-'//markup - { _ } -',
-'//notes - { _ } -',
-'//relative - % { _ } -',
-'//score - { //n /? //simultaneous { //n _ //n } /! //n //paper {  } //n /? //midi {  } //n /! } //n -',
-'//simultaneous - { _ } -',
-'//sustainDown - _ //sustainUp -',
-'//times - % { _ } -',
-'//transpose - % { _ } -',
-]:
+for line in ['/( - _ /) -',
+             '/[ - _ /] -',
+             '< - _ > -',
+             '<< - _ >> -',
+             '///( - _ ///) -',
+             '///[ - _ ///] -',
+             '///< - _ ///! -',
+             '///> - _ ///! -',
+             '//center - / << _ >> -',
+             '//column - / << _ >> -',
+             '//context/ Staff/ = - % { _ } -',
+             '//context/ Voice/ = - % { _ } -',
+             '//markup - { _ } -',
+             '//notes - { _ } -',
+             '//relative - % { _ } -',
+             '//score - { //n /? //simultaneous { //n _ //n } /! //n //paper {  } //n /? //midi {  } //n /! } //n -',
+             '//simultaneous - { _ } -',
+             '//sustainDown - _ //sustainUp -',
+             '//times - % { _ } -',
+             '//transpose - % { _ } -',
+             ]:
   # urg. escape char '/' is replaced with '\\' which python writes as a '\'.
   if '.el' in suffix:
     outs[1].write(string.join(string.split(line,'/'),'\\') + '\n')
-
-if '' in suffix:
-  outs[0].close()
-if '.el' in suffix:
-  outs[1].close()
-if '.vim' in suffix:
-  outs[2].close()
