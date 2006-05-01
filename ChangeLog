@@ -4,6 +4,8 @@
 
 2006-05-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/pfx2ttf.fontforge (err): create OTF files.
+
 	* scripts/abc2ly.py (dump_score): indent of 4 for python code. 
 
 	* configure.in (LINK_GXX_STATICALLY): remove locate() call.
