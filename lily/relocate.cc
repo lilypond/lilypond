@@ -120,12 +120,13 @@ framework_relocation (string prefix)
   if (be_verbose_global)
     warning (_f ("Relocation: framework_prefix=%s", prefix));
 
-  sane_putenv ("INSTALLER_ROOT", prefix, true);
+  sane_putenv ("INSTALLER_PREFIX", prefix, true);
 	       
   read_relocation_dir (prefix + "/etc/relocate/");
 
-#ifdef OLD_RELOCATION
   string bindir = prefix + "/bin";
+
+#ifdef OLD_RELOCATION
   string datadir = prefix + "/share";
   string libdir = prefix + "/lib";
   string sysconfdir = prefix + "/etc";
@@ -377,6 +378,9 @@ read_line (FILE *f)
 void
 read_relocation_file (string filename)
 {
+  if (be_verbose_global)
+    progress_indication (_f ("Relocation file %s", filename.c_str ()));
+      
   char const *cname = filename.c_str ();
   FILE *f = fopen (cname, "r");
   if (!f)
@@ -426,7 +430,7 @@ read_relocation_dir (string dirname)
       File_name name (ent->d_name);
       if (name.ext_ == "reloc")
 	{
-	  read_relocation_file (name.to_string ());
+	  read_relocation_file (dirname + "/" + name.to_string ());
 	}
     }
 }

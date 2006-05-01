@@ -1,5 +1,7 @@
 2006-05-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/relocate.cc (framework_relocation): use INSTALLER_PREFIX.
+
 	* *.py: more 4 space indents.
 
 	* autogen.sh (conf_flags): set sensible default for with-ncsb-dir
