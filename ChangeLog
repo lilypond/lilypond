@@ -1,3 +1,7 @@
+2006-05-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* autogen.sh (conf_flags): set sensible default for with-ncsb-dir
+
 2006-05-01  Joe Neeman  <joeneeman@gmail.com>
 
 	* scm/lily-library.scm: Fix guile 1.6 compatibility in inf? and nan?
@@ -21,7 +25,7 @@
 
 2006-04-28  Graham Percival  <gpermus@gmail.com>
 
-	* Documentaiton/user/ various: major new sections in the
+	* Documentation/user/ various: major new sections in the
 	Learning manual, slight reorg elsewhere.
 
 2006-04-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
