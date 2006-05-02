@@ -808,7 +808,7 @@ quotes.  For example,
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
-\addlyrics {   "\"I" am so  "lone- ly"\", said she }
+\addlyrics { "\"I" am so lone- "ly\"" said she }
 @end lilypond
 
 The full definition of a word start in Lyrics mode is somewhat more
