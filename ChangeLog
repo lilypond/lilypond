@@ -1,3 +1,8 @@
+2006-05-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/relocate.cc (setup_paths): backport relocation file stuff
+	from 2.9.
+
 2006-04-17  Erlend Aasland  <erlenda@gmail.com>
 
 	* scm/define-grobs.scm: backport stem-attachment fix for tablature

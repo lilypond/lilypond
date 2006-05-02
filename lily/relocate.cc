@@ -11,8 +11,11 @@
 
 #include "config.hh"
 
-#include <sys/stat.h>
-#include <unistd.h>
+
+/* TODO: autoconf support */
+
+#include <sys/types.h>
+#include <dirent.h>
 
 #if HAVE_GETTEXT
 #include <libintl.h>
@@ -29,7 +32,6 @@
 
 #define FRAMEWORKDIR ".."
 
-
 int
 sane_putenv (char const *key, string value, bool overwrite)
 {
@@ -37,6 +39,10 @@ sane_putenv (char const *key, string value, bool overwrite)
     {
       string combine = string (key) + "=" + value;
       char *s = strdup (combine.c_str ());
+
+      if (be_verbose_global)
+	progress_indication (_f ("Setting %s to %s\n" , key, value.c_str ())); 
+			     
       return putenv (s);
     }
   
@@ -81,18 +87,6 @@ prepend_env_path (char const *key, string value)
   return -1;
 }
 
-string
-dir_name (string const file_name)
-{
-  string s = file_name;
-  replace_all (s, '\\', '/');
-  ssize n = s.length ();
-  if (n && s[n - 1] == '/')
-    s[n - 1] = 0;
-  s = s.substr (0, s.rfind ('/'));
-  return s;
-}
-
 #ifdef __MINGW32__
 #include <winbase.h>
 #endif
@@ -123,67 +117,28 @@ prefix_relocation (string prefix)
   prepend_env_path ("PATH", bindir);
 }
 
+/*
+  UGH : this is a complete mess.
+ */
+
 void
 framework_relocation (string prefix)
 {
   if (be_verbose_global)
     warning (_f ("Relocation: framework_prefix=%s", prefix));
 
+  sane_putenv ("INSTALLER_PREFIX", prefix, true);
+	       
+  read_relocation_dir (prefix + "/etc/relocate/");
+
   string bindir = prefix + "/bin";
-  string datadir = prefix + "/share";
-  string libdir = prefix + "/lib";
-  string sysconfdir = prefix + "/etc";
-
-  /* need otherwise dynamic .so's aren't found.   */
-  prepend_env_path ("DYLD_LIBRARY_PATH", libdir);
-  
-  set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf", true);
-  set_env_dir ("FONTCONFIG_PATH", sysconfdir + "/fonts");
-
-#ifdef __MINGW32__
-  char font_dir[PATH_MAX];
-  ExpandEnvironmentStrings ("%windir%/fonts", font_dir, sizeof (font_dir));
-  prepend_env_path ("GS_FONTPATH", font_dir);
-#endif
-
-  string gs_version =
-#ifdef GHOSTSCRIPT_VERSION
-    GHOSTSCRIPT_VERSION
-#else
-    "ghostscript-version-undefined"
-#endif
-    ;
-  
-  if (char const *cur = getenv ("LILYPOND_GS_VERSION"))
-    gs_version = cur;
-  
-  prepend_env_path ("GS_FONTPATH", datadir + "/ghostscript/" + gs_version + "/fonts");
-  prepend_env_path ("GS_LIB", datadir + "/ghostscript/" + gs_version + "/Resource");
-  prepend_env_path ("GS_LIB", datadir + "/ghostscript/" + gs_version + "/lib");
-
-  prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
-  prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
-  prepend_env_path ("GS_LIB", datadir + "/gs/lib");
-
-  prepend_env_path ("GUILE_LOAD_PATH", datadir
-		    + to_string ("/guile/%d.%d",
-				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
-
-  set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
-  set_env_dir ("PANGO_PREFIX", prefix);
   
   prepend_env_path ("PATH", bindir);
 }
 
-string
-get_working_directory ()
-{
-  char cwd[PATH_MAX];
-  getcwd (cwd, PATH_MAX);
-
-  return string (cwd);
-}
-
+/*
+  UGH : this is a complete mess.
+ */
 void
 setup_paths (char const *argv0_ptr)
 {
@@ -193,13 +148,14 @@ setup_paths (char const *argv0_ptr)
   if (relocate_binary
       && getenv ("LILYPOND_RELOCATE_PREFIX"))
     {
-      string prefix = getenv ("LILYPOND_RELOCATE_PREFIX");
+      prefix_directory = getenv ("LILYPOND_RELOCATE_PREFIX");
 #ifdef __MINGW32__
       /* Normalize file name.  */
-      prefix = File_name (prefix).to_string ();
+      prefix_directory = File_name (prefix_directory).to_string ();
 #endif /* __MINGW32__ */
-      prefix_relocation (prefix);
-      string bindir = prefix + "/bin";
+      
+      prefix_relocation (prefix_directory);
+      string bindir = prefix_directory + "/bin";
       framework_relocation (bindir);
     }
   else if (relocate_binary)
@@ -243,15 +199,20 @@ setup_paths (char const *argv0_ptr)
       string argv0_prefix = dir_name (bindir);
       string compile_prefix = dir_name (dir_name (dir_name (prefix_directory)));
       if (argv0_prefix != compile_prefix)
-	prefix_relocation (argv0_prefix);
+	{
+	  prefix_relocation (argv0_prefix);
+	  prefix_directory = argv0_prefix;
+	}
       if (argv0_prefix != compile_prefix || string (FRAMEWORKDIR) != "..")
-	framework_relocation (bindir + "/" + FRAMEWORKDIR);
+	{
+	  framework_relocation (bindir + "/" + FRAMEWORKDIR);
+	  prefix_directory = bindir + "/" + FRAMEWORKDIR;
+	}
     }
 
   /* FIXME: use LILYPOND_DATADIR.  */
   if (char const *env = getenv ("LILYPONDPREFIX"))
     {
-
 #ifdef __MINGW32__
       /* Normalize file name.  */
       prefix_directory = File_name (env).to_string ();
@@ -274,19 +235,16 @@ setup_paths (char const *argv0_ptr)
 
   */
   
-  struct stat statbuf;
   string build_prefix_current = prefix_directory + "/share/lilypond/" "current";
   string build_prefix_version = prefix_directory + "/share/lilypond/" TOPLEVEL_VERSION;
-  if (stat (build_prefix_version.c_str (), &statbuf) == 0)
+  if (is_dir (build_prefix_version.c_str ()))
     prefix_directory = build_prefix_version;
-  else if (stat (build_prefix_current.c_str (), &statbuf) == 0)
+  else if (is_dir (build_prefix_current.c_str ()))
     prefix_directory = build_prefix_current;
-
   
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */
   char const *suffixes[] = {"ly", "ps", "scm", 0 };
-
   
   vector<string> dirs;
   for (char const **s = suffixes; *s; s++)
@@ -294,12 +252,156 @@ setup_paths (char const *argv0_ptr)
       string path = prefix_directory + to_string ('/') + string (*s);
       dirs.push_back (path);
     }
-
-
+  
   dirs.push_back (prefix_directory + "/fonts/otf/");
   dirs.push_back (prefix_directory + "/fonts/type1/");
   dirs.push_back (prefix_directory + "/fonts/svg/");
   
   for (vsize i = 0; i < dirs.size (); i++)
     global_path.prepend (dirs[i]);
+}
+
+
+
+string
+expand_environment_variables (string orig)
+{
+  const char *start_ptr = orig.c_str();
+  const char *ptr = orig.c_str();
+  size_t len = orig.length();
+
+  string out;
+  while (ptr < start_ptr + len)
+    {
+      char *dollar = strchr (ptr, '$');
+      
+      if (dollar != NULL)
+	{
+	  char *start_var = dollar + 1;
+	  char *end_var = start_var;
+	  char *start_next = end_var;
+	  
+	  out += string (ptr, dollar - ptr);
+	  ptr = dollar;
+
+	  if (*start_var == '{')
+	    {
+	      start_var ++;
+	      
+	      end_var = strchr (start_var, '}');
+	      
+	      if (end_var == NULL)
+		{
+		  end_var = start_var + len;
+		  start_next = end_var;
+		}
+	      else
+		{
+		  start_next = end_var + 1; 
+		}
+	    }
+	  else 
+	    {
+	      /*
+		Hmm. what to do for $1 , $~ etc.?
+	       */
+	      do
+		{
+		  end_var ++;
+		}
+	      while (isalnum (*end_var) || *end_var == '_');
+	      start_next = end_var;
+	    }
+
+	  if (start_var < end_var)
+	    {
+	      string var_name (start_var, end_var - start_var);
+	      const char *value = getenv (var_name.c_str());
+	      if (value != NULL)
+		out += string (value);
+
+	      ptr = start_next;
+	    }
+	}
+      else
+	break;
+
+    }
+
+  out += ptr;
+
+  return out;
+}
+
+
+string
+read_line (FILE *f)
+{
+  string out;
+  
+  int c = 0;
+  while ((c = fgetc (f)) != EOF && c != '\n')
+    out += c;
+
+  return out;
+}
+
+void
+read_relocation_file (string filename)
+{
+  if (be_verbose_global)
+    progress_indication (_f ("Relocation file %s\n", filename.c_str ()));
+      
+  char const *cname = filename.c_str ();
+  FILE *f = fopen (cname, "r");
+  if (!f)
+    error (_f ("can't open file %s", cname));
+
+  while (!feof (f))
+    {
+      string line = read_line (f);
+      size_t idx = line.find (' ');
+      if (idx == NPOS)
+	continue;
+      
+      string command = line.substr (0, idx);
+      line = line.substr (idx + 1);
+      
+      if (idx == NPOS)
+	continue;
+      idx = line.find ('=');
+
+      string variable = line.substr (0, idx);
+      string value = line.substr (idx + 1);
+
+      value = expand_environment_variables (value);
+
+      if (command == "set")
+	sane_putenv (variable.c_str(), value, true);
+      else if (command == "setdir")
+	set_env_dir (variable.c_str(), value);
+      else if (command == "setfile")
+	set_env_file (variable.c_str(), value);
+      else if (command == "prependdir")
+	prepend_env_path (variable.c_str (), value);
+      else
+	error ( _f("Unknown relocation command %s", command));
+    }
+
+  fclose (f);
+}
+
+void
+read_relocation_dir (string dirname)
+{
+  DIR *dir = opendir  (dirname.c_str ());
+
+  while (struct dirent *ent = readdir (dir))
+    {
+      File_name name (ent->d_name);
+      if (name.ext_ == "reloc")
+	{
+	  read_relocation_file (dirname + "/" + name.to_string ());
+	}
+    }
 }

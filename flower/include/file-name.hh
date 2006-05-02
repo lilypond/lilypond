@@ -12,6 +12,9 @@
 #include "std-vector.hh"
 #include "std-string.hh"
 
+std::string dir_name (std::string const file_name);
+std::string get_working_directory ();
+
 class File_name
 {
 public:
