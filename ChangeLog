@@ -1,5 +1,7 @@
 2006-05-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* flower/file-path.cc (is_dir): canonicalize file name before stat'ing.
+
 	* lily/relocate.cc (framework_relocation): remove old relocation stuff.
 
 2006-05-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>

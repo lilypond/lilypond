@@ -66,6 +66,11 @@ is_file (string file_name)
 bool
 is_dir (string file_name)
 {
+  /*
+    canonicalize; in particular, trailing slashes should disappear.
+   */
+  file_name = File_name (file_name).to_string ();
+  
 #if !STAT_MACROS_BROKEN
   struct stat sbuf;
   if (stat (file_name.c_str (), &sbuf) != 0)
