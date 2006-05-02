@@ -5,7 +5,7 @@ LATEX_FILES =$(call src-wildcard,*.latex)
 # todo: add latex.
 DVI_FILES = $(TELY_FILES:%.tely=$(outdir)/%.dvi)
 
-EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES)
+EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES) README.txt
 IMAGES=$(call src-wildcard,*.png)
 
 OUT_EPS_IMAGES=$(IMAGES:%.png=$(outdir)/%.eps)
