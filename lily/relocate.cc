@@ -132,50 +132,6 @@ framework_relocation (string prefix)
   read_relocation_dir (prefix + "/etc/relocate/");
 
   string bindir = prefix + "/bin";
-
-#ifdef OLD_RELOCATION
-  string datadir = prefix + "/share";
-  string libdir = prefix + "/lib";
-  string sysconfdir = prefix + "/etc";
-  
-  /* need otherwise dynamic .so's aren't found.   */
-  prepend_env_path ("DYLD_LIBRARY_PATH", libdir);
-  
-  set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf", true);
-  set_env_dir ("FONTCONFIG_PATH", sysconfdir + "/fonts");
-
-#ifdef __MINGW32__
-  char font_dir[PATH_MAX];
-  ExpandEnvironmentStrings ("%windir%/fonts", font_dir, sizeof (font_dir));
-  prepend_env_path ("GS_FONTPATH", font_dir);
-#endif
-
-  string gs_version =
-#ifdef GHOSTSCRIPT_VERSION
-    GHOSTSCRIPT_VERSION
-#else
-    "ghostscript-version-undefined"
-#endif
-    ;
-  
-  if (char const *cur = getenv ("LILYPOND_GS_VERSION"))
-    gs_version = cur;
-  
-  prepend_env_path ("GS_FONTPATH", datadir + "/ghostscript/" + gs_version + "/fonts");
-  prepend_env_path ("GS_LIB", datadir + "/ghostscript/" + gs_version + "/Resource");
-  prepend_env_path ("GS_LIB", datadir + "/ghostscript/" + gs_version + "/lib");
-
-  prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
-  prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
-  prepend_env_path ("GS_LIB", datadir + "/gs/lib");
-  
-  prepend_env_path ("GUILE_LOAD_PATH", datadir
-		    + to_string ("/guile/%d.%d",
-				 SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
-  set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
-  set_env_dir ("PANGO_PREFIX", prefix);
-
-#endif
   
   prepend_env_path ("PATH", bindir);
 }
