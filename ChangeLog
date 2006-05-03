@@ -1,3 +1,7 @@
+2006-05-03  Erlend Aasland  <erlenda@gmail.com>
+
+	* stepmake/stepmake/generic-targets.make (cvs-clean): also remove out-www dirs.
+
 2006-05-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/lilypond-book.py (Lilypond_file_snippet.my_system): add

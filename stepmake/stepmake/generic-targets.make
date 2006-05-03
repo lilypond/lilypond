@@ -24,6 +24,7 @@ distclean: clean
 cvs-clean:
 	$(MAKE) local-distclean
 	find . -type d -name out | xargs rm -rf
+	find . -type d -name out-www | xargs rm -rf
 	rm -f aclocal.m4 configure
 
 maintainerclean:
