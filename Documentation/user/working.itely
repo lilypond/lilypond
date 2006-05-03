@@ -4,15 +4,16 @@
 
 This section explains a how to solve or avoid certain common
 problems.  If you have programming experience, many of these
-tips may seem obvious; you may wish to simply skim this
-chapter.
+tips may seem obvious, but it is still advisable to read
+this chapter.
 
 
 @menu
 * Suggestions for writing LilyPond files::  
+* Typesetting existing music::  
 * Updating old files::          
 * Troubleshooting (taking it all apart)::  
-* Saving typing with identifiers::  
+* Saving typing with identifiers and functions::  
 * Style sheets::                
 @end menu
 
@@ -67,7 +68,8 @@ in the number of @code{@{} and @code{@}}.
 @end itemize
 
 
-
+@node Typesetting existing music
+@section Typesetting existing music
 
 If you are entering music from an existing score (i.e. typesetting a
 piece of existing sheet music),
@@ -111,7 +113,8 @@ are listed in @ref{Updating files with convert-ly}.
 
 For example, in LilyPond 2.4 and earlier, accents and non-English
 letters were entered using LaTeX -- for example,
-"@code{No\"el}" (Christmas).  In LilyPond 2.6 and above, the special
+"@code{No\"el}" (this would print the French word for
+`Christmas').  In LilyPond 2.6 and above, the special
 "@code{ë}" must be entered directly into the LilyPond file as an
 UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
 special characters into UTF-8 characters; you must manually update
@@ -170,8 +173,8 @@ Now start slowly uncommenting more and more of the
 @code{bass} part until you find the problem line.
 
 
-@node Saving typing with identifiers
-@section Saving typing with identifiers
+@node Saving typing with identifiers and functions
+@section Saving typing with identifiers and functions
 
 By this point, you've seen this kind of thing:
 

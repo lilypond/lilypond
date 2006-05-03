@@ -1,8 +1,8 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 
-@node Notation manual details
-@appendix Notation manual details
+@node Notation manual tables
+@appendix Notation manual tables
 
 @menu
 * Chord name chart::            

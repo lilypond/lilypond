@@ -2,12 +2,14 @@
 @node Tweaking output
 @chapter Tweaking output
 
-Tweak explanation.
+This chapter discusses how modify output.  LilyPond is extremely
+configurable; virtually every fragment of output may be changed.
 
 
 @menu
 * Fixing overlapping notation::  
 * Common tweaks::               
+* Default files::               
 * Advanced tweaks with scheme::  
 @end menu
 
@@ -101,7 +103,10 @@ One final warning: in this section, we used
 
 This tweaks the display of text for the next note.  If the note has
 no text, this tweak does nothing (and does @strong{not} wait until
-the next bit of text).
+the next bit of text).  To change the behavior of everything after
+the command, omit the @code{\once}.  To stop this tweak, use a
+@code{\revert}.  This is explained in depth in
+@ref{The \override command}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
 c4^"piu mosso" b
@@ -115,6 +120,8 @@ c4^"piu mosso" d e f
 \override TextScript #'padding = #2.6
 c4^"piu mosso" d e f
 c4^"piu mosso" d e f
+\revert TextScript #'padding
+c4^"piu mosso" d e f
 @end lilypond
 
 
@@ -123,46 +130,61 @@ c4^"piu mosso" d e f
 This manual: @ref{The \override command}, @ref{Common tweaks}.
 
 
-@menu
-* Common tweaks::               
-@end menu
-
 @node Common tweaks
 @section Common tweaks
 
-@c  Should we point at ly/property-init.ly ?  -gp
 Some overrides are so common that predefined commands are provided as
-short-cuts, for example, @code{\slurUp} and @code{\stemDown}.  These
-commands are described in
-@ifhtml
-the
-@end ifhtml
-@c @ref{Notation manual},
-Notation manual
-@c FIXME 
-under the sections for slurs and stems
-respectively.
+short-cuts, such as @code{\slurUp} and @code{\stemDown}.  These
+commands are described in the Notation Reference under the appropriate
+sections.
 
-The exact tuning possibilities for each type of layout object are
-documented in the program reference of the respective
-object.  However, many layout objects share properties, which can be
-used to apply generic tweaks.  We mention a few of these:
+The complete list of modifications available for each type of
+object (like slurs or beams) are documented in the Program
+Reference.  However, many layout objects share properties, which can be
+used to apply generic tweaks.
 
 @itemize @bullet
-@item The @code{extra-offset} property, which
+
+@cindex @code{padding}
+@item The @code{padding} property can be set to increase
+(or decrease) the distance between symbols that are printed
+above or below notes.  This applies to all objects with
+@code{side-position-interface}.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c2\fermata
+\override Script #'padding = #3
+b2\fermata
+@end lilypond
+
+@lilypond[quote,fragment,relative=1,verbatim]
+% This will not work, see below:
+\override MetronomeMark #'padding = #3
+\tempo 4=120
+c1
+% This works:
+\override Score.MetronomeMark #'padding = #3
+\tempo 4=80
+d1
+@end lilypond
+
+Note in the second example how important it is to figure out what
+context handles a certain object.  Since the @code{MetronomeMark} object
+is handled in the Score context, property changes in the @code{Voice}
+context will not be noticed.  For more details, see
+@ref{Constructing a tweak}.
+
 @cindex @code{extra-offset}
-has a pair of numbers as value, moves objects around in the printout.
-The first number controls left-right movement; a positive number will
-move the object to the right.  The second number controls up-down
-movement; a positive number will move it higher.  The units of these
-offsets are staff-spaces.  The @code{extra-offset} property is a
-low-level feature: the formatting engine is completely oblivious to
-these offsets.
+@item The @code{extra-offset} property moves objects around
+in the output; it requires a pair of numbers.  The first number
+controls horizontal movement; a positive number will
+move the object to the right.  The second number controls vertical 
+movement; a positive number will move it higher.  The
+@code{extra-offset} property is a low-level feature: the
+formatting engine is completely oblivious to these offsets.
 
 In the following example, the second fingering is moved a little to
 the left, and 1.8 staff space downwards:
-
-@cindex setting object properties
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
@@ -207,44 +229,7 @@ voices:
 } >>
 @end lilypond
 
-@item
-The @code{padding} property for objects with
-@cindex @code{padding}
-@code{side-position-interface} can be set to increase the distance between
-symbols that are printed above or below notes.  We provide two
-examples; a more elaborate explanation is in @ref{Constructing a
-tweak}:
-
-@lilypond[quote,fragment,relative=1,verbatim]
-c2\fermata
-\override Script #'padding = #3
-b2\fermata
-@end lilypond
-
-@lilypond[quote,fragment,relative=1,verbatim]
-% This will not work, see below:
-\override MetronomeMark #'padding = #3
-\tempo 4=120
-c1
-% This works:
-\override Score.MetronomeMark #'padding = #3
-\tempo 4=80
-d1
-@end lilypond
-
-Note in the second example how important it is to figure out what
-context handles a certain object. Since the @code{MetronomeMark} object
-is handled in the Score context, property changes in the @code{Voice}
-context will not be noticed. 
-
 @end itemize
-
-Some tweakable options are called ``subproperties'' and reside inside
-properties.  To tweak those, use
-
-@example
-\override Stem #'details #'beamed-lengths = #'(4 4 3) 
-@end example
 
 @cindex Tweaks, distances
 @cindex Distances
@@ -255,8 +240,39 @@ properties are different; for example, the thickness of beams
 is measured in staff-spaces.  For more information, see the
 relevant portion of the program reference.
 
-More specific overrides are also possible.  The next section
-discusses in depth how to figure out these statements for yourself.
+
+@node Default files
+@section Default files
+
+The Program Reference documentation contains a lot of information
+about LilyPond, but even more information can be gathered from
+looking at the internal LilyPond files.
+
+Some default settings (such as the definitions for
+@code{\header@{@}}s) are stored as @code{.ly} files.  Other
+settings (such as the definitions of markup commands) are
+stored as @code{.scm} (Scheme) files.  Further explanation is
+outside the scope of this manual; users should be warned that
+a substantial amount of technical knowledge or time is required
+to understand these files.
+
+@itemize bullet
+
+@item Linux: @file{/usr/ ... }
+
+@item OSX:
+@file{@{LILYPOND_INSTALLED_DIR@}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
+To access this, either @code{cd} into this directory from
+the Terminal, or control-click on the LilyPond application
+and select "Show Package Contents".
+
+@item Windows:
+
+@end itemize
+
+The @file{ly/} and @file{scm/} directories will be of
+particular interest.  Files such as @file{ly/property-init.ly} and
+@file{ly/declarations-init.ly} define all the common tweaks.
 
 
 @node Advanced tweaks with scheme
@@ -265,7 +281,58 @@ discusses in depth how to figure out these statements for yourself.
 We have seen how LilyPond output can be heavily modified using
 commands like
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
-we have even more power if we use scheme.
+we have even more power if we use scheme.  For a full explantion
+of this, see @ref{Interfaces for programmers}.
 
-FIXME scheme stuffs
+We can use scheme to simply @code{\override} commands,
+
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+#{
+  \once \override TextScript #'padding = #$padding
+#})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+We can use it to create new commands,
+
+@lilypond[quote,verbatim,ragged-right]
+tempoMark = #(define-music-function (parser location marktext padding) (string? number?)
+#{
+  \once \override Score . RehearsalMark #'padding = $padding
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup { \bold $marktext }
+#})
+
+\relative c'' {
+c2 e
+\tempoMark #"Allegro" #3.0
+g c
+}
+@end lilypond
+
+Even music expressions can be passed in.  Note that since we
+want an articulation attached to the second variable, we
+must #####.
+
+@lilypond[quote,verbatim,ragged-right]
+%pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+%#{
+%  $x e8-. a-. b-. $y-.-> b-. a-. e-.
+%#})
+
+\relative c''{
+c'4
+%  \pattern c8 c8
+%  \pattern d8 ais8
+%  \pattern cis8 des8
+}
+@end lilypond
 
