@@ -50,7 +50,7 @@ do
 done
 
 #conf_flags="--enable-maintainer-mode --enable-compile-warnings" #--enable-iso-c
-conf_flags="--with-ncsb-dir=/usr/share/fonts/default/Type1/"
+#conf_flags="--with-ncsb-dir=/usr/share/fonts/default/Type1/"
 
 if test -n "$NOCONFIGURE"; then
     echo Skipping configure process.
