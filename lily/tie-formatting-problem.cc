@@ -42,12 +42,16 @@ Tie_formatting_problem::print_ties_configuration (Ties_configuration const *ties
 Interval
 Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
 {
-  Interval attachments;
+  Interval attachments (0,0);
   Direction d = LEFT;
   do
     {
-      Chord_outline_map::const_iterator i (chord_outlines_.find (columns[d]));
-      attachments[d] = skyline_height ((*i).second, y, -d);
+      Tuple2<int> key (columns[d], int (d));
+      Chord_outline_map::const_iterator i (chord_outlines_.find (key));
+      if (i == chord_outlines_.end ())
+	programming_error ("Can't find chord outline");
+      else
+	attachments[d] = skyline_height ((*i).second, y, -d);
     }
   while (flip (&d) != LEFT);
   
@@ -109,13 +113,15 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	  boxes.push_back (Box (x, y));
 	}
     }
+
+  Tuple2<int> key (column_rank, int (dir));
   
-  chord_outlines_[column_rank] = empty_skyline (-dir);
+  chord_outlines_[key] = empty_skyline (-dir);
       
   if (bounds[0]->break_status_dir ())
     {
       Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-dir];
-      chord_outlines_[column_rank].at (0).height_ = x; 
+      chord_outlines_[key].at (0).height_ = x; 
     }
   else
     {
@@ -125,11 +131,11 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	  x.unite (head_boxes[j][X_AXIS]);
 	}
       
-      chord_outlines_[column_rank].at (0).height_ = x[dir];
+      chord_outlines_[key].at (0).height_ = x[dir];
     }
       
   for (vsize i = 0; i < boxes.size (); i++)
-    insert_extent_into_skyline (&chord_outlines_[column_rank]  ,
+    insert_extent_into_skyline (&chord_outlines_[key]  ,
 				boxes[i], Y_AXIS, -dir);
 
   if (stem
@@ -145,15 +151,15 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
       y.add_point (Stem::head_positions (stem)[-stemdir]
 		   * staff_space * .5);
 	  
-      insert_extent_into_skyline (&chord_outlines_[column_rank], Box (x,y), Y_AXIS, -dir);
+      insert_extent_into_skyline (&chord_outlines_[key], Box (x,y), Y_AXIS, -dir);
 
-      stem_extents_[column_rank].unite (Box (x,y));
+      stem_extents_[key].unite (Box (x,y));
 
       if (dir == LEFT)
 	{
 	  Box flag_box = Stem::get_translated_flag (stem).extent_box ();
 	  flag_box.translate( Offset (x[RIGHT], X_AXIS));
-	  insert_extent_into_skyline (&chord_outlines_[column_rank], flag_box,
+	  insert_extent_into_skyline (&chord_outlines_[key], flag_box,
 				      Y_AXIS, -dir);
 	}
     }
@@ -173,16 +179,16 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	}
 
       if (!x.is_empty ())
-	insert_extent_into_skyline (&chord_outlines_[column_rank],
+	insert_extent_into_skyline (&chord_outlines_[key],
 				    Box (x,y),
 				    Y_AXIS, -dir);
     }
   while (flip (&updowndir) != DOWN);
   
-  head_extents_[column_rank].set_empty ();
+  head_extents_[key].set_empty ();
   for (vsize i = 0; i < head_boxes.size (); i++)
     {
-      head_extents_[column_rank].unite (head_boxes[i]);
+      head_extents_[key].unite (head_boxes[i]);
     }
 }
 
@@ -298,7 +304,8 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &lv_ties, Direction 
   
   details_.from_grob (lv_ties[0]);
   vector<Item*> heads;
-  
+
+  int column_rank = -1;
   for (vsize i = 0; i < lv_ties.size (); i++)
     {
       Tie_specification spec;
@@ -311,8 +318,11 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &lv_ties, Direction 
 	{
 	  spec.position_ = int (Staff_symbol_referencer::get_position (head));
 	}
+      
 
       spec.note_head_drul_[head_dir] = head;
+      column_rank = dynamic_cast<Item*> (head)->get_column ()->get_rank ();
+      spec.column_ranks_ = Drul_array<int> (column_rank, column_rank);
       heads.push_back (head);
       specifications_.push_back (spec);
     }
@@ -327,17 +337,20 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &lv_ties, Direction 
 
   Real extremal = head_dir * infinity_f;   
 
-  for (vsize i = 0; i < chord_outlines_[head_dir].size (); i++)
+  Tuple2<int> head_key (column_rank, head_dir);
+  Tuple2<int> open_key (column_rank, -head_dir);
+  
+  for (vsize i = 0; i < chord_outlines_[head_key].size (); i++)
     {
       extremal = head_dir * min (head_dir * extremal,
-				   head_dir * chord_outlines_[head_dir][i].height_);
+				 head_dir * chord_outlines_[head_key][i].height_);
     }
 
   Skyline_entry right_entry;
   right_entry.width_.set_full ();
   right_entry.height_ = extremal - head_dir * 1.5;
   
-  chord_outlines_[-head_dir].push_back (right_entry);
+  chord_outlines_[open_key].push_back (right_entry);
 }
 
 
@@ -391,12 +404,12 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
     }
   
   if (y_tune
-      && max (fabs (get_head_extent (columns[LEFT], Y_AXIS)[dir] - y),
-	      fabs (get_head_extent (columns[RIGHT],Y_AXIS)[dir] - y)) < 0.25
+      && max (fabs (get_head_extent (columns[LEFT], LEFT, Y_AXIS)[dir] - y),
+	      fabs (get_head_extent (columns[RIGHT], RIGHT, Y_AXIS)[dir] - y)) < 0.25
       && !Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
     {
       conf->delta_y_ =
-	(get_head_extent (columns[LEFT], Y_AXIS)[dir] - y)
+	(get_head_extent (columns[LEFT], LEFT, Y_AXIS)[dir] - y)
 	+ dir * details_.outer_tie_vertical_gap_;
     }
 
@@ -467,13 +480,13 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
   do
     {
       Real y = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
-      if (get_stem_extent (conf->column_ranks_[d], X_AXIS).is_empty ()
-	  || !get_stem_extent (conf->column_ranks_[d], Y_AXIS).contains (y))
+      if (get_stem_extent (conf->column_ranks_[d], d, X_AXIS).is_empty ()
+	  || !get_stem_extent (conf->column_ranks_[d], d, Y_AXIS).contains (y))
 	continue;
 
       conf->attachment_x_[d] =
 	d * min (d * conf->attachment_x_[d],
-		 d * (get_stem_extent (conf->column_ranks_[d], X_AXIS)[-d] - d * details_.stem_gap_));
+		 d * (get_stem_extent (conf->column_ranks_[d], d, X_AXIS)[-d] - d * details_.stem_gap_));
     }
   while (flip (&d) != LEFT);
   
@@ -481,15 +494,15 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 }
 
 Interval
-Tie_formatting_problem::get_head_extent (int col, Axis a) const
+Tie_formatting_problem::get_head_extent (int col, Direction d, Axis a) const
 {
-  return (*head_extents_.find (col)).second[a];
+  return (*head_extents_.find (Tuple2<int> (col, int (d)))).second[a];
 }
 
 Interval
-Tie_formatting_problem::get_stem_extent (int col, Axis a) const
+Tie_formatting_problem::get_stem_extent (int col, Direction d, Axis a) const
 {
-  return (*stem_extents_.find (col)).second[a];
+  return (*stem_extents_.find (Tuple2<int> (col, int (d)))).second[a];
 }
 
 /**
