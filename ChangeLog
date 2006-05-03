@@ -8,10 +8,11 @@
 
 2006-05-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* stepmake/aclocal.m4: run python-config for crosscompiling flags.
+	* stepmake/aclocal.m4: run python-config for crosscompiling
+	flags. Backportme.
 
 	* scripts/lilypond-book.py (Lilypond_file_snippet.my_system): add
-	-f png for HTML, TEXINFO formats.
+	-f png for HTML, TEXINFO formats. Backportme.
 
 	* input/tutorial/lbook-html-test.html: new file.
 
@@ -22,13 +23,13 @@
 	* flower/include/tuple.hh (struct Tuple2): new file.
 
 	* mf/GNUmakefile (FC_FIND): new function. Find ncsb using
-	$(FCMATCH), only if $(NCSB_DIR) not set.
+	$(FCMATCH), only if $(NCSB_DIR) not set. Backportme.
 
 	* configure.in (LINK_GXX_STATICALLY): only warn if $NCSB_DIR set.
 
-	* config.make.in (DOCUMENTATION): set FCMATCH
+	* config.make.in (DOCUMENTATION): set FCMATCH. Backportme. 
 
-	* autogen.sh (srcdir): don't set --with-ncsb-dir.
+	* autogen.sh (srcdir): don't set --with-ncsb-dir. Backportme.
 
 2006-05-03  Graham Percival  <gpermus@gmail.com>
 
