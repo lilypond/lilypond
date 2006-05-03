@@ -266,7 +266,7 @@ To access this, either @code{cd} into this directory from
 the Terminal, or control-click on the LilyPond application
 and select "Show Package Contents".
 
-@item Windows: @file{C:/Program Files/LilyPond/usr/share/lilypond/current/}
+@item Windows: @file{@{INSTALLDIR@}/LilyPond/usr/share/lilypond/current/}
 
 @end itemize
 
