@@ -1027,6 +1027,11 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 	changequote([, ])#dnl
     fi
     
+    if test "$cross_compiling" = "yes" -a -z "$PYTHON_CFLAGS"; then
+	PYTHON_CFLAGS=`python-config --cflags`
+	PYTHON_LDFLAGS=`python-config --ldflags`
+    fi
+    
     if test -z "$PYTHON_HEADER"; then
 	CPPFLAGS="$PYTHON_CFLAGS $CPPFLAGS"
 	AC_CHECK_HEADERS([Python.h],[PYTHON_HEADER=yes])
@@ -1037,6 +1042,8 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
 ])
+
+
 
 AC_DEFUN(STEPMAKE_STL_DATA_METHOD, [
     AC_LANG_PUSH(C++)
