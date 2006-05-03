@@ -868,6 +868,12 @@ means that we have to determine these bits of information:
 @item a sensible value: here @code{3.0}
 @end itemize  
 
+Some tweakable options are called ``subproperties'' and reside inside
+properties.  To tweak those, use
+
+@example
+\override Stem #'details #'beamed-lengths = #'(4 4 3)
+@end example
 
 @cindex internal documentation
 @cindex finding graphical objects

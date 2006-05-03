@@ -28,7 +28,7 @@
 
 
 @ifhtml
-This document is also available in @uref{source/Documentation/user/lilypond.pdf,PDF}.
+This document is also available as a @uref{source/Documentation/user/lilypond.pdf,PDF}.
 @end ifhtml
 
 
@@ -109,33 +109,32 @@ This is the user manual for GNU LilyPond 2.8.x series.
 @cindex web site
 @cindex URL
 
-A further source of information is the website, which can be found at
+More information can be found at
 @uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
 of this and other documentation.
 
 @include dedication.itely
 
 @menu
-Learning manual
+Learning Manual
 
 * Preface::                        Preface.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
-* Putting it all together:: Advanced tutorial?  FIXME title
-* Working on LilyPond projects::   Demonstrates real-life LilyPond usage.
-* Tweaking output:: Tutorial-style explanation of chapters 10 and 11. FIXME title
+* Putting it all together::        More explanation about LilyPond concepts.
+* Working on LilyPond projects::   Discusses real-life usage.
+* Tweaking output::                Introduction to modifying output.
 
-Notation reference
+Notation Reference
 
 * Basic notation::                 Standard musical notation.
-* Instrument-specific notation::   Notation that is only used for some
-                                   instruments.
+* Instrument-specific notation::   Specialized notation.
 * Advanced notation::              Less frequently used notation.
 * Changing defaults::              Tuning output.
 * Global issues::                  What LilyPond produces.
-* Interfaces for programmers::
+* Interfaces for programmers::     Expert usage.
 
-Technical details
+Technical Details
 
 * Running LilyPond::               Operation.
 * LilyPond-book::                  Integrating text and music.
@@ -143,12 +142,12 @@ Technical details
 
 Appendices
 
-* Literature list::
-* Scheme tutorial::
-* Notation manual details::
-* Example templates::              Larger examples.
-* Cheat sheet::     
-* GNU Free Documentation License:: FDL.
+* Literature list::                Reference works about music notation.
+* Scheme tutorial::                Programming inside LilyPond.
+* Notation manual tables::         Tables and charts.
+* Example templates::              Ready-made templates.
+* Cheat sheet::                    Summary of LilyPond syntax.
+* GNU Free Documentation License:: License of this document.
 * LilyPond index::
 @end menu
 @end ifnottex
