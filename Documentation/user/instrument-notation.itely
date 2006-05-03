@@ -678,6 +678,7 @@ way is to use the @code{\addlyrics} function.
 * Melismata::                   
 * Another way of entering lyrics::  
 * Flexibility in placement::    
+* Spacing lyrics::              
 * More about stanzas::          
 * Ambitus::                     
 * Other vocal issues::          
@@ -904,7 +905,7 @@ The following example uses different commands for entering lyrics.
 The second stanza is not properly aligned because the durations
 were not specified.  A solution for that would be to use @code{\lyricsto}.
 
-To define indentifiers containing lyrics, the function @code{lyricsmode}
+To define indentifiers containing lyrics, the function @code{lyricmode}
 must be used.
 
 @example
@@ -921,7 +922,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 @}
 @end example
 
-The @code{\addlyrics} command is actually just a convienient way
+The @code{\addlyrics} command is actually just a convenient way
 to write a more complicated LilyPond structure that sets up the
 lyrics. 
 
@@ -1076,9 +1077,9 @@ differing ways.  Such variations can still be captured with
 
 @menu
 * Lyrics to multiple notes of a melisma::  
+* Divisi lyrics::               
 * Switching the melody associated with a lyrics line::  
 * Specifying melismata within the lyrics::  
-* Spacing lyrics::              
 @end menu
 
 @node Lyrics to multiple notes of a melisma
@@ -1131,6 +1132,52 @@ For example,
   kle
 }
 @end lilypond
+
+
+@node Divisi lyrics
+@subsubsection Divisi lyrics
+
+You can display alternate (or divisi) lyrics by naming voice
+contexts and attaching lyrics to those specific contexts.
+
+@lilypond[verbatim,ragged-right,quote]
+\score{ <<
+  \new Voice = "melody" {
+    \relative c' {
+      c4
+      <<
+        { \voiceOne c8 e }
+        \new Voice = "splitpart" { \voiceTwo c4 }
+      >>
+      \oneVoice c4 c | c
+    }
+  }
+  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
+  \new Lyrics \lyricsto "splitpart" { will }
+>> }
+@end lilypond
+
+
+You can use this trick to display different lyrics for a repeated
+section.
+
+@lilypond[verbatim,ragged-right,quote]
+\score{ <<
+  \new Voice = "melody" \relative c' {
+    c2 e | g e | c1 |
+    \new Voice = "verse" \repeat volta 2 {c4 d e f | g1 | }
+    a2 b | c1}
+  \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
+    do mi sol mi do
+    la si do }
+  \context Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
+   do re mi fa sol }
+  \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
+   dodo rere mimi fafa solsol }
+>>
+}
+@end lilypond
+
 
 
 @node Switching the melody associated with a lyrics line
@@ -1242,12 +1289,9 @@ set @code{melismaBusyProperties}, as is done in the example above.
  { Ky -- _ _ ri __ _ _ _  e }
 @end lilypond
 
-@menu
-* Spacing lyrics::              
-@end menu
 
 @node Spacing lyrics
-@subsubsection Spacing lyrics
+@subsection Spacing lyrics
 
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
@@ -1373,47 +1417,6 @@ the line, just like instrument names.  They are created by setting
 } \addlyrics {
   \set vocalName = "Ernie "
   Oh, che -- ri, je t'aime
-}
-@end lilypond
-
-You can display alternate (or divisi) lyrics by naming voice
-contexts and attaching lyrics to those specific contexts.
-
-@lilypond[verbatim,ragged-right,quote]
-\score{ <<
-  \new Voice = "melody" {
-    \relative c' {
-      c4
-      <<
-        { \voiceOne c8 e }
-        \new Voice = "splitpart" { \voiceTwo c4 }
-      >>
-      \oneVoice c4 c | c
-    }
-  }
-  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
-  \new Lyrics \lyricsto "splitpart" { will }
->> }
-@end lilypond
-
-
-You can use this trick to display different lyrics for a repeated
-section.
-
-@lilypond[verbatim,ragged-right,quote]
-\score{ <<
-  \new Voice = "melody" \relative c' {
-    c2 e | g e | c1 |
-    \new Voice = "verse" \repeat volta 2 {c4 d e f | g1 | }
-    a2 b | c1}
-  \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
-    do mi sol mi do
-    la si do }
-  \context Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
-   do re mi fa sol }
-  \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
-   dodo rere mimi fafa solsol }
->>
 }
 @end lilypond
 
