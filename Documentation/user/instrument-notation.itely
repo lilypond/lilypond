@@ -678,8 +678,6 @@ way is to use the @code{\addlyrics} function.
 * Melismata::                   
 * Another way of entering lyrics::  
 * Flexibility in placement::    
-* Switching the melody associated with a lyrics line::  
-* Specifying melismata within the lyrics::  
 * More about stanzas::          
 * Ambitus::                     
 * Other vocal issues::          
@@ -1078,6 +1076,9 @@ differing ways.  Such variations can still be captured with
 
 @menu
 * Lyrics to multiple notes of a melisma::  
+* Switching the melody associated with a lyrics line::  
+* Specifying melismata within the lyrics::  
+* Spacing lyrics::              
 @end menu
 
 @node Lyrics to multiple notes of a melisma
@@ -1133,7 +1134,7 @@ For example,
 
 
 @node Switching the melody associated with a lyrics line
-@subsection Switching the melody associated with a lyrics line
+@subsubsection Switching the melody associated with a lyrics line
 
 More complex variations in text underlay are possible.  It is possible
 to switch the melody for a line of lyrics during the text.  This is
@@ -1216,7 +1217,7 @@ The underlay is switched back to the starting situation by assigning
 
 
 @node Specifying melismata within the lyrics
-@subsection Specifying melismata within the lyrics
+@subsubsection Specifying melismata within the lyrics
 
 It is also possible to define melismata entirely in the lyrics. This
 can be done by entering @code{_} for every note that is part of the
