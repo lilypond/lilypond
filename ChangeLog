@@ -8,6 +8,8 @@
 
 2006-05-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* stepmake/aclocal.m4: run python-config for crosscompiling flags.
+
 	* scripts/lilypond-book.py (Lilypond_file_snippet.my_system): add
 	-f png for HTML, TEXINFO formats.
 
