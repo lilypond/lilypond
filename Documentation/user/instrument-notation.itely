@@ -677,7 +677,9 @@ way is to use the @code{\addlyrics} function.
 * The Lyrics context::          
 * Melismata::                   
 * Another way of entering lyrics::  
-* Flexibility in alignment::    
+* Flexibility in placement::    
+* Switching the melody associated with a lyrics line::  
+* Specifying melismata within the lyrics::  
 * More about stanzas::          
 * Ambitus::                     
 * Other vocal issues::          
@@ -1067,13 +1069,18 @@ Here is an example demonstrating manual lyric durations,
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 
-@node Flexibility in alignment
-@subsection Flexibility in alignment
+@node Flexibility in placement
+@subsection Flexibility in placement
 
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
 @code{\lyricsto}.
 
+@menu
+* Lyrics to multiple notes of a melisma::  
+@end menu
+
+@node Lyrics to multiple notes of a melisma
 @subsubsection Lyrics to multiple notes of a melisma 
 
 
@@ -1082,7 +1089,7 @@ multiple syllables in another one.  One solution is to make the faster
 voice ignore the melisma.  This is done by setting
 @code{ignoreMelismata} in the Lyrics context.
 
-There has one tricky aspect.  The setting for @code{ignoreMelismata}
+There is one tricky aspect: the setting for @code{ignoreMelismata}
 must be set one syllable @emph{before} the non-melismatic syllable
 in the text, as shown here,
 
@@ -1125,8 +1132,8 @@ For example,
 @end lilypond
 
 
+@node Switching the melody associated with a lyrics line
 @subsection Switching the melody associated with a lyrics line
-
 
 More complex variations in text underlay are possible.  It is possible
 to switch the melody for a line of lyrics during the text.  This is
@@ -1208,7 +1215,7 @@ The underlay is switched back to the starting situation by assigning
 @code{lahlah} to @code{associatedVoice}.
 
 
-
+@node Specifying melismata within the lyrics
 @subsection Specifying melismata within the lyrics
 
 It is also possible to define melismata entirely in the lyrics. This
@@ -1234,6 +1241,11 @@ set @code{melismaBusyProperties}, as is done in the example above.
  { Ky -- _ _ ri __ _ _ _  e }
 @end lilypond
 
+@menu
+* Spacing lyrics::              
+@end menu
+
+@node Spacing lyrics
 @subsubsection Spacing lyrics
 
 @cindex Spacing lyrics

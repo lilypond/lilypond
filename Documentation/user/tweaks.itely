@@ -258,15 +258,15 @@ to understand these files.
 
 @itemize bullet
 
-@item Linux: @file{/usr/ ... }
+@item Linux: @file{@{INSTALLDIR@}/lilypond/usr/share/lilypond/current/}
 
 @item OSX:
-@file{@{LILYPOND_INSTALLED_DIR@}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
+@file{@{INSTALLDIR@}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
 To access this, either @code{cd} into this directory from
 the Terminal, or control-click on the LilyPond application
 and select "Show Package Contents".
 
-@item Windows:
+@item Windows: @file{C:/Program Files/LilyPond/usr/share/lilypond/current/}
 
 @end itemize
 

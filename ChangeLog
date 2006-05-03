@@ -13,6 +13,9 @@
 
 	* Documentation/user/ various: final round of reorg.
 
+	* Documentation/user/instrument-notation.itely: some more
+	fixes from Eduardo, thanks!
+
 2006-05-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* flower/file-path.cc (is_dir): canonicalize file name before stat'ing.
