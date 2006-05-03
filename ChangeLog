@@ -1,3 +1,14 @@
+2006-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/GNUmakefile (FC_FIND): new function. Find ncsb using
+	$(FCMATCH), only if $(NCSB_DIR) not set.
+
+	* configure.in (LINK_GXX_STATICALLY): only warn if $NCSB_DIR set.
+
+	* config.make.in (DOCUMENTATION): set FCMATCH
+
+	* autogen.sh (srcdir): don't set --with-ncsb-dir.
+
 2006-05-03  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ various: final round of reorg.

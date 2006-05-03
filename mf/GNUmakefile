@@ -30,8 +30,17 @@ OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table)\
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
 
+FC_FIND=$(shell $(FCMATCH) --verbose 'Century Schoolbook L:style=$(1)' | grep 'file:' | sed 's/.*"\([^"]*\)".*/\1/g')
 
-NCSB_SOURCE_FILES=c059013l c059016l c059033l c059036l
+ifeq ($(NCSB_DIR),)
+NCSB_SOURCE_FILES=$(call FC_FIND,Roman) \
+	$(call FC_FIND,Italic) \
+	$(call FC_FIND,Bold Italic) \
+	$(call FC_FIND,Bold)
+else
+NCSB_SOURCE_FILES=$(addsuffix .pfb,$(addprefix $(NCSB_DIR),c059013l c059016l c059033l c059036l))
+endif
+
 NCSB_OTFS=$(addprefix $(outdir)/,CenturySchL-Ital.otf CenturySchL-BoldItal.otf CenturySchL-Roma.otf CenturySchL-Bold.otf)
 NCSB_INSTALL_DIR=$(local_lilypond_datadir)/fonts/otf
 
@@ -162,7 +171,7 @@ $(outdir)/%.enc.in: %.enc
 	cp $< $@
 
 
-$(NCSB_OTFS): $(addsuffix .pfb,$(addprefix $(NCSB_DIR)/,$(NCSB_SOURCE_FILES))) $(buildscript-dir)/pfx2ttf.fontforge
-	$(foreach i,$(NCSB_SOURCE_FILES), \
+$(NCSB_OTFS): $(NCSB_SOURCE_FILES)  $(buildscript-dir)/pfx2ttf.fontforge
+	$(foreach i, $(basename $(NCSB_SOURCE_FILES)), \
 		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
-			$(NCSB_DIR)/$(i).pfb $(NCSB_DIR)/$(i).afm $(outdir)/ && ) true
+			$(i).pfb $(i).afm $(outdir)/ && ) true
