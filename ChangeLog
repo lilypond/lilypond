@@ -1,4 +1,10 @@
-2006-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+2006-05-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/include/tie-formatting-problem.hh (class
+	Tie_formatting_problem): index Chord_outline_map by Tuple2 for
+	[column, direction]. This fixes laissez vibrer ties.
+ 
+	* flower/include/tuple.hh (struct Tuple2): new file.
 
 	* mf/GNUmakefile (FC_FIND): new function. Find ncsb using
 	$(FCMATCH), only if $(NCSB_DIR) not set.
@@ -17,6 +23,8 @@
 	fixes from Eduardo, thanks!
 
 2006-05-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION (PACKAGE_NAME): release 2.9.3
 
 	* flower/file-path.cc (is_dir): canonicalize file name before stat'ing.
 

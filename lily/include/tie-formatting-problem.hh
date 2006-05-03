@@ -16,37 +16,10 @@
 #include "lily-proto.hh"
 #include "tie-configuration.hh"
 #include "tie-details.hh"
+#include "tuple.hh"
 
 #include <map>
 #include <set>
-
-template<class T, int N>
-struct Tuple
-{
-  T t_array[N];
-  Tuple (T const *src)
-  {
-    for (int i = 0; i < N; i++)
-      t_array[i] = src[i];
-  }
-};
-
-template<class T, int N>
-inline bool
-operator<(Tuple<T, N> const &t1,
-	  Tuple<T, N> const &t2)
-{
-  for (int i = 0; i < N ; i++)
-    {
-      if (t1.t_array[i] > t2.t_array[i])
-	return false;
-      if (t1.t_array[i] < t2.t_array[i])
-	return true;
-    }
-
-  return false;
-}
-
 
 typedef map< Tuple<int,4>, Tie_configuration *> Tie_configuration_map;
 
@@ -73,8 +46,8 @@ struct Tie_configuration_variation
   Tie_configuration_variation ();
 };
 
-typedef map <int, vector<Skyline_entry> > Chord_outline_map;
-typedef map <int, Box> Column_extent_map;
+typedef map < Tuple<int, 2>, vector<Skyline_entry> > Chord_outline_map;
+typedef map < Tuple<int, 2>, Box> Column_extent_map;
 class Tie_formatting_problem
 {
   Chord_outline_map chord_outlines_;
@@ -111,8 +84,8 @@ public:
   Tie_details details_;
   void print_ties_configuration (Ties_configuration const *);
 
-  Interval get_stem_extent (int, Axis) const; 
-  Interval get_head_extent (int, Axis) const; 
+  Interval get_stem_extent (int, Direction, Axis) const; 
+  Interval get_head_extent (int, Direction, Axis) const; 
   
 public:
   Tie_formatting_problem ();
