@@ -38,7 +38,7 @@ NCSB_SOURCE_FILES=$(call FC_FIND,Roman) \
 	$(call FC_FIND,Bold Italic) \
 	$(call FC_FIND,Bold)
 else
-NCSB_SOURCE_FILES=$(addsuffix .pfb,$(addprefix $(NCSB_DIR),c059013l c059016l c059033l c059036l))
+NCSB_SOURCE_FILES=$(addsuffix .pfb,$(addprefix $(NCSB_DIR)/,c059013l c059016l c059033l c059036l))
 endif
 
 NCSB_OTFS=$(addprefix $(outdir)/,CenturySchL-Ital.otf CenturySchL-BoldItal.otf CenturySchL-Roma.otf CenturySchL-Bold.otf)
