@@ -1,5 +1,10 @@
 2006-05-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/lilypond-book.py (Lilypond_file_snippet.my_system): add
+	-f png for HTML, TEXINFO formats.
+
+	* input/tutorial/lbook-html-test.html: new file.
+
 	* lily/include/tie-formatting-problem.hh (class
 	Tie_formatting_problem): index Chord_outline_map by Tuple2 for
 	[column, direction]. This fixes laissez vibrer ties.

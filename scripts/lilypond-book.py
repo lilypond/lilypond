@@ -1068,16 +1068,17 @@ class Lilypond_snippet (Snippet):
 
     def png_is_outdated (self):
         base = self.basename ()
-        ok = self.ly_is_outdated ()
+        ok = not self.ly_is_outdated ()
         if global_options.format in (HTML, TEXINFO):
             ok = ok and os.path.exists (base + '.eps')
 
             page_count = 0
             if ok:
                 page_count = ps_page_count (base + '.eps')
-            
-            if page_count == 1:
+
+            if page_count <= 1:
                 ok = ok and os.path.exists (base + '.png')
+             
             elif page_count > 1:
                 for a in range (1, page_count + 1):
                         ok = ok and os.path.exists (base + '-page%d.png' % a)
@@ -1373,11 +1374,12 @@ def is_derived_class (cl, baseclass):
 
 def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
     ly_names = filter (lambda x: x,
-             map (Lilypond_snippet.basename, ly_snippets))
+                       map (Lilypond_snippet.basename, ly_snippets))
     texstr_names = filter (lambda x: x,
-             map (Lilypond_snippet.basename, texstr_snippets))
+                           map (Lilypond_snippet.basename, texstr_snippets))
+    
     png_names = filter (lambda x: x,
-              map (Lilypond_snippet.basename, png_snippets))
+                        map (Lilypond_snippet.basename, png_snippets))
 
     status = 0
     def my_system (cmd):
@@ -1385,12 +1387,15 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
                   be_verbose=global_options.verbose, 
                   progress_p= 1)
 
+    if global_options.format in (HTML, TEXINFO):
+        cmd += ' --format png '
+
     # UGH
     # the --process=CMD switch is a bad idea
     # it is too generic for lilypond-book.
     if texstr_names:
         my_system (string.join ([cmd, '--backend texstr',
-                    'snippet-map.ly'] + texstr_names))
+                                 'snippet-map.ly'] + texstr_names))
         for l in texstr_names:
             my_system ('latex %s.texstr' % l)
 
@@ -1507,27 +1512,25 @@ def do_process_cmd (chunks, input_name):
              chunks)
 
     write_file_map (all_lys, input_name)
-    ly_outdated = \
-     filter (lambda x: is_derived_class (x.__class__,
-                       Lilypond_snippet)
-              and x.ly_is_outdated (),
-         chunks)
-    texstr_outdated = \
-     filter (lambda x: is_derived_class (x.__class__,
-                       Lilypond_snippet)
-              and x.texstr_is_outdated (),
-         chunks)
-    png_outdated = \
-     filter (lambda x: is_derived_class (x.__class__,
-                       Lilypond_snippet)
-              and x.png_is_outdated (),
-         chunks)
+    ly_outdated = filter (lambda x: is_derived_class (x.__class__,
+                                                      Lilypond_snippet)
+                          and x.ly_is_outdated (), chunks)
+    texstr_outdated = filter (lambda x: is_derived_class (x.__class__,
+                                                          Lilypond_snippet)
+                              and x.texstr_is_outdated (),
+                              chunks)
+    png_outdated = filter (lambda x: is_derived_class (x.__class__,
+                                                        Lilypond_snippet)
+                           and x.png_is_outdated (),
+                           chunks)
 
+    outdated = png_outdated + texstr_outdated + ly_outdated
+    
     progress (_ ("Writing snippets..."))
     map (Lilypond_snippet.write_ly, ly_outdated)
     progress ('\n')
 
-    if ly_outdated:
+    if outdated:
         progress (_ ("Processing..."))
         progress ('\n')
         process_snippets (global_options.process_cmd, ly_outdated, texstr_outdated, png_outdated)
