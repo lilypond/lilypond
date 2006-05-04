@@ -1,3 +1,9 @@
+2006-05-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (write-preamble): new function.
+	(write-preamble): load mac fonts via fondu, even if gs-font-load
+	is set.
+
 2006-05-03  Werner Lemberg  <wl@gnu.org>
 
 	* mf/GNUmakefile (FC_FIND): Fix typo.
