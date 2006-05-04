@@ -1,5 +1,7 @@
 2006-05-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* mf/GNUmakefile (NCSB_OTFS): remove old ncsb detection further.
+
 	* configure.in (LINK_GXX_STATICALLY): fix for ncsb detection.
 
 	* lily/include/constrained-breaking.hh: GCC 4 fix.
