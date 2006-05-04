@@ -89,7 +89,7 @@ webdir = $(lilypond_docdir)/html
 vimdir = $(lilypond_datadir)/vim
 
 
-NCSB_DIR = @NCSB_DIR@
+NCSB_SOURCE_FILES = @NCSB_SOURCE_FILES@
 
 ################################################################
 ## PROGRAMS

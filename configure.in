@@ -80,7 +80,6 @@ STEPMAKE_PYTHON_DEVEL(REQUIRED)
 STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, OPTIONAL, 8.15)
 
 STEPMAKE_PROGS(MFTRACE, mftrace, REQUIRED, 1.1.19)
-STEPMAKE_PROGS(FCMATCH, fc-match, OPTIONAL, 2.1.0)
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20050624)
 
 AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h wchar.h])
@@ -104,17 +103,32 @@ if test "$reloc_b" = "yes"; then
     AC_DEFINE(ARGV0_RELOCATION)
 fi
 
+AC_CHECK_PROG(FCMATCH, fc-match, fc-match)
 AC_MSG_CHECKING([New Century Schoolbook PFB files])
-
+AC_SUBST(NCSB_SOURCE_FILES)
 if test "$NCSB_DIR" != "" ;  then
-  if  test ! -f "$NCSB_DIR/c059016l.pfb"; then
-      AC_MSG_WARN($NCSB_DIR does not contain c059033l.pfb. Use --with-ncsb-dir)
+  NCSB_SOURCE_FILES=""
+  for f in c059013l c059016l c059033l c059036l; do
+    if test ! -f "$NCSB_DIR/$f.pfb"; then
+      AC_MSG_WARN($NCSB_DIR does not contain $f.pfb.)
+    else
+      NCSB_SOURCE_FILES="$NCSB_DIR/$f.pfb $NCSB_SOURCE_FILES"
+    fi
+  done
+else
+  if test "$FCMATCH" != ""; then
+    echo $FCMATCH
+    for style in Roman Italic "Bold Italic" Bold; do
+      NCSB_FILE=`$FCMATCH --verbose 'Century Schoolbook L:style=$(1)' | grep 'file:' | sed 's/.*"\([^"]*\)".*/\1/g'`
+      NCSB_SOURCE_FILES="$NCSB_FILE $NCSB_SOURCE_FILES"
+    done
+  else
+    AC_MSG_RESULT(not found)
+    echo "Can't find Century Schoolbook files. Install FontConfig's fc-match,"
+    echo "or use --with-ncsb-dir"
   fi
 fi
-
-
-AC_MSG_RESULT($NCSB_DIR)
-AC_SUBST(NCSB_DIR)
+AC_MSG_RESULT($NCSB_SOURCE_FILES)
 
 HOST_ARCH=`$CC -dumpmachine`
 AC_SUBST(HOST_ARCH)
