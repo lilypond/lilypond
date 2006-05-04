@@ -1,5 +1,7 @@
 2006-05-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* configure.in (LINK_GXX_STATICALLY): fix for ncsb detection.
+
 	* lily/include/constrained-breaking.hh: GCC 4 fix.
 
 2006-05-04  Joe Neeman  <joeneeman@gmail.com>
