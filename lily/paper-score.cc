@@ -29,7 +29,7 @@ Paper_score::Paper_score (Output_def *layout)
   layout_ = layout;
   system_ = 0;
   systems_ = SCM_EOL;
-  paper_systems_ = SCM_EOL;
+  paper_systems_ = SCM_BOOL_F;
 }
 
 Paper_score::Paper_score (Paper_score const &s)
@@ -60,15 +60,20 @@ Paper_score::typeset_system (System *system)
 }
 
 
-vector<int>
+vector<vsize>
 Paper_score::find_break_indices () const
 {
   vector<Grob*> all = root_system ()->columns ();
-  vector<int> retval;
+  vector<vsize> retval;
 
   for (vsize i = 0; i < all.size (); i++)
-    if (Item::is_breakable (all[i]))
-      retval.push_back (i);
+    {
+      Item *it = dynamic_cast<Item*> (all[i]);
+      if (Item::is_breakable (all[i])
+	  && (i == 0 || it->find_prebroken_piece (LEFT))
+	  && (i == all.size () - 1 || it->find_prebroken_piece (RIGHT)))
+	retval.push_back (i);
+    }
 
   return retval;
 }
@@ -79,7 +84,9 @@ Paper_score::calc_breaking ()
 {
   Break_algorithm *algorithm = 0;
   vector<Column_x_positions> sol;
-  
+
+  message (_ ("Calculating line breaks...") + " ");
+
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
     {
@@ -116,11 +123,6 @@ Paper_score::process ()
   pc.back ()->set_property ("breakable", SCM_BOOL_T);
 
   system_->pre_processing ();
-
-  vector<Column_x_positions> breaking = calc_breaking ();
-  system_->break_into_pieces (breaking);
-
-  paper_systems_ = system_->get_paper_systems ();
 }
 
 System *
@@ -136,8 +138,15 @@ Paper_score::layout () const
 }
 
 SCM
-Paper_score::get_paper_systems () const
+Paper_score::get_paper_systems ()
 {
+  if (paper_systems_ == SCM_BOOL_F)
+    {
+      vector<Column_x_positions> breaking = calc_breaking ();
+      system_->break_into_pieces (breaking);
+      message (_ ("Drawing systems...") + " ");
+      paper_systems_ = system_->get_paper_systems ();
+    }
   return paper_systems_;
 }
 

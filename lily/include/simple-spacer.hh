@@ -17,55 +17,65 @@ struct Spring_description
 {
   Real ideal_;
   Real inverse_hooke_;
-  bool is_active_;
   Real block_force_;
 
   Real length (Real force) const;
   Spring_description ();
 
   bool is_sane () const;
+
+  bool operator> (const Spring_description &s) const
+  {
+    return block_force_ > s.block_force_;
+  }
+
+  bool operator< (const Spring_description &s) const
+  {
+    return block_force_ < s.block_force_;
+  }
 };
 
 class Simple_spacer
 {
 public:
-  vector<Spring_description> springs_;
-  Real force_;
-  Real indent_;
-  Real line_len_;
-  Real default_space_;
-  int active_count_;
-
   Simple_spacer ();
 
-  void my_solve_linelen ();
-  void my_solve_natural_len ();
-  Real active_springs_stiffness () const;
-  Real range_stiffness (int, int) const;
+  void solve (Real line_len, bool ragged);
   void add_rod (int l, int r, Real dist);
   void add_spring (Real, Real);
   Real range_ideal_len (int l, int r) const;
-  Real active_blocking_force ()const;
-  Real configuration_length ()const;
-  void set_active_states ();
-  bool is_active () const;
+  Real range_stiffness (int l, int r) const;
+  Real configuration_length () const;
+  vector<Real> spring_positions () const;
+
+  Real force ();
+  bool fits ();
 
   DECLARE_SIMPLE_SMOBS (Simple_spacer,);
-};
 
-struct Simple_spacer_wrapper
-{
-  Simple_spacer *spacer_;
-  vector<Grob*> spaced_cols_;
-  vector<Grob*> loose_cols_;
-
-  Simple_spacer_wrapper ();
-  void add_columns (vector<Grob*> const &);
-  void solve (Column_x_positions *, bool);
-  ~Simple_spacer_wrapper ();
 private:
-  Simple_spacer_wrapper (Simple_spacer_wrapper const &);
+  Real expand_line ();
+  Real compress_line ();
+  Real rod_force (int l, int r, Real dist);
+
+  vector<Spring_description> springs_;
+  Real line_len_;
+  Real force_;
+  bool ragged_;
+  bool fits_;
 };
+
+/* returns a vector of dimensions breaks.size () * breaks.size () */
+vector<Real> get_line_forces (vector<Grob*> const &columns,
+			      vector<vsize> breaks,
+			      Real line_len,
+			      Real indent,
+			      bool ragged);
+
+Column_x_positions get_line_configuration (vector<Grob*> const &columns,
+					   Real line_len,
+					   Real indent,
+					   bool ragged);
 
 #endif /* SIMPLE_SPACER_HH */
 

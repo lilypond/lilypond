@@ -82,23 +82,19 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
       if (0 == sys && j > 0)
         break; /* the first line cannot have its first break after the beginning */
 
-      Column_x_positions const *cur = &cols_[(j + start_col)*cols_rank_ + brk];
-      Column_x_positions const *prev = NULL;
+      Line_details const &cur = lines_[(j + start_col)*lines_rank_ + brk];
+      Real prev_f = 0;
       Real prev_dem = 0;
 
       if (sys > 0)
         {
-          prev = st[(sys-1) * rank + j].line_config_;
+          prev_f = st[(sys-1) * rank + j].details_.force_;
           prev_dem = st[(sys-1) * rank + j].demerits_;
         }
       if (isinf (prev_dem))
         break;
 
-      Real dem;
-      Real force;
-      Real pen;
-      combine_demerits (prev, cur, &force, &pen, &dem);
-      dem += prev_dem;
+      Real dem = combine_demerits (cur.force_, prev_f) + prev_dem + cur.break_penalty_;
       if (isinf (dem))
         continue;
 
@@ -107,10 +103,8 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
         {
           found_something = true;
           st[k].demerits_ = dem;
-          st[k].force_ = force;
-          st[k].penalty_ = pen;
+          st[k].details_ = cur;
           st[k].prev_ = j;
-          st[k].line_config_ = cur;
         }
     }
   return found_something;
@@ -137,23 +131,12 @@ Constrained_breaking::space_line (vsize i, vsize j)
   Column_x_positions col;
 
   vector<Grob*> line (all_.begin () + breaks_[i],
-                      all_.begin() + breaks_[j] + 1);
-
-  line[0] = dynamic_cast<Item *> (line[0])->find_prebroken_piece (RIGHT);
-  line.back () = dynamic_cast<Item *> (line.back ())->find_prebroken_piece (LEFT);
-
-  col.cols_ = line;
-
-  /* we have no idea what line this will be -- only whether it is the first */
+		      all_.begin() + breaks_[j] + 1);
   Interval line_dims = line_dimensions_int (pscore_->layout (), i);
-  Simple_spacer_wrapper *sp = generate_spacing_problem (line, line_dims);
-
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
-  sp->solve (&col, ragged);
 
-  delete sp;
-  return col;
+  return get_line_configuration (line, line_dims[RIGHT] - line_dims[LEFT], line_dims[LEFT], ragged);
 }
 
 void
@@ -163,18 +146,47 @@ Constrained_breaking::resize (vsize systems)
 
   if (!breaks_.size () && pscore_)
     {
+      Output_def *l = pscore_->layout ();
+      Real extent = scm_to_double (l->c_variable ("system-height"));
+      Real padding = scm_to_double (l->c_variable ("between-system-padding"));
+      Real space = scm_to_double (l->c_variable ("between-system-space"));
+      bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
+      bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
+
+      Interval first_line = line_dimensions_int (pscore_->layout (), 0);
+      Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
       /* do all the rod/spring problems */
       breaks_ = pscore_->find_break_indices ();
-      cols_rank_ = breaks_.size ();
+      lines_rank_ = breaks_.size ();
       all_ = pscore_->root_system ()->columns ();
-      cols_.resize (breaks_.size () * breaks_.size ());
+      lines_.resize (breaks_.size () * breaks_.size ());
+      vector<Real> forces = get_line_forces (all_,
+					     breaks_,
+					     other_lines.length (),
+					     other_lines.length () - first_line.length (),
+					     ragged_right);
       for (vsize i = 0; i < breaks_.size () - 1; i++)
+	{
           for (vsize j = i + 1; j < breaks_.size (); j++)
             {
-              cols_[i*cols_rank_ + j] = space_line (i, j);
-              if (!cols_[i*cols_rank_ + j].satisfies_constraints_)
+	      bool last = j == breaks_.size () - 1;
+	      bool ragged = ragged_right || (last && ragged_last);
+              int k = i*lines_rank_ + j;
+	      SCM pen = all_[breaks_[j]]->get_property ("penalty");
+	      if (scm_is_number (pen))
+		lines_[k].break_penalty_ = scm_to_double (pen);
+
+              lines_[k].force_ = forces[k];
+              lines_[k].extent_ = extent;
+              lines_[k].padding_ = padding;
+              lines_[k].space_ = space;
+              lines_[k].inverse_hooke_ = 3; // FIXME: somewhat arbitrary
+	      if (ragged && lines_[k].force_ < 0)
+		lines_[k].force_ = infinity_f;
+              if (isinf (lines_[k].force_))
                 break;
             }
+	}
 
       /* work out all the starting indices */
       for (vsize i = 0; i < start_.size (); i++)
@@ -208,6 +220,7 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
 {
   vsize rank;
   vsize end_brk;
+  vsize start_brk = starting_breakpoints_[start];
   prepare_solution (start, end, sys_count, &rank, &end_brk);
 
   vector<Constrained_break_node> const &st = state_[start];
@@ -218,7 +231,7 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
-          if (!isinf (st[sys*rank + brk].force_))
+          if (!isinf (st[sys*rank + brk].details_.force_))
             {
               if (brk != end_brk)
                 {
@@ -228,9 +241,10 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
               /* build up the good solution */
               for (vsize cur_sys = sys; cur_sys != VPOS; cur_sys--)
                 {
+		  vsize prev_brk = st[cur_sys*rank + brk].prev_;
                   assert (brk != VPOS);
-                  ret.push_back( *st[cur_sys*rank + brk].line_config_ );
-                  brk = st[cur_sys*rank + brk].prev_;
+                  ret.push_back (space_line (prev_brk + start_brk, brk + start_brk));
+                  brk = prev_brk;
                 }
               reverse (ret);
               return ret;
@@ -243,76 +257,21 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
   return ret;
 }
 
-Real
-Constrained_breaking::get_demerits (vsize start, vsize end, vsize sys_count)
-{
-  vsize rank;
-  vsize brk;
-  prepare_solution (start, end, sys_count, &rank, &brk);
-
-  return state_[start][(sys_count-1)*rank + brk].demerits_;
-}
-
-Real
-Constrained_breaking::get_force (vsize start, vsize end, vsize sys_count)
+std::vector<Line_details>
+Constrained_breaking::get_details (vsize start, vsize end, vsize sys_count)
 {
   vsize rank;
   vsize brk;
   prepare_solution (start, end, sys_count, &rank, &brk);
   vector<Constrained_break_node> const &st = state_[start];
-  Real f = 0;
+  vector<Line_details> ret;
 
   for (int sys = sys_count-1; sys >= 0 && brk != VPOS; sys--)
     {
-      f += fabs (st[sys*rank + brk].force_);
+      ret.push_back (st[sys*rank + brk].details_);
       brk = st[sys*rank + brk].prev_;
     }
-  if (brk == VPOS)
-    f = infinity_f;
-
-  return f;
-}
-
-Real
-Constrained_breaking::get_penalty (vsize start, vsize end, vsize sys_count)
-{
-  vsize rank;
-  vsize brk;
-  prepare_solution (start, end, sys_count, &rank, &brk);
-
-  return state_[start][(sys_count-1)*rank + brk].penalty_;
-}
-
-Real
-Constrained_breaking::get_page_penalty (vsize start, vsize end, vsize sys_count, vsize sys_num, bool turn)
-{
-  vsize rank;
-  vsize brk;
-  prepare_solution (start, end, sys_count, &rank, &brk);
-
-  vsize sys;
-  for (sys = sys_count-1; sys > sys_num; sys--)
-      brk = state_[start][sys*rank + brk].prev_;
-
-  if (brk == VPOS) /* we didn't satisfy constraints */
-    return 0;
-  vector<Grob*> const &cols = state_[start][sys*rank + brk].line_config_->cols_;
-  if (cols.empty ())
-    return 0;
-
-  Grob const *pc = cols.back ();
-  if (pc->original ())
-    {
-      SCM pen = pc->get_property ("page-penalty");
-      SCM turn_pen = pc->get_property ("page-turn-penalty");
-      Real ret = 0;
-      if (!turn && scm_is_number (pen) && fabs (scm_to_double (pen)) < 10000)
-	ret = scm_to_double (pen);
-      if (turn && scm_is_number (turn_pen) && fabs (scm_to_double (turn_pen)) < 10000)
-        ret = scm_to_double (turn_pen);
-      return ret;
-    }
-  return 0;
+  return ret;
 }
 
 int
@@ -332,7 +291,7 @@ Constrained_breaking::get_min_systems (vsize start, vsize end)
         {
           resize (sys_count + 3);
         }
-      if (!isinf (st[sys_count*rank + brk].force_))
+      if (!isinf (st[sys_count*rank + brk].details_.force_))
         return sys_count + 1;
     }
   /* no possible breaks satisfy constraints */
@@ -367,37 +326,15 @@ Constrained_breaking::Constrained_breaking ()
   start_.push_back (0);
 }
 
-Constrained_breaking::Constrained_breaking (vector<int> const &start)
+Constrained_breaking::Constrained_breaking (vector<vsize> const &start)
   : start_ (start)
 {
   valid_systems_ = systems_ = 0;
 }
 
-void
-Constrained_breaking::combine_demerits (Column_x_positions const *prev,
-                                        Column_x_positions const *col,
-                                        Real *force,
-                                        Real *penalty,
-                                        Real *demerits) const
+Real
+Constrained_breaking::combine_demerits (Real force, Real prev_force)
 {
-  Real prev_f = prev ? prev->force_ : 0;
-
-  *penalty = 0;
-  if (col->cols_.empty () || !col->satisfies_constraints_)
-    *force = infinity_f;
-  else
-    {
-      *force = col->force_;
-
-      Grob *pc = col->cols_.back ();
-      if (pc->original ())
-        {
-          SCM pen = pc->get_property ("penalty");
-          if (scm_is_number (pen) && fabs (scm_to_double (pen)) < 10000)
-            *penalty += scm_to_double (pen);
-        }
-    }
-
-  *demerits = (*force) * (*force) + abs (prev_f - *force) + *penalty;
+  return force * force + fabs (prev_force - force);
 }
 

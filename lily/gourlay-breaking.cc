@@ -81,7 +81,7 @@ Gourlay_breaking::solve ()
   vector<Grob*> all
     = pscore_->root_system ()->columns ();
 
-  vector<int> breaks = pscore_->find_break_indices ();
+  vector<vsize> breaks = pscore_->find_break_indices ();
 
   Break_node first_node;
   optimal_paths.push_back (first_node);
@@ -105,25 +105,15 @@ Gourlay_breaking::solve ()
       for (vsize start_idx = break_idx; start_idx--;)
 	{
 	  vector<Grob*> line (all.begin () + breaks[start_idx],
-				  all.begin () + breaks[break_idx] + 1);
-
-	  line[0] = dynamic_cast<Item *> (line[0])->find_prebroken_piece (RIGHT);
-	  line.back () = dynamic_cast<Item *> (line.back ())->find_prebroken_piece (LEFT);
-
-	  Column_x_positions cp;
-	  cp.cols_ = line;
+			      all.begin () + breaks[break_idx] + 1);
 
 	  Interval line_dims
 	    = line_dimensions_int (pscore_->layout (), optimal_paths[start_idx].line_);
-	  Simple_spacer_wrapper *sp = generate_spacing_problem (line, line_dims);
 	  bool last_line = break_idx == breaks.size () - 1;
-	  bool ragged = ragged_right
-	    || (last_line && ragged_last);
+	  bool ragged = ragged_right || (last_line && ragged_last);
 
-	  sp->solve (&cp, ragged);
-
-	  delete sp;
-
+	  Column_x_positions cp = get_line_configuration (line, line_dims[RIGHT] - line_dims[LEFT],
+							  line_dims[LEFT], ragged);
 	  if (ragged && last_line)
 	    cp.force_ = 0.0;
 

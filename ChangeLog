@@ -1,3 +1,36 @@
+2006-05-04  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/simple-spacer.cc: Remove class Simple_spacer_wrapper.
+	Replace it with functions get_line_forces and get_line_configuration.
+	(class Simple_spacer): Make data private.
+	Rewrite compression algorithm to be faster and simpler.
+
+	* lily/simple-spacer-scheme.cc (ly_solve_rod_and_spring_problem):
+	* lily/gourlay-breaking.cc (solve):
+	* lily/constrained_breaking.cc (space_line):
+	Change it to the new simple-spacer code.
+
+	* lily/paper-score.cc (get_paper_systems):
+	(Paper_score):
+	(process):
+	Delay breaking the systems until they are requested.
+	(find_break_indices):
+	Use vsize for indices.
+	(calc_breaking):
+	Move the "Calculating line breaks" message here.
+
+	* lily/system.cc (pre_processing):
+	Move the "Calculating line breaks" message away from here.
+	(break_into_pieces):
+	Allow multiple calls to this function in sequence (with touching-but-
+	not-overlapping breakpoints).
+
+	* lily/constrained-breaking.cc:
+	Replace most of the get_XXXX functions with get_line_details.
+	Only calculate the force for each line. Calculate configurations only
+	for the lines we will actually use.
+	Replace cols_ with lines_.
+
 2006-05-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-ps.scm (write-preamble): new function.
