@@ -204,8 +204,8 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 {
   for (vsize i = 0; i < breaking.size (); i++)
     {
-      System *system = dynamic_cast<System *> (clone (i));
-      system->rank_ = i;
+      System *system = dynamic_cast<System *> (clone (broken_intos_.size ()));
+      system->rank_ = broken_intos_.size ();
 
       vector<Grob*> c (breaking[i].cols_);
       pscore_->typeset_system (system);
@@ -285,9 +285,6 @@ System::pre_processing ()
       Grob *g = all_elements_->grob (i);
       (void) g->get_property ("before-line-breaking");
     }
-
-  message (_ ("Calculating line breaks..."));
-  progress_indication (" ");
 
   for (vsize i = 0; i < all_elements_->size (); i++)
     {

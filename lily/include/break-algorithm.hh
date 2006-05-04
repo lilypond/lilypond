@@ -27,8 +27,6 @@ protected:
   void solve_line (Column_x_positions *) const;
   bool feasible (vector<Grob*> const &) const;
 
-  Simple_spacer_wrapper *generate_spacing_problem (vector<Grob*> const &,
-						   Interval) const;
 public:
   virtual ~Break_algorithm ();
   Simple_spacer *(*get_line_spacer) ();

@@ -53,29 +53,11 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
       spacer.add_rod (l, r, distance);
     }
 
-  spacer.line_len_ = scm_to_double (length);
+  spacer.solve (scm_to_double (length), is_ragged);
 
-  if (is_ragged)
-    spacer.my_solve_natural_len ();
-  else
-    spacer.my_solve_linelen ();
+  vector<Real> posns = spacer.spring_positions ();
 
-  vector<Real> posns;
-  posns.push_back (0.0);
-  for (vsize i = 0; i < spacer.springs_.size (); i++)
-    {
-      Real l = spacer.springs_[i].length ((is_ragged) ? 0.0 : spacer.force_);
-      posns.push_back (posns.back () + l);
-    }
-
-  SCM force_return = SCM_BOOL_F;
-  if (!isinf (spacer.force_)
-      && (spacer.is_active () || is_ragged))
-    force_return = scm_from_double (spacer.force_);
-
-  if (is_ragged
-      && posns.back () > spacer.line_len_)
-    force_return = SCM_BOOL_F;
+  SCM force_return = spacer.fits () ? scm_from_double (spacer.force ()) : SCM_BOOL_F;
 
   SCM retval = SCM_EOL;
   for (vsize i = posns.size (); i--;)

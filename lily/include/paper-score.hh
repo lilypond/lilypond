@@ -29,8 +29,8 @@ public:
 
   void typeset_system (System *);
   vector<Column_x_positions> calc_breaking ();
-  vector<int> find_break_indices () const;
-  SCM get_paper_systems () const;
+  vector<vsize> find_break_indices () const;
+  SCM get_paper_systems ();
 protected:
   virtual void process ();
   virtual void derived_mark () const;
