@@ -20,7 +20,7 @@ enum Fordfor {
 
 struct Line_details {
   Real force_;
-  Real extent_;   /* Y-exent of the system */
+  Real extent_;   /* Y-extent of the system */
   Real padding_;  /* compulsory space after this system (if we're not last on a page) */
   Real space_;    /* spring length (stretches over extent_ but not over padding_) */
   Real inverse_hooke_;
@@ -32,7 +32,7 @@ struct Line_details {
   Real page_penalty_;
   Real turn_penalty_;
 
-  Line_details::Line_details ()
+  Line_details ()
   {
     force_ = infinity_f;
     extent_ = 0;
