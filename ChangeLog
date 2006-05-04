@@ -33,6 +33,12 @@
 
 2006-05-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile (depth): remove FC_FIND.
+
+	* config.make.in (NCSB_SOURCE_FILES): subst NCSB_SOURCE_FILES
+
+	* configure.in (LINK_GXX_STATICALLY): call fc-match from within configure.
+
 	* scm/framework-ps.scm (write-preamble): new function.
 	(write-preamble): load mac fonts via fondu, even if gs-font-load
 	is set.
