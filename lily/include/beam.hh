@@ -40,6 +40,28 @@ struct Beam_quant_parameters
   void fill (Grob *him);
 };
 
+
+struct Beam_segment
+{
+  int vertical_count_;
+  Interval horizontal_; 
+  Beam_segment ();
+};
+
+struct Beam_stem_segment 
+{
+  Beam_stem_segment ();
+  Grob *stem_;
+  Real width_;
+  Real stem_x_;
+  int rank_;
+  int stem_index_;
+  Direction dir_;
+};
+
+
+bool operator <(Beam_stem_segment const &a, Beam_stem_segment const &b);
+
 class Beam
 {
 public:
@@ -55,7 +77,8 @@ public:
   static Real get_beam_translation (Grob *me);
   static Real get_thickness (Grob *me);
   static void connect_beams (Grob *me);
-
+  static vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common); 
+  
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));

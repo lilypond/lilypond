@@ -12,6 +12,12 @@
 	
 2006-05-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/beam.cc (get_beam_segments): new function. Reorganise the
+	construction of a beam. 
+	(print): rewrite. 
+
+	* flower/include/std-vector.hh (default_compare): use only one comparison.
+
 	* scm/define-markup-commands.scm (note-by-number): remove debug display.
 	(note-by-number): further attachment fixes.
 
