@@ -71,8 +71,8 @@ The @code{\note} markup command now also accepts note head styles.
 
 @lilypond[ragged-right,fragment,relative=2]
 c4^\markup {
-  \override #'(style . triangle) \note #2 #1 #1
-  = 100
+  \override #'(style . triangle) \note-by-number #2 #1 #1 = 100
+
 }
 @end lilypond
 

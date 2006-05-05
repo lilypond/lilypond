@@ -1201,7 +1201,7 @@ figured bass notation"
 					  (string-append "flags."
 							 (if (> dir 0) "u" "d")
 							 (number->string log)))
-                       (cons (+ attachx (/ stem-thickness 2)) stemy)))))
+                       (cons (+ (car attach-off) (/ stem-thickness 2)) stemy)))))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
     (if (ly:stencil? stem-glyph)
