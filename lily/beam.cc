@@ -47,6 +47,24 @@
 #include "font-interface.hh" // debug output.
 #endif
 
+#include <map>
+
+
+Beam_stem_segment::Beam_stem_segment ()
+{
+  stem_ = 0;
+  width_ = 0.0;
+  stem_x_ = 0.0;
+  rank_ = 0;
+  stem_index_ = 0;
+  dir_ = CENTER;
+}
+
+Beam_segment::Beam_segment ()
+{
+  vertical_count_ = 0;
+}
+
 void
 Beam::add_stem (Grob *me, Grob *s)
 {
@@ -273,36 +291,153 @@ Beam::calc_beaming (SCM smob)
   return SCM_EOL;
 }
 
-/*
-  I really enjoy spaghetti, but spaghetti should be kept on a plate
-  with a little garlic and olive oil. This is too much.
+bool
+operator <(Beam_stem_segment const &a,
+	   Beam_stem_segment const &b)
+{
+  return a.rank_ < b.rank_;
+}
 
-  rewrite-me
-*/
-MAKE_SCHEME_CALLBACK (Beam, print, 1);
+typedef map<int, vector<Beam_stem_segment> >  Position_stem_segments_map; 
+
+vector<Beam_segment>
+Beam::get_beam_segments (Grob *me_grob, Grob **common)
+{
+  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+
+  extract_grob_set (me, "stems", stems);
+  Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
+
+  commonx = me->get_bound (LEFT)->common_refpoint (commonx, X_AXIS);
+  commonx = me->get_bound (RIGHT)->common_refpoint (commonx, X_AXIS);
+
+  *common = commonx;
+  
+  Position_stem_segments_map stem_segments;
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+
+  for (vsize i = 0; i < stems.size (); i++)
+    {
+      Grob *stem = stems[i];
+      Real stem_width = robust_scm2double (stem->get_property ("thickness"), 1.0) * lt;
+      Real stem_x = stem->relative_coordinate (commonx, X_AXIS);
+      SCM beaming = stem->get_property ("beaming");
+      Direction d = LEFT;
+      do
+	{
+	  for (SCM s = index_get_cell (beaming, d);
+	       scm_is_pair (s); s = scm_cdr (s))
+	    {
+	      if (!scm_is_integer (scm_car (s)))
+		continue;
+	      
+	      Beam_stem_segment seg;
+	      seg.stem_ = stem;
+	      seg.stem_x_ = stem_x;
+	      seg.rank_ = 2 * i  + (d+1)/2;
+	      seg.width_ = stem_width;
+	      seg.stem_index_ = i;
+	      seg.dir_ = d;
+	      stem_segments[scm_to_int (scm_car (s))].push_back (seg);
+	    }
+	}
+      while (flip (&d) != LEFT);
+    }
+
+  Drul_array<Real> break_overshoot
+    = robust_scm2drul (me->get_property ("break-overshoot"),
+		       Drul_array<Real> (-0.5, 0.0));
+
+  vector<Beam_segment> segments;
+  for (Position_stem_segments_map::const_iterator i (stem_segments.begin ());
+       i != stem_segments.end (); i++)
+    {
+      vector<Beam_stem_segment> segs = (*i).second;
+      vector_sort (segs, default_compare);
+
+      Beam_segment current;
+      current.vertical_count_ = (*i).first;
+      for (vsize j = 0; j < segs.size (); j++)
+	{
+	  /*
+	    event_dir == LEFT: left edge of a beamsegment.
+	   */
+	  Direction event_dir = LEFT;
+	  do
+	    {
+	      Drul_array<bool> on_bound (j == 0 && event_dir==LEFT,
+					 j == segs.size() - 1 && event_dir==RIGHT);
+	      Drul_array<bool> inside (j > 0, j < segs.size()-1);
+	      bool event = on_bound[event_dir]
+		|| abs (segs[j].rank_ - segs[j+event_dir].rank_) > 1;
+	      
+	      if (!event)
+		continue;
+
+	      current.vertical_count_ = (*i).first;
+	      current.horizontal_[event_dir] = segs[j].stem_x_;
+	      if (segs[j].dir_ == event_dir)
+		{
+		  if (on_bound[event_dir] && me->get_bound (event_dir)->break_status_dir ())
+		    {
+		      current.horizontal_[event_dir] += event_dir * break_overshoot[event_dir];
+		    }
+		  else
+		    {
+		      Real notehead_width = 
+			Stem::duration_log (segs[j].stem_) == 1
+			? 1.98 : 1.32; // URG.
+		      
+		      if (inside[event_dir])
+			notehead_width = min (notehead_width,
+					      fabs (segs[j+ event_dir].stem_x_
+						    - segs[j].stem_x_)/2);
+		      
+		      current.horizontal_[event_dir] += event_dir * notehead_width;
+		    }
+		}
+	      else
+		{
+		  current.horizontal_[event_dir] += event_dir * segs[j].width_/2;
+		}
+
+	      if (event_dir == RIGHT)
+		{
+		  current.vertical_count_ = (*i).first;
+		  segments.push_back (current);
+		  current = Beam_segment();
+		}
+	    }
+	  while (flip (&event_dir) != LEFT);
+	}
+      
+    }
+
+  return segments;
+}
+
+MAKE_SCHEME_CALLBACK(Beam, print, 1);
 SCM
 Beam::print (SCM grob)
 {
   Spanner *me = unsmob_spanner (grob);
-
-  extract_grob_set (me, "stems", stems);
-  Grob *xcommon = common_refpoint_of_array (stems, me, X_AXIS);
-
-  xcommon = me->get_bound (LEFT)->common_refpoint (xcommon, X_AXIS);
-  xcommon = me->get_bound (RIGHT)->common_refpoint (xcommon, X_AXIS);
+  Grob *commonx = 0;
+  vector<Beam_segment> segments = get_beam_segments (me, &commonx);
 
   Real x0, dx;
   if (visible_stem_count (me))
     {
-      // ugh -> use commonx
-      x0 = first_visible_stem (me)->relative_coordinate (xcommon, X_AXIS);
-      dx = last_visible_stem (me)->relative_coordinate (xcommon, X_AXIS) - x0;
+      x0 = first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
+      dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS) - x0;
     }
   else
     {
-      x0 = stems[0]->relative_coordinate (xcommon, X_AXIS);
-      dx = stems.back ()->relative_coordinate (xcommon, X_AXIS) - x0;
+      extract_grob_set (me, "stems", stems);      
+      x0 = stems[0]->relative_coordinate (commonx, X_AXIS);
+      dx = stems.back ()->relative_coordinate (commonx, X_AXIS) - x0;
     }
+
+  Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   SCM posns = me->get_property ("quantized-positions");
   Drul_array<Real> pos;
@@ -320,181 +455,26 @@ Beam::print (SCM grob)
   Real slope = (dy && dx) ? dy / dx : 0;
 
   Real thick = get_thickness (me);
-  Real bdy = get_beam_translation (me);
-
-  SCM last_beaming = SCM_EOL;
-  Real last_xposn = -1;
-  Real last_stem_width = -1;
-
-  Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
+  Real beam_dy = get_beam_translation (me);
+  
 
   Stencil the_beam;
-  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-
-  for (vsize i = 0; i <= stems.size (); i++)
+  for (vsize i = 0; i < segments.size (); i ++)
     {
-      Grob *stem = (i < stems.size ()) ? stems[i] : 0;
+      Stencil b = Lookup::beam (slope, segments[i].horizontal_.length (), thick, blot);
 
-      SCM this_beaming = stem ? stem->get_property ("beaming") : SCM_EOL;
-      Real xposn = stem ? stem->relative_coordinate (xcommon, X_AXIS) : 0.0;
-      Real stem_width = stem ? robust_scm2double (stem->get_property ("thickness"), 1.0) * lt : 0;
-      Direction stem_dir = stem ? to_dir (stem->get_property ("direction")) : CENTER;
-      /*
-	We do the space left of ST, with lfliebertjes pointing to the
-	right from the left stem, and rfliebertjes pointing left from
-	right stem.
-      */
-      SCM left = (i > 0) ? scm_cdr (last_beaming) : SCM_EOL;
-      SCM right = stem ? scm_car (this_beaming) : SCM_EOL;
-
-      vector<int> full_beams;
-      vector<int> lfliebertjes;
-      vector<int> rfliebertjes;
-
-      for (SCM s = left;
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  int b = scm_to_int (scm_car (s));
-	  if (scm_c_memq (scm_car (s), right) != SCM_BOOL_F)
-	    full_beams.push_back (b);
-	  else
-	    lfliebertjes.push_back (b);
-	}
-      for (SCM s = right;
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  int b = scm_to_int (scm_car (s));
-	  if (scm_c_memq (scm_car (s), left) == SCM_BOOL_F)
-	    rfliebertjes.push_back (b);
-	}
-
-      Drul_array<Real> break_overshoot
-	= robust_scm2drul (me->get_property ("break-overshoot"),
-			   Drul_array<Real> (-0.5, 0.0));
-
-      Real w = (i > 0 && stem)
-	? (xposn - last_xposn)
-	: break_overshoot[ (i == 0) ? LEFT : RIGHT];
-
-      Real stem_offset = 0.0;
-      if (i > 0)
-	{
-	  w += last_stem_width / 2;
-	  stem_offset = -last_stem_width / 2;
-	}
-
-      if (stem)
-	w += stem_width / 2;
-
-      Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
-      Stencil whole = Lookup::beam (slope, w, thick, blot);
-      Stencil gapped;
-
-      int gap_count = 0;
-      if (scm_is_number (me->get_property ("gap-count")))
-	{
-	  gap_count = scm_to_int (me->get_property ("gap-count"));
-	  gapped = Lookup::beam (slope, w - 2 * gap_length, thick, blot);
-
-	  vector_sort (full_beams, default_compare);
-	  if (stem_dir == UP)
-	    reverse (full_beams);
-	}
-
-      int k = 0;
-      for (vsize j = full_beams.size (); j--;)
-	{
-	  Stencil b (whole);
-
-	  if (k++ < gap_count)
-	    {
-	      b = gapped;
-	      b.translate_axis (gap_length, X_AXIS);
-	    }
-	  b.translate_axis (last_xposn - x0 + stem_offset, X_AXIS);
-	  b.translate_axis (slope * (last_xposn - x0) + bdy * full_beams[j], Y_AXIS);
-
-	  the_beam.add_stencil (b);
-	}
-
-      if (lfliebertjes.size () || rfliebertjes.size ())
-	{
-	  Real nw_f;
-
-	  if (stem)
-	    {
-	      int t = Stem::duration_log (stem);
-	      // ugh. hardcoded.
-	      if (t == 1)
-		nw_f = 1.98;
-	      else
-		nw_f = 1.32;
-	    }
-	  else
-	    nw_f = break_overshoot[RIGHT] / 2;
-
-	  /* Half beam should be one note-width,
-	     but let's make sure two half-beams never touch */
-	  Real lw = nw_f;
-	  Real rw = nw_f;
-	  if (i > 0)
-	    rw = min (nw_f, ((xposn - last_xposn) / 2));
-	  else
-	    {
-	      if (me->get_bound (LEFT)->break_status_dir ())
-		rw = xposn - me->get_bound (LEFT)->extent (xcommon, X_AXIS)[RIGHT]
-		  + break_overshoot[LEFT];
-	      else
-		rw = 1.0; 	// ugh.
-	    }
-	  
-	  if (stem)
-	    lw = min (nw_f, ((xposn - last_xposn) / 2));
-	  else
-	    {
-	      lw = me->get_bound (RIGHT)->relative_coordinate (xcommon, X_AXIS)
-		- last_xposn
-		+ break_overshoot[RIGHT];
-	    }
-	  rw += stem_width / 2;
-	  lw += last_stem_width / 2;
-
-	  Stencil rhalf = Lookup::beam (slope, rw, thick, blot);
-	  Stencil lhalf = Lookup::beam (slope, lw, thick, blot);
-	  for (vsize j = lfliebertjes.size (); j--;)
-	    {
-	      Stencil b (lhalf);
-	      b.translate_axis (last_xposn - x0 - last_stem_width /2,
-				X_AXIS);
-	      b.translate_axis (slope * (last_xposn - x0)
-				+ bdy * lfliebertjes[j],
-				Y_AXIS);
-	      the_beam.add_stencil (b);
-	    }
-	  for (vsize j = rfliebertjes.size (); j--;)
-	    {
-	      Stencil b (rhalf);
-	      b.translate_axis (xposn - x0 - rw + stem_width / 2, X_AXIS);
-	      b.translate_axis (slope * (xposn - x0 - rw)
-				+ bdy * rfliebertjes[j], Y_AXIS);
-	      the_beam.add_stencil (b);
-	    }
-	}
-
-      last_xposn = xposn;
-      last_stem_width = stem_width;
-      last_beaming = this_beaming;
+      b.translate_axis (segments[i].horizontal_[LEFT], X_AXIS);
+      b.translate_axis (slope * (segments[i].horizontal_[LEFT] - x0)
+			+ beam_dy * segments[i].vertical_count_, Y_AXIS);
+      the_beam.add_stencil (b);      
     }
-
-  the_beam.translate_axis (x0 - me->relative_coordinate (xcommon, X_AXIS),
-			   X_AXIS);
-  the_beam.translate_axis (pos[LEFT], Y_AXIS);
-
+	 
 #if (DEBUG_BEAM_SCORING)
   SCM quant_score = me->get_property ("quant-score");
   SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"));
   if (to_boolean (debug) && scm_is_string (quant_score))
     {
+      extract_grob_set (me, "stems", stems);      
 
       /*
 	This code prints the demerits for each beam. Perhaps this
@@ -514,9 +494,11 @@ Beam::print (SCM grob)
     }
 #endif
 
+  the_beam.translate_axis (pos[LEFT], Y_AXIS);
+  the_beam.translate_axis (-me->relative_coordinate (commonx, X_AXIS), X_AXIS);
   return the_beam.smobbed_copy ();
 }
-
+ 
 Direction
 Beam::get_default_dir (Grob *me)
 {
