@@ -26,9 +26,6 @@ using namespace std;
 #include "staff-symbol.hh"
 #include "warn.hh"
 
-/*
-  clean up the mess left by ledger line handling.
-*/
 static Stencil
 internal_print (Grob *me, string *font_char)
 {
@@ -47,20 +44,21 @@ internal_print (Grob *me, string *font_char)
   Font_metric *fm = Font_interface::get_default_font (me);
 
   string idx = "noteheads.s" + suffix;
-
   Stencil out = fm->find_by_name (idx);
   if (out.is_empty ())
     {
       string prefix = "noteheads.";
+
       Grob *stem = unsmob_grob (me->get_object ("stem"));
       Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
-
+      
       if (stem_dir == CENTER)
 	programming_error ("must have stem dir for note head");
-
+      
       idx = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
       out = fm->find_by_name (idx);
     }
+
 
   if (out.is_empty ())
     {
@@ -107,15 +105,9 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   return off [a];
 }
 
-MAKE_SCHEME_CALLBACK(Note_head, calc_stem_attachment, 1);
-SCM
-Note_head::calc_stem_attachment (SCM smob)
+Offset
+Note_head::get_stem_attachment (Font_metric *fm, string key)
 {
-  Grob *me  = unsmob_grob (smob);
-  Font_metric *fm = Font_interface::get_default_font (me);
-  string key;
-  internal_print (me, &key);
-
   Offset att;
   
   int k = fm->name_to_index (key);
@@ -135,9 +127,20 @@ Note_head::calc_stem_attachment (SCM smob)
 	}
     }
 
-  return ly_offset2scm (att);
+  return att;
 }
 
+MAKE_SCHEME_CALLBACK(Note_head, calc_stem_attachment, 1);
+SCM
+Note_head::calc_stem_attachment (SCM smob)
+{
+  Grob *me  = unsmob_grob (smob);
+  Font_metric *fm = Font_interface::get_default_font (me);
+  string key;
+  internal_print (me, &key);
+
+  return ly_offset2scm (get_stem_attachment (fm, key));
+}
 
 int
 Note_head::get_balltype (Grob *me)

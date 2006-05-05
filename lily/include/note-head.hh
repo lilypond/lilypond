@@ -26,6 +26,8 @@ public:
   static bool has_interface (Grob *);
   static Real stem_attachment_coordinate (Grob *, Axis a);
   static int get_balltype (Grob *);
+
+  static Offset get_stem_attachment (Font_metric *, string);
 };
 #endif // NOTEHEAD_HH
 

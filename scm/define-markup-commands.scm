@@ -1146,24 +1146,51 @@ figured bass notation"
 (define-markup-command (note-by-number layout props log dot-count dir) (number? number? number?)
   "Construct a note symbol, with stem.  By using fractional values for
 @var{dir}, you can obtain longer or shorter stems."
+  (define (get-glyph-name-candidates dir log style)
+    (map (lambda (dir-name)
+     (format "noteheads.~a~a~a" dir-name (min log 2)
+	     (if (and (symbol? style)
+		      (not (equal? 'default style)))
+		 (symbol->string style)
+		 "")))
+	 (list (if (= dir UP) "u" "d")
+	       "s")))
+		   
+  (define (get-glyph-name font cands)
+    (if (null? cands)
+     ""
+     (if (ly:stencil-empty? (ly:font-get-glyph font (car cands)))
+	 (get-glyph-name font (cdr cands))
+	 (car cands))))
+    
   (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)) props)))
-	 (size (chain-assoc-get 'font-size props 0))
-         (stem-length (* (magstep size) (max 3 (- log 1))))
-         (head-glyph (ly:font-get-glyph
-		      font
-		      (string-append "noteheads.s" (number->string (min log 2)))))
-         (stem-thickness 0.13) ;; TODO: should scale with font-size. 
+	 (size-factor (magstep (chain-assoc-get 'font-size props 0)))
+	 (style (chain-assoc-get 'style props '()))
+         (stem-length (*  size-factor (max 3 (- log 1))))
+         (head-glyph-name (get-glyph-name font (get-glyph-name-candidates dir log style)))
+         (head-glyph (ly:font-get-glyph font head-glyph-name))
+	 (attach-indices (offset-scale
+			  (ly:note-head::stem-attachment font head-glyph-name) dir))
+	 
+         (stem-thickness (* size-factor 0.13))
          (stemy (* dir stem-length))
-         (attachx (if (> dir 0)
-                      (- (cdr (ly:stencil-extent head-glyph X)) stem-thickness)
-                      0))
-         (attachy (* (magstep size) (* dir 0.28)))
+         (attach-off (cons (interval-index
+			    (ly:stencil-extent head-glyph X)
+			    (car attach-indices))
+			   (interval-index
+			    (ly:stencil-extent head-glyph Y)
+			    (cdr attach-indices))))
+	 (foo (display (list "attach idx" attach-indices " ext "
+			     (ly:stencil-extent head-glyph X))))
+
+
          (stem-glyph (and (> log 0)
 			  (ly:round-filled-box
-			   (cons attachx (+ attachx  stem-thickness))
-			   (cons (min stemy attachy)
-				 (max stemy attachy))
+			   (ordered-cons (car attach-off) (+ (car attach-off)  (* (- dir) stem-thickness)))
+			   (cons (min stemy (cdr attach-off))
+				 (max stemy (cdr attach-off)))
 			   (/ stem-thickness 3))))
+	 
          (dot (ly:font-get-glyph font "dots.dot"))
          (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
