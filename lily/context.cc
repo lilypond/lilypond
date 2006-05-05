@@ -96,6 +96,7 @@ Context::Context (Object_key const *key)
   accepts_list_ = SCM_EOL;
   context_list_ = SCM_EOL;
   definition_ = SCM_EOL;
+  unique_ = -1;
 
   smobify_self ();
 
@@ -236,6 +237,7 @@ Context::create_context (Context_def *cdef,
   Context *new_context
     = cdef->instantiate (ops, key);
 
+  new_context->unique_ = get_global_context()->new_unique();
   new_context->id_string_ = id;
   add_context (new_context);
   apply_property_operations (new_context, ops);

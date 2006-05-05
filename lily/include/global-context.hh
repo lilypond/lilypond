@@ -16,6 +16,7 @@ class Global_context : public virtual Context
 {
   PQueue<Moment> extra_mom_pq_;
   Output_def *output_def_;
+  int unique_count_;
 
   DECLARE_CLASSNAME(Global_context);
 
@@ -39,6 +40,7 @@ public:
   virtual Moment now_mom () const;
   virtual Context *get_default_interpreter ();
 
+  int new_unique ();
   Moment previous_moment () const;
 protected:
   Moment final_mom_;

@@ -223,6 +223,7 @@ The syntax is the same as `define*-public'."
 	  ;; load-from-path
 	  '("lily-library.scm"
 	    "file-cache.scm"
+	    "define-event-classes.scm"
 	    "define-music-types.scm"
 	    "output-lib.scm"
 	    "c++.scm"
