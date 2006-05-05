@@ -443,6 +443,7 @@ def define_triangle_shape (expr stemdir) =
 		       & {direction infinity of triangle_out_c}z1'l
 		       .. cycle;
 
+
 	labels (0, 10, 20, 30);
 	penlabels (1, 1', 2, 2', 3, 3', 12, 23, 31);
 
@@ -452,7 +453,7 @@ def define_triangle_shape (expr stemdir) =
 		charwx := xpart exact_right_point + .5 pen_thick# * xs;
 	else:
 		charwy := -ypart exact_down_point;
-		charwx := (width# - xpart exact_down_point + xs * pen_thick#);
+		charwx := (width# - (xpart exact_down_point - 0.5 * xs * pen_thick#));
 	fi
 enddef;
 
