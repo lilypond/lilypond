@@ -1,3 +1,8 @@
+2006-05-04  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/baer-flat-bw.png: backport remove alpha
+	channel	to permit printing on windows.
+
 2006-05-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PATCH_LEVEL): bump version.
