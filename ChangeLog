@@ -1,3 +1,21 @@
+2006-05-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/lily-library.scm (ordered-cons): new function.
+	(interval-index): new function
+
+	* lily/note-head-scheme.cc (LY_DEFINE): new file.
+
+	* lily/note-head.cc (get_stem_attachment): new function.
+
+	* scm/define-markup-commands.scm (note-by-number): read 'style
+	property. 
+	
+
+	* input/regression/markup-note.ly: show note-head style option.
+
+	* mf/feta-bolletjes.mf (overdone_heads): fix attachment points for
+	triangle head.
+
 2006-05-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* mf/GNUmakefile (NCSB_OTFS): remove old ncsb detection further.
