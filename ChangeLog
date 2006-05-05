@@ -1,5 +1,7 @@
 2006-05-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-markup-commands.scm (note-by-number): remove debug display.
+
 	* scm/lily-library.scm (ordered-cons): new function.
 	(interval-index): new function
 
