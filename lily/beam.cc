@@ -313,9 +313,14 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 
   *common = commonx;
   
+  int gap_count = robust_scm2int (me->get_property ("gap-count"), 0);
+  Real gap_length = robust_scm2double (me->get_property ("gap"), 0.0);
+
   Position_stem_segments_map stem_segments;
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
+  Slice ranks;
+  
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
@@ -330,7 +335,18 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	    {
 	      if (!scm_is_integer (scm_car (s)))
 		continue;
-	      
+
+	      int beam_rank = scm_to_int (scm_car (s));
+	      ranks.add_point (beam_rank);
+	    }
+	  
+	  for (SCM s = index_get_cell (beaming, d);
+	       scm_is_pair (s); s = scm_cdr (s))
+	    {
+	      if (!scm_is_integer (scm_car (s)))
+		continue;
+	  
+	      int beam_rank = scm_to_int (scm_car (s));
 	      Beam_stem_segment seg;
 	      seg.stem_ = stem;
 	      seg.stem_x_ = stem_x;
@@ -338,7 +354,11 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      seg.width_ = stem_width;
 	      seg.stem_index_ = i;
 	      seg.dir_ = d;
-	      stem_segments[scm_to_int (scm_car (s))].push_back (seg);
+	      Direction stem_dir = get_grob_direction (stem);
+	      
+	      seg.gapped_
+		= (stem_dir * beam_rank < (stem_dir * ranks[-stem_dir] + gap_count));
+	      stem_segments[beam_rank].push_back (seg);
 	    }
 	}
       while (flip (&d) != LEFT);
@@ -399,6 +419,8 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      else
 		{
 		  current.horizontal_[event_dir] += event_dir * segs[j].width_/2;
+		  if (segs[j].gapped_)
+		    current.horizontal_[event_dir] -= event_dir * gap_length;  
 		}
 
 	      if (event_dir == RIGHT)

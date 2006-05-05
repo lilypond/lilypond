@@ -56,6 +56,7 @@ struct Beam_stem_segment
   Real stem_x_;
   int rank_;
   int stem_index_;
+  bool gapped_;
   Direction dir_;
 };
 
