@@ -1180,9 +1180,6 @@ figured bass notation"
 			   (interval-index
 			    (ly:stencil-extent head-glyph Y)
 			    (cdr attach-indices))))
-	 (foo (display (list "attach idx" attach-indices " ext "
-			     (ly:stencil-extent head-glyph X))))
-
 
          (stem-glyph (and (> log 0)
 			  (ly:round-filled-box
