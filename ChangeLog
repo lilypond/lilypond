@@ -1,3 +1,8 @@
+2006-05-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/include/beam.hh (struct Beam_stem_segment): add gapped_ for
+	tremolo beams.
+
 2006-05-05  Erik Sandberg  <mandolaerik@gmail.com>
 	* lily/context.cc, lily/global-context.cc: Added 'unique' member,
 	used by music streams.
