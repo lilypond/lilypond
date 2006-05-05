@@ -28,6 +28,8 @@ Global_context::Global_context (Output_def *o, Moment final, Object_key *key)
   output_def_ = o;
   final_mom_ = final;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));
+  unique_count_ = 0;
+  unique_ = 0;
 
   Context_def *globaldef = unsmob_context_def (definition_);
   if (!globaldef)
@@ -203,4 +205,10 @@ Global_context::get_default_interpreter ()
     return get_score_context ()->get_default_interpreter ();
   else
     return Context::get_default_interpreter ();
+}
+
+int
+Global_context::new_unique ()
+{
+  return ++unique_count_;
 }

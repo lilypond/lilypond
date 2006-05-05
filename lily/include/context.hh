@@ -31,6 +31,7 @@ private:
   bool init_;
 
 protected:
+  int unique_;
   Context *daddy_context_;
   SCM definition_;
   Context_key_manager key_manager_;
@@ -54,6 +55,7 @@ public:
   string id_string () const { return id_string_; }
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
+  int get_unique() { return unique_; }
 
   Translator_group *implementation () const { return implementation_; }
   Context *get_parent_context () const;
