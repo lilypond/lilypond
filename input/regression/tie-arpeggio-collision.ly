@@ -10,7 +10,7 @@ unarpegiated case."
 
 \version "2.9.3"
 
-\version "2.8.1"
+
 \layout { ragged-right = ##t }
 \new Staff \relative c'' {
   <e c a f>2~ <e c a f> |

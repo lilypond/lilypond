@@ -66,8 +66,34 @@ which scares away people.
 
 @end ignore
 
+@item
+The @code{\note} markup command now also accepts note head styles.
 
-@item 
+@lilypond[ragged-right,fragment,relative=2]
+c4^\markup {
+  \override #'(style . triangle) \note #2 #1 #1
+  = 100
+}
+@end lilypond
+
+This feature was sponsored by Jamie Bullock.
+
+@item
+Tie chord formatting also works with arpegiated
+ties.
+
+@lilypond[ragged-right]
+\relative c'' {
+  <e c a f>2~ <e c a f> |
+  \set tieWaitForNote = ##t
+  e8~ c~ a~ f~ <e' c a f>2 |
+  f,8~ a~ c~ e~ <f, a c e>2 |
+}
+@end lilypond
+
+
+This feature was sponsored by Steve Doonan.
+
 
 @end itemize
 
