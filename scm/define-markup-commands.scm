@@ -1169,21 +1169,20 @@ figured bass notation"
          (stem-length (*  size-factor (max 3 (- log 1))))
          (head-glyph-name (get-glyph-name font (get-glyph-name-candidates dir log style)))
          (head-glyph (ly:font-get-glyph font head-glyph-name))
-	 (attach-indices (offset-scale
-			  (ly:note-head::stem-attachment font head-glyph-name) dir))
-	 
+	 (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
          (stem-thickness (* size-factor 0.13))
          (stemy (* dir stem-length))
          (attach-off (cons (interval-index
 			    (ly:stencil-extent head-glyph X)
-			    (car attach-indices))
-			   (interval-index
-			    (ly:stencil-extent head-glyph Y)
-			    (cdr attach-indices))))
-
+			    (* dir (car attach-indices)))
+			   (* dir	; fixme, this is inconsistent between X & Y.
+			      (interval-index
+			       (ly:stencil-extent head-glyph Y)
+			       (cdr attach-indices)))))
          (stem-glyph (and (> log 0)
 			  (ly:round-filled-box
-			   (ordered-cons (car attach-off) (+ (car attach-off)  (* (- dir) stem-thickness)))
+			   (ordered-cons (car attach-off)
+					 (+ (car attach-off)  (* (- dir) stem-thickness)))
 			   (cons (min stemy (cdr attach-off))
 				 (max stemy (cdr attach-off)))
 			   (/ stem-thickness 3))))

@@ -14,7 +14,8 @@
 
 message "******************************************************";
 message "Using feta Autometric macros.";
-message "Do not worry about the @ signs in the output, they are not errors.";
+message "order of messages: ";
+message " NAME/CODE/BP/WD/DP/HT/WX/WY";
 message "******************************************************";
 message "";
 
