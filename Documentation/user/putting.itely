@@ -78,9 +78,9 @@ as a duet.  Within the @code{\score} section, we don't need two
 @code{\layout} or @code{\midi}.
 
 If we simply cut and paste the @code{melody} section, we would end up with
-two @code{melody} sections.  So let's rename them.  We'll call the one
-for the soprano @code{sopranoMusic}, and the one for the cello can be
-called @code{celloMusic}.  While we're doing this, let's rename @code{text}
+two @code{melody} sections.  So let's rename them.  We'll call the section
+for the soprano @code{sopranoMusic} and the section for the cello
+@code{celloMusic}.  While we're doing this, let's rename @code{text}
 to be @code{sopranoLyrics}.  Remember to rename both instances of all
 these names -- both the initial definition (the
 @code{melody = relative c' @{ } part) and the name's use (in the
@@ -136,7 +136,7 @@ want the cello part to appear under the soprano part, we need to add
 @noindent
 underneath the soprano stuff.  We also need to add @code{<<} and
 @code{>>} around the music -- that tells LilyPond that there's
-more than one thing (in this case staff) happening at once.  The
+more than one thing (in this case, @code{Staff}) happening at once.  The
 @code{\score} looks like this now
 
 @example
@@ -324,9 +324,9 @@ We didn't skip over it at all.  The big mystery is simply
 that there @emph{is} no mystery.  This line explains it
 all:
 
-@example
-A @code{\score} must begin with a single music expression.
-@end example
+@quotation
+@emph{A @code{\score} must begin with a single music expression.}
+@end quotation
 
 @noindent
 You may find it useful to review

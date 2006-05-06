@@ -905,6 +905,11 @@ The following example uses different commands for entering lyrics.
 The second stanza is not properly aligned because the durations
 were not specified.  A solution for that would be to use @code{\lyricsto}.
 
+
+
+
+
+
 To define indentifiers containing lyrics, the function @code{lyricmode}
 must be used.
 

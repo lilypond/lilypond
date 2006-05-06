@@ -17,20 +17,24 @@ particular effect.
 The controls available for tuning are described in a separate
 document, the
 @iftex
-Program reference
+Program reference manual.
 @end iftex
 @ifnottex
 @ref{Top,Program reference,,lilypond-internals}.
 @end ifnottex
-manual.  That manual
+That manual
 lists all different variables, functions and options available in
 LilyPond.  It is written as a HTML document, which is available
-@uref{http://@/lilypond@/.org/@/doc/@/v2.7/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
+@uref{http://@/lilypond@/.org/@/doc/@/v2.8/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
 but is also included with the LilyPond documentation package.
 
-There are three areas where the default settings may be changed:
+There are four areas where the default settings may be changed:
 
 @itemize @bullet
+@item
+Automatic notation: changing the automatic creation of notation
+elements.  For example, changing the beaming rules.
+
 @item
 Output: changing the appearance of individual
 objects.  For example, changing stem directions or the location of
@@ -42,12 +46,9 @@ notation.  For example, giving each staff a separate time signature.
   
 @item
 Global layout: changing the appearance of the spacing, line
-breaks, and page dimensions.
+breaks, and page dimensions.  These modifications are discussed
+in @ref{Global issues}.
 @end itemize
-
-Then there are separate systems for typesetting text (like
-@emph{ritardando}) and selecting different fonts.  This chapter also
-discusses these.
 
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
@@ -58,17 +59,327 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 
 
 @menu
+* Automatic notation::          
 * Interpretation contexts::     
 * The \override command::       
 @end menu
 
  
+@node Automatic notation
+@section Automatic notation
+
+This section describes how to change the way that accidentals and
+beams are automatically displayed.
+
+@menu
+* Automatic accidentals::       
+* Setting automatic beam behavior::  
+@end menu
+
+@node Automatic accidentals
+@subsection Automatic accidentals
+@cindex Automatic accidentals
+
+Common rules for typesetting accidentals have been placed in a
+function.  This function is called as follows
+
+@cindex @code{set-accidental-style}
+@example
+#(set-accidental-style 'STYLE #('CONTEXT#))
+@end example
+
+The function can take two arguments: the name of the accidental style,
+and an optional argument that denotes the context that should be
+changed.  If no context name is supplied, @code{Staff} is the default,
+but you may wish to apply the accidental style to a single @code{Voice}
+instead.
+
+The following accidental styles are supported
+@table @code
+@item default
+This is the default typesetting behavior.  It corresponds
+to 18th century common practice: Accidentals are
+remembered to the end of the measure in which they occur and
+only on their own octave.
+
+@item voice
+The normal behavior is to remember the accidentals on
+Staff-level.  This variable, however, typesets accidentals
+individually for each voice.  Apart from that, the rule is similar to
+@code{default}.
+
+As a result, accidentals from one voice do not get canceled in other
+voices, which is often an unwanted result
+
+@lilypond[quote,ragged-right,relative=1,fragment,verbatim]
+\new Staff <<
+  #(set-accidental-style 'voice)
+  <<
+    { es g } \\
+    { c, e }
+>> >>
+@end lilypond
+
+The @code{voice} option should be used if the voices
+are to be read solely by individual musicians.  If the staff is to be
+used by one musician (e.g., a conductor) then
+@code{modern} or @code{modern-cautionary}
+should be used instead.
+
+@item modern
+@cindex @code{modern} style accidentals
+This rule corresponds to the common practice in the 20th century.  This rule
+prints the same accidentals as @code{default}, but temporary
+accidentals also are canceled in other octaves.  Furthermore,
+in the same octave, they also get canceled in the following
+measure
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+#(set-accidental-style 'modern)
+cis' c'' cis'2 | c'' c'
+@end lilypond
+
+@item @code{modern-cautionary}
+@cindex @code{modern-cautionary}
+This rule is similar to @code{modern}, but the ``extra'' accidentals
+(the ones not typeset by @code{default}) are typeset as cautionary
+accidentals.  They are printed in reduced size or with parentheses
+@lilypond[quote,ragged-right,fragment,verbatim]
+#(set-accidental-style 'modern-cautionary)
+cis' c'' cis'2 | c'' c'
+@end lilypond
+
+@cindex @code{modern-voice}
+@item modern-voice
+This rule is used for multivoice accidentals to be read both by musicians
+playing one voice and musicians playing all voices.  Accidentals are
+typeset for each voice, but they @emph{are} canceled across voices in
+the same @internalsref{Staff}.
+
+@cindex @code{modern-voice-cautionary}
+@item modern-voice-cautionary
+This rule is the same as @code{modern-voice}, but with the extra
+accidentals (the ones not typeset by @code{voice}) typeset
+as cautionaries.  Even though all accidentals typeset by
+@code{default} @emph{are} typeset by this variable,
+some of them are typeset as cautionaries.
+
+@item piano
+@cindex @code{piano} accidentals
+This rule reflects 20th century practice for piano notation.  Very similar to
+@code{modern} but accidentals also get canceled
+across the staves in the same @internalsref{GrandStaff} or
+@internalsref{PianoStaff}.
+
+@item piano-cautionary
+@cindex @code{#(set-accidental-style 'piano-cautionary)}
+Same as @code{#(set-accidental-style 'piano)} but with the extra
+accidentals typeset as cautionaries.
+
+@item no-reset
+@cindex @code{no-reset} accidental style
+This is the same as @code{default} but with accidentals lasting
+``forever'' and not only until the next measure
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+#(set-accidental-style 'no-reset)
+c1 cis cis c
+@end lilypond
+
+@item forget
+This is sort of the opposite of @code{no-reset}: Accidentals
+are not remembered at all---and hence all accidentals are
+typeset relative to the key signature, regardless of what was
+before in the music
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+#(set-accidental-style 'forget)
+\key d\major c4 c cis cis d d dis dis
+@end lilypond
+@end table
+
+
+@seealso
+
+Program reference: @internalsref{Accidental_engraver},
+@internalsref{Accidental}, and @internalsref{AccidentalPlacement}.
+
+
+@refbugs
+
+Simultaneous notes are considered to be entered in sequential
+mode.  This means that in a chord the accidentals are typeset as if the
+notes in the chord happen one at a time, in the order in which
+they appear in the input file.  This is a problem when accidentals
+in a chord depend on each other,
+which does not happen for the default accidental style.  The problem
+can be solved by manually inserting @code{!} and @code{?} for the
+problematic notes.
+
+
+@node Setting automatic beam behavior
+@subsection Setting automatic beam behavior
+
+@cindex @code{autoBeamSettings}
+@cindex @code{(end * * * *)}
+@cindex @code{(begin * * * *)}
+@cindex automatic beams, tuning
+@cindex tuning automatic beaming
+
+@c [TODO: use \applyContext]
+
+In normal time signatures, automatic beams can start on any note but can
+only end in a few positions within the measure: beams can end on a beat,
+or at durations specified by the properties in
+@code{autoBeamSettings}.  The properties in @code{autoBeamSettings}
+consist of a list of rules for where beams can begin and end.  The
+default @code{autoBeamSettings} rules are defined in
+@file{scm/@/auto@/-beam@/.scm}.
+
+In order to add a rule to the list, use
+@example
+#(override-auto-beam-setting '(be p q n m) a b [context])
+@end example
+
+@itemize @bullet
+
+@item @code{be} is either "begin" or "end".
+
+@item @code{p/q} is the duration of the note for which you want
+to add a rule.  A beam is considered to have the duration of its
+shortest note.  Set @code{p} and @code{q} to @code{'*'} to
+have this apply to any beam.
+
+@item @code{n/m} is the time signature to which
+this rule should apply.  Set @code{n} and @code{m} to @code{'*'}
+to have this apply in any time signature.
+
+@item @code{a/b} is the position in the bar at which the beam should begin/end.
+
+@item @code{context} is optional, and it specifies the context at which
+the change should be made.  The default is @code{'Voice}.
+@code{#(score-override-auto-beam-setting '(A B C D) E F)} is equivalent to
+@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}.
+
+@end itemize
+
+For example, if automatic beams should always end on the first quarter
+note, use
+
+@example
+#(override-auto-beam-setting '(end * * * *) 1 4)
+@end example
+
+You can force the beam settings to only take effect on beams whose shortest
+note is a certain duration
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 2/4
+#(override-auto-beam-setting '(end 1 16 * *) 1 16)
+a16 a a a a a a a |
+a32 a a a a16 a a a a a |
+#(override-auto-beam-setting '(end 1 32 * *) 1 16)
+a32 a a a a16 a a a a a |
+@end lilypond
+
+You can force the beam settings to only take effect in certain time
+signatures
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 5/8
+#(override-auto-beam-setting '(end * * 5 8) 2 8)
+c8 c d d d
+\time 4/4
+e8 e f f e e d d
+\time 5/8
+c8 c d d d
+@end lilypond
+
+You can also remove a previously set beam-ending rule by using
+
+@example
+#(revert-auto-beam-setting '(be p q n m) a b [context])
+@end example
+
+@noindent
+be, p, q, n, m, a, b and context are the same as above.  Note that the
+default rules are specified in @file{scm/@/auto@/-beam@/.scm},
+so you can revert rules that you did not explicitly create.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 4/4
+a16 a a a a a a a a a a a a a a a
+#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
+a16 a a a a a a a a a a a a a a a
+@end lilypond
+
+The rule in a revert-auto-beam-setting statement must exactly match the
+original rule.  That is, no wildcard expansion is taken into account.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 1/4
+#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
+a16 a a a
+#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % this won't revert it!
+a a a a
+#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
+a a a a
+@end lilypond
+
+
+
+@c TODO:  old material -- not covered by above stuff, I think.
+If automatic beams should end on every quarter in 5/4 time, specify
+all endings
+@example
+#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
+#(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 5 4 'Staff)
+@dots{}
+@end example
+
+The same syntax can be used to specify beam starting points.  In this
+example, automatic beams can only end on a dotted quarter note
+@example
+#(override-auto-beam-setting '(end * * * *) 3 8)
+#(override-auto-beam-setting '(end * * * *) 1 2)
+#(override-auto-beam-setting '(end * * * *) 7 8)
+@end example
+In 4/4 time signature, this means that automatic beams could end only on
+3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
+3/8, has passed within the measure).
+
+@cindex automatic beam generation
+@cindex autobeam
+@cindex @code{autoBeaming}
+@cindex lyrics
+
+If beams are used to indicate melismata in songs, then automatic
+beaming should be switched off with @code{\autoBeamOff}.
+
+
+@refcommands
+
+@cindex @code{\autoBeamOff}
+@code{\autoBeamOff},
+@cindex @code{\autoBeamOn}
+@code{\autoBeamOn}.
+
+
+@refbugs
+
+If a score ends while an automatic beam has not been ended and is
+still accepting notes, this last beam will not be typeset at all.  The
+same holds polyphonic voices, entered with @code{<< @dots{} \\ @dots{}
+>>}.  If a polyphonic voice ends while an automatic beam is still
+accepting notes, it is not typeset.
+
+
 @node Interpretation contexts
 @section Interpretation contexts
 
 When music is printed, a lot of notational elements must be added to the
-input, which is often bare bones.  For example, compare the input and
-output of the following example:
+input.  For example, compare the input and output of the following example:
 
 @lilypond[quote,verbatim,relative=2,fragment]
 cis4 cis2. g4
@@ -77,28 +388,34 @@ cis4 cis2. g4
 The input is rather sparse, but in the output, bar lines, accidentals,
 clef, and time signature are added.  LilyPond @emph{interprets} the
 input.  During this step, the musical information is inspected in time
-order, similar to reading a score from left to right.  While reading,
-the input, the program remembers where measure boundaries are, and what
-pitches need explicit accidentals.  This information can be presented on
+order, similar to reading a score from left to right.  While reading
+the input, the program remembers where measure boundaries are, and which
+pitches require explicit accidentals.  This information can be presented on
 several levels.  For example, the effect of an accidental is limited
 to a single staff, while a bar line must be synchronized across the
 entire score.
 
 Within LilyPond, these rules and bits of information are grouped in
-so-called Contexts.  Examples of context are @context{Voice},
+@emph{Contexts}.  Some examples of contexts are @context{Voice},
 @context{Staff}, and @context{Score}.  They are hierarchical, for
-example, a @context{Staff} can contain many @context{Voice}s, and a
+example: a @context{Staff} can contain many @context{Voice}s, and a
 @context{Score} can contain many @context{Staff} contexts.
 
 Each context has the responsibility for enforcing some notation rules,
 creating some notation objects and maintaining the associated
-properties.  So, the synchronization of bar lines is handled at
-@context{Score} context.  The @context{Voice} may introduce an
+properties.  For example, the @context{Voice} context may introduce an
 accidental and then the @context{Staff} context maintains the rule to
-show or suppress the accidental for the remainder of the measure.
+show or suppress the accidental for the remainder of the measure.  The
+synchronization of bar lines is handled at @context{Score} context.
 
-For simple scores, contexts are created implicitly, and you need not
-be aware of them.  For larger pieces, such as piano music, they must be
+However, in some music we may not want the bar lines to be
+synchronized -- consider a polymetric score in 4/4 and 3/4 time.  In
+such cases, we must modify the default settings of the @context{Score}
+and @context{Staff} contexts.
+
+For very simple scores, contexts are created implicitly, and you need
+not be aware of them.  For larger pieces, such as anything with more
+than one staff, they must be
 created explicitly to make sure that you get as many staves as you
 need, and that they are in the correct order.  For typesetting pieces
 with specialized notation, it can be useful to modify existing or
@@ -129,10 +446,13 @@ Translation @arrow{} Context.
 @node Creating contexts
 @subsection Creating contexts
 
-For scores with only one voice and one staff, correct contexts are
+For scores with only one voice and one staff, contexts are
 created automatically.  For more complex scores, it is necessary to
 create them by hand.  There are three commands that do this.
 
+@itemize @bullet
+
+@item
 The easiest command is @code{\new}, and it also the quickest to type.
 It is prepended to a music expression, for example
 
@@ -154,8 +474,9 @@ staves.  Each part that should be on its own staff, is preceded with
 @code{\new Staff}.
 
 @lilypond[quote,verbatim,relative=2,ragged-right,fragment]
-<< \new Staff { c4 c }
-   \new Staff { d4 d }
+<<
+  \new Staff { c4 c }
+  \new Staff { d4 d }
 >>
 @end lilypond
 
@@ -167,8 +488,9 @@ The @code{\new} command may also give a name to the context,
 However, this user specified name is only used if there is no other
 context already earlier with the same name.
 
-@cindex @code{\context}
 
+@cindex @code{\context}
+\item
 Like @code{\new}, the @code{\context} command also directs a music
 expression to a context object, but gives the context an explicit name.  The
 syntax is
@@ -178,10 +500,9 @@ syntax is
 @end example
 
 This form will search for an existing context of type @var{type}
-called @var{id}.  If that context does not exist yet, the result is
-identical to @code{\new} @var{type} = @var{id} @var{music}, i.e. 
-a new context with the specified name is created.
-This is useful if the context is referred to later on.  For example, when
+called @var{id}.  If that context does not exist yet, a new
+context with the specified name is created.  This is useful if
+the context is referred to later on.  For example, when
 setting lyrics the melody is in a named context
 
 @example
@@ -197,9 +518,9 @@ so the texts can be properly aligned to its notes,
 
 @noindent
 
-Another possibility is funneling two different music expressions into
-one context.  In the following example, articulations and notes are
-entered separately,
+Another possible use of named contexts is funneling two different
+music expressions into one context.  In the following example,
+articulations and notes are entered separately,
 
 @example
 music = @{ c4 c4 @}
@@ -209,8 +530,9 @@ arts = @{ s4-. s4-> @}
 They are combined by sending both to the same @context{Voice} context,
 
 @example
-<< \new Staff \context Voice = "A" \music
-   \context Voice = "A" \arts
+<<
+  \new Staff \context Voice = "A" \music
+  \context Voice = "A" \arts
 >>
 @end example
 @lilypond[quote,ragged-right]
@@ -228,6 +550,7 @@ same notes.
 
 @cindex creating contexts
 
+@item
 The third command for creating contexts is
 @example
 \context @var{type} @var{music}
@@ -254,6 +577,8 @@ these forms
 \context Score \applyOutput #@var{function}
 \context Staff \applyOutput #@var{function}
 @end example
+
+@end itemize
 
 
 @node Changing context properties on the fly
@@ -429,7 +754,8 @@ example which removes @code{Time_signature_engraver} and
 @code{Clef_engraver} from a @code{Staff} context,
 
 @lilypond[quote,relative=1,verbatim,fragment]
-<< \new Staff {
+<<
+  \new Staff {
     f2 g
   }
   \new Staff \with {
@@ -443,7 +769,8 @@ example which removes @code{Time_signature_engraver} and
 
 In the second staff there are no time signature or clef symbols.  This
 is a rather crude method of making objects disappear since it will affect
-the entire staff.  The spacing is adversely influenced too.  A more
+the entire staff.  This method also influences the spacing, which may or
+may not be desirable.  A more
 sophisticated method of blanking objects is shown in @ref{Common tweaks}.
 
 The next example shows a practical application.  Bar lines and time

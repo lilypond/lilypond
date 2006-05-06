@@ -1,3 +1,10 @@
+2006-05-06  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/putting.itely: proofreading from Dave
+	Luttinen, thanks!
+
+	* Documentation/user/ various: more reorg and clarifications.
+
 2006-05-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* ly/music-functions-init.ly: new function featherDurations
