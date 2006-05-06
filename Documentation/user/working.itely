@@ -515,7 +515,7 @@ prefers.  The top of @file{music.ly} would then look like this:
 
 This approach can be useful even if you are only producing
 one set of parts.  I use half a dozen different
-"style sheet" files for my projects.  I begin every music
+``style sheet'' files for my projects.  I begin every music
 file with @code{\include "../global.ly"}, which contains
 
 @example

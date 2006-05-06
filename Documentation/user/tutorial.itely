@@ -1191,8 +1191,8 @@ More information on formatting piano music is given in @ref{Piano music}.
 @section Organizing larger pieces
 
 When all of the elements discussed earlier are combined to produce
-larger files, the @code{\score} blocks get a lot bigger, because the
-music expressions are longer, and, in the case of polyphonic pieces,
+larger files, the @code{\score} blocks get a lot bigger because the
+music expressions are longer, and, in the case of polyphonic music,
 more deeply nested.  Such large expressions can become unwieldy.
 
 By using variables, also known as identifiers, it is possible to break
@@ -1215,8 +1215,8 @@ seufzer = {
 { \seufzer \seufzer }
 @end lilypond
 
-The name of an identifier should have alphabetic characters only; no
-numbers, underscores or dashes.  The assignment should be outside of
+The name of an identifier should have alphabetic characters only: no
+numbers, underscores, or dashes.  The assignment should be outside of
 running music.
 
 It is possible to use variables for many other types of objects in the
@@ -1303,7 +1303,8 @@ in the following output
 In ensemble pieces, one of the voices often does not play for many
 measures.  This is denoted by a special rest, the multi-measure
 rest.  It is entered with a capital @samp{R} followed by a duration
-(1@tie{}for a whole note, 2@tie{}for a half note, etc.).  By multiplying the
+(@code{1}@tie{}for a whole note, @code{2}@tie{}for a half note,
+etc.).  By multiplying the
 duration, longer rests can be constructed.  For example, this rest
 takes 3@tie{}measures in 2/4 time
 

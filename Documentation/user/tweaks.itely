@@ -323,16 +323,14 @@ want an articulation attached to the second variable, we
 must #####.
 
 @lilypond[quote,verbatim,ragged-right]
-%pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
-%#{
-%  $x e8-. a-. b-. $y-.-> b-. a-. e-.
-%#})
+pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+#{
+  $x e8 a b $y b a e
+#})
 
 \relative c''{
-c'4
-%  \pattern c8 c8
-%  \pattern d8 ais8
-%  \pattern cis8 des8
+  \pattern c8 c8\f
+  \pattern {d16 dis} { ais16-> b\p }
 }
 @end lilypond
 
