@@ -442,10 +442,13 @@ parenthesize =
 
 featherDurations=
 #(define-music-function (parser location factor argument) (ly:moment? ly:music?)
+
+   "Rearrange durations in ARGUMENT so there is an
+acceleration/deceleration. "
+   
    (let*
        ((orig-duration (ly:music-length argument))
-	(multiplier (ly:make-moment 1 1))
-	)
+	(multiplier (ly:make-moment 1 1)))
 
      (music-map 
       (lambda (mus)
@@ -458,7 +461,6 @@ featherDurations=
 	mus)
       argument)
 
-     (display (list (ly:music-length argument) orig-duration))
      (ly:music-compress
       argument
       (ly:moment-div orig-duration (ly:music-length argument)))
