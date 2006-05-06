@@ -95,6 +95,9 @@ similar to chord syntax")
    "."))
 
 
+;; TeX C++ code actually hooks into TEX_STRING_HASHLIMIT 
+(define-public TEX_STRING_HASHLIMIT 10000000)
+
 
 
 ;; gettext wrapper for guile < 1.7.2

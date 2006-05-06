@@ -7,6 +7,8 @@
 
 2006-05-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/lily.scm (TEX_STRING_HASHLIMIT): move from framework-texstr.scm.
+
 	* ly/music-functions-init.ly: new function featherDurations
 
 	* lily/beam.cc: read grow-direction for feathered beaming.
