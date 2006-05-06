@@ -446,23 +446,23 @@ Beam::print (SCM grob)
   Grob *commonx = 0;
   vector<Beam_segment> segments = get_beam_segments (me, &commonx);
 
-  Real x0, dx;
+  Interval span;
   if (visible_stem_count (me))
     {
-      x0 = first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
-      dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS) - x0;
+      span[LEFT] = first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
+      span[RIGHT] = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
     }
   else
     {
       extract_grob_set (me, "stems", stems);      
-      x0 = stems[0]->relative_coordinate (commonx, X_AXIS);
-      dx = stems.back ()->relative_coordinate (commonx, X_AXIS) - x0;
+      span[LEFT] = stems[0]->relative_coordinate (commonx, X_AXIS);
+      span[RIGHT] = stems.back ()->relative_coordinate (commonx, X_AXIS);
     }
 
   Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   SCM posns = me->get_property ("quantized-positions");
-  Drul_array<Real> pos;
+  Interval pos;
   if (!is_number_pair (posns))
     {
       programming_error ("no beam positions?");
@@ -474,19 +474,29 @@ Beam::print (SCM grob)
   scale_drul (&pos, Staff_symbol_referencer::staff_space (me));
 
   Real dy = pos[RIGHT] - pos[LEFT];
-  Real slope = (dy && dx) ? dy / dx : 0;
+  Real slope = (dy && span.length ()) ? dy / span.length ()  : 0;
 
   Real thick = get_thickness (me);
   Real beam_dy = get_beam_translation (me);
-  
 
+  Direction feather_dir = to_dir (me->get_property ("grow-direction"));
+  
   Stencil the_beam;
   for (vsize i = 0; i < segments.size (); i ++)
     {
-      Stencil b = Lookup::beam (slope, segments[i].horizontal_.length (), thick, blot);
+      Real local_slope = slope;
+      if (feather_dir)
+	{
+	  local_slope += feather_dir * segments[i].vertical_count_ * beam_dy / span.length ();
+	}
+      
+      Stencil b = Lookup::beam (local_slope, segments[i].horizontal_.length (), thick, blot);
 
       b.translate_axis (segments[i].horizontal_[LEFT], X_AXIS);
-      b.translate_axis (slope * (segments[i].horizontal_[LEFT] - x0)
+      
+      b.translate_axis (local_slope
+			* (segments[i].horizontal_[LEFT] - span.linear_combination (feather_dir))
+			+ pos.linear_combination (feather_dir)
 			+ beam_dy * segments[i].vertical_count_, Y_AXIS);
       the_beam.add_stencil (b);      
     }
@@ -516,7 +526,6 @@ Beam::print (SCM grob)
     }
 #endif
 
-  the_beam.translate_axis (pos[LEFT], Y_AXIS);
   the_beam.translate_axis (-me->relative_coordinate (commonx, X_AXIS), X_AXIS);
   return the_beam.smobbed_copy ();
 }
@@ -1439,6 +1448,7 @@ ADD_INTERFACE (Beam,
 	       "direction " 
 	       "gap "
 	       "gap-count "
+	       "grow-direction "
 	       "inspect-quants "
 	       "knee "
 	       "length-fraction "

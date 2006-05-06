@@ -438,3 +438,30 @@ parenthesize =
 
    (set! (ly:music-property arg 'parenthesize) #t)
    arg)
+
+
+featherDurations=
+#(define-music-function (parser location factor argument) (ly:moment? ly:music?)
+   (let*
+       ((orig-duration (ly:music-length argument))
+	(multiplier (ly:make-moment 1 1))
+	)
+
+     (music-map 
+      (lambda (mus)
+	(if (and (eq? (ly:music-property mus 'name) 'EventChord)
+		 (< 0 (ly:moment-main-denominator (ly:music-length mus))))
+	    (begin
+	      (ly:music-compress mus multiplier)
+	      (set! multiplier (ly:moment-mul factor multiplier)))
+	    )
+	mus)
+      argument)
+
+     (display (list (ly:music-length argument) orig-duration))
+     (ly:music-compress
+      argument
+      (ly:moment-div orig-duration (ly:music-length argument)))
+
+     argument))
+
