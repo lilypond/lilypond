@@ -13,6 +13,11 @@
   indent = #0.0
 }
 
+%
+% Unfortunately this quickly bumps into overflow problems. Should use
+% a linear decrease instead?
+%
+
 \featherDurations #(ly:make-moment 3 4) \relative c'' {
   \override Beam #'grow-direction = #LEFT
   c16[
