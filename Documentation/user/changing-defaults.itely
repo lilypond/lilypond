@@ -1474,6 +1474,8 @@ Fingering_engraver is part of contexts: @dots{} @b{@internalsref{Voice}}
 @node Objects connected to the input
 @subsection Objects connected to the input
 
+@cindex @code{\tweak}
+
 In some cases, it is possible to take a short-cut for tuning graphical
 objects. For objects that result directly from a piece of the input,
 you can use the @code{\tweak} function, for example
