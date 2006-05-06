@@ -1,5 +1,7 @@
 2006-05-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/beam.cc: read grow-direction for feathered beaming.
+
 	* Documentation/topdocs/NEWS.tely (Top): typo.
 
 2006-05-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
