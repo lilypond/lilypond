@@ -398,15 +398,19 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      current.horizontal_[event_dir] = segs[j].stem_x_;
 	      if (segs[j].dir_ == event_dir)
 		{
-		  if (on_bound[event_dir] && me->get_bound (event_dir)->break_status_dir ())
+		  if (on_bound[event_dir]
+		      && me->get_bound (event_dir)->break_status_dir ())
 		    {
-		      current.horizontal_[event_dir] += event_dir * break_overshoot[event_dir];
+		      current.horizontal_[event_dir]
+			= (me->get_bound (event_dir)->extent (commonx, X_AXIS)[RIGHT]
+			   + event_dir * break_overshoot[event_dir]);
 		    }
 		  else
 		    {
 		      Real notehead_width = 
 			Stem::duration_log (segs[j].stem_) == 1
-			? 1.98 : 1.32; // URG.
+			? 1.98
+			: 1.32; // URG.
 		      
 		      if (inside[event_dir])
 			notehead_width = min (notehead_width,
