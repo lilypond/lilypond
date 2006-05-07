@@ -1,5 +1,8 @@
 2006-05-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-grob-properties.scm (all-internal-grob-properties):
+	remove chord-tremolo property.
+
 	* lily/beam.cc (get_beam_segments): don't use stem position as
 	base for broken ends.
 

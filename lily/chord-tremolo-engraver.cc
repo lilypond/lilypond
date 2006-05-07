@@ -117,8 +117,6 @@ Chord_tremolo_engraver::process_music ()
   if (repeat_ && body_is_sequential_ && !beam_)
     {
       beam_ = make_spanner ("Beam", repeat_->self_scm ());
-      beam_->set_property ("chord-tremolo", SCM_BOOL_T);
-
       beam_start_location_ = robust_scm2moment (get_property ("measurePosition"), Moment (0));
     }
 }

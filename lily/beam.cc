@@ -1445,7 +1445,6 @@ ADD_INTERFACE (Beam,
 	       "beamed-stem-shorten "
 	       "beaming "
 	       "break-overshoot "
-	       "chord-tremolo "
 	       "concaveness "
 	       "damping "
 	       "details "
