@@ -1,3 +1,8 @@
+2006-05-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/beam.cc (get_beam_segments): don't use stem position as
+	base for broken ends.
+
 2006-05-06  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/putting.itely: proofreading from Dave
