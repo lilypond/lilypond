@@ -1,0 +1,537 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@node Working on LilyPond projects
+@chapter Working on LilyPond projects
+
+This section explains a how to solve or avoid certain common
+problems.  If you have programming experience, many of these
+tips may seem obvious, but it is still advisable to read
+this chapter.
+
+
+@menu
+* Suggestions for writing LilyPond files::  
+* Typesetting existing music::  
+* Updating old files::          
+* Troubleshooting (taking it all apart)::  
+* Saving typing with identifiers and functions::  
+* Style sheets::                
+@end menu
+
+
+@node Suggestions for writing LilyPond files
+@section Suggestions for writing LilyPond files
+
+Now you're ready to begin writing larger LilyPond files -- not just the
+little examples in the tutorial, but whole pieces.  But how should you
+go about doing it?
+
+The best answer is ``however you want to do it.''  As long as LilyPond
+can understand your files and produces the output that you want, it
+doesn't matter what your files look like.  That said, sometimes we
+make mistakes when writing files.  If LilyPond can't understand your
+files, or produces output that you don't like, how do you fix the
+problem?
+
+Here are a few suggestions that can help you to avoid or fix
+problems:
+
+@itemize @bullet
+@item @strong{Include @code{\version} numbers in every file}.  Note that all
+templates contain a @code{\version "2.8.0"} string.  We
+highly recommend that you always include the @code{\version}, no matter
+how small your file is.  Speaking from personal experience, it's
+quite frustrating to try to remember which version of LilyPond you were
+using a few years ago.  @code{convert-ly} requires you to declare
+which version of LilyPond you used.
+
+@item @strong{Include checks}: @ref{Bar check} and @ref{Octave check}.  If 
+you
+include checks every so often, then if you make a mistake, you can pinpoint
+it quicker.  How often is ``every so often''?  It depends on the complexity
+of the music.  For very simple music, perhaps just once or twice.  For
+very complex music, perhaps every bar.
+
+@item @strong{One bar per line of text}.  If there is anything complicated, 
+either in the music
+itself or in the output you desire, it's often good to write only one bar
+per line.  Saving screen space by cramming eight bars per line just isn't
+worth it if you have to `debug' your files.
+
+@item @strong{Comment your files}.  Use either bar numbers (every so often) 
+or
+references to musical themes (``second theme in violins,'' ``fourth 
+variation'', etc).  You may not need comments when you're writing the piece
+for the first time, but if you want to go back to change something two or 
+three years later, or if you pass the source over to a friend, it will 
+be much more
+challenging to determine your intentions or how your file is structured if 
+you didn't comment the file.
+
+@item @strong{Indent your braces}.  A lot of problems are caused by an 
+imbalance
+in the number of @code{@{} and @code{@}}.
+
+@end itemize
+
+
+@node Typesetting existing music
+@section Typesetting existing music
+
+If you are entering music from an existing score (i.e., typesetting a
+piece of existing sheet music),
+
+@itemize @bullet
+
+@item Enter one manuscript (the physical copy) system at a time (but still
+only one bar per line of text), and
+check each system when you finish it.  You may use the
+@code{showLastLength} command to speed up processing -- see
+@ref{Skipping corrected music}.
+
+@item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
+in the input file whenever the manuscript has a line break.  This
+makes it much easier to compare the LilyPond music to the original
+music.  When you are finished proofreading your score, you may
+define @code{mBreak = @{ @}} to remove all those line breaks.  This
+will allow LilyPond to place line breaks wherever it feels are
+best.
+
+@end itemize
+
+
+@node Updating old files
+@section Updating old files
+
+The LilyPond input syntax occasionally changes.  As LilyPond itself
+improves, the syntax (input language) is modified accordingly.  Sometimes
+these changes are made to make the input easier to read and write or
+sometimes the changes are made to accomodate new features of LilyPond.
+
+LilyPond comes with a file that makes this updating easier:
+@code{convert-ly}.  For details about how to run this program, see
+@ref{Updating files with convert-ly}.
+
+Unforunately, @code{convert-ly} cannot handle all input changes.  It
+takes care of simple search-and-replace changes (such as @code{raggedright}
+becoming @code{ragged-right}), but some changes are too
+complicated.  The syntax changes that @code{convert-ly} cannot handle
+are listed in @ref{Updating files with convert-ly}.
+
+For example, in LilyPond 2.4 and earlier, accents and non-English
+letters were entered using LaTeX -- for example,
+"@code{No\"el}" (this would print the French word for
+`Christmas').  In LilyPond 2.6 and above, the special
+"@code{ë}" must be entered directly into the LilyPond file as an
+UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
+special characters into UTF-8 characters; you must manually update
+your old LilyPond files.
+
+
+@node Troubleshooting (taking it all apart)
+@section Troubleshooting (taking it all apart)
+
+Sooner or later, you will write a file that LilyPond cannot
+compile.  The messages that LilyPond gives may help
+you find the error, but in many cases you need to do some
+investigation to determine the source of the problem.
+
+The most powerful tools for this purpose are the
+single line comment (indicated by @code{%}) and the block
+comment (indicated by @code{%@{ ... %@}}).  If you don't
+know where a problem is, start commenting out huge portions
+of your input file.  After you comment out a section, try
+compiling the file again.  If it works, then the problem
+must exist in the portion you just commented.  If it doesn't
+work, then keep on commenting out material until you have
+something that works.
+
+In an extreme case, you might end up with only
+
+@example
+\score @{
+  <<
+    % \melody
+    % \harmony
+    % \bass
+  >>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+(in other words, a file without any music)
+
+If that happens, don't give up.  Uncomment a bit -- say,
+the bass part -- and see if it works.  If it doesn't work,
+then comment out all of the bass music (but leave
+@code{\bass} in the @code{\score} uncommented.
+
+@example
+bass = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
+@}
+@end example
+
+Now start slowly uncommenting more and more of the
+@code{bass} part until you find the problem line.
+
+
+@node Saving typing with identifiers and functions
+@section Saving typing with identifiers and functions
+
+By this point, you've seen this kind of thing:
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+You may even realize that this could be useful in minimalist music:
+
+@lilypond[quote,verbatim,ragged-right]
+fragA = \relative c'' { a4 a8. b16 }
+fragB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragA \fragA \fragB \fragA }
+\score {
+  {
+    \violin
+  }
+}
+@end lilypond
+
+However, you can also use these identifiers (also known as
+variables, macros, or (user-defined) command) for tweaks:
+
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup{ \italic \bold dolce }
+padText = { \once \override TextScript #'padding = #5.0 }
+fthenp=_\markup{ \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
+violin = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+\score {
+  {
+    \violin
+  }
+\layout{ragged-right=##t}
+}
+@end lilypond
+
+These identifiers are obviously useful for saving
+typing.  But they're worth considering even if you
+only use them once -- they reduce complexity.  Let's
+look at the previous example without any
+identifiers.  It's a lot harder to read, especially
+the last line.
+
+@example
+violin = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript #'padding = #5.0 
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
+      \hspace #0.1 \dynamic p @} b8 c4 c-. |
+  @}
+@}
+@end example
+
+So far we've seen static substitution -- when LilyPond
+sees @code{\padText}, it replaces it with the stuff that
+we've defined it to be (ie the stuff to the right of
+@code{padtext=}).
+
+LilyPond can handle non-static substitution, too (you
+can think of these as functions).
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+Using identifiers is also a good way to reduce work if the
+LilyPond input syntax changes (see @ref{Updating old files}).  If
+you have a single definition (such as @code{\dolce}) for all your
+files (see @ref{Style sheets}), then if the syntax changes, you
+only need to update your single @code{\dolce} definition,
+instead of making changes throughout every @code{.ly} file.
+
+
+@node Style sheets
+@section Style sheets
+
+The output that LilyPond produces can be heavily modified; see
+@ref{Tweaking output} for details.  But what if you have many
+files that you want to apply your tweaks to?  Or what if you
+simply want to separate your tweaks from the actual music?  This
+is quite easy to do.
+
+Let's look at an example.  Don't worry if you don't understand
+the parts with all the #().  This is explained in
+@ref{Advanced tweaks with scheme}.
+
+@lilypond[quote,verbatim,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup { \bold $markp }
+#})
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+There are some problems with overlapping output; we'll fix those using
+the techniques in @ref{Fixing overlapping notation}.  But let's also
+do something about the @code{mpdolce} and @code{tempoMark}
+definitions.  They produce the output we desire, but we might want
+to use them in another piece.  We could simply copy-and-paste them
+at the top of every file, but that's an annoyance.  It also leaves
+those definitions in our music files, and I personally find all
+the #() somewhat ugly.  Let's hide them in another file:
+
+@example
+%%% save this to a file called "definitions.ly"
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup @{ \bold $markp @}
+#@})
+@end example
+
+Now let's modify our music (let's save this file as @file{"music.ly"}).
+
+@c  We have to do this awkward example/lilypond-non-verbatim
+@c  because we can't do the \include stuff in the manual.
+
+@example
+\include "definitions.ly"
+
+\relative c'' @{
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line(#:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup { \bold $markp }
+#})
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+That looks better, but let's make a few changes.  The glissando is hard
+to see, so let's make it thicker and closer to the noteheads.  Let's
+put the metronome marking above the clef, instead of over the first
+note.  And finally, my composition professor hates "C" time signatures,
+so we'd better make that "4/4" instead.
+
+Don't change @file{music.ly}, though.  Replace our @file{definitions.ly}
+with this:
+
+@example
+%%%  definitions.ly
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup @{ \bold $markp @}
+#@})
+
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+    \override TimeSignature #'style = #'numbered
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup { \bold $markp }
+#})
+
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Staff
+    \override TimeSignature #'style = #'numbered
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+That looks nicer!  But now suppose that I want to publish this
+piece.  My composition professor doesn't like "C" time
+signatures, but I'm somewhat fond of them.  Let's copy the
+current @file{definitions.ly} to @file{web-publish.ly} and
+modify that.  Since this music is aimed at producing a pdf which
+will be displayed on the screen, we'll also increase the
+overall size of the output.
+
+@example
+%%%  definitions.ly
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#@{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup @{ \bold $markp @}
+#@})
+
+#(set-global-staff-size 23)
+\layout@{
+  \context @{ \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  @}
+  \context @{ \Staff
+  @}
+  \context @{ \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
+  #:line( #:dynamic "mp" #:text #:italic "dolce" )))
+tempoMark = #(define-music-function (parser location markp) (string?)
+#{
+  \once \override Score . RehearsalMark #'self-alignment-X = #left
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup { \bold $markp }
+#})
+
+#(set-global-staff-size 23)
+\layout{
+  \context { \Score
+    \override MetronomeMark #'extra-offset = #'(-9 . 0)
+    \override MetronomeMark #'padding = #'3
+  }
+  \context { \Voice
+    \override Glissando #'thickness = #3
+    \override Glissando #'gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a | b4 bes a2
+  \once \override Score.RehearsalMark #'padding = #2.0
+  \tempoMark "Poco piu mosso"
+  cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
+}
+@end lilypond
+
+Now in our music, I simply replace
+@code{\include "definitions.ly"} with
+@code{\include "web-publish.ly"}.  Of course, we could make this
+even more convenient.  We could make a @file{definitions.ly} file which
+contains only the definitions of @code{mpdolce} and @code{tempoMark}, a
+@file{web-publish.ly} file which contains only the @code{\layout}
+section listed above, and a @file{university.ly} file which
+contains only the tweaks to produce the output that my professor
+prefers.  The top of @file{music.ly} would then look like this:
+
+@example
+\include "definitions.ly"
+
+%%%  Only uncomment one of these two lines!
+\include "web-publish.ly"
+%\include "university.ly"
+@end example
+
+This approach can be useful even if you are only producing
+one set of parts.  I use half a dozen different
+``style sheet'' files for my projects.  I begin every music
+file with @code{\include "../global.ly"}, which contains
+
+@example
+%%%   global.ly
+\version "2.8.0"
+#(ly:set-option 'point-and-click #f)
+\include "../init/init-defs.ly"
+\include "../init/init-layout.ly"
+\include "../init/init-headers.ly"
+\include "../init/init-paper.ly"
+@end example
+
+
