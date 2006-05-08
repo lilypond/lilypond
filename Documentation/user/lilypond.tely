@@ -28,7 +28,8 @@
 
 
 @ifhtml
-This document is also available as a @uref{source/Documentation/user/lilypond.pdf,PDF}.
+This document is also available as a 
+@uref{source/Documentation/user/lilypond.pdf,PDF}.
 @end ifhtml
 
 

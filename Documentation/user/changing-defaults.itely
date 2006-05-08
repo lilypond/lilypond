@@ -25,7 +25,8 @@ Program reference manual.
 That manual
 lists all different variables, functions and options available in
 LilyPond.  It is written as a HTML document, which is available
-@uref{http://@/lilypond@/.org/@/doc/@/v2.8/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
+@uref{http://@/lilypond@/.org/@/doc/@/v2.8/@/Documentation/@/user/@/
+lilypond@/-internals/,on@/-line},
 but is also included with the LilyPond documentation package.
 
 There are four areas where the default settings may be changed:
@@ -253,7 +254,8 @@ have this apply to any beam.
 this rule should apply.  Set @code{n} and @code{m} to @code{'*'}
 to have this apply in any time signature.
 
-@item @code{a/b} is the position in the bar at which the beam should begin/end.
+@item @code{a/b} is the position in the bar at which the beam should 
+begin/end.
 
 @item @code{context} is optional, and it specifies the context at which
 the change should be made.  The default is @code{'Voice}.

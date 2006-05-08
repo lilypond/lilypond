@@ -687,7 +687,9 @@ way is to use the @code{\addlyrics} function.
 
 @commonprop
 
-Checking to make sure that text scripts and lyrics are within the margins is a relatively large computational task.  To speed up processing, lilypond does not perform such calculations by default; to enable it, use
+Checking to make sure that text scripts and lyrics are within the margins is 
+a relatively large computational task.  To speed up processing, lilypond does 
+not perform such calculations by default; to enable it, use
 
 @example
 \override Score.PaperColumn #'keep-inside-line = ##t 
@@ -735,7 +737,8 @@ More stanzas can be added by adding more
 \addlyrics { joue le jeu }
 @end lilypond
 
-The command @code{\addlyrics} cannot handle polyphony settings.  For these cases you should use @code{\lyricsto} and @code{\lyricmode}.
+The command @code{\addlyrics} cannot handle polyphony settings.  For these 
+cases you should use @code{\lyricsto} and @code{\lyricmode}.
 
 
 
@@ -762,11 +765,13 @@ explicitly, like in the example above, or by automatically aligning
 the lyrics to a melody or other voice of music, using @code{\addlyrics}
 or @code{\lyricsto}.  For more details see @ref{The Lyrics context}.
 
-A word or syllable of lyrics begins with an alphabetic character, and ends with
+A word or syllable of lyrics begins with an alphabetic character, and ends 
+with
 any space or digit.  The following characters can be any character
 that is not a digit or white space.  One important consequence of this
 is that a word can end with @code{@}}.  The following example is
-usually a mistake in the input file.  The syllable includes a @code{@}}, so the
+usually a mistake in the input file.  The syllable includes a @code{@}}, so 
+the
 opening brace is not balanced
 @example
 \lyricmode @{ twinkle@}
@@ -860,7 +865,8 @@ Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
 @node The Lyrics context
 @subsection The Lyrics context
 
-Lyrics are printed by interpreting them in the context caleld @internalsref{Lyrics}.
+Lyrics are printed by interpreting them in the context caleld 
+@internalsref{Lyrics}.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -1316,7 +1322,8 @@ LyricSpace.
 }
 @end lilypond
 
-To make this change for all lyrics in the score, set the property in the layout.
+To make this change for all lyrics in the score, set the property in the 
+layout.
 
 @lilypond[relative,verbatim,quote,ragged-right]
 \score {
@@ -1428,7 +1435,8 @@ the line, just like instrument names.  They are created by setting
 
 @seealso
 
-Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber}, @internalsref{VocalName}.
+Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber}, 
+@internalsref{VocalName}.
 
 
 
@@ -1958,13 +1966,15 @@ and bass guitar.
 \set TabStaff.stringTunings = #bass-tuning
 @end example
 
-The default string tuning is @code{guitar-tuning} (the standard EADGBE tuning).
+The default string tuning is @code{guitar-tuning} (the standard EADGBE 
+tuning).
 Some other predefined tunings are @code{guitar-open-g-tuning},
 @code{mandolin-tuning} and @code{banjo-open-g-tuning}.
 
 @seealso
 
-The file @file{scm/@/output@/-lib@/.scm} contains the predefined string tunings.
+The file @file{scm/@/output@/-lib@/.scm} contains the predefined string 
+tunings.
 Program reference: @internalsref{Tab_note_heads_engraver}.
 
 @refbugs
@@ -1978,7 +1988,8 @@ No guitar special effects have been implemented.
 @cindex Banjo tablatures
 
 LilyPond has basic support for five stringed banjo.  When making tablatures
-for five stringed banjo, use the banjo tablature format function to get correct
+for five stringed banjo, use the banjo tablature format function to get 
+correct
 fret numbers for the fifth string:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -2426,7 +2437,8 @@ There are no rests in Gregorian Chant notation; instead, it uses
 
 @seealso
 
-In this manual: @ref{Rests} gives a general introduction into the use of rests.
+In this manual: @ref{Rests} gives a general introduction into the use of 
+rests.
 
 
 @node Ancient clefs
@@ -2731,25 +2743,35 @@ following table
 {
   \set Score.timing = ##f
   \set Score.barAlways = ##t
-  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph #"timesig.neomensural44" }
+  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural44" }
   s
-  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph #"timesig.neomensural22" }
+  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph 
+#"timesig.neomensural22" }
   s
-  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph #"timesig.neomensural64" }
+  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural64" }
   s
-  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph #"timesig.neomensural68" }
+  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph 
+#"timesig.neomensural68" }
   \break
-  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph #"timesig.neomensural32" }
+  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph 
+#"timesig.neomensural32" }
   s
-  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph #"timesig.neomensural34" }
+  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural34" }
   s
-  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph #"timesig.neomensural94" }
+  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural94" }
   s
-  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph #"timesig.neomensural98" }
+  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph 
+#"timesig.neomensural98" }
   \break
-  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph #"timesig.neomensural48" }
+  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph 
+#"timesig.neomensural48" }
   s
-  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph #"timesig.neomensural24" }
+  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural24" }
 }
 @end lilypond
 
@@ -4264,7 +4286,8 @@ instead of
 @end example
 
 Accidentals and plus signs can appear before or after the numbers,
-depending on the @code{figuredBassAlterationDirection} and @code{figuredBassPlusDirection}
+depending on the @code{figuredBassAlterationDirection} and 
+@code{figuredBassPlusDirection}
 properties
 
 @lilypond

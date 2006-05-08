@@ -443,25 +443,31 @@ specified.
 Copy and paste from CVS, last updated
 Aug 18, 2005
 
-http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/convert-ly.txt?rev=HEAD&content-type=text/plain
+http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/
+convert-ly.txt?rev=HEAD&content-type=text/plain
 @end ignore
 @verbatim
 
-There are a few things that the convert-ly cannot handle. Here's a list of limitations
+There are a few things that the convert-ly cannot handle. Here's a list of 
+limitations
 that the community has complained about.
 
-This bug report structure has been chosen because convert-ly has a structure that doesn't
-allow to smoothly implement all needed changes. Thus this is just a wishlist, placed
+This bug report structure has been chosen because convert-ly has a structure 
+that doesn't
+allow to smoothly implement all needed changes. Thus this is just a wishlist, 
+placed
 here for reference.
 
 1.6->2.0:
- Doesn't always convert figured bass correctly, specifically things like {< >}. Mats' comment on working around this:
+ Doesn't always convert figured bass correctly, specifically things like {< 
+>}. Mats' comment on working around this:
    To be able to run convert-ly
    on it, I first replaced all occurencies of '{<' to some dummy like '{#'
    and similarly I replaced '>}' with '&}'. After the conversion, I could
    then change back from '{ #' to '{ <' and from '& }' to '> }'.
  Doesn't convert all text markup correctly. In the old markup syntax,
- it was possible to group a number of markup commands together within parentheses, e.g.
+ it was possible to group a number of markup commands together within 
+parentheses, e.g.
    -#'((bold italic) "string")
    This will incorrectly be converted into
    -\markup{{\bold italic} "string"}
@@ -469,7 +475,8 @@ here for reference.
    -\markup{\bold \italic "string"}
 2.0->2.2:
  Doesn't handle \partcombine
- Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple stanzas.
+ Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple 
+stanzas.
 2.0->2.4:
  \magnify isn't changed to \fontsize.
     - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
@@ -484,7 +491,8 @@ here for reference.
     - \rced => \!
     - \rc => \!
 2.2->2.4:
- \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly converted.
+ \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly 
+converted.
 2.4.2->2.5.9
  \markup{ \center-align <{ ... }> } should be converted to:
  \markup{ \center-align {\line { ... }} }

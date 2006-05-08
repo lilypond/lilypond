@@ -304,7 +304,8 @@ padText = #(define-music-function (parser location padding) (number?)
 We can use it to create new commands,
 
 @lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function (parser location marktext padding) (string? number?)
+tempoMark = #(define-music-function
+  (parser location marktext padding) (string? number?)
 #{
   \once \override Score . RehearsalMark #'padding = $padding
   \once \override Score . RehearsalMark #'no-spacing-rods = ##t

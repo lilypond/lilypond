@@ -83,7 +83,9 @@ The @code{\markup} is described in more detail in
 
 @commonprop
 
-Checking to make sure that text scripts and lyrics are within the margins is a relatively large computational task.  To speed up processing, lilypond does not perform such calculations by default; to enable it, use
+Checking to make sure that text scripts and lyrics are within the margins is 
+a relatively large computational task.  To speed up processing, lilypond does 
+not perform such calculations by default; to enable it, use
 
 @example
 \override Score.PaperColumn #'keep-inside-line = ##t
@@ -825,7 +827,8 @@ c1
 @end lilypond
 
 The file @file{scm/@/translation@/-functions@/.scm} contains the definitions
-of @code{format-mark-numbers} (the default format), @code{format-mark-box-numbers},
+of @code{format-mark-numbers} (the default format), 
+@code{format-mark-box-numbers},
 @code{format-mark-letters} and @code{format-mark-box-letters}.
 These can be used as inspiration for other formatting functions.
 
@@ -1007,7 +1010,8 @@ brace is not taken into account. The following property setting can be
 used to move the instrument names to the left, in such situations.
 
 @example
-\override Score.InstrumentName #'space-alist = #'((left-edge extra-space . 2.0))
+\override Score.InstrumentName #'space-alist =
+  #'((left-edge extra-space . 2.0))
 @end example
 
 
@@ -1518,7 +1522,8 @@ Cue notes have smaller font sizes.
 @c Yes, this is good practice.  Otherwise, the start of the original
 @c part can only be seen from the font size.  This is not good enough
 @c for sight-reading.  It is possilbe to use other
-@c markers (e.g. a big close-bracket over the staff) to indicate the cue notes are
+@c markers (e.g. a big close-bracket over the staff) to indicate the cue 
+@c   notes are
 @c finished.
 @c -hwn
 
@@ -1794,7 +1799,8 @@ c4 c1
 
 @noindent
 As the example illustrates, @code{ly:make-moment n m} constructs a
-duration of n/m of a whole note.  For example, @code{ly:make-moment 1 8} is an eighth
+duration of n/m of a whole note.  For example, @code{ly:make-moment 1 8} is 
+an eighth
 note duration and @code{ly:make-moment 7 16} is the duration of
 seven sixteenths notes.
 
@@ -2213,7 +2219,8 @@ named normal color.
 @cindex notes, ghost
 @cindex notes, parenthesized
 
-Objects may be parenthesized by prefixing @code{\parenthesize} to the music event, 
+Objects may be parenthesized by prefixing @code{\parenthesize} to the music 
+event, 
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
 <
