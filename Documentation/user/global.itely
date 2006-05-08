@@ -227,8 +227,8 @@ VERSION is in the form ``2.6.1'') are on the path and available to
 current working directory are available to \include, but a file of the same
 name in LilyPond's installation takes precedence.  Files are
 available to \include from directories in the search path specified as an
-option when invoking @code{lilypond --include=DIR} which adds DIR to the search
-path.
+option when invoking @code{lilypond --include=DIR} which adds DIR to the 
+search path.
 
 The @code{\include} statement can use full path information, but with the Unix
 convention @code{"/"} rather than the DOS/Windows @code{"\"}.  For example,
@@ -418,14 +418,18 @@ may use any @ref{Text markup} commands in the header.
 \book {
   \header {
     dedication = "dedicated to me"
-    title = \markup \center-align { "Title first line" "Title second line, longer" }
+    title = \markup \center-align { "Title first line" "Title second line, 
+longer" }
     subtitle = "the subtitle,"
-    subsubtitle = #(string-append "subsubtitle LilyPond version " (lilypond-version))
+    subsubtitle = #(string-append "subsubtitle LilyPond version " 
+(lilypond-version))
     poet = "Poet"
     composer =  \markup \center-align { "composer" \small "(1847-1973)" }
     texttranslator = "Text Translator"
-    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge "r" }
-    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize #-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "nger" }
+    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge 
+"r" }
+    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize 
+#-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "nger" }
     instrument = \markup \bold \italic "instrument"
     piece = "Piece"
   }
@@ -564,7 +568,9 @@ composer flush right on a single line.
 
 @refbugs
 
-The @code{breakbefore=##t} header requires that there is a @code{piece} header as well.  It may be used as a normal header, or left  blank (@code{=""}) as in the example above, but it must be present.
+The @code{breakbefore=##t} header requires that there is a @code{piece} 
+header as well.  It may be used as a normal header, or left  blank 
+(@code{=""}) as in the example above, but it must be present.
 
 
 
@@ -594,7 +600,8 @@ To change the paper size, there are two commands,
 @}
 @end example
 
-The first command sets the size of all pages.  The second command sets the size
+The first command sets the size of all pages.  The second command sets the 
+size
 of the pages that the @code{\paper} block applies to -- if the @code{\paper}
 block is at the top of the file, then it will apply to all pages.  If the
 @code{\paper} block is inside a @code{\book}, then the paper size will only
@@ -1159,7 +1166,8 @@ then use the following
 
 @c let's wait for a some comments before writing more.
 
-The vertical spacing on a page can also be changed for each system individually.
+The vertical spacing on a page can also be changed for each system 
+individually.
 Some examples are found in the example file
 @inputfileref{input/regression/,page-spacing.ly}.
 
@@ -1560,7 +1568,9 @@ piece in several movements), use @code{breakbefore} in the header.
 
 @refbugs
 
-The @code{breakbefore=##t} header requires that there is a @code{piece} header as well.  It may be used as a normal header, or left  blank (@code{=""}) as in the example above, but it must be present.
+The @code{breakbefore=##t} header requires that there is a @code{piece} 
+header as well.  It may be used as a normal header, or left  blank 
+(@code{=""}) as in the example above, but it must be present.
 
 
 
