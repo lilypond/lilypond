@@ -44,25 +44,31 @@ quite frustrating to try to remember which version of LilyPond you were
 using a few years ago.  @code{convert-ly} requires you to declare
 which version of LilyPond you used.
 
-@item @strong{Include checks}: @ref{Bar check}s and @ref{Octave check}s.  If you
+@item @strong{Include checks}: @ref{Bar check} and @ref{Octave check}.  If 
+you
 include checks every so often, then if you make a mistake, you can pinpoint
 it quicker.  How often is ``every so often''?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
 very complex music, perhaps every bar.
 
-@item @strong{One bar per line of text}.  If there is anything complicated, either in the music
+@item @strong{One bar per line of text}.  If there is anything complicated, 
+either in the music
 itself or in the output you desire, it's often good to write only one bar
 per line.  Saving screen space by cramming eight bars per line just isn't
 worth it if you have to `debug' your files.
 
-@item @strong{Comment your files}, with either bar numbers (every so often) or
-references to musical themes (``second theme in violins'', ``fourth
-variation'').  You may not need it when you're writing the piece for
-the first time, but if you want to go back and change something two
-or three years later, you won't know how your file is structured if you
-didn't comment the file.
+@item @strong{Comment your files}.  Use either bar numbers (every so often) 
+or
+references to musical themes (``second theme in violins,'' ``fourth 
+variation'', etc).  You may not need comments when you're writing the piece
+for the first time, but if you want to go back to change something two or 
+three years later, or if you pass the source over to a friend, it will 
+be much more
+challenging to determine your intentions or how your file is structured if 
+you didn't comment the file.
 
-@item @strong{Indent your braces}.  A lot of problems are caused by an imbalance
+@item @strong{Indent your braces}.  A lot of problems are caused by an 
+imbalance
 in the number of @code{@{} and @code{@}}.
 
 @end itemize
@@ -71,7 +77,7 @@ in the number of @code{@{} and @code{@}}.
 @node Typesetting existing music
 @section Typesetting existing music
 
-If you are entering music from an existing score (i.e. typesetting a
+If you are entering music from an existing score (i.e., typesetting a
 piece of existing sheet music),
 
 @itemize @bullet
@@ -98,7 +104,7 @@ best.
 
 The LilyPond input syntax occasionally changes.  As LilyPond itself
 improves, the syntax (input language) is modified accordingly.  Sometimes
-the changes are made to make the input easier to read and write, and
+these changes are made to make the input easier to read and write or
 sometimes the changes are made to accomodate new features of LilyPond.
 
 LilyPond comes with a file that makes this updating easier:
@@ -253,9 +259,9 @@ can think of these as functions).
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function (parser location padding) (number?)
- #{
+  #{
     \once \override TextScript #'padding = #$padding
- #})
+  #})
 
 \relative c''' {
   c4^"piu mosso" b a b
@@ -306,7 +312,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 There are some problems with overlapping output; we'll fix those using
-the techiques in @ref{Fixing overlapping notation}.  But let's also
+the techniques in @ref{Fixing overlapping notation}.  But let's also
 do something about the @code{mpdolce} and @code{tempoMark}
 definitions.  They produce the output we desire, but we might want
 to use them in another piece.  We could simply copy-and-paste them
@@ -427,14 +433,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
   \once \override Score.RehearsalMark #'padding = #2.0
   \tempoMark "Poco piu mosso"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
-} 
+}
 @end lilypond
 
 That looks nicer!  But now suppose that I want to publish this
 piece.  My composition professor doesn't like "C" time
 signatures, but I'm somewhat fond of them.  Let's copy the
 current @file{definitions.ly} to @file{web-publish.ly} and
-modify that.  Since this music is aimed at produce a pdf which
+modify that.  Since this music is aimed at producing a pdf which
 will be displayed on the screen, we'll also increase the
 overall size of the output.
 
@@ -492,17 +498,17 @@ tempoMark = #(define-music-function (parser location markp) (string?)
   \once \override Score.RehearsalMark #'padding = #2.0
   \tempoMark "Poco piu mosso"
   cis4.\< d8 e4 fis | g8(\! fis)-. e( d)-. cis2
-} 
+}
 @end lilypond
 
-Now in our music, I can either simply replace
+Now in our music, I simply replace
 @code{\include "definitions.ly"} with
 @code{\include "web-publish.ly"}.  Of course, we could make this
-even more convenient.  We could make a @file{definitions.ly} file which only
-contains the definitions of @code{mpdolce} and @code{tempoMark}, a
-@file{web-publish.ly} file which only contains the @code{\layout}
+even more convenient.  We could make a @file{definitions.ly} file which
+contains only the definitions of @code{mpdolce} and @code{tempoMark}, a
+@file{web-publish.ly} file which contains only the @code{\layout}
 section listed above, and a @file{university.ly} file which
-contains the tweaks to produce the output that my professor
+contains only the tweaks to produce the output that my professor
 prefers.  The top of @file{music.ly} would then look like this:
 
 @example
