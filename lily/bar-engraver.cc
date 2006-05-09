@@ -8,6 +8,8 @@
 */
 
 #include "bar-line.hh"
+#include "context.hh"
+#include "score-context.hh"
 #include "score-engraver.hh"
 #include "warn.hh"
 #include "item.hh"
@@ -89,8 +91,7 @@ void
 Bar_engraver::stop_translation_timestep ()
 {
   if (!bar_)
-    /* guh. Use properties! */
-    get_score_engraver ()->forbid_breaks ();
+    context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
   else
     typeset_bar ();
 }
@@ -101,4 +102,4 @@ ADD_TRANSLATOR (Bar_engraver,
 		/* create */ "BarLine",
 		/* accept */ "",
 		/* read */ "whichBar",
-		/* write */ "");
+		/* write */ "forbidBreak");

@@ -226,7 +226,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
   Grob *pc = this_one.cols_.back ();
   if (pc->original ())
     {
-      SCM pen = pc->get_property ("penalty");
+      SCM pen = pc->get_property ("line-break-penalty");
       if (scm_is_number (pen) && fabs (scm_to_double (pen)) < 10000)
 	break_penalties += scm_to_double (pen);
     }

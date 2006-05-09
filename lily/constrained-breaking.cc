@@ -172,7 +172,7 @@ Constrained_breaking::resize (vsize systems)
 	      bool last = j == breaks_.size () - 1;
 	      bool ragged = ragged_right || (last && ragged_last);
               int k = i*lines_rank_ + j;
-	      SCM pen = all_[breaks_[j]]->get_property ("penalty");
+	      SCM pen = all_[breaks_[j]]->get_property ("line-break-penalty");
 	      if (scm_is_number (pen))
 		lines_[k].break_penalty_ = scm_to_double (pen);
 

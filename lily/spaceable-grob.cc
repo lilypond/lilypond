@@ -122,6 +122,12 @@ Spaceable_grob::remove_interface (Grob *me)
 
 ADD_INTERFACE (Spaceable_grob, "spaceable-grob-interface",
 	       "A layout object that takes part in the spacing problem. ",
-	       "measure-length spacing-wishes penalty minimum-distances ideal-distances "
-	       "keep-inside-line left-neighbors right-neighbors");
+	       /* properties */
+	       "ideal-distances "
+	       "keep-inside-line "
+	       "left-neighbors "
+	       "measure-length "
+	       "minimum-distances "
+	       "right-neighbors "
+	       "spacing-wishes");
 

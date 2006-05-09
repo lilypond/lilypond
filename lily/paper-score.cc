@@ -69,7 +69,7 @@ Paper_score::find_break_indices () const
   for (vsize i = 0; i < all.size (); i++)
     {
       Item *it = dynamic_cast<Item*> (all[i]);
-      if (Item::is_breakable (all[i])
+      if (Paper_column::is_breakable (all[i])
 	  && (i == 0 || it->find_prebroken_piece (LEFT))
 	  && (i == all.size () - 1 || it->find_prebroken_piece (RIGHT)))
 	retval.push_back (i);
@@ -119,8 +119,8 @@ Paper_score::process ()
 
      doubly, also done in Score_engraver */
   vector<Grob*> pc (system_->columns ());
-  pc[0]->set_property ("breakable", SCM_BOOL_T);
-  pc.back ()->set_property ("breakable", SCM_BOOL_T);
+  pc[0]->set_property ("line-break-permission", ly_symbol2scm ("allow"));
+  pc.back ()->set_property ("line-break-permission", ly_symbol2scm ("allow"));
 
   system_->pre_processing ();
 }

@@ -50,12 +50,6 @@ Engraver::Engraver ()
 {
 }
 
-Score_engraver *
-Engraver::get_score_engraver () const
-{
-  return dynamic_cast<Score_engraver *> (get_score_context ()->implementation ());
-}
-
 #include "translator.icc"
 
 ADD_TRANSLATOR (Engraver,

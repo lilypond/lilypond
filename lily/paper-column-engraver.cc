@@ -14,6 +14,7 @@
 #include "note-spacing.hh"
 #include "pointer-group-interface.hh"
 #include "context.hh"
+#include "score-context.hh"
 #include "axis-group-interface.hh"
 #include "warn.hh"
 
@@ -25,9 +26,10 @@ Paper_column_engraver::Paper_column_engraver ()
   command_column_ = 0;
   musical_column_ = 0;
   breaks_ = 0;
-  break_event_ = 0;
   system_ = 0;
   first_ = true;
+  last_breakable_column_ = 0;
+  last_breakable_moment_ = Moment (-1);
 }
 
 void
@@ -38,7 +40,7 @@ Paper_column_engraver::finalize ()
 
   if (command_column_)
     {
-      command_column_->set_property ("breakable", SCM_BOOL_T);
+      command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
       system_->set_bound (RIGHT, command_column_);
     }
 }
@@ -66,7 +68,7 @@ Paper_column_engraver::initialize ()
   make_columns ();
 
   system_->set_bound (LEFT, command_column_);
-  command_column_->set_property ("breakable", SCM_BOOL_T);
+  command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
 }
 
 void
@@ -106,17 +108,10 @@ Paper_column_engraver::set_columns (Paper_column *new_command,
   system_->add_column (musical_column_);
 }
 
-void
-Paper_column_engraver::forbid_breaks ()
-{
-  if (command_column_ && !first_)
-    command_column_->set_property ("breakable", SCM_EOL);
-}
-
 bool
 Paper_column_engraver::try_music (Music *m)
 {
-  break_event_ = m;
+  break_events_.push_back (m);
 
   return true;
 }
@@ -124,28 +119,36 @@ Paper_column_engraver::try_music (Music *m)
 void
 Paper_column_engraver::process_music ()
 {
-  if (break_event_)
+  for (vsize i = 0; i < break_events_.size (); i++)
     {
-      SCM pen = command_column_->get_property ("penalty");
-      Real total_penalty = scm_is_number (pen) ? scm_to_double (pen) : 0.0;
+      string prefix;
+      SCM name = break_events_[i]->get_property ("name");
+      if (name == ly_symbol2scm ("LineBreakEvent"))
+	prefix = "line-break";
+      else if (name == ly_symbol2scm ("PageBreakEvent"))
+	prefix = "page-break";
+      else if (name == ly_symbol2scm ("PageTurnEvent"))
+	prefix = "page-turn";
+      else
+	{
+	  programming_error ("Paper_column_engraver doesn't know about this break-event");
+	  return;
+	}
+      string perm_str = prefix + "-permission";
+      string pen_str = prefix + "-penalty";
 
-      SCM mpen = break_event_->get_property ("penalty");
-      if (scm_is_number (mpen))
-	total_penalty += scm_to_double (mpen);
+      SCM cur_pen = command_column_->get_property (pen_str.c_str ());
+      SCM pen = break_events_[i]->get_property ("break-penalty");
+      SCM perm = break_events_[i]->get_property ("break-permission");
 
-      command_column_->set_property ("penalty", scm_from_double (total_penalty));
-
-      /* ugh.  arbitrary, hardcoded */
-      if (total_penalty > 10000.0)
-	forbid_breaks ();
-
-      SCM page_pen = command_column_->get_property ("page-penalty");
-      Real total_pp = scm_is_number (page_pen) ? scm_to_double (page_pen) : 0.0;
-      SCM mpage_pen = break_event_->get_property ("page-penalty");
-      if (scm_is_number (mpage_pen))
-	total_pp += scm_to_double (mpage_pen);
-
-      command_column_->set_property ("page-penalty", scm_from_double (total_pp));
+      if (scm_is_number (pen))
+	{
+	  Real new_pen = robust_scm2double (cur_pen, 0.0) + scm_to_double (pen);
+	  command_column_->set_property (pen_str.c_str (), scm_from_double (new_pen));
+	  command_column_->set_property (perm_str.c_str (), ly_symbol2scm ("allow"));
+	}
+      else
+	command_column_->set_property (perm_str.c_str (), perm);
     }
 
   bool start_of_measure = (last_moment_.main_part_ != now_mom ().main_part_
@@ -175,21 +178,40 @@ Paper_column_engraver::stop_translation_timestep ()
       if (!elem->get_parent (X_AXIS)
 	  || !unsmob_grob (elem->get_object ("axis-group-parent-X")))
 	{
-	  bool br = to_boolean (elem->get_property ("breakable"));
+	  bool br = Item::is_non_musical (elem);
 	  Axis_group_interface::add_element (br ? command_column_ : musical_column_, elem);
 	}
     }
   items_.clear ();
 
-  if (to_boolean (command_column_->get_property ("breakable")))
+  if (to_boolean (get_property ("forbidBreak")))
+    command_column_->set_property ("line-break-permission", SCM_EOL);
+  else if (Paper_column::is_breakable (command_column_))
     {
       breaks_++;
+      last_breakable_column_ = command_column_;
+      last_breakable_moment_ = now_mom ();
       if (! (breaks_%8))
 	progress_indication ("[" + to_string (breaks_) + "]");
     }
 
+  SCM page_br = get_property ("allowPageTurn");
+  if (scm_is_pair (page_br) && last_breakable_moment_ >= Rational (0))
+    {
+      SCM pen = scm_cdr (page_br);
+      Moment *m = unsmob_moment (scm_car (page_br));
+      if (m && scm_is_number (pen) && *m <= last_breakable_moment_)
+	{
+	  last_breakable_column_->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+	  last_breakable_column_->set_property ("page-turn-penalty", pen);
+	}
+    }
+
+  context ()->get_score_context ()->unset_property ( ly_symbol2scm ("forbidBreak"));
+  context ()->get_score_context ()->unset_property ( ly_symbol2scm ("allowPageTurn"));
+
   first_ = false;
-  break_event_ = 0;
+  break_events_.clear ();
 }
 
 void
@@ -210,9 +232,9 @@ ADD_TRANSLATOR (Paper_column_engraver,
 		/* doc */ "Takes care of generating columns."
 		"\n\n "
 		"This engraver decides whether a column is breakable. The default is "
-		"that a column is always breakable. However, when every Bar_engraver "
-		"that does not have a barline at a certain point will call "
-		"Score_engraver::forbid_breaks to stop linebreaks.  In practice, this "
+		"that a column is always breakable. However, every Bar_engraver "
+		"that does not have a barline at a certain point will set forbidBreaks "
+                "in the score context to stop linebreaks.  In practice, this "
 		"means that you can make a breakpoint by creating a barline (assuming "
 		"that there are no beams or notes that prevent a breakpoint.) ",
 		
@@ -221,7 +243,11 @@ ADD_TRANSLATOR (Paper_column_engraver,
 		"NonMusicalPaperColumn",
 		
 		/* accept */ "break-event",
-		/* read */ "",
+		/* read */
+                "forbidBreak "
+                "allowPageTurn",
 		/* write */
+                "forbidBreak "
+                "allowPageTurn "
 		"currentCommandColumn "
 		"currentMusicalColumn");

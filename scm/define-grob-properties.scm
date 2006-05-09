@@ -111,8 +111,6 @@ tuplet bracket.")
      (break-visibility ,vector? "A vector of 3 booleans, #(end-of-line unbroken begin-of-line).
 #t means visible, #f means killed.")
 
-     (breakable ,boolean? "Can this object appear at a line break,
-like clefs and bar lines?")
      (c0-position ,integer? "An integer indicating the position of
 middle C.")
      (cautionary-style ,symbol? "How to print cautionary
@@ -317,21 +315,31 @@ easy-notation note heads.")
 spacing constraints.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
 get stems extending to the middle staff line.")
+     (non-musical ,boolean? "True if the grob belongs in a NonMusicalPaperColumn.")
      (number-type ,symbol? "Type of numbers to use in label.  Choices
 include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
      (packed-spacing ,boolean? "If set, the notes are spaced as
 tightly as possible.")
      (padding ,ly:dimension? "Add this much extra space between
 objects that are next to each other.")
-     (page-penalty ,number? "Penalty for page break at
-this column.  10000 or more means forbid linebreak, -10000 or less
-means force page break.  Other values influence page breaking decisions
-as a real penalty.")
-     (penalty ,number? "Penalty for line break at
-this column.  10000 or more means forbid line break, -10000 or less
-means force line break.  Other values influence line breaking decisions
-as a real penalty.")
-
+     (page-break-permission ,symbol? "Instructs the page breaker on whether to
+put a page break at this column. Can be 'force, or 'allow.")
+     (page-turn-permission ,symbol? "Instructs the page breaker on whether to
+put a page turn at this column. Can be 'force, or 'allow.")
+     (line-break-permission ,symbol? "Instructs the line breaker on whether to
+put a line break at this column. Can be 'force, or 'allow.")
+     (page-break-penalty ,number? "Penalty for page break at
+this column. This affects the choices of the page breaker; it will avoid a page
+break at a column with a positive penalty and prefer a page break at a column
+with a negative penalty.")
+     (page-turn-penalty ,number? "Penalty for a page turn at this column.
+This affects the choices of the page breaker; it will avoid a page
+turn at a column with a positive penalty and prefer a page turn at a column
+with a negative penalty.")
+     (line-break-penalty ,number? "Penalty for a line break at this column.
+This affects the choices of the line breaker; it will avoid a line
+break at a column with a positive penalty and prefer a line break at a column
+with a negative penalty.")
      (positions ,pair?
 		"Pair of staff coordinates @code{(@var{left}
 . @var{right})}, where both @var{left} and @var{right} are in the

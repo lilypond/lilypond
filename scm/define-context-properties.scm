@@ -32,6 +32,8 @@
 				 "If true, then the accidentals are aligned in bass figure context.")
 
      (allowBeamBreak ,boolean? "If true allow line breaks for beams over bar lines.")
+     (allowPageTurn ,pair? "In the form (moment-start . penalty). Allow a page turn
+at the most recent breakpoint if it was after moment-start.")
      (associatedVoice ,string? "Name of the
 @code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies
@@ -219,6 +221,8 @@ switches by a thin line")
 
      (fontSize ,number?
 	       "The relative size of all grobs in a context. ")
+
+     (forbidBreak ,boolean? "If set to ##t, prevent a line break at this point.")
 
      (fingeringOrientations ,list?
 			    "List of symbols, containing

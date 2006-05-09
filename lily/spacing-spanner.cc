@@ -115,7 +115,7 @@ Spacing_spanner::find_shortest (Grob *me, vector<Grob*> const &cols)
 	  shortest_in_measure = min (shortest_in_measure, this_shortest.main_part_);
 	}
       else if (!shortest_in_measure.is_infinity ()
-	       && Item::is_breakable (cols[i]))
+	       && Paper_column::is_breakable (cols[i]))
 	{
 	  vsize j = 0;
 	  for (; j < durations.size (); j++)

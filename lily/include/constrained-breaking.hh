@@ -11,12 +11,7 @@
 #define CONSTRAINED_BREAKING_HH
 
 #include "break-algorithm.hh"
-
-enum Fordfor {
-  FORBID = -1,
-  DEFAULT = 0,
-  FORCE = 1
-};
+#include "lily-guile.hh"
 
 struct Line_details {
   Real force_;
@@ -25,9 +20,9 @@ struct Line_details {
   Real space_;    /* spring length (stretches over extent_ but not over padding_) */
   Real inverse_hooke_;
 
-  Fordfor line_break_;
-  Fordfor page_break_;
-  Fordfor page_turn_;
+  SCM break_permission_;
+  SCM page_permission_;
+  SCM turn_permission_;
   Real break_penalty_;
   Real page_penalty_;
   Real turn_penalty_;
@@ -39,9 +34,9 @@ struct Line_details {
     padding_ = 0;
     space_ = 0;
     inverse_hooke_ = 1;
-    line_break_ = DEFAULT;
-    page_break_ = DEFAULT;
-    page_turn_ = DEFAULT;
+    break_permission_ = ly_symbol2scm ("allow");
+    page_permission_ = ly_symbol2scm ("allow");
+    turn_permission_ = ly_symbol2scm ("allow");
     break_penalty_ = 0;
     page_penalty_ = 0;
     turn_penalty_ = 0;

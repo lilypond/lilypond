@@ -2781,3 +2781,11 @@ def conv (str):
 
 conversions.append (((2, 7, 40), conv,
 		    "rehearsalMarkAlignSymbol/barNumberAlignSymbol -> break-align-symbol"))
+
+
+def conv (str):
+    str = re.sub ('page-penalty', 'page-break-penalty')
+    str = re.sub ('([^-])penalty', '\1break-penalty')
+    return str
+
+conversions.append (((2, 9, 4), conv, """(page-)penalty -> (page-)break-penalty"""))

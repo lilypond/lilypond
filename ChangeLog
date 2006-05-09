@@ -1,3 +1,41 @@
+2006-05-09  Joe Neeman  <joeneeman@gmail.com>
+
+	* scm/define-context-properties.scm:
+	* scm/define-grob-properties.scm:
+	* scm/define-grobs.scm:
+	* scm/define-music-display-methods.scm:
+	* scm/define-music-properties.scm:
+	* scm/define-music-types.scm:
+	* scm/music-functions.scm:
+	* ly/declarations-init.ly:
+	* lily/include/constrained-breaking.hh:
+	* lily/system.cc:
+	* lily/spaceable-grob.cc:
+	* lily/simple-spacer.cc:
+	* lily/paper-score.cc:
+	* lily/paper-column.cc:
+	* lily/paper-column-engraver.cc:
+	* lily/item.cc:
+	* lily/gourlay-breaking.cc:
+	* lily/constrained-breaking.cc:
+	* python/convertrules.py:
+	Change "penalty", "page-penalty" and "breakable" to "line-break-penalty",
+	"page-break-penalty" and "line-break-permission".
+	Add "page-break-permission", "page-turn-permission" and "page-turn-penalty".
+	Replace BreakEvent with LineBreakEvent, PageBreakEvent and PageTurnEvent.
+
+	* lily/bar-engraver.cc:
+	* lily/beam-engraver.cc:
+	* lily/forbid-break-engraver.cc:
+	* lily/ligature-engraver.cc:
+	* lily/paper-column-engraver.cc:
+	* lily/percent-repeat-engraver.cc:
+	* lily/score-engraver.cc:
+	* lily/score-engraver.hh:
+	* lily/paper-column-engraver.hh:
+	Inter-engraver communication regarding line breaks is done through context
+	properties (Score.forbidBreak) instead of function calls.
+
 2006-05-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PACKAGE_NAME): release 2.9.4

@@ -38,7 +38,6 @@ public:
   */
   void announce_grob (Grob *, SCM cause);
 
-  Score_engraver *get_score_engraver () const;
   /**
      override other ctor
   */

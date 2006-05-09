@@ -158,8 +158,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     we drop it.
    */
   if (!extents[RIGHT].is_empty ()
-      && (Item::is_breakable (right_col)
-	  || right_col->original ()))
+      && (Paper_column::is_breakable (right_col)))
     {
       /*
 	This is for the situation

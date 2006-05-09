@@ -35,10 +35,18 @@ center = #0
 %% try \once \set Score.allowBeamBreak = ##t
 
 %% rather name \newline, \pageBreak ?
-break = #(make-event-chord (list (make-penalty-music -10001 0)))
-noBreak = #(make-event-chord (list (make-penalty-music 10001 0)))
-pageBreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))
-noPageBreak = #(make-event-chord (list (make-penalty-music 0 10001)))
+break = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission 'force)))
+noBreak = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission '())))
+pageBreak = #(make-event-chord (list
+				(make-music 'LineBreakEvent 'break-permission 'force)
+				(make-music 'PageBreakEvent 'break-permission 'force)))
+noPageBreak = #(make-event-chord (list (make-music 'PageBreakEvent 'break-permission '())))
+pageTurn = #(make-event-chord (list
+				(make-music 'LineBreakEvent 'break-permission 'force)
+				(make-music 'PageBreakEvent 'break-permission 'force)
+				(make-music 'PageTurnEvent 'break-permission 'force)))
+noPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission '())))
+
 stopStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent STOP)))
 startStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent START)))
 

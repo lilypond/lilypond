@@ -53,7 +53,7 @@ Script_column_engraver::acknowledge_side_position (Grob_info inf)
   Item *thing = dynamic_cast<Item *> (inf.grob ());
   if (thing)
     {
-      if (!Item::is_breakable (thing))
+      if (!Item::is_non_musical (thing))
 	scripts_.push_back (thing);
     }
 }

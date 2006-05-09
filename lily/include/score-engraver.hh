@@ -42,7 +42,6 @@ protected:
 
 public:
   Score_engraver ();
-  void forbid_breaks ();
   virtual SCM get_output ();
 };
 

@@ -123,7 +123,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
       return;
     }
 
-  bool ib = Item::is_breakable (it);
+  bool ib = Item::is_non_musical (it);
   Item *&p_ref_ (ib ? break_item_
 		 : musical_item_);
 
@@ -133,7 +133,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 
       if (ib)
 	{
-	  p_ref_->set_property ("breakable", SCM_BOOL_T);
+	  p_ref_->set_property ("non-musical", SCM_BOOL_T);
 	  context ()->set_property ("breakableSeparationItem", p_ref_->self_scm ());
 	}
 

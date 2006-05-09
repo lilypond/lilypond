@@ -37,7 +37,7 @@ is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
     return true;
 
   if (Paper_column::is_musical (c)
-      || Item::is_breakable (c))
+      || Paper_column::is_breakable (c))
     return false;
 
   extract_grob_set (c, "right-neighbors", rns);
@@ -87,8 +87,8 @@ is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
     some cases (two isolated, consecutive clef changes) won't be
     nicely folded, but hey, then don't do that.
   */
-  if (! ((Paper_column::is_musical (l_neighbor) || Item::is_breakable (l_neighbor))
-	 && (Paper_column::is_musical (r_neighbor) || Item::is_breakable (r_neighbor))))
+  if (! ((Paper_column::is_musical (l_neighbor) || Paper_column::is_breakable (l_neighbor))
+	 && (Paper_column::is_musical (r_neighbor) || Paper_column::is_breakable (r_neighbor))))
     return false;
 
   /*
@@ -305,7 +305,7 @@ Spacing_spanner::set_implicit_neighbor_columns (vector<Grob*> const &cols)
   for (vsize i = 0; i < cols.size (); i++)
     {
       Item *it = dynamic_cast<Item *> (cols[i]);
-      if (!Item::is_breakable (it) && !Paper_column::is_musical (it))
+      if (!Paper_column::is_breakable (it) && !Paper_column::is_musical (it))
 	continue;
 
       // it->breakable || it->musical

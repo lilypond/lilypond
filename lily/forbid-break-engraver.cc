@@ -5,13 +5,14 @@
 
   (c) 2002--_2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
-#include "rhythmic-head.hh"
-#include "grob.hh"
-#include "score-engraver.hh"
-#include "input.hh"
-#include "pitch.hh"
 #include "duration.hh"
+#include "grob.hh"
+#include "engraver.hh"
+#include "input.hh"
 #include "moment.hh"
+#include "pitch.hh"
+#include "rhythmic-head.hh"
+#include "score-context.hh"
 
 #include "translator.icc"
 
@@ -42,7 +43,7 @@ Forbid_line_break_engraver::start_translation_timestep ()
     {
       Grob *g = unsmob_grob (scm_cdar (busy));
       if (g->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
-	get_score_engraver ()->forbid_breaks ();
+        context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
       busy = scm_cdr (busy);
     }
 }
@@ -53,4 +54,4 @@ ADD_TRANSLATOR (Forbid_line_break_engraver,
 		/* create */ "",
 		/* accept */ "",
 		/* read */ "busyGrobs",
-		/* write */ "");
+		/* write */ "forbidBreak");

@@ -472,11 +472,6 @@ of beat groupings "
 (define-public (set-time-signature num den . rest)
   (ly:export (apply make-time-signature-set `(,num ,den . ,rest))))
 
-(define-safe-public (make-penalty-music pen page-pen)
-  (make-music 'BreakEvent
-	      'penalty pen
-	      'page-penalty page-pen))
-
 (define-safe-public (make-articulation name)
   (make-music 'ArticulationEvent
 	      'articulation-type name))

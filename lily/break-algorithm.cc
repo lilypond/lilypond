@@ -15,24 +15,6 @@
 #include "cpu-timer.hh"
 #include "simple-spacer.hh"
 
-vector<Grob*>
-Break_algorithm::find_breaks () const
-{
-  vector<Grob*> all = pscore_->root_system ()->columns ();
-  vector<Grob*> retval;
-
-  for (vsize i = 0; i < all.size (); i++)
-    {
-      Item *it = dynamic_cast<Item*> (all[i]);
-      if (Item::is_breakable (all[i])
-	  && (i == 0 || it->find_prebroken_piece (LEFT))
-	  && (i == all.size () - 1 || it->find_prebroken_piece (RIGHT)))
-	retval.push_back (all[i]);
-    }
-
-  return retval;
-}
-
 Break_algorithm::Break_algorithm ()
 {
   pscore_ = 0;

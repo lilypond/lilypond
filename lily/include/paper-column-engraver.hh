@@ -30,16 +30,17 @@ protected:
   DECLARE_ACKNOWLEDGER (staff_spacing);
 
   System *system_;
-  Music *break_event_;
+  vector<Music*> break_events_;
   int breaks_;			// used for stat printing
   Paper_column *command_column_;
   Paper_column *musical_column_;
   vector<Item*> items_;
   bool first_;
   Moment last_moment_;
+
+  Moment last_breakable_moment_;
+  Paper_column *last_breakable_column_;
 public:
-  // ug.h 
-  void forbid_breaks ();
 };
 
 #endif /* PAPER_COLUMN_ENGRAVER_HH */

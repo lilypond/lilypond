@@ -12,7 +12,7 @@
 #include "international.hh"
 #include "note-head.hh"
 #include "rest.hh"
-#include "score-engraver.hh"
+#include "score-context.hh"
 #include "spanner.hh"
 #include "warn.hh"
 
@@ -117,7 +117,7 @@ Ligature_engraver::process_music ()
   if (ligature_)
     {
       // TODO: maybe forbid breaks only if not transcribing
-      get_score_engraver ()->forbid_breaks ();
+      context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
     }
 
   if (events_drul_[START])

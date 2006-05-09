@@ -95,12 +95,18 @@ Paper_column::is_used (Grob *me)
   if (bbm.size ())
     return true;
   
-  if (Item::is_breakable (me))
+  if (Paper_column::is_breakable (me))
     return true;
 
   if (to_boolean (me->get_property ("used")))
     return true;
   return false;
+}
+
+bool
+Paper_column::is_breakable (Grob *me)
+{
+  return scm_is_symbol (me->get_property ("line-break-permission"));
 }
 
 /*
@@ -193,7 +199,12 @@ ADD_INTERFACE (Paper_column,
 	       "between-cols "
 	       "bounded-by-me "
 	       "line-break-system-details "
-	       "page-penalty "
+	       "line-break-penalty "
+	       "line-break-permission "
+	       "page-break-penalty "
+	       "page-break-permission "
+	       "page-turn-penalty "
+	       "page-turn-permission "
 	       "shortest-playing-duration "
 	       "shortest-starter-duration "
 	       "used "

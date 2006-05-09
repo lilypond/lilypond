@@ -124,7 +124,7 @@ System::get_paper_systems ()
 	    Kill no longer needed grobs.
 	  */
 	  Item *it = dynamic_cast<Item *> (g);
-	  if (it && Item::is_breakable (it))
+	  if (it && Item::is_non_musical (it))
 	    {
 	      it->find_prebroken_piece (LEFT)->suicide ();
 	      it->find_prebroken_piece (RIGHT)->suicide ();
@@ -375,8 +375,15 @@ System::get_paper_system ()
   SCM prop_init = left_bound->get_property ("line-break-system-details");
   Prob *pl = make_paper_system (prop_init);
   paper_system_set_stencil (pl, sys_stencil);
-  pl->set_property ("penalty",
-		    left_bound->get_property ("page-penalty"));
+
+  /* backwards-compatibility hack for the old page-breaker */
+  SCM turn_perm = left_bound->get_property ("page-break-permission");
+  if (!scm_is_symbol (turn_perm))
+    pl->set_property ("penalty", scm_from_double (10001.0));
+  else if (turn_perm == ly_symbol2scm ("force"))
+    pl->set_property ("penalty", scm_from_double (-10001.0));
+  else
+    pl->set_property ("penalty", scm_from_double (0.0));
   
   if (!scm_is_pair (pl->get_property ("refpoint-Y-extent")))
     {
@@ -417,7 +424,7 @@ System::broken_col_range (Item const *left, Item const *right) const
 	 && cols[i] != right)
     {
       Paper_column *c = dynamic_cast<Paper_column *> (cols[i]);
-      if (Item::is_breakable (c) && !c->system_)
+      if (Paper_column::is_breakable (c) && !c->system_)
 	ret.push_back (c);
       i++;
     }
@@ -436,7 +443,7 @@ System::columns () const
 
   while (last_breakable--)
     {
-      if (Item::is_breakable (ro_columns [last_breakable]))
+      if (Paper_column::is_breakable (ro_columns [last_breakable]))
 	break;
     }
 

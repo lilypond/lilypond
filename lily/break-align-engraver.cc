@@ -63,9 +63,7 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
       if (item->get_parent (X_AXIS))
 	return;
 
-      SCM bp = item->get_property ("breakable");
-      bool breakable = (to_boolean (bp));
-      if (!breakable)
+      if (!Item::is_non_musical (item))
 	return;
 
       SCM align_name = item->get_property ("break-align-symbol");

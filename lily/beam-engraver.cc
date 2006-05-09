@@ -15,7 +15,7 @@
 #include "international.hh"
 #include "item.hh"
 #include "rest.hh"
-#include "score-engraver.hh"
+#include "score-context.hh"
 #include "spanner.hh"
 #include "stem.hh"
 #include "warn.hh"
@@ -127,7 +127,7 @@ void
 Beam_engraver::process_music ()
 {
   if (beam_ && !to_boolean (get_property ("allowBeamBreak")))
-    get_score_engraver ()->forbid_breaks ();
+    context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
 
   if (start_ev_)
     {
@@ -282,7 +282,7 @@ ADD_TRANSLATOR (Beam_engraver,
 		/* create */ "Beam",
 		/* accept */ "beam-event",
 		/* read */ "beamMelismaBusy beatLength subdivideBeams",
-		/* write */ "");
+		/* write */ "forbidBreak");
 
 class Grace_beam_engraver : public Beam_engraver
 {

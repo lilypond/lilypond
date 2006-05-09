@@ -41,6 +41,7 @@ public:
   static bool is_musical (Grob *);
   static Moment when_mom (Grob *);
   static bool is_used (Grob *);
+  static bool is_breakable (Grob *);
 };
 
 #endif // PAPER_COLUMN_HH

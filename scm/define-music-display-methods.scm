@@ -585,8 +585,21 @@ Otherwise, return #f."
 (define-display-method BarCheck (check)
   (format #f "|~a" (new-line->lily-string)))
 
-(define-display-method BreakEvent (br)
-  "\\break") ;; TODO: use page-penalty, penalty properties?
+;; TODO: also display something when there is a penalty?
+(define-display-method LineBreakEvent (br)
+  (if (eq? (ly:music-property br 'break-permission) 'forbid)
+      ("\\noBreak")
+      ("\\break")))
+
+(define-display-method PageBreakEvent (br)
+  (if (eq? (ly:music-property br 'break-permission) 'forbid)
+      ("\\noPageBreak")
+      ("\\pageBreak")))
+
+(define-display-method PageTurnEvent (br)
+  (if (eq? (ly:music-property br 'break-permission) 'forbid)
+      ("\\noPageTurn")
+      ("\\pageTurn")))
 
 (define-display-method PesOrFlexaEvent (expr)
   "\\~")

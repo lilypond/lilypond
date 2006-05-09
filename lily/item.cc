@@ -37,16 +37,13 @@ Item::Item (Item const &s, int copy_count)
 }
 
 bool
-Item::is_breakable (Grob *me)
+Item::is_non_musical (Grob *me)
 {
   if (me->original ())
     return false;
 
-  if (!dynamic_cast<Item *> (me))
-    me->programming_error ("only items can be breakable.");
-
   Item *i = dynamic_cast<Item *> (me->get_parent (X_AXIS));
-  return (i) ? Item::is_breakable (i) : to_boolean (me->get_property ("breakable"));
+  return i ? Item::is_non_musical (i) : to_boolean (me->get_property ("non-musical"));
 }
 
 Paper_column *
@@ -96,7 +93,7 @@ Item::discretionary_processing ()
   if (is_broken ())
     return;
 
-  if (Item::is_breakable (this))
+  if (Item::is_non_musical (this))
     copy_breakable_items ();
 }
 
@@ -210,4 +207,8 @@ ADD_INTERFACE (Item,
 	       "  end-of-line-invisible      no      yes    yes\n"
 	       "  center-invisible           yes      no    yes\n"
 	       "@end example\n",
-	       "no-spacing-rods break-visibility breakable")
+
+	       /* properties */
+	       "break-visibility "
+	       "no-spacing-rods "
+	       "non-musical")

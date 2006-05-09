@@ -23,7 +23,6 @@ protected:
   Paper_score *pscore_;
   Real linewidth_;
 
-  vector<Grob*> find_breaks () const;
   void solve_line (Column_x_positions *) const;
   bool feasible (vector<Grob*> const &) const;
 

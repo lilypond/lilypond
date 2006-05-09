@@ -342,7 +342,7 @@ next_line_ending_column (vector<Grob*> const &list, vsize starting)
   vsize i = starting + 1;
   for (; i < list.size ()
 	 && is_loose (list[i])
-	 && !Item::is_breakable (list[i]);
+	 && !Paper_column::is_breakable (list[i]);
        i++)
     ;
   return dynamic_cast<Item*> (list[i])->find_prebroken_piece (LEFT);
@@ -516,17 +516,11 @@ get_line_configuration (vector<Grob*>const &columns,
   /*
     Check if breaking constraints are met.
   */
-  int sz = ret.cols_.size ();
-  for (int i = sz; i--;)
+  for (vsize i = 1; i < ret.cols_.size () - 1; i++)
     {
-      SCM p = ret.cols_[i]->get_property ("penalty");
-      if (scm_is_number (p))
-	{
-	  if (scm_to_double (p) < -9999)
-	    ret.satisfies_constraints_ = ret.satisfies_constraints_ && (i == 0 || i == sz -1);
-	  if (scm_to_double (p) > 9999)
-	    ret.satisfies_constraints_ = ret.satisfies_constraints_ && ! (i == 0 || i == sz -1);
-	}
+      SCM p = ret.cols_[i]->get_property ("line-break-permission");
+      if (p == ly_symbol2scm ("force"))
+	ret.satisfies_constraints_ = false;
     }
 
   return ret;

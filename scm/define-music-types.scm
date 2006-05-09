@@ -94,7 +94,7 @@ c8-[ c c-] c8")
     (BreakEvent
      . (
 	(description .  "Create a line break, Syntax: \\break or page break, Syntax: \\pagebreak.")
-
+	
 	(types . (general-music break-event event))
 	))
     (BreathingSignEvent
@@ -233,7 +233,11 @@ Syntax: @var{note}\\laissezVibrer.")
 	(span-type . ligature)
 	(types . (general-music span-event ligature-event event))
 	))
-    
+    (LineBreakEvent
+     . (
+	(description .  "Allow, forbid or force a line break.")
+	(types . (general-music break-event event))
+	))
     (OldLyricCombineMusic
      . (
 	(description .	"Align lyrics to the start of notes.
@@ -349,6 +353,16 @@ SYNTAX
 ")
 	(types . (general-music layout-instruction))
 	(iterator-ctor . ,ly:push-property-iterator::constructor)
+	))
+    (PageBreakEvent
+     . (
+	(description .  "Allow, forbid or force a page break.")
+	(types . (general-music break-event event))
+	))
+    (PageTurnEvent
+     . (
+	(description .  "Allow, forbid or force a page turn.")
+	(types . (general-music break-event event))
 	))
     (PartCombineMusic
      . (

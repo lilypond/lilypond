@@ -74,7 +74,7 @@
 			(staff-bar . (extra-space . 0.0))
 			(time-signature . (extra-space . 0.0))
 			(first-note . (fixed-space . 0.0))))
-	(breakable . #t)
+	(non-musical . #t)
 	(break-align-symbol . ambitus)
 	(break-visibility . ,begin-of-line-visible)
 	(meta . ((class . Item)
@@ -144,7 +144,7 @@
 	(glyph . "|")
 	(layer . 0)
 	(break-visibility . ,all-visible)
-	(breakable . #t)
+	(non-musical . #t)
 
 	(stencil . ,ly:bar-line::print)
 	(glyph-name . ,bar-line::calc-glyph-name)
@@ -177,7 +177,7 @@
     (BarNumber
      . (
 	(stencil . ,ly:text-interface::print)
-	(breakable . #t)
+	(non-musical . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
 	(direction . ,UP)
@@ -299,7 +299,7 @@
 
     (BreakAlignment
      . (
-	(breakable . #t)
+	(non-musical . #t)
 	(stacking-dir . 1)
 	(positioning-done . ,ly:break-align-interface::calc-positioning-done)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -354,7 +354,7 @@
     (BreathingSign
      . (
 	(break-align-symbol . breathing-sign)
-	(breakable . #t)
+	(non-musical . #t)
 	(space-alist . (
 			(ambitus . (extra-space . 2.0))
 			(custos . (minimum-space . 1.0))
@@ -378,7 +378,7 @@
      . (
 	(stencil . ,ly:clef::print)
 	(glyph-name . ,ly:clef::calc-glyph-name)
-	(breakable . #t)
+	(non-musical . #t)
 	(font-family . music)
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
@@ -450,7 +450,7 @@
     (Custos
      . (
 	(break-align-symbol . custos)
-	(breakable . #t)
+	(non-musical . #t)
 	(stencil . ,ly:custos::print)
 	(break-visibility . ,end-of-line-visible)
 	(style . vaticana)
@@ -489,7 +489,7 @@
     (DoublePercentRepeat
      . (
 	(stencil . ,ly:percent-repeat-item-interface::double-percent)
-	(breakable . #t)
+	(non-musical . #t)
 	(slope . 1.0)
 	(font-encoding . fetaMusic)
 	(width . 2.0)
@@ -616,7 +616,7 @@
 	(style . line)
 	(gap . 0.5)
 	(zigzag-width . 0.75)
-	(breakable . #t)
+	(non-musical . #t)
 	(X-extent . #f)
 	(Y-extent . #f)
 	(stencil . ,ly:line-spanner::print)
@@ -705,7 +705,7 @@
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(break-align-symbol . key-cancellation)
 	(break-visibility . ,begin-of-line-invisible)
-	(breakable . #t)
+	(non-musical . #t)
 	(meta . ((class . Item)
 		 (interfaces . (key-signature-interface
 				font-interface
@@ -721,7 +721,7 @@
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(break-align-symbol . key-signature)
 	(break-visibility . ,begin-of-line-visible)
-	(breakable . #t)
+	(non-musical . #t)
 	(meta . ((class . Item)
 		 (interfaces . (key-signature-interface
 				font-interface
@@ -768,7 +768,7 @@
      . (
 	(break-align-symbol . left-edge)
 	(X-extent . (0 . 0))
-	(breakable . #t)
+	(non-musical . #t)
 	(break-visibility . ,center-invisible)
 	(space-alist . (
 			(custos . (extra-space . 0.0))
@@ -1101,7 +1101,7 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	;;		      (stencil . ,ly:paper-column::print)
 	
-	(breakable . #t)
+	(non-musical . #t)
 
 	;; debugging stuff: print column number.
 	;;		 (font-size . -6) (font-name . "sans")	(Y-extent . #f)
@@ -1171,7 +1171,7 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(self-alignment-X . 0)
 	(direction . ,UP)
-	(breakable . #t)
+	(non-musical . #t)
 	(font-size . 2)
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
@@ -1341,7 +1341,7 @@
 	(break-align-symbol . staff-bar)
 	(Y-extent . ())
 	(layer . 0)
-	(breakable . #t)
+	(non-musical . #t)
 	(stencil . ,ly:span-bar::print)
 	(bar-size . ,ly:span-bar::calc-bar-size)
 	(X-extent . ,ly:span-bar::width)
@@ -1379,7 +1379,7 @@
 
     (StaffSpacing
      . (
-	(breakable . #t)
+	(non-musical . #t)
 	(stem-spacing-correction . 0.4)
 	(meta . ((class . Item)
 		 (interfaces . (spacing-interface
@@ -1678,7 +1678,7 @@
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
 			(staff-bar . (minimum-space . 2.0))))
-	(breakable . #t)
+	(non-musical . #t)
 	(style . C)
 	(meta . ((class . Item)
 		 (interfaces . (time-signature-interface
@@ -1860,7 +1860,7 @@
      . (
 	(style . line)
 	(gap . 0.5)
-	(breakable . #t)
+	(non-musical . #t)
 	(X-extent . #f)
 	(Y-extent . #f)
 	(stencil . ,ly:line-spanner::print)

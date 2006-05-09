@@ -16,6 +16,7 @@
 #include "misc.hh"
 #include "percent-repeat-iterator.hh"
 #include "repeated-music.hh"
+#include "score-context.hh"
 #include "side-position-interface.hh"
 #include "spanner.hh"
 #include "warn.hh"
@@ -187,13 +188,8 @@ Percent_repeat_engraver::process_music ()
 	      double_percent_counter_->set_parent (double_percent_, X_AXIS);
 	    }
 	  
-	  /*
-	    forbid breaks on a % line. Should forbid all breaks, really.
-
-	    Ugh. Why can't this be regular communication between
-	    contexts?
-	  */
-	  get_score_engraver ()->forbid_breaks ();
+	  /* forbid breaks on a % line. Should forbid all breaks, really. */
+	  context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
 	}
       next_moment_ = next_moment_ + body_length_;
       next_moment_.grace_part_ = Rational (0);
@@ -276,4 +272,5 @@ ADD_TRANSLATOR (Percent_repeat_engraver,
 		"currentCommandColumn "
 		"countPercentRepeats",
 
-		/* write */ "");
+		/* write */
+    "forbidBreak");

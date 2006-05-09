@@ -28,7 +28,7 @@ public:
 
   virtual Grob *clone (int count) const;
 
-  static bool is_breakable (Grob *);
+  static bool is_non_musical (Grob *);
   bool is_broken () const;
 
   Direction break_status_dir () const;
