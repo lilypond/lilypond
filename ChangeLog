@@ -1,3 +1,8 @@
+2006-05-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/paper-column-engraver.cc (stop_translation_timestep): set
+	line-break-permission if forbidBreak is not set.
+	
 2006-05-09  Joe Neeman  <joeneeman@gmail.com>
 
 	* scm/define-context-properties.scm:
@@ -181,10 +186,10 @@
 2006-05-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* stepmake/aclocal.m4: run python-config for crosscompiling
-	flags. Backportme.
+	flags. 
 
 	* scripts/lilypond-book.py (Lilypond_file_snippet.my_system): add
-	-f png for HTML, TEXINFO formats. Backportme.
+	-f png for HTML, TEXINFO formats. 
 
 	* input/tutorial/lbook-html-test.html: new file.
 
@@ -195,13 +200,13 @@
 	* flower/include/tuple.hh (struct Tuple2): new file.
 
 	* mf/GNUmakefile (FC_FIND): new function. Find ncsb using
-	$(FCMATCH), only if $(NCSB_DIR) not set. Backportme.
+	$(FCMATCH), only if $(NCSB_DIR) not set. 
 
 	* configure.in (LINK_GXX_STATICALLY): only warn if $NCSB_DIR set.
 
-	* config.make.in (DOCUMENTATION): set FCMATCH. Backportme. 
+	* config.make.in (DOCUMENTATION): set FCMATCH.  
 
-	* autogen.sh (srcdir): don't set --with-ncsb-dir. Backportme.
+	* autogen.sh (srcdir): don't set --with-ncsb-dir. 
 
 2006-05-03  Graham Percival  <gpermus@gmail.com>
 

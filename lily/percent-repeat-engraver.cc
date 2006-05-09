@@ -273,4 +273,5 @@ ADD_TRANSLATOR (Percent_repeat_engraver,
 		"countPercentRepeats",
 
 		/* write */
-    "forbidBreak");
+		"forbidBreak "
+		);

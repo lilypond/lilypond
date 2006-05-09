@@ -37,7 +37,7 @@ AC_ARG_ENABLE(gui,
 AC_ARG_WITH(ncsb-dir,
     [  --with-ncsb-dir=DIR     location of Century Schoolbook fonts.],
     [NCSB_DIR=$withval],
-    )
+    [NCSB_DIR=""])
 
 reloc_b=no
 AC_ARG_ENABLE(relocation,

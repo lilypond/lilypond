@@ -186,8 +186,11 @@ Paper_column_engraver::stop_translation_timestep ()
 
   if (to_boolean (get_property ("forbidBreak")))
     command_column_->set_property ("line-break-permission", SCM_EOL);
-  else if (Paper_column::is_breakable (command_column_))
+  else
     {
+      if (!Paper_column::is_breakable (command_column_))
+	command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
+      
       breaks_++;
       last_breakable_column_ = command_column_;
       last_breakable_moment_ = now_mom ();
@@ -207,8 +210,8 @@ Paper_column_engraver::stop_translation_timestep ()
 	}
     }
 
-  context ()->get_score_context ()->unset_property ( ly_symbol2scm ("forbidBreak"));
-  context ()->get_score_context ()->unset_property ( ly_symbol2scm ("allowPageTurn"));
+  context ()->get_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));
+  context ()->get_score_context ()->unset_property (ly_symbol2scm ("allowPageTurn"));
 
   first_ = false;
   break_events_.clear ();
