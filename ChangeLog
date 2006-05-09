@@ -6,6 +6,7 @@
 2006-05-09  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/changing-defaults.itely: oops, \item -> @item.
+	Also general editing.
 
 2006-05-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
