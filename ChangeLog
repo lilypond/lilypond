@@ -1,3 +1,29 @@
+2006-05-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/aclocal.m4: use python-config for x-compile flags. Backport.
+
+	* scripts/lilypond-book.py (do_process_cmd): backport: create .png
+	for html files. Backport.
+
+	* scm/framework-ps.scm (write-preamble): use mac-font? even if
+	gs-font-load is set. Backport.
+
+	* mf/feta-bolletjes.mf: fix attachment of triangle head. backport.
+
+	* mf/GNUmakefile ($(NCSB_OTFS)): backport: gen and install OTF
+	files, new NCSB dir handling.  backport.
+
+	* lily/music-sequence.cc (maximum_length): backport robustness fix.
+
+	* input/tutorial/GNUmakefile (EXTRA_DIST_FILES): dist html file too.
+
+	* configure.in (LINK_GXX_STATICALLY): new --with-ncsb-dir. (backport)
+
+	* config.make.in: NCSB_SOURCE_FILES
+
+	* flower/include/std-vector.hh:
+	(default_compare): backport: use only 1 compare optor.
+
 2006-05-07  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ all: backport everything from 2.9 docs.

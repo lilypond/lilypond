@@ -28,8 +28,6 @@
       ""))
 
 
-;; TeX C++ code actually hooks into TEX_STRING_HASHLIMIT 
-(define-public TEX_STRING_HASHLIMIT 10000000)
 (define-public (text font str)
   (call-with-output-string
    (lambda (port)

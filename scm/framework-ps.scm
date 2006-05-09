@@ -265,15 +265,20 @@
 
       (cons
        name
-       (cond
- 	((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
- 	 (ps-load-file (ly:find-file
- 			(format "~a.otf"  file-name))))
-	((string? bare-file-name)
-	 (ps-load-file file-name))
-	(else
-	 (ly:warning (_ "can't embed ~S=~S") name file-name)
-	  "")))))
+       
+       (if (mac-font? bare-file-name)
+	   (handle-mac-font name bare-file-name)
+	   (cond
+	    ((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
+	     (ps-load-file (ly:find-file
+			    (format "~a.otf"  file-name))))
+	    ((string? bare-file-name)
+	     (ps-load-file file-name))
+	    (else
+	     (ly:warning (_ "can't embed ~S=~S") name file-name)
+	     "")))
+
+	  )))
 
   (define (dir-join a b)
     (if (equal? a "")
@@ -342,7 +347,15 @@
        (else
 	(ly:warning (_ "don't know how to embed ~S=~S") name file-name)
 	""))))
-      
+
+    (define (mac-font? bare-file-name)
+      (and
+       (eq? PLATFORM 'darwin)
+       bare-file-name
+       (or
+	(string-match "\\.dfont" bare-file-name)
+	(= (stat:size (stat bare-file-name)) 0))))
+
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
@@ -353,14 +366,7 @@
        name
        (cond
 
-	((and
-	  (eq? PLATFORM 'darwin)
-	  bare-file-name (string-match "\\.dfont" bare-file-name))
-	 (handle-mac-font name bare-file-name))
-	
-	((and
-	  (eq? PLATFORM 'darwin)
-	  bare-file-name (= (stat:size (stat bare-file-name)) 0))
+	((mac-font? bare-file-name)
 	 (handle-mac-font name bare-file-name))
 
 	((and font (cff-font? font))
