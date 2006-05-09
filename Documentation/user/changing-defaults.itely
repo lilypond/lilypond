@@ -95,6 +95,10 @@ changed.  If no context name is supplied, @code{Staff} is the default,
 but you may wish to apply the accidental style to a single @code{Voice}
 instead.
 
+@c TODO: we should create a very clear example, and show every
+@c accidental style on that example (with the example specially
+@c constructed so that it illustrates all the differences).  -gp
+
 The following accidental styles are supported
 @table @code
 @item default
@@ -492,7 +496,8 @@ context already earlier with the same name.
 
 
 @cindex @code{\context}
-\item
+
+@item
 Like @code{\new}, the @code{\context} command also directs a music
 expression to a context object, but gives the context an explicit name.  The
 syntax is
@@ -710,10 +715,11 @@ Translation @arrow{} Tunable context properties.
 @node Modifying context plug-ins
 @subsection Modifying context plug-ins
 
-Notation contexts (like Score and Staff) not only store properties,
-they also contain plug-ins, called ``engravers'' that create notation
-elements.  For example, the Voice context contains a
-@code{Note_head_engraver} and the Staff context contains a
+Notation contexts (like @code{Score} and @code{Staff}) not only
+store properties,
+they also contain plug-ins called ``engravers'' that create notation
+elements.  For example, the @code{Voice} context contains a
+@code{Note_head_engraver} and the @code{Staff} context contains a
 @code{Key_signature_engraver}.
 
 For a full a description of each plug-in, see 
@@ -734,8 +740,8 @@ lists the engravers used for that context.
 
 
 It can be useful to shuffle around these plug-ins.  This is done by
-starting a new context, with @code{\new} or @code{\context}, and
-modifying it like this, 
+starting a new context with @code{\new} or @code{\context}, and
+modifying it,
 
 @cindex @code{\with}
 
@@ -747,7 +753,9 @@ modifying it like this,
   \remove @dots{}
   @emph{etc.}
 @}
-@emph{..music..}
+@{
+  @emph{..music..}
+@}
 @end example
 
 @noindent
@@ -866,10 +874,9 @@ c4
 @end lilypond
 
 The @code{\override} must be done before the object is
-started.  Therefore, when altering @emph{Spanner} objects, like slurs or
-beams, the @code{\override} command must be executed at the moment when
-the object is created.  In this example,
-
+started.  Therefore, when altering @emph{Spanner} objects such as slurs
+or beams, the @code{\override} command must be executed at the moment
+when the object is created.  In this example,
 
 @lilypond[quote,fragment,verbatim,relative=2]
 \override Slur #'thickness = #3.0
@@ -880,7 +887,7 @@ c8 c])
 
 @noindent
 the slur is fatter but the beam is not.  This is because the command for
-@code{Beam} comes after the Beam is started.  Therefore it has no effect.
+@code{Beam} comes after the Beam is started, so it has no effect.
 
 Analogous to @code{\unset}, the @code{\revert} command for a context
 undoes an @code{\override} command; like with @code{\unset}, it only
@@ -893,10 +900,18 @@ affects settings that were made in the same context.  In other words, the
 @end example
 
 Some tweakable options are called ``subproperties'' and reside inside
-properties.  To tweak those, use
+properties.  To tweak those, use commands of the form
+
+@c leave this as a long long
+@example
+\override @var{context}.@var{name} #'@var{property} #'@var{subproperty} = #@var{value}
+@end example
+
+@noindent
+such as
 
 @example
-\override Stem #'details #'beamed-lengths = #'(4 4 3) 
+\override Stem #'details #'beamed-lengths = #'(4 4 3)
 @end example
 
 
@@ -920,7 +935,7 @@ or crashes, or both.
 The adjustments of the previous subsections (@ref{Changing context
 properties on the fly}, @ref{Modifying context plug-ins}, and
 @ref{Layout tunings within contexts}) can also be entered separately
-from the music, in the @code{\layout} block,
+from the music in the @code{\layout} block,
 
 @example
 \layout @{
@@ -935,13 +950,7 @@ from the music, in the @code{\layout} block,
 @}
 @end example
 
-Here
-@example
-\Staff
-@end example
-
-@noindent
-takes the existing definition for context @context{Staff} from the
+Here @code{\Staff} takes the existing definition for context @context{Staff} from the
 identifier @code{\Staff}. 
 
 The statements
@@ -952,9 +961,8 @@ The statements
 @end example
 
 @noindent
-affect all staves in the score.
-
-Other contexts can be modified analogously.
+affect all staves in the score.  Other contexts can be modified
+analogously.
 
 The @code{\set} keyword is optional within the @code{\layout} block, so
 
@@ -972,12 +980,12 @@ will also work.
 
 @refbugs
 
-It is not possible to collect context changes in a variable, and apply
-them to one @code{\context} definition by referring to that variable.
+It is not possible to collect context changes in a variable and apply
+them to a @code{\context} definition by referring to that variable.
 
-The @code{\RemoveEmptyStaffContext} will override your current
-@code{\Staff} variable.  If you wish to change the defaults for a
-staff that uses @code{\RemoveEmptyStaffContext}, you must do so
+The @code{\RemoveEmptyStaffContext} will overwrite your current
+@code{\Staff} settings.  If you wish to change the defaults for a
+staff which uses @code{\RemoveEmptyStaffContext}, you must do so
 after calling @code{\RemoveemptyStaffContext}, ie
 
 @example
@@ -995,14 +1003,13 @@ after calling @code{\RemoveemptyStaffContext}, ie
 @subsection Defining new contexts
 
 Specific contexts, like @context{Staff} and @code{Voice}, are made of
-simple building blocks, and it is possible to compose engraver
-plug-ins in different combinations, thereby creating new types of
-contexts.
+simple building blocks.  It is possible to create new types of
+contexts with different combinations of engraver plug-ins.
 
 The next example shows how to build a different type of
 @context{Voice} context from scratch.  It will be similar to
-@code{Voice}, but prints centered slash noteheads only.  It can be used
-to indicate improvisation in Jazz pieces,
+@code{Voice}, but only prints centered slash noteheads.  It can be used
+to indicate improvisation in jazz pieces,
 
 @lilypond[quote,ragged-right]
 \layout { \context {
@@ -1028,7 +1035,7 @@ to indicate improvisation in Jazz pieces,
 @end lilypond
 
 
-These settings are again done within a @code{\context} block inside a
+These settings are defined within a @code{\context} block inside a
 @code{\layout} block,
 
 @example
@@ -1042,7 +1049,7 @@ These settings are again done within a @code{\context} block inside a
 In the following discussion, the example input shown should go on the
 @dots{} in the previous fragment.
 
-First, the context gets a name.  Instead of @context{Voice} it
+First the context's name is defined.  Instead of @context{Voice} it
 will be called @context{ImproVoice},
 
 @example
@@ -1076,13 +1083,12 @@ by @internalsref{Note_heads_engraver}) and sets their vertical
 position to the value of @code{squashedPosition}, in this case@tie{}@code{0},
 the center line.
 
-The notes look like a slash, without a stem,
+The notes look like a slash, and have no stem,
 
 @example
 \override NoteHead #'style = #'slash
 \override Stem #'transparent = ##t
 @end example
-
 
 All these plug-ins have to cooperate, and this is achieved with a
 special plug-in, which must be marked with the keyword @code{\type}.
@@ -1108,13 +1114,11 @@ Put together, we get
 @}
 @end example
 
+@cindex @code{\accepts}
 Contexts form hierarchies.  We want to hang the @context{ImproVoice}
 under @context{Staff}, just like normal @code{Voice}s.  Therefore, we
 modify the @code{Staff} definition with the @code{\accepts}
-command,@footnote{The opposite of @code{\accepts} is @code{\denies},
-which is sometimes needed when reusing existing context definitions.}
-
-
+command,
 
 @example
 \context @{
@@ -1122,6 +1126,10 @@ which is sometimes needed when reusing existing context definitions.}
   \accepts ImproVoice    
 @}
 @end example
+
+@cindex @code{\denies}
+The opposite of @code{\accepts} is @code{\denies},
+which is sometimes needed when reusing existing context definitions.
 
 Putting both into a @code{\layout} block, like
 
@@ -1161,9 +1169,6 @@ Then the output at the start of this subsection can be entered as
 In the previous section, we have already touched on a command that
 changes layout details: the @code{\override} command.  In this section,
 we will look in more detail at how to use the command in practice.
-First, we will give a few versatile commands that are sufficient
-for many situations.  The next section will discuss the general use of
-@code{\override}.
 
 
 @menu
@@ -1180,25 +1185,24 @@ for many situations.  The next section will discuss the general use of
 @node Constructing a tweak
 @subsection Constructing a tweak
 
-The general procedure of changing output, that is, entering
-a command like
+Commands which change output generally look like
 
 @example
 \override Voice.Stem #'thickness = #3.0
 @end example
 
 @noindent
-means that we have to determine these bits of information:
+This means that we must determine these bits of information:
 
 @itemize
 @item the context: here @context{Voice}.
 @item the layout object: here @code{Stem}.
-@item the layout property: here @code{thickness}
-@item a sensible value: here @code{3.0}
+@item the layout property: here @code{thickness}.
+@item a sensible value: here @code{3.0}.
 @end itemize  
 
 Some tweakable options are called ``subproperties'' and reside inside
-properties.  To tweak those, use
+properties.  To tweak those, use commands in the form
 
 @example
 \override Stem #'details #'beamed-lengths = #'(4 4 3)
@@ -1214,6 +1218,7 @@ properties.  To tweak those, use
 We demonstrate how to glean this information from the notation manual
 and the program reference.
 
+
 @node Navigating the program reference
 @subsection Navigating the program reference
 
@@ -1227,17 +1232,18 @@ f
 @end lilypond
 
 If you visit the documentation on fingering instructions (in
-@ref{Fingering instructions}), you will notice that there is written:
+@ref{Fingering instructions}), you will notice:
 
 @quotation
 @seealso
 
-Program reference: @internalsref{FingerEvent} and @internalsref{Fingering}.
+Program reference: @internalsref{Fingering}.
 
 @end quotation
 
 
-
+@c  outdated info; probably will delete.
+@ignore
 This fragment points to two parts of the program reference: a page
 on @code{FingerEvent} and one on @code{Fingering}.
 
@@ -1259,6 +1265,7 @@ This engraver creates the following layout objects: @internalsref{Fingering}.
 
 In other words, once the @code{FingerEvent}s are interpreted, the
 @code{Fingering_engraver} plug-in will process them.
+@end ignore
 
 @ignore
 @c  I can't figure out what this is supposed to mean.  -gp
@@ -1272,9 +1279,16 @@ second bit of information listed under @b{See also} in the Notation
 manual.
 @end ignore
 
+Follow the link to @internalsref{Fingering}.  At the top of the
+page, you will see
+
+@quotation
+Fingering objects are created by: @internalsref{Fingering_engraver} and
+@internalsref{New_fingering_engraver}.
+@end quotation
+
 By clicking around in the program reference, we can follow the
-flow of information within the program, either forward (like we did
-here), or backwards, following links like this:
+flow of information within the program, following links like this:
 
 @itemize @bullet
 
@@ -1291,10 +1305,12 @@ Music event type @code{fingering-event} is in Music expressions named
 @end itemize
 
 This path goes against the flow of information in the program: it
-starts from the output, and ends at the input event.
+starts from the output, and ends at the input event.  You could
+also start at an input event, and read with the flow of
+information, eventually ending up at the output object(s).
 
 The program reference can also be browsed like a normal document.  It
-contains a chapter on
+contains chapters on
 @ifhtml
 @internalsref{Music definitions},
 @end ifhtml
@@ -1302,7 +1318,7 @@ contains a chapter on
 @code{Music definitions}
 @end ifnothtml
 on @internalsref{Translation}, and the @internalsref{Backend}.  Every
-chapter lists all the definitions used, and all properties that may be
+chapter lists all the definitions used and all properties that may be
 tuned.
 
  
@@ -1313,7 +1329,7 @@ tuned.
 @cindex layout interface
 @cindex grob
 
-The HTML page that we found in the previous section, describes the
+The HTML page that we found in the previous section describes the
 layout object called @internalsref{Fingering}.  Such an object is a
 symbol within the score.  It has properties that store numbers (like
 thicknesses and directions), but also pointers to related objects.  A
@@ -1326,7 +1342,7 @@ The page for @code{Fingering} lists the definitions for the
 @quotation
 @code{padding} (dimension, in staff space):
   
-@code{0.6}
+@code{0.5}
 @end quotation
 
 @noindent
@@ -1356,8 +1372,8 @@ center of the notehead.
 Vertically, the symbol is placed next to the note and the staff.
 
 @item
-The vertical position is also coordinated with other super- and subscript
-symbols.
+The vertical position is also coordinated with other superscript
+and subscript symbols.
 @end itemize
 
 Each of these aspects is captured in so-called @emph{interface}s,
@@ -1375,10 +1391,11 @@ This object supports the following interfaces:
 Clicking any of the links will take you to the page of the respective
 object interface.  Each interface has a number of properties.  Some of
 them are not user-serviceable (``Internal properties''), but others
-are.
+can be modified.
 
 We have been talking of @emph{the} @code{Fingering} object, but actually it
-does not amount to much.  The initialization file
+does not amount to much.  The initialization file (see
+@ref{Default files})
 @file{scm/@/define@/-grobs@/.scm} shows the soul of the `object',
 
 @example
@@ -1409,9 +1426,9 @@ As you can see, the @code{Fingering} object is nothing more than a
 bunch of variable settings, and the webpage in the Program Reference
 is directly generated from this definition.
 
+
 @node Determining the grob property
 @subsection Determining the grob property
-
 
 Recall that we wanted to change the position of the @b{2} in 
 
@@ -1436,7 +1453,7 @@ victim object relative to the support (left or right, up or down?)
 
 @cindex padding
 @noindent
-below this description, the variable @code{padding} is described as
+Below this description, the variable @code{padding} is described as
 
 @quotation
 @table @code
@@ -1447,8 +1464,9 @@ Add this much extra space between objects that are next to each other.
 @end table
 @end quotation
 
-By increasing the value of @code{padding}, we can move away the
-fingering.  The following command inserts 3 staff spaces of white
+By increasing the value of @code{padding}, we can move the
+fingering away from the notehead.  The following command inserts
+3 staff spaces of white
 between the note and the fingering:
 @example
 \once \override Voice.Fingering #'padding = #3
@@ -1472,6 +1490,7 @@ the @internalsref{Fingering_engraver} plug-in says
 @quotation
 Fingering_engraver is part of contexts: @dots{} @b{@internalsref{Voice}}
 @end quotation
+
 
 @node Objects connected to the input
 @subsection Objects connected to the input
@@ -1499,14 +1518,26 @@ This technique only works for objects that are directly connected to
 an @internalsref{event} from the input, for example
 
 @itemize @bullet
-@item note heads, caused by chord-pitch.
-@item articulation signs, caused by articulation instructions
+@item note heads, caused by chord-pitch (i.e., notes inside a chord).
+@item articulation signs, caused by articulation instructions.
 @end itemize
 
 It notably does not work for stems and accidentals (these are caused
 by note heads, not by music events) or clefs (these are not caused by
 music inputs, but rather by the change of a property value).
- 
+
+There are very few objects which are @emph{directly} connected to
+output.  A normal note (like @code{c4}) is not directly connected
+to output, so
+
+@example
+\tweak #'color #red c4
+@end example
+
+@noindent
+will not change color.  See @ref{Displaying music expressions} for
+details.
+
 
 @node Difficult tweaks
 @subsection Difficult tweaks

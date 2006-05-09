@@ -1,3 +1,7 @@
+2006-05-09  Graham Percival  <gpermus@gmail.com>
+	
+	* Documentation/user/changing-defaults.itely: general editing.
+
 2006-05-09  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/paper-column-engraver.cc (make_columns): By default, a column
