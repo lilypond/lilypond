@@ -1,5 +1,7 @@
 2006-05-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* flower/file-name.cc: add unistd.h
+
 	* scm/define-grob-properties.scm (all-internal-grob-properties):
 	readd chord-tremolo.
 

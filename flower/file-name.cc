@@ -9,6 +9,8 @@
 
 #include "file-name.hh"
 
+#include <unistd.h>
+
 #include <cstdio>
 #include <cerrno>
 using namespace std;
