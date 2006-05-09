@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @node Example templates
-@chapter Example templates
+@appendix Example templates
 
 This section of the manual contains templates with the LilyPond score
 already set up for you.  Just add notes, run LilyPond, and enjoy
@@ -19,8 +19,8 @@ beautiful printed scores!
 
 
 @node Single staff
-@section Single staff
-@subsection Notes only
+@appendixsec Single staff
+@appendixsubsec Notes only
 
 The first example gives you a staff with notes, suitable for a solo
 instrument or a melodic fragment.  Cut and paste this into a file,
@@ -43,7 +43,7 @@ melody = \relative c' {
 }
 @end lilypond
 
-@subsection Notes and lyrics
+@appendixsubsec Notes and lyrics
 
 The next example demonstrates a simple melody with lyrics.  Cut and
 paste, add notes, then words for the lyrics.  This example turns off
@@ -78,7 +78,7 @@ text = \lyricmode {
 }
 @end lilypond
 
-@subsection Notes and chords
+@appendixsubsec Notes and chords
 
 Want to prepare a lead sheet with a melody and chords?  Look no further!
 
@@ -111,7 +111,7 @@ harmonies = \chordmode {
 }
 @end lilypond
 
-@subsection Notes, lyrics, and chords.
+@appendixsubsec Notes, lyrics, and chords.
 
 This template allows you to prepare a song with melody, words, and chords.
 
@@ -151,8 +151,8 @@ harmonies = \chordmode {
 @end lilypond
 
 @node Piano templates
-@section Piano templates
-@subsection Solo piano
+@appendixsec Piano templates
+@appendixsubsec Solo piano
 
 Here is a simple piano staff.
 
@@ -185,7 +185,7 @@ lower = \relative c {
 }
 @end lilypond
 
-@subsection Piano and melody with lyrics
+@appendixsubsec Piano and melody with lyrics
 
 Here is a typical song format: one staff with the melody and lyrics, with
 piano accompaniment underneath.
@@ -241,7 +241,7 @@ lower = \relative c {
 @end lilypond
 
 
-@subsection Piano centered lyrics
+@appendixsubsec Piano centered lyrics
 
 Instead of having a full staff for the melody and lyrics, you can place
 the lyrics between the piano staff (and omit the separate melody staff).
@@ -286,7 +286,7 @@ text = \lyricmode {
 @end lilypond
 
 
-@subsection Piano centered dynamics
+@appendixsubsec Piano centered dynamics
 
 Many piano scores have the dynamics centered between the two
 staffs.  This requires a bit of tweaking to implement, but
@@ -384,8 +384,8 @@ pedal = {
 
 
 @node String quartet
-@section String quartet
-@subsection String quartet
+@appendixsec String quartet
+@appendixsubsec String quartet
 
 This template demonstrates a string quartet.  It also uses a @code{\global}
 section for time and key signatures.
@@ -437,7 +437,7 @@ cello = \new Voice { \relative c' {
 }
 @end lilypond
 
-@subsection String quartet parts
+@appendixsubsec String quartet parts
 
 The previous example produces a nice string quartet, but what if you
 needed to print parts?  This template demonstrates how to use the
@@ -545,9 +545,9 @@ music = {
 
 
 @node Vocal ensembles
-@section Vocal ensembles
+@appendixsec Vocal ensembles
 
-@subsection SATB vocal score
+@appendixsubsec SATB vocal score
 
 Here is a standard four-part SATB vocal score.  With larger ensembles,
 it's often useful to include a section which is included in all
@@ -627,7 +627,7 @@ bassWords = \lyricmode {
 @end lilypond
 
 
-@subsection SATB vocal score and automatic piano reduction
+@appendixsubsec SATB vocal score and automatic piano reduction
 
 This template adds an automatic piano reduction to the SATB vocal
 score.  This demonstrates one of the strengths of LilyPond -- you
@@ -726,9 +726,9 @@ bassWords = \lyricmode {
 
 @c bad node name to avoid node name confict
 @node Ancient notation templates
-@section Ancient notation templates
+@appendixsec Ancient notation templates
 
-@subsection Transcription of mensural music
+@appendixsubsec Transcription of mensural music
 
 When transcribing mensural music, an incipit at the beginning of the
 piece is useful to indicate the original key and tempo.  While today
@@ -957,12 +957,11 @@ bassusLyrics = \lyricmode {
 @end lilypond
 
 
-@subsection Gregorian transcription template
+@appendixsubsec Gregorian transcription template
 
-This example demonstrates how to do modern transcriptions of Gregorian
+This example demonstrates how to do modern transcription of Gregorian
 music.  Gregorian music has no measure, no stems; it uses only half and
-quarter notes, and two types of barlines, a short one indicating a rest,
-and a second one indicating a breath mark.
+quarter noteheads, and special marks, indicating rests of different length.
 
 @lilypond[quote,verbatim,ragged-right]
 \include "gregorian-init.ly"
@@ -1008,7 +1007,7 @@ verba = \lyricmode {
 
 
 @node Jazz combo
-@section Jazz combo
+@appendixsec Jazz combo
 
 This is a much more complicated template, for a jazz ensemble.  Note that all
 instruments are notated in @code{\key c \major}.  This refers to the key in
@@ -1033,8 +1032,12 @@ is within a @code{\transpose} section.
   composer = "Me"
   meter = "moderato"
   piece = "Swing"
-  tagline = "LilyPond example file by Amelie Zapf,
-             Berlin 07/07/2003"
+  tagline = \markup {
+    \column {
+      "LilyPond example file by Amelie Zapf,"
+      "Berlin 07/07/2003"
+    }
+  }
   texidoc = "Jazz tune for combo
              (horns, guitar, piano, bass, drums)."
 }
@@ -1082,7 +1085,7 @@ trumpet = {
   \global
   \set Staff.instrument = #"Trumpet"
   \clef treble
-  \new Staff <<
+  <<
     \trpt
   >>
 }
@@ -1099,7 +1102,7 @@ altosax = {
   \global
   \set Staff.instrument = #"Alto Sax"
   \clef treble
-  \new Staff <<
+  <<
     \alto
   >>
 }
@@ -1116,7 +1119,7 @@ barisax = {
   \global
   \set Staff.instrument = #"Bari Sax"
   \clef treble
-  \new Staff <<
+  <<
     \bari
   >>
 }
@@ -1133,7 +1136,7 @@ trombone = {
   \global
   \set Staff.instrument = #"Trombone"
   \clef bass
-  \new Staff <<
+  <<
     \tbone
   >>
 }
@@ -1153,7 +1156,7 @@ guitar = {
   \global
   \set Staff.instrument = #"Guitar"
   \clef treble
-  \new Staff <<
+  <<
     \gtr
   >>
 }
@@ -1185,7 +1188,7 @@ PianoRH = {
   \clef treble
   \global
   \set Staff.midiInstrument = "acoustic grand"
-  \new Staff <<
+  <<
     \new Voice = "one" \rhUpper
     \new Voice = "two" \rhLower
   >>
@@ -1194,14 +1197,14 @@ PianoLH = {
   \clef bass
   \global
   \set Staff.midiInstrument = "acoustic grand"
-  \new Staff <<
+  <<
     \new Voice = "one" \lhUpper
     \new Voice = "two" \lhLower
   >>
 }
 
 piano = {
-  \new PianoStaff <<
+  <<
     \set PianoStaff.instrument = #"Piano"
     \new Staff = "upper" \PianoRH
     \new Staff = "lower" \PianoLH
@@ -1217,7 +1220,7 @@ bass = {
   \global
   \set Staff.instrument = #"Bass"
   \clef bass
-  \new Staff <<
+  <<
     \Bass
   >>
 }
@@ -1348,12 +1351,12 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 
 @node Lilypond-book templates
-@section Lilypond-book templates
+@appendixsec Lilypond-book templates
 
 These templates are for use with @code{lilypond-book}.  If you're not familiar
 with this program, please refer to @ref{LilyPond-book}.
 
-@subsection LaTeX
+@appendixsubsec LaTeX
 
 You can include LilyPond fragments in a LaTeX document.
 
@@ -1380,7 +1383,7 @@ d4 c b a
 \end@{document@}
 @end example
 
-@subsection Texinfo
+@appendixsubsec Texinfo
 
 You can include LilyPond fragments in Texinfo; in fact, this entire manual
 is written in Texinfo.

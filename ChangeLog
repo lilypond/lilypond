@@ -1,3 +1,10 @@
+2006-05-07  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ all: backport everything from 2.9 docs.
+
+	* Documentation/user/ README.txt, working.itely, tweaks.itely:
+	new files, backported from 2.9.
+
 2006-05-04  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/baer-flat-bw.png: backport remove alpha
