@@ -482,6 +482,7 @@ function is to protect objects from being garbage collected.")
      (bracket ,ly:grob? "the bracket for a  number.")
      (direction-source ,ly:grob? "in case side-relative-direction is
 set, which grob to get the direction from .")
+     (chord-tremolo ,boolean? "")
      (dot ,ly:grob? "reference to Dots object.")
      (dots ,ly:grob-array? "multiple Dots objects.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
