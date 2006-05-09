@@ -47,7 +47,7 @@
 
 	* Doucmentation/user/README.txt: updated with manual style info.
 
-	* Documentation/user/ various: trip linewidth to 78 chars.
+	* Documentation/user/ various: trim linewidth to 78 chars.
 
 2006-05-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
