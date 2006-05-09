@@ -31,8 +31,7 @@ FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
 
 
-NCSB_SOURCE_FILES=c059013l c059016l c059033l c059036l
-NCSB_TTFS=$(addprefix $(outdir)/,CenturySchL-Ital.ttf CenturySchL-BoldItal.ttf CenturySchL-Roma.ttf CenturySchL-Bold.ttf)
+NCSB_OTFS=$(addprefix $(outdir)/,CenturySchL-Ital.ttf CenturySchL-BoldItal.ttf CenturySchL-Roma.ttf CenturySchL-Bold.ttf)
 NCSB_INSTALL_DIR=$(local_lilypond_datadir)/fonts/otf
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
@@ -101,7 +100,7 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(NCSB_TTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) $(outdir)/fonts.cache-1
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) $(outdir)/fonts.cache-1
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
@@ -114,7 +113,7 @@ INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
 
 INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/fonts/otf
-INSTALLATION_OUT_FILES2=$(OTF_FILES) $(NCSB_TTFS)
+INSTALLATION_OUT_FILES2=$(OTF_FILES) $(NCSB_OTFS)
 
 INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
@@ -197,7 +196,7 @@ $(outdir)/%.enc.in: %.enc
 	cp $< $@
 
 
-$(NCSB_TTFS): $(addsuffix .pfb,$(addprefix $(NCSB_DIR)/,$(NCSB_SOURCE_FILES))) $(buildscript-dir)/pfx2ttf.fontforge
+$(NCSB_OTFS): $(NCSB_SOURCE_FILES) $(buildscript-dir)/pfx2ttf.fontforge
 	$(foreach i,$(NCSB_SOURCE_FILES), \
 		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
-			$(NCSB_DIR)/$(i).pfb $(NCSB_DIR)/$(i).afm $(outdir)/ && ) true
+	$(i).pfb $(i).afm $(outdir)/ && ) true

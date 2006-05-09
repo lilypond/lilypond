@@ -310,6 +310,10 @@ found."
 (define-public (offset-flip-y o)
   (cons (car o) (- (cdr o))))
 
+(define-public (offset-scale o scale)
+  (cons (* (car o) scale)
+	(* (cdr o) scale)))
+
 (define-public (ly:list->offsets accum coords)
   (if (null? coords)
       accum
@@ -333,7 +337,18 @@ found."
   (max 0 (- (cdr x) (car x))))
 
 (define-public interval-start car)
+(define-public (ordered-cons a b)
+  (cons (min a b)
+	(max a b)))
+
 (define-public interval-end cdr)
+
+(define-public (interval-index interval dir)
+  "Interpolate INTERVAL between between left (DIR=-1) and right (DIR=+1)"
+  
+  (* (+  (interval-start interval) (interval-end interval)
+	 (* dir (- (interval-end interval) (interval-start interval))))
+     0.5))
 
 (define-public (interval-center x)
   "Center the number-pair X, when an interval"
@@ -367,6 +382,7 @@ found."
 	    (inf? (car i))
 	    (nan? (cdr i))
 	    (inf? (cdr i)))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

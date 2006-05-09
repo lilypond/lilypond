@@ -47,8 +47,13 @@ Music_sequence::maximum_length (SCM l)
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
       Music *m = unsmob_music (scm_car (s));
-      Moment l = m->get_length ();
-      dur = max (dur, l);
+      if (!m)
+	programming_error ("Music sequence should have music elements");
+      else
+	{
+	  Moment l = m->get_length ();
+	  dur = max (dur, l);
+	}
     }
 
   return dur;

@@ -336,6 +336,10 @@ endgroup
 enddef;
 
 
+%
+%
+% UGH : xs not declared as argument.
+%
 def define_triangle_shape (expr stemdir) =
 	save triangle_a, triangle_b, triangle_c;
 	save triangle_out_a, triangle_out_b, triangle_out_c;
@@ -439,16 +443,17 @@ def define_triangle_shape (expr stemdir) =
 		       & {direction infinity of triangle_out_c}z1'l
 		       .. cycle;
 
+
 	labels (0, 10, 20, 30);
 	penlabels (1, 1', 2, 2', 3, 3', 12, 23, 31);
 
 	% attachment Y
 	if stemdir = 1:
 		charwy := ypart exact_right_point;
-		charwx := xpart exact_right_point;
+		charwx := xpart exact_right_point + .5 pen_thick# * xs;
 	else:
 		charwy := -ypart exact_down_point;
-		charwx := (width# - xpart exact_down_point);
+		charwx := (width# - (xpart exact_down_point - 0.5 * xs * pen_thick#));
 	fi
 enddef;
 
@@ -503,14 +508,14 @@ def draw_small_triangle_head (expr dir) =
 enddef;
 
 
-fet_beginchar ("Half trianglehead", "d1triangle");
+fet_beginchar ("Half trianglehead (downstem)", "d1triangle");
 	draw_small_triangle_head (-1);
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Half trianglehead", "u1triangle");
+fet_beginchar ("Half trianglehead (upstem)", "u1triangle");
 	draw_small_triangle_head (1);
 
 	draw_staff (-2, 2, 0.5);
@@ -531,14 +536,14 @@ def draw_closed_triangle_head (expr dir) =
 enddef;
 
 
-fet_beginchar ("Quart trianglehead", "u2triangle");
+fet_beginchar ("Quart trianglehead (upstem)", "u2triangle");
 	draw_closed_triangle_head (1);
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-fet_beginchar ("Quart trianglehead", "d2triangle");
+fet_beginchar ("Quart trianglehead (downstem)", "d2triangle");
 	draw_closed_triangle_head (-1);
 
 	draw_staff (-2, 2, 0.5);

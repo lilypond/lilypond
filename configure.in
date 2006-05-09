@@ -37,7 +37,7 @@ AC_ARG_ENABLE(gui,
 NCSB_DIR=unknown
 AC_ARG_WITH(ncsb-dir,
 [  --with-ncsb-dir=DIR     location of Century Schoolbook fonts
-                            Default: detect with locate(1)],
+                            Default: detect with fc-match(1)],
     [NCSB_DIR=$withval])
 
 reloc_b=no
@@ -53,6 +53,38 @@ AC_SUBST(LINK_GXX_STATICALLY)
 
 # must come before any header checks
 STEPMAKE_COMPILE
+
+
+
+  
+AC_CHECK_PROG(FCMATCH, fc-match, fc-match)
+AC_MSG_CHECKING([New Century Schoolbook PFB files])
+AC_SUBST(NCSB_SOURCE_FILES)
+if test "$NCSB_DIR" != "" ;  then
+  NCSB_SOURCE_FILES=""
+  for f in c059013l c059016l c059033l c059036l; do
+    if test ! -f "$NCSB_DIR/$f.pfb"; then
+      AC_MSG_WARN($NCSB_DIR does not contain $f.pfb.)
+    else
+      NCSB_SOURCE_FILES="$NCSB_DIR/$f.pfb $NCSB_SOURCE_FILES"
+    fi
+  done
+else
+  if test "$FCMATCH" != ""; then
+    for style in Roman Italic "Bold Italic" Bold; do
+      NCSB_FILE=`$FCMATCH --verbose 'Century Schoolbook L:style=$style' | grep 'file:'`
+
+      NCSB_FILE=`echo $NCSB_FILE | sed 's/^.*"\(.*\)".*$/\1/g'`
+      NCSB_SOURCE_FILES="$NCSB_FILE $NCSB_SOURCE_FILES"
+    done
+  else
+    AC_MSG_RESULT(not found)
+    echo "Can't find Century Schoolbook files. Install FontConfig's fc-match,"
+    echo "or use --with-ncsb-dir"
+  fi
+fi
+AC_MSG_RESULT($NCSB_SOURCE_FILES)
+
 
 STEPMAKE_PYTHON(REQUIRED, 2.2)
 STEPMAKE_GCC(REQUIRED, 2.8)
@@ -104,27 +136,7 @@ if test "$reloc_b" = "yes"; then
     AC_DEFINE(ARGV0_RELOCATION)
 fi
 
-AC_MSG_CHECKING([New Century Schoolbook PFB files])
-if test "$NCSB_DIR" = "unknown"; then
-  # use `type' command rather than external program `which'
-  type locate >& /dev/null
-  if test "$?" = "0"; then
-      for d in `locate c059033l.pfb `; do
-	  if test -f `dirname "$d"`/c059033l.afm ; then
-	      NCSB_DIR=`dirname "$d"`
-	      break 
-	  fi
-      done
-      if test "$NCSB_DIR" = "unknown";  then
-	  AC_MSG_WARN(Could not find c059033l.pfb. Use --enable-ncsb-path to set path)
-      fi
-  else
-     AC_MSG_WARN(Could not find locate(1). Use --enable-ncsb-path to set path to c059033l.pfb)
-  fi
-fi
 
-AC_MSG_RESULT($NCSB_DIR)
-AC_SUBST(NCSB_DIR)
 
 HOST_ARCH=`$CC -dumpmachine`
 AC_SUBST(HOST_ARCH)

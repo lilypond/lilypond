@@ -95,6 +95,9 @@ similar to chord syntax")
    "."))
 
 
+;; TeX C++ code actually hooks into TEX_STRING_HASHLIMIT 
+(define-public TEX_STRING_HASHLIMIT 10000000)
+
 
 
 ;; gettext wrapper for guile < 1.7.2
@@ -106,6 +109,8 @@ similar to chord syntax")
   (let* ((file-name (%search-load-path x)))
     (if (ly:get-option 'verbose)
 	(ly:progress "[~A" file-name))
+    (if (not file-name)
+	(ly:error (_ "Can't find ~A" x)))
     (primitive-load file-name)
     (if (ly:get-option 'verbose)
 	(ly:progress "]"))))
@@ -221,6 +226,7 @@ The syntax is the same as `define*-public'."
 	  ;; load-from-path
 	  '("lily-library.scm"
 	    "file-cache.scm"
+;	    "define-event-classes.scm"
 	    "define-music-types.scm"
 	    "output-lib.scm"
 	    "c++.scm"
