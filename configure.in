@@ -38,7 +38,7 @@ NCSB_DIR=unknown
 AC_ARG_WITH(ncsb-dir,
 [  --with-ncsb-dir=DIR     location of Century Schoolbook fonts
                             Default: detect with fc-match(1)],
-    [NCSB_DIR=$withval])
+    [NCSB_DIR=$withval], [NCSB_DIR=""])
 
 reloc_b=no
 AC_ARG_ENABLE(relocation,
