@@ -94,7 +94,6 @@ class Output_printer:
         self.dump (arg)
     
     def dump (self, str):
-        
         if self._skipspace:
             self._skipspace = False
             self.unformatted_output (str)
@@ -103,6 +102,13 @@ class Output_printer:
             for w in words:
                 self.add_word (w)
 
+
+    def close (self):
+        self.newline ()
+        self._file.close ()
+        self._file = None
+        
+        
 class Duration:
     def __init__ (self):
         self.duration_log = 0
@@ -143,7 +149,7 @@ class Duration:
 
     def get_length (self):
         dot_fact = Rational( (1 << (1 + self.dots))-1,
-                  1 << self.dots)
+                             1 << self.dots)
 
         log = abs (self.duration_log)
         dur = 1 << log
@@ -182,11 +188,10 @@ class Pitch:
         c.octave += c.step / 7
         c.step = c.step  % 7
 
-    
     def lisp_expression (self):
         return '(ly:make-pitch %d %d %d)' % (self.octave,
-                          self.step,
-                          self.alteration)
+                                             self.step,
+                                             self.alteration)
 
     def copy (self):
         p = Pitch ()
@@ -218,6 +223,7 @@ class Pitch:
             str += "," * (-self.octave - 1) 
             
         return str
+    
     def print_ly (self, outputter):
         outputter (self.ly_expression())
     
@@ -249,7 +255,6 @@ class Music:
         name = self.name()
 
         props = self.get_properties ()
-#                props += 'start %f ' % self.start
         
         return "(make-music '%s %s)" % (name,  props)
 
@@ -267,15 +272,15 @@ class Music:
 
         if not text:
             return
-
             
         if text == '\n':
             printer.newline ()
             return
+        
         lines = string.split (text, '\n')
         for l in lines:
             if l:
-                printer.dump ('% ' + l)
+                printer.unformatted_output ('% ' + l)
             printer.newline ()
             
 
@@ -294,6 +299,15 @@ class MusicWrapper (Music):
         self.element = None
     def print_ly (self, func):
         self.element.print_ly (func)
+
+class ModeChangingMusicWrapper (MusicWrapper):
+    def __init__ (self):
+        MusicWrapper.__init__ (self)
+        self.mode = 'notemode'
+
+    def print_ly (self, func):
+        func ('\\%s' % self.mode)
+        MusicWrapper.print_ly (self, func)
 
 class TimeScaledMusic (MusicWrapper):
     def print_ly (self, func):
@@ -429,12 +443,30 @@ class EventChord(NestedMusic):
         else:
             pass
         
-        #        print  'huh', rest_events, note_events, other_events
         for e in other_events:
             e.print_ly (printer)
 
         self.print_comment (printer)
             
+
+class BarCheck (Music):
+    def __init__ (self):
+        Music.__init__ (self)
+        self.bar_number = 0
+        
+    def print_ly (self, printer):
+        if self.bar_number > 0 and (self.bar_number % 10) == 0:
+            printer.dump ("|  \\barNumberCheck #%d " % self.bar_number)
+            printer.newline ()
+        else:
+            printer.dump ("| ")
+            printer.print_verbatim (' %% %d' % self.bar_number)
+            printer.newline ()
+ 
+
+    def ly_expression (self):
+        return " | "
+
 class Event(Music):
     pass
 
@@ -477,7 +509,7 @@ class RhythmicEvent(Event):
         
     def get_properties (self):
         return ("'duration %s"
-            % self.duration.lisp_expression ())
+                % self.duration.lisp_expression ())
     
 class RestEvent (RhythmicEvent):
     def ly_expression (self):
@@ -494,15 +526,21 @@ class SkipEvent (RhythmicEvent):
 class NoteEvent(RhythmicEvent):
     def  __init__ (self):
         RhythmicEvent.__init__ (self)
-        self.pitch = Pitch()
+        self.pitch = None
+        self.drum_type = None
         self.cautionary = False
         self.forced_accidental = False
         
     def get_properties (self):
-        return ("'pitch %s\n 'duration %s"
-            % (self.pitch.lisp_expression (),
-             self.duration.lisp_expression ()))
+        str = RhythmicEvent.get_properties ()
+        
+        if self.pitch:
+            str += self.pitch.lisp_expression ()
+        elif self.drum_type:
+            str += "'drum-type '%s" % self.drum_type
 
+        return str
+    
     def pitch_mods (self):
         excl_question = ''
         if self.cautionary:
@@ -513,13 +551,21 @@ class NoteEvent(RhythmicEvent):
         return excl_question
     
     def ly_expression (self):
-        return '%s%s%s' % (self.pitch.ly_expression (),
-                 self.pitch_mods(),
-                 self.duration.ly_expression ())
+        if self.pitch:
+            return '%s%s%s' % (self.pitch.ly_expression (),
+                               self.pitch_mods(),
+                               self.duration.ly_expression ())
+        elif self.drum_type:
+            return '%s%s' (self.drum_type,
+                           self.duration.ly_expression ())
 
     def print_ly (self, printer):
-        self.pitch.print_ly (printer)
-        printer (self.pitch_mods ())  
+        if self.pitch:
+            self.pitch.print_ly (printer)
+            printer (self.pitch_mods ())
+        else:
+            printer (self.drum_type)
+
         self.duration.print_ly (printer)
 
 class KeySignatureChange (Music):
@@ -574,6 +620,28 @@ class ClefChange (Music):
    (make-property-set 'middleCPosition %d) 'Staff)))
 """ % (glyph, pos, c0)
         return clefsetting
+
+
+class MultiMeasureRest(Music):
+
+    def lisp_expression (self):
+        return """
+(make-music
+  'MultiMeasureRestMusicGroup
+  'elements
+  (list (make-music (quote BarCheck))
+        (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'MultiMeasureRestEvent
+                  'duration
+                  %s)))
+        (make-music (quote BarCheck))))
+""" % self.duration.lisp_expression ()
+
+    def ly_expression (self):
+        return 'R%s' % self.duration.ly_expression ()
 
 
 def test_pitch ():

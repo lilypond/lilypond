@@ -9,6 +9,40 @@
 
 2006-05-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/musicxml2ly.py (musicxml_clef_to_lily): use new
+	Attributes methods
+	(musicxml_time_to_lily): idem
+	(musicxml_key_to_lily): idem
+	(instrument_drumtype_dict): dict for supported drumtypes.
+	(LilyPondVoiceBuilder.__init__): new class: sanely keep track of
+	moments and pending mm rests
+	(musicxml_voice_to_lily_voice): rewrite to use LilyPondVoiceBuilder
+	(musicxml_voice_to_lily_voice): strip KeyChangeEvents for drums.
+	(musicxml_voice_to_lily_voice): add mode change.
+	(option_parser): lxml.etree (http://codespeak.net/lxml/) for more
+	speed and less memory usage (factor 5 to 10).
+	(convert): write -defs.ly  and driver file separately so people
+	can script their own part extraction.
+
+	* python/musicxml.py (minidom_demarshal_node): new function:
+	separate minidom handling.
+	(lxml_demarshal_node): new function: support lxml.etree too.
+	(Xml_node.message): new function: verbose error message, with XML
+	path to offending node.
+	(Attributes.get_measure_length): sane interface to MusicXML attributes.
+	(Part_list.generate_id_instrument_dict): new method: collect
+	instrument names, to be able to set drum_type.
+	(Part.interpret): handle underfull measures
+	(Part.interpret): assign instrument names.
+
+	* python/musicexp.py (Output_printer.close): new method
+	(MusicWrapper.print_ly): new class: support other modes,
+	eg. \drummode
+	(BarCheck.print_ly): new class. Support bar checks, with comments
+	and fancy barchecks. 
+	(NoteEvent.__init__): also set drum_type for drum notes.
+	(MultiMeasureRest.lisp_expression): dump mm rests.
+
 	* lily/paper-column-engraver.cc (stop_translation_timestep): set
 	line-break-permission if forbidBreak is not set.
 	

@@ -6,6 +6,9 @@ import re
 import os
 import string
 from gettext import gettext as _
+import musicxml
+
+
 
 
 datadir = '@local_lilypond_datadir@'
@@ -31,10 +34,10 @@ for prefix_component in ['share', 'lib']:
     sys.path.insert (0, datadir)
 
 
+import lilylib as ly
 
 import musicxml
 import musicexp
-import lilylib as ly
 
 from rational import Rational
 
@@ -100,41 +103,31 @@ def group_tuplets (music_list, events):
     return new_list
 
 
-def musicxml_clef_to_lily (mxl):
-    sign = mxl.get_maybe_exist_named_child ('sign')
+def musicxml_clef_to_lily (attributes):
     change = musicexp.ClefChange ()
-    if sign:
-        change.type = sign.get_text ()
+    change.type = attributes.get_clef_sign ()
     return change
-
     
-def musicxml_time_to_lily (mxl):
-    beats = mxl.get_maybe_exist_named_child ('beats')
-    type = mxl.get_maybe_exist_named_child ('beat-type')
+def musicxml_time_to_lily (attributes):
+    (beats, type) = attributes.get_time_signature ()
+
     change = musicexp.TimeSignatureChange()
-    change.fraction = (string.atoi(beats.get_text ()),
-             string.atoi(type.get_text ()))
+    change.fraction = (beats, type)
     
     return change
 
-def musicxml_key_to_lily (mxl):
+def musicxml_key_to_lily (attributes):
     start_pitch  = musicexp.Pitch ()
+    (fifths, mode) = attributes.get_key_signature () 
     try:
-        mode = mxl.get_maybe_exist_named_child ('mode')
-        if mode:
-            mode = mode.get_text ()
-        else:
-            mode = 'major'
-            
-        (n,a) = { 'major' : (0,0),
-             'minor' : (6,0),
+        (n,a) = {
+            'major' : (0,0),
+            'minor' : (6,0),
             }[mode]
         start_pitch.step = n
         start_pitch.alteration = a
     except  KeyError:
         print 'unknown mode', mode
-        
-    fifths = string.atoi (mxl.get_maybe_exist_named_child ('fifths').get_text ())
 
     fifth = musicexp.Pitch()
     fifth.step = 4
@@ -166,18 +159,9 @@ def musicxml_attributes_to_lily (attrs):
 
         ## ugh: you get clefs spread over staves for piano
         if childs:
-            elts.append (func (childs[0]))
+            elts.append (func (attrs))
     
     return elts
-
-def create_skip_music (duration):
-    skip = musicexp.SkipEvent()
-    skip.duration.duration_log = 0
-    skip.duration.factor = duration
-
-    evc = musicexp.EventChord ()
-    evc.append (skip)
-    return evc
 
 spanner_event_dict = {
     'slur' : musicexp.SlurEvent,
@@ -208,6 +192,14 @@ def musicxml_spanner_to_lily_event (mxl_event):
 
     return ev
 
+instrument_drumtype_dict = {
+    'Acoustic Snare Drum': 'acousticsnare',
+    'Side Stick': 'sidestick',
+    'Open Triangle': 'opentriangle',
+    'Tambourine': 'tambourine',
+    
+}
+
 def musicxml_note_to_lily_main_event (n):
     pitch  = None
     duration = None
@@ -226,59 +218,142 @@ def musicxml_note_to_lily_main_event (n):
         
     elif n.get_maybe_exist_typed_child (musicxml.Rest):
         event = musicexp.RestEvent()
+    elif n.instrument_name:
+        event = musicexp.NoteEvent ()
+        event.drum_type = instrument_drumtype_dict[n.instrument_name]
+        
+    
+    if not event:
+        n.message ("could not find suitable event")
 
     event.duration = musicxml_duration_to_lily (n)
     return event
 
+
+## todo
+class NegativeSkip:
+    def __init__ (self, here, dest):
+        self.here = here
+        self.dest = dest
+
+class LilyPondVoiceBuilder:
+    def __init__ (self):
+        self.elements = []
+        self.end_moment = Rational (0)
+        self.begin_moment = Rational (0)
+        self.pending_multibar = Rational (0)
+
+    def _insert_multibar (self):
+        r = musicexp.MultiMeasureRest ()
+        r.duration = musicexp.Duration()
+        r.duration.duration_log = 0
+        r.duration.factor = self.pending_multibar
+        self.elements.append (r)
+        self.begin_moment = self.end_moment
+        self.end_moment = self.begin_moment + self.pending_multibar
+        self.pending_multibar = Rational (0)
+        
+    def add_multibar_rest (self, duration):
+        self.pending_multibar += duration
+        
+        
+    def add_music (self, music, duration):
+        assert isinstance (music, musicexp.Music)
+        if self.pending_multibar > Rational (0):
+            self._insert_multibar ()
+
+        self.elements.append (music)
+        self.begin_moment = self.end_moment
+        self.end_moment = self.begin_moment + duration 
+
+    def add_bar_check (self, number):
+        b = musicexp.BarCheck ()
+        b.bar_number = number
+        self.add_music (b, Rational (0))
+
+    def jumpto (self, moment):
+        current_end = self.end_moment + self.pending_multibar
+        diff = moment - current_end
+        
+        if diff < Rational (0):
+            raise NegativeSkip(current_end, moment)
+
+        if diff > Rational (0):
+            skip = musicexp.SkipEvent()
+            skip.duration.duration_log = 0
+            skip.duration.factor = diff
+
+            evc = musicexp.EventChord ()
+            evc.elements.append (skip)
+            self.add_music (evc, diff)
+                
+    def last_event_chord (self, starting_at):
+        if (self.elements
+            and isinstance (self.elements[-1], musicexp.EventChord)
+            and self.begin_moment == starting_at):
+            return self.elements[-1]
+        else:
+            self.jumpto (starting_at)
+            return None
+    def correct_negative_skip (self, goto):
+        self.end_moment = goto
+        self.begin_moment = goto
+        evc = musicexp.EventChord ()
+        self.elements.append (evc)
+        
 def musicxml_voice_to_lily_voice (voice):
-    ly_voice = []
-    ly_now = Rational (0)
-    pending_skip = Rational (0) 
-
     tuplet_events = []
+    modes_found = {}
 
+    voice_builder = LilyPondVoiceBuilder()
     for n in voice._elements:
         if n.get_name () == 'forward':
             continue
-        
-        if isinstance (n, musicxml.Attributes):
-            ly_now += pending_skip
-            pending_skip = Rational (0)
+
+        try:
+            voice_builder.jumpto (n._when)
+        except NegativeSkip, neg:
+            voice_builder.correct_negative_skip (n._when)
+            n.message ("Negative skip? from %s to %s, diff %s" % (neg.here, neg.dest, neg.dest - neg.here))
             
-            ly_voice.extend (musicxml_attributes_to_lily (n))
+        if isinstance (n, musicxml.Attributes):
+            if n.is_first () and n._measure_position == Rational (0):
+                voice_builder.add_bar_check (int (n.get_parent ().number))
+            for a in musicxml_attributes_to_lily (n):
+                voice_builder.add_music (a, Rational (0))
             continue
-        
+
         if not n.__class__.__name__ == 'Note':
             print 'not a Note or Attributes?', n
             continue
 
-        if n.is_first () and ly_voice:
-            ly_voice[-1].comment += '\n'
-        
+        rest = n.get_maybe_exist_typed_child (musicxml.Rest)
+        if (rest
+            and rest.is_whole_measure ()):
 
+            voice_builder.add_multibar_rest (n._duration)
+            continue
+
+        if n.is_first () and n._measure_position == Rational (0):
+            num = int (n.get_parent ().number)
+            voice_builder.add_bar_check (num)
+        
         main_event = musicxml_note_to_lily_main_event (n)
 
-        ev_chord = None
-        if None ==  n.get_maybe_exist_typed_child (musicxml.Chord):
-            ly_now += pending_skip
-            pending_skip = main_event.get_length ()
-
-            if ly_now <> n._when:
-                diff = n._when - ly_now
-
-                if diff < Rational (0):
-                    print 'huh: negative skip', n._when, ly_now, n._duration
-                    diff = Rational (1,314159265)
-
-                ly_voice.append (create_skip_music (diff))
-                ly_now = n._when
-                
-            ly_voice.append (musicexp.EventChord())
-        else:
+        try:
+            if main_event.drum_type:
+                modes_found['drummode'] = True
+        except AttributeError:
             pass
+
+
+        ev_chord = voice_builder.last_event_chord (n._when)
+        if not ev_chord: 
+            ev_chord = musicexp.EventChord()
+
         
-        ev_chord = ly_voice[-1]
         ev_chord.append (main_event)
+        voice_builder.add_music (ev_chord, n._duration)
         
         notations = n.get_maybe_exist_typed_child (musicxml.Notations)
         tuplet_event = None
@@ -307,7 +382,8 @@ def musicxml_voice_to_lily_voice (voice):
                 ev_chord.append (musicexp.TieEvent ())
 
         mxl_beams = [b for b in n.get_named_children ('beam')
-              if b.get_type () in ('begin', 'end')] 
+                     if (b.get_type () in ('begin', 'end')
+                         and b.is_primary ())] 
         if mxl_beams:
             beam_ev = musicxml_spanner_to_lily_event (mxl_beams[0])
             if beam_ev:
@@ -321,17 +397,38 @@ def musicxml_voice_to_lily_voice (voice):
                 
             tuplet_events.append ((ev_chord, tuplet_event, frac))
 
-    ly_voice = group_tuplets (ly_voice, tuplet_events)
+    ## force trailing mm rests to be written out.   
+    voice_builder.add_music (musicexp.EventChord ())
+    
+    ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
 
     seq_music = musicexp.SequentialMusic()
+
+    if 'drummode' in modes_found.keys ():
+        ## \key <pitch> barfs in drummode.
+        ly_voice = [e for e in ly_voice
+                    if not isinstance(e, musicexp.KeySignatureChange)]
     
     seq_music.elements = ly_voice
-    return seq_music
+
+    
+    
+    if len (modes_found) > 1:
+       print 'Too many modes found', modes_found.keys ()
+
+    return_value = seq_music
+    for mode in modes_found.keys ():
+        v = musicexp.ModeChangingMusicWrapper()
+        v.element = return_value
+        v.mode = mode
+        return_value = v
+    
+    return return_value
 
 
 def musicxml_id_to_lily (id):
     digits = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
-         'nine', 'ten']
+              'nine', 'ten']
     
     for dig in digits:
         d = digits.index (dig) + 1
@@ -349,12 +446,10 @@ def musicxml_pitch_to_lily (mxl_pitch):
     p.octave = mxl_pitch.get_octave () - 4
     return p
 
-
-
 def voices_in_part (part):
     """Return a Name -> Voice dictionary for PART"""
     part.interpret ()
-    part.extract_voices ()                
+    part.extract_voices ()
     voice_dict = part.get_voices ()
 
     return voice_dict
@@ -390,8 +485,8 @@ under certain conditions.  Invoke as `lilypond --warranty' for more
 information.
 
 Copyright (c) 2005--2006 by
- Han-Wen Nienhuys <hanwen@xs4all.nl> and
- Jan Nieuwenhuizen <janneke@gnu.org>
+    Han-Wen Nienhuys <hanwen@xs4all.nl> and
+    Jan Nieuwenhuizen <janneke@gnu.org>
 """,
 
                  description  =
@@ -399,16 +494,23 @@ Copyright (c) 2005--2006 by
 """
                  )
     p.add_option ('-v', '--verbose',
-           action = "store_true",
-           dest = 'verbose',
-           help = 'be verbose')
+                  action = "store_true",
+                  dest = 'verbose',
+                  help = 'be verbose')
+
+    p.add_option ('', '--lxml',
+                  action="store_true",
+                  default=False,
+                  dest="use_lxml",
+                  help="Use lxml.etree; uses less memory and cpu time.")
+    
     p.add_option ('-o', '--output',
-           metavar = 'FILE',
-           action = "store",
-           default = None,
-           type = 'string',
-           dest = 'output',
-           help = 'set output file')
+                  metavar = 'FILE',
+                  action="store",
+                  default=None,
+                  type='string',
+                  dest='output_name',
+                  help='set output file')
 
     p.add_option_group  ('', description = '''Report bugs via http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs
 ''')
@@ -420,11 +522,14 @@ def music_xml_voice_name_to_lily_name (part, name):
 
 def print_voice_definitions (printer, voices):
     for (part, nv_dict) in voices.items():
+        
         for (name, (voice, mxlvoice)) in nv_dict.items ():
             k = music_xml_voice_name_to_lily_name (part, name)
             printer.dump ('%s = ' % k)
             voice.print_ly (printer)
             printer.newline()
+
+            
 def uniq_list (l):
     return dict ([(elt,1) for elt in l]).keys ()
     
@@ -479,44 +584,70 @@ def print_score_setup (printer, part_list, voices):
             printer ('>>')
             printer.newline ()
             
-
     printer ('>>')
     printer.newline ()
-
-                
 
 def print_ly_preamble (printer, filename):
     printer.dump_version ()
     printer.print_verbatim ('%% converted from %s\n' % filename)
 
-def convert (filename, output_name):
-    printer = musicexp.Output_printer()
-    progress ("Reading MusicXML...")
+def read_musicxml (filename, use_lxml):
+    if use_lxml:
+        import lxml.etree
+        
+        tree = lxml.etree.parse (filename)
+        mxl_tree = musicxml.lxml_demarshal_node (tree.getroot ())
+        return mxl_tree
+    else:
+        from xml.dom import minidom, Node
+        
+        doc = minidom.parse(filename)
+        node = doc.documentElement
+        return musicxml.minidom_demarshal_node (node)
+
+    return None
+
+
+def convert (filename, options):
+    progress ("Reading MusicXML from %s ..." % filename)
     
-    tree = musicxml.read_musicxml (filename)
+    tree = read_musicxml (filename, options.use_lxml)
+
+    part_list = []
+    id_instrument_map = {}
+    if tree.get_maybe_exist_typed_child (musicxml.Part_list):
+        mxl_pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
+        part_list = mxl_pl.get_named_children ("score-part")
+        
     parts = tree.get_typed_children (musicxml.Part)
     voices = get_all_voices (parts)
 
-    part_list = []
-    if tree.get_maybe_exist_typed_child (musicxml.Part_list):
-        pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
-        part_list = pl.get_named_children ("score-part")
-        
-    if not output_name:
-        output_name = os.path.basename (filename)
-        output_name = os.path.splitext (output_name)[0] + '.ly'
+    if not options.output_name:
+        options.output_name = os.path.basename (filename) 
+        options.output_name = os.path.splitext (options.output_name)[0]
 
-        
-    if output_name:
-        progress ("Output to `%s'" % output_name)
-        printer.set_file (open (output_name, 'w'))
-    
-    progress ("Printing as .ly...")
+
+    defs_ly_name = options.output_name + '-defs.ly'
+    driver_ly_name = options.output_name + '.ly'
+
+    printer = musicexp.Output_printer()
+    progress ("Output to `%s'" % defs_ly_name)
+    printer.set_file (open (defs_ly_name, 'w'))
 
     print_ly_preamble (printer, filename)
-    print_voice_definitions (printer,  voices)
+    print_voice_definitions (printer, voices)
+    
+    printer.close ()
+    
+    
+    progress ("Output to `%s'" % driver_ly_name)
+    printer = musicexp.Output_printer()
+    printer.set_file (open (driver_ly_name, 'w'))
+    print_ly_preamble (printer, filename)
+    printer.dump (r'\include "%s"' % defs_ly_name)
     print_score_setup (printer, part_list, voices)
     printer.newline ()
+
     return voices
 
 
@@ -528,7 +659,7 @@ def main ():
         opt_parser.print_usage()
         sys.exit (2)
 
-    voices = convert (args[0], options.output)
+    voices = convert (args[0], options)
 
 if __name__ == '__main__':
     main()

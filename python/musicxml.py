@@ -1,10 +1,5 @@
-import sys
 import new
-import re
-import string
-from rational import Rational
-
-from xml.dom import minidom, Node
+from rational import *
 
 class Xml_node:
     def __init__ (self):
@@ -14,6 +9,9 @@ class Xml_node:
 	self._name = 'xml_node'
 	self._parent = None
 
+    def get_parent (self):
+        return self._parent
+    
     def is_first (self):
 	return self._parent.get_typed_children (self.__class__)[0] == self
 
@@ -31,6 +29,14 @@ class Xml_node:
 
 	return ''.join ([c.get_text () for c in self._children])
 
+    def message (self, msg):
+        print msg
+
+        p = self
+        while p:
+            print '  In: <%s %s>' % (p._name, ' '.join (['%s=%s' % item for item in p._original.attrib.items()]))
+            p = p._parent
+        
     def get_typed_children (self, klass):
 	return [c for c in self._children if isinstance(c, klass)]
 
@@ -75,7 +81,7 @@ class Music_xml_node (Xml_node):
 
 class Duration (Music_xml_node):
     def get_length (self):
-	dur = string.atoi (self.get_text ()) * Rational (1,4)
+	dur = int (self.get_text ()) * Rational (1,4)
 	return dur
 
 class Hash_comment (Music_xml_node):
@@ -90,13 +96,13 @@ class Pitch (Music_xml_node):
 	ch = self.get_unique_typed_child (class_dict[u'octave'])
 
 	step = ch.get_text ().strip ()
-	return string.atoi (step)
+	return int (step)
 
     def get_alteration (self):
 	ch = self.get_maybe_exist_typed_child (class_dict[u'alter'])
 	alter = 0
 	if ch:
-	    alter = string.atoi (ch.get_text ().strip ())
+	    alter = int (ch.get_text ().strip ())
 	return alter
 
 class Measure_element (Music_xml_node):
@@ -119,6 +125,7 @@ class Attributes (Measure_element):
 
     def set_attributes_from_previous (self, dict):
 	self._dict.update (dict)
+        
     def read_self (self):
 	for c in self.get_all_children ():
 	    self._dict[c.get_name()] = c
@@ -126,20 +133,64 @@ class Attributes (Measure_element):
     def get_named_attribute (self, name):
 	return self._dict[name]
 
+    def get_measure_length (self):
+        (n,d) = self.get_time_signature ()
+        return Rational (n,d)
+        
+    def get_time_signature (self):
+        "return time sig as a (beat, beat-type) tuple"
+
+        try:
+            mxl = self.get_named_attribute ('time')
+            
+            beats = mxl.get_maybe_exist_named_child ('beats')
+            type = mxl.get_maybe_exist_named_child ('beat-type')
+            return (int (beats.get_text ()),
+                    int (type.get_text ()))
+        except KeyError:
+            print 'error: requested time signature, but time sig unknown'
+            return (4, 4)
+
+    def get_clef_sign (self):
+        mxl = self.get_named_attribute ('clef')
+        sign = mxl.get_maybe_exist_named_child ('sign')
+        if sign:
+            return sign.get_text ()
+        else:
+            print 'clef requested, but unknow'
+            return 'G'
+
+    def get_key_signature (self):
+        "return (fifths, mode) tuple"
+
+        key = self.get_named_attribute ('key')
+        mode_node = self.get_maybe_exist_named_child ('mode')
+        mode = 'major'
+        if mode_node:
+            mode = mode_node.get_text ()
+
+        fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
+        return (fifths, mode)
+                
+
 class Note (Measure_element):
+    def __init__ (self):
+        Measure_element.__init__ (self)
+        self.instrument_name = ''
+        
     def get_duration_log (self):
 	ch = self.get_maybe_exist_typed_child (class_dict[u'type'])
 
 	if ch:
 	    log = ch.get_text ().strip()
-	    return 	{'eighth': 3,
-		     'quarter': 2,
-		     'half': 1,
-		     '16th': 4,
-		     '32nd': 5,
+	    return {'eighth': 3,
+                    'quarter': 2,
+                    'half': 1,
+                    '16th': 4,
+                    '32nd': 5,
 		     'breve': -1,
-		     'long': -2,
-		     'whole': 0} [log]
+                    'long': -2,
+                    'whole': 0} [log]
 	else:
 	    return 0
 
@@ -150,13 +201,37 @@ class Note (Measure_element):
 	return self.get_typed_children (class_dict[u'pitch'])
 
 class Part_list (Music_xml_node):
-    pass
+    def __init__ (self):
+        Music_xml_node.__init__ (self)
+        self._id_instrument_name_dict = {}
+        
+    def generate_id_instrument_dict (self):
 
+        ## not empty to make sure this happens only once.
+        mapping = {1: 1}
+        for score_part in self.get_named_children ('score-part'):
+            for instr in score_part.get_named_children ('score-instrument'):
+                id = instr.id
+                name = instr.get_named_child ("instrument-name")
+                mapping[id] = name.get_text ()
+
+        self._id_instrument_name_dict = mapping
+
+    def get_instrument (self, id):
+        if not self._id_instrument_name_dict:
+            self.generate_id_instrument_dict()
+
+        try:
+            return self._id_instrument_name_dict[id]
+        except KeyError:
+            print "Opps, couldn't find instrument for ID=", id
+            return "Grand Piano"
+        
 class Measure(Music_xml_node):
     def get_notes (self):
 	return self.get_typed_children (class_dict[u'note'])
 
-
+    
 class Musicxml_voice:
     def __init__ (self):
 	self._elements = []
@@ -182,38 +257,79 @@ class Part (Music_xml_node):
     def __init__ (self):
 	self._voices = []
 
+    def get_part_list (self):
+        n = self
+        while n and n.get_name() != 'score-partwise':
+            n = n._parent
+
+        return n.get_named_child ('part-list')
+        
     def interpret (self):
 	"""Set durations and starting points."""
-
+        
+        part_list = self.get_part_list ()
+        
 	now = Rational (0)
 	factor = Rational (1)
-	attr_dict = {}
+	attributes_dict = {}
+        attributes_object = None
 	measures = self.get_typed_children (Measure)
-
+        
 	for m in measures:
+            measure_start_moment = now
+            measure_position = Rational (0)
 	    for n in m.get_all_children ():
 		dur = Rational (0)
 
-		if n.__class__ == Attributes:
-		    n.set_attributes_from_previous (attr_dict)
+                if n.__class__ == Attributes:
+		    n.set_attributes_from_previous (attributes_dict)
 		    n.read_self ()
-		    attr_dict = n._dict.copy ()
-
+		    attributes_dict = n._dict.copy ()
+                    attributes_object = n
+                    
 		    factor = Rational (1,
-				       string.atoi (attr_dict['divisions']
-						    .get_text ()))
+				       int (attributes_dict['divisions'].get_text ()))
 		elif (n.get_maybe_exist_typed_child (Duration)
 		      and not n.get_maybe_exist_typed_child (Chord)):
+                    
 		    mxl_dur = n.get_maybe_exist_typed_child (Duration)
 		    dur = mxl_dur.get_length () * factor
+                    
 		    if n.get_name() == 'backup':
 			dur = - dur
 		    if n.get_maybe_exist_typed_child (Grace):
 			dur = Rational (0)
 
+                    rest = n.get_maybe_exist_typed_child (Rest)
+		    if (rest
+                        and attributes_object
+                        and attributes_object.get_measure_length () == dur):
+
+                        rest._is_whole_measure = True
+                        
+
 		n._when = now
+                n._measure_position = measure_position
 		n._duration = dur
 		now += dur
+                measure_position += dur
+                if n._name == 'note':
+                    instrument = n.get_maybe_exist_named_child ('instrument')
+                    if instrument:
+                        n.instrument_name = part_list.get_instrument (instrument.id)
+
+            if attributes_object:
+                length = attributes_object.get_measure_length ()
+                new_now = measure_start_moment + length
+                
+                if now <> new_now:
+                    problem = 'incomplete'
+                    if now > new_now:
+                        problem = 'overfull'
+                        
+                    m.message ('%s measure? Expected: %s, Difference: %s' % (problem, now, new_now - now))
+
+                now = new_now
 
     def extract_voices (part):
 	voices = {}
@@ -269,7 +385,7 @@ class Time_modification(Music_xml_node):
     def get_fraction (self):
 	b = self.get_maybe_exist_typed_child (class_dict['actual-notes'])
 	a = self.get_maybe_exist_typed_child (class_dict['normal-notes'])
-	return (string.atoi(a.get_text ()), string.atoi (b.get_text ()))
+	return (int(a.get_text ()), int (b.get_text ()))
 
 class Accidental (Music_xml_node):
     def __init__ (self):
@@ -288,7 +404,9 @@ class Slur (Music_xml_node):
 class Beam (Music_xml_node):
     def get_type (self):
 	return self.get_text ()
-
+    def is_primary (self):
+        return self.number == "1"
+    
 class Chord (Music_xml_node):
     pass
 
@@ -299,7 +417,12 @@ class Alter (Music_xml_node):
     pass
 
 class Rest (Music_xml_node):
-    pass
+    def __init__ (self):
+        Music_xml_node.__init__ (self)
+        self._is_whole_measure = False
+    def is_whole_measure (self):
+        return self._is_whole_measure
+
 class Mode (Music_xml_node):
     pass
 class Tied (Music_xml_node):
@@ -312,6 +435,11 @@ class Grace (Music_xml_node):
 class Staff (Music_xml_node):
     pass
 
+class Instrument (Music_xml_node):
+    pass
+
+## need this, not all classes are instantiated
+## for every input file.
 class_dict = {
 	'#comment': Hash_comment,
 	'accidental': Accidental,
@@ -322,6 +450,7 @@ class_dict = {
 	'dot': Dot,
 	'duration': Duration,
 	'grace': Grace,
+        'instrument': Instrument, 
 	'mode' : Mode,
 	'measure': Measure,
 	'notations': Notations,
@@ -345,32 +474,48 @@ def name2class_name (name):
 
     return str (name)
 
-def create_classes (names, dict):
-    for n in names:
-	if dict.has_key (n):
-	    continue
-
-	class_name = name2class_name (n)
+def get_class (name):
+    try:
+        return class_dict[name]
+    except KeyError:
+	class_name = name2class_name (name)
 	klass = new.classobj (class_name, (Music_xml_node,) , {})
-	dict[n] = klass
+	class_dict[name] = klass
+        return klass
+        
+def lxml_demarshal_node (node):
+    name = node.tag
 
-def element_names (node, dict):
-    dict[node.nodeName] = 1
-    for cn in node.childNodes:
-	element_names (cn, dict)
-    return dict
+    if name is None:
+        return None
+    klass = get_class (name)
+    py_node = klass()
+    
+    py_node._original = node
+    py_node._name = name
+    py_node._data = node.text
+    py_node._children = [lxml_demarshal_node (cn) for cn in node.getchildren()]
+    py_node._children = filter (lambda x: x, py_node._children)
+    
+    for c in py_node._children:
+	c._parent = py_node
 
-def demarshal_node (node):
+    for (k,v) in node.items ():
+        py_node.__dict__[k] = v
+
+    return py_node
+
+def minidom_demarshal_node (node):
     name = node.nodeName
-    klass = class_dict[name]
+
+    klass = get_class (name)
     py_node = klass()
     py_node._name = name
-    py_node._children = [demarshal_node (cn) for cn in node.childNodes]
+    py_node._children = [minidom_demarshal_node (cn) for cn in node.childNodes]
     for c in py_node._children:
 	c._parent = py_node
 
     if node.attributes:
-
 	for (nm, value) in node.attributes.items():
 	    py_node.__dict__[nm] = value
 
@@ -381,34 +526,12 @@ def demarshal_node (node):
     py_node._original = node
     return py_node
 
-def strip_white_space (node):
-    node._children = \
-    [c for c in node._children
-     if not (c._original.nodeType == Node.TEXT_NODE and
-	     re.match (r'^\s*$', c._data))]
-
-    for c in node._children:
-	strip_white_space (c)
-
-def create_tree (name):
-    doc = minidom.parse(name)
-    node = doc.documentElement
-    names = element_names (node, {}).keys()
-    create_classes (names, class_dict)
-
-    return demarshal_node (node)
-
-def test_musicxml (tree):
-    m = tree._children[-2]
-    print m
-
-def read_musicxml (name):
-    tree = create_tree (name)
-    strip_white_space (tree)
-    return tree
 
 if __name__  == '__main__':
-    tree = read_musicxml ('BeetAnGeSample.xml')
-    test_musicxml (tree)
-
-
+        import lxml.etree
+        
+        tree = lxml.etree.parse ('beethoven.xml')
+        mxl_tree = lxml_demarshal_node (tree.getroot ())
+        ks = class_dict.keys()
+        ks.sort()
+        print '\n'.join (ks)
