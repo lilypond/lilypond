@@ -11,7 +11,8 @@
 @end direntry
 
 @ifhtml
-This document is also available in @uref{source/Documentation/user/music-glossary.pdf,PDF}
+This document is also available in 
+@uref{source/Documentation/user/music-glossary.pdf,PDF}
 and as @uref{source/Documentation/user/music-glossary.html,one big page}.
 @end ifhtml
 
@@ -1069,7 +1070,8 @@ D: Cent,
 NL: cent,
 DK: cent,
 S: cent,
-FI: sentti, puolisävelaskeleen sadasosa tasavireisessä viritysjärjestelmässä.
+FI: sentti, puolisävelaskeleen sadasosa tasavireisessä 
+viritysjärjestelmässä.
 
 Logarithmic unit of measurement.  1@tie{}cent is 1/1200 of an octave (1/100
 of an equally tempered @aref{semitone}).
@@ -1092,8 +1094,10 @@ DK: akkord,
 S: ackord,
 FI: sointu.
 
-Three or more tones sounding simultaneously.  In traditional European music the
-base chord is a @emph{triad} consisting of 2@w{ }thirds.  @emph{Major} (major +
+Three or more tones sounding simultaneously.  In traditional European music 
+the
+base chord is a @emph{triad} consisting of 2@w{ }thirds.  @emph{Major} (major 
++
 minor @aref{third}) as well as @emph{minor} (minor + major third)
 chords may be extended with more thirds.  Four-tone @emph{seventh chords}
 and five-tone @emph{ninth} major chords are most often used as dominants
@@ -2367,7 +2371,8 @@ variants of the base chords.
 \context Voice \relative c'' {
   <g e c >1 < a f d > < b g e >
   <c a f > < d b g > < e c a > < f d b > }
-\context Lyrics \lyrics { T Sp Dp S D Tp \markup{ D\translate #(cons -2 0) {"|"}  } }
+\context Lyrics \lyrics {
+  T Sp Dp S D Tp \markup{ D\translate #(cons -2 0) {"|"}  } }
 @end lilypond
 
 @node G
@@ -2628,7 +2633,8 @@ DK: interval,
 S: intervall,
 FI: intervalli, kahden sävelen korkeusero.
 
-Difference in pitch between two notes.  Intervals may be perfect, minor, major,
+Difference in pitch between two notes.  Intervals may be perfect, minor, 
+major,
 diminished, or augmented.  The augmented fourth and the diminished fifth are
 identical (@aref{enharmonic}) and are called @emph{tritonus}
 because they consist of three @aref{whole tone}s.  The addition
@@ -3389,7 +3395,8 @@ S: notvärde,
 FI: nuotin aika-arvo.
 
 Note values (durations) are measured as fractions, normally 1/2, of the next
-higher note value.  The longest duration normally used is called @emph{brevis},
+higher note value.  The longest duration normally used is called 
+@emph{brevis},
 but sometimes (mostly in pre-baroque music) the double length note value
 @emph{longa} is used.
 
@@ -3501,7 +3508,8 @@ the upper note is played first.
 >>
 @end lilypond
 
-Other frequently used ornaments are the @emph{turn}, the @emph{mordent}, and the
+Other frequently used ornaments are the @emph{turn}, the @emph{mordent}, and 
+the
 @emph{prall} (inverted mordent).
 
 @lilypond[fragment,line-width=13.0\cm]
@@ -4457,7 +4465,8 @@ D: syntonisches Komma,
 NL: syntonische komma,
 DK: syntonisk komma,
 S: syntoniskt komma,
-FI: syntoninen komma, terssien taajuusero luonnollisessa ja Pytagorisessa viritysjärjestelmässä.
+FI: syntoninen komma, terssien taajuusero luonnollisessa ja Pytagorisessa 
+viritysjärjestelmässä.
 
 Difference between the natural third and the third obtained by Pythagorean
 tuning (@aref{Pythagorean comma}), equal to 22@w{ }cents.
@@ -4870,7 +4879,8 @@ S: stämgaffel,
 FI: viritysavain.
 
 A two-pronged piece of steel used to indicate absolute pitch.  Tuning forks
-give the international pitch for the tone @emph{a} (440 vibrations per second).
+give the international pitch for the tone @emph{a} (440 vibrations per 
+second).
 
 @node turn
 @section turn
@@ -5196,12 +5206,14 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 
 @item
 
-@item @strong{c-sharp} @tab do diesis  @tab do diesis  @tab ut dièse @tab Cis @tab cis @tab
+@item @strong{c-sharp} @tab do diesis  @tab do diesis  @tab ut dièse @tab 
+Cis @tab cis @tab
 cis @tab cis @tab cis
 
 @item
 
-@item @strong{d-flat} @tab re bemolle  @tab re bemolle  @tab ré bémol @tab Des @tab des @tab
+@item @strong{d-flat} @tab re bemolle  @tab re bemolle  @tab ré bémol @tab 
+Des @tab des @tab
 des @tab des @tab des
 
 @item
@@ -5218,11 +5230,13 @@ des @tab des @tab des
 
 @item
 
-@item @strong{g} @tab sol  @tab sol  @tab sol @tab G @tab g @tab g @tab g @tab g
+@item @strong{g} @tab sol  @tab sol  @tab sol @tab G @tab g @tab g @tab g 
+@tab g
 
 @item
 
-@item @strong{a-flat} @tab la bemol  @tab la bemolle  @tab la bémol @tab As @tab as @tab as
+@item @strong{a-flat} @tab la bemol  @tab la bemolle  @tab la bémol @tab As 
+@tab as @tab as
 @tab as @tab as
 
 @item
@@ -5231,12 +5245,14 @@ des @tab des @tab des
 
 @item
 
-@item @strong{a-sharp} @tab la sostenido  @tab la diesis  @tab la dièse @tab Ais @tab ais @tab
+@item @strong{a-sharp} @tab la sostenido  @tab la diesis  @tab la dièse @tab 
+Ais @tab ais @tab
 ais @tab ais @tab ais
 
 @item
 
-@item @strong{b-flat} @tab si bemol  @tab si bemolle  @tab si bémol @tab B @tab bes @tab b
+@item @strong{b-flat} @tab si bemol  @tab si bemolle  @tab si bémol @tab B 
+@tab bes @tab b
 @tab b @tab b
 
 @item

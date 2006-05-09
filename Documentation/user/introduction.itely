@@ -82,7 +82,8 @@ computer edition.
 @end ifnotinfo
 @ifinfo
 @c workaround for makeinfo-4.6: line breaks and multi-column cookies
-@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png} @image{lily-flat-bw,,,png}
+@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png} 
+@image{lily-flat-bw,,,png}
 @end ifinfo
 
 @item @tab
@@ -172,7 +173,8 @@ constant rhythm.  The spacing should reflect that.  Unfortunately, the
 eye deceives us a little; not only does it notice the distance between
 note heads, it also takes into account the distance between
 consecutive stems.  As a result, the notes of an up-stem/@/down-stem
-combination should be put farther apart, and the notes of a down-stem/@/up-stem
+combination should be put farther apart, and the notes of a 
+down-stem/@/up-stem
 combination should be put closer together, all depending on the
 combined vertical positions of the notes.  The first two measures are
 printed with this correction, the last two measures without.  The notes
@@ -691,12 +693,7 @@ gives a gentle introduction to typesetting music.  First time
 users should start here.
 
 @item
-@emph{@ref{Example templates}}
-provides templates of LilyPond pieces.  Just cut and paste a
-template into a file, add notes, and you're done!
-
-@item
-@emph{@ref{Putting it all together}}
+@emph{@ref{Working on LilyPond projects}}
 demonstrates practical uses of LilyPond.
 
 @item
@@ -748,7 +745,14 @@ The
 @emph{@ref{Literature list}}
 contains a set of useful reference books for those who wish to know
 more on notation and engraving.
+
+@item
+@emph{@ref{Example templates}}
+provides templates of LilyPond pieces.  Just cut and paste a
+template into a file, add notes, and you're done!
+
 @end itemize
+
 
 Once you are an experienced user, you can use the manual as reference:
 there is an extensive index@footnote{If you are looking for something,

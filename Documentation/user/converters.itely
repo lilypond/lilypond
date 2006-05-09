@@ -161,7 +161,7 @@ confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
-@uref{http://@/www.@/recordarde@/.com/xml/,MusicXML} is an XML dialect
+@uref{http://@/www.@/recordarde@/.com/xml@/.html,MusicXML} is an XML dialect
 for representing music notation.
 
 @command{musicxml2ly} extracts the notes from part-wise MusicXML
@@ -298,9 +298,11 @@ These tools include
 @item
 @uref{http://@/denemo@/.sourceforge@/.net/,Denemo}, a graphical score editor.
 @item
-@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime monophonic MIDI to LilyPond converter.
+@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime 
+monophonic MIDI to LilyPond converter.
 @item
-@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an Emacs major mode.
+@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an 
+Emacs major mode.
 @item
 @uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, which imports
 @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}

@@ -1,4 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+
 @node Running LilyPond
 @chapter Running LilyPond
 
@@ -8,10 +10,11 @@ This chapter details the technicalities of running LilyPond.
 @menu
 * Invoking lilypond::           
 * Notes for the MacOS X app::   
-* Error messages::              
 * Updating files with convert-ly::  
 * Reporting bugs::              
+* Error messages::              
 * Editor support::              
+* Point and click::             
 @end menu
 
 @node Invoking lilypond
@@ -43,7 +46,7 @@ GUILE is not reset after processing a @code{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
 
-@section Command line options
+@subsection Command line options
 
 The following options are supported:
 
@@ -121,6 +124,8 @@ This sets the internal program option @var{var} to the Scheme value
 @var{val}. If @var{val} is not supplied, then @var{#t} is used. To
 switch off an option, @code{no-} may be prefixed to @var{var}, e.g.
 
+@cindex point and click, command line
+
 @example
 -dno-point-and-click
 @end example
@@ -131,9 +136,16 @@ is the same as
 -dpoint-and-click='#f'
 @end example
 
-@cindex point and click
+Another notable option is
 
-Setting the @code{help} option will print a summary of the options
+@example
+-dpaper-size=\"letter\"
+@end example
+
+@noindent
+Note that the string must be enclosed in escaped quotes ( @code{\"} ).
+
+Setting the @code{-dhelp} option will print a summary of the options
 available, and exit.
 
 @item -h,--help
@@ -294,7 +306,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @end table
 
 
-@section Environment variables
+@subsection Environment variables
 
 
 @cindex LANG
@@ -341,82 +353,6 @@ export PATH=$PATH:@var{path/to}/LilyPond.app/Contents/Resources/bin
 This file should end with a blank line.
 
 Note that @var{path/to} will generally be @code{/Applications/}.
-
-
-@node Error messages
-@section Error messages
-
-@cindex error messages
-Different error messages can appear while compiling a file:
-
-@table @emph
-@cindex warning
-
-@item Warning
-Something looks suspect.  If you are requesting something out of the
-ordinary then you will understand the message, and can ignore it.
-However, warnings usually indicate that something is wrong with the
-input file.
-
-@item Error
-Something is definitely wrong.  The current processing step (parsing,
-interpreting, or formatting) will be finished, but the next step will
-be skipped.
-
-@cindex error
-@cindex fatal error
-@item Fatal error
-Something is definitely wrong, and LilyPond cannot continue.  This
-happens rarely.  The most usual cause is misinstalled fonts.
-
-@cindex trace, Scheme
-@cindex call trace
-@cindex Scheme error
-@item Scheme error
-Errors that occur while executing Scheme code are caught by the Scheme
-interpreter.  If running with the verbose option (@code{-V} or
-@code{--verbose}) then a call trace of the offending
-function call is printed.
-
-@cindex Programming error
-@item Programming error
-There was some internal inconsistency.  These error messages are
-intended to help the programmers and debuggers.  Usually, they can be
-ignored.  Sometimes, they come in such big quantities that they obscure
-other output.  In this case, file a bug-report.
-
-@item Aborted (core dumped)
-This signals a serious programming error that caused the program to
-crash.  Such errors are considered critical.  If you stumble on one,
-send a bug-report.
-
-
-@end table
-
-@cindex errors, message format
-If warnings and errors can
-be linked to some part of the input file, then error messages have the
-following form
-
-@example
-@var{filename}:@var{lineno}:@var{columnno}: @var{message}
-@var{offending input line}
-@end example
-
-A line-break is inserted in the offending line to indicate the column
-where the error was found.  For example,
-
-@example
-test.ly:2:19: error: not a duration: 5:
-  @{ c'4 e'5
-             g' @}
-@end example
-
-These locations are LilyPond's best guess about where the warning or
-error occurred, but (by their very nature) warnings and errors occur
-when something unexpected happens.  If you can't see an error in the
-indicated line of your input file, try checking one or two lines
-above the indicated position.
 
 
 @node Updating files with convert-ly
@@ -507,25 +443,31 @@ specified.
 Copy and paste from CVS, last updated
 Aug 18, 2005
 
-http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/convert-ly.txt?rev=HEAD&content-type=text/plain
+http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/
+convert-ly.txt?rev=HEAD&content-type=text/plain
 @end ignore
 @verbatim
 
-There are a few things that the convert-ly cannot handle. Here's a list of limitations
+There are a few things that the convert-ly cannot handle. Here's a list of 
+limitations
 that the community has complained about.
 
-This bug report structure has been chosen because convert-ly has a structure that doesn't
-allow to smoothly implement all needed changes. Thus this is just a wishlist, placed
+This bug report structure has been chosen because convert-ly has a structure 
+that doesn't
+allow to smoothly implement all needed changes. Thus this is just a wishlist, 
+placed
 here for reference.
 
 1.6->2.0:
- Doesn't always convert figured bass correctly, specifically things like {< >}. Mats' comment on working around this:
+ Doesn't always convert figured bass correctly, specifically things like {< 
+>}. Mats' comment on working around this:
    To be able to run convert-ly
    on it, I first replaced all occurencies of '{<' to some dummy like '{#'
    and similarly I replaced '>}' with '&}'. After the conversion, I could
    then change back from '{ #' to '{ <' and from '& }' to '> }'.
  Doesn't convert all text markup correctly. In the old markup syntax,
- it was possible to group a number of markup commands together within parentheses, e.g.
+ it was possible to group a number of markup commands together within 
+parentheses, e.g.
    -#'((bold italic) "string")
    This will incorrectly be converted into
    -\markup{{\bold italic} "string"}
@@ -533,7 +475,8 @@ here for reference.
    -\markup{\bold \italic "string"}
 2.0->2.2:
  Doesn't handle \partcombine
- Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple stanzas.
+ Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple 
+stanzas.
 2.0->2.4:
  \magnify isn't changed to \fontsize.
     - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
@@ -548,7 +491,8 @@ here for reference.
     - \rced => \!
     - \rc => \!
 2.2->2.4:
- \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly converted.
+ \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly 
+converted.
 2.4.2->2.5.9
  \markup{ \center-align <{ ... }> } should be converted to:
  \markup{ \center-align {\line { ... }} }
@@ -603,7 +547,7 @@ Here is an example of a good bug report:
 It seems that placement of accidentals is broken.  In the
 following example, the accidental touches the note head.
 
-Using Mac OSX 10.3.7, fink package lilypond-devel
+Using Mac OSX 10.3.7, lilypond 2.7.32
 
 \version "2.7.32"
 \layout { ragged-right = ##t }
@@ -619,6 +563,82 @@ Using Mac OSX 10.3.7, fink package lilypond-devel
   a4 b cis d
 }
 @end lilypond
+
+@node Error messages
+@section Error messages
+
+@cindex error messages
+Different error messages can appear while compiling a file:
+
+@table @emph
+@cindex warning
+
+@item Warning
+Something looks suspect.  If you are requesting something out of the
+ordinary then you will understand the message, and can ignore it.
+However, warnings usually indicate that something is wrong with the
+input file.
+
+@item Error
+Something is definitely wrong.  The current processing step (parsing,
+interpreting, or formatting) will be finished, but the next step will
+be skipped.
+
+@cindex error
+@cindex fatal error
+@item Fatal error
+Something is definitely wrong, and LilyPond cannot continue.  This
+happens rarely.  The most usual cause is misinstalled fonts.
+
+@cindex trace, Scheme
+@cindex call trace
+@cindex Scheme error
+@item Scheme error
+Errors that occur while executing Scheme code are caught by the Scheme
+interpreter.  If running with the verbose option (@code{-V} or
+@code{--verbose}) then a call trace of the offending
+function call is printed.
+
+@cindex Programming error
+@item Programming error
+There was some internal inconsistency.  These error messages are
+intended to help the programmers and debuggers.  Usually, they can be
+ignored.  Sometimes, they come in such big quantities that they obscure
+other output.  In this case, file a bug-report.
+
+@item Aborted (core dumped)
+This signals a serious programming error that caused the program to
+crash.  Such errors are considered critical.  If you stumble on one,
+send a bug-report.
+
+
+@end table
+
+@cindex errors, message format
+If warnings and errors can
+be linked to some part of the input file, then error messages have the
+following form
+
+@example
+@var{filename}:@var{lineno}:@var{columnno}: @var{message}
+@var{offending input line}
+@end example
+
+A line-break is inserted in the offending line to indicate the column
+where the error was found.  For example,
+
+@example
+test.ly:2:19: error: not a duration: 5:
+  @{ c'4 e'5
+             g' @}
+@end example
+
+These locations are LilyPond's best guess about where the warning or
+error occurred, but (by their very nature) warnings and errors occur
+when something unexpected happens.  If you can't see an error in the
+indicated line of your input file, try checking one or two lines
+above the indicated position.
+
 
 @node Editor support
 @section Editor support
@@ -671,4 +691,84 @@ All these editors can be made to jump into the input file to the source
 of a symbol in the graphical output.  See @ref{Point and click}.
 
 
+@node Point and click
+@section Point and click
+@cindex point and click
+
+
+Point and click lets you find notes in the input by clicking on them
+in the PDF viewer.  This makes it easier to find input that causes
+some error in the sheet music.
+
+When this functionality is active, LilyPond adds hyperlinks to the PDF
+file. These hyperlinks are sent to the web-browser, which opens a
+text-editor with the cursor in the right place. 
+
+To make this chain work, you should configure your PDF viewer to
+follow hyperlinks using the @file{lilypond-invoke-editor} script
+supplied with LilyPond.
+
+For Xpdf on Unix, the following should be present in
+@file{xpdfrc}@footnote{On unix, this file is found either in
+@file{/etc/xpdfrc} or as @file{.xpdfrc} in your home directory.}
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+The program @file{lilypond-invoke-editor} is a small helper
+program. It will invoke an editor for the special @code{textedit}
+URIs, and run a web browser for others.  It tests the environment
+variable @code{EDITOR} for the following patterns,
+
+@table @code
+@item emacs
+  this will invoke
+@example
+emacsclient --no-wait +@var{line}:@var{column} @var{file}
+@end example
+@item vim
+  this will invoke
+@example
+gvim --remote +:@var{line}:norm@var{char} @var{file}
+@end example
+
+@item nedit
+this will invoke
+@example
+  nc -noask +@var{line} @var{file}'
+@end example
+@end table
+
+The environment variable @code{LYEDITOR} is used to override this. It
+contains the command line to start the editor, where @code{%(file)s},
+@code{%(column)s}, @code{%(line)s} is replaced with the file, column
+and line respectively. The  setting
+
+@example
+emacsclient --no-wait +%(line)s:%(column)s %(file)s
+@end example
+
+@noindent
+for @code{LYEDITOR} is equivalent to the standard emacsclient
+invocation.
+
+
+@cindex file size, output
+
+The point and click links enlarge the output files significantly. For
+reducing the size of PDF and PS files, point and click may be switched
+off by issuing
+
+@example
+#(ly:set-option 'point-and-click #f)
+@end example
+
+@noindent
+in a @file{.ly} file.  Alternately, you may pass this as an command-line
+option
+
+@example
+lilypond -dno-point-and-click file.ly
+@end example
 

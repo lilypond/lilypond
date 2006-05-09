@@ -654,7 +654,8 @@ may result in strange chord names when chords are entered with the
 @node Vocal music
 @section Vocal music
 
-There are three different issues when printing vocal music
+Since LilyPond input files are text, there are two issues to
+consider when working with vocal music:
 
 @itemize @bullet
 @item
@@ -663,25 +664,22 @@ input@tie{}@code{d} should be interpreted as a one letter syllable, not the
 note@tie{}D.
 
 @item
-Song texts must be printed as text, not as notes.
-
-@item
 Song texts must be aligned with the notes of their melody.
 @end itemize
 
-The simplest solution for printing music uses the @code{\addlyrics}
-function to solve all these problems at once.  However, these
-three functions can be controlled separately, which is necessary
-for complex vocal music.
-
+There are a few different ways to define lyrics; the simplest
+way is to use the @code{\addlyrics} function.
 
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
 * Hyphens and extenders::       
 * The Lyrics context::          
-* Flexibility in alignment::    
-* More stanzas::                
+* Melismata::                   
+* Another way of entering lyrics::  
+* Flexibility in placement::    
+* Spacing lyrics::              
+* More about stanzas::          
 * Ambitus::                     
 * Other vocal issues::          
 @end menu
@@ -689,7 +687,9 @@ for complex vocal music.
 
 @commonprop
 
-Checking to make sure that text scripts and lyrics are within the margins is a relatively large computational task.  To speed up processing, lilypond does not perform such calculations by default; to enable it, use
+Checking to make sure that text scripts and lyrics are within the margins is 
+a relatively large computational task.  To speed up processing, lilypond does 
+not perform such calculations by default; to enable it, use
 
 @example
 \override Score.PaperColumn #'keep-inside-line = ##t 
@@ -737,76 +737,9 @@ More stanzas can be added by adding more
 \addlyrics { joue le jeu }
 @end lilypond
 
-Sometimes it is appropriate to have one stanza set
-to the music, and the rest added in verse form at
-the end of the piece.  This can be accomplished by adding
-the extra verses into a @code{\markup} section outside
-of the main score block.  Notice that there are two
-different ways to force linebreaks when using
-@code{\markup}.
+The command @code{\addlyrics} cannot handle polyphony settings.  For these 
+cases you should use @code{\lyricsto} and @code{\lyricmode}.
 
-@lilypond[ragged-right,verbatim,quote]
-melody = \relative c' {
-e d c d | e e e e |
-d d e d | c1 |
-}
-
-text = \lyricmode {
-\set stanza = "1." Ma- ry had a lit- tle lamb,
-its fleece was white as snow.
-}
-
-\book{
-  \score{ <<
-    \new Voice = "one" { \melody }
-    \new Lyrics \lyricsto "one" \text
-	>>
-    \layout { }
-  }
-  \markup { \column{
-    \line{ Verse 2. }
-    \line{ All the children laughed and played }
-    \line{ To see a lamb at school. }
-    }
-  }
-  \markup{
-    \wordwrap-string #"
-    Verse 3.
-
-    Mary took it home again,
-
-    It was against the rule."
-  }
-}
-@end lilypond
-
-
-@c TODO - this isn't such a great place for this note, but I can't
-@c  find a better place without rearranging a lot of lyric stuff.
-@c  It's yet another thing to look at post-3.0.
-
-The @code{\addlyrics} command is actually just a convienient way
-to write a more complicated LilyPond structure that sets up the
-lyrics.  You should use @code{\addlyrics} unless you need to do
-fancy things, in which case you should investigate
-@code{\lyricsto} or @code{\lyricmode}.
-
-@example
-@{ MUSIC @}
-\addlyrics @{ LYRICS @}
-@end example
-
-@noindent
-is the same as
-
-@example
-\new Voice = "blah" @{ music @}
-\new Lyrics \lyricsto "blah" @{ LYRICS @}
-@end example
-
-@refbugs
-
-@code{\addlyrics} cannot handle polyphony.
 
 
 @node Entering lyrics
@@ -832,11 +765,13 @@ explicitly, like in the example above, or by automatically aligning
 the lyrics to a melody or other voice of music, using @code{\addlyrics}
 or @code{\lyricsto}.  For more details see @ref{The Lyrics context}.
 
-A word lyrics mode begins with an alphabetic character, and ends with
+A word or syllable of lyrics begins with an alphabetic character, and ends 
+with
 any space or digit.  The following characters can be any character
 that is not a digit or white space.  One important consequence of this
 is that a word can end with @code{@}}.  The following example is
-usually a mistake in the input file.  The syllable includes a @code{@}}, so the
+usually a mistake in the input file.  The syllable includes a @code{@}}, so 
+the
 opening brace is not balanced
 @example
 \lyricmode @{ twinkle@}
@@ -855,9 +790,15 @@ property commands
 @cindex spaces, in lyrics
 @cindex quotes, in lyrics
 
-Any @code{_} character that appears in an unquoted word is converted
-to a space.  This provides a mechanism for introducing spaces into words
-without using quotes.
+In order to assign more than one syllable to a single note, you must
+surround them with quotes or use a @code{_} character between the syllables.
+
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+\time 3/4
+\relative { c2 e4 g2 e4 }
+\addlyrics { gran- de_a- mi- go }
+\addlyrics { pu- "ro y ho-" nes- to }
+@end lilypond
 
 To enter lyrics with characters from non-English languages, or with
 non-ascii characters (such as the heart symbol or slanted quotes),
@@ -867,6 +808,14 @@ it with utf-8 encoding.  See @ref{Text encoding} for more info.
 @example
 \lyricmode @{ He said: “Let my peo ple go”. @}
 @end example
+
+To use normal quotes in lyrics, add a backslash before the
+quotes.  For example,
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
+\addlyrics { "\"I" am so lone- "ly\"" said she }
+@end lilypond
 
 The full definition of a word start in Lyrics mode is somewhat more
 complex.
@@ -879,14 +828,11 @@ combination of a backslash followed by one of @code{`}, @code{'},
 @code{"}, or @code{^}.
 
 
-
 @seealso
 
 Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
-@refbugs
 
-The definition of lyrics mode is too complex.
 
 @node Hyphens and extenders
 @subsection Hyphens and extenders
@@ -919,8 +865,9 @@ Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
 @node The Lyrics context
 @subsection The Lyrics context
 
+Lyrics are printed by interpreting them in the context caleld 
+@internalsref{Lyrics}.
 
-Lyrics are printed by interpreting them in a @internalsref{Lyrics} context
 @example
 \new Lyrics \lyricmode @dots{}
 @end example
@@ -934,6 +881,7 @@ entered.  The lyrics can also be aligned under a given melody
 automatically.  In this case, it is no longer necessary to enter the
 correct duration for each syllable.  This is achieved by combining the
 melody and the lyrics with the @code{\lyricsto} expression
+
 @example
 \new Lyrics \lyricsto @var{name} @dots{}
 @end example
@@ -945,17 +893,76 @@ then the lyrics are specified with @code{\lyricsto}.  The command
 @code{\lyricsto} switches to @code{\lyricmode} mode automatically, so the
 @code{\lyricmode} keyword may be omitted.
 
+The following example uses different commands for entering lyrics.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<< 
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2 
+  }
+  \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
+  \new Lyrics \lyricmode { Joy to the earth! the Sav -- our reigns. }
+  \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
+>>
+@end lilypond
+
+The second stanza is not properly aligned because the durations
+were not specified.  A solution for that would be to use @code{\lyricsto}.
+
+
+
+
+
+
+To define indentifiers containing lyrics, the function @code{lyricmode}
+must be used.
+
+@example
+verseOne = \lyricmode @{ Joy to the world the Lord is come @}
+\score @{
+  << 
+    \new Voice = "one" \relative c'' @{
+      \autoBeamOff
+      \time 2/4
+      c4 b8. a16 g4. f8 e4 d c2 
+    @}
+    \addlyrics @{ \verseOne @}
+  >>
+@}
+@end example
+
+The @code{\addlyrics} command is actually just a convenient way
+to write a more complicated LilyPond structure that sets up the
+lyrics. 
+
+@example
+@{ MUSIC @}
+\addlyrics @{ LYRICS @}
+@end example
+
+@noindent
+is the same as
+
+@example
+\new Voice = "blah" @{ music @}
+\new Lyrics \lyricsto "blah" @{ LYRICS @}
+@end example
+
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.,
 @example
 \new ChoirStaff <<
-  \new Lyrics = "sopranoLyrics" @{ s1 @}
   \new Voice = "soprano" @{ @emph{music} @}
+  \new Lyrics = "sopranoLyrics" @{ s1 @}
   \new Lyrics = "tenorLyrics" @{ s1 @}
   \new Voice = "tenor" @{ @emph{music} @}
 >>
 @end example
+
 and then combine the appropriate melodies and lyric lines
+
 @example
 \context Lyrics = sopranoLyrics \lyricsto "soprano"
   @emph{the lyrics}
@@ -972,6 +979,14 @@ The final input would resemble
 >>
 @end example
 
+@seealso
+
+Program reference: @internalsref{LyricCombineMusic},
+@internalsref{Lyrics}.
+
+
+@node Melismata
+@subsection Melismata
 
 The @code{\lyricsto} command detects melismata: it only puts one
 syllable under a tied or slurred group of notes.  If you want to force
@@ -999,16 +1014,34 @@ In addition, notes are considered a melisma if they are manually
 beamed, and automatic beaming (see @ref{Setting automatic beam
 behavior}) is switched off.
 
-@ignore
+@cindex SATB
+@cindex choral score
 
-@c nonformation:
+A complete example of a SATB score setup is in section
+@ref{Vocal ensembles}.
 
-The criteria for deciding melismata can
-be tuned with the property @code{melismaBusyProperties}.  See
-@internalsref{Melisma_translator} in the program reference for more
-information.
 
-@end ignore
+@refcommands
+
+@code{\melisma}, @code{\melismaEnd}
+@cindex @code{\melismaEnd}
+@cindex @code{\melisma}
+
+@seealso
+
+Program reference: @internalsref{Melisma_translator}.
+
+
+@inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly}.
+
+@refbugs
+
+Melismata are not detected automatically, and extender lines must be
+inserted by hand.
+
+
+@node Another way of entering lyrics
+@subsection Another way of entering lyrics
 
 Lyrics can also be entered without @code{\lyricsto}.  In this case the
 duration of each syllable must be entered explicitly, for example,
@@ -1043,43 +1076,24 @@ Here is an example demonstrating manual lyric durations,
   } >>
 @end lilypond
 
-@cindex SATB
-@cindex choral score
-
-A complete example of a SATB score setup is in section
-@ref{Vocal ensembles}.
-
-
-@refcommands
-
-@code{\melisma}, @code{\melismaEnd}
-@cindex @code{\melismaEnd}
-@cindex @code{\melisma}
-
-@seealso
-
-Program reference: @internalsref{LyricCombineMusic},
-@internalsref{Lyrics}, @internalsref{Melisma_translator}.
-
-
-@inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly}.
-@c TODO: make separate section for melismata
-
-@refbugs
-
-Melismata are not detected automatically, and extender lines must be
-inserted by hand.
-
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 
-@node Flexibility in alignment
-@subsection Flexibility in alignment
+@node Flexibility in placement
+@subsection Flexibility in placement
 
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
 @code{\lyricsto}.
 
+@menu
+* Lyrics to multiple notes of a melisma::  
+* Divisi lyrics::               
+* Switching the melody associated with a lyrics line::  
+* Specifying melismata within the lyrics::  
+@end menu
+
+@node Lyrics to multiple notes of a melisma
 @subsubsection Lyrics to multiple notes of a melisma 
 
 
@@ -1088,7 +1102,7 @@ multiple syllables in another one.  One solution is to make the faster
 voice ignore the melisma.  This is done by setting
 @code{ignoreMelismata} in the Lyrics context.
 
-There has one tricky aspect.  The setting for @code{ignoreMelismata}
+There is one tricky aspect: the setting for @code{ignoreMelismata}
 must be set one syllable @emph{before} the non-melismatic syllable
 in the text, as shown here,
 
@@ -1131,9 +1145,54 @@ For example,
 @end lilypond
 
 
-@subsection Switching the melody associated with a lyrics line
+@node Divisi lyrics
+@subsubsection Divisi lyrics
+
+You can display alternate (or divisi) lyrics by naming voice
+contexts and attaching lyrics to those specific contexts.
+
+@lilypond[verbatim,ragged-right,quote]
+\score{ <<
+  \new Voice = "melody" {
+    \relative c' {
+      c4
+      <<
+        { \voiceOne c8 e }
+        \new Voice = "splitpart" { \voiceTwo c4 }
+      >>
+      \oneVoice c4 c | c
+    }
+  }
+  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
+  \new Lyrics \lyricsto "splitpart" { will }
+>> }
+@end lilypond
 
 
+You can use this trick to display different lyrics for a repeated
+section.
+
+@lilypond[verbatim,ragged-right,quote]
+\score{ <<
+  \new Voice = "melody" \relative c' {
+    c2 e | g e | c1 |
+    \new Voice = "verse" \repeat volta 2 {c4 d e f | g1 | }
+    a2 b | c1}
+  \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
+    do mi sol mi do
+    la si do }
+  \context Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
+   do re mi fa sol }
+  \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
+   dodo rere mimi fafa solsol }
+>>
+}
+@end lilypond
+
+
+
+@node Switching the melody associated with a lyrics line
+@subsubsection Switching the melody associated with a lyrics line
 
 More complex variations in text underlay are possible.  It is possible
 to switch the melody for a line of lyrics during the text.  This is
@@ -1215,8 +1274,8 @@ The underlay is switched back to the starting situation by assigning
 @code{lahlah} to @code{associatedVoice}.
 
 
-
-@subsection Specifying melismata within the lyrics
+@node Specifying melismata within the lyrics
+@subsubsection Specifying melismata within the lyrics
 
 It is also possible to define melismata entirely in the lyrics. This
 can be done by entering @code{_} for every note that is part of the
@@ -1241,7 +1300,9 @@ set @code{melismaBusyProperties}, as is done in the example above.
  { Ky -- _ _ ri __ _ _ _  e }
 @end lilypond
 
-@subsubsection Spacing lyrics
+
+@node Spacing lyrics
+@subsection Spacing lyrics
 
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
@@ -1261,7 +1322,8 @@ LyricSpace.
 }
 @end lilypond
 
-To make this change for all lyrics in the score, set the property in the layout.
+To make this change for all lyrics in the score, set the property in the 
+layout.
 
 @lilypond[relative,verbatim,quote,ragged-right]
 \score {
@@ -1283,8 +1345,8 @@ To make this change for all lyrics in the score, set the property in the layout.
 @end lilypond
 
 
-@node More stanzas
-@subsection More stanzas
+@node More about stanzas
+@subsection More about stanzas
 
 @cindex phrasing, in lyrics
 
@@ -1309,6 +1371,50 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 
 These numbers are put just before the start of first syllable.
 
+Sometimes it is appropriate to have one stanza set
+to the music, and the rest added in verse form at
+the end of the piece.  This can be accomplished by adding
+the extra verses into a @code{\markup} section outside
+of the main score block.  Notice that there are two
+different ways to force linebreaks when using
+@code{\markup}.
+
+@lilypond[ragged-right,verbatim,quote]
+melody = \relative c' {
+e d c d | e e e e |
+d d e d | c1 |
+}
+
+text = \lyricmode {
+\set stanza = "1." Ma- ry had a lit- tle lamb,
+its fleece was white as snow.
+}
+
+\book{
+  \score{ <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
+	>>
+    \layout { }
+  }
+  \markup { \column{
+    \line{ Verse 2. }
+    \line{ All the children laughed and played }
+    \line{ To see a lamb at school. }
+    }
+  }
+  \markup{
+    \wordwrap-string #"
+    Verse 3.
+
+    Mary took it home again,
+
+    It was against the rule."
+  }
+}
+@end lilypond
+
+
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
 @code{vocalName}.  A short version may be entered as @code{vocNam}.
@@ -1326,51 +1432,11 @@ the line, just like instrument names.  They are created by setting
 }
 @end lilypond
 
-You can display alternate (or divisi) lyrics by naming voice
-contexts and attaching lyrics to those specific contexts.
-
-@lilypond[verbatim,ragged-right,quote]
-\score{ <<
-  \new Voice = "melody" {
-    \relative c' {
-      c4
-      <<
-        { \voiceOne c8 e }
-        \new Voice = "splitpart" { \voiceTwo c4 }
-      >>
-      \oneVoice c4 c | c
-    }
-  }
-  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
-  \new Lyrics \lyricsto "splitpart" { will }
->> }
-@end lilypond
-
-
-You can use this trick to display different lyrics for a repeated
-section.
-
-@lilypond[verbatim,ragged-right,quote]
-\score{ <<
-  \new Voice = "melody" \relative c' {
-    c2 e | g e | c1 |
-    \new Voice = "verse" \repeat volta 2 {c4 d e f | g1 | }
-    a2 b | c1}
-  \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
-    do mi sol mi do
-    la si do }
-  \new Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
-   do re mi fa sol }
-  \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
-   dodo rere mimi fafa solsol }
->>
-}
-@end lilypond
-
 
 @seealso
 
-Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber}, @internalsref{VocalName}.
+Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber}, 
+@internalsref{VocalName}.
 
 
 
@@ -1773,6 +1839,7 @@ for this purpose instead.
 * String number indications::   
 * Tablatures basic::            
 * Non-guitar tablatures::       
+* Banjo tablatures::            
 * Fret diagrams::               
 * Other guitar issues::         
 @end menu
@@ -1846,6 +1913,17 @@ frag = {
   >>
 @end lilypond
 
+
+@commonprop
+
+To print tablatures with stems down and horizontal beams,
+initialize the @code{TabStaff} with this code:
+
+@example
+\stemDown
+\override Beam #'damping = #100000
+@end example
+
 @seealso
 
 Program reference: @internalsref{TabStaff}, @internalsref{TabVoice}.
@@ -1861,15 +1939,15 @@ chord.
 @subsection Non-guitar tablatures
 @cindex Non-guitar tablatures
 
-You can change the number of strings, by setting the number of lines
-in the @internalsref{TabStaff}.
-
 You can change the tuning of the strings.  A string tuning is given as
 a Scheme list with one integer number for each string, the number
 being the pitch (measured in semitones relative to middle C) of an
 open string.  The numbers specified for @code{stringTuning} are the
 numbers of semitones to subtract or add, starting the specified pitch
-by default middle C, in string order.  In the next example,
+by default middle C, in string order.  LilyPond automatically calculates
+the number of strings by looking at @code{stringTuning}.
+
+In the next example,
 @code{stringTunings} is set for the pitches e, a, d, and g
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -1881,13 +1959,67 @@ by default middle C, in string order.  In the next example,
 >>
 @end lilypond
 
+LilyPond comes with predefined string tunings for banjo, mandolin, guitar
+and bass guitar.
+
+@example
+\set TabStaff.stringTunings = #bass-tuning
+@end example
+
+The default string tuning is @code{guitar-tuning} (the standard EADGBE 
+tuning).
+Some other predefined tunings are @code{guitar-open-g-tuning},
+@code{mandolin-tuning} and @code{banjo-open-g-tuning}.
+
+@seealso
+
+The file @file{scm/@/output@/-lib@/.scm} contains the predefined string 
+tunings.
+Program reference: @internalsref{Tab_note_heads_engraver}.
+
 @refbugs
 
 No guitar special effects have been implemented.
 
+
+
+@node Banjo tablatures
+@subsection Banjo tablatures
+@cindex Banjo tablatures
+
+LilyPond has basic support for five stringed banjo.  When making tablatures
+for five stringed banjo, use the banjo tablature format function to get 
+correct
+fret numbers for the fifth string:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff <<
+  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
+  \set TabStaff.stringTunings = #banjo-open-g-tuning
+  {
+    \stemDown
+    g8 d' g'\5 a b g e d' |
+    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+    g4
+  }
+>>
+@end lilypond
+
+A number of common tunings for banjo are predefined in LilyPond:
+@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
+@code{banjo-open-d-tuning} (aDF#AD) and @code{banjo-open-dm-tuning}
+(aDFAD).
+
+These tunings may be converted to four string banjo tunings using the
+@code{four-string-banjo} function:
+
+@example
+\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
+@end example
+
 @seealso
 
-Program reference: @internalsref{Tab_note_heads_engraver}.
+The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
 
 
 @node Fret diagrams
@@ -2305,7 +2437,8 @@ There are no rests in Gregorian Chant notation; instead, it uses
 
 @seealso
 
-In this manual: @ref{Rests} gives a general introduction into the use of rests.
+In this manual: @ref{Rests} gives a general introduction into the use of 
+rests.
 
 
 @node Ancient clefs
@@ -2610,25 +2743,35 @@ following table
 {
   \set Score.timing = ##f
   \set Score.barAlways = ##t
-  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph #"timesig.neomensural44" }
+  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural44" }
   s
-  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph #"timesig.neomensural22" }
+  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph 
+#"timesig.neomensural22" }
   s
-  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph #"timesig.neomensural64" }
+  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural64" }
   s
-  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph #"timesig.neomensural68" }
+  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph 
+#"timesig.neomensural68" }
   \break
-  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph #"timesig.neomensural32" }
+  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph 
+#"timesig.neomensural32" }
   s
-  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph #"timesig.neomensural34" }
+  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural34" }
   s
-  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph #"timesig.neomensural94" }
+  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural94" }
   s
-  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph #"timesig.neomensural98" }
+  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph 
+#"timesig.neomensural98" }
   \break
-  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph #"timesig.neomensural48" }
+  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph 
+#"timesig.neomensural48" }
   s
-  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph #"timesig.neomensural24" }
+  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph 
+#"timesig.neomensural24" }
 }
 @end lilypond
 
@@ -3881,6 +4024,20 @@ Trigonus
 @code{\[ \stropha b \stropha b \stropha a \]}
 @end multitable
 
+The ligatures listed above mainly serve as a limited, but still
+representative pool of Gregorian ligature examples.  Virtually, within
+the ligature delimiters @code{\[} and @code{\]}, any number of heads
+may be accumulated to form a single ligature, and head prefixes like
+@code{\pes}, @code{\flexa}, @code{\virga}, @code{\inclinatum},
+etc. may be mixed in as desired.  The use of the set of rules that
+underlies the construction of the ligatures in the above table is
+accordingly extrapolated.  This way, infinitely many different
+ligatures can be created.
+
+@c TODO: create a regression or tips & tricks example document with
+@c even more Gregorian ligatures, and add a link to this document
+@c here.
+
 @refcommands
 
 The following head prefixes are supported
@@ -3902,7 +4059,11 @@ The following head prefixes are supported
 @cindex @code{\quilisma}
 @code{\quilisma},
 @cindex @code{\deminutum}
-@code{\deminutum}.
+@code{\deminutum},
+@cindex @code{\cavum}
+@code{\cavum},
+@cindex @code{\linea}
+@code{\linea}.
 
 Head prefixes can be accumulated, though restrictions apply.  For
 example, either @code{\descendens} or @code{\ascendens} can be applied
@@ -4125,7 +4286,8 @@ instead of
 @end example
 
 Accidentals and plus signs can appear before or after the numbers,
-depending on the @code{figuredBassAlterationDirection} and @code{figuredBassPlusDirection}
+depending on the @code{figuredBassAlterationDirection} and 
+@code{figuredBassPlusDirection}
 properties
 
 @lilypond

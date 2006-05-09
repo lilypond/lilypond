@@ -47,7 +47,7 @@ HINTS FOR STYLE
 
 * The above three suggestions refer to the formal Notation Manual
   (chapters 5 and up).  In the Tutorial, Example templates, and
-  Putting it all together, you may write more colloquially
+  Putting it all together, you may write more colloquially.
 
 * The use of the word `illegal' is inappropriate in most cases.  Say
   `invalid' instead.
@@ -134,7 +134,5 @@ HINTS FOR STYLE
     this is, don't say `Ba@ss{}tuba' but `Baßtuba'.  This ensures that
     all such characters appear in all output formats.
 
-%%%%%
-
-
+* Lines should be less than 80 characters long.
 
