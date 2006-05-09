@@ -95,6 +95,10 @@ changed.  If no context name is supplied, @code{Staff} is the default,
 but you may wish to apply the accidental style to a single @code{Voice}
 instead.
 
+@c TODO: we should create a very clear example, and show every
+@c accidental style on that example (with the example specially
+@c constructed so that it illustrates all the differences).  -gp
+
 The following accidental styles are supported
 @table @code
 @item default
@@ -492,7 +496,8 @@ context already earlier with the same name.
 
 
 @cindex @code{\context}
-\item
+
+@item
 Like @code{\new}, the @code{\context} command also directs a music
 expression to a context object, but gives the context an explicit name.  The
 syntax is
