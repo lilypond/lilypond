@@ -57,7 +57,6 @@ Paper_column_engraver::make_columns ()
   SCM m = now_mom ().smobbed_copy ();
   p1->set_property ("when", m);
   p2->set_property ("when", m);
-  p1->set_property ("line-break-permission", ly_symbol2scm ("allow"));
 
   set_columns (p1, p2);
 }
@@ -187,7 +186,7 @@ Paper_column_engraver::stop_translation_timestep ()
 
   if (to_boolean (get_property ("forbidBreak")))
     command_column_->set_property ("line-break-permission", SCM_EOL);
-  else
+  else if (Paper_column::is_breakable (command_column_))
     {
       breaks_++;
       last_breakable_column_ = command_column_;

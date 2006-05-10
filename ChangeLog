@@ -1,3 +1,9 @@
+2006-05-10  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/paper-column-engraver.cc (make_columns):
+	* scm/define-grobs.scm: Revert my previous change and set the default
+	in define-grobs.scm instead.
+
 2006-05-09  Graham Percival  <gpermus@gmail.com>
 	
 	* Documentation/user/changing-defaults.itely: general editing.
