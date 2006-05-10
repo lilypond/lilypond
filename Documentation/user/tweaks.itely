@@ -10,7 +10,7 @@ configurable; virtually every fragment of output may be changed.
 * Fixing overlapping notation::  
 * Common tweaks::               
 * Default files::               
-* Advanced tweaks with scheme::  
+* Advanced tweaks with Scheme::  
 @end menu
 
 
@@ -276,16 +276,17 @@ particular interest.  Files such as @file{ly/property-init.ly} and
 @file{ly/declarations-init.ly} define all the common tweaks.
 
 
-@node Advanced tweaks with scheme
-@section Advanced tweaks with scheme
+@node Advanced tweaks with Scheme
+@section Advanced tweaks with Scheme
 
 We have seen how LilyPond output can be heavily modified using
 commands like
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
-we have even more power if we use scheme.  For a full explantion
-of this, see @ref{Interfaces for programmers}.
+we have even more power if we use Scheme.  For a full explantion
+of this, see the @ref{Scheme tutorial} and
+@ref{Interfaces for programmers}.
 
-We can use scheme to simply @code{\override} commands,
+We can use Scheme to simply @code{\override} commands,
 
 @lilypond[quote,verbatim,ragged-right]
 padText = #(define-music-function (parser location padding) (number?)
@@ -320,9 +321,7 @@ g c
 }
 @end lilypond
 
-Even music expressions can be passed in.  Note that since we
-want an articulation attached to the second variable, we
-must #####.
+Even music expressions can be passed in.
 
 @lilypond[quote,verbatim,ragged-right]
 pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)

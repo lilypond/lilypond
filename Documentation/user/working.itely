@@ -291,7 +291,7 @@ is quite easy to do.
 
 Let's look at an example.  Don't worry if you don't understand
 the parts with all the #().  This is explained in
-@ref{Advanced tweaks with scheme}.
+@ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
