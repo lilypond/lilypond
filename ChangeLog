@@ -6,7 +6,8 @@
 
 2006-05-09  Graham Percival  <gpermus@gmail.com>
 	
-	* Documentation/user/changing-defaults.itely: general editing.
+	* Documentation/user/changing-defaults.itely: general editing,
+	info about \set and \override.
 
 	* Documentation/user/tweaking.itely, advanced-notation.itely:
 	fixes from Dave Luttinen, thanks!

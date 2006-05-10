@@ -1177,6 +1177,7 @@ we will look in more detail at how to use the command in practice.
 * Layout interfaces::           
 * Determining the grob property::  
 * Objects connected to the input::  
+* \set vs. \override::          
 * Difficult tweaks::            
 @end menu
 
@@ -1537,6 +1538,57 @@ to output, so
 @noindent
 will not change color.  See @ref{Displaying music expressions} for
 details.
+
+
+@node \set vs. \override
+@subsection \set vs. \override
+
+We have seen two methods of changing properties: @code{\set} and
+@code{\override}.  There are actually two different kinds of
+properties.
+
+Contexts can have properties, which are usually named in
+@code{studlyCaps}.  They mostly control the translation from
+music to notatino, eg. @code{localKeySignature} (for determining
+whether to print accidentals), @code{measurePosition} (for
+determining when to print a barline).  Context properties can 
+change value over time while interpreting a piece of music;
+@code{measurePosition} is an obvious example of
+this.  Context properties are modified with @code{\set}.
+
+There is a special type of context property: the element
+description. These properties are named in @code{StudlyCaps}
+(starting with capital letters).  They contain the
+``default settings'' for said graphical object as an
+association list.  See @file{scm/@/define@/-grobs@/.scm}
+to see what kind of settings there are.  Element descriptions
+may be modified with @code{\override}.
+
+@code{\override} is actually a shorthand;
+
+@example
+\override @var{context}.@var{name} #'@var{property} = #@var{value}
+@end example
+
+@noindent
+is more or less equivalent to
+
+@c  leave this long line -gp
+@example
+\set @var{context}.@var{name} #'@var{property} = #(cons (cons '@var{property} @var{value}) <previous value of @var{context})
+@end example
+
+The value of @code{context} (the alist) is used to initalize
+the properties of individual grobs.  Grobs also have
+properties, named in scheme style, with
+@code{dashed-words}.  The values of grob properties change
+during the formatting process: formatting basically amounts
+to computing properties using callback functions.
+
+@code{fontSize} is a special property: it is equivalent to
+entering @code{\override ... #'font-size} for all pertinent
+objects.  Since this is a common change, the special
+property (modified with @code{\set}) was created.
 
 
 @node Difficult tweaks
