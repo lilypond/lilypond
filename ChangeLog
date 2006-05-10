@@ -2,6 +2,9 @@
 	
 	* Documentation/user/changing-defaults.itely: general editing.
 
+	* Documentation/user/tweaking.itely, advanced-notation.itely:
+	fixes from Dave Luttinen, thanks!
+
 2006-05-09  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/paper-column-engraver.cc (make_columns): By default, a column
