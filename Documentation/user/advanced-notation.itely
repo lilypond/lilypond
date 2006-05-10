@@ -2177,7 +2177,7 @@ If x11-color cannot make sense of the parameter then the color returned
 defaults to black.  It should be obvious from the final score that
 something is wrong.
 
-This example, illustrates the use of x11-color.  Notice that the stem
+This example illustrates the use of x11-color.  Notice that the stem
 color remains black after being set to (x11-color 'Boggle), which is
 deliberate nonsense.
 
@@ -2210,6 +2210,10 @@ normal colors are recommended.
 
 An x11 color is not necessarily exactly the same shade as a similarly
 named normal color. 
+
+Notes in a chord cannot be colored with @code{\override}; use
+@code{\tweak} instead.  See @ref{Objects connected to the input}
+for details.
 
 
 @node Parentheses

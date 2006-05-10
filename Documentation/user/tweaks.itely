@@ -2,7 +2,7 @@
 @node Tweaking output
 @chapter Tweaking output
 
-This chapter discusses how modify output.  LilyPond is extremely
+This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
 
@@ -17,7 +17,7 @@ configurable; virtually every fragment of output may be changed.
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-This may come as a surprise, but LilyPond isn't perfect.  Some notation
+This may come as a surprise, but LilyPond is not perfect.  Some notation
 elements can overlap.  This is unfortunate, but (in most cases) is easily
 solved.
 
@@ -72,7 +72,8 @@ Another solution gives us complete control over placing the object -- we
 can move it horizontally or vertically.  This is done with the
 @code{extra-offset} property.  It is slightly more complicated and can
 cause other problems.  When we move objects with @code{extra-offset},
-the movement is done after LilyPond has placed all other objects.  This means
+the movement is done after LilyPond has placed all other objects.  This 
+means
 that the result can overlap with other objects.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -140,7 +141,7 @@ sections.
 
 The complete list of modifications available for each type of
 object (like slurs or beams) are documented in the Program
-Reference.  However, many layout objects share properties, which can be
+Reference.  However, many layout objects share properties which can be
 used to apply generic tweaks.
 
 @itemize @bullet
@@ -170,15 +171,15 @@ d1
 
 Note in the second example how important it is to figure out what
 context handles a certain object.  Since the @code{MetronomeMark} object
-is handled in the Score context, property changes in the @code{Voice}
-context will not be noticed.  For more details, see
+is handled in the @code{Score} context, property changes in the
+@code{Voice} context will not be noticed.  For more details, see
 @ref{Constructing a tweak}.
 
 @cindex @code{extra-offset}
 @item The @code{extra-offset} property moves objects around
 in the output; it requires a pair of numbers.  The first number
 controls horizontal movement; a positive number will
-move the object to the right.  The second number controls vertical 
+move the object to the right.  The second number controls vertical
 movement; a positive number will move it higher.  The
 @code{extra-offset} property is a low-level feature: the
 formatting engine is completely oblivious to these offsets.
@@ -190,7 +191,7 @@ the left, and 1.8 staff space downwards:
 \stemUp
 f-5
 \once \override Fingering
-    #'extra-offset = #'(-0.3 . -1.8) 
+    #'extra-offset = #'(-0.3 . -1.8)
 f-5
 @end lilypond
 
@@ -237,7 +238,7 @@ voices:
 Distances in LilyPond are measured in staff-spaces, while most
 thickness properties are measured in line-thickness.  Some
 properties are different; for example, the thickness of beams
-is measured in staff-spaces.  For more information, see the
+are measured in staff-spaces.  For more information, see the
 relevant portion of the program reference.
 
 
