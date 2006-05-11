@@ -8,7 +8,8 @@ class Xml_node:
 	self._original = None
 	self._name = 'xml_node'
 	self._parent = None
-
+        self._attribute_dict = {}
+        
     def get_parent (self):
         return self._parent
     
@@ -34,8 +35,8 @@ class Xml_node:
 
         p = self
         while p:
-            print '  In: <%s %s>' % (p._name, ' '.join (['%s=%s' % item for item in p._original.attrib.items()]))
-            p = p._parent
+            print '  In: <%s %s>' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()]))
+            p = p.get_parent ()
         
     def get_typed_children (self, klass):
 	return [c for c in self._children if isinstance(c, klass)]
@@ -255,6 +256,7 @@ class Musicxml_voice:
 
 class Part (Music_xml_node):
     def __init__ (self):
+        Music_xml_node.__init__ (self)
 	self._voices = []
 
     def get_part_list (self):
@@ -502,6 +504,7 @@ def lxml_demarshal_node (node):
 
     for (k,v) in node.items ():
         py_node.__dict__[k] = v
+        py_node._attribute_dict[k] = v
 
     return py_node
 
@@ -518,7 +521,8 @@ def minidom_demarshal_node (node):
     if node.attributes:
 	for (nm, value) in node.attributes.items():
 	    py_node.__dict__[nm] = value
-
+            py_node._attribute_dict[nm] = value
+            
     py_node._data = None
     if node.nodeType == node.TEXT_NODE and node.data:
 	py_node._data = node.data 

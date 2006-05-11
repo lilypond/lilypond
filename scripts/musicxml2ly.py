@@ -6,7 +6,6 @@ import re
 import os
 import string
 from gettext import gettext as _
-import musicxml
 
 
 
@@ -398,7 +397,7 @@ def musicxml_voice_to_lily_voice (voice):
             tuplet_events.append ((ev_chord, tuplet_event, frac))
 
     ## force trailing mm rests to be written out.   
-    voice_builder.add_music (musicexp.EventChord ())
+    voice_builder.add_music (musicexp.EventChord (), Rational (0))
     
     ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
 

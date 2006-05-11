@@ -1,3 +1,12 @@
+2006-05-11  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* python/musicxml.py (Xml_node.__init__): _attribute_dict stores
+	XML attributes.
+	(Xml_node.message): use it.
+
+	* scripts/musicxml2ly.py (musicxml_voice_to_lily_voice): 
+	oops. Add duration argument.
+
 2006-05-10  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/paper-column-engraver.cc (make_columns):
