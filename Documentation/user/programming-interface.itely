@@ -2,16 +2,21 @@
 @node Interfaces for programmers
 @chapter Interfaces for programmers
 
-
+Advanced tweaks may be performed by using Scheme.  If you are
+not familiar with Scheme, you may wish to read our
+@ref{Scheme tutorial}.
 
 @menu
-* Programmer interfaces for input ::  
+* Programmer interfaces for input::  
 * Markup programmer interface::  
 * Contexts for programmers::    
 @end menu
 
-@node Programmer interfaces for input 
-@section Programmer interfaces for input 
+
+@node Programmer interfaces for input
+@section Programmer interfaces for input
+
+This section discusses how to create functions within LilyPond.
 
 @menu
 * Input variables and Scheme::  
@@ -112,32 +117,31 @@ Mixing Scheme and LilyPond identifiers is not possible with the
 When a music expression is parsed, it is converted into a set of
 Scheme music objects.  The defining property of a music object is that
 it takes up time.  Time is a rational number that measures the length
-of a piece of music, in whole notes.
+of a piece of music in whole notes.
 
 A music object has three kinds of types:
 @itemize @bullet
 @item
-music name: Each music expression has a name, for example, a note
+music name: Each music expression has a name.  For example, a note
 leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
 a @internalsref{SimultaneousMusic}.  A list of all expressions
-available is in the internals manual, under
+available is in the Program reference manual, under
 @internalsref{Music expressions}.
 
 @item
 `type' or interface: Each music name has several `types' or
 interfaces, for example, a note is an @code{event}, but it is also a
-@code{note-event}, a @code{rhythmic-event}, and a @code{melodic-event}.
-
-All classes of music are listed in the internals manual, under
+@code{note-event}, a @code{rhythmic-event}, and a
+@code{melodic-event}.  All classes of music are listed in the
+Profram reference, under
 @internalsref{Music classes}.
 
 @item
 C++ object: Each music object is represented by a C++ object.  For
 technical reasons, different music objects may be represented by
 different C++ object types.  For example, a note is @code{Event}
-object, while @code{\grace} creates a @code{Grace_music} object.
-
-We expect that distinctions between different C++ types will disappear
+object, while @code{\grace} creates a @code{Grace_music} object.  We
+expect that distinctions between different C++ types will disappear
 in the future.
 @end itemize
 
@@ -173,7 +177,7 @@ The syntax of composite music expressions, like @code{\repeat},
 \@code{keyword} @var{non-music-arguments} @var{music-arguments}
 @end example
 
-Such syntax can also be defined as user code.  To do this, it is
+Such syntax can also be defined as user code.  To do this it is
 necessary to create a @emph{music function}.  This is a specially marked
 Scheme function.  For example, the music function @code{\applyMusic} applies
 a user-defined function to a music expression.  Its syntax is
@@ -195,7 +199,7 @@ arguments.  This is encoded in its parameter list,
 (list procedure? ly:music?)
 @end example
 
-The function itself takes another argument, an Input location
+The function itself takes another argument: an Input location
 object.  That object is used to provide error messages with file names
 and line numbers.  The definition is the second argument of
 @code{ly:make-music-function}.  The body simply calls the function
@@ -230,12 +234,14 @@ Examples of the use of @code{\applyMusic} are in the next section.
 @seealso
 @file{ly/@/music@/-functions@/-init@/.ly}.
 
+
 @node Manipulating music expressions
 @subsection Manipulating music expressions
 
 Music objects and their properties can be accessed and manipulated
-directly, through the @code{\applyMusic} mechanism.
+directly through the @code{\applyMusic} mechanism.
 The syntax for @code{\applyMusic} is
+
 @example
 \applyMusic #@var{func} @var{music}
 @end example
@@ -276,6 +282,7 @@ The following example is such a recursive function: It first extracts
 the @code{elements} of an expression, reverses them and puts them
 back.  Then it recurses, both on @code{elements} and @code{element}
 children.
+
 @example
 #(define (reverse-music music)
   (let* ((elements (ly:music-property music 'elements))
@@ -331,9 +338,9 @@ exporting LilyPond input to other formats
 @cindex @code{\displayMusic}
 @cindex @code{\displayLilyMusic}
 
-When writing a music function, it is often instructive to inspect how
+When writing a music function it is often instructive to inspect how
 a music expression is stored internally.  This can be done with the
-music function @code{\displayMusic}.
+music function @code{\displayMusic}
 
 @example
 @{
@@ -341,8 +348,30 @@ music function @code{\displayMusic}.
 @}
 @end example
 
-Conversely, displaying a music expression in LilyPond notation can be
-done using the music function @code{\displayLilyMusic}. For instance:
+@noindent
+will display
+
+@example
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 0 0))
+                (make-music
+                  'AbsoluteDynamicEvent
+                  'text
+                  "f")))))
+@end example
+
+Displaying a music expression in LilyPond notation can be
+done using the music function @code{\displayLilyMusic}.  For example,
 
 @example
 @{
@@ -350,18 +379,19 @@ done using the music function @code{\displayLilyMusic}. For instance:
 @}
 @end example
 
-will display:
+will display
 
 @example
 @{ a, cis e fis g @}
 @end example
+
 
 @node Using LilyPond syntax inside Scheme
 @subsection Using LilyPond syntax inside Scheme
 
 Creating music expressions in Scheme can be tedious, as they are
 heavily nested and the resulting Scheme code is large.  For some
-simple tasks, this can be avoided, using common LilyPond syntax inside
+simple tasks this can be avoided by using common LilyPond syntax inside
 Scheme, with the dedicated @code{#@{ ... #@}} syntax.
 
 The following two expressions give equivalent music expressions:
@@ -450,6 +480,40 @@ withPadding =
   \withPadding #3 { c'^"2" c'^"3"}
   c'^"4"
 }
+@end lilypond
+
+Music functions can involve Scheme programming, in
+addition to simple substitution,
+
+@lilypond[quote,verbatim,ragged-right]
+AltOn = #(define-music-function (parser location mag) (number?) 
+  #{ \override Stem #'length = #$(* 7.0 mag)
+     \override NoteHead #'font-size = 
+       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
+
+AltOff = {
+  \revert Stem #'length
+  \revert NoteHead #'font-size 
+}
+
+{ c'2 \AltOn #0.5 c'4 c'
+  \AltOn #1.5 c' c' \AltOff c'2 }
+@end lilypond
+
+@noindent
+This example may be rewritten
+
+@lilypond[quote,verbatim,ragged-right]
+withAlt = #(define-music-function (parser location mag music) (number? ly:music?) 
+  #{ \override Stem #'length = #$(* 7.0 mag)
+     \override NoteHead #'font-size = 
+       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+     $music
+     \revert Stem #'length
+     \revert NoteHead #'font-size #})
+
+{ c'2 \withAlt #0.5 {c'4 c'}
+  \withAlt #1.5 {c' c'} c'2 }
 @end lilypond
 
 

@@ -14,8 +14,8 @@
 LilyPond uses the Scheme programming language, both as part of the
 input syntax, and as internal mechanism to glue modules of the program
 together.  This section is a very brief overview of entering data in
-Scheme.@footnote{If you want to know more about Scheme, see
-@uref{http://@/www@/.schemers@/.org}.}
+Scheme.  If you want to know more about Scheme, see
+@uref{http://@/www@/.schemers@/.org}.
 
 The most basic thing of a language is data: numbers, character
 strings, lists, etc.  Here is a list of data types that are relevant to
