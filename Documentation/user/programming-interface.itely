@@ -530,8 +530,9 @@ a Stencil object.
 @menu
 * Markup construction in Scheme::  
 * How markups work internally ::  
-* Markup command definition::   
+* New markup command definition::  
 @end menu
+
 
 @node Markup construction in Scheme
 @subsection Markup construction in Scheme
@@ -553,14 +554,13 @@ is equivalent to:
 @end example
 
 @noindent
-This example exposes the main translation rules between regular
-LilyPond markup syntax and Scheme markup syntax, which are summed up
-is this table:
+This example demonstrates the main translation rules between regular
+LilyPond markup syntax and Scheme markup syntax.
 
 @quotation
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
-@item @code{\markup markup1 @}} @tab @code{(markup markup1)}
+@item @code{\markup markup1} @tab @code{(markup markup1)}
 @item @code{\markup @{ markup1 markup2 ... @}} @tab 
         @code{(markup markup1 markup2 ... )}
 @item @code{\command} @tab @code{#:command}
@@ -571,29 +571,31 @@ is this table:
 @end multitable
 @end quotation
 
-Besides, the whole scheme language is accessible inside the
-@code{markup} macro: thus, one may use function calls inside
-@code{markup} in order to manipulate character strings for
-instance.  This proves useful when defining new markup commands (see
-@ref{Markup command definition}).
+The whole scheme language is accessible inside the
+@code{markup} macro.  For example, You may use function calls inside
+@code{markup} in order to manipulate character strings.  This is
+useful when defining new markup commands (see
+@ref{New markup command definition}).
 
 @refbugs
 
-One can not feed the @code{#:line} (resp @code{#:center},
-@code{#:column}) command with a variable or the result of a function
+One can not feed the @code{#:line}, @code{#:center}, or
+@code{#:column}) commands with a variable or the result of a function
 call.  Example:
 
 @lisp
-(markup #:line (fun-that-returns-markups))
+(markup #:line (function-that-returns-markups))
 @end lisp
 
 @noindent
-is invalid.  One should use the @code{make-line-markup} (resp.,
-@code{make-center-markup} or @code{make-column-markup}) function
+is invalid.  One should use the @code{make-line-markup},
+@code{make-center-markup}, or @code{make-column-markup} functions
 instead,
+
 @lisp
-(markup (make-line-markup (fun-that-returns-markups)))
+(markup (make-line-markup (function-that-returns-markups)))
 @end lisp
+
 
 @node How markups work internally 
 @subsection How markups work internally 
@@ -601,7 +603,7 @@ instead,
 In a markup like
 
 @example
-\raise #0.5 "foo"
+\raise #0.5 "text example"
 @end example
 
 @noindent
@@ -609,7 +611,7 @@ In a markup like
 function.  The markup expression is stored as
 
 @example
-(list raise-markup 0.5 (list simple-markup "foo"))
+(list raise-markup 0.5 (list simple-markup "text example"))
 @end example
 
 When the markup is converted to printable objects (Stencils), the
@@ -620,26 +622,29 @@ When the markup is converted to printable objects (Stencils), the
        @var{\layout object}
        @var{list of property alists}
        0.5
-       @var{the "foo" markup})
+       @var{the "text example" markup})
 @end example
 
 The @code{raise-markup} function first creates the stencil for the
-@code{foo} string, and then it raises that Stencil by 0.5 staff space.
-This is a rather simple example; more complex examples are in the rest
+@code{text example} string, and then it raises that Stencil by 0.5
+staff space.  This is a rather simple example; more complex examples
+are in the rest
 of this section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 
-@node Markup command definition
-@subsection Markup command definition
+
+@node New markup command definition
+@subsection New markup command definition
 
 New markup commands can be defined
 with the @code{define-markup-command} scheme macro.
+
 @lisp
 (define-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
             (@var{arg1-type?} @var{arg2-type?} ...)
   ..command body..)
 @end lisp
 
-The arguments signify
+The arguments are
 
 @table @var
 @item argi
@@ -653,20 +658,22 @@ a list of alists, containing all active properties.
 @end table
 
 As a simple example, we show how to add a @code{\smallcaps} command,
-which selects a small caps font.  Normally, we could select the
-small caps font as follows:
+which selects a small caps font.  Normally we could select the
+small caps font,
 
 @example
 \markup @{ \override #'(font-shape . caps) Text-in-caps @}
 @end example
 
+@noindent
 This selects the caps font by setting the @code{font-shape} property to
 @code{#'caps} for interpreting @code{Text-in-caps}.
 
-To make the above available as @code{\smallcaps} command, we have to
+To make the above available as @code{\smallcaps} command, we must
 define a function using @code{define-markup-command}.  The command should
-take a single argument, of type markup.  Therefore, the start of the
+take a single argument of type @code{markup}.  Therefore the start of the
 definition should read
+
 @example
 (define-markup-command (smallcaps layout props argument) (markup?)
 @end example
@@ -694,11 +701,11 @@ The variable @code{props} is a list of alists, and we prepend to it by
 cons'ing a list with the extra setting.
 
 
-Suppose that we are typesetting a recitative in an opera, and
+Suppose that we are typesetting a recitative in an opera and
 we would like to define a command that will show character names in a
-custom manner.  Names should be printed with small caps and translated a
+custom manner.  Names should be printed with small caps and moved a
 bit to the left and top.  We will define a @code{\character} command
-that takes into account the necessary translation, and uses the newly
+which takes into account the necessary translation and uses the newly
 defined @code{\smallcaps} command:
 
 @example
@@ -714,11 +721,13 @@ the staff are moved vertically to be at a certain distance (the
 @code{padding} property) from the staff and the notes.  To make sure
 that this mechanism does not annihilate the vertical effect of our
 @code{#:translate}, we add an empty string (@code{#:hspace 0}) before the
-translated text.  Now the @code{#:hspace 0} will be put above the notes, and the
+translated text.  Now the @code{#:hspace 0} will be put above the notes,
+and the
 @code{name} is moved in relation to that empty string.  The net effect is
 that the text is moved to the upper left.
 
 The final result is as follows:
+
 @example
 @{
   c''^\markup \character #"Cleopatra"
