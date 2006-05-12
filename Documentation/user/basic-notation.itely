@@ -990,32 +990,34 @@ pitches.  The clef is set with the @code{\clef} command
 @cindex subbass clef
 
 Supported clefs include
-@table @code
-@item treble, violin, G, G2
+
+@multitable @columnfractions .33 .66
+@headitem Clef @tab Position
+@item @code{treble}, violin, G, G2 @tab
  G clef on 2nd line
-@item alto, C
+@item @code{alto, C} @tab
  C clef on 3rd line
-@item tenor
+@item @code{tenor} @tab
  C clef on 4th line.
-@item bass, F
+@item @code{bass, F} @tab
  F clef on 4th line
-@item french
+@item @code{french} @tab
  G clef on 1st line, so-called French violin clef
-@item soprano
+@item @code{soprano} @tab
  C clef on 1st line
-@item mezzosoprano
+@item @code{mezzosoprano} @tab
  C clef on 2nd line
-@item baritone
+@item @code{baritone} @tab
  C clef on 5th line
-@item varbaritone
+@item @code{varbaritone} @tab
  F clef on 3rd line
-@item subbass
+@item @code{subbass} @tab
  F clef on 5th line
-@item percussion
+@item @code{percussion} @tab
  percussion clef
-@item tab
+@item @code{tab} @tab
  tablature clef
-@end table
+@end multitable
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
 transposed one octave down or up, respectively, and @code{_15} and
