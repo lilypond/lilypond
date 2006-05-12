@@ -90,7 +90,9 @@ omit these braces, but don't forget them in your own music!
 
 In addition, many examples use @code{relative} mode.  This is explained
 in @ref{Octave entry}; for now simply be aware that some examples
-should be placed inside @code{\relative @{ @emph{...music...} @}}
+should be placed inside @code{\relative @{ @emph{...music...} @}}.
+Many example have also been compressed horizontally to save
+space, using @code{\paper @{ ragged-right = ##t @}}.
 
 @cindex Case sensitive
 Finally, LilyPond input is case sensitive.  @code{ @{ c d e @} } is
