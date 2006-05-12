@@ -529,8 +529,7 @@ withAlt = #(define-music-function (parser location mag music) (number? ly:music?
 @node Markup programmer interface
 @section Markup programmer interface
 
-Markups are implemented as special Scheme functions.  Markups are
-implemented as special Scheme functions which produce a
+Markups are implemented as special Scheme functions which produce a
 Stencil object given a number of arguments.
 
 @menu
