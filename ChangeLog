@@ -2,6 +2,9 @@
 
 	* Documentation/user/context-example.eps: new file.
 
+	* Documentation/user/changing-defaults.itely: set up file to
+	use eps image.
+
 2006-05-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* configure.in (LINK_GXX_STATICALLY): python 2.4 req.

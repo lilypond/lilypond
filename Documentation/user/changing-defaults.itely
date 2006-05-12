@@ -384,6 +384,22 @@ accepting notes, it is not typeset.
 @node Interpretation contexts
 @section Interpretation contexts
 
+This section describes what contexts are, and how to modify them.
+
+@menu
+* Contexts explained::          
+* Creating contexts::           
+* Changing context properties on the fly::  
+* Modifying context plug-ins::  
+* Layout tunings within contexts::  
+* Changing context default settings::  
+* Defining new contexts::       
+@end menu
+
+
+@node Contexts explained
+@subsection Contexts explained
+
 When music is printed, a lot of notational elements must be added to the
 input.  For example, compare the input and output of the following example:
 
@@ -406,6 +422,9 @@ Within LilyPond, these rules and bits of information are grouped in
 @context{Staff}, and @context{Score}.  They are hierarchical, for
 example: a @context{Staff} can contain many @context{Voice}s, and a
 @context{Score} can contain many @context{Staff} contexts.
+
+@c  FIXME: doesn't work yet!  -gp
+@c @image{context-example,,,eps}
 
 Each context has the responsibility for enforcing some notation rules,
 creating some notation objects and maintaining the associated
@@ -439,15 +458,6 @@ Translation @arrow{} Context.
 
 @c [TODO: describe propagation]
 
-
-@menu
-* Creating contexts::           
-* Changing context properties on the fly::  
-* Modifying context plug-ins::  
-* Layout tunings within contexts::  
-* Changing context default settings::  
-* Defining new contexts::       
-@end menu
 
 @node Creating contexts
 @subsection Creating contexts
