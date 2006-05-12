@@ -5,6 +5,9 @@
 	* Documentation/user/changing-defaults.itely: set up file to
 	use eps image.
 
+	* Documentation/user/programming-interface.itely: changes
+	from mailist.
+
 2006-05-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* configure.in (LINK_GXX_STATICALLY): python 2.4 req.

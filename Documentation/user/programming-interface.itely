@@ -385,6 +385,15 @@ will display
 @{ a, cis e fis g @}
 @end example
 
+By default, LilyPond will print these messages to the console along
+with all the other messages.  To split up these messages and save
+the results of @code{\display@{STUFF@}}, redirect the output to
+a file.
+
+@example
+lilypond file.ly >display.txt
+@end example
+
 
 @node Using LilyPond syntax inside Scheme
 @subsection Using LilyPond syntax inside Scheme
@@ -520,12 +529,9 @@ withAlt = #(define-music-function (parser location mag music) (number? ly:music?
 @node Markup programmer interface
 @section Markup programmer interface
 
-@c Please rewrite the second sentence; I don't understand its meaning. AS
-
-Markups are implemented as special Scheme functions.  When applied
-with as arguments an output definition (@code{\layout} or
-@code{\paper}), and a list of properties and other arguments, produce
-a Stencil object.
+Markups are implemented as special Scheme functions.  Markups are
+implemented as special Scheme functions which produce a
+Stencil object given a number of arguments.
 
 @menu
 * Markup construction in Scheme::  
