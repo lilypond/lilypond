@@ -1,3 +1,7 @@
+2006-05-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* configure.in (LINK_GXX_STATICALLY): python 2.4 req.
+
 2006-05-11  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/programming-interface.itely: first round of
@@ -71,7 +75,7 @@
 
 	* lily/paper-column-engraver.cc (stop_translation_timestep): set
 	line-break-permission if forbidBreak is not set.
-	
+
 2006-05-09  Joe Neeman  <joeneeman@gmail.com>
 
 	* scm/define-context-properties.scm:

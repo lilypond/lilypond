@@ -14,8 +14,8 @@
 
 struct Beaming_info
 {
-  Moment start_mom_;
-  Drul_array<int> beams_i_drul_;
+  Moment start_moment_;
+  Drul_array<int> beam_count_drul_;
 
   Beaming_info (Moment, int);
   int count (Direction d);

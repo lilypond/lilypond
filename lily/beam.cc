@@ -1211,13 +1211,13 @@ Beam::set_beaming (Grob *me, Beaming_info_list const *beaming)
 	  if (beaming_prop == SCM_EOL
 	      || index_get_cell (beaming_prop, d) == SCM_EOL)
 	    {
-	      int b = beaming->infos_.at (i).beams_i_drul_[d];
+	      int count = beaming->infos_.at (i).beam_count_drul_[d];
 	      if (i > 0
 		  && i < stems.size () -1
 		  && Stem::is_invisible (stem))
-		b = min (b, beaming->infos_.at (i).beams_i_drul_[-d]);
+		count = min (count, beaming->infos_.at (i).beam_count_drul_[-d]);
 
-	      Stem::set_beaming (stem, b, d);
+	      Stem::set_beaming (stem, count, d);
 	    }
 	}
       while (flip (&d) != LEFT);

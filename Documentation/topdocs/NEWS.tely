@@ -66,6 +66,11 @@ which scares away people.
 
 @end ignore
 
+@item 
+The MusicXML convertor has been sped up, and has rudimentary support
+for percussion notation.  It will also condense multi-bar rests to
+enable part extraction.
+
 @item
 The beam printing code has been completely rewritten, and now includes
 support for feathered beaming,
