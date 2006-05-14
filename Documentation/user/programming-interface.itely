@@ -7,33 +7,220 @@ not familiar with Scheme, you may wish to read our
 @ref{Scheme tutorial}.
 
 @menu
-* Programmer interfaces for input::  
+* Music functions::             
+* Programmer interfaces::       
+* Building complicated functions::  
 * Markup programmer interface::  
 * Contexts for programmers::    
+* OLD STUFF::                   
 @end menu
 
 
-@node Programmer interfaces for input
-@section Programmer interfaces for input
+@node Music functions
+@section Music functions
 
-This section discusses how to create functions within LilyPond.
+This section discusses how to create music functions within LilyPond.
+
+@menu
+* Overview of music functions::  
+* Simple substitution functions::  
+* Paired substition functions::  
+* Mathematics in functions::    
+@end menu
+
+@node Overview of music functions
+@subsection Overview of music functions 
+
+Making a funcion which substitutes a variable into LilyPond
+code is easy.  The general form of these functions is
+
+@example
+function =
+#(define-music-function (parser location @var{var1} @var{var2}... )
+                        (@var{var1-type?} @var{var2-type?}...)
+  #@{
+    @emph{...music...}
+  #@})
+@end example
+
+@noindent
+where
+
+@multitable @columnfractions .33 .66
+@item @var{argi}         @tab @var{i}th variable
+@item @var{argi-type?}   @tab type of variable
+@item @var{...music...}  @tab normal LilyPond input, using
+  variables as @code{#$var1}.
+@end multitable
+
+The following input types may be used as variables
+in a music function.
+
+@multitable @columnfractions .33 .66
+@headitem Input type          @tab @var{argi-type?} notation
+@item Integer                 @tab @code{integer?}
+@item Float (decimal number)  @tab @code{number?}
+@item Text string             @tab @code{string?}
+@item Markup                  @tab @code{markup?}
+@item Music expression        @tab @code{ly:music?}
+@item A pair of numbers       @tab @code{pair?}
+@end multitable
+
+
+@node Simple substitution functions
+@subsection Simple substitution functions
+
+Here is a simple example,
+
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+} 
+@end lilypond
+
+Music expressions may be substituted as well,
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote = #(define-music-function (parser location note)
+                                     (ly:music?)
+  #{ 
+    \once \override Voice.NoteHead #'stencil = 
+      #ly:text-interface::print
+    \once \override Voice.NoteHead #'text = 
+      \markup \musicglyph #"custodes.mensural.u0"
+    \once \override Voice.Stem #'stencil = ##f 
+    $note
+  #})
+
+{ c' d' e' f' \custosNote g' }
+@end lilypond
+
+Multiple variables may be used,
+
+@lilypond[quote,verbatim,ragged-right]
+tempoMark = #(define-music-function (parser location marktext padding)
+                                    (string? number?)
+#{
+  \once \override Score . RehearsalMark #'padding = $padding
+  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \mark \markup { \bold $marktext }
+#})
+
+\relative c'' {
+c2 e
+\tempoMark #"Allegro" #3.0
+g c
+}
+@end lilypond
+
+
+@node Paired substition functions
+@subsection Paired substition functions
+
+Some @code{\override} commands require a pair of numbers
+(called a @code{cons cell} in Scheme).  To pass these numbers
+into a function, either use a @code{pair?} variable, or
+insert the @code{cons} into the music function.
+
+@quotation
+@example
+manualBeam =
+#(define-music-function (parser location beg-end)
+                        (pair?)
+#@{
+  \once \override Beam #'positions = #$beg-end
+#@})
+
+\relative @{
+  \manualBeam #'(3 . 6) c8 d e f
+@}
+@end example
+@end quotation
+
+@noindent
+or
+
+@lilypond[quote,verbatim,ragged-right]
+manualBeam =
+#(define-music-function (parser location beg end)
+                        (number? number?)
+#{
+  \once \override Beam #'positions = #(cons $beg $end)
+#}) 
+
+\relative {
+  \manualBeam #3 #6 c8 d e f
+}
+@end lilypond  
+
+
+@node Mathematics in functions
+@subsection Mathematics in functions
+
+Music functions can involve Scheme programming in
+addition to simple substitution,
+
+@lilypond[quote,verbatim,ragged-right]
+AltOn = #(define-music-function (parser location mag) (number?) 
+  #{ \override Stem #'length = #$(* 7.0 mag)
+     \override NoteHead #'font-size = 
+       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
+
+AltOff = {
+  \revert Stem #'length
+  \revert NoteHead #'font-size 
+}
+
+{ c'2 \AltOn #0.5 c'4 c'
+  \AltOn #1.5 c' c' \AltOff c'2 }
+@end lilypond
+
+@noindent
+This example may be rewritten to pass in music expressions,
+
+@lilypond[quote,verbatim,ragged-right]
+withAlt = #(define-music-function (parser location mag music) (number? ly:music?) 
+  #{ \override Stem #'length = #$(* 7.0 mag)
+     \override NoteHead #'font-size = 
+       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+     $music
+     \revert Stem #'length
+     \revert NoteHead #'font-size #})
+
+{ c'2 \withAlt #0.5 {c'4 c'}
+  \withAlt #1.5 {c' c'} c'2 }
+@end lilypond
+
+
+
+@node Programmer interfaces
+@section Programmer interfaces
+
+This section contains information about mixing LilyPond
+and Scheme.
 
 @menu
 * Input variables and Scheme::  
 * Internal music representation::  
-* Extending music syntax::      
-* Manipulating music expressions::  
-* Displaying music expressions::  
-* Using LilyPond syntax inside Scheme::  
 @end menu
+
 
 @node Input variables and Scheme
 @subsection Input variables and Scheme
 
-
 The input format supports the notion of variables: in the following
 example, a music expression is assigned to a variable with the name
 @code{traLaLa}.
+
 @example
 traLaLa = @{ c'4 d'4 @}
 @end example
@@ -137,12 +324,8 @@ Profram reference, under
 @internalsref{Music classes}.
 
 @item
-C++ object: Each music object is represented by a C++ object.  For
-technical reasons, different music objects may be represented by
-different C++ object types.  For example, a note is @code{Event}
-object, while @code{\grace} creates a @code{Grace_music} object.  We
-expect that distinctions between different C++ types will disappear
-in the future.
+C++ object: Each music object is represented by an object of the C++
+class @code{Music}.
 @end itemize
 
 The actual information of a music expression is stored in properties.
@@ -163,172 +346,17 @@ property of @internalsref{RepeatedMusic}, and the alternatives in
 
 
 
+@node Building complicated functions
+@section Building complicated functions
 
-@node Extending music syntax
-@subsection Extending music syntax
+This section explains how to gather the information necessary
+to create complicated music functions.
 
-@c TODO: rewrite example.
-@c The use of FUNC as example  argument is rather confusing.
-
-The syntax of composite music expressions, like @code{\repeat},
-@code{\transpose}, and @code{\context} follows the general form of
-
-@example
-\@code{keyword} @var{non-music-arguments} @var{music-arguments}
-@end example
-
-Such syntax can also be defined as user code.  To do this it is
-necessary to create a @emph{music function}.  This is a specially marked
-Scheme function.  For example, the music function @code{\applyMusic} applies
-a user-defined function to a music expression.  Its syntax is
-
-@example
-\applyMusic #@var{func} @var{music}
-@end example
-
-A music function is created with @code{ly:make-music-function},
-
-@example
-(ly:make-music-function
-@end example
-
-@code{\applyMusic} takes a Scheme function and a Music expression as
-arguments.  This is encoded in its parameter list,
-
-@example
-(list procedure? ly:music?)
-@end example
-
-The function itself takes another argument: an Input location
-object.  That object is used to provide error messages with file names
-and line numbers.  The definition is the second argument of
-@code{ly:make-music-function}.  The body simply calls the function
-
-@example
-(lambda (where func music)
- (func music))
-@end example
-
-The above Scheme code only defines the functionality.  The tag
-@code{\applyMusic} is selected by defining
-
-@example
-applyMusic = #(ly:make-music-function
-                (list procedure? ly:music?)
-                (lambda (parser location func music)
-                  (func music)))
-@end example
-
-A @code{define-music-function} macro is introduced on top of
-@code{ly:make-music-function} to ease the definition of music
-functions:
-
-@example
-applyMusic = #(define-music-function (parser location func music)
-                (procedure? ly:music?)
-                (func music))
-@end example
-
-Examples of the use of @code{\applyMusic} are in the next section.
-
-@seealso
-@file{ly/@/music@/-functions@/-init@/.ly}.
-
-
-@node Manipulating music expressions
-@subsection Manipulating music expressions
-
-Music objects and their properties can be accessed and manipulated
-directly through the @code{\applyMusic} mechanism.
-The syntax for @code{\applyMusic} is
-
-@example
-\applyMusic #@var{func} @var{music}
-@end example
-
-@noindent
-This means that the Scheme function @var{func} is called with
-@var{music} as its argument.  The return value of @var{func} is the
-result of the entire expression.  @var{func} may read and write music
-properties using the functions @code{ly:music-property} and
-@code{ly:music-set-property!}.
-
-An example is a function that reverses the order of elements in
-its argument,
-@lilypond[quote,verbatim,ragged-right]
-#(define (rev-music-1 m)
-  (ly:music-set-property! m 'elements 
-    (reverse (ly:music-property m 'elements)))
-  m)
-
-\applyMusic #rev-music-1 { c'4 d'4 } 
-@end lilypond
-
-The use of such a function is very limited.  The effect of this
-function is void when applied to an argument that does not have
-multiple children.  The following function application has no effect
-
-@example
-\applyMusic #rev-music-1 \grace @{ c4 d4 @}
-@end example
-
-@noindent
-In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which
-has no @code{elements}, only a single @code{element}.  Every generally
-applicable function for @code{\applyMusic} must -- like music expressions
-themselves -- be recursive.
-
-The following example is such a recursive function: It first extracts
-the @code{elements} of an expression, reverses them and puts them
-back.  Then it recurses, both on @code{elements} and @code{element}
-children.
-
-@example
-#(define (reverse-music music)
-  (let* ((elements (ly:music-property music 'elements))
-         (child (ly:music-property music 'element))
-         (reversed (reverse elements)))
-
-    ; set children
-    (ly:music-set-property! music 'elements reversed)
-
-    ; recurse
-    (if (ly:music? child) (reverse-music child))
-    (map reverse-music reversed)
-
-    music))
-@end example
-
-A slightly more elaborate example is in
-@inputfileref{input/@/test,reverse@/-music@/.ly}.
-
-Some of the input syntax is also implemented as recursive music
-functions.  For example, the syntax for polyphony
-@example
-<<a \\ b>>
-@end example
-
-@noindent
-is actually implemented as a recursive function that replaces the
-above by the internal equivalent of
-@example
-<< \context Voice = "1" @{ \voiceOne a @}
-   \context Voice = "2" @{ \voiceTwo b @} >>
-@end example
-
-Other applications of @code{\applyMusic} are writing out repeats
-automatically (@inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}),
-saving keystrokes (@inputfileref{input/@/test,music@/-box@/.ly}) and
-exporting LilyPond input to other formats
-@c no @inputfileref{} here 
-(eg. @file{input/@/no@/-notation/@/to@/-xml@/.ly}).
-
-@seealso
-
-@file{scm/@/music@/-functions@/.scm}, @file{scm/@/music@/-types@/.scm},
-@inputfileref{input/@/test,add@/-staccato@/.ly},
-@inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}, and
-@inputfileref{input/@/test,music@/-box@/.ly}.
+@menu
+* Displaying music expressions::  
+* Doubling a note with slurs (example)::  
+* Adding articulation to notes (example)::  
+@end menu
 
 
 @node Displaying music expressions
@@ -370,21 +398,6 @@ will display
                   "f")))))
 @end example
 
-Displaying a music expression in LilyPond notation can be
-done using the music function @code{\displayLilyMusic}.  For example,
-
-@example
-@{
-  \displayLilyMusic \transpose c a, @{ c e g a bes @}
-@}
-@end example
-
-will display
-
-@example
-@{ a, cis e fis g @}
-@end example
-
 By default, LilyPond will print these messages to the console along
 with all the other messages.  To split up these messages and save
 the results of @code{\display@{STUFF@}}, redirect the output to
@@ -395,135 +408,255 @@ lilypond file.ly >display.txt
 @end example
 
 
-@node Using LilyPond syntax inside Scheme
-@subsection Using LilyPond syntax inside Scheme
+@node Doubling a note with slurs (example)
+@subsection Doubling a note with slurs (example)
 
-Creating music expressions in Scheme can be tedious, as they are
-heavily nested and the resulting Scheme code is large.  For some
-simple tasks this can be avoided by using common LilyPond syntax inside
-Scheme, with the dedicated @code{#@{ ... #@}} syntax.
-
-The following two expressions give equivalent music expressions:
-@example
-mynotes = @{ \override Stem #'thickness = #4
-            @{ c'8 d' @} @}
-  
-#(define mynotes #@{ \override Stem #'thickness = #4
-                    @{ c'8 d' @} #@})
-@end example
-
-The content of @code{#@{ ... #@}} is enclosed in an implicit @code{@{
-... @}} block, which is parsed.  The resulting music expression, a
-@code{SequentialMusic} music object, is then returned and usable in Scheme.
-
-Arbitrary Scheme forms, including variables, can be used in @code{#@{ ... #@}}
-expressions with the @code{$} character (@code{$$} can be used to
-produce a single @code{$} character).  This makes the creation of simple
-functions straightforward.  In the following example, a function
-setting the TextScript's padding is defined:
-
-@lilypond[quote,verbatim,ragged-right]
-#(use-modules (ice-9 optargs))
-#(define* (textpad padding #:optional once?)
-  (ly:export   ; this is necessary for using the expression
-               ; directly inside a block
-    (if once?
-        #{ \once \override TextScript #'padding = #$padding #}
-        #{ \override TextScript #'padding = #$padding #})))
-
- {
-   c'^"1"
-   #(textpad 3.0 #t) % only once
-   c'^"2"
-   c'^"3"
-   #(textpad 5.0)
-   c'^"4"
-   c'^"5"
- }
-@end lilypond
-
-Here, the variable @code{padding} is a number; music expression
-variables may also be used in a similar fashion, as in the following
-example:
-
-@lilypond[quote,verbatim,ragged-right]
-#(define (with-padding padding)
-  (lambda (music)
-   #{ \override TextScript #'padding = #$padding
-      $music
-      \revert TextScript #'padding #}))
-
-{
-  c'^"1"
-  \applyMusic #(with-padding 3) { c'^"2" c'^"3" }
-  c'^"4"
-}
-@end lilypond
-
-The function created by @code{(with-padding 3)} adds @code{\override} and
-@code{\revert} statements around the music given as an argument, and returns
-this new expression.  Thus, this example is equivalent to:
+Suppose we want to create a function which translates
+input like ``@code{a}'' into ``@code{a( a)}''.  We begin
+by examining the internal representation of the music
+we want to end up with.
 
 @example
-@{
-  c'^"1"
-  @{ \override TextScript #'padding = #3
-    @{ c'^"2" c'^"3"@}
-    \revert TextScript #'padding
-  @}
-  c'^"4"
-@}
+\displayMusic@{ a'( a') @}
+===>
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))
+                (make-music
+                  'SlurEvent
+                  'span-direction
+                  -1)))
+        (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))
+                (make-music
+                  'SlurEvent
+                  'span-direction
+                  1)))))
 @end example
 
-This function may also be defined as a music function:
+The bad news is that the @code{SlurEvent} expressions
+must be added ``inside'' the note (or more precisely,
+inside the @code{EventChord} expression).
 
-@lilypond[quote,verbatim,ragged-right]
-withPadding =
-  #(define-music-function (parser location padding music) (number? ly:music?)
-    #{ \override TextScript #'padding = #$padding
-       $music 
-       \revert TextScript #'padding #})
+Now we examine the input,
 
-{
-  c'^"1"
-  \withPadding #3 { c'^"2" c'^"3"}
-  c'^"4"
-}
-@end lilypond
+@example
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))))))
+@end example
 
-Music functions can involve Scheme programming, in
-addition to simple substitution,
+So in our function, we need to clone this expression (so that we
+have two notes to build the sequence), add @code{SlurEvents} to the
+@code{'elements} property of each one, and finally make a
+@code{SequentialMusic} with the two @code{EventChords}.
 
-@lilypond[quote,verbatim,ragged-right]
-AltOn = #(define-music-function (parser location mag) (number?) 
-  #{ \override Stem #'length = #$(* 7.0 mag)
-     \override NoteHead #'font-size = 
-       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
+@example
+doubleSlur = #(def-music-function (parser location note) (ly:music?)
+         "Return: @{ note ( note ) @}.
+         `note' is supposed to be an EventChord."
+         (let ((note2 (ly:music-deep-copy note)))
+           (set! (ly:music-property note 'elements)
+                 (cons (make-music 'SlurEvent 'span-direction -1)
+                       (ly:music-property note 'elements)))
+           (set! (ly:music-property note2 'elements)
+                 (cons (make-music 'SlurEvent 'span-direction 1)
+                       (ly:music-property note2 'elements)))
+           (make-music 'SequentialMusic 'elements (list note note2))))
+@end example
 
-AltOff = {
-  \revert Stem #'length
-  \revert NoteHead #'font-size 
-}
 
-{ c'2 \AltOn #0.5 c'4 c'
-  \AltOn #1.5 c' c' \AltOff c'2 }
-@end lilypond
+@node Adding articulation to notes (example)
+@subsection Adding articulation to notes (example)
+
+The easy way to add articulation to notes is to merge two music
+expressions into one context, as explained in
+@ref{Creating contexts}.  However, suppose that we want to write
+a music function which does this.
+
+A @code{$variable} inside the @code{#@{...#@}} notation is like
+using a regular @code{\variable} in classical LilyPond
+notation.  We know that
+
+@example
+@{ \music -. -> @}
+@end example
 
 @noindent
-This example may be rewritten
+will not work in LilyPond.  We could avoid this problem by attaching
+the articulation to a fake note,
 
-@lilypond[quote,verbatim,ragged-right]
-withAlt = #(define-music-function (parser location mag music) (number? ly:music?) 
-  #{ \override Stem #'length = #$(* 7.0 mag)
-     \override NoteHead #'font-size = 
-       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
-     $music
-     \revert Stem #'length
-     \revert NoteHead #'font-size #})
+@example
+@{ << \music s1*0-.-> @}
+@end example
 
-{ c'2 \withAlt #0.5 {c'4 c'}
-  \withAlt #1.5 {c' c'} c'2 }
-@end lilypond
+@noindent
+but for the sake of this example, we will learn how to do this in
+Scheme.  We begin by examining our input and desired output,
+
+@example
+%  input
+\displayMusic c4
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch -1 0 0))))
+=====
+%  desired output
+\displayMusic c4->
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch -1 0 0))
+        (make-music
+          'ArticulationEvent
+          'articulation-type
+          "marcato")))
+@end example
+
+We see that a note (@code{c4}) is represented as an @code{EventChord}
+expression, with a @code{NoteEvent} expression in its elements list.  To
+add a marcato articulation, an @code{ArticulationEvent} expression must
+be added to the elements property of the @code{EventChord}
+expression.
+
+To build this function, we begin with
+
+@example
+(define (add-marcato event-chord)
+  "Add a marcato ArticulationEvent to the elements of `event-chord',
+  which is supposed to be an EventChord expression."
+  (let ((result-event-chord (ly:music-deep-copy event-chord)))
+    (set! (ly:music-property result-event-chord 'elements)
+          (cons (make-music 'ArticulationEvent
+                  'articulation-type "marcato")
+                (ly:music-property result-event-chord 'elements)))
+    result-event-chord))
+@end example
+
+The first line is the way to define a function in Scheme: the function
+name is @code{add-marcato}, and has one variable called
+@code{event-chord}.  In Scheme, the type of variable is often clear
+from its name.  (this is good practice in other programming languages,
+too!)
+
+@example
+"Add a marcato..."
+@end example
+
+@noindent
+is a description of what the function does.  This is not strictly
+necessary, but just like clear variable names, it is good practice.
+
+@example
+(let ((result-event-chord (ly:music-deep-copy event-chord)))
+@end example
+
+`@code{let}' is used to declare local variables.  Here we use one local
+variable, named `@code{result-event-chord}', to which we give the value 
+@code{(ly:music-deep-copy event-chord)}.  `@code{ly:music-deep-copy}' is
+a function specific to LilyPond, like all functions prefixed by
+`@code{ly:}'.  It is use to make a copy of a music
+expression.  Here we copy `@code{event-chord} (the parameter of the
+function).  Recall that our purpose is to add a marcato to an
+@code{EventChord} expression.  It is better to not modify the
+@code{EventChord} which was given as an argument, because it may be
+used elsewhere.
+
+Now we have a @code{result-event-chord}, which is a 
+@code{oteEventChord} expression and is a copy of @code{event-chord}.  We
+add the marcato to its elements list property.
+
+@example
+(set! place new-value)
+@end example
+
+Here, what we want to set (the "place") is the "elements" property of
+@code{result-event-chord} expression
+
+@example
+(ly:music-property result-event-chord 'elements)
+@end example
+
+@code{ly:music-property} is the function used to access music properties
+(the @code{'elements}, @code{'duration}, @code{'pitch}, etc, that we
+see in the @code{\displayMusic} output above).  The new value is the
+former elements property, with an extra item: the
+@code{MarcatoEvent} expression, which we copy from the
+@code{\displayMusic} output,
+
+@example
+(cons (make-music 'ArticulationEvent
+        'articulation-type "marcato")
+      (ly:music-property result-event-chord 'elements))
+@end example
+
+`@code{cons}' is used to add an element to a list.  This is what we
+want: the same list as before, plus the new @code{ArticulationEvent}
+expression.  The order inside the elements property is not important here.
+
+Finally, once we have added the @code{MarcatoEvent} to its elements
+property, we can return @code{result-event-chord}, hence the last line of
+the function.
+
+Now we transform the @code{add-marcato} function into a music
+function,
+
+@example
+addMarcato = #(define-music-function (parser location event-chord)
+                                     (ly:music?)
+    "Add a marcato ArticulationEvent to the elements of `event-chord',
+    which is supposed to be an EventChord expression."
+    (let ((result-event-chord (ly:music-deep-copy event-chord)))
+      (set! (ly:music-property result-event-chord 'elements)
+            (cons (make-music 'ArticulationEvent
+                    'articulation-type "marcato")
+                  (ly:music-property result-event-chord 'elements)))
+      result-event-chord))
+@end example
+
+We may verify that this music function works correctly,
+
+@example
+\displayMusic \addMarcato c4
+@end example
 
 
 @node Markup programmer interface
@@ -534,7 +667,7 @@ Stencil object given a number of arguments.
 
 @menu
 * Markup construction in Scheme::  
-* How markups work internally ::  
+* How markups work internally::  
 * New markup command definition::  
 @end menu
 
@@ -602,8 +735,8 @@ instead,
 @end lisp
 
 
-@node How markups work internally 
-@subsection How markups work internally 
+@node How markups work internally
+@subsection How markups work internally
 
 In a markup like
 
@@ -806,7 +939,6 @@ be used to set text in small caps.  See
 @node Contexts for programmers
 @section Contexts for programmers
 
-
 @menu
 * Context evaluation::          
 * Running a function on all layout objects::  
@@ -879,4 +1011,266 @@ note-heads on the center-line:
           (eq? (ly:grob-property grob 'staff-position) 0))
      (set! (ly:grob-property grob 'transparent) #t)))
 @end example
+
+
+@node OLD STUFF
+@section OLD STUFF
+
+This stuff is slated for deletion or merger into the earlier sections.
+
+@menu
+* Extending music syntax::      
+* Manipulating music expressions::  
+* Using LilyPond syntax inside Scheme::  
+@end menu
+
+
+@node Extending music syntax
+@subsection Extending music syntax
+
+@c TODO: rewrite example.
+@c The use of FUNC as example  argument is rather confusing.
+
+The syntax of composite music expressions, like @code{\repeat},
+@code{\transpose}, and @code{\context} follows the general form of
+
+@example
+\@code{keyword} @var{non-music-arguments} @var{music-arguments}
+@end example
+
+Such syntax can also be defined as user code.  To do this it is
+necessary to create a @emph{music function}.  This is a specially marked
+Scheme function.  For example, the music function @code{\applyMusic} applies
+a user-defined function to a music expression.  Its syntax is
+
+@example
+\applyMusic #@var{func} @var{music}
+@end example
+
+A music function is created with @code{ly:make-music-function},
+
+@example
+(ly:make-music-function
+@end example
+
+@code{\applyMusic} takes a Scheme function and a Music expression as
+arguments.  This is encoded in its parameter list,
+
+@example
+(list procedure? ly:music?)
+@end example
+
+The function itself takes another argument: an Input location
+object.  That object is used to provide error messages with file names
+and line numbers.  The definition is the second argument of
+@code{ly:make-music-function}.  The body simply calls the function
+
+@example
+(lambda (where func music)
+ (func music))
+@end example
+
+The above Scheme code only defines the functionality.  The tag
+@code{\applyMusic} is selected by defining
+
+@example
+applyMusic = #(ly:make-music-function
+                (list procedure? ly:music?)
+                (lambda (parser location func music)
+                  (func music)))
+@end example
+
+A @code{define-music-function} macro is introduced on top of
+@code{ly:make-music-function} to ease the definition of music
+functions:
+
+@example
+applyMusic = #(define-music-function (parser location func music)
+                (procedure? ly:music?)
+                (func music))
+@end example
+
+Examples of the use of @code{\applyMusic} are in the next section.
+
+@seealso
+@file{ly/@/music@/-functions@/-init@/.ly}.
+
+
+@node Manipulating music expressions
+@subsection Manipulating music expressions
+
+Music objects and their properties can be accessed and manipulated
+directly through the @code{\applyMusic} mechanism.
+The syntax for @code{\applyMusic} is
+
+@example
+\applyMusic #@var{func} @var{music}
+@end example
+
+@noindent
+This means that the Scheme function @var{func} is called with
+@var{music} as its argument.  The return value of @var{func} is the
+result of the entire expression.  @var{func} may read and write music
+properties using the functions @code{ly:music-property} and
+@code{ly:music-set-property!}.
+
+An example is a function that reverses the order of elements in
+its argument,
+@lilypond[quote,verbatim,ragged-right]
+#(define (rev-music-1 m)
+  (ly:music-set-property! m 'elements 
+    (reverse (ly:music-property m 'elements)))
+  m)
+
+\applyMusic #rev-music-1 { c'4 d'4 } 
+@end lilypond
+
+The use of such a function is very limited.  The effect of this
+function is void when applied to an argument that does not have
+multiple children.  The following function application has no effect
+
+@example
+\applyMusic #rev-music-1 \grace @{ c4 d4 @}
+@end example
+
+@noindent
+In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which
+has no @code{elements}, only a single @code{element}.  Every generally
+applicable function for @code{\applyMusic} must -- like music expressions
+themselves -- be recursive.
+
+The following example is such a recursive function: It first extracts
+the @code{elements} of an expression, reverses them and puts them
+back.  Then it recurses, both on @code{elements} and @code{element}
+children.
+
+@example
+#(define (reverse-music music)
+  (let* ((elements (ly:music-property music 'elements))
+         (child (ly:music-property music 'element))
+         (reversed (reverse elements)))
+
+    ; set children
+    (ly:music-set-property! music 'elements reversed)
+
+    ; recurse
+    (if (ly:music? child) (reverse-music child))
+    (map reverse-music reversed)
+
+    music))
+@end example
+
+A slightly more elaborate example is in
+@inputfileref{input/@/test,reverse@/-music@/.ly}.
+
+Some of the input syntax is also implemented as recursive music
+functions.  For example, the syntax for polyphony
+@example
+<<a \\ b>>
+@end example
+
+@noindent
+is actually implemented as a recursive function that replaces the
+above by the internal equivalent of
+@example
+<< \context Voice = "1" @{ \voiceOne a @}
+   \context Voice = "2" @{ \voiceTwo b @} >>
+@end example
+
+Other applications of @code{\applyMusic} are writing out repeats
+automatically (@inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}),
+saving keystrokes (@inputfileref{input/@/test,music@/-box@/.ly}) and
+exporting LilyPond input to other formats
+@c no @inputfileref{} here 
+(eg. @file{input/@/no@/-notation/@/to@/-xml@/.ly}).
+
+@seealso
+
+@file{scm/@/music@/-functions@/.scm}, @file{scm/@/music@/-types@/.scm},
+@inputfileref{input/@/test,add@/-staccato@/.ly},
+@inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}, and
+@inputfileref{input/@/test,music@/-box@/.ly}.
+
+
+@node Using LilyPond syntax inside Scheme
+@subsection Using LilyPond syntax inside Scheme
+
+Creating music expressions in Scheme can be tedious, as they are
+heavily nested and the resulting Scheme code is large.  For some
+simple tasks this can be avoided by using common LilyPond syntax inside
+Scheme, with the dedicated @code{#@{ ... #@}} syntax.
+
+The following two expressions give equivalent music expressions:
+@example
+mynotes = @{ \override Stem #'thickness = #4
+            @{ c'8 d' @} @}
+  
+#(define mynotes #@{ \override Stem #'thickness = #4
+                    @{ c'8 d' @} #@})
+@end example
+
+The content of @code{#@{ ... #@}} is enclosed in an implicit @code{@{
+... @}} block, which is parsed.  The resulting music expression, a
+@code{SequentialMusic} music object, is then returned and usable in Scheme.
+
+Arbitrary Scheme forms, including variables, can be used in @code{#@{ ... #@}}
+expressions with the @code{$} character (@code{$$} can be used to
+produce a single @code{$} character).  This makes the creation of simple
+functions straightforward.  In the following example, a function
+setting the TextScript's padding is defined:
+
+@lilypond[quote,verbatim,ragged-right]
+#(use-modules (ice-9 optargs))
+#(define* (textpad padding #:optional once?)
+  (ly:export   ; this is necessary for using the expression
+               ; directly inside a block
+    (if once?
+        #{ \once \override TextScript #'padding = #$padding #}
+        #{ \override TextScript #'padding = #$padding #})))
+
+ {
+   c'^"1"
+   #(textpad 3.0 #t) % only once
+   c'^"2"
+   c'^"3"
+   #(textpad 5.0)
+   c'^"4"
+   c'^"5"
+ }
+@end lilypond
+
+Here, the variable @code{padding} is a number; music expression
+variables may also be used in a similar fashion, as in the following
+example:
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (with-padding padding)
+  (lambda (music)
+   #{ \override TextScript #'padding = #$padding
+      $music
+      \revert TextScript #'padding #}))
+
+{
+  c'^"1"
+  \applyMusic #(with-padding 3) { c'^"2" c'^"3" }
+  c'^"4"
+}
+@end lilypond
+
+The function created by @code{(with-padding 3)} adds @code{\override} and
+@code{\revert} statements around the music given as an argument, and returns
+this new expression.  Thus, this example is equivalent to:
+
+@example
+@{
+  c'^"1"
+  @{ \override TextScript #'padding = #3
+    @{ c'^"2" c'^"3"@}
+    \revert TextScript #'padding
+  @}
+  c'^"4"
+@}
+@end example
+
+
 
