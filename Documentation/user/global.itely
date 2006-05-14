@@ -19,6 +19,7 @@ specific notation.
 * Music layout::                
 * Multiple movements::          
 * MIDI output::                 
+* Displaying LilyPond notation::  
 @end menu
 
 
@@ -1822,4 +1823,39 @@ property.  The instrument name should be chosen from the list in
 If the selected instrument does not exactly match an instrument from
 the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
 instrument is used.
+
+
+@c  Yes, this is a cop-out; this info doesn't belong in the Scheme
+@c  chapter, but I'm not certain where to stick it.
+@c  I think I'll eventually split this chapter into a "paper/layout"
+@c  chapter and a "misc issues" chapter.  -gp
+@node Displaying LilyPond notation
+@section Displaying LilyPond notation
+
+@cindex @code{\displayLilyMusc}
+Displaying a music expression in LilyPond notation can be
+done using the music function @code{\displayLilyMusic}.  For example,
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c e g a bes @}
+@}
+@end example
+
+will display
+
+@example
+@{ a, cis e fis g @}
+@end example
+
+By default, LilyPond will print these messages to the console along
+with all the other messages.  To split up these messages and save
+the results of @code{\display@{STUFF@}}, redirect the output to
+a file.
+
+@example
+lilypond file.ly >display.txt
+@end example
+
+
 

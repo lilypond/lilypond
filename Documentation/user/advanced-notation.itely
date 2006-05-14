@@ -862,6 +862,12 @@ Bar numbers are printed by default at the start of the line.  The
 number itself is stored in the @code{currentBarNumber} property, which
 is normally updated automatically for every measure.
 
+To manually set a bar number, use
+
+@example
+\set Score.currentBarNumber = #57
+@end example
+
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line.  This is illustrated in the following example,
 whose source is available as

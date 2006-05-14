@@ -312,7 +312,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 There are some problems with overlapping output; we'll fix those using
-the techniques in @ref{Fixing overlapping notation}.  But let's also
+the techniques in @ref{Moving objects}.  But let's also
 do something about the @code{mpdolce} and @code{tempoMark}
 definitions.  They produce the output we desire, but we might want
 to use them in another piece.  We could simply copy-and-paste them

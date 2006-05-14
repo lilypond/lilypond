@@ -7,6 +7,7 @@ configurable; virtually every fragment of output may be changed.
 
 
 @menu
+* Moving objects::              
 * Fixing overlapping notation::  
 * Common tweaks::               
 * Default files::               
@@ -14,8 +15,8 @@ configurable; virtually every fragment of output may be changed.
 @end menu
 
 
-@node Fixing overlapping notation
-@section Fixing overlapping notation
+@node Moving objects
+@section Moving objects
 
 This may come as a surprise, but LilyPond is not perfect.  Some notation
 elements can overlap.  This is unfortunate, but (in most cases) is easily
@@ -129,6 +130,48 @@ c4^"piu mosso" d e f
 @seealso
 
 This manual: @ref{The \override command}, @ref{Common tweaks}.
+
+
+@node Fixing overlapping notation
+@section Fixing overlapping notation
+
+In @ref{Moving objects}, we saw how to move a @code{TextScript}
+object.  The same mechanism can be used to move other types of
+objects; simply replace @code{TextScript} with the name of
+another object.
+
+To find the object name, look at the ``@strong{see also}'' at
+bottom of the relevant documentation page.  For example, at
+the bottom of @ref{Dynamics}, we see
+
+@quotation
+@seealso
+
+Program reference: @internalsref{DynamicText}, @internalsref{Hairpin}.
+Vertical positioning of these symbols is handled by
+@internalsref{DynamicLineSpanner}.
+@end quotation
+
+@noindent
+So to move dynamics around, we use
+
+@example
+\override DynamicLineSpanner #'padding = #2.0
+@end example
+
+We cannot list every object, but here is a list of the most
+common objects.
+
+@multitable @columnfractions .33 .66
+@headitem Object type  @tab Object name
+@item Text             @tab @code{TextScript}
+@item Dynamics         @tab @code{DynamicLineSpanner}
+@item Ties             @tab @code{Tie}
+@item Slurs            @tab @code{Slur}
+@item Articulation     @tab @code{Script}
+@item Fingering        @tab @code{Fingering}
+@item Rehearsal marks  @tab @code{RehearsalMark}
+@end multitable
 
 
 @node Common tweaks
