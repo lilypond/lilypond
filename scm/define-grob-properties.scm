@@ -352,6 +352,8 @@ quicker the slur attains it @code{height-limit}.")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
      (right-padding ,ly:dimension? "Space to insert between note and
 accidentals.")
+     (rotation ,list? "Number of degrees to rotate this object, and what point
+to rotate around. #'(45 0 0) means rotate 45 degrees around the center of this object.")
      (same-direction-correction ,number? "Optical correction amount
 for stems that are placed in tight configurations. This amount is used
 for stems with the same direction to compensate for note-head to stem distance.")

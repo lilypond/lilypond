@@ -120,6 +120,15 @@ Grob::get_print_stencil () const
 
 	  retval = Stencil (m->extent_box (), expr);
 	}
+      SCM rot = get_property ("rotation");
+      if (rot != SCM_EOL)
+	{
+	  Real angle = scm_to_double (scm_car (rot));
+	  Real x = scm_to_double (scm_cadr (rot));
+	  Real y = scm_to_double (scm_caddr (rot));
+
+	  retval.rotate (angle, Offset (x, y));
+	}
 
       /* color support... see interpret_stencil_expression () for more... */
       SCM color = get_property ("color");
@@ -522,6 +531,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "meta "
 	       "minimum-X-extent "
 	       "minimum-Y-extent "
+	       "rotation "
 	       "springs-and-rods "
 	       "staff-symbol "
 	       "stencil "

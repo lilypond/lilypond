@@ -319,6 +319,25 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 			  0.95 * scm_to_double (t)).smobbed_copy ();
 }
 
+LY_DEFINE (ly_rotate_stencil, "ly:stencil-rotate",
+	   4, 0, 0, (SCM stil, SCM angle, SCM x, SCM y),
+	   "Return a @var{stil} rotated @var{angle} degrees around point (@var{x}, @var{y}).")
+{
+  Stencil *s = unsmob_stencil (stil);
+  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
+  SCM_ASSERT_TYPE (scm_is_number (angle), angle, SCM_ARG2, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (scm_is_number (x), x, SCM_ARG3, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (scm_is_number (y), y, SCM_ARG4, __FUNCTION__, "number");
+  Real a = scm_to_double (angle);
+  Real x_off = scm_to_double (x);
+  Real y_off = scm_to_double (y);
+
+  SCM new_s = s->smobbed_copy ();
+  Stencil *q = unsmob_stencil (new_s);
+  q->rotate (a, Offset (x_off, y_off));
+  return new_s;
+}
+
 LY_DEFINE (ly_filled_box, "ly:round-filled-box",
 	   3, 0, 0,
 	   (SCM xext, SCM yext, SCM blot),

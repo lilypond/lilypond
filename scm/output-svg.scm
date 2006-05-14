@@ -250,6 +250,16 @@
 		(map offset->point (ly:list->offsets '() coords))))
    ))
 
+;; rotate around given point
+(define (setrotation ang x y)
+  (format "<g transform=\"rotate(~a,~a,~a)\">"
+    (number->string (* -1 ang))
+    (number->string x)
+    (number->string (* -1 y))))
+
+(define (resetrotation ang x y)
+  "</g>")
+
 (define (round-filled-box breapth width depth height blot-diameter)
   (entity 'rect ""
 	  ;; The stroke will stick out.  To use stroke,

@@ -1,3 +1,24 @@
+2006-05-14  Erlend Aasland  <erlenda@gmail.com>
+
+	* lily/include/stencil.hh
+	* lily/stencil.cc (rotation): new function. Makes it possible
+	to rotate a stencil around a given offset.
+
+	* lily/grob.cc (get_print_stencil): add rotation support
+
+	* lily/stencil-interpret.cc (interpret_stencil_expression):
+	add rotation support
+
+	* lily/stencil-scheme.cc (ly:stencil-rotate): new function
+
+	* scm/define-grob-properties.scm: add 'rotation property
+
+	* scm/define-markup-commands.scm: add rotate markup command
+	
+	* scm/output-ps.scm: add rotation support in PostScript backend
+
+	* scm/output-svg.scm: add rotation support in SVG backend
+
 2006-05-13  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/music-glossary.itely: French correction.

@@ -78,6 +78,44 @@ Stencil::origin () const
   return origin_;
 }
 
+/*
+ * Rotate this stencil around the point [x, y]
+ */
+void
+Stencil::rotate (Real a, Offset off)
+{
+  const Real x_cen = extent (X_AXIS).center ();
+  const Real y_cen = extent (Y_AXIS).center ();
+
+  /*
+   * Calculate the center of rotation
+   */
+  const Real x = x_cen + off[X_AXIS] * x_cen;
+  const Real y = y_cen + off[Y_AXIS] * y_cen;
+
+  /*
+   * Build scheme expression (processed in stencil-interpret.cc)
+   */
+  expr_ = scm_list_n (ly_symbol2scm ("rotate-stencil"),
+		      scm_list_2 (scm_from_double (a),
+		      scm_cons (scm_from_double (x), scm_from_double (y))),
+		      expr_, SCM_UNDEFINED);
+
+  /*
+   * Calculate the new bounding box
+   */
+  vector<Offset> pts;
+  pts.push_back (Offset (-x_cen, -y_cen));
+  pts.push_back (Offset (x_cen, -y_cen));
+  pts.push_back (Offset (x_cen, y_cen));
+  pts.push_back (Offset (-x_cen, y_cen));
+
+  const Offset rot = complex_exp (Offset (0, a * M_PI / 180.0));
+  dim_.set_empty ();
+  for (vsize i = 0; i < pts.size (); i++)
+    dim_.add_point (pts[i] * rot + Offset (x_cen, y_cen));
+}
+
 void
 Stencil::translate (Offset o)
 {

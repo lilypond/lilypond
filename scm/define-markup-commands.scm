@@ -118,6 +118,12 @@ circle of diameter 0 (ie sharp corners)."
   (ly:round-filled-box
    xext yext blot))
 
+(define-markup-command (rotate layout props ang arg) (number? markup?)
+  "Rotate object with @var{ang} degrees around its center."
+  (let* ((stil (interpret-markup layout props arg)))
+    (ly:stencil-rotate stil ang 0 0)))
+
+
 (define-markup-command (whiteout layout props arg) (markup?)
   "Provide a white underground for @var{arg}"
   (let* ((stil (interpret-markup layout props

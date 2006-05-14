@@ -56,6 +56,22 @@ interpret_stencil_expression (SCM expr,
 
 	  return;
 	}
+      else if (head == ly_symbol2scm ("rotate-stencil"))
+	{
+	  SCM args = scm_cadr (expr);
+	  SCM angle = scm_car (args);
+	  Offset tmp = o + robust_scm2offset (scm_cadr (args), Offset (0.0, 0.0));
+
+	  SCM offset = ly_offset2scm (tmp);
+	  SCM x = scm_car (offset);
+	  SCM y = scm_cdr (offset);
+
+	  (*func) (func_arg, scm_list_4 (ly_symbol2scm ("setrotation"), angle, x, y));
+	  interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
+	  (*func) (func_arg, scm_list_4 (ly_symbol2scm ("resetrotation"), angle, x, y));
+
+	  return;
+	}
       else
 	{
 	  (*func) (func_arg,
