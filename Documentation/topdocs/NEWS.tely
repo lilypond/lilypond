@@ -68,10 +68,10 @@ which scares away people.
 
 @item
 Objects may be rotated using the @code{rotation} property.
-@lilypond[ragged-right,fragment,relative=2]
+@lilypond[ragged-right,fragment,relative=1]
 {
-  \override NoteHead #'rotation = #'(45 0 0)
-  c1^\markup { \rotate #180 "test" }
+  \override Hairpin #'rotation = #'(20 -1 0)
+  g4\<^\markup { \rotate #180 "test" } b d f'\!
 }
 @end lilypond
 
