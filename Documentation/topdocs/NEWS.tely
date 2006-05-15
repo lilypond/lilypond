@@ -66,6 +66,29 @@ which scares away people.
 
 @end ignore
 
+@item
+Objects may be rotated using the @code{rotation} property.
+@lilypond[ragged-right,fragment,relative=2]
+{
+  \override NoteHead #'rotation = #'(45 0 0)
+  c1^\markup { \rotate #180 "test" }
+}
+@end lilypond
+
+This feature was contributed by Erlend Aasland.
+
+@item
+Hairpins now support circled tips (al niente notation).
+@lilypond[ragged-right,fragment,relative=2]
+{
+  \override Hairpin #'circled-tip = ##t
+  c2\< c\!
+  c4\> c\< c2\!
+}
+@end lilypond
+
+This feature was contributed by Erlend Aasland.
+
 @item 
 The MusicXML convertor has been sped up, and has rudimentary support
 for percussion notation.  It will also condense multi-bar rests to

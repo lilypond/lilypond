@@ -1,7 +1,11 @@
+2006-05-15  Erlend Aasland  <erlenda@gmail.com>
+
+	* Documentation/topdocs/NEWS.tely: niente and rotation news
+
 2006-05-14  Erlend Aasland  <erlenda@gmail.com>
 
 	* lily/include/stencil.hh
-	* lily/stencil.cc (rotation): new function. Makes it possible
+	* lily/stencil.cc (rotate): new function. Makes it possible
 	to rotate a stencil around a given offset.
 
 	* lily/grob.cc (get_print_stencil): add rotation support
