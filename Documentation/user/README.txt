@@ -21,8 +21,15 @@ may be used here.
 
 * Notation Reference is a (hopefully complete) description of
 LilyPond input notation.  Some material from here may be
-duplicated in the Learning Manual (for teaching).  This
-section is written in formal technical writing style.
+duplicated in the Learning Manual (for teaching).  The
+material is presented in an approximate order of increasing
+difficulty, but the goal is _not_ to provide a step-by-step
+learning environment.  For example, all material under
+"Notes" should remain in that section, even though microtonal
+accidentals may seem more advanced than info about clefs or
+time signatures -- "Notes" should be a one-stop reference
+about, well, notes.  This section is written in formal
+technical writing style.
 
 * Technical Details contains information about using
 the program lilypond with other programs (lilypond-book,
