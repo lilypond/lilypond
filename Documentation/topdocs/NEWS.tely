@@ -99,7 +99,7 @@ The beam printing code has been completely rewritten, and now includes
 support for feathered beaming,
 
 @lilypond[ragged-right,fragment,relative=2]
-\featherDurations #(ly:make-moment 3 4) 
+\featherDurations #(ly:make-moment 5 4) 
 {
   \override Beam #'grow-direction = #LEFT
   c16[

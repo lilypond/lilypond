@@ -1,3 +1,13 @@
+2006-05-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/GNUmakefile: dist context-example.eps too.
+
+	* lily/key-engraver.cc (create_key): use
+	explicitKeySignatureVisibility for cancellation too. Backportme.
+
+	* lily/font-config.cc (init_fontconfig): don't close file if
+	f==NULL. Backportme.
+
 2006-05-15  Erlend Aasland  <erlenda@gmail.com>
 
 	* Documentation/topdocs/NEWS.tely: niente and rotation news
