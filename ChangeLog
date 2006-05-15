@@ -1,5 +1,7 @@
 2006-05-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/clef-engraver.cc: cleanup.
+
 	* Documentation/user/GNUmakefile: dist context-example.eps too.
 
 	* lily/key-engraver.cc (create_key): use
@@ -4227,17 +4229,16 @@
 
 	* scm/lily.scm: Remove horrendous running-from-gui? kludge.
 	(lilypond-main): Redirect to gui-main if 'gui is set.
-	Backportme.
 
 	* scripts/midi2ly.py (datadir): Add libdir iso datadir to path,
 	for alternative installations kludging s/share/lib/g
-	LILYPONDPREFIX. Backportme.
+	LILYPONDPREFIX. 
 
 	* SConstruct (libdir_package_version): Define.
 
 	* python/SConscript: 
 	* python/GNUmakefile (INSTALLATION_OUT_DIR): Install binary .so
-	module in libdir.  Backportme.
+	module in libdir.  
 
 2005-10-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
@@ -4687,7 +4688,7 @@
 
 	* flower/file-name.cc (dos_to_posix)[__CYGWIN__]: Return
 	unconverted value if cygwin_conv_to_posix_path () fails.  Fixes
-	absolute file name bug.  Backportme.
+	absolute file name bug.  
 
 2005-10-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
