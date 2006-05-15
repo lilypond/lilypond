@@ -7,47 +7,33 @@ Current version of the manual: 2.8.0
 convert-ly --from=... --to=... --no-version *.itely
  
 %%%%%
-Distributions will want to install lilypond.info in postinstall, doing:
+DOC ORGANIZATION
 
-    install-info --info-dir=/usr/share/info out/lilypond.info
+There are three parts to the documentation: the Learning Manual,
+the Notation Reference, and the Technical Details.
+
+* Long, wordy, chatty explanations go in the Learning Manual.
+This is aimed at users learning something for the first
+time -- not necessarily just learning lilypond notation, but
+also things like learning how to deal with projects, tweaking,
+preparing parts for orchestras, etc.  Less formal language
+may be used here.
+
+* Notation Reference is a (hopefully complete) description of
+LilyPond input notation.  Some material from here may be
+duplicated in the Learning Manual (for teaching).  This
+section is written in formal technical writing style.
+
+* Technical Details contains information about using
+the program lilypond with other programs (lilypond-book,
+operating systems, GUIs, convert-ly, etc).  This section
+is writtin in formal technical writing style.
+
+
 %%%%%
-  * Prepend GNU for dir, must be unique.
-  
-  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
-    goes to Top.
-
-  * List all commands in direntry.
-  
-@c  * lilypond: (lilypond/lilypond)Running LilyPond.      Invoking the
-@c    LilyPond  program.
-
-%%%%%
-HINTS FOR STYLE
+GENERAL GUIDELINES
 
 * Do not forget to create @cindex entries for new sections of text.
-
-* Try not to use punctuation between an introductory sentence and
-  display material (music, example code).
-
-* Do not refer to LilyPond in the text.  The reader knows what the
-  manual is about.  If you do, capitalization is LilyPond.
-
-* If you explicitly refer to `lilypond', the program (or any other
-  command to be executed), say `@command{lilypond}'.
-
-* Do not explicitly refer to the reader/user.  There is no one else
-  besides the reader and the writer.
-
-* Do not use abbreviations (don't, won't, etc.).  If you do, use a
-  comma after it:
-
-    blabla blabla, i.e., blabla blabla
-
-* Avoid fluff (``Notice that,'' ``as you can see,'' ``Currently,'').
-
-* The above three suggestions refer to the formal Notation Manual
-  (chapters 5 and up).  In the Tutorial, Example templates, and
-  Putting it all together, you may write more colloquially.
 
 * The use of the word `illegal' is inappropriate in most cases.  Say
   `invalid' instead.
@@ -135,4 +121,24 @@ HINTS FOR STYLE
     all such characters appear in all output formats.
 
 * Lines should be less than 80 characters long.
+
+
+%%%%%
+HINTS FOR TECHNICAL WRITING STYLE
+
+* Do not refer to LilyPond in the text.  The reader knows what the
+  manual is about.  If you do, capitalization is LilyPond.
+
+* If you explicitly refer to `lilypond', the program (or any other
+  command to be executed), say `@command{lilypond}'.
+
+* Do not explicitly refer to the reader/user.  There is no one else
+  besides the reader and the writer.
+
+* Do not use abbreviations (don't, won't, etc.).  If you do, use a
+  comma after it:
+
+    blabla blabla, i.e., blabla blabla
+
+* Avoid fluff (``Notice that,'' ``as you can see,'' ``Currently,'').
 

@@ -1,3 +1,7 @@
+2006-05-15  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/README.txt: update info for doc writers.
+
 2006-05-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/clef-engraver.cc: cleanup.
