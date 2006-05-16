@@ -262,8 +262,7 @@ Context::create_context (Context_def *cdef,
                      ly_symbol2scm ("unique"), scm_int2num (unique),
                      ly_symbol2scm ("ops"), ops,
                      ly_symbol2scm ("type"), cdef->get_context_name (),
-                     ly_symbol2scm ("id"), scm_makfrom0str (id.c_str ()),
-		     0);
+                     ly_symbol2scm ("id"), scm_makfrom0str (id.c_str ()));
 
   return new_context;
 }
@@ -346,6 +345,11 @@ Context::internal_get_property (SCM sym) const
   return val;
 }
 
+/*
+Called by the send_stream_event macro. props is a 0-terminated array of
+properties and corresponding values, interleaved. This method should not
+be called from any other place than the send_stream_event macro.
+*/
 void
 Context::internal_send_stream_event (SCM type, SCM props[])
 {
