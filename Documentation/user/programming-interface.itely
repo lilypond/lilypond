@@ -26,6 +26,7 @@ This section discusses how to create music functions within LilyPond.
 * Simple substitution functions::  
 * Paired substition functions::  
 * Mathematics in functions::    
+* Void functions::              
 @end menu
 
 @node Overview of music functions
@@ -53,8 +54,10 @@ where
   variables as @code{#$var1}.
 @end multitable
 
-The following input types may be used as variables
-in a music function.
+There following input types may be used as variables
+in a music function.  This list is not exhaustive; see
+other documentation specifically about Scheme for more
+variable types.
 
 @multitable @columnfractions .33 .66
 @headitem Input type          @tab @var{argi-type?} notation
@@ -63,8 +66,16 @@ in a music function.
 @item Text string             @tab @code{string?}
 @item Markup                  @tab @code{markup?}
 @item Music expression        @tab @code{ly:music?}
-@item A pair of numbers       @tab @code{pair?}
+@item A pair of variables     @tab @code{pair?}
 @end multitable
+
+The @code{parser} and @code{location} argument are mandatory,
+and are used in some advanced situations.  The @code{parser}
+argument is used to access to the value of another LilyPond
+variable.  The @code{location} argument
+is used to set the ``origin'' of the music expression that is built
+by the music function, so that in case of a syntax error LilyPond
+can tell the user an appropriate place to look in the input file.
 
 
 @node Simple substitution functions
@@ -107,8 +118,8 @@ custosNote = #(define-music-function (parser location note)
 Multiple variables may be used,
 
 @lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function (parser location marktext padding)
-                                    (string? number?)
+tempoMark = #(define-music-function (parser location padding marktext)
+                                    (number? string?) 
 #{
   \once \override Score . RehearsalMark #'padding = $padding
   \once \override Score . RehearsalMark #'no-spacing-rods = ##t
@@ -117,7 +128,7 @@ tempoMark = #(define-music-function (parser location marktext padding)
 
 \relative c'' {
 c2 e
-\tempoMark #"Allegro" #3.0
+\tempoMark #3.0 #"Allegro"
 g c
 }
 @end lilypond
@@ -201,6 +212,31 @@ withAlt = #(define-music-function (parser location mag music) (number? ly:music?
 @end lilypond
 
 
+@node Void functions
+@subsection Void functions
+
+A music function must return a music expression, but sometimes we
+may want to have a function which does not involve music (such as
+turning off Point and Click).  To do this, we return a @code{void}
+music expression.
+
+That is why the form
+that is returned is the @code{(make-music ...)}. With the
+@code{'void} property set to @code{#t}, the parser is told to
+actually disregard this returned music
+expression.  Thus the important part of the void music function is the
+processing done by the function, not the music expression that is
+returned.
+
+@example
+noPointAndClick =
+#(define-music-function (parser location) ()
+   (ly:set-option 'point-and-click #f)
+   (make-music 'SequentialMusic 'void #t))
+...
+\noPointAndClick   % disable point and click
+@end example
+
 
 @node Programmer interfaces
 @section Programmer interfaces
@@ -281,6 +317,7 @@ written as
 
 Scheme code is evaluated as soon as the parser encounters it.  To
 define some scheme code in a macro (to be called later), use
+@ref{Void functions} or
 
 @example
 #(define (nopc)
@@ -354,6 +391,7 @@ to create complicated music functions.
 
 @menu
 * Displaying music expressions::  
+* Music properties::            
 * Doubling a note with slurs (example)::  
 * Adding articulation to notes (example)::  
 @end menu
@@ -405,6 +443,85 @@ a file.
 
 @example
 lilypond file.ly >display.txt
+@end example
+
+With a bit of reformatting, the above information is
+easier to read,
+
+@example
+(make-music 'SequentialMusic
+  'elements (list (make-music 'EventChord
+                    'elements (list (make-music 'NoteEvent
+                                      'duration (ly:make-duration 2 0 1 1)
+                                      'pitch (ly:make-pitch 0 0 0))
+                                    (make-music 'AbsoluteDynamicEvent
+                                      'text "f")))))
+@end example
+
+A @code{@{ ... @}} music sequence has the name @code{SequentialMusic},
+and its inner expressions are stored as a list in its @code{'elements}
+property.  A note is represented as an @code{EventChord} expression,
+containing a @code{NoteEvent} object (storing the duration and
+pitch properties) and any extra information (in this case, an
+@code{AbsoluteDynamicEvent} with a @code{"f"} text property.
+
+
+@node Music properties
+@subsection Music properties
+
+The @code{NoteEvent} object is the first object of the
+@code{'elements} property of @code{someNote}.
+
+@example
+someNote = c'
+\displayMusic \someNote
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch 0 0 0))))
+@end example
+
+The @code{display-scheme-music} function is the function used by
+@code{\displayMusic} to display the scheme representation of a music
+expression.
+
+@example
+#(display-scheme-music (first (ly:music-property someNote 'elements)))
+===>
+(make-music
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch 0 0 0))
+@end example
+
+Then the note pitch is accessed thourgh the @code{'pitch} property
+of the @code{NoteEvent} object,
+
+@example
+#(display-scheme-music
+   (ly:music-property (first (ly:music-property someNote 'elements))
+                      'pitch))
+===>
+(ly:make-pitch 0 0 0)
+@end example
+
+The note pitch can be changed by setting this 'pitch property,
+
+@example
+#(set! (ly:music-property (first (ly:music-property someNote 'elements))
+                          'pitch)
+       (ly:make-pitch 0 1 0)) ;; set the pitch to d'.
+\displayLilyMusic \someNote
+===>
+d'
 @end example
 
 
@@ -628,7 +745,8 @@ former elements property, with an extra item: the
       (ly:music-property result-event-chord 'elements))
 @end example
 
-`@code{cons}' is used to add an element to a list.  This is what we
+`@code{cons}' is used to add an element to a list without modifying the
+original list.  This is what we
 want: the same list as before, plus the new @code{ArticulationEvent}
 expression.  The order inside the elements property is not important here.
 
@@ -715,11 +833,13 @@ The whole scheme language is accessible inside the
 useful when defining new markup commands (see
 @ref{New markup command definition}).
 
+
 @refbugs
 
-One can not feed the @code{#:line}, @code{#:center}, or
-@code{#:column}) commands with a variable or the result of a function
-call.  Example:
+Commands which accept markup-list arguments (such as
+@code{#:line}, @code{#:center}, and@code{#:column}) cannot
+take commands with a variable or commands which are the
+result of a function call.
 
 @lisp
 (markup #:line (function-that-returns-markups))

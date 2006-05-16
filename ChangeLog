@@ -2,6 +2,11 @@
 
 	* Documentation/user/README.txt: update info for doc writers.
 
+	* Documentation/user/programming-interface.itely: integrate
+	Nicolas' fixes for chapter rewrite.
+
+	* Documentation/user/ various: minor fixes.
+
 2006-05-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/clef-engraver.cc: cleanup.
