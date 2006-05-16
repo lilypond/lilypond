@@ -423,8 +423,9 @@ Within LilyPond, these rules and bits of information are grouped in
 example: a @context{Staff} can contain many @context{Voice}s, and a
 @context{Score} can contain many @context{Staff} contexts.
 
-@c  FIXME: doesn't work yet!  -gp
-@c @image{context-example,,,eps}
+@quotation
+@image{context-example,1600%,,eps}
+@end quotation
 
 Each context has the responsibility for enforcing some notation rules,
 creating some notation objects and maintaining the associated

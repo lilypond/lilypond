@@ -836,10 +836,9 @@ useful when defining new markup commands (see
 
 @refbugs
 
-Commands which accept markup-list arguments (such as
-@code{#:line}, @code{#:center}, and@code{#:column}) cannot
-take commands with a variable or commands which are the
-result of a function call.
+The markup-list argument of commands such as @code{#:line},
+@code{#:center}, and @code{#:column} cannot be a variable or
+the result of a function call.
 
 @lisp
 (markup #:line (function-that-returns-markups))
