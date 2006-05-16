@@ -298,6 +298,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
     context = new Context (key);
 
   context->definition_ = self_scm ();
+  context->definition_mods_ = ops;
 
   SCM trans_names = get_translator_names (ops);
 

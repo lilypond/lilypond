@@ -14,6 +14,10 @@
       MusicEvent CreateContext Prepare OneTimeStep Finish) . StreamEvent)
     ))
 
+;; Maps event-class to a list of ancestors (inclusive)
+;; TODO: use resizable hash
+(define ancestor-lookup (make-hash-table 1))
+
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
 ;; so that (eq? (cdr class) parent) holds.
@@ -21,13 +25,14 @@
  (lambda (rel)
    (for-each
     (lambda (type)
-      (primitive-eval `(define ,type (cons ',type ,(cdr rel)))))
+      (hashq-set! ancestor-lookup type (cons type (hashq-ref ancestor-lookup (cdr rel) '())))) ;; `(define ,type (cons ',type ,(cdr rel)))))
     (car rel)))
  event-classes)
 
 ;; TODO: Allow entering more complex classes, by taking unions.
 (define-public (ly:make-event-class leaf)
- (primitive-eval leaf))
+ (hashq-ref ancestor-lookup leaf))
+;; (primitive-eval leaf))
 
 (defmacro-public make-stream-event (expr)
   (Stream_event::undump (primitive-eval (list 'quasiquote expr))))

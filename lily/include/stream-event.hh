@@ -42,15 +42,4 @@ protected:
 DECLARE_UNSMOB (Stream_event, stream_event);
 DECLARE_TYPE_P (Stream_event);
 
-#define SEND_EVENT_TO_CONTEXT(ctx, cl, ...)				\
-  {									\
-    Stream_event *_e_ = new Stream_event (ctx, ly_symbol2scm (cl));	\
-    __VA_ARGS__;							\
-    ctx->event_source ()->distribute (_e_);				\
-    scm_gc_unprotect_object (_e_->self_scm ());				\
-  }
-  
-#define EVENT_PROPERTY(prop, val)	\
-  (_e_->set_property (prop, val))
-
 #endif /* STREAM_EVENT_HH */

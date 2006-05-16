@@ -41,6 +41,9 @@ public:
 
   /// Scale the music in time by #factor#.
   void compress (Moment factor);
+  
+  // Broadcast the event in a context's event-source.
+  void send_to_context (Context *c);
 
   DECLARE_SCHEME_CALLBACK (duration_length_callback, (SCM));
   

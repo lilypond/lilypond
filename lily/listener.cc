@@ -10,12 +10,6 @@
 #include "ly-smobs.icc"
 #include "warn.hh"
 
-/*
-Listener_target::~Listener_target ()
-{
-}
-*/
-
 Listener::Listener (const void *target, Listener_function_table *type)
 {
   target_ = (void *)target;

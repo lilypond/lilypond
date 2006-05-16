@@ -8,6 +8,8 @@
 
 #include "music.hh"
 
+#include "context.hh"
+#include "dispatcher.hh"
 #include "duration.hh"
 #include "input-smob.hh"
 #include "international.hh"
@@ -232,6 +234,13 @@ Music::origin () const
 {
   Input *ip = unsmob_input (get_property ("origin"));
   return ip ? ip : &dummy_input_global;
+}
+
+void
+Music::send_to_context (Context *c)
+{
+  send_stream_event (c, "MusicEvent",
+  		     ly_symbol2scm("music"), self_scm ());
 }
 
 Music *

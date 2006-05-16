@@ -33,7 +33,10 @@ private:
 protected:
   int unique_;
   Context *daddy_context_;
+  /* The used Context_def */
   SCM definition_;
+  /* Additions to the Context_def, given by \with */
+  SCM definition_mods_;
   Context_key_manager key_manager_;
   
   SCM properties_scm_;
@@ -42,6 +45,13 @@ protected:
   SCM aliases_;
   Translator_group *implementation_;
   string id_string_;
+  
+  /* Events reported in the context is sent to this dispatcher. */
+  Dispatcher *event_source_;
+
+  /* Events reported to this context or recursively in any of its
+     children, are sent to this dispatcher. */
+  Dispatcher *events_below_;
 
   friend class Context_def;
   void clear_key_disambiguations ();
@@ -56,6 +66,13 @@ public:
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
   int get_unique() { return unique_; }
+
+  Dispatcher *event_source () const { return event_source_; }
+  Dispatcher *events_below () const { return events_below_; }
+  void internal_send_stream_event (SCM type, SCM props[]);
+
+  SCM get_definition () const { return definition_; }
+  SCM get_definition_mods () const { return definition_mods_; }
 
   Translator_group *implementation () const { return implementation_; }
   Context *get_parent_context () const;
@@ -115,6 +132,13 @@ DECLARE_UNSMOB (Context, context);
 Moment measure_position (Context const *context);
 Rational measure_length (Context const *context);
 void set_context_property_on_children (Context *trans, SCM sym, SCM val);
+
+/* Shorthand for creating and broadcasting stream events. */
+#define send_stream_event(ctx, type, ...)				\
+{									\
+  SCM props[] = { __VA_ARGS__, 0 };					\
+  ctx->internal_send_stream_event (ly_symbol2scm (type), props);	\
+}
 
 #endif /* CONTEXT_HH */
 

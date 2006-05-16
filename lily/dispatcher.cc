@@ -31,7 +31,9 @@ Dispatcher::Dispatcher ()
   dispatchers_ = SCM_EOL;
   listen_classes_ = SCM_EOL;
   smobify_self ();
-  listeners_ = scm_c_make_hash_table (0);
+// TODO: use resizable hash (guile 1.8)
+//  listeners_ = scm_c_make_hash_table (0);
+  listeners_ = scm_c_make_hash_table (17);
   priority_count_ = 0;
 }
 
@@ -147,8 +149,10 @@ Dispatcher::dispatch (SCM sev)
       lists[i].list = next;
     }
 
+/* TODO: Uncomment.
   if (!sent)
     warning (_f ("Junking event: %s", ly_symbol2string (class_symbol).c_str ()));
+*/
 }
 
 void

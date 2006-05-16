@@ -9,6 +9,7 @@
 #include "context.hh"
 
 #include "context-def.hh"
+#include "dispatcher.hh"
 #include "international.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
@@ -24,7 +25,7 @@ bool
 Context::is_removable () const
 {
   return context_list_ == SCM_EOL && ! iterator_count_
-    && !dynamic_cast<Score_context const *> (this);
+    && !dynamic_cast<Global_context const *> (daddy_context_);
 }
 
 void
@@ -96,12 +97,19 @@ Context::Context (Object_key const *key)
   accepts_list_ = SCM_EOL;
   context_list_ = SCM_EOL;
   definition_ = SCM_EOL;
+  definition_mods_ = SCM_EOL;
   unique_ = -1;
+  event_source_ = 0;
+  events_below_ = 0;
 
   smobify_self ();
 
   Scheme_hash_table *tab = new Scheme_hash_table;
   properties_scm_ = tab->unprotect ();
+  event_source_ = new Dispatcher ();
+  event_source_->unprotect ();
+  events_below_ = new Dispatcher ();
+  events_below_->unprotect ();
 
   /*
     UGH UGH
@@ -117,9 +125,9 @@ Context::create_unique_context (SCM name, string id, SCM operations)
   /*
     Don't create multiple score contexts.
   */
-  if (dynamic_cast<Global_context *> (this)
-      && dynamic_cast<Global_context *> (this)->get_score_context ())
-    return get_score_context ()->create_unique_context (name, id, operations);
+  Global_context *gthis = dynamic_cast<Global_context *> (this);
+  if (gthis && gthis->get_score_context ())
+    return gthis->get_score_context ()->create_unique_context (name, id, operations);
 
   /*
     TODO: use accepts_list_.
@@ -171,9 +179,9 @@ Context::find_create_context (SCM n, string id, SCM operations)
   /*
     Don't create multiple score contexts.
   */
-  if (dynamic_cast<Global_context *> (this)
-      && dynamic_cast<Global_context *> (this)->get_score_context ())
-    return get_score_context ()->find_create_context (n, id, operations);
+  Global_context *gthis = dynamic_cast<Global_context *> (this);
+  if (gthis && gthis->get_score_context ())
+    return gthis->get_score_context ()->find_create_context (n, id, operations);
 
   if (Context *existing = find_context_below (this, n, id))
     return existing;
@@ -232,15 +240,29 @@ Context::create_context (Context_def *cdef,
 			 string id,
 			 SCM ops)
 {
+  int unique = get_global_context()->new_unique();
+
+  // TODO: The following should be carried out by a listener.
   string type = ly_symbol2string (cdef->get_context_name ());
   Object_key const *key = key_manager_.get_context_key (now_mom(), type, id);
   Context *new_context
     = cdef->instantiate (ops, key);
 
-  new_context->unique_ = get_global_context()->new_unique();
   new_context->id_string_ = id;
+  new_context->unique_ = unique;
+  
+  new_context->events_below_->register_as_listener (new_context->event_source_);
+  
   add_context (new_context);
   apply_property_operations (new_context, ops);
+  events_below_->register_as_listener (new_context->events_below_);
+
+  // TODO: The above operations should be performed by a listener to the following event.
+  send_stream_event (this, "CreateContext",
+                     ly_symbol2scm ("unique"), scm_int2num (unique),
+                     ly_symbol2scm ("ops"), ops,
+                     ly_symbol2scm ("type"), cdef->get_context_name (),
+                     ly_symbol2scm ("id"), scm_makfrom0str (id.c_str ()));
 
   return new_context;
 }
@@ -280,10 +302,7 @@ Context::get_default_interpreter ()
 	}
 
       Context *tg = create_context (t, "", SCM_EOL);
-      if (!tg->is_bottom_context ())
-	return tg->get_default_interpreter ();
-      else
-	return tg;
+      return tg->get_default_interpreter ();
     }
   return this;
 }
@@ -324,6 +343,19 @@ Context::internal_get_property (SCM sym) const
     return daddy_context_->internal_get_property (sym);
 
   return val;
+}
+
+void
+Context::internal_send_stream_event (SCM type, SCM props[])
+{
+  Stream_event *e = new Stream_event (this, type);
+  for (int i = 0; props[i]; i++)
+  {
+    assert(props[i+1]);
+    e->internal_set_property (props[i], props[i+1]);
+  }
+  event_source_->broadcast (e);
+  e->unprotect ();
 }
 
 bool
@@ -377,6 +409,7 @@ Context::remove_context (Context *trans)
   return trans;
 }
 
+
 /*
   ID == "" means accept any ID.
 */
@@ -397,6 +430,25 @@ find_context_below (Context *where,
       Context *tr = unsmob_context (scm_car (s));
 
       found = find_context_below (tr, type, id);
+    }
+
+  return found;
+}
+
+Context *
+find_context_below (Context *where,
+                    int unique)
+{
+  if (where->get_unique () == unique)
+    return where;
+
+  Context *found = 0;
+  for (SCM s = where->children_contexts ();
+       !found && scm_is_pair (s); s = scm_cdr (s))
+    {
+      Context *tr = unsmob_context (scm_car (s));
+
+      found = find_context_below (tr, unique);
     }
 
   return found;
@@ -500,10 +552,13 @@ Context::mark_smob (SCM sm)
   scm_gc_mark (me->context_list_);
   scm_gc_mark (me->aliases_);
   scm_gc_mark (me->definition_);
+  scm_gc_mark (me->definition_mods_);
   scm_gc_mark (me->properties_scm_);
   scm_gc_mark (me->accepts_list_);
   if (me->implementation_)
     scm_gc_mark (me->implementation_->self_scm ());
+  if (me->event_source_) scm_gc_mark (me->event_source_->self_scm ());
+  if (me->events_below_) scm_gc_mark (me->events_below_->self_scm ());
 
   return me->properties_scm_;
 }

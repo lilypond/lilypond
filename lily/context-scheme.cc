@@ -9,6 +9,7 @@
 
 #include "context.hh"
 #include "context-def.hh"
+#include "dispatcher.hh"
 
 LY_DEFINE (ly_context_id, "ly:context-id",
 	   1, 0, 0, (SCM context),
@@ -158,4 +159,23 @@ LY_DEFINE (ly_context_now, "ly:context-now",
   Context *ctx = unsmob_context (context);
   SCM_ASSERT_TYPE (ctx, context, SCM_ARG1, __FUNCTION__, "Context");
   return ctx->now_mom ().smobbed_copy ();
+}
+
+LY_DEFINE (ly_context_event_source, "ly:context-event-source",
+           1, 0, 0, (SCM context),
+           "Return event-source of context CONTEXT")
+{
+  Context *ctx = unsmob_context (context);
+  SCM_ASSERT_TYPE (ctx, context, SCM_ARG1, __FUNCTION__, "Context");
+  return ctx->event_source ()->self_scm ();
+}
+
+LY_DEFINE (ly_context_events_below, "ly:context-events-below",
+           1, 0, 0, (SCM context),
+           "Return a stream-distributor that distributes all events\n"
+           " from @var{context} and all its subcontexts.")
+{
+  Context *ctx = unsmob_context (context);
+  SCM_ASSERT_TYPE (ctx, context, SCM_ARG1, __FUNCTION__, "Context");
+  return ctx->events_below ()->self_scm ();
 }

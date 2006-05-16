@@ -157,6 +157,12 @@ Music_iterator::try_music (Music *m) const
   Music_iterator *it = b ? (Music_iterator *) this : 0;	// ugh
   if (!it)
     it = try_music_in_children (m);
+  else
+    /* TODO: try_music should only do the following:
+     - descend iterator to bottom context
+     - send music to a bottom context.
+     The function should also be renamed, and it should not return a value. */
+    m->send_to_context (get_outlet ());
   return it;
 }
 
