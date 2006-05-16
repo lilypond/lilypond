@@ -276,7 +276,8 @@ class Part (Music_xml_node):
 	attributes_dict = {}
         attributes_object = None
 	measures = self.get_typed_children (Measure)
-        
+        last_moment = Rational (-1)
+        last_measure_position = Rational (-1)
 	for m in measures:
             measure_start_moment = now
             measure_position = Rational (0)
@@ -291,9 +292,9 @@ class Part (Music_xml_node):
                     
 		    factor = Rational (1,
 				       int (attributes_dict['divisions'].get_text ()))
-		elif (n.get_maybe_exist_typed_child (Duration)
-		      and not n.get_maybe_exist_typed_child (Chord)):
-                    
+
+                
+		if (n.get_maybe_exist_typed_child (Duration)):
 		    mxl_dur = n.get_maybe_exist_typed_child (Duration)
 		    dur = mxl_dur.get_length () * factor
                     
@@ -308,7 +309,14 @@ class Part (Music_xml_node):
                         and attributes_object.get_measure_length () == dur):
 
                         rest._is_whole_measure = True
-                        
+
+                if (dur > Rational (0) 
+                    and n.get_maybe_exist_typed_child (Chord)):
+                    now = last_moment
+                    measure_position = last_measure_position
+                    
+                last_moment = now
+                last_measure_position = measure_position
 
 		n._when = now
                 n._measure_position = measure_position
@@ -328,8 +336,10 @@ class Part (Music_xml_node):
                     problem = 'incomplete'
                     if now > new_now:
                         problem = 'overfull'
-                        
-                    m.message ('%s measure? Expected: %s, Difference: %s' % (problem, now, new_now - now))
+
+                    ## only for verbose operation.
+                    if problem <> 'incomplete':
+                        m.message ('%s measure? Expected: %s, Difference: %s' % (problem, now, new_now - now))
 
                 now = new_now
 

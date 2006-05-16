@@ -195,6 +195,7 @@ instrument_drumtype_dict = {
     'Acoustic Snare Drum': 'acousticsnare',
     'Side Stick': 'sidestick',
     'Open Triangle': 'opentriangle',
+    'Mute Triangle': 'mutetriangle',
     'Tambourine': 'tambourine',
     
 }
@@ -287,13 +288,18 @@ class LilyPondVoiceBuilder:
             self.add_music (evc, diff)
                 
     def last_event_chord (self, starting_at):
+
+        value = None
         if (self.elements
             and isinstance (self.elements[-1], musicexp.EventChord)
             and self.begin_moment == starting_at):
-            return self.elements[-1]
+            value = self.elements[-1]
         else:
             self.jumpto (starting_at)
-            return None
+            value = None
+
+        return value
+        
     def correct_negative_skip (self, goto):
         self.end_moment = goto
         self.begin_moment = goto
@@ -305,15 +311,17 @@ def musicxml_voice_to_lily_voice (voice):
     modes_found = {}
 
     voice_builder = LilyPondVoiceBuilder()
+
     for n in voice._elements:
         if n.get_name () == 'forward':
             continue
 
-        try:
-            voice_builder.jumpto (n._when)
-        except NegativeSkip, neg:
-            voice_builder.correct_negative_skip (n._when)
-            n.message ("Negative skip? from %s to %s, diff %s" % (neg.here, neg.dest, neg.dest - neg.here))
+        if not n.get_maybe_exist_named_child ('chord'):
+            try:
+                voice_builder.jumpto (n._when)
+            except NegativeSkip, neg:
+                voice_builder.correct_negative_skip (n._when)
+                n.message ("Negative skip? from %s to %s, diff %s" % (neg.here, neg.dest, neg.dest - neg.here))
             
         if isinstance (n, musicxml.Attributes):
             if n.is_first () and n._measure_position == Rational (0):
@@ -349,10 +357,9 @@ def musicxml_voice_to_lily_voice (voice):
         ev_chord = voice_builder.last_event_chord (n._when)
         if not ev_chord: 
             ev_chord = musicexp.EventChord()
+            voice_builder.add_music (ev_chord, n._duration)
 
-        
         ev_chord.append (main_event)
-        voice_builder.add_music (ev_chord, n._duration)
         
         notations = n.get_maybe_exist_typed_child (musicxml.Notations)
         tuplet_event = None
