@@ -162,7 +162,7 @@ Hairpin::print (SCM smob)
 		    x_points[d] = e.center () - d * padding / 3;
 		}
 	      else
-		x_points[d] = e[d];
+		x_points[d] = e[d] - d * padding;
 	    }
 	}
     }

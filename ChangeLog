@@ -7,6 +7,17 @@
 
 2006-05-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/dynamic-engraver.cc (typeset_all): hang ending on
+	currentCommandColumn. 
+
+	* lily/hairpin.cc (print): also add padding for non-neighbor
+	hairpin bounds.
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add hairpinToBarline
+
+	* input/regression/hairpin-to-barline.ly: new file.
+
 	* lily/context.cc (internal_send_stream_event): thinko fix.
 
 	* lily/tie.cc (set_default_control_points): robustness fix.

@@ -326,11 +326,21 @@ Dynamic_engraver::typeset_all ()
 {
   if (finished_cresc_)
     {
-      if (!finished_cresc_->get_bound (RIGHT))
+      bool use_bar = to_boolean (get_property ("hairpinToBarline"))
+	&& scm_is_string (get_property ("whichBar"))
+	&& !script_ev_;
+			  
+      
+      if (!finished_cresc_->get_bound (RIGHT)
+	  || use_bar)
 	{
+	  Grob *column_bound = unsmob_grob (use_bar
+					    ? get_property ("currentCommandColumn")
+					    : get_property ("currentMusicalColumn"));
+	    
 	  finished_cresc_->set_bound (RIGHT, script_
 				      ? script_
-				      : unsmob_grob (get_property ("currentMusicalColumn")));
+				      : column_bound);
 
 	  if (finished_line_spanner_)
 	    add_bound_item (finished_line_spanner_,

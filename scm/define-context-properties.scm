@@ -238,6 +238,8 @@ for the full staff.")
      (gridInterval ,ly:moment?
 		   "Interval for which to generate @ref{GridPoint}s")
 
+     (hairpinToBarline ,boolean? "If set, end a hairpin at the barline before the ending note.")
+     
      (harmonicAccidentals ,boolean? "If set, harmonic notes in chords
 get accidentals.")
      (highStringOne ,boolean? "Whether the 1st string is the string with
