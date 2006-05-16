@@ -397,7 +397,13 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 	(types . (layout-instruction general-music))
 	(iterator-ctor . ,ly:property-unset-iterator::constructor)
 	))
-    
+
+    (PercentEvent
+     . (
+	(description .	"Used internally to signal percent repeats.")
+	(types . (general-music event percent-event))
+	))
+
     (PesOrFlexaEvent
      . (
 	(description .	"Within a ligature, mark the previous and the
@@ -534,6 +540,16 @@ Syntax NOTE(	 and NOTE) ")
 	(types . (general-music span-event event trill-span-event))
 	))
     
+    (TransposedMusic
+     . (
+	(description .	"Music that has been transposed.")
+	(iterator-ctor . ,ly:music-wrapper-iterator::constructor)
+	(start-callback . ,ly:music-wrapper::start-callback)
+	(length-callback . ,ly:music-wrapper::length-callback)
+	(to-relative-callback . ,ly:relative-octave-music::no-relative-callback)
+	(types . (music-wrapper-music general-music transposed-music))
+	))
+
     (TimeScaledMusic
      . (
 	(description .	"Multiply durations, as in tuplets. 
@@ -546,16 +562,12 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 	(iterator-ctor . ,ly:time-scaled-music-iterator::constructor)
 	(types . (time-scaled-music music-wrapper-music general-music))
 	))
-    
-    (TransposedMusic
+
+    (TupletEvent
      . (
-	(description .	"Music that has been transposed.")
-	(iterator-ctor . ,ly:music-wrapper-iterator::constructor)
-	(start-callback . ,ly:music-wrapper::start-callback)
-	(length-callback . ,ly:music-wrapper::length-callback)
-	(to-relative-callback . ,ly:relative-octave-music::no-relative-callback)
-	(types . (music-wrapper-music general-music transposed-music))
-	))
+	(description .  "Used internally to signal where tuplet brackets start and stop.")
+	(types . (tuplet-spanner-event span-event event general-music))
+       ))
 
     (UnrelativableMusic
      . (

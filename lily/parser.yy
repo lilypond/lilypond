@@ -872,57 +872,14 @@ Alternative_music:
 Repeated_music:
 	REPEAT simple_string bare_unsigned Music Alternative_music
 	{
-		/*TODO: move to Scheme.*/
-		Music *beg = $4;
-		int times = $3;
+		SCM proc = ly_lily_module_constant ("make-repeat");
 		SCM alts = scm_is_pair ($5) ? scm_car ($5) : SCM_EOL;
-		if (times < scm_ilength (alts)) {
-		  unsmob_music (scm_car (alts))
-		    ->origin ()->warning (
-		    _ ("more alternatives than repeats"));
-		    warning ("junking excess alternatives");
-		  alts = ly_truncate_list (times, alts);
-		}
-
-
-		SCM proc = ly_lily_module_constant ("make-repeated-music");
-
-		SCM mus = scm_call_1 (proc, $2);
+		assert ($4);
+		SCM mus = scm_call_4 (proc, $2, scm_int2num ($3), $4->self_scm (), alts);
 		Music *r = unsmob_music (mus);
+
 		r->protect ();
-		if (beg)
-			{
-			r-> set_property ("element", beg->self_scm ());
-			beg->unprotect ();
-			}
-		r->set_property ("repeat-count", scm_from_int (max (times, 1)));
-
-		r-> set_property ("elements",alts);
-		if (ly_is_equal ($2, scm_makfrom0str ("tremolo"))) {
-			/*
-			TODO: move this code to Scheme.
-			*/
-
-			/* we cannot get durations and other stuff
-			   correct down the line,
-			   so we have to add to the duration log here. */
-			SCM func = ly_lily_module_constant ("shift-duration-log");
-
-			int dots = ($3 % 3) ? 0 : 1;
-			int shift = -intlog2 ((dots) ? ($3*2/3) : $3);
-
-			
-			if ($4->is_mus_type ("sequential-music"))
-			{
-				int list_len = scm_ilength ($4->get_property ("elements"));
-				if (list_len != 2)
-					$4->origin ()->warning (_f ("expect 2 elements for Chord tremolo, found %d", list_len));
-				shift -= 1;
-				r->compress (Moment (Rational (1, list_len)));
-			}
-			scm_call_3 (func, r->self_scm (), scm_from_int (shift), scm_from_int (dots));
-
-		}
+		$4->unprotect ();
 		r->set_spot (*$4->origin ());
 
 		$$ = r;
@@ -1065,19 +1022,18 @@ Prefix_composite_music:
 
 	| TIMES fraction Music 	
 	{
-		int n = scm_to_int (scm_car ($2));
-		int d = scm_to_int (scm_cdr ($2));
-		Music *mp = $3;
+                int n = scm_to_int (scm_car ($2));
+                int d = scm_to_int (scm_cdr ($2));
+                Music *mp = $3;
 
-		$$= MY_MAKE_MUSIC ("TimeScaledMusic");
-		$$->set_spot (@$);
+                $$= MY_MAKE_MUSIC ("TimeScaledMusic");
+                $$->set_spot (@$);
 
-		$$->set_property ("element", mp->self_scm ());
-		mp->unprotect();
-		$$->set_property ("numerator", scm_from_int (n));
-		$$->set_property ("denominator", scm_from_int (d));
-		$$->compress (Moment (Rational (n,d)));
-
+                $$->set_property ("element", mp->self_scm ());
+                mp->unprotect();
+                $$->set_property ("numerator", scm_from_int (n));
+                $$->set_property ("denominator", scm_from_int (d));
+                $$->compress (Moment (Rational (n,d)));
 	}
 	| Repeated_music		{ $$ = $1; }
 	| TRANSPOSE pitch_also_in_chords pitch_also_in_chords Music {

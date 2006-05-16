@@ -56,13 +56,6 @@ Folded_repeat_iterator::construct_children ()
 void
 Folded_repeat_iterator::process (Moment m)
 {
-  if (!m.to_bool ())
-    {
-      bool success = try_music (get_music ());
-      if (!success)
-	get_music ()->origin ()->warning (_ ("no one to print a repeat brace"));
-    }
-
   if (main_iter_)
     {
       main_iter_->process (m);

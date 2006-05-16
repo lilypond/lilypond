@@ -1,3 +1,13 @@
+2006-05-16  Erik Sandberg  <mandolaerik@gmail.com>
+	* lily/percent-repeat-engraver.cc, lily/parser.yy,
+	lily/define-music-types.cc, lily/percent-repeat-iterator.cc,
+	lily/slash-repeat-engraver.cc,
+	lily/include/percent-repeat-iterator.hh: Rework percent repeats:
+	iterator sends PercentEvents
+
+	* lily/time-scaled-music-iterator.cc, lily/tuplet-engraver.cc:
+	rework tuplets: send start/stop events to engraver
+
 2006-05-15  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/README.txt: update info for doc writers.

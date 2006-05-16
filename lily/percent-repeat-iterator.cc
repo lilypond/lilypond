@@ -3,90 +3,61 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2001--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>, Erik Sandberg <mandolaerik@gmail.com>
 */
 
 #include "percent-repeat-iterator.hh"
 
 #include "input.hh"
 #include "international.hh"
+#include "music.hh"
 #include "repeated-music.hh"
 
 IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 
 Percent_repeat_iterator::Percent_repeat_iterator ()
 {
-  child_iter_ = 0;
-}
-
-void
-Percent_repeat_iterator::do_quit ()
-{
-  if (child_iter_)
-    child_iter_->quit ();
-}
-
-bool
-Percent_repeat_iterator::ok () const
-{
-  return child_iter_;
+  child_list_ = SCM_EOL;
 }
 
 void
 Percent_repeat_iterator::construct_children ()
 {
+  /* TODO: Distinction between percent and slash */
   Music *mus = get_music ();
-  finish_mom_ = mus->get_length ();
-  child_iter_ = unsmob_iterator (get_iterator (Repeated_music::body (mus)));
+  Music *child = Repeated_music::body (mus);
+  SCM length = child->get_length ().smobbed_copy ();
+  child_list_ = SCM_EOL;
+
+  int repeats = scm_to_int (mus->get_property ("repeat-count"));
+  for (int i = repeats; i > 1; i--)
+  {
+    Music *percent = make_music_by_name (ly_symbol2scm ("PercentEvent"));
+    percent->set_spot (*mus->origin ());
+    percent->set_property ("length", length);
+    if (repeats > 1)
+      percent->set_property ("repeat-count", scm_int2num (i - 1));
+    Music *percent_chord = make_music_by_name (ly_symbol2scm ("EventChord"));
+    percent_chord->set_spot (*mus->origin ());
+    percent_chord->set_property ("elements", scm_list_1 (percent->self_scm ()));
+    child_list_ = scm_cons (percent_chord->self_scm (), child_list_);
+    percent->unprotect ();
+    percent_chord->unprotect ();
+  }
+  child_list_ = scm_cons (child->self_scm (), child_list_);
+  
+  Sequential_iterator::construct_children ();
+}
+
+SCM
+Percent_repeat_iterator::get_music_list () const
+{
+  return child_list_;
 }
 
 void
-Percent_repeat_iterator::process (Moment m)
+Percent_repeat_iterator::derived_mark () const
 {
-  if (!m.to_bool ())
-    {
-      Music_iterator *yeah = try_music (get_music ());
-      if (yeah)
-	set_context (yeah->get_outlet ());
-      else
-	get_music ()->origin ()->warning (_ ("no one to print a percent"));
-    }
-
-  if (child_iter_->ok ())
-    child_iter_->process (m);
-
-  if (finish_mom_ <= m)
-    {
-      child_iter_->quit ();
-      child_iter_ = 0;
-    }
-}
-
-Moment
-Percent_repeat_iterator::pending_moment ()const
-{
-  if (child_iter_->ok ())
-    return child_iter_->pending_moment ();
-  else
-    return finish_mom_;
-}
-
-Music_iterator *
-Percent_repeat_iterator::try_music_in_children (Music *m) const
-{
-  return child_iter_->try_music (m);
-}
-
-void
-Percent_repeat_iterator::derived_mark ()const
-{
-  if (child_iter_)
-    scm_gc_mark (child_iter_->self_scm ());
-}
-
-void
-Percent_repeat_iterator::derived_substitute (Context *f, Context *t)
-{
-  if (child_iter_)
-    child_iter_->substitute_outlet (f, t);
+  scm_gc_mark (child_list_);
+  Sequential_iterator::derived_mark ();
 }

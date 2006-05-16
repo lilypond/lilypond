@@ -202,6 +202,36 @@ Returns `obj'.
   (music-map (lambda (x) (shift-one-duration-log x shift dot))
 	     music))
 
+(define-public (make-repeat name times main alts)
+  "create a repeat music expression, with all properties initialized properly"
+  (let ((talts (if (< times (length alts))
+		   (begin
+		     (ly:warning (_ "More alternatives than repeats. Junking excess alternatives"))
+		     (take alts times))
+		   alts))
+	(r (make-repeated-music name)))
+    (set! (ly:music-property r 'element) main)
+    (set! (ly:music-property r 'repeat-count) (max times 1))
+    (set! (ly:music-property r 'elements) talts)
+    (if (equal? name "tremolo")
+	(let* ((dot? (zero? (modulo times 3)))
+	       (dots (if dot? 1 0))
+	       (mult (if dot?
+			 (quotient (* times 2) 3)
+			 times))
+	       (shift (- (ly:intlog2 mult))))
+	  
+	  (if (memq 'sequential-music (ly:music-property main 'types))
+	      ;; \repeat "tremolo" { c4 d4 }
+	      (let ((children (length (ly:music-property main 'elements))))
+		(if (not (= children 2))
+		    (ly:warning (_ "expecting 2 elements for chord tremolo, found ~a") children))
+		(ly:music-compress r (ly:make-moment 1 children))
+		(shift-duration-log r (1- shift) dots))
+	      ;; \repeat "tremolo" c4
+	      (shift-duration-log r shift dots)))
+	r)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clusters.
 

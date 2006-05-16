@@ -17,9 +17,6 @@
 struct Tuplet_description
 {
   Music *music_;
-  Rational stop_;
-  Rational span_stop_;
-  Rational length_;
   Spanner *bracket_;
   Spanner *number_;
   Tuplet_description ()
@@ -27,10 +24,6 @@ struct Tuplet_description
     music_ = 0;
     bracket_ = 0;
     number_ = 0;
-  }
-  static int compare (Tuplet_description const &a, Tuplet_description const &b)
-  {
-    return ::compare (a.length_, b.length_);
   }
 };
 
@@ -41,6 +34,7 @@ public:
 
 protected:
   vector<Tuplet_description> tuplets_;
+  vector<Tuplet_description> stopped_tuplets_;
   vector<Spanner*> last_tuplets_;
   DECLARE_ACKNOWLEDGER (note_column);
   virtual bool try_music (Music *r);
@@ -52,22 +46,19 @@ protected:
 bool
 Tuplet_engraver::try_music (Music *music)
 {
-  if (music->is_mus_type ("time-scaled-music"))
+  if (music->is_mus_type ("tuplet-spanner-event"))
     {
-      Music *el = unsmob_music (music->get_property ("element"));
-      if (el && !el->is_mus_type ("event-chord"))
+      Direction dir = to_dir (music->get_property ("span-direction"));
+      if (dir == START)
 	{
 	  Tuplet_description d;
 	  d.music_ = music;
-	  d.length_ = music->get_length ().main_part_;
-	  d.stop_ = now_mom ().main_part_ + d.length_;
-	  d.span_stop_ = d.stop_;
-
-	  SCM s = get_property ("tupletSpannerDuration");
-	  if (unsmob_moment (s))
-	    d.span_stop_ = min (d.span_stop_, (now_mom () + *unsmob_moment (s)).main_part_);
-
 	  tuplets_.push_back (d);
+	}
+      if (dir == STOP)
+	{
+	  stopped_tuplets_.push_back (tuplets_.back ());
+	  tuplets_.pop_back ();
 	}
       return true;
     }
@@ -77,10 +68,36 @@ Tuplet_engraver::try_music (Music *music)
 void
 Tuplet_engraver::process_music ()
 {
+  for (vsize i = 0; i < stopped_tuplets_.size (); i++)
+    {
+      bool full_length = to_boolean (get_property ("tupletFullLength"));
+      if (stopped_tuplets_[i].bracket_)
+	{
+	  if (full_length)
+	    {
+	      Item *col = unsmob_item (get_property ("currentMusicalColumn"));
+	      
+	      stopped_tuplets_[i].bracket_->set_bound (RIGHT, col);
+	      stopped_tuplets_[i].number_->set_bound (RIGHT, col);
+	    }
+	  else if (!stopped_tuplets_[i].bracket_->get_bound (RIGHT))
+	    {
+	      stopped_tuplets_[i].bracket_->set_bound (RIGHT,
+						       stopped_tuplets_[i].bracket_->get_bound (LEFT));
+	      stopped_tuplets_[i].number_->set_bound (RIGHT,
+						      stopped_tuplets_[i].bracket_->get_bound (LEFT));
+	    }
+	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
+	  // clear stopped_tuplets_ at start_translation_timestep
+	  last_tuplets_.push_back (tuplets_[i].bracket_);
+	  last_tuplets_.push_back (tuplets_[i].number_);
+	}
+    }
+  stopped_tuplets_.clear ();
+
   if (!tuplets_.size ())
     return;
 
-  vector_sort (tuplets_, Tuplet_description::compare);
   for (vsize i = 0; i < tuplets_.size (); i++)
     {
       if (tuplets_[i].bracket_)
@@ -123,51 +140,7 @@ Tuplet_engraver::acknowledge_note_column (Grob_info inf)
 void
 Tuplet_engraver::start_translation_timestep ()
 {
-  Moment now = now_mom ();
-
   last_tuplets_.clear ();
-  if (tuplets_.empty ())
-    return;
-
-  Moment tsdmom = robust_scm2moment (get_property ("tupletSpannerDuration"), Moment (0));
-  bool full_length = to_boolean (get_property ("tupletFullLength"));
-
-  for (vsize i = tuplets_.size (); i--;)
-    {
-      Rational tsd = tsdmom.main_part_;
-
-      if (now.main_part_ >= tuplets_[i].span_stop_)
-	{
-	  if (tuplets_[i].bracket_)
-	    {
-	      if (full_length)
-		{
-		  Item *col = unsmob_item (get_property ("currentMusicalColumn"));
-
-		  tuplets_[i].bracket_->set_bound (RIGHT, col);
-		  tuplets_[i].number_->set_bound (RIGHT, col);
-		}
-	      else if (!tuplets_[i].bracket_->get_bound (RIGHT))
-		{
-		  tuplets_[i].bracket_->set_bound (RIGHT,
-						   tuplets_[i].bracket_->get_bound (LEFT));
-		  tuplets_[i].number_->set_bound (RIGHT,
-						  tuplets_[i].bracket_->get_bound (LEFT));
-		}
-	      last_tuplets_.push_back (tuplets_[i].bracket_);
-	      last_tuplets_.push_back (tuplets_[i].number_);
-	      
-	      tuplets_[i].bracket_ = 0;
-	      tuplets_[i].number_ = 0;
-	    }
-
-	  if (tsd)
-	    tuplets_[i].span_stop_ += tsd;
-	}
-
-      if (now.main_part_ >= tuplets_[i].stop_)
-	tuplets_.erase (tuplets_.begin () + i);
-    }
 }
 
 void
@@ -189,8 +162,8 @@ Tuplet_engraver::Tuplet_engraver ()
 
 ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
-		/* doc */ "Catch Time_scaled_music and generate appropriate bracket  ",
-		/* create */ "TupletBracket TupletNumber",
-		/* accept */ "time-scaled-music",
-		/* read */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength",
+		/* doc */ "Catch TupletSpannerEvent and generate appropriate bracket  ",
+		/* create */ "TupletBracket TupletNumber ",
+		/* accept */ "tuplet-spanner-event",
+		/* read */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength ",
 		/* write */ "");

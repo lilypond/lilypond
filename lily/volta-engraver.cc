@@ -22,7 +22,7 @@
 
 /*
   Create Volta spanners, by reading repeatCommands  property, usually
-  set by Unfolded_repeat_iterator.
+  set by Volta_repeat_iterator.
 */
 class Volta_engraver : public Engraver
 {
