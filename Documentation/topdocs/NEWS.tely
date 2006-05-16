@@ -66,6 +66,20 @@ which scares away people.
 
 @end ignore
 
+
+@item
+By setting @code{hairpinToBarline}, hairpins will stop at
+the barline preceding the ending note.
+
+@lilypond[relative=2,fragment,ragged-right]
+\set hairpinToBarline = ##t
+\override Hairpin #'bound-padding = #1.0
+c4\< c2. c4\!
+@end lilypond
+
+
+This feature was sponsored by Andrew Sidwell and Trevor Bača.
+
 @item
 Objects may be rotated using the @code{rotation} property.
 @lilypond[ragged-right,fragment,relative=1]

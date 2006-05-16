@@ -1,3 +1,7 @@
+2006-05-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/topdocs/NEWS.tely (Top): add hairpinToBarline feature.
+
 2006-05-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Instrument names):
