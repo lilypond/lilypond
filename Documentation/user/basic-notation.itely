@@ -5,20 +5,19 @@
 @c     M-x texinfo-all-menus-update
 @c to automatically fill in these menus before saving changes
 
-
 @node Basic notation
 @chapter Basic notation
 
-This chapter explains how to use all basic notation features.
+This chapter explains how to use basic notation features.
 
 @menu
-* Note entry::                  
-* Alternate music entry::       
-* Staff notation::              
-* Connecting notes::            
-* Expressive marks::            
-* Polyphony::                   
-* Repeats::                     
+* Note entry::
+* Alternate music entry::
+* Staff notation::
+* Connecting notes::
+* Expressive marks::
+* Polyphony::
+* Repeats::
 @end menu
 
 
@@ -31,18 +30,18 @@ This section is about basic notation elements like notes, rests, and
 related constructs, such as stems, tuplets and ties.
 
 @menu
-* Notes::                       
-* Pitches::                     
-* Cautionary accidentals::      
-* Micro tones::                 
-* Chords::                      
-* Rests::                       
-* Skips::                       
-* Durations::                   
-* Augmentation dots::           
-* Tuplets::                     
-* Scaling durations::           
-* Stems::                       
+* Notes::
+* Pitches::
+* Cautionary accidentals::
+* Micro tones::
+* Chords::
+* Rests::
+* Skips::
+* Durations::
+* Augmentation dots::
+* Tuplets::
+* Scaling durations::
+* Stems::
 @end menu
 
 
@@ -52,7 +51,7 @@ related constructs, such as stems, tuplets and ties.
 @cindex Note specification
 @cindex entering notes
 
-A note is printed by specifying its pitch and then its duration,
+A note is printed by specifying its pitch and duration,
 
 @lilypond[quote,verbatim,ragged-right,fragment]
 cis'4 d'8 e'16 c'16
@@ -69,16 +68,20 @@ This manual: @ref{Pitches}, @ref{Durations}
 @cindex Pitch names
 @cindex pitches
 
-The most common syntax for pitch entry is used for standard notes and
-@code{\chordmode} modes.  In these modes, pitches may be designated by
-names.  The notes are specified by the letters @code{a} through
-@code{g}.  The octave is formed with notes ranging from @code{c}
-to @code{b}.  The pitch @code{c} is an octave below middle C and the
-letters span the octave above that C
+A pitch name is specified using lowercase letters @code{a} through @code{g}.
+An ascending C-major scale is engraved with
 
 @lilypond[quote,fragment,verbatim,ragged-right]
 \clef bass
-a,4 b, c d e f g a b c' d' e' \clef treble f' g' a' b' c''
+c d e f g a b c'
+@end lilypond
+
+The note name @code{c} is engraved one octave below middle C.
+
+@c this should be scored with a treble clef and
+@c four leger lines below the staff.
+@lilypond[quote,fragment,verbatim,ragged-right]
+c1
 @end lilypond
 
 @cindex @code{'}
@@ -87,33 +90,54 @@ a,4 b, c d e f g a b c' d' e' \clef treble f' g' a' b' c''
 The optional octave specification takes the form of a series of
 single quote (`@code{'}') characters or a series of comma
 (`@code{,}') characters.  Each @code{'} raises the pitch by one
-octave; each @code{,} lowers the pitch by an octave
+octave; each @code{,} lowers the pitch by an octave.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-c' c'' e' g d'' d'
+\clef treble
+c' c'' e' g d'' d' d c
+\clef bass
+c, c,, e, g d,, d, d c
 @end lilypond
+
+An alternate method may be used to declare which octave to
+engrave a pitch; this method does not require as many
+octave specifications (`@code{'}' and `@code{,}').  See
+@ref{Relative octaves}.
 
 @cindex note names, Dutch
 
 A sharp is formed by adding @code{-is} to the end of a pitch name and
-a flat is formed by adding @code{-es}.  Double sharps and double flats
-are obtained by adding @code{-isis} or @code{-eses}.  These
-names are the Dutch note names.  In Dutch, @code{aes} is contracted to
+a flat is formed by adding @code{-es}
+
+@c avoid engraving naturals by crossing bar lines; we're not ready for them
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a2 ais a aes
+@end lilypond
+
+Double sharps and double flats
+are obtained by adding @code{-isis} or @code{-eses} to a note name.  These
+are the Dutch note names.  In Dutch, @code{aes} is contracted to
 @code{as}, but both forms are accepted.  Similarly, both
 @code{es} and @code{ees} are accepted
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-ceses4
-ces
-c
-cis
-cisis
-bes dis, eeses' ais,
+a2 aisis a aeses
 @end lilypond
+
+A natural will cancel the effect of an accidental or key signature.
+However, naturals are not encoded into the note name syntax with a
+suffix; a natural pitch is shown as a simple note name
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a4 aes a2
+@end lilypond
+
+
 
 There are predefined sets of note names for various other languages.
 To use them, include the language specific init file.  For
-example: @code{\include "english.ly"}.  The available language files
+example, add @code{\include "english.ly"} to the top of the input
+file.  The available language files
 and the note names they define are
 
 @anchor{note name}
@@ -136,7 +160,7 @@ espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
 
 In accordance with standard typesetting rules, a natural sign is printed
 before a sharp or flat if a previous accidental needs to be
-cancelled.  To change this behaviour, use
+cancelled.  To change this behavior, use
 @code{\set Staff.extraNatural = ##f}
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
@@ -158,12 +182,16 @@ ais4 bis
 
 @seealso
 
-Program reference: @internalsref{LedgerLineSpanner}, @internalsref{NoteHead}.
+Program reference: @internalsref{LedgerLineSpanner}, 
+@internalsref{NoteHead}.
 
 
 @node Cautionary accidentals
-@subsection Cautionary accidentals 
+@subsection Cautionary accidentals
 
+@cindex accidental, reminder
+@cindex accidental, cautionary
+@cindex accidental, parenthesized
 @cindex reminder accidental
 @cindex @code{?}
 @cindex cautionary accidental
@@ -186,9 +214,7 @@ cis cis cis! cis? c c? c! c
 @seealso
 
 The automatic production of accidentals can be tuned in many
-ways.  For more information, refer to @ref{Automatic accidentals}.
-
-
+ways.  For more information, see @ref{Automatic accidentals}.
 
 @node Micro tones
 @subsection Micro tones
@@ -209,8 +235,9 @@ Micro tones are also exported to the MIDI file.
 
 @refbugs
 
-There are no generally accepted standards for denoting three quarter
-flats, so LilyPond's symbol does not conform to any standard.
+There are no generally accepted standards for denoting
+three-quarter flats, so LilyPond's symbol does not conform to any
+standard.
 
 
 @node Chords
@@ -335,7 +362,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 
 @lilypond[quote]
 \score {
- \relative c'' {
+\relative c'' {
     a\breve*1/2 \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64
    \bar "empty"
@@ -425,7 +452,7 @@ Tuplets may be nested, for example,
 @lilypond[fragment,ragged-right,verbatim,relative=2]
 \set tupletNumberFormatFunction = #fraction-tuplet-formatter
 \times 4/6 {
-  a4 a 
+  a4 a
   \times 3/5 { a a a a a }
 }
 @end lilypond
@@ -550,14 +577,14 @@ GUI interfaces or MIDI sequencers.  Refer to the LilyPond
 website for more information.
 
 @menu
-* Relative octaves::            
-* Octave check::                
-* Transpose::                   
-* Bar check::                   
-* Barnumber check::             
-* Skipping corrected music::    
-* Automatic note splitting::    
-* Writing music in parallel::   
+* Relative octaves::
+* Octave check::
+* Transpose::
+* Bar check::
+* Barnumber check::
+* Skipping corrected music::
+* Automatic note splitting::
+* Writing music in parallel::
 @end menu
 
 
@@ -827,7 +854,7 @@ pipeSymbol = \bar "||"
 When copying large pieces of music, it can be helpful to check that
 the LilyPond bar number corresponds to the original that you are
 entering from.  This can be checked with @code{\barNumberCheck}, for
-example, 
+example,
 
 @verbatim
 \barNumberCheck #123
@@ -845,7 +872,8 @@ is processed.
 @cindex @code{skipTypesetting}
 @cindex @code{showLastLength}
 
-When entering or copying music, usually only the music near the end (where you
+When entering or copying music, usually only the music near the end (where 
+you
 are adding notes) is interesting to view and correct.  To speed up
 this correction process, it is possible to skip typesetting of all but
 the last few measures. This is achieved by putting
@@ -954,14 +982,14 @@ This section describes music notation that occurs on staff level,
 such as key signatures, clefs and time signatures.
 
 @menu
-* Clef::                        
-* Key signature::               
-* Time signature::              
-* Partial measures::            
-* Bar lines::                   
-* Unmetered music::             
-* System start delimiters::     
-* Staff symbol::                
+* Clef::
+* Key signature::
+* Time signature::
+* Partial measures::
+* Bar lines::
+* Unmetered music::
+* System start delimiters::
+* Staff symbol::
 @end menu
 
 
@@ -994,29 +1022,29 @@ Supported clefs include
 @multitable @columnfractions .33 .66
 @headitem Clef @tab Position
 @item @code{treble}, violin, G, G2 @tab
- G clef on 2nd line
+G clef on 2nd line
 @item @code{alto, C} @tab
- C clef on 3rd line
+C clef on 3rd line
 @item @code{tenor} @tab
- C clef on 4th line.
+C clef on 4th line.
 @item @code{bass, F} @tab
- F clef on 4th line
+F clef on 4th line
 @item @code{french} @tab
- G clef on 1st line, so-called French violin clef
+G clef on 1st line, so-called French violin clef
 @item @code{soprano} @tab
- C clef on 1st line
+C clef on 1st line
 @item @code{mezzosoprano} @tab
- C clef on 2nd line
+C clef on 2nd line
 @item @code{baritone} @tab
- C clef on 5th line
+C clef on 5th line
 @item @code{varbaritone} @tab
- F clef on 3rd line
+F clef on 3rd line
 @item @code{subbass} @tab
- F clef on 5th line
+F clef on 5th line
 @item @code{percussion} @tab
- percussion clef
+percussion clef
 @item @code{tab} @tab
- tablature clef
+tablature clef
 @end multitable
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
@@ -1033,7 +1061,8 @@ example,
 
 @commonprop
 
-The command @code{\clef "treble_8"} is equivalent to setting @code{clefGlyph},
+The command @code{\clef "treble_8"} is equivalent to setting 
+@code{clefGlyph},
 @code{clefPosition} (which controls the Y position of the clef),
 @code{middleCPosition} and @code{clefOctavation}.  A clef is printed
 when any of these properties are changed.  The following example shows
@@ -1131,7 +1160,7 @@ a bes c d
 
 @seealso
 
-Program reference: @internalsref{KeyCancellation}, 
+Program reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}.
 
 
@@ -1205,7 +1234,7 @@ measure is subdivided in 2, 2, 2 and 3.  This is passed to
 
 @seealso
 
-Program reference: @internalsref{TimeSignature}, and 
+Program reference: @internalsref{TimeSignature}, and
 @internalsref{Timing_translator}.
 
 Examples: @inputfileref{input/@/test,compound@/-time@/.ly}.
@@ -1326,7 +1355,8 @@ is set to a string, a bar line of that type is created.
 
 A bar line is created whenever the @code{whichBar} property is set.
 At the start of a measure it is set to the contents of
-@code{Timing.defaultBarType}.  The contents of @code{repeatCommands} are used
+@code{Timing.defaultBarType}.  The contents of @code{repeatCommands} are 
+used
 to override default measure bars.
 
 You are encouraged to use @code{\repeat} for repetitions.  See
@@ -1474,7 +1504,7 @@ b4 b
 b b
 \revert Staff.StaffSymbol #'line-count
 \stopStaff \startStaff
-b b  
+b b
 @end lilypond
 
 In combination with Frenched staves, this may be used to typeset ossia
@@ -1507,13 +1537,13 @@ Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
 This section deals with notation that affects groups of notes.
 
 @menu
-* Ties::                        
-* Slurs::                       
-* Phrasing slurs::              
-* Laissez vibrer ties::         
-* Automatic beams::             
-* Manual beams::                
-* Grace notes::                 
+* Ties::
+* Slurs::
+* Phrasing slurs::
+* Laissez vibrer ties::
+* Automatic beams::
+* Manual beams::
+* Grace notes::
 @end menu
 
 
@@ -1578,7 +1608,7 @@ for example, to tie a tremolo to a chord. For example,
 
 @lilypond[fragment,verbatim,relative=1,ragged-right]
 \set tieWaitForNote = ##t
-\grace { c16[~ e~ g]~ } <c, e g>2   
+\grace { c16[~ e~ g]~ } <c, e g>2
 \repeat "tremolo" 8 { c32~ c'~ } <c c,>1
 @end lilypond
 
@@ -1727,12 +1757,12 @@ end. It is used in notation for piano, harp and other string and
 percussion instruments. They can be entered using @code{\laissezVibrer},
 
 @lilypond[fragment,ragged-right,verbatim,relative=1]
-<c f g>\laissezVibrer 
+<c f g>\laissezVibrer
 @end lilypond
 
 @seealso
 
-Program reference: 
+Program reference:
 @internalsref{LaissezVibrerTie}
 @internalsref{LaissezVibrerTieColumn}
 
@@ -1921,10 +1951,10 @@ every eighth grace note
 
 If you want to end a note with a grace, use the @code{\afterGrace}
 command.  It takes two arguments: the main note, and the grace notes
-following the main note. 
+following the main note.
 
 @lilypond[ragged-right, verbatim,relative=2,fragment]
-c1 \afterGrace d1 { c16[ d] } c4   
+c1 \afterGrace d1 { c16[ d] } c4
 @end lilypond
 
 This will put the grace notes after a ``space'' lasting 3/4 of the
@@ -1932,11 +1962,11 @@ length of the main note.  The fraction 3/4 can be changed by setting
 @code{afterGraceFraction}, ie.
 
 @example
-afterGraceFraction = #(cons 7 8) 
+afterGraceFraction = #(cons 7 8)
 @end example
 
 @noindent
-will put the grace note at 7/8 of the main note. 
+will put the grace note at 7/8 of the main note.
 
 The same effect can be achieved manually by doing
 
@@ -2034,13 +2064,13 @@ Expressive marks help musicians to bring more to the music than simple
 notes and rhythms.
 
 @menu
-* Articulations::               
-* Fingering instructions::      
-* Dynamics::                    
-* Breath marks::                
-* Trills::                      
-* Glissando::                   
-* Arpeggio::                    
+* Articulations::
+* Fingering instructions::
+* Dynamics::
+* Breath marks::
+* Trills::
+* Glissando::
+* Arpeggio::
 @end menu
 
 
@@ -2393,7 +2423,7 @@ Long running trills are made with @code{\startTrillSpan} and
 @cindex Pitched trills
 
 Trills that should be executed on an explicitly specified pitch can be
-typeset with the command @code{pitchedTrill}, 
+typeset with the command @code{pitchedTrill},
 
 @lilypond[ragged-right,verbatim,fragment,relative=1]
 \pitchedTrill c4\startTrillSpan fis
@@ -2531,9 +2561,9 @@ a piece of music.  Polyphony in LilyPond refers to having more than
 one voice on the same staff.
 
 @menu
-* Basic polyphony::             
-* Explicitly instantiating voices::  
-* Collision Resolution::        
+* Basic polyphony::
+* Explicitly instantiating voices::
+* Collision Resolution::
 @end menu
 
 
@@ -2543,7 +2573,7 @@ one voice on the same staff.
 @cindex polyphony
 
 The easiest way to enter fragments with more than one voice on a staff
-is to enter each voice as a sequence (with @code{@{...@}}), and combine 
+is to enter each voice as a sequence (with @code{@{...@}}), and combine
 them simultaneously, separating the voices with @code{\\}
 
 @cindex @code{\\}
@@ -2564,17 +2594,18 @@ voices are sometimes called ``layers'' in other notation packages}
 @cindex layers
 to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
 each of these contexts, vertical direction of slurs, stems, etc., is set
-appropriately.  
+appropriately.
 
-These voices are all separate from the voice that contains the notes just 
-outside the @code{<< \\ >>} construct.  This should be noted when making 
-changes at the voice level.  This also means that slurs and ties cannot go 
+These voices are all separate from the voice that contains the notes just
+outside the @code{<< \\ >>} construct.  This should be noted when making
+changes at the voice level.  This also means that slurs and ties cannot go
 into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
 from separate @code{<< \\ >>} constructs on the same staff are the the
 same voice.  Here is the same example, with different noteheads for each
-voice.  Note that the change to the note-head style in the main voice does 
+voice.  Note that the change to the note-head style in the main voice does
 not affect
-the inside of the @code{<< \\ >>} constructs.  Also, the change to the second
+the inside of the @code{<< \\ >>} constructs.  Also, the change to the 
+second
 voice in the first @code{<< \\ >>} construct is effective in the second
 @code{<< \\ >>}, and the voice is tied across the two constructs.
 
@@ -2582,13 +2613,13 @@ voice in the first @code{<< \\ >>} construct is effective in the second
 \new Staff \relative c' {
   \override NoteHead #'style = #'cross
   c16 d e f
-  << 	
+  <<
     { g4 f e } \\
     { \override NoteHead #'style = #'triangle
     r8 e4 d c8 ~ }
   >> |
   <<
-    { d2 e2 } \\ 
+    { d2 e2 } \\
     { c8 b16 a b8 g ~ g2 } \\
     { \override NoteHead #'style = #'slash s4 b4 c2 }
   >>
@@ -2611,8 +2642,8 @@ to the note immediately preceding it.
 @subsection Explicitly instantiating voices
 
 @internalsref{Voice} contexts can also be instantiated manually
-inside a @code{<< >>} block to create polyphonic music, using 
-@code{\voiceOne}, up to @code{\voiceFour} to assign stem directions 
+inside a @code{<< >>} block to create polyphonic music, using
+@code{\voiceOne}, up to @code{\voiceFour} to assign stem directions
 and a horizontal shift for each part.
 
 Specifically,
@@ -2634,10 +2665,10 @@ The @code{\voiceXXX} commands set the direction of stems, slurs, ties,
 articulations, text annotations, augmentation dots of dotted
 notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree} make
 these objects point upwards, while @code{\voiceTwo} and @code{\voiceFour}
-make them point downwards.  
+make them point downwards.
 The command @code{\oneVoice} will revert back to the normal setting.
 
-An expression that appears directly inside a @code{<< >>} belongs to 
+An expression that appears directly inside a @code{<< >>} belongs to
 the main voice.  This is useful when extra voices appear while the main
 voice is playing.  Here is a more correct rendition of the example from
 the previous section.  The crossed noteheads demonstrate that the main
@@ -2646,16 +2677,16 @@ melody is now in a single voice context.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \override NoteHead #'style = #'cross
-  c16 d e f 
+  c16 d e f
   \voiceOne
-  << 	
+  <<
     { g4 f e | d2 e2 }
     \new Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
       \oneVoice
     }
-    \new Voice { \voiceThree 
-      s2. | s4 b4 c2 
+    \new Voice { \voiceThree
+      s2. | s4 b4 c2
       \oneVoice
     }
   >>
@@ -2666,16 +2697,16 @@ melody is now in a single voice context.
 The correct definition of the voices allows the melody to be slurred.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
-  c16^( d e f 
+  c16^( d e f
   \voiceOne
-  << 	
-    { g4 f e | d2 e2) }  
+  <<
+    { g4 f e | d2 e2) }
     \context Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
       \oneVoice
     }
-    \new Voice { \voiceThree 
-      s2. s4 b4 c2 
+    \new Voice { \voiceThree
+      s2. s4 b4 c2
       \oneVoice
     }
   >>
@@ -2683,22 +2714,22 @@ The correct definition of the voices allows the melody to be slurred.
 }
 @end lilypond
 
-Avoiding the @code{\\} separator also allows nesting polyphony 
+Avoiding the @code{\\} separator also allows nesting polyphony
 constructs, which in some case might be a more natural way to typeset
 the music.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
-  c16^( d e f 
+  c16^( d e f
   \voiceOne
-  << 	
-    { g4 f e | d2 e2) }  
+  <<
+    { g4 f e | d2 e2) }
     \context Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | 
+      r8 e4 d c8 ~ |
       <<
-        {c8 b16 a b8 g ~ g2} 
-        \new Voice { \voiceThree 
-          s4 b4 c2 
+        {c8 b16 a b8 g ~ g2}
+        \new Voice { \voiceThree
+          s4 b4 c2
           \oneVoice
         }
       >>
@@ -2819,13 +2850,13 @@ Repetition is a central concept in music, and multiple notations exist
 for repetitions.
 
 @menu
-* Repeat types::                
-* Repeat syntax::               
-* Repeats and MIDI::            
-* Manual repeat commands::      
-* Tremolo repeats::             
-* Tremolo subdivisions::        
-* Measure repeats::             
+* Repeat types::
+* Repeat syntax::
+* Repeats and MIDI::
+* Manual repeat commands::
+* Tremolo repeats::
+* Tremolo subdivisions::
+* Measure repeats::
 @end menu
 
 
@@ -2846,7 +2877,7 @@ is included in MIDI output.
 @item volta
 Repeats are not written out, but alternative endings (volte) are
 printed, left to right with brackets.  This is the standard notation
-for repeats with alternatives.  These are not played in MIDI output by 
+for repeats with alternatives.  These are not played in MIDI output by
 default.
 
 @ignore
@@ -3048,7 +3079,8 @@ c4 c4
 
 @seealso
 
-Program reference: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
+Program reference: @internalsref{VoltaBracket}, 
+@internalsref{RepeatedMusic},
 @internalsref{VoltaRepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}, and
 @internalsref{FoldedRepeatedMusic}.
@@ -3169,4 +3201,6 @@ Program reference: @internalsref{RepeatSlash},
 @internalsref{DoublePercentRepeatCounter},
 @internalsref{PercentRepeatCounter},
 @internalsref{PercentRepeatedMusic}, and
+
+
 
