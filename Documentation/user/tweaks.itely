@@ -163,14 +163,14 @@ We cannot list every object, but here is a list of the most
 common objects.
 
 @multitable @columnfractions .33 .66
-@headitem Object type  @tab Object name
-@item Text             @tab @code{TextScript}
-@item Dynamics         @tab @code{DynamicLineSpanner}
-@item Ties             @tab @code{Tie}
-@item Slurs            @tab @code{Slur}
-@item Articulation     @tab @code{Script}
-@item Fingering        @tab @code{Fingering}
-@item Rehearsal marks  @tab @code{RehearsalMark}
+@headitem Object type           @tab Object name
+@item Dynamics                  @tab @code{DynamicLineSpanner}
+@item Ties                      @tab @code{Tie}
+@item Slurs                     @tab @code{Slur}
+@item Articulations             @tab @code{Script}
+@item Fingerings                @tab @code{Fingering}
+@item Text e.g. @code{^"text"}  @tab @code{TextScript}
+@item Rehearsal / Text marks    @tab @code{RehearsalMark}
 @end multitable
 
 
@@ -349,8 +349,8 @@ padText = #(define-music-function (parser location padding) (number?)
 We can use it to create new commands,
 
 @lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function
-  (parser location marktext padding) (string? number?)
+tempoMark = #(define-music-function (parser location padding marktext)
+                                    (number? string?)
 #{
   \once \override Score . RehearsalMark #'padding = $padding
   \once \override Score . RehearsalMark #'no-spacing-rods = ##t
@@ -359,7 +359,7 @@ tempoMark = #(define-music-function
 
 \relative c'' {
 c2 e
-\tempoMark #"Allegro" #3.0
+\tempoMark #3.0 #"Allegro"
 g c
 }
 @end lilypond

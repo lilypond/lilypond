@@ -862,34 +862,12 @@ Bar numbers are printed by default at the start of the line.  The
 number itself is stored in the @code{currentBarNumber} property, which
 is normally updated automatically for every measure.
 
-To manually set a bar number, use
-
-@example
-\set Score.currentBarNumber = #57
-@end example
-
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line.  This is illustrated in the following example,
 whose source is available as
 @inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}
 
 @lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
-
-Bar numbers can be typeset manually by tweaking the
-@code{markFormatter} property
-
-@lilypond[verbatim,ragged-right,quote]
-\relative c' {
-  \set Score.markFormatter
-    = #(lambda (mark context)
-      (make-bold-markup
-        (make-box-markup
-          (number->string (ly:context-property context
-                                               'currentBarNumber)))))
-
-  c1 \bar "||" \mark \default c1 c1 \mark \default c1 \bar "|."
-}
-@end lilypond
 
 Bar numbers can be manually changed by setting the
 @code{Staff.currentBarNumber} property
@@ -905,14 +883,14 @@ Bar numbers can be manually changed by setting the
 Bar numbers can be removed entirely by removing the Bar number
 engraver from the score.
 
-@lilypond[verbatim,ragged-right,quote,relative=2]
+@lilypond[verbatim,ragged-right,quote]
 \layout {
   \context {
     \Score
     \remove "Bar_number_engraver"
   }
 }
-{
+\relative c''{
 c4 c c c \break
 c4 c c c
 }

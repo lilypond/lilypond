@@ -5,6 +5,23 @@
 @afourpaper
 @end iftex
 
+@c  Keep this here, since it pertains to the direntry below.
+@ignore
+Distributions will want to install lilypond.info in postinstall, doing:
+
+    install-info --info-dir=/usr/share/info out/lilypond.info
+
+  * Prepend GNU for dir, must be unique.
+  
+  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+    goes to Top.
+
+  * List all commands in direntry.
+  
+@c  * lilypond: (lilypond/lilypond)Running LilyPond.      Invoking the
+@c    LilyPond  program.
+@end ignore
+
 @dircategory GNU music project
 @direntry
 * LilyPond: (lilypond/lilypond).           The GNU music typesetter.
