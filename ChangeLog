@@ -1,3 +1,10 @@
+2006-05-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/advanced-notation.itely (Instrument names):
+	Modified obsolete instruction on how to move instrument names away
+	from the staves. Hmm, at second thought the bug probably has been
+	solved, so the full bug description should probably be removed.
+
 2006-05-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/context.cc (internal_send_stream_event): thinko fix.

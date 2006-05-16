@@ -994,8 +994,7 @@ brace is not taken into account. The following property setting can be
 used to move the instrument names to the left, in such situations.
 
 @example
-\override Score.InstrumentName #'space-alist =
-  #'((left-edge extra-space . 2.0))
+\override Score.InstrumentName #'padding = #2.0
 @end example
 
 
