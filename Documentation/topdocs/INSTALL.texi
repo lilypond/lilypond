@@ -22,8 +22,8 @@
 Even numbered minor versions are `stable' (2.6, 2.8, etc), while odd
 version are development releases (2.7, 2.9, etc).  Building LilyPond
 is an involved process.  If possible
-@uref{http://lilypond.org/download,download a precompiled binary}
-for your platform.
+@uref{http://lilypond.org/install,download a precompiled binary} for
+your platform.
 
 @subsection Source code
 
@@ -119,10 +119,10 @@ software
 
 @item @uref{http://www.freetype.org/,Freetype} (version 2).
 @item @uref{http://www.freetype.org/,FontConfig} (version 2.2).
-@item @uref{http://www.pango.org/,Pango} (version 1.6 or newer).
+@item @uref{http://www.pango.org/,Pango} (version 1.12 or newer).
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
-(version 1.6.5 or newer).
-@item @uref{http://www.python.org,Python} (version 2.1 or newer).
+(version 1.8.0 or newer).
+@item @uref{http://www.python.org,Python} (version 2.4 or newer).
 @item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
 newer. 8.50 recommended)
 @end itemize
@@ -172,17 +172,6 @@ cd lilypond-x.y.z
 ./configure		# run with --help for applicable options
 make
 make install
-@end example
-@end quotation
-
-The most time-consuming part of compiling LilyPond is tracing the
-Type1 fonts. You can shortcut this operation by issuing
-one of the following commands
-
-@quotation
-@example
-make -C mf get-pfa                # requires rpm2cpio
-make -C mf get-debian-pfa         # may not be up to date
 @end example
 @end quotation
 
@@ -326,16 +315,8 @@ For Fink, use the following command to compile.
 export GUILE=guile-1.6
 export GUILE_CONFIG=guile-1.6-config
 export PKG_CONFIG_PATH=/sw/lib/freetype219/lib/pkgconfig/:/sw/lib/fontconfig2/lib/pkgconfig/
-./configure --without-kpathsea
+./configure
 @end verbatim
-
-@unnumberedsubsec OpenBSD
-
-@itemize @bullet
-@item
-Refer to the section ``Linking to kpathsea'': GCC on OpenBSD doesn't
-set include paths for kpathsea.
-@end itemize
 
 @unnumberedsubsec NetBSD
 
