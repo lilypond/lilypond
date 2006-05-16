@@ -1,5 +1,9 @@
 2006-05-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/context.cc (internal_send_stream_event): thinko fix.
+
+	* lily/tie.cc (set_default_control_points): robustness fix.
+
 	* python/musicxml.py (Part.interpret): don't complain about
 	incomplete measures.
 

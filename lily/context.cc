@@ -262,7 +262,8 @@ Context::create_context (Context_def *cdef,
                      ly_symbol2scm ("unique"), scm_int2num (unique),
                      ly_symbol2scm ("ops"), ops,
                      ly_symbol2scm ("type"), cdef->get_context_name (),
-                     ly_symbol2scm ("id"), scm_makfrom0str (id.c_str ()));
+                     ly_symbol2scm ("id"), scm_makfrom0str (id.c_str ()),
+		     0);
 
   return new_context;
 }
@@ -349,11 +350,10 @@ void
 Context::internal_send_stream_event (SCM type, SCM props[])
 {
   Stream_event *e = new Stream_event (this, type);
-  for (int i = 0; props[i]; i++)
-  {
-    assert(props[i+1]);
-    e->internal_set_property (props[i], props[i+1]);
-  }
+  for (int i = 0; props[i]; i += 2)
+    {
+      e->internal_set_property (props[i], props[i+1]);
+    }
   event_source_->broadcast (e);
   e->unprotect ();
 }

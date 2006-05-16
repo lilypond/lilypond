@@ -240,7 +240,7 @@ void
 Music::send_to_context (Context *c)
 {
   send_stream_event (c, "MusicEvent",
-  		     ly_symbol2scm("music"), self_scm ());
+  		     ly_symbol2scm("music"), self_scm (), 0);
 }
 
 Music *
