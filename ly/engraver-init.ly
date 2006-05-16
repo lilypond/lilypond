@@ -587,6 +587,8 @@ AncientRemoveEmptyStaffContext = \context {
 
   verticallySpacedContexts = #'(Staff)
 
+  hairpinToBarline = ##t 
+  
   timing = ##t
 }
 

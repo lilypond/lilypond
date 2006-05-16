@@ -1,3 +1,7 @@
+2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* ly/engraver-init.ly: switch on hairpinToBarline by default.
+
 2006-05-16  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/basic-notation.itely: editing from Dave, thanks!
