@@ -1,5 +1,9 @@
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/main.cc (do_chroot_jail): correctness tweak.
+
+	* python/lilylib.py (system): import subprocess in system () only.
+
 	* scripts/*.py: use TARGET_PYTHON iso PYTHON. Backportme.
 
 	* make/substitute.make (ATVARIABLES): add TARGET_PYTHON as subst
@@ -29,7 +33,7 @@
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* python/lilylib.py (system): move import subprocess to system()
-	definition. Backportme.
+	definition. 
 
 	* python/convertrules.py (conv): fix convert-ly rules for 2.9.4
 
@@ -109,10 +113,10 @@
 	* Documentation/user/GNUmakefile: dist context-example.eps too.
 
 	* lily/key-engraver.cc (create_key): use
-	explicitKeySignatureVisibility for cancellation too. Backportme.
+	explicitKeySignatureVisibility for cancellation too. 
 
 	* lily/font-config.cc (init_fontconfig): don't close file if
-	f==NULL. Backportme.
+	f==NULL. 
 
 2006-05-15  Erlend Aasland  <erlenda@gmail.com>
 
@@ -5413,11 +5417,11 @@
 	* scm/ps-to-png.scm: remove dir-re function.
 	(make-ps-images): generate page names, instead of globbing them.
 	This brings down LilyPond memory usage for make web by a factor
-	10. (backportme?) 
+	10. 
 
 	* scripts/lilypond-book.py (Lilypond_snippet.png_is_outdated):
 	don't use glob. With 3000 files, globbing
-	Documentation/user/out-www/ can take too much time. (backportme?)
+	Documentation/user/out-www/ can take too much time. 
 	
 	* lily/lily-guile.cc (gulp_file_to_string): take size argument.
 
