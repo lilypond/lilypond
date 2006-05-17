@@ -19,6 +19,7 @@ ATVARIABLES = \
   PERL\
   PYTHON\
   SHELL\
+  TARGET_PYTHON \
   TOPLEVEL_VERSION\
   bindir\
   datadir\

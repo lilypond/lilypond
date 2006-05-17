@@ -1,3 +1,14 @@
+2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* config.make.in: add TARGET_PYTHON
+
+	* lily/key-engraver.cc (create_key): use
+	explicitKeySignatureVisibility on cancellation too.
+
+	* lily/font-config.cc (init_fontconfig): only close nonNULL file.
+
+	* scripts/*.py: use TARGET_PYTHON iso PYTHON
+
 2006-05-09  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/tweaking.itely, advanced-notation.itely:

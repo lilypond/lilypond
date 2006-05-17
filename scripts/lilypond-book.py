@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!@TARGET_PYTHON@
 
 '''
 Example usage:

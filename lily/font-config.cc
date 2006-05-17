@@ -62,7 +62,8 @@ init_fontconfig ()
     {
       /* inhibit future messages. */
       FILE *f = fopen ((char*)cache_file, "w");
-      fclose (f);
+      if (f)
+	fclose (f);
     }
   
 }

@@ -106,6 +106,8 @@ Key_engraver::create_key (bool is_default)
     {
       SCM visibility = get_property ("explicitKeySignatureVisibility");
       item_->set_property ("break-visibility", visibility);
+      if (cancellation_)
+	cancellation_->set_property ("break-visibility", visibility);
     }
 }
 
@@ -204,7 +206,19 @@ ADD_TRANSLATOR (Key_engraver,
 		/* doc */ "",
 		/* create */ "KeySignature",
 		/* accept */ "key-change-event",
-		/* read */ "keySignature printKeyCancellation lastKeySignature "
-		"explicitKeySignatureVisibility createKeyOnClefChange "
-		"keyAlterationOrder keySignature",
-		/* write */ "lastKeySignature tonic keySignature");
+		/* read */
+
+		"createKeyOnClefChange "
+		"explicitKeySignatureVisibility "
+		"keyAlterationOrder "
+		"keySignature "
+		"keySignature "
+		"lastKeySignature "
+		"printKeyCancellation "
+		,
+		
+		/* write */
+		"keySignature "
+		"lastKeySignature "
+		"tonic "
+		);

@@ -14,15 +14,7 @@ import shutil
 import string
 import sys
 import optparse
-import subprocess
 
-## windows mingw cross compile doesn't have selectmodule.so
-have_fcntl = True
-try:
-	import fcntl
-except ImportError:
-	have_fcntl = False
-	
 ################################################################
 # Users of python modules should include this snippet
 # and customize variables below.
@@ -46,8 +38,6 @@ if os.environ.has_key ('LILYPONDPREFIX') :
 sys.path.insert (0, os.path.join (datadir, 'python'))
 
 
-
-
 localedir = '@localedir@'
 try:
 	import gettext
@@ -68,10 +58,12 @@ def command_name (cmd):
 	return os.path.basename (cmd)
 
 def system (cmd,
-	      ignore_error=False,
-	      progress_p=True,
-	      be_verbose=False,
-	      log_file=None):
+	    ignore_error=False,
+	    progress_p=True,
+	    be_verbose=False,
+	    log_file=None):
+	
+	import subprocess
 	
 	show_progress= progress_p 
 	name = command_name (cmd)

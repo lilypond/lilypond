@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!@TARGET_PYTHON@
 #
 # convert-ly.py -- Update old LilyPond input files (fix name?)
 #
