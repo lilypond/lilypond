@@ -1,3 +1,7 @@
+2006-05-17  Erik Sandberg  <mandolaerik@gmail.com>
+	
+	* lily/parser.yy: Change all syntax rules of type Music to SCM type
+
 2006-05-17  Werner Lemberg  <wl@gnu.org>
 
 	* lily/lexer.ll (init_signature_has_table): Add
