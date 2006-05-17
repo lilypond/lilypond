@@ -1,5 +1,7 @@
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PATCH_LEVEL): release 2.8.3
+
 	* config.make.in: add TARGET_PYTHON
 
 	* lily/key-engraver.cc (create_key): use
@@ -19,7 +21,7 @@
 	* flower/file-name.cc: add unistd.h
 
 	* scm/define-grob-properties.scm (all-internal-grob-properties):
-	readd chord-tremolo.
+	read chord-tremolo.
 
 2006-05-09  Graham Percival  <gpermus@gmail.com>
 
