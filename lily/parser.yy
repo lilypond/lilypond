@@ -282,6 +282,7 @@ If we give names, Bison complains.
 %token <scm> MUSIC_FUNCTION_SCM 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_SCM 
 %token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_SCM_SCM 
@@ -993,6 +994,11 @@ Generic_prefix_music_scm:
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3->self_scm (), $4->self_scm ());
 		$4->unprotect ();
 		$3->unprotect ();
+	}
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC function_scm_argument function_scm_argument Music Music {
+		$$ = scm_list_n ($1, make_input (@$), $2, $3, $4->self_scm (), $5->self_scm (), SCM_UNDEFINED);
+		$4->unprotect ();
+		$5->unprotect ();
 	}
 	| MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC full_markup Music Music {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3->self_scm (), $4->self_scm ());

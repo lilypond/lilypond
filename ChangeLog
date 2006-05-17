@@ -1,3 +1,20 @@
+2006-05-17  Werner Lemberg  <wl@gnu.org>
+
+	* lily/lexer.ll (init_signature_has_table): Add
+	`scm-scm-music-music'.
+
+	* lily/parser.yy (MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC): New token.
+	(Generic_prefix_music_scm): Add rule for it.
+
+	* lily/quote-iterator.cc (Quote_iterator::process): Handle
+	`quoted-transposition' property.
+
+	* ly/music-functions-init.ly (transposedCueDuring): New function.
+
+	* scm/define-music-properties.scm (all-music-properties): Updated.
+
+	* Documenation/topdocs/NEWS.itely: Document it.
+
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PATCH_LEVEL): release 2.9.5

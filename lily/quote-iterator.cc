@@ -222,7 +222,9 @@ Quote_iterator::process (Moment m)
       /*
 	The pitch that sounds like central C
       */
-      Pitch *me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
+      Pitch *me_pitch = unsmob_pitch (get_music ()->get_property ("quoted-transposition"));
+      if (!me_pitch)
+	me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
 
       for (SCM s = scm_cdr (entry); scm_is_pair (s); s = scm_cdr (s))
 	{

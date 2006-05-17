@@ -207,6 +207,27 @@ cueDuring =
 	      'origin location))
 
 
+transposedCueDuring = #
+(define-music-function
+  (parser location what dir pitch-note main-music)
+  (string? ly:dir? ly:music? ly:music?)
+
+  "Insert notes from the part @var{what} into a voice called @code{cue},
+using the transposition defined by @var{pitch-note}.  This happens
+simultaneously with @var{main-music}, which is usually a rest.  The
+argument @var{dir} determines whether the cue notes should be notated
+as a first or second voice."
+
+  (make-music 'QuoteMusic
+	      'element main-music
+	      'quoted-context-type 'Voice
+	      'quoted-context-id "cue"
+	      'quoted-music-name what
+	      'quoted-voice-direction dir
+	      'quoted-transposition (pitch-of-note pitch-note)
+	      'origin location))
+
+
 quoteDuring = #
 (define-music-function
   (parser location what main-music)
@@ -215,7 +236,6 @@ quoteDuring = #
 	      'element main-music
 	      'quoted-music-name what
 	      'origin location))
-
 
 
 pitchedTrill =

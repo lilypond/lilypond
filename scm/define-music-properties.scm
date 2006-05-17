@@ -80,6 +80,7 @@ It must take a single argument, being the context.")
      (quoted-voice-direction ,ly:dir? "Should the quoted voice be up-stem or down-stem?")
      (quoted-context-type ,symbol? "The name of the context to direct quotes to, eg., @code{Voice}.")
      (quoted-context-id ,string? "The id of the context to direct quotes to, eg., @code{cue}.")
+     (quoted-transposition ,ly:pitch? "The pitch used for the quote, overriding \\transposition")
      (to-relative-callback ,procedure? "How to transform a piece of music to relative pitches")
      (tweaks ,list? "An alist of properties to override in the backend
 for the grob made of this event.")

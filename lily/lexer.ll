@@ -895,6 +895,7 @@ static void init_signature_hash_table ()
 		{"scm-scm", MUSIC_FUNCTION_SCM_SCM},
 		{"music-music", MUSIC_FUNCTION_MUSIC_MUSIC},
 		{"scm-music-music", MUSIC_FUNCTION_SCM_MUSIC_MUSIC},
+		{"scm-scm-music-music", MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC},
 		{"scm-scm-music", MUSIC_FUNCTION_SCM_SCM_MUSIC},
 		{"scm-scm-scm-music", MUSIC_FUNCTION_SCM_SCM_SCM_SCM_MUSIC},
 		{"scm-scm-scm-scm-music", MUSIC_FUNCTION_SCM_SCM_SCM_MUSIC},
