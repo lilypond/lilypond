@@ -1,9 +1,9 @@
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* scripts/*.py: use TARGET_PYTHON iso PYTHON.
+	* scripts/*.py: use TARGET_PYTHON iso PYTHON. Backportme.
 
 	* make/substitute.make (ATVARIABLES): add TARGET_PYTHON as subst
-	variable.
+	variable. Backportme.
 
 2006-05-17  Erik Sandberg  <mandolaerik@gmail.com>
 	
