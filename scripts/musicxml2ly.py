@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!@TARGET_PYTHON@
 
 import optparse
 import sys

@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!@TARGET_PYTHON@
 # -*- coding: utf-8 -*-
 # once upon a rainy monday afternoon.
 #

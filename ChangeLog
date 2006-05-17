@@ -1,3 +1,10 @@
+2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scripts/*.py: use TARGET_PYTHON iso PYTHON.
+
+	* make/substitute.make (ATVARIABLES): add TARGET_PYTHON as subst
+	variable.
+
 2006-05-17  Erik Sandberg  <mandolaerik@gmail.com>
 	
 	* lily/parser.yy: Change all syntax rules of type Music to SCM type

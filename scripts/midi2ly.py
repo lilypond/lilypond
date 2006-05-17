@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!@TARGET_PYTHON@
 #
 # msdi2ly.py -- LilyPond midi import script
 # 

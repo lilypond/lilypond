@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!@TARGET_PYTHON@
 
 # info mostly taken from looking at files. See also
 # http://lilypond.org/wiki/?EnigmaTransportFormat
