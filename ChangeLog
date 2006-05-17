@@ -5,7 +5,7 @@
 	* lily/key-engraver.cc (create_key): use
 	explicitKeySignatureVisibility on cancellation too.
 
-	* lily/font-config.cc (init_fontconfig): only close nonNULL file.
+	* lily/font-config.cc (init_fontconfig): only close non-NULL file.
 
 	* scripts/*.py: use TARGET_PYTHON iso PYTHON
 
