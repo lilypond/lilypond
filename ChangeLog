@@ -1,5 +1,7 @@
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PATCH_LEVEL): release 2.9.5
+	
 	* Documentation/topdocs/INSTALL.texi (Top): update versions and
 	build instructions. 
 
