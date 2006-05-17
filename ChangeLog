@@ -17,6 +17,11 @@
 
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* python/lilylib.py (system): move import subprocess to system()
+	definition. Backportme.
+
+	* python/convertrules.py (conv): fix convert-ly rules for 2.9.4
+
 	* VERSION (PATCH_LEVEL): release 2.9.5
 	
 	* Documentation/topdocs/INSTALL.texi (Top): update versions and

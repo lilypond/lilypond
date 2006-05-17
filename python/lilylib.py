@@ -3,7 +3,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 import __main__
@@ -14,14 +14,6 @@ import shutil
 import string
 import sys
 import optparse
-import subprocess
-
-## windows mingw cross compile doesn't have selectmodule.so
-have_fcntl = True
-try:
-    import fcntl
-except ImportError:
-    have_fcntl = False
 
 ################################################################
 # Users of python modules should include this snippet
@@ -68,10 +60,12 @@ def command_name (cmd):
     return os.path.basename (cmd)
 
 def system (cmd,
-	      ignore_error=False,
-	      progress_p=True,
-	      be_verbose=False,
-	      log_file=None):
+            ignore_error=False,
+            progress_p=True,
+            be_verbose=False,
+            log_file=None):
+    
+    import subprocess
 
     show_progress= progress_p 
     name = command_name (cmd)
@@ -140,7 +134,6 @@ def search_exe_path (name):
 def print_environment ():
     for (k,v) in os.environ.items ():
 	sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
-
 
 class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):

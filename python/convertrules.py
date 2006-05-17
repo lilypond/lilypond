@@ -2784,8 +2784,8 @@ conversions.append (((2, 7, 40), conv,
 
 
 def conv (str):
-    str = re.sub ('page-penalty', 'page-break-penalty')
-    str = re.sub ('([^-])penalty', '\1break-penalty')
+    str = re.sub ('page-penalty', 'page-break-penalty', str)
+    str = re.sub ('([^-])penalty', '\1break-penalty', str)
     return str
 
 conversions.append (((2, 9, 4), conv, """(page-)penalty -> (page-)break-penalty"""))
