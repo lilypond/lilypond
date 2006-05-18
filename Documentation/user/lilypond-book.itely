@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+c -*- coding: utf-8; mode: texinfo; -*-
 
 
 @ignore
@@ -31,13 +31,13 @@ the music are adjusted to match the layout of your document.
 This procedure may be applied to La@TeX{}, HTML or Texinfo documents.
 
 @menu
-* An example of a musicological document::
-* Integrating LaTeX and music::
-* Integrating Texinfo and music::
-* Integrating HTML and music::
-* Music fragment options::
-* Invoking lilypond-book::
-* Filename extensions::
+* An example of a musicological document::  
+* Integrating LaTeX and music::  
+* Integrating Texinfo and music::  
+* Integrating HTML and music::  
+* Music fragment options::      
+* Invoking lilypond-book::      
+* Filename extensions::         
 @end menu
 
 
@@ -191,7 +191,7 @@ or
 @end example
 
 Running @command{lilypond-book} yields a file that can be further
-processed with La@TeX{}. 
+processed with La@TeX{}.
 
 We show some examples here.  The lilypond environment
 
@@ -245,7 +245,7 @@ the user:
 @code{\betweenLilyPondSystem[1]} is called between systems if
 @code{lilypond-book} has split the snippet into several postscript
 files.  It must be defined as taking one parameter and will be
-passed the number of files already included in this snippet. 
+passed the number of files already included in this snippet.
 The default is to simply insert a @code{\linebreak}.
 
 @ignore

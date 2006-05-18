@@ -2,7 +2,7 @@
 % keep \documentclass on 1st line for lilypond-book auto-detection
 
 %
-% This is way too long and hairy -- 
+% This is way too long and hairy --
 %
 %
 
@@ -61,7 +61,7 @@ and C minor
 
 \subsection{verb and verbatim}
 
-As you see, the begin/end verbatim command inside 
+As you see, the begin/end verbatim command inside
 does not confuse lilypond-book:
 
 \verb|\begin[fragment]{lilypond}c d e\end{lilypond}|
@@ -105,7 +105,7 @@ this line, then lilypond-book is handling latex comments pretty well :-)
 \subsection{To float or not to float}
 This music
 \begin[fragment]{lilypond}
-c' e' 
+c' e'
 \end{lilypond}
 should be floating inside the text by using the \verb|eps| options.
 
@@ -156,26 +156,26 @@ Tables\footnote{ and footnote:
 \pagebreak
 
 Testing of spacing. The next music is surrounded by an empty line.
-text text text text text text text text text text text text 
-text text text text text text text text text text text text 
+text text text text text text text text text text text text
+text text text text text text text text text text text text
 
 \begin{lilypond}
 \score{ \relative c'{ c d e f g a b c} }
 \end{lilypond}
 
-text text text text text text text text text text text text 
-text text text text text text text text text text text text 
-text text text text text text text text text text text text 
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
 
 Next has no empty lines.
-text text text text text text text text text text text text 
-text text text text text text text text text text text text 
-text text text text text text text text text text text text 
+text text text text text text text text text text text text
+text text text text text text text text text text text text
+text text text text text text text text text text text text
 \begin{lilypond}
 \score{ \relative c'{ c d e f g a b c} }
 \end{lilypond}
-text text text text text text text text text text text text 
-text text text text text text text text text text text text 
+text text text text text text text text text text text text
+text text text text text text text text text text text text
 
 %% need to use an -I ../../../input/test to find the file
 %% \lilypondfile{tie.ly}

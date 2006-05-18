@@ -40,11 +40,11 @@ elements.  For example, changing the beaming rules.
 Output: changing the appearance of individual
 objects.  For example, changing stem directions or the location of
 subscripts.
-  
+
 @item
 Context: changing aspects of the translation from music events to
-notation.  For example, giving each staff a separate time signature. 
-  
+notation.  For example, giving each staff a separate time signature.
+
 @item
 Global layout: changing the appearance of the spacing, line
 breaks, and page dimensions.  These modifications are discussed
@@ -65,7 +65,7 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 * The \override command::       
 @end menu
 
- 
+
 @node Automatic notation
 @section Automatic notation
 
@@ -258,7 +258,7 @@ have this apply to any beam.
 this rule should apply.  Set @code{n} and @code{m} to @code{'*'}
 to have this apply in any time signature.
 
-@item @code{a/b} is the position in the bar at which the beam should 
+@item @code{a/b} is the position in the bar at which the beam should
 begin/end.
 
 @item @code{context} is optional, and it specifies the context at which
@@ -453,7 +453,7 @@ reference, see
 @ifhtml
 @internalsref{Contexts}.
 @end ifhtml
-@ifnothtml 
+@ifnothtml
 Translation @arrow{} Context.
 @end ifnothtml
 
@@ -487,7 +487,7 @@ where @var{type} is a context name (like @code{Staff} or
 interpreting the @var{music expression} with that.
 
 A practical application of @code{\new} is a score with many
-staves.  Each part that should be on its own staff, is preceded with 
+staves.  Each part that should be on its own staff, is preceded with
 @code{\new Staff}.
 
 @lilypond[quote,verbatim,relative=2,ragged-right,fragment]
@@ -531,7 +531,7 @@ setting lyrics the melody is in a named context
 so the texts can be properly aligned to its notes,
 
 @example
-\new Lyrics \lyricsto "@b{tenor}" @var{lyrics} 
+\new Lyrics \lyricsto "@b{tenor}" @var{lyrics}
 @end example
 
 @noindent
@@ -616,7 +616,7 @@ This is achieved by inserting the @code{\set} command in the music,
 
 For example,
 @lilypond[quote,verbatim,relative=2,fragment]
-R1*2 
+R1*2
 \set Score.skipBars = ##t
 R1*2
 @end lilypond
@@ -644,7 +644,7 @@ property (of the bottom-most context, in this case @code{Voice}) will
 have no effect.
 
 @lilypond[quote,verbatim,relative=2,fragment]
-R1*2 
+R1*2
 \set skipBars = ##t
 R1*2
 @end lilypond
@@ -655,7 +655,7 @@ example @context{Staff}, then the change would also apply to all
 `on-the-fly', during the music, so that the setting only affects the
 second group of eighth notes.
 
-@cindex @code{\unset} 
+@cindex @code{\unset}
 
 There is also an @code{\unset} command,
 @example
@@ -691,9 +691,9 @@ Like @code{\set}, the @var{context} argument does not have to be
 specified for a bottom context, so the two statements
 
 @example
-\set Voice.autoBeaming = ##t 
-\set autoBeaming = ##t 
-@end example 
+\set Voice.autoBeaming = ##t
+\set autoBeaming = ##t
+@end example
 
 @noindent
 are equivalent.
@@ -733,7 +733,7 @@ elements.  For example, the @code{Voice} context contains a
 @code{Note_head_engraver} and the @code{Staff} context contains a
 @code{Key_signature_engraver}.
 
-For a full a description of each plug-in, see 
+For a full a description of each plug-in, see
 @ifhtml
 @internalsref{Engravers}.
 @end ifhtml
@@ -744,7 +744,7 @@ Every context described in
 @ifhtml
 @internalsref{Contexts}
 @end ifhtml
-@ifnothtml 
+@ifnothtml
 Program reference @arrow Translation @arrow{} Context.
 @end ifnothtml
 lists the engravers used for that context.
@@ -835,7 +835,7 @@ Each context is responsible for creating certain types of graphical
 objects.  The settings used for printing these objects are also stored by
 context.  By changing these settings, the appearance of objects can be
 altered.
- 
+
 The syntax for this is
 
 @example
@@ -852,7 +852,7 @@ tweak} explains what to fill in for @var{name}, @var{property}, and
 The command
 
 @verbatim
-\override Staff.Stem #'thickness = #4.0 
+\override Staff.Stem #'thickness = #4.0
 @end verbatim
 
 @noindent
@@ -863,7 +863,7 @@ appearance.  Here we see the command in action:
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c4
-\override Staff.Stem #'thickness = #4.0 
+\override Staff.Stem #'thickness = #4.0
 c4
 c4
 c4
@@ -875,13 +875,13 @@ all stems are thickened.
 
 Analogous to @code{\set}, the @var{context} argument may be left out,
 causing it to default to @context{Voice}, and adding @code{\once} applies
-the change during one timestep only 
+the change during one timestep only
 
 @lilypond[quote,fragment,verbatim,relative=2]
 c4
-\once \override Stem #'thickness = #4.0 
+\once \override Stem #'thickness = #4.0
 c4
-c4 
+c4
 @end lilypond
 
 The @code{\override} must be done before the object is
@@ -893,7 +893,7 @@ when the object is created.  In this example,
 \override Slur #'thickness = #3.0
 c8[( c
 \override Beam #'thickness = #0.6
-c8 c]) 
+c8 c])
 @end lilypond
 
 @noindent
@@ -962,7 +962,7 @@ from the music in the @code{\layout} block,
 @end example
 
 Here @code{\Staff} takes the existing definition for context @context{Staff} from the
-identifier @code{\Staff}. 
+identifier @code{\Staff}.
 
 The statements
 @example
@@ -1039,9 +1039,9 @@ to indicate improvisation in jazz pieces,
 }}
 
 \relative c'' {
-  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c 
-   c4 c^"undress" c_"while playing :)" c } 
-  a1 
+  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
+   c4 c^"undress" c_"while playing :)" c }
+  a1
 }
 @end lilypond
 
@@ -1134,7 +1134,7 @@ command,
 @example
 \context @{
   \Staff
-  \accepts ImproVoice    
+  \accepts ImproVoice
 @}
 @end example
 
@@ -1163,16 +1163,16 @@ Then the output at the start of this subsection can be entered as
 \relative c'' @{
   a4 d8 bes8
   \new ImproVoice @{
-    c4^"ad lib" c 
+    c4^"ad lib" c
     c4 c^"undress"
     c c_"while playing :)"
   @}
   a1
 @}
 @end example
-  
 
-    
+
+
 
 @node The \override command
 @section The \override command
@@ -1211,7 +1211,7 @@ This means that we must determine these bits of information:
 @item the layout object: here @code{Stem}.
 @item the layout property: here @code{thickness}.
 @item a sensible value: here @code{3.0}.
-@end itemize  
+@end itemize
 
 Some tweakable options are called ``subproperties'' and reside inside
 properties.  To tweak those, use commands in the form
@@ -1222,7 +1222,7 @@ properties.  To tweak those, use commands in the form
 
 @cindex internal documentation
 @cindex finding graphical objects
-@cindex graphical object descriptions 
+@cindex graphical object descriptions
 @cindex tweaking
 @cindex @code{\override}
 @cindex internal documentation
@@ -1265,7 +1265,7 @@ forward.  For example, it says
 
 @quotation
 Accepted by: @internalsref{Fingering_engraver},
-@end quotation 
+@end quotation
 
 @noindent
 That link brings us to the documentation for the Engraver, the
@@ -1333,7 +1333,7 @@ on @internalsref{Translation}, and the @internalsref{Backend}.  Every
 chapter lists all the definitions used and all properties that may be
 tuned.
 
- 
+
 @node Layout interfaces
 @subsection Layout interfaces
 
@@ -1353,7 +1353,7 @@ The page for @code{Fingering} lists the definitions for the
 
 @quotation
 @code{padding} (dimension, in staff space):
-  
+
 @code{0.5}
 @end quotation
 
@@ -1442,7 +1442,7 @@ is directly generated from this definition.
 @node Determining the grob property
 @subsection Determining the grob property
 
-Recall that we wanted to change the position of the @b{2} in 
+Recall that we wanted to change the position of the @b{2} in
 
 @lilypond[quote,fragment,relative=2,verbatim]
 c-2
@@ -1452,7 +1452,7 @@ f
 
 Since the @b{2} is vertically positioned next to its note, we have to
 meddle with the interface associated with this positioning.  This is
-done using @code{side-position-interface}.  The page for this interface 
+done using @code{side-position-interface}.  The page for this interface
 says
 
 @quotation
@@ -1472,7 +1472,7 @@ Below this description, the variable @code{padding} is described as
 @item padding
 (dimension, in staff space)
 
-Add this much extra space between objects that are next to each other. 
+Add this much extra space between objects that are next to each other.
 @end table
 @end quotation
 
@@ -1519,7 +1519,7 @@ you can use the @code{\tweak} function, for example
   \tweak #'color #red d
   g
   \tweak #'duration-log #1  a
->4-\tweak #'padding #10 -. 
+>4-\tweak #'padding #10 -.
 @end lilypond
 
 As you can see, properties are set directly in the objects directly,
@@ -1562,7 +1562,7 @@ Contexts can have properties, which are usually named in
 @code{studlyCaps}.  They mostly control the translation from
 music to notatino, eg. @code{localKeySignature} (for determining
 whether to print accidentals), @code{measurePosition} (for
-determining when to print a barline).  Context properties can 
+determining when to print a barline).  Context properties can
 change value over time while interpreting a piece of music;
 @code{measurePosition} is an obvious example of
 this.  Context properties are modified with @code{\set}.
@@ -1605,7 +1605,7 @@ property (modified with @code{\set}) was created.
 @node Difficult tweaks
 @subsection Difficult tweaks
 
-There are a few classes of difficult adjustments.  
+There are a few classes of difficult adjustments.
 
 @itemize @bullet
 
@@ -1629,7 +1629,7 @@ objects have been split over different systems.
 
 In the following example, we define a procedure
 @code{my-callback}.  This procedure
- 
+
 @itemize @bullet
 @item
 determines if we have been split across line breaks
@@ -1647,7 +1647,7 @@ of the broken tie is translated up.
 @lilypond[quote,verbatim,ragged-right]
 #(define (my-callback grob)
   (let* (
-         ; have we been split? 
+         ; have we been split?
          (orig (ly:grob-original grob))
 
          ; if yes, get the split pieces (our siblings)
@@ -1658,7 +1658,7 @@ of the broken tie is translated up.
              (eq? (car (last-pair siblings)) grob))
      (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
-\relative c'' { 
+\relative c'' {
   \override Tie #'after-line-breaking =
   #my-callback
   c1 ~ \break c2 ~ c
@@ -1678,10 +1678,10 @@ and @code{PaperColumn}.  They can be changed with the
 @code{\outputProperty} function, which works similar to @code{\once
 \override}, but uses a different syntax,
 
-@example 
+@example
 \outputProperty
 #"Score.NonMusicalPaperColumn"  % Grob name
-#'line-break-system-details     % Property name  
+#'line-break-system-details     % Property name
 #'((next-padding . 20))         % Value
 @end example
 

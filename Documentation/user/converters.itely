@@ -25,8 +25,8 @@ you are unfamiliar with the command-line.
 * Invoking midi2ly::            Importing MIDI.
 * Invoking etf2ly::             Importing Finale.
 * Invoking musicxml2ly::        
-* Invoking abc2ly::             Importing ABC.          
-* Invoking mup2ly::             Importing MUP. 
+* Invoking abc2ly::             Importing ABC.      
+* Invoking mup2ly::             Importing MUP.
 * Generating LilyPond files::   
 @end menu
 
@@ -217,7 +217,7 @@ source file.  If you say:
 %%LY voices \set autoBeaming = ##f
 @end example
 
-This will cause the text following the keyword ``voices'' to be inserted 
+This will cause the text following the keyword ``voices'' to be inserted
 into the current voice of the LilyPond output file.
 
 Similarly,
@@ -233,7 +233,7 @@ into the current line of lyrics.
 @refbugs
 
 The ABC standard is not very ``standard''.  For extended features
-(e.g., polyphonic music) different conventions exist. 
+(e.g., polyphonic music) different conventions exist.
 
 Multiple tunes in one file cannot be converted.
 
@@ -274,7 +274,7 @@ write output to @var{file}
 @item -v,--version
 version information
 @item -w,--warranty
-print warranty and copyright. 
+print warranty and copyright.
 @end table
 
 
@@ -298,10 +298,10 @@ These tools include
 @item
 @uref{http://@/denemo@/.sourceforge@/.net/,Denemo}, a graphical score editor.
 @item
-@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime 
+@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime
 monophonic MIDI to LilyPond converter.
 @item
-@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an 
+@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an
 Emacs major mode.
 @item
 @uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, which imports

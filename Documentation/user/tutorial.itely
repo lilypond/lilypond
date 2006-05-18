@@ -155,7 +155,7 @@ command
 
 @c A clef here may lead to confusion, remove it.
 @lilypond[fragment,quote]
-\override Staff.Clef #'transparent = ##t 
+\override Staff.Clef #'transparent = ##t
 \time 3/4
 s4_" "
 \time 6/8
@@ -200,12 +200,12 @@ For more information on
 @quotation
 @table @asis
 @item Entering pitches and durations
-see 
+see
 @ref{Pitches}, and @ref{Durations}.
 @item Clefs
 see @ref{Clef}.
 @item Rests
-see @ref{Rests}.  
+see @ref{Rests}.
 @item Time signatures and other timing commands
 see @ref{Time signature}.
 @end table
@@ -279,7 +279,7 @@ GNU LilyPond 2.6.0
 Processing `test.ly'
 Parsing...
 Interpreting music... [1]
-Preprocessing graphical objects... 
+Preprocessing graphical objects...
 Calculating line breaks... [2]
 Layout output to `test.ps'...
 Converting to `test.pdf'...
@@ -296,7 +296,7 @@ your system does not have any tools installed, you can try
 available package for viewing and printing PDF and PostScript files.}
 
 @node More about pitches
-@section More about pitches 
+@section More about pitches
 
 A @rglos{sharp} (@texisharp{}) pitch is made by adding @samp{is} to
 the name, a @rglos{flat} (@texiflat{}) pitch by adding @samp{es}.  As
@@ -410,7 +410,7 @@ For more information on Ties see @ref{Ties}.
 @node Automatic and manual beams
 @section Automatic and manual beams
 
-@cindex beams, by hand 
+@cindex beams, by hand
 All @rglos{beam}s are drawn automatically
 
 @lilypond[quote,fragment,relative=2,verbatim]
@@ -465,7 +465,7 @@ according to standard notation conventions.
 @c tie) examples...
 
 @c better to have this just before the `octaves are bad' snipped
-@c but we'd need to remove the ', from \key and tie 
+@c but we'd need to remove the ', from \key and tie
 To raise a note by an octave, add a high quote @code{'} (apostrophe) to
 the note name, to lower a note one octave, add a `low quote' @code{,}
 (comma).  Middle C is @code{c'}
@@ -480,7 +480,7 @@ An example of the use of quotes is in the following Mozart fragment
 \key a \major
 \time 6/8
 cis''8. d''16 cis''8 e''4 e''8
-b'8. cis''16 b'8 d''4 d''8 
+b'8. cis''16 b'8 d''4 d''8
 @end lilypond
 
 @noindent
@@ -547,7 +547,7 @@ and @ref{Octave check}.
 
 
 In input files, music is represent by so-called @emph{music
-expression}s.  We have already seen some in the previous examples; 
+expression}s.  We have already seen some in the previous examples;
 a single note is a music expression
 
 @lilypond[fragment,quote,verbatim,relative=3]
@@ -568,7 +568,7 @@ Here, the expression from the previous example is combined with two
 notes
 
 @lilypond[fragment,quote,verbatim,relative=3]
-{ { a4 g } f g } 
+{ { a4 g } f g }
 @end lilypond
 
 This technique is useful for non-monophonic music.  To enter music
@@ -617,7 +617,7 @@ example begins with a single note.  To determine the number of staves,
 LilyPond looks at the first element.  If it is a single note, there is one
 staff; if there is a simultaneous expression, there is more than one staff.
 
-@lilypond[fragment,quote,verbatim,relative=2] 
+@lilypond[fragment,quote,verbatim,relative=2]
 {
   c <<c e>>
   << { e f } { c <<b d>> } >>
@@ -686,10 +686,10 @@ We can now typeset a melody with two staves
 \relative <<
   \new Staff {
     \time 3/4
-    \clef treble 
-    
+    \clef treble
+
     e'2 d4 c2 b4 a8[ a]
-    b[ b] g[ g] a2. 
+    b[ b] g[ g] a2.
   }
   \new Staff {
      \clef bass
@@ -913,7 +913,7 @@ ignored.  The following fragment shows possible uses for comments
     are ignored, since they are in a
     block comment.
 
-    g g f f e e d d c2 
+    g g f f e e d d c2
 %@}
 @end example
 
@@ -983,7 +983,7 @@ line}.  It is entered as two underscores, i.e.,
 
 @example
 @{ I want to break free __ @}
-@end example 
+@end example
 
 @lilypond[fragment,quote,ragged-right]
 <<
@@ -1048,7 +1048,7 @@ line for themselves.  This is achieved by using @code{\chords} instead
 of @code{\chordmode}.  This uses the same syntax as @code{\chordmode},
 but renders the notes in a @code{ChordNames} context, with the
 following result.
- 
+
 @lilypond[quote,verbatim,ragged-right]
 \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
 @end lilypond
@@ -1068,7 +1068,7 @@ a lead sheet, for example,
 
 @lilypond[quote,ragged-right]
 <<
-  \chords { r2 c:sus4 f } 
+  \chords { r2 c:sus4 f }
   \relative {
     r4 c' \times 2/3 { f g g }
     \times 2/3 { g4( a2) }
@@ -1090,9 +1090,9 @@ entered as an assignment, within @code{\header
 @{@tie{}@dots{}@tie{}@}}.  The @code{\header} block is usually put at
 the top of the file.  For example,
 
-@example 
+@example
 \header @{
-  title = "Miniature" 
+  title = "Miniature"
   composer = "Igor Stravinsky"
 @}
 
@@ -1186,7 +1186,7 @@ Here is a small example
 >>
 @end lilypond
 
-More information on formatting piano music is given in @ref{Piano music}.  
+More information on formatting piano music is given in @ref{Piano music}.
 
 
 @node Organizing larger pieces
@@ -1329,7 +1329,7 @@ this option to the music above, leads to the following result
 @lilypond[quote,ragged-right]
 \transpose f c' \relative c {
   \time 2/4
-  \set Score.skipBars = ##t 
+  \set Score.skipBars = ##t
   R2*3
   r4 f8 a cis4 f e d
 }
@@ -1351,7 +1351,7 @@ that the other voice is in @code{bassoonNotes} in the file
 @end example
 
 @noindent
-leading to 
+leading to
 
 @lilypond[quote,ragged-right]
 \relative c <<

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 
-@c A menu is needed before every deeper *section nesting of @node's; run 
+@c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
 @c to automatically fill in these menus before saving changes
 
@@ -83,8 +83,8 @@ The @code{\markup} is described in more detail in
 
 @commonprop
 
-Checking to make sure that text scripts and lyrics are within the margins is 
-a relatively large computational task.  To speed up processing, lilypond does 
+Checking to make sure that text scripts and lyrics are within the margins is
+a relatively large computational task.  To speed up processing, lilypond does
 not perform such calculations by default; to enable it, use
 
 @example
@@ -128,7 +128,7 @@ c2\startTextSpan b c\stopTextSpan a
 
 @cindex textSpannerUp
 @code{textSpannerUp},
-@cindex textSpannerDown 
+@cindex textSpannerDown
 @code{textSpannerDown},
 @cindex textSpannerNeutral
 @code{textSpannerNeutral}.
@@ -139,7 +139,7 @@ c2\startTextSpan b c\stopTextSpan a
 To print a solid line, use
 
 @example
-\override TextSpanner #'dash-fraction = #'() 
+\override TextSpanner #'dash-fraction = #'()
 @end example
 
 
@@ -313,7 +313,7 @@ block.  This is primarily used in a @code{\book} (see
 @cindex font switching
 
 The markup in the example demonstrates font switching commands.  The
-command @code{\bold} and @code{\italic} apply to the first following 
+command @code{\bold} and @code{\italic} apply to the first following
 word only; to apply a command to more than one word, enclose the
 words with braces,
 
@@ -342,7 +342,7 @@ c1^\markup { \line { a b c } }
 Lists with no previous command are not kept distinct.  The expression
 
 @example
-\center-align @{ @{ a b @} @{ c d @} @} 
+\center-align @{ @{ a b @} @{ c d @} @}
 @end example
 
 @noindent
@@ -472,7 +472,7 @@ dynamic signs and @code{fetaNumber} for the number font.
 @item @code{font-family}
 is a symbol indicating the general class of the typeface.  Supported are
 @code{roman} (Computer Modern), @code{sans}, and @code{typewriter}.
-  
+
 @item @code{font-shape}
 is a symbol indicating the shape of the font.  There are typically
 several font shapes available for each font family.  Choices are
@@ -481,14 +481,14 @@ several font shapes available for each font family.  Choices are
 @item @code{font-series}
 is a symbol indicating the series of the font.  There are typically
 several font series for each font family and shape.  Choices are
-@code{medium} and @code{bold}. 
+@code{medium} and @code{bold}.
 
 @end itemize
 
 Fonts selected in the way sketched above come from a predefined style
-sheet. If you want to use a font from outside the style sheet, 
-then set the 
-@code{font-name} property, 
+sheet. If you want to use a font from outside the style sheet,
+then set the
+@code{font-name} property,
 
 @lilypond[fragment,verbatim]
 {
@@ -526,7 +526,7 @@ example,
 @lilypond[verbatim]
 \paper  {
   myStaffSize = #20
-  
+
   #(define fonts
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
@@ -540,7 +540,7 @@ example,
 @end lilypond
 
 @c we don't do Helvetica / Courier, since GS incorrectly loads
-@c Apple TTF fonts  
+@c Apple TTF fonts
 
 
 
@@ -773,7 +773,7 @@ Program reference: @internalsref{MetronomeMark}.
 Collisions are not checked.  If you have notes above the top line of
 the staff (or notes with articulations, slurs, text, etc), then the
 metronome marking may be printed on top of musical symbols.  If this
-occurs, increase the padding of the metronome mark to place it 
+occurs, increase the padding of the metronome mark to place it
 further away from the staff.
 
 @example
@@ -827,7 +827,7 @@ c1
 @end lilypond
 
 The file @file{scm/@/translation@/-functions@/.scm} contains the definitions
-of @code{format-mark-numbers} (the default format), 
+of @code{format-mark-numbers} (the default format),
 @code{format-mark-box-numbers},
 @code{format-mark-letters} and @code{format-mark-box-letters}.
 These can be used as inspiration for other formatting functions.
@@ -1176,7 +1176,7 @@ Examples: @inputfileref{input/@/regression,tag@/-filter@/.ly}.
 
 Multiple rests are not merged if you create the score with both tagged
 sections.
- 
+
 
 
 @node Orchestral music
@@ -1469,24 +1469,24 @@ smaller = {
 \addquote clarinet \relative {
   R1*20
   r2 r8 c f f
-} 
+}
 
 \new Staff \relative  <<
 
   % setup a context for  cue  notes.
   \new Voice = "cue" { \smaller \skip 1*21 }
-  
+
   \set Score.skipBars = ##t
-  
+
   \new Voice {
     R1*20
     \cueDuring #"clarinet" #1 {
       R1
     }
-    g4 g2. 
+    g4 g2.
   }
 >>
-@end lilypond 
+@end lilypond
 
 
 Here are a couple of hints for successful cue notes
@@ -1505,7 +1505,7 @@ Cue notes have smaller font sizes.
 @c Yes, this is good practice.  Otherwise, the start of the original
 @c part can only be seen from the font size.  This is not good enough
 @c for sight-reading.  It is possilbe to use other
-@c markers (e.g. a big close-bracket over the staff) to indicate the cue 
+@c markers (e.g. a big close-bracket over the staff) to indicate the cue
 @c   notes are
 @c finished.
 @c -hwn
@@ -1592,7 +1592,7 @@ see those sections of the documentation.
 Double time signatures are not supported explicitly, but they can be
 faked.  In the next example, the markup for the time signature is
 created with a markup text.  This markup text is inserted in the
-@internalsref{TimeSignature} grob. See also 
+@internalsref{TimeSignature} grob. See also
 @inputfileref{input/@/test,compound@/-time@/.ly}).
 
 @lilypond[verbatim,ragged-right]
@@ -1628,7 +1628,7 @@ context.
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
   @}
-    
+
 @}
 @end example
 
@@ -1782,7 +1782,7 @@ c4 c1
 
 @noindent
 As the example illustrates, @code{ly:make-moment n m} constructs a
-duration of n/m of a whole note.  For example, @code{ly:make-moment 1 8} is 
+duration of n/m of a whole note.  For example, @code{ly:make-moment 1 8} is
 an eighth
 note duration and @code{ly:make-moment 7 16} is the duration of
 seven sixteenths notes.
@@ -1934,7 +1934,7 @@ teaching tools in addition to great musical scores.
 * Balloon help::                
 * Blank music sheet::           
 * Hidden notes::                
-* Shape note heads ::           
+* Shape note heads::            
 * Easy Notation note heads::    
 * Analysis brackets::           
 * Coloring objects::            
@@ -2024,8 +2024,8 @@ g4 a
 @end lilypond
 
 
-@node Shape note heads 
-@subsection Shape note heads 
+@node Shape note heads
+@subsection Shape note heads
 
 In shape note head notation, the shape of the note head corresponds
 to the harmonic function of a note in the scale.  This notation was
@@ -2189,10 +2189,10 @@ Appendix: @ref{List of colors}.
 
 @refbugs
 Not all x11 colors are distinguishable in a web browser.  For web use
-normal colors are recommended. 
+normal colors are recommended.
 
 An x11 color is not necessarily exactly the same shade as a similarly
-named normal color. 
+named normal color.
 
 Notes in a chord cannot be colored with @code{\override}; use
 @code{\tweak} instead.  See @ref{Objects connected to the input}
@@ -2206,15 +2206,15 @@ for details.
 @cindex notes, ghost
 @cindex notes, parenthesized
 
-Objects may be parenthesized by prefixing @code{\parenthesize} to the music 
-event, 
+Objects may be parenthesized by prefixing @code{\parenthesize} to the music
+event,
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
 <
   c
   \parenthesize d
   g
->4-\parenthesize -. 
+>4-\parenthesize -.
 @end lilypond
 
 

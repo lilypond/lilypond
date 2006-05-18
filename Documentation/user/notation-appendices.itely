@@ -27,7 +27,7 @@ names, along with the pitches they represent.
 The following is a list of names that can be used for the
 @code{midiInstrument} property.
 
-@example 
+@example
 acoustic grand            contrabass           lead 7 (fifths)
 bright acoustic           tremolo strings      lead 8 (bass+lead)
 electric grand            pizzicato strings    pad 1 (new age)
@@ -70,8 +70,8 @@ synth bass 1              lead 2 (sawtooth)    telephone ring
 synth bass 2              lead 3 (calliope)    helicopter
 violin                    lead 4 (chiff)       applause
 viola                     lead 5 (charang)     gunshot
-cello                     lead 6 (voice) 
-@end example 
+cello                     lead 6 (voice)
+@end example
 
 
 @node List of colors
@@ -100,7 +100,7 @@ Any name that is spelled as a single word with capitalisation
 (e.g. ``LightSlateBlue'') can also be spelled as space separated
 words without capitalisation (e.g. ``light slate blue'').
 
-The word ``grey'' can always be spelled ``gray'' (e.g. ``DarkSlateGray''). 
+The word ``grey'' can always be spelled ``gray'' (e.g. ``DarkSlateGray'').
 
 Some names can take a numerical suffix (e.g. ``LightSalmon4'').
 

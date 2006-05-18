@@ -44,30 +44,30 @@ quite frustrating to try to remember which version of LilyPond you were
 using a few years ago.  @code{convert-ly} requires you to declare
 which version of LilyPond you used.
 
-@item @strong{Include checks}: @ref{Bar check} and @ref{Octave check}.  If 
+@item @strong{Include checks}: @ref{Bar check} and @ref{Octave check}.  If
 you
 include checks every so often, then if you make a mistake, you can pinpoint
 it quicker.  How often is ``every so often''?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
 very complex music, perhaps every bar.
 
-@item @strong{One bar per line of text}.  If there is anything complicated, 
+@item @strong{One bar per line of text}.  If there is anything complicated,
 either in the music
 itself or in the output you desire, it's often good to write only one bar
 per line.  Saving screen space by cramming eight bars per line just isn't
 worth it if you have to `debug' your files.
 
-@item @strong{Comment your files}.  Use either bar numbers (every so often) 
+@item @strong{Comment your files}.  Use either bar numbers (every so often)
 or
-references to musical themes (``second theme in violins,'' ``fourth 
+references to musical themes (``second theme in violins,'' ``fourth
 variation'', etc).  You may not need comments when you're writing the piece
-for the first time, but if you want to go back to change something two or 
-three years later, or if you pass the source over to a friend, it will 
+for the first time, but if you want to go back to change something two or
+three years later, or if you pass the source over to a friend, it will
 be much more
-challenging to determine your intentions or how your file is structured if 
+challenging to determine your intentions or how your file is structured if
 you didn't comment the file.
 
-@item @strong{Indent your braces}.  A lot of problems are caused by an 
+@item @strong{Indent your braces}.  A lot of problems are caused by an
 imbalance
 in the number of @code{@{} and @code{@}}.
 
@@ -240,7 +240,7 @@ the last line.
 violin = \relative c'' @{
   \repeat volta 2 @{
     c4._\markup@{ \italic \bold dolce @} b8 a8 g a b |
-    \once \override TextScript #'padding = #5.0 
+    \once \override TextScript #'padding = #5.0
     c4.^"hi there!" d8 e' f g d |
     c,4.\markup@{ \dynamic f \italic \small @{ 2nd @}
       \hspace #0.1 \dynamic p @} b8 c4 c-. |

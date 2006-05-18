@@ -31,7 +31,7 @@ and False is @code{#f}.
 @item Numbers
 Numbers are entered in the standard fashion,
 @code{1} is the (integer) number one, while @code{-1.5} is a
-floating point number (a non-integer number). 
+floating point number (a non-integer number).
 
 @item Strings
 Strings are enclosed in double quotes,
@@ -64,7 +64,7 @@ In a music file, snippets of Scheme code are introduced with the hash
 mark @code{#}.  So, the previous examples translated in LilyPond are
 
 @example
-##t ##f 
+##t ##f
 #1 #-1.5
 #"this is a string"
 #"this
@@ -81,7 +81,7 @@ traditional @math{1+2}.
 
 @lisp
 #(+ 1 2)
-  @result{} #3 
+  @result{} #3
 @end lisp
 
 The arrow @result{} shows that the result of evaluating @code{(+ 1 2)}
@@ -90,24 +90,24 @@ be used for another calculation.
 
 @lisp
 #(+ 1 (* 3 4))
-  @result{} #(+ 1 12) 
+  @result{} #(+ 1 12)
   @result{} #13
 @end lisp
 
 These calculations are examples of evaluations; an expression like
 @code{(* 3 4)} is replaced by its value @code{12}.  A similar thing
-happens with variables.  After defining a variable  
+happens with variables.  After defining a variable
 
 @example
-twelve = #12 
+twelve = #12
 @end example
 
 @noindent
 variables can also be used in expressions, here
 
 @example
-twentyFour = #(* 2 twelve) 
-@end example 
+twentyFour = #(* 2 twelve)
+@end example
 
 @noindent
 the number 24 is stored in the variable @code{twentyFour}.
@@ -151,7 +151,7 @@ objects, we will call the latter ``properties'' and the former
 while @code{twentyFour} is an identifier.
 
 @cindex properties vs. identifiers
-@cindex identifiers vs. properties 
+@cindex identifiers vs. properties
 
 Two-dimensional offsets (X and Y coordinates) as well as object sizes
 (intervals with a left and right point) are entered as @code{pairs}.  A
@@ -160,8 +160,8 @@ and its two elements are called @code{car} and @code{cdr} respectively.}
 is entered as @code{(first . second)} and, like symbols, they must be quoted,
 
 @example
-\override TextScript #'extra-offset = #'(1 . 2)  
-@end example 
+\override TextScript #'extra-offset = #'(1 . 2)
+@end example
 
 This assigns the pair (1, 2) to the @code{extra-offset} property of the
 TextScript object.  These numbers are measured in staff-spaces, so

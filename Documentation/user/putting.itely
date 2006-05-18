@@ -63,7 +63,7 @@ melody = \relative c' @{
 
   a4 b c d
 @}
-     
+
 \score @{
 \new Staff \melody
 \layout @{ @}

@@ -1,3 +1,8 @@
+2006-05-17  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ various: remove trailing whitespace, cosmetic
+	change to reduce changes produced by diff.
+
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/main.cc (do_chroot_jail): correctness tweak.

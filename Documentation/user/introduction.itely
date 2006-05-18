@@ -6,12 +6,12 @@
 
 
 @menu
-* Engraving::
-* Automated engraving::
-* What symbols to engrave?::
-* Music representation::
-* Example applications::
-* About this manual::
+* Engraving::                   
+* Automated engraving::         
+* What symbols to engrave?::    
+* Music representation::        
+* Example applications::        
+* About this manual::           
 @end menu
 
 
@@ -82,7 +82,7 @@ computer edition.
 @end ifnotinfo
 @ifinfo
 @c workaround for makeinfo-4.6: line breaks and multi-column cookies
-@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png} 
+@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png}
 @image{lily-flat-bw,,,png}
 @end ifinfo
 
@@ -123,7 +123,7 @@ music = {
    \stemDown
    b'8[ e'' a' e'']
    \stemNeutral
-   e'8[ e'8 e'8 e'8]  
+   e'8[ e'8 e'8 e'8]
 }
 
 \score
@@ -149,7 +149,7 @@ music = {
    \stemDown
    b'8[ e'' a' e'']
    \stemNeutral
-   e'8[ e'8 e'8 e'8]  
+   e'8[ e'8 e'8 e'8]
 }
 \score
 {
@@ -173,7 +173,7 @@ constant rhythm.  The spacing should reflect that.  Unfortunately, the
 eye deceives us a little; not only does it notice the distance between
 note heads, it also takes into account the distance between
 consecutive stems.  As a result, the notes of an up-stem/@/down-stem
-combination should be put farther apart, and the notes of a 
+combination should be put farther apart, and the notes of a
 down-stem/@/up-stem
 combination should be put closer together, all depending on the
 combined vertical positions of the notes.  The first two measures are
@@ -517,7 +517,7 @@ polyphony?  In polyphonic notation, many voices can share a staff.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
-\new Staff << \topVoice \\ \botVoice >> 
+\new Staff << \topVoice \\ \botVoice >>
 @end lilypond
 
 In this situation, the accidentals and staff are shared, but the stems,
@@ -583,7 +583,7 @@ c4
 @noindent
 Chords can be constructed with @code{<<} and @code{>>} enclosing the notes
 
-@c < > is not a music expression, 
+@c < > is not a music expression,
 @c so we use <<>> iso. <> to drive home the point of
 @c expressions.  Don't change this back --hwn.
 @example

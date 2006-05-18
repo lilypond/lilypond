@@ -12,12 +12,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
     install-info --info-dir=/usr/share/info out/lilypond.info
 
   * Prepend GNU for dir, must be unique.
-  
+
   * Do not list the `lilypond' node at toplevel, so that `info lilypond'
     goes to Top.
 
   * List all commands in direntry.
-  
+
 @c  * lilypond: (lilypond/lilypond)Running LilyPond.      Invoking the
 @c    LilyPond  program.
 @end ignore
@@ -25,12 +25,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @dircategory GNU music project
 @direntry
 * LilyPond: (lilypond/lilypond).           The GNU music typesetter.
-* abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.          
+* abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.      
 * convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
 * etf2ly: (lilypond/lilypond)Invoking etf2ly.          Importing Finale.
 * lilypond-book: (lilypond/lilypond)LilyPond-book.     Itegrating text and music.
 * midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
-* mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup. 
+* mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup.
 @end direntry
 
 
@@ -45,7 +45,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 
 @ifhtml
-This document is also available as a 
+This document is also available as a
 @uref{source/Documentation/user/lilypond.pdf,PDF}.
 @end ifhtml
 
@@ -85,7 +85,7 @@ Copyright @copyright{} 1999--2006 by the authors
 \score {
   \context Lyrics {
     \override Score.RehearsalMark #'self-alignment-X = #LEFT
-    \override Score.RehearsalMark #'font-size = #-2 
+    \override Score.RehearsalMark #'font-size = #-2
     \mark #(ly:export (string-append
       "(For LilyPond version " (lilypond-version) ")"))
     s2
@@ -175,7 +175,7 @@ Appendices
 
 @include macros.itexi
 @include preface.itely
-@include introduction.itely 
+@include introduction.itely
 @include tutorial.itely
 @include putting.itely
 @include working.itely

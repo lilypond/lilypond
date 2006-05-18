@@ -510,7 +510,7 @@ music = {
 %%%%% vn1.ly
 \version "2.7.39"
 \include "piece.ly"
-\score { 
+\score {
   \keepWithTag #'vn1 \music
   \layout { }
 }
@@ -519,7 +519,7 @@ music = {
 %%%%% vn2.ly
 \version "2.7.39"
 \include "piece.ly"
-\score { 
+\score {
   \keepWithTag #'vn2 \music
   \layout { }
 }
@@ -528,7 +528,7 @@ music = {
 %%%%% vla.ly
 \version "2.7.39"
 \include "piece.ly"
-\score { 
+\score {
   \keepWithTag #'vla \music
   \layout { }
 }
@@ -537,7 +537,7 @@ music = {
 %%%%% vlc.ly
 \version "2.7.39"
 \include "piece.ly"
-\score { 
+\score {
   \keepWithTag #'vlc \music
   \layout { }
 }

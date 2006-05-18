@@ -73,7 +73,7 @@ Another solution gives us complete control over placing the object -- we
 can move it horizontally or vertically.  This is done with the
 @code{extra-offset} property.  It is slightly more complicated and can
 cause other problems.  When we move objects with @code{extra-offset},
-the movement is done after LilyPond has placed all other objects.  This 
+the movement is done after LilyPond has placed all other objects.  This
 means
 that the result can overlap with other objects.
 

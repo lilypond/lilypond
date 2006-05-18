@@ -72,7 +72,7 @@ on the command-line, and include
 @end example
 
 @noindent
-at the top of the @code{.ly} file. 
+at the top of the @code{.ly} file.
 
 @item -f,--format=@var{format}
 which formats should be written.  Choices are @code{svg}, @code{ps},
@@ -94,8 +94,8 @@ extents of strings of text.
 
   Postscript files include TTF, Type1 and OTF fonts.  No subsetting of
   these fonts is done.  When using oriental character sets, this can
-  lead to huge files.  
-  
+  lead to huge files.
+
 @item eps
  for encapsulated PostScript.  This dumps every page (system) as a separate
 @file{EPS} file, without fonts, and as one collated @file{EPS} file with
@@ -107,16 +107,16 @@ This mode is used by default by lilypond-book.
  for SVG (Scalable Vector Graphics).  This dumps every page as a separate
 @file{SVG} file, with embedded fonts.
 @cindex SVG (Scalable Vector Graphics)
-  You need a SVG viewer which supports embedded fonts, or a SVG 
-  viewer which is able to replace the embedded fonts with OTF fonts.  
-  Under Unix, you may use @uref{http://www.inkscape.org,Inkscape} 
-  (version 0.42 or later), after copying the OTF fonts in directory 
+  You need a SVG viewer which supports embedded fonts, or a SVG
+  viewer which is able to replace the embedded fonts with OTF fonts.
+  Under Unix, you may use @uref{http://www.inkscape.org,Inkscape}
+  (version 0.42 or later), after copying the OTF fonts in directory
   @file{PATH/TO/share/lilypond/VERSION/fonts/otf/} to @file{~/.fonts/}.
 @item scm
  for a dump of the raw, internal Scheme-based drawing commands.
 @cindex Scheme dump
 @end table
- 
+
 @cindex output format, setting
 
 @item -d,--define-default=@var{var}=@var{val}
@@ -178,7 +178,7 @@ specified, i.e., @code{-b tex}.
 Generate pictures of each page, in PNG format.  This implies
 @code{--ps}.  The resolution in DPI of the image may be set with
 @example
--dresolution=110 
+-dresolution=110
 @end example
 
 @item --pdf
@@ -237,7 +237,7 @@ being compiled.  For a softer but secure alternative you can use the
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
 Run LilyPond in a chroot jail.
 
-The @code{--jail} option provides a more flexible alternative to 
+The @code{--jail} option provides a more flexible alternative to
 @code{--safe} when LilyPond formatting is available through a web
 server or whenever LilyPond executes externally provided
 sources.
@@ -336,11 +336,11 @@ uses more CPU time. The default value is @code{70}.
 
 The scripts (such as lilypond-book, convert-ly, abc2ly, etc.) are also
 included inside MacOS X .app. They can be run from the command line by
-invoking them directly, e.g. 
+invoking them directly, e.g.
 
 @example
 @var{path/to}/LilyPond.app/Contents/Resources/bin/convert-ly
-@end example 
+@end example
 
 Alternatively, you may add this directory to your path.  Modify (or create)
 a file called @code{.profile} in your home directory such that it contains
@@ -415,8 +415,8 @@ Set the version to convert from.  If this is not set, @command{convert-ly}
 will guess this, on the basis of @code{\version} strings in the file.
 
 @item -n,--no-version
-Normally, @command{convert-ly} adds a @code{\version} indicator 
-to the output.  Specifying this option suppresses this.  
+Normally, @command{convert-ly} adds a @code{\version} indicator
+to the output.  Specifying this option suppresses this.
 
 @item -s, --show-rules
 Show all known conversions and exit.
@@ -448,25 +448,25 @@ convert-ly.txt?rev=HEAD&content-type=text/plain
 @end ignore
 @verbatim
 
-There are a few things that the convert-ly cannot handle. Here's a list of 
+There are a few things that the convert-ly cannot handle. Here's a list of
 limitations
 that the community has complained about.
 
-This bug report structure has been chosen because convert-ly has a structure 
+This bug report structure has been chosen because convert-ly has a structure
 that doesn't
-allow to smoothly implement all needed changes. Thus this is just a wishlist, 
+allow to smoothly implement all needed changes. Thus this is just a wishlist,
 placed
 here for reference.
 
 1.6->2.0:
- Doesn't always convert figured bass correctly, specifically things like {< 
+ Doesn't always convert figured bass correctly, specifically things like {<
 >}. Mats' comment on working around this:
    To be able to run convert-ly
    on it, I first replaced all occurencies of '{<' to some dummy like '{#'
    and similarly I replaced '>}' with '&}'. After the conversion, I could
    then change back from '{ #' to '{ <' and from '& }' to '> }'.
  Doesn't convert all text markup correctly. In the old markup syntax,
- it was possible to group a number of markup commands together within 
+ it was possible to group a number of markup commands together within
 parentheses, e.g.
    -#'((bold italic) "string")
    This will incorrectly be converted into
@@ -475,7 +475,7 @@ parentheses, e.g.
    -\markup{\bold \italic "string"}
 2.0->2.2:
  Doesn't handle \partcombine
- Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple 
+ Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple
 stanzas.
 2.0->2.4:
  \magnify isn't changed to \fontsize.
@@ -491,7 +491,7 @@ stanzas.
     - \rced => \!
     - \rc => \!
 2.2->2.4:
- \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly 
+ \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly
 converted.
 2.4.2->2.5.9
  \markup{ \center-align <{ ... }> } should be converted to:
@@ -532,7 +532,7 @@ that the bug can be reproduced in all paper sizes.
 @end itemize
 
 @ignore
-@c the bug database is not up to date enough. 
+@c the bug database is not up to date enough.
 
 When you've found a bug, have a look at our
 @uref{http://@/lilypond@/.org/@/doc/@/v2.5/@/bugs/,bug database} to see if
@@ -702,7 +702,7 @@ some error in the sheet music.
 
 When this functionality is active, LilyPond adds hyperlinks to the PDF
 file. These hyperlinks are sent to the web-browser, which opens a
-text-editor with the cursor in the right place. 
+text-editor with the cursor in the right place.
 
 To make this chain work, you should configure your PDF viewer to
 follow hyperlinks using the @file{lilypond-invoke-editor} script

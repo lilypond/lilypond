@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 
-@c A menu is needed before every deeper *section nesting of @node's; run 
+@c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
 @c to automatically fill in these menus before saving changes
 
@@ -592,15 +592,15 @@ base can be printed in lower case.
 
 @cindex @code{chordPrefixSpacer}
 @item chordPrefixSpacer
-The ``m'' for minor chords is usually printed right after the root of 
-the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer 
+The ``m'' for minor chords is usually printed right after the root of
+the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer
 between the root and ``m''. The spacer is not used when the root
 is altered.
 
 @end table
 
 The predefined variables @code{\germanChords},
-@code{\semiGermanChords}, @code{\italianChords} and @code{\frenchChords} 
+@code{\semiGermanChords}, @code{\italianChords} and @code{\frenchChords}
 set these variables.  The effect is
 demonstrated here,
 
@@ -687,12 +687,12 @@ way is to use the @code{\addlyrics} function.
 
 @commonprop
 
-Checking to make sure that text scripts and lyrics are within the margins is 
-a relatively large computational task.  To speed up processing, lilypond does 
+Checking to make sure that text scripts and lyrics are within the margins is
+a relatively large computational task.  To speed up processing, lilypond does
 not perform such calculations by default; to enable it, use
 
 @example
-\override Score.PaperColumn #'keep-inside-line = ##t 
+\override Score.PaperColumn #'keep-inside-line = ##t
 @end example
 
 To make lyrics avoid barlines as well, use
@@ -737,7 +737,7 @@ More stanzas can be added by adding more
 \addlyrics { joue le jeu }
 @end lilypond
 
-The command @code{\addlyrics} cannot handle polyphony settings.  For these 
+The command @code{\addlyrics} cannot handle polyphony settings.  For these
 cases you should use @code{\lyricsto} and @code{\lyricmode}.
 
 
@@ -765,12 +765,12 @@ explicitly, like in the example above, or by automatically aligning
 the lyrics to a melody or other voice of music, using @code{\addlyrics}
 or @code{\lyricsto}.  For more details see @ref{The Lyrics context}.
 
-A word or syllable of lyrics begins with an alphabetic character, and ends 
+A word or syllable of lyrics begins with an alphabetic character, and ends
 with
 any space or digit.  The following characters can be any character
 that is not a digit or white space.  One important consequence of this
 is that a word can end with @code{@}}.  The following example is
-usually a mistake in the input file.  The syllable includes a @code{@}}, so 
+usually a mistake in the input file.  The syllable includes a @code{@}}, so
 the
 opening brace is not balanced
 @example
@@ -865,7 +865,7 @@ Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
 @node The Lyrics context
 @subsection The Lyrics context
 
-Lyrics are printed by interpreting them in the context caleld 
+Lyrics are printed by interpreting them in the context caleld
 @internalsref{Lyrics}.
 
 @example
@@ -896,11 +896,11 @@ then the lyrics are specified with @code{\lyricsto}.  The command
 The following example uses different commands for entering lyrics.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-<< 
+<<
   \new Voice = "one" \relative c'' {
     \autoBeamOff
     \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2 
+    c4 b8. a16 g4. f8 e4 d c2
   }
   \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
   \new Lyrics \lyricmode { Joy to the earth! the Sav -- our reigns. }
@@ -922,11 +922,11 @@ must be used.
 @example
 verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 \score @{
-  << 
+  <<
     \new Voice = "one" \relative c'' @{
       \autoBeamOff
       \time 2/4
-      c4 b8. a16 g4. f8 e4 d c2 
+      c4 b8. a16 g4. f8 e4 d c2
     @}
     \addlyrics @{ \verseOne @}
   >>
@@ -935,7 +935,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 The @code{\addlyrics} command is actually just a convenient way
 to write a more complicated LilyPond structure that sets up the
-lyrics. 
+lyrics.
 
 @example
 @{ MUSIC @}
@@ -1094,7 +1094,7 @@ differing ways.  Such variations can still be captured with
 @end menu
 
 @node Lyrics to multiple notes of a melisma
-@subsubsection Lyrics to multiple notes of a melisma 
+@subsubsection Lyrics to multiple notes of a melisma
 
 
 One possibility is that the text has a melisma in one stanza, but
@@ -1279,9 +1279,9 @@ The underlay is switched back to the starting situation by assigning
 
 It is also possible to define melismata entirely in the lyrics. This
 can be done by entering @code{_} for every note that is part of the
-melisma. 
+melisma.
 
-@lilypond[relative=1,verbatim,fragment] 
+@lilypond[relative=1,verbatim,fragment]
 { \set melismaBusyProperties = #'()
   c d( e) f f( e) e e  }
 \addlyrics
@@ -1311,7 +1311,7 @@ To increase the spacing between lyrics, set the minimum-distance property of
 LyricSpace.
 
 @lilypond[relative,verbatim,fragment,quote,ragged-right]
-{ 
+{
   c c c c
   \override Lyrics.LyricSpace #'minimum-distance = #1.0
   c c c c
@@ -1322,7 +1322,7 @@ LyricSpace.
 }
 @end lilypond
 
-To make this change for all lyrics in the score, set the property in the 
+To make this change for all lyrics in the score, set the property in the
 layout.
 
 @lilypond[relative,verbatim,quote,ragged-right]
@@ -1435,7 +1435,7 @@ the line, just like instrument names.  They are created by setting
 
 @seealso
 
-Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber}, 
+Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
 @internalsref{VocalName}.
 
 
@@ -1850,7 +1850,7 @@ for this purpose instead.
 @cindex String numbers
 
 String numbers can be added to chords, by indicating the string number
-with @code{\}@var{number}, 
+with @code{\}@var{number},
 
 @lilypond[relative,relative=1,ragged-right,fragment]
 <c\1 e\2 g\3>
@@ -1966,14 +1966,14 @@ and bass guitar.
 \set TabStaff.stringTunings = #bass-tuning
 @end example
 
-The default string tuning is @code{guitar-tuning} (the standard EADGBE 
+The default string tuning is @code{guitar-tuning} (the standard EADGBE
 tuning).
 Some other predefined tunings are @code{guitar-open-g-tuning},
 @code{mandolin-tuning} and @code{banjo-open-g-tuning}.
 
 @seealso
 
-The file @file{scm/@/output@/-lib@/.scm} contains the predefined string 
+The file @file{scm/@/output@/-lib@/.scm} contains the predefined string
 tunings.
 Program reference: @internalsref{Tab_note_heads_engraver}.
 
@@ -1988,7 +1988,7 @@ No guitar special effects have been implemented.
 @cindex Banjo tablatures
 
 LilyPond has basic support for five stringed banjo.  When making tablatures
-for five stringed banjo, use the banjo tablature format function to get 
+for five stringed banjo, use the banjo tablature format function to get
 correct
 fret numbers for the fifth string:
 
@@ -2088,9 +2088,9 @@ e16 b16 g16 d16
 @end lilypond
 
 
-Stopped (X) note heads are used in guitar music to signal a place where the 
-guitarist must play a certain note or chord, with its fingers just 
-touching the strings instead of fully pressing them.  This gives the sound a 
+Stopped (X) note heads are used in guitar music to signal a place where the
+guitarist must play a certain note or chord, with its fingers just
+touching the strings instead of fully pressing them.  This gives the sound a
 percussive noise-like sound that still maintains part of the original
 pitch.  It is notated with cross noteheads; this is
 demonstrated in @ref{Special noteheads}.
@@ -2135,16 +2135,16 @@ notes in the appropiate octaves, so you do not need to worry about
 { \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
 @end lilypond
 
-Bagpipe music nominally uses the key of D Major (even though that 
-isn't really true). However, since that is the only key that can be used, 
-the key signature is normally not written out. To set this up correctly, 
-always start your music with @code{\hideKeySignature}. If you for some 
+Bagpipe music nominally uses the key of D Major (even though that
+isn't really true). However, since that is the only key that can be used,
+the key signature is normally not written out. To set this up correctly,
+always start your music with @code{\hideKeySignature}. If you for some
 reason want to show the key signature, you can use @code{\showKeySignature}
 instead.
 
 Some modern music use cross fingering on c and f to flatten those notes.
 This can be indicated by @code{cflat} or @code{fflat}. Similarly, the
-piobaireachd high g can be written @code{gflat} when it occurs in light 
+piobaireachd high g can be written @code{gflat} when it occurs in light
 music.
 
 
@@ -2170,7 +2170,7 @@ notation.
 {
   \hideKeySignature
   \time 3/4
-  \grg \partial 4 a8. d16 
+  \grg \partial 4 a8. d16
   \slurd d2 \grg f8[ e32 d16.]
   \grg f2 \grg f8 e
   \thrwd d2 \grg b4
@@ -2437,7 +2437,7 @@ There are no rests in Gregorian Chant notation; instead, it uses
 
 @seealso
 
-In this manual: @ref{Rests} gives a general introduction into the use of 
+In this manual: @ref{Rests} gives a general introduction into the use of
 rests.
 
 
@@ -2743,34 +2743,34 @@ following table
 {
   \set Score.timing = ##f
   \set Score.barAlways = ##t
-  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph
 #"timesig.neomensural44" }
   s
-  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph
 #"timesig.neomensural22" }
   s
-  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph
 #"timesig.neomensural64" }
   s
-  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph
 #"timesig.neomensural68" }
   \break
-  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph
 #"timesig.neomensural32" }
   s
-  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph
 #"timesig.neomensural34" }
   s
-  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph
 #"timesig.neomensural94" }
   s
-  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph
 #"timesig.neomensural98" }
   \break
-  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph
 #"timesig.neomensural48" }
   s
-  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph 
+  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph
 #"timesig.neomensural24" }
 }
 @end lilypond
@@ -4166,7 +4166,7 @@ switched on by setting @code{suggestAccidentals} to true.
 fis gis
 \set suggestAccidentals = ##t
 ais bis
-@end lilypond 
+@end lilypond
 
 @seealso
 
@@ -4242,7 +4242,7 @@ It is also possible to use continuation lines for repeated figures,
     c4 c c
   }
   \figures {
-    \set useBassFigureExtenders = ##t 
+    \set useBassFigureExtenders = ##t
     <4 6> <3 6> <3 7>
   }
 >>
@@ -4250,7 +4250,7 @@ It is also possible to use continuation lines for repeated figures,
 
 @noindent
 In this case, the extender lines always replace existing figures.
- 
+
 The @code{FiguredBass} context doesn't pay attention to the actual
 bass line. As a consequence, you may have to insert extra figures to
 get extender lines below all notes, and you may have to add @code{\!}
@@ -4258,9 +4258,9 @@ to avoid getting an extender line, e.g.
 
 @lilypond[relative=1]
 <<
-  \new Voice 
+  \new Voice
   \figures {
-    \set useBassFigureExtenders = ##t 
+    \set useBassFigureExtenders = ##t
     <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
   }
   {
@@ -4273,20 +4273,20 @@ to avoid getting an extender line, e.g.
 When using continuation lines, common figures are always put in the
 same vertical position. When this is unwanted, you can insert a rest
 with @code{r}. The rest will clear any previous alignment.  For
-example, you can write 
+example, you can write
 
 @example
   <4 6>8 r8
 @end example
 
 @noindent
-instead of 
+instead of
 @example
   <4 6>4
 @end example
 
 Accidentals and plus signs can appear before or after the numbers,
-depending on the @code{figuredBassAlterationDirection} and 
+depending on the @code{figuredBassAlterationDirection} and
 @code{figuredBassPlusDirection}
 properties
 

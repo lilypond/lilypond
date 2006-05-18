@@ -9,7 +9,7 @@ some error in the sheet music.
 
 When this functionality is active, LilyPond adds hyperlinks to the PDF
 file. These hyperlinks are sent to the web-browser, which opens a
-text-editor with the cursor in the right place. 
+text-editor with the cursor in the right place.
 
 To make this chain work, you should configure your PDF viewer to
 follow hyperlinks using the @file{lilypond-invoke-editor} script

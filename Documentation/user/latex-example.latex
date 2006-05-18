@@ -39,8 +39,8 @@ c d e
 \end{lilypond}
 
 \begin{enumerate}
-\item Vers one.  aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
-\item Vers two.  bbb bbb bbb bbb bbb bbb bbb bbb bbb bbb 
+\item Vers one.  aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa
+\item Vers two.  bbb bbb bbb bbb bbb bbb bbb bbb bbb bbb
 \end{enumerate}
 
 \end{document}

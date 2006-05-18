@@ -69,7 +69,7 @@
 @ref{\NAME\,,,music-glossary}@c
 @findex \NAME\
 @end macro
- 
+
 @end ifhtml
 
 
@@ -80,7 +80,7 @@
 @ref{\NAME\,,,lilypond-internals}@c
 @findex @code{\NAME\}
 @end macro
- 
+
 @macro inputfileref{DIR,NAME}
 @uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
@@ -184,7 +184,7 @@ user manual, @internalsref{\NAME\}
 
 @macro refcommand{WHAT}
 @findex \WHAT\
-@code{\WHAT\} 
+@code{\WHAT\}
 @end macro
 
 @macro commonprop
