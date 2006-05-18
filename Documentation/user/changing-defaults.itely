@@ -424,7 +424,7 @@ example: a @context{Staff} can contain many @context{Voice}s, and a
 @context{Score} can contain many @context{Staff} contexts.
 
 @quotation
-@image{context-example,1600%,,eps}
+@image{context-example,5cm,,}
 @end quotation
 
 Each context has the responsibility for enforcing some notation rules,

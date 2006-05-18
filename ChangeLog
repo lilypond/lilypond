@@ -1,5 +1,8 @@
 2006-05-18  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/user/changing-defaults.itely (Contexts explained):
+	use absolute dimension for @image.
+
 	* Documentation/user/GNUmakefile (OUT_PNG_IMAGES): generate PNG
 	out image for illustration too.
 	($(outdir)/%.png): add more png <-> eps rules. 
