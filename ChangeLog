@@ -1,3 +1,9 @@
+2006-05-18  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/GNUmakefile (OUT_PNG_IMAGES): generate PNG
+	out image for illustration too.
+	($(outdir)/%.png): add more png <-> eps rules. 
+
 2006-05-17  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ various: remove trailing whitespace, cosmetic

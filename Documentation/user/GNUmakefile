@@ -5,13 +5,14 @@ LATEX_FILES =$(call src-wildcard,*.latex)
 # todo: add latex.
 DVI_FILES = $(TELY_FILES:%.tely=$(outdir)/%.dvi)
 
-EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES) README.txt $(ILLUSTRATIONS)
+EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES) README.txt $(EPS_ILLUSTRATIONS)
 
 IMAGES=$(call src-wildcard,*.png)
-ILLUSTRATIONS=context-example.eps
+EPS_ILLUSTRATIONS=context-example.eps
 
-OUT_EPS_IMAGES=$(IMAGES:%.png=$(outdir)/%.eps)
-OUT_PNG_IMAGES=$(IMAGES:%=$(outdir)/%)
+OUT_EPS_IMAGES=$(IMAGES:%.png=$(outdir)/%.eps) $(addprefix $(outdir)/,$(EPS_ILLUSTRATIONS))
+OUT_PNG_IMAGES=$(OUT_EPS_IMAGES:%.eps=%.png)
+
 OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
  $(ITELY_FILES:%.itely=$(outdir)/%.texi)
 HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%.html)\
@@ -150,7 +151,7 @@ $(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 #
 # The split user manual
 #
-$(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
+$(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
@@ -199,8 +200,14 @@ $(outdir)/lilypond.dvi: $(OUT_EPS_IMAGES) $(OUT_PNG_IMAGES)
 $(outdir)/%.png: %.png
 	convert -geometry 50x50% $< $@
 
+$(outdir)/%.png: %.eps
+	convert $< $@
+
 $(outdir)/%.eps: %.png
 	convert $< $@
+
+$(outdir)/%.eps: %.eps
+	cp $< $@
 
 DEEP_HTML_FILES =\
  $(outdir)/lilypond/index.html\
