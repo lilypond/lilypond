@@ -1090,13 +1090,13 @@ where_are_the_whole_beams (SCM beaming)
 /* Return the Y position of the stem-end, given the Y-left, Y-right
    in POS for stem S.  This Y position is relative to S. */
 Real
-Beam::calc_stem_y (Grob *me, Grob *s, Grob ** common,
+Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
 		   Real xl, Real xr,
 		   Drul_array<Real> pos, bool french)
 {
   Real beam_translation = get_beam_translation (me);
 
-  Real r = s->relative_coordinate (common[X_AXIS], X_AXIS) - xl;
+  Real r = stem->relative_coordinate (common[X_AXIS], X_AXIS) - xl;
   Real dy = pos[RIGHT] - pos[LEFT];
   Real dx = xr - xl;
   Real stem_y_beam0 = (dy && dx
@@ -1104,8 +1104,8 @@ Beam::calc_stem_y (Grob *me, Grob *s, Grob ** common,
 		       * dy
 		       : 0) + pos[LEFT];
 
-  Direction my_dir = get_grob_direction (s);
-  SCM beaming = s->get_property ("beaming");
+  Direction my_dir = get_grob_direction (stem);
+  SCM beaming = stem->get_property ("beaming");
 
   Real stem_y = stem_y_beam0;
   if (french)
@@ -1116,13 +1116,13 @@ Beam::calc_stem_y (Grob *me, Grob *s, Grob ** common,
     }
   else
     {
-      Slice bm = Stem::beam_multiplicity (s);
+      Slice bm = Stem::beam_multiplicity (stem);
       if (!bm.is_empty ())
 	stem_y += bm[my_dir] * beam_translation;
     }
 
   Real id = me->relative_coordinate (common[Y_AXIS], Y_AXIS)
-    - s->relative_coordinate (common[Y_AXIS], Y_AXIS);
+    - stem->relative_coordinate (common[Y_AXIS], Y_AXIS);
 
   return stem_y + id;
 }
@@ -1137,8 +1137,9 @@ Beam::set_stem_lengths (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  /* trigger callback. */
+  /* trigger callbacks. */
   (void) me->get_property ("direction");
+  (void) me->get_property ("beaming");
 
   SCM posns = me->get_property ("positions");
   

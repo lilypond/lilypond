@@ -1,3 +1,8 @@
+2006-05-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/beam.cc (set_stem_lengths): trigger 'beaming callback, in
+	case positions is set manually. Backportme.
+
 2006-05-18  Erik Sandberg  <mandolaerik@gmail.com>
 	
 	* scm/ly-syntax-constructors.scm: New file. Converted a few syntax
