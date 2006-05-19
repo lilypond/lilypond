@@ -111,8 +111,12 @@ using namespace std;
 
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
-#define MAKE_SYNTAX_EXPRESSION(name, ...)	\
-  scm_apply_0 (ly_lily_module_constant (name), scm_list (__VA_ARGS__, SCM_UNDEFINED));
+/* ES TODO:
+- Don't use lily module, create a new module instead.
+- delay application of the function
+*/
+#define MAKE_SYNTAX(name, location, ...)	\
+  scm_apply_0 (ly_lily_module_constant (name), scm_list_n (make_input (location), __VA_ARGS__, SCM_UNDEFINED));
 
 Music *property_op_to_music (SCM op);
 SCM context_spec_music (SCM type, SCM id, SCM m, SCM ops, bool create_new);
@@ -864,7 +868,7 @@ Alternative_music:
 		$$ = SCM_EOL;
 	}
 	| ALTERNATIVE '{' Music_list '}' {
-		$$ = $3;
+		$$ = scm_car ($3);
 	}
 	;
 
@@ -872,48 +876,30 @@ Alternative_music:
 Repeated_music:
 	REPEAT simple_string bare_unsigned Music Alternative_music
 	{
-		SCM proc = ly_lily_module_constant ("make-repeat");
-		SCM alts = scm_is_pair ($5) ? scm_car ($5) : SCM_EOL;
-		assert (unsmob_music ($4));
-		SCM mus = scm_call_4 (proc, $2, scm_int2num ($3), $4, alts);
-		Music *r = unsmob_music (mus);
-		r->set_spot (*unsmob_music($4)->origin ());
-		$$ = mus;
+		$$ = MAKE_SYNTAX ("repeat", @$, $2, scm_int2num ($3), $4, $5);
 	}
 	;
 
 Sequential_music:
 	SEQUENTIAL '{' Music_list '}'		{
-		Music *m = MY_MAKE_MUSIC ("SequentialMusic");
-		m->set_property ("elements", scm_car ($3));
-		m->set_spot (@$);
-		$$ = m->unprotect ();
+		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_car ($3));
 	}
 	| '{' Music_list '}'		{
-		Music *m = MY_MAKE_MUSIC ("SequentialMusic");
-		m->set_property ("elements", scm_car ($2));
-		m->set_spot (@$);
-		$$ = m->unprotect ();
+		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_car ($2));
 	}
 	;
 
 Simultaneous_music:
 	SIMULTANEOUS '{' Music_list '}'{
-		Music *m = MY_MAKE_MUSIC ("SimultaneousMusic");
-		m->set_property ("elements", scm_car ($3));
-		m->set_spot (@$);
-		$$ = m->unprotect ();
+		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($3));
 	}
 	| simul_open Music_list simul_close	{
-		Music *m = MY_MAKE_MUSIC ("SimultaneousMusic");
-		m->set_property ("elements", scm_car ($2));
-		m->set_spot (@$);
-		$$ = m->unprotect ();
+		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($2));
 	}
 	;
 
 Simple_music:
-	event_chord		{ $$ = $1; }
+	event_chord
 	| MUSIC_IDENTIFIER
 	| music_property_def
 	| context_change

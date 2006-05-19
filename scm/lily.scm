@@ -245,6 +245,7 @@ The syntax is the same as `define*-public'."
 	    "chord-name.scm"
 
 	    "parser-ly-from-scheme.scm"
+	    "ly-syntax-constructors.scm"
 	    
 	    "define-context-properties.scm"
 	    "translation-functions.scm"
