@@ -56,7 +56,7 @@
 @macro internalsref{NAME}@c
 @c annoying parentheses stripped by add-html-footer.py
 @ref{\NAME\,,,lilypond-internals}@c
-@findex \NAME\
+@vindex \NAME\
 @end macro
 
 @c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
@@ -67,7 +67,7 @@
 @macro rglos{NAME}@c
 @c annoying parentheses stripped by add-html-footer.py
 @ref{\NAME\,,,music-glossary}@c
-@findex \NAME\
+@vindex \NAME\
 @end macro
 
 @end ifhtml
@@ -78,7 +78,7 @@
 
 @macro internalsref{NAME}
 @ref{\NAME\,,,lilypond-internals}@c
-@findex @code{\NAME\}
+@vindex @code{\NAME\}
 @end macro
 
 @macro inputfileref{DIR,NAME}
@@ -87,7 +87,7 @@
 
 @macro rglos{NAME}@c
 @ref{\NAME\,,,music-glossary}@c
-@findex \NAME\
+@vindex \NAME\
 @end macro
 
 @end ifdocbook
@@ -98,7 +98,7 @@
 
 @macro internalsref{NAME}
 @inforef{\NAME\,,lilypond-internals}@c
-@findex \NAME\@c
+@vindex \NAME\@c
 @end macro
 
 @macro inputfileref{DIR,NAME}
@@ -107,7 +107,7 @@
 
 @macro rglos{NAME}@c
 @inforef{\NAME\,,,music-glossary}@c
-@findex \NAME\
+@vindex \NAME\
 @end macro
 
 @macro usermanref{NAME}
@@ -121,7 +121,7 @@
 @iftex
 
 @macro internalsref{NAME}@c
-@findex \NAME\ @c
+@vindex \NAME\ @c
 @code{\NAME\}@c
 @end macro
 
@@ -130,7 +130,7 @@
 @end macro
 
 @macro rglos {NAME}
-@findex \NAME\ @c
+@vindex \NAME\ @c
 @code{\NAME\}@c
 @end macro
 
@@ -159,6 +159,7 @@ user manual, @internalsref{\NAME\}
 
 @end ifnottex
 
+
 @macro refbugs
 @noindent
 @subsubheading Bugs
@@ -179,11 +180,11 @@ user manual, @internalsref{\NAME\}
 
 @macro context{NAME}@c
 @code{\NAME\}@c should use internalsref
-@findex \NAME\@c
+@vindex \NAME\@c
 @end macro
 
 @macro refcommand{WHAT}
-@findex \WHAT\
+@vindex \WHAT\
 @code{\WHAT\}
 @end macro
 
@@ -192,4 +193,10 @@ user manual, @internalsref{\NAME\}
 @subsubheading Commonly tweaked properties
 
 @end macro
+
+@macro funindex {WORD}
+@findex \WORD\
+@kindex \WORD\
+@end macro
+
 

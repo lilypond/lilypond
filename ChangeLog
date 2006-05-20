@@ -1,3 +1,9 @@
+2006-05-19  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/README.txt, lilypond.tely, macros.itexi:
+	update framework for command index.  DOC WRITERS: use @funindex
+	instead of @cindex @code{}.
+
 2006-05-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/beam.cc (set_stem_lengths): trigger 'beaming callback, in

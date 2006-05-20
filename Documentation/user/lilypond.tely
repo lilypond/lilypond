@@ -50,15 +50,12 @@ This document is also available as a
 @end ifhtml
 
 
+@c  This produces the unified index
+@syncodeindex ky cp
+@syncodeindex vr cp
+
 @documentlanguage en
 @documentencoding utf-8
-
-@c FIXME: Index has two alphabetically sorted lists @code vs plain?
-@syncodeindex fn cp
-@syncodeindex ky cp
-@syncodeindex pg cp
-@syncodeindex tp cp
-@syncodeindex vr cp
 
 
 @finalout
@@ -166,6 +163,7 @@ Appendices
 * Example templates::              Ready-made templates.
 * Cheat sheet::                    Summary of LilyPond syntax.
 * GNU Free Documentation License:: License of this document.
+* LilyPond command index::
 * LilyPond index::
 @end menu
 @end ifnottex
@@ -201,6 +199,12 @@ Appendices
 @include examples.itely
 @include cheatsheet.itely
 @include fdl.itexi
+
+
+@node LilyPond command index
+@appendix LilyPond command index
+
+@printindex fn
 
 @node LilyPond index
 @appendix LilyPond index

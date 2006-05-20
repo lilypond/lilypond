@@ -41,6 +41,10 @@ is writtin in formal technical writing style.
 GENERAL GUIDELINES
 
 * Do not forget to create @cindex entries for new sections of text.
+Enter commands with @funindex, i.e.
+@funindex \relative
+do not bother with the @code{} (they are added automatically).  These
+items are added to both the command index and the unified index.
 
 * The use of the word `illegal' is inappropriate in most cases.  Say
   `invalid' instead.
