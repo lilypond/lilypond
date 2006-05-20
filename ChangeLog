@@ -4,6 +4,8 @@
 	update framework for command index.  DOC WRITERS: use @funindex
 	instead of @cindex @code{}.
 
+	* Documentation/user/ various: replace @cindex @code{} => @funindex
+
 2006-05-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/beam.cc (set_stem_lengths): trigger 'beaming callback, in

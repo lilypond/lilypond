@@ -189,7 +189,7 @@ used to apply generic tweaks.
 
 @itemize @bullet
 
-@cindex @code{padding}
+@funindex padding
 @item The @code{padding} property can be set to increase
 (or decrease) the distance between symbols that are printed
 above or below notes.  This applies to all objects with
@@ -218,7 +218,7 @@ is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
 @ref{Constructing a tweak}.
 
-@cindex @code{extra-offset}
+@funindex extra-offset
 @item The @code{extra-offset} property moves objects around
 in the output; it requires a pair of numbers.  The first number
 controls horizontal movement; a positive number will
