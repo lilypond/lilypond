@@ -1,3 +1,8 @@
+2006-05-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/stencil-expression.cc (register_stencil_head): opps, append
+	to cdr of static SCM object. Backportme.
+
 2006-05-19  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/README.txt, lilypond.tely, macros.itexi:

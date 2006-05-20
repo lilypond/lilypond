@@ -11,6 +11,7 @@
 (define (dummy . rest)
   "")
 
+(display (ly:all-stencil-expressions))
 (for-each
  (lambda (x) 
    (module-define! (current-module)

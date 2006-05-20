@@ -820,7 +820,7 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
   Interval pos (0,0);
   if (count < 1)
     return ly_interval2scm (pos);
-  
+
   vector<Real> x_posns;
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
@@ -832,7 +832,7 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
   Grob *lvs = last_visible_stem (me);
 
   Interval ideal (Stem::get_stem_info (fvs).ideal_y_
-		  + fvs->relative_coordinate (commony, Y_AXIS) -my_y,
+		  + fvs->relative_coordinate (commony, Y_AXIS) - my_y,
 		  Stem::get_stem_info (lvs).ideal_y_
 		  + lvs->relative_coordinate (commony, Y_AXIS) - my_y);
 
@@ -1157,8 +1157,7 @@ Beam::set_stem_lengths (SCM smob)
 
   bool gap = false;
   Real thick = 0.0;
-  if (scm_is_number (me->get_property ("gap-count"))
-      && scm_to_int (me->get_property ("gap-count")))
+  if (robust_scm2int (me->get_property ("gap-count"), 0))
     {
       gap = true;
       thick = get_thickness (me);
