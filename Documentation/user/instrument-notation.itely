@@ -1635,7 +1635,7 @@ down = \drummode { bassdrum4 snare8 bd r bd sn4 }
 @end lilypond
 
 The above example shows verbose polyphonic notation.  The short
-polyphonic notation, described in @ref{Polyphony}, can also be used if
+polyphonic notation, described in @ref{Basic polyphony}, can also be used if
 the @internalsref{DrumVoice}s are instantiated by hand first.  For example,
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -4155,6 +4155,7 @@ to chromatically alter notes at their own initiative. This is called
 ``Musica Ficta''. In modern transcriptions, these accidentals are
 usually printed over the note.
 
+@cindex Accidental, musica ficta
 @cindex Musica ficta
 
 Support for such suggested accidentals is included, and can be

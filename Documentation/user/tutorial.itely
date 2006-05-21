@@ -1153,7 +1153,7 @@ Again, these expressions can be nested arbitrarily
 @end lilypond
 
 More features of polyphonic typesetting are described in this manual
-in section @ref{Polyphony}.
+in section @ref{Basic polyphony}.
 
 
 @node Piano staves

@@ -20,6 +20,7 @@ specific notation.
 * Multiple movements::          
 * MIDI output::                 
 * Displaying LilyPond notation::  
+* Other::                       
 @end menu
 
 
@@ -1857,5 +1858,79 @@ a file.
 lilypond file.ly >display.txt
 @end example
 
+
+@node Other
+@section Other
+
+@c  FIXME: yeah, it really needs to be moved soon.  -gp
+@menu
+* Skipping corrected music::    
+* Writing music in parallel::   
+@end menu
+
+@node Skipping corrected music
+@subsection Skipping corrected music
+
+
+@funindex skipTypesetting
+@funindex showLastLength
+
+When entering or copying music, usually only the music near the end (where
+you
+are adding notes) is interesting to view and correct.  To speed up
+this correction process, it is possible to skip typesetting of all but
+the last few measures. This is achieved by putting
+
+@verbatim
+showLastLength = R1*5
+\score { ... }
+@end verbatim
+
+@noindent
+in your source file. This will render only the last 5 measures
+(assuming 4/4 time signature) of every @code{\score} in the input
+file. For longer pieces, rendering only a small part is often an order
+of magnitude quicker than rendering it completely
+
+Skipping parts of a score can be controlled in a more fine-grained
+fashion with the property @code{Score.skipTypesetting}.  When it is
+set, no typesetting is performed at all.
+
+This property is also used to control output to the MIDI file. Note that
+it skips all events, including tempo and instrument changes. You have
+been warned.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+  c8 d
+  \set Score.skipTypesetting = ##t
+  e e e e e e e e
+  \set Score.skipTypesetting = ##f
+  c d b bes a g c2 }
+@end lilypond
+
+In polyphonic music, @code{Score.skipTypesetting} will affect all
+voices and staves, saving even more time.
+
+
+@node Writing music in parallel
+@subsection Writing music in parallel
+@cindex Writing music in parallel
+@cindex Interleaved music
+
+Music for multiple parts can be interleaved
+
+@lilypond[quote,fragment,verbatim]
+\parallelMusic #'(voiceA voiceB) {
+  r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
+  c'2                                c'2                                |
+  r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
+  c'2                                c'2                                |
+}
+\new StaffGroup <<
+  \new Staff \new Voice \voiceA
+  \new Staff \new Voice \voiceB
+>>
+@end lilypond
 
 

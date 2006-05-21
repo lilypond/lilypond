@@ -1,3 +1,9 @@
+2006-05-21  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/basic-notation.itely: reorg.
+
+	* Documentation/user/ various: minor fixes.
+
 2006-05-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/stencil-expression.cc (register_stencil_head): opps, append

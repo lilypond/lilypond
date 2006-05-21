@@ -11,59 +11,38 @@
 This chapter explains how to use basic notation features.
 
 @menu
-* Note entry::                  
-* Alternate music entry::       
+* Pitches::                     
+* Rhythms::                     
+* Multiple notes at once::      
 * Staff notation::              
 * Connecting notes::            
 * Expressive marks::            
-* Polyphony::                   
 * Repeats::                     
 @end menu
 
 
 
-@node Note entry
-@section Note entry
-@cindex Note entry
+@node Pitches
+@section Pitches
 
-This section is about basic notation elements like notes, rests, and
-related constructs, such as stems, tuplets and ties.
+This section discusses how to specify the pitch of notes.
 
 @menu
-* Notes::                       
-* Pitches::                     
+* Normal pitches::              
+* Accidentals::                 
 * Cautionary accidentals::      
 * Micro tones::                 
-* Chords::                      
+* Notes names in other languages::  
+* Relative octaves::            
+* Octave check::                
+* Transpose::                   
 * Rests::                       
 * Skips::                       
-* Durations::                   
-* Augmentation dots::           
-* Tuplets::                     
-* Scaling durations::           
-* Stems::                       
 @end menu
 
 
-@node Notes
-@subsection Notes
-
-@cindex Note specification
-@cindex entering notes
-
-A note is printed by specifying its pitch and duration,
-
-@lilypond[quote,verbatim,ragged-right,fragment]
-cis'4 d'8 e'16 c'16
-@end lilypond
-
-@seealso
-
-This manual: @ref{Pitches}, @ref{Durations}
-
-
-@node Pitches
-@subsection Pitches
+@node Normal pitches
+@subsection Normal pitches
 
 @cindex Pitch names
 @cindex pitches
@@ -78,9 +57,10 @@ c d e f g a b c'
 
 The note name @code{c} is engraved one octave below middle C.
 
-@c this should be scored with a treble clef and
-@c four leger lines below the staff.
 @lilypond[quote,fragment,verbatim,ragged-right]
+\clef treble
+c1
+\clef bass
 c1
 @end lilypond
 
@@ -101,15 +81,19 @@ c, c,, e, g d,, d, d c
 
 An alternate method may be used to declare which octave to
 engrave a pitch; this method does not require as many
-octave specifications (`@code{'}' and `@code{,}').  See
+octave specifications (@code{'} and @code{,}).  See
 @ref{Relative octaves}.
 
+
+@node Accidentals
+@subsection Accidentals
+
 @cindex note names, Dutch
+@cindex note names, default
 
 A sharp is formed by adding @code{-is} to the end of a pitch name and
 a flat is formed by adding @code{-es}
 
-@c avoid engraving naturals by crossing bar lines; we're not ready for them
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a2 ais a aes
 @end lilypond
@@ -133,29 +117,6 @@ a4 aes a2
 @end lilypond
 
 
-
-There are predefined sets of note names for various other languages.
-To use them, include the language specific init file.  For
-example, add @code{\include "english.ly"} to the top of the input
-file.  The available language files
-and the note names they define are
-
-@anchor{note name}
-@anchor{note names}
-@example
-                        Note Names               sharp       flat
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
-                                               -x (double)
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
-@end example
-
-
 @commonprop
 
 In accordance with standard typesetting rules, a natural sign is printed
@@ -167,16 +128,6 @@ cancelled.  To change this behavior, use
 ceses4 ces cis c
 \set Staff.extraNatural = ##f
 ceses4 ces cis c
-@end lilypond
-
-@cindex Musica ficta
-
-Suggested accidentals (used in notating musica ficta) may
-be written with @code{suggestAccidentals}
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-\set suggestAccidentals = ##t
-ais4 bis
 @end lilypond
 
 
@@ -216,6 +167,7 @@ cis cis cis! cis? c c? c! c
 The automatic production of accidentals can be tuned in many
 ways.  For more information, see @ref{Automatic accidentals}.
 
+
 @node Micro tones
 @subsection Micro tones
 
@@ -240,26 +192,253 @@ three-quarter flats, so LilyPond's symbol does not conform to any
 standard.
 
 
-@node Chords
-@subsection Chords
+@node Notes names in other languages
+@subsection Notes names in other languages
 
-@cindex Chords
+There are predefined sets of note names for various other languages.
+To use them, include the language specific init file.  For
+example, add @code{\include "english.ly"} to the top of the input
+file.  The available language files
+and the note names they define are
 
-A chord is formed by a enclosing a set of pitches in @code{<} and
-@code{>}.  A chord may be followed by a duration, and a set of
-articulations, just like simple notes
+@c  what about micro-tunes, double-sharps, and double-flats?  add
+@c  more clumns to the table?
+@c  Oh, and should this be made into a multitable?
+@cindex note names, other languages
+@example
+                        Note Names               sharp       flat
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
+                                               -x (double)
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
+@end example
 
-@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
-<c e g>4 <c>8
+
+@node Relative octaves
+@subsection Relative octaves
+
+@cindex Relative
+@cindex Relative octave specification
+@funindex \relative
+
+Octaves are specified by adding @code{'} and @code{,} to pitch names.
+When you copy existing music, it is easy to accidentally put a pitch
+in the wrong octave and hard to find such an error.  The relative
+octave mode prevents these errors by making the mistakes much
+larger: a single error puts the rest of the piece off by one octave
+
+@example
+\relative @var{startpitch} @var{musicexpr}
+@end example
+
+@noindent
+or
+
+@example
+\relative @var{musicexpr}
+@end example
+
+@noindent
+@code{c'} is used as the default if no starting pitch is defined.
+
+The octave of notes that appear in @var{musicexpr} are calculated as
+follows: if no octave changing marks are used, the basic interval
+between this and the last note is always taken to be a fourth or
+less.  This distance is determined without regarding alterations; a
+@code{fisis} following a @code{ceses} will be put above the
+@code{ceses}.  In other words, a doubly-augmented fourth is considered
+a smaller interval than a diminished fifth, even though the
+doubly-augmented fourth spans seven semitones while the diminished
+fifth only spans six semitones.
+
+The octave changing marks @code{'} and @code{,} can be added to raise
+or lower the pitch by an extra octave.  Upon entering relative mode,
+an absolute starting pitch can be specified that will act as the
+predecessor of the first note of @var{musicexpr}.  If no starting pitch
+is specified, then middle C is used as a start.
+
+Here is the relative mode shown in action
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+  b c d c b c bes a
+}
 @end lilypond
 
-For more information about chords, see @ref{Chord names}.
+Octave changing marks are used for intervals greater than a fourth
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c'' {
+  c g c f, c' a, e''
+}
+@end lilypond
+
+If the preceding item is a chord, the first note of the chord is used
+to determine the first note of the next chord
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' {
+  c <c e g>
+  <c' e g>
+  <c, e' g>
+}
+@end lilypond
+
+The pitch after the @code{\relative} contains a note name.
+
+The relative conversion will not affect @code{\transpose},
+@code{\chordmode} or @code{\relative} sections in its argument.  To use
+relative within transposed music, an additional @code{\relative} must
+be placed inside @code{\transpose}.
+
+
+@node Octave check
+@subsection Octave check
+
+@cindex Octave check
+
+Octave checks make octave errors easier to correct: a note may be
+followed by @code{=}@var{quotes} which indicates what its absolute
+octave should be.  In the following example,
+
+@example
+\relative c'' @{ c='' b=' d,='' @}
+@end example
+
+@noindent
+the @code{d} will generate a warning, because a @code{d''} is expected
+(because @code{b'} to @code{d''} is only a third), but a @code{d'} is
+found.  In the output, the octave is corrected to be a @code{d''} and
+the next note is calculated relative to @code{d''} instead of @code{d'}.
+
+There is also an octave check that produces no visible output.  The syntax
+
+@example
+\octave @var{pitch}
+@end example
+
+This checks that @var{pitch} (without quotes) yields @var{pitch} (with
+quotes) in @code{\relative} mode.  If not, a warning is printed, and the
+octave is corrected.  The @var{pitch} is not printed as a note.
+
+In the example below, the first check passes without incident, since
+the @code{e} (in relative mode) is within a fifth of @code{a'}.  However,
+the second check produces a warning, since the @code{e} is not within
+a fifth of @code{b'}.  The warning message is printed, and the octave
+is adjusted so that the following notes are in the correct octave
+once again.
+
+@example
+\relative c' @{
+  e
+  \octave a'
+  \octave b'
+@}
+@end example
+
+
+The octave of a note following an octave check is determined with
+respect to the note preceding it.  In the next fragment, the last note
+is an @code{a'}, above middle C.  That means that the @code{\octave}
+check passes successfully, so the check could be deleted without changing
+the output of the piece.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c' {
+  e
+  \octave b
+  a
+}
+@end lilypond
+
+
+@node Transpose
+@subsection Transpose
+
+@cindex Transpose
+@cindex Transposition of pitches
+@funindex \transpose
+
+A music expression can be transposed with @code{\transpose}.  The
+syntax is
+@example
+\transpose @var{from} @var{to} @var{musicexpr}
+@end example
+
+This means that @var{musicexpr} is transposed by the interval between
+the pitches @var{from} and @var{to}: any note with pitch @code{from}
+is changed to @code{to}.
+
+For example, consider a piece written in the key of D-major.  If
+this piece is a little too low for its performer, it can be
+transposed up to E-major with
+@example
+\transpose d e @dots{}
+@end example
+
+Consider a part written for violin (a C instrument).  If
+this part is to be played on the A clarinet (for which an
+A is notated as a C, and which sounds a minor third lower
+than notated), the following
+transposition will produce the appropriate part
+
+@example
+\transpose a c @dots{}
+@end example
+
+@code{\transpose} distinguishes between enharmonic pitches: both
+@code{\transpose c cis} or @code{\transpose c des} will transpose up
+half a tone.  The first version will print sharps and the second
+version will print flats
+
+@lilypond[quote,ragged-right,verbatim]
+mus = { \key d \major cis d fis g }
+\new Staff {
+  \clef "F" \mus
+  \clef "G"
+  \transpose c g' \mus
+  \transpose c f' \mus
+}
+@end lilypond
+
+@code{\transpose} may also be used to input written notes for a
+transposing instrument.  Pitches are normally entered into LilyPond
+in C (or ``concert pitch''), but they may be entered in another
+key.  For example, when entering music for a B-flat trumpet which
+begins on concert D, one would write
+
+@example
+\transpose c bes @{ e4 @dots{} @}
+@end example
+
+To print this music in B-flat again (i.e. producing a trumpet part,
+instead of a concert pitch conductor's score) you would wrap the
+existing music with another @code{transpose}
+
+@example
+\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
+@end example
+
+
+@seealso
+
+Program reference: @internalsref{TransposedMusic}.
+
+
+@refbugs
+
+If you want to use both @code{\transpose} and @code{\relative},
+you must put @code{\transpose} outside of @code{\relative}, since
+@code{\relative} will have no effect music that appears inside a
+@code{\transpose}.
 
 
 @node Rests
 @subsection Rests
 @cindex Rests
-
 
 @funindex \rest
 @funindex r
@@ -336,6 +515,23 @@ The fragment @code{@{ \skip 4 @} } would produce an empty page.
 @seealso
 
 Program reference: @internalsref{SkipMusic}.
+
+
+
+@node Rhythms
+@section Rhythms
+
+This section discusses rhythms, durations, and bars.
+
+@menu
+* Durations::                   
+* Augmentation dots::           
+* Tuplets::                     
+* Scaling durations::           
+* Bar check::                   
+* Barnumber check::             
+* Automatic note splitting::    
+@end menu
 
 
 @node Durations
@@ -533,278 +729,6 @@ b16*4 c4
 This manual: @ref{Tuplets}
 
 
-@node Stems
-@subsection Stems
-
-Whenever a note is found, a @internalsref{Stem} object is created
-automatically.  For whole notes and rests, they are also created but
-made invisible.
-
-@refcommands
-
-@funindex \stemUp
-@code{\stemUp},
-@funindex \stemDown
-@code{\stemDown},
-@funindex \stemNeutral
-@code{\stemNeutral}.
-
-
-@commonprop
-
-To change the direction of stems in the middle of the staff, use
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
-@end lilypond
-
-
-@node Alternate music entry
-@section Alternate music entry
-@cindex Music entry
-
-This section deals with tricks and features of the input language that
-were added solely to help entering music and finding and correcting
-mistakes.  There are also external tools that make debugging easier.
-See @ref{Point and click} for more information.
-
-It is also possible to enter and edit music using other programs, such as
-GUI interfaces or MIDI sequencers.  Refer to the LilyPond
-website for more information.
-
-@menu
-* Relative octaves::            
-* Octave check::                
-* Transpose::                   
-* Bar check::                   
-* Barnumber check::             
-* Skipping corrected music::    
-* Automatic note splitting::    
-* Writing music in parallel::   
-@end menu
-
-
-@node Relative octaves
-@subsection Relative octaves
-
-@cindex Relative
-@cindex Relative octave specification
-@funindex \relative
-
-Octaves are specified by adding @code{'} and @code{,} to pitch names.
-When you copy existing music, it is easy to accidentally put a pitch
-in the wrong octave and hard to find such an error.  The relative
-octave mode prevents these errors by making the mistakes much
-larger: a single error puts the rest of the piece off by one octave
-
-@example
-\relative @var{startpitch} @var{musicexpr}
-@end example
-
-@noindent
-or
-
-@example
-\relative @var{musicexpr}
-@end example
-
-@noindent
-@code{c'} is used as the default if no starting pitch is defined.
-
-The octave of notes that appear in @var{musicexpr} are calculated as
-follows: if no octave changing marks are used, the basic interval
-between this and the last note is always taken to be a fourth or
-less.  This distance is determined without regarding alterations; a
-@code{fisis} following a @code{ceses} will be put above the
-@code{ceses}.  In other words, a doubly-augmented fourth is considered
-a smaller interval than a diminished fifth, even though the
-doubly-augmented fourth spans seven semitones while the diminished
-fifth only spans six semitones.
-
-The octave changing marks @code{'} and @code{,} can be added to raise
-or lower the pitch by an extra octave.  Upon entering relative mode,
-an absolute starting pitch can be specified that will act as the
-predecessor of the first note of @var{musicexpr}.  If no starting pitch
-is specified, then middle C is used as a start.
-
-Here is the relative mode shown in action
-@lilypond[quote,fragment,ragged-right,verbatim]
-\relative c'' {
-  b c d c b c bes a
-}
-@end lilypond
-
-Octave changing marks are used for intervals greater than a fourth
-@lilypond[quote,ragged-right,fragment,verbatim]
-\relative c'' {
-  c g c f, c' a, e''
-}
-@end lilypond
-
-If the preceding item is a chord, the first note of the chord is used
-to determine the first note of the next chord
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\relative c' {
-  c <c e g>
-  <c' e g>
-  <c, e' g>
-}
-@end lilypond
-
-The pitch after the @code{\relative} contains a note name.
-
-The relative conversion will not affect @code{\transpose},
-@code{\chordmode} or @code{\relative} sections in its argument.  To use
-relative within transposed music, an additional @code{\relative} must
-be placed inside @code{\transpose}.
-
-
-@node Octave check
-@subsection Octave check
-
-@cindex Octave check
-
-Octave checks make octave errors easier to correct: a note may be
-followed by @code{=}@var{quotes} which indicates what its absolute
-octave should be.  In the following example,
-
-@example
-\relative c'' @{ c='' b=' d,='' @}
-@end example
-
-@noindent
-the @code{d} will generate a warning, because a @code{d''} is expected
-(because @code{b'} to @code{d''} is only a third), but a @code{d'} is
-found.  In the output, the octave is corrected to be a @code{d''} and
-the next note is calculated relative to @code{d''} instead of @code{d'}.
-
-There is also an octave check that produces no visible output.  The syntax
-
-@example
-\octave @var{pitch}
-@end example
-
-This checks that @var{pitch} (without quotes) yields @var{pitch} (with
-quotes) in \relative mode.  If not, a warning is printed, and the
-octave is corrected.  The @var{pitch} is not printed as a note.
-
-In the example below, the first check passes without incident, since
-the @code{e} (in relative mode) is within a fifth of @code{a'}.  However,
-the second check produces a warning, since the @code{e} is not within
-a fifth of @code{b'}.  The warning message is printed, and the octave
-is adjusted so that the following notes are in the correct octave
-once again.
-
-@example
-\relative c' @{
-  e
-  \octave a'
-  \octave b'
-@}
-@end example
-
-
-The octave of a note following an octave check is determined with
-respect to the note preceding it.  In the next fragment, the last note
-is an @code{a'}, above middle C.  That means that the @code{\octave}
-check passes successfully, so the check could be deleted without changing
-the output of the piece.
-
-@lilypond[quote,ragged-right,verbatim,fragment]
-\relative c' {
-  e
-  \octave b
-  a
-}
-@end lilypond
-
-
-@node Transpose
-@subsection Transpose
-
-@cindex Transpose
-@cindex transposition of pitches
-@funindex \transpose
-
-A music expression can be transposed with @code{\transpose}.  The
-syntax is
-@example
-\transpose @var{from} @var{to} @var{musicexpr}
-@end example
-
-This means that @var{musicexpr} is transposed by the interval between
-the pitches @var{from} and @var{to}: any note with pitch @code{from}
-is changed to @code{to}.
-
-For example, consider a piece written in the key of D-major.  If
-this piece is a little too low for its performer, it can be
-transposed up to E-major with
-@example
-\transpose d e @dots{}
-@end example
-
-Consider a part written for violin (a C instrument).  If
-this part is to be played on the A clarinet (for which an
-A is notated as a C, and which sounds a minor third lower
-than notated), the following
-transposition will produce the appropriate part
-
-@example
-\transpose a c @dots{}
-@end example
-
-@code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose c cis} or @code{\transpose c des} will transpose up
-half a tone.  The first version will print sharps and the second
-version will print flats
-
-@lilypond[quote,ragged-right,verbatim]
-mus = { \key d \major cis d fis g }
-\new Staff {
-  \clef "F" \mus
-  \clef "G"
-  \transpose c g' \mus
-  \transpose c f' \mus
-}
-@end lilypond
-
-@code{\transpose} may also be used to input written notes for a
-transposing instrument.  Pitches are normally entered into LilyPond
-in C (or ``concert pitch''), but they may be entered in another
-key.  For example, when entering music for a B-flat trumpet which
-begins on concert D, one would write
-
-@example
-\transpose c bes @{ e4 @dots{} @}
-@end example
-
-To print this music in B-flat again (i.e. producing a trumpet part,
-instead of a concert pitch conductor's score) you would wrap the
-existing music with another @code{transpose}
-
-@example
-\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
-@end example
-
-
-@seealso
-
-Program reference: @internalsref{TransposedMusic}.
-
-
-@refbugs
-
-If you want to use both @code{\transpose} and @code{\relative},
-you must put @code{\transpose} outside of @code{\relative}, since
-@code{\relative} will have no effect music that appears inside a
-@code{\transpose}.
-
-
 @node Bar check
 @subsection Bar check
 
@@ -865,51 +789,6 @@ will print a warning if the @code{currentBarNumber} is not 123 when it
 is processed.
 
 
-@node Skipping corrected music
-@subsection Skipping corrected music
-
-
-@funindex skipTypesetting
-@funindex showLastLength
-
-When entering or copying music, usually only the music near the end (where
-you
-are adding notes) is interesting to view and correct.  To speed up
-this correction process, it is possible to skip typesetting of all but
-the last few measures. This is achieved by putting
-
-@verbatim
-showLastLength = R1*5
-\score { ... }
-@end verbatim
-
-@noindent
-in your source file. This will render only the last 5 measures
-(assuming 4/4 time signature) of every @code{\score} in the input
-file. For longer pieces, rendering only a small part is often an order
-of magnitude quicker than rendering it completely
-
-Skipping parts of a score can be controlled in a more fine-grained
-fashion with the property @code{Score.skipTypesetting}.  When it is
-set, no typesetting is performed at all.
-
-This property is also used to control output to the MIDI file. Note that
-it skips all events, including tempo and instrument changes. You have
-been warned.
-
-@lilypond[quote,fragment,ragged-right,verbatim]
-\relative c'' {
-  c8 d
-  \set Score.skipTypesetting = ##t
-  e e e e e e e e
-  \set Score.skipTypesetting = ##f
-  c d b bes a g c2 }
-@end lilypond
-
-In polyphonic music, @code{Score.skipTypesetting} will affect all
-voices and staves, saving even more time.
-
-
 @node Automatic note splitting
 @subsection Automatic note splitting
 
@@ -952,25 +831,342 @@ Examples: @inputfileref{input/@/regression,completion@/-heads@/.ly}.
 Program reference: @internalsref{Completion_heads_engraver}.
 
 
-@node Writing music in parallel
-@subsection Writing music in parallel
-@cindex Writing music in parallel
-@cindex Interleaved music
+@node Multiple notes at once
+@section Multiple notes at once
 
-Music for multiple parts can be interleaved
+Polyphony in music refers to having more than one voice occurring in
+a piece of music.  Polyphony in LilyPond refers to having more than
+one voice on the same staff.
 
-@lilypond[quote,fragment,verbatim]
-\parallelMusic #'(voiceA voiceB) {
-  r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
-  c'2                                c'2                                |
-  r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
-  c'2                                c'2                                |
-}
-\new StaffGroup <<
-  \new Staff \new Voice \voiceA
-  \new Staff \new Voice \voiceB
->>
+@menu
+* Chords::                      
+* Stems::                       
+* Basic polyphony::             
+* Explicitly instantiating voices::  
+* Collision Resolution::        
+@end menu
+
+
+@node Chords
+@subsection Chords
+
+@cindex Chords
+
+A chord is formed by a enclosing a set of pitches in @code{<} and
+@code{>}.  A chord may be followed by a duration, and a set of
+articulations, just like simple notes
+
+@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+<c e g>4 <c>8
 @end lilypond
+
+For more information about chords, see @ref{Chord names}.
+
+
+@node Stems
+@subsection Stems
+
+Whenever a note is found, a @internalsref{Stem} object is created
+automatically.  For whole notes and rests, they are also created but
+made invisible.
+
+@refcommands
+
+@funindex \stemUp
+@code{\stemUp},
+@funindex \stemDown
+@code{\stemDown},
+@funindex \stemNeutral
+@code{\stemNeutral}.
+
+
+@commonprop
+
+To change the direction of stems in the middle of the staff, use
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+a4 b c b
+\override Stem #'neutral-direction = #up
+a4 b c b
+\override Stem #'neutral-direction = #down
+a4 b c b
+@end lilypond
+
+
+@node Basic polyphony
+@subsection Basic polyphony
+
+@cindex polyphony
+
+The easiest way to enter fragments with more than one voice on a staff
+is to enter each voice as a sequence (with @code{@{...@}}), and combine
+them simultaneously, separating the voices with @code{\\}
+
+@funindex \\
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  c16 d e f
+  <<
+    { g4 f e | d2 e2 } \\
+    { r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
+    { s2. | s4 b4 c2 }
+  >>
+}
+@end lilypond
+
+The separator causes @internalsref{Voice} contexts@footnote{Polyphonic
+voices are sometimes called ``layers'' in other notation packages}
+@cindex layers
+to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
+each of these contexts, vertical direction of slurs, stems, etc., is set
+appropriately.
+
+These voices are all separate from the voice that contains the notes just
+outside the @code{<< \\ >>} construct.  This should be noted when making
+changes at the voice level.  This also means that slurs and ties cannot go
+into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
+from separate @code{<< \\ >>} constructs on the same staff are the the
+same voice.  Here is the same example, with different noteheads for each
+voice.  Note that the change to the note-head style in the main voice does
+not affect
+the inside of the @code{<< \\ >>} constructs.  Also, the change to the
+second
+voice in the first @code{<< \\ >>} construct is effective in the second
+@code{<< \\ >>}, and the voice is tied across the two constructs.
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  c16 d e f
+  <<
+    { g4 f e } \\
+    { \override NoteHead #'style = #'triangle
+    r8 e4 d c8 ~ }
+  >> |
+  <<
+    { d2 e2 } \\
+    { c8 b16 a b8 g ~ g2 } \\
+    { \override NoteHead #'style = #'slash s4 b4 c2 }
+  >>
+}
+@end lilypond
+
+Polyphony does not change the relationship of notes within a
+@code{\relative @{ @}} block.  Each note is calculated relative
+to the note immediately preceding it.
+
+@example
+\relative @{ noteA << noteB \\ noteC >> noteD @}
+@end example
+
+@code{noteC} is relative to @code{noteB}, not @code{noteA};
+@code{noteD} is relative to @code{noteC}, not @code{noteB} or
+@code{noteA}.
+
+@node Explicitly instantiating voices
+@subsection Explicitly instantiating voices
+
+@internalsref{Voice} contexts can also be instantiated manually
+inside a @code{<< >>} block to create polyphonic music, using
+@code{\voiceOne}, up to @code{\voiceFour} to assign stem directions
+and a horizontal shift for each part.
+
+Specifically,
+@example
+<< \upper \\ \lower >>
+@end example
+
+@noindent
+is equivalent to
+
+@example
+<<
+  \new Voice = "1" @{ \voiceOne \upper @}
+  \new Voice = "2" @{ \voiceTwo \lower @}
+>>
+@end example
+
+The @code{\voiceXXX} commands set the direction of stems, slurs, ties,
+articulations, text annotations, augmentation dots of dotted
+notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree} make
+these objects point upwards, while @code{\voiceTwo} and @code{\voiceFour}
+make them point downwards.
+The command @code{\oneVoice} will revert back to the normal setting.
+
+An expression that appears directly inside a @code{<< >>} belongs to
+the main voice.  This is useful when extra voices appear while the main
+voice is playing.  Here is a more correct rendition of the example from
+the previous section.  The crossed noteheads demonstrate that the main
+melody is now in a single voice context.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  c16 d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2 }
+    \new Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. | s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+The correct definition of the voices allows the melody to be slurred.
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+Avoiding the @code{\\} separator also allows nesting polyphony
+constructs, which in some case might be a more natural way to typeset
+the music.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice { \voiceThree
+          s4 b4 c2
+          \oneVoice
+        }
+      >>
+    \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+
+@node Collision Resolution
+@subsection Collision Resolution
+
+Normally, note heads with a different number of dots are not merged, but
+when the object property @code{merge-differently-dotted} is set in
+the @internalsref{NoteCollision} object, they are merged
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Voice << {
+  g8 g8
+  \override Staff.NoteCollision
+    #'merge-differently-dotted = ##t
+  g8 g8
+} \\ { g8.[ f16] g8.[ f16] } >>
+@end lilypond
+
+Similarly, you can merge half note heads with eighth notes, by setting
+@code{merge-differently-headed}
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\new Voice << {
+  c8 c4.
+  \override Staff.NoteCollision
+    #'merge-differently-headed = ##t
+c8 c4. } \\ { c2 c2 } >>
+@end lilypond
+
+LilyPond also vertically shifts rests that are opposite of a stem,
+for example
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new Voice << c''4 \\ r4 >>
+@end lilypond
+
+
+@refcommands
+
+@funindex \oneVoice
+@code{\oneVoice},
+@funindex \voiceOne
+@code{\voiceOne},
+@funindex \voiceTwo
+@code{\voiceTwo},
+@funindex \voiceThree
+@code{\voiceThree},
+@funindex \voiceFour
+@code{\voiceFour}.
+
+@funindex \shiftOn
+@code{\shiftOn},
+@funindex \shiftOnn
+@code{\shiftOnn},
+@funindex \shiftOnnn
+@code{\shiftOnnn},
+@funindex \shiftOff
+@code{\shiftOff}: these commands specify in what chords of the current
+voice should be shifted.  The outer voices (normally: voice one and
+two) have @code{\shiftOff}, while the inner voices (three and four)
+have @code{\shiftOn}.  @code{\shiftOnn} and @code{\shiftOnnn} define
+further shift levels.
+
+When LilyPond cannot cope, the @code{force-hshift}
+property of the @internalsref{NoteColumn} object and pitched rests can
+be used to override typesetting decisions.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative <<
+{
+  <d g>
+  <d g>
+} \\ {
+  <b f'>
+  \once \override NoteColumn #'force-hshift = #1.7
+  <b f'>
+} >>
+@end lilypond
+
+
+@seealso
+
+Program reference: the objects responsible for resolving collisions are
+@internalsref{NoteCollision} and @internalsref{RestCollision}.
+
+Examples:
+@inputfileref{input/@/regression,collision@/-dots@/.ly},
+@inputfileref{input/@/regression,collision@/-head-chords@/.ly},
+@inputfileref{input/@/regression,collision@/-heads@/.ly},
+@inputfileref{input/@/regression,collision@/-mesh@/.ly}, and
+@inputfileref{input/@/regression,collisions@/.ly}.
+
+
+@refbugs
+
+When using @code{merge-differently-headed} with an upstem eighth or a
+shorter note, and a downstem half note, the eighth note gets the wrong
+offset.
+
+There is no support for clusters where the same note occurs with
+different accidentals in the same chord.  In this case, it is
+recommended to use enharmonic transcription, or to use special cluster
+notation (see @ref{Clusters}).
+
 
 
 @node Staff notation
@@ -2552,294 +2748,6 @@ It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @internalsref{PianoStaff} at the same point in time.
 
 
-
-@node Polyphony
-@section Polyphony
-
-Polyphony in music refers to having more than one voice occurring in
-a piece of music.  Polyphony in LilyPond refers to having more than
-one voice on the same staff.
-
-@menu
-* Basic polyphony::             
-* Explicitly instantiating voices::  
-* Collision Resolution::        
-@end menu
-
-
-@node Basic polyphony
-@subsection Basic polyphony
-
-@cindex polyphony
-
-The easiest way to enter fragments with more than one voice on a staff
-is to enter each voice as a sequence (with @code{@{...@}}), and combine
-them simultaneously, separating the voices with @code{\\}
-
-@funindex \\
-
-@lilypond[quote,verbatim,fragment]
-\new Staff \relative c' {
-  c16 d e f
-  <<
-    { g4 f e | d2 e2 } \\
-    { r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
-    { s2. | s4 b4 c2 }
-  >>
-}
-@end lilypond
-
-The separator causes @internalsref{Voice} contexts@footnote{Polyphonic
-voices are sometimes called ``layers'' in other notation packages}
-@cindex layers
-to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
-each of these contexts, vertical direction of slurs, stems, etc., is set
-appropriately.
-
-These voices are all separate from the voice that contains the notes just
-outside the @code{<< \\ >>} construct.  This should be noted when making
-changes at the voice level.  This also means that slurs and ties cannot go
-into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
-from separate @code{<< \\ >>} constructs on the same staff are the the
-same voice.  Here is the same example, with different noteheads for each
-voice.  Note that the change to the note-head style in the main voice does
-not affect
-the inside of the @code{<< \\ >>} constructs.  Also, the change to the
-second
-voice in the first @code{<< \\ >>} construct is effective in the second
-@code{<< \\ >>}, and the voice is tied across the two constructs.
-
-@lilypond[quote,verbatim,fragment]
-\new Staff \relative c' {
-  \override NoteHead #'style = #'cross
-  c16 d e f
-  <<
-    { g4 f e } \\
-    { \override NoteHead #'style = #'triangle
-    r8 e4 d c8 ~ }
-  >> |
-  <<
-    { d2 e2 } \\
-    { c8 b16 a b8 g ~ g2 } \\
-    { \override NoteHead #'style = #'slash s4 b4 c2 }
-  >>
-}
-@end lilypond
-
-Polyphony does not change the relationship of notes within a
-@code{\relative @{ @}} block.  Each note is calculated relative
-to the note immediately preceding it.
-
-@example
-\relative @{ noteA << noteB \\ noteC >> noteD @}
-@end example
-
-@code{noteC} is relative to @code{noteB}, not @code{noteA};
-@code{noteD} is relative to @code{noteC}, not @code{noteB} or
-@code{noteA}.
-
-@node Explicitly instantiating voices
-@subsection Explicitly instantiating voices
-
-@internalsref{Voice} contexts can also be instantiated manually
-inside a @code{<< >>} block to create polyphonic music, using
-@code{\voiceOne}, up to @code{\voiceFour} to assign stem directions
-and a horizontal shift for each part.
-
-Specifically,
-@example
-<< \upper \\ \lower >>
-@end example
-
-@noindent
-is equivalent to
-
-@example
-<<
-  \new Voice = "1" @{ \voiceOne \upper @}
-  \new Voice = "2" @{ \voiceTwo \lower @}
->>
-@end example
-
-The @code{\voiceXXX} commands set the direction of stems, slurs, ties,
-articulations, text annotations, augmentation dots of dotted
-notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree} make
-these objects point upwards, while @code{\voiceTwo} and @code{\voiceFour}
-make them point downwards.
-The command @code{\oneVoice} will revert back to the normal setting.
-
-An expression that appears directly inside a @code{<< >>} belongs to
-the main voice.  This is useful when extra voices appear while the main
-voice is playing.  Here is a more correct rendition of the example from
-the previous section.  The crossed noteheads demonstrate that the main
-melody is now in a single voice context.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  \override NoteHead #'style = #'cross
-  c16 d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2 }
-    \new Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
-      \oneVoice
-    }
-    \new Voice { \voiceThree
-      s2. | s4 b4 c2
-      \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
-
-The correct definition of the voices allows the melody to be slurred.
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  c16^( d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2) }
-    \context Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
-      \oneVoice
-    }
-    \new Voice { \voiceThree
-      s2. s4 b4 c2
-      \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
-
-Avoiding the @code{\\} separator also allows nesting polyphony
-constructs, which in some case might be a more natural way to typeset
-the music.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  c16^( d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2) }
-    \context Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ |
-      <<
-        {c8 b16 a b8 g ~ g2}
-        \new Voice { \voiceThree
-          s4 b4 c2
-          \oneVoice
-        }
-      >>
-    \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
-
-
-@node Collision Resolution
-@subsection Collision Resolution
-
-Normally, note heads with a different number of dots are not merged, but
-when the object property @code{merge-differently-dotted} is set in
-the @internalsref{NoteCollision} object, they are merged
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-\new Voice << {
-  g8 g8
-  \override Staff.NoteCollision
-    #'merge-differently-dotted = ##t
-  g8 g8
-} \\ { g8.[ f16] g8.[ f16] } >>
-@end lilypond
-
-Similarly, you can merge half note heads with eighth notes, by setting
-@code{merge-differently-headed}
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\new Voice << {
-  c8 c4.
-  \override Staff.NoteCollision
-    #'merge-differently-headed = ##t
-c8 c4. } \\ { c2 c2 } >>
-@end lilypond
-
-LilyPond also vertically shifts rests that are opposite of a stem,
-for example
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\new Voice << c''4 \\ r4 >>
-@end lilypond
-
-
-@refcommands
-
-@funindex \oneVoice
-@code{\oneVoice},
-@funindex \voiceOne
-@code{\voiceOne},
-@funindex \voiceTwo
-@code{\voiceTwo},
-@funindex \voiceThree
-@code{\voiceThree},
-@funindex \voiceFour
-@code{\voiceFour}.
-
-@funindex \shiftOn
-@code{\shiftOn},
-@funindex \shiftOnn
-@code{\shiftOnn},
-@funindex \shiftOnnn
-@code{\shiftOnnn},
-@funindex \shiftOff
-@code{\shiftOff}: these commands specify in what chords of the current
-voice should be shifted.  The outer voices (normally: voice one and
-two) have @code{\shiftOff}, while the inner voices (three and four)
-have @code{\shiftOn}.  @code{\shiftOnn} and @code{\shiftOnnn} define
-further shift levels.
-
-When LilyPond cannot cope, the @code{force-hshift}
-property of the @internalsref{NoteColumn} object and pitched rests can
-be used to override typesetting decisions.
-
-@lilypond[quote,verbatim,ragged-right]
-\relative <<
-{
-  <d g>
-  <d g>
-} \\ {
-  <b f'>
-  \once \override NoteColumn #'force-hshift = #1.7
-  <b f'>
-} >>
-@end lilypond
-
-
-@seealso
-
-Program reference: the objects responsible for resolving collisions are
-@internalsref{NoteCollision} and @internalsref{RestCollision}.
-
-Examples:
-@inputfileref{input/@/regression,collision@/-dots@/.ly},
-@inputfileref{input/@/regression,collision@/-head-chords@/.ly},
-@inputfileref{input/@/regression,collision@/-heads@/.ly},
-@inputfileref{input/@/regression,collision@/-mesh@/.ly}, and
-@inputfileref{input/@/regression,collisions@/.ly}.
-
-
-@refbugs
-
-When using @code{merge-differently-headed} with an upstem eighth or a
-shorter note, and a downstem half note, the eighth note gets the wrong
-offset.
-
-There is no support for clusters where the same note occurs with
-different accidentals in the same chord.  In this case, it is
-recommended to use enharmonic transcription, or to use special cluster
-notation (see @ref{Clusters}).
 
 
 
