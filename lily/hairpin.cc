@@ -164,7 +164,8 @@ Hairpin::print (SCM smob)
 	      else
 		{
 		  x_points[d] = e[d];
-		  if (me->get_bound (d)->is_non_musical ())
+		  Item *bound = me->get_bound (d);
+		  if (bound->is_non_musical (bound))
 		    x_points[d] -=  d * padding;
 		}
 	    }

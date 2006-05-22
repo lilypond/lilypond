@@ -1,5 +1,18 @@
 2006-05-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/beam-single-stem.ly: new file.
+
+	* lily/stem.cc (set_beaming): use #f as signaling value for
+	beamcount 0.
+
+	* lily/beam-engraver.cc (typeset_beam): set right bound if unset.
+
+	* lily/beam.cc (set_beaming): read clip-edges property.
+	(calc_direction): don't suicide for single stem.
+
+	* lily/beaming-info.cc (best_splitpoint_index): take bool*
+	argument, remove 1<<15 hack. Remove clip_edges() 
+
 	* lily/hairpin.cc (print): only do padding for nonmusical bounds
 
 2006-05-21  Graham Percival  <gpermus@gmail.com>

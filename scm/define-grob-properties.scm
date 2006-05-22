@@ -368,6 +368,7 @@ Y axis.")
 
      (shorten-pair ,number-pair? "The lengths to shorten a
 text-spanner on both sides, for example a pedal bracket")
+     (clip-edges ,boolean? "Allow outward pointing beamlets at the edges of beams?")
      (common-shortest-duration ,ly:moment?
 			       "The most common shortest note length.
 This is used in spacing. Enlarging this will set the score tighter.")

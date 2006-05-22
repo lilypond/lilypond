@@ -211,14 +211,12 @@ Auto_beam_engraver::begin_beam ()
     }
 
   stems_ = new vector<Item*>;
-  grouping_ = new Beaming_info_list;
+  grouping_ = make_beaming_info_list (context ());
   beam_settings_ = updated_grob_properties (context (), ly_symbol2scm ("Beam"));
 
   beam_start_moment_ = now_mom ();
   beam_start_location_
     = robust_scm2moment (get_property ("measurePosition"), Moment (0));
-  subdivide_beams_ = ly_scm2bool (get_property ("subdivideBeams"));
-  beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment (1, 4));
 }
 
 void
@@ -260,7 +258,10 @@ Auto_beam_engraver::typeset_beam ()
 {
   if (finished_beam_)
     {
-      finished_grouping_->beamify (beat_length_, subdivide_beams_);
+      if (!finished_beam_->get_bound (RIGHT))
+	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
+      
+      finished_grouping_->beamify ();
       Beam::set_beaming (finished_beam_, finished_grouping_);
       finished_beam_ = 0;
 

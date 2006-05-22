@@ -133,24 +133,17 @@ Beam::calc_direction (SCM smob)
      For a beam that  only has one stem, we try to do some disappearance magic:
      we revert the flag, and move on to The Eternal Engraving Fields. */
 
-  Direction d = CENTER;
+  Direction dir = CENTER;
 
   int count = visible_stem_count (me);
   if (count < 2)
     {
       extract_grob_set (me, "stems", stems);
-      if (stems.size () == 1)
+      if (stems.size () == 0)
 	{
-	  me->warning (_ ("removing beam with less than two stems"));
-
-	  stems[0]->set_object ("beam", SCM_EOL);
+	  me->warning (_ ("removing beam with no stems"));
 	  me->suicide ();
 
-	  return SCM_UNSPECIFIED;
-	}
-      else if (stems.size () == 0)
-	{
-	  me->suicide ();
 	  return SCM_UNSPECIFIED;
 	}
       else 
@@ -160,24 +153,24 @@ Beam::calc_direction (SCM smob)
 	  /*
 	    ugh: stems[0] case happens for chord tremolo.
 	  */
-	  d = to_dir ((stem ? stem : stems[0])->get_property ("default-direction"));
+	  dir = to_dir ((stem ? stem : stems[0])->get_property ("default-direction"));
 	}
     }
 
   if (count >= 1)
     {
-      if (!d)
-	d = get_default_dir (me);
+      if (!dir)
+	dir = get_default_dir (me);
       
       consider_auto_knees (me);
     }
 
-  if (d)
+  if (dir)
     {
-      set_stem_directions (me, d);
+      set_stem_directions (me, dir);
     }
   
-  return scm_from_int (d);
+  return scm_from_int (dir);
 }
 
 
@@ -1217,6 +1210,12 @@ Beam::set_beaming (Grob *me, Beaming_info_list const *beaming)
 		  && Stem::is_invisible (stem))
 		count = min (count, beaming->infos_.at (i).beam_count_drul_[-d]);
 
+	      if ( ((i == 0 && d == LEFT)
+		    || (i == stems.size ()-1 && d == RIGHT))
+		   && stems.size () > 1
+		   && to_boolean (me->get_property ("clip-edges")))
+		count = 0;
+
 	      Stem::set_beaming (stem, count, d);
 	    }
 	}
@@ -1445,6 +1444,7 @@ ADD_INTERFACE (Beam,
 	       "beamed-stem-shorten "
 	       "beaming "
 	       "break-overshoot "
+	       "clip-edges "
 	       "concaveness "
 	       "damping "
 	       "details "

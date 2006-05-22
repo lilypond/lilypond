@@ -7,6 +7,7 @@
 */
 
 #include "beaming.hh"
+#include "context.hh"
 
 Beaming_info::Beaming_info ()
 {
@@ -22,11 +23,10 @@ Beaming_info::Beaming_info (Moment m, int i)
   beam_count_drul_[RIGHT] = i;
 }
 
-const int at_beat = 1 << 15;	//  WTF is this.
-
 int
-Beaming_info_list::best_splitpoint_index (Moment &beat_length,
-					  bool subdivide) const
+Beaming_info_list::best_splitpoint_index (Moment beat_length,
+					  bool subdivide_beams,
+					  bool *at_beat_subdivide) const
 {
   int min_denominator = INT_MAX;
   int min_index = -1;
@@ -37,7 +37,7 @@ Beaming_info_list::best_splitpoint_index (Moment &beat_length,
       beat_pos = infos_[i].start_moment_ / beat_length;
       int den = beat_pos.den ();
       if (infos_[i].beam_count_drul_[LEFT] == infos_[i - 1].beam_count_drul_[RIGHT]
-	  && !subdivide)
+	  && !subdivide_beams)
 	den *= 2;
       
       if (den < min_denominator)
@@ -47,7 +47,9 @@ Beaming_info_list::best_splitpoint_index (Moment &beat_length,
 	}
     }
 
-  return min_index | (min_denominator == 1 && subdivide ? at_beat : 0);
+  *at_beat_subdivide = (min_denominator == 1 && subdivide_beams);
+  
+  return min_index;
 }
 
 int
@@ -63,16 +65,37 @@ Beaming_info_list::beam_extend_count (Direction d) const
 }
 
 void
-Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
+Beaming_info_list::beamify ()
+{
+  bool subdivide_beams = to_boolean (context_->get_property ("subdivideBeams"));
+  Moment beat_length = robust_scm2moment (context_->get_property ("beatLength"), Moment (1, 4));
+
+  beamify (beat_length, subdivide_beams);
+}
+
+
+
+Beaming_info_list *
+make_beaming_info_list (Context *context)
+{
+  Beaming_info_list *l = new Beaming_info_list;
+  l->context_ = context;
+  return l;
+}  
+
+
+void
+Beaming_info_list::beamify (Moment beat_length,
+			    bool subdivide_beams)
 {
   if (infos_.size () <= 1)
     return;
 
-  Drul_array<Beaming_info_list> splits;
+  
+  Drul_array<Beaming_info_list> splits (*this, *this);
 
-  int m = best_splitpoint_index (beat_length, subdivide);
-  bool split = subdivide && (m & at_beat);
-  m = m & ~at_beat;
+  bool split = false;
+  int m = best_splitpoint_index (beat_length, subdivide_beams, &split);
 
   splits[LEFT].infos_ = vector<Beaming_info> (infos_.begin (),
 					      infos_.begin () + m);
@@ -83,7 +106,7 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
 
   do
     {
-      splits[d].beamify (beat_length, subdivide);
+      splits[d].beamify (beat_length, subdivide_beams);
     }
   while (flip (&d) != LEFT);
 
@@ -102,9 +125,9 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
   infos_.insert (infos_.end (),
 		 splits[RIGHT].infos_.begin (),
 		 splits[RIGHT].infos_.end ());
-
-  clip_edges ();
 }
+
+
 
 void
 Beaming_info_list::add_stem (Moment m, int b)
@@ -112,12 +135,10 @@ Beaming_info_list::add_stem (Moment m, int b)
   infos_.push_back (Beaming_info (m, b));
 }
 
-void
-Beaming_info_list::clip_edges ()
+
+Beaming_info_list::Beaming_info_list ()
 {
-  if (infos_.size ())
-    {
-      infos_[0].beam_count_drul_[LEFT] = 0;
-      infos_.back ().beam_count_drul_[RIGHT] = 0;
-    }
+  context_ = 0;
 }
+
+

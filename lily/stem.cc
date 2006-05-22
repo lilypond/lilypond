@@ -48,8 +48,12 @@ Stem::set_beaming (Grob *me, int beam_count, Direction d)
     }
 
   SCM lst = index_get_cell (pair, d);
-  for (int i = 0; i < beam_count; i++)
-    lst = scm_cons (scm_from_int (i), lst);
+  if (beam_count)
+    for (int i = 0; i < beam_count; i++)
+      lst = scm_cons (scm_from_int (i), lst);
+  else
+    lst = SCM_BOOL_F;
+  
   index_set_cell (pair, d, lst);
 }
 

@@ -11,6 +11,7 @@
 
 #include "std-vector.hh"
 #include "moment.hh"
+#include "lily-proto.hh"
 
 struct Beaming_info
 {
@@ -18,8 +19,9 @@ struct Beaming_info
   Drul_array<int> beam_count_drul_;
 
   Beaming_info (Moment, int);
-  int count (Direction d);
   Beaming_info ();
+
+  int count (Direction d);
 };
 
 /*
@@ -29,12 +31,17 @@ struct Beaming_info
 struct Beaming_info_list
 {
   vector<Beaming_info> infos_;
+  Context *context_; 
 
+  Beaming_info_list ();
+  
   int beam_extend_count (Direction) const;
-  int best_splitpoint_index (Moment &beat_length, bool subdivide) const;
-  void beamify (Moment &beat_length, bool subdivide);
+  int best_splitpoint_index (Moment, bool, bool *split) const;
+  void beamify ();
+  void beamify (Moment, bool);
   void add_stem (Moment d, int beams);
-  void clip_edges ();
 };
+
+Beaming_info_list *make_beaming_info_list (Context *);
 
 #endif /* BEAMING_HH */

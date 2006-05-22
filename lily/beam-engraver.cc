@@ -145,8 +145,7 @@ Beam_engraver::process_music ()
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
 
-      beam_info_ = new Beaming_info_list;
-
+      beam_info_ = make_beaming_info_list (context ());
       /* urg, must copy to Auto_beam_engraver too */
     }
 }
@@ -156,7 +155,10 @@ Beam_engraver::typeset_beam ()
 {
   if (finished_beam_)
     {
-      finished_beam_info_->beamify (beat_length_, subdivide_beams_);
+      if (!finished_beam_->get_bound (RIGHT))
+	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
+	  
+      finished_beam_info_->beamify ();
       Beam::set_beaming (finished_beam_, finished_beam_info_);
 
       delete finished_beam_info_;
@@ -173,9 +175,6 @@ Beam_engraver::start_translation_timestep ()
   if (beam_)
     {
       set_melisma (true);
-
-      subdivide_beams_ = to_boolean (get_property ("subdivideBeams"));
-      beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment (1, 4));
     }
 }
 
@@ -277,12 +276,21 @@ ADD_ACKNOWLEDGER (Beam_engraver, stem);
 ADD_ACKNOWLEDGER (Beam_engraver, rest);
 
 ADD_TRANSLATOR (Beam_engraver,
-		/* doc */ "Handles Beam events by engraving Beams.    If omitted, then notes will be "
+		/* doc */
+
+		"Handles Beam events by engraving Beams.  If omitted, then notes will be "
 		"printed with flags instead of beams.",
+		
 		/* create */ "Beam",
 		/* accept */ "beam-event",
-		/* read */ "beamMelismaBusy beatLength subdivideBeams",
-		/* write */ "forbidBreak");
+
+		/* read */
+		"beamMelismaBusy "
+		"beatLength "
+		"subdivideBeams "
+		,
+		/* write */
+		"forbidBreak");
 
 class Grace_beam_engraver : public Beam_engraver
 {
@@ -314,12 +322,22 @@ Grace_beam_engraver::valid_end_point ()
 
 ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
 ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
+
 ADD_TRANSLATOR (Grace_beam_engraver,
-		/* doc */ "Handles Beam events by engraving Beams.  If omitted, then notes will "
+
+		/* doc */
+
+		"Handles Beam events by engraving Beams.  If omitted, then notes will "
 		"be printed with flags instead of beams. Only engraves beams when we "
 		" are at grace points in time. ",
+		
 		/* create */ "Beam",
 		/* accept */ "beam-event",
-		/* read */ "beamMelismaBusy beatLength allowBeamBreak subdivideBeams",
+		/* read */
+		"beamMelismaBusy "
+		"beatLength "
+		"allowBeamBreak "
+		"subdivideBeams "
+		,
 		/* write */ "");
 

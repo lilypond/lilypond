@@ -66,12 +66,12 @@ Measure_grouping_engraver::process_music ()
       Moment *measpos = unsmob_moment (get_property ("measurePosition"));
       Rational mp = measpos->main_part_;
 
-      Moment *beatlen = unsmob_moment (get_property ("beatLength"));
-      Rational bl = beatlen->main_part_;
+      Moment *beatlen_mom = unsmob_moment (get_property ("beatLength"));
+      Rational beat_length = beatlen_mom->main_part_;
 
       Rational where (0);
       for (SCM s = grouping; scm_is_pair (s);
-	   where += Rational ((int) scm_to_int (scm_car (s))) * bl,
+	   where += Rational ((int) scm_to_int (scm_car (s))) * beat_length,
 	     s = scm_cdr (s))
 	{
 	  int grouplen = scm_to_int (scm_car (s));
@@ -86,7 +86,7 @@ Measure_grouping_engraver::process_music ()
 	      grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
 	      grouping_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
 
-	      stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * bl;
+	      stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * beat_length;
 	      get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
 	      if (grouplen == 3)
@@ -107,8 +107,17 @@ Measure_grouping_engraver::Measure_grouping_engraver ()
 
 ADD_ACKNOWLEDGER (Measure_grouping_engraver, note_column);
 ADD_TRANSLATOR (Measure_grouping_engraver,
-		/* doc */ "Creates MeasureGrouping to indicate beat subdivision.",
-		/* create */ "MeasureGrouping",
-		/* accept */ "",
-		/* read */ "beatGrouping beatLength measurePosition currentMusicalColumn",
-		/* write */ "");
+		/* doc */
+		"Creates MeasureGrouping to indicate beat subdivision.",
+		/* create */
+		"MeasureGrouping",
+		/* accept */
+		"",
+		/* read */
+		"beatLength "
+		"currentMusicalColumn "
+		"measurePosition "
+		"beatGrouping "
+		,
+		/* write */
+		"");
