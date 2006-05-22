@@ -145,7 +145,7 @@ Beam_engraver::process_music ()
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
 
-      beam_info_ = make_beaming_info_list (context ());
+      beam_info_ = new Beaming_info_list;
       /* urg, must copy to Auto_beam_engraver too */
     }
 }
@@ -158,7 +158,7 @@ Beam_engraver::typeset_beam ()
       if (!finished_beam_->get_bound (RIGHT))
 	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
 	  
-      finished_beam_info_->beamify ();
+      finished_beam_info_->beamify (context ());
       Beam::set_beaming (finished_beam_, finished_beam_info_);
 
       delete finished_beam_info_;

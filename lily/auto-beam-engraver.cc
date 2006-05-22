@@ -211,7 +211,7 @@ Auto_beam_engraver::begin_beam ()
     }
 
   stems_ = new vector<Item*>;
-  grouping_ = make_beaming_info_list (context ());
+  grouping_ = new Beaming_info_list ();
   beam_settings_ = updated_grob_properties (context (), ly_symbol2scm ("Beam"));
 
   beam_start_moment_ = now_mom ();
@@ -261,7 +261,7 @@ Auto_beam_engraver::typeset_beam ()
       if (!finished_beam_->get_bound (RIGHT))
 	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
       
-      finished_grouping_->beamify ();
+      finished_grouping_->beamify (context ());
       Beam::set_beaming (finished_beam_, finished_grouping_);
       finished_beam_ = 0;
 

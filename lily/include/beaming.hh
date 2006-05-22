@@ -18,6 +18,9 @@ struct Beaming_info
   Moment start_moment_;
   Drul_array<int> beam_count_drul_;
 
+  Moment beat_start_;
+  Moment group_start_;
+  
   Beaming_info (Moment, int);
   Beaming_info ();
 
@@ -28,18 +31,20 @@ struct Beaming_info
   Generate beaming given durations of notes. Beam uses this to
   set_beaming () for each of its stems.
 */
-struct Beaming_info_list
+class Beaming_info_list
 {
-  vector<Beaming_info> infos_;
-  Context *context_; 
-
+public:
   Beaming_info_list ();
   
-  int beam_extend_count (Direction) const;
-  int best_splitpoint_index (Moment, bool, bool *split) const;
-  void beamify ();
-  void beamify (Moment, bool);
+  void beamify (Context*);
   void add_stem (Moment d, int beams);
+  int beamlet_count (int idx, Direction d) const;
+  
+private:
+  vector<Beaming_info> infos_;
+  void beamify (bool);
+  int beam_extend_count (Direction) const;
+  int best_splitpoint_index (bool *split) const;
 };
 
 Beaming_info_list *make_beaming_info_list (Context *);

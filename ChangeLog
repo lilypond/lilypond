@@ -1,5 +1,10 @@
 2006-05-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/beaming-info.cc (beamify): new function: read beatLength
+	and beatGrouping from context. 
+
+	* input/regression/beam-beat-grouping.ly (Module): new file.
+
 	* input/regression/beam-unconnected-beamlets.ly (Module): new file.
 
 	* lily/beam.cc (get_beam_segments): generate events for
