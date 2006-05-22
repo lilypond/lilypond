@@ -1122,6 +1122,7 @@ Beam::set_stem_lengths (SCM smob)
 
   /* trigger callback. */
   (void) me->get_property ("direction");
+  (void) me->get_property ("beaming");
 
   SCM posns = me->get_property ("positions");
   

@@ -1,3 +1,8 @@
+2006-05-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/beam.cc (set_stem_lengths): trigger beaming callback. Fixes
+	manual beaming.
+	
 2006-05-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PATCH_LEVEL): release 2.8.3
@@ -17,6 +22,8 @@
 	backport from 2.9.
 
 2006-05-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION: release 2.8.2
 
 	* flower/file-name.cc: add unistd.h
 
