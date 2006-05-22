@@ -1,5 +1,7 @@
 2006-05-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* configure.in (LINK_GXX_STATICALLY): readlink for ncsb detect. 
+	
 	* lily/beam.cc (set_stem_lengths): trigger beaming callback. Fixes
 	manual beaming.
 	

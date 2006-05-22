@@ -75,6 +75,7 @@ else
       NCSB_FILE=`$FCMATCH --verbose 'Century Schoolbook L:style=$style' | grep 'file:'`
 
       NCSB_FILE=`echo $NCSB_FILE | sed 's/^.*"\(.*\)".*$/\1/g'`
+      NCSB_FILE=`readlink -f $NCSB_FILE`
       NCSB_SOURCE_FILES="$NCSB_FILE $NCSB_SOURCE_FILES"
     done
   else
