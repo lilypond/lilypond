@@ -7,7 +7,7 @@
 */
 
 #include "beam.hh"
-#include "beaming.hh"
+#include "beaming-pattern.hh"
 #include "context.hh"
 #include "drul-array.hh"
 #include "duration.hh"
@@ -36,8 +36,8 @@ protected:
 
   Music *now_stop_ev_;
 
-  Beaming_info_list *beam_info_;
-  Beaming_info_list *finished_beam_info_;
+  Beaming_pattern *beam_info_;
+  Beaming_pattern *finished_beam_info_;
 
   /// location  within measure where beam started.
   Moment beam_start_location_;
@@ -145,7 +145,7 @@ Beam_engraver::process_music ()
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
 
-      beam_info_ = new Beaming_info_list;
+      beam_info_ = new Beaming_pattern;
       /* urg, must copy to Auto_beam_engraver too */
     }
 }

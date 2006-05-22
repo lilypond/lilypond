@@ -30,7 +30,7 @@ class Auto_change_music;
 class Axis_group_engraver;
 class Bar_engraver;
 class Bar_req_collect_engraver;
-class Beaming_info_list;
+class Beaming_pattern;
 class Bezier;
 class Bezier_bow;
 class Book;

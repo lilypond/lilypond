@@ -26,7 +26,7 @@
 
 #include "beam.hh"
 
-#include "beaming.hh"
+#include "beaming-pattern.hh"
 #include "directional-element-interface.hh"
 #include "main.hh"
 #include "international.hh"
@@ -1191,7 +1191,7 @@ Beam::set_stem_lengths (SCM smob)
 }
 
 void
-Beam::set_beaming (Grob *me, Beaming_info_list const *beaming)
+Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
 {
   extract_grob_set (me, "stems", stems);
 

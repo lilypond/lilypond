@@ -1,19 +1,19 @@
 /*
-  beaming.hh -- declare beaming.hh
+  beaming-pattern.hh -- declare beaming-pattern.hh
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#ifndef BEAMING_HH
-#define BEAMING_HH
+#ifndef BEAMING_PATTERN_HH
+#define BEAMING_PATTERN_HH
 
 #include "std-vector.hh"
 #include "moment.hh"
 #include "lily-proto.hh"
 
-struct Beaming_info
+struct Beam_rhythmic_element
 {
   Moment start_moment_;
   Drul_array<int> beam_count_drul_;
@@ -21,8 +21,8 @@ struct Beaming_info
   Moment beat_start_;
   Moment group_start_;
   
-  Beaming_info (Moment, int);
-  Beaming_info ();
+  Beam_rhythmic_element (Moment, int);
+  Beam_rhythmic_element ();
 
   int count (Direction d);
 };
@@ -31,22 +31,20 @@ struct Beaming_info
   Generate beaming given durations of notes. Beam uses this to
   set_beaming () for each of its stems.
 */
-class Beaming_info_list
+class Beaming_pattern
 {
 public:
-  Beaming_info_list ();
+  Beaming_pattern ();
   
   void beamify (Context*);
   void add_stem (Moment d, int beams);
   int beamlet_count (int idx, Direction d) const;
   
 private:
-  vector<Beaming_info> infos_;
+  vector<Beam_rhythmic_element> infos_;
   void beamify (bool);
   int beam_extend_count (Direction) const;
   int best_splitpoint_index (bool *split) const;
 };
 
-Beaming_info_list *make_beaming_info_list (Context *);
-
-#endif /* BEAMING_HH */
+#endif /* BEAMING_PATTERN_HH */

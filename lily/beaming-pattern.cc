@@ -1,15 +1,15 @@
 /*
-  beaming-info.cc -- implement Beaming_info, Beaming_info_list
+  beaming-info.cc -- implement Beam_rhythmic_element, Beaming_pattern
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "beaming.hh"
+#include "beaming-pattern.hh"
 #include "context.hh"
 
-Beaming_info::Beaming_info ()
+Beam_rhythmic_element::Beam_rhythmic_element ()
 {
   start_moment_ = 0;
   beam_count_drul_[LEFT] = 0;
@@ -17,7 +17,7 @@ Beaming_info::Beaming_info ()
 
 }
 
-Beaming_info::Beaming_info (Moment m, int i)
+Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i)
 {
   start_moment_ = m;
   beam_count_drul_[LEFT] = i;
@@ -25,7 +25,7 @@ Beaming_info::Beaming_info (Moment m, int i)
 }
 
 int
-Beaming_info_list::best_splitpoint_index (bool *at_boundary) const
+Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
 {
   *at_boundary = true;
   for (vsize i = 1; i < infos_.size (); i++)  
@@ -60,19 +60,19 @@ Beaming_info_list::best_splitpoint_index (bool *at_boundary) const
 }
 
 int
-Beaming_info_list::beam_extend_count (Direction d) const
+Beaming_pattern::beam_extend_count (Direction d) const
 {
   if (infos_.size () == 1)
     return infos_[0].beam_count_drul_[d];
 
-  Beaming_info thisbeam = boundary (infos_, d, 0);
-  Beaming_info next = boundary (infos_, d, 1);
+  Beam_rhythmic_element thisbeam = boundary (infos_, d, 0);
+  Beam_rhythmic_element next = boundary (infos_, d, 1);
 
   return min (thisbeam.beam_count_drul_[-d], next.beam_count_drul_[d]);
 }
 
 void
-Beaming_info_list::beamify (Context *context)
+Beaming_pattern::beamify (Context *context)
 {
   if (infos_.size () <= 1)
     return;
@@ -125,19 +125,19 @@ Beaming_info_list::beamify (Context *context)
 
 
 void
-Beaming_info_list::beamify (bool subdivide_beams)
+Beaming_pattern::beamify (bool subdivide_beams)
 {
   if (infos_.size () <= 1)
     return;
   
-  Drul_array<Beaming_info_list> splits;
+  Drul_array<Beaming_pattern> splits;
 
   bool at_boundary = false;
   int m = best_splitpoint_index (&at_boundary);
 
-  splits[LEFT].infos_ = vector<Beaming_info> (infos_.begin (),
+  splits[LEFT].infos_ = vector<Beam_rhythmic_element> (infos_.begin (),
 					      infos_.begin () + m);
-  splits[RIGHT].infos_ = vector<Beaming_info> (infos_.begin () + m,
+  splits[RIGHT].infos_ = vector<Beam_rhythmic_element> (infos_.begin () + m,
 					       infos_.end ());
 
   Direction d = LEFT;
@@ -149,7 +149,7 @@ Beaming_info_list::beamify (bool subdivide_beams)
   while (flip (&d) != LEFT);
 
   int middle_beams = ((at_boundary && subdivide_beams)
-		      ? 1
+		      ? 1	
 		      : min (splits[RIGHT].beam_extend_count (LEFT),
 			     splits[LEFT].beam_extend_count (RIGHT)));
 
@@ -168,17 +168,17 @@ Beaming_info_list::beamify (bool subdivide_beams)
 
 
 void
-Beaming_info_list::add_stem (Moment m, int b)
+Beaming_pattern::add_stem (Moment m, int b)
 {
-  infos_.push_back (Beaming_info (m, b));
+  infos_.push_back (Beam_rhythmic_element (m, b));
 }
 
-Beaming_info_list::Beaming_info_list ()
+Beaming_pattern::Beaming_pattern ()
 {
 }
 
 int
-Beaming_info_list::beamlet_count (int i, Direction d) const
+Beaming_pattern::beamlet_count (int i, Direction d) const
 {
   return infos_.at (i).beam_count_drul_[d];
 }

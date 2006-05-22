@@ -66,6 +66,29 @@ which scares away people.
 
 @end ignore
 
+@item
+Beams may be put on isolated stems, and beamlets may be paired by
+setting the @code{max-beam-connect} property,
+
+@lilypond[ragged-right,relative=2,fragment]
+  \override Stem #'max-beam-connect = #1
+  c16[ c16]   c32[] 
+@end lilypond
+
+This feature was sponsored by Trevor Bača.
+
+@item
+Beaming patterns obey the @code{beatGrouping} property.
+
+@lilypond[ragged-right,relative=2,fragment]
+  \time 5/16
+  \set beatGrouping = #'(2 3)
+  c8[^"(2+3)" c16 c8]
+  \set beatGrouping = #'(3 2)
+  c8[^"(3+2)" c16 c8]
+@end lilypond
+
+This feature was sponsored by Trevor Bača.
 
 @item
 A new command @code{\transposedCueDuring} has been added which overrides

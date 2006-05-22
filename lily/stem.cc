@@ -982,6 +982,7 @@ ADD_INTERFACE (Stem, "stem-interface",
 	       "french-beaming "
 	       "length "
 	       "length-fraction "
+	       "max-beam-connect "
 	       "neutral-direction "
 	       "no-stem-extend "
 	       "note-heads "

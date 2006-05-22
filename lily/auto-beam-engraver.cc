@@ -7,7 +7,7 @@
 */
 
 #include "engraver.hh"
-#include "beaming.hh"
+#include "beaming-pattern.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"
@@ -71,10 +71,10 @@ private:
   Moment beat_length_;
 
   // We act as if beam were created, and start a grouping anyway.
-  Beaming_info_list *grouping_;
+  Beaming_pattern *grouping_;
   SCM beam_settings_;
 
-  Beaming_info_list *finished_grouping_;
+  Beaming_pattern *finished_grouping_;
 
   void check_bar_property ();
 };
@@ -211,7 +211,7 @@ Auto_beam_engraver::begin_beam ()
     }
 
   stems_ = new vector<Item*>;
-  grouping_ = new Beaming_info_list ();
+  grouping_ = new Beaming_pattern ();
   beam_settings_ = updated_grob_properties (context (), ly_symbol2scm ("Beam"));
 
   beam_start_moment_ = now_mom ();
