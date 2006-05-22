@@ -1,3 +1,7 @@
+2006-05-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/hairpin.cc (print): only do padding for nonmusical bounds
+
 2006-05-21  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/basic-notation.itely: reorg.

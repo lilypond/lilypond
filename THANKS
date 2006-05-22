@@ -5,11 +5,9 @@ DEVELOPMENT TEAM
 
 Han-Wen Nienhuys  - Core development
 Jan Nieuwenhuizen - Core development
-Erik Sandberg     - Bug Meister
 Pedro Kroger      - Build Meister
 Graham Percival   - Documentation Editor
 Mats Bengtsson    - Support Guru 
-
 
 CONTRIBUTORS
 
@@ -17,13 +15,17 @@ Erlend Aasland
 David Feuer
 Heikki Junes
 Joe Neeman
+Erik Sandberg
 
 
 SPONSORS
 
+Trevor Bača
+Andrew Sidwell
 Chris Sawer
 Jamie Bullock
 Steve Doonan
+
 
 DOCUMENTATION HELPERS
 

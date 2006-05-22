@@ -57,6 +57,7 @@ string init_name_global;
 /* Selected output backend
    One of (gnome, ps [default], eps, scm, svg, tex, texstr)") */
 string output_backend_global = "ps";
+
 /* Output formats to generate.  */
 string output_format_global = "";
 

@@ -162,7 +162,11 @@ Hairpin::print (SCM smob)
 		    x_points[d] = e.center () - d * padding / 3;
 		}
 	      else
-		x_points[d] = e[d] - d * padding;
+		{
+		  x_points[d] = e[d];
+		  if (me->get_bound (d)->is_non_musical ())
+		    x_points[d] -=  d * padding;
+		}
 	    }
 	}
     }
