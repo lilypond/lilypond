@@ -276,6 +276,8 @@ column is the start of a system.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "The thickness of the tie/slur contour.")
      (long-text ,markup? "Text markup.  See @usermanref{Text markup}.")
+     (max-beam-connect ,integer? "Maximum number of beams to connect
+to beams from this stem. Further beams are typeset as beamlets.")
      (measure-length ,ly:moment? "Length of a
 measure. Used in some spacing situations.")
 

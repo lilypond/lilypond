@@ -40,7 +40,6 @@ struct Beam_quant_parameters
   void fill (Grob *him);
 };
 
-
 struct Beam_segment
 {
   int vertical_count_;
@@ -51,6 +50,7 @@ struct Beam_segment
 struct Beam_stem_segment 
 {
   Beam_stem_segment ();
+
   Grob *stem_;
   Real width_;
   Real stem_x_;
@@ -58,6 +58,8 @@ struct Beam_stem_segment
   int stem_index_;
   bool gapped_;
   Direction dir_;
+  int max_connect_;
+  
 };
 
 

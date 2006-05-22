@@ -1,5 +1,11 @@
 2006-05-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/beam-unconnected-beamlets.ly (Module): new file.
+
+	* lily/beam.cc (get_beam_segments): generate events for
+	max_connect_ case too.
+	(get_beam_segments): read Stem::max-beam-connect.
+
 	* input/regression/beam-single-stem.ly: new file.
 
 	* lily/stem.cc (set_beaming): use #f as signaling value for

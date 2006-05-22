@@ -52,6 +52,7 @@
 
 Beam_stem_segment::Beam_stem_segment ()
 {
+  max_connect_ = 1000;		// infinity
   stem_ = 0;
   width_ = 0.0;
   stem_x_ = 0.0;
@@ -128,10 +129,9 @@ Beam::calc_direction (SCM smob)
   /* Beams with less than 2 two stems don't make much sense, but could happen
      when you do
 
-     [r8 c8 r8].
+     r8[ c8 r8]
 
-     For a beam that  only has one stem, we try to do some disappearance magic:
-     we revert the flag, and move on to The Eternal Engraving Fields. */
+  */
 
   Direction dir = CENTER;
 
@@ -347,6 +347,8 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      seg.width_ = stem_width;
 	      seg.stem_index_ = i;
 	      seg.dir_ = d;
+	      seg.max_connect_ = robust_scm2int (stem->get_property ("max-beam-connect"), 1000);
+	      
 	      Direction stem_dir = get_grob_direction (stem);
 	      
 	      seg.gapped_
@@ -369,7 +371,8 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
       vector_sort (segs, default_compare);
 
       Beam_segment current;
-      current.vertical_count_ = (*i).first;
+
+      int vertical_count =  (*i).first;
       for (vsize j = 0; j < segs.size (); j++)
 	{
 	  /*
@@ -382,12 +385,14 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 					 j == segs.size() - 1 && event_dir==RIGHT);
 	      Drul_array<bool> inside (j > 0, j < segs.size()-1);
 	      bool event = on_bound[event_dir]
-		|| abs (segs[j].rank_ - segs[j+event_dir].rank_) > 1;
+		|| abs (segs[j].rank_ - segs[j+event_dir].rank_) > 1
+		|| (abs (vertical_count) >= segs[j].max_connect_
+		    || abs (vertical_count) >= segs[j + event_dir].max_connect_);
 	      
 	      if (!event)
 		continue;
 
-	      current.vertical_count_ = (*i).first;
+	      current.vertical_count_ = vertical_count;
 	      current.horizontal_[event_dir] = segs[j].stem_x_;
 	      if (segs[j].dir_ == event_dir)
 		{
@@ -422,7 +427,6 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 
 	      if (event_dir == RIGHT)
 		{
-		  current.vertical_count_ = (*i).first;
 		  segments.push_back (current);
 		  current = Beam_segment();
 		}
