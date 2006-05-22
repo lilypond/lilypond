@@ -151,7 +151,7 @@ support for feathered beaming,
   c16[
     c c c
     c c c c ]
-    }
+}
 @end lilypond 
 
 This feature was sponsored by Jamie Bullock.

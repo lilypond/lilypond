@@ -79,6 +79,11 @@ Beaming_pattern::beamify (Context *context)
   
   bool subdivide_beams = to_boolean (context->get_property ("subdivideBeams"));
   Moment beat_length = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
+  Moment measure_length = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
+
+  if (infos_[0].start_moment_ < Moment (0))
+    for (vsize i = 0; i < infos_.size(); i++)
+      infos_[i].start_moment_ += measure_length;
   
   SCM grouping = context->get_property ("beatGrouping");
   Moment measure_pos (0);

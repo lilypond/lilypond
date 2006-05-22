@@ -1,3 +1,8 @@
+2006-05-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/beaming-pattern.cc (beamify): deal with negative start
+	moments for beaming patterns.
+
 2006-05-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/beaming-info.cc (beamify): new function: read beatLength
