@@ -149,7 +149,7 @@ Notation Reference
 * Global issues::                  What LilyPond produces.
 * Interfaces for programmers::     Expert usage.
 
-Technical Details
+Program usage
 
 * Running LilyPond::               Operation.
 * LilyPond-book::                  Integrating text and music.
@@ -191,15 +191,12 @@ Appendices
 @include converters.itely
 
 
-
-
 @include literature.itely
 @include scheme-tutorial.itely
 @include notation-appendices.itely
 @include examples.itely
 @include cheatsheet.itely
 @include fdl.itexi
-
 
 @node LilyPond command index
 @appendix LilyPond command index

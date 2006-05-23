@@ -777,7 +777,8 @@ opening brace is not balanced
 \lyricmode @{ twinkle@}
 @end example
 
-@funindex \property, in @code{\lyricmode
+@funindex \property in \lyricmode
+
 @noindent
 Similarly, a period which follows an alphabetic sequence is included in
 the resulting string.  As a consequence, spaces must be inserted around
@@ -805,9 +806,10 @@ non-ascii characters (such as the heart symbol or slanted quotes),
 simply insert the characters directly into the input file and save
 it with utf-8 encoding.  See @ref{Text encoding} for more info.
 
-@example
-\lyricmode @{ He said: “Let my peo ple go”. @}
-@end example
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative { e4 f e d e f e2 }
+\addlyrics { He said: “Let my peo ple go”. }
+@end lilypond
 
 To use normal quotes in lyrics, add a backslash before the
 quotes.  For example,

@@ -126,7 +126,6 @@ c4^"piu mosso" d e f
 c4^"piu mosso" d e f
 @end lilypond
 
-
 @seealso
 
 This manual: @ref{The \override command}, @ref{Common tweaks}.
@@ -189,8 +188,10 @@ used to apply generic tweaks.
 
 @itemize @bullet
 
-@funindex padding
-@item The @code{padding} property can be set to increase
+@cindex padding
+
+@item
+The @code{padding} property can be set to increase
 (or decrease) the distance between symbols that are printed
 above or below notes.  This applies to all objects with
 @code{side-position-interface}.
@@ -218,8 +219,10 @@ is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
 @ref{Constructing a tweak}.
 
-@funindex extra-offset
-@item The @code{extra-offset} property moves objects around
+@cindex extra-offset
+
+@item
+The @code{extra-offset} property moves objects around
 in the output; it requires a pair of numbers.  The first number
 controls horizontal movement; a positive number will
 move the object to the right.  The second number controls vertical
@@ -238,7 +241,7 @@ f-5
 f-5
 @end lilypond
 
-@item
+ @item
 Setting the @code{transparent} property will cause an object to be printed
 in `invisible ink': the object is not printed, but all its other
 behavior is retained.  The object still takes up space, it takes part in

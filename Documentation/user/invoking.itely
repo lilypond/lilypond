@@ -535,7 +535,7 @@ that the bug can be reproduced in all paper sizes.
 @c the bug database is not up to date enough.
 
 When you've found a bug, have a look at our
-@uref{http://@/lilypond@/.org/@/doc/@/v2.5/@/bugs/,bug database} to see if
+@uref{http://@/lilypond@/.org/@/bugs/@/v2.8/@/,bug database} to see if
 it has already been reported.  You could also try to do a few searches
 on the mailing list for the bug.  Sometimes the bug will have already
 been reported and a fix or workaround is already known.

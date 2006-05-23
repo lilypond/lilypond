@@ -1,3 +1,11 @@
+2006-05-23  Graham Percival  <gpermus@gmail.com>
+
+	* stepmake/stepmake/texinfo-rules.make: added -E, allows
+	pdf doc creation.
+
+	* Documentation/user/ various: stuff that might have helped
+	to fix the pdf creation, plus some minor doc additions.
+
 2006-05-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/beaming-pattern.cc (beamify): deal with negative start

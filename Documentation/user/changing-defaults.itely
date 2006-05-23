@@ -1306,14 +1306,14 @@ flow of information within the program, following links like this:
 
 @item @internalsref{Fingering}:
 @internalsref{Fingering} objects are created by:
-@b{@internalsref{Fingering_engraver}}
+@b{ @internalsref{Fingering_engraver} }
 
 @item @internalsref{Fingering_engraver}:
-Music types accepted: @b{@internalsref{fingering-event}}
+Music types accepted: @b{ @internalsref{fingering-event} }
 
 @item @internalsref{fingering-event}:
 Music event type @code{fingering-event} is in Music expressions named
-@b{@internalsref{FingerEvent}}
+@b{ @internalsref{FingerEvent} }
 @end itemize
 
 This path goes against the flow of information in the program: it
@@ -1500,7 +1500,7 @@ fact can also be deduced from the program reference, for the page for
 the @internalsref{Fingering_engraver} plug-in says
 
 @quotation
-Fingering_engraver is part of contexts: @dots{} @b{@internalsref{Voice}}
+Fingering_engraver is part of contexts: @dots{} @b{ @internalsref{Voice} }
 @end quotation
 
 

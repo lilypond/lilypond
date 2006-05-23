@@ -2217,5 +2217,10 @@ event,
 >4-\parenthesize -.
 @end lilypond
 
+This only functions inside chords, even for single notes
+
+@example
+< \parenthesize NOTE>
+@end example
 
 

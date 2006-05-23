@@ -53,10 +53,10 @@
 @c @inforef{\NAME\,,lilypond-internals}@c
 @c using @ref without punctuation is OK without for formats other than info
 
-@macro internalsref{NAME}@c
 @c annoying parentheses stripped by add-html-footer.py
-@ref{\NAME\,,,lilypond-internals}@c
+@macro internalsref{NAME}
 @vindex \NAME\
+@ref{\NAME\,,,lilypond-internals}
 @end macro
 
 @c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
@@ -64,10 +64,10 @@
 @uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
-@macro rglos{NAME}@c
 @c annoying parentheses stripped by add-html-footer.py
-@ref{\NAME\,,,music-glossary}@c
+@macro rglos{NAME}
 @vindex \NAME\
+@ref{\NAME\,,,music-glossary}
 @end macro
 
 @end ifhtml
@@ -77,17 +77,17 @@
 @c ***** DOCBOOK-XML *****
 
 @macro internalsref{NAME}
-@ref{\NAME\,,,lilypond-internals}@c
-@vindex @code{\NAME\}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals}
 @end macro
 
 @macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
 @end macro
 
-@macro rglos{NAME}@c
-@ref{\NAME\,,,music-glossary}@c
+@macro rglos{NAME}
 @vindex \NAME\
+@ref{\NAME\,,,music-glossary}
 @end macro
 
 @end ifdocbook
@@ -97,8 +97,8 @@
 @c **** INFO ****
 
 @macro internalsref{NAME}
-@inforef{\NAME\,,lilypond-internals}@c
-@vindex \NAME\@c
+@vindex \NAME\
+@inforef{\NAME\,,lilypond-internals}
 @end macro
 
 @macro inputfileref{DIR,NAME}
@@ -106,12 +106,12 @@
 @end macro
 
 @macro rglos{NAME}@c
-@inforef{\NAME\,,,music-glossary}@c
 @vindex \NAME\
+@inforef{\NAME\,,,music-glossary}
 @end macro
 
 @macro usermanref{NAME}
-@inforef{\NAME\}@c
+@inforef{\NAME\}
 @end macro
 
 @end ifinfo
@@ -120,18 +120,18 @@
 @c **** TEX ****
 @iftex
 
-@macro internalsref{NAME}@c
-@vindex \NAME\ @c
-@code{\NAME\}@c
+@macro internalsref{NAME}
+@vindex \NAME\
+@code{\NAME\}
 @end macro
 
-@macro inputfileref{DIR,NAME}@c
-@file{\DIR\/@/\NAME\}@c
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/@/\NAME\}
 @end macro
 
 @macro rglos {NAME}
-@vindex \NAME\ @c
-@code{\NAME\}@c
+@vindex \NAME\
+@code{\NAME\}
 @end macro
 
 @macro seeinternals{NAME}
@@ -153,12 +153,14 @@ user manual, @internalsref{\NAME\}
 
 @ifnotinfo
 @macro usermanref{NAME}
-@ref{\NAME\}@c
+@ref{\NAME\}
 @end macro
 @end ifnotinfo
 
 @end ifnottex
 
+
+@c **** ALL ****
 
 @macro refbugs
 @noindent
@@ -178,9 +180,9 @@ user manual, @internalsref{\NAME\}
 
 @end macro
 
-@macro context{NAME}@c
+@macro context{NAME}
+@vindex \NAME\
 @code{\NAME\}@c should use internalsref
-@vindex \NAME\@c
 @end macro
 
 @macro refcommand{WHAT}
