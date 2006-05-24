@@ -1,5 +1,7 @@
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): trim explanation. 
+
 	* Documentation/user/*.itely: 2nd
 	attempt: replace funindex -> findex globally.
 

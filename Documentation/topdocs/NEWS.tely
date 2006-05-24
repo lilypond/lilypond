@@ -91,14 +91,11 @@ Beaming patterns obey the @code{beatGrouping} property.
 This feature was sponsored by Trevor Bača.
 
 @item
-A new command @code{\transposedCueDuring} has been added which overrides
-the cue's transposition locally.  Its intended use is to octavate cues
-up or down to avoid an excessive number of ledger lines.  The syntax form
-is
+With the command @code{\transposedCueDuring} a cue's transposition can
+be changed locally.  This can be used to prevent excessive ledger
+lines on cues.
 
-@example
-\transposedCueDuring #NAME #UPDOWN PITCH MUSIC
-@end example
+This feature was contributed by Werner Lemberg 
 
 @item
 By setting @code{hairpinToBarline}, hairpins will stop at
