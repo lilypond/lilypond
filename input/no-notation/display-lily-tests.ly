@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.9.5"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format))
@@ -44,9 +44,8 @@ test = #(define-music-function (parser location result-info strings) (string? pa
                 (make-music 'SequentialMusic
                             'elements
                             (list (make-music 'EventChord
-                                   'elements (list (make-music 'BreakEvent
-                                                    'page-penalty 0
-                                                    'penalty -10001)))
+                                   'elements (list (make-music 'LineBreakEvent
+                                                    'break-permission 'force)))
                                   (make-music 'EventChord
                                    'elements (list (make-music 'SkipEvent
                                                     'duration (ly:make-duration 0 0 1 1))
@@ -75,7 +74,6 @@ test = #(define-music-function (parser location result-info strings) (string? pa
   \context {
     \Staff
     \override StaffSymbol #'line-count = #1
-    %\remove "Staff_symbol_engraver"
     \remove "Time_signature_engraver"
     \remove "Clef_engraver"
   }
@@ -85,6 +83,7 @@ test = #(define-music-function (parser location result-info strings) (string? pa
   }
 }
 {
+  \fatText
   %% Sequential music
   \test #"" ##[ { { a b } { c d } } #]			% SequentialMusic
   \test #"" ##[ << { a b } { c d } >> #]		% SimultaneousMusic
@@ -134,8 +133,6 @@ test = #(define-music-function (parser location result-info strings) (string? pa
   \test #"" ##[ \lyricsto "foo" { bla bla } #]		% LyricCombineMusic
   \test #"" ##[ { { c d }
   \addlyrics { bla bla } } #]
-  \test #"" ##[ \oldaddlyrics { c d }
-\lyricmode { bla bla } #]				% OldLyricCombineMusic
 
   %% Drums
   \test #"" ##[ \drums { hihat } #]
@@ -179,6 +176,11 @@ test = #(define-music-function (parser location result-info strings) (string? pa
   \test #"" ##[ \~ #]					% PesOrFlexaEvent
 
   \test #"" ##[ \break #]
+  \test #"" ##[ \noBreak #]
+  \test #"" ##[ \pageBreak #]
+  \test #"" ##[ \noPageBreak #]
+  \test #"" ##[ \pageTurn #]
+  \test #"" ##[ \noPageTurn #]
 
   %% Checks
   \test #"" ##[ \octave a' #]				% RelativeOctaveCheck
@@ -241,9 +243,9 @@ test = #(define-music-function (parser location result-info strings) (string? pa
   \test #"" ##[ \revert Beam #'thickness #]
 
   %% \applyOutput
-  \test #"" ##[ \applyOutput #(lambda (arg) ()) #]
+  \test #"" ##[ \applyOutput #'Foo #(lambda (arg) (list)) #]
   %% \applyContext
-  \test #"" ##[ \applyContext #(lambda (arg) ()) #]
+  \test #"" ##[ \applyContext #(lambda (arg) (list)) #]
 
   %% \partial
   \test #"" ##[ \partial 2 #]

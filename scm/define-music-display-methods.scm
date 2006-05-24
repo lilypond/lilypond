@@ -585,22 +585,6 @@ Otherwise, return #f."
 (define-display-method BarCheck (check)
   (format #f "|~a" (new-line->lily-string)))
 
-;; TODO: also display something when there is a penalty?
-(define-display-method LineBreakEvent (br)
-  (if (eq? (ly:music-property br 'break-permission) 'forbid)
-      ("\\noBreak")
-      ("\\break")))
-
-(define-display-method PageBreakEvent (br)
-  (if (eq? (ly:music-property br 'break-permission) 'forbid)
-      ("\\noPageBreak")
-      ("\\pageBreak")))
-
-(define-display-method PageTurnEvent (br)
-  (if (eq? (ly:music-property br 'break-permission) 'forbid)
-      ("\\noPageTurn")
-      ("\\pageTurn")))
-
 (define-display-method PesOrFlexaEvent (expr)
   "\\~")
 
@@ -994,8 +978,10 @@ Otherwise, return #f."
 ;;;
 
 (define-display-method ApplyOutputEvent (applyoutput)
-  (let ((proc (ly:music-property applyoutput 'procedure)))
-    (format #f "\\applyOutput #~a"
+  (let ((proc (ly:music-property applyoutput 'procedure))
+        (ctx  (ly:music-property applyoutput 'context-type)))
+    (format #f "\\applyOutput #'~a #~a"
+            ctx
 	    (or (procedure-name proc)
 		(with-output-to-string
 		  (lambda ()
@@ -1052,6 +1038,42 @@ Otherwise, return #f."
 	      (music->lily-string (ly:music-property expr 'element)))))
 
 ;;;
+;;; Breaks
+;;;
+(define-display-method LineBreakEvent (expr)
+  (if (null? (ly:music-property expr 'break-permission))
+      "\\noBreak"
+      "\\break"))
+
+(define-display-method PageBreakEvent (expr)
+  (if (null? (ly:music-property expr 'break-permission))
+      "\\noPageBreak"
+      "\\pageBreak"))
+
+(define-display-method PageTurnEvent (expr)
+  (if (null? (ly:music-property expr 'break-permission))
+      "\\noPageTurn"
+      "\\pageTurn"))
+
+(define-extra-display-method EventChord (expr)
+  (with-music-match (expr (music 'EventChord
+                            elements ((music 'LineBreakEvent
+                                             break-permission 'force)
+                                      (music 'PageBreakEvent
+                                             break-permission 'force))))
+    "\\pageBreak"))
+
+(define-extra-display-method EventChord (expr)
+  (with-music-match (expr (music 'EventChord
+                            elements ((music 'LineBreakEvent
+                                             break-permission 'force)
+                                      (music 'PageBreakEvent
+                                             break-permission 'force)
+                                      (music 'PageTurnEvent
+                                             break-permission 'force))))
+    "\\pageTurn"))
+
+;;;
 ;;; Lyrics
 ;;;
 
@@ -1061,12 +1083,6 @@ Otherwise, return #f."
 	  (ly:music-property expr 'associated-context)
 	  (parameterize ((*explicit-mode* #f))
 	    (music->lily-string (ly:music-property expr 'element)))))
-
-(define-display-method OldLyricCombineMusic (expr)
-  (format #f "\\oldaddlyrics ~a~a~a"
-	  (music->lily-string (first (ly:music-property expr 'elements)))
-	  (new-line->lily-string)
-	  (music->lily-string (second (ly:music-property expr 'elements)))))
 
 ;; \addlyrics
 (define-extra-display-method SimultaneousMusic (expr)

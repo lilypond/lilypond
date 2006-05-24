@@ -1,3 +1,11 @@
+2006-05-24  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* input/no-notation/display-lily-tests.ly: fix \applyOutput
+	test. Add \break, \pageBreak, \pageTurn, etc, tests.
+
+	* scm/define-music-display-methods.scm: display methods for
+	breaks. Fix \applyOutput.
+
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/user/macros.itexi: comment out funindex expansion. 
