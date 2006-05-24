@@ -1,3 +1,8 @@
+2006-05-25  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/stem-tremolo.cc (print): fix whole note tremolo placement
+	* input/regression/stem-tremolo.ly: add 2 more whole note examples
+
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* configure.in (LINK_GXX_STATICALLY): use "" to allow $
