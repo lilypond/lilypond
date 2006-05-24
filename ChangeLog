@@ -1,3 +1,10 @@
+2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/GNUmakefile (TEXI2DVI_FLAGS): add -E.
+
+	* stepmake/stepmake/texinfo-rules.make ($(outdir)/%.dvi): add
+	TEXI2DVI_FLAGS to texi2dvi invocation. 
+
 2006-05-24  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/chord-tremolo-*.cc: Reworked how \repeat "tremolo"

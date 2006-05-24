@@ -22,7 +22,7 @@ $(outdir)/%/%.html: $(outdir)/%.texi
 
 
 $(outdir)/%.dvi: $(outdir)/%.texi
-	cd $(outdir); texi2dvi -E --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
+	cd $(outdir); texi2dvi $(TEXI2DVI_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
 $(outdir)/%.txt: $(outdir)/%.texi
 	$(MAKEINFO) -I $(src-dir) -I $(outdir) --no-split --no-headers --output $@ $<
