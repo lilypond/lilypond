@@ -9,6 +9,7 @@
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/user/macros.itexi: comment out funindex expansion. 
+	2nd attempt: replace funindex -> findex globally.
 
 	* Documentation/user/music-glossary.tely: junk \oldaddlyrics
 	everywhere.
