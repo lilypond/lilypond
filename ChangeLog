@@ -1,3 +1,11 @@
+2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* configure.in (LINK_GXX_STATICALLY): use "" to allow $
+	expansion. 
+
+	* lily/stencil-expression.cc (register_stencil_head): opps, append
+	to cdr of static SCM object. Backport.
+
 2006-05-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* configure.in (LINK_GXX_STATICALLY): readlink for ncsb detect. 
