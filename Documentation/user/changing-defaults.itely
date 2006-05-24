@@ -585,15 +585,15 @@ several levels.  For example, the @code{\applyOutput} command (see
 @code{\context}, it is usually applied to @context{Voice}
 
 @example
-\applyOutput #@var{function}   % apply to Voice
+\applyOutput #'@var{context} #@var{function}   % apply to Voice
 @end example
 
 To have it interpreted at the @context{Score} or @context{Staff} level use
 these forms
 
 @example
-\context Score \applyOutput #@var{function}
-\context Staff \applyOutput #@var{function}
+\context \applyOutput #'Score #@var{function}
+\context \applyOutput #'Staff #@var{function}
 @end example
 
 @end itemize

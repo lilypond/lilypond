@@ -1950,12 +1950,10 @@ balloon.  The primary purpose of this feature is to explain notation.
 The following example demonstrates its use.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-\new Voice {
-  \applyOutput
-    #(add-balloon-text 'NoteHead "heads, or tails?"
-    '(1 . -3))
+\applyOutput #'Voice
+  #(add-balloon-text 'NoteHead "heads, or tails?"
+      '(1 . -3))
   c8
-}
 @end lilypond
 
 @noindent

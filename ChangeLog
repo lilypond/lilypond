@@ -1,5 +1,15 @@
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/user/advanced-notation.itely (Balloon help): idem.
+
+	* Documentation/user/changing-defaults.itely (Creating contexts): idem.
+
+	* Documentation/user/programming-interface.itely (Running a
+	function on all layout objects): idem.
+
+	* Documentation/user/introduction.itely (Automated engraving):
+	update \applyOutput syntax
+
 	* lily/lyric-combine-music-iterator.cc (start_new_syllable):
 	remove debugging hook.
 

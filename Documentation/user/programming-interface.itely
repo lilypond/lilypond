@@ -1099,14 +1099,15 @@ current bar number on the standard output during the compile:
 The most versatile way of tuning an object is @code{\applyOutput}.  Its
 syntax is
 @example
-\applyOutput @var{proc}
+\applyOutput @var{context} @var{proc}
 @end example
 
 @noindent
 where @var{proc} is a Scheme function, taking three arguments.
 
 When interpreted, the function @var{proc} is called for every layout
-object found in the context, with the following arguments:
+object found in the context @var{context}, with the following
+arguments:
 @itemize @bullet
 @item the layout object itself,
 @item the context where the layout object was created, and

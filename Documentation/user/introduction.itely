@@ -342,11 +342,11 @@ fragment.
    <d f g>
    \once \override NoteHead #'style = #'cross
    <d f g>
-   \applyOutput #mc-squared
+   \applyOutput #'Voice #mc-squared
    <d f g>
    <<
       { d8[ es-( fis^^ g] fis2-) }
-      \repeat unfold 5 { \applyOutput #mc-squared s8 }
+      \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
    >>
 }
 @end lilypond
