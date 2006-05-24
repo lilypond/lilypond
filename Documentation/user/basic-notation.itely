@@ -64,8 +64,8 @@ c1
 c1
 @end lilypond
 
-@funindex '
-@funindex ,
+@findex '
+@findex ,
 
 The optional octave specification takes the form of a series of
 single quote (`@code{'}') characters or a series of comma
@@ -144,10 +144,10 @@ Program reference: @internalsref{LedgerLineSpanner},
 @cindex accidental, cautionary
 @cindex accidental, parenthesized
 @cindex reminder accidental
-@funindex ?
+@findex ?
 @cindex cautionary accidental
 @cindex parenthesized accidental
-@funindex !
+@findex !
 
 Normally accidentals are printed automatically, but you may also
 print them manually.  A reminder accidental
@@ -224,7 +224,7 @@ espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
 
 @cindex Relative
 @cindex Relative octave specification
-@funindex \relative
+@findex \relative
 
 Octaves are specified by adding @code{'} and @code{,} to pitch names.
 When you copy existing music, it is easy to accidentally put a pitch
@@ -360,7 +360,7 @@ the output of the piece.
 
 @cindex Transpose
 @cindex Transposition of pitches
-@funindex \transpose
+@findex \transpose
 
 A music expression can be transposed with @code{\transpose}.  The
 syntax is
@@ -440,8 +440,8 @@ you must put @code{\transpose} outside of @code{\relative}, since
 @subsection Rests
 @cindex Rests
 
-@funindex \rest
-@funindex r
+@findex \rest
+@findex r
 
 Rests are entered like notes with the note name @code{r}
 
@@ -478,8 +478,8 @@ Program reference: @internalsref{Rest}.
 @cindex Skip
 @cindex Invisible rest
 @cindex Space note
-@funindex \skip
-@funindex s
+@findex \skip
+@findex s
 
 An invisible rest (also called a `skip') can be entered like a note
 with note name `@code{s}' or with @code{\skip @var{duration}}
@@ -538,9 +538,9 @@ This section discusses rhythms, durations, and bars.
 @subsection Durations
 
 @cindex duration
-@funindex \longa
-@funindex \breve
-@funindex \maxima
+@findex \longa
+@findex \breve
+@findex \maxima
 
 In Note, Chord, and Lyrics mode, durations are designated by numbers and
 dots: durations are entered as their reciprocal values.  For example, a
@@ -591,7 +591,7 @@ duration.  The default for the first note is a quarter note.
 @node Augmentation dots
 @subsection Augmentation dots
 
-@funindex .
+@findex .
 
 To obtain dotted note lengths, simply add a dot (`@code{.}') to
 the number.  Double-dotted notes are produced in a similar way.
@@ -606,11 +606,11 @@ Dots are normally moved up to avoid staff lines, except in polyphonic
 situations.  The following commands may be used to force a particular
 direction manually
 
-@funindex \dotsUp
+@findex \dotsUp
 @code{\dotsUp},
-@funindex \dotsDown
+@findex \dotsDown
 @code{\dotsDown},
-@funindex \dotsNeutral
+@findex \dotsNeutral
 @code{\dotsNeutral}.
 
 @seealso
@@ -623,7 +623,7 @@ Program reference: @internalsref{Dots}, and @internalsref{DotColumn}.
 
 @cindex tuplets
 @cindex triplets
-@funindex \times
+@findex \times
 
 Tuplets are made out of a music expression by multiplying all durations
 with a fraction
@@ -655,17 +655,17 @@ Tuplets may be nested, for example,
 
 @refcommands
 
-@funindex \tupletUp
+@findex \tupletUp
 @code{\tupletUp},
-@funindex \tupletDown
+@findex \tupletDown
 @code{\tupletDown},
-@funindex \tupletNeutral
+@findex \tupletNeutral
 @code{\tupletNeutral}.
 
 
 @commonprop
 
-@funindex tupletNumberFormatFunction
+@findex tupletNumberFormatFunction
 @cindex tuplet formatting
 
 The property @code{tupletSpannerDuration} specifies how long each
@@ -733,8 +733,8 @@ This manual: @ref{Tuplets}
 @subsection Bar check
 
 @cindex Bar check
-@funindex barCheckSynchronize
-@funindex |
+@findex barCheckSynchronize
+@findex |
 
 Bar checks help detect errors in the durations.  A bar check is
 entered using the bar symbol, `@code{|}'.  Whenever it is encountered
@@ -759,8 +759,8 @@ durations.  Incorrect durations often completely garble up the score,
 especially if the score is polyphonic, so a good place to start correcting
 input is by scanning for failed bar checks and incorrect durations.
 
-@funindex |
-@funindex pipeSymbol
+@findex |
+@findex pipeSymbol
 
 It is also possible to redefine the meaning of @code{|}.  This is done
 by assigning a music expression to @code{pipeSymbol},
@@ -872,11 +872,11 @@ made invisible.
 
 @refcommands
 
-@funindex \stemUp
+@findex \stemUp
 @code{\stemUp},
-@funindex \stemDown
+@findex \stemDown
 @code{\stemDown},
-@funindex \stemNeutral
+@findex \stemNeutral
 @code{\stemNeutral}.
 
 
@@ -902,7 +902,7 @@ The easiest way to enter fragments with more than one voice on a staff
 is to enter each voice as a sequence (with @code{@{...@}}), and combine
 them simultaneously, separating the voices with @code{\\}
 
-@funindex \\
+@findex \\
 
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
@@ -1102,24 +1102,24 @@ for example
 
 @refcommands
 
-@funindex \oneVoice
+@findex \oneVoice
 @code{\oneVoice},
-@funindex \voiceOne
+@findex \voiceOne
 @code{\voiceOne},
-@funindex \voiceTwo
+@findex \voiceTwo
 @code{\voiceTwo},
-@funindex \voiceThree
+@findex \voiceThree
 @code{\voiceThree},
-@funindex \voiceFour
+@findex \voiceFour
 @code{\voiceFour}.
 
-@funindex \shiftOn
+@findex \shiftOn
 @code{\shiftOn},
-@funindex \shiftOnn
+@findex \shiftOnn
 @code{\shiftOnn},
-@funindex \shiftOnnn
+@findex \shiftOnnn
 @code{\shiftOnnn},
-@funindex \shiftOff
+@findex \shiftOff
 @code{\shiftOff}: these commands specify in what chords of the current
 voice should be shifted.  The outer voices (normally: voice one and
 two) have @code{\shiftOff}, while the inner voices (three and four)
@@ -1192,7 +1192,7 @@ such as key signatures, clefs and time signatures.
 @node Clef
 @subsection Clef
 
-@funindex \clef
+@findex \clef
 
 The clef indicates which lines of the staff correspond to which
 pitches.  The clef is set with the @code{\clef} command
@@ -1295,7 +1295,7 @@ Program reference: @internalsref{Clef}.
 @subsection Key signature
 
 @cindex Key signature
-@funindex \key
+@findex \key
 
 The key signature indicates the tonality in which a piece is played.  It
 is denoted by a set of alterations (flats or sharps) at the start of the
@@ -1308,16 +1308,16 @@ command
 @code{\key} @var{pitch} @var{type}
 @end example
 
-@funindex \minor
-@funindex \major
-@funindex \minor
-@funindex \ionian
-@funindex \locrian
-@funindex \aeolian
-@funindex \mixolydian
-@funindex \lydian
-@funindex \phrygian
-@funindex \dorian
+@findex \minor
+@findex \major
+@findex \minor
+@findex \ionian
+@findex \locrian
+@findex \aeolian
+@findex \mixolydian
+@findex \lydian
+@findex \phrygian
+@findex \dorian
 @cindex church modes
 
 Here, @var{type} should be @code{\major} or @code{\minor} to get
@@ -1365,7 +1365,7 @@ Program reference: @internalsref{KeyCancellation},
 
 @cindex Time signature
 @cindex meter
-@funindex \time
+@findex \time
 
 Time signature indicates the metrum of a piece: a regular pattern of
 strong and weak beats.  It is denoted by a fraction at the start of the
@@ -1450,7 +1450,7 @@ Automatic beaming does not use the measure grouping specified with
 @cindex partial measure
 @cindex measure, partial
 @cindex shorten measures
-@funindex \partial
+@findex \partial
 
 Partial measures, such as an anacrusis or upbeat, are entered using the
 
@@ -1492,7 +1492,7 @@ a2 g2
 @subsection Bar lines
 
 @cindex Bar lines
-@funindex \bar
+@findex \bar
 @cindex measure lines
 @cindex repeat bars
 
@@ -1541,9 +1541,9 @@ connected between different staves of a StaffGroup
 
 @commonprop
 
-@funindex whichBar
-@funindex repeatCommands
-@funindex defaultBarType
+@findex whichBar
+@findex repeatCommands
+@findex defaultBarType
 
 The command @code{\bar }@var{bartype} is a short cut for doing
 @code{\set Timing.whichBar = }@var{bartype}.  Whenever @code{whichBar}
@@ -1573,8 +1573,8 @@ Examples: @inputfileref{input/@/test,bar@/-lines@/.ly},
 @subsection Unmetered music
 
 @cindex cadenza
-@funindex \cadenzaOn
-@funindex \cadenzaOff
+@findex \cadenzaOn
+@findex \cadenzaOff
 
 Bar lines and bar numbers are calculated automatically.  For unmetered
 music (cadenzas, for example), this is not desirable.  To turn off
@@ -1747,7 +1747,7 @@ This section deals with notation that affects groups of notes.
 @subsection Ties
 
 @cindex tie
-@funindex ~
+@findex ~
 
 A tie connects two adjacent note heads of the same pitch.  The tie in
 effect extends the length of a note.  Ties should not be confused with
@@ -1812,17 +1812,17 @@ for example, to tie a tremolo to a chord. For example,
 @refcommands
 
 
-@funindex \tieUp
+@findex \tieUp
 @code{\tieUp},
-@funindex \tieDown
+@findex \tieDown
 @code{\tieDown},
-@funindex \tieNeutral
+@findex \tieNeutral
 @code{\tieNeutral},
-@funindex \tieDotted
+@findex \tieDotted
 @code{\tieDotted},
-@funindex \tieDashed
+@findex \tieDashed
 @code{\tieDashed},
-@funindex \tieSolid
+@findex \tieSolid
 @code{\tieSolid}.
 
 
@@ -1887,17 +1887,17 @@ be achieved in LilyPond by setting @code{doubleSlurs},
 
 @refcommands
 
-@funindex \slurUp
+@findex \slurUp
 @code{\slurUp},
-@funindex \slurDown
+@findex \slurDown
 @code{\slurDown},
-@funindex \slurNeutral
+@findex \slurNeutral
 @code{\slurNeutral},
-@funindex \slurDashed
+@findex \slurDashed
 @code{\slurDashed},
-@funindex \slurDotted
+@findex \slurDotted
 @code{\slurDotted},
-@funindex \slurSolid
+@findex \slurSolid
 @code{\slurSolid}.
 
 @seealso
@@ -1930,11 +1930,11 @@ You cannot have simultaneous phrasing slurs.
 
 @refcommands
 
-@funindex \phrasingSlurUp
+@findex \phrasingSlurUp
 @code{\phrasingSlurUp},
-@funindex \phrasingSlurDown
+@findex \phrasingSlurDown
 @code{\phrasingSlurDown},
-@funindex \phrasingSlurNeutral
+@findex \phrasingSlurNeutral
 @code{\phrasingSlurNeutral}.
 
 
@@ -1997,8 +1997,8 @@ Program reference: @internalsref{Beam}.
 @subsection Manual beams
 
 @cindex beams, manual
-@funindex ]
-@funindex [
+@findex ]
+@findex [
 
 In some cases it may be necessary to override the automatic beaming
 algorithm.  For example, the autobeamer will not put beams over rests
@@ -2014,8 +2014,8 @@ and end point with @code{[} and @code{]}
 
 @commonprop
 
-@funindex stemLeftBeamCount
-@funindex stemRightBeamCount
+@findex stemLeftBeamCount
+@findex stemRightBeamCount
 
 Normally, beaming patterns within a beam are determined automatically.
 If necessary, the properties @code{stemLeftBeamCount} and
@@ -2044,7 +2044,7 @@ c16[ c c c c c c c]
 \set Score.beatLength = #(ly:make-moment 1 8)
 c16[ c c c c c c c]
 @end lilypond
-@funindex subdivideBeams
+@findex subdivideBeams
 
 @noindent
 For more information about @code{make-moment}, see
@@ -2053,7 +2053,7 @@ For more information about @code{make-moment}, see
 Line breaks are normally forbidden when beams cross bar lines.  This
 behavior can be changed by setting @code{allowBeamBreak}.
 
-@funindex allowBeamBreak
+@findex allowBeamBreak
 @cindex beams and line breaks
 @cindex beams, kneed
 @cindex kneed beams
@@ -2075,7 +2075,7 @@ texts and accidentals.
 @node Grace notes
 @subsection Grace notes
 
-@funindex \grace
+@findex \grace
 @cindex ornaments
 @cindex grace notes
 @cindex appoggiatura
@@ -2143,7 +2143,7 @@ every eighth grace note
    \new Staff { c4 \grace { g8[ b] } c4 } >>
 @end lilypond
 
-@funindex \afterGrace
+@findex \afterGrace
 
 If you want to end a note with a grace, use the @code{\afterGrace}
 command.  It takes two arguments: the main note, and the grace notes
@@ -2432,23 +2432,23 @@ Examples: @inputfileref{input/@/regression,finger@/-chords@/.ly}.
 @subsection Dynamics
 
 @cindex Dynamics
-@funindex \pppp
-@funindex \ppp
-@funindex \pp
-@funindex \p
-@funindex \mp
-@funindex \mf
-@funindex \f
-@funindex \ff
-@funindex \fff
-@funindex \ffff
-@funindex \fp
-@funindex \sf
-@funindex \sff
-@funindex \sp
-@funindex \spp
-@funindex \sfz
-@funindex \rfz
+@findex \pppp
+@findex \ppp
+@findex \pp
+@findex \p
+@findex \mp
+@findex \mf
+@findex \f
+@findex \ff
+@findex \fff
+@findex \ffff
+@findex \fp
+@findex \sf
+@findex \sff
+@findex \sp
+@findex \spp
+@findex \sfz
+@findex \rfz
 
 Absolute dynamic marks are specified using a command after a note
 @code{c4\ff}.  The available dynamic marks are @code{\ppppp},
@@ -2462,9 +2462,9 @@ c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
 c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
 @end lilypond
 
-@funindex \<
-@funindex \>
-@funindex \!
+@findex \<
+@findex \>
+@findex \!
 
 A crescendo mark is started with @code{\<} and terminated with
 @code{\!} or an absolute dynamic.  A decrescendo is started with
@@ -2556,11 +2556,11 @@ dashed line showing their extent.  To surpress printing this line, use
 
 @refcommands
 
-@funindex \dynamicUp
+@findex \dynamicUp
 @code{\dynamicUp},
-@funindex \dynamicDown
+@findex \dynamicDown
 @code{\dynamicDown},
-@funindex \dynamicNeutral
+@findex \dynamicNeutral
 @code{\dynamicNeutral}.
 
 
@@ -2633,9 +2633,9 @@ is printed as a stemless note head in parentheses.
 @refcommands
 
 @code{\startTrillSpan},
-@funindex \startTrillSpan
+@findex \startTrillSpan
 @code{\stopTrillSpan}.
-@funindex \stopTrillSpan
+@findex \stopTrillSpan
 
 
 @seealso
@@ -2647,7 +2647,7 @@ Program reference: @internalsref{TrillSpanner}.
 @subsection Glissando
 
 @cindex Glissando
-@funindex \glissando
+@findex \glissando
 
 A glissando is a smooth change in pitch.  It is denoted by a line or a
 wavy line between two notes.  It is requested by attaching
@@ -2677,7 +2677,7 @@ Printing text over the line (such as @emph{gliss.}) is not supported.
 
 @cindex Arpeggio
 @cindex broken chord
-@funindex \arpeggio
+@findex \arpeggio
 
 You can specify an arpeggio sign (also known as broken chord) on a
 chord by attaching an @code{\arpeggio} to a chord
@@ -2725,13 +2725,13 @@ in both staves and set
 @refcommands
 
 @code{\arpeggio},
-@funindex \arpeggioUp
+@findex \arpeggioUp
 @code{\arpeggioUp},
-@funindex \arpeggioDown
+@findex \arpeggioDown
 @code{\arpeggioDown},
-@funindex \arpeggioNeutral
+@findex \arpeggioNeutral
 @code{\arpeggioNeutral},
-@funindex \arpeggioBracket
+@findex \arpeggioBracket
 @code{\arpeggioBracket}.
 
 
@@ -2772,7 +2772,7 @@ for repetitions.
 @subsection Repeat types
 
 @cindex repeats
-@funindex \repeat
+@findex \repeat
 
 The following types of repetition are supported
 
@@ -2817,7 +2817,7 @@ repeats.  The syntax is
 @end example
 
 If you have alternative endings, you may add
-@funindex \alternative
+@findex \alternative
 @example
 \alternative @{
   @var{alternative1}
@@ -2914,7 +2914,7 @@ example by setting @code{Score.measurePosition} or entering
 @subsection Repeats and MIDI
 
 @cindex expanding repeats
-@funindex \unfoldRepeats
+@findex \unfoldRepeats
 
 With a little bit of tweaking, all types of repeats can be present
 in the MIDI output.  This is achieved by applying the
@@ -2954,7 +2954,7 @@ percent repeats).  For example,
 @node Manual repeat commands
 @subsection Manual repeat commands
 
-@funindex repeatCommands
+@findex repeatCommands
 
 The property @code{repeatCommands} can be used to control the layout of
 repeats.  Its value is a Scheme list of repeat commands.
@@ -3033,7 +3033,7 @@ Example files: @inputfileref{input/@/regression,chord@/-tremolo@/.ly},
 @subsection Tremolo subdivisions
 
 @cindex tremolo marks
-@funindex tremoloFlags
+@findex tremoloFlags
 
 Tremolo marks can be printed on a single note by adding
 `@code{:}[@var{number}]' after the note.  The number indicates the

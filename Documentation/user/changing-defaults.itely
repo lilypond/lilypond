@@ -84,7 +84,7 @@ beams are automatically displayed.
 Common rules for typesetting accidentals have been placed in a
 function.  This function is called as follows
 
-@funindex set-accidental-style
+@findex set-accidental-style
 @example
 #(set-accidental-style 'STYLE #('CONTEXT#))
 @end example
@@ -132,7 +132,7 @@ used by one musician (e.g., a conductor) then
 should be used instead.
 
 @item modern
-@funindex modern style accidentals
+@findex modern style accidentals
 This rule corresponds to the common practice in the 20th century.  This rule
 prints the same accidentals as @code{default}, but temporary
 accidentals also are canceled in other octaves.  Furthermore,
@@ -145,7 +145,7 @@ cis' c'' cis'2 | c'' c'
 @end lilypond
 
 @item @code{modern-cautionary}
-@funindex modern-cautionary
+@findex modern-cautionary
 This rule is similar to @code{modern}, but the ``extra'' accidentals
 (the ones not typeset by @code{default}) are typeset as cautionary
 accidentals.  They are printed in reduced size or with parentheses
@@ -154,14 +154,14 @@ accidentals.  They are printed in reduced size or with parentheses
 cis' c'' cis'2 | c'' c'
 @end lilypond
 
-@funindex modern-voice
+@findex modern-voice
 @item modern-voice
 This rule is used for multivoice accidentals to be read both by musicians
 playing one voice and musicians playing all voices.  Accidentals are
 typeset for each voice, but they @emph{are} canceled across voices in
 the same @internalsref{Staff}.
 
-@funindex modern-voice-cautionary
+@findex modern-voice-cautionary
 @item modern-voice-cautionary
 This rule is the same as @code{modern-voice}, but with the extra
 accidentals (the ones not typeset by @code{voice}) typeset
@@ -170,19 +170,19 @@ as cautionaries.  Even though all accidentals typeset by
 some of them are typeset as cautionaries.
 
 @item piano
-@funindex piano accidentals
+@findex piano accidentals
 This rule reflects 20th century practice for piano notation.  Very similar to
 @code{modern} but accidentals also get canceled
 across the staves in the same @internalsref{GrandStaff} or
 @internalsref{PianoStaff}.
 
 @item piano-cautionary
-@funindex #(set-accidental-style 'piano-cautionary)
+@findex #(set-accidental-style 'piano-cautionary)
 Same as @code{#(set-accidental-style 'piano)} but with the extra
 accidentals typeset as cautionaries.
 
 @item no-reset
-@funindex no-reset accidental style
+@findex no-reset accidental style
 This is the same as @code{default} but with accidentals lasting
 ``forever'' and not only until the next measure
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
@@ -224,9 +224,9 @@ problematic notes.
 @node Setting automatic beam behavior
 @subsection Setting automatic beam behavior
 
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
+@findex autoBeamSettings
+@findex (end * * * *)
+@findex (begin * * * *)
 @cindex automatic beams, tuning
 @cindex tuning automatic beaming
 
@@ -357,7 +357,7 @@ In 4/4 time signature, this means that automatic beams could end only on
 
 @cindex automatic beam generation
 @cindex autobeam
-@funindex autoBeaming
+@findex autoBeaming
 @cindex lyrics
 
 If beams are used to indicate melismata in songs, then automatic
@@ -366,9 +366,9 @@ beaming should be switched off with @code{\autoBeamOff}.
 
 @refcommands
 
-@funindex \autoBeamOff
+@findex \autoBeamOff
 @code{\autoBeamOff},
-@funindex \autoBeamOn
+@findex \autoBeamOn
 @code{\autoBeamOn}.
 
 
@@ -473,7 +473,7 @@ create them by hand.  There are three commands that do this.
 The easiest command is @code{\new}, and it also the quickest to type.
 It is prepended to a music expression, for example
 
-@funindex \new
+@findex \new
 @cindex new contexts
 @cindex Context, creating
 
@@ -506,7 +506,7 @@ However, this user specified name is only used if there is no other
 context already earlier with the same name.
 
 
-@funindex \context
+@findex \context
 
 @item
 Like @code{\new}, the @code{\context} command also directs a music
@@ -603,7 +603,7 @@ these forms
 @subsection Changing context properties on the fly
 
 @cindex properties
-@funindex \set
+@findex \set
 @cindex changing properties
 
 Each context can have different @emph{properties}, variables contained
@@ -655,7 +655,7 @@ example @context{Staff}, then the change would also apply to all
 `on-the-fly', during the music, so that the setting only affects the
 second group of eighth notes.
 
-@funindex \unset
+@findex \unset
 
 There is also an @code{\unset} command,
 @example
@@ -754,7 +754,7 @@ It can be useful to shuffle around these plug-ins.  This is done by
 starting a new context with @code{\new} or @code{\context}, and
 modifying it,
 
-@funindex \with
+@findex \with
 
 @example
 \new @var{context} \with @{
@@ -1125,7 +1125,7 @@ Put together, we get
 @}
 @end example
 
-@funindex \accepts
+@findex \accepts
 Contexts form hierarchies.  We want to hang the @context{ImproVoice}
 under @context{Staff}, just like normal @code{Voice}s.  Therefore, we
 modify the @code{Staff} definition with the @code{\accepts}
@@ -1138,7 +1138,7 @@ command,
 @}
 @end example
 
-@funindex \denies
+@findex \denies
 The opposite of @code{\accepts} is @code{\denies},
 which is sometimes needed when reusing existing context definitions.
 
@@ -1224,7 +1224,7 @@ properties.  To tweak those, use commands in the form
 @cindex finding graphical objects
 @cindex graphical object descriptions
 @cindex tweaking
-@funindex \override
+@findex \override
 @cindex internal documentation
 
 We demonstrate how to glean this information from the notation manual
@@ -1507,7 +1507,7 @@ Fingering_engraver is part of contexts: @dots{} @internalsref{Voice}
 @node Objects connected to the input
 @subsection Objects connected to the input
 
-@funindex \tweak
+@findex \tweak
 
 In some cases, it is possible to take a short-cut for tuning graphical
 objects. For objects that result directly from a piece of the input,

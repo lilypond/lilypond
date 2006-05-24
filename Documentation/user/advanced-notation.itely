@@ -75,9 +75,9 @@ The @code{\markup} is described in more detail in
 
 @refcommands
 
-@funindex \fatText
+@findex \fatText
 @code{\fatText},
-@funindex \emptyText
+@findex \emptyText
 @code{\emptyText}.
 
 
@@ -157,7 +157,7 @@ Examples: @inputfileref{input/@/regression,text@/-spanner@/.ly}.
 @cindex segno on bar line
 @cindex fermata on bar line
 @cindex bar lines, symbols on
-@funindex \mark
+@findex \mark
 
 The @code{\mark} command is primarily used for
 @ref{Rehearsal marks},
@@ -450,7 +450,7 @@ The following commands can all be used inside @code{\markup @{ @}}.
 
 @cindex font selection
 @cindex font magnification
-@funindex font-interface
+@findex font-interface
 
 By setting the object properties described below, you can select a
 font from the preconfigured font families.  LilyPond has default
@@ -613,7 +613,7 @@ individual parts.
 @cindex Rests, multi measure
 @cindex Rests, full measure
 @cindex whole rests for a full measure
-@funindex R
+@findex R
 
 Rests for one full measure (or many bars) are entered using `@code{R}'.  It
 is specifically meant for full bar rests and for entering parts: the rest
@@ -735,7 +735,7 @@ Metronome settings can be entered as follows
 
 In the MIDI output, they are interpreted as a tempo change.  In the
 layout output, a metronome marking is printed
-@funindex \tempo
+@findex \tempo
 @lilypond[quote,ragged-right,verbatim,fragment]
 \tempo 8.=120 c''1
 @end lilypond
@@ -785,7 +785,7 @@ further away from the staff.
 @subsection Rehearsal marks
 
 @cindex Rehearsal marks
-@funindex \mark
+@findex \mark
 
 To print a rehearsal mark, use the @code{\mark} command
 
@@ -856,7 +856,7 @@ Examples: @inputfileref{input/@/regression,rehearsal@/-mark@/-letter@/.ly},
 
 @cindex Bar numbers
 @cindex measure numbers
-@funindex currentBarNumber
+@findex currentBarNumber
 
 Bar numbers are printed by default at the start of the line.  The
 number itself is stored in the @code{currentBarNumber} property, which
@@ -1106,7 +1106,7 @@ during an octavation bracket.
 @node Different editions from one source
 @subsection Different editions from one source
 
-@funindex \tag
+@findex \tag
 @cindex tag
 
 The @code{\tag} command marks music expressions with a name.  These
@@ -2008,8 +2008,8 @@ emptymusic = {
 @cindex Invisible notes
 @cindex Transparent notes
 
-@funindex \hideNotes
-@funindex \unHideNotes
+@findex \hideNotes
+@findex \unHideNotes
 Hidden (or invisible or transparent) notes can be useful in preparing theory
 or composition exercises.
 
@@ -2079,7 +2079,7 @@ to be printed in a large font size.  To print with a larger font, see
 
 @refcommands
 
-@funindex \setEasyHeads
+@findex \setEasyHeads
 @code{\setEasyHeads}
 
 

@@ -202,7 +202,7 @@ be entered:
 @node Including LilyPond files
 @subsection Including LilyPond files
 
-@funindex \include
+@findex \include
 @cindex including files
 
 A large project may be split up into separate files.  To refer to another
@@ -490,7 +490,7 @@ Note that the music expression must come before the @code{\header}.
 }
 @end lilypond
 
-@funindex printallheaders
+@findex printallheaders
 @noindent
 You may change this behavior (and print all the headers when defining
 @code{\header} inside @code{\score}) by using
@@ -510,22 +510,22 @@ variables in the @code{\paper} block.  The init file
 @file{ly/titling-init.ly} lists the default layout.
 
 @table @code
-@funindex bookTitleMarkup
+@findex bookTitleMarkup
 @item bookTitleMarkup
   This is the title put over an entire @code{\book} block.  Typically,
   it has the composer and the title of the piece
 
-@funindex scoreTitleMarkup
+@findex scoreTitleMarkup
 @item scoreTitleMarkup
   This is the title put over a @code{\score} block within a
 @code{\book}.  Typically, it has the name of the movement (@code{piece}
 field).
 
-@funindex oddHeaderMarkup
+@findex oddHeaderMarkup
 @item oddHeaderMarkup
   This is the page header for odd-numbered pages.
 
-@funindex evenHeaderMarkup
+@findex evenHeaderMarkup
 @item evenHeaderMarkup
   This is the page header for even-numbered pages.  If unspecified,
   the odd header is used instead.
@@ -533,11 +533,11 @@ field).
   By default, headers are defined such that the page number is on the
   outside edge, and the instrument is centered.
 
-@funindex oddFooterMarkup
+@findex oddFooterMarkup
 @item oddFooterMarkup
   This is the page footer for odd-numbered pages.
 
-@funindex evenFotterMarkup
+@findex evenFotterMarkup
 @item evenFooterMarkup
   This is the page footer for even-numbered pages.  If unspecified,
   the odd header is used instead.
@@ -592,7 +592,7 @@ This section deals with the display of music on physical paper.
 
 @cindex paper size
 @cindex page size
-@funindex papersize
+@findex papersize
 
 To change the paper size, there are two commands,
 @example
@@ -643,7 +643,7 @@ Setting the paper size will adjust a number of @code{\paper} variables
 LilyPond will do page layout, set margins, and add headers and
 footers to each page.
 
-@funindex annotate-spacing
+@findex annotate-spacing
 @cindex Spacing, display of properties
 
 To graphically display the dimensions of properties that may
@@ -663,62 +663,62 @@ All units dimensions are measured in staff spaces. The pairs
 The default layout responds to the following settings in the
 @code{\paper} block.
 
-@funindex \paper
+@findex \paper
 
 @quotation
 @table @code
-@funindex first-page-number
+@findex first-page-number
 @item first-page-number
 The value of the page number of the first page.  Default is@tie{}1.
 
-@funindex printfirst-page-number
+@findex printfirst-page-number
 @item printfirst-page-number
 If set to true, will print the page number in the first page.  Default is
 false.
 
-@funindex print-page-number
+@findex print-page-number
 @item print-page-number
 If set to false, page numbers will not be printed.
 
-@funindex paper-width
+@findex paper-width
 @item paper-width
 The width of the page.
 
-@funindex paper-height
+@findex paper-height
 @item paper-height
 The height of the page.
 
-@funindex top-margin
+@findex top-margin
 @item top-margin
 Margin between header and top of the page.
 
-@funindex bottom-margin
+@findex bottom-margin
 @item bottom-margin
 Margin between footer and bottom of the page.
 
-@funindex left-margin
+@findex left-margin
 @item left-margin
 Margin between the left side of the page and the beginning of the music.
 
-@funindex line-width
+@findex line-width
 @item line-width
 The length of the systems.
 
-@funindex head-separation
+@findex head-separation
 @item head-separation
 Distance between the top-most music system and the page header.
 
-@funindex foot-separation
+@findex foot-separation
 @item foot-separation
 Distance between the bottom-most music system and the page footer.
 
-@funindex page-top-space
+@findex page-top-space
 Distance from the top of the printable area to the center of the first
 staff. This only works for staves which are vertically small. Big staves
 are set with the top of their bounding box aligned to the top of the
 printable area.
 
-@funindex ragged-bottom
+@findex ragged-bottom
 @item ragged-bottom
 If set to true, systems will not be spread vertically across the page.  This
 does not affect the last page.
@@ -726,19 +726,19 @@ does not affect the last page.
 This should be set to true for pieces that have only two or three
 systems per page, for example orchestral scores.
 
-@funindex ragged-last-bottom
+@findex ragged-last-bottom
 @item ragged-last-bottom
 If set to false, systems will be spread vertically to fill the last page.
 
 Pieces that amply fill two pages or more should have this set to
 true.
 
-@funindex system-count
+@findex system-count
 @item system-count
 This variable, if set, specifies into how many lines a score should be
 broken.
 
-@funindex between-system-space
+@findex between-system-space
 @item between-system-space
 This dimensions determines the distance between systems.  It is the
 ideal distance between the center of the bottom staff of one system
@@ -747,7 +747,7 @@ and the center of the top staff of the next system.
 Increasing this will provide a more even appearance of the page at the
 cost of using more vertical space.
 
-@funindex between-system-padding
+@findex between-system-padding
 @item between-system-padding
 This dimension is the minimum amount of white space that will always
 be present between the bottom-most symbol of one system, and the
@@ -757,33 +757,33 @@ Increasing this will put systems whose bounding boxes almost touch
 farther apart.
 
 
-@funindex horizontal-shift
+@findex horizontal-shift
 @item horizontal-shift
 All systems (including titles and system separators) are shifted by
 this amount to the right. Page markup, such as headers and footers are
 not affected by this. The purpose of this variable is to make space
 for instrument names at the left.
 
-@funindex after-title-space
+@findex after-title-space
 @item after-title-space
 Amount of space between the title and the first system.
 
-@funindex after-title-space
+@findex after-title-space
 @item before-title-space
 Amount of space between the last system of the previous piece and the
 title of the next.
 
-@funindex between-title-space
+@findex between-title-space
 @item between-title-space
 Amount of space between consecutive titles (e.g., the title of the
 book and the title of a piece).
 
-@funindex printallheaders
+@findex printallheaders
 @item printallheaders
 Setting this to #t will print all headers for each \score in a
 \book.  Normally only the piece and opus \headers are printed.
 
-@funindex systemSeparatorMarkup
+@findex systemSeparatorMarkup
 @item systemSeparatorMarkup
 This contains a markup object, which will be inserted between
 systems.  This is often used for orchestral scores.
@@ -904,7 +904,7 @@ titles.
 
 @cindex font size, setting
 @cindex staff size, setting
-@funindex layout file
+@findex layout file
 
 To set the global staff size, use @code{set-global-staff-size}.
 
@@ -1036,18 +1036,18 @@ use fonts. These are the ones supporting the
 
 The following commands set @code{fontSize} for the current voice:
 
-@funindex \tiny
+@findex \tiny
 @code{\tiny},
-@funindex \small
+@findex \small
 @code{\small},
-@funindex \normalsize
+@findex \normalsize
 @code{\normalsize}.
 
 
 @node Score layout
 @subsection Score layout
 
-@funindex \layout
+@findex \layout
 
 While @code{\paper} contains settings that relate to the page formatting
 of the whole document, @code{\layout} contains settings for score-specific
@@ -1330,10 +1330,10 @@ These durations may also be customized.  If you set the
 this sets the base duration for spacing.  The maximum duration for this
 base (normally an 8th), is set through @code{base-shortest-duration}.
 
-@funindex common-shortest-duration
-@funindex base-shortest-duration
-@funindex stem-spacing-correction
-@funindex spacing
+@findex common-shortest-duration
+@findex base-shortest-duration
+@findex stem-spacing-correction
+@findex spacing
 
 Notes that are even shorter than the common shortest note are
 followed by a space that is proportional to their duration relative to
@@ -1431,10 +1431,10 @@ No work-around exists for decreasing the amount of space.
 @cindex page breaks
 @cindex breaking pages
 
-@funindex indent
-@funindex line-width
-@funindex ragged-right
-@funindex ragged-last
+@findex indent
+@findex line-width
+@findex ragged-right
+@findex ragged-last
 
 @c Although line-width can be set in \layout, it should be set in paper
 @c block, to get page layout right.
@@ -1511,8 +1511,8 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 @refcommands
 
 @code{\break}, and @code{\noBreak}.
-@funindex \break
-@funindex \noBreak
+@findex \break
+@findex \noBreak
 
 @seealso
 
@@ -1562,9 +1562,9 @@ piece in several movements), use @code{breakbefore} in the header.
 
 @refcommands
 
-@funindex \pageBreak
+@findex \pageBreak
 @code{\pageBreak}
-@funindex \noPageBreak
+@findex \noPageBreak
 @code{\noPageBreak}
 
 
@@ -1602,7 +1602,7 @@ and texts are entered with a @code{\markup} block,
 @}
 @end example
 
-@funindex \book
+@findex \book
 
 The movements and texts are combined together in a @code{\book} block,
 like
@@ -1810,7 +1810,7 @@ The contexts for MIDI output are defined in @file{ly/@/performer@/-init@/.ly}.
 @subsection MIDI instrument names
 
 @cindex instrument names
-@funindex Staff.midiInstrument
+@findex Staff.midiInstrument
 
 The MIDI instrument name is set by the @code{Staff.midiInstrument}
 property.  The instrument name should be chosen from the list in
@@ -1833,7 +1833,7 @@ instrument is used.
 @node Displaying LilyPond notation
 @section Displaying LilyPond notation
 
-@funindex \displayLilyMusc
+@findex \displayLilyMusc
 Displaying a music expression in LilyPond notation can be
 done using the music function @code{\displayLilyMusic}.  For example,
 
@@ -1872,8 +1872,8 @@ lilypond file.ly >display.txt
 @subsection Skipping corrected music
 
 
-@funindex skipTypesetting
-@funindex showLastLength
+@findex skipTypesetting
+@findex showLastLength
 
 When entering or copying music, usually only the music near the end (where
 you
