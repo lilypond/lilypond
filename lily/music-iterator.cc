@@ -14,6 +14,9 @@ using namespace std;
 
 #include "warn.hh"
 #include "context.hh"
+#include "event-iterator.hh"
+#include "input.hh"
+#include "international.hh"
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
@@ -85,6 +88,8 @@ Music_iterator::get_static_get_iterator (Music *m)
     {
       if (dynamic_cast<Music_wrapper *> (m))
 	p = new Music_wrapper_iterator;
+      else if (m->is_mus_type ("event"))
+        p = new Event_iterator;
       else
 	p = new Simple_music_iterator;
 
@@ -146,30 +151,24 @@ Music_iterator::get_iterator (Music *m) const
   return ip;
 }
 
-/*
-  TODO: rename to prevent confusion between Context::try_music and
-  Iterator::try_music
-*/
-Music_iterator *
-Music_iterator::try_music (Music *m) const
+/* Descend to a bottom context; implicitly create a new one if necessary */
+void
+Music_iterator::descend_to_bottom_context ()
 {
-  bool b = get_outlet ()->try_music ((Music *)m); // ugh
-  Music_iterator *it = b ? (Music_iterator *) this : 0;	// ugh
-  if (!it)
-    it = try_music_in_children (m);
-  else
-    /* TODO: try_music should only do the following:
-     - descend iterator to bottom context
-     - send music to a bottom context.
-     The function should also be renamed, and it should not return a value. */
-    m->send_to_context (get_outlet ());
-  return it;
+  assert (get_outlet ());
+  if (!get_outlet ()->is_bottom_context ())
+    set_context (get_outlet ()->get_default_interpreter ());
 }
 
-Music_iterator *
-Music_iterator::try_music_in_children (Music *) const
+void 
+Music_iterator::report_event (Music *m)
 {
-  return 0;
+  descend_to_bottom_context ();
+
+  if (!m->is_mus_type ("event"))
+    m->origin ()->warning (_f ("Sending non-event to context"));
+
+  m->send_to_context (get_outlet ());
 }
 
 IMPLEMENT_CTOR_CALLBACK (Music_iterator);

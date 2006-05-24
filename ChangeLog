@@ -1,7 +1,27 @@
+2006-05-24  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/chord-tremolo-*.cc: Reworked how \repeat "tremolo"
+	works. More work is done by iterator now, and engraver has been
+	very much simplified.
+
+	* lily/translator-group.cc: try_music is now invoked through a
+	listener
+
+	* lily/*-iterator.cc: Massive cleanups. Junked
+	try_music_in_children globally. Renamed try_music to report_event,
+	and made that method descend to a bottom context automatically.
+
+	* lily/event-iterator.cc: New file.
+
+	* lily/output-property-iterator.cc,
+	lily/old-lyric-combine-music-iterator.cc: Removed.
+
+	* python/convert-rules.py: Modified the syntax for \applyOutput.
+
 2006-05-23  Graham Percival  <gpermus@gmail.com>
 
-	* stepmake/stepmake/texinfo-rules.make: added -E, allows
-	pdf doc creation.
+	* stepmake/stepmake/texinfo-rules.make: added -E, allows pdf doc
+	creation.
 
 	* Documentation/user/ various: stuff that might have helped
 	to fix the pdf creation, plus some minor doc additions.
@@ -184,6 +204,9 @@
 	* lily/time-scaled-music-iterator.cc, lily/tuplet-engraver.cc:
 	rework tuplets: send start/stop events to engraver
 
+	* lily/context.cc, lily/music.cc, lily/context-scheme.cc: Add
+	dispatchers event-source and events-below to Context
+	
 2006-05-15  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/README.txt: update info for doc writers.

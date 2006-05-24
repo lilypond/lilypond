@@ -60,12 +60,6 @@ Music_wrapper_iterator::pending_moment () const
   return child_iter_->pending_moment ();
 }
 
-Music_iterator *
-Music_wrapper_iterator::try_music_in_children (Music *m) const
-{
-  return child_iter_->try_music (m);
-}
-
 IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);
 
 bool

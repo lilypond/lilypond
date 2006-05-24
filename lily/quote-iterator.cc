@@ -252,10 +252,7 @@ Quote_iterator::process (Moment m)
 		  mus->transpose (diff);
 		}
 
-	      bool b = quote_outlet_.get_outlet ()->try_music (mus);
-	      if (!b)
-		mus->origin ()->warning (_f ("in quotation: junking event %s",
-					     mus->name ()));
+	      quote_outlet_.get_outlet ()->try_music (mus);
 	    }
 	}
 

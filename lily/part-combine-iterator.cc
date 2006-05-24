@@ -7,11 +7,13 @@
 */
 
 #include "context.hh"
-#include "music.hh"
-#include "music-sequence.hh"
+#include "dispatcher.hh"
 #include "lily-guile.hh"
-#include "warn.hh"
+#include "listener.hh"
+#include "music.hh"
 #include "music-iterator.hh"
+#include "music-sequence.hh"
+#include "warn.hh"
 
 class Part_combine_iterator : public Music_iterator
 {
@@ -29,11 +31,16 @@ protected:
   virtual void do_quit ();
   virtual void process (Moment);
 
-  virtual Music_iterator *try_music_in_children (Music *) const;
-
   virtual bool ok () const;
 
 private:
+  /* used by try_process */
+  DECLARE_LISTENER (set_busy);
+  bool busy_;
+  bool notice_busy_;
+  
+  bool try_process (Music_iterator *i, Moment m);
+  
   Music_iterator *first_iter_;
   Music_iterator *second_iter_;
   Moment start_moment_;
@@ -77,8 +84,6 @@ private:
   void unisono (bool silent);
 };
 
-static Music *busy_playing_event;
-
 void
 Part_combine_iterator::do_quit ()
 {
@@ -101,12 +106,6 @@ Part_combine_iterator::Part_combine_iterator ()
   split_list_ = SCM_EOL;
   state_ = APART;
   playing_state_ = APART;
-
-  if (!busy_playing_event)
-    {
-      busy_playing_event
-	= make_music_by_name (ly_symbol2scm ("BusyPlayingEvent"));
-    }
 }
 
 void
@@ -169,7 +168,7 @@ Part_combine_iterator::kill_mmrest (Context *tg)
       mmrest->set_property ("duration", SCM_EOL);
     }
 
-  tg->try_music (mmrest);
+  mmrest->send_to_context (tg);
 }
 
 void
@@ -192,7 +191,7 @@ Part_combine_iterator::solo1 ()
 	  if (!event)
 	    event = make_music_by_name (ly_symbol2scm ("SoloOneEvent"));
 
-	  first_iter_->try_music_in_children (event);
+	  event->send_to_context (first_iter_->get_outlet ());
 	}
       playing_state_ = SOLO1;
     }
@@ -255,8 +254,9 @@ Part_combine_iterator::unisono (bool silent)
 	  if (!event)
 	    event = make_music_by_name (ly_symbol2scm ("UnisonoEvent"));
 
-	  (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
-	    ->try_music_in_children (event);
+	  Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
+	    ->get_outlet ();
+	  event->send_to_context (out);
 	  playing_state_ = UNISONO;
 	}
       state_ = newstate;
@@ -280,7 +280,7 @@ Part_combine_iterator::solo2 ()
 	  if (!event)
 	    event = make_music_by_name (ly_symbol2scm ("SoloTwoEvent"));
 
-	  second_iter_->try_music_in_children (event);
+	  event->send_to_context (second_iter_->get_outlet ());
 	  playing_state_ = SOLO2;
 	}
     }
@@ -369,6 +369,13 @@ Part_combine_iterator::construct_children ()
     0
   };
 
+  // Add listeners to all contexts except Devnull.
+  Context *contexts[] = {one, two, solo_tr, tr, 0};
+  for (int i = 0; contexts[i]; i++)
+    {
+      contexts[i]->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("MusicEvent"));
+    }
+
   for (char const **p = syms; *p; p++)
     {
       SCM sym = ly_symbol2scm (*p);
@@ -378,6 +385,37 @@ Part_combine_iterator::construct_children ()
       execute_pushpop_property (two, sym,
 				ly_symbol2scm ("direction"), scm_from_int (-1));
     }
+}
+
+IMPLEMENT_LISTENER (Part_combine_iterator, set_busy);
+void
+Part_combine_iterator::set_busy (SCM se)
+{
+  if (!notice_busy_)
+    return;
+
+  Stream_event *e = unsmob_stream_event (se);
+  SCM mus = e->get_property ("music");
+  Music *m = unsmob_music (mus);
+  assert (m);
+
+  if (m->is_mus_type ("note-event") || m->is_mus_type ("cluster-note-event"))
+    busy_ = true;
+}
+
+/*
+* Processes a moment in an iterator, and returns whether any new music was reported.
+*/
+bool
+Part_combine_iterator::try_process (Music_iterator *i, Moment m)
+{
+  busy_ = false;
+  notice_busy_ = true;
+
+  i->process (m);
+  
+  notice_busy_ = false;
+  return busy_;
 }
 
 void
@@ -418,27 +456,15 @@ Part_combine_iterator::process (Moment m)
 
   if (first_iter_->ok ())
     {
-      first_iter_->process (m);
-      if (first_iter_->try_music_in_children (busy_playing_event))
-	last_playing_ = SOLO1;
+      if (try_process (first_iter_, m))
+        last_playing_ = SOLO1;
     }
 
   if (second_iter_->ok ())
     {
-      second_iter_->process (m);
-      if (second_iter_->try_music_in_children (busy_playing_event))
+      if (try_process (second_iter_, m))
 	last_playing_ = SOLO2;
     }
-}
-
-Music_iterator *
-Part_combine_iterator::try_music_in_children (Music *m) const
-{
-  Music_iterator *i = first_iter_->try_music (m);
-  if (i)
-    return i;
-  else
-    return second_iter_->try_music (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Part_combine_iterator);

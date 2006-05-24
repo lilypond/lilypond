@@ -30,14 +30,13 @@ Call the argument with all current grobs during interpreting phase.
 
 Syntax
 
-\\applyoutput FUNC
+\\applyOutput #'Context FUNC
 
 arguments to func are 1. the grob, 2. the originating context,
 3. context where FUNC is called.
 
 ")
-	(iterator-ctor . ,ly:output-property-music-iterator::constructor)
-	(types . (general-music layout-instruction))
+	(types . (general-music event layout-instruction))
 	))
     (ArpeggioEvent 
      . (
@@ -238,17 +237,6 @@ Syntax: @var{note}\\laissezVibrer.")
 	(description .  "Allow, forbid or force a line break.")
 	(types . (general-music break-event event))
 	))
-    (OldLyricCombineMusic
-     . (
-	(description .	"Align lyrics to the start of notes.
-
-Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
-
-	(types . (general-music lyric-combine-music))
-	(length-callback . ,ly:lyric-combine-music::length-callback)
-	(start-callback . ,ly:music-sequence::first-start-callback)
-	(iterator-ctor . ,ly:old-lyric-combine-music-iterator::constructor)
-	))
     
     (LyricCombineMusic
      . (
@@ -329,18 +317,6 @@ Syntax
      . (
 	(description .	"A note.")
 	(types . (general-music event note-event rhythmic-event melodic-event))
-	))
-    
-    (OutputPropertySetMusic
-     . (
-	(description .	"Set grob properties in objects
-individually. 
-
-Syntax @code{\\outputproperty @var{predicate} @var{prop}
-= @var{val}}.")
-
-	(iterator-ctor . ,ly:output-property-music-iterator::constructor)
-	(types . (general-music layout-instruction))
 	))
     
     (OverrideProperty
@@ -674,6 +650,12 @@ Syntax: @code{\\@var{number}}.")
 	(types . (general-music event tremolo-event))
 	))
     
+    (TremoloSpanEvent
+     . (
+	(description . "Tremolo over two stems")
+	(types . (general-music event span-event tremolo-span-event))
+	))
+
     (VoiceSeparator
      . (
 	(description .	"Separate polyphonic voices in simultaneous music. 

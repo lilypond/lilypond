@@ -32,7 +32,6 @@ public:
 
 protected:
   virtual void process (Moment);
-  virtual Music_iterator *try_music_in_children (Music *) const;
 
 private:
   SCM children_list_;

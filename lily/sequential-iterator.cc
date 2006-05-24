@@ -244,12 +244,6 @@ Sequential_iterator::ok () const
   return iter_;
 }
 
-Music_iterator *
-Sequential_iterator::try_music_in_children (Music *m) const
-{
-  return iter_ ? iter_->try_music (m) : 0;
-}
-
 IMPLEMENT_CTOR_CALLBACK (Sequential_iterator);
 
 bool

@@ -3,7 +3,7 @@
   texidoc = "With balloon texts, objects in the output can be marked,
 with lines and explanatory text added."
 }
-\version "2.7.39"
+\version "2.9.6"
 
 \layout{ ragged-right = ##t }
 
@@ -21,7 +21,7 @@ with lines and explanatory text added."
 
 
     %% use predefd function. 
-    \context Voice \applyOutput #(add-balloon-text
+    \applyOutput #'Voice #(add-balloon-text
 				  'NoteHead "heads, or tails?"
 				  '(0 . -3))
 

@@ -33,7 +33,6 @@ public:
   virtual bool run_always () const;
 protected:
   virtual void process (Moment);
-  virtual Music_iterator *try_music_in_children (Music *) const;
 
   Music_iterator *child_iter_;
 };

@@ -21,10 +21,7 @@ public:
   Time_scaled_music_iterator ();
 protected:
   virtual SCM get_music_list () const;
-  virtual void derived_mark () const;
-  virtual void construct_children ();
 private:
-  SCM child_list_;
 };
 
 #endif /* TIME_SCALED_MUSIC_ITERATOR_HH */

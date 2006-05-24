@@ -344,9 +344,8 @@ Context_def::instantiate (SCM ops, Object_key const *key)
   else if (dynamic_cast<Performer_group *> (g))
     g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
 
-  g->context_ = context;
   context->aliases_ = context_aliases_;
-
+  g->connect_to_context (context);
   g->unprotect ();
 
   context->accepts_list_ = get_accepted (ops);

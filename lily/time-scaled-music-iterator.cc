@@ -16,11 +16,10 @@
 
 Time_scaled_music_iterator::Time_scaled_music_iterator ()
 {
-  child_list_ = SCM_EOL;
 }
 
-void
-Time_scaled_music_iterator::construct_children ()
+SCM
+Time_scaled_music_iterator::get_music_list () const
 {
   Music *mus = get_music ();
   Input *origin = mus->origin ();
@@ -41,22 +40,7 @@ Time_scaled_music_iterator::construct_children ()
   stop_event = scm_call_1 (ly_lily_module_constant ("make-event-chord"), scm_list_1 (stop_event));
   unsmob_music (stop_event)->set_spot (*origin);
 
-  child_list_ = scm_list_3 (start_event, child->self_scm (), stop_event);
-
-  Sequential_iterator::construct_children ();
-}
-
-SCM
-Time_scaled_music_iterator::get_music_list () const
-{
-  return child_list_;
-}
-
-void
-Time_scaled_music_iterator::derived_mark () const
-{
-  scm_gc_mark (child_list_);
-  Sequential_iterator::derived_mark ();
+  return scm_list_3 (start_event, child->self_scm (), stop_event);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Time_scaled_music_iterator);

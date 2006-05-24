@@ -43,7 +43,7 @@ void
 Simple_music_iterator::process (Moment m)
 {
   /*
-    don't do try_music (), since it would make the function useless for
+    don't do report_event (), since it would make the function useless for
     base classes
   */
 

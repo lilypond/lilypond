@@ -36,7 +36,6 @@ protected:
   void leave_body ();
 
   virtual void process (Moment);
-  virtual Music_iterator *try_music_in_children (Music *) const;
 
 private:
   Music_iterator *main_iter_;

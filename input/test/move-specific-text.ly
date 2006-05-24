@@ -1,5 +1,5 @@
 
-\version "2.7.39"
+\version "2.9.6"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc = "@cindex Scheme Move Text
 Objects, like text, can be moved around by using some Scheme code.
@@ -11,7 +11,7 @@ Objects, like text, can be moved around by using some Scheme code.
 \score {
   \relative c''' {
     \stemUp
-    \applyOutput #(outputproperty-compatibility (make-text-checker (make-simple-markup "m.d."))
+    \applyOutput #'Voice #(outputproperty-compatibility (make-text-checker (make-simple-markup "m.d."))
       'extra-offset '(-3.5 . -4.5))
     a^2^"m.d."
   }

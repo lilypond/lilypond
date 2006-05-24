@@ -61,13 +61,14 @@ public:
   Moment music_get_length () const;
   Moment music_start_mom () const;
   Music_iterator ();
-  Music_iterator *try_music (Music *) const;
+  void report_event (Music *);
   Context *get_outlet () const;
   void set_context (Context *);
   static SCM get_static_get_iterator (Music *mus);
   void init_translator (Music *, Context *);
   void quit ();
   void substitute_outlet (Context *from, Context *to);
+  void descend_to_bottom_context ();
   virtual void derived_substitute (Context *, Context *);
   virtual Moment pending_moment () const;
   virtual bool ok () const;
@@ -77,8 +78,6 @@ public:
   virtual void construct_children ();
   DECLARE_SCHEME_CALLBACK (constructor, ());
   SCM get_iterator (Music *) const;
-
-  virtual Music_iterator *try_music_in_children (Music *) const;
 
   Music *get_music () const;
 protected:

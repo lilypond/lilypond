@@ -3,18 +3,21 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>,
+                 Erik Sandberg <mandolaerik@gmail.com>
 */
 
 #include "translator-group.hh"
 
-#include "output-def.hh"
-#include "warn.hh"
-#include "scm-hash.hh"
 #include "context-def.hh"
 #include "context.hh"
+#include "dispatcher.hh"
 #include "main.hh"
 #include "music.hh"
+#include "output-def.hh"
+#include "scm-hash.hh"
+#include "stream-event.hh"
+#include "warn.hh"
 
 Translator_group *
 Translator_group::get_daddy_translator () const
@@ -33,6 +36,15 @@ void
 Translator_group::initialize ()
 {
   precompute_method_bindings ();
+}
+
+void
+Translator_group::connect_to_context (Context *c)
+{
+  if (context_)
+    programming_error ("already connected to a context");
+  context_ = c;
+  c->event_source ()->add_listener (GET_LISTENER (eat_event), ly_symbol2scm ("MusicEvent"));
 }
 
 void
@@ -65,6 +77,16 @@ find_accept_translators (SCM gravlist, SCM ifaces)
   l = scm_reverse_x (l, SCM_EOL);
 
   return l;
+}
+
+IMPLEMENT_LISTENER (Translator_group, eat_event);
+void
+Translator_group::eat_event (SCM sev)
+{
+  Stream_event *ev = unsmob_stream_event (sev);
+  SCM sm = ev->get_property ("music");
+  Music *m = unsmob_music (sm);
+  try_music (m);
 }
 
 bool
@@ -235,4 +257,3 @@ Translator_group::mark_smob (SCM smob)
   scm_gc_mark (me->accept_hash_table_);
   return me->simple_trans_list_;
 }
-

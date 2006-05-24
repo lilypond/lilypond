@@ -31,8 +31,15 @@ Output_property_engraver::try_music (Music* m)
 {
   if (m->is_mus_type ("layout-instruction"))
     {
-      props_.push_back (m);
-      return true;
+      /*
+	UGH. Only swallow the output property event in the context
+	it was intended for. This is inelegant but not inefficient.
+      */
+      if (context ()->is_alias (m->get_property ("context-type")))
+        {
+          props_.push_back (m);
+          return true;
+        }
     }
   return false;
 }

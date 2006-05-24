@@ -107,10 +107,11 @@ displayLilyMusic =
    music)
 
 applyOutput =
-#(define-music-function (parser location proc) (procedure?)
-                (make-music 'ApplyOutputEvent 
+#(define-music-function (parser location ctx proc) (symbol? procedure?)
+                (make-music 'ApplyOutputEvent
                   'origin location
-                  'procedure proc))
+                  'procedure proc
+                  'context-type ctx))
 
 overrideProperty =
 #(define-music-function (parser location name property value)
@@ -140,8 +141,7 @@ or @code{\"GrobName\"}"
 		    (if (equal?
 			 (cdr (assoc 'name (ly:grob-property grob 'meta)))
 			 grob-name)
-			(set! (ly:grob-property grob property) value)
-			)))
+			(set! (ly:grob-property grob property) value))))
 
       context-name)))
 

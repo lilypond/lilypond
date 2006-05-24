@@ -4,12 +4,12 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  		 Erik Sandberg <mandolaerik@gmail.com>
 */
 
 #include "math.h" // ceil
 
 #include "beam.hh"
-#include "chord-tremolo-iterator.hh"
 #include "engraver-group.hh"
 #include "international.hh"
 #include "item.hh"
@@ -39,103 +39,77 @@ create dependencies between engravers, which is bad.
 */
 class Chord_tremolo_engraver : public Engraver
 {
-  void typeset_beam ();
   TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
 protected:
   Music *repeat_;
 
-  /// moment (global time) where beam started.
-  Moment start_mom_;
-  Moment stop_mom_;
   int flags_;
-  int total_duration_flags_;
+  // number of beams for short tremolos
+  int expected_beam_count_;
+  // current direction of beam (first RIGHT, then LEFT)
+  Direction beam_dir_;
 
-  /// location  within measure where beam started.
-  Moment beam_start_location_;
-
-  bool body_is_sequential_;
   Spanner *beam_;
-  Spanner *finished_beam_;
-  Item *stem_tremolo_;
 protected:
   virtual void finalize ();
   virtual bool try_music (Music *);
-  void stop_translation_timestep ();
-  void start_translation_timestep ();
   void process_music ();
   DECLARE_ACKNOWLEDGER (stem);
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
-  beam_ = finished_beam_ = 0;
+  beam_ = 0;
   repeat_ = 0;
   flags_ = 0;
-  stem_tremolo_ = 0;
-  body_is_sequential_ = false;
+  expected_beam_count_ = 0;
+  beam_dir_ = CENTER;
 }
 
 bool
 Chord_tremolo_engraver::try_music (Music *m)
 {
-  if (m->is_mus_type ("repeated-music")
-      && m->get_property ("iterator-ctor") == Chord_tremolo_iterator::constructor_proc
-      && !repeat_)
+  if (m->is_mus_type ("tremolo-span-event"))
     {
-      Moment l = m->get_length ();
-      repeat_ = m;
-      start_mom_ = now_mom ();
-      stop_mom_ = start_mom_ + l;
-
-      Music *body = Repeated_music::body (m);
-      body_is_sequential_ = body->is_mus_type ("sequential-music");
-
-      int elt_count = body_is_sequential_ ? scm_ilength (body->get_property ("elements")) : 1;
-
-      if (body_is_sequential_ && elt_count != 2)
-	m->origin ()->warning (_f ("expect 2 elements for chord tremolo, found %d", elt_count));
-
-      if (elt_count <= 0)
-	elt_count = 1;
-
-      Rational total_dur = l.main_part_;
-      Rational note_dur = total_dur / Rational (elt_count * Repeated_music::repeat_count (repeat_));
-
-      total_duration_flags_ = max (0, (intlog2 (total_dur.den ()) - 2));
-
-      flags_ = intlog2 (note_dur.den ()) -2;
-
+      Direction span_dir = to_dir (m->get_property ("span-direction"));
+      if (span_dir == START)
+	{
+	  repeat_ = m;
+	  int type = scm_to_int (m->get_property ("tremolo-type"));
+	  /* e.g. 1 for type 8, 2 for type 16 */
+	  flags_ = intlog2 (type) - 2;
+	  expected_beam_count_ = scm_to_int (m->get_property ("expected-beam-count"));
+	  beam_dir_ = RIGHT;
+	}
+      if (span_dir == STOP)
+	{
+	  repeat_ = 0;
+          beam_ = 0;
+          expected_beam_count_ = 0;
+          beam_dir_ = CENTER;
+	}
       return true;
     }
-
   return false;
 }
 
 void
 Chord_tremolo_engraver::process_music ()
 {
-  if (repeat_ && body_is_sequential_ && !beam_)
+  if (repeat_ && !beam_)
     {
       beam_ = make_spanner ("Beam", repeat_->self_scm ());
-      beam_start_location_ = robust_scm2moment (get_property ("measurePosition"), Moment (0));
     }
 }
 
 void
 Chord_tremolo_engraver::finalize ()
 {
-  typeset_beam ();
   if (beam_)
     {
       repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
       beam_->suicide ();
     }
-}
-
-void
-Chord_tremolo_engraver::typeset_beam ()
-{
-  finished_beam_ = 0;
 }
 
 void
@@ -145,13 +119,13 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
     {
       Grob *s = info.grob ();
 
-      if (start_mom_ == now_mom ())
-	Stem::set_beaming (s, flags_, RIGHT);
-      else
-	Stem::set_beaming (s, flags_, LEFT);
+      Stem::set_beaming (s, flags_, beam_dir_);
 
       if (Stem::duration_log (s) != 1)
-	beam_->set_property ("gap-count", scm_from_int (flags_ - total_duration_flags_));
+	beam_->set_property ("gap-count", scm_from_int (flags_ - expected_beam_count_));
+
+      if (beam_dir_ == RIGHT)
+        beam_dir_ = LEFT;
 
       if (info.ultimate_music_cause ()->is_mus_type ("rhythmic-event"))
 	Beam::add_stem (beam_, s);
@@ -164,49 +138,12 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 	    ::warning (s);
 	}
     }
-  else if (repeat_
-	   && flags_
-	   && !body_is_sequential_)
-    {
-      stem_tremolo_ = make_item ("StemTremolo", repeat_->self_scm ());
-      stem_tremolo_->set_property ("flag-count",
-				   scm_from_int (flags_));
-      stem_tremolo_->set_object ("stem",
-				 info.grob ()->self_scm ());
-      stem_tremolo_->set_parent (info.grob (), X_AXIS);
-      info.grob ()->set_object ("tremolo-flag", stem_tremolo_->self_scm ());
-    }
-}
-
-void
-Chord_tremolo_engraver::start_translation_timestep ()
-{
-  if (beam_ && stop_mom_ == now_mom ())
-    {
-      finished_beam_ = beam_;
-      repeat_ = 0;
-      beam_ = 0;
-    }
-}
-
-void
-Chord_tremolo_engraver::stop_translation_timestep ()
-{
-  if (stem_tremolo_)
-    {
-      repeat_ = 0;
-      if (beam_)
-	programming_error ("beam and stem tremolo?");
-      stem_tremolo_ = 0;
-    }
-
-  typeset_beam ();
 }
 
 ADD_ACKNOWLEDGER (Chord_tremolo_engraver, stem);
 ADD_TRANSLATOR (Chord_tremolo_engraver,
-		/* doc */ "Generates beams for  tremolo repeats.",
+		/* doc */ "Generates beams for tremolo repeats.",
 		/* create */ "Beam",
-		/* accept */ "repeated-music",
+		/* accept */ "tremolo-span-event",
 		/* read */ "",
 		/* write */ "");

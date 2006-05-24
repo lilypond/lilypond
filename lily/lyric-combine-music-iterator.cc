@@ -7,9 +7,12 @@
 */
 
 #include "context.hh"
+#include "dispatcher.hh"
+#include "global-context.hh"
 #include "grob.hh"
 #include "input.hh"
 #include "international.hh"
+#include "listener.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 
@@ -24,69 +27,82 @@ protected:
   virtual Moment pending_moment () const;
   virtual void do_quit ();
   virtual void process (Moment);
-  virtual Music_iterator *try_music_in_children (Music *) const;
   virtual bool run_always ()const;
   virtual bool ok () const;
   virtual void derived_mark () const;
   virtual void derived_substitute (Context *, Context *);
+  void set_music_context (Context *to);
 private:
   bool start_new_syllable ();
-  void find_voice ();
+  Context *find_voice ();
+  DECLARE_LISTENER (set_busy);
+  DECLARE_LISTENER (check_new_context);
 
   bool pending_grace_lyric_;
   bool music_found_;
-  bool made_association_;
   Context *lyrics_context_;
   Context *music_context_;
   SCM lyricsto_voice_name_;
 
+  bool busy_;
   Music_iterator *lyric_iter_;
 };
-
-/*
-  Ugh; this is a hack, let's not export this hack, so static.
-*/
-static Music *busy_ev;
-static Music *start_ev;
-static Music *melisma_playing_ev;
 
 Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
   music_found_ = false;
-  made_association_ = false;
   pending_grace_lyric_ = false;
   lyric_iter_ = 0;
   music_context_ = 0;
   lyrics_context_ = 0;
+  busy_ = false;
+}
 
-  /*
-    Ugh. out of place here.
-  */
-  if (!busy_ev)
+IMPLEMENT_LISTENER (Lyric_combine_music_iterator, set_busy)
+void
+Lyric_combine_music_iterator::set_busy (SCM se)
+{
+  Stream_event *e = unsmob_stream_event (se);
+  SCM mus = e->get_property ("music");
+  Music *m = unsmob_music (mus);
+  assert (m);
+
+  if (m->is_mus_type ("note-event") || m->is_mus_type ("cluster-note-event"))
+    busy_ = true;
+}
+
+void
+Lyric_combine_music_iterator::set_music_context (Context *to)
+{
+  if (music_context_)
     {
-      busy_ev
-	= make_music_by_name (ly_symbol2scm ("BusyPlayingEvent"));
-      start_ev
-	= make_music_by_name (ly_symbol2scm ("StartPlayingEvent"));
-      melisma_playing_ev
-	= make_music_by_name (ly_symbol2scm ("MelismaPlayingEvent"));
+      music_context_->event_source()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("MusicEvent"));
+      lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
+    }
+  music_context_ = to;
+  if (to)
+    {
+      to->event_source()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("MusicEvent"));
+      lyrics_context_->set_property ("associatedVoiceContext", to->self_scm ());
     }
 }
 
 bool
 Lyric_combine_music_iterator::start_new_syllable ()
 {
-  bool b = music_context_->try_music (busy_ev);
-
-  if (!b)
+  if (!busy_)
     return false;
+
+  busy_ = false;
+
+      scm_display (music_context_->now_mom().smobbed_copy(), scm_current_output_port ());
 
   if (!lyrics_context_)
     return false;
 
   if (!to_boolean (lyrics_context_->get_property ("ignoreMelismata")))
     {
-      bool m = music_context_->try_music (melisma_playing_ev);
+      bool m = melisma_busy (music_context_);
       if (m)
 	return false;
     }
@@ -135,7 +151,7 @@ Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
   if (lyrics_context_ && lyrics_context_ == f)
     lyrics_context_ = t;
   if (music_context_ && music_context_ == f)
-    music_context_ = t;
+    set_music_context (t);
 }
 
 void
@@ -143,14 +159,25 @@ Lyric_combine_music_iterator::construct_children ()
 {
   Music *m = unsmob_music (get_music ()->get_property ("element"));
   lyric_iter_ = unsmob_iterator (get_iterator (m));
+  if (!lyric_iter_)
+    return;
+  lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
+					ly_symbol2scm ("Lyrics"), "");
 
   lyricsto_voice_name_ = get_music ()->get_property ("associated-context");
 
-  find_voice ();
-
-  if (lyric_iter_)
-    lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
-					  ly_symbol2scm ("Lyrics"), "");
+  Context *voice = find_voice ();
+  if (voice)
+    set_music_context (voice);
+  else
+    {
+      /*
+        Wait for a Create_context event. If this isn't done, lyrics can be 
+        delayed when voices are created implicitly.
+      */
+      Global_context *g = lyrics_context_->get_global_context ();
+      g->events_below ()->add_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
+    }
 
   /*
     We do not create a Lyrics context, because the user might
@@ -159,7 +186,27 @@ Lyric_combine_music_iterator::construct_children ()
   */
 }
 
+IMPLEMENT_LISTENER (Lyric_combine_music_iterator, check_new_context)
 void
+Lyric_combine_music_iterator::check_new_context (SCM sev)
+{
+  // TODO: Check first if type=Voice and if id matches
+  (void)sev;
+
+  Context *voice = find_voice ();
+  if (voice)
+    {
+      set_music_context (voice);
+
+      Global_context *g = voice->get_global_context ();
+      g->events_below ()->remove_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
+    }
+}
+
+/*
+Look for a suitable voice to align lyrics to.
+*/
+Context *
 Lyric_combine_music_iterator::find_voice ()
 {
   SCM voice_name = lyricsto_voice_name_;
@@ -173,40 +220,20 @@ Lyric_combine_music_iterator::find_voice ()
   if (scm_is_string (voice_name)
       && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ()))
     {
-      /*
-	(spaghettini).
-
-	Need to set associatedVoiceContext again
-      */
-      if (music_context_)
-	made_association_ = false;
-
       Context *t = get_outlet ();
       while (t && t->get_parent_context ())
 	t = t->get_parent_context ();
 
       string name = ly_scm2string (voice_name);
-      Context *voice = find_context_below (t, ly_symbol2scm ("Voice"), name);
-
-      if (voice)
-	music_context_ = voice;
+      return find_context_below (t, ly_symbol2scm ("Voice"), name);
     }
 
-  if (lyrics_context_ && music_context_)
-    {
-      if (!made_association_)
-	{
-	  made_association_ = true;
-	  lyrics_context_->set_property ("associatedVoiceContext",
-					 music_context_->self_scm ());
-	}
-    }
+  return 0;
 }
 
 void
-Lyric_combine_music_iterator::process (Moment mom)
+Lyric_combine_music_iterator::process (Moment)
 {
-  (void) mom;
   find_voice ();
   if (!music_context_)
     return;
@@ -220,7 +247,7 @@ Lyric_combine_music_iterator::process (Moment mom)
       if (lyrics_context_)
 	lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
       lyric_iter_ = 0;
-      music_context_ = 0;
+      set_music_context (0);
     }
 
   if (music_context_
@@ -259,12 +286,6 @@ Lyric_combine_music_iterator::do_quit ()
 
   if (lyric_iter_)
     lyric_iter_->quit ();
-}
-
-Music_iterator *
-Lyric_combine_music_iterator::try_music_in_children (Music *m) const
-{
-  return lyric_iter_->try_music (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Lyric_combine_music_iterator);

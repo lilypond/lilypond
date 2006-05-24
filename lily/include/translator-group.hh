@@ -9,6 +9,7 @@
 #ifndef TRANSLATOR_GROUP_HH
 #define TRANSLATOR_GROUP_HH
 
+#include "listener.hh"
 #include "translator.hh"
 #include "std-vector.hh"
 
@@ -46,11 +47,14 @@ private:
   Translator_group_void_method
   precomputed_self_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
+  DECLARE_LISTENER (eat_event);
+
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Translator_group);
   DECLARE_SMOBS (Translator_group, dummy);
 
 public:
+  void connect_to_context (Context *c);
   virtual Translator_group *get_daddy_translator ()const;
   virtual SCM get_simple_trans_list ();
   virtual bool try_music (Music *req);

@@ -107,15 +107,6 @@ Folded_repeat_iterator::enter_alternative ()
     }
 }
 
-Music_iterator *
-Folded_repeat_iterator::try_music_in_children (Music *m) const
-{
-  if (main_iter_)
-    return main_iter_->try_music (m);
-  if (alternative_iter_)
-    return alternative_iter_->try_music (m);
-  return 0;
-}
 void
 Folded_repeat_iterator::derived_mark () const
 {

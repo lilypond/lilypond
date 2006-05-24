@@ -1,13 +1,13 @@
 /*
-  event-iter.hh -- declare Event_chord_iterator
+  event-chord-iterator.hh -- declare Event_chord_iterator
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#ifndef EVENT_ITER_HH
-#define EVENT_ITER_HH
+#ifndef EVENT_CHORD_ITERATOR_HH
+#define EVENT_CHORD_ITERATOR_HH
 
 #include "simple-music-iterator.hh"
 
@@ -19,15 +19,7 @@ class Event_chord_iterator : public Simple_music_iterator
   /**
      Find a bottom notation context to deliver events to.
   */
-  virtual Context *get_bottom_context ();
   DECLARE_CLASSNAME(Event_chord_iterator);
-
-  /*
-    Since Event_chord_iterator has no list-cursor internally, we
-    must use a status variable to adminstrate where we are */
-
-  enum { NONE_DONE, START_DONE, END_DONE }
-    status_;
 
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -39,4 +31,4 @@ protected:
   virtual void construct_children ();
 };
 
-#endif // EVENT_ITER_HH
+#endif // EVENT_CHORD_ITERATOR_HH

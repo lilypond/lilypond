@@ -2789,3 +2789,9 @@ def conv (str):
     return str
 
 conversions.append (((2, 9, 4), conv, """(page-)penalty -> (page-)break-penalty"""))
+
+def conv (str):
+    str = re.sub (r'\\context\s+\"?([a-zA-Z]+)\"?\s*\\applyOutput', r"\\applyOutput #'\1", str)
+    return str
+
+conversions.append (((2, 9, 6), conv, """\context Foo \applyOutput #bla -> \applyOutput #'Foo #bla """))

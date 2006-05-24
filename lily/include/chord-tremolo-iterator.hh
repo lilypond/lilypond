@@ -9,28 +9,18 @@
 #ifndef CHORD_TREMOLO_ITERATOR_HH
 #define CHORD_TREMOLO_ITERATOR_HH
 
-#include "music-iterator.hh"
+#include "sequential-iterator.hh"
 
-class Chord_tremolo_iterator : public Music_iterator
+class Chord_tremolo_iterator : public Sequential_iterator
 {
 public:
-  DECLARE_CLASSNAME(Chord_tremolo_iterator);
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  /* construction */
+  DECLARE_CLASSNAME(Chord_tremolo_iterator);
   Chord_tremolo_iterator ();
-  Chord_tremolo_iterator (Chord_tremolo_iterator const &);
 protected:
-  virtual void derived_substitute (Context *f, Context *t);
-
-  virtual void derived_mark () const;
-  virtual Moment pending_moment () const;
-  virtual void do_quit ();
-  virtual void construct_children ();
-  virtual bool ok () const;
-  virtual void process (Moment);
-  virtual Music_iterator *try_music_in_children (Music *) const;
+  virtual SCM get_music_list () const;
 private:
-  Moment factor_;
-  Music_iterator *child_iter_;
 };
 
 #endif /* CHORD_TREMOLO_ITERATOR_HH */
