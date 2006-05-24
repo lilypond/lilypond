@@ -27,7 +27,7 @@ INFO_DOCS = lilypond lilypond-internals music-glossary
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
 STEPMAKE_TEMPLATES=tex texinfo omf documentation
-TEXI2DVI_FLAGS = -E
+#TEXI2DVI_FLAGS = -E
 OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
