@@ -167,7 +167,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 $(tree-share-prefix)/mf-link-tree link-mf-tree: $(tree-share-prefix)/lilypond-force
 	-rm -f $(tree-share-prefix)/fonts/{otf,svg,tfm,type1}/* &&  \
 		cd $(tree-share-prefix)/fonts/otf && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.{otf,ttf} .
+		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
 	-cd $(tree-share-prefix)/fonts/svg && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
 	-cd $(tree-share-prefix)/fonts/tfm && \

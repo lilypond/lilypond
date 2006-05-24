@@ -68,7 +68,7 @@ if test "$NCSB_DIR" != "" ;  then
 else
   if test "$FCMATCH" != ""; then
     for style in Roman Italic "Bold Italic" Bold; do
-      NCSB_FILE=`$FCMATCH --verbose 'Century Schoolbook L:style=$style' | grep 'file:'`
+      NCSB_FILE=`$FCMATCH --verbose "Century Schoolbook L:style=$style" | grep 'file:'`
 
       NCSB_FILE=`echo $NCSB_FILE | sed 's/^.*"\(.*\)".*$/\1/g'`
       NCSB_FILE=`readlink -f $NCSB_FILE`

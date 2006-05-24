@@ -1,5 +1,7 @@
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* configure.in (LINK_GXX_STATICALLY): use "" to allow $ expansion.
+
 	* Documentation/user/GNUmakefile (TEXI2DVI_FLAGS): add -E.
 
 	* stepmake/stepmake/texinfo-rules.make ($(outdir)/%.dvi): add
