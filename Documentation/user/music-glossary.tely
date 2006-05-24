@@ -452,15 +452,15 @@ accidental.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
-%\override TextScript #'font-style = #'large
-\oldaddlyrics
-\context Staff \relative c'' {
-  gis1 gisis ges geses g!
-}
-\context Lyrics \lyrics {
-  \override Lyrics .LyricText #'self-alignment-X = #-1
-  sharp "db. sharp" flat "db. flat" natural
-}
+<< 
+  \context Staff \relative c'' {
+    gis1 gisis ges geses g!
+  }
+  \lyrics {
+    \override Lyrics .LyricText #'self-alignment-X = #-1
+    sharp "db. sharp" flat "db. flat" natural
+  }
+>>
 @end lilypond
 
 @node accelerando
@@ -999,19 +999,19 @@ lines.
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
 \override Score.Clef #'full-size-change = ##t
-%\override Score.LyricText #'font-style = #'large
-\oldaddlyrics
-\context Staff \relative c' {
-  \clef soprano c1 s s
-  \clef mezzosoprano c s s
-  \clef alto c s s
-  \clef tenor c s s
-  \clef baritone c s s
-}
-\context Lyrics \lyrics {
-  \override Lyrics .LyricText #'self-alignment-X = #-1
-  "Soprano  " "Mezzosoprano  " "Alto  " "Tenor  " Baritone
-}
+<<
+  \context Staff \relative c' {
+    \clef soprano c1 
+    \clef mezzosoprano c 
+    \clef alto c 
+    \clef tenor c 
+    \clef baritone c 
+  }
+  \context Lyrics \lyrics {
+    \override Lyrics .LyricText #'self-alignment-X = #-1
+    "Soprano  " "Mezzosoprano  " "Alto  " "Tenor  " Baritone
+  }
+>>
 @end lilypond
 
 @node cadence
@@ -1108,16 +1108,16 @@ chords are denoted open chords
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
 %\override TextScript #'font-style = #'large
-\oldaddlyrics
+<<
 \context Staff \relative c'' {
-  <g b d>1 s s
-  <g bes d> s s
-  <g bes des> s s
-  <g b dis> s s
-  <g b d f> s s
-  <g b d f a> s s
+  <g b d>1 
+  <g bes d>
+  <g bes des>
+  <g b dis> 
+  <g b d f> 
+  <g b d f a> 
 }
-\context Lyrics \lyrics{
+\lyrics{
   "major  "
   "minor  "
   "diminished  "
@@ -1125,6 +1125,7 @@ chords are denoted open chords
   "seventh-chord  "
   ninth-chord
 }
+>>
 @end lilypond
 
 @node chromatic scale
@@ -1576,7 +1577,7 @@ music but also to some extent in newer jazz music.
 \set Score.automaticBars = ##f
 %\override Score.LyricText #'font-style = #'large
 %\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \context Staff \relative c' {
     c1 d
     \override TextScript #'padding = #-4
@@ -1585,79 +1586,77 @@ music but also to some extent in newer jazz music.
   \context Lyrics \lyrics {
     Ionian
   }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \context Staff \relative c' {
     d1
     \override TextScript #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c d
   }
-  \context Lyrics \lyrics {
+  \lyrics {
     Dorian
   }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \relative c' {
     \override TextScript #'padding = #-4
     e1^"~~ S" f g a b^"~~ S" c d e
   }
-  \context Lyrics \lyrics {
+  \lyrics {
     Phrygian
   }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \relative c' {
     f1 g a
     \override TextScript #'padding = #-4
     b^"~~ S" c d e^"~~ S" f
   }
-  \context Lyrics \lyrics {
+  \lyrics {
     Lydian
   }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \relative c'' {
     g1 a
     \override TextScript #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g }
-  \context Lyrics \lyrics {
+  \lyrics {
     Mixolydian
   }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
 %\override Score.LyricText #'font-style = #'large
 %\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \relative c'' {
     a1
     \override TextScript #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g a
   }
-  \context Lyrics \lyrics {
+  \lyrics {
     Aeolian
   }
+>>
 @end lilypond
 
 From the beginning of the 17th century the scales used in European
@@ -1667,39 +1666,35 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \relative c' {
     c1 d
     \override TextScript #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c
   }
-  \context Lyrics \lyrics {
+ \lyrics {
     Major
   }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \relative c'' {
     a1
     \override TextScript #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g a
   }
-  \context Lyrics \lyrics {
+ \lyrics {
     "ancient minor"
   }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \relative c'' {
     a1
     \override TextScript #'padding = #-4
@@ -1708,22 +1703,24 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   \context Lyrics \lyrics {
     "Harmonic minor"
   }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
 %\override Score.LyricText #'font-style = #'large
 %\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
   \relative c'' {
     a1
     \override TextScript #'padding = #-4
     b^"~~ S" c d e fis gis^"~~ S"
     a g! f!^"~~ S" e d c^"~~ S" b a
   }
-  \context Lyrics \lyrics {
+   \lyrics {
     "Melodic minor"
   }
+>>
 @end lilypond
 
 @node diminished interval
@@ -2100,15 +2097,15 @@ but equal pitch.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
 \context Staff \relative c'' {
-  gis1 s s as s s <des g,!> s s <cis g!> s s
+  gis1  as <des g,!>  <cis g!> 
 }
 \context Lyrics \lyrics {
   \override Lyrics .LyricText #'self-alignment-X = #-1
   "g sharp  " "a flat  " "dim fifth  " "augm fourth"
 }
+>>
 @end lilypond
 
 @node equal temperament
@@ -2176,8 +2173,7 @@ symbol indicates playing an octave lower (for example on double bass
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
 \override Staff.Clef #'full-size-change = ##t
-%\override Score.LyricText #'font-style = #'large
-\oldaddlyrics
+<<
 \relative c {
   \clef varbaritone
   f1
@@ -2190,14 +2186,14 @@ symbol indicates playing an octave lower (for example on double bass
   \clef "F_8"
   f1
 }
-\context Lyrics \lyrics {
-%  \override Lyrics .LyricText #'self-alignment-X = #-1
+ \lyrics {
   "baritone  "
   "bass  "
   "sub-bass  "
   "octaved up  "
   "octaved down"
 }
+>>
 @end lilypond
 
 @c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
@@ -2365,14 +2361,13 @@ variants of the base chords.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
 \context Voice \relative c'' {
   <g e c >1 < a f d > < b g e >
   <c a f > < d b g > < e c a > < f d b > }
 \context Lyrics \lyrics {
   T Sp Dp S D Tp \markup{ D\translate #(cons -2 0) {"|"}  } }
+>>
 @end lilypond
 
 @node G
@@ -2548,17 +2543,18 @@ section.  @aref{functional harmony}.
     \partial 4 < c g e >4 |
     < c a f > < b g d > < c g e >2
   }
-%  %\override Score.LyricText #'font-style = #'large
-  \oldaddlyrics
-  \context Staff = SB \relative c {
-    \clef bass
-    \partial 4 c4 | f, g c2
-    \bar "|."
-  }
-  \context Lyrics \lyrics {
-    T S D T
-  }
+  <<
+    \context Staff = SB \relative c {
+      \clef bass
+      \partial 4 c4 | f, g c2
+      \bar "|."
+    }
+    \lyrics {
+      T S D T
+    }
+  >>
 >>
+
 @end lilypond
 
 @node harmony
@@ -2642,65 +2638,62 @@ of such two intervals forms an octave.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
 \context Voice \relative c'' {
-  < g g >1 s
-  < g as >^"minor" s
-  < g a! > s
-  < g ais >^"augm" s
-  < gis bes >^"dimin" s
-  < g! bes >^"minor" s
-  < g b! >^"major" s
-  < g bis >^"augm" s
+  < g g >1 
+  < g as >^"minor" 
+  < g a! > 
+  < g ais >^"augm" 
+  < gis bes >^"dimin" 
+  < g! bes >^"minor" 
+  < g b! >^"major" 
+  < g bis >^"augm" 
 }
 \context Lyrics \lyrics {
   "unisone " "second " "second " "second "
   "third  " "third " "third " "third"
 }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
 \context Staff \relative c'' {
-  < g c >1^"perfect" s
-  < g cis >^"augm" s
-  < g d' >^"perfect" s
-  < g des' > ^"dimin" s
-  < gis es' >^"dimin" s
-  < g! es' >^"minor" s
-  < g e'! >^"major" s
-  < g eis' >^"augm" s
+  < g c >1^"perfect" 
+  < g cis >^"augm" 
+  < g d' >^"perfect" 
+  < g des' > ^"dimin" 
+  < gis es' >^"dimin" 
+  < g! es' >^"minor" 
+  < g e'! >^"major" 
+  < g eis' >^"augm" 
 }
-\context Lyrics \lyrics {
+ \lyrics {
   "fourth  " "fourth  " "fifth  " "fifth  "
   "sixth  " "sixth  " "sixth  " "sixth"
 }
+>>
 @end lilypond
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\override Score.TextScript #'font-style = #'large
-\oldaddlyrics
+<<
 \context Staff \relative c'' {
-  < gis f'! >1^"dimin" s
-  < g! f'! >^"minor" s
-  < g fis' >^"major" s
-  < g g' > s
-  < g as' >^"minor" s
-  < g a'! >^"major" s
-  < g bes' >^"minor" s
-  < g b'! >^"major" s
+  < gis f'! >1^"dimin" 
+  < g! f'! >^"minor" 
+  < g fis' >^"major" 
+  < g g' > 
+  < g as' >^"minor" 
+  < g a'! >^"major" 
+  < g bes' >^"minor" 
+  < g b'! >^"major" 
 }
 \context Lyrics \lyrics {
   "seventh " "seventh " "seventh " "octave "
   "none " "none " "decime " "decime"
 }
+>>
 @end lilypond
 
 @node inverted interval
@@ -2840,20 +2833,20 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
-\oldaddlyrics
-\context Staff \relative c'' {
-  c4-( d e-) \bar "||"
-  c4-- d-- e-- \bar "||"
-  c4-.-( d-. e-.-) \bar "||"
-  c4-. d-. e-. \bar "||"
-}
-\context Lyrics \lyrics {
-%  \override Lyrics .LyricText #'font-style = #'large
-  a
-  b "" ""
-  c
-  d
-}
+<<
+  \context Staff \relative c'' {
+    c4-( d e-) \bar "||"
+    c4-- d-- e-- \bar "||"
+    c4-.-( d-. e-.-) \bar "||"
+    c4-. d-. e-. \bar "||"
+  }
+  \lyrics {
+    a1
+    b
+    c
+    d
+  }
+>>
 @end lilypond
 
 @node legato curve
@@ -3948,16 +3941,15 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
-%\override Score.LyricText #'font-style = #'large
-%\set minVerticalAlign = #8
-\oldaddlyrics
+<<
 \context Staff \relative c' {
   c1 d e f g a b c
 }
-\context Lyrics \lyrics {
+ \lyrics {
   << { I II III IV V VI VII I }
-    { T "" "" S D } >>
+     { T "" ""  S  D } >>
 }
+>>
 @end lilypond
 
 @aref{functional harmony}.
@@ -4634,17 +4626,14 @@ with figures designating the chief @aref{interval}s and
         < bes g >8 as < as f > g < g es > f < d f > es | < g es >4 }
     >>
   }
-  \oldaddlyrics
+  <<
     \context Staff = rh \relative c' {
     \clef bass
     \key es \major
     es8 c d bes c as bes16 as g f | es4
-  }
-  \context Lyrics \lyrics {
-    \override Lyrics .VerticalAlign #'threshold = #'(6 . 12)
-    << { "" "6" "" "4" "" "6" "" "" "6" "4" }
-      { "" "" "" "2" "" "" "" "" "" "2" } >>
-  }
+    }
+    \figures { s8 <6> s <4 2> s <6> s16 s <6> <4 2>  }
+  >>
 >>
 @end lilypond
 

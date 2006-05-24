@@ -1,5 +1,11 @@
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/user/music-glossary.tely: junk \oldaddlyrics
+	everywhere.
+
+	* GNUmakefile.in: fix wildcarding for scrips/out/ links. Thanks
+	Karl Hammar.
+
 	* Documentation/user/advanced-notation.itely (Balloon help): idem.
 
 	* Documentation/user/changing-defaults.itely (Creating contexts): idem.
