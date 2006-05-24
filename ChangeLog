@@ -1,6 +1,10 @@
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* configure.in (LINK_GXX_STATICALLY): use "" to allow $ expansion.
+	* lily/lyric-combine-music-iterator.cc (start_new_syllable):
+	remove debugging hook.
+
+	* configure.in (LINK_GXX_STATICALLY): use "" to allow $
+	expansion. Backportme.
 
 	* Documentation/user/GNUmakefile (TEXI2DVI_FLAGS): add -E.
 

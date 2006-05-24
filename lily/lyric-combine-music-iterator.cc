@@ -95,8 +95,6 @@ Lyric_combine_music_iterator::start_new_syllable ()
 
   busy_ = false;
 
-      scm_display (music_context_->now_mom().smobbed_copy(), scm_current_output_port ());
-
   if (!lyrics_context_)
     return false;
 
