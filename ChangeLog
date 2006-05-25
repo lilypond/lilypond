@@ -1,3 +1,8 @@
+2006-05-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/aclocal.m4: STEPMAKE_PYTHON(): clear cached value since
+	arg 2 might point us to a new binary (patch by Karl Hammar)
+	
 2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PACKAGE_NAME): release 2.9.6
@@ -23,8 +28,8 @@
 	everywhere.
 
 	* GNUmakefile.in: fix wildcarding for scrips/out/ links. Thanks
-	Karl Hammar.
-
+	Karl Hammar. Backportme.
+ 
 	* Documentation/user/advanced-notation.itely (Balloon help): idem.
 
 	* Documentation/user/changing-defaults.itely (Creating contexts): idem.
@@ -39,7 +44,7 @@
 	remove debugging hook.
 
 	* configure.in (LINK_GXX_STATICALLY): use "" to allow $
-	expansion. Backportme.
+	expansion. 
 
 	* Documentation/user/GNUmakefile (TEXI2DVI_FLAGS): add -E.
 
@@ -119,7 +124,7 @@
 2006-05-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/stencil-expression.cc (register_stencil_head): opps, append
-	to cdr of static SCM object. Backportme.
+	to cdr of static SCM object.
 
 2006-05-19  Graham Percival  <gpermus@gmail.com>
 
@@ -132,7 +137,7 @@
 2006-05-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/beam.cc (set_stem_lengths): trigger 'beaming callback, in
-	case positions is set manually. Backportme.
+	case positions is set manually. 
 
 2006-05-18  Erik Sandberg  <mandolaerik@gmail.com>
 	

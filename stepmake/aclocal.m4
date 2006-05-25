@@ -994,6 +994,9 @@ AC_DEFUN(STEPMAKE_PYTHON, [
     if test -n "$pv"; then
 	STEPMAKE_ADD_ENTRY($1, $pv)
     fi
+    # clear cached value since arg 2 might point us to a new binary
+    unset ac_cv_path_PYTHON
+
     AC_PATH_PROG(PYTHON, $PYTHON)
     AC_SUBST(PYTHON)
 ])
