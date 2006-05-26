@@ -12,6 +12,7 @@
 #include "context-def.hh"
 #include "context.hh"
 #include "dispatcher.hh"
+#include "international.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -113,6 +114,16 @@ Translator_group::try_music (Music *m)
       if (t && t->try_music (m))
 	return true;
     }
+    
+  // We couldn't swallow the event in this context. Try parent.
+  Context *p = context ()->get_parent_context ();
+  // Global context's translator group is a dummy, so don't try it.
+  if (p->get_parent_context())
+    // ES todo: Make Translators listeners directly instead.
+    return p->implementation ()->try_music (m);
+  else
+    // We have tried all possible contexts. Give up.
+    m->origin ()->warning (_f ("junking event: `%s'", m->name ()));
   return false;
 }
 

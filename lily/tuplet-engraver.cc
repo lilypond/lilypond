@@ -95,11 +95,11 @@ Tuplet_engraver::process_music ()
     }
   stopped_tuplets_.clear ();
 
-  if (!tuplets_.size ())
-    return;
-
-  for (vsize i = 0; i < tuplets_.size (); i++)
+  for (vsize j = tuplets_.size (); j > 0; j--)
     {
+      /* i goes from size-1 downto 0, inclusively */
+      vsize i = j - 1;
+
       if (tuplets_[i].bracket_)
 	continue;
 
@@ -110,11 +110,12 @@ Tuplet_engraver::process_music ()
       tuplets_[i].number_->set_object ("bracket", tuplets_[i].bracket_->self_scm ());
       tuplets_[i].bracket_->set_object ("tuplet-number", tuplets_[i].number_->self_scm ());
       
-      if (i > 0 && tuplets_[i - 1].bracket_)
-	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i - 1].bracket_);
-
       if (i < tuplets_.size () - 1 && tuplets_[i + 1].bracket_)
-	Tuplet_bracket::add_tuplet_bracket (tuplets_[i + 1].bracket_, tuplets_[i].bracket_);
+	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i + 1].bracket_);
+      
+      if (i > 0 && tuplets_[i - 1].bracket_)
+	Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1].bracket_, tuplets_[i].bracket_);
+
 
       SCM proc = get_property ("tupletNumberFormatFunction");
       if (ly_is_procedure (proc))

@@ -1,4 +1,11 @@
-2006-05-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
+2006-05-25  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* translator-group.cc: send music events to engravers in
+	non-bottom contexts.
+
+	* tuplet-engraver.cc: process tuplet brackets in correct order.
+
+2006-05-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* stepmake/aclocal.m4: STEPMAKE_PYTHON(): clear cached value since
 	arg 2 might point us to a new binary (patch by Karl Hammar)
