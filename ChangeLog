@@ -2,6 +2,7 @@
 
 	* lily/stanza-number-engraver.cc (process_music): use is_markup()
 	iso is_string().
+	include header.
 
 2006-05-25  Erik Sandberg  <mandolaerik@gmail.com>
 
