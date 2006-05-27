@@ -2,6 +2,7 @@
 
 	* scripts/lilypond-book.py (Lilypond_file_snippet.ly): strip
 	\version from lilypond file snippet.
+	(Lilypond_file_snippet.ly): oops. typo.
 
 	* lily/system.cc (get_paper_systems): uniq all_elements_ , to
 	prevent duplicated broken items in output.

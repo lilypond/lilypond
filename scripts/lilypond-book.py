@@ -1232,7 +1232,7 @@ class Lilypond_file_snippet (Lilypond_snippet):
         contents = re.sub (r'\\version *"[^"]*"', '', contents)
         
         return ('\\sourcefilename \"%s\"\n%s'
-                % (name, contents).read ()))
+                % (name, contents))
 
 snippet_type_to_class = {
     'lilypond_file': Lilypond_file_snippet,
