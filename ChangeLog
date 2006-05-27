@@ -1,5 +1,8 @@
 2006-05-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/lilypond-book.py (Lilypond_file_snippet.ly): strip
+	\version from lilypond file snippet.
+
 	* lily/system.cc (get_paper_systems): uniq all_elements_ , to
 	prevent duplicated broken items in output.
 

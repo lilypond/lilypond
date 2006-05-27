@@ -141,47 +141,48 @@ def warranty ():
 
 def get_option_parser ():
     p = ly.get_option_parser (usage='lilypond-book [OPTIONS] FILE',
-                 version="@TOPLEVEL_VERSION@",
-                 description=help_summary)
+                              version="@TOPLEVEL_VERSION@",
+                              description=help_summary)
 
     p.add_option ('-F', '--filter', metavar=_ ("FILTER"),
-           action="store",
-           dest="filter_cmd",
-           help=_ ("pipe snippets through FILTER [convert-ly -n -]"),
-           default=None)
-    p.add_option ('-f', '--format', help=_('''use output format FORMAT (texi [default], texi-html, latex, html)'''),
-           action='store')
+                  action="store",
+                  dest="filter_cmd",
+                  help=_ ("pipe snippets through FILTER [convert-ly -n -]"),
+                  default=None)
+    p.add_option ('-f', '--format',
+                  help=_('''use output format FORMAT (texi [default], texi-html, latex, html)'''),
+                  action='store')
     p.add_option ("-I", '--include', help=_('add DIR to include path'),
-           metavar="DIR",
-           action='append', dest='include_path',
-           default=[os.path.abspath (os.getcwd ())])
+                  metavar="DIR",
+                  action='append', dest='include_path',
+                  default=[os.path.abspath (os.getcwd ())])
     
     p.add_option ("-o", '--output', help=_('write output to DIR'),
-           metavar="DIR",
-           action='store', dest='output_name',
-           default='')
+                  metavar="DIR",
+                  action='store', dest='output_name',
+                  default='')
     p.add_option ('-P', '--process', metavar=_("COMMAND"),
-           help = _ ("process ly_files using COMMAND FILE..."),
-           action='store', 
-           dest='process_cmd', default='lilypond -b eps')
+                  help = _ ("process ly_files using COMMAND FILE..."),
+                  action='store', 
+                  dest='process_cmd', default='lilypond -b eps')
     
     p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
-           help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX'''
-               '''must use this with dvips -h INPUT.psfonts'''),
-           default=None)
+                  help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX'''
+                   '''must use this with dvips -h INPUT.psfonts'''),
+                  default=None)
     p.add_option ('-V', '--verbose', help=_("be verbose"),
-           action="store_true",
-           default=False,
-           dest="verbose")
-           
+                  action="store_true",
+                  default=False,
+                  dest="verbose")
+    
     p.add_option ('-w', '--warranty',
-           help=_("show warranty and copyright"),
-           action='store_true')
+                  help=_("show warranty and copyright"),
+                  action='store_true')
 
     
     p.add_option_group  ('bugs',
-              description='''Report bugs via http://post.gmane.org/post.php'''
-              '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+                         description='''Report bugs via http://post.gmane.org/post.php'''
+                         '''?group=gmane.comp.gnu.lilypond.bugs\n''')
     
     return p
 
@@ -1224,8 +1225,14 @@ class Lilypond_snippet (Snippet):
 class Lilypond_file_snippet (Lilypond_snippet):
     def ly (self):
         name = self.substring ('filename')
-        return '\\sourcefilename \"%s\"\n%s' \
-            % (name, open (find_file (name)).read ())
+        contents = open (find_file (name)).read ()
+
+        ## strip version string to make automated regtest comparisons
+        ## across versions easier.
+        contents = re.sub (r'\\version *"[^"]*"', '', contents)
+        
+        return ('\\sourcefilename \"%s\"\n%s'
+                % (name, contents).read ()))
 
 snippet_type_to_class = {
     'lilypond_file': Lilypond_file_snippet,
@@ -1257,12 +1264,7 @@ def find_toplevel_snippets (s, types):
 
     snippets = []
     index = 0
-    ## found = dict (map (lambda x: (x, None),
-    ##                      types))
-    ## urg python2.1
-    found = {}
-    map (lambda x, f = found: f.setdefault (x, None),
-      types)
+    found = dict ((t, None) for t in types))
 
     line_starts = find_linestarts (s)
     line_start_idx = 0
@@ -1599,7 +1601,7 @@ def do_file (input_filename):
         input_base = 'stdin'
     else:
         input_base = os.path.basename \
-              (os.path.splitext (input_filename)[0])
+                     (os.path.splitext (input_filename)[0])
 
     # Only default to stdout when filtering.
     if global_options.output_name == '-' or (not global_options.output_name and global_options.filter_cmd):
@@ -1613,9 +1615,9 @@ def do_file (input_filename):
                 os.mkdir (global_options.output_name, 0777)
             os.chdir (global_options.output_name)
         else: 
-            if os.path.exists (input_filename) \
-             and os.path.exists (output_filename) \
-             and samefile (output_filename, input_fullname):
+            if (os.path.exists (input_filename) 
+                and os.path.exists (output_filename) 
+                and samefile (output_filename, input_fullname)):
              error (
              _ ("Output would overwrite input file; use --output."))
              exit (2)
