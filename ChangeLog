@@ -1,5 +1,10 @@
 2006-05-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/framework-eps.scm (output-classic-framework): only dump if
+	dump-signatures is set.
+
+	* scm/lily.scm (define-scheme-options): add dump-signatures option.
+
 	* scm/stencil.scm (write-system-signature): new routine: write
 	python parseable signature of a separate paper system.
 
