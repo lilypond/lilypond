@@ -163,27 +163,22 @@ System::get_paper_systems ()
 
   handle_broken_dependencies ();
 
-#if 0  /* FIXME: strange side effects.  */
-
   /* Because the this->get_property (all-elements) contains items in 3
      versions, handle_broken_dependencies () will leave duplicated
      items in all-elements.  Strictly speaking this is harmless, but
-     it leads to duplicated symbols in the output.  ly_list_qsort_uniq_x ()
-     makes sure that no duplicates are in the list.  */
-  for (int i = 0; i < line_count; i++)
+     it leads to duplicated symbols in the output.  uniq makes sure
+     that no duplicates are in the list.  */
+  for (vsize i = 0; i < broken_intos_.size (); i++)
     {
-      SCM all = broken_intos_[i]->get_object ("all-elements");
-      all = ly_list_qsort_uniq_x (all);
+      System *child = dynamic_cast<System*> (broken_intos_[i]);
+      child->all_elements_->uniq ();
     }
-#endif
 
   if (be_verbose_global)
     message (_f ("Element count %d.", count + element_count ()));
 
-  int line_count = broken_intos_.size ();
-  SCM lines = scm_c_make_vector (line_count, SCM_EOL);
-
-  for (int i = 0; i < line_count; i++)
+  SCM lines = scm_c_make_vector (broken_intos_.size (), SCM_EOL);
+  for (vsize i = 0; i < broken_intos_.size (); i++)
     {
       if (be_verbose_global)
 	progress_indication ("[");
@@ -333,16 +328,20 @@ System::get_paper_system ()
   SCM exprs = SCM_EOL;
   SCM *tail = &exprs;
 
-  /* Output stencils in three layers: 0, 1, 2.  Default layer: 1. */
+  /* Output stencils in three layers: 0, 1, 2.  Default layer: 1.
+
+  FIXME: softcode this.
+  */
   for (int i = 0; i < LAYER_COUNT; i++)
-    for (vsize j = all_elements_->size (); j--;)
+    for (vsize j = 0; j < all_elements_->size (); j++)
       {
 	Grob *g = all_elements_->grob (j);
+	if (robust_scm2int (g->get_property ("layer"), 1) != i)
+	  continue;
+	
 	Stencil st = g->get_print_stencil ();
 
-	/* Skip empty stencils and grobs that are not in this layer.  */
-	if (st.expr() == SCM_EOL
-	    || robust_scm2int (g->get_property ("layer"), 1) != i)
+	if (st.expr() == SCM_EOL)
 	  continue;
 
 	Offset o;
@@ -390,7 +389,7 @@ System::get_paper_system ()
       Interval staff_refpoints;
       staff_refpoints.set_empty ();
       extract_grob_set (this, "spaceable-staves", staves);
-      for (vsize i = staves.size (); i--;)
+      for (vsize i = 0; i < staves.size (); i++)
 	{
 	  Grob *g = staves[i];
 	  staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));

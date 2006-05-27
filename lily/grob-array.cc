@@ -82,6 +82,12 @@ Grob_array::clear ()
   grobs_.clear ();
 }
 
+void
+Grob_array::uniq ()
+{
+  ::uniq (grobs_);
+}
+
 bool
 Grob_array::empty () const
 {
@@ -108,3 +114,4 @@ grob_list_to_grob_array (SCM lst)
     ga->add (unsmob_grob (scm_car (s)));
   return arr_scm;
 }
+

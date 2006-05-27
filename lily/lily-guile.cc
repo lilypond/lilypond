@@ -498,7 +498,9 @@ scm_default_compare (void const *a, void const *b)
   return pa < pb ? -1 : 1;
 }
 
-/*  Modify LST in place: qsort it.  */
+/*  Modify LST in place: qsort it.
+
+FIXME: unused, junk? */
 SCM
 ly_list_qsort_uniq_x (SCM lst)
 {
