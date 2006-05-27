@@ -268,3 +268,96 @@ grestore
 	
 	(ly:make-stencil "" '(0 . 0) '(0 . 0)))
     ))
+
+
+(define-public (write-system-signature filename paper-system)
+  (define (float? x)
+    (and (number? x) (inexact? x)))
+
+  (define system-grob
+    (paper-system-system-grob paper-system))
+  (define output (open-output-file filename))
+  
+  (define (strip-floats expr)
+    (cond
+     ((float? expr) #f)
+     ((ly:font-metric? expr) (ly:font-name expr))
+     ((pair? expr) (cons (strip-floats (car expr))
+			 (strip-floats (cdr expr))))
+     (else expr)))
+
+  (define (fold-false-pairs expr)
+    (if (pair? expr)
+	(let*
+	    ((first (car expr))
+	     (rest (fold-false-pairs (cdr expr))))
+
+	  (if first
+	      (cons (fold-false-pairs first) rest)
+	      rest))
+	expr))
+  
+  (define (music-cause grob)
+    (let*
+	((cause (ly:grob-property  grob 'cause)))
+      
+      (cond
+       ((ly:music? cause) cause)
+       ((ly:grob? cause) (music-cause cause))
+       (else #f))))
+
+  (define (pythonic-string expr)
+    (string-regexp-substitute "'" "\\'" (format "~a" expr)))
+
+  (define (pythonic-pair expr)
+    (format "(~a,~a)"
+	    (car expr) (cdr expr)))
+		    
+  (define (found-grob expr)
+    (let*
+	((grob (car expr))
+	 (rest (cdr expr))
+	 (collected '())
+	 (cause (music-cause grob))
+	 (input (if (ly:music? cause) (ly:music-property cause 'origin) #f))
+	 (location (if (ly:input-location? input) (ly:input-file-line-char-column input) '()))
+
+	 (x-ext (ly:grob-extent grob system-grob X))
+	 (y-ext (ly:grob-extent grob system-grob Y))
+	 )
+
+      (interpret-for-signature #f (lambda (e)
+				    (set! collected (cons e collected)))
+			       rest)
+
+      (format output
+	      "['~a', '~a', ~a, ~a, '~a'],\n"
+	      (cdr (assq 'name (ly:grob-property grob 'meta) ))
+	      (pythonic-string location)
+	      (pythonic-pair (if (interval-empty? x-ext) '(0 . 0) x-ext))
+	      (pythonic-pair (if (interval-empty? y-ext) '(0 . 0) y-ext))
+	      (pythonic-string collected))
+      ))
+
+  (define (interpret-for-signature escape collect expr)
+    (define (interpret expr)
+      (let*
+	  ((head (car expr)))
+
+	(cond
+	 ((eq? head 'grob-cause) (escape (cdr expr)))
+	 ((eq? head 'color) (interpret (caddr expr)))
+	 ((eq? head 'rotate-stencil) (interpret (caddr expr)))
+	 ((eq? head 'translate-stencil) (interpret (caddr expr)))
+	 ((eq? head 'combine-stencil)
+	  (for-each (lambda (e) (interpret e))  (cdr expr)))
+	 (else
+	  (collect (ffold-false-pairs (strip-floats expr))))
+	 
+	 )))
+
+    (interpret expr))
+
+  (interpret-for-signature found-grob (lambda (x) #f)
+			   (ly:stencil-expr
+			    (paper-system-stencil paper-system))))

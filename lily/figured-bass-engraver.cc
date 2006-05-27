@@ -278,6 +278,7 @@ Figured_bass_engraver::process_music ()
     {
       if (to_boolean (get_property ("figuredBassCenterContinuations")))
 	center_repeated_continuations ();
+      
       alignment_ = 0;
       for (vsize i = 0; i < groups_.size (); i++)
 	{

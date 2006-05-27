@@ -25,7 +25,6 @@ import os
 import string
 import sys
 
-
 ################################################################
 # Users of python modules should include this snippet.
 #

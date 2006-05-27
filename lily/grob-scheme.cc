@@ -9,7 +9,7 @@
 
 #include "grob.hh"
 
-#include "warn.hh"
+#include "warn.hh"		// error()
 #include "item.hh"
 #include "output-def.hh"
 #include "system.hh"

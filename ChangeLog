@@ -1,3 +1,8 @@
+2006-05-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/stencil.scm (write-system-signature): new routine: write
+	python parseable signature of a separate paper system.
+
 2006-05-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/stanza-number-engraver.cc (process_music): use is_markup()
