@@ -1264,7 +1264,7 @@ def find_toplevel_snippets (s, types):
 
     snippets = []
     index = 0
-    found = dict ((t, None) for t in types))
+    found = dict ((t, None) for t in types)
 
     line_starts = find_linestarts (s)
     line_start_idx = 0
