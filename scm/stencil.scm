@@ -383,5 +383,5 @@ grestore
 		 output)
 	(interpret-for-signature found-grob (lambda (x) #f)
 				 (ly:stencil-expr
-				  (paper-system-stencil paper-system)))))
+				  (paper-system-stencil paper-system))))))
   

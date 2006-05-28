@@ -1,5 +1,9 @@
 2006-05-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/stencil.scm (write-system-signature): typo.
+
+	* GNUmakefile.in: create web-root/VERSION to help upload scripts.
+
 	* scm/stencil.scm (write-system-signature): better escaping.
 	only write signature for music systems, not for markup systems.
 

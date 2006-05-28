@@ -96,6 +96,7 @@ local-WWW-post:
 		done \
 	done
 	echo $(TOPLEVEL_VERSION) > $(outdir)/web-root/VERSION
+	echo $(TOPLEVEL_VERSION) > $(outdir)/web-signature-root/VERSION
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
