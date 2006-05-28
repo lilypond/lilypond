@@ -95,6 +95,7 @@ local-WWW-post:
 			rm -rf $$a ; \
 		done \
 	done
+	echo $(TOPLEVEL_VERSION) > $(outdir)/web-root/VERSION
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin

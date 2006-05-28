@@ -1,6 +1,7 @@
 2006-05-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/stencil.scm (write-system-signature): better escaping.
+	only write signature for music systems, not for markup systems.
 
 	* scm/framework-ps.scm (output-framework): dump-signatures support
 	for plain output.
