@@ -83,8 +83,11 @@ Grob_array::clear ()
 }
 
 void
-Grob_array::uniq ()
+Grob_array::remove_duplicates ()
 {
+  assert (!ordered_);
+  
+  vector_sort (grobs_, default_compare);
   ::uniq (grobs_);
 }
 

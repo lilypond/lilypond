@@ -29,7 +29,7 @@ public:
   Grob *grob (vsize i) { return grobs_.at (i); }
   vsize size () const { return grobs_.size (); }
   bool empty () const;
-  void uniq ();
+  void remove_duplicates ();
   void clear ();
   void add (Grob *x) { grobs_.push_back (x); }
   void set_array (vector<Grob*> const &src);

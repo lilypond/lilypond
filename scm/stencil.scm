@@ -352,7 +352,7 @@ grestore
 	 ((eq? head 'combine-stencil)
 	  (for-each (lambda (e) (interpret e))  (cdr expr)))
 	 (else
-	  (collect (ffold-false-pairs (strip-floats expr))))
+	  (collect (fold-false-pairs (strip-floats expr))))
 	 
 	 )))
 

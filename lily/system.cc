@@ -47,13 +47,14 @@ System::init_elements ()
 {
   SCM scm_arr = Grob_array::make_array ();
   all_elements_ = unsmob_grob_array (scm_arr);
+  all_elements_->set_ordered (false);
   set_object ("all-elements", scm_arr);
 }
 
 Grob *
-System::clone (int count) const
+System::clone (int index) const
 {
-  return new System (*this, count);
+  return new System (*this, index);
 }
 
 int
@@ -171,7 +172,7 @@ System::get_paper_systems ()
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
       System *child = dynamic_cast<System*> (broken_intos_[i]);
-      child->all_elements_->uniq ();
+      child->all_elements_->remove_duplicates ();
     }
 
   if (be_verbose_global)
@@ -320,46 +321,61 @@ System::post_processing ()
     }
 }
 
+struct Layer_entry
+{
+  Grob *grob_;
+  int layer_;
+};
+
+bool
+operator< (Layer_entry  const &a,
+	   Layer_entry  const &b)
+{
+  return a.layer_ < b.layer_;
+}
+
+
 SCM
 System::get_paper_system ()
 {
-  static int const LAYER_COUNT = 3;
-
   SCM exprs = SCM_EOL;
   SCM *tail = &exprs;
 
-  /* Output stencils in three layers: 0, 1, 2.  Default layer: 1.
+  vector<Layer_entry> entries;
+  for (vsize j = 0; j < all_elements_->size (); j++)
+    {
+      Layer_entry e;
+      e.grob_ = all_elements_->grob (j);
+      e.layer_ = robust_scm2int (e.grob_->get_property ("layer"), 1);
+      
+      entries.push_back (e); 
+    }
 
-  FIXME: softcode this.
-  */
-  for (int i = 0; i < LAYER_COUNT; i++)
-    for (vsize j = 0; j < all_elements_->size (); j++)
-      {
-	Grob *g = all_elements_->grob (j);
-	if (robust_scm2int (g->get_property ("layer"), 1) != i)
-	  continue;
-	
-	Stencil st = g->get_print_stencil ();
+  vector_sort (entries, default_compare);
+  for (vsize j = 0; j < entries.size (); j++)
+    {
+      Grob *g = entries[j].grob_;
+      Stencil st = g->get_print_stencil ();
 
-	if (st.expr() == SCM_EOL)
-	  continue;
+      if (st.expr() == SCM_EOL)
+	continue;
+      
+      Offset o;
+      for (int a = X_AXIS; a < NO_AXES; a++)
+	o[Axis (a)] = g->relative_coordinate (this, Axis (a));
 
-	Offset o;
-	for (int a = X_AXIS; a < NO_AXES; a++)
-	  o[Axis (a)] = g->relative_coordinate (this, Axis (a));
+      Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
+					Offset (0, 0))
+	* Staff_symbol_referencer::staff_space (g);
 
-	Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
-					  Offset (0, 0))
-	  * Staff_symbol_referencer::staff_space (g);
+      /* Must copy the stencil, for we cannot change the stencil
+	 cached in G.  */
 
-	/* Must copy the stencil, for we cannot change the stencil
-	   cached in G.  */
+      st.translate (o + extra);
 
-	st.translate (o + extra);
-
-	*tail = scm_cons (st.expr (), SCM_EOL);
-	tail = SCM_CDRLOC (*tail);
-      }
+      *tail = scm_cons (st.expr (), SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
+    }
 
   if (Stencil *me = get_stencil ())
     exprs = scm_cons (me->expr (), exprs);
