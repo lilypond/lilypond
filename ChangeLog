@@ -1,3 +1,11 @@
+2006-05-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/framework-ps.scm (write-preamble): redefine mark_URI to nop
+	for -dno-point-and-click
+
+	* lily/grob.cc (get_print_stencil): don't read
+	point_and_click_global to determine whether to set grob-cause.
+
 2006-05-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* buildscripts/output-distance.py (main): new function.
