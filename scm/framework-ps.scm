@@ -446,6 +446,7 @@
 		     (open-file filename "wb")
 		     "ps"))
 	 (paper (ly:paper-book-paper book))
+	 (systems (ly:paper-book-systems book))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
 	 
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -453,6 +454,9 @@
 	 (page-count (length page-stencils))
 	 (port (ly:outputter-port outputter)))
 
+    (if (ly:get-option 'dump-signatures)
+	(write-system-signatures basename (ly:paper-book-systems book) 0))
+  
     (output-scopes scopes fields basename)
     (display (file-header paper page-count #t) port)
 

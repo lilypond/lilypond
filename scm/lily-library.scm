@@ -428,6 +428,7 @@ possibly turned off."
   (define matches '())
   (define end-of-prev-match 0)
   (define (notice match)
+
     (set! matches (cons (substring (match:string match)
 				   end-of-prev-match
 				   (match:start match))

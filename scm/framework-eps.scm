@@ -96,16 +96,6 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 			(format "~a.eps" basename) (ly:output-formats)))
 
 
-(define (write-system-signatures basename paper-systems count)
-  (if (pair? paper-systems)
-      (begin
-	(let*
-	    ((outname (format "~a-~a.signature" basename count)) )
-	     
-	  (ly:message "writing ~a" outname)
-	  (write-system-signature outname (car paper-systems))
-	  (write-system-signatures basename (cdr paper-systems) (1+ count))))))
-
 
 (define-public (output-classic-framework basename book scopes fields)
   (output-scopes scopes fields basename)

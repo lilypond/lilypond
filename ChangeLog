@@ -1,5 +1,14 @@
 2006-05-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/stencil.scm (write-system-signature): better escaping.
+
+	* scm/framework-ps.scm (output-framework): dump-signatures support
+	for plain output.
+
+	* GNUmakefile.in: create web-signature-root/ too
+
+	* make/lilypond-vars.make (LILYPOND_BOOK_FLAGS): add -ddump-signatures.
+
 	* scm/framework-ps.scm (write-preamble): redefine mark_URI to nop
 	for -dno-point-and-click
 
