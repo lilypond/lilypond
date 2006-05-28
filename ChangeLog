@@ -1,5 +1,8 @@
 2006-05-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/output-distance.py (main): new function.
+	(ComparisonData): new class.
+
 	* lily/ledger-line-engraver.cc (acknowledge_staff_symbol): be more
 	careful with generating new LedgerLineSpanners.
 
