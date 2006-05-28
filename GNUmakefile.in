@@ -57,7 +57,7 @@ local-install:
 final-install:
 	@true
 
-web-ext = html midi pdf png txt ly
+web-ext = html midi pdf png txt ly signature
 
 footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
 footifymail = MAILADDRESS='http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
@@ -76,19 +76,14 @@ local-WWW-post:
 	cd $(top-build-dir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
 		> $(outdir)/weblist
-	cd $(top-build-dir) && find Documentation input \
-		-path '*/out-www/*.signature' \
-		> $(outdir)/siglist
 	ls $(outdir)/*.html >> $(outdir)/weblist
 
 ## rewrite file names so we lose out-www
 	rm -rf $(outdir)/web-root/
-	mkdir $(outdir)/web-root/  $(outdir)/web-signature-root/
+	mkdir $(outdir)/web-root/  
 	cat $(outdir)/weblist | (cd $(top-build-dir); tar -cf-  -T- ) | \
 		tar -C $(outdir)/web-root/ -xf -  
-	cat $(outdir)/siglist | (cd $(top-build-dir); tar -cf-  -T- ) | \
-		tar -C $(outdir)/web-signature-root/ -xf -
-	for dir in $(outdir)/web-root/ $(outdir)/web-signature-root/ ; do  \
+	for dir in $(outdir)/web-root/ ; do  \
 		cd $$dir && \
 		for a in `find . -name out-www`; do \
 			rsync -a  --link-dest $$a/ $$a/ $$a/.. ; \
@@ -96,7 +91,6 @@ local-WWW-post:
 		done \
 	done
 	echo $(TOPLEVEL_VERSION) > $(outdir)/web-root/VERSION
-	echo $(TOPLEVEL_VERSION) > $(outdir)/web-signature-root/VERSION
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
