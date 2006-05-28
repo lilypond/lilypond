@@ -1,8 +1,9 @@
 #!@TARGET_PYTHON@
 import sys
+import optparse
 
-sys.path.insert (0, 'python')
 import safeeval
+
 
 X_AXIS = 0
 Y_AXIS = 1
@@ -158,12 +159,17 @@ class SystemLink:
 
         for (g1,g2s) in self.link_list_dict.items ():
             if len (g2s) != 1:
-                print g1, g2s 
                 d += ORPHAN_GROB_PENALTY
 
         return d
-        
+
+################################################################
+# Files/directories
+
+import glob
+
 def read_signature_file (name):
+    print 'reading', name
     exp_str = ("[%s]" % open (name).read ())
     entries = safeeval.safe_eval (exp_str)
 
@@ -172,29 +178,113 @@ def read_signature_file (name):
     return sig
 
 
+def compare_signature_files (f1, f2):
+    s1 = read_signature_file (f1)
+    s2 = read_signature_file (f2)
+    
+    return SystemLink (s1, s2).distance ()
+    
+    
 
+def paired_files (dir1, dir2, pattern):
+    """
+    Search DIR1 and DIR2 for PATTERN.
 
-def compare_directories (dir1, dir2):
+    Return (PAIRED, MISSING-FROM-2, MISSING-FROM-1)
 
-    pass
+    """
+    
+    files1 = dict ((os.path.split (f)[1], 1) for f in glob.glob (dir1 + '/' + pattern))
+    files2 = dict ((os.path.split (f)[1], 1) for f in glob.glob (dir2 + '/' + pattern))
 
+    pairs = []
+    missing = []
+    for f in files1.keys ():
+        try:
+            files2.pop (f)
+            pairs.append (f)
+        except KeyError:
+            missing.append (f)
 
+    return (pairs, files2.keys (), missing)
+    
+class ComparisonData:
+    def __init__ (self):
+        self.result_dict = {}
+        self.missing = []
+        self.added = []
+        
+    def compare_trees (self, dir1, dir2):
+        self.compare_directories (dir1, dir2)
+        
+        (root, files, dirs) = os.walk (dir1).next ()
+        for d in dirs:
+            d1 = os.path.join (dir1, d)
+            d2 = os.path.join (dir2, d)
+            
+            if os.path.isdir (d2):
+                self.compare_trees (d1, d2)
+    
+    def compare_directories (self, dir1, dir2):
+        
+        (paired, m1, m2) = paired_files (dir1, dir2, '*.signature')
+
+        self.missing += [(dir1, m) for m in m1] 
+        self.added += [(dir2, m) for m in m2] 
+
+        for p in paired:
+            f = dir1 +  '/' +p
+            d = compare_signature_files (f, dir2 +  '/' +p)
+            self.result_dict[f] = d
+        
+    
+    def print_results (self):
+        results = [(score, file) for (file, score) in self.result_dict.items ()]  
+        results.sort ()
+        results.reverse ()
+
+        for (s, f) in results:
+            print '%30s %6f' % (f,s)
+
+        for (dir, file) in self.missing:
+            print '%-20s %s' % ('missing',os.path.join (dir, file))
+        for (dir, file) in self.added:
+            print '%10s%-10s %s' % ('','added', os.path.join (dir, file))
+        
+
+def compare_trees (dir1, dir2):
+    data =  ComparisonData ()
+    data.compare_trees (dir1, dir2)
+    data.print_results ()
+    
 ################################################################
 # TESTING
 
-def test ():
-    def system (x):
-        print 'invoking', x
-        stat = os.system (x)
-        assert stat == 0
-        
-    import os
-    dir = 'output-distance-test'
+import os
+def system (x):
+    
+    print 'invoking', x
+    stat = os.system (x)
+    assert stat == 0
 
-    print 'test results in dir'
-    system ('rm -rf ' + dir)
-    os.mkdir (dir)
-    os.chdir (dir)
+def test_paired_files ():
+    print paired_files (os.environ["HOME"] + "/src/lilypond/scripts/",
+                        os.environ["HOME"] + "/src/lilypond-stable/buildscripts/", '*.py')
+                  
+    
+def test_compare_trees ():
+    system ('rm -rf dir1 dir2')
+    system ('mkdir dir1 dir2')
+    system ('cp 20-0.signature dir1')
+    system ('cp 20expr-0.signature dir1')
+    system ('cp 19-0.signature dir2/20-0.signature')
+    system ('cp 19-0.signature dir2/')
+    system ('cp 19-0.signature dir1/')
+    system ('cp 20grob-0.signature dir2/')
+
+    compare_trees ('dir1', 'dir2')
+    
+def test_basic_compare ():
     ly_template = r"""#(set! toplevel-score-handler print-score-with-defaults)
 #(set! toplevel-music-handler
  (lambda (p m)
@@ -256,18 +346,47 @@ def test ():
     assert combinations['20-20expr'] > 50.0
     assert combinations['20-19'] < 10.0
 
-
 def test_sigs (a,b):
     sa = read_signature_file (a)
     sb = read_signature_file (b)
     link = SystemLink (sa, sb)
     print link.distance()
 
-if __name__ == '__main__':
-    if sys.argv[1:]:
-        test_sigs (sys.argv[1],
-                    sys.argv[2])
-    else:
-        test ()
 
+def run_tests ():
+    dir = 'output-distance-test'
+
+    print 'test results in ', dir
+    system ('rm -rf ' + dir)
+    system ('mkdir ' + dir)
+    os.chdir (dir)
+
+    test_compare_trees ()
+    test_basic_compare ()
+    
+################################################################
+#
+
+def main ():
+    p = optparse.OptionParser ("output-distance - compare LilyPond formatting runs")
+    p.usage ('output-distance.py [options] tree1 tree2')
+    
+    p.add_option ('', '--test',
+                  dest="run_test",
+                  help='run test method')
+
+    (o,a) = p.parse_args ()
+
+    if len (a) != 2:
+        p.usage()
+        sys.exit (2)
+
+    if o.run_test:
+        run_tests ()
+        sys.exit (0)
+
+    compare_trees (a[0], a[1])
+
+if __name__ == '__main__':
+    main()
 
