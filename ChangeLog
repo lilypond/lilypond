@@ -2,10 +2,10 @@
 
 	* buildscripts/output-distance.py
 	(ComparisonData.create_html_result_page): new routine: summarise
-	results in HTML page with images.
+	results in HTML page with images. BackportmeStart.
 
 	* GNUmakefile.in (web-ext): package .signature files too. They
-	compress well. BackportmeStart.
+	compress well. 
 
 	* scm/stencil.scm (write-system-signature): typo.
 
