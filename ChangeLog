@@ -1,8 +1,11 @@
 2006-05-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* BackportmeStart.
+	
 	* buildscripts/output-distance.py
 	(ComparisonData.create_html_result_page): new routine: summarise
-	results in HTML page with images. BackportmeStart.
+	results in HTML page with images. 
+	(ComparisonData.create_text_result_page): create summary text files too.
 
 	* GNUmakefile.in (web-ext): package .signature files too. They
 	compress well. 

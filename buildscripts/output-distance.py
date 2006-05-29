@@ -240,18 +240,28 @@ class ComparisonData:
             distance = compare_signature_files (f1, f2)
             self.result_dict[f2] = (distance, f1)
     
-    def print_results (self):
+    def create_text_result_page (self, filename):
+
+        out = None
+        if filename == '':
+            out = sys.stdout
+        else:
+            out = file (filename, 'w')
+        
         results = [(score, oldfile, file) for (file, (score, oldfile)) in self.result_dict.items ()]  
         results.sort ()
         results.reverse ()
 
         for (s, oldfile, f) in results:
-            print '%30s %6f' % (f,s)
+            out.write ('%-30f %-20s\n' % (s, f))
 
         for (dir, file) in self.missing:
-            print '%-20s %s' % ('missing',os.path.join (dir, file))
+            out.write ('%10s%-20s %s\n' % ('', 'missing',os.path.join (dir, file)))
         for (dir, file) in self.added:
-            print '%10s%-10s %s' % ('','added', os.path.join (dir, file))
+            out.write ('%20s%-10s %s\n' % ('','added', os.path.join (dir, file)))
+
+    def print_results (self):
+        self.create_text_result_page ('')
         
     def create_html_result_page (self, dir1, dir2):
         dir1 = dir1.replace ('//', '/')
