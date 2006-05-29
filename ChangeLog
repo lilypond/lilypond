@@ -1,7 +1,11 @@
 2006-05-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/output-distance.py
+	(ComparisonData.create_html_result_page): new routine: summarise
+	results in HTML page with images.
+
 	* GNUmakefile.in (web-ext): package .signature files too. They
-	compress well.
+	compress well. BackportmeStart.
 
 	* scm/stencil.scm (write-system-signature): typo.
 
@@ -12,8 +16,6 @@
 
 	* scm/framework-ps.scm (output-framework): dump-signatures support
 	for plain output.
-
-	* GNUmakefile.in: create web-signature-root/ too
 
 	* make/lilypond-vars.make (LILYPOND_BOOK_FLAGS): add -ddump-signatures.
 
@@ -63,7 +65,8 @@
 
 	* scm/stencil.scm (write-system-signature): new routine: write
 	python parseable signature of a separate paper system.
-
+	BackportmeEnd.
+	
 2006-05-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/stanza-number-engraver.cc (process_music): use is_markup()

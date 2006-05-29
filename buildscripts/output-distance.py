@@ -167,6 +167,8 @@ class SystemLink:
 # Files/directories
 
 import glob
+import shutil
+import re
 
 def read_signature_file (name):
     print 'reading', name
@@ -233,17 +235,17 @@ class ComparisonData:
         self.added += [(dir2, m) for m in m2] 
 
         for p in paired:
-            f = dir1 +  '/' +p
-            d = compare_signature_files (f, dir2 +  '/' +p)
-            self.result_dict[f] = d
-        
+            f2 = dir2 +  '/' + p
+            f1 = dir1 +  '/' + p
+            distance = compare_signature_files (f1, f2)
+            self.result_dict[f2] = (distance, f1)
     
     def print_results (self):
-        results = [(score, file) for (file, score) in self.result_dict.items ()]  
+        results = [(score, oldfile, file) for (file, (score, oldfile)) in self.result_dict.items ()]  
         results.sort ()
         results.reverse ()
 
-        for (s, f) in results:
+        for (s, oldfile, f) in results:
             print '%30s %6f' % (f,s)
 
         for (dir, file) in self.missing:
@@ -251,11 +253,81 @@ class ComparisonData:
         for (dir, file) in self.added:
             print '%10s%-10s %s' % ('','added', os.path.join (dir, file))
         
+    def create_html_result_page (self, dir1, dir2):
+        dir1 = dir1.replace ('//', '/')
+        dir2 = dir2.replace ('//', '/')
+        
+        threshold = 1.0
+        
+        results = [(score, oldfile, file) for (file, (score, oldfile)) in self.result_dict.items ()
+                   if score > threshold]
+
+        results.sort ()
+        results.reverse ()
+
+        html = ''
+        old_prefix = os.path.split (dir1)[1]
+        os.mkdir (dir2 + '/' + old_prefix)
+        for (score, oldfile, newfile) in  results:
+            old_base = re.sub ("-[0-9]+.signature", '', os.path.split (oldfile)[1])
+            new_base = re.sub ("-[0-9]+.signature", '', newfile)
+            
+            for ext in 'png', 'ly':
+                shutil.copy2 (old_base + '.' + ext, dir2 + '/' + old_prefix)
+
+            img_1 = os.path.join (old_prefix, old_base + '.png')
+            ly_1 = os.path.join (old_prefix, old_base + '.ly')
+
+            img_2 = new_base.replace (dir2, '') + '.png'
+            img_2 = re.sub ("^/*", '', img_2)
+
+            ly_2 = img_2.replace ('.png','.ly')
+
+            def img_cell (ly, img):
+                return '''
+<td align="center">
+<a href="%(img)s">
+<img src="%(img)s" style="border-style: none; max-width: 500px;">
+</a><br>
+<font size="-2">(<a href="%(ly)s">source</a>)
+</font>
+</td>
+''' % locals ()
+            
+            html_entry = '''
+<tr>
+<td>
+%f
+</td>
+
+%s
+%s
+</tr>
+''' % (score, img_cell (ly_1, img_1), img_cell (ly_2, img_2))
+
+
+            html += html_entry
+
+        html = '''<html>
+<table>
+<tr>
+<th>distance</th>
+<th>old</th>
+<th>new</th>
+</tr>
+%(html)s
+</table>
+</html>''' % locals()
+            
+        open (os.path.join (dir2, old_prefix) + '.html', 'w').write (html)
+        
+        
 
 def compare_trees (dir1, dir2):
     data =  ComparisonData ()
     data.compare_trees (dir1, dir2)
     data.print_results ()
+    data.create_html_result_page (dir1, dir2)
     
 ################################################################
 # TESTING
@@ -275,12 +347,15 @@ def test_paired_files ():
 def test_compare_trees ():
     system ('rm -rf dir1 dir2')
     system ('mkdir dir1 dir2')
-    system ('cp 20-0.signature dir1')
-    system ('cp 20expr-0.signature dir1')
+    system ('cp 20{-0.signature,.ly,.png} dir1')
+    system ('cp 20{-0.signature,.ly,.png} dir2')
+    system ('cp 20expr{-0.signature,.ly,.png} dir1')
+    system ('cp 19{-0.signature,.ly,.png} dir2/')
+    system ('cp 19{-0.signature,.ly,.png} dir1/')
+    system ('cp 20grob{-0.signature,.ly,.png} dir2/')
+
+    ## introduce difference
     system ('cp 19-0.signature dir2/20-0.signature')
-    system ('cp 19-0.signature dir2/')
-    system ('cp 19-0.signature dir1/')
-    system ('cp 20grob-0.signature dir2/')
 
     compare_trees ('dir1', 'dir2')
     
@@ -292,17 +367,12 @@ def test_basic_compare ():
     (print-score-with-defaults
     p (scorify-music m p)))))
 
-#(ly:set-option 'point-and-click)
-
-
-
 %(papermod)s
 
 \relative c {
   c^"%(userstring)s" %(extragrob)s
   }
 """
-
 
     dicts = [{ 'papermod' : '',
                'name' : '20',
@@ -327,7 +397,7 @@ def test_basic_compare ():
         
     names = [d['name'] for d in dicts]
     
-    system ('lilypond -ddump-signatures -b eps ' + ' '.join (names))
+    system ('lilypond -ddump-signatures --png -b eps ' + ' '.join (names))
     
     sigs = dict ((n, read_signature_file ('%s-0.signature' % n)) for n in names)
 
@@ -337,7 +407,7 @@ def test_basic_compare ():
             combinations['%s-%s' % (n1, n2)] = SystemLink (s1,s2).distance ()
             
 
-    results =   combinations.items ()
+    results = combinations.items ()
     results.sort ()
     for k,v in results:
         print '%-20s' % k, v
@@ -354,36 +424,40 @@ def test_sigs (a,b):
 
 
 def run_tests ():
+    do_clean = 1
     dir = 'output-distance-test'
 
     print 'test results in ', dir
-    system ('rm -rf ' + dir)
-    system ('mkdir ' + dir)
+    if do_clean:
+        system ('rm -rf ' + dir)
+        system ('mkdir ' + dir)
+        
     os.chdir (dir)
 
-    test_compare_trees ()
     test_basic_compare ()
+    test_compare_trees ()
     
 ################################################################
 #
 
 def main ():
     p = optparse.OptionParser ("output-distance - compare LilyPond formatting runs")
-    p.usage ('output-distance.py [options] tree1 tree2')
+    p.usage = 'output-distance.py [options] tree1 tree2'
     
     p.add_option ('', '--test',
                   dest="run_test",
+                  action="store_true",
                   help='run test method')
 
     (o,a) = p.parse_args ()
 
-    if len (a) != 2:
-        p.usage()
-        sys.exit (2)
-
     if o.run_test:
         run_tests ()
         sys.exit (0)
+
+    if len (a) != 2:
+        p.print_usage()
+        sys.exit (2)
 
     compare_trees (a[0], a[1])
 
