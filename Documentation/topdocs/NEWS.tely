@@ -67,6 +67,13 @@ which scares away people.
 @end ignore
 
 @item
+A new, automated testing technique has been added. It will detect
+changes in the formatting automatically, which will make it easier to
+spot regression errors in the future.
+
+View @uref{../../test-results.html,test results}.
+
+@item
 Figured bass can also be added to @code{Staff} contexts directly. In
 this case, their vertical  position is adjusted automatically.
 

@@ -1,5 +1,7 @@
 2006-05-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/index.html.in: add link to test-results.html page.
+
 	* Documentation/topdocs/NEWS.tely (Top): update NEWS entry.
 
 	* scm/translation-functions.scm (format-bass-figure): translate
