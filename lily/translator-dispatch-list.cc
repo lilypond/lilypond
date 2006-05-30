@@ -29,7 +29,7 @@ Engraver_dispatch_list::apply (Grob_info gi)
 
 SCM
 Engraver_dispatch_list::create (SCM trans_list,
-				SCM iface_list)
+				SCM iface_list, Direction start_end)
 {
   SCM retval = Engraver_dispatch_list ().smobbed_copy ();
   Engraver_dispatch_list *list = Engraver_dispatch_list::unsmob (retval);
@@ -48,7 +48,10 @@ Engraver_dispatch_list::create (SCM trans_list,
       for (SCM i = iface_list; scm_is_pair (i); i = scm_cdr (i))
 	{
 	  Engraver_void_function_engraver_grob_info ptr
-	    = eng->get_acknowledger (scm_car (i));
+	    = (start_end == START)
+	    ? eng->get_acknowledger (scm_car (i))
+	    : eng->get_end_acknowledger (scm_car (i));
+	  
 	  if (ptr)
 	    {
 	      entry.function_ = ptr;

@@ -26,7 +26,7 @@ class Engraver_dispatch_list
 public:
   void apply (Grob_info);
   SCM static create (SCM trans_list,
-		     SCM iface_list);
+		     SCM iface_list, Direction);
 
   DECLARE_SIMPLE_SMOBS (Engraver_dispatch_list,);
 };

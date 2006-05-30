@@ -1,3 +1,44 @@
+2006-05-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/translation-functions.scm (format-bass-figure): translate
+	digits over 10 to the left
+
+	* scm/define-markup-commands.scm (translate-scaled): new markup.
+
+	* mf/feta-nummer-code.mf (code): overshoot the topright tip of the
+	7 glyph. 
+
+	* ly/engraver-init.ly: add Figured_bass_engraver
+
+	* lily/engraver-group.cc (acknowledge_grobs): use start/stop drul.
+
+	* lily/figured-bass-engraver.cc (clear_spanners): use everywhere.
+
+	* lily/score-engraver.cc (announce_grob): only note START announces.
+
+	* lily/include/engraver-group.hh (Translator_group):
+	acknowledge_hash_table_ is now drul.
+
+	* lily/engraver.cc (announce_end_grob): new method.
+
+	* lily/include/grob-info.hh (class Grob_info): add start_end_ member.
+
+	* lily/translator-dispatch-list.cc (create): take start_end argument.
+
+	* lily/include/translator.hh (TRANSLATOR_DECLARATIONS): change
+	acknowledge_static_array_ to drul
+
+	* lily/include/translator.icc (ADD_END_ACKNOWLEDGER): new macro.
+
+	* scm/define-grob-interfaces.scm
+	(bass-figure-alignment-interface): add bass-figure-alignment-interface
+
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	BassFigureAlignmentPositioning
+
+	* ly/Welcome-to-LilyPond-MacOS.ly: include in LilyPond, so version number
+	stays up to date. Backportme.
+
 2006-05-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/basic-notation.itely (Bar lines): Document

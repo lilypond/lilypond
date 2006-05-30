@@ -74,19 +74,28 @@
 (define-public (format-bass-figure figure event context)
   (let* ((fig (ly:music-property event 'figure))
 	 (fig-markup (if (number? figure)
-			 (if (eq? #t (ly:music-property event 'diminished))
-			     (markup #:slashed-digit figure)
-			     (markup #:number (number->string figure 10)))
+
+			 ;; this is not very elegant, but center-aligning all digits
+			 ;; is problematic with other markups, and shows problems
+			 ;; in the (lack of) overshoot of feta alphabet glyphs.
+			 
+			 ((if (<= 10 figure)
+			      (lambda (y) (make-translate-scaled-markup (cons -0.7 0) y))
+			      identity)
+
+			  (if (eq? #t (ly:music-property event 'diminished))
+			      (markup #:slashed-digit figure)
+			      (markup #:number (number->string figure 10))))
 			 #f
 			 ))
 	 (alt (ly:music-property event 'alteration))
 	 (alt-markup
 	  (if (number? alt)
 	      (markup
-		      #:general-align Y DOWN #:fontsize
-		      (if (not (= alt DOUBLE-SHARP))
-			  -2 2)
-		      (alteration->text-accidental-markup alt))
+	       #:general-align Y DOWN #:fontsize
+	       (if (not (= alt DOUBLE-SHARP))
+		   -2 2)
+	       (alteration->text-accidental-markup alt))
 	      
 	      #f))
 	 (plus-markup (if (eq? #t (ly:music-property event 'augmented))

@@ -212,6 +212,32 @@
 				rhythmic-grob-interface
 				bass-figure-interface
 				font-interface))))))
+
+    (BassFigureAlignment
+     . (
+	(axes . (,Y))
+	(threshold . (2 . 1000))
+	(positioning-done . ,ly:align-interface::calc-positioning-done)
+	(Y-extent . ,ly:axis-group-interface::height)
+	(stacking-dir . -1)
+	(meta . ((class . Spanner)
+		 (interfaces . (align-interface
+				bass-figure-alignment-interface
+				axis-group-interface))))))
+
+    (BassFigureAlignmentPositioning
+     . ((Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(side-axis . ,Y)
+	(direction . ,UP)
+	(Y-extent . ,ly:axis-group-interface::height)
+	(axes . (,Y))
+	(staff-padding . 1.0)
+	(padding . 0.5)
+	(meta . ((class . Spanner)
+		 (interfaces . (side-position-interface
+				axis-group-interface
+			     ))))))
+    
     (BassFigureBracket
      . (
 	(stencil . ,ly:enclosing-bracket::print)
@@ -235,16 +261,6 @@
 		 (interfaces . (axis-group-interface
 				))))))
 
-    (BassFigureAlignment
-     . (
-	(axes . (,Y))
-	(threshold . (2 . 1000))
-	(positioning-done . ,ly:align-interface::calc-positioning-done)
-	(Y-extent . ,ly:axis-group-interface::height)
-	(stacking-dir . -1)
-	(meta . ((class . Spanner)
-		 (interfaces . (align-interface
-				axis-group-interface))))))
 
     (Beam
      . (

@@ -177,7 +177,12 @@ ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
 ADD_TRANSLATOR (Stem_engraver,
 		/* doc */ "Create stems and single-stem tremolos.  It also works together with "
 		"the beam engraver for overriding beaming.",
-		/* create */ "Stem StemTremolo",
+		/* create */
+		"Stem "
+		"StemTremolo ",
 		/* accept */ "tremolo-event",
-		/* read */ "tremoloFlags stemLeftBeamCount stemRightBeamCount",
+		/* read */
+		"tremoloFlags "
+		"stemLeftBeamCount "
+		"stemRightBeamCount ",
 		/* write */ "");

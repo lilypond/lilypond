@@ -30,6 +30,7 @@ protected:
   */
   virtual void acknowledge_grob (Grob_info) {}
   virtual void announce_grob (Grob_info);
+  virtual void announce_end_grob (Grob_info);
   Engraver_group *get_daddy_engraver () const;
 
 public:
@@ -37,6 +38,7 @@ public:
      Announce element. Default: pass on to daddy. Utility
   */
   void announce_grob (Grob *, SCM cause);
+  void announce_end_grob (Grob *, SCM cause);
 
   /**
      override other ctor

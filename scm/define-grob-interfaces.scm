@@ -20,6 +20,10 @@
  "A bass figure text"
  '(implicit))
 
+(ly:add-interface
+ 'bass-figure-alignment-interface
+ ""
+ '())
 
 (ly:add-interface
  'dynamic-interface

@@ -111,9 +111,12 @@ Score_engraver::one_time_step ()
 void
 Score_engraver::announce_grob (Grob_info info)
 {
-  announce_infos_.push_back (info);
-  pscore_->root_system ()->typeset_grob (info.grob ());
-  elems_.push_back (info.grob ());
+  Engraver_group::announce_grob (info);
+  if (info.start_end () == START)
+    {
+      pscore_->root_system ()->typeset_grob (info.grob ());
+      elems_.push_back (info.grob ());
+    }
 }
 
 void

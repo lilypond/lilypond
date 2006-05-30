@@ -1267,6 +1267,17 @@ A negative @var{amount} indicates raising, see also @code{\\raise}.
 			     (- amount) Y))
 
 
+(define-markup-command (translate-scaled layout props offset arg) (number-pair? markup?)
+  "Translate @var{arg} by @var{offset}, scaling the offset by the @code{font-size}."
+
+  (let*
+      ((factor (magstep (chain-assoc-get 'font-size props 0)))
+       (scaled (cons (* factor (car offset))
+		     (* factor (cdr offset)))))
+    
+  (ly:stencil-translate (interpret-markup layout props arg)
+			scaled)))
+
 (define-markup-command (raise layout props amount arg) (number? markup?)
   "
 Raise @var{arg}, by the distance @var{amount}.

@@ -209,12 +209,32 @@ Figured_bass_engraver::clear_spanners ()
 {
   if (!alignment_)
     return;
-  
-  alignment_ = 0;
+
+  if (alignment_)
+    {
+      announce_end_grob (alignment_, SCM_EOL);
+      alignment_ = 0;
+    }
+
   if (to_boolean (get_property ("figuredBassCenterContinuations")))
     center_repeated_continuations();
   
-  groups_.clear ();
+  for (vsize i = 0; i < groups_.size (); i++)
+    {
+      if (groups_[i].group_)
+	{
+	  announce_end_grob (groups_[i].group_ , SCM_EOL);
+	  groups_[i].group_ = 0;
+	}
+      
+      if (groups_[i].continuation_line_)
+	{
+	  announce_end_grob (groups_[i].continuation_line_ , SCM_EOL);
+	  groups_[i].continuation_line_ = 0;
+	}
+    }
+
+  /* Check me, groups_.clear () ? */
 }
 
 void
@@ -255,6 +275,7 @@ Figured_bass_engraver::process_music ()
   if (rest_event_)
     {
       clear_spanners ();
+      groups_.clear ();
       return;
     }
   
@@ -262,6 +283,7 @@ Figured_bass_engraver::process_music ()
       && new_musics_.empty ())
     {
       clear_spanners ();
+      groups_.clear ();
       return;
     }
 
@@ -276,20 +298,15 @@ Figured_bass_engraver::process_music ()
   bool use_extenders = to_boolean (get_property ("useBassFigureExtenders"));
   if (!use_extenders)
     {
-      if (to_boolean (get_property ("figuredBassCenterContinuations")))
-	center_repeated_continuations ();
-      
-      alignment_ = 0;
-      for (vsize i = 0; i < groups_.size (); i++)
-	{
-	  groups_[i].group_ = 0;
-	  groups_[i].continuation_line_ = 0;
-	}
+      clear_spanners ();
     }
   
   if (!continuation_)
-    clear_spanners ();
-  
+    {
+      clear_spanners ();
+      groups_.clear ();
+    }
+
   vsize k = 0;
   for (vsize i = 0; i < new_musics_.size (); i++)
     {
@@ -438,10 +455,10 @@ Figured_bass_engraver::create_grobs ()
 	  group.figure_item_->set_property ("transparent", SCM_BOOL_T);
 	  group.continuation_line_->set_bound (RIGHT, group.figure_item_);
 	}
-
       
       if (groups_[i].group_)
 	groups_[i].group_->set_bound (RIGHT, muscol);
+
     }
 
 }

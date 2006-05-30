@@ -20,9 +20,11 @@ class Grob_info
 {
   Translator *origin_trans_;
   Grob *grob_;
-
+  Direction start_end_;
+  
   friend class Engraver;
 public:
+  Direction start_end () const { return start_end_; }
   Grob *grob () const { return grob_; }
   Translator *origin_translator () const { return origin_trans_; }
 

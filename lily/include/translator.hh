@@ -28,7 +28,7 @@ struct Acknowledge_information
   NAME ();								\
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);				\
   static SCM static_description_;					\
-  static vector<Acknowledge_information> acknowledge_static_array_;	\
+  static Drul_array<vector<Acknowledge_information> > acknowledge_static_array_drul_; \
   virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]); \
   virtual SCM static_translator_description () const;			\
   virtual SCM translator_description () const;				\
@@ -36,9 +36,17 @@ struct Acknowledge_information
   {									\
     return static_get_acknowledger (sym);				\
   }									\
-  static Engraver_void_function_engraver_grob_info static_get_acknowledger (SCM sym);
+  virtual Engraver_void_function_engraver_grob_info get_end_acknowledger (SCM sym) \
+  {									\
+    return static_get_end_acknowledger (sym);				\
+  } \
+  static Engraver_void_function_engraver_grob_info static_get_acknowledger (SCM sym); \
+  static Engraver_void_function_engraver_grob_info static_get_end_acknowledger(SCM); \
+  /* end #define */
+
 
 #define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
+#define DECLARE_END_ACKNOWLEDGER(x) public : void acknowledge_end_ ## x (Grob_info); protected:
 
 enum Translator_precompute_index
   {

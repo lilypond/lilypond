@@ -29,6 +29,12 @@ Engraver::announce_grob (Grob_info inf)
   get_daddy_engraver ()->announce_grob (inf);
 }
 
+void
+Engraver::announce_end_grob (Grob_info inf)
+{
+  get_daddy_engraver ()->announce_grob (inf);
+}
+
 /*
   CAUSE is the object (typically a Music object)  that
   was the reason for making E.
@@ -45,6 +51,26 @@ Engraver::announce_grob (Grob *e, SCM cause)
   if (g)
     g->announce_grob (i);
 }
+
+
+/*
+  CAUSE is the object (typically a Music object)  that
+  was the reason for making E.
+*/
+void
+Engraver::announce_end_grob (Grob *e, SCM cause)
+{
+  if (unsmob_music (cause) || unsmob_grob (cause))
+    e->set_property ("cause", cause);
+
+  Grob_info i (this, e);
+
+  i.start_end_ = STOP;
+  Engraver_group *g = get_daddy_engraver ();
+  if (g)
+    g->announce_grob (i);
+}
+
 
 Engraver::Engraver ()
 {
