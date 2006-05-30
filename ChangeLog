@@ -47,8 +47,8 @@
 	* scm/define-grobs.scm (all-grob-descriptions): add
 	BassFigureAlignmentPositioning
 
-	* ly/Welcome-to-LilyPond-MacOS.ly: include in LilyPond, so version number
-	stays up to date. Backportme.
+	* ly/Welcome-to-LilyPond-MacOS.ly: include in LilyPond, so version
+	number stays up to date. Backportme.
 
 2006-05-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 

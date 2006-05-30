@@ -185,8 +185,6 @@ def compare_signature_files (f1, f2):
     s2 = read_signature_file (f2)
     
     return SystemLink (s1, s2).distance ()
-    
-    
 
 def paired_files (dir1, dir2, pattern):
     """
@@ -240,13 +238,16 @@ class ComparisonData:
             distance = compare_signature_files (f1, f2)
             self.result_dict[f2] = (distance, f1)
     
-    def create_text_result_page (self, filename):
-
+    def create_text_result_page (self, dir1, dir2):
+        self.write_text_result_page (dir2 + '/' + os.path.split (dir1)[1] + '.txt')
+        
+    def write_text_result_page (self, filename):
+        print 'writing "%s"' % filename
         out = None
         if filename == '':
             out = sys.stdout
         else:
-            out = file (filename, 'w')
+            out = open (filename, 'w')
         
         results = [(score, oldfile, file) for (file, (score, oldfile)) in self.result_dict.items ()]  
         results.sort ()
@@ -261,7 +262,7 @@ class ComparisonData:
             out.write ('%20s%-10s %s\n' % ('','added', os.path.join (dir, file)))
 
     def print_results (self):
-        self.create_text_result_page ('')
+        self.write_text_result_page ('')
         
     def create_html_result_page (self, dir1, dir2):
         dir1 = dir1.replace ('//', '/')
@@ -338,6 +339,7 @@ def compare_trees (dir1, dir2):
     data.compare_trees (dir1, dir2)
     data.print_results ()
     data.create_html_result_page (dir1, dir2)
+    data.create_text_result_page (dir1, dir2)
     
 ################################################################
 # TESTING
@@ -348,6 +350,7 @@ def system (x):
     print 'invoking', x
     stat = os.system (x)
     assert stat == 0
+
 
 def test_paired_files ():
     print paired_files (os.environ["HOME"] + "/src/lilypond/scripts/",
@@ -368,7 +371,8 @@ def test_compare_trees ():
     system ('cp 19-0.signature dir2/20-0.signature')
 
     compare_trees ('dir1', 'dir2')
-    
+
+
 def test_basic_compare ():
     ly_template = r"""#(set! toplevel-score-handler print-score-with-defaults)
 #(set! toplevel-music-handler
@@ -401,7 +405,6 @@ def test_basic_compare ():
                'extragrob': 'c4',
                'userstring': 'test' }]
 
-
     for d in dicts:
         open (d['name'] + '.ly','w').write (ly_template % d)
         
@@ -410,12 +413,10 @@ def test_basic_compare ():
     system ('lilypond -ddump-signatures --png -b eps ' + ' '.join (names))
     
     sigs = dict ((n, read_signature_file ('%s-0.signature' % n)) for n in names)
-
     combinations = {}
     for (n1, s1) in sigs.items():
         for (n2, s2) in sigs.items():
             combinations['%s-%s' % (n1, n2)] = SystemLink (s1,s2).distance ()
-            
 
     results = combinations.items ()
     results.sort ()
@@ -425,6 +426,7 @@ def test_basic_compare ():
     assert combinations['20-20'] == 0.0
     assert combinations['20-20expr'] > 50.0
     assert combinations['20-19'] < 10.0
+
 
 def test_sigs (a,b):
     sa = read_signature_file (a)
