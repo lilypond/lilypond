@@ -17,7 +17,7 @@ e.Append (
 	  '#/kpath-guile/include',
 	  outdir],
 	LEXFLAGS = ['-Cfe', '-p', '-p'],
-	LIBS = ['flower', 'kpath-guile'],
+	LIBS = ['flower'],
 	)
 
 e.HH ('parser.hh', 'parser.yy')

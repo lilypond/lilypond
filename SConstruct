@@ -249,7 +249,7 @@ bindir = os.path.join (prefix, 'bin')
 sharedir = os.path.join (prefix, 'share')
 libdir = os.path.join (prefix, 'lib')
 libdir_package = os.path.join (libdir, package.name)
-lidbir_package_version = os.path.join (libdir_package, version)
+libdir_package_version = os.path.join (libdir_package, version)
 localedir = os.path.join (sharedir, 'locale')
 sharedir_doc_package = os.path.join (sharedir, 'doc', package.name)
 sharedir_package = os.path.join (sharedir, package.name)
@@ -354,8 +354,8 @@ def configure (target, source, env):
 	test_program (optional, 'bison', '1.25', 'Bison -- parser generator',
 			'bison')
 	test_program (optional, 'dvips', '0.0', 'Dvips', 'tetex-bin')
-	test_program (optional, 'fontforge', '0.0.20041224', 'FontForge',
-		      'fontforge')
+#	test_program (optional, 'fontforge', '0.0.20041224', 'FontForge',
+#		      'fontforge')
 	test_program (optional, 'flex', '0.0', 'Flex -- lexer generator',
 		      'flex')
 	test_program (optional, 'guile', '1.6', 'GUILE scheme', 'guile')
@@ -658,6 +658,8 @@ env.Append (
 	sharedir_package = sharedir_package,
 	sharedir_doc_package = sharedir_doc_package,
 	sharedir_package_version = sharedir_package_version,
+	libdir_package = libdir_package,
+	libdir_package_version = libdir_package_version,
 
 	# global build verbosity switch
 	__verbose = ' --verbose',
@@ -826,7 +828,8 @@ def symlink_tree (target, source, env):
 	      ('scripts/',   'bin/ps2png'),
 	      ('mf',         'share/lilypond/%(ver)s/dvips/mf-out'),
 	      ('#ps',        'share/lilypond/%(ver)s/dvips/ps'),
-	      ('#ps',        'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
+	      ('#ps/music-drawing-routines.ps',
+	       'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
 	      ('mf',         'share/lilypond/%(ver)s/otf'),
 	      ('mf',         'share/lilypond/%(ver)s/tfm'),
 	      ('tex',        'share/lilypond/%(ver)s/tex/enc'),
