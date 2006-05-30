@@ -205,8 +205,8 @@ a = '$PYTHON $MF_TO_TABLE_PY \
 --lisp=${TARGET.base}.lisp \
 --enc=${TARGET.base}.enc \
 --tex=${TARGET.base}.tex \
---ly=${TARGET.base}list.ly \
 ${TARGET.base}.log'
+#--ly=${TARGET.base}list.ly \
 gtable = Builder (action = a, suffix = '.otf-gtable', src_suffix = '.log',
          emitter = add_lisp_enc_tex_ly_target)
 env.Append (BUILDERS = {'GTABLE': gtable})

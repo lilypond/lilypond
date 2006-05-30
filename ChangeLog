@@ -1,3 +1,8 @@
+2006-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/relocate.cc (read_relocation_dir): Do not blindly
+	dereference DIR.
+
 2006-05-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/parser.yy: replace THIS by PARSER
@@ -51,6 +56,12 @@
 	the "||:" bar type. 
 
 2006-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/builder.py: Remove --ly option/target from mf-to-table.
+
+	* scripts/lilypond-book.py: Bugfix: do not blindly attempt
+	.../current hack if LILYPONDPREFIX is fine.  Fixes `scons doc'
+	build.
 
 	* Resurrect `scons lily' build.
 
