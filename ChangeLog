@@ -1,3 +1,8 @@
+2006-05-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/basic-notation.itely (Bar lines): Document
+	the "||:" bar type. 
+
 2006-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Resurrect `scons lily' build.

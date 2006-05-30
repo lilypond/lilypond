@@ -1510,6 +1510,11 @@ The following bar types are available
 
 @lilypondfile[ragged-right,quote]{bar-lines.ly}
 
+In addition, you can specify @code{"||:"}, which is equivalent to 
+@code{"|:"} except at line breaks, where it gives a double bar line at
+the end of the line and a start repeat at the beginning of the next
+line. 
+
 To allow a line break where there is no visible bar line, use
 
 @example
