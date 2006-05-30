@@ -836,6 +836,30 @@ You may use @code{format-mark-barnumbers}, @code{format-mark-box-barnumbers},
 and @code{format-mark-circle-barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
+The horizontal location of rehearsal marks can be adjusted by
+setting @code{break-align-symbol}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+c1
+\key cis \major
+\clef alto
+\override Score.RehearsalMark #'break-align-symbol = #'key-signature
+\mark "on-key"
+cis
+\key ces \major
+\override Score.RehearsalMark #'break-align-symbol = #'clef
+\clef treble
+\mark "on clef"
+ces
+@end lilypond
+
+@code{break-align-symbol} may also accept the following values:
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
+@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
+@code{key-signature}, and @code{time-signature}.  Setting
+@code{break-align-symbol} will only have an effect if the symbol
+appears at that point in the music.
+
 
 @seealso
 
@@ -862,23 +886,29 @@ Bar numbers are printed by default at the start of the line.  The
 number itself is stored in the @code{currentBarNumber} property, which
 is normally updated automatically for every measure.
 
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\repeat unfold 4 {c4 c c c} \break
+\set Score.currentBarNumber = #50
+\repeat unfold 4 {c4 c c c}
+@end lilypond
+
+Bar numbers may only be printed at bar lines; to print a bar
+number at the beginning of a piece, an empty bar line must
+be added
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\set Score.currentBarNumber = #50
+\bar ""
+\repeat unfold 4 {c4 c c c} \break
+\repeat unfold 4 {c4 c c c}
+@end lilypond
+
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line.  This is illustrated in the following example,
 whose source is available as
 @inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}
 
 @lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
-
-Bar numbers can be manually changed by setting the
-@code{Staff.currentBarNumber} property
-
-@lilypond[verbatim,ragged-right,quote]
-\relative c' {
-  \repeat unfold 4 {c4 c c c} \break
-  \set Score.currentBarNumber = #50
-  \repeat unfold 4 {c4 c c c}
-}
-@end lilypond
 
 Bar numbers can be removed entirely by removing the Bar number
 engraver from the score.
@@ -1344,6 +1374,8 @@ staff.  See @inputfileref{input/@/test,ossia@/.ly} for an example.
 @node Quoting other voices
 @subsection Quoting other voices
 
+@cindex cues
+
 With quotations, fragments of other parts can be inserted into a part
 directly.  Before a part can be quoted, it must be marked especially as
 quotable.  This is done with the @code{\addquote} command.
@@ -1439,6 +1471,8 @@ Program reference: @internalsref{QuoteMusic}.
 
 @node Formatting cue notes
 @subsection Formatting cue notes
+
+@cindex cues, formatting
 
 The previous section deals with inserting notes from another voice.
 There is a more advanced music function called @code{\cueDuring},

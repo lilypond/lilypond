@@ -466,7 +466,7 @@ accidental.
 @node accelerando
 @section accelerando
 
-ES: acelerando,
+ES: accelerando,
 I: accelerando,
 F: accelerando, en accélérant,
 D: accelerando, schneller werden,
@@ -560,7 +560,7 @@ C clef setting middle C on the middle line of the staff
 @node ambit
 @section ambit
 
-ES: ambitus,
+ES: Ã¡mbito,
 I: ambitus,
 F: ambitus,
 D: ambitus,
@@ -576,6 +576,7 @@ the pitch range that a musical instrument is capable of playing.
 @node ancient minor scale
 @section ancient minor scale
 
+ES: escala menor antigua
 I: scala minore naturale,
 F: forme du mode mineur ancien, troisème mode, mode hellénique
 D: reines Moll,
@@ -700,7 +701,7 @@ FI: arpeggio, murtosointu.
 @node ascending interval
 @section ascending interval
 
-ES: Intervalo ascendente,
+ES: intervalo ascendente,
 I: intervallo ascendente,
 F: intervalle ascendant,
 D: steigendes Intervall,
@@ -728,6 +729,7 @@ FI: ylinouseva intervalli.
 @node autograph
 @section autograph
 
+ES: manuscrito,
 I: autografo,
 F: manuscrit,
 D: Autograph, Handschrift,
@@ -767,7 +769,7 @@ ES: compás, @aref{measure}.
 @node bar line
 @section bar line
 
-ES: ?,
+ES: barra, lÃ­nea divisoria,
 I: stanghetta, barra (di divisione),
 F: barre (de mesure),
 D: Taktstrich,
@@ -826,6 +828,7 @@ A clef setting with middle C on the first top ledger line.
 @node bass
 @section bass
 
+ES: bajo,
 I: basso,
 F: basse,
 D: Bass,
@@ -842,6 +845,7 @@ an abbreviation for double bass.
 @node beam
 @section beam
 
+ES: barra
 I: coda,
 F: barre,
 D: Balken,
@@ -866,7 +870,7 @@ The number of beams determines the note value of the connected notes.
 @node beat
 @section beat
 
-ES: tiempo,
+ES: tiempo, parte (de compÃ¡s)
 I: tempi,
 F: temps,
 D: Takt, Taktschlag, Zeit (im Takt),
@@ -940,6 +944,7 @@ trumpet, trombone, french horn, and tube.
 @node breath mark
 @section breath mark
 
+ES: respiraciÃ³n,
 I: respiro,
 F: respiration,
 D: Atemzeichen, Trennungszeichen,
@@ -952,7 +957,7 @@ Indication of where to breathe in vocal and wind instrument parts.
 @node breve
 @section breve
 
-ES: breve,
+ES: cuadrada, breve,
 I: breve,
 F: brève,
 D: Brevis,
@@ -984,7 +989,7 @@ FI: C, c.
 @node C clef
 @section C clef
 
-ES: Clave de do,
+ES: clave de do,
 I: chiave di do,
 F: clé d'ut,
 D: C-Schlüssel,
@@ -1221,6 +1226,7 @@ pitch contained in the cluster would be notated as an ordinary note.
 @node comma
 @section comma
 
+ES: coma, comma
 I: comma,
 F: comma,
 D: Komma,
@@ -1256,6 +1262,7 @@ Intervals larger than an octave.
 @node complement
 @section complement
 
+ES: intervalo invertido
 I: rivolto,
 F: intervalle complémentaire,
 D: Komplementärintervall,
@@ -1417,7 +1424,7 @@ abbreviation ``cresc.''.
 @node cue-notes
 @section cue-notes
 
-ES: notas guia,
+ES: notas guÃ­a,
 I: notine,
 F: petites notes précédent l'entrée d'in instrument, réplique,
 D: Stichnoten,
@@ -1467,7 +1474,7 @@ of the 20th century
 @node D
 @section D
 
-ES: Re,
+ES: re,
 I: re,
 F: ré,
 D: D, d,
@@ -1783,7 +1790,7 @@ Opposite of @aref{conjunct movement}.
 @node dissonant interval
 @section dissonant interval
 
-ES: intervalo disonante, disonancias,
+ES: intervalo disonante, disonancia,
 I: intervallo dissonante, dissonanza,
 F: dissonance,
 D: Dissonanz,
@@ -1797,6 +1804,7 @@ FI: dissonanssi, dissonoiva intervalli, riitasointi.
 @node dominant ninth chord
 @section dominant ninth chord
 
+ES: acorde de novena de dominante,
 I: accordo di nona di dominante,
 F: accord de neuvième dominante,
 D: Domi@-nant@-nonen@-akkord,
@@ -1895,6 +1903,7 @@ FI: kaksoisappogiatura, kaksoisetuhele.
 @node double bar line
 @section double bar line
 
+ES: doble barra,
 I: doppia barra,
 F: double barre,
 D: Doppelstrich,
@@ -1908,7 +1917,7 @@ Indicates the end of a section within a movement.
 @node double dotted note
 @section double dotted note
 
-ES: nota con dos puntillos,
+ES: nota con doble puntillo,
 I: nota doppiamente puntata,
 F: note doublement pointée,
 D: doppelt punktierte Note,
@@ -2064,7 +2073,7 @@ FI: kahdeksasosatauko.
 @node engraving
 @section engraving
 
-ES: Grabar
+ES: grabar,
 I: incisione,
 F: gravure,
 D: Notenstechen, Notendruck
@@ -2111,7 +2120,7 @@ but equal pitch.
 @node equal temperament
 @section equal temperament
 
-ES: ?,
+ES: temperamento igual,
 I: temperamento equabile,
 F: tempérament égal,
 D: gleichschwebende Stimmung,
@@ -2126,7 +2135,7 @@ Tuning system dividing the octave into 12 equal @aref{semitone}s
 @node expression mark
 @section expression mark
 
-ES: ?,
+ES: expresiÃ³n,
 I: segno d'espressione,
 F: signe d'expression, indication de nuance,
 D: Vortragszeichen,
@@ -2154,7 +2163,7 @@ FI: F, f.
 @node F clef
 @section F clef
 
-ES: Clave de Fa,
+ES: clave de fa,
 I: chiave di fa,
 F: clé de fa,
 D: F-Schlüssel,
@@ -2385,7 +2394,7 @@ FI: G, g.
 @node G clef
 @section G clef
 
-ES: Clave de sol,
+ES: clave de sol,
 I: chiave di sol,
 F: clé de sol,
 D: G-Schlüssel, Violinschlüssel,
@@ -2443,7 +2452,7 @@ Letting the pitch slide fluently from one note to the other.
 @node grace notes
 @section grace notes
 
-ES: ?,
+ES: mordente,
 I: abbellimenti,
 F: fioriture,
 D: Verzierungen, Vorschläge, Vor@-schlags@-noten,
@@ -2458,6 +2467,7 @@ counted in the rhythm of the bar.  @aref{appoggiatura}.
 @node grand staff
 @section grand staff
 
+ES: sistema de piano,
 I: accolatura,
 F: accolade,
 D: Akkolade,
@@ -2507,7 +2517,7 @@ FI: puolinuotti.
 @node half rest
 @section half rest
 
-ES: ?,
+ES: silencio de blanca,
 I: pausa di minima,
 F: demi-pause,
 UK: minim rest,
@@ -2723,6 +2733,7 @@ The difference between an interval and an octave.
 @node just intonation
 @section just intonation
 
+ES: entonaciÃ³n justa,
 I: intonazione giusta,
 F: intonation juste,
 D: reine Stimmung,
@@ -2753,7 +2764,7 @@ there are 12@w{ }keys, one on@w{ }c, one on c-sharp, etc.
 @node key signature
 @section key signature
 
-ES: armadura de clave,
+ES: armadura (de la clave),
 I: armatura di chiave,
 F: armure, armature [de la clé],
 D: Vorzeichen, Tonart,
@@ -2818,7 +2829,7 @@ A ledger line is an extension of the staff.
 @node legato
 @section legato
 
-ES: ligado,
+ES: legato,
 I: legato,
 F: legato, lié,
 D: legato,
@@ -2862,7 +2873,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
 @node lilypond
 @section lilypond
 
-ES: estanque de lilas,
+ES: estanque de nenÃºfares,
 I: stagno del giglio,
 F: étang de lis,
 UK: lily pond,
@@ -2876,6 +2887,8 @@ A pond with lilies floating in it, also the name of a music typesetter.
 
 @node ligature
 @section ligature
+
+ES: ligadura
 
 A ligature is a coherent graphical symbol that represents at least two
 distinct notes.  Ligatures originally appeared in the manuscripts of
@@ -2940,7 +2953,7 @@ Note value: double length of @aref{breve}.
 @node lyrics
 @section lyrics
 
-ES: .,
+ES: letra (de la canciÃ³n),
 I: .,
 F: .,
 D: Liedtext,
@@ -2980,6 +2993,7 @@ FI: duuri.
 @node meantone temperament
 @section meantone temperament
 
+ES: afinaciÃ³n mesotÃ³nica,
 I: accordatura mesotonica,
 F: tempérament mésotonique,
 D: mitteltönige Stimmung,
@@ -3031,6 +3045,7 @@ harmony}, @aref{relative key}.
 @node melisma
 @section melisma
 
+ES: melisma,
 NL: melisma,
 FI: melisma, laulettavan tavun sävelkuvio.
 
@@ -3359,7 +3374,7 @@ and hears a tone.
 @node note head
 @section note head
 
-ES: oval,
+ES: cabeza,
 I: testa, testina, capocchia,
 F: t@^ete de la note,
 D: Notenkopf,
@@ -3378,7 +3393,7 @@ instrument.
 @node note value
 @section note value
 
-ES: valor,
+ES: valor (duraciÃ³n),
 I: valore, durata,
 F: durée, valeur (d'une note),
 D: Notenwert,
@@ -3764,7 +3779,7 @@ FI: neljännesosatauko.
 @node quintuplet
 @section quintuplet
 
-ES: quintillo,
+ES: cinquillo,
 I: quintina,
 F: quintolet,
 D: Quintole,
@@ -3884,7 +3899,7 @@ no common metrical unit (beat).
 @node ritardando
 @section ritardando
 
-ES: retardando,
+ES: ritardando,
 I: ritardando,
 F: ritardando,
 D: Ritardando, langsamer werden,
@@ -4032,6 +4047,7 @@ FI: septimi.
 @node sextuplet
 @section sextuplet
 
+ES: seisillo,
 I: sestina,
 F: sextolet,
 D: Sextole,
@@ -4084,7 +4100,7 @@ FI: kuudestoistaosanuotti.
 @node sixteenth rest
 @section sixteenth rest
 
-ES: silencia de semicorchea,
+ES: silencio de semicorchea,
 I: pausa di semicroma,
 F: quart de soupir,
 UK: semiquaver rest,
@@ -4128,7 +4144,7 @@ FI: kuudeskymmenesneljäsosanuotti.
 @node sixty-fourth rest
 @section sixty-fourth rest
 
-ES: silencia de semifusa,
+ES: silencio de semifusa,
 I: pausa di semibiscroma,
 F: seizième de soupir,
 UK: hemidemisemiquaver rest,
@@ -4143,7 +4159,7 @@ FI: kuudeskymmenesneljäsosatauko.
 @node slur
 @section slur
 
-ES: ligadura,
+ES: ligadura (de expresiÃ³n),
 I: legatura (di portamento or espressiva),
 F: liaison, coulé,
 D: Bogen, Legatobogen, Phrasierungsbogen,
@@ -4159,6 +4175,7 @@ breath in singing.
 @node solmization
 @section solmization
 
+ES: solmisaciÃ³n,
 I: solmisazione,
 F: solmisation,
 D: Solmisation,
@@ -4235,7 +4252,7 @@ The highest female voice.
 @node staccato
 @section staccato
 
-ES: staccato,
+ES: picado (staccato),
 I: staccato,
 F: staccato, piqué, détaché,
 D: Staccato,
@@ -4353,7 +4370,7 @@ The fourth @aref{scale degree}.  @aref{functional harmony}.
 @node submediant
 @section submediant
 
-ES: superdominante,
+ES: submediante,
 I: sopratonica,
 F: sous-médiante,
 D: Submediante,
@@ -4423,7 +4440,7 @@ A symphony may be defined as a @aref{sonata} for orchestra.
 @node syncopation
 @section syncopation
 
-ES: sincopado,
+ES: sÃ­ncopa,
 I: sincope,
 F: syncope,
 D: Synkope,
@@ -4451,6 +4468,7 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
 @node syntonic comma
 @section syntonic comma
 
+ES: coma sintÃ³nica,
 I: comma sintonico (o didimico),
 F: comma syntonique,
 D: syntonisches Komma,
@@ -4466,6 +4484,7 @@ tuning (@aref{Pythagorean comma}), equal to 22@w{ }cents.
 @node system
 @section system
 
+ES: sistema,
 I: accollatura,
 F: système,
 D: Notensystem,
@@ -4680,7 +4699,7 @@ FI: tahtiosoitus.
 @node tone
 @section tone
 
-ES: sonido,
+ES: tono,
 I: suono,
 F: ton,
 D: Ton,
@@ -4696,7 +4715,7 @@ Music from the 20th century may be based on atonal sounds.
 @node tonic
 @section tonic
 
-ES: tonica,
+ES: tÃ³nica,
 I: tonica,
 F: tonique,
 D: Tonika,
@@ -4760,7 +4779,7 @@ FI: diskanttiavain.
 @node tremolo
 @section tremolo
 
-ES: tremolo,
+ES: trÃ©molo,
 I: tremolo,
 F: trémolo,
 D: Tremolo,
@@ -4874,7 +4893,7 @@ second).
 @node turn
 @section turn
 
-ES: grupo,
+ES: grupeto,
 I: gruppetto,
 F: grupetto,
 D: Doppelschlag,
@@ -5066,7 +5085,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item
   @tab brevis
   @tab brevis
-  @tab breve
+  @tab cuadrada
 
 @item
 

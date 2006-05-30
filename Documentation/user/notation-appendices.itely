@@ -178,6 +178,9 @@ Where N is in the range 0-100.
 @node The Feta font
 @appendixsec The Feta font
 
+@cindex Feta font
+@cindex Font, Feta
+
 The following symbols are available in the Emmentaler font and may be
 accessed directly using text markup such as @code{g^\markup @{
 \musicglyph #"scripts.segno" @}}, see @ref{Text markup}.
