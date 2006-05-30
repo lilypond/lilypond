@@ -431,6 +431,9 @@
   (display (procset "music-drawing-routines.ps") port)
   (display (procset "lilyponddefs.ps") port)
 
+  (if (not (ly:get-option 'point-and-click))
+      (display "/mark_URI { pop pop pop pop pop } bind def\n" port)) 
+
   (display "%%EndProlog\n" port)
   
   (display "%%BeginSetup\ninit-lilypond-parameters\n%%EndSetup\n\n" port))
@@ -444,6 +447,7 @@
 		     (open-file filename "wb")
 		     "ps"))
 	 (paper (ly:paper-book-paper book))
+	 (systems (ly:paper-book-systems book))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
 	 
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -451,6 +455,9 @@
 	 (page-count (length page-stencils))
 	 (port (ly:outputter-port outputter)))
 
+    (if (ly:get-option 'dump-signatures)
+	(write-system-signatures basename (ly:paper-book-systems book) 0))
+  
     (output-scopes scopes fields basename)
     (display (file-header paper page-count #t) port)
     (display "\n%%BeginDefaults

@@ -1,3 +1,80 @@
+2006-05-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/parser.yy (simple_markup): replace THIS with PARSER.
+
+	* ly/Welcome-to-LilyPond-MacOS.ly: include in LilyPond, so version
+	number stays up to date.
+	
+	* buildscripts/output-distance.py
+	(ComparisonData.create_html_result_page): new routine: summarise
+	results in HTML page with images. 
+	(ComparisonData.create_text_result_page): create summary text files too.
+
+	* GNUmakefile.in (web-ext): package .signature files too. They
+	compress well. 
+
+	* scm/stencil.scm (write-system-signature): typo.
+
+	* GNUmakefile.in: create web-root/VERSION to help upload scripts.
+
+	* scm/stencil.scm (write-system-signature): better escaping.
+	only write signature for music systems, not for markup systems.
+
+	* scm/framework-ps.scm (output-framework): dump-signatures support
+	for plain output.
+
+	* make/lilypond-vars.make (LILYPOND_BOOK_FLAGS): add -ddump-signatures.
+
+	* scm/framework-ps.scm (write-preamble): redefine mark_URI to nop
+	for -dno-point-and-click
+
+	* lily/grob.cc (get_print_stencil): don't read
+	point_and_click_global to determine whether to set grob-cause.
+
+	* buildscripts/output-distance.py (main): new function.
+	(ComparisonData): new class.
+
+	* lily/ledger-line-engraver.cc (acknowledge_staff_symbol): be more
+	careful with generating new LedgerLineSpanners.
+
+	* lily/ledger-line-spanner.cc (set_spacing_rods): suicide if no staff.
+
+	* ly/engraver-init.ly: remove Ledger_line_engraver from Voice
+	context. This fixes double ledger lines in output. 
+
+	* lily/system.cc (get_paper_system): remove 3 layer limit.
+
+	* buildscripts/output-distance.py (SystemLink.distance): new
+	file. Compare signatures.
+
+	* python/safeeval.py (SafeEval.visitUnarySub): new file.
+
+	* lily/grob-array.cc (remove_duplicates): rename from
+	uniq(). Sort before calling uniq() so it actually works.
+
+	* scripts/lilypond-book.py (Lilypond_file_snippet.ly): strip
+	\version from lilypond file snippet.
+	(Lilypond_file_snippet.ly): oops. typo.
+	(find_toplevel_snippets): urgh. again.
+
+	* lily/system.cc (get_paper_systems): uniq all_elements_ , to
+	prevent duplicated broken items in output.
+
+	* scm/framework-eps.scm (output-classic-framework): only dump if
+	dump-signatures is set.
+
+	* scm/lily.scm (define-scheme-options): add dump-signatures option.
+
+	* scm/stencil.scm (write-system-signature): new routine: write
+	python parseable signature of a separate paper system.
+	
+	* lily/stanza-number-engraver.cc (process_music): use is_markup()
+	iso is_string().
+	include header.
+
+	* stepmake/aclocal.m4: STEPMAKE_PYTHON(): clear cached value since
+	arg 2 might point us to a new binary (patch by Karl Hammar)
+	
 2006-05-25  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/stem-tremolo.cc (print): fix whole note tremolo placement

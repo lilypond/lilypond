@@ -8,6 +8,7 @@
 
 #include "engraver.hh"
 #include "side-position-interface.hh"
+#include "text-interface.hh"
 
 class Stanza_number_engraver : public Engraver
 {
@@ -45,7 +46,8 @@ Stanza_number_engraver::process_music ()
 {
   SCM stanza = get_property ("stanza");
 
-  if (scm_is_string (stanza) && stanza != last_stanza_)
+  if (Text_interface::is_markup (stanza)
+      && stanza != last_stanza_)
     {
       last_stanza_ = stanza;
 

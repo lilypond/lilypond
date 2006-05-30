@@ -17,6 +17,9 @@
 (define-public (paper-system-stencil system)
   (ly:prob-property system 'stencil))
 
+(define-public (paper-system-system-grob paper-system)
+  (ly:prob-property paper-system 'system-grob))
+
 (define-public (paper-system-extent system axis)
   (ly:stencil-extent (paper-system-stencil system) axis))
 

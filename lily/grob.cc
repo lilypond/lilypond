@@ -114,9 +114,8 @@ Grob::get_print_stencil () const
       else
 	{
 	  SCM expr = m->expr ();
-	  if (point_and_click_global)
-	    expr = scm_list_3 (ly_symbol2scm ("grob-cause"),
-			       self_scm (), expr);
+	  expr = scm_list_3 (ly_symbol2scm ("grob-cause"),
+			     self_scm (), expr);
 
 	  retval = Stencil (m->extent_box (), expr);
 	}

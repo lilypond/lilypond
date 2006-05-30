@@ -242,13 +242,6 @@ dot_diam# = 7/8 flare#;
 define_pixels (dot_diam);
 
 
-code := 31;	% , 32
-
-fet_beginchar ("Space", "space");
-	set_char_box (0, space#, 0, height#);
-fet_endchar;
-
-
 code := 42; 	% , 43
 
 fet_beginchar ("Plus", "plus");
@@ -734,16 +727,18 @@ fet_beginchar ("Numeral 7", "seven");
 	save tolerance;
 	save alpha, beta, gamma, delta;
 	save bow;
+	save x_overshoot;
+
 	path bow;
 
-	set_char_box (0, 11/15 height# * widen, 0, height#);
+	set_char_box (0, 11/15 height# * widen - thin#, 0, height#);
+	overshoot_x = .75 thin;
 
 	message "w:" & decimal w;
 	message "h:" & decimal h;
 
 	alpha = -180;
 
-if true:
 	penpos1 (3/2 thick, 180 + alpha);
 	penpos2 (hair, 180 + alpha - 45);
 	penpos3 (hair, 180 + alpha + 45);
@@ -751,16 +746,12 @@ if true:
 	z2 = z1l + (1/4 sqrt (2) * hair) * dir (alpha - 135);
 	z3 = z1r + (1/4 sqrt (2) * hair) * dir (alpha - 45);
 	z4 = z1 + kuulleke * dir (alpha - 90);
-else:
-	% does not work
-	calc_kuulleke (3/2 thick, -alpha);
-fi;
 
 	z1l = (thin, 0);
 
 	beta = 55;
 	penpos5 (thin, 90 + beta);
-	z5 = (w, h) + (1/2 sqrt (2) * thin) * dir (-135);
+	z5 = (w, h) + (1/2 sqrt (2) * thin) * dir (-135) + (overshoot_x, 0);
 
 	gamma = angle (length (z1r - z1), 2 kuulleke);
 	delta = 12;

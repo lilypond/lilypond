@@ -95,8 +95,13 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
     (postprocess-output book framework-eps-module
 			(format "~a.eps" basename) (ly:output-formats)))
 
+
+
 (define-public (output-classic-framework basename book scopes fields)
   (output-scopes scopes fields basename)
+
+  (if (ly:get-option 'dump-signatures)
+      (write-system-signatures basename (ly:paper-book-systems book) 0))
   
   (dump-stencils-as-EPSes
    (map paper-system-stencil (ly:paper-book-systems book))

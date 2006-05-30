@@ -13,7 +13,7 @@
    implemented separately from the class.  */
 LY_DEFINE (ly_input, "ly:input-location?", 1, 0, 0,
 	   (SCM x),
-	   "Return #t if @var{x} is an input location.")
+	   "Is @var{x} an @code{input-location}?")
 {
   return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F;
 }
@@ -34,13 +34,18 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_input_file_line_column, "ly:input-file-line-char-column", 1, 0, 0, (SCM sip),
+
+LY_DEFINE (ly_input_file_line_column,
+	   "ly:input-file-line-char-column",
+	   1, 0, 0, (SCM sip),
 	   "Return input location in @var{sip} as (file-name line char column).")
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
 
-  int l, ch, col;
+  int l = 0;
+  int ch = 0;
+  int col = 0;
   ip->get_counts (&l, &ch, &col);
   return scm_list_4 (scm_makfrom0str (ip->file_string ().c_str ()),
 		     scm_from_int (l),
@@ -48,8 +53,11 @@ LY_DEFINE (ly_input_file_line_column, "ly:input-file-line-char-column", 1, 0, 0,
 		     scm_from_int (col));
 }
 
-LY_DEFINE (ly_input_both_locations, "ly:input-both-locations", 1, 0, 0, (SCM sip),
-	   "Return input location in @var{sip} as (file-name first-line first-column last-line last-column).")
+LY_DEFINE (ly_input_both_locations,
+	   "ly:input-both-locations",
+	   1, 0, 0, (SCM sip),
+	   "Return input location in @var{sip} as "
+	   "(file-name first-line first-column last-line last-column).")
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");

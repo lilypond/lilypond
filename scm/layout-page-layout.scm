@@ -318,7 +318,7 @@ is what have collected so far, and has ascending page numbers."
 
       (cons force positions)))
 
-  (define (walk-paths done-lines best-paths current-lines  last? current-best)
+  (define (walk-paths done-lines best-paths current-lines last? current-best)
     "Return the best optimal-page-break-node that contains
 CURRENT-LINES.  DONE-LINES.reversed ++ CURRENT-LINES is a consecutive
 ascending range of lines, and BEST-PATHS contains the optimal breaks
@@ -343,6 +343,7 @@ CURRENT-BEST is the best result sofar, or #f."
 			     last?)))
            (height (page-printable-height this-page))
 	   (vertical-spacing (space-systems height current-lines ragged?))
+	   
 	   (satisfied-constraints (car vertical-spacing))
            (force (if satisfied-constraints
 		      (if (and last? ragged-last?)

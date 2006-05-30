@@ -13,6 +13,7 @@
 	    `((point-and-click #t "use point & click")
 	      (paper-size "a4" "the default paper size")
 	      (midi-debug #f "generate human readable MIDI")
+	      (dump-signatures #f "dump output signatures of each system (EPS backend)")
 	      (internal-type-checking #f "check every property assignment for types")
 	      (parse-protect #t    "continue when finding errors in inline
 scheme are caught in the parser. If off, halt 
@@ -41,8 +42,7 @@ similar to chord syntax")
 			"dump GC protection info")
 	      (show-available-fonts #f
 				    "List  font names available.")
-	      )
-	    ))
+	      )))
 
 
 ;; need to do this in the beginning. Other parts of the
