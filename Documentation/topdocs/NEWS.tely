@@ -67,6 +67,30 @@ which scares away people.
 @end ignore
 
 @item
+Figured bass can also be added to @code{Staff} contexts directly. In
+this case, their vertical  position is adjusted automatically.
+
+@lilypond[ragged-right,fragment]
+<<
+  \new Staff = someUniqueName
+  \relative c'' {
+    c4 c'8 r8 c,4 c'
+  }
+
+  %% send to existing Staff.
+  \context Staff = someUniqueName 
+  \figuremode {
+    <4>4 <6 10>8 s8
+    
+    \set Staff.useBassFigureExtenders = ##t
+    <4 6>4 <4 6>
+  }
+>>
+@end lilypond
+
+This feature was sponsored by Trent Johnston.
+
+@item
 Beams may be put on isolated stems, and beamlets may be paired by
 setting the @code{max-beam-connect} property,
 
