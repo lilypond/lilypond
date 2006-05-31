@@ -3,6 +3,7 @@
 	* buildscripts/output-distance.py (ComparisonData.compare_trees):
 	fixes. Don't follow symlinks.
 	(ComparisonData.create_html_result_page): remove previous results.
+	insert ../python in path.
 
 	* scripts/lilypond-book.py (PREAMBLE_LY): spacing fixes.
 
