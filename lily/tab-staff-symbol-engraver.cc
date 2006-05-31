@@ -6,23 +6,28 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "engraver.hh"
+#include "staff-symbol-engraver.hh"
 #include "spanner.hh"
 
-class Tab_staff_symbol_engraver : public Engraver
+class Tab_staff_symbol_engraver : public Staff_symbol_engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Tab_staff_symbol_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER(staff_symbol);
+  virtual void start_spanner ();
 };
 
 void
-Tab_staff_symbol_engraver::acknowledge_staff_symbol (Grob_info gi)
+Tab_staff_symbol_engraver::start_spanner ()
 {
-  int k = scm_ilength (get_property ("stringTunings"));
-  if (k >= 0)
-    gi.grob ()->set_property ("line-count", scm_from_int (k));
+  bool init = !span_;
+  Staff_symbol_engraver::start_spanner ();
+  if (init)
+    {
+      int k = scm_ilength (get_property ("stringTunings"));
+      if (k >= 0)
+	span_->set_property ("line-count", scm_from_int (k));
+    }
 }
 
 Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
@@ -31,12 +36,10 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver, staff_symbol);
+ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver, grob);
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
-		/* doc */
-		"Create a staff-symbol, but look at "
-		"stringTunings for the number of lines. "
-		,
+		/* doc */ "Create a staff-symbol, but look at stringTunings for the number of lines."
+		"staff lines.",
 		/* create */ "StaffSymbol",
 		/* accept */ "staff-span-event",
 		/* read */ "stringTunings",

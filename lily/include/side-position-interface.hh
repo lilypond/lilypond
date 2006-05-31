@@ -22,15 +22,12 @@ struct Side_position_interface
 public:
 
   DECLARE_SCHEME_CALLBACK (y_aligned_on_support_refpoints, (SCM element));
-  DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_support_refpoints, (SCM element, SCM start, SCM end));
-  DECLARE_SCHEME_CALLBACK (x_aligned_side, (SCM element, SCM current));
-  DECLARE_SCHEME_CALLBACK (y_aligned_side, (SCM element, SCM current));
-  DECLARE_SCHEME_CALLBACK (pure_y_aligned_side, (SCM element, SCM start, SCM end));
+  DECLARE_SCHEME_CALLBACK (x_aligned_side, (SCM element));
+  DECLARE_SCHEME_CALLBACK (y_aligned_side, (SCM element));
 
-  static SCM aligned_side (Grob*me, Axis a, bool pure, int start, int end, Real *current_off_ptr);
+  static SCM aligned_side (Grob*me, Axis a);
 
-  static SCM general_side_position (Grob *, Axis, bool, bool my_extents,
-				    bool pure, int start, int end, Real *current_off);
+  static SCM general_side_position (Grob *, Axis, bool);
   static Axis get_axis (Grob *);
   static void set_axis (Grob *, Axis);
   static bool has_interface (Grob *);

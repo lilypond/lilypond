@@ -2,7 +2,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (map
  (lambda (sym)
@@ -96,7 +96,6 @@
    ly:output-def-scope
    ly:output-description
    ly:paper-book?
-   ly:prob-property
    ly:layout-def?
    ly:paper-get-font
    ly:paper-get-number

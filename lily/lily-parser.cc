@@ -141,6 +141,7 @@ Lily_parser::parse_string (string ly_code)
   lexer_->main_input_name_ = "<string>";
   lexer_->is_main_input_ = true;
 
+  set_yydebug (0);
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
 
   SCM mod = lexer_->set_current_scope ();

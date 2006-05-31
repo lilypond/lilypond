@@ -9,12 +9,11 @@
 #include "coherent-ligature-engraver.hh"
 
 #include "warn.hh"
+#include "staff-symbol-referencer.hh"
+#include "spanner.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
 #include "pointer-group-interface.hh"
-#include "spanner.hh"
-#include "staff-symbol-referencer.hh"
-#include "stream-event.hh"
 
 /*
  * This abstract class serves as common superclass for all ligature
@@ -72,6 +71,37 @@
  * example, Ligature_bracket_engraver does not share any of this code.
  */
 
+/*
+ * TODO: Let superflous space after each ligature collapse.  The
+ * following code should help in doing so (though it does not yet
+ * fully work).  Just put the following code into
+ * Spacing_spanner::do_measure ().  I put it temporarily here as memo
+ * until it really works and I also get Han-Wen's/Jan's permission to
+ * add it to the spacing spanner code.
+ */
+#if 0 /* experimental code to collapse spacing after ligature */
+SCM incr_scm = lc->get_property ("forced-spacing");
+if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
+  {
+    me->warning (_f ("gotcha: ptr=%ul", lc));//debug
+    ly_display_scm (lc->self_scm ());
+    Real distance;
+    if (incr_scm != SCM_EOL)
+      distance = scm_to_double (incr_scm);
+    else
+      {
+	me->warning (_ ("distance undefined, assuming 0.1"));
+	distance = 0.1;
+      }
+    me->warning (_f ("distance=%f", distance));//debug
+    Real inverse_strength = 1.0;
+    Spaceable_grob::add_spring (lc, rc, distance, inverse_strength);
+    if (Item *rb = r->find_prebroken_piece (LEFT))
+      Spaceable_grob::add_spring (lc, rb, distance, inverse_strength);
+
+    continue;
+  }
+#endif
 
 /*
  * TODO: move this function to class Item?
@@ -143,19 +173,19 @@ compute_delta_pitches (vector<Grob_info> primitives)
   for (vsize i = 0; i < primitives.size (); i++)
     {
       primitive = dynamic_cast<Item *> (primitives[i].grob ());
-      Stream_event *cause = primitives[i].event_cause ();
+      Music *music_cause = primitives[i].music_cause ();
       int pitch
-	= unsmob_pitch (cause->get_property ("pitch"))->steps ();
+	= unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
       if (prev_primitive)
 	{
 	  delta_pitch = pitch - prev_pitch;
-	  prev_primitive->set_property ("delta-position",
+	  prev_primitive->set_property ("delta-pitch",
 					scm_from_int (delta_pitch));
 	}
       prev_pitch = pitch;
       prev_primitive = primitive;
     }
-  primitive->set_property ("delta-position", scm_from_int (0));
+  primitive->set_property ("delta-pitch", scm_from_int (0));
 }
 
 void

@@ -8,28 +8,28 @@
 
 #include "engraver.hh"
 #include "item.hh"
-#include "pitch.hh"
-#include "stream-event.hh"
-
-#include "translator.icc"
 
 class Note_name_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
-  vector<Stream_event*> events_;
+  vector<Music*> events_;
   vector<Item*> texts_;
-  DECLARE_TRANSLATOR_LISTENER (note);
+  virtual bool try_music (Music *m);
   void process_music ();
   void stop_translation_timestep ();
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Note_name_engraver, note);
-void
-Note_name_engraver::listen_note (Stream_event *ev)
+bool
+Note_name_engraver::try_music (Music *m)
 {
-  events_.push_back (ev);
+  if (m->is_mus_type ("note-event"))
+    {
+      events_.push_back (m);
+      return true;
+    }
+  return false;
 }
 
 void
@@ -66,8 +66,10 @@ Note_name_engraver::Note_name_engraver ()
 {
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Note_name_engraver,
-		/* doc */ "Print pitches as words.",
+		/* doc */ "",
 		/* create */ "NoteName",
 		/* accept */ "note-event",
 		/* read */ "printOctaveNames",

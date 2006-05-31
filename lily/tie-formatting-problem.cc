@@ -163,24 +163,6 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 				      Y_AXIS, -dir);
 	}
     }
-  else if (stem)
-    {
-      Grob *head = Stem::support_head (stem);
-
-      /*
-	In case of invisible stem, don't pass x-center of heads.
-       */
-      Real x_center = head->extent (x_refpoint_, X_AXIS).center ();
-      Interval x_ext;
-      x_ext[-dir] = x_center;
-      Interval y_ext;
-      for (vsize j = 0; j < head_boxes.size (); j++)
-	y_ext.unite (head_boxes[j][Y_AXIS]);
-	  
-      insert_extent_into_skyline (&chord_outlines_[key],
-				  Box (x_ext, y_ext),
-				  Y_AXIS, -dir);
-    }
   
   Direction updowndir = DOWN;
   do
@@ -219,7 +201,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
   for (vsize i = 0; i < bounds.size (); i++)
     ranks.push_back (bounds[i]->get_column ()->get_rank ());
 
-  vector_sort (ranks, less<int> ());
+  vector_sort (ranks, default_compare);
   uniq (ranks);
 
   for (vsize i = 0; i < ranks.size (); i++)
@@ -885,6 +867,7 @@ Tie_formatting_problem::find_best_variation (Ties_configuration const &base,
 Ties_configuration
 Tie_formatting_problem::generate_optimal_chord_configuration ()
 {
+  
   Ties_configuration base = generate_base_chord_configuration ();
   vector<Tie_configuration_variation> vars = generate_collision_variations (base);
   

@@ -11,18 +11,15 @@
 #include "font-interface.hh"
 #include "international.hh"
 #include "mensural-ligature.hh"
+#include "music.hh"
 #include "note-column.hh"
 #include "note-head.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
-#include "pitch.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
-#include "stream-event.hh"
 #include "warn.hh"
-
-#include "translator.icc"
 
 /*
  * TODO: accidentals are aligned with the first note;
@@ -50,8 +47,7 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void build_ligature (Spanner *ligature, vector<Grob_info> primitives);
-  DECLARE_TRANSLATOR_LISTENER (ligature);
-  
+
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
@@ -60,13 +56,6 @@ private:
   void propagate_properties (Spanner *ligature, vector<Grob_info> primitives);
   void fold_up_primitives (vector<Grob_info> primitives);
 };
-
-IMPLEMENT_TRANSLATOR_LISTENER (Mensural_ligature_engraver, ligature);
-void
-Mensural_ligature_engraver::listen_ligature (Stream_event *ev)
-{
-  Ligature_engraver::listen_ligature (ev);
-}
 
 Mensural_ligature_engraver::Mensural_ligature_engraver ()
 {
@@ -104,12 +93,12 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
       Item *primitive = dynamic_cast<Item *> (info.grob ());
       int duration_log = Note_head::get_balltype (primitive);
 
-      Stream_event *nr = info.event_cause ();
+      Music *nr = info.music_cause ();
 
       /*
 	ugh. why not simply check for pitch?
       */
-      if (!nr->in_event_class ("note-event"))
+      if (!nr->is_mus_type ("note-event"))
 	{
 	  nr->origin ()->warning
 	    (_f ("cannot determine pitch of ligature primitive -> skipping"));
@@ -174,7 +163,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 	    }
 	  // b. descendens longa or brevis
 	  else if (i < s - 1
-		   && (unsmob_pitch (primitives[i + 1].event_cause ()
+		   && (unsmob_pitch (primitives[i + 1].music_cause ()
 				     ->get_property ("pitch"))->steps () < pitch)
 		   && duration_log > -3)
 	    {
@@ -392,6 +381,8 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
   propagate_properties (ligature, primitives);
   fold_up_primitives (primitives);
 }
+
+#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, note_head);

@@ -104,25 +104,25 @@ Midi_event::to_string () const
 {
   Rational rat_dt = (delta_mom_.main_part_ * Rational (384)
 		     + delta_mom_.grace_part_ * Rational (100)) * Rational (4);
-  int delta = rat_dt.to_int ();
+  int delta_i = rat_dt.to_int ();
 
-  string delta_string = Midi_item::i2varint_string (delta);
+  string delta_string = Midi_item::i2varint_string (delta_i);
   string midi_string = midi_->to_string ();
   assert (midi_string.length ());
   return delta_string + midi_string;
 }
 
-Midi_header::Midi_header (int format, int tracks, int clocks_per_4)
+Midi_header::Midi_header (int format_i, int tracks_i, int clocks_per_4_i)
 {
   string str;
 
-  string format_string = String_convert::int2hex (format, 4, '0');
+  string format_string = String_convert::int2hex (format_i, 4, '0');
   str += String_convert::hex2bin (format_string);
 
-  string tracks_string = String_convert::int2hex (tracks, 4, '0');
+  string tracks_string = String_convert::int2hex (tracks_i, 4, '0');
   str += String_convert::hex2bin (tracks_string);
 
-  string tempo_string = String_convert::int2hex (clocks_per_4, 4, '0');
+  string tempo_string = String_convert::int2hex (clocks_per_4_i, 4, '0');
   str += String_convert::hex2bin (tempo_string);
 
   set ("MThd", str, "");
@@ -158,15 +158,6 @@ Midi_instrument::to_string () const
 
 Midi_item::Midi_item ()
 {
-}
-
-Midi_channel_item::~Midi_channel_item ()
-{
-  channel_ = 0;
-}
-
-Midi_channel_item::Midi_channel_item ()
-{
   channel_ = 0;
 }
 
@@ -177,20 +168,20 @@ Midi_item::~Midi_item ()
 string
 Midi_item::i2varint_string (int i)
 {
-  int buffer = i & 0x7f;
+  int buffer_i = i & 0x7f;
   while ((i >>= 7) > 0)
     {
-      buffer <<= 8;
-      buffer |= 0x80;
-      buffer += (i & 0x7f);
+      buffer_i <<= 8;
+      buffer_i |= 0x80;
+      buffer_i += (i & 0x7f);
     }
 
   string str;
   while (1)
     {
-      str += ::to_string ((char)buffer);
-      if (buffer & 0x80)
-	buffer >>= 8;
+      str += ::to_string ((char)buffer_i);
+      if (buffer_i & 0x80)
+	buffer_i >>= 8;
       else
 	break;
     }
@@ -301,7 +292,7 @@ Midi_note::to_string () const
     }
 
   str += ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_pitch () + c0_pitch_));
+  str += ::to_string ((char) (get_pitch () + c0_pitch_i_));
   str += ::to_string ((char)dynamic_byte_);
 
   return str;
@@ -326,7 +317,7 @@ Midi_note_off::to_string () const
   Byte status_byte = (char) (0x80 + channel_);
 
   string str = ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_pitch () + Midi_note::c0_pitch_));
+  str += ::to_string ((char) (get_pitch () + Midi_note::c0_pitch_i_));
   str += ::to_string ((char)aftertouch_byte_);
 
   if (get_fine_tuning () != 0)
@@ -401,9 +392,9 @@ Midi_tempo::Midi_tempo (Audio_tempo *a)
 string
 Midi_tempo::to_string () const
 {
-  int useconds_per_4 = 60 * (int)1e6 / audio_->per_minute_4_;
+  int useconds_per_4_i = 60 * (int)1e6 / audio_->per_minute_4_;
   string str = "ff5103";
-  str += String_convert::int2hex (useconds_per_4, 6, '0');
+  str += String_convert::int2hex (useconds_per_4_i, 6, '0');
   return String_convert::hex2bin (str);
 }
 

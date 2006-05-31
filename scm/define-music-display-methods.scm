@@ -143,7 +143,7 @@
 (define post-event? (make-music-type-predicate	
 		     'StringNumberEvent
 		     'ArticulationEvent
-		     'FingeringEvent
+		     'FingerEvent
 		     'TextScriptEvent
 		     'MultiMeasureTextEvent
 		     'HyphenEvent
@@ -220,7 +220,7 @@
       ((portato) "_")
       (else (format #f "\\~a" articulation)))))
 
-(define-post-event-display-method FingeringEvent (event) #t
+(define-post-event-display-method FingerEvent (event) #t
   (ly:music-property event 'digit))
 
 (define-post-event-display-method TextScriptEvent (event) #t
@@ -481,14 +481,11 @@ Otherwise, return #f."
 		  ;; command_element
 		  (format #f "~{~a ~}" (map-in-order music->lily-string elements))))))))
 
-(define-display-method MultiMeasureRestMusic (mmrest)
-  (let* ((dur (ly:music-property mmrest 'duration))
-	 (ly (format #f "R~a~{~a ~}"
-		     (duration->lily-string dur)
-		     (map-in-order music->lily-string
-				   (ly:music-property mmrest 'articulations)))))
-    (*previous-duration* dur)
-    ly))
+(define-display-method MultiMeasureRestMusicGroup (mmrest)
+  (format #f "~{~a ~}"
+	  (map-in-order music->lily-string 
+			(remove (make-music-type-predicate 'BarCheck)
+				(ly:music-property mmrest 'elements)))))
 
 (define-display-method SkipMusic (skip)
   (format #f "\\skip ~a" (duration->lily-string (ly:music-property skip 'duration) #:force-duration #t)))
@@ -550,7 +547,7 @@ Otherwise, return #f."
 
 (define-display-method MetronomeChangeEvent (tempo)
   (format #f "\\tempo ~a = ~a"
-	  (duration->lily-string (ly:music-property tempo 'tempo-unit) #:force-duration #t #:prev-duration #f)
+	  (duration->lily-string (ly:music-property tempo 'tempo-unit) #:force-duration #f #:prev-duration #f)
 	  (ly:music-property tempo 'metronome-count)))
 
 (define-display-method KeyChangeEvent (key)

@@ -11,7 +11,7 @@ last note."
 
 }
 
-\version "2.9.13"
+\version "2.7.39"
 \layout {
   ragged-right = ##t
 }
@@ -34,15 +34,15 @@ cueStaff =  \relative c'' <<
 
 <<
   \new Staff {
-    \set Staff.instrumentName = "quoteMe"
+    \set Staff.instrument = "quoteMe"
     \quoteMe
   }
   \new Staff {
-    \set Staff.instrumentName = "orig (killCues)"
+    \set Staff.instrument = "orig (killCues)"
     \killCues \original
   }
   \new Staff {
-    \set Staff.instrumentName = "orig+quote"	
+    \set Staff.instrument = "orig+quote"	
     \cueStaff
   }
 >>

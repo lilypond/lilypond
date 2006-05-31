@@ -229,7 +229,7 @@ In this manual: @ref{Laissez vibrer ties}
 @cindex staff switching
 @cindex cross staff
 
-@funindex followVoice
+@findex followVoice
 
 Whenever a voice switches to another staff, a line connecting the notes
 can be printed automatically.  This is switched on by setting
@@ -253,9 +253,9 @@ Program reference: @internalsref{VoiceFollower}.
 
 @refcommands
 
-@funindex \showStaffSwitch
+@findex \showStaffSwitch
 @code{\showStaffSwitch},
-@funindex \hideStaffSwitch
+@findex \hideStaffSwitch
 @code{\hideStaffSwitch}.
 
 
@@ -413,11 +413,11 @@ Modifiers can be mixed with additions
 @end lilypond
 
 @cindex modifiers, in chords.
-@funindex aug
-@funindex dim
-@funindex maj
-@funindex sus
-@funindex m
+@findex aug
+@findex dim
+@findex maj
+@findex sus
+@findex m
 
 Since an unaltered 11 does not sound good when combined with an
 unaltered 3, the 11 is removed in this case (unless it is added
@@ -426,7 +426,7 @@ explicitly)
 \chordmode { c:13 c:13.11 c:m13 }
 @end lilypond
 
-@funindex /
+@findex /
 
 An inversion (putting one pitch of the chord on the bottom), as well
 as bass notes, can be specified by appending
@@ -434,7 +434,7 @@ as bass notes, can be specified by appending
 @lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c1 c/g c/f }
 @end lilypond
-@funindex /+
+@findex /+
 
 A bass note can be added instead transposed out of the chord,
 by using @code{/+}@var{pitch}.
@@ -512,8 +512,8 @@ for showing repeats.
   \consists "Volta_engraver"
 }
 \chordmode { \repeat volta 2 {
-  f1:maj7 f:7 bes:7
-  c:maj7
+  f1:maj f:7 bes:7
+  c:maj
 } \alternative {
   es e
 }
@@ -526,7 +526,7 @@ Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
 following properties
 
 @table @code
-@funindex chordNameExceptions
+@findex chordNameExceptions
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
 
@@ -555,14 +555,14 @@ For an example of tuning this property, see also
 @cindex exceptions, chord names.
 
 
-@funindex majorSevenSymbol
+@findex majorSevenSymbol
 @item majorSevenSymbol
 This property contains the markup object used for the 7th step, when
 it is major.  Predefined options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.  See
 @inputfileref{input/@/regression,chord@/-name@/-major7@/.ly} for an example.
 
-@funindex chordNameSeparator
+@findex chordNameSeparator
 @item chordNameSeparator
 Different parts of a chord name are normally separated by a
 slash.  By setting @code{chordNameSeparator}, you can specify other
@@ -576,21 +576,21 @@ separators, e.g.,
 }
 @end lilypond
 
-@funindex chordRootNamer
+@findex chordRootNamer
 @item chordRootNamer
 The root of a chord is usually printed as a letter with an optional
 alteration.  The transformation from pitch to letter is done by this
 function.  Special note names (for example, the German ``H'' for a
 B-chord) can be produced by storing a new function in this property.
 
-@funindex chordNoteNamer
+@findex chordNoteNamer
 @item chordNoteNamer
 The default is to print single pitch, e.g., the bass note, using the
 @code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
 to a specialized function to change this behavior.  For example, the
 base can be printed in lower case.
 
-@funindex chordPrefixSpacer
+@findex chordPrefixSpacer
 @item chordPrefixSpacer
 The ``m'' for minor chords is usually printed right after the root of
 the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer
@@ -619,13 +619,13 @@ chart}.  Turning on these styles is described in the input file
 
 @refcommands
 
-@funindex \germanChords
+@findex \germanChords
 @code{\germanChords},
-@funindex \semiGermanChords
+@findex \semiGermanChords
 @code{\semiGermanChords}.
-@funindex \italianChords
+@findex \italianChords
 @code{\italianChords}.
-@funindex \frenchChords
+@findex \frenchChords
 @code{\frenchChords}.
 
 
@@ -746,7 +746,7 @@ cases you should use @code{\lyricsto} and @code{\lyricmode}.
 @subsection Entering lyrics
 
 @cindex lyrics
-@funindex \lyricmode
+@findex \lyricmode
 @cindex punctuation
 
 Lyrics are entered in a special input mode.  This mode is introduced
@@ -777,7 +777,7 @@ opening brace is not balanced
 \lyricmode @{ twinkle@}
 @end example
 
-@funindex \property in \lyricmode
+@findex \property in \lyricmode
 
 @noindent
 Similarly, a period which follows an alphabetic sequence is included in
@@ -787,7 +787,7 @@ property commands
 \override Score . LyricText #'font-shape = #'italic
 @end example
 
-@funindex _
+@findex _
 @cindex spaces, in lyrics
 @cindex quotes, in lyrics
 
@@ -884,7 +884,7 @@ Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
 @node The Lyrics context
 @subsection The Lyrics context
 
-Lyrics are printed by interpreting them in the context called
+Lyrics are printed by interpreting them in the context caleld
 @internalsref{Lyrics}.
 
 @example
@@ -892,7 +892,7 @@ Lyrics are printed by interpreting them in the context called
 @end example
 
 @cindex automatic syllable durations
-@funindex \lyricsto
+@findex \lyricsto
 @cindex lyrics and melodies
 
 This will place the lyrics according to the durations that were
@@ -1021,8 +1021,8 @@ A complete example of a SATB score setup is in section
 @refcommands
 
 @code{\melisma}, @code{\melismaEnd}
-@funindex \melismaEnd
-@funindex \melisma
+@findex \melismaEnd
+@findex \melisma
 
 @seealso
 
@@ -1444,7 +1444,7 @@ its fleece was white as snow.
 
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
-@code{vocalName}.  A short version may be entered as @code{shortVocalName}.
+@code{vocalName}.  A short version may be entered as @code{vocNam}.
 
 
 @lilypond[fragment,ragged-right,quote,verbatim,relative=2]
@@ -1951,7 +1951,7 @@ are printed as tablature, by using @internalsref{TabStaff} and
 }
 @end lilypond
 
-@funindex minimumFret
+@findex minimumFret
 @cindex fret
 
 When no string is specified, the first string that does not give a
@@ -2358,7 +2358,8 @@ Here are all suptopics at a glance:
 @node Ancient note heads
 @subsection Ancient note heads
 
-@cindex note heads, ancient
+@cindex note heads
+
 
 For ancient notation, a note head style other than the @code{default}
 style may be chosen.  This is accomplished by setting the @code{style}
@@ -2908,6 +2909,8 @@ Editio Vaticana style.
 \include "gregorian-init.ly"
 \score {
   \new VaticanaVoice {
+    \override Staff.StaffSymbol #'color = #red
+    \override Staff.LedgerLineSpanner #'color = #red
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
@@ -3033,17 +3036,17 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 
 @refcommands
 
-@funindex \virgula
+@findex \virgula
 @code{\virgula},
-@funindex \caesura
+@findex \caesura
 @code{\caesura},
-@funindex \divisioMinima
+@findex \divisioMinima
 @code{\divisioMinima},
-@funindex \divisioMaior
+@findex \divisioMaior
 @code{\divisioMaior},
-@funindex \divisioMaxima
+@findex \divisioMaxima
 @code{\divisioMaxima},
-@funindex \finalis
+@findex \finalis
 @code{\finalis}.
 
 @seealso
@@ -4103,35 +4106,35 @@ ligatures can be created.
 
 The following head prefixes are supported
 
-@funindex \virga
+@findex \virga
 @code{\virga},
-@funindex \stropha
+@findex \stropha
 @code{\stropha},
-@funindex \inclinatum
+@findex \inclinatum
 @code{\inclinatum},
-@funindex \auctum
+@findex \auctum
 @code{\auctum},
-@funindex \descendens
+@findex \descendens
 @code{\descendens},
-@funindex \ascendens
+@findex \ascendens
 @code{\ascendens},
-@funindex \oriscus
+@findex \oriscus
 @code{\oriscus},
-@funindex \quilisma
+@findex \quilisma
 @code{\quilisma},
-@funindex \deminutum
+@findex \deminutum
 @code{\deminutum},
-@funindex \cavum
+@findex \cavum
 @code{\cavum},
-@funindex \linea
+@findex \linea
 @code{\linea}.
 
 Head prefixes can be accumulated, though restrictions apply.  For
 example, either @code{\descendens} or @code{\ascendens} can be applied
 to a head, but not both to the same head.
 
-@funindex \pes
-@funindex \flexa
+@findex \pes
+@findex \flexa
 Two adjacent heads can be tied together with the @code{\pes} and
 @code{\flexa} infix commands for a rising and falling line of melody,
 respectively.
@@ -4156,13 +4159,17 @@ the following excerpt demonstrates
 \score {
   <<
     \new VaticanaVoice = "cantus" {
-      \[ c'\melisma c' \flexa a \]
-      \[ a \flexa \deminutum g\melismaEnd \]
-      f \divisioMinima
-      \[ f\melisma \pes a c' c' \pes d'\melismaEnd \]
-      c' \divisioMinima \break
-      \[ c'\melisma c' \flexa a \]
-      \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
+      \override Staff.StaffSymbol #'color = #red
+      \override Staff.LedgerLineSpanner #'color = #red
+      \override Score.BarNumber #'transparent = ##t {
+        \[ c'\melisma c' \flexa a \]
+        \[ a \flexa \deminutum g\melismaEnd \]
+        f \divisioMinima
+        \[ f\melisma \pes a c' c' \pes d'\melismaEnd \]
+        c' \divisioMinima \break
+        \[ c'\melisma c' \flexa a \]
+        \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
+      }
     }
     \new Lyrics \lyricsto "cantus" {
       San- ctus, San- ctus, San- ctus
@@ -4218,7 +4225,7 @@ usually printed over the note.
 Support for such suggested accidentals is included, and can be
 switched on by setting @code{suggestAccidentals} to true.
 
-@funindex suggestAccidentals
+@findex suggestAccidentals
 
 @lilypond[verbatim,fragment,relative=1]
 fis gis
@@ -4370,30 +4377,6 @@ the bass are played in the MIDI file.
 Internally, the code produces markup texts.  You can use any of the
 markup text properties to override formatting.  For example, the
 vertical spacing of the figures may be set with @code{baseline-skip}.
-
-
-Figured bass can also be added to @code{Staff} contexts
-directly.  In this case, their vertical position is adjusted
-automatically.
-
-@lilypond[ragged-right,fragment,quote]
-<<
-  \new Staff = someUniqueName
-  \relative c'' {
-    c4 c'8 r8 c,4 c'
-  }
-
-  %% send to existing Staff.
-  \context Staff = someUniqueName 
-  \figuremode {
-    <4>4 <6 10>8 s8
-    
-    \set Staff.useBassFigureExtenders = ##t
-    <4 6>4 <4 6>
-  }
->>
-@end lilypond
-
 
 @seealso
 

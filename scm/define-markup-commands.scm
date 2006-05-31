@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2000--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2000--2006  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -126,7 +126,8 @@ circle of diameter 0 (ie sharp corners)."
 
 (define-markup-command (whiteout layout props arg) (markup?)
   "Provide a white underground for @var{arg}"
-  (let* ((stil (interpret-markup layout props arg))
+  (let* ((stil (interpret-markup layout props
+				 (make-with-color-markup black arg)))
 	 (white
 	  (interpret-markup layout props
 			    (make-with-color-markup
@@ -330,10 +331,8 @@ gsave /ecrm10 findfont
 	 (text-width (apply + text-widths))
 	 (text-dir (chain-assoc-get 'text-direction props RIGHT))
 	 (word-count (length stencils))
-	 (word-space (chain-assoc-get 'word-space props 1))
-	 (prop-line-width (chain-assoc-get 'line-width props #f))
-	 (line-width (if prop-line-width prop-line-width
-			 (ly:output-def-lookup layout 'line-width)))
+	 (word-space (chain-assoc-get 'word-space props))
+	 (line-width (chain-assoc-get 'line-width props))
 	 (fill-space
 	 	(cond
 			((= word-count 1) 
@@ -466,9 +465,7 @@ determines the space between each markup in @var{args}."
 (define (wordwrap-markups layout props args justify)
   (let*
       ((baseline-skip (chain-assoc-get 'baseline-skip props))
-       (prop-line-width (chain-assoc-get 'line-width props #f))
-       (line-width (if prop-line-width prop-line-width
-		       (ly:output-def-lookup layout 'line-width)))
+       (line-width (chain-assoc-get 'line-width props))
        (word-space (chain-assoc-get 'word-space props))
        (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
        (lines (wordwrap-stencils
@@ -1066,8 +1063,8 @@ See @usermanref{The Feta font} for  a complete listing of the possible glyphs."
 (define-markup-command (char layout props num) (integer?)
   "Produce a single character, e.g. @code{\\char #65} produces the 
 letter 'A'."
+  (ly:get-glyph (ly:paper-get-font layout props) num))
 
-  (ly:text-interface::interpret-markup layout props (ly:wide-char->utf-8 num)))
 
 (define number->mark-letter-vector (make-vector 25 #\A))
 

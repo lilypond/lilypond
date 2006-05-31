@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 2005--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; backend helpers.
@@ -48,24 +48,15 @@
   
   ;; must be sure that we don't catch stuff from old GUBs.
   (search-executable '("gs")))
-  
-(define-public (postscript->pdf paper-width paper-height name)
-  (let* ((pdf-name (string-append
-		    (basename (basename name ".ps") ".eps")
-		    ".pdf"))
-	 (is-eps (string-match "\\.eps$" name))
-	 (paper-size-string (if is-eps
-				" -dEPSCrop "
-				(format "-dDEVICEWIDTHPOINTS=~,2f \
--dDEVICEHEIGHTPOINTS=~,2f "
-					paper-width paper-height )))
 
+(define-public (postscript->pdf papersizename name)
+  (let* ((pdf-name (string-append (basename name ".ps") ".pdf"))
 	 (cmd (format #f
 		      "~a\
  ~a\
  ~a\
- ~a\
  -dCompatibilityLevel=1.4 \
+ -sPAPERSIZE=~a\
  -dNOPAUSE\
  -dBATCH\
  -r1200 \
@@ -76,10 +67,10 @@
 "
 		      (search-gs)
 		      (if (ly:get-option 'verbose) "" "-q")
-		      (if (ly:get-option 'gs-load-fonts)
+		      (if (ly:get-option 'gs-font-load)
 			  " -dNOSAFER "
 			  " -dSAFER ")
-		      paper-size-string
+		      (sanitize-command-option papersizename)
 		      pdf-name
 		      name)))
     ;; The wrapper on windows cannot handle `=' signs,
@@ -99,16 +90,17 @@
 
 (use-modules (scm ps-to-png))
 
-(define-public (postscript->png resolution paper-width paper-height name)
+(define-public (postscript->png resolution paper-size-name name)
     ;; Do not try to guess the name of the png file,
     ;; GS produces PNG files like BASE-page%d.png.
     ;;(ly:message (_ "Converting to `~a'...")
     ;;	    (string-append (basename name ".ps") "-page1.png" )))
-  (let ((verbose (ly:get-option 'verbose))
+  (let ((paper-size (sanitize-command-option paper-size-name))
+	(verbose (ly:get-option 'verbose))
 	(rename-page-1 #f))
 
     (ly:message (_ "Converting to ~a...") "PNG")
-    (make-ps-images name resolution paper-width paper-height rename-page-1 verbose
+    (make-ps-images name resolution paper-size rename-page-1 verbose
 		    (ly:get-option 'anti-alias-factor))
     (ly:progress "\n")))
 
@@ -120,10 +112,9 @@
 		      (lambda (x)
 			(member x formats)) 
 		      completed)))
-
     (for-each
      (lambda (f)
-       ((eval (string->symbol (format "convert-to-~a" f)) module)
+       ((eval (string->symbol (string-append "convert-to-" f)) module)
 	paper-book filename))
      completed)
 

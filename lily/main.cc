@@ -89,7 +89,7 @@ bool make_print = true;
 
 
 bool relocate_binary =
-#if 1
+#if ARGV0_RELOCATION
   true;
 #else
   false
@@ -427,7 +427,6 @@ main_with_guile (void *, int, char **)
       *tail = scm_cons (scm_makfrom0str (arg), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
-  
   delete option_parser;
   option_parser = 0;
 
@@ -541,12 +540,7 @@ parse_argv (int argc, char **argv)
 	  break;
 
 	case 'f':
-	  {
-	    vector<string> components
-	      = string_split (option_parser->optional_argument_str0_, ',');
-	    for (vsize i = 0; i < components.size (); i++)
-	      add_output_format (components[i]);
-	  }
+	  output_format_global = option_parser->optional_argument_str0_;
 	  break;
 
 	case 'H':

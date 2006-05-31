@@ -85,7 +85,13 @@ ly_use_module (SCM mod, SCM used)
 
 #define FUNC_NAME __FUNCTION__
 
-
+static SCM
+accumulate_symbol (void *closure, SCM key, SCM val, SCM result)
+{
+  (void) closure;
+  (void) val;
+  return scm_cons (key, result);
+}
 
 SCM
 ly_module_symbols (SCM mod)
@@ -93,7 +99,8 @@ ly_module_symbols (SCM mod)
   SCM_VALIDATE_MODULE (1, mod);
 
   SCM obarr = SCM_MODULE_OBARRAY (mod);
-  return ly_hash_table_keys (obarr);
+  return scm_internal_hash_fold ((Hash_closure_function) & accumulate_symbol,
+				 NULL, SCM_EOL, obarr);
 }
 
 static SCM

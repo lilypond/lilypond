@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2003--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2003--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (use-modules (ice-9 regex)

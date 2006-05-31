@@ -70,10 +70,10 @@ Semi_tie::get_position (Grob *me)
   return (int) rint (Staff_symbol_referencer::get_position (h));
 }
 
-bool
-Semi_tie::less (Grob *const &s1,
-		Grob *const &s2)
+int
+Semi_tie::compare (Grob *const &s1,
+			     Grob *const &s2)
 {
-  return get_position (s1) < get_position (s2);
+  return sign (get_position (s1) - get_position (s2));
 }
 				 

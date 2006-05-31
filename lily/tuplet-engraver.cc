@@ -6,31 +6,22 @@
   (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include "tuplet-bracket.hh"
+#include "note-column.hh"
 #include "beam.hh"
 #include "engraver.hh"
-#include "international.hh"
-#include "note-column.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
-#include "tuplet-bracket.hh"
-#include "warn.hh"
 
 #include "translator.icc"
 
 struct Tuplet_description
 {
-  Stream_event *event_;
+  Music *music_;
   Spanner *bracket_;
   Spanner *number_;
-
-  bool full_length_;
-  bool full_length_note_;
-  
   Tuplet_description ()
   {
-    event_ = 0;
-    full_length_note_ = false;
-    full_length_ = false;
+    music_ = 0;
     bracket_ = 0;
     number_ = 0;
   }
@@ -46,30 +37,32 @@ protected:
   vector<Tuplet_description> stopped_tuplets_;
   vector<Spanner*> last_tuplets_;
   DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (tuplet_span);
+  virtual bool try_music (Music *r);
   virtual void finalize ();
   void start_translation_timestep ();
   void process_music ();
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Tuplet_engraver, tuplet_span);
-void
-Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
+bool
+Tuplet_engraver::try_music (Music *music)
 {
-  Direction dir = to_dir (ev->get_property ("span-direction"));
-  if (dir == START)
+  if (music->is_mus_type ("tuplet-spanner-event"))
     {
-      Tuplet_description d;
-      d.event_ = ev;
-      tuplets_.push_back (d);
+      Direction dir = to_dir (music->get_property ("span-direction"));
+      if (dir == START)
+	{
+	  Tuplet_description d;
+	  d.music_ = music;
+	  tuplets_.push_back (d);
+	}
+      if (dir == STOP)
+	{
+	  stopped_tuplets_.push_back (tuplets_.back ());
+	  tuplets_.pop_back ();
+	}
+      return true;
     }
-  else if (dir == STOP && tuplets_.size ())
-    {
-      stopped_tuplets_.push_back (tuplets_.back ());
-      tuplets_.pop_back ();
-    }
-  else 
-    programming_error (_ ("invalid direction of tuplet-span-event"));
+  return false;
 }
 
 void
@@ -77,14 +70,12 @@ Tuplet_engraver::process_music ()
 {
   for (vsize i = 0; i < stopped_tuplets_.size (); i++)
     {
+      bool full_length = to_boolean (get_property ("tupletFullLength"));
       if (stopped_tuplets_[i].bracket_)
 	{
-	  if (stopped_tuplets_[i].full_length_)
+	  if (full_length)
 	    {
-	      Item *col =
-		unsmob_item (stopped_tuplets_[i].full_length_note_
-			     ? get_property ("currentMusicalColumn")
-			     : get_property ("currentCommandColumn"));
+	      Item *col = unsmob_item (get_property ("currentMusicalColumn"));
 	      
 	      stopped_tuplets_[i].bracket_->set_bound (RIGHT, col);
 	      stopped_tuplets_[i].number_->set_bound (RIGHT, col);
@@ -109,18 +100,13 @@ Tuplet_engraver::process_music ()
       /* i goes from size-1 downto 0, inclusively */
       vsize i = j - 1;
 
-            
       if (tuplets_[i].bracket_)
 	continue;
 
-      tuplets_[i].full_length_ = to_boolean (get_property ("tupletFullLength"));
-      tuplets_[i].full_length_note_
-	= to_boolean (get_property ("tupletFullLengthNote"));
-      
       tuplets_[i].bracket_ = make_spanner ("TupletBracket",
-					   tuplets_[i].event_->self_scm ());
+					   tuplets_[i].music_->self_scm ());
       tuplets_[i].number_ = make_spanner ("TupletNumber",
-					  tuplets_[i].event_->self_scm ());
+					  tuplets_[i].music_->self_scm ());
       tuplets_[i].number_->set_object ("bracket", tuplets_[i].bracket_->self_scm ());
       tuplets_[i].bracket_->set_object ("tuplet-number", tuplets_[i].number_->self_scm ());
       
@@ -130,6 +116,13 @@ Tuplet_engraver::process_music ()
       if (i > 0 && tuplets_[i - 1].bracket_)
 	Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1].bracket_, tuplets_[i].bracket_);
 
+
+      SCM proc = get_property ("tupletNumberFormatFunction");
+      if (ly_is_procedure (proc))
+	{
+	  SCM t = scm_apply_0 (proc, scm_list_1 (tuplets_[i].music_->self_scm ()));
+	  tuplets_[i].number_->set_property ("text", t);
+	}
     }
 }
 
@@ -155,11 +148,13 @@ void
 Tuplet_engraver::finalize ()
 {
   if (to_boolean (get_property ("tupletFullLength")))
-    for (vsize i = 0; i < last_tuplets_.size (); i++)
-      {
-	Item *col = unsmob_item (get_property ("currentCommandColumn"));
-	last_tuplets_[i]->set_bound (RIGHT, col);
-      }
+    {
+      for (vsize i = 0; i < last_tuplets_.size (); i++)
+	{
+	  Item *col = unsmob_item (get_property ("currentCommandColumn"));
+	  last_tuplets_[i]->set_bound (RIGHT, col);
+	}
+    }
 }
 
 Tuplet_engraver::Tuplet_engraver ()
@@ -169,11 +164,7 @@ Tuplet_engraver::Tuplet_engraver ()
 ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
 		/* doc */ "Catch TupletSpannerEvent and generate appropriate bracket  ",
-		/* create */
-		"TupletBracket "
-		"TupletNumber ",
-		/* accept */ "tuplet-span-event",
-		/* read */
-		"tupletFullLength "
-		"tupletFullLengthNote ",
+		/* create */ "TupletBracket TupletNumber ",
+		/* accept */ "tuplet-spanner-event",
+		/* read */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength ",
 		/* write */ "");

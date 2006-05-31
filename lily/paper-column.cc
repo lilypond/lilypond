@@ -45,12 +45,6 @@ Paper_column::get_system () const
   return system_;
 }
 
-void
-Paper_column::set_system (System *s)
-{
-  system_ = s;
-}
-
 Paper_column *
 Paper_column::get_column () const
 {
@@ -69,24 +63,6 @@ Paper_column::Paper_column (Paper_column const &src, int count)
 {
   system_ = 0;
   rank_ = src.rank_;
-}
-
-int
-Paper_column::compare (Grob * const &a,
-		       Grob * const &b)
-{
-  return sign (dynamic_cast<Paper_column*> (a)->rank_
-	       - dynamic_cast<Paper_column*> (b)->rank_);
-}
-
-bool
-Paper_column::less_than (Grob *const &a,
-			 Grob *const &b)
-{
-  Paper_column *pa = dynamic_cast<Paper_column*> (a);
-  Paper_column *pb = dynamic_cast<Paper_column*> (b);
-  
-  return pa->rank_ < pb->rank_;
 }
 
 Moment
@@ -222,7 +198,6 @@ ADD_INTERFACE (Paper_column,
 	       /* properties */
 	       "between-cols "
 	       "bounded-by-me "
-	       "grace-spacing " 
 	       "line-break-system-details "
 	       "line-break-penalty "
 	       "line-break-permission "
@@ -232,7 +207,6 @@ ADD_INTERFACE (Paper_column,
 	       "page-turn-permission "
 	       "shortest-playing-duration "
 	       "shortest-starter-duration "
-	       "spacing "
 	       "used "
 	       "when ");
 

@@ -42,12 +42,7 @@ Sequential_iterator::Sequential_iterator ()
 SCM
 Sequential_iterator::get_music_list () const
 {
-  Music *m = get_music ();
-  SCM proc = m->get_property ("elements-callback");
-  if (scm_procedure_p (proc))
-    return scm_call_1 (proc, m->self_scm ());
-  else
-    return SCM_EOL;
+  return SCM_EOL;
 }
 
 void
@@ -176,7 +171,7 @@ Sequential_iterator::next_element (bool)
 	in that chunk should be in len.grace_part_
 
       */
-      last_mom_ = here_mom_;
+      last_mom_ = here_mom_;;
       here_mom_ += len;
     }
 

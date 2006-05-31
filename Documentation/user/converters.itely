@@ -14,10 +14,7 @@ on the command-line.  By ``command-line'', we mean the command
 line in the operating system.  Windows users
 might be more familiar with the terms ``DOS shell'' or
 ``command shell''; OSX users might be more familiar with the
-terms ``terminal'' or ``console''.  OSX users should also
-consult @ref{Notes for the MacOS X app}.
-
-Describing how to use
+terms ``terminal'' or ``console''.  Describing how to use
 this part of an operating system is outside the scope of this
 manual; please consult other documentation on this topic if
 you are unfamiliar with the command-line.

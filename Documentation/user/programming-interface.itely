@@ -12,7 +12,6 @@ not familiar with Scheme, you may wish to read our
 * Building complicated functions::  
 * Markup programmer interface::  
 * Contexts for programmers::    
-* Scheme procedures as properties::
 @end menu
 
 
@@ -24,7 +23,7 @@ This section discusses how to create music functions within LilyPond.
 @menu
 * Overview of music functions::  
 * Simple substitution functions::  
-* Paired substitution functions::  
+* Paired substition functions::  
 * Mathematics in functions::    
 * Void functions::              
 @end menu
@@ -32,7 +31,7 @@ This section discusses how to create music functions within LilyPond.
 @node Overview of music functions
 @subsection Overview of music functions
 
-Making a function which substitutes a variable into LilyPond
+Making a funcion which substitutes a variable into LilyPond
 code is easy.  The general form of these functions is
 
 @example
@@ -134,8 +133,8 @@ g c
 @end lilypond
 
 
-@node Paired substitution functions
-@subsection Paired substitution functions
+@node Paired substition functions
+@subsection Paired substition functions
 
 Some @code{\override} commands require a pair of numbers
 (called a @code{cons cell} in Scheme).  To pass these numbers
@@ -210,6 +209,7 @@ withAlt = #(define-music-function (parser location mag music) (number? ly:music?
 { c'2 \withAlt #0.5 {c'4 c'}
   \withAlt #1.5 {c' c'} c'2 }
 @end lilypond
+
 
 @node Void functions
 @subsection Void functions
@@ -315,7 +315,7 @@ written as
 @end example
 
 Scheme code is evaluated as soon as the parser encounters it.  To
-define some Scheme code in a macro (to be called later), use
+define some scheme code in a macro (to be called later), use
 @ref{Void functions} or
 
 @example
@@ -356,7 +356,7 @@ available is in the Program reference manual, under
 interfaces, for example, a note is an @code{event}, but it is also a
 @code{note-event}, a @code{rhythmic-event}, and a
 @code{melodic-event}.  All classes of music are listed in the
-Program reference, under
+Profram reference, under
 @internalsref{Music classes}.
 
 @item
@@ -400,8 +400,8 @@ to create complicated music functions.
 @subsection Displaying music expressions
 
 @cindex internal storage
-@funindex \displayMusic
-@funindex \displayLilyMusic
+@findex \displayMusic
+@findex \displayLilyMusic
 
 When writing a music function it is often instructive to inspect how
 a music expression is stored internally.  This can be done with the
@@ -487,7 +487,7 @@ someNote = c'
 @end example
 
 The @code{display-scheme-music} function is the function used by
-@code{\displayMusic} to display the Scheme representation of a music
+@code{\displayMusic} to display the scheme representation of a music
 expression.
 
 @example
@@ -501,7 +501,7 @@ expression.
   (ly:make-pitch 0 0 0))
 @end example
 
-Then the note pitch is accessed through the @code{'pitch} property
+Then the note pitch is accessed thourgh the @code{'pitch} property
 of the @code{NoteEvent} object,
 
 @example
@@ -593,7 +593,7 @@ have two notes to build the sequence), add @code{SlurEvents} to the
 @code{SequentialMusic} with the two @code{EventChords}.
 
 @example
-doubleSlur = #(define-music-function (parser location note) (ly:music?)
+doubleSlur = #(def-music-function (parser location note) (ly:music?)
          "Return: @{ note ( note ) @}.
          `note' is supposed to be an EventChord."
          (let ((note2 (ly:music-deep-copy note)))
@@ -717,7 +717,7 @@ function).  Recall that our purpose is to add a marcato to an
 used elsewhere.
 
 Now we have a @code{result-event-chord}, which is a
-@code{NoteEventChord} expression and is a copy of @code{event-chord}.  We
+@code{oteEventChord} expression and is a copy of @code{event-chord}.  We
 add the marcato to its elements list property.
 
 @example
@@ -826,7 +826,7 @@ LilyPond markup syntax and Scheme markup syntax.
 @end multitable
 @end quotation
 
-The whole Scheme language is accessible inside the
+The whole scheme language is accessible inside the
 @code{markup} macro.  For example, You may use function calls inside
 @code{markup} in order to manipulate character strings.  This is
 useful when defining new markup commands (see
@@ -892,7 +892,7 @@ of this section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 @subsection New markup command definition
 
 New markup commands can be defined
-with the @code{define-markup-command} Scheme macro.
+with the @code{define-markup-command} scheme macro.
 
 @lisp
 (define-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
@@ -1066,7 +1066,7 @@ be used to set text in small caps.  See
 @subsection Context evaluation
 
 @cindex calling code during interpreting
-@funindex \applyContext
+@findex \applyContext
 
 Contexts can be modified during interpretation with Scheme code.  The
 syntax for this is
@@ -1092,7 +1092,7 @@ current bar number on the standard output during the compile:
 
 
 @cindex calling code on layout objects
-@funindex \applyOutput
+@findex \applyOutput
 
 
 The most versatile way of tuning an object is @code{\applyOutput}.  Its
@@ -1130,40 +1130,4 @@ note-heads on the center-line:
           (eq? (ly:grob-property grob 'staff-position) 0))
      (set! (ly:grob-property grob 'transparent) #t)))
 @end example
-
-
-@node Scheme procedures as properties
-@section Scheme procedures as properties
-
-Properties (like thickness, direction, etc.) can be set at fixed values
-with \override, e.g.
-
-@example
-\override Stem #'thickness = #2.0
-@end example
-
-Properties can also be set to a Scheme procedure,
-
-@lilypond[fragment,verbatim,quote,relative=2]
-\override Stem #'thickness = #(lambda (grob)
-    (if (= UP (ly:grob-property grob 'direction))
-        2.0
-        7.0))
-c b a g b a g b
-@end lilypond
-
-Procedures may also be combined like that with
-"grob closure".  Here is a setting from
-@code{AccidentalSuggestion},
-
-@example
-(X-offset .
-  ,(ly:make-simple-closure
-    `(,+
-        ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::centered-on-x-parent))
-      ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::x-aligned-on-self)))))
-@end example
-
 

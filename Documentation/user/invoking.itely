@@ -6,18 +6,6 @@
 
 This chapter details the technicalities of running LilyPond.
 
-Some of these commands are run from the command-line.  By
-``command-line'', we mean the command
-line in the operating system.  Windows users
-might be more familiar with the terms ``DOS shell'' or
-``command shell''; OSX users might be more familiar with the
-terms ``terminal'' or ``console''.  OSX users should also
-consult @ref{Notes for the MacOS X app}.
-
-Describing how to use
-this part of an operating system is outside the scope of this
-manual; please consult other documentation on this topic if
-you are unfamiliar with the command-line.
 
 @menu
 * Invoking lilypond::           
@@ -211,6 +199,10 @@ When LilyPond formatting is available through a web server, either the
 @code{--safe} option will prevent inline Scheme code from wreaking
 havoc, for example
 
+When LilyPond formatting is available through a web server, the
+@code{--safe} @b{MUST} be passed.  This will prevent inline Scheme
+code from wreaking havoc, for example
+
 @quotation
 @verbatim
 #(system "rm -rf /")
@@ -342,18 +334,13 @@ uses more CPU time. The default value is @code{70}.
 @node Notes for the MacOS X app
 @section Notes for the MacOS X app
 
-The scripts (such as lilypond-book, convert-ly, abc2ly, and even
-lilypond itself) are also
+The scripts (such as lilypond-book, convert-ly, abc2ly, etc.) are also
 included inside MacOS X .app. They can be run from the command line by
 invoking them directly, e.g.
 
 @example
-@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
+@var{path/to}/LilyPond.app/Contents/Resources/bin/convert-ly
 @end example
-
-@noindent
-The same is true of the other scripts in that directory, including
-lilypond-book, convert-ly, abc2ly, etc.
 
 Alternatively, you may add this directory to your path.  Modify (or create)
 a file called @code{.profile} in your home directory such that it contains
@@ -372,7 +359,7 @@ Note that @var{path/to} will generally be @code{/Applications/}.
 @section Updating with @command{convert-ly}
 
 @cindex Updating a LilyPond file
-@funindex convert-ly
+@findex convert-ly
 
 The LilyPond input syntax is routinely changed to simplify it or improve
 it in different ways.  As a side effect of this, the LilyPond interpreter
@@ -446,9 +433,7 @@ Print usage help.
 @refbugs
 
 Not all language changes are handled.  Only one output option can be
-specified.  Automatically updating scheme and lilypond scheme
-interfaces is quite unlikely; be prepared to tweak scheme code
-manually.
+specified.
 
 
 @c  We might want to make this a completely new section, along with more
@@ -460,10 +445,6 @@ Aug 18, 2005
 
 http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/
 convert-ly.txt?rev=HEAD&content-type=text/plain
-
-NEW: not exactly copied; this list has been modified.  Since we're
-changing the bug system, it doesn't make sense to copy from
-the bug CVS any more.  I'll figure out something else.  -gp
 @end ignore
 @verbatim
 
@@ -502,7 +483,7 @@ stanzas.
  remove-tag isn't changed.
     - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
  first-page-number isn't changed.
-    - first-page-number no => print-first-page-number = ##f
+    - first-page-number no => printfirst-page-number = ##f
  Line breaks in header strings aren't converted.
     - \\\\  as line break in \header strings => \markup \center-align <
       "First Line" "Second Line" >
@@ -518,9 +499,7 @@ converted.
  but now, \line is missing.
 2.4->2.6
  Special LaTeX characters such as $~$ in text are not converted to UTF8.
-2.8
- \score{} must now begin with a music expression.  Anything else
- (particularly \header{}) must come after the music.
+
 @end verbatim
 
 
@@ -570,7 +549,7 @@ following example, the accidental touches the note head.
 
 Using Mac OSX 10.3.7, lilypond 2.7.32
 
-\version "2.9.13"
+\version "2.7.32"
 \layout { ragged-right = ##t }
 \relative c'' {
    a4 b cis d

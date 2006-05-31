@@ -10,8 +10,8 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-context.hh"
-#include "stream-event.hh"
 #include "warn.hh"
+#include "music.hh"
 
 #include "translator.icc"
 
@@ -21,13 +21,13 @@ public:
   TRANSLATOR_DECLARATIONS (Beam_performer);
 
 protected:
+  virtual bool try_music (Music *ev);
   void start_translation_timestep ();
   void process_music ();
   void set_melisma (bool);
-  DECLARE_TRANSLATOR_LISTENER (beam);
 private:
-  Stream_event *start_ev_;
-  Stream_event *now_stop_ev_;
+  Music *start_ev_;
+  Music *now_stop_ev_;
   bool beam_;
 };
 
@@ -69,16 +69,20 @@ Beam_performer::start_translation_timestep ()
   now_stop_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Beam_performer, beam);
-void
-Beam_performer::listen_beam (Stream_event *ev)
+bool
+Beam_performer::try_music (Music *m)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  if (m->is_mus_type ("beam-event"))
+    {
+      Direction d = to_dir (m->get_property ("span-direction"));
 
-  if (d == START)
-    start_ev_ = ev;
-  else if (d == STOP)
-    now_stop_ev_ = ev;
+      if (d == START)
+	start_ev_ = m;
+      else if (d == STOP)
+	now_stop_ev_ = m;
+      return true;
+    }
+  return false;
 }
 
 ADD_TRANSLATOR (Beam_performer, "", "",

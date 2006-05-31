@@ -26,16 +26,14 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ## -V: Workaround for python
 
     changequote(<<, >>)#dnl
-
     ## Assume and hunt for dotted version multiplet.
     ## use eval trickery, because we cannot use multi-level $() instead of ``
     ## for compatibility reasons.
-    
-    ## grab the first version number in  --version output.
-    eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '\(^\| \)[0-9][0-9]*\.[0-9]' \
+    ## FIXME: what systems still do not have $() in /bin/sh?
+    eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' \
         | head -n 1 \
-	| tr ' ' '\n' | grep '[0-9]\.[0-9]' | head -n 1 | sed 's/\([0-9.]*\).*/\1/g'\`\"
-
+	| sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
+	    -e 's/^[^.0-9]*//' -e 's/[^.0-9]*$//'\`\"
     if test -z "$_ver"; then
         ## If empty, try date [fontforge]
         eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\{6,8\}' \
@@ -287,12 +285,10 @@ AC_DEFUN(STEPMAKE_DATADIR, [
     
     build_package_datadir=$ugh_ugh_autoconf250_builddir/out$CONFIGSUFFIX/share/$package
     
-    DATADIR=`echo ${datadir} | sed "s!\\\${datarootdir}!${prefix}/share!"`
-    DATADIR=`echo ${DATADIR} | sed "s!\\\${prefix}!$presome!"`
+    DATADIR=`echo ${datadir} | sed "s!\\\${prefix}!$presome!"`
     BUILD_PACKAGE_DATADIR=`echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!"`
     
     AC_SUBST(datadir)
-    AC_SUBST(datarootdir)
     AC_SUBST(build_package_datadir)
     AC_DEFINE_UNQUOTED(DATADIR, ["${DATADIR}"])
     AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, ["${BUILD_PACKAGE_DATADIR}"])

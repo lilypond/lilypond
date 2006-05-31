@@ -10,6 +10,7 @@
 #include "engraver.hh"
 
 #include "context.hh"
+#include "music.hh"
 #include "spanner.hh"
 #include "side-position-interface.hh"
 #include "translator.icc"
@@ -21,13 +22,10 @@ class Figured_bass_position_engraver : public Engraver
 
   Spanner *bass_figure_alignment_;
   Spanner *positioner_;
-  vector<Grob*> support_;
-  vector<Grob*> span_support_;
+  vector<Grob*> note_columns_;
+
 protected:
   DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (slur);
-  DECLARE_END_ACKNOWLEDGER (slur);
-  DECLARE_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (bass_figure_alignment);
   DECLARE_END_ACKNOWLEDGER (bass_figure_alignment);
 
@@ -74,29 +72,7 @@ Figured_bass_position_engraver::finalize ()
 void
 Figured_bass_position_engraver::acknowledge_note_column (Grob_info info)
 {
-  support_.push_back (info.grob ());
-}
-
-void
-Figured_bass_position_engraver::acknowledge_end_slur (Grob_info info)
-{
-  vector<Grob*>::iterator i = find (span_support_.begin (), span_support_.end (),
-				    info.grob ());
-
-  if (i < span_support_.end ())
-    span_support_.erase (i);
-}
-
-void
-Figured_bass_position_engraver::acknowledge_slur (Grob_info info)
-{
-  span_support_.push_back (info.grob ());
-}
-
-void
-Figured_bass_position_engraver::acknowledge_tie (Grob_info info)
-{
-  support_.push_back (info.grob ());
+  note_columns_.push_back (info.grob ());
 }
 
 void
@@ -104,13 +80,11 @@ Figured_bass_position_engraver::stop_translation_timestep ()
 {
   if (positioner_)
     {
-      for (vsize i = 0; i < span_support_.size (); i++)
-	Side_position_interface::add_support (positioner_, span_support_[i]);
-      for (vsize i = 0; i < support_.size (); i++)
-	Side_position_interface::add_support (positioner_, support_[i]);
+      for (vsize i = 0; i < note_columns_.size (); i++)
+	Side_position_interface::add_support (positioner_, note_columns_[i]);
     }
 
-  support_.clear ();
+  note_columns_.clear ();
 }
 
 void
@@ -129,10 +103,6 @@ Figured_bass_position_engraver::acknowledge_bass_figure_alignment (Grob_info inf
 
 
 ADD_ACKNOWLEDGER(Figured_bass_position_engraver,note_column);
-ADD_ACKNOWLEDGER(Figured_bass_position_engraver,slur);
-ADD_END_ACKNOWLEDGER(Figured_bass_position_engraver,slur);
-
-ADD_ACKNOWLEDGER(Figured_bass_position_engraver,tie);
 ADD_ACKNOWLEDGER(Figured_bass_position_engraver,bass_figure_alignment);
 ADD_END_ACKNOWLEDGER(Figured_bass_position_engraver,bass_figure_alignment);
 

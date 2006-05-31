@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;; (use-modules (ice-9 optargs)) 
 
@@ -16,9 +16,6 @@
   (make-procedure-with-setter ly:music-property
 			      ly:music-set-property!))
 
-(define-safe-public (music-is-of-type? mus type)
-  "Does @code{mus} belong to the music class @code{type}?"
-  (memq type (ly:music-property mus 'types)))
 
 ;; TODO move this
 (define-public ly:grob-property
@@ -198,6 +195,8 @@ Returns `obj'.
 				     (cdr cp))))
 	  (set! (ly:music-property music 'duration) nd)))
     music))
+
+
 
 (define-public (shift-duration-log music shift dot)
   (music-map (lambda (x) (shift-one-duration-log x shift dot))
@@ -387,18 +386,59 @@ i.e.  this is not an override"
 
 ;; mmrest
 (define-public (make-multi-measure-rest duration location)
-  (make-music 'MultiMeasureRestMusic
+  (make-music 'MultiMeasureRestMusicGroup
 	      'origin location
-	      'duration duration))
+	      'elements (list (make-music 'BarCheck
+					  'origin location)
+			      (make-event-chord (list (make-music 'MultiMeasureRestEvent
+								  'origin location
+								  'duration duration)))
+			      (make-music 'BarCheck
+					  'origin location))))
+
+(define-public (glue-mm-rest-texts music)
+  "Check if we have R1*4-\\markup { .. }, and if applicable convert to
+a property set for MultiMeasureRestNumber."
+  (define (script-to-mmrest-text script-music)
+    "Extract 'direction and 'text from SCRIPT-MUSIC, and transform MultiMeasureTextEvent"
+    (let ((dir (ly:music-property script-music 'direction))
+	  (p   (make-music 'MultiMeasureTextEvent
+			   'text (ly:music-property script-music 'text))))
+      (if (ly:dir? dir)
+	  (set! (ly:music-property p 'direction) dir))
+      p))
+  
+  (if (eq? (ly:music-property music 'name) 'MultiMeasureRestMusicGroup)
+      (let* ((text? (lambda (x) (memq 'script-event (ly:music-property x 'types))))
+	     (event? (lambda (x) (memq 'event (ly:music-property x 'types))))
+	     (group-elts (ly:music-property  music 'elements))
+	     (texts '())
+	     (events '())
+	     (others '()))
+
+	(set! texts 
+	      (map script-to-mmrest-text (filter text? group-elts)))
+	(set! group-elts
+	      (remove text? group-elts))
+
+	(set! events (filter event? group-elts))
+	(set! others (remove event? group-elts))
+	
+	(if (or (pair? texts) (pair? events))
+	    (set! (ly:music-property music 'elements)
+		  (cons (make-event-chord
+			 (append texts events))
+			others)))
+
+	))
+
+  music)
+
 
 (define-public (make-property-set sym val)
   (make-music 'PropertySet
 	      'symbol sym
 	      'value val))
-
-(define-public (make-property-unset sym)
-  (make-music 'PropertyUnset
-	      'symbol sym))
 
 (define-public (make-ottava-set octavation)
   (let ((m (make-music 'ApplyContext)))
@@ -433,23 +473,6 @@ OTTAVATION to `8va', or whatever appropriate."
 (define-public (make-time-signature-set num den . rest)
   "Set properties for time signature NUM/DEN.  Rest can contain a list
 of beat groupings "
-
-  (define (standard-beat-grouping num den)
-
-    "Some standard subdivisions for time signatures."
-    (let*
-	((key (cons num den))
-	 (entry (assoc key '(((6 . 8) . (3 3))
-			 ((5 . 8) . (3 2))
-			 ((9 . 8) . (3 3 3))
-			 ((12 . 8) . (3 3 3 3))
-			 ((8 . 8) . (3 3 2))
-			 ))))
-
-      (if entry
-	  (cdr entry)
-	  '())))    
-  
   (let* ((set1 (make-property-set 'timeSignatureFraction (cons num den)))
 	 (beat (ly:make-moment 1 den))
 	 (len  (ly:make-moment num den))
@@ -457,7 +480,7 @@ of beat groupings "
 	 (set3 (make-property-set 'measureLength len))
 	 (set4 (make-property-set 'beatGrouping (if (pair? rest)
 						    (car rest)
-						    (standard-beat-grouping num den))))
+						    '())))
 	 (basic	 (list set1 set2 set3 set4)))
     (descend-to-context
      (context-spec-music (make-sequential-music basic) 'Timing) 'Score)))
@@ -811,6 +834,7 @@ if appropriate.
 (define-public toplevel-music-functions
   (list
    (lambda (music parser) (voicify-music music))
+   (lambda (x parser) (music-map glue-mm-rest-texts x))
    (lambda (x parser) (music-map music-check-error x))
    (lambda (x parser) (music-map precompute-music-length x))
    (lambda (music parser)

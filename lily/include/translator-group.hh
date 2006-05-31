@@ -47,23 +47,19 @@ private:
   Translator_group_void_method
   precomputed_self_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
-  SCM protected_events_;
-
-  DECLARE_LISTENER (create_child_translator);
+  DECLARE_LISTENER (eat_event);
 
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Translator_group);
   DECLARE_SMOBS (Translator_group, dummy);
 
 public:
-  virtual void connect_to_context (Context *c);
-  virtual void disconnect_from_context ();
+  void connect_to_context (Context *c);
   virtual Translator_group *get_daddy_translator ()const;
   virtual SCM get_simple_trans_list ();
+  virtual bool try_music (Music *req);
   virtual void initialize ();
   virtual void finalize ();
-
-  void protect_event (SCM ev);
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -78,6 +74,7 @@ public:
   Context *context () const { return context_; }
 protected:
   SCM simple_trans_list_;
+  SCM accept_hash_table_;
   Context *context_;
 
   friend class Context_def;

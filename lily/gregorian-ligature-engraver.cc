@@ -14,11 +14,7 @@
 #include "pitch.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
-#include "stream-event.hh"
 #include "warn.hh"
-
-/* ASSIGN_EVENT_ONCE */
-#include "translator.icc"
 
 /*
  * This abstract class is the common superclass for all ligature
@@ -36,10 +32,16 @@ Gregorian_ligature_engraver::Gregorian_ligature_engraver ()
   pes_or_flexa_req_ = 0;
 }
 
-void
-Gregorian_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
+bool
+Gregorian_ligature_engraver::try_music (Music *m)
 {
-  ASSIGN_EVENT_ONCE (pes_or_flexa_req_, ev);
+  if (m->is_mus_type ("pes-or-flexa-event"))
+    {
+      pes_or_flexa_req_ = m;
+      return true;
+    }
+  else
+    return Ligature_engraver::try_music (m);
 }
 
 void fix_prefix (char *name, int mask,
@@ -202,9 +204,9 @@ provide_context_info (vector<Grob_info> primitives)
   for (vsize i = 0; i < primitives.size (); i++)
     {
       Grob *primitive = primitives[i].grob ();
-      Stream_event *event_cause = primitives[i].event_cause ();
+      Music *music_cause = primitives[i].music_cause ();
       int context_info = 0;
-      int pitch = unsmob_pitch (event_cause->get_property ("pitch"))->steps ();
+      int pitch = unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
       int prefix_set = scm_to_int (primitive->get_property ("prefix-set"));
 
       if (prefix_set & PES_OR_FLEXA)

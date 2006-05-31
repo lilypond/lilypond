@@ -11,13 +11,9 @@ using namespace std;
 
 #include "engraver.hh"
 
+#include "note-column.hh"
 #include "context.hh"
-#include "duration.hh"
 #include "grob-array.hh"
-#include "item.hh"
-#include "stream-event.hh"
-
-#include "translator.icc"
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
@@ -30,28 +26,19 @@ public:
 protected:
   Item *text_;
   Grob *bar_line_;
+  Music *mark_ev_;
 
-  SCM last_duration_;
-  SCM last_count_;
-  
+  void create_items (Music *);
 protected:
-  virtual void derived_mark () const;
   void stop_translation_timestep ();
+  virtual bool try_music (Music *ev);
   void process_music ();
 };
 
 Metronome_mark_engraver::Metronome_mark_engraver ()
 {
   text_ = 0;
-  last_duration_ = SCM_EOL;
-  last_count_ = SCM_EOL;
-}
-
-void
-Metronome_mark_engraver::derived_mark () const
-{
-  scm_gc_mark (last_count_);
-  scm_gc_mark (last_duration_);
+  mark_ev_ = 0;
 }
 
 void
@@ -66,33 +53,41 @@ Metronome_mark_engraver::stop_translation_timestep ()
 
       text_ = 0;
     }
+  mark_ev_ = 0;
+}
+
+void
+Metronome_mark_engraver::create_items (Music *rq)
+{
+  if (text_)
+    return;
+
+  text_ = make_item ("MetronomeMark", rq->self_scm ());
+}
+
+bool
+Metronome_mark_engraver::try_music (Music *r)
+{
+  mark_ev_ = r;
+  return true;
 }
 
 void
 Metronome_mark_engraver::process_music ()
 {
-  SCM count = get_property ("tempoUnitCount");
-  SCM duration = get_property ("tempoUnitDuration");
-  
-  if (unsmob_duration (duration)
-      && scm_is_number (count)
-      && !(ly_is_equal (count, last_count_)
-	   && ly_is_equal (duration, last_duration_)))
+  if (mark_ev_)
     {
-      text_ = make_item ("MetronomeMark", SCM_EOL);
+      create_items (mark_ev_);
 
       SCM proc = get_property ("metronomeMarkFormatter");
-      SCM result = scm_call_3 (proc,
-			       duration,
-			       count,
+      SCM result = scm_call_2 (proc, mark_ev_->self_scm (),
 			       context ()->self_scm ());
 
       text_->set_property ("text", result);
     }
-
-  last_duration_ = duration;
-  last_count_ = count;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
 		/* doc */ "Engrave metro nome marking. This delegates the formatting work "
@@ -101,13 +96,6 @@ ADD_TRANSLATOR (Metronome_mark_engraver,
 		"The staves are taken from the @code{stavesFound} property, "
 		"which is maintained by @code{@ref{Staff_collecting_engraver}}. ",
 		/* create */ "MetronomeMark",
-		/* accept */ "",
-
-		/* read */
-		"stavesFound "
-		"metronomeMarkFormatter "
-		"tempoUnitDuration "
-		"tempoUnitCount "
-		,
-
+		/* accept */ "metronome-change-event",
+		/* read */ "stavesFound metronomeMarkFormatter",
 		/* write */ "");

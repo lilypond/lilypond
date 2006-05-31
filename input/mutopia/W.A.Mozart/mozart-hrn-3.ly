@@ -12,9 +12,9 @@
   mutopiacomposer = "W.A.Mozart"
   mutopiaopus = "KV447"
   style = "classical"
-  maintainer = "hanwen@xs4all.nl"
-  maintainerEmail = "hanwen@xs4all.nl"
-  maintainerWeb = "http://www.xs4all.nl/~hanwen/"	
+  maintainer = "hanwen@cs.uu.nl"
+  maintainerEmail = "hanwen@cs.uu.nl"
+  maintainerWeb = "http://www.cs.uu.nl/~hanwen/"	
   lastupdated = "2002/May/21"
   source = "Edition Breitkopf 2563"
   footer = "Mutopia-2002/05/21-25"
@@ -23,7 +23,7 @@
       \column {
 	   \fill-line { \footer "" }
 	   \fill-line { { "This music is part of the Mutopia project,"
-			  \typewriter { "http://mutopiaproject.org/" }
+			  \typewriter { "http://sca.uwaterloo.ca/Mutopia/" }
 			 } }
 	   \fill-line { #(ly:export (string-append "It has been typeset and placed in the public "
 			  "domain by "  maintainer  "."))  }
@@ -41,7 +41,7 @@ virtuoso that taught in Geneva.
 
 %}
 
-\version "2.9.16"
+\version "2.7.39"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"
@@ -59,29 +59,13 @@ virtuoso that taught in Geneva.
 	{ \transpose c' bes \allegro }
 	\layout { }
 	\header { piece = "Allegro" opus = "" }	
-	
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 90 4)
-      }
-    }
-
-
+	\midi { \tempo 4=90 }
     }
 
     \score {
 	{ \transpose c' bes \romanze }
 	\header { piece = "Romanze" opus = "" }	
-	
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 70 4)
-      }
-    }
-
-
+	\midi { \tempo 4 = 70  }
 	\layout {}
     }
 
@@ -89,15 +73,7 @@ virtuoso that taught in Geneva.
     {
 	{ \transpose c' bes \rondo }
 	\header { piece = "Rondo" opus = "" }
-	
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 100 4)
-      }
-    }
-
-
+	\midi { \tempo 4 = 100 }
 	\layout { }
     }
 }

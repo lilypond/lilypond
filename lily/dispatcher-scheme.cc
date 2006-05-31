@@ -38,7 +38,7 @@ LY_DEFINE (ly_add_listener, "ly:add-listener",
   SCM_ASSERT_TYPE (l, list, SCM_ARG1, __FUNCTION__, "listener");
   SCM_ASSERT_TYPE (d, disp, SCM_ARG2, __FUNCTION__, "dispatcher");
   
-  for (int arg=SCM_ARG3; scm_is_pair (cl); cl = scm_cdr (cl), arg++)
+  for (int arg=SCM_ARG3; cl != SCM_EOL; cl = scm_cdr (cl), arg++)
     {
       SCM_ASSERT_TYPE (scm_symbol_p (cl), cl, arg, __FUNCTION__, "symbol");
       d->add_listener (*l, scm_car (cl));

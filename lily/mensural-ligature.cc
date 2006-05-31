@@ -110,7 +110,7 @@ internal_brew_primitive (Grob *me)
 
   if (primitive & MLP_FLEXA)
     {
-      delta_pitch = robust_scm2int (me->get_property ("delta-position"),
+      delta_pitch = robust_scm2int (me->get_property ("delta-pitch"),
 				    0);
       width
 	= robust_scm2double (me->get_property ("flexa-width"), 2.0 * staff_space);
@@ -167,7 +167,7 @@ internal_brew_primitive (Grob *me)
 
   SCM join_right_scm = me->get_property ("join-right-amount");
 
-  if (scm_is_pair (join_right_scm))
+  if (join_right_scm != SCM_EOL)
     {
       int join_right = scm_to_int (join_right_scm);
       if (join_right)
@@ -221,12 +221,5 @@ Mensural_ligature::print (SCM)
 
 ADD_INTERFACE (Mensural_ligature, "mensural-ligature-interface",
 	       "A mensural ligature",
-
-	       "delta-position "
-	       "flexa-width "
-	       "head-width "
-	       "join-right-amount "
-	       "primitive "
-	       "thickness"
-	       );
-
+	       "delta-pitch flexa-width head-width join-right-amount " // "add-join "
+	       "primitive thickness");

@@ -10,8 +10,7 @@
 
 #include <cstring>
 
-#include "align-interface.hh"
-#include "input.hh"
+#include "input-smob.hh"
 #include "international.hh"
 #include "item.hh"
 #include "main.hh"
@@ -20,7 +19,6 @@
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 #include "stencil.hh"
-#include "stream-event.hh"
 #include "system.hh"
 #include "warn.hh"
 
@@ -36,7 +34,6 @@ Grob::Grob (SCM basicprops,
 	    Object_key const *key)
 {
   key_ = key;
-  
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
   layout_ = 0;
@@ -122,7 +119,6 @@ Grob::get_print_stencil () const
 
 	  retval = Stencil (m->extent_box (), expr);
 	}
-
       SCM rot = get_property ("rotation");
       if (scm_is_pair (rot))
 	{
@@ -135,13 +131,14 @@ Grob::get_print_stencil () const
 
       /* color support... see interpret_stencil_expression () for more... */
       SCM color = get_property ("color");
-      if (scm_is_pair (color))
+      if (color != SCM_EOL)
 	{
+	  m = unsmob_stencil (stil);
 	  SCM expr = scm_list_3 (ly_symbol2scm ("color"),
 				 color,
-				 retval.expr ());
+				 m->expr ());
 
-	  retval = Stencil (retval.extent_box (), expr);
+	  retval = Stencil (m->extent_box (), expr);
 	}
 
     }
@@ -281,41 +278,6 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
   return off;
 }
 
-Real
-Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
-{
-  if (refp == this)
-    return 0.0;
-
-  SCM pure_off = ly_lily_module_constant ("pure-Y-offset");
-  Real off = 0;
-
-  if (dim_cache_[Y_AXIS].offset_)
-    off = *dim_cache_[Y_AXIS].offset_;
-  else if (ly_is_procedure (pure_off))
-    {
-      dim_cache_[Y_AXIS].offset_ = new Real (0.0);
-      off = scm_to_double (scm_apply_3 (pure_off, self_scm (),
-					scm_from_int (start), scm_from_int (end),
-					SCM_EOL));
-      delete dim_cache_[Y_AXIS].offset_;
-      dim_cache_[Y_AXIS].offset_ = 0;
-    }
-
-  /* we simulate positioning-done if we are the child of a VerticalAlignment,
-     but only if we don't have a cached offset. If we do have a cached offset,
-     it probably means that the Alignment was fixed and it has already been
-     calculated.
-  */
-  Grob *p = get_parent (Y_AXIS);
-  Real trans = 0;
-  if (Align_interface::has_interface (p) && !dim_cache_[Y_AXIS].offset_)
-    trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
-
-  return off + trans
-    + dim_cache_[Y_AXIS].parent_->pure_relative_y_coordinate (refp, start, end);
-}
-
 /* Invoke callbacks to get offset relative to parent.  */
 Real
 Grob::get_offset (Axis a) const
@@ -343,14 +305,6 @@ Grob::get_offset (Axis a) const
     return 0.0;
 }
 
-Real
-Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end)
-{
-  if (pure && a != Y_AXIS)
-    programming_error ("tried to get pure X-offset");
-  return (pure && a == Y_AXIS) ? pure_relative_y_coordinate (refp, start, end)
-    : relative_coordinate (refp, a);
-}
 
 /****************************************************************
   extents
@@ -404,46 +358,13 @@ Grob::extent (Grob *refp, Axis a) const
       SCM min_ext = internal_get_property (min_ext_sym);
       if (is_number_pair (min_ext))
 	real_ext.unite (ly_scm2interval (min_ext));
+      ((Grob*)this)->del_property (ext_sym);
       ((Grob*)this)->dim_cache_[a].extent_ = new Interval (real_ext);  
     }
   
   real_ext.translate (offset);
   
   return real_ext;
-}
-
-Interval
-Grob::pure_height (Grob *refp, int start, int end)
-{
-  SCM pure_height = ly_lily_module_constant ("pure-Y-extent");
-  Interval iv (0, 0);
-
-  if (ly_is_procedure (pure_height))
-    iv = ly_scm2interval (scm_apply_3 (pure_height, self_scm (),
-				       scm_from_int (start), scm_from_int (end),
-				       SCM_EOL));
-  Real offset = pure_relative_y_coordinate (refp, start, end);
-
-  SCM min_ext = get_property ("minimum-Y-extent");
-  if (is_number_pair (min_ext))
-    iv.unite (ly_scm2interval (min_ext));
-
-  iv.translate (offset);
-  return iv;
-}
-
-Interval
-Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
-{
-  if (pure && a != Y_AXIS)
-    programming_error ("tried to get pure width");
-  return (pure && a == Y_AXIS) ? pure_height (refp, start, end) : extent (refp, a);
-}
-
-Interval_t<int>
-Grob::spanned_rank_iv ()
-{
-  return Interval_t<int> (-1, 0);
 }
 
 /****************************************************************
@@ -523,11 +444,8 @@ Grob::warning (string s) const
   while (Grob *g = unsmob_grob (cause))
     cause = g->get_property ("cause");
 
-  /* ES TODO: cause can't be Music*/
   if (Music *m = unsmob_music (cause))
     m->origin ()->warning (s);
-  else if (Stream_event *ev = unsmob_stream_event (cause))
-    ev->origin ()->warning (s);
   else
     ::warning (s);
 }
@@ -551,11 +469,8 @@ Grob::programming_error (string s) const
 
   s = _f ("programming error: %s", s);
 
-  /* ES TODO: cause can't be Music*/
   if (Music *m = unsmob_music (cause))
     m->origin ()->message (s);
-  else if (Stream_event *ev = unsmob_stream_event (cause))
-    ev->origin ()->warning (s);
   else
     ::message (s);
 }

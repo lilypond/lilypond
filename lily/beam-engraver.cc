@@ -15,8 +15,8 @@
 #include "international.hh"
 #include "item.hh"
 #include "rest.hh"
+#include "score-context.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
 #include "stem.hh"
 #include "warn.hh"
 
@@ -28,13 +28,13 @@ public:
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (rest);
 protected:
-  Stream_event *start_ev_;
+  Music *start_ev_;
 
   Spanner *finished_beam_;
   Spanner *beam_;
-  Stream_event *prev_start_ev_;
+  Music *prev_start_ev_;
 
-  Stream_event *now_stop_ev_;
+  Music *now_stop_ev_;
 
   Beaming_pattern *beam_info_;
   Beaming_pattern *finished_beam_info_;
@@ -56,12 +56,12 @@ protected:
   void start_translation_timestep ();
   virtual void finalize ();
 
+  virtual bool try_music (Music *);
   void process_music ();
 
   virtual bool valid_start_point ();
   virtual bool valid_end_point ();
 
-  DECLARE_TRANSLATOR_LISTENER (beam);
 public:
   TRANSLATOR_DECLARATIONS (Beam_engraver);
 };
@@ -95,16 +95,24 @@ Beam_engraver::Beam_engraver ()
   prev_start_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Beam_engraver, beam);
-void
-Beam_engraver::listen_beam (Stream_event *ev)
+bool
+Beam_engraver::try_music (Music *m)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  if (m->is_mus_type ("beam-event"))
+    {
+      Direction d = to_dir (m->get_property ("span-direction"));
+      if (d == START && !valid_start_point ())
+	return false;
+      if (d == STOP && !valid_end_point ())
+	return false;
 
-  if (d == START && valid_start_point ())
-    ASSIGN_EVENT_ONCE (start_ev_, ev);
-  else if (d == STOP && valid_end_point ())
-    ASSIGN_EVENT_ONCE (now_stop_ev_, ev);
+      if (d == START)
+	start_ev_ = m;
+      else if (d == STOP)
+	now_stop_ev_ = m;
+      return true;
+    }
+  return false;
 }
 
 void
@@ -231,18 +239,23 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 
   
   
-  Stream_event *ev = info.ultimate_event_cause ();
-  if (!ev->in_event_class ("rhythmic-event"))
+  Music *m = info.ultimate_music_cause ();
+  if (!m->is_mus_type ("rhythmic-event"))
     {
-      info.grob ()->warning (_ ("stem must have Rhythmic structure"));
+      string s = _ ("stem must have Rhythmic structure");
+      if (info.music_cause ())
+	info.music_cause ()->origin ()->warning (s);
+      else
+	::warning (s);
+
       return;
     }
 
   last_stem_added_at_ = now;
-  int durlog = unsmob_duration (ev->get_property ("duration"))->duration_log ();
+  int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
   if (durlog <= 2)
     {
-      ev->origin ()->warning (_ ("stem doesn't fit in beam"));
+      m->origin ()->warning (_ ("stem doesn't fit in beam"));
       prev_start_ev_->origin ()->warning (_ ("beam was started here"));
       /*
 	don't return, since
@@ -284,8 +297,6 @@ class Grace_beam_engraver : public Beam_engraver
 public:
   TRANSLATOR_DECLARATIONS (Grace_beam_engraver);
 
-  DECLARE_TRANSLATOR_LISTENER (beam);
-  
 protected:
   virtual bool valid_start_point ();
   virtual bool valid_end_point ();
@@ -308,22 +319,6 @@ Grace_beam_engraver::valid_end_point ()
 {
   return beam_ && valid_start_point ();
 }
-
-/*
-  Ugh, C&P code.
- */
-IMPLEMENT_TRANSLATOR_LISTENER (Grace_beam_engraver, beam);
-void
-Grace_beam_engraver::listen_beam (Stream_event *ev)
-{
-  Direction d = to_dir (ev->get_property ("span-direction"));
-
-  if (d == START && valid_start_point ())
-    start_ev_ = ev;
-  else if (d == STOP && valid_end_point ())
-    now_stop_ev_ = ev;
-}
-
 
 ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
 ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);

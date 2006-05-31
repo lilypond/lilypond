@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 ;; The public interface is tight.
@@ -98,8 +98,8 @@
 	  (ly:warning (_ "can't find ~a in ~a" name font))
 	  ""))))
 
-(define (dashed-line thick on off dx dy phase)
-  (embedded-ps (list 'dashed-line  thick on off dx dy phase)))
+(define (dashed-line thick on off dx dy)
+  (embedded-ps (list 'dashed-line  thick on off dx dy)))
 
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
@@ -173,8 +173,8 @@
 
   (if (procedure? point-and-click)
       (let* ((cause (ly:grob-property grob 'cause))
-	     (music-origin (if (ly:stream-event? cause)
-			       (ly:event-property cause 'origin)))
+	     (music-origin (if (ly:music? cause)
+			       (ly:music-property cause 'origin)))
 	     (location (if (ly:input-location? music-origin)
 			   (ly:input-file-line-column music-origin))))
 	(if (pair? location)

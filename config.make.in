@@ -50,7 +50,6 @@ configure-srcdir = @srcdir@
 bindir = @bindir@
 build_lilypond_datadir = @build_package_datadir@
 build_lilypond_libdir = @build_package_libdir@
-datarootdir = @datarootdir@
 datadir = @datadir@
 docdir = $(datadir)/doc
 elispdir = $(datadir)/emacs/site-lisp
@@ -126,6 +125,7 @@ LINK_GXX_STATICALLY = @LINK_GXX_STATICALLY@
 LN = @LN@
 LN_S = @LN_S@
 MAKEINFO_PROGRAM = @MAKEINFO@
+MAKEINFO_VERSION = @MAKEINFO_VERSION@
 METAFONT = @METAFONT@ -progname=mf
 MFMODE = @MFMODE@
 MFTRACE = @MFTRACE@
@@ -144,3 +144,6 @@ TAR = @TAR@
 WINDRES = @WINDRES@
 YACC = @YACC@
 ZIP = @ZIP@
+
+
+

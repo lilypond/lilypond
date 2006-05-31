@@ -28,23 +28,22 @@ minimise_least_squares (Real *coef, Real *offset,
       sqx += sqr (x);
       sxy += x*y;
     }
-
-  int count = input.size ();
+  int N = input.size ();
 
   *coef = 0.0;
   *offset = 0.;
 
-  Real den = (count * sqx - sqr (sx));
-  if (!count || !den)
+  Real den = (N * sqx - sqr (sx));
+  if (!N || !den)
     {
       programming_error ("minimise_least_squares ():  Nothing to minimise");
       *coef = 0.0;
-      *offset = count ? sy / count : 0.0;
+      *offset = N ? sy / N : 0.0;
     }
   else
     {
-      *coef = (count * sxy - sx * sy) / den;
-      *offset = (sy - (*coef) * sx) / count;
+      *coef = (N *sxy - sx * sy) / den;
+      *offset = (sy - (*coef) * sx) / N;
     }
 }
 

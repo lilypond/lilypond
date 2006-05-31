@@ -623,13 +623,13 @@ def conv (str):
 	    lastx = x
 	return s
 
-    def regularize_dollar_reference (match):
-	return regularize_id (match.group (1))
-    def regularize_assignment (match):
-	return '\n' + regularize_id (match.group (1)) + ' = '
-    str = re.sub ('\$([^\t\n ]+)', regularize_dollar_reference, str)
-    str = re.sub ('\n([^ \t\n]+)[ \t]*= *', regularize_assignment, str)
-    return str
+	def regularize_dollar_reference (match):
+	    return regularize_id (match.group (1))
+	def regularize_assignment (match):
+	    return '\n' + regularize_id (match.group (1)) + ' = '
+	str = re.sub ('\$([^\t\n ]+)', regularize_dollar_reference, str)
+	str = re.sub ('\n([^ \t\n]+)[ \t]*= *', regularize_assignment, str)
+	return str
 
 conversions.append (((1,3,117), conv, 'identifier names: $!foo_bar_123 -> xfooBarABC'))
 
@@ -2680,7 +2680,6 @@ conversions.append (((2, 7, 28), conv,
 
 def conv (str):
     for a in ['beamed-lengths', 'beamed-minimum-free-lengths',
-              'lengths',
 	      'beamed-extreme-minimum-free-lengths']:
 	str = re.sub (r"\\override\s+Stem\s+#'%s" % a,
 		      r"\\override Stem #'details #'%s" % a,
@@ -2691,7 +2690,7 @@ conversions.append (((2, 7, 29), conv,
 		     """override Stem #'beamed-* -> #'details #'beamed-*"""))
 
 def conv (str):
-    str = re.sub (r'\\epsfile *#"', r'\\epsfile #X #10 #"', str)
+    str = re.sub (r'\epsfile *#"', r'\epsfile #X #10 #"', str)
     return str
 
 conversions.append (((2, 7, 30), conv,
@@ -2795,77 +2794,4 @@ def conv (str):
     str = re.sub (r'\\context\s+\"?([a-zA-Z]+)\"?\s*\\applyOutput', r"\\applyOutput #'\1", str)
     return str
 
-conversions.append (((2, 9, 6), conv, """\context Foo \\applyOutput #bla -> \\applyOutput #'Foo #bla """))
-
-
-def conv (str):
-    str = re.sub ('annotatepage', 'annotate-page', str)
-    str = re.sub ('annotateheaders', 'annotate-headers', str)
-    str = re.sub ('annotatesystems', 'annotate-systems', str)
-    return str
-
-conversions.append (((2, 9, 9), conv, """annotatefoo -> annotate-foo"""))
-
-
-def conv (str):
-    str = re.sub (r"""(\\set\s)?(?P<context>[a-zA-Z]*.?)tupletNumberFormatFunction\s*=\s*#denominator-tuplet-formatter""",
-                  r"""\\override \g<context>TupletNumber #'text = #tuplet-number::calc-denominator-text""", str)
-
-    str = re.sub (r"""(\\set\s+)?(?P<context>[a-zA-Z]*.?)tupletNumberFormatFunction\s*=\s*#fraction-tuplet-formatter""",
-                  r"""\\override \g<context>TupletNumber #'text = #tuplet-number::calc-fraction-text""", str)
-
-    if re.search ('tupletNumberFormatFunction', str):
-        error_file.write ("\n")
-	error_file.write ("tupletNumberFormatFunction has been removed. Use #'text property on TupletNumber")
-        error_file.write ("\n")
-        
-    return str
-
-conversions.append (((2, 9, 11), conv, """\\set tupletNumberFormatFunction -> \\override #'text = """))
-
-
-def conv (str):
-    str = re.sub ('vocNam', 'shortVocalName', str)
-    str = re.sub (r'\.instr\s*=', r'.shortInstrumentName =', str)
-    str = re.sub (r'\.instrument\s*=', r'.instrumentName =', str)
-    return str
-
-conversions.append (((2, 9, 13), conv, """instrument -> instrumentName, instr -> shortInstrumentName, vocNam -> shortVocalName"""))
-
-
-def conv (str):
-
-    def sub_tempo (m):
-        dur = int (m.group (1))
-        dots = len (m.group (2))
-        count = int (m.group (3))
-
-        log2 = 0
-        while dur > 1 :
-            dur /= 2
-            log2 += 1
-        
-        den = (1 << dots) * (1 << log2)
-        num = ((1 << (dots+1))  - 1)
-
-        return  """
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment %d %d)
-      }
-    }
-
-""" % (num*count, den)
-    
-    str = re.sub (r'\\midi\s*{\s*\\tempo ([0-9]+)\s*([.]*)\s*=\s*([0-9]+)\s*}', sub_tempo, str)
-    return str
-
-conversions.append (((2, 9, 16), conv, """deprecate \\tempo in \\midi"""))
-
-def conv (str):
-    str = re.sub ('printfirst-page-number', 'print-first-page-number', str)
-    return str
-
-conversions.append (((2, 9, 19), conv, """printfirst-page-number -> print-first-page-number"""))
-
+conversions.append (((2, 9, 6), conv, """\context Foo \applyOutput #bla -> \applyOutput #'Foo #bla """))

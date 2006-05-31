@@ -26,7 +26,7 @@ cello.  In this case, we would start with ``Notes and lyrics'' (for the
 soprano part).
 
 @example
-\version "2.9.13"
+\version "2.7.39"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -48,14 +48,14 @@ text = \lyricmode @{
     \new Lyrics \lyricsto "one" \text
   >>
   \layout @{ @}
-  \midi @{ @}
+  \midi @{ \tempo 4=60 @}
 @}
 @end example
 
 Now we want to add a cello part.  Let's look at the ``Notes only'' example:
 
 @example
-\version "2.9.13"
+\version "2.7.39"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -67,7 +67,7 @@ melody = \relative c' @{
 \score @{
 \new Staff \melody
 \layout @{ @}
-\midi @{ @}
+\midi @{ \tempo 4=60 @}
 @}
 @end example
 
@@ -91,7 +91,7 @@ normally use bass clef.  We'll also give the cello some different
 notes.
 
 @example
-\version "2.9.13"
+\version "2.7.39"
 sopranoMusic = \relative c' @{
   \clef treble
   \key c \major
@@ -121,7 +121,7 @@ celloMusic = \relative c @{
     \new Lyrics \lyricsto "one" \sopranoLyrics
   >>
   \layout @{ @}
-  \midi @{ @}
+  \midi @{ \tempo 4=60 @}
 @}
 @end example
 
@@ -152,7 +152,7 @@ more than one thing (in this case, @code{Staff}) happening at once.  The
     \new Staff \celloMusic
   >>
   \layout @{ @}
-  \midi @{ @}
+  \midi @{ \tempo 4=60 @}
 @}
 @end example
 
@@ -161,7 +161,7 @@ This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.9.13"
+\version "2.7.39"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
@@ -194,7 +194,7 @@ celloMusic = \relative c {
     \new Staff \celloMusic
   >>
   \layout { }
-  \midi { }
+  \midi { \tempo 4=60 }
 }
 @end lilypond
 
@@ -272,6 +272,7 @@ The @code{\score} can contain other things, such as
 \score @{
   @{ c'4 a b c' @}
   \layout @{ @}
+  \paper @{ @}
   \midi @{ @}
   \header @{ @}
 @}

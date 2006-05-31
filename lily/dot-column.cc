@@ -51,7 +51,7 @@ Dot_column::side_position (SCM smob)
 	}
     }
 
-  return Side_position_interface::x_aligned_side (smob, SCM_EOL);
+  return Side_position_interface::x_aligned_side (smob);
 }
 
 struct Dot_position
@@ -233,7 +233,7 @@ Dot_column::calc_positioning_done (SCM smob)
       }
   }
 
-  vector_sort (dots, position_less);
+  vector_sort (dots, &compare_position);
   for (vsize i = dots.size (); i--;)
     if (!dots[i]->is_live ())
       dots.erase (dots.begin () + i);

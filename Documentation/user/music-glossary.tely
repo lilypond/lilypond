@@ -5,8 +5,7 @@
 @documentencoding utf-8
 @documentlanguage en
 
-@c see lilypond.tely for info installation note
-@dircategory LilyPond
+@dircategory GNU music project
 @direntry
 * Glossary: (lilypond/music-glossary).  Glossary of music terms.
 @end direntry
@@ -25,7 +24,7 @@ and as @uref{source/Documentation/user/music-glossary.html,one big page}.
 @c                             French glossary
 @author Han-Wen Nienhuys    @c Dutch glossary
 @author Jan Nieuwenhuizen   @c Dutch glossary
-@author David González      @c Spanish glossary
+@author Dadiv Gonzalez      @c Spanish glossary
 @author Bjoern Jacke        @c German glossary
 @author Neil Jerram         @c English glossary translations
 @author Mats Bengtsson      @c Swedish glossary
@@ -59,11 +58,9 @@ Copyright @copyright{} 1999--2006 by the authors
 @top Music glossary
 @end ifnottex
 
-
-@ifnottex
-
 This glossary was brought you by
 
+@ifnottex
 @table @code
 @item Adrian Mariano
 Italian glossary,
@@ -71,7 +68,7 @@ Italian glossary,
 German glossary,
 @item Christian Mondrup
 Original author of LilyPond glossary, Danish glossary,
-@item David González
+@item Dadiv Gonzalez
 Spanish glossary,
 @item Fran@,{c}ois Pinard
 Original glossary of GNU music project, French glossary,
@@ -438,7 +435,7 @@ The stress of one tone over others.
 @node accidental
 @section accidental
 
-ES: alteración accidental,
+ES: alteración accidentelle,
 I: accidento,
 F: altération accidentelle,
 D: Vorzeichen, Versetzungszeichen, Akzidenz,
@@ -563,7 +560,7 @@ C clef setting middle C on the middle line of the staff
 @node ambit
 @section ambit
 
-ES: ámbito,
+ES: Ã¡mbito,
 I: ambitus,
 F: ambitus,
 D: ambitus,
@@ -579,7 +576,7 @@ the pitch range that a musical instrument is capable of playing.
 @node ancient minor scale
 @section ancient minor scale
 
-ES: escala menor antigua,
+ES: escala menor antigua
 I: scala minore naturale,
 F: forme du mode mineur ancien, troisème mode, mode hellénique
 D: reines Moll,
@@ -767,12 +764,12 @@ FI: H, h.
 @node bar
 @section bar
 
-@aref{measure}.
+ES: compás, @aref{measure}.
 
 @node bar line
 @section bar line
 
-ES: barra, línea divisoria,
+ES: barra, lÃ­nea divisoria,
 I: stanghetta, barra (di divisione),
 F: barre (de mesure),
 D: Taktstrich,
@@ -873,7 +870,7 @@ The number of beams determines the note value of the connected notes.
 @node beat
 @section beat
 
-ES: tiempo, parte (de compás)
+ES: tiempo, parte (de compÃ¡s)
 I: tempi,
 F: temps,
 D: Takt, Taktschlag, Zeit (im Takt),
@@ -947,7 +944,7 @@ trumpet, trombone, french horn, and tube.
 @node breath mark
 @section breath mark
 
-ES: respiración,
+ES: respiraciÃ³n,
 I: respiro,
 F: respiration,
 D: Atemzeichen, Trennungszeichen,
@@ -1200,8 +1197,6 @@ FI: avain, nuottiavain.
 @node cluster
 @section cluster
 
-ES: racimo.
-
 A @emph{cluster} is a range of simultaneously sounding pitches that
 may change over time.  The set of available pitches to apply usually
 depends on the acoustic source.  Thus, in piano music, a cluster
@@ -1231,7 +1226,7 @@ pitch contained in the cluster would be notated as an ordinary note.
 @node comma
 @section comma
 
-ES: coma, comma,
+ES: coma, comma
 I: comma,
 F: comma,
 D: Komma,
@@ -1267,7 +1262,7 @@ Intervals larger than an octave.
 @node complement
 @section complement
 
-ES: intervalo invertido,
+ES: intervalo invertido
 I: rivolto,
 F: intervalle complémentaire,
 D: Komplementärintervall,
@@ -1429,7 +1424,7 @@ abbreviation ``cresc.''.
 @node cue-notes
 @section cue-notes
 
-ES: notas guía,
+ES: notas guÃ­a,
 I: notine,
 F: petites notes précédent l'entrée d'in instrument, réplique,
 D: Stichnoten,
@@ -1738,7 +1733,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @node diminished interval
 @section diminished interval
 
-ES: intervalo disminuido,
+ES: intervalo disminuído,
 I: intervallo diminuito,
 F: intervalle diminué,
 D: vermindertes Intervall,
@@ -1766,7 +1761,7 @@ FI: diminuendo, hiljentyen.
 @node disjunct movement
 @section disjunct movement
 
-ES: movimiento disjunto,
+ES: movimiendo disjunto,
 I: moto disgiunto,
 F: mouvement disjoint,
 D: sprunghafte Bewegung,
@@ -2097,7 +2092,7 @@ plate of metal.  Now also the term for the art of music typesetting.
 @node enharmonic
 @section enharmonic
 
-ES: enarmónico,
+ES: enharmónico,
 I: enarmonico,
 F: enharmonique,
 D: enharmonisch,
@@ -2140,7 +2135,7 @@ Tuning system dividing the octave into 12 equal @aref{semitone}s
 @node expression mark
 @section expression mark
 
-ES: expresión,
+ES: expresiÃ³n,
 I: segno d'espressione,
 F: signe d'expression, indication de nuance,
 D: Vortragszeichen,
@@ -2215,7 +2210,7 @@ symbol indicates playing an octave lower (for example on double bass
 @node fermata
 @section fermata
 
-ES: calderón,
+ES: Calderón,
 I: corona,
 F: point d'orgue, point d'arr@^et,
 D: Fermate,
@@ -2250,7 +2245,7 @@ FI: kvintti.
 @node figured bass
 @section figured bass
 
-@aref{thorough bass}.
+ES: bajo cifrado, @aref{thorough bass}.
 
 @node fingering
 @section fingering
@@ -2457,7 +2452,7 @@ Letting the pitch slide fluently from one note to the other.
 @node grace notes
 @section grace notes
 
-ES: notas de adorno,
+ES: mordente,
 I: abbellimenti,
 F: fioriture,
 D: Verzierungen, Vorschläge, Vor@-schlags@-noten,
@@ -2565,7 +2560,7 @@ section.  @aref{functional harmony}.
       \bar "|."
     }
     \lyrics {
-      T4 S D T
+      T S D T
     }
   >>
 >>
@@ -2599,7 +2594,7 @@ Consonances:
   <g d'>_"fifth  " s
   <g e'>_"sixth  " s
   <g g'>_"octave  " s
-  <g b'>_"tenth" s s
+  <g b'>_"decime" s s
 }
 @end lilypond
 
@@ -2706,7 +2701,7 @@ of such two intervals forms an octave.
 }
 \context Lyrics \lyrics {
   "seventh " "seventh " "seventh " "octave "
-  "ninth " "ninth " "tenth " "tenth"
+  "none " "none " "decime " "decime"
 }
 >>
 @end lilypond
@@ -2738,7 +2733,7 @@ The difference between an interval and an octave.
 @node just intonation
 @section just intonation
 
-ES: entonación justa,
+ES: entonaciÃ³n justa,
 I: intonazione giusta,
 F: intonation juste,
 D: reine Stimmung,
@@ -2815,7 +2810,7 @@ upwards) to the tonic scale degree.
 @node ledger line
 @section ledger line
 
-ES: línea adicional,
+ES: líneas adicionales,
 I: tagli addizionali,
 F: ligne supplémentaire,
 D: Hilfslinie,
@@ -2857,7 +2852,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
     c4-. d-. e-. \bar "||"
   }
   \lyrics {
-    a2.
+    a1
     b
     c
     d
@@ -2878,7 +2873,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
 @node lilypond
 @section lilypond
 
-ES: estanque de nenúfares,
+ES: estanque de nenÃºfares,
 I: stagno del giglio,
 F: étang de lis,
 UK: lily pond,
@@ -2958,7 +2953,7 @@ Note value: double length of @aref{breve}.
 @node lyrics
 @section lyrics
 
-ES: letra (de la canción),
+ES: letra (de la canciÃ³n),
 I: .,
 F: .,
 D: Liedtext,
@@ -2998,7 +2993,7 @@ FI: duuri.
 @node meantone temperament
 @section meantone temperament
 
-ES: afinación mesotónica,
+ES: afinaciÃ³n mesotÃ³nica,
 I: accordatura mesotonica,
 F: tempérament mésotonique,
 D: mitteltönige Stimmung,
@@ -3139,7 +3134,7 @@ M.M.@: (Mälzels Metronom).
 @node mezzo-soprano
 @section mezzo-soprano
 
-ES: mezzosoprano,
+ES: mezzo soprano,
 I: mezzo-soprano,
 F: mezzo-soprano,
 D: Mezzosopran,
@@ -3192,7 +3187,7 @@ FI: molli.
 @node minor interval
 @section minor interval
 
-ES: intervalo menor,
+ES: intervalo mayor,
 I: intervallo minore,
 F: intervalle mineur,
 D: kleines Intervall,
@@ -3255,7 +3250,7 @@ FI: mordent, korukuvio.
 @node motive
 @section motive
 
-ES: motivo,
+ES: tema,
 I: inciso,
 F: incise,
 D: Motiv,
@@ -3267,21 +3262,15 @@ FI: teema, sävelaihe.
 The briefest intelligible and self-contained fragment of a musical theme or
 subject.
 
-@lilypond[line-width=13.0\cm]
-\score{
+@lilypond[fragment,line-width=13.0\cm]
+\override Score.TimeSignature #'break-visibility = #all-invisible
+%\override Score.TextScript #'font-style = #'large
 \relative c'' {
-  \override Score.TimeSignature #'break-visibility = #all-invisible
-  %\override Score.TextScript #'font-style = #'large
   \time 4/4
   \key g \major
-  \partial 8 g16\startGroup fis |
-  g8\stopGroup d16\startGroup c d8\stopGroup g16 fis g8 b,16 a b8 g'16 fis |
+  \partial 8 g16_"------" fis |
+  g8 d16_"------" c d8 g16 fis g8 b,16 a b8 g'16 fis |
   g8 g,16 a b8 cis d16 s
-}
-\layout {
-	\context {
-		\Staff \consists "Horizontal_bracket_engraver"
-}}
 }
 @end lilypond
 
@@ -3404,7 +3393,7 @@ instrument.
 @node note value
 @section note value
 
-ES: valor (duración),
+ES: valor (duraciÃ³n),
 I: valore, durata,
 F: durée, valeur (d'une note),
 D: Notenwert,
@@ -3728,7 +3717,7 @@ denotes the highest possible degree of speed.
 @node Pythagorean comma
 @section Pythagorean comma
 
-ES: coma pitagórica,
+ES: coma pitagórico,
 I: comma pitagorico,
 F: comma pythagoricien,
 D: Pythagoräisches Komma,
@@ -3818,7 +3807,7 @@ Abbreviation "rall.".  @aref{ritardando}.
 @node relative key
 @section relative key
 
-ES: relativo,
+ES: relativa,
 I: tonalità relativa,
 F: tonalité relative,
 D: Paralleltonart,
@@ -3852,7 +3841,7 @@ with the same @aref{key signature}.
 @node repeat
 @section repeat
 
-ES: repetición,
+ES: barra de repetición,
 I: ritornello,
 F: barre de reprise,
 D: Wiederholung,
@@ -3952,7 +3941,7 @@ FI: asteikko, sävelasteikko.
 @node scale degree
 @section scale degree
 
-ES: grado (de la escala),
+ES: grados de la escala,
 I: grado della scala,
 F: degré [de la gamme],
 D: Tonleiterstufe,
@@ -4170,7 +4159,7 @@ FI: kuudeskymmenesneljäsosatauko.
 @node slur
 @section slur
 
-ES: ligadura (de expresión),
+ES: ligadura (de expresiÃ³n),
 I: legatura (di portamento or espressiva),
 F: liaison, coulé,
 D: Bogen, Legatobogen, Phrasierungsbogen,
@@ -4186,7 +4175,7 @@ breath in singing.
 @node solmization
 @section solmization
 
-ES: solmisación,
+ES: solmisaciÃ³n,
 I: solmisazione,
 F: solmisation,
 D: Solmisation,
@@ -4263,7 +4252,7 @@ The highest female voice.
 @node staccato
 @section staccato
 
-ES: picado,
+ES: picado (staccato),
 I: staccato,
 F: staccato, piqué, détaché,
 D: Staccato,
@@ -4395,7 +4384,7 @@ The sixth @aref{scale degree}.
 @node subtonic
 @section subtonic
 
-ES: subtónica,
+ES: sensible,
 I: sottotonica,
 F: sous-tonique,
 D: Subtonika,
@@ -4451,7 +4440,7 @@ A symphony may be defined as a @aref{sonata} for orchestra.
 @node syncopation
 @section syncopation
 
-ES: síncopa,
+ES: sÃ­ncopa,
 I: sincope,
 F: syncope,
 D: Synkope,
@@ -4479,7 +4468,7 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
 @node syntonic comma
 @section syntonic comma
 
-ES: coma sintónica,
+ES: coma sintÃ³nica,
 I: comma sintonico (o didimico),
 F: comma syntonique,
 D: syntonisches Komma,
@@ -4570,7 +4559,7 @@ FI: desimi.
 @node tenuto
 @section tenuto
 
-ES: subrayado (tenuto),
+ES: tenuto,
 I: tenuto,
 F: tenue, tenuto,
 D: gehalten, tenuo,
@@ -4696,7 +4685,7 @@ uniting them into a single sound (tone) equal to the combined durations.
 @node time signature
 @section time signature
 
-ES: indicación de compás,
+ES: cifra indicadora de compás,
 I: segni di tempo,
 F: chiffrage (chiffres indicateurs), signe de valeur,
 D: Taktangabe, Angabe der Taktart,
@@ -4726,7 +4715,7 @@ Music from the 20th century may be based on atonal sounds.
 @node tonic
 @section tonic
 
-ES: tónica,
+ES: tÃ³nica,
 I: tonica,
 F: tonique,
 D: Tonika,
@@ -4741,7 +4730,7 @@ The first @aref{scale degree}.
 @node transposition
 @section transposition
 
-ES: transporte,
+ES: transposición,
 I: trasposizione,
 F: transposition,
 D: Transposition,
@@ -4790,7 +4779,7 @@ FI: diskanttiavain.
 @node tremolo
 @section tremolo
 
-ES: trémolo,
+ES: trÃ©molo,
 I: tremolo,
 F: trémolo,
 D: Tremolo,
@@ -4846,7 +4835,7 @@ FI: trilli.
 @node triple meter
 @section triple meter
 
-ES: compás ternario,
+ES: compás compuesto,
 I: tempo ternario,
 F: mesure ternaire,
 D: in drei,
@@ -4874,7 +4863,7 @@ FI: trioli.
 @node tritone
 @section tritone
 
-ES: tritono,
+ES: trítono,
 I: tritono,
 F: triton,
 D: Tritonus,
@@ -4934,7 +4923,7 @@ different octave.
 @node upbeat
 @section upbeat
 
-ES: anacrusa,
+ES: entrada anacrúsica,
 I: anacrusi,
 F: anacrouse, levée,
 D: Auftakt,
@@ -5017,7 +5006,7 @@ FI: kokotauko.
 @node whole tone
 @section whole tone
 
-ES: tono (entero),
+ES: tono,
 I: tono intero,
 F: ton entier,
 D: Ganzton,
@@ -5225,13 +5214,13 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 
 @item
 
-@item @strong{c-sharp} @tab do sostenido  @tab do diesis  @tab ut dièse @tab
+@item @strong{c-sharp} @tab do diesis  @tab do diesis  @tab ut dièse @tab
 Cis @tab cis @tab
 cis @tab cis @tab cis
 
 @item
 
-@item @strong{d-flat} @tab re bemol  @tab re bemolle  @tab ré bémol @tab
+@item @strong{d-flat} @tab re bemolle  @tab re bemolle  @tab ré bémol @tab
 Des @tab des @tab
 des @tab des @tab des
 

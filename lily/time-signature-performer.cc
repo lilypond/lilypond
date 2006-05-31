@@ -64,6 +64,7 @@ Time_signature_performer::stop_translation_timestep ()
 {
   if (audio_)
     {
+      play_element (audio_);
       audio_ = 0;
     }
 }

@@ -158,7 +158,7 @@ opts.AddOptions (
 	BoolOption ('static', 'build static libraries',
 		    1),
 	BoolOption ('gui', 'build with GNOME backend (EXPERIMENTAL)',
-		    0),
+		    1),
 	BoolOption ('verbose', 'run commands with verbose flag',
 		    0),
 	BoolOption ('checksums', 'use checksums instead of timestamps',
@@ -269,92 +269,8 @@ def list_sort (lst):
 	return sorted
 
 
-def symlink_tree (target, source, env):
-	def mkdirs (dir):
-		def mkdir (dir):
-			if not dir:
-				os.chdir (os.sep)
-				return
-			if not os.path.isdir (dir):
-				if os.path.exists (dir):
-					os.unlink (dir)
-				os.mkdir (dir)
-			os.chdir (dir)
-		map (mkdir, string.split (dir, os.sep))
-	def symlink (src, dst):
-		os.chdir (absbuild)
-		dir = os.path.dirname (dst)
-		mkdirs (dir)
-		if src[0] == '#':
-			frm = os.path.join (srcdir, src[1:])
-		else:
-			depth = len (string.split (dir, '/'))
-			if src.find ('@') > -1:
-				frm = os.path.join ('../' * depth,
-						    string.replace (src, '@',
-								    env['out']))
-			else:
-				frm = os.path.join ('../' * depth, src,
-						    env['out'])
-		if src[-1] == '/':
-			frm = os.path.join (frm, os.path.basename (dst))
-		if env['verbose']:
-			print 'ln -s %s -> %s' % (frm, os.path.basename (dst))
-		os.symlink (frm, os.path.basename (dst))
-	shutil.rmtree (run_prefix)
-	prefix = os.path.join (env['out'], 'usr')
-	map (lambda x: symlink (x[0], os.path.join (prefix,
-						    x[1] % {'ver' : version})),
-	     # ^# := source dir
-	     # @  := out
-	     # /$ := add dst file_name
-	     (('python',     'lib/lilypond/python'),
-	      # ugh
-	      ('python',     'share/lilypond/%(ver)s/python'),
-	      ('lily/',      'bin/lilypond'),
-	      ('scripts/',   'bin/convert-ly'),
-	      ('scripts/',   'bin/lilypond-book'),
-	      ('scripts/',   'bin/ps2png'),
-	      ('mf',         'share/lilypond/%(ver)s/dvips/mf-out'),
-	      ('#ps',        'share/lilypond/%(ver)s/dvips/ps'),
-	      ('#ps/music-drawing-routines.ps',
-	       'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
-	      ('mf',         'share/lilypond/%(ver)s/otf'),
-	      ('mf',         'share/lilypond/%(ver)s/tfm'),
-	      ('tex',        'share/lilypond/%(ver)s/tex/enc'),
-	      ('#mf',        'share/lilypond/%(ver)s/fonts/mf'),
-	      ('mf',         'share/lilypond/%(ver)s/fonts/map'),
-	      ('mf',         'share/lilypond/%(ver)s/fonts/otf'),
-	      ('mf',         'share/lilypond/%(ver)s/fonts/tfm'),
-	      ('mf',         'share/lilypond/%(ver)s/fonts/type1'),
-	      ('#tex',       'share/lilypond/%(ver)s/tex/source'),
-	      ('tex',        'share/lilypond/%(ver)s/tex/tex-out'),
-	      ('mf',         'share/lilypond/%(ver)s/tex/mf-out'),
-	      ('#ly',        'share/lilypond/%(ver)s/ly'),
-	      ('#scm',       'share/lilypond/%(ver)s/scm'),
-	      ('#scripts',   'share/lilypond/%(ver)s/scripts'),
-	      ('#ps',        'share/lilypond/%(ver)s/ps'),
-	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
-	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
-
-	print "FIXME: BARF BARF BARF"
-	os.chdir (absbuild)
-	out = env['out']
-	ver = version
-	prefix = os.path.join (env['out'], 'usr/share/lilypond/%(ver)s/fonts'
-			       % vars ())
-	for ext in ('enc', 'map', 'otf', 'svg', 'tfm', 'pfa'):
-		dir = os.path.join (absbuild, prefix, ext)
-		os.system ('rm -f ' + dir)
-		mkdirs (dir)
-		os.chdir (dir)
-		os.system ('ln -s ../../../../../../../mf/%(out)s/*.%(ext)s .'
-			   % vars ())
-	os.chdir (srcdir)
-
 def configure (target, source, env):
-	dre = re.compile ('\n(200[0-9]{5})')
-	vre = re.compile ('.*?\n[^-.0-9]*([0-9][0-9]*\.[0-9]([.0-9]*[0-9])*)',
+	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9]([.0-9]*[0-9])*).*$',
 			  re.DOTALL)
 	def get_version (program):
 		command = '(pkg-config --modversion %(program)s || %(program)s --version || %(program)s -V) 2>&1' % vars ()
@@ -362,10 +278,7 @@ def configure (target, source, env):
 		output = pipe.read ()
 		if pipe.close ():
 			return None
-		splits = re.sub ('^|\s', '\n', output)
-		date_hack = re.sub (dre, '\n0.0.\\1', splits)
-		m = re.match (vre, date_hack)
-		v = m.group (1)
+		v = re.sub (vre, '\\1', output)
 		if v[-1] == '\n':
 			v = v[:-1]
 		return string.split (v, '.')
@@ -441,15 +354,15 @@ def configure (target, source, env):
 	test_program (optional, 'bison', '1.25', 'Bison -- parser generator',
 			'bison')
 	test_program (optional, 'dvips', '0.0', 'Dvips', 'tetex-bin')
-	test_program (optional, 'fontforge', '0.0.20050624', 'FontForge',
-		      'fontforge')
+#	test_program (optional, 'fontforge', '0.0.20041224', 'FontForge',
+#		      'fontforge')
 	test_program (optional, 'flex', '0.0', 'Flex -- lexer generator',
 		      'flex')
 	test_program (optional, 'guile', '1.6', 'GUILE scheme', 'guile')
-	test_program (optional, 'gs', '8.15',
+	test_program (optional, 'gs', '8.14',
 		      'Ghostscript PostScript interpreter',
 		      'gs or gs-afpl or gs-esp or gs-gpl')
-	test_program (optional, 'mftrace', '1.1.19', 'Metafont tracing Type1',
+	test_program (optional, 'mftrace', '1.1.0', 'Metafont tracing Type1',
 			'mftrace')
 	test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
 	test_program (optional, 'perl', '4.0',
@@ -471,8 +384,45 @@ def configure (target, source, env):
 		context.Result (ret)
 		return ret
 
+	def CheckLibkpathseaSo (context):
+		saveCFLAGS = []
+		if context.env.has_key ('CFLAGS'):
+			saveCFLAGS = context.env['CFLAGS']
+		CFLAGS_shared_no_debugging = filter (lambda x: x != '-g',
+						     saveCFLAGS)\
+						     + ['-shared']
+		# FIXME: how does this work, with scons
+		context.env.Replace (CFLAGS = CFLAGS_shared_no_debugging)
+		#context.env.Replace (CFLAGS = '')
+		#context.env.Append (CFLAGS = ['-shared'])
+		context.Message ('Checking for libkpathsea... ')
+		ret = conf.TryLink ('''#include <kpathsea/kpathsea.h>
+		int main ()
+		{
+		kpse_var_expand ("\$TEXMF");
+		return 0;
+		}
+		''', '.c')
+		context.env.Replace (CFLAGS = saveCFLAGS)
+		# FIXME: this prints 'ok' already
+		context.Result (ret)
+		if not ret:
+			return 0
+		
+		sys.stdout.write ('Checking for libkpathsea.so... ')
+		testfile = str (context.sconf.lastTarget)
+		shared_size = os.path.getsize (testfile)
+		ret = shared_size < 40000
+		if ret:
+			print 'ok'
+		else:
+			print 'no'
+		return ret
+
 	conf = Configure (env, custom_tests = { 'CheckYYCurrentBuffer'
-						: CheckYYCurrentBuffer })
+						: CheckYYCurrentBuffer,
+						'CheckLibkpathseaSo'
+						: CheckLibkpathseaSo })
 
 	defines = {
 	   'DIRSEP' : "'%s'" % os.sep,
@@ -491,8 +441,8 @@ def configure (target, source, env):
 	else:
 		env.Append (CPPPATH = [PYTHON_INCLUDE])
 
-	headers = ('assert.h', 'grp.h', 'libio.h', 'pwd.h',
-		   'sys/stat.h', 'utf8/wchar.h', 'wchar.h', 'Python.h')
+	headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'libio.h',
+		   'Python.h')
 	for i in headers:
 		if conf.CheckCHeader (i):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
@@ -504,9 +454,8 @@ def configure (target, source, env):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
 			conf.env['DEFINES'][key] = 1
 
-	functions = ('chroot', 'fopencookie', 'funopen',
-		     'gettext', 'isinf',
-		     'mbrtowc', 'memmem', 'snprintf', 'vsnprintf', 'wcrtomb')
+	functions = ('fopencookie', 'funopen',
+		     'gettext', 'isinf', 'memmem', 'snprintf', 'vsnprintf')
 	for i in functions:
 		if 0 or conf.CheckFunc (i):
 			key = re.sub ('[./]', '_', 'HAVE_' + string.upper (i))
@@ -515,8 +464,20 @@ def configure (target, source, env):
 	if conf.CheckYYCurrentBuffer ():
 		conf.env['DEFINES']['HAVE_FLEXLEXER_YY_CURRENT_BUFFER'] = 1
 
+	if conf.CheckLibkpathseaSo ():
+		conf.env['DEFINES']['HAVE_LIBKPATHSEA_SO'] = '1'
+
 	if conf.CheckLib ('dl'):
 		pass
+
+	if conf.CheckLib ('kpathsea'):
+		conf.env['DEFINES']['KPATHSEA'] = 1
+
+	# huh? 
+	if conf.CheckLib ('kpathsea', 'kpse_find_file'):
+		conf.env['DEFINES']['HAVE_KPSE_FIND_FILE'] = '1'
+	if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
+		conf.env['DEFINES']['HAVE_KPSE_FIND_TFM'] = '1'
 
 	if env['fast']:
 		cpppath = []
@@ -538,6 +499,7 @@ def configure (target, source, env):
 		     'Development files for pango, with FreeType2',
 		     'pango1.0'):
 		conf.env['DEFINES']['HAVE_PANGO_FT2'] = '1'
+		conf.env['DEFINES']['HAVE_PANGO16'] = '1'
 
 	if test_lib (optional, 'fontconfig', '2.2.0',
 		     'Development files for fontconfig', 'fontconfig1'):
@@ -547,7 +509,12 @@ def configure (target, source, env):
 	if env['gui']:
 		test_lib (required, 'gtk+-2.0', '2.4.0',
 			  'Development files for GTK+', 'gtk2.0')
+		if test_lib (required, 'pango', '1.6.0',
+			  'Development files for pango', 'pango1.0'):
+			conf.env['DEFINES']['HAVE_PANGO16'] = '1'
 			
+		if conf.CheckCHeader ('pango/pangofc-fontmap.h'):
+			conf.env['DEFINES']['HAVE_PANGO_PANGOFC_FONTMAP_H'] = '1'
 	if env['fast']:
 		# Using CCFLAGS = -I<system-dir> rather than CPPPATH = [
 		# <system-dir>] speeds up SCons
@@ -665,14 +632,12 @@ env.PrependENVPath ('PATH',
 
 LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond/', version)
 
-if not os.path.exists (LILYPONDPREFIX):
-	os.makedirs (LILYPONDPREFIX)
-
-env.Command (LILYPONDPREFIX, ['#/SConstruct', '#/VERSION'], symlink_tree)
-env.Depends ('lily', LILYPONDPREFIX)
-
 env.Append (ENV = {
+	#'LILYPONDPREFIX' : os.path.join (run_prefix, 'share/lilypond/', version),
 	'LILYPONDPREFIX' : LILYPONDPREFIX,
+	# ugh, can't use LILYPONDPREFIX here
+	#'TEXMF' : '{' + os.path.join (run_prefix, 'share/lilypond/', version)\
+	#+ ',' \
 	'TEXMF' : '{$LILYPONDPREFIX,'
 	+ os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}',
 	})
@@ -719,6 +684,7 @@ if env['debugging']:
 	env.Append (CCFLAGS = ['-g'])
 if env['optimising']:
 	env.Append (CCFLAGS = '-O2')
+	env.Append (CXXFLAGS = ['-DSTRING_UTILS_INLINED'])
 if env['warnings']:
 	env.Append (CCFLAGS = ['-W', '-Wall'])
 	env.Append (CXXFLAGS = ['-Wconversion'])
@@ -763,27 +729,15 @@ if 'realclean' in COMMAND_LINE_TARGETS:
 		os.unlink (config_cache)
 	Exit (s)
 
-def symlink_tree ():
-	print "BOE"
-	raise urg
-	
 # Declare SConscript phonies 
 env.Alias ('minimal', config_cache)
+env.Alias ('mf-essential', config_cache)
 
-if 0:
-	env.Alias ('mf-essential', config_cache)
-	env.Alias ('minimal', ['python', 'lily', 'mf-essential'])
-	env.Alias ('all', ['minimal', 'mf', '.'])
-
-else:
-	env.Alias ('minimal', ['python', 'lily', 'mf'])
-	env.Alias ('all', ['minimal', '.'])
-
-
+env.Alias ('minimal', ['lily', 'mf-essential'])
+env.Alias ('all', ['minimal', 'mf', '.'])
 # Do we want the doc/web separation?
 env.Alias ('doc',
-	   ['minimal',
-	    'Documentation',
+	   ['Documentation',
 	    'Documentation/user',
 	    'Documentation/topdocs',
 	    'Documentation/bibliography',
@@ -806,7 +760,8 @@ env.Append (
 	LILYPONDPREFIX = LILYPONDPREFIX,
 
 	# FIXME: move to lily/SConscript?
-	LIBPATH = [os.path.join (absbuild, 'flower', env['out'])],
+	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),
+		   os.path.join (absbuild, 'kpath-guile', env['out']),],
 	CPPPATH = [outdir, ],
 	LILYPOND_PATH = ['.',
 			 '$srcdir/input',
@@ -824,6 +779,95 @@ env.Append (
 			 '$absbuild/Documentation/user/$out'],
 	)
 
+def symlink_tree (target, source, env):
+	def mkdirs (dir):
+		def mkdir (dir):
+			if not dir:
+				os.chdir (os.sep)
+				return
+			if not os.path.isdir (dir):
+				if os.path.exists (dir):
+					os.unlink (dir)
+				os.mkdir (dir)
+			os.chdir (dir)
+		map (mkdir, string.split (dir, os.sep))
+	def symlink (src, dst):
+		os.chdir (absbuild)
+		dir = os.path.dirname (dst)
+		mkdirs (dir)
+		if src[0] == '#':
+			frm = os.path.join (srcdir, src[1:])
+		else:
+			depth = len (string.split (dir, '/'))
+			if src.find ('@') > -1:
+				frm = os.path.join ('../' * depth,
+						    string.replace (src, '@',
+								    env['out']))
+			else:
+				frm = os.path.join ('../' * depth, src,
+						    env['out'])
+		if src[-1] == '/':
+			frm = os.path.join (frm, os.path.basename (dst))
+		if env['verbose']:
+			print 'ln -s %s -> %s' % (frm, os.path.basename (dst))
+		os.symlink (frm, os.path.basename (dst))
+	shutil.rmtree (run_prefix)
+	prefix = os.path.join (env['out'], 'usr')
+	map (lambda x: symlink (x[0], os.path.join (prefix,
+						    x[1] % {'ver' : version})),
+	     # ^# := source dir
+	     # @  := out
+	     # /$ := add dst file_name
+	     (('python',     'lib/lilypond/python'),
+	      # ugh
+	      ('python',     'share/lilypond/%(ver)s/python'),
+	      ('lily/',      'bin/lilypond'),
+	      ('scripts/',   'bin/convert-ly'),
+	      ('scripts/',   'bin/lilypond-book'),
+	      ('scripts/',   'bin/ps2png'),
+	      ('mf',         'share/lilypond/%(ver)s/dvips/mf-out'),
+	      ('#ps',        'share/lilypond/%(ver)s/dvips/ps'),
+	      ('#ps/music-drawing-routines.ps',
+	       'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
+	      ('mf',         'share/lilypond/%(ver)s/otf'),
+	      ('mf',         'share/lilypond/%(ver)s/tfm'),
+	      ('tex',        'share/lilypond/%(ver)s/tex/enc'),
+	      ('#mf',        'share/lilypond/%(ver)s/fonts/mf'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/map'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/otf'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/tfm'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/type1'),
+	      ('#tex',       'share/lilypond/%(ver)s/tex/source'),
+	      ('tex',        'share/lilypond/%(ver)s/tex/tex-out'),
+	      ('mf',         'share/lilypond/%(ver)s/tex/mf-out'),
+	      ('#ly',        'share/lilypond/%(ver)s/ly'),
+	      ('#scm',       'share/lilypond/%(ver)s/scm'),
+	      ('#scripts',   'share/lilypond/%(ver)s/scripts'),
+	      ('#ps',        'share/lilypond/%(ver)s/ps'),
+	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
+	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
+
+	print "FIXME: BARF BARF BARF"
+	os.chdir (absbuild)
+	out = env['out']
+	ver = version
+	prefix = os.path.join (env['out'], 'usr/share/lilypond/%(ver)s/fonts'
+			       % vars ())
+	for ext in ('enc', 'map', 'otf', 'svg', 'tfm', 'pfa'):
+		dir = os.path.join (absbuild, prefix, ext)
+		os.system ('rm -f ' + dir)
+		mkdirs (dir)
+		os.chdir (dir)
+		os.system ('ln -s ../../../../../../../mf/%(out)s/*.%(ext)s .'
+			   % vars ())
+	os.chdir (srcdir)
+
+if 1: #env['debugging']:
+	stamp = os.path.join (run_prefix, 'stamp')
+	env.Command (stamp, ['#/SConstruct', '#/VERSION'],
+		     [symlink_tree, 'touch $TARGET'])
+	env.Depends ('lily', stamp)
+	
 #### dist, tar
 def plus (a, b):
 	a + b
@@ -876,10 +920,11 @@ if env['fast']\
    and 'web' not in COMMAND_LINE_TARGETS\
    and 'install' not in COMMAND_LINE_TARGETS\
    and 'clean' not in COMMAND_LINE_TARGETS:
-	subdirs = [ 'python',
-		    'lily',
+	subdirs = ['lily',
 		   'flower',
+		   'kpath-guile',
 		   'mf',
+		   'python',
 		   ]
 
 if os.path.isdir ('%(srcdir)s/CVS' % vars ()):

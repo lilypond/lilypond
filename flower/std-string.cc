@@ -89,9 +89,8 @@ string_copy (string s)
 {
   ssize len = s.length ();
   char *dest = new char[len + 1];
-  copy (s.begin (), s.end (), dest);
-  dest[len] = 0;
-  
+  //s.copy (dest, len + 1);
+  memcpy (dest, s.c_str (), len + 1);
   return dest;
 }
 
@@ -106,9 +105,8 @@ string_compare (string const &a, string const &b)
 vector<string>
 string_split (string str, char c)
 {
-  ssize i = str.find (c);
-
   vector<string> a;
+  ssize i = str.find (c);
   while (i != NPOS)
     {
       string s = str.substr (0, i);

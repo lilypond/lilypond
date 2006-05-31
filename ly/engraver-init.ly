@@ -46,14 +46,13 @@
   verticalExtent = ##f 
   localKeySignature = #'()
   createSpacing = ##t
-  ignoreFiguredBassRest = ##t 
   
   %% explicitly set instrument, so we don't get 
   %% weird effects when doing instrument names for
   %% piano staves
 
-  instrumentName = #'()
-  shortInstrumentName = #'()
+  instrument = #'()
+  instr = #'()
   
   \defaultchild "Voice"
   \accepts "Voice"
@@ -94,7 +93,7 @@
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
   vocalName = #'()
-  shortVocalName = #'()
+  vocNam = #'()
 
   \accepts "Staff"
   \accepts "DrumStaff"
@@ -149,7 +148,6 @@ contained staves are not connected vertically."
   \consists "Time_signature_engraver"
   \consists "Instrument_name_engraver"
   \consists "Axis_group_engraver"
-  \consists "Ledger_line_engraver" 
   
   \accepts "Voice"
   \accepts "CueVoice"
@@ -192,7 +190,6 @@ contained staves are not connected vertically."
   \consists "Ligature_bracket_engraver"
   \consists "Breathing_sign_engraver"
   \consists "Note_heads_engraver"
-  \consists "Dots_engraver"
   \consists "Rest_engraver"
 
   %% switch on to make stem directions interpolate for the
@@ -203,19 +200,16 @@ contained staves are not connected vertically."
   \consists "Beam_engraver"
   \consists "Grace_beam_engraver"
   \consists "Auto_beam_engraver"
-
-  %% must come before Script_column_engraver.
   \consists "New_fingering_engraver"
-  
   \consists "Chord_tremolo_engraver"
   \consists "Percent_repeat_engraver"
   \consists "Slash_repeat_engraver"
+  \consists "Melisma_translator"
   \consists "Part_combine_engraver"
 
   \consists "Text_engraver"
   \consists "Dynamic_engraver"
   \consists "Fingering_engraver"
-  \consists "Bend_after_engraver"
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"
@@ -226,7 +220,7 @@ contained staves are not connected vertically."
   \consists "Tie_engraver"
   \consists "Tuplet_engraver"
   \consists "Grace_engraver"
-  \consists "Instrument_switch_engraver"
+
   \consists "Skip_event_swallow_translator"
 }
 
@@ -281,7 +275,6 @@ contained staves are not connected vertically."
   systemStartDelimiter = #'SystemStartBrace
 
   \accepts "Staff"
-  \accepts "FiguredBass"
 }
 
 \context{
@@ -299,8 +292,8 @@ contained staves are not connected vertically."
   \consists "Vertical_align_engraver"
   \consists "Instrument_name_engraver"
   
-  instrumentName = #'()
-  shortInstrumentName = #'()
+  instrument = #'()
+  instr = #'()
 }
 
 \context {
@@ -352,7 +345,7 @@ staffs, with a bracket in front and spanning bar lines. "
   \description " Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics.  "
   
-  \name "Lyrics" 
+  \name Lyrics 
   \consists "Lyric_engraver"
   \consists "Extender_engraver"
   \consists "Hyphen_engraver"
@@ -464,7 +457,6 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Metronome_mark_engraver"	
   \consists "Break_align_engraver"
   \consists "Spacing_engraver"
-  \consists "Grace_spacing_engraver"
   \consists "Vertical_align_engraver"
   \consists "Stanza_number_align_engraver"
   \consists "Bar_number_engraver"
@@ -531,6 +523,7 @@ AncientRemoveEmptyStaffContext = \context {
   harmonicAccidentals = ##t 
   fingeringOrientations = #'(up down)
   stringNumberOrientations = #'(up down)
+  tupletNumberFormatFunction = #denominator-tuplet-formatter
   markFormatter = #format-mark-letters
   rehearsalMark = #1
   subdivideBeams = ##f
@@ -655,6 +648,7 @@ AncientRemoveEmptyStaffContext = \context {
   \alias "Staff"
   \name "TabStaff"
   \denies "Voice"
+  \remove "Staff_symbol_engraver"
   \consists "Tab_staff_symbol_engraver"
   
   \description "Context for generating tablature. [DOCME]"

@@ -52,16 +52,6 @@ except:
 underscore = _
 progress = sys.stderr.write 
 
-# Modified version of the commands.mkarg(x), which always uses 
-# double quotes (since Windows can't handle the single quotes:
-def mkarg(x):
-    s = ' "'
-    for c in x:
-        if c in '\\$"`':
-            s = s + '\\'
-        s = s + c
-    s = s + '"'
-    return s
 
 def command_name (cmd):
     # Strip all stuf after command,
@@ -69,11 +59,12 @@ def command_name (cmd):
     cmd = re.match ('([\(\)]*)([^\\\ ]*)', cmd).group (2)
     return os.path.basename (cmd)
 
-def subprocess_system (cmd,
-                       ignore_error=False,
-                       progress_p=True,
-                       be_verbose=False,
-                       log_file=None):
+def system (cmd,
+            ignore_error=False,
+            progress_p=True,
+            be_verbose=False,
+            log_file=None):
+    
     import subprocess
 
     show_progress= progress_p 
@@ -122,42 +113,6 @@ def subprocess_system (cmd,
 	    sys.exit (1)
 
     return abs (retval)
-
-def ossystem_system (cmd,
-                     ignore_error=False,
-                     progress_p=True,
-                     be_verbose=False,
-                     log_file=None):
-
-
-    name = command_name (cmd)
-    if be_verbose:
-	show_progress = 1
-	progress (_ ("Invoking `%s\'") % cmd)
-    else:
-	progress ( _("Running %s...") % name)
-
-    retval = os.system (cmd)
-    if retval:
-	print >>sys.stderr, 'command failed:', cmd
-	if retval < 0:
-	    print >>sys.stderr, "Child was terminated by signal", -retval
-	elif retval > 0:
-	    print >>sys.stderr, "Child returned", retval
-
-	if ignore_error:
-	    print >>sys.stderr, "Error ignored"
-	else:
-	    sys.exit (1)
-
-    return abs (retval)
-
-
-system = subprocess_system
-if sys.platform == 'mingw32':
-    
-    ## subprocess x-compile doesn't work.
-    system = ossystem_system
 
 def strip_extension (f, ext):
     (p, e) = os.path.splitext (f)

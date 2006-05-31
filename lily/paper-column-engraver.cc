@@ -8,15 +8,14 @@
 
 #include "paper-column-engraver.hh"
 #include "system.hh"
-#include "international.hh"
-#include "axis-group-interface.hh"
-#include "context.hh"
 #include "item.hh"
-#include "note-spacing.hh"
 #include "paper-column.hh"
-#include "pointer-group-interface.hh"
 #include "staff-spacing.hh"
-#include "system.hh"
+#include "note-spacing.hh"
+#include "pointer-group-interface.hh"
+#include "context.hh"
+#include "score-context.hh"
+#include "axis-group-interface.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -29,6 +28,8 @@ Paper_column_engraver::Paper_column_engraver ()
   breaks_ = 0;
   system_ = 0;
   first_ = true;
+  last_breakable_column_ = 0;
+  last_breakable_moment_ = Moment (-1);
 }
 
 void
@@ -40,7 +41,6 @@ Paper_column_engraver::finalize ()
   if (command_column_)
     {
       command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
-      command_column_->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
       system_->set_bound (RIGHT, command_column_);
     }
 }
@@ -53,11 +53,10 @@ Paper_column_engraver::make_columns ()
   */
   Paper_column *p1 = make_paper_column ("NonMusicalPaperColumn");
   Paper_column *p2 = make_paper_column ("PaperColumn");
-  /* 
-     The columns are timestamped with now_mom () in
-     stop_translation_timestep. Cannot happen now, because the
-     first column is sometimes created before now_mom is initialised.
-  */
+
+  SCM m = now_mom ().smobbed_copy ();
+  p1->set_property ("when", m);
+  p2->set_property ("when", m);
 
   set_columns (p1, p2);
 }
@@ -85,7 +84,6 @@ Paper_column_engraver::acknowledge_staff_spacing (Grob_info gi)
 				     ly_symbol2scm ("spacing-wishes"),
 				     gi.grob ());
 }
-
 void
 Paper_column_engraver::acknowledge_note_spacing (Grob_info gi)
 {
@@ -110,11 +108,12 @@ Paper_column_engraver::set_columns (Paper_column *new_command,
   system_->add_column (musical_column_);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Paper_column_engraver, break);
-void
-Paper_column_engraver::listen_break (Stream_event *ev)
+bool
+Paper_column_engraver::try_music (Music *m)
 {
-  break_events_.push_back (ev);
+  break_events_.push_back (m);
+
+  return true;
 }
 
 void
@@ -123,17 +122,18 @@ Paper_column_engraver::process_music ()
   for (vsize i = 0; i < break_events_.size (); i++)
     {
       string prefix;
-      SCM name_sym = break_events_[i]->get_property ("class");
-      string name = ly_scm2string (scm_symbol_to_string (name_sym));
-      size_t end = name.rfind ("-event");
-      if (end)
-	prefix = name.substr (0, end);
+      SCM name = break_events_[i]->get_property ("name");
+      if (name == ly_symbol2scm ("LineBreakEvent"))
+	prefix = "line-break";
+      else if (name == ly_symbol2scm ("PageBreakEvent"))
+	prefix = "page-break";
+      else if (name == ly_symbol2scm ("PageTurnEvent"))
+	prefix = "page-turn";
       else
 	{
 	  programming_error ("Paper_column_engraver doesn't know about this break-event");
 	  return;
 	}
-
       string perm_str = prefix + "-permission";
       string pen_str = prefix + "-penalty";
 
@@ -172,10 +172,6 @@ Paper_column_engraver::process_music ()
 void
 Paper_column_engraver::stop_translation_timestep ()
 {
-  SCM m = now_mom ().smobbed_copy ();
-  command_column_->set_property ("when", m);
-  musical_column_->set_property ("when", m);
-
   for (vsize i = 0; i < items_.size (); i++)
     {
       Item *elem = items_[i];
@@ -193,12 +189,26 @@ Paper_column_engraver::stop_translation_timestep ()
   else if (Paper_column::is_breakable (command_column_))
     {
       breaks_++;
-
+      last_breakable_column_ = command_column_;
+      last_breakable_moment_ = now_mom ();
       if (! (breaks_%8))
 	progress_indication ("[" + to_string (breaks_) + "]");
     }
 
+  SCM page_br = get_property ("allowPageTurn");
+  if (scm_is_pair (page_br) && last_breakable_moment_ >= Rational (0))
+    {
+      SCM pen = scm_cdr (page_br);
+      Moment *m = unsmob_moment (scm_car (page_br));
+      if (m && scm_is_number (pen) && *m <= last_breakable_moment_)
+	{
+	  last_breakable_column_->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+	  last_breakable_column_->set_property ("page-turn-penalty", pen);
+	}
+    }
+
   context ()->get_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));
+  context ()->get_score_context ()->unset_property (ly_symbol2scm ("allowPageTurn"));
 
   first_ = false;
   break_events_.clear ();
@@ -235,9 +245,9 @@ ADD_TRANSLATOR (Paper_column_engraver,
 		/* accept */ "break-event",
 		/* read */
                 "forbidBreak "
-		,
+                "allowPageTurn",
 		/* write */
                 "forbidBreak "
+                "allowPageTurn "
 		"currentCommandColumn "
-		"currentMusicalColumn "
-		);
+		"currentMusicalColumn");

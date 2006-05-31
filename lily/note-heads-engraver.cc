@@ -9,29 +9,26 @@
 #include <cctype>
 using namespace std;
 
+#include "rhythmic-head.hh"
+#include "output-def.hh"
 #include "dots.hh"
 #include "dot-column.hh"
-#include "duration.hh"
-#include "item.hh"
-#include "output-def.hh"
-#include "pitch.hh"
-#include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
-#include "stream-event.hh"
+#include "item.hh"
 #include "warn.hh"
-
-#include "translator.icc"
+#include "duration.hh"
 
 class Note_heads_engraver : public Engraver
 {
   vector<Item*> notes_;
-  vector<Stream_event*> note_evs_;
+  vector<Item*> dots_;
+  vector<Music*> note_evs_;
 
 public:
   TRANSLATOR_DECLARATIONS (Note_heads_engraver);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (note);
+  virtual bool try_music (Music *ev);
   void process_music ();
   void stop_translation_timestep ();
 };
@@ -40,11 +37,18 @@ Note_heads_engraver::Note_heads_engraver ()
 {
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Note_heads_engraver, note);
-void
-Note_heads_engraver::listen_note (Stream_event *ev)
+bool
+Note_heads_engraver::try_music (Music *m)
 {
-  note_evs_.push_back (ev);
+  if (m->is_mus_type ("note-event"))
+    {
+      note_evs_.push_back (m);
+      return true;
+    }
+  else if (m->is_mus_type ("busy-playing-event"))
+    return note_evs_.size ();
+
+  return false;
 }
 
 void
@@ -52,8 +56,25 @@ Note_heads_engraver::process_music ()
 {
   for (vsize i = 0; i < note_evs_.size (); i++)
     {
-      Stream_event *ev = note_evs_[i];
+      Music *ev = note_evs_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
+
+      Duration dur = *unsmob_duration (ev->get_property ("duration"));
+
+      note->set_property ("duration-log", scm_from_int (dur.duration_log ()));
+      if (dur.dot_count ())
+	{
+	  Item *d = make_item ("Dots", note->self_scm ());
+	  Rhythmic_head::set_dots (note, d);
+
+	  if (dur.dot_count ()
+	      != robust_scm2int (d->get_property ("dot-count"), 0))
+	    d->set_property ("dot-count", scm_from_int (dur.dot_count ()));
+
+	  d->set_parent (note, Y_AXIS);
+
+	  dots_.push_back (d);
+	}
 
       Pitch *pit = unsmob_pitch (ev->get_property ("pitch"));
 
@@ -99,14 +120,19 @@ void
 Note_heads_engraver::stop_translation_timestep ()
 {
   notes_.clear ();
+  dots_.clear ();
   note_evs_.clear ();
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Note_heads_engraver,
 		/* doc */ "Generate noteheads.",
 		/* create */
-		"NoteHead ",
+		"NoteHead "
+		"Dots",
 		/* accept */
-		"note-event",
+		"note-event "
+		"busy-playing-event",
 		/* read */ "middleCPosition",
 		/* write */ "");

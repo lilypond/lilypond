@@ -15,7 +15,6 @@
 #include "paper-column.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
-#include "stream-event.hh"
 #include "vaticana-ligature.hh"
 #include "warn.hh"
 
@@ -46,23 +45,7 @@ protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
 				vector<Grob_info> primitives);
-  DECLARE_TRANSLATOR_LISTENER (pes_or_flexa);
-  DECLARE_TRANSLATOR_LISTENER (ligature);
 };
-
-IMPLEMENT_TRANSLATOR_LISTENER (Vaticana_ligature_engraver, pes_or_flexa);
-void
-Vaticana_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
-{
-  Gregorian_ligature_engraver::listen_pes_or_flexa (ev);
-}
-
-IMPLEMENT_TRANSLATOR_LISTENER (Vaticana_ligature_engraver, ligature);
-void
-Vaticana_ligature_engraver::listen_ligature (Stream_event *ev)
-{
-  Ligature_engraver::listen_ligature (ev);
-}
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 {
@@ -222,13 +205,13 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
       int delta_pitch = 0;
       if (prev_primitive) /* urgh, need prev_primitive only here */
 	{
-	  SCM delta_pitch_scm = prev_primitive->get_property ("delta-position");
+	  SCM delta_pitch_scm = prev_primitive->get_property ("delta-pitch");
 	  if (delta_pitch_scm != SCM_EOL)
 	    delta_pitch = scm_to_int (delta_pitch_scm);
 	  else
 	    {
 	      primitive->programming_error ("Vaticana_ligature:"
-					    "delta-position undefined -> "
+					    "delta-pitch undefined -> "
 					    "ignoring grob");
 	      continue;
 	    }
@@ -385,13 +368,13 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
 
       int delta_pitch;
-      SCM delta_pitch_scm = primitive->get_property ("delta-position");
+      SCM delta_pitch_scm = primitive->get_property ("delta-pitch");
       if (delta_pitch_scm != SCM_EOL)
 	delta_pitch = scm_to_int (delta_pitch_scm);
       else
 	{
 	  primitive->programming_error ("Vaticana_ligature:"
-					"delta-position undefined -> "
+					"delta-pitch undefined -> "
 					"ignoring grob");
 	  continue;
 	}

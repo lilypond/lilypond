@@ -63,8 +63,11 @@ void
 Lyric_combine_music_iterator::set_busy (SCM se)
 {
   Stream_event *e = unsmob_stream_event (se);
+  SCM mus = e->get_property ("music");
+  Music *m = unsmob_music (mus);
+  assert (m);
 
-  if (e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
+  if (m->is_mus_type ("note-event") || m->is_mus_type ("cluster-note-event"))
     busy_ = true;
 }
 
@@ -73,13 +76,13 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
 {
   if (music_context_)
     {
-      music_context_->event_source()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+      music_context_->event_source()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("MusicEvent"));
       lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
     }
   music_context_ = to;
   if (to)
     {
-      to->event_source()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+      to->event_source()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("MusicEvent"));
       lyrics_context_->set_property ("associatedVoiceContext", to->self_scm ());
     }
 }
@@ -199,11 +202,7 @@ Lyric_combine_music_iterator::check_new_context (SCM sev)
 }
 
 /*
-  Look for a suitable voice to align lyrics to.
-
-  Returns 0 if nothing should change; i.e., if we already listen to the
-  right voice, or if we don't yet listen to a voice but no appropriate
-  voice could be found.
+Look for a suitable voice to align lyrics to.
 */
 Context *
 Lyric_combine_music_iterator::find_voice ()
@@ -233,11 +232,7 @@ Lyric_combine_music_iterator::find_voice ()
 void
 Lyric_combine_music_iterator::process (Moment)
 {
-  /* see if associatedVoice has been changed */
-  Context *new_voice = find_voice ();
-  if (new_voice)
-    set_music_context (new_voice);
-
+  find_voice ();
   if (!music_context_)
     return;
 

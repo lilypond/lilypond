@@ -28,11 +28,11 @@
 #include "warn.hh"
 
 
-bool
-Tie::less (Grob *const &s1,
-	   Grob *const &s2)
+int
+Tie::compare (Grob *const &s1,
+	      Grob *const &s2)
 {
-  return Tie::get_position (s1) < Tie::get_position (s2);
+  return sign (Tie::get_position (s1) - Tie::get_position (s2));
 }
 
 void
@@ -235,7 +235,7 @@ Tie::print (SCM smob)
 
   Bezier b;
   int i = 0;
-  for (SCM s = cp; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = cp; s != SCM_EOL; s = scm_cdr (s))
     {
       b.control_[i] = ly_scm2offset (scm_car (s));
       i++;

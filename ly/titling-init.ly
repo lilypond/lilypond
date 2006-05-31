@@ -100,7 +100,7 @@ scoreTitleMarkup = \markup { \column {
 #(define (print-page-number-check-first layout props arg)
   (if (or (not (= (chain-assoc-get 'page:page-number props -1) 
                   (ly:output-def-lookup layout 'first-page-number)))
-          (eq? (ly:output-def-lookup layout 'print-first-page-number) #t))
+          (eq? (ly:output-def-lookup layout 'printfirst-page-number) #t))
    (print-page-number layout props arg)
    empty-stencil))
 

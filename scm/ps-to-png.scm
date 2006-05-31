@@ -129,13 +129,12 @@
 (define-public (make-ps-images ps-name . rest)
   (let-optional
    rest ((resolution 90)
-	 page-width
-	 page-height
+	 (paper-size "a4")
 	 (rename-page-1? #f)
 	 (verbose? #f)
 	 (aa-factor 1) 
 	 )
-
+   
    (let* ((base (basename (re-sub "[.]e?ps" "" ps-name)))
 	  (png1 (string-append base ".png"))
 	  (pngn (string-append base "-page%d.png"))
@@ -149,7 +148,7 @@
 	  ;;
 	  (gs-variable-options
 	   (if multi-page?
-	       (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f" page-width page-height)
+	       (format #f "-sPAPERSIZE=~a" paper-size)
 	       "-dEPSCrop"))
 
 	  (cmd (format #f "~a\

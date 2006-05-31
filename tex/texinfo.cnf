@@ -1,498 +1,196 @@
-@c -*- coding: utf-8 -*-
-
-@c We map some UTF-8 characters to corresponding texinfo macros.
+@c We map some latin-1 characters to corresponding texinfo macros.
 
 @tex
-
-% This UTF-8 parser is based on LaTeX's `utf8.def'.
-
-\newcount\countX
-\newcount\countY
-\newcount\countZ
-
-\gdef\UTFviiiTwoOctets#1#2{%
-  \expandafter
-   \UTFviiiDefined\csname u8:#1\string #2\endcsname}
-\gdef\UTFviiiThreeOctets#1#2#3{%
-  \expandafter
-   \UTFviiiDefined\csname u8:#1\string #2\string #3\endcsname}
-\gdef\UTFviiiFourOctets#1#2#3#4{%
-  \expandafter
-   \UTFviiiDefined\csname u8:#1\string #2\string #3\string #4\endcsname}
-
-\gdef\UTFviiiDefined#1{%
-  \ifx #1\relax
-    \message{%
-     \linenumber Unicode char \string #1 not set up for use with texinfo}
-  \else
-    \expandafter #1%
-  \fi
-}
-
-\begingroup
-  \catcode`\~13
-  \catcode`\"12
-
-  \def\UTFviiiLoop{%
-    \global\catcode\countX\active
-    \uccode`\~\countX
-    \uppercase\expandafter{\UTFviiiTmp}%
-    \advance\countX by 1
-    \ifnum\countX < \countY
-      \expandafter\UTFviiiLoop
-    \fi}
-
-  \countX = "C2
-  \countY = "E0
-  \def\UTFviiiTmp{%
-    \xdef~{\noexpand\UTFviiiTwoOctets\string~}}
-  \UTFviiiLoop
-
-  \countX = "E0
-  \countY = "F0
-  \def\UTFviiiTmp{%
-    \xdef~{\noexpand\UTFviiiThreeOctets\string~}}
-  \UTFviiiLoop
-
-  \countX = "F0
-  \countY = "F4
-  \def\UTFviiiTmp{%
-    \xdef~{\noexpand\UTFviiiFourOctets\string~}}
-  \UTFviiiLoop
-\endgroup
-
-\begingroup
-  \catcode`\"=12
-  \catcode`\<=12
-  \catcode`\.=12
-  \catcode`\,=12
-  \catcode`\;=12
-  \catcode`\!=12
-  \catcode`\~=13
-
-  \gdef\DeclareUnicodeCharacter#1#2{%
-    \countZ = "#1\relax
-    \wlog{\space\space defining Unicode char U+#1 (decimal \the\countZ)}%
-    \begingroup
-      \parseXMLCharref
-      \def\UTFviiiTwoOctets##1##2{%
-        \csname u8:##1\string ##2\endcsname}%
-      \def\UTFviiiThreeOctets##1##2##3{%
-        \csname u8:##1\string ##2\string ##3\endcsname}%
-      \def\UTFviiiFourOctets##1##2##3##4{%
-        \csname u8:##1\string ##2\string ##3\string ##4\endcsname}%
-      \expandafter\expandafter\expandafter\expandafter
-       \expandafter\expandafter\expandafter
-       \gdef\UTFviiiTmp{#2}%
-    \endgroup}
-
-  \gdef\parseXMLCharref{%
-    \ifnum\countZ < "A0\relax
-      \errhelp = \EMsimple
-      \errmessage{Cannot define Unicode char value < 00A0}%
-    \else\ifnum\countZ < "800\relax
-      \parseUTFviiiA,%
-      \parseUTFviiiB C\UTFviiiTwoOctets.,%
-    \else\ifnum\countZ < "10000\relax
-      \parseUTFviiiA;%
-      \parseUTFviiiA,%
-      \parseUTFviiiB E\UTFviiiThreeOctets.{,;}%
-    \else
-      \parseUTFviiiA;%
-      \parseUTFviiiA,%
-      \parseUTFviiiA!%
-      \parseUTFviiiB F\UTFviiiFourOctets.{!,;}%
-    \fi\fi\fi
-  }
-
-  \gdef\parseUTFviiiA#1{%
-    \countX = \countZ
-    \divide\countZ by 64
-    \countY = \countZ
-    \multiply\countZ by 64
-    \advance\countX by -\countZ
-    \advance\countX by 128
-    \uccode `#1\countX
-    \countZ = \countY}
-
-  \gdef\parseUTFviiiB#1#2#3#4{%
-    \advance\countZ by "#10\relax
-    \uccode `#3\countZ
-    \uppercase{\gdef\UTFviiiTmp{#2#3#4}}}
-\endgroup
-
-\DeclareUnicodeCharacter{00A0}{\tie}
-\DeclareUnicodeCharacter{00A1}{\exclamdown}		% ¡
-\DeclareUnicodeCharacter{00A3}{\pounds}			% £
-\DeclareUnicodeCharacter{00A8}{\"{ }}			% ¨
-\DeclareUnicodeCharacter{00A9}{\copyright}		% ©
-\DeclareUnicodeCharacter{00AA}{\ordf}			% ª
-\DeclareUnicodeCharacter{00AD}{\-}			% discretionary hyphen
-\DeclareUnicodeCharacter{00AE}{\registeredsymbol}	% ®
-\DeclareUnicodeCharacter{00AF}{\={ }}			% ¯
-
-\DeclareUnicodeCharacter{00B0}{\ringaccent{ }}		% °
-\DeclareUnicodeCharacter{00B4}{\'{ }}	    		% ´
-\DeclareUnicodeCharacter{00B8}{\,{ }}			% ¸
-\DeclareUnicodeCharacter{00BA}{\ordm}			% º
-\DeclareUnicodeCharacter{00BF}{\questiondown}		% ¿
-
-\DeclareUnicodeCharacter{00C0}{\`A}			% À
-\DeclareUnicodeCharacter{00C1}{\'A}			% Á
-\DeclareUnicodeCharacter{00C2}{\^A}			% Â
-\DeclareUnicodeCharacter{00C3}{\~A}			% Ã
-\DeclareUnicodeCharacter{00C4}{\"A}			% Ä
-\DeclareUnicodeCharacter{00C5}{\AA}			% Å
-\DeclareUnicodeCharacter{00C6}{\AE}			% Æ
-\DeclareUnicodeCharacter{00C7}{\,{C}}			% Ç
-\DeclareUnicodeCharacter{00C8}{\`E}			% È
-\DeclareUnicodeCharacter{00C9}{\'E}			% É
-\DeclareUnicodeCharacter{00CA}{\^E}			% Ê
-\DeclareUnicodeCharacter{00CB}{\"E}			% Ë
-\DeclareUnicodeCharacter{00CC}{\`I}			% Ì
-\DeclareUnicodeCharacter{00CD}{\'I}			% Í
-\DeclareUnicodeCharacter{00CE}{\^I}			% Î
-\DeclareUnicodeCharacter{00CF}{\"I}			% Ï
-
-\DeclareUnicodeCharacter{00D1}{\~N}			% Ñ
-\DeclareUnicodeCharacter{00D2}{\`O}			% Ò
-\DeclareUnicodeCharacter{00D3}{\'O}			% Ó
-\DeclareUnicodeCharacter{00D4}{\^O}			% Ô
-\DeclareUnicodeCharacter{00D5}{\~O}			% Õ
-\DeclareUnicodeCharacter{00D6}{\"O}			% Ö
-\DeclareUnicodeCharacter{00D8}{\O}			% Ø
-\DeclareUnicodeCharacter{00D9}{\`U}			% Ù
-\DeclareUnicodeCharacter{00DA}{\'U}			% Ú
-\DeclareUnicodeCharacter{00DB}{\^U}			% Û
-\DeclareUnicodeCharacter{00DC}{\"U}			% Ü
-\DeclareUnicodeCharacter{00DD}{\'Y}			% Ý
-\DeclareUnicodeCharacter{00DF}{\ss}			% ß
-
-\DeclareUnicodeCharacter{00E0}{\`a}			% à
-\DeclareUnicodeCharacter{00E1}{\'a}			% á
-\DeclareUnicodeCharacter{00E2}{\^a}			% â
-\DeclareUnicodeCharacter{00E3}{\~a}			% ã
-\DeclareUnicodeCharacter{00E4}{\"a}			% ä
-\DeclareUnicodeCharacter{00E5}{\aa}			% å
-\DeclareUnicodeCharacter{00E6}{\ae}			% æ
-\DeclareUnicodeCharacter{00E7}{\,{c}}			% ç
-\DeclareUnicodeCharacter{00E8}{\`e}			% è
-\DeclareUnicodeCharacter{00E9}{\'e}			% é
-\DeclareUnicodeCharacter{00EA}{\^e}			% ê
-\DeclareUnicodeCharacter{00EB}{\"e}			% ë
-\DeclareUnicodeCharacter{00EC}{\`{\dotless{i}}}		% ì
-\DeclareUnicodeCharacter{00ED}{\'{\dotless{i}}}		% í
-\DeclareUnicodeCharacter{00EE}{\^{\dotless{i}}}		% î
-\DeclareUnicodeCharacter{00EF}{\"{\dotless{i}}}		% ï
-
-\DeclareUnicodeCharacter{00F1}{\~n}			% ñ
-\DeclareUnicodeCharacter{00F2}{\`o}			% ò
-\DeclareUnicodeCharacter{00F3}{\'o}			% ó
-\DeclareUnicodeCharacter{00F4}{\^o}			% ô
-\DeclareUnicodeCharacter{00F5}{\~o}			% õ
-\DeclareUnicodeCharacter{00F6}{\"o}			% ö
-\DeclareUnicodeCharacter{00F8}{\o}			% ø
-\DeclareUnicodeCharacter{00F9}{\`u}			% ù
-\DeclareUnicodeCharacter{00FA}{\'u}			% ú
-\DeclareUnicodeCharacter{00FB}{\^u}			% û
-\DeclareUnicodeCharacter{00FC}{\"u}			% ü
-\DeclareUnicodeCharacter{00FD}{\'y}			% ý
-\DeclareUnicodeCharacter{00FF}{\"y}			% ÿ
-
-\DeclareUnicodeCharacter{0100}{\=A}			% Ā
-\DeclareUnicodeCharacter{0101}{\=a}			% ā
-\DeclareUnicodeCharacter{0102}{\u{A}}			% Ă
-\DeclareUnicodeCharacter{0103}{\u{a}}			% ă
-\DeclareUnicodeCharacter{0106}{\'C}			% Ć
-\DeclareUnicodeCharacter{0107}{\'c}			% ć
-\DeclareUnicodeCharacter{0108}{\^C}			% Ĉ
-\DeclareUnicodeCharacter{0109}{\^c}			% ĉ
-\DeclareUnicodeCharacter{010A}{\dotaccent{C}}		% Ċ
-\DeclareUnicodeCharacter{010B}{\dotaccent{c}}		% ċ
-\DeclareUnicodeCharacter{010C}{\v{C}}			% Č
-\DeclareUnicodeCharacter{010D}{\v{c}}			% č
-\DeclareUnicodeCharacter{010E}{\v{D}}			% Ď
-%\DeclareUnicodeCharacter{010F}{\v{d}}			% ď
-
-\DeclareUnicodeCharacter{0112}{\=E}			% Ē
-\DeclareUnicodeCharacter{0113}{\=e}			% ē
-\DeclareUnicodeCharacter{0114}{\u{E}}			% Ĕ
-\DeclareUnicodeCharacter{0115}{\u{e}}			% ĕ
-\DeclareUnicodeCharacter{0116}{\dotaccent{E}}		% Ė
-\DeclareUnicodeCharacter{0117}{\dotaccent{e}}		% ė
-\DeclareUnicodeCharacter{011A}{\v{E}}			% Ě
-\DeclareUnicodeCharacter{011B}{\v{e}}			% ě
-\DeclareUnicodeCharacter{011C}{\^G}			% Ĝ
-\DeclareUnicodeCharacter{011D}{\^g}			% ĝ
-\DeclareUnicodeCharacter{011E}{\u{G}}			% Ğ
-\DeclareUnicodeCharacter{011F}{\u{g}}			% ğ
-
-\DeclareUnicodeCharacter{0120}{\dotaccent{G}}		% Ġ
-\DeclareUnicodeCharacter{0121}{\dotaccent{g}}		% ġ
-\DeclareUnicodeCharacter{0124}{\^H}			% Ĥ
-\DeclareUnicodeCharacter{0125}{\^h}			% ĥ
-\DeclareUnicodeCharacter{0128}{\~I}			% Ĩ
-\DeclareUnicodeCharacter{0129}{\~{\dotless{i}}}		% ĩ
-\DeclareUnicodeCharacter{012A}{\=I}			% Ī
-\DeclareUnicodeCharacter{012B}{\={\dotless{i}}}		% ī
-\DeclareUnicodeCharacter{012C}{\u{I}}			% Ĭ
-\DeclareUnicodeCharacter{012D}{\u{\dotless{i}}}		% ĭ
-
-\DeclareUnicodeCharacter{0130}{\dotaccent{I}}		% İ
-\DeclareUnicodeCharacter{0131}{\dotless{i}}		% ı
-\DeclareUnicodeCharacter{0132}{IJ}			% Ĳ
-\DeclareUnicodeCharacter{0133}{ij}			% ĳ
-\DeclareUnicodeCharacter{0134}{\^J}			% Ĵ
-\DeclareUnicodeCharacter{0135}{\^{\dotless{j}}}		% ĵ
-\DeclareUnicodeCharacter{0139}{\'L}			% Ĺ
-\DeclareUnicodeCharacter{013A}{\'l}			% ĺ
-
-\DeclareUnicodeCharacter{0141}{\L}			% Ł
-\DeclareUnicodeCharacter{0142}{\l}			% ł
-\DeclareUnicodeCharacter{0143}{\'N}			% Ń
-\DeclareUnicodeCharacter{0144}{\'n}			% ń
-\DeclareUnicodeCharacter{0147}{\v{N}}			% Ň
-\DeclareUnicodeCharacter{0148}{\v{n}}			% ň
-\DeclareUnicodeCharacter{014C}{\=O}			% Ō
-\DeclareUnicodeCharacter{014D}{\=o}			% ō
-\DeclareUnicodeCharacter{014E}{\u{O}}			% Ŏ
-\DeclareUnicodeCharacter{014F}{\u{o}}			% ŏ
-
-\DeclareUnicodeCharacter{0150}{\H{O}}			% Ő
-\DeclareUnicodeCharacter{0151}{\H{o}}			% ő
-\DeclareUnicodeCharacter{0152}{\OE}			% Œ
-\DeclareUnicodeCharacter{0153}{\oe}			% œ
-\DeclareUnicodeCharacter{0154}{\'R}			% Ŕ
-\DeclareUnicodeCharacter{0155}{\'r}			% ŕ
-\DeclareUnicodeCharacter{0158}{\v{R}}			% Ř
-\DeclareUnicodeCharacter{0159}{\v{r}}			% ř
-\DeclareUnicodeCharacter{015A}{\'S}			% Ś
-\DeclareUnicodeCharacter{015B}{\'s}			% ś
-\DeclareUnicodeCharacter{015C}{\^S}			% Ŝ
-\DeclareUnicodeCharacter{015D}{\^s}			% ŝ
-\DeclareUnicodeCharacter{015E}{\,{S}}			% Ş
-\DeclareUnicodeCharacter{015F}{\,{s}}			% ş
-
-\DeclareUnicodeCharacter{0160}{\v{S}}			% Š
-\DeclareUnicodeCharacter{0161}{\v{s}}			% š
-\DeclareUnicodeCharacter{0162}{\,{t}}			% Ţ
-\DeclareUnicodeCharacter{0163}{\,{T}}			% ţ
-\DeclareUnicodeCharacter{0164}{\v{T}}			% Ť
-%\DeclareUnicodeCharacter{0165}{\v{t}}			% ť
-\DeclareUnicodeCharacter{0168}{\~U}			% Ũ
-\DeclareUnicodeCharacter{0169}{\~u}			% ũ
-\DeclareUnicodeCharacter{016A}{\=U}			% Ū
-\DeclareUnicodeCharacter{016B}{\=u}			% ū
-\DeclareUnicodeCharacter{016C}{\u{U}}			% Ŭ
-\DeclareUnicodeCharacter{016D}{\u{u}}			% ŭ
-\DeclareUnicodeCharacter{016E}{\ringaccent{U}}		% Ů
-\DeclareUnicodeCharacter{016F}{\ringaccent{u}}		% ů
-
-\DeclareUnicodeCharacter{0170}{\H{U}}			% Ű
-\DeclareUnicodeCharacter{0171}{\H{u}}			% ű
-\DeclareUnicodeCharacter{0174}{\^W}			% Ŵ
-\DeclareUnicodeCharacter{0175}{\^w}			% ŵ
-\DeclareUnicodeCharacter{0176}{\^Y}			% Ŷ
-\DeclareUnicodeCharacter{0177}{\^y}			% ŷ
-\DeclareUnicodeCharacter{0178}{\"Y}			% Ÿ
-\DeclareUnicodeCharacter{0179}{\'Z}			% Ź
-\DeclareUnicodeCharacter{017A}{\'z}			% ź
-\DeclareUnicodeCharacter{017B}{\dotaccent{Z}}		% Ż
-\DeclareUnicodeCharacter{017C}{\dotaccent{z}}		% ż
-\DeclareUnicodeCharacter{017D}{\v{Z}}			% Ž
-\DeclareUnicodeCharacter{017E}{\v{z}}			% ž
-
-\DeclareUnicodeCharacter{01C4}{D\v{Z}}			% Ǆ
-\DeclareUnicodeCharacter{01C5}{D\v{z}}			% ǅ
-\DeclareUnicodeCharacter{01C6}{d\v{z}}			% ǆ
-\DeclareUnicodeCharacter{01C7}{LJ}			% Ǉ
-\DeclareUnicodeCharacter{01C8}{Lj}			% ǈ
-\DeclareUnicodeCharacter{01C9}{lj}			% ǉ
-\DeclareUnicodeCharacter{01CA}{NJ}			% Ǌ
-\DeclareUnicodeCharacter{01CB}{Nj}			% ǋ
-\DeclareUnicodeCharacter{01CC}{nj}			% ǌ
-\DeclareUnicodeCharacter{01CD}{\v{A}}			% Ǎ
-\DeclareUnicodeCharacter{01CE}{\v{a}}			% ǎ
-\DeclareUnicodeCharacter{01CF}{\v{I}}			% Ǐ
-
-\DeclareUnicodeCharacter{01D0}{\v{\dotless{i}}}		% ǐ
-\DeclareUnicodeCharacter{01D1}{\v{O}}			% Ǒ
-\DeclareUnicodeCharacter{01D2}{\v{o}}			% ǒ
-\DeclareUnicodeCharacter{01D3}{\v{U}}			% Ǔ
-\DeclareUnicodeCharacter{01D4}{\v{u}}			% ǔ
-
-\DeclareUnicodeCharacter{01E2}{\={\AE}}			% Ǣ
-\DeclareUnicodeCharacter{01E3}{\={\ae}}			% ǣ
-\DeclareUnicodeCharacter{01E6}{\v{G}}			% Ǧ
-\DeclareUnicodeCharacter{01E7}{\v{g}}			% ǧ
-\DeclareUnicodeCharacter{01E8}{\v{K}}			% Ǩ
-\DeclareUnicodeCharacter{01E9}{\v{k}}			% ǩ
-
-\DeclareUnicodeCharacter{01F0}{\v{\dotless{j}}}		% ǰ
-\DeclareUnicodeCharacter{01F1}{DZ}			% Ǳ
-\DeclareUnicodeCharacter{01F2}{Dz}			% ǲ
-\DeclareUnicodeCharacter{01F3}{dz}			% ǳ
-\DeclareUnicodeCharacter{01F4}{\'G}			% Ǵ
-\DeclareUnicodeCharacter{01F5}{\'g}			% ǵ
-\DeclareUnicodeCharacter{01F8}{\`N}			% Ǹ
-\DeclareUnicodeCharacter{01F9}{\`n}			% ǹ
-\DeclareUnicodeCharacter{01FC}{\'{\AE}}			% Ǽ
-\DeclareUnicodeCharacter{01FD}{\'{\ae}}			% ǽ
-\DeclareUnicodeCharacter{01FE}{\'{\O}}			% Ǿ
-\DeclareUnicodeCharacter{01FF}{\'{\o}}			% ǿ
-
-\DeclareUnicodeCharacter{021E}{\v{H}}			% Ȟ
-\DeclareUnicodeCharacter{021F}{\v{h}}			% ȟ
-
-\DeclareUnicodeCharacter{0226}{\dotaccent{A}}		% Ȧ
-\DeclareUnicodeCharacter{0227}{\dotaccent{a}}		% ȧ
-\DeclareUnicodeCharacter{0228}{\,{E}}			% Ȩ
-\DeclareUnicodeCharacter{0229}{\,{e}}			% ȩ
-\DeclareUnicodeCharacter{022E}{\dotaccent{O}}		% Ȯ
-\DeclareUnicodeCharacter{022F}{\dotaccent{o}}		% ȯ
-
-\DeclareUnicodeCharacter{0232}{\=Y}			% Ȳ
-\DeclareUnicodeCharacter{0233}{\=y}			% ȳ
-\DeclareUnicodeCharacter{0237}{\dotless{j}}		% ȷ
-
-\DeclareUnicodeCharacter{1E02}{\dotaccent{B}}		% Ḃ
-\DeclareUnicodeCharacter{1E03}{\dotaccent{b}}		% ḃ
-\DeclareUnicodeCharacter{1E04}{\udotaccent{B}}		% Ḅ
-\DeclareUnicodeCharacter{1E05}{\udotaccent{b}}		% ḅ
-\DeclareUnicodeCharacter{1E06}{\ubaraccent{B}}		% Ḇ
-\DeclareUnicodeCharacter{1E07}{\ubaraccent{b}}		% ḇ
-\DeclareUnicodeCharacter{1E0A}{\dotaccent{D}}		% Ḋ
-\DeclareUnicodeCharacter{1E0B}{\dotaccent{d}}		% ḋ
-\DeclareUnicodeCharacter{1E0C}{\udotaccent{D}}		% Ḍ
-\DeclareUnicodeCharacter{1E0D}{\udotaccent{d}}		% ḍ
-\DeclareUnicodeCharacter{1E0E}{\ubaraccent{D}}		% Ḏ
-\DeclareUnicodeCharacter{1E0F}{\ubaraccent{d}}		% ḏ
-
-\DeclareUnicodeCharacter{1E1E}{\dotaccent{F}}		% Ḟ
-\DeclareUnicodeCharacter{1E1F}{\dotaccent{f}}		% ḟ
-
-\DeclareUnicodeCharacter{1E20}{\=G}			% Ḡ
-\DeclareUnicodeCharacter{1E21}{\=g}			% ḡ
-\DeclareUnicodeCharacter{1E22}{\dotaccent{H}}		% Ḣ
-\DeclareUnicodeCharacter{1E23}{\dotaccent{h}}		% ḣ
-\DeclareUnicodeCharacter{1E24}{\udotaccent{H}}		% Ḥ
-\DeclareUnicodeCharacter{1E25}{\udotaccent{h}}		% ḥ
-\DeclareUnicodeCharacter{1E26}{\"H}			% Ḧ
-\DeclareUnicodeCharacter{1E27}{\"h}			% ḧ
-
-\DeclareUnicodeCharacter{1E30}{\'K}			% Ḱ
-\DeclareUnicodeCharacter{1E31}{\'k}			% ḱ
-\DeclareUnicodeCharacter{1E32}{\udotaccent{K}}		% Ḳ
-\DeclareUnicodeCharacter{1E33}{\udotaccent{k}}		% ḳ
-\DeclareUnicodeCharacter{1E34}{\ubaraccent{K}}		% Ḵ
-\DeclareUnicodeCharacter{1E35}{\ubaraccent{k}}		% ḵ
-\DeclareUnicodeCharacter{1E36}{\udotaccent{L}}		% Ḷ
-\DeclareUnicodeCharacter{1E37}{\udotaccent{l}}		% ḷ
-\DeclareUnicodeCharacter{1E3A}{\ubaraccent{L}}		% Ḻ
-\DeclareUnicodeCharacter{1E3B}{\ubaraccent{l}}		% ḻ
-\DeclareUnicodeCharacter{1E3E}{\'M}			% Ḿ
-\DeclareUnicodeCharacter{1E3F}{\'m}			% ḿ
-
-\DeclareUnicodeCharacter{1E40}{\dotaccent{M}}		% Ṁ
-\DeclareUnicodeCharacter{1E41}{\dotaccent{m}}		% ṁ
-\DeclareUnicodeCharacter{1E42}{\udotaccent{M}}		% Ṃ
-\DeclareUnicodeCharacter{1E43}{\udotaccent{m}}		% ṃ
-\DeclareUnicodeCharacter{1E44}{\dotaccent{N}}		% Ṅ
-\DeclareUnicodeCharacter{1E45}{\dotaccent{n}}		% ṅ
-\DeclareUnicodeCharacter{1E46}{\udotaccent{N}}		% Ṇ
-\DeclareUnicodeCharacter{1E47}{\udotaccent{n}}		% ṇ
-\DeclareUnicodeCharacter{1E48}{\ubaraccent{N}}		% Ṉ
-\DeclareUnicodeCharacter{1E49}{\ubaraccent{n}}		% ṉ
-
-\DeclareUnicodeCharacter{1E54}{\'P}			% Ṕ
-\DeclareUnicodeCharacter{1E55}{\'p}			% ṕ
-\DeclareUnicodeCharacter{1E56}{\dotaccent{P}}		% Ṗ
-\DeclareUnicodeCharacter{1E57}{\dotaccent{p}}		% ṗ
-\DeclareUnicodeCharacter{1E58}{\dotaccent{R}}		% Ṙ
-\DeclareUnicodeCharacter{1E59}{\dotaccent{r}}		% ṙ
-\DeclareUnicodeCharacter{1E5A}{\udotaccent{R}}		% Ṛ
-\DeclareUnicodeCharacter{1E5B}{\udotaccent{r}}		% ṛ
-\DeclareUnicodeCharacter{1E5E}{\ubaraccent{R}}		% Ṟ
-\DeclareUnicodeCharacter{1E5F}{\ubaraccent{r}}		% ṟ
-
-\DeclareUnicodeCharacter{1E60}{\dotaccent{S}}		% Ṡ
-\DeclareUnicodeCharacter{1E61}{\dotaccent{s}}		% ṡ
-\DeclareUnicodeCharacter{1E62}{\udotaccent{S}}		% Ṣ
-\DeclareUnicodeCharacter{1E63}{\udotaccent{s}}		% ṣ
-\DeclareUnicodeCharacter{1E6A}{\dotaccent{T}}		% Ṫ
-\DeclareUnicodeCharacter{1E6B}{\dotaccent{t}}		% ṫ
-\DeclareUnicodeCharacter{1E6C}{\udotaccent{T}}		% Ṭ
-\DeclareUnicodeCharacter{1E6D}{\udotaccent{t}}		% ṭ
-\DeclareUnicodeCharacter{1E6E}{\ubaraccent{T}}		% Ṯ
-\DeclareUnicodeCharacter{1E6F}{\ubaraccent{t}}		% ṯ
-
-\DeclareUnicodeCharacter{1E7C}{\~V}			% Ṽ
-\DeclareUnicodeCharacter{1E7D}{\~v}			% ṽ
-\DeclareUnicodeCharacter{1E7E}{\udotaccent{V}}		% Ṿ
-\DeclareUnicodeCharacter{1E7F}{\udotaccent{v}}		% ṿ
-
-\DeclareUnicodeCharacter{1E80}{\`W}			% Ẁ
-\DeclareUnicodeCharacter{1E81}{\`w}			% ẁ
-\DeclareUnicodeCharacter{1E82}{\'W}			% Ẃ
-\DeclareUnicodeCharacter{1E83}{\'w}			% ẃ
-\DeclareUnicodeCharacter{1E84}{\"W}			% Ẅ
-\DeclareUnicodeCharacter{1E85}{\"w}			% ẅ
-\DeclareUnicodeCharacter{1E86}{\dotaccent{W}}		% Ẇ
-\DeclareUnicodeCharacter{1E87}{\dotaccent{w}}		% ẇ
-\DeclareUnicodeCharacter{1E88}{\udotaccent{W}}		% Ẉ
-\DeclareUnicodeCharacter{1E89}{\udotaccent{w}}		% ẉ
-\DeclareUnicodeCharacter{1E8A}{\dotaccent{X}}		% Ẋ
-\DeclareUnicodeCharacter{1E8B}{\dotaccent{x}}		% ẋ
-\DeclareUnicodeCharacter{1E8C}{\"X}			% Ẍ
-\DeclareUnicodeCharacter{1E8D}{\"x}			% ẍ
-\DeclareUnicodeCharacter{1E8E}{\dotaccent{Y}}		% Ẏ
-\DeclareUnicodeCharacter{1E8F}{\dotaccent{y}}		% ẏ
-
-\DeclareUnicodeCharacter{1E90}{\^Z}			% Ẑ
-\DeclareUnicodeCharacter{1E91}{\^z}			% ẑ
-\DeclareUnicodeCharacter{1E92}{\udotaccent{Z}}		% Ẓ
-\DeclareUnicodeCharacter{1E93}{\udotaccent{z}}		% ẓ
-\DeclareUnicodeCharacter{1E94}{\ubaraccent{Z}}		% Ẕ
-\DeclareUnicodeCharacter{1E95}{\ubaraccent{z}}		% ẕ
-\DeclareUnicodeCharacter{1E96}{\ubaraccent{h}}		% ẖ
-\DeclareUnicodeCharacter{1E97}{\"t}			% ẗ
-\DeclareUnicodeCharacter{1E98}{\ringaccent{w}}		% ẘ
-\DeclareUnicodeCharacter{1E99}{\ringaccent{y}}		% ẙ
-
-\DeclareUnicodeCharacter{1EA0}{\udotaccent{A}}		% Ạ
-\DeclareUnicodeCharacter{1EA1}{\udotaccent{a}}		% ạ
-
-\DeclareUnicodeCharacter{1EB8}{\udotaccent{E}}		% Ẹ
-\DeclareUnicodeCharacter{1EB9}{\udotaccent{e}}		% ẹ
-\DeclareUnicodeCharacter{1EBC}{\~E}			% Ẽ
-\DeclareUnicodeCharacter{1EBD}{\~e}			% ẽ
-
-\DeclareUnicodeCharacter{1ECA}{\udotaccent{I}}		% Ị
-\DeclareUnicodeCharacter{1ECB}{\udotaccent{i}}		% ị
-\DeclareUnicodeCharacter{1ECC}{\udotaccent{O}}		% Ọ
-\DeclareUnicodeCharacter{1ECD}{\udotaccent{o}}		% ọ
-
-\DeclareUnicodeCharacter{1EE4}{\udotaccent{U}}		% Ụ
-\DeclareUnicodeCharacter{1EE5}{\udotaccent{u}}		% ụ
-
-\DeclareUnicodeCharacter{1EF2}{\`Y}			% Ỳ
-\DeclareUnicodeCharacter{1EF3}{\`y}			% ỳ
-\DeclareUnicodeCharacter{1EF4}{\udotaccent{Y}}		% Ỵ
-%\DeclareUnicodeCharacter{1EF5}{\udotaccent{y}}		% ỵ
-\DeclareUnicodeCharacter{1EF8}{\~Y}			% Ỹ
-\DeclareUnicodeCharacter{1EF9}{\~y}			% ỹ
-
-\DeclareUnicodeCharacter{2013}{--}			% –
-\DeclareUnicodeCharacter{2014}{---}			% —
-\DeclareUnicodeCharacter{2022}{\bullet}			% •
-\DeclareUnicodeCharacter{2026}{\dots}			% …
-\DeclareUnicodeCharacter{20AC}{\euro}			% €
-
-\DeclareUnicodeCharacter{2192}{\expansion}		% →
-\DeclareUnicodeCharacter{21D2}{\result}			% ⇒
-
-\DeclareUnicodeCharacter{2212}{\minus}			% −
-\DeclareUnicodeCharacter{2217}{\point}			% ∗
-\DeclareUnicodeCharacter{2261}{\equiv}			% ≡
-
+\global\catcode`^^a0\active % `�'
+\gdef^^a0{\tie}
+\global\catcode`^^a1\active % �
+\gdef^^a1{\exclamdown}
+%\global\catcode`^^a2\active % �
+%\gdef^^a2{}
+\global\catcode`^^a3\active % �
+\gdef^^a3{\pounds}
+%\global\catcode`^^a4\active % �
+%\gdef^^a4{}
+%\global\catcode`^^a5\active % �
+%\gdef^^a5{}
+%\global\catcode`^^a6\active % �
+%\gdef^^a6{}
+%\global\catcode`^^a7\active % �
+%\gdef^^a7{}
+\global\catcode`^^a8\active % �
+\gdef^^a8{\"{ }}
+\global\catcode`^^a9\active % �
+\gdef^^a9{\copyright}
+\global\catcode`^^aa\active % �
+\gdef^^aa{\ordf}
+%\global\catcode`^^ab\active % �
+%\gdef^^ab{}
+%\global\catcode`^^ac\active % �
+%\gdef^^ac{}
+%\global\catcode`^^ad\active % �
+%\gdef^^ad{}
+\global\catcode`^^ae\active % �
+\gdef^^ae{\registeredsymbol}
+\global\catcode`^^af\active % �
+\gdef^^af{\={ }}
+\global\catcode`^^b0\active % �
+\gdef^^b0{\ringaccent{ }}
+%\global\catcode`^^b1\active % �
+%\gdef^^b1{}
+%\global\catcode`^^b2\active % �
+%\gdef^^b2{}
+%\global\catcode`^^b3\active % �
+%\gdef^^b3{}
+\global\catcode`^^b4\active % �
+\gdef^^b4{\'{ }}
+%\global\catcode`^^b5\active % �
+%\gdef^^b5{}
+%\global\catcode`^^b6\active % �
+%\gdef^^b6{}
+%\global\catcode`^^b7\active % �
+%\gdef^^b7{}
+\global\catcode`^^b8\active % �
+\gdef^^b8{\,{ }}
+%\global\catcode`^^b9\active % �
+%\gdef^^b9{}
+\global\catcode`^^ba\active % �
+\gdef^^ba{\ordm}
+%\global\catcode`^^bb\active % �
+%\gdef^^bb{}
+%\global\catcode`^^bc\active % �
+%\gdef^^bc{}
+%\global\catcode`^^bd\active % �
+%\gdef^^bd{}
+%\global\catcode`^^be\active % �
+%\gdef^^be{}
+\global\catcode`^^bf\active % �
+\gdef^^bf{\exclamdown}
+\global\catcode`^^c0\active % �
+\gdef^^c0{\`A}
+\global\catcode`^^c1\active % �
+\gdef^^c1{\'A}
+\global\catcode`^^c2\active % �
+\gdef^^c2{\^A}
+\global\catcode`^^c3\active % �
+\gdef^^c3{\~A}
+\global\catcode`^^c4\active % �
+\gdef^^c4{\"A}
+\global\catcode`^^c5\active % �
+\gdef^^c5{\AA}
+\global\catcode`^^c6\active % �
+\gdef^^c6{\AE}
+\global\catcode`^^c7\active % �
+\gdef^^c7{\,{C}}
+\global\catcode`^^c8\active % �
+\gdef^^c8{\`E}
+\global\catcode`^^c9\active % �
+\gdef^^c9{\'E}
+\global\catcode`^^ca\active % �
+\gdef^^ca{\^E}
+\global\catcode`^^cb\active % �
+\gdef^^cb{\"E}
+\global\catcode`^^cc\active % �
+\gdef^^cc{\`I}
+\global\catcode`^^cd\active % �
+\gdef^^cd{\'I}
+\global\catcode`^^ce\active % �
+\gdef^^ce{\^I}
+\global\catcode`^^cf\active % �
+\gdef^^cf{\"I}
+%\global\catcode`^^d0\active % �
+%\gdef^^d0{}
+\global\catcode`^^d1\active % �
+\gdef^^d1{\~N}
+\global\catcode`^^d2\active % �
+\gdef^^d2{\`O}
+\global\catcode`^^d3\active % �
+\gdef^^d3{\'O}
+\global\catcode`^^d4\active % �
+\gdef^^d4{\^O}
+\global\catcode`^^d5\active % �
+\gdef^^d5{\~O}
+\global\catcode`^^d6\active % �
+\gdef^^d6{\"O}
+%\global\catcode`^^d7\active % �
+%\gdef^^d7{}
+\global\catcode`^^d8\active % �
+\gdef^^d8{\O}
+\global\catcode`^^d9\active % �
+\gdef^^d9{\`U}
+\global\catcode`^^da\active % �
+\gdef^^da{\'U}
+\global\catcode`^^db\active % �
+\gdef^^db{\^U}
+\global\catcode`^^dc\active % �
+\gdef^^dc{\"U}
+\global\catcode`^^dd\active % �
+\gdef^^dd{\'Y}
+%\global\catcode`^^de\active % �
+%\gdef^^de{}
+\global\catcode`^^df\active % �
+\gdef^^df{\ss}
+\global\catcode`^^e0\active % �
+\gdef^^e0{\`a}
+\global\catcode`^^e1\active % �
+\gdef^^e1{\'a}
+\global\catcode`^^e2\active % �
+\gdef^^e2{\^a}
+\global\catcode`^^e3\active % �
+\gdef^^e3{\~a}
+\global\catcode`^^e4\active % �
+\gdef^^e4{\"a}
+\global\catcode`^^e5\active % �
+\gdef^^e5{\aa}
+\global\catcode`^^e6\active % �
+\gdef^^e6{\ae}
+\global\catcode`^^e7\active % �
+\gdef^^e7{\,{c}}
+\global\catcode`^^e8\active % �
+\gdef^^e8{\`e}
+\global\catcode`^^e9\active % �
+\gdef^^e9{\'e}
+\global\catcode`^^ea\active % �
+\gdef^^ea{\^e}
+\global\catcode`^^eb\active % �
+\gdef^^eb{\"e}
+\global\catcode`^^ec\active % �
+\gdef^^ec{\`{\dotless{i}}}
+\global\catcode`^^ed\active % �
+\gdef^^ed{\'{\dotless{i}}}
+\global\catcode`^^ee\active % �
+\gdef^^ee{\^{\dotless{i}}}
+\global\catcode`^^ef\active % �
+\gdef^^ef{\"{\dotless{i}}}
+%\global\catcode`^^f0\active % �
+%\gdef^^f0{}
+\global\catcode`^^f1\active % �
+\gdef^^f1{\~n}
+\global\catcode`^^f2\active % �
+\gdef^^f2{\`o}
+\global\catcode`^^f3\active % �
+\gdef^^f3{\'o}
+\global\catcode`^^f4\active % �
+\gdef^^f4{\^o}
+\global\catcode`^^f5\active % �
+\gdef^^f5{\~o}
+\global\catcode`^^f6\active % �
+\gdef^^f6{\"o}
+%\global\catcode`^^f7\active % �
+%\gdef^^f7{}
+\global\catcode`^^f8\active % �
+\gdef^^f8{\o}
+\global\catcode`^^f9\active % �
+\gdef^^f9{\`u}
+\global\catcode`^^fa\active % �
+\gdef^^fa{\'u}
+\global\catcode`^^fb\active % �
+\gdef^^fb{\^u}
+\global\catcode`^^fc\active % �
+\gdef^^fc{\"u}
+\global\catcode`^^fd\active % �
+\gdef^^fd{\'y}
+%\global\catcode`^^fe\active % �
+%\gdef^^fe{}
+\global\catcode`^^ff\active % �
+\gdef^^ff{\"y}
 @end tex

@@ -6,36 +6,8 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "engraver.hh"
-#include "international.hh"
+#include "staff-symbol-engraver.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
-#include "warn.hh"
-
-#include "translator.icc"
-
-class Staff_symbol_engraver : public Engraver
-{
-public:
-  TRANSLATOR_DECLARATIONS (Staff_symbol_engraver);
-
-protected:
-  Drul_array<Stream_event *> span_events_;
-  Spanner *span_;
-  Spanner *finished_span_;
-  bool first_start_;
-
-protected:
-  virtual void start_spanner ();
-  virtual void stop_spanner ();
-
-  void stop_translation_timestep ();
-  virtual ~Staff_symbol_engraver ();
-  DECLARE_ACKNOWLEDGER (grob);
-  DECLARE_TRANSLATOR_LISTENER (staff_span);
-  virtual void finalize ();
-  void process_music ();
-};
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()
 {
@@ -51,15 +23,17 @@ Staff_symbol_engraver::Staff_symbol_engraver ()
   span_events_[RIGHT] = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Staff_symbol_engraver, staff_span);
-void
-Staff_symbol_engraver::listen_staff_span (Stream_event *ev)
+bool
+Staff_symbol_engraver::try_music (Music *music)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
+  Direction d = to_dir (music->get_property ("span-direction"));
   if (d)
-    ASSIGN_EVENT_ONCE (span_events_[d], ev);
-  else
-    programming_error (_ ("staff-span event has no direction"));
+    {
+      span_events_[d] = music;
+      return true;
+    }
+
+  return false;
 }
 
 void
@@ -82,27 +56,14 @@ void
 Staff_symbol_engraver::start_spanner ()
 {
   if (!span_)
-    {
-      span_ = make_spanner ("StaffSymbol", SCM_EOL);
-      span_->set_bound (LEFT,
-			unsmob_grob (get_property ("currentCommandColumn")));
-    }
+    span_ = make_spanner ("StaffSymbol", SCM_EOL);
 }
 
 void
 Staff_symbol_engraver::stop_spanner ()
 {
-  if (!finished_span_)
-    return;
-
-  if (!finished_span_->get_bound (RIGHT))
+  if (finished_span_ && !finished_span_->get_bound (RIGHT))
     finished_span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
-  
-  announce_end_grob (finished_span_,
-		     span_events_[STOP]
-		     ? span_events_[STOP]->self_scm ()
-		     : SCM_EOL);
-  
   finished_span_ = 0;
 }
 
@@ -110,8 +71,10 @@ void
 Staff_symbol_engraver::stop_translation_timestep ()
 {
   if ((span_events_[START] || first_start_)
-      && span_)
+      && span_
+      && !span_->get_bound (LEFT))
     {
+      span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
       first_start_ = false;
     }
 
@@ -145,8 +108,8 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
     }
 }
 
+#include "translator.icc"
 ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
-
 ADD_TRANSLATOR (Staff_symbol_engraver,
 		/* doc */ "Create the constellation of five (default) "
 		"staff lines.",

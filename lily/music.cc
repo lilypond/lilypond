@@ -11,7 +11,7 @@
 #include "context.hh"
 #include "dispatcher.hh"
 #include "duration.hh"
-#include "input.hh"
+#include "input-smob.hh"
 #include "international.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
@@ -21,11 +21,11 @@
 #include "warn.hh"
 
 /*
-  Music is anything that has (possibly zero) duration and supports
-  both time compression and transposition.
+  Music is anything that has duration and supports both time compression
+  and transposition.
 
   In Lily, everything that can be thought to have a length and a pitch
-  (which has a duration which can be transposed) is considered "music".
+  (which has a duration which can be transposed) is considered "music",
 */
 bool
 Music::internal_is_music_type (SCM k) const
@@ -184,18 +184,15 @@ Music::compress (Moment factor)
     set_property ("duration", d->compressed (factor.main_part_).smobbed_copy ());
 }
 
-/*
-TODO: make transposition non-destructive
-*/
-SCM
-transpose_mutable (SCM alist, Pitch delta)
+void
+Music::transpose (Pitch delta)
 {
-  SCM retval = SCM_EOL;
+  if (to_boolean (get_property ("untransposable")))
+    return;
 
-  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = this->get_property_alist (true); scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
-      SCM prop = scm_car (entry);
       SCM val = scm_cdr (entry);
 
       if (Pitch *p = unsmob_pitch (val))
@@ -209,29 +206,21 @@ transpose_mutable (SCM alist, Pitch delta)
 			   delta.to_string ()));
 	    }
 	}
-      else if (prop == ly_symbol2scm ("element"))
-	{
-	  if (Music *m = unsmob_music (val))
-	    m->transpose (delta);
-	}
-      else if (prop == ly_symbol2scm ("elements"))
-	transpose_music_list (val, delta);
-      else if (prop == ly_symbol2scm ("pitch-alist") &&
-	       scm_is_pair (val))
-	entry = scm_cons (prop, ly_transpose_key_alist (val, delta.smobbed_copy ()));
-      retval = scm_cons (entry, retval);
     }
 
-  return scm_reverse_x (retval, SCM_EOL);
-}
+  SCM elt = get_property ("element");
 
-void
-Music::transpose (Pitch delta)
-{
-  if (to_boolean (get_property ("untransposable")))
-    return;
+  if (Music *m = unsmob_music (elt))
+    m->transpose (delta);
 
-  mutable_property_alist_ = transpose_mutable (mutable_property_alist_, delta);
+  transpose_music_list (get_property ("elements"), delta);
+
+  /*
+    UGH - how do this more generically?
+  */
+  SCM pa = get_property ("pitch-alist");
+  if (scm_is_pair (pa))
+    set_property ("pitch-alist", ly_transpose_key_alist (pa, delta.smobbed_copy ()));
 }
 
 void
@@ -247,68 +236,11 @@ Music::origin () const
   return ip ? ip : &dummy_input_global;
 }
 
-/*
-  ES TODO: This method should probably be reworked or junked.
-*/
-Stream_event *
-Music::to_event () const
-{
-  /* UGH. Temp hack */
-  SCM orig_sym = get_property ("name");
-  char out[200];
-  string in = ly_symbol2string (orig_sym);
-  /* don't add '-' before first character */
-  out[0] = tolower (in[0]);
-  size_t outpos = 1;
-  for (size_t inpos = 1; inpos < in.size () && outpos < 190; inpos++)
-    {
-      if (isupper (in[inpos]))
-	out[outpos++] = '-';
-      out[outpos++] = tolower (in[inpos]);      
-    }
-  out[outpos] = 0;
-  SCM class_name = ly_symbol2scm (out);
-
-  // catch programming mistakes.
-  if (!internal_is_music_type (class_name))
-    {
-      programming_error ("Not a music type");
-    }
-
-  Stream_event *e = new Stream_event (class_name, mutable_property_alist_);
-  Moment length = get_length ();
-  if (length.to_bool ())
-    e->set_property ("length", length.smobbed_copy ());
-
-  // articulations as events.
-  SCM art_mus = e->get_property ("articulations");
-  if (scm_is_pair (art_mus))
-    {
-      SCM art_ev = SCM_EOL;
-      for (; scm_is_pair (art_mus); art_mus = scm_cdr (art_mus))
-	{
-	  Music *m = unsmob_music (scm_car (art_mus));
-	  SCM ev = m ? m->to_event ()->unprotect () : scm_car (art_mus);
-	  art_ev = scm_cons (ev, art_ev);
-	}
-      e->set_property ("articulations", scm_reverse_x (art_ev, SCM_EOL));
-    }
-
-  /*
-    ES TODO: This is a temporary fix. Stream_events should not be
-    aware of music.
-  */
-  e->set_property ("music-cause", self_scm ());
-
-  return e;
-}
-
 void
 Music::send_to_context (Context *c)
 {
-  Stream_event *ev = to_event ();
-  c->event_source ()->broadcast (ev);
-  ev->unprotect ();
+  send_stream_event (c, "MusicEvent",
+  		     ly_symbol2scm("music"), self_scm (), 0);
 }
 
 Music *

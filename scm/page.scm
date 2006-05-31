@@ -37,11 +37,10 @@
 
 (define page-module (current-module))
 
-(define (make-page paper-book  . args)
+(define (make-page init  . args)
   (let*
       ((p (apply ly:make-prob (append
-			       (list 'page (layout->page-init (ly:paper-book-paper paper-book))
-				     'paper-book paper-book)
+			       (list 'page init)
 			       args))))
 
     (page-set-property! p 'head-stencil (page-header p))
@@ -86,37 +85,43 @@
 	(page-property page 'configuration))))
 
 (define (annotate-page layout stencil)
-  (let ((top-margin (ly:output-def-lookup layout 'top-margin))
-	(paper-height (ly:output-def-lookup layout 'paper-height))
-	(bottom-margin (ly:output-def-lookup layout 'bottom-margin))
-	(add-stencil (lambda (y)
-		       (set! stencil
-			     (ly:stencil-add stencil
-					     (ly:stencil-translate-axis y 6 X))))))
+  (let*
+      ((top-margin (ly:output-def-lookup layout 'top-margin))
+       (paper-height (ly:output-def-lookup layout 'paper-height))
+       (bottom-margin (ly:output-def-lookup layout 'bottom-margin))
+       (add-stencil (lambda (y)
+		      (set! stencil
+			    (ly:stencil-add stencil y))
+		      )))
+
     (add-stencil
      (ly:stencil-translate-axis 
       (annotate-y-interval layout "paper-height"
 			   (cons (- paper-height) 0)
 			   #t)
       1 X))
+    
+
     (add-stencil
      (ly:stencil-translate-axis 
       (annotate-y-interval layout "top-margin"
 			   (cons (- top-margin) 0)
 			   #t)
       2 X))
+    
     (add-stencil
      (ly:stencil-translate-axis 
       (annotate-y-interval layout "bottom-margin"
 			   (cons (- paper-height) (- bottom-margin paper-height))
 			   #t)
       2 X))
+    
     stencil))
 
 (define (annotate-space-left page)
   (let*
-      ((paper-book (page-property page 'paper-book))
-       (layout (ly:paper-book-paper paper-book))
+      ((p-book (page-property page 'paper-book))
+       (layout (ly:paper-book-paper p-book))
        (arrow (annotate-y-interval layout
 				   "space left"
 				   (cons (- 0.0
@@ -163,7 +168,7 @@
 	  
 	  ;; add arrow markers 
 	  (if (or (annotate? layout)
-		  (ly:output-def-lookup layout 'annotate-headers #f)) 
+		  (ly:output-def-lookup layout 'annotateheaders #f)) 
 	      (set! head-stencil
 		    (ly:stencil-add
 		     (ly:stencil-translate-axis
@@ -194,9 +199,10 @@
 
 (define (page-header-or-footer page dir)
     (let*
-      ((paper-book (page-property page 'paper-book))
-       (layout (ly:paper-book-paper paper-book))
-       (scopes (ly:paper-book-scopes paper-book))
+      ((p-book (page-property page 'paper-book))
+       (layout (ly:paper-book-paper p-book))
+       (scopes (ly:paper-book-scopes p-book))
+       (lines (page-lines page))
        (number (page-page-number page))
        (last? (page-property page 'is-last))
        )
@@ -240,19 +246,25 @@
       )))
 
 (define (make-page-stencil page)
-  "Construct a stencil representing the page from PAGE."
+  "Construct a stencil representing the page from LINES.
+
+ Offsets is a list of increasing numbers. They must be negated to
+create offsets.
+"
+
   
 
   (page-translate-systems page)
   (let*
-      ((paper-book (page-property page 'paper-book))
+      ((p-book (page-property page 'paper-book))
        (prop (lambda (sym) (page-property page sym)))
-       (layout (ly:paper-book-paper paper-book))
-       (scopes (ly:paper-book-scopes paper-book))
+       (layout (ly:paper-book-paper p-book))
+       (scopes (ly:paper-book-scopes p-book))
        (lines (page-lines page))
        (number (page-page-number page))
 
        ;; TODO: naming paper-height/paper-width not analogous to TeX.
+
        
        (system-xoffset (ly:output-def-lookup layout 'horizontal-shift 0.0))
        (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
@@ -266,7 +278,10 @@
 			(interval-length (ly:stencil-extent (prop 'head-stencil) Y))
 			0.0))
 
-       (page-stencil (ly:make-stencil '()))
+       (page-stencil (ly:make-stencil
+		      '()
+		      (cons (prop 'left-margin) (prop 'paper-width))
+		      (cons (- (prop 'top-margin)) 0)))
 
        (last-system #f)
        (last-y 0.0)
@@ -277,7 +292,7 @@
 								  (cons
 								   (+ system-xoffset x)
 								   (- 0 head-height y (prop 'top-margin)))
-								  
+
 								  )))))
        (add-system
 	(lambda (system)
@@ -305,28 +320,24 @@
        (foot (prop 'foot-stencil))
        )
 
-    (if (and
-	 (or (annotate? layout)
-	     (ly:output-def-lookup layout 'annotate-systems #f))
-	 (pair? lines))
+    (if (or (annotate? layout)
+	    (ly:output-def-lookup layout 'annotatesystems #f))
 
 	(begin
-	  (for-each (lambda (sys next-sys)
-		      (paper-system-annotate sys next-sys layout))
-		    lines
-		    (append (cdr lines) (list #f)))
+	  (for-each (lambda (sys) (paper-system-annotate sys layout))
+		    lines)
 	  (paper-system-annotate-last (car (last-pair lines)) layout)))
+    
+    (set! page-stencil (ly:stencil-combine-at-edge
+			page-stencil Y DOWN
+			(if (and
+			     (ly:stencil? head)
+			     (not (ly:stencil-empty? head)))
+			    head
+			    (ly:make-stencil "" (cons 0 0) (cons 0 0)))
+			    0. 0.))
 
-    (if (and
-	 (ly:stencil? head)
-	 (not (ly:stencil-empty? head)))
-	
-	(set! page-stencil (ly:stencil-add page-stencil 
-					   (ly:stencil-translate-axis head
-								      (- 0 head-height (prop 'top-margin)) Y))))
-					   
     (map add-system lines)
-
 
     (ly:prob-set-property! page 'bottom-system-edge
 			   (car (ly:stencil-extent page-stencil Y)))
@@ -359,9 +370,8 @@
 
     ;; annotation.
     (if (or (annotate? layout)
-	    (ly:output-def-lookup layout 'annotate-page #f))
+	    (ly:output-def-lookup layout 'annotatepage #f))
 	(set! page-stencil (annotate-page layout page-stencil)))
-
 
     page-stencil))
               
@@ -378,8 +388,11 @@
 (define (calc-printable-height page)
   "Printable area for music and titles; matches default-page-make-stencil."
   (let*
-      ((paper-book (page-property page 'paper-book))
-       (layout (ly:paper-book-paper paper-book))
+      ((p-book (page-property page 'paper-book))
+       (layout (ly:paper-book-paper p-book))
+       (scopes (ly:paper-book-scopes p-book))
+       (number (page-page-number page))
+       (last? (page-property page 'is-last))
        (h (- (ly:output-def-lookup layout 'paper-height)
 	       (ly:output-def-lookup layout 'top-margin)
 	       (ly:output-def-lookup layout 'bottom-margin)))

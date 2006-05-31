@@ -34,15 +34,15 @@ Note_column::has_rests (Grob *me)
   return unsmob_grob (me->get_object ("rest"));
 }
 
-bool
-Note_column::shift_less (Grob *const &p1, Grob *const &p2)
+int
+Note_column::shift_compare (Grob *const &p1, Grob *const &p2)
 {
   SCM s1 = p1->get_property ("horizontal-shift");
   SCM s2 = p2->get_property ("horizontal-shift");
 
   int h1 = (scm_is_number (s1)) ? scm_to_int (s1) : 0;
   int h2 = (scm_is_number (s2)) ? scm_to_int (s2) : 0;
-  return h1 < h2;
+  return h1 - h2;
 }
 
 Item *
@@ -188,14 +188,4 @@ Note_column::arpeggio (Grob *me)
 
 ADD_INTERFACE (Note_column, "note-column-interface",
 	       "Stem and noteheads combined",
-
-	       /* properties */
-	       "accidentals "
-	       "arpeggio "
-	       "force-hshift "
-	       "horizontal-shift "
-	       "note-heads "
-	       "rest "
-	       "rest-collision "
-	       "stem "
-	       );
+	       "arpeggio note-heads rest-collision rest horizontal-shift stem accidentals force-hshift");

@@ -196,9 +196,9 @@ user manual, @internalsref{\NAME\}
 
 @end macro
 
-@macro funindex {WORD}
-@findex \WORD\
-@kindex \WORD\
-@end macro
+@c @macro funindex {WORD}
+@c @end macro
+@c @findex \WORD\
+@c @kindex \WORD\
 
 

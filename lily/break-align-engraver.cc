@@ -82,7 +82,10 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
 	  /*
 	    Make left edge appear to come from same context as clef/bar-line etc.
 	  */
-	  left_edge_ = random_source->make_item ("LeftEdge", SCM_EOL);
+	  left_edge_ = make_item_from_properties (random_source,
+						  ly_symbol2scm ("LeftEdge"),
+						  SCM_EOL,
+						  "LeftEdge");
 	  add_to_group (left_edge_->get_property ("break-align-symbol"),
 			left_edge_);
 	}

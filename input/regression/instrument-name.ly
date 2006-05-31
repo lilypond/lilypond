@@ -1,4 +1,4 @@
-\version "2.9.13"
+\version "2.7.39"
 \header{
   texidoc="
 Staff margins are also markings attached to barlines.  They should be
@@ -20,10 +20,10 @@ PianoStaff.
 \new StaffGroup <<
   \context PianoStaff <<
     \new Staff    {
-      \set PianoStaff.instrumentName = "Piano"
-      \set Staff.instrumentName = "Right" { c''4 }}
+      \set PianoStaff.instrument = "Piano"
+      \set Staff.instrument = "Right" { c''4 }}
     \new Staff {
-      \set Staff.instrumentName = "Left"
+      \set Staff.instrument = "Left"
       \clef bass c4
     }
   >>

@@ -118,7 +118,7 @@ execute_general_pushpop_property (Context *context,
 	{
 	  SCM base = updated_grob_properties (context, context_property);
 	  current_context_val = scm_cons (base, base);
-	  context->set_property (context_property, current_context_val);
+	  context->internal_set_property (context_property, current_context_val);
 	}
 
       if (!scm_is_pair (current_context_val))
@@ -180,7 +180,7 @@ execute_general_pushpop_property (Context *context,
       if (new_alist == daddy)
 	context->unset_property (context_property);
       else
-	context->set_property (context_property, scm_cons (new_alist, daddy));
+	context->internal_set_property (context_property, scm_cons (new_alist, daddy));
     }
 }
 
@@ -224,7 +224,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
 	  execute_general_pushpop_property (tg, context_prop, grob_prop_path, val);
 	}
       else if (type == ly_symbol2scm ("assign"))
-	tg->set_property (scm_car (entry), scm_cadr (entry));
+	tg->internal_set_property (scm_car (entry), scm_cadr (entry));
     }
 }
 
@@ -273,4 +273,52 @@ updated_grob_properties (Context *tg, SCM sym)
 
       return copy;
     }
+}
+
+Grob *
+make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, char const *name)
+{
+  Context *context = tr->context ();
+
+  SCM props = updated_grob_properties (context, symbol);
+
+  Object_key const *key = context->get_grob_key (name);
+  Grob *grob = 0;
+
+  SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
+  SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
+
+  if (klass == ly_symbol2scm ("Item"))
+    grob = new Item (props, key);
+  else if (klass == ly_symbol2scm ("Spanner"))
+    grob = new Spanner (props, key);
+  else if (klass == ly_symbol2scm ("Paper_column"))
+    grob = new Paper_column (props, key);
+
+  assert (grob);
+  dynamic_cast<Engraver *> (tr)->announce_grob (grob, cause);
+
+  return grob;
+}
+
+Item *
+make_item_from_properties (Engraver *tr, SCM x, SCM cause, char const *name)
+{
+  Item *it = dynamic_cast<Item *> (make_grob_from_properties (tr, x, cause, name));
+  assert (it);
+  return it;
+}
+
+Paper_column *
+make_paper_column_from_properties (Engraver *tr, SCM x, char const *name)
+{
+  return dynamic_cast<Paper_column *> (make_grob_from_properties (tr, x, SCM_EOL, name));
+}
+
+Spanner *
+make_spanner_from_properties (Engraver *tr, SCM x, SCM cause, char const *name)
+{
+  Spanner *sp = dynamic_cast<Spanner *> (make_grob_from_properties (tr, x, cause, name));
+  assert (sp);
+  return sp;
 }

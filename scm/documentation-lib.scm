@@ -3,7 +3,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2000--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (use-modules (oop goops)
@@ -111,7 +111,7 @@
    "\\input texinfo @c -*-texinfo-*-"
    "\n@setfilename " file-name ".info"
    "\n@settitle " name
-   "\n@dircategory LilyPond"
+   "\n@dircategory GNU music project"
    "\n@direntry"
    ;; prepend GNU for dir, must be unique
    "\n* GNU " name ": (" file-name ").          " name "."

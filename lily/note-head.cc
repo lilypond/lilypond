@@ -43,11 +43,8 @@ internal_print (Grob *me, string *font_char)
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
-  string idx_symmetric;
-  string idx_directed;
-  string idx_either;
-  idx_symmetric = idx_either = "noteheads.s" + suffix;
-  Stencil out = fm->find_by_name (idx_symmetric);
+  string idx = "noteheads.s" + suffix;
+  Stencil out = fm->find_by_name (idx);
   if (out.is_empty ())
     {
       string prefix = "noteheads.";
@@ -58,20 +55,18 @@ internal_print (Grob *me, string *font_char)
       if (stem_dir == CENTER)
 	programming_error ("must have stem dir for note head");
       
-      idx_directed = idx_either =
-	prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
-      out = fm->find_by_name (idx_directed);
+      idx = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
+      out = fm->find_by_name (idx);
     }
 
 
   if (out.is_empty ())
     {
-      me->warning (_f ("none of note heads `%s' or `%s' found",
-		       idx_symmetric.c_str (), idx_directed.c_str ()));
+      me->warning (_f ("note head `%s' not found", idx.c_str ()));
       out = Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL);
     }
   else
-    *font_char = idx_either;
+    *font_char = idx;
 
   return out;
 }

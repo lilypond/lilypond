@@ -25,7 +25,6 @@ Prob::Prob (SCM type, SCM immutable_init)
   smobify_self ();
 }
 
-
 Prob::~Prob ()
 {
 }
@@ -99,11 +98,7 @@ Prob::internal_get_property (SCM sym) const
 }
 
 void
-Prob::internal_set_property (SCM sym, SCM val
-#ifndef NDEBUG
-			     , char const *file, int line, char const *fun
-#endif
-			     ) 
+Prob::internal_set_property (SCM sym, SCM val) 
 {
   if (do_internal_type_checking_global)
     type_check_assignment (sym, val);

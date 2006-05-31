@@ -5,14 +5,14 @@
 
   (c) 2002--_2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
-#include "context.hh"
 #include "duration.hh"
-#include "engraver.hh"
 #include "grob.hh"
+#include "engraver.hh"
 #include "input.hh"
 #include "moment.hh"
 #include "pitch.hh"
 #include "rhythmic-head.hh"
+#include "score-context.hh"
 
 #include "translator.icc"
 

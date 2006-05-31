@@ -50,7 +50,6 @@ public:
   static int compare (Moment const &, Moment const &);
   SCM as_scheme () const;
 };
-
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, -);
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, /);

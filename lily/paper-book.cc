@@ -8,7 +8,6 @@
 
 #include "paper-book.hh"
 
-#include "grob.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
@@ -216,12 +215,8 @@ Paper_book::score_title (SCM header)
   return title;
 }
 
-/* read the breakbefore property of a score block and set up the preceding
-   system-spec to honour it. That is, SYM should be the system spec that
-   immediately precedes the score (from which HEADER is taken)
-   in the get_system_specs() list */
 void
-set_system_penalty (SCM sys, SCM header)
+set_system_penalty (Prob *ps, SCM header)
 {
   if (ly_is_module (header))
     {
@@ -229,17 +224,10 @@ set_system_penalty (SCM sys, SCM header)
       if (SCM_VARIABLEP (force)
 	  && scm_is_bool (SCM_VARIABLE_REF (force)))
 	{
-	  bool b = to_boolean (SCM_VARIABLE_REF (force));
-	  SCM sym = b ? ly_symbol2scm ("force") : SCM_EOL;
-
-	  if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (sys)))
-	    {
-	      vector<Grob*> cols = ps->get_columns ();
-	      if (cols.size ())
-		cols.back ()->set_property ("page-break-permission", sym);
-	    }
-	  else if (Prob *pb = unsmob_prob (sys))
-	    pb->set_property ("page-break-permission", sym);
+	  ps->set_property ("penalty",
+			    scm_from_int(to_boolean (SCM_VARIABLE_REF (force))
+					 ? -10000
+					 : 10000));
 	}
     }
 }
@@ -260,6 +248,7 @@ Paper_book::get_score_title (SCM header)
       SCM props = paper_->lookup_variable (ly_symbol2scm ("score-title-properties"));
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
+      set_system_penalty (ps, header);
 
       return ps->self_scm();
     }
@@ -279,6 +268,7 @@ Paper_book::get_system_specs ()
       SCM props = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
+      set_system_penalty (ps, header_);
 
       system_specs = scm_cons (ps->self_scm (), system_specs);
       ps->unprotect ();
@@ -289,7 +279,7 @@ Paper_book::get_system_specs ()
 		  paper_->self_scm ());
 
   SCM header = SCM_EOL;
-  for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
     {
       if (ly_is_module (scm_car (s)))
 	{
@@ -302,10 +292,6 @@ Paper_book::get_system_specs ()
 	  if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
 	    {
 	      SCM title = get_score_title (header);
-
-	      if (scm_is_pair (system_specs))
-		set_system_penalty (scm_car (system_specs), header);
-
 	      if (unsmob_prob (title))
 		{
 		  system_specs = scm_cons (title, system_specs);
@@ -372,7 +358,7 @@ Paper_book::systems ()
 
   int i = 0;
   Prob *last = 0;
-  for (SCM s = systems_; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = systems_; s != SCM_EOL; s = scm_cdr (s))
     {
       Prob *ps = unsmob_prob (scm_car (s));
       ps->set_property ("number", scm_from_int (++i));
@@ -394,22 +380,8 @@ Paper_book::pages ()
     return pages_;
 
   pages_ = SCM_EOL;
-  SCM proc = paper_->c_variable ("page-breaking-wrapper");
-  pages_ = scm_apply_0 (proc, scm_list_1(self_scm ()));
-
-  /* set systems_ from the pages */
-  if (systems_ == SCM_BOOL_F)
-    {
-      systems_ = SCM_EOL;
-      for (SCM p = pages_; scm_is_pair (p); p = scm_cdr (p))
-	{
-	  Prob *page = unsmob_prob (scm_car (p));
-	  SCM systems = page->get_property ("lines");
-
-	  systems_ = scm_append (scm_list_2 (systems_, systems));
-	}
-    }
-
+  SCM proc = paper_->c_variable ("page-breaking");
+  pages_ = scm_apply_0 (proc, scm_list_2 (systems (), self_scm ()));
   return pages_;
 }
 

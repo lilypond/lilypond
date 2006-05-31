@@ -23,6 +23,7 @@
 #include "staff-symbol-referencer.hh"
 #include "tweak-registration.hh"
 #include "warn.hh"
+#include "warn.hh"
 
 System::System (System const &src, int count)
   : Spanner (src, count)
@@ -184,7 +185,6 @@ System::get_paper_systems ()
 	progress_indication ("[");
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
-
       system->post_processing ();
       scm_vector_set_x (lines, scm_from_int (i),
 			system->get_paper_system ());
@@ -206,11 +206,6 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       vector<Grob*> c (breaking[i].cols_);
       pscore_->typeset_system (system);
 
-      int st = Paper_column::get_rank (c[0]);
-      int end = Paper_column::get_rank (c.back ());
-      Interval iv (pure_height (this, st, end));
-      system->set_property ("pure-Y-extent", ly_interval2scm (iv));
-
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.back ());
       for (vsize j = 0; j < c.size (); j++)
@@ -218,7 +213,6 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
 	  dynamic_cast<Paper_column *> (c[j])->system_ = system;
 	}
-      
       set_loose_columns (system, &breaking[i]);
       broken_intos_.push_back (system);
     }
@@ -317,7 +311,7 @@ System::post_processing ()
      anyway. */
 
   vector<Grob*> all_elts_sorted (all_elements_->array ());
-  vector_sort (all_elts_sorted, std::less<Grob*> ());
+  vector_sort (all_elts_sorted, default_compare);
   uniq (all_elts_sorted);
   this->get_stencil ();
   for (vsize i = all_elts_sorted.size (); i--;)
@@ -357,7 +351,7 @@ System::get_paper_system ()
       entries.push_back (e); 
     }
 
-  vector_sort (entries, std::less<Layer_entry> ());
+  vector_sort (entries, default_compare);
   for (vsize j = 0; j < entries.size (); j++)
     {
       Grob *g = entries[j].grob_;
@@ -397,12 +391,14 @@ System::get_paper_system ()
   Prob *pl = make_paper_system (prop_init);
   paper_system_set_stencil (pl, sys_stencil);
 
-  /* information that the page breaker might need */
-  Grob *right_bound = this->get_bound (RIGHT);
-  pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
-  pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
-  pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
-  pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
+  /* backwards-compatibility hack for the old page-breaker */
+  SCM turn_perm = left_bound->get_property ("page-break-permission");
+  if (!scm_is_symbol (turn_perm))
+    pl->set_property ("penalty", scm_from_double (10001.0));
+  else if (turn_perm == ly_symbol2scm ("force"))
+    pl->set_property ("penalty", scm_from_double (-10001.0));
+  else
+    pl->set_property ("penalty", scm_from_double (0.0));
   
   if (!scm_is_pair (pl->get_property ("refpoint-Y-extent")))
     {
@@ -508,6 +504,5 @@ ADD_INTERFACE (System, "system-interface",
 	       /* properties */
 	       "all-elements "
 	       "columns "
-	       "pure-Y-extent "
 	       "spaceable-staves "
 	       )

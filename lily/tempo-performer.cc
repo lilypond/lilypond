@@ -9,10 +9,8 @@
 #include "performer.hh"
 
 #include "audio-item.hh"
+#include "music.hh"
 #include "duration.hh"
-#include "stream-event.hh"
-
-#include "translator.icc"
 
 class Tempo_performer : public Performer
 {
@@ -22,23 +20,18 @@ public:
 
 protected:
 
-  virtual void derived_mark () const; 
+  virtual bool try_music (Music *event);
   void stop_translation_timestep ();
   void process_music ();
-private:
-  Audio_tempo *audio_;
-  SCM last_tempo_; 
-};
 
-void
-Tempo_performer::derived_mark () const
-{
-  scm_gc_mark (last_tempo_);
-}
+private:
+  Music *tempo_event_;
+  Audio_tempo *audio_;
+};
 
 Tempo_performer::Tempo_performer ()
 {
-  last_tempo_ = SCM_EOL;
+  tempo_event_ = 0;
   audio_ = 0;
 }
 
@@ -49,19 +42,18 @@ Tempo_performer::~Tempo_performer ()
 void
 Tempo_performer::process_music ()
 {
-  SCM w = get_property ("tempoWholesPerMinute");
-  if (unsmob_moment (w)
-      && !ly_is_equal (w, last_tempo_))
+  if (tempo_event_)
     {
-      Rational r = unsmob_moment (w)->main_part_;
-      r *= Rational (4, 1);
+      SCM met = tempo_event_->get_property ("metronome-count");
+      Duration *d = unsmob_duration (tempo_event_->get_property ("tempo-unit"));
+
+      Rational r = (d->get_length () / Moment (Rational (1, 4)) * Moment (scm_to_int (met))).main_part_;
 
       audio_ = new Audio_tempo (r.to_int ());
 
-      Audio_element_info info (audio_, 0);
+      Audio_element_info info (audio_, tempo_event_);
       announce_element (info);
-
-      last_tempo_ = w;
+      tempo_event_ = 0;
     }
 }
 
@@ -70,11 +62,23 @@ Tempo_performer::stop_translation_timestep ()
 {
   if (audio_)
     {
+      play_element (audio_);
       audio_ = 0;
     }
 }
 
+bool
+Tempo_performer::try_music (Music *event)
+{
+  if (tempo_event_)
+    return false;
+
+  tempo_event_ = event;
+  return true;
+}
+
+#include "translator.icc"
+
 ADD_TRANSLATOR (Tempo_performer, "", "",
-		"",
-		"tempoWholesPerMinute ",
-		"");
+		"metronome-change-event",
+		"", "");

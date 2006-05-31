@@ -12,22 +12,19 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "pitch.hh"
-#include "stream-event.hh"
-
-#include "translator.icc"
 
 class Cluster_spanner_engraver : public Engraver
 {
 
 protected:
   TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
-  DECLARE_TRANSLATOR_LISTENER (cluster_note);
+  virtual bool try_music (Music *);
+  void process_music ();
   DECLARE_ACKNOWLEDGER (note_column);
   void stop_translation_timestep ();
-  virtual void process_music ();
   virtual void finalize ();
 private:
-  vector<Stream_event*> cluster_notes_;
+  vector<Music*> cluster_notes_;
   Item *beacon_;
 
   void typeset_grobs ();
@@ -58,11 +55,18 @@ Cluster_spanner_engraver::typeset_grobs ()
   beacon_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Cluster_spanner_engraver, cluster_note);
-void
-Cluster_spanner_engraver::listen_cluster_note (Stream_event *ev)
+bool
+Cluster_spanner_engraver::try_music (Music *m)
 {
-  cluster_notes_.push_back (ev);
+  if (m->is_mus_type ("cluster-note-event"))
+    {
+      cluster_notes_.push_back (m);
+      return true;
+    }
+  else if (m->is_mus_type ("busy-playing-event"))
+    return cluster_notes_.size ();
+
+  return false;
 }
 
 void
@@ -119,11 +123,13 @@ Cluster_spanner_engraver::acknowledge_note_column (Grob_info info)
     }
 }
 
+#include "translator.icc"
+
 ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
 ADD_TRANSLATOR (Cluster_spanner_engraver,
 		/* doc */ 	"Engraves a cluster using Spanner notation ",
 		/* create */ 	"ClusterSpanner ClusterSpannerBeacon",
-		/* accept */ 	"cluster-note-event",
+		/* accept */ 	"cluster-note-event busy-playing-event",
 		/* read */ 	"",
 		/* write */	"");
 

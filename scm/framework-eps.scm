@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm framework-eps))
 
@@ -44,27 +44,21 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 	  ))
        stencils))
 
-  
 (define (dump-stencils-as-EPSes stencils book basename)
-  (define do-pdf (member  "pdf" (ly:output-formats)))
   (define paper (ly:paper-book-paper book))
   (define (dump-infinite-stack-EPS stencils)
     (let* ((dump-me (stack-stencils Y DOWN 2.0 stencils)))
       (dump-stencil-as-EPS paper dump-me basename #t)))
 
-  (define (dump-stencils-as-separate-EPS stencils count )
+  (define (dump-stencils-as-separate-EPS stencils count)
     (if (pair? stencils)
 	(let* ((line (car stencils))
-	       (rest (cdr stencils))
-	       (system-base-name (format "~a-~a" basename count))
-	       )
+	       (rest (cdr stencils)))
 
 	  (dump-stencil-as-EPS
-	   paper line system-base-name
-	   (ly:get-option 'include-eps-fonts))
-
-	  (if do-pdf
-	      (postscript->pdf  0 0  (string-append system-base-name ".eps")))
+	   paper line (format "~a-~a" basename count)
+	   (ly:get-option 'eps-font-include))
+	  
 	  (dump-stencils-as-separate-EPS rest (1+ count)))))
 
 
@@ -88,7 +82,7 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
   \\betweenLilyPondSystem{~a}
 \\fi
 " c) tex-system-port))
-		(display (format "\\includegraphics{~a-~a}\n"
+		(display (format "\\includegraphics{~a-~a.eps}\n"
 				 basename (1+ c)) tex-system-port)
 		(display (format "@image{~a-~a}\n"
 				 basename (1+ c)) texi-system-port))
@@ -97,9 +91,9 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
     (display "@c eof - 'eof' is a Makefile marker; do not remove. " texi-system-port)
     (display "% eof - 'eof' is Makefile marker; do not remove. " tex-system-port)
     
-    (dump-infinite-stack-EPS stencils)
+    (dump-infinite-stack-EPS stencils))
     (postprocess-output book framework-eps-module
-			(format "~a.eps" basename) (ly:output-formats))))
+			(format "~a.eps" basename) (ly:output-formats)))
 
 
 
@@ -107,7 +101,7 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
   (output-scopes scopes fields basename)
 
   (if (ly:get-option 'dump-signatures)
-      (write-system-signatures basename (ly:paper-book-systems book) 1))
+      (write-system-signatures basename (ly:paper-book-systems book) 0))
   
   (dump-stencils-as-EPSes
    (map paper-system-stencil (ly:paper-book-systems book))
@@ -126,5 +120,4 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 (define convert-to-png convert-to-png)
 (define convert-to-tex convert-to-tex)
 (define convert-to-dvi convert-to-dvi)
-
 

@@ -118,7 +118,7 @@ Music_iterator::music_start_mom ()const
 }
 
 void
-Music_iterator::init_context (Music *m, Context *report)
+Music_iterator::init_translator (Music *m, Context *report)
 {
   music_ = m;
   assert (m);
@@ -145,7 +145,7 @@ Music_iterator::get_iterator (Music *m) const
   SCM ip = get_static_get_iterator (m);
   Music_iterator *p = unsmob_iterator (ip);
 
-  p->init_context (m, get_outlet ());
+  p->init_translator (m, get_outlet ());
 
   p->construct_children ();
   return ip;
@@ -165,11 +165,8 @@ Music_iterator::report_event (Music *m)
 {
   descend_to_bottom_context ();
 
-  /*
-    FIXME: then don't do it. 
-  */
   if (!m->is_mus_type ("event"))
-    m->origin ()->programming_error (_ ("Sending non-event to context"));
+    m->origin ()->warning (_f ("Sending non-event to context"));
 
   m->send_to_context (get_outlet ());
 }

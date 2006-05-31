@@ -4,22 +4,20 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef CONSTRAINED_BREAKING_HH
 #define CONSTRAINED_BREAKING_HH
 
+#include "break-algorithm.hh"
 #include "lily-guile.hh"
-#include "matrix.hh"
-#include "prob.hh"
 
 struct Line_details {
   Real force_;
-  Interval extent_;   /* Y-extent of the system */
+  Real extent_;   /* Y-extent of the system */
   Real padding_;  /* compulsory space after this system (if we're not last on a page) */
-  Real bottom_padding_;
-  Real space_;    /* spring length */
+  Real space_;    /* spring length (stretches over extent_ but not over padding_) */
   Real inverse_hooke_;
 
   SCM break_permission_;
@@ -32,8 +30,8 @@ struct Line_details {
   Line_details ()
   {
     force_ = infinity_f;
+    extent_ = 0;
     padding_ = 0;
-    bottom_padding_ = 0;
     space_ = 0;
     inverse_hooke_ = 1;
     break_permission_ = ly_symbol2scm ("allow");
@@ -42,21 +40,6 @@ struct Line_details {
     break_penalty_ = 0;
     page_penalty_ = 0;
     turn_penalty_ = 0;
-  }
-
-  Line_details (Prob *pb)
-  {
-    force_ = 0;
-    extent_ = unsmob_stencil (pb->get_property ("stencil")) ->extent (Y_AXIS);
-    padding_ = 0;
-    space_ = 1.0;
-    inverse_hooke_ = 1.0;
-    break_permission_ = ly_symbol2scm ("allow");
-    page_permission_ = pb->get_property ("page-break-permission");
-    turn_permission_ = pb->get_property ("page-turn-permission");
-    break_penalty_ = 0;
-    page_penalty_ = robust_scm2double (pb->get_property ("page-break-penalty"), 0);
-    turn_penalty_ = robust_scm2double (pb->get_property ("page-turn-penalty"), 0);
   }
 };
 
@@ -89,15 +72,14 @@ struct Constrained_break_node
 /*
    A dynamic programming solution to breaking scores into lines
 */
-class Constrained_breaking
+class Constrained_breaking : public Break_algorithm
 {
 public:
   vector<Column_x_positions> solve ();
-  Constrained_breaking (Paper_score *ps);
-  Constrained_breaking (Paper_score *ps, vector<vsize> const &start_col_posns);
+  Constrained_breaking ();
+  Constrained_breaking (vector<vsize> const &start_col_posns);
 
-  vector<Column_x_positions> get_solution (vsize start, vsize end, vsize sys_count);
-  vector<Column_x_positions> get_best_solution (vsize start, vsize end);
+  vector<Column_x_positions> get_solution(vsize start, vsize end, vsize sys_count);
   vector<Line_details> get_details (vsize start, vsize end, vsize sys_count);
   int get_max_systems (vsize start, vsize end);
   int get_min_systems (vsize start, vsize end);
@@ -105,19 +87,17 @@ public:
   void resize (vsize systems);
 
 private:
-  Paper_score *pscore_;
   vsize valid_systems_;
   vsize systems_;
-  bool ragged_right_;
-  bool ragged_last_;
 
   /* the (i,j)th entry is the configuration for breaking between
     columns i and j */
-  Matrix<Line_details> lines_;
+  vector<Line_details> lines_;
+  vsize lines_rank_;
 
   /* the [i](j,k)th entry is the score for fitting the first k bars onto the
     first j systems, starting at the i'th allowed starting column */
-  vector<Matrix<Constrained_break_node> > state_;
+  vector<vector<Constrained_break_node> > state_;
 
   vector<vsize> start_;         /* the columns at which we might be asked to start breaking */
   vector<vsize> starting_breakpoints_; /* the corresponding index in breaks_ */
@@ -125,10 +105,8 @@ private:
   vector<Grob*> all_;
   vector<vsize> breaks_;
 
-  void initialize ();
-
   Column_x_positions space_line (vsize start_col, vsize end_col);
-  vsize prepare_solution (vsize start, vsize end, vsize sys_count);
+  void prepare_solution (vsize start, vsize end, vsize sys_count, vsize *rank, vsize *brk);
 
   Real combine_demerits (Real force, Real prev_force);
 

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 1998--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2006  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -19,11 +19,6 @@
  'bass-figure-interface
  "A bass figure text"
  '(implicit))
-
-(ly:add-interface
- 'bend-after-interface
- "A doit or drop."
- '(thickness delta-position))
 
 (ly:add-interface
  'bass-figure-alignment-interface
@@ -46,15 +41,15 @@
  '())
 
 (ly:add-interface
+ 'string-number-interface
+ "A string number instruction"
+ '())
+
+(ly:add-interface
  'fret-diagram-interface
  "A fret diagram"
  '(align-dir barre-type dot-color dot-radius finger-code fret-count
   label-dir number-type size string-count thickness))
-
-(ly:add-interface
- 'grace-spacing-interface
- "Keep track of durations in a run of grace notes."
- '(columns common-shortest-duration))
 
 (ly:add-interface
  'ligature-interface
@@ -123,20 +118,9 @@
 are interesting enough to maintain a hara-kiri staff."
  '())
 
-
-(ly:add-interface
- 'spacing-options-interface
- "Supports setting of spacing variables"
- '(spacing-increment shortest-duration-space))
-
 (ly:add-interface
  'stanza-number-interface
  "A stanza number, to be put in from of a lyrics line"
- '())
-
-(ly:add-interface
- 'string-number-interface
- "A string number instruction"
  '())
 
 (ly:add-interface

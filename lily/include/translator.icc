@@ -9,7 +9,6 @@
 #ifndef TRANSLATOR_ICC
 #define TRANSLATOR_ICC
 
-#include "listener.hh"
 #include "std-vector.hh"
 #include "translator.hh"
 
@@ -17,7 +16,6 @@
    A macro to automate administration of translators.
 */
 #define ADD_THIS_TRANSLATOR(T)						\
-  translator_listener_record *T::listener_list_;			\
   SCM T::static_description_ = SCM_EOL;					\
   static void _ ## T ## _adder ()					\
   {									\
@@ -60,7 +58,7 @@
 				   scm_makfrom0str (desc), static_properties); \
 									\
     static_properties = scm_acons (ly_symbol2scm ("events-accepted"),	\
-				   get_listened_class_list (listener_list_), static_properties); \
+				   parse_symbol_list (accepted), static_properties); \
 									\
     static_properties = scm_acons (ly_symbol2scm ("properties-read"),	\
 				   parse_symbol_list (read), static_properties); \
@@ -119,40 +117,6 @@ generic_get_acknowledger (SCM sym,
   }									\
   ADD_SCM_INIT_FUNC (CLASS ## NAME ## _end_ack_adder_initclass, CLASS ## NAME ## _end_ack_adder);
 
-/*
-  Implement the method cl::listen_##m, and make it listen to stream 
-  events of class m.
- */
-#define IMPLEMENT_TRANSLATOR_LISTENER(cl, m)		\
-void							\
-cl :: _internal_declare_ ## m ()			\
-{							\
-  static translator_listener_record r;			\
-  add_translator_listener (&listener_list_, &r, _get_ ## m ## _listener, #m); \
-}							\
-							\
-ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);	\
-							\
-Listener						\
-cl :: _get_ ## m ## _listener (void *me)		\
-{							\
-  cl *obj = (cl *) me;					\
-  return obj->GET_LISTENER (_listen_scm_ ## m);		\
-}							\
-							\
-IMPLEMENT_LISTENER (cl, _listen_scm_ ## m)		\
-void							\
-cl::_listen_scm_ ## m (SCM sev)				\
-{							\
-  Stream_event *ev = unsmob_stream_event (sev);		\
-  protect_event (sev);					\
-  listen_ ## m (ev);					\
-}
-
-/*
-  This helper is only meaningful inside listen_* methods.
-*/
-extern bool internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function);
-#define ASSIGN_EVENT_ONCE(o,n) internal_event_assignment (&o, n, __FUNCTION__)
 
 #endif /* TRANSLATOR_ICC */
+

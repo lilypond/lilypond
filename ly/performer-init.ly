@@ -7,11 +7,12 @@
     \type "Performer_group"
     \name Staff
     \accepts Voice
-    \accepts CueVoice
     \defaultchild Voice
     
     \consists "Staff_performer"
     \consists "Key_performer"
+    \consists "Tempo_performer"
+    \consists "Time_signature_performer"
 }
 \context {
     \name Global
@@ -38,17 +39,12 @@
     \consists "Note_performer"
     \consists "Beam_performer"
     \consists "Slur_performer"
+    \consists "Melisma_translator"
 }
 
 \context {
   \Voice
   \name CueVoice
-  \alias Voice
-}
-
-\context {
-  \Voice
-  \name VaticanaVoice
   \alias Voice
 }
 
@@ -100,25 +96,12 @@
 }
 
 \context {
-    \type "Performer_group"
-    \name "VaticanaStaff"
-    \alias "Staff"
-    \denies "Voice"
-    \accepts "VaticanaVoice"
-    \defaultchild "VaticanaVoice"
-}
-
-\context {
     \type "Score_performer"
 
     \name Score
     
     melismaBusyProperties = #default-melisma-properties
-    instrumentName = #"bright acoustic"
-
-    %% quarter = 60
-    tempoWholesPerMinute = #(ly:make-moment 15 1)
-    
+    instrument = #"bright acoustic"
     \accepts Staff
     \accepts DrumStaff
     \accepts GrandStaff
@@ -132,14 +115,10 @@
     \accepts ChordNames
     \accepts FiguredBass
     \accepts Lyrics
-    \accepts VaticanaStaff
-
-    \consists "Time_signature_performer"
-    \consists "Control_track_performer"
-    \consists "Tempo_performer"
+    
     \consists "Timing_translator"
     \consists "Swallow_performer"
-    
+
     \defaultchild "Staff"
     
     dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
@@ -154,6 +133,8 @@
     \consists "Staff_performer" % Performer_group ?
     \consists "Lyric_performer"
     \name Lyrics
+    \consists "Time_signature_performer"
+    \consists "Tempo_performer"
 }
 
 \context{
@@ -186,13 +167,6 @@
     \name StaffGroup
     \accepts Staff
     \accepts DrumStaff
-    \accepts TabStaff
-    \accepts RhythmicStaff
-    \accepts GrandStaff
-    \accepts PianoStaff
-    \accepts Lyrics
-    \accepts ChordNames
-    \accepts FiguredBass
 
     \defaultchild Staff
 }

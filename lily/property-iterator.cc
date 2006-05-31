@@ -22,10 +22,16 @@ bool check_grob (Music *mus, SCM sym);
 void
 Property_iterator::process (Moment m)
 {
-  send_stream_event (get_outlet (), "SetProperty", get_music ()->origin (),
-		     ly_symbol2scm ("symbol"), get_music ()->get_property ("symbol"),
-		     ly_symbol2scm ("value"), get_music ()->get_property ("value"));
-  
+  SCM sym = get_music ()->get_property ("symbol");
+  if (scm_is_symbol (sym))
+    {
+      SCM val = get_music ()->get_property ("value");
+      bool ok = true;
+      if (val != SCM_EOL)
+	ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
+      if (ok)
+	get_outlet ()->internal_set_property (sym, val);
+    }
   Simple_music_iterator::process (m);
 }
 
@@ -33,21 +39,22 @@ void
 Property_unset_iterator::process (Moment m)
 {
   SCM sym = get_music ()->get_property ("symbol");
-  send_stream_event (get_outlet (), "UnsetProperty", get_music ()->origin (),
-		     ly_symbol2scm ("symbol"), sym);
+  type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
+  get_outlet ()->unset_property (sym);
 
   Simple_music_iterator::process (m);
 }
 
 MAKE_SCHEME_CALLBACK (Property_iterator, once_finalization, 2);
 SCM
-Property_iterator::once_finalization (SCM ctx, SCM music)
+Property_iterator::once_finalization (SCM translator, SCM music)
 {
   Music *m = unsmob_music (music);
-  Context *c = unsmob_context (ctx);
+  Context *tg
+    = dynamic_cast<Context *> (unsmob_context (translator));
+  SCM sym = m->get_property ("symbol");
 
-  send_stream_event (c, "UnsetProperty", m->origin (),
-		     ly_symbol2scm ("symbol"), m->get_property ("symbol"));
+  tg->unset_property (sym);
   return SCM_UNSPECIFIED;
 }
 
@@ -102,33 +109,27 @@ Push_property_iterator::process (Moment m)
 
       if (to_boolean (get_music ()->get_property ("pop-first"))
 	  && !to_boolean (get_music ()->get_property ("once")))
-	send_stream_event (get_outlet (), "Revert", get_music ()->origin (),
-			   ly_symbol2scm ("symbol"), sym,
-			   ly_symbol2scm ("property-path"), grob_property_path);
-			
-      send_stream_event (get_outlet (), "Override", get_music ()->origin (),
-			 ly_symbol2scm ("symbol"), sym,
-			 ly_symbol2scm ("property-path"), grob_property_path,
-			 ly_symbol2scm ("value"), val);
+	
+	execute_general_pushpop_property (get_outlet (), sym, grob_property_path, SCM_UNDEFINED);
+
+      execute_general_pushpop_property (get_outlet (), sym, grob_property_path, val);
     }
   Simple_music_iterator::process (m);
 }
 
 MAKE_SCHEME_CALLBACK (Push_property_iterator, once_finalization, 2);
 SCM
-Push_property_iterator::once_finalization (SCM ctx, SCM music)
+Push_property_iterator::once_finalization (SCM trans, SCM music)
 {
   Music *mus = unsmob_music (music);
-  Context *c = unsmob_context (ctx);
+  Context *tg = dynamic_cast<Context *> (unsmob_context (trans));
 
   SCM sym = mus->get_property ("symbol");
   if (check_grob (mus, sym))
     {
       SCM grob_property_path = get_property_path (mus);
 
-      send_stream_event (c, "Revert", mus->origin (),
-			 ly_symbol2scm ("symbol"), sym,
-			 ly_symbol2scm ("property-path"), grob_property_path);
+      execute_general_pushpop_property (tg, sym, grob_property_path, SCM_UNDEFINED);
     }
   return SCM_UNSPECIFIED;
 }
@@ -155,10 +156,7 @@ Pop_property_iterator::process (Moment m)
   if (check_grob (get_music (), sym))
     {
       SCM grob_property_path = get_property_path (get_music ());
-
-      send_stream_event (get_outlet (), "Revert", get_music ()->origin (),
-			 ly_symbol2scm ("symbol"), sym,
-			 ly_symbol2scm ("property-path"), grob_property_path);
+      execute_general_pushpop_property (get_outlet (), sym, grob_property_path, SCM_UNDEFINED);
     }
   Simple_music_iterator::process (m);
 }
@@ -167,3 +165,4 @@ IMPLEMENT_CTOR_CALLBACK (Pop_property_iterator);
 IMPLEMENT_CTOR_CALLBACK (Push_property_iterator);
 IMPLEMENT_CTOR_CALLBACK (Property_iterator);
 IMPLEMENT_CTOR_CALLBACK (Property_unset_iterator);
+

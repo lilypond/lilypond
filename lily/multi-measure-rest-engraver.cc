@@ -10,10 +10,7 @@
 #include "engraver-group.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "stream-event.hh"
 #include "moment.hh"
-
-#include "translator.icc"
 
 /**
    The name says it all: make multi measure rests
@@ -24,16 +21,15 @@ public:
   TRANSLATOR_DECLARATIONS (Multi_measure_rest_engraver);
 
 protected:
+  virtual bool try_music (Music *);
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (multi_measure_rest);
-  DECLARE_TRANSLATOR_LISTENER (multi_measure_text);
 
 private:
-  Stream_event *rest_ev_;
-  vector<Stream_event*> text_events_;
+  Music *rest_ev_;
+  vector<Music*> text_events_;
   int start_measure_;
   Rational last_main_moment_;
   Moment stop_moment_;
@@ -61,25 +57,22 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
   rest_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Multi_measure_rest_engraver, multi_measure_rest);
-void
-Multi_measure_rest_engraver::listen_multi_measure_rest (Stream_event *ev)
+bool
+Multi_measure_rest_engraver::try_music (Music *event)
 {
-  /* FIXME: Should use ASSIGN_EVENT_ONCE. Can't do that yet because of
-     the kill-mm-rests hack in part-combine-iterator. */
-  rest_ev_ = ev;
-  stop_moment_ = now_mom () + get_event_length (rest_ev_);
-  /*
-  if (ASSIGN_EVENT_ONCE (rest_ev_, ev))
-    stop_moment_ = now_mom () + get_event_length (rest_ev_);
-  */
-}
+  if (event->is_mus_type ("multi-measure-rest-event"))
+    {
+      rest_ev_ = event;
+      stop_moment_ = now_mom () + rest_ev_->get_length ();
 
-IMPLEMENT_TRANSLATOR_LISTENER (Multi_measure_rest_engraver, multi_measure_text);
-void
-Multi_measure_rest_engraver::listen_multi_measure_text (Stream_event *ev)
-{
-  text_events_.push_back (ev);
+      return true;
+    }
+  else if (event->is_mus_type ("multi-measure-text-event"))
+    {
+      text_events_.push_back (event);
+      return true;
+    }
+  return false;
 }
 
 void
@@ -98,7 +91,8 @@ Multi_measure_rest_engraver::process_music ()
 	{
 	  for (vsize i = 0; i < text_events_.size (); i++)
 	    {
-	      Stream_event *e = text_events_[i];
+
+	      Music *e = text_events_[i];
 	      Spanner *sp
 		= make_spanner ("MultiMeasureRestText", e->self_scm ());
 	      SCM t = e->get_property ("text");
@@ -137,7 +131,7 @@ Multi_measure_rest_engraver::process_music ()
 	}
 
       start_measure_
-	= scm_to_int (get_property ("internalBarNumber"));
+	= scm_to_int (get_property ("currentBarNumber"));
     }
 
   bar_seen_ = bar_seen_ || scm_is_string (get_property ("whichBar"));
@@ -204,7 +198,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       last_rest_ = mmrest_;
       last_numbers_ = numbers_;
 
-      int cur = scm_to_int (get_property ("internalBarNumber"));
+      int cur = scm_to_int (get_property ("currentBarNumber"));
       int num = cur - start_measure_;
 
       /*
@@ -248,28 +242,21 @@ Multi_measure_rest_engraver::finalize ()
 {
 }
 
+#include "translator.icc"
+
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		/* doc */
 		"Engraves multi-measure rests that are produced with @code{R}.  Reads "
-		"@code{measurePosition} and @code{internalBarNumber} to determine what number to print "
-		"over the @ref{MultiMeasureRest}.  Reads @code{measureLength} to determine if it "
+		"measurePosition and currentBarNumber to determine what number to print "
+		"over the MultiMeasureRest.  Reads measureLength to determine if it "
 		"should use a whole rest or a breve rest to represent 1 measure ",
-		
-		/* create */
-		"MultiMeasureRest "
-		"MultiMeasureRestNumber "
-		"MultiMeasureRestText ",
-
-		/* accept */
-		"multi-measure-rest-event "
-		"multi-measure-text-event ",
-
+		/* create */ "MultiMeasureRest MultiMeasureRestNumber MultiMeasureRestText",
+		/* accept */ "multi-measure-rest-event multi-measure-text-event",
 		/* read */
-		"internalBarNumber "
+		"currentBarNumber "
 		"restNumberThreshold "
 		"breakableSeparationItem "
 		"currentCommandColumn "
 		"measurePosition "
-		"measureLength ",
-		
+		"measureLength",
 		/* write */ "");

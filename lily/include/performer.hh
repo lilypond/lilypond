@@ -25,6 +25,8 @@ protected:
   virtual void announce_element (Audio_element_info);
   virtual void acknowledge_audio_element (Audio_element_info);
   virtual void create_audio_elements ();
+  virtual int get_tempo () const;
+  virtual void play_element (Audio_element *elem);
 };
 
 #endif /* PERFORMER_HH */

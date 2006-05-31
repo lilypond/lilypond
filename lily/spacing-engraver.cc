@@ -6,15 +6,13 @@
   (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "engraver.hh"
-#include "moment.hh"
-#include "note-spacing.hh"
 #include "paper-column.hh"
-#include "pointer-group-interface.hh"
+#include "engraver.hh"
 #include "pqueue.hh"
-#include "spanner.hh"
+#include "note-spacing.hh"
 #include "staff-spacing.hh"
-#include "stream-event.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 
@@ -34,6 +32,34 @@ struct Rhythmic_tuple
   static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);
 };
 
+/*
+  TODO: allow starting & stopping of spacing regions.
+*/
+/*
+  Acknowledge rhythmic elements, for initializing spacing fields in
+  the columns.
+*/
+class Spacing_engraver : public Engraver
+{
+  PQueue<Rhythmic_tuple> playing_durations_;
+  vector<Rhythmic_tuple> now_durations_;
+  vector<Rhythmic_tuple> stopped_durations_;
+  Moment now_;
+  Spanner *spacing_;
+
+  TRANSLATOR_DECLARATIONS (Spacing_engraver);
+
+protected:
+  DECLARE_ACKNOWLEDGER (staff_spacing);
+  DECLARE_ACKNOWLEDGER (note_spacing);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
+
+  void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void process_music ();
+  virtual void finalize ();
+};
+
 inline int
 compare (Rhythmic_tuple const &a, Rhythmic_tuple const &b)
 {
@@ -47,81 +73,23 @@ Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
   return (h1.end_ - h2.end_).main_part_.sign ();
 }
 
-/****************************************************************/
-
-/*
-  Acknowledge rhythmic elements, for initializing spacing fields in
-  the columns.
-*/
-class Spacing_engraver : public Engraver
-{
-  PQueue<Rhythmic_tuple> playing_durations_;
-  vector<Rhythmic_tuple> now_durations_;
-  vector<Rhythmic_tuple> stopped_durations_;
-  Moment now_;
-  Spanner *spacing_;
-  Stream_event *start_section_;
-  
-  TRANSLATOR_DECLARATIONS (Spacing_engraver);
-
-protected:
-  DECLARE_ACKNOWLEDGER (staff_spacing);
-  DECLARE_ACKNOWLEDGER (note_spacing);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_TRANSLATOR_LISTENER (spacing_section);
-
-  void start_translation_timestep ();
-  void stop_translation_timestep ();
-  void process_music ();
-  
-  virtual void finalize ();
-
-  void start_spanner ();
-  void stop_spanner ();
-};
-
 Spacing_engraver::Spacing_engraver ()
 {
   spacing_ = 0;
-  start_section_ = 0;
-}
-
-IMPLEMENT_TRANSLATOR_LISTENER (Spacing_engraver, spacing_section);
-void
-Spacing_engraver::listen_spacing_section (Stream_event *ev)
-{
-  ASSIGN_EVENT_ONCE (start_section_, ev);
 }
 
 void
 Spacing_engraver::process_music ()
 {
-  if (start_section_ && spacing_)
-    stop_spanner ();
-  
   if (!spacing_)
-    start_spanner ();
-}
-
-void
-Spacing_engraver::start_spanner ()
-{
-  assert (!spacing_);
-
-
-  spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
-  spacing_->set_bound (LEFT,
-		       unsmob_grob (get_property ("currentCommandColumn")));
+    {
+      spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
+      spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+    }
 }
 
 void
 Spacing_engraver::finalize ()
-{
-  stop_spanner ();
-}
-
-void
-Spacing_engraver::stop_spanner ()
 {
   if (spacing_)
     {
@@ -156,10 +124,10 @@ Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
   */
   if (!now_.grace_part_)
     {
-      Stream_event *r = i.event_cause ();
-      if (r && r->in_event_class ("rhythmic-event"))
+      Music *r = i.music_cause ();
+      if (r && r->is_mus_type ("rhythmic-event"))
 	{
-	  Moment len = get_event_length (r);
+	  Moment len = r->get_length ();
 	  Rhythmic_tuple t (i, now_mom () + len);
 	  now_durations_.push_back (t);
 	}
@@ -172,14 +140,6 @@ Spacing_engraver::stop_translation_timestep ()
   Paper_column *musical_column
     = dynamic_cast<Paper_column *> (unsmob_grob (get_property ("currentMusicalColumn")));
 
-
-  if (!spacing_)
-    start_spanner ();
-
-  musical_column->set_object ("spacing", spacing_->self_scm ());
-  unsmob_grob (get_property ("currentCommandColumn"))
-    ->set_object ("spacing", spacing_->self_scm ());
-  
   SCM proportional = get_property ("proportionalNotationDuration");
   if (unsmob_moment (proportional))
     {
@@ -192,10 +152,10 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing.set_infinite (1);
   for (vsize i = 0; i < playing_durations_.size (); i++)
     {
-      Stream_event *ev = playing_durations_[i].info_.event_cause ();
-      if (ev)
+      Music *mus = playing_durations_[i].info_.music_cause ();
+      if (mus)
 	{
-	  Moment m = get_event_length (ev);
+	  Moment m = mus->get_length ();
 	  shortest_playing = min (shortest_playing, m);
 	}
     }
@@ -204,7 +164,7 @@ Spacing_engraver::stop_translation_timestep ()
 
   for (vsize i = 0; i < now_durations_.size (); i++)
     {
-      Moment m = get_event_length (now_durations_[i].info_.event_cause ());
+      Moment m = now_durations_[i].info_.music_cause ()->get_length ();
       if (m.to_bool ())
 	{
 	  starter = min (starter, m);
@@ -223,16 +183,11 @@ Spacing_engraver::stop_translation_timestep ()
   musical_column->set_property ("shortest-starter-duration", st);
 }
 
-
-
 void
 Spacing_engraver::start_translation_timestep ()
 {
-  start_section_ = 0;
-
   now_ = now_mom ();
   stopped_durations_.clear ();
-  
   while (playing_durations_.size () && playing_durations_.front ().end_ < now_)
     playing_durations_.delmin ();
   while (playing_durations_.size () && playing_durations_.front ().end_ == now_)
@@ -248,8 +203,7 @@ ADD_TRANSLATOR (Spacing_engraver,
 		"bookkeeping of shortest starting and playing notes  ",
 
 		/* create */ "SpacingSpanner",
-		/* accept */
-		"spacing-section-event ",
+		/* accept */ "",
 		/* read */
 		"currentMusicalColumn "
 		"currentCommandColumn "

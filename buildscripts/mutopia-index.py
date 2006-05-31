@@ -36,7 +36,7 @@ For a good impression of the quality print out the PDF file.
 """
 
 headertext_nopics= r"""
-<p>No examples were found in this directory. 
+<p>Nothing to be seen here, move along.
 """
 
 #
@@ -196,9 +196,7 @@ if not dirs:
 allfiles = []
 
 for d in dirs:
-    allfiles = allfiles + find ('*.ly', d)
-
-allfiles = filter (lambda x: not x.endswith ('snippet-map.ly') and not re.search ('lily-[0-9]+', x), allfiles)
+    allfiles = allfiles + find ('*.ly.txt', d)
 
 gen_list (allfiles, outfile)
 

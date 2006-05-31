@@ -128,9 +128,9 @@ struct Interval_t : public Drul_array<T>
     at (RIGHT) = t;
   }
 
-  static bool left_less (Interval_t<T> const &a, Interval_t<T> const &b)
+  static int left_comparison (Interval_t<T> const &a, Interval_t<T> const &b)
   {
-    return a[LEFT] < b[RIGHT];
+    return sign (a[LEFT] - b[RIGHT]);
   }
 };
 

@@ -73,11 +73,7 @@ dir_name (string const file_name)
   ssize n = s.length ();
   if (n && s[n - 1] == '/')
     s[n - 1] = 0;
-  if (s.rfind ('/') != NPOS)
-    s = s.substr (0, s.rfind ('/'));
-  else
-    s = "";
-  
+  s = s.substr (0, s.rfind ('/'));
   return s;
 }
 
@@ -92,44 +88,21 @@ get_working_directory ()
 
 /* Join components to full file_name. */
 string
-File_name::dir_part () const
+File_name::to_string () const
 {
   string s;
   if (!root_.empty ())
     s = root_ + ::to_string (ROOTSEP);
-
   if (!dir_.empty ())
     {
       s += dir_;
+      if (!base_.empty () || !ext_.empty ())
+	s += ::to_string (DIRSEP);
     }
-
-  return s;
-}
-
-
-string
-File_name::file_part () const
-{
-  string s;
-  s = base_;
+  s += base_;
   if (!ext_.empty ())
     s += ::to_string (EXTSEP) + ext_;
   return s;
-}
-
-string
-File_name::to_string () const
-{
-  string d = dir_part ();
-  string f = file_part ();
-
-  if (!f.empty ()
-      && !dir_.empty())
-    {
-      d += ::to_string (DIRSEP);
-    }
-
-  return d + f;
 }
 
 File_name::File_name (string file_name)

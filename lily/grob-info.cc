@@ -6,14 +6,13 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "context.hh"
 #include "grob-info.hh"
 #include "grob.hh"
-#include "item.hh"
 #include "music.hh"
-#include "spanner.hh"
-#include "stream-event.hh"
 #include "translator-group.hh"
+#include "context.hh"
+#include "spanner.hh"
+#include "item.hh"
 
 Grob_info::Grob_info (Translator *t, Grob *g)
 {
@@ -29,11 +28,11 @@ Grob_info::Grob_info ()
   origin_trans_ = 0;
 }
 
-Stream_event *
-Grob_info::event_cause () const
+Music *
+Grob_info::music_cause () const
 {
   SCM cause = grob_->get_property ("cause");
-  return unsmob_stream_event (cause);
+  return unsmob_music (cause);
 }
 
 vector<Context*>
@@ -69,13 +68,15 @@ Grob_info::item () const
   return dynamic_cast<Item *> (grob_);
 }
 
-Stream_event *
-Grob_info::ultimate_event_cause () const
+Music *
+Grob_info::ultimate_music_cause () const
 {
   SCM cause = grob_->self_scm ();
   while (unsmob_grob (cause))
     {
       cause = unsmob_grob (cause)->get_property ("cause");
     }
-  return unsmob_stream_event (cause);
+
+  return unsmob_music (cause);
 }
+

@@ -65,22 +65,29 @@ env.Append (BUILDERS = {'HH' : HH})
 # Setup LilyPond environment.  For the LilyPond build, we override
 # some of these commands in the ENVironment.
 
-lilypond_book_flags = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond -I$srcdir -I$srcdir/input/test $__verbose --backend=eps --formats=ps,png --header=texidoc -dinternal-type-checking -ddump-signatures -danti-alias-factor=2 -dgs-font-load" '''
-
 env.Append (
-    BSTINPUTS = '${SOURCE.dir}:${TARGET.dir}:',
-    BIB2HTML = '$PYTHON $srcdir/buildscripts/bib2html.py',
+    _fixme = _fixme,
+    ##ABC2LY = 'abc2ly',
+    ##LILYPOND = 'lilypond',
     LILYOND_BOOK = 'lilypond-book',
+
+    #ugr
+    #LILYPOND_BOOK_FORMAT = 'texi',
     LILYPOND_BOOK_FORMAT = '',
-    LILYPOND_BOOK_FLAGS = lilypond_book_flags,
+    #LILYPOND_BOOK_FLAGS = ['--format=$LILYPOND_BOOK_FORMAT'],
+    LILYPOND_BOOK_FLAGS = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond --backend=eps --formats=ps,png --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'" ''',
+
     LILYPOND_PATH = [],
     # The SCons way around FOO_PATH:
+    ##LILYPOND_INCFLAGS = '$( ${_concat(INCPREFIX, LILYPOND_PATH, INCSUFFIX, __env__, RDirs)} $)',
     LILYPOND_INCFLAGS = '$( ${_concat(INCPREFIX, LILYPOND_PATH, INCSUFFIX, __env__)} $)',
 
     MAKEINFO_PATH = [],
     MAKEINFO_FLAGS = [],
     MAKEINFO_INCFLAGS = '$( ${_concat(INCPREFIX, MAKEINFO_PATH, INCSUFFIX, __env__, RDirs)} $)',
-    #TEXI2DVI_FLAGS = [],
+    # should not be necessary
+    # PYTHONPATH = ['$absbuild/python/$out'],
+    TEXI2DVI_FLAGS = [],
     _TEXI2DVI_FLAGS = '$( ${_concat(" ", TEXI2DVI_FLAGS,)} $)',
     )
 
@@ -113,7 +120,7 @@ env.Append (BUILDERS = {'TEXI': TEXI})
 
 TEXIDVI =\
     Builder (action = 'cd ${TARGET.dir} && \
-    texi2dvi --batch -I $srcdir/Documentation/user $_TEXI2DVI_FLAGS ${SOURCE.file}',
+    texi2dvi --batch $_TEXI2DVI_FLAGS ${SOURCE.file}',
         suffix = '.dvi', src_suffix = '.texi')
 env.Append (BUILDERS = {'TEXIDVI': TEXIDVI})
 
@@ -137,10 +144,18 @@ PNG2EPS =\
         suffix = '.eps', src_suffix = '.png')
 env.Append (BUILDERS = {'PNG2EPS': PNG2EPS})
 
-EPS2PNG =\
-    Builder (action = 'convert $SOURCE $TARGET',
-        suffix = '.png', src_suffix = '.eps')
-env.Append (BUILDERS = {'EPS2PNG': EPS2PNG})
+
+
+# FIXME: cleanup, see above
+
+
+env.Append (
+
+    #urg
+    BSTINPUTS = '${SOURCE.dir}:${TARGET.dir}:',
+    BIB2HTML = '$PYTHON $srcdir/buildscripts/bib2html.py',
+)
+
 
 def add_ps_target (target, source, env):
     base = os.path.splitext (str (target[0]))[0]
@@ -198,18 +213,13 @@ env.Append (BUILDERS = {'GTABLE': gtable})
 
 def add_enc_src (target, source, env):
     base = os.path.splitext (str (target[0]))[0]
-    #return (target, source + [base + '.enc'])
-    return (target + [base + '.pfb', base + '.svg'], source + [base + '.enc'])
-
-def add_svg (target, source, env):
-    base = os.path.splitext (str (target[0]))[0]
-    return (target + [base + '.svg'], source)
+    return (target, source + [base + '.enc'])
 
 # FIXME UGH, should fix --output option for mftrace
 a = 'cd ${TARGET.dir} && \
 if test -e ${SOURCE.filebase}.enc; then encoding="--encoding=${SOURCE.filebase}.enc"; fi; \
 MFINPUTS=$srcdir/mf:.: \
-$MFTRACE --formats=pfa,pfb,svg --simplify --keep-trying --no-afm \
+$MFTRACE --formats=pfa --simplify --keep-trying --no-afm \
 $$encoding $__verbose \
 --include=${TARGET.dir} \
 ${SOURCE.file}'
@@ -227,7 +237,6 @@ otf = Builder (action = a,
        suffix = '.otf',
        src_suffix = '.pe',
 #               emitter = add_cff_cffps_svg
-               emitter = add_svg
        )
 env.Append (BUILDERS = {'OTF': otf})
 
@@ -265,6 +274,7 @@ atvars = [
 'step-bindir',
 ]
 
+# naming
 def at_copy (target, source, env):
   n = str (source[0])
   s = open (n).read ()
@@ -280,6 +290,7 @@ def at_copy (target, source, env):
 AT_COPY = Builder (action = at_copy, src_suffix = ['.in', '.py', '.sh',])
 env.Append (BUILDERS = {'AT_COPY': AT_COPY})
 
+# naming
 def at_copy_ext (target, source, env):
   n = str (source[0])
   s = open (n).read ()
@@ -299,6 +310,7 @@ MO = Builder (action = 'msgfmt -o $TARGET $SOURCE',
        suffix = '.mo', src_suffix = '.po')
 env.Append (BUILDERS = {'MO': MO})
 
+# ' '; ?
 ugh =  'ln -f po/lilypond.pot ${TARGET.dir}/lilypond.po ; '
 a = ugh + 'xgettext --default-domain=lilypond --join \
 --output-dir=${TARGET.dir} --add-comments \
@@ -314,6 +326,7 @@ a = 'msgmerge ${SOURCE} ${SOURCE.dir}/lilypond.pot -o ${TARGET}' + ugh
 POMERGE = Builder (action = a, suffix = '.pom', src_suffix = '.po')
 env.Append (BUILDERS = {'POMERGE': POMERGE})
 
+#UGRr
 a = 'BSTINPUTS=$BSTINPUTS $BIB2HTML -o $TARGET $SOURCE'
 BIB2HTML = Builder (action = a, suffix = '.html', src_suffix = '.bib')
 env.Append (BUILDERS = {'BIB2HTML': BIB2HTML})
@@ -324,31 +337,48 @@ LYS2TELY = Builder (action = a, suffix = '.tely', src_suffix = '.ly')
 env.Append (BUILDERS = {'LYS2TELY': LYS2TELY})
 
 
-def mutopia (ly=None, abc=None):
+def mutopia (ly = None, abc = None):
+
+    # FIXME: ugr, huh?  The values from ../SConstruct get appended
+    # to the predefined values from this builder context:
+
+    # abc2ly/usr/bin/python ..../abc2.py
+
+    # Override them again to fix web build...
+
+    
+    #BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
+    #BUILD_LILYPOND = '$absbuild/$out/lilypond ${__verbose}'
     e = env.Copy (
-        LILYPOND_BOOK_FLAGS = lilypond_book_flags,
-        )
+        #LILYPOND = BUILD_LILYPOND,
+        #ABC2LY = BUILD_ABC2LY,
+    )
     
     if not abc:
         abc = base_glob ('*.abc')
     if not ly:
         ly = base_glob ('*.ly') + map (e.ABC, abc)
     pdf = map (e.LilyPond, ly)
+    
+    # We need lily and mf to build these.
     env.Depends (pdf, ['#/lily', '#/mf'])
     env.Alias ('doc', pdf)
 
 Export ('mutopia')
+
 
 def collate (title = 'collated files'):
     ly = base_glob ('*.ly')
     
     e = env.Copy (
         TITLE = title,
-        LILYPOND_BOOK_FLAGS = lilypond_book_flags,
-        # __verbose = ' --verbose',
-        )
+        LILYPOND_BOOK_FLAGS = '''--process="lilypond --backend=eps --formats=ps,png --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'" ''',
+                                                                   __verbose = ' --verbose',
+                                                                   )
+    #
     tely = e.LYS2TELY ('collated-files', ly)
     texi = e.TEXI (tely)
+    # We need lily and mf to build these.
     env.Depends (texi, ['#/lily', '#/mf'])
     dvi = e.TEXIDVI (texi)
     pspdf = e.DVIPDF (dvi)

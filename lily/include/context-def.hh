@@ -18,7 +18,7 @@
   The definition of a interpretation context as given in the
   input. The lists are stored in order of definition.
 */
-struct Context_def
+struct Context_def : public Input
 {
 private:
   /*
@@ -32,19 +32,15 @@ private:
   SCM context_aliases_;
   SCM translator_group_type_;
   SCM default_child_;
-  SCM input_location_;
+
 public:
-  Input *origin () const;
   void add_context_mod (SCM);
   SCM get_default_child (SCM user_mods) const;
-  SCM get_context_name () const { return context_name_; }
+  SCM get_context_name () const;
   SCM get_accepted (SCM user_mods) const;
   SCM get_property_ops () const { return property_ops_; }
   SCM get_translator_names (SCM) const;
-  SCM get_translator_group_type () const { return translator_group_type_; }
   void set_acceptor (SCM accepts, bool add);
-
-  VIRTUAL_COPY_CONSTRUCTOR(Context_def, Context_def);
 
   vector<Context_def*> path_to_acceptable_context (SCM type_string,
 						      Output_def *) const;
@@ -53,6 +49,7 @@ public:
   SCM to_alist () const;
   static SCM make_scm ();
 
+  SCM clone_scm () const;
   void apply_default_property_operations (Context *);
 
 private:

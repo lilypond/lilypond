@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2006  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define (define-grob-property symbol type? description)
@@ -141,7 +141,7 @@ dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
      
      (default-direction ,ly:dir? "Direction determined by note head positions.")
-     (direction ,ly:dir? "If side-position is 1 (#X), then this property determines if the object is placed #LEFT, #CENTER or #RIGHT with respect to the other object. Otherwise, it determines if the object is placed #UP #CENTER or #DOWN.  Numerical values may also be used. #UP=1, #DOWN=-1, #LEFT=-1, #RIGHT=1, CENTER=0 but also other numerical values are permitted.")
+     (direction ,ly:dir? "#UP or #DOWN, #LEFT or #RIGHT?  (or a numerical value, #UP=1, #DOWN=-1, #LEFT=-1, #RIGHT=1, CENTER=0)")
 
      (dot-color ,symbol? "Color of dots.  Options include 
 @code{black} and @code{white}.")
@@ -202,7 +202,6 @@ include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
      (font-shape ,symbol? "Select the shape of a font. Choices include @code{upright},
 @code{italic}, @code{caps}.")
 
-     (forced ,boolean? "manually forced accidental")
      (forced-distance ,ly:dimension? "A fixed distance between object
 reference points in an alignment.")
 
@@ -226,6 +225,9 @@ typeset. Valid choices depend on the function that is reading this
 property.")
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
      (gap-count ,integer? "Number of gapped beams for tremolo.")
+     (grace-space-factor ,number? "Space grace notes at this fraction
+of the @code{spacing-increment}.")
+
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
      (hair-thickness ,number? "Thickness of the thin line in a bar line.")
      (head-direction ,ly:dir? "Are the note heads left or right in a semitie?")
@@ -240,9 +242,7 @@ of note-column for horizontal shifting. This is used by
 Choices are @code{around}, @code{inside}, @code{outside}.  If unset, script
 and slur ignore eachother.")
      (inspect-quants ,number-pair? "If debugging is set,
-set beam/slur quant to this position, and print the respective scores.")
-     (inspect-index ,integer? "If debugging is set,
-set beam/slur configuration to this index, and print the respective scores.")
+set beam quant to this position, and print the respective scores.")
      (implicit ,boolean? "Is this an implicit bass figure?")
      (keep-inside-line ,boolean? "If set, this column cannot have
 things sticking into the margin.")
@@ -261,7 +261,8 @@ objects in higher layers.")
 sum of 2 numbers.  The first is the factor for line thickness, and the
 second for staff space. Both contributions are added.")
      (left-padding ,ly:dimension? "The amount of space that is put
-left to an object (eg. a group of accidentals).")
+left to a group of accidentals.")
+     
      (length ,ly:dimension? "User override for the stem length of
 unbeamed stems.")
      (length-fraction ,number? "Multiplier for lengths. Used for
@@ -351,7 +352,8 @@ quicker the slur attains it @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
 @code{interesting-items}")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
-     (right-padding ,ly:dimension? "Space to insert on the right side  of an object (eg. between note and its accidentals.)")
+     (right-padding ,ly:dimension? "Space to insert between note and
+accidentals.")
      (rotation ,list? "Number of degrees to rotate this object, and what point
 to rotate around. #'(45 0 0) means rotate 45 degrees around the center of this object.")
      (same-direction-correction ,number? "Optical correction amount
@@ -367,8 +369,7 @@ direction. Values in between may also be specified.")
 Y axis.")
 
      (shorten-pair ,number-pair? "The lengths to shorten a
-text-spanner on both sides, for example a pedal bracket.  Positive values
-shorten the text-spanner, while negative values lengthen it.")
+text-spanner on both sides, for example a pedal bracket")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the edges of beams?")
      (common-shortest-duration ,ly:moment?
 			       "The most common shortest note length.
@@ -384,7 +385,7 @@ note that starts here.")
 			      "Multiply direction of
 @code{direction-source} with this to get the direction of this
 object.")
-     (side-axis ,number? "If the value is #X (or equivalently 1), the object is placed horizontally next to the other object. If the value is #Y or 0, it is placed vertically.")
+     (side-axis ,number? "Is this object horizontally or vertically next to another object?")
      (size ,number? "Size of object, relative to standard size.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
@@ -415,13 +416,10 @@ staff spaces, counted from the middle line.")
 stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
-     (stencil ,ly:stencil? "The symbol to print.")
 
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, barlines, etc.) are not spaced
 separately, but put before musical columns.")
-     (strict-grace-spacing ,boolean? "If set, grace notes 
-are not spaced separately, but put before musical columns.")
      (string-count ,integer? "The number of strings in a fret diagram.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      
@@ -486,9 +484,6 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (apply define-internal-grob-property x))
    
    `(
-     (pure-relevant-elements ,ly:grob-array? "The subset of elements that are relevant for finding the pure-Y-extent.")
-     (cached-pure-extents ,vector? "Used by a VerticalAxisGroup to cache the Y-extents of different column ranges.")
-     (common-refpoint-of-elements ,ly:grob? "Caches the common_refpoint_of_array of the elements grob-set")
      (axis-group-parent-X ,ly:grob? "Containing X axis group")
      (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
@@ -503,7 +498,6 @@ set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")
      (dots ,ly:grob-array? "multiple Dots objects.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
-     (important-column-ranks ,vector? "Cache of columns that contain items-worth-living.")
      (glyph-name ,string? "a name of character within font.")
      (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
      (stem ,ly:grob? "pointer to Stem object.")
@@ -526,8 +520,6 @@ paper-columns or note-column objects.")
 in addition to notes and stems.")
      (elements ,ly:grob-array? "list of grobs, type depending on the Grob
 where this is set in.")
-     (grace-spacing ,ly:grob? "a run of grace notes.")
-     (spacing ,ly:grob? "the spacing spanner governing this section.")
      (heads ,ly:grob-array? "List of note heads.")
      (items-worth-living ,ly:grob-array? "A list of interesting items. If
 empty in a particular staff, then that staff is erased.")
@@ -563,7 +555,6 @@ columns.
      (positioning-done ,boolean?
 		       "Used to signal that a positioning element
 did its job. This ensures that a positioning is only done once.")
-     (pure-Y-extent ,number-pair? "The estimated height of a system")
 
 
      (script-stencil ,pair? "Pair (@code{type} . @code{arg}), which
@@ -590,11 +581,12 @@ debugging")
 ;;; the next note could be seen
      (join-right-amount ,number? "")
 
-     (delta-position ,number? "vertical position difference")
+     (delta-pitch ,number? "the interval between this and the next note, or, more precisely, their vertical distance; this is used in ligatures for calculation of the height of vertical joins flexa shapes")
      (head-width ,ly:dimension? "width of this ligature head")
 
      ;; [TODO: change this]
      (primitive ,integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. ")
+     (stencil ,ly:stencil? "The symbol to print.")
      (ideal-distances ,list? "(@var{obj} . (@var{dist} . @var{strength})) pairs.")
      (minimum-distances ,list? "list of rods, that have the format (@var{obj} . @var{dist}).")
 
@@ -615,15 +607,9 @@ than a whole rest.")
      ;;;;;;; TODO:
      ;; there are too many properties for ancient notation
      ;; probably neume-types (a list of symbols) would also work.
-
-     ;; However, such this list would consist of a couple of dozens of
-     ;; entries, since head prefixes may be combined in many ways.  If
-     ;; the macros in gregorian-init.ly would directly set prefix-set,
-     ;; all the head prefixes could be junked; however, such macros
-     ;; would be quite numerous, I guess.  --jr
-
-     (auctum ,boolean? "is this neume liquescentically augmented?")
-     (ascendens ,boolean? "is this neume of an ascending type?")
+     
+     (auctum ,boolean? "is this neume augmented?")
+     (ascendens ,boolean? "is this neume of an ascending?")
      (add-cauda ,boolean? "does this flexa require an additional cauda on the left side?")
      (add-join ,boolean? "is this ligature head joined with the next one by a vertical line?")
      (cavum ,boolean? "is this neume outlined?")
@@ -633,17 +619,20 @@ than a whole rest.")
      (flexa-width ,ly:dimension? "width of a flexa shape in a ligature grob in staff_space.")
      (join-heads ,boolean? "Whether to join the note heads of an ambitus grob with a vertical line.")
      (linea ,boolean? "attach vertical lines to this neume?")
+  
+ 
      (add-stem ,boolean? "is this ligature head a virga and therefore needs an additional stem on the right side?")
-     (context-info ,integer? "Within a ligature, the final glyph or shape of a head may be affected by the left and/or right neighbour head.  context-info holds for each head such information about the left and right neighbour, encoded as a bit mask.")
+     (context-info ,integer? "DOCME")
      (inclinatum ,boolean? "is this neume an inclinatum?")
      (oriscus ,boolean? "is this neume an oriscus?")
      (quilisma ,boolean? "is this neume a quilisma?")
      (pes-or-flexa ,boolean? "shall this neume be joined with the previous head?")
-     (prefix-set ,number? "a bit mask that holds all Gregorian head prefixes, such as @code{\\virga} or @code{\\quilisma}")
+     ;; DOCME
+     (prefix-set ,number? "")
      (stropha ,boolean? "Is this neume a stropha?")
      (virga ,boolean? "Is this neume a virga?")
      (x-offset ,ly:dimension? "Extra horizontal offset for ligature heads.")
-
+     
      ;; end ancient notation
 
      )))

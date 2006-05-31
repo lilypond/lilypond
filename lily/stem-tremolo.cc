@@ -83,8 +83,7 @@ Stem_tremolo::get_beam_translation (Grob *me)
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   Spanner *beam = Stem::get_beam (stem);
 
-  return (beam && beam->is_live ())
-    ? Beam::get_beam_translation (beam) : 0.81;
+  return  beam ? Beam::get_beam_translation (beam) : 0.81;
 }
 
 Stencil
@@ -119,7 +118,7 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction stemdir)
       return Stencil ();
     }
 
-  Real beam_translation = get_beam_translation (me);
+  Real beam_translation = get_beam_translation(me);
 
   Stencil mol;
   for (int i = 0; i < tremolo_flags; i++)
@@ -142,34 +141,40 @@ Stem_tremolo::height (SCM smob)
   /*
     Cannot use the real slope, since it looks at the Beam.
    */
-  Stencil s1 (translated_stencil (me, 0.35));
+  Stencil s1 (raw_stencil (me, 0.35, UP));
 
   return ly_interval2scm (s1.extent (Y_AXIS));
 }
 
-Stencil
-Stem_tremolo::translated_stencil (Grob *me, Real slope)
+
+MAKE_SCHEME_CALLBACK (Stem_tremolo, print, 1);
+SCM
+Stem_tremolo::print (SCM grob)
 {
+  Grob *me = unsmob_grob (grob);
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (!stem)
     {
       programming_error ("no stem for stem-tremolo");
-      return Stencil();
+      return SCM_EOL;
     }
 
   Spanner *beam = Stem::get_beam (stem);
   Direction stemdir = get_grob_direction (stem);
+  bool whole_note = Stem::duration_log (stem) <= 0;
   if (stemdir == 0)
     stemdir = UP;
 
-  bool whole_note = Stem::duration_log (stem) <= 0;
-
-  Real beam_translation = get_beam_translation (me);
+  Real beam_translation
+    = (beam && beam->is_live ())
+    ? Beam::get_beam_translation (beam)
+    : 0.81;
 
   /* for a whole note, we position relative to the notehead, so we want the
      stencil aligned on the flag closest to the head */
   Direction stencil_dir = whole_note ? -stemdir : stemdir;
-  Stencil mol = raw_stencil (me, slope, stencil_dir);
+  Stencil mol = raw_stencil (me, robust_scm2double (me->get_property ("slope"),
+						    0.25), stencil_dir);
 
   Interval mol_ext = mol.extent (Y_AXIS);
   Real ss = Staff_symbol_referencer::staff_space (me);
@@ -202,17 +207,7 @@ Stem_tremolo::translated_stencil (Grob *me, Real slope)
     }
   mol.translate_axis (end_y, Y_AXIS);
 
-  return mol;
-}
-
-MAKE_SCHEME_CALLBACK (Stem_tremolo, print, 1);
-SCM
-Stem_tremolo::print (SCM grob)
-{
-  Grob *me = unsmob_grob (grob);
-  
-  Stencil s = translated_stencil (me, robust_scm2double (me->get_property ("slope"), 0.25));
-  return s.smobbed_copy ();
+  return mol.smobbed_copy ();
 }
 
 ADD_INTERFACE (Stem_tremolo, "stem-tremolo-interface",

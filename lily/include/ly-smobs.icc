@@ -74,8 +74,8 @@
     void								\
   CL::smobify_self ()							\
   {									\
-    protection_cons_ = SCM_EOL;						\
     self_scm_ = unprotected_smobify_self ();				\
+    protection_cons_ = SCM_EOL;						\
     protect ();								\
   }									\
   void									\
@@ -86,7 +86,7 @@
   SCM									\
   CL::unprotect ()							\
   {									\
-    unprotect_smob (self_scm_, &protection_cons_);			\
+    unprotect_smob (&protection_cons_);					\
     return self_scm_;							\
   }									\
   SCM									\

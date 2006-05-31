@@ -13,28 +13,33 @@
 #include "smobs.hh"
 #include "prob.hh"
 
-class Stream_event : public Prob
+class Stream_event
 {
+  void init ();
+  SCM property_alist_;
+  Input *origin_;
+
 public:
   Stream_event ();
-  VIRTUAL_COPY_CONSTRUCTOR (Stream_event, Stream_event);
-  // todo: remove unneeded constructors
-  Stream_event (SCM event_class, SCM mutable_props=SCM_EOL);
-  Stream_event (SCM class_name, Input *);
-  Stream_event (Stream_event *ev);
-
   Input *origin () const;
-  void set_spot (Input *i);
-  bool internal_in_event_class (SCM class_name);
 
   DECLARE_SCHEME_CALLBACK (undump, (SCM));
   DECLARE_SCHEME_CALLBACK (dump, (SCM));
 
+  // todo: make Input mandatory.
+  Stream_event (SCM property_alist);
+  Stream_event (Context *c, SCM class_name);
+  Stream_event (Context *c, Input *);
+  Stream_event (Stream_event *ev);
+
+  SCM internal_get_property (SCM) const;
+  void internal_set_property (SCM prop, SCM val);
+
+protected:
+  DECLARE_SMOBS (Stream_event,);
 };
 
-#define in_event_class(class_name) internal_in_event_class (ly_symbol2scm (class_name))
-
-Stream_event *unsmob_stream_event (SCM);
+DECLARE_UNSMOB (Stream_event, stream_event);
 DECLARE_TYPE_P (Stream_event);
 
 #endif /* STREAM_EVENT_HH */

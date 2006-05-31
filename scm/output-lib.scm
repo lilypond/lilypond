@@ -3,48 +3,14 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
+;;; Tablature functions, by Jiba (jiba@tuxfamily.org)
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; general
-
-(define-public (make-stencil-boxer thickness padding callback)
-
-  "Return function that adds a box around the grob passed as argument."
-  (lambda (grob)
-    
-    (box-stencil (callback grob) thickness padding)))
-
-(define-public (make-stencil-circler thickness padding callback)
-  "Return function that adds a circle around the grob passed as argument."
-  
-  (lambda (grob) (circle-stencil (callback grob) thickness padding)))
-
-(define-public (print-circled-text-callback grob)
-  (let* ((text (ly:grob-property grob 'text))
-	 
-	 (layout (ly:grob-layout grob))
-	 (defs (ly:output-def-lookup layout 'text-font-defaults))
-	 (props (ly:grob-alist-chain grob defs))
-	 (circle (ly:text-interface::interpret-markup
-		  layout props (make-circle-markup text))))
-    circle))
-
-
-(define-public (event-cause grob)
-  (let*
-      ((cause (ly:grob-property  grob 'cause)))
-    
-    (cond
-     ((ly:stream-event? cause) cause)
-     ((ly:grob? cause) (event-cause cause))
-     (else #f))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tablature
+;; The TabNoteHead stem attachment function.
+(define (note-head::calc-tablature-stem-attachment grob)
+  (cons 0.0 1.35))
 
 ;; The TabNoteHead tablatureFormat callback.
 ;; Compute the text grob-property
@@ -89,20 +55,59 @@
 (define-public (four-string-banjo tuning)
   (reverse (cdr (reverse tuning))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; note heads
+;;; end of tablature functions
 
-(define-public (note-head::calc-duration-log grob)
-  (ly:duration-log
-   (ly:event-property (event-cause grob) 'duration)))
+(define-public (make-stencil-boxer thickness padding callback)
 
-(define-public (dots::calc-dot-count grob)
-  (ly:duration-dot-count
-   (ly:event-property (event-cause grob) 'duration)))
+  "Return function that adds a box around the grob passed as argument."
+  (lambda (grob)
+    
+    (box-stencil (callback grob) thickness padding)))
 
-(define (note-head::calc-tablature-stem-attachment grob)
-  (cons 0.0 1.35))
+(define-public (make-stencil-circler thickness padding callback)
+  "Return function that adds a circle around the grob passed as argument."
+  (lambda (grob) (circle-stencil (callback grob) thickness padding)))
 
+(define-public (arg->string arg)
+  (cond ((number? arg) (ly:inexact->string arg 10))
+	((string? arg) (string-append "\"" arg "\""))
+	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
+
+(define-public (print-circled-text-callback grob)
+  (let* ((text (ly:grob-property grob 'text))
+	 
+	 (layout (ly:grob-layout grob))
+	 (defs (ly:output-def-lookup layout 'text-font-defaults))
+	 (props (ly:grob-alist-chain grob defs))
+	 (circle (ly:text-interface::interpret-markup
+		  layout props (make-circle-markup text))))
+    circle))
+
+
+;;(define (mm-to-pt x)
+;;  (* (/ 72.27 25.40) x))
+
+;; do nothing in .scm output
+
+(define-public (ly:numbers->string lst)
+  (string-join (map ly:number->string lst) " "))
+
+(define (number->octal-string x)
+  (let* ((n (inexact->exact x))
+         (n64 (quotient n 64))
+         (n8 (quotient (- n (* n64 64)) 8)))
+    (string-append
+     (number->string n64)
+     (number->string n8)
+     (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
+
+(define-public (ly:inexact->string x radix)
+  (let ((n (inexact->exact x)))
+    (number->string n radix)))
+
+(define-public (ly:number-pair->string c)
+  (string-append (ly:number->string (car c)) " "
+		 (ly:number->string (cdr c))))
 
 
 ;; silly, use alist? 
@@ -154,9 +159,13 @@ centered, X==1 is at the right, X == -1 is at the left."
 
   '(1.0 . 0.0))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bar numbers
+(define-public (string-encode-integer i)
+  (cond
+   ((= i  0) "o")
+   ((< i 0)   (string-append "n" (string-encode-integer (- i))))
+   (else (string-append
+	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
+	  (string-encode-integer (quotient i 26))))))
 
 (define-public ((every-nth-bar-number-visible n) barnum) (= 0 (modulo barnum n)))
 
@@ -168,9 +177,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (first-bar-number-invisible barnum) (> barnum 1))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; break visibility
-
+;; See documentation of ly:item::visibility-lambda-
 (define-public begin-of-line-visible
   #(#f #f #t))
 (define-public end-of-line-visible
@@ -199,7 +206,6 @@ centered, X==1 is at the right, X == -1 is at the left."
 	 (result (assoc glyph 
 		       '((":|:" . (":|" . "|:"))
 			 ("||:" . ("||" . "|:"))
-			 ("dashed" . ("dashed" . '())) 
 			 ("|" . ("|" . ()))
 			 ("||:" . ("||" . "|:"))
 			 ("|s" . (() . "|"))
@@ -237,20 +243,6 @@ centered, X==1 is at the right, X == -1 is at the left."
       (ly:grob-translate-axis! g 3.5 X)))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Tuplets
-
-(define-public (tuplet-number::calc-denominator-text grob)
-  (number->string (ly:event-property (event-cause grob) 'denominator)))
-
-(define-public (tuplet-number::calc-fraction-text grob)
-  (let*
-      ((ev (event-cause grob)))
-
-    (format "~a:~a" 
-	    (ly:event-property ev 'denominator)
-	    (ly:event-property ev 'numerator))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Color
 
@@ -280,7 +272,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define (parenthesize-elements grob . rest)
   (let*
-      ((refp (if (null? rest)
+      (
+       (refp (if (null? rest)
 		 grob
 		 (car rest)))
        (elts (ly:grob-object grob 'elements))
@@ -290,7 +283,7 @@ centered, X==1 is at the right, X == -1 is at the left."
        (lp (ly:font-get-glyph font "accidentals.leftparen"))
        (rp (ly:font-get-glyph font "accidentals.rightparen"))
        (padding (ly:grob-property grob 'padding 0.1)))
-    
+
     (ly:stencil-add
      (ly:stencil-translate-axis lp (- (car x-ext) padding) X)
      (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))
@@ -330,97 +323,3 @@ centered, X==1 is at the right, X == -1 is at the left."
 
   value)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; falls
-
-(define-public (fall::print spanner)
-  (let*
-      ((delta-y (* 0.5 (ly:grob-property spanner 'delta-position)))
-       (left-span (ly:spanner-bound spanner LEFT))
-       (right-span (ly:spanner-bound spanner RIGHT))
-       (thickness (* (ly:grob-property spanner 'thickness)
-		     (ly:output-def-lookup (ly:grob-layout spanner)
-					   'line-thickness)))
-       (padding (ly:grob-property spanner 'padding 0.5))
-       (common (ly:grob-common-refpoint right-span
-					(ly:grob-common-refpoint spanner
-						left-span X)
-					X))
-       (left-x (+ padding  (interval-end  (ly:grob-robust-relative-extent left-span common X))))
-       (right-x (- (interval-start  (ly:grob-robust-relative-extent right-span common X)) padding))
-       (self-x (ly:grob-relative-coordinate spanner common X))
-       (dx (- right-x left-x))
-       (exp (list 'path thickness 
-		  `(quote
-		    (rmoveto
-		     ,(- left-x self-x) 0
-
-		     rcurveto		     
-		     ,(/ dx 3)
-		     0
-		     ,dx ,(* 0.66 delta-y)
-		     ,dx ,delta-y
-		     ))))
-       )
-
-    (ly:make-stencil
-     exp
-     (cons 0 dx)
-     (cons (min 0 delta-y)
-	   (max 0 delta-y)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; grace spacing
-
-
-(define-public (grace-spacing::calc-shortest-duration grob)
-  (let*
-     ((cols (ly:grob-object grob 'columns))
-      (get-difference
-       (lambda (idx)
-	 (ly:moment-sub (ly:grob-property (ly:grob-array-ref cols (1+ idx)) 'when)
-			(ly:grob-property (ly:grob-array-ref cols idx) 'when))))
-      
-      (moment-min (lambda (x y)
-		    (cond
-		     ((and x y)
-		      (if (ly:moment<? x y)
-			    x
-			    y))
-		     (x x)
-		     (y y)))))
-		     
-    (fold moment-min #f (map get-difference
-			     (iota (1- (ly:grob-array-length cols)))))))
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; fingering
-
-(define-public (fingering::calc-text grob)
-  (let*
-      ((event (event-cause grob))
-       (digit (ly:event-property event 'digit)))
-    
-    (if (> digit 5)
-	(ly:input-message (ly:music-property event 'origin)
-			  "Music for the martians"))
-
-    (number->string digit 10)
-  ))
-
-(define-public (string-number::calc-text grob)
-  (let*
-      ((digit (ly:event-property (event-cause  grob) 'string-number)))
-    
-    (number->string digit 10)
-  ))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; dynamics
-(define-public (hairpin::calc-grow-direction grob)
-  (if (eq? (ly:event-property (event-cause grob) 'class) 'decrescendo-event)
-      START
-      STOP
-      ))

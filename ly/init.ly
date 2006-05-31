@@ -16,7 +16,7 @@
 #(define toplevel-scores '())
 #(define output-count 0) 
 #(define $defaultheader #f)
-#(define version-seen #f)
+#(define version-seen? #f)
 
 \maininput
 %% there is a problem at the end of the input file
@@ -30,7 +30,7 @@
       (not (ly:get-option 'old-relative-used)))
   (old-relative-not-used-message input-file-name))%% there is a problem at the end of the input file
 
-#(if (and (not version-seen)
+#(if (and (not version-seen?)
       (defined? 'input-file-name))
   (version-not-seen-message input-file-name))
 

@@ -10,10 +10,11 @@ this chapter.
 
 @menu
 * Suggestions for writing LilyPond files::  
-* Saving typing with identifiers and functions::  
-* Style sheets::                
+* Typesetting existing music::  
 * Updating old files::          
 * Troubleshooting (taking it all apart)::  
+* Saving typing with identifiers and functions::  
+* Style sheets::                
 @end menu
 
 
@@ -24,44 +25,19 @@ Now you're ready to begin writing larger LilyPond files -- not just the
 little examples in the tutorial, but whole pieces.  But how should you
 go about doing it?
 
-As long as LilyPond can understand your files and produces the output
-that you want, it doesn't matter what your files look like.  However,
-there are a few other things to consider when writing lilypond files.
-
-@itemize @bullet
-@item What if you make a mistake?  The structure of a lilypond
-file can make certain errors easier (or harder) to find.
-
-@item What if you want to share your files with somebody
-else?  In fact, what if you want to alter your own files in
-a few years?  Some lilypond files are understandable at
-first glance; other files may leave you scratching your head
-for an hour.
-
-@item What if you want to upgrade your lilypond file for use
-with a later version of lilypond?  The input syntax changes
-occasionally as lilypond improves.  Most changes can be
-done automatically with @code{convert-ly}, but some changes
-might require manual assistance.  Lilypond files can be
-structured in order to be easier (or header) to update.
-@end itemize
-
-@menu
-* General suggestions::         
-* Typesetting existing music::  
-* Large projects::              
-@end menu
-
-
-@node General suggestions
-@subsection General suggestions
+The best answer is ``however you want to do it.''  As long as LilyPond
+can understand your files and produces the output that you want, it
+doesn't matter what your files look like.  That said, sometimes we
+make mistakes when writing files.  If LilyPond can't understand your
+files, or produces output that you don't like, how do you fix the
+problem?
 
 Here are a few suggestions that can help you to avoid or fix
 problems:
 
 @itemize @bullet
 @item @strong{Include @code{\version} numbers in every file}.  Note that all
-templates contain a @code{\version "2.9.13"} string.  We
+templates contain a @code{\version "2.8.0"} string.  We
 highly recommend that you always include the @code{\version}, no matter
 how small your file is.  Speaking from personal experience, it's
 quite frustrating to try to remember which version of LilyPond you were
@@ -95,20 +71,11 @@ you didn't comment the file.
 imbalance
 in the number of @code{@{} and @code{@}}.
 
-@item @strong{Explicity add durations} at the beginnings of sections
-and identifiers.  If you specify @code{c4 d e} at the beginning of a
-phrase (instead of just @code{c d e}) you can save yourself some
-problems if you rearrange your music later.
-
-@item @strong{Separate tweaks} from music definitions.  See
-@ref{Saving typing with identifiers and functions} and
-@ref{Style sheets}.
-
 @end itemize
 
 
 @node Typesetting existing music
-@subsection Typesetting existing music
+@section Typesetting existing music
 
 If you are entering music from an existing score (i.e., typesetting a
 piece of existing sheet music),
@@ -132,50 +99,84 @@ best.
 @end itemize
 
 
-@node Large projects
-@subsection Large projects
+@node Updating old files
+@section Updating old files
 
-When working on a large project, having a clear structure to your
-lilypond files becomes vital.
+The LilyPond input syntax occasionally changes.  As LilyPond itself
+improves, the syntax (input language) is modified accordingly.  Sometimes
+these changes are made to make the input easier to read and write or
+sometimes the changes are made to accomodate new features of LilyPond.
 
-@itemize @bullet
+LilyPond comes with a file that makes this updating easier:
+@code{convert-ly}.  For details about how to run this program, see
+@ref{Updating files with convert-ly}.
 
-@item @strong{Use an identifier for each voice}, with a minimum of
-structure inside the definition.  The structure of the
-@code{\score} section is the most likely thing to change;
-the @code{violin} definition is extremely unlikely to change
-in a new version of LilyPond.
+Unforunately, @code{convert-ly} cannot handle all input changes.  It
+takes care of simple search-and-replace changes (such as @code{raggedright}
+becoming @code{ragged-right}), but some changes are too
+complicated.  The syntax changes that @code{convert-ly} cannot handle
+are listed in @ref{Updating files with convert-ly}.
+
+For example, in LilyPond 2.4 and earlier, accents and non-English
+letters were entered using LaTeX -- for example,
+"@code{No\"el}" (this would print the French word for
+`Christmas').  In LilyPond 2.6 and above, the special
+"@code{ë}" must be entered directly into the LilyPond file as an
+UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
+special characters into UTF-8 characters; you must manually update
+your old LilyPond files.
+
+
+@node Troubleshooting (taking it all apart)
+@section Troubleshooting (taking it all apart)
+
+Sooner or later, you will write a file that LilyPond cannot
+compile.  The messages that LilyPond gives may help
+you find the error, but in many cases you need to do some
+investigation to determine the source of the problem.
+
+The most powerful tools for this purpose are the
+single line comment (indicated by @code{%}) and the block
+comment (indicated by @code{%@{ ... %@}}).  If you don't
+know where a problem is, start commenting out huge portions
+of your input file.  After you comment out a section, try
+compiling the file again.  If it works, then the problem
+must exist in the portion you just commented.  If it doesn't
+work, then keep on commenting out material until you have
+something that works.
+
+In an extreme case, you might end up with only
 
 @example
-violin = \relative c'' @{
-g4 c'8. e16
-@}
-...
 \score @{
-  \new GrandStaff @{
-    \new Staff @{
-      \violin
-    @}
-  @}
+  <<
+    % \melody
+    % \harmony
+    % \bass
+  >>
+  \layout@{@}
 @}
 @end example
 
-@item @strong{Separate tweaks from music definitions}.  This
-point was made in @ref{General suggestions}, but for large
-projects it is absolutely vital.  We might need to change
-the definition of @code{fthenp}, but then we only need
-to do this once, and we can still avoid touching anything
-inside @code{violin}.
+@noindent
+(in other words, a file without any music)
+
+If that happens, don't give up.  Uncomment a bit -- say,
+the bass part -- and see if it works.  If it doesn't work,
+then comment out all of the bass music (but leave
+@code{\bass} in the @code{\score} uncommented.
 
 @example
-fthenp = _\markup@{
-  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
-violin = \relative c'' @{
-g4\fthenp c'8. e16
+bass = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
 @}
 @end example
 
-@end itemize
+Now start slowly uncommenting more and more of the
+@code{bass} part until you find the problem line.
 
 
 @node Saving typing with identifiers and functions
@@ -525,92 +526,12 @@ file with @code{\include "../global.ly"}, which contains
 
 @example
 %%%   global.ly
-\version "2.9.13"
+\version "2.8.0"
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-layout.ly"
 \include "../init/init-headers.ly"
 \include "../init/init-paper.ly"
 @end example
-
-
-@node Updating old files
-@section Updating old files
-
-The LilyPond input syntax occasionally changes.  As LilyPond itself
-improves, the syntax (input language) is modified accordingly.  Sometimes
-these changes are made to make the input easier to read and write or
-sometimes the changes are made to accomodate new features of LilyPond.
-
-LilyPond comes with a file that makes this updating easier:
-@code{convert-ly}.  For details about how to run this program, see
-@ref{Updating files with convert-ly}.
-
-Unforunately, @code{convert-ly} cannot handle all input changes.  It
-takes care of simple search-and-replace changes (such as @code{raggedright}
-becoming @code{ragged-right}), but some changes are too
-complicated.  The syntax changes that @code{convert-ly} cannot handle
-are listed in @ref{Updating files with convert-ly}.
-
-For example, in LilyPond 2.4 and earlier, accents and non-English
-letters were entered using LaTeX -- for example,
-"@code{No\"el}" (this would print the French word for
-`Christmas').  In LilyPond 2.6 and above, the special
-"@code{ë}" must be entered directly into the LilyPond file as an
-UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
-special characters into UTF-8 characters; you must manually update
-your old LilyPond files.
-
-
-@node Troubleshooting (taking it all apart)
-@section Troubleshooting (taking it all apart)
-
-Sooner or later, you will write a file that LilyPond cannot
-compile.  The messages that LilyPond gives may help
-you find the error, but in many cases you need to do some
-investigation to determine the source of the problem.
-
-The most powerful tools for this purpose are the
-single line comment (indicated by @code{%}) and the block
-comment (indicated by @code{%@{ ... %@}}).  If you don't
-know where a problem is, start commenting out huge portions
-of your input file.  After you comment out a section, try
-compiling the file again.  If it works, then the problem
-must exist in the portion you just commented.  If it doesn't
-work, then keep on commenting out material until you have
-something that works.
-
-In an extreme case, you might end up with only
-
-@example
-\score @{
-  <<
-    % \melody
-    % \harmony
-    % \bass
-  >>
-  \layout@{@}
-@}
-@end example
-
-@noindent
-(in other words, a file without any music)
-
-If that happens, don't give up.  Uncomment a bit -- say,
-the bass part -- and see if it works.  If it doesn't work,
-then comment out all of the bass music (but leave
-@code{\bass} in the @code{\score} uncommented.
-
-@example
-bass = \relative c' @{
-%@{
-  c4 c c c
-  d d d d
-%@}
-@}
-@end example
-
-Now start slowly uncommenting more and more of the
-@code{bass} part until you find the problem line.
 
 

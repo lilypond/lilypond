@@ -11,20 +11,20 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
-#include "stream-event.hh"
 
 #include "translator.icc"
 
 class Laissez_vibrer_engraver : public Engraver
 {
-  Stream_event *event_;
+
+  Music *event_;
   Grob *lv_column_;
   vector<Grob*> lv_ties_;
   
   void stop_translation_timestep (); 
   DECLARE_ACKNOWLEDGER (note_head);
-protected:
-  DECLARE_TRANSLATOR_LISTENER (laissez_vibrer);
+  
+  virtual bool try_music (Music *);
 public:
   TRANSLATOR_DECLARATIONS (Laissez_vibrer_engraver);
 };
@@ -43,11 +43,11 @@ Laissez_vibrer_engraver::stop_translation_timestep ()
   lv_ties_.clear ();
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Laissez_vibrer_engraver, laissez_vibrer);
-void
-Laissez_vibrer_engraver::listen_laissez_vibrer (Stream_event *ev)
+bool
+Laissez_vibrer_engraver::try_music (Music *m)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  event_ = m;
+  return true;
 }
 
 void
@@ -70,6 +70,8 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
 
   lv_ties_.push_back (lv_tie);
 }
+
+
 
 ADD_ACKNOWLEDGER (Laissez_vibrer_engraver, note_head);
 ADD_TRANSLATOR (Laissez_vibrer_engraver, 

@@ -7,18 +7,16 @@
 */
 
 
-#include "accidental-placement.hh"
 
-#include "rhythmic-head.hh"
-#include "accidental-interface.hh"
-#include "music.hh"
-#include "note-collision.hh"
-#include "note-column.hh"
-#include "pitch.hh"
-#include "pointer-group-interface.hh"
+#include "accidental-placement.hh"
 #include "skyline.hh"
-#include "stream-event.hh"
+#include "music.hh"
+#include "pitch.hh"
 #include "warn.hh"
+#include "note-column.hh"
+#include "pointer-group-interface.hh"
+#include "note-collision.hh"
+#include "accidental-interface.hh"
 
 
 void
@@ -28,10 +26,10 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
   a->set_property ("X-offset", Grob::x_parent_positioning_proc);
   SCM cause = a->get_parent (Y_AXIS)->get_property ("cause");
 
-  Stream_event *mcause = unsmob_stream_event (cause);
+  Music *mcause = unsmob_music (cause);
   if (!mcause)
     {
-      programming_error ("note head has no event cause");
+      programming_error ("note head has no music cause");
       return;
     }
 
@@ -136,12 +134,6 @@ int ape_compare (Accidental_placement_entry *const &a,
   return sign (ape_priority (a) - ape_priority (b));
 }
 
-bool ape_less (Accidental_placement_entry *const &a,
-	       Accidental_placement_entry *const &b)
-{
-  return ape_priority (a) < ape_priority (b);
-}
-
 int ape_rcompare (Accidental_placement_entry *const &a,
 		  Accidental_placement_entry *const &b)
 {
@@ -161,7 +153,7 @@ stagger_apes (vector<Accidental_placement_entry*> *apes)
 {
   vector<Accidental_placement_entry*> asc = *apes;
 
-  vector_sort (asc, &ape_less);
+  vector_sort (asc, &ape_compare);
 
   apes->clear ();
 
@@ -300,7 +292,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
   for (vsize i = note_cols.size (); i--;)
     concat (heads, extract_grob_array (note_cols[i], "note-heads"));
 
-  vector_sort (heads, less<Grob*> ());
+  vector_sort (heads, default_compare);
   uniq (heads);
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
 
@@ -341,7 +333,6 @@ Accidental_placement::calc_positioning_done (SCM smob)
   Accidental_placement_entry *head_ape = new Accidental_placement_entry;
   common[X_AXIS] = common_refpoint_of_array (heads, common[X_AXIS], X_AXIS);
   vector<Skyline_entry> head_skyline (empty_skyline (LEFT));
-  
   vector<Box> head_extents;
   for (vsize i = heads.size (); i--;)
     {
@@ -351,25 +342,6 @@ Accidental_placement::calc_positioning_done (SCM smob)
       insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
     }
 
-  vector<Grob *> stems;
-  for (vsize i = 0; i < heads.size  (); i++)
-    {
-      if (Grob *s = Rhythmic_head::get_stem (heads[i]))
-	stems.push_back (s);
-    }
-  
-  vector_sort (stems, less<Grob*> ());
-  uniq (stems);
-  for (vsize i = 0; i < stems.size (); i ++)
-    {
-      int very_large = INT_MAX;
-      
-      Box b (heads[i]->extent (common[X_AXIS], X_AXIS),
-	     heads[i]->pure_height (common[Y_AXIS], 0, very_large));
-
-      insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
-    }
-  
   head_ape->left_skyline_ = head_skyline;
   head_ape->offset_ = 0.0;
 

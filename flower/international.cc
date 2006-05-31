@@ -32,15 +32,9 @@ _f (char const *format, ...)
 {
   va_list args;
   va_start (args, format);
-  string str = v_f (format, args);
+  string str = String_convert::vform_string (gettext (format), args);
   va_end (args);
   return str;
-}
-
-string
-v_f (char const *format, va_list args)
-{
-  return String_convert::vform_string (gettext (format), args);
 }
 
 string

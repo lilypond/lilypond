@@ -9,12 +9,12 @@
 
 #include "engraver.hh"
 
+#include "warn.hh"
+#include "simple-closure.hh"
+#include "music.hh"
 #include "grob.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
-#include "simple-closure.hh"
-#include "stream-event.hh"
-#include "warn.hh"
 
 #include "translator.icc"
 
@@ -33,17 +33,19 @@ Parenthesis_engraver::Parenthesis_engraver()
 void
 Parenthesis_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Stream_event *ev = info.event_cause ())
+  if (Music *music = info.music_cause ())
     {
-      if (to_boolean (ev->get_property ("parenthesize")))
+      if (to_boolean (music->get_property ("parenthesize")))
 	{
 	  if (Item *victim = dynamic_cast<Item*> (info.grob ()))
 	    {
 	      Engraver *eng = dynamic_cast<Engraver*> (info.origin_translator ());
-	      Item *paren = eng->make_item ("ParenthesesItem", victim->self_scm ());
-	      Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
+	      Item *paren = make_item_from_properties (eng,
+						       ly_symbol2scm ("ParenthesesItem"),
+						       victim->self_scm (),
+						       "ParenthesesItem");
 
-	      paren->set_parent (victim, Y_AXIS);
+	      Pointer_group_interface::add_grob (paren, ly_symbol2scm ("elements"), victim);
 	      
 	      Real size = robust_scm2double (paren->get_property ("font-size"), 0.0)
 		+ robust_scm2double (victim->get_property ("font-size"), 0.0);

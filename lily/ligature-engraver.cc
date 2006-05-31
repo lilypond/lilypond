@@ -12,8 +12,8 @@
 #include "international.hh"
 #include "note-head.hh"
 #include "rest.hh"
+#include "score-context.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -78,11 +78,16 @@ Ligature_engraver::Ligature_engraver ()
   brew_ligature_primitive_proc = SCM_EOL;
 }
 
-void
-Ligature_engraver::listen_ligature (Stream_event *ev)
+bool
+Ligature_engraver::try_music (Music *m)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
-  ASSIGN_EVENT_ONCE (events_drul_[d], ev);
+  if (m->is_mus_type ("ligature-event"))
+    {
+      Direction d = to_dir (m->get_property ("span-direction"));
+      events_drul_[d] = m;
+      return true;
+    }
+  return false;
 }
 
 void
@@ -189,7 +194,7 @@ Ligature_engraver::acknowledge_note_head (Grob_info info)
   if (ligature_)
     {
       primitives_.push_back (info);
-      if (info.grob () && brew_ligature_primitive_proc != SCM_EOL)
+      if (info.grob () && (brew_ligature_primitive_proc != SCM_EOL))
 	{
 	  info.grob ()->set_property ("stencil", brew_ligature_primitive_proc);
 	}
@@ -201,7 +206,7 @@ Ligature_engraver::acknowledge_rest (Grob_info info)
 {
   if (ligature_)
     {
-      info.event_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
+      info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
       prev_start_event_->origin ()->warning (_ ("ligature was started here"));
       // TODO: maybe better should stop ligature here rather than
       // ignoring the rest?

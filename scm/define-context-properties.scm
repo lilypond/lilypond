@@ -2,22 +2,15 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2006  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
 
 (define-public all-translation-properties '())
 
 (define (translator-property-description symbol type? description)
-  (if (not (and
-	    (symbol? symbol)
-	    (procedure? type?)
-	    (string? description)))
-      (throw 'init-format-error))
-	   
-       
-  (if (not (equal? #f (object-property symbol 'translation-doc)))
-      (ly:error (_ "symbol ~S redefined" symbol)))
+ (if (not (equal? #f (object-property symbol 'translation-doc)))
+     (ly:error (_ "symbol ~S redefined" symbol)))
   
   (set-object-property! symbol 'translation-type? type?)
   (set-object-property! symbol 'translation-doc description)
@@ -39,6 +32,8 @@
 				 "If true, then the accidentals are aligned in bass figure context.")
 
      (allowBeamBreak ,boolean? "If true allow line breaks for beams over bar lines.")
+     (allowPageTurn ,pair? "In the form (moment-start . penalty). Allow a page turn
+at the most recent breakpoint if it was after moment-start.")
      (associatedVoice ,string? "Name of the
 @code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies
@@ -187,7 +182,9 @@ The layout style is a hash table, containing the drum-pitches (e.g. the
 symbol @samp{hihat}) as key, and a list (@var{notehead-style}
 @var{script} @var{vertical-position}) as values.
  ")
-     (currentBarNumber ,integer? "Contains the current barnumber. This property is incremented at every bar line. ")
+     (currentBarNumber ,integer? "Contains the current barnumber. This property is incremented at
+every bar line.
+")
      (defaultBarType ,string? "Sets the default type of bar line.
 See @code{whichBar} for information on available bar types.
 
@@ -249,16 +246,15 @@ get accidentals.")
 highest pitch on the instrument. This used by the automatic string
 selector for tab notation.")
 
-     (ignoreFiguredBassRest ,boolean? "Don't swallow rest events.")
      (ignoreBarChecks ,boolean? "Ignore bar checks")
      (ignoreMelismata ,boolean? "Ignore melismata for this @internalsref{Lyrics} line.")
 
      (implicitBassFigures ,list? "List of bass figures that are not
 printed as numbers, but only as extender lines.")
      
+     (instr ,markup? "See @code{instrument}")
 
-     (instrumentCueName ,markup? "Name to print if another instrument is to be taken.")
-     (instrumentName ,markup? "The name to print left of a staff.  The
+     (instrument ,markup? "The name to print left of a staff.  The
 @code{instrument} property labels the staff in the first system, and
 the @code{instr} property labels following lines.")
      (instrumentEqualizer ,procedure? "
@@ -268,8 +264,6 @@ Function taking a string (instrument name), and returning a (@var{min} . @var{ma
 the instrument. Its value is the pitch that sounds like middle C. This
 is used to transpose the MIDI output, and @code{\\quote}s.")
 
-     (internalBarNumber ,integer? "Contains the current barnumber. This property is used for internal timekeeping, among others by the @code{Accidental_engraver}.")
-     
      (keepAliveInterfaces ,list? "List of symbols, signifying grob interfaces that
 are worth keeping an staff with @code{remove-empty} set around for.")   
      (keyAlterationOrder ,list? " Alist that defines in what order
@@ -312,12 +306,8 @@ markup.  Called with 2 arguments, event and context.")
      (midiMaximumVolume ,number? "Analogous to @code{midiMinimumVolume}.")
      (minimumFret ,number? "The tablature auto string-selecting mechanism
 selects the highest string with a fret at least @code{minimumFret}")
-     (minimumPageTurnLength ,ly:moment? "Minimum length of a rest for a page turn to be allowed")
-     (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a repeated section for a page
-turn to be allowed within that section")
      (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
 format as @var{verticalExtent}")
-     (output ,ly:music-output? "The output produced by a score-level translator during music interpretation")
      (ottavation ,string? "If set, the text for an ottava spanner. Changing
 this creates a new text spanner. ")
      (pedalSustainStrings ,list? "List of string to print for
@@ -350,8 +340,6 @@ whether they are processed in this context.")
 than this, a number is printed. ")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for each note
 head relative to the tonic (qv.) of the scale.")
-     (shortInstrumentName ,markup? "See @code{instrument}")
-     (shortVocalName ,markup? "Name of a vocal line, short version.")
      (skipBars ,boolean? "If set to true, then
 skip the empty bars that are produced by multimeasure notes and rests.
 These bars will not appear on the printed output.  If not set (the
@@ -423,7 +411,11 @@ number is specified.")
 
      (tupletFullLength ,boolean? "If set, the tuplet is printed up to
 the start of the next note.")
-     (tupletFullLengthNote ,boolean? "If set, end at the next note, otherwise end on the matter (time sigs, etc.) before the note.")
+     (tupletNumberFormatFunction
+      ,procedure?
+      "Function taking a music as input, producing a string. This function
+is called to determine the text to print on a tuplet bracket.")
+
      (tupletSpannerDuration ,ly:moment? "
 Normally a tuplet bracket is as wide as the
 @code{\\times} expression that gave rise to it.  By setting this
@@ -457,6 +449,7 @@ context names whose vertical axis groups should be taken into account for
 vertical spacing of systems.")
      
      (vocalName ,markup? "Name of a vocal line.")
+     (vocNam ,markup? "Name of a vocal line, short version.")
 
      (voltaOnThisStaff ,boolean?
 		       "Normally, volta brackets are put only on the
@@ -480,10 +473,6 @@ Example:
 This will create a start-repeat bar in this staff only.
 Valid values are described in @internalsref{bar-line-interface}.
 ")
-     (tempoWholesPerMinute ,ly:moment? "The tempo in whole notes per minute.")
-     (tempoUnitDuration ,ly:duration? "Unit for specifying tempo.")
-     (tempoUnitCount ,number? "Count for specifying tempo.")
-     
      )))
 
 (define-public all-internal-translation-properties

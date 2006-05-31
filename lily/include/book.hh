@@ -15,7 +15,7 @@
 #include "object-key.hh"
 #include "std-string.hh"
 
-class Book
+class Book : public Input
 {
   DECLARE_SMOBS (Book, foo);
 
@@ -24,11 +24,8 @@ public:
   SCM header_;
   Output_def *paper_;
   SCM scores_;
-  SCM input_location_;
 
-  Book (Book const &);
-  Input *origin() const;
-  VIRTUAL_COPY_CONSTRUCTOR(Book, Book);
+  Book *clone () const;
   Book ();
   void add_score (SCM);
   Paper_book *process (Output_def *def_paper,

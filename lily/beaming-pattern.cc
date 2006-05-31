@@ -24,31 +24,6 @@ Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i)
   beam_count_drul_[RIGHT] = i;
 }
 
-
-void
-Beam_rhythmic_element::de_grace ()
-{
-  if (start_moment_.grace_part_)
-    {
-      start_moment_.main_part_ = 
-	start_moment_.grace_part_; 
-      start_moment_.grace_part_ = 0;
-    }
-}
-
-int
-count_factor_twos (int x)
-{
-  int c = 0;
-  while (x && x % 2 == 0)
-    {
-      x /= 2;
-      c ++;
-    }
-	 
-  return c;
-}
-
 int
 Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
 {
@@ -67,27 +42,16 @@ Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
 
   *at_boundary = false;
   
-  int min_den = INT_MAX;
+  int min_denominator = INT_MAX;
   int min_index = -1;
   
   Moment beat_pos;
   for (vsize i = 1; i < infos_.size (); i++)  
     {
-      Moment dt = infos_[i].start_moment_ - infos_[i].beat_start_;
-
-      /*
-	This is a kludge, for the most common case of 16th, 32nds
-	etc. What should really happen is that \times x/y should
-	locally introduce a voice-specific beat duration.  (or
-	perhaps: a list of beat durations for nested tuplets.)
-	
-       */
-      
-      dt /= infos_[i].beat_length_;
-      
-      if (dt.den () < min_den)
+      Moment dt = infos_[i].start_moment_ - infos_[i].beat_start_; 
+      if (dt.den () < min_denominator)
 	{
-	  min_den = dt.den ();
+	  min_denominator = dt.den ();
 	  min_index = i;
 	}
     }
@@ -108,26 +72,14 @@ Beaming_pattern::beam_extend_count (Direction d) const
 }
 
 void
-Beaming_pattern::de_grace ()
-{
-  for (vsize i = 0; i < infos_.size (); i ++)
-    {
-      infos_[i].de_grace ();
-    }
-}
-
-void
 Beaming_pattern::beamify (Context *context)
 {
   if (infos_.size () <= 1)
     return;
-
-  if (infos_[0].start_moment_.grace_part_)
-    de_grace ();
   
   bool subdivide_beams = to_boolean (context->get_property ("subdivideBeams"));
   Moment beat_length = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
-  Moment measure_length = robust_scm2moment (context->get_property ("measureLength"), Moment (1, 4));
+  Moment measure_length = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
 
   if (infos_[0].start_moment_ < Moment (0))
     for (vsize i = 0; i < infos_.size(); i++)
@@ -160,13 +112,13 @@ Beaming_pattern::beamify (Context *context)
   vsize k = 0;
   for (vsize i = 0; i  < infos_.size(); i++)
     {
-      while (j < group_starts.size() - 1
+      while (j < group_starts.size()-1
 	     && group_starts[j+1] <= infos_[i].start_moment_)
 	j++;
 
       infos_[i].group_start_ = group_starts[j];
-      infos_[i].beat_length_ = beat_length;  
-      while (k < beat_starts.size() - 1
+
+      while (k < beat_starts.size()-1
 	     && beat_starts[k+1] <= infos_[i].start_moment_)
 	k++;
 

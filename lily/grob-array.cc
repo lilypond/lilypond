@@ -87,7 +87,7 @@ Grob_array::remove_duplicates ()
 {
   assert (!ordered_);
   
-  vector_sort (grobs_, less<Grob*> ());
+  vector_sort (grobs_, default_compare);
   ::uniq (grobs_);
 }
 

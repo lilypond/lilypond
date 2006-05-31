@@ -385,7 +385,7 @@ read_relocation_file (string filename)
       else if (command == "prependdir")
 	prepend_env_path (variable.c_str (), value);
       else
-	error (_f ("Unknown relocation command %s", command));
+	error ( _f("Unknown relocation command %s", command));
     }
 
   fclose (f);
@@ -394,11 +394,14 @@ read_relocation_file (string filename)
 void
 read_relocation_dir (string dirname)
 {
-  if (DIR *dir = opendir (dirname.c_str ()))
-    while (struct dirent *ent = readdir (dir))
-      {
-	File_name name (ent->d_name);
-	if (name.ext_ == "reloc")
-	    read_relocation_file (dirname + "/" + name.to_string ());
-      }
+  DIR *dir = opendir  (dirname.c_str ());
+
+  while (struct dirent *ent = readdir (dir))
+    {
+      File_name name (ent->d_name);
+      if (name.ext_ == "reloc")
+	{
+	  read_relocation_file (dirname + "/" + name.to_string ());
+	}
+    }
 }

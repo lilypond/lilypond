@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2006-06-01.17}
+\def\texinfoversion{2006-02-13.16}
 %
 % Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006 Free
@@ -385,7 +385,7 @@
 %
 \def\parsearg{\parseargusing{}}
 \def\parseargusing#1#2{%
-  \def\argtorun{#2}%
+  \def\next{#2}%
   \begingroup
     \obeylines
     \spaceisspace
@@ -416,7 +416,8 @@
 \def\argcheckspacesY#1\^^M#2\^^M#3\ArgTerm{%
   \def\temp{#3}%
   \ifx\temp\empty
-    % Do not use \next, perhaps the caller of \parsearg uses it; reuse \temp:
+    % We cannot use \next here, as it holds the macro to run;
+    % thus we reuse \temp.
     \let\temp\finishparsearg
   \else
     \let\temp\argcheckspaces
@@ -428,14 +429,14 @@
 % If a _delimited_ argument is enclosed in braces, they get stripped; so
 % to get _exactly_ the rest of the line, we had to prevent such situation.
 % We prepended an \empty token at the very beginning and we expand it now,
-% just before passing the control to \argtorun.
+% just before passing the control to \next.
 % (Similarily, we have to think about #3 of \argcheckspacesY above: it is
 % either the null string, or it ends with \^^M---thus there is no danger
 % that a pair of braces would be stripped.
 %
 % But first, we have to remove the trailing space token.
 %
-\def\finishparsearg#1 \ArgTerm{\expandafter\argtorun\expandafter{#1}}
+\def\finishparsearg#1 \ArgTerm{\expandafter\next\expandafter{#1}}
 
 % \parseargdef\foo{...}
 %	is roughly equivalent to
@@ -1084,24 +1085,15 @@ where each line of input produces a line of output.}
 \def\minus{$-$}
 
 % @dots{} outputs an ellipsis using the current font.
-% We do .5em per period so that it has the same spacing in the cm
-% typewriter fonts as three actual period characters; on the other hand,
-% in other typewriter fonts three periods are wider than 1.5em.  So do
-% whichever is larger.
+% We do .5em per period so that it has the same spacing in a typewriter
+% font as three actual period characters.
 %
 \def\dots{%
   \leavevmode
-  \setbox0=\hbox{...}% get width of three periods
-  \ifdim\wd0 > 1.5em
-    \dimen0 = \wd0
-  \else
-    \dimen0 = 1.5em
-  \fi
-  \hbox to \dimen0{%
-    \hskip 0pt plus.25fil
-    .\hskip 0pt plus1fil
-    .\hskip 0pt plus1fil
-    .\hskip 0pt plus.5fil
+  \hbox to 1.5em{%
+    \hskip 0pt plus 0.25fil
+    .\hfil.\hfil.%
+    \hskip 0pt plus 0.5fil
   }%
 }
 
@@ -1246,10 +1238,9 @@ where each line of input produces a line of output.}
 \ifpdf
   \input pdfcolor
   \pdfcatalog{/PageMode /UseOutlines}%
-  % #1 is image name, #2 width (might be empty/whitespace), #3 height (ditto).
   \def\dopdfimage#1#2#3{%
-    \def\imagewidth{#2}\setbox0 = \hbox{\ignorespaces #2}%
-    \def\imageheight{#3}\setbox2 = \hbox{\ignorespaces #3}%
+    \def\imagewidth{#2}%
+    \def\imageheight{#3}%
     % without \immediate, pdftex seg faults when the same image is
     % included twice.  (Version 3.14159-pre-1.0-unofficial-20010704.)
     \ifnum\pdftexversion < 14
@@ -1257,8 +1248,8 @@ where each line of input produces a line of output.}
     \else
       \immediate\pdfximage
     \fi
-      \ifdim \wd0 >0pt width \imagewidth \fi
-      \ifdim \wd2 >0pt height \imageheight \fi
+      \ifx\empty\imagewidth\else width \imagewidth \fi
+      \ifx\empty\imageheight\else height \imageheight \fi
       \ifnum\pdftexversion<13
          #1.pdf%
        \else
@@ -1481,7 +1472,6 @@ where each line of input produces a line of output.}
 % We don't need math for this font style.
 \def\ttsl{\setfontstyle{ttsl}}
 
-
 % Default leading.
 \newdimen\textleading  \textleading = 13.2pt
 
@@ -1503,12 +1493,10 @@ where each line of input produces a line of output.}
   }%
 }
 
-
 % Set the font macro #1 to the font named #2, adding on the
 % specified font prefix (normally `cm').
 % #3 is the font's design size, #4 is a scale factor
 \def\setfont#1#2#3#4{\font#1=\fontprefix#2#3 scaled #4}
-
 
 % Use cm as the default font prefix.
 % To specify the font prefix, you must define \fontprefix
@@ -1533,10 +1521,6 @@ where each line of input produces a line of output.}
 \def\scshape{csc}
 \def\scbshape{csc}
 
-% Definitions for a main text size of 11pt.  This is the default in
-% Texinfo.
-% 
-\def\definetextfontsizexi{
 % Text fonts (11.2pt, magstep1).
 \def\textnominalsize{11pt}
 \edef\mainmagstep{\magstephalf}
@@ -1650,165 +1634,6 @@ where each line of input produces a line of output.}
 \font\reducedi=cmmi10
 \font\reducedsy=cmsy10
 
-% reset the current fonts
-\textfonts
-\rm
-} % end of 11pt text font size definitions
-
-
-% Definitions to make the main text be 10pt Computer Modern, with
-% section, chapter, etc., sizes following suit.  This is for the GNU
-% Press printing of the Emacs 22 manual.  Maybe other manuals in the
-% future.  Used with @smallbook, which sets the leading to 12pt.
-% 
-\def\definetextfontsizex{%
-% Text fonts (10pt).
-\def\textnominalsize{10pt}
-\edef\mainmagstep{1000}
-\setfont\textrm\rmshape{10}{\mainmagstep}
-\setfont\texttt\ttshape{10}{\mainmagstep}
-\setfont\textbf\bfshape{10}{\mainmagstep}
-\setfont\textit\itshape{10}{\mainmagstep}
-\setfont\textsl\slshape{10}{\mainmagstep}
-\setfont\textsf\sfshape{10}{\mainmagstep}
-\setfont\textsc\scshape{10}{\mainmagstep}
-\setfont\textttsl\ttslshape{10}{\mainmagstep}
-\font\texti=cmmi10 scaled \mainmagstep
-\font\textsy=cmsy10 scaled \mainmagstep
-
-% A few fonts for @defun names and args.
-\setfont\defbf\bfshape{10}{\magstephalf}
-\setfont\deftt\ttshape{10}{\magstephalf}
-\setfont\defttsl\ttslshape{10}{\magstephalf}
-\def\df{\let\tentt=\deftt \let\tenbf = \defbf \let\tenttsl=\defttsl \bf}
-
-% Fonts for indices, footnotes, small examples (9pt).
-\def\smallnominalsize{9pt}
-\setfont\smallrm\rmshape{9}{1000}
-\setfont\smalltt\ttshape{9}{1000}
-\setfont\smallbf\bfshape{10}{900}
-\setfont\smallit\itshape{9}{1000}
-\setfont\smallsl\slshape{9}{1000}
-\setfont\smallsf\sfshape{9}{1000}
-\setfont\smallsc\scshape{10}{900}
-\setfont\smallttsl\ttslshape{10}{900}
-\font\smalli=cmmi9
-\font\smallsy=cmsy9
-
-% Fonts for small examples (8pt).
-\def\smallernominalsize{8pt}
-\setfont\smallerrm\rmshape{8}{1000}
-\setfont\smallertt\ttshape{8}{1000}
-\setfont\smallerbf\bfshape{10}{800}
-\setfont\smallerit\itshape{8}{1000}
-\setfont\smallersl\slshape{8}{1000}
-\setfont\smallersf\sfshape{8}{1000}
-\setfont\smallersc\scshape{10}{800}
-\setfont\smallerttsl\ttslshape{10}{800}
-\font\smalleri=cmmi8
-\font\smallersy=cmsy8
-
-% Fonts for title page (20.4pt):
-\def\titlenominalsize{20pt}
-\setfont\titlerm\rmbshape{12}{\magstep3}
-\setfont\titleit\itbshape{10}{\magstep4}
-\setfont\titlesl\slbshape{10}{\magstep4}
-\setfont\titlett\ttbshape{12}{\magstep3}
-\setfont\titlettsl\ttslshape{10}{\magstep4}
-\setfont\titlesf\sfbshape{17}{\magstep1}
-\let\titlebf=\titlerm
-\setfont\titlesc\scbshape{10}{\magstep4}
-\font\titlei=cmmi12 scaled \magstep3
-\font\titlesy=cmsy10 scaled \magstep4
-\def\authorrm{\secrm}
-\def\authortt{\sectt}
-
-% Chapter fonts (14.4pt).
-\def\chapnominalsize{14pt}
-\setfont\chaprm\rmbshape{12}{\magstep1}
-\setfont\chapit\itbshape{10}{\magstep2}
-\setfont\chapsl\slbshape{10}{\magstep2}
-\setfont\chaptt\ttbshape{12}{\magstep1}
-\setfont\chapttsl\ttslshape{10}{\magstep2}
-\setfont\chapsf\sfbshape{12}{\magstep1}
-\let\chapbf\chaprm
-\setfont\chapsc\scbshape{10}{\magstep2}
-\font\chapi=cmmi12 scaled \magstep1
-\font\chapsy=cmsy10 scaled \magstep2
-
-% Section fonts (12pt).
-\def\secnominalsize{12pt}
-\setfont\secrm\rmbshape{12}{1000}
-\setfont\secit\itbshape{10}{\magstep1}
-\setfont\secsl\slbshape{10}{\magstep1}
-\setfont\sectt\ttbshape{12}{1000}
-\setfont\secttsl\ttslshape{10}{\magstep1}
-\setfont\secsf\sfbshape{12}{1000}
-\let\secbf\secrm
-\setfont\secsc\scbshape{10}{\magstep1}
-\font\seci=cmmi12 
-\font\secsy=cmsy10 scaled \magstep1
-
-% Subsection fonts (10pt).
-\def\ssecnominalsize{10pt}
-\setfont\ssecrm\rmbshape{10}{1000}
-\setfont\ssecit\itbshape{10}{1000}
-\setfont\ssecsl\slbshape{10}{1000}
-\setfont\ssectt\ttbshape{10}{1000}
-\setfont\ssecttsl\ttslshape{10}{1000}
-\setfont\ssecsf\sfbshape{10}{1000}
-\let\ssecbf\ssecrm
-\setfont\ssecsc\scbshape{10}{1000}
-\font\sseci=cmmi10
-\font\ssecsy=cmsy10
-
-% Reduced fonts for @acro in text (9pt).
-\def\reducednominalsize{9pt}
-\setfont\reducedrm\rmshape{9}{1000}
-\setfont\reducedtt\ttshape{9}{1000}
-\setfont\reducedbf\bfshape{10}{900}
-\setfont\reducedit\itshape{9}{1000}
-\setfont\reducedsl\slshape{9}{1000}
-\setfont\reducedsf\sfshape{9}{1000}
-\setfont\reducedsc\scshape{10}{900}
-\setfont\reducedttsl\ttslshape{10}{900}
-\font\reducedi=cmmi9
-\font\reducedsy=cmsy9
-
-% reduce space between paragraphs
-\divide\parskip by 2
-
-% reset the current fonts
-\textfonts
-\rm
-} % end of 10pt text font size definitions
-
-
-% We provide the user-level command
-%   @fonttextsize 10
-% (or 11) to redefine the text font size.  pt is assumed.
-% 
-\def\xword{10}
-\def\xiword{11}
-%
-\parseargdef\fonttextsize{%
-  \def\textsizearg{#1}%
-  \wlog{doing @fonttextsize \textsizearg}%
-  %
-  % Set \globaldefs so that documents can use this inside @tex, since
-  % makeinfo 4.8 does not support it, but we need it nonetheless.
-  % 
- \begingroup \globaldefs=1
-  \ifx\textsizearg\xword \definetextfontsizex
-  \else \ifx\textsizearg\xiword \definetextfontsizexi
-  \else
-    \errhelp=\EMsimple
-    \errmessage{@fonttextsize only supports `10' or `11', not `\textsizearg'}
-  \fi\fi
- \endgroup
-}
-
-
 % In order for the font changes to affect most math symbols and letters,
 % we have to define the \textfont of the standard families.  Since
 % texinfo doesn't allow for producing subscripts and superscripts except
@@ -1919,7 +1744,7 @@ where each line of input produces a line of output.}
 
 % Set up the default fonts, so we can use them for creating boxes.
 %
-\definetextfontsizexi
+\textfonts \rm
 
 % Define these so they can be easily changed for other fonts.
 \def\angleleft{$\langle$}
@@ -3403,38 +3228,11 @@ where each line of input produces a line of output.}
   \escapechar = `\\     % use backslash in output files.
   \def\@{@}% change to @@ when we switch to @ as escape char in index files.
   \def\ {\realbackslash\space }%
-  %
   % Need these in case \tex is in effect and \{ is a \delimiter again.
   % But can't use \lbracecmd and \rbracecmd because texindex assumes
   % braces and backslashes are used only as delimiters.
   \let\{ = \mylbrace
   \let\} = \myrbrace
-  %
-  % I don't entirely understand this, but when an index entry is
-  % generated from a macro call, the \endinput which \scanmacro inserts
-  % causes processing to be prematurely terminated.  This is,
-  % apparently, because \indexsorttmp is fully expanded, and \endinput
-  % is an expandable command.  The redefinition below makes \endinput
-  % disappear altogether for that purpose -- although logging shows that
-  % processing continues to some further point.  On the other hand, it
-  % seems \endinput does not hurt in the printed index arg, since that
-  % is still getting written without apparent harm.
-  % 
-  % Sample source (mac-idx3.tex, reported by Graham Percival to
-  % help-texinfo, 22may06):
-  % @macro funindex {WORD}
-  % @findex xyz
-  % @end macro
-  % ...
-  % @funindex commtest
-  % 
-  % The above is not enough to reproduce the bug, but it gives the flavor.
-  % 
-  % Sample whatsit resulting:
-  % .@write3{\entry{xyz}{@folio }{@code {xyz@endinput }}}
-  % 
-  % So:
-  \let\endinput = \empty
   %
   % Do the redefinitions.
   \commondummies
@@ -4584,17 +4382,14 @@ where each line of input produces a line of output.}
     \ifx\temptype\Ynothingkeyword
       \setbox0 = \hbox{}%
       \def\toctype{unnchap}%
-      \gdef\thischapternum{}%
       \gdef\thischapter{#1}%
     \else\ifx\temptype\Yomitfromtockeyword
       \setbox0 = \hbox{}% contents like unnumbered, but no toc entry
       \def\toctype{omit}%
-      \gdef\thischapternum{}%
       \gdef\thischapter{}%
     \else\ifx\temptype\Yappendixkeyword
       \setbox0 = \hbox{\putwordAppendix{} #3\enspace}%
       \def\toctype{app}%
-      \xdef\thischapternum{\appendixletter}%
       % We don't substitute the actual chapter name into \thischapter
       % because we don't want its macros evaluated now.  And we don't
       % use \thissection because that changes with each section.
@@ -4604,7 +4399,6 @@ where each line of input produces a line of output.}
     \else
       \setbox0 = \hbox{#3\enspace}%
       \def\toctype{numchap}%
-      \xdef\thischapternum{\the\chapno}%
       \xdef\thischapter{\putwordChapter{} \the\chapno:
                         \noexpand\thischaptername}%
     \fi\fi\fi
@@ -5268,7 +5062,7 @@ where each line of input produces a line of output.}
 %
 \maketwodispenvs {lisp}{example}{%
   \nonfillstart
-  \tt\quoteexpand
+  \tt
   \let\kbdfont = \kbdexamplefont % Allow @kbd to do something special.
   \gobble       % eat return
 }
@@ -5882,6 +5676,7 @@ where each line of input produces a line of output.}
     \spaceisspace
     %
     % Append \endinput to make sure that TeX does not see the ending newline.
+    %
     % I've verified that it is necessary both for e-TeX and for ordinary TeX
     %							--kasal, 29nov03
     \scantokens{#1\endinput}%
@@ -6148,11 +5943,11 @@ where each line of input produces a line of output.}
 % {.  If so it reads up to the closing }, if not, it reads the whole
 % line.  Whatever was read is then fed to the next control sequence
 % as an argument (by \parsebrace or \parsearg)
-\def\braceorline#1{\let\macnamexxx=#1\futurelet\nchar\braceorlinexxx}
+\def\braceorline#1{\let\next=#1\futurelet\nchar\braceorlinexxx}
 \def\braceorlinexxx{%
   \ifx\nchar\bgroup\else
     \expandafter\parsearg
-  \fi \macnamexxx}
+  \fi \next}
 
 
 % @alias.

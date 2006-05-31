@@ -83,7 +83,7 @@ Tie_column::calc_positioning_done (SCM smob)
       return SCM_BOOL_T;
     }
   
-  vector_sort (ties, Tie::less);
+  vector_sort (ties, &Tie::compare);
 
   Tie_formatting_problem problem;
   problem.from_ties (ties);

@@ -8,38 +8,39 @@
 
 #include "directional-element-interface.hh"
 #include "engraver.hh"
-#include "rhythmic-head.hh"
 #include "side-position-interface.hh"
 #include "stem.hh"
-#include "stream-event.hh"
+#include "rhythmic-head.hh"
 #include "text-interface.hh"
-
-#include "translator.icc"
 
 /**
    typeset directions that are  plain text.
 */
 class Text_engraver : public Engraver
 {
-  vector<Stream_event *> evs_;
+  vector<Music*> evs_;
   vector<Item*> texts_;
 public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
 protected:
+  virtual bool try_music (Music *m);
   void stop_translation_timestep ();
   void process_acknowledged ();
 
-  DECLARE_TRANSLATOR_LISTENER (text_script);
   DECLARE_ACKNOWLEDGER (stem_tremolo);
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Text_engraver, text_script);
-void
-Text_engraver::listen_text_script (Stream_event *ev)
+bool
+Text_engraver::try_music (Music *m)
 {
-  evs_.push_back (ev);
+  if (m->is_mus_type ("text-script-event"))
+    {
+      evs_.push_back (m);
+      return true;
+    }
+  return false;
 }
 
 void
@@ -83,7 +84,7 @@ Text_engraver::process_acknowledged ()
     return;
   for (vsize i = 0; i < evs_.size (); i++)
     {
-      Stream_event *r = evs_[i];
+      Music *r = evs_[i];
 
       // URG: Text vs TextScript
       Item *text = make_item ("TextScript", r->self_scm ());
@@ -123,6 +124,8 @@ Text_engraver::stop_translation_timestep ()
 Text_engraver::Text_engraver ()
 {
 }
+
+#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Text_engraver, stem);
 ADD_ACKNOWLEDGER (Text_engraver, stem_tremolo);

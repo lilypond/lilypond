@@ -84,3 +84,27 @@ Performer_group::do_announces ()
       announce_infos_.clear ();
     }
 }
+
+void
+Performer_group::play_element (Audio_element *e)
+{
+  Context *c = context_->get_parent_context ();
+  if (c)
+    {
+      Performer_group *pgp = dynamic_cast<Performer_group *> (c->implementation ());
+      pgp->play_element (e);
+    }
+}
+
+int
+Performer_group::get_tempo () const
+{
+  Context *c = context_->get_parent_context ();
+  if (c)
+    {
+      Performer_group *pgp = dynamic_cast<Performer_group *> (c->implementation ());
+      return pgp->get_tempo ();
+    }
+  return 60;
+}
+

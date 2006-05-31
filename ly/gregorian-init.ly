@@ -1,62 +1,11 @@
-%{
-  Shortcuts common for all styles of gregorian chant notation.
-  $Id: gregorian-init.ly,v 1.46 2006/06/06 21:19:17 reuter Exp $
-%}
-
 \version "2.7.39"
 
-%
-% Declare memorable shortcuts for special unicode characters
-% that are used in chant notation.
-% 
-
-% unicode 0132 (latin capital ligature IJ)
-IJ = \lyricmode { Ĳ }
-IIJ = \lyricmode { IĲ }
-
-% unicode 0133 (latin small ligature ij)
-ij = \lyricmode { ĳ }
-iij = \lyricmode { iĳ }
+%%%%%%%%
+%%%%%%%% shortcuts common for all styles of gregorian chant notation
+%%%%%%%%
 
 %
-% Given some music that represents lyrics, add a prefix to the first
-% lyric event.
-%
-% TODO: Robustify this function.  For example, this function works
-% correctly for "\versus { some lyrics }", but it barfs with a wrong type
-% argument error for e.g. "\versus some lyrics".
-%
-#(define (add-prefix-to-lyrics prefix music)
-   (make-music
-    'SequentialMusic
-    'elements (append
-	       (cons
-		(let* ((elems (car (ly:music-property music 'elements)))
-		       (props (ly:music-mutable-properties elems))
-		       (events (filter (lambda (x)
-					 (equal? (car x) 'elements))
-				       props))
-		       (first-evt (cadar events))
-		       (first-syllable (ly:prob-property first-evt 'text))
-		       (first-duration (ly:prob-property first-evt 'duration)))
-		  (make-music
-		   'LyricEvent
-		   'duration first-duration
-		   'text (string-append prefix first-syllable)))
-		(cdr (ly:music-property music 'elements))))))
-
-% Add unicode 2123 (versicle) as prefix to lyrics.
-versus =
-#(define-music-function (parser location music) (ly:music?)
-   (add-prefix-to-lyrics "℣" music))
-
-% Add unicode 211F (response) as prefix to lyrics.
-responsum =
-#(define-music-function (parser location music) (ly:music?)
-   (add-prefix-to-lyrics "℟" music))
-
-%
-% Declare head prefix shortcuts.
+% declare head prefix shortcuts
 %
 virga =
   \once \override NoteHead  #'virga = ##t
@@ -86,7 +35,7 @@ cavum =
   \once \override NoteHead  #'cavum = ##t
 
 %
-% Declare divisiones shortcuts.
+% declare divisiones shortcuts
 %
 virgula = {
   \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.rcomma")
@@ -142,8 +91,14 @@ finalis = {
   \breathe
 }
 
+augmentum = {
+  %%% TODO: A ligature head postfix that indicates that an
+  %%% augmentum dot should be appended to the right end of
+  %%% the surrounding ligature.  [Not yet implemented.]
+}
+
 %
-% Declare articulation shortcuts.
+% declare articulation shortcuts
 %
 accentus = #(make-articulation "accentus")
 ictus = #(make-articulation "ictus")
@@ -151,16 +106,10 @@ semicirculus = #(make-articulation "semicirculus")
 circulus = #(make-articulation "circulus")
 episemInitium = #(make-span-event 'TextSpanEvent START)
 episemFinis = #(make-span-event 'TextSpanEvent STOP)
-augmentum = {
-  %%% TODO: A ligature head postfix that indicates that an
-  %%% augmentum dot should be appended to the right end of
-  %%% the surrounding ligature.  [Not yet implemented.]
-}
-
 
 %
-% Declare shortcut music functions for Liber Hymnarius neumes
-% table (experimental).
+% shortcut music functions for Liber Hymnarius neumes table
+% (experimental)
 %
 
 #(define (make-ligature music)
@@ -210,15 +159,6 @@ ligature = #(define-music-function
 %			'LigatureStopEvent))))
 %climacus = #(def-climacus-function startSequentialMusic stopSequentialMusic)
 
-%
-% Declare default layout; here for Vaticana style.  In case there will
-% be additional styles, we may want to create style-specific .ly files
-% for inclusion (e.g. vaticana-init.ly), move the style-dependent stuff
-% over there, leave the style-independent Gregorian stuff here, and let
-% the style-specific file (vaticana-init.ly) include this file.  The
-% user then will have to include vaticana-init.ly instead of
-% gregorian-init.ly.
-%
 \layout {
     indent = 0.0
     packed = ##t
@@ -277,12 +217,9 @@ ligature = #(define-music-function
 }
 
 %
-% neumeDemoLayout defines a layout block suitable for notating pure
-% Vaticana style neumes without any other notation symbols such as
-% staff lines or clefs.  This layout is useful for engraving neumes
-% tables, such as that one in the lilypond manual section on
-% Gregorian ligatures, or for educational works.
+% example layout block for gregorian chant notation
 %
+
 neumeDemoLayout = \layout {
     interscoreline = 1
     \context {
@@ -306,7 +243,3 @@ neumeDemoLayout = \layout {
 	\override Stem #'transparent = ##t
     }
 }
-
-%%% Local Variables:
-%%% coding: utf-8
-%%% End:

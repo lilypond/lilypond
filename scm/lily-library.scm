@@ -4,7 +4,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 (define-public X 0)
@@ -383,41 +383,11 @@ found."
   (not (or  (nan? (car i))
 	    (inf? (car i))
 	    (nan? (cdr i))
-	    (inf? (cdr i))
-	    (> (car i) (cdr i)))))
+	    (inf? (cdr i)))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-
-
-(define-public (string-encode-integer i)
-  (cond
-   ((= i  0) "o")
-   ((< i 0)   (string-append "n" (string-encode-integer (- i))))
-   (else (string-append
-	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
-	  (string-encode-integer (quotient i 26))))))
-
-(define-public (ly:numbers->string lst)
-  (string-join (map ly:number->string lst) " "))
-
-(define (number->octal-string x)
-  (let* ((n (inexact->exact x))
-         (n64 (quotient n 64))
-         (n8 (quotient (- n (* n64 64)) 8)))
-    (string-append
-     (number->string n64)
-     (number->string n8)
-     (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
-
-(define-public (ly:inexact->string x radix)
-  (let ((n (inexact->exact x)))
-    (number->string n radix)))
-
-(define-public (ly:number-pair->string c)
-  (string-append (ly:number->string (car c)) " "
-		 (ly:number->string (cdr c))))
 
 
 (define-public (write-me message x)
@@ -480,9 +450,6 @@ possibly turned off."
   (if (= x 0)
       0
       (if (< x 0) -1 1)))
-
-(define-public (car< a b) (< (car a) (car b)))
-
 
 (define-public (symbol<? lst r)
   (string<? (symbol->string lst) (symbol->string r)))

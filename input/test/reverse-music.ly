@@ -1,6 +1,5 @@
-\version "2.9.7"
-\sourcefilename "reverse-music.ly"
 
+\version "2.7.39"
 % possible rename to scheme-something.
 \header { texidoc="@cindex Scheme Reverse Music
 Symmetric, or palindromical music can be produced, first, by printing
@@ -8,6 +7,8 @@ some music, and second, by printing the same music applying a Scheme
 function to reverse the syntax.
 "
 }
+
+music =  \relative c'' { c4 d4( e4 f4 }
 
 #(define (reverse-music music)
   (let* ((elements (ly:music-property music 'elements))
@@ -29,18 +30,12 @@ function to reverse the syntax.
 
     music))
 
-reverseMusic =
-#(define-music-function (parser location m) (ly:music?)
-		(reverse-music m)
-	)	
-
-music =  \relative c'' { c4 d4( e4 f4 }
-
 \score {
-\context Voice {
+  \context Voice {
     \music
-    \reverseMusic \music
+    \applyMusic #reverse-music \music
   }
   \layout { ragged-right = ##t}
 }
+
 

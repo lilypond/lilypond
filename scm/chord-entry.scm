@@ -4,13 +4,14 @@
 ;;;;
 ;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
-(define-public (construct-chord-elements root duration modifications)
-  " Build a chord on root using modifiers in MODIFICATIONS. NoteEvents
-have duration DURATION.
+(define-public (construct-chord root duration modifications)
+  " Build a chord on root using modifiers in MODIFICATIONS. NoteEvent
+have duration DURATION..
 
 Notes: natural 11 is left from chord if not explicitly specified.
 
 Entry point for the parser.
+
 "
   (let* ((flat-mods (flatten-list modifications))
 	 (base-chord (stack-thirds (ly:make-pitch 0 4 0) the-canonical-chord))
@@ -154,12 +155,12 @@ the bass specified.
 	  (write-me "inversion: " inversion)
 	  (write-me "bass: " bass)))
     (if inversion
-	(make-chord-elements (cdr complete-chord) bass duration (car complete-chord)
+	(make-chord (cdr complete-chord) bass duration (car complete-chord)
 		    inversion)
-	(make-chord-elements complete-chord bass duration #f #f))))
+	(make-chord complete-chord bass duration #f #f))))
 
 
-(define (make-chord-elements pitches bass duration inversion original-inv-pitch)
+(define (make-chord pitches bass duration inversion original-inv-pitch)
   "Make EventChord with notes corresponding to PITCHES, BASS and
 DURATION, and INVERSION."
   (define (make-note-ev pitch)
@@ -180,7 +181,7 @@ DURATION, and INVERSION."
 		(- (ly:pitch-octave inversion)
 		   (ly:pitch-octave original-inv-pitch)))
 	  (set! nots (cons inv-note nots))))
-    nots))
+    (make-event-chord nots)))
 
 ;;;;;;;;;;;;;;;;
 ; chord modifiers change the pitch list.

@@ -6,7 +6,6 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "warn.hh"
 #include "stencil.hh"
 #include "font-metric.hh"
 #include "modified-font-metric.hh"
@@ -73,8 +72,11 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG2, __FUNCTION__, "string");
-
+#if 1
   return scm_from_unsigned_integer (fm->index_to_charcode (fm->name_to_index (ly_scm2string (name))));
+#else
+  return scm_from_unsigned_integer (fm->glyph_name_to_charcode (ly_scm2string (name)));
+#endif
 }
 
 LY_DEFINE (ly_text_dimension, "ly:text-dimension",
@@ -95,10 +97,6 @@ LY_DEFINE (ly_text_dimension, "ly:text-dimension",
 		   ly_interval2scm (stc.extent (Y_AXIS)));
 }
 
-
-/*
-  TODO: when are non string retvals allowed?
- */
 LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 	   1, 0, 0,
 	   (SCM font),
@@ -107,9 +105,7 @@ LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  SCM name = fm->font_file_name ();
-
-  return name;
+  return fm->font_file_name ();
 }
 
 LY_DEFINE (ly_font_name, "ly:font-name",

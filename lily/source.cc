@@ -58,10 +58,7 @@ Sources::add (Source_file *sourcefile)
 
 Sources::~Sources ()
 {
-  for (vsize i = 0; i < sourcefiles_.size (); i++)
-    {
-      sourcefiles_[i]->unprotect ();
-    }
+  junk_pointers (sourcefiles_);
 }
 
 Source_file *

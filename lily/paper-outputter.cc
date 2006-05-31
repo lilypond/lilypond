@@ -17,7 +17,7 @@ using namespace std;
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "font-metric.hh"
-#include "input.hh"
+#include "input-smob.hh"
 #include "lily-version.hh"
 #include "main.hh"
 #include "output-def.hh"

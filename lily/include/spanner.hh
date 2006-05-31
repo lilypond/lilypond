@@ -45,7 +45,8 @@ public:
   void substitute_one_mutable_property (SCM sym, SCM val);
   bool fast_substitute_grob_array (SCM sym, Grob_array *);
 
-  virtual Interval_t<int> spanned_rank_iv ();
+  // TODO: make virtual and do this for Items as well.
+  Interval_t<int> spanned_rank_iv ();
   void set_bound (Direction d, Grob *);
   Item *get_bound (Direction d) const;
 
@@ -56,7 +57,6 @@ public:
   Real spanner_length () const;
 
   static int compare (Spanner *const &, Spanner *const &);
-  static bool less (Spanner *const &, Spanner *const &);
   virtual Grob *find_broken_piece (System *) const;
   virtual void derived_mark () const;
   static bool has_interface (Grob *);

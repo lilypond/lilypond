@@ -17,9 +17,8 @@
                                                                         (char->integer #\0)))))
                                                  (string->list (number->string var-idx)))))))))
 
-(define-public (parse-string-result str parser)
+(define-public (ly:parse-string-result str parser)
   "Parse `str', which is supposed to contain a music expression."
-
   (ly:parser-parse-string
    parser
    (format #f "parseStringResult = \\notemode { ~a }" str))
@@ -82,6 +81,6 @@ character."
          ,@(map (lambda (binding)
                   `(ly:parser-define! parser-clone ',(car binding) ,(cdr binding)))
                 (reverse bindings))
-         (parse-string-result ,lily-string parser-clone)))))
+         (ly:parse-string-result ,lily-string parser-clone)))))
 
 (read-hash-extend #\{ read-lily-expression)

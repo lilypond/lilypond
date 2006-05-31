@@ -219,10 +219,7 @@ bassdux = \context Voice = "three"  \relative c' {
 	}
 	\layout {}
 	\midi {
-	  \context {
-	    \Score
-	    tempoWholesPerMinute = #(ly:make-moment 84 4)
-	  }
+	    \tempo 4 =84
 	}
     }
     \paper {

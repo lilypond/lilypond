@@ -79,15 +79,6 @@ Dynamic_text_spanner::print (SCM smob)
 	      encl = -d;
 	    }
 
-	  /*
-	    ugh - a special case.
-	   */
-	  if (d == RIGHT && me->get_property ("style") == ly_symbol2scm ("trill"))
-	    {
-	      pad = 2.0;
-	      encl = LEFT;
-	    }
-	  
 	  Interval ext = b->extent (common, X_AXIS);
 	  span_points[d] = -d * pad
 	    + robust_relative_extent (b, common, X_AXIS)

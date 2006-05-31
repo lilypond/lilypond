@@ -2,23 +2,10 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; TODO: should link back into user manual.
-
-(define (mm-rest-child-list music)
-  "Generate events for multimeasure rests, to be used by the sequential-iterator"
-  (let ((location (ly:music-property music 'origin))
-	(duration (ly:music-property music 'duration)))
-    (list (make-music 'BarCheck
-		      'origin location)
-	  (make-event-chord (cons (make-music 'MultiMeasureRestEvent
-					      'origin location
-					      'duration duration)
-				  (ly:music-property music 'articulations)))
-	  (make-music 'BarCheck
-		      'origin location))))
 
 (define-public music-descriptions
   `(
@@ -49,7 +36,7 @@ arguments to func are 1. the grob, 2. the originating context,
 3. context where FUNC is called.
 
 ")
-	(types . (general-music event apply-output-event))
+	(types . (general-music event layout-instruction))
 	))
     (ArpeggioEvent 
      . (
@@ -103,11 +90,13 @@ Syntax for manual control:
 c8-[ c c-] c8")
 	(types . (general-music event beam-event span-event))
 	))
-    (BendAfterEvent
-     . ((description . "A drop/fall/doit jazz articulation")
-	(types . (general-music bend-after-event event))))
-
-    (BreathingEvent
+    (BreakEvent
+     . (
+	(description .  "Create a line break, Syntax: \\break or page break, Syntax: \\pagebreak.")
+	
+	(types . (general-music break-event event))
+	))
+    (BreathingSignEvent
      . (
 	(description .	"Creates a `breath mark' or `comma'.  
 
@@ -116,6 +105,12 @@ Syntax:
 
 	(types . (general-music event breathing-event))
 	)) 
+    (BusyPlayingEvent
+     . (
+	(description .	"Used internally to signal beginning and ending of notes.")
+
+	(types . (general-music event busy-playing-event))
+	))
     (ContextChange
      . (
 	(description .	"Change staffs in Piano staff. 
@@ -149,13 +144,13 @@ Syntax: @var{note}\\cr
 ... @var{note}\\rc (you can also use \\<, \\!, \\cresc, and
 \\endcresc.  See the user manual for details.).")
 
-	(types . (general-music span-event span-dynamic-event crescendo-event event))
+	(types . (general-music dynamic-event crescendo-event event))
 	)) 
     (DecrescendoEvent
      . (
 	(description .	"See @ref{CrescendoEvent}.")
 
-	(types . (general-music span-event span-dynamic-event decrescendo-event event))
+	(types . (general-music dynamic-event decrescendo-event event))
 	))
     
     (ExtenderEvent
@@ -165,12 +160,7 @@ Syntax: @var{note}\\cr
 	(types . (general-music extender-event event))
 	))
 
-    (Event
-     . (
-	(description .	"Atomic music event.")
-	(types . (general-music event))
-	))
-        
+    
     (EventChord
      . (
 	(description .	"Internally used to group a set of events.")
@@ -180,8 +170,7 @@ Syntax: @var{note}\\cr
 	(types . (general-music event-chord simultaneous-music))
 	))
 
-    
-    (FingeringEvent
+    (FingerEvent
      . (
 	(description . "Specify what finger to use for this note.")
 	(types . (general-music fingering-event event))
@@ -246,7 +235,7 @@ Syntax: @var{note}\\laissezVibrer.")
     (LineBreakEvent
      . (
 	(description .  "Allow, forbid or force a line break.")
-	(types . (general-music line-break-event break-event event))
+	(types . (general-music break-event event))
 	))
     
     (LyricCombineMusic
@@ -275,6 +264,11 @@ e.g. @code{\\mark \"A\"}.")
 
 	(types . (general-music mark-event event))
 	))
+    (MelismaPlayingEvent
+     . (
+	(description .	"Used internally to signal melismas.")
+	(types . (general-music melisma-playing-event event))
+	))
     (ManualMelismaEvent
      . (
 	(description .	"Start or stop a melisma.
@@ -282,22 +276,26 @@ e.g. @code{\\mark \"A\"}.")
 Syntax: @code{c4\\melisma d\\melismaEnd}.")
 	(types . (general-music melisma-span-event event))
 	))
-
-    (MultiMeasureRestMusic
+    
+    (MultiMeasureRestEvent
      . (
 	(description . "Rests that may be compressed into Multi rests. 
 
 Syntax
-@code{R2.*4} for 4 measures in 3/4 time.")
-	(iterator-ctor . ,ly:sequential-iterator::constructor)
-	(elements-callback . ,mm-rest-child-list)
-	(types . (general-music multi-measure-rest))
-	))
-
-    (MultiMeasureRestEvent
-     . (
-	(description . "Used internally by MultiMeasureRestMusic to signal rests")
+@code{R2.*4} for 4 measures in 3/4 time. Note the capital R.")
 	(types . (general-music event rhythmic-event multi-measure-rest-event))
+	))
+    
+    (MultiMeasureRestMusicGroup
+     . (
+	(description .	"Like sequential-music, but specifically intended
+to group start-mmrest, skip, stop-mmrest sequence. 
+
+Syntax @code{R2.*5} for 5 measures in 3/4 time.")
+	(length-callback . ,ly:music-sequence::cumulative-length-callback)
+	(start-callback . ,ly:music-sequence::first-start-callback)
+	(iterator-ctor . ,ly:sequential-music-iterator::constructor)
+	(types . (general-music sequential-music))
 	))
     
     (MultiMeasureTextEvent
@@ -329,18 +327,18 @@ SYNTAX
 
 @code{\\override [ @var{Ctxt} . ] @var{Obj} @var{prop} = @var{val}}
 ")
-	(types . (general-music layout-instruction-event override-property-event))
+	(types . (general-music layout-instruction))
 	(iterator-ctor . ,ly:push-property-iterator::constructor)
 	))
     (PageBreakEvent
      . (
 	(description .  "Allow, forbid or force a page break.")
-	(types . (general-music break-event page-break-event event))
+	(types . (general-music break-event event))
 	))
     (PageTurnEvent
      . (
 	(description .  "Allow, forbid or force a page turn.")
-	(types . (general-music break-event page-turn-event event))
+	(types . (general-music break-event event))
 	))
     (PartCombineMusic
      . (
@@ -364,7 +362,7 @@ Syntax NOTE \\(  and \\) NOTE")
 	(description .	"Set a context property.
 
 Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
-	(types . (layout-instruction-event general-music))
+	(types . (layout-instruction general-music))
 	(iterator-ctor . ,ly:property-iterator::constructor)
 	))
 
@@ -372,7 +370,7 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
      . (
 	(description .	"Remove the definition of a context @code{\\property}.")
 
-	(types . (layout-instruction-event general-music))
+	(types . (layout-instruction general-music))
 	(iterator-ctor . ,ly:property-unset-iterator::constructor)
 	))
 
@@ -416,6 +414,12 @@ goes down).")
 	(description . "Ties for starting a second volta bracket.")
 	(types . (general-music event repeat-tie-event))
 	))
+    (Event
+     . (
+	(description .	"Atomic music event.")
+	(types . (general-music event))
+	))
+    
     (RestEvent
      . (
 	(description .	"A Rest. 
@@ -430,7 +434,7 @@ Syntax @code{r4} for a quarter rest. ")
 previously added property from a graphical object definition
  ")
 
-	(types . (general-music layout-instruction-event))
+	(types . (general-music layout-instruction))
 	(iterator-ctor . ,	ly:pop-property-iterator::constructor)
 	))
 
@@ -442,8 +446,7 @@ Syntax \\sequential @{..@} or simply @{..@} .")
 
 	(length-callback . ,ly:music-sequence::cumulative-length-callback)
 	(start-callback . ,ly:music-sequence::first-start-callback)
-	(elements-callback . ,(lambda (m) (ly:music-property m 'elements)))
-	(iterator-ctor . ,ly:sequential-iterator::constructor)
+	(iterator-ctor . ,ly:sequential-music-iterator::constructor)
 	(types . (general-music sequential-music))
 	))
 
@@ -451,18 +454,18 @@ Syntax \\sequential @{..@} or simply @{..@} .")
      . (
 	(description . "Print Solo.1")
 	(part-combine-status . solo1)
-	(types . (general-music event part-combine-event solo-one-event))
+	(types . (general-music event part-combine-event))
 	))
     (SoloTwoEvent
      . (
 	(description . "Print Solo.2")
 	(part-combine-status . solo2)
-	(types . (general-music event part-combine-event solo-two-event))
+	(types . (general-music event part-combine-event))
 	))
     (UnisonoEvent
      . ((description . "Print a2")
 	(part-combine-status . unisono)
-	(types . (general-music event part-combine-event unisono-event))))
+	(types . (general-music event part-combine-event))))
     
     (SimultaneousMusic
      . (
@@ -493,6 +496,13 @@ Syntax NOTE(	 and NOTE) ")
      . ((description . "Start or  stop a staff symbol.")
 	(types . (general-music event span-event staff-span-event))
      ))
+    
+    (StartPlayingEvent
+     . (
+	(description .	"Used internally to signal beginning of notes.")
+
+	(types . (general-music event start-playing-event))
+	))
     
     (TextSpanEvent
      . (
@@ -529,10 +539,10 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 	(types . (time-scaled-music music-wrapper-music general-music))
 	))
 
-    (TupletSpanEvent
+    (TupletEvent
      . (
 	(description .  "Used internally to signal where tuplet brackets start and stop.")
-	(types . (tuplet-span-event span-event event general-music))
+	(types . (tuplet-spanner-event span-event event general-music))
        ))
 
     (UnrelativableMusic
@@ -584,11 +594,6 @@ Syntax: @code{s}@var{duration}")
 
 	(types . (general-music event rhythmic-event skip-event))
 	))
-
-    (SpacingSectionEvent
-     . ((description . "Start a new spacing section")
-	(types . (general-music event spacing-section-event))))
-     
     (SpanEvent
      . (
 	(description .	"Event for anything that is started at a different time than stopped.")
@@ -599,19 +604,19 @@ Syntax: @code{s}@var{duration}")
     (SustainEvent
      . (
 	(description . "Depress or release sustain pedal. ")
-	(types . (general-music event pedal-event sustain-event))
+	(types . (general-music event pedal-event sustain-pedal-event))
 	))
     
     (SostenutoEvent
      . (
 	(description . "Depress or release sostenuto pedal. ")
-	(types . (general-music event pedal-event sostenuto-event))
+	(types . (general-music event pedal-event sostenuto-pedal-event))
 	))
     
     (UnaCordaEvent
      . (
 	(description . "Depress or release una-corda pedal.")
-	(types . (general-music event pedal-event una-corda-event))
+	(types . (general-music event pedal-event una-corda-pedal-event))
 	))
     
     (StringNumberEvent
@@ -623,6 +628,12 @@ Syntax: @code{\\@var{number}}.")
 	(types . (general-music string-number-event event))
 	)) 
 
+    (MetronomeChangeEvent
+     . (
+	(description .	"Change tempo setting (in beats per minute).")
+	(types . (general-music metronome-change-event tempo-event event))
+	))
+    
     (TextScriptEvent
      . (
 	(description .	"")

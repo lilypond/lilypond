@@ -11,58 +11,82 @@
 #include "ly-smobs.icc"
 #include "context.hh"
 #include "input.hh"
-#include "input.hh"
+#include "input-smob.hh"
 
-/* TODO: Rename Stream_event -> Event */
+// ES todo: Add stuff to lily-proto.hh: Stream_event and its subclasses, Stream_creator, etc.
+
+Stream_event::~Stream_event ()
+{
+}
+
+void
+Stream_event::init ()
+{
+  self_scm_ = SCM_EOL;
+  property_alist_ = SCM_EOL;
+  origin_ = 0;
+
+  smobify_self ();
+}
 
 Stream_event::Stream_event ()
-  : Prob (ly_symbol2scm ("Stream_event"), SCM_EOL)
 {
+  init ();
 }
 
-Stream_event::Stream_event (SCM event_class, SCM mutable_props)
-  : Prob (ly_symbol2scm ("Stream_event"),
-	  scm_list_1 (scm_cons (ly_symbol2scm ("class"), event_class)))
+Stream_event::Stream_event (Context *c, Input *origin)
 {
-  mutable_property_alist_ = mutable_props;
+  init ();
+  set_property ("context", scm_int2num (c->get_unique()));
+  origin_ = origin;
 }
 
-Stream_event::Stream_event (SCM class_name, Input *origin)
-  : Prob (ly_symbol2scm ("Stream_event"),
-	  scm_list_1 (scm_cons (ly_symbol2scm ("class"), class_name)))
+Stream_event::Stream_event (SCM property_alist)
 {
-  if (origin)
-    set_spot (origin);
+  init ();
+  property_alist_ = property_alist;
+  origin_ = &dummy_input_global;
+}
+
+Stream_event::Stream_event (Context *c, SCM class_name)
+{
+  init ();
+  set_property ("context", scm_int2num (c->get_unique()));
+  set_property ("class", class_name);
+  origin_ = &dummy_input_global;
 }
 
 Stream_event::Stream_event (Stream_event *ev)
-  : Prob (ly_symbol2scm ("Stream_event"), SCM_EOL)
 {
-  mutable_property_alist_ = scm_copy_tree (ev->mutable_property_alist_);
-  immutable_property_alist_ = ev->immutable_property_alist_;
+  init ();
+  property_alist_ = scm_copy_tree (ev->property_alist_);
+  origin_ = ev->origin_;
 }
 
 Input *
 Stream_event::origin () const
 {
-  Input *i = unsmob_input (get_property ("origin"));
-  return i ? i : &dummy_input_global;
+  return origin_;
 }
 
-void
-Stream_event::set_spot (Input *i)
+SCM
+Stream_event::mark_smob (SCM sm)
 {
-  set_property ("origin", make_input (*i));
+  Stream_event *me = (Stream_event *) SCM_CELL_WORD_1 (sm);
+  return me->property_alist_;
 }
 
-bool
-Stream_event::internal_in_event_class (SCM class_name)
+int
+Stream_event::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  SCM cl = get_property ("class");
-  cl = scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), cl);
-  return scm_c_memq (class_name, cl) != SCM_BOOL_F;
+  scm_puts ("#<Stream_event ", port);
+  scm_write (dump (s), port);
+  scm_puts (" >", port);
+  return 1;
 }
 
+IMPLEMENT_SMOBS (Stream_event);
+IMPLEMENT_DEFAULT_EQUAL_P (Stream_event);
 IMPLEMENT_TYPE_P (Stream_event, "ly:stream-event?");
 
 MAKE_SCHEME_CALLBACK (Stream_event, undump, 1);
@@ -73,21 +97,28 @@ Stream_event::dump (SCM self)
 {
   Stream_event *ev = unsmob_stream_event (self);
   // Reversed alists look prettier.
-  return scm_cons (scm_reverse (ev->immutable_property_alist_),
-		   scm_reverse (ev->mutable_property_alist_));
+  return scm_reverse (ev->property_alist_);
 }
 
 SCM
 Stream_event::undump (SCM data)
 {
   Stream_event *obj = new Stream_event ();
-  obj->immutable_property_alist_ = scm_reverse (scm_car (data));
-  obj->mutable_property_alist_ = scm_reverse (scm_cdr (data));
+  obj->property_alist_ = scm_reverse (data);
   return obj->unprotect ();
 }
 
-Stream_event *
-unsmob_stream_event (SCM m)
+SCM
+Stream_event::internal_get_property (SCM sym) const
 {
-  return dynamic_cast<Stream_event*> (unsmob_prob (m));
+  SCM s = scm_sloppy_assq (sym, property_alist_);
+  if (s != SCM_BOOL_F)
+    return scm_cdr (s);
+  return SCM_EOL;
+}
+
+void 
+Stream_event::internal_set_property (SCM prop, SCM val)
+{
+  property_alist_ = scm_assq_set_x (property_alist_, prop, val);
 }

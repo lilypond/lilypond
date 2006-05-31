@@ -13,17 +13,6 @@
 #include "std-vector.hh"
 #include "main.hh"
 
-
-enum Configuration_tag
-  {
-    SLUR_STEM = 0x01,
-    SLUR_HEAD = 0x02,
-    SLUR_FREE = 0x04,
-    SLUR_FREE_HEAD = 0x08,
-    SLUR_FREE_STEM = 0x10,
-    SLUR_STEM_TIP = 0x10,
-  };
-
 class Slur_configuration
 {
   Real score_;
@@ -33,7 +22,7 @@ public:
   Drul_array<Offset> attachment_;
   Bezier curve_;
   Real height_;
-  unsigned tags_;
+
   int index_;
 
   Slur_configuration ();

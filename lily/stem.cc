@@ -65,9 +65,7 @@ Stem::get_beaming (Grob *me, Direction d)
     return 0;
 
   SCM lst = index_get_cell (pair, d);
-
-  int len = scm_ilength (lst);
-  return max (len, 0);
+  return scm_ilength (lst);
 }
 
 Interval
@@ -180,6 +178,12 @@ Stem::extremal_heads (Grob *me)
   return exthead;
 }
 
+static int
+integer_compare (int const &a, int const &b)
+{
+  return a - b;
+}
+
 /* The positions, in ascending order.  */
 vector<int>
 Stem::note_head_positions (Grob *me)
@@ -195,7 +199,7 @@ Stem::note_head_positions (Grob *me)
       ps.push_back (p);
     }
 
-  vector_sort (ps, less<int> ());
+  vector_sort (ps, integer_compare);
   return ps;
 }
 
@@ -221,32 +225,6 @@ Stem::is_invisible (Grob *me)
 	   && scm_to_int (me->get_property ("duration-log")) >= 1);
 }
 
-MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
-SCM
-Stem::pure_height (SCM smob, SCM start, SCM end)
-{
-  (void) start;
-  (void) end;
-  
-  
-  Grob *me = unsmob_grob (smob);
-  Real ss = Staff_symbol_referencer::staff_space (me);
-  Real len = scm_to_double (calc_length (smob)) * ss / 2;
-  Direction dir = get_grob_direction (me);
-
-  Interval iv;
-  Interval hp = head_positions (me);
-  if (dir == UP)
-    iv = Interval (0, len);
-  else
-    iv = Interval (-len, 0);
-
-  if (!hp.is_empty ())
-    iv.translate (hp[dir] * ss / 2);
-
-  return ly_interval2scm (iv);
-}
-
 MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position, 1)
 SCM
 Stem::calc_stem_end_position (SCM smob)
@@ -256,11 +234,6 @@ Stem::calc_stem_end_position (SCM smob)
   if (!head_count (me))
     return scm_from_double (0.0);
 
-  if (Grob *beam = get_beam (me))
-    {
-      (void) beam->get_property ("quantized-positions");
-      return me->get_property ("stem-end-position");
-    }
   
   Real ss = Staff_symbol_referencer::staff_space (me);
   int durlog = duration_log (me);
@@ -404,7 +377,7 @@ Stem::calc_positioning_done (SCM smob)
 
   extract_grob_set (me, "note-heads", ro_heads);
   vector<Grob*> heads (ro_heads);
-  vector_sort (heads, position_less);
+  vector_sort (heads, compare_position);
   Direction dir = get_grob_direction (me);
 
   if (dir < 0)
@@ -680,8 +653,6 @@ SCM
 Stem::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *beam = get_beam (me);
-    
   Stencil mol;
   Direction d = get_grob_direction (me);
 
@@ -695,6 +666,7 @@ Stem::print (SCM smob)
     = to_boolean (me->get_property ("avoid-note-head"))
     ? last_head (me)
     : first_head (me);
+  Grob *beam = get_beam (me);
 
   if (!lh && !stemlet)
     return SCM_EOL;

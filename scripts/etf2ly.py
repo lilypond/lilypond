@@ -43,21 +43,31 @@ if version == '@' + 'TOPLEVEL_VERSION' + '@':
 ################################################################
 # Users of python modules should include this snippet.
 #
+libdir = '@local_lilypond_libdir@'
+if not os.path.isdir (libdir):
+    libdir = '@lilypond_libdir@'
 
+# ugh
+datadir = '@local_lilypond_datadir@'
+if os.environ.has_key ('LILYPONDPREFIX'):
+    datadir = os.environ['LILYPONDPREFIX']
+    while datadir[-1] == os.sep:
+        datadir= datadir[:-1]
+    libdir = datadir.replace ('/share/', '/lib/')
 
-
-
-for d in ['@lilypond_datadir@',
-          '@lilypond_libdir@']:
-    sys.path.insert (0, os.path.join (d, 'python'))
-
+if os.path.exists (os.path.join (datadir, 'lib/lilypond/@TOPLEVEL_VERSION@/')):
+    libdir = os.path.join (libdir, 'lib/lilypond/@TOPLEVEL_VERSION@/')
+    
+if os.path.exists (os.path.join (datadir, 'lib/lilypond/current/')):
+    libdir = os.path.join (libdir, 'lib/lilypond/current/')
+    
+sys.path.insert (0, os.path.join (libdir, 'python'))
 
 # dynamic relocation, for GUB binaries.
-bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
+bindir = os.path.split (sys.argv[0])[0]
 for p in ['share', 'lib']:
     datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
     sys.path.insert (0, datadir)
-
 
 ################################################################
 

@@ -42,7 +42,6 @@ class Output_def
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Output_def, Output_def);
   DECLARE_SMOBS (Output_def, );
-
 public:
   SCM scope_;
   Output_def *parent_;
@@ -67,6 +66,9 @@ public:
 SCM get_font_table (Output_def *def);
 void assign_context_def (Output_def *m, SCM transdef);
 SCM find_context_def (Output_def const *m, SCM name);
+
+int get_tempo (Output_def*def, Moment moment);
+void set_tempo (Output_def*def, Moment moment, int count_per_minute_i);
 
 Interval line_dimensions_int (Output_def*def, int);
  

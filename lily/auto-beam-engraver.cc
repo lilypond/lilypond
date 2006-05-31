@@ -6,18 +6,17 @@
   (c) 1999--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "bar-line.hh"
+#include "engraver.hh"
 #include "beaming-pattern.hh"
 #include "beam.hh"
-#include "context.hh"
-#include "duration.hh"
-#include "engraver.hh"
-#include "item.hh"
-#include "rest.hh"
-#include "spanner.hh"
-#include "stream-event.hh"
 #include "stem.hh"
 #include "warn.hh"
+#include "bar-line.hh"
+#include "rest.hh"
+#include "item.hh"
+#include "spanner.hh"
+#include "context.hh"
+#include "duration.hh"
 
 #include "translator.icc"
 
@@ -29,6 +28,7 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
   void process_music ();
+  virtual bool try_music (Music *);
   virtual void finalize ();
   virtual void derived_mark () const;
 
@@ -36,7 +36,6 @@ protected:
   DECLARE_ACKNOWLEDGER (beam);
   DECLARE_ACKNOWLEDGER (bar_line);
   DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_TRANSLATOR_LISTENER (beam_forbid);
 
   void process_acknowledged ();
 
@@ -51,7 +50,7 @@ private:
   bool is_same_grace_state (Grob *e);
   void typeset_beam ();
 
-  Stream_event *forbid_;
+  Music *forbid_;
   /*
     shortest_mom is the shortest note in the beam.
   */
@@ -129,11 +128,16 @@ Auto_beam_engraver::Auto_beam_engraver ()
   beam_settings_ = SCM_EOL;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Auto_beam_engraver, beam_forbid);
-void
-Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
+bool
+Auto_beam_engraver::try_music (Music *m)
 {
-  ASSIGN_EVENT_ONCE (forbid_, ev);
+  if (m->is_mus_type ("beam-forbid-event"))
+    {
+      forbid_ = m;
+      return true;
+    }
+
+  return false;
 }
 
 bool
@@ -331,8 +335,8 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
 {
   check_bar_property ();
   Item *stem = dynamic_cast<Item *> (info.grob ());
-  Stream_event *ev = info.ultimate_event_cause ();
-  if (!ev->in_event_class ("rhythmic-event"))
+  Music *m = info.ultimate_music_cause ();
+  if (!m->is_mus_type ("rhythmic-event"))
     {
       programming_error ("stem must have rhythmic structure");
       return;
@@ -355,7 +359,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
       return;
     }
 
-  int durlog = unsmob_duration (ev->get_property ("duration"))->duration_log ();
+  int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
 
   if (durlog <= 2)
     {
@@ -371,7 +375,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   if (bool (beam_start_location_.grace_part_) != bool (now.grace_part_))
     return;
 
-  Moment dur = unsmob_duration (ev->get_property ("duration"))->get_length ();
+  Moment dur = unsmob_duration (m->get_property ("duration"))->get_length ();
 
   consider_end (dur);
   consider_begin (dur);
@@ -386,7 +390,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
 		       durlog - 2);
   stems_->push_back (stem);
   last_add_mom_ = now;
-  extend_mom_ = max (extend_mom_, now) + get_event_length (ev);
+  extend_mom_ = max (extend_mom_, now) + m->get_length ();
 }
 
 void

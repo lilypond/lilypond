@@ -37,8 +37,8 @@ you will probably want to print out or bookmark
 @ifhtml
 the
 @end ifhtml
-@ref{Cheat sheet}, which is a table listing of the most common
-commands for quick reference.
+@ref{Cheat sheet}, which is a table listing all commands for quick
+reference.
 
 @menu
 * First steps::                 
@@ -298,8 +298,8 @@ available package for viewing and printing PDF and PostScript files.}
 @node More about pitches
 @section More about pitches
 
-A @rglos{sharp} pitch is made by adding @samp{is} to
-the name, a @rglos{flat} pitch by adding @samp{es}.  As
+A @rglos{sharp} (@texisharp{}) pitch is made by adding @samp{is} to
+the name, a @rglos{flat} (@texiflat{}) pitch by adding @samp{es}.  As
 you might expect, a @rglos{double sharp} or @rglos{double flat} is
 made by adding @samp{isis} or @samp{eses}@footnote{This syntax
 derived from note naming conventions in Nordic and Germanic languages,
@@ -489,7 +489,7 @@ This makes the input less readable, and it is a source of errors.  The
 solution is to use `relative octave' mode.   This is the
 most convenient way to copy existing music.
 
-In relative mode, a note without octavation quotes (i.e., the @code{'}
+In relative mode, a note without octavation quotes (i.e. the @code{'}
 or @code{,} after a note) is chosen so that it is closest to the
 previous one.  For example, @samp{c f} goes up while @samp{c g} goes
 down.
@@ -928,7 +928,7 @@ statement marks for which version of LilyPond the file was written.
 To mark a file for version 2.6.0, use
 
 @example
-\version "2.9.13"
+\version "2.6.0"
 @end example
 
 @noindent
@@ -999,17 +999,16 @@ Similarly, hyphens between words can be entered as two dashes,
 resulting in a centered hyphen between two syllables
 
 @example
-A -- le gri -- a
+Twin -- kle twin -- kle
 @end example
 
-@c no ragged-right here, because otherwise the hypens get lost.
-@lilypond[fragment,quote]
+@lilypond[fragment,quote,ragged-right]
 <<
   \relative {
     \time 2/4
     f4 f c' c
   }
-  \addlyrics { A -- le gri -- a }
+  \addlyrics { Twin -- kle twin -- kle }
 >>
 @end lilypond
 

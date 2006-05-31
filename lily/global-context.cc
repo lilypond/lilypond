@@ -12,32 +12,24 @@
 using namespace std;
 
 #include "context-def.hh"
-#include "dispatcher.hh"
 #include "international.hh"
 #include "lilypond-key.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 #include "output-def.hh"
-#include "stream-event.hh"
+#include "score-context.hh"
 #include "warn.hh"
 
-Global_context::Global_context (Output_def *o, Object_key *key)
+Global_context::Global_context (Output_def *o, Moment final, Object_key *key)
   : Context (new Lilypond_context_key (key,
 				       Moment (0),
 				       "Global", "", 0))
 {
   output_def_ = o;
+  final_mom_ = final;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));
-
-  now_mom_.set_infinite (-1);
-  prev_mom_.set_infinite (-1);
-
-  /* We only need the most basic stuff to bootstrap the context tree */
-  event_source ()->add_listener (GET_LISTENER (create_context_from_event),
-                                ly_symbol2scm ("CreateContext"));
-  event_source ()->add_listener (GET_LISTENER (prepare),
-                                ly_symbol2scm ("Prepare"));
-  events_below ()->register_as_listener (event_source_);
+  unique_count_ = 0;
+  unique_ = 0;
 
   Context_def *globaldef = unsmob_context_def (definition_);
   if (!globaldef)
@@ -56,6 +48,9 @@ Global_context::get_output_def () const
 void
 Global_context::add_moment_to_process (Moment m)
 {
+  if (m > final_mom_)
+    return;
+
   if (m < now_mom_)
     programming_error ("trying to freeze in time");
 
@@ -79,22 +74,15 @@ Global_context::get_moments_left () const
   return extra_mom_pq_.size ();
 }
 
-IMPLEMENT_LISTENER (Global_context, prepare);
 void
-Global_context::prepare (SCM sev)
+Global_context::prepare (Moment m)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
-  Moment *mom = unsmob_moment (ev->get_property ("moment"));
+  prev_mom_ = now_mom_;
+  now_mom_ = m;
 
-  assert (mom);
-
-  if (prev_mom_.main_part_.is_infinity () && prev_mom_ < 0)
-    prev_mom_ = *mom;
-  else
-    prev_mom_ = now_mom_;
-  now_mom_ = *mom;
-  
   clear_key_disambiguations ();
+  if (get_score_context ())
+    get_score_context ()->prepare (m);
 }
 
 Moment
@@ -103,30 +91,40 @@ Global_context::now_mom () const
   return now_mom_;
 }
 
-Context *
+Score_context *
 Global_context::get_score_context () const
 {
   return (scm_is_pair (context_list_))
-    ? unsmob_context (scm_car (context_list_))
+    ? dynamic_cast<Score_context *> (unsmob_context (scm_car (context_list_)))
     : 0;
 }
 
 SCM
 Global_context::get_output ()
 {
-  Context * c = get_score_context ();
-  if (c)
-    return c->get_property ("output");
-  else
-    return SCM_EOL;
+  return get_score_context ()->get_output ();
+}
+
+void
+Global_context::one_time_step ()
+{
+  get_score_context ()->one_time_step ();
+  apply_finalizations ();
+  check_removal ();
+}
+
+void
+Global_context::finish ()
+{
+  if (get_score_context ())
+    get_score_context ()->finish ();
 }
 
 void
 Global_context::run_iterator_on_me (Music_iterator *iter)
 {
-  prev_mom_.set_infinite (-1);
-  now_mom_.set_infinite (-1);
-  Moment final_mom = iter->get_music ()->get_length ();
+  if (iter->ok ())
+    prev_mom_ = now_mom_ = iter->pending_moment ();
 
   bool first = true;
   while (iter->ok () || get_moments_left ())
@@ -137,16 +135,9 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
 	w = iter->pending_moment ();
 
       w = sneaky_insert_extra_moment (w);
-      if (w.main_part_.is_infinity () || w > final_mom)
+      if (w.main_part_.is_infinity ())
 	break;
 
-      if (w == prev_mom_)
-	{
-	  programming_error ("Moment is not increasing. Aborting interpretation.");
-	  break ;
-	}
-
-      
       if (first)
 	{
 	  /*
@@ -156,15 +147,28 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
 	  set_property ("measurePosition", w.smobbed_copy ());
 	}
 
-      send_stream_event (this, "Prepare", 0,
-			 ly_symbol2scm ("moment"), w.smobbed_copy ());
+      prepare (w);
 
       if (iter->ok ())
 	iter->process (w);
 
-      send_stream_event (this, "OneTimeStep", 0, 0);
-      apply_finalizations ();
-      check_removal ();
+      if (!get_score_context ())
+	{
+	  SCM sym = ly_symbol2scm ("Score");
+	  Context_def *t = unsmob_context_def (find_context_def (get_output_def (),
+								 sym));
+	  if (!t)
+	    error (_f ("can't find `%s' context", "Score"));
+
+	  Object_key const *key = get_context_key ("Score", "");
+	  Context *c = t->instantiate (SCM_EOL, key);
+	  add_context (c);
+
+	  Score_context *sc = dynamic_cast<Score_context *> (c);
+	  sc->prepare (w);
+	}
+
+      one_time_step ();
     }
 }
 
@@ -201,4 +205,10 @@ Global_context::get_default_interpreter ()
     return get_score_context ()->get_default_interpreter ();
   else
     return Context::get_default_interpreter ();
+}
+
+int
+Global_context::new_unique ()
+{
+  return ++unique_count_;
 }

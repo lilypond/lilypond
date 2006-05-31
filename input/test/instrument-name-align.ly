@@ -8,7 +8,7 @@ names in padded boxes with @code{\markup}."
 
 }
 
-\version "2.9.13"
+\version "2.7.39"
 
 \paper {
   line-width = 15\cm
@@ -18,11 +18,13 @@ names in padded boxes with @code{\markup}."
 \new StaffGroup \relative
 <<
   \new Staff {
-    \set Staff.instrumentName = \markup { \hcenter-in #10 "blabla" }
+    \set Staff. instrument
+    = \markup { \hcenter-in #10 "blabla" }
     c1 c1
   } 
   \new Staff {
-    \set Staff.instrumentName = \markup { \hcenter-in #10 "blo" }
+    \set Staff. instrument
+    = \markup { \hcenter-in #10 "blo" }
     c1 c1
   } 
   

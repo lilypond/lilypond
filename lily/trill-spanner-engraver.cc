@@ -18,7 +18,6 @@
 #include "international.hh"
 #include "note-column.hh"
 #include "side-position-interface.hh"
-#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -29,15 +28,15 @@ public:
 protected:
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (trill_span);
+  virtual bool try_music (Music *);
   void stop_translation_timestep ();
   void process_music ();
 
 private:
   Spanner *span_;
   Spanner *finished_;
-  Stream_event *current_event_;
-  Drul_array<Stream_event *> event_drul_;
+  Music *current_event_;
+  Drul_array<Music *> event_drul_;
   void typeset_all ();
 };
 
@@ -50,12 +49,17 @@ Trill_spanner_engraver::Trill_spanner_engraver ()
   event_drul_[STOP] = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Trill_spanner_engraver, trill_span);
-void
-Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
+bool
+Trill_spanner_engraver::try_music (Music *m)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
-  ASSIGN_EVENT_ONCE (event_drul_[d], ev);
+  if (m->is_mus_type ("trill-span-event"))
+    {
+      Direction d = to_dir (m->get_property ("span-direction"));
+      event_drul_[d] = m;
+      return true;
+    }
+
+  return false;
 }
 
 void
@@ -135,14 +139,15 @@ Trill_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      finished_ = span_;
-      typeset_all ();
+      current_event_->origin ()->warning (_ ("unterminated trill spanner"));
+      span_->suicide ();
+      span_ = 0;
     }
 }
 
 ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
 ADD_TRANSLATOR (Trill_spanner_engraver,
-		/* doc */ "Create trill spanner from an event.",
+		/* doc */ "Create trill spanner from a Music.",
 		/* create */ "TrillSpanner",
 		/* accept */ "trill-span-event",
 		/* read */ "",

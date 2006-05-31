@@ -16,8 +16,8 @@
 #include "note-head.hh"
 #include "pointer-group-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1);
-SCM
+MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1)
+  SCM
 Lyric_extender::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
@@ -60,17 +60,16 @@ Lyric_extender::print (SCM smob)
     right_point = max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
-  Drul_array<Real> paddings (robust_scm2double (me->get_property ("left-padding"), h),
-			     robust_scm2double (me->get_property ("right-padding"), h));
+  Real pad = 2* h;
 
   if (right_text)
-    right_point = min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));
+    right_point = min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - pad));
 
   /* run to end of line. */
   if (me->get_bound (RIGHT)->break_status_dir ())
-    right_point = max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - paddings[RIGHT]));
+    right_point = max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - pad));
 
-  left_point += paddings[LEFT];
+  left_point += pad;
   Real w = right_point - left_point;
 
   if (w < 1.5 * h)
@@ -87,10 +86,4 @@ Lyric_extender::print (SCM smob)
 ADD_INTERFACE (Lyric_extender, "lyric-extender-interface",
 	       "The extender is a simple line at the baseline of the lyric "
 	       "that helps show the length of a melissima (tied/slurred note).",
-
-	       "heads "
-	       "left-padding "
-	       "next "
-	       "right-padding "
-	       "thickness "
-	       );
+	       "next thickness heads");

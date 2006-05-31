@@ -105,6 +105,8 @@ ADD_TRANSLATOR (Axis_group_engraver,
 		/* create */ "VerticalAxisGroup",
 		/* accept */ "",
 		/* read */
-		"currentCommandColumn ",
+		"verticalExtent "
+		"minimumVerticalExtent "
+		"extraVerticalExtent ",
 
 		/* write */ "");

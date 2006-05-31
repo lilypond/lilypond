@@ -20,8 +20,8 @@ struct Semi_tie
   
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
-  static bool less (Grob *const &s1,
-		    Grob *const &s2);
+  static int compare (Grob *const &s1,
+		      Grob *const &s2);
   static int get_position (Grob *);
 };
 

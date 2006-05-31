@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 ;;;; Note: currently misused as testbed for titles with markup, see
 ;;;;       input/test/title-markup.ly
@@ -33,10 +33,10 @@
 	    polygon
 	    repeat-slash
 	    resetcolor
-	    resetrotation
+	    resetrotatino
 	    round-filled-box
 	    setcolor
-	    setrotation
+		setrotation
 	    text
 	    zigzag-line))
 
@@ -112,16 +112,13 @@
      "false")
    (round4 radius) (round4 thick)))
 
-(define (dashed-line thick on off dx dy phase)
-  (format #f "~a ~a ~a [ ~a ~a ] ~a draw_dashed_line"
+(define (dashed-line thick on off dx dy)
+  (format #f "~a ~a ~a [ ~a ~a ] 0 draw_dashed_line"
    (str4 dx)
    (str4 dy)
    (str4 thick)
    (str4 on)
-   (str4 off)
-   (str4 phase)
-   
-   ))
+   (str4 off)))
 
 ;; what the heck is this interface ?
 (define (dashed-slur thick on off l)
@@ -177,8 +174,8 @@
 
 (define (grob-cause offset grob)
   (let* ((cause (ly:grob-property grob 'cause))
-	 (music-origin (if (ly:stream-event? cause)
-			   (ly:event-property cause 'origin))))
+	 (music-origin (if (ly:music? cause)
+			   (ly:music-property cause 'origin))))
     (if (not (ly:input-location? music-origin))
 	""
 	(let* ((location (ly:input-file-line-char-column music-origin))
@@ -248,6 +245,15 @@
     (format #f "~a draw_repeat_slash"
 	    (numbers->string4 (list x-width width height)))))
 
+;; restore color from stack
+(define (resetcolor) "setrgbcolor\n")
+
+;; reset rotation
+(define (resetrotation ang x y)
+  (format "~a translate ~a rotate ~a translate\n"
+    (numbers->string4 (list x y))
+    (number->string (* -1 ang))
+    (numbers->string4 (list (* -1 x) (* -1 y)))))
 
 (define (round-filled-box left right bottom top blotdiam)
   (let* ((halfblot (/ blotdiam 2))
@@ -261,22 +267,15 @@
 
 ;; save current color on stack and set new color
 (define (setcolor r g b)
-  (format #f "gsave ~a setrgbcolor\n"
+  (format #f "currentrgbcolor ~a setrgbcolor\n"
 	  (numbers->string4 (list r g b))))
-
-;; restore color from stack
-(define (resetcolor) "grestore \n")
 
 ;; rotation around given point
 (define (setrotation ang x y)
-  (format "gsave ~a translate ~a rotate ~a translate\n"
+  (format "~a translate ~a rotate ~a translate\n"
     (numbers->string4 (list x y))
     (number->string ang)
     (numbers->string4 (list (* -1 x) (* -1 y)))))
-
-(define (resetrotation ang x y)
-  "grestore  ")
-
 
 (define (text font s)
   ;; (ly:warning (_ "TEXT backend-command encountered in Pango backend"))
@@ -323,32 +322,3 @@
    (str4 thick)
    (str4 dx)
    (str4 dy)))
-
-
-(define (path thickness exps)
-  (define (convert-path-exps exps)
-    (if (pair? exps)
-	(let*
-	    ((head (car exps))
-	     (rest (cdr exps))
-	     (arity 
-	      (cond
-	       ((memq head '(rmoveto rlineto lineto moveto)) 2)
-	       ((memq head '(rcurveto curveto)) 6)
-	       (else 1)))
-	     (args (take rest arity))
-	     )
-
-	  ;; WARNING: this is a vulnerability: a user can output arbitrary PS code here.
-	  (cons (format "~a ~a "
-			(string-join (map (lambda (x) (format "~a " x)) args) " ")
-			head)
-		(convert-path-exps (drop rest arity))))
-	'()))
-    
-    
-  (format
-   "1 setlinecap ~a setlinewidth\n~a stroke"
-   thickness
-   (string-join (convert-path-exps exps) " ")))
-  

@@ -77,16 +77,25 @@ import os
 program_name = sys.argv[0]
 
 
-for d in ['@lilypond_datadir@',
-          '@lilypond_libdir@']:
-    sys.path.insert (0, os.path.join (d, 'python'))
+datadir = '@local_lilypond_datadir@'
+if not os.path.isdir (datadir):
+    datadir = '@lilypond_datadir@'
+
+sys.path.insert (0, os.path.join (datadir, 'python'))
+
+if os.environ.has_key ('LILYPONDPREFIX'):
+    datadir = os.environ['LILYPONDPREFIX']
+    while datadir[-1] == os.sep:
+        datadir= datadir[:-1]
+        
+    datadir = os.path.join (datadir, "share/lilypond/current/")
+sys.path.insert (0, os.path.join (datadir, 'python'))
 
 # dynamic relocation, for GUB binaries.
-bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
+bindir = os.path.split (sys.argv[0])[0]
 for p in ['share', 'lib']:
     datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
-    sys.path.insert (0, datadir)
-
+    sys.path.insert (0, os.path.join (datadir))
 
 import lilylib as ly
 global _;_=ly._
@@ -617,7 +626,6 @@ def fix_lyric(str):
 def slyrics_append(a):
     a = re.sub ( '_', ' _ ', a)        # _ to ' _ '
     a = re.sub ( '-', '- ', a)        # split words with -
-    a = re.sub ( ' - - ', ' -- ', a)  # unless was originally " -- "
     a = re.sub ( '\\\\- ', '-', a)         # unless \-
     a = re.sub ( '~', '_', a)        # ~ to space('_')
     a = re.sub ( '\*', '_ ', a)        # * to to space
@@ -890,8 +898,6 @@ artic_tbl = {
     '~' : '^"~" ',
     'J' : '',                # ignore slide
     'R' : '',                # ignore roll
-    'S' : '^\\segno',
-    'O' : '^\\coda',
     'v' : '^\\downbow'
 }
     
@@ -1265,7 +1271,7 @@ def try_parse_comment (str):
 #convention, such as most music written before 1700, or ethnic music in
 #non-western scales, it is necessary to be able to tell a translator that
 #the barlines should not affect its interpretation of the pitch.  
-            if 'nobarlines' in str:
+            if (string.find(str,'nobarlines') > 0):
                 nobarlines = 1
         elif str[0:3] == '%LY':
             p = string.find(str, 'voices')

@@ -9,14 +9,11 @@
 */
 
 #include "engraver.hh"
-#include "multi-measure-rest.hh"
-#include "note-head.hh"
-#include "side-position-interface.hh"
-#include "stem.hh"
-#include "stream-event.hh"
 #include "text-interface.hh"
-
-#include "translator.icc"
+#include "note-head.hh"
+#include "stem.hh"
+#include "side-position-interface.hh"
+#include "multi-measure-rest.hh"
 
 class Part_combine_engraver : public Engraver
 {
@@ -26,19 +23,19 @@ protected:
   DECLARE_ACKNOWLEDGER (note_head);
   DECLARE_ACKNOWLEDGER (stem);
 
-  DECLARE_TRANSLATOR_LISTENER (part_combine);
   void process_music ();
   void stop_translation_timestep ();
+  virtual bool try_music (Music *);
 private:
   Item *text_;
-  Stream_event *event_;
+  Music *event_;
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Part_combine_engraver, part_combine);
-void
-Part_combine_engraver::listen_part_combine (Stream_event *ev)
+bool
+Part_combine_engraver::try_music (Music *m)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  event_ = m;
+  return true;
 }
 
 Part_combine_engraver::Part_combine_engraver ()
@@ -53,13 +50,13 @@ Part_combine_engraver::process_music ()
   if (event_
       && to_boolean (get_property ("printPartCombineTexts")))
     {
-      SCM what = event_->get_property ("class");
+      SCM what = event_->get_property ("part-combine-status");
       SCM text = SCM_EOL;
-      if (what == ly_symbol2scm ("solo-one-event"))
+      if (what == ly_symbol2scm ("solo1"))
 	text = get_property ("soloText");
-      else if (what == ly_symbol2scm ("solo-two-event"))
+      else if (what == ly_symbol2scm ("solo2"))
 	text = get_property ("soloIIText");
-      else if (what == ly_symbol2scm ("unisono-event"))
+      else if (what == ly_symbol2scm ("unisono"))
 	text = get_property ("aDueText");
 
       if (Text_interface::is_markup (text))
@@ -97,6 +94,7 @@ Part_combine_engraver::stop_translation_timestep ()
   event_ = 0;
 }
 
+#include "translator.icc"
 ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
 ADD_ACKNOWLEDGER (Part_combine_engraver, stem);
 ADD_TRANSLATOR (Part_combine_engraver,

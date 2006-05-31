@@ -7,18 +7,18 @@
   		 Erik Sandberg <mandolaerik@gmail.com>
 */
 
+#include "math.h" // ceil
+
 #include "beam.hh"
 #include "engraver-group.hh"
 #include "international.hh"
 #include "item.hh"
-#include "math.h" // ceil
 #include "misc.hh"
 #include "repeated-music.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "stem-tremolo.hh"
 #include "stem.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -41,7 +41,7 @@ class Chord_tremolo_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
 protected:
-  Stream_event *repeat_;
+  Music *repeat_;
 
   int flags_;
   // number of beams for short tremolos
@@ -52,8 +52,8 @@ protected:
   Spanner *beam_;
 protected:
   virtual void finalize ();
+  virtual bool try_music (Music *);
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (tremolo_span);
   DECLARE_ACKNOWLEDGER (stem);
 };
 
@@ -66,31 +66,31 @@ Chord_tremolo_engraver::Chord_tremolo_engraver ()
   beam_dir_ = CENTER;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Chord_tremolo_engraver, tremolo_span);
-void
-Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
+bool
+Chord_tremolo_engraver::try_music (Music *m)
 {
-  Direction span_dir = to_dir (ev->get_property ("span-direction"));
-  if (span_dir == START)
+  if (m->is_mus_type ("tremolo-span-event"))
     {
-      if (ASSIGN_EVENT_ONCE (repeat_, ev))
+      Direction span_dir = to_dir (m->get_property ("span-direction"));
+      if (span_dir == START)
 	{
-	  int type = scm_to_int (ev->get_property ("tremolo-type"));
+	  repeat_ = m;
+	  int type = scm_to_int (m->get_property ("tremolo-type"));
 	  /* e.g. 1 for type 8, 2 for type 16 */
 	  flags_ = intlog2 (type) - 2;
-	  expected_beam_count_ = scm_to_int (ev->get_property ("expected-beam-count"));
+	  expected_beam_count_ = scm_to_int (m->get_property ("expected-beam-count"));
 	  beam_dir_ = RIGHT;
 	}
+      if (span_dir == STOP)
+	{
+	  repeat_ = 0;
+          beam_ = 0;
+          expected_beam_count_ = 0;
+          beam_dir_ = CENTER;
+	}
+      return true;
     }
-  else if (span_dir == STOP)
-    {
-      if (!repeat_)
-	ev->origin ()->warning (_ ("No tremolo to end"));
-      repeat_ = 0;
-      beam_ = 0;
-      expected_beam_count_ = 0;
-      beam_dir_ = CENTER;
-    }
+  return false;
 }
 
 void
@@ -127,13 +127,13 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
       if (beam_dir_ == RIGHT)
         beam_dir_ = LEFT;
 
-      if (info.ultimate_event_cause ()->in_event_class ("rhythmic-event"))
+      if (info.ultimate_music_cause ()->is_mus_type ("rhythmic-event"))
 	Beam::add_stem (beam_, s);
       else
 	{
 	  string s = _ ("stem must have Rhythmic structure");
-	  if (info.event_cause ())
-	    info.event_cause ()->origin ()->warning (s);
+	  if (info.music_cause ())
+	    info.music_cause ()->origin ()->warning (s);
 	  else
 	    ::warning (s);
 	}

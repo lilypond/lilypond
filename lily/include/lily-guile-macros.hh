@@ -21,31 +21,20 @@
 #define SCM_UNPACK(x) (x)
 #endif
 
+#if (__GNUC__ > 2)
 /* Unreliable with gcc-2.x
    FIXME: should add check for x86 as well?  */
 #define CACHE_SYMBOLS
-
-
-
+#endif
 
 #ifdef CACHE_SYMBOLS
-
-/* this lets us "overload" macros such as get_property to take
-   symbols as well as strings */
-inline SCM
-scm_or_str2symbol (char const *c) { return scm_str2symbol (c); }
-
-inline SCM
-scm_or_str2symbol (SCM s) {
-  assert (scm_is_symbol (s));
-  return s;
-}
 
 /* Using this trick we cache the value of scm_str2symbol ("fooo") where
    "fooo" is a constant string. This is done at the cost of one static
    variable per ly_symbol2scm() use, and one boolean evaluation for
    every call.
- */
+
+   The overall speedup of lily is about 5% on a run of wtk1-fugue2.  */
 #define ly_symbol2scm(x)						\
   ({									\
     static SCM cached;							\
@@ -54,10 +43,10 @@ scm_or_str2symbol (SCM s) {
     if (__builtin_constant_p ((x)))					\
       {									\
 	if (!cached)							\
-	  value = cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
+	  value = cached = scm_gc_protect_object (scm_str2symbol ((x))); \
       }									\
     else								\
-      value = scm_or_str2symbol (x);					\
+      value = scm_str2symbol ((char *) (x));				\
     value;								\
   })
 #else
@@ -99,23 +88,20 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
   Make TYPE::FUNC available as a Scheme function.
 */
 string mangle_cxx_identifier (string);
-#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT)	\
+#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)			\
   SCM TYPE ::FUNC ## _proc;						\
   void									\
   TYPE ## _ ## FUNC ## _init_functions ()				\
   {									\
     string id = mangle_cxx_identifier (string (#TYPE) + "::" + string (#FUNC)); \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),			\
-					       (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,	\
+					       (ARGCOUNT), 0, 0,	\
 					       (Scheme_function_unknown) TYPE::FUNC); \
     scm_c_export (id.c_str (), NULL);					\
   }									\
 									\
   ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback,			\
 		     TYPE ## _ ## FUNC ## _init_functions);
-
-#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)			\
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT,0);
 
 void
 ly_add_function_documentation (SCM proc, char const *fname,
@@ -164,13 +150,7 @@ ly_add_function_documentation (SCM proc, char const *fname,
 
 #define get_property(x) internal_get_property (ly_symbol2scm (x))
 #define get_object(x) internal_get_object (ly_symbol2scm (x))
-#define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)
-#define del_property(x) internal_del_property (ly_symbol2scm (x))
-
-#ifndef NDEBUG
-#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__)
-#else
 #define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
-#endif
+#define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)
 
 #endif /* LILY_GUILE_MACROS_HH */

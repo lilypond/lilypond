@@ -7,7 +7,7 @@
 }
 \paper { ragged-right= ##t }
 
-\version "2.9.13"
+\version "2.7.39"
 quoted = \relative c'' {
   R1
   \grace g16 f4 \grace a16 bes4 \grace b16 c4 c4
@@ -18,11 +18,11 @@ quoted = \relative c'' {
 
 <<
   \new Staff {
-    \set Staff.instrumentName = "quoted"
+    \set Staff.instrument = "quoted"
     \quoted
     }
   \new Staff \new Voice \relative c'' {
-    \set Staff.instrumentName = "quoted"
+    \set Staff.instrument = "quoted"
     R1
     \cueDuring #"quoted" #1  { \grace s16. r2 }
     c2^"original"

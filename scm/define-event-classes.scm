@@ -7,42 +7,16 @@
 
 (use-modules (srfi srfi-1))
 
-;; Event class hierarchy. Each line is on the form (Parent . (List of children))
+;; Event class hierarchy. Each line is on the form ((List of children) . Parent)
 (define event-classes
-  '((() . (StreamEvent))
-    (StreamEvent .
-		 (RemoveContext ChangeParent Override Revert UnsetProperty
-				SetProperty music-event OldMusicEvent CreateContext Prepare
-				OneTimeStep Finish))
-    (music-event . (arpeggio-event breathing-event extender-event span-event
-      rhythmic-event dynamic-event break-event percent-event
-      key-change-event string-number-event tie-event part-combine-event
-      beam-forbid-event script-event
-      tremolo-event bend-after-event fingering-event glissando-event
-      harmonic-event hyphen-event laissez-vibrer-event mark-event
-      multi-measure-text-event note-grouping-event
-      pes-or-flexa-event repeat-tie-event spacing-section-event
-      layout-instruction-event))
-    (layout-instruction-event . (apply-output-event))
-    (script-event . (articulation-event text-script-event))
-    (part-combine-event . (solo-one-event solo-two-event unisono-event))
-    (break-event . (line-break-event page-break-event page-turn-event))
-    (dynamic-event . (absolute-dynamic-event))
-    (span-event . (span-dynamic-event beam-event ligature-event
-			 pedal-event phrasing-slur-event slur-event staff-span-event
-			 text-span-event trill-span-event tremolo-span-event 
-			 tuplet-span-event))
-    (span-dynamic-event . (decrescendo-event crescendo-event))
-    (pedal-event . (sostenuto-event sustain-event una-corda-event))
-    (rhythmic-event . (lyric-event melodic-event multi-measure-rest-event
-				   rest-event skip-event bass-figure-event))
-    (melodic-event . (cluster-note-event note-event))
-    (() . (Announcement))
-    (Announcement . (AnnounceNewContext))
+  '(((StreamEvent) . '())
+    ((RemoveContext ChangeParent Override Revert UnsetProperty SetProperty 
+      MusicEvent CreateContext Prepare OneTimeStep Finish) . StreamEvent)
     ))
 
 ;; Maps event-class to a list of ancestors (inclusive)
-(define ancestor-lookup (make-hash-table 11))
+;; TODO: use resizable hash
+(define ancestor-lookup (make-hash-table 1))
 
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
@@ -51,76 +25,14 @@
  (lambda (rel)
    (for-each
     (lambda (type)
-      (hashq-set! ancestor-lookup type 
-		  (cons type (hashq-ref ancestor-lookup (car rel) '()))))
-    (cdr rel)))
+      (hashq-set! ancestor-lookup type (cons type (hashq-ref ancestor-lookup (cdr rel) '())))) ;; `(define ,type (cons ',type ,(cdr rel)))))
+    (car rel)))
  event-classes)
 
 ;; TODO: Allow entering more complex classes, by taking unions.
 (define-public (ly:make-event-class leaf)
  (hashq-ref ancestor-lookup leaf))
-
-(define-public (ly:in-event-class? ev cl)
-  "Does event @var{ev} belong to event class @var{cl}?"
-  (memq cl (ly:make-event-class (ly:event-property ev 'class))))
-
-;; does this exist in guile already?
-(define (map-tree f t)
-  (cond
-   ((list? t)
-    (map (lambda (x) (map-tree f x)) t))
-   ((pair? t)
-    (cons (map-tree f (car t)) (map-tree f (cdr t))))
-   (else (f t))))
-
-;; expand each non-leaf subtree to (root . children), recursively
-(define (expand-event-tree root)
-  (let ((children (assq root event-classes)))
-    (if children
-	(cons root (map expand-event-tree (cdr children)))
-	root)))
-
-;; All leaf event classes that no translator listens to
-;; directly. Avoids printing a warning.
-(define unlistened-music-event-classes
-  '(harmonic-event line-break-event page-break-event page-turn-event
-		   solo-one-event solo-two-event skip-event unisono-event))
-
-;; produce neater representation of music event tree.
-;; TODO: switch to this representation for the event-classes list?
-(define music-event-tree (expand-event-tree 'music-event))
-(define (sort-tree t)
-  (define (stringify el)
-	      (if (symbol? el)
-		  (symbol->string el)
-		  (symbol->string (first el))))
-  (if (list? t)
-      (sort (map (lambda (el)
-		   (if (list? el)
-		       (cons (car el) (sort-tree (cdr el)))
-		       el))
-		 t)
-	    (lambda (a b) (string<? (stringify a) (stringify b))))
-      t))
-
-;;(use-modules (ice-9 pretty-print))
-;;(pretty-print (cons (car music-event-tree) (sort-tree (cdr music-event-tree))))
-
-;; check that the music event tree corresponds well with the set of
-;; available translators; print warnings otherwise.
-(map-tree (lambda (sym) 
-	    (if (and (symbol? sym)
-		     (not (ly:is-listened-event-class sym))
-		     (not (assq sym event-classes))
-		     (not (memq sym unlistened-music-event-classes)))
-		(ly:programming-error (_ "event class ~A seems to be unused") sym)))	  
-	  music-event-tree)
-
-(map (lambda (sym)
-       (if (not (pair? (ly:make-event-class sym)))
-	   ;; should be programming-error
-	   (ly:error (_ "translator listens to nonexisting event class ~A") sym)))
-     (ly:get-listened-event-classes))
+;; (primitive-eval leaf))
 
 (defmacro-public make-stream-event (expr)
   (Stream_event::undump (primitive-eval (list 'quasiquote expr))))
@@ -132,7 +44,7 @@
    ((pair? e) (cons (simplify (car e))
 		    (simplify (cdr e))))
    ((ly:stream-event? e)
-    (list 'unquote (list 'make-stream-event (simplify (Stream_event::dump e)))))
+    (list 'unquote `(make-stream-event ,(simplify (Stream_event::dump e)))))
    ((ly:music? e)
     (list 'unquote (music->make-music e)))
    ((ly:moment? e)
@@ -159,5 +71,8 @@
    (#t e)))
 
 (define-public (ly:simplify-scheme e)
-  (list 'quasiquote (simplify e)))
+  (list 'quasiquote (simplify e))
+)
 
+; used by lily/dispatcher.cc
+(define-public (car< a b) (< (car a) (car b)))

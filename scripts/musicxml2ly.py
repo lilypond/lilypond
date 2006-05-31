@@ -9,17 +9,28 @@ from gettext import gettext as _
 
 
 
-for d in ['@lilypond_datadir@',
-          '@lilypond_libdir@']:
-    sys.path.insert (0, os.path.join (d, 'python'))
+
+datadir = '@local_lilypond_datadir@'
+if not os.path.isdir (datadir):
+    datadir = '@lilypond_datadir@'
+if os.environ.has_key ('LILYPONDPREFIX'):
+    datadir = os.environ['LILYPONDPREFIX']
+    while datadir[-1] == os.sep:
+        datadir = datadir[:-1]
+
+if os.path.exists (os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')):
+    datadir = os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')
+elif os.path.exists (os.path.join (datadir, 'share/lilypond/current/')):
+    datadir = os.path.join (datadir, 'share/lilypond/current/')
+
+sys.path.insert (0, os.path.join (datadir, 'python'))
 
 # dynamic relocation, for GUB binaries.
-bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
-for p in ['share', 'lib']:
-    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
+bindir = os.path.split (sys.argv[0])[0]
+
+for prefix_component in ['share', 'lib']:
+    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % prefix_component)
     sys.path.insert (0, datadir)
-
-
 
 
 import lilylib as ly
@@ -110,7 +121,7 @@ def musicxml_key_to_lily (attributes):
     try:
         (n,a) = {
             'major' : (0,0),
-            'minor' : (5,0),
+            'minor' : (6,0),
             }[mode]
         start_pitch.step = n
         start_pitch.alteration = a
@@ -124,6 +135,7 @@ def musicxml_key_to_lily (attributes):
         fifth.step *= -1
         fifth.normalize ()
     
+    start_pitch = musicexp.Pitch()
     for x in range (fifths):
         start_pitch = start_pitch.transposed (fifth)
 

@@ -7,11 +7,14 @@
 */
 
 #include "dispatcher.hh"
-#include "input.hh"
 #include "international.hh"
 #include "ly-smobs.icc"
 #include "stream-event.hh"
 #include "warn.hh"
+
+// ES todo: move to lily-guile.hh
+SCM appendable_list ();
+void appendable_list_append (SCM l, SCM elt);
 
 IMPLEMENT_SMOBS (Dispatcher);
 IMPLEMENT_TYPE_P (Dispatcher, "dispatcher");
@@ -69,16 +72,11 @@ Dispatcher::dispatch (SCM sev)
   SCM class_symbol = ev->get_property ("class");
   if (!scm_symbol_p (class_symbol))
     {
-      warning (_f ("Event class should be a symbol"));
+      warning (_f ("Unknown event class %s", ly_symbol2string (class_symbol).c_str ()));
       return;
     }
 
   SCM class_list = scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), class_symbol);
-  if (!scm_is_pair (class_list))
-    {
-      ev->origin ()->warning (_f ("Unknown event class %s", ly_symbol2string (class_symbol).c_str ()));
-      return;
-    }
   bool sent = false;
   int num_classes = scm_ilength (class_list);
 
@@ -173,10 +171,9 @@ inline void
 Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
 {
   SCM list = scm_hashq_ref (listeners_, ev_class, SCM_EOL);
-  if (!scm_is_pair (list))
+  if (list == SCM_EOL)
     {
-      /* Tell all dispatchers that we listen to, that we want to hear ev_class 
-         events */
+      /* Register with all dispatchers. */
       for (SCM disp = dispatchers_; scm_is_pair(disp); disp = scm_cdr (disp))
 	{
 	  int priority = scm_to_int (scm_cdar (disp));
@@ -186,7 +183,7 @@ Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }
   SCM entry = scm_cons (scm_int2num (priority), l.smobbed_copy ());
-  list = scm_merge (list, scm_list_1 (entry), ly_lily_module_constant ("car<"));
+  list = scm_merge_x (list, scm_list_1 (entry), ly_lily_module_constant ("car<"));
   scm_hashq_set_x (listeners_, ev_class, list);
 }
 
@@ -216,14 +213,13 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
     else
       e = scm_cdr (e);
   list = scm_cdr (dummy);
-  scm_hashq_set_x (listeners_, ev_class, list);
 
   if (first)
     warning ("Attempting to remove nonexisting listener.");
-  else if (!scm_is_pair (list))
+  else if (list == SCM_EOL)
     {
       /* Unregister with all dispatchers. */
-      for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
+      for (SCM disp = dispatchers_; disp != SCM_EOL; disp = scm_cdr (disp))
 	{
 	  Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
 	  d->remove_listener (GET_LISTENER (dispatch), ev_class);
@@ -248,7 +244,7 @@ Dispatcher::register_as_listener (Dispatcher *disp)
   dispatchers_ = scm_acons (disp->self_scm (), scm_int2num (priority), dispatchers_);
 
   Listener list = GET_LISTENER (dispatch);
-  for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))
+  for (SCM cl = listen_classes_; cl != SCM_EOL; cl = scm_cdr (cl))
     {
       disp->internal_add_listener (list, scm_car (cl), priority);
     }
@@ -260,9 +256,9 @@ Dispatcher::unregister_as_listener (Dispatcher *disp)
 {
   dispatchers_ = scm_assq_remove_x (dispatchers_, disp->self_scm ());
 
-  Listener listener = GET_LISTENER (dispatch);
-  for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))
+  Listener list = GET_LISTENER (dispatch);
+  for (SCM cl = listen_classes_; cl != SCM_EOL; cl = scm_cdr (cl))
     {
-      disp->remove_listener (listener, scm_car (cl));
+      disp->remove_listener (list, scm_car (cl));
     }
 }

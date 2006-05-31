@@ -43,9 +43,8 @@ Tuplet_number::print (SCM smob)
       me->suicide ();
       return SCM_EOL;
     }
-
-  SCM stc_scm = Text_interface::print (smob);
-  Stencil *stc = unsmob_stencil (stc_scm);
+  
+  Stencil *stc = unsmob_stencil (Text_interface::print (smob));
 
   stc->align_to (X_AXIS, CENTER);
   stc->align_to (Y_AXIS, CENTER);
@@ -57,7 +56,7 @@ Tuplet_number::print (SCM smob)
 
   stc->translate ((points[RIGHT] + points[LEFT]) / 2);
   
-  return stc_scm;
+  return stc->smobbed_copy ();
 }
 
 

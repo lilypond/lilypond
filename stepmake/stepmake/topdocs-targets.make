@@ -1,6 +1,9 @@
 
 default: local-doc
 
-local-WWW: $(HTML_FILES) $(PDF_FILES) $(TO_TOP_FILES)
+copy-to-top:  $(TO_TOP_FILES)
+	$(foreach i, $(TO_TOP_FILES), \
+	  cp $(i) $(top-build-dir) && ) true
 
-make-txt-files: $(addprefix $(outdir)/,$(addsuffix .txt,$(TO_TOP_FILES)))
+local-WWW: $(HTML_FILES) $(PDF_FILES) copy-to-top
+

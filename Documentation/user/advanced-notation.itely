@@ -75,9 +75,9 @@ The @code{\markup} is described in more detail in
 
 @refcommands
 
-@funindex \fatText
+@findex \fatText
 @code{\fatText},
-@funindex \emptyText
+@findex \emptyText
 @code{\emptyText}.
 
 
@@ -157,14 +157,13 @@ Examples: @inputfileref{input/@/regression,text@/-spanner@/.ly}.
 @cindex segno on bar line
 @cindex fermata on bar line
 @cindex bar lines, symbols on
-@funindex \mark
+@findex \mark
 
 The @code{\mark} command is primarily used for
 @ref{Rehearsal marks},
 but it can also be used to put signs like coda,
 segno, and fermata on a bar line.  Use @code{\markup} to
-access the appropriate symbol (symbols are listed in
-@ref{The Feta font})
+access the appropriate symbol
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 c1 \mark \markup { \musicglyph #"scripts.ufermata" }
@@ -291,7 +290,7 @@ but it can also be used anywhere text is called in lilypond
       #'break-visibility = #begin-of-line-invisible
     \override Score.RehearsalMark #'self-alignment-X = #right
 
-    \set Staff.instrumentName = \markup{ \column{ Alto solo } }
+    \set Staff.instrument = \markup{ \column{ Alto solo } }
     c2^\markup{ don't be \flat }
     \override TextSpanner #'edge-text = #(cons (markup #:italic "rit" ) "")
     b2\startTextSpan
@@ -305,7 +304,7 @@ but it can also be used anywhere text is called in lilypond
 
 Text can also be placed on its own, away from any @code{\score}
 block.  This is primarily used in a @code{\book} (see
-@ref{Multiple scores in a book}).
+@ref{Multiple movements}).
 
 @lilypond[quote,ragged-right,verbatim]
 \markup{ Here is some text. }
@@ -451,7 +450,7 @@ The following commands can all be used inside @code{\markup @{ @}}.
 
 @cindex font selection
 @cindex font magnification
-@funindex font-interface
+@findex font-interface
 
 By setting the object properties described below, you can select a
 font from the preconfigured font families.  LilyPond has default
@@ -505,12 +504,6 @@ then set the
 
 @noindent
 Any font can be used, as long as it is available to Pango/FontConfig.
-To get a full list of all available fonts, run the command
-@example
-lilypond -dshow-available-fonts blabla
-@end example
-(the last argument of the command can be anything, but has to be present).
-
 
 The size of the font may be set with the @code{font-size}
 property. The resulting size is taken relative to the
@@ -620,7 +613,7 @@ individual parts.
 @cindex Rests, multi measure
 @cindex Rests, full measure
 @cindex whole rests for a full measure
-@funindex R
+@findex R
 
 Rests for one full measure (or many bars) are entered using `@code{R}'.  It
 is specifically meant for full bar rests and for entering parts: the rest
@@ -742,7 +735,7 @@ Metronome settings can be entered as follows
 
 In the MIDI output, they are interpreted as a tempo change.  In the
 layout output, a metronome marking is printed
-@funindex \tempo
+@findex \tempo
 @lilypond[quote,ragged-right,verbatim,fragment]
 \tempo 8.=120 c''1
 @end lilypond
@@ -792,7 +785,7 @@ further away from the staff.
 @subsection Rehearsal marks
 
 @cindex Rehearsal marks
-@funindex \mark
+@findex \mark
 
 To print a rehearsal mark, use the @code{\mark} command
 
@@ -843,24 +836,6 @@ You may use @code{format-mark-barnumbers}, @code{format-mark-box-barnumbers},
 and @code{format-mark-circle-barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
-@cindex segno
-@cindex coda
-@cindex D.S al Fine
-
-Music glyphs (such as the segno sign) may be printed inside
-a @code{\mark}
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative]
-c1 \mark \markup { \musicglyph #"scripts.segno" }
-c1 \mark \markup { \musicglyph #"scripts.coda" }
-c1 \mark \markup { \musicglyph #"scripts.ufermata" }
-c1
-@end lilypond
-
-@noindent
-See @ref{The Feta font} for a list of symbols which may be
-printed with @code{\musicglyph}.
-
 The horizontal location of rehearsal marks can be adjusted by
 setting @code{break-align-symbol}
 
@@ -905,7 +880,7 @@ Examples: @inputfileref{input/@/regression,rehearsal@/-mark@/-letter@/.ly},
 
 @cindex Bar numbers
 @cindex measure numbers
-@funindex currentBarNumber
+@findex currentBarNumber
 
 Bar numbers are printed by default at the start of the line.  The
 number itself is stored in the @code{currentBarNumber} property, which
@@ -976,15 +951,13 @@ In an orchestral score, instrument names are printed at the left side
 of the staves.
 
 This can be achieved by setting @internalsref{Staff}.@code{instrument}
-and @internalsref{Staff}.@code{instr}, or
-@internalsref{PianoStaff}.@code{instrument} and
-@internalsref{PianoStaff}.@code{instr}.  This will print text before
+and @internalsref{Staff}.@code{instr}.  This will print a string before
 the start of the staff.  For the first staff, @code{instrument} is
 used, for the following ones, @code{instr} is used.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
-\set Staff.instrumentName = "Ploink "
-\set Staff.shortInstrumentName = "Plk "
+\set Staff.instrument = "Ploink "
+\set Staff.instr = "Plk "
 c1
 \break
 c''
@@ -994,7 +967,7 @@ You can also use markup texts to construct more complicated instrument
 names, for example
 
 @lilypond[quote,fragment,verbatim,ragged-right]
-\set Staff.instrumentName = \markup {
+\set Staff.instrument = \markup {
   \column { "Clarinetti"
             \line { "in B" \smaller \flat } } }
 c''1
@@ -1005,13 +978,13 @@ If you wish to center the instrument names, you must center all of them
 @lilypond[quote,verbatim,ragged-right]
 { <<
 \new Staff {
-  \set Staff.instrumentName = \markup {
+  \set Staff.instrument = \markup {
     \center-align { "Clarinetti"
       \line { "in B" \smaller \flat } } }
   c''1
 }
 \new Staff {
-  \set Staff.instrumentName = \markup{ \center-align { Vibraphone }}
+  \set Staff.instrument = \markup{ \center-align { Vibraphone }}
   c''1
 }
 >>
@@ -1027,29 +1000,17 @@ To center instrument names while leaving extra space to the right,
 \new StaffGroup \relative
 <<
   \new Staff {
-    \set Staff.instrumentName = \markup { \hcenter-in #10 "blabla" }
+    \set Staff.instrument
+    = \markup { \hcenter-in #10 "blabla" }
     c1 c1
   }
   \new Staff {
-    \set Staff.instrumentName = \markup { \hcenter-in #10 "blo" }
+    \set Staff.instrument
+    = \markup { \hcenter-in #10 "blo" }
     c1 c1
   }
 >>
 @end lilypond
-
-To add instrument names to other contexts (such as @code{GrandStaff},
-@code{ChoirStaff}, or @code{StaffGroup}), the engraver must
-be added to that context.
-
-@example
-\layout@{
-  \context @{\GrandStaff \consists "Instrument_name_engraver"@}
-@}
-@end example
-
-@noindent
-More information about adding and removing engravers can
-be found in @ref{Modifying context plug-ins}.
 
 
 @seealso
@@ -1175,7 +1136,7 @@ during an octavation bracket.
 @node Different editions from one source
 @subsection Different editions from one source
 
-@funindex \tag
+@findex \tag
 @cindex tag
 
 The @code{\tag} command marks music expressions with a name.  These
@@ -1639,6 +1600,15 @@ that fits into traditional notation categories, such as
 microtones, nested tuplet beams, and unusual fermatas, please
 see those sections of the documentation.
 
+
+@c I don't think we should discourage modern composers who might
+@c want to sponsor new features.  :)
+@c  In general, the use of new, innovative notation makes a piece
+@c harder to understand and perform and its use should therefore be
+@c avoided.  For this reason, support for contemporary notation in
+@c LilyPond is limited.
+
+
 @menu
 * Polymetric notation::         
 * Time administration::         
@@ -1647,7 +1617,6 @@ see those sections of the documentation.
 * Special noteheads::           
 * Feathered beams::             
 * Improvisation::               
-* Selecting notation font size::  
 @end menu
 
 
@@ -1909,8 +1878,6 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 @node Special noteheads
 @subsection Special noteheads
 
-@cindex note heads, special
-
 Different noteheads are used by various instruments for various
 meanings -- crosses are used for ``parlato'' with vocalists, stopped
 notes on guitar; diamonds are used for harmonics on string instruments,
@@ -1938,22 +1905,26 @@ Program reference: @internalsref{NoteHead}.
 @node Feathered beams
 @subsection Feathered beams
 
-Feathered beams are printed by setting the @code{grow-direction}
-property of a @code{Beam}.  The @code{\featherDurations} function
-can be used to adjust note durations.
+Feathered beams are not supported natively, but they can be faked by
+forcing two beams to overlap.  Here is an example,
 
+@c don't change relative setting witout changing positions!
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
-\featherDurations #(ly:make-moment 5 4) 
-{
-  \override Beam #'grow-direction = #LEFT
-  c16[ c c c c c c]
-}
+\new Staff <<
+  \new Voice
+  {
+    \stemUp
+    \once \override Voice.Beam #'positions = #'(0 . 0.5)
+    c8[ c c c c ]
+  }
+  \new Voice {
+    \stemUp
+    \once \override Voice.Beam #'positions = #'(0 . -0.5)
+    c[ c c c c]
+  }
+>>
 @end lilypond
 
-@refbugs
-
-The @code{\featherDuration} command only works with very short
-music snippets.
 
 @node Improvisation
 @subsection Improvisation
@@ -1985,62 +1956,6 @@ the following example
   ~fis2 \improvisationOff a16(bes) a8 g e
 }
 @end lilypond
-
-
-@node Selecting notation font size
-@subsection Selecting notation font size
-
-The easiest method of setting the font size of any context is by
-setting the @code{fontSize} property.
-
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
-\set fontSize = #-4
-c f
-\set fontSize = #3
-g
-@end lilypond
-
-@noindent
-It does not change the size of variable symbols, such as beams or
-slurs.
-
-Internally, the @code{fontSize} context property will cause the
-@code{font-size} property to be set in all layout objects.  The value
-of @code{font-size} is a number indicating the size relative to the
-standard size for the current staff height.  Each step up is an
-increase of approximately 12% of the font size.  Six steps is exactly a
-factor two.  The Scheme function @code{magstep} converts a
-@code{font-size} number to a scaling factor.
-
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
-\override NoteHead #'font-size = #-4
-c f
-\override NoteHead #'font-size = #3
-g
-@end lilypond
-
-Font size changes are achieved by scaling the design size that is
-closest to the desired size.  The standard font size (for
-@code{font-size} equals 0), depends on the standard staff height.  For
-a 20pt staff, a 10pt font is selected.
-
-The @code{font-size} property can only be set on layout objects that
-use fonts. These are the ones supporting the
-@internalsref{font-interface} layout interface.
-
-@refcommands
-
-The following commands set @code{fontSize} for the current voice:
-
-@funindex \tiny
-@code{\tiny},
-@funindex \small
-@code{\small},
-@funindex \normalsize
-@code{\normalsize}.
-
 
 
 @node Educational use
@@ -2127,8 +2042,8 @@ emptymusic = {
 @cindex Invisible notes
 @cindex Transparent notes
 
-@funindex \hideNotes
-@funindex \unHideNotes
+@findex \hideNotes
+@findex \unHideNotes
 Hidden (or invisible or transparent) notes can be useful in preparing theory
 or composition exercises.
 
@@ -2143,8 +2058,6 @@ g4 a
 
 @node Shape note heads
 @subsection Shape note heads
-
-@cindex note heads, shape
 
 In shape note head notation, the shape of the note head corresponds
 to the harmonic function of a note in the scale.  This notation was
@@ -2163,10 +2076,10 @@ Shape note heads can be produced by setting @code{\aikenHeads} or
 Shapes are determined on the step in the scale, where the base of the
 scale is determined by  the @code{\key} command
 
-@funindex \key
-@funindex shapeNoteStyles
-@funindex \aikenHeads
-@funindex \sacredHarpHeads
+@findex \key
+@findex shapeNoteStyles
+@findex \aikenHeads
+@findex \sacredHarpHeads
 
 Shape note heads are implemented through the @code{shapeNoteStyles}
 property.  Its value is a vector of symbols.  The k-th element indicates
@@ -2182,8 +2095,6 @@ combinations are possible, e.g.
 @node Easy Notation note heads
 @subsection Easy Notation note heads
 
-@cindex note heads, practice
-@cindex note heads, easy notation
 @cindex easy notation
 @cindex Hal Leonard
 
@@ -2202,7 +2113,7 @@ to be printed in a large font size.  To print with a larger font, see
 
 @refcommands
 
-@funindex \setEasyHeads
+@findex \setEasyHeads
 @code{\setEasyHeads}
 
 
@@ -2256,7 +2167,7 @@ e
 @end lilypond
 
 The full range of colors defined for X11 can be accessed by using the
-Scheme function x11-color.  The function takes one argument that can be a
+scheme function x11-color.  The function takes one argument that can be a
 symbol
 
 @example
@@ -2288,7 +2199,7 @@ deliberate nonsense.
 @lilypond[quote,ragged-right,verbatim]
 {
   \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
+  \set Staff.instrument = \markup {
     \with-color #(x11-color 'navy) "Clarinet"
   }
   \time 2/4

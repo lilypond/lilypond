@@ -57,35 +57,6 @@ Slur::calc_direction (SCM smob)
   return scm_from_int (d);
 }
 
-MAKE_SCHEME_CALLBACK (Slur, pure_height, 3);
-SCM
-Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
-{
-  Grob *me = unsmob_grob (smob);
-  int start = scm_to_int (start_scm);
-  int end = scm_to_int (end_scm);
-  Real height = robust_scm2double (me->get_property ("height-limit"), 2.0);
-
-  extract_grob_set (me, "note-columns", encompasses);
-  Interval ret;
-
-  Grob *parent = me->get_parent (Y_AXIS);
-  if (common_refpoint_of_array (encompasses, me, Y_AXIS) != parent)
-    /* this could happen if, for example, we are a cross-staff slur.
-       in this case, we want to be ignored */
-    return ly_interval2scm (Interval ());
-
-  for (vsize i = 0; i < encompasses.size (); i++)
-    {
-      Interval d = encompasses[i]->pure_height (parent, start, end);
-      if (!d.is_empty ())
-	ret.unite (d);
-    }
-
-  ret.widen (height * 0.5);
-  return ly_interval2scm (ret);
-}
-
 MAKE_SCHEME_CALLBACK (Slur, height, 1);
 SCM
 Slur::height (SCM smob)
@@ -165,7 +136,7 @@ Slur::get_curve (Grob *me)
 {
   Bezier b;
   int i = 0;
-  for (SCM s = me->get_property ("control-points"); scm_is_pair (s);
+  for (SCM s = me->get_property ("control-points"); s != SCM_EOL;
        s = scm_cdr (s))
     b.control_[i++] = ly_scm2offset (scm_car (s));
 
@@ -186,7 +157,7 @@ Slur::add_extra_encompass (Grob *me, Grob *n)
 }
 
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1);
+MAKE_SCHEME_CALLBACK (Slur, outside_slur_callback, 2);
 SCM
 Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
@@ -216,8 +187,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   Interval yext = robust_relative_extent (script, cy, Y_AXIS);
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
 
-  Real offset = robust_scm2double (offset_scm, 0);
-  yext.translate (offset);
+  yext.translate (robust_scm2double (offset_scm, 0));
+  
   
   /* FIXME: slur property, script property?  */
   Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
@@ -258,7 +229,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
       avoidance_offset = dir * (max (dir * avoidance_offset,
 				     dir * (ys[k] - yext[-dir] + dir * slur_padding)));
   
-  return scm_from_double (offset + avoidance_offset);
+  return scm_from_double (scm_to_double (offset_scm) + avoidance_offset);
 }
 
 /*
@@ -266,8 +237,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
  */
 void
 Slur::auxiliary_acknowledge_extra_object (Grob_info info,
-					  vector<Grob*> &slurs,
-					  vector<Grob*> &end_slurs)
+  vector<Grob*>& slurs, vector<Grob*>& end_slurs)
 {
   if (slurs.empty () && end_slurs.empty ())
     return;
@@ -316,13 +286,12 @@ ADD_INTERFACE (Slur, "slur-interface",
 	       "eccentricity "
 	       "encompass-objects "
 	       "height-limit "
-	       "inspect-quants "
-	       "inspect-index "
 	       "line-thickness "
 	       "note-columns "
 	       "positions "
 	       "quant-score "
 	       "ratio "
 	       "thickness "
+
 	       );
 

@@ -180,12 +180,6 @@ Font_metric::sub_fonts () const
 }
 
 Stencil
-Font_metric::word_stencil (string str) const
-{
-  return text_stencil (str);
-}
-
-Stencil
 Font_metric::text_stencil (string str) const
 {
   SCM lst = scm_list_3 (ly_symbol2scm ("text"),

@@ -26,8 +26,7 @@ int compare (Midi_note_event const &left, Midi_note_event const &right);
 class Midi_walker
 {
 public:
-  Midi_walker (Audio_staff *audio_staff, Midi_track *midi_track,
-	       int channel);
+  Midi_walker (Audio_staff *audio_staff, Midi_track *midi_track);
   ~Midi_walker ();
 
   void process ();
@@ -39,7 +38,6 @@ private:
   void do_stop_notes (Moment now_mom);
   void output_event (Moment now_mom, Midi_item *l);
 
-  int channel_;
   Midi_track *track_;
   Audio_staff *staff_;
   vsize index_;

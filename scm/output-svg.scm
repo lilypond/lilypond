@@ -24,7 +24,6 @@
  (guile)
  (ice-9 regex)
  (lily)
- (srfi srfi-1)
  (srfi srfi-13))
 
 
@@ -70,16 +69,6 @@
 
 (define (offset->point o)
   (format #f " ~S,~S" (car o)  (- (cdr o))))
-
-(define (number-list->point lst)
-  (define (helper lst)
-    (if (null? lst)
-	'()
-	(cons (format "~S,~S" (car lst) (cadr lst))
-	      (helper (cddr lst)))))
-
-  (string-join (helper lst) " "))  
-
 
 (define (svg-bezier lst close)
   (let* ((c0 (car (list-tail lst 3)))
@@ -204,48 +193,13 @@
     (entity 'path ""
 	    '(stroke-linejoin . "round")
 	    '(stroke-linecap . "round")
+	    `(stroke-width . ,thick)
 	    '(stroke . "currentColor")
 	    '(fill . "currentColor")
-	    `(stroke-width . ,thick)
 	    `(d . ,(string-append (svg-bezier first #f)
 				  (svg-bezier second first-c0)))
 	    )))
 
-(define (path thick commands)
-  (define (convert-path-exps exps)
-    (if (pair? exps)
-	(let*
-	    ((head (car exps))
-	     (rest (cdr exps))
-	     (arity 
-	      (cond
-	       ((memq head '(rmoveto rlineto lineto moveto)) 2)
-	       ((memq head '(rcurveto curveto)) 6)
-	       (else 1)))
-	     (args (take rest arity))
-	     (svg-head (assoc-get head '((rmoveto . m)
-					 (rcurveto . c)
-					 (curveto . C)
-					 (moveto . M)
-					 (lineto . L)
-					 (rlineto . l))
-				  ""))
-	     )
-
-	  (cons (format "~a~a "
-			svg-head (number-list->point args)
-			)
-		(convert-path-exps (drop rest arity))))
-	'()))
-  
-  (entity 'path ""
-	  `(stroke-width . ,thick)
-	  '(stroke-linejoin . "round")
-	  '(stroke-linecap . "round")
-	  '(stroke . "currentColor")
-	  '(fill . "none")
-	  `(d . ,(string-join (convert-path-exps commands) " "))))
-  
 (define (char font i)
   (dispatch
    `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))
@@ -267,7 +221,7 @@
 	    (y2 . ,(- y2)))
 	  alist)))
 
-(define (dashed-line thick on off dx dy phase)
+(define (dashed-line thick on off dx dy)
   (draw-line thick 0 0 dx dy `(style . ,(format "stroke-dasharray:~a,~a;" on off))))
 
 (define (named-glyph font name)

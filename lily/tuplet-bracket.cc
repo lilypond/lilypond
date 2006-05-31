@@ -70,17 +70,12 @@ flatten_number_pair_property (Grob *me,
     = robust_scm2drul (me->internal_get_property (sym), zero);
   pair[xdir] = 0.0;
   
-  me->set_property (sym, ly_interval2scm (pair));
+  me->internal_set_property (sym, ly_interval2scm (pair));
 }
 
 
-/*
-  Return beam that encompasses the span of the tuplet bracket.
-*/
-
 Grob *
-Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
-			       bool *equally_long)
+Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols, bool *equally_long)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
 
@@ -114,8 +109,7 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
     }
 
   *equally_long =
-    (beam_stems[0] == stems[LEFT]
-     && beam_stems.back () == stems[RIGHT]);
+    (beam_stems[0] == stems[LEFT] && beam_stems.back () == stems[RIGHT]);
   return beams[LEFT];
 }
 
@@ -663,29 +657,20 @@ Tuplet_bracket::calc_positions (SCM smob)
   if (!par_beam
       || get_grob_direction (par_beam) != dir)
     calc_position_and_height (me, &offset, &dy);
-  else if  (columns.size ()
-	    && Note_column::get_stem (columns[0])
-	    && Note_column::get_stem (columns.back ()))
+  else
     {
-      /*
-	trigger set_stem_ends
-       */
-      (void) par_beam->get_property ("quantized-positions");
+      SCM ps = par_beam->get_property ("positions");
 
+      Real lp = scm_to_double (scm_car (ps));
+      Real rp = scm_to_double (scm_cdr (ps));
 
-      Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
-				Note_column::get_stem (columns.back ()));
-
-      
-      
-
-      Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
-      Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0);
-      Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0);
-
+      Real ss = Staff_symbol_referencer::staff_space (me);
       
       offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));
       dy = (rp - lp);
+
+      dy *= ss;
+      offset *= ss;	
     }
 
   

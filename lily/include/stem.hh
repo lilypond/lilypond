@@ -50,7 +50,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_stem_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
 };
 #endif

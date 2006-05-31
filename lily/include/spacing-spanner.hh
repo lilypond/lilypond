@@ -19,14 +19,13 @@ struct Spacing_options
   bool packed_;
   bool stretch_uniformly_;
   bool float_nonmusical_columns_;
-  bool float_grace_columns_;
   Rational global_shortest_;
   Real increment_;
   Real shortest_duration_space_;
 
-  Spacing_options();
+  void init ();
   void init_from_grob (Grob *me);
-  Real get_duration_space (Rational d, bool *) const;
+  Real get_duration_space (Moment d, bool *) const;
 };
 
 /*
@@ -45,6 +44,7 @@ public:
   static Real default_bar_spacing (Grob *, Grob *, Grob *, Moment);
   static Real note_spacing (Grob *, Grob *, Grob *, Spacing_options const *, bool *);
   static Real get_duration_space (Moment dur, Spacing_options const *, bool *);
+  static Rational find_shortest (Grob *, vector<Grob*> const &);
   static Rational effective_shortest_duration (Grob *me, vector<Grob*> const &all);
   static void breakable_column_spacing (Grob *, Item *l, Item *r, Spacing_options const *);
   static void prune_loose_columns (Grob *, vector<Grob*> *cols, Spacing_options const *);
@@ -52,10 +52,7 @@ public:
   static void set_implicit_neighbor_columns (vector<Grob*> const &cols);
   static void generate_springs (Grob *me, vector<Grob*> const &cols, Spacing_options const *);
   static void musical_column_spacing (Grob *, Item *, Item *, Spacing_options const *);
-  static vector<Grob*> get_columns (Spanner *me);
-
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_common_shortest_duration, (SCM));
   static bool has_interface (Grob *);
 };
 

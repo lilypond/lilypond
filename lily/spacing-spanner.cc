@@ -26,34 +26,48 @@ using namespace std;
 #include "system.hh"
 #include "warn.hh"
 
-vector<Grob*>
-Spacing_spanner::get_columns (Spanner *me)
-{
-  vector<Grob*> all (get_root_system (me)->columns ());
-  vsize start = binary_search (all, (Grob*)me->get_bound (LEFT),
-			       &Paper_column::less_than);
-  vsize end = binary_search (all, (Grob*) me->get_bound (RIGHT),
-			     &Paper_column::less_than);
 
-  all = vector<Grob*>::vector<Grob*> (all.begin () + start,
-				      all.begin () + end + 1);
-  return all;
+/*
+  TODO:
+
+  use callback instead?
+
+*/
+Rational
+Spacing_spanner::effective_shortest_duration (Grob *me,
+					      vector<Grob*> const &all)
+{
+  SCM preset_shortest = me->get_property ("common-shortest-duration");
+  Rational global_shortest;
+  if (unsmob_moment (preset_shortest))
+    global_shortest = unsmob_moment (preset_shortest)->main_part_;
+  else
+    {
+      global_shortest = Spacing_spanner::find_shortest (me, all);
+      if (be_verbose_global)
+	message (_f ("Global shortest duration is %s", global_shortest.to_string ()) + "\n");
+    }
+
+  return global_shortest;
 }
+
 
 MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Grob *me = unsmob_grob (smob);
 
   /*
     can't use get_system() ? --hwn.
   */
-  vector<Grob*> all (get_columns (me));
+  vector<Grob*> all (get_root_system (me)->columns ());
+
   set_explicit_neighbor_columns (all);
 
   Spacing_options options;
   options.init_from_grob (me);
+  options.global_shortest_ = effective_shortest_duration (me, all);
 
   prune_loose_columns (me, &all, &options);
   set_implicit_neighbor_columns (all);
@@ -71,15 +85,9 @@ Spacing_spanner::set_springs (SCM smob)
   note has a different duration, but hey, don't write that kind of
   stuff, then.
 */
-
-MAKE_SCHEME_CALLBACK (Spacing_spanner, calc_common_shortest_duration, 1);
-SCM 
-Spacing_spanner::calc_common_shortest_duration (SCM grob)
+Rational
+Spacing_spanner::find_shortest (Grob *me, vector<Grob*> const &cols)
 {
-  Spanner *me = unsmob_spanner (grob);
-
-  vector<Grob*> cols (get_columns (me));
-  
   /*
     ascending in duration
   */
@@ -157,7 +165,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
   if (max_idx >= 0)
     d = min (d, durations[max_idx]);
 
-  return Moment (d).smobbed_copy ();
+  return d;
 }
 
 void
@@ -264,11 +272,12 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	  if (!lext.is_empty ())
 	    compound_note_space += -lext[LEFT];
 	}
+      
     }
   else
     {
       int wish_count = 0;
-      
+
       extract_grob_set (left_col, "right-neighbors", neighbors);
 
       /*
@@ -316,33 +325,8 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 
       if (compound_note_space < 0 || wish_count == 0)
 	{
-
-	  if (!Paper_column::is_musical (right_col))
-	    {
-	      Real left_col_stick_out = robust_relative_extent (left_col, left_col,  X_AXIS)[RIGHT];
-	      compound_fixed_note_space = max (left_col_stick_out, options->increment_);
-
-	      compound_note_space = max (base_note_space,
-					 base_note_space - options->increment_ + left_col_stick_out);
-	    }
-	  else
-	    {
-	      /*
-		Fixed should be 0.0. If there are no spacing wishes, we're
-		likely dealing with polyphonic spacing of hemiolas.
-	    
-		We used to have compound_fixed_note_space = options->increment_
-
-		but this can lead to numeric instability problems when we
-		do
-	    
-		inverse_strength = (compound_note_space - compound_fixed_note_space)
-      
-	      */
-
-	      compound_note_space = base_note_space;
-	      compound_fixed_note_space = 0.0;
-	    }
+	  compound_note_space = base_note_space;
+	  compound_fixed_note_space = options->increment_;
 	}
       else if (to_boolean (me->get_property ("average-spacing-wishes")))
 	{
@@ -505,22 +489,19 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "head width) A 16th note is followed by 0.5 note head width. The\n"
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
 
-	       
 	       "average-spacing-wishes "
-	       "base-shortest-duration "
-	       "common-shortest-duration "
-	       "packed-spacing "
-	       "shortest-duration-space "
+	       "grace-space-factor "
 	       "spacing-increment "
-	       "strict-grace-spacing "
+	       "base-shortest-duration "
 	       "strict-note-spacing "
+	       "shortest-duration-space "
+	       "common-shortest-duration "
 	       "uniform-stretching "
-	       
+	       "packed-spacing "
 	       );
 
 ADD_INTERFACE (Spacing_interface, "spacing-interface",
 	       "Something to do with line breaking and spacing. "
 	       "Kill this one after determining line breaks.",
-	       
 	       "");
 

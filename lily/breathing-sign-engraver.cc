@@ -12,12 +12,10 @@
   . Spacing is not yet completely pretty
 */
 
+#include "staff-symbol-referencer.hh"
 #include "breathing-sign.hh"
-#include "engraver.hh"
+#include "engraver-group.hh"
 #include "item.hh"
-#include "stream-event.hh"
-
-#include "translator.icc"
 
 class Breathing_sign_engraver : public Engraver
 {
@@ -25,12 +23,12 @@ public:
   TRANSLATOR_DECLARATIONS (Breathing_sign_engraver);
 
 protected:
-  void process_music ();
+  virtual bool try_music (Music *event);
+  void process_acknowledged ();
   void stop_translation_timestep ();
 
-  DECLARE_TRANSLATOR_LISTENER (breathing);
 private:
-  Stream_event *breathing_sign_event_;
+  Music *breathing_sign_event_;
   Grob *breathing_sign_;
 };
 
@@ -40,19 +38,20 @@ Breathing_sign_engraver::Breathing_sign_engraver ()
   breathing_sign_event_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Breathing_sign_engraver, breathing);
-void
-Breathing_sign_engraver::listen_breathing (Stream_event *ev)
+bool
+Breathing_sign_engraver::try_music (Music *r)
 {
-  ASSIGN_EVENT_ONCE (breathing_sign_event_, ev);
+  breathing_sign_event_ = r;
+  return true;
 }
 
 void
-Breathing_sign_engraver::process_music ()
+Breathing_sign_engraver::process_acknowledged ()
 {
-  if (breathing_sign_event_)
+  if (breathing_sign_event_ && ! breathing_sign_)
     {
       breathing_sign_ = make_item ("BreathingSign", breathing_sign_event_->self_scm ());
+      breathing_sign_event_ = 0;
     }
 }
 
@@ -62,6 +61,8 @@ Breathing_sign_engraver::stop_translation_timestep ()
   breathing_sign_ = 0;
   breathing_sign_event_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Breathing_sign_engraver,
 		/* doc */ "",

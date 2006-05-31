@@ -10,9 +10,7 @@
 
 #include "audio-item.hh"
 #include "international.hh"
-#include "stream-event.hh"
-
-#include "translator.icc"
+#include "music.hh"
 
 /*
   TODO: fold this into 1 engraver: \< and \> should also stop when
@@ -33,17 +31,16 @@ public:
   TRANSLATOR_DECLARATIONS (Span_dynamic_performer);
 
 protected:
+  virtual bool try_music (Music *);
   virtual void acknowledge_audio_element (Audio_element_info);
   void process_music ();
   void stop_translation_timestep ();
 
-  DECLARE_TRANSLATOR_LISTENER (decrescendo);
-  DECLARE_TRANSLATOR_LISTENER (crescendo);
 private:
   Audio_dynamic *audio_;
   Real last_volume_;
-  Stream_event *span_start_event_;
-  Drul_array<Stream_event *> span_events_;
+  Music *span_start_event_;
+  Drul_array<Music *> span_events_;
   vector<Audio_dynamic_tuple> dynamic_tuples_;
   vector<Audio_dynamic_tuple> finished_dynamic_tuples_;
   Direction dir_;
@@ -98,7 +95,7 @@ Span_dynamic_performer::process_music ()
 
   if (span_events_[START])
     {
-      dir_ = (span_events_[START]->in_event_class ("crescendo-event"))
+      dir_ = (span_events_[START]->is_mus_type ("crescendo-event"))
 	? RIGHT : LEFT;
       span_start_event_ = span_events_[START];
 
@@ -158,6 +155,7 @@ Span_dynamic_performer::stop_translation_timestep ()
 
   if (audio_)
     {
+      play_element (audio_);
       audio_ = 0;
     }
 
@@ -165,21 +163,19 @@ Span_dynamic_performer::stop_translation_timestep ()
   span_events_[START] = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Span_dynamic_performer, decrescendo);
-void
-Span_dynamic_performer::listen_decrescendo (Stream_event *r)
+bool
+Span_dynamic_performer::try_music (Music *r)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
-  span_events_[d] = r;
+  if (r->is_mus_type ("crescendo-event")
+      || r->is_mus_type ("decrescendo-event"))
+    {
+      Direction d = to_dir (r->get_property ("span-direction"));
+      span_events_[d] = r;
+      return true;
+    }
+  return false;
 }
-
-IMPLEMENT_TRANSLATOR_LISTENER (Span_dynamic_performer, crescendo);
-void
-Span_dynamic_performer::listen_crescendo (Stream_event *r)
-{
-  Direction d = to_dir (r->get_property ("span-direction"));
-  span_events_[d] = r;
-}
+#include "translator.icc"
 
 ADD_TRANSLATOR (Span_dynamic_performer,
 		"", "",

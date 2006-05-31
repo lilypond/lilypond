@@ -3,63 +3,45 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 (define (define-scheme-options)
   (for-each (lambda (x)
 	      (ly:add-option (car x) (cadr x) (caddr x)))
 	  
-	    `(
-
-	      ;; NAMING: either
-
-	      ;; - [subject-]object-object-verb +"ing"
-	      ;; - [subject-]-verb-object-object
-
-	      (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
-	      (check-internal-types #f "check every property assignment for types")
-	      (debug-gc #f
-			"dump memory debugging statistics")
-	      (debug-midi #f "generate human readable MIDI")
-	      (delete-intermediate-files #f
-					 "delete unusable PostScript files")
-	      (dump-signatures #f "dump output signatures of each system")
-	      (dump-tweaks #f "dump page layout and tweaks for each score having the tweak-key layout property set.")
-	      (gs-load-fonts #f
-			    "load fonts via Ghostscript.")
-	      (include-book-title-preview #t "include book-titles in preview images.")
-	      (include-eps-fonts #f "Include fonts in separate-system EPS files.")
-
-	      (pad-eps-boxes #f "Pad EPS bounding boxes to guarantee alignment between systems")
-
-	      (gui #f "running from gui; redirect stderr to log file")
-	      
+	    `((point-and-click #t "use point & click")
+	      (paper-size "a4" "the default paper size")
+	      (midi-debug #f "generate human readable MIDI")
+	      (dump-signatures #f "dump output signatures of each system (EPS backend)")
+	      (internal-type-checking #f "check every property assignment for types")
+	      (parse-protect #t    "continue when finding errors in inline
+scheme are caught in the parser. If off, halt 
+on errors, and print a stack trace.")
+	      (profile-property-accesses #f "keep statistics of get_property() calls.")
 	      (old-relative #f
 			    "relative for simultaneous music works
 similar to chord syntax")
 	      (object-keys #f
 			   "experimental mechanism for remembering tweaks")
-	      (point-and-click #t "use point & click")
-	      (paper-size "a4" "the default paper size")
-	      (protected-scheme-parsing #t "continue when finding errors in inline
-scheme are caught in the parser. If off, halt 
-on errors, and print a stack trace.")
-	      (profile-property-accesses #f "keep statistics of get_property() calls.")
-	      
 	      (resolution 101 "resolution for generating bitmaps")
-	      (read-file-list #f "Read files to be processed from command line arguments")
-
+	      (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
+	      (book-title-preview #t "include book-titles in preview images.")
+	      (eps-font-include #f "Include fonts in separate-system EPS files.")
+	      (gs-font-load #f
+			    "load fonts via Ghostscript.")
+	      (gui #f "running from gui; redirect stderr to log file")
+	      (delete-intermediate-files #f
+					 "delete unusable PostScript files")
 	      (safe #f "Run safely")
+	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN")
-
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
-
+	      (debug-gc #f
+			"dump GC protection info")
 	      (show-available-fonts #f
 				    "List  font names available.")
-
-	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      )))
 
 
@@ -238,13 +220,7 @@ The syntax is the same as `define*-public'."
                                 safe-objects))
        ,safe-symbol)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; init pitch system
 
-(ly:set-default-scale (ly:make-scale #(0 2 4 5 7 9 11)))
-
-
- 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
@@ -287,6 +263,7 @@ The syntax is the same as `define*-public'."
 	    "define-grobs.scm"
 	    "define-grob-interfaces.scm"
 	    "define-stencil-commands.scm"
+	    "layout-page-layout.scm"
 	    "titling.scm"
 	    
 	    "paper.scm"
@@ -414,14 +391,6 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
-  (if (ly:get-option 'read-file-list)
-      (set! files
-	    (filter (lambda (s)
-		      (> (string-length s) 0))
-		    (apply append
-			   (map (lambda (f) (string-split (ly:gulp-file f) #\nl))
-				files)))
-	    ))
 
   (if (ly:get-option 'show-available-fonts)
       (begin

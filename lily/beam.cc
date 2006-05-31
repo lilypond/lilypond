@@ -368,7 +368,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
        i != stem_segments.end (); i++)
     {
       vector<Beam_stem_segment> segs = (*i).second;
-      vector_sort (segs, less<Beam_stem_segment> ());
+      vector_sort (segs, default_compare);
 
       Beam_segment current;
 
@@ -1169,6 +1169,8 @@ Beam::set_stem_lengths (SCM smob)
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
+      if (Stem::is_invisible (s))
+	continue;
 
       bool french = to_boolean (s->get_property ("french-beaming"));
       Real stem_y = calc_stem_y (me, s, common,
@@ -1179,14 +1181,9 @@ Beam::set_stem_lengths (SCM smob)
 	Make the stems go up to the end of the beam. This doesn't matter
 	for normal beams, but for tremolo beams it looks silly otherwise.
       */
-      if (gap
-	   && !Stem::is_invisible (s))
+      if (gap)
 	stem_y += thick * 0.5 * get_grob_direction (s);
 
-      /*
-	Do set_stemend for invisible stems too, so tuplet brackets
-	have a reference point for sloping
-       */
       Stem::set_stemend (s, 2 * stem_y / staff_space);
     }
 
@@ -1304,7 +1301,7 @@ Beam::last_visible_stem (Grob *me)
 
   rest -> stem -> beam -> interpolate_y_position ()
 */
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, rest_collision_callback, 2, 1);
+MAKE_SCHEME_CALLBACK (Beam, rest_collision_callback, 2);
 SCM
 Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 {

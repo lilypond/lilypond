@@ -66,165 +66,6 @@ which scares away people.
 
 @end ignore
 
-@item Calculation of note head durations is now softcoded. 
-
-@lilypond[relative=1,fragment,ragged-right]
-  %% use half heads for whole notes.
-  \override NoteHead #'duration-log = 1                                         
-  c1 c2 c4 c8[ c16 c]
-@end lilypond
-
-
-@c Please insert any new material above this line.  -gp
-
-@item Chords can now be partially tied,
-
-@lilypond[ragged-right,relative,fragment]
-<c~ e g~ b>  <c e g b>
-@end lilypond
-
-This feature was sponsored by Steve Doonan.
-
-@item Lyric extenders now have tunable padding.
-
-This feature was sponsored by David Griffel.
-
-@item
-Instrument changes are better supported: names in the margin can be
-changed half-way during a staff, and cues are printed automatically.
-
-This feature was sponsored by Kieren MacMillan.
-
-@item
-Barlines can be dashed now,
-
-@lilypond[relative,ragged-right,fragment]
-c4 \bar "dashed" c4
-@end lilypond
-
-This feature was sponsored by Kieren MacMillan.
-
-@item
-Grace notes may be forced to use floating spacing, 
-
-@lilypond[relative=2,ragged-right]
-<<
-  \override Score.SpacingSpanner  #'strict-grace-spacing = ##t
-  \new Staff {
-     c'4
-     \afterGrace
-     c'4
-     { c'16[ c'8 c'16] }
-     c'4
-  }
-  \new Staff {
-     c'16[ c'16 c'16 c'16]
-     c'16[ c'16 c'16 c'16]
-     c'4
-  }
->>
-@end lilypond
-
-This feature was sponsored by Trevor Bača.
-
-
-@item
-Durations of grace notes are taken into account for spacing,
-
-@lilypond[relative=2,ragged-right,fragment]
-  c
-  \grace { c8[ c16 d c8]  }
-  c
-@end lilypond
-
-This feature was sponsored by Trevor Bača.
-
-@item
-Tuplet brackets can be made to run to prefatory matter or
-the next note
-
-@lilypond[ragged-right]
-\new RhythmicStaff {
-  \set tupletFullLength = ##t
-  \time 4/4
-  \times 4/5 {
-    c4 c1
-  }
-  \set tupletFullLengthNote = ##t
-  \time 2/4
-  \times 2/3 {
-    c4 c c 
-  }
-  \time 3/4
-  c4 
-}
-@end lilypond
-
-
-This feature was sponsored by Trevor Bača.
-
-@item
-Falls and doits can be added to notes
-
-@lilypond[fragment,ragged-right,relative=2]
-\override Score.SpacingSpanner #'shortest-duration-space = #3.0
-c4-\bendAfter #+5
-c4-\bendAfter #-3
-@end lilypond
-
-This feature was sponsored by Anthony Youngman and Paul Scott.
-
-@item
-@code{lilypond-book} now includes support for PDF@TeX{}.
-
-This feature was sponsored by David Roundy. 
-
-@item
-Nested tuplets can have different formatting for each nesting level,
-
-@lilypond[ragged-right]
-\new Staff {
-  \time 5/4
-  \tweak #'text #tuplet-number::calc-fraction-text
-  \times 5/3 {
-     \tweak #'text  #tuplet-number::calc-denominator-text
-     \times 2/3 {
-        c'8[ c'8 c'8]
-     }
-     \times 2/3 {
-        c'8[ c'8 c'8]
-     }
-     \times 2/3 {
-        c'8[ c'8 c'8]
-     }
-  }
-}
-@end lilypond
-
-This feature was sponsored by Trevor Bača.
-
-
-@item
-New sections with different spacing parameters can be started with
-@code{newSpacingSection}.  This is useful when there are  
-sections with a different notions of long and short notes.
-
-In the following example, the time signature change introduces a new
-section, and hence the 16ths notes are spaced wider.
-
-@lilypond[relative,fragment]
-  \time 2/4
-  c4 c8 c 
-  c8 c c4 c16[ c c8] c4
-
-  \newSpacingSection
-  \time 4/16
-  c16[ c  c8]
-@end lilypond
-
-This feature was sponsored by Trevor Bača, Michael Meixner and Vivian
-Barty-Taylor.
-
 @item
 A new, automated testing technique has been added. It will detect
 changes in the formatting automatically, which will make it easier to
@@ -234,7 +75,7 @@ View @uref{../../test-results.html,test results}.
 
 @item
 Figured bass can also be added to @code{Staff} contexts directly. In
-this case, their vertical position is adjusted automatically.
+this case, their vertical  position is adjusted automatically.
 
 @lilypond[ragged-right,fragment]
 <<
@@ -337,12 +178,9 @@ support for feathered beaming,
   \override Beam #'grow-direction = #LEFT
   c16[
     c c c
-    c c c ]
+    c c c c ]
 }
 @end lilypond 
-
-Known bug: the \featherDuration command only works with very short music
-snippets.
 
 This feature was sponsored by Jamie Bullock.
 

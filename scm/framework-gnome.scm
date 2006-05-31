@@ -193,12 +193,12 @@
 (define location-callback spawn-editor)
 
 (define (get-location grob)
-  (and-let* ((p (procedure? point-and-click))
+  (and-let* ((p? (procedure? point-and-click))
 	     (g grob)
 	     (cause (ly:grob-property grob 'cause))
-	     (music-origin (if (ly:event? cause)
-			       (ly:event-property cause 'origin)
-			       ;; How come #<unspecified> [and '()]
+	     (music-origin (if (ly:music? cause)
+			       (ly:music-property cause 'origin)
+			       ;; How come #<unspecied> [and '()]
 			       ;; are #t? :-(
 			       #f)))
 	    (if (ly:input-location? music-origin)

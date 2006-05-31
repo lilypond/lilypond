@@ -47,7 +47,7 @@ default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
 of @PACKAGE_NAME@
 """
 
-built = r'''
+built = r"""
 <div style="background-color: #e8ffe8; padding: 2; border: #c0ffc0 1px solid;">
 %(wiki_string)s
 <p>
@@ -58,10 +58,23 @@ This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
 Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.</font></address>
 </p>
 </div>
-'''
+"""
 
 
-
+def gulp_file (f):
+    try:
+        i = open(f)
+        i.seek (0, 2)
+        n = i.tell ()
+        i.seek (0,0)
+    except:
+        sys.stderr.write ("can't open file: %s\n" % f)
+        return ''
+    s = i.read (n)
+    if len (s) <= 0:
+        sys.stderr.write ("gulped empty file: %s\n" % f)
+    i.close ()
+    return s
 
 def help ():
     sys.stdout.write (r"""Usage: add-html-footer [OPTIONS]... HTML-FILE
@@ -125,7 +138,7 @@ def set_gcos ():
 def compose (default, file):
     s = default
     if file:
-        s = open (file).read ()
+        s = gulp_file (file)
     return s
 
 set_gcos ()
@@ -187,7 +200,7 @@ def remove_self_ref (s):
     return s
 
 def do_file (f):
-    s = open (f).read()
+    s = gulp_file (f)
     s = re.sub ('%', '%%', s)
 
 

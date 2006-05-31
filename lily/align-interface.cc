@@ -14,7 +14,6 @@
 #include "hara-kiri-group-spanner.hh"
 #include "grob-array.hh"
 #include "international.hh"
-#include "warn.hh"
 
 /*
   TODO: for vertical spacing, should also include a rod & spring
@@ -93,7 +92,7 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 
   vector<Grob*> elems (elem_source); // writable..
 
-  Real where = 0;
+  Real where_f = 0;
 
   Interval v;
   v.set_empty ();
@@ -118,9 +117,9 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 
   for (vsize j = 0; j < elems.size (); j++)
     {
-      where += stacking_dir * dy;
-      translates.push_back (where);
-      v.unite (Interval (where, where));
+      where_f += stacking_dir * dy;
+      translates.push_back (where_f);
+      v.unite (Interval (where_f, where_f));
     }
 
   /*
@@ -146,11 +145,8 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
   align_to_fixed_distance ().
 */
 
-vector<Real>
-Align_interface::get_extents_aligned_translates (Grob *me,
-						 vector<Grob*> const &all_grobs,
-						 Axis a,
-						 bool pure, int start, int end)
+void
+Align_interface::align_elements_to_extents (Grob *me, Axis a)
 {
   Spanner *me_spanner = dynamic_cast<Spanner *> (me);
 
@@ -160,7 +156,7 @@ Align_interface::get_extents_aligned_translates (Grob *me,
     {
       line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
 
-      if (!me->get_system () && !pure)
+      if (!me->get_system ())
 	me->warning (_ ("vertical alignment called before line-breaking.\n"
 			"Only do cross-staff spanners with PianoStaff."));
 
@@ -175,9 +171,10 @@ Align_interface::get_extents_aligned_translates (Grob *me,
   vector<Interval> dims;
   vector<Grob*> elems;
 
+  extract_grob_set (me, "elements", all_grobs);
   for (vsize i = 0; i < all_grobs.size (); i++)
     {
-      Interval y = all_grobs[i]->maybe_pure_extent (all_grobs[i], a, pure, start, end);
+      Interval y = all_grobs[i]->extent (me, a);
       if (!y.is_empty ())
 	{
 	  Grob *e = dynamic_cast<Grob *> (all_grobs[i]);
@@ -206,9 +203,7 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 				   ? scm_cdr (extra_space_handle)
 				   : SCM_EOL,
 				   extra_space);
-
-  Real padding = robust_scm2double (me->get_property ("padding"),
-				    0.0);
+  
   vector<Real> translates;
   for (vsize j = 0; j < elems.size (); j++)
     {
@@ -223,20 +218,17 @@ Align_interface::get_extents_aligned_translates (Grob *me,
       if (j)
 	dy = min (max (dy, threshold[SMALLER]), threshold[BIGGER]);
 
-
-      where += stacking_dir * (dy + padding + extra_space / elems.size ());
+      where += stacking_dir * (dy + extra_space / elems.size ());
       total.unite (dims[j] + where);
       translates.push_back (where);
     }
 
-  SCM offsets_handle = scm_assq (ly_symbol2scm ("alignment-offsets"),
-				 line_break_details);
+  SCM offsets_handle = scm_assq (ly_symbol2scm ("alignment-offsets"), line_break_details);
   if (scm_is_pair (offsets_handle))
     {
       vsize i = 0;
  
-      for (SCM s = scm_cdr (offsets_handle);
-	   scm_is_pair (s) && i < translates.size (); s = scm_cdr (s), i++)
+      for (SCM s = scm_cdr (offsets_handle); scm_is_pair (s) && i < translates.size (); s = scm_cdr (s), i++)
 	{
 	  if (scm_is_number (scm_car (s)))
 	    translates[i] = scm_to_double (scm_car (s));
@@ -253,68 +245,24 @@ Align_interface::get_extents_aligned_translates (Grob *me,
   if (translates.size ())
     {
       Real w = translates[0];
-
-      if (scm_is_number (align))
-	center_offset = total.linear_combination (scm_to_double (align));
-
       for  (vsize i = 0, j = 0; j < all_grobs.size (); j++)
 	{
 	  if (i < elems.size () && all_grobs[j] == elems[i])
 	    w = translates[i++];
-	  all_translates.push_back (w - center_offset);
+	  all_translates.push_back (w);
 	}
-    }
-  return all_translates;
-}
 
-void
-Align_interface::align_elements_to_extents (Grob *me, Axis a)
-{
-  extract_grob_set (me, "elements", all_grobs);
+      /*
+	FIXME: uncommenting freaks out the Y-alignment of
+	line-of-score.
+      */
+      if (scm_is_number (align))
+	center_offset = total.linear_combination (scm_to_double (align));
 
-  vector<Real> translates = get_extents_aligned_translates (me, all_grobs, a, false, 0, 0);
-  if (translates.size ())
       for (vsize j = 0; j < all_grobs.size (); j++)
-	all_grobs[j]->translate_axis (translates[j], a);
-}
-
-Real
-Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, int end)
-{
-  extract_grob_set (me, "elements", all_grobs);
-  SCM dy_scm = me->get_property ("forced-distance");
-
-  if (scm_is_number (dy_scm))
-    {
-      Real dy = scm_to_double (dy_scm) * robust_scm2dir (me->get_property ("stacking-dir"), DOWN);
-      Real pos = 0;
-      for (vsize i = 0; i < all_grobs.size (); i++)
-	{
-	  if (all_grobs[i] == ch)
-	    return pos;
-	  if (!Hara_kiri_group_spanner::has_interface (all_grobs[i])
-	      || !Hara_kiri_group_spanner::request_suicide (all_grobs[i], start, end))
-	    pos += dy;
-	}
+	all_grobs[j]->translate_axis (all_translates[j] - center_offset, a);
     }
-  else
-    {
-      vector<Real> translates = get_extents_aligned_translates (me, all_grobs, Y_AXIS, true, start, end);
-
-      if (translates.size ())
-	{
-	  for (vsize i = 0; i < all_grobs.size (); i++)
-	    if (all_grobs[i] == ch)
-	      return translates[i];
-	}
-      else
-	return 0;
-    }
-
-  programming_error (_ ("tried to get a translation for something that isn't my child"));
-  return 0;
 }
-
 Axis
 Align_interface::axis (Grob *me)
 {
@@ -328,7 +276,7 @@ Align_interface::add_element (Grob *me, Grob *element)
   SCM sym = axis_offset_symbol (a);
   SCM proc = axis_parent_positioning (a);
     
-  element->set_property (sym, proc);
+  element->internal_set_property (sym, proc);
   Axis_group_interface::add_element (me, element);
 }
 
@@ -380,15 +328,12 @@ ADD_INTERFACE (Align_interface,
 	       /*
 		 properties
 		*/
-	       "align-dir "
-	       "axes "
-	       "elements "
 	       "forced-distance "
-	       "padding "
-	       "positioning-done "
 	       "stacking-dir "
+	       "align-dir "
 	       "threshold "
-	       );
+	       "positioning-done "
+	       "elements axes");
 
 struct Foobar
 {

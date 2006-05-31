@@ -135,8 +135,7 @@ get_number (unsigned char ** str, unsigned char * end_str, int length)
   long sum = 0;
   int i = 0;
   
-  for (; i < length &&
-	 ((*str) + i < end_str); i++)
+  for (; i < length; i++)
     sum = (sum << 8) + (unsigned char) (*str)[i];
 
   *str += length;
@@ -205,8 +204,8 @@ read_string (unsigned char **track, unsigned char *end)
 }
 
 typedef PyObject* (*Read_midi_event)
-  (unsigned char **track, unsigned char *end, 
-   unsigned char x);
+     (unsigned char **track, unsigned char *end, 
+      unsigned char x);
 
 
 static PyObject *
@@ -300,8 +299,7 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
 
   pytrack = PyList_New (0);
 
-  if (*track + track_len < track_end)
-    track_end = *track + track_len;
+  track_end = *track + track_len;
 
   {  
     PyObject *pytime = PyInt_FromLong (0L);
@@ -359,6 +357,7 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
 
   /* Header */
   header_len = get_number (midi, *midi + 4, 4);
+
   
   if (header_len < 6)
     return midi_error (__FUNCTION__,  ": header too short");
@@ -401,7 +400,7 @@ pymidi_parse (PyObject *self, PyObject *args)
     return 0;
 
   if (memcmp (midi, "MThd", 4))
-    return midi_error (__FUNCTION__,  ": MThd expected");
+      return midi_error (__FUNCTION__,  ": MThd expected");
   
   midi += 4;
 

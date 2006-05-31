@@ -9,13 +9,13 @@ including alterations. "
 
 \layout { ragged-right = ##t }
 
-\version "2.9.13"
+\version "2.7.39"
 
 textFlat = \markup {\smaller \flat}
 
 \new Staff {
-  \set Staff.instrumentName = \markup { \column { "Clarinetti" \line { "in B" \textFlat } } }
-  \set Staff.shortInstrumentName = \markup { \smaller  { "Cl(B" \textFlat ")" } }
+  \set Staff.instrument = \markup { \column { "Clarinetti" \line { "in B" \textFlat } } }
+  \set Staff.instr = \markup { \smaller  { "Cl(B" \textFlat ")" } }
 
   { c''1 \break c'' }
 }

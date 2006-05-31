@@ -105,8 +105,10 @@ gulp_file_to_string (string fn, bool must_exist, int size)
   if (be_verbose_global)
     progress_indication ("[" + s);
 
-  vector<char> chars = gulp_file (s, size);
-  string result (&chars[0], chars.size ());
+  int n = size;
+  char *str = gulp_file (s, &n);
+  string result (str, n);
+  delete[] str;
 
   if (be_verbose_global)
     progress_indication ("]");
@@ -129,7 +131,7 @@ ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
   return string (scm_i_string_chars (str),
-		 (int) scm_i_string_length (str));
+		     (int) scm_i_string_length (str));
 }
 
 char *
@@ -653,14 +655,6 @@ robust_scm2offset (SCM k, Offset o)
   return o;
 }
 
-string
-robust_scm2string (SCM k, string s)
-{
-  if (scm_is_string (k))
-    s = ly_scm2string (k);
-  return s;
-}
-
 int
 robust_scm2int (SCM k, int o)
 {
@@ -748,4 +742,3 @@ mangle_cxx_identifier (string cxx_id)
   cxx_id = replace_all (cxx_id, '_', '-');
   return cxx_id;
 }
-

@@ -10,8 +10,10 @@
 #define SCORE_ENGRAVER_HH
 
 #include "engraver-group.hh"
+#include "score-translator.hh"
 
-class Score_engraver : public Engraver_group
+class Score_engraver : public virtual Score_translator,
+		       public virtual Engraver_group
 {
   System *system_;
 
@@ -21,13 +23,13 @@ class Score_engraver : public Engraver_group
   void typeset_all ();
 
 protected:
-  DECLARE_LISTENER (finish);
-  DECLARE_LISTENER (prepare);
-  DECLARE_LISTENER (one_time_step);
+  /* Score_translator */
+  virtual void finish ();
+  virtual void prepare (Moment);
+  virtual void one_time_step ();
 
   /* Engraver_group_engraver interface */
-  virtual void connect_to_context (Context *);
-  virtual void disconnect_from_context ();
+  virtual bool try_music (Music *);
   virtual void initialize ();
   virtual void finalize ();
   virtual void announce_grob (Grob_info);
@@ -40,6 +42,7 @@ protected:
 
 public:
   Score_engraver ();
+  virtual SCM get_output ();
 };
 
 #endif /* SCORE_ENGRAVER_HH */

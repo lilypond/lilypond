@@ -1,40 +1,31 @@
 Release 2.9
 ***********
 
-
 DEVELOPMENT TEAM
 
 Han-Wen Nienhuys  - Core development
 Jan Nieuwenhuizen - Core development
+Pedro Kroger      - Build Meister
 Graham Percival   - Documentation Editor
 Mats Bengtsson    - Support Guru 
 
-
 CONTRIBUTORS
 
-Angelo Contardi
-David Feuer
-Erik Sandberg
 Erlend Aasland
-Guido Amoruso
+David Feuer
 Heikki Junes
 Joe Neeman
+Erik Sandberg
 
 
 SPONSORS
 
+Trevor Bača
 Andrew Sidwell
-Anthony Youngman 
 Chris Sawer
-David Griffel
 Jamie Bullock
-Kieren MacMillan
-Michael Meixner 
-Paul Scott
 Steve Doonan
 Trent Johnston
-Trevor Bača
-Vivian Barty-Taylor
 
 
 DOCUMENTATION HELPERS
@@ -50,50 +41,26 @@ Juergen Reuter
 BUG HUNTERS/SUGGESTIONS
 
 Albert Frantz
-Anthony Youngman
 Aurèle Duda
-Ben Hoefer
 Bernie Arai
 Cameron Horsburgh
-Charles Cave
-Christian Hitz
-Christopher Ellis
 Claude Routhier
+Christopher Ellis
+Christian Hitz
 Colin Wilding
-Daniel Tonda Castillo
 David Rogers
 Francisco Vila
-Harald Wellmann
-Johannes Schindelin
 J. Leung
-Karim Haddad
+Harald Wellmann
 Karl Hammar
 Keith Packard
-Kieren MacMillan
-Lee T. Wilkirson
-Mark Dewey
-Marcus Macauley
-Markus Schneider
-Matti Aaltonen
-Michael Meixner
-Michael Welsh Duggan
-Milan Zamazal
 Orm Finnendahl
-Paul Scott
-Phillip Kirlin
 Quentin Spencer
-Rainer Typke
 Rick Hansen
-Ruud van Silfhout
 Sietse Brouwer
 Stephen Carter
-Stephen Kress
-Thies Albrecht
 Trent Johnston
-Trevor Bača
-Vaclav Smilauer
 Werner Lemberg
-Will Oram
 Zoltan V. Laszlo
 
 Release 2.8
@@ -191,7 +158,7 @@ Patrick K Welton
 Paul Scott
 Ralph Little
 Richard Schoeller
-Robert Vlasaty
+Robert Vlatasy
 Roman Kurakin
 Russell Lang
 Scott Russell
@@ -425,7 +392,7 @@ Pawel D
 Pedro Kroger
 Ray McKinney
 Reuben Thomas
-Robert Vlasaty
+Robert Vlatasy
 Stef Epardaud
 Thomas Willhalm
 Thomas Scharkowski

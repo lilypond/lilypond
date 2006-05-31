@@ -307,11 +307,5 @@ ADD_INTERFACE (Line_spanner, "line-spanner-interface",
 	       "@code{dashed-line}, @code{trill}, \n"
 	       "@code{dotted-line} or @code{zigzag}.\n"
 	       "\n",
-	       
-	       "arrow "
-	       "gap "
-	       "thickness "
-	       "zigzag-length "
-	       "zigzag-width "
-	       );
+	       "gap zigzag-width zigzag-length thickness arrow");
 

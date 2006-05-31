@@ -325,7 +325,7 @@ Break_alignment_align_interface::self_align_callback (SCM grob)
   
   int last_idx_found = -1;
   vsize i = 0;
-  for (SCM s = order; scm_is_pair (s); s = scm_cdr (s))  
+  for (SCM s = order; scm_is_pair (order); s = scm_cdr (s))  
     {
       if (i < elements.size ()
 	  && elements[i]->get_property ("break-align-symbol") == scm_car (s))

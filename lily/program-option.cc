@@ -48,7 +48,7 @@ void internal_set_option (SCM var, SCM val)
       profile_property_accesses = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
-  else if (var == ly_symbol2scm ("debug-midi"))
+  else if (var == ly_symbol2scm ("midi-debug"))
     {
       do_midi_debugging_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
@@ -58,12 +58,12 @@ void internal_set_option (SCM var, SCM val)
       point_and_click_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
-  else if (var == ly_symbol2scm ("protected-scheme-parsing"))
+  else if (var == ly_symbol2scm ("parse-protect"))
     {
       parse_protect_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
-  else if (var == ly_symbol2scm ("check-internal-types"))
+  else if (var == ly_symbol2scm ("internal-type-checking"))
     {
       do_internal_type_checking_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
@@ -133,7 +133,7 @@ get_help_string ()
     }
 
   string help ("Options supported by ly:set-option\n\n");
-  vector_sort (opts, less<string> ());
+  vector_sort (opts, string_compare);
   for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
 

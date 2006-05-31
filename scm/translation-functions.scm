@@ -2,15 +2,26 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
+(define-public (denominator-tuplet-formatter mus)
+  (number->string (ly:music-property mus 'denominator)))
+
+(define-public (fraction-tuplet-formatter mus)
+  (string-append
+   (number->string (ly:music-property mus 'denominator))
+   ":"
+   (number->string (ly:music-property mus 'numerator))))
+
 ;; metronome marks
-(define-public (format-metronome-markup dur count context)
-  (let* ((note-mark (make-smaller-markup
-		     (make-note-by-number-markup (ly:duration-log dur)
-						 (ly:duration-dot-count dur)
-						 1))))  
+(define-public (format-metronome-markup event context)
+  (let* ((dur (ly:music-property event 'tempo-unit))
+       (count (ly:music-property event 'metronome-count))
+       (note-mark (make-smaller-markup
+		   (make-note-by-number-markup (ly:duration-log dur)
+					       (ly:duration-dot-count dur)
+					       1))))  
     (make-line-markup
      (list
       (make-general-align-markup Y DOWN note-mark)
@@ -61,7 +72,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (format-bass-figure figure event context)
-  (let* ((fig (ly:event-property event 'figure))
+  (let* ((fig (ly:music-property event 'figure))
 	 (fig-markup (if (number? figure)
 
 			 ;; this is not very elegant, but center-aligning all digits
@@ -72,12 +83,12 @@
 			      (lambda (y) (make-translate-scaled-markup (cons -0.7 0) y))
 			      identity)
 
-			  (if (eq? #t (ly:event-property event 'diminished))
+			  (if (eq? #t (ly:music-property event 'diminished))
 			      (markup #:slashed-digit figure)
 			      (markup #:number (number->string figure 10))))
 			 #f
 			 ))
-	 (alt (ly:event-property event 'alteration))
+	 (alt (ly:music-property event 'alteration))
 	 (alt-markup
 	  (if (number? alt)
 	      (markup
@@ -87,7 +98,7 @@
 	       (alteration->text-accidental-markup alt))
 	      
 	      #f))
-	 (plus-markup (if (eq? #t (ly:event-property event 'augmented))
+	 (plus-markup (if (eq? #t (ly:music-property event 'augmented))
 			  (markup #:number "+")
 			  #f))
 

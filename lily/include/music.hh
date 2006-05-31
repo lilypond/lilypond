@@ -29,8 +29,6 @@ public:
 
   bool internal_is_music_type (SCM) const;
 
-  Stream_event *to_event () const;
-
   DECLARE_SCHEME_CALLBACK (relative_callback, (SCM, SCM));
   Pitch to_relative_octave (Pitch);
   Pitch generic_to_relative_octave (Pitch);
@@ -48,7 +46,7 @@ public:
   void send_to_context (Context *c);
 
   DECLARE_SCHEME_CALLBACK (duration_length_callback, (SCM));
- 
+  
 protected:
   virtual SCM copy_mutable_properties () const;
   virtual void type_check_assignment (SCM, SCM) const;
@@ -63,8 +61,5 @@ Music *unsmob_music (SCM);
 Music *make_music_by_name (SCM sym);
 SCM ly_music_deep_copy (SCM);
 extern SCM ly_music_p_proc;
-
-/* common transposition function for music and event */
-SCM transpose_mutable (SCM alist, Pitch delta);
 
 #endif /* MUSIC_HH */

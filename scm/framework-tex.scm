@@ -2,7 +2,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm framework-tex)
   #:export (output-framework-tex	
@@ -290,27 +290,23 @@
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (paper-width (ly:output-def-lookup defs 'paper-width))
-	 (paper-height (ly:output-def-lookup defs 'paper-height))
-	 (output-scale (ly:output-def-lookup defs 'output-scale)))
-    (postscript->pdf (* paper-width output-scale (/ (ly:bp 1)))
-		     (* paper-height output-scale (/ (ly:bp 1)))
+	 (papersizename (ly:output-def-lookup defs 'papersizename)))
+    (postscript->pdf (if (string? papersizename) papersizename "a4")
 		     (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
 	 (resolution (ly:output-def-lookup defs 'pngresolution))
-	 (paper-width (ly:output-def-lookup defs 'paper-width))
-	 (paper-height (ly:output-def-lookup defs 'paper-height))
-	 (output-scale (ly:output-def-lookup defs 'output-scale)))
+	 (papersizename (ly:output-def-lookup defs 'papersizename)))
     (postscript->png
      (if (number? resolution)
 	 resolution
 	 (ly:get-option 'resolution))
 
-     (* paper-width output-scale (/ (ly:bp 1)))
-     (* paper-height output-scale (/ (ly:bp 1)))
-
+     (if (string? papersizename)
+	 papersizename
+	 "a4")
+     
      (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-ps book name)

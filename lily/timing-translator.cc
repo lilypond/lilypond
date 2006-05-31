@@ -40,7 +40,6 @@ Timing_translator::initialize ()
 {
   context ()->add_alias (ly_symbol2scm ("Timing"));
   context ()->set_property ("currentBarNumber", scm_from_int (1));
-  context ()->set_property ("internalBarNumber", scm_from_int (1));
 
   context ()->set_property ("timeSignatureFraction",
 			    scm_cons (scm_from_int (4), scm_from_int (4)));
@@ -103,8 +102,10 @@ Timing_translator::start_translation_timestep ()
 
   measposp += dt;
 
-  int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
-  int internal_barnumber = robust_scm2int (get_property ("internalBarNumber"), 0);
+  SCM barn = get_property ("currentBarNumber");
+  int b = 0;
+  if (scm_is_number (barn))
+    b = scm_to_int (barn);
 
   SCM cad = get_property ("timing");
   bool c = to_boolean (cad);
@@ -113,12 +114,10 @@ Timing_translator::start_translation_timestep ()
   while (c && measposp.main_part_ >= len)
     {
       measposp.main_part_ -= len;
-      current_barnumber ++;
-      internal_barnumber ++;
+      b++;
     }
 
-  context ()->set_property ("currentBarNumber", scm_from_int (current_barnumber));
-  context ()->set_property ("internalBarNumber", scm_from_int (internal_barnumber));
+  context ()->set_property ("currentBarNumber", scm_from_int (b));
   context ()->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
@@ -133,14 +132,4 @@ ADD_TRANSLATOR (Timing_translator,
 		"@code{Staff}. "
 		"\n\nThis engraver adds the alias @code{Timing} to its containing context.",
 
-		"", "",
-
-		"internalBarNumber "
-		"currentBarNumber "
-		"measureLength "
-		"measurePosition ",
-
-		"internalBarNumber "
-		"currentBarNumber "
-		"measurePosition "
-		);
+		"", "", "", "");

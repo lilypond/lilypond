@@ -20,23 +20,21 @@ class Input
   char const *start_;
   char const *end_;
   Source_file *source_file_;
+
 public:
   Source_file *get_source_file () const;
   char const *start () const;
   char const *end () const;
 
   void set (Source_file *, char const *, char const *);
-  void warning (string) const;
-  void programming_error (string) const;
+  void warning (string) const; // should use member func?
   void non_fatal_error (string) const;
   void error (string) const;
   void message (string) const;
   void set_spot (Input const &);
   void step_forward ();
   void set_location (Input const &, Input const &);
-
   Input spot () const;
-
   string location_string () const;
   string line_number_string () const;
   string file_string ()const;
@@ -51,15 +49,5 @@ public:
   Input (Input const &i);
   Input ();
 };
-
-
-
-#include "input.hh"
-#include "smobs.hh"
-
-SCM make_input (Input spot);
-Input *unsmob_input (SCM);
-
-extern Input dummy_input_global;
 
 #endif // INPUT_HH

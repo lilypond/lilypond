@@ -64,7 +64,6 @@ Drul_array<Real> robust_scm2drul (SCM, Drul_array<Real>);
 Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);
 Interval robust_scm2interval (SCM, Drul_array<Real>);
 Offset robust_scm2offset (SCM, Offset);
-string robust_scm2string (SCM, string);
 
 SCM ly_quote_scm (SCM s);
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
@@ -77,7 +76,7 @@ SCM alist_to_hashq (SCM);
 
 SCM ly_alist_vals (SCM alist);
 SCM ly_hash2alist (SCM tab);
-SCM ly_hash_table_keys (SCM tab);
+
 int procedure_arity (SCM);
 
 /* inserts at front, removing dublicates */

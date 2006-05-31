@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.9.16"
+\version "2.7.39"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
@@ -129,7 +129,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	 \lyricsto "singer" \new Lyrics \firstVerse
 	 \lyricsto "singer" \new Lyrics \secondVerse
 	 \new PianoStaff << 
-	   \set PianoStaff.instrumentName = \markup {
+	   \set PianoStaff.instrument = \markup {
 	     \bold
 	     \bigger\bigger\bigger\bigger
 	     \huge
@@ -162,15 +162,9 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	  \override VerticalAlignment #'forced-distance = #10
 	}
       }
-      
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 70 4)
+      \midi {
+	\tempo 4 = 70
       }
-    }
-
-
     }
   }
 

@@ -5,7 +5,7 @@ import re
 import string
 
 Import ('env', 'base_glob', 'install')
-feta = reduce (lambda x, y: x + y,
+xfeta = reduce (lambda x, y: x + y,
 	       map (lambda x: base_glob (x),
 		    ('feta[0-9]*.mf',
 		     'feta-alphabet*[0-9].mf',
@@ -16,14 +16,24 @@ feta_alphabet = base_glob ('feta-alphabet[0-9][0-9]*.mf')
 feta_braces = base_glob ('feta-braces-[a-z].mf')
 parmesan = base_glob ('parmesan[0-9][0-9]*.mf')
 
-fonts = feta + feta_alphabet + feta_braces + parmesan
+# .pfa rules want an encoding file; ecb10.enc
+#sauter = ['ecb10']
+sauter = []
+fonts = feta + feta_alphabet + feta_braces + parmesan + sauter
+#env['feta'] = string.join (feta)
+#env['sauter'] = ''
 
 feta_sizes = map (lambda x: re.sub ('feta([0-9]+)', '\\1', x), feta)
 otfs = map (lambda x: 'emmentaler-' + x, feta_sizes) + ['aybabtu']
 
 t = map (env.TFM, fonts)
 g = map (env.GTABLE, fonts)
+# FIXME: don't know how to add prefix: PFAEmmentaler (naming is ugly anyway)
+#p = map (env.PFA, fonts + map (lambda x: 'PFA' + x, otfs))
 p = map (env.PFA, fonts)
+#e = map (env.ENC, fonts)
+#c = map (lambda x: x + '.cff', fonts)
+cp = map (lambda x: x + '.cff.ps', fonts)
 e = map (lambda x: x + '.enc', fonts)
 s = map (lambda x: x + '.svg', fonts)
 o = map (env.OTF, otfs)
@@ -40,30 +50,21 @@ env.Append (BUILDERS = {'OTF_TABLE': otf_table})
 f = map (env.OTF_TABLE, feta)
 g = map (env.OTF_TABLE, feta_braces)
 
-map (lambda x: env.Depends ('feta' + x + '.otf-table',
-			    ['parmesan' + x + '.lisp',
-			    'feta-alphabet' + x + '.lisp']), feta_sizes)
-
 map (lambda x: env.Depends ('emmentaler-' + x + '.otf',
 			    'feta' + x + '.otf-table'),
      feta_sizes)
 
-map (lambda x: env.Depends ('emmentaler-' + x + '.otf',
-			    ['feta' + x + '.pfa',
-			     'parmesan' + x + '.pfa',
-			     'feta-alphabet' + x + '.pfa']), feta_sizes)
-
-for i in feta_sizes:
-	env.Command ('emmentaler-%(i)s.pe' % locals (),
-		     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
-		     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
+env.Command ('emmentaler-11.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
 
 map (lambda x: env.Depends (x + '.pfa', x + '.enc'), feta)
 
 
 # Aybabtu
 
-feta_braces_pfa = map (lambda x: x + '.pfa', feta_braces)
+# ugh
+##feta_braces = map (lambda x: 'feta-braces-%c' % (ord ('a') + x), range (9))
 
 env.AT_COPY ('aybabtu.pe.in')
 env.Command ('aybabtu.fontname', '', 'echo -n aybabtu > $TARGET')
@@ -79,33 +80,73 @@ env.Command ('aybabtu.otf-gtable',
 	     map (lambda x: x + '.otf-gtable', feta_braces),
 	     'echo "(design_size . 20)" > $TARGET')
 
-env.Depends ('aybabtu.otf',
-	     feta_braces_pfa
-	     + ['aybabtu.subfonts',
-		'aybabtu.fontname',
-		'aybabtu.otf-table',
-		'aybabtu.otf-gtable'])
+#env.Depends ('aybabtu.otf-table',
+#	     map (lambda x: x + '.otf-table', feta_braces))
 
-env.Command ('fonts.cache-1', p + o,
-	     'cd ${TARGET.dir}; fc-cache .')
-	     
-## FIXME: building only a few fonts does not seem to work anymore.
-## what is essential these days, aybabtu/emmentaler are needed always?
+env.Depends ('aybabtu.otf', 'aybabtu.subfonts')
+env.Depends ('aybabtu.otf', 'aybabtu.fontname')
+env.Depends ('aybabtu.otf', 'aybabtu.otf-table')
+env.Depends ('aybabtu.otf', 'aybabtu.otf-gtable')
+
+# Hmm?
+env.Depends ('aybabtu.pfa', 'aybabtu.subfonts')
+env.Depends ('aybabtu.pfa', 'aybabtu.fontname')
+env.Depends ('aybabtu.pfa', 'aybabtu.otf-table')
+env.Depends ('aybabtu.pfa', 'aybabtu.otf-gtable')
+
+
+## FIXME
 mf_essential = ['feta16', 'feta20', 'parmesan16', ]
-pfa_essential = map (env.PFA, mf_essential) + ['emmentaler-20.otf']
+pfa_essential = map (env.PFA, mf_essential)
 env.Alias ('mf-essential', pfa_essential)
-env.Alias ('mf-essential', 'fonts.cache-1')
 
 env['fonts'] = string.join (fonts)
 env['feta_sizes'] = string.join (feta_sizes)
+env['sauter'] = string.join (sauter)
+env.Command ('lilypond.map', p,
+	     ['for i in $fonts; do echo $$i $$i "<"$$i.pfa; done > $TARGET',
+	      'for i in $feta_sizes; do\
+	      echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps";\
+	      echo "PFAEmmentaler-$$i PFAEmmentaler-$$i <PFAemmentaler-$$i.pfa";\
+	      done >> $TARGET',
+	      'echo "Aybabtu-Regular Aybabtu-Regular <aybabtu.cff.ps" >> $TARGET',
+	      'echo "PFAAybabtu-Regular PFAAybabtu-Regular <aybabtu.cff.ps" >> $TARGET',
+	      'for i in $sauter; do echo "$$i $$i <$$i.pfa"; done >> $TARGET'])
+#env.Alias ('mf', 'lilypond.map')
 
+env.Command ('fonts.scale', p,
+	     'cd ${TARGET.dir} && echo *.pfa *.pfb | $PYTHON $srcdir/buildscripts/make-font-dir.py  > $TARGET.file')
+env.Alias ('mf', 'fonts.scale')
+
+env.Command ('Fontmap', p,
+	     ["echo '%!' > $TARGET",
+	      "echo '% Override default GS Fontmap' >> $TARGET",
+	      "echo '% To let gs load fonts from builddir, do:' >> $TARGET",
+	      "echo '% export GS_LIB=$$(pwd)/mf/out:' >> $TARGET",
+	      "echo '% See Fontmap.GS for the syntax of real Fontmap files.' >> $TARGET",
+	      "echo '(Fontmap.GS) .runlibfile' >> $TARGET",
+	      "echo '(Fontmap.lily) .runlibfile' >> $TARGET"])
+
+env.Command ('Fontmap.lily', p + ['Fontmap'],
+	     ['echo "%!" > $TARGET',
+	      '''for i in $fonts; do echo "/$$i ($$i.pfa);"; done >> $TARGET''',
+	      ''' for i in $feta_sizes; do \
+	      echo "/Emmentaler-$$i (emmentaler-$$i.cff.ps);" ;  \
+	      echo "/PFAEmmentaler-$$i (PFAemmentaler-$$i.pfa);" ; \
+	      done >> $TARGET''',
+	      '''echo "/Aybabtu (aybabtu.cff.ps);" >> $TARGET''',
+	      '''echo "/PFAAybabtu (PFAaybabtu.pfa);" >> $TARGET''',
+	      '''for i in $sauter; do echo "$$i ($$i.pfa);"; done >> $TARGET'''])
+#env.Alias ('mf', 'Fontmap.lily')
+
+# build essential stuff first, that's friendlier
 env.Alias ('mf', pfa_essential + p + map (lambda x: x[0], o))
-env.Alias ('mf', s)
-env.Alias ('mf', 'fonts.cache-1')
 
 install (t, env['sharedir_package_version'] + '/fonts/tfm')
 install (p, env['sharedir_package_version'] + '/fonts/type1')
 install (o, env['sharedir_package_version'] + '/fonts/otf')
 install (e, env['sharedir_package_version'] + '/ps')
 install (s, env['sharedir_package_version'] + '/fonts/svg')
+#install (c, env['sharedir_package_version'] + '/fonts/cff')
+install (cp, env['sharedir_package_version'] + '/ps')
 

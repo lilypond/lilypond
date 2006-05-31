@@ -9,13 +9,11 @@
 #include "music-wrapper-iterator.hh"
 
 #include "context.hh"
-#include "dispatcher.hh"
 #include "input.hh"
 #include "international.hh"
 #include "lily-guile.hh"
 #include "music-sequence.hh"
 #include "music.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 class Quote_iterator : public Music_wrapper_iterator
@@ -35,7 +33,7 @@ public:
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
   bool quote_ok () const;
-  bool accept_music_type (Stream_event *) const;
+  bool accept_music_type (Music *) const;
 
 protected:
   virtual void derived_mark () const;
@@ -54,14 +52,16 @@ Quote_iterator::do_quit ()
 }
 
 bool
-Quote_iterator::accept_music_type (Stream_event *ev) const
+Quote_iterator::accept_music_type (Music *mus) const
 {
-  for (SCM accept = get_outlet ()->get_property ("quotedEventTypes");
-       scm_is_pair (accept); accept = scm_cdr (accept))
+  SCM accept = get_outlet ()->get_property ("quotedEventTypes");
+  for (SCM s = mus->get_property ("types");
+       scm_is_pair (s); s = scm_cdr (s))
     {
-      if (ev->internal_in_event_class (scm_car (accept)))
+      if (scm_memq (scm_car (s), accept) != SCM_BOOL_F)
 	return true;
     }
+
   return false;
 }
 
@@ -230,12 +230,11 @@ Quote_iterator::process (Moment m)
 	{
 	  SCM ev_acc = scm_car (s);
 
-	  Stream_event *ev = unsmob_stream_event (scm_car (ev_acc));
-	  if (!ev)
+	  Music *mus = unsmob_music (scm_car (ev_acc));
+	  if (!mus)
 	    programming_error ("no music found in quote");
-	  else if (accept_music_type (ev))
+	  else if (accept_music_type (mus))
 	    {
-	      /* create a transposed copy if necessary */
 	      if (quote_pitch || me_pitch)
 		{
 		  Pitch qp, mp;
@@ -246,11 +245,14 @@ Quote_iterator::process (Moment m)
 
 		  Pitch diff = pitch_interval (qp, mp);
 
-		  SCM props =  transpose_mutable (ev->get_property_alist (true), diff);
-		  ev = new Stream_event (ev->get_property ("class"), props);
-		  transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
+		  SCM copy = ly_music_deep_copy (mus->self_scm ());
+		  mus = unsmob_music (copy);
+
+		  transposed_musics_ = scm_cons (copy, transposed_musics_);
+		  mus->transpose (diff);
 		}
-	      quote_outlet_.get_outlet ()->event_source ()->broadcast (ev);
+
+	      quote_outlet_.get_outlet ()->try_music (mus);
 	    }
 	}
 

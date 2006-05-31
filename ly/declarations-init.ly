@@ -46,7 +46,6 @@ pageTurn = #(make-event-chord (list
 				(make-music 'PageBreakEvent 'break-permission 'force)
 				(make-music 'PageTurnEvent 'break-permission 'force)))
 noPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission '())))
-allowPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission 'allow)))
 
 stopStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent STOP)))
 startStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent START)))
@@ -72,9 +71,8 @@ escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
 \include "scale-definitions-init.ly"
 
-melisma = #(context-spec-music (make-property-set 'melismaBusy #t) 'Bottom)
-melismaEnd = #(context-spec-music (make-property-unset 'melismaBusy) 'Bottom)
-
+melisma = #(make-span-event 'ManualMelismaEvent START)
+melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 laissezVibrer = #(make-music 'LaissezVibrerEvent)
 repeatTie = #(make-music 'RepeatTieEvent)
 		  
@@ -109,8 +107,7 @@ partCombineListener = \layout {
     \context {
 	\Score
 	skipTypesetting = ##t
-	ignoreBarChecks = ##t
-	\alias "Timing"
+	ignoreBarChecks = ##t 
     }
 }
 

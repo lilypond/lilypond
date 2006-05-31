@@ -11,7 +11,6 @@
 #include "file-name-map.hh"
 #include "file-name.hh"
 #include "file-path.hh"
-#include "input.hh"
 #include "international.hh"
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
@@ -37,7 +36,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
-  string file = ly_scm2string (name);
+  char const *file = scm_i_string_chars (name);
   char const *extensions[] = {"ly", "", 0};
 
   string file_name = global_path.find (file, extensions);
@@ -65,7 +64,6 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
   if (!output_name_global.empty ())
     {
-      
       /* Interpret --output=DIR to mean --output=DIR/BASE.  */
       string dir;
       if (is_dir (output_name_global))
@@ -74,15 +72,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	  output_name_global = "";
 	}
       else
-	{
-	  File_name out (output_name_global);
-	  if (is_dir (out.dir_part ()))
-	    {
-	      dir = out.dir_part ();
-	      out_file_name = out.file_part ();
-	    }
-	}	  
-
+	dir = dir_name (output_name_global);
       if (dir != "" && dir != "." && dir != get_working_directory ())
 	{
 	  global_path.prepend (get_working_directory ());
@@ -110,9 +100,9 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       exit (2);
     }
 
-  if ((file_name != "-") && file_name.empty ())
+  if ((file_name != "-") && global_path.find (file_name).empty ())
     {
-      warning (_f ("can't find file: `%s'", file));
+      warning (_f ("can't find file: `%s'", file_name));
       scm_throw (ly_symbol2scm ("ly-file-failed"),
 		 scm_list_1 (scm_makfrom0str (file_name.c_str ())));
     }
@@ -130,8 +120,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       parser->parse_file (init, file_name, out_file);
 
       bool error = parser->error_level_;
-
       parser->unprotect ();
+      parser = 0;
       if (error)
 	/* TODO: pass renamed input file too.  */
 	scm_throw (ly_symbol2scm ("ly-file-failed"),
@@ -239,20 +229,4 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
   return scm_makfrom0str (p->output_basename_.c_str ());
 }
 
-LY_DEFINE (ly_parser_error, "ly:parser-error",
-	   2, 1, 0, (SCM parser, SCM msg, SCM input),
-	   "Display an error message, and make the parser fail")
-{
-  Lily_parser *p = unsmob_lily_parser (parser);
-  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
-  SCM_ASSERT_TYPE (scm_is_string (msg), msg, SCM_ARG2, __FUNCTION__, "string");
-  string s = ly_scm2string (msg);
-  
-  Input *i = unsmob_input (input);
-  if (i)
-    p->parser_error (*i, s);
-  else
-    p->parser_error (s);
 
-  return parser;
-}

@@ -13,15 +13,12 @@
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
 #include "warn.hh"
-
-#include "translator.icc"
 
 class Hyphen_engraver : public Engraver
 {
-  Stream_event *ev_;
-  Stream_event *finished_ev_;
+  Music *ev_;
+  Music *finished_ev_;
 
   Spanner *hyphen_;
   Spanner *finished_hyphen_;
@@ -32,9 +29,9 @@ public:
 protected:
 
   DECLARE_ACKNOWLEDGER (lyric_syllable);
-  DECLARE_TRANSLATOR_LISTENER (hyphen);
 
   virtual void finalize ();
+  virtual bool try_music (Music *);
 
   void stop_translation_timestep ();
   void process_music ();
@@ -63,11 +60,14 @@ Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
     finished_hyphen_->set_bound (RIGHT, item);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Hyphen_engraver, hyphen);
-void
-Hyphen_engraver::listen_hyphen (Stream_event *ev)
+bool
+Hyphen_engraver::try_music (Music *r)
 {
-  ASSIGN_EVENT_ONCE (ev_, ev);
+  if (ev_)
+    return false;
+
+  ev_ = r;
+  return true;
 }
 
 void
@@ -143,6 +143,8 @@ Hyphen_engraver::stop_translation_timestep ()
   hyphen_ = 0;
   ev_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
 

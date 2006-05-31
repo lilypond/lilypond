@@ -40,7 +40,7 @@ Rest_collision::force_shift_callback (SCM smob)
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1);
+MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback_rest, 2);
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {
@@ -51,8 +51,7 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
     translate REST; we need the result of this translation later on,
     while the offset probably still is 0/calculation-in-progress.
    */
-  if (scm_is_number (offset))
-    rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
+  rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
   
   if (Note_column::has_interface (parent))
     force_shift_callback (parent->self_scm ());
@@ -152,7 +151,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 
       Direction d = LEFT;
       do
-	vector_sort (ordered_rests[d], Note_column::shift_less);
+	vector_sort (ordered_rests[d], Note_column::shift_compare);
       while (flip (&d) != LEFT)
 	;
 
@@ -213,14 +212,13 @@ Rest_collision::calc_positioning_done (SCM smob)
       for (vsize i = rests.size (); !rcol && i--;)
 	if (Note_column::dir (rests[i]))
 	  {
+	    dir = Note_column::dir (rests[i]);
 	    rcol = rests[i];
-	    dir = Note_column::dir (rcol);
 	  }
 
       if (!rcol)
 	return SCM_UNSPECIFIED;
 
-      Grob *rest = Note_column::get_rest (rcol);
       Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
 
       Interval restdim = rcol->extent (common, Y_AXIS);
@@ -234,10 +232,9 @@ Rest_collision::calc_positioning_done (SCM smob)
       for (vsize i = 0; i < notes.size (); i++)
 	notedim.unite (notes[i]->extent (common, Y_AXIS));
 
+      Real dist
+	= minimum_dist + dir * max (notedim[dir] - restdim[-dir], 0.0);
 
-      Real y = dir * max (0.0,
-			  -dir * restdim[-dir] + dir * notedim[dir]  + minimum_dist);
-      
       int stafflines = Staff_symbol_referencer::line_count (me);
       if (!stafflines)
 	{
@@ -246,16 +243,13 @@ Rest_collision::calc_positioning_done (SCM smob)
 	}
 
       // move discretely by half spaces.
-      int discrete_y = dir * int (ceil (y / (0.5 * dir * staff_space)));
+      int discrete_dist = int (ceil (dist / (0.5 * staff_space)));
 
       // move by whole spaces inside the staff.
-      if (fabs (Staff_symbol_referencer::get_position (rest)
-		+ discrete_y) < stafflines + 1)
-	{
-	  discrete_y = dir * int (ceil (dir * discrete_y / 2.0) * 2.0);
-	}
+      if (discrete_dist < stafflines + 1)
+	discrete_dist = int (ceil (discrete_dist / 2.0) * 2.0);
 
-      Note_column::translate_rests (rcol, discrete_y);
+      Note_column::translate_rests (rcol, dir * discrete_dist);
     }
   return SCM_UNSPECIFIED;
 }

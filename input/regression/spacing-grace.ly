@@ -1,27 +1,14 @@
-\header
-{
-  texidoc = "Grace note runs have their own spacing variables in
-  @code{Score.GraceSpacing}. So differing grace note lengths inside a
-  run are spaced accordingly. "
+
+\version "2.7.39"
+\header {
+  texidoc = "Grace note spacing.  "
 }
 
-\version "2.9.13"
+\layout { ragged-right = ##t}
 
-\paper {  ragged-right = ##t }
 
-\relative c''
-{
-  c4
-  \grace { c16  }
-  c
-  \grace { c16  }
-  d
-  \grace { c16[ d e f] }
-  c
-  \grace { c8[ c16 d c8]  }
-  c
-  \override Score.GraceSpacing #'spacing-increment = #2.0
+\context Voice \relative c'' { \grace {  c16[ d] } c4 }
 
-  \grace { c4 c16 d16  }
-  c
-} 
+
+
+

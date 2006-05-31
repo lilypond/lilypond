@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2003--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2003--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-public (stack-stencils axis dir padding stils)
   "Stack stencils STILS in direction AXIS, DIR, using PADDING."
@@ -179,48 +179,52 @@ encloses the contents.
 ;; spacing variables 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define*-public (annotate-y-interval layout name extent is-length
-                                     #:key (color darkblue))
-  (let ((text-props (cons '((font-size . -3)
-			    (font-family . typewriter))
-			  (layout-extract-page-properties layout)))
-	(annotation #f))
-    (define (center-stencil-on-extent stil)
-      (ly:stencil-translate (ly:stencil-aligned-to stil Y CENTER)
-                            (cons 0 (interval-center extent))))
+(define-public (annotate-y-interval layout name extent is-length)
+  (let*
+      ((text-props (cons
+		    '((font-size . -3)
+		      (font-family . typewriter))
+		    (layout-extract-page-properties layout)))
+       (annotation #f)
+       )
+
     ;; do something sensible for 0,0 intervals. 
     (set! extent (interval-widen extent 0.001))
     (if (not (interval-sane? extent))
-	(set! annotation (interpret-markup
-			  layout text-props
-			  (make-simple-markup (format "~a: NaN/inf" name))))
-	(let ((text-stencil (interpret-markup
-			     layout text-props
-                             (markup #:whiteout #:simple name)))
-              (dim-stencil (interpret-markup
-                            layout text-props
-                            (markup #:whiteout
-                                    #:simple (cond
-                                              ((interval-empty? extent)
-                                               (format "empty"))
-                                              (is-length
-                                               (format "~$" (interval-length extent)))
-                                              (else
-                                               (format "(~$,~$)"
-                                                       (car extent) (cdr extent)))))))
-	      (arrows (ly:stencil-translate-axis 
-		       (dimension-arrows (cons 0 (interval-length extent)))
-		       (interval-start extent) Y)))
+	(set! annotation (interpret-markup layout text-props
+					   (make-simple-markup (format "~a: NaN/inf" name))))
+	(let*
+	    ((text-stencil (interpret-markup
+			    layout text-props
+			    (make-column-markup
+			     (list
+			      (make-whiteout-markup (make-simple-markup name))
+			      (make-whiteout-markup
+			       (make-simple-markup
+				(cond
+				 ((interval-empty? extent) "empty")
+				 (is-length (format "~$" (interval-length extent)))
+				 (else
+				  (format "(~$,~$)" (car extent)
+					  (cdr extent))))))))))
+	     (arrows
+	      (ly:stencil-translate-axis 
+	       (dimension-arrows (cons 0 (interval-length extent)))
+	       (interval-start extent) Y)))
+	  
 	  (set! annotation
-                (center-stencil-on-extent text-stencil))
+		(ly:stencil-aligned-to text-stencil Y CENTER))
+	  
+	  (set! annotation (ly:stencil-translate
+			    annotation
+			    (cons 0 (interval-center extent))))
+	  
+
 	  (set! annotation
 		(ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5 0))
+
 	  (set! annotation
-		(ly:stencil-combine-at-edge annotation X LEFT
-                                            (center-stencil-on-extent dim-stencil)
-                                            0.5 0))
-	  (set! annotation
-		(ly:make-stencil (list 'color color (ly:stencil-expr annotation))
+		(ly:make-stencil (ly:stencil-expr annotation)
 				 (ly:stencil-extent annotation X)
 				 (cons 10000 -10000)))))
     annotation))
@@ -279,7 +283,6 @@ grestore
 	  (write-system-signatures basename (cdr paper-systems) (1+ count))))))
 
 
-(use-modules (scm paper-system))
 (define-public (write-system-signature filename paper-system)
   (define (float? x)
     (and (number? x) (inexact? x)))
@@ -310,31 +313,30 @@ grestore
 	      rest))
 	expr))
   
+  (define (music-cause grob)
+    (let*
+	((cause (ly:grob-property  grob 'cause)))
+      
+      (cond
+       ((ly:music? cause) cause)
+       ((ly:grob? cause) (music-cause cause))
+       (else #f))))
 
   (define (pythonic-string expr)
     "escape quotes and slashes for python consumption"
-    (regexp-substitute/global #f "([\n\\\\'\"])" (format "~a" expr) 'pre "\\" 1 'post))
+    (regexp-substitute/global #f "([\\\\'\"])" (format "~a" expr) 'pre "\\" 1 'post))
 
   (define (pythonic-pair expr)
     (format "(~a,~a)"
 	    (car expr) (cdr expr)))
-
-
-  (define (raw-string expr)
-    "escape quotes and slashes for python consumption"
-    (regexp-substitute/global #f "[@\n]" (format "~a" expr) 'pre " " 'post))
-
-  (define (raw-pair expr)
-    (format "~a ~a"
-	    (car expr) (cdr expr)))
-  
+		    
   (define (found-grob expr)
     (let*
 	((grob (car expr))
 	 (rest (cdr expr))
 	 (collected '())
-	 (cause (event-cause grob))
-	 (input (if (ly:stream-event? cause) (ly:event-property cause 'origin) #f))
+	 (cause (music-cause grob))
+	 (input (if (ly:music? cause) (ly:music-property cause 'origin) #f))
 	 (location (if (ly:input-location? input) (ly:input-file-line-char-column input) '()))
 
 	 (x-ext (ly:grob-extent grob system-grob X))
@@ -346,12 +348,12 @@ grestore
 			       rest)
 
       (format output
-	      "~a@~a@~a@~a@~a\n"
+	      "['~a', '~a', ~a, ~a, '~a'],\n"
 	      (cdr (assq 'name (ly:grob-property grob 'meta) ))
-	      (raw-string location)
-	      (raw-pair (if (interval-empty? x-ext) '(1 . -1) x-ext))
-	      (raw-pair (if (interval-empty? y-ext) '(1 . -1) y-ext))
-	      (raw-string collected))
+	      (pythonic-string location)
+	      (pythonic-pair (if (interval-empty? x-ext) '(0 . 0) x-ext))
+	      (pythonic-pair (if (interval-empty? y-ext) '(0 . 0) y-ext))
+	      (pythonic-string collected))
       ))
 
   (define (interpret-for-signature escape collect expr)
@@ -381,8 +383,5 @@ grestore
 		 output)
 	(interpret-for-signature found-grob (lambda (x) #f)
 				 (ly:stencil-expr
-				  (paper-system-stencil paper-system)))))
-
-  ;; should be superfluous, but leaking "too many open files"?
-  (close-port output))
+				  (paper-system-stencil paper-system))))))
   

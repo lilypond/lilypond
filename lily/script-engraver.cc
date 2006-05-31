@@ -19,14 +19,11 @@
 #include "slur.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
-#include "stream-event.hh"
 #include "warn.hh"
-
-#include "translator.icc"
 
 struct Script_tuple
 {
-  Stream_event *event_;
+  Music *event_;
   Grob *script_;
   Script_tuple ()
   {
@@ -38,12 +35,14 @@ struct Script_tuple
 class Script_engraver : public Engraver
 {
   vector<Script_tuple> scripts_;
+  Spanner *slur_;
 
 protected:
+  virtual bool try_music (Music *);
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_TRANSLATOR_LISTENER (articulation);
+  DECLARE_ACKNOWLEDGER (slur);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (stem_tremolo);
@@ -55,23 +54,28 @@ public:
 
 Script_engraver::Script_engraver ()
 {
+  slur_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Script_engraver, articulation);
-void
-Script_engraver::listen_articulation (Stream_event *ev)
+bool
+Script_engraver::try_music (Music *m)
 {
-  /* Discard double articulations for part-combining.  */
-  int script_count = scripts_.size ();
-  for (int i = 0; i < script_count; i++)
-    if (ly_is_equal (scripts_[i].event_
-		     ->get_property ("articulation-type"),
-		     ev->get_property ("articulation-type")))
-      return;
+  if (m->is_mus_type ("articulation-event"))
+    {
+      /* Discard double articulations for part-combining.  */
+      int script_count = scripts_.size ();
+      for (int i = 0; i < script_count; i++)
+	if (ly_is_equal (scripts_[i].event_
+			 ->get_property ("articulation-type"),
+			 m->get_property ("articulation-type")))
+	  return true;
 
-  Script_tuple t;
-  t.event_ = ev;
-  scripts_.push_back (t);
+      Script_tuple t;
+      t.event_ = m;
+      scripts_.push_back (t);
+      return true;
+    }
+  return false;
 }
 
 void
@@ -81,7 +85,7 @@ copy_property (Grob *g, SCM sym, SCM alist)
     {
       SCM entry = scm_assoc (sym, alist);
       if (scm_is_pair (entry))
-	g->set_property (sym, scm_cdr (entry));
+	g->internal_set_property (sym, scm_cdr (entry));
     }
 }
 
@@ -89,9 +93,8 @@ copy_property (Grob *g, SCM sym, SCM alist)
    could be saved by tacking the props onto the Script grob (i.e. make
    ScriptStaccato , ScriptMarcato, etc. ).
 */
-void
-make_script_from_event (Grob *p,  Context *tg,
-			SCM art_type, int index)
+void make_script_from_event (Grob *p,  Context *tg,
+			     SCM art_type, int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
   SCM art = scm_assoc (art_type, alist);
@@ -133,7 +136,7 @@ make_script_from_event (Grob *p,  Context *tg,
       SCM preset = p->get_property_data (sym);
       if (val == SCM_EOL
 	  || scm_call_1 (type, preset) == SCM_BOOL_F)
-	p->set_property (sym, val);
+	p->internal_set_property (sym, val);
     }
 
   if (!priority_found)
@@ -150,17 +153,17 @@ Script_engraver::process_music ()
 {
   for (vsize i = 0; i < scripts_.size (); i++)
     {
-      Stream_event *ev = scripts_[i].event_;
+      Music *music = scripts_[i].event_;
 
-      Grob *p = make_item ("Script", ev->self_scm ());
+      Grob *p = make_item ("Script", music->self_scm ());
 
       make_script_from_event (p, context (),
-			      ev->get_property ("articulation-type"),
+			      music->get_property ("articulation-type"),
 			      i);
 
       scripts_[i].script_ = p;
 
-      SCM force_dir = ev->get_property ("direction");
+      SCM force_dir = music->get_property ("direction");
       if (is_direction (force_dir) && to_dir (force_dir))
 	p->set_property ("direction", force_dir);
     }
@@ -196,7 +199,7 @@ Script_engraver::acknowledge_stem_tremolo (Grob_info info)
 void
 Script_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
-  if (info.event_cause ())
+  if (info.music_cause ())
     {
       for (vsize i = 0; i < scripts_.size (); i++)
  	{
@@ -232,11 +235,20 @@ Script_engraver::acknowledge_note_column (Grob_info info)
 }
 
 void
+Script_engraver::acknowledge_slur (Grob_info info)
+{
+  slur_ = info.spanner ();
+}
+
+void
 Script_engraver::stop_translation_timestep ()
 {
   scripts_.clear ();
 }
 
+#include "translator.icc"
+
+ADD_ACKNOWLEDGER (Script_engraver, slur);
 ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Script_engraver, stem);
 ADD_ACKNOWLEDGER (Script_engraver, note_column);

@@ -34,17 +34,19 @@ using namespace std;
 void
 Source_file::load_stdin ()
 {
-  characters_.clear ();
+  length_ = 0;
+  chs_.clear ();
   int c;
   while ((c = fgetc (stdin)) != EOF)
-    characters_.push_back (c);
+    chs_.push_back (c);
+
+  chs_.push_back (0);
+  length_ = chs_.size ();
+  contents_str0_ = &chs_[0];
 }
 
-/*
-  return contents of FILENAME. *Not 0-terminated!* 
- */
-vector<char>
-gulp_file (string filename, int desired_size)
+char *
+gulp_file (string filename, int *filesize)
 {
   /* "b" must ensure to open literally, avoiding text (CR/LF)
      conversions.  */
@@ -52,17 +54,15 @@ gulp_file (string filename, int desired_size)
   if (!f)
     {
       warning (_f ("can't open file: `%s'", filename.c_str ()));
-
-      vector<char> cxx_arr;
-      return cxx_arr;
+      return 0;
     }
 
   fseek (f, 0, SEEK_END);
   int real_size = ftell (f);
   int read_count = real_size;
 
-  if (desired_size > 0)
-    read_count = min (read_count, desired_size);
+  if (*filesize >= 0)
+    read_count = min (read_count, *filesize);
   
   rewind (f);
 
@@ -74,75 +74,60 @@ gulp_file (string filename, int desired_size)
     warning (_f ("expected to read %d characters, got %d", bytes_read,
 		 read_count));
   fclose (f);
-  int filesize = bytes_read;
-
-  vector<char> cxx_arr;
-  cxx_arr.resize (filesize);
-
-  copy (str, str + filesize, cxx_arr.begin ());
-  
-  delete[] str;
-  return cxx_arr;
-}
-
-void
-Source_file::init ()
-{
-  istream_ = 0;
-  line_offset_ = 0;
-  str_port_ = SCM_EOL;
-  self_scm_ = SCM_EOL;
-  smobify_self ();
+  *filesize = bytes_read;
+  return str;
 }
 
 Source_file::Source_file (string filename, string data)
 {
-  init ();
-  
   name_ = filename;
-
-  characters_.resize (data.length ());
-  copy (data.begin (), data.end (), characters_.begin ());
-
-  characters_.push_back (0);
-  
+  istream_ = 0;
+  length_ = data.length ();
+  contents_str0_ = string_copy (data);
+  pos_str0_ = c_str ();
   init_port ();
 
-  for (vsize i = 0; i < characters_.size (); i++)
-    if (characters_[i] == '\n')
-      newline_locations_.push_back (&characters_[0] + i);
+  for (int i = 0; i < length_; i++)
+    if (contents_str0_[i] == '\n')
+      newline_locations_.push_back (contents_str0_ + i);
 }
 
 Source_file::Source_file (string filename_string)
 {
-  init ();
-  
   name_ = filename_string;
+  istream_ = 0;
+  contents_str0_ = 0;
 
   if (filename_string == "-")
     load_stdin ();
   else
     {
-      characters_ = gulp_file (filename_string, -1);
+      length_ = -1;
+      contents_str0_ = gulp_file (filename_string, &length_);
     }
-
-  characters_.push_back (0);
+  
+  pos_str0_ = c_str ();
 
   init_port ();
 
-  for (vsize i = 0; i < characters_.size (); i++)
-    if (characters_[i] == '\n')
-      newline_locations_.push_back (&characters_[0] + i);
+  for (int i = 0; i < length_; i++)
+    if (contents_str0_[i] == '\n')
+      newline_locations_.push_back (contents_str0_ + i);
 }
 
 void
 Source_file::init_port ()
 {
-  SCM str = scm_makfrom0str (c_str ());
+  SCM str = scm_makfrom0str (contents_str0_);
   str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG, __FUNCTION__);
   scm_set_port_filename_x (str_port_, scm_makfrom0str (name_.c_str ()));
 }
 
+int
+Source_file::tell () const
+{
+  return pos_str0_ - contents_str0_;
+}
 
 istream *
 Source_file::get_istream ()
@@ -201,6 +186,8 @@ Source_file::name_string () const
 Source_file::~Source_file ()
 {
   delete istream_;
+  istream_ = 0;
+  delete[] contents_str0_;
 }
 
 Slice
@@ -326,34 +313,78 @@ Source_file::get_line (char const *pos_str0) const
   if (!newline_locations_.size ())
     return 1;
 
-  /* this will find the '\n' character at the end of our line */
-  vsize lo = lower_bound (newline_locations_,
-			  pos_str0,
-			  less<char const*> ());
+  vsize lo = 0;
+  vsize hi = newline_locations_.size ();
 
-  /* the return value will be indexed from 1 */
-  return lo + 1 + line_offset_;
-}
+  if (newline_locations_[lo] > pos_str0)
+    return 1;
 
-void
-Source_file::set_line (char const *pos_str0, int line)
-{
-  int current_line = get_line (pos_str0);
-  line_offset_ += line - current_line;
+  if (newline_locations_[hi - 1] < pos_str0)
+    return hi;
 
-  assert (line == get_line (pos_str0));
+  binary_search_bounds (newline_locations_,
+			(char const*&)pos_str0,
+			default_compare,
+			&lo, &hi);
+
+  if (*pos_str0 == '\n')
+    lo--;
+  return lo + 2;
 }
 
 int
 Source_file::length () const
 {
-  return characters_.size ();
+  return length_;
 }
 
 char const *
 Source_file::c_str () const
 {
-  return &characters_[0];
+  return contents_str0_;
+}
+
+void
+Source_file::set_pos (char const *pos_str0)
+{
+  if (contains (pos_str0))
+    pos_str0_ = pos_str0;
+  else
+    error (quote_input (pos_str0) + "invalid pos");
+}
+
+char const *
+Source_file::seek_str0 (int n)
+{
+  char const *new_str0 = c_str () + n;
+  if (n < 0)
+    new_str0 += length ();
+  if (contains (new_str0))
+    pos_str0_ = new_str0;
+  else
+    error (quote_input (new_str0) + "seek past eof");
+
+  return pos_str0_;
+}
+
+char const *
+Source_file::forward_str0 (int n)
+{
+  char const *old_pos = pos_str0_;
+  char const *new_str0 = pos_str0_ + n;
+  if (contains (new_str0))
+    pos_str0_ = new_str0;
+  else
+    error (quote_input (new_str0) + "forward past eof");
+
+  return old_pos;
+}
+
+string
+Source_file::get_string (int n)
+{
+  string str = string ((char const *)forward_str0 (n), n);
+  return str;
 }
 
 SCM
@@ -361,34 +392,3 @@ Source_file::get_port () const
 {
   return str_port_;
 }
-
-/****************************************************************/
-
-#include "ly-smobs.icc"
-
-IMPLEMENT_SMOBS(Source_file);
-IMPLEMENT_DEFAULT_EQUAL_P(Source_file);
-IMPLEMENT_TYPE_P(Source_file, "ly:source-file?");
-
-SCM
-Source_file::mark_smob (SCM smob)
-{
-  Source_file *sc = (Source_file *) SCM_CELL_WORD_1 (smob);
-
-  return sc->str_port_;
-}
-
-
-int
-Source_file::print_smob (SCM smob, SCM port, scm_print_state *)
-{
-  Source_file *sc = (Source_file *) SCM_CELL_WORD_1 (smob);
-
-  scm_puts ("#<Source_file ", port);
-  scm_puts (sc->name_.c_str (), port);
-
-  /* Do not print properties, that is too much hassle.  */
-  scm_puts (" >", port);
-  return 1;
-}
-

@@ -20,7 +20,8 @@ protected:
 bool
 Swallow_performer::try_music (Music *m)
 {
-  if (m->is_mus_type ("melisma-playing-event"))
+  if (m->is_mus_type ("busy-playing-event")
+      || m->is_mus_type ("melisma-playing-event"))
     return false;
   else
     return true;

@@ -40,7 +40,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.9.16"
+\version "2.7.39"
 
 #(set-global-staff-size 16)
 
@@ -448,14 +448,8 @@ bassStaff = \new Staff =  "bass"<<
 
 	\context { \RemoveEmptyStaffContext }
     }
-    
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 54 4)
-      }
+    \midi{
+	\tempo 4 = 54
     }
-
-
 }
 

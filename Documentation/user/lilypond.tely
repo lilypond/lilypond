@@ -22,11 +22,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c    LilyPond  program.
 @end ignore
 
-
-@c
-@c Info files are installed in subdirectories to allow images to be present. 
-@c 
-@dircategory LilyPond
+@dircategory GNU music project
 @direntry
 * LilyPond: (lilypond/lilypond).           The GNU music typesetter.
 * abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.      
@@ -36,6 +32,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
 * mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup.
 @end direntry
+
 
 @c don't remove this comment.
 @ignore
@@ -54,7 +51,7 @@ This document is also available as a
 
 
 @c  This produces the unified index
-@syncodeindex fn cp
+@syncodeindex ky cp
 @syncodeindex vr cp
 
 @documentlanguage en
@@ -72,14 +69,12 @@ This document is also available as a
 
 Copyright @copyright{} 1999--2006 by the authors
 
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
+  Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.1
+  or any later version published by the Free Software Foundation;
+  with no Invariant Sections.
+  A copy of the license is included in the section entitled ``GNU
+  Free Documentation License''.
 
 @vskip 20pt
 
@@ -100,33 +95,21 @@ Free Documentation License''.
 
 @end titlepage
 
-@copying
-Copyright @copyright{} 1999--2006 by the authors
-
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
-@end copying
 
 @ifnottex
 This file documents GNU LilyPond.
 
 Copyright 1999--2006 by the authors
 
-@quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
-@end quotation
+  Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.1
+  or any later version published by the Free Software Foundation;
+  with no Invariant Sections.
+  A copy of the license is included in the section entitled ``GNU
+  Free Documentation License''.
+
 @end ifnottex
+
 
 @ifnottex
 @node Top
@@ -163,8 +146,7 @@ Notation Reference
 * Instrument-specific notation::   Specialized notation.
 * Advanced notation::              Less frequently used notation.
 * Changing defaults::              Tuning output.
-* Non-musical notation::           Output that is not musical notation.
-* Spacing issues::                 Display of output on paper.
+* Global issues::                  What LilyPond produces.
 * Interfaces for programmers::     Expert usage.
 
 Program usage
@@ -202,7 +184,6 @@ Appendices
 @include advanced-notation.itely
 @include changing-defaults.itely
 @include global.itely
-@include page.itely
 @include programming-interface.itely
 
 @include invoking.itely
@@ -220,7 +201,7 @@ Appendices
 @node LilyPond command index
 @appendix LilyPond command index
 
-@printindex ky
+@printindex fn
 
 @node LilyPond index
 @appendix LilyPond index

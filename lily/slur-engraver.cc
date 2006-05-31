@@ -14,21 +14,7 @@
 #include "note-column.hh"
 #include "slur.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
 #include "warn.hh"
-
-#include "translator.icc"
-
-
-/*
-  NOTE NOTE NOTE
-
-  This is largely similar to Phrasing_slur_engraver. Check if fixes
-  apply there too.
-
-  (on principle, engravers don't use inheritance for code sharing)
-  
- */
 
 /*
   It is possible that a slur starts and ends on the same note.  At
@@ -37,15 +23,16 @@
 */
 class Slur_engraver : public Engraver
 {
-  Drul_array<Stream_event *> events_;
-  Stream_event *running_slur_start_;
+  Drul_array<Music *> events_;
+  Music *running_slur_start_;
   vector<Grob*> slurs_;
   vector<Grob*> end_slurs_;
 
   void set_melisma (bool);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (slur);
+  virtual bool try_music (Music *);
+
   DECLARE_ACKNOWLEDGER (accidental);
   DECLARE_ACKNOWLEDGER (dynamic_line_spanner);
   DECLARE_ACKNOWLEDGER (fingering);
@@ -54,13 +41,10 @@ protected:
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (tuplet_number);
-
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
-  void process_music ();
-
   virtual void finalize ();
-
+  void process_music ();
 
 public:
   TRANSLATOR_DECLARATIONS (Slur_engraver);
@@ -71,16 +55,24 @@ Slur_engraver::Slur_engraver ()
   events_[START] = events_[STOP] = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, slur);
-void
-Slur_engraver::listen_slur (Stream_event *ev)
+bool
+Slur_engraver::try_music (Music *m)
 {
-  Direction d = to_dir (ev->get_property ("span-direction"));
-  if (d == START)
-    ASSIGN_EVENT_ONCE (events_[START], ev);
-  else if (d == STOP)
-    ASSIGN_EVENT_ONCE (events_[STOP], ev);
-  else ev->origin ()->warning (_ ("Invalid direction of slur-event"));
+  if (m->is_mus_type ("slur-event"))
+    {
+      Direction d = to_dir (m->get_property ("span-direction"));
+      if (d == START)
+	{
+	  events_[START] = m;
+	  return true;
+	}
+      else if (d == STOP)
+	{
+	  events_[STOP] = m;
+	  return true;
+	}
+    }
+  return false;
 }
 
 void
@@ -164,14 +156,13 @@ Slur_engraver::process_music ()
       if (slurs_.size () == 0)
 	events_[STOP]->origin ()->warning (_ ("can't end slur"));
 
-      
       end_slurs_ = slurs_;
       slurs_.clear ();
     }
 
   if (events_[START] && slurs_.empty ())
     {
-      Stream_event *ev = events_[START];
+      Music *ev = events_[START];
 
       bool double_slurs = to_boolean (get_property ("doubleSlurs"));
 
@@ -196,11 +187,11 @@ Slur_engraver::process_music ()
 void
 Slur_engraver::stop_translation_timestep ()
 {
-  for (vsize i = 0; i < end_slurs_.size (); i++)
-    announce_end_grob (end_slurs_[i], SCM_EOL);
   end_slurs_.clear ();
   events_[START] = events_[STOP] = 0;
 }
+
+#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Slur_engraver, accidental);
 ADD_ACKNOWLEDGER (Slur_engraver, dynamic_line_spanner);

@@ -113,14 +113,6 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
   return scm_from_int (log);
 }
 
-LY_DEFINE (ly_duration_length, "ly:duration-length",
-	   1, 0, 0, (SCM dur),
-	   "The length of the duration as a Moment.")
-{
-  SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
-  return Moment (unsmob_duration (dur)->get_length ()).smobbed_copy ();
-}
-
 LY_DEFINE (ly_duration_factor, "ly:duration-factor",
 	   1, 0, 0, (SCM dur),
 	   "Extract the compression factor from @var{dur}. Return as a pair.")

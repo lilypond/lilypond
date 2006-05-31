@@ -14,9 +14,6 @@
 #include "multi-measure-rest.hh"
 #include "note-head.hh"
 #include "rest.hh"
-#include "stream-event.hh"
-
-#include "translator.icc"
 
 /**
    Generate texts for lyric syllables.  We only do one lyric at a time.
@@ -26,14 +23,14 @@ class Lyric_engraver : public Engraver
 {
 protected:
   void stop_translation_timestep ();
+  virtual bool try_music (Music *);
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (lyric);
 
 public:
   TRANSLATOR_DECLARATIONS (Lyric_engraver);
 
 private:
-  Stream_event *event_;
+  Music *event_;
   Item *text_;
   Item *last_text_;
 
@@ -47,11 +44,15 @@ Lyric_engraver::Lyric_engraver ()
   event_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Lyric_engraver, lyric);
-void
-Lyric_engraver::listen_lyric (Stream_event *ev)
+bool
+Lyric_engraver::try_music (Music *r)
 {
-  ASSIGN_EVENT_ONCE (event_, ev);
+  if (!event_)
+    {
+      event_ = r;
+      return true;
+    }
+  return false;
 }
 
 void
@@ -155,6 +156,8 @@ Lyric_engraver::stop_translation_timestep ()
     }
   event_ = 0;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Lyric_engraver,
 		/* doc */ "",

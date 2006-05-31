@@ -4,9 +4,47 @@ If you want to contribute and can build LilyPond yourself, there's no
 need to install that development version; you can run it from the
 build tree.
 
-put the following script in your PATH, with $LILY_SRC_DIR set to the
-source directory.
+Use the scripts below to configure and select to use the
+lilypond from the local build tree like this
 
-  #!/bin/sh
+    clily && make
+    lily/out/lilypond input/simple.ly
 
-  exec $LILY_SRC_DIR/out/bin/lilypond --relocate "$@"
+or
+
+    ./configure && make
+    LILYPONDPREFIX=$(pwd)/out out/lily/lilypond input/simple.ly
+
+
+clily:
+#!/bin/bash
+
+[ -x configure ] || ./autogen.sh --noconf
+rm -f config.cache
+./configure --prefix=$(pwd)/out --infodir=$(pwd)/share/info --disable-optimising --enable-gui "$@"
+
+here-lily:
+# source me - switching to older versions of LilyPond
+
+export PATH=$(pwd)/lily/out:$(pwd)/scripts/out:$PATH   
+
+unset LILYPONDPREFIX
+unset TEXMF
+
+# ugh: must fool-proof other TeX environment variables
+TEXINPUTS=:
+MFINPUTS=:
+TFMFONTS=:
+
+. VERSION
+FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
+if [ -n "$MY_PATCH_LEVEL" ]; then
+   FULL_VERSION=$FULL_VERSION.$MY_PATCH_LEVEL
+fi
+
+datadir=$(pwd)/share/lilypond/$FULL_VERSION
+export TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
+
+export GS_FONTPATH="$datadir/fonts/type1:/usr/share/texmf/fonts/type1/bluesky/cm:/usr/share/texmf/fonts/type1/public/ec-fonts-mftraced"
+export GS_LIB="$datadir/ps:$GS_FONTPATH"
+

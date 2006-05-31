@@ -14,10 +14,11 @@
 #include "international.hh"
 #include "item.hh"
 #include "misc.hh"
+#include "percent-repeat-iterator.hh"
 #include "repeated-music.hh"
+#include "score-context.hh"
 #include "side-position-interface.hh"
 #include "spanner.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -34,7 +35,7 @@ public:
   TRANSLATOR_DECLARATIONS (Percent_repeat_engraver);
   
 protected:
-  Stream_event *percent_event_;
+  Music *percent_event_;
 
   /// moment (global time) where percent started.
   Moment stop_mom_;
@@ -51,13 +52,9 @@ protected:
   Spanner *percent_;
   Spanner *percent_counter_;
 
-  
-  Grob *first_command_column_;
-  Moment command_moment_;
-  
 protected:
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (percent);
+  virtual bool try_music (Music *);
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -68,67 +65,43 @@ Percent_repeat_engraver::Percent_repeat_engraver ()
 {
   percent_ = 0;
   percent_counter_ = 0;
+
   percent_event_ = 0;
-
-  first_command_column_ = 0;
-  command_moment_ = Moment (-1);
 }
 
-void
-Percent_repeat_engraver::start_translation_timestep ()
+bool
+Percent_repeat_engraver::try_music (Music *m)
 {
-  if (now_mom ().main_part_ != command_moment_.main_part_)
+  if (m->is_mus_type ("percent-event")
+      && !percent_event_)
     {
-      first_command_column_ = unsmob_grob (get_property ("currentCommandColumn"));
-      command_moment_ = now_mom ();
-    }
-
-  if (stop_mom_.main_part_ == now_mom ().main_part_)
-    {
-      if (percent_)
-      	typeset_perc ();
-      percent_event_ = 0;
-      repeat_sign_type_ = UNKNOWN;
-    }
-}
-
-IMPLEMENT_TRANSLATOR_LISTENER (Percent_repeat_engraver, percent);
-void
-Percent_repeat_engraver::listen_percent (Stream_event *ev)
-{
-  if (!percent_event_)
-    {
-      Moment body_length = get_event_length (ev);
+      Moment body_length = m->get_length ();
       Moment meas_len (robust_scm2moment (get_property ("measureLength"),
 					  Moment (1)));
+
       if (meas_len == body_length)
-	{
-	  repeat_sign_type_ = MEASURE;
-	  start_mom_ = now_mom ();
-	  stop_mom_ = now_mom () + body_length;
-	  get_global_context ()->add_moment_to_process (stop_mom_);
-	}
+      {
+	repeat_sign_type_ = MEASURE;
+      	start_mom_ = now_mom ();
+      	stop_mom_ = now_mom () + body_length;
+	get_global_context ()->add_moment_to_process (stop_mom_);
+      }
       else if (Moment (2) * meas_len == body_length)
-	{
-	  repeat_sign_type_ = DOUBLE_MEASURE;
-	  start_mom_ = now_mom () + meas_len;
-	  stop_mom_ = now_mom () + body_length; /* never used */
-	  get_global_context ()->add_moment_to_process (start_mom_);
-	}
+      {
+	repeat_sign_type_ = DOUBLE_MEASURE;
+	start_mom_ = now_mom () + meas_len;
+	stop_mom_ = now_mom () + body_length; /* never used */
+	get_global_context ()->add_moment_to_process (start_mom_);
+      }
       else
-	{
-	  /*
-	    don't warn about percent repeats: slash repeats are not
-	    exactly 1 or 2 measures long.
-	   */
-	  return;
-	}
-      percent_event_ = ev;
+	return false;
+
+      percent_event_ = m;
+
+      return true;
     }
-  else
-    /* print a warning: no assignment happens because
-       percent_event_ != 0 */
-    ASSIGN_EVENT_ONCE (percent_event_, ev);
+
+  return false;
 }
 
 void
@@ -140,10 +113,9 @@ Percent_repeat_engraver::process_music ()
 	{
 	  if (percent_)
 	    typeset_perc ();
-	  
 	  percent_ = make_spanner ("PercentRepeat", percent_event_->self_scm ());
 
-	  Grob *col = first_command_column_;
+	  Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
 	  percent_->set_bound (LEFT, col);
 
 	  SCM count = percent_event_->get_property ("repeat-count");
@@ -208,7 +180,7 @@ Percent_repeat_engraver::typeset_perc ()
 {
   if (percent_)
     {
-      Grob *col = first_command_column_;
+      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
 
       percent_->set_bound (RIGHT, col);
       percent_ = 0;
@@ -219,7 +191,17 @@ Percent_repeat_engraver::typeset_perc ()
     }
 }
 
-
+void
+Percent_repeat_engraver::start_translation_timestep ()
+{
+  if (stop_mom_.main_part_ == now_mom ().main_part_)
+    {
+      if (percent_)
+      	typeset_perc ();
+      percent_event_ = 0;
+      repeat_sign_type_ = UNKNOWN;
+    }
+}
 
 void
 Percent_repeat_engraver::stop_translation_timestep ()

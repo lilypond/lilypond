@@ -1,4 +1,4 @@
-\version "2.9.16"
+\version "2.7.39"
 
 forcedLastBreak =  { \break }
 
@@ -126,7 +126,7 @@ sarabandeA =  \context Voice  \relative c {
   d'[ cis] |
   %%  d4 d,,2 |
   d4
-%  #(assert-system-count-override 6)
+  #(assert-system-count-override 6)
   d,,2 |
 }
 
@@ -173,7 +173,6 @@ smallerPaper = \layout {
   line-width =183.5 \mm
   between-system-space = 25\mm 
   between-system-padding = 0\mm
-  system-count = 6
 
 %%  annotatespacing = ##t
 }
@@ -182,15 +181,7 @@ smallerPaper = \layout {
   \score{
     \sarabandeCelloStaff
     \layout { }
-    
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 40 4)
-      }
-    }
-
-
+    \midi{ \tempo 4 = 40 }
     \header{
       opus= "" 
       piece ="Sarabande" }

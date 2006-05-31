@@ -7,6 +7,29 @@
 
 % TODO: use dicts or prefixes to prevent namespace pollution.
 
+% Emulation code from Postscript Language Reference.
+
+/*SF
+{
+	exch findfont exch
+	dup type /arraytype eq
+		{makefont}
+		{scalefont}
+	ifelse
+	setfont
+} bind def
+
+/languagelevel where
+	{pop languagelevel}
+	{1}
+ifelse
+
+2 lt
+	{ /selectfont /*SF load def }
+if
+
+% end emulation code
+
 /pdfmark where
 {pop} {userdict /pdfmark /cleartomark load put} ifelse
 

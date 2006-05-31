@@ -17,11 +17,9 @@ class Hara_kiri_group_spanner
 public:
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (y_extent, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_in_y_parent_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   static bool has_interface (Grob *);
-  static bool request_suicide (Grob *me, int start, int end);
   static void consider_suicide (Grob *me);
   static void add_interesting_item (Grob *me, Grob *n);
 };

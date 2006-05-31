@@ -8,7 +8,7 @@ For technical reasons, @code{overrideProperty} has to be used for
 setting properties on individual object. @code{\override} may still be
 used for global overrides.
 
-By setting @code{annotate-spacing}, we can see the effect of each property.
+By setting @code{annotatespacing}, we can see the effect of each property.
 "
 
 }

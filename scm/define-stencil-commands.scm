@@ -17,21 +17,20 @@
        dashed-slur
        dot
        draw-line
-       embedded-ps
        glyph-string
        named-glyph
-       path
        polygon
        repeat-slash
-       resetcolor
        round-filled-box
-       setcolor
        text
        url-link
        utf-8-string
        white-dot
        white-text
+       embedded-ps
        zigzag-line
+       setcolor
+       resetcolor
 
        grob-cause
        no-origin

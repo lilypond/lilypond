@@ -32,22 +32,20 @@ Multi_measure_rest::percent (SCM smob)
 
   // ugh copy & paste.
 
-  Grob *common_x = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT),
-							  X_AXIS);
   Interval sp_iv;
   Direction d = LEFT;
   do
     {
       Item *col = sp->get_bound (d)->get_column ();
 
-      Interval coldim = robust_relative_extent (col, common_x, X_AXIS);
+      Interval coldim = col->extent (0, X_AXIS);
 
       sp_iv[d] = coldim[-d];
     }
   while ((flip (&d)) != LEFT);
   Real x_off = 0.0;
 
-  Real rx = sp->get_bound (LEFT)->relative_coordinate (common_x, X_AXIS);
+  Real rx = sp->get_bound (LEFT)->relative_coordinate (0, X_AXIS);
   /*
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.

@@ -30,7 +30,6 @@ public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
 protected:
 
-  DECLARE_END_ACKNOWLEDGER (staff_symbol);
   DECLARE_ACKNOWLEDGER (staff_symbol);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (bar_line);
@@ -191,13 +190,6 @@ Volta_engraver::acknowledge_bar_line (Grob_info i)
 }
 
 void
-Volta_engraver::acknowledge_end_staff_symbol (Grob_info i)
-{
-  if (i.grob ()->self_scm () == staff_)
-    staff_ = SCM_EOL;
-}
-
-void
 Volta_engraver::acknowledge_staff_symbol (Grob_info i)
 {
   /*
@@ -209,7 +201,6 @@ Volta_engraver::acknowledge_staff_symbol (Grob_info i)
   if (staff_ != SCM_UNDEFINED)
     staff_ = i.grob ()->self_scm ();
 }
-
 
 void
 Volta_engraver::finalize ()
@@ -253,7 +244,6 @@ Volta_engraver::stop_translation_timestep ()
   TODO: should attach volta to paper-column if no bar is found.
 */
 ADD_ACKNOWLEDGER (Volta_engraver, staff_symbol);
-ADD_END_ACKNOWLEDGER (Volta_engraver, staff_symbol);
 ADD_ACKNOWLEDGER (Volta_engraver, note_column);
 ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,

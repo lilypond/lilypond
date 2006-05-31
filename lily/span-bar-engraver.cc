@@ -65,7 +65,7 @@ Span_bar_engraver::stop_translation_timestep ()
       SCM vissym = ly_symbol2scm ("break-visibility");
       SCM vis = bars_[0]->internal_get_property (vissym);
       if (ly_is_equal (spanbar_->internal_get_property (vissym), vis))
-	spanbar_->set_property (vissym, vis);
+	spanbar_->internal_set_property (vissym, vis);
 
       spanbar_ = 0;
     }

@@ -10,12 +10,6 @@
 #include "ly-smobs.icc"
 #include "warn.hh"
 
-Listener::Listener ()
-{
-  target_ = 0;
-  type_ = 0;
-}
-
 Listener::Listener (const void *target, Listener_function_table *type)
 {
   target_ = (void *)target;
@@ -36,13 +30,12 @@ SCM
 Listener::mark_smob (SCM sm)
 {
   Listener *me = (Listener *) SCM_CELL_WORD_1 (sm);
-  if (me->type_)
-    (me->type_->mark_callback) (me->target_);
+  (me->type_->mark_callback) (me->target_);
   return SCM_EOL;
 }
 
 int
-Listener::print_smob (SCM, SCM p, scm_print_state*)
+Listener::print_smob (SCM s, SCM p, scm_print_state*)
 {
   scm_puts ("#<Listener>", p);
   return 1;

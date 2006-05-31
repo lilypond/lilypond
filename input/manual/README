@@ -1,5 +1,0 @@
-This is for large examples that are included in the manual.  Most of these
-examples are distinct snippets; files that are also included in the
-regression tests should be copied from input/regression/ into this
-direction and listed here.
-

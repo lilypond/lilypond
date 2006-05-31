@@ -33,10 +33,8 @@ compare (Midi_note_event const &left, Midi_note_event const &right)
     return 0;
 }
 
-Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track,
-			  int channel)
+Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track)
 {
-  channel_ = channel;
   track_ = track;
   index_ = 0;
   items_ = &audio_staff->audio_items_;
@@ -146,9 +144,7 @@ Midi_walker::process ()
 
   if (Midi_item *midi = Midi_item::get_midi (audio))
     {
-      if (Midi_channel_item *mci = dynamic_cast<Midi_channel_item*> (midi))
-	mci->channel_ = channel_;
-      
+      midi->channel_ = track_->channel_;
       //midi->channel_ = track_->number_;
       if (Midi_note *note = dynamic_cast<Midi_note *> (midi))
 	{

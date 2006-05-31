@@ -13,4 +13,3 @@ endif
 
 $(outdir)/NEWS.nexi: NEWS.tely
 
-

@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; distances are given in line-thickness (thicknesses) and
@@ -67,7 +67,7 @@
      . (
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
-	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::height)
 	(space-alist . (
 			(clef . (extra-space . 0.5))
 			(key-signature . (extra-space . 0.0))
@@ -142,7 +142,6 @@
      . (
 	(break-align-symbol . staff-bar)
 	(glyph . "|")
-	(gap . 0.4)
 	(layer . 0)
 	(break-visibility . ,all-visible)
 	(non-musical . #t)
@@ -194,8 +193,6 @@
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 
 	(self-alignment-X . 1)
-
-	;; want the bar number before the clef at line start. 
 	(break-align-symbol . left-edge)
 	(meta .
 	      ((class . Item)
@@ -316,14 +313,6 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (staff-symbol-referencer-interface
 				beam-interface))))))
-
-    (BendAfter
-     . (
-	(stencil . ,fall::print)
-	(thickness . 2.0)
-	(meta . ((class . Spanner)
-		 (interfaces . (spanner-interface
-				bend-after-interface))))))
 
     (BreakAlignment
      . (
@@ -508,7 +497,7 @@
     (Dots
      . (
 	(stencil . ,ly:dots::print)
-	(dot-count . ,dots::calc-dot-count)
+	(dot-count . 1)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				staff-symbol-referencer-interface
@@ -609,12 +598,10 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				text-interface
-				line-spanner-interface
 				dynamic-interface
 				dynamic-text-spanner-interface
 				spanner-interface))))))
 
-				
     (Fingering
      . (
 
@@ -630,7 +617,7 @@
 
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
-	(text . ,fingering::calc-text) 
+
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
@@ -655,16 +642,6 @@
 		 (interfaces . (line-interface
 				line-spanner-interface))))))
 
-    (GraceSpacing
-     . (
-	(common-shortest-duration . ,grace-spacing::calc-shortest-duration)
-	(spacing-increment . 0.8)
-	(shortest-duration-space . 1.6)
-	(meta . ((class . Spanner)
-		 (interfaces . (grace-spacing-interface
-				spacing-interface
-				spacing-options-interface
-				spanner-interface))))))
     (GridPoint
      . (
 	(X-extent . (0 . 0))
@@ -692,7 +669,6 @@
 	(stencil . ,ly:hairpin::print)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(after-line-breaking . ,ly:hairpin::after-line-breaking)
-	(grow-direction . ,hairpin::calc-grow-direction)
 	(circled-tip . #f)
 	(thickness . 1.0)
 	(height . 0.6666)
@@ -734,20 +710,6 @@
 				side-position-interface
 				font-interface))))))
 
-    (InstrumentSwitch
-     . (
-	(padding . 0.3)
-	(stencil . ,ly:text-interface::print)
-	(Y-offset . ,ly:side-position-interface::y-aligned-side)
-	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
-	(staff-padding . 2)
-	(direction . ,UP)
-	(self-alignment-X . ,CENTER)
-	(meta . ((class . Item)
-		 (interfaces . (system-start-text-interface
-				side-position-interface
-				font-interface))))))
-    
     (KeyCancellation
      . (
 	(stencil . ,ly:key-signature-interface::print)
@@ -1039,7 +1001,6 @@
     (NoteHead
      . (
 	(stencil . ,ly:note-head::print)
-	(duration-log . ,note-head::calc-duration-log)
 	(stem-attachment . ,ly:note-head::calc-stem-attachment)
 	(glyph-name . ,note-head::calc-glyph-name) 
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
@@ -1159,7 +1120,6 @@
 	
 	(non-musical . #t)
 	(line-break-permission . allow)
-	(page-break-permission . allow)
 
 	;; debugging stuff: print column number.
 	;;		 (font-size . -6) (font-name . "sans")	(Y-extent . #f)
@@ -1278,7 +1238,6 @@
     (Rest
      . (
 	(stencil . ,ly:rest::print)
-	(duration-log . ,note-head::calc-duration-log)
 	(X-extent . ,ly:rest::width)
 	(Y-extent . ,ly:rest::height)
 	(Y-offset . ,ly:rest::y-offset-callback)
@@ -1301,10 +1260,13 @@
      . (
 	;; don't set direction here: it breaks staccato.
 
-	;; padding set in script definitions.
+	;; This value is sensitive: if too large, staccato dots will move a
+	;; space a away.
+	(padding . 0.20)
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset . , ly:self-alignment-interface::centered-on-x-parent)
+	
 
 	(stencil . ,ly:script-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
@@ -1352,7 +1314,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
-    (SostenutoPedal
+ (SostenutoPedal
      . (
 	(stencil . ,ly:text-interface::print)
 	(direction . ,RIGHT)
@@ -1383,15 +1345,13 @@
     (SpacingSpanner
      . (
 	(springs-and-rods . ,ly:spacing-spanner::set-springs)
-	(common-shortest-duration . ,ly:spacing-spanner::calc-common-shortest-duration)
 	(average-spacing-wishes . #t)
+	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
-	
 	(base-shortest-duration . ,(ly:make-moment 3 16))
 	(meta . ((class . Spanner)
 		 (interfaces . (spacing-interface
-				spacing-options-interface				
 				spacing-spanner-interface))))))
 
     (SpanBar
@@ -1457,7 +1417,6 @@
     (Stem
      . (
 	(direction . ,ly:stem::calc-direction)
-	(duration-log . ,note-head::calc-duration-log)
 	(default-direction . ,ly:stem::calc-default-direction)
 	(stem-end-position . ,ly:stem::calc-stem-end-position)
 	(neutral-direction . ,DOWN)
@@ -1520,7 +1479,6 @@
     (StringNumber
      . (
 	(stencil . ,print-circled-text-callback)
-	(text . ,string-number::calc-text)
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)
@@ -1548,7 +1506,6 @@
 	(meta . ((class . Item)
 		 (interfaces . (piano-pedal-interface
 				text-spanner-interface
-				line-spanner-interface
 				text-interface
 				self-alignment-interface
 				font-interface))))))
@@ -1640,7 +1597,6 @@
      . (
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
-	(duration-log . ,note-head::calc-duration-log)
 	(font-size . -2)
 	(stem-attachment . (0.0 . 1.35))
 	(font-series . bold)
@@ -1688,14 +1644,12 @@
 	(direction . ,UP)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
-				line-spanner-interface
 				side-position-interface
 				font-interface))))))
 
     (Tie
      . (
 	(control-points . ,ly:tie::calc-control-points)
-	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(avoid-slur . inside)
 	(direction . ,ly:tie::calc-direction)
 	(stencil . ,ly:tie::print)
@@ -1718,7 +1672,6 @@
 		    (outer-tie-vertical-gap . 0.25)
 		    (multi-tie-region-size . 1)
 		    (between-length-limit . 1.0)))
-	
 	(thickness . 1.2)
 	(line-thickness . 0.8)
 	(meta . ((class . Spanner)
@@ -1763,7 +1716,6 @@
 	(side-axis . ,Y)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
-				line-spanner-interface
 				side-position-interface
 				font-interface))))))
 
@@ -1776,6 +1728,7 @@
 	(stencil . ,ly:accidental-interface::print)
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
+				accidental-interface
 				side-position-interface
 				font-interface))))))
 
@@ -1816,6 +1769,7 @@
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
 	(staff-padding . 0.25)
+	
 	(direction  . ,ly:tuplet-bracket::calc-direction)
 	(positions . ,ly:tuplet-bracket::calc-positions)
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
@@ -1829,7 +1783,6 @@
     (TupletNumber
      . (
 	(stencil . ,ly:tuplet-number::print)
-	(text . ,tuplet-number::calc-denominator-text)
 	(font-shape . italic)
 	(font-size . -2)
 	(avoid-slur . inside)
@@ -1883,7 +1836,6 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
 	(stacking-dir . -1)
-	(padding . 0.1) 
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface
 				axis-group-interface))))))
@@ -1986,74 +1938,3 @@
 
 (set! all-grob-descriptions (sort all-grob-descriptions alist<?))
 
-(define pure-print-callbacks
-  (list
-   `(,ly:note-head::print . '())
-   `(,ly:clef::print . '())
-   `(,ly:text-interface::print . '())
-   `(,ly:script-interface::print . '())))
-
-;; ly:grob::stencil-extent is safe iff the print callback is safe too
-(define (pure-stencil-height grob start stop)
-  (let ((sten (ly:grob-property-data grob 'stencil)))
-    (if (or
-	 (ly:stencil? sten)
-	 (pair? (assq sten pure-print-callbacks)))
-	(ly:grob::stencil-height grob)
-	'(0 . 0))))
-
-(define pure-Y-extents
-  (list
-   `(,ly:staff-symbol::height . ())))
-
-(define Y-extent-conversions
-  (list
-   `(,ly:stem::height . ,ly:stem::pure-height)
-   `(,ly:grob::stencil-height . ,pure-stencil-height)
-   `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
-   `(,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
-   `(,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
-   `(,ly:slur::height . ,ly:slur::pure-height)))
-
-(define pure-Y-offsets
-  (list
-   `(,ly:staff-symbol-referencer::callback . ())))
-
-(define Y-offset-conversions
-  (list
-   `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)))
-
-(define-public (pure-relevant grob)
-  (let ((extent-callback (ly:grob-property-data grob 'Y-extent)))
-    (or
-     (pair? extent-callback)
-     (pair? (assq extent-callback pure-Y-extents))
-     (and
-      (pair? (assq extent-callback Y-extent-conversions))
-      (or
-       (not (eq? extent-callback ly:grob::stencil-height))
-       (pair? (assq (ly:grob-property-data grob 'stencil) pure-print-callbacks))
-       (ly:stencil? (ly:grob-property-data grob 'stencil)))))))
-
-(define (pure-conversion pures conversions defsymbol defreturn rettype? grob start stop)
-  (let* ((normal-callback (ly:grob-property-data grob defsymbol))
-	 )
-
-    (if (rettype? normal-callback)
-	normal-callback
-	(if (pair? (assq normal-callback pures))
-	    (normal-callback grob)
-	    (let
-		((pure-callback (assq normal-callback conversions)))
-
-	      (if (pair? pure-callback)
-		  ((cdr pure-callback) grob start stop)
-		  defreturn))))))
-
-(define-public (pure-Y-extent grob start stop)
-  (pure-conversion pure-Y-extents Y-extent-conversions
-		   'Y-extent '(0 . 0) pair? grob start stop))
-
-(define-public (pure-Y-offset grob start stop)
-  (pure-conversion pure-Y-offsets Y-offset-conversions
-		   'Y-offset 0 number? grob start stop))

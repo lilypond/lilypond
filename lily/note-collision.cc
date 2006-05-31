@@ -305,9 +305,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
       if (cg[d].size ())
 	{
 	  Grob *h = cg[d][0];
-	  Grob *fh = Note_column::first_head (h);
-	  if (fh)
-	    wid = fh->extent (h, X_AXIS).length ();
+	  wid = Note_column::first_head (h)->extent (h, X_AXIS).length ();
 	}
     }
   while (flip (&d) != UP);
@@ -371,7 +369,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
   do
     {
       vector<Grob*> &clashes (clash_groups[d]);
-      vector_sort (clashes, Note_column::shift_less);
+      vector_sort (clashes, Note_column::shift_compare);
     }
   while ((flip (&d)) != UP);
 

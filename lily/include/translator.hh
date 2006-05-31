@@ -16,7 +16,6 @@
 #include "input.hh"
 #include "smobs.hh"
 #include "std-vector.hh"
-#include "protected-scm.hh"
 
 struct Acknowledge_information
 {
@@ -24,21 +23,7 @@ struct Acknowledge_information
   Engraver_void_function_engraver_grob_info function_;
 };
 
-
-/*
-  Each translator class has a static list of listener records. Each
-  record makes one explains how to register one of the class's stream event
-  listeners to a context.
-*/
-typedef struct translator_listener_record {
-  Listener (*get_listener_) (void *);
-  SCM event_class_;
-  struct translator_listener_record *next_;
-} translator_listener_record;
-
 #define TRANSLATOR_DECLARATIONS(NAME)					\
-private:								\
-  static translator_listener_record *listener_list_;			\
   public:								\
   NAME ();								\
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);				\
@@ -57,21 +42,8 @@ private:								\
   } \
   static Engraver_void_function_engraver_grob_info static_get_acknowledger (SCM sym); \
   static Engraver_void_function_engraver_grob_info static_get_end_acknowledger(SCM); \
-public:									\
-  virtual translator_listener_record *get_listener_list () const	\
-  {									\
-    return listener_list_;						\
-  }									\
   /* end #define */
 
-#define DECLARE_TRANSLATOR_LISTENER(m)			\
-public:							\
-inline void listen_ ## m (Stream_event *);		\
-/* Should be private */					\
-static void _internal_declare_ ## m ();			\
-private:						\
-static Listener _get_ ## m ## _listener (void *);	\
-DECLARE_LISTENER (_listen_scm_ ## m);
 
 #define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
 #define DECLARE_END_ACKNOWLEDGER(x) public : void acknowledge_end_ ## x (Grob_info); protected:
@@ -108,19 +80,16 @@ public:
   virtual Translator_group *get_daddy_translator ()const;
   virtual Moment now_mom () const;
 
+  virtual bool try_music (Music *req);
   virtual void initialize ();
   virtual void finalize ();
-
-  /*should maybe be virtual*/
-  void connect_to_context (Context *c);
-  void disconnect_from_context (Context *c);
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
   void process_music ();
   void process_acknowledged ();
 
-  Context *get_score_context () const;
+  Score_context *get_score_context () const;
   Global_context *get_global_context () const;
 
   TRANSLATOR_DECLARATIONS (Translator);
@@ -128,16 +97,13 @@ public:
 
 protected:			// should be private.
   Context *daddy_context_;
-  void protect_event (SCM ev);
   virtual void derived_mark () const;
-  static void add_translator_listener (translator_listener_record **listener_list, translator_listener_record *r, Listener (*get_listener) (void *), const char *ev_class);
-  SCM get_listened_class_list (const translator_listener_record *listeners) const;
 
-  friend class Translator_group;
+  friend class Context_def;
+  friend class Context;
 };
 void add_translator (Translator *trans);
 
 Translator *get_translator (SCM s);
-Moment get_event_length (Stream_event *s);
 DECLARE_UNSMOB (Translator, translator);
 #endif // TRANSLATOR_HH

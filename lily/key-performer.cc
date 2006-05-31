@@ -6,13 +6,10 @@
   (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "audio-item.hh"
 #include "music-sequence.hh"
+#include "audio-item.hh"
 #include "performer.hh"
-#include "stream-event.hh"
 #include "warn.hh"
-
-#include "translator.icc"
 
 class Key_performer : public Performer
 {
@@ -21,12 +18,12 @@ public:
   ~Key_performer ();
 
 protected:
+  virtual bool try_music (Music *ev);
   void process_music ();
   void stop_translation_timestep ();
 
-  DECLARE_TRANSLATOR_LISTENER (key_change);
 private:
-  Stream_event *key_ev_;
+  Music *key_ev_;
   Audio_key *audio_;
 };
 
@@ -83,17 +80,21 @@ Key_performer::stop_translation_timestep ()
 {
   if (audio_)
     {
+      play_element (audio_);
       audio_ = 0;
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Key_performer, key_change);
-void
-Key_performer::listen_key_change (Stream_event *ev)
+bool
+Key_performer::try_music (Music *ev)
 {
   if (!key_ev_)
     key_ev_ = ev;
+
+  return true;
 }
+
+#include "translator.icc"
 
 ADD_TRANSLATOR (Key_performer,
 		"", "",

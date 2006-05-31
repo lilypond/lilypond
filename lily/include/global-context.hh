@@ -16,29 +16,34 @@ class Global_context : public virtual Context
 {
   PQueue<Moment> extra_mom_pq_;
   Output_def *output_def_;
+  int unique_count_;
 
   DECLARE_CLASSNAME(Global_context);
 
   friend class Output_def;
 public:
-  Global_context (Output_def *, Object_key *key);
+  Global_context (Output_def *, Moment final, Object_key *key);
   int get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator *);
-  virtual Context *get_score_context () const;
+  virtual Score_context *get_score_context () const;
 
   void apply_finalizations ();
   void add_finalization (SCM);
 
-  DECLARE_LISTENER (prepare);
   virtual SCM get_output ();
+  virtual void prepare (Moment);
+  virtual void one_time_step ();
+  virtual void finish ();
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;
   virtual Context *get_default_interpreter ();
 
+  int new_unique ();
   Moment previous_moment () const;
 protected:
+  Moment final_mom_;
   Moment prev_mom_;
   Moment now_mom_;
 };

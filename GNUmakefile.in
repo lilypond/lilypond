@@ -16,15 +16,14 @@ SUBDIRS = buildscripts python scripts \
 ## value of DOCUMENTATION here.
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
-SCRIPTS = configure autogen.sh lexer-gcc-3.1.sh Doxyfile
+SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh Doxyfile
 README_FILES = ChangeLog COPYING DEDICATION ROADMAP THANKS HACKING
-TOPDOC_FILES=AUTHORS README INSTALL NEWS
-TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
+README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
 IN_FILES := $(call src-wildcard,*.in)
-
 PATCH_FILES = emacsclient.patch server.el.patch darwin.patch
 EXTRA_DIST_FILES = VERSION .cvsignore SConstruct \
   $(README_FILES) $(SCRIPTS) $(IN_FILES) $(PATCH_FILES)
+NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
 
@@ -32,13 +31,6 @@ INSTALLATION_FILES=$(config_make) VERSION
 #
 STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make
-
-local-dist: dist-toplevel-txt-files
-
-dist-toplevel-txt-files:
-	-mkdir -p $(distdir)
-	ln $(TOPDOC_TXT_FILES) $(distdir)/
-	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)/
 
 doc: 
 	$(MAKE) -C Documentation
@@ -80,19 +72,15 @@ local-WWW-post:
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(outdir)/index.html
 
 	cd $(top-build-dir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
-
+	cd $(top-build-dir) && find . -name \*.html~ -print | xargs rm -f
 	cd $(top-build-dir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
-		| grep -v 'lily-[0-9].*.pdf' \
 		> $(outdir)/weblist
 	ls $(outdir)/*.html >> $(outdir)/weblist
 
-## urg: this is too hairy, should write a python script to do this.
-
 ## rewrite file names so we lose out-www
-	rm -rf $(outdir)/web-root/ 
-	mkdir $(outdir)/web-root/
-## urg slow.
+	rm -rf $(outdir)/web-root/
+	mkdir $(outdir)/web-root/  
 	cat $(outdir)/weblist | (cd $(top-build-dir); tar -cf-  -T- ) | \
 		tar -C $(outdir)/web-root/ -xf -  
 	for dir in $(outdir)/web-root/ ; do  \
@@ -108,10 +96,8 @@ tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
 tree-lib = $(tree-prefix)/lib
 tree-share = $(tree-prefix)/share
-tree-share-prefix = $(tree-share)/lilypond/$(TOPLEVEL_VERSION)
-tree-share-prefix-current = $(tree-share)/lilypond/current
-tree-lib-prefix = $(tree-lib)/lilypond/$(TOPLEVEL_VERSION)
-tree-lib-prefix-current = $(tree-lib)/lilypond/current
+tree-share-prefix = $(tree-share)/lilypond/current
+tree-lib-prefix = $(tree-lib)/lilypond/current
 
 C_DIRS = flower lily
 c-clean:
@@ -136,9 +122,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
-	ln -s $(TOPLEVEL_VERSION) $(tree-share-prefix-current)
 	mkdir -p $(tree-lib-prefix)
-	ln -s $(TOPLEVEL_VERSION) $(tree-lib-prefix-current)
 	mkdir -p $(tree-share-prefix)/dvips
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
@@ -193,16 +177,11 @@ $(tree-share-prefix)/mf-link-tree link-mf-tree: $(tree-share-prefix)/lilypond-fo
 	-cd $(tree-share-prefix)/fonts/type1 && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.pfa .
 
+
 TAGS.make: dummy
 	etags -o $@ $(find $(srcdir) -name 'GNUmakefile*' -o -name '*.make')
 
-local-clean: build-dir-setup-clean local-web-clean
-
-local-web-clean:
-	rm -rf $(outdir)/web-root/
-
-
-
+local-clean: build-dir-setup-clean
 build-dir-setup-clean:
 	cd $(top-build-dir) && rm -rf share
 

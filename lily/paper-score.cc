@@ -10,6 +10,7 @@
 
 #include "all-font-metrics.hh"
 #include "book.hh"
+#include "gourlay-breaking.hh"
 #include "international.hh"
 #include "main.hh"
 #include "misc.hh"
@@ -74,41 +75,33 @@ Paper_score::find_break_indices () const
 	retval.push_back (i);
     }
 
-  cols_ = all;
-  break_indices_ = retval;
-
   return retval;
 }
 
-vector<vsize>
-Paper_score::get_break_indices () const
-{
-  if (break_indices_.empty ())
-    find_break_indices ();
-  return break_indices_;
-}
-
-vector<Grob*>
-Paper_score::get_columns () const
-{
-  if (cols_.empty ())
-    find_break_indices ();
-  return cols_;
-}
 
 vector<Column_x_positions>
 Paper_score::calc_breaking ()
 {
-  Constrained_breaking algorithm (this);
+  Break_algorithm *algorithm = 0;
   vector<Column_x_positions> sol;
 
   message (_ ("Calculating line breaks...") + " ");
 
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
-    algorithm.resize (system_count);
+    {
+      Constrained_breaking *b = new Constrained_breaking;
+      b->resize (system_count);
+      algorithm = b;
+    }
+  else
+    algorithm = new Gourlay_breaking;
+  
+  algorithm->set_pscore (this);
+  sol = algorithm->solve ();
+  delete algorithm;
 
-  return algorithm.solve ();
+  return sol;
 }
 
 void

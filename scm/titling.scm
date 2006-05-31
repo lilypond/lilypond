@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
 ;;;; (c) 2004--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;;          Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;;          Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-public (layout-extract-page-properties layout)
   (list (append `((line-width . ,(ly:paper-get-number

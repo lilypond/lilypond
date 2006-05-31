@@ -16,7 +16,7 @@ setting properties on individual object. @code{\override} in a
 
 }
 
-\version "2.9.13"
+\version "2.7.39"
 
 #(set-global-staff-size 13)
 
@@ -29,8 +29,8 @@ setting properties on individual object. @code{\override} in a
   \new Staff { c1 c c }
   \new PianoStaff <<
     \new Voice  {
-      \set PianoStaff.instrumentName = #"piano"
-      \set PianoStaff.shortInstrumentName = #"pn"
+      \set PianoStaff.instrument = #"piano"
+      \set PianoStaff.instr = #"pn"
       c1_"normal"
       
       \overrideProperty

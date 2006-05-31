@@ -724,14 +724,9 @@ details about complicated or unusual notation.
 explains how to fine tune layout.
 
 @item
-@emph{@ref{Non-musical notation}}
-discusses non-musical output such as titles, multiple movements,
-and how to select which MIDI instruments to use.
-
-@item
-@emph{@ref{Spacing issues}}
+@emph{@ref{Global issues}}
 discusses issues which affect the global output, such as selecting
-paper size or specifying page breaks.
+paper size or which MIDI instruments to use.
 
 @item
 @emph{@ref{LilyPond-book}} explains the details behind creating

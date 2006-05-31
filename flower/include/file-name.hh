@@ -27,9 +27,6 @@ public:
 
   bool is_absolute () const;
   string to_string () const;
-
-  string dir_part () const;
-  string file_part () const;
 };
 
 #endif /* FILE_NAME */

@@ -34,9 +34,7 @@ private:
   Keyword_table *keytable_;
   SCM scopes_;
   SCM start_module_;
-  int hidden_state_;
 public:
-  vector<int> extra_token_types_;
   string main_input_name_;
   void *lexval;
   Input *lexloc;
@@ -69,7 +67,6 @@ public:
 
   SCM lookup_identifier (string s);
   SCM lookup_identifier_symbol (SCM s);
-  void push_extra_token (int token_type);
   void push_chord_state (SCM tab);
   void push_figuredbass_state ();
   void push_lyric_state ();
@@ -79,7 +76,6 @@ public:
   void pop_state ();
   void LexerError (char const *);
   void set_identifier (SCM name_string, SCM);
-  int get_state () const;
   bool is_note_state () const;
   bool is_chord_state () const;
   bool is_lyric_state () const;

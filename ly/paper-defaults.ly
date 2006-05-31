@@ -1,5 +1,5 @@
 \version "2.7.39"
-#(use-modules (scm layout-page-layout))
+
 \paper {
 
     %%%% WARNING
@@ -76,12 +76,6 @@
     %%
     ragged-last-bottom= ##t
 
-    %%
-    %% settings for the page breaker
-    %%
-    blank-last-page-force = 0
-    blank-page-force = 10
-
     #(define font-defaults
       '((font-encoding . fetaMusic)))
 
@@ -96,18 +90,7 @@
 	(baseline-skip . 3)
 	(word-space . 0.6)))
 
-    #(define page-breaking ly:optimal-breaking)
-    #(define page-breaking-wrapper page-breaking-wrapper)
-    #(define page-post-process post-process-pages)
-
-    #(define write-page-layout (ly:get-option 'dump-tweaks))
-    #(define system-maximum-stretch-procedure
-       (lambda (line)
-	 (if (stretchable-line? line)
-	     (let ((height (line-height line)))
-	       (/ (* height height) 80.0))
-	     0.0)))
-
+    #(define page-breaking optimal-page-breaks)
 %    #(define page-music-height default-page-music-height )
 %    #(define page-make-stencil default-page-make-stencil )
 

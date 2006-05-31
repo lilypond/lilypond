@@ -1,5 +1,5 @@
 
-\version "2.9.16"
+\version "2.7.39"
 \header {
     texidoc = "@cindex Dynamic Absolute Volume
 Absolute dynamics have an effect on MIDI files.
@@ -21,14 +21,8 @@ a\fff
 a\sf
 }
 \layout{ ragged-right = ##t }
-
-  \midi {
-    \context {
-      \Score
-      tempoWholesPerMinute = #(ly:make-moment 60 1)
-      }
-    }
-
-
+\midi{
+\tempo 1 = 60
+}
 }
 

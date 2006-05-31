@@ -9,13 +9,13 @@ as does the instrument name.  "
 
 }
 
-\version "2.9.13"
+\version "2.7.39"
         
   \new PianoStaff <<
     \new Staff {
       \override Staff.VerticalAxisGroup #'remove-empty = ##t  
-      \set PianoStaff.instrumentName ="up" 
-      \set PianoStaff.shortInstrumentName ="u"
+      \set PianoStaff.instrument="up" 
+      \set PianoStaff.instr="u"
       c'1\break R
     }
   >>

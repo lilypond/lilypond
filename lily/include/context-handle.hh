@@ -21,6 +21,7 @@ public:
   Context_handle ();
 
   void set_context (Context *);
+  bool try_music (Music *);
   void operator = (Context_handle const &);
   Context_handle (Context_handle const &);
   Context *get_outlet () const;

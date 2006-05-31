@@ -9,8 +9,8 @@
 
 #include "engraver.hh"
 
+#include "music.hh"
 #include "grob.hh"
-#include "stream-event.hh"
 #include "translator.icc"
 
 class Tweak_engraver : public Engraver
@@ -28,19 +28,19 @@ Tweak_engraver::Tweak_engraver()
 void
 Tweak_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Stream_event *ev = info.event_cause ())
+  if (Music *music = info.music_cause ())
     {
-      for (SCM s = ev->get_property ("tweaks");
+      for (SCM s = music->get_property ("tweaks");
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
-	  info.grob ()->set_property (scm_caar (s), scm_cdar (s));
+	  info.grob ()->internal_set_property (scm_caar (s), scm_cdar (s));
 	}
     }
 }
 
 ADD_ACKNOWLEDGER (Tweak_engraver, grob);
 ADD_TRANSLATOR (Tweak_engraver,
-		/* doc */ "Read the @code{tweaks} property from the originating event, and set properties." ,
+		/* doc */ "Read the @code{tweaks} property from the originating Music event, and set properties." ,
 		
 		/* create */ "",
 		/* accept */ "",

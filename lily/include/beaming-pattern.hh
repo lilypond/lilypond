@@ -19,14 +19,12 @@ struct Beam_rhythmic_element
   Drul_array<int> beam_count_drul_;
 
   Moment beat_start_;
-  Moment beat_length_;
   Moment group_start_;
   
   Beam_rhythmic_element (Moment, int);
   Beam_rhythmic_element ();
 
   int count (Direction d);
-  void de_grace ();
 };
 
 /*
@@ -39,7 +37,6 @@ public:
   Beaming_pattern ();
   
   void beamify (Context*);
-  void de_grace ();
   void add_stem (Moment d, int beams);
   int beamlet_count (int idx, Direction d) const;
   

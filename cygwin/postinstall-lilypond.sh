@@ -26,5 +26,4 @@ regtool set '/root/LilyPond/shell/generate/' '&Generate PDF ...'
 regtool add '/root/LilyPond/shell/generate/command'
 regtool set '/root/LilyPond/shell/generate/command/' $ROOT'\bin\bash.exe --login -c '"'"'/usr/bin/lily-wins "%1"'"'"
 
-# FIXME: move to new postinstall-lilypond-doc.sh
-[ -d /usr/share/info/lilypond ] && (cd /usr/share/info/lilypond && ln -sf ../../doc/lilypond/Documentation/user/out-www/*png .)
+(cd /usr/share/info/lilypond && ln -sf ../../doc/lilypond/Documentation/user/out-www/*png .)

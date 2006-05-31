@@ -9,7 +9,7 @@
 #include "performer.hh"
 
 #include "audio-item.hh"
-#include "stream-event.hh"
+#include "music.hh"
 #include "translator.icc"
 
 /*
@@ -24,12 +24,12 @@ class Dynamic_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
+  virtual bool try_music (Music *event);
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
 private:
-  Stream_event *script_event_;
+  Music *script_event_;
   Audio_dynamic *audio_;
 };
 
@@ -77,7 +77,7 @@ Dynamic_performer::process_music ()
 	  SCM s = get_property ("midiInstrument");
 
 	  if (!scm_is_string (s))
-	    s = get_property ("instrumentName");
+	    s = get_property ("instrument");
 
 	  if (!scm_is_string (s))
 	    s = scm_makfrom0str ("piano");
@@ -105,16 +105,23 @@ Dynamic_performer::stop_translation_timestep ()
 {
   if (audio_)
     {
+      play_element (audio_);
       audio_ = 0;
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, absolute_dynamic);
-void
-Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
+bool
+Dynamic_performer::try_music (Music *r)
 {
   if (!script_event_)
-    script_event_ = r;
+    {
+      if (r->is_mus_type ("absolute-dynamic-event")) // fixme.
+	{
+	  script_event_ = r;
+	  return true;
+	}
+    }
+  return false;
 }
 
 ADD_TRANSLATOR (Dynamic_performer,

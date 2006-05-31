@@ -397,7 +397,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       if (!unsmob_grob_array (newval))
 	{
 	  newval = Grob_array::make_array ();
-	  sc->set_object (sym, newval);
+	  sc->internal_set_object (sym, newval);
 	}
 
       Grob_array *new_array = unsmob_grob_array (newval);
@@ -500,14 +500,14 @@ Spanner::substitute_one_mutable_property (SCM sym,
 	    if (!unsmob_grob_array (newval))
 	      {
 		newval = Grob_array::make_array ();
-		sc->set_object (sym, newval);
+		sc->internal_set_object (sym, newval);
 	      }
 	    substitute_grob_array (grob_array, unsmob_grob_array (newval));
 	  }
 	else
 	  {
 	    SCM newval = do_break_substitution (val);
-	    sc->set_object (sym, newval);
+	    sc->internal_set_object (sym, newval);
 	  }
       }
 }

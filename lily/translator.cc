@@ -8,12 +8,10 @@
 
 #include "translator.hh"
 
-#include "context-def.hh"
-#include "dispatcher.hh"
-#include "global-context.hh"
-#include "international.hh"
-#include "translator-group.hh"
 #include "warn.hh"
+#include "translator-group.hh"
+#include "context-def.hh"
+#include "global-context.hh"
 
 #include "translator.icc"
 #include "ly-smobs.icc"
@@ -52,6 +50,12 @@ Translator::Translator (Translator const &src)
   must_be_last_ = src.must_be_last_;
 }
 
+bool
+Translator::try_music (Music *)
+{
+  return false;
+}
+
 Moment
 Translator::now_mom () const
 {
@@ -70,12 +74,6 @@ Translator::get_daddy_translator () const
   return daddy_context_->implementation ();
 }
 
-void
-Translator::protect_event (SCM ev)
-{
-  get_daddy_translator ()->protect_event (ev);
-}
-
 SCM
 Translator::internal_get_property (SCM sym) const
 {
@@ -88,9 +86,12 @@ Translator::stop_translation_timestep ()
 }
 
 /*
-  this function is called once each moment, before any user
-  information enters the translators.  (i.e. no \property or event has
-  been processed yet.)
+  this function has 2 properties
+
+  - It is called before try_music ()
+
+  - It is called before any user information enters the translators.
+  (i.e. any \property or event is not processed yet.)
 */
 void
 Translator::start_translation_timestep ()
@@ -105,96 +106,6 @@ Translator::initialize ()
 void
 Translator::finalize ()
 {
-}
-
-void
-Translator::connect_to_context (Context *c)
-{
-  for (translator_listener_record *r = get_listener_list (); r; r=r->next_)
-    c->events_below ()->add_listener (r->get_listener_ (this), r->event_class_);
-}
-
-void
-Translator::disconnect_from_context (Context *c)
-{
-  for (translator_listener_record *r = get_listener_list (); r; r=r->next_)
-    c->events_below ()->remove_listener (r->get_listener_ (this), r->event_class_);
-}
-
-static SCM listened_event_class_table;
-void
-ensure_listened_hash ()
-{
-  if (!listened_event_class_table)
-    listened_event_class_table = scm_permanent_object (scm_c_make_hash_table (61));
-}
-
-
-LY_DEFINE (ly_get_listened_event_classes, "ly:get-listened-event-classes",
-	   0, 0, 0, (),
-	   "Returns a list of all event classes that some translator listens to.")
-{
-  ensure_listened_hash ();
-  return ly_hash_table_keys (listened_event_class_table);
-}
-
-LY_DEFINE (ly_is_listened_event_class, "ly:is-listened-event-class",
-	   1, 0, 0, (SCM sym),
-	   "Is @var{sym} a listened event class?")
-{
-  ensure_listened_hash ();
-  return scm_hashq_ref (listened_event_class_table, sym, SCM_BOOL_F);
-}
-
-void
-add_listened_event_class (SCM sym)
-{
-  ensure_listened_hash ();
-  scm_hashq_set_x (listened_event_class_table, sym, SCM_BOOL_T);
-}
-
-
-/*
-  internally called once, statically, for each translator
-  listener. Connects the name of an event class with a procedure that
-  fetches the corresponding listener.
-
-  The method should only be called from the macro
-  IMPLEMENT_TRANSLATOR_LISTENER.
- */
-void
-Translator::add_translator_listener (translator_listener_record **listener_list,
-				     translator_listener_record *r,
-				     Listener (*get_listener) (void *), 
-				     const char *ev_class)
-{
-  /* ev_class is the C++ identifier name. Convert to scm symbol */
-  string name = string (ev_class);
-  name = replace_all (name, '_', '-');
-  name += "-event";
-  
-  SCM class_sym = scm_str2symbol (name.c_str ());
-  
-  add_listened_event_class (class_sym);
-
-  r->event_class_ = class_sym;
-  r->get_listener_ = get_listener;
-  r->next_ = *listener_list;
-  *listener_list = r;
-}
-
-/*
-  Used by ADD_THIS_TRANSLATOR to extract a list of event-class names
-  for each translator.  This list is used by the internals
-  documentation.
-*/
-SCM
-Translator::get_listened_class_list (const translator_listener_record *listeners) const
-{
-  SCM list = SCM_EOL;
-  for (; listeners; listeners = listeners->next_)
-    list = scm_cons (listeners->event_class_, list);
-  return list;
 }
 
 /*
@@ -214,7 +125,7 @@ Translator::get_global_context () const
   return daddy_context_->get_global_context ();
 }
 
-Context *
+Score_context *
 Translator::get_score_context () const
 {
   return daddy_context_->get_score_context ();
@@ -258,9 +169,6 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   interface_name = replace_all (interface_name, '_', '-');
   interface_name += "-interface";
 
-  /*
-    this is only called during program init, so safe to use scm_gc_protect_object()
-  */
   inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.c_str ()));
   ack_array->push_back (inf);
 }
@@ -274,48 +182,6 @@ generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_ar
 	return ack_array->at (i).function_;
     }
   return 0;
-}
-
-Moment
-get_event_length (Stream_event *e)
-{
-  Moment *m = unsmob_moment (e->get_property ("length"));
-  if (m)
-    return *m;
-  else
-    return Moment (0);
-}
-
-/*
-  Helper, used through ASSIGN_EVENT_ONCE to throw warnings for
-  simultaneous events. The helper is only useful in listen_* methods
-  of translators.
-*/
-bool
-internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function)
-{
-  if (*old_ev)
-    {
-      /* extract event class from function name */
-      const char *prefix = "listen_";
-      string ev_class = function;
-      /* This assertion fails if EVENT_ASSIGNMENT was called outside a
-	 translator listener. Don't do that. */
-      assert (0 == ev_class.find (prefix));
-
-      /* "listen_foo_bar" -> "foo-bar" */
-      ev_class.erase (0, strlen(prefix));
-      replace_all (ev_class, '_', '-');
-
-      new_ev->origin ()->warning (_f ("Two simultaneous %s events, junking this one", ev_class.c_str ()));
-      (*old_ev)->origin ()->warning (_f ("Previous %s event here", ev_class.c_str ()));
-      return false;
-    }
-  else
-    {
-      *old_ev = new_ev;
-      return true;
-    }
 }
 
 ADD_TRANSLATOR (Translator,

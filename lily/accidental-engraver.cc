@@ -12,11 +12,11 @@
 #include "context.hh"
 #include "engraver.hh"
 #include "international.hh"
+#include "music.hh"
 #include "pitch.hh"
 #include "protected-scm.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
-#include "stream-event.hh"
 #include "tie.hh"
 #include "warn.hh"
 
@@ -26,7 +26,7 @@ class Accidental_entry
 {
 public:
   bool done_;
-  Stream_event *melodic_;
+  Music *melodic_;
   Grob *accidental_;
   Context *origin_;
   Engraver *origin_engraver_;
@@ -51,8 +51,8 @@ class Accidental_engraver : public Engraver
   int get_bar_number ();
   void update_local_key_signature ();
   void create_accidental (Accidental_entry *entry, bool, bool);
-  Grob *make_standard_accidental (Stream_event *note, Grob *note_head, Engraver *trans);
-  Grob *make_suggested_accidental (Stream_event *note, Grob *note_head, Engraver *trans);
+  Grob *make_standard_accidental (Music *note, Grob *note_head, Engraver *trans);
+  Grob *make_suggested_accidental (Music *note, Grob *note_head, Engraver *trans);
 
 protected:
   TRANSLATOR_DECLARATIONS (Accidental_engraver);
@@ -289,7 +289,7 @@ number_accidentals (bool *different,
 int
 Accidental_engraver::get_bar_number ()
 {
-  SCM barnum = get_property ("internalBarNumber");
+  SCM barnum = get_property ("currentBarNumber");
   SCM smp = get_property ("measurePosition");
 
   int bn = robust_scm2int (barnum, 0);
@@ -316,7 +316,7 @@ Accidental_engraver::process_acknowledged ()
 	    continue;
 	  accidentals_[i].done_ = true;
 
-	  Stream_event *note = accidentals_[i].melodic_;
+	  Music *note = accidentals_[i].melodic_;
 	  Context *origin = accidentals_[i].origin_;
 
 	  Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
@@ -333,8 +333,8 @@ Accidental_engraver::process_acknowledged ()
 					     pitch, origin,
 					     cautionaries, barnum);
 
-
 	  bool cautionary = to_boolean (note->get_property ("cautionary"));
+
 	  if (num_caut > num)
 	    {
 	      num = num_caut;
@@ -342,19 +342,13 @@ Accidental_engraver::process_acknowledged ()
 	      cautionary = true;
 	    }
 
-	  bool forced = to_boolean (note->get_property ("force-accidental"));
-	  if (num == 0 && forced)
+	  if (num == 0 && to_boolean (note->get_property ("force-accidental")))
 	    num = 1;
 
 	  /* Cannot look for ties: it's not guaranteed that they reach
 	     us before the notes. */
-	  if (num
-	      && !note->in_event_class ("trill-span-event"))
+	  if (num)
 	    create_accidental (&accidentals_[i], num > 1, cautionary);
-
-
-	  if (forced || cautionary)
-	    accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
 	}
     }
 }
@@ -364,7 +358,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 					bool restore_natural,
 					bool cautionary)
 {
-  Stream_event *note = entry->melodic_;
+  Music *note = entry->melodic_;
   Grob *support = entry->head_;
   Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
 
@@ -392,7 +386,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 }
 
 Grob *
-Accidental_engraver::make_standard_accidental (Stream_event *note,
+Accidental_engraver::make_standard_accidental (Music *note,
 					       Grob *note_head,
 					       Engraver *trans)
 {
@@ -403,7 +397,11 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
     level, so that we get the property settings for
     Accidental from the respective Voice.
   */
-  Grob *a = trans->make_item ("Accidental", note_head->self_scm ());
+  Grob *a
+    = make_grob_from_properties (trans,
+				 ly_symbol2scm ("Accidental"),
+				 note_head->self_scm (),
+				 "Accidental");
 
   /*
     We add the accidentals to the support of the arpeggio,
@@ -434,12 +432,16 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
 }
 
 Grob *
-Accidental_engraver::make_suggested_accidental (Stream_event *note,
+Accidental_engraver::make_suggested_accidental (Music *note,
 						Grob *note_head,
 						Engraver *trans)
 {
   (void) note;
-  Grob *a = trans->make_item ("AccidentalSuggestion", note_head->self_scm ());
+  Grob *a
+    = make_grob_from_properties (trans,
+				 ly_symbol2scm ("AccidentalSuggestion"),
+				 note_head->self_scm (),
+				 "AccidentalSuggestion");
 
   Side_position_interface::add_support (a, note_head);
   if (Grob *stem = unsmob_grob (a->get_object ("stem")))
@@ -478,7 +480,7 @@ Accidental_engraver::stop_translation_timestep ()
     {
       int barnum = get_bar_number ();
 
-      Stream_event *note = accidentals_[i].melodic_;
+      Music *note = accidentals_[i].melodic_;
       Context *origin = accidentals_[i].origin_;
 
       Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
@@ -534,10 +536,10 @@ Accidental_engraver::stop_translation_timestep ()
 void
 Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
-  Stream_event *note = info.event_cause ();
+  Music *note = info.music_cause ();
   if (note
-      && (note->in_event_class ("note-event")
-	  || note->in_event_class ("trill-span-event")))
+      && (note->is_mus_type ("note-event")
+	  || note->is_mus_type ("trill-span-event")))
     {
       /*
 	string harmonics usually don't have accidentals.
@@ -603,7 +605,6 @@ ADD_TRANSLATOR (Accidental_engraver,
 
 		"autoAccidentals "
 		"autoCautionaries "
-		"internalBarNumber "
 		"extraNatural "
 		"harmonicAccidentals "
 		"localKeySignature",

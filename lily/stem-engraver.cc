@@ -19,9 +19,6 @@
 #include "staff-symbol-referencer.hh"
 #include "stem-tremolo.hh"
 #include "stem.hh"
-#include "stream-event.hh"
-
-#include "translator.icc"
 
 /**
    Make stems upon receiving noteheads.
@@ -30,17 +27,17 @@ class Stem_engraver : public Engraver
 {
   Grob *stem_;
   Grob *tremolo_;
-  Stream_event *rhythmic_ev_;
-  Stream_event *tremolo_ev_;
+  Music *rhythmic_ev_;
+  Music *tremolo_ev_;
 
   TRANSLATOR_DECLARATIONS (Stem_engraver);
 
 protected:
   void make_stem (Grob_info);
 
-  DECLARE_TRANSLATOR_LISTENER (tremolo);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   void stop_translation_timestep ();
+  virtual bool try_music (Music *);
 };
 
 Stem_engraver::Stem_engraver ()
@@ -57,6 +54,15 @@ Stem_engraver::make_stem (Grob_info gi)
   /* Announce the cause of the head as cause of the stem.  The
      stem needs a rhythmic structure to fit it into a beam.  */
   stem_ = make_item ("Stem", gi.grob ()->self_scm ());
+
+  /*
+    we take the duration log from the Event, since the duration-log
+    for a note head is always <= 2.
+  */
+  Music *music = gi.music_cause ();
+  Duration *dur = unsmob_duration (music->get_property ("duration"));
+
+  stem_->set_property ("duration-log", dur ? scm_from_int (dur->duration_log ()) : 0);
 
   if (tremolo_ev_)
     {
@@ -80,14 +86,6 @@ Stem_engraver::make_stem (Grob_info gi)
       else
 	context ()->set_property ("tremoloFlags", scm_from_int (requested_type));
 
-
-      /*
-	we take the duration log from the Event, since the duration-log
-	for a note head is always <= 2.
-      */
-      Stream_event *ev = gi.event_cause ();
-      Duration *dur = unsmob_duration (ev->get_property ("duration"));
-      
       int tremolo_flags = intlog2 (requested_type) - 2
 	- (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
       if (tremolo_flags <= 0)
@@ -116,7 +114,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   if (Rhythmic_head::get_stem (gi.grob ()))
     return;
 
-  Stream_event *cause = gi.event_cause ();
+  Music *cause = gi.music_cause ();
   if (!cause)
     return;
   Duration *d = unsmob_duration (cause->get_property ("duration"));
@@ -129,9 +127,9 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   if (Stem::duration_log (stem_) != d->duration_log ())
     {
       // FIXME: 
-      gi.event_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
+      gi.music_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
 						 1 << Stem::duration_log (stem_)));
-      gi.event_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
+      gi.music_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
     }
 
   Stem::add_head (stem_, gi.grob ());
@@ -161,30 +159,30 @@ Stem_engraver::stop_translation_timestep ()
   tremolo_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tremolo);
-void
-Stem_engraver::listen_tremolo (Stream_event *ev)
+bool
+Stem_engraver::try_music (Music *m)
 {
-  ASSIGN_EVENT_ONCE (tremolo_ev_, ev);
+  if (m->is_mus_type ("tremolo-event"))
+    {
+      tremolo_ev_ = m;
+      return true;
+    }
+  return false;
 }
+
+#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Stem_engraver,
-
 		/* doc */ "Create stems and single-stem tremolos.  It also works together with "
 		"the beam engraver for overriding beaming.",
-
 		/* create */
 		"Stem "
 		"StemTremolo ",
-		
-		/* accept */
-		"tremolo-event",
-
+		/* accept */ "tremolo-event",
 		/* read */
 		"tremoloFlags "
 		"stemLeftBeamCount "
 		"stemRightBeamCount ",
-
 		/* write */ "");

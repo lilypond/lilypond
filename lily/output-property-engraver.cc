@@ -8,9 +8,8 @@
  */
 
 #include "engraver.hh"
-#include "context.hh"
 #include "grob.hh"
-#include "stream-event.hh"
+#include "context.hh"
 
 #include "translator.icc"
 
@@ -19,24 +18,30 @@ class Output_property_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Output_property_engraver);
 protected:
-  vector<Stream_event*> props_;
-  
-  DECLARE_ACKNOWLEDGER (grob);
-  DECLARE_TRANSLATOR_LISTENER (apply_output);
+  vector<Music*> props_;
+  DECLARE_ACKNOWLEDGER (grob)
 
   void stop_translation_timestep ();
+  virtual bool try_music (Music*);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Output_property_engraver, apply_output);
-void
-Output_property_engraver::listen_apply_output (Stream_event *ev)
+
+bool
+Output_property_engraver::try_music (Music* m)
 {
-  /*
-    UGH. Only swallow the output property event in the context
-    it was intended for. This is inelegant but not inefficient.
-  */
-  if (context ()->is_alias (ev->get_property ("context-type")))
-    props_.push_back (ev);
+  if (m->is_mus_type ("layout-instruction"))
+    {
+      /*
+	UGH. Only swallow the output property event in the context
+	it was intended for. This is inelegant but not inefficient.
+      */
+      if (context ()->is_alias (m->get_property ("context-type")))
+        {
+          props_.push_back (m);
+          return true;
+        }
+    }
+  return false;
 }
 
 void
@@ -44,7 +49,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 {
   for (vsize i = props_.size (); i--;)
     {
-      Stream_event *o = props_[i];
+      Music *o = props_[i];
       Context *d = inf.context ();
       SCM proc = o->get_property ("procedure");
       scm_call_3 (proc,
@@ -74,7 +79,7 @@ ADD_TRANSLATOR (Output_property_engraver,
 		"",
 		
 		/* accept */
-		"apply-output-event",
+		"layout-instruction",
 		
 		/* read */
 		"",

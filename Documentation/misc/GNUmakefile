@@ -4,7 +4,7 @@ NAME = documentation
 
 STEPMAKE_TEMPLATES=documentation  texinfo
 
-TEXTS = $(call src-wildcard,ANNOUNCE-*[0-9]) $(call src-wildcard,CHANGES-*[0-9]) $(call src-wildcard,ChangeLog*[0-9]) $(call src-wildcard,NEWS-*[0-9])
+TEXTS = $(wildcard ANNOUNCE-*[0-9]) $(wildcard CHANGES-*[0-9]) $(wildcard ChangeLog*[0-9]) $(wildcard NEWS-*[0-9])
 EXTRA_DIST_FILES = $(TEXTS)
 
 include $(depth)/make/stepmake.make

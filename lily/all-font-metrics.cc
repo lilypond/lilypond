@@ -13,12 +13,14 @@
 #include "open-type-font.hh"
 #include "pango-font.hh"
 #include "scm-hash.hh"
+#include "tfm.hh"
 #include "warn.hh"
 
 static char const *default_font_str0_ = "cmr10";
 
 All_font_metrics::All_font_metrics (string path)
 {
+  tfm_dict_ = new Scheme_hash_table;
   otf_dict_ = new Scheme_hash_table;
 
 #if HAVE_PANGO_FT2
@@ -40,6 +42,7 @@ All_font_metrics::All_font_metrics (string path)
 
 All_font_metrics::~All_font_metrics ()
 {
+  tfm_dict_->unprotect ();
   otf_dict_->unprotect ();
 
 #if HAVE_PANGO_FT2
@@ -153,11 +156,57 @@ All_font_metrics::find_otf (string name)
   return dynamic_cast<Open_type_font *> (unsmob_metrics (val));
 }
 
+Tex_font_metric *
+All_font_metrics::find_tfm (string name)
+{
+  SCM sname = ly_symbol2scm (name.c_str ());
+  SCM name_string = scm_makfrom0str (name.c_str ());
+  SCM val;
+  if (!tfm_dict_->try_retrieve (sname, &val))
+    {
+      string file_name;
+
+      if (file_name.empty ())
+	{
+	  /* FIXME: should add "cork-" prefix to lm* fonts.  How to do
+	     that, cleanly?  */
+	  string p = kpathsea_find_file (name, "tfm");
+	  if (p.length ())
+	    file_name = p;
+	}
+
+      if (file_name.empty ())
+	file_name = search_path_.find (name + ".tfm");
+      if (file_name.empty ())
+	return 0;
+
+      if (be_verbose_global)
+	progress_indication ("[" + file_name);
+
+      val = Tex_font_metric::make_tfm (file_name);
+
+      if (be_verbose_global)
+	progress_indication ("]");
+
+      unsmob_metrics (val)->file_name_ = file_name;
+      unsmob_metrics (val)->description_ = scm_cons (name_string,
+						     scm_from_double (1.0));
+      tfm_dict_->set (sname, val);
+      unsmob_metrics (val)->unprotect ();
+    }
+
+  return dynamic_cast<Tex_font_metric *> (unsmob_metrics (val));
+}
+
 Font_metric *
 All_font_metrics::find_font (string name)
 {
   Font_metric *f = find_otf (name);
 
+  if (!f)
+    {
+      f = find_tfm (name);
+    }
 
   if (!f)
     {
@@ -166,6 +215,9 @@ All_font_metrics::find_font (string name)
     }
 
   string def_name = default_font_str0_;
+
+  if (!f)
+    f = find_tfm (def_name);
 
   if (!f)
     {

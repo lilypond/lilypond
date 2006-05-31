@@ -1,4 +1,4 @@
-\version "2.9.11"
+\version "2.7.39"
 
 \header
 {
@@ -12,7 +12,7 @@
  \context {
    \Voice
    \remove "Forbid_line_break_engraver"
-  \override  TupletNumber #'text = #tuplet-number::calc-fraction-text
+   tupletNumberFormatFunction = #fraction-tuplet-formatter
    tupletFullLength = ##t
    allowBeamBreak = ##t
  }

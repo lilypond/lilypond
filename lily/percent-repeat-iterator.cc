@@ -7,20 +7,10 @@
                   Erik Sandberg <mandolaerik@gmail.com>
 */
 
+#include "percent-repeat-iterator.hh"
 #include "input.hh"
 #include "music.hh"
 #include "repeated-music.hh"
-#include "sequential-iterator.hh"
-
-class Percent_repeat_iterator : public Sequential_iterator
-{
-public:
-  DECLARE_CLASSNAME(Percent_repeat_iterator);
-  DECLARE_SCHEME_CALLBACK (constructor, ());
-  Percent_repeat_iterator ();
-protected:
-  virtual SCM get_music_list () const;
-};
 
 IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 
@@ -44,11 +34,9 @@ Percent_repeat_iterator::get_music_list () const
     percent->set_spot (*mus->origin ());
     percent->set_property ("length", length);
     if (repeats > 1)
-      percent->set_property ("repeat-count", scm_int2num (i));
-    
+      percent->set_property ("repeat-count", scm_int2num (i - 1));
     child_list = scm_cons (percent->unprotect (), child_list);
   }
-  
   child_list = scm_cons (child->self_scm (), child_list);
 
   return child_list;

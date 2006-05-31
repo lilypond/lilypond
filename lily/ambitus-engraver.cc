@@ -17,7 +17,6 @@
 #include "protected-scm.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh" 
-#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -118,8 +117,8 @@ Ambitus_engraver::stop_translation_timestep ()
 void
 Ambitus_engraver::acknowledge_note_head (Grob_info info)
 {
-  Stream_event *nr = info.event_cause ();
-  if (nr && nr->in_event_class ("note-event"))
+  Music *nr = info.music_cause ();
+  if (nr && nr->is_mus_type ("note-event"))
     {
       Pitch pitch = *unsmob_pitch (nr->get_property ("pitch"));
       pitch_interval_.add_point (pitch);
@@ -184,12 +183,7 @@ Ambitus_engraver::finalize ()
 ADD_ACKNOWLEDGER (Ambitus_engraver, note_head);
 ADD_TRANSLATOR (Ambitus_engraver,
 		/* doc */ "",
-		/* create */
-		"Ambitus "
-		"AmbitusLine "
-		"AmbitusNoteHead "
-		"AmbitusAccidental",
-
+		/* create */ "Ambitus AmbitusLine AmbitusNoteHead AmbitusAccidental",
 		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

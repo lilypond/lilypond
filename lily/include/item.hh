@@ -30,7 +30,6 @@ public:
 
   static bool is_non_musical (Grob *);
   bool is_broken () const;
-  bool pure_is_visible (int start, int end) const;
 
   Direction break_status_dir () const;
 
@@ -39,7 +38,6 @@ public:
   virtual System *get_system () const;
   virtual Paper_column *get_column () const;
   virtual void handle_prebroken_dependencies ();
-  virtual Interval_t<int> spanned_rank_iv ();
   static bool has_interface (Grob *);
 protected:
   virtual void discretionary_processing ();

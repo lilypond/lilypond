@@ -68,9 +68,8 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
 	{
 	  Context *dest
 	    = it->get_outlet ()->find_create_context (to_type_sym, to_id, SCM_EOL);
-	  
-	  send_stream_event (last, "ChangeParent", get_music ()->origin (),
-			       ly_symbol2scm ("context"), dest->self_scm ());
+	  current->remove_context (last);
+	  dest->add_context (last);
 	}
       else
 	{
@@ -91,8 +90,6 @@ Auto_change_iterator::process (Moment m)
 
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
-  if (start_moment_.main_part_.is_infinity () && start_moment_ < 0)
-    start_moment_ = now;
 
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {

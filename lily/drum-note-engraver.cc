@@ -7,32 +7,30 @@
 #include <cctype>
 using namespace std;
 
-#include "duration.hh"
-#include "engraver.hh"
-#include "note-column.hh"
 #include "rhythmic-head.hh"
+#include "engraver.hh"
+#include "warn.hh"
 #include "side-position-interface.hh"
 #include "script-interface.hh"
 #include "stem.hh"
-#include "stream-event.hh"
-#include "warn.hh"
-
-#include "translator.icc"
+#include "note-column.hh"
+#include "duration.hh"
 
 class Drum_notes_engraver : public Engraver
 {
   vector<Item*> notes_;
+  vector<Item*> dots_;
   vector<Item*> scripts_;
-  vector<Stream_event*> events_;
+  vector<Music*> events_;
 
 public:
   TRANSLATOR_DECLARATIONS (Drum_notes_engraver);
 
 protected:
+  virtual bool try_music (Music *ev);
   void process_music ();
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (note);
   void stop_translation_timestep ();
 };
 
@@ -40,11 +38,18 @@ Drum_notes_engraver::Drum_notes_engraver ()
 {
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Drum_notes_engraver, note);
-void
-Drum_notes_engraver::listen_note (Stream_event *ev)
+bool
+Drum_notes_engraver::try_music (Music *m)
 {
-  events_.push_back (ev);
+  if (m->is_mus_type ("note-event"))
+    {
+      events_.push_back (m);
+      return true;
+    }
+  else if (m->is_mus_type ("busy-playing-event"))
+    return events_.size ();
+
+  return false;
 }
 
 void
@@ -56,8 +61,26 @@ Drum_notes_engraver::process_music ()
       if (!tab)
 	tab = get_property ("drumStyleTable");
 
-      Stream_event *ev = events_[i];
+      Music *ev = events_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
+
+      Duration dur = *unsmob_duration (ev->get_property ("duration"));
+
+      note->set_property ("duration-log", scm_from_int (dur.duration_log ()));
+
+      if (dur.dot_count ())
+	{
+	  Item *d = make_item ("Dots", ev->self_scm ());
+	  Rhythmic_head::set_dots (note, d);
+
+	  if (dur.dot_count ()
+	      != robust_scm2int (d->get_property ("dot-count"), 0))
+	    d->set_property ("dot-count", scm_from_int (dur.dot_count ()));
+
+	  d->set_parent (note, Y_AXIS);
+
+	  dots_.push_back (d);
+	}
 
       SCM drum_type = ev->get_property ("drum-type");
 
@@ -124,20 +147,20 @@ void
 Drum_notes_engraver::stop_translation_timestep ()
 {
   notes_.clear ();
+  dots_.clear ();
   scripts_.clear ();
 
   events_.clear ();
 }
 
+#include "translator.icc"
+
 ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
 ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* doc */ "Generate noteheads.",
-		/* create */
-		"NoteHead "
-		"Script",
-
-		/* accept */ "note-event",
+		/* create */ "NoteHead Dots Script",
+		/* accept */ "note-event busy-playing-event",
 		/* read */ "drumStyleTable",
 		/* write */ "");
 

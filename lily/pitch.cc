@@ -19,7 +19,6 @@ Pitch::Pitch (int o, int n, int a)
   notename_ = n;
   alteration_ = a;
   octave_ = o;
-  scale_ = default_global_scale; 
   normalise ();
 }
 
@@ -28,7 +27,6 @@ Pitch::Pitch ()
 {
   notename_ = 0;
   alteration_ = 0;
-  scale_ = default_global_scale; 
   octave_ = 0;
 }
 
@@ -51,13 +49,11 @@ Pitch::compare (Pitch const &m1, Pitch const &m2)
 int
 Pitch::steps () const
 {
-  return notename_ + octave_ * scale_->step_semitones_.size ();
+  return notename_ + octave_ * 7;
 }
 
 /* Should be settable from input?  */
-// static Byte diatonic_scale_semitones[ ] = { 0, 2, 4, 5, 7, 9, 11 };
-
-
+static Byte diatonic_scale_semitones[ ] = { 0, 2, 4, 5, 7, 9, 11 };
 
 /* Calculate pitch height in 12th octave steps.  Don't assume
    normalised pitch as this function is used to normalise the pitch.  */
@@ -68,15 +64,15 @@ Pitch::semitone_pitch () const
   int n = notename_;
   while (n < 0)
     {
-      n += scale_->step_semitones_.size ();
+      n += 7;
       o--;
     }
 
   if (alteration_ % 2)
     programming_error ("semitone_pitch () called on quarter tone alteration.");
 
-  return ((o + n / scale_->step_semitones_.size ()) * 12
-	  + scale_->step_semitones_[n % scale_->step_semitones_.size ()]
+  return ((o + n / 7) * 12
+	  + diatonic_scale_semitones[n % 7]
 	  + (alteration_ / 2));
 }
 
@@ -87,12 +83,12 @@ Pitch::quartertone_pitch () const
   int n = notename_;
   while (n < 0)
     {
-      n += scale_->step_semitones_.size ();
+      n += 7;
       o--;
     }
 
-  return ((o + n / scale_->step_semitones_.size ()) * 24
-	  + 2 * scale_->step_semitones_[n % scale_->step_semitones_.size ()]
+  return ((o + n / 7) * 24
+	  + 2 * diatonic_scale_semitones[n % 7]
 	  + alteration_);
 }
 
@@ -100,15 +96,15 @@ void
 Pitch::normalise ()
 {
   int pitch = quartertone_pitch ();
-  while (notename_ >= (int) scale_->step_semitones_.size ())
+  while (notename_ >= 7)
     {
-      notename_ -= scale_->step_semitones_.size ();
+      notename_ -= 7;
       octave_++;
       alteration_ -= quartertone_pitch () - pitch;
     }
   while (notename_ < 0)
     {
-      notename_ += scale_->step_semitones_.size ();
+      notename_ += 7;
       octave_--;
       alteration_ -= quartertone_pitch () - pitch;
     }
@@ -173,7 +169,7 @@ char const *accname[] = {"eses", "eseh", "es", "eh", "",
 string
 Pitch::to_string () const
 {
-  int n = (notename_ + 2) % scale_->step_semitones_.size ();
+  int n = (notename_ + 2) % 7;
   string s = ::to_string (char (n + 'a'));
   if (alteration_)
     s += string (accname[alteration_ - DOUBLE_FLAT]);
@@ -238,11 +234,11 @@ Pitch::down_to (int notename)
 }
 
 IMPLEMENT_TYPE_P (Pitch, "ly:pitch?");
+
 SCM
-Pitch::mark_smob (SCM x)
+Pitch::mark_smob (SCM)
 {
-  Pitch *p = (Pitch*) SCM_CELL_WORD_1 (x);
-  return p->scale_->self_scm ();
+  return SCM_EOL;
 }
 
 IMPLEMENT_SIMPLE_SMOBS (Pitch);

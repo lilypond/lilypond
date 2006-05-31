@@ -9,16 +9,6 @@
 #ifndef STD_VECTOR_HH
 #define STD_VECTOR_HH
 
-#if 0
-
-/*
-  leads to dubious crashes - libstdc++  bug?
-*/
-#ifndef NDEBUG
-#define _GLIBCXX_DEBUG 1
-#endif
-#endif
-
 #include <algorithm>   /* find, reverse, sort */
 #include <functional>  /* unary_function */
 #include <cassert>
@@ -142,66 +132,146 @@ concat (vector<T> &v, vector<T> const& w)
   v.insert (v.end (), w.begin (), w.end ());
 }
 
-template<typename T, typename Compare>
-vsize
-lower_bound (vector<T> const &v,
-	     T const &key,
-	     Compare less,
-	     vsize b=0, vsize e=VPOS)
+template<class T>
+void
+binary_search_bounds (vector<T> const &table,
+		      T const &key, int (*compare) (T const &, T const &),
+		      vsize *lo,
+		      vsize *hi)
 {
-  if (e == VPOS)
-    e = v.size ();
-  typename vector<T>::const_iterator i = lower_bound (v.begin () + b,
-						      v.begin () + e,
-						      key,
-						      less);
+  if (*lo >= *hi)
+    return;
 
-  return i - v.begin ();
+  int cmp;
+  int result;
+
+  /* binary search */
+  do
+    {
+      cmp = (*lo + *hi) / 2;
+
+      result = (*compare) (key, table[cmp]);
+
+      if (result < 0)
+	*hi = cmp;
+      else
+	*lo = cmp;
+    }
+  while (*hi - *lo > 1);
 }
 
-template<typename T, typename Compare>
-vsize
-upper_bound (vector<T> const &v,
-	     T const &key,
-	     Compare less,
-	     vsize b=0, vsize e=VPOS)
+template<typename T>
+void
+binary_search_bounds (vector<T*> const &table,
+		      T const *key, int (*compare) (T *const &, T *const &),
+		      vsize *lo,
+		      vsize *hi)
 {
-  if (e == VPOS)
-    e = v.size ();
+  vsize cmp;
+  int result;
 
-  typename vector<T>::const_iterator i = upper_bound (v.begin () + b,
-						      v.begin () + e,
-						      key,
-						      less);
+  /* binary search */
+  do
+    {
+      cmp = (*lo + *hi) / 2;
 
-  return i - v.begin ();
+      result = (*compare) ((T *) key, table[cmp]);
+
+      if (result < 0)
+	*hi = cmp;
+      else
+	*lo = cmp;
+    }
+  while (*hi - *lo > 1);
 }
 
-template<typename T, typename Compare>
+#if 0
+/* FIXME: what if COMPARE is named: int operator == (T const&, T const&),
+   wouldn't that work for most uses of BINARY_SEARCH?
+*/
+template<typename T>
 vsize
 binary_search (vector<T> const &v,
-	       T const &key,
-	       Compare less=less<T> (),
+	       T const &key, int (*compare) (T const &, T const &),
 	       vsize b=0, vsize e=VPOS)
-{
-  vsize lb = lower_bound (v, key, less, b, e);
-
-  if (lb == v.size () || less (key, v[lb]))
-    return VPOS;
-  return lb;
-}
-
-template<typename T, typename Compare>
-void
-vector_sort (vector<T> &v,
-	     Compare less,
-	     vsize b=0, vsize e=VPOS)
 {
   if (e == VPOS)
     e = v.size ();
-
-  sort (v.begin () + b, v.begin () + e, less);
+  typename vector<T>::const_iterator i = find (v.begin () + b,
+					       v.begin () + e,
+					       key);
+  if (i != v.end ())
+    return i - v.begin ();
+  return VPOS;
 }
+#else // c&p from array.icc; cannot easily use stl_algo:find b.o. compare func.
+template<class T>
+vsize
+binary_search (vector<T> const &table,
+	       T const &key,
+	       int (*compare) (T const &, T const &),
+	       vsize lo=0,
+	       vsize hi=VPOS)
+{
+  if (hi == VPOS)
+    hi = table.size ();
+
+  if (lo >= hi)
+    return VPOS;
+
+  binary_search_bounds (table, key, compare, &lo, &hi);
+
+  if (! (*compare) (key, table[lo]))
+    return lo;
+
+  /* not found */
+  return VPOS;
+}
+
+
+#endif
+
+
+#if 0
+/* FIXME: the COMPARE functionality is broken?  */
+template<typename T>
+void
+vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
+	     vsize lower=VPOS, vsize upper=VPOS)
+{
+  typename vector<T>::iterator b = v.begin ();
+  typename vector<T>::iterator e = v.begin ();
+  if (lower == VPOS)
+    {
+      lower = 0;
+      upper = v.size ();
+    }
+  sort (b + lower, e + upper, compare);
+}
+#else
+
+// ugh, c&p
+template<typename T> void
+vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
+	     vsize lower=VPOS, vsize upper=VPOS)
+{
+  if (lower == VPOS)
+    {
+      lower = 0;
+      upper = v.size () - 1;
+    }
+  if (upper == VPOS || lower >= upper)
+    return;
+  swap (v[lower], v[(lower + upper) / 2]);
+  vsize last = lower;
+  for (vsize i = lower +1; i <= upper; i++)
+    if (compare (v[i], v[lower]) < 0)
+      swap (v[++last], v[i]);
+  swap (v[lower], v[last]);
+  vector_sort (v, compare, lower, last - 1);
+  vector_sort (v, compare, last + 1, upper);
+}
+#endif
 
 template<typename T>
 void

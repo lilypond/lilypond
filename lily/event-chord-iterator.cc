@@ -9,13 +9,11 @@
 #include "event-chord-iterator.hh"
 
 #include "context.hh"
-#include "dispatcher.hh"
 #include "duration.hh"
 #include "input.hh"
 #include "international.hh"
 #include "music.hh"
 #include "pitch.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 Event_chord_iterator::Event_chord_iterator ()
@@ -39,12 +37,6 @@ Event_chord_iterator::process (Moment m)
 	{
 	  Music *mus = unsmob_music (scm_car (s));
 	  report_event (mus);
-	}
-      for (SCM s = get_music ()->get_property ("events");
-	   scm_is_pair (s); s = scm_cdr (s))
-	{
-	  Stream_event *ev = unsmob_stream_event (scm_car (s));
-	  get_outlet ()->event_source ()->broadcast (ev);
 	}
     }
   Simple_music_iterator::process (m);

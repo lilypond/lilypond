@@ -8,7 +8,6 @@
 
 #include "item.hh"
 
-#include "axis-group-interface.hh"
 #include "paper-score.hh"
 #include "warn.hh"
 #include "paper-column.hh"
@@ -150,35 +149,11 @@ Item::handle_prebroken_dependencies ()
   SCM vis = get_property ("break-visibility");
   if (scm_is_vector (vis))
     {
-      bool visible = to_boolean (scm_c_vector_ref (vis, break_status_dir () + 1));
+      bool visible = to_boolean (scm_vector_ref (vis, scm_from_int (break_status_dir () + 1)));
 
       if (!visible)
 	suicide ();
     }
-}
-
-bool
-Item::pure_is_visible (int start, int end) const
-{
-  SCM vis = get_property ("break-visibility");
-  if (scm_is_vector (vis))
-    {
-      int pos = 1;
-      int pc_rank = Paper_column::get_rank (get_column ());
-      if (pc_rank == start)
-	pos = 2;
-      else if (pc_rank == end)
-	pos = 0;
-      return to_boolean (scm_vector_ref (vis, scm_from_int (pos)));
-    }
-  return true;
-}
-
-Interval_t<int>
-Item::spanned_rank_iv ()
-{
-  int c = get_column ()->get_rank ();
-  return Interval_t<int> (c, c);
 }
 
 void

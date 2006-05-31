@@ -11,7 +11,6 @@ configurable; virtually every fragment of output may be changed.
 * Fixing overlapping notation::  
 * Common tweaks::               
 * Default files::               
-* Fitting music onto fewer pages::  
 * Advanced tweaks with Scheme::  
 @end menu
 
@@ -61,7 +60,7 @@ c4^"piu mosso" d e f
 \once \override TextScript #'staff-padding = #2.6
 c4^"piu mosso" fis a g
 \break
-c'4^"piu mosso" b a b
+c,,4^"piu mosso" b a b
 \once \override TextScript #'padding = #2.6
 c4^"piu mosso" d e f
 \once \override TextScript #'staff-padding = #2.6
@@ -153,7 +152,7 @@ Vertical positioning of these symbols is handled by
 @end quotation
 
 @noindent
-So to move dynamics around vertically, we use
+So to move dynamics around, we use
 
 @example
 \override DynamicLineSpanner #'padding = #2.0
@@ -164,8 +163,7 @@ common objects.
 
 @multitable @columnfractions .33 .66
 @headitem Object type           @tab Object name
-@item Dynamics (vertically)     @tab @code{DynamicLineSpanner}
-@item Dynamics (horizontally)   @tab @code{DynamicText}
+@item Dynamics                  @tab @code{DynamicLineSpanner}
 @item Ties                      @tab @code{Tie}
 @item Slurs                     @tab @code{Slur}
 @item Articulations             @tab @code{Script}
@@ -305,7 +303,7 @@ outside the scope of this manual; users should be warned that
 a substantial amount of technical knowledge or time is required
 to understand these files.
 
-@itemize @bullet
+@itemize bullet
 
 @item Linux: @file{@{INSTALLDIR@}/lilypond/usr/share/lilypond/current/}
 
@@ -322,93 +320,6 @@ and select "Show Package Contents".
 The @file{ly/} and @file{scm/} directories will be of
 particular interest.  Files such as @file{ly/property-init.ly} and
 @file{ly/declarations-init.ly} define all the common tweaks.
-
-
-@node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
-
-Sometimes you can end up with one or two staves on a second
-(or third, or fourth...) page.  This is annoying, especially
-if you look at previous pages and it looks like there is plenty
-of room left on those.
-
-When investigating layout issues, @code{annotate-spacing} is
-an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ref{Displaying spacing} for more
-details.  From the output of @code{annotate-spacing}, we can
-see which margins we may wish to alter.
-
-Other than margins, there are a few other options to save space:
-
-@itemize
-@item
-You may tell LilyPond to place systems as close together as
-possible (to fit as many systems as possible onto a page), but
-then to space those systems out so that there is no blank
-space at the bottom of the page.
-
-@example
-\paper @{
-between-system-padding = #0.1
-between-system-space = #0.1
-ragged-last-bottom = ##f
-ragged-bottom = ##f
-@}
-@end example
-
-@item
-You may force the number of systems (i.e., if LilyPond wants
-to typeset some music with 11 systems, you could force it to
-use 10).
-
-@example
-\paper @{
-system-count = #10
-@}
-@end example
-
-@item
-Avoid (or reduce) objects which increase the vertical size of
-a system.  For example, volta repeats (or alternate repeats)
-require extra space.  If these repeats are spread over two
-systems, they will take up more space than one system with
-the volta repeats and another system without.
-
-Another example is moving dynamics which ``stick out'' of
-a system.
-
-@lilypond[verbatim,quote,fragment]
-\relative c' {
-  e4 c g\f c
-  \override DynamicLineSpanner #'padding = #-1.8
-  \override DynamicText #'extra-offset = #'( -2.1 . 0)
-  e4 c g\f c
-}
-@end lilypond
-
-@item
-Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ref{Changing horizontal spacing} for more details.
-
-@lilypond[verbatim,quote]
-\score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-  }
-  \layout {
-    \context {
-      \Score
-      \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
-    }
-  }
-}
-@end lilypond
-
-@end itemize
 
 
 @node Advanced tweaks with Scheme

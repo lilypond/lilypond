@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-public (set-paper-dimension-variables mod)
   (module-define! mod 'dimension-variables
@@ -120,10 +120,11 @@
       (set-paper-dimensions module (car entry) (cdr entry))
 
       (module-define! module 'papersizename name)
-      (module-define! module 'landscape 
-		      (if landscape? #t #f)))
+
+      (if landscape?
+	  (module-define! module 'landscape #t)))
      (else
-      (ly:warning (_ "Unknown papersize: ~a" name))))))
+      (ly:warning (_ ("Unknown papersize: ~a" name)))))))
 
 (define-safe-public (set-default-paper-size name . rest)
   (internal-set-paper-size

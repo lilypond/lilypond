@@ -12,7 +12,9 @@
 using namespace std;
 
 #include "lilypond-key.hh"
+#include "global-context.hh"
 #include "main.hh"
+#include "music-iterator.hh"
 #include "music-output.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -21,53 +23,25 @@ using namespace std;
 #include "stencil.hh"
 #include "text-interface.hh"
 #include "warn.hh"
+
 #include "performance.hh"
 #include "paper-score.hh"
 
 #include "ly-smobs.icc"
 
 Book::Book ()
+  : Input ()
 {
   paper_ = 0;
   header_ = SCM_EOL;
   scores_ = SCM_EOL;
-  input_location_ = SCM_EOL;
   smobify_self ();
-
-  input_location_ = make_input (Input ());
 }
 
-Book::Book (Book const &s)
+Book* 
+Book::clone () const
 {
-  paper_ = 0;
-  header_ = SCM_EOL;
-  scores_ = SCM_EOL;
-  input_location_ = SCM_EOL;
-  smobify_self ();
-
-  if (s.paper_)
-    paper_ = s.paper_->clone ();
-  
-  input_location_ = make_input (*s.origin ());
-  header_ = ly_make_anonymous_module (false);
-  if (ly_is_module (s.header_))
-    ly_module_copy (header_, s.header_);
-
-  SCM *t = &scores_;
-  for (SCM p = s.scores_; scm_is_pair (p); p = scm_cdr (p))
-    {
-      Score *newscore = unsmob_score (scm_car (p))->clone ();
-
-      *t = scm_cons (newscore->self_scm (), SCM_EOL);
-      t = SCM_CDRLOC(*t);
-      newscore->unprotect ();
-    }
-}
-
-Input *
-Book::origin () const
-{
-  return unsmob_input (input_location_);
+  return new Book (*this);
 }
 
 Book::~Book ()
@@ -90,8 +64,7 @@ Book::mark_smob (SCM s)
   if (book->paper_)
     scm_gc_mark (book->paper_->self_scm ());
   scm_gc_mark (book->scores_);
-  scm_gc_mark (book->input_location_);
-  
+
   return book->header_;
 }
 
@@ -115,7 +88,7 @@ Paper_book *
 Book::process (Output_def *default_paper,
 	       Output_def *default_layout)
 {
-  for (SCM s = scores_; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = scores_; s != SCM_EOL; s = scm_cdr (s))
     if (Score *score = unsmob_score (scm_car (s)))
       if (score->error_found_)
 	return 0;
@@ -137,7 +110,7 @@ Book::process (Output_def *default_paper,
   paper_book->header_ = header_;
 
   /* Render in order of parsing.  */
-  for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
     {
       if (Score *score = unsmob_score (scm_car (s)))
 	{

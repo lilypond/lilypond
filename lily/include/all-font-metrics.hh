@@ -23,6 +23,7 @@
 */
 class All_font_metrics
 {
+  Scheme_hash_table *tfm_dict_;
   Scheme_hash_table *otf_dict_;
   File_path search_path_;
 
@@ -43,6 +44,7 @@ public:
 			       Real scale);
 #endif
 
+  Tex_font_metric *find_tfm (string);
   Font_metric *find_font (string name);
   Open_type_font *find_otf (string name);
   SCM font_descriptions () const;

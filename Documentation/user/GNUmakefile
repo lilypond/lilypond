@@ -2,24 +2,26 @@ depth=../..
 
 LATEX_FILES =$(call src-wildcard,*.latex)
 
+# todo: add latex.
+DVI_FILES = $(TELY_FILES:%.tely=$(outdir)/%.dvi)
 
-EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES) README.txt convert-ly.txt $(EPS_ILLUSTRATIONS)
+EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES) README.txt $(EPS_ILLUSTRATIONS)
 
 IMAGES=$(call src-wildcard,*.png)
 EPS_ILLUSTRATIONS=context-example.eps
-PDF_ILLUSTRATIONS=context-example.pdf
 
-OUT_PDF_IMAGES=$(IMAGES:%.png=$(outdir)/%.pdf) $(addprefix $(outdir)/,$(PDF_ILLUSTRATIONS))
-
-OUT_PNG_IMAGES=$(OUT_PDF_IMAGES:%.pdf=%.png)
+OUT_EPS_IMAGES=$(IMAGES:%.png=$(outdir)/%.eps) $(addprefix $(outdir)/,$(EPS_ILLUSTRATIONS))
+OUT_PNG_IMAGES=$(OUT_EPS_IMAGES:%.eps=%.png)
 
 OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
  $(ITELY_FILES:%.itely=$(outdir)/%.texi)
 HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%.html)\
  $(outdir)/lilypond-internals.html
 
-# todo: add latex.
-PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
+PS_FILES = $(DVI_FILES:.dvi=.ps)
+PDF_FILES = $(DVI_FILES:.dvi=.pdf)
+
+PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
 INFO_DOCS = lilypond lilypond-internals music-glossary
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
@@ -35,6 +37,10 @@ TEXINPUTS=$(top-src-dir)/tex::
 export TEXINPUTS
 
 include $(depth)/make/stepmake.make
+
+dvi: $(DVI_FILES)
+
+ps: $(PS_FILES)
 
 info: $(INFO_FILES)
 
@@ -189,7 +195,7 @@ $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internal
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --docbook $<
 
-$(outdir)/lilypond.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
+$(outdir)/lilypond.dvi: $(OUT_EPS_IMAGES) $(OUT_PNG_IMAGES)
 
 $(outdir)/%.png: %.png
 	convert -geometry 50x50% $< $@
@@ -202,13 +208,6 @@ $(outdir)/%.eps: %.png
 
 $(outdir)/%.eps: %.eps
 	cp $< $@
-
-$(outdir)/%.pdf: %.png
-	convert $< $@
-
-$(outdir)/%.pdf: %.eps
-	gs -dAutoRotatePages=/None -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<
-
 
 DEEP_HTML_FILES =\
  $(outdir)/lilypond/index.html\

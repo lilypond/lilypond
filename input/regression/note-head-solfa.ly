@@ -11,9 +11,7 @@ to the @code{tonic} property."
 fragment = {
   \key c \major
   \set shapeNoteStyles = ##(do re mi fa #f la ti)
-  c1 d e f g a b c d e f g a b c
-  c,,2 d e f g a b c d e f g a b c
-  c,,4 d e f g a b c d e f g a b c
+  c d e f g a b c d e f g a b c
 }
 
 

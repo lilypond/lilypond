@@ -124,7 +124,7 @@ Spanner::do_break_processing ()
 	    }
 	}
     }
-  vector_sort (broken_intos_, Spanner::less);
+  vector_sort (broken_intos_, Spanner::compare);
   for (vsize i = broken_intos_.size (); i--;)
     broken_intos_[i]->break_index_ = i;
 }
@@ -238,7 +238,7 @@ Spanner::get_system () const
 Grob *
 Spanner::find_broken_piece (System *l) const
 {
-  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::less);
+  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::compare);
   if (idx != VPOS)
     return broken_intos_ [idx];
   return 0;
@@ -248,12 +248,6 @@ int
 Spanner::compare (Spanner *const &p1, Spanner *const &p2)
 {
   return p1->get_system ()->get_rank () - p2->get_system ()->get_rank ();
-}
-
-bool
-Spanner::less (Spanner *const &a, Spanner *const &b)
-{
-  return a->get_system ()->get_rank () < b->get_system ()->get_rank ();
 }
 
 bool
@@ -327,14 +321,10 @@ Spanner::set_spacing_rods (SCM smob)
   Spanner *sp = dynamic_cast<Spanner *> (me);
   r.item_drul_[LEFT] = sp->get_bound (LEFT);
   r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+  r.distance_
+    = robust_scm2double (me->get_property ("minimum-length"), 0);
 
-  SCM num_length = me->get_property ("minimum-length");
-  if (scm_is_number (num_length))
-    {
-      r.distance_ = robust_scm2double (num_length, 0);
-      r.add_to_cols ();
-    }
-  
+  r.add_to_cols ();
   return SCM_UNSPECIFIED;
 }
 

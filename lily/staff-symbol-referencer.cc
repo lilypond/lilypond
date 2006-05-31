@@ -110,6 +110,7 @@ Staff_symbol_referencer::callback (SCM smob)
     {
       Real space = Staff_symbol_referencer::staff_space (me);
       off = scm_to_double (pos) * space / 2.0;
+      me->set_property ("staff-position", scm_from_int (0));
     }
 
   return scm_from_double (off);
@@ -154,13 +155,6 @@ compare_position (Grob *const &a, Grob *const &b)
 {
   return sign (Staff_symbol_referencer::get_position ((Grob *)a)
 	       - Staff_symbol_referencer::get_position ((Grob *) b));
-}
-
-bool
-position_less (Grob *const &a, Grob *const &b)
-{
-  return Staff_symbol_referencer::get_position (a)
-    < Staff_symbol_referencer::get_position (b);
 }
 
 ADD_INTERFACE (Staff_symbol_referencer, "staff-symbol-referencer-interface",

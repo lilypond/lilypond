@@ -80,14 +80,9 @@ public:
   SCM internal_get_property (SCM symbol) const;
   SCM get_property_data (SCM symbol) const;
   SCM internal_get_object (SCM symbol) const;
-  void internal_set_object (SCM sym, SCM val);
-  void internal_del_property (SCM symbol);
-
-#ifndef NDEBUG
-  void internal_set_property (SCM sym, SCM val, char const *file, int line, char const *fun);
-#else
+  void del_property (SCM symbol); 
   void internal_set_property (SCM sym, SCM val);
-#endif
+  void internal_set_object (SCM sym, SCM val);
 
   /* messages */  
   void warning (string) const;
@@ -114,22 +109,16 @@ public:
   /* offsets */
   void translate_axis (Real, Axis);
   Real relative_coordinate (Grob const *refp, Axis) const;
-  Real pure_relative_y_coordinate (Grob const *refp, int start, int end);
-  Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end);
 
   /* extents */
   Interval extent (Grob *refpoint, Axis) const;
   void flush_extent_cache (Axis);
-  Interval pure_height (Grob *refpoint, int start_col, int end_col);
-  Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure, int start, int end);
 
   /* refpoints */
   Grob *common_refpoint (Grob const *s, Axis a) const;
   void set_parent (Grob *e, Axis);
   Grob *get_parent (Axis a) const;
   void fixup_refpoint ();
-
-  virtual Interval_t<int> spanned_rank_iv ();
 };
 
 /* smob utilities */
@@ -150,5 +139,6 @@ void add_offset_callback (Grob *g, SCM proc, Axis a);
 void chain_offset_callback (Grob *g, SCM proc, Axis a);
 SCM axis_offset_symbol (Axis a);
 SCM axis_parent_positioning (Axis a);
+
 
 #endif /* GROB_HH */

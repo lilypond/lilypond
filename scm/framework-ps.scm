@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2004--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm framework-ps))
 
@@ -115,8 +115,7 @@
 	"page-width output-scale lily-output-units mul mul 0 translate 90 rotate\n"
 	"")
     "%%EndPageSetup\n"
-    
-    "true setstrokeadjust\n"
+
     "gsave 0 paper-height translate "
     "set-ps-scale-to-lily-scale "
     "\n"))
@@ -409,7 +408,7 @@
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 
 
-	   (font-loader (if (ly:get-option 'gs-load-fonts)
+	   (font-loader (if (ly:get-option 'gs-font-load)
 			    load-font-via-GS
 			    load-font))
 			 
@@ -456,7 +455,7 @@
 	 (port (ly:outputter-port outputter)))
 
     (if (ly:get-option 'dump-signatures)
-	(write-system-signatures basename (ly:paper-book-systems book) 1))
+	(write-system-signatures basename (ly:paper-book-systems book) 0))
   
     (output-scopes scopes fields basename)
     (display (file-header paper page-count #t) port)
@@ -518,13 +517,8 @@
 	   ;; the left-overshoot is to make sure that
 	   ;; bar numbers  stick out of margin uniformly.
 	   ;;
-	   (list
-
-	    (if (ly:get-option 'pad-eps-boxes) 
-		(min left-overshoot (car xext))
-		(car xext))
-	    (car yext) (cdr xext) (cdr yext))))
-	 
+	   (list (min left-overshoot (car xext))
+		 (car yext) (cdr xext) (cdr yext))))
 	 (rounded-bbox (to-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts?)))
@@ -544,7 +538,7 @@
 
     ;; skip booktitles.
     (if (and
-	 (not (ly:get-option 'include-book-title-preview))
+	 (not (ly:get-option 'preview-include-book-title))
 	 (pair? systems)
 	 (ly:prob-property (car systems) 'is-book-title #f))
 
@@ -595,20 +589,12 @@
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (landscape (ly:output-def-lookup defs 'landscape))
-	 (output-scale (ly:output-def-lookup defs 'output-scale))
-	 (convert (lambda (x) (* x output-scale (/ (ly:bp 1)))))
-	 
-	 (paper-width (convert (ly:output-def-lookup defs 'paper-width)))
-	 (paper-height (convert (ly:output-def-lookup defs 'paper-height)))
-
-	 (w (if landscape paper-height paper-width))
-	 (h (if landscape paper-width paper-height))
-	 )
+	 (papersizename (ly:output-def-lookup defs 'papersizename)))
 
     (if (equal? (basename name ".ps") "-")
 	(ly:warning (_ "can't convert <stdout> to ~S" "PDF"))
-	(postscript->pdf w h name))))
+	(postscript->pdf (if (string? papersizename) papersizename "a4")
+			 name))))
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
@@ -616,13 +602,10 @@
 	 (resolution (if (number? defs-resolution)
 			 defs-resolution
 			 (ly:get-option 'resolution)))
-	 (paper-width (ly:output-def-lookup defs 'paper-width))
-	 (paper-height (ly:output-def-lookup defs 'paper-height))
-	 (output-scale (ly:output-def-lookup defs 'output-scale)))
+	 (papersizename (ly:output-def-lookup defs 'papersizename)))
 
     (postscript->png resolution
-		     (* paper-width output-scale (/ (ly:bp 1)))
-		     (* paper-height output-scale (/ (ly:bp 1)))
+		     (if (string? papersizename) papersizename "a4")
 		     name)))
 
 (define-public (convert-to-dvi book name)

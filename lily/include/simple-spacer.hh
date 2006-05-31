@@ -45,11 +45,11 @@ public:
   void add_spring (Real, Real);
   Real range_ideal_len (int l, int r) const;
   Real range_stiffness (int l, int r) const;
-  Real configuration_length (Real) const;
+  Real configuration_length () const;
   vector<Real> spring_positions () const;
 
-  Real force () const;
-  bool fits () const;
+  Real force ();
+  bool fits ();
 
   DECLARE_SIMPLE_SMOBS (Simple_spacer,);
 
@@ -67,6 +67,7 @@ private:
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
 vector<Real> get_line_forces (vector<Grob*> const &columns,
+			      vector<vsize> breaks,
 			      Real line_len,
 			      Real indent,
 			      bool ragged);
