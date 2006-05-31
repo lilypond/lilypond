@@ -1,3 +1,13 @@
+2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/aclocal.m4: revert version detection.
+
+	* buildscripts/output-distance.py
+	(ComparisonData.create_html_result_page): copy only if file
+	exists, fixup src paths.
+
+	* stepmake/bin/add-html-footer.py (built): junk gulp_file()
+
 2006-06-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Robustification for (gcc) version detection.

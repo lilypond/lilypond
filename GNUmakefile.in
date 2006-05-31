@@ -72,13 +72,13 @@ local-WWW-post:
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(outdir)/index.html
 
 	cd $(top-build-dir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
-	cd $(top-build-dir) && find . -name \*.html~ -print | xargs rm -f
 
 ## rewrite file names so we lose out-www
 	-mv $(outdir)/web-root/ $(outdir)/old-web-root
 	for d in out-www `cd $(top-build-dir) && find Documentation input -name 'out-www' `; do \
+		echo $$d ; \
 		(mkdir -p $(outdir)/web-root/$$d/ || true) ; \
-		rsync -a --include source --include music-glossary \
+		rsync -Wa --include source --include music-glossary \
 			--include lilypond-internals  \
 			--include lilypond \
 		$(foreach pat,$(web-ext), --include '*'.$(pat)) $(top-build-dir)/$$d/ $(outdir)/web-root/$$d/../ ; \

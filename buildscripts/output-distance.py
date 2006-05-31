@@ -244,7 +244,7 @@ class ComparisonData:
             f1 = dir1 +  '/' + p
             distance = compare_signature_files (f1, f2)
             self.result_dict[f2] = (distance, f1)
-    
+
     def create_text_result_page (self, dir1, dir2):
         self.write_text_result_page (dir2 + '/' + os.path.split (dir1)[1] + '.txt')
         
@@ -282,22 +282,29 @@ class ComparisonData:
 
         results.sort ()
         results.reverse ()
-
+        
         html = ''
         old_prefix = os.path.split (dir1)[1]
 
         dest_dir = os.path.join (dir2, old_prefix)
         shutil.rmtree  (dest_dir, ignore_errors=True)
         os.mkdir (dest_dir)
-        for (score, oldfile, newfile) in  results:
-            old_base = re.sub ("-[0-9]+.signature", '', os.path.split (oldfile)[1])
+        for (score, oldfile, newfile) in results:
+            
+            old_base = re.sub ("-[0-9]+.signature", '', oldfile)
+            old_name = os.path.split (old_base)[1]
             new_base = re.sub ("-[0-9]+.signature", '', newfile)
             
             for ext in 'png', 'ly':
-                shutil.copy2 (old_base + '.' + ext, dest_dir)
+                src_file = old_base + '.' + ext
+                
+                if os.path.exists (src_file):
+                    shutil.copy2 (src_file, dest_dir)
+                else:
+                    print "warning: can't find", src_file
 
-            img_1 = os.path.join (old_prefix, old_base + '.png')
-            ly_1 = os.path.join (old_prefix, old_base + '.ly')
+            img_1 = os.path.join (old_prefix, old_name + '.png')
+            ly_1 = os.path.join (old_prefix, old_name + '.ly')
 
             img_2 = new_base.replace (dir2, '') + '.png'
             img_2 = re.sub ("^/*", '', img_2)
@@ -345,11 +352,11 @@ class ComparisonData:
         
 
 def compare_trees (dir1, dir2):
-    data =  ComparisonData ()
+    data = ComparisonData ()
     data.compare_trees (dir1, dir2)
     data.print_results ()
     data.create_html_result_page (dir1, dir2)
-    data.create_text_result_page (dir1, dir2)
+#    data.create_text_result_page (dir1, dir2)
     
 ################################################################
 # TESTING
