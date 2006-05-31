@@ -73,7 +73,8 @@ Ledger_line_engraver::acknowledge_staff_symbol (Grob_info s)
   Spanner *sym = dynamic_cast<Spanner *> (s.grob ());
 
   if (!span_
-      || span_->get_bound (LEFT) != sym->get_bound (LEFT))
+      || (span_->get_bound (LEFT) != sym->get_bound (LEFT)
+	  && sym->get_bound (LEFT)))
     {
       stop_spanner ();
       start_spanner ();

@@ -1,3 +1,8 @@
+2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/ledger-line-engraver.cc (acknowledge_staff_symbol): only
+	create new spanner for non-null left bounded staff symbol.	
+
 2006-05-31  Erlend Aasland  <erlenda@gmail.com>
 
 	* dynamic-engraver.cc: fix bug (dynamics collide with accidentals)
