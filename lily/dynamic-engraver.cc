@@ -61,6 +61,7 @@ class Dynamic_engraver : public Engraver
   void typeset_all ();
 
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
+  DECLARE_ACKNOWLEDGER (accidental);
   DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (stem_tremolo);
   DECLARE_ACKNOWLEDGER (note_column);
@@ -377,6 +378,14 @@ Dynamic_engraver::typeset_all ()
 
 
 void
+Dynamic_engraver::acknowledge_accidental (Grob_info info)
+{
+  if (line_spanner_)
+    Side_position_interface::add_support (line_spanner_, info.grob ());
+}
+
+
+void
 Dynamic_engraver::acknowledge_stem_tremolo (Grob_info info)
 {
   if (line_spanner_)
@@ -449,6 +458,7 @@ Dynamic_engraver::acknowledge_script (Grob_info info)
     Side_position_interface::add_support (line_spanner_, info.grob ());
 }
 
+ADD_ACKNOWLEDGER (Dynamic_engraver, accidental);
 ADD_ACKNOWLEDGER (Dynamic_engraver, script);
 ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
 ADD_ACKNOWLEDGER (Dynamic_engraver, slur);
