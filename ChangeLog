@@ -1,5 +1,9 @@
 2006-05-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/lilypond-book.py (Lilypond_file_snippet.ly): strip
+	version number.
+	(PREAMBLE_LY): copy from -devel branch.
+
 	* VERSION (PATCH_LEVEL): bump to .4
 
 	* lily/parser.yy (simple_markup): replace THIS with PARSER.
