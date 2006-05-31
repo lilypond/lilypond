@@ -240,7 +240,7 @@
   (define (euclidean-length x y)
     (sqrt (+ (* x x) (* y y))))
 
-  (let ((x-width (euclidean-length slope (/ beam-thickness slope)))
+  (let ((x-width (euclidean-length beam-thickness (/ beam-thickness slope)))
 	(height (* width slope)))
     (format #f "~a draw_repeat_slash"
 	    (numbers->string4 (list x-width width height)))))
