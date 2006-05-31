@@ -58,6 +58,34 @@ env.Command ('emmentaler-11.pe',
 	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
 	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
 
+env.Command ('emmentaler-13.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
+
+env.Command ('emmentaler-14.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
+
+env.Command ('emmentaler-16.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
+
+env.Command ('emmentaler-18.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
+
+env.Command ('emmentaler-20.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
+
+env.Command ('emmentaler-23.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
+
+env.Command ('emmentaler-26.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
+
 map (lambda x: env.Depends (x + '.pfa', x + '.enc'), feta)
 
 
@@ -89,10 +117,10 @@ env.Depends ('aybabtu.otf', 'aybabtu.otf-table')
 env.Depends ('aybabtu.otf', 'aybabtu.otf-gtable')
 
 # Hmm?
-env.Depends ('aybabtu.pfa', 'aybabtu.subfonts')
-env.Depends ('aybabtu.pfa', 'aybabtu.fontname')
-env.Depends ('aybabtu.pfa', 'aybabtu.otf-table')
-env.Depends ('aybabtu.pfa', 'aybabtu.otf-gtable')
+#env.Depends ('aybabtu.pfa', 'aybabtu.subfonts')
+#env.Depends ('aybabtu.pfa', 'aybabtu.fontname')
+#env.Depends ('aybabtu.pfa', 'aybabtu.otf-table')
+#env.Depends ('aybabtu.pfa', 'aybabtu.otf-gtable')
 
 
 ## FIXME

@@ -285,10 +285,12 @@ AC_DEFUN(STEPMAKE_DATADIR, [
     
     build_package_datadir=$ugh_ugh_autoconf250_builddir/out$CONFIGSUFFIX/share/$package
     
+    DATADIR=`echo ${datadir} | sed "s!\\\${datarootdir}!${prefix}/share!"`
     DATADIR=`echo ${datadir} | sed "s!\\\${prefix}!$presome!"`
     BUILD_PACKAGE_DATADIR=`echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!"`
     
     AC_SUBST(datadir)
+    AC_SUBST(datarootdir)
     AC_SUBST(build_package_datadir)
     AC_DEFINE_UNQUOTED(DATADIR, ["${DATADIR}"])
     AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, ["${BUILD_PACKAGE_DATADIR}"])
