@@ -1,5 +1,7 @@
 2006-05-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PATCH_LEVEL): bump to .4
+
 	* lily/parser.yy (simple_markup): replace THIS with PARSER.
 
 	* ly/Welcome-to-LilyPond-MacOS.ly: include in LilyPond, so version
