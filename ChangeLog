@@ -1,6 +1,7 @@
 2006-05-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* GNUmakefile.in: simplify local-WWW-post. 
+	remove -type l from find.
 
 	* buildscripts/output-distance.py (ComparisonData.compare_trees):
 	fixes. Don't follow symlinks.
