@@ -73,24 +73,17 @@ local-WWW-post:
 
 	cd $(top-build-dir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
 	cd $(top-build-dir) && find . -name \*.html~ -print | xargs rm -f
-	cd $(top-build-dir) && find Documentation input \
-		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
-		> $(outdir)/weblist
-	ls $(outdir)/*.html >> $(outdir)/weblist
 
 ## rewrite file names so we lose out-www
-	rm -rf $(outdir)/web-root/
-	mkdir $(outdir)/web-root/  
-	cat $(outdir)/weblist | (cd $(top-build-dir); tar -cf-  -T- ) | \
-		tar -C $(outdir)/web-root/ -xf -  
-	for dir in $(outdir)/web-root/ ; do  \
-		cd $$dir && \
-		for a in `find . -name out-www`; do \
-			rsync -a  --link-dest $$a/ $$a/ $$a/.. ; \
-			rm -rf $$a ; \
-		done \
+	-mv $(outdir)/web-root/ $(outdir)/old-web-root
+	for d in out-www `cd $(top-build-dir) && find Documentation input -name 'out-www' -or -type l`; do \
+		(mkdir -p $(outdir)/web-root/$$d/ || true) ; \
+		rsync -a $(foreach pat,$(web-ext), --include '*'.$(pat)) $(top-build-dir)/$$d/ $(outdir)/web-root/$$d/../ ; \
 	done
-	echo $(TOPLEVEL_VERSION) > $(outdir)/web-root/VERSION
+## todo: use --link-dest
+#  --link-dest=$(outdir)/old-web-root/$$d
+	-rm -rf $(outdir)/old-web-root
+
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
