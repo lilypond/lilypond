@@ -1,3 +1,11 @@
+2006-05-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* buildscripts/output-distance.py (ComparisonData.compare_trees):
+	fixes. Don't follow symlinks.
+	(ComparisonData.create_html_result_page): remove previous results.
+
+	* scripts/lilypond-book.py (PREAMBLE_LY): spacing fixes.
+
 2006-05-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* config.make.in (datadir): Add datarootdir to silence autoconf.
