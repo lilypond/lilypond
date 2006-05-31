@@ -217,10 +217,13 @@ class ComparisonData:
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
         
-        (root, files, dirs) = os.walk (dir1).next ()
+        (root, dirs, files) = os.walk (dir1).next ()
         for d in dirs:
             d1 = os.path.join (dir1, d)
             d2 = os.path.join (dir2, d)
+
+            if os.path.islink (d1) or os.path.islink (d2):
+                continue
             
             if os.path.isdir (d2):
                 self.compare_trees (d1, d2)
@@ -278,13 +281,16 @@ class ComparisonData:
 
         html = ''
         old_prefix = os.path.split (dir1)[1]
-        os.mkdir (dir2 + '/' + old_prefix)
+
+        dest_dir = os.path.join (dir2, old_prefix)
+        shutil.rmtree  (dest_dir, ignore_errors=True)
+        os.mkdir (dest_dir)
         for (score, oldfile, newfile) in  results:
             old_base = re.sub ("-[0-9]+.signature", '', os.path.split (oldfile)[1])
             new_base = re.sub ("-[0-9]+.signature", '', newfile)
             
             for ext in 'png', 'ly':
-                shutil.copy2 (old_base + '.' + ext, dir2 + '/' + old_prefix)
+                shutil.copy2 (old_base + '.' + ext, dest_dir)
 
             img_1 = os.path.join (old_prefix, old_base + '.png')
             ly_1 = os.path.join (old_prefix, old_base + '.ly')

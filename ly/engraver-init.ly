@@ -148,6 +148,7 @@ contained staves are not connected vertically."
   \consists "Time_signature_engraver"
   \consists "Instrument_name_engraver"
   \consists "Axis_group_engraver"
+  \consists "Ledger_line_engraver" 
   
   \accepts "Voice"
   \accepts "CueVoice"
