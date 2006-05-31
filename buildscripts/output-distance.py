@@ -2,6 +2,10 @@
 import sys
 import optparse
 
+
+## so we can call directly as buildscripts/output-distance.py
+sys.path.insert (0, '../python')
+
 import safeeval
 
 
