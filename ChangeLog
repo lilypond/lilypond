@@ -1,3 +1,7 @@
+2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/aclocal.m4: revert version detection change.
+
 2006-06-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Robustification for (gcc) version detection.

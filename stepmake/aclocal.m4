@@ -32,8 +32,13 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ## FIXME: what systems still do not have $() in /bin/sh?
     eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' \
         | head -n 1 \
-        | sed -e 's/\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
-	  -e 's/\([^0-9]*\|^\) //' -e 's/[^0-9]*$//'\`\"
+	| sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
+          -e 's/^[^.0-9]*//' -e 's/[^.0-9]*$//'\`\"
+
+## apparently breaks on darwin,  
+#        | sed -e 's/\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
+#	  -e 's/\([^0-9]*\|^\) //' -e 's/[^0-9]*$//'\`\"
+
     if test -z "$_ver"; then
         ## If empty, try date [fontforge]
         eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\{6,8\}' \

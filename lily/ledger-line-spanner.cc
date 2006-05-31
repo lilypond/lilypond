@@ -119,7 +119,10 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
   // find size of note heads.
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   if (!staff)
-    return SCM_EOL;
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
 
   Real min_length_fraction
     = robust_scm2double (me->get_property ("minimum-length-fraction"), 0.15);
