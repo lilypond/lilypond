@@ -50,6 +50,7 @@ configure-srcdir = @srcdir@
 bindir = @bindir@
 build_lilypond_datadir = @build_package_datadir@
 build_lilypond_libdir = @build_package_libdir@
+datarootdir = @datarootdir@
 datadir = @datadir@
 docdir = $(datadir)/doc
 elispdir = $(datadir)/emacs/site-lisp
@@ -144,6 +145,3 @@ TAR = @TAR@
 WINDRES = @WINDRES@
 YACC = @YACC@
 ZIP = @ZIP@
-
-
-
