@@ -1,3 +1,10 @@
+2006-06-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Robustification for (gcc) version detection.
+
+	* cygwin/postinstall-lilypond.sh: Do not fail if info docs aren't
+	available.  This should be moved to postinstall-lilypond-doc.
+
 2006-05-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* GNUmakefile.in: simplify local-WWW-post. 
