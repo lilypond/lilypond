@@ -8,7 +8,9 @@
 2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/ledger-line-engraver.cc (acknowledge_staff_symbol): only
-	create new spanner for non-null left bounded staff symbol.	
+	create new spanner for non-null left bounded staff symbol.
+	
+	* lily/ledger-line-spanner.cc (set_spacing_rods): suicide if no staff.
 
 2006-05-31  Erlend Aasland  <erlenda@gmail.com>
 
@@ -55,11 +57,6 @@
 
 	* buildscripts/output-distance.py (main): new function.
 	(ComparisonData): new class.
-
-	* lily/ledger-line-engraver.cc (acknowledge_staff_symbol): be more
-	careful with generating new LedgerLineSpanners.
-
-	* lily/ledger-line-spanner.cc (set_spacing_rods): suicide if no staff.
 
 	* ly/engraver-init.ly: remove Ledger_line_engraver from Voice
 	context. This fixes double ledger lines in output. 
