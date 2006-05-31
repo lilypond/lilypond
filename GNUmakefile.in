@@ -78,7 +78,10 @@ local-WWW-post:
 	-mv $(outdir)/web-root/ $(outdir)/old-web-root
 	for d in out-www `cd $(top-build-dir) && find Documentation input -name 'out-www' `; do \
 		(mkdir -p $(outdir)/web-root/$$d/ || true) ; \
-		rsync -a --include source $(foreach pat,$(web-ext), --include '*'.$(pat)) $(top-build-dir)/$$d/ $(outdir)/web-root/$$d/../ ; \
+		rsync -a --include source --include music-glossary \
+			--include lilypond-internals  \
+			--include lilypond \
+		$(foreach pat,$(web-ext), --include '*'.$(pat)) $(top-build-dir)/$$d/ $(outdir)/web-root/$$d/../ ; \
 	done
 ## todo: use --link-dest
 #  --link-dest=$(outdir)/old-web-root/$$d
