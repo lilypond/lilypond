@@ -1,5 +1,9 @@
 2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/output-distance.py
+	(ComparisonData.write_text_result_page): separate the scores, sort
+	by geo_score.
+
 	* scm/framework-eps.scm (output-classic-framework): start at 1 for
 	system signatures.
 
