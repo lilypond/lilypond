@@ -51,6 +51,7 @@ bindir = @bindir@
 build_lilypond_datadir = @build_package_datadir@
 build_lilypond_libdir = @build_package_libdir@
 datadir = @datadir@
+datarootdir = @datarootdir@
 docdir = $(datadir)/doc
 elispdir = $(datadir)/emacs/site-lisp
 includedir = @includedir@
@@ -144,6 +145,3 @@ TAR = @TAR@
 WINDRES = @WINDRES@
 YACC = @YACC@
 ZIP = @ZIP@
-
-
-
