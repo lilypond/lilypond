@@ -351,8 +351,8 @@ grestore
 	      "['~a', '~a', ~a, ~a, '~a'],\n"
 	      (cdr (assq 'name (ly:grob-property grob 'meta) ))
 	      (pythonic-string location)
-	      (pythonic-pair (if (interval-empty? x-ext) '(0 . 0) x-ext))
-	      (pythonic-pair (if (interval-empty? y-ext) '(0 . 0) y-ext))
+	      (pythonic-pair (if (interval-empty? x-ext) '(1 . -1) x-ext))
+	      (pythonic-pair (if (interval-empty? y-ext) '(1 . -1) y-ext))
 	      (pythonic-string collected))
       ))
 
