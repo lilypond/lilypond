@@ -317,7 +317,7 @@ EndEPSF"))
 
   (define (pythonic-string expr)
     "escape quotes and slashes for python consumption"
-    (regexp-substitute/global #f "([\\\\'\"])" (format "~a" expr) 'pre "\\" 1 'post))
+    (regexp-substitute/global #f "([\n\\\\'\"])" (format "~a" expr) 'pre "\\" 1 'post))
 
   (define (pythonic-pair expr)
     (format "(~a,~a)"
@@ -344,8 +344,8 @@ EndEPSF"))
 	      "['~a', '~a', ~a, ~a, '~a'],\n"
 	      (cdr (assq 'name (ly:grob-property grob 'meta) ))
 	      (pythonic-string location)
-	      (pythonic-pair (if (interval-empty? x-ext) '(0 . 0) x-ext))
-	      (pythonic-pair (if (interval-empty? y-ext) '(0 . 0) y-ext))
+	      (pythonic-pair (if (interval-empty? x-ext) '(1 . -1) x-ext))
+	      (pythonic-pair (if (interval-empty? y-ext) '(1 . -1) y-ext))
 	      (pythonic-string collected))
       ))
 

@@ -1,5 +1,10 @@
 2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/framework-ps.scm (output-framework): start system count at 1.
+
+	* scm/stencil.scm (write-system-signature): escape
+	newlines. Output empty stencils as (1,-1)
+
 	* make/mutopia-rules.make ($(outdir)/%.png $(outdir)/%.pdf
 	$(outdir)/%.ly $(outdir)/%.ps): dump sigs for normal files too.
 
