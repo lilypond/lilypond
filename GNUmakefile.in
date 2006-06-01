@@ -74,7 +74,7 @@ local-WWW-post:
 	cd $(top-build-dir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
 
 ## rewrite file names so we lose out-www
-	-mv $(outdir)/web-root/ $(outdir)/old-web-root
+	rm -rf $(outdir)/web-root/ 
 	for d in out-www `cd $(top-build-dir) && find Documentation input -name 'out-www' `; do \
 		echo $$d ; \
 		(mkdir -p $(outdir)/web-root/$$d/ || true) ; \
@@ -83,10 +83,7 @@ local-WWW-post:
 			--include lilypond \
 		$(foreach pat,$(web-ext), --include '*'.$(pat)) $(top-build-dir)/$$d/ $(outdir)/web-root/$$d/../ ; \
 	done
-## todo: use --link-dest
-#  --link-dest=$(outdir)/old-web-root/$$d
 	echo $(TOPLEVEL_VERSION)> $(outdir)/web-root/VERSION 
-	-rm -rf $(outdir)/old-web-root
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
