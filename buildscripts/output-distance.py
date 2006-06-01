@@ -1,10 +1,12 @@
 #!@TARGET_PYTHON@
 import sys
 import optparse
-
+import os
 
 ## so we can call directly as buildscripts/output-distance.py
-sys.path.insert (0, '../python')
+me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
+sys.path.insert (0, me_path + '/../python/')
+
 
 import safeeval
 
@@ -349,7 +351,7 @@ class ComparisonData:
             html += html_entry
 
         html = '''<html>
-<table>
+<table rules="rows" border bordercolor="blue">
 <tr>
 <th>distance</th>
 <th>old</th>

@@ -1,6 +1,11 @@
 2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/output-distance.py (me_path): use argv[0] for
+	sys.path extension
+	(ComparisonData.img_cell): use colored borders.
+
 	* scm/stencil.scm (write-system-signature): escape newlines too.
+	(write-system-signature): use (1,-1) interval for empty interval
 
 2006-01-01  Graham Percival  <gpermus@gmail.com>
 
