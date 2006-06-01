@@ -1,3 +1,13 @@
+2006-06-02  Graham Percival  <gpermus@gmail.com>
+
+	* tex/texinfo.cnf: added UTF-8 support for texinfo; patch
+	from Werner Lemberg.
+
+2006-06-02  Paco (Francisco Vila)  <fravd@ya.com>
+
+	* Documentation/user/music-glossary.tely: additional spanish
+	updates and a lyrics fix in an example.
+
 2006-06-02  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* scm/define-grob-properties.scm: Add missing doc strings for
