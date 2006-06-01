@@ -360,49 +360,65 @@ Titles are created for each @code{\score} block, and over a
 
 The contents of the titles are taken from the @code{\header} blocks.
 The header block for a book supports the following
+
+
 @table @code
+@findex dedication
 @item dedication
 The dedicatee of the music, centered at the top of the first page.
 
+@findex title
 @item title
 The title of the music, centered just below the dedication.
 
+@findex subtitle
 @item subtitle
 Subtitle, centered below the title.
 
+@findex subsubtitle
 @item subsubtitle
 Subsubtitle, centered below the subtitle.
 
+@findex poet
 @item poet
 Name of the poet, flush-left below the subtitle.
 
+@findex composer
 @item composer
 Name of the composer, flush-right below the subtitle.
 
+@findex meter
 @item meter
 Meter string, flush-left below the poet.
 
+@findex opus
 @item opus
 Name of the opus, flush-right below the composer.
 
+@findex arranger
 @item arranger
 Name of the arranger, flush-right below the opus.
 
+@findex instrument
 @item instrument
 Name of the instrument, centered below the arranger.  Also
 centered at the top of pages (other than the first page).
 
+@findex piece
 @item piece
 Name of the piece, flush-left below the instrument.
 
 @cindex page breaks, forcing
+@findex breakbefore
 @item breakbefore
 This forces the title to start on a new page (set to ##t or ##f).
 
+@findex copyright
 @item copyright
 Copyright notice, centered at the bottom of the first page.  To
 insert the copyright symbol, see @ref{Text encoding}.
 
+@findex tagline
 @item tagline
 Centered at the bottom of the last page.
 
@@ -646,8 +662,8 @@ footers to each page.
 @findex annotate-spacing
 @cindex Spacing, display of properties
 
-To graphically display the dimensions of properties that may
-be altered for page formatting, use
+To graphically display the dimensions of vertical properties
+that may be altered for page formatting, use
 
 @example
 \paper @{
@@ -656,7 +672,10 @@ be altered for page formatting, use
 @end example
 
 @noindent
-All units dimensions are measured in staff spaces. The pairs
+@c  FIXME: really bad vagueness due to bug in annotate-spacing.  -gp
+Some unit dimensions are measured in staff spaces, while others
+are measured in millimeters.
+The pairs
 (@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
 @var{b} the upper edge of the interval.
 

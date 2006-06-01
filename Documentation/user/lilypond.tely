@@ -51,7 +51,7 @@ This document is also available as a
 
 
 @c  This produces the unified index
-@syncodeindex ky cp
+@syncodeindex fn cp
 @syncodeindex vr cp
 
 @documentlanguage en
@@ -163,10 +163,11 @@ Appendices
 * Example templates::              Ready-made templates.
 * Cheat sheet::                    Summary of LilyPond syntax.
 * GNU Free Documentation License:: License of this document.
-* LilyPond command index::
 * LilyPond index::
 @end menu
 @end ifnottex
+@c  If included, place it second-last
+@c * LilyPond command index::
 
 @contents
 
@@ -198,10 +199,15 @@ Appendices
 @include cheatsheet.itely
 @include fdl.itexi
 
+@ignore
+Can be implented with a new  texinfo.tex (part of texinfo)
+- we should probably wait until texinfo 4.9 is released, to avoid
+  causing problems for people who make docs.
 @node LilyPond command index
 @appendix LilyPond command index
 
-@printindex fn
+@printindex ky
+@end ignore
 
 @node LilyPond index
 @appendix LilyPond index

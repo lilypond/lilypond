@@ -152,7 +152,7 @@ Vertical positioning of these symbols is handled by
 @end quotation
 
 @noindent
-So to move dynamics around, we use
+So to move dynamics around vertically, we use
 
 @example
 \override DynamicLineSpanner #'padding = #2.0
@@ -163,7 +163,8 @@ common objects.
 
 @multitable @columnfractions .33 .66
 @headitem Object type           @tab Object name
-@item Dynamics                  @tab @code{DynamicLineSpanner}
+@item Dynamics (vertically)     @tab @code{DynamicLineSpanner}
+@item Dynamics (horizontally)   @tab @code{DynamicText}
 @item Ties                      @tab @code{Tie}
 @item Slurs                     @tab @code{Slur}
 @item Articulations             @tab @code{Script}

@@ -15,6 +15,7 @@ this chapter.
 * Troubleshooting (taking it all apart)::  
 * Saving typing with identifiers and functions::  
 * Style sheets::                
+* Fitting music onto fewer pages::  
 @end menu
 
 
@@ -534,4 +535,83 @@ file with @code{\include "../global.ly"}, which contains
 \include "../init/init-paper.ly"
 @end example
 
+
+@node Fitting music onto fewer pages
+@section Fitting music onto fewer pages
+
+Sometimes you can end up with one or two staves on a second
+(or third, or fourth...) page.  This is annoying, especially
+if you look at previous pages and it looks like there is plenty
+of room left on those.
+
+When investigating layout issues, @code{annotate-spacing} is
+an invaluable tool.  This command prints the values of various
+layout spacing commands; see @ref{Page formatting} for more
+details.
+
+@lilypond[quote,verbatim]
+\paper{
+  annotate-spacing = ##t
+}
+\header{
+  title = "Insert Witty Title Here"
+  composer = "Me, myself, and I"
+}
+\score{ {
+    \repeat unfold 32 { c'4 c' c' c' }
+  }
+}
+@end lilypond
+
+@noindent
+From this output, we can see which margins we may wish to alter.
+
+Other than margins, there are a few other options to save space:
+
+@itemize
+@item
+You may tell LilyPond to place systems as close together as
+possible (to fit as many systems as possible onto a page), but
+then to space those systems out so that there is no blank
+space at the bottom of the page.
+
+@example
+\paper @{
+between-system-padding = #0.5
+ragged-last-bottom = ##f
+ragged-bottom = ##f
+@}
+@end example
+
+@item
+You may force the number of systems (i.e. if LilyPond wants
+to typeset some music with 11 systems, you could force it to
+use 10).
+
+@example
+\paper @{
+system-count = #10
+@}
+@end example
+
+@item
+Avoid (or reduce) objects which increase the vertical size of
+a system.  For example, volta repeats (or alternate repeats)
+require extra space.  If these repeats are spread over two
+systems, they will take up more space than one system with
+the volta repeats and another system without.
+
+Another example is moving dynamics which ``stick out'' of
+a system.
+
+@lilypond[verbatim,quote,fragment]
+\relative c' {
+  e4 c g\f c
+  \override DynamicLineSpanner #'padding = #-1.8
+  \override DynamicText #'extra-offset = #'( -2.1 . 0)
+  e4 c g\f c
+}
+@end lilypond
+
+@end itemize
 
