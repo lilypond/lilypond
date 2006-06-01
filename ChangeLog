@@ -17,6 +17,8 @@
 
 2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* GNUmakefile.in: write VERSION, again.
+
 	* make/mutopia-rules.make ($(outdir)/%.png $(outdir)/%.pdf
 	$(outdir)/%.ly $(outdir)/%.ps): dump sigs for normal files too.
 

@@ -85,8 +85,8 @@ local-WWW-post:
 	done
 ## todo: use --link-dest
 #  --link-dest=$(outdir)/old-web-root/$$d
+	echo $(TOPLEVEL_VERSION)> $(outdir)/web-root/VERSION 
 	-rm -rf $(outdir)/old-web-root
-
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
