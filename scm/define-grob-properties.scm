@@ -607,9 +607,16 @@ than a whole rest.")
      ;;;;;;; TODO:
      ;; there are too many properties for ancient notation
      ;; probably neume-types (a list of symbols) would also work.
-     
-     (auctum ,boolean? "is this neume augmented?")
-     (ascendens ,boolean? "is this neume of an ascending?")
+
+     ;; However, such this list would consist of a couple of dozens of
+     ;; entries, since head prefixes may be combined in many ways.  If
+     ;; the macros in gregorian-init.ly would directly set prefix-set,
+     ;; all the head prefixes could be junked; however, such macros
+     ;; would be quite numerous, I guess.  --jr
+
+     (auctum ,boolean? "is this neume liquescentically augmented?")
+     (augmentum ,boolean? "is this neume durationally augmented?")
+     (ascendens ,boolean? "is this neume of an ascending type?")
      (add-cauda ,boolean? "does this flexa require an additional cauda on the left side?")
      (add-join ,boolean? "is this ligature head joined with the next one by a vertical line?")
      (cavum ,boolean? "is this neume outlined?")
@@ -619,20 +626,17 @@ than a whole rest.")
      (flexa-width ,ly:dimension? "width of a flexa shape in a ligature grob in staff_space.")
      (join-heads ,boolean? "Whether to join the note heads of an ambitus grob with a vertical line.")
      (linea ,boolean? "attach vertical lines to this neume?")
-  
- 
      (add-stem ,boolean? "is this ligature head a virga and therefore needs an additional stem on the right side?")
-     (context-info ,integer? "DOCME")
+     (context-info ,integer? "Within a ligature, the final glyph or shape of a head may be affected by the left and/or right neighbour head.  context-info holds for each head such information about the left and right neighbour, encoded as a bit mask.")
      (inclinatum ,boolean? "is this neume an inclinatum?")
      (oriscus ,boolean? "is this neume an oriscus?")
      (quilisma ,boolean? "is this neume a quilisma?")
      (pes-or-flexa ,boolean? "shall this neume be joined with the previous head?")
-     ;; DOCME
-     (prefix-set ,number? "")
+     (prefix-set ,number? "a bit mask that holds all Gregorian head prefixes, such as @code{\\virga} or @code{\\quilisma}")
      (stropha ,boolean? "Is this neume a stropha?")
      (virga ,boolean? "Is this neume a virga?")
      (x-offset ,ly:dimension? "Extra horizontal offset for ligature heads.")
-     
+
      ;; end ancient notation
 
      )))
