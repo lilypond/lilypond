@@ -101,7 +101,7 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
   (output-scopes scopes fields basename)
 
   (if (ly:get-option 'dump-signatures)
-      (write-system-signatures basename (ly:paper-book-systems book) 0))
+      (write-system-signatures basename (ly:paper-book-systems book) 1))
   
   (dump-stencils-as-EPSes
    (map paper-system-stencil (ly:paper-book-systems book))
