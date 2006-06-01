@@ -324,7 +324,7 @@ grestore
 
   (define (pythonic-string expr)
     "escape quotes and slashes for python consumption"
-    (regexp-substitute/global #f "([\\\\'\"])" (format "~a" expr) 'pre "\\" 1 'post))
+    (regexp-substitute/global #f "([\n\\\\'\"])" (format "~a" expr) 'pre "\\" 1 'post))
 
   (define (pythonic-pair expr)
     (format "(~a,~a)"
