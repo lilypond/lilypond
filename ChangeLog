@@ -1,3 +1,14 @@
+2006-01-01  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/music-glossary.tely: Spanish updates
+	from Francisco Vila.
+
+	* Documentation/user/lilypond-book.itely: addition from
+	Vaclav Smilauer.
+
+	* Documentation/user/ various: edits, small additions
+	from mailist, etc.
+
 2006-06-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (tree-lib-prefix-current):

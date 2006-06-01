@@ -435,7 +435,7 @@ The stress of one tone over others.
 @node accidental
 @section accidental
 
-ES: alteración accidentelle,
+ES: alteración accidental,
 I: accidento,
 F: altération accidentelle,
 D: Vorzeichen, Versetzungszeichen, Akzidenz,
@@ -560,7 +560,7 @@ C clef setting middle C on the middle line of the staff
 @node ambit
 @section ambit
 
-ES: Ã¡mbito,
+ES: ámbito,
 I: ambitus,
 F: ambitus,
 D: ambitus,
@@ -769,7 +769,7 @@ ES: compás, @aref{measure}.
 @node bar line
 @section bar line
 
-ES: barra, lÃ­nea divisoria,
+ES: barra, línea divisoria,
 I: stanghetta, barra (di divisione),
 F: barre (de mesure),
 D: Taktstrich,
@@ -870,7 +870,7 @@ The number of beams determines the note value of the connected notes.
 @node beat
 @section beat
 
-ES: tiempo, parte (de compÃ¡s)
+ES: tiempo, parte (de compás)
 I: tempi,
 F: temps,
 D: Takt, Taktschlag, Zeit (im Takt),
@@ -944,7 +944,7 @@ trumpet, trombone, french horn, and tube.
 @node breath mark
 @section breath mark
 
-ES: respiraciÃ³n,
+ES: respiración,
 I: respiro,
 F: respiration,
 D: Atemzeichen, Trennungszeichen,
@@ -1424,7 +1424,7 @@ abbreviation ``cresc.''.
 @node cue-notes
 @section cue-notes
 
-ES: notas guÃ­a,
+ES: notas guía,
 I: notine,
 F: petites notes précédent l'entrée d'in instrument, réplique,
 D: Stichnoten,
@@ -1733,7 +1733,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @node diminished interval
 @section diminished interval
 
-ES: intervalo disminuído,
+ES: intervalo disminuido,
 I: intervallo diminuito,
 F: intervalle diminué,
 D: vermindertes Intervall,
@@ -2092,7 +2092,7 @@ plate of metal.  Now also the term for the art of music typesetting.
 @node enharmonic
 @section enharmonic
 
-ES: enharmónico,
+ES: enarmónico,
 I: enarmonico,
 F: enharmonique,
 D: enharmonisch,
@@ -2135,7 +2135,7 @@ Tuning system dividing the octave into 12 equal @aref{semitone}s
 @node expression mark
 @section expression mark
 
-ES: expresiÃ³n,
+ES: expresión,
 I: segno d'espressione,
 F: signe d'expression, indication de nuance,
 D: Vortragszeichen,
@@ -2210,7 +2210,7 @@ symbol indicates playing an octave lower (for example on double bass
 @node fermata
 @section fermata
 
-ES: Calderón,
+ES: calderón,
 I: corona,
 F: point d'orgue, point d'arr@^et,
 D: Fermate,
@@ -2733,7 +2733,7 @@ The difference between an interval and an octave.
 @node just intonation
 @section just intonation
 
-ES: entonaciÃ³n justa,
+ES: entonación justa,
 I: intonazione giusta,
 F: intonation juste,
 D: reine Stimmung,
@@ -2810,7 +2810,7 @@ upwards) to the tonic scale degree.
 @node ledger line
 @section ledger line
 
-ES: líneas adicionales,
+ES: línea adicional,
 I: tagli addizionali,
 F: ligne supplémentaire,
 D: Hilfslinie,
@@ -2873,7 +2873,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
 @node lilypond
 @section lilypond
 
-ES: estanque de nenÃºfares,
+ES: estanque de nenúfares,
 I: stagno del giglio,
 F: étang de lis,
 UK: lily pond,
@@ -2953,7 +2953,7 @@ Note value: double length of @aref{breve}.
 @node lyrics
 @section lyrics
 
-ES: letra (de la canciÃ³n),
+ES: letra (de la canción),
 I: .,
 F: .,
 D: Liedtext,
@@ -2993,7 +2993,7 @@ FI: duuri.
 @node meantone temperament
 @section meantone temperament
 
-ES: afinaciÃ³n mesotÃ³nica,
+ES: afinación mesotónica,
 I: accordatura mesotonica,
 F: tempérament mésotonique,
 D: mitteltönige Stimmung,
@@ -3134,7 +3134,7 @@ M.M.@: (Mälzels Metronom).
 @node mezzo-soprano
 @section mezzo-soprano
 
-ES: mezzo soprano,
+ES: mezzosoprano,
 I: mezzo-soprano,
 F: mezzo-soprano,
 D: Mezzosopran,
@@ -3393,7 +3393,7 @@ instrument.
 @node note value
 @section note value
 
-ES: valor (duraciÃ³n),
+ES: valor (duración),
 I: valore, durata,
 F: durée, valeur (d'une note),
 D: Notenwert,
@@ -3717,7 +3717,7 @@ denotes the highest possible degree of speed.
 @node Pythagorean comma
 @section Pythagorean comma
 
-ES: coma pitagórico,
+ES: coma pitagórica,
 I: comma pitagorico,
 F: comma pythagoricien,
 D: Pythagoräisches Komma,
@@ -3807,7 +3807,7 @@ Abbreviation "rall.".  @aref{ritardando}.
 @node relative key
 @section relative key
 
-ES: relativa,
+ES: relativo,
 I: tonalità relativa,
 F: tonalité relative,
 D: Paralleltonart,
@@ -4159,7 +4159,7 @@ FI: kuudeskymmenesneljäsosatauko.
 @node slur
 @section slur
 
-ES: ligadura (de expresiÃ³n),
+ES: ligadura (de expresión),
 I: legatura (di portamento or espressiva),
 F: liaison, coulé,
 D: Bogen, Legatobogen, Phrasierungsbogen,
@@ -4175,7 +4175,7 @@ breath in singing.
 @node solmization
 @section solmization
 
-ES: solmisaciÃ³n,
+ES: solmisación,
 I: solmisazione,
 F: solmisation,
 D: Solmisation,
@@ -4440,7 +4440,7 @@ A symphony may be defined as a @aref{sonata} for orchestra.
 @node syncopation
 @section syncopation
 
-ES: sÃ­ncopa,
+ES: síncopa,
 I: sincope,
 F: syncope,
 D: Synkope,
@@ -4468,7 +4468,7 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
 @node syntonic comma
 @section syntonic comma
 
-ES: coma sintÃ³nica,
+ES: coma sintónica,
 I: comma sintonico (o didimico),
 F: comma syntonique,
 D: syntonisches Komma,
@@ -4685,7 +4685,7 @@ uniting them into a single sound (tone) equal to the combined durations.
 @node time signature
 @section time signature
 
-ES: cifra indicadora de compás,
+ES: indicación de compás,
 I: segni di tempo,
 F: chiffrage (chiffres indicateurs), signe de valeur,
 D: Taktangabe, Angabe der Taktart,
@@ -4715,7 +4715,7 @@ Music from the 20th century may be based on atonal sounds.
 @node tonic
 @section tonic
 
-ES: tÃ³nica,
+ES: tónica,
 I: tonica,
 F: tonique,
 D: Tonika,
@@ -4779,7 +4779,7 @@ FI: diskanttiavain.
 @node tremolo
 @section tremolo
 
-ES: trÃ©molo,
+ES: trémolo,
 I: tremolo,
 F: trémolo,
 D: Tremolo,
@@ -4835,7 +4835,7 @@ FI: trilli.
 @node triple meter
 @section triple meter
 
-ES: compás compuesto,
+ES: compás ternario,
 I: tempo ternario,
 F: mesure ternaire,
 D: in drei,
@@ -4863,7 +4863,7 @@ FI: trioli.
 @node tritone
 @section tritone
 
-ES: trítono,
+ES: tritono,
 I: tritono,
 F: triton,
 D: Tritonus,
@@ -4923,7 +4923,7 @@ different octave.
 @node upbeat
 @section upbeat
 
-ES: entrada anacrúsica,
+ES: anacrusa,
 I: anacrusi,
 F: anacrouse, levée,
 D: Auftakt,
@@ -5214,13 +5214,13 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 
 @item
 
-@item @strong{c-sharp} @tab do diesis  @tab do diesis  @tab ut dièse @tab
+@item @strong{c-sharp} @tab do sostenido  @tab do diesis  @tab ut dièse @tab
 Cis @tab cis @tab
 cis @tab cis @tab cis
 
 @item
 
-@item @strong{d-flat} @tab re bemolle  @tab re bemolle  @tab ré bémol @tab
+@item @strong{d-flat} @tab re bemol  @tab re bemolle  @tab ré bémol @tab
 Des @tab des @tab
 des @tab des @tab des
 

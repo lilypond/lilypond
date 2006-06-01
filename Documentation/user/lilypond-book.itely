@@ -303,6 +303,66 @@ be ignored.
 @cindex international characters
 @cindex latin1
 
+Sometimes it is useful to display music elements (such as ties and slurs)
+as if they continued after the end of the fragment.  This can be done by
+breaking the staff and suppressing inclusion of the rest of the lilypond
+output.
+
+In La@TeX{}, define @code{\betweenLilyPondSystem} in such a way that
+inclusion of other systems is terminated once the required number of
+systems are included.  Since @code{\betweenLilypondSystem} is first
+called @b{after} the first system, including only the first system
+is trivial.
+
+@example
+\def\betweenLilyPondSystem#1@{\endinput@}
+
+\begin[fragment]@{lilypond@}
+  c'1\( e'( c'~ \break c' d) e f\)
+\end@{lilypond@}
+@end example
+
+If a greater number of systems is requested, a TeX conditional must be
+used before the @code{\endinput}.  In this example, replace "2" by
+the numer of systems you want in the output,
+
+@example
+\def\betweenLilyPondSystem#1@{
+    \ifnum##1<2\else\endinput\fi
+@}
+@end example
+
+Remember that the definition of @code{\betweenLilyPondSystem} is
+effective until @TeX{} quits the current group (such as the La@TeX{}
+environment) or is overridden by another definition (which is, in
+most cases, for the rest of the document).  To reset your
+definition, write
+
+@example
+\let\betweenLilyPondSystem\undefined
+@end example
+
+@noindent
+in your LaTeX source.
+
+This may be simplified by defining a @TeX{} macro
+
+@example
+\def\onlyFirstNSystems#1@{
+    \def\betweenLilyPondSystem##1@{\ifnum##1<#1\else\endinput\fi@}
+@}
+@end example
+
+@noindent
+and then saying only how many systems you want before each fragment,
+
+@example
+\onlyFirstNSystems@{3@}
+\begin@{lilypond@}...\end@{lilypond@}
+\onlyFirstNSystems@{1@}
+\begin@{lilypond@}...\end@{lilypond@}
+@end example
+
 
 @node Integrating Texinfo and music
 @section Integrating Texinfo and music
