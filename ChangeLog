@@ -1,5 +1,8 @@
 2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/framework-eps.scm (output-classic-framework): start at 1 for
+	system signatures.
+
 	* buildscripts/output-distance.py (me_path): use argv[0] for
 	sys.path extension
 	(ComparisonData.img_cell): use colored borders.

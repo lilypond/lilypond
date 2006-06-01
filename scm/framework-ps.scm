@@ -455,7 +455,7 @@
 	 (port (ly:outputter-port outputter)))
 
     (if (ly:get-option 'dump-signatures)
-	(write-system-signatures basename (ly:paper-book-systems book) 0))
+	(write-system-signatures basename (ly:paper-book-systems book) 1))
   
     (output-scopes scopes fields basename)
     (display (file-header paper page-count #t) port)
