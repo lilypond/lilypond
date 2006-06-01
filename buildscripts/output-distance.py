@@ -28,6 +28,9 @@ def max_distance (x1, x2):
 empty_interval = (INFTY, -INFTY)
 empty_bbox = (empty_interval, empty_interval)
 
+def interval_is_empty (i):
+    return i[0] > i[1]
+
 def interval_length (i):
     return max (i[1]-i[0], 0) 
     
@@ -38,6 +41,10 @@ def interval_union (i1, i2):
 def interval_intersect (i1, i2):
     return (max (i1[0], i2[0]),
             min (i1[1], i2[1]))
+
+def bbox_is_empty (b):
+    return (interval_is_empty (b[0])
+            or interval_is_empty (b[1]))
 
 def bbox_union (b1, b2):
     return (interval_union (b1[X_AXIS], b2[X_AXIS]),
@@ -143,6 +150,11 @@ class SystemLink:
         self.back_link_dict = {}
 
         for g in system1.grobs ():
+
+            ## skip empty bboxes.
+            if bbox_is_empty (g.bbox):
+                continue
+            
             closest = system2.closest (g.name, g.centroid)
             
             self.link_list_dict.setdefault (closest, [])
@@ -399,10 +411,14 @@ def test_basic_compare ():
     p (scorify-music m p)))))
 
 %(papermod)s
-
-\relative c {
+<<
+\new Staff \relative c {
   c^"%(userstring)s" %(extragrob)s
   }
+\new Staff \relative c {
+  c^"%(userstring)s" %(extragrob)s
+  }
+>>
 """
 
     dicts = [{ 'papermod' : '',
