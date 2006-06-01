@@ -27,6 +27,10 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
 
     changequote(<<, >>)#dnl
 
+    ## Assume and hunt for dotted version multiplet.
+    ## use eval trickery, because we cannot use multi-level $() instead of ``
+    ## for compatibility reasons.
+    
     ## grab the first version number in  --version output.
     eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' \
         | head -n 1 \

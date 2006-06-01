@@ -1,5 +1,8 @@
 2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* make/mutopia-rules.make ($(outdir)/%.png $(outdir)/%.pdf
+	$(outdir)/%.ly $(outdir)/%.ps): dump sigs for normal files too.
+
 	* stepmake/aclocal.m4: robuster version detection.
 
 	* buildscripts/output-distance.py
