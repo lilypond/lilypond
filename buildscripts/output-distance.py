@@ -103,11 +103,6 @@ class GrobSignature:
         else:
             return OUTPUT_EXPRESSION_PENALTY
 
-    def distance(self, other, max_distance):
-        return (self.expression_distance (other)
-                + self.centroid_distance (other, max_distance)
-                + self.bbox_distance (other))
-            
 class SystemSignature:
     def __init__ (self, grob_sigs):
         d = {}
@@ -163,24 +158,35 @@ class SystemLink:
             self.link_list_dict[closest].append (g)
             self.back_link_dict[g] = closest
 
-    def distance (self):
+    def geometric_distance (self):
         d = 0.0
+        for (g1,g2) in self.back_link_dict.items ():
+            if g2:
+                # , scale
+                d += g1.bbox_distance (g2)
 
-        scale = max (bbox_diameter (self.system1.bbox),
-                     bbox_diameter (self.system2.bbox))
-                                      
+        return d
+    
+    def orphan_distance (self):
+        d = 0.0
         for (g1,g2) in self.back_link_dict.items ():
             if g2 == None:
                 d += ORPHAN_GROB_PENALTY
-            else:
-                d += g1.distance (g2, scale)
-
-        for (g1,g2s) in self.link_list_dict.items ():
-            if len (g2s) != 1:
-                d += ORPHAN_GROB_PENALTY
+        return d
+    
+    def output_exp_distance (self):
+        d = 0.0
+        for (g1,g2) in self.back_link_dict.items ():
+            if g2:
+                d += g1.expression_distance (g2)
 
         return d
 
+    def distance (self):
+        return (self.output_exp_distance (),
+                self.orphan_distance (),
+                self.geometric_distance ())
+    
 ################################################################
 # Files/directories
 
@@ -269,8 +275,13 @@ class ComparisonData:
             out = sys.stdout
         else:
             out = open (filename, 'w')
+
+        ## todo: support more scores.
+        results = [(geo_score, oldfile, file)
+                   for (file, ((exp_score, orphan_score,
+                                geo_score), oldfile))
+                   in self.result_dict.items ()]
         
-        results = [(score, oldfile, file) for (file, (score, oldfile)) in self.result_dict.items ()]  
         results.sort ()
         results.reverse ()
 
@@ -291,8 +302,9 @@ class ComparisonData:
         
         threshold = 1.0
         
-        results = [(score, oldfile, file) for (file, (score, oldfile)) in self.result_dict.items ()
-                   if score > threshold]
+        results = [(geo_score, oldfile, file) for (file, ((exp_score, orphan_score,
+                                                           geo_score), oldfile)) in self.result_dict.items ()
+                   if geo_score > threshold]
 
         results.sort ()
         results.reverse ()
