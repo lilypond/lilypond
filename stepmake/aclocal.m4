@@ -26,18 +26,12 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ## -V: Workaround for python
 
     changequote(<<, >>)#dnl
-    ## Assume and hunt for dotted version multiplet.
-    ## use eval trickery, because we cannot use multi-level $() instead of ``
-    ## for compatibility reasons.
-    ## FIXME: what systems still do not have $() in /bin/sh?
+
+    ## grab the first version number in  --version output.
     eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' \
         | head -n 1 \
-	| sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
-          -e 's/^[^.0-9]*//' -e 's/[^.0-9]*$//'\`\"
+	| tr ' ' '\n' | grep '[0-9]\.[0-9]' | head -n 1 | sed 's/\([0-9.]*\).*/\1/g'\`\"
 
-## apparently breaks on darwin,  
-#	        | sed -e 's/\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
-#	  -e 's/\([^0-9]*\|^\) //' -e 's/[^0-9]*$//'\`\"
     if test -z "$_ver"; then
         ## If empty, try date [fontforge]
         eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\{6,8\}' \
