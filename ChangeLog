@@ -1,6 +1,6 @@
 2006-06-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* stepmake/aclocal.m4: revert version detection.
+	* stepmake/aclocal.m4: robuster version detection.
 
 	* buildscripts/output-distance.py
 	(ComparisonData.create_html_result_page): copy only if file
