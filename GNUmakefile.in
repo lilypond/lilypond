@@ -92,8 +92,10 @@ tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
 tree-lib = $(tree-prefix)/lib
 tree-share = $(tree-prefix)/share
-tree-share-prefix = $(tree-share)/lilypond/current
-tree-lib-prefix = $(tree-lib)/lilypond/current
+tree-share-prefix = $(tree-share)/lilypond/$(TOPLEVEL_VERSION)
+tree-share-prefix-current = $(tree-share)/lilypond/current
+tree-lib-prefix = $(tree-lib)/lilypond/$(TOPLEVEL_VERSION)
+tree-lib-prefix-current = $(tree-lib)/lilypond/current
 
 C_DIRS = flower lily
 c-clean:
@@ -118,7 +120,9 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
+	ln -s $(TOPLEVEL_VERSION) $(tree-share-prefix-current)
 	mkdir -p $(tree-lib-prefix)
+	ln -s $(TOPLEVEL_VERSION) $(tree-lib-prefix-current)
 	mkdir -p $(tree-share-prefix)/dvips
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
