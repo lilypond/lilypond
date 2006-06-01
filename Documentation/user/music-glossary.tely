@@ -24,7 +24,7 @@ and as @uref{source/Documentation/user/music-glossary.html,one big page}.
 @c                             French glossary
 @author Han-Wen Nienhuys    @c Dutch glossary
 @author Jan Nieuwenhuizen   @c Dutch glossary
-@author Dadiv Gonzalez      @c Spanish glossary
+@author David González      @c Spanish glossary
 @author Bjoern Jacke        @c German glossary
 @author Neil Jerram         @c English glossary translations
 @author Mats Bengtsson      @c Swedish glossary
@@ -68,7 +68,7 @@ Italian glossary,
 German glossary,
 @item Christian Mondrup
 Original author of LilyPond glossary, Danish glossary,
-@item Dadiv Gonzalez
+@item David González
 Spanish glossary,
 @item Fran@,{c}ois Pinard
 Original glossary of GNU music project, French glossary,
@@ -576,7 +576,7 @@ the pitch range that a musical instrument is capable of playing.
 @node ancient minor scale
 @section ancient minor scale
 
-ES: escala menor antigua
+ES: escala menor antigua,
 I: scala minore naturale,
 F: forme du mode mineur ancien, troisème mode, mode hellénique
 D: reines Moll,
@@ -764,7 +764,7 @@ FI: H, h.
 @node bar
 @section bar
 
-ES: compás, @aref{measure}.
+@aref{measure}.
 
 @node bar line
 @section bar line
@@ -1197,6 +1197,8 @@ FI: avain, nuottiavain.
 @node cluster
 @section cluster
 
+ES: racimo.
+
 A @emph{cluster} is a range of simultaneously sounding pitches that
 may change over time.  The set of available pitches to apply usually
 depends on the acoustic source.  Thus, in piano music, a cluster
@@ -1226,7 +1228,7 @@ pitch contained in the cluster would be notated as an ordinary note.
 @node comma
 @section comma
 
-ES: coma, comma
+ES: coma, comma,
 I: comma,
 F: comma,
 D: Komma,
@@ -1262,7 +1264,7 @@ Intervals larger than an octave.
 @node complement
 @section complement
 
-ES: intervalo invertido
+ES: intervalo invertido,
 I: rivolto,
 F: intervalle complémentaire,
 D: Komplementärintervall,
@@ -2245,7 +2247,7 @@ FI: kvintti.
 @node figured bass
 @section figured bass
 
-ES: bajo cifrado, @aref{thorough bass}.
+@aref{thorough bass}.
 
 @node fingering
 @section fingering
@@ -2452,7 +2454,7 @@ Letting the pitch slide fluently from one note to the other.
 @node grace notes
 @section grace notes
 
-ES: mordente,
+ES: notas de adorno,
 I: abbellimenti,
 F: fioriture,
 D: Verzierungen, Vorschläge, Vor@-schlags@-noten,
@@ -2560,7 +2562,7 @@ section.  @aref{functional harmony}.
       \bar "|."
     }
     \lyrics {
-      T S D T
+      T4 S D T
     }
   >>
 >>
@@ -3187,7 +3189,7 @@ FI: molli.
 @node minor interval
 @section minor interval
 
-ES: intervalo mayor,
+ES: intervalo menor,
 I: intervallo minore,
 F: intervalle mineur,
 D: kleines Intervall,
@@ -3250,7 +3252,7 @@ FI: mordent, korukuvio.
 @node motive
 @section motive
 
-ES: tema,
+ES: motivo,
 I: inciso,
 F: incise,
 D: Motiv,
@@ -3841,7 +3843,7 @@ with the same @aref{key signature}.
 @node repeat
 @section repeat
 
-ES: barra de repetición,
+ES: repetición,
 I: ritornello,
 F: barre de reprise,
 D: Wiederholung,
@@ -3941,7 +3943,7 @@ FI: asteikko, sävelasteikko.
 @node scale degree
 @section scale degree
 
-ES: grados de la escala,
+ES: grado (de la escala),
 I: grado della scala,
 F: degré [de la gamme],
 D: Tonleiterstufe,
@@ -4252,7 +4254,7 @@ The highest female voice.
 @node staccato
 @section staccato
 
-ES: picado (staccato),
+ES: picado,
 I: staccato,
 F: staccato, piqué, détaché,
 D: Staccato,
@@ -4384,7 +4386,7 @@ The sixth @aref{scale degree}.
 @node subtonic
 @section subtonic
 
-ES: sensible,
+ES: subtónica,
 I: sottotonica,
 F: sous-tonique,
 D: Subtonika,
@@ -4559,7 +4561,7 @@ FI: desimi.
 @node tenuto
 @section tenuto
 
-ES: tenuto,
+ES: subrayado (tenuto),
 I: tenuto,
 F: tenue, tenuto,
 D: gehalten, tenuo,
@@ -4730,7 +4732,7 @@ The first @aref{scale degree}.
 @node transposition
 @section transposition
 
-ES: transposición,
+ES: transporte,
 I: trasposizione,
 F: transposition,
 D: Transposition,
@@ -5006,7 +5008,7 @@ FI: kokotauko.
 @node whole tone
 @section whole tone
 
-ES: tono,
+ES: tono (entero),
 I: tono intero,
 F: ton entier,
 D: Ganzton,
