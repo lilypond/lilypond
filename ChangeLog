@@ -1,3 +1,7 @@
+2006-06-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* make/mutopia-rules.make: tweaks.
+
 2006-06-02  Werner Lemberg  <wl@gnu.org>
 
 	* tex/texinfo.cnf: Fix typo (\euro -> \minus).
