@@ -5,7 +5,26 @@
 %%%%%%%%
 
 %
-% declare head prefix shortcuts
+% Declare memorable shortcuts for special unicode characters
+% that are used in chant notation.
+% 
+
+% unicode 0132 (latin capital ligature IJ)
+IJ = \lyricmode { Ĳ }
+IIJ = \lyricmode { IĲ }
+
+% unicode 0133 (latin small ligature ij)
+ij = \lyricmode { ĳ }
+iij = \lyricmode { iĳ }
+
+% unicode 2123 (versicle)
+versus = \lyricmode { ℣ }
+
+% unicode 211F (response)
+responsum = \lyricmode { ℟ }
+
+%
+% Declare head prefix shortcuts.
 %
 virga =
   \once \override NoteHead  #'virga = ##t
@@ -35,7 +54,7 @@ cavum =
   \once \override NoteHead  #'cavum = ##t
 
 %
-% declare divisiones shortcuts
+% Declare divisiones shortcuts.
 %
 virgula = {
   \once \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.rcomma")
@@ -91,14 +110,8 @@ finalis = {
   \breathe
 }
 
-augmentum = {
-  %%% TODO: A ligature head postfix that indicates that an
-  %%% augmentum dot should be appended to the right end of
-  %%% the surrounding ligature.  [Not yet implemented.]
-}
-
 %
-% declare articulation shortcuts
+% Declare articulation shortcuts.
 %
 accentus = #(make-articulation "accentus")
 ictus = #(make-articulation "ictus")
@@ -106,10 +119,16 @@ semicirculus = #(make-articulation "semicirculus")
 circulus = #(make-articulation "circulus")
 episemInitium = #(make-span-event 'TextSpanEvent START)
 episemFinis = #(make-span-event 'TextSpanEvent STOP)
+augmentum = {
+  %%% TODO: A ligature head postfix that indicates that an
+  %%% augmentum dot should be appended to the right end of
+  %%% the surrounding ligature.  [Not yet implemented.]
+}
+
 
 %
-% shortcut music functions for Liber Hymnarius neumes table
-% (experimental)
+% Declare shortcut music functions for Liber Hymnarius neumes
+% table (experimental).
 %
 
 #(define (make-ligature music)
@@ -159,6 +178,15 @@ ligature = #(define-music-function
 %			'LigatureStopEvent))))
 %climacus = #(def-climacus-function startSequentialMusic stopSequentialMusic)
 
+%
+% Declare default layout; here for Vaticana style.  In case there will
+% be additional styles, we may want to create style-specific .ly files
+% for inclusion (e.g. vaticana-init.ly), move the style-dependent stuff
+% over there, leave the style-independent Gregorian stuff here, and let
+% the style-specific file (vaticana-init.ly) include this file.  The
+% user then will have to include vaticana-init.ly instead of
+% gregorian-init.ly.
+%
 \layout {
     indent = 0.0
     packed = ##t
@@ -217,9 +245,12 @@ ligature = #(define-music-function
 }
 
 %
-% example layout block for gregorian chant notation
+% neumeDemoLayout defines a layout block suitable for notating pure
+% Vaticana style neumes without any other notation symbols such as
+% staff lines or clefs.  This layout is useful for engraving neumes
+% tables, such as that one in the lilypond manual section on
+% Gregorian ligatures, or for educational works.
 %
-
 neumeDemoLayout = \layout {
     interscoreline = 1
     \context {
@@ -243,3 +274,7 @@ neumeDemoLayout = \layout {
 	\override Stem #'transparent = ##t
     }
 }
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% End:

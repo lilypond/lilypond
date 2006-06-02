@@ -1,6 +1,12 @@
+2006-06-02  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* ly/gregorian-init.ly: Converted to utf-8.  Added memorable
+	shortcuts for special unicode chars that are useful in chant
+	notation.  Revised exisiting and added new comments.
+
 2006-06-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* make/mutopia-rules.make: tweaks.
+	* make/mutopia-rules.make: remove duplicate recipe.
 
 2006-06-02  Werner Lemberg  <wl@gnu.org>
 
