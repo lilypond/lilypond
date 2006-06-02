@@ -1,3 +1,8 @@
+2006-06-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* tex/texinfo.tex (sectionheading, q.v.): call \quoteexpand for
+	@example too. Backportme.
+
 2006-06-02  Graham Percival  <gpermus@gmail.com>
 
 	* tex/texinfo.cnf: added UTF-8 support for texinfo; patch
@@ -94,9 +99,13 @@
 
 	* dynamic-engraver.cc: fix bug (dynamics collide with accidentals)
 
-	* scm/output-ps.scm (repeat-slash): fix a bug that made repeat slash beams
-	too wide.
+	* scm/output-ps.scm (repeat-slash): fix a bug that made repeat
+	slash beams too wide.
 
+2006-05-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION: release 2.9.7
+	
 2006-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/relocate.cc (read_relocation_dir): Do not blindly
