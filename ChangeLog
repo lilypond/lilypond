@@ -1,3 +1,10 @@
+2006-06-02  Graham Percival  <gpermus@gmail.com>
+
+	* tex/texinfo.tex: partial fix for @funindex.
+
+	* Documentation/user/macros.tely: uncomment @funindex (doesn't
+	break anything).
+
 2006-06-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* tex/texinfo.tex (sectionheading, q.v.): call \quoteexpand for

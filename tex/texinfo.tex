@@ -3234,6 +3234,32 @@ where each line of input produces a line of output.}
   \let\{ = \mylbrace
   \let\} = \myrbrace
   %
+  % I don't entirely understand this, but when an index entry is
+  % generated from a macro call, the \endinput which \scanmacro inserts
+  % causes processing to be prematurely terminated.  This is,
+  % apparently, because \indexsorttmp is fully expanded, and \endinput
+  % is an expandable command.  The redefinition below makes \endinput
+  % disappear altogether for that purpose -- although logging shows that
+  % processing continues to some further point.  On the other hand, it
+  % seems \endinput does not hurt in the printed index arg, since that
+  % is still getting written without apparent harm.
+  % 
+  % Sample source (mac-idx3.tex, reported by Graham Percival to
+  % help-texinfo, 22may06):
+  % @macro funindex {WORD}
+  % @findex xyz
+  % @end macro
+  % ...
+  % @funindex commtest
+  % 
+  % The above is not enough to reproduce the bug, but it gives the flavor.
+  % 
+  % Sample whatsit resulting:
+  % address@hidden@folio address@hidden address@hidden }}}
+  % 
+  % So:
+  \let\endinput = \empty
+  %
   % Do the redefinitions.
   \commondummies
 }
