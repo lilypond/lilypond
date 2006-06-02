@@ -15,8 +15,8 @@ X_AXIS = 0
 Y_AXIS = 1
 INFTY = 1e6
 
-OUTPUT_EXPRESSION_PENALTY = 100
-ORPHAN_GROB_PENALTY = 1000
+OUTPUT_EXPRESSION_PENALTY = 1
+ORPHAN_GROB_PENALTY = 1
 THRESHOLD = 1.0
 
 def max_distance (x1, x2):
@@ -169,14 +169,14 @@ class SystemLink:
         return d
     
     def orphan_distance (self):
-        d = 0.0
+        d = 0
         for (g1,g2) in self.back_link_dict.items ():
             if g2 == None:
                 d += ORPHAN_GROB_PENALTY
         return d
     
     def output_exp_distance (self):
-        d = 0.0
+        d = 0
         for (g1,g2) in self.back_link_dict.items ():
             if g2:
                 d += g1.expression_distance (g2)
@@ -187,6 +187,15 @@ class SystemLink:
         return (self.output_exp_distance (),
                 self.orphan_distance (),
                 self.geometric_distance ())
+    
+def read_signature_file (name):
+    print 'reading', name
+    exp_str = ("[%s]" % open (name).read ())
+    entries = safeeval.safe_eval (exp_str)
+
+    grob_sigs = [GrobSignature (e) for e in entries]
+    sig = SystemSignature (grob_sigs)
+    return sig
 
 
 class FileLink:
@@ -230,7 +239,6 @@ class FileLink:
         
         base1 = re.sub ("-([0-9]+).signature", note_system_index, f1)
         base2 = re.sub ("-([0-9]+).signature", note_system_index, f2)
-#        name = os.path.split (base1)[1]
 
         self.base_names = (os.path.normpath (base1),
                            os.path.normpath (base2))
@@ -240,8 +248,9 @@ class FileLink:
             return ''
         
         if not self.original_name:
+            self.original_name = os.path.split (base1)[1]
 
-            ## ugh: can't we drop the .ly.txt?
+            ## ugh: drop the .ly.txt
             for ext in ('.ly', '.ly.txt'):
                 try:
                     re.sub (r'\\sourcefilename "([^"]+)"',
@@ -256,20 +265,13 @@ class FileLink:
 
         self.add_system_link (link, system_index[0])
 
-    def link_files_for_html (self, old_dir, new_dir):
+    def link_files_for_html (self, old_dir, new_dir, dest_dir):
+        for ext in ('.png', '.ly'):
+            for oldnew in (0,1):
+                link_file (self.base_names[oldnew] + ext, 
+                           dest_dir + '/' + self.base_names[oldnew] + ext)
 
-        ## todo should create new_dir/old_suffix/HIER/ARCHY/old-file
-        
-        old_suffix = os.path.split (old_dir)[1]
-        old_dest_dir = os.path.join (new_dir, old_suffix)
-        name = os.path.split (self.base_names[0])[1]
-        os.link (self.base_names[0] + '.png',
-                 old_dest_dir + '/' + name + '.png')
-        if self.source_file ():
-            os.link (self.source_file (),
-                     old_dest_dir + "/" + name + '.ly')
-        
-    def html_record_string (self, old_dir, new_dir):
+    def html_record_string (self,  old_dir, new_dir):
         def img_cell (ly, img, name):
             if not name:
                 name = 'source'
@@ -287,20 +289,13 @@ class FileLink:
 ''' % locals ()
         
 
-        old_suffix = os.path.split (old_dir)[1]
-        old_name = os.path.split (self.base_names[0])[1]
-
-        img_1 = os.path.join (old_suffix, old_name + '.png')
-        ly_1 = os.path.join (old_suffix, old_name + '.ly')
+        img_1  = self.base_names[0] + '.png'
+        ly_1  = self.base_names[0] + '.ly'
+        img_2  = self.base_names[1] + '.png'
+        ly_2  = self.base_names[1] + '.ly'
+        html_2  = self.base_names[1] + '.html'
         name = self.original_name
-
-        base_2 = self.base_names[1].replace (new_dir, '')
-        base_2 = re.sub ("^/*", '', base_2)
-        img_2 = base_2 + '.png'
         
-
-        ly_2 = img_2.replace ('.png','.ly')
-
         html_entry = '''
 <tr>
 <td>
@@ -311,7 +306,8 @@ class FileLink:
 %s
 %s
 </tr>
-''' % (self.distance (), base_2 + '.html', img_cell (ly_1, img_1, name), img_cell (ly_2, img_2, name))
+''' % (self.distance (), html_2,
+       img_cell (ly_1, img_1, name), img_cell (ly_2, img_2, name))
 
 
         return html_entry
@@ -352,8 +348,10 @@ class FileLink:
 ''' % locals ()
         return html
 
-    def write_html_system_details (self, dir2):
-        details = open (os.path.join (dir2, os.path.split (self.base_names[1])[1]) + '.html', 'w')
+    def write_html_system_details (self, dir1, dir2, dest_dir):
+        dest_file =  os.path.join (dest_dir, self.base_names[1] + '.html')
+
+        details = open_write_file (dest_file)
         details.write (self.html_system_details_string ())
 
 ################################################################
@@ -362,14 +360,6 @@ class FileLink:
 import glob
 import re
 
-def read_signature_file (name):
-    print 'reading', name
-    exp_str = ("[%s]" % open (name).read ())
-    entries = safeeval.safe_eval (exp_str)
-
-    grob_sigs = [GrobSignature (e) for e in entries]
-    sig = SystemSignature (grob_sigs)
-    return sig
 
 
 def compare_signature_files (f1, f2):
@@ -421,13 +411,16 @@ class ComparisonData:
                 self.compare_trees (d1, d2)
     
     def compare_directories (self, dir1, dir2):
-        
+
         (paired, m1, m2) = paired_files (dir1, dir2, '*.signature')
 
         self.missing += [(dir1, m) for m in m1] 
         self.added += [(dir2, m) for m in m2] 
 
         for p in paired:
+            if len (self.file_links) > 10:
+                continue
+            
             f2 = dir2 +  '/' + p
             f1 = dir1 +  '/' + p
             self.compare_files (f1, f2)
@@ -451,9 +444,7 @@ class ComparisonData:
         if filename == '':
             out = sys.stdout
         else:
-            out = open (filename, 'w')
-            
-
+            out = open_write_file (filename)
 
         ## todo: support more scores.
         results = [(link.distance(), link)
@@ -469,12 +460,12 @@ class ComparisonData:
         out.write ('\n\n')
         out.write ('%d below threshold\n' % len ([1 for s,l  in results
                                                     if THRESHOLD >=  s > 0.0]))
-        out.write ('%d unchanged' % len ([1 for (s,l) in results if s == 0.0]))
+        out.write ('%d unchanged\n' % len ([1 for (s,l) in results if s == 0.0]))
         
-    def create_text_result_page (self, dir1, dir2):
-        self.write_text_result_page (dir2 + '/' + os.path.split (dir1)[1] + '.txt')
+    def create_text_result_page (self, dir1, dir2, dest_dir):
+        self.write_text_result_page (dest_dir + '/index.txt')
         
-    def create_html_result_page (self, dir1, dir2):
+    def create_html_result_page (self, dir1, dir2, dest_dir):
         dir1 = dir1.replace ('//', '/')
         dir2 = dir2.replace ('//', '/')
         
@@ -485,17 +476,13 @@ class ComparisonData:
 
         html = ''
         old_prefix = os.path.split (dir1)[1]
-        dest_dir = os.path.join (dir2, old_prefix)
-        os.mkdir (dest_dir)
-
         for (score, link) in results:
             if score <= THRESHOLD:
                 continue
 
-            link.write_html_system_details (dir2)
-
-            link.link_files_for_html (dir1, dir2) 
-            html += link.html_record_string (dir1, dir2) 
+            link.write_html_system_details (dir1, dir2, dest_dir)
+            link.link_files_for_html (dir1, dir2, dest_dir) 
+            html += link.html_record_string (dir1, dir2)
 
 
         html = '''<html>
@@ -520,22 +507,41 @@ class ComparisonData:
                  % len ([1 for (s,l) in results if s == 0.0]))
 
 
-        open (os.path.join (dir2, old_prefix) + '.html', 'w').write (html)
+        dest_file = dest_dir + '/index.html'
+        open_write_file (dest_file).write (html)
         
     def print_results (self):
         self.write_text_result_page ('')
         
-        
 
-def compare_trees (dir1, dir2):
+def compare_trees (dir1, dir2, dest_dir):
     data = ComparisonData ()
     data.compare_trees (dir1, dir2)
     data.print_results ()
-    data.create_html_result_page (dir1, dir2)
-#    data.create_text_result_page (dir1, dir2)
+
+    if os.path.isdir (dest_dir):
+        system ('rm -rf %s '% dest_dir)
+
+    data.create_html_result_page (dir1, dir2, dest_dir)
+    data.create_text_result_page (dir1, dir2, dest_dir)
     
 ################################################################
 # TESTING
+
+def mkdir (x):
+    if not os.path.isdir (x):
+        print 'mkdir', x
+        os.makedirs (x)
+
+def link_file (x, y):
+    mkdir (os.path.split (y)[0])
+    os.link (x, y)
+    
+def open_write_file (x):
+    d = os.path.split (x)[0]
+    mkdir (d)
+    return open (x, 'w')
+
 
 def system (x):
     
@@ -557,6 +563,13 @@ def test_compare_trees ():
     system ('cp 20expr{-*.signature,.ly,.png} dir1')
     system ('cp 19{-*.signature,.ly,.png} dir2/')
     system ('cp 19{-*.signature,.ly,.png} dir1/')
+    system ('cp 19-1.signature 19-sub-1.signature')
+    system ('cp 19.ly 19-sub.ly')
+    system ('cp 19.png 19-sub.png')
+    
+    system ('mkdir -p dir1/subdir/ dir2/subdir/')
+    system ('cp 19-sub{-*.signature,.ly,.png} dir1/subdir/')
+    system ('cp 19-sub{-*.signature,.ly,.png} dir2/subdir/')
     system ('cp 20grob{-*.signature,.ly,.png} dir2/')
     system ('cp 20grob{-*.signature,.ly,.png} dir1/')
 
@@ -567,7 +580,7 @@ def test_compare_trees ():
     system ('cp 19-1.signature dir2/20grob-1.signature')
     system ('cp 19-1.signature dir2/20grob-2.signature')
 
-    compare_trees ('dir1', 'dir2')
+    compare_trees ('dir1', 'dir2', 'compare-dir1dir2')
 
 
 def test_basic_compare ():
@@ -629,16 +642,9 @@ def test_basic_compare ():
         print '%-20s' % k, v
 
     assert combinations['20-20'] == (0.0,0.0,0.0)
-    assert combinations['20-20expr'][0] > 50.0
+    assert combinations['20-20expr'][0] > 0.0
     assert combinations['20-19'][2] < 10.0
     assert combinations['20-19'][2] > 0.0
-
-
-def test_sigs (a,b):
-    sa = read_signature_file (a)
-    sb = read_signature_file (b)
-    link = SystemLink (sa, sb)
-    print link.distance()
 
 
 def run_tests ():
