@@ -1,12 +1,9 @@
 
 
-$(outdir)/%.ly.txt: %.ly
+$(outdir)/%.ly: %.ly
 	ln -f $< $@
 
-$(outdir)/%.ly.txt: $(outdir)/%.ly
-	cp -f $< $@
-
-$(outdir)/%.ly.txt: %.abc
+$(outdir)/%.ly: %.abc
 #which file to show here -- abc seems more cute?
 	ln -f $< $@
 

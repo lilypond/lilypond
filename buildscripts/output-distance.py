@@ -17,6 +17,7 @@ INFTY = 1e6
 
 OUTPUT_EXPRESSION_PENALTY = 100
 ORPHAN_GROB_PENALTY = 1000
+THRESHOLD = 1.0
 
 def max_distance (x1, x2):
     dist = 0.0
@@ -186,12 +187,179 @@ class SystemLink:
         return (self.output_exp_distance (),
                 self.orphan_distance (),
                 self.geometric_distance ())
+
+
+class FileLink:
+    def __init__ (self):
+        self.original_name = ''
+        self.base_names = ('','')
+        self.system_links = {}
+        self._distance = None
+        
+    def add_system_link (self, link, number):
+        self.system_links[number] = link
+
+    def calc_distance (self):
+        d = 0.0
+        for l in self.system_links.values ():
+            d = max (d, l.geometric_distance ())
+        return d
+
+    def distance (self):
+        if type (self._distance) != type (0.0):
+            return self.calc_distance ()
+        
+        return self._distance
+
+    def text_record_string (self):
+        return '%-30f %-20s\n' % (self.distance (),
+                             self.original_name)
+
+    def source_file (self):
+        for ext in ('.ly', '.ly.txt'):
+            if os.path.exists (self.base_names[1] + ext):
+                return self.base_names[1] + ext
+        return ''
     
+    def add_file_compare (self, f1, f2):
+        system_index = [] 
+
+        def note_system_index (m):
+            system_index.append (int (m.group (1)))
+            return ''
+        
+        base1 = re.sub ("-([0-9]+).signature", note_system_index, f1)
+        base2 = re.sub ("-([0-9]+).signature", note_system_index, f2)
+#        name = os.path.split (base1)[1]
+
+        self.base_names = (os.path.normpath (base1),
+                           os.path.normpath (base2))
+
+        def note_original (match):
+            self.original_name = match.group (1)
+            return ''
+        
+        if not self.original_name:
+
+            ## ugh: can't we drop the .ly.txt?
+            for ext in ('.ly', '.ly.txt'):
+                try:
+                    re.sub (r'\\sourcefilename "([^"]+)"',
+                            note_original, open (base1 + ext).read ())
+                except IOError:
+                    pass
+                
+        s1 = read_signature_file (f1)
+        s2 = read_signature_file (f2)
+
+        link = SystemLink (s1, s2)
+
+        self.add_system_link (link, system_index[0])
+
+    def link_files_for_html (self, old_dir, new_dir):
+
+        ## todo should create new_dir/old_suffix/HIER/ARCHY/old-file
+        
+        old_suffix = os.path.split (old_dir)[1]
+        old_dest_dir = os.path.join (new_dir, old_suffix)
+        name = os.path.split (self.base_names[0])[1]
+        os.link (self.base_names[0] + '.png',
+                 old_dest_dir + '/' + name + '.png')
+        if self.source_file ():
+            os.link (self.source_file (),
+                     old_dest_dir + "/" + name + '.ly')
+        
+    def html_record_string (self, old_dir, new_dir):
+        def img_cell (ly, img, name):
+            if not name:
+                name = 'source'
+            else:
+                name = '<tt>%s</tt>' % name
+                
+            return '''
+<td align="center">
+<a href="%(img)s">
+<img src="%(img)s" style="border-style: none; max-width: 500px;">
+</a><br>
+<font size="-2">(<a href="%(ly)s">%(name)s</a>)
+</font>
+</td>
+''' % locals ()
+        
+
+        old_suffix = os.path.split (old_dir)[1]
+        old_name = os.path.split (self.base_names[0])[1]
+
+        img_1 = os.path.join (old_suffix, old_name + '.png')
+        ly_1 = os.path.join (old_suffix, old_name + '.ly')
+        name = self.original_name
+
+        base_2 = self.base_names[1].replace (new_dir, '')
+        base_2 = re.sub ("^/*", '', base_2)
+        img_2 = base_2 + '.png'
+        
+
+        ly_2 = img_2.replace ('.png','.ly')
+
+        html_entry = '''
+<tr>
+<td>
+%f<br>
+(<a href="%s">details</a>)
+</td>
+
+%s
+%s
+</tr>
+''' % (self.distance (), base_2 + '.html', img_cell (ly_1, img_1, name), img_cell (ly_2, img_2, name))
+
+
+        return html_entry
+
+
+    def html_system_details_string (self):
+        systems = self.system_links.items ()
+        systems.sort ()
+
+        html = ""
+        for (c, link) in systems:
+            e = '<td>%d</td>' % c
+            for d in link.distance ():
+                e += '<td>%f</td>' % d
+            
+            e = '<tr>%s</tr>' % e
+            html += e
+
+        original = self.original_name
+        html = '''<html>
+<head>
+<title>comparison details for %(original)s</title>
+</head>
+<body>
+<table border=1>
+<tr>
+<th>system</th>
+<th>output</th>
+<th>orphan</th>
+<th>geo</th>
+</tr>
+
+%(html)s
+</table>
+
+</body>
+</html>
+''' % locals ()
+        return html
+
+    def write_html_system_details (self, dir2):
+        details = open (os.path.join (dir2, os.path.split (self.base_names[1])[1]) + '.html', 'w')
+        details.write (self.html_system_details_string ())
+
 ################################################################
 # Files/directories
 
 import glob
-import shutil
 import re
 
 def read_signature_file (name):
@@ -237,7 +405,7 @@ class ComparisonData:
         self.result_dict = {}
         self.missing = []
         self.added = []
-        
+        self.file_links = {}
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
         
@@ -262,12 +430,21 @@ class ComparisonData:
         for p in paired:
             f2 = dir2 +  '/' + p
             f1 = dir1 +  '/' + p
-            distance = compare_signature_files (f1, f2)
-            self.result_dict[f2] = (distance, f1)
+            self.compare_files (f1, f2)
 
-    def create_text_result_page (self, dir1, dir2):
-        self.write_text_result_page (dir2 + '/' + os.path.split (dir1)[1] + '.txt')
+    def compare_files (self, f1, f2):
+        name = os.path.split (f1)[1]
+        name = re.sub ('-[0-9]+.signature', '', name)
         
+        file_link = None
+        try:
+            file_link = self.file_links[name]
+        except KeyError:
+            file_link = FileLink ()
+            self.file_links[name] = file_link
+
+        file_link.add_file_compare (f1,f2)
+
     def write_text_result_page (self, filename):
         print 'writing "%s"' % filename
         out = None
@@ -275,92 +452,51 @@ class ComparisonData:
             out = sys.stdout
         else:
             out = open (filename, 'w')
+            
+
 
         ## todo: support more scores.
-        results = [(geo_score, oldfile, file)
-                   for (file, ((exp_score, orphan_score,
-                                geo_score), oldfile))
-                   in self.result_dict.items ()]
-        
+        results = [(link.distance(), link)
+                   for link in self.file_links.values ()]
         results.sort ()
         results.reverse ()
 
-        for (s, oldfile, f) in results:
-            out.write ('%-30f %-20s\n' % (s, f))
+        
+        for (score, link) in results:
+            if score > THRESHOLD:
+                out.write (link.text_record_string ())
 
-        for (dir, file) in self.missing:
-            out.write ('%10s%-20s %s\n' % ('', 'missing',os.path.join (dir, file)))
-        for (dir, file) in self.added:
-            out.write ('%20s%-10s %s\n' % ('','added', os.path.join (dir, file)))
-
-    def print_results (self):
-        self.write_text_result_page ('')
+        out.write ('\n\n')
+        out.write ('%d below threshold\n' % len ([1 for s,l  in results
+                                                    if THRESHOLD >=  s > 0.0]))
+        out.write ('%d unchanged' % len ([1 for (s,l) in results if s == 0.0]))
+        
+    def create_text_result_page (self, dir1, dir2):
+        self.write_text_result_page (dir2 + '/' + os.path.split (dir1)[1] + '.txt')
         
     def create_html_result_page (self, dir1, dir2):
         dir1 = dir1.replace ('//', '/')
         dir2 = dir2.replace ('//', '/')
         
-        threshold = 1.0
-        
-        results = [(geo_score, oldfile, file) for (file, ((exp_score, orphan_score,
-                                                           geo_score), oldfile)) in self.result_dict.items ()
-                   if geo_score > threshold]
-
+        results = [(link.distance(), link)
+                   for link in self.file_links.values ()]
         results.sort ()
         results.reverse ()
-        
+
         html = ''
         old_prefix = os.path.split (dir1)[1]
-
         dest_dir = os.path.join (dir2, old_prefix)
-        shutil.rmtree  (dest_dir, ignore_errors=True)
         os.mkdir (dest_dir)
-        for (score, oldfile, newfile) in results:
-            
-            old_base = re.sub ("-[0-9]+.signature", '', oldfile)
-            old_name = os.path.split (old_base)[1]
-            new_base = re.sub ("-[0-9]+.signature", '', newfile)
-            
-            for ext in 'png', 'ly':
-                src_file = old_base + '.' + ext
-                
-                if os.path.exists (src_file):
-                    shutil.copy2 (src_file, dest_dir)
-                else:
-                    print "warning: can't find", src_file
 
-            img_1 = os.path.join (old_prefix, old_name + '.png')
-            ly_1 = os.path.join (old_prefix, old_name + '.ly')
+        for (score, link) in results:
+            if score <= THRESHOLD:
+                continue
 
-            img_2 = new_base.replace (dir2, '') + '.png'
-            img_2 = re.sub ("^/*", '', img_2)
+            link.write_html_system_details (dir2)
 
-            ly_2 = img_2.replace ('.png','.ly')
+            link.link_files_for_html (dir1, dir2) 
+            html += link.html_record_string (dir1, dir2) 
 
-            def img_cell (ly, img):
-                return '''
-<td align="center">
-<a href="%(img)s">
-<img src="%(img)s" style="border-style: none; max-width: 500px;">
-</a><br>
-<font size="-2">(<a href="%(ly)s">source</a>)
-</font>
-</td>
-''' % locals ()
-            
-            html_entry = '''
-<tr>
-<td>
-%f
-</td>
-
-%s
-%s
-</tr>
-''' % (score, img_cell (ly_1, img_1), img_cell (ly_2, img_2))
-
-
-            html += html_entry
 
         html = '''<html>
 <table rules="rows" border bordercolor="blue">
@@ -372,8 +508,22 @@ class ComparisonData:
 %(html)s
 </table>
 </html>''' % locals()
-            
+
+        html += ('<p>')
+        below_count  =len ([1 for s,l  in results
+                         if THRESHOLD >=  s > 0.0])
+
+        if below_count:
+            html += ('<p>%d below threshold</p>' % below_count)
+
+        html += ('<p>%d unchanged</p>'
+                 % len ([1 for (s,l) in results if s == 0.0]))
+
+
         open (os.path.join (dir2, old_prefix) + '.html', 'w').write (html)
+        
+    def print_results (self):
+        self.write_text_result_page ('')
         
         
 
@@ -387,7 +537,6 @@ def compare_trees (dir1, dir2):
 ################################################################
 # TESTING
 
-import os
 def system (x):
     
     print 'invoking', x
@@ -403,15 +552,20 @@ def test_paired_files ():
 def test_compare_trees ():
     system ('rm -rf dir1 dir2')
     system ('mkdir dir1 dir2')
-    system ('cp 20{-0.signature,.ly,.png} dir1')
-    system ('cp 20{-0.signature,.ly,.png} dir2')
-    system ('cp 20expr{-0.signature,.ly,.png} dir1')
-    system ('cp 19{-0.signature,.ly,.png} dir2/')
-    system ('cp 19{-0.signature,.ly,.png} dir1/')
-    system ('cp 20grob{-0.signature,.ly,.png} dir2/')
+    system ('cp 20{-*.signature,.ly,.png} dir1')
+    system ('cp 20{-*.signature,.ly,.png} dir2')
+    system ('cp 20expr{-*.signature,.ly,.png} dir1')
+    system ('cp 19{-*.signature,.ly,.png} dir2/')
+    system ('cp 19{-*.signature,.ly,.png} dir1/')
+    system ('cp 20grob{-*.signature,.ly,.png} dir2/')
+    system ('cp 20grob{-*.signature,.ly,.png} dir1/')
 
-    ## introduce difference
-    system ('cp 19-0.signature dir2/20-0.signature')
+    ## introduce differences
+    system ('cp 19-1.signature dir2/20-1.signature')
+
+    ## radical diffs.
+    system ('cp 19-1.signature dir2/20grob-1.signature')
+    system ('cp 19-1.signature dir2/20grob-2.signature')
 
     compare_trees ('dir1', 'dir2')
 
@@ -424,13 +578,15 @@ def test_basic_compare ():
     (print-score-with-defaults
     p (scorify-music m p)))))
 
+\sourcefilename "my-source.ly"
+
 %(papermod)s
 <<
 \new Staff \relative c {
-  c^"%(userstring)s" %(extragrob)s
+  c4^"%(userstring)s" %(extragrob)s
   }
 \new Staff \relative c {
-  c^"%(userstring)s" %(extragrob)s
+  c4^"%(userstring)s" %(extragrob)s
   }
 >>
 """
@@ -449,8 +605,10 @@ def test_basic_compare ():
                'userstring': 'blabla' },
              { 'papermod' : '',
                'name' : '20grob',
-               'extragrob': 'c4',
-               'userstring': 'test' }]
+               'extragrob': 'r2. \\break c1',
+               'userstring': 'test' }
+
+             ]
 
     for d in dicts:
         open (d['name'] + '.ly','w').write (ly_template % d)
@@ -459,7 +617,7 @@ def test_basic_compare ():
     
     system ('lilypond -ddump-signatures --png -b eps ' + ' '.join (names))
     
-    sigs = dict ((n, read_signature_file ('%s-0.signature' % n)) for n in names)
+    sigs = dict ((n, read_signature_file ('%s-1.signature' % n)) for n in names)
     combinations = {}
     for (n1, s1) in sigs.items():
         for (n2, s2) in sigs.items():
@@ -470,9 +628,10 @@ def test_basic_compare ():
     for k,v in results:
         print '%-20s' % k, v
 
-    assert combinations['20-20'] == 0.0
-    assert combinations['20-20expr'] > 50.0
-    assert combinations['20-19'] < 10.0
+    assert combinations['20-20'] == (0.0,0.0,0.0)
+    assert combinations['20-20expr'][0] > 50.0
+    assert combinations['20-19'][2] < 10.0
+    assert combinations['20-19'][2] > 0.0
 
 
 def test_sigs (a,b):
@@ -483,7 +642,7 @@ def test_sigs (a,b):
 
 
 def run_tests ():
-    do_clean = 1
+    do_clean = 0
     dir = 'output-distance-test'
 
     print 'test results in ', dir
@@ -492,8 +651,9 @@ def run_tests ():
         system ('mkdir ' + dir)
         
     os.chdir (dir)
-
-    test_basic_compare ()
+    if do_clean:
+        test_basic_compare ()
+        
     test_compare_trees ()
     
 ################################################################
