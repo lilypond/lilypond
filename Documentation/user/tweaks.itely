@@ -304,7 +304,7 @@ outside the scope of this manual; users should be warned that
 a substantial amount of technical knowledge or time is required
 to understand these files.
 
-@itemize bullet
+@itemize @bullet
 
 @item Linux: @file{@{INSTALLDIR@}/lilypond/usr/share/lilypond/current/}
 
