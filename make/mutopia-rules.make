@@ -1,7 +1,5 @@
-
-
 $(outdir)/%.ly: %.ly
-	ln -f $< $@
+	cp $< $@
 
 $(outdir)/%.ly: %.abc
 #which file to show here -- abc seems more cute?
@@ -14,8 +12,4 @@ $(outdir)/%.ly: %.abc
 $(outdir)/%.png $(outdir)/%.pdf $(outdir)/%.ly $(outdir)/%.ps: $(outdir)/%.ly
 	cd $(outdir); $(LILYPOND_BINARY) --pdf --png -ddump-signatures -danti-alias-factor=2 -ddelete-intermediate-files -dno-point-and-click -I $(call absdir,$(src-dir))/ $(notdir $<)
 	touch $(outdir)/$(basename $(notdir $<)).png
-
-$(outdir)/%.ly: %.ly
-	cp $< $@
-
 
