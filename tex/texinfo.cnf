@@ -489,7 +489,7 @@
 \DeclareUnicodeCharacter{2192}{\expansion}		% →
 \DeclareUnicodeCharacter{21D2}{\result}			% ⇒
 
-\DeclareUnicodeCharacter{2212}{\euro}			% −
+\DeclareUnicodeCharacter{2212}{\minus}			% −
 \DeclareUnicodeCharacter{2217}{\point}			% ∗
 \DeclareUnicodeCharacter{2261}{\equiv}			% ≡
 
