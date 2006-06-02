@@ -615,7 +615,6 @@ than a whole rest.")
      ;; would be quite numerous, I guess.  --jr
 
      (auctum ,boolean? "is this neume liquescentically augmented?")
-     (augmentum ,boolean? "is this neume durationally augmented?")
      (ascendens ,boolean? "is this neume of an ascending type?")
      (add-cauda ,boolean? "does this flexa require an additional cauda on the left side?")
      (add-join ,boolean? "is this ligature head joined with the next one by a vertical line?")
