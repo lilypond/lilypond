@@ -10,7 +10,7 @@ M4_FILES = $(call src-wildcard,*.m4)
 LYM4_FILES = $(call src-wildcard,*.lym4)
 EXTRA_DIST_FILES += $(M4_FILES) $(LYM4_FILES)
 
-ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly.txt, $(examples)))
+ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly, $(examples)))
 all_examples=$(examples)
 ps_examples=$(addprefix $(outdir)/, $(addsuffix .ps.gz, $(all_examples)))
 pdf_examples=$(addprefix $(outdir)/, $(addsuffix .pdf, $(all_examples)))

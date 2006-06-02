@@ -1,3 +1,8 @@
+2006-06-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* buildscripts/output-distance.py (FileLink): new class. collect
+	info systems from one .ly file. 
+  
 2006-06-02  Graham Percival  <gpermus@gmail.com>
 
 	* tex/texinfo.tex: partial fix for @funindex.
@@ -6,6 +11,8 @@
 	break anything).
 
 2006-06-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* make/mutopia-vars.make (ly_examples): replace .ly.txt with .ly
 
 	* tex/texinfo.tex (sectionheading, q.v.): call \quoteexpand for
 	@example too. Backportme.
