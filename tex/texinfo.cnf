@@ -240,6 +240,8 @@
 
 \DeclareUnicodeCharacter{0130}{\dotaccent{I}}		% İ
 \DeclareUnicodeCharacter{0131}{\dotless{i}}		% ı
+\DeclareUnicodeCharacter{0132}{IJ}			% Ĳ
+\DeclareUnicodeCharacter{0133}{ij}			% ĳ
 \DeclareUnicodeCharacter{0134}{\^J}			% Ĵ
 \DeclareUnicodeCharacter{0135}{\^{\dotless{j}}}		% ĵ
 \DeclareUnicodeCharacter{0139}{\'L}			% Ĺ
