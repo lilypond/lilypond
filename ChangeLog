@@ -7,7 +7,8 @@
 
 	* buildscripts/output-distance.py (FileLink): new class. collect
 	info systems from one .ly file. 
-  
+	(FileLink.link_files_for_html): further tweaks.
+
 2006-06-02  Graham Percival  <gpermus@gmail.com>
 
 	* tex/texinfo.tex: partial fix for @funindex.
