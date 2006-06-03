@@ -18,6 +18,9 @@
 
 2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/figured-bass-position-engraver.cc (acknowledge_end_slur):
+	fix for x-staff slurs. Thanks Joe!
+
 	* buildscripts/output-distance.py
 	(SystemLink.output_expression_change_count): keep track of changed
 	details, and dump in details html page.
