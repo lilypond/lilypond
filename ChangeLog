@@ -1,3 +1,11 @@
+2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/lyric-combine-music-iterator.cc (find_voice): return 0 if
+	nothing changes. (Erik S) 
+
+	* lily/percent-repeat-iterator.cc (get_music_list): fix repeat
+	count. (Erik S)
+
 2006-05-28  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/define-markup-commands.scm (whiteout): do not force
