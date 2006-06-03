@@ -156,6 +156,7 @@ Slur_engraver::process_music ()
       if (slurs_.size () == 0)
 	events_[STOP]->origin ()->warning (_ ("can't end slur"));
 
+      
       end_slurs_ = slurs_;
       slurs_.clear ();
     }
@@ -187,6 +188,8 @@ Slur_engraver::process_music ()
 void
 Slur_engraver::stop_translation_timestep ()
 {
+  for (vsize i = 0; i < end_slurs_.size (); i++)
+    announce_end_grob (end_slurs_[i], SCM_EOL);
   end_slurs_.clear ();
   events_[START] = events_[STOP] = 0;
 }

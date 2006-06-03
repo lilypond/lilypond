@@ -79,10 +79,10 @@ class GrobSignature:
 
     def __repr__ (self):
         return '%s: (%.2f,%.2f), (%.2f,%.2f)\n' % (self.name,
-                                                 self.bbox[0][0],
-                                                 self.bbox[0][1],
-                                                 self.bbox[1][0],
-                                                 self.bbox[1][1])
+                                                   self.bbox[0][0],
+                                                   self.bbox[0][1],
+                                                   self.bbox[1][0],
+                                                   self.bbox[1][1])
                                                  
     def axis_centroid (self, axis):
         return apply (sum, self.bbox[axis])  / 2 
@@ -101,9 +101,12 @@ class GrobSignature:
         
     def expression_distance (self, other):
         if self.output_expression == other.output_expression:
-            return 0.0
+            return 0
         else:
-            return OUTPUT_EXPRESSION_PENALTY
+            return 1
+
+################################################################
+# single System.
 
 class SystemSignature:
     def __init__ (self, grob_sigs):
@@ -140,6 +143,9 @@ class SystemSignature:
     def grobs (self):
         return reduce (lambda x,y: x+y, self.grob_dict.values(), [])
 
+################################################################
+## comparison of systems.
+
 class SystemLink:
     def __init__ (self, system1, system2):
         self.system1 = system1
@@ -148,6 +154,20 @@ class SystemLink:
         self.link_list_dict = {}
         self.back_link_dict = {}
 
+
+        ## pairs
+        self.orphans = []
+
+        ## pair -> distance
+        self.geo_distances = {}
+
+        ## pairs
+        self.expression_changed = []
+
+        self._geometric_distance = None
+        self._expression_change_count = None
+        self._orphan_count = None
+        
         for g in system1.grobs ():
 
             ## skip empty bboxes.
@@ -160,33 +180,69 @@ class SystemLink:
             self.link_list_dict[closest].append (g)
             self.back_link_dict[g] = closest
 
-    def geometric_distance (self):
-        d = 0.0
+
+    def calc_geometric_distance (self):
+        total = 0.0
         for (g1,g2) in self.back_link_dict.items ():
             if g2:
-                # , scale
-                d += g1.bbox_distance (g2)
+                d = g1.bbox_distance (g2)
+                if d:
+                    self.geo_distances[(g1,g2)] = d
 
-        return d
+                total += d
+
+        self._geometric_distance = total
     
-    def orphan_distance (self):
-        d = 0
-        for (g1,g2) in self.back_link_dict.items ():
+    def calc_orphan_count (self):
+        count = 0
+        for (g1, g2) in self.back_link_dict.items ():
             if g2 == None:
-                d += ORPHAN_GROB_PENALTY
-        return d
+                self.orphans.append ((g1, None))
+                
+                count += 1
+
+        self._orphan_count = count
     
-    def output_exp_distance (self):
+    def calc_output_exp_distance (self):
         d = 0
         for (g1,g2) in self.back_link_dict.items ():
             if g2:
                 d += g1.expression_distance (g2)
 
-        return d
+        self._expression_change_count = d
 
+    def output_expression_details_string (self):
+        return ', '.join ([g1.name for g1 in self.expression_changed])
+    
+    def geo_details_string (self):
+        results = [(d, g1,g2) for ((g1, g2), d) in self.geo_distances.items()]
+        results.sort ()
+        results.reverse ()
+        
+        return ', '.join (['%s: %f' % (g1.name, d) for (d, g1, g2) in results])
+
+    def orphan_details_string (self):
+        return ', '.join (['%s-None' % g1.name for (g1,g2) in self.orphans if g2==None])
+
+    def geometric_distance (self):
+        if self._geometric_distance == None:
+            self.calc_geometric_distance ()
+        return self._geometric_distance
+    
+    def orphan_count (self):
+        if self._orphan_count == None:
+            self.calc_orphan_count ()
+            
+        return self._orphan_count
+    
+    def output_expression_change_count (self):
+        if self._expression_change_count == None:
+            self.calc_output_exp_distance ()
+        return self._expression_change_count
+        
     def distance (self):
-        return (self.output_exp_distance (),
-                self.orphan_distance (),
+        return (self.output_expression_change_count (),
+                self.orphan_count (),
                 self.geometric_distance ())
     
 def read_signature_file (name):
@@ -198,6 +254,9 @@ def read_signature_file (name):
     sig = SystemSignature (grob_sigs)
     return sig
 
+
+################################################################
+# different systems of a .ly file.
 
 class FileLink:
     def __init__ (self):
@@ -325,8 +384,19 @@ class FileLink:
                 e += '<td>%f</td>' % d
             
             e = '<tr>%s</tr>' % e
+
             html += e
 
+            e = '<td>%d</td>' % c
+            for s in (link.output_expression_details_string (),
+                      link.orphan_details_string (),
+                      link.geo_details_string ()):
+                e += "<td>%s</td>" % s
+
+            
+            e = '<tr>%s</tr>' % e
+            html += e
+            
         original = self.original_name
         html = '''<html>
 <head>
@@ -652,8 +722,9 @@ def test_basic_compare ():
 
 
 def run_tests ():
-    do_clean = 0
     dir = 'output-distance-test'
+
+    do_clean = not os.path.exists (dir)
 
     print 'test results in ', dir
     if do_clean:
