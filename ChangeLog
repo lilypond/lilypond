@@ -1,5 +1,8 @@
 2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/figured-bass-position-engraver.cc (acknowledge_slur):
+	add slurs and ties to support too.
+
 	* buildscripts/output-distance.py (main): set dest_dir
 	argument. Add --max-count option.
 

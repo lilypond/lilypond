@@ -22,10 +22,12 @@ class Figured_bass_position_engraver : public Engraver
 
   Spanner *bass_figure_alignment_;
   Spanner *positioner_;
-  vector<Grob*> note_columns_;
+  vector<Grob*> support_;
 
 protected:
   DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_ACKNOWLEDGER (slur);
+  DECLARE_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (bass_figure_alignment);
   DECLARE_END_ACKNOWLEDGER (bass_figure_alignment);
 
@@ -72,7 +74,20 @@ Figured_bass_position_engraver::finalize ()
 void
 Figured_bass_position_engraver::acknowledge_note_column (Grob_info info)
 {
-  note_columns_.push_back (info.grob ());
+  support_.push_back (info.grob ());
+}
+
+
+void
+Figured_bass_position_engraver::acknowledge_slur (Grob_info info)
+{
+  support_.push_back (info.grob ());
+}
+
+void
+Figured_bass_position_engraver::acknowledge_tie (Grob_info info)
+{
+  support_.push_back (info.grob ());
 }
 
 void
@@ -80,11 +95,11 @@ Figured_bass_position_engraver::stop_translation_timestep ()
 {
   if (positioner_)
     {
-      for (vsize i = 0; i < note_columns_.size (); i++)
-	Side_position_interface::add_support (positioner_, note_columns_[i]);
+      for (vsize i = 0; i < support_.size (); i++)
+	Side_position_interface::add_support (positioner_, support_[i]);
     }
 
-  note_columns_.clear ();
+  support_.clear ();
 }
 
 void
@@ -103,6 +118,8 @@ Figured_bass_position_engraver::acknowledge_bass_figure_alignment (Grob_info inf
 
 
 ADD_ACKNOWLEDGER(Figured_bass_position_engraver,note_column);
+ADD_ACKNOWLEDGER(Figured_bass_position_engraver,slur);
+ADD_ACKNOWLEDGER(Figured_bass_position_engraver,tie);
 ADD_ACKNOWLEDGER(Figured_bass_position_engraver,bass_figure_alignment);
 ADD_END_ACKNOWLEDGER(Figured_bass_position_engraver,bass_figure_alignment);
 
