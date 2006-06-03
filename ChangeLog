@@ -1,5 +1,8 @@
 2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/figured-bass-staff.ly: add note about setting
+	properties in Staff context.
+
 	* lily/figured-bass-position-engraver.cc (acknowledge_slur):
 	add slurs and ties to support too.
 

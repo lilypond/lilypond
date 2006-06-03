@@ -1,17 +1,22 @@
 
 \paper {
   ragged-right = ##t
-
 }
-\version "2.9.7"
-\header {
 
+\version "2.9.7"
+
+\header {
 
   texidoc = "Figured bass can also be added to Staff context directly.
 In that case, the figures must be entered with @code{\\figuremode} and be directed
-to an existing @code{Staff} context."
+to an existing @code{Staff} context.
 
-  }
+Since these engravers are on @code{Staff} level, properties
+controlling figured bass should be set in @code{Staff} context.
+
+"
+
+}
 
 <<
 
