@@ -84,7 +84,9 @@ Figured_bass_position_engraver::acknowledge_end_slur (Grob_info info)
 {
   vector<Grob*>::iterator i = find (span_support_.begin (), span_support_.end (),
 				    info.grob ());
-  span_support_.erase (i);
+
+  if (i < span_support_.end ())
+    span_support_.erase (i);
 }
 
 void
