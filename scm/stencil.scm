@@ -179,52 +179,48 @@ encloses the contents.
 ;; spacing variables 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (annotate-y-interval layout name extent is-length)
-  (let*
-      ((text-props (cons
-		    '((font-size . -3)
-		      (font-family . typewriter))
-		    (layout-extract-page-properties layout)))
-       (annotation #f)
-       )
-
+(define*-public (annotate-y-interval layout name extent is-length
+                                     #:key (color darkblue))
+  (let ((text-props (cons '((font-size . -3)
+			    (font-family . typewriter))
+			  (layout-extract-page-properties layout)))
+	(annotation #f))
+    (define (center-stencil-on-extent stil)
+      (ly:stencil-translate (ly:stencil-aligned-to stil Y CENTER)
+                            (cons 0 (interval-center extent))))
     ;; do something sensible for 0,0 intervals. 
     (set! extent (interval-widen extent 0.001))
     (if (not (interval-sane? extent))
-	(set! annotation (interpret-markup layout text-props
-					   (make-simple-markup (format "~a: NaN/inf" name))))
-	(let*
-	    ((text-stencil (interpret-markup
-			    layout text-props
-			    (make-column-markup
-			     (list
-			      (make-whiteout-markup (make-simple-markup name))
-			      (make-whiteout-markup
-			       (make-simple-markup
-				(cond
-				 ((interval-empty? extent) "empty")
-				 (is-length (format "~$" (interval-length extent)))
-				 (else
-				  (format "(~$,~$)" (car extent)
-					  (cdr extent))))))))))
-	     (arrows
-	      (ly:stencil-translate-axis 
-	       (dimension-arrows (cons 0 (interval-length extent)))
-	       (interval-start extent) Y)))
-	  
+	(set! annotation (interpret-markup
+			  layout text-props
+			  (make-simple-markup (format "~a: NaN/inf" name))))
+	(let ((text-stencil (interpret-markup
+			     layout text-props
+                             (markup #:whiteout #:simple name)))
+              (dim-stencil (interpret-markup
+                            layout text-props
+                            (markup #:whiteout
+                                    #:simple (cond
+                                              ((interval-empty? extent)
+                                               (format "empty"))
+                                              (is-length
+                                               (format "~$" (interval-length extent)))
+                                              (else
+                                               (format "(~$,~$)"
+                                                       (car extent) (cdr extent)))))))
+	      (arrows (ly:stencil-translate-axis 
+		       (dimension-arrows (cons 0 (interval-length extent)))
+		       (interval-start extent) Y)))
 	  (set! annotation
-		(ly:stencil-aligned-to text-stencil Y CENTER))
-	  
-	  (set! annotation (ly:stencil-translate
-			    annotation
-			    (cons 0 (interval-center extent))))
-	  
-
+                (center-stencil-on-extent text-stencil))
 	  (set! annotation
 		(ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5 0))
-
 	  (set! annotation
-		(ly:make-stencil (ly:stencil-expr annotation)
+		(ly:stencil-combine-at-edge annotation X LEFT
+                                            (center-stencil-on-extent dim-stencil)
+                                            0.5 0))
+	  (set! annotation
+		(ly:make-stencil (list 'color color (ly:stencil-expr annotation))
 				 (ly:stencil-extent annotation X)
 				 (cons 10000 -10000)))))
     annotation))

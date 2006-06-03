@@ -85,37 +85,31 @@
 	(page-property page 'configuration))))
 
 (define (annotate-page layout stencil)
-  (let*
-      ((top-margin (ly:output-def-lookup layout 'top-margin))
-       (paper-height (ly:output-def-lookup layout 'paper-height))
-       (bottom-margin (ly:output-def-lookup layout 'bottom-margin))
-       (add-stencil (lambda (y)
-		      (set! stencil
-			    (ly:stencil-add stencil y))
-		      )))
-
+  (let ((top-margin (ly:output-def-lookup layout 'top-margin))
+	(paper-height (ly:output-def-lookup layout 'paper-height))
+	(bottom-margin (ly:output-def-lookup layout 'bottom-margin))
+	(add-stencil (lambda (y)
+		       (set! stencil
+			     (ly:stencil-add stencil
+					     (ly:stencil-translate-axis y 6 X))))))
     (add-stencil
      (ly:stencil-translate-axis 
       (annotate-y-interval layout "paper-height"
 			   (cons (- paper-height) 0)
 			   #t)
       1 X))
-    
-
     (add-stencil
      (ly:stencil-translate-axis 
       (annotate-y-interval layout "top-margin"
 			   (cons (- top-margin) 0)
 			   #t)
       2 X))
-    
     (add-stencil
      (ly:stencil-translate-axis 
       (annotate-y-interval layout "bottom-margin"
 			   (cons (- paper-height) (- bottom-margin paper-height))
 			   #t)
       2 X))
-    
     stencil))
 
 (define (annotate-space-left page)
@@ -324,8 +318,10 @@ create offsets.
 	    (ly:output-def-lookup layout 'annotatesystems #f))
 
 	(begin
-	  (for-each (lambda (sys) (paper-system-annotate sys layout))
-		    lines)
+	  (for-each (lambda (sys next-sys)
+		      (paper-system-annotate sys next-sys layout))
+		    lines
+		    (append (cdr lines) (list #f)))
 	  (paper-system-annotate-last (car (last-pair lines)) layout)))
     
     (set! page-stencil (ly:stencil-combine-at-edge
