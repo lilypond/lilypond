@@ -396,12 +396,13 @@ read_relocation_dir (string dirname)
 {
   DIR *dir = opendir  (dirname.c_str ());
 
-  while (struct dirent *ent = readdir (dir))
-    {
-      File_name name (ent->d_name);
-      if (name.ext_ == "reloc")
-	{
-	  read_relocation_file (dirname + "/" + name.to_string ());
-	}
-    }
+  if (dir) 
+    while (struct dirent *ent = readdir (dir))
+      {
+	File_name name (ent->d_name);
+	if (name.ext_ == "reloc")
+	  {
+	    read_relocation_file (dirname + "/" + name.to_string ());
+	  }
+      }
 }

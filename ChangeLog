@@ -1,3 +1,7 @@
+2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/relocate.cc (read_relocation_dir): only read dir if available.
+
 2006-06-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* make/mutopia-vars.make (ly_examples): remove .txt from .ly.txt
