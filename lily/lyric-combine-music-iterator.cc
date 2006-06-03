@@ -202,7 +202,11 @@ Lyric_combine_music_iterator::check_new_context (SCM sev)
 }
 
 /*
-Look for a suitable voice to align lyrics to.
+  Look for a suitable voice to align lyrics to.
+
+  Returns 0 if nothing should change; i.e., if we already listen to the
+  right voice, or if we don't yet listen to a voice but no appropriate
+  voice could be found.
 */
 Context *
 Lyric_combine_music_iterator::find_voice ()
@@ -232,7 +236,11 @@ Lyric_combine_music_iterator::find_voice ()
 void
 Lyric_combine_music_iterator::process (Moment)
 {
-  find_voice ();
+  /* see if associatedVoice has been changed */
+  Context *new_voice = find_voice ();
+  if (new_voice)
+    set_music_context (new_voice);
+
   if (!music_context_)
     return;
 

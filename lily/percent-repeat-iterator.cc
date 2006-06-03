@@ -34,7 +34,7 @@ Percent_repeat_iterator::get_music_list () const
     percent->set_spot (*mus->origin ());
     percent->set_property ("length", length);
     if (repeats > 1)
-      percent->set_property ("repeat-count", scm_int2num (i - 1));
+      percent->set_property ("repeat-count", scm_int2num (i));
     child_list = scm_cons (percent->unprotect (), child_list);
   }
   child_list = scm_cons (child->self_scm (), child_list);
