@@ -126,8 +126,7 @@ circle of diameter 0 (ie sharp corners)."
 
 (define-markup-command (whiteout layout props arg) (markup?)
   "Provide a white underground for @var{arg}"
-  (let* ((stil (interpret-markup layout props
-				 (make-with-color-markup black arg)))
+  (let* ((stil (interpret-markup layout props arg))
 	 (white
 	  (interpret-markup layout props
 			    (make-with-color-markup

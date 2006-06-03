@@ -1,3 +1,21 @@
+2006-05-28  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/define-markup-commands.scm (whiteout): do not force
+	foreground color of argument markup to black.
+
+	* scm/stencil.scm (annotate-y-interval): put arrow dimension at
+	the left of the arrow, instead of below the arrow name, so that,
+	when two little arrows are vertically stacked, their dimensions
+	and name should not overlap. Add a color key parameter.
+
+	* scm/paper-system.scm (paper-system-annotate): Annotate
+	next-space+next-padding instead of next-space. Annotate space
+	between next-padding and next-space+padding, respectively, and
+	following system extent and refpoint-Y-extent. Use colors.
+
+	* scm/page.scm (annotate-page): translate annotations slightly to
+	the right.
+
 2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* buildscripts/output-distance.py
