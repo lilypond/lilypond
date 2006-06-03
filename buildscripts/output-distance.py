@@ -18,6 +18,7 @@ INFTY = 1e6
 OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
 THRESHOLD = 1.0
+inspect_max_count = 0
 
 def max_distance (x1, x2):
     dist = 0.0
@@ -418,7 +419,9 @@ class ComparisonData:
         self.added += [(dir2, m) for m in m2] 
 
         for p in paired:
-            if len (self.file_links) > 10:
+            if (inspect_max_count
+                and len (self.file_links) > inspect_max_count):
+                
                 continue
             
             f2 = dir2 +  '/' + p
@@ -575,6 +578,7 @@ def test_compare_trees ():
 
     ## introduce differences
     system ('cp 19-1.signature dir2/20-1.signature')
+    system ('cp 20-1.signature dir2/subdir/19-sub-1.signature')
 
     ## radical diffs.
     system ('cp 19-1.signature dir2/20grob-1.signature')
@@ -673,7 +677,14 @@ def main ():
                   dest="run_test",
                   action="store_true",
                   help='run test method')
-
+    p.add_option ('--max-count',
+                  dest="max_count",
+                  metavar="COUNT",
+                  type="int",
+                  default=0, 
+                  action="store",
+                  help='only analyze COUNT signature pairs')
+ 
     (o,a) = p.parse_args ()
 
     if o.run_test:
@@ -684,7 +695,10 @@ def main ():
         p.print_usage()
         sys.exit (2)
 
-    compare_trees (a[0], a[1])
+    global inspect_max_count
+    inspect_max_count = o.max_count
+
+    compare_trees (a[0], a[1], a[1] + '/' +  a[0])
 
 if __name__ == '__main__':
     main()

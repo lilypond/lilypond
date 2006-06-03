@@ -1,3 +1,8 @@
+2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* buildscripts/output-distance.py (main): set dest_dir
+	argument. Add --max-count option.
+
 2006-06-02  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* ly/gregorian-init.ly: Converted to utf-8.  Added memorable
