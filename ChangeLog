@@ -1,3 +1,7 @@
+2006-06-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* GNUmakefile.in: reinstate old web tar/copying.
+
 2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/lyric-combine-music-iterator.cc (find_voice): return 0 if
