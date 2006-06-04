@@ -128,10 +128,12 @@
 				 (+ next-space next-padding)
 				 "refpoint-Y-extent" "next-space+padding"
 				 "space after next-space+padding"))
-    (set! (ly:prob-property system 'stencil)
-	  (ly:stencil-add
-	   (ly:prob-property system 'stencil)
-	   (ly:make-stencil
-	    (ly:stencil-expr annotations)
-	    (ly:stencil-extent empty-stencil X)
-	    (ly:stencil-extent empty-stencil Y))))))
+    (if (not (null? annotations))
+	(set! (ly:prob-property system 'stencil)
+	      (ly:stencil-add
+	       (ly:prob-property system 'stencil)
+	       (ly:make-stencil
+		(ly:stencil-expr annotations)
+		(ly:stencil-extent empty-stencil X)
+		(ly:stencil-extent empty-stencil Y)))))
+    (ly:prob-property system 'stencil)))
