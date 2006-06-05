@@ -17,7 +17,6 @@ INFTY = 1e6
 
 OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
-THRESHOLD = 1.0
 inspect_max_count = 0
 
 def max_distance (x1, x2):
@@ -467,6 +466,7 @@ class ComparisonData:
         self.missing = []
         self.added = []
         self.file_links = {}
+
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
         
@@ -511,7 +511,7 @@ class ComparisonData:
 
         file_link.add_file_compare (f1,f2)
 
-    def write_text_result_page (self, filename):
+    def write_text_result_page (self, filename, threshold):
         print 'writing "%s"' % filename
         out = None
         if filename == '':
@@ -527,18 +527,18 @@ class ComparisonData:
 
         
         for (score, link) in results:
-            if score > THRESHOLD:
+            if score > threshold:
                 out.write (link.text_record_string ())
 
         out.write ('\n\n')
         out.write ('%d below threshold\n' % len ([1 for s,l  in results
-                                                    if THRESHOLD >=  s > 0.0]))
+                                                    if threshold >=  s > 0.0]))
         out.write ('%d unchanged\n' % len ([1 for (s,l) in results if s == 0.0]))
         
-    def create_text_result_page (self, dir1, dir2, dest_dir):
-        self.write_text_result_page (dest_dir + '/index.txt')
+    def create_text_result_page (self, dir1, dir2, dest_dir, threshold):
+        self.write_text_result_page (dest_dir + '/index.txt', threshold)
         
-    def create_html_result_page (self, dir1, dir2, dest_dir):
+    def create_html_result_page (self, dir1, dir2, dest_dir, threshold):
         dir1 = dir1.replace ('//', '/')
         dir2 = dir2.replace ('//', '/')
         
@@ -550,7 +550,7 @@ class ComparisonData:
         html = ''
         old_prefix = os.path.split (dir1)[1]
         for (score, link) in results:
-            if score <= THRESHOLD:
+            if score <= threshold:
                 continue
 
             link.write_html_system_details (dir1, dir2, dest_dir)
@@ -571,7 +571,7 @@ class ComparisonData:
 
         html += ('<p>')
         below_count  =len ([1 for s,l  in results
-                         if THRESHOLD >=  s > 0.0])
+                            if threshold >=  s > 0.0])
 
         if below_count:
             html += ('<p>%d below threshold</p>' % below_count)
@@ -583,20 +583,19 @@ class ComparisonData:
         dest_file = dest_dir + '/index.html'
         open_write_file (dest_file).write (html)
         
-    def print_results (self):
-        self.write_text_result_page ('')
-        
+    def print_results (self, threshold):
+        self.write_text_result_page ('', threshold)
 
-def compare_trees (dir1, dir2, dest_dir):
+def compare_trees (dir1, dir2, dest_dir, threshold):
     data = ComparisonData ()
     data.compare_trees (dir1, dir2)
-    data.print_results ()
+    data.print_results (threshold)
 
     if os.path.isdir (dest_dir):
         system ('rm -rf %s '% dest_dir)
 
-    data.create_html_result_page (dir1, dir2, dest_dir)
-    data.create_text_result_page (dir1, dir2, dest_dir)
+    data.create_html_result_page (dir1, dir2, dest_dir, threshold)
+    data.create_text_result_page (dir1, dir2, dest_dir, threshold)
     
 ################################################################
 # TESTING
@@ -654,7 +653,7 @@ def test_compare_trees ():
     system ('cp 19-1.signature dir2/20grob-1.signature')
     system ('cp 19-1.signature dir2/20grob-2.signature')
 
-    compare_trees ('dir1', 'dir2', 'compare-dir1dir2')
+    compare_trees ('dir1', 'dir2', 'compare-dir1dir2', 0.5)
 
 
 def test_basic_compare ():
@@ -744,7 +743,7 @@ def main ():
     p = optparse.OptionParser ("output-distance - compare LilyPond formatting runs")
     p.usage = 'output-distance.py [options] tree1 tree2'
     
-    p.add_option ('', '--test',
+    p.add_option ('', '--test-self',
                   dest="run_test",
                   action="store_true",
                   help='run test method')
@@ -756,6 +755,14 @@ def main ():
                   action="store",
                   help='only analyze COUNT signature pairs')
  
+
+    p.add_option ('', '--threshold',
+                  dest="threshold",
+                  default=0.3,
+                  action="store",
+                  type="float",
+                  help='threshold for geometric distance')
+
     (o,a) = p.parse_args ()
 
     if o.run_test:
@@ -769,7 +776,7 @@ def main ():
     global inspect_max_count
     inspect_max_count = o.max_count
 
-    compare_trees (a[0], a[1], a[1] + '/' +  a[0])
+    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  a[0]))
 
 if __name__ == '__main__':
     main()
