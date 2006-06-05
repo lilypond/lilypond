@@ -75,6 +75,15 @@ Input::message (string s) const
   ::message (s);
 }
 
+
+void
+Input::programming_error (string s) const
+{
+  message (_f ("programming error: %s", s.c_str ()));
+  message (_ ("continuing, cross fingers") + "\n");
+}
+
+
 void
 Input::warning (string s) const
 {

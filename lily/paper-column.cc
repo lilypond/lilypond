@@ -65,6 +65,14 @@ Paper_column::Paper_column (Paper_column const &src, int count)
   rank_ = src.rank_;
 }
 
+int
+Paper_column::compare (Grob * const &a,
+		       Grob * const &b)
+{
+  return sign (dynamic_cast<Paper_column*> (a)->rank_
+	       - dynamic_cast<Paper_column*> (b)->rank_);
+}
+
 Moment
 Paper_column::when_mom (Grob *me)
 {

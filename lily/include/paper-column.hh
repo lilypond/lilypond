@@ -30,6 +30,8 @@ public:
   virtual Paper_column *get_column () const;
   virtual System *get_system () const;
 
+  static int compare (Grob * const &a,
+		      Grob * const &b);
   int get_rank () const { return rank_; }
   void set_rank (int);
 

@@ -165,8 +165,11 @@ Music_iterator::report_event (Music *m)
 {
   descend_to_bottom_context ();
 
+  /*
+    FIXME: then don't do it. 
+  */
   if (!m->is_mus_type ("event"))
-    m->origin ()->warning (_f ("Sending non-event to context"));
+    m->origin ()->programming_error (_f ("Sending non-event to context"));
 
   m->send_to_context (get_outlet ());
 }
