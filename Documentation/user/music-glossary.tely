@@ -3264,15 +3264,21 @@ FI: teema, sävelaihe.
 The briefest intelligible and self-contained fragment of a musical theme or
 subject.
 
-@lilypond[fragment,line-width=13.0\cm]
-\override Score.TimeSignature #'break-visibility = #all-invisible
-%\override Score.TextScript #'font-style = #'large
+@lilypond[line-width=13.0\cm]
+\score{
 \relative c'' {
+  \override Score.TimeSignature #'break-visibility = #all-invisible
+  %\override Score.TextScript #'font-style = #'large
   \time 4/4
   \key g \major
-  \partial 8 g16_"------" fis |
-  g8 d16_"------" c d8 g16 fis g8 b,16 a b8 g'16 fis |
+  \partial 8 g16\startGroup fis |
+  g8\stopGroup d16\startGroup c d8\stopGroup g16 fis g8 b,16 a b8 g'16 fis |
   g8 g,16 a b8 cis d16 s
+}
+\layout {
+	\context {
+		\Staff \consists "Horizontal_bracket_engraver"
+}}
 }
 @end lilypond
 
