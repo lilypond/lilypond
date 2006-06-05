@@ -56,13 +56,20 @@ MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Spanner *me = unsmob_spanner (smob);
 
   /*
     can't use get_system() ? --hwn.
   */
   vector<Grob*> all (get_root_system (me)->columns ());
+  vsize start = binary_search (all, (Grob*)me->get_bound (LEFT),
+			       &Paper_column::compare);
+  vsize end = binary_search (all, (Grob*) me->get_bound (RIGHT),
+			     &Paper_column::compare);
 
+  all = vector<Grob*>::vector<Grob*> (all.begin () + start,
+				      all.begin () + end + 1);
+  
   set_explicit_neighbor_columns (all);
 
   Spacing_options options;
@@ -489,15 +496,17 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "head width) A 16th note is followed by 0.5 note head width. The\n"
 	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
 
+	       
 	       "average-spacing-wishes "
-	       "grace-space-factor "
-	       "spacing-increment "
 	       "base-shortest-duration "
-	       "strict-note-spacing "
-	       "shortest-duration-space "
 	       "common-shortest-duration "
-	       "uniform-stretching "
+	       "grace-space-factor "
 	       "packed-spacing "
+	       "shortest-duration-space "
+	       "spacing-increment "
+	       "strict-note-spacing "
+	       "uniform-stretching "
+	       
 	       );
 
 ADD_INTERFACE (Spacing_interface, "spacing-interface",

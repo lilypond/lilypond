@@ -5,6 +5,29 @@
 
 2006-06-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/spacing-section.ly: new file.
+
+	* lily/input.cc (programming_error): new function.
+
+	* lily/spacing-engraver.cc (try_music): new function. Accept
+	spacing-section-event
+
+	* lily/spacing-spanner.cc (set_springs): take slices of all
+	columns for spacing.
+
+	* lily/include/paper-column.hh (class Paper_column): add
+	Paper_column::compare.
+
+	* ly/spanners-init.ly (newSpacingSection): add newSpacingSection.
+
+	* scm/define-music-types.scm (music-descriptions): add
+	SpacingSectionEvent
+
+	* lily/music-iterator.cc (report_event): use programming_error for
+	sending non-event error.
+
+	* lily/input.cc (programming_error): new function
+
 	* buildscripts/output-distance.py (main): use compare-XXX for
 	compare files.
 	(main): --threshold option, default at 0.30

@@ -27,14 +27,17 @@ public:
   char const *end () const;
 
   void set (Source_file *, char const *, char const *);
-  void warning (string) const; // should use member func?
+  void warning (string) const;
+  void programming_error (string) const;
   void non_fatal_error (string) const;
   void error (string) const;
   void message (string) const;
   void set_spot (Input const &);
   void step_forward ();
   void set_location (Input const &, Input const &);
+
   Input spot () const;
+
   string location_string () const;
   string line_number_string () const;
   string file_string ()const;

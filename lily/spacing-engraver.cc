@@ -32,34 +32,6 @@ struct Rhythmic_tuple
   static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);
 };
 
-/*
-  TODO: allow starting & stopping of spacing regions.
-*/
-/*
-  Acknowledge rhythmic elements, for initializing spacing fields in
-  the columns.
-*/
-class Spacing_engraver : public Engraver
-{
-  PQueue<Rhythmic_tuple> playing_durations_;
-  vector<Rhythmic_tuple> now_durations_;
-  vector<Rhythmic_tuple> stopped_durations_;
-  Moment now_;
-  Spanner *spacing_;
-
-  TRANSLATOR_DECLARATIONS (Spacing_engraver);
-
-protected:
-  DECLARE_ACKNOWLEDGER (staff_spacing);
-  DECLARE_ACKNOWLEDGER (note_spacing);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-
-  void start_translation_timestep ();
-  void stop_translation_timestep ();
-  void process_music ();
-  virtual void finalize ();
-};
-
 inline int
 compare (Rhythmic_tuple const &a, Rhythmic_tuple const &b)
 {
@@ -73,23 +45,80 @@ Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
   return (h1.end_ - h2.end_).main_part_.sign ();
 }
 
+/****************************************************************/
+
+/*
+  Acknowledge rhythmic elements, for initializing spacing fields in
+  the columns.
+*/
+class Spacing_engraver : public Engraver
+{
+  PQueue<Rhythmic_tuple> playing_durations_;
+  vector<Rhythmic_tuple> now_durations_;
+  vector<Rhythmic_tuple> stopped_durations_;
+  Moment now_;
+  Spanner *spacing_;
+  Music *start_section_;
+  
+  TRANSLATOR_DECLARATIONS (Spacing_engraver);
+
+protected:
+  DECLARE_ACKNOWLEDGER (staff_spacing);
+  DECLARE_ACKNOWLEDGER (note_spacing);
+  DECLARE_ACKNOWLEDGER (rhythmic_head);
+
+  void start_translation_timestep ();
+  void stop_translation_timestep ();
+  void process_music ();
+  
+  virtual void finalize ();
+  virtual bool try_music (Music *m);
+
+  void start_spanner ();
+  void stop_spanner ();
+};
+
 Spacing_engraver::Spacing_engraver ()
 {
   spacing_ = 0;
+  start_section_ = 0;
+}
+
+bool
+Spacing_engraver::try_music (Music *m)
+{
+  start_section_ = m;
+  return true;  
 }
 
 void
 Spacing_engraver::process_music ()
 {
+  if (start_section_ && spacing_)
+    stop_spanner ();
+  
   if (!spacing_)
-    {
-      spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
-      spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
-    }
+    start_spanner ();
+}
+
+void
+Spacing_engraver::start_spanner ()
+{
+  assert (!spacing_);
+
+  spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
+  spacing_->set_bound (LEFT,
+		       unsmob_grob (get_property ("currentCommandColumn")));
 }
 
 void
 Spacing_engraver::finalize ()
+{
+  stop_spanner ();
+}
+
+void
+Spacing_engraver::stop_spanner ()
 {
   if (spacing_)
     {
@@ -186,8 +215,11 @@ Spacing_engraver::stop_translation_timestep ()
 void
 Spacing_engraver::start_translation_timestep ()
 {
+  start_section_ = 0;
+
   now_ = now_mom ();
   stopped_durations_.clear ();
+  
   while (playing_durations_.size () && playing_durations_.front ().end_ < now_)
     playing_durations_.delmin ();
   while (playing_durations_.size () && playing_durations_.front ().end_ == now_)
@@ -203,7 +235,8 @@ ADD_TRANSLATOR (Spacing_engraver,
 		"bookkeeping of shortest starting and playing notes  ",
 
 		/* create */ "SpacingSpanner",
-		/* accept */ "",
+		/* accept */
+		"spacing-section-event ",
 		/* read */
 		"currentMusicalColumn "
 		"currentCommandColumn "

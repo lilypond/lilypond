@@ -91,3 +91,5 @@ sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
 %crescpoco = \set crescendoText = "cresc. poco a poco"
 %decresc = \set crescendoText = "decr."
 %dim = \set crescendoText = "dim."
+
+newSpacingSection = #(make-event-chord (list (make-music 'SpacingSectionEvent)))

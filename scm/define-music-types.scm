@@ -160,7 +160,12 @@ Syntax: @var{note}\\cr
 	(types . (general-music extender-event event))
 	))
 
-    
+    (Event
+     . (
+	(description .	"Atomic music event.")
+	(types . (general-music event))
+	))
+        
     (EventChord
      . (
 	(description .	"Internally used to group a set of events.")
@@ -414,12 +419,6 @@ goes down).")
 	(description . "Ties for starting a second volta bracket.")
 	(types . (general-music event repeat-tie-event))
 	))
-    (Event
-     . (
-	(description .	"Atomic music event.")
-	(types . (general-music event))
-	))
-    
     (RestEvent
      . (
 	(description .	"A Rest. 
@@ -594,6 +593,11 @@ Syntax: @code{s}@var{duration}")
 
 	(types . (general-music event rhythmic-event skip-event))
 	))
+
+    (SpacingSectionEvent
+     . ((description . "Start a new spacing section")
+	(types . (general-music event spacing-section-event))))
+     
     (SpanEvent
      . (
 	(description .	"Event for anything that is started at a different time than stopped.")
