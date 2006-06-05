@@ -776,7 +776,8 @@ def main ():
     global inspect_max_count
     inspect_max_count = o.max_count
 
-    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  a[0]))
+    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  a[0]),
+                   o.threshold)
 
 if __name__ == '__main__':
     main()
