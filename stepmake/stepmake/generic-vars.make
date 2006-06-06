@@ -29,7 +29,7 @@ endif
 src-wildcard = $(subst $(src-dir)/,,$(wildcard $(src-dir)/$(1)))
 
 ifeq ($(distdir),)
-  distdir = $(top-src-dir)/$(outdir)/$(DIST_NAME)
+  distdir = $(top-build-dir)/$(outdir)/$(DIST_NAME)
   DIST_NAME = $(package)-$(TOPLEVEL_VERSION)
 endif
 distname = $(package)-$(TOPLEVEL_VERSION)
