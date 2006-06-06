@@ -1,5 +1,8 @@
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* GNUmakefile.in (dist-toplevel-txt-files): dist aclocal.m4
+	directly from srcdir/stepmake/aclocal.m4
+	
 	* Documentation/misc/GNUmakefile (TEXTS): use src-wildcard for
 	disting MISC files.
 
