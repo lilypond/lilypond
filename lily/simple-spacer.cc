@@ -289,7 +289,12 @@ struct Rod_desc
     return r_ < r.r_;
   }
 
-  Rod_desc () {}
+  Rod_desc ()
+  {
+    r_ = 0;
+    dist_ = 0;
+  }
+
   Rod_desc (vsize r, Real d)
   {
     r_ = r;
@@ -305,7 +310,17 @@ struct Column_desc
   Real inverse_hooke_;
   Real end_ideal_;
   Real end_inverse_hooke_;
+  SCM break_permission_;
   Interval keep_inside_line_;
+
+  Column_desc ()
+  {
+    ideal_ = 0;
+    inverse_hooke_ = 0;
+    end_ideal_ = 0;
+    end_inverse_hooke_ = 0;
+    break_permission_ = SCM_EOL;
+  }
 };
 
 static int compare_paper_column_rank (Grob *const &a, Grob *const &b);
@@ -401,6 +416,7 @@ get_column_desc (vector<Grob*> const &cols, vsize col_index, bool line_starter)
     }
   if (!line_starter && to_boolean (col->get_property ("keep-inside-line")))
     desc.keep_inside_line_ = col->extent (col, X_AXIS);
+  desc.break_permission_ = col->get_property ("line-break-permission");
   return desc;
 }
 
@@ -409,10 +425,12 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
 		 Real line_len, Real indent, bool ragged)
 {
   vector<Real> force;
-  force.resize (breaks.size () * breaks.size ());
+  force.resize (breaks.size () * breaks.size (), infinity_f);
 
   vector<Column_desc> cols;
   vsize b = 1;
+  SCM force_break = ly_symbol2scm ("force");
+
   cols.push_back (Column_desc ());
   for (vsize i = 1; i < icols.size () - 1; i++)
     {
@@ -457,6 +475,9 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
 	    }
 	  spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
 	  force[b * breaks.size () + c] = spacer.force ();
+
+	  if (cols[end].break_permission_ == force_break)
+	    break;
 	  if (!spacer.fits ())
 	    {
 	      force[b * breaks.size () + c] = infinity_f;
@@ -497,8 +518,15 @@ get_line_configuration (vector<Grob*>const &columns,
       spacer.add_spring (cols[i].ideal_, cols[i].inverse_hooke_);
     }
   for (vsize i = 0; i < cols.size (); i++)
-    for (vsize r = 0; r < cols[i].rods_.size (); r++)
-      spacer.add_rod (i, cols[i].rods_[r].r_, cols[i].rods_[r].dist_);
+    {
+      for (vsize r = 0; r < cols[i].rods_.size (); r++)
+	spacer.add_rod (i, cols[i].rods_[r].r_, cols[i].rods_[r].dist_);
+      if (!cols[i].keep_inside_line_.is_empty ())
+	{
+	  spacer.add_rod (i, cols.size (), cols[i].keep_inside_line_[RIGHT]);
+	  spacer.add_rod (0, i, cols[i].keep_inside_line_[LEFT]);
+	}
+    }
 
   spacer.solve (line_len, ragged);
   ret.force_ = spacer.force ();
