@@ -1,3 +1,8 @@
+2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/stepmake/generic-vars.make (distdir): create dist in
+	top-build-dir.
+
 2006-06-06  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* ly/gregorian-init.ly: Rewrote \versus and \responsum in order to
