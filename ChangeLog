@@ -1,5 +1,9 @@
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/output-distance.py
+	(ComparisonData.create_html_result_page): put version/directories
+	in table header.
+
 	* Documentation/topdocs/NEWS.tely (Top): document spacing section
 	feature.
 

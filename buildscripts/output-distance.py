@@ -562,8 +562,8 @@ class ComparisonData:
 <table rules="rows" border bordercolor="blue">
 <tr>
 <th>distance</th>
-<th>old</th>
-<th>new</th>
+<th>%(dir1)s</th>
+<th>%(dir2)s</th>
 </tr>
 %(html)s
 </table>
