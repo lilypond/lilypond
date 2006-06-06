@@ -65,6 +65,26 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+@item
+New sections with different spacing parameters can be started with
+@code{newSpacingSection}.  This is useful when there are  
+sections with a different notions of long and short notes.
+
+In the following example, the time signature change introduces a new
+section, and hence the 16ths notes are spaced differently.
+
+@lilypond[relative,fragment]
+  \time 2/4
+  c4 c8 c 
+  c8 c c4 c16[ c c8] c4
+
+  \newSpacingSection
+  \time 4/16
+  c16[ c  c8]
+@end lilypond
+
+This feature was sponsored by Trevor Bača, Michael Meixner and Vivian
+Barty-Taylor.
 
 @item
 A new, automated testing technique has been added. It will detect
@@ -75,7 +95,7 @@ View @uref{../../test-results.html,test results}.
 
 @item
 Figured bass can also be added to @code{Staff} contexts directly. In
-this case, their vertical  position is adjusted automatically.
+this case, their vertical position is adjusted automatically.
 
 @lilypond[ragged-right,fragment]
 <<
