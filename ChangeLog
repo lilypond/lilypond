@@ -1,3 +1,14 @@
+2006-06-06  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/simple-spacer.cc (get_line_configuration): add
+	keep-inside-line rods
+	(struct Column_desc): add constructor
+	(struct Rod_desc): add constructor
+	(get_line_forces): check for forced page breaks here too
+
+	* lily/instrument-name-engraver.cc (acknowledge_axis_group): prevent
+	support/elements cycles between InstrumentNames and AxisGroups
+
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* stepmake/stepmake/topdocs-targets.make (make-txt-files): define

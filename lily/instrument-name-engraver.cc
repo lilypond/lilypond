@@ -73,7 +73,6 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
     {
       Grob *staff = info.grob();
       Pointer_group_interface::add_grob (text_spanner_, ly_symbol2scm ("elements"), staff);
-      Side_position_interface::add_support (text_spanner_, staff);
     }
 }
 
