@@ -1,3 +1,10 @@
+2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/misc/GNUmakefile (TEXTS): use src-wildcard for
+	disting MISC files.
+
+	* lily/simple-spacer.cc (get_column_desc): desc -> description.
+
 2006-06-06  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/simple-spacer.cc (get_line_configuration): add
@@ -10,6 +17,8 @@
 	support/elements cycles between InstrumentNames and AxisGroups
 
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* config.make.in (METAFONT): remove MAKEINFO_VERSION
 
 	* stepmake/stepmake/topdocs-targets.make (make-txt-files): define
 	make-txt-files target.

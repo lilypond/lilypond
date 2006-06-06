@@ -211,22 +211,22 @@ Simple_spacer::compress_line ()
 void
 Simple_spacer::add_spring (Real ideal, Real inverse_hooke)
 {
-  Spring_description desc;
+  Spring_description description;
 
-  desc.ideal_ = ideal;
-  desc.inverse_hooke_ = inverse_hooke;
-  if (!desc.is_sane ())
+  description.ideal_ = ideal;
+  description.inverse_hooke_ = inverse_hooke;
+  if (!description.is_sane ())
     {
       programming_error ("insane spring found, setting to unit");
 
-      desc.inverse_hooke_ = 1.0;
-      desc.ideal_ = 1.0;
+      description.inverse_hooke_ = 1.0;
+      description.ideal_ = 1.0;
     }
 
-  desc.block_force_ = -desc.ideal_ / desc.inverse_hooke_;
+  description.block_force_ = -description.ideal_ / description.inverse_hooke_;
   // block at distance 0
 
-  springs_.push_back (desc);
+  springs_.push_back (description);
 }
 
 vector<Real>
@@ -279,33 +279,33 @@ Spring_description::length (Real f) const
   this closely.
 */
 
-struct Rod_desc
+struct Rod_description
 {
   vsize r_;
   Real dist_;
 
-  bool operator< (const Rod_desc r)
+  bool operator< (const Rod_description r)
   {
     return r_ < r.r_;
   }
 
-  Rod_desc ()
+  Rod_description ()
   {
     r_ = 0;
     dist_ = 0;
   }
 
-  Rod_desc (vsize r, Real d)
+  Rod_description (vsize r, Real d)
   {
     r_ = r;
     dist_ = d;
   }
 };
 
-struct Column_desc
+struct Column_description
 {
-  vector<Rod_desc> rods_;
-  vector<Rod_desc> end_rods_;   /* use these if they end at the last column of the line */
+  vector<Rod_description> rods_;
+  vector<Rod_description> end_rods_;   /* use these if they end at the last column of the line */
   Real ideal_;
   Real inverse_hooke_;
   Real end_ideal_;
@@ -313,7 +313,7 @@ struct Column_desc
   SCM break_permission_;
   Interval keep_inside_line_;
 
-  Column_desc ()
+  Column_description ()
   {
     ideal_ = 0;
     inverse_hooke_ = 0;
@@ -386,20 +386,20 @@ get_column_spring (Grob *this_col, Grob *next_col, Real *ideal, Real *inv_hooke)
   *inv_hooke = (spring) ? spring->inverse_strength_ : 1.0;
 }
 
-static Column_desc
-get_column_desc (vector<Grob*> const &cols, vsize col_index, bool line_starter)
+static Column_description
+get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_starter)
 {
   Grob *col = cols[col_index];
   if (line_starter)
     col = maybe_find_prebroken_piece (col, RIGHT);
 
-  Column_desc desc;
+  Column_description description;
   Grob *next_col = next_spaceable_column (cols, col_index);
   if (next_col)
-    get_column_spring (col, next_col, &desc.ideal_, &desc.inverse_hooke_);
+    get_column_spring (col, next_col, &description.ideal_, &description.inverse_hooke_);
   Grob *end_col = next_line_ending_column (cols, col_index);
   if (end_col)
-    get_column_spring (col, end_col, &desc.end_ideal_, &desc.end_inverse_hooke_);
+    get_column_spring (col, end_col, &description.end_ideal_, &description.end_inverse_hooke_);
 
   for (SCM s = Spaceable_grob::get_minimum_distances (col);
        scm_is_pair (s); s = scm_cdr (s))
@@ -409,15 +409,15 @@ get_column_desc (vector<Grob*> const &cols, vsize col_index, bool line_starter)
       if (j != VPOS)
 	{
 	  if (cols[j] == other)
-	    desc.rods_.push_back (Rod_desc (j, scm_to_double (scm_cdar (s))));
+	    description.rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
 	  else /* it must end at the LEFT prebroken_piece */
-	    desc.end_rods_.push_back (Rod_desc (j, scm_to_double (scm_cdar (s))));
+	    description.end_rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
 	}
     }
   if (!line_starter && to_boolean (col->get_property ("keep-inside-line")))
-    desc.keep_inside_line_ = col->extent (col, X_AXIS);
-  desc.break_permission_ = col->get_property ("line-break-permission");
-  return desc;
+    description.keep_inside_line_ = col->extent (col, X_AXIS);
+  description.break_permission_ = col->get_property ("line-break-permission");
+  return description;
 }
 
 vector<Real>
@@ -427,11 +427,11 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
   vector<Real> force;
   force.resize (breaks.size () * breaks.size (), infinity_f);
 
-  vector<Column_desc> cols;
+  vector<Column_description> cols;
   vsize b = 1;
   SCM force_break = ly_symbol2scm ("force");
 
-  cols.push_back (Column_desc ());
+  cols.push_back (Column_description ());
   for (vsize i = 1; i < icols.size () - 1; i++)
     {
       if (b < breaks.size () && breaks[b] == i)
@@ -440,13 +440,13 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
 	  b++;
 	}
       if (!is_loose (icols[i]))
-	cols.push_back (get_column_desc (icols, i, false));
+	cols.push_back (get_column_description (icols, i, false));
     }
   breaks.back () = cols.size () - 1;
 
   for (vsize b = 0; b < breaks.size () - 1; b++)
     {
-      cols[breaks[b]] = get_column_desc (icols, breaks[b], true);
+      cols[breaks[b]] = get_column_description (icols, breaks[b], true);
       vsize st = breaks[b];
 
       for (vsize c = b+1; c < breaks.size (); c++)
@@ -494,7 +494,7 @@ get_line_configuration (vector<Grob*>const &columns,
 			Real indent,
 			bool ragged)
 {
-  vector<Column_desc> cols;
+  vector<Column_description> cols;
   Simple_spacer spacer;
   Column_x_positions ret;
 
@@ -511,10 +511,10 @@ get_line_configuration (vector<Grob*>const &columns,
   cols.resize (ret.cols_.size () - 1);
 
   /* since we've already put our line-ending column in the column list, we can ignore
-     the end_XXX_ fields of our column_desc */
+     the end_XXX_ fields of our column_description */
   for (vsize i = 0; i < cols.size (); i++)
     {
-      cols[i] = get_column_desc (ret.cols_, i, i == 0);
+      cols[i] = get_column_description (ret.cols_, i, i == 0);
       spacer.add_spring (cols[i].ideal_, cols[i].inverse_hooke_);
     }
   for (vsize i = 0; i < cols.size (); i++)
