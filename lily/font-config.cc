@@ -30,12 +30,18 @@ init_fontconfig ()
   font_config_global = FcInitLoadConfig ();
   FcChar8 *cache_file = FcConfigGetCache (font_config_global);
 
+  if (!cache_file)
+    {
+      programming_error ("global fontconfig cache_file not found");
+      return;
+    }
+  
   /*
     This is a terrible kludge, but there is apparently no way for
     FontConfig to signal whether it needs to rescan directories.
    */ 
   if (!is_file ((char*)cache_file))
-    message (_f ("Rebuilding FontConfig cache %s. this may take a while...", cache_file));
+    message (_f ("Rebuilding FontConfig cache %s, this may take a while...", cache_file));
 			
   vector<string> dirs;
 

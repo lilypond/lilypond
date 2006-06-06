@@ -1,3 +1,18 @@
+2006-06-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-book.py (process_snippets): Argument fix.
+
+	* SConstruct:
+	* buildscripts/builder.py:
+	* lily/SConscript: 
+	* mf/SConscript: 
+	* Documentation/user/SConscript:  More SCons fixes.
+
+2006-06-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/font-config.cc (init_fontconfig): Only initialize if
+	global cache_file is found.
+
 2006-06-06  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* ly/music-functions-init.ly: Updated \overrideProperty to use the
