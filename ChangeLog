@@ -7,6 +7,10 @@
 
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* GNUmakefile.in (dist-toplevel-txt-files): new target. Don't
+	pollute src dir with built .txt files, but install directly from
+	Documentation/topdocs/out/
+
 	* buildscripts/output-distance.py
 	(ComparisonData.create_html_result_page): put version/directories
 	in table header.
