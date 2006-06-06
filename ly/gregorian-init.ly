@@ -17,11 +17,36 @@ IIJ = \lyricmode { IĲ }
 ij = \lyricmode { ĳ }
 iij = \lyricmode { iĳ }
 
-% unicode 2123 (versicle)
-versus = \lyricmode { ℣ }
+% Given some music that represents lyrics, add a prefix to the first
+% lyric event.
+#(define (add-prefix-to-lyrics prefix music)
+   (make-music
+    'SequentialMusic
+    'elements (append
+	       (cons
+		(let* ((elems (car (ly:music-property music 'elements)))
+		       (props (ly:music-mutable-properties elems))
+		       (events (filter (lambda (x)
+					 (equal? (car x) 'elements))
+				       props))
+		       (first-evt (cadar events))
+		       (first-syllable (ly:prob-property first-evt 'text))
+		       (first-duration (ly:prob-property first-evt 'duration)))
+		  (make-music
+		   'LyricEvent
+		   'duration first-duration
+		   'text (string-append prefix first-syllable)))
+		(cdr (ly:music-property music 'elements))))))
 
-% unicode 211F (response)
-responsum = \lyricmode { ℟ }
+% Add unicode 2123 (versicle) as prefix to lyrics.
+versus =
+#(define-music-function (parser location music) (ly:music?)
+   (add-prefix-to-lyrics "℣" music))
+
+% Add unicode 211F (response) as prefix to lyrics.
+responsum =
+#(define-music-function (parser location music) (ly:music?)
+   (add-prefix-to-lyrics "℟" music))
 
 %
 % Declare head prefix shortcuts.
