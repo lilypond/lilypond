@@ -1388,10 +1388,10 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
     def my_system (cmd):
         status = ly.system (cmd,
                   be_verbose=global_options.verbose, 
-                  progress_p= 1)
+                  progress_p=1)
 
     if global_options.format in (HTML, TEXINFO):
-        cmd += ' --format png '
+        cmd += ' --formats=png '
 
     # UGH
     # the --process=CMD switch is a bad idea
