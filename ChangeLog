@@ -1,5 +1,7 @@
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PACKAGE_NAME): release 2.9.8
+
 	* lily/ledger-line-engraver.cc (stop_translation_timestep): new
 	function. Delay ledger modifying ledgered grobs to
 	stop_translation_timestep(), to ensure that we're ledgering
