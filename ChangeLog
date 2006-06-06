@@ -1,8 +1,13 @@
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* configure.in (LINK_GXX_STATICALLY): use readlink.py to resolve links.
+	* Documentation/topdocs/NEWS.tely (Top): document spacing section
+	feature.
 
+	* configure.in (LINK_GXX_STATICALLY): use readlink.py to resolve links.
+	Patch by Karl Hammar
+	
 	* buildscripts/readlink.py: add  file.
+	Patch by Karl Hammar
 
 2006-06-06  Joe Neeman  <joeneeman@gmail.com>
 
