@@ -16,7 +16,6 @@ Choices are @code{divisioMinima}, @code{divisioMaior},
 \score {
   <<
     \context VaticanaVoice {
-      \override Staff.StaffSymbol #'color = #red
       \override TextScript  #'padding = #3
       g a g
       s^\markup { "divisio minima" }
