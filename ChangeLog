@@ -1,3 +1,9 @@
+2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* configure.in (LINK_GXX_STATICALLY): use readlink.py to resolve links.
+
+	* buildscripts/readlink.py: add  file.
+
 2006-06-06  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/tuplet-number.cc (print): prevent stencil from being
