@@ -16,7 +16,7 @@ SUBDIRS = buildscripts python scripts \
 ## value of DOCUMENTATION here.
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
-SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh Doxyfile
+SCRIPTS = configure autogen.sh lexer-gcc-3.1.sh Doxyfile
 README_FILES = ChangeLog COPYING DEDICATION ROADMAP THANKS HACKING
 TOPDOC_FILES=AUTHORS README INSTALL NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
@@ -33,13 +33,12 @@ INSTALLATION_FILES=$(config_make) VERSION
 STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make
 
-
 local-dist: dist-toplevel-txt-files
-
 
 dist-toplevel-txt-files:
 	-mkdir -p $(distdir)
 	ln $(TOPDOC_TXT_FILES) $(distdir)/
+	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)/
 
 doc: 
 	$(MAKE) -C Documentation
