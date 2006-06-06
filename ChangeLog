@@ -56,10 +56,16 @@
 
 2006-06-06  Jürgen Reuter  <reuter@ipd.uka.de>
 
+	* Documentation/user/instrument-notation.itely,
+	input/regression/breathing-sign-ancient.ly,
+	input/test/divisiones.ly: Removed redundant property settings for
+	vaticana contexts.
+
 	* ly/gregorian-init.ly: Rewrote \versus and \responsum in order to
 	fix lyrics alignment problems.  They are implemented now as scheme
 	functions that add the appropriate unicode char to the first lyric
-	event rather than adding a separate lyric event.
+	event rather than adding a separate lyric event.  Minor edit of
+	comments.
 
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 

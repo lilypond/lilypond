@@ -1,8 +1,9 @@
-\version "2.7.39"
+%{
+  Shortcuts common for all styles of gregorian chant notation.
+  $Id: gregorian-init.ly,v 1.46 2006/06/06 21:19:17 reuter Exp $
+%}
 
-%%%%%%%%
-%%%%%%%% shortcuts common for all styles of gregorian chant notation
-%%%%%%%%
+\version "2.7.39"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -17,8 +18,14 @@ IIJ = \lyricmode { IĲ }
 ij = \lyricmode { ĳ }
 iij = \lyricmode { iĳ }
 
+%
 % Given some music that represents lyrics, add a prefix to the first
 % lyric event.
+%
+% TODO: Robustify this function.  For example, this function works
+% correctly for "\versus { some lyrics }", but it barfs with a wrong type
+% argument error for e.g. "\versus some lyrics".
+%
 #(define (add-prefix-to-lyrics prefix music)
    (make-music
     'SequentialMusic

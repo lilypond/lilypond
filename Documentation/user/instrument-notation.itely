@@ -2909,8 +2909,6 @@ Editio Vaticana style.
 \include "gregorian-init.ly"
 \score {
   \new VaticanaVoice {
-    \override Staff.StaffSymbol #'color = #red
-    \override Staff.LedgerLineSpanner #'color = #red
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
@@ -4159,17 +4157,13 @@ the following excerpt demonstrates
 \score {
   <<
     \new VaticanaVoice = "cantus" {
-      \override Staff.StaffSymbol #'color = #red
-      \override Staff.LedgerLineSpanner #'color = #red
-      \override Score.BarNumber #'transparent = ##t {
-        \[ c'\melisma c' \flexa a \]
-        \[ a \flexa \deminutum g\melismaEnd \]
-        f \divisioMinima
-        \[ f\melisma \pes a c' c' \pes d'\melismaEnd \]
-        c' \divisioMinima \break
-        \[ c'\melisma c' \flexa a \]
-        \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
-      }
+      \[ c'\melisma c' \flexa a \]
+      \[ a \flexa \deminutum g\melismaEnd \]
+      f \divisioMinima
+      \[ f\melisma \pes a c' c' \pes d'\melismaEnd \]
+      c' \divisioMinima \break
+      \[ c'\melisma c' \flexa a \]
+      \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
     }
     \new Lyrics \lyricsto "cantus" {
       San- ctus, San- ctus, San- ctus
