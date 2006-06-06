@@ -1,5 +1,13 @@
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* stepmake/stepmake/topdocs-targets.make (make-txt-files): define
+	make-txt-files target.
+
+	* stepmake/stepmake/toplevel-targets.make (do-top-doc): use
+	make-txt-files target.
+
+	* configure.in (LINK_GXX_STATICALLY): $srcdir for readlink.py
+
 	* stepmake/stepmake/generic-vars.make (distdir): create dist in
 	top-build-dir.
 
