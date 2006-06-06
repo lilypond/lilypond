@@ -14,7 +14,8 @@
 class Ledger_line_engraver : public Engraver
 {
   Spanner *span_;
-
+  vector<Grob*> ledgered_grobs_;
+  
 public:
   TRANSLATOR_DECLARATIONS (Ledger_line_engraver);
 
@@ -27,6 +28,7 @@ protected:
 
   void start_spanner ();
   void stop_spanner ();
+  void stop_translation_timestep ();
 };
 
 Ledger_line_engraver::Ledger_line_engraver ()
@@ -38,9 +40,26 @@ void
 Ledger_line_engraver::start_spanner ()
 {
   assert (!span_);
-  span_ = make_spanner ("LedgerLineSpanner", SCM_EOL);
 
+  span_ = make_spanner ("LedgerLineSpanner", SCM_EOL);
   span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+}
+
+void
+Ledger_line_engraver::stop_translation_timestep ()
+{
+  if (span_)
+    {
+      for (vsize i = 0; i < ledgered_grobs_.size (); i++)
+	{
+	  if (!to_boolean (ledgered_grobs_[i]->get_property ("no-ledgers")))
+	    Pointer_group_interface::add_grob (span_,
+					       ly_symbol2scm ("note-heads"),
+					       ledgered_grobs_[i]);
+	}
+    }
+
+  ledgered_grobs_.clear ();
 }
 
 void
@@ -76,8 +95,7 @@ Ledger_line_engraver::acknowledge_staff_symbol (Grob_info s)
   Spanner *sym = dynamic_cast<Spanner *> (s.grob ());
 
   if (!span_
-      || (span_->get_bound (LEFT) != sym->get_bound (LEFT)
-	  && sym->get_bound (LEFT)))
+      || (span_->get_bound (LEFT) != sym->get_bound (LEFT)))
     {
       stop_spanner ();
       start_spanner ();
@@ -87,12 +105,7 @@ Ledger_line_engraver::acknowledge_staff_symbol (Grob_info s)
 void
 Ledger_line_engraver::acknowledge_ledgered (Grob_info s)
 {
-  if (span_)
-    {
-      if (!to_boolean (s.grob ()->get_property ("no-ledgers")))
-	Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-heads"),
-					   s.grob ());
-    }
+  ledgered_grobs_.push_back (s.grob ());
 }
 
 #include "translator.icc"

@@ -56,7 +56,11 @@ void
 Staff_symbol_engraver::start_spanner ()
 {
   if (!span_)
-    span_ = make_spanner ("StaffSymbol", SCM_EOL);
+    {
+      span_ = make_spanner ("StaffSymbol", SCM_EOL);
+      span_->set_bound (LEFT,
+			unsmob_grob (get_property ("currentCommandColumn")));
+    }
 }
 
 void
@@ -71,10 +75,8 @@ void
 Staff_symbol_engraver::stop_translation_timestep ()
 {
   if ((span_events_[START] || first_start_)
-      && span_
-      && !span_->get_bound (LEFT))
+      && span_)
     {
-      span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
       first_start_ = false;
     }
 
@@ -109,7 +111,9 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 }
 
 #include "translator.icc"
+
 ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
+
 ADD_TRANSLATOR (Staff_symbol_engraver,
 		/* doc */ "Create the constellation of five (default) "
 		"staff lines.",

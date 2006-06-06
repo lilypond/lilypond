@@ -1,5 +1,15 @@
 2006-06-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/ledger-line-engraver.cc (stop_translation_timestep): new
+	function. Delay ledger modifying ledgered grobs to
+	stop_translation_timestep(), to ensure that we're ledgering
+	according to the new spanner.
+	(acknowledge_staff_symbol): don't check for non-NULL
+	staff_sym->get_bound()
+
+	* lily/staff-symbol-engraver.cc (start_spanner): set left bound on
+	creation.
+
 	* Documentation/pictures/GNUmakefile (XPM_FILES): src-wildcard for
 	pictures too.
 
