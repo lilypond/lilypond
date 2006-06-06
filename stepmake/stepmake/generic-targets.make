@@ -69,6 +69,7 @@ Note that all commands recurse into subdirectories;\n\
 prepend \`local-' to restrict operation to the current directory.\n\
 Example: \`local-clean'.\n"
 
+# "
 local-help:
 
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
