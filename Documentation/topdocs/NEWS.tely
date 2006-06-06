@@ -71,7 +71,7 @@ New sections with different spacing parameters can be started with
 sections with a different notions of long and short notes.
 
 In the following example, the time signature change introduces a new
-section, and hence the 16ths notes are spaced differently.
+section, and hence the 16ths notes are spaced wider.
 
 @lilypond[relative,fragment]
   \time 2/4
