@@ -133,17 +133,15 @@ or @code{\"GrobName\"}"
 	   (set! grob-name (string->symbol (list-ref name-components 1)))
 	   (set! context-name (string->symbol (list-ref name-components 0)))))
 
-     (context-spec-music
-      (make-music 'ApplyOutputEvent
-		  'origin location
-		  'procedure
-		  (lambda (grob orig-context context)
-		    (if (equal?
-			 (cdr (assoc 'name (ly:grob-property grob 'meta)))
-			 grob-name)
-			(set! (ly:grob-property grob property) value))))
-
-      context-name)))
+     (make-music 'ApplyOutputEvent
+		 'origin location
+		 'context-type context-name
+		 'procedure
+		 (lambda (grob orig-context context)
+		   (if (equal?
+			(cdr (assoc 'name (ly:grob-property grob 'meta)))
+			grob-name)
+		       (set! (ly:grob-property grob property) value))))))
 
 breathe =
 #(define-music-function (parser location) ()
