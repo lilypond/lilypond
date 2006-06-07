@@ -269,6 +269,89 @@ def list_sort (lst):
 	return sorted
 
 
+def symlink_tree (target, source, env):
+	def mkdirs (dir):
+		def mkdir (dir):
+			if not dir:
+				os.chdir (os.sep)
+				return
+			if not os.path.isdir (dir):
+				if os.path.exists (dir):
+					os.unlink (dir)
+				os.mkdir (dir)
+			os.chdir (dir)
+		map (mkdir, string.split (dir, os.sep))
+	def symlink (src, dst):
+		os.chdir (absbuild)
+		dir = os.path.dirname (dst)
+		mkdirs (dir)
+		if src[0] == '#':
+			frm = os.path.join (srcdir, src[1:])
+		else:
+			depth = len (string.split (dir, '/'))
+			if src.find ('@') > -1:
+				frm = os.path.join ('../' * depth,
+						    string.replace (src, '@',
+								    env['out']))
+			else:
+				frm = os.path.join ('../' * depth, src,
+						    env['out'])
+		if src[-1] == '/':
+			frm = os.path.join (frm, os.path.basename (dst))
+		if env['verbose']:
+			print 'ln -s %s -> %s' % (frm, os.path.basename (dst))
+		os.symlink (frm, os.path.basename (dst))
+	shutil.rmtree (run_prefix)
+	prefix = os.path.join (env['out'], 'usr')
+	map (lambda x: symlink (x[0], os.path.join (prefix,
+						    x[1] % {'ver' : version})),
+	     # ^# := source dir
+	     # @  := out
+	     # /$ := add dst file_name
+	     (('python',     'lib/lilypond/python'),
+	      # ugh
+	      ('python',     'share/lilypond/%(ver)s/python'),
+	      ('lily/',      'bin/lilypond'),
+	      ('scripts/',   'bin/convert-ly'),
+	      ('scripts/',   'bin/lilypond-book'),
+	      ('scripts/',   'bin/ps2png'),
+	      ('mf',         'share/lilypond/%(ver)s/dvips/mf-out'),
+	      ('#ps',        'share/lilypond/%(ver)s/dvips/ps'),
+	      ('#ps/music-drawing-routines.ps',
+	       'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
+	      ('mf',         'share/lilypond/%(ver)s/otf'),
+	      ('mf',         'share/lilypond/%(ver)s/tfm'),
+	      ('tex',        'share/lilypond/%(ver)s/tex/enc'),
+	      ('#mf',        'share/lilypond/%(ver)s/fonts/mf'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/map'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/otf'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/tfm'),
+	      ('mf',         'share/lilypond/%(ver)s/fonts/type1'),
+	      ('#tex',       'share/lilypond/%(ver)s/tex/source'),
+	      ('tex',        'share/lilypond/%(ver)s/tex/tex-out'),
+	      ('mf',         'share/lilypond/%(ver)s/tex/mf-out'),
+	      ('#ly',        'share/lilypond/%(ver)s/ly'),
+	      ('#scm',       'share/lilypond/%(ver)s/scm'),
+	      ('#scripts',   'share/lilypond/%(ver)s/scripts'),
+	      ('#ps',        'share/lilypond/%(ver)s/ps'),
+	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
+	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
+
+	print "FIXME: BARF BARF BARF"
+	os.chdir (absbuild)
+	out = env['out']
+	ver = version
+	prefix = os.path.join (env['out'], 'usr/share/lilypond/%(ver)s/fonts'
+			       % vars ())
+	for ext in ('enc', 'map', 'otf', 'svg', 'tfm', 'pfa'):
+		dir = os.path.join (absbuild, prefix, ext)
+		os.system ('rm -f ' + dir)
+		mkdirs (dir)
+		os.chdir (dir)
+		os.system ('ln -s ../../../../../../../mf/%(out)s/*.%(ext)s .'
+			   % vars ())
+	os.chdir (srcdir)
+
 def configure (target, source, env):
 	dre = re.compile ('\n(200[0-9]{5})')
 	vre = re.compile ('.*?\n[^-.0-9]*([0-9][0-9]*\.[0-9]([.0-9]*[0-9])*)',
@@ -582,6 +665,12 @@ env.PrependENVPath ('PATH',
 
 LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond/', version)
 
+if not os.path.exists (LILYPONDPREFIX):
+	os.makedirs (LILYPONDPREFIX)
+
+env.Command (LILYPONDPREFIX, ['#/SConstruct', '#/VERSION'], symlink_tree)
+env.Depends ('lily', LILYPONDPREFIX)
+
 env.Append (ENV = {
 	'LILYPONDPREFIX' : LILYPONDPREFIX,
 	'TEXMF' : '{$LILYPONDPREFIX,'
@@ -674,6 +763,10 @@ if 'realclean' in COMMAND_LINE_TARGETS:
 		os.unlink (config_cache)
 	Exit (s)
 
+def symlink_tree ():
+	print "BOE"
+	raise urg
+	
 # Declare SConscript phonies 
 env.Alias ('minimal', config_cache)
 
@@ -683,7 +776,7 @@ if 0:
 	env.Alias ('all', ['minimal', 'mf', '.'])
 
 else:
-	env.Alias ('minimal', ['python', 'mf', 'lily'])
+	env.Alias ('minimal', ['python', 'lily', 'mf'])
 	env.Alias ('all', ['minimal', '.'])
 
 
@@ -730,93 +823,6 @@ env.Append (
 	MAKEINFO_PATH = ['.', '$srcdir/Documentation/user',
 			 '$absbuild/Documentation/user/$out'],
 	)
-
-def symlink_tree (target, source, env):
-	def mkdirs (dir):
-		def mkdir (dir):
-			if not dir:
-				os.chdir (os.sep)
-				return
-			if not os.path.isdir (dir):
-				if os.path.exists (dir):
-					os.unlink (dir)
-				os.mkdir (dir)
-			os.chdir (dir)
-		map (mkdir, string.split (dir, os.sep))
-	def symlink (src, dst):
-		os.chdir (absbuild)
-		dir = os.path.dirname (dst)
-		mkdirs (dir)
-		if src[0] == '#':
-			frm = os.path.join (srcdir, src[1:])
-		else:
-			depth = len (string.split (dir, '/'))
-			if src.find ('@') > -1:
-				frm = os.path.join ('../' * depth,
-						    string.replace (src, '@',
-								    env['out']))
-			else:
-				frm = os.path.join ('../' * depth, src,
-						    env['out'])
-		if src[-1] == '/':
-			frm = os.path.join (frm, os.path.basename (dst))
-		if env['verbose']:
-			print 'ln -s %s -> %s' % (frm, os.path.basename (dst))
-		os.symlink (frm, os.path.basename (dst))
-	shutil.rmtree (run_prefix)
-	prefix = os.path.join (env['out'], 'usr')
-	map (lambda x: symlink (x[0], os.path.join (prefix,
-						    x[1] % {'ver' : version})),
-	     # ^# := source dir
-	     # @  := out
-	     # /$ := add dst file_name
-	     (('python',     'lib/lilypond/python'),
-	      # ugh
-	      ('python',     'share/lilypond/%(ver)s/python'),
-	      ('lily/',      'bin/lilypond'),
-	      ('scripts/',   'bin/convert-ly'),
-	      ('scripts/',   'bin/lilypond-book'),
-	      ('scripts/',   'bin/ps2png'),
-	      ('mf',         'share/lilypond/%(ver)s/dvips/mf-out'),
-	      ('#ps',        'share/lilypond/%(ver)s/dvips/ps'),
-	      ('#ps/music-drawing-routines.ps',
-	       'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
-	      ('mf',         'share/lilypond/%(ver)s/otf'),
-	      ('mf',         'share/lilypond/%(ver)s/tfm'),
-	      ('tex',        'share/lilypond/%(ver)s/tex/enc'),
-	      ('#mf',        'share/lilypond/%(ver)s/fonts/mf'),
-	      ('mf',         'share/lilypond/%(ver)s/fonts/map'),
-	      ('mf',         'share/lilypond/%(ver)s/fonts/otf'),
-	      ('mf',         'share/lilypond/%(ver)s/fonts/tfm'),
-	      ('mf',         'share/lilypond/%(ver)s/fonts/type1'),
-	      ('#tex',       'share/lilypond/%(ver)s/tex/source'),
-	      ('tex',        'share/lilypond/%(ver)s/tex/tex-out'),
-	      ('mf',         'share/lilypond/%(ver)s/tex/mf-out'),
-	      ('#ly',        'share/lilypond/%(ver)s/ly'),
-	      ('#scm',       'share/lilypond/%(ver)s/scm'),
-	      ('#scripts',   'share/lilypond/%(ver)s/scripts'),
-	      ('#ps',        'share/lilypond/%(ver)s/ps'),
-	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
-	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
-
-	print "FIXME: BARF BARF BARF"
-	os.chdir (absbuild)
-	out = env['out']
-	ver = version
-	prefix = os.path.join (env['out'], 'usr/share/lilypond/%(ver)s/fonts'
-			       % vars ())
-	for ext in ('enc', 'map', 'otf', 'svg', 'tfm', 'pfa'):
-		dir = os.path.join (absbuild, prefix, ext)
-		os.system ('rm -f ' + dir)
-		mkdirs (dir)
-		os.chdir (dir)
-		os.system ('ln -s ../../../../../../../mf/%(out)s/*.%(ext)s .'
-			   % vars ())
-	os.chdir (srcdir)
-
-env.Command (LILYPONDPREFIX, ['#/SConstruct', '#/VERSION'], symlink_tree)
-env.Depends ('lily', LILYPONDPREFIX)
-env.Depends ('doc', LILYPONDPREFIX)
 
 #### dist, tar
 def plus (a, b):

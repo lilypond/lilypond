@@ -1,3 +1,7 @@
+2006-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* SConstruct (LILYPONDPREFIX): Bootstrap fix.
+
 2006-06-06  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/advanced-notation.itely: add example
