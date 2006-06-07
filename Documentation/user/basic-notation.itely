@@ -224,7 +224,7 @@ espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
 
 @cindex Relative
 @cindex Relative octave specification
-@findex \relative
+@funindex \relative
 
 Octaves are specified by adding @code{'} and @code{,} to pitch names.
 When you copy existing music, it is easy to accidentally put a pitch

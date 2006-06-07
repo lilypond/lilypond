@@ -9,6 +9,9 @@
 
 	* Documentation/user/ various: minor additions from mailist.
 
+	* Documentation/user/lilypond.tely, basic-notation.itely:
+	small test of @funindex.  (works here)
+
 2006-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct (LILYPONDPREFIX): Bootstrap fix.
