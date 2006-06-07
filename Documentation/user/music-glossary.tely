@@ -1763,7 +1763,7 @@ FI: diminuendo, hiljentyen.
 @node disjunct movement
 @section disjunct movement
 
-ES: movimiendo disjunto,
+ES: movimiento disjunto,
 I: moto disgiunto,
 F: mouvement disjoint,
 D: sprunghafte Bewegung,
@@ -2596,7 +2596,7 @@ Consonances:
   <g d'>_"fifth  " s
   <g e'>_"sixth  " s
   <g g'>_"octave  " s
-  <g b'>_"decime" s s
+  <g b'>_"tenth" s s
 }
 @end lilypond
 
@@ -2703,7 +2703,7 @@ of such two intervals forms an octave.
 }
 \context Lyrics \lyrics {
   "seventh " "seventh " "seventh " "octave "
-  "none " "none " "decime " "decime"
+  "ninth " "ninth " "tenth " "tenth"
 }
 >>
 @end lilypond
@@ -2854,7 +2854,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
     c4-. d-. e-. \bar "||"
   }
   \lyrics {
-    a1
+    a2.
     b
     c
     d
