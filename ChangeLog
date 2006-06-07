@@ -1,3 +1,10 @@
+2006-06-06  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/advanced-notation.itely: add example
+	for segno/coda on barline.
+
+	* tex/texinfo.tex: merge from upstream.
+
 2006-06-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py (process_snippets): Argument fix.
