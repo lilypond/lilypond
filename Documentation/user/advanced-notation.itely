@@ -1896,6 +1896,8 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 @node Special noteheads
 @subsection Special noteheads
 
+@cindex note heads, special
+
 Different noteheads are used by various instruments for various
 meanings -- crosses are used for ``parlato'' with vocalists, stopped
 notes on guitar; diamonds are used for harmonics on string instruments,
@@ -2077,6 +2079,8 @@ g4 a
 @node Shape note heads
 @subsection Shape note heads
 
+@cindex note heads, shape
+
 In shape note head notation, the shape of the note head corresponds
 to the harmonic function of a note in the scale.  This notation was
 popular in the 19th century American song books.
@@ -2113,6 +2117,8 @@ combinations are possible, e.g.
 @node Easy Notation note heads
 @subsection Easy Notation note heads
 
+@cindex note heads, practice
+@cindex note heads, easy notation
 @cindex easy notation
 @cindex Hal Leonard
 

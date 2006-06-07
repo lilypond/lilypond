@@ -2358,8 +2358,7 @@ Here are all suptopics at a glance:
 @node Ancient note heads
 @subsection Ancient note heads
 
-@cindex note heads
-
+@cindex note heads, ancient
 
 For ancient notation, a note head style other than the @code{default}
 style may be chosen.  This is accomplished by setting the @code{style}
