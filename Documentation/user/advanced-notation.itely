@@ -836,6 +836,24 @@ You may use @code{format-mark-barnumbers}, @code{format-mark-box-barnumbers},
 and @code{format-mark-circle-barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
+@cindex segno
+@cindex coda
+@cindex D.S al Fine
+
+Music glyphs (such as the segno sign) may be printed inside
+a @code{\mark}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+c1 \mark \markup { \musicglyph #"scripts.segno" }
+c1 \mark \markup { \musicglyph #"scripts.coda" }
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+See @ref{The Feta font} for a list of symbols which may be
+printed with @code{\musicglyph}.
+
 The horizontal location of rehearsal marks can be adjusted by
 setting @code{break-align-symbol}
 
