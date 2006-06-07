@@ -1,4 +1,6 @@
-\version "2.7.39"
+\version "2.9.7"
+\sourcefilename "music-box.ly"
+
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -21,7 +23,7 @@ using Scheme functions to avoid typing work. " }
 	   (recurse (cdr elts))
 	 )))))
    music
-  )) 
+  ))
 
 #(define ((trans pitches) music)
   (let* ((es (ly:music-property music 'elements))
@@ -50,11 +52,6 @@ using Scheme functions to avoid typing work. " }
     music))
 
 
-
-
-
-\version "2.7.39"
-
 pat =  \transpose c c' \repeat unfold 2 {
   << { \context Staff = "up" {r8 e16 f g e f g } }
     { \context Staff = "down" <<
@@ -71,15 +68,21 @@ enda =  { r8 f,16 a, c f c a, \stemUp c \change Staff = down
 endb =  {\stemUp \tieUp r16 c,8.~c,4~c,2 r16 h,,8.~h,,4~h,,2 c,1 \bar "|."}
 endc =  {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
 
+
+prelude =
+#(define-music-function (parser location patterns) (ly:music?)
+			(transform patterns))
+
+
 \score {
    \transpose c c' \context PianoStaff <<
        \new Staff = "up"   { \clef "G"  }
        \new Staff = "down" { \clef "F" }
-       { \applyMusic #transform {
+       { \prelude {
 	   \pat {c e g c' e' }
 	   \pat {c d a d' f' }
        }
-	 
+	
 %{
 				%Etc.
 
@@ -121,7 +124,7 @@ endc =  {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
 %}
      }
    >>
-   
+
    \layout {
        \context {
 	   \PianoStaff
@@ -129,7 +132,7 @@ endc =  {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
        }
        line-width = 18.0 \cm
    }
-   
+
    \midi {
        \tempo 4 = 80
    }
