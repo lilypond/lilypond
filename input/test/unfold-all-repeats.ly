@@ -1,11 +1,19 @@
-\version "2.7.39"
+\version "2.9.7"
+\sourcefilename "unfold-all-repeats.ly"
 
 \header { 
 texidoc = "Applying the standard function @code{unfold-repeats} unfolds 
 recursively all repeats for a correct MIDI output."
 }
 
-mel =  \context Staff {
+unfoldAll = 
+	#(define-music-function (parser location music )
+                        (ly:music?)
+  	#{
+    		\unfoldRepeats $music
+  	#})
+
+mel = \context Staff {
   \repeat tremolo 8 {c'32 e' }
   \repeat percent 2 { c''8 d'' }
   \repeat volta 2 {c'4 d' e' f'} 
@@ -18,10 +26,7 @@ mel =  \context Staff {
 
 \score {  {
   \mel \break
-  \applyMusic #unfold-repeats \mel 
+  \unfoldAll \mel
  }
 }
-
-
-
 

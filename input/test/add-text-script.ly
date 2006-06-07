@@ -1,12 +1,10 @@
-\version "2.7.39"
+\version "2.9.7"
+\sourcefilename "add-text-script.ly"
 
 \header {
 texidoc= "@cindex make-music Fingering
 You can add various stuff to notes using @code{make-music}.
 In this example, an extra fingering is attached to a note. 
-
-In general, first do a @code{display} of the music you want to
-create, then write a function that will structure the music for you.
 "
 } 
 
@@ -14,7 +12,7 @@ create, then write a function that will structure the music for you.
    (make-music 'TextScriptEvent
                'direction DOWN
                'text (make-simple-markup x)))
-     
+
 #(define (add-text-script m x)
    (if (equal? (ly:music-property m 'name) 'EventChord)
        (set! (ly:music-property m 'elements)
@@ -27,9 +25,14 @@ create, then write a function that will structure the music for you.
 	     (add-text-script e x))))
    m)
 
-\score {
-  \applyMusic #(lambda (x)  (add-text-script x "6") (display-music x) x )  { c'4-3 }
-	\layout{ ragged-right = ##t }
-}
+addScript =
+#(define-music-function (parser location script music )
+					( string? ly:music? )
+		(add-text-script music script))
 
+\score {
+  {
+    \addScript "6" { c'4-3 }
+  }
+}
 
