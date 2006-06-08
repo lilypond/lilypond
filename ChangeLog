@@ -12,6 +12,9 @@
 	* Documentation/user/lilypond.tely, basic-notation.itely:
 	small test of @funindex.  (works here)
 
+	* input/test/font-table.ly: reduce size to partially
+	de-ugly version in manual.
+
 2006-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct (LILYPONDPREFIX): Bootstrap fix.
