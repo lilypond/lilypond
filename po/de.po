@@ -1789,7 +1789,7 @@ msgstr "Bezeichner sollte nur aus alphabetischen Zeichen bestehen"
 #: parser.yy:705
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
-"\\paper kann nicht in \\source verwendet werden; stattdessen \\layout "
+"\\paper kann nicht in \\score verwendet werden; stattdessen \\layout "
 "verwenden"
 
 #: parser.yy:729
