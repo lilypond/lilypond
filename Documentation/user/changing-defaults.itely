@@ -46,9 +46,9 @@ Context: changing aspects of the translation from music events to
 notation.  For example, giving each staff a separate time signature.
 
 @item
-Global layout: changing the appearance of the spacing, line
+Page layout: changing the appearance of the spacing, line
 breaks, and page dimensions.  These modifications are discussed
-in @ref{Global issues}.
+in @ref{Non-musical notation} and @ref{Page settings}.
 @end itemize
 
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
