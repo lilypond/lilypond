@@ -126,14 +126,14 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
   b.scale (scale_);
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
   FcPattern *fcpat = fcfont->font_pattern;
-  char *file_name_as_ptr = 0;
-  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name_as_ptr);
+  FcChar8 *file_name_as_ptr = 0;
+  FcPatternGetString (fcpat, FC_FILE, 0, &file_name_as_ptr);
 
   string file_name;
   if (file_name_as_ptr)
     {
       /* Normalize file name.  */
-      file_name = File_name (file_name_as_ptr).to_string ();
+      file_name = File_name ((char const *)file_name_as_ptr).to_string ();
     }
   
   SCM glyph_exprs = SCM_EOL;
