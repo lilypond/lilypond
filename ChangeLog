@@ -1,3 +1,8 @@
+2006-06-08  Graham Percival  <gpermus@gmail.com>
+
+	* input/test/ smart-transpose.ly, reverse-music.ly:
+	\applyMusic to music functions update, thanks Michael!
+
 2006-06-07  Graham Percival  <gpermus@gmail.com>
 
 	* input/test/ add-staccato.ly, add-text-script.ly,

@@ -935,6 +935,8 @@ second
 voice in the first @code{<< \\ >>} construct is effective in the second
 @code{<< \\ >>}, and the voice is tied across the two constructs.
 
+@cindex note heads, styles
+
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
   \override NoteHead #'style = #'cross
