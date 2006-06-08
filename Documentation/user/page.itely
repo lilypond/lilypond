@@ -1,0 +1,1020 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+
+@c A menu is needed before every deeper *section nesting of @node's; run
+@c     M-x texinfo-all-menus-update
+@c to automatically fill in these menus before saving changes
+
+@node Page settings
+@chapter Page settings
+
+This section deals with the presentation of output in pdf form.
+
+@menu
+* Paper and pages::             
+* Music layout::                
+@end menu
+
+
+@node Paper and pages
+@section Paper and pages
+
+This section deals with the display of music on physical paper.
+
+@menu
+* Paper size::                  
+* Page formatting::             
+@end menu
+
+
+@node Paper size
+@subsection Paper size
+
+@cindex paper size
+@cindex page size
+@findex papersize
+
+To change the paper size, there are two commands,
+@example
+#(set-default-paper-size "a4")
+\paper @{
+  #(set-paper-size "a4")
+@}
+@end example
+
+The first command sets the size of all pages.  The second command sets the
+size
+of the pages that the @code{\paper} block applies to -- if the @code{\paper}
+block is at the top of the file, then it will apply to all pages.  If the
+@code{\paper} block is inside a @code{\book}, then the paper size will only
+apply to that book.
+
+Support for the following paper sizes are included by default,
+@code{a6}, @code{a5}, @code{a4}, @code{a3}, @code{legal}, @code{letter},
+@code{11x17} (also known as tabloid).
+
+Extra sizes may be added by editing the definition for
+@code{paper-alist} in the initialization file @file{scm/paper.scm}.
+
+@cindex orientation
+@cindex landscape
+
+If the symbol @code{landscape} is supplied as an argument to
+@code{set-default-paper-size}, the pages will be rotated by 90 degrees,
+and wider line widths will be set correspondingly.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example
+
+Setting the paper size will adjust a number of @code{\paper} variables
+(such as margins).  To use a particular paper size with altered
+@code{\paper} variables, set the paper size before setting the variables.
+
+
+@node Page formatting
+@subsection Page formatting
+
+@cindex page formatting
+@cindex margins
+@cindex header, page
+@cindex footer, page
+
+LilyPond will do page layout, set margins, and add headers and
+footers to each page.
+
+@findex annotate-spacing
+@cindex Spacing, display of properties
+
+To graphically display the dimensions of vertical properties
+that may be altered for page formatting, use
+
+@example
+\paper @{
+  annotate-spacing = ##t
+@}
+@end example
+
+@noindent
+@c  FIXME: really bad vagueness due to bug in annotate-spacing.  -gp
+Some unit dimensions are measured in staff spaces, while others
+are measured in millimeters.
+The pairs
+(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
+@var{b} the upper edge of the interval.
+
+The default layout responds to the following settings in the
+@code{\paper} block.
+
+@findex \paper
+
+@quotation
+@table @code
+@findex first-page-number
+@item first-page-number
+The value of the page number of the first page.  Default is@tie{}1.
+
+@findex printfirst-page-number
+@item printfirst-page-number
+If set to true, will print the page number in the first page.  Default is
+false.
+
+@findex print-page-number
+@item print-page-number
+If set to false, page numbers will not be printed.
+
+@findex paper-width
+@item paper-width
+The width of the page.
+
+@findex paper-height
+@item paper-height
+The height of the page.
+
+@findex top-margin
+@item top-margin
+Margin between header and top of the page.
+
+@findex bottom-margin
+@item bottom-margin
+Margin between footer and bottom of the page.
+
+@findex left-margin
+@item left-margin
+Margin between the left side of the page and the beginning of the music.
+
+@findex line-width
+@item line-width
+The length of the systems.
+
+@findex head-separation
+@item head-separation
+Distance between the top-most music system and the page header.
+
+@findex foot-separation
+@item foot-separation
+Distance between the bottom-most music system and the page footer.
+
+@findex page-top-space
+Distance from the top of the printable area to the center of the first
+staff. This only works for staves which are vertically small. Big staves
+are set with the top of their bounding box aligned to the top of the
+printable area.
+
+@findex ragged-bottom
+@item ragged-bottom
+If set to true, systems will not be spread vertically across the page.  This
+does not affect the last page.
+
+This should be set to true for pieces that have only two or three
+systems per page, for example orchestral scores.
+
+@findex ragged-last-bottom
+@item ragged-last-bottom
+If set to false, systems will be spread vertically to fill the last page.
+
+Pieces that amply fill two pages or more should have this set to
+true.
+
+@findex system-count
+@item system-count
+This variable, if set, specifies into how many lines a score should be
+broken.
+
+@findex between-system-space
+@item between-system-space
+This dimensions determines the distance between systems.  It is the
+ideal distance between the center of the bottom staff of one system
+and the center of the top staff of the next system.
+
+Increasing this will provide a more even appearance of the page at the
+cost of using more vertical space.
+
+@findex between-system-padding
+@item between-system-padding
+This dimension is the minimum amount of white space that will always
+be present between the bottom-most symbol of one system, and the
+top-most of the next system.
+
+Increasing this will put systems whose bounding boxes almost touch
+farther apart.
+
+
+@findex horizontal-shift
+@item horizontal-shift
+All systems (including titles and system separators) are shifted by
+this amount to the right. Page markup, such as headers and footers are
+not affected by this. The purpose of this variable is to make space
+for instrument names at the left.
+
+@findex after-title-space
+@item after-title-space
+Amount of space between the title and the first system.
+
+@findex after-title-space
+@item before-title-space
+Amount of space between the last system of the previous piece and the
+title of the next.
+
+@findex between-title-space
+@item between-title-space
+Amount of space between consecutive titles (e.g., the title of the
+book and the title of a piece).
+
+@findex printallheaders
+@item printallheaders
+Setting this to #t will print all headers for each \score in a
+\book.  Normally only the piece and opus \headers are printed.
+
+@findex systemSeparatorMarkup
+@item systemSeparatorMarkup
+This contains a markup object, which will be inserted between
+systems.  This is often used for orchestral scores.
+
+The markup command @code{\slashSeparator} is provided as a sensible
+default,  for example
+
+@lilypond[ragged-right]
+\book {
+  \score {
+    \relative { c1 \break c1 }
+  }
+  \paper {
+    systemSeparatorMarkup = \slashSeparator
+  }
+}
+@end lilypond
+
+
+@end table
+@end quotation
+
+Example:
+
+@example
+\paper@{
+  paper-width = 2\cm
+  top-margin = 3\cm
+  bottom-margin = 3\cm
+  ragged-last-bottom = ##t
+@}
+@end example
+
+You can also define these values in Scheme.  In that case @code{mm},
+@code{in}, @code{pt}, and @code{cm} are variables defined in
+@file{paper-defaults.ly} with values in millimeters.  That's why the
+value has to be multiplied in the example
+
+@example
+\paper @{
+  #(define bottom-margin (* 2 cm))
+@}
+@end example
+
+@cindex copyright
+@cindex tagline
+
+The default footer is empty, except for the first page, where the
+@code{copyright} field from @code{\header} is inserted, and the last
+page, where @code{tagline} from @code{\header} is added.  The default
+tagline is ``Music engraving by LilyPond (@var{version})''.@footnote{Nicely
+printed parts are good PR for us, so please leave the tagline if you
+can.}
+
+The header and footer are created by the functions @code{make-footer}
+and @code{make-header}, defined in @code{\paper}.  The default
+implementations are in @file{ly/@/paper@/-defaults@/.ly} and
+@file{ly/@/titling@/-init@/.ly}.
+
+The page layout itself is done by two functions in the
+@code{\paper} block, @code{page-music-height} and
+@code{page-make-stencil}.  The former tells the line-breaking algorithm
+how much space can be spent on a page, the latter creates the actual
+page given the system to put on it.
+
+
+@refbugs
+
+The option right-margin is defined but doesn't set the right margin
+yet.  The value for the right margin has to be defined adjusting the
+values of @code{left-margin} and @code{line-width}.
+
+The default page header puts the page number and the @code{instrument}
+field from the @code{\header} block on a line.
+
+The titles (from the @code{\header@{@}} section) are treated as a
+system, so @code{ragged-bottom} and @code{ragged-last-bottom} will
+add space between the titles and the first system of the score.
+
+
+@node Music layout
+@section Music layout
+
+This section deals with the manner in which the music is printed
+within the boundaries defined by the @code{\paper} block.
+
+The global paper layout is determined by three factors: the page layout, the
+line breaks, and the spacing.  These all influence each other.  The
+choice of spacing determines how densely each system of music is set.
+This influences where line breaks are chosen, and thus ultimately, how
+many pages a piece of music takes.
+
+Globally spoken, this procedure happens in three steps: first,
+flexible distances (``springs'') are chosen, based on durations.  All
+possible line breaking combinations are tried, and the one with the
+best results -- a layout that has uniform density and requires as
+little stretching or cramping as possible -- is chosen.
+
+After spacing and linebreaking, the systems are distributed across
+pages, taking into account the size of the page, and the size of the
+titles.
+
+@menu
+* Setting global staff size::   
+* Selecting notation font size::  
+* Score layout::                
+* Vertical spacing::            
+* Vertical spacing of piano staves::  
+* Horizontal spacing::          
+* Line length::                 
+* Line breaking::               
+* Page breaking::               
+@end menu
+
+
+@node Setting global staff size
+@subsection Setting global staff size
+
+@cindex font size, setting
+@cindex staff size, setting
+@findex layout file
+
+To set the global staff size, use @code{set-global-staff-size}.
+
+@example
+#(set-global-staff-size 14)
+@end example
+
+@noindent
+This sets the global default size to 14pt staff height and scales all
+fonts accordingly.
+
+The Feta font provides musical symbols at eight different
+sizes.  Each font is tuned for a different staff size: at a smaller size
+the font becomes heavier, to match the relatively heavier staff lines.
+The recommended font sizes are listed in the following table:
+
+@quotation
+@multitable @columnfractions .15 .2 .22 .2
+
+@item @b{font name}
+@tab @b{staff height (pt)}
+@tab @b{staff height (mm)}
+@tab @b{use}
+
+@item feta11
+@tab 11.22
+@tab 3.9
+@tab pocket scores
+
+@item feta13
+@tab 12.60
+@tab 4.4
+@tab
+
+@item feta14
+@tab 14.14
+@tab 5.0
+@tab
+
+@item feta16
+@tab 15.87
+@tab 5.6
+@tab
+
+@item feta18
+@tab 17.82
+@tab 6.3
+@tab song books
+
+@item feta20
+@tab 20
+@tab 7.0
+@tab standard parts
+
+@item feta23
+@tab 22.45
+@tab 7.9
+@tab
+
+@item feta26
+@tab 25.2
+@tab 8.9
+@tab
+@c modern rental material?
+
+@end multitable
+@end quotation
+
+These fonts are available in any sizes.  The context property
+@code{fontSize} and the layout property @code{staff-space} (in
+@internalsref{StaffSymbol}) can be used to tune the size for individual
+staves.  The sizes of individual staves are relative to the global size.
+
+@example
+
+@end example
+
+@seealso
+
+This manual: @ref{Selecting notation font size}.
+
+
+@node Selecting notation font size
+@subsection Selecting notation font size
+
+The easiest method of setting the font size of any context, is by
+setting the @code{fontSize} property.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\set fontSize = #-4
+c f
+\set fontSize = #3
+g
+@end lilypond
+
+@noindent
+It does not change the size of variable symbols, such as beams or
+slurs.
+
+Internally, the @code{fontSize} context property will cause the
+@code{font-size} property to be set in all layout objects.  The value
+of @code{font-size} is a number indicating the size relative to the
+standard size for the current staff height.  Each step up is an
+increase of approximately 12% of the font size.  Six steps is exactly a
+factor two.  The Scheme function @code{magstep} converts a
+@code{font-size} number to a scaling factor.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\override NoteHead #'font-size = #-4
+c f
+\override NoteHead #'font-size = #3
+g
+@end lilypond
+
+LilyPond has fonts in different design sizes.  The music fonts for
+smaller sizes are chubbier, while the text fonts are relatively wider.
+Font size changes are achieved by scaling the design size that is
+closest to the desired size.  The standard font size (for
+@code{font-size} equals 0), depends on the standard staff height.  For
+a 20pt staff, a 10pt font is selected.
+
+The @code{font-size} property can only be set on layout objects that
+use fonts. These are the ones supporting the
+@internalsref{font-interface} layout interface.
+
+@refcommands
+
+The following commands set @code{fontSize} for the current voice:
+
+@findex \tiny
+@code{\tiny},
+@findex \small
+@code{\small},
+@findex \normalsize
+@code{\normalsize}.
+
+
+@node Score layout
+@subsection Score layout
+
+@findex \layout
+
+While @code{\paper} contains settings that relate to the page formatting
+of the whole document, @code{\layout} contains settings for score-specific
+layout.
+
+@example
+\layout @{
+  indent = 2.0\cm
+  \context @{ \Staff
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-6 . 6)
+  @}
+  \context @{ \Voice
+    \override TextScript #'padding = #1.0
+    \override Glissando #'thickness = #3
+  @}
+@}
+@end example
+
+
+@seealso
+
+This manual: @ref{Changing context default settings}
+
+
+@node Vertical spacing
+@subsection Vertical spacing
+
+@cindex vertical spacing
+@cindex distance between staves
+@cindex staff distance
+@cindex between staves, distance
+@cindex staves per page
+@cindex space between staves
+
+The height of each system is determined automatically.  To prevent
+systems from bumping into each other, some minimum distances are set.
+By changing these, you can put staves closer together, and thus put
+more systems onto one page.
+
+Normally staves are stacked vertically.  To make staves maintain a
+distance, their vertical size is padded.  This is done with the
+property @code{minimum-Y-extent}.  When applied to a
+@internalsref{VerticalAxisGroup}, it controls the size of a horizontal
+line, such as a staff or a line of lyrics.  @code{minimum-Y-extent}
+takes a pair of numbers, so
+if you want to make it smaller than its default @code{#'(-4 . 4)}
+then you could set
+
+@example
+\override Staff.VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
+@end example
+
+@noindent
+This sets the vertical size of the current staff to 3 staff spaces on
+either side of the center staff line.  The value @code{(-3 . 3)} is
+interpreted as an interval, where the center line is the 0, so the
+first number is generally negative.  The staff can be made larger at
+the bottom by setting it to @code{(-6 . 4)}.
+
+The spacing of staves in a system may also be tuned per system.  This is
+done with the command
+
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"
+#'line-break-system-details
+#'((alignment-extra-space . 15))
+@end example
+
+@noindent
+at the line break before the system to be changed. The distance
+@code{15} is distributed over all staves that have a fixed distance
+alignment.  For example,
+
+@lilypond[ragged-right, fragment, relative=2, staffsize=13]
+\new StaffGroup <<
+  \new Staff {
+    c1\break
+  
+    \overrideProperty
+    #"Score.NonMusicalPaperColumn"
+    #'line-break-system-details
+    #'((fixed-alignment-extra-space . 15))
+
+    c\break
+  }
+  \new Staff { c c }
+>>
+@end lilypond
+
+The distance for @code{alignment-extra-space} may also be negative.
+
+
+To change the amount of space between systems, use
+@code{between-system-space}.  A score with only one staff is still
+considered to have systems, so setting @code{between-system-space} will
+be much more useful than changing @code{minimum-Y-extent} of a Staff
+context.
+
+@example
+\paper @{
+  between-system-space = 10\mm
+@}
+@end example
+
+If you simply want to tell LilyPond ``fit as much as possible onto
+these pages, then expand to fill any available space on the pages,''
+then use the following
+
+@example
+\paper @{
+  between-system-padding = #1
+  ragged-bottom=##f
+  ragged-last-bottom=##f
+@}
+@end example
+
+
+@c let's wait for a some comments before writing more.
+
+The vertical spacing on a page can also be changed for each system
+individually.
+Some examples are found in the example file
+@inputfileref{input/regression/,page-spacing.ly}.
+
+When setting @code{annotate-spacing} in the @code{\paper} block LilyPond
+will graphically indicate the dimensions of properties that may be set
+for page spacing,
+
+@lilypond[verbatim]
+#(set-default-paper-size "a7" 'landscape)
+\paper { annotate-spacing = ##t }
+{ c4 }
+@end lilypond
+
+@noindent
+All units dimensions are measured in staff spaces. The pairs
+(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
+@var{b} the upper edge of the interval.
+
+@seealso
+
+Internals: Vertical alignment of staves is handled by the
+@internalsref{VerticalAlignment} object. The context parameters
+specifying  the vertical extent are described in connection with
+the @internalsref{Axis_group_engraver}.
+
+Example files: @inputfileref{input/regression/,page-spacing.ly},
+@inputfileref{input/regression/,alignment-vertical-spacing.ly}.
+
+
+
+
+@node Vertical spacing of piano staves
+@subsection Vertical spacing of piano staves
+
+The distance between staves of a @internalsref{PianoStaff} cannot be
+computed during formatting.  Rather, to make cross-staff beaming work
+correctly, that distance has to be fixed beforehand.
+
+The distance of staves in a @code{PianoStaff} is set with the
+@code{forced-distance} property of the
+@internalsref{VerticalAlignment} object, created in
+@internalsref{PianoStaff}.
+
+It can be adjusted as follows
+@example
+\new PianoStaff \with @{
+  \override VerticalAlignment #'forced-distance = #7
+@} @{
+  ...
+@}
+@end example
+
+@noindent
+This would bring the staves together at a distance of 7 staff spaces,
+measured from the center line of each staff.
+
+The difference is demonstrated in the following example,
+@lilypond[quote,verbatim]
+\relative c'' <<
+  \new PianoStaff \with {
+    \override VerticalAlignment #'forced-distance = #7
+  } <<
+    \new Staff { c1 }
+    \new Staff { c }
+  >>
+  \new PianoStaff <<
+    \new Staff { c }
+    \new Staff { c }
+  >>
+>>
+@end lilypond
+
+
+It is also possible to change the distance between for each system
+individually.  This is done by including the command
+
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"
+#'line-break-system-details
+#'((fixed-alignment-extra-space . 15))
+@end example
+
+@noindent
+at the line break before the system to be changed. The distance
+@code{15} is distributed over all staves that have a fixed distance
+alignment.  For example,
+
+@lilypond[ragged-right, fragment, relative=2, staffsize=13]
+\new PianoStaff <<
+  \new Staff {
+    c1\break
+  
+    \overrideProperty
+    #"Score.NonMusicalPaperColumn"
+    #'line-break-system-details
+    #'((fixed-alignment-extra-space . 15))
+
+    c\break
+  }
+  \new Staff { c c }
+>>
+@end lilypond
+
+The distance for @code{fixed-alignment-extra-space} may also be
+negative.
+
+@seealso
+
+Example files: @inputfileref{input/regression/,alignment-vertical-spacing.ly}.
+
+@node Horizontal spacing
+@subsection Horizontal Spacing
+
+The spacing engine translates differences in durations into stretchable
+distances (``springs'') of differring lengths.  Longer durations get
+more space, shorter durations get less.  The shortest durations get a
+fixed amount of space (which is controlled by
+@code{shortest-duration-space} in the @internalsref{SpacingSpanner}
+object).  The longer the duration, the more space it gets: doubling a
+duration adds a fixed amount (this amount is controlled by
+@code{spacing-increment}) of space to the note.
+
+For example, the following piece contains lots of half, quarter, and
+8th notes; the eighth note is followed by 1 note head width (NHW).
+The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
+
+@lilypond[quote,fragment,verbatim,relative=1]
+c2 c4. c8 c4. c8 c4. c8 c8
+c8 c4 c4 c4
+@end lilypond
+
+Normally, @code{spacing-increment} is set to 1.2 staff space, which is
+approximately the width of a note head, and
+@code{shortest-duration-space} is set to 2.0, meaning that the
+shortest note gets 2.4 staff space (2.0 times the
+@code{spacing-increment}) of horizontal space.  This space is counted
+from the left edge of the symbol, so the shortest notes are generally
+followed by one NHW of space.
+
+If one would follow the above procedure exactly, then adding a single
+32nd note to a score that uses 8th and 16th notes, would widen up the
+entire score a lot.  The shortest note is no longer a 16th, but a 32nd,
+thus adding 1 NHW to every note.  To prevent this, the shortest
+duration for spacing is not the shortest note in the score, but rather
+the one which occurs most frequently.
+
+
+The most common shortest duration is determined as follows: in every
+measure, the shortest duration is determined.  The most common shortest
+duration is taken as the basis for the spacing, with the stipulation
+that this shortest duration should always be equal to or shorter than
+an 8th note.  The shortest duration is printed when you run
+@code{lilypond} with the @code{--verbose} option.
+
+These durations may also be customized.  If you set the
+@code{common-shortest-duration} in @internalsref{SpacingSpanner}, then
+this sets the base duration for spacing.  The maximum duration for this
+base (normally an 8th), is set through @code{base-shortest-duration}.
+
+@findex common-shortest-duration
+@findex base-shortest-duration
+@findex stem-spacing-correction
+@findex spacing
+
+Notes that are even shorter than the common shortest note are
+followed by a space that is proportional to their duration relative to
+the common shortest note.  So if we were to add only a few 16th notes
+to the example above, they would be followed by half a NHW:
+
+@lilypond[quote,fragment,verbatim,relative=2]
+c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
+@end lilypond
+
+
+In the introduction (see @ref{Engraving}), it was explained that stem
+directions influence spacing.  This is controlled with the
+@code{stem-spacing-correction} property in the
+@internalsref{NoteSpacing}, object.  These are generated for every
+@internalsref{Voice} context.  The @code{StaffSpacing} object
+(generated in @internalsref{Staff} context) contains the same property
+for controlling the stem/bar line spacing.  The following example shows
+these corrections, once with default settings, and once with
+exaggerated corrections:
+
+@lilypond[quote,ragged-right]
+{
+  c'4 e''4 e'4 b'4 |
+  b'4 e''4 b'4 e''4|
+  \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
+  \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
+  c'4 e''4 e'4 b'4 |
+  b'4 e''4 b'4 e''4|
+}
+@end lilypond
+
+Proportional notation is supported; see @ref{Proportional notation}.
+
+By default, spacing in tuplets depends on various non-duration
+factors (such as accidentals, clef changes, etc).  To disregard
+such symbols and force uniform equal-duration spacing, use
+@code{Score.SpacingSpanner #'uniform-stretching}.  This
+property can only be changed at the beginning of a score,
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\new Score \with {
+  \override SpacingSpanner #'uniform-stretching = ##t
+} <<
+  \new Staff{
+    \times 4/5 {
+      c8 c8 c8 c8 c8
+    }
+    c8 c8 c8 c8
+  }
+  \new Staff{
+    c8 c8 c8 c8
+    \times 4/5 {
+      c8 c8 c8 c8 c8
+    }
+  }
+>>
+@end lilypond
+
+
+When @code{strict-note-spacing} is set, notes are spaced without
+regard for clefs, bar lines, and grace notes,
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\override Score.SpacingSpanner #'strict-note-spacing = ##t
+\new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
+@end lilypond
+
+
+@seealso
+
+Internals: @internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
+@internalsref{StaffSpacing}, @internalsref{SeparationItem}, and
+@internalsref{SeparatingGroupSpanner}.
+
+@refbugs
+
+Spacing is determined on a score wide basis.  If you have a score that
+changes its character (measured in durations) halfway during the
+score, the part containing the longer durations will be spaced too
+widely.
+
+There is no convenient mechanism to manually override spacing.  The
+following work-around may be used to insert extra space into a score.
+@example
+ \once \override Score.SeparationItem #'padding = #1
+@end example
+
+No work-around exists for decreasing the amount of space.
+
+
+@node Line length
+@subsection Line length
+
+@cindex page breaks
+@cindex breaking pages
+
+@findex indent
+@findex line-width
+@findex ragged-right
+@findex ragged-last
+
+@c Although line-width can be set in \layout, it should be set in paper
+@c block, to get page layout right.
+@c Setting indent in \paper block makes not much sense, but it works.
+
+@c Bit verbose and vague, use examples?
+The most basic settings influencing the spacing are @code{indent} and
+@code{line-width}.  They are set in the @code{\layout} block.  They
+control the indentation of the first line of music, and the lengths of
+the lines.
+
+If @code{ragged-right} is set to true in the @code{\layout} block, then
+systems ends at their natural horizontal length, instead of being spread
+horizontally to fill the whole line.  This is useful for
+short fragments, and for checking how tight the natural spacing is.
+
+@cindex page layout
+@cindex vertical spacing
+
+The option @code{ragged-last} is similar to @code{ragged-right}, but
+only affects the last line of the piece.  No restrictions are put on
+that line.  The result is similar to formatting text paragraphs.  In a
+paragraph, the last line simply takes its natural horizontal length.
+@c Note that for text there are several options for the last line.
+@c While Knuth TeX uses natural length, lead typesetters use the same
+@c stretch as the previous line.  eTeX uses \lastlinefit to
+@c interpolate between both these solutions.
+
+@example
+\layout @{
+  indent = #0
+  line-width = #150
+  ragged-last = ##t
+@}
+@end example
+
+
+@node Line breaking
+@subsection Line breaking
+
+@cindex line breaks
+@cindex breaking lines
+
+Line breaks are normally computed automatically.  They are chosen so
+that lines look neither cramped nor loose, and that consecutive lines
+have similar density.
+
+Occasionally you might want to override the automatic breaks; you can
+do this by specifying @code{\break}.  This will force a line break at
+this point.  Line breaks can only occur at places where there are bar
+lines.  If you want to have a line break where there is no bar line,
+you can force an invisible bar line by entering @code{\bar
+""}.  Similarly, @code{\noBreak} forbids a line break at a
+point.
+
+
+@cindex regular line breaks
+@cindex four bar music.
+
+For line breaks at regular intervals use @code{\break} separated by
+skips and repeated with @code{\repeat}:
+@example
+<< \repeat unfold 7 @{
+         s1 \noBreak s1 \noBreak
+         s1 \noBreak s1 \break @}
+   @emph{the real music}
+>>
+@end example
+
+@noindent
+This makes the following 28 measures (assuming 4/4 time) be broken every
+4 measures, and only there.
+
+@refcommands
+
+@code{\break}, and @code{\noBreak}.
+@findex \break
+@findex \noBreak
+
+@seealso
+
+Internals: @internalsref{BreakEvent}.
+
+A linebreaking configuration can now be saved as a @code{.ly} file
+automatically.  This allows vertical alignments to be stretched to
+fit pages in a second formatting run.  This is fairly new and
+complicated; see @inputfileref{input/regression/,page-layout-twopass.ly}
+for details.
+
+@refbugs
+
+Line breaks can only occur if there is a ``proper'' bar line.  A note
+which is hanging over a bar line is not proper, such as
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+c4 c2 c2 \break   % this does nothing
+c2 c4 |           % a break here would work
+c4 c2 c4 ~ \break % as does this break
+c4 c2 c4
+@end lilypond
+
+
+@node Page breaking
+@subsection Page breaking
+
+The default page breaking may be overriden by inserting
+@code{\pageBreak} or @code{\noPageBreak} commands.  These commands are
+analogous to @code{\break} and @code{\noBreak}.  They should be
+inserted at a bar line.  These commands force and forbid a page-break
+from happening.  Of course, the @code{\pageBreak} command also forces
+a line break.
+
+Page breaks are computed by the @code{page-breaking} function in the
+@code{\paper} block.
+
+To force a new page for a new piece (in a collection of pieces or a
+piece in several movements), use @code{breakbefore} in the header.
+
+@example
+\header@{
+  breakbefore = ##t
+  piece = ""
+@}
+@end example
+
+@refcommands
+
+@findex \pageBreak
+@code{\pageBreak}
+@findex \noPageBreak
+@code{\noPageBreak}
+
+
+@refbugs
+
+The @code{breakbefore=##t} header requires that there is a @code{piece}
+header as well.  It may be used as a normal header, or left  blank
+(@code{=""}) as in the example above, but it must be present.
+
+
