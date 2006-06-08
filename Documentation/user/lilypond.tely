@@ -146,7 +146,8 @@ Notation Reference
 * Instrument-specific notation::   Specialized notation.
 * Advanced notation::              Less frequently used notation.
 * Changing defaults::              Tuning output.
-* Global issues::                  What LilyPond produces.
+* Non-musical notation::           Output that is not musical notation.
+* Page settings::                  Display of output on paper.
 * Interfaces for programmers::     Expert usage.
 
 Program usage
@@ -184,6 +185,7 @@ Appendices
 @include advanced-notation.itely
 @include changing-defaults.itely
 @include global.itely
+@include page.itely
 @include programming-interface.itely
 
 @include invoking.itely

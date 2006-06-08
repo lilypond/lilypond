@@ -1186,6 +1186,7 @@ such as key signatures, clefs and time signatures.
 * Unmetered music::             
 * System start delimiters::     
 * Staff symbol::                
+* Writing music in parallel::   
 @end menu
 
 
@@ -1729,6 +1730,28 @@ Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
 @inputfileref{input/@/test@/,ossia.ly},
 @inputfileref{input/@/test,staff@/-size@/.ly},
 @inputfileref{input/@/regression,staff@/-line@/-positions@/.ly}.
+
+
+@node Writing music in parallel
+@subsection Writing music in parallel
+
+@cindex Writing music in parallel
+@cindex Interleaved music
+
+Music for multiple parts can be interleaved
+
+@lilypond[quote,fragment,verbatim]
+\parallelMusic #'(voiceA voiceB) {
+  r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
+  c'2                                c'2                                |
+  r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
+  c'2                                c'2                                |
+}
+\new StaffGroup <<
+  \new Staff \new Voice \voiceA
+  \new Staff \new Voice \voiceB
+>>
+@end lilypond
 
 
 

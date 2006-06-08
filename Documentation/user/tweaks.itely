@@ -60,7 +60,7 @@ c4^"piu mosso" d e f
 \once \override TextScript #'staff-padding = #2.6
 c4^"piu mosso" fis a g
 \break
-c,,4^"piu mosso" b a b
+c'4^"piu mosso" b a b
 \once \override TextScript #'padding = #2.6
 c4^"piu mosso" d e f
 \once \override TextScript #'staff-padding = #2.6
