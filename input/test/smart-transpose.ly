@@ -1,5 +1,5 @@
-
-\version "2.7.39"
+\version "2.9.7"
+\sourcefilename "smart-transpose.ly"
 
 \header {
 texidoc="@cindex Smart Transpose
@@ -9,7 +9,6 @@ to have the minimum number of accidentals. In that case, ``Double
 accidentals should be removed, as well as E-sharp (-> F), bC (-> B),
 bF (-> E), B-sharp (-> C).'', as proposed by a request for a new feature.
 In this manner, the most natural enharmonic notes are chosen in this example.
-
 "
 }
 %
@@ -66,14 +65,18 @@ In this manner, the most natural enharmonic notes are chosen in this example.
 
 music =  \relative c' { c4 d  e f g a b  c }
 
+naturaliseMusic =
+#(define-music-function (parser location m)
+					(ly:music?)
+			(naturalise m))
+
 \score {
    \context Staff {
     \transpose c ais \music
-    \applyMusic #naturalise \transpose c ais \music
+    \naturaliseMusic \transpose c ais \music
     \transpose c deses \music
-    \applyMusic #naturalise \transpose c deses \music
+    \naturaliseMusic \transpose c deses \music
   }
   \layout { ragged-right = ##t}
 }
-
 
