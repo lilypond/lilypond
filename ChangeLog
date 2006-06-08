@@ -1,5 +1,8 @@
 2006-06-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/font-config.cc (init_fontconfig): do the init if
+	cache_file, but don't look at cache_file.
+
 	* input/regression/quote-tie.ly: new file.
 
 	* lily/tie-engraver.cc (struct Head_event_tuple): add end_moment_
