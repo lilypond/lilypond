@@ -15,6 +15,13 @@
 	* input/test/font-table.ly: reduce size to partially
 	de-ugly version in manual.
 
+	* Documentation/user/page.itely: new file (split former
+	"global issues" into "page settings" and "non-musical
+	output".
+
+	* Documentation/user/ various: fix @ref{}s to match
+	new chapter names (above).
+
 2006-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct (LILYPONDPREFIX): Bootstrap fix.
