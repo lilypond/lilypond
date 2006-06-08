@@ -1,4 +1,5 @@
 
+#(set-global-staff-size 16)
 
 \paper {
   %% ugh. text on toplevel is a bit broken... .
