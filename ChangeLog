@@ -1,3 +1,14 @@
+2006-06-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* input/regression/quote-tie.ly: new file.
+
+	* lily/tie-engraver.cc (struct Head_event_tuple): add end_moment_
+	to Head_event_tuple, so we deal gracefully with ties on
+	cue-endings.
+
+	* lily/pango-font.cc (pango_item_string_stencil): type correctness
+	for FcChar8*
+
 2006-06-08  Graham Percival  <gpermus@gmail.com>
 
 	* input/test/ smart-transpose.ly, reverse-music.ly:

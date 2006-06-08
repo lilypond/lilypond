@@ -32,16 +32,15 @@
 struct Head_event_tuple
 {
   Grob *head_;
+  Moment end_moment_;
   SCM tie_definition_;
   Music *event_;
+  
   Head_event_tuple ()
   {
-  }
-  Head_event_tuple (Grob *h, Music *m, SCM def)
-  {
-    head_ = h;
-    event_ = m;
-    tie_definition_ = def;
+    event_ = 0;
+    head_ = 0;
+    tie_definition_ = SCM_EOL;
   }
 };
 
@@ -138,6 +137,17 @@ Tie_engraver::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
 			    ly_bool2scm (heads_to_tie_.size ()));
+  
+  
+  if (!to_boolean (get_property ("tieWaitForNote")))
+    {
+      Moment now = now_mom ();
+      for (vsize i = heads_to_tie_.size ();  i--; )
+	{
+	  if (now > heads_to_tie_[i].end_moment_)
+	    heads_to_tie_.erase (heads_to_tie_.begin () + i);
+	}
+    }
 }
 
 void
@@ -165,8 +175,29 @@ Tie_engraver::stop_translation_timestep ()
 
       for (vsize i = 0; i < now_heads_.size (); i++)
 	{
-	  heads_to_tie_.push_back (Head_event_tuple (now_heads_[i], event_,
-						start_definition));
+	  Grob *head = now_heads_[i];
+	  Music *left_mus = unsmob_music (head->get_property ("cause"));
+	  if (left_mus)
+	    {
+	      Head_event_tuple event_tup;
+
+	      event_tup.head_ = head;
+	      event_tup.tie_definition_ = start_definition;
+	      event_tup.event_ = event_;
+
+	      Moment end = now_mom ();
+	      if (end.grace_part_)
+		{
+		  end.grace_part_ += left_mus->get_length ().main_part_;
+		}
+	      else
+		{
+		  end += left_mus->get_length (); 
+		}
+	      event_tup.end_moment_ = end;
+
+	      heads_to_tie_.push_back (event_tup);
+	    }
 	}
     }
 

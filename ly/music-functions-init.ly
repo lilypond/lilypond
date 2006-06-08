@@ -485,3 +485,24 @@ acceleration/deceleration. "
 
      argument))
 
+
+
+
+resetRelativeOctave  =
+#(define-music-function
+    (parser location reference-note)
+    (ly:music?)
+    "Set the octave inside a \\relative section."
+
+   (let*
+    ((notes (ly:music-property reference-note 'elements))
+     (pitch (ly:music-property (car notes) 'pitch)))
+
+    (set! (ly:music-property reference-note 'elements) '())
+    (set! (ly:music-property reference-note
+       'to-relative-callback)
+       (lambda (music last-pitch)
+        pitch))
+
+    reference-note))
+
