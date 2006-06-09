@@ -13,6 +13,8 @@
 
 2006-06-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/line-spanner.cc: cleanup property list.
+
 	* scripts/lilypond-book.py (find_toplevel_snippets): don't use
 	generator expressions (2.3 compat). 
 
