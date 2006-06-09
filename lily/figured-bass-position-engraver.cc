@@ -78,7 +78,6 @@ Figured_bass_position_engraver::acknowledge_note_column (Grob_info info)
   support_.push_back (info.grob ());
 }
 
-
 void
 Figured_bass_position_engraver::acknowledge_end_slur (Grob_info info)
 {

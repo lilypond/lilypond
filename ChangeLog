@@ -1,3 +1,7 @@
+2006-06-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* HACKING: trim outdated info.
+
 2006-06-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/define-grobs.scm (all-grob-descriptions): Add
