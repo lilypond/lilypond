@@ -41,7 +41,7 @@ ADD_TRANSLATOR (Vertical_align_engraver,
 		"them vertically.",
 		/* create */ "VerticalAlignment",
 		/* accept */ "",
-		/* read */ "",
+		/* read */ "alignAboveContext alignBelowContext",
 		/* write */ "");
 
 Vertical_align_engraver::Vertical_align_engraver ()
