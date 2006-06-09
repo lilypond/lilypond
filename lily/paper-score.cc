@@ -75,9 +75,27 @@ Paper_score::find_break_indices () const
 	retval.push_back (i);
     }
 
+  cols_ = all;
+  break_indices_ = retval;
+
   return retval;
 }
 
+vector<vsize>
+Paper_score::get_break_indices () const
+{
+  if (break_indices_.empty ())
+    find_break_indices ();
+  return break_indices_;
+}
+
+vector<Grob*>
+Paper_score::get_columns () const
+{
+  if (cols_.empty ())
+    find_break_indices ();
+  return cols_;
+}
 
 vector<Column_x_positions>
 Paper_score::calc_breaking ()

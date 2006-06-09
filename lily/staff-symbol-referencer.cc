@@ -110,7 +110,6 @@ Staff_symbol_referencer::callback (SCM smob)
     {
       Real space = Staff_symbol_referencer::staff_space (me);
       off = scm_to_double (pos) * space / 2.0;
-      me->set_property ("staff-position", scm_from_int (0));
     }
 
   return scm_from_double (off);

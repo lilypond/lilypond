@@ -48,7 +48,8 @@ Side_position_interface::get_direction (Grob *me)
 /* Put the element next to the support, optionally taking in
    account the extent of the support.  */
 SCM
-Side_position_interface::general_side_position (Grob *me, Axis a, bool use_extents)
+Side_position_interface::general_side_position (Grob *me, Axis a, bool use_extents,
+						bool pure, int start, int end)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
 
@@ -67,7 +68,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
   if (include_staff)
     {
       common = staff_symbol->common_refpoint (common, Y_AXIS);
-      staff_extents = staff_symbol->extent (common, Y_AXIS);
+      staff_extents = staff_symbol->maybe_pure_extent (common, Y_AXIS, pure, start, end);
 
       if (include_staff)
 	dim.unite (staff_extents);
@@ -78,10 +79,10 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
       Grob *e = support[i];
       if (e)
 	if (use_extents)
-	  dim.unite (e->extent (common, a));
+	  dim.unite (e->maybe_pure_extent (common, a, pure, start, end));
 	else
 	  {
-	    Real x = e->relative_coordinate (common, a);
+	    Real x = e->maybe_pure_coordinate (common, a, pure, start, end);
 	    dim.unite (Interval (x, x));
 	  }
     }
@@ -91,7 +92,7 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
   Direction dir = get_grob_direction (me);
 
-  Real off = me->get_parent (a)->relative_coordinate (common, a);
+  Real off = me->get_parent (a)->maybe_pure_coordinate (common, a, pure, start, end);
   Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"), -1);
 
   Real total_off = dim.linear_combination (dir) - off;
@@ -118,13 +119,19 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_on_support_refpoints, 1);
-
 SCM
 Side_position_interface::y_aligned_on_support_refpoints (SCM smob)
 {
-  return general_side_position (unsmob_grob (smob), Y_AXIS, false); 
+  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false, 0, 0); 
 }
 
+MAKE_SCHEME_CALLBACK (Side_position_interface, pure_y_aligned_on_support_refpoints, 3);
+SCM
+Side_position_interface::pure_y_aligned_on_support_refpoints (SCM smob, SCM start, SCM end)
+{
+  return general_side_position (unsmob_grob (smob), Y_AXIS, false,
+				true, scm_to_int (start), scm_to_int (end)); 
+}
 
 
 /*
@@ -135,23 +142,30 @@ MAKE_SCHEME_CALLBACK (Side_position_interface, x_aligned_side, 1);
 SCM
 Side_position_interface::x_aligned_side (SCM smob)
 {
-  return aligned_side (unsmob_grob (smob), X_AXIS);
+  return aligned_side (unsmob_grob (smob), X_AXIS, false, 0, 0);
 }
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_side, 1);
 SCM
 Side_position_interface::y_aligned_side (SCM smob)
 {
-  return aligned_side (unsmob_grob (smob), Y_AXIS);
+  return aligned_side (unsmob_grob (smob), Y_AXIS, false, 0, 0);
+}
+
+MAKE_SCHEME_CALLBACK (Side_position_interface, pure_y_aligned_side, 3);
+SCM
+Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end)
+{
+  return aligned_side (unsmob_grob (smob), Y_AXIS, true, scm_to_int (start), scm_to_int (end));
 }
 
 SCM
-Side_position_interface::aligned_side (Grob *me, Axis a)
+Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, int end)
 {
   Direction dir = get_grob_direction (me);
 
-  Real o = scm_to_double (general_side_position (me, a, true));
-  Interval iv = me->extent (me, a);
+  Real o = scm_to_double (general_side_position (me, a, true, pure, start, end));
+  Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
 
   if (!iv.is_empty ())
     {
@@ -174,8 +188,8 @@ Side_position_interface::aligned_side (Grob *me, Axis a)
       if (to_boolean (me->get_property ("quantize-position")))
 	{
 	  Grob *common = me->common_refpoint (staff, Y_AXIS);
-	  Real my_off = me->relative_coordinate (common, Y_AXIS);
-	  Real staff_off = staff->relative_coordinate (common, Y_AXIS);
+	  Real my_off = me->get_parent (Y_AXIS)->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
+	  Real staff_off = staff->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
 	  Real ss = Staff_symbol::staff_space (staff);
 	  Real position = 2 * (my_off + o - staff_off) / ss;
 	  Real rounded = directed_round (position, dir);
@@ -198,7 +212,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a)
 
 	  Grob *common = me->common_refpoint (staff, Y_AXIS);
 
-	  Interval staff_size = staff->extent (common, Y_AXIS);
+	  Interval staff_size = staff->maybe_pure_extent (common, Y_AXIS, pure, start, end);
 	  Real diff = dir*staff_size[dir] + padding - dir * (o + iv[-dir]);
 	  o += dir * max (diff, 0.0);
 	}

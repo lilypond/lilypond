@@ -147,9 +147,9 @@ Constrained_breaking::resize (vsize systems)
   if (!breaks_.size () && pscore_)
     {
       Output_def *l = pscore_->layout ();
-      Real extent = scm_to_double (l->c_variable ("system-height"));
-      Real padding = scm_to_double (l->c_variable ("between-system-padding"));
-      Real space = scm_to_double (l->c_variable ("between-system-space"));
+      System *sys = pscore_->root_system ();
+      Real padding = robust_scm2double (l->c_variable ("between-system-padding"), 0);
+      Real space = robust_scm2double (l->c_variable ("ideal-system-space"), 0);
       bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
       bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
 
@@ -167,8 +167,12 @@ Constrained_breaking::resize (vsize systems)
 					     ragged_right);
       for (vsize i = 0; i < breaks_.size () - 1; i++)
 	{
+	  Real max_ext = 0;
           for (vsize j = i + 1; j < breaks_.size (); j++)
             {
+	      int start = Paper_column::get_rank (all_[breaks_[i]]);
+	      int end = Paper_column::get_rank (all_[breaks_[j]]);
+	      Interval extent = sys->pure_height (sys, start, end);
 	      bool last = j == breaks_.size () - 1;
 	      bool ragged = ragged_right || (last && ragged_last);
               int k = i*lines_rank_ + j;
@@ -176,11 +180,12 @@ Constrained_breaking::resize (vsize systems)
 	      if (scm_is_number (pen))
 		lines_[k].break_penalty_ = scm_to_double (pen);
 
+	      max_ext = max (max_ext, extent.length ());
               lines_[k].force_ = forces[k];
-              lines_[k].extent_ = extent;
+              lines_[k].extent_ = extent.length ();
               lines_[k].padding_ = padding;
               lines_[k].space_ = space;
-              lines_[k].inverse_hooke_ = 3; // FIXME: somewhat arbitrary
+              lines_[k].inverse_hooke_ = 1;
 	      if (ragged && lines_[k].force_ < 0)
 		lines_[k].force_ = infinity_f;
               if (isinf (lines_[k].force_))
@@ -335,6 +340,6 @@ Constrained_breaking::Constrained_breaking (vector<vsize> const &start)
 Real
 Constrained_breaking::combine_demerits (Real force, Real prev_force)
 {
-  return force * force + fabs (prev_force - force);
+  return force * force + (prev_force - force) * (prev_force - force);
 }
 

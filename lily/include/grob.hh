@@ -109,16 +109,22 @@ public:
   /* offsets */
   void translate_axis (Real, Axis);
   Real relative_coordinate (Grob const *refp, Axis) const;
+  Real pure_relative_y_coordinate (Grob const *refp, int start, int end);
+  Real maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end);
 
   /* extents */
   Interval extent (Grob *refpoint, Axis) const;
   void flush_extent_cache (Axis);
+  Interval pure_height (Grob *refpoint, int start_col, int end_col);
+  Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure, int start, int end);
 
   /* refpoints */
   Grob *common_refpoint (Grob const *s, Axis a) const;
   void set_parent (Grob *e, Axis);
   Grob *get_parent (Axis a) const;
   void fixup_refpoint ();
+
+  virtual Interval_t<int> spanned_rank_iv ();
 };
 
 /* smob utilities */

@@ -14,6 +14,7 @@
 #include "hara-kiri-group-spanner.hh"
 #include "grob-array.hh"
 #include "international.hh"
+#include "warn.hh"
 
 /*
   TODO: for vertical spacing, should also include a rod & spring
@@ -145,8 +146,11 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
   align_to_fixed_distance ().
 */
 
-void
-Align_interface::align_elements_to_extents (Grob *me, Axis a)
+vector<Real>
+Align_interface::get_extents_aligned_translates (Grob *me,
+						 vector<Grob*> const &all_grobs,
+						 Axis a,
+						 bool pure, int start, int end)
 {
   Spanner *me_spanner = dynamic_cast<Spanner *> (me);
 
@@ -156,7 +160,7 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
     {
       line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
 
-      if (!me->get_system ())
+      if (!me->get_system () && !pure)
 	me->warning (_ ("vertical alignment called before line-breaking.\n"
 			"Only do cross-staff spanners with PianoStaff."));
 
@@ -171,10 +175,9 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   vector<Interval> dims;
   vector<Grob*> elems;
 
-  extract_grob_set (me, "elements", all_grobs);
   for (vsize i = 0; i < all_grobs.size (); i++)
     {
-      Interval y = all_grobs[i]->extent (me, a);
+      Interval y = all_grobs[i]->maybe_pure_extent (all_grobs[i], a, pure, start, end);
       if (!y.is_empty ())
 	{
 	  Grob *e = dynamic_cast<Grob *> (all_grobs[i]);
@@ -245,24 +248,68 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   if (translates.size ())
     {
       Real w = translates[0];
+
+      if (scm_is_number (align))
+	center_offset = total.linear_combination (scm_to_double (align));
+
       for  (vsize i = 0, j = 0; j < all_grobs.size (); j++)
 	{
 	  if (i < elems.size () && all_grobs[j] == elems[i])
 	    w = translates[i++];
-	  all_translates.push_back (w);
+	  all_translates.push_back (w - center_offset);
 	}
-
-      /*
-	FIXME: uncommenting freaks out the Y-alignment of
-	line-of-score.
-      */
-      if (scm_is_number (align))
-	center_offset = total.linear_combination (scm_to_double (align));
-
-      for (vsize j = 0; j < all_grobs.size (); j++)
-	all_grobs[j]->translate_axis (all_translates[j] - center_offset, a);
     }
+  return all_translates;
 }
+
+void
+Align_interface::align_elements_to_extents (Grob *me, Axis a)
+{
+  extract_grob_set (me, "elements", all_grobs);
+
+  vector<Real> translates = get_extents_aligned_translates (me, all_grobs, a, false, 0, 0);
+  if (translates.size ())
+      for (vsize j = 0; j < all_grobs.size (); j++)
+	all_grobs[j]->translate_axis (translates[j], a);
+}
+
+Real
+Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, int end)
+{
+  extract_grob_set (me, "elements", all_grobs);
+  SCM dy_scm = me->get_property ("forced-distance");
+
+  if (scm_is_number (dy_scm))
+    {
+      Real dy = scm_to_double (dy_scm) * robust_scm2dir (me->get_property ("stacking-dir"), DOWN);
+      Real pos = 0;
+      for (vsize i = 0; i < all_grobs.size (); i++)
+	{
+	  if (all_grobs[i] == ch)
+	    return pos;
+	  if (!Hara_kiri_group_spanner::has_interface (all_grobs[i])
+	      || !Hara_kiri_group_spanner::request_suicide (all_grobs[i], start, end))
+	    pos += dy;
+	}
+    }
+  else
+    {
+      vector<Real> translates = get_extents_aligned_translates (me, all_grobs, Y_AXIS, true, start, end);
+
+      if (translates.size ())
+	{
+	  for (vsize i = 0; i < all_grobs.size (); i++)
+	    if (all_grobs[i] == ch)
+	      return translates[i];
+	}
+      else
+	return 0;
+    }
+
+  programming_error (_ ("tried to get a translation for something that isn't my child"));
+  return 0;
+}
+
 Axis
 Align_interface::axis (Grob *me)
 {

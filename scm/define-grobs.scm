@@ -67,7 +67,7 @@
      . (
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
-	(X-extent . ,ly:axis-group-interface::height)
+	(Y-extent . ,ly:axis-group-interface::height)
 	(space-alist . (
 			(clef . (extra-space . 0.5))
 			(key-signature . (extra-space . 0.0))
@@ -1314,7 +1314,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
- (SostenutoPedal
+    (SostenutoPedal
      . (
 	(stencil . ,ly:text-interface::print)
 	(direction . ,RIGHT)
@@ -1938,3 +1938,68 @@
 
 (set! all-grob-descriptions (sort all-grob-descriptions alist<?))
 
+
+(define pure-print-callbacks
+  (list
+   `(,ly:note-head::print . '())
+   `(,ly:clef::print . '())
+   `(,ly:text-interface::print . '())))
+
+;; ly:grob::stencil-extent is safe iff the print callback is safe too
+(define (pure-stencil-height grob start stop)
+  (let ((sten (ly:grob-property-data grob 'stencil)))
+    (if (or
+	 (ly:stencil? sten)
+	 (pair? (assq sten pure-print-callbacks)))
+	(ly:grob::stencil-height grob)
+	'(0 . 0))))
+
+(define pure-Y-extents
+  (list
+   `(,ly:staff-symbol::height . ())))
+
+(define Y-extent-conversions
+  (list
+   `(,ly:stem::height . ,ly:stem::pure-height)
+   `(,ly:grob::stencil-height . ,pure-stencil-height)
+   `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
+   `(,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
+   `(,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)))
+
+(define pure-Y-offsets
+  (list
+   `(,ly:staff-symbol-referencer::callback . ())))
+
+(define Y-offset-conversions
+  (list
+   `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)))
+
+(define-public (pure-relevant grob)
+  (let ((extent-callback (ly:grob-property-data grob 'Y-extent)))
+    (or
+     (pair? (assq extent-callback pure-Y-extents))
+     (and
+      (pair? (assq extent-callback Y-extent-conversions))
+      (or
+       (not (eq? extent-callback ly:grob::stencil-height))
+       (pair? (assq (ly:grob-property-data grob 'stencil) pure-print-callbacks))
+       (ly:stencil? (ly:grob-property-data grob 'stencil)))))))
+
+(define (pure-conversion pures conversions defsymbol defreturn rettype? grob start stop)
+  (let* ((normal-callback (ly:grob-property-data grob defsymbol))
+	 (pure-callback (assq normal-callback conversions)))
+    (if (rettype? normal-callback)
+	normal-callback
+	(if (pair? (assq normal-callback pures))
+	    (normal-callback grob)
+	    (if (pair? pure-callback)
+		((cdr pure-callback) grob start stop)
+		defreturn)))))
+
+(define-public (pure-Y-extent grob start stop)
+  (pure-conversion pure-Y-extents Y-extent-conversions
+		   'Y-extent '(0 . 0) pair? grob start stop))
+
+(define-public (pure-Y-offset grob start stop)
+  (pure-conversion pure-Y-offsets Y-offset-conversions
+		   'Y-offset 0 number? grob start stop))

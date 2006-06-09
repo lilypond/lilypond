@@ -17,7 +17,8 @@ struct Line_details {
   Real force_;
   Real extent_;   /* Y-extent of the system */
   Real padding_;  /* compulsory space after this system (if we're not last on a page) */
-  Real space_;    /* spring length (stretches over extent_ but not over padding_) */
+  Real bottom_padding_;
+  Real space_;    /* spring length */
   Real inverse_hooke_;
 
   SCM break_permission_;
@@ -32,6 +33,7 @@ struct Line_details {
     force_ = infinity_f;
     extent_ = 0;
     padding_ = 0;
+    bottom_padding_ = 0;
     space_ = 0;
     inverse_hooke_ = 1;
     break_permission_ = ly_symbol2scm ("allow");

@@ -25,22 +25,84 @@ Hara_kiri_group_spanner::y_extent (SCM smob)
   return Axis_group_interface::generic_group_extent (me, Y_AXIS);
 }
 
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, pure_height, 3);
+SCM
+Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+{
+  Grob *me = unsmob_grob (smob);
+  int start = robust_scm2int (start_scm, 0);
+  int end = robust_scm2int (end_scm, INT_MAX);
+
+  if (request_suicide (me, start, end))
+    return ly_interval2scm (Interval ());
+  return Axis_group_interface::pure_group_height (me, start, end);
+}
+
+/* there is probably a way that doesn't involve re-implementing a binary
+   search (I would love some proper closures right now) */
+bool find_in_range (SCM vector, int low, int hi, int min, int max)
+{
+  if (low >= hi)
+    return false;
+
+  int mid = low + (hi - low) / 2;
+  int val = scm_to_int (scm_c_vector_ref (vector, mid));
+  if (val >= min && val <= max)
+    return true;
+  else if (val < min)
+    return find_in_range (vector, mid+1, hi, min, max);
+  return find_in_range (vector, low, mid, min, max);
+}
+
+bool
+Hara_kiri_group_spanner::request_suicide (Grob *me, int start, int end)
+{
+  if (!to_boolean (me->get_property ("remove-empty")))
+    return false;
+
+  bool remove_first = to_boolean (me->get_property ("remove-first"));
+  if (!remove_first && start <= 0)
+    return false;
+
+  SCM important = me->get_property ("important-column-ranks");
+  if (scm_is_vector (important))
+    {
+      int len = scm_c_vector_length (important);
+      if (find_in_range (important, 0, len, start, end))
+	return false;
+    }
+  else /* build the important-columns-cache */
+    {
+      extract_grob_set (me, "items-worth-living", worth);
+      vector<int> ranks;
+
+      for (vsize i = 0; i < worth.size (); i++)
+	{
+	  Item *it = dynamic_cast<Item*> (worth[i]);
+	  if (it)
+	    ranks.push_back (Paper_column::get_rank (it->get_column ()));
+	}
+      vector_sort (ranks, default_compare);
+      uniq (ranks);
+
+      SCM scm_vec = scm_c_make_vector (ranks.size (), SCM_EOL);
+      for (vsize i = 0; i < ranks.size (); i++)
+	scm_vector_set_x (scm_vec, scm_from_int (i), scm_from_int (ranks[i]));
+      me->set_property ("important-column-ranks", scm_vec);
+
+      return request_suicide (me, start, end);
+    }
+
+  return true;
+}
+
 void
 Hara_kiri_group_spanner::consider_suicide (Grob *me)
 {
-  Spanner *sp = dynamic_cast<Spanner *> (me);
-  if (!to_boolean (me->get_property ("remove-empty")))
-    return ;
-
-  extract_grob_set (me, "items-worth-living", worth);
-  if (worth.size ())
-    return;
-
-  bool remove_first = to_boolean (me->get_property ("remove-first"));
-  if (!remove_first
-       && ((sp->original () && broken_spanner_index (sp) == 0)
-	   || Paper_column::get_rank (sp->get_bound (LEFT)->get_column ())
-	   == 0)) 
+  Spanner *sp = dynamic_cast<Spanner*> (me);
+  int left = sp->get_bound (LEFT)->get_column ()->get_rank ();
+  int right = sp->get_bound (RIGHT)->get_column ()->get_rank ();
+  if (!request_suicide (me, left, right))
     return;
 
   vector<Grob*> childs;
@@ -99,6 +161,7 @@ ADD_INTERFACE (Hara_kiri_group_spanner, "hara-kiri-group-interface",
 
 	       /* properties */
 	       "items-worth-living "
+	       "important-column-ranks "
 	       "remove-empty "
 	       "remove-first "
 	       );

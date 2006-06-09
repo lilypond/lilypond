@@ -225,6 +225,28 @@ Stem::is_invisible (Grob *me)
 	   && scm_to_int (me->get_property ("duration-log")) >= 1);
 }
 
+MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
+SCM
+Stem::pure_height (SCM smob, SCM start, SCM end)
+{
+  Grob *me = unsmob_grob (smob);
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  Real len = scm_to_double (calc_length (smob)) * ss / 2;
+  Direction dir = get_grob_direction (me);
+
+  Interval iv;
+  Interval hp = head_positions (me);
+  if (dir == UP)
+    iv = Interval (0, len);
+  else
+    iv = Interval (-len, 0);
+
+  if (!hp.is_empty ())
+    iv.translate (hp[dir] * ss / 2);
+
+  return ly_interval2scm (iv);
+}
+
 MAKE_SCHEME_CALLBACK (Stem, calc_stem_end_position, 1)
 SCM
 Stem::calc_stem_end_position (SCM smob)

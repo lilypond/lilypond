@@ -23,7 +23,6 @@
 #include "staff-symbol-referencer.hh"
 #include "tweak-registration.hh"
 #include "warn.hh"
-#include "warn.hh"
 
 System::System (System const &src, int count)
   : Spanner (src, count)
@@ -185,6 +184,7 @@ System::get_paper_systems ()
 	progress_indication ("[");
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
+
       system->post_processing ();
       scm_vector_set_x (lines, scm_from_int (i),
 			system->get_paper_system ());
@@ -205,6 +205,11 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 
       vector<Grob*> c (breaking[i].cols_);
       pscore_->typeset_system (system);
+
+      int st = Paper_column::get_rank (c[0]);
+      int end = Paper_column::get_rank (c.back ());
+      Interval iv (pure_height (this, st, end));
+      system->set_property ("pure-Y-extent", ly_interval2scm (iv));
 
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.back ());
@@ -504,5 +509,6 @@ ADD_INTERFACE (System, "system-interface",
 	       /* properties */
 	       "all-elements "
 	       "columns "
+	       "pure-Y-extent "
 	       "spaceable-staves "
 	       )

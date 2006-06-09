@@ -45,8 +45,7 @@ public:
   void substitute_one_mutable_property (SCM sym, SCM val);
   bool fast_substitute_grob_array (SCM sym, Grob_array *);
 
-  // TODO: make virtual and do this for Items as well.
-  Interval_t<int> spanned_rank_iv ();
+  virtual Interval_t<int> spanned_rank_iv ();
   void set_bound (Direction d, Grob *);
   Item *get_bound (Direction d) const;
 

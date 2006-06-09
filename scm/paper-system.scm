@@ -103,7 +103,15 @@
 					(list annotations
 					      (ly:make-stencil '() (cons 0 1) (cons 0 0))
 					      (apply ly:stencil-add
-						     extent-annotations)))))))))
+						     extent-annotations))))))))
+
+	 (grob (ly:prob-property system 'system-grob))
+	 (estimate-extent (if (ly:grob? grob)
+			      (annotate-y-interval layout
+						   "extent-estimate"
+						   (ly:grob-property grob 'pure-Y-extent)
+						   #f)
+			      #f)))
     (let ((next-space (ly:prob-property
 		       system 'next-space
 		       (cond ((and next-system
@@ -128,6 +136,12 @@
 				 (+ next-space next-padding)
 				 "refpoint-Y-extent" "next-space+padding"
 				 "space after next-space+padding"))
+    (if estimate-extent
+	(set! annotations
+	      (stack-stencils X RIGHT 0.5
+			      (list annotations
+				    estimate-extent))))
+				
     (if (not (null? annotations))
 	(set! (ly:prob-property system 'stencil)
 	      (ly:stencil-add
