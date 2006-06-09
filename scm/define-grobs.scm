@@ -583,6 +583,7 @@
 				text-interface
 				dynamic-interface
 				dynamic-text-spanner-interface
+				line-spanner-interface
 				spanner-interface))))))
 
     (Fingering
@@ -1487,6 +1488,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (piano-pedal-interface
 				text-spanner-interface
+				line-spanner-interface
 				text-interface
 				self-alignment-interface
 				font-interface))))))
@@ -1625,6 +1627,7 @@
 	(direction . ,UP)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
+				line-spanner-interface
 				side-position-interface
 				font-interface))))))
 
@@ -1697,6 +1700,7 @@
 	(side-axis . ,Y)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
+				line-spanner-interface
 				side-position-interface
 				font-interface))))))
 
