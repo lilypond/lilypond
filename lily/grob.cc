@@ -10,6 +10,7 @@
 
 #include <cstring>
 
+#include "align-interface.hh"
 #include "input-smob.hh"
 #include "international.hh"
 #include "item.hh"
@@ -278,6 +279,37 @@ Grob::relative_coordinate (Grob const *refp, Axis a) const
   return off;
 }
 
+Real
+Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
+{
+  if (refp == this)
+    return 0.0;
+
+  SCM pure_off = ly_lily_module_constant ("pure-Y-offset");
+  Real off = 0;
+
+  if (dim_cache_[Y_AXIS].offset_)
+    off = *dim_cache_[Y_AXIS].offset_;
+  else if (ly_is_procedure (pure_off))
+    {
+      dim_cache_[Y_AXIS].offset_ = new Real (0.0);
+      off = scm_to_double (scm_apply_3 (pure_off, self_scm (),
+					scm_from_int (start), scm_from_int (end),
+					SCM_EOL));
+      delete dim_cache_[Y_AXIS].offset_;
+      dim_cache_[Y_AXIS].offset_ = 0;
+    }
+
+  /* we simulate positioning-done if we are the child of a VerticalAlignment */
+  Grob *p = get_parent (Y_AXIS);
+  Real trans = 0;
+  if (Align_interface::has_interface (p))
+    trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
+
+  return off + trans
+    + dim_cache_[Y_AXIS].parent_->pure_relative_y_coordinate (refp, start, end);
+}
+
 /* Invoke callbacks to get offset relative to parent.  */
 Real
 Grob::get_offset (Axis a) const
@@ -305,6 +337,14 @@ Grob::get_offset (Axis a) const
     return 0.0;
 }
 
+Real
+Grob::maybe_pure_coordinate (Grob const *refp, Axis a, bool pure, int start, int end)
+{
+  if (pure && a != Y_AXIS)
+    programming_error ("tried to get pure X-offset");
+  return (pure && a == Y_AXIS) ? pure_relative_y_coordinate (refp, start, end)
+    : relative_coordinate (refp, a);
+}
 
 /****************************************************************
   extents
@@ -358,13 +398,42 @@ Grob::extent (Grob *refp, Axis a) const
       SCM min_ext = internal_get_property (min_ext_sym);
       if (is_number_pair (min_ext))
 	real_ext.unite (ly_scm2interval (min_ext));
-      ((Grob*)this)->del_property (ext_sym);
       ((Grob*)this)->dim_cache_[a].extent_ = new Interval (real_ext);  
     }
   
   real_ext.translate (offset);
   
   return real_ext;
+}
+
+Interval
+Grob::pure_height (Grob *refp, int start, int end)
+{
+  SCM pure_height = ly_lily_module_constant ("pure-Y-extent");
+  Interval iv (0, 0);
+
+  if (ly_is_procedure (pure_height))
+    iv = ly_scm2interval (scm_apply_3 (pure_height, self_scm (),
+				       scm_from_int (start), scm_from_int (end),
+				       SCM_EOL));
+  Real offset = pure_relative_y_coordinate (refp, start, end);
+
+  iv.translate (offset);
+  return iv;
+}
+
+Interval
+Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
+{
+  if (pure && a != Y_AXIS)
+    programming_error ("tried to get pure width");
+  return (pure && a == Y_AXIS) ? pure_height (refp, start, end) : extent (refp, a);
+}
+
+Interval_t<int>
+Grob::spanned_rank_iv ()
+{
+  return Interval_t<int> (INT_MIN, INT_MAX);
 }
 
 /****************************************************************

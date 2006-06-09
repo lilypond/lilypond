@@ -484,6 +484,9 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (apply define-internal-grob-property x))
    
    `(
+     (pure-relevant-elements ,ly:grob-array? "The subset of elements that are relevant for finding the pure-Y-extent.")
+     (cached-pure-extents ,vector? "Used by a VerticalAxisGroup to cache the Y-extents of different column ranges.")
+     (common-refpoint-of-elements ,ly:grob? "Caches the common_refpoint_of_array of the elements grob-set")
      (axis-group-parent-X ,ly:grob? "Containing X axis group")
      (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
@@ -498,6 +501,7 @@ set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")
      (dots ,ly:grob-array? "multiple Dots objects.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
+     (important-column-ranks ,vector? "Cache of columns that contain items-worth-living.")
      (glyph-name ,string? "a name of character within font.")
      (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
      (stem ,ly:grob? "pointer to Stem object.")
@@ -555,6 +559,7 @@ columns.
      (positioning-done ,boolean?
 		       "Used to signal that a positioning element
 did its job. This ensures that a positioning is only done once.")
+     (pure-Y-extent ,number-pair? "The estimated height of a system")
 
 
      (script-stencil ,pair? "Pair (@code{type} . @code{arg}), which

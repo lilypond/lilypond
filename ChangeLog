@@ -1,3 +1,39 @@
+2006-06-08  Joe Neeman  <joeneeman@gmail.com>
+
+	* scm/paper-system.scm (paper-system-annotate): also annotate the
+	estimated pure-Y-extent
+
+	* scm/define-grobs.scm: add pure-Y-extent and pure-Y-offset functions
+
+	* lily/system.cc (break_into_pieces): set the estimated height
+	of each child system
+
+	* lily/stem.cc (pure_height): new pure-Y-extent callback
+
+	* lily/staff-symbol-referencer.cc (callback): don't destroy
+	the staff-position property
+
+	* lily/hara-kiri-group-spanner.cc (request_suicide): split
+	consider_suicide into two functions
+
+	* lily/constrained-breaking.cc (resize): use the new pure
+	callbacks to estimate the height of a system
+
+	* lily/axis-group-interface.cc (pure_group_height): new
+	side-effect-free VerticalAxisGroup height-callback
+
+	* lily/align-interface.cc (get_extents_aligned_translates):
+	split align_elements_to_extents into two functions
+	(get_pure_child_y_translation): new function
+
+	* lily/grob.cc: new functions for pure-Y-extent and pure-Y-offset
+
+	* lily/item.cc: new functions pure_is_visible and spanned_rank_iv
+
+	* lily/paper-score.cc: cache break_indices and columns
+
+	* lily/side-position-interface.cc: new pure-Y-extent callbacks
+	
 2006-06-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/font-config.cc (init_fontconfig): do the init if
