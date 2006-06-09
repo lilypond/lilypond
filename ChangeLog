@@ -1,3 +1,9 @@
+2006-06-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/vertical-align-engraver.cc: Make sure that the
+	align{Above,Below}Context properties are included in the automatic
+	documentation.
+
 2006-06-08  Joe Neeman  <joeneeman@gmail.com>
 
 	* scm/paper-system.scm (paper-system-annotate): also annotate the
