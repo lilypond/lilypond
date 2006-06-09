@@ -272,7 +272,6 @@ The @code{\score} can contain other things, such as
 \score @{
   @{ c'4 a b c' @}
   \layout @{ @}
-  \paper @{ @}
   \midi @{ @}
   \header @{ @}
 @}
