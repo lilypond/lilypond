@@ -1,5 +1,9 @@
 2006-06-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* scm/define-grobs.scm (all-grob-descriptions): Add
+	line-spanner-interface to all grobs that already have
+	text-spanner-interface or dynamic-text-spanner-interface
+
 	* scm/page.scm: Rename annotate{headers,systems,page}->
 	annotate-*
 
