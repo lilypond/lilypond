@@ -17,8 +17,8 @@ systems may be placed absolutely on the printable area of the page."
   headerMarkup = "header"
   indent =0.0
   annotate-spacing = ##f
-  annotatepage = ##t
-  annotateheaders = ##t
+  annotate-page = ##t
+  annotate-headers = ##t
 }
 
 \book {
