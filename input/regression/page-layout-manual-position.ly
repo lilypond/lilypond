@@ -16,7 +16,7 @@ systems may be placed absolutely on the printable area of the page."
   line-width = 5.0\cm
   headerMarkup = "header"
   indent =0.0
-  annotatespacing = ##f
+  annotate-spacing = ##f
   annotatepage = ##t
   annotateheaders = ##t
 }
