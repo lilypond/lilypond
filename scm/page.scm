@@ -162,7 +162,7 @@
 	  
 	  ;; add arrow markers 
 	  (if (or (annotate? layout)
-		  (ly:output-def-lookup layout 'annotateheaders #f)) 
+		  (ly:output-def-lookup layout 'annotate-headers #f)) 
 	      (set! head-stencil
 		    (ly:stencil-add
 		     (ly:stencil-translate-axis
@@ -315,7 +315,7 @@ create offsets.
        )
 
     (if (or (annotate? layout)
-	    (ly:output-def-lookup layout 'annotatesystems #f))
+	    (ly:output-def-lookup layout 'annotate-systems #f))
 
 	(begin
 	  (for-each (lambda (sys next-sys)
@@ -366,7 +366,7 @@ create offsets.
 
     ;; annotation.
     (if (or (annotate? layout)
-	    (ly:output-def-lookup layout 'annotatepage #f))
+	    (ly:output-def-lookup layout 'annotate-page #f))
 	(set! page-stencil (annotate-page layout page-stencil)))
 
     page-stencil))

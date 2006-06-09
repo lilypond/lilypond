@@ -1,3 +1,12 @@
+2006-06-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scm/page.scm: Rename annotate{headers,systems,page}->
+	annotate-*
+
+	* input/regression/page-spacing.ly,
+	input/regression/page-layout-manual-position.ly: idem
+
+
 2006-06-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/lilypond-book.py (find_toplevel_snippets): don't use
