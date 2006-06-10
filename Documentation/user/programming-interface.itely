@@ -12,6 +12,7 @@ not familiar with Scheme, you may wish to read our
 * Building complicated functions::  
 * Markup programmer interface::  
 * Contexts for programmers::    
+* Scheme procedures as properties::
 @end menu
 
 
@@ -1130,4 +1131,37 @@ note-heads on the center-line:
           (eq? (ly:grob-property grob 'staff-position) 0))
      (set! (ly:grob-property grob 'transparent) #t)))
 @end example
+
+
+@node Scheme procedures as properties
+@section Scheme procedures as properties
+
+Properties (like thickness, direction, etc.) can be set at fixed values
+with \override, e.g.
+
+@example
+\override Stem #'thickness = #2.0
+@end example
+
+Properties can also be set to a Scheme procedure,
+
+@lilypond[fragment,verbatim,quote,relative=2]
+\override Stem #'thickness = #(lambda (grob)
+    (if (= UP (ly:grob-property grob 'direction))
+        2.0
+        7.0))
+c b a g b a g b
+@end lilypond
+
+Procedures may also be combined like that with
+"grob closure".  Here is a setting from
+@code{AccidentalSuggestion},
+
+@example
+(X-offset . ,(ly:make-simple-closure
+             `(,+
+               ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
+               ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
+@end example
+
 

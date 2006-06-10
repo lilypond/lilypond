@@ -1,3 +1,11 @@
+2006-06-10  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/programming-interfaces.itely: add
+	info from NEWS.
+
+	* python/convertrules.py: add annotatefoo -> annotate-foo
+	rules.
+
 2006-06-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* HACKING: trim outdated info.
@@ -13,7 +21,6 @@
 
 	* input/regression/page-spacing.ly,
 	input/regression/page-layout-manual-position.ly: idem
-
 
 2006-06-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 

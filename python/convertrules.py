@@ -2795,3 +2795,14 @@ def conv (str):
     return str
 
 conversions.append (((2, 9, 6), conv, """\context Foo \applyOutput #bla -> \applyOutput #'Foo #bla """))
+
+
+def conv (str):
+    str = re.sub ('annotatepage', 'annotate-page', str)
+    str = re.sub ('annotateheaders', 'annotate-headers', str)
+    str = re.sub ('annotatesystems', 'annotate-systems', str)
+    return str
+
+conversions.append (((2, 9, 9), conv, """annotatefoo -> annotate-foo"""))
+
+
