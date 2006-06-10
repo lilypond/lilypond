@@ -166,5 +166,5 @@ ADD_TRANSLATOR (Tuplet_engraver,
 		/* doc */ "Catch TupletSpannerEvent and generate appropriate bracket  ",
 		/* create */ "TupletBracket TupletNumber ",
 		/* accept */ "tuplet-spanner-event",
-		/* read */ "tupletNumberFormatFunction tupletSpannerDuration tupletFullLength ",
+		/* read */ "tupletNumberFormatFunction tupletFullLength ",
 		/* write */ "");
