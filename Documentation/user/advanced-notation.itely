@@ -1618,15 +1618,6 @@ that fits into traditional notation categories, such as
 microtones, nested tuplet beams, and unusual fermatas, please
 see those sections of the documentation.
 
-
-@c I don't think we should discourage modern composers who might
-@c want to sponsor new features.  :)
-@c  In general, the use of new, innovative notation makes a piece
-@c harder to understand and perform and its use should therefore be
-@c avoided.  For this reason, support for contemporary notation in
-@c LilyPond is limited.
-
-
 @menu
 * Polymetric notation::         
 * Time administration::         
@@ -1635,6 +1626,7 @@ see those sections of the documentation.
 * Special noteheads::           
 * Feathered beams::             
 * Improvisation::               
+* Selecting notation font size::  
 @end menu
 
 
@@ -1976,6 +1968,64 @@ the following example
   ~fis2 \improvisationOff a16(bes) a8 g e
 }
 @end lilypond
+
+
+@node Selecting notation font size
+@subsection Selecting notation font size
+
+The easiest method of setting the font size of any context is by
+setting the @code{fontSize} property.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\set fontSize = #-4
+c f
+\set fontSize = #3
+g
+@end lilypond
+
+@noindent
+It does not change the size of variable symbols, such as beams or
+slurs.
+
+Internally, the @code{fontSize} context property will cause the
+@code{font-size} property to be set in all layout objects.  The value
+of @code{font-size} is a number indicating the size relative to the
+standard size for the current staff height.  Each step up is an
+increase of approximately 12% of the font size.  Six steps is exactly a
+factor two.  The Scheme function @code{magstep} converts a
+@code{font-size} number to a scaling factor.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\override NoteHead #'font-size = #-4
+c f
+\override NoteHead #'font-size = #3
+g
+@end lilypond
+
+LilyPond has fonts in different design sizes.  The music fonts for
+smaller sizes are chubbier, while the text fonts are relatively wider.
+Font size changes are achieved by scaling the design size that is
+closest to the desired size.  The standard font size (for
+@code{font-size} equals 0), depends on the standard staff height.  For
+a 20pt staff, a 10pt font is selected.
+
+The @code{font-size} property can only be set on layout objects that
+use fonts. These are the ones supporting the
+@internalsref{font-interface} layout interface.
+
+@refcommands
+
+The following commands set @code{fontSize} for the current voice:
+
+@findex \tiny
+@code{\tiny},
+@findex \small
+@code{\small},
+@findex \normalsize
+@code{\normalsize}.
+
 
 
 @node Educational use

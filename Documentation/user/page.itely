@@ -5,21 +5,40 @@
 @c     M-x texinfo-all-menus-update
 @c to automatically fill in these menus before saving changes
 
-@node Page settings
-@chapter Page settings
+@node Spacing issues
+@chapter Spacing issues
 
-This section deals with the presentation of output in pdf form.
+The global paper layout is determined by three factors: the page layout, the
+line breaks, and the spacing.  These all influence each other.  The
+choice of spacing determines how densely each system of music is set.
+This influences where line breaks are chosen, and thus ultimately, how
+many pages a piece of music takes.
+
+Globally spoken, this procedure happens in three steps: first,
+flexible distances (``springs'') are chosen, based on durations.  All
+possible line breaking combinations are tried, and the one with the
+best results -- a layout that has uniform density and requires as
+little stretching or cramping as possible -- is chosen.
+
+After spacing and linebreaking, the systems are distributed across
+pages, taking into account the size of the page, and the size of the
+titles.
 
 @menu
 * Paper and pages::             
 * Music layout::                
+* Vertical spacing::            
+* Horizontal spacing::          
+* Breaks::                      
+* Displaying spacing::          
 @end menu
 
 
 @node Paper and pages
 @section Paper and pages
 
-This section deals with the display of music on physical paper.
+This section deals with the boundaries that define the area
+that music can be printed inside.
 
 @menu
 * Paper size::                  
@@ -82,26 +101,6 @@ Setting the paper size will adjust a number of @code{\paper} variables
 
 LilyPond will do page layout, set margins, and add headers and
 footers to each page.
-
-@findex annotate-spacing
-@cindex Spacing, display of properties
-
-To graphically display the dimensions of vertical properties
-that may be altered for page formatting, use
-
-@example
-\paper @{
-  annotate-spacing = ##t
-@}
-@end example
-
-@noindent
-@c  FIXME: really bad vagueness due to bug in annotate-spacing.  -gp
-Some unit dimensions are measured in staff spaces, while others
-are measured in millimeters.
-The pairs
-(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
-@var{b} the upper edge of the interval.
 
 The default layout responds to the following settings in the
 @code{\paper} block.
@@ -262,24 +261,14 @@ Example:
 
 You can also define these values in Scheme.  In that case @code{mm},
 @code{in}, @code{pt}, and @code{cm} are variables defined in
-@file{paper-defaults.ly} with values in millimeters.  That's why the
-value has to be multiplied in the example
+@file{paper-defaults.ly} with values in millimeters.  That is why the
+value must be multiplied in the example
 
 @example
 \paper @{
   #(define bottom-margin (* 2 cm))
 @}
 @end example
-
-@cindex copyright
-@cindex tagline
-
-The default footer is empty, except for the first page, where the
-@code{copyright} field from @code{\header} is inserted, and the last
-page, where @code{tagline} from @code{\header} is added.  The default
-tagline is ``Music engraving by LilyPond (@var{version})''.@footnote{Nicely
-printed parts are good PR for us, so please leave the tagline if you
-can.}
 
 The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\paper}.  The default
@@ -310,35 +299,9 @@ add space between the titles and the first system of the score.
 @node Music layout
 @section Music layout
 
-This section deals with the manner in which the music is printed
-within the boundaries defined by the @code{\paper} block.
-
-The global paper layout is determined by three factors: the page layout, the
-line breaks, and the spacing.  These all influence each other.  The
-choice of spacing determines how densely each system of music is set.
-This influences where line breaks are chosen, and thus ultimately, how
-many pages a piece of music takes.
-
-Globally spoken, this procedure happens in three steps: first,
-flexible distances (``springs'') are chosen, based on durations.  All
-possible line breaking combinations are tried, and the one with the
-best results -- a layout that has uniform density and requires as
-little stretching or cramping as possible -- is chosen.
-
-After spacing and linebreaking, the systems are distributed across
-pages, taking into account the size of the page, and the size of the
-titles.
-
 @menu
 * Setting global staff size::   
-* Selecting notation font size::  
 * Score layout::                
-* Vertical spacing::            
-* Vertical spacing of piano staves::  
-* Horizontal spacing::          
-* Line length::                 
-* Line breaking::               
-* Page breaking::               
 @end menu
 
 
@@ -430,63 +393,6 @@ staves.  The sizes of individual staves are relative to the global size.
 This manual: @ref{Selecting notation font size}.
 
 
-@node Selecting notation font size
-@subsection Selecting notation font size
-
-The easiest method of setting the font size of any context, is by
-setting the @code{fontSize} property.
-
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
-\set fontSize = #-4
-c f
-\set fontSize = #3
-g
-@end lilypond
-
-@noindent
-It does not change the size of variable symbols, such as beams or
-slurs.
-
-Internally, the @code{fontSize} context property will cause the
-@code{font-size} property to be set in all layout objects.  The value
-of @code{font-size} is a number indicating the size relative to the
-standard size for the current staff height.  Each step up is an
-increase of approximately 12% of the font size.  Six steps is exactly a
-factor two.  The Scheme function @code{magstep} converts a
-@code{font-size} number to a scaling factor.
-
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
-\override NoteHead #'font-size = #-4
-c f
-\override NoteHead #'font-size = #3
-g
-@end lilypond
-
-LilyPond has fonts in different design sizes.  The music fonts for
-smaller sizes are chubbier, while the text fonts are relatively wider.
-Font size changes are achieved by scaling the design size that is
-closest to the desired size.  The standard font size (for
-@code{font-size} equals 0), depends on the standard staff height.  For
-a 20pt staff, a 10pt font is selected.
-
-The @code{font-size} property can only be set on layout objects that
-use fonts. These are the ones supporting the
-@internalsref{font-interface} layout interface.
-
-@refcommands
-
-The following commands set @code{fontSize} for the current voice:
-
-@findex \tiny
-@code{\tiny},
-@findex \small
-@code{\small},
-@findex \normalsize
-@code{\normalsize}.
-
-
 @node Score layout
 @subsection Score layout
 
@@ -516,19 +422,36 @@ This manual: @ref{Changing context default settings}
 
 
 @node Vertical spacing
-@subsection Vertical spacing
+@section Vertical spacing
 
 @cindex vertical spacing
+
+Vertical spacing is controlled by three things: the amount of
+space available (i.e. paper size and margins), the amount of
+space between systems, and the amount of space between
+staves inside a system.
+
+@menu
+* Vertical spacing inside a system::  
+* Vertical spacing of piano staves::  
+* Vertical spacing between systems::  
+* Controlling spacing of individual systems::  
+@end menu
+
+
+@node Vertical spacing inside a system
+@subsection Vertical spacing inside a system
+
 @cindex distance between staves
 @cindex staff distance
-@cindex between staves, distance
-@cindex staves per page
 @cindex space between staves
+@cindex space inside systems
 
 The height of each system is determined automatically.  To prevent
-systems from bumping into each other, some minimum distances are set.
-By changing these, you can put staves closer together, and thus put
-more systems onto one page.
+staves from bumping into each other, some minimum distances are set.
+By changing these, you can put staves closer together.  This
+reduces the amount of space each system requires, and may result
+in having more systems per page.
 
 Normally staves are stacked vertically.  To make staves maintain a
 distance, their vertical size is padded.  This is done with the
@@ -547,101 +470,20 @@ then you could set
 This sets the vertical size of the current staff to 3 staff spaces on
 either side of the center staff line.  The value @code{(-3 . 3)} is
 interpreted as an interval, where the center line is the 0, so the
-first number is generally negative.  The staff can be made larger at
-the bottom by setting it to @code{(-6 . 4)}.
+first number is generally negative.  The numbers need not match;
+for example, the staff can be made larger at the bottom by setting
+it to @code{(-6 . 4)}.
 
-The spacing of staves in a system may also be tuned per system.  This is
-done with the command
-
-@example
-\overrideProperty
-#"Score.NonMusicalPaperColumn"
-#'line-break-system-details
-#'((alignment-extra-space . 15))
-@end example
-
-@noindent
-at the line break before the system to be changed. The distance
-@code{15} is distributed over all staves that have a fixed distance
-alignment.  For example,
-
-@lilypond[ragged-right, fragment, relative=2, staffsize=13]
-\new StaffGroup <<
-  \new Staff {
-    c1\break
-  
-    \overrideProperty
-    #"Score.NonMusicalPaperColumn"
-    #'line-break-system-details
-    #'((fixed-alignment-extra-space . 15))
-
-    c\break
-  }
-  \new Staff { c c }
->>
-@end lilypond
-
-The distance for @code{alignment-extra-space} may also be negative.
-
-
-To change the amount of space between systems, use
-@code{between-system-space}.  A score with only one staff is still
-considered to have systems, so setting @code{between-system-space} will
-be much more useful than changing @code{minimum-Y-extent} of a Staff
-context.
-
-@example
-\paper @{
-  between-system-space = 10\mm
-@}
-@end example
-
-If you simply want to tell LilyPond ``fit as much as possible onto
-these pages, then expand to fill any available space on the pages,''
-then use the following
-
-@example
-\paper @{
-  between-system-padding = #1
-  ragged-bottom=##f
-  ragged-last-bottom=##f
-@}
-@end example
-
-
-@c let's wait for a some comments before writing more.
-
-The vertical spacing on a page can also be changed for each system
-individually.
-Some examples are found in the example file
-@inputfileref{input/regression/,page-spacing.ly}.
-
-When setting @code{annotate-spacing} in the @code{\paper} block LilyPond
-will graphically indicate the dimensions of properties that may be set
-for page spacing,
-
-@lilypond[verbatim]
-#(set-default-paper-size "a7" 'landscape)
-\paper { annotate-spacing = ##t }
-{ c4 }
-@end lilypond
-
-@noindent
-All units dimensions are measured in staff spaces. The pairs
-(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
-@var{b} the upper edge of the interval.
 
 @seealso
 
 Internals: Vertical alignment of staves is handled by the
 @internalsref{VerticalAlignment} object. The context parameters
-specifying  the vertical extent are described in connection with
+specifying the vertical extent are described in connection with
 the @internalsref{Axis_group_engraver}.
 
 Example files: @inputfileref{input/regression/,page-spacing.ly},
 @inputfileref{input/regression/,alignment-vertical-spacing.ly}.
-
-
 
 
 @node Vertical spacing of piano staves
@@ -686,6 +528,29 @@ The difference is demonstrated in the following example,
 @end lilypond
 
 
+@seealso
+
+Example files: @inputfileref{input/regression/,alignment-vertical-spacing.ly}.
+
+
+@node Vertical spacing between systems
+@subsection Vertical spacing between systems
+
+Space between systems are controlled by four @code{\paper} variables,
+
+@example
+\paper @{
+  between-system-space = 1.5\cm
+  between-system-padding = #1
+  ragged-bottom=##f
+  ragged-last-bottom=##f
+@}
+@end example
+
+
+@node Controlling spacing of individual systems
+@subsection Controlling spacing of individual systems
+
 It is also possible to change the distance between for each system
 individually.  This is done by including the command
 
@@ -720,12 +585,19 @@ alignment.  For example,
 The distance for @code{fixed-alignment-extra-space} may also be
 negative.
 
-@seealso
 
-Example files: @inputfileref{input/regression/,alignment-vertical-spacing.ly}.
 
 @node Horizontal spacing
-@subsection Horizontal Spacing
+@section Horizontal Spacing
+
+@menu
+* Horizontal Intro::            
+* Line length::                 
+@end menu
+
+
+@node Horizontal Intro
+@subsection Horizontal Intro
 
 The spacing engine translates differences in durations into stretchable
 distances (``springs'') of differring lengths.  Longer durations get
@@ -915,6 +787,14 @@ paragraph, the last line simply takes its natural horizontal length.
 @end example
 
 
+@node Breaks
+@section Breaks
+
+@menu
+* Line breaking::               
+* Page breaking::               
+@end menu
+
 @node Line breaking
 @subsection Line breaking
 
@@ -1016,5 +896,28 @@ piece in several movements), use @code{breakbefore} in the header.
 The @code{breakbefore=##t} header requires that there is a @code{piece}
 header as well.  It may be used as a normal header, or left  blank
 (@code{=""}) as in the example above, but it must be present.
+
+
+@node Displaying spacing
+@section Displaying spacing
+
+@findex annotate-spacing
+@cindex Spacing, display of properties
+
+To graphically display the dimensions of vertical properties
+that may be altered for page formatting, use
+
+@lilypond[verbatim]
+\paper { annotate-spacing = ##t }
+{ c4 }
+@end lilypond
+
+@noindent
+@c  FIXME: really bad vagueness due to bug in annotate-spacing.  -gp
+Some unit dimensions are measured in staff spaces, while others
+are measured in millimeters.
+The pairs
+(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
+@var{b} the upper edge of the interval.
 
 

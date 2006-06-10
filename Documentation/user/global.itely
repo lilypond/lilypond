@@ -13,7 +13,6 @@ specific notation.
 
 @menu
 * Input files::                 
-* A single music expression::   
 * Titles and headers::          
 * Multiple movements::          
 * MIDI output::                 
@@ -31,6 +30,7 @@ these files end with ``@code{.ly}''.
 @menu
 * File structure (introduction)::  
 * File structure::              
+* A single music expression::   
 * Including LilyPond files::    
 * Text encoding::               
 @end menu
@@ -197,6 +197,50 @@ be entered:
 @end itemize
 
 
+@node A single music expression
+@subsection A single music expression
+
+A @code{\score} must contain a single music expression.  However,
+this music expression may be of any size.  Recall that music
+expressions may be included inside other expressions to form
+larger expressions.  All of these examples are single music
+expressions; note the curly braces @{ @} or angle brackets <<
+>> at the beginning and ending of the music.
+
+@example
+@{ c'4 c' c' c' @}
+@end example
+
+@lilypond[ragged-right,verbatim,quote]
+{
+  { c'4 c' c' c'}
+  { d'4 d' d' d'}
+}
+@end lilypond
+
+@lilypond[ragged-right,verbatim,quote]
+<<
+  \new Staff { c'4 c' c' c' }
+  \new Staff { d'4 d' d' d' }
+>>
+@end lilypond
+
+@example
+@{
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff @{ \flute @}
+      \new Staff @{ \oboe @}
+    >>
+    \new StaffGroup <<
+      \new Staff @{ \violinI @}
+      \new Staff @{ \violinII @}
+    >>
+  >>
+@}
+@end example
+
+
 @node Including LilyPond files
 @subsection Including LilyPond files
 
@@ -292,50 +336,6 @@ To use a Unicode escape sequence, use
 
 @inputfileref{input/regression,utf-8.ly}
 
-
-
-@node A single music expression
-@section A single music expression
-
-A @code{\score} must contain a single music expression.  However,
-this music expression may be of any size.  Recall that music
-expressions may be included inside other expressions to form
-larger expressions.  All of these examples are single music
-expressions; note the curly braces @{ @} or angle brackets <<
->> at the beginning and ending of the music.
-
-@example
-@{ c'4 c' c' c' @}
-@end example
-
-@lilypond[ragged-right,verbatim,quote]
-{
-  { c'4 c' c' c'}
-  { d'4 d' d' d'}
-}
-@end lilypond
-
-@lilypond[ragged-right,verbatim,quote]
-<<
-  \new Staff { c'4 c' c' c' }
-  \new Staff { d'4 d' d' d' }
->>
-@end lilypond
-
-@example
-@{
-  \new GrandStaff <<
-    \new StaffGroup <<
-      \new Staff @{ \flute @}
-      \new Staff @{ \oboe @}
-    >>
-    \new StaffGroup <<
-      \new Staff @{ \violinI @}
-      \new Staff @{ \violinII @}
-    >>
-  >>
-@}
-@end example
 
 
 @node Titles and headers
@@ -514,6 +514,16 @@ You may change this behavior (and print all the headers when defining
   printallheaders=##t
 @}
 @end example
+
+@cindex copyright
+@cindex tagline
+
+The default footer is empty, except for the first page, where the
+@code{copyright} field from @code{\header} is inserted, and the last
+page, where @code{tagline} from @code{\header} is added.  The default
+tagline is ``Music engraving by LilyPond (@var{version})''.@footnote{Nicely
+printed parts are good PR for us, so please leave the tagline if you
+can.}
 
 
 @node Custom titles
