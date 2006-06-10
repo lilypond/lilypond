@@ -6,6 +6,11 @@
 	* python/convertrules.py: add annotatefoo -> annotate-foo
 	rules.
 
+	* Documentation/user/global.itely: start editing.
+
+	* Documentation/user/page.itely: major editing, new spacing
+	docs.
+
 2006-06-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* HACKING: trim outdated info.

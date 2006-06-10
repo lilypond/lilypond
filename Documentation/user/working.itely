@@ -546,25 +546,9 @@ of room left on those.
 
 When investigating layout issues, @code{annotate-spacing} is
 an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ref{Page formatting} for more
-details.
-
-@lilypond[quote,verbatim]
-\paper{
-  annotate-spacing = ##t
-}
-\header{
-  title = "Insert Witty Title Here"
-  composer = "Me, myself, and I"
-}
-\score{ {
-    \repeat unfold 32 { c'4 c' c' c' }
-  }
-}
-@end lilypond
-
-@noindent
-From this output, we can see which margins we may wish to alter.
+layout spacing commands; see @ref{Displaying spacing} for more
+details.  From the output of @code{annotate-spacing}, we can
+see which margins we may wish to alter.
 
 Other than margins, there are a few other options to save space:
 
