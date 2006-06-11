@@ -425,6 +425,7 @@ This manual: @ref{Changing context default settings}
 @section Vertical spacing
 
 @cindex vertical spacing
+@cindex spacing, vertical
 
 Vertical spacing is controlled by three things: the amount of
 space available (i.e. paper size and margins), the amount of
@@ -590,14 +591,19 @@ negative.
 @node Horizontal spacing
 @section Horizontal Spacing
 
+@cindex horizontal spacing
+@cindex spacing, horizontal
+
 @menu
-* Horizontal Intro::            
+* Horizontal spacing overview::  
+* New spacing area::            
+* Changing horizontal spacing::  
 * Line length::                 
 @end menu
 
 
-@node Horizontal Intro
-@subsection Horizontal Intro
+@node Horizontal spacing overview
+@subsection Horizontal spacing overview
 
 The spacing engine translates differences in durations into stretchable
 distances (``springs'') of differring lengths.  Longer durations get
@@ -683,6 +689,50 @@ exaggerated corrections:
 
 Proportional notation is supported; see @ref{Proportional notation}.
 
+
+@seealso
+
+Internals: @internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
+@internalsref{StaffSpacing}, @internalsref{SeparationItem}, and
+@internalsref{SeparatingGroupSpanner}.
+
+
+@refbugs
+
+There is no convenient mechanism to manually override spacing.  The
+following work-around may be used to insert extra space into a score.
+@example
+ \once \override Score.SeparationItem #'padding = #1
+@end example
+
+No work-around exists for decreasing the amount of space.
+
+
+@node New spacing area
+@subsection New spacing area
+
+New sections with different spacing parameters can be started with
+@code{newSpacingSection}.  This is useful when there are  
+sections with a different notions of long and short notes.
+
+In the following example, the time signature change introduces a new
+section, and hence the 16ths notes are spaced wider.
+
+FIXME: wait until we're definitely adding NEWS items.  -gp
+
+@lilypond[relative,fragment,verbatim]
+\time 2/4
+c4 c8 c 
+c8 c c4 c16[ c c8] c4
+%\newSpacingSection
+\time 4/16
+c16[ c c8]
+@end lilypond
+
+
+@node Changing horizontal spacing
+@subsection Changing horizontal spacing
+
 By default, spacing in tuplets depends on various non-duration
 factors (such as accidentals, clef changes, etc).  To disregard
 such symbols and force uniform equal-duration spacing, use
@@ -716,28 +766,6 @@ regard for clefs, bar lines, and grace notes,
 \override Score.SpacingSpanner #'strict-note-spacing = ##t
 \new Staff { c8[ c \clef alto c \grace { c16[ c] } c8 c c]  c32[ c32] }
 @end lilypond
-
-
-@seealso
-
-Internals: @internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
-@internalsref{StaffSpacing}, @internalsref{SeparationItem}, and
-@internalsref{SeparatingGroupSpanner}.
-
-@refbugs
-
-Spacing is determined on a score wide basis.  If you have a score that
-changes its character (measured in durations) halfway during the
-score, the part containing the longer durations will be spaced too
-widely.
-
-There is no convenient mechanism to manually override spacing.  The
-following work-around may be used to insert extra space into a score.
-@example
- \once \override Score.SeparationItem #'padding = #1
-@end example
-
-No work-around exists for decreasing the amount of space.
 
 
 @node Line length

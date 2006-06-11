@@ -1,3 +1,8 @@
+2006-06-10  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ page.itely, global.itely: editing
+	and reorg.
+
 2006-06-10  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/time-scaled-music-iterator.cc: Use tupletSpannerDuration to

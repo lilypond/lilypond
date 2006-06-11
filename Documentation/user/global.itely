@@ -14,7 +14,6 @@ specific notation.
 @menu
 * Input files::                 
 * Titles and headers::          
-* Multiple movements::          
 * MIDI output::                 
 * Displaying LilyPond notation::  
 * Skipping corrected music::    
@@ -29,6 +28,7 @@ these files end with ``@code{.ly}''.
 
 @menu
 * File structure (introduction)::  
+* Multiple scores in a book::   
 * File structure::              
 * A single music expression::   
 * Including LilyPond files::    
@@ -69,6 +69,81 @@ will result in a parsing error.  Instead, music should be inside other
 expressions, which may be put in a file by themselves.  Such
 expressions are called toplevel expressions.  The next section enumerates
 them all.
+
+
+@node Multiple scores in a book
+@subsection Multiple scores in a book
+
+@funindex \book
+@cindex movements, multiple
+
+A document may contain multiple pieces of music and texts.  Examples
+of these are an etude book, or an orchestral part with multiple
+movements.  Each movement is entered with a @code{\score} block,
+
+@example
+\score @{
+  @var{..music..}
+@}
+@end example
+
+and texts are entered with a @code{\markup} block,
+
+@example
+\markup @{
+  @var{..text..}
+@}
+@end example
+
+@findex \book
+
+The movements and texts are combined together in a @code{\book} block,
+like
+
+@example
+\book @{
+  \score @{
+    @var{..}
+  @}
+  \markup @{
+    @var{..}
+  @}
+  \score @{
+    @var{..}
+  @}
+@}
+@end example
+
+
+The header for each piece of music can be put inside the @code{\score}
+block.  The @code{piece} name from the header will be printed before
+each movement.  The title for the entire book can be put inside the
+@code{\book}, but if it is not present, the @code{\header} which is at
+the top of the file is inserted.
+
+@example
+\book @{
+  \header @{
+    title = "Eight miniatures"
+    composer = "Igor Stravinsky"
+  @}
+  \score @{
+    @dots{}
+    \header @{ piece = "Romanze" @}
+  @}
+  \markup @{
+     ..text of second verse..
+  @}
+  \markup @{
+     ..text of third verse..
+  @}
+  \score @{
+    @dots{}
+    \header @{ piece = "Menuetto" @}
+  @}
+@}
+@end example
+
 
 
 @node File structure
@@ -597,86 +672,6 @@ composer flush right on a single line.
 The @code{breakbefore=##t} header requires that there is a @code{piece}
 header as well.  It may be used as a normal header, or left  blank
 (@code{=""}) as in the example above, but it must be present.
-
-
-
-@node Multiple movements
-@section Multiple movements
-
-@cindex bibliographic information
-@cindex titles
-@cindex composer
-@cindex Music engraving by LilyPond
-
-A document may contain multiple pieces of music and texts.  Examples
-of these are an etude book, or an orchestral part with multiple
-movements.  Each movement is entered with a @code{\score} block,
-
-@example
-\score @{
-  @var{..music..}
-@}
-@end example
-
-and texts are entered with a @code{\markup} block,
-
-@example
-\markup @{
-  @var{..text..}
-@}
-@end example
-
-@findex \book
-
-The movements and texts are combined together in a @code{\book} block,
-like
-
-@example
-\book @{
-  \score @{
-    @var{..}
-  @}
-  \markup @{
-    @var{..}
-  @}
-  \score @{
-    @var{..}
-  @}
-@}
-@end example
-
-
-The header for each piece of music can be put inside the @code{\score}
-block.  The @code{piece} name from the header will be printed before
-each movement.  The title for the entire book can be put inside the
-@code{\book}, but if it is not present, the @code{\header} which is at
-the top of the file is inserted.
-
-@cindex Engraved by LilyPond
-@cindex signature line
-
-@example
-\book @{
-  \header @{
-    title = "Eight miniatures"
-    composer = "Igor Stravinsky"
-  @}
-  \score @{
-    @dots{}
-    \header @{ piece = "Romanze" @}
-  @}
-  \markup @{
-     ..text of second verse..
-  @}
-  \markup @{
-     ..text of third verse..
-  @}
-  \score @{
-    @dots{}
-    \header @{ piece = "Menuetto" @}
-  @}
-@}
-@end example
 
 
 

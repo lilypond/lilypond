@@ -304,7 +304,7 @@ but it can also be used anywhere text is called in lilypond
 
 Text can also be placed on its own, away from any @code{\score}
 block.  This is primarily used in a @code{\book} (see
-@ref{Multiple movements}).
+@ref{Multiple scores in a book}).
 
 @lilypond[quote,ragged-right,verbatim]
 \markup{ Here is some text. }
@@ -2004,8 +2004,6 @@ c f
 g
 @end lilypond
 
-LilyPond has fonts in different design sizes.  The music fonts for
-smaller sizes are chubbier, while the text fonts are relatively wider.
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
 @code{font-size} equals 0), depends on the standard staff height.  For
