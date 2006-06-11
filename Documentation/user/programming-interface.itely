@@ -401,8 +401,8 @@ to create complicated music functions.
 @subsection Displaying music expressions
 
 @cindex internal storage
-@findex \displayMusic
-@findex \displayLilyMusic
+@funindex \displayMusic
+@funindex \displayLilyMusic
 
 When writing a music function it is often instructive to inspect how
 a music expression is stored internally.  This can be done with the
@@ -1067,7 +1067,7 @@ be used to set text in small caps.  See
 @subsection Context evaluation
 
 @cindex calling code during interpreting
-@findex \applyContext
+@funindex \applyContext
 
 Contexts can be modified during interpretation with Scheme code.  The
 syntax for this is
@@ -1093,7 +1093,7 @@ current bar number on the standard output during the compile:
 
 
 @cindex calling code on layout objects
-@findex \applyOutput
+@funindex \applyOutput
 
 
 The most versatile way of tuning an object is @code{\applyOutput}.  Its

@@ -51,7 +51,7 @@ that music can be printed inside.
 
 @cindex paper size
 @cindex page size
-@findex papersize
+@funindex papersize
 
 To change the paper size, there are two commands,
 @example
@@ -105,62 +105,62 @@ footers to each page.
 The default layout responds to the following settings in the
 @code{\paper} block.
 
-@findex \paper
+@funindex \paper
 
 @quotation
 @table @code
-@findex first-page-number
+@funindex first-page-number
 @item first-page-number
 The value of the page number of the first page.  Default is@tie{}1.
 
-@findex printfirst-page-number
+@funindex printfirst-page-number
 @item printfirst-page-number
 If set to true, will print the page number in the first page.  Default is
 false.
 
-@findex print-page-number
+@funindex print-page-number
 @item print-page-number
 If set to false, page numbers will not be printed.
 
-@findex paper-width
+@funindex paper-width
 @item paper-width
 The width of the page.
 
-@findex paper-height
+@funindex paper-height
 @item paper-height
 The height of the page.
 
-@findex top-margin
+@funindex top-margin
 @item top-margin
 Margin between header and top of the page.
 
-@findex bottom-margin
+@funindex bottom-margin
 @item bottom-margin
 Margin between footer and bottom of the page.
 
-@findex left-margin
+@funindex left-margin
 @item left-margin
 Margin between the left side of the page and the beginning of the music.
 
-@findex line-width
+@funindex line-width
 @item line-width
 The length of the systems.
 
-@findex head-separation
+@funindex head-separation
 @item head-separation
 Distance between the top-most music system and the page header.
 
-@findex foot-separation
+@funindex foot-separation
 @item foot-separation
 Distance between the bottom-most music system and the page footer.
 
-@findex page-top-space
+@funindex page-top-space
 Distance from the top of the printable area to the center of the first
 staff. This only works for staves which are vertically small. Big staves
 are set with the top of their bounding box aligned to the top of the
 printable area.
 
-@findex ragged-bottom
+@funindex ragged-bottom
 @item ragged-bottom
 If set to true, systems will not be spread vertically across the page.  This
 does not affect the last page.
@@ -168,19 +168,19 @@ does not affect the last page.
 This should be set to true for pieces that have only two or three
 systems per page, for example orchestral scores.
 
-@findex ragged-last-bottom
+@funindex ragged-last-bottom
 @item ragged-last-bottom
 If set to false, systems will be spread vertically to fill the last page.
 
 Pieces that amply fill two pages or more should have this set to
 true.
 
-@findex system-count
+@funindex system-count
 @item system-count
 This variable, if set, specifies into how many lines a score should be
 broken.
 
-@findex between-system-space
+@funindex between-system-space
 @item between-system-space
 This dimensions determines the distance between systems.  It is the
 ideal distance between the center of the bottom staff of one system
@@ -189,7 +189,7 @@ and the center of the top staff of the next system.
 Increasing this will provide a more even appearance of the page at the
 cost of using more vertical space.
 
-@findex between-system-padding
+@funindex between-system-padding
 @item between-system-padding
 This dimension is the minimum amount of white space that will always
 be present between the bottom-most symbol of one system, and the
@@ -199,33 +199,33 @@ Increasing this will put systems whose bounding boxes almost touch
 farther apart.
 
 
-@findex horizontal-shift
+@funindex horizontal-shift
 @item horizontal-shift
 All systems (including titles and system separators) are shifted by
 this amount to the right. Page markup, such as headers and footers are
 not affected by this. The purpose of this variable is to make space
 for instrument names at the left.
 
-@findex after-title-space
+@funindex after-title-space
 @item after-title-space
 Amount of space between the title and the first system.
 
-@findex after-title-space
+@funindex after-title-space
 @item before-title-space
 Amount of space between the last system of the previous piece and the
 title of the next.
 
-@findex between-title-space
+@funindex between-title-space
 @item between-title-space
 Amount of space between consecutive titles (e.g., the title of the
 book and the title of a piece).
 
-@findex printallheaders
+@funindex printallheaders
 @item printallheaders
 Setting this to #t will print all headers for each \score in a
 \book.  Normally only the piece and opus \headers are printed.
 
-@findex systemSeparatorMarkup
+@funindex systemSeparatorMarkup
 @item systemSeparatorMarkup
 This contains a markup object, which will be inserted between
 systems.  This is often used for orchestral scores.
@@ -310,7 +310,7 @@ add space between the titles and the first system of the score.
 
 @cindex font size, setting
 @cindex staff size, setting
-@findex layout file
+@funindex layout file
 
 To set the global staff size, use @code{set-global-staff-size}.
 
@@ -396,7 +396,7 @@ This manual: @ref{Selecting notation font size}.
 @node Score layout
 @subsection Score layout
 
-@findex \layout
+@funindex \layout
 
 While @code{\paper} contains settings that relate to the page formatting
 of the whole document, @code{\layout} contains settings for score-specific
@@ -651,10 +651,10 @@ These durations may also be customized.  If you set the
 this sets the base duration for spacing.  The maximum duration for this
 base (normally an 8th), is set through @code{base-shortest-duration}.
 
-@findex common-shortest-duration
-@findex base-shortest-duration
-@findex stem-spacing-correction
-@findex spacing
+@funindex common-shortest-duration
+@funindex base-shortest-duration
+@funindex stem-spacing-correction
+@funindex spacing
 
 Notes that are even shorter than the common shortest note are
 followed by a space that is proportional to their duration relative to
@@ -774,10 +774,10 @@ regard for clefs, bar lines, and grace notes,
 @cindex page breaks
 @cindex breaking pages
 
-@findex indent
-@findex line-width
-@findex ragged-right
-@findex ragged-last
+@funindex indent
+@funindex line-width
+@funindex ragged-right
+@funindex ragged-last
 
 @c Although line-width can be set in \layout, it should be set in paper
 @c block, to get page layout right.
@@ -862,8 +862,8 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 @refcommands
 
 @code{\break}, and @code{\noBreak}.
-@findex \break
-@findex \noBreak
+@funindex \break
+@funindex \noBreak
 
 @seealso
 
@@ -913,9 +913,9 @@ piece in several movements), use @code{breakbefore} in the header.
 
 @refcommands
 
-@findex \pageBreak
+@funindex \pageBreak
 @code{\pageBreak}
-@findex \noPageBreak
+@funindex \noPageBreak
 @code{\noPageBreak}
 
 
@@ -929,7 +929,7 @@ header as well.  It may be used as a normal header, or left  blank
 @node Displaying spacing
 @section Displaying spacing
 
-@findex annotate-spacing
+@funindex annotate-spacing
 @cindex Spacing, display of properties
 
 To graphically display the dimensions of vertical properties
