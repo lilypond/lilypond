@@ -95,7 +95,7 @@ and texts are entered with a @code{\markup} block,
 @}
 @end example
 
-@findex \book
+@funindex \book
 
 The movements and texts are combined together in a @code{\book} block,
 like
@@ -319,7 +319,7 @@ expressions; note the curly braces @{ @} or angle brackets <<
 @node Including LilyPond files
 @subsection Including LilyPond files
 
-@findex \include
+@funindex \include
 @cindex including files
 
 A large project may be split up into separate files.  To refer to another
@@ -436,62 +436,62 @@ The header block for a book supports the following
 
 
 @table @code
-@findex dedication
+@funindex dedication
 @item dedication
 The dedicatee of the music, centered at the top of the first page.
 
-@findex title
+@funindex title
 @item title
 The title of the music, centered just below the dedication.
 
-@findex subtitle
+@funindex subtitle
 @item subtitle
 Subtitle, centered below the title.
 
-@findex subsubtitle
+@funindex subsubtitle
 @item subsubtitle
 Subsubtitle, centered below the subtitle.
 
-@findex poet
+@funindex poet
 @item poet
 Name of the poet, flush-left below the subtitle.
 
-@findex composer
+@funindex composer
 @item composer
 Name of the composer, flush-right below the subtitle.
 
-@findex meter
+@funindex meter
 @item meter
 Meter string, flush-left below the poet.
 
-@findex opus
+@funindex opus
 @item opus
 Name of the opus, flush-right below the composer.
 
-@findex arranger
+@funindex arranger
 @item arranger
 Name of the arranger, flush-right below the opus.
 
-@findex instrument
+@funindex instrument
 @item instrument
 Name of the instrument, centered below the arranger.  Also
 centered at the top of pages (other than the first page).
 
-@findex piece
+@funindex piece
 @item piece
 Name of the piece, flush-left below the instrument.
 
 @cindex page breaks, forcing
-@findex breakbefore
+@funindex breakbefore
 @item breakbefore
 This forces the title to start on a new page (set to ##t or ##f).
 
-@findex copyright
+@funindex copyright
 @item copyright
 Copyright notice, centered at the bottom of the first page.  To
 insert the copyright symbol, see @ref{Text encoding}.
 
-@findex tagline
+@funindex tagline
 @item tagline
 Centered at the bottom of the last page.
 
@@ -579,7 +579,7 @@ Note that the music expression must come before the @code{\header}.
 }
 @end lilypond
 
-@findex printallheaders
+@funindex printallheaders
 @noindent
 You may change this behavior (and print all the headers when defining
 @code{\header} inside @code{\score}) by using
@@ -609,22 +609,22 @@ variables in the @code{\paper} block.  The init file
 @file{ly/titling-init.ly} lists the default layout.
 
 @table @code
-@findex bookTitleMarkup
+@funindex bookTitleMarkup
 @item bookTitleMarkup
   This is the title put over an entire @code{\book} block.  Typically,
   it has the composer and the title of the piece
 
-@findex scoreTitleMarkup
+@funindex scoreTitleMarkup
 @item scoreTitleMarkup
   This is the title put over a @code{\score} block within a
 @code{\book}.  Typically, it has the name of the movement (@code{piece}
 field).
 
-@findex oddHeaderMarkup
+@funindex oddHeaderMarkup
 @item oddHeaderMarkup
   This is the page header for odd-numbered pages.
 
-@findex evenHeaderMarkup
+@funindex evenHeaderMarkup
 @item evenHeaderMarkup
   This is the page header for even-numbered pages.  If unspecified,
   the odd header is used instead.
@@ -632,11 +632,11 @@ field).
   By default, headers are defined such that the page number is on the
   outside edge, and the instrument is centered.
 
-@findex oddFooterMarkup
+@funindex oddFooterMarkup
 @item oddFooterMarkup
   This is the page footer for odd-numbered pages.
 
-@findex evenFotterMarkup
+@funindex evenFotterMarkup
 @item evenFooterMarkup
   This is the page footer for even-numbered pages.  If unspecified,
   the odd header is used instead.
@@ -829,7 +829,7 @@ The contexts for MIDI output are defined in @file{ly/@/performer@/-init@/.ly}.
 @subsection MIDI instrument names
 
 @cindex instrument names
-@findex Staff.midiInstrument
+@funindex Staff.midiInstrument
 
 The MIDI instrument name is set by the @code{Staff.midiInstrument}
 property.  The instrument name should be chosen from the list in
@@ -852,7 +852,7 @@ instrument is used.
 @node Displaying LilyPond notation
 @section Displaying LilyPond notation
 
-@findex \displayLilyMusc
+@funindex \displayLilyMusc
 Displaying a music expression in LilyPond notation can be
 done using the music function @code{\displayLilyMusic}.  For example,
 
@@ -882,8 +882,8 @@ lilypond file.ly >display.txt
 @section Skipping corrected music
 
 
-@findex skipTypesetting
-@findex showLastLength
+@funindex skipTypesetting
+@funindex showLastLength
 
 When entering or copying music, usually only the music near the end (where
 you
