@@ -1,3 +1,9 @@
+2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/stencil.scm (write-system-signature): backport: simpler format.
+
+	* VERSION (PATCH_LEVEL):  bump to 2.8.5
+
 2006-06-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/define-grobs.scm (all-grob-descriptions): Add
@@ -9,6 +15,8 @@
 	documentation.
 
 2006-06-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION: release 2.8.4
 
 	* lily/relocate.cc (read_relocation_dir): only read dir if available.
 
