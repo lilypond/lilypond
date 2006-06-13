@@ -1,7 +1,14 @@
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/output-distance.py (test_compare_signatures):
+	timing routines.
+	(read_signature_file): use new signature format.
+
+	* scm/stencil.scm (write-system-signature): simpler signature
+	format.
+
 	* lily/stem.cc (calc_stem_end_position): calc quantized-positions
-	for beamed case.
+	for beamed case. Backportme.
 
 	* lily/note-spacing.cc (stem_dir_correction): don't inspect
 	stem_end_position, but estimate instead. Backportme.

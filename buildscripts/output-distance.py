@@ -246,8 +246,20 @@ class SystemLink:
     
 def read_signature_file (name):
     print 'reading', name
-    exp_str = ("[%s]" % open (name).read ())
-    entries = safeeval.safe_eval (exp_str)
+    
+    entries = open (name).read ().split ('\n')
+    def string_to_tup (s):
+        return tuple (map (float, s.split (' '))) 
+
+    def string_to_entry (s):
+        fields = s.split('@')
+        fields[2] = string_to_tup (fields[2])
+        fields[3] = string_to_tup (fields[3])
+
+        return tuple (fields)
+    
+    entries = [string_to_entry (e) for e in entries
+               if e and not e.startswith ('#')]
 
     grob_sigs = [GrobSignature (e) for e in entries]
     sig = SystemSignature (grob_sigs)
@@ -702,12 +714,37 @@ def test_basic_compare ():
     names = [d['name'] for d in dicts]
     
     system ('lilypond -ddump-signatures --png -b eps ' + ' '.join (names))
+    test_compare_signatures (names)
     
-    sigs = dict ((n, read_signature_file ('%s-1.signature' % n)) for n in names)
+def test_compare_signatures (names, timing=False):
+
+    import time
+
+    times = 1
+    if timing:
+        times = 100
+
+    t0 = time.clock ()
+
+    count = 0
+    for t in range (0, times):
+        sigs = dict ((n, read_signature_file ('%s-1.signature' % n)) for n in names)
+        count += 1
+
+    if timing:
+        print 'elapsed', (time.clock() - t0)/count
+
+
+    t0 = time.clock ()
+    count = 0
     combinations = {}
     for (n1, s1) in sigs.items():
         for (n2, s2) in sigs.items():
             combinations['%s-%s' % (n1, n2)] = SystemLink (s1,s2).distance ()
+            count += 1
+
+    if timing:
+        print 'elapsed', (time.clock() - t0)/count
 
     results = combinations.items ()
     results.sort ()
@@ -747,6 +784,7 @@ def main ():
                   dest="run_test",
                   action="store_true",
                   help='run test method')
+    
     p.add_option ('--max-count',
                   dest="max_count",
                   metavar="COUNT",
@@ -754,7 +792,6 @@ def main ():
                   default=0, 
                   action="store",
                   help='only analyze COUNT signature pairs')
- 
 
     p.add_option ('', '--threshold',
                   dest="threshold",
