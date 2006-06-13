@@ -16,6 +16,9 @@
   (make-procedure-with-setter ly:music-property
 			      ly:music-set-property!))
 
+(define-safe-public (music-is-of-type? mus type)
+  "Does @code{mus} belong to the music class @code{type}?"
+  (memq type (ly:music-property mus 'types)))
 
 ;; TODO move this
 (define-public ly:grob-property
@@ -195,8 +198,6 @@ Returns `obj'.
 				     (cdr cp))))
 	  (set! (ly:music-property music 'duration) nd)))
     music))
-
-
 
 (define-public (shift-duration-log music shift dot)
   (music-map (lambda (x) (shift-one-duration-log x shift dot))

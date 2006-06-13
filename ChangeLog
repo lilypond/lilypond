@@ -1,3 +1,12 @@
+2006-06-13  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/parser.yy, scm/ly-syntax-constructors.scm: Produce almost
+	all non-event music in the parser via MAKE_SYNTAX.
+
+	* lily/parser-scheme.cc: Add ly:parser-error function
+
+	* scm/paper.scm: fix typo
+	
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* THANKS: add RT.
