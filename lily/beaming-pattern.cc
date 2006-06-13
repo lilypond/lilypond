@@ -24,6 +24,20 @@ Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i)
   beam_count_drul_[RIGHT] = i;
 }
 
+
+int
+count_factor_twos (int x)
+{
+  int c = 0;
+  while (x && x % 2)
+    {
+      x /= 2;
+      c ++;
+    }
+	 
+  return c;
+}
+
 int
 Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
 {
@@ -42,16 +56,27 @@ Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
 
   *at_boundary = false;
   
-  int min_denominator = INT_MAX;
+  int min_factor_twos = INT_MAX;
   int min_index = -1;
   
   Moment beat_pos;
   for (vsize i = 1; i < infos_.size (); i++)  
     {
-      Moment dt = infos_[i].start_moment_ - infos_[i].beat_start_; 
-      if (dt.den () < min_denominator)
+      Moment dt = infos_[i].start_moment_ - infos_[i].beat_start_;
+
+      /*
+	This is a kludge, for the most common case of 16th, 32nds
+	etc. What should really happen is that \times x/y should
+	locally introduce a voice-specific beat duration.  (or
+	perhaps: a list of beat durations for nested tuplets.)
+	
+       */
+      
+      int factor_2s =  count_factor_twos (dt.den ());
+      
+      if (factor_2s < min_factor_twos)
 	{
-	  min_denominator = dt.den ();
+	  min_factor_twos = factor_2s;
 	  min_index = i;
 	}
     }
@@ -79,7 +104,7 @@ Beaming_pattern::beamify (Context *context)
   
   bool subdivide_beams = to_boolean (context->get_property ("subdivideBeams"));
   Moment beat_length = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
-  Moment measure_length = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
+  Moment measure_length = robust_scm2moment (context->get_property ("measureLength"), Moment (1, 4));
 
   if (infos_[0].start_moment_ < Moment (0))
     for (vsize i = 0; i < infos_.size(); i++)
@@ -112,13 +137,13 @@ Beaming_pattern::beamify (Context *context)
   vsize k = 0;
   for (vsize i = 0; i  < infos_.size(); i++)
     {
-      while (j < group_starts.size()-1
+      while (j < group_starts.size() - 1
 	     && group_starts[j+1] <= infos_[i].start_moment_)
 	j++;
 
       infos_[i].group_start_ = group_starts[j];
 
-      while (k < beat_starts.size()-1
+      while (k < beat_starts.size() - 1
 	     && beat_starts[k+1] <= infos_[i].start_moment_)
 	k++;
 

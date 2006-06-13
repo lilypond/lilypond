@@ -330,8 +330,10 @@ gsave /ecrm10 findfont
 	 (text-width (apply + text-widths))
 	 (text-dir (chain-assoc-get 'text-direction props RIGHT))
 	 (word-count (length stencils))
-	 (word-space (chain-assoc-get 'word-space props))
-	 (line-width (chain-assoc-get 'line-width props))
+	 (word-space (chain-assoc-get 'word-space props 1))
+	 (prop-line-width (chain-assoc-get 'line-width props #f))
+	 (line-width (if prop-line-width prop-line-width
+			 (ly:output-def-lookup layout 'line-width)))
 	 (fill-space
 	 	(cond
 			((= word-count 1) 
@@ -464,7 +466,9 @@ determines the space between each markup in @var{args}."
 (define (wordwrap-markups layout props args justify)
   (let*
       ((baseline-skip (chain-assoc-get 'baseline-skip props))
-       (line-width (chain-assoc-get 'line-width props))
+       (prop-line-width (chain-assoc-get 'line-width props #f))
+       (line-width (if prop-line-width prop-line-width
+		       (ly:output-def-lookup layout 'line-width)))
        (word-space (chain-assoc-get 'word-space props))
        (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
        (lines (wordwrap-stencils
