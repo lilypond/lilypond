@@ -1,5 +1,9 @@
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/rest.cc (y_offset_callback): bugfix: decide position
+	override based on scm_is_number(). Fixes \rest on center staff
+	line
+
 	* lily/beaming-pattern.cc (best_splitpoint_index): fix beaming
 	patterns for 16th triplets.
 
