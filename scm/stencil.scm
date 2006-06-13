@@ -325,7 +325,16 @@ grestore
   (define (pythonic-pair expr)
     (format "(~a,~a)"
 	    (car expr) (cdr expr)))
-		    
+
+
+  (define (raw-string expr)
+    "escape quotes and slashes for python consumption"
+    (regexp-substitute/global #f "[@\n]" (format "~a" expr) 'pre " " 'post))
+
+  (define (raw-pair expr)
+    (format "~a ~a"
+	    (car expr) (cdr expr)))
+  
   (define (found-grob expr)
     (let*
 	((grob (car expr))
@@ -344,12 +353,12 @@ grestore
 			       rest)
 
       (format output
-	      "['~a', '~a', ~a, ~a, '~a'],\n"
+	      "~a@~a@~a@~a@~a\n"
 	      (cdr (assq 'name (ly:grob-property grob 'meta) ))
-	      (pythonic-string location)
-	      (pythonic-pair (if (interval-empty? x-ext) '(1 . -1) x-ext))
-	      (pythonic-pair (if (interval-empty? y-ext) '(1 . -1) y-ext))
-	      (pythonic-string collected))
+	      (raw-string location)
+	      (raw-pair (if (interval-empty? x-ext) '(1 . -1) x-ext))
+	      (raw-pair (if (interval-empty? y-ext) '(1 . -1) y-ext))
+	      (raw-string collected))
       ))
 
   (define (interpret-for-signature escape collect expr)
