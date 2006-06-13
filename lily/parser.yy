@@ -114,11 +114,12 @@ using namespace std;
 - Don't use lily module, create a new module instead.
 - delay application of the function
 */
+#define LOWLEVEL_MAKE_SYNTAX(proc, args)	\
+  scm_apply_0 (proc, args)
+/* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)	\
-  scm_apply_0 (ly_lily_module_constant (name), scm_list_n (make_input (location), __VA_ARGS__, SCM_UNDEFINED));
+  LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (PARSER->self_scm (), make_input (location), __VA_ARGS__, SCM_UNDEFINED));
 
-Music *property_op_to_music (SCM op);
-SCM context_spec_music (SCM type, SCM id, SCM m, SCM ops, bool create_new);
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
 
@@ -132,12 +133,10 @@ SCM get_next_unique_lyrics_context_id ();
 
 
 
-SCM make_lyric_combine_music (SCM name, SCM music);
 SCM make_music_relative (Pitch start, SCM music);
-Music *run_music_function (Lily_parser *, SCM expr);
-Music *set_property_music (SCM sym, SCM value);
+SCM run_music_function (Lily_parser *, SCM expr);
 SCM get_first_context_id (SCM type, Music *m);
-SCM make_chord (SCM pitch, SCM dur, SCM modification_list);
+SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (int step, int alter);
 SCM make_simple_markup (SCM a);
 bool is_duration (int t);
@@ -323,14 +322,14 @@ If we give names, Bison complains.
 %type <i> tremolo_type
 
 /* Music */
-%type <scm> Composite_music
-%type <scm> Grouped_music_list
-%type <scm> Music
-%type <scm> Prefix_composite_music
-%type <scm> Repeated_music
-%type <scm> Sequential_music
-%type <scm> Simple_music
-%type <scm> Simultaneous_music
+%type <scm> composite_music
+%type <scm> grouped_music_list
+%type <scm> music
+%type <scm> prefix_composite_music
+%type <scm> repeated_music
+%type <scm> sequential_music
+%type <scm> simple_music
+%type <scm> simultaneous_music
 %type <scm> chord_body
 %type <scm> chord_body_element
 %type <scm> command_element
@@ -346,6 +345,7 @@ If we give names, Bison complains.
 %type <scm> re_rhythmed_music
 %type <scm> relative_music
 %type <scm> simple_element
+%type <scm> simple_music_property_def
 %type <scm> string_number_event
 %type <scm> tempo_event
 %type <scm> toplevel_music
@@ -356,9 +356,9 @@ If we give names, Bison complains.
 %type <outputdef> output_def
 %type <outputdef> paper_block 
 
-%type <scm> Alternative_music
-%type <scm> Generic_prefix_music_scm 
-%type <scm> Music_list
+%type <scm> alternative_music
+%type <scm> generic_prefix_music_scm 
+%type <scm> music_list
 %type <scm> absolute_pitch
 %type <scm> assignment_id
 %type <scm> bare_number
@@ -418,6 +418,7 @@ If we give names, Bison complains.
 %type <scm> property_operation
 %type <scm> scalar
 %type <scm> script_abbreviation
+%type <scm> simple_chord_elements
 %type <scm> simple_markup
 %type <scm> simple_string
 %type <scm> steno_duration
@@ -502,7 +503,7 @@ toplevel_expression:
 	;
 
 toplevel_music:
-	Composite_music {
+	composite_music {
 	}
 	;
 
@@ -577,7 +578,7 @@ identifier_init:
 	| context_def_spec_block {
 		$$ = $1;
 	}
-	| Music  {
+	| music  {
 		$$ = $1;
 	}
 	| post_event {
@@ -686,7 +687,7 @@ score_block:
 	;
 
 score_body:
-	Music {
+	music {
 		SCM m = $1;
 		SCM scorify = ly_lily_module_constant ("scorify-music");
 		SCM score = scm_call_2 (scorify, m, PARSER->self_scm ());
@@ -824,11 +825,11 @@ The representation of a  list is the
 
  to have efficient append.  */
 
-Music_list:
+music_list:
 	/* empty */ {
 		$$ = scm_cons (SCM_EOL, SCM_EOL);
 	}
-	| Music_list Music {
+	| music_list music {
 		SCM s = $$;
  		SCM c = scm_cons ($2, SCM_EOL);
 
@@ -838,10 +839,10 @@ Music_list:
 			scm_set_car_x (s, c); /* set first cons */
 		scm_set_cdr_x (s, c);  /* remember last cell */
 	}
-	| Music_list embedded_scm {
+	| music_list embedded_scm {
 
 	}
-	| Music_list error {
+	| music_list error {
 		Music *m = MY_MAKE_MUSIC("Music");
 		// ugh. code dup 
 		m->set_property ("error-found", SCM_BOOL_T);
@@ -857,47 +858,47 @@ Music_list:
 	}
 	;
 
-Music:
-	Simple_music
-	| Composite_music
+music:
+	simple_music
+	| composite_music
 	;
 
-Alternative_music:
+alternative_music:
 	/* empty */ {
 		$$ = SCM_EOL;
 	}
-	| ALTERNATIVE '{' Music_list '}' {
+	| ALTERNATIVE '{' music_list '}' {
 		$$ = scm_car ($3);
 	}
 	;
 
 
-Repeated_music:
-	REPEAT simple_string bare_unsigned Music Alternative_music
+repeated_music:
+	REPEAT simple_string bare_unsigned music alternative_music
 	{
 		$$ = MAKE_SYNTAX ("repeat", @$, $2, scm_int2num ($3), $4, $5);
 	}
 	;
 
-Sequential_music:
-	SEQUENTIAL '{' Music_list '}'		{
+sequential_music:
+	SEQUENTIAL '{' music_list '}'		{
 		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_car ($3));
 	}
-	| '{' Music_list '}'		{
+	| '{' music_list '}'		{
 		$$ = MAKE_SYNTAX ("sequential-music", @$, scm_car ($2));
 	}
 	;
 
-Simultaneous_music:
-	SIMULTANEOUS '{' Music_list '}'{
+simultaneous_music:
+	SIMULTANEOUS '{' music_list '}'{
 		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($3));
 	}
-	| simul_open Music_list simul_close	{
+	| simul_open music_list simul_close	{
 		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($2));
 	}
 	;
 
-Simple_music:
+simple_music:
 	event_chord
 	| MUSIC_IDENTIFIER
 	| music_property_def
@@ -921,14 +922,14 @@ context_mod_list:
 	}
 	;
 
-Composite_music:
-	Prefix_composite_music { $$ = $1; }
-	| Grouped_music_list { $$ = $1; }
+composite_music:
+	prefix_composite_music { $$ = $1; }
+	| grouped_music_list { $$ = $1; }
 	;
 
-Grouped_music_list:
-	Simultaneous_music		{ $$ = $1; }
-	| Sequential_music		{ $$ = $1; }
+grouped_music_list:
+	simultaneous_music		{ $$ = $1; }
+	| sequential_music		{ $$ = $1; }
 	;
 
 function_scm_argument:
@@ -939,7 +940,7 @@ function_scm_argument:
 /*
 TODO: use code generation for this
 */
-Generic_prefix_music_scm:
+generic_prefix_music_scm:
 	MUSIC_FUNCTION {
 		$$ = scm_list_2 ($1, make_input (@$));
 	}
@@ -949,7 +950,7 @@ Generic_prefix_music_scm:
 	| MUSIC_FUNCTION_MARKUP full_markup {
 		$$ = scm_list_3 ($1, make_input (@$), $2);
 	}
-	| music_function_musicless_prefix Music {
+	| music_function_musicless_prefix music {
 		$$ = ly_append2 ($1, scm_list_1 ($2));
 	}
 	| MUSIC_FUNCTION_SCM_SCM function_scm_argument function_scm_argument {
@@ -958,22 +959,22 @@ Generic_prefix_music_scm:
 	| MUSIC_FUNCTION_SCM_SCM_SCM function_scm_argument function_scm_argument function_scm_argument {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
 	}
-	| MUSIC_FUNCTION_MARKUP_MUSIC full_markup Music {
+	| MUSIC_FUNCTION_MARKUP_MUSIC full_markup music {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
 	}
 	| MUSIC_FUNCTION_MARKUP_MARKUP full_markup full_markup {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
 	}
-	| MUSIC_FUNCTION_MUSIC_MUSIC Music Music {
+	| MUSIC_FUNCTION_MUSIC_MUSIC music music {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
 	}
-	| MUSIC_FUNCTION_SCM_MUSIC_MUSIC function_scm_argument Music Music {
+	| MUSIC_FUNCTION_SCM_MUSIC_MUSIC function_scm_argument music music {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
 	}
-	| MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC function_scm_argument function_scm_argument Music Music {
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC function_scm_argument function_scm_argument music music {
 		$$ = scm_list_n ($1, make_input (@$), $2, $3, $4, $5, SCM_UNDEFINED);
 	}
-	| MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC full_markup Music Music {
+	| MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC full_markup music music {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
 	}
 	;
@@ -986,48 +987,31 @@ optional_id:
 	;	
 
 
-Prefix_composite_music:
-	Generic_prefix_music_scm {
-		$$ = run_music_function (PARSER, $1)->unprotect ();
+prefix_composite_music:
+	generic_prefix_music_scm {
+		$$ = run_music_function (PARSER, $1);
 	}
-	| CONTEXT    simple_string optional_id optional_context_mod Music {
-		$$ = context_spec_music ($2, $3, $5, $4, false);
+	| CONTEXT    simple_string optional_id optional_context_mod music {
+		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, $4, SCM_BOOL_F);
 	}
-	| NEWCONTEXT simple_string optional_id optional_context_mod Music {
-		$$ = context_spec_music ($2, $3, $5, $4, true);
+	| NEWCONTEXT simple_string optional_id optional_context_mod music {
+		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, $4, SCM_BOOL_T);
 	}
 
-	| TIMES fraction Music 	
-	{
-                int n = scm_to_int (scm_car ($2));
-                int d = scm_to_int (scm_cdr ($2));
-
-                Music *m = MY_MAKE_MUSIC ("TimeScaledMusic");
-                m->set_spot (@$);
-
-                m->set_property ("element", $3);
-                m->set_property ("numerator", scm_from_int (n));
-                m->set_property ("denominator", scm_from_int (d));
-                m->compress (Moment (Rational (n,d)));
-                $$ = m->unprotect ();
+	| TIMES fraction music {
+                $$ = MAKE_SYNTAX ("time-scaled-music", @$, $2, $3);
 	}
-	| Repeated_music		{ $$ = $1; }
-	| TRANSPOSE pitch_also_in_chords pitch_also_in_chords Music {
-		Music *m = MY_MAKE_MUSIC ("TransposedMusic");
+	| repeated_music		{ $$ = $1; }
+	| TRANSPOSE pitch_also_in_chords pitch_also_in_chords music {
 		Pitch from = *unsmob_pitch ($2);
 		Pitch to = *unsmob_pitch ($3);
-
-		Music *p = unsmob_music ($4);
-		p->transpose (pitch_interval (from, to));
-		m->set_property ("element", $4);
-		$$ = m->unprotect ();
+		SCM pitch = pitch_interval (from, to).smobbed_copy ();
+		$$ = MAKE_SYNTAX ("transpose-music", @$, pitch, $4);
 	}
-	| mode_changing_head Grouped_music_list {
+	| mode_changing_head grouped_music_list {
 		if ($1 == ly_symbol2scm ("chords"))
 		{
-		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
-		  chm->set_property ("element", $2);
-		  $$ = chm->unprotect ();
+		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $2);
 		}
 		else
 		{
@@ -1035,13 +1019,11 @@ Prefix_composite_music:
 		}
 		PARSER->lexer_->pop_state ();
 	}
-	| mode_changing_head_with_context optional_context_mod Grouped_music_list {
-		$$ = context_spec_music ($1, SCM_UNDEFINED, $3, $2, true);
+	| mode_changing_head_with_context optional_context_mod grouped_music_list {
+		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, $3, $2, SCM_BOOL_T);
 		if ($1 == ly_symbol2scm ("ChordNames"))
 		{
-		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
-		  chm->set_property ("element", $$);
-		  $$ = chm->unprotect ();
+		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $$);
 		}
 		PARSER->lexer_->pop_state ();
 	}
@@ -1109,11 +1091,11 @@ mode_changing_head_with_context:
 
 
 relative_music:
-	RELATIVE absolute_pitch Music {
+	RELATIVE absolute_pitch music {
 		Pitch start = *unsmob_pitch ($2);
 		$$ = make_music_relative (start, $3);
 	}
-	| RELATIVE Composite_music {
+	| RELATIVE composite_music {
 		Pitch middle_c (0, 0, 0);
 		$$ = make_music_relative (middle_c, $2);
 	}
@@ -1122,8 +1104,8 @@ relative_music:
 new_lyrics:
 	ADDLYRICS { PARSER->lexer_->push_lyric_state (); }
 	/*cont */
-	Grouped_music_list {
-	/* Can also use Music at the expensive of two S/Rs similar to
+	grouped_music_list {
+	/* Can also use music at the expensive of two S/Rs similar to
            \repeat \alternative */
 		PARSER->lexer_->pop_state ();
 
@@ -1131,56 +1113,27 @@ new_lyrics:
 	}
 	| new_lyrics ADDLYRICS {
 		PARSER->lexer_->push_lyric_state ();
-	} Grouped_music_list {
+	} grouped_music_list {
 		PARSER->lexer_->pop_state ();
 		$$ = scm_cons ($4, $1);
 	}
 	;
 
 re_rhythmed_music:
-	Grouped_music_list new_lyrics {
-		SCM voice = $1;
-		SCM name = get_first_context_id (scm_makfrom0str ("Voice"), unsmob_music (voice)); 
-		if (!scm_is_string (name))
-		{
-			name = get_next_unique_lyrics_context_id ();
-			voice = context_spec_music (scm_makfrom0str ("Voice"),
-						    name,
-						    voice, SCM_EOL, false);
-		}
-
-		SCM context = scm_makfrom0str ("Lyrics");
-		Music *all = MY_MAKE_MUSIC ("SimultaneousMusic");
-
-		SCM lst = SCM_EOL;
-		for (SCM s = $2; scm_is_pair (s); s = scm_cdr (s))
-		{
-			SCM com = make_lyric_combine_music (name, scm_car (s));
-			SCM csm = context_spec_music (context,
-				SCM_UNDEFINED, com, SCM_EOL, true);
-			lst = scm_cons (csm, lst);
-		}
-		all->set_property ("elements", scm_cons (voice,
-			lst));
-		$$ = all->unprotect ();
+	grouped_music_list new_lyrics {
+		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
 	}
 	| LYRICSTO simple_string {
 		PARSER->lexer_->push_lyric_state ();
-	} Music {
+	} music {
 		PARSER->lexer_->pop_state ();
-		SCM name = $2;
-		$$ = make_lyric_combine_music (name, $4);
+		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $4);
 	}
 	;
 
 context_change:
 	CHANGE STRING '=' STRING  {
-		Music *t = MY_MAKE_MUSIC ("ContextChange");
-		t-> set_property ("change-to-type", scm_string_to_symbol ($2));
-		t-> set_property ("change-to-id", $4);
-		t->set_spot (@$);
-
-		$$ = t->unprotect ();
+		$$ = MAKE_SYNTAX ("context-change", @$, scm_string_to_symbol ($2), $4);
 	}
 	;
 
@@ -1244,50 +1197,46 @@ context_prop_spec:
 	}
 	;
 
-music_property_def:
+simple_music_property_def:
 	OVERRIDE context_prop_spec embedded_scm '=' scalar {
-		Music *m = property_op_to_music (scm_list_4 (
-			ly_symbol2scm ("push"),
+		$$ = scm_list_5 (scm_car ($2),
+			ly_symbol2scm ("OverrideProperty"),
 			scm_cadr ($2),
-			$5, $3));
-		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, m->unprotect (), SCM_EOL, false);
+			$5, $3);
 	}
 	| OVERRIDE context_prop_spec embedded_scm  embedded_scm '=' scalar {
-		Music *m = property_op_to_music (scm_list_5 (
-			ly_symbol2scm ("push"),
+		$$ = scm_list_n (scm_car ($2),			
+			ly_symbol2scm ("OverrideProperty"),
 			scm_cadr ($2),
-			$6, $4, $3));
-		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, m->unprotect (), SCM_EOL, false);
+			$6, $4, $3, SCM_UNDEFINED);
 	}
 	| REVERT context_prop_spec embedded_scm {
-		Music *m = property_op_to_music (scm_list_3 (
-			ly_symbol2scm ("pop"),
+		$$ = scm_list_4 (scm_car ($2),
+			ly_symbol2scm ("RevertProperty"),
 			scm_cadr ($2),
-			$3));
-
-		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, m->unprotect (), SCM_EOL, false);
+			$3);
 	}
 	| SET context_prop_spec '=' scalar {
-		Music *m = property_op_to_music (scm_list_3 (
-			ly_symbol2scm ("assign"),
+		$$ = scm_list_4 (scm_car ($2),
+			ly_symbol2scm ("PropertySet"),
 			scm_cadr ($2),
-			$4));
-		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, m->unprotect (), SCM_EOL, false);
+			$4);
 	}
 	| UNSET context_prop_spec {
-		Music *m = property_op_to_music (scm_list_2 (
-			ly_symbol2scm ("unset"),
-			scm_cadr ($2)));
-		$$ = context_spec_music (scm_car ($2), SCM_UNDEFINED, m->unprotect (), SCM_EOL, false);
-	}
-	| ONCE music_property_def {
-		Music *m = unsmob_music ($2);
-		SCM e = m->get_property ("element");
-                unsmob_music (e)->set_property ("once", SCM_BOOL_T);
-		$$ = $2;
+		$$ = scm_list_3 (scm_car ($2),
+			ly_symbol2scm ("PropertyUnset"),
+			scm_cadr ($2));
 	}
 	;
 
+music_property_def:
+	simple_music_property_def {
+		$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons (PARSER->self_scm (), scm_cons2 (make_input (@$), SCM_BOOL_F, $1)));
+	}
+	| ONCE simple_music_property_def {
+		$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons (PARSER->self_scm (), scm_cons2 (make_input (@$), SCM_BOOL_T, $2)));
+	}
+	;
 
 string:
 	STRING {
@@ -1332,45 +1281,25 @@ scalar: string {
 	}
 	;
 
-/*
-
-pre_events doesn't contain anything. It is a trick:
-
-Adding pre_events to the simple_element
-makes the choice between
-
-  string:  STRING
-
-and
-
-  simple_element: STRING
-
-a single shift/reduction conflict.
-
-nevertheless, this is not very clean, and we should find a different
-solution.
-
-*/
-pre_events: /* empty */
-	;
-
 event_chord:
-	pre_events simple_element post_events	{
-		Music *m = unsmob_music ($2);
-		m->protect ();
-		SCM elts = m->get_property ("elements");
+	/* TODO: Create a special case that avoids the creation of
+	   EventChords around simple_elements that have no post_events?
+	 */
+	simple_chord_elements post_events	{
+		SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
 
-		elts = ly_append2 (elts, scm_reverse_x ($3, SCM_EOL));
-
-		m->set_property ("elements", elts);
-		/* why is this giving wrong start location? -ns
-		 * $2->set_spot (@$); */
 		Input i;
-		i.set_location (@2, @3);
-		m->set_spot (i);
-		$$ = m->unprotect ();
+		/* why is this giving wrong start location? -ns
+		 * i = @$; */
+		i.set_location (@1, @2);
+		$$ = MAKE_SYNTAX ("event-chord", i, elts);
 	}
-	| command_element { $$ = $1; }
+	| MULTI_MEASURE_REST optional_notemode_duration post_events {
+		Input i;
+		i.set_location (@1, @3);
+		$$ = MAKE_SYNTAX ("multi-measure-rest", i, $2, $3);
+	}
+	| command_element
 	| note_chord_element
 	;
 
@@ -1408,11 +1337,7 @@ simul_close: DOUBLE_ANGLE_CLOSE
 chord_body:
 	chord_open chord_body_elements chord_close
 	{
-		Music *m = MY_MAKE_MUSIC ("EventChord");
-		m->set_spot (@$);
-		m->set_property ("elements",
-			scm_reverse_x ($2, SCM_EOL));
-		$$ = m->unprotect ();
+		$$ = MAKE_SYNTAX ("event-chord", @$, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1464,9 +1389,7 @@ chord_body_element:
 		$$ = n->unprotect ();
 	}
 	| music_function_chord_body { 
-		Music *m = run_music_function (PARSER, $1);
-		m->set_spot (@$);
-		$$ = m->unprotect ();
+		$$ = run_music_function (PARSER, $1);
 	}
 	;
 
@@ -1509,76 +1432,49 @@ music_function_musicless_prefix:
 
 command_element:
 	command_event {
-		Music *m = MY_MAKE_MUSIC ("EventChord");
-		m->set_property ("elements", scm_cons ($1, SCM_EOL));
-		Music *e = unsmob_music ($1);
-		e-> set_spot (@$);
-		m-> set_spot (@$);
-		$$ = m->unprotect ();
+		$$ = $1;
 	}
 	| SKIP duration_length {
-		Music *skip = MY_MAKE_MUSIC ("SkipMusic");
-		skip->set_property ("duration", $2);
-		skip->set_spot (@$);
-		$$ = skip->unprotect ();
+		$$ = MAKE_SYNTAX ("skip-music", @$, $2);
 	}
 	| E_BRACKET_OPEN {
 		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
 		m->set_property ("span-direction", scm_from_int (START));
 		m->set_spot (@$);
-
-		Music *chord = MY_MAKE_MUSIC ("EventChord");
-		chord->set_property ("elements", scm_cons (m->self_scm (), SCM_EOL));
-		m->unprotect();
-		chord->set_spot (@$);
-		$$ = chord->unprotect ();
+		$$ = m->unprotect();
 	}
 	| E_BRACKET_CLOSE {
 		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
 		m->set_property ("span-direction", scm_from_int (STOP));
 		m->set_spot (@$);
-
-		Music *chord = MY_MAKE_MUSIC ("EventChord");
-		chord->set_property ("elements", scm_cons (m->self_scm (), SCM_EOL));
-		chord->set_spot (@$);
-		m->unprotect ();
-		$$ = chord->unprotect ();
+		$$ = m->unprotect ();
 	}
 	| E_BACKSLASH {
-		Music *m = MY_MAKE_MUSIC ("VoiceSeparator");
-		m->set_spot (@$);
-		$$ = m->unprotect ();
+		$$ = MAKE_SYNTAX ("voice-separator", @$, SCM_UNDEFINED);
 	}
 	| '|'      {
 		SCM pipe = PARSER->lexer_->lookup_identifier ("pipeSymbol");
 
 		Music *m = unsmob_music (pipe);
 		if (m)
+		{
 			m = m->clone ();
+			m->set_spot (@$);
+			$$ = m->unprotect ();
+		}
 		else
-			m = MY_MAKE_MUSIC ("BarCheck");
+			$$ = MAKE_SYNTAX ("bar-check", @$, SCM_UNDEFINED);
 
-		m->set_spot (@$);
-		$$ = m->unprotect ();
 	}
 	| TRANSPOSITION pitch {
 		Pitch middle_c;
 		Pitch sounds_as_c = pitch_interval (*unsmob_pitch ($2), middle_c);
-		Music *m = set_property_music (ly_symbol2scm ("instrumentTransposition"),
-					 sounds_as_c.smobbed_copy());
-		m->set_spot (@$);
-		$$ = context_spec_music (ly_symbol2scm ("Staff"), SCM_UNDEFINED,
-			m->unprotect (), SCM_EOL, false);
+		$$ = MAKE_SYNTAX ("property-operation", @$, SCM_BOOL_F, ly_symbol2scm ("Staff"), ly_symbol2scm ("PropertySet"), ly_symbol2scm ("instrumentTransposition"), sounds_as_c.smobbed_copy ());
 	}
-	| PARTIAL duration_length  	{
+	| PARTIAL duration_length	{
 		Moment m = - unsmob_duration ($2)->get_length ();
-		Music *p = set_property_music (ly_symbol2scm ( "measurePosition"),m.smobbed_copy ());
-		p->set_spot (@$);
-		SCM ps = p->unprotect ();
-		ps = context_spec_music (ly_symbol2scm ("Timing"), SCM_UNDEFINED,
-					ps, SCM_EOL, false);
-		$$ = context_spec_music (ly_symbol2scm ("Score"), SCM_UNDEFINED,
-					ps, SCM_EOL, false);
+		$$ = MAKE_SYNTAX ("property-operation", @$, SCM_BOOL_F, ly_symbol2scm ("Timing"), ly_symbol2scm ("PropertySet"), ly_symbol2scm ("measurePosition"), m.smobbed_copy ());
+		$$ = MAKE_SYNTAX ("context-specification", @$, ly_symbol2scm ("Score"), SCM_BOOL_F, $$, SCM_EOL, SCM_BOOL_F);
 	}
 
 	| TIME_T fraction  {
@@ -1640,9 +1536,7 @@ post_event:
 		$$ = $1;
 	}
 	| '-' music_function_event {
-		Music *mus = run_music_function (PARSER, $2);
-		mus->set_spot (@1);
-		$$ = mus->unprotect ();
+		$$ = run_music_function (PARSER, $2);
 	}
 	| HYPHEN {
 		if (!PARSER->lexer_->is_lyric_state ())
@@ -2065,10 +1959,7 @@ figure_list:
 
 figure_spec:
 	FIGURE_OPEN figure_list FIGURE_CLOSE {
-		Music *m = MY_MAKE_MUSIC ("EventChord");
-		$2 = scm_reverse_x ($2, SCM_EOL);
-		m->set_property ("elements", $2);
-		$$ = m->self_scm ();
+		$$ = scm_reverse_x ($2, SCM_EOL);
 	}
 	;
 
@@ -2103,36 +1994,16 @@ simple_element:
 		if ($2 % 2 || $3 % 2)
 			n->set_property ("force-accidental", SCM_BOOL_T);
 
-		Music *v = MY_MAKE_MUSIC ("EventChord");
-		v->set_property ("elements", scm_list_1 (n->self_scm ()));
-		n->unprotect ();
-
-		v->set_spot (@$);
 		n->set_spot (@$);
-		$$ = v->unprotect ();
+		$$ = n->unprotect ();
 	}
 	| DRUM_PITCH optional_notemode_duration {
 		Music *n = MY_MAKE_MUSIC ("NoteEvent");
 		n->set_property ("duration", $2);
 		n->set_property ("drum-type", $1);
 
-		Music *v = MY_MAKE_MUSIC ("EventChord");
-		v->set_property ("elements", scm_list_1 (n->self_scm ()));
-		n->unprotect ();
-		v->set_spot (@$);
-		n->set_spot (@$);
-		$$ = v->unprotect ();
-		
+		$$ = n->unprotect ();		
 	}
-	| figure_spec optional_notemode_duration {
-		Music *m = unsmob_music ($1);
-		m->set_spot (@$);
-		for (SCM s = m->get_property ("elements"); scm_is_pair (s); s = scm_cdr (s))
-		{
-			unsmob_music (scm_car (s))->set_property ("duration", $2);
-		}
-		$$ = m->unprotect ();
-	}	
  	| RESTNAME optional_notemode_duration		{
 		Music *ev = 0;
  		if (ly_scm2string ($1) == "s") {
@@ -2145,17 +2016,7 @@ simple_element:
 		    }
 		ev->set_property ("duration", $2);
 		ev->set_spot (@$);
- 		Music *velt = MY_MAKE_MUSIC ("EventChord");
-		velt->set_property ("elements", scm_list_1 (ev->self_scm ()));
-		velt->set_spot (@$);
-
-		ev->unprotect();
-
- 		$$ = velt->unprotect ();
-	}
-	| MULTI_MEASURE_REST optional_notemode_duration  	{
-		SCM proc = ly_lily_module_constant ("make-multi-measure-rest");
-		$$ = scm_call_2 (proc, $2, make_input (@$));
+ 		$$ = ev->unprotect ();
 	}
 	| lyric_element optional_notemode_duration 	{
 		if (!PARSER->lexer_->is_lyric_state ())
@@ -2165,16 +2026,26 @@ simple_element:
 		levent->set_property ("text", $1);
 		levent->set_property ("duration",$2);
 		levent->set_spot (@$);
-		Music *velt = MY_MAKE_MUSIC ("EventChord");
-		velt->set_property ("elements", scm_list_1 (levent->self_scm ()));
-
-		$$= velt->unprotect ();
+		$$= levent->unprotect ();
 	}
+	;
+
+simple_chord_elements:
+	simple_element	{
+		$$ = scm_list_1 ($1);
+	}	
 	| new_chord {
                 if (!PARSER->lexer_->is_chord_state ())
                         PARSER->parser_error (@1, _ ("have to be in Chord mode for chords"));
                 $$ = $1;
 	}
+	| figure_spec optional_notemode_duration {
+		for (SCM s = $1; scm_is_pair (s); s = scm_cdr (s))
+		{
+			unsmob_music (scm_car (s))->set_property ("duration", $2);
+		}
+		$$ = $1;
+	}	
 	;
 
 lyric_element:
@@ -2188,11 +2059,11 @@ lyric_element:
 
 new_chord:
 	steno_tonic_pitch optional_notemode_duration   {
-		$$ = make_chord ($1, $2, SCM_EOL);
+		$$ = make_chord_elements ($1, $2, SCM_EOL);
 	}
 	| steno_tonic_pitch optional_notemode_duration chord_separator chord_items {
 		SCM its = scm_reverse_x ($4, SCM_EOL);
-		$$ = make_chord ($1, $2, scm_cons ($3, its));
+		$$ = make_chord_elements ($1, $2, scm_cons ($3, its));
 	}
 	;
 
@@ -2544,66 +2415,6 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	return -1;	
 }
 
-Music *
-property_op_to_music (SCM op)
-{
-	Music *m = 0;
-	SCM tag = scm_car (op);
-	SCM symbol = scm_cadr (op);
-	SCM args = scm_cddr (op);
-	SCM grob_val = SCM_UNDEFINED;
-	SCM grob_path = SCM_UNDEFINED;
-	SCM val = SCM_UNDEFINED;
-	
-	if (tag == ly_symbol2scm ("assign"))
-		{
-		m = MY_MAKE_MUSIC ("PropertySet");
-		val = scm_car (args);
-		}
-	else if (tag == ly_symbol2scm ("unset"))
-		m = MY_MAKE_MUSIC ("PropertyUnset");
-	else if (tag == ly_symbol2scm ("push"))
-		{
-		m = MY_MAKE_MUSIC ("OverrideProperty");
-		grob_val = scm_car (args);
-		grob_path = scm_cdr (args);
-		m->set_property ("pop-first", SCM_BOOL_T);
-		}
-	else if (tag == ly_symbol2scm ("pop")) {
-		m = MY_MAKE_MUSIC ("RevertProperty");
-		grob_path = args;
-		}
-
-	m->set_property ("symbol", symbol);
-
-	if (val != SCM_UNDEFINED)
-		m->set_property ("value", val);
-	if (grob_val != SCM_UNDEFINED)
-		m->set_property ("grob-value", grob_val);
-	if (grob_path != SCM_UNDEFINED)
-		m->set_property ("grob-property-path", grob_path);
-
-	return m;
-}
-
-SCM
-context_spec_music (SCM type, SCM id, SCM m, SCM ops, bool create_new)
-{
-	Music *csm = MY_MAKE_MUSIC ("ContextSpeccedMusic");
-
-	csm->set_property ("element", m);
-
-	csm->set_property ("context-type",
-		scm_is_symbol (type) ? type : scm_string_to_symbol (type));
-	csm->set_property ("property-operations", ops);
-	if (create_new)
-		csm->set_property ("create-new", SCM_BOOL_T);
-
-	if (scm_is_string (id))
-		csm->set_property ("context-id", id);
-	return csm->unprotect ();
-}
-
 SCM
 get_next_unique_context_id ()
 {
@@ -2621,7 +2432,7 @@ get_next_unique_lyrics_context_id ()
 }
 
 
-Music *
+SCM
 run_music_function (Lily_parser *parser, SCM expr)
 {
 	SCM func = scm_car (expr);
@@ -2630,34 +2441,15 @@ run_music_function (Lily_parser *parser, SCM expr)
 	SCM sig = scm_object_property (func, ly_symbol2scm ("music-function-signature"));
 
 	SCM type_check_proc = ly_lily_module_constant ("type-check-list");
-	bool ok  = true;
 
 	if (!to_boolean (scm_call_3  (type_check_proc, scm_cadr (expr), sig, args)))
 	{
 		parser->error_level_ = 1;
-		ok = false;
+		return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("void-music"), scm_list_2 (parser->self_scm (), make_input (*loc)));
 	}
 
-	SCM m = SCM_EOL;
-	if (ok)
-		m = scm_apply_0 (func, scm_cons (parser->self_scm(),
-						 scm_cdr (expr)));
-
-
-	Music* retval = 0;
-	if (unsmob_music (m))
-		{
-		retval = unsmob_music (m);
-		retval->protect ();
-		}
-	else
-		{
-		if (ok)
-			loc->error (_ ("music head function must return Music object")); 
-		retval = MY_MAKE_MUSIC ("Music");
-		}
-	retval->set_spot (*loc);
-	return retval;
+	SCM syntax_args = scm_list_4 (parser->self_scm (), make_input (*loc), func, args);
+	return LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("music-function"), syntax_args);
 }
 
 bool
@@ -2727,13 +2519,10 @@ make_chord_step (int step, int alter)
 
 
 SCM
-make_chord (SCM pitch, SCM dur, SCM modification_list)
+make_chord_elements (SCM pitch, SCM dur, SCM modification_list)
 {
-	SCM chord_ctor = ly_lily_module_constant ("construct-chord");
-	SCM ch = scm_call_3 (chord_ctor, pitch, dur, modification_list);
-
-	unsmob_music (ch)->protect();	
-	return ch;
+	SCM chord_ctor = ly_lily_module_constant ("construct-chord-elements");
+	return scm_call_3 (chord_ctor, pitch, dur, modification_list);
 }
 
 
@@ -2743,15 +2532,6 @@ ly_input_procedure_p (SCM x)
 {
 	return ly_is_procedure (x)
 		|| (scm_is_pair (x) && ly_is_procedure (scm_car (x)));
-}
-
-Music*
-set_property_music (SCM sym, SCM value)
-{
-	Music *p = MY_MAKE_MUSIC ("PropertySet");
-	p->set_property ("symbol", sym);
-	p->set_property ("value", value);
-	return p;
 }
 
 SCM
@@ -2766,16 +2546,6 @@ make_music_relative (Pitch start, SCM music)
  		m->set_property ("last-pitch", last.smobbed_copy ());
 	return relative->unprotect ();
 }
-
-SCM
-make_lyric_combine_music (SCM name, SCM music)
-{
-	Music *combine = MY_MAKE_MUSIC ("LyricCombineMusic");
-	combine->set_property ("element", music);
- 	combine->set_property ("associated-context", name);
-	return combine->unprotect ();
-}
-
 
 int
 yylex (YYSTYPE *s, YYLTYPE *loc, void *v)

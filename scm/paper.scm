@@ -124,7 +124,7 @@
       (if landscape?
 	  (module-define! module 'landscape #t)))
      (else
-      (ly:warning (_ ("Unknown papersize: ~a" name)))))))
+      (ly:warning (_ "Unknown papersize: ~a" name))))))
 
 (define-safe-public (set-default-paper-size name . rest)
   (internal-set-paper-size

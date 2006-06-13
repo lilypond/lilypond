@@ -11,6 +11,7 @@
 #include "file-name-map.hh"
 #include "file-name.hh"
 #include "file-path.hh"
+#include "input-smob.hh"
 #include "international.hh"
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
@@ -229,4 +230,20 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
   return scm_makfrom0str (p->output_basename_.c_str ());
 }
 
+LY_DEFINE (ly_parser_error, "ly:parser-error",
+	   2, 1, 0, (SCM parser, SCM msg, SCM input),
+	   "Display an error message, and make the parser fail")
+{
+  Lily_parser *p = unsmob_lily_parser (parser);
+  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+  SCM_ASSERT_TYPE (scm_is_string (msg), msg, SCM_ARG2, __FUNCTION__, "string");
+  string s = ly_scm2string (msg);
+  
+  Input *i = unsmob_input (input);
+  if (i)
+    p->parser_error (*i, s);
+  else
+    p->parser_error (s);
 
+  return parser;
+}
