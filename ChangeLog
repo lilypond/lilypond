@@ -1,5 +1,8 @@
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/note-spacing.cc (stem_dir_correction): don't inspect
+	stem_end_position if correct_stem_dirs isn't set. Backportme. 
+
 	* lily/tuplet-bracket.cc (calc_positions): look at
 	stem-end-position for tuplet bracket slope. Fixes sloped tuplet
 	brackets narrower than beams. Backportme.
