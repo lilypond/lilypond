@@ -323,12 +323,14 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	    correct_stem_dirs = false;
 
 	  Interval hp = Stem::head_positions (stem);
-	  if (!hp.is_empty ())
+	  if (correct_stem_dirs
+	      && !hp.is_empty ())
 	    {
 	      Real chord_start = hp[sd];
 	      Real stem_end = Stem::stem_end_position (stem);
 
-	      stem_posns[d] = Interval (min (chord_start, stem_end), max (chord_start, stem_end));
+	      stem_posns[d] = Interval (min (chord_start, stem_end),
+					max (chord_start, stem_end));
 	      head_posns[d].unite (hp);
 	    }
 	}

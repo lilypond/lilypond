@@ -229,6 +229,10 @@ MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
 SCM
 Stem::pure_height (SCM smob, SCM start, SCM end)
 {
+  (void) start;
+  (void) end;
+  
+  
   Grob *me = unsmob_grob (smob);
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real len = scm_to_double (calc_length (smob)) * ss / 2;
@@ -256,6 +260,11 @@ Stem::calc_stem_end_position (SCM smob)
   if (!head_count (me))
     return scm_from_double (0.0);
 
+  if (Grob *beam = unsmob_grob (me->get_object ("beam")))
+    {
+      (void) beam->get_property ("quantized-positions");
+      return me->get_property ("stem-end-position");
+    }
   
   Real ss = Staff_symbol_referencer::staff_space (me);
   int durlog = duration_log (me);
