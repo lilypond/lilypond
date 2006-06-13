@@ -1,3 +1,8 @@
+2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/beaming-pattern.cc (best_splitpoint_index): fix beaming
+	patterns for 16th triplets.
+
 2006-06-10  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ page.itely, global.itely: editing
@@ -24,6 +29,9 @@
 	docs.
 
 2006-06-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/define-markup-commands.scm (wordwrap-markups): use
+	output-def 'line-width if undefined.
 
 	* HACKING: trim outdated info.
 
