@@ -1,5 +1,8 @@
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/font-config.cc (init_fontconfig): don't access null
+	cache_file variable.
+
 	* scm/stencil.scm (write-system-signature): backport: simpler format.
 
 	* VERSION (PATCH_LEVEL):  bump to 2.8.5
