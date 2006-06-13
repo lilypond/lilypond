@@ -306,13 +306,13 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  stems_drul[d] = stem;
 	  beams_drul[d] = Stem::get_beam (stem);
 
-	  Direction sd = get_grob_direction (stem);
-	  if (stem_dirs[d] && stem_dirs[d] != sd)
+	  Direction stem_dir = get_grob_direction (stem);
+	  if (stem_dirs[d] && stem_dirs[d] != stem_dir)
 	    {
 	      correct_stem_dirs = false;
 	      continue;
 	    }
-	  stem_dirs[d] = sd;
+	  stem_dirs[d] = stem_dir;
 
 	  /*
 	    Correction doesn't seem appropriate  when there is a large flag
@@ -326,8 +326,14 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  if (correct_stem_dirs
 	      && !hp.is_empty ())
 	    {
-	      Real chord_start = hp[sd];
-	      Real stem_end = Stem::stem_end_position (stem);
+	      Real chord_start = hp[stem_dir];
+
+	      /*
+		can't look at stem-end-position, since that triggers
+		beam slope computations.
+	      */
+	      Real stem_end = hp[stem_dir] +
+		stem_dir * robust_scm2double (stem->get_property ("length"), 7);
 
 	      stem_posns[d] = Interval (min (chord_start, stem_end),
 					max (chord_start, stem_end));

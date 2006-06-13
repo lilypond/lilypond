@@ -1,7 +1,10 @@
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/stem.cc (calc_stem_end_position): calc quantized-positions
+	for beamed case.
+
 	* lily/note-spacing.cc (stem_dir_correction): don't inspect
-	stem_end_position if correct_stem_dirs isn't set. Backportme. 
+	stem_end_position, but estimate instead. Backportme.
 
 	* lily/tuplet-bracket.cc (calc_positions): look at
 	stem-end-position for tuplet bracket slope. Fixes sloped tuplet
