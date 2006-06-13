@@ -1,5 +1,7 @@
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* THANKS: add RT.
+
 	* lily/font-config.cc (init_fontconfig): add warning if cache_file
 	is null.
 
