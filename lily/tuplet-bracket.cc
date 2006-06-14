@@ -290,8 +290,6 @@ Tuplet_bracket::print (SCM smob)
   Interval x_span (points[LEFT][X_AXIS], points[RIGHT][X_AXIS]);
   Drul_array<Real> positions (points[LEFT][Y_AXIS], points[RIGHT][Y_AXIS]);
 
-
-
   Output_def *pap = me->layout ();
 
   Grob *number_grob = unsmob_grob (me->get_object ("tuplet-number"));
@@ -657,22 +655,24 @@ Tuplet_bracket::calc_positions (SCM smob)
   if (!par_beam
       || get_grob_direction (par_beam) != dir)
     calc_position_and_height (me, &offset, &dy);
-  else
-    {
-      SCM ps = par_beam->get_property ("positions");
+  else if (columns.size ()
+           && Note_column::get_stem (columns[0])
+	   && Note_column::get_stem (columns.back ()))
 
-      Real lp = scm_to_double (scm_car (ps));
-      Real rp = scm_to_double (scm_cdr (ps));
+    { /*
+       trigger set_stem_ends
+       */
+      (void) par_beam->get_property ("quantized-positions");
+      Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
+				Note_column::get_stem (columns.back ()));
 
-      Real ss = Staff_symbol_referencer::staff_space (me);
-      
-      offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));
-      dy = (rp - lp);
+      Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
+      Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0);
+      Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0);
 
-      dy *= ss;
-      offset *= ss;	
+       offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));
+       dy = (rp - lp);
     }
-
   
   SCM x = scm_cons (scm_from_double (offset),
 		    scm_from_double (offset + dy));

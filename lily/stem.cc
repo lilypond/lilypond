@@ -230,6 +230,11 @@ Stem::calc_stem_end_position (SCM smob)
   if (!head_count (me))
     return scm_from_double (0.0);
 
+  if (Grob *beam = get_beam (me))
+    {
+      (void) beam->get_property ("quantized-positions");
+      return me->get_property ("stem-end-position");
+    }
   
   Real ss = Staff_symbol_referencer::staff_space (me);
   int durlog = duration_log (me);

@@ -1,3 +1,24 @@
+2006-06-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scripts/lilypond-book.py (PREAMBLE_LY): backport: include
+	lilypond-book-preamble.ly
+
+	* ly/lilypond-book-preamble.ly: backport: new file. 
+
+	* lily/tuplet-bracket.cc (calc_positions): backport: look at
+	stem_end_position for beams.
+
+	* lily/stem.cc (calc_stem_end_position): backport: read
+	quantized-positions for beamed stem.
+
+	* lily/rest.cc (y_offset_callback): backport: use scm_is_number()
+	for position_override
+
+	* lily/note-spacing.cc (stem_dir_correction): backport: estimate
+	stem end.
+
+	* lily/lexer.ll: backport: set version-seen?
+
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/font-config.cc (init_fontconfig): don't access null

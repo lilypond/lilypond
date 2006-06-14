@@ -27,9 +27,9 @@ Rest::y_offset_callback (SCM smob)
   int line_count = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
 
+  bool position_override = scm_is_number (me->get_property ("staff-position"));
   Real amount = robust_scm2double (me->get_property ("staff-position"), 0)
     * 0.5 * ss;
-  bool position_override = amount;
   
   if (line_count % 2)
     {
