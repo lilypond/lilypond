@@ -65,7 +65,9 @@ Stem::get_beaming (Grob *me, Direction d)
     return 0;
 
   SCM lst = index_get_cell (pair, d);
-  return scm_ilength (lst);
+
+  int len = scm_ilength (lst);
+  return max (len, 0);
 }
 
 Interval
