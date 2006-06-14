@@ -1,5 +1,7 @@
 2006-06-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* ly/lilypond-book-preamble.ly: remove \ 
+
 	* scripts/lilypond-book.py (PREAMBLE_LY): backport: include
 	lilypond-book-preamble.ly
 

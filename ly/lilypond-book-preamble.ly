@@ -3,7 +3,7 @@
 #(set! toplevel-score-handler print-score-with-defaults)
 #(set! toplevel-music-handler
   (lambda (p m)
-   (if (not (eq? (ly:music-property m \'void) #t))
+   (if (not (eq? (ly:music-property m 'void) #t))
         (print-score-with-defaults
          p (scorify-music m p)))))
 
