@@ -1,5 +1,8 @@
 2006-06-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/lilypond-book.py (PREAMBLE_LY): include
+	lilypond-book-premable.ly
+
 	* lily/stem.cc (get_beaming): return max of scm_ilength. Fixes
 	slurring from/to beams. 
 
@@ -19,7 +22,7 @@
 	* lily/parser-scheme.cc: Add ly:parser-error function
 
 	* scm/paper.scm: fix typo
-	
+
 2006-06-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* THANKS: add RT.
