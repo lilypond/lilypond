@@ -242,7 +242,9 @@ of note-column for horizontal shifting. This is used by
 Choices are @code{around}, @code{inside}, @code{outside}.  If unset, script
 and slur ignore eachother.")
      (inspect-quants ,number-pair? "If debugging is set,
-set beam quant to this position, and print the respective scores.")
+set beam/slur quant to this position, and print the respective scores.")
+     (inspect-index ,integer? "If debugging is set,
+set beam/slur configuration to this index, and print the respective scores.")
      (implicit ,boolean? "Is this an implicit bass figure?")
      (keep-inside-line ,boolean? "If set, this column cannot have
 things sticking into the margin.")

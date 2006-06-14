@@ -354,8 +354,16 @@ Slur_score_state::get_best_curve ()
   bool debug_slurs = to_boolean (slur_->layout ()
 				 ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")));
   SCM inspect_quants = slur_->get_property ("inspect-quants");
+  SCM inspect_index = slur_->get_property ("inspect-index");
   if (debug_slurs
-      && scm_is_pair (inspect_quants))
+      && scm_is_integer (inspect_index))
+    {
+      opt_idx = scm_to_int (inspect_index);
+      configurations_[opt_idx]->calculate_score (*this);
+      opt = configurations_[opt_idx]->score ();
+    }
+  else if (debug_slurs
+	   && scm_is_pair (inspect_quants))
     {
       opt_idx = get_closest_index (inspect_quants);
       configurations_[opt_idx]->calculate_score (*this);

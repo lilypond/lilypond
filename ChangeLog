@@ -1,3 +1,12 @@
+2006-06-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/stem.cc (get_beaming): return max of scm_ilength. Fixes
+	slurring from/to beams. 
+
+	* ly/lilypond-book-preamble.ly: new file.
+
+	* lily/slur.cc: add inspect-index feature.
+
 2006-06-13  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/tutorial.itely: trivial fix.
@@ -26,21 +35,21 @@
 	format.
 
 	* lily/stem.cc (calc_stem_end_position): calc quantized-positions
-	for beamed case. Backportme.
+	for beamed case. 
 
 	* lily/note-spacing.cc (stem_dir_correction): don't inspect
-	stem_end_position, but estimate instead. Backportme.
+	stem_end_position, but estimate instead. 
 
 	* lily/tuplet-bracket.cc (calc_positions): look at
 	stem-end-position for tuplet bracket slope. Fixes sloped tuplet
-	brackets narrower than beams. Backportme.
+	brackets narrower than beams. 
 
 	* lily/lexer.ll: set version-seen? even if version is
-	INVALID. Backportme.
+	INVALID. 
 
 	* lily/rest.cc (y_offset_callback): bugfix: decide position
 	override based on scm_is_number(). Fixes \rest on center staff
-	line. Backportme.
+	line. 
 
 	* lily/beaming-pattern.cc (best_splitpoint_index): fix beaming
 	patterns for 16th triplets.

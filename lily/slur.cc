@@ -286,12 +286,13 @@ ADD_INTERFACE (Slur, "slur-interface",
 	       "eccentricity "
 	       "encompass-objects "
 	       "height-limit "
+	       "inspect-quants "
+	       "inspect-index "
 	       "line-thickness "
 	       "note-columns "
 	       "positions "
 	       "quant-score "
 	       "ratio "
 	       "thickness "
-
 	       );
 
