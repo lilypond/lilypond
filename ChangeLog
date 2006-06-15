@@ -1,3 +1,7 @@
+2006-06-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* ly/lilypond-book-preamble.ly: add \version
+
 2006-06-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/lilypond-book.py (PREAMBLE_LY): include
