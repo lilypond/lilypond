@@ -1,3 +1,7 @@
+2006-06-16  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ various: small fixes from mailist.
+
 2006-06-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/breathing-sign.cc (offset_callback): idem.

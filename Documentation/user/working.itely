@@ -568,7 +568,7 @@ ragged-bottom = ##f
 @end example
 
 @item
-You may force the number of systems (i.e. if LilyPond wants
+You may force the number of systems (i.e., if LilyPond wants
 to typeset some music with 11 systems, you could force it to
 use 10).
 

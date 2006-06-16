@@ -414,7 +414,7 @@ begins on concert D, one would write
 \transpose c bes @{ e4 @dots{} @}
 @end example
 
-To print this music in B-flat again (i.e. producing a trumpet part,
+To print this music in B-flat again (i.e., producing a trumpet part,
 instead of a concert pitch conductor's score) you would wrap the
 existing music with another @code{transpose}
 
@@ -1474,7 +1474,9 @@ This is internally translated into
 @end example
 
 The property @code{measurePosition} contains a rational number
-indicating how much of the measure has passed at this point.
+indicating how much of the measure has passed at this point.  Note
+that this is a negative number; @code{\partial 4} is internally
+translated to mean ``there is a quarter note left in the bar''.
 
 
 @refbugs
