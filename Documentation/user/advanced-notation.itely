@@ -163,7 +163,8 @@ The @code{\mark} command is primarily used for
 @ref{Rehearsal marks},
 but it can also be used to put signs like coda,
 segno, and fermata on a bar line.  Use @code{\markup} to
-access the appropriate symbol
+access the appropriate symbol (symbols are listed in
+@ref{The Feta font})
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 c1 \mark \markup { \musicglyph #"scripts.ufermata" }

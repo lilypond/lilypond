@@ -428,7 +428,7 @@ This manual: @ref{Changing context default settings}
 @cindex spacing, vertical
 
 Vertical spacing is controlled by three things: the amount of
-space available (i.e. paper size and margins), the amount of
+space available (i.e., paper size and margins), the amount of
 space between systems, and the amount of space between
 staves inside a system.
 

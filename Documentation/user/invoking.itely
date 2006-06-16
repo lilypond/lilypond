@@ -199,10 +199,6 @@ When LilyPond formatting is available through a web server, either the
 @code{--safe} option will prevent inline Scheme code from wreaking
 havoc, for example
 
-When LilyPond formatting is available through a web server, the
-@code{--safe} @b{MUST} be passed.  This will prevent inline Scheme
-code from wreaking havoc, for example
-
 @quotation
 @verbatim
 #(system "rm -rf /")

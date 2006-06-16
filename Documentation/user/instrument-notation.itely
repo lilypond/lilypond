@@ -884,7 +884,7 @@ Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
 @node The Lyrics context
 @subsection The Lyrics context
 
-Lyrics are printed by interpreting them in the context caleld
+Lyrics are printed by interpreting them in the context called
 @internalsref{Lyrics}.
 
 @example
