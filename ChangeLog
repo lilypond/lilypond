@@ -1,14 +1,21 @@
+2006-06-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/beaming-pattern.cc (count_factor_twos): oops. We want to
+	x%2==0.
+
 2006-06-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION (PACKAGE_NAME): release 2.9.9
 
 	* ly/lilypond-book-preamble.ly: add \version
 
 2006-06-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/lilypond-book.py (PREAMBLE_LY): include
-	lilypond-book-premable.ly
+	lilypond-book-preamble.ly
 
-	* lily/stem.cc (get_beaming): return max of scm_ilength. Fixes
-	slurring from/to beams. 
+	* lily/stem.cc (get_beaming): return max of 0 and
+	scm_ilength. Fixes slurring from/to beams.
 
 	* ly/lilypond-book-preamble.ly: new file.
 
