@@ -93,7 +93,7 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 
   vector<Grob*> elems (elem_source); // writable..
 
-  Real where_f = 0;
+  Real where = 0;
 
   Interval v;
   v.set_empty ();
@@ -118,9 +118,9 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 
   for (vsize j = 0; j < elems.size (); j++)
     {
-      where_f += stacking_dir * dy;
-      translates.push_back (where_f);
-      v.unite (Interval (where_f, where_f));
+      where += stacking_dir * dy;
+      translates.push_back (where);
+      v.unite (Interval (where, where));
     }
 
   /*

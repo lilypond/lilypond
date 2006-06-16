@@ -1,5 +1,10 @@
 2006-06-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/breathing-sign.cc (offset_callback): idem.
+
+	* lily/align-interface.cc (align_to_fixed_distance): remove
+	hungarian suffix.
+
 	* lily/beaming-pattern.cc (count_factor_twos): oops. We want to
 	x%2==0.
 

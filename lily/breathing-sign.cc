@@ -173,11 +173,14 @@ Breathing_sign::offset_callback (SCM smob)
       set_grob_direction (me, d);
     }
 
-  Real inter_f = Staff_symbol_referencer::staff_space (me) / 2;
+  Real inter = Staff_symbol_referencer::staff_space (me) / 2;
   int sz = Staff_symbol_referencer::line_count (me) - 1;
-  return scm_from_double (inter_f * sz * d);
+  return scm_from_double (inter * sz * d);
 }
 
 ADD_INTERFACE (Breathing_sign, "breathing-sign-interface",
 	       "A breathing sign.",
-	       "direction");
+	       
+	       "direction "
+
+	       );
