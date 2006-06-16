@@ -29,7 +29,7 @@ int
 count_factor_twos (int x)
 {
   int c = 0;
-  while (x && x % 2)
+  while (x && x % 2 == 0)
     {
       x /= 2;
       c ++;
