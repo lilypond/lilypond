@@ -56,7 +56,7 @@ Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
 
   *at_boundary = false;
   
-  int min_factor_twos = INT_MAX;
+  int min_den = INT_MAX;
   int min_index = -1;
   
   Moment beat_pos;
@@ -72,11 +72,11 @@ Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
 	
        */
       
-      int factor_2s =  count_factor_twos (dt.den ());
+      dt /= infos_[i].beat_length_;
       
-      if (factor_2s < min_factor_twos)
+      if (dt.den () < min_den)
 	{
-	  min_factor_twos = factor_2s;
+	  min_den = dt.den ();
 	  min_index = i;
 	}
     }
@@ -142,7 +142,7 @@ Beaming_pattern::beamify (Context *context)
 	j++;
 
       infos_[i].group_start_ = group_starts[j];
-
+      infos_[i].beat_length_ = beat_length;  
       while (k < beat_starts.size() - 1
 	     && beat_starts[k+1] <= infos_[i].start_moment_)
 	k++;
