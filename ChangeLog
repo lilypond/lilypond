@@ -1,3 +1,10 @@
+2006-06-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* input/regression/tie-whole.ly: new file.
+
+	* lily/tie-formatting-problem.cc (set_column_chord_outline): don't
+	cross center of note head in case of invisible stem. 
+
 2006-06-16  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ various: small fixes from mailist.

@@ -163,6 +163,24 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 				      Y_AXIS, -dir);
 	}
     }
+  else if (stem)
+    {
+      Grob *head = Stem::support_head (stem);
+
+      /*
+	In case of invisible stem, don't pass x-center of heads.
+       */
+      Real x_center = head->extent (x_refpoint_, X_AXIS).center ();
+      Interval x_ext;
+      x_ext[-dir] = x_center;
+      Interval y_ext;
+      for (vsize j = 0; j < head_boxes.size (); j++)
+	y_ext.unite (head_boxes[j][Y_AXIS]);
+	  
+      insert_extent_into_skyline (&chord_outlines_[key],
+				  Box (x_ext, y_ext),
+				  Y_AXIS, -dir);
+    }
   
   Direction updowndir = DOWN;
   do
