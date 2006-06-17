@@ -1,6 +1,7 @@
 2006-06-18  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* input/regression/beaming-ternary-metrum.ly: update doc.
+	add beatLength hack.
 
 	* scm/music-functions.scm (make-time-signature-set): add
 	standard-beat-grouping. 
