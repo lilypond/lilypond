@@ -474,6 +474,23 @@ OTTAVATION to `8va', or whatever appropriate."
 (define-public (make-time-signature-set num den . rest)
   "Set properties for time signature NUM/DEN.  Rest can contain a list
 of beat groupings "
+
+  (define (standard-beat-grouping num den)
+
+    "Some standard subdivisions for time signatures."
+    (let*
+	((key (cons num den))
+	 (entry (assoc key '(((6 . 8) . (3 3))
+			 ((5 . 8) . (3 2))
+			 ((9 . 8) . (3 3 3))
+			 ((12 . 8) . (3 3 3 3))
+			 ((8 . 8) . (3 3 2))
+			 ))))
+
+      (if entry
+	  (cdr entry)
+	  '())))    
+  
   (let* ((set1 (make-property-set 'timeSignatureFraction (cons num den)))
 	 (beat (ly:make-moment 1 den))
 	 (len  (ly:make-moment num den))
@@ -481,7 +498,7 @@ of beat groupings "
 	 (set3 (make-property-set 'measureLength len))
 	 (set4 (make-property-set 'beatGrouping (if (pair? rest)
 						    (car rest)
-						    '())))
+						    (standard-beat-grouping num den))))
 	 (basic	 (list set1 set2 set3 set4)))
     (descend-to-context
      (context-spec-music (make-sequential-music basic) 'Timing) 'Score)))
