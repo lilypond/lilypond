@@ -45,11 +45,11 @@ public:
   void add_spring (Real, Real);
   Real range_ideal_len (int l, int r) const;
   Real range_stiffness (int l, int r) const;
-  Real configuration_length () const;
+  Real configuration_length (Real) const;
   vector<Real> spring_positions () const;
 
-  Real force ();
-  bool fits ();
+  Real force () const;
+  bool fits () const;
 
   DECLARE_SIMPLE_SMOBS (Simple_spacer,);
 

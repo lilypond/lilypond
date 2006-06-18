@@ -1,5 +1,19 @@
 2006-06-18  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/spacing-spanner.cc (musical_column_spacing): set
+	compound_fixed_note_space to 0.0. Document why.
+
+	* lily/simple-spacer.cc (is_sane): also have a kludge for numeric
+	range of inverse_hooke_
+	(Simple_spacer): init completely.
+	(fits): const
+	(get_line_configuration): don't use cols.resize(); it introduces
+	initialized data.
+
+	* scm/framework-ps.scm (dump-page): add setstrokeadjust. Backportme.
+
+	* ps/music-drawing-routines.ps: remove selectfont L1 hack.
+
 	* lily/beaming-pattern.cc (best_splitpoint_index): urg, 2nd
 	try. Divide by beatlength.
 
@@ -27,7 +41,7 @@
 	* lily/align-interface.cc (align_to_fixed_distance): remove
 	hungarian suffix.
 
-	* lily/beaming-pattern.cc (count_factor_twos): oops. We want to
+	* lily/beaming-pattern.cc (count_factor_twos): oops. We want
 	x%2==0.
 
 2006-06-15  Han-Wen Nienhuys  <hanwen@lilypond.org>

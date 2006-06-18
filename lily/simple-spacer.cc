@@ -59,18 +59,20 @@
 
 Simple_spacer::Simple_spacer ()
 {
-  force_ = 0.;
+  line_len_ = 0.0;
+  force_ = 0.0;
   fits_ = true;
+  ragged_ = true;
 }
 
 Real
-Simple_spacer::force ()
+Simple_spacer::force () const
 {
   return force_;
 }
 
 bool
-Simple_spacer::fits ()
+Simple_spacer::fits () const
 {
   return fits_;
 }
@@ -129,11 +131,11 @@ Simple_spacer::range_stiffness (int l, int r) const
 }
 
 Real
-Simple_spacer::configuration_length () const
+Simple_spacer::configuration_length (Real force) const
 {
   Real l = 0.;
   for (vsize i = 0; i < springs_.size (); i++)
-    l += springs_[i].length (force_);
+    l += springs_[i].length (force);
 
   return l;
 }
@@ -141,14 +143,14 @@ Simple_spacer::configuration_length () const
 void
 Simple_spacer::solve (Real line_len, bool ragged)
 {
-  Real conf = configuration_length ();
+  Real conf = configuration_length (force_);
 
   ragged_ = ragged;
   line_len_ = line_len;
   if (ragged)
     {
       force_ = 0;
-      fits_ = configuration_length () <= line_len_;
+      fits_ = configuration_length (force_) <= line_len_;
       /* we need to calculate a force here to prevent a bunch of short lines */
       if (fits_)
 	force_ = expand_line ();
@@ -163,7 +165,7 @@ Real
 Simple_spacer::expand_line ()
 {
   double inv_hooke = 0;
-  double cur_len = configuration_length ();
+  double cur_len = configuration_length (force_);
 
   fits_ = true;
   for (vsize i=0; i < springs_.size (); i++)
@@ -177,7 +179,7 @@ Real
 Simple_spacer::compress_line ()
 {
   double inv_hooke = 0;
-  double cur_len = configuration_length ();
+  double cur_len = configuration_length (force_);
   double cur_force = force_;
 
   fits_ = true;
@@ -197,8 +199,18 @@ Simple_spacer::compress_line ()
 	break;
 
       double block_dist = (cur_force - sp.block_force_) * inv_hooke;
-      if (cur_len - block_dist <= line_len_)
-	return cur_force + (line_len_ - cur_len) / inv_hooke;
+      if (cur_len - block_dist < line_len_)
+	{
+	 cur_force += (line_len_ - cur_len) / inv_hooke;
+	 cur_len = line_len_;
+
+	 /*
+	   Paranoia check.
+	  */
+	 assert (fabs (configuration_length (cur_force) - cur_len) < 1e-6);
+	 return cur_force;
+	}
+      
       cur_len -= block_dist;
       inv_hooke -= sp.inverse_hooke_;
       cur_force = sp.block_force_;
@@ -254,7 +266,9 @@ Spring_description::is_sane () const
 {
   return (inverse_hooke_ >= 0)
     && ideal_ > 0
-    && !isinf (ideal_) && !isnan (ideal_);
+    && !isinf (ideal_) && !isnan (ideal_)
+    && (inverse_hooke_ == 0.0 || fabs (inverse_hooke_) > 1e-8)
+    ;
 }
 
 Real
@@ -489,7 +503,7 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
 }
 
 Column_x_positions
-get_line_configuration (vector<Grob*>const &columns,
+get_line_configuration (vector<Grob*> const &columns,
 			Real line_len,
 			Real indent,
 			bool ragged)
@@ -508,13 +522,11 @@ get_line_configuration (vector<Grob*>const &columns,
     }
   ret.cols_.push_back (dynamic_cast<Item*> (columns.back ())->find_prebroken_piece (LEFT));
 
-  cols.resize (ret.cols_.size () - 1);
-
   /* since we've already put our line-ending column in the column list, we can ignore
      the end_XXX_ fields of our column_description */
-  for (vsize i = 0; i < cols.size (); i++)
+  for (vsize i = 0; i < ret.cols_.size () - 1; i++)
     {
-      cols[i] = get_column_description (ret.cols_, i, i == 0);
+      cols.push_back (get_column_description (ret.cols_, i, i == 0));
       spacer.add_spring (cols[i].ideal_, cols[i].inverse_hooke_);
     }
   for (vsize i = 0; i < cols.size (); i++)

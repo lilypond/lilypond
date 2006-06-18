@@ -115,7 +115,8 @@
 	"page-width output-scale lily-output-units mul mul 0 translate 90 rotate\n"
 	"")
     "%%EndPageSetup\n"
-
+    
+    "true setstrokeadjust\n"
     "gsave 0 paper-height translate "
     "set-ps-scale-to-lily-scale "
     "\n"))

@@ -885,7 +885,6 @@ Tie_formatting_problem::find_best_variation (Ties_configuration const &base,
 Ties_configuration
 Tie_formatting_problem::generate_optimal_chord_configuration ()
 {
-  
   Ties_configuration base = generate_base_chord_configuration ();
   vector<Tie_configuration_variation> vars = generate_collision_variations (base);
   
