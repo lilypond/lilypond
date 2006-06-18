@@ -171,7 +171,7 @@ Sequential_iterator::next_element (bool)
 	in that chunk should be in len.grace_part_
 
       */
-      last_mom_ = here_mom_;;
+      last_mom_ = here_mom_;
       here_mom_ += len;
     }
 

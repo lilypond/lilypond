@@ -332,8 +332,21 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 
       if (compound_note_space < 0 || wish_count == 0)
 	{
+	  /*
+	    Fixed should be 0.0. If there are no spacing wishes, we're
+	    likely dealing with polyphonic spacing of hemiolas.
+	    
+	    We used to have compound_fixed_note_space = options->increment_
+
+	    but this can lead to numeric instability problems when we
+	    do
+	    
+	       inverse_strength = (compound_note_space - compound_fixed_note_space)
+      
+	  */
+	  
 	  compound_note_space = base_note_space;
-	  compound_fixed_note_space = options->increment_;
+	  compound_fixed_note_space = 0.0;
 	}
       else if (to_boolean (me->get_property ("average-spacing-wishes")))
 	{

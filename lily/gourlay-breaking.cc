@@ -114,6 +114,7 @@ Gourlay_breaking::solve ()
 
 	  Column_x_positions cp = get_line_configuration (line, line_dims[RIGHT] - line_dims[LEFT],
 							  line_dims[LEFT], ragged);
+
 	  if (ragged && last_line)
 	    cp.force_ = 0.0;
 
