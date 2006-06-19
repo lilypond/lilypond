@@ -6,8 +6,31 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "staff-symbol-engraver.hh"
 #include "spanner.hh"
+#include "engraver.hh"
+
+class Staff_symbol_engraver : public Engraver
+{
+public:
+  TRANSLATOR_DECLARATIONS (Staff_symbol_engraver);
+
+protected:
+  Drul_array<Music *> span_events_;
+  Spanner *span_;
+  Spanner *finished_span_;
+  bool first_start_;
+
+protected:
+  virtual void start_spanner ();
+  virtual void stop_spanner ();
+
+  void stop_translation_timestep ();
+  virtual bool try_music (Music *);
+  virtual ~Staff_symbol_engraver ();
+  DECLARE_ACKNOWLEDGER (grob);
+  virtual void finalize ();
+  void process_music ();
+};
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()
 {
@@ -66,8 +89,17 @@ Staff_symbol_engraver::start_spanner ()
 void
 Staff_symbol_engraver::stop_spanner ()
 {
-  if (finished_span_ && !finished_span_->get_bound (RIGHT))
+  if (!finished_span_)
+    return;
+
+  if (!finished_span_->get_bound (RIGHT))
     finished_span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+  
+  announce_end_grob (finished_span_,
+		     span_events_[STOP]
+		     ? span_events_[STOP]->self_scm ()
+		     : SCM_EOL);
+  
   finished_span_ = 0;
 }
 

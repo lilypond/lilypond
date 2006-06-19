@@ -89,7 +89,7 @@ bool make_print = true;
 
 
 bool relocate_binary =
-#if ARGV0_RELOCATION
+#if 1
   true;
 #else
   false
