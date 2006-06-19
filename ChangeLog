@@ -1,3 +1,7 @@
+2006-06-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/lexer.ll: remove ? from version-seen?  
+
 2006-06-19  John Mandereau  <john.mandereau@free.fr>
 
 	* po/fr.po; update translation, by Jean-Charles Malahieude and John Mandereau.
