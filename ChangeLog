@@ -1,5 +1,7 @@
 2006-06-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* THANKS: add Markus Schneider.
+
 	* lily/tab-staff-symbol-engraver.cc: derive from Engraver, not
 	Staff_symbol_engraver
 
