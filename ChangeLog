@@ -1,3 +1,24 @@
+2006-06-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/tab-staff-symbol-engraver.cc: derive from Engraver, not
+	Staff_symbol_engraver
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): don't
+	replace staff_engraver
+
+	* lily/staff-symbol-engraver.cc (stop_spanner): announce end of
+	spanner.
+
+	* lily/staff-collecting-engraver.cc
+	(acknowledge_end_staff_symbol): new function
+
+	* lily/volta-engraver.cc (acknowledge_end_staff_symbol): new function. 
+
+	* lily/staff-collecting-engraver.cc
+	(acknowledge_end_staff_symbol): new function.
+
+	* lily/main.cc: switch on relocation by default.
+
 2006-06-18  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/spacing-spanner.cc (musical_column_spacing): set

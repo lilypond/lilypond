@@ -649,7 +649,6 @@ AncientRemoveEmptyStaffContext = \context {
   \alias "Staff"
   \name "TabStaff"
   \denies "Voice"
-  \remove "Staff_symbol_engraver"
   \consists "Tab_staff_symbol_engraver"
   
   \description "Context for generating tablature. [DOCME]"
