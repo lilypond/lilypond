@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-20 12:53+0100\n"
-"PO-Revision-Date: 2006-06-19 19:16+0200\n"
+"PO-Revision-Date: 2006-06-20 10:23+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan@wanadoo.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr ""
 "Exemples :\n"
 "\n"
 "  convert-ly -e ancien.ly\\n\n"
-"  convert-ly --from=2.3.28 --to=2.5.21 toto.ly"
+"  convert-ly --from=2.3.28 --to=2.5.21 toto.ly\n"
 
 #: convert-ly.py:67 lilypond-book.py:115 warn.cc:48 input.cc:81
 #, c-format, python-format
@@ -2040,7 +2040,7 @@ msgstr ""
 "\n"
 "  lilypond -b eps <fichier>\n"
 "\n"
-"ou supprimez du fichier source les paramètres spécifiques à lilypond-book."
+"ou supprimez du fichier source les paramètres spécifiques à lilypond-book.\n"
 
 #: framework-tex.scm:356
 #, lisp-format

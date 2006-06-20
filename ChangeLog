@@ -1,10 +1,13 @@
 2006-06-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* po/fr.po: add \n appropriately.
+
 	* lily/lexer.ll: remove ? from version-seen?  
 
 2006-06-19  John Mandereau  <john.mandereau@free.fr>
 
-	* po/fr.po; update translation, by Jean-Charles Malahieude and John Mandereau.
+	* po/fr.po; update translation, by Jean-Charles Malahieude and
+	John Mandereau.
 
 2006-06-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
