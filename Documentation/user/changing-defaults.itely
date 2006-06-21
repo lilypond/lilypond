@@ -1591,7 +1591,7 @@ is more or less equivalent to
 
 The value of @code{context} (the alist) is used to initalize
 the properties of individual grobs.  Grobs also have
-properties, named in scheme style, with
+properties, named in Scheme style, with
 @code{dashed-words}.  The values of grob properties change
 during the formatting process: formatting basically amounts
 to computing properties using callback functions.

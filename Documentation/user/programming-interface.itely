@@ -24,7 +24,7 @@ This section discusses how to create music functions within LilyPond.
 @menu
 * Overview of music functions::  
 * Simple substitution functions::  
-* Paired substition functions::  
+* Paired substitution functions::  
 * Mathematics in functions::    
 * Void functions::              
 @end menu
@@ -32,7 +32,7 @@ This section discusses how to create music functions within LilyPond.
 @node Overview of music functions
 @subsection Overview of music functions
 
-Making a funcion which substitutes a variable into LilyPond
+Making a function which substitutes a variable into LilyPond
 code is easy.  The general form of these functions is
 
 @example
@@ -134,8 +134,8 @@ g c
 @end lilypond
 
 
-@node Paired substition functions
-@subsection Paired substition functions
+@node Paired substitution functions
+@subsection Paired substitution functions
 
 Some @code{\override} commands require a pair of numbers
 (called a @code{cons cell} in Scheme).  To pass these numbers
@@ -316,7 +316,7 @@ written as
 @end example
 
 Scheme code is evaluated as soon as the parser encounters it.  To
-define some scheme code in a macro (to be called later), use
+define some Scheme code in a macro (to be called later), use
 @ref{Void functions} or
 
 @example
@@ -357,7 +357,7 @@ available is in the Program reference manual, under
 interfaces, for example, a note is an @code{event}, but it is also a
 @code{note-event}, a @code{rhythmic-event}, and a
 @code{melodic-event}.  All classes of music are listed in the
-Profram reference, under
+Program reference, under
 @internalsref{Music classes}.
 
 @item
@@ -488,7 +488,7 @@ someNote = c'
 @end example
 
 The @code{display-scheme-music} function is the function used by
-@code{\displayMusic} to display the scheme representation of a music
+@code{\displayMusic} to display the Scheme representation of a music
 expression.
 
 @example
@@ -502,7 +502,7 @@ expression.
   (ly:make-pitch 0 0 0))
 @end example
 
-Then the note pitch is accessed thourgh the @code{'pitch} property
+Then the note pitch is accessed through the @code{'pitch} property
 of the @code{NoteEvent} object,
 
 @example
@@ -718,7 +718,7 @@ function).  Recall that our purpose is to add a marcato to an
 used elsewhere.
 
 Now we have a @code{result-event-chord}, which is a
-@code{oteEventChord} expression and is a copy of @code{event-chord}.  We
+@code{NoteEventChord} expression and is a copy of @code{event-chord}.  We
 add the marcato to its elements list property.
 
 @example
@@ -827,7 +827,7 @@ LilyPond markup syntax and Scheme markup syntax.
 @end multitable
 @end quotation
 
-The whole scheme language is accessible inside the
+The whole Scheme language is accessible inside the
 @code{markup} macro.  For example, You may use function calls inside
 @code{markup} in order to manipulate character strings.  This is
 useful when defining new markup commands (see
@@ -893,7 +893,7 @@ of this section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 @subsection New markup command definition
 
 New markup commands can be defined
-with the @code{define-markup-command} scheme macro.
+with the @code{define-markup-command} Scheme macro.
 
 @lisp
 (define-markup-command (@var{command-name} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
@@ -1158,10 +1158,13 @@ Procedures may also be combined like that with
 @code{AccidentalSuggestion},
 
 @example
-(X-offset . ,(ly:make-simple-closure
-             `(,+
-               ,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
-               ,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
+(X-offset .
+  ,(ly:make-simple-closure
+    `(,+
+        ,(ly:make-simple-closure
+           (list ly:self-alignment-interface::centered-on-x-parent))
+      ,(ly:make-simple-closure
+           (list ly:self-alignment-interface::x-aligned-on-self)))))
 @end example
 
 
