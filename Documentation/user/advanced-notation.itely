@@ -2240,7 +2240,7 @@ e
 @end lilypond
 
 The full range of colors defined for X11 can be accessed by using the
-scheme function x11-color.  The function takes one argument that can be a
+Scheme function x11-color.  The function takes one argument that can be a
 symbol
 
 @example
