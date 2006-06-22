@@ -7,6 +7,7 @@
     \type "Performer_group"
     \name Staff
     \accepts Voice
+    \accepts CueVoice
     \defaultchild Voice
     
     \consists "Staff_performer"
@@ -45,6 +46,12 @@
 \context {
   \Voice
   \name CueVoice
+  \alias Voice
+}
+
+\context {
+  \Voice
+  \name VaticanaVoice
   \alias Voice
 }
 
@@ -96,6 +103,15 @@
 }
 
 \context {
+    \type "Performer_group"
+    \name "VaticanaStaff"
+    \alias "Staff"
+    \denies "Voice"
+    \accepts "VaticanaVoice"
+    \defaultchild "VaticanaVoice"
+}
+
+\context {
     \type "Score_performer"
 
     \name Score
@@ -115,6 +131,7 @@
     \accepts ChordNames
     \accepts FiguredBass
     \accepts Lyrics
+    \accepts VaticanaStaff
     
     \consists "Timing_translator"
     \consists "Swallow_performer"
@@ -167,6 +184,13 @@
     \name StaffGroup
     \accepts Staff
     \accepts DrumStaff
+    \accepts TabStaff
+    \accepts RhythmicStaff
+    \accepts GrandStaff
+    \accepts PianoStaff
+    \accepts Lyrics
+    \accepts ChordNames
+    \accepts FiguredBass
 
     \defaultchild Staff
 }
