@@ -116,6 +116,18 @@ suffix; a natural pitch is shown as a simple note name
 a4 aes a2
 @end lilypond
 
+The input @code{d e f} is interpreted as ``print a D-natural,
+E-natural, and an F-natural,'' regardless of the key
+signature.  For more information about the distinction between
+musical content and the presentation of that content, see
+@ref{More about pitches}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+\key d \major
+d e f g
+d e fis g
+@end lilypond
+
 
 @commonprop
 
@@ -202,7 +214,7 @@ file.  The available language files
 and the note names they define are
 
 @c  what about micro-tunes, double-sharps, and double-flats?  add
-@c  more clumns to the table?
+@c  more columns to the table?
 @c  Oh, and should this be made into a multitable?
 @cindex note names, other languages
 @example
@@ -1335,7 +1347,13 @@ can be specified by setting this property directly.
 
 Accidentals and key signatures often confuse new users, because
 unaltered notes get natural signs depending on the key signature.  For
-more information, see @ref{More about pitches}.
+more information, see @ref{Accidentals} or @ref{More about pitches}.
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+\key g \major
+f1
+fis
+@end lilypond
 
 
 @commonprop
