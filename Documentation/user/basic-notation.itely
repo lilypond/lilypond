@@ -1485,6 +1485,9 @@ The syntax for this command is
 \partial @var{duration}
 @end example
 
+where @code{duration} is the rhythmic length to be added before
+the next bar.
+
 This is internally translated into
 
 @example
@@ -1621,8 +1624,9 @@ d4 e d c
 
 @refbugs
 
-LilyPond will only insert page breaks at a barline.  Unless the unmetered
-music ends before the end of the staff line, you will need to insert
+LilyPond will only insert line breaks and page breaks at a
+barline.  Unless the unmetered music ends before the end of
+the staff line, you will need to insert
 invisible bar lines
 
 @example
@@ -1630,7 +1634,7 @@ invisible bar lines
 @end example
 
 @noindent
-to indicate where line breaks can occur.
+to indicate where breaks can occur.
 
 
 @node System start delimiters
