@@ -999,7 +999,7 @@ Similarly, hyphens between words can be entered as two dashes,
 resulting in a centered hyphen between two syllables
 
 @example
-Twin -- kle twin -- kle
+A -- le gri -- a
 @end example
 
 @c no ragged-right here, because otherwise the hypens get lost.
@@ -1009,7 +1009,7 @@ Twin -- kle twin -- kle
     \time 2/4
     f4 f c' c
   }
-  \addlyrics { Twin -- kle twin -- kle }
+  \addlyrics { A -- le gri -- a }
 >>
 @end lilypond
 

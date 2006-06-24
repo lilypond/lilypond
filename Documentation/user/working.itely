@@ -602,5 +602,27 @@ a system.
 }
 @end lilypond
 
+@item
+Alter the horizontal spacing via @code{SpacingSpanner}.  See
+@ref{Changing horizontal spacing} for more details.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 4)
+    }
+  }
+}
+@end lilypond
+
 @end itemize
 
