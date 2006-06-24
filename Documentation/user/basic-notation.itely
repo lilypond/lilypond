@@ -92,20 +92,21 @@ octave specifications (@code{'} and @code{,}).  See
 @cindex note names, default
 
 A sharp is formed by adding @code{-is} to the end of a pitch name and
-a flat is formed by adding @code{-es}
+a flat is formed by adding @code{-es}.  Double sharps and double flats
+are obtained by adding @code{-isis} or @code{-eses} to a note name.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a2 ais a aes
+a2 aisis a aeses
 @end lilypond
 
-Double sharps and double flats
-are obtained by adding @code{-isis} or @code{-eses} to a note name.  These
-are the Dutch note names.  In Dutch, @code{aes} is contracted to
+@noindent
+These are the Dutch note names.  In Dutch, @code{aes} is contracted to
 @code{as}, but both forms are accepted.  Similarly, both
 @code{es} and @code{ees} are accepted
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-a2 aisis a aeses
+a2 as e es
 @end lilypond
 
 A natural will cancel the effect of an accidental or key signature.
@@ -282,6 +283,7 @@ Here is the relative mode shown in action
 @end lilypond
 
 Octave changing marks are used for intervals greater than a fourth
+
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c'' {
   c g c f, c' a, e''
@@ -299,7 +301,7 @@ to determine the first note of the next chord
 }
 @end lilypond
 
-The pitch after the @code{\relative} contains a note name.
+The pitch after @code{\relative} contains a note name.
 
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.  To use
@@ -337,7 +339,8 @@ quotes) in @code{\relative} mode.  If not, a warning is printed, and the
 octave is corrected.  The @var{pitch} is not printed as a note.
 
 In the example below, the first check passes without incident, since
-the @code{e} (in relative mode) is within a fifth of @code{a'}.  However,
+the @code{e} (in @code{relative} mode) is within a fifth of
+@code{a'}.  However,
 the second check produces a warning, since the @code{e} is not within
 a fifth of @code{b'}.  The warning message is printed, and the octave
 is adjusted so that the following notes are in the correct octave
@@ -444,7 +447,7 @@ Program reference: @internalsref{TransposedMusic}.
 
 If you want to use both @code{\transpose} and @code{\relative},
 you must put @code{\transpose} outside of @code{\relative}, since
-@code{\relative} will have no effect music that appears inside a
+@code{\relative} will have no effect on music that appears inside a
 @code{\transpose}.
 
 
@@ -558,8 +561,8 @@ In Note, Chord, and Lyrics mode, durations are designated by numbers and
 dots: durations are entered as their reciprocal values.  For example, a
 quarter note is entered using a @code{4} (since it is a 1/4 note), while
 a half note is entered using a @code{2} (since it is a 1/2 note).  For
-notes longer than a whole you must use the variables @code{\longa} and
-@code{\breve}
+notes longer than a whole you must use the @code{\longa} and
+@code{\breve} commands
 
 @example
 c'\breve
@@ -580,6 +583,11 @@ r1 r2 r4 r8 r16 r32 r64 r64
   }
   \layout {
     ragged-right = ##t
+    indent=0\mm
+    \context {
+      \Score
+        \remove "Bar_number_engraver"
+    }
     \context {
       \Staff
         \remove "Clef_engraver"
@@ -864,8 +872,8 @@ one voice on the same staff.
 
 @cindex Chords
 
-A chord is formed by a enclosing a set of pitches in @code{<} and
-@code{>}.  A chord may be followed by a duration, and a set of
+A chord is formed by a enclosing a set of pitches between @code{<}
+and @code{>}.  A chord may be followed by a duration, and a set of
 articulations, just like simple notes
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
@@ -1303,6 +1311,8 @@ possibilities when setting properties manually.
 
 @seealso
 
+Manual: @ref{Grace notes}.
+
 Program reference: @internalsref{Clef}.
 
 
@@ -1549,7 +1559,7 @@ To allow a line break where there is no visible bar line, use
 
 @noindent
 This will insert an invisible bar line and allow line breaks at this
-point.
+point.  This also increases the bar number counter.
 
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are
@@ -1704,7 +1714,7 @@ The bar lines at the start of each system are
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
 @internalsref{SystemStartBracket}.  Only one of these types is created
 in every context, and that type is determined by the property
-@code{systemStartDelimiter}.
+@internalsref{systemStartDelimiter}.
 
 
 @node Staff symbol
@@ -1715,7 +1725,7 @@ in every context, and that type is determined by the property
 Notes, dynamic signs, etc., are grouped
 with a set of horizontal lines, called a staff (plural `staves').  In
 LilyPond, these lines are drawn using a separate layout object called
-staff symbol.
+@code{staff symbol}.
 
 The staff symbol may be tuned in the number, thickness and distance
 of lines, using properties.  This is demonstrated in the example files
@@ -2236,6 +2246,7 @@ A @code{\grace} section will introduce special typesetting settings,
 for example, to produce smaller type, and set directions.  Hence, when
 introducing layout tweaks, they should be inside the grace section,
 for example,
+
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
   \acciaccatura {
@@ -2252,8 +2263,8 @@ The overrides should also be reverted inside the grace section.
 
 The layout of grace sections can be changed throughout the music using
 the function @code{add-grace-property}.  The following example
-undefines the Stem direction for this grace, so stems do not always
-point up.
+undefines the @code{Stem} direction for this grace, so
+that stems do not always point up.
 
 @example
 \new Staff @{
@@ -2548,14 +2559,14 @@ in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
 example
 
 @example
-\override Staff.Hairpin #'minimum-length = #5
+\override Voice.Hairpin #'minimum-length = #5
 @end example
 
 @cindex crescendo
 @cindex decrescendo
 @cindex diminuendo
 
-You can also use a text saying @emph{cresc.} instead of hairpins
+You can also use text saying @emph{cresc.} instead of hairpins
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \setTextCresc
@@ -2600,7 +2611,8 @@ new line are not printed.  To change this behavior, use
 \override Score.Hairpin #'after-line-breaking = ##t
 @end example
 
-Text style dynamic changes (such as cresc. and dim.) are printed with a
+Text style dynamic changes (such as @emph{cresc.} and @emph{dim.})
+are printed with a
 dashed line showing their extent.  To surpress printing this line, use
 
 @example
@@ -2675,7 +2687,7 @@ Long running trills are made with @code{\startTrillSpan} and
 Trills that should be executed on an explicitly specified pitch can be
 typeset with the command @code{pitchedTrill},
 
-@lilypond[ragged-right,verbatim,fragment,relative=1]
+@lilypond[ragged-right,verbatim,fragment,relative=1,quote]
 \pitchedTrill c4\startTrillSpan fis
 f\stopTrillSpan
 @end lilypond
@@ -2855,7 +2867,7 @@ Make tremolo beams.  These are not played in MIDI output by default.
 @item percent
 Make beat or measure repeats.  These look like percent signs.  These
 are not played in MIDI output by default.  Percent repeats must be
-declared within a Voice context.
+declared within a @code{Voice} context.
 
 @end table
 
@@ -2900,8 +2912,8 @@ c1
 \alternative { {d2 d} {f f,} }
 @end lilypond
 
-In this example, the first ending is not a complete bar (it
-only had 3 beats).  The beginning of the second ending
+In the following example, the first ending is not a complete
+bar (it only had 3 beats).  The beginning of the second ending
 contains the 4th beat from the first ending.  This ``extra''
 beat in the second ending is due to the first time ending,
 and has nothing to do with the @code{\partial} at the
@@ -2959,8 +2971,8 @@ having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.
 
 Timing information is not remembered at the start of an alternative,
-so after a repeat timing information must be reset by hand, for
-example by setting @code{Score.measurePosition} or entering
+so after a repeat timing information must be reset by hand; for
+example, by setting @code{Score.measurePosition} or entering
 @code{\partial}.  Similarly, slurs or ties are also not repeated.
 
 
@@ -2972,7 +2984,7 @@ example by setting @code{Score.measurePosition} or entering
 
 With a little bit of tweaking, all types of repeats can be present
 in the MIDI output.  This is achieved by applying the
-@code{\unfoldRepeats} music function.  This functions changes all
+@code{\unfoldRepeats} music function.  This function changes all
 repeats to unfold repeats.
 
 @lilypond[quote,verbatim,fragment,line-width=8.0\cm]
@@ -2988,8 +3000,8 @@ repeats to unfold repeats.
 \bar "|."
 @end lilypond
 
-When creating a score file using @code{\unfoldRepeats} for midi, then
-it is necessary to make two @code{\score} blocks.  One for MIDI (with
+When creating a score file using @code{\unfoldRepeats} for MIDI,
+it is necessary to make two @code{\score} blocks: one for MIDI (with
 unfolded repeats) and one for notation (with volta, tremolo, and
 percent repeats).  For example,
 
@@ -3144,10 +3156,10 @@ on the @code{countPercentRepeats} property,
 
 
 
-Isolated percents can also be printed. This is done by putting a multi
-measure rest with a different print function,
+Isolated percents can also be printed. This is done by putting a
+multi-measure rest with a different print function,
 
-@lilypond[fragment,verbatim]
+@lilypond[fragment,verbatim,quote]
 \override MultiMeasureRest #'stencil
   = #ly:multi-measure-rest::percent
 R1

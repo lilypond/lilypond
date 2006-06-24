@@ -596,7 +596,6 @@ negative.
 
 @menu
 * Horizontal spacing overview::  
-* New spacing area::            
 * Changing horizontal spacing::  
 * Line length::                 
 @end menu
@@ -708,6 +707,8 @@ following work-around may be used to insert extra space into a score.
 No work-around exists for decreasing the amount of space.
 
 
+@c  FIXME:  include this in 2.9; currently removed for 2.8 -gp
+@ignore
 @node New spacing area
 @subsection New spacing area
 
@@ -718,20 +719,57 @@ sections with a different notions of long and short notes.
 In the following example, the time signature change introduces a new
 section, and hence the 16ths notes are spaced wider.
 
-FIXME: wait until we're definitely adding NEWS items.  -gp
-
-@lilypond[relative,fragment,verbatim]
+@li lypond[relative,fragment,verbatim,quote]
 \time 2/4
 c4 c8 c 
 c8 c c4 c16[ c c8] c4
-%\newSpacingSection
+\newSpacingSection
 \time 4/16
 c16[ c c8]
-@end lilypond
-
+@e nd lilypond
+@end ignore
 
 @node Changing horizontal spacing
 @subsection Changing horizontal spacing
+
+Horizontal spacing may be altered with the
+@code{base-shortest-duration} property.  Here
+we compare the same music; once without altering
+the property, and then altered.  Larger values
+of @code{ly:make-moment} will produce smaller
+music.
+
+@lilypond[relative,verbatim,line-width=12\cm]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+}
+@end lilypond
+
+@lilypond[relative,verbatim,line-width=12\cm]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 4)
+    }
+  }
+}
+@end lilypond
+
+
+@commonprop
 
 By default, spacing in tuplets depends on various non-duration
 factors (such as accidentals, clef changes, etc).  To disregard
