@@ -12,6 +12,8 @@
   '(((StreamEvent) . '())
     ((RemoveContext ChangeParent Override Revert UnsetProperty SetProperty 
       MusicEvent CreateContext Prepare OneTimeStep Finish) . StreamEvent)
+    ((Announcement) . '())
+    ((AnnounceNewContext) . Announcement)
     ))
 
 ;; Maps event-class to a list of ancestors (inclusive)

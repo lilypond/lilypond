@@ -6,13 +6,54 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "engraver-group.hh"
-
-#include "warn.hh"
-#include "paper-score.hh"
-#include "grob.hh"
 #include "context.hh"
+#include "dispatcher.hh"
+#include "engraver-group.hh"
+#include "grob.hh"
+#include "paper-score.hh"
+#include "stream-event.hh"
 #include "translator-dispatch-list.hh"
+#include "warn.hh"
+
+IMPLEMENT_LISTENER (Engraver_group, override);
+void
+Engraver_group::override (SCM sev)
+{
+  Stream_event *ev = unsmob_stream_event (sev);
+  
+  execute_general_pushpop_property (context (),
+				    ev->get_property ("symbol"),
+				    ev->get_property ("property-path"),
+				    ev->get_property ("value"));
+}
+
+IMPLEMENT_LISTENER (Engraver_group, revert);
+void
+Engraver_group::revert (SCM sev)
+{
+  Stream_event *ev = unsmob_stream_event (sev);
+  
+  execute_general_pushpop_property (context (),
+				    ev->get_property ("symbol"),
+				    ev->get_property ("property-path"),
+				    SCM_UNDEFINED);
+}
+
+void
+Engraver_group::connect_to_context (Context *c)
+{
+  Translator_group::connect_to_context (c);
+  c->event_source ()->add_listener (GET_LISTENER (override), ly_symbol2scm ("Override"));
+  c->event_source ()->add_listener (GET_LISTENER (revert), ly_symbol2scm ("Revert"));
+}
+
+void
+Engraver_group::disconnect_from_context ()
+{
+  context ()->event_source ()->remove_listener (GET_LISTENER (override), ly_symbol2scm ("Override"));
+  context ()->event_source ()->remove_listener (GET_LISTENER (revert), ly_symbol2scm ("Revert"));
+  Translator_group::disconnect_from_context ();
+}
 
 void
 Engraver_group::announce_grob (Grob_info info)

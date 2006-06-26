@@ -36,10 +36,11 @@ private:
 public:
   void add_context_mod (SCM);
   SCM get_default_child (SCM user_mods) const;
-  SCM get_context_name () const;
+  SCM get_context_name () const { return context_name_; }
   SCM get_accepted (SCM user_mods) const;
   SCM get_property_ops () const { return property_ops_; }
   SCM get_translator_names (SCM) const;
+  SCM get_translator_group_type () const { return translator_group_type_; }
   void set_acceptor (SCM accepts, bool add);
 
   vector<Context_def*> path_to_acceptable_context (SCM type_string,

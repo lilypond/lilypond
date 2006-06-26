@@ -11,6 +11,7 @@
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
 #include "context-def.hh"
+#include "dispatcher.hh"
 #include "global-context.hh"
 #include "international.hh"
 #include "main.hh"
@@ -19,6 +20,7 @@
 #include "paper-column-engraver.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
+#include "stream-event.hh"
 #include "system.hh"
 #include "warn.hh"
 
@@ -37,16 +39,16 @@ Score_engraver::derived_mark () const
   Engraver_group::derived_mark ();
 }
 
+IMPLEMENT_LISTENER (Score_engraver, prepare);
 void
-Score_engraver::prepare (Moment m)
+Score_engraver::prepare (SCM)
 {
-  (void) m;
-
   precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, DOWN);
 }
 
+IMPLEMENT_LISTENER (Score_engraver, finish);
 void
-Score_engraver::finish ()
+Score_engraver::finish (SCM)
 {
   recurse_over_translators (context (), &Translator::finalize,
 			    &Translator_group::finalize,
@@ -88,6 +90,28 @@ Score_engraver::initialize ()
 }
 
 void
+Score_engraver::connect_to_context (Context *c)
+{
+  Engraver_group::connect_to_context (c);
+  
+  Dispatcher *d = c->get_global_context ()->event_source ();
+  d->add_listener (GET_LISTENER (one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->add_listener (GET_LISTENER (prepare), ly_symbol2scm ("Prepare"));
+  d->add_listener (GET_LISTENER (finish), ly_symbol2scm ("Finish"));
+}
+
+void
+Score_engraver::disconnect_from_context ()
+{
+  Dispatcher *d = context ()->get_global_context ()->event_source ();
+  d->remove_listener (GET_LISTENER (one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->remove_listener (GET_LISTENER (prepare), ly_symbol2scm ("Prepare"));
+  d->remove_listener (GET_LISTENER (finish), ly_symbol2scm ("Finish"));
+
+  Engraver_group::disconnect_from_context ();
+}
+
+void
 Score_engraver::finalize ()
 {
   Score_translator::finalize ();
@@ -95,8 +119,9 @@ Score_engraver::finalize ()
   typeset_all ();
 }
 
+IMPLEMENT_LISTENER(Score_engraver, one_time_step);
 void
-Score_engraver::one_time_step ()
+Score_engraver::one_time_step (SCM)
 {
   if (!to_boolean (context ()->get_property ("skipTypesetting")))
     {

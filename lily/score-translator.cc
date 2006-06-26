@@ -9,23 +9,8 @@
 #include "score-translator.hh"
 #include "moment.hh"
 
-void
-Score_translator::prepare (Moment)
-{
-}
-
 SCM
 Score_translator::get_output ()
 {
   return SCM_EOL;
-}
-
-void
-Score_translator::finish ()
-{
-}
-
-void
-Score_translator::one_time_step ()
-{
 }

@@ -15,6 +15,7 @@
 #include "music.hh"
 #include "object-key.hh"
 #include "output-def.hh"
+#include "translator-group.hh"
 #include "warn.hh"
 
 LY_DEFINE (ly_format_output, "ly:format-output",
@@ -29,6 +30,21 @@ LY_DEFINE (ly_format_output, "ly:format-output",
   progress_indication ("\n");
   unsmob_music_output (output)->process ();
   return output;
+}
+
+LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
+          1, 0, 0, (SCM global),
+          "Create a translator group and connect it to the global context\n"
+          "@var{global}. The translator group is returned.")
+{
+  Global_context *g = dynamic_cast<Global_context *> (unsmob_context (global));
+  SCM_ASSERT_TYPE (g, global, SCM_ARG1, __FUNCTION__, "Global context");
+
+  Translator_group *tg = new Translator_group ();
+  tg->connect_to_context (g);
+  g->implementation_ = tg;
+
+  return tg->unprotect ();
 }
 
 LY_DEFINE (ly_run_translator, "ly:run-translator",
@@ -57,19 +73,21 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 
   Cpu_timer timer;
 
-  Global_context *trans = new Global_context (odef, music->get_length (),
-					      unsmob_key (key));
-  if (!trans)
+  Global_context *glob = new Global_context (odef, unsmob_key (key));
+  if (!glob)
     {
-      programming_error ("no toplevel translator");
+      programming_error ("Couldn't create Global context");
       return SCM_BOOL_F;
     }
+
+  SCM tgs = ly_make_global_translator (glob->self_scm ());
+  Translator_group *tg = unsmob_translator_group (tgs);
 
   message (_ ("Interpreting music... "));
 
   SCM protected_iter = Music_iterator::get_static_get_iterator (music);
   Music_iterator *iter = unsmob_iterator (protected_iter);
-  iter->init_translator (music, trans);
+  iter->init_translator (music, glob);
   iter->construct_children ();
 
   if (!iter->ok ())
@@ -79,13 +97,13 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
       return SCM_BOOL_F;
     }
 
-  trans->run_iterator_on_me (iter);
+  glob->run_iterator_on_me (iter);
   iter->quit ();
   scm_remember_upto_here_1 (protected_iter);
-  trans->finish ();
+  send_stream_event (glob, "Finish", 0, 0);
 
   if (be_verbose_global)
     message (_f ("elapsed time: %.2f seconds", timer.read ()));
 
-  return trans->unprotect ();
+  return glob->unprotect ();
 }

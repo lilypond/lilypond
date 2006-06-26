@@ -9,12 +9,12 @@
 #ifndef CONTEXT_HH
 #define CONTEXT_HH
 
-
-#include "std-vector.hh"
-#include "moment.hh"
-#include "lily-proto.hh"
-#include "virtual-methods.hh"
 #include "context-key-manager.hh"
+#include "lily-proto.hh"
+#include "listener.hh"
+#include "moment.hh"
+#include "std-vector.hh"
+#include "virtual-methods.hh"
 
 class Context
 {
@@ -28,10 +28,11 @@ class Context
 private:
   friend class Context_handle;
   int iterator_count_;
-  bool init_;
+  
+  /* Used internally by create_context */
+  Stream_event *infant_event_;
 
 protected:
-  int unique_;
   Context *daddy_context_;
   /* The used Context_def */
   SCM definition_;
@@ -53,23 +54,28 @@ protected:
      children, are sent to this dispatcher. */
   Dispatcher *events_below_;
 
+  // Translator_group is allowed to set implementation_.
+  friend class Translator_group;
+  // Context_def::instantiate initialises some protected members.
   friend class Context_def;
+  // UGH! initialises implementation_
+  friend SCM ly_make_global_translator (SCM);
   void clear_key_disambiguations ();
 
+  DECLARE_LISTENER (set_property_from_event);
+  DECLARE_LISTENER (unset_property_from_event);
   
 public:
   Object_key const *get_grob_key (string name);
   Object_key const *get_context_key (string name, string id);
 
-  Context *create_context (Context_def *, string, SCM);
   string id_string () const { return id_string_; }
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
-  int get_unique() { return unique_; }
 
   Dispatcher *event_source () const { return event_source_; }
   Dispatcher *events_below () const { return events_below_; }
-  void internal_send_stream_event (SCM type, SCM props[]);
+  void internal_send_stream_event (SCM type, Input *origin, SCM props[]);
 
   SCM get_definition () const { return definition_; }
   SCM get_definition_mods () const { return definition_mods_; }
@@ -85,7 +91,12 @@ public:
   Context *where_defined (SCM name_sym, SCM *value) const;
   void unset_property (SCM var_sym);
 
-  Context *remove_context (Context *trans);
+  Context *create_context (Context_def *, string, SCM);
+  DECLARE_LISTENER (create_context_from_event);
+  DECLARE_LISTENER (acknowledge_infant);
+  DECLARE_LISTENER (remove_context);
+  DECLARE_LISTENER (change_parent);
+  void disconnect_from_parent ();
   void check_removal ();
   string context_name () const;
   SCM context_name_symbol () const;
@@ -134,10 +145,10 @@ Rational measure_length (Context const *context);
 void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 
 /* Shorthand for creating and broadcasting stream events. */
-#define send_stream_event(ctx, type, ...)				\
+#define send_stream_event(ctx, type, origin, ...)				\
 {									\
   SCM props[] = { __VA_ARGS__, 0 };					\
-  ctx->internal_send_stream_event (ly_symbol2scm (type), props);	\
+  ctx->internal_send_stream_event (ly_symbol2scm (type), origin, props);	\
 }
 
 #endif /* CONTEXT_HH */

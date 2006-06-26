@@ -493,12 +493,12 @@ then set the
 
 @lilypond[fragment,verbatim]
 {
-  \override Staff.TimeSignature #'font-name = #"Charter"
-  \override Staff.TimeSignature #'font-size = #2
+%  \override Staff.TimeSignature #'font-name = #"Charter"
+%  \override Staff.TimeSignature #'font-size = #2
   \time 3/4
   c'1_\markup {
-    \override #'(font-name . "Vera Bold")
-      { This text is in Vera Bold }
+%    \override #'(font-name . "Vera Bold")
+%      { This text is in Vera Bold }
   }
 }
 @end lilypond

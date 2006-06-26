@@ -74,8 +74,8 @@ Change_iterator::process (Moment m)
 
 	if (dest)
 	  {
-	    current->remove_context (last);
-	    dest->add_context (last);
+	    send_stream_event (last, "ChangeParent", get_music ()->origin (),
+			       ly_symbol2scm ("context"), dest->self_scm ());
 	  }
 	else
 	  /* FIXME: constant error message.  */

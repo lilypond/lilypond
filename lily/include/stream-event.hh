@@ -22,14 +22,14 @@ class Stream_event
 public:
   Stream_event ();
   Input *origin () const;
+  void set_spot (Input *i);
 
   DECLARE_SCHEME_CALLBACK (undump, (SCM));
   DECLARE_SCHEME_CALLBACK (dump, (SCM));
 
-  // todo: make Input mandatory.
+  // todo: remove unneeded constructors
   Stream_event (SCM property_alist);
-  Stream_event (Context *c, SCM class_name);
-  Stream_event (Context *c, Input *);
+  Stream_event (SCM class_name, Input *);
   Stream_event (Stream_event *ev);
 
   SCM internal_get_property (SCM) const;

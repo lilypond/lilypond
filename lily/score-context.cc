@@ -11,29 +11,18 @@
 #include "score-translator.hh"
 
 void
-Score_context::prepare (Moment w)
+Score_context::prepare (Moment)
 {
-  Translator_group *t = implementation ();
-  Score_translator *s = dynamic_cast<Score_translator *> (t);
-
-  s->prepare (w);
 }
 
 void
 Score_context::finish ()
 {
-  Translator_group *t = implementation ();
-  Score_translator *s = dynamic_cast<Score_translator *> (t);
-
-  s->finish ();
 }
 
 void
 Score_context::one_time_step ()
 {
-  Translator_group *t = implementation ();
-  Score_translator *s = dynamic_cast<Score_translator *> (t);
-  s->one_time_step ();
 }
 
 SCM
