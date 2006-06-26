@@ -1,3 +1,17 @@
+2006-06-26  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/ various: Introduce stream events of types Prepare,
+	OneTimeStep, CreateContext, AnnounceNewContext, RemoveContext,
+	ChangeContext, SetProperty, RevertProperty, Override and Revert.
+
+	* lily/global-context*.cc: Time is now -inf before iteration
+	starts.
+
+	* lily/include/context.hh: Removed unique_, init_
+
+	* Documentation/topdocs/NEWS: Make the feathered beam example
+	avoid triggering a bug.
+
 2006-06-24  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ various: small additions from mailist.

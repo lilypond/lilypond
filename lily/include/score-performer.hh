@@ -8,6 +8,7 @@
 #ifndef SCORE_PERFORMER_HH
 #define SCORE_PERFORMER_HH
 
+#include "moment.hh"
 #include "performer-group.hh"
 #include "score-translator.hh"
 
@@ -24,9 +25,13 @@ public:
 
   Score_performer ();
 protected:
-  virtual void prepare (Moment mom);
-  virtual void finish ();
-  virtual void one_time_step ();
+  DECLARE_LISTENER (finish);
+  DECLARE_LISTENER (prepare);
+  DECLARE_LISTENER (one_time_step);
+
+  /* Engraver_group_engraver interface */
+  virtual void connect_to_context (Context *);
+  virtual void disconnect_from_context ();
   virtual void initialize ();
   virtual void announce_element (Audio_element_info);
   virtual int get_tempo () const;

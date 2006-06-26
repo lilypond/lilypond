@@ -99,8 +99,7 @@ protected:			// should be private.
   Context *daddy_context_;
   virtual void derived_mark () const;
 
-  friend class Context_def;
-  friend class Context;
+  friend class Translator_group;
 };
 void add_translator (Translator *trans);
 

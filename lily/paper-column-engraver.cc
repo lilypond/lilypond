@@ -53,10 +53,11 @@ Paper_column_engraver::make_columns ()
   */
   Paper_column *p1 = make_paper_column ("NonMusicalPaperColumn");
   Paper_column *p2 = make_paper_column ("PaperColumn");
-
-  SCM m = now_mom ().smobbed_copy ();
-  p1->set_property ("when", m);
-  p2->set_property ("when", m);
+  /* 
+     The columns are timestamped with now_mom () in
+     stop_translation_timestep. Cannot happen now, because the
+     first column is sometimes created before now_mom is initialised.
+  */
 
   set_columns (p1, p2);
 }
@@ -172,6 +173,10 @@ Paper_column_engraver::process_music ()
 void
 Paper_column_engraver::stop_translation_timestep ()
 {
+  SCM m = now_mom ().smobbed_copy ();
+  command_column_->set_property ("when", m);
+  musical_column_->set_property ("when", m);
+
   for (vsize i = 0; i < items_.size (); i++)
     {
       Item *elem = items_[i];

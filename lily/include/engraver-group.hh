@@ -17,12 +17,15 @@ class Engraver_group : public virtual Translator_group
 protected:
   vector<Grob_info> announce_infos_;
   Drul_array<SCM> acknowledge_hash_table_drul_;
-
+  DECLARE_LISTENER (override);
+  DECLARE_LISTENER (revert);
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Engraver_group);
   Engraver_group ();
   virtual void derived_mark () const;
   void do_announces ();
+  virtual void connect_to_context (Context *c);
+  virtual void disconnect_from_context ();
   virtual void announce_grob (Grob_info);
   int pending_grob_count () const;
 private:

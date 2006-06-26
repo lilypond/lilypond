@@ -12,10 +12,12 @@
 #include "context-def.hh"
 #include "context.hh"
 #include "dispatcher.hh"
+#include "engraver-group.hh"
 #include "international.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
+#include "performer-group.hh"
 #include "scm-hash.hh"
 #include "stream-event.hh"
 #include "warn.hh"
@@ -43,9 +45,22 @@ void
 Translator_group::connect_to_context (Context *c)
 {
   if (context_)
-    programming_error ("already connected to a context");
+    programming_error ("translator group is already connected to a context");
   context_ = c;
-  c->event_source ()->add_listener (GET_LISTENER (eat_event), ly_symbol2scm ("MusicEvent"));
+  c->event_source ()->add_listener (GET_LISTENER (eat_event),
+				    ly_symbol2scm ("MusicEvent"));
+  c->event_source ()->add_listener (GET_LISTENER (create_child_translator),
+				    ly_symbol2scm ("AnnounceNewContext"));
+}
+
+void
+Translator_group::disconnect_from_context ()
+{
+  context_->event_source ()->remove_listener (GET_LISTENER (eat_event),
+					      ly_symbol2scm ("MusicEvent"));
+  context_->event_source ()->remove_listener (GET_LISTENER (create_child_translator),
+					      ly_symbol2scm ("AnnounceNewContext"));
+  context_ = 0;
 }
 
 void
@@ -78,6 +93,101 @@ find_accept_translators (SCM gravlist, SCM ifaces)
   l = scm_reverse_x (l, SCM_EOL);
 
   return l;
+}
+
+SCM
+filter_performers (SCM ell)
+{
+  SCM *tail = &ell;
+  for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
+    {
+      if (dynamic_cast<Performer *> (unsmob_translator (scm_car (*tail))))
+	*tail = scm_cdr (*tail);
+      else
+	tail = SCM_CDRLOC (*tail);
+    }
+  return ell;
+}
+
+SCM
+filter_engravers (SCM ell)
+{
+  SCM *tail = &ell;
+  for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
+    {
+      if (dynamic_cast<Engraver *> (unsmob_translator (scm_car (*tail))))
+	*tail = scm_cdr (*tail);
+      else
+	tail = SCM_CDRLOC (*tail);
+    }
+  return ell;
+}
+
+/*
+  Create a new translator for a newly created child context. Triggered
+  by AnnounceNewContext events.
+ */
+IMPLEMENT_LISTENER (Translator_group, create_child_translator);
+void
+Translator_group::create_child_translator (SCM sev)
+{
+  Stream_event *ev = unsmob_stream_event (sev);
+  // get from AnnounceNewContext
+  SCM cs = ev->get_property ("context");
+  Context *new_context = unsmob_context (cs);
+  Context_def *def = unsmob_context_def (new_context->get_definition ());
+  SCM ops = new_context->get_definition_mods ();
+  
+  SCM trans_names = def->get_translator_names (ops);
+
+  Translator_group *g = get_translator_group (def->get_translator_group_type ());
+  SCM trans_list = SCM_EOL;
+
+  for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
+    {
+      Translator *type = get_translator (scm_car (s));
+      if (!type)
+	warning (_f ("can't find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
+      else
+	{
+	  Translator *tr = type->clone ();
+	  SCM str = tr->self_scm ();
+
+	  if (tr->must_be_last ())
+	    {
+	      SCM cons = scm_cons (str, SCM_EOL);
+	      if (scm_is_pair (trans_list))
+		scm_set_cdr_x (scm_last_pair (trans_list), cons);
+	      else
+		trans_list = cons;
+	    }
+	  else
+	    trans_list = scm_cons (str, trans_list);
+
+	  tr->daddy_context_ = new_context;
+	  tr->unprotect ();
+	}
+    }
+
+  g->simple_trans_list_ = trans_list;
+
+  /* Filter unwanted translator types. Required to make
+     \with {\consists "..."} work. */
+  if (dynamic_cast<Engraver_group *> (g))
+    g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
+  else if (dynamic_cast<Performer_group *> (g))
+    g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
+
+  // TODO: scrap Context::implementation
+  new_context->implementation_ = g;
+
+  g->connect_to_context (new_context);
+  g->unprotect ();
+
+  recurse_over_translators (new_context,
+			    &Translator::initialize,
+			    &Translator_group::initialize,
+			    DOWN);
 }
 
 IMPLEMENT_LISTENER (Translator_group, eat_event);

@@ -47,6 +47,7 @@ private:
   Translator_group_void_method
   precomputed_self_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
+  DECLARE_LISTENER (create_child_translator);
   DECLARE_LISTENER (eat_event);
 
 public:
@@ -54,7 +55,8 @@ public:
   DECLARE_SMOBS (Translator_group, dummy);
 
 public:
-  void connect_to_context (Context *c);
+  virtual void connect_to_context (Context *c);
+  virtual void disconnect_from_context ();
   virtual Translator_group *get_daddy_translator ()const;
   virtual SCM get_simple_trans_list ();
   virtual bool try_music (Music *req);

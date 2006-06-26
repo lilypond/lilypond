@@ -13,8 +13,6 @@
 #include "input.hh"
 #include "input-smob.hh"
 
-// ES todo: Add stuff to lily-proto.hh: Stream_event and its subclasses, Stream_creator, etc.
-
 Stream_event::~Stream_event ()
 {
 }
@@ -24,7 +22,6 @@ Stream_event::init ()
 {
   self_scm_ = SCM_EOL;
   property_alist_ = SCM_EOL;
-  origin_ = 0;
 
   smobify_self ();
 }
@@ -34,39 +31,40 @@ Stream_event::Stream_event ()
   init ();
 }
 
-Stream_event::Stream_event (Context *c, Input *origin)
-{
-  init ();
-  set_property ("context", scm_int2num (c->get_unique()));
-  origin_ = origin;
-}
-
 Stream_event::Stream_event (SCM property_alist)
 {
   init ();
   property_alist_ = property_alist;
-  origin_ = &dummy_input_global;
 }
 
-Stream_event::Stream_event (Context *c, SCM class_name)
+/*
+   Hm. Perhaps Stream_event should be a prob, with class_name as an
+   immutable property?
+ */
+Stream_event::Stream_event (SCM class_name, Input *origin)
 {
   init ();
-  set_property ("context", scm_int2num (c->get_unique()));
   set_property ("class", class_name);
-  origin_ = &dummy_input_global;
+  if (origin)
+    set_spot (origin);
 }
 
 Stream_event::Stream_event (Stream_event *ev)
 {
   init ();
   property_alist_ = scm_copy_tree (ev->property_alist_);
-  origin_ = ev->origin_;
 }
 
 Input *
 Stream_event::origin () const
 {
-  return origin_;
+  Input *i = unsmob_input (get_property ("origin"));
+  return i ? i : &dummy_input_global;
+}
+
+void Stream_event::set_spot (Input *i)
+{
+  set_property ("origin", make_input (*i));
 }
 
 SCM

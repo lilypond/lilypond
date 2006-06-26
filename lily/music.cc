@@ -239,7 +239,7 @@ Music::origin () const
 void
 Music::send_to_context (Context *c)
 {
-  send_stream_event (c, "MusicEvent",
+  send_stream_event (c, "MusicEvent", origin (),
   		     ly_symbol2scm("music"), self_scm (), 0);
 }
 

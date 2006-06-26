@@ -424,6 +424,11 @@ Part_combine_iterator::process (Moment m)
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
 
+  /* This is needed if construct_children was called before iteration
+     started */
+  if (start_moment_.main_part_.is_infinity () && start_moment_ < 0)
+    start_moment_ = now;
+
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
       splitm = unsmob_moment (scm_caar (split_list_));

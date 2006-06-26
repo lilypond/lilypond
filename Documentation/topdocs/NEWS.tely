@@ -198,9 +198,12 @@ support for feathered beaming,
   \override Beam #'grow-direction = #LEFT
   c16[
     c c c
-    c c c c ]
+    c c c ]
 }
 @end lilypond 
+
+Known bug: the \featherDuration command only works with very short music
+snippets.
 
 This feature was sponsored by Jamie Bullock.
 

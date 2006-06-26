@@ -6,18 +6,20 @@
   (c) 1996--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "moment.hh"
 #include "score-performer.hh"
 
 #include "audio-column.hh"
 #include "audio-item.hh"
+#include "context-def.hh"
+#include "context.hh"
+#include "dispatcher.hh"
+#include "global-context.hh"
 #include "performance.hh"
 #include "midi-stream.hh"
+#include "moment.hh"
+#include "output-def.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-#include "context-def.hh"
-#include "output-def.hh"
-#include "context.hh"
 
 ADD_TRANSLATOR_GROUP (Score_performer,
 		      /* doc */ "",
@@ -51,15 +53,42 @@ Score_performer::announce_element (Audio_element_info info)
 }
 
 void
-Score_performer::prepare (Moment m)
+Score_performer::connect_to_context (Context *c)
 {
-  audio_column_ = new Audio_column (m);
+  Performer_group::connect_to_context (c);
+  
+  Dispatcher *d = c->get_global_context ()->event_source ();
+  d->add_listener (GET_LISTENER (one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->add_listener (GET_LISTENER (prepare), ly_symbol2scm ("Prepare"));
+  d->add_listener (GET_LISTENER (finish), ly_symbol2scm ("Finish"));
+}
+
+void
+Score_performer::disconnect_from_context ()
+{
+  Dispatcher *d = context ()->get_global_context ()->event_source ();
+  d->remove_listener (GET_LISTENER (one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->remove_listener (GET_LISTENER (prepare), ly_symbol2scm ("Prepare"));
+  d->remove_listener (GET_LISTENER (finish), ly_symbol2scm ("Finish"));
+
+  Performer_group::disconnect_from_context ();
+}
+
+IMPLEMENT_LISTENER (Score_performer, prepare);
+void
+Score_performer::prepare (SCM sev)
+{
+  Stream_event *ev = unsmob_stream_event (sev);
+  SCM sm = ev->get_property ("moment");
+  Moment *m = unsmob_moment (sm);
+  audio_column_ = new Audio_column (*m);
   play_element (audio_column_);
   precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, UP);
 }
 
+IMPLEMENT_LISTENER (Score_performer, finish);
 void
-Score_performer::finish ()
+Score_performer::finish (SCM)
 {
   recurse_over_translators (context (),
 			    &Translator::finalize,
@@ -67,8 +96,9 @@ Score_performer::finish ()
 			    UP);
 }
 
+IMPLEMENT_LISTENER (Score_performer, one_time_step);
 void
-Score_performer::one_time_step ()
+Score_performer::one_time_step (SCM)
 {
   if (to_boolean (context ()->get_property ("skipTypesetting")))
     {

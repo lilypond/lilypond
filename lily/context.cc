@@ -33,15 +33,15 @@ Context::check_removal ()
 {
   for (SCM p = context_list_; scm_is_pair (p); p = scm_cdr (p))
     {
-      Context *trg = unsmob_context (scm_car (p));
+      Context *ctx = unsmob_context (scm_car (p));
 
-      trg->check_removal ();
-      if (trg->is_removable ())
+      ctx->check_removal ();
+      if (ctx->is_removable ())
 	{
-	  recurse_over_translators (trg, &Translator::finalize,
+	  recurse_over_translators (ctx, &Translator::finalize,
 				    &Translator_group::finalize,
 				    UP);
-	  remove_context (trg);
+	  send_stream_event (ctx, "RemoveContext", 0, 0);
 	}
     }
 }
@@ -59,29 +59,13 @@ Context::properties_dict () const
 }
 
 void
-Context::add_context (Context *t)
+Context::add_context (Context *child)
 {
-  SCM ts = t->self_scm ();
   context_list_ = ly_append2 (context_list_,
-			      scm_cons (ts, SCM_EOL));
+			      scm_cons (child->self_scm (), SCM_EOL));
 
-  t->daddy_context_ = this;
-  if (!t->init_)
-    {
-      t->init_ = true;
-
-      t->unprotect ();
-      Context_def *td = unsmob_context_def (t->definition_);
-
-      /* This cannot move before add_context (), because \override
-	 operations require that we are in the hierarchy.  */
-      td->apply_default_property_operations (t);
-
-      recurse_over_translators (t,
-				&Translator::initialize,
-				&Translator_group::initialize,
-				DOWN);
-    }
+  child->daddy_context_ = this;
+  this->events_below_->register_as_listener (child->events_below_);
 }
 
 
@@ -89,7 +73,6 @@ Context::Context (Object_key const *key)
   : key_manager_ (key)
 {
   daddy_context_ = 0;
-  init_ = false;
   aliases_ = SCM_EOL;
   iterator_count_ = 0;
   implementation_ = 0;
@@ -98,7 +81,6 @@ Context::Context (Object_key const *key)
   context_list_ = SCM_EOL;
   definition_ = SCM_EOL;
   definition_mods_ = SCM_EOL;
-  unique_ = -1;
   event_source_ = 0;
   events_below_ = 0;
 
@@ -235,36 +217,142 @@ Context::find_create_context (SCM n, string id, SCM operations)
   return ret;
 }
 
+IMPLEMENT_LISTENER (Context, acknowledge_infant);
+void
+Context::acknowledge_infant (SCM sev)
+{
+  infant_event_ = unsmob_stream_event (sev);
+}
+
+IMPLEMENT_LISTENER (Context, set_property_from_event);
+void
+Context::set_property_from_event (SCM sev)
+{
+  Stream_event *ev = unsmob_stream_event (sev);
+  
+  SCM sym = ev->get_property ("symbol");
+  if (scm_is_symbol (sym))
+    {
+      SCM val = ev->get_property ("value");
+      bool ok = true;
+      if (val != SCM_EOL)
+	ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
+      if (ok)
+	internal_set_property (sym, val);
+    }
+}
+
+IMPLEMENT_LISTENER (Context, unset_property_from_event);
+void
+Context::unset_property_from_event (SCM sev)
+{
+  Stream_event *ev = unsmob_stream_event (sev);
+  
+  SCM sym = ev->get_property ("symbol");
+  type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
+  unset_property (sym);
+}
+
+/*
+  Creates a new context from a CreateContext event, and sends an
+  AnnounceNewContext event to this context.
+*/
+IMPLEMENT_LISTENER (Context, create_context_from_event);
+void
+Context::create_context_from_event (SCM sev)
+{
+  Stream_event *ev = unsmob_stream_event (sev);
+  
+  string id = ly_scm2string (ev->get_property ("id"));
+  SCM ops = ev->get_property ("ops");
+  SCM type_scm = ev->get_property ("type");
+  string type = ly_symbol2string (type_scm);
+  Object_key const *key = key_manager_.get_context_key (now_mom(), type, id);
+  
+  vector<Context_def*> path
+    = unsmob_context_def (definition_)->path_to_acceptable_context (type_scm, get_output_def ());
+  if (path.size () != 1)
+    {
+      programming_error (_f ("Invalid CreateContext event: Cannot create %s context", type.c_str ()));
+      return;
+    }
+  Context_def *cdef = path[0];
+  
+  Context *new_context = cdef->instantiate (ops, key);
+
+  new_context->id_string_ = id;
+  
+  /* Register various listeners:
+      - Make the new context hear events that universally affect contexts
+      - connect events_below etc. properly */
+  /* We want to be the first ones to hear our own events. Therefore, wait
+     before registering events_below_ */
+  new_context->event_source ()->
+    add_listener (GET_LISTENER (new_context->create_context_from_event),
+                  ly_symbol2scm ("CreateContext"));
+  new_context->event_source ()->
+    add_listener (GET_LISTENER (new_context->remove_context),
+                  ly_symbol2scm ("RemoveContext"));
+  new_context->event_source ()->
+    add_listener (GET_LISTENER (new_context->change_parent),
+                  ly_symbol2scm ("ChangeParent"));
+  new_context->event_source ()->
+    add_listener (GET_LISTENER (new_context->set_property_from_event),
+                  ly_symbol2scm ("SetProperty"));
+  new_context->event_source ()->
+    add_listener (GET_LISTENER (new_context->unset_property_from_event),
+                  ly_symbol2scm ("UnsetProperty"));
+
+  new_context->events_below_->register_as_listener (new_context->event_source_);
+  this->add_context (new_context);
+
+  new_context->unprotect ();
+
+  Context_def *td = unsmob_context_def (new_context->definition_);
+
+  /* This cannot move before add_context (), because \override
+     operations require that we are in the hierarchy.  */
+  td->apply_default_property_operations (new_context);
+  apply_property_operations (new_context, ops);
+
+  send_stream_event (this, "AnnounceNewContext", 0,
+  		     ly_symbol2scm ("context"), new_context->self_scm (),
+  		     ly_symbol2scm ("creator"), sev);
+}
+
 Context *
 Context::create_context (Context_def *cdef,
 			 string id,
 			 SCM ops)
 {
-  int unique = get_global_context()->new_unique();
-
-  // TODO: The following should be carried out by a listener.
-  string type = ly_symbol2string (cdef->get_context_name ());
-  Object_key const *key = key_manager_.get_context_key (now_mom(), type, id);
-  Context *new_context
-    = cdef->instantiate (ops, key);
-
-  new_context->id_string_ = id;
-  new_context->unique_ = unique;
-  
-  new_context->events_below_->register_as_listener (new_context->event_source_);
-  
-  add_context (new_context);
-  apply_property_operations (new_context, ops);
-  events_below_->register_as_listener (new_context->events_below_);
-
-  // TODO: The above operations should be performed by a listener to the following event.
-  send_stream_event (this, "CreateContext",
-                     ly_symbol2scm ("unique"), scm_int2num (unique),
+  infant_event_ = 0;
+  /* TODO: This is fairly misplaced. We can fix this when we have taken out all
+     iterator specific stuff from the Context class */
+  event_source_->
+    add_listener (GET_LISTENER (acknowledge_infant),
+                  ly_symbol2scm ("AnnounceNewContext"));
+  /* The CreateContext creates a new context, and sends an announcement of the
+     new context through another event. That event will be stored in
+     infant_event_ to create a return value. */
+  send_stream_event (this, "CreateContext", 0,
                      ly_symbol2scm ("ops"), ops,
                      ly_symbol2scm ("type"), cdef->get_context_name (),
                      ly_symbol2scm ("id"), scm_makfrom0str (id.c_str ()));
+  event_source_->
+    remove_listener (GET_LISTENER (acknowledge_infant),
+                     ly_symbol2scm ("AnnounceNewContext"));
 
-  return new_context;
+  assert (infant_event_);
+  SCM infant_scm = infant_event_->get_property ("context");
+  Context *infant = unsmob_context (infant_scm);
+
+  if (!infant || infant->get_parent_context () != this)
+    {
+      programming_error ("create_context: can't locate newly created context");
+      return 0;
+    }
+
+  return infant;
 }
 
 /*
@@ -351,9 +439,9 @@ properties and corresponding values, interleaved. This method should not
 be called from any other place than the send_stream_event macro.
 */
 void
-Context::internal_send_stream_event (SCM type, SCM props[])
+Context::internal_send_stream_event (SCM type, Input *origin, SCM props[])
 {
-  Stream_event *e = new Stream_event (this, type);
+  Stream_event *e = new Stream_event (type, origin);
   for (int i = 0; props[i]; i += 2)
     {
       e->internal_set_property (props[i], props[i+1]);
@@ -400,19 +488,36 @@ Context::unset_property (SCM sym)
   properties_dict ()->remove (sym);
 }
 
-/**
-   Remove a context from the hierarchy.
-*/
-Context *
-Context::remove_context (Context *trans)
+IMPLEMENT_LISTENER (Context, change_parent);
+void
+Context::change_parent (SCM sev)
 {
-  assert (trans);
+  Stream_event *ev = unsmob_stream_event (sev);
+  Context *to = unsmob_context (ev->get_property ("context"));
 
-  context_list_ = scm_delq_x (trans->self_scm (), context_list_);
-  trans->daddy_context_ = 0;
-  return trans;
+  disconnect_from_parent ();
+  to->add_context (this);
 }
 
+/*
+  Die. The next GC sweep should take care of the actual death.
+ */
+IMPLEMENT_LISTENER (Context, remove_context);
+void
+Context::remove_context (SCM)
+{
+  /* ugh, the translator group should listen to RemoveContext events by itself */
+  implementation ()->disconnect_from_context ();
+  disconnect_from_parent ();
+}
+
+void
+Context::disconnect_from_parent ()
+{
+  daddy_context_->events_below_->unregister_as_listener (this->events_below_);
+  daddy_context_->context_list_ = scm_delq_x (this->self_scm (), daddy_context_->context_list_);
+  daddy_context_ = 0;
+}
 
 /*
   ID == "" means accept any ID.
@@ -434,25 +539,6 @@ find_context_below (Context *where,
       Context *tr = unsmob_context (scm_car (s));
 
       found = find_context_below (tr, type, id);
-    }
-
-  return found;
-}
-
-Context *
-find_context_below (Context *where,
-                    int unique)
-{
-  if (where->get_unique () == unique)
-    return where;
-
-  Context *found = 0;
-  for (SCM s = where->children_contexts ();
-       !found && scm_is_pair (s); s = scm_cdr (s))
-    {
-      Context *tr = unsmob_context (scm_car (s));
-
-      found = find_context_below (tr, unique);
     }
 
   return found;

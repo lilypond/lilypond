@@ -11,14 +11,10 @@
 
 #include "context-def.hh"
 
-#include "engraver-group.hh"
-#include "engraver.hh"
 #include "international.hh"
 #include "output-def.hh"
-#include "performer-group.hh"
-#include "performer.hh"
 #include "score-context.hh"
-#include "translator-group.hh"
+#include "translator.hh"
 #include "warn.hh"
 
 Context_def::Context_def ()
@@ -144,12 +140,6 @@ Context_def::add_context_mod (SCM mod)
 }
 
 SCM
-Context_def::get_context_name () const
-{
-  return context_name_;
-}
-
-SCM
 Context_def::get_accepted (SCM user_mod) const
 {
   SCM mods = scm_reverse_x (scm_list_copy (accept_mods_), user_mod);
@@ -259,34 +249,6 @@ Context_def::get_translator_names (SCM user_mod) const
   return l1;
 }
 
-SCM
-filter_performers (SCM ell)
-{
-  SCM *tail = &ell;
-  for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
-    {
-      if (dynamic_cast<Performer *> (unsmob_translator (scm_car (*tail))))
-	*tail = scm_cdr (*tail);
-      else
-	tail = SCM_CDRLOC (*tail);
-    }
-  return ell;
-}
-
-SCM
-filter_engravers (SCM ell)
-{
-  SCM *tail = &ell;
-  for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
-    {
-      if (dynamic_cast<Engraver *> (unsmob_translator (scm_car (*tail))))
-	*tail = scm_cdr (*tail);
-      else
-	tail = SCM_CDRLOC (*tail);
-    }
-  return ell;
-}
-
 Context *
 Context_def::instantiate (SCM ops, Object_key const *key)
 {
@@ -299,55 +261,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 
   context->definition_ = self_scm ();
   context->definition_mods_ = ops;
-
-  SCM trans_names = get_translator_names (ops);
-
-  Translator_group *g = get_translator_group (translator_group_type_);
-  SCM trans_list = SCM_EOL;
-
-  for (SCM s = trans_names; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Translator *t = get_translator (scm_car (s));
-      if (!t)
-	warning (_f ("can't find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
-      else
-	{
-	  Translator *tr = t->clone ();
-	  SCM str = tr->self_scm ();
-
-	  if (tr->must_be_last ())
-	    {
-	      SCM cons = scm_cons (str, SCM_EOL);
-	      if (scm_is_pair (trans_list))
-		scm_set_cdr_x (scm_last_pair (trans_list), cons);
-	      else
-		trans_list = cons;
-	    }
-	  else
-	    trans_list = scm_cons (str, trans_list);
-
-	  tr->daddy_context_ = context;
-	  tr->unprotect ();
-	}
-    }
-
-  /*
-    Ugh,  todo: should just make a private
-    copy of Context_def with the user mods.
-  */
-
-  g->simple_trans_list_ = trans_list;
-
-  context->implementation_ = g;
-  if (dynamic_cast<Engraver_group *> (g))
-    g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
-  else if (dynamic_cast<Performer_group *> (g))
-    g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
-
   context->aliases_ = context_aliases_;
-  g->connect_to_context (context);
-  g->unprotect ();
-
   context->accepts_list_ = get_accepted (ops);
 
   return context;
