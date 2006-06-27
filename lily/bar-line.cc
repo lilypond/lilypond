@@ -124,7 +124,7 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
 
       for (int i = 0; i < c - 1; i++)
 	{
-	  Real y = (- (c - 1.0) / 2 + 0.5 + i * staff_space);
+	  Real y = (- (c - 1.0) / 2 + 0.5 + i) * staff_space;
 	  Stencil d (dot);
 
 	  d.translate_axis (y, Y_AXIS);
