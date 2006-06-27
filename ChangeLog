@@ -1,3 +1,9 @@
+2006-06-27  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/bar-line.cc (compound_barline): Fix parenthesis error,
+	gives correct vertical placement of \bar ":" in all staff
+	sizes. Thanks Martial!
+
 2006-06-22  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* ly/performer-init.ly: Add some missing links in the context
