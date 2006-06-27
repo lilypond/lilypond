@@ -1,3 +1,8 @@
+2006-06-27  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/parser.yy: Wrap non-post-events in EventChords before
+	assigning them to identifiers.
+
 2006-06-27  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/bar-line.cc (compound_barline): Fix parenthesis error,
