@@ -579,7 +579,16 @@ identifier_init:
 		$$ = $1;
 	}
 	| music  {
-		$$ = $1;
+		/* Hack: Create event-chord around standalone events.
+		   Prevents the identifier from being interpreted as a post-event. */
+		Music *mus = unsmob_music ($1);
+		bool is_event = mus &&
+			(scm_memq (ly_symbol2scm ("event"), mus->get_property ("types"))
+				!= SCM_BOOL_F);
+		if (!is_event)
+			$$ = $1;
+		else
+			$$ = MAKE_SYNTAX ("event-chord", @$, scm_list_1 ($1));
 	}
 	| post_event {
 		$$ = $1;
