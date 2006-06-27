@@ -441,6 +441,10 @@ Aug 18, 2005
 
 http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/
 convert-ly.txt?rev=HEAD&content-type=text/plain
+
+NEW: not exactly copied; this list has been modified.  Since we're
+changing the bug system, it doesn't make sense to copy from
+the bug CVS any more.  I'll figure out something else.  -gp
 @end ignore
 @verbatim
 
@@ -495,7 +499,9 @@ converted.
  but now, \line is missing.
 2.4->2.6
  Special LaTeX characters such as $~$ in text are not converted to UTF8.
-
+2.8
+ \score{} must now begin with a music expression.  Anything else
+ (particularly \header{}) must come after the music.
 @end verbatim
 
 
