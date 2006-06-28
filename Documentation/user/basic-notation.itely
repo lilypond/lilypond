@@ -1849,6 +1849,8 @@ automatic note splitting (see @ref{Automatic note splitting}).  This
 mechanism automatically splits long notes, and ties them across bar
 lines.
 
+@funindex \repeatTie
+
 When a second alternative of a repeat starts with a tied note, you
 have to repeat the tie. This can be achieved with @code{\repeatTie},
 
@@ -2925,6 +2927,16 @@ beginning of the example.
   \repeat volta 4 { e | c2 d2 | e2 f2 | }
   \alternative { { g4 g g } { a | a a a a | b2. } }
 }
+@end lilypond
+
+@funindex \repeatTie
+
+Ties may be added to a second ending,
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1
+\repeat volta 2 {c4 d e f ~ }
+\alternative { {f2 d} {f\repeatTie f,} }
 @end lilypond
 
 It is possible to shorten volta brackets
