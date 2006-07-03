@@ -387,54 +387,9 @@ i.e.  this is not an override"
 
 ;; mmrest
 (define-public (make-multi-measure-rest duration location)
-  (make-music 'MultiMeasureRestMusicGroup
+  (make-music 'MultiMeasureRest
 	      'origin location
-	      'elements (list (make-music 'BarCheck
-					  'origin location)
-			      (make-event-chord (list (make-music 'MultiMeasureRestEvent
-								  'origin location
-								  'duration duration)))
-			      (make-music 'BarCheck
-					  'origin location))))
-
-(define-public (glue-mm-rest-texts music)
-  "Check if we have R1*4-\\markup { .. }, and if applicable convert to
-a property set for MultiMeasureRestNumber."
-  (define (script-to-mmrest-text script-music)
-    "Extract 'direction and 'text from SCRIPT-MUSIC, and transform MultiMeasureTextEvent"
-    (let ((dir (ly:music-property script-music 'direction))
-	  (p   (make-music 'MultiMeasureTextEvent
-			   'text (ly:music-property script-music 'text))))
-      (if (ly:dir? dir)
-	  (set! (ly:music-property p 'direction) dir))
-      p))
-  
-  (if (eq? (ly:music-property music 'name) 'MultiMeasureRestMusicGroup)
-      (let* ((text? (lambda (x) (memq 'script-event (ly:music-property x 'types))))
-	     (event? (lambda (x) (memq 'event (ly:music-property x 'types))))
-	     (group-elts (ly:music-property  music 'elements))
-	     (texts '())
-	     (events '())
-	     (others '()))
-
-	(set! texts 
-	      (map script-to-mmrest-text (filter text? group-elts)))
-	(set! group-elts
-	      (remove text? group-elts))
-
-	(set! events (filter event? group-elts))
-	(set! others (remove event? group-elts))
-	
-	(if (or (pair? texts) (pair? events))
-	    (set! (ly:music-property music 'elements)
-		  (cons (make-event-chord
-			 (append texts events))
-			others)))
-
-	))
-
-  music)
-
+	      'duration duration))
 
 (define-public (make-property-set sym val)
   (make-music 'PropertySet
@@ -852,7 +807,6 @@ if appropriate.
 (define-public toplevel-music-functions
   (list
    (lambda (music parser) (voicify-music music))
-   (lambda (x parser) (music-map glue-mm-rest-texts x))
    (lambda (x parser) (music-map music-check-error x))
    (lambda (x parser) (music-map precompute-music-length x))
    (lambda (music parser)

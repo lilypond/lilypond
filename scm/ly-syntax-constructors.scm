@@ -85,14 +85,23 @@
 (define-ly-syntax-simple (repeat type num body alts)
   (make-repeat type num body alts))
 
-;; UGH. TODO: represent mm rests in a decent way as music expressions.
-;; Also eliminate glue-mm-rests while we are at it.
+(define (script-to-mmrest-text music)
+  "Extract 'direction and 'text from SCRIPT-MUSIC, and transform MultiMeasureTextEvent"
+  (if (memq 'script-event (ly:music-property music 'types))
+      
+      (let ((dir (ly:music-property music 'direction))
+	    (p   (make-music 'MultiMeasureTextEvent
+			     'text (ly:music-property music 'text))))
+	(if (ly:dir? dir)
+	    (set! (ly:music-property p 'direction) dir))
+	p)
+      music))
+
 (define-ly-syntax (multi-measure-rest parser location duration articulations)
-  (let* ((mus (make-multi-measure-rest duration location))
-	 (elts (ly:music-property mus 'elements)))
-    (set! (ly:music-property mus 'elements)
-	  (append elts articulations))
-    mus))
+  (make-music 'MultiMeasureRest
+	      'articulations (map script-to-mmrest-text articulations)
+	      'duration duration
+	      'origin location))
 
 (define-ly-syntax-simple (context-specification type id mus ops create-new)
   (let* ((type-sym (if (symbol? type) type (string->symbol type)))

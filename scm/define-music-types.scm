@@ -7,6 +7,20 @@
 
 ;; TODO: should link back into user manual.
 
+(define (mm-rest-child-list music)
+  "Check if we have R1*4-\\markup { .. }, and if applicable convert to
+a property set for MultiMeasureRestNumber."
+  (let ((location (ly:music-property music 'origin))
+	(duration (ly:music-property music 'duration)))
+    (list (make-music 'BarCheck
+		      'origin location)
+	  (make-event-chord (cons (make-music 'MultiMeasureRestEvent
+					      'origin location
+					      'duration duration)
+				  (ly:music-property music 'articulations)))
+	  (make-music 'BarCheck
+		      'origin location))))
+
 (define-public music-descriptions
   `(
     (AbsoluteDynamicEvent
@@ -281,26 +295,22 @@ e.g. @code{\\mark \"A\"}.")
 Syntax: @code{c4\\melisma d\\melismaEnd}.")
 	(types . (general-music melisma-span-event event))
 	))
-    
-    (MultiMeasureRestEvent
+
+    (MultiMeasureRest
      . (
 	(description . "Rests that may be compressed into Multi rests. 
 
 Syntax
-@code{R2.*4} for 4 measures in 3/4 time. Note the capital R.")
-	(types . (general-music event rhythmic-event multi-measure-rest-event))
+@code{R2.*4} for 4 measures in 3/4 time.")
+	(iterator-ctor . ,ly:sequential-iterator::constructor)
+	(elements-callback . ,mm-rest-child-list)
+	(types . (general-music multi-measure-rest))
 	))
-    
-    (MultiMeasureRestMusicGroup
-     . (
-	(description .	"Like sequential-music, but specifically intended
-to group start-mmrest, skip, stop-mmrest sequence. 
 
-Syntax @code{R2.*5} for 5 measures in 3/4 time.")
-	(length-callback . ,ly:music-sequence::cumulative-length-callback)
-	(start-callback . ,ly:music-sequence::first-start-callback)
-	(iterator-ctor . ,ly:sequential-music-iterator::constructor)
-	(types . (general-music sequential-music))
+    (MultiMeasureRestEvent
+     . (
+	(description . "Used internally by MultiMeasureRest to signal rests")
+	(types . (general-music event rhythmic-event multi-measure-rest-event))
 	))
     
     (MultiMeasureTextEvent
@@ -445,7 +455,8 @@ Syntax \\sequential @{..@} or simply @{..@} .")
 
 	(length-callback . ,ly:music-sequence::cumulative-length-callback)
 	(start-callback . ,ly:music-sequence::first-start-callback)
-	(iterator-ctor . ,ly:sequential-music-iterator::constructor)
+	(elements-callback . ,(lambda (m) (ly:music-property m 'elements)))
+	(iterator-ctor . ,ly:sequential-iterator::constructor)
 	(types . (general-music sequential-music))
 	))
 

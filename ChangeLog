@@ -1,3 +1,14 @@
+2006-07-03  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/sequential-iterator.cc: Change the default get_music_list
+	to read elements-callback music property
+
+	* scm/define-music-types.scm, scm/music-functions.scm: Cleaner
+	processing of multimeasure rests. Softcoded
+	sequential-music-iterator.
+
+	* lily/sequential-music-iterator.cc: Removed.
+
 2006-06-28  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/basic-notation.itely: clarify \repeatTie.

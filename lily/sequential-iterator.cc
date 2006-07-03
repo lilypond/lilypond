@@ -42,7 +42,12 @@ Sequential_iterator::Sequential_iterator ()
 SCM
 Sequential_iterator::get_music_list () const
 {
-  return SCM_EOL;
+  Music *m = get_music ();
+  SCM proc = m->get_property ("elements-callback");
+  if (scm_procedure_p (proc))
+    return scm_call_1 (proc, m->self_scm ());
+  else
+    return SCM_EOL;
 }
 
 void
