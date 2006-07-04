@@ -98,7 +98,7 @@
       music))
 
 (define-ly-syntax (multi-measure-rest parser location duration articulations)
-  (make-music 'MultiMeasureRest
+  (make-music 'MultiMeasureRestMusic
 	      'articulations (map script-to-mmrest-text articulations)
 	      'duration duration
 	      'origin location))
