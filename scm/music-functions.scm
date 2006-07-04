@@ -387,7 +387,7 @@ i.e.  this is not an override"
 
 ;; mmrest
 (define-public (make-multi-measure-rest duration location)
-  (make-music 'MultiMeasureRest
+  (make-music 'MultiMeasureRestMusic
 	      'origin location
 	      'duration duration))
 

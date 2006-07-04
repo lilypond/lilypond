@@ -481,7 +481,7 @@ Otherwise, return #f."
 		  ;; command_element
 		  (format #f "~{~a ~}" (map-in-order music->lily-string elements))))))))
 
-(define-display-method MultiMeasureRest (mmrest)
+(define-display-method MultiMeasureRestMusic (mmrest)
   (let* ((dur (ly:music-property mmrest 'duration))
 	 (ly (format #f "R~a~{~a ~}"
 		     (duration->lily-string dur)

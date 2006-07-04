@@ -296,7 +296,7 @@ Syntax: @code{c4\\melisma d\\melismaEnd}.")
 	(types . (general-music melisma-span-event event))
 	))
 
-    (MultiMeasureRest
+    (MultiMeasureRestMusic
      . (
 	(description . "Rests that may be compressed into Multi rests. 
 
@@ -309,7 +309,7 @@ Syntax
 
     (MultiMeasureRestEvent
      . (
-	(description . "Used internally by MultiMeasureRest to signal rests")
+	(description . "Used internally by MultiMeasureRestMusic to signal rests")
 	(types . (general-music event rhythmic-event multi-measure-rest-event))
 	))
     
