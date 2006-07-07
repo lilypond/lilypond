@@ -590,11 +590,14 @@
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (papersizename (ly:output-def-lookup defs 'papersizename)))
+	 (paper-width (ly:output-def-lookup defs 'paper-width))
+	 (paper-height (ly:output-def-lookup defs 'paper-height))
+	 (output-scale (ly:output-def-lookup defs 'output-scale)))
 
     (if (equal? (basename name ".ps") "-")
 	(ly:warning (_ "can't convert <stdout> to ~S" "PDF"))
-	(postscript->pdf (if (string? papersizename) papersizename "a4")
+	(postscript->pdf (* paper-width output-scale (/ (ly:bp 1)))
+			 (* paper-height output-scale (/ (ly:bp 1)))
 			 name))))
 
 (define-public (convert-to-png book name)
@@ -603,10 +606,13 @@
 	 (resolution (if (number? defs-resolution)
 			 defs-resolution
 			 (ly:get-option 'resolution)))
-	 (papersizename (ly:output-def-lookup defs 'papersizename)))
+	 (paper-width (ly:output-def-lookup defs 'paper-width))
+	 (paper-height (ly:output-def-lookup defs 'paper-height))
+	 (output-scale (ly:output-def-lookup defs 'output-scale)))
 
     (postscript->png resolution
-		     (if (string? papersizename) papersizename "a4")
+		     (* paper-width output-scale (/ (ly:bp 1)))
+		     (* paper-height output-scale (/ (ly:bp 1)))
 		     name)))
 
 (define-public (convert-to-dvi book name)

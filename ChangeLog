@@ -1,3 +1,12 @@
+2006-07-07  Guido Amoruso  <guidonte@katamail.com>
+
+	* scm/ps-to-png.scm (Module): 
+	* scm/framework-tex.scm (Module): 
+	* scm/framework-ps.scm (Module): 
+	* scm/backend-library.scm (Module): 
+	* scm/framework-ps.scm: invoke gs with "-dDEVICEWIDTHPOINTS" and
+	"dDEVICEHEIGHTPOINTS".
+
 2006-07-04  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ various: general improvements to

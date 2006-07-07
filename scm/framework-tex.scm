@@ -290,23 +290,27 @@
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (papersizename (ly:output-def-lookup defs 'papersizename)))
-    (postscript->pdf (if (string? papersizename) papersizename "a4")
+	 (paper-width (ly:output-def-lookup defs 'paper-width))
+	 (paper-height (ly:output-def-lookup defs 'paper-height))
+	 (output-scale (ly:output-def-lookup defs 'output-scale)))
+    (postscript->pdf (* paper-width output-scale (/ (ly:bp 1)))
+		     (* paper-height output-scale (/ (ly:bp 1)))
 		     (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
 	 (resolution (ly:output-def-lookup defs 'pngresolution))
-	 (papersizename (ly:output-def-lookup defs 'papersizename)))
+	 (paper-width (ly:output-def-lookup defs 'paper-width))
+	 (paper-height (ly:output-def-lookup defs 'paper-height))
+	 (output-scale (ly:output-def-lookup defs 'output-scale)))
     (postscript->png
      (if (number? resolution)
 	 resolution
 	 (ly:get-option 'resolution))
 
-     (if (string? papersizename)
-	 papersizename
-	 "a4")
-     
+     (* paper-width output-scale (/ (ly:bp 1)))
+     (* paper-height output-scale (/ (ly:bp 1)))
+
      (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-ps book name)

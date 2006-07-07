@@ -2680,6 +2680,7 @@ conversions.append (((2, 7, 28), conv,
 
 def conv (str):
     for a in ['beamed-lengths', 'beamed-minimum-free-lengths',
+              'lengths',
 	      'beamed-extreme-minimum-free-lengths']:
 	str = re.sub (r"\\override\s+Stem\s+#'%s" % a,
 		      r"\\override Stem #'details #'%s" % a,
