@@ -49,14 +49,14 @@
   ;; must be sure that we don't catch stuff from old GUBs.
   (search-executable '("gs")))
 
-(define-public (postscript->pdf papersizename name)
+(define-public (postscript->pdf paper-width paper-height name)
   (let* ((pdf-name (string-append (basename name ".ps") ".pdf"))
 	 (cmd (format #f
 		      "~a\
  ~a\
  ~a\
  -dCompatibilityLevel=1.4 \
- -sPAPERSIZE=~a\
+ -dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f\
  -dNOPAUSE\
  -dBATCH\
  -r1200 \
@@ -70,7 +70,8 @@
 		      (if (ly:get-option 'gs-font-load)
 			  " -dNOSAFER "
 			  " -dSAFER ")
-		      (sanitize-command-option papersizename)
+		      paper-width
+		      paper-height
 		      pdf-name
 		      name)))
     ;; The wrapper on windows cannot handle `=' signs,
@@ -90,17 +91,16 @@
 
 (use-modules (scm ps-to-png))
 
-(define-public (postscript->png resolution paper-size-name name)
+(define-public (postscript->png resolution paper-width paper-height name)
     ;; Do not try to guess the name of the png file,
     ;; GS produces PNG files like BASE-page%d.png.
     ;;(ly:message (_ "Converting to `~a'...")
     ;;	    (string-append (basename name ".ps") "-page1.png" )))
-  (let ((paper-size (sanitize-command-option paper-size-name))
-	(verbose (ly:get-option 'verbose))
+  (let ((verbose (ly:get-option 'verbose))
 	(rename-page-1 #f))
 
     (ly:message (_ "Converting to ~a...") "PNG")
-    (make-ps-images name resolution paper-size rename-page-1 verbose
+    (make-ps-images name resolution paper-width paper-height rename-page-1 verbose
 		    (ly:get-option 'anti-alias-factor))
     (ly:progress "\n")))
 
