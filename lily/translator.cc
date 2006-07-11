@@ -125,7 +125,7 @@ Translator::get_global_context () const
   return daddy_context_->get_global_context ();
 }
 
-Score_context *
+Context *
 Translator::get_score_context () const
 {
   return daddy_context_->get_score_context ();

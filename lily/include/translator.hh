@@ -89,7 +89,7 @@ public:
   void process_music ();
   void process_acknowledged ();
 
-  Score_context *get_score_context () const;
+  Context *get_score_context () const;
   Global_context *get_global_context () const;
 
   TRANSLATOR_DECLARATIONS (Translator);

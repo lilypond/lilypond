@@ -10,13 +10,11 @@
 
 #include "moment.hh"
 #include "performer-group.hh"
-#include "score-translator.hh"
 
 /**
    Top level performer. Completely takes care of MIDI output
 */
-class Score_performer : public Score_translator,
-			public virtual Performer_group
+class Score_performer : public Performer_group
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Score_performer);
@@ -36,7 +34,6 @@ protected:
   virtual void announce_element (Audio_element_info);
   virtual int get_tempo () const;
   virtual void play_element (Audio_element *p);
-  virtual SCM get_output ();
   virtual void derived_mark () const;
 private:
   void header (Midi_stream &);

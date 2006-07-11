@@ -130,21 +130,12 @@ Score_performer::get_tempo () const
   return ::get_tempo (performance_->midi_, Moment (Rational (1, 4)));
 }
 
-SCM
-Score_performer::get_output ()
-{
-  Music_output *o = performance_;
-  performance_ = 0;
-  return o->self_scm ();
-}
-
 void
 Score_performer::derived_mark () const
 {
   if (performance_)
     scm_gc_mark (performance_->self_scm ());
 
-  Score_translator::derived_mark ();
   Performer_group::derived_mark ();
 }
 
@@ -153,6 +144,7 @@ Score_performer::initialize ()
 {
   performance_ = new Performance;
   performance_->unprotect ();
+  context ()->set_property ("output", performance_->self_scm ()); 
   performance_->midi_ = context ()->get_output_def ();
 
   Translator_group::initialize ();

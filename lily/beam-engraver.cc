@@ -15,7 +15,6 @@
 #include "international.hh"
 #include "item.hh"
 #include "rest.hh"
-#include "score-context.hh"
 #include "spanner.hh"
 #include "stem.hh"
 #include "warn.hh"

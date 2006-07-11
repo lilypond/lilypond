@@ -35,7 +35,6 @@ Score_engraver::derived_mark () const
 {
   if (pscore_)
     scm_gc_mark (pscore_->self_scm ());
-  Score_translator::derived_mark ();
   Engraver_group::derived_mark ();
 }
 
@@ -77,6 +76,7 @@ Score_engraver::initialize ()
 
   pscore_ = new Paper_score (dynamic_cast<Output_def *> (context ()->get_output_def ()));
   pscore_->unprotect ();
+  context ()->set_property ("output", pscore_->self_scm ());
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
@@ -114,7 +114,7 @@ Score_engraver::disconnect_from_context ()
 void
 Score_engraver::finalize ()
 {
-  Score_translator::finalize ();
+  Engraver_group::finalize ();
 
   typeset_all ();
 }
@@ -155,13 +155,6 @@ Score_engraver::typeset_all ()
 	Axis_group_interface::add_element (system_, elem);
     }
   elems_.clear ();
-}
-
-SCM
-Score_engraver::get_output ()
-{
-  Music_output *o = pscore_;
-  return o->self_scm ();
 }
 
 bool

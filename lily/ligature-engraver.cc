@@ -12,7 +12,6 @@
 #include "international.hh"
 #include "note-head.hh"
 #include "rest.hh"
-#include "score-context.hh"
 #include "spanner.hh"
 #include "warn.hh"
 

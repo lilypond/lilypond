@@ -18,7 +18,6 @@ using namespace std;
 #include "music-iterator.hh"
 #include "music.hh"
 #include "output-def.hh"
-#include "score-context.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -96,10 +95,6 @@ Global_context::prepare (SCM sev)
   now_mom_ = *mom;
   
   clear_key_disambiguations ();
-
-  // should do nothing now
-  if (get_score_context ())
-    get_score_context ()->prepare (now_mom_);
 }
 
 Moment
@@ -108,31 +103,18 @@ Global_context::now_mom () const
   return now_mom_;
 }
 
-Score_context *
+Context *
 Global_context::get_score_context () const
 {
   return (scm_is_pair (context_list_))
-    ? dynamic_cast<Score_context *> (unsmob_context (scm_car (context_list_)))
+    ? unsmob_context (scm_car (context_list_))
     : 0;
 }
 
 SCM
 Global_context::get_output ()
 {
-  return get_score_context ()->get_output ();
-}
-
-void
-Global_context::one_time_step ()
-{
-  get_score_context ()->one_time_step ();
-}
-
-void
-Global_context::finish ()
-{
-  if (get_score_context ())
-    get_score_context ()->finish ();
+  return get_score_context ()->get_property ("output");
 }
 
 void
@@ -168,23 +150,6 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
 
       if (iter->ok ())
 	iter->process (w);
-
-      if (!get_score_context ())
-	{
-	  error ("ES TODO: no score context, this shouldn't happen");
-	  SCM sym = ly_symbol2scm ("Score");
-	  Context_def *t = unsmob_context_def (find_context_def (get_output_def (),
-								 sym));
-	  if (!t)
-	    error (_f ("can't find `%s' context", "Score"));
-
-	  Object_key const *key = get_context_key ("Score", "");
-	  Context *c = t->instantiate (SCM_EOL, key);
-	  add_context (c);
-
-	  Score_context *sc = dynamic_cast<Score_context *> (c);
-	  sc->prepare (w);
-	}
 
       send_stream_event (this, "OneTimeStep", 0, 0);
       apply_finalizations ();

@@ -14,7 +14,6 @@
 #include "note-spacing.hh"
 #include "pointer-group-interface.hh"
 #include "context.hh"
-#include "score-context.hh"
 #include "axis-group-interface.hh"
 #include "warn.hh"
 

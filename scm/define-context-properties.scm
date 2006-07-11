@@ -308,6 +308,7 @@ markup.  Called with 2 arguments, event and context.")
 selects the highest string with a fret at least @code{minimumFret}")
      (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
 format as @var{verticalExtent}")
+     (output ,ly:music-output? "The output produced by a score-level translator during music interpretation")
      (ottavation ,string? "If set, the text for an ottava spanner. Changing
 this creates a new text spanner. ")
      (pedalSustainStrings ,list? "List of string to print for
