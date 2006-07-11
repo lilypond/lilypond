@@ -118,7 +118,7 @@ Music_iterator::music_start_mom ()const
 }
 
 void
-Music_iterator::init_translator (Music *m, Context *report)
+Music_iterator::init_context (Music *m, Context *report)
 {
   music_ = m;
   assert (m);
@@ -145,7 +145,7 @@ Music_iterator::get_iterator (Music *m) const
   SCM ip = get_static_get_iterator (m);
   Music_iterator *p = unsmob_iterator (ip);
 
-  p->init_translator (m, get_outlet ());
+  p->init_context (m, get_outlet ());
 
   p->construct_children ();
   return ip;

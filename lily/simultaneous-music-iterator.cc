@@ -51,14 +51,14 @@ Simultaneous_music_iterator::construct_children ()
 	 number number as name */
 
       SCM name = ly_symbol2scm (get_outlet ()->context_name ().c_str ());
-      Context *t = (j && create_separate_contexts_)
+      Context *c = (j && create_separate_contexts_)
 	? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
 	: get_outlet ();
 
-      if (!t)
-	t = get_outlet ();
+      if (!c)
+	c = get_outlet ();
 
-      mi->init_translator (mus, t);
+      mi->init_context (mus, c);
       mi->construct_children ();
 
       if (mi->ok ())

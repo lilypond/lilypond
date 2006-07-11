@@ -14,7 +14,6 @@
 #include "spanner.hh"
 #include "item.hh"
 #include "context.hh"
-#include "score-context.hh"
 #include "lilypond-key.hh"
 
 Engraver_group *

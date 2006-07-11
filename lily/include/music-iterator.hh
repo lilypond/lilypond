@@ -65,7 +65,7 @@ public:
   Context *get_outlet () const;
   void set_context (Context *);
   static SCM get_static_get_iterator (Music *mus);
-  void init_translator (Music *, Context *);
+  void init_context (Music *, Context *);
   void quit ();
   void substitute_outlet (Context *from, Context *to);
   void descend_to_bottom_context ();

@@ -1,3 +1,14 @@
+2006-07-11  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/global-context-scheme.cc: Separated ly:run-translator into
+	smaller pieces.
+
+	* lily/score-engraver.cc, lily/score-performer.cc,
+	scm/define-context-properties.scm: Make paper/midi output
+	accessable as a context property.
+
+	* lily/score-translator.cc, lily/score-context.cc: Removed.
+
 2006-07-07  Guido Amoruso  <guidonte@katamail.com>
 
 	* scm/ps-to-png.scm (Module): 

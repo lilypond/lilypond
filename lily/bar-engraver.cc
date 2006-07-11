@@ -9,7 +9,6 @@
 
 #include "bar-line.hh"
 #include "context.hh"
-#include "score-context.hh"
 #include "score-engraver.hh"
 #include "warn.hh"
 #include "item.hh"

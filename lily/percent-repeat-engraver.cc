@@ -16,7 +16,6 @@
 #include "misc.hh"
 #include "percent-repeat-iterator.hh"
 #include "repeated-music.hh"
-#include "score-context.hh"
 #include "side-position-interface.hh"
 #include "spanner.hh"
 #include "warn.hh"

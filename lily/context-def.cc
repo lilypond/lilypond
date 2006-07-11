@@ -11,9 +11,9 @@
 
 #include "context-def.hh"
 
+#include "context.hh"
 #include "international.hh"
 #include "output-def.hh"
-#include "score-context.hh"
 #include "translator.hh"
 #include "warn.hh"
 
@@ -252,12 +252,7 @@ Context_def::get_translator_names (SCM user_mod) const
 Context *
 Context_def::instantiate (SCM ops, Object_key const *key)
 {
-  Context *context = 0;
-
-  if (context_name_ == ly_symbol2scm ("Score"))
-    context = new Score_context (key);
-  else
-    context = new Context (key);
+  Context *context = new Context (key);
 
   context->definition_ = self_scm ();
   context->definition_mods_ = ops;

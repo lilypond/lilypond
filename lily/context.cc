@@ -10,6 +10,7 @@
 
 #include "context-def.hh"
 #include "dispatcher.hh"
+#include "global-context.hh"
 #include "international.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
@@ -17,7 +18,6 @@
 #include "profile.hh"
 #include "program-option.hh"
 #include "scm-hash.hh"
-#include "score-context.hh"
 #include "translator-group.hh"
 #include "warn.hh"
 
@@ -140,8 +140,8 @@ Context::create_unique_context (SCM name, string id, SCM operations)
     }
 
   /*
-    Don't go up to Global_context, because global goes down to
-    Score_context
+    Don't go up to Global_context, because global goes down to the
+    Score context
   */
   Context *ret = 0;
   if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
@@ -202,8 +202,8 @@ Context::find_create_context (SCM n, string id, SCM operations)
     }
 
   /*
-    Don't go up to Global_context, because global goes down to
-    Score_context
+    Don't go up to Global_context, because global goes down to the
+    Score context
   */
   Context *ret = 0;
   if (daddy_context_ && !dynamic_cast<Global_context *> (daddy_context_))
@@ -563,12 +563,10 @@ Context::context_name () const
   return ly_symbol2string (context_name_symbol ());
 }
 
-Score_context *
+Context *
 Context::get_score_context () const
 {
-  if (Score_context *sc = dynamic_cast<Score_context *> ((Context *) this))
-    return sc;
-  else if (daddy_context_)
+  if (daddy_context_)
     return daddy_context_->get_score_context ();
   else
     return 0;

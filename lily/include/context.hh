@@ -102,7 +102,7 @@ public:
   SCM context_name_symbol () const;
   Global_context *get_global_context () const;
 
-  virtual Score_context *get_score_context () const;
+  virtual Context *get_score_context () const;
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;
   virtual Context *get_default_interpreter ();

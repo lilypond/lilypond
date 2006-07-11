@@ -26,14 +26,12 @@ public:
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator *);
-  virtual Score_context *get_score_context () const;
+  virtual Context *get_score_context () const;
 
   void apply_finalizations ();
   void add_finalization (SCM);
 
   DECLARE_LISTENER (prepare);
-  virtual void one_time_step ();
-  virtual void finish ();
   virtual SCM get_output ();
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;

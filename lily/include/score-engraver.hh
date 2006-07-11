@@ -10,10 +10,8 @@
 #define SCORE_ENGRAVER_HH
 
 #include "engraver-group.hh"
-#include "score-translator.hh"
 
-class Score_engraver : public virtual Score_translator,
-		       public virtual Engraver_group
+class Score_engraver : public Engraver_group
 {
   System *system_;
 
@@ -43,7 +41,6 @@ protected:
 
 public:
   Score_engraver ();
-  virtual SCM get_output ();
 };
 
 #endif /* SCORE_ENGRAVER_HH */
