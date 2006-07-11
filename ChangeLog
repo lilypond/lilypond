@@ -1,5 +1,7 @@
 2006-07-11  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* python/convertrules.py (conv): tweaks. 
+
 	* VERSION (PATCH_LEVEL): bump version.
 
 	* python/convertrules.py (conv): add rule for tupletNumberFormatFunction.

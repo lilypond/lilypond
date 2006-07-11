@@ -8,7 +8,7 @@
 
 }
 
-\version "2.7.39"
+\version "2.9.11"
 
 \paper {
   ragged-right = ##t  
@@ -17,7 +17,7 @@
 
 
 \relative c'' {
-  \set tupletNumberFormatFunction = #fraction-tuplet-formatter
+  \override TupletNumber #'text = #tuplet-number::calc-fraction-text
 
   \override TupletBracket #'edge-text = #(cons
 					  (markup #:fontsize 6

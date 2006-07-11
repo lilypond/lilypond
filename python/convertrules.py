@@ -2808,11 +2808,11 @@ conversions.append (((2, 9, 9), conv, """annotatefoo -> annotate-foo"""))
 
 
 def conv (str):
-    str = re.sub (r"""\\set ([a-zA-Z]+.?)tupletNumberFormatFunction *= *#denominator-tuplet-formatter""",
-                  r"""\\override \1TupletNumber #'text = #tuplet-number::calc-denominator-text""", str)
+    str = re.sub (r"""(\\set\s)?(?P<context>[a-zA-Z]*.?)tupletNumberFormatFunction\s*=\s*#denominator-tuplet-formatter""",
+                  r"""\\override \g<context>TupletNumber #'text = #tuplet-number::calc-denominator-text""", str)
 
-    str = re.sub (r"""\\set ([a-zA-Z]+.?)tupletNumberFormatFunction *= *#fraction-tuplet-formatter""",
-                  r"""\\override \1TupletNumber #'text = #tuplet-number::calc-fraction-text""", str)
+    str = re.sub (r"""(\\set\s+)?(?P<context>[a-zA-Z]*.?)tupletNumberFormatFunction\s*=\s*#fraction-tuplet-formatter""",
+                  r"""\\override \g<context>TupletNumber #'text = #tuplet-number::calc-fraction-text""", str)
 
     if re.search ('tupletNumberFormatFunction', str):
         error_file.write ("\n")

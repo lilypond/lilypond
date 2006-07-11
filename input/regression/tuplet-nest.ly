@@ -1,5 +1,5 @@
 
-\version "2.7.39"
+\version "2.9.11"
 
 \header {
     texidoc=" Tuplets may be nested."
@@ -11,7 +11,7 @@
 }
 
 \relative c'' {
-  \set tupletNumberFormatFunction = #fraction-tuplet-formatter
+  \override TupletNumber #'text = #tuplet-number::calc-fraction-text
   \times 4/6 {
     \times 2/3 {
       a a a
