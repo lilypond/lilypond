@@ -87,6 +87,9 @@ Nested tuplets can have different formatting for each nesting level,
 }
 @end lilypond
 
+This feature was sponsored by Trevor Bača.
+
+
 @item
 New sections with different spacing parameters can be started with
 @code{newSpacingSection}.  This is useful when there are  
