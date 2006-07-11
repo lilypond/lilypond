@@ -243,6 +243,23 @@ centered, X==1 is at the right, X == -1 is at the left."
       (ly:grob-translate-axis! g 3.5 X)))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tuplets
+
+(define-public (tuplet-number::calc-denominator-text grob)
+  (let*
+      ((mus (ly:grob-property grob 'cause)))
+    
+    (number->string (ly:music-property mus 'denominator))))
+
+
+(define-public (tuplet-number::calc-fraction-text grob)
+  (let*
+      ((mus (ly:grob-property grob 'cause)))
+    (format "~a:~a" 
+      (ly:music-property mus 'denominator)
+      (ly:music-property mus 'numerator))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Color
 

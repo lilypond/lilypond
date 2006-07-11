@@ -66,6 +66,28 @@ which scares away people.
 
 @end ignore
 @item
+Nested tuplets can have different formatting for each nesting level,
+
+@lilypond[ragged-right]
+\new Staff {
+  \time 5/4
+  \tweak #'text #tuplet-bracket::calc-fraction-text
+  \times 5/3 {
+     \tweak #'tupletNumberFormatFunction #denominator-tuplet-formatter
+     \times 2/3 {
+        c'8[ c'8 c'8]
+     }
+     \times 2/3 {
+        c'8[ c'8 c'8]
+     }
+     \times 2/3 {
+        c'8[ c'8 c'8]
+     }
+  }
+}
+@end lilypond
+
+@item
 New sections with different spacing parameters can be started with
 @code{newSpacingSection}.  This is useful when there are  
 sections with a different notions of long and short notes.

@@ -412,11 +412,6 @@ number is specified.")
 
      (tupletFullLength ,boolean? "If set, the tuplet is printed up to
 the start of the next note.")
-     (tupletNumberFormatFunction
-      ,procedure?
-      "Function taking a music as input, producing a string. This function
-is called to determine the text to print on a tuplet bracket.")
-
      (tupletSpannerDuration ,ly:moment? "
 Normally a tuplet bracket is as wide as the
 @code{\\times} expression that gave rise to it.  By setting this

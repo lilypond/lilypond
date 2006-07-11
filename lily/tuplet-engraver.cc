@@ -116,13 +116,6 @@ Tuplet_engraver::process_music ()
       if (i > 0 && tuplets_[i - 1].bracket_)
 	Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1].bracket_, tuplets_[i].bracket_);
 
-
-      SCM proc = get_property ("tupletNumberFormatFunction");
-      if (ly_is_procedure (proc))
-	{
-	  SCM t = scm_apply_0 (proc, scm_list_1 (tuplets_[i].music_->self_scm ()));
-	  tuplets_[i].number_->set_property ("text", t);
-	}
     }
 }
 
@@ -166,5 +159,5 @@ ADD_TRANSLATOR (Tuplet_engraver,
 		/* doc */ "Catch TupletSpannerEvent and generate appropriate bracket  ",
 		/* create */ "TupletBracket TupletNumber ",
 		/* accept */ "tuplet-spanner-event",
-		/* read */ "tupletNumberFormatFunction tupletFullLength ",
+		/* read */ "tupletFullLength ",
 		/* write */ "");
