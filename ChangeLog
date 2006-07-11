@@ -1,3 +1,27 @@
+2006-07-11  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION (PATCH_LEVEL): bump version.
+
+	* python/convertrules.py (conv): add rule for tupletNumberFormatFunction.
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
+	tupletNumberFormatFunction.
+
+	* scm/define-grobs.scm (all-grob-descriptions): calc TupletNumber
+	text through 'text callback.
+
+	* lily/time-scaled-music-iterator.cc (construct_children): copy
+	tweaks generated events.
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): remove tupletNumberFormatFunction
+
+	* lily/tuplet-engraver.cc (process_music): don't read
+	tupletNumberFormatFunction
+
+	* scm/output-lib.scm (tuplet-number::calc-fraction-text): new
+	function.
+
 2006-07-11  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/global-context-scheme.cc: Separated ly:run-translator into

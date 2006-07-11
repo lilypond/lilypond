@@ -1773,7 +1773,6 @@
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
 	(staff-padding . 0.25)
-	
 	(direction  . ,ly:tuplet-bracket::calc-direction)
 	(positions . ,ly:tuplet-bracket::calc-positions)
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
@@ -1787,6 +1786,7 @@
     (TupletNumber
      . (
 	(stencil . ,ly:tuplet-number::print)
+	(text . ,tuplet-number::calc-denominator-text)
 	(font-shape . italic)
 	(font-size . -2)
 	(avoid-slur . inside)

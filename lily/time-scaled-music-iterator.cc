@@ -32,10 +32,13 @@ protected:
   virtual void derived_mark () const;
   virtual Moment pending_moment () const;
 private:
+
   /* tupletSpannerDuration */
   Moment spanner_duration_;
+
   /* next time to add a stop/start pair */
   Moment next_split_mom_;
+  
   /* Recycle start/stop events if tupletSpannerDuration is set. */
   Music *start_;
   Music *stop_;
@@ -70,6 +73,7 @@ Time_scaled_music_iterator::process (Moment m)
     {
       report_event (stop_);
       report_event (start_);
+      
       next_split_mom_ += spanner_duration_;
       /* avoid sending events twice at the end */
       if (next_split_mom_ == get_music ()->get_length ().main_part_)
@@ -98,6 +102,8 @@ Time_scaled_music_iterator::construct_children ()
   start_->set_spot (*origin);
   start_->set_property ("numerator", mus->get_property ("numerator"));
   start_->set_property ("denominator", mus->get_property ("denominator"));
+  start_->set_property ("tweaks", mus->get_property ("tweaks"));
+  
 
   SCM stop_scm = scm_call_2 (ly_lily_module_constant ("make-span-event"), tuplet_symbol, scm_from_int (STOP));
   stop_ = unsmob_music (stop_scm);

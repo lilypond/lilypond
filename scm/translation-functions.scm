@@ -5,15 +5,6 @@
 ;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
-(define-public (denominator-tuplet-formatter mus)
-  (number->string (ly:music-property mus 'denominator)))
-
-(define-public (fraction-tuplet-formatter mus)
-  (string-append
-   (number->string (ly:music-property mus 'denominator))
-   ":"
-   (number->string (ly:music-property mus 'numerator))))
-
 ;; metronome marks
 (define-public (format-metronome-markup event context)
   (let* ((dur (ly:music-property event 'tempo-unit))

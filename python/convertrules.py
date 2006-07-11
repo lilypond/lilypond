@@ -2807,3 +2807,20 @@ def conv (str):
 conversions.append (((2, 9, 9), conv, """annotatefoo -> annotate-foo"""))
 
 
+def conv (str):
+    str = re.sub (r"""\\set ([a-zA-Z]+.?)tupletNumberFormatFunction *= *#denominator-tuplet-formatter""",
+                  r"""\\override \1TupletNumber #'text = #tuplet-number::calc-denominator-text""", str)
+
+    str = re.sub (r"""\\set ([a-zA-Z]+.?)tupletNumberFormatFunction *= *#fraction-tuplet-formatter""",
+                  r"""\\override \1TupletNumber #'text = #tuplet-number::calc-fraction-text""", str)
+
+    if re.search ('tupletNumberFormatFunction', str):
+        error_file.write ("\n")
+	error_file.write ("tupletNumberFormatFunction has been removed. Use #'text property on TupletNumber")
+        error_file.write ("\n")
+        
+    return str
+
+conversions.append (((2, 9, 11), conv, """\\set tupletNumberFormatFunction -> \\override #'text = """))
+
+
