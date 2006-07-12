@@ -1,5 +1,7 @@
 2006-07-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): update prop value 
+
 	* Documentation/user/basic-notation.itely (Tuplets): new property
 	value.
 
