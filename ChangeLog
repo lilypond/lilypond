@@ -1,3 +1,8 @@
+2006-07-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/basic-notation.itely (Tuplets): new property
+	value.
+
 2006-07-11  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* python/convertrules.py (conv): tweaks. 

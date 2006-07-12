@@ -71,7 +71,7 @@ Nested tuplets can have different formatting for each nesting level,
 @lilypond[ragged-right]
 \new Staff {
   \time 5/4
-  \tweak #'text #tuplet-bracket::calc-fraction-text
+  \tweak #'text #tuplet-number::calc-fraction-text
   \times 5/3 {
      \tweak #'tupletNumberFormatFunction #denominator-tuplet-formatter
      \times 2/3 {
