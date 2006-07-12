@@ -1,3 +1,14 @@
+2006-07-12  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/SConscript, make/lilypond-vars.make,
+	input/GNUmakefile: doc build looks in input/manual instead
+	of input/test/
+
+	* input/manual/ GNUmakefile, SConscript: build files for
+	input/manual/
+
+	* input/test/ various: some files moved to input/manual/ 
+
 2006-07-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/topdocs/NEWS.tely (Top): update prop value 
