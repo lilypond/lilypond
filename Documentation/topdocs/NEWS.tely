@@ -73,7 +73,7 @@ Nested tuplets can have different formatting for each nesting level,
   \time 5/4
   \tweak #'text #tuplet-number::calc-fraction-text
   \times 5/3 {
-     \tweak #'tupletNumberFormatFunction #denominator-tuplet-formatter
+     \tweak #'tupletNumberFormatFunction #tuplet-number::calc-denominator-text
      \times 2/3 {
         c'8[ c'8 c'8]
      }
