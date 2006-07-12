@@ -666,7 +666,7 @@ g'4 \times 2/3 {c'4 c' c'} d'4 d'4
 Tuplets may be nested, for example,
 
 @lilypond[fragment,ragged-right,verbatim,relative=2]
-\set tupletNumberFormatFunction = #fraction-tuplet-formatter
+\override TupletNumber #'text = #tuplet-number::calc-fraction-text
 \times 4/6 {
   a4 a
   \times 3/5 { a a a a a }
@@ -703,11 +703,10 @@ used once
 For more information about @code{make-moment}, see
 @ref{Time administration}.
 
-The format of the number is determined by the property
-@code{tupletNumberFormatFunction}.  The default prints only the
-denominator, but if it is set to the Scheme function
-@code{fraction-tuplet-formatter}, @var{num}:@var{den} will be printed
-instead.
+The format of the number is determined by the property @code{text} in
+@code{TupletNumber}.  The default prints only the denominator, but if
+it is set to the function @code{tuplet-number::calc-fraction-text},
+@var{num}:@var{den} will be printed instead.
 
 To avoid printing tuplet numbers, use
 
