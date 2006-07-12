@@ -9,6 +9,9 @@
 
 	* input/test/ various: some files moved to input/manual/ 
 
+	* Documentation/user/basic-notation.itely: small updates;
+	thanks Kieren and Charles!
+
 2006-07-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/topdocs/NEWS.tely (Top): update prop value 
