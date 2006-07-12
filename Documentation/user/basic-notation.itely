@@ -335,7 +335,8 @@ There is also an octave check that produces no visible output.  The syntax
 @end example
 
 This checks that @var{pitch} (without quotes) yields @var{pitch} (with
-quotes) in @code{\relative} mode.  If not, a warning is printed, and the
+quotes) in @code{\relative} mode compared to the note given in the
+@code{\relative} command.  If not, a warning is printed, and the
 octave is corrected.  The @var{pitch} is not printed as a note.
 
 In the example below, the first check passes without incident, since
@@ -1562,7 +1563,8 @@ point.  This also increases the bar number counter.
 
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are
-connected between different staves of a StaffGroup
+connected between different staves of a @code{StaffGroup},
+@code{PianoStaff}, or @code{ChoirStaff}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
