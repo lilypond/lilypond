@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS = test regression tutorial no-notation mutopia
+SUBDIRS = test regression tutorial no-notation mutopia manual
 
 examples = typography-demo les-nereides wilhelmus proportional bach-schenker
 
