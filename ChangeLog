@@ -30,7 +30,9 @@
 
 2006-07-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* Documentation/topdocs/NEWS.tely (Top): update prop value
+	* VERSION (PACKAGE_NAME): release 2.9.11
+
+	* Documentation/topdocs/NEWS.tely (Top): update prop value 
 
 	* Documentation/user/basic-notation.itely (Tuplets): new property
 	value.
@@ -41,7 +43,8 @@
 
 	* VERSION (PATCH_LEVEL): bump version.
 
-	* python/convertrules.py (conv): add rule for tupletNumberFormatFunction.
+	* python/convertrules.py (conv): add rule for
+	tupletNumberFormatFunction.
 
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): remove
 	tupletNumberFormatFunction.
