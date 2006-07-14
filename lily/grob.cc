@@ -20,6 +20,7 @@
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 #include "stencil.hh"
+#include "stream-event.hh"
 #include "system.hh"
 #include "warn.hh"
 
@@ -515,6 +516,8 @@ Grob::warning (string s) const
 
   if (Music *m = unsmob_music (cause))
     m->origin ()->warning (s);
+  else if (Stream_event *ev = unsmob_stream_event (cause))
+    ev->origin ()->warning (s);
   else
     ::warning (s);
 }
@@ -540,6 +543,8 @@ Grob::programming_error (string s) const
 
   if (Music *m = unsmob_music (cause))
     m->origin ()->message (s);
+  else if (Stream_event *ev = unsmob_stream_event (cause))
+    ev->origin ()->warning (s);
   else
     ::message (s);
 }

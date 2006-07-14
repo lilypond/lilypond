@@ -13,6 +13,7 @@
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
+#include "stream-event.hh"
 #include "note-column.hh"
 
 #include "translator.icc"
@@ -28,10 +29,10 @@ public:
 protected:
   void process_music ();
   void stop_translation_timestep ();
-  virtual bool try_music (Music *);
+  DECLARE_TRANSLATOR_LISTENER (arpeggio);
 private:
   Item *arpeggio_;
-  Music *arpeggio_event_;
+  Stream_event *arpeggio_event_;
 };
 
 Arpeggio_engraver::Arpeggio_engraver ()
@@ -40,12 +41,11 @@ Arpeggio_engraver::Arpeggio_engraver ()
   arpeggio_event_ = 0;
 }
 
-bool
-Arpeggio_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Arpeggio_engraver, arpeggio);
+void Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
 {
-  if (!arpeggio_event_)
-    arpeggio_event_ = m;
-  return true;
+  arpeggio_event_ = ev;
+  ev->protect ();
 }
 
 void
@@ -84,7 +84,10 @@ void
 Arpeggio_engraver::process_music ()
 {
   if (arpeggio_event_)
-    arpeggio_ = make_item ("Arpeggio", arpeggio_event_->self_scm ());
+    {
+      arpeggio_ = make_item ("Arpeggio", arpeggio_event_->self_scm ());
+      arpeggio_event_->unprotect ();
+    }
 }
 
 void
@@ -94,13 +97,13 @@ Arpeggio_engraver::stop_translation_timestep ()
   arpeggio_event_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Arpeggio_engraver, stem)
-  ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head)
-  ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column)
+ADD_ACKNOWLEDGER (Arpeggio_engraver, stem);
+ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column);
 
-  ADD_TRANSLATOR (Arpeggio_engraver,
-		  /* doc */ "Generate an Arpeggio symbol",
-		  /* create */ "Arpeggio",
-		  /* accept */ "arpeggio-event",
-		  /* read */ "",
-		  /* write */ "");
+ADD_TRANSLATOR (Arpeggio_engraver,
+		/* doc */ "Generate an Arpeggio symbol",
+		/* create */ "Arpeggio",
+		/* accept */ "arpeggio-event",
+		/* read */ "",
+		/* write */ "");

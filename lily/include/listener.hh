@@ -63,6 +63,8 @@ class Listener {
 public:
   Listener (const void *target, Listener_function_table *type);
   Listener (Listener const &other);
+  Listener ();
+
   void listen (SCM ev) const;
 
   bool operator == (Listener const &other) const
@@ -72,29 +74,29 @@ public:
 };
 DECLARE_UNSMOB (Listener, listener);
 
-#define IMPLEMENT_LISTENER(cl, method)			        \
-void								\
-cl :: method ## _callback (void *self, SCM ev)	                \
-{								\
-  cl *s = (cl *)self;						\
-  s->method (ev);					        \
-}								\
-void								\
-cl :: method ## _mark (void *self) 				\
-{								\
-  cl *s = (cl *)self;						\
-  scm_gc_mark (s->self_scm ());					\
-}								\
-Listener							\
-cl :: method ## _listener () const				\
-{								\
-  static Listener_function_table callbacks;			\
-  callbacks.listen_callback = &cl::method ## _callback;		\
-  callbacks.mark_callback = &cl::method ## _mark;		\
-  return Listener (this, &callbacks);				\
+#define IMPLEMENT_LISTENER(cl, method)			\
+void							\
+cl :: method ## _callback (void *self, SCM ev)		\
+{							\
+  cl *s = (cl *)self;					\
+  s->method (ev);					\
+}							\
+void							\
+cl :: method ## _mark (void *self)			\
+{							\
+  cl *s = (cl *)self;					\
+  scm_gc_mark (s->self_scm ());				\
+}							\
+Listener						\
+cl :: method ## _listener () const			\
+{							\
+  static Listener_function_table callbacks;		\
+  callbacks.listen_callback = &cl::method ## _callback;	\
+  callbacks.mark_callback = &cl::method ## _mark;	\
+  return Listener (this, &callbacks);			\
 }
 
-#define GET_LISTENER(proc) ( proc ## _listener ())
+#define GET_LISTENER(proc) proc ## _listener ()
 
 #define DECLARE_LISTENER(name)				\
   inline void name (SCM);		       	        \

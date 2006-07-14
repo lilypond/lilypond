@@ -11,6 +11,7 @@
 #include "warn.hh"
 #include "translator-group.hh"
 #include "context-def.hh"
+#include "dispatcher.hh"
 #include "global-context.hh"
 
 #include "translator.icc"
@@ -74,6 +75,12 @@ Translator::get_daddy_translator () const
   return daddy_context_->implementation ();
 }
 
+void
+Translator::protect_event (SCM ev)
+{
+  get_daddy_translator ()->protect_event (ev);
+}
+
 SCM
 Translator::internal_get_property (SCM sym) const
 {
@@ -106,6 +113,46 @@ Translator::initialize ()
 void
 Translator::finalize ()
 {
+}
+
+void
+Translator::connect_to_context (Context *c)
+{
+  for (translator_listener_record *r = get_listener_list (); r; r=r->next_)
+    c->events_below ()->add_listener (r->get_listener_ (this), r->event_class_);
+}
+
+void
+Translator::disconnect_from_context (Context *c)
+{
+  for (translator_listener_record *r = get_listener_list (); r; r=r->next_)
+    c->events_below ()->remove_listener (r->get_listener_ (this), r->event_class_);
+}
+
+/*
+  Internally called once, statically, for each translator
+  listener. Connects the name of an event class with a procedure that
+  fetches the corresponding listener.
+
+  The method should only be called from the macro
+  IMPLEMENT_TRANSLATOR_LISTENER.
+ */
+void
+Translator::add_translator_listener (translator_listener_record **listener_list,
+			 translator_listener_record *r,
+			 Listener (*get_listener) (void *), 
+			 const char *ev_class)
+{
+  /* ev_class is the C++ identifier name. Convert to scm symbol */
+  string name = string (ev_class);
+  name = replace_all (name, '_', '-');
+  name = name + "-event";
+  /* It's OK to use scm_gc_protect_object for protection, because r is
+     statically allocated. */
+  r->event_class_ = scm_gc_protect_object (scm_str2symbol (name.c_str ()));
+  r->get_listener_ = get_listener;
+  r->next_ = *listener_list;
+  *listener_list = r;
 }
 
 /*

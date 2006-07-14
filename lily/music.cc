@@ -21,11 +21,11 @@
 #include "warn.hh"
 
 /*
-  Music is anything that has duration and supports both time compression
-  and transposition.
+  Music is anything that has (possibly zero) duration and supports
+  both time compression and transposition.
 
   In Lily, everything that can be thought to have a length and a pitch
-  (which has a duration which can be transposed) is considered "music",
+  (which has a duration which can be transposed) is considered "music".
 */
 bool
 Music::internal_is_music_type (SCM k) const
@@ -239,8 +239,31 @@ Music::origin () const
 void
 Music::send_to_context (Context *c)
 {
-  send_stream_event (c, "MusicEvent", origin (),
+  /*
+    TODO: This is a work-in-progress solution. Send the event so it
+    can be read both by old-style translators and the new ones.
+  */
+  send_stream_event (c, "OldMusicEvent", origin (),
   		     ly_symbol2scm("music"), self_scm (), 0);
+
+  /* UGH. This is a temp hack for Music->Stream_event transition */
+  SCM orig_sym = get_property ("name");
+  char out[200];
+  string in = ly_symbol2string (orig_sym);
+  /* don't add '-' before first character */
+  out[0] = tolower (in[0]);
+  size_t outpos = 1;
+  for (size_t inpos = 1; inpos < in.size () && outpos < 190; inpos++)
+    {
+      if (isupper (in[inpos]))
+	out[outpos++] = '-';
+      out[outpos++] = tolower (in[inpos]);      
+    }
+  out[outpos] = 0;
+  SCM class_name = ly_symbol2scm (out);
+  
+  Stream_event *e = new Stream_event (class_name, mutable_property_alist_);
+  c->event_source ()->broadcast (e);
 }
 
 Music *

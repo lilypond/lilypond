@@ -1,3 +1,19 @@
+2006-07-14  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/music.cc: Revised MusicEvent event class. It now contains
+	event data directly instead of encapsulating it in music. The
+	previously used class is renamed to OldMusicEvent.
+
+	* lily/stream-event.cc: Stream events are now probs.
+	
+	* lily/translator-group.cc, lily/translator.cc: Translators can
+	now listen directly to stream events, by using macros
+	[DECLARE,IMPLEMENT]_TRANSLATOR_LISTENER.
+
+	* lily/arpeggio-engraver.cc: Converted to use new event system
+
+	* THANKS: Corrected spelling mistake.
+
 2006-07-12  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/SConscript, make/lilypond-vars.make,
@@ -14,7 +30,7 @@
 
 2006-07-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* Documentation/topdocs/NEWS.tely (Top): update prop value 
+	* Documentation/topdocs/NEWS.tely (Top): update prop value
 
 	* Documentation/user/basic-notation.itely (Tuplets): new property
 	value.
