@@ -10,8 +10,10 @@
 ;; Event class hierarchy. Each line is on the form ((List of children) . Parent)
 (define event-classes
   '(((StreamEvent) . '())
-    ((RemoveContext ChangeParent Override Revert UnsetProperty SetProperty 
-      MusicEvent CreateContext Prepare OneTimeStep Finish) . StreamEvent)
+    ((RemoveContext ChangeParent Override Revert UnsetProperty
+      SetProperty MusicEvent OldMusicEvent CreateContext Prepare
+      OneTimeStep Finish) . StreamEvent)
+    ((arpeggio-event) . MusicEvent)
     ((Announcement) . '())
     ((AnnounceNewContext) . Announcement)
     ))

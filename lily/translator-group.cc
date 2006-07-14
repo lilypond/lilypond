@@ -48,19 +48,30 @@ Translator_group::connect_to_context (Context *c)
     programming_error ("translator group is already connected to a context");
   context_ = c;
   c->event_source ()->add_listener (GET_LISTENER (eat_event),
-				    ly_symbol2scm ("MusicEvent"));
+				    ly_symbol2scm ("OldMusicEvent"));
   c->event_source ()->add_listener (GET_LISTENER (create_child_translator),
 				    ly_symbol2scm ("AnnounceNewContext"));
+  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
+    {
+      Translator *tr = unsmob_translator (scm_car (tr_list));
+      tr->connect_to_context (c);
+    }
 }
 
 void
 Translator_group::disconnect_from_context ()
 {
+  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
+    {
+      Translator *tr = unsmob_translator (scm_car (tr_list));
+      tr->disconnect_from_context (context_);
+    }
   context_->event_source ()->remove_listener (GET_LISTENER (eat_event),
-					      ly_symbol2scm ("MusicEvent"));
+					      ly_symbol2scm ("OldMusicEvent"));
   context_->event_source ()->remove_listener (GET_LISTENER (create_child_translator),
 					      ly_symbol2scm ("AnnounceNewContext"));
   context_ = 0;
+  protected_events_ = SCM_EOL;
 }
 
 void
@@ -123,6 +134,24 @@ filter_engravers (SCM ell)
   return ell;
 }
 
+/* 
+  Protects the parameter from being garbage collected. The object is
+  protected until the next disconnect_from_context call.
+
+  Whenever a child translator hears an event, the event is added to
+  this list. This eliminates the need for derived_mark methods in most
+  translators; all incoming events are instead protected by the
+  translator group.
+ 
+  TODO: Should the list also be flushed at the beginning of each new
+  moment?
+ */
+void
+Translator_group::protect_event (SCM ev)
+{
+  protected_events_ = scm_cons (ev, protected_events_);
+}
+
 /*
   Create a new translator for a newly created child context. Triggered
   by AnnounceNewContext events.
@@ -169,14 +198,12 @@ Translator_group::create_child_translator (SCM sev)
 	}
     }
 
-  g->simple_trans_list_ = trans_list;
-
   /* Filter unwanted translator types. Required to make
      \with {\consists "..."} work. */
   if (dynamic_cast<Engraver_group *> (g))
-    g->simple_trans_list_ = filter_performers (g->simple_trans_list_);
+    g->simple_trans_list_ = filter_performers (trans_list);
   else if (dynamic_cast<Performer_group *> (g))
-    g->simple_trans_list_ = filter_engravers (g->simple_trans_list_);
+    g->simple_trans_list_ = filter_engravers (trans_list);
 
   // TODO: scrap Context::implementation
   new_context->implementation_ = g;
@@ -231,9 +258,12 @@ Translator_group::try_music (Music *m)
   if (p->get_parent_context())
     // ES todo: Make Translators listeners directly instead.
     return p->implementation ()->try_music (m);
+  // 'junking event' warning is temporarily disabled during translator cleanup
+  /*
   else
     // We have tried all possible contexts. Give up.
     m->origin ()->warning (_f ("junking event: `%s'", m->name ()));
+  */
   return false;
 }
 
@@ -295,6 +325,7 @@ Translator_group::Translator_group ()
 {
   simple_trans_list_ = SCM_EOL;
   accept_hash_table_ = SCM_EOL;
+  protected_events_ = SCM_EOL;
   context_ = 0;
   smobify_self ();
 
@@ -376,5 +407,6 @@ Translator_group::mark_smob (SCM smob)
 
   me->derived_mark ();
   scm_gc_mark (me->accept_hash_table_);
+  scm_gc_mark (me->protected_events_);
   return me->simple_trans_list_;
 }

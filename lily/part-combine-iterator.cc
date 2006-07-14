@@ -373,7 +373,7 @@ Part_combine_iterator::construct_children ()
   Context *contexts[] = {one, two, solo_tr, tr, 0};
   for (int i = 0; contexts[i]; i++)
     {
-      contexts[i]->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("MusicEvent"));
+      contexts[i]->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("OldMusicEvent"));
     }
 
   for (char const **p = syms; *p; p++)

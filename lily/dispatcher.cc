@@ -13,10 +13,6 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
-// ES todo: move to lily-guile.hh
-SCM appendable_list ();
-void appendable_list_append (SCM l, SCM elt);
-
 IMPLEMENT_SMOBS (Dispatcher);
 IMPLEMENT_TYPE_P (Dispatcher, "dispatcher");
 IMPLEMENT_DEFAULT_EQUAL_P (Dispatcher);
@@ -80,7 +76,8 @@ Dispatcher::dispatch (SCM sev)
   SCM class_list = scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), class_symbol);
   if (!scm_is_pair (class_list))
     {
-      ev->origin ()->warning (_f ("Unknown event class %s", ly_symbol2string (class_symbol).c_str ()));
+      // TODO: Re-enable this warning when the translator cleanup is finished
+      //ev->origin ()->warning (_f ("Unknown event class %s", ly_symbol2string (class_symbol).c_str ()));
       return;
     }
   bool sent = false;

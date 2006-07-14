@@ -47,6 +47,8 @@ private:
   Translator_group_void_method
   precomputed_self_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
+  SCM protected_events_;
+
   DECLARE_LISTENER (create_child_translator);
   DECLARE_LISTENER (eat_event);
 
@@ -62,6 +64,8 @@ public:
   virtual bool try_music (Music *req);
   virtual void initialize ();
   virtual void finalize ();
+
+  void protect_event (SCM ev);
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
