@@ -1,3 +1,16 @@
+2006-07-14  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/layout-page-layout.scm: Define module, tidy code, use more
+	functions iso. a single big one.
+
+	* scm/layout-page-dump.scm: move page dump functions used in two
+	pass spacing to this file. Define module.
+
+	* scm/lily.scm (ly:load): don't load layout-page-layout.scm
+	 (separate module)
+
+	* ly/paper-defaults.ly: use module layout-page-layout.
+
 2006-07-14  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/music.cc: Revised MusicEvent event class. It now contains
