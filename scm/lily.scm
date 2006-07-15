@@ -263,7 +263,6 @@ The syntax is the same as `define*-public'."
 	    "define-grobs.scm"
 	    "define-grob-interfaces.scm"
 	    "define-stencil-commands.scm"
-	    "layout-page-layout.scm"
 	    "titling.scm"
 	    
 	    "paper.scm"
