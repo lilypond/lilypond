@@ -58,8 +58,7 @@
 				" -dEPSCrop "
 				(format "-dDEVICEWIDTHPOINTS=~,2f \
 -dDEVICEHEIGHTPOINTS=~,2f "
-					paper-width
-					paper-height)))
+					paper-width paper-height )))
 
 	 (cmd (format #f
 		      "~a\

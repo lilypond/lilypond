@@ -1,5 +1,10 @@
 2006-07-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/paper.scm (internal-set-paper-size): define landscape to #f
+	if unset.
+
+	* scm/framework-ps.scm (convert-to-pdf): swap h and w in case of landscape. 
+
 	* stepmake/stepmake/texinfo-rules.make: strip DVI support.
 
 	* scm/framework-eps.scm (dump-stencils-as-EPSes): generate

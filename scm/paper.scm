@@ -120,9 +120,8 @@
       (set-paper-dimensions module (car entry) (cdr entry))
 
       (module-define! module 'papersizename name)
-
-      (if landscape?
-	  (module-define! module 'landscape #t)))
+      (module-define! module 'landscape 
+		      (if landscape? #t #f)))
      (else
       (ly:warning (_ "Unknown papersize: ~a" name))))))
 
