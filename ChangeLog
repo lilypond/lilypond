@@ -1,5 +1,7 @@
 2006-07-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PATCH_LEVEL): bump version.
+
 	* Documentation/user/lilypond-book.itely (Invoking lilypond-book):
 	doc pdftex usage.
 
