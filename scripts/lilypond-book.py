@@ -1743,18 +1743,18 @@ def main ():
         exit (1)
 
     if global_options.format in (TEXINFO, LATEX):
-        if not global_options.psfonts:
-            warning (_ ("option --psfonts not used"))
-            warning (_ ("processing with dvips will have no fonts"))
-
         psfonts_file = os.path.join (global_options.output_name, basename + '.psfonts')
         output = os.path.join (global_options.output_name, basename +  '.dvi' )
         
-        progress ('\n')
-        progress (_ ("DVIPS usage:"))
-        progress ('\n')
-        progress ("    dvips -h %(psfonts_file)s %(output)s" % vars ())
-        progress ('\n')
+        if not global_options.psfonts:
+            warning (_ ("option --psfonts not used"))
+            warning (_ ("processing with dvips will have no fonts"))
+        else:
+            progress ('\n')
+            progress (_ ("DVIPS usage:"))
+            progress ('\n')
+            progress ("    dvips -h %(psfonts_file)s %(output)s" % vars ())
+            progress ('\n')
 
     inputs = note_input_file ('')
     inputs.pop ()

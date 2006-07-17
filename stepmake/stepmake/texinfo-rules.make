@@ -20,9 +20,8 @@ $(outdir)/%.ps.gz.omf: %.texi
 $(outdir)/%/%.html: $(outdir)/%.texi
 	$(MAKEINFO) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 
-
-$(outdir)/%.dvi: $(outdir)/%.texi
-	cd $(outdir); texi2dvi $(TEXI2DVI_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
+$(outdir)/%.pdf: $(outdir)/%.texi
+	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
 $(outdir)/%.txt: $(outdir)/%.texi
 	$(MAKEINFO) -I $(src-dir) -I $(outdir) --no-split --no-headers --output $@ $<

@@ -66,6 +66,11 @@ which scares away people.
 
 @end ignore
 @item
+@code{lilypond-book} now includes support for PDF@TeX{}.
+
+This feature was sponsored by David Roundy. 
+
+@item
 Nested tuplets can have different formatting for each nesting level,
 
 @lilypond[ragged-right]
@@ -73,7 +78,7 @@ Nested tuplets can have different formatting for each nesting level,
   \time 5/4
   \tweak #'text #tuplet-number::calc-fraction-text
   \times 5/3 {
-     \tweak #'tupletNumberFormatFunction #tuplet-number::calc-denominator-text
+     \tweak #'text  #tuplet-number::calc-denominator-text
      \times 2/3 {
         c'8[ c'8 c'8]
      }

@@ -248,12 +248,6 @@
 ;; restore color from stack
 (define (resetcolor) "setrgbcolor\n")
 
-;; reset rotation
-(define (resetrotation ang x y)
-  (format "~a translate ~a rotate ~a translate\n"
-    (numbers->string4 (list x y))
-    (number->string (* -1 ang))
-    (numbers->string4 (list (* -1 x) (* -1 y)))))
 
 (define (round-filled-box left right bottom top blotdiam)
   (let* ((halfblot (/ blotdiam 2))
@@ -272,10 +266,14 @@
 
 ;; rotation around given point
 (define (setrotation ang x y)
-  (format "~a translate ~a rotate ~a translate\n"
+  (format "gsave ~a translate ~a rotate ~a translate\n"
     (numbers->string4 (list x y))
     (number->string ang)
     (numbers->string4 (list (* -1 x) (* -1 y)))))
+
+(define (resetrotation ang x y)
+  "grestore  ")
+
 
 (define (text font s)
   ;; (ly:warning (_ "TEXT backend-command encountered in Pango backend"))

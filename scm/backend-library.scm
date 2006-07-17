@@ -48,15 +48,25 @@
   
   ;; must be sure that we don't catch stuff from old GUBs.
   (search-executable '("gs")))
-
+  
 (define-public (postscript->pdf paper-width paper-height name)
-  (let* ((pdf-name (string-append (basename name ".ps") ".pdf"))
+  (let* ((pdf-name (string-append
+		    (basename (basename name ".ps") ".eps")
+		    ".pdf"))
+	 (is-eps (string-match "\\.eps$" name))
+	 (paper-size-string (if is-eps
+				" -dEPSCrop "
+				(format "-dDEVICEWIDTHPOINTS=~,2f \
+-dDEVICEHEIGHTPOINTS=~,2f "
+					paper-width
+					paper-height)))
+
 	 (cmd (format #f
 		      "~a\
  ~a\
  ~a\
+ ~a\
  -dCompatibilityLevel=1.4 \
- -dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f\
  -dNOPAUSE\
  -dBATCH\
  -r1200 \
@@ -70,8 +80,7 @@
 		      (if (ly:get-option 'gs-font-load)
 			  " -dNOSAFER "
 			  " -dSAFER ")
-		      paper-width
-		      paper-height
+		      paper-size-string
 		      pdf-name
 		      name)))
     ;; The wrapper on windows cannot handle `=' signs,
@@ -112,9 +121,10 @@
 		      (lambda (x)
 			(member x formats)) 
 		      completed)))
+
     (for-each
      (lambda (f)
-       ((eval (string->symbol (string-append "convert-to-" f)) module)
+       ((eval (string->symbol (format "convert-to-~a" f)) module)
 	paper-book filename))
      completed)
 
