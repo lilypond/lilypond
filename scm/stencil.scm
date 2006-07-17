@@ -279,6 +279,7 @@ grestore
 	  (write-system-signatures basename (cdr paper-systems) (1+ count))))))
 
 
+(use-modules (scm paper-system))
 (define-public (write-system-signature filename paper-system)
   (define (float? x)
     (and (number? x) (inexact? x)))

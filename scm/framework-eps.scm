@@ -44,32 +44,41 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 	  ))
        stencils))
 
+  
 (define (dump-stencils-as-EPSes stencils book basename)
+  (define do-pdf (member  "pdf" (ly:output-formats)))
   (define paper (ly:paper-book-paper book))
   (define (dump-infinite-stack-EPS stencils)
     (let* ((dump-me (stack-stencils Y DOWN 2.0 stencils)))
       (dump-stencil-as-EPS paper dump-me basename #t)))
 
-  (define (dump-stencils-as-separate-EPS stencils count)
+  (define (dump-stencils-as-separate-EPS stencils count )
     (if (pair? stencils)
 	(let* ((line (car stencils))
-	       (rest (cdr stencils)))
+	       (rest (cdr stencils))
+	       (system-base-name (format "~a-~a" basename count))
+	       )
 
 	  (dump-stencil-as-EPS
-	   paper line (format "~a-~a" basename count)
+	   paper line system-base-name
 	   (ly:get-option 'eps-font-include))
-	  
+
+	  (if do-pdf
+	      (postscript->pdf  0 0  (string-append system-base-name ".eps")))
 	  (dump-stencils-as-separate-EPS rest (1+ count)))))
 
 
   ;; main body 
   (let* ((tex-system-name (format "~a-systems.tex" basename))
+	 (pdftex-system-name (format "~a-systems.pdftex" basename))
 	 (texi-system-name (format "~a-systems.texi" basename))
 	 (tex-system-port (open-output-file tex-system-name))
-	 (texi-system-port (open-output-file texi-system-name)))
+	 (texi-system-port (open-output-file texi-system-name))
+	 (pdftex-system-port (open-output-file pdftex-system-name)))
     
     (ly:message (_ "Writing ~a...") tex-system-name)
     (ly:message (_ "Writing ~a...") texi-system-name)
+    (ly:message (_ "Writing ~a...") pdftex-system-name)
 
     (set! stencils (widen-left-stencil-edges stencils))
     
@@ -84,6 +93,8 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 " c) tex-system-port))
 		(display (format "\\includegraphics{~a-~a.eps}\n"
 				 basename (1+ c)) tex-system-port)
+		(display (format "\\includegraphics{~a-~a.pdf}\n"
+				 basename (1+ c)) pdftex-system-port)
 		(display (format "@image{~a-~a}\n"
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
@@ -91,9 +102,9 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
     (display "@c eof - 'eof' is a Makefile marker; do not remove. " texi-system-port)
     (display "% eof - 'eof' is Makefile marker; do not remove. " tex-system-port)
     
-    (dump-infinite-stack-EPS stencils))
+    (dump-infinite-stack-EPS stencils)
     (postprocess-output book framework-eps-module
-			(format "~a.eps" basename) (ly:output-formats)))
+			(format "~a.eps" basename) (ly:output-formats))))
 
 
 
@@ -120,4 +131,5 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 (define convert-to-png convert-to-png)
 (define convert-to-tex convert-to-tex)
 (define convert-to-dvi convert-to-dvi)
+
 

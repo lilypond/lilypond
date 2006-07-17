@@ -1,3 +1,22 @@
+2006-07-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/stepmake/texinfo-rules.make: strip DVI support.
+
+	* scm/framework-eps.scm (dump-stencils-as-EPSes): generate
+	systems.pdftex too.o 
+
+	* scm/backend-library.scm (postscript->pdf): use -dEPSCrop for PDF.
+
+	* make/lilypond-vars.make (TEXINPUTS): add pdf output format.
+
+	* Documentation/topdocs/NEWS.tely (Top): add pdftex note.
+
+	* scm/output-ps.scm (resetrotation): use gsave/grestore for rotation.
+
+	* lily/main.cc (parse_argv): don't overwrite previous --formats string.
+
+	* scm/backend-library.scm (postscript->pdf): strip .eps too. 
+
 2006-07-14  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/layout-page-layout.scm: Define module, tidy code, use more

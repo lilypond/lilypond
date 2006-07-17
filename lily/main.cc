@@ -540,7 +540,12 @@ parse_argv (int argc, char **argv)
 	  break;
 
 	case 'f':
-	  output_format_global = option_parser->optional_argument_str0_;
+	  {
+	    vector<string> components
+	      = string_split (option_parser->optional_argument_str0_, ',');
+	    for (vsize i = 0; i < components.size (); i++)
+	      add_output_format (components[i]);
+	  }
 	  break;
 
 	case 'H':
