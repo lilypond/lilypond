@@ -45,7 +45,11 @@ void
 Translator_group::connect_to_context (Context *c)
 {
   if (context_)
-    programming_error ("translator group is already connected to a context");
+    {
+      programming_error ("translator group is already connected to context "
+			 +  context_->context_name ());
+    }
+  
   context_ = c;
   c->event_source ()->add_listener (GET_LISTENER (eat_event),
 				    ly_symbol2scm ("OldMusicEvent"));
