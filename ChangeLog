@@ -12,7 +12,7 @@
 	* stepmake/stepmake/texinfo-rules.make: strip DVI support.
 
 	* scm/framework-eps.scm (dump-stencils-as-EPSes): generate
-	systems.pdftex too.o 
+	systems.pdftex too.
 
 	* scm/backend-library.scm (postscript->pdf): use -dEPSCrop for PDF.
 
