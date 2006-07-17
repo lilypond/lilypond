@@ -1,5 +1,9 @@
 2006-07-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/translator-group.cc (connect_to_context): non const error message.
+
+	* Documentation/user/GNUmakefile ($(outdir)/%.pdf): update to use PDF
+
 	* scm/paper.scm (internal-set-paper-size): define landscape to #f
 	if unset.
 
