@@ -590,15 +590,20 @@
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (paper-width (ly:output-def-lookup defs 'paper-width))
-	 (paper-height (ly:output-def-lookup defs 'paper-height))
-	 (output-scale (ly:output-def-lookup defs 'output-scale)))
+	 (landscape (ly:output-def-lookup defs 'landscape))
+	 (output-scale (ly:output-def-lookup defs 'output-scale))
+	 (convert (lambda (x) (* x output-scale (/ (ly:bp 1)))))
+	 
+	 (paper-width (convert (ly:output-def-lookup defs 'paper-width)))
+	 (paper-height (convert (ly:output-def-lookup defs 'paper-height)))
+
+	 (w (if landscape paper-height paper-width))
+	 (h (if landscape paper-width paper-height))
+	 )
 
     (if (equal? (basename name ".ps") "-")
 	(ly:warning (_ "can't convert <stdout> to ~S" "PDF"))
-	(postscript->pdf (* paper-width output-scale (/ (ly:bp 1)))
-			 (* paper-height output-scale (/ (ly:bp 1)))
-			 name))))
+	(postscript->pdf w h name))))
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
