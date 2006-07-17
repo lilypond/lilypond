@@ -631,7 +631,7 @@ this file whatever you want as long as you refer to the same file when
 you call @command{dvips}.
 
 To produce PDF output from the lilypond-book file (here called
-@code{yourfile.lytex}), you should do
+@code{yourfile.lytex}) via LaTeX, you should do
 
 @example
 lilypond-book --psfonts yourfile.lytex
@@ -643,6 +643,15 @@ ps2pdf yourfile.ps
 The @file{.dvi} file created by this process will not contain
 noteheads.  This is normal; if you follow the instructions, they
 will be included in the @file{.ps} and @file{.pdf} files.
+
+To produce a PDF file through PDF(La)TeX, you should pass the options
+@code{-deps-font-load} and @code{--pdf} to the lilypond process, with
+the @code{--process} option of lilypond-book, e.g.
+ 
+@example
+lilypond-book --process='lilypond -deps-font-load --pdf' yourfile.pdftex
+@end example
+ 
 
 To produce a Texinfo document (in any output format), follow the normal
 procedures for Texinfo (this is, either call @command{texi2dvi} or
