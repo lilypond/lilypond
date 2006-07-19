@@ -129,7 +129,7 @@ ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
 ADD_TRANSLATOR (Cluster_spanner_engraver,
 		/* doc */ 	"Engraves a cluster using Spanner notation ",
 		/* create */ 	"ClusterSpanner ClusterSpannerBeacon",
-		/* accept */ 	"cluster-note-event busy-playing-event",
+		/* accept */ 	"cluster-note-event",
 		/* read */ 	"",
 		/* write */	"");
 

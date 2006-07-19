@@ -46,8 +46,6 @@ Drum_notes_engraver::try_music (Music *m)
       events_.push_back (m);
       return true;
     }
-  else if (m->is_mus_type ("busy-playing-event"))
-    return events_.size ();
 
   return false;
 }
@@ -160,7 +158,7 @@ ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* doc */ "Generate noteheads.",
 		/* create */ "NoteHead Dots Script",
-		/* accept */ "note-event busy-playing-event",
+		/* accept */ "note-event",
 		/* read */ "drumStyleTable",
 		/* write */ "");
 

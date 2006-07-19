@@ -45,7 +45,6 @@ IMPLEMENT_TRANSLATOR_LISTENER (Arpeggio_engraver, arpeggio);
 void Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
 {
   arpeggio_event_ = ev;
-  ev->protect ();
 }
 
 void
@@ -86,7 +85,6 @@ Arpeggio_engraver::process_music ()
   if (arpeggio_event_)
     {
       arpeggio_ = make_item ("Arpeggio", arpeggio_event_->self_scm ());
-      arpeggio_event_->unprotect ();
     }
 }
 

@@ -29,6 +29,8 @@ public:
 
   bool internal_is_music_type (SCM) const;
 
+  Stream_event *to_event () const;
+
   DECLARE_SCHEME_CALLBACK (relative_callback, (SCM, SCM));
   Pitch to_relative_octave (Pitch);
   Pitch generic_to_relative_octave (Pitch);
@@ -46,7 +48,7 @@ public:
   void send_to_context (Context *c);
 
   DECLARE_SCHEME_CALLBACK (duration_length_callback, (SCM));
-  
+ 
 protected:
   virtual SCM copy_mutable_properties () const;
   virtual void type_check_assignment (SCM, SCM) const;

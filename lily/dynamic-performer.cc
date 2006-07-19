@@ -9,7 +9,7 @@
 #include "performer.hh"
 
 #include "audio-item.hh"
-#include "music.hh"
+#include "stream-event.hh"
 #include "translator.icc"
 
 /*
@@ -24,12 +24,12 @@ class Dynamic_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
-  virtual bool try_music (Music *event);
   void stop_translation_timestep ();
   void process_music ();
 
+  DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
 private:
-  Music *script_event_;
+  Stream_event *script_event_;
   Audio_dynamic *audio_;
 };
 
@@ -110,18 +110,12 @@ Dynamic_performer::stop_translation_timestep ()
     }
 }
 
-bool
-Dynamic_performer::try_music (Music *r)
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, absolute_dynamic);
+void
+Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
 {
   if (!script_event_)
-    {
-      if (r->is_mus_type ("absolute-dynamic-event")) // fixme.
-	{
-	  script_event_ = r;
-	  return true;
-	}
-    }
-  return false;
+    script_event_ = r;
 }
 
 ADD_TRANSLATOR (Dynamic_performer,

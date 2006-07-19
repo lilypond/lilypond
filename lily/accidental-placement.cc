@@ -7,16 +7,17 @@
 */
 
 
-
 #include "accidental-placement.hh"
-#include "skyline.hh"
-#include "music.hh"
-#include "pitch.hh"
-#include "warn.hh"
-#include "note-column.hh"
-#include "pointer-group-interface.hh"
-#include "note-collision.hh"
+
 #include "accidental-interface.hh"
+#include "music.hh"
+#include "note-collision.hh"
+#include "note-column.hh"
+#include "pitch.hh"
+#include "pointer-group-interface.hh"
+#include "skyline.hh"
+#include "stream-event.hh"
+#include "warn.hh"
 
 
 void
@@ -26,10 +27,10 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
   a->set_property ("X-offset", Grob::x_parent_positioning_proc);
   SCM cause = a->get_parent (Y_AXIS)->get_property ("cause");
 
-  Music *mcause = unsmob_music (cause);
+  Stream_event *mcause = unsmob_stream_event (cause);
   if (!mcause)
     {
-      programming_error ("note head has no music cause");
+      programming_error ("note head has no event cause");
       return;
     }
 

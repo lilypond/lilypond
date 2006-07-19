@@ -13,7 +13,13 @@
     ((RemoveContext ChangeParent Override Revert UnsetProperty
       SetProperty MusicEvent OldMusicEvent CreateContext Prepare
       OneTimeStep Finish) . StreamEvent)
-    ((arpeggio-event) . MusicEvent)
+    ((arpeggio-event 
+      beam-event note-event absolute-dynamic-event
+      key-change-event lyric-event pedal-event slur-event tie-event
+      metronome-change-event span-dynamic-event)
+     . MusicEvent)
+    ((decrescendo-event crescendo-event) . span-dynamic-event)
+    ((sostenuto-event sustain-event una-corda-event) . pedal-event)
     ((Announcement) . '())
     ((AnnounceNewContext) . Announcement)
     ))

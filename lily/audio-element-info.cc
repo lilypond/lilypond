@@ -11,7 +11,7 @@
 #include "translator-group.hh"
 #include "context.hh"
 
-Audio_element_info::Audio_element_info (Audio_element *s, Music *r)
+Audio_element_info::Audio_element_info (Audio_element *s, Stream_event *r)
 {
   elem_ = s;
   origin_trans_ = 0;

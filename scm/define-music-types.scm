@@ -124,12 +124,6 @@ Syntax:
 
 	(types . (general-music event breathing-event))
 	)) 
-    (BusyPlayingEvent
-     . (
-	(description .	"Used internally to signal beginning and ending of notes.")
-
-	(types . (general-music event busy-playing-event))
-	))
     (ContextChange
      . (
 	(description .	"Change staffs in Piano staff. 

@@ -173,8 +173,8 @@
 
   (if (procedure? point-and-click)
       (let* ((cause (ly:grob-property grob 'cause))
-	     (music-origin (if (ly:music? cause)
-			       (ly:music-property cause 'origin)))
+	     (music-origin (if (ly:stream-event? cause)
+			       (ly:event-property cause 'origin)))
 	     (location (if (ly:input-location? music-origin)
 			   (ly:input-file-line-column music-origin))))
 	(if (pair? location)

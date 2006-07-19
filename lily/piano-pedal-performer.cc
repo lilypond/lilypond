@@ -10,7 +10,15 @@
 
 #include "audio-item.hh"
 #include "international.hh"
-#include "music.hh"
+#include "stream-event.hh"
+#include "warn.hh"
+
+#include "translator.icc"
+
+#define SOSTENUTO	0
+#define SUSTAIN		1
+#define UNA_CORDA	2
+#define NUM_PEDAL_TYPES 3
 
 /**
    perform Piano pedals
@@ -19,71 +27,76 @@ class Piano_pedal_performer : public Performer
 {
   struct Pedal_info
   {
-    char const *name_;
-    Music *start_event_;
-    Drul_array<Music *> event_drul_;
+    Stream_event *start_event_;
+    Drul_array<Stream_event *> event_drul_;
   };
 
 public:
   TRANSLATOR_DECLARATIONS (Piano_pedal_performer);
-  ~Piano_pedal_performer ();
 
 protected:
   virtual void initialize ();
-  virtual bool try_music (Music *);
+  static const char *pedal_type_str (int t);
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
-
+  DECLARE_TRANSLATOR_LISTENER (sustain);
+  DECLARE_TRANSLATOR_LISTENER (una_corda);
+  DECLARE_TRANSLATOR_LISTENER (sostenuto);
 private:
   vector<Audio_piano_pedal*> audios_;
-  Pedal_info *info_alist_;
+  Pedal_info info_alist_[NUM_PEDAL_TYPES];
 };
 
 Piano_pedal_performer::Piano_pedal_performer ()
 {
-  info_alist_ = 0;
 }
 
-Piano_pedal_performer::~Piano_pedal_performer ()
+const char *
+Piano_pedal_performer::pedal_type_str (int t)
 {
-  delete[] info_alist_;
+  switch (t)
+    {
+    case SOSTENUTO: 
+      return "Sostenuto";
+    case SUSTAIN:
+      return "Sustain";
+    case UNA_CORDA: 
+      return "UnaCorda";
+    default:
+      programming_error ("Unknown pedal type");
+      return 0;
+    }
 }
 
 void
 Piano_pedal_performer::initialize ()
 {
-  info_alist_ = new Pedal_info[4];
   Pedal_info *p = info_alist_;
 
-  char *names [] = { "Sostenuto", "Sustain", "UnaCorda", 0 };
-  char **np = names;
-  do
+  for (int i = 0; i < NUM_PEDAL_TYPES; i++, p++)
     {
-      p->name_ = *np;
       p->event_drul_[START] = 0;
       p->event_drul_[STOP] = 0;
       p->start_event_ = 0;
-
-      p++;
     }
-  while (* (np++));
 }
 
 void
 Piano_pedal_performer::process_music ()
 {
-  for (Pedal_info *p = info_alist_; p && p->name_; p++)
+  Pedal_info *p = info_alist_;
 
+  for (int i = 0; i < NUM_PEDAL_TYPES; i++, p++)
     {
       if (p->event_drul_[STOP])
 	{
 	  if (!p->start_event_)
-	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", string (p->name_)));
+	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", pedal_type_str (i)));
 	  else
 	    {
 	      Audio_piano_pedal *a = new Audio_piano_pedal;
-	      a->type_string_ = string (p->name_);
+	      a->type_string_ = string (pedal_type_str (i));
 	      a->dir_ = STOP;
 	      audios_.push_back (a);
               Audio_element_info info(a, p->event_drul_[STOP]);
@@ -96,7 +109,7 @@ Piano_pedal_performer::process_music ()
 	{
 	  p->start_event_ = p->event_drul_[START];
 	  Audio_piano_pedal *a = new Audio_piano_pedal;
-	  a->type_string_ = string (p->name_);
+	  a->type_string_ = string (pedal_type_str (i));
 	  a->dir_ = START;
 	  audios_.push_back (a);
           Audio_element_info info(a, p->event_drul_[START]);
@@ -118,34 +131,37 @@ Piano_pedal_performer::stop_translation_timestep ()
 void
 Piano_pedal_performer::start_translation_timestep ()
 {
-  for (Pedal_info *p = info_alist_; p && p->name_; p++)
+  Pedal_info *p = info_alist_;
+  for (int i = 0; i < NUM_PEDAL_TYPES; i++, p++)
     {
       p->event_drul_[STOP] = 0;
       p->event_drul_[START] = 0;
     }
 }
 
-bool
-Piano_pedal_performer::try_music (Music *r)
+IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_performer, sostenuto);
+void
+Piano_pedal_performer::listen_sostenuto (Stream_event *r)
 {
-  if (r->is_mus_type ("pedal-event"))
-    {
-      for (Pedal_info *p = info_alist_; p->name_; p++)
-	{
-	  string nm = p->name_ + string ("Event");
-	  if (ly_is_equal (r->get_property ("name"),
-			   scm_str2symbol (nm.c_str ())))
-	    {
-	      Direction d = to_dir (r->get_property ("span-direction"));
-	      p->event_drul_[d] = r;
-	      return true;
-	    }
-	}
-    }
-  return false;
+  Direction d = to_dir (r->get_property ("span-direction"));
+  info_alist_[SOSTENUTO].event_drul_[d] = r;
 }
 
-#include "translator.icc"
+IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_performer, sustain);
+void
+Piano_pedal_performer::listen_sustain (Stream_event *r)
+{
+  Direction d = to_dir (r->get_property ("span-direction"));
+  info_alist_[SUSTAIN].event_drul_[d] = r;
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_performer, una_corda);
+void
+Piano_pedal_performer::listen_una_corda (Stream_event *r)
+{
+  Direction d = to_dir (r->get_property ("span-direction"));
+  info_alist_[UNA_CORDA].event_drul_[d] = r;
+}
 
 ADD_TRANSLATOR (Piano_pedal_performer, "", "",
 		"pedal-event",

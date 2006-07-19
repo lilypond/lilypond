@@ -514,6 +514,7 @@ Grob::warning (string s) const
   while (Grob *g = unsmob_grob (cause))
     cause = g->get_property ("cause");
 
+  /* ES TODO: cause can't be Music*/
   if (Music *m = unsmob_music (cause))
     m->origin ()->warning (s);
   else if (Stream_event *ev = unsmob_stream_event (cause))
@@ -541,6 +542,7 @@ Grob::programming_error (string s) const
 
   s = _f ("programming error: %s", s);
 
+  /* ES TODO: cause can't be Music*/
   if (Music *m = unsmob_music (cause))
     m->origin ()->message (s);
   else if (Stream_event *ev = unsmob_stream_event (cause))

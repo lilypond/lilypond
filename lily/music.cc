@@ -236,17 +236,13 @@ Music::origin () const
   return ip ? ip : &dummy_input_global;
 }
 
-void
-Music::send_to_context (Context *c)
+/*
+  ES TODO: This method should probably be reworked or junked.
+*/
+Stream_event *
+Music::to_event () const
 {
-  /*
-    TODO: This is a work-in-progress solution. Send the event so it
-    can be read both by old-style translators and the new ones.
-  */
-  send_stream_event (c, "OldMusicEvent", origin (),
-  		     ly_symbol2scm("music"), self_scm (), 0);
-
-  /* UGH. This is a temp hack for Music->Stream_event transition */
+  /* UGH. Temp hack */
   SCM orig_sym = get_property ("name");
   char out[200];
   string in = ly_symbol2string (orig_sym);
@@ -261,9 +257,33 @@ Music::send_to_context (Context *c)
     }
   out[outpos] = 0;
   SCM class_name = ly_symbol2scm (out);
-  
+
   Stream_event *e = new Stream_event (class_name, mutable_property_alist_);
-  c->event_source ()->broadcast (e);
+  Moment length = get_length ();
+  if (length.to_bool ())
+    e->set_property ("length", length.smobbed_copy ());
+
+  /*
+    ES TODO: This is a temporary fix. Stream_events should not be
+    aware of music.
+  */
+  e->set_property ("music-cause", self_scm ());
+  return e;
+}
+
+void
+Music::send_to_context (Context *c)
+{
+  /*
+    TODO: This is a work-in-progress solution. Send the event so it
+    can be read both by old-style translators and the new ones.
+  */
+  send_stream_event (c, "OldMusicEvent", origin (),
+  		     ly_symbol2scm("music"), self_scm (), 0);
+
+  Stream_event *ev = to_event ();
+  c->event_source ()->broadcast (ev);
+  ev->unprotect ();
 }
 
 Music *

@@ -8,13 +8,14 @@
 
 #include "engraver.hh"
 
+#include "context.hh"
+#include "item.hh"
+#include "lilypond-key.hh"
 #include "music.hh"
 #include "score-engraver.hh"
-#include "warn.hh"
 #include "spanner.hh"
-#include "item.hh"
-#include "context.hh"
-#include "lilypond-key.hh"
+#include "stream-event.hh"
+#include "warn.hh"
 
 Engraver_group *
 Engraver::get_daddy_engraver () const
@@ -35,13 +36,18 @@ Engraver::announce_end_grob (Grob_info inf)
 }
 
 /*
-  CAUSE is the object (typically a Music object)  that
+  CAUSE is the object (typically a Stream_event object)  that
   was the reason for making E.
 */
 void
 Engraver::announce_grob (Grob *e, SCM cause)
 {
-  if (unsmob_music (cause) || unsmob_grob (cause))
+  /* TODO: Remove Music code when it's no longer needed */
+  if (Music *m = unsmob_music (cause))
+    {
+      cause = m->to_event ()->unprotect ();
+    }
+  if (unsmob_stream_event (cause) || unsmob_grob (cause))
     e->set_property ("cause", cause);
 
   Grob_info i (this, e);
@@ -59,7 +65,12 @@ Engraver::announce_grob (Grob *e, SCM cause)
 void
 Engraver::announce_end_grob (Grob *e, SCM cause)
 {
-  if (unsmob_music (cause) || unsmob_grob (cause))
+  /* TODO: Remove Music code when it's no longer needed */
+  if (Music *m = unsmob_music (cause))
+    {
+      cause = m->to_event ()->unprotect ();
+    }
+  if (unsmob_stream_event (cause) || unsmob_grob (cause))
     e->set_property ("cause", cause);
 
   Grob_info i (this, e);

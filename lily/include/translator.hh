@@ -137,5 +137,6 @@ protected:			// should be private.
 void add_translator (Translator *trans);
 
 Translator *get_translator (SCM s);
+Moment get_event_length (Stream_event *s);
 DECLARE_UNSMOB (Translator, translator);
 #endif // TRANSLATOR_HH

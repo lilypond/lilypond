@@ -248,17 +248,17 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (tuplet-number::calc-denominator-text grob)
   (let*
-      ((mus (ly:grob-property grob 'cause)))
+      ((ev (ly:grob-property grob 'cause)))
     
-    (number->string (ly:music-property mus 'denominator))))
+    (number->string (ly:event-property ev 'denominator))))
 
 
 (define-public (tuplet-number::calc-fraction-text grob)
   (let*
-      ((mus (ly:grob-property grob 'cause)))
+      ((ev (ly:grob-property grob 'cause)))
     (format "~a:~a" 
-      (ly:music-property mus 'denominator)
-      (ly:music-property mus 'numerator))))
+      (ly:event-property ev 'denominator)
+      (ly:event-property ev 'numerator))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Color

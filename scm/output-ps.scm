@@ -174,8 +174,8 @@
 
 (define (grob-cause offset grob)
   (let* ((cause (ly:grob-property grob 'cause))
-	 (music-origin (if (ly:music? cause)
-			   (ly:music-property cause 'origin))))
+	 (music-origin (if (ly:stream-event? cause)
+			   (ly:event-property cause 'origin))))
     (if (not (ly:input-location? music-origin))
 	""
 	(let* ((location (ly:input-file-line-char-column music-origin))

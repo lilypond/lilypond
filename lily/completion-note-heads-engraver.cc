@@ -97,8 +97,6 @@ Completion_heads_engraver::try_music (Music *m)
 
       return true;
     }
-  else if (m->is_mus_type ("busy-playing-event"))
-    return note_events_.size () && is_first_;
 
   return false;
 }
@@ -303,6 +301,6 @@ ADD_TRANSLATOR (Completion_heads_engraver,
 		"@code{Note_heads_engraver}. It plays some trickery to "
 		"break long notes and automatically tie them into the next measure.",
 		/* create */ "NoteHead Dots Tie",
-		/* accept */ "busy-playing-event note-event",
+		/* accept */ "note-event",
 		/* read */ "middleCPosition measurePosition measureLength",
 		/* write */ "");
