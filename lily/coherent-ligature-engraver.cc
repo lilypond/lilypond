@@ -179,13 +179,13 @@ compute_delta_pitches (vector<Grob_info> primitives)
       if (prev_primitive)
 	{
 	  delta_pitch = pitch - prev_pitch;
-	  prev_primitive->set_property ("delta-pitch",
+	  prev_primitive->set_property ("delta-position",
 					scm_from_int (delta_pitch));
 	}
       prev_pitch = pitch;
       prev_primitive = primitive;
     }
-  primitive->set_property ("delta-pitch", scm_from_int (0));
+  primitive->set_property ("delta-position", scm_from_int (0));
 }
 
 void
