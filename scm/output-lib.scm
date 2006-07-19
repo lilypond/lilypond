@@ -340,3 +340,38 @@ centered, X==1 is at the right, X == -1 is at the left."
 
   value)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; falls
+
+(define-public (fall::print spanner)
+  (let*
+      ((delta (ly:grob-property spanner 'delta-position))
+       (left-span (ly:spanner-bound spanner LEFT))
+       (right-span (ly:spanner-bound spanner RIGHT))
+       (thickness (* (ly:grob-property spanner 'thickness)
+		     (ly:output-def-lookup (ly:grob-layout spanner) 'line-thickness)))
+       (padding (ly:grob-property spanner 'padding 0.5))
+       (common (ly:grob-common-refpoint right-span
+					(ly:grob-common-refpoint spanner
+						left-span X)
+					X))
+       (left-x (+ padding  (interval-end  (ly:grob-robust-relative-extent left-span common X))))
+       (right-x (- (interval-start  (ly:grob-robust-relative-extent right-span common X)) padding))
+       (self-x (ly:grob-relative-coordinate spanner common X))
+       (dx (- right-x left-x))
+       (exp (list 'path thickness 
+		  `(quote
+		    (,(- left-x self-x) 0
+		     rmoveto
+		     ,(/ dx 3)
+		     0
+		     ,dx ,(* 0.66 delta)
+		     ,dx ,delta
+		     rcurveto)))) 
+       )
+
+    (ly:make-stencil
+     exp
+     (cons 0 dx)
+     (cons (min 0 delta)
+	   (max 0 delta)))))

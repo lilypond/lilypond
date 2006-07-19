@@ -366,6 +366,7 @@ If we give names, Bison complains.
 %type <scm> music_function_event
 %type <scm> music_function_chord_body
 %type <scm> music_function_musicless_prefix
+%type <scm> music_function_musicless_function
 %type <scm> bass_figure
 %type <scm> figured_bass_modification
 %type <scm> br_bass_figure
@@ -945,7 +946,7 @@ function_scm_argument:
 /*
 TODO: use code generation for this
 */
-generic_prefix_music_scm:
+music_function_musicless_function:
 	MUSIC_FUNCTION {
 		$$ = scm_list_2 ($1, make_input (@$));
 	}
@@ -955,20 +956,47 @@ generic_prefix_music_scm:
 	| MUSIC_FUNCTION_MARKUP full_markup {
 		$$ = scm_list_3 ($1, make_input (@$), $2);
 	}
-	| music_function_musicless_prefix music {
-		$$ = ly_append2 ($1, scm_list_1 ($2));
-	}
 	| MUSIC_FUNCTION_SCM_SCM function_scm_argument function_scm_argument {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
 	}
 	| MUSIC_FUNCTION_SCM_SCM_SCM function_scm_argument function_scm_argument function_scm_argument {
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
 	}
-	| MUSIC_FUNCTION_MARKUP_MUSIC full_markup music {
-		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
-	}
 	| MUSIC_FUNCTION_MARKUP_MARKUP full_markup full_markup {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
+	}
+	;
+
+/*
+TODO: use code generation for this
+*/
+music_function_musicless_prefix:
+	MUSIC_FUNCTION_MUSIC {
+		$$ = scm_list_2 ($1, make_input (@$));
+	}
+	| MUSIC_FUNCTION_SCM_MUSIC function_scm_argument { 
+		$$ = scm_list_3 ($1, make_input (@$), $2);
+	}
+	| MUSIC_FUNCTION_SCM_SCM_MUSIC function_scm_argument function_scm_argument {
+		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
+	}
+	| MUSIC_FUNCTION_SCM_SCM_SCM_MUSIC function_scm_argument function_scm_argument function_scm_argument {
+		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
+	}
+	| MUSIC_FUNCTION_SCM_SCM_SCM_SCM_MUSIC function_scm_argument function_scm_argument function_scm_argument function_scm_argument {
+		$$ = scm_list_n ($1, make_input (@$), $2, $3, $4, $5, SCM_UNDEFINED);
+	}
+	| MUSIC_FUNCTION_MARKUP_MUSIC full_markup {
+		$$ = scm_list_3 ($1, make_input (@$), $2);
+	}
+	;
+
+generic_prefix_music_scm:
+	music_function_musicless_function {
+		$$ = $1
+	}
+	| music_function_musicless_prefix music {
+		$$ = ly_append2 ($1, scm_list_1 ($2));
 	}
 	| MUSIC_FUNCTION_MUSIC_MUSIC music music {
 		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
@@ -983,6 +1011,7 @@ generic_prefix_music_scm:
 		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
 	}
 	;
+
 
 optional_id:
 	/**/ { $$ = SCM_EOL; }
@@ -1387,8 +1416,8 @@ chord_body_element:
 	;
 
 music_function_chord_body:
-	MUSIC_FUNCTION {
-		$$ = scm_list_2 ($1, make_input (@$));
+	music_function_musicless_function {
+		$$ = $1;
 	}
 	| music_function_musicless_prefix chord_body_element {
 		$$ = ly_append2 ($1, scm_list_1 ($2));
@@ -1399,29 +1428,11 @@ music_function_event:
 	music_function_musicless_prefix post_event {
 		$$ = ly_append2 ($1, scm_list_1 ($2));
 	}
-	;
-
-/*
-TODO: use code generation for this
-*/
-music_function_musicless_prefix:
-	MUSIC_FUNCTION_MUSIC {
-		$$ = scm_list_2 ($1, make_input (@$));
-	}
-	| MUSIC_FUNCTION_SCM_MUSIC function_scm_argument { 
-		$$ = scm_list_3 ($1, make_input (@$), $2);
-	}
-	| MUSIC_FUNCTION_SCM_SCM_MUSIC function_scm_argument function_scm_argument {
-		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
-	}
-	| MUSIC_FUNCTION_SCM_SCM_SCM_MUSIC function_scm_argument function_scm_argument function_scm_argument {
-		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
-	}
-	| MUSIC_FUNCTION_SCM_SCM_SCM_SCM_MUSIC function_scm_argument function_scm_argument function_scm_argument function_scm_argument {
-		$$ = scm_list_n ($1, make_input (@$), $2, $3, $4, $5, SCM_UNDEFINED);
+	| music_function_musicless_function {
+		$$ = $1;
 	}
 	;
-
+	
 
 command_element:
 	command_event {

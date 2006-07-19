@@ -314,6 +314,14 @@
 		 (interfaces . (staff-symbol-referencer-interface
 				beam-interface))))))
 
+    (BendAfter
+     . (
+	(stencil . ,fall::print)
+	(thickness . 2.0)
+	(meta . ((class . Spanner)
+		 (interfaces . (spanner-interface
+				fall-interface))))))
+
     (BreakAlignment
      . (
 	(non-musical . #t)
@@ -603,6 +611,7 @@
 				dynamic-text-spanner-interface
 				spanner-interface))))))
 
+				
     (Fingering
      . (
 

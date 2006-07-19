@@ -16,12 +16,8 @@
   (map
    (lambda (x) (apply music-property-description x))
    `(
-     (iterator-ctor ,procedure? "Function to construct music-event-iterator object for this Music")
-     (duration ,ly:duration? "Duration of this note/lyric.")
-     (metronome-count ,number? "How many beats in a minute?")
-     (span-type ,string? "What kind of spanner should be created?
+     (alteration ,number? "alteration for figured bass")
 
-TODO: consider making type into symbol") 
      (absolute-octave ,integer?
 		      "The absolute octave for a octave check note.")
      (articulations ,ly:music-list?
@@ -32,6 +28,9 @@ TODO: consider making type into symbol ")
      (augmented ,boolean? "This figure is for an augmented figured bass (with +) sign.")
      (associated-context ,string? "Name of the Voice context associated with this \\newaddlyrics section")
      (bass ,boolean? "Set if this note is a bass note in a chord")
+     (bracket-start ,boolean? "start a bracket
+here. TODO: use SpanEvents?")
+     (bracket-stop ,boolean? "stop a bracket here.")
      (break-penalty ,number? "Penalty for line break hint.")
      (break-permission ,symbol? "Whether to allow, forbid or force a line break.")
      (cautionary ,boolean? "If set, this alteration needs cautionary accidental")
@@ -40,34 +39,43 @@ TODO: consider making type into symbol ")
      (compress-procedure ,procedure? "compress this music expression. Argument 1: the music, arg 2: factor")
      (context-id ,string? "name of context")
      (context-type ,symbol?  "type of context")
-     (create-new ,boolean? "Create a fresh context.") 
+     (create-new ,boolean? "Create a fresh context.")
+     (delta-pitch ,number? "How much should a fall change pitch?") 
      (descend-only ,boolean? "If set, this @code{\\context} will only descend in the context tree.")
      (denominator ,integer? "denominator in a time signature")
      (digit ,integer? "digit for fingering")
      (diminished ,boolean? "This bass figure should be slashed.")
      (direction ,ly:dir? "Print this up or down?")
      (drum-type ,symbol? "Which percussion instrument to play this note on.")
+     (duration ,ly:duration? "Duration of this note/lyric.")
      (error-found ,boolean? "If true, a parsing error was found in this expression")
      (element ,ly:music? "The single child of a Music_wrapper music object, or the body of a repeat.")
      (elements ,ly:music-list? "A list of elements for sequential of simultaneous music, or the alternatives of repeated music. ")
      (elements-callback ,procedure? "Return a list of children, for use by a sequential iterator. Takes a single Music parameter")
      (expected-beam-count ,integer? "Expected number of non-tremolo beams in a tremolo repeat")
+     (figure ,integer? "a bass figure")
      (force-accidental ,boolean? "If set, a cautionary accidental should always be printed on this note")
      (grob-property ,symbol? "The symbol of the grob property to set. ")
      (grob-property-path ,list? "A list of symbols, locating a nested grob property, e.g. (beamed-lengths details). ")
      (grob-value ,scheme? "The value of the grob property to set")
      (input-tag ,scheme? "Arbitrary marker to relate input and output")
      (inversion ,boolean? "If set, this chord note is inverted.")
+     (iterator-ctor ,procedure? "Function to construct music-event-iterator object for this Music")
+     
      (label ,markup? "label of a mark.")
      (last-pitch ,ly:pitch? "The last pitch after relativization.")
      (length ,ly:moment? "The duration of this music")
      (length-callback ,procedure? "How to compute the duration of this music. This property can only be defined as initializer in @file{define-music-types.scm}.")
+     (metronome-count ,number? "How many beats in a minute?")
      (name ,symbol? "Name of this music object")
      (no-continuation ,boolean? "If set, disallow continuation lines")
      (numerator ,integer? "numerator of a time signature")
      (once ,boolean? "Apply this operation only during one time step?")
      (octavation ,integer? "This pitch was octavated by how many octaves? For chord inversions, this is negative.")
      (origin ,ly:input-location? "where was this piece of music defined?")
+     (part-combine-status ,symbol?
+			  "Change to what kind of state? Options are
+solo1, solo2 and unisono")
      (parenthesize ,boolean? "Enclose resulting objects in parentheses?")
      (pitch ,ly:pitch? "the pitch of this note")
      (pitch-alist ,list? "list of pitches jointly forming the scale of a key signature")
@@ -90,6 +98,9 @@ for the grob made of this event.")
      
      (repeat-count  ,integer? "do a @code{\repeat} how ofen?")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
+     (span-type ,string? "What kind of spanner should be created?
+
+TODO: consider making type into symbol") 
      (split-list ,list? "splitting moments for part combiner.")
      (start-callback ,procedure? "Function to compute the negative
 length of starting grace notes.  This property can only be defined as
@@ -113,14 +124,6 @@ translation property")
      (void ,boolean? "If this property is #t, then the music expression is to be
 discarded by the toplevel music handler.")
      (what ,symbol? "What to change for auto-change. FIXME, naming")
-     (part-combine-status ,symbol?
-			  "Change to what kind of state? Options are
-solo1, solo2 and unisono")
 
-     (figure ,integer? "a bass figure")
-     (alteration ,number? "alteration for figured bass")
-     (bracket-start ,boolean? "start a bracket
-here. TODO: use SpanEvents?")
-     (bracket-stop ,boolean? "stop a bracket here.")
      (untransposable ,boolean? "If set, this music is not transposed.")
      )))

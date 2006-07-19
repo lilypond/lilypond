@@ -1,72 +1,94 @@
 % -*-Scheme-*-
 
-\version "2.7.39"
+\version "2.9.12"
 
 %% need SRFI-1 filter 
 
 #(use-modules (srfi srfi-1))  
+%% FIXME: guile-1.7 required?
+%#(use-modules (scm display-lily))invalid module name for use-syntax ((srfi srfi-39))
+
+#(use-modules (scm display-lily))
+#(display-lily-init parser)
 
 
-tweak = #(define-music-function (parser location sym val arg)
-	   (symbol? scheme? ly:music?)
+acciaccatura =
+#(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
 
-	   "Add @code{sym . val} to the @code{tweaks} property of @var{arg}."
 
-	   
-	   (set!
-	    (ly:music-property arg 'tweaks)
-	    (acons sym val
-		   (ly:music-property arg 'tweaks)))
-	   arg)
+addquote =
+#(define-music-function (parser location name music) (string? ly:music?)
+   "Add a piece of music to be quoted "
+   (add-quotable name music)
+   (make-music 'SequentialMusic 'void #t))
 
-tag = #(define-music-function (parser location tag arg)
-   (symbol? ly:music?)
 
-   "Add @var{tag} to the @code{tags} property of @var{arg}."
+afterGraceFraction =
+#(cons 6 8)
 
-   (set!
-    (ly:music-property arg 'tags)
-    (cons tag
-	  (ly:music-property arg 'tags)))
-   arg)
+afterGrace =
+#(define-music-function
+  (parser location main grace)
+  (ly:music? ly:music?)
 
-clef =
-#(define-music-function (parser location type)
-   (string?)
-   
-   "Set the current clef."
+  (let*
+      ((main-length (ly:music-length main))
+       (fraction  (ly:parser-lookup parser 'afterGraceFraction)))
+    
+    (make-simultaneous-music
+     (list
+      main
+      (make-sequential-music
+       (list
 
-   (make-clef-set type))
-
-bar =
-#(define-music-function (parser location type)
-   (string?)
-   (context-spec-music
-    (make-property-set 'whichBar type)
-    'Timing))
+	(make-music 'SkipMusic
+		    'duration (ly:make-duration
+			       0 0
+			       (* (ly:moment-main-numerator main-length)
+				  (car fraction))
+			       (* (ly:moment-main-denominator main-length)
+				  (cdr fraction)) ))
+	(make-music 'GraceMusic
+		    'element grace)))))))
 
 applyMusic =
 #(define-music-function (parser location func music) (procedure? ly:music?)
                (func music))
 
-oldaddlyrics =
-#(define-music-function (parser location music lyrics) (ly:music? ly:music?)
 
-              (make-music 'OldLyricCombineMusic 
-                          'origin location
-                          'elements (list music lyrics)))
+applyOutput =
+#(define-music-function (parser location ctx proc) (symbol? procedure?)
+                (make-music 'ApplyOutputEvent
+                  'origin location
+                  'procedure proc
+                  'context-type ctx))
 
-grace =
-#(def-grace-function startGraceMusic stopGraceMusic)
-
-acciaccatura =
-#(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
 appoggiatura =
 #(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic)
 
-partcombine =
-#(define-music-function (parser location part1 part2) (ly:music? ly:music?)
-                (make-part-combine-music (list part1 part2)))
+
+
+% for regression testing purposes.
+assertBeamQuant =
+#(define-music-function (parser location l r) (pair? pair?)
+  (make-grob-property-override 'Beam 'positions
+   (ly:make-simple-closure
+    (ly:make-simple-closure
+     (append
+      (list chain-grob-member-functions `(,cons 0 0))
+      (check-quant-callbacks l r))))))
+    
+% for regression testing purposes.
+assertBeamSlope =
+#(define-music-function (parser location comp) (procedure?)
+  (make-grob-property-override 'Beam 'positions
+   (ly:make-simple-closure
+    (ly:make-simple-closure
+     (append
+      (list chain-grob-member-functions `(,cons 0 0))
+      (check-slope-callbacks comp))))))
+
+
 
 autochange =
 #(define-music-function (parser location music) (ly:music?)
@@ -78,40 +100,151 @@ applyContext =
                    'origin location
                    'procedure proc))
 
-shiftDurations =
-#(define-music-function (parser location dur dots arg) (integer? integer? ly:music?)
-   ""
+bar =
+#(define-music-function (parser location type)
+   (string?)
+   (context-spec-music
+    (make-property-set 'whichBar type)
+    'Timing))
 
+
+barNumberCheck =
+#(define-music-function (parser location n) (integer?)
+   (make-music 'ApplyContext 
+	       'origin location
+	       'procedure 
+	       (lambda (c)
+		 (let*
+		     ((cbn (ly:context-property c 'currentBarNumber)))
+		   (if (not (= cbn n))
+		       (ly:input-message location "Barcheck failed got ~a expect ~a"
+					 cbn n))))))
+
+
+%% why a function?
+breathe =
+#(define-music-function (parser location) ()
+            (make-music 'EventChord 
+              'origin location
+              'elements (list (make-music 'BreathingSignEvent))))
+
+bendAfter =
+#(define-music-function (parser location delta) (integer?)
+	      
+  (make-music 'BendAfterEvent
+   'delta-pitch delta))
+
+clef =
+#(define-music-function (parser location type)
+   (string?)
    
-   (music-map
-    (lambda (x)
-      (shift-one-duration-log x dur dots)) arg))
+   "Set the current clef."
 
-musicMap =
-#(define-music-function (parser location proc mus) (procedure? ly:music?)
-	     (music-map proc mus))
+   (make-clef-set type))
+
+
+compressMusic =
+#(define-music-function
+		  (parser location fraction music) (number-pair? ly:music?)
+		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
+
+
+cueDuring = 
+#(define-music-function
+  (parser location what dir main-music)
+  (string? ly:dir? ly:music?)
+  (make-music 'QuoteMusic
+	      'element main-music 
+	      'quoted-context-type 'Voice
+	      'quoted-context-id "cue"
+	      'quoted-music-name what
+	      'quoted-voice-direction dir
+	      'origin location))
+
+
+displayLilyMusic =
+#(define-music-function (parser location music) (ly:music?)
+   (display-lily-music music)
+   music)
 
 displayMusic =
 #(define-music-function (parser location music) (ly:music?)
 		 (display-scheme-music music)
 		 music)
 
-%% FIXME: guile-1.7 required?
-%#(use-modules (scm display-lily))invalid module name for use-syntax ((srfi srfi-39))
+featherDurations=
+#(define-music-function (parser location factor argument) (ly:moment? ly:music?)
 
-#(use-modules (scm display-lily))
-#(display-lily-init parser)
-displayLilyMusic =
-#(define-music-function (parser location music) (ly:music?)
-   (display-lily-music music)
-   music)
+   "Rearrange durations in ARGUMENT so there is an
+acceleration/deceleration. "
+   
+   (let*
+       ((orig-duration (ly:music-length argument))
+	(multiplier (ly:make-moment 1 1)))
 
-applyOutput =
-#(define-music-function (parser location ctx proc) (symbol? procedure?)
-                (make-music 'ApplyOutputEvent
-                  'origin location
-                  'procedure proc
-                  'context-type ctx))
+     (music-map 
+      (lambda (mus)
+	(if (and (eq? (ly:music-property mus 'name) 'EventChord)
+		 (< 0 (ly:moment-main-denominator (ly:music-length mus))))
+	    (begin
+	      (ly:music-compress mus multiplier)
+	      (set! multiplier (ly:moment-mul factor multiplier)))
+	    )
+	mus)
+      argument)
+
+     (ly:music-compress
+      argument
+      (ly:moment-div orig-duration (ly:music-length argument)))
+
+     argument))
+
+grace =
+#(def-grace-function startGraceMusic stopGraceMusic)
+
+keepWithTag =
+#(define-music-function
+  (parser location tag music) (symbol? ly:music?)
+  (music-filter
+   (lambda (m)
+    (let* ((tags (ly:music-property m 'tags))
+           (res (memq tag tags)))
+     (or
+      (eq? tags '())
+      res)))
+   music))
+
+
+
+killCues =
+#(define-music-function
+   (parser location music)
+   (ly:music?)
+   (music-map
+    (lambda (mus)
+      (if (string? (ly:music-property mus 'quoted-music-name))
+	  (ly:music-property mus 'element)
+	  mus)) music))
+   
+
+makeClusters =
+#(define-music-function
+		(parser location arg) (ly:music?)
+		(music-map note-to-cluster arg))
+
+musicMap =
+#(define-music-function (parser location proc mus) (procedure? ly:music?)
+	     (music-map proc mus))
+
+
+
+oldaddlyrics =
+#(define-music-function (parser location music lyrics) (ly:music? ly:music?)
+
+              (make-music 'OldLyricCombineMusic 
+                          'origin location
+                          'elements (list music lyrics)))
+
 
 overrideProperty =
 #(define-music-function (parser location name property value)
@@ -143,27 +276,6 @@ or @code{\"GrobName\"}"
 			grob-name)
 		       (set! (ly:grob-property grob property) value))))))
 
-breathe =
-#(define-music-function (parser location) ()
-            (make-music 'EventChord 
-              'origin location
-              'elements (list (make-music 'BreathingSignEvent))))
-
-
-unfoldRepeats =
-#(define-music-function (parser location music) (ly:music?)
-		  (unfold-repeats music))
-
-compressMusic =
-#(define-music-function
-		  (parser location fraction music) (number-pair? ly:music?)
-		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
-
-makeClusters =
-#(define-music-function
-		(parser location arg) (ly:music?)
-		(music-map note-to-cluster arg))
-
 
 removeWithTag = 
 #(define-music-function
@@ -174,68 +286,25 @@ removeWithTag =
            (res (memq tag tags)))
      (not res)))
  music))
-	      
-keepWithTag =
-#(define-music-function
-  (parser location tag music) (symbol? ly:music?)
-  (music-filter
-   (lambda (m)
-    (let* ((tags (ly:music-property m 'tags))
-           (res (memq tag tags)))
-     (or
-      (eq? tags '())
-      res)))
-   music))
-
 
 %% Todo:
 %% doing
 %% define-music-function in a .scm causes crash.
 
-cueDuring = 
-#(define-music-function
-  (parser location what dir main-music)
-  (string? ly:dir? ly:music?)
-  (make-music 'QuoteMusic
-	      'element main-music 
-	      'quoted-context-type 'Voice
-	      'quoted-context-id "cue"
-	      'quoted-music-name what
-	      'quoted-voice-direction dir
-	      'origin location))
 
+octave =
+#(define-music-function (parser location pitch-note) (ly:music?)
+   "octave check"
 
-transposedCueDuring = #
-(define-music-function
-  (parser location what dir pitch-note main-music)
-  (string? ly:dir? ly:music? ly:music?)
+   (make-music 'RelativeOctaveCheck
+	       'origin location
+	       'pitch (pitch-of-note pitch-note) 
+	       ))
+partcombine =
+#(define-music-function (parser location part1 part2) (ly:music? ly:music?)
+                (make-part-combine-music (list part1 part2)))
 
-  "Insert notes from the part @var{what} into a voice called @code{cue},
-using the transposition defined by @var{pitch-note}.  This happens
-simultaneously with @var{main-music}, which is usually a rest.  The
-argument @var{dir} determines whether the cue notes should be notated
-as a first or second voice."
-
-  (make-music 'QuoteMusic
-	      'element main-music
-	      'quoted-context-type 'Voice
-	      'quoted-context-id "cue"
-	      'quoted-music-name what
-	      'quoted-voice-direction dir
-	      'quoted-transposition (pitch-of-note pitch-note)
-	      'origin location))
-
-
-quoteDuring = #
-(define-music-function
-  (parser location what main-music)
-  (string? ly:music?)
-  (make-music 'QuoteMusic
-	      'element main-music
-	      'quoted-music-name what
-	      'origin location))
-
-
+	      
 pitchedTrill =
 #(define-music-function
    (parser location main-note secondary-note)
@@ -263,80 +332,17 @@ pitchedTrill =
 
      main-note))
 
-killCues =
-#(define-music-function
-   (parser location music)
-   (ly:music?)
-   (music-map
-    (lambda (mus)
-      (if (string? (ly:music-property mus 'quoted-music-name))
-	  (ly:music-property mus 'element)
-	  mus)) music))
+
+
+
+
    
+parenthesize =
+#(define-music-function (parser loc arg) (ly:music?)
+   "Tag @var{arg} to be parenthesized."
 
-afterGraceFraction =
-#(cons 6 8)
-
-afterGrace =
-#(define-music-function
-  (parser location main grace)
-  (ly:music? ly:music?)
-
-  (let*
-      ((main-length (ly:music-length main))
-       (fraction  (ly:parser-lookup parser 'afterGraceFraction)))
-    
-    (make-simultaneous-music
-     (list
-      main
-      (make-sequential-music
-       (list
-
-	(make-music 'SkipMusic
-		    'duration (ly:make-duration
-			       0 0
-			       (* (ly:moment-main-numerator main-length)
-				  (car fraction))
-			       (* (ly:moment-main-denominator main-length)
-				  (cdr fraction)) ))
-	(make-music 'GraceMusic
-		    'element grace)))))))
-
-
-barNumberCheck =
-#(define-music-function (parser location n) (integer?)
-   (make-music 'ApplyContext 
-	       'origin location
-	       'procedure 
-	       (lambda (c)
-		 (let*
-		     ((cbn (ly:context-property c 'currentBarNumber)))
-		   (if (not (= cbn n))
-		       (ly:input-message location "Barcheck failed got ~a expect ~a"
-					 cbn n))))))
-
-
-
-% for regression testing purposes.
-assertBeamQuant =
-#(define-music-function (parser location l r) (pair? pair?)
-  (make-grob-property-override 'Beam 'positions
-   (ly:make-simple-closure
-    (ly:make-simple-closure
-     (append
-      (list chain-grob-member-functions `(,cons 0 0))
-      (check-quant-callbacks l r))))))
-    
-% for regression testing purposes.
-assertBeamSlope =
-#(define-music-function (parser location comp) (procedure?)
-  (make-grob-property-override 'Beam 'positions
-   (ly:make-simple-closure
-    (ly:make-simple-closure
-     (append
-      (list chain-grob-member-functions `(,cons 0 0))
-      (check-slope-callbacks comp))))))
-
+   (set! (ly:music-property arg 'parenthesize) #t)
+   arg)
 
 parallelMusic =
 #(define-music-function (parser location voice-ids music) (list? ly:music?)
@@ -428,63 +434,14 @@ Example:
 
 
 
-
-%% this is a stub. Write your own to suit the spacing tweak output.
-spacingTweaks =
-#(define-music-function (parser location parameters) (list?)
-   (make-music 'SequentialMusic 'void #t))
-
-octave =
-#(define-music-function (parser location pitch-note) (ly:music?)
-   "octave check"
-
-   (make-music 'RelativeOctaveCheck
-	       'origin location
-	       'pitch (pitch-of-note pitch-note) 
-	       ))
-
-addquote =
-#(define-music-function (parser location name music) (string? ly:music?)
-   "Add a piece of music to be quoted "
-   (add-quotable name music)
-   (make-music 'SequentialMusic 'void #t))
-
-   
-parenthesize =
-#(define-music-function (parser loc arg) (ly:music?)
-   "Tag @var{arg} to be parenthesized."
-
-   (set! (ly:music-property arg 'parenthesize) #t)
-   arg)
-
-
-featherDurations=
-#(define-music-function (parser location factor argument) (ly:moment? ly:music?)
-
-   "Rearrange durations in ARGUMENT so there is an
-acceleration/deceleration. "
-   
-   (let*
-       ((orig-duration (ly:music-length argument))
-	(multiplier (ly:make-moment 1 1)))
-
-     (music-map 
-      (lambda (mus)
-	(if (and (eq? (ly:music-property mus 'name) 'EventChord)
-		 (< 0 (ly:moment-main-denominator (ly:music-length mus))))
-	    (begin
-	      (ly:music-compress mus multiplier)
-	      (set! multiplier (ly:moment-mul factor multiplier)))
-	    )
-	mus)
-      argument)
-
-     (ly:music-compress
-      argument
-      (ly:moment-div orig-duration (ly:music-length argument)))
-
-     argument))
-
+quoteDuring = #
+(define-music-function
+  (parser location what main-music)
+  (string? ly:music?)
+  (make-music 'QuoteMusic
+	      'element main-music
+	      'quoted-music-name what
+	      'origin location))
 
 
 
@@ -506,3 +463,72 @@ resetRelativeOctave  =
 
     reference-note))
 
+
+
+shiftDurations =
+#(define-music-function (parser location dur dots arg) (integer? integer? ly:music?)
+   ""
+
+   
+   (music-map
+    (lambda (x)
+      (shift-one-duration-log x dur dots)) arg))
+
+
+%% this is a stub. Write your own to suit the spacing tweak output.
+spacingTweaks =
+#(define-music-function (parser location parameters) (list?)
+   (make-music 'SequentialMusic 'void #t))
+
+
+transposedCueDuring = #
+(define-music-function
+  (parser location what dir pitch-note main-music)
+  (string? ly:dir? ly:music? ly:music?)
+
+  "Insert notes from the part @var{what} into a voice called @code{cue},
+using the transposition defined by @var{pitch-note}.  This happens
+simultaneously with @var{main-music}, which is usually a rest.  The
+argument @var{dir} determines whether the cue notes should be notated
+as a first or second voice."
+
+  (make-music 'QuoteMusic
+	      'element main-music
+	      'quoted-context-type 'Voice
+	      'quoted-context-id "cue"
+	      'quoted-music-name what
+	      'quoted-voice-direction dir
+	      'quoted-transposition (pitch-of-note pitch-note)
+	      'origin location))
+
+
+
+
+
+tweak = #(define-music-function (parser location sym val arg)
+	   (symbol? scheme? ly:music?)
+
+	   "Add @code{sym . val} to the @code{tweaks} property of @var{arg}."
+
+	   
+	   (set!
+	    (ly:music-property arg 'tweaks)
+	    (acons sym val
+		   (ly:music-property arg 'tweaks)))
+	   arg)
+
+tag = #(define-music-function (parser location tag arg)
+   (symbol? ly:music?)
+
+   "Add @var{tag} to the @code{tags} property of @var{arg}."
+
+   (set!
+    (ly:music-property arg 'tags)
+    (cons tag
+	  (ly:music-property arg 'tags)))
+   arg)
+
+
+unfoldRepeats =
+#(define-music-function (parser location music) (ly:music?)
+		  (unfold-repeats music))
