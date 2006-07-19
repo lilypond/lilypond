@@ -361,13 +361,15 @@ centered, X==1 is at the right, X == -1 is at the left."
        (dx (- right-x left-x))
        (exp (list 'path thickness 
 		  `(quote
-		    (,(- left-x self-x) 0
-		     rmoveto
+		    (rmoveto
+		     ,(- left-x self-x) 0
+
+		     rcurveto		     
 		     ,(/ dx 3)
 		     0
 		     ,dx ,(* 0.66 delta)
 		     ,dx ,delta
-		     rcurveto)))) 
+		     ))))
        )
 
     (ly:make-stencil

@@ -1,5 +1,7 @@
 2006-07-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/bend-after.ly: new file.
+
 	* Documentation/user/GNUmakefile ($(outdir)/%.pdf): foolproof
 	recipe for eps -> pdf conversion.
 

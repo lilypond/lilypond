@@ -193,12 +193,27 @@
     (entity 'path ""
 	    '(stroke-linejoin . "round")
 	    '(stroke-linecap . "round")
-	    `(stroke-width . ,thick)
 	    '(stroke . "currentColor")
 	    '(fill . "currentColor")
+	    `(stroke-width . ,thick)
 	    `(d . ,(string-append (svg-bezier first #f)
 				  (svg-bezier second first-c0)))
 	    )))
+
+(define (path thick commands)
+  (define (ps-path-entries->svg-path entries)
+    
+  
+  (entity 'path ""
+	  `(stroke-width . ,thick)
+	  '(stroke-linejoin . "round")
+	  '(stroke-linecap . "round")
+	  '(stroke . "currentColor")
+	  '(fill . "currentColor")
+	    
+  
+  ))
+
 
 (define (char font i)
   (dispatch

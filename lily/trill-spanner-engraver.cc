@@ -139,9 +139,8 @@ Trill_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      current_event_->origin ()->warning (_ ("unterminated trill spanner"));
-      span_->suicide ();
-      span_ = 0;
+      finished_ = span_;
+      typeset_all ();
     }
 }
 

@@ -320,7 +320,7 @@
 	(thickness . 2.0)
 	(meta . ((class . Spanner)
 		 (interfaces . (spanner-interface
-				fall-interface))))))
+				bend-after-interface))))))
 
     (BreakAlignment
      . (
