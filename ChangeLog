@@ -1,3 +1,8 @@
+2006-07-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/GNUmakefile ($(outdir)/%.pdf): foolproof
+	recipe for eps -> pdf conversion.
+
 2006-07-19  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/parser.yy, lily/lexer.ll: added some simplifications by
