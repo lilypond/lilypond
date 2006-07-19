@@ -1,3 +1,9 @@
+2006-07-19  Graham Percival  <gpermus@gmail.com>
+
+	* input/manual/screech-boink.ly: moved to here.
+
+	* input/screech-boink.ly: deleted.
+
 2006-07-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/user/GNUmakefile (OUT_PNG_IMAGES): pdf iso. eps as
