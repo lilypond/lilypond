@@ -10,7 +10,8 @@ EPS_ILLUSTRATIONS=context-example.eps
 PDF_ILLUSTRATIONS=context-example.pdf
 
 OUT_PDF_IMAGES=$(IMAGES:%.png=$(outdir)/%.pdf) $(addprefix $(outdir)/,$(PDF_ILLUSTRATIONS))
-OUT_PNG_IMAGES=$(OUT_EPS_IMAGES:%.eps=%.png)
+
+OUT_PNG_IMAGES=$(OUT_PDF_IMAGES:%.pdf=%.png)
 
 OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
  $(ITELY_FILES:%.itely=$(outdir)/%.texi)
@@ -206,7 +207,7 @@ $(outdir)/%.pdf: %.png
 	convert $< $@
 
 $(outdir)/%.pdf: %.eps
-	convert $< $@
+	epstopdf $< $@
 
 
 DEEP_HTML_FILES =\

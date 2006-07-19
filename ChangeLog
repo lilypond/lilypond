@@ -1,6 +1,11 @@
+2006-07-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/GNUmakefile (OUT_PNG_IMAGES): pdf iso. eps as
+	base.
+
 2006-07-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* VERSION (PATCH_LEVEL): bump version.
+	* VERSION (PATCH_LEVEL): bump version. Release 2.9.12
 
 	* Documentation/user/lilypond-book.itely (Invoking lilypond-book):
 	doc pdftex usage.
