@@ -23,7 +23,7 @@
 (ly:add-interface
  'bend-after-interface
  "A doit or drop."
- '(delta-position))
+ '(thickness delta-position))
 
 (ly:add-interface
  'bass-figure-alignment-interface
