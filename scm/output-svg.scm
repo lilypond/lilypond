@@ -24,6 +24,7 @@
  (guile)
  (ice-9 regex)
  (lily)
+ (srfi srfi-1)
  (srfi srfi-13))
 
 
@@ -69,6 +70,16 @@
 
 (define (offset->point o)
   (format #f " ~S,~S" (car o)  (- (cdr o))))
+
+(define (number-list->point lst)
+  (define (helper lst)
+    (if (null? lst)
+	'()
+	(cons (format "~S,~S" (car lst) (cadr lst))
+	      (helper (cddr lst)))))
+
+  (string-join (helper lst) " "))  
+
 
 (define (svg-bezier lst close)
   (let* ((c0 (car (list-tail lst 3)))
@@ -201,20 +212,40 @@
 	    )))
 
 (define (path thick commands)
-  (define (ps-path-entries->svg-path entries)
-    
+  (define (convert-path-exps exps)
+    (if (pair? exps)
+	(let*
+	    ((head (car exps))
+	     (rest (cdr exps))
+	     (arity 
+	      (cond
+	       ((memq head '(rmoveto rlineto lineto moveto)) 2)
+	       ((memq head '(rcurveto curveto)) 6)
+	       (else 1)))
+	     (args (take rest arity))
+	     (svg-head (assoc-get head '((rmoveto . m)
+					 (rcurveto . c)
+					 (curveto . C)
+					 (moveto . M)
+					 (lineto . L)
+					 (rlineto . l))
+				  ""))
+	     )
+
+	  (cons (format "~a~a "
+			svg-head (number-list->point args)
+			)
+		(convert-path-exps (drop rest arity))))
+	'()))
   
   (entity 'path ""
 	  `(stroke-width . ,thick)
 	  '(stroke-linejoin . "round")
 	  '(stroke-linecap . "round")
 	  '(stroke . "currentColor")
-	  '(fill . "currentColor")
-	    
+	  '(fill . "none")
+	  `(d . ,(string-join (convert-path-exps commands) " "))))
   
-  ))
-
-
 (define (char font i)
   (dispatch
    `(fontify ,font ,(entity 'tspan (char->entity (integer->char i))))))
