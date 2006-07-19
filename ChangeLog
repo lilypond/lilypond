@@ -1,3 +1,9 @@
+2006-07-19  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/advanced-notation.itely (Font selection):
+	Document how to get a list of available fonts using
+	'lilypond -dshow-available-fonts blabla'.
+
 2006-07-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* GNUmakefile.in: filter lily-XXX.pdf files.
