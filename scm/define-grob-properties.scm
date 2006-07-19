@@ -371,7 +371,8 @@ direction. Values in between may also be specified.")
 Y axis.")
 
      (shorten-pair ,number-pair? "The lengths to shorten a
-text-spanner on both sides, for example a pedal bracket")
+text-spanner on both sides, for example a pedal bracket.  Positive values
+shorten the text-spanner, while negative values lengthen it.")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the edges of beams?")
      (common-shortest-duration ,ly:moment?
 			       "The most common shortest note length.

@@ -4,6 +4,8 @@
 
 	* input/screech-boink.ly: deleted.
 
+	* scm/define-grob-properties.scm: clarify doc string.
+
 2006-07-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/user/GNUmakefile (OUT_PNG_IMAGES): pdf iso. eps as
