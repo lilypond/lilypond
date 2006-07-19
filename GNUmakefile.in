@@ -83,6 +83,7 @@ local-WWW-post:
 
 	cd $(top-build-dir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
+		| grep -v 'lily-[0-9].*.pdf' \
 		> $(outdir)/weblist
 	ls $(outdir)/*.html >> $(outdir)/weblist
 
