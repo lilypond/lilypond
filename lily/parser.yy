@@ -160,7 +160,7 @@ void set_music_properties (Music *p, SCM a);
 %token ADDQUOTE "\\addquote"
 %token ALIAS "\\alias"
 %token ALTERNATIVE "\\alternative"
-%token BOOK "\book"
+%token BOOK "\\book"
 %token CHANGE "\\change"
 %token CHORDMODE "\\chordmode"
 %token CHORDS "\\chords"
@@ -223,8 +223,10 @@ void set_music_properties (Music *p, SCM a);
 %token CHORD_COLON ":"
 %token CHORD_MINUS "-"
 %token CHORD_SLASH "/"
-%token DOUBLE_ANGLE_CLOSE ">>"
+%token ANGLE_OPEN "<"
+%token ANGLE_CLOSE ">"
 %token DOUBLE_ANGLE_OPEN "<<"
+%token DOUBLE_ANGLE_CLOSE ">>"
 %token E_BACKSLASH "\\"
 %token E_ANGLE_CLOSE "\\>"
 %token E_CHAR "\\C[haracter]"
@@ -348,7 +350,6 @@ If we give names, Bison complains.
 %type <scm> simple_music_property_def
 %type <scm> string_number_event
 %type <scm> tempo_event
-%type <scm> toplevel_music
 
 %type <outputdef> output_def_body
 %type <outputdef> output_def_head
@@ -477,7 +478,7 @@ toplevel_expression:
 		scm_call_2 (proc, PARSER->self_scm (), score->self_scm ());
 		score->unprotect ();
 	}
-	| toplevel_music {
+	| composite_music {
 		Music *music = unsmob_music ($1);
 		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-music-handler");
 		scm_call_2 (proc, PARSER->self_scm (), music->self_scm ());
@@ -499,11 +500,6 @@ toplevel_expression:
 
 		PARSER->lexer_->set_identifier (id, od->self_scm ());
 		od->unprotect();
-	}
-	;
-
-toplevel_music:
-	composite_music {
 	}
 	;
 
@@ -902,7 +898,7 @@ simultaneous_music:
 	SIMULTANEOUS '{' music_list '}'{
 		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($3));
 	}
-	| simul_open music_list simul_close	{
+	| DOUBLE_ANGLE_OPEN music_list DOUBLE_ANGLE_CLOSE	{
 		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_car ($2));
 	}
 	;
@@ -1331,20 +1327,8 @@ note_chord_element:
 	}
 	;
 
-chord_open: '<'
-	;
-
-chord_close: '>'
-	;
-
-simul_open: DOUBLE_ANGLE_OPEN
-	;
-
-simul_close: DOUBLE_ANGLE_CLOSE
-	;
-
 chord_body:
-	chord_open chord_body_elements chord_close
+	ANGLE_OPEN chord_body_elements ANGLE_CLOSE
 	{
 		$$ = MAKE_SYNTAX ("event-chord", @$, scm_reverse_x ($2, SCM_EOL));
 	}
@@ -1766,7 +1750,7 @@ script_abbreviation:
  	| '|'		{
 		$$ = scm_makfrom0str ("Bar");
 	}
-	| '>'		{
+	| ANGLE_CLOSE	{
 		$$ = scm_makfrom0str ("Larger");
 	}
 	| '.' 		{

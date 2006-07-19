@@ -1,3 +1,8 @@
+2006-07-19  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/parser.yy, lily/lexer.ll: added some simplifications by
+	Angelo Contardi.
+
 2006-07-19  Graham Percival  <gpermus@gmail.com>
 
 	* input/manual/screech-boink.ly: moved to here.
