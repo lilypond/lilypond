@@ -207,7 +207,7 @@ $(outdir)/%.pdf: %.png
 	convert $< $@
 
 $(outdir)/%.pdf: %.eps
-	epstopdf $< $@
+	gs -dAutoRotatePages=/None -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<
 
 
 DEEP_HTML_FILES =\
