@@ -321,10 +321,31 @@
    (str4 dx)
    (str4 dy)))
 
+
 (define (path thickness exps)
+  (define  (path-exps->ps-path-exps exps)
+    (if (pair? exps)
+	(let*
+	    ((head (car exps))
+	     (rest (cdr exps))
+	     (arity 
+	      (cond
+	       ((memq head '(rmoveto rlineto lineto moveto)) 2)
+	       ((memq head '(rcurveto curveto)) 6)
+	       (else 1)))
+	     (args (take rest arity))
+	     )
+
+	  ;; WARNING: this is a vulnerability: a user can output arbitrary PS code here.
+	  (cons (format "~a ~a "
+			(string-join (map (lambda (x) (format "~a " x)) args) " ")
+			head)
+		(path-exps->ps-path-exps (drop rest arity))))
+	'()))
+    
+    
   (format
    "1 setlinecap ~a setlinewidth\n~a stroke"
    thickness
-   (string-join (map (lambda (x) (format "~a" x)) exps)
-		" "))) 
+   (string-join (path-exps->ps-path-exps exps) " ")))
   

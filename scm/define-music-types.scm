@@ -107,7 +107,7 @@ c8-[ c c-] c8")
 
     (BendAfterEvent
      . ((description . "A drop/fall/doit jazz articulation")
-	(types . (general-music fall-event event))))
+	(types . (general-music bend-after-event event))))
 
     (BreakEvent
      . (
