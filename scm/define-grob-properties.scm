@@ -589,7 +589,7 @@ debugging")
 ;;; the next note could be seen
      (join-right-amount ,number? "")
 
-     (delta-pitch ,number? "the interval between this and the next note, or, more precisely, their vertical distance; this is used in ligatures for calculation of the height of vertical joins flexa shapes")
+     (delta-position ,number? "vertical position difference")
      (head-width ,ly:dimension? "width of this ligature head")
 
      ;; [TODO: change this]

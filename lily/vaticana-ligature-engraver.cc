@@ -205,13 +205,13 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
       int delta_pitch = 0;
       if (prev_primitive) /* urgh, need prev_primitive only here */
 	{
-	  SCM delta_pitch_scm = prev_primitive->get_property ("delta-pitch");
+	  SCM delta_pitch_scm = prev_primitive->get_property ("delta-position");
 	  if (delta_pitch_scm != SCM_EOL)
 	    delta_pitch = scm_to_int (delta_pitch_scm);
 	  else
 	    {
 	      primitive->programming_error ("Vaticana_ligature:"
-					    "delta-pitch undefined -> "
+					    "delta-position undefined -> "
 					    "ignoring grob");
 	      continue;
 	    }
@@ -368,13 +368,13 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
 
       int delta_pitch;
-      SCM delta_pitch_scm = primitive->get_property ("delta-pitch");
+      SCM delta_pitch_scm = primitive->get_property ("delta-position");
       if (delta_pitch_scm != SCM_EOL)
 	delta_pitch = scm_to_int (delta_pitch_scm);
       else
 	{
 	  primitive->programming_error ("Vaticana_ligature:"
-					"delta-pitch undefined -> "
+					"delta-position undefined -> "
 					"ignoring grob");
 	  continue;
 	}

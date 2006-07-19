@@ -210,7 +210,7 @@ vaticana_brew_primitive (Grob *me)
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
 
-  SCM delta_pitch_scm = me->get_property ("delta-pitch");
+  SCM delta_pitch_scm = me->get_property ("delta-position");
   int delta_pitch;
   if (delta_pitch_scm != SCM_EOL)
     delta_pitch = scm_to_int (delta_pitch_scm);
@@ -303,6 +303,6 @@ ADD_INTERFACE (Vaticana_ligature, "vaticana-ligature-interface",
 	       "add-cauda "
 	       "add-stem "
 	       "add-join "
-	       "delta-pitch "
+	       "delta-position "
 	       "x-offset "
 	       );
