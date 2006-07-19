@@ -10,8 +10,10 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-context.hh"
+#include "stream-event.hh"
 #include "warn.hh"
-#include "music.hh"
+
+#include "translator.icc"
 
 /**
    Convert evs to audio notes.
@@ -22,13 +24,12 @@ public:
   TRANSLATOR_DECLARATIONS (Note_performer);
 
 protected:
-  virtual bool try_music (Music *ev);
-
   void stop_translation_timestep ();
   void process_music ();
 
+  DECLARE_TRANSLATOR_LISTENER (note);
 private:
-  vector<Music*> note_evs_;
+  vector<Stream_event*> note_evs_;
   vector<Audio_note*> notes_;
 };
 
@@ -45,13 +46,13 @@ Note_performer::process_music ()
 
       while (note_evs_.size ())
 	{
-	  Music *n = note_evs_.back ();
+	  Stream_event *n = note_evs_.back ();
 	  note_evs_.pop_back ();
 	  SCM pit = n->get_property ("pitch");
 
 	  if (Pitch *pitp = unsmob_pitch (pit))
 	    {
-	      Audio_note *p = new Audio_note (*pitp, n->get_length (), - transposing);
+	      Audio_note *p = new Audio_note (*pitp, get_event_length (n), - transposing);
 	      Audio_element_info info (p, n);
 	      announce_element (info);
 	      notes_.push_back (p);
@@ -73,25 +74,15 @@ Note_performer::stop_translation_timestep ()
   note_evs_.clear ();
 }
 
-bool
-Note_performer::try_music (Music *ev)
+IMPLEMENT_TRANSLATOR_LISTENER (Note_performer, note)
+void
+Note_performer::listen_note (Stream_event *ev)
 {
-  if (ev->is_mus_type ("note-event"))
-    {
-      note_evs_.push_back (ev);
-      return true;
-    }
-  else if (ev->is_mus_type ("busy-playing-event"))
-    return note_evs_.size ();
-
-  return false;
+  note_evs_.push_back (ev);
 }
 
-#include "translator.icc"
-
 ADD_TRANSLATOR (Note_performer, "", "",
-		"note-event "
-		"busy-playing-event",
+		"note-event ",
 		"", "");
 
 Note_performer::Note_performer ()

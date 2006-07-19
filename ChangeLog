@@ -1,3 +1,13 @@
+2006-07-19  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/*-performer.cc: Converted try_music to listen_*
+
+	* lily/grob-info.cc, lily/engraver.cc: represent the cause of grob
+	as a stream-event internally. Introduce event_cause (), deprecate
+	music_cause ().
+
+	* scm/define-music-types.scm: Removed BusyPlayingEvent
+	
 2006-07-19  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Font selection):

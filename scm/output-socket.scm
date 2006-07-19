@@ -49,12 +49,12 @@
 	  breapth width depth height blot-diameter
 	  ))
 
-(define (music-cause grob)
+(define (event-cause grob)
   (let*
       ((cause (ly:grob-property  grob 'cause)))
 
     (cond
-     ((ly:music? cause) cause)
+     ((ly:stream-event? cause) cause)
 ;     ((ly:grob? cause) (music-cause cause))
      (else
       #f))))
@@ -83,9 +83,9 @@
 
 (define-public (grob-cause offset grob)
   (let*
-      ((cause (music-cause grob))
-       (tag (if (and cause (integer? (ly:music-property cause 'input-tag)))
-		(ly:music-property cause 'input-tag)
+      ((cause (event-cause grob))
+       (tag (if (and cause (integer? (ly:event-property cause 'input-tag)))
+		(ly:event-property cause 'input-tag)
 		-1))
        (name (cdr (assoc 'name (ly:grob-property grob 'meta))))
        )

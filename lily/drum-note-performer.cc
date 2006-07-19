@@ -10,9 +10,10 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-context.hh"
-#include "warn.hh"
 #include "pitch.hh"
-#include "music.hh"
+#include "stream-event.hh"
+#include "translator.icc"
+#include "warn.hh"
 
 class Drum_note_performer : public Performer
 {
@@ -20,12 +21,11 @@ public:
   TRANSLATOR_DECLARATIONS (Drum_note_performer);
 
 protected:
-  virtual bool try_music (Music *ev);
   void stop_translation_timestep ();
   void process_music ();
-
+  DECLARE_TRANSLATOR_LISTENER (note);
 private:
-  vector<Music*> note_evs_;
+  vector<Stream_event*> note_evs_;
   vector<Audio_note*> notes_;
 };
 
@@ -40,7 +40,7 @@ Drum_note_performer::process_music ()
 
   while (note_evs_.size ())
     {
-      Music *n = note_evs_.back ();
+      Stream_event *n = note_evs_.back ();
       note_evs_.pop_back ();
       SCM sym = n->get_property ("drum-type");
       SCM defn = SCM_EOL;
@@ -51,7 +51,7 @@ Drum_note_performer::process_music ()
 
       if (Pitch *pit = unsmob_pitch (defn))
 	{
-	  Audio_note *p = new Audio_note (*pit, n->get_length (), 0);
+	  Audio_note *p = new Audio_note (*pit, get_event_length (n), 0);
 	  Audio_element_info info (p, n);
 	  announce_element (info);
 	  notes_.push_back (p);
@@ -73,22 +73,13 @@ Drum_note_performer::stop_translation_timestep ()
   note_evs_.clear ();
 }
 
-bool
-Drum_note_performer::try_music (Music *ev)
+IMPLEMENT_TRANSLATOR_LISTENER (Drum_note_performer, note);
+void
+Drum_note_performer::listen_note (Stream_event *ev)
 {
-  if (ev->is_mus_type ("note-event"))
-    {
-      note_evs_.push_back (ev);
-      return true;
-    }
-  else if (ev->is_mus_type ("busy-playing-event"))
-    return note_evs_.size ();
-
-  return false;
+  note_evs_.push_back (ev);
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Drum_note_performer,
 		"Play drum notes.", "",
-		"note-event busy-playing-event", "", "");
+		"note-event", "", "");

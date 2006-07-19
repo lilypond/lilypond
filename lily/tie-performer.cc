@@ -8,15 +8,16 @@
 
 #include "performer.hh"
 
-#include "music.hh"
-#include "context.hh"
 #include "audio-item.hh"
+#include "context.hh"
 #include "pqueue.hh"
+#include "stream-event.hh"
+#include "translator.icc"
 
 class Tie_performer : public Performer
 {
-  Music *event_;
-  Music *last_event_;
+  Stream_event *event_;
+  Stream_event *last_event_;
   vector<Audio_element_info> now_heads_;
   vector<Audio_element_info> heads_to_tie_;
 
@@ -26,8 +27,8 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
   virtual void acknowledge_audio_element (Audio_element_info);
-  virtual bool try_music (Music *);
   void process_music ();
+  DECLARE_TRANSLATOR_LISTENER (tie);
 public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
 };
@@ -39,13 +40,11 @@ Tie_performer::Tie_performer ()
   ties_created_ = false;
 }
 
-bool
-Tie_performer::try_music (Music *mus)
+IMPLEMENT_TRANSLATOR_LISTENER (Tie_performer, tie);
+void
+Tie_performer::listen_tie (Stream_event *ev)
 {
-  if (mus->is_mus_type ("tie-event"))
-    event_ = mus;
-
-  return true;
+  event_ = ev;
 }
 
 void
@@ -63,10 +62,10 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
       now_heads_.push_back (inf);
       for (vsize i = heads_to_tie_.size (); i--;)
 	{
-	  Music *right_mus = inf.event_;
+	  Stream_event *right_mus = inf.event_;
 
 	  Audio_note *th = dynamic_cast<Audio_note *> (heads_to_tie_[i].elem_);
-	  Music *left_mus = heads_to_tie_[i].event_;
+	  Stream_event *left_mus = heads_to_tie_[i].event_;
 
 	  if (right_mus && left_mus
 	      && ly_is_equal (right_mus->get_property ("pitch"),
@@ -104,8 +103,6 @@ Tie_performer::stop_translation_timestep ()
   event_ = 0;
   now_heads_.clear ();
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Tie_performer,
 		/* doc */ "Generate ties between noteheads of equal pitch.",

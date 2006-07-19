@@ -310,13 +310,13 @@ grestore
 	      rest))
 	expr))
   
-  (define (music-cause grob)
+  (define (event-cause grob)
     (let*
 	((cause (ly:grob-property  grob 'cause)))
       
       (cond
-       ((ly:music? cause) cause)
-       ((ly:grob? cause) (music-cause cause))
+       ((ly:stream-event? cause) cause)
+       ((ly:grob? cause) (event-cause cause))
        (else #f))))
 
   (define (pythonic-string expr)
@@ -341,8 +341,8 @@ grestore
 	((grob (car expr))
 	 (rest (cdr expr))
 	 (collected '())
-	 (cause (music-cause grob))
-	 (input (if (ly:music? cause) (ly:music-property cause 'origin) #f))
+	 (cause (event-cause grob))
+	 (input (if (ly:stream-event? cause) (ly:event-property cause 'origin) #f))
 	 (location (if (ly:input-location? input) (ly:input-file-line-char-column input) '()))
 
 	 (x-ext (ly:grob-extent grob system-grob X))

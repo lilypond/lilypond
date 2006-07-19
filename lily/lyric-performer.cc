@@ -8,7 +8,8 @@
 
 #include "audio-item.hh"
 #include "performer.hh"
-#include "music.hh"
+#include "stream-event.hh"
+#include "translator.icc"
 
 class Lyric_performer : public Performer
 {
@@ -16,12 +17,11 @@ public:
   TRANSLATOR_DECLARATIONS (Lyric_performer);
 protected:
 
-  virtual bool try_music (Music *event);
   void stop_translation_timestep ();
-   void process_music ();
-
+  void process_music ();
+  DECLARE_TRANSLATOR_LISTENER (lyric);
 private:
-  vector<Music*> events_;
+  vector<Stream_event *> events_;
   Audio_text *audio_;
 };
 
@@ -57,18 +57,12 @@ Lyric_performer::stop_translation_timestep ()
   events_.clear ();
 }
 
-bool
-Lyric_performer::try_music (Music *event)
+IMPLEMENT_TRANSLATOR_LISTENER (Lyric_performer, lyric);
+void
+Lyric_performer::listen_lyric (Stream_event *event)
 {
-  if (event->is_mus_type ("lyric-event"))
-    {
-      events_.push_back (event);
-      return true;
-    }
-  return false;
+  events_.push_back (event);
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Lyric_performer, "", "", "lyric-event",
 		"", "");

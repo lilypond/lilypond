@@ -9,8 +9,10 @@
 #include "performer.hh"
 
 #include "audio-item.hh"
-#include "music.hh"
 #include "duration.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 class Tempo_performer : public Performer
 {
@@ -20,12 +22,11 @@ public:
 
 protected:
 
-  virtual bool try_music (Music *event);
   void stop_translation_timestep ();
   void process_music ();
-
+  DECLARE_TRANSLATOR_LISTENER (metronome_change);
 private:
-  Music *tempo_event_;
+  Stream_event *tempo_event_;
   Audio_tempo *audio_;
 };
 
@@ -67,17 +68,12 @@ Tempo_performer::stop_translation_timestep ()
     }
 }
 
-bool
-Tempo_performer::try_music (Music *event)
+IMPLEMENT_TRANSLATOR_LISTENER (Tempo_performer, metronome_change);
+void
+Tempo_performer::listen_metronome_change (Stream_event *event)
 {
-  if (tempo_event_)
-    return false;
-
   tempo_event_ = event;
-  return true;
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Tempo_performer, "", "",
 		"metronome-change-event",

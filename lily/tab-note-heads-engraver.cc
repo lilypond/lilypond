@@ -58,8 +58,6 @@ Tab_note_heads_engraver::try_music (Music *m)
       tabstring_events_.push_back (m);
       return true;
     }
-  else if (m->is_mus_type ("busy-playing-event"))
-    return note_events_.size ();
 
   return false;
 }
@@ -168,7 +166,7 @@ Tab_note_heads_engraver::stop_translation_timestep ()
 ADD_TRANSLATOR (Tab_note_heads_engraver,
 		/* doc */ "Generate one or more tablature noteheads from Music of type NoteEvent.",
 		/* create */ "TabNoteHead Dots",
-		/* accept */ "note-event string-number-event busy-playing-event",
+		/* accept */ "note-event string-number-event",
 		/* read */ "middleCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
 		/* write */ "");
 

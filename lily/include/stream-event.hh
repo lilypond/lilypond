@@ -19,6 +19,7 @@ public:
   Stream_event ();
   Input *origin () const;
   void set_spot (Input *i);
+  bool internal_in_event_class (SCM class_name);
 
   DECLARE_SCHEME_CALLBACK (undump, (SCM));
   DECLARE_SCHEME_CALLBACK (dump, (SCM));
@@ -29,6 +30,8 @@ public:
   Stream_event (SCM class_name, Input *);
   Stream_event (Stream_event *ev);
 };
+
+#define in_event_class(class_name) internal_in_event_class (ly_symbol2scm (class_name))
 
 Stream_event *unsmob_stream_event (SCM);
 DECLARE_TYPE_P (Stream_event);

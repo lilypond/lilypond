@@ -45,8 +45,6 @@ Note_heads_engraver::try_music (Music *m)
       note_evs_.push_back (m);
       return true;
     }
-  else if (m->is_mus_type ("busy-playing-event"))
-    return note_evs_.size ();
 
   return false;
 }
@@ -132,7 +130,6 @@ ADD_TRANSLATOR (Note_heads_engraver,
 		"NoteHead "
 		"Dots",
 		/* accept */
-		"note-event "
-		"busy-playing-event",
+		"note-event",
 		/* read */ "middleCPosition",
 		/* write */ "");

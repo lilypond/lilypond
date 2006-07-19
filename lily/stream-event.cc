@@ -13,6 +13,8 @@
 #include "input.hh"
 #include "input-smob.hh"
 
+/* TODO: Rename Stream_event -> Event */
+
 Stream_event::Stream_event ()
   : Prob (ly_symbol2scm ("Stream_event"), SCM_EOL)
 {
@@ -53,9 +55,18 @@ Stream_event::origin () const
   return i ? i : &dummy_input_global;
 }
 
-void Stream_event::set_spot (Input *i)
+void
+Stream_event::set_spot (Input *i)
 {
   set_property ("origin", make_input (*i));
+}
+
+bool
+Stream_event::internal_in_event_class (SCM class_name)
+{
+  SCM cl = get_property ("class");
+  cl = scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), cl);
+  return scm_c_memq (class_name, cl) != SCM_BOOL_F;
 }
 
 IMPLEMENT_TYPE_P (Stream_event, "ly:stream-event?");

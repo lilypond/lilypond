@@ -11,14 +11,15 @@
 #include <cctype>
 using namespace std;
 
-#include "text-interface.hh"
-#include "grob.hh"
-#include "output-def.hh"
-#include "music.hh"
-#include "pitch.hh"
 #include "font-interface.hh"
+#include "grob.hh"
+#include "music.hh"
+#include "output-def.hh"
+#include "pitch.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
+#include "stream-event.hh"
+#include "text-interface.hh"
 
 /*
 
@@ -33,7 +34,7 @@ Note_head::brew_ez_stencil (SCM smob)
   int log = Note_head::get_balltype (me);
 
   SCM cause = me->get_property ("cause");
-  SCM spitch = unsmob_music (cause)->get_property ("pitch");
+  SCM spitch = unsmob_stream_event (cause)->get_property ("pitch");
   Pitch *pit = unsmob_pitch (spitch);
 
   SCM idx = scm_from_int (pit->get_notename ());

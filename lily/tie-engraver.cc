@@ -16,6 +16,7 @@
 #include "protected-scm.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
 #include "tie-column.hh"
 #include "tie.hh"
 #include "warn.hh"
@@ -103,15 +104,15 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
   for (vsize i = heads_to_tie_.size (); i--;)
     {
       Grob *th = heads_to_tie_[i].head_;
-      Music *right_mus = unsmob_music (h->get_property ("cause"));
-      Music *left_mus = unsmob_music (th->get_property ("cause"));
+      Stream_event *right_ev = unsmob_stream_event (h->get_property ("cause"));
+      Stream_event *left_ev = unsmob_stream_event (th->get_property ("cause"));
 
       /*
 	maybe should check positions too.
       */
-      if (right_mus && left_mus
-	  && ly_is_equal (right_mus->get_property ("pitch"),
-			  left_mus->get_property ("pitch")))
+      if (right_ev && left_ev
+	  && ly_is_equal (right_ev->get_property ("pitch"),
+			  left_ev->get_property ("pitch")))
 	{
 	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_,
 				 context ()->get_grob_key ("Tie"));
@@ -176,8 +177,8 @@ Tie_engraver::stop_translation_timestep ()
       for (vsize i = 0; i < now_heads_.size (); i++)
 	{
 	  Grob *head = now_heads_[i];
-	  Music *left_mus = unsmob_music (head->get_property ("cause"));
-	  if (left_mus)
+	  Stream_event *left_ev = unsmob_stream_event (head->get_property ("cause"));
+	  if (left_ev)
 	    {
 	      Head_event_tuple event_tup;
 
@@ -188,11 +189,11 @@ Tie_engraver::stop_translation_timestep ()
 	      Moment end = now_mom ();
 	      if (end.grace_part_)
 		{
-		  end.grace_part_ += left_mus->get_length ().main_part_;
+		  end.grace_part_ += get_event_length (left_ev).main_part_;
 		}
 	      else
 		{
-		  end += left_mus->get_length (); 
+		  end += get_event_length (left_ev);
 		}
 	      event_tup.end_moment_ = end;
 
