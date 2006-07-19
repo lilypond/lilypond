@@ -13,6 +13,33 @@
 
 2006-07-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): doc new feature.
+
+	* scm/output-ps.scm (path): define path.
+
+	* scm/define-stencil-commands.scm
+	(ly:register-stencil-expression): add path.
+
+	* scm/define-music-properties.scm (all-music-properties): add delta-pitch.
+
+	* ly/engraver-init.ly: add Fall_engraver
+
+	* lily/parser.yy (music_function_event): allow musicfunction
+	without music arg as music_function_event.
+
+	* lily/grob-scheme.cc (LY_DEFINE):
+	ly:grob-robust-relative-extent. New function.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add BendAfter
+
+	* scm/define-music-types.scm (music-descriptions): add BendAfterEvent.
+
+	* scm/output-lib.scm (fall::print): new function
+
+	* lily/fall-engraver.cc (stop_fall): new file.
+
+	* ly/music-functions-init.ly: alphabetise.
+
 	* Documentation/user/GNUmakefile (OUT_PNG_IMAGES): pdf iso. eps as
 	base.
 

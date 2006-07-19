@@ -156,6 +156,28 @@ LY_DEFINE (ly_get_extent, "ly:grob-extent",
   return ly_interval2scm (sc->extent (ref, a));
 }
 
+LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
+	   3, 0, 0, (SCM grob, SCM refp, SCM axis),
+	   "Get the extent in @var{axis} direction of @var{grob} relative to "
+	   "the grob @var{refp}, or (0,0) if empty")
+{
+  Grob *sc = unsmob_grob (grob);
+  Grob *ref = unsmob_grob (refp);
+  
+  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+
+  Axis a = Axis (scm_to_int (axis));
+    
+  if (ref->common_refpoint (sc, a) != ref)
+    {
+      // ugh. should use other error message
+      SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
+    }
+
+  return ly_interval2scm (robust_relative_extent (sc, ref, a));
+}
 
 LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
 	   3, 0, 0, (SCM grob, SCM refp, SCM axis),
@@ -309,6 +331,12 @@ LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
   return Font_interface::get_default_font (gr)->self_scm ();
 }
 
+
+/*
+  TODO: consider swapping order, so we can do
+
+  (grob-common-refpoint a b c d e)
+ */
 LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
 	   3, 0, 0,  (SCM grob, SCM other, SCM axis),
 	   "Find the common refpoint of @var{grob} and @var{other} for @var{axis}."

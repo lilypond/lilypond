@@ -211,6 +211,7 @@ contained staves are not connected vertically."
   \consists "Text_engraver"
   \consists "Dynamic_engraver"
   \consists "Fingering_engraver"
+  \consists "Fall_engraver"
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"

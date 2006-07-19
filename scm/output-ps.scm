@@ -320,3 +320,11 @@
    (str4 thick)
    (str4 dx)
    (str4 dy)))
+
+(define (path thickness exps)
+  (format
+   "1 setlinecap ~a setlinewidth\n~a stroke"
+   thickness
+   (string-join (map (lambda (x) (format "~a" x)) exps)
+		" "))) 
+  

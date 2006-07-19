@@ -104,6 +104,11 @@ Syntax for manual control:
 c8-[ c c-] c8")
 	(types . (general-music event beam-event span-event))
 	))
+
+    (BendAfterEvent
+     . ((description . "A drop/fall/doit jazz articulation")
+	(types . (general-music fall-event event))))
+
     (BreakEvent
      . (
 	(description .  "Create a line break, Syntax: \\break or page break, Syntax: \\pagebreak.")
@@ -189,6 +194,7 @@ Syntax: @var{note}\\cr
 	(types . (general-music event-chord simultaneous-music))
 	))
 
+    
     (FingerEvent
      . (
 	(description . "Specify what finger to use for this note.")

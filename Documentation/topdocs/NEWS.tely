@@ -66,6 +66,18 @@ which scares away people.
 
 @end ignore
 @item
+Falls and doits can be added to notes
+
+@lilypond[fragment,ragged-right,relative=2]
+  \override Score.SpacingSpanner #'shortest-duration-space = #3.0
+  c4-\bendAfter #+5
+  c4-\bendAfter #-3
+}
+@end lilypond
+
+This feature was sponsored by Anthony Youngman and Paul Scott.
+
+@item
 @code{lilypond-book} now includes support for PDF@TeX{}.
 
 This feature was sponsored by David Roundy. 
