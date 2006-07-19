@@ -179,6 +179,12 @@ BOM_UTF8	\357\273\277
   }
 }
 
+<INITIAL,notes,figures,chords,markup>{
+	\"		{
+		start_quote ();
+	}
+}
+
 <INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
 	yy_push_state (version);
 }
@@ -318,13 +324,23 @@ BOM_UTF8	\357\273\277
 	return SCM_T;
 }
 <INITIAL,notes,lyrics>{ 
-	\<\<   {
+	\<\<	{
 		return DOUBLE_ANGLE_OPEN;
 	}
-	\>\>   {
+	\>\>	{
 		return DOUBLE_ANGLE_CLOSE;
 	}
 }
+
+<INITIAL,notes>{
+	\<	{
+		return ANGLE_OPEN;
+	}
+	\>	{
+		return ANGLE_CLOSE;
+	}
+}
+
 <figures>{
 	_	{
 		return FIGURE_SPACE;
@@ -362,15 +378,9 @@ BOM_UTF8	\357\273\277
 		yylval.i = String_convert::dec2int (string (YYText () +1));
 		return E_UNSIGNED;
 	}
-	\" {
-		start_quote ();
-	}
 }
 
-\"		{
-	start_quote ();
-}
-<quote>{
+<quote,lyric_quote>{
 	\\{ESCAPED}	{
 		*yylval.string += to_string (escaped_char (YYText ()[1]));
 	}
@@ -385,28 +395,7 @@ BOM_UTF8	\357\273\277
 		string *sp = yylval.string;
 		yylval.scm = scm_makfrom0str (sp->c_str ());
 		delete sp;
-		return STRING;
-	}
-	.	{
-		*yylval.string += YYText ();
-	}
-}
-<lyric_quote>{
-	\\{ESCAPED}	{
-		*yylval.string += to_string (escaped_char (YYText ()[1]));
-	}
-	[^\\"]+	{
-		*yylval.string += YYText ();
-	}
-	\"	{
-
-		yy_pop_state ();
-
-		/* yylval is union. Must remember STRING before setting SCM*/
-		string *sp = yylval.string;
-		yylval.scm = scm_makfrom0str (sp->c_str ());
-		delete sp;
-		return LYRICS_STRING;
+		return is_lyric_state () ? LYRICS_STRING : STRING;
 	}
 	.	{
 		*yylval.string += YYText ();
@@ -465,9 +454,6 @@ BOM_UTF8	\357\273\277
 		yylval.i = String_convert::dec2int (string (YYText ()));
 		return UNSIGNED;
 	}
-	\" {
-		start_quote ();
-	}
 	-  {
 		return CHORD_MINUS;
 	}
@@ -490,9 +476,6 @@ BOM_UTF8	\357\273\277
 
 
 <markup>{
-	\" {
-		start_quote ();
-	}
 	\\score {
 		return SCORE;
 	}
