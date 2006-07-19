@@ -1,5 +1,11 @@
 2006-07-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/output-lib.scm (fall::print): use new order.
+
+	* scm/output-ps.scm (path): reorder arguments.
+
+	* scm/output-svg.scm (path): support for path primitive.
+
 	* input/regression/bend-after.ly: new file.
 
 	* Documentation/user/GNUmakefile ($(outdir)/%.pdf): foolproof

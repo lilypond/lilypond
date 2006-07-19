@@ -323,7 +323,7 @@
 
 
 (define (path thickness exps)
-  (define  (path-exps->ps-path-exps exps)
+  (define (convert-path-exps exps)
     (if (pair? exps)
 	(let*
 	    ((head (car exps))
@@ -340,12 +340,12 @@
 	  (cons (format "~a ~a "
 			(string-join (map (lambda (x) (format "~a " x)) args) " ")
 			head)
-		(path-exps->ps-path-exps (drop rest arity))))
+		(convert-path-exps (drop rest arity))))
 	'()))
     
     
   (format
    "1 setlinecap ~a setlinewidth\n~a stroke"
    thickness
-   (string-join (path-exps->ps-path-exps exps) " ")))
+   (string-join (convert-path-exps exps) " ")))
   
