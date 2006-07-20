@@ -412,6 +412,7 @@ number is specified.")
 
      (tupletFullLength ,boolean? "If set, the tuplet is printed up to
 the start of the next note.")
+     (tupletFullLengthNote ,boolean? "If set, end at the next note, otherwise end on the matter (time sigs, etc.) before the note.")
      (tupletSpannerDuration ,ly:moment? "
 Normally a tuplet bracket is as wide as the
 @code{\\times} expression that gave rise to it.  By setting this
