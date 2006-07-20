@@ -26,12 +26,13 @@ Spacing_options::init_from_grob (Grob *me)
 
 Spacing_options::Spacing_options ()
 {
-  increment_ = 1.2;
   packed_ = false;
   stretch_uniformly_ = false;
   float_nonmusical_columns_ = false;
   float_grace_columns_ = false;
+
   shortest_duration_space_ = 2.0;
+  increment_ = 1.2;
 
   global_shortest_ = Rational (1, 8);
 }

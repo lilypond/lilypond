@@ -1,5 +1,8 @@
 2006-07-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/spacing-spanner.cc (calc_common_shortest_duration): use
+	callback to compute common shortest duration.
+
 	* scm/define-grob-properties.scm (all-user-grob-properties): add
 	strict-grace-spacing.
 
