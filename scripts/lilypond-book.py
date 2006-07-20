@@ -166,6 +166,12 @@ def get_option_parser ():
                   help = _ ("process ly_files using COMMAND FILE..."),
                   action='store', 
                   dest='process_cmd', default='lilypond -b eps')
+
+    p.add_option ('--pdf',
+                  action="store_true",
+                  dest="create_pdf",
+                  help="Create PDF files for use with PDFTeX",
+                  default=False)
     
     p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
                   help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX'''
@@ -557,7 +563,7 @@ output = {
  \preLilyPondExample%%
 \fi%%
 \def\lilypondbook{}%%
-\input %(base)s-systems.tex%%
+\input %(base)s-systems.%(texextension)s%%
 \ifx\postLilyPondExample \undefined%%
  \relax%%
 \else%%
@@ -1157,7 +1163,10 @@ class Lilypond_snippet (Snippet):
             if VERBATIM in self.option_dict:
                 verb = self.substring ('code')
                 str += (output[LATEX][VERBATIM] % vars ())
-        
+
+        texextension = 'tex'
+        if global_options.create_pdf:
+            texextension = 'pdftex'
         str += (output[LATEX][OUTPUT] % vars ())
 
         ## todo: maintain breaks
@@ -1712,9 +1721,17 @@ def main ():
     formats = 'ps'
     if global_options.format in (TEXINFO, HTML):
         formats += ',png'
+
+    if (global_options.format in (TEXINFO, LATEX)
+        and global_options.create_pdf):
+        formats += ",pdf"
+        
     if global_options.process_cmd == '':
-        global_options.process_cmd = lilypond_binary \
-               + ' --formats=%s --backend eps ' % formats
+        global_options.process_cmd = (lilypond_binary 
+                                      + ' --formats=%s --backend eps ' % formats)
+
+        if global_options.create_pdf:
+            global_options.process_cmd += ' -dgs-font-load -deps-font-include '
 
     if global_options.process_cmd:
         global_options.process_cmd += string.join ([(' -I %s' % commands.mkarg (p))
@@ -1746,7 +1763,7 @@ def main ():
         psfonts_file = os.path.join (global_options.output_name, basename + '.psfonts')
         output = os.path.join (global_options.output_name, basename +  '.dvi' )
         
-        if not global_options.psfonts:
+        if not global_options.psfonts and not global_options.create_pdf:
             warning (_ ("option --psfonts not used"))
             warning (_ ("processing with dvips will have no fonts"))
         else:
