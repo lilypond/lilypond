@@ -192,27 +192,3 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 }
 
 /****************************************************************/
-
-void
-Spacing_options::init_from_grob (Grob *me)
-{
-  increment_ = robust_scm2double (me->get_property ("spacing-increment"), 1);
-
-  packed_ = to_boolean (me->get_property ("packed-spacing"));
-  stretch_uniformly_ = to_boolean (me->get_property ("uniform-stretching"));
-  float_nonmusical_columns_
-    = to_boolean (me->get_property ("strict-note-spacing"));
-  shortest_duration_space_ = robust_scm2double (me->get_property ("shortest-duration-space"), 1);
-}
-
-void
-Spacing_options::init ()
-{
-  increment_ = 1.2;
-  packed_ = false;
-  stretch_uniformly_ = false;
-  float_nonmusical_columns_ = false;
-  shortest_duration_space_ = 2.0;
-
-  global_shortest_ = Rational (1, 8);
-}

@@ -65,6 +65,31 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+
+@item
+Tuplet brackets can be made to run to prefatory matter or
+the next note
+
+@lilypond[ragged-right]
+\new RhythmicStaff {
+  \set tupletFullLength = ##t
+  \time 4/4
+  \times 4/5 {
+    c4 c1
+  }
+  \set tupletFullLengthNote = ##t
+  \time 2/4
+  \times 2/3 {
+    c4 c c 
+  }
+  \time 3/4
+  c4 
+}
+@end lilypond
+
+
+This feature was sponsored by Trevor Bača.
+
 @item
 Falls and doits can be added to notes
 
