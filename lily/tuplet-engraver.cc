@@ -19,8 +19,14 @@ struct Tuplet_description
   Music *music_;
   Spanner *bracket_;
   Spanner *number_;
+
+  bool full_length_;
+  bool full_length_note_;
+  
   Tuplet_description ()
   {
+    full_length_note_ = false;
+    full_length_ = false;
     music_ = 0;
     bracket_ = 0;
     number_ = 0;
@@ -70,12 +76,14 @@ Tuplet_engraver::process_music ()
 {
   for (vsize i = 0; i < stopped_tuplets_.size (); i++)
     {
-      bool full_length = to_boolean (get_property ("tupletFullLength"));
       if (stopped_tuplets_[i].bracket_)
 	{
-	  if (full_length)
+	  if (stopped_tuplets_[i].full_length_)
 	    {
-	      Item *col = unsmob_item (get_property ("currentMusicalColumn"));
+	      Item *col =
+		unsmob_item (stopped_tuplets_[i].full_length_note_
+			     ? get_property ("currentMusicalColumn")
+			     : get_property ("currentCommandColumn"));
 	      
 	      stopped_tuplets_[i].bracket_->set_bound (RIGHT, col);
 	      stopped_tuplets_[i].number_->set_bound (RIGHT, col);
@@ -100,9 +108,14 @@ Tuplet_engraver::process_music ()
       /* i goes from size-1 downto 0, inclusively */
       vsize i = j - 1;
 
+            
       if (tuplets_[i].bracket_)
 	continue;
 
+      tuplets_[i].full_length_ = to_boolean (get_property ("tupletFullLength"));
+      tuplets_[i].full_length_note_
+	= to_boolean (get_property ("tupletFullLengthNote"));
+      
       tuplets_[i].bracket_ = make_spanner ("TupletBracket",
 					   tuplets_[i].music_->self_scm ());
       tuplets_[i].number_ = make_spanner ("TupletNumber",
@@ -141,13 +154,11 @@ void
 Tuplet_engraver::finalize ()
 {
   if (to_boolean (get_property ("tupletFullLength")))
-    {
-      for (vsize i = 0; i < last_tuplets_.size (); i++)
-	{
-	  Item *col = unsmob_item (get_property ("currentCommandColumn"));
-	  last_tuplets_[i]->set_bound (RIGHT, col);
-	}
-    }
+    for (vsize i = 0; i < last_tuplets_.size (); i++)
+      {
+	Item *col = unsmob_item (get_property ("currentCommandColumn"));
+	last_tuplets_[i]->set_bound (RIGHT, col);
+      }
 }
 
 Tuplet_engraver::Tuplet_engraver ()
