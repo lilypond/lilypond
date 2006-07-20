@@ -70,15 +70,12 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 
   ;; main body 
   (let* ((tex-system-name (format "~a-systems.tex" basename))
-	 (pdftex-system-name (format "~a-systems.pdftex" basename))
 	 (texi-system-name (format "~a-systems.texi" basename))
 	 (tex-system-port (open-output-file tex-system-name))
-	 (texi-system-port (open-output-file texi-system-name))
-	 (pdftex-system-port (open-output-file pdftex-system-name)))
+	 (texi-system-port (open-output-file texi-system-name)))
     
     (ly:message (_ "Writing ~a...") tex-system-name)
     (ly:message (_ "Writing ~a...") texi-system-name)
-    (ly:message (_ "Writing ~a...") pdftex-system-name)
 
     (set! stencils (widen-left-stencil-edges stencils))
     
@@ -91,10 +88,8 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
   \\betweenLilyPondSystem{~a}
 \\fi
 " c) tex-system-port))
-		(display (format "\\includegraphics{~a-~a.eps}\n"
+		(display (format "\\includegraphics{~a-~a}\n"
 				 basename (1+ c)) tex-system-port)
-		(display (format "\\includegraphics{~a-~a.pdf}\n"
-				 basename (1+ c)) pdftex-system-port)
 		(display (format "@image{~a-~a}\n"
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))

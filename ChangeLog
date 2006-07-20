@@ -1,5 +1,8 @@
 2006-07-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/framework-eps.scm (dump-stencils-as-EPSes): just strip
+	.eps extension from includegraphics.
+
 	* scripts/lilypond-book.py (main): add support for --pdf. 
 
 	* lily/spacing-spanner.cc (calc_common_shortest_duration): use
