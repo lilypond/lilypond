@@ -1722,21 +1722,21 @@ def main ():
     if global_options.format in (TEXINFO, HTML):
         formats += ',png'
 
-    if (global_options.format in (TEXINFO, LATEX)
-        and global_options.create_pdf):
-        formats += ",pdf"
         
     if global_options.process_cmd == '':
         global_options.process_cmd = (lilypond_binary 
                                       + ' --formats=%s --backend eps ' % formats)
 
-        if global_options.create_pdf:
-            global_options.process_cmd += ' -dgs-font-load -deps-font-include '
-
     if global_options.process_cmd:
         global_options.process_cmd += string.join ([(' -I %s' % commands.mkarg (p))
                               for p in global_options.include_path])
 
+    if (global_options.format in (TEXINFO, LATEX)
+        and global_options.create_pdf):
+        global_options.process_cmd += "--pdf  -deps-font-include -dgs-font-load "
+
+    if global_options.verbose:
+        global_options.process_cmd += " --verbose "
     identify ()
 
     try:
