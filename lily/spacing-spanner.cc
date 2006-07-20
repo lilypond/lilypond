@@ -26,31 +26,19 @@ using namespace std;
 #include "system.hh"
 #include "warn.hh"
 
-
-/*
-  TODO:
-
-  use callback instead?
-
-*/
-Rational
-Spacing_spanner::effective_shortest_duration (Grob *me,
-					      vector<Grob*> const &all)
+vector<Grob*>
+Spacing_spanner::get_columns (Spanner *me)
 {
-  SCM preset_shortest = me->get_property ("common-shortest-duration");
-  Rational global_shortest;
-  if (unsmob_moment (preset_shortest))
-    global_shortest = unsmob_moment (preset_shortest)->main_part_;
-  else
-    {
-      global_shortest = Spacing_spanner::find_shortest (me, all);
-      if (be_verbose_global)
-	message (_f ("Global shortest duration is %s", global_shortest.to_string ()) + "\n");
-    }
+  vector<Grob*> all (get_root_system (me)->columns ());
+  vsize start = binary_search (all, (Grob*)me->get_bound (LEFT),
+			       &Paper_column::compare);
+  vsize end = binary_search (all, (Grob*) me->get_bound (RIGHT),
+			     &Paper_column::compare);
 
-  return global_shortest;
+  all = vector<Grob*>::vector<Grob*> (all.begin () + start,
+				      all.begin () + end + 1);
+  return all;
 }
-
 
 MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
@@ -61,20 +49,13 @@ Spacing_spanner::set_springs (SCM smob)
   /*
     can't use get_system() ? --hwn.
   */
-  vector<Grob*> all (get_root_system (me)->columns ());
-  vsize start = binary_search (all, (Grob*)me->get_bound (LEFT),
-			       &Paper_column::compare);
-  vsize end = binary_search (all, (Grob*) me->get_bound (RIGHT),
-			     &Paper_column::compare);
-
-  all = vector<Grob*>::vector<Grob*> (all.begin () + start,
-				      all.begin () + end + 1);
-  
+  vector<Grob*> all (get_columns (me));
   set_explicit_neighbor_columns (all);
 
   Spacing_options options;
   options.init_from_grob (me);
-  options.global_shortest_ = effective_shortest_duration (me, all);
+  options.global_shortest_ = robust_scm2moment (me->get_property ("common-shortest-duration"),
+						Moment (1,8)).main_part_;
 
   prune_loose_columns (me, &all, &options);
   set_implicit_neighbor_columns (all);
@@ -92,9 +73,15 @@ Spacing_spanner::set_springs (SCM smob)
   note has a different duration, but hey, don't write that kind of
   stuff, then.
 */
-Rational
-Spacing_spanner::find_shortest (Grob *me, vector<Grob*> const &cols)
+
+MAKE_SCHEME_CALLBACK (Spacing_spanner, calc_common_shortest_duration, 1);
+SCM 
+Spacing_spanner::calc_common_shortest_duration (SCM grob)
 {
+  Spanner *me = unsmob_spanner (grob);
+
+  vector<Grob*> cols (get_columns (me));
+  
   /*
     ascending in duration
   */
@@ -172,7 +159,7 @@ Spacing_spanner::find_shortest (Grob *me, vector<Grob*> const &cols)
   if (max_idx >= 0)
     d = min (d, durations[max_idx]);
 
-  return d;
+  return Moment (d).smobbed_copy ();
 }
 
 void
