@@ -1,5 +1,16 @@
 2006-07-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/spacing-determine-loose-columns.cc (is_loose_column):
+	support float_grace_columns_.
+
+	* lily/spacing-options.cc (init_from_grob): new file.
+
+	* Documentation/topdocs/NEWS.tely (Top): doc tupletFullLengthNote.
+
+	* input/regression/spacing-loose-grace.ly: new file.
+
+	* Documentation/topdocs/NEWS.tely (Top): document new feature.
+
 	* lily/tuplet-engraver.cc (struct Tuplet_description): read
 	tupletFullLengthNote too. Choose right bound depending on value.
 

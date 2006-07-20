@@ -423,6 +423,8 @@ that overlap completely.")
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, barlines, etc.) are not spaced
 separately, but put before musical columns.")
+     (strict-grace-spacing ,boolean? "If set, grace notes 
+are not spaced separately, but put before musical columns.")
      (string-count ,integer? "The number of strings in a fret diagram.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      

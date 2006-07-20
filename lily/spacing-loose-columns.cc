@@ -92,12 +92,11 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	      else if (Note_spacing::has_interface (spacing))
 		{
 		  Spacing_options options;
-		  options.init ();
 
 		  fixed = robust_relative_extent (col, col, X_AXIS)[RIGHT];
 
 		  Moment dt = Paper_column::when_mom (right) - Paper_column::when_mom (col);
-		  bool expand;
+		  bool expand = false;
 		  space = options.get_duration_space (dt, &expand);
 		  Note_spacing::get_spacing (spacing, right, space, options.increment_,
 					     &space, &fixed);

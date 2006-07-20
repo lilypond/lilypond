@@ -32,7 +32,8 @@
 static bool
 is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
 {
-  if (options->float_nonmusical_columns_
+  if ((options->float_nonmusical_columns_
+       ||options->float_grace_columns_)
       && Paper_column::when_mom (c).grace_part_)
     return true;
 
