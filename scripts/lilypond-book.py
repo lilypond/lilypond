@@ -563,7 +563,7 @@ output = {
  \preLilyPondExample%%
 \fi%%
 \def\lilypondbook{}%%
-\input %(base)s-systems.%(texextension)s%%
+\input %(base)s-systems.tex%%
 \ifx\postLilyPondExample \undefined%%
  \relax%%
 \else%%
@@ -1164,9 +1164,6 @@ class Lilypond_snippet (Snippet):
                 verb = self.substring ('code')
                 str += (output[LATEX][VERBATIM] % vars ())
 
-        texextension = 'tex'
-        if global_options.create_pdf:
-            texextension = 'pdftex'
         str += (output[LATEX][OUTPUT] % vars ())
 
         ## todo: maintain breaks
