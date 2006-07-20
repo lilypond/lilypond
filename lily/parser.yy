@@ -993,7 +993,7 @@ music_function_musicless_prefix:
 
 generic_prefix_music_scm:
 	music_function_musicless_function {
-		$$ = $1
+		$$ = $1;
 	}
 	| music_function_musicless_prefix music {
 		$$ = ly_append2 ($1, scm_list_1 ($2));
