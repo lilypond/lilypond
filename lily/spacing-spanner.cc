@@ -55,7 +55,7 @@ Spacing_spanner::set_springs (SCM smob)
   Spacing_options options;
   options.init_from_grob (me);
   options.global_shortest_ = robust_scm2moment (me->get_property ("common-shortest-duration"),
-						Moment (Rational (1,8)).main_part_;
+						Moment (Rational (1,8))).main_part_;
 
   prune_loose_columns (me, &all, &options);
   set_implicit_neighbor_columns (all);
