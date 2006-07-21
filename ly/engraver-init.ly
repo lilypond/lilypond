@@ -459,6 +459,7 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Metronome_mark_engraver"	
   \consists "Break_align_engraver"
   \consists "Spacing_engraver"
+  \consists "Grace_spacing_engraver"
   \consists "Vertical_align_engraver"
   \consists "Stanza_number_align_engraver"
   \consists "Bar_number_engraver"

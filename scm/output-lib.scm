@@ -377,3 +377,28 @@ centered, X==1 is at the right, X == -1 is at the left."
      (cons 0 dx)
      (cons (min 0 delta)
 	   (max 0 delta)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; grace spacing
+
+
+(define-public (grace-spacing::calc-shortest-duration grob)
+  (let*
+     ((cols (ly:grob-object grob 'columns))
+      (get-difference
+       (lambda (idx)
+	 (ly:moment-sub (ly:grob-property (ly:grob-array-ref cols (1+ idx)) 'when)
+			(ly:grob-property (ly:grob-array-ref cols idx) 'when))))
+      
+      (moment-min (lambda (x y)
+		    (cond
+		     ((and x y)
+		      (if (ly:moment<? x y)
+			    x
+			    y))
+		     (x x)
+		     (y y)))))
+		     
+	 
+    (fold moment-min #f (map get-difference (iota (1- (ly:grob-array-length cols)))))))
+

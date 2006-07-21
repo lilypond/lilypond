@@ -225,9 +225,6 @@ typeset. Valid choices depend on the function that is reading this
 property.")
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
      (gap-count ,integer? "Number of gapped beams for tremolo.")
-     (grace-space-factor ,number? "Space grace notes at this fraction
-of the @code{spacing-increment}.")
-
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
      (hair-thickness ,number? "Thickness of the thin line in a bar line.")
      (head-direction ,ly:dir? "Are the note heads left or right in a semitie?")
@@ -529,6 +526,7 @@ paper-columns or note-column objects.")
 in addition to notes and stems.")
      (elements ,ly:grob-array? "list of grobs, type depending on the Grob
 where this is set in.")
+     (grace-spacing ,ly:grob-array? "a run of grace notes.")
      (heads ,ly:grob-array? "List of note heads.")
      (items-worth-living ,ly:grob-array? "A list of interesting items. If
 empty in a particular staff, then that staff is erased.")

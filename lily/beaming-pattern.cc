@@ -25,6 +25,17 @@ Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i)
 }
 
 
+void
+Beam_rhythmic_element::de_grace ()
+{
+  if (start_moment_.grace_part_)
+    {
+      start_moment_.main_part_ = 
+	start_moment_.grace_part_; 
+      start_moment_.grace_part_ = 0;
+    }
+}
+
 int
 count_factor_twos (int x)
 {
@@ -97,10 +108,22 @@ Beaming_pattern::beam_extend_count (Direction d) const
 }
 
 void
+Beaming_pattern::de_grace ()
+{
+  for (vsize i = 0; i < infos_.size (); i ++)
+    {
+      infos_[i].de_grace ();
+    }
+}
+
+void
 Beaming_pattern::beamify (Context *context)
 {
   if (infos_.size () <= 1)
     return;
+
+  if (infos_[0].start_moment_.grace_part_)
+    de_grace ();
   
   bool subdivide_beams = to_boolean (context->get_property ("subdivideBeams"));
   Moment beat_length = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));

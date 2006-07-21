@@ -1,3 +1,31 @@
+2006-07-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/output-lib.scm (grace-spacing::calc-shortest-duration): new function.
+
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	remove grace-space-factor.
+
+	* scm/define-grob-interfaces.scm (grace-spacing-interface): add grace-spacing-interface
+	(spacing-options-interface): add. 
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): add Grace_spacing_engraver
+
+	* lily/spacing-options.cc (get_duration_space): move function from spacing-basic.cc
+
+	* lily/spacing-basic.cc (note_spacing): do init_from_grob on
+	GraceSpacing object.
+
+	* lily/note-spacing.cc: fix prop list formatting
+
+	* lily/beaming-pattern.cc (de_grace): new function. Sensible
+	beaming for grace notes too.
+
+	* input/regression/spacing-grace.ly: update.
+
+	* lily/grace-spacing-engraver.cc: new file.
+
+	* lily/spacing-spanner.cc: add strict-grace-spacing.
+
 2006-07-20  Graham Percival  <gpermus@gmail.com>
 
 	* lily/parser.yy: compile fix.

@@ -26,6 +26,7 @@ struct Beam_rhythmic_element
   Beam_rhythmic_element ();
 
   int count (Direction d);
+  void de_grace ();
 };
 
 /*
@@ -38,6 +39,7 @@ public:
   Beaming_pattern ();
   
   void beamify (Context*);
+  void de_grace ();
   void add_stem (Moment d, int beams);
   int beamlet_count (int idx, Direction d) const;
   
