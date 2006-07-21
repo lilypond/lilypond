@@ -67,6 +67,41 @@ which scares away people.
 @end ignore
 
 @item
+Grace notes maybe forced to use floating spacing, 
+
+@lilypond[relative=2,ragged-right]
+<<
+  \override Score.SpacingSpanner  #'strict-grace-spacing = ##t
+  \new Staff {
+     c'4
+     \afterGrace
+     c'4
+     { c'16[ c'8 c'16] }
+     c'4
+  }
+  \new Staff {
+     c'16[ c'16 c'16 c'16]
+     c'16[ c'16 c'16 c'16]
+     c'4
+  }
+>>
+@end lilypond
+
+This feature was sponsored by Trevor Bača.
+
+
+@item
+Durations of grace notes are taken into account for spacing,
+
+@lilypond[relative=2,ragged-right,fragment]
+  c
+  \grace { c8[ c16 d c8]  }
+  c
+@end lilypond
+
+This feature was sponsored by Trevor Bača.
+
+@item
 Tuplet brackets can be made to run to prefatory matter or
 the next note
 

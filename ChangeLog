@@ -1,5 +1,7 @@
 2006-07-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): doc new features.
+
 	* scm/output-lib.scm (grace-spacing::calc-shortest-duration): new function.
 
 	* scm/define-grob-properties.scm (all-user-grob-properties):
