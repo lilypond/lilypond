@@ -206,6 +206,7 @@ ADD_INTERFACE (Paper_column,
 	       /* properties */
 	       "between-cols "
 	       "bounded-by-me "
+	       "grace-spacing " 
 	       "line-break-system-details "
 	       "line-break-penalty "
 	       "line-break-permission "

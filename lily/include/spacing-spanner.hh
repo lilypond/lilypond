@@ -26,7 +26,7 @@ struct Spacing_options
 
   Spacing_options();
   void init_from_grob (Grob *me);
-  Real get_duration_space (Moment d, bool *) const;
+  Real get_duration_space (Rational d, bool *) const;
 };
 
 /*

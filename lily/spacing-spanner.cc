@@ -54,8 +54,6 @@ Spacing_spanner::set_springs (SCM smob)
 
   Spacing_options options;
   options.init_from_grob (me);
-  options.global_shortest_ = robust_scm2moment (me->get_property ("common-shortest-duration"),
-						Moment (Rational (1,8))).main_part_;
 
   prune_loose_columns (me, &all, &options);
   set_implicit_neighbor_columns (all);
@@ -266,7 +264,6 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	  if (!lext.is_empty ())
 	    compound_note_space += -lext[LEFT];
 	}
-      
     }
   else
     {
@@ -500,10 +497,10 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       "average-spacing-wishes "
 	       "base-shortest-duration "
 	       "common-shortest-duration "
-	       "grace-space-factor "
 	       "packed-spacing "
 	       "shortest-duration-space "
 	       "spacing-increment "
+	       "strict-grace-spacing "
 	       "strict-note-spacing "
 	       "uniform-stretching "
 	       
@@ -512,5 +509,6 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 ADD_INTERFACE (Spacing_interface, "spacing-interface",
 	       "Something to do with line breaking and spacing. "
 	       "Kill this one after determining line breaks.",
+	       
 	       "");
 

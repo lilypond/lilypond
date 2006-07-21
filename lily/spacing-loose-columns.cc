@@ -97,7 +97,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 
 		  Moment dt = Paper_column::when_mom (right) - Paper_column::when_mom (col);
 		  bool expand = false;
-		  space = options.get_duration_space (dt, &expand);
+
+		  space = options.get_duration_space (dt.main_part_, &expand);
 		  Note_spacing::get_spacing (spacing, right, space, options.increment_,
 					     &space, &fixed);
 		}

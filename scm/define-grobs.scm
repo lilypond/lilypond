@@ -652,6 +652,16 @@
 		 (interfaces . (line-interface
 				line-spanner-interface))))))
 
+    (GraceSpacing
+     . (
+	(common-shortest-duration . ,grace-spacing::calc-shortest-duration)
+	(spacing-increment . 0.8)
+	(shortest-duration-space . 1.6)
+	(meta . ((class . Spanner)
+		 (interfaces . (grace-spacing-interface
+				spacing-interface
+				spacing-options-interface
+				spanner-interface))))))
     (GridPoint
      . (
 	(X-extent . (0 . 0))
@@ -1360,9 +1370,11 @@
 	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
+	
 	(base-shortest-duration . ,(ly:make-moment 3 16))
 	(meta . ((class . Spanner)
 		 (interfaces . (spacing-interface
+				spacing-options-interface				
 				spacing-spanner-interface))))))
 
     (SpanBar
