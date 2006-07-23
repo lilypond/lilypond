@@ -1367,7 +1367,6 @@
 	(springs-and-rods . ,ly:spacing-spanner::set-springs)
 	(common-shortest-duration . ,ly:spacing-spanner::calc-common-shortest-duration)
 	(average-spacing-wishes . #t)
-	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
 	
