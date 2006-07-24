@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2006 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "constrained-breaking.hh"
@@ -38,7 +38,7 @@
   start_.size () different solution arrays. state_[i] is the array for the
   solution starting at column number start_[i].
 
-  The indicies "start" and "end" refer to the index in the start_ array of the
+  The indices "start" and "end" refer to the index in the start_ array of the
   desired starting and ending columns.
 
   each solution array looks like
@@ -74,22 +74,21 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
 
   bool found_something = false;
   vsize start_col = starting_breakpoints_[start];
-  vector<Constrained_break_node> &st = state_[start];
-  vsize rank = breaks_.size () - start_col;
+  Matrix<Constrained_break_node> &st = state_[start];
   vsize max_index = brk - start_col;
   for (vsize j=sys; j < max_index; j++)
     {
       if (0 == sys && j > 0)
         break; /* the first line cannot have its first break after the beginning */
 
-      Line_details const &cur = lines_[(j + start_col)*lines_rank_ + brk];
+      Line_details const &cur = lines_.at (brk, j + start_col);
       Real prev_f = 0;
       Real prev_dem = 0;
 
       if (sys > 0)
         {
-          prev_f = st[(sys-1) * rank + j].details_.force_;
-          prev_dem = st[(sys-1) * rank + j].demerits_;
+          prev_f = st.at (j, sys-1).details_.force_;
+          prev_dem = st.at (j, sys-1).demerits_;
         }
       if (isinf (prev_dem))
         break;
@@ -98,13 +97,13 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
       if (isinf (dem))
         continue;
 
-      int k = sys*rank + max_index;
-      if (isinf (st[k].demerits_) || dem < st[k].demerits_)
+      Constrained_break_node &n = st.at (max_index, sys);
+      if (isinf (n.demerits_) || dem < n.demerits_)
         {
           found_something = true;
-          st[k].demerits_ = dem;
-          st[k].details_ = cur;
-          st[k].prev_ = j;
+          n.demerits_ = dem;
+          n.details_ = cur;
+          n.prev_ = j;
         }
     }
   return found_something;
@@ -114,10 +113,7 @@ vector<Column_x_positions>
 Constrained_breaking::solve ()
 {
   if (!systems_)
-    {
-      programming_error (_f ("no system number set in constrained-breaking"));
-      systems_ = breaks_.size () / 4;
-    }
+    return get_best_solution (0, VPOS);
 
   resize (systems_);
   return get_solution(0, VPOS, systems_);
@@ -157,9 +153,8 @@ Constrained_breaking::resize (vsize systems)
       Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
       /* do all the rod/spring problems */
       breaks_ = pscore_->find_break_indices ();
-      lines_rank_ = breaks_.size ();
       all_ = pscore_->root_system ()->columns ();
-      lines_.resize (breaks_.size () * breaks_.size ());
+      lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
       vector<Real> forces = get_line_forces (all_,
 					     breaks_,
 					     other_lines.length (),
@@ -175,20 +170,25 @@ Constrained_breaking::resize (vsize systems)
 	      Interval extent = sys->pure_height (sys, start, end);
 	      bool last = j == breaks_.size () - 1;
 	      bool ragged = ragged_right || (last && ragged_last);
-              int k = i*lines_rank_ + j;
-	      SCM pen = all_[breaks_[j]]->get_property ("line-break-penalty");
-	      if (scm_is_number (pen))
-		lines_[k].break_penalty_ = scm_to_double (pen);
+	      Line_details &line = lines_.at (j, i);
+
+	      Grob *c = all_[breaks_[j]];
+	      line.break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
+	      line.page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);
+	      line.turn_penalty_ = robust_scm2double (c->get_property ("page-turn-penalty"), 0);
+	      line.break_permission_ = c->get_property ("line-break-permission");
+	      line.page_permission_ = c->get_property ("page-break-permission");
+	      line.turn_permission_ = c->get_property ("page-turn-permission");
 
 	      max_ext = max (max_ext, extent.length ());
-              lines_[k].force_ = forces[k];
-              lines_[k].extent_ = extent.length ();
-              lines_[k].padding_ = padding;
-              lines_[k].space_ = space;
-              lines_[k].inverse_hooke_ = 1;
-	      if (ragged && lines_[k].force_ < 0)
-		lines_[k].force_ = infinity_f;
-              if (isinf (lines_[k].force_))
+              line.force_ = forces[i*breaks_.size () + j];
+              line.extent_ = extent;
+              line.padding_ = padding;
+              line.space_ = space;
+              line.inverse_hooke_ = 1;
+	      if (ragged && line.force_ < 0)
+		line.force_ = infinity_f;
+              if (isinf (line.force_))
                 break;
             }
 	}
@@ -208,7 +208,7 @@ Constrained_breaking::resize (vsize systems)
   if (pscore_ && systems_ > valid_systems_)
     {
       for (vsize i = 0; i < state_.size (); i++)
-        state_[i].resize((breaks_.size () - starting_breakpoints_[i]) * systems_);
+        state_[i].resize (breaks_.size () - starting_breakpoints_[i], systems_, Constrained_break_node ());
 
       /* fill out the matrices */
       for (vsize i = 0; i < state_.size (); i++)
@@ -223,12 +223,10 @@ Constrained_breaking::resize (vsize systems)
 vector<Column_x_positions>
 Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
 {
-  vsize rank;
-  vsize end_brk;
   vsize start_brk = starting_breakpoints_[start];
-  prepare_solution (start, end, sys_count, &rank, &end_brk);
+  vsize end_brk = prepare_solution (start, end, sys_count);
 
-  vector<Constrained_break_node> const &st = state_[start];
+  Matrix<Constrained_break_node> const &st = state_[start];
   vector<Column_x_positions> ret;
 
   /* find the first solution that satisfies constraints */
@@ -236,7 +234,7 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
-          if (!isinf (st[sys*rank + brk].details_.force_))
+          if (!isinf (st.at (brk, sys).details_.force_))
             {
               if (brk != end_brk)
                 {
@@ -246,7 +244,7 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
               /* build up the good solution */
               for (vsize cur_sys = sys; cur_sys != VPOS; cur_sys--)
                 {
-		  vsize prev_brk = st[cur_sys*rank + brk].prev_;
+		  vsize prev_brk = st.at (brk, cur_sys).prev_;
                   assert (brk != VPOS);
                   ret.push_back (space_line (prev_brk + start_brk, brk + start_brk));
                   brk = prev_brk;
@@ -262,32 +260,67 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
   return ret;
 }
 
+vector<Column_x_positions>
+Constrained_breaking::get_best_solution (vsize start, vsize end)
+{
+  vsize min_systems =  get_min_systems (start, end);
+  vsize max_systems = get_max_systems (start, end);
+  Real best_demerits = infinity_f;
+  vector<Column_x_positions> best_so_far;
+
+  for (vsize i = min_systems; i <= max_systems; i++)
+    {
+      vsize brk = prepare_solution (start, end, i);
+      Real dem = state_[start].at (brk, i-1).demerits_;
+
+      if (dem < best_demerits)
+	{
+	  best_demerits = dem;
+	  best_so_far = get_solution (start, end, i);
+	}
+      else
+	{
+	  vector<Column_x_positions> cur = get_solution (start, end, i);
+	  bool too_many_lines = true;
+	  
+	  for (vsize j = 0; j < cur.size (); j++)
+	    if (cur[j].force_ < 0)
+	      {
+		too_many_lines = false;
+		break;
+	      }
+	  if (too_many_lines)
+	    return best_so_far;
+	}
+    }
+  if (best_so_far.size ())
+    return best_so_far;
+  return get_solution (start, end, max_systems);
+}
+
 std::vector<Line_details>
 Constrained_breaking::get_details (vsize start, vsize end, vsize sys_count)
 {
-  vsize rank;
-  vsize brk;
-  prepare_solution (start, end, sys_count, &rank, &brk);
-  vector<Constrained_break_node> const &st = state_[start];
+  vsize brk = prepare_solution (start, end, sys_count);
+  Matrix<Constrained_break_node> const &st = state_[start];
   vector<Line_details> ret;
 
   for (int sys = sys_count-1; sys >= 0 && brk != VPOS; sys--)
     {
-      ret.push_back (st[sys*rank + brk].details_);
-      brk = st[sys*rank + brk].prev_;
+      ret.push_back (st.at (brk, sys).details_);
+      brk = st.at (brk, sys).prev_;
     }
+  reverse (ret);
   return ret;
 }
 
 int
 Constrained_breaking::get_min_systems (vsize start, vsize end)
 {
-  vsize rank;
-  vsize brk;
   vsize sys_count;
-
-  prepare_solution (start, end, 1, &rank, &brk);
-  vector<Constrained_break_node> const &st = state_[start];
+  vsize brk = prepare_solution (start, end, 1);
+  vsize rank = breaks_.size () - starting_breakpoints_[start];
+  Matrix<Constrained_break_node> const &st = state_[start];
 
   /* sys_count < rank : rank is the # of breakpoints, we can't have more systems */
   for (sys_count = 0; sys_count < rank; sys_count++)
@@ -296,7 +329,7 @@ Constrained_breaking::get_min_systems (vsize start, vsize end)
         {
           resize (sys_count + 3);
         }
-      if (!isinf (st[sys_count*rank + brk].details_.force_))
+      if (!isinf (st.at (brk, sys_count).details_.force_))
         return sys_count + 1;
     }
   /* no possible breaks satisfy constraints */
@@ -310,8 +343,8 @@ Constrained_breaking::get_max_systems (vsize start, vsize end)
   return brk - starting_breakpoints_[start];
 }
 
-void
-Constrained_breaking::prepare_solution (vsize start, vsize end, vsize sys_count, vsize *rank, vsize *brk)
+vsize
+Constrained_breaking::prepare_solution (vsize start, vsize end, vsize sys_count)
 {
   assert (start < start_.size () && (end == VPOS || end <= start_.size ()));
   assert (start < end);
@@ -320,9 +353,10 @@ Constrained_breaking::prepare_solution (vsize start, vsize end, vsize sys_count,
   if (end == start_.size ())
     end = VPOS;
 
-  *rank = breaks_.size () - starting_breakpoints_[start];
-  *brk = end == VPOS ? breaks_.size () - 1 : starting_breakpoints_[end];
-  *brk -= starting_breakpoints_[start];
+  vsize brk;
+  brk = end == VPOS ? breaks_.size () - 1 : starting_breakpoints_[end];
+  brk -= starting_breakpoints_[start];
+  return brk;
 }
 
 Constrained_breaking::Constrained_breaking ()

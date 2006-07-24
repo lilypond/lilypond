@@ -1,3 +1,31 @@
+2006-07-24  Joe Neeman  <joeneeman@gmail.com>
+
+	* scm/define-grobs.scm (all-grob-descriptions): make NonMusicalPaperColumn
+	page-breakable by default
+
+	* scm/layout-page-layout.scm (space-systems): fix bug where the force isn't
+	correctly calculated for a single-system page
+
+	* scm/lily-library.scm (interval-sane?): also check that the first number is no
+	bigger than the second number
+
+	* lily/simple-spacer.cc (solve): allow compression even when ragged (but we
+	acknowledge that we aren't satisfying constraints)
+
+	* lily/hara-kiri-group-spanner.cc (request_suicide): give equal treatment to
+	non-Items
+
+	* lily/grob.cc (pure_height): add minimum-Y-extent
+
+	* lily/gourlay-breaking.cc (solve): don't ignore a compression force, even if we're
+	ragged
+
+	* lily/constrained-breaking.cc: convert code to use new Matrix class
+	(get_best_solution): new function
+
+	* scm/page.scm (make-page-stencil): don't crash if we annotate-layout when there
+	is a page with no systems
+
 2006-07-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/define-grobs.scm (all-grob-descriptions): remove stray

@@ -1140,6 +1140,7 @@
 	
 	(non-musical . #t)
 	(line-break-permission . allow)
+	(page-break-permission . allow)
 
 	;; debugging stuff: print column number.
 	;;		 (font-size . -6) (font-name . "sans")	(Y-extent . #f)
