@@ -77,25 +77,16 @@ import os
 program_name = sys.argv[0]
 
 
-datadir = '@local_lilypond_datadir@'
-if not os.path.isdir (datadir):
-    datadir = '@lilypond_datadir@'
-
-sys.path.insert (0, os.path.join (datadir, 'python'))
-
-if os.environ.has_key ('LILYPONDPREFIX'):
-    datadir = os.environ['LILYPONDPREFIX']
-    while datadir[-1] == os.sep:
-        datadir= datadir[:-1]
-        
-    datadir = os.path.join (datadir, "share/lilypond/current/")
-sys.path.insert (0, os.path.join (datadir, 'python'))
+for d in ['@lilypond_datadir@',
+          '@lilypond_libdir@']:
+    sys.path.insert (0, os.path.join (d, 'python'))
 
 # dynamic relocation, for GUB binaries.
-bindir = os.path.split (sys.argv[0])[0]
+bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
 for p in ['share', 'lib']:
     datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
-    sys.path.insert (0, os.path.join (datadir))
+    sys.path.insert (0, datadir)
+
 
 import lilylib as ly
 global _;_=ly._
