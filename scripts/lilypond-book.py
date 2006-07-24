@@ -36,40 +36,19 @@ import os
 import sys
 import re
 
-# Users of python modules should include this snippet
-# and customize variables below.
-
-# We'll suffer this path initialization stuff as long as we don't install
-# our python packages in <prefix>/lib/pythonX.Y
-
-# If set, LILYPONDPREFIX must take prevalence.
-# if datadir is not set, we're doing a build and LILYPONDPREFIX.
-
 ################
 # RELOCATION
 ################
 
-datadir = '@local_lilypond_datadir@'
-if not os.path.isdir (datadir):
-    datadir = '@lilypond_datadir@'
 
-sys.path.insert (0, os.path.join (datadir, 'python'))
-
-if os.environ.has_key ('LILYPONDPREFIX'):
-    datadir = os.environ['LILYPONDPREFIX']
-    while datadir[-1] == os.sep:
-        datadir = datadir[:-1]
-
-    if not os.path.exists (os.path.join (datadir, 'python/lilylib.py')):
-        datadir = os.path.join (datadir, 'share/lilypond/current/')
-sys.path.insert (0, os.path.join (datadir, 'python'))
+for d in ['@lilypond_datadir@',
+          '@lilypond_libdir@']:
+    sys.path.insert (0, os.path.join (d, 'python'))
 
 # dynamic relocation, for GUB binaries.
-bindir = os.path.split (sys.argv[0])[0]
-
-
-for prefix_component in ['share', 'lib']:
-    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % prefix_component)
+bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
+for p in ['share', 'lib']:
+    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
     sys.path.insert (0, datadir)
 
 

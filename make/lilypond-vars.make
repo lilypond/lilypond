@@ -1,11 +1,10 @@
 ##
 ## settings to run LilyPond
 ifeq ($(LILYPOND_EXTERNAL_BINARY),)
+
 # environment settings.
 export PATH:=$(top-build-dir)/lily/$(outconfbase):$(top-build-dir)/buildscripts/$(outconfbase):$(top-build-dir)/scripts/$(outconfbase):$(PATH):
-export LILYPONDPREFIX:=$(build_lilypond_datadir)/current
-export DVIPSHEADERS:=$(top-build-dir)/mf/out::
-export LILYPOND_BINARY=$(top-build-dir)/lily/$(outconfbase)/lilypond
+export LILYPOND_BINARY=$(top-build-dir)/$(outconfbase)/bin/lilypond
 else
 
 ## better not take the binaries  from a precompiled bundle, as they

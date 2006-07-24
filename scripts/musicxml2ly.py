@@ -9,28 +9,17 @@ from gettext import gettext as _
 
 
 
-
-datadir = '@local_lilypond_datadir@'
-if not os.path.isdir (datadir):
-    datadir = '@lilypond_datadir@'
-if os.environ.has_key ('LILYPONDPREFIX'):
-    datadir = os.environ['LILYPONDPREFIX']
-    while datadir[-1] == os.sep:
-        datadir = datadir[:-1]
-
-if os.path.exists (os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')):
-    datadir = os.path.join (datadir, 'share/lilypond/@TOPLEVEL_VERSION@/')
-elif os.path.exists (os.path.join (datadir, 'share/lilypond/current/')):
-    datadir = os.path.join (datadir, 'share/lilypond/current/')
-
-sys.path.insert (0, os.path.join (datadir, 'python'))
+for d in ['@lilypond_datadir@',
+          '@lilypond_libdir@']:
+    sys.path.insert (0, os.path.join (d, 'python'))
 
 # dynamic relocation, for GUB binaries.
-bindir = os.path.split (sys.argv[0])[0]
-
-for prefix_component in ['share', 'lib']:
-    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % prefix_component)
+bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
+for p in ['share', 'lib']:
+    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
     sys.path.insert (0, datadir)
+
+
 
 
 import lilylib as ly

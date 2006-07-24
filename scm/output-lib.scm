@@ -399,6 +399,6 @@ centered, X==1 is at the right, X == -1 is at the left."
 		     (x x)
 		     (y y)))))
 		     
-	 
-    (fold moment-min #f (map get-difference (iota (1- (ly:grob-array-length cols)))))))
+    (fold moment-min #f (map get-difference
+			     (iota (1- (ly:grob-array-length cols)))))))
 

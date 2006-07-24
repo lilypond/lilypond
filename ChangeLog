@@ -1,3 +1,9 @@
+2006-07-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scripts/*.py (program_name): cleanup relocation snippets.
+
+	* scripts/convert-ly.py (datadir): remove LILYPONDPREFIX support.
+
 2006-07-24  Joe Neeman  <joeneeman@gmail.com>
 
 	* scm/define-grobs.scm (all-grob-descriptions): make NonMusicalPaperColumn
@@ -28,6 +34,8 @@
 
 2006-07-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PACKAGE_NAME): release 2.9.13
+
 	* scm/define-grobs.scm (all-grob-descriptions): remove stray
 	assignment.
 
@@ -35,13 +43,15 @@
 
 	* Documentation/topdocs/NEWS.tely (Top): doc new features.
 
-	* scm/output-lib.scm (grace-spacing::calc-shortest-duration): new function.
+	* scm/output-lib.scm (grace-spacing::calc-shortest-duration): new
+	function.
 
 	* scm/define-grob-properties.scm (all-user-grob-properties):
 	remove grace-space-factor.
 
-	* scm/define-grob-interfaces.scm (grace-spacing-interface): add grace-spacing-interface
-	(spacing-options-interface): add. 
+	* scm/define-grob-interfaces.scm (grace-spacing-interface): add
+	grace-spacing-interface
+	(spacing-options-interface): add.
 
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): add Grace_spacing_engraver
 
