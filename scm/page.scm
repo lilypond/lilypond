@@ -314,8 +314,10 @@ create offsets.
        (foot (prop 'foot-stencil))
        )
 
-    (if (or (annotate? layout)
-	    (ly:output-def-lookup layout 'annotate-systems #f))
+    (if (and
+	 (or (annotate? layout)
+	     (ly:output-def-lookup layout 'annotate-systems #f))
+	 (pair? lines))
 
 	(begin
 	  (for-each (lambda (sys next-sys)
@@ -386,9 +388,6 @@ create offsets.
   (let*
       ((p-book (page-property page 'paper-book))
        (layout (ly:paper-book-paper p-book))
-       (scopes (ly:paper-book-scopes p-book))
-       (number (page-page-number page))
-       (last? (page-property page 'is-last))
        (h (- (ly:output-def-lookup layout 'paper-height)
 	       (ly:output-def-lookup layout 'top-margin)
 	       (ly:output-def-lookup layout 'bottom-margin)))

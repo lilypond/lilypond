@@ -147,18 +147,13 @@ Simple_spacer::solve (Real line_len, bool ragged)
 
   ragged_ = ragged;
   line_len_ = line_len;
-  if (ragged)
-    {
-      force_ = 0;
-      fits_ = configuration_length (force_) <= line_len_;
-      /* we need to calculate a force here to prevent a bunch of short lines */
-      if (fits_)
-	force_ = expand_line ();
-    }
-  else if (conf < line_len_)
+  if (conf < line_len_)
     force_ = expand_line ();
   else if (conf > line_len_)
     force_ = compress_line ();
+
+  if (ragged && force_ < 0)
+    fits_ = false;
 }
 
 Real
@@ -248,7 +243,7 @@ Simple_spacer::spring_positions () const
   ret.push_back (0.);
 
   for (vsize i = 0; i < springs_.size (); i++)
-    ret.push_back (ret.back () + springs_[i].length (ragged_ ? 0.0 : force_));
+    ret.push_back (ret.back () + springs_[i].length (ragged_ && force_ > 0 ? 0.0 : force_));
   return ret;
 }
 
@@ -456,7 +451,7 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
       if (!is_loose (icols[i]))
 	cols.push_back (get_column_description (icols, i, false));
     }
-  breaks.back () = cols.size () - 1;
+  breaks.back () = cols.size ();
 
   for (vsize b = 0; b < breaks.size () - 1; b++)
     {
@@ -488,9 +483,16 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
 		}
 	    }
 	  spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
-	  force[b * breaks.size () + c] = spacer.force ();
 
-	  if (cols[end].break_permission_ == force_break)
+	  /* add a (convex) penalty for compression. We do this _only_ in get_line_forces,
+	     not get_line_configuration. This is temporary, for backwards compatibility;
+	     the old line/page-breaking stuff ignores page breaks when it calculates line
+	     breaks, so compression penalties can result in scores (eg. wtk-fugue) blowing
+	     up to too many pages. */
+	  Real f = spacer.force ();
+	  force[b * breaks.size () + c] = f - (f < 0 ? f*f*6 : 0);
+
+	  if (end < cols.size () && cols[end].break_permission_ == force_break)
 	    break;
 	  if (!spacer.fits ())
 	    {

@@ -127,18 +127,24 @@ is what have collected so far, and has ascending page numbers."
 (define (space-systems page-height lines ragged? paper)
   "Compute lines positions on page: return force and line positions as a pair.
  force is #f if lines do not fit on page."
-  (let* ((springs (map (lambda (prev-line line)
+  (let* ((empty-stencil (ly:make-stencil '() '(0 . 0) '(0 . 0)))
+	 (empty-prob (ly:make-prob 'paper-system (list `(stencil . ,empty-stencil))))
+	 (cdr-lines (append (cdr lines)
+			    (if (<= (length lines) 1)
+				(list empty-prob)
+				'())))
+	 (springs (map (lambda (prev-line line)
                          (list (line-ideal-distance prev-line line paper)
                                (/ 1.0 (line-next-space prev-line line paper))))
                        lines
-                       (cdr lines)))
+                       cdr-lines))
          (rods (map (let ((i -1))
                       (lambda (prev-line line)
                         (set! i (1+ i))
                         (list i (1+ i)
                               (line-minimum-distance prev-line line paper))))
                        lines
-                       (cdr lines)))
+                       cdr-lines))
          (last-line (car (last-pair lines)))
          (topskip (first-line-position (first lines) paper))
          (space-to-fill (- page-height

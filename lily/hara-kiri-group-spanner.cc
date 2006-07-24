@@ -78,9 +78,9 @@ Hara_kiri_group_spanner::request_suicide (Grob *me, int start, int end)
 
       for (vsize i = 0; i < worth.size (); i++)
 	{
-	  Item *it = dynamic_cast<Item*> (worth[i]);
-	  if (it)
-	    ranks.push_back (Paper_column::get_rank (it->get_column ()));
+	  Interval_t<int> iv = worth[i]->spanned_rank_iv ();
+	  for (int j = iv[LEFT]; j <= iv[RIGHT]; j++)
+	    ranks.push_back (j);
 	}
       vector_sort (ranks, default_compare);
       uniq (ranks);
