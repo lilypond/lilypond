@@ -419,6 +419,10 @@ Grob::pure_height (Grob *refp, int start, int end)
 				       SCM_EOL));
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
+  SCM min_ext = get_property ("minimum-Y-extent");
+  if (is_number_pair (min_ext))
+    iv.unite (ly_scm2interval (min_ext));
+
   iv.translate (offset);
   return iv;
 }
@@ -434,7 +438,7 @@ Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
 Interval_t<int>
 Grob::spanned_rank_iv ()
 {
-  return Interval_t<int> (INT_MIN, INT_MAX);
+  return Interval_t<int> (-1, 0);
 }
 
 /****************************************************************

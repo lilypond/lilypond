@@ -1,3 +1,9 @@
+2006-07-25  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/grob.cc:
+	* lily/gourlay-breaking.cc: Oops, these should have been included in my last
+	commit
+
 2006-07-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/*.py (program_name): cleanup relocation snippets.

@@ -116,7 +116,7 @@ Gourlay_breaking::solve ()
 							  line_dims[LEFT], ragged);
 
 	  if (ragged && last_line)
-	    cp.force_ = 0.0;
+	    cp.force_ = min (cp.force_, 0.0);
 
 	  if (fabs (cp.force_) > worst_force)
 	    worst_force = fabs (cp.force_);
