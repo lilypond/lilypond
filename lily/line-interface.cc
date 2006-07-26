@@ -44,6 +44,7 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 		       scm_from_double (off),
 		       scm_from_double (to[X_AXIS] - from[X_AXIS]),
 		       scm_from_double (to[Y_AXIS] - from[Y_AXIS]),
+		       scm_from_double (0.0),
 		       SCM_UNDEFINED);
 
   Box box;

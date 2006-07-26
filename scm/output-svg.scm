@@ -267,7 +267,7 @@
 	    (y2 . ,(- y2)))
 	  alist)))
 
-(define (dashed-line thick on off dx dy)
+(define (dashed-line thick on off dx dy phase)
   (draw-line thick 0 0 dx dy `(style . ,(format "stroke-dasharray:~a,~a;" on off))))
 
 (define (named-glyph font name)

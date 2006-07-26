@@ -1,8 +1,33 @@
+2006-07-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/output-ps.scm (dashed-line): add phase argument to
+	dashed-line.
+
+	* lily/bar-line.cc (dashed_bar_line): new function.
+	(compound_barline): support \bar "dashed". 
+
+	* lily/lily-parser-scheme.cc (LY_DEFINE): only write
+	--output=DIR to DIR/BASE if it is a dir. 
+
+	* flower/file-name.cc (file_part): new function
+	(dir_part): new function
+
+	* lily/lily-parser-scheme.cc (LY_DEFINE): 
+
+	* DEDICATION: update
+
+2006-07-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/instrument-name-engraver.cc: formatting.
+
+	* python/convertrules.py (conv): bugfix for \epsfile.
+
 2006-07-25  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/grob.cc:
-	* lily/gourlay-breaking.cc: Oops, these should have been included in my last
-	commit
+	
+	* lily/gourlay-breaking.cc: Oops, these should have been included
+	in my last commit
 
 2006-07-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 

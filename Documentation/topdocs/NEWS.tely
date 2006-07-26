@@ -67,6 +67,15 @@ which scares away people.
 @end ignore
 
 @item
+Barlines can be dashed now,
+
+@lilypond[relative,ragged-right,fragment]
+c4 \bar "dashed" c4
+@end lilypond
+
+This feature was sponsored by Kieren MacMillan.
+
+@item
 Grace notes maybe forced to use floating spacing, 
 
 @lilypond[relative=2,ragged-right]

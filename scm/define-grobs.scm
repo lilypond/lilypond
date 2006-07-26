@@ -142,6 +142,7 @@
      . (
 	(break-align-symbol . staff-bar)
 	(glyph . "|")
+	(gap . 0.4)
 	(layer . 0)
 	(break-visibility . ,all-visible)
 	(non-musical . #t)

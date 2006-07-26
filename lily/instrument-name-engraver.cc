@@ -114,7 +114,11 @@ ADD_TRANSLATOR (Instrument_name_engraver,
 		"",
 		
 		/* read */
-		"vocNam vocalName instrument instr "
-		"currentCommandColumn",
+		"currentCommandColumn "
+		"instr "
+		"instrument "
+		"vocNam "
+		"vocalName "
+		,
 
 		/* write */ "");

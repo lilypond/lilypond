@@ -98,8 +98,8 @@
 	  (ly:warning (_ "can't find ~a in ~a" name font))
 	  ""))))
 
-(define (dashed-line thick on off dx dy)
-  (embedded-ps (list 'dashed-line  thick on off dx dy)))
+(define (dashed-line thick on off dx dy phase)
+  (embedded-ps (list 'dashed-line  thick on off dx dy phase)))
 
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))

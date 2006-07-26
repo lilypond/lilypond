@@ -33,8 +33,6 @@ for d in ['@lilypond_datadir@',
           '@lilypond_libdir@']:
     sys.path.insert (0, os.path.join (d, 'python'))
 
-sys.path.insert (0, os.path.join (datadir, 'python'))
-
 # dynamic relocation, for GUB binaries.
 bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
 for p in ['share', 'lib']:
