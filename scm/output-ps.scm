@@ -112,13 +112,16 @@
      "false")
    (round4 radius) (round4 thick)))
 
-(define (dashed-line thick on off dx dy)
-  (format #f "~a ~a ~a [ ~a ~a ] 0 draw_dashed_line"
+(define (dashed-line thick on off dx dy phase)
+  (format #f "~a ~a ~a [ ~a ~a ] ~a draw_dashed_line"
    (str4 dx)
    (str4 dy)
    (str4 thick)
    (str4 on)
-   (str4 off)))
+   (str4 off)
+   (str4 phase)
+   
+   ))
 
 ;; what the heck is this interface ?
 (define (dashed-slur thick on off l)

@@ -14,6 +14,7 @@
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
+#include "line-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Bar_line, print, 1);
 SCM
@@ -131,6 +132,10 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
 	  m.add_stencil (d);
 	}
     }
+  else if (str == "dashed")
+    {
+      m = dashed_bar_line (me, h, hair);
+    }
   else if (str == ".")
     {
       m = dot;
@@ -167,6 +172,72 @@ Bar_line::calc_bar_size (SCM smob)
 }
 
 
+Stencil
+Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
+{
+  Real dash_size
+    = 1.0 - robust_scm2double (me->get_property ("gap"), 0.3);
+  /*
+    this is a tad complex for what we want to achieve, but with a
+    simple line, the round blotting interferes with staff line
+    connections.
+      */
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  int count = Staff_symbol_referencer::line_count (me);
+      Real line_thick = Staff_symbol_referencer::line_thickness (me);
+
+  if (fabs (line_thick + (count -1) * ss - h) <   0.1) // ugh.
+    {
+      Real blot = 
+	me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
+
+      Real half_space = ss/2;
+      Stencil bar;
+  
+      for (int i = (count-1); i >= -(count-1); i -= 2)
+	{
+	  Real top_y = min ((i + dash_size) * half_space,
+			    (count-1) * half_space +  line_thick / 2);
+	  Real bot_y = max ((i - dash_size) * half_space,
+			    -(count-1) * half_space - line_thick/2);
+
+	  bar.add_stencil (Lookup::round_filled_box (Box (Interval (0,thick),
+							  Interval (bot_y, top_y)),
+						     blot));
+	}
+      return bar;
+    }
+  else
+    {
+      /*
+	We have to scale the dashing so it starts and ends with half a
+	dash exactly.
+       */
+      int dashes = int (rint (h / ss));
+      Real total_dash_size = h / dashes;
+      Real factor = (dash_size - thick) / ss;
+      
+      SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
+			   scm_from_double (thick),
+			   scm_from_double (factor * total_dash_size),
+			   scm_from_double ((1-factor) * total_dash_size),
+			   scm_from_double (0),
+			   scm_from_double (h),
+			   scm_from_double (factor * total_dash_size * 0.5),
+			   SCM_UNDEFINED);
+
+      Box box;
+      box.add_point (Offset (0, 0));
+      box.add_point (Offset (0, h));
+
+      Stencil s (box, at);
+      s.translate (Offset (thick/2, -h/2));
+      return s;
+    }
+  return Stencil();
+}
+
+
 ADD_INTERFACE (Bar_line,
 	       "bar-line-interface",
 
@@ -183,10 +254,15 @@ ADD_INTERFACE (Bar_line,
 	       "These produce, respectively, a right repeat, a left repeat, a double\n"
 	       "repeat, a double bar, a start bar, an end bar, and a thick double bar.\n"
 	       "If @var{bartype} is set to @code{empty} then nothing is printed,\n"
-	       "but a line break is allowed at that spot.\n",
+	       "but a line break is allowed at that spot.\n"
+	       "\n\n"
+	       "@code{gap} is used for the gaps in dashed barlines."
+
+	       ,
 
 
-	       /* properties */ 
+	       /* properties */
+	       "gap "
 	       "kern "
 	       "thin-kern "
 	       "hair-thickness "
@@ -195,3 +271,5 @@ ADD_INTERFACE (Bar_line,
 	       "glyph-name "
 	       "bar-size "
 	       );
+
+

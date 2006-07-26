@@ -65,6 +65,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
   if (!output_name_global.empty ())
     {
+      
       /* Interpret --output=DIR to mean --output=DIR/BASE.  */
       string dir;
       if (is_dir (output_name_global))
@@ -73,7 +74,15 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	  output_name_global = "";
 	}
       else
-	dir = dir_name (output_name_global);
+	{
+	  File_name out (output_name_global);
+	  if (is_dir (out.dir_part ()))
+	    {
+	      dir = out.dir_part ();
+	      out_file_name = out.file_part ();
+	    }
+	}	  
+
       if (dir != "" && dir != "." && dir != get_working_directory ())
 	{
 	  global_path.prepend (get_working_directory ());
