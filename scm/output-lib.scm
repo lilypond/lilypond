@@ -375,8 +375,8 @@ centered, X==1 is at the right, X == -1 is at the left."
     (ly:make-stencil
      exp
      (cons 0 dx)
-     (cons (min 0 delta)
-	   (max 0 delta)))))
+     (cons (min 0 delta-y)
+	   (max 0 delta-y)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; grace spacing
