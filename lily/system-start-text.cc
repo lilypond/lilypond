@@ -13,6 +13,7 @@
 #include "font-interface.hh"
 #include "spanner.hh"
 #include "stencil.hh"
+#include "item.hh"
 
 class System_start_text
 {
@@ -56,6 +57,12 @@ System_start_text::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
 
+  if (!me->get_bound (LEFT)->break_status_dir ())
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+
   extract_grob_set (me, "elements", all_elts);
   vector<Grob*> elts;
   for (vsize i = 0; i < all_elts.size (); i++)
@@ -81,7 +88,8 @@ System_start_text::print (SCM smob)
     }
 
   Stencil m = get_stencil (me);
-  m.translate_axis (ext.center (), Y_AXIS);
+  if (!ext.is_empty ())
+    m.translate_axis (ext.center (), Y_AXIS);
   return m.smobbed_copy ();
 }
 
