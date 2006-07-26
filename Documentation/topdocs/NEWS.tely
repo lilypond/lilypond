@@ -67,6 +67,11 @@ which scares away people.
 @end ignore
 
 @item
+Instrument names may be changed half-way during a staff.
+
+This feature was sponsored by Kieren MacMillan.
+
+@item
 Barlines can be dashed now,
 
 @lilypond[relative,ragged-right,fragment]
