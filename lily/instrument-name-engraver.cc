@@ -25,41 +25,63 @@ public:
 protected:
   Spanner *text_spanner_;
 
+  SCM long_text_;
+  SCM short_text_;
+
+  vector<Grob*> axis_groups_;
+  
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER (axis_group);
   void process_music ();
+  void start_spanner ();
+  void stop_spanner ();
 };
 
 Instrument_name_engraver::Instrument_name_engraver ()
 {
   text_spanner_ = 0;
+
+  long_text_ = SCM_EOL;
+  short_text_ = SCM_EOL;
 }
 
 void
 Instrument_name_engraver::process_music ()
 {
-  if (!text_spanner_)
-    {
-      SCM long_text = get_property ("instrument");
-      SCM short_text = get_property ("shortInstrumentName");
+  start_spanner ();
+}
 
-      if (!(Text_interface::is_markup (long_text)
-	    || Text_interface::is_markup (short_text)))
-	{
-	  long_text = get_property ("vocalName");
-	  short_text = get_property ("shortVocalName");
-	}
+void
+Instrument_name_engraver::start_spanner ()
+{
+  SCM long_text = get_property ("instrumentName");
+  SCM short_text = get_property ("shortInstrumentName");
+
+  if (!(Text_interface::is_markup (long_text)
+	|| Text_interface::is_markup (short_text)))
+    {
+      long_text = get_property ("vocalName");
+      short_text = get_property ("shortVocalName");
+    }
   
-      if (Text_interface::is_markup (long_text)
-	  || Text_interface::is_markup (short_text))
-	{
-	  text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
+  if ((Text_interface::is_markup (long_text)
+       || Text_interface::is_markup (short_text))
+      && (!text_spanner_
+	  || short_text_ != short_text
+	  || long_text_ != long_text))
+    {
+      if (text_spanner_)
+	stop_spanner ();
+      
+      text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
 	  
-	  Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
-	  text_spanner_->set_bound (LEFT, col);
-	  text_spanner_->set_property ("text", short_text);
-	  text_spanner_->set_property ("long-text", long_text);
-	}
+      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+      text_spanner_->set_bound (LEFT, col);
+      text_spanner_->set_property ("text", short_text);
+      text_spanner_->set_property ("long-text", long_text);
+
+      short_text_ = short_text;
+      long_text_ = long_text;
     }
 }
 
@@ -71,8 +93,7 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
       && Axis_group_interface::has_axis (info.grob (), Y_AXIS)
       && (!Align_interface::has_interface (info.grob ())))
     {
-      Grob *staff = info.grob();
-      Pointer_group_interface::add_grob (text_spanner_, ly_symbol2scm ("elements"), staff);
+      axis_groups_.push_back (info.grob ());
     }
 }
 
@@ -81,21 +102,32 @@ Instrument_name_engraver::finalize ()
 {
   if (text_spanner_)
     {
-      text_spanner_->set_bound (RIGHT,
-				unsmob_grob (get_property ("currentCommandColumn")));
-
-      Pointer_group_interface::set_ordered (text_spanner_, ly_symbol2scm ("elements"), false);
-
-      System *system = get_root_system (text_spanner_);
-
-      /*
-	UGH, should handle this in Score_engraver.
-       */
-      if (system)
-	Axis_group_interface::add_element (system, text_spanner_);
-      else
-	text_spanner_->programming_error ("can't find root system");
+      stop_spanner ();
     }
+}
+
+void
+Instrument_name_engraver::stop_spanner ()
+{
+  for (vsize i = 0; i < axis_groups_.size (); i++)
+    Pointer_group_interface::add_grob (text_spanner_, ly_symbol2scm ("elements"), axis_groups_[i]);
+  
+  text_spanner_->set_bound (RIGHT,
+			    unsmob_grob (get_property ("currentCommandColumn")));
+
+  Pointer_group_interface::set_ordered (text_spanner_, ly_symbol2scm ("elements"), false);
+
+  System *system = get_root_system (text_spanner_);
+
+  /*
+    UGH, should handle this in Score_engraver.
+  */
+  if (system)
+    Axis_group_interface::add_element (system, text_spanner_);
+  else
+    text_spanner_->programming_error ("can't find root system");
+
+  text_spanner_ = 0;
 }
 
 #include "translator.icc"
