@@ -345,7 +345,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (fall::print spanner)
   (let*
-      ((delta (ly:grob-property spanner 'delta-position))
+      ((delta-y (* 0.5 (ly:grob-property spanner 'delta-position)))
        (left-span (ly:spanner-bound spanner LEFT))
        (right-span (ly:spanner-bound spanner RIGHT))
        (thickness (* (ly:grob-property spanner 'thickness)
@@ -367,8 +367,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 		     rcurveto		     
 		     ,(/ dx 3)
 		     0
-		     ,dx ,(* 0.66 delta)
-		     ,dx ,delta
+		     ,dx ,(* 0.66 delta-y)
+		     ,dx ,delta-y
 		     ))))
        )
 

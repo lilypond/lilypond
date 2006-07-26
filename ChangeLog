@@ -1,6 +1,7 @@
 2006-07-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/fall-engraver.cc (process_music): delta-pitch -> delta-step.
+	(process_music): oops.
 
 	* lily/instrument-name-engraver.cc (start_spanner): new
 	function. Create spanner when property changes.

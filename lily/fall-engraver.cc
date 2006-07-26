@@ -99,8 +99,8 @@ Fall_engraver::process_music ()
   if (fall_event_ && !fall_)
     {
       fall_ = make_spanner ("BendAfter", fall_event_->self_scm ());
-      fall_->set_property ("delta-step",
-			   scm_from_double (robust_scm2double (fall_event_->get_property ("delta-pitch"), 0) * 0.5));
+      fall_->set_property ("delta-position",
+			   scm_from_double (robust_scm2double (fall_event_->get_property ("delta-step"), 0)));
     }
 }
 
