@@ -41,13 +41,13 @@ Instrument_name_engraver::process_music ()
   if (!text_spanner_)
     {
       SCM long_text = get_property ("instrument");
-      SCM short_text = get_property ("instr");
+      SCM short_text = get_property ("shortInstrumentName");
 
       if (!(Text_interface::is_markup (long_text)
 	    || Text_interface::is_markup (short_text)))
 	{
 	  long_text = get_property ("vocalName");
-	  short_text = get_property ("vocNam");
+	  short_text = get_property ("shortVocalName");
 	}
   
       if (Text_interface::is_markup (long_text)
@@ -115,9 +115,9 @@ ADD_TRANSLATOR (Instrument_name_engraver,
 		
 		/* read */
 		"currentCommandColumn "
-		"instr "
-		"instrument "
-		"vocNam "
+		"shortInstrumentName "
+		"instrumentName "
+		"shortVocalName "
 		"vocalName "
 		,
 

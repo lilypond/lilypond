@@ -1,5 +1,10 @@
 2006-07-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* python/convertrules.py (conv): add rule.
+
+	* lily/instrument-name-engraver.cc: shortVocalName iso. vocNam,
+	shortInstrumentName iso. instr.
+
 	* scm/output-ps.scm (dashed-line): add phase argument to
 	dashed-line.
 
