@@ -15,7 +15,6 @@
 acciaccatura =
 #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
 
-
 addquote =
 #(define-music-function (parser location name music) (string? ly:music?)
    "Add a piece of music to be quoted "
@@ -132,7 +131,7 @@ bendAfter =
 #(define-music-function (parser location delta) (integer?)
 	      
   (make-music 'BendAfterEvent
-   'delta-pitch delta))
+   'delta-step delta))
 
 clef =
 #(define-music-function (parser location type)
