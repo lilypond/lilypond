@@ -2824,3 +2824,10 @@ def conv (str):
 conversions.append (((2, 9, 11), conv, """\\set tupletNumberFormatFunction -> \\override #'text = """))
 
 
+def conv (str):
+    str = re.sub ('vocNam', 'shortVocalName', str)
+    str = re.sub (r'([^a-z])instr\s*=', r'\1shortInstrumentName =', str)
+    return str
+
+conversions.append (((2, 9, 13), conv, """instr -> shortInstrumentName, vocNam -> shortVocalName"""))
+

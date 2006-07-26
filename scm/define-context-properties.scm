@@ -252,9 +252,8 @@ selector for tab notation.")
      (implicitBassFigures ,list? "List of bass figures that are not
 printed as numbers, but only as extender lines.")
      
-     (instr ,markup? "See @code{instrument}")
 
-     (instrument ,markup? "The name to print left of a staff.  The
+     (instrumentName ,markup? "The name to print left of a staff.  The
 @code{instrument} property labels the staff in the first system, and
 the @code{instr} property labels following lines.")
      (instrumentEqualizer ,procedure? "
@@ -341,6 +340,8 @@ whether they are processed in this context.")
 than this, a number is printed. ")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for each note
 head relative to the tonic (qv.) of the scale.")
+     (shortInstrumentName ,markup? "See @code{instrument}")
+     (shortVocalName ,markup? "Name of a vocal line, short version.")
      (skipBars ,boolean? "If set to true, then
 skip the empty bars that are produced by multimeasure notes and rests.
 These bars will not appear on the printed output.  If not set (the
@@ -446,7 +447,6 @@ context names whose vertical axis groups should be taken into account for
 vertical spacing of systems.")
      
      (vocalName ,markup? "Name of a vocal line.")
-     (vocNam ,markup? "Name of a vocal line, short version.")
 
      (voltaOnThisStaff ,boolean?
 		       "Normally, volta brackets are put only on the
