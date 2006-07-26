@@ -51,8 +51,8 @@
   %% weird effects when doing instrument names for
   %% piano staves
 
-  instrument = #'()
-  instr = #'()
+  instrumentName = #'()
+  shortInstrumentName = #'()
   
   \defaultchild "Voice"
   \accepts "Voice"
@@ -93,7 +93,7 @@
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBracket
   vocalName = #'()
-  vocNam = #'()
+  shortVocalName = #'()
 
   \accepts "Staff"
   \accepts "DrumStaff"
@@ -294,8 +294,8 @@ contained staves are not connected vertically."
   \consists "Vertical_align_engraver"
   \consists "Instrument_name_engraver"
   
-  instrument = #'()
-  instr = #'()
+  instrumentName = #'()
+  shortInstrumentName = #'()
 }
 
 \context {
