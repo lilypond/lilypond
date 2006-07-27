@@ -34,6 +34,7 @@ protected:
   DECLARE_ACKNOWLEDGER (axis_group);
   void process_music ();
   void start_spanner ();
+  void consider_start_spanner ();
   void stop_spanner ();
 };
 
@@ -48,11 +49,11 @@ Instrument_name_engraver::Instrument_name_engraver ()
 void
 Instrument_name_engraver::process_music ()
 {
-  start_spanner ();
+  consider_start_spanner ();
 }
 
 void
-Instrument_name_engraver::start_spanner ()
+Instrument_name_engraver::consider_start_spanner ()
 {
   SCM long_text = get_property ("instrumentName");
   SCM short_text = get_property ("shortInstrumentName");
@@ -72,18 +73,26 @@ Instrument_name_engraver::start_spanner ()
     {
       if (text_spanner_)
 	stop_spanner ();
-      
-      text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
-	  
-      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
-      text_spanner_->set_bound (LEFT, col);
-      text_spanner_->set_property ("text", short_text);
-      text_spanner_->set_property ("long-text", long_text);
 
+      
       short_text_ = short_text;
       long_text_ = long_text;
+
+      start_spanner ();
     }
 }
+
+void
+Instrument_name_engraver::start_spanner ()
+{
+  text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
+	  
+  Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+  text_spanner_->set_bound (LEFT, col);
+  text_spanner_->set_property ("text", short_text_);
+  text_spanner_->set_property ("long-text", long_text_);
+}
+
 
 void
 Instrument_name_engraver::acknowledge_axis_group (Grob_info info)

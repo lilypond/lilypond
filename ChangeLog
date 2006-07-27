@@ -1,4 +1,23 @@
+2006-07-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* input/regression/instrument-switch.ly: new file.
+
+	* lily/instrument-switch-engraver.cc (process_music): new file.
+
+	* ly/engraver-init.ly: add Instrument_switch_engraver
+
+	* ly/music-functions-init.ly: \instrumentSwitch
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add instrumentCueName
+
+	* scm/define-grobs.scm (all-grob-descriptions): add InstrumentSwitch
+
 2006-07-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* ly/music-functions-init.ly: music function \transposition.
+
+	* lily/parser.yy (command_element): softcode \transposition.
 
 	* lily/fall-engraver.cc (process_music): delta-pitch -> delta-step.
 	(process_music): oops.
