@@ -201,6 +201,39 @@ acceleration/deceleration. "
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic)
 
+
+"instrument-definitions" = #'()
+
+addInstrumentDefinition =
+#(define-music-function
+   (parser location name lst) (string? list?)
+
+   (set! instrument-definitions (acons name lst instrument-definitions))
+
+   (make-music 'SequentialMusic 'void #t))
+
+
+instrumentSwitch =
+#(define-music-function
+   (parser location name) (string?)
+   (let*
+       ((handle  (assoc name instrument-definitions))
+	(instrument-def (if handle (cdr handle) '()))
+	)
+
+     (if (not handle)
+	 (ly:input-message "No such instrument: ~a" name))
+     (context-spec-music
+      (make-music 'SimultaneousMusic
+		  'elements
+		  (map (lambda (kv)
+			 (make-property-set
+			  (car kv)
+			  (cdr kv)))
+		       instrument-def))
+      'Staff)))
+
+
 keepWithTag =
 #(define-music-function
   (parser location tag music) (symbol? ly:music?)
@@ -289,7 +322,6 @@ removeWithTag =
 %% Todo:
 %% doing
 %% define-music-function in a .scm causes crash.
-
 
 octave =
 #(define-music-function (parser location pitch-note) (ly:music?)
@@ -480,8 +512,8 @@ spacingTweaks =
    (make-music 'SequentialMusic 'void #t))
 
 
-transposedCueDuring = #
-(define-music-function
+transposedCueDuring =
+#(define-music-function
   (parser location what dir pitch-note main-music)
   (string? ly:dir? ly:music? ly:music?)
 
@@ -502,7 +534,15 @@ as a first or second voice."
 
 
 
+transposition =
+#(define-music-function (parser location pitch-note) (ly:music?)
+   "Set instrument transposition"
 
+   (context-spec-music
+    (make-property-set 'instrumentTransposition
+		       (ly:pitch-diff (ly:make-pitch 0 0 0) (pitch-of-note pitch-note)))
+        'Staff
+))
 
 tweak = #(define-music-function (parser location sym val arg)
 	   (symbol? scheme? ly:music?)

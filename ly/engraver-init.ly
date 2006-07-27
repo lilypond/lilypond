@@ -222,7 +222,7 @@ contained staves are not connected vertically."
   \consists "Tie_engraver"
   \consists "Tuplet_engraver"
   \consists "Grace_engraver"
-
+  \consists "Instrument_switch_engraver"
   \consists "Skip_event_swallow_translator"
 }
 

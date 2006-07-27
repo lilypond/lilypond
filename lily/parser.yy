@@ -206,7 +206,6 @@ void set_music_properties (Music *p, SCM a);
 %token TEMPO "\\tempo"
 %token TIMES "\\times"
 %token TRANSPOSE "\\transpose"
-%token TRANSPOSITION "\\transposition"
 %token TYPE "\\type"
 %token UNSET "\\unset"
 %token WITH "\\with"
@@ -1469,11 +1468,6 @@ command_element:
 		else
 			$$ = MAKE_SYNTAX ("bar-check", @$, SCM_UNDEFINED);
 
-	}
-	| TRANSPOSITION pitch {
-		Pitch middle_c;
-		Pitch sounds_as_c = pitch_interval (*unsmob_pitch ($2), middle_c);
-		$$ = MAKE_SYNTAX ("property-operation", @$, SCM_BOOL_F, ly_symbol2scm ("Staff"), ly_symbol2scm ("PropertySet"), ly_symbol2scm ("instrumentTransposition"), sounds_as_c.smobbed_copy ());
 	}
 	| PARTIAL duration_length	{
 		Moment m = - unsmob_duration ($2)->get_length ();

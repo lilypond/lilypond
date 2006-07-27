@@ -731,6 +731,20 @@
 				side-position-interface
 				font-interface))))))
 
+    (InstrumentSwitch
+     . (
+	(padding . 0.3)
+	(stencil . ,ly:text-interface::print)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+	(staff-padding . 2)
+	(direction . ,UP)
+	(self-alignment-X . ,CENTER)
+	(meta . ((class . Item)
+		 (interfaces . (system-start-text-interface
+				side-position-interface
+				font-interface))))))
+    
     (KeyCancellation
      . (
 	(stencil . ,ly:key-signature-interface::print)

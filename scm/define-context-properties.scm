@@ -253,6 +253,7 @@ selector for tab notation.")
 printed as numbers, but only as extender lines.")
      
 
+     (instrumentCueName ,markup? "Name to print if another instrument is to be taken.")
      (instrumentName ,markup? "The name to print left of a staff.  The
 @code{instrument} property labels the staff in the first system, and
 the @code{instr} property labels following lines.")
