@@ -166,6 +166,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
 
 Slur_configuration::Slur_configuration ()
 {
+  tags_ = 0x0;
   score_ = 0.0;
   index_ = -1;
 };

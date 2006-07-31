@@ -67,7 +67,11 @@ which scares away people.
 @end ignore
 
 @item
-Instrument names may be changed half-way during a staff.
+
+
+@item
+Instrument changes are better supported: names in the margin can be
+changed half-way during a staff, and cues are printed automatically.
 
 This feature was sponsored by Kieren MacMillan.
 
