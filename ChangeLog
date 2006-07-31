@@ -1,3 +1,10 @@
+2006-07-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* input/regression/tuplet-full-length-note.ly: add file.
+
+	* lily/instrument-name-engraver.cc (acknowledge_axis_group):
+	always store axis group.
+
 2006-07-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* input/regression/instrument-switch.ly: new file.
