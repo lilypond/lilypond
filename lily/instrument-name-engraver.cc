@@ -97,8 +97,7 @@ Instrument_name_engraver::start_spanner ()
 void
 Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 {
-  if (text_spanner_ 
-      && dynamic_cast<Spanner *> (info.grob ())
+  if (dynamic_cast<Spanner *> (info.grob ())
       && Axis_group_interface::has_axis (info.grob (), Y_AXIS)
       && (!Align_interface::has_interface (info.grob ())))
     {
