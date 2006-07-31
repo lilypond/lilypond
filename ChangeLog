@@ -1,5 +1,7 @@
 2006-07-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): add description.
+
 	* input/regression/tuplet-full-length-note.ly: add file.
 
 	* lily/instrument-name-engraver.cc (acknowledge_axis_group):
