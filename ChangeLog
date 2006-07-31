@@ -1,3 +1,7 @@
+2006-07-31  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* python/convertrules.py: backport: bugfix for \epsfile.
+
 2006-06-27  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/bar-line.cc (compound_barline): Fix parenthesis error,

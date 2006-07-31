@@ -2687,7 +2687,7 @@ conversions.append (((2, 7, 29), conv,
 		     """override Stem #'beamed-* -> #'details #'beamed-*"""))
 
 def conv (str):
-	str = re.sub (r'\epsfile *#"', r'\epsfile #X #10 #"', str)
+	str = re.sub (r'\\epsfile *#"', r'\\epsfile #X #10 #"', str)
 	return str
 
 conversions.append (((2, 7, 30), conv,
