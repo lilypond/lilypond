@@ -11,12 +11,13 @@
 #include "beam.hh"
 #include "engraver.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
 struct Tuplet_description
 {
-  Music *music_;
+  Stream_event *event_;
   Spanner *bracket_;
   Spanner *number_;
 
@@ -25,9 +26,9 @@ struct Tuplet_description
   
   Tuplet_description ()
   {
+    event_ = 0;
     full_length_note_ = false;
     full_length_ = false;
-    music_ = 0;
     bracket_ = 0;
     number_ = 0;
   }
@@ -43,32 +44,28 @@ protected:
   vector<Tuplet_description> stopped_tuplets_;
   vector<Spanner*> last_tuplets_;
   DECLARE_ACKNOWLEDGER (note_column);
-  virtual bool try_music (Music *r);
+  DECLARE_TRANSLATOR_LISTENER (tuplet_span);
   virtual void finalize ();
   void start_translation_timestep ();
   void process_music ();
 };
 
-bool
-Tuplet_engraver::try_music (Music *music)
+IMPLEMENT_TRANSLATOR_LISTENER (Tuplet_engraver, tuplet_span);
+void
+Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
 {
-  if (music->is_mus_type ("tuplet-spanner-event"))
+  Direction dir = to_dir (ev->get_property ("span-direction"));
+  if (dir == START)
     {
-      Direction dir = to_dir (music->get_property ("span-direction"));
-      if (dir == START)
-	{
-	  Tuplet_description d;
-	  d.music_ = music;
-	  tuplets_.push_back (d);
-	}
-      if (dir == STOP)
-	{
-	  stopped_tuplets_.push_back (tuplets_.back ());
-	  tuplets_.pop_back ();
-	}
-      return true;
+      Tuplet_description d;
+      d.event_ = ev;
+      tuplets_.push_back (d);
     }
-  return false;
+  if (dir == STOP)
+    {
+      stopped_tuplets_.push_back (tuplets_.back ());
+      tuplets_.pop_back ();
+    }
 }
 
 void
@@ -117,9 +114,9 @@ Tuplet_engraver::process_music ()
 	= to_boolean (get_property ("tupletFullLengthNote"));
       
       tuplets_[i].bracket_ = make_spanner ("TupletBracket",
-					   tuplets_[i].music_->self_scm ());
+					   tuplets_[i].event_->self_scm ());
       tuplets_[i].number_ = make_spanner ("TupletNumber",
-					  tuplets_[i].music_->self_scm ());
+					  tuplets_[i].event_->self_scm ());
       tuplets_[i].number_->set_object ("bracket", tuplets_[i].bracket_->self_scm ());
       tuplets_[i].bracket_->set_object ("tuplet-number", tuplets_[i].number_->self_scm ());
       
@@ -169,6 +166,6 @@ ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
 		/* doc */ "Catch TupletSpannerEvent and generate appropriate bracket  ",
 		/* create */ "TupletBracket TupletNumber ",
-		/* accept */ "tuplet-spanner-event",
+		/* accept */ "tuplet-span-event",
 		/* read */ "tupletFullLength ",
 		/* write */ "");

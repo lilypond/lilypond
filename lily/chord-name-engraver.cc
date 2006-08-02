@@ -6,17 +6,19 @@
   (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "engraver.hh"
 #include "chord-name.hh"
-#include "output-def.hh"
-#include "font-interface.hh"
-#include "output-def.hh"
-#include "dimensions.hh"
-#include "item.hh"
-#include "protected-scm.hh"
 #include "context.hh"
-#include "warn.hh"
+#include "dimensions.hh"
+#include "engraver.hh"
+#include "font-interface.hh"
+#include "item.hh"
+#include "output-def.hh"
 #include "pitch.hh"
+#include "protected-scm.hh"
+#include "stream-event.hh"
+#include "warn.hh"
+
+#include "translator.icc"
 
 class Chord_name_engraver : public Engraver
 {
@@ -24,14 +26,12 @@ class Chord_name_engraver : public Engraver
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  virtual bool try_music (Music *);
   virtual void finalize ();
   virtual void derived_mark () const;
+  DECLARE_TRANSLATOR_LISTENER (note);
 private:
-  void add_note (Music *);
-
   Item *chord_name_;
-  vector<Music*> notes_;
+  vector<Stream_event*> notes_;
 
   SCM last_chord_;
 };
@@ -54,12 +54,6 @@ Chord_name_engraver::Chord_name_engraver ()
 }
 
 void
-Chord_name_engraver::add_note (Music *n)
-{
-  notes_.push_back (n);
-}
-
-void
 Chord_name_engraver::process_music ()
 {
   if (!notes_.size ())
@@ -69,10 +63,10 @@ Chord_name_engraver::process_music ()
   SCM inversion = SCM_EOL;
   SCM pitches = SCM_EOL;
 
-  Music *inversion_event = 0;
+  Stream_event *inversion_event = 0;
   for (vsize i = 0; i < notes_.size (); i++)
     {
-      Music *n = notes_[i];
+      Stream_event *n = notes_[i];
       SCM p = n->get_property ("pitch");
       if (!unsmob_pitch (p))
 	continue;
@@ -125,18 +119,11 @@ Chord_name_engraver::process_music ()
   last_chord_ = chord_as_scm;
 }
 
-bool
-Chord_name_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Chord_name_engraver, note);
+void
+Chord_name_engraver::listen_note (Stream_event *ev)
 {
-  /*
-    hmm. Should check?
-  */
-  if (m->is_mus_type ("note-event"))
-    {
-      add_note (m);
-      return true;
-    }
-  return false;
+  notes_.push_back (ev);
 }
 
 void
@@ -150,8 +137,6 @@ Chord_name_engraver::stop_translation_timestep ()
   The READs description is not strictly accurate:
   which properties are read depend on the chord naming function active.
 */
-#include "translator.icc"
-
 ADD_TRANSLATOR (Chord_name_engraver,
 		/* doc */ "Catch note-events "
 		"and generate the appropriate chordname.",

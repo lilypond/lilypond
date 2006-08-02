@@ -15,6 +15,7 @@
 #include "paper-column.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
 #include "vaticana-ligature.hh"
 #include "warn.hh"
 
@@ -45,7 +46,23 @@ protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
 				vector<Grob_info> primitives);
+  DECLARE_TRANSLATOR_LISTENER (pes_or_flexa);
+  DECLARE_TRANSLATOR_LISTENER (ligature);
 };
+
+IMPLEMENT_TRANSLATOR_LISTENER (Vaticana_ligature_engraver, pes_or_flexa);
+void
+Vaticana_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
+{
+  Gregorian_ligature_engraver::listen_pes_or_flexa (ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Vaticana_ligature_engraver, ligature);
+void
+Vaticana_ligature_engraver::listen_ligature (Stream_event *ev)
+{
+  Ligature_engraver::listen_ligature (ev);
+}
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 {

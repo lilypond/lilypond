@@ -50,7 +50,7 @@ arguments to func are 1. the grob, 2. the originating context,
 3. context where FUNC is called.
 
 ")
-	(types . (general-music event layout-instruction))
+	(types . (general-music event layout-instruction-event))
 	))
     (ArpeggioEvent 
      . (
@@ -189,7 +189,7 @@ Syntax: @var{note}\\cr
 	))
 
     
-    (FingerEvent
+    (FingeringEvent
      . (
 	(description . "Specify what finger to use for this note.")
 	(types . (general-music fingering-event event))
@@ -283,11 +283,6 @@ e.g. @code{\\mark \"A\"}.")
 
 	(types . (general-music mark-event event))
 	))
-    (MelismaPlayingEvent
-     . (
-	(description .	"Used internally to signal melismas.")
-	(types . (general-music melisma-playing-event event))
-	))
     (ManualMelismaEvent
      . (
 	(description .	"Start or stop a melisma.
@@ -342,7 +337,7 @@ SYNTAX
 
 @code{\\override [ @var{Ctxt} . ] @var{Obj} @var{prop} = @var{val}}
 ")
-	(types . (general-music layout-instruction))
+	(types . (general-music layout-instruction-event))
 	(iterator-ctor . ,ly:push-property-iterator::constructor)
 	))
     (PageBreakEvent
@@ -377,7 +372,7 @@ Syntax NOTE \\(  and \\) NOTE")
 	(description .	"Set a context property.
 
 Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
-	(types . (layout-instruction general-music))
+	(types . (layout-instruction-event general-music))
 	(iterator-ctor . ,ly:property-iterator::constructor)
 	))
 
@@ -385,7 +380,7 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
      . (
 	(description .	"Remove the definition of a context @code{\\property}.")
 
-	(types . (layout-instruction general-music))
+	(types . (layout-instruction-event general-music))
 	(iterator-ctor . ,ly:property-unset-iterator::constructor)
 	))
 
@@ -443,7 +438,7 @@ Syntax @code{r4} for a quarter rest. ")
 previously added property from a graphical object definition
  ")
 
-	(types . (general-music layout-instruction))
+	(types . (general-music layout-instruction-event))
 	(iterator-ctor . ,	ly:pop-property-iterator::constructor)
 	))
 
@@ -464,18 +459,18 @@ Syntax \\sequential @{..@} or simply @{..@} .")
      . (
 	(description . "Print Solo.1")
 	(part-combine-status . solo1)
-	(types . (general-music event part-combine-event))
+	(types . (general-music event part-combine-event solo1-event))
 	))
     (SoloTwoEvent
      . (
 	(description . "Print Solo.2")
 	(part-combine-status . solo2)
-	(types . (general-music event part-combine-event))
+	(types . (general-music event part-combine-event solo2-event))
 	))
     (UnisonoEvent
      . ((description . "Print a2")
 	(part-combine-status . unisono)
-	(types . (general-music event part-combine-event))))
+	(types . (general-music event part-combine-event unisono-event))))
     
     (SimultaneousMusic
      . (
@@ -506,13 +501,6 @@ Syntax NOTE(	 and NOTE) ")
      . ((description . "Start or  stop a staff symbol.")
 	(types . (general-music event span-event staff-span-event))
      ))
-    
-    (StartPlayingEvent
-     . (
-	(description .	"Used internally to signal beginning of notes.")
-
-	(types . (general-music event start-playing-event))
-	))
     
     (TextSpanEvent
      . (
@@ -549,10 +537,10 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 	(types . (time-scaled-music music-wrapper-music general-music))
 	))
 
-    (TupletEvent
+    (TupletSpanEvent
      . (
 	(description .  "Used internally to signal where tuplet brackets start and stop.")
-	(types . (tuplet-spanner-event span-event event general-music))
+	(types . (tuplet-span-event span-event event general-music))
        ))
 
     (UnrelativableMusic

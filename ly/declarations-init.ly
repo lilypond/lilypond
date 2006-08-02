@@ -71,8 +71,9 @@ escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
 \include "scale-definitions-init.ly"
 
-melisma = #(make-span-event 'ManualMelismaEvent START)
-melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
+melisma = #(context-spec-music (make-property-set 'melismaBusy #t) 'Bottom)
+melismaEnd = #(context-spec-music (make-property-unset 'melismaBusy) 'Bottom)
+
 laissezVibrer = #(make-music 'LaissezVibrerEvent)
 repeatTie = #(make-music 'RepeatTieEvent)
 		  

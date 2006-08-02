@@ -7,20 +7,23 @@
 #include <cctype>
 using namespace std;
 
-#include "rhythmic-head.hh"
-#include "output-def.hh"
-#include "music.hh"
-#include "dots.hh"
 #include "dot-column.hh"
-#include "staff-symbol-referencer.hh"
-#include "item.hh"
-#include "score-engraver.hh"
-#include "warn.hh"
-#include "spanner.hh"
-#include "tie.hh"
-#include "global-context.hh"
+#include "dots.hh"
 #include "duration.hh"
+#include "global-context.hh"
+#include "item.hh"
+#include "music.hh"
+#include "output-def.hh"
 #include "pitch.hh"
+#include "rhythmic-head.hh"
+#include "score-engraver.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
+#include "tie.hh"
+#include "warn.hh"
+
+#include "translator.icc"
 
 /*
   TODO: make matching rest engraver.
@@ -48,8 +51,8 @@ class Completion_heads_engraver : public Engraver
   vector<Grob*> ties_;
 
   vector<Item*> dots_;
-  vector<Music*> note_events_;
-  vector<Music*> scratch_note_events_;
+  vector<Stream_event*> note_events_;
+  vector<Stream_event*> scratch_note_events_;
 
   Moment note_end_mom_;
   bool is_first_;
@@ -65,9 +68,9 @@ public:
 protected:
   virtual void initialize ();
   void start_translation_timestep ();
-  virtual bool try_music (Music *event);
   void process_music ();
   void stop_translation_timestep ();
+  DECLARE_TRANSLATOR_LISTENER (note);
 };
 
 void
@@ -76,29 +79,24 @@ Completion_heads_engraver::initialize ()
   is_first_ = false;
 }
 
-bool
-Completion_heads_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Completion_heads_engraver, note);
+void
+Completion_heads_engraver::listen_note (Stream_event *ev)
 {
-  if (m->is_mus_type ("note-event"))
+  note_events_.push_back (ev);
+  
+  is_first_ = true;
+  Moment musiclen = get_event_length (ev);
+  Moment now = now_mom ();
+
+  if (now_mom ().grace_part_)
     {
-      note_events_.push_back (m);
-
-      is_first_ = true;
-      Moment musiclen = m->get_length ();
-      Moment now = now_mom ();
-
-      if (now_mom ().grace_part_)
-	{
-	  musiclen.grace_part_ = musiclen.main_part_;
-	  musiclen.main_part_ = Rational (0, 1);
-	}
-      note_end_mom_ = max (note_end_mom_, (now + musiclen));
-      do_nothing_until_ = Rational (0, 0);
-
-      return true;
+      musiclen.grace_part_ = musiclen.main_part_;
+      musiclen.main_part_ = Rational (0, 1);
     }
 
-  return false;
+  note_end_mom_ = max (note_end_mom_, (now + musiclen));
+  do_nothing_until_ = Rational (0, 0);
 }
 
 /*
@@ -192,14 +190,14 @@ Completion_heads_engraver::process_music ()
       if (!scratch_note_events_.size ())
 	for (vsize i = 0; i < note_events_.size (); i++)
 	  {
-	    Music *m = note_events_[i]->clone ();
+	    Stream_event *m = note_events_[i]->clone ();
 	    scratch_note_events_.push_back (m);
 	  }
     }
 
   for (vsize i = 0; left_to_do_ && i < note_events_.size (); i++)
     {
-      Music *event = note_events_[i];
+      Stream_event *event = note_events_[i];
       if (scratch_note_events_.size ())
 	{
 	  event = scratch_note_events_[i];
@@ -293,8 +291,6 @@ Completion_heads_engraver::start_translation_timestep ()
 Completion_heads_engraver::Completion_heads_engraver ()
 {
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Completion_heads_engraver,
 		/* doc */ "This engraver replaces "

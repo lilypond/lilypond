@@ -12,6 +12,7 @@
 #include "note-column.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -20,14 +21,14 @@ class Horizontal_bracket_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);
   vector<Spanner*> bracket_stack_;
-  vector<Music*> events_;
+  vector<Stream_event*> events_;
   vsize pop_count_;
   vsize push_count_;
 
-  virtual bool try_music (Music *);
   void stop_translation_timestep ();
   void process_music ();
   DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_TRANSLATOR_LISTENER (note_grouping);
 };
 
 ADD_ACKNOWLEDGER (Horizontal_bracket_engraver, note_column);
@@ -44,31 +45,26 @@ Horizontal_bracket_engraver::Horizontal_bracket_engraver ()
   push_count_ = 0;
 }
 
-bool
-Horizontal_bracket_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Horizontal_bracket_engraver, note_grouping);
+void
+Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
 {
-  if (m->is_mus_type ("note-grouping-event"))
+  Direction d = to_dir (ev->get_property ("span-direction"));
+
+  if (d == STOP)
     {
-      Direction d = to_dir (m->get_property ("span-direction"));
-
-      if (d == STOP)
-	{
-	  pop_count_++;
-	  if (pop_count_ > bracket_stack_.size ())
-	    m->origin ()->warning (_ ("don't have that many brackets"));
-	}
-      else
-	{
-	  push_count_++;
-	  events_.push_back (m);
-	}
-
-      if (pop_count_ && push_count_)
-	m->origin ()->warning (_ ("conflicting note group events"));
-
-      return true;
+      pop_count_++;
+      if (pop_count_ > bracket_stack_.size ())
+	ev->origin ()->warning (_ ("don't have that many brackets"));
     }
-  return false;
+  else
+    {
+      push_count_++;
+      events_.push_back (ev);
+    }
+
+  if (pop_count_ && push_count_)
+    ev->origin ()->warning (_ ("conflicting note group events"));
 }
 
 void

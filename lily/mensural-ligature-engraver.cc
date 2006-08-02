@@ -19,7 +19,10 @@
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 /*
  * TODO: accidentals are aligned with the first note;
@@ -47,7 +50,8 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void build_ligature (Spanner *ligature, vector<Grob_info> primitives);
-
+  DECLARE_TRANSLATOR_LISTENER (ligature);
+  
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
@@ -56,6 +60,13 @@ private:
   void propagate_properties (Spanner *ligature, vector<Grob_info> primitives);
   void fold_up_primitives (vector<Grob_info> primitives);
 };
+
+IMPLEMENT_TRANSLATOR_LISTENER (Mensural_ligature_engraver, ligature);
+void
+Mensural_ligature_engraver::listen_ligature (Stream_event *ev)
+{
+  Ligature_engraver::listen_ligature (ev);
+}
 
 Mensural_ligature_engraver::Mensural_ligature_engraver ()
 {
@@ -381,8 +392,6 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
   propagate_properties (ligature, primitives);
   fold_up_primitives (primitives);
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, note_head);

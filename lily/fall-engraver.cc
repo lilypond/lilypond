@@ -9,6 +9,9 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 class Fall_engraver : public Engraver
 {
@@ -17,7 +20,7 @@ public:
   DECLARE_ACKNOWLEDGER (note_head);
 
 protected:
-  virtual bool try_music (Music *event);
+  DECLARE_TRANSLATOR_LISTENER (bend_after);
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -25,7 +28,7 @@ protected:
   
 private:
   Moment stop_moment_;
-  Music *fall_event_;
+  Stream_event *fall_event_;
   Spanner *fall_;
   Grob *note_head_;
 };
@@ -76,7 +79,7 @@ Fall_engraver::acknowledge_note_head (Grob_info info)
     }
 
   note_head_ = info.grob ();
-  stop_moment_ = now_mom () + info.music_cause ()->get_length ();
+  stop_moment_ = now_mom () + get_event_length (info.event_cause ());
 }
 
 Fall_engraver::Fall_engraver ()
@@ -86,11 +89,11 @@ Fall_engraver::Fall_engraver ()
   fall_event_ = 0;
 }
 
-bool
-Fall_engraver::try_music (Music *r)
+IMPLEMENT_TRANSLATOR_LISTENER (Fall_engraver, bend_after);
+void
+Fall_engraver::listen_bend_after (Stream_event *ev)
 {
-  fall_event_ = r;
-  return true;
+  fall_event_ = ev;
 }
 
 void
@@ -104,11 +107,7 @@ Fall_engraver::process_music ()
     }
 }
 
-#include "translator.icc"
-
-
 ADD_ACKNOWLEDGER (Fall_engraver, note_head);
-
 
 ADD_TRANSLATOR (Fall_engraver,
 		/* doc */ "Create fall spanners.",

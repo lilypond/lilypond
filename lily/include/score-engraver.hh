@@ -28,7 +28,6 @@ protected:
   /* Engraver_group_engraver interface */
   virtual void connect_to_context (Context *);
   virtual void disconnect_from_context ();
-  virtual bool try_music (Music *);
   virtual void initialize ();
   virtual void finalize ();
   virtual void announce_grob (Grob_info);

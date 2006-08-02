@@ -10,7 +10,10 @@
 #include "international.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 /**
    Create line-spanner grobs for glissandi lines that connect note
@@ -22,16 +25,16 @@ public:
   TRANSLATOR_DECLARATIONS (Glissando_engraver);
 
 protected:
+  DECLARE_TRANSLATOR_LISTENER (glissando);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   virtual void finalize ();
-  virtual bool try_music (Music *);
 
   void stop_translation_timestep ();
   void process_music ();
 private:
   Spanner *line_;
   Spanner *last_line_;
-  Music *event_;
+  Stream_event *event_;
 };
 
 Glissando_engraver::Glissando_engraver ()
@@ -40,15 +43,11 @@ Glissando_engraver::Glissando_engraver ()
   event_ = 0;
 }
 
-bool
-Glissando_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Glissando_engraver, glissando);
+void
+Glissando_engraver::listen_glissando (Stream_event *ev)
 {
-  if (!event_)
-    {
-      event_ = m;
-      return true;
-    }
-  return false;
+  ASSIGN_EVENT_ONCE (event_, ev);
 }
 
 void
@@ -100,8 +99,6 @@ Glissando_engraver::finalize ()
       line_ = 0;
     }
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Glissando_engraver, rhythmic_head);
 ADD_TRANSLATOR (Glissando_engraver,

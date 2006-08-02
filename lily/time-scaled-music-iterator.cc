@@ -14,7 +14,7 @@
 #include "sequential-iterator.hh"
 
 /*
-  Iterates \times, by sending TupletEvents at the start/end of each
+  Iterates \times, by sending TupletSpanEvents at the start/end of each
   tuplet bracket. Extra stop/start events are sent at regular
   intervals if tupletSpannerDuration is set.
 */
@@ -96,7 +96,7 @@ Time_scaled_music_iterator::construct_children ()
   Music *mus = get_music ();
   Input *origin = mus->origin ();
 
-  SCM tuplet_symbol = ly_symbol2scm ("TupletEvent");
+  SCM tuplet_symbol = ly_symbol2scm ("TupletSpanEvent");
   SCM start_scm = scm_call_2 (ly_lily_module_constant ("make-span-event"), tuplet_symbol, scm_from_int (START));
   start_ = unsmob_music (start_scm);
   start_->set_spot (*origin);

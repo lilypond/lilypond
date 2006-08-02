@@ -18,6 +18,7 @@
 #include "repeated-music.hh"
 #include "side-position-interface.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -34,7 +35,7 @@ public:
   TRANSLATOR_DECLARATIONS (Percent_repeat_engraver);
   
 protected:
-  Music *percent_event_;
+  Stream_event *percent_event_;
 
   /// moment (global time) where percent started.
   Moment stop_mom_;
@@ -53,7 +54,7 @@ protected:
 
 protected:
   virtual void finalize ();
-  virtual bool try_music (Music *);
+  DECLARE_TRANSLATOR_LISTENER (percent);
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -68,13 +69,13 @@ Percent_repeat_engraver::Percent_repeat_engraver ()
   percent_event_ = 0;
 }
 
-bool
-Percent_repeat_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Percent_repeat_engraver, percent);
+void
+Percent_repeat_engraver::listen_percent (Stream_event *ev)
 {
-  if (m->is_mus_type ("percent-event")
-      && !percent_event_)
+  if (!percent_event_)
     {
-      Moment body_length = m->get_length ();
+      Moment body_length = get_event_length (ev);
       Moment meas_len (robust_scm2moment (get_property ("measureLength"),
 					  Moment (1)));
 
@@ -93,14 +94,10 @@ Percent_repeat_engraver::try_music (Music *m)
 	get_global_context ()->add_moment_to_process (start_mom_);
       }
       else
-	return false;
+	return;
 
-      percent_event_ = m;
-
-      return true;
+      percent_event_ = ev;
     }
-
-  return false;
 }
 
 void

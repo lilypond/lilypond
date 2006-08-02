@@ -21,6 +21,7 @@
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -50,10 +51,10 @@ class Dynamic_engraver : public Engraver
   Spanner *finished_line_spanner_;
   Spanner *finished_cresc_;
 
-  Music *script_ev_;
-  Music *current_cresc_ev_;
+  Stream_event *script_ev_;
+  Stream_event *current_cresc_ev_;
 
-  Drul_array<Music *> accepted_spanevents_drul_;
+  Drul_array<Stream_event *> accepted_spanevents_drul_;
 
   vector<Note_column*> pending_columns_;
   vector<Grob*> pending_elements_;
@@ -66,10 +67,11 @@ class Dynamic_engraver : public Engraver
   DECLARE_ACKNOWLEDGER (stem_tremolo);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (slur);
+  DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
+  DECLARE_TRANSLATOR_LISTENER (span_dynamic);
 
 protected:
   virtual void finalize ();
-  virtual bool try_music (Music *event);
   void stop_translation_timestep ();
   void process_music ();
 };
@@ -88,28 +90,25 @@ Dynamic_engraver::Dynamic_engraver ()
   accepted_spanevents_drul_[STOP] = 0;
 }
 
-bool
-Dynamic_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, absolute_dynamic);
+void
+Dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
 {
-  if (m->is_mus_type ("absolute-dynamic-event"))
-    {
-      /*
-	TODO: probably broken.
-      */
-      script_ev_ = m;
-      return true;
-    }
-  else if (m->is_mus_type ("decrescendo-event")
-	   || m->is_mus_type ("crescendo-event"))
-    {
-      Direction d = to_dir (m->get_property ("span-direction"));
+  /*
+    TODO: probably broken.
+  */
+  script_ev_ = ev;
+}
 
-      accepted_spanevents_drul_[d] = m;
-      if (current_cresc_ev_ && d == START)
-	accepted_spanevents_drul_[STOP] = m;
-      return true;
-    }
-  return false;
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, span_dynamic);
+void
+Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
+{
+  Direction d = to_dir (ev->get_property ("span-direction"));
+
+  accepted_spanevents_drul_[d] = ev;
+  if (current_cresc_ev_ && d == START)
+    accepted_spanevents_drul_[STOP] = ev;
 }
 
 void
@@ -119,7 +118,7 @@ Dynamic_engraver::process_music ()
     {
       if (!line_spanner_)
 	{
-	  Music *rq = accepted_spanevents_drul_[START];
+	  Stream_event *rq = accepted_spanevents_drul_[START];
 	  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm () : SCM_EOL);
 	  if (script_ev_)
 	    rq = script_ev_;
@@ -153,7 +152,7 @@ Dynamic_engraver::process_music ()
       Axis_group_interface::add_element (line_spanner_, script_);
     }
 
-  Music *stop_ev = accepted_spanevents_drul_ [STOP]
+  Stream_event *stop_ev = accepted_spanevents_drul_ [STOP]
     ? accepted_spanevents_drul_[STOP] : script_ev_;
 
   if (accepted_spanevents_drul_[STOP] || script_ev_)
@@ -189,7 +188,7 @@ Dynamic_engraver::process_music ()
       if (current_cresc_ev_)
 	{
 	  string msg = _ ("already have a decrescendo");
-	  if (current_cresc_ev_->is_mus_type ("decrescendo-event"))
+	  if (current_cresc_ev_->in_event_class ("crescendo-event"))
 	    msg = _ ("already have a crescendo");
 
 	  accepted_spanevents_drul_[START]->origin ()->warning (msg);
@@ -205,16 +204,19 @@ Dynamic_engraver::process_music ()
 	  /*
 	    TODO: Use symbols.
 	  */
-
-	  string start_type
-	    = ly_symbol2string (current_cresc_ev_->get_property ("name"));
 	  
-	  if (start_type == "DecrescendoEvent")
+	  SCM start_sym = current_cresc_ev_->get_property ("class");
+	  string start_type;
+	  
+	  if (start_sym == ly_symbol2scm ("decrescendo-event"))
 	    start_type = "decrescendo";
-	  else if (start_type == "CrescendoEvent")
+	  else if (start_sym == ly_symbol2scm ("crescendo-event"))
 	    start_type = "crescendo";
-	  
-				       
+	  else
+	    {
+	      programming_error ("unknown dynamic spanner type");
+	      return;
+	    }
 
 	  /*
 	    UGH. TODO: should read from original event, so appearance

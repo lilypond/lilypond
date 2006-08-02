@@ -1735,7 +1735,7 @@ gen_text_def:
 		$$ = t->unprotect ();
 	}
 	| DIGIT {
-		Music *t = MY_MAKE_MUSIC ("FingerEvent");
+		Music *t = MY_MAKE_MUSIC ("FingeringEvent");
 		t->set_property ("digit", scm_from_int ($1));
 		t->set_spot (@$);
 		$$ = t->unprotect ();

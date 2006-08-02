@@ -9,26 +9,29 @@
 #include <cctype>
 using namespace std;
 
-#include "rhythmic-head.hh"
-#include "output-def.hh"
 #include "dots.hh"
 #include "dot-column.hh"
-#include "staff-symbol-referencer.hh"
-#include "item.hh"
-#include "warn.hh"
 #include "duration.hh"
+#include "item.hh"
+#include "output-def.hh"
+#include "rhythmic-head.hh"
+#include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
+#include "warn.hh"
+
+#include "translator.icc"
 
 class Note_heads_engraver : public Engraver
 {
   vector<Item*> notes_;
   vector<Item*> dots_;
-  vector<Music*> note_evs_;
+  vector<Stream_event*> note_evs_;
 
 public:
   TRANSLATOR_DECLARATIONS (Note_heads_engraver);
 
 protected:
-  virtual bool try_music (Music *ev);
+  DECLARE_TRANSLATOR_LISTENER (note);
   void process_music ();
   void stop_translation_timestep ();
 };
@@ -37,16 +40,11 @@ Note_heads_engraver::Note_heads_engraver ()
 {
 }
 
-bool
-Note_heads_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Note_heads_engraver, note);
+void
+Note_heads_engraver::listen_note (Stream_event *ev)
 {
-  if (m->is_mus_type ("note-event"))
-    {
-      note_evs_.push_back (m);
-      return true;
-    }
-
-  return false;
+  note_evs_.push_back (ev);
 }
 
 void
@@ -54,7 +52,7 @@ Note_heads_engraver::process_music ()
 {
   for (vsize i = 0; i < note_evs_.size (); i++)
     {
-      Music *ev = note_evs_[i];
+      Stream_event *ev = note_evs_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
 
       Duration dur = *unsmob_duration (ev->get_property ("duration"));
@@ -121,8 +119,6 @@ Note_heads_engraver::stop_translation_timestep ()
   dots_.clear ();
   note_evs_.clear ();
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Note_heads_engraver,
 		/* doc */ "Generate noteheads.",

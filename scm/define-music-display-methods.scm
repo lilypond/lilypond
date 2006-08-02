@@ -143,7 +143,7 @@
 (define post-event? (make-music-type-predicate	
 		     'StringNumberEvent
 		     'ArticulationEvent
-		     'FingerEvent
+		     'FingeringEvent
 		     'TextScriptEvent
 		     'MultiMeasureTextEvent
 		     'HyphenEvent
@@ -220,7 +220,7 @@
       ((portato) "_")
       (else (format #f "\\~a" articulation)))))
 
-(define-post-event-display-method FingerEvent (event) #t
+(define-post-event-display-method FingeringEvent (event) #t
   (ly:music-property event 'digit))
 
 (define-post-event-display-method TextScriptEvent (event) #t

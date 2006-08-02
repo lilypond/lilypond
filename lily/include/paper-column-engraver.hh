@@ -10,6 +10,8 @@
 #define PAPER_COLUMN_ENGRAVER_HH
 
 #include "engraver.hh"
+#include "listener.hh"
+#include "stream-event.hh"
 
 class Paper_column_engraver : public Engraver
 {
@@ -23,14 +25,15 @@ protected:
   void process_music ();
   virtual void initialize ();
   virtual void finalize ();
-  virtual bool try_music (Music *);
+
+  DECLARE_TRANSLATOR_LISTENER (break);
 
   DECLARE_ACKNOWLEDGER (item);
   DECLARE_ACKNOWLEDGER (note_spacing);
   DECLARE_ACKNOWLEDGER (staff_spacing);
 
   System *system_;
-  vector<Music*> break_events_;
+  vector<Stream_event*> break_events_;
   int breaks_;			// used for stat printing
   Paper_column *command_column_;
   Paper_column *musical_column_;

@@ -14,7 +14,10 @@
 #include "note-column.hh"
 #include "slur.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 /*
   It is possible that a slur starts and ends on the same note.  At
@@ -24,14 +27,12 @@
 
 class Phrasing_slur_engraver : public Engraver
 {
-  Drul_array<Music *> events_;
-  Music *running_slur_start_;
+  Drul_array<Stream_event *> events_;
+  Stream_event *running_slur_start_;
   vector<Grob*> slurs_;
   vector<Grob*> end_slurs_;
 
 protected:
-  virtual bool try_music (Music *);
-
   void acknowledge_extra_object (Grob_info);
   DECLARE_ACKNOWLEDGER (accidental);
   DECLARE_ACKNOWLEDGER (dynamic_line_spanner);
@@ -41,6 +42,7 @@ protected:
   DECLARE_ACKNOWLEDGER (slur);
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
 
   void stop_translation_timestep ();
   virtual void finalize ();
@@ -55,30 +57,18 @@ Phrasing_slur_engraver::Phrasing_slur_engraver ()
   events_[START] = events_[STOP] = 0;
 }
 
-bool
-Phrasing_slur_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, phrasing_slur);
+void
+Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
-  if (m->is_mus_type ("phrasing-slur-event"))
-    {
-      /*
-	Let's not start more than one slur per moment.
-      */
-      Direction d = to_dir (m->get_property ("span-direction"));
-      if (d == START)
-	{
-	  events_[START] = m;
-	  return true;
-	}
-      else if (d == STOP)
-	{
-	  if (slurs_.empty ())
-	    return false;
-
-	  events_[STOP] = m;
-	  return true;
-	}
-    }
-  return false;
+  /*
+    Let's not start more than one slur per moment.
+  */
+  Direction d = to_dir (ev->get_property ("span-direction"));
+  if (d == START)
+    events_[START] = ev;
+  else if (d == STOP && !slurs_.empty ())
+    events_[STOP] = ev;
 }
 
 void
@@ -157,7 +147,7 @@ Phrasing_slur_engraver::process_music ()
 
   if (events_[START] && slurs_.empty ())
     {
-      Music *ev = events_[START];
+      Stream_event *ev = events_[START];
 
       Grob *slur = make_spanner ("PhrasingSlur", events_[START]->self_scm ());
       Direction updown = to_dir (ev->get_property ("direction"));
@@ -174,8 +164,6 @@ Phrasing_slur_engraver::stop_translation_timestep ()
   end_slurs_.clear ();
   events_[START] = events_[STOP] = 0;
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dynamic_line_spanner);

@@ -107,4 +107,4 @@ void init_simple_closure ()
 
 
 
-ADD_SCM_INIT_FUNC(simple_closure, init_simple_closure);
+ADD_SCM_INIT_FUNC (simple_closure, init_simple_closure);

@@ -21,7 +21,7 @@ protected:
 
   DECLARE_ACKNOWLEDGER (rest);
   DECLARE_ACKNOWLEDGER (note_head);
-  virtual bool try_music (Music *);
+  virtual void listen_ligature (Stream_event *ev);
   void process_music ();
   virtual Spanner *create_ligature_spanner () = 0;
   virtual void typeset_ligature (Spanner *ligature,
@@ -34,7 +34,7 @@ public:
   // class is abstract
 
 private:
-  Drul_array<Music *> events_drul_;
+  Drul_array<Stream_event *> events_drul_;
 
   Spanner *ligature_;
   vector<Grob_info> primitives_;
@@ -42,7 +42,7 @@ private:
   Spanner *finished_ligature_;
   vector<Grob_info> finished_primitives_;
 
-  Music *prev_start_event_;
+  Stream_event *prev_start_event_;
 
   // moment where ligature started.
   Moment ligature_start_mom_;

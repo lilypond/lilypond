@@ -12,7 +12,7 @@
 
 class Gregorian_ligature_engraver : public Coherent_ligature_engraver
 {
-  Music *pes_or_flexa_req_;
+  Stream_event *pes_or_flexa_req_;
 
 public:
   // no TRANSLATOR_DECLARATIONS (Gregorian_ligature_engraver) needed
@@ -20,7 +20,8 @@ public:
 
 protected:
   Gregorian_ligature_engraver ();
-  virtual bool try_music (Music *);
+
+  virtual void listen_pes_or_flexa (Stream_event *ev);
   virtual void build_ligature (Spanner *ligature, vector<Grob_info> primitives);
   virtual void transform_heads (Spanner *ligature,
 				vector<Grob_info> primitives) = 0;

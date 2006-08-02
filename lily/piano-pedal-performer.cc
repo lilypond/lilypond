@@ -15,10 +15,7 @@
 
 #include "translator.icc"
 
-#define SOSTENUTO	0
-#define SUSTAIN		1
-#define UNA_CORDA	2
-#define NUM_PEDAL_TYPES 3
+typedef enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
 
 /**
    perform Piano pedals
@@ -89,14 +86,15 @@ Piano_pedal_performer::process_music ()
 
   for (int i = 0; i < NUM_PEDAL_TYPES; i++, p++)
     {
+      string pedal_type = pedal_type_str (i);
       if (p->event_drul_[STOP])
 	{
 	  if (!p->start_event_)
-	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", pedal_type_str (i)));
+	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", pedal_type));
 	  else
 	    {
 	      Audio_piano_pedal *a = new Audio_piano_pedal;
-	      a->type_string_ = string (pedal_type_str (i));
+	      a->type_string_ = pedal_type;
 	      a->dir_ = STOP;
 	      audios_.push_back (a);
               Audio_element_info info(a, p->event_drul_[STOP]);
@@ -109,7 +107,7 @@ Piano_pedal_performer::process_music ()
 	{
 	  p->start_event_ = p->event_drul_[START];
 	  Audio_piano_pedal *a = new Audio_piano_pedal;
-	  a->type_string_ = string (pedal_type_str (i));
+	  a->type_string_ = pedal_type;
 	  a->dir_ = START;
 	  audios_.push_back (a);
           Audio_element_info info(a, p->event_drul_[START]);

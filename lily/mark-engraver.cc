@@ -17,8 +17,11 @@ using namespace std;
 #include "grob-array.hh"
 #include "international.hh"
 #include "item.hh"
+#include "stream-event.hh"
 #include "text-interface.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
@@ -27,18 +30,18 @@ using namespace std;
 class Mark_engraver : public Engraver
 {
 
-  void create_items (Music *);
+  void create_items (Stream_event *);
   Item *text_;
-  Music *mark_ev_;
+  Stream_event *mark_ev_;
 
 public:
   TRANSLATOR_DECLARATIONS (Mark_engraver);
 
 protected:
-  virtual bool try_music (Music *ev);
   void process_music ();
   void stop_translation_timestep ();
 
+  DECLARE_TRANSLATOR_LISTENER (mark);
   DECLARE_ACKNOWLEDGER (break_alignment);
   DECLARE_ACKNOWLEDGER (break_aligned);
 };
@@ -98,7 +101,7 @@ Mark_engraver::stop_translation_timestep ()
 }
 
 void
-Mark_engraver::create_items (Music *ev)
+Mark_engraver::create_items (Stream_event *ev)
 {
   if (text_)
     return;
@@ -106,11 +109,11 @@ Mark_engraver::create_items (Music *ev)
   text_ = make_item ("RehearsalMark", ev->self_scm ());
 }
 
-bool
-Mark_engraver::try_music (Music *r)
+IMPLEMENT_TRANSLATOR_LISTENER (Mark_engraver, mark);
+void
+Mark_engraver::listen_mark (Stream_event *ev)
 {
-  mark_ev_ = r;
-  return true;
+  mark_ev_ = ev;
 }
 
 /*
@@ -157,8 +160,6 @@ Mark_engraver::process_music ()
 	warning (_ ("mark label must be a markup object"));
     }
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Mark_engraver, break_aligned);
 ADD_ACKNOWLEDGER (Mark_engraver, break_alignment);

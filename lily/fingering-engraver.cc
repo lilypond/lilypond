@@ -7,39 +7,38 @@
 */
 
 #include "engraver.hh"
-#include "side-position-interface.hh"
-#include "stem.hh"
+#include "pitch.hh"
 #include "rhythmic-head.hh"
 #include "self-alignment-interface.hh"
-#include "pitch.hh"
+#include "side-position-interface.hh"
+#include "stem.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 class Fingering_engraver : public Engraver
 {
-  vector<Music*> events_;
+  vector<Stream_event*> events_;
   vector<Item*> fingerings_;
 
 public:
   TRANSLATOR_DECLARATIONS (Fingering_engraver);
 protected:
-  virtual bool try_music (Music *m);
   void stop_translation_timestep ();
   void process_music ();
+  DECLARE_TRANSLATOR_LISTENER (fingering);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
 
 private:
-  void make_script (Direction, Music *, int);
+  void make_script (Direction, Stream_event *, int);
 };
 
-bool
-Fingering_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Fingering_engraver, fingering);
+void
+Fingering_engraver::listen_fingering (Stream_event *ev)
 {
-  if (m->is_mus_type ("fingering-event"))
-    {
-      events_.push_back (m);
-      return true;
-    }
-  return false;
+  events_.push_back (ev);
 }
 
 void
@@ -72,7 +71,7 @@ Fingering_engraver::process_music ()
 }
 
 void
-Fingering_engraver::make_script (Direction d, Music *r, int i)
+Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
 {
   Item *fingering = make_item ("Fingering", r->self_scm ());
 
@@ -131,8 +130,6 @@ Fingering_engraver::stop_translation_timestep ()
 Fingering_engraver::Fingering_engraver ()
 {
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Fingering_engraver, stem);

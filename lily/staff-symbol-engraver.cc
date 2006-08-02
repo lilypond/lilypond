@@ -6,8 +6,13 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "spanner.hh"
 #include "engraver.hh"
+#include "international.hh"
+#include "spanner.hh"
+#include "stream-event.hh"
+#include "warn.hh"
+
+#include "translator.icc"
 
 class Staff_symbol_engraver : public Engraver
 {
@@ -15,7 +20,7 @@ public:
   TRANSLATOR_DECLARATIONS (Staff_symbol_engraver);
 
 protected:
-  Drul_array<Music *> span_events_;
+  Drul_array<Stream_event *> span_events_;
   Spanner *span_;
   Spanner *finished_span_;
   bool first_start_;
@@ -25,9 +30,9 @@ protected:
   virtual void stop_spanner ();
 
   void stop_translation_timestep ();
-  virtual bool try_music (Music *);
   virtual ~Staff_symbol_engraver ();
   DECLARE_ACKNOWLEDGER (grob);
+  DECLARE_TRANSLATOR_LISTENER (staff_span);
   virtual void finalize ();
   void process_music ();
 };
@@ -46,17 +51,15 @@ Staff_symbol_engraver::Staff_symbol_engraver ()
   span_events_[RIGHT] = 0;
 }
 
-bool
-Staff_symbol_engraver::try_music (Music *music)
+IMPLEMENT_TRANSLATOR_LISTENER (Staff_symbol_engraver, staff_span);
+void
+Staff_symbol_engraver::listen_staff_span (Stream_event *ev)
 {
-  Direction d = to_dir (music->get_property ("span-direction"));
+  Direction d = to_dir (ev->get_property ("span-direction"));
   if (d)
-    {
-      span_events_[d] = music;
-      return true;
-    }
-
-  return false;
+    span_events_[d] = ev;
+  else
+    programming_error (_ ("staff-span event has no direction"));
 }
 
 void
@@ -141,8 +144,6 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
       s.grob ()->set_object ("staff-symbol", my->self_scm ());
     }
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
 

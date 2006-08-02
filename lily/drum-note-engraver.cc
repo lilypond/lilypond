@@ -7,30 +7,33 @@
 #include <cctype>
 using namespace std;
 
-#include "rhythmic-head.hh"
+#include "duration.hh"
 #include "engraver.hh"
-#include "warn.hh"
+#include "note-column.hh"
+#include "rhythmic-head.hh"
 #include "side-position-interface.hh"
 #include "script-interface.hh"
 #include "stem.hh"
-#include "note-column.hh"
-#include "duration.hh"
+#include "stream-event.hh"
+#include "warn.hh"
+
+#include "translator.icc"
 
 class Drum_notes_engraver : public Engraver
 {
   vector<Item*> notes_;
   vector<Item*> dots_;
   vector<Item*> scripts_;
-  vector<Music*> events_;
+  vector<Stream_event*> events_;
 
 public:
   TRANSLATOR_DECLARATIONS (Drum_notes_engraver);
 
 protected:
-  virtual bool try_music (Music *ev);
   void process_music ();
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_TRANSLATOR_LISTENER (note);
   void stop_translation_timestep ();
 };
 
@@ -38,16 +41,11 @@ Drum_notes_engraver::Drum_notes_engraver ()
 {
 }
 
-bool
-Drum_notes_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Drum_notes_engraver, note);
+void
+Drum_notes_engraver::listen_note (Stream_event *ev)
 {
-  if (m->is_mus_type ("note-event"))
-    {
-      events_.push_back (m);
-      return true;
-    }
-
-  return false;
+  events_.push_back (ev);
 }
 
 void
@@ -59,7 +57,7 @@ Drum_notes_engraver::process_music ()
       if (!tab)
 	tab = get_property ("drumStyleTable");
 
-      Music *ev = events_[i];
+      Stream_event *ev = events_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
 
       Duration dur = *unsmob_duration (ev->get_property ("duration"));
@@ -150,8 +148,6 @@ Drum_notes_engraver::stop_translation_timestep ()
 
   events_.clear ();
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
 ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);

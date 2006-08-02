@@ -64,4 +64,7 @@ Music *make_music_by_name (SCM sym);
 SCM ly_music_deep_copy (SCM);
 extern SCM ly_music_p_proc;
 
+/* common transposition function for music and event */
+SCM transpose_mutable (SCM alist, Pitch delta);
+
 #endif /* MUSIC_HH */

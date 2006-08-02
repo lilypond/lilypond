@@ -19,11 +19,14 @@
 #include "slur.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
+#include "stream-event.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 struct Script_tuple
 {
-  Music *event_;
+  Stream_event *event_;
   Grob *script_;
   Script_tuple ()
   {
@@ -38,10 +41,10 @@ class Script_engraver : public Engraver
   Spanner *slur_;
 
 protected:
-  virtual bool try_music (Music *);
   void stop_translation_timestep ();
   void process_music ();
 
+  DECLARE_TRANSLATOR_LISTENER (articulation);
   DECLARE_ACKNOWLEDGER (slur);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
@@ -57,25 +60,21 @@ Script_engraver::Script_engraver ()
   slur_ = 0;
 }
 
-bool
-Script_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Script_engraver, articulation);
+void
+Script_engraver::listen_articulation (Stream_event *ev)
 {
-  if (m->is_mus_type ("articulation-event"))
-    {
-      /* Discard double articulations for part-combining.  */
-      int script_count = scripts_.size ();
-      for (int i = 0; i < script_count; i++)
-	if (ly_is_equal (scripts_[i].event_
-			 ->get_property ("articulation-type"),
-			 m->get_property ("articulation-type")))
-	  return true;
+  /* Discard double articulations for part-combining.  */
+  int script_count = scripts_.size ();
+  for (int i = 0; i < script_count; i++)
+    if (ly_is_equal (scripts_[i].event_
+		     ->get_property ("articulation-type"),
+		     ev->get_property ("articulation-type")))
+      return;
 
-      Script_tuple t;
-      t.event_ = m;
-      scripts_.push_back (t);
-      return true;
-    }
-  return false;
+  Script_tuple t;
+  t.event_ = ev;
+  scripts_.push_back (t);
 }
 
 void
@@ -153,17 +152,17 @@ Script_engraver::process_music ()
 {
   for (vsize i = 0; i < scripts_.size (); i++)
     {
-      Music *music = scripts_[i].event_;
+      Stream_event *ev = scripts_[i].event_;
 
-      Grob *p = make_item ("Script", music->self_scm ());
+      Grob *p = make_item ("Script", ev->self_scm ());
 
       make_script_from_event (p, context (),
-			      music->get_property ("articulation-type"),
+			      ev->get_property ("articulation-type"),
 			      i);
 
       scripts_[i].script_ = p;
 
-      SCM force_dir = music->get_property ("direction");
+      SCM force_dir = ev->get_property ("direction");
       if (is_direction (force_dir) && to_dir (force_dir))
 	p->set_property ("direction", force_dir);
     }
@@ -199,7 +198,7 @@ Script_engraver::acknowledge_stem_tremolo (Grob_info info)
 void
 Script_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
-  if (info.music_cause ())
+  if (info.event_cause ())
     {
       for (vsize i = 0; i < scripts_.size (); i++)
  	{
@@ -245,8 +244,6 @@ Script_engraver::stop_translation_timestep ()
 {
   scripts_.clear ();
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Script_engraver, slur);
 ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);

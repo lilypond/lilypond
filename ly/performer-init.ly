@@ -40,7 +40,6 @@
     \consists "Note_performer"
     \consists "Beam_performer"
     \consists "Slur_performer"
-    \consists "Melisma_translator"
 }
 
 \context {

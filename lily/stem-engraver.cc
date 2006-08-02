@@ -19,6 +19,9 @@
 #include "staff-symbol-referencer.hh"
 #include "stem-tremolo.hh"
 #include "stem.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 /**
    Make stems upon receiving noteheads.
@@ -27,17 +30,17 @@ class Stem_engraver : public Engraver
 {
   Grob *stem_;
   Grob *tremolo_;
-  Music *rhythmic_ev_;
-  Music *tremolo_ev_;
+  Stream_event *rhythmic_ev_;
+  Stream_event *tremolo_ev_;
 
   TRANSLATOR_DECLARATIONS (Stem_engraver);
 
 protected:
   void make_stem (Grob_info);
 
+  DECLARE_TRANSLATOR_LISTENER (tremolo);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   void stop_translation_timestep ();
-  virtual bool try_music (Music *);
 };
 
 Stem_engraver::Stem_engraver ()
@@ -59,8 +62,8 @@ Stem_engraver::make_stem (Grob_info gi)
     we take the duration log from the Event, since the duration-log
     for a note head is always <= 2.
   */
-  Music *music = gi.music_cause ();
-  Duration *dur = unsmob_duration (music->get_property ("duration"));
+  Stream_event *ev = gi.event_cause ();
+  Duration *dur = unsmob_duration (ev->get_property ("duration"));
 
   stem_->set_property ("duration-log", dur ? scm_from_int (dur->duration_log ()) : 0);
 
@@ -114,7 +117,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   if (Rhythmic_head::get_stem (gi.grob ()))
     return;
 
-  Music *cause = gi.music_cause ();
+  Stream_event *cause = gi.event_cause ();
   if (!cause)
     return;
   Duration *d = unsmob_duration (cause->get_property ("duration"));
@@ -127,9 +130,9 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   if (Stem::duration_log (stem_) != d->duration_log ())
     {
       // FIXME: 
-      gi.music_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
+      gi.event_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
 						 1 << Stem::duration_log (stem_)));
-      gi.music_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
+      gi.event_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
     }
 
   Stem::add_head (stem_, gi.grob ());
@@ -159,18 +162,12 @@ Stem_engraver::stop_translation_timestep ()
   tremolo_ev_ = 0;
 }
 
-bool
-Stem_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tremolo);
+void
+Stem_engraver::listen_tremolo (Stream_event *ev)
 {
-  if (m->is_mus_type ("tremolo-event"))
-    {
-      tremolo_ev_ = m;
-      return true;
-    }
-  return false;
+  tremolo_ev_ = ev;
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
 

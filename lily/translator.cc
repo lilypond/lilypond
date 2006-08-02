@@ -8,11 +8,12 @@
 
 #include "translator.hh"
 
-#include "warn.hh"
-#include "translator-group.hh"
 #include "context-def.hh"
 #include "dispatcher.hh"
 #include "global-context.hh"
+#include "international.hh"
+#include "translator-group.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 #include "ly-smobs.icc"
@@ -129,6 +130,15 @@ Translator::disconnect_from_context (Context *c)
     c->events_below ()->remove_listener (r->get_listener_ (this), r->event_class_);
 }
 
+static SCM listened_event_classes = SCM_EOL;
+
+LY_DEFINE (ly_get_listened_event_classes, "ly:get-listened-event-classes",
+	   0, 0, 0, (),
+	   "Returns a list of all event classes that some translator listens to.")
+{
+  return listened_event_classes;
+}
+
 /*
   Internally called once, statically, for each translator
   listener. Connects the name of an event class with a procedure that
@@ -149,7 +159,9 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
   name = name + "-event";
   /* It's OK to use scm_gc_protect_object for protection, because r is
      statically allocated. */
-  r->event_class_ = scm_gc_protect_object (scm_str2symbol (name.c_str ()));
+  SCM class_sym = scm_gc_protect_object (scm_str2symbol (name.c_str ()));
+  listened_event_classes = scm_gc_protect_object (scm_cons (class_sym, listened_event_classes));
+  r->event_class_ = class_sym;
   r->get_listener_ = get_listener;
   r->next_ = *listener_list;
   *listener_list = r;
@@ -239,6 +251,37 @@ get_event_length (Stream_event *e)
     return *m;
   else
     return Moment (0);
+}
+
+/*
+  Helper, used through ASSIGN_EVENT_ONCE to throw warnings for
+  simultaneous events. The helper is only useful in listen_* methods
+  of translators.
+*/
+bool
+internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function)
+{
+  if (*old_ev)
+    {
+      /* extract event class from function name */
+      const char *prefix = "listen_";
+      assert (!strncmp (function, "listen_", strlen (prefix)));
+      function += strlen (prefix);
+      char ev_class[strlen (function) + 1];
+      strcpy (ev_class, function);
+      for (char *c = ev_class; *c; c++)
+	if (*c == '_')
+	  *c = '-';
+
+      new_ev->origin ()->warning (_f ("Two simultaneous %s events, junking this one", ev_class));
+      (*old_ev)->origin ()->warning (_f ("Previous %s event here", ev_class));
+      return false;
+    }
+  else
+    {
+      *old_ev = new_ev;
+      return true;
+    }
 }
 
 ADD_TRANSLATOR (Translator,

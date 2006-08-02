@@ -11,6 +11,9 @@
 #include "international.hh"
 #include "note-column.hh"
 #include "side-position-interface.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 class Text_spanner_engraver : public Engraver
 {
@@ -19,15 +22,15 @@ public:
 protected:
   virtual void finalize ();
   DECLARE_ACKNOWLEDGER (note_column);
-  virtual bool try_music (Music *);
+  DECLARE_TRANSLATOR_LISTENER (text_span);
   void stop_translation_timestep ();
   void process_music ();
 
 private:
   Spanner *span_;
   Spanner *finished_;
-  Music *current_event_;
-  Drul_array<Music *> event_drul_;
+  Stream_event *current_event_;
+  Drul_array<Stream_event *> event_drul_;
   void typeset_all ();
 };
 
@@ -40,17 +43,12 @@ Text_spanner_engraver::Text_spanner_engraver ()
   event_drul_[STOP] = 0;
 }
 
-bool
-Text_spanner_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Text_spanner_engraver, text_span);
+void
+Text_spanner_engraver::listen_text_span (Stream_event *ev)
 {
-  if (m->is_mus_type ("text-span-event"))
-    {
-      Direction d = to_dir (m->get_property ("span-direction"));
-      event_drul_[d] = m;
-      return true;
-    }
-
-  return false;
+  Direction d = to_dir (ev->get_property ("span-direction"));
+  event_drul_[d] = ev;
 }
 
 void
@@ -137,7 +135,6 @@ Text_spanner_engraver::finalize ()
     }
 }
 
-#include "translator.icc"
 ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
 ADD_TRANSLATOR (Text_spanner_engraver,
 		/* doc */ "Create text spanner from a Music.",

@@ -10,16 +10,19 @@
 #include <cstdio>
 using namespace std;
 
-#include "rhythmic-head.hh"
-#include "output-def.hh"
-#include "music.hh"
-#include "dots.hh"
 #include "dot-column.hh"
-#include "staff-symbol-referencer.hh"
-#include "item.hh"
-#include "score-engraver.hh"
-#include "warn.hh"
+#include "dots.hh"
 #include "duration.hh"
+#include "item.hh"
+#include "music.hh"
+#include "output-def.hh"
+#include "rhythmic-head.hh"
+#include "score-engraver.hh"
+#include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
+#include "warn.hh"
+
+#include "translator.icc"
 
 /**
    make (guitar-like) tablature note
@@ -29,13 +32,14 @@ class Tab_note_heads_engraver : public Engraver
   vector<Item*> notes_;
 
   vector<Item*> dots_;
-  vector<Music*> note_events_;
-  vector<Music*> tabstring_events_;
+  vector<Stream_event*> note_events_;
+  vector<Stream_event*> tabstring_events_;
 public:
   TRANSLATOR_DECLARATIONS (Tab_note_heads_engraver);
 
 protected:
-  virtual bool try_music (Music *event);
+  DECLARE_TRANSLATOR_LISTENER (note);
+  DECLARE_TRANSLATOR_LISTENER (string_number);
   void process_music ();
 
   void stop_translation_timestep ();
@@ -45,21 +49,18 @@ Tab_note_heads_engraver::Tab_note_heads_engraver ()
 {
 }
 
-bool
-Tab_note_heads_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Tab_note_heads_engraver, note);
+void
+Tab_note_heads_engraver::listen_note (Stream_event *ev)
 {
-  if (m->is_mus_type ("note-event"))
-    {
-      note_events_.push_back (m);
-      return true;
-    }
-  else if (m->is_mus_type ("string-number-event"))
-    {
-      tabstring_events_.push_back (m);
-      return true;
-    }
+  note_events_.push_back (ev);
+}
 
-  return false;
+IMPLEMENT_TRANSLATOR_LISTENER (Tab_note_heads_engraver, string_number);
+void
+Tab_note_heads_engraver::listen_string_number (Stream_event *ev)
+{
+  tabstring_events_.push_back (ev);
 }
 
 void
@@ -72,10 +73,10 @@ Tab_note_heads_engraver::process_music ()
       int number_of_strings = ((int) ly_length (stringTunings));
       bool high_string_one = to_boolean (get_property ("highStringOne"));
 
-      Music *event = note_events_[i];
+      Stream_event *event = note_events_[i];
       Item *note = make_item ("TabNoteHead", event->self_scm ());
 
-      Music *tabstring_event = 0;
+      Stream_event *tabstring_event = 0;
 
       for (SCM s = event->get_property ("articulations");
 	   !tabstring_event && scm_is_pair (s); s = scm_cdr (s))
@@ -83,7 +84,7 @@ Tab_note_heads_engraver::process_music ()
 	  Music *art = unsmob_music (scm_car (s));
 
 	  if (art->is_mus_type ("string-number-event"))
-	    tabstring_event = art;
+	    tabstring_event = art->to_event ();
 	}
 
       if (!tabstring_event && j < tabstring_events_.size ())
@@ -160,8 +161,6 @@ Tab_note_heads_engraver::stop_translation_timestep ()
   note_events_.clear ();
   tabstring_events_.clear ();
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
 		/* doc */ "Generate one or more tablature noteheads from Music of type NoteEvent.",
