@@ -15,13 +15,16 @@
 #include "lyric-extender.hh"
 #include "note-head.hh"
 #include "pointer-group-interface.hh"
+#include "stream-event.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 void completize_extender (Spanner *sp);
 
 class Extender_engraver : public Engraver
 {
-  Music *ev_;
+  Stream_event *ev_;
   Spanner *extender_;
   Spanner *pending_extender_;
 
@@ -29,9 +32,9 @@ public:
   TRANSLATOR_DECLARATIONS (Extender_engraver);
 
 protected:
+  DECLARE_TRANSLATOR_LISTENER (extender);
   DECLARE_ACKNOWLEDGER (lyric_syllable);
   virtual void finalize ();
-  virtual bool try_music (Music *);
   void stop_translation_timestep ();
   void process_music ();
 };
@@ -43,15 +46,11 @@ Extender_engraver::Extender_engraver ()
   ev_ = 0;
 }
 
-bool
-Extender_engraver::try_music (Music *r)
+IMPLEMENT_TRANSLATOR_LISTENER (Extender_engraver, extender);
+void
+Extender_engraver::listen_extender (Stream_event *ev)
 {
-  if (!ev_)
-    {
-      ev_ = r;
-      return true;
-    }
-  return false;
+  ASSIGN_EVENT_ONCE (ev_, ev);
 }
 
 void
@@ -141,8 +140,6 @@ Extender_engraver::finalize ()
       pending_extender_ = 0;
     }
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Extender_engraver, lyric_syllable);
 ADD_TRANSLATOR (Extender_engraver,

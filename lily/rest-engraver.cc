@@ -8,23 +8,24 @@
 
 #include "engraver.hh"
 
+#include "dots.hh"
 #include "duration.hh"
 #include "item.hh"
-#include "staff-symbol-referencer.hh"
-#include "dots.hh"
 #include "rhythmic-head.hh"
-#include "music.hh"
+#include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 class Rest_engraver : public Engraver
 {
-  Music *rest_event_;
+  Stream_event *rest_event_;
   Item *dot_;
   Grob *rest_;
 protected:
-  virtual bool try_music (Music *);
   void start_translation_timestep ();
   void process_music ();
-
+  DECLARE_TRANSLATOR_LISTENER (rest);
 public:
   TRANSLATOR_DECLARATIONS (Rest_engraver);
 };
@@ -88,18 +89,12 @@ Rest_engraver::process_music ()
     }
 }
 
-bool
-Rest_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Rest_engraver, rest);
+void
+Rest_engraver::listen_rest (Stream_event *ev)
 {
-  if (m->is_mus_type ("rest-event"))
-    {
-      rest_event_ = m;
-      return true;
-    }
-  return false;
+  ASSIGN_EVENT_ONCE (rest_event_, ev);
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Rest_engraver,
 		/* doc */ "",

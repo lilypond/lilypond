@@ -11,19 +11,20 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
 class Repeat_tie_engraver : public Engraver
 {
-  Music *event_;
+  Stream_event *event_;
   Grob *semi_tie_column_;
   vector<Grob*> semi_ties_;
   
   void stop_translation_timestep (); 
   DECLARE_ACKNOWLEDGER (note_head);
+  DECLARE_TRANSLATOR_LISTENER (repeat_tie);
   
-  virtual bool try_music (Music *);
 public:
   TRANSLATOR_DECLARATIONS (Repeat_tie_engraver);
 };
@@ -42,11 +43,11 @@ Repeat_tie_engraver::stop_translation_timestep ()
   semi_ties_.clear ();
 }
 
-bool
-Repeat_tie_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Repeat_tie_engraver, repeat_tie);
+void
+Repeat_tie_engraver::listen_repeat_tie (Stream_event *ev)
 {
-  event_ = m;
-  return true;
+  event_ = ev;
 }
 
 void
@@ -68,8 +69,6 @@ Repeat_tie_engraver::acknowledge_note_head (Grob_info inf)
   semi_tie->set_parent (semi_tie_column_, Y_AXIS);
   semi_ties_.push_back (semi_tie);
 }
-
-
 
 ADD_ACKNOWLEDGER (Repeat_tie_engraver, note_head);
 ADD_TRANSLATOR (Repeat_tie_engraver, 

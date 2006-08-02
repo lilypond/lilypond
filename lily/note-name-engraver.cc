@@ -8,28 +8,27 @@
 
 #include "engraver.hh"
 #include "item.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 class Note_name_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
-  vector<Music*> events_;
+  vector<Stream_event*> events_;
   vector<Item*> texts_;
-  virtual bool try_music (Music *m);
+  DECLARE_TRANSLATOR_LISTENER (note);
   void process_music ();
   void stop_translation_timestep ();
 };
 
-bool
-Note_name_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Note_name_engraver, note);
+void
+Note_name_engraver::listen_note (Stream_event *ev)
 {
-  if (m->is_mus_type ("note-event"))
-    {
-      events_.push_back (m);
-      return true;
-    }
-  return false;
+  events_.push_back (ev);
 }
 
 void
@@ -65,8 +64,6 @@ Note_name_engraver::stop_translation_timestep ()
 Note_name_engraver::Note_name_engraver ()
 {
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Note_name_engraver,
 		/* doc */ "",

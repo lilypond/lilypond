@@ -13,6 +13,7 @@
 #include "note-head.hh"
 #include "rest.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -77,16 +78,11 @@ Ligature_engraver::Ligature_engraver ()
   brew_ligature_primitive_proc = SCM_EOL;
 }
 
-bool
-Ligature_engraver::try_music (Music *m)
+void
+Ligature_engraver::listen_ligature (Stream_event *ev)
 {
-  if (m->is_mus_type ("ligature-event"))
-    {
-      Direction d = to_dir (m->get_property ("span-direction"));
-      events_drul_[d] = m;
-      return true;
-    }
-  return false;
+  Direction d = to_dir (ev->get_property ("span-direction"));
+  events_drul_[d] = ev;
 }
 
 void
@@ -205,7 +201,7 @@ Ligature_engraver::acknowledge_rest (Grob_info info)
 {
   if (ligature_)
     {
-      info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
+      info.event_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
       prev_start_event_->origin ()->warning (_ ("ligature was started here"));
       // TODO: maybe better should stop ligature here rather than
       // ignoring the rest?

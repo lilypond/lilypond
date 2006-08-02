@@ -11,10 +11,10 @@
 	       (evs (map car (cdar event-list)))
 	       (now (car now-tun))
 	       (notes (filter (lambda (x)
-				(equal? (ly:music-property  x 'name) 'NoteEvent))
+				(equal? (ly:event-property  x 'class) 'note-event))
 			      evs))
 	       (pitch (if (pair? notes)
-			  (ly:music-property (car notes) 'pitch)
+			  (ly:event-property (car notes) 'pitch)
 			  #f)))
 	  ;; tail recursive.
 	  (if (and pitch (not (= (ly:pitch-steps pitch) 0)))
@@ -30,17 +30,16 @@
 	       (if pitch #f now)
 	       (cdr event-list) acc)))))
   
-  (set! noticed '())
   (let* ((m (make-music 'AutoChangeMusic))
-	 (context (ly:run-translator (make-non-relative-music music) part-combine-listener))
-	 (evs (last-pair noticed))
+	(m1 (make-non-relative-music (context-spec-music music 'Voice "one")))
+	 (context-list (recording-group-emulate music part-combine-listener))
+	 (evs (car context-list))
+         (rev (reverse! (cdar context-list)))
 	 (split (reverse! (generate-split-list
 			   #f
-			   (if (pair? evs)
-			       (reverse! (cdar evs) '()) '())
+			   rev
 			   '())
 			  '())))
     (set! (ly:music-property m 'element) music)
     (set! (ly:music-property m 'split-list) split)
-    (set! noticed '())
     m))

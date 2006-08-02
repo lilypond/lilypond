@@ -21,6 +21,8 @@
 #include "tie.hh"
 #include "warn.hh"
 
+#include "translator.icc"
+
 /**
    Manufacture ties.  Acknowledge noteheads, and put them into a
    priority queue. If we have a TieEvent, connect the notes that finish
@@ -35,7 +37,7 @@ struct Head_event_tuple
   Grob *head_;
   Moment end_moment_;
   SCM tie_definition_;
-  Music *event_;
+  Stream_event *event_;
   
   Head_event_tuple ()
   {
@@ -47,7 +49,7 @@ struct Head_event_tuple
 
 class Tie_engraver : public Engraver
 {
-  Music *event_;
+  Stream_event *event_;
   vector<Grob*> now_heads_;
   vector<Head_event_tuple> heads_to_tie_;
   vector<Grob*> ties_;
@@ -59,7 +61,7 @@ protected:
   virtual void derived_mark () const;
   void start_translation_timestep ();
   DECLARE_ACKNOWLEDGER (note_head);
-  virtual bool try_music (Music *);
+  DECLARE_TRANSLATOR_LISTENER (tie);
   void process_music ();
   void typeset_tie (Grob *);
 public:
@@ -80,13 +82,11 @@ Tie_engraver::Tie_engraver ()
   tie_column_ = 0;
 }
 
-bool
-Tie_engraver::try_music (Music *mus)
+IMPLEMENT_TRANSLATOR_LISTENER (Tie_engraver, tie);
+void
+Tie_engraver::listen_tie (Stream_event *ev)
 {
-  if (mus->is_mus_type ("tie-event"))
-    event_ = mus;
-
-  return true;
+  event_ = ev;
 }
 
 void
@@ -227,8 +227,6 @@ Tie_engraver::typeset_tie (Grob *her)
   sp->set_bound (LEFT, new_head_drul[LEFT]);
   sp->set_bound (RIGHT, new_head_drul[RIGHT]);
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Tie_engraver, note_head);
 ADD_TRANSLATOR (Tie_engraver,

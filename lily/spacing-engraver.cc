@@ -6,13 +6,14 @@
   (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "paper-column.hh"
 #include "engraver.hh"
-#include "pqueue.hh"
 #include "note-spacing.hh"
-#include "staff-spacing.hh"
+#include "paper-column.hh"
 #include "pointer-group-interface.hh"
+#include "pqueue.hh"
 #include "spanner.hh"
+#include "staff-spacing.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -58,7 +59,7 @@ class Spacing_engraver : public Engraver
   vector<Rhythmic_tuple> stopped_durations_;
   Moment now_;
   Spanner *spacing_;
-  Music *start_section_;
+  Stream_event *start_section_;
   
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 
@@ -66,13 +67,13 @@ protected:
   DECLARE_ACKNOWLEDGER (staff_spacing);
   DECLARE_ACKNOWLEDGER (note_spacing);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_TRANSLATOR_LISTENER (spacing_section);
 
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_music ();
   
   virtual void finalize ();
-  virtual bool try_music (Music *m);
 
   void start_spanner ();
   void stop_spanner ();
@@ -84,11 +85,11 @@ Spacing_engraver::Spacing_engraver ()
   start_section_ = 0;
 }
 
-bool
-Spacing_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Spacing_engraver, spacing_section);
+void
+Spacing_engraver::listen_spacing_section (Stream_event *ev)
 {
-  start_section_ = m;
-  return true;  
+  start_section_ = ev;
 }
 
 void
@@ -153,10 +154,10 @@ Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
   */
   if (!now_.grace_part_)
     {
-      Music *r = i.music_cause ();
-      if (r && r->is_mus_type ("rhythmic-event"))
+      Stream_event *r = i.event_cause ();
+      if (r && r->in_event_class ("rhythmic-event"))
 	{
-	  Moment len = r->get_length ();
+	  Moment len = get_event_length (r);
 	  Rhythmic_tuple t (i, now_mom () + len);
 	  now_durations_.push_back (t);
 	}
@@ -181,10 +182,10 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing.set_infinite (1);
   for (vsize i = 0; i < playing_durations_.size (); i++)
     {
-      Music *mus = playing_durations_[i].info_.music_cause ();
-      if (mus)
+      Stream_event *ev = playing_durations_[i].info_.event_cause ();
+      if (ev)
 	{
-	  Moment m = mus->get_length ();
+	  Moment m = get_event_length (ev);
 	  shortest_playing = min (shortest_playing, m);
 	}
     }
@@ -193,7 +194,7 @@ Spacing_engraver::stop_translation_timestep ()
 
   for (vsize i = 0; i < now_durations_.size (); i++)
     {
-      Moment m = now_durations_[i].info_.music_cause ()->get_length ();
+      Moment m = get_event_length (now_durations_[i].info_.event_cause ());
       if (m.to_bool ())
 	{
 	  starter = min (starter, m);

@@ -396,6 +396,10 @@ i.e.  this is not an override"
 	      'symbol sym
 	      'value val))
 
+(define-public (make-property-unset sym)
+  (make-music 'PropertyUnset
+	      'symbol sym))
+
 (define-public (make-ottava-set octavation)
   (let ((m (make-music 'ApplyContext)))
     (define (ottava-modify context)

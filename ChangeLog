@@ -1,5 +1,8 @@
 2006-08-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/*-engraver.cc: convert all try_music functions in
+	*-engraver.cc. (Patch by Erik S.; please elaborate)
+
 	* input/test/instrument-name-align.ly: update version.
 
 2006-08-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>

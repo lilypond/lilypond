@@ -184,15 +184,18 @@ Music::compress (Moment factor)
     set_property ("duration", d->compressed (factor.main_part_).smobbed_copy ());
 }
 
-void
-Music::transpose (Pitch delta)
+/*
+TODO: make transposition non-destructive
+*/
+SCM
+transpose_mutable (SCM alist, Pitch delta)
 {
-  if (to_boolean (get_property ("untransposable")))
-    return;
+  SCM retval = SCM_EOL;
 
-  for (SCM s = this->get_property_alist (true); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
+      SCM prop = scm_car (entry);
       SCM val = scm_cdr (entry);
 
       if (Pitch *p = unsmob_pitch (val))
@@ -206,21 +209,29 @@ Music::transpose (Pitch delta)
 			   delta.to_string ()));
 	    }
 	}
+      else if (prop == ly_symbol2scm ("element"))
+	{
+	  if (Music *m = unsmob_music (val))
+	    m->transpose (delta);
+	}
+      else if (prop == ly_symbol2scm ("elements"))
+	transpose_music_list (val, delta);
+      else if (prop == ly_symbol2scm ("pitch-alist") &&
+	       scm_is_pair (val))
+	entry = scm_cons (prop, ly_transpose_key_alist (val, delta.smobbed_copy ()));
+      retval = scm_cons (entry, retval);
     }
 
-  SCM elt = get_property ("element");
+  return scm_reverse_x (retval, SCM_EOL);
+}
 
-  if (Music *m = unsmob_music (elt))
-    m->transpose (delta);
+void
+Music::transpose (Pitch delta)
+{
+  if (to_boolean (get_property ("untransposable")))
+    return;
 
-  transpose_music_list (get_property ("elements"), delta);
-
-  /*
-    UGH - how do this more generically?
-  */
-  SCM pa = get_property ("pitch-alist");
-  if (scm_is_pair (pa))
-    set_property ("pitch-alist", ly_transpose_key_alist (pa, delta.smobbed_copy ()));
+  mutable_property_alist_ = transpose_mutable (mutable_property_alist_, delta);
 }
 
 void
@@ -257,6 +268,9 @@ Music::to_event () const
     }
   out[outpos] = 0;
   SCM class_name = ly_symbol2scm (out);
+
+  // catch mistakes.
+  assert (internal_is_music_type (class_name));
 
   Stream_event *e = new Stream_event (class_name, mutable_property_alist_);
   Moment length = get_length ();

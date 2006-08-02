@@ -30,7 +30,7 @@
 
 (define-method (note-events (vs <Voice-state>))
   (define (f? x)
-    (equal? (ly:music-property	x 'name) 'NoteEvent))
+    (equal? (ly:event-property	x 'class) 'note-event))
   (filter f? (events vs)))
 
 (define-method (previous-voice-state (vs <Voice-state>))
@@ -116,20 +116,20 @@ Voice-state objects
     "Analyse EVS at INDEX, given state ACTIVE."
     
     (define (analyse-tie-start active ev)
-      (if (equal? (ly:music-property ev 'name) 'TieEvent)
+      (if (equal? (ly:event-property ev 'class) 'tie-event)
 	  (acons 'tie (split-index (vector-ref voice-state-vec index))
 		 active)
 	  active))
     
     (define (analyse-tie-end active ev)
-      (if (equal? (ly:music-property ev 'name) 'NoteEvent)
+      (if (equal? (ly:event-property ev 'class) 'note-event)
 	  (assoc-remove! active 'tie)
 	  active))
 
     (define (analyse-absdyn-end active ev)
-      (if (or (equal? (ly:music-property ev 'name) 'AbsoluteDynamicEvent)
-	      (and (equal? (ly:music-property ev 'name) 'CrescendoEvent)
-		   (equal? STOP (ly:music-property ev 'span-direction))))
+      (if (or (equal? (ly:event-property ev 'class) 'absolute-dynamic-event)
+	      (and (equal? (ly:event-property ev 'class) 'crescendo-event)
+		   (equal? STOP (ly:event-property ev 'span-direction))))
 	  (assoc-remove! (assoc-remove! active 'cresc) 'decr)
 	  active))
     
@@ -139,14 +139,14 @@ Voice-state objects
 	    (else (< (cdr a) (cdr b)))))
     
     (define (analyse-span-event active ev)
-      (let* ((name (ly:music-property ev 'name))
-	     (key (cond ((equal? name 'SlurEvent) 'slur)
-			((equal? name 'PhrasingSlurEvent) 'tie)
-			((equal? name 'BeamEvent) 'beam)
-			((equal? name 'CrescendoEvent) 'cresc)
-			((equal? name 'DecrescendoEvent) 'decr)
+      (let* ((name (ly:event-property ev 'class))
+	     (key (cond ((equal? name 'slur-event) 'slur)
+			((equal? name 'phrasing-slur-event) 'tie)
+			((equal? name 'beam-event) 'beam)
+			((equal? name 'crescendo-event) 'cresc)
+			((equal? name 'decrescendo-event) 'decr)
 			(else #f)))
-	     (sp (ly:music-property ev 'span-direction)))
+	     (sp (ly:event-property ev 'span-direction)))
 	(if (and (symbol? key) (ly:dir? sp))
 	    (if (= sp STOP)
 		(assoc-remove! active key)
@@ -184,7 +184,44 @@ Voice-state objects
   
   (helper 0 '()))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-public (recording-group-emulate music odef) 
+  "Interprets music according to odef, but stores all events in a chronological list, similar to the Recording_group_engraver in 2.8 and earlier"
+  (let*
+      ((context-list '())
+       (now-mom (ly:make-moment 0 0))
+       (global (ly:make-global-context odef))
+       (mom-listener (ly:make-listener 
+		      (lambda (tev)
+			(set! now-mom (ly:event-property tev 'moment)))))
+       (new-context-listener
+	(ly:make-listener
+	 (lambda (sev)
+	     (let*
+		 ((child (ly:event-property sev 'context))
+		  (this-moment-list
+		   (cons (ly:context-id child) '()))
+		  (dummy
+		   (set! context-list (cons this-moment-list context-list)))
+		  (acc '())
+		  (accumulate-event-listener
+		   (ly:make-listener (lambda (ev)
+				       (set! acc (cons (cons ev #t) acc)))))
+		  (save-acc-listener (ly:make-listener (lambda (tev)
+							 (if (pair? acc)
+							     (let ((this-moment (cons (cons now-mom (ly:context-property child 'instrumentTransposition))
+										      acc)))
+							       (set-cdr! this-moment-list (cons this-moment (cdr this-moment-list)))
+							       (set! acc '())))))))
+	       (ly:add-listener accumulate-event-listener (ly:context-event-source child) 'music-event)
+	       (ly:add-listener save-acc-listener (ly:context-event-source global) 'OneTimeStep))))))
+    (ly:add-listener new-context-listener (ly:context-events-below global) 'AnnounceNewContext)
+    (ly:add-listener mom-listener (ly:context-event-source global) 'Prepare)
+    (ly:interpret-music-expression (make-non-relative-music music) global)
+    context-list))
+
 (define noticed '())
+;; todo: junk this, extract $defaultlayout from parser instead
 (define part-combine-listener '())
 
 ; UGH - should pass noticed setter to part-combine-listener
@@ -197,16 +234,15 @@ Voice-state objects
   (set! noticed (acons (ly:context-id context) lst noticed)))
 
 (define-public (make-part-combine-music music-list)
-  (let ((m (make-music 'PartCombineMusic))
-	(m1 (make-non-relative-music (context-spec-music (car music-list) 'Voice "one")))
-	(m2  (make-non-relative-music  (context-spec-music (cadr music-list) 'Voice "two"))))
+  (let* ((m (make-music 'PartCombineMusic))
+	(m1 (make-non-relative-music (context-spec-music (first music-list) 'Voice "one")))
+	(m2  (make-non-relative-music  (context-spec-music (second music-list) 'Voice "two")))
+	(evs2 (recording-group-emulate m2 part-combine-listener))
+	(evs1 (recording-group-emulate m1 part-combine-listener)))
     (set! (ly:music-property m 'elements) (list m1 m2))
-    (ly:run-translator m2 part-combine-listener)
-    (ly:run-translator m1 part-combine-listener)
     (set! (ly:music-property m 'split-list)
-	  (determine-split-list (reverse! (cdr (assoc "one" noticed)) '())
-				(reverse! (cdr (assoc "two" noticed)) '())))
-    (set! noticed '())
+	  (determine-split-list (reverse! (cdr (assoc "one" evs1)) '())
+				(reverse! (cdr (assoc "two" evs2)) '())))
     m))
 
 (define-public (determine-split-list evl1 evl2)
@@ -243,17 +279,17 @@ Only set if not set previously.
 	(let* ((vs1 (car (voice-states now-state)))
 	       (vs2 (cdr (voice-states now-state)))
 	       (notes1 (note-events vs1))
-	       (durs1 (sort (map (lambda (x) (ly:music-property x 'duration))
+	       (durs1 (sort (map (lambda (x) (ly:event-property x 'duration))
 				 notes1)
 			    ly:duration<?))
-	       (pitches1 (sort (map (lambda (x) (ly:music-property x 'pitch))
+	       (pitches1 (sort (map (lambda (x) (ly:event-property x 'pitch))
 				    notes1)
 			       ly:pitch<?))
 	       (notes2 (note-events vs2))
-	       (durs2 (sort (map (lambda (x) (ly:music-property x 'duration))
+	       (durs2 (sort (map (lambda (x) (ly:event-property x 'duration))
 				 notes2)
 			    ly:duration<?))
-	       (pitches2 (sort (map (lambda (x) (ly:music-property x 'pitch))
+	       (pitches2 (sort (map (lambda (x) (ly:event-property x 'pitch))
 				    notes2)
 			       ly:pitch<?)))
 	  (cond ((> (length notes1) 1) (put 'apart))
@@ -327,8 +363,8 @@ Only set if not set previously.
 		      (notes2 (note-events vs2)))
 		  (cond ((and (= 1 (length notes1))
 			      (= 1 (length notes2))
-			      (equal? (ly:music-property (car notes1) 'pitch)
-				      (ly:music-property (car notes2) 'pitch)))
+			      (equal? (ly:event-property (car notes1) 'pitch)
+				      (ly:event-property (car notes2) 'pitch)))
 			 (set! (configuration now-state) 'unisono))
 			((and (= 0 (length notes1))
 			      (= 0 (length notes2)))
@@ -457,13 +493,10 @@ the mark when there are no spanners active."
 (define-public (add-quotable name mus)
   (set! noticed '())
   (let* ((tab (eval 'musicQuotes (current-module)))
-	 (context (ly:run-translator (context-spec-music mus 'Voice)
-				     part-combine-listener))
-	 (first-voice-handle (last-pair noticed)))
-
-    (if (pair? first-voice-handle)
+	 (context-list (recording-group-emulate (context-spec-music mus 'Voice)
+					      part-combine-listener)))
+    (if (pair? context-list)
 	(hash-set! tab name
 		   ;; cdr : skip name string
-		   (list->vector (reverse! (cdar first-voice-handle)
+		   (list->vector (reverse! (cdar context-list)
 					   '()))))))
-

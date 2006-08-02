@@ -6,15 +6,18 @@
   (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>, Erik Sandberg <mandolaerik@gmail.com>
 */
 
-#include "repeated-music.hh"
-#include "global-context.hh"
-#include "warn.hh"
-#include "misc.hh"
-#include "spanner.hh"
-#include "item.hh"
-#include "percent-repeat-iterator.hh"
 #include "bar-line.hh"
+#include "global-context.hh"
+#include "item.hh"
+#include "misc.hh"
+#include "percent-repeat-iterator.hh"
+#include "repeated-music.hh"
 #include "score-engraver.hh"
+#include "spanner.hh"
+#include "stream-event.hh"
+#include "warn.hh"
+
+#include "translator.icc"
 
 /**
    This acknowledges repeated music with "percent" style.  It typesets
@@ -25,9 +28,9 @@ class Slash_repeat_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Slash_repeat_engraver);
 protected:
-  Music *slash_;
+  Stream_event *slash_;
 protected:
-  virtual bool try_music (Music *);
+  DECLARE_TRANSLATOR_LISTENER (percent);
   void process_music ();
 };
 
@@ -36,24 +39,16 @@ Slash_repeat_engraver::Slash_repeat_engraver ()
   slash_ = 0;
 }
 
-bool
-Slash_repeat_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Slash_repeat_engraver, percent);
+void
+Slash_repeat_engraver::listen_percent (Stream_event *ev)
 {
   /*todo: separate events for percent and slash */
-  if (m->is_mus_type ("percent-event"))
-    {
-      Moment meas_length
-        = robust_scm2moment (get_property ("measureLength"), Moment (0));
-
-      if (m->get_length () < meas_length)
-	slash_ = m;
-      else
-	return false;
-
-      return true;
-    }
-
-  return false;
+  Moment meas_length
+    = robust_scm2moment (get_property ("measureLength"), Moment (0));
+  
+  if (get_event_length (ev) < meas_length)
+    slash_ = ev;
 }
 
 void
@@ -65,8 +60,6 @@ Slash_repeat_engraver::process_music ()
       slash_ = 0;
     }
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Slash_repeat_engraver,
 		/* doc */ "Make beat repeats.",

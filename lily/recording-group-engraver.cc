@@ -9,6 +9,9 @@
 #include "recording-group-engraver.hh"
 #include "context.hh"
 
+/*
+  TODO: Junk this class, extract events directly instead. 
+*/
 void
 Recording_group_engraver::derived_mark () const
 {

@@ -157,15 +157,6 @@ Score_engraver::typeset_all ()
   elems_.clear ();
 }
 
-bool
-Score_engraver::try_music (Music *m)
-{
-  if (Engraver_group::try_music (m))
-    return true;
-
-  return false;
-}
-
 ADD_TRANSLATOR_GROUP (Score_engraver,
 		      /* doc */ "Top level engraver. Takes care of generating columns and the complete  system (ie. System) "
 		      "\n\n "

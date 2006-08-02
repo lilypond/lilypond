@@ -11,6 +11,8 @@
 #include "context.hh"
 #include "translator.icc"
 
+/* Remove this translator. */
+
 /**
    Signal existence of melismas.
 */
@@ -67,6 +69,6 @@ Melisma_translator::Melisma_translator ()
 ADD_TRANSLATOR (Melisma_translator,
 		/* doc */ "This translator collects melisma information about ties, beams, and user settings (@code{melismaBusy}, and signals it to the @code{\addlyrics} code.  ",
 		/* create */ "",
-		/* accept */ "melisma-playing-event melisma-span-event",
+		/* accept */ "",
 		/* read */ "melismaBusy melismaBusyProperties slurMelismaBusy tieMelismaBusy beamMelismaBusy",
 		/* write */ "");

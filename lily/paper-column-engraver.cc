@@ -7,14 +7,14 @@
 */
 
 #include "paper-column-engraver.hh"
-#include "system.hh"
-#include "item.hh"
-#include "paper-column.hh"
-#include "staff-spacing.hh"
-#include "note-spacing.hh"
-#include "pointer-group-interface.hh"
-#include "context.hh"
 #include "axis-group-interface.hh"
+#include "context.hh"
+#include "item.hh"
+#include "note-spacing.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
+#include "staff-spacing.hh"
+#include "system.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -108,12 +108,11 @@ Paper_column_engraver::set_columns (Paper_column *new_command,
   system_->add_column (musical_column_);
 }
 
-bool
-Paper_column_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Paper_column_engraver, break);
+void
+Paper_column_engraver::listen_break (Stream_event *ev)
 {
-  break_events_.push_back (m);
-
-  return true;
+  break_events_.push_back (ev);
 }
 
 void
@@ -122,18 +121,17 @@ Paper_column_engraver::process_music ()
   for (vsize i = 0; i < break_events_.size (); i++)
     {
       string prefix;
-      SCM name = break_events_[i]->get_property ("name");
-      if (name == ly_symbol2scm ("LineBreakEvent"))
-	prefix = "line-break";
-      else if (name == ly_symbol2scm ("PageBreakEvent"))
-	prefix = "page-break";
-      else if (name == ly_symbol2scm ("PageTurnEvent"))
-	prefix = "page-turn";
+      SCM name_sym = break_events_[i]->get_property ("class");
+      string name = ly_scm2string (scm_symbol_to_string (name_sym));
+      size_t end = name.rfind ("-event");
+      if (end)
+	prefix = name.substr (0, end);
       else
 	{
 	  programming_error ("Paper_column_engraver doesn't know about this break-event");
 	  return;
 	}
+
       string perm_str = prefix + "-permission";
       string pen_str = prefix + "-penalty";
 

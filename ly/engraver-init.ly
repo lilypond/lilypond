@@ -205,7 +205,6 @@ contained staves are not connected vertically."
   \consists "Chord_tremolo_engraver"
   \consists "Percent_repeat_engraver"
   \consists "Slash_repeat_engraver"
-  \consists "Melisma_translator"
   \consists "Part_combine_engraver"
 
   \consists "Text_engraver"

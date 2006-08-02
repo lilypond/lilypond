@@ -6,14 +6,15 @@
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "item.hh"
 #include "bar-line.hh"
-#include "staff-symbol-referencer.hh"
+#include "clef.hh"
 #include "context.hh"
 #include "engraver.hh"
-#include "protected-scm.hh"
-#include "clef.hh"
+#include "item.hh"
 #include "pitch.hh"
+#include "protected-scm.hh"
+#include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
 
 #include "translator.icc"
 
@@ -27,9 +28,9 @@
 class Key_engraver : public Engraver
 {
   void create_key (bool);
-  void read_event (Music const *r);
+  void read_event (Stream_event const *r);
 
-  Music *key_event_;
+  Stream_event *key_event_;
   Item *item_;
   Item *cancellation_;
 public:
@@ -38,10 +39,10 @@ public:
 protected:
   virtual void initialize ();
   virtual void finalize ();
-  virtual bool try_music (Music *event);
   void stop_translation_timestep ();
   void process_music ();
 
+  DECLARE_TRANSLATOR_LISTENER (key_change);
   DECLARE_ACKNOWLEDGER (clef);
   DECLARE_ACKNOWLEDGER (bar_line);
 };
@@ -111,20 +112,13 @@ Key_engraver::create_key (bool is_default)
     }
 }
 
-bool
-Key_engraver::try_music (Music *event)
+IMPLEMENT_TRANSLATOR_LISTENER (Key_engraver, key_change);
+void
+Key_engraver::listen_key_change (Stream_event *ev)
 {
-  if (event->is_mus_type ("key-change-event"))
-    {
-      /* do this only once, just to be on the safe side.  */
-      if (!key_event_)
-	{
-	  key_event_ = event;
-	  read_event (key_event_);
-	}
-      return true;
-    }
-  return false;
+  /* do this only once, just to be on the safe side.  */
+  if (ASSIGN_EVENT_ONCE (key_event_, ev))
+    read_event (key_event_);
 }
 
 void
@@ -162,7 +156,7 @@ Key_engraver::stop_translation_timestep ()
 }
 
 void
-Key_engraver::read_event (Music const *r)
+Key_engraver::read_event (Stream_event const *r)
 {
   SCM p = r->get_property ("pitch-alist");
   if (!scm_is_pair (p))

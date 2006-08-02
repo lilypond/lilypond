@@ -76,8 +76,7 @@ Dispatcher::dispatch (SCM sev)
   SCM class_list = scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), class_symbol);
   if (!scm_is_pair (class_list))
     {
-      // TODO: Re-enable this warning when the translator cleanup is finished
-      //ev->origin ()->warning (_f ("Unknown event class %s", ly_symbol2string (class_symbol).c_str ()));
+      ev->origin ()->warning (_f ("Unknown event class %s", ly_symbol2string (class_symbol).c_str ()));
       return;
     }
   bool sent = false;

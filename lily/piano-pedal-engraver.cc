@@ -3,7 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>,
+                 Erik Sandberg <mandolaerik@gmail.com>
 
   Chris Jackson <chris@fluffhouse.org.uk> - extended to support
   bracketed pedals.
@@ -19,20 +20,41 @@
 #include "note-column.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
+#include "string-convert.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 /*
   Urgh. This engraver is too complex. rewrite. --hwn
 */
 
+/* Ugh: This declaration is duplicated in piano-pedal-performer */
+typedef enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
+
+/*
+  Static precalculated data (symbols and strings) for the different
+  pedal types
+*/
+struct Pedal_type_info
+{
+  string base_name_;
+  SCM event_class_sym_;
+  SCM style_sym_;
+  SCM strings_sym_;
+  const char *pedal_line_spanner_c_str_;
+  const char *pedal_c_str_;
+};
+
 struct Pedal_info
 {
-  char const *name_;
+  const Pedal_type_info *type_;
 
   /*
     Event for currently running pedal.
   */
-  Music *current_bracket_ev_;
+  Stream_event *current_bracket_ev_;
 
   /*
     Event for currently starting pedal, (necessary?
@@ -40,12 +62,12 @@ struct Pedal_info
     distinct from current_bracket_ev_, since current_bracket_ev_ only
     necessary for brackets, not for text style.
   */
-  Music *start_ev_;
+  Stream_event *start_ev_;
 
   /*
     Events that were found in this timestep.
   */
-  Drul_array<Music *> event_drul_;
+  Drul_array<Stream_event *> event_drul_;
   Item *item_;
   Spanner *bracket_; // A single portion of a pedal bracket
   Spanner *finished_bracket_;
@@ -57,6 +79,8 @@ struct Pedal_info
   Spanner *finished_line_spanner_;
 };
 
+static Pedal_type_info pedal_types_[NUM_PEDAL_TYPES];
+
 class Piano_pedal_engraver : public Engraver
 {
 public:
@@ -65,14 +89,15 @@ public:
 protected:
   virtual void initialize ();
   virtual void finalize ();
-  virtual bool try_music (Music *);
+  DECLARE_TRANSLATOR_LISTENER (sustain);
+  DECLARE_TRANSLATOR_LISTENER (una_corda);
+  DECLARE_TRANSLATOR_LISTENER (sostenuto);
   void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER (note_column);
   void process_music ();
 
 private:
-
-  Pedal_info *info_list_;
+  Pedal_info info_list_[NUM_PEDAL_TYPES + 1];
 
   /*
     Record a stack of the current pedal spanners, so if more than one pedal
@@ -87,41 +112,71 @@ private:
   void typeset_all (Pedal_info *p);
 };
 
+static void
+init_pedal_types ()
+{
+  const char *names [NUM_PEDAL_TYPES];
+  names[SOSTENUTO] = "Sostenuto";
+  names[SUSTAIN] = "Sustain";
+  names[UNA_CORDA] = "UnaCorda";
+
+  for (int i = 0; i < NUM_PEDAL_TYPES; i++)
+    {
+      const char *name = names[i];
+      /* FooBar */
+      string base_name = name;
+      /* foo-bar */
+      string base_ident = "";
+      int prev_pos=0;
+      int cur_pos;
+      for (cur_pos = 1; name[cur_pos]; cur_pos++)
+	if (isupper (name[cur_pos]))
+	  {
+	    base_ident = base_ident + String_convert::to_lower (string (name, prev_pos, cur_pos - prev_pos)) + "-";
+	    prev_pos = cur_pos;
+	  }
+      base_ident += String_convert::to_lower (string (name, prev_pos, cur_pos - prev_pos));
+
+      Pedal_type_info *tbl = &pedal_types_[i];
+      tbl->base_name_ = name;
+      /* These symbols are static and need to be protected */
+      tbl->event_class_sym_ = scm_gc_protect_object (scm_str2symbol ((base_ident + "-event").c_str ()));
+      tbl->pedal_line_spanner_c_str_ = strdup ((base_name + "PedalLineSpanner").c_str ());
+      tbl->style_sym_ = scm_gc_protect_object (scm_str2symbol (("pedal" + base_name + "Style").c_str ()));
+      tbl->strings_sym_ = scm_gc_protect_object (scm_str2symbol (("pedal" + base_name + "Strings").c_str ()));
+      tbl->pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());
+    }
+}
+ADD_SCM_INIT_FUNC (Piano_pedal_engraver_init_pedal_types_, init_pedal_types);
+
 Piano_pedal_engraver::Piano_pedal_engraver ()
 {
-  info_list_ = 0;
 }
 
 void
 Piano_pedal_engraver::initialize ()
 {
-  char *names [] = { "Sostenuto", "Sustain", "UnaCorda", 0 };
-
-  info_list_ = new Pedal_info[sizeof (names) / sizeof (char const *)];
-  Pedal_info *p = info_list_;
-
-  char **np = names;
-  do
+  for (int i = 0; i < NUM_PEDAL_TYPES; i++)
     {
-      p->name_ = *np;
-      p->item_ = 0;
-      p->bracket_ = 0;
-      p->finished_bracket_ = 0;
-      p->line_spanner_ = 0;
-      p->finished_line_spanner_ = 0;
-      p->current_bracket_ev_ = 0;
-      p->event_drul_[START] = 0;
-      p->event_drul_[STOP] = 0;
-      p->start_ev_ = 0;
+      Pedal_type_info *s = &pedal_types_[i];
+      Pedal_info *info = &info_list_[i];
 
-      p++;
+      info->type_ = s;
+      info->item_ = 0;
+      info->bracket_ = 0;
+      info->finished_bracket_ = 0;
+      info->line_spanner_ = 0;
+      info->finished_line_spanner_ = 0;
+      info->current_bracket_ev_ = 0;
+      info->event_drul_[START] = 0;
+      info->event_drul_[STOP] = 0;
+      info->start_ev_ = 0;
     }
-  while (* (np++));
+  info_list_[NUM_PEDAL_TYPES].type_ = 0;
 }
 
 Piano_pedal_engraver::~Piano_pedal_engraver ()
 {
-  delete[] info_list_;
 }
 
 /*
@@ -131,7 +186,7 @@ Piano_pedal_engraver::~Piano_pedal_engraver ()
 void
 Piano_pedal_engraver::acknowledge_note_column (Grob_info info)
 {
-  for (Pedal_info *p = info_list_; p && p->name_; p++)
+  for (Pedal_info *p = info_list_; p->type_; p++)
     {
       if (p->line_spanner_)
 	{
@@ -145,38 +200,42 @@ Piano_pedal_engraver::acknowledge_note_column (Grob_info info)
     }
 }
 
-bool
-Piano_pedal_engraver::try_music (Music *m)
+IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, sostenuto);
+void
+Piano_pedal_engraver::listen_sostenuto (Stream_event *r)
 {
-  if (m->is_mus_type ("pedal-event"))
-    {
-      for (Pedal_info *p = info_list_; p->name_; p++)
-	{
-	  string nm = p->name_ + string ("Event");
-	  if (ly_is_equal (m->get_property ("name"),
-			   scm_str2symbol (nm.c_str ())))
-	    {
-	      Direction d = to_dir (m->get_property ("span-direction"));
-	      p->event_drul_[d] = m;
-	      return true;
-	    }
-	}
-    }
-  return false;
+  Direction d = to_dir (r->get_property ("span-direction"));
+  info_list_[SOSTENUTO].event_drul_[d] = r;
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, sustain);
+void
+Piano_pedal_engraver::listen_sustain (Stream_event *r)
+{
+  Direction d = to_dir (r->get_property ("span-direction"));
+  info_list_[SUSTAIN].event_drul_[d] = r;
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, una_corda);
+void
+Piano_pedal_engraver::listen_una_corda (Stream_event *r)
+{
+  Direction d = to_dir (r->get_property ("span-direction"));
+  info_list_[UNA_CORDA].event_drul_[d] = r;
 }
 
 void
 Piano_pedal_engraver::process_music ()
 {
-  for (Pedal_info *p = info_list_; p && p->name_; p++)
+  for (Pedal_info *p = info_list_; p->type_; p++)
     {
       if (p->event_drul_[STOP] || p->event_drul_[START])
 	{
 	  if (!p->line_spanner_)
 	    {
-	      string name = string (p->name_) + "PedalLineSpanner";
-	      Music *rq = (p->event_drul_[START] ? p->event_drul_[START] : p->event_drul_[STOP]);
-	      p->line_spanner_ = make_spanner (name.c_str (), rq->self_scm ());
+	      const char *name = p->type_->pedal_line_spanner_c_str_;
+	      Stream_event *rq = (p->event_drul_[START] ? p->event_drul_[START] : p->event_drul_[STOP]);
+	      p->line_spanner_ = make_spanner (name, rq->self_scm ());
 	    }
 
 	  /* Choose the appropriate grobs to add to the line spanner
@@ -192,8 +251,7 @@ Piano_pedal_engraver::process_music ()
 	    mixed:   Ped. _____/\____|
 	  */
 
-	  string prop = string ("pedal") + p->name_ + "Style";
-	  SCM style = get_property (prop.c_str ());
+	  SCM style = internal_get_property (p->type_->style_sym_);
 
 	  bool mixed = style == ly_symbol2scm ("mixed");
 	  bool bracket = (mixed
@@ -213,11 +271,11 @@ void
 Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 {
   SCM s = SCM_EOL;
-  SCM strings = get_property (("pedal" + string (p->name_) + "Strings").c_str ());
+  SCM strings = internal_get_property (p->type_->strings_sym_);
 
   if (scm_ilength (strings) < 3)
     {
-      Music *m = p->event_drul_[START];
+      Stream_event *m = p->event_drul_[START];
       if (!m) m = p->event_drul_ [STOP];
 
       string msg = _f ("expect 3 strings for piano pedals, found: %ld",
@@ -235,7 +293,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
 	{
 	  if (!p->start_ev_)
-	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
+	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
 	  else
 	    s = scm_cadr (strings);
 	  p->start_ev_ = p->event_drul_[START];
@@ -246,7 +304,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!mixed)
 	{
 	  if (!p->start_ev_)
-	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
+	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->type_->base_name_.c_str ()));
 	  else
 	    s = scm_caddr (strings);
 	  p->start_ev_ = 0;
@@ -271,11 +329,11 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 
   if (scm_is_string (s))
     {
-      string propname = string (p->name_) + "Pedal";
+      const char *propname = p->type_->pedal_c_str_;
 
-      p->item_ = make_item (propname.c_str (), (p->event_drul_[START]
-						  ? p->event_drul_[START]
-						  : p->event_drul_[STOP])->self_scm ());
+      p->item_ = make_item (propname, (p->event_drul_[START]
+				       ? p->event_drul_[START]
+				       : p->event_drul_[STOP])->self_scm ());
 
       p->item_->set_property ("text", s);
       Axis_group_interface::add_element (p->line_spanner_, p->item_);
@@ -293,7 +351,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 {
   if (!p->bracket_ && p->event_drul_[STOP])
     {
-      string msg = _f ("can't find start of piano pedal bracket: `%s'", p->name_);
+      string msg = _f ("can't find start of piano pedal bracket: `%s'", p->type_->base_name_.c_str ());
       p->event_drul_[STOP]->origin ()->warning (msg);
       p->event_drul_[STOP] = 0;
     }
@@ -399,7 +457,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 void
 Piano_pedal_engraver::finalize ()
 {
-  for (Pedal_info *p = info_list_; p && p->name_; p++)
+  for (Pedal_info *p = info_list_; p->type_; p++)
     {
       /*
 	suicide?
@@ -446,7 +504,7 @@ Piano_pedal_engraver::del_linespanner (Spanner *g)
 void
 Piano_pedal_engraver::stop_translation_timestep ()
 {
-  for (Pedal_info *p = info_list_; p && p->name_; p++)
+  for (Pedal_info *p = info_list_; p->type_; p++)
     {
       if (!p->bracket_)
 	{
@@ -458,7 +516,7 @@ Piano_pedal_engraver::stop_translation_timestep ()
       typeset_all (p);
     }
 
-  for (Pedal_info *p = info_list_; p->name_; p++)
+  for (Pedal_info *p = info_list_; p->type_; p++)
     {
       p->event_drul_[STOP] = 0;
       p->event_drul_[START] = 0;
@@ -509,8 +567,6 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
       p->finished_line_spanner_ = 0;
     }
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Piano_pedal_engraver, note_column);
 

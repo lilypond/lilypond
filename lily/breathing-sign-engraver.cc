@@ -15,6 +15,9 @@
 #include "breathing-sign.hh"
 #include "engraver.hh"
 #include "item.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 class Breathing_sign_engraver : public Engraver
 {
@@ -22,12 +25,12 @@ public:
   TRANSLATOR_DECLARATIONS (Breathing_sign_engraver);
 
 protected:
-  virtual bool try_music (Music *event);
   void process_music ();
   void stop_translation_timestep ();
 
+  DECLARE_TRANSLATOR_LISTENER (breathing);
 private:
-  Music *breathing_sign_event_;
+  Stream_event *breathing_sign_event_;
   Grob *breathing_sign_;
 };
 
@@ -37,11 +40,11 @@ Breathing_sign_engraver::Breathing_sign_engraver ()
   breathing_sign_event_ = 0;
 }
 
-bool
-Breathing_sign_engraver::try_music (Music *r)
+IMPLEMENT_TRANSLATOR_LISTENER (Breathing_sign_engraver, breathing);
+void
+Breathing_sign_engraver::listen_breathing (Stream_event *r)
 {
   breathing_sign_event_ = r;
-  return true;
 }
 
 void
@@ -59,8 +62,6 @@ Breathing_sign_engraver::stop_translation_timestep ()
   breathing_sign_ = 0;
   breathing_sign_event_ = 0;
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Breathing_sign_engraver,
 		/* doc */ "",
