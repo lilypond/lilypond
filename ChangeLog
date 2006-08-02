@@ -1,3 +1,7 @@
+2006-08-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* input/test/instrument-name-align.ly: update version.
+
 2006-08-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/lilypond-book.itely (Invoking lilypond-book):
