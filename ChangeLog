@@ -1,3 +1,8 @@
+2006-08-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/lilypond-book.itely (Invoking lilypond-book):
+	Doc the --pdf flag to lilypond-book.
+
 2006-07-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/topdocs/NEWS.tely (Top): add description.

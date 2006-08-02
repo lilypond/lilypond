@@ -626,9 +626,7 @@ output format.  Both @file{.tex} and @file{.texi} files need further
 processing.
 
 @command{lilypond-book} can also create a PSFONTS file, which is required
-by @command{dvips} to produce Postscript and PDF files.  You can call
-this file whatever you want as long as you refer to the same file when
-you call @command{dvips}.
+by @command{dvips} to produce Postscript and PDF files.
 
 To produce PDF output from the lilypond-book file (here called
 @code{yourfile.lytex}) via LaTeX, you should do
@@ -644,12 +642,11 @@ The @file{.dvi} file created by this process will not contain
 noteheads.  This is normal; if you follow the instructions, they
 will be included in the @file{.ps} and @file{.pdf} files.
 
-To produce a PDF file through PDF(La)TeX, you should pass the options
-@code{-deps-font-load} and @code{--pdf} to the lilypond process, with
-the @code{--process} option of lilypond-book, e.g.
+To produce a PDF file through PDF(La)TeX, use
  
 @example
-lilypond-book --process='lilypond -deps-font-load --pdf' yourfile.pdftex
+lilypond-book --pdf yourfile.pdftex
+pdflatex yourfile.tex
 @end example
  
 
