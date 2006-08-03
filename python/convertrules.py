@@ -2795,7 +2795,7 @@ def conv (str):
     str = re.sub (r'\\context\s+\"?([a-zA-Z]+)\"?\s*\\applyOutput', r"\\applyOutput #'\1", str)
     return str
 
-conversions.append (((2, 9, 6), conv, """\context Foo \applyOutput #bla -> \applyOutput #'Foo #bla """))
+conversions.append (((2, 9, 6), conv, """\context Foo \\applyOutput #bla -> \\applyOutput #'Foo #bla """))
 
 
 def conv (str):
