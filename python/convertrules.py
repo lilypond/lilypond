@@ -620,13 +620,13 @@ def conv (str):
 			lastx = x
 		return s
 
-		def regularize_dollar_reference (match):
-			return regularize_id (match.group (1))
-		def regularize_assignment (match):
-			return '\n' + regularize_id (match.group (1)) + ' = '
-		str = re.sub ('\$([^\t\n ]+)', regularize_dollar_reference, str)
-		str = re.sub ('\n([^ \t\n]+)[ \t]*= *', regularize_assignment, str)
-		return str
+	def regularize_dollar_reference (match):
+		return regularize_id (match.group (1))
+	def regularize_assignment (match):
+		return '\n' + regularize_id (match.group (1)) + ' = '
+	str = re.sub ('\$([^\t\n ]+)', regularize_dollar_reference, str)
+	str = re.sub ('\n([^ \t\n]+)[ \t]*= *', regularize_assignment, str)
+	return str
 
 conversions.append (((1,3,117), conv, 'identifier names: $!foo_bar_123 -> xfooBarABC'))
 
