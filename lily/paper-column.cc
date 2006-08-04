@@ -45,6 +45,12 @@ Paper_column::get_system () const
   return system_;
 }
 
+void
+Paper_column::set_system (System *s)
+{
+  system_ = s;
+}
+
 Paper_column *
 Paper_column::get_column () const
 {

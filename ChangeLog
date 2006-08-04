@@ -1,3 +1,13 @@
+2006-08-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/paper-column.cc (set_system): new function.
+
+	* lily/spacing-engraver.cc (stop_translation_timestep): store
+	SpacingSpanner refs in Paper_column.
+
+	* lily/spacing-loose-columns.cc (set_loose_columns): rewrite
+	compute loose clique spacing using GraceSpacing/SpacingSpanner.
+
 2006-08-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/beam-engraver.cc (listen_beam): add method for

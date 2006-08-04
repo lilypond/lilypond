@@ -140,7 +140,6 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 	  Spacing_options grace_opts;
 	  grace_opts.init_from_grob (grace_spacing);
 
-
 	  bool bla;
 	  dist = grace_opts.get_duration_space (delta_t.grace_part_, &bla);
 	}

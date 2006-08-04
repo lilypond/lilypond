@@ -29,6 +29,7 @@ public:
   virtual void do_break_processing ();
   virtual Paper_column *get_column () const;
   virtual System *get_system () const;
+  void set_system (System *);
 
   static int compare (Grob * const &a,
 		      Grob * const &b);
