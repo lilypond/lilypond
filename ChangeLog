@@ -1,3 +1,8 @@
+2006-08-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/bar-line.cc: backport: Add documentation for "||:" also in
+	the interface documentation.
+
 2006-08-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* python/convertrules.py: backport: Fix indentation bug that broke
