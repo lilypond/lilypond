@@ -211,7 +211,13 @@ Spacing_engraver::stop_translation_timestep ()
 
   musical_column->set_property ("shortest-playing-duration", sh);
   musical_column->set_property ("shortest-starter-duration", st);
+
+  musical_column->set_object ("spacing", spacing_->self_scm ());
+  unsmob_grob (get_property ("currentCommandColumn"))
+    ->set_object ("spacing", spacing_->self_scm ());
 }
+
+
 
 void
 Spacing_engraver::start_translation_timestep ()

@@ -218,6 +218,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
 	  dynamic_cast<Paper_column *> (c[j])->system_ = system;
 	}
+      
       set_loose_columns (system, &breaking[i]);
       broken_intos_.push_back (system);
     }

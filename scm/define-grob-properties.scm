@@ -526,7 +526,8 @@ paper-columns or note-column objects.")
 in addition to notes and stems.")
      (elements ,ly:grob-array? "list of grobs, type depending on the Grob
 where this is set in.")
-     (grace-spacing ,ly:grob-array? "a run of grace notes.")
+     (grace-spacing ,ly:grob? "a run of grace notes.")
+     (spacing ,ly:grob? "the spacing spanner governing this section.")
      (heads ,ly:grob-array? "List of note heads.")
      (items-worth-living ,ly:grob-array? "A list of interesting items. If
 empty in a particular staff, then that staff is erased.")
