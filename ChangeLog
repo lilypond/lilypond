@@ -1,3 +1,9 @@
+2006-08-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/accidental-engraver.cc (process_acknowledged): don't create
+	accidental for trill span event. This fixes spurious accidentals
+	on trills.
+
 2006-08-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/define-grob-properties.scm (all-user-grob-properties):
