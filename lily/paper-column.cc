@@ -222,6 +222,7 @@ ADD_INTERFACE (Paper_column,
 	       "page-turn-permission "
 	       "shortest-playing-duration "
 	       "shortest-starter-duration "
+	       "spacing "
 	       "used "
 	       "when ");
 
