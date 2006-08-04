@@ -1,5 +1,9 @@
 2006-08-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	Clarify documentation of side-axis and direction. Thanks to Paul
+	for the inspiration.
+
 	* lily/bar-line.cc: Add documentation for "||:" also in the
 	interface documentation.
 
