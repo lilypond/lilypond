@@ -289,8 +289,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define (parenthesize-elements grob . rest)
   (let*
-      (
-       (refp (if (null? rest)
+      ((refp (if (null? rest)
 		 grob
 		 (car rest)))
        (elts (ly:grob-object grob 'elements))
@@ -300,7 +299,7 @@ centered, X==1 is at the right, X == -1 is at the left."
        (lp (ly:font-get-glyph font "accidentals.leftparen"))
        (rp (ly:font-get-glyph font "accidentals.rightparen"))
        (padding (ly:grob-property grob 'padding 0.1)))
-
+    
     (ly:stencil-add
      (ly:stencil-translate-axis lp (- (car x-ext) padding) X)
      (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))

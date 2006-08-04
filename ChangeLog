@@ -1,5 +1,8 @@
 2006-08-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/pitched-trill-engraver.cc (make_trill): do set_parent also
+	if no accidental.
+
 	* lily/accidental-engraver.cc (process_acknowledged): don't create
 	accidental for trill span event. This fixes spurious accidentals
 	on trills.
