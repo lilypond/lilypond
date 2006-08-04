@@ -79,7 +79,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  Grob *clique_col = clique[j];
 
 	  Paper_column *loose_col = dynamic_cast<Paper_column *> (clique[j]);
-	  Paper_column *last_col = dynamic_cast<Paper_column *> (clique[j-1]);
+	  Paper_column *next_col = dynamic_cast<Paper_column *> (clique[j + 1]);
 
 	  Grob *spacing = unsmob_grob (clique_col->get_object ("spacing"));
 	  if (Grob *grace_spacing = unsmob_grob (clique_col->get_object ("grace-spacing")))
@@ -93,24 +93,25 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  bool expand_only = false;
 	  Real base_note_space = 0.0;
 
-	  if (Paper_column::is_musical (last_col)
+	  if (Paper_column::is_musical (next_col)
 	      && Paper_column::is_musical (loose_col))
-	    base_note_space = Spacing_spanner::note_spacing (spacing, last_col, loose_col,
+	    base_note_space = Spacing_spanner::note_spacing (spacing, loose_col, next_col, 
 							     &options, &expand_only);
 	  else
 	    {
 	      Real fixed, space;
 	      
-	      Spacing_spanner::standard_breakable_column_spacing (spacing, last_col,
-								  loose_col, &fixed, &space,
+	      Spacing_spanner::standard_breakable_column_spacing (spacing, 
+								  loose_col, next_col,
+								  &fixed, &space,
 								  &options);
 
 	      base_note_space = space;
 	    }
 
 	  base_note_space = max (base_note_space,
-				 robust_relative_extent (last_col, last_col, X_AXIS)[RIGHT]
-				 - robust_relative_extent (loose_col, loose_col, X_AXIS)[LEFT]);
+				 robust_relative_extent (loose_col, loose_col, X_AXIS)[RIGHT]
+				 - robust_relative_extent (next_col, next_col, X_AXIS)[LEFT]);
 	  
 	  clique_spacing.push_back (base_note_space);
 	}
