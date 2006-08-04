@@ -82,8 +82,7 @@ Pitched_trill_engraver::make_trill (Music *mus)
 
   SCM handle = scm_assoc (key, keysig);
   bool print_acc
-    = (handle == SCM_BOOL_F)
-    || p->get_alteration () == 0;
+    = (handle == SCM_BOOL_F) || p->get_alteration () == 0;
 
   if (trill_head_)
     {
@@ -101,6 +100,7 @@ Pitched_trill_engraver::make_trill (Music *mus)
 					   + c0));
 
   trill_group_ = make_item ("TrillPitchGroup", mus->self_scm ());
+  trill_group_->set_parent (trill_head_, Y_AXIS);
 
   Axis_group_interface::add_element (trill_group_, trill_head_);
 
@@ -112,9 +112,8 @@ Pitched_trill_engraver::make_trill (Music *mus)
       trill_accidental_->set_property ("accidentals", scm_list_1 (scm_from_int (p->get_alteration ())));
       Side_position_interface::add_support (trill_accidental_, trill_head_);
       trill_head_->set_object ("accidental-grob", trill_accidental_->self_scm ());
-      trill_group_->set_parent (trill_head_, Y_AXIS);
-      Axis_group_interface::add_element (trill_group_, trill_accidental_);
       trill_accidental_->set_parent (trill_head_, Y_AXIS);
+      Axis_group_interface::add_element (trill_group_, trill_accidental_);
     }
 }
 
