@@ -141,7 +141,7 @@ dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
      
      (default-direction ,ly:dir? "Direction determined by note head positions.")
-     (direction ,ly:dir? "#UP or #DOWN, #LEFT or #RIGHT?  (or a numerical value, #UP=1, #DOWN=-1, #LEFT=-1, #RIGHT=1, CENTER=0)")
+     (direction ,ly:dir? "If side-position is 1 (#X), then this property determines if the object is placed #LEFT, #CENTER or #RIGHT with respect to the other object. Otherwise, it determines if the object is placed #UP #CENTER or #DOWN.  Numerical values may also be used. #UP=1, #DOWN=-1, #LEFT=-1, #RIGHT=1, CENTER=0 but also other numerical values are permitted.")
 
      (dot-color ,symbol? "Color of dots.  Options include 
 @code{black} and @code{white}.")
@@ -385,7 +385,7 @@ note that starts here.")
 			      "Multiply direction of
 @code{direction-source} with this to get the direction of this
 object.")
-     (side-axis ,number? "Is this object horizontally or vertically next to another object?")
+     (side-axis ,number? "If the value is #X (or equivalently 1), the object is placed horizontally next to the other object. If the value is #Y or 0, it is placed vertically.")
      (size ,number? "Size of object, relative to standard size.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
