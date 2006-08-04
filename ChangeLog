@@ -1,5 +1,7 @@
 2006-08-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/spacing-loose-columns.cc (set_loose_columns): bugfix.
+
 	* lily/paper-column.cc (set_system): new function.
 
 	* lily/spacing-engraver.cc (stop_translation_timestep): store

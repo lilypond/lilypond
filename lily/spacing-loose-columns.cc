@@ -91,9 +91,27 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  options.init_from_grob (spacing);
 
 	  bool expand_only = false;
-	  Real base_note_space = Spacing_spanner::note_spacing (spacing, last_col, loose_col,
-								&options, &expand_only);
+	  Real base_note_space = 0.0;
 
+	  if (Paper_column::is_musical (last_col)
+	      && Paper_column::is_musical (loose_col))
+	    base_note_space = Spacing_spanner::note_spacing (spacing, last_col, loose_col,
+							     &options, &expand_only);
+	  else
+	    {
+	      Real fixed, space;
+	      
+	      Spacing_spanner::standard_breakable_column_spacing (spacing, last_col,
+								  loose_col, &fixed, &space,
+								  &options);
+
+	      base_note_space = space;
+	    }
+
+	  base_note_space = max (base_note_space,
+				 robust_relative_extent (last_col, last_col, X_AXIS)[RIGHT]
+				 - robust_relative_extent (loose_col, loose_col, X_AXIS)[LEFT]);
+	  
 	  clique_spacing.push_back (base_note_space);
 	}
 
@@ -111,7 +129,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  
 	  right_point = finished_right_column->relative_coordinate (common, X_AXIS);
 
-	  Real distance_to_next = clique_spacing[j+1];
+	  Real distance_to_next = clique_spacing[j];
 	  
 	  Real my_offset = right_point - distance_to_next;
 
