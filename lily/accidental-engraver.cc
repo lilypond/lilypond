@@ -347,7 +347,8 @@ Accidental_engraver::process_acknowledged ()
 
 	  /* Cannot look for ties: it's not guaranteed that they reach
 	     us before the notes. */
-	  if (num)
+	  if (num
+	      && !note->is_mus_type ("trill-span-event"))
 	    create_accidental (&accidentals_[i], num > 1, cautionary);
 	}
     }
