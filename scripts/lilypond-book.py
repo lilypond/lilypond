@@ -827,7 +827,9 @@ class Lilypond_snippet (Snippet):
         self.do_options (os, self.type)
 
     def ly (self):
-        return self.substring ('code')
+        contents = self.substring ('code')
+        return ('\\sourcefileline %d\n%s'
+                % (self.line_number - 1, contents))
 
     def full_ly (self):
         s = self.ly ()
@@ -1206,8 +1208,8 @@ class Lilypond_file_snippet (Lilypond_snippet):
         ## strip version string to make automated regtest comparisons
         ## across versions easier.
         contents = re.sub (r'\\version *"[^"]*"', '', contents)
-        
-        return ('\\sourcefilename \"%s\"\n%s'
+
+        return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
                 % (name, contents))
 
 snippet_type_to_class = {
@@ -1476,11 +1478,9 @@ def write_file_map (lys, name):
 #(ly:add-file-name-alist '(
 """)
     for ly in lys:
-        snippet_map.write ('("%s.ly" . "%s:%d (%s.ly)")\n'
+        snippet_map.write ('("%s.ly" . "%s")\n'
                  % (ly.basename (),
-                   name,
-                   ly.line_number,
-                   ly.basename ()))
+                   name))
 
     snippet_map.write ('))\n')
 

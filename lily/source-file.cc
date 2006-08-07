@@ -82,6 +82,7 @@ Source_file::Source_file (string filename, string data)
 {
   name_ = filename;
   istream_ = 0;
+  line_offset_ = 0;
   length_ = data.length ();
   contents_str0_ = string_copy (data);
   pos_str0_ = c_str ();
@@ -96,6 +97,7 @@ Source_file::Source_file (string filename_string)
 {
   name_ = filename_string;
   istream_ = 0;
+  line_offset_ = 0;
   contents_str0_ = 0;
 
   if (filename_string == "-")
@@ -329,7 +331,16 @@ Source_file::get_line (char const *pos_str0) const
 
   if (*pos_str0 == '\n')
     lo--;
-  return lo + 2;
+  return lo + 2 + line_offset_;
+}
+
+void
+Source_file::set_line (char const *pos_str0, int line)
+{
+  int current_line = get_line (pos_str0);
+  line_offset_ += line - current_line;
+
+  assert (line == get_line (pos_str0));
 }
 
 int

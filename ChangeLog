@@ -1,3 +1,11 @@
+2006-08-07  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/lexer.ll, lily/source-file.cc: Add \sourcefileline command
+
+	* scripts/lilypond-book.py: insert \sourcefileline command in
+	output, so lilypond error messages refer to the spot in the
+	original .lytex / .itely sourcefile.
+
 2006-08-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/spacing-loose-columns.cc (set_loose_columns): oops: use
@@ -44,10 +52,24 @@
 	conversion of files older than 1.3.117.
 	Fix escape error in the description for 2.9.6.
 
-2006-08-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+2006-08-02  Erik Sandberg  <mandolaerik@gmail.com>
 
-	* lily/*-engraver.cc: convert all try_music functions in
-	*-engraver.cc. (Patch by Erik S.; please elaborate)
+	* lily/*-engraver.cc: convert all try_music functions to listen_*
+	functions.
+
+	* lily/piano-pedal-engraver.cc: some additional cleanups: use
+	enums to represent pedal types, and calculate more data statically.
+
+	* scm/part-combiner.scm (recording-group-emulate): create a
+	softcoded substitute for recording-group-engraver.cc.
+
+	* lily/music.cc: make a common transpose function for events and
+	music
+
+	* ly/declarations-init.ly: change melisma/melismaEnd. Eliminates
+	ManualMelismaEvent, and obsoletes Melisma_translator.
+
+2006-08-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* input/test/instrument-name-align.ly: update version.
 

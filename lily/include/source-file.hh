@@ -39,6 +39,7 @@ public:
   bool contains (char const *pos_str0) const;
   int length () const;
   virtual int get_line (char const *pos_str0) const;
+  void set_line (char const *pos_str0, int i);
   string name_string () const;
   string file_line_column_string (char const *str0) const;
 
@@ -65,6 +66,9 @@ public:
 
   SCM get_port () const;
   string name_;
+
+protected:
+  int line_offset_;
 
 private:
   vector<char*> newline_locations_;
