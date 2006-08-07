@@ -112,6 +112,7 @@ SCM (* scm_parse_error_handler) (void *);
 %x markup
 %x notes
 %x quote
+%x sourcefileline
 %x sourcefilename
 %x version
 
@@ -191,6 +192,9 @@ BOM_UTF8	\357\273\277
 <INITIAL,chords,lyrics,notes,figures>\\sourcefilename{WHITE}*	{
 	yy_push_state (sourcefilename);
 }
+<INITIAL,chords,lyrics,notes,figures>\\sourcefileline{WHITE}*	{
+	yy_push_state (sourcefileline);
+}
 <version>\"[^"]*\"     { /* got the version number */
 	string s (YYText () + 1);
 	s = s.substr (0, s.rfind ('\"'));
@@ -218,12 +222,25 @@ BOM_UTF8	\357\273\277
 		     scm_makfrom0str (s.c_str ()));
 
 }
+
+<sourcefileline>{INT}	{
+	int i;
+	sscanf (YYText (), "%d", &i);
+
+	yy_pop_state ();
+	this->here_input ().get_source_file ()->set_line (here_input ().start (), i);
+}
+
 <version>. 	{
 	LexerError (_ ("quoted string expected after \\version").c_str ());
 	yy_pop_state ();
 }
 <sourcefilename>. 	{
 	LexerError (_ ("quoted string expected after \\sourcefilename").c_str ());
+	yy_pop_state ();
+}
+<sourcefileline>. 	{
+	LexerError (_ ("integer expected after \\sourcefileline").c_str ());
 	yy_pop_state ();
 }
 <longcomment>{
