@@ -115,7 +115,7 @@ c8-[ c c-] c8")
 	
 	(types . (general-music break-event event))
 	))
-    (BreathingSignEvent
+    (BreathingEvent
      . (
 	(description .	"Creates a `breath mark' or `comma'.  
 
