@@ -1,5 +1,10 @@
 2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/*.ly: apply it.
+
+	* python/convertrules.py (conv): better instrumentName conversion
+	rule.
+
 	* scm/define-music-types.scm (music-descriptions): add
 	line-break-event to LineBreakEvent music
 
