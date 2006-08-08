@@ -37,10 +37,11 @@
 
 (define page-module (current-module))
 
-(define (make-page init  . args)
+(define (make-page paper-book  . args)
   (let*
       ((p (apply ly:make-prob (append
-			       (list 'page init)
+			       (list 'page (layout->page-init (ly:paper-book-paper paper-book))
+				     'paper-book paper-book)
 			       args))))
 
     (page-set-property! p 'head-stencil (page-header p))
@@ -114,8 +115,8 @@
 
 (define (annotate-space-left page)
   (let*
-      ((p-book (page-property page 'paper-book))
-       (layout (ly:paper-book-paper p-book))
+      ((paper-book (page-property page 'paper-book))
+       (layout (ly:paper-book-paper paper-book))
        (arrow (annotate-y-interval layout
 				   "space left"
 				   (cons (- 0.0
@@ -193,10 +194,9 @@
 
 (define (page-header-or-footer page dir)
     (let*
-      ((p-book (page-property page 'paper-book))
-       (layout (ly:paper-book-paper p-book))
-       (scopes (ly:paper-book-scopes p-book))
-       (lines (page-lines page))
+      ((paper-book (page-property page 'paper-book))
+       (layout (ly:paper-book-paper paper-book))
+       (scopes (ly:paper-book-scopes paper-book))
        (number (page-page-number page))
        (last? (page-property page 'is-last))
        )
@@ -250,10 +250,10 @@ create offsets.
 
   (page-translate-systems page)
   (let*
-      ((p-book (page-property page 'paper-book))
+      ((paper-book (page-property page 'paper-book))
        (prop (lambda (sym) (page-property page sym)))
-       (layout (ly:paper-book-paper p-book))
-       (scopes (ly:paper-book-scopes p-book))
+       (layout (ly:paper-book-paper paper-book))
+       (scopes (ly:paper-book-scopes paper-book))
        (lines (page-lines page))
        (number (page-page-number page))
 
@@ -386,8 +386,8 @@ create offsets.
 (define (calc-printable-height page)
   "Printable area for music and titles; matches default-page-make-stencil."
   (let*
-      ((p-book (page-property page 'paper-book))
-       (layout (ly:paper-book-paper p-book))
+      ((paper-book (page-property page 'paper-book))
+       (layout (ly:paper-book-paper paper-book))
        (h (- (ly:output-def-lookup layout 'paper-height)
 	       (ly:output-def-lookup layout 'top-margin)
 	       (ly:output-def-lookup layout 'bottom-margin)))

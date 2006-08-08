@@ -339,6 +339,7 @@ whether they are processed in this context.")
      (restNumberThreshold ,number?
 			  "If a multimeasure rest has more measures
 than this, a number is printed. ")
+     (revokePageTurns ,pair? "Signals to the paper-column-engraver to revoke (or increase the penalties for) all the page turns within a time interval. Used to disable page turns that occur within an unturnable volta repeat.")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for each note
 head relative to the tonic (qv.) of the scale.")
      (shortInstrumentName ,markup? "See @code{instrument}")

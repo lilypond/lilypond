@@ -76,6 +76,12 @@
     %%
     ragged-last-bottom= ##t
 
+    %%
+    %% settings for the page breaker
+    %%
+    blank-last-page-force = 0
+    blank-page-force = 10
+
     #(define font-defaults
       '((font-encoding . fetaMusic)))
 

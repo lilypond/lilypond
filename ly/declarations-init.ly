@@ -46,6 +46,7 @@ pageTurn = #(make-event-chord (list
 				(make-music 'PageBreakEvent 'break-permission 'force)
 				(make-music 'PageTurnEvent 'break-permission 'force)))
 noPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission '())))
+allowPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission 'allow)))
 
 stopStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent STOP)))
 startStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent START)))
