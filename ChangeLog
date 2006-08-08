@@ -1,3 +1,9 @@
+2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/translation-functions.scm (format-bass-figure): inspect stream-event.
+
+	* scripts/lilypond-book.py (bindir): add bindir to $PATH.
+
 2006-08-08  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/include/constrained-breaking.hh: add Line_details (Prob*)
@@ -16,6 +22,7 @@
 
 	* lily/paper-book.cc (pages): use the new page-breaking calling convention
 
+>>>>>>> 1.5227
 2006-08-07  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/lexer.ll, lily/source-file.cc: Add \sourcefileline command
