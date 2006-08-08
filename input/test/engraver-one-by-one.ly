@@ -65,8 +65,8 @@ MyStaff =\context {
 	% weird effects when doing instrument names for
 	% piano staves
 
-	instrument = #'()
-	instr = #'()
+	instrumentName = #'()
+	shortInstrumentName = #'()
 	  
 	\accepts "Voice"
 }

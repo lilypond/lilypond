@@ -27,20 +27,20 @@ scm = \chordmode {
 
 <<
     \new ChordNames {
-	\set instrument = #"default"
+	\set instrumentName = #"default"
 	\scm
     }
     \new ChordNames {
-	\set instrument = #"german"
+	\set instrumentName = #"german"
 	\germanChords \scm }
     \new ChordNames {
-	\set instrument = #"semi-german"
+	\set instrumentName = #"semi-german"
 	\semiGermanChords \scm }
     \new ChordNames {
-	\set instrument = #"italian"
+	\set instrumentName = #"italian"
 	\italianChords \scm }
     \new ChordNames {
-	\set instrument = #"french"
+	\set instrumentName = #"french"
 	\frenchChords \scm }
 
     \context Voice { \scm }

@@ -116,7 +116,7 @@
     \name Score
     
     melismaBusyProperties = #default-melisma-properties
-    instrument = #"bright acoustic"
+    instrumentName = #"bright acoustic"
     \accepts Staff
     \accepts DrumStaff
     \accepts GrandStaff
