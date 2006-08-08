@@ -307,3 +307,19 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
   freopen (ly_scm2newstr (file_name, 0), m, stderr);
   return SCM_UNSPECIFIED;
 }
+
+static SCM
+accumulate_symbol (void *closure, SCM key, SCM val, SCM result)
+{
+  (void) closure;
+  (void) val;
+  return scm_cons (key, result);
+}
+
+LY_DEFINE(ly_hash_table_keys, "ly:hash-table-keys",
+	  1,0,0, (SCM tab),
+	  "return a list of keys in @var{tab}")
+{
+  return scm_internal_hash_fold ((Hash_closure_function) & accumulate_symbol,
+				 NULL, SCM_EOL, tab);
+}

@@ -1,5 +1,18 @@
 2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-event-classes.scm (lambda): use ly:is-listened-event-class
+
+	* lily/ly-module.cc (ly_module_symbols): use ly_hash_table_keys
+
+	* lily/translator.cc (LY_DEFINE): ly:is-listened-event-class: new
+	function. Use hash tables to check membership.
+
+	* lily/general-scheme.cc (LY_DEFINE): new function.
+
+	* lily/piano-pedal-engraver.cc (struct Pedal_type_info): idem
+
+	* lily/include/translator.hh (struct Acknowledge_information): add Protected_scm
+
 	* ly/music-functions-init.ly: change name to BreathingEvent
 
 	* input/regression/*.ly: apply it.
