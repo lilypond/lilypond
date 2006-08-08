@@ -1,3 +1,7 @@
+2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* GNUmakefile.in: backport topdoc srcdir dist fixes.
+
 2006-08-08    <hanwen@lilypond.org>
 
 	* VERSION (PATCH_LEVEL): bump to .6

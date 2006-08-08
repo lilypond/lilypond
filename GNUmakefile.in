@@ -18,7 +18,11 @@ documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
 SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh Doxyfile
 README_FILES = ChangeLog COPYING DEDICATION ROADMAP THANKS HACKING
-README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
+
+TOPDOC_FILES=AUTHORS README INSTALL NEWS
+TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
+
+
 IN_FILES := $(call src-wildcard,*.in)
 PATCH_FILES = emacsclient.patch server.el.patch darwin.patch
 EXTRA_DIST_FILES = VERSION .cvsignore SConstruct \
@@ -34,6 +38,14 @@ include $(depth)/make/stepmake.make
 
 doc: 
 	$(MAKE) -C Documentation
+
+local-dist: dist-toplevel-txt-files
+
+dist-toplevel-txt-files:
+	-mkdir -p $(distdir)
+	ln $(TOPDOC_TXT_FILES) $(distdir)/
+	ln $(top-src-dir)/stepmake/aclocal.m4 $(distdir)/
+
 
 install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
