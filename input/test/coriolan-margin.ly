@@ -1,5 +1,5 @@
 
-\version "2.7.39"
+\version "2.9.13"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -25,8 +25,8 @@ raisedFlat = \markup { \raise #0.4 \smaller \smaller \flat  }
 
 
 flauti =  \relative c' {
-  \set Staff.instrument = #"2 Flauti"
-  \set Staff.instr = #"Fl."
+  \set Staff.instrumentName = #"2 Flauti"
+  \set Staff.shortInstrumentName = #"Fl."
   \time 4/4
   c1 
   \break c
@@ -36,67 +36,67 @@ flauti =  \relative c' {
 }
 
 oboi =  \relative c' {
-  \set Staff.instrument = #"2 Oboi"
-  \set Staff.instr = #"Ob."
+  \set Staff.instrumentName = #"2 Oboi"
+  \set Staff.shortInstrumentName = #"Ob."
   c1 c
 }
 
 clarinetti =  \relative c' {
-    \set Staff.instrument = \markup { \column { "Clarinetti" \line { "in B" \raisedFlat } } }
-    \set Staff.instr = \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
+    \set Staff.instrumentName = \markup { \column { "Clarinetti" \line { "in B" \raisedFlat } } }
+    \set Staff.shortInstrumentName = \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
 
   c1 c
 }
 
 fagotti =  \relative c' {
-  \set Staff.instrument = #"2 Fagotti"
-  \set Staff.instr = #"Fg."
+  \set Staff.instrumentName = #"2 Fagotti"
+  \set Staff.shortInstrumentName = #"Fg."
   c1 c
 }
 
 corni =  \relative c' {
-    \set Staff.instrument = \markup { \column { "Corni" \line { "in E" \raisedFlat } } }
-    \set Staff.instr = \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
+    \set Staff.instrumentName = \markup { \column { "Corni" \line { "in E" \raisedFlat } } }
+    \set Staff.shortInstrumentName = \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
 
   c1 c
 }
 
 trombe =  \relative c' {
-  \set Staff.instrument = \markup \column { "2 Trombe" "(C)" }
-  \set Staff.instr = \markup \column {  "Tbe." "(C)" }
+  \set Staff.instrumentName = \markup \column { "2 Trombe" "(C)" }
+  \set Staff.shortInstrumentName = \markup \column {  "Tbe." "(C)" }
 
   c1 c
 }
 
 timpani =  \relative c' {
-  \set Staff.instrument = \markup \column { "Timpani" "(C-G)" }
-  \set Staff.instr = #"Timp."
+  \set Staff.instrumentName = \markup \column { "Timpani" "(C-G)" }
+  \set Staff.shortInstrumentName = #"Timp."
 
   c1 c
 }
 
 violinoI =  \relative c' {
-  \set Staff.instrument = #"Violino I  "
-  \set Staff.instr = #"Vl. I  "
+  \set Staff.instrumentName = #"Violino I  "
+  \set Staff.shortInstrumentName = #"Vl. I  "
   c1 c
 }
 
 violinoII =  \relative c' {
-  \set Staff.instrument = #"Violino II  "
-  \set Staff.instr = #"Vl. II  "
+  \set Staff.instrumentName = #"Violino II  "
+  \set Staff.shortInstrumentName = #"Vl. II  "
   c1 c
 }
 
 viola =  \relative c' {
-  \set Staff.instrument = #"Viola"
-  \set Staff.instr = #"Vla."
+  \set Staff.instrumentName = #"Viola"
+  \set Staff.shortInstrumentName = #"Vla."
   c1 c 
   %c
 }
 
 violoncello =  \relative c' {
-  \set Staff.instrument = \markup \column { "Violoncello" "e" "Contrabasso" }
-  \set Staff.instr = \markup \column {  "Vc." "Cb." }
+  \set Staff.instrumentName = \markup \column { "Violoncello" "e" "Contrabasso" }
+  \set Staff.shortInstrumentName = \markup \column {  "Vc." "Cb." }
   c1 c
 }
 

@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.9.13"
 
 \header {
   texidoc ="Broken volta spanners behave correctly at their left edge in all cases."
@@ -43,8 +43,8 @@ Bar 23	Perfect
 
 voiceB =  {
   \clef bass
-  \set Staff.instrument = "Bass"
-  \set Staff.instr = "B"
+  \set Staff.instrumentName = "Bass"
+  \set Staff.shortInstrumentName = "B"
   \key f \minor 
   \time 4/4  
   f1

@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.9.13"
 \header {
 
   texidoc = "There are both long and short instrument names.
@@ -18,7 +18,7 @@ multimeasure rests. "
 
 
 \context Staff <<
-  \set Staff.instrument = "instrument"
-  \set Staff.instr = "instr"
+  \set Staff.instrumentName = "instrument"
+  \set Staff.shortInstrumentName = "instr"
   {c''1 \break R1 }
 >>

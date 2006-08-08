@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.9.13"
 \header {
     title	= "Puer natus est nobis"
     subtitle	= "Antiphona ad introitum VII"
@@ -24,7 +24,7 @@ ligature (not demonstrated in this example)."
 %%% global search/replace operations in emacs).
 
 cantus = \new VaticanaVoice = "cantus"  {
-  \set Staff.instrument = \markup {
+  \set Staff.instrumentName = \markup {
     \column {
       " " " " " " " " "VII" " "
       {

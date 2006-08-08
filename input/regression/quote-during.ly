@@ -8,7 +8,7 @@ quoted. In this example, a 16th rests is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
 
 }
-\version "2.7.39"
+\version "2.9.13"
 \layout {
     ragged-right = ##t
 }
@@ -21,16 +21,16 @@ original = \relative c'' { c8 d s2 es8 gis8 }
 
 <<
     \new Staff {
-	\set Staff.instrument = "quoteMe"
+	\set Staff.instrumentName = "quoteMe"
 	\quoteMe
     }
     \new Staff {
-	\set Staff.instrument = "orig"
+	\set Staff.instrumentName = "orig"
 	\original
     }
     \new Staff \relative c'' <<
 	
-	\set Staff.instrument = "orig+quote"	
+	\set Staff.instrumentName = "orig+quote"	
 	\set Staff.quotedEventTypes = #'(note-event articulation-event)
 	\original
 	{ s4 \quoteDuring #"quoteMe" { s2. } }
