@@ -1,5 +1,5 @@
 /*
-  fall-engraver.cc -- implement Fall_engraver
+  fall-engraver.cc -- implement Bend_after_engraver
 
   (c) 2006 Han-Wen Nienhuys
 
@@ -13,10 +13,10 @@
 
 #include "translator.icc"
 
-class Fall_engraver : public Engraver
+class Bend_after_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS (Fall_engraver);
+  TRANSLATOR_DECLARATIONS (Bend_after_engraver);
   DECLARE_ACKNOWLEDGER (note_head);
 
 protected:
@@ -34,13 +34,12 @@ private:
 };
 
 void
-Fall_engraver::stop_fall ()
+Bend_after_engraver::stop_fall ()
 {
   bool bar = scm_is_string (get_property ("whichBar"));
   
   
-  fall_->set_bound (RIGHT, unsmob_grob (
-					bar
+  fall_->set_bound (RIGHT, unsmob_grob (bar
 					? get_property ("currentCommandColumn")
 					: get_property ("currentMusicalColumn")));
   fall_ = 0;
@@ -49,7 +48,7 @@ Fall_engraver::stop_fall ()
 }
 
 void
-Fall_engraver::stop_translation_timestep ()
+Bend_after_engraver::stop_translation_timestep ()
 {
   if (fall_ && !fall_->get_bound (LEFT)) 
     {
@@ -59,7 +58,7 @@ Fall_engraver::stop_translation_timestep ()
 }
 
 void
-Fall_engraver::start_translation_timestep ()
+Bend_after_engraver::start_translation_timestep ()
 {
   if (fall_ && now_mom ().main_part_ >= stop_moment_.main_part_)
     {
@@ -68,7 +67,7 @@ Fall_engraver::start_translation_timestep ()
 }
 
 void
-Fall_engraver::acknowledge_note_head (Grob_info info)
+Bend_after_engraver::acknowledge_note_head (Grob_info info)
 {
   if (!fall_event_)
     return;
@@ -82,22 +81,22 @@ Fall_engraver::acknowledge_note_head (Grob_info info)
   stop_moment_ = now_mom () + get_event_length (info.event_cause ());
 }
 
-Fall_engraver::Fall_engraver ()
+Bend_after_engraver::Bend_after_engraver ()
 {
   fall_ = 0;
   note_head_ = 0;
   fall_event_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Fall_engraver, bend_after);
+IMPLEMENT_TRANSLATOR_LISTENER (Bend_after_engraver, bend_after);
 void
-Fall_engraver::listen_bend_after (Stream_event *ev)
+Bend_after_engraver::listen_bend_after (Stream_event *ev)
 {
   fall_event_ = ev;
 }
 
 void
-Fall_engraver::process_music ()
+Bend_after_engraver::process_music ()
 {
   if (fall_event_ && !fall_)
     {
@@ -107,9 +106,9 @@ Fall_engraver::process_music ()
     }
 }
 
-ADD_ACKNOWLEDGER (Fall_engraver, note_head);
+ADD_ACKNOWLEDGER (Bend_after_engraver, note_head);
 
-ADD_TRANSLATOR (Fall_engraver,
+ADD_TRANSLATOR (Bend_after_engraver,
 		/* doc */ "Create fall spanners.",
 		/* create */ "BendAfter",
 		/* accept */ "bend-after-event",
