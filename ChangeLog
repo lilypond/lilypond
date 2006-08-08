@@ -1,5 +1,17 @@
 2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-music-types.scm (music-descriptions): add
+	line-break-event to LineBreakEvent music
+
+	* lily/music.cc (to_event): don't crash if music type not set.
+
+	* lily/spacing-loose-columns.cc (set_loose_columns): don't barf if
+	spacing not set.
+
+
+	* lily/spacing-engraver.cc (stop_translation_timestep): set
+	spacing for proportional notation too.
+
 	* scm/translation-functions.scm (format-bass-figure): inspect stream-event.
 
 	* scripts/lilypond-book.py (bindir): add bindir to $PATH.
@@ -22,7 +34,6 @@
 
 	* lily/paper-book.cc (pages): use the new page-breaking calling convention
 
->>>>>>> 1.5227
 2006-08-07  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/lexer.ll, lily/source-file.cc: Add \sourcefileline command

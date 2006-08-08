@@ -270,7 +270,10 @@ Music::to_event () const
   SCM class_name = ly_symbol2scm (out);
 
   // catch mistakes.
-  assert (internal_is_music_type (class_name));
+  if (!internal_is_music_type (class_name))
+    {
+      programming_error ("Not a music type");
+    }
 
   Stream_event *e = new Stream_event (class_name, mutable_property_alist_);
   Moment length = get_length ();

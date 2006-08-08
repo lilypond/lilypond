@@ -13,7 +13,7 @@
 #include "staff-spacing.hh"
 #include "note-spacing.hh"
 #include "spacing-spanner.hh"
-
+#include "warn.hh"
 #include "moment.hh"
 
 /* Find the loose columns in POSNS, and drape them around the columns
@@ -88,7 +88,10 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	    }
 	  
 	  Spacing_options options;
-	  options.init_from_grob (spacing);
+	  if (spacing)
+	    options.init_from_grob (spacing);
+	  else
+	    programming_error ("Column without spacing object");
 
 	  bool expand_only = false;
 	  Real base_note_space = 0.0;

@@ -254,7 +254,7 @@ Syntax: @var{note}\\laissezVibrer.")
     (LineBreakEvent
      . (
 	(description .  "Allow, forbid or force a line break.")
-	(types . (general-music break-event event))
+	(types . (general-music line-break-event break-event event))
 	))
     
     (LyricCombineMusic
