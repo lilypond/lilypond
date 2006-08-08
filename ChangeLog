@@ -1,5 +1,7 @@
 2006-08-08    <hanwen@lilypond.org>
 
+	* VERSION (PATCH_LEVEL): bump to .6
+
 	* GNUmakefile.in: remove *.ly symlink.
 
 2006-08-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
