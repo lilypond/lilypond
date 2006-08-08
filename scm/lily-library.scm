@@ -452,6 +452,9 @@ possibly turned off."
       0
       (if (< x 0) -1 1)))
 
+(define-public (car< a b) (< (car a) (car b)))
+
+
 (define-public (symbol<? lst r)
   (string<? (symbol->string lst) (symbol->string r)))
 

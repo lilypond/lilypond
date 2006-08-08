@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.9.13"
 \header {
 
 texidoc = " Chord names are generated from a list pitches.  The
@@ -109,14 +109,14 @@ banterProperties = \sequential {
 \score{
     <<
 	\new ChordNames {
-	    \set instrument = #"Ignatzek (default)"
+	    \set shortInstrumentName = #"Ignatzek (default)"
 	    \set instr = #"Def"
 	    \chs
 	}
 	
 	\new ChordNames {
 	    \jazzAltProperties
-	    \set instrument = #"Alternative"
+	    \set shortInstrumentName = #"Alternative"
 	    \set instr = #"Alt"
 	    \chs
 	}
@@ -133,7 +133,7 @@ banterProperties = \sequential {
 	
 	\new ChordNames {
 	    \banterProperties
-	    \set instrument = #"Banter"
+	    \set shortInstrumentName = #"Banter"
 	    \set instr = #"Ban"
 	    \chs
 	}
