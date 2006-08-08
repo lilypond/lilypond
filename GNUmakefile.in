@@ -140,8 +140,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 	cd $(tree-bin) && \
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
 		ln -sf ../../scripts/$(outconfbase)/convert-ly . && \
-		ln -sf ../../scripts/$(outconfbase)/lilypond-book . && \
-		ln -sf ../../scripts/$(outconfbase)/*.ly .
+		ln -sf ../../scripts/$(outconfbase)/lilypond-book .
 	cd $(tree-lib-prefix) && \
 		ln -s ../../../../python/$(outconfbase) python
 	cd $(tree-share-prefix) && \
