@@ -71,37 +71,6 @@
  * example, Ligature_bracket_engraver does not share any of this code.
  */
 
-/*
- * TODO: Let superflous space after each ligature collapse.  The
- * following code should help in doing so (though it does not yet
- * fully work).  Just put the following code into
- * Spacing_spanner::do_measure ().  I put it temporarily here as memo
- * until it really works and I also get Han-Wen's/Jan's permission to
- * add it to the spacing spanner code.
- */
-#if 0 /* experimental code to collapse spacing after ligature */
-SCM incr_scm = lc->get_property ("forced-spacing");
-if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
-  {
-    me->warning (_f ("gotcha: ptr=%ul", lc));//debug
-    ly_display_scm (lc->self_scm ());
-    Real distance;
-    if (incr_scm != SCM_EOL)
-      distance = scm_to_double (incr_scm);
-    else
-      {
-	me->warning (_ ("distance undefined, assuming 0.1"));
-	distance = 0.1;
-      }
-    me->warning (_f ("distance=%f", distance));//debug
-    Real inverse_strength = 1.0;
-    Spaceable_grob::add_spring (lc, rc, distance, inverse_strength);
-    if (Item *rb = r->find_prebroken_piece (LEFT))
-      Spaceable_grob::add_spring (lc, rb, distance, inverse_strength);
-
-    continue;
-  }
-#endif
 
 /*
  * TODO: move this function to class Item?

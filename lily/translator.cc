@@ -183,9 +183,6 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
   name = replace_all (name, '_', '-');
   name += "-event";
   
-  /* It's OK to use scm_gc_protect_object for protection, because r is
-     statically allocated. */
-  // NO it's damn not !!!! --hwn
   SCM class_sym = scm_str2symbol (name.c_str ());
   
   add_listened_event_class (class_sym);
