@@ -62,8 +62,9 @@
 ;; Bass figures.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (format-bass-figure figure event context)
-  (let* ((fig (ly:music-property event 'figure))
+(define-public (format-bass-figure figure stream-event context)
+  (let* ((event (ly:event-property stream-event 'music-cause ))
+	 (fig (ly:music-property event 'figure))
 	 (fig-markup (if (number? figure)
 
 			 ;; this is not very elegant, but center-aligning all digits
