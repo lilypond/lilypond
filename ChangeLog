@@ -1,3 +1,19 @@
+2006-08-08  Joe Neeman  <joeneeman@gmail.com>
+
+	* scm/page.scm (make-page): make it friendlier to call (esp. from C++)
+
+	* scm/layout-page-layout.scm (make-page-from-systems): new function
+	(optimal-page-breaks): use the new page-breaking calling convention
+
+	* scm/define-context-properties.scm (all-user-translation-properties):
+	add revokePageTurns
+
+	* lily/paper-column-engraver.cc (stop_translation_timestep): add
+	revokePageTurns  functionality. If there is a special barline within
+	the breakable region, break there instead of at the end of the region.
+
+	* lily/paper-book.cc (pages): use the new page-breaking calling convention
+
 2006-08-07  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/lexer.ll, lily/source-file.cc: Add \sourcefileline command

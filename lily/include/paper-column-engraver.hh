@@ -19,6 +19,9 @@ class Paper_column_engraver : public Engraver
   void set_columns (Paper_column *, Paper_column *);
   TRANSLATOR_DECLARATIONS (Paper_column_engraver);
 
+  Paper_column *find_turnable_column (Moment after_this);
+  void revoke_page_turns (Moment after_this, Real new_penalty);
+
 protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -41,8 +44,9 @@ protected:
   bool first_;
   Moment last_moment_;
 
-  Moment last_breakable_moment_;
+  Paper_column *last_special_barline_column_;
   Paper_column *last_breakable_column_;
+  vector<Paper_column*> page_turnable_columns_;
 public:
 };
 

@@ -13,7 +13,7 @@
   #:use-module (scm page)
   #:use-module (scm layout-page-dump)
   #:use-module (lily)
-  #:export (post-process-pages optimal-page-breaks))
+  #:export (post-process-pages optimal-page-breaks make-page-from-systems))
 
 (define (post-process-pages layout pages)
   (if (ly:output-def-lookup layout 'write-page-layout #f)
@@ -160,6 +160,20 @@ is what have collected so far, and has ascending page numbers."
                  (+ y topskip))
                (cdr space-result)))))
 
+(define (make-page-from-systems paper-book lines page-number ragged? last?)
+  (let*
+    ((page (make-page
+            paper-book
+            'lines lines
+            'page-number page-number
+            'is-last last?))
+     (height (page-printable-height page))
+     (posns (if (> (length lines) 0)
+		(cdr (space-systems height lines ragged? (ly:paper-book-paper paper-book)))
+		'())))
+    (page-set-property! page 'configuration posns)
+    page))
+
 (define (walk-paths done-lines best-paths current-lines last? current-best
                     paper-book page-alist)
   "Return the best optimal-page-break-node that contains
@@ -170,8 +184,7 @@ corresponding to DONE-LINES.
 CURRENT-BEST is the best result sofar, or #f."
   (let* ((paper (ly:paper-book-paper paper-book))
          (this-page (make-page
-                     page-alist
-                     'paper-book paper-book
+                     paper-book
                      'is-last last?
                      'page-number (if (null? best-paths)
                                       (ly:output-def-lookup paper 'first-page-number)
@@ -258,9 +271,10 @@ DONE."
                     paper-book
                     page-alist))))
 
-(define-public (optimal-page-breaks lines paper-book)
+(define-public (optimal-page-breaks paper-book)
   "Return pages as a list starting with 1st page. Each page is a 'page Prob."
   (let* ((paper (ly:paper-book-paper paper-book))
+	 (lines (ly:paper-book-systems paper-book))
          (page-alist (layout->page-init paper)) 
          (force-equalization-factor (ly:output-def-lookup
                                      paper 'verticalequalizationfactor 0.3)))
