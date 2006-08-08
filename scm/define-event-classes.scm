@@ -154,8 +154,5 @@
    (#t e)))
 
 (define-public (ly:simplify-scheme e)
-  (list 'quasiquote (simplify e))
-)
+  (list 'quasiquote (simplify e)))
 
-; used by lily/dispatcher.cc
-(define-public (car< a b) (< (car a) (car b)))
