@@ -1,4 +1,11 @@
+2006-08-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION (PATCH_LEVEL): bump.
+
 2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/aclocal.m4: better version check; handle fooX.Y
+	binaries too.
 
 	* ly/performer-init.ly: instrument name fixup.
 

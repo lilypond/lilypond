@@ -77,7 +77,7 @@ Dynamic_performer::process_music ()
 	  SCM s = get_property ("midiInstrument");
 
 	  if (!scm_is_string (s))
-	    s = get_property ("instrument");
+	    s = get_property ("instrumentName");
 
 	  if (!scm_is_string (s))
 	    s = scm_makfrom0str ("piano");

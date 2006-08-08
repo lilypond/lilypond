@@ -24,6 +24,7 @@ public:
   Offset center () const;
 
   void translate (Offset o);
+
   /// smallest box enclosing #b#
   void set_empty ();
   void add_point (Offset);
