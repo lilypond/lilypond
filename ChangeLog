@@ -1,5 +1,7 @@
 2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* ly/performer-init.ly: instrument name fixup.
+
 	* input/manual/chord-names-jazz.ly (banterProperties):
 	instrumentName update
 
