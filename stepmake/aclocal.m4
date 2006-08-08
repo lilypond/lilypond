@@ -32,7 +32,7 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ## for compatibility reasons.
     
     ## grab the first version number in  --version output.
-    eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\.[0-9]' \
+    eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep ' [0-9][0-9]*\.[0-9]' \
         | head -n 1 \
 	| tr ' ' '\n' | grep '[0-9]\.[0-9]' | head -n 1 | sed 's/\([0-9.]*\).*/\1/g'\`\"
 
