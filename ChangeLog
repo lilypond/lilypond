@@ -1,5 +1,7 @@
 2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* ly/music-functions-init.ly: change name to BreathingEvent
+
 	* input/regression/*.ly: apply it.
 
 	* python/convertrules.py (conv): better instrumentName conversion

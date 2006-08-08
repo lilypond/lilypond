@@ -125,7 +125,7 @@ breathe =
 #(define-music-function (parser location) ()
             (make-music 'EventChord 
               'origin location
-              'elements (list (make-music 'BreathingSignEvent))))
+              'elements (list (make-music 'BreathingEvent))))
 
 bendAfter =
 #(define-music-function (parser location delta) (integer?)
