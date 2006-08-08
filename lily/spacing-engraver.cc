@@ -170,6 +170,10 @@ Spacing_engraver::stop_translation_timestep ()
   Paper_column *musical_column
     = dynamic_cast<Paper_column *> (unsmob_grob (get_property ("currentMusicalColumn")));
 
+  musical_column->set_object ("spacing", spacing_->self_scm ());
+  unsmob_grob (get_property ("currentCommandColumn"))
+    ->set_object ("spacing", spacing_->self_scm ());
+
   SCM proportional = get_property ("proportionalNotationDuration");
   if (unsmob_moment (proportional))
     {
@@ -211,10 +215,6 @@ Spacing_engraver::stop_translation_timestep ()
 
   musical_column->set_property ("shortest-playing-duration", sh);
   musical_column->set_property ("shortest-starter-duration", st);
-
-  musical_column->set_object ("spacing", spacing_->self_scm ());
-  unsmob_grob (get_property ("currentCommandColumn"))
-    ->set_object ("spacing", spacing_->self_scm ());
 }
 
 
