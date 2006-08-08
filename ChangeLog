@@ -1,5 +1,7 @@
 2006-08-08  Joe Neeman  <joeneeman@gmail.com>
 
+	* lily/include/constrained-breaking.hh: add Line_details (Prob*)
+
 	* scm/page.scm (make-page): make it friendlier to call (esp. from C++)
 
 	* scm/layout-page-layout.scm (make-page-from-systems): new function
