@@ -742,3 +742,4 @@ mangle_cxx_identifier (string cxx_id)
   cxx_id = replace_all (cxx_id, '_', '-');
   return cxx_id;
 }
+

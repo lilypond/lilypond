@@ -23,7 +23,7 @@
 #include "stream-event.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-
+#include "protected-scm.hh"
 #include "translator.icc"
 
 /*
@@ -40,9 +40,10 @@ typedef enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
 struct Pedal_type_info
 {
   string base_name_;
-  SCM event_class_sym_;
-  SCM style_sym_;
-  SCM strings_sym_;
+  Protected_scm event_class_sym_;
+  Protected_scm style_sym_;
+  Protected_scm strings_sym_;
+  
   const char *pedal_line_spanner_c_str_;
   const char *pedal_c_str_;
 };
@@ -139,11 +140,10 @@ init_pedal_types ()
 
       Pedal_type_info *tbl = &pedal_types_[i];
       tbl->base_name_ = name;
-      /* These symbols are static and need to be protected */
-      tbl->event_class_sym_ = scm_gc_protect_object (scm_str2symbol ((base_ident + "-event").c_str ()));
+      tbl->event_class_sym_ = scm_str2symbol ((base_ident + "-event").c_str ());
       tbl->pedal_line_spanner_c_str_ = strdup ((base_name + "PedalLineSpanner").c_str ());
-      tbl->style_sym_ = scm_gc_protect_object (scm_str2symbol (("pedal" + base_name + "Style").c_str ()));
-      tbl->strings_sym_ = scm_gc_protect_object (scm_str2symbol (("pedal" + base_name + "Strings").c_str ()));
+      tbl->style_sym_ = scm_str2symbol (("pedal" + base_name + "Style").c_str ());
+      tbl->strings_sym_ = scm_str2symbol (("pedal" + base_name + "Strings").c_str ());
       tbl->pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());
     }
 }

@@ -105,11 +105,12 @@
 ;; available translators; print warnings otherwise.
 (map-tree (lambda (sym) 
 	    (if (and (symbol? sym)
-		     (not (memq sym (ly:get-listened-event-classes)))
+		     (not (ly:is-listened-event-class sym))
 		     (not (assq sym event-classes))
 		     (not (memq sym unlistened-music-event-classes)))
 		(ly:programming-error (_ "event class ~A seems to be unused") sym)))	  
 	  music-event-tree)
+
 (map (lambda (sym)
        (if (not (pair? (ly:make-event-class sym)))
 	   ;; should be programming-error

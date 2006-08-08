@@ -130,17 +130,42 @@ Translator::disconnect_from_context (Context *c)
     c->events_below ()->remove_listener (r->get_listener_ (this), r->event_class_);
 }
 
-static SCM listened_event_classes = SCM_EOL;
+static SCM listened_event_class_table;
+void
+ensure_listened_hash ()
+{
+  if (!listened_event_class_table)
+    listened_event_class_table = scm_permanent_object (scm_c_make_hash_table (61));
+}
+
 
 LY_DEFINE (ly_get_listened_event_classes, "ly:get-listened-event-classes",
 	   0, 0, 0, (),
 	   "Returns a list of all event classes that some translator listens to.")
 {
-  return listened_event_classes;
+  ensure_listened_hash ();
+  return ly_hash_table_keys (listened_event_class_table);
 }
 
+LY_DEFINE (ly_is_listened_event_class, "ly:is-listened-event-class",
+	   1, 0, 0, (SCM sym),
+	   "Is @var{sym} a listened event class?")
+{
+  ensure_listened_hash ();
+  return scm_hashq_ref (listened_event_class_table, sym, SCM_BOOL_F);
+}
+
+void
+add_listened_event_class (SCM sym)
+{
+  ensure_listened_hash ();
+
+  scm_hashq_set_x (listened_event_class_table, sym, SCM_BOOL_T);
+}
+
+
 /*
-  Internally called once, statically, for each translator
+  internally called once, statically, for each translator
   listener. Connects the name of an event class with a procedure that
   fetches the corresponding listener.
 
@@ -149,18 +174,21 @@ LY_DEFINE (ly_get_listened_event_classes, "ly:get-listened-event-classes",
  */
 void
 Translator::add_translator_listener (translator_listener_record **listener_list,
-			 translator_listener_record *r,
-			 Listener (*get_listener) (void *), 
-			 const char *ev_class)
+				     translator_listener_record *r,
+				     Listener (*get_listener) (void *), 
+				     const char *ev_class)
 {
   /* ev_class is the C++ identifier name. Convert to scm symbol */
   string name = string (ev_class);
   name = replace_all (name, '_', '-');
-  name = name + "-event";
+  name += "-event";
+  
   /* It's OK to use scm_gc_protect_object for protection, because r is
      statically allocated. */
-  SCM class_sym = scm_gc_protect_object (scm_str2symbol (name.c_str ()));
-  listened_event_classes = scm_gc_protect_object (scm_cons (class_sym, listened_event_classes));
+  // NO it's damn not !!!! --hwn
+  SCM class_sym = scm_str2symbol (name.c_str ());
+  
+  add_listened_event_class (class_sym);
   r->event_class_ = class_sym;
   r->get_listener_ = get_listener;
   r->next_ = *listener_list;
@@ -228,7 +256,7 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   interface_name = replace_all (interface_name, '_', '-');
   interface_name += "-interface";
 
-  inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.c_str ()));
+  inf.symbol_ = ly_symbol2scm (interface_name.c_str ());
   ack_array->push_back (inf);
 }
 

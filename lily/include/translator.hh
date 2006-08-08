@@ -16,10 +16,11 @@
 #include "input.hh"
 #include "smobs.hh"
 #include "std-vector.hh"
+#include "protected-scm.hh"
 
 struct Acknowledge_information
 {
-  SCM symbol_;
+  Protected_scm symbol_;
   Engraver_void_function_engraver_grob_info function_;
 };
 
