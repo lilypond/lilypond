@@ -109,7 +109,7 @@ partCombineListener = \layout {
     \context {
 	\Score
 	skipTypesetting = ##t
-	ignoreBarChecks = ##t 
+	ignoreBarChecks = ##t
     }
 }
 

@@ -1,5 +1,10 @@
 2006-08-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* stepmake/aclocal.m4: version check patch (thanks MWD)
+
+	* ly/music-functions-init.ly: robustness. Don't crash if
+	currentBarNumber is not a number.
+
 	* VERSION (PATCH_LEVEL): bump.
 
 2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>

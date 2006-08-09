@@ -115,7 +115,7 @@ barNumberCheck =
 	       (lambda (c)
 		 (let*
 		     ((cbn (ly:context-property c 'currentBarNumber)))
-		   (if (not (= cbn n))
+		   (if (and  (number? cbn) (not (= cbn n)))
 		       (ly:input-message location "Barcheck failed got ~a expect ~a"
 					 cbn n))))))
 
