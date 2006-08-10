@@ -291,7 +291,7 @@ but it can also be used anywhere text is called in lilypond
       #'break-visibility = #begin-of-line-invisible
     \override Score.RehearsalMark #'self-alignment-X = #right
 
-    \set Staff.instrument = \markup{ \column{ Alto solo } }
+    \set Staff.instrumentName = \markup{ \column{ Alto solo } }
     c2^\markup{ don't be \flat }
     \override TextSpanner #'edge-text = #(cons (markup #:italic "rit" ) "")
     b2\startTextSpan
@@ -981,8 +981,8 @@ the start of the staff.  For the first staff, @code{instrument} is
 used, for the following ones, @code{instr} is used.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
-\set Staff.instrument = "Ploink "
-\set Staff.instr = "Plk "
+\set Staff.instrumentName = "Ploink "
+\set Staff.shortInstrumentName = "Plk "
 c1
 \break
 c''
@@ -992,7 +992,7 @@ You can also use markup texts to construct more complicated instrument
 names, for example
 
 @lilypond[quote,fragment,verbatim,ragged-right]
-\set Staff.instrument = \markup {
+\set Staff.instrumentName = \markup {
   \column { "Clarinetti"
             \line { "in B" \smaller \flat } } }
 c''1
@@ -1003,13 +1003,13 @@ If you wish to center the instrument names, you must center all of them
 @lilypond[quote,verbatim,ragged-right]
 { <<
 \new Staff {
-  \set Staff.instrument = \markup {
+  \set Staff.instrumentName = \markup {
     \center-align { "Clarinetti"
       \line { "in B" \smaller \flat } } }
   c''1
 }
 \new Staff {
-  \set Staff.instrument = \markup{ \center-align { Vibraphone }}
+  \set Staff.instrumentName = \markup{ \center-align { Vibraphone }}
   c''1
 }
 >>
@@ -1025,13 +1025,11 @@ To center instrument names while leaving extra space to the right,
 \new StaffGroup \relative
 <<
   \new Staff {
-    \set Staff.instrument
-    = \markup { \hcenter-in #10 "blabla" }
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "blabla" }
     c1 c1
   }
   \new Staff {
-    \set Staff.instrument
-    = \markup { \hcenter-in #10 "blo" }
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "blo" }
     c1 c1
   }
 >>
@@ -2278,7 +2276,7 @@ deliberate nonsense.
 @lilypond[quote,ragged-right,verbatim]
 {
   \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
-  \set Staff.instrument = \markup {
+  \set Staff.instrumentName = \markup {
     \with-color #(x11-color 'navy) "Clarinet"
   }
   \time 2/4

@@ -565,7 +565,7 @@ following example, the accidental touches the note head.
 
 Using Mac OSX 10.3.7, lilypond 2.7.32
 
-\version "2.7.32"
+\version "2.9.13"
 \layout { ragged-right = ##t }
 \relative c'' {
    a4 b cis d

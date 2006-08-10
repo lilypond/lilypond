@@ -1444,7 +1444,7 @@ its fleece was white as snow.
 
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
-@code{vocalName}.  A short version may be entered as @code{vocNam}.
+@code{vocalName}.  A short version may be entered as @code{shortVocalName}.
 
 
 @lilypond[fragment,ragged-right,quote,verbatim,relative=2]
