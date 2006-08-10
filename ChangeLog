@@ -1,3 +1,7 @@
+2006-08-11  Joe Neeman  <joeneeman@gmail.com>
+
+	* scripts/convert-ly.py: honour the -n command-line switch
+
 2006-08-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/output-lib.scm (bar-line::calc-glyph-name): add dashed liine
