@@ -53,8 +53,6 @@ copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
 
-add_version = 1
-
 def warning (s):
     sys.stderr.write (program_name + ": " + _ ("warning: %s") % s + '\n')
 
@@ -224,7 +222,7 @@ def do_one_file (infile_name):
         if lilypond_version_re.search (result):
             result = re.sub (lilypond_version_re_str,
                      '\\' + newversion, result)
-        elif add_version:
+        elif not global_options.skip_version_add:
             result = newversion + '\n' + result
             
         error_file.write ('\n')            
