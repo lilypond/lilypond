@@ -41,7 +41,7 @@
     ))
 
 ;; Maps event-class to a list of ancestors (inclusive)
-(define ancestor-lookup (make-hash-table))
+(define ancestor-lookup (make-hash-table 11))
 
 ;; Each class will be defined as
 ;; (class parent grandparent .. )
