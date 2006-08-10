@@ -1,3 +1,8 @@
+2006-08-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/output-lib.scm (bar-line::calc-glyph-name): add dashed liine
+	break specification.
+
 2006-08-10  Joe Neeman  <joeneeman@gmail.com>
 
 	* Documentation/user: convert-ly the user manual
@@ -32,7 +37,8 @@
 
 	* lily/piano-pedal-engraver.cc (struct Pedal_type_info): idem
 
-	* lily/include/translator.hh (struct Acknowledge_information): add Protected_scm
+	* lily/include/translator.hh (struct Acknowledge_information): add
+	Protected_scm
 
 	* ly/music-functions-init.ly: change name to BreathingEvent
 
@@ -53,7 +59,8 @@
 	* lily/spacing-engraver.cc (stop_translation_timestep): set
 	spacing for proportional notation too.
 
-	* scm/translation-functions.scm (format-bass-figure): inspect stream-event.
+	* scm/translation-functions.scm (format-bass-figure): inspect
+	stream-event.
 
 	* scripts/lilypond-book.py (bindir): add bindir to $PATH.
 
@@ -73,7 +80,8 @@
 	revokePageTurns  functionality. If there is a special barline within
 	the breakable region, break there instead of at the end of the region.
 
-	* lily/paper-book.cc (pages): use the new page-breaking calling convention
+	* lily/paper-book.cc (pages): use the new page-breaking calling
+	convention
 
 2006-08-07  Erik Sandberg  <mandolaerik@gmail.com>
 

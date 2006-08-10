@@ -206,6 +206,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 	 (result (assoc glyph 
 		       '((":|:" . (":|" . "|:"))
 			 ("||:" . ("||" . "|:"))
+			 ("dashed" . ("dashed" . '())) 
 			 ("|" . ("|" . ()))
 			 ("||:" . ("||" . "|:"))
 			 ("|s" . (() . "|"))
