@@ -27,7 +27,7 @@ instrument or a melodic fragment.  Cut and paste this into a file,
 add notes, and you're finished!
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -52,7 +52,7 @@ automatic beaming, you'll have to change or comment out the relevant
 line.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -83,7 +83,7 @@ text = \lyricmode {
 Want to prepare a lead sheet with a melody and chords?  Look no further!
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -116,7 +116,7 @@ harmonies = \chordmode {
 This template allows you to prepare a song with melody, words, and chords.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -157,7 +157,7 @@ harmonies = \chordmode {
 Here is a simple piano staff.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -176,7 +176,7 @@ lower = \relative c {
 
 \score {
    \new PianoStaff <<
-      \set PianoStaff.instrument = "Piano  "
+      \set PianoStaff.instrumentName = "Piano  "
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
    >>
@@ -191,7 +191,7 @@ Here is a typical song format: one staff with the melody and lyrics, with
 piano accompaniment underneath.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 melody = \relative c'' {
    \clef treble
    \key c \major
@@ -247,7 +247,7 @@ Instead of having a full staff for the melody and lyrics, you can place
 the lyrics between the piano staff (and omit the separate melody staff).
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -294,7 +294,7 @@ since the template is right here, you don't have to do the
 tweaking yourself.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 upper = \relative c'' {
   \clef treble
   \key c \major
@@ -391,7 +391,7 @@ This template demonstrates a string quartet.  It also uses a @code{\global}
 section for time and key signatures.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 
 global= {
   \time 4/4
@@ -399,26 +399,26 @@ global= {
 }
 
 violinOne = \new Voice { \relative c''{
-  \set Staff.instrument = "Violin 1 "
+  \set Staff.instrumentName = "Violin 1 "
 
   c2 d e1
 
 \bar "|." }}
 violinTwo = \new Voice { \relative c''{
-  \set Staff.instrument = "Violin 2 "
+  \set Staff.instrumentName = "Violin 2 "
 
   g2 f e1
 
 \bar "|." }}
 viola = \new Voice { \relative c' {
-  \set Staff.instrument = "Viola "
+  \set Staff.instrumentName = "Viola "
   \clef alto
 
   e2 d c1
 
 \bar "|." }}
 cello = \new Voice { \relative c' {
-  \set Staff.instrument = "Cello     "
+  \set Staff.instrumentName = "Cello     "
   \clef bass
 
   c2 b a1
@@ -451,7 +451,7 @@ contains all the music definitions.  The other files -- @code{score.ly},
 
 @verbatim
 %%%%% piece.ly
-\version "2.7.39"
+\version "2.9.13"
 
 global= {
   \time 4/4
@@ -459,26 +459,26 @@ global= {
 }
 
 Violinone = \new Voice { \relative c''{
-  \set Staff.instrument = "Violin 1 "
+  \set Staff.instrumentName = "Violin 1 "
 
   c2 d e1
 
 \bar "|." }}   %*********************************
 Violintwo = \new Voice { \relative c''{
-  \set Staff.instrument = "Violin 2 "
+  \set Staff.instrumentName = "Violin 2 "
 
   g2 f e1
 
 \bar "|." }}   %*********************************
 Viola = \new Voice { \relative c' {
-  \set Staff.instrument = "Viola "
+  \set Staff.instrumentName = "Viola "
   \clef alto
 
   e2 d c1
 
 \bar "|." }}   %*********************************
 Cello = \new Voice { \relative c' {
-  \set Staff.instrument = "Cello     "
+  \set Staff.instrumentName = "Cello     "
   \clef bass
 
   c2 b a1
@@ -497,7 +497,7 @@ music = {
 
 
 %%%%% score.ly
-\version "2.7.39"
+\version "2.9.13"
 \include "piece.ly"
 #(set-global-staff-size 14)
 \score {
@@ -508,7 +508,7 @@ music = {
 
 
 %%%%% vn1.ly
-\version "2.7.39"
+\version "2.9.13"
 \include "piece.ly"
 \score {
   \keepWithTag #'vn1 \music
@@ -517,7 +517,7 @@ music = {
 
 
 %%%%% vn2.ly
-\version "2.7.39"
+\version "2.9.13"
 \include "piece.ly"
 \score {
   \keepWithTag #'vn2 \music
@@ -526,7 +526,7 @@ music = {
 
 
 %%%%% vla.ly
-\version "2.7.39"
+\version "2.9.13"
 \include "piece.ly"
 \score {
   \keepWithTag #'vla \music
@@ -535,7 +535,7 @@ music = {
 
 
 %%%%% vlc.ly
-\version "2.7.39"
+\version "2.9.13"
 \include "piece.ly"
 \score {
   \keepWithTag #'vlc \music
@@ -555,7 +555,7 @@ parts.  For example, the time signature and key signatures are almost
 always the same for all parts.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 global = {
    \key c \major
    \time 4/4
@@ -636,7 +636,7 @@ to the vocal notes (say, tenorMusic), then the changes will also
 apply to the piano reduction.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.7.39"
+\version "2.9.13"
 global = {
    \key c \major
    \time 4/4
@@ -739,7 +739,7 @@ notes.  As a compromise, bar lines are often printed between the
 staves rather than on the staves.
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
-\version "2.7.39"
+\version "2.9.13"
 
 global = {
   \set Score.skipBars = ##t
@@ -789,7 +789,7 @@ global = {
 
 discantusNotes = {
   \transpose c' c'' {
-    \set Staff.instrument = "Discantus  "
+    \set Staff.instrumentName = "Discantus  "
 
     % incipit
     \clef "neomensural-c1"
@@ -825,7 +825,7 @@ discantusLyrics = \lyricmode {
 
 altusNotes = {
   \transpose c' c'' {
-    \set Staff.instrument = "Altus  "
+    \set Staff.instrumentName = "Altus  "
 
     % incipit
     \clef "neomensural-c3"
@@ -859,7 +859,7 @@ altusLyrics = \lyricmode {
 
 tenorNotes = {
   \transpose c' c' {
-    \set Staff.instrument = "Tenor  "
+    \set Staff.instrumentName = "Tenor  "
 
     % incipit
     \clef "neomensural-c4"
@@ -893,7 +893,7 @@ tenorLyrics = \lyricmode {
 
 bassusNotes = {
   \transpose c' c' {
-    \set Staff.instrument = "Bassus  "
+    \set Staff.instrumentName = "Bassus  "
 
     % incipit
     \clef "bass"
@@ -965,7 +965,7 @@ quarter noteheads, and special marks, indicating rests of different length.
 
 @lilypond[quote,verbatim,ragged-right]
 \include "gregorian-init.ly"
-\version "2.8.0"
+\version "2.9.13"
 
 chant = \relative c' {
   \set Score.timing = ##f
@@ -1025,7 +1025,7 @@ is within a @code{\transpose} section.
 @c The `line-width' argument is for the \header.
 
 @lilypond[quote,verbatim,ragged-right,line-width]
-\version "2.7.39"
+\version "2.9.13"
 \header {
   title = "Song"
   subtitle = "(tune)"
@@ -1083,7 +1083,7 @@ trpharmony = \transpose c' d {
 }
 trumpet = {
   \global
-  \set Staff.instrument = #"Trumpet"
+  \set Staff.instrumentName = #"Trumpet"
   \clef treble
   <<
     \trpt
@@ -1100,7 +1100,7 @@ altoharmony = \transpose c' a {
 }
 altosax = {
   \global
-  \set Staff.instrument = #"Alto Sax"
+  \set Staff.instrumentName = #"Alto Sax"
   \clef treble
   <<
     \alto
@@ -1117,7 +1117,7 @@ bariharmony = \transpose c' a \chordmode {
 }
 barisax = {
   \global
-  \set Staff.instrument = #"Bari Sax"
+  \set Staff.instrumentName = #"Bari Sax"
   \clef treble
   <<
     \bari
@@ -1134,7 +1134,7 @@ tboneharmony = \chordmode {
 }
 trombone = {
   \global
-  \set Staff.instrument = #"Trombone"
+  \set Staff.instrumentName = #"Trombone"
   \clef bass
   <<
     \tbone
@@ -1154,7 +1154,7 @@ gtrharmony = \chordmode {
 }
 guitar = {
   \global
-  \set Staff.instrument = #"Guitar"
+  \set Staff.instrumentName = #"Guitar"
   \clef treble
   <<
     \gtr
@@ -1205,7 +1205,7 @@ PianoLH = {
 
 piano = {
   <<
-    \set PianoStaff.instrument = #"Piano"
+    \set PianoStaff.instrumentName = #"Piano"
     \new Staff = "upper" \PianoRH
     \new Staff = "lower" \PianoLH
   >>
@@ -1218,7 +1218,7 @@ Bass = \relative c {
 }
 bass = {
   \global
-  \set Staff.instrument = #"Bass"
+  \set Staff.instrumentName = #"Bass"
   \clef bass
   <<
     \Bass
@@ -1240,7 +1240,7 @@ down = \drummode {
 drumContents = {
   \global
   <<
-    \set DrumStaff.instrument = #"Drums"
+    \set DrumStaff.instrumentName = #"Drums"
     \new DrumVoice { \voiceOne \up }
     \new DrumVoice { \voiceTwo \down }
   >>
@@ -1301,7 +1301,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @li lypond[quote,verbatim,ragged-right,line-width]
-\version "2.7.39"
+\version "2.9.13"
 \header {
   dedication = "dedication"
   title = "Title"

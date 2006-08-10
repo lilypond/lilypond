@@ -928,7 +928,7 @@ statement marks for which version of LilyPond the file was written.
 To mark a file for version 2.6.0, use
 
 @example
-\version "2.6.0"
+\version "2.9.13"
 @end example
 
 @noindent
