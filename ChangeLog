@@ -1,3 +1,8 @@
+2006-08-11  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/define-music-types.scm (music-descriptions):
+	use sustain-event iso. sustain-pedal-event.
+
 2006-08-11  Joe Neeman  <joeneeman@gmail.com>
 
 	* scripts/convert-ly.py: honour the -n command-line switch

@@ -607,7 +607,7 @@ Syntax: @code{s}@var{duration}")
     (SustainEvent
      . (
 	(description . "Depress or release sustain pedal. ")
-	(types . (general-music event pedal-event sustain-pedal-event))
+	(types . (general-music event pedal-event sustain-event))
 	))
     
     (SostenutoEvent
