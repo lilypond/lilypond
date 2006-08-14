@@ -1,3 +1,8 @@
+2006-08-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond-book.py (output): Remove obsolete(!?)
+	\catcode`\@=12 in the LaTeX output.
+
 2006-08-11  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/define-music-types.scm (music-descriptions):
