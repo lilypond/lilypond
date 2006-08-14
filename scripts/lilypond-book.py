@@ -550,7 +550,6 @@ output = {
     LATEX: {
         OUTPUT: r'''{%%
 \parindent 0pt%%
-\catcode`\@=12%%
 \ifx\preLilyPondExample \undefined%%
  \relax%%
 \else%%

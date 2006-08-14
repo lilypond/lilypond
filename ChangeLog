@@ -1,3 +1,9 @@
+2006-08-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond-book.py (output): backport: Remove 
+	obsolete(!?) \catcode`\@=12 in the LaTeX output.
+
+
 2006-08-11  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* stepmake/aclocal.m4: backport: version check patch (thanks MWD)
