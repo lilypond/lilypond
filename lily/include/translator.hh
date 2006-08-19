@@ -20,7 +20,7 @@
 
 struct Acknowledge_information
 {
-  Protected_scm symbol_;
+  SCM symbol_;
   Engraver_void_function_engraver_grob_info function_;
 };
 
