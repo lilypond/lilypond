@@ -134,6 +134,7 @@ def get_option_parser ():
     p.add_option ('-f', '--format',
                   help=_('''use output format FORMAT (texi [default], texi-html, latex, html)'''),
                   action='store')
+    
     p.add_option ("-I", '--include', help=_('add DIR to include path'),
                   metavar="DIR",
                   action='append', dest='include_path',
@@ -1381,7 +1382,11 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
             my_system ('latex %s.texstr' % l)
 
     if ly_names:
-        my_system (string.join ([cmd, 'snippet-map.ly'] + ly_names))
+        open ('snippet-names', 'w').write ('\n'.join (['snippet-map.ly']
+                                                      + ly_names))
+        
+        my_system (string.join ([cmd, 'snippet-names']))
+
 
 LATEX_INSPECTION_DOCUMENT = r'''
 \nonstopmode
@@ -1716,9 +1721,13 @@ def main ():
         and global_options.create_pdf):
         global_options.process_cmd += "--pdf  -deps-font-include -dgs-font-load "
 
+        
     
     if global_options.verbose:
         global_options.process_cmd += " --verbose "
+
+    global_options.process_cmd += " -dread-file-list "
+
     identify ()
 
     try:

@@ -131,7 +131,7 @@ ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
   return string (scm_i_string_chars (str),
-		     (int) scm_i_string_length (str));
+		 (int) scm_i_string_length (str));
 }
 
 char *
