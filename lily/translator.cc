@@ -253,7 +253,10 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   interface_name = replace_all (interface_name, '_', '-');
   interface_name += "-interface";
 
-  inf.symbol_ = ly_symbol2scm (interface_name.c_str ());
+  /*
+    this is only called during program init, so safe to use scm_gc_protect_object()
+  */
+  inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.c_str ()));
   ack_array->push_back (inf);
 }
 
