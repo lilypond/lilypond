@@ -1709,6 +1709,7 @@ def main ():
                               for p in global_options.include_path])
 
     if global_options.format in (TEXINFO, LATEX):
+        ## prevent PDF from being switched on by default.
         global_options.process_cmd += ' --formats=eps '
         
     if (global_options.format in (TEXINFO, LATEX)
