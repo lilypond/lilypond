@@ -33,10 +33,10 @@
 	    polygon
 	    repeat-slash
 	    resetcolor
-	    resetrotatino
+	    resetrotation
 	    round-filled-box
 	    setcolor
-		setrotation
+	    setrotation
 	    text
 	    zigzag-line))
 
@@ -248,9 +248,6 @@
     (format #f "~a draw_repeat_slash"
 	    (numbers->string4 (list x-width width height)))))
 
-;; restore color from stack
-(define (resetcolor) "setrgbcolor\n")
-
 
 (define (round-filled-box left right bottom top blotdiam)
   (let* ((halfblot (/ blotdiam 2))
@@ -264,8 +261,11 @@
 
 ;; save current color on stack and set new color
 (define (setcolor r g b)
-  (format #f "currentrgbcolor ~a setrgbcolor\n"
+  (format #f "gsave ~a setrgbcolor\n"
 	  (numbers->string4 (list r g b))))
+
+;; restore color from stack
+(define (resetcolor) "grestore \n")
 
 ;; rotation around given point
 (define (setrotation ang x y)
