@@ -1,5 +1,9 @@
 2006-08-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/grob.cc (get_print_stencil): use retval.expr() as base for
+	color, not the original stencil. Fixes combinations of
+	color/transparency/rotation
+
 	* scripts/lilypond-book.py (main): add --formats=eps for
 	texinfo/latex.
 
