@@ -1708,10 +1708,14 @@ def main ():
         global_options.process_cmd += string.join ([(' -I %s' % commands.mkarg (p))
                               for p in global_options.include_path])
 
+    if global_options.format in (TEXINFO, LATEX):
+        global_options.process_cmd += ' --formats=eps '
+        
     if (global_options.format in (TEXINFO, LATEX)
         and global_options.create_pdf):
         global_options.process_cmd += "--pdf  -deps-font-include -dgs-font-load "
 
+    
     if global_options.verbose:
         global_options.process_cmd += " --verbose "
     identify ()

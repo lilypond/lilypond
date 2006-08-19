@@ -1,3 +1,11 @@
+2006-08-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scripts/lilypond-book.py (main): add --formats=eps for
+	texinfo/latex.
+
+	* lily/spacing-engraver.cc (stop_translation_timestep): don't
+	crash if spacing_ is nonexistent.
+
 2006-08-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (output): Remove obsolete(!?)
