@@ -427,6 +427,7 @@ main_with_guile (void *, int, char **)
       *tail = scm_cons (scm_makfrom0str (arg), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
+  
   delete option_parser;
   option_parser = 0;
 

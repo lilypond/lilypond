@@ -42,6 +42,7 @@ similar to chord syntax")
 			"dump GC protection info")
 	      (show-available-fonts #f
 				    "List  font names available.")
+	      (read-file-list #f "Read files to be processed from command line arguments")
 	      )))
 
 
@@ -390,6 +391,14 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
+  (if (ly:get-option 'read-file-list)
+      (set! files
+	    (filter (lambda (s)
+		      (> (string-length s) 0))
+		    (apply append
+			   (map (lambda (f) (string-split (ly:gulp-file f) #\nl))
+				files)))
+	    ))
 
   (if (ly:get-option 'show-available-fonts)
       (begin

@@ -1,10 +1,17 @@
 2006-08-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/lily.scm (lilypond-all): option read-file-list: substitute
+	commandline args with contains, split by \n.
+
+	* scripts/lilypond-book.py (Lilypond_file_snippet.my_system):
+	write snippet-names file, call with -dread-file-list. Fixes
+	command limitations on 64-bit systems.
+
 	* input/regression/stencil-color-rotation.ly: new file.
 
 	* lily/include/translator.hh (struct Acknowledge_information):
 	revert: don't use Protected_scm in global objects, as GUILE can't
-	handle gc_unprotect from automated destructors.
+	handle gc_unprotect from automated destructors on MacOS X.
  
 	* lily/grob.cc (get_print_stencil): use retval.expr() as base for
 	color, not the original stencil. Fixes combinations of
