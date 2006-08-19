@@ -16,8 +16,8 @@
 #include "note-head.hh"
 #include "pointer-group-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1)
-  SCM
+MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1);
+SCM
 Lyric_extender::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
@@ -60,7 +60,7 @@ Lyric_extender::print (SCM smob)
     right_point = max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
-  Real pad = 2* h;
+  Real pad = 2 * h;
 
   if (right_text)
     right_point = min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - pad));

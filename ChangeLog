@@ -1,8 +1,14 @@
 2006-08-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/stencil-color-rotation.ly: new file.
+
+	* lily/include/translator.hh (struct Acknowledge_information):
+	revert: don't use Protected_scm in global objects, as GUILE can't
+	handle gc_unprotect from automated destructors.
+ 
 	* lily/grob.cc (get_print_stencil): use retval.expr() as base for
 	color, not the original stencil. Fixes combinations of
-	color/transparency/rotation
+	color/transparency/rotation. Backportme.
 
 	* scripts/lilypond-book.py (main): add --formats=eps for
 	texinfo/latex.
