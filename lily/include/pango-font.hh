@@ -39,6 +39,7 @@ public:
 	      Real);
   ~Pango_font ();
 
+  string description_string () const; 
   SCM font_file_name () const;
   void register_font_file (string, string);
   Stencil text_stencil (string) const;

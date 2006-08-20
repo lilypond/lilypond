@@ -13,9 +13,9 @@
 	    `((point-and-click #t "use point & click")
 	      (paper-size "a4" "the default paper size")
 	      (midi-debug #f "generate human readable MIDI")
-	      (dump-signatures #f "dump output signatures of each system (EPS backend)")
+	      (dump-signatures #f "dump output signatures of each system")
 	      (internal-type-checking #f "check every property assignment for types")
-	      (parse-protect #t    "continue when finding errors in inline
+	      (parse-protect #t "continue when finding errors in inline
 scheme are caught in the parser. If off, halt 
 on errors, and print a stack trace.")
 	      (profile-property-accesses #f "keep statistics of get_property() calls.")
@@ -39,7 +39,7 @@ similar to chord syntax")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
 	      (debug-gc #f
-			"dump GC protection info")
+			"dump memory debugging statistics")
 	      (show-available-fonts #f
 				    "List  font names available.")
 	      (read-file-list #f "Read files to be processed from command line arguments")

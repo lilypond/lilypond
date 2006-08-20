@@ -11,6 +11,17 @@
 
 2006-08-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* make/ly-vars.make (OMF_FILES): strip ps.gz from OMF_FILES 
+
+	* scm/documentation-lib.scm (texi-file-head): category LilyPond.
+
+	* Documentation/user/lilypond.tely: strip lilypond/ from info
+	links, rename to category LilyPond
+
+	* lily/pango-font.cc (description_string): new function.
+
+	* VERSION: release 2.9.15
+
 	* lily/spacing-engraver.cc (stop_translation_timestep): use
 	Dscho's fix for spacing spanner. 
 
@@ -118,7 +129,6 @@
 
 	* lily/spacing-loose-columns.cc (set_loose_columns): don't barf if
 	spacing not set.
-
 
 	* lily/spacing-engraver.cc (stop_translation_timestep): set
 	spacing for proportional notation too.
