@@ -12,9 +12,6 @@
 #include "music.hh"
 #include "simple-music-iterator.hh"
 
-/**
-   Iterate a property.
-*/
 class Apply_context_iterator : public Simple_music_iterator
 {
 public:

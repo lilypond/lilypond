@@ -23,6 +23,7 @@
       multi-measure-text-event note-grouping-event
       pes-or-flexa-event repeat-tie-event spacing-section-event
       layout-instruction-event))
+    (layout-instruction-event . (apply-output-event))
     (script-event . (articulation-event text-script-event))
     (part-combine-event . (solo1-event solo2-event unisono-event))
     (break-event . (line-break-event page-break-event page-turn-event))

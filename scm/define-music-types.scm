@@ -50,7 +50,7 @@ arguments to func are 1. the grob, 2. the originating context,
 3. context where FUNC is called.
 
 ")
-	(types . (general-music event layout-instruction-event))
+	(types . (general-music event apply-output-event))
 	))
     (ArpeggioEvent 
      . (
@@ -337,7 +337,7 @@ SYNTAX
 
 @code{\\override [ @var{Ctxt} . ] @var{Obj} @var{prop} = @var{val}}
 ")
-	(types . (general-music layout-instruction-event))
+	(types . (general-music layout-instruction-event override-property-event))
 	(iterator-ctor . ,ly:push-property-iterator::constructor)
 	))
     (PageBreakEvent

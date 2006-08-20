@@ -1,3 +1,14 @@
+2006-08-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/define-music-types.scm (music-descriptions): use
+	apply-output-event for ApplyOutputEvent
+
+	* lily/output-property-engraver.cc (listen_apply_output): rename
+	from listen_layout_instruction.
+
+	* lily/piano-pedal-engraver.cc (struct Pedal_type_info): new
+	function protect()
+
 2006-08-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/lily.scm (lilypond-all): option read-file-list: substitute
