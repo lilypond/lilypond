@@ -1,5 +1,8 @@
 2006-08-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/spacing-engraver.cc (stop_translation_timestep): use
+	Dscho's fix for spacing spanner. 
+
 	* scm/define-music-types.scm (music-descriptions): use
 	apply-output-event for ApplyOutputEvent
 
