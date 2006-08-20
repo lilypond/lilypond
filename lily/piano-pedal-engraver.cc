@@ -40,12 +40,27 @@ typedef enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
 struct Pedal_type_info
 {
   string base_name_;
-  Protected_scm event_class_sym_;
-  Protected_scm style_sym_;
-  Protected_scm strings_sym_;
+  SCM event_class_sym_;
+  SCM style_sym_;
+  SCM strings_sym_;
   
   const char *pedal_line_spanner_c_str_;
   const char *pedal_c_str_;
+
+  Pedal_type_info ()
+  {
+    event_class_sym_ = SCM_EOL;
+    style_sym_ = SCM_EOL;
+    strings_sym_ = SCM_EOL;
+    pedal_line_spanner_c_str_ = 0;
+    pedal_c_str_ = 0;
+  }
+  void protect ()
+  {
+    scm_gc_protect_object (event_class_sym_);
+    scm_gc_protect_object (style_sym_);
+    scm_gc_protect_object (strings_sym_);
+  }
 };
 
 struct Pedal_info
@@ -138,13 +153,21 @@ init_pedal_types ()
 	  }
       base_ident += String_convert::to_lower (string (name, prev_pos, cur_pos - prev_pos));
 
-      Pedal_type_info *tbl = &pedal_types_[i];
-      tbl->base_name_ = name;
-      tbl->event_class_sym_ = scm_str2symbol ((base_ident + "-event").c_str ());
-      tbl->pedal_line_spanner_c_str_ = strdup ((base_name + "PedalLineSpanner").c_str ());
-      tbl->style_sym_ = scm_str2symbol (("pedal" + base_name + "Style").c_str ());
-      tbl->strings_sym_ = scm_str2symbol (("pedal" + base_name + "Strings").c_str ());
-      tbl->pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());
+      /*
+	be careful, as we don't want to loose references to the _sym_ members.
+       */
+      Pedal_type_info info;
+      info.event_class_sym_ = scm_str2symbol ((base_ident + "-event").c_str ());
+      info.style_sym_ = scm_str2symbol (("pedal" + base_name + "Style").c_str ());
+      info.strings_sym_ = scm_str2symbol (("pedal" + base_name + "Strings").c_str ());
+      
+      info.pedal_line_spanner_c_str_ = strdup ((base_name + "PedalLineSpanner").c_str ());
+      info.base_name_ = name;
+      info.pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());
+
+      info.protect ();
+      
+      pedal_types_[i] = info;
     }
 }
 ADD_SCM_INIT_FUNC (Piano_pedal_engraver_init_pedal_types_, init_pedal_types);

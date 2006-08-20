@@ -20,15 +20,16 @@ class Output_property_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Output_property_engraver);
 protected:
   vector<Stream_event*> props_;
+  
   DECLARE_ACKNOWLEDGER (grob);
-  DECLARE_TRANSLATOR_LISTENER (layout_instruction);
+  DECLARE_TRANSLATOR_LISTENER (apply_output);
 
   void stop_translation_timestep ();
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Output_property_engraver, layout_instruction);
+IMPLEMENT_TRANSLATOR_LISTENER (Output_property_engraver, apply_output);
 void
-Output_property_engraver::listen_layout_instruction (Stream_event *ev)
+Output_property_engraver::listen_apply_output (Stream_event *ev)
 {
   /*
     UGH. Only swallow the output property event in the context
@@ -73,7 +74,7 @@ ADD_TRANSLATOR (Output_property_engraver,
 		"",
 		
 		/* accept */
-		"layout-instruction-event",
+		"apply-output-event",
 		
 		/* read */
 		"",
