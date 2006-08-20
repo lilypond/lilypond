@@ -107,6 +107,7 @@ Spacing_engraver::start_spanner ()
 {
   assert (!spacing_);
 
+
   spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
   spacing_->set_bound (LEFT,
 		       unsmob_grob (get_property ("currentCommandColumn")));
@@ -171,12 +172,12 @@ Spacing_engraver::stop_translation_timestep ()
     = dynamic_cast<Paper_column *> (unsmob_grob (get_property ("currentMusicalColumn")));
 
 
-  if (spacing_)
-    {  
-      musical_column->set_object ("spacing", spacing_->self_scm ());
-      unsmob_grob (get_property ("currentCommandColumn"))
-	->set_object ("spacing", spacing_->self_scm ());
-    }
+  if (!spacing_)
+    start_spanner ();
+
+  musical_column->set_object ("spacing", spacing_->self_scm ());
+  unsmob_grob (get_property ("currentCommandColumn"))
+    ->set_object ("spacing", spacing_->self_scm ());
   
   SCM proportional = get_property ("proportionalNotationDuration");
   if (unsmob_moment (proportional))
