@@ -443,6 +443,8 @@ existing music with another @code{transpose}
 
 Program reference: @internalsref{TransposedMusic}.
 
+Example: @inputfileref{input/@/test,smart@/-transpose@/.ly}.
+
 
 @refbugs
 

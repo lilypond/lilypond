@@ -1,3 +1,14 @@
+2006-08-20  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/lilypond.tely: clarification to
+	license presentation (not to actual license).
+
+	* Documentation/user/basic-notation.itely,
+	instrument-notation.itely: minor changes.
+
+	* input/ {regression, test}/+.ly: clarification to
+	text (you can click on examples).  Thanks, Mats!
+
 2006-08-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/spacing-engraver.cc (stop_translation_timestep): use
