@@ -512,8 +512,8 @@ for showing repeats.
   \consists "Volta_engraver"
 }
 \chordmode { \repeat volta 2 {
-  f1:maj f:7 bes:7
-  c:maj
+  f1:maj7 f:7 bes:7
+  c:maj7
 } \alternative {
   es e
 }
