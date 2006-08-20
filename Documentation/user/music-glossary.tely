@@ -5,9 +5,9 @@
 @documentencoding utf-8
 @documentlanguage en
 
-@dircategory GNU music project
+@dircategory LilyPond
 @direntry
-* Glossary: (lilypond/music-glossary).  Glossary of music terms.
+* Glossary: (music-glossary).  Glossary of music terms.
 @end direntry
 
 @ifhtml

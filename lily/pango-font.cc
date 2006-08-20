@@ -174,7 +174,8 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 
       if (glyph_name[0] ==  '\0' && has_glyph_names)
 	{
-	  programming_error ("Glyph has no name, but font supports glyph naming. Skipping glyph.");
+	  programming_error ("Glyph has no name, but font supports glyph naming. Skipping glyph: "
+			     + description_string ());
 	  continue;
 	}
 	  
@@ -323,13 +324,10 @@ Pango_font::text_stencil (string str) const
       /*
 	For Pango based backends, we take a shortcut.
       */
-      char *descr_string = pango_font_description_to_string (pango_description_);
       SCM exp
 	= scm_list_3 (ly_symbol2scm ("utf-8-string"),
-		      scm_makfrom0str (descr_string),
+		      scm_makfrom0str (description_string ().c_str ()),
 		      scm_makfrom0str (str.c_str ()));
-
-      g_free (descr_string);
 
       Box b (Interval (0, 0), Interval (0, 0));
       b.unite (dest.extent_box ());
@@ -339,6 +337,16 @@ Pango_font::text_stencil (string str) const
 
   return dest;
 }
+
+string
+Pango_font::description_string () const
+{
+  char *descr_string = pango_font_description_to_string (pango_description_);
+  string s (descr_string);
+  g_free (descr_string);
+  return s;
+}
+
 
 SCM
 Pango_font::font_file_name () const

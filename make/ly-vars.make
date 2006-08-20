@@ -5,7 +5,7 @@
 # huh ? these are for documentation?!
 TELY_FILES := $(call src-wildcard,*.tely)
 
-OMF_FILES += $(foreach format, html pdf ps.gz, $(foreach f, $(TELY_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
+OMF_FILES += $(foreach format, html pdf, $(foreach f, $(TELY_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
 
 ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)

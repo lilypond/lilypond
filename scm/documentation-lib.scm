@@ -111,7 +111,7 @@
    "\\input texinfo @c -*-texinfo-*-"
    "\n@setfilename " file-name ".info"
    "\n@settitle " name
-   "\n@dircategory GNU music project"
+   "\n@dircategory LilyPond"
    "\n@direntry"
    ;; prepend GNU for dir, must be unique
    "\n* GNU " name ": (" file-name ").          " name "."
