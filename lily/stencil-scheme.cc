@@ -213,23 +213,37 @@ LY_DEFINE (ly_stencil_add, "ly:stencil-add",
 }
 
 LY_DEFINE (ly_make_stencil, "ly:make-stencil",
-	   3, 0, 0, (SCM expr, SCM xext, SCM yext),
+	   1, 2, 0, (SCM expr, SCM xext, SCM yext),
 	   " \n"
 	   "Stencils are a device independent output expressions."
 	   "They carry two pieces of information: \n\n"
 	   "1: a specification of how to print this object. "
 	   "This specification is processed by the output backends, "
 	   " for example @file{scm/output-ps.scm}.\n\n"
-	   "2: the vertical and horizontal extents of the object.\n\n")
+	   "2: the vertical and horizontal extents of the object.\n\n"
+	   "If the extents are unspecified, they are taken  to be empty."
+	   )
 {
   SCM_ASSERT_TYPE (!scm_is_pair (expr)
 		   || is_stencil_head (scm_car (expr)),
 		   expr, SCM_ARG1, __FUNCTION__, "registered stencil expression");
 
-  SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
-  SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");
 
-  Box b (ly_scm2interval (xext), ly_scm2interval (yext));
+  Interval x; 
+  if (xext != SCM_UNDEFINED)
+    {
+      SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
+      x = ly_scm2interval (xext);
+    }
+
+  Interval y; 
+  if (yext != SCM_UNDEFINED)
+    {
+      SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");
+      y = ly_scm2interval (yext);
+    }
+
+  Box b (x, y);
   Stencil s (b, expr);
   return s.smobbed_copy ();
 }

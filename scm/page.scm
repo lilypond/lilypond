@@ -240,12 +240,7 @@
       )))
 
 (define (make-page-stencil page)
-  "Construct a stencil representing the page from LINES.
-
- Offsets is a list of increasing numbers. They must be negated to
-create offsets.
-"
-
+  "Construct a stencil representing the page from PAGE."
   
 
   (page-translate-systems page)
@@ -258,7 +253,6 @@ create offsets.
        (number (page-page-number page))
 
        ;; TODO: naming paper-height/paper-width not analogous to TeX.
-
        
        (system-xoffset (ly:output-def-lookup layout 'horizontal-shift 0.0))
        (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
@@ -272,10 +266,7 @@ create offsets.
 			(interval-length (ly:stencil-extent (prop 'head-stencil) Y))
 			0.0))
 
-       (page-stencil (ly:make-stencil
-		      '()
-		      (cons (prop 'left-margin) (prop 'paper-width))
-		      (cons (- (prop 'top-margin)) 0)))
+       (page-stencil (ly:make-stencil '()))
 
        (last-system #f)
        (last-y 0.0)
@@ -286,7 +277,7 @@ create offsets.
 								  (cons
 								   (+ system-xoffset x)
 								   (- 0 head-height y (prop 'top-margin)))
-
+								  
 								  )))))
        (add-system
 	(lambda (system)
@@ -325,17 +316,17 @@ create offsets.
 		    lines
 		    (append (cdr lines) (list #f)))
 	  (paper-system-annotate-last (car (last-pair lines)) layout)))
-    
-    (set! page-stencil (ly:stencil-combine-at-edge
-			page-stencil Y DOWN
-			(if (and
-			     (ly:stencil? head)
-			     (not (ly:stencil-empty? head)))
-			    head
-			    (ly:make-stencil "" (cons 0 0) (cons 0 0)))
-			    0. 0.))
 
+    (if (and
+	 (ly:stencil? head)
+	 (not (ly:stencil-empty? head)))
+	
+	(set! page-stencil (ly:stencil-add page-stencil 
+					   (ly:stencil-translate-axis head
+								      (- 0 head-height (prop 'top-margin)) Y))))
+					   
     (map add-system lines)
+
 
     (ly:prob-set-property! page 'bottom-system-edge
 			   (car (ly:stencil-extent page-stencil Y)))
@@ -370,6 +361,7 @@ create offsets.
     (if (or (annotate? layout)
 	    (ly:output-def-lookup layout 'annotate-page #f))
 	(set! page-stencil (annotate-page layout page-stencil)))
+
 
     page-stencil))
               

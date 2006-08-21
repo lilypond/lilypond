@@ -1,4 +1,12 @@
+2006-08-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/page.scm (make-page-stencil): don't rely on extents of
+	page-stencil. This fixes spurious space around .EPS files produced
+	with the EPS backend.
+
 2006-08-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/stencil-scheme.cc (LY_DEFINE): make extent arguments optional.
 
 	* lily/hara-kiri-engraver.cc (process_music): remember
 	keepAliveInterfaces after processing \set
