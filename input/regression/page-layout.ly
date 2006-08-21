@@ -37,7 +37,12 @@ This file is best viewed outside the collated files document.
     line-width = 15\cm
     %rigthmargin = 3\cm
     interscoreline = 3\cm
-}
+
+    annotate-spacing = ##t
+
+
+    
+  }
 
 
 \book {
