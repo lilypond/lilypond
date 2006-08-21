@@ -1,5 +1,8 @@
 2006-08-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/hara-kiri-engraver.cc (process_music): remember
+	keepAliveInterfaces after processing \set
+
 	* lily/lyric-extender.cc (print): support left/right-padding for
 	extenders.
 
