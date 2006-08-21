@@ -201,7 +201,6 @@ Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s,
     {
       programming_error ("Stencil::moved_to_edge: adding empty stencil.");
       his_extent = 0.0;
-      //      SCM_ASSERT_TYPE (0, s.expr (), SCM_ARG1, __FUNCTION__, "non-empty stencil");
     }
   else
     his_extent = i[-d];

@@ -196,7 +196,7 @@ if not dirs:
 allfiles = []
 
 for d in dirs:
-    allfiles = allfiles + find ('*.ly.txt', d)
+    allfiles = allfiles + find ('*.ly', d)
 
 gen_list (allfiles, outfile)
 
