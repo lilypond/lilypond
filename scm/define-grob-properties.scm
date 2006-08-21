@@ -260,8 +260,7 @@ objects in higher layers.")
 sum of 2 numbers.  The first is the factor for line thickness, and the
 second for staff space. Both contributions are added.")
      (left-padding ,ly:dimension? "The amount of space that is put
-left to a group of accidentals.")
-     
+left to an object (eg. a group of accidentals).")
      (length ,ly:dimension? "User override for the stem length of
 unbeamed stems.")
      (length-fraction ,number? "Multiplier for lengths. Used for
@@ -351,8 +350,7 @@ quicker the slur attains it @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
 @code{interesting-items}")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
-     (right-padding ,ly:dimension? "Space to insert between note and
-accidentals.")
+     (right-padding ,ly:dimension? "Space to insert on the right side  of an object (eg. between note and its accidentals.)")
      (rotation ,list? "Number of degrees to rotate this object, and what point
 to rotate around. #'(45 0 0) means rotate 45 degrees around the center of this object.")
      (same-direction-correction ,number? "Optical correction amount
