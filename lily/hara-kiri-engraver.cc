@@ -23,7 +23,7 @@ protected:
   virtual Spanner *get_spanner ();
   DECLARE_ACKNOWLEDGER (grob);
   virtual void add_element (Grob *e);
-  void start_translation_timestep ();
+  void process_music ();
   virtual void derived_mark () const;
   SCM interesting_;
 public:
@@ -43,9 +43,9 @@ Hara_kiri_engraver::derived_mark () const
 }
 
 void
-Hara_kiri_engraver::start_translation_timestep ()
+Hara_kiri_engraver::process_music ()
 {
-  Axis_group_engraver::start_translation_timestep ();
+  Axis_group_engraver::process_music ();
   interesting_ = get_property ("keepAliveInterfaces");
 }
 
