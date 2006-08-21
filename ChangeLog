@@ -1,5 +1,8 @@
 2006-08-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/lyric-extender.cc (print): support left/right-padding for
+	extenders.
+
 	* scm/documentation-generate.scm (string-append): revert lilypond/
 	path, doc why.
 

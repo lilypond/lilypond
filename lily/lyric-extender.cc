@@ -60,16 +60,17 @@ Lyric_extender::print (SCM smob)
     right_point = max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
-  Real pad = 2 * h;
+  Drul_array<Real> paddings (robust_scm2double (me->get_property ("left-padding"), h),
+			     robust_scm2double (me->get_property ("right-padding"), h));
 
   if (right_text)
-    right_point = min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - pad));
+    right_point = min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - paddings[RIGHT]));
 
   /* run to end of line. */
   if (me->get_bound (RIGHT)->break_status_dir ())
-    right_point = max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - pad));
+    right_point = max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - paddings[RIGHT]));
 
-  left_point += pad;
+  left_point += paddings[LEFT];
   Real w = right_point - left_point;
 
   if (w < 1.5 * h)
@@ -86,4 +87,9 @@ Lyric_extender::print (SCM smob)
 ADD_INTERFACE (Lyric_extender, "lyric-extender-interface",
 	       "The extender is a simple line at the baseline of the lyric "
 	       "that helps show the length of a melissima (tied/slurred note).",
-	       "next thickness heads");
+	       "heads"
+	       "left-padding "
+	       "next "
+	       "right-padding "
+	       "thickness "
+	       );
