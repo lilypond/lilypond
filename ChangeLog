@@ -9,6 +9,8 @@
 	* input/ {regression, test}/+.ly: clarification to
 	text (you can click on examples).  Thanks, Mats!
 
+	* input/manual/bar-lines.ly: adds ||: repeats.
+
 2006-08-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* make/ly-vars.make (OMF_FILES): strip ps.gz from OMF_FILES 
