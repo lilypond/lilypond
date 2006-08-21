@@ -36,7 +36,7 @@ For a good impression of the quality print out the PDF file.
 """
 
 headertext_nopics= r"""
-<p>Nothing to be seen here, move along.
+<p>No examples were found in this directory. 
 """
 
 #

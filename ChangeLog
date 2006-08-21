@@ -2,6 +2,7 @@
 
 	* buildscripts/mutopia-index.py (allfiles): look for .ly rather
 	than .ly.txt.
+	(headertext_nopics): sanitize no-examples text.
 
 	* scm/page.scm (make-page-stencil): don't rely on extents of
 	page-stencil. This fixes spurious space around .EPS files produced
