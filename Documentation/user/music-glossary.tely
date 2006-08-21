@@ -5,9 +5,10 @@
 @documentencoding utf-8
 @documentlanguage en
 
+@c see lilypond.tely for info installation note
 @dircategory LilyPond
 @direntry
-* Glossary: (music-glossary).  Glossary of music terms.
+* Glossary: (lilypond/music-glossary).  Glossary of music terms.
 @end direntry
 
 @ifhtml

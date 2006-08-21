@@ -54,7 +54,7 @@
 (display
  (string-append
   (texi-file-head "LilyPond program-reference" file-name
-		  "(lilypond-internals.info)")
+		  "(lilypond/lilypond-internals.info)")
   "
 
 @c NOTE: This is documentation-generate.scm, not macros.itexi
