@@ -22,15 +22,19 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c    LilyPond  program.
 @end ignore
 
+
+@c
+@c Info files are installed in subdirectories to allow images to be present. 
+@c 
 @dircategory LilyPond
 @direntry
-* LilyPond: (lilypond).           The GNU music typesetter.
-* abc2ly: (lilypond)Invoking abc2ly.          Importing ABC.      
-* convert-ly: (lilypond)Invoking convert-ly.  Older LilyPond versions.
-* etf2ly: (lilypond)Invoking etf2ly.          Importing Finale.
-* lilypond-book: (lilypond)LilyPond-book.     Itegrating text and music.
-* midi2ly: (lilypond)Invoking midi2ly.        Importing MIDI.
-* mup2ly: (lilypond)Invoking mup2ly.          Importing Mup.
+* LilyPond: (lilypond/lilypond).           The GNU music typesetter.
+* abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.      
+* convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
+* etf2ly: (lilypond/lilypond)Invoking etf2ly.          Importing Finale.
+* lilypond-book: (lilypond/lilypond)LilyPond-book.     Itegrating text and music.
+* midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
+* mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup.
 @end direntry
 
 @c don't remove this comment.

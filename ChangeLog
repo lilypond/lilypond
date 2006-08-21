@@ -1,3 +1,8 @@
+2006-08-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/documentation-generate.scm (string-append): revert lilypond/
+	path, doc why.
+
 2006-08-20  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/lilypond.tely: clarification to
