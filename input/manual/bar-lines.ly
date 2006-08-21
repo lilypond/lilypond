@@ -3,7 +3,7 @@
 
 \header {
     
-    texidoc = "There a many types of bar lines available."
+    texidoc = "There are many types of bar lines available."
 
 }
 
@@ -21,5 +21,13 @@
     c \bar ":|:" \mark \markup {  \simple #":|:" }
     c \bar "|." \mark \markup {  \simple #"|." }
     c \bar ":" \mark \markup {  \simple #":" }
+
+    c c c
+    \bar "||:" \mark \markup { \tiny \typewriter "unbroken" \simple
+#"||:" }
+    c c c c
+    \break
+    \bar "||:" \mark \markup { \tiny \typewriter "broken" \simple
+#"||:" }
     c
 }
