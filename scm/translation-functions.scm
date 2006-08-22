@@ -6,13 +6,11 @@
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; metronome marks
-(define-public (format-metronome-markup event context)
-  (let* ((dur (ly:music-property event 'tempo-unit))
-       (count (ly:music-property event 'metronome-count))
-       (note-mark (make-smaller-markup
-		   (make-note-by-number-markup (ly:duration-log dur)
-					       (ly:duration-dot-count dur)
-					       1))))  
+(define-public (format-metronome-markup dur count context)
+  (let* ((note-mark (make-smaller-markup
+		     (make-note-by-number-markup (ly:duration-log dur)
+						 (ly:duration-dot-count dur)
+						 1))))  
     (make-line-markup
      (list
       (make-general-align-markup Y DOWN note-mark)

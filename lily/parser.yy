@@ -800,15 +800,6 @@ output_def_body:
 	| output_def_body context_def_spec_block	{
 		assign_context_def ($$, $2);
 	}
-	| output_def_body tempo_event  {
-		/*
-			junk this ? there already is tempo stuff in
-			music.
-		*/
-		int m = scm_to_int (unsmob_music($2)->get_property ("metronome-count"));
-		Duration *d = unsmob_duration (unsmob_music($2)->get_property ("tempo-unit"));
-		set_tempo ($$, d->get_length (), m);
-	}
 	| output_def_body error {
 
 	}
@@ -816,11 +807,8 @@ output_def_body:
 
 tempo_event:
 	TEMPO steno_duration '=' bare_unsigned	{
-		Music *m = MY_MAKE_MUSIC ("MetronomeChangeEvent");
-		m->set_property ("tempo-unit", $2);
-		m->set_property ("metronome-count", scm_from_int ( $4));
-		$$ = m->unprotect ();
-	}
+		$$ = MAKE_SYNTAX ("tempo", @$, $2, scm_int2num ($4));
+	}				
 	;
 
 /*

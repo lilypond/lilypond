@@ -2832,3 +2832,36 @@ def conv (str):
 
 conversions.append (((2, 9, 13), conv, """instrument -> instrumentName, instr -> shortInstrumentName, vocNam -> shortVocalName"""))
 
+
+def conv (str):
+    m = re.search (r'\\tempo ([0-9]+)\s*([.]*)\s*=\s*([0-9]+)', str)
+    if m and re.search (r'\\midi', str):
+        dur = int (m.group (1))
+        dots = len (m.group (2))
+        count = int (m.group (3))
+
+        log2 = 0
+        while dur > 1 :
+            dur /= 2
+            log2 += 1
+        
+        den = (1 << dots) * (1 << log2)
+        num = ((1 << (dots+1))  - 1)
+
+        error_file.write (r"""
+
+\tempo in \midi is no longer supported. Use
+
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment %d %d)
+      }
+    }
+
+""" % (num*count, den))
+        
+    return str
+
+conversions.append (((2, 9, 16), conv, """deprecate \\tempo in \\midi"""))
+

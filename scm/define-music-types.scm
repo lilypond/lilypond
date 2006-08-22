@@ -631,12 +631,6 @@ Syntax: @code{\\@var{number}}.")
 	(types . (general-music string-number-event event))
 	)) 
 
-    (MetronomeChangeEvent
-     . (
-	(description .	"Change tempo setting (in beats per minute).")
-	(types . (general-music metronome-change-event tempo-event event))
-	))
-    
     (TextScriptEvent
      . (
 	(description .	"")
