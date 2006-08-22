@@ -124,6 +124,6 @@ translation property")
      (void ,boolean? "If this property is #t, then the music expression is to be
 discarded by the toplevel music handler.")
      (what ,symbol? "What to change for auto-change. FIXME, naming")
-
+     (untied ,boolean? "Set for note in chord that should not be tied.")
      (untransposable ,boolean? "If set, this music is not transposed.")
      )))

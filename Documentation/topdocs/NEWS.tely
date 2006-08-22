@@ -66,9 +66,18 @@ which scares away people.
 
 @end ignore
 
+@item Ties may be switched off for individual notes in tied chords,
+
+@lilypond[ragged-right,relative,fragment]
+<c e \untied g b> ~  < c e g b >
+@end lilypond
+
+This feature was sponsored by Steve Doonan.
+
 @item Lyric extenders now have tunable padding.
 
 This feature was sponsored by David Griffel
+
 
 @item
 Instrument changes are better supported: names in the margin can be

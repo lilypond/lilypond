@@ -111,6 +111,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	maybe should check positions too.
       */
       if (right_ev && left_ev
+	  && !to_boolean (left_ev->get_property ("untied"))
 	  && ly_is_equal (right_ev->get_property ("pitch"),
 			  left_ev->get_property ("pitch")))
 	{
