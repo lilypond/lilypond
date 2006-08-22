@@ -117,6 +117,10 @@
     
     melismaBusyProperties = #default-melisma-properties
     instrumentName = #"bright acoustic"
+
+    %% quarter = 60
+    tempoWholesPerMinute = #(ly:make-moment 15 1)
+    
     \accepts Staff
     \accepts DrumStaff
     \accepts GrandStaff

@@ -1,5 +1,23 @@
 2006-08-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* python/convertrules.py (conv): warning on \tempo{}
+
+	* ly/performer-init.ly: set tempoWholesPerMinute.
+
+	* ly/midi-init.ly: remove \midi
+
+	* lily/tempo-performer.cc: look at tempoWholesPerMinute to set
+	MIDI tempo.
+
+	* lily/metronome-engraver.cc (process_music): use tempoUnitCount
+	tempoUnitDuration for determining what to print.
+
+	* lily/lyric-extender.cc: typo.
+
+	* lily/parser.yy (output_def_body): disallow \tempo in \midi{}
+
+	* lily/duration-scheme.cc (LY_DEFINE): ly:duration-length: new function.
+
 	* scm/lily.scm (define-scheme-options): alphabetize, add eps-pad-boxes.
 
 	* scm/framework-ps.scm (dump-stencil-as-EPS): only pad boxes if

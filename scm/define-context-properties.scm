@@ -472,6 +472,10 @@ Example:
 This will create a start-repeat bar in this staff only.
 Valid values are described in @internalsref{bar-line-interface}.
 ")
+     (tempoWholesPerMinute 'ly:moment? "The tempo in whole notes per minute.")
+     (tempoUnitDuration 'ly:duration? "Unit for specifying tempo.")
+     (tempoUnitCount 'number? "Count for specifying tempo.")
+     
      )))
 
 (define-public all-internal-translation-properties
