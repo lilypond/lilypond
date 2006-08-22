@@ -1726,7 +1726,7 @@ def main ():
     if global_options.verbose:
         global_options.process_cmd += " --verbose "
 
-    global_options.process_cmd += " -dread-file-list "
+    global_options.process_cmd += " -dread-file-list -deps-pad-boxes "
 
     identify ()
 

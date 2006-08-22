@@ -518,8 +518,13 @@
 	   ;; the left-overshoot is to make sure that
 	   ;; bar numbers  stick out of margin uniformly.
 	   ;;
-	   (list (min left-overshoot (car xext))
-		 (car yext) (cdr xext) (cdr yext))))
+	   (list
+
+	    (if (ly:get-option 'eps-pad-boxes) 
+		(min left-overshoot (car xext))
+		(car xext))
+	    (car yext) (cdr xext) (cdr yext))))
+	 
 	 (rounded-bbox (to-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts?)))

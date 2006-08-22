@@ -10,39 +10,41 @@
   (for-each (lambda (x)
 	      (ly:add-option (car x) (cadr x) (caddr x)))
 	  
-	    `((point-and-click #t "use point & click")
-	      (paper-size "a4" "the default paper size")
-	      (midi-debug #f "generate human readable MIDI")
+	    `(
+	      (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
+	      (book-title-preview #t "include book-titles in preview images.")
+	      (debug-gc #f
+			"dump memory debugging statistics")
+	      (delete-intermediate-files #f
+					 "delete unusable PostScript files")
 	      (dump-signatures #f "dump output signatures of each system")
+	      (eps-font-include #f "Include fonts in separate-system EPS files.")
+	      (eps-pad-boxes #f "Pad EPS bounding boxes to guarantee alignment between systems")
+	      (gs-font-load #f
+			    "load fonts via Ghostscript.")
+	      (gui #f "running from gui; redirect stderr to log file")
 	      (internal-type-checking #f "check every property assignment for types")
-	      (parse-protect #t "continue when finding errors in inline
-scheme are caught in the parser. If off, halt 
-on errors, and print a stack trace.")
-	      (profile-property-accesses #f "keep statistics of get_property() calls.")
+	      (midi-debug #f "generate human readable MIDI")
 	      (old-relative #f
 			    "relative for simultaneous music works
 similar to chord syntax")
 	      (object-keys #f
 			   "experimental mechanism for remembering tweaks")
+	      (point-and-click #t "use point & click")
+	      (paper-size "a4" "the default paper size")
+	      (parse-protect #t "continue when finding errors in inline
+scheme are caught in the parser. If off, halt 
+on errors, and print a stack trace.")
+	      (profile-property-accesses #f "keep statistics of get_property() calls.")
 	      (resolution 101 "resolution for generating bitmaps")
-	      (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
-	      (book-title-preview #t "include book-titles in preview images.")
-	      (eps-font-include #f "Include fonts in separate-system EPS files.")
-	      (gs-font-load #f
-			    "load fonts via Ghostscript.")
-	      (gui #f "running from gui; redirect stderr to log file")
-	      (delete-intermediate-files #f
-					 "delete unusable PostScript files")
+	      (read-file-list #f "Read files to be processed from command line arguments")
 	      (safe #f "Run safely")
-	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN")
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
-	      (debug-gc #f
-			"dump memory debugging statistics")
 	      (show-available-fonts #f
 				    "List  font names available.")
-	      (read-file-list #f "Read files to be processed from command line arguments")
+	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      )))
 
 
