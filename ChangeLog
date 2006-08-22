@@ -1,5 +1,9 @@
 2006-08-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* THANKS: update sponsors.
+
+	* ly/english.ly: quarter tone naming (thanks, Trevor Baca)
+
 	* Documentation/topdocs/NEWS.tely (Top): doc new feature.
 
 	* input/regression/tie-chord-untied.ly: new file.
