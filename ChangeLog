@@ -1,5 +1,14 @@
 2006-08-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): doc new feature.
+
+	* input/regression/tie-chord-untied.ly: new file.
+
+	* lily/tie-engraver.cc (acknowledge_note_head): check 'untied property.
+
+	* scm/define-music-properties.scm (all-music-properties): add
+	'untied property.
+
 	* buildscripts/mutopia-index.py (allfiles): look for .ly rather
 	than .ly.txt.
 	(headertext_nopics): sanitize no-examples text.

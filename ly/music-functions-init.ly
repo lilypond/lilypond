@@ -362,11 +362,6 @@ pitchedTrill =
 	   (display sec-note-events)))
 
      main-note))
-
-
-
-
-
    
 parenthesize =
 #(define-music-function (parser loc arg) (ly:music?)
@@ -571,3 +566,17 @@ tag = #(define-music-function (parser location tag arg)
 unfoldRepeats =
 #(define-music-function (parser location music) (ly:music?)
 		  (unfold-repeats music))
+
+untied =
+#(define-music-function (parser location note) (ly:music?)
+   "Specify that @var{note} should not have ties. " 
+   (set! (ly:music-property note 'untied) #t)
+   note)
+
+withMusicProperty =
+#(define-music-function (parser location sym val music) (symbol? scheme? ly:music?)
+   "Set @var{sym} to @var{val} in @var{music}."
+
+   (set! (ly:music-property music sym) val)
+   music)
+
