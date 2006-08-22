@@ -1,5 +1,12 @@
 2006-08-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/lily.scm (define-scheme-options): alphabetize, add eps-pad-boxes.
+
+	* scm/framework-ps.scm (dump-stencil-as-EPS): only pad boxes if
+	eps-pad-boxes is set.
+
+	* scripts/lilypond-book.py (main): use -deps-pad-boxes.
+
 	* THANKS: update sponsors.
 
 	* ly/english.ly: quarter tone naming (thanks, Trevor Baca)
