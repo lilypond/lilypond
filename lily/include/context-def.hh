@@ -43,6 +43,8 @@ public:
   SCM get_translator_group_type () const { return translator_group_type_; }
   void set_acceptor (SCM accepts, bool add);
 
+  VIRTUAL_COPY_CONSTRUCTOR(Context_def, Context_def);
+
   vector<Context_def*> path_to_acceptable_context (SCM type_string,
 						      Output_def *) const;
   Context *instantiate (SCM extra_ops, Object_key const *);
@@ -50,7 +52,6 @@ public:
   SCM to_alist () const;
   static SCM make_scm ();
 
-  SCM clone_scm () const;
   void apply_default_property_operations (Context *);
 
 private:

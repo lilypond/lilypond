@@ -2834,8 +2834,8 @@ conversions.append (((2, 9, 13), conv, """instrument -> instrumentName, instr ->
 
 
 def conv (str):
-    m = re.search (r'\\tempo ([0-9]+)\s*([.]*)\s*=\s*([0-9]+)', str)
-    if m and re.search (r'\\midi', str):
+
+    def sub_tempo (m):
         dur = int (m.group (1))
         dots = len (m.group (2))
         count = int (m.group (3))
@@ -2848,10 +2848,7 @@ def conv (str):
         den = (1 << dots) * (1 << log2)
         num = ((1 << (dots+1))  - 1)
 
-        error_file.write (r"""
-
-\tempo in \midi is no longer supported. Use
-
+        return  """
   \midi {
     \context {
       \Score
@@ -2859,8 +2856,9 @@ def conv (str):
       }
     }
 
-""" % (num*count, den))
-        
+""" % (num*count, den)
+    
+    str = re.sub (r'\\midi\s*{\s*\\tempo ([0-9]+)\s*([.]*)\s*=\s*([0-9]+)\s*}', sub_tempo, str)
     return str
 
 conversions.append (((2, 9, 16), conv, """deprecate \\tempo in \\midi"""))

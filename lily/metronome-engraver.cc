@@ -85,10 +85,10 @@ Metronome_mark_engraver::process_music ()
 			       context ()->self_scm ());
 
       text_->set_property ("text", result);
-
-      last_duration_ = duration;
-      last_count_ = count;
     }
+
+  last_duration_ = duration;
+  last_count_ = count;
 }
 
 #include "translator.icc"

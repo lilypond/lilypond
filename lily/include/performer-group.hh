@@ -21,7 +21,6 @@ public:
   void do_announces ();
   virtual void announce_element (Audio_element_info);
   virtual void play_element (Audio_element *p);
-  virtual int get_tempo () const;
 
 protected:
   vector<Audio_element_info> announce_infos_;

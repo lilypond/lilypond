@@ -7,7 +7,7 @@
 */
 
 #include "input-smob.hh"
-
+#include "source-file.hh"
 #include "std-string.hh"
 
 #include "ly-smobs.icc"
@@ -18,8 +18,13 @@ Input dummy_input_global;
 static long input_tag;
 
 static
-SCM mark_smob (SCM)
+SCM mark_smob (SCM s)
 {
+  Input *sc = (Input *) SCM_CELL_WORD_1 (s);
+
+  if (Source_file *sf = sc->get_source_file ())
+    return sf->self_scm ();
+
   return SCM_EOL;
 }
 

@@ -64,7 +64,13 @@ Staff_performer::initialize ()
 {
   audio_staff_ = new Audio_staff;
   name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ());
-  tempo_ = new Audio_tempo (get_tempo ());
+
+  Rational r = robust_scm2moment (get_property ("tempoWholesPerMinute"),
+				  Moment (15,1)).main_part_;
+
+  r *= Rational (4,1);
+  
+  tempo_ = new Audio_tempo (r.to_int ());
 
   audio_staff_->add_audio_item (name_);
   audio_staff_->add_audio_item (tempo_);

@@ -25,6 +25,7 @@ Prob::Prob (SCM type, SCM immutable_init)
   smobify_self ();
 }
 
+
 Prob::~Prob ()
 {
 }

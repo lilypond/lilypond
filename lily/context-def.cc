@@ -263,13 +263,6 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 }
 
 SCM
-Context_def::clone_scm () const
-{
-  Context_def *t = new Context_def (*this);
-  return t->unprotect ();
-}
-
-SCM
 Context_def::make_scm ()
 {
   Context_def *t = new Context_def;

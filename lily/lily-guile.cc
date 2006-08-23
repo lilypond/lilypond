@@ -105,10 +105,8 @@ gulp_file_to_string (string fn, bool must_exist, int size)
   if (be_verbose_global)
     progress_indication ("[" + s);
 
-  int n = size;
-  char *str = gulp_file (s, &n);
-  string result (str, n);
-  delete[] str;
+  vector<char> chars = gulp_file (s, size);
+  string result (&chars[0], chars.size ());
 
   if (be_verbose_global)
     progress_indication ("]");

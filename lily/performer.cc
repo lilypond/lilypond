@@ -17,12 +17,6 @@ Performer::play_element (Audio_element *p)
   get_daddy_performer ()->play_element (p);
 }
 
-int
-Performer::get_tempo () const
-{
-  return get_daddy_performer ()->get_tempo ();
-}
-
 Performer_group *
 Performer::get_daddy_performer () const
 {
