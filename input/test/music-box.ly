@@ -1,4 +1,4 @@
-\version "2.9.7"
+\version "2.9.16"
 \sourcefilename "music-box.ly"
 
 \include "deutsch.ly"
@@ -133,8 +133,14 @@ prelude =
        line-width = 18.0 \cm
    }
 
-   \midi {
-       \tempo 4 = 80
-   }
+   
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 80 4)
+      }
+    }
+
+
 }
 

@@ -7,7 +7,7 @@
 }
 
 
-\version "2.9.13"
+\version "2.9.16"
 
 drh = \drummode { cymc4.^"crash" hhc16^"h.h." hh \repeat "unfold" 5 {hhc8 hho hhc8 hh16 hh} hhc4 r4 r2 }
 drl = \drummode {\repeat "unfold" 3 {bd4 sn8 bd bd4 << bd ss >> } bd8 tommh tommh bd toml toml bd tomfh16 tomfh }
@@ -34,7 +34,15 @@ timb = \drummode { \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r
   \layout {}
 
   %% broken:
-  \midi{ \tempo 4=120 }
+  
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 120 4)
+      }
+    }
+
+
 }
 
 

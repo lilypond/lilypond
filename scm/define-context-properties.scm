@@ -9,8 +9,15 @@
 (define-public all-translation-properties '())
 
 (define (translator-property-description symbol type? description)
- (if (not (equal? #f (object-property symbol 'translation-doc)))
-     (ly:error (_ "symbol ~S redefined" symbol)))
+  (if (not (and
+	    (symbol? symbol)
+	    (procedure? type?)
+	    (string? description)))
+      (throw 'init-format-error))
+	   
+       
+  (if (not (equal? #f (object-property symbol 'translation-doc)))
+      (ly:error (_ "symbol ~S redefined" symbol)))
   
   (set-object-property! symbol 'translation-type? type?)
   (set-object-property! symbol 'translation-doc description)
@@ -472,9 +479,9 @@ Example:
 This will create a start-repeat bar in this staff only.
 Valid values are described in @internalsref{bar-line-interface}.
 ")
-     (tempoWholesPerMinute 'ly:moment? "The tempo in whole notes per minute.")
-     (tempoUnitDuration 'ly:duration? "Unit for specifying tempo.")
-     (tempoUnitCount 'number? "Count for specifying tempo.")
+     (tempoWholesPerMinute ,ly:moment? "The tempo in whole notes per minute.")
+     (tempoUnitDuration ,ly:duration? "Unit for specifying tempo.")
+     (tempoUnitCount ,number? "Count for specifying tempo.")
      
      )))
 

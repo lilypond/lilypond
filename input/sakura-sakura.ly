@@ -1,6 +1,6 @@
 %% sakura-sakura.ly
 
-\version "2.7.39"
+\version "2.9.16"
 
 
 \header {
@@ -50,7 +50,15 @@
     }
   >>
   \layout { }
-  \midi { \tempo 4=120 }
+  
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 120 4)
+      }
+    }
+
+
   }
 
 %%% Local Variables:
