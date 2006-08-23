@@ -140,7 +140,7 @@ uncompress_solution (vector<vsize> const &systems_per_page,
 /* the cases for page_count = 1 or 2 can be done in O(n) time. Since they
    are by far the most common cases, we have special functions for them */
 static Spacing_result
-space_systems_on_1_page (vector<Line_details> const &lines, Real page_height)
+space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged)
 {
   Page_spacing space (page_height);
   Spacing_result ret;
@@ -149,7 +149,7 @@ space_systems_on_1_page (vector<Line_details> const &lines, Real page_height)
     space.append_system (lines[i]);
 
   ret.systems_per_page_.push_back (lines.size ());
-  ret.force_.push_back (space.force_);
+  ret.force_.push_back (ragged ? min (space.force_, 0.0) : space.force_);
   ret.penalty_ = lines.back ().page_penalty_ + lines.back ().turn_penalty_;
   ret.demerits_ = ret.force_.back () * ret.force_.back () + ret.penalty_;
 
@@ -157,7 +157,10 @@ space_systems_on_1_page (vector<Line_details> const &lines, Real page_height)
 }
 
 static Spacing_result
-space_systems_on_2_pages (vector<Line_details> const &lines, Real page_height)
+space_systems_on_2_pages (vector<Line_details> const &lines,
+			  Real page_height,
+			  bool ragged,
+			  bool ragged_last)
 {
   /* if there is a forced break, this reduces to 2 1-page problems */
   for (vsize i = 0; i < lines.size () - 1; i++)
@@ -165,8 +168,8 @@ space_systems_on_2_pages (vector<Line_details> const &lines, Real page_height)
       {
 	vector<Line_details> lines1 (lines.begin (), lines.begin () + i + 1);
 	vector<Line_details> lines2 (lines.begin () + i + 1, lines.end ());
-	Spacing_result p1 = space_systems_on_1_page (lines1, page_height);
-	Spacing_result p2 = space_systems_on_1_page (lines2, page_height);
+	Spacing_result p1 = space_systems_on_1_page (lines1, page_height, ragged);
+	Spacing_result p2 = space_systems_on_1_page (lines2, page_height, ragged || ragged_last);
 
 	p1.systems_per_page_.push_back (p2.systems_per_page_[0]);
 	p1.force_.push_back (p2.force_[0]);
@@ -187,8 +190,13 @@ space_systems_on_2_pages (vector<Line_details> const &lines, Real page_height)
     {
       page1.append_system (lines[i]);
       page2.prepend_system (lines[lines.size () - 1 - i]);
-      page1_force[i] = page1.force_;
-      page2_force[page2_force.size () - 1 - i] = page2.force_;
+      page1_force[i] = (ragged && page1.force_ < 0 && i > 0) ? infinity_f : page1.force_;
+
+      if (ragged || ragged_last)
+	page2_force[page2_force.size () - 1 - i] =
+	  (page2.force_ < 0 && i < page1_force.size () - 1) ? infinity_f : 0;
+      else
+	page2_force[page2_force.size () - 1 - i] = page2.force_;
     }
 
   vsize best_sys_count = 1;
@@ -219,48 +227,13 @@ space_systems_on_2_pages (vector<Line_details> const &lines, Real page_height)
   return ret;
 }
 
-/* for page_count > 2, we use a dynamic algorithm similar to
-   constrained-breaking -- we have a class that stores the intermediate
-   calculations so they can be reused for querying different page counts.
-*/
-
-class Page_spacer
-{
-public:
-  Page_spacer (vector<Line_details> const &lines, Real page_height);
-  Spacing_result solve (vsize page_count);
-
-private:
-  struct Page_spacing_node
-  {
-    Page_spacing_node ()
-    {
-      demerits_ = infinity_f;
-      force_ = infinity_f;
-      penalty_ = infinity_f;
-      prev_ = VPOS;
-    }
-
-    Real demerits_;
-    Real force_;
-    Real penalty_;
-    vsize prev_;
-  };
-
-  Real page_height_;
-  vector<Line_details> lines_;
-  Matrix<Page_spacing_node> state_;
-  vsize max_page_count_;
-
-  void resize (vsize page_count);
-  bool calc_subproblem (vsize page, vsize lines);
-};
-
-Page_spacer::Page_spacer (vector<Line_details> const &lines, Real page_height)
+Page_spacer::Page_spacer (vector<Line_details> const &lines, Real page_height, bool ragged, bool ragged_last)
   : lines_ (lines)
 {
   page_height_ = page_height;
   max_page_count_ = 0;
+  ragged_ = ragged;
+  ragged_last_ = ragged_last;
 }
 
 Spacing_result
@@ -274,6 +247,12 @@ Page_spacer::solve (vsize page_count)
   ret.systems_per_page_.resize (page_count);
 
   vsize system = lines_.size () - 1;
+
+  if (isinf (state_.at (system, page_count-1).demerits_))
+    return Spacing_result (); /* bad number of pages */
+
+  if (isinf (state_.at (system, page_count-1).demerits_))
+    return Spacing_result (); /* bad number of pages */
 
   ret.penalty_ = state_.at (system, page_count-1).penalty_
     + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
@@ -317,52 +296,62 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 {
   Page_spacing space (page_height_);
   Page_spacing_node &cur = state_.at (line, page);
+  bool ragged = ragged_ || (ragged_last_ && line == lines_.size () - 1);
 
   for (vsize page_start = line+1; page_start > page && page_start--;)
     {
       Page_spacing_node const *prev = page > 0 ? &state_.at (page_start-1, page-1) : 0;
 
       space.prepend_system (lines_[page_start]);
-      if (isinf (space.force_))
+      if (page_start < line && (isinf (space.force_) || (space.force_ < 0 && ragged)))
 	break;
 
-      if (page == 0 && page_start > 0)
-	continue;
-
-      Real dem = fabs (space.force_) + (prev ? prev->demerits_ : 0);
-      Real penalty = 0;
-      if (page_start > 0)
-	penalty = lines_[page_start-1].page_penalty_
-	  + (page % 2 == 0) ? lines_[page_start-1].turn_penalty_ : 0;
-
-      dem += penalty;
-      if (dem < cur.demerits_)
+      if (page > 0 || page_start == 0)
 	{
-	  cur.demerits_ = dem;
-	  cur.force_ = space.force_;
-	  cur.penalty_ = penalty + (prev ? prev->penalty_ : 0);
-	  cur.prev_ = page_start - 1;
+	  if (line == lines_.size () - 1 && ragged_last_ && space.force_ > 0)
+	    space.force_ = 0;
+
+	  Real dem = fabs (space.force_) + (prev ? prev->demerits_ : 0);
+	  Real penalty = 0;
+	  if (page_start > 0)
+	    penalty = lines_[page_start-1].page_penalty_
+	      + (page % 2 == 0) ? lines_[page_start-1].turn_penalty_ : 0;
+
+	  dem += penalty;
+	  if (dem < cur.demerits_)
+	    {
+	      cur.demerits_ = dem;
+	      cur.force_ = space.force_;
+	      cur.penalty_ = penalty + (prev ? prev->penalty_ : 0);
+	      cur.prev_ = page_start - 1;
+	    }
 	}
+
+      if (page_start > 0
+	  && lines_[page_start-1].page_permission_ == ly_symbol2scm ("force"))
+	break;
     }
   return !isinf (cur.demerits_);
 }
 
 static vsize
-min_page_count (vector<Line_details> const &lines, Real page_height)
+min_page_count (vector<Line_details> const &lines, Real page_height, bool ragged)
 {
   vsize ret = 1;
   Real cur_rod_height = 0;
 
   for (vsize i = 0; i < lines.size (); i++)
     {
-      Real next_height = cur_rod_height + lines[i].extent_.length ()
+      Real ext_len = lines[i].extent_.length ();
+      Real next_height = cur_rod_height
+	+ (ragged ? max (ext_len, lines[i].space_) : ext_len)
 	+ ((i > 0 && cur_rod_height > 0) ? lines[i-1].padding_: 0);
 
       if ((next_height > page_height && cur_rod_height > 0)
 	  || (i > 0 && lines[i-1].page_permission_ == ly_symbol2scm ("force")))
 	{
 	  ret++;
-	  cur_rod_height = lines[i].extent_.length ();
+	  cur_rod_height = ragged ? max (ext_len, lines[i].space_) : ext_len;
 	}
       else
 	cur_rod_height = next_height;
@@ -373,31 +362,33 @@ min_page_count (vector<Line_details> const &lines, Real page_height)
 Spacing_result
 space_systems_on_min_pages (vector<Line_details> const &lines,
 			    Real page_height,
-			    Real odd_pages_penalty)
+			    Real odd_pages_penalty,
+			    bool ragged,
+			    bool ragged_last)
 {
   vector<Line_details> compressed_lines = compress_lines (lines);
-  vsize min_p_count = min_page_count (compressed_lines, page_height);
+  vsize min_p_count = min_page_count (compressed_lines, page_height, ragged);
   Spacing_result ret;
 
   if (min_p_count == 1)
     {
-      Spacing_result candidate1 = space_systems_on_1_page (compressed_lines, page_height);
+      Spacing_result candidate1 = space_systems_on_1_page (compressed_lines, page_height, ragged || ragged_last);
       candidate1.force_.back () += odd_pages_penalty;
       candidate1.demerits_ += odd_pages_penalty;
       if (compressed_lines.size () == 1)
 	ret = candidate1;
       else
 	{
-	  Spacing_result candidate2 = space_systems_on_2_pages (compressed_lines, page_height);
+	  Spacing_result candidate2 = space_systems_on_2_pages (compressed_lines, page_height, ragged, ragged_last);
 	  ret = (candidate1.demerits_ < candidate2.demerits_) ?
 	    candidate1 : candidate2;
 	}
     }
   else if (min_p_count == 2)
-    ret = space_systems_on_2_pages (compressed_lines, page_height);
+    ret = space_systems_on_2_pages (compressed_lines, page_height, ragged, ragged_last);
   else
     {
-      Page_spacer ps (compressed_lines, page_height);
+      Page_spacer ps (compressed_lines, page_height, ragged, ragged_last);
       Spacing_result candidate1 = ps.solve (min_p_count);
       if (min_p_count % 2 == 0)
 	ret = candidate1;
@@ -423,13 +414,16 @@ space_systems_on_min_pages (vector<Line_details> const &lines,
 Spacing_result
 space_systems_on_best_pages (vector<Line_details> const &lines,
 			     Real page_height,
-			     Real odd_pages_penalty)
+			     Real odd_pages_penalty,
+			     bool ragged,
+			     bool ragged_last)
 {
   vector<Line_details> compressed_lines = compress_lines (lines);
-  vsize min_p_count = min_page_count (compressed_lines, page_height);
+  vsize min_p_count = min_page_count (compressed_lines, page_height, ragged);
 
-  Page_spacer ps (compressed_lines, page_height);
+  Page_spacer ps (compressed_lines, page_height, ragged, ragged_last);
   Spacing_result best = ps.solve (min_p_count);
+  best.force_.back () += (min_p_count % 2) ? odd_pages_penalty : 0;
   best.demerits_ += (min_p_count % 2) ? odd_pages_penalty : 0;
 
   for (vsize i = min_p_count+1; i <= compressed_lines.size (); i++)

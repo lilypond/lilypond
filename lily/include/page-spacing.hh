@@ -21,17 +21,61 @@ struct Spacing_result {
   Spacing_result ()
   {
     penalty_ = 0;
-    demerits_ = 0;
+    demerits_ = infinity_f;
   }
+};
+
+/* for page_count > 2, we use a dynamic algorithm similar to
+   constrained-breaking -- we have a class that stores the intermediate
+   calculations so they can be reused for querying different page counts.
+*/
+
+class Page_spacer
+{
+public:
+  Page_spacer (vector<Line_details> const &lines, Real page_height, bool ragged, bool ragged_last);
+  Spacing_result solve (vsize page_count);
+
+private:
+  struct Page_spacing_node
+  {
+    Page_spacing_node ()
+    {
+      demerits_ = infinity_f;
+      force_ = infinity_f;
+      penalty_ = infinity_f;
+      prev_ = VPOS;
+    }
+
+    Real demerits_;
+    Real force_;
+    Real penalty_;
+    vsize prev_;
+  };
+
+  Real page_height_;
+  vector<Line_details> lines_;
+  Matrix<Page_spacing_node> state_;
+  vsize max_page_count_;
+
+  bool ragged_;
+  bool ragged_last_;
+
+  void resize (vsize page_count);
+  bool calc_subproblem (vsize page, vsize lines);
 };
 
 Spacing_result
 space_systems_on_min_pages (vector<Line_details> const&,
 			    Real page_height,
-			    Real odd_pages_penalty);
+			    Real odd_pages_penalty,
+			    bool ragged,
+			    bool ragged_last);
 Spacing_result
 space_systems_on_best_pages (vector<Line_details> const&,
 			     Real page_height,
-			     Real odd_pages_penalty);
+			     Real odd_pages_penalty,
+			     bool ragged,
+			     bool ragged_last);
 
 #endif /* PAGE_SPACING_HH */

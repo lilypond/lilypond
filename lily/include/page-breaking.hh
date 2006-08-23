@@ -17,66 +17,114 @@
  */
 struct System_spec
 {
-  System_spec (Paper_score*, int);
-  System_spec (Prob*);
-  System_spec ();
+  System_spec (Paper_score *ps)
+  {
+    pscore_ = ps;
+    prob_ = NULL;
+  }
+
+  System_spec (Prob *pb)
+  {
+    prob_ = pb;
+    pscore_ = NULL;
+  }
+
+  System_spec ()
+  {
+    pscore_ = NULL;
+    prob_ = NULL;
+  }
 
   Paper_score *pscore_;
   Prob *prob_;
-
-  vsize score_break_count_; /* for scores, this is the number of start-points our line-
-                               breaker has */
 };
 
 struct Break_position
 {
-  vsize sys_; /* the index in our all_ list */
+  vsize sys_; /* our index in the all_ list */
   vsize score_break_; /* if sys_ is a score, then we start at the score_brk_'th
                          possible page-break in the score */
+  Grob *col_;  /* if sys_ is a score, this points to the broken column */
+  bool score_ender_;
 
-  Break_position (vsize s=VPOS, vsize brk=VPOS)
+  Break_position (vsize s=VPOS, vsize brk=VPOS, Grob *g=NULL, bool end=false)
   {
     sys_ = s;
     score_break_ = brk;
+    col_ = g;
+    score_ender_ = end;
+  }
+
+  bool operator< (const Break_position &other)
+  {
+    return (sys_ == VPOS && other.sys_ != VPOS)
+      || (sys_ < other.sys_)
+      || (sys_ == other.sys_ && score_break_ < other.score_break_);
+  }
+
+  bool operator<= (const Break_position &other)
+  {
+    return (sys_ == VPOS)
+      || (sys_ < other.sys_ && other.sys_ != VPOS)
+      || (sys_ == other.sys_ && score_break_ <= other.score_break_);
   }
 };
 
 class Page_breaking
 {
 public:
+  typedef bool (*Break_predicate) (Grob *);
+  typedef vector<vsize> Line_division;
   virtual SCM solve () = 0;
 
-  Page_breaking (Paper_book *pb, bool allow_intra_score_breaks);
+  Page_breaking (Paper_book *pb, Break_predicate);
   virtual ~Page_breaking ();
 
 protected:
-  std::vector<Break_position> breaks_;
-  std::vector<System_spec> all_;
-  std::vector<Constrained_breaking> line_breaking_;
-
   Paper_book *book_;
 
   Real page_height (int page_number, bool last);
-  vsize next_system (vsize starting_break_index) const;
-
-  void create_system_list (bool allow_intra_score_breaks);
-  std::vector<vsize> find_page_break_indices (Paper_score *pscore);
+  vsize next_system (Break_position const &break_pos) const;
 
   SCM make_pages (vector<vsize> lines_per_page, SCM lines);
 
-  void calc_system_count_bounds (vsize start, vsize end,
-                                 vector<vsize> *min,
-                                 vector<vsize> *max);
+  vsize min_system_count (vsize start, vsize end);
+  vsize max_system_count (vsize start, vsize end);
+  vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
 
-  void divide_systems (vsize system_count, vector<vsize> const &min,
-                                           vector<vsize> const &max,
-                                           vector<vector<vsize> > *result,
-                                           vector<vsize> *cur);
+  void break_into_pieces (vsize start, vsize end, Line_division const &div);
+  SCM systems ();
 
-  void line_breaker_args (vsize i, vsize *break_st, vsize *break_end);
-  vsize get_min_systems (vsize sys, vsize break_start, vsize break_end);
-  vsize get_max_systems (vsize sys, vsize break_start, vsize break_end);
-  vector<Column_x_positions> get_line_breaks (vsize sys, vsize sys_count, vsize st, vsize end);
-  vector<Line_details> get_line_details (vsize start_break, vsize end_break, vector<vsize> const &div);
+
+  vector<Line_division> line_divisions (vsize start,
+					vsize end,
+					vsize system_count,
+					Line_division lower_bound = Line_division (),
+					Line_division upper_bound = Line_division ());
+
+  SCM breakpoint_property (vsize breakpoint, char const *str);
+  vector<Break_position> breaks_;
+
+private:
+  vector<Break_position> chunks_;
+  vector<System_spec> all_;
+  vector<Constrained_breaking> line_breaking_;
+
+  vector<Break_position> chunk_list (vsize start, vsize end);
+  Line_division system_count_bounds (vector<Break_position> const &chunks, bool min);
+  void line_breaker_args (vsize i,
+			  Break_position const &start,
+			  Break_position const &end,
+			  vsize *line_breaker_start,
+			  vsize *line_breaker_end);
+
+  void line_divisions_rec (vsize system_count,
+			   Line_division const &min,
+			   Line_division const &max,
+			   vector<Line_division> *result,
+			   Line_division *cur);
+
+  void create_system_list ();
+  void find_chunks_and_breaks (Break_predicate);
 };
 #endif /* PAGE_BREAKING_HH */

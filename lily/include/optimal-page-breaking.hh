@@ -23,8 +23,7 @@ public:
   virtual ~Optimal_page_breaking ();
 
 private:
-  SCM make_lines (vector<vsize> line_count);
-  Spacing_result try_page_spacing (vector<vsize> line_count);
+  Spacing_result try_page_spacing (Line_division const&);
 };
 
 #endif /* OPTIMAL_PAGE_BREAKING_HH */

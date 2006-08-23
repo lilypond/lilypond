@@ -45,7 +45,7 @@ protected:
     Real demerits_;
     vsize break_pos_; /* index into breaks_ */
 
-    vector<vsize> div_;  /* our division of systems between scores on this page */
+    Line_division div_;
     vector<vsize> system_count_; /* systems per page */
 
     Break_node ()
@@ -59,12 +59,12 @@ protected:
     }
   };
 
-  std::vector<Break_node> state_;
+  vector<Break_node> state_;
 
   Break_node put_systems_on_pages (vsize start,
 				   vsize end,
 				   vector<Line_details> const &lines,
-				   vector<vsize> const &system_div,
+				   Line_division const &div,
 				   int page_number);
 
   SCM make_lines (vector<Break_node> *breaks);
