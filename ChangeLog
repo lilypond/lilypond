@@ -1,5 +1,7 @@
 2006-08-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/mutopia-index.py (allfiles): filter lily-XXX and snippet-map
+
 	* scm/define-context-properties.scm
 	(translator-property-description): robustness: detect type errors
 	in property definitions.
