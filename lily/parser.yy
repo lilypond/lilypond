@@ -694,6 +694,7 @@ score_body:
 	}
 	| SCORE_IDENTIFIER {
 		$$ = unsmob_score ($1);
+		$$->protect ();
 		$$->set_spot (@$);
 	}
 	| score_body object_id_setting {

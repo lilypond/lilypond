@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.9.16"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -51,7 +51,15 @@
 	   >>
 	}
     >>
-    \midi { \tempo 8 = 60 }
+    
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 60 8)
+      }
+    }
+
+
 
     \layout {
 	ragged-right = ##t 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.7.39"
+\version "2.9.16"
 \header {
 texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a notes, where groups stop one after
@@ -23,32 +23,32 @@ Override, see scm/midi.scm:
 
 flauti =  \relative c' {
   \set Staff.midiInstrument = #"flute"
-  \set Staff.instrument = #"2 Flauti"
-  \set Staff.instr = #"Fl."
+  \set Staff.instrumentName = #"2 Flauti"
+  \set Staff.shortInstrumentName = #"Fl."
 
   c1\f R1*10
 }
 
 oboi =  \relative c' {
   \set Staff.midiInstrument = #"oboe"
-  \set Staff.instrument = #"2 Oboi"
-  \set Staff.instr = #"Ob."
+  \set Staff.instrumentName = #"2 Oboi"
+  \set Staff.shortInstrumentName = #"Ob."
 
   R1*1 c1\f R1*9
 }
 
 clarinetti =  \relative c' {
   \set Staff.midiInstrument = #"clarinet"
-  \set Staff.instrument = #"Clarinetti"
-  \set Staff.instr = #"Cl"
+  \set Staff.instrumentName = #"Clarinetti"
+  \set Staff.shortInstrumentName = #"Cl"
 
   R1*2 c1\f R1*8
 }
 
 fagotti =  \relative c' {
   \set Staff.midiInstrument = #"bassoon"
-  \set Staff.instrument = #"2 Fagotti"
-  \set Staff.instr = #"Fg."
+  \set Staff.instrumentName = #"2 Fagotti"
+  \set Staff.shortInstrumentName = #"Fg."
 
   \clef bass
   R1*3 c1\f R1*7
@@ -56,16 +56,16 @@ fagotti =  \relative c' {
 
 corni =  \relative c' {
   \set Staff.midiInstrument = #"french horn"
-  \set Staff.instrument = #"Corni"
-  \set Staff.instr = #"Cor"
+  \set Staff.instrumentName = #"Corni"
+  \set Staff.shortInstrumentName = #"Cor"
 
   R1*4 c1\f R1*6
 }
 
 trombe =  \relative c' {
   \set Staff.midiInstrument = #"trumpet"
-  \set Staff.instrument = #"Trombe"
-  \set Staff.instr = #"Tp."
+  \set Staff.instrumentName = #"Trombe"
+  \set Staff.shortInstrumentName = #"Tp."
 
   \clef bass
   R1*5 c1\f R1*5
@@ -73,32 +73,32 @@ trombe =  \relative c' {
 
 timpani =  \relative c' {
   \set Staff.midiInstrument = #"timpani"
-  \set Staff.instrument = #"Timpani"
-  \set Staff.instr = #"Timp."
+  \set Staff.instrumentName = #"Timpani"
+  \set Staff.shortInstrumentName = #"Timp."
 
   R1*6 c1\f R1*4
 }
 
 violinoI =  \relative c' {
   \set Staff.midiInstrument = #"violin"
-  \set Staff.instrument = #"Violino I "
-  \set Staff.instr = #"Vl. I "
+  \set Staff.instrumentName = #"Violino I "
+  \set Staff.shortInstrumentName = #"Vl. I "
 
   R1*7 c1\f R1*3
 }
 
 violinoII =  \relative c' {
   \set Staff.midiInstrument = #"violin"
-  \set Staff.instrument = #"Violino II "
-  \set Staff.instr = #"Vl. II "
+  \set Staff.instrumentName = #"Violino II "
+  \set Staff.shortInstrumentName = #"Vl. II "
  
   R1*8 c1\f R1*2
 }
 
 viola =  \relative c' {
   \set Staff.midiInstrument = #"viola"
-  \set Staff.instrument = #"Viola"
-  \set Staff.instr = #"Vla."
+  \set Staff.instrumentName = #"Viola"
+  \set Staff.shortInstrumentName = #"Vla."
 
   \clef alto
   R1*9 c1\f R1*1
@@ -107,8 +107,8 @@ viola =  \relative c' {
 violoncello =  \relative c' {
   \set Staff.midiInstrument = #"cello"
   %\set Staff.midiInstrument = #"contrabass"
-  \set Staff.instrument = #"Violoncello"
-  \set Staff.instr = #"Vc."
+  \set Staff.instrumentName = #"Violoncello"
+  \set Staff.shortInstrumentName = #"Vc."
   
   \clef bass
   R1*10 c1\f
@@ -153,9 +153,15 @@ violoncello =  \relative c' {
       \RemoveEmptyStaffContext
     }
   }
+  
   \midi {
-  	\tempo 1 = 60
-  }
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 60 1)
+      }
+    }
+
+
 }
 
 

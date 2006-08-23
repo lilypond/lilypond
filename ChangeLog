@@ -1,5 +1,12 @@
 2006-08-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-context-properties.scm
+	(translator-property-description): robustness: detect type errors
+	in property definitions.
+
+	* lily/parser.yy (score_body): protect SCORE_IDENTIFIER result
+	after getting it from SCM. 
+
 	* lily/smobs.cc (protect_smob): switch off fancy smob protection
 	for now. 
 
