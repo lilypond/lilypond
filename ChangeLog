@@ -36,6 +36,32 @@
 
 	* input/mutopia/F.Schubert/morgenlied.ly (pianoLH): update tempo.
 
+2006-08-23  Joe Neeman  <joeneeman@gmail.com>
+
+	* input/regression/optimal-page-breaking-hstretch.ly: test for
+	ragged-last-bottom also
+
+	* lily/paper-column-engraver.cc (finalize): make the end of a score
+	breakable by default. This is to balance out a change in behaviour
+	of the page-turn-breaker which no longer makes the end of a score
+	breakable.
+
+	* lily/paper-book.cc (pages): set the systems_ once the pages are
+	broken
+
+	* lily/page-turn-page-breaking.cc (calc_subproblem): use the new
+	Page_breaking interface.
+
+	* lily/page-breaking.cc (class Page_breaking): make the interface
+	more consistent and provide abstractions for dealing with
+	Line_divisions.
+
+	* lily/optimal-page-breaking.cc (solve): use a more straightforward
+	algorithm. Use the new interface to Page_breaking.
+
+	* lily/page-spacing.cc: better support for ragged-bottom and
+	ragged-last-bottom
+
 2006-08-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* python/convertrules.py (conv): warning on \tempo{}

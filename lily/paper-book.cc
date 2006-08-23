@@ -382,6 +382,20 @@ Paper_book::pages ()
   pages_ = SCM_EOL;
   SCM proc = paper_->c_variable ("page-breaking");
   pages_ = scm_apply_0 (proc, scm_list_1(self_scm ()));
+
+  /* set systems_ from the pages */
+  if (systems_ == SCM_BOOL_F)
+    {
+      systems_ = SCM_EOL;
+      for (SCM p = pages_; p != SCM_EOL; p = scm_cdr (p))
+	{
+	  Prob *page = unsmob_prob (scm_car (p));
+	  SCM systems = page->get_property ("lines");
+
+	  systems_ = scm_append (scm_list_2 (systems_, systems));
+	}
+    }
+
   return pages_;
 }
 
