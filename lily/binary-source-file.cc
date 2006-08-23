@@ -61,7 +61,11 @@ Binary_source_file::get_line (char const *pos_str0) const
 U8
 Binary_source_file::get_U8 ()
 {
+#if 0				// FIXME
   return *(U8 *)forward_str0 (1);
+#endif
+  assert (false);
+  return 0;
 }
 
 U16

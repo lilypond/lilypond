@@ -32,7 +32,6 @@ protected:
   virtual void disconnect_from_context ();
   virtual void initialize ();
   virtual void announce_element (Audio_element_info);
-  virtual int get_tempo () const;
   virtual void play_element (Audio_element *p);
   virtual void derived_mark () const;
 private:

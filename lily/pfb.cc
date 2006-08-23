@@ -78,17 +78,16 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
 		   SCM_ARG1, __FUNCTION__, "string");
 
   string file_name = ly_scm2string (pfb_file_name);
-  int len = -1;
 
   if (be_verbose_global)
     progress_indication ("[" + file_name);
   
-  char *str = gulp_file (file_name, &len);
-  char *pfa = pfb2pfa ((Byte *)str, len);
-
+  vector<char> pfb_string = gulp_file (file_name, 0);
+  char *pfa = pfb2pfa ((Byte *) &pfb_string[0], pfb_string.size ());
+  
   SCM pfa_scm = scm_makfrom0str (pfa);
   free (pfa);
-  delete str;
+
   if (be_verbose_global)
     progress_indication ("]");
 

@@ -1,3 +1,32 @@
+2006-08-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/smobs.cc (protect_smob): switch off fancy smob protection
+	for now. 
+
+	* lily/include/performer.hh (class Performer): strip get_tempo() method.
+
+	* lily/midi-def.cc: strip file.
+
+	* lily/lexer.ll (Lily_lexer): don't protect hash key separately.
+
+	* lily/include/context-def.hh (struct Context_def): use
+	VIRTUAL_COPY_CONSTRUCTOR().
+
+	* lily/source-file.cc: smobification.
+
+	* lily/include/source-file.hh (class Source_file): smobify
+	Source_file. Trim redundant members.
+
+	* lily/parser.yy (Lily_lexer::try_special_identifiers): unprotect
+	clones after creation. This plugs a huge memory leak.
+
+	* python/convertrules.py (FatalConversionError.sub_tempo):
+	complete rule for \midi{ \tempo }
+
+	* input/mutopia/J.S.Bach/wtk1-fugue2.ly (bassdux): idem.
+
+	* input/mutopia/F.Schubert/morgenlied.ly (pianoLH): update tempo.
+
 2006-08-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* python/convertrules.py (conv): warning on \tempo{}
@@ -16,7 +45,8 @@
 
 	* lily/parser.yy (output_def_body): disallow \tempo in \midi{}
 
-	* lily/duration-scheme.cc (LY_DEFINE): ly:duration-length: new function.
+	* lily/duration-scheme.cc (LY_DEFINE): ly:duration-length: new
+	function.
 
 	* scm/lily.scm (define-scheme-options): alphabetize, add eps-pad-boxes.
 

@@ -20,7 +20,6 @@ class Input
   char const *start_;
   char const *end_;
   Source_file *source_file_;
-
 public:
   Source_file *get_source_file () const;
   char const *start () const;

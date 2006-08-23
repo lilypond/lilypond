@@ -58,8 +58,12 @@ Tex_font_metric_reader::get_U32_fix_scaled ()
 string
 Tex_font_metric_reader::get_bcpl_string ()
 {
-  U8 length_u8 = input_.get_U8 ();
+ string str;
+ 
+#if 0				// FIXME.
+ U8 length_u8 = input_.get_U8 ();
   string str = input_.get_string (length_u8);
+#endif
   return str;
 }
 
@@ -131,8 +135,12 @@ Tex_font_metric_reader::read_params ()
 
   //brrr
   /* Move to the beginning of the parameter table in the file.  */
-  input_.seek_str0 (-4 * header_.param_word_count);
 
+#if 0
+  // FIXME.
+  input_.seek_str0 (-4 * header_.param_word_count);
+#endif
+  
   /* It's unlikely but possible that this TFM file has more fontdimens
      than we can deal with.  */
   if (header_.param_word_count > TFM_MAX_FONTDIMENS)
@@ -181,10 +189,12 @@ Tex_font_metric_reader::read_char_metric (Char_code code)
   if (code < info_.first_charcode || code > info_.last_charcode)
     return tfm_char;
 
+#if 0 				// FIXME.
   //brr
   /* Move to the appropriate place in the `char_info' array.  */
   input_.seek_str0 (header_.char_info_pos + (code - info_.first_charcode) * 4);
-
+#endif
+  
   /* Read the character.  */
   tfm_char = read_char ();
 
@@ -217,10 +227,11 @@ Tex_font_metric_reader::read_char ()
 
   Tex_font_char_metric tfm_char;
 
+  // FIXME.
 #define GET_CHAR_DIMEN(d)					\
   if (d##_index != 0)						\
     {								\
-      input_.seek_str0 (header_.d##_pos + d##_index * 4);	\
+      /* input_.seek_str0 (header_.d##_pos + d##_index * 4);*/	\
       tfm_char.d##_fix_ = input_.get_U32 ();			\
       tfm_char.d##_ = fix_to_real (tfm_char.d##_fix_)		\
 	* info_.design_size;					\
@@ -239,7 +250,9 @@ Tex_font_metric_reader::read_char ()
 
   if (tag == 1)
     {
+#if 0			//  FIXME.
       input_.seek_str0 (header_.lig_kern_pos + remainder * 4);
+#endif
       read_lig_kern_program (&tfm_char.ligatures_, &tfm_char.kerns_);
     }
 
@@ -272,10 +285,15 @@ Tex_font_metric_reader::read_lig_kern_program (vector<Tfm_ligature> *ligatures, 
 	  Tfm_kern kern_element;
 	  kern_element.character = next_char;
 
+#if 0 
 	  char const *old_pos = input_.pos_str0 ();
 	  input_.seek_str0 (header_.kern_pos + remainder * 4);
+#endif
+	  
 	  kern_element.kern = get_U32_fix_scaled ();
-	  input_.set_pos (old_pos);
+
+	  // FIXME
+	  ///	  input_.set_pos (old_pos);
 
 	  kerns->push_back (kern_element);
 	}

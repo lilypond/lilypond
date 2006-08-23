@@ -338,7 +338,7 @@ BOM_UTF8	\357\273\277
 	}
 		
 	yylval.scm = sval;
-	return SCM_T;
+	return SCM_TOKEN;
 }
 <INITIAL,notes,lyrics>{ 
 	\<\<	{
@@ -912,7 +912,7 @@ static void init_signature_hash_table ()
 	};
 
 	for (int i = 0; sigs[i].symbol; i++)
-		scm_hashq_set_x (signature_hash_table, scm_gc_protect_object (ly_symbol2scm (sigs[i].symbol)),
+		scm_hashq_set_x (signature_hash_table, ly_symbol2scm (sigs[i].symbol),
 				 scm_from_int (sigs[i].token_type));
 }
 

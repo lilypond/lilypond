@@ -250,7 +250,6 @@ If we give names, Bison complains.
 %token CHORDMODIFIERS
 %token LYRIC_MARKUP
 %token MULTI_MEASURE_REST
-%token SCM_T
 
 
 %token <i> DIGIT
@@ -301,7 +300,7 @@ If we give names, Bison complains.
 %token <scm> REAL
 %token <scm> RESTNAME
 %token <scm> SCM_IDENTIFIER
-%token <scm> SCM_T
+%token <scm> SCM_TOKEN
 %token <scm> SCORE_IDENTIFIER
 %token <scm> STRING
 %token <scm> STRING_IDENTIFIER
@@ -504,7 +503,7 @@ toplevel_expression:
 	;
 
 embedded_scm:
-	SCM_T
+	SCM_TOKEN
 	| SCM_IDENTIFIER
 	;
 
@@ -535,15 +534,6 @@ assignment_id:
 
 assignment:
 	assignment_id '=' identifier_init  {
-		if (! is_regular_identifier ($1))
-		{
-#if 0
-			/* no longer valid with dashes in \paper{} block. */ 
-			@1.warning (_ ("identifier should have alphabetic characters only"));
-#endif
-		}
-
-
 	        PARSER->lexer_->set_identifier ($1, $3);
 
 /*
@@ -2360,17 +2350,26 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		*destination = sid;
 		return STRING_IDENTIFIER;
 	} else if (unsmob_book (sid)) {
-		*destination = unsmob_book (sid)->clone ()->self_scm ();
+		Book *book =  unsmob_book (sid)->clone ();
+		*destination = book->self_scm ();
+		book->unprotect ();
+
 		return BOOK_IDENTIFIER;
 	} else if (scm_is_number (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
 	} else if (unsmob_context_def (sid)) {
-		*destination = unsmob_context_def (sid)->clone_scm ();
+		Context_def *def= unsmob_context_def (sid)->clone ();
+
+		*destination = def->self_scm ();
+		def->unprotect ();
+		
 		return CONTEXT_DEF_IDENTIFIER;
 	} else if (unsmob_score (sid)) {
 		Score *score = new Score (*unsmob_score (sid));
 		*destination = score->self_scm ();
+
+		score->unprotect ();
 		return SCORE_IDENTIFIER;
 	} else if (Music *mus = unsmob_music (sid)) {
 		mus = mus->clone ();
@@ -2381,6 +2380,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		bool is_event = scm_memq (ly_symbol2scm ("event"), mus->get_property ("types"))
 			!= SCM_BOOL_F;
 
+		mus->unprotect ();
 		return is_event ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
 	} else if (unsmob_duration (sid)) {
 		*destination = unsmob_duration (sid)->smobbed_copy ();
@@ -2388,8 +2388,9 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (unsmob_output_def (sid)) {
 		Output_def *p = unsmob_output_def (sid);
 		p = p->clone ();
-
+	
 		*destination = p->self_scm ();
+		p->unprotect ();
 		return OUTPUT_DEF_IDENTIFIER;
 	} else if (Text_interface::is_markup (sid)) {
 		*destination = sid;

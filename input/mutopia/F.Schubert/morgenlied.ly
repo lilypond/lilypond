@@ -160,7 +160,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	   \lyricsto "singer" \new Lyrics \firstVerse
 	   \lyricsto "singer" \new Lyrics \secondVerse
 	   \new PianoStaff << 
-	       \set PianoStaff.instrument = \markup {
+	       \set PianoStaff.instrumentName = \markup {
 		   \bold
 		   \bigger\bigger\bigger\bigger \huge "2.  " }
 	       \new Staff \pianoRH
@@ -186,7 +186,10 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	    }
 	}
 	\midi {
-	    \tempo 4 = 70
+	  \context {
+	    \Score
+	    tempoWholesPerMinute = #(ly:make-moment 70 4)
+	  }
 	}
     }
 }

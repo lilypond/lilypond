@@ -124,12 +124,6 @@ Score_performer::one_time_step (SCM)
   precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
 }
 
-int
-Score_performer::get_tempo () const
-{
-  return ::get_tempo (performance_->midi_, Moment (Rational (1, 4)));
-}
-
 void
 Score_performer::derived_mark () const
 {
