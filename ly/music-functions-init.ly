@@ -567,11 +567,7 @@ unfoldRepeats =
 #(define-music-function (parser location music) (ly:music?)
 		  (unfold-repeats music))
 
-untied =
-#(define-music-function (parser location note) (ly:music?)
-   "Specify that @var{note} should not have ties. " 
-   (set! (ly:music-property note 'untied) #t)
-   note)
+
 
 withMusicProperty =
 #(define-music-function (parser location sym val music) (symbol? scheme? ly:music?)
