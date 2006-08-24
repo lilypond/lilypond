@@ -355,6 +355,28 @@ In 4/4 time signature, this means that automatic beams could end only on
 3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
 3/8, has passed within the measure).
 
+If any unexpected beam behaviour occurs, check the default automatic beam
+settings in @file{scm/@/auto@/-beam@/.scm}
+for possible interference, because the beam
+endings defined there will still apply on top of your own overrides. Any
+unwanted endings in the default vales must be reverted for your time
+signature(s).
+
+For example, to typeset @code{(3 4 3 2)}-beam endings in 12/8, begin
+with
+
+@example
+%%% revert default values in scm/auto-beam.scm regarding 12/8 time
+#(revert-auto-beam-setting '(end * * 12 8) 3 8)
+#(revert-auto-beam-setting '(end * * 12 8) 3 4)
+#(revert-auto-beam-setting '(end * * 12 8) 9 8)
+
+%%% your new values
+#(override-auto-beam-setting '(end 1 8 12 8) 3 8)
+#(override-auto-beam-setting '(end 1 8 12 8) 7 8)
+#(override-auto-beam-setting '(end 1 8 12 8) 10 8)
+@end example
+
 @cindex automatic beam generation
 @cindex autobeam
 @funindex autoBeaming

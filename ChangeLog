@@ -1,3 +1,8 @@
+2006-08-24  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/changing-defaults.itely, global.itely,
+	lilypond-book.itely, page.itely: minor changes from mailist.
+
 2006-08-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* buildscripts/mutopia-index.py (allfiles): filter lily-XXX and snippet-map
