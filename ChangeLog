@@ -5,6 +5,8 @@
 
 2006-08-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/tie-chord-partial.ly: clarify example.
+
 	* scm/define-music-properties.scm (all-music-properties): remove
 	untied.
 

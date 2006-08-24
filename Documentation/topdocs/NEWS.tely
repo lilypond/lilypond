@@ -66,7 +66,7 @@ which scares away people.
 
 @end ignore
 
-@item Ties may be specified for individual chord notes,
+@item Chords can now be partially tied,
 
 @lilypond[ragged-right,relative,fragment]
 <c~ e g~ b>  <c e g b>
