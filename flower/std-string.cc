@@ -89,8 +89,9 @@ string_copy (string s)
 {
   ssize len = s.length ();
   char *dest = new char[len + 1];
-  //s.copy (dest, len + 1);
-  memcpy (dest, s.c_str (), len + 1);
+  copy (s.begin (), s.end (), dest);
+  dest[len] = 0;
+  
   return dest;
 }
 
