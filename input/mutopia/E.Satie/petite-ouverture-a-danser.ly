@@ -7,7 +7,7 @@
   copyright = "Public Domain"
 }
 
-\version "2.7.39"
+\version "2.9.16"
 
 global =  {
   \key a \minor
@@ -141,9 +141,15 @@ lower = \context Staff  \relative c \new Voice{
 	    \override SpacingSpanner #'spacing-increment = #3
 	}
     }
-    \midi {
-	\tempo 4 = 60
+    
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 60 4)
+      }
     }
+
+
 }
 
 %% Local Variables:
