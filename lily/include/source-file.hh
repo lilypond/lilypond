@@ -32,7 +32,6 @@ class Source_file
   vector<char> characters_;
   SCM str_port_;
 
-  char const *contents_str0 () const;
   void load_stdin ();
   void init_port ();
   void init ();

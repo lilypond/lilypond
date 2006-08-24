@@ -78,17 +78,11 @@ gulp_file (string filename, int desired_size)
   vector<char> cxx_arr;
   cxx_arr.resize (filesize);
 
-  /* ugh, how to do neatly in STL? */
-  memcpy (&cxx_arr[0], str, filesize);
+
+  copy (str, str + filesize, cxx_arr.begin ());
   
   free (str);
   return cxx_arr;
-}
-
-char const * 
-Source_file::contents_str0 () const
-{
-  return &characters_[0];
 }
 
 void
@@ -108,10 +102,9 @@ Source_file::Source_file (string filename, string data)
   name_ = filename;
 
   characters_.resize (data.length ());
- 
-  /* ugh, how to do neatly in STL? */
-  memcpy ((&characters_[0]), data.c_str (), data.length ());
-  
+
+  copy (data.begin (), data.end (), characters_.begin ());
+
   init_port ();
 
   for (vsize i = 0; i < characters_.size (); i++)
@@ -143,7 +136,7 @@ Source_file::Source_file (string filename_string)
 void
 Source_file::init_port ()
 {
-  SCM str = scm_makfrom0str (contents_str0 ());
+  SCM str = scm_makfrom0str (c_str ());
   str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG, __FUNCTION__);
   scm_set_port_filename_x (str_port_, scm_makfrom0str (name_.c_str ()));
 }
