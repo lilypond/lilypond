@@ -37,13 +37,15 @@ struct Head_event_tuple
   Grob *head_;
   Moment end_moment_;
   SCM tie_definition_;
-  Stream_event *event_;
+  Stream_event *tie_stream_event_;
+  Music *tie_event_;
   
   Head_event_tuple ()
   {
-    event_ = 0;
     head_ = 0;
     tie_definition_ = SCM_EOL;
+    tie_event_ = 0;
+    tie_stream_event_ = 0;
   }
 };
 
@@ -92,14 +94,20 @@ Tie_engraver::listen_tie (Stream_event *ev)
 void
 Tie_engraver::process_music ()
 {
-  if (event_)
-    context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
+  for (vsize i = 0; i < heads_to_tie_.size (); i++)
+    if (heads_to_tie_[i].tie_event_
+	|| heads_to_tie_[i].tie_stream_event_)
+      {
+	context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
+	break;
+      }
 }
 
 void
 Tie_engraver::acknowledge_note_head (Grob_info i)
 {
   Grob *h = i.grob ();
+
   now_heads_.push_back (h);
   for (vsize i = heads_to_tie_.size (); i--;)
     {
@@ -110,14 +118,20 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
       /*
 	maybe should check positions too.
       */
-      if (right_ev && left_ev
-	  && !to_boolean (left_ev->get_property ("untied"))
-	  && ly_is_equal (right_ev->get_property ("pitch"),
-			  left_ev->get_property ("pitch")))
+      if (!right_ev || !left_ev)
+	continue;
+      
+      if (ly_is_equal (right_ev->get_property ("pitch"),
+		       left_ev->get_property ("pitch")))
 	{
 	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_,
 				 context ()->get_grob_key ("Tie"));
-	  announce_grob (p, heads_to_tie_[i].event_->self_scm ());
+
+	  SCM cause = heads_to_tie_[i].tie_event_
+	    ? heads_to_tie_[i].tie_event_->self_scm ()
+	    : heads_to_tie_[i].tie_stream_event_->self_scm ();
+	  
+	  announce_grob (p, cause);
 	  Tie::set_head (p, LEFT, th);
 	  Tie::set_head (p, RIGHT, h);
 
@@ -140,7 +154,6 @@ Tie_engraver::start_translation_timestep ()
   context ()->set_property ("tieMelismaBusy",
 			    ly_bool2scm (heads_to_tie_.size ()));
   
-  
   if (!to_boolean (get_property ("tieWaitForNote")))
     {
       Moment now = now_mom ();
@@ -155,9 +168,10 @@ Tie_engraver::start_translation_timestep ()
 void
 Tie_engraver::stop_translation_timestep ()
 {
+  bool wait = to_boolean (get_property ("tieWaitForNote"));
   if (ties_.size ())
     {
-      if (!to_boolean (get_property ("tieWaitForNote")))
+      if (!wait)
 	heads_to_tie_.clear ();
 
       for (vsize i = 0; i < ties_.size (); i++)
@@ -167,39 +181,55 @@ Tie_engraver::stop_translation_timestep ()
       tie_column_ = 0;
     }
 
-  if (event_)
+  if (!wait)
+    heads_to_tie_.clear ();
+  
+  for (vsize i = 0; i < now_heads_.size (); i++)
     {
-      SCM start_definition
-	= updated_grob_properties (context (), ly_symbol2scm ("Tie"));
+      Grob *head = now_heads_[i];
+      Stream_event *left_ev
+	= unsmob_stream_event (head->get_property ("cause"));
 
-      if (!to_boolean (get_property ("tieWaitForNote")))
-	heads_to_tie_.clear ();
+      SCM left_articulations = left_ev->get_property ("articulations");
 
-      for (vsize i = 0; i < now_heads_.size (); i++)
+      Music *tie_event = 0;
+      Stream_event *tie_stream_event = event_;
+      for (SCM s = left_articulations;
+	   !tie_event && !tie_stream_event && scm_is_pair (s);
+	   s = scm_cdr (s))
 	{
-	  Grob *head = now_heads_[i];
-	  Stream_event *left_ev = unsmob_stream_event (head->get_property ("cause"));
-	  if (left_ev)
+	  Music *m = unsmob_music (scm_car (s));
+	  if (!m)
+	    continue;
+	  
+	  if (m->is_mus_type ("tie-event"))
+	    tie_event = m;
+	}
+	  
+      if (left_ev && (tie_event || tie_stream_event))
+	{
+	  Head_event_tuple event_tup;
+
+	  SCM start_definition
+	    = updated_grob_properties (context (), ly_symbol2scm ("Tie"));
+
+	  event_tup.head_ = head;
+	  event_tup.tie_definition_ = start_definition;
+	  event_tup.tie_event_ = tie_event;
+	  event_tup.tie_stream_event_ = tie_stream_event;
+
+	  Moment end = now_mom ();
+	  if (end.grace_part_)
 	    {
-	      Head_event_tuple event_tup;
-
-	      event_tup.head_ = head;
-	      event_tup.tie_definition_ = start_definition;
-	      event_tup.event_ = event_;
-
-	      Moment end = now_mom ();
-	      if (end.grace_part_)
-		{
-		  end.grace_part_ += get_event_length (left_ev).main_part_;
-		}
-	      else
-		{
-		  end += get_event_length (left_ev);
-		}
-	      event_tup.end_moment_ = end;
-
-	      heads_to_tie_.push_back (event_tup);
+	      end.grace_part_ += get_event_length (left_ev).main_part_;
 	    }
+	  else
+	    {
+	      end += get_event_length (left_ev);
+	    }
+	  event_tup.end_moment_ = end;
+	    
+	  heads_to_tie_.push_back (event_tup);
 	}
     }
 
@@ -234,7 +264,7 @@ ADD_TRANSLATOR (Tie_engraver,
 		/* doc */ "Generate ties between noteheads of equal pitch.",
 		/* create */
 		"Tie "
-		"TieColumn",
+		"TieColumn ",
 
 		/* accept */ "tie-event",
 		/* read */ "tieWaitForNote",

@@ -1,5 +1,12 @@
 2006-08-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/tie-engraver.cc (struct Head_event_tuple): store both
+	stream events and music events.
+	(stop_translation_timestep): search acknowledged heads for
+	tie-event.
+
+	* input/regression/tie-chord-partial.ly: new file.
+
 	* scm/define-markup-commands.scm (char): use ly:wide-char->utf-8
 	for \char markup command.
 
