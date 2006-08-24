@@ -1066,8 +1066,8 @@ See @usermanref{The Feta font} for  a complete listing of the possible glyphs."
 (define-markup-command (char layout props num) (integer?)
   "Produce a single character, e.g. @code{\\char #65} produces the 
 letter 'A'."
-  (ly:get-glyph (ly:paper-get-font layout props) num))
 
+  (ly:text-interface::interpret-markup layout props (ly:wide-char->utf-8 num)))
 
 (define number->mark-letter-vector (make-vector 25 #\A))
 

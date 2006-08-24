@@ -6,6 +6,7 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include "warn.hh"
 #include "stencil.hh"
 #include "font-metric.hh"
 #include "modified-font-metric.hh"
@@ -97,6 +98,10 @@ LY_DEFINE (ly_text_dimension, "ly:text-dimension",
 		   ly_interval2scm (stc.extent (Y_AXIS)));
 }
 
+
+/*
+  TODO: when are non string retvals allowed?
+ */
 LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 	   1, 0, 0,
 	   (SCM font),
@@ -105,7 +110,9 @@ LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  return fm->font_file_name ();
+  SCM name = fm->font_file_name ();
+
+  return name;
 }
 
 LY_DEFINE (ly_font_name, "ly:font-name",
