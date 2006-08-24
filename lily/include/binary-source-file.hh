@@ -24,4 +24,4 @@ public:
   virtual int get_line (char const *pos_str0) const;
 };
 
-#endif // BINARY_SOURCE_FILE_HH
+#endif // BINARY_SOURCE_FILE_
