@@ -459,13 +459,13 @@ Syntax \\sequential @{..@} or simply @{..@} .")
      . (
 	(description . "Print Solo.1")
 	(part-combine-status . solo1)
-	(types . (general-music event part-combine-event solo1-event))
+	(types . (general-music event part-combine-event solo-one-event))
 	))
     (SoloTwoEvent
      . (
 	(description . "Print Solo.2")
 	(part-combine-status . solo2)
-	(types . (general-music event part-combine-event solo2-event))
+	(types . (general-music event part-combine-event solo-two-event))
 	))
     (UnisonoEvent
      . ((description . "Print a2")

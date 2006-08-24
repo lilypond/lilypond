@@ -1,5 +1,16 @@
 2006-08-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-event-classes.scm (unlistened-music-event-classes): idem.
+
+	* scm/define-music-types.scm (music-descriptions): consistency:
+	Use solo-{one,two}-event iso. solo-[12]-event.
+
+	* lily/part-combine-engraver.cc (process_music):
+	Use solo-{one,two}-event iso. solo-[12]-event.
+
+	* ly/declarations-init.ly (partCombineListener): add Timing as
+	alias
+
 	* flower/std-string.cc (string_copy): use copy ()
 
 	* lily/source-file.cc (Source_file): use copy(). Remove contents_str0()

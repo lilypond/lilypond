@@ -55,9 +55,9 @@ Part_combine_engraver::process_music ()
     {
       SCM what = event_->get_property ("class");
       SCM text = SCM_EOL;
-      if (what == ly_symbol2scm ("solo1-event"))
+      if (what == ly_symbol2scm ("solo-one-event"))
 	text = get_property ("soloText");
-      else if (what == ly_symbol2scm ("solo2-event"))
+      else if (what == ly_symbol2scm ("solo-two-event"))
 	text = get_property ("soloIIText");
       else if (what == ly_symbol2scm ("unisono-event"))
 	text = get_property ("aDueText");
