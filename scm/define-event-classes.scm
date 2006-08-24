@@ -25,7 +25,7 @@
       layout-instruction-event))
     (layout-instruction-event . (apply-output-event))
     (script-event . (articulation-event text-script-event))
-    (part-combine-event . (solo1-event solo2-event unisono-event))
+    (part-combine-event . (solo-one-event solo-two-event unisono-event))
     (break-event . (line-break-event page-break-event page-turn-event))
     (dynamic-event . (absolute-dynamic-event))
     (span-event . (span-dynamic-event beam-event ligature-event
@@ -80,7 +80,7 @@
 ;; directly. Avoids printing a warning.
 (define unlistened-music-event-classes
   '(harmonic-event line-break-event page-break-event page-turn-event
-		   solo1-event solo2-event skip-event unisono-event))
+		   solo-one-event solo-two-event skip-event unisono-event))
 
 ;; produce neater representation of music event tree.
 ;; TODO: switch to this representation for the event-classes list?

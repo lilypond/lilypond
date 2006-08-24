@@ -110,6 +110,7 @@ partCombineListener = \layout {
 	\Score
 	skipTypesetting = ##t
 	ignoreBarChecks = ##t
+	\alias "Timing"
     }
 }
 
