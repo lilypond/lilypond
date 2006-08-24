@@ -1,5 +1,7 @@
 2006-08-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* flower/std-string.cc (string_copy): use copy ()
+
 	* lily/source-file.cc (Source_file): use copy(). Remove contents_str0()
 
 2006-08-24  Graham Percival  <gpermus@gmail.com>
