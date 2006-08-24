@@ -600,6 +600,15 @@ tagline is ``Music engraving by LilyPond (@var{version})''.@footnote{Nicely
 printed parts are good PR for us, so please leave the tagline if you
 can.}
 
+Headers may be completely removed by setting them to false.
+
+@example
+\header @{
+  tagline = ##f
+  composer = ##f
+@}
+@end example
+
 
 @node Custom titles
 @subsection Custom titles

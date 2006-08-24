@@ -120,7 +120,7 @@ false.
 
 @funindex print-page-number
 @item print-page-number
-If set to false, page numbers will not be printed.
+If set to true, page numbers will be printed.
 
 @funindex paper-width
 @item paper-width

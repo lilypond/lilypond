@@ -38,6 +38,7 @@ This procedure may be applied to La@TeX{}, HTML or Texinfo documents.
 * Music fragment options::      
 * Invoking lilypond-book::      
 * Filename extensions::         
+* Inserting LilyPond output into other programs::  
 @end menu
 
 
@@ -762,3 +763,37 @@ output format based on the input filename's extension.
 @item @file{.xml} @tab HTML
 @end multitable
 @end quotation
+
+
+@node Inserting LilyPond output into other programs
+@section Inserting LilyPond output into other programs
+
+To insert LilyPond output in other programs, use @code{lilypond}
+instead of @code{lilypond-book}.  Each example must be created
+individually and added to the document; consult the
+documentation for that program.  Most programs will be able
+to insert lilypond output in @file{PNG}, @file{EPS}, or @file{PDF}
+formats.
+
+To reduce the white space around your lilypond score, use
+the following options
+
+@example
+\paper@{
+  indent=0\mm
+  line-width=120\mm
+  oddFooterMarkup=##f
+  oddHeaderMarkup=##f
+  bookTitleMarkup = ##f
+  scoreTitleMarkup = ##f
+@}
+
+@{ c1 @}
+@end example
+
+To produce a useful @file{eps} file, use
+
+@example
+lilypond -b eps -dno-gs-font-load -deps-font-include   myfile.ly
+@end example
+
