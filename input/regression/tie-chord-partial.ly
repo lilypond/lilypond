@@ -9,7 +9,7 @@
 }
 
 \relative {
-  <c~ e g>  <c e~ g> <c e g>
+  <c~ e g>  <c e g~> <c e g>
 }
 
 
