@@ -4,7 +4,7 @@
 
 #(set-global-staff-size 16)
 
-\version "2.7.39"
+\version "2.9.16"
 
 \header {
   title = "Romanzen"
@@ -255,7 +255,7 @@ leftb =  \transpose c cis {
     \override PianoStaff.InstrumentName #'font-shape = #'italic
     \override PianoStaff.InstrumentName #'font-magnification = #3
     
-    \set PianoStaff.instrument = "  2."
+    \set PianoStaff.instrumentName = "  2."
     \new Staff =  "up" {
       \override Staff.DynamicLineSpanner   #'direction = #DOWN
       \clef G <<\global \new Voice =  "upv" \righta >>
@@ -265,8 +265,8 @@ leftb =  \transpose c cis {
     \override Staff.InstrumentName #'font-shape = #'upright
     \override Staff.InstrumentName #'font-magnification = #1
     \override Staff.InstrumentName #'extra-offset = #'(0 . 6)
-   % \set Staff.instrument = "\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
-    \set Staff.instrument = \markup { \column { Rechte Hand }  \hspace #2 }
+   % \set Staff.instrumentName = "\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
+    \set Staff.instrumentName = \markup { \column { Rechte Hand }  \hspace #2 }
       \clef F <<\global \new Voice =  "midv" \rightb>>
     }
       \new Staff =  "down" {
@@ -288,7 +288,15 @@ leftb =  \transpose c cis {
       \override VerticalAlignment #'forced-distance = #13.0
     }
   }
-  \midi { \tempo 8=100 }
+  
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 100 8)
+      }
+    }
+
+
 }
 
 

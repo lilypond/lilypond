@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.9.16"
 
 forcedLastBreak =  { \break }
 
@@ -181,7 +181,15 @@ smallerPaper = \layout {
   \score{
     \sarabandeCelloStaff
     \layout { }
-    \midi{ \tempo 4 = 40 }
+    
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 40 4)
+      }
+    }
+
+
     \header{
       opus= "" 
       piece ="Sarabande" }

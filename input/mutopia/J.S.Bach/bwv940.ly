@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.7.39"
+\version "2.9.16"
 
 %{
  Header for Petites Preludes.
@@ -158,7 +158,15 @@ global = {
 		    \override SpacingSpanner #'spacing-increment = #2.0
 		}
 	}
-	\midi{ \tempo 4 = 40 }
+	
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 40 4)
+      }
+    }
+
+
 }
 
 
