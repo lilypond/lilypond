@@ -1,5 +1,8 @@
 2006-08-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/parser.yy (output_def_body): take ownership of identifier
+	back to C++.
+
 	* Documentation/user/advanced-notation.itely (Metronome marks):
 	update use of \tempo in \midi.
 

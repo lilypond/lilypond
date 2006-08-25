@@ -731,6 +731,7 @@ paper_block:
 		if ($$->lookup_variable (ly_symbol2scm ("is-paper")) != SCM_BOOL_T)
 		{
 			PARSER->parser_error (@1, _ ("need \\paper for paper block"));
+			$1->unprotect ();
 			$$ = get_paper (PARSER);
 		}
 	}
@@ -779,9 +780,11 @@ output_def_body:
 	}
 	| output_def_head_with_mode_switch '{' OUTPUT_DEF_IDENTIFIER 	{
 		$1->unprotect ();
+
 		Output_def *o = unsmob_output_def ($3);
 		o->input_origin_.set_spot (@$);
 		$$ = o;
+		$$->protect ();
 		PARSER->lexer_->remove_scope ();
 		PARSER->lexer_->add_scope (o->scope_);
 	}
