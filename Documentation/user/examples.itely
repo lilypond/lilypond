@@ -39,7 +39,7 @@ melody = \relative c' {
 \score {
    \new Staff \melody
    \layout { }
-   \midi o}
+   \midi {}
 }
 @end lilypond
 
