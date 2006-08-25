@@ -729,9 +729,11 @@ to a score, for example,
 @example
 \score @{
   @var{...music...}
-  \midi @{ \tempo 4=72 @}
+  \midi @{  @}
 @}
 @end example
+
+FIXME
 
 The tempo is specified using the @code{\tempo} command.  In this
 example the tempo of quarter notes is set to 72 beats per minute.
@@ -744,7 +746,7 @@ be added
 @example
 \score @{
   @var{...music...}
-  \midi @{ \tempo 4=72 @}
+  \midi @{ @}
   \layout @{ @}
 @}
 @end example
@@ -810,21 +812,8 @@ will.
 
 
 The MIDI block is analogous to the layout block, but it is somewhat
-simpler.  The @code{\midi} block can contain
-@cindex MIDI block
-
-@itemize @bullet
-  @item a @code{\tempo} definition, and
-  @item context definitions.
-@end itemize
-
-A number followed by a period is interpreted as a real number, so
-for setting the tempo for dotted notes, an extra space should be
-inserted, for example
-
-@example
-\midi @{ \tempo 4 . = 120 @}
-@end example
+simpler.  The @code{\midi} block is similar to @code{\layout}. It can contain
+context definitions.
 
 
 @cindex context definition

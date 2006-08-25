@@ -48,7 +48,7 @@ text = \lyricmode @{
     \new Lyrics \lyricsto "one" \text
   >>
   \layout @{ @}
-  \midi @{ \tempo 4=60 @}
+  \midi @{ @}
 @}
 @end example
 
@@ -67,7 +67,7 @@ melody = \relative c' @{
 \score @{
 \new Staff \melody
 \layout @{ @}
-\midi @{ \tempo 4=60 @}
+\midi @{ @}
 @}
 @end example
 
@@ -121,7 +121,7 @@ celloMusic = \relative c @{
     \new Lyrics \lyricsto "one" \sopranoLyrics
   >>
   \layout @{ @}
-  \midi @{ \tempo 4=60 @}
+  \midi @{ @}
 @}
 @end example
 
@@ -152,7 +152,7 @@ more than one thing (in this case, @code{Staff}) happening at once.  The
     \new Staff \celloMusic
   >>
   \layout @{ @}
-  \midi @{ \tempo 4=60 @}
+  \midi @{ @}
 @}
 @end example
 
@@ -194,7 +194,7 @@ celloMusic = \relative c {
     \new Staff \celloMusic
   >>
   \layout { }
-  \midi { \tempo 4=60 }
+  \midi { }
 }
 @end lilypond
 
