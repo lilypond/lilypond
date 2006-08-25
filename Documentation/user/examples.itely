@@ -39,7 +39,7 @@ melody = \relative c' {
 \score {
    \new Staff \melody
    \layout { }
-   \midi { \tempo 4=60 }
+   \midi o}
 }
 @end lilypond
 
@@ -74,7 +74,7 @@ text = \lyricmode {
       \new Lyrics \lyricsto "one" \text
    >>
    \layout { }
-   \midi { \tempo 4=60 }
+   \midi { }
 }
 @end lilypond
 
@@ -107,7 +107,7 @@ harmonies = \chordmode {
    >>
 
    \layout{ }
-   \midi { \tempo 4=60}
+   \midi { }
 }
 @end lilypond
 
@@ -146,7 +146,7 @@ harmonies = \chordmode {
    \new Lyrics \lyricsto "one" \text
    >>
    \layout { }
-   \midi { \tempo 4=60 }
+   \midi { }
 }
 @end lilypond
 
@@ -181,7 +181,7 @@ lower = \relative c {
       \new Staff = "lower" \lower
    >>
    \layout { }
-   \midi { \tempo 4=60 }
+   \midi { }
 }
 @end lilypond
 
@@ -236,7 +236,7 @@ lower = \relative c {
    \layout {
       \context { \RemoveEmptyStaffContext }
    }
-   \midi { \tempo 4=60 }
+   \midi { }
 }
 @end lilypond
 
@@ -281,7 +281,7 @@ text = \lyricmode {
     \context { \GrandStaff \accepts "Lyrics" }
     \context { \Lyrics \consists "Bar_engraver" }
   }
-  \midi { \tempo 4=60 }
+  \midi { }
 }
 @end lilypond
 
@@ -433,7 +433,7 @@ cello = \new Voice { \relative c' {
       \new Staff << \global \cello >>
    >>
    \layout { }
-   \midi { \tempo 4=60}
+   \midi { }
 }
 @end lilypond
 
@@ -503,7 +503,7 @@ music = {
 \score {
   \new StaffGroup \keepWithTag #'score \music
   \layout { }
-  \midi { \tempo 4 = 60 }
+  \midi { }
 }
 
 
@@ -1277,7 +1277,7 @@ drumContents = {
     }
   }
 
-  \midi { \tempo 4 = 75 }
+  \midi { }
 }
 @end lilypond
 

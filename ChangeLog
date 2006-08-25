@@ -1,3 +1,8 @@
+2006-08-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/advanced-notation.itely (Metronome marks):
+	update use of \tempo in \midi.
+
 2006-08-24  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* input/mutopia/*: upgrade to new midi tempo syntax (repairs make
@@ -44,7 +49,7 @@
 
 2006-08-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* buildscripts/mutopia-index.py (allfiles):  filter  lily-XXX and
+	* buildscripts/mutopia-index.py (allfiles): filter lily-XXX and
 	snippet-map
 
 	* scm/define-context-properties.scm
@@ -57,7 +62,8 @@
 	* lily/smobs.cc (protect_smob): switch off fancy smob protection
 	for now. 
 
-	* lily/include/performer.hh (class Performer): strip get_tempo() method.
+	* lily/include/performer.hh (class Performer): strip get_tempo()
+	method.
 
 	* lily/midi-def.cc: strip file.
 
