@@ -1,3 +1,9 @@
+2006-08-24  Phillip Kirlin  <pkirlin@acm.org>
+
+	* python/musicxml.py: 
+	(Attributes.get_key_signature): now correctly retrieves mode from 
+	MusicXML. 
+
 2006-08-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/parser.yy (output_def_body): take ownership of identifier

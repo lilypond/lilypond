@@ -165,7 +165,7 @@ class Attributes (Measure_element):
         "return (fifths, mode) tuple"
 
         key = self.get_named_attribute ('key')
-        mode_node = self.get_maybe_exist_named_child ('mode')
+        mode_node = key.get_maybe_exist_named_child ('mode')
         mode = 'major'
         if mode_node:
             mode = mode_node.get_text ()
