@@ -1,3 +1,8 @@
+2006-08-27  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/paper-column-engraver.cc (finalize): Oops, this change
+	should have gone in on 2006-08-23
+
 2006-08-26  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/lilypond-book.py (LATEX_INSPECTION_DOCUMENT): Use double

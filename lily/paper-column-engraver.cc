@@ -42,6 +42,7 @@ Paper_column_engraver::finalize ()
   if (command_column_)
     {
       command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
+      command_column_->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
       system_->set_bound (RIGHT, command_column_);
     }
 }
