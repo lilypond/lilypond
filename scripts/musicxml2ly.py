@@ -110,7 +110,7 @@ def musicxml_key_to_lily (attributes):
     try:
         (n,a) = {
             'major' : (0,0),
-            'minor' : (6,0),
+            'minor' : (5,0),
             }[mode]
         start_pitch.step = n
         start_pitch.alteration = a
@@ -124,7 +124,6 @@ def musicxml_key_to_lily (attributes):
         fifth.step *= -1
         fifth.normalize ()
     
-    start_pitch = musicexp.Pitch()
     for x in range (fifths):
         start_pitch = start_pitch.transposed (fifth)
 
