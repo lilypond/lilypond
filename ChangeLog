@@ -1,3 +1,10 @@
+2006-08-26  Mats Bengtsson  <mabe@s3.kth.se>
+
+	* scripts/lilypond-book.py (LATEX_INSPECTION_DOCUMENT): Use double
+	quotes to quote arguments. Fixes Windows problem.
+
+	* python/lilylib.py (progress): idem
+
 2006-08-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/musicxml2ly.py: fix for importing
@@ -252,7 +259,7 @@
 	* lily/spacing-engraver.cc (stop_translation_timestep): don't
 	crash if spacing_ is nonexistent.
 
-2006-08-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-08-14  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/lilypond-book.py (output): Remove obsolete(!?)
 	\catcode`\@=12 in the LaTeX output.
@@ -372,7 +379,7 @@
 	accidental for trill span event. This fixes spurious accidentals
 	on trills.
 
-2006-08-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-08-04  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scm/define-grob-properties.scm (all-user-grob-properties):
 	Clarify documentation of side-axis and direction. Thanks to Paul
@@ -398,7 +405,7 @@
 	* lily/beam-engraver.cc (listen_beam): add method for
 	Grace_beam_engraver too.
 
-2006-08-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-08-03  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* python/convertrules.py: Fix indentation bug that broke
 	conversion of files older than 1.3.117.
@@ -425,7 +432,7 @@
 
 	* input/test/instrument-name-align.ly: update version.
 
-2006-08-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-08-02  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/lilypond-book.itely (Invoking lilypond-book):
 	Doc the --pdf flag to lilypond-book.
@@ -620,7 +627,7 @@
 
 	* scm/define-music-types.scm: Removed BusyPlayingEvent
 	
-2006-07-19  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-07-19  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Font selection):
 	Document how to get a list of available fonts using 'lilypond
@@ -848,7 +855,7 @@
 	* lily/parser.yy: Wrap non-post-events in EventChords before
 	assigning them to identifiers.
 
-2006-06-27  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-06-27  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/bar-line.cc (compound_barline): Fix parenthesis error,
 	gives correct vertical placement of \bar ":" in all staff
@@ -876,7 +883,7 @@
 
 	* Documentation/user/ various: small additions from mailist.
 
-2006-06-22  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-06-22  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* ly/performer-init.ly: Add some missing links in the context
 	hierarchy for MIDI output. There are probably some more missing!
@@ -1066,7 +1073,7 @@
 
 	* HACKING: trim outdated info.
 
-2006-06-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-06-09  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scm/define-grobs.scm (all-grob-descriptions): Add
 	line-spanner-interface to all grobs that already have
@@ -1085,7 +1092,7 @@
 	* scripts/lilypond-book.py (find_toplevel_snippets): don't use
 	generator expressions (2.3 compat). 
 
-2006-06-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-06-09  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/vertical-align-engraver.cc: Make sure that the
 	align{Above,Below}Context properties are included in the automatic
@@ -1575,7 +1582,7 @@
 	* ly/Welcome-to-LilyPond-MacOS.ly: include in LilyPond, so version
 	number stays up to date. Backportme.
 
-2006-05-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-05-30  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/basic-notation.itely (Bar lines): Document
 	the "||:" bar type. 
@@ -1910,7 +1917,7 @@
 
 	* Documentation/topdocs/NEWS.tely (Top): add hairpinToBarline feature.
 
-2006-05-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-05-16  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Instrument names):
 	Modified obsolete instruction on how to move instrument names away
@@ -2011,7 +2018,7 @@
 
 	* Documentation/user/ various: small fixes.
 
-2006-05-12  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-05-12  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/programming-interface.itely (Markup
 	programmer interface): Remove duplicate text.
@@ -2324,7 +2331,7 @@
 
 	* lily/relocate.cc (framework_relocation): remove old relocation stuff.
 
-2006-05-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-05-01  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scm/define-grob-properties.scm (all-user-grob-properties):
 	Correct typo, thanks to Eduardo.
@@ -2366,7 +2373,7 @@
 
 	* python/convertrules.py (conv): indent 4 for python files.
 
-2006-04-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-04-29  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/changing-defaults.itely (Creating contexts):
 	Clarify \new semantics.
@@ -2571,7 +2578,7 @@
 	* scm/define-context-properties.scm (all-user-translation-properties): 
 	* Documentation/user/global.itely (Page formatting): Compile fix.
 
-2006-04-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-04-09  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Polymetric
 	notation): Update the example to use the "+" symbol and add link
@@ -2734,7 +2741,7 @@
 	* lily/pango-font.cc (pango_item_string_stencil): only use uXXX
 	glyphnames if we have a ttf font.
 
-2006-03-30  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-03-30  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Font selection):
 	Corrected reference to the font-family-override.ly example.
@@ -3070,7 +3077,7 @@
 
 	* Documentation/user/global.itely: small fix from mailist.
 
-2006-03-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-03-14  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/lilypond-book.py (LATEX_INSPECTION_DOCUMENT): Use the
 	file descriptor returned by tempfile.mkstemp() when writing
@@ -3111,7 +3118,7 @@
 
 	* ly/engraver-init.ly: init rehearsalMarkAlignSymbol to staff-bar.
 
-2006-03-12  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-03-12  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/instrument-notation.itely (Setting simple
 	songs): Added \book{...} around the full example, so the separate
@@ -4787,7 +4794,7 @@
 	* lily/main.cc: 
 	* configure.in: Cosmetic fixes.
 
-2006-01-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2006-01-04  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/music-glossary.tely (Pitch names): Added
 	Spanish pitch names and durations, thanks to Ernesto Gancedo
@@ -5470,7 +5477,7 @@
 	* lily/all-font-metrics.cc (kpathsea_find_file): use (scm
 	kpathsea) module.
 
-2005-11-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-11-29  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Setting automatic
 	beam behavior): Correct a few typos. Thanks to David Bobroff.
@@ -5569,7 +5576,7 @@
 
 	* python/midi.c: doc module.
 
-2005-11-22  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-11-22  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/global.itely (Creating MIDI files): Fix
 	compilation problem.
@@ -5665,7 +5672,7 @@
 	* lily/clef-engraver.cc (inspect_clef_properties): reset
 	localKeySignature for clef changes.
 
-2005-11-17  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-11-17  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* python/midi.c: PyMIDINIT_FUNC isn't defined in Python < 2.3 
 	add dummy definition that works in Linux and add information in
@@ -5677,7 +5684,7 @@
 	* Documentation/user/music-glossary.tely (dal segno): Updated
 	example to version >=2.6.
 
-2005-11-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-11-16  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/instrument-notation.itely (Printing chord
 	names): Reorder \chordmode and \repeat in one example.
@@ -5837,7 +5844,7 @@
 	* scripts/lilypond-book.py (main): use commands.mkarg () to quote
 	shell arguments. 
 
-2005-11-10  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-11-10  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/examples.itely (Piano templates): Minor
 	modification to the Piano centered lyrics example.
@@ -6025,7 +6032,7 @@
 	* scm/define-grob-properties.scm (all-user-grob-properties):
 	remove [XY]-offset-callbacks add [YX]-offset
 	
-2005-11-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-11-02  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scm/define-grobs.scm (all-grob-descriptions): Added space-alist
 	entry for time signatures after breathing signs. Bug report by
@@ -6709,7 +6716,7 @@
 	* lily/include/horizontal-bracket.hh (struct Horizontal_bracket):
 	new file.
 
-2005-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-10-04  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/lilypond-book.py: Bug fix, put the quote around the
 	actual score for LaTeX documents.
@@ -6892,7 +6899,7 @@
 	* scm/define-music-types.scm (music-descriptions): set length and
 	start-callback for QuoteMusic
 
-2005-09-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-09-15  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/tie.cc (get_configuration): Replace fabs -> abs for integer
 	arguments. Fixes compilation error with gcc 3.3.
@@ -7065,7 +7072,7 @@
 	* Documentation/user/advanced-notation.itely,
 	basic-notation.itely: minor changes.
 
-2005-08-31  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-31  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scm/framework-eps.scm (dump-stencils-as-EPSes): Insert a
 	\linebreak between each .eps file if \betweenLilyPondSystem is
@@ -7201,7 +7208,7 @@
 
 	* scm/define-markup-commands.scm (null): add null markup.
 
-2005-08-25  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-25  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/item.cc: Add documentation of center-invisible
 
@@ -7304,7 +7311,7 @@
 
 	* lily/skyline.cc: fix ASCII art.
 	
-2005-08-22  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-22  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* python/convertrules.py (string_or_scheme): Fix spelling error
 
@@ -7417,7 +7424,7 @@
 
 	* lily/include/performer-group.hh: rename.
 
-2005-08-18  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-18  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* input/test/script-abbreviations.ly: Removed some old LaTeX
 	left overs.
@@ -7559,7 +7566,7 @@
 	input/regression/ to input/no-notation. Be sure to call
 	`display-lily-init' before trying to use the display function.
 
-2005-08-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-16  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/lilypond-book.py (option_definitions): Don't localize
 	the empty string. Fixes bug when --psfonts was used with
@@ -7616,7 +7623,7 @@
 	* tex/GNUmakefile (INSTALLATION_FILES): Remove enc symlink setup,
 	encoding files are already removed.
 
-2005-08-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-15  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Instrument names):
 	Document a workaround for instrument names that collide with
@@ -7668,7 +7675,7 @@
 	* Documentation/user/advanced-notation.itely: add markup
 	example to Text spanners.
 
-2005-08-12  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-12  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/basic-notation.itely (Ties): Add example of
 	tying a tremolo to a chord. Thanks to Steve Doonan. 
@@ -7725,7 +7732,7 @@
 	do_shift if script inside slur, even if slur not contained in
 	script y-extent.  Increment k in loop.
 
-2005-08-11  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-11  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scm/define-markup-commands.scm: Improved regexp to search for
 	EPS bounding boxes and corrected call to ly:warning.
@@ -7736,7 +7743,7 @@
 	expressions): doc for \displayLilyMusic. Also some precisions in
 	"Markup construction in Scheme"
 
-2005-08-10  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-10  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scm/define-markup-commands.scm (normal-text): Added 2 new
 	markup commands, \normal-text and \medium (the latter thanks to
@@ -7767,7 +7774,7 @@
 	* Documentation/user/basic-notation.itely: reword multi-measure
 	rest discussion in Rests.
 
-2005-08-08  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-08  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/programming-interface.itely (Markup
 	construction in Scheme): Corrected example and tried to clarify
@@ -7976,7 +7983,7 @@
 
 	* mf/feta-generic.mf: add feta-arrow.
 
-2005-08-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-03  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/lilypond-book.itely (An example of a
 	musicological document): Added flag -o to dvips for people who use
@@ -8015,7 +8022,7 @@
 	* ly/declarations-init.ly (center): escape to Scheme. Fixes
 	spurious #<Music FingerEvent> errors. Backportme.
 
-2005-08-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-08-03  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/programming-interface.itely (Markup
 	construction in Scheme): Corrected markup syntax in the
@@ -8729,7 +8736,7 @@
 
 	* Documentation/user/lilypond.itely: change encoding to utf-8.
 
-2005-07-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-07-01  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Setting automatic
 	beam behavior): Correct the documentation of
@@ -8809,7 +8816,7 @@
 
 	* scm/midi.scm: compile fix.
 
-2005-06-28  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-06-28  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/lilypond-book.py : Fix embarrassing bug in my previous
 	patch. Now, the tempfile module is loaded too, not only used.
@@ -8909,7 +8916,7 @@
 	* buildscripts/gen-emmentaler-scripts.py (notice): add GPL notice
 	to fonts.
 
-2005-06-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-06-23  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/lilypond-book.py (LATEX_DOCUMENT): More or less ugly
 	workaround since /dev/stdin doesn't work on Cygwin. Using a
@@ -9071,7 +9078,7 @@
 
 	* scm/backend-library.scm (postprocess-output): remove debugging gobs.
 
-2005-06-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-06-14  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/topdocs/NEWS.tely (Top): Corrected name of
 	\musicDisplay 
@@ -9453,7 +9460,7 @@
 
 	* lily/main.cc (prepend_env_path, set_env_file): Use them.
 
-2005-06-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-06-02  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/easy-notation.cc: Added include cctype to correct
 	compilation error.
@@ -9933,7 +9940,7 @@
 
 	* lily/main.cc (setup_paths)[ARGV0_RELOCATION]: Remove GS_*.
 
-2005-05-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-05-16  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/horizontal-bracket.cc (print): Take care of the direction
 	property so brackets above the stave point downwards. 
@@ -10133,7 +10140,7 @@
 	Documentation/user/tutorial.itely: begin pruning
 	unused (duplicated) cindex entries and misc cleanup.
 
-2005-05-12  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-05-12  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* input/test/volta-chord-names.ly: Bring the explanation up to
 	date.
@@ -10224,7 +10231,7 @@
 	* configure.in (gui_b): Add mbrtowc checking.
 	Resurrect [utf8/]wchar.h checking.
 
-2005-05-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-05-09  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Metronome marks):
 	Add link to the program reference for MetronomeMark
@@ -10246,7 +10253,7 @@
 	* lily/general-scheme.cc (LY_DEFINE): hand-convert utf8 to 32
 	bits. Patch by Matthias Neeracher. <neeracher@mac.com>
 
-2005-05-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-05-09  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/convert-ly.py: In the conversion to version 1.9.0, 
 	keep Scheme expressions and strings unmodified when doing the
@@ -10367,7 +10374,7 @@
 	* Documentation/user/programming-interface.itely (How markups work
 	internally ): remove \encoding reference.
 
-2005-05-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-05-04  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/convert-ly.py: Attempt to do a smarter update of 
 	text markups from versions < 1.9.0 with arbitrary nesting.
@@ -10530,7 +10537,7 @@
 
 	* configure.in: Search for mingw wcrtomb library.
 
-2005-05-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-05-02  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scripts/convert-ly.py: Bug fix
 
@@ -10565,7 +10572,7 @@
 	* Documentation/user/advanced-notation.itely: corrected docs
 	concerning remove-first.
 
-2005-04-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-04-29  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/part-combine-engraver.cc: make sure that the relevant
 	properties are included in the documentation.
@@ -11730,7 +11737,7 @@
 	lilypond-book filter example and warned about not doing
 	--filter and --process at the same time.
 
-2005-03-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-03-23  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/parser.yy (bass_number),
 	Documentation/user/instrument-notation.itely (Figured bass): 
@@ -13512,7 +13519,7 @@
 
 	* mf/feta-test-generic.mf: Include all files as in feta-generic.mf.
 
-2005-01-13  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-01-13  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/notation.itely (Ancient rests): Fix typo
 	(thanks Anthony)
@@ -13740,7 +13747,7 @@
 	dump systems as separate .eps files (without fonts) and write a
 	single collecting .tex file.
 
-2005-01-05  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2005-01-05  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/user/notation.itely (Setting simple songs):
 	Correct several errors in the equivalent formulation of
@@ -14319,7 +14326,7 @@
 
 	* scm/output-svg.scm (svg-font): Add weight to font selection.
 
-2004-12-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2004-12-14  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* Documentation/topdocs/INSTALL.texi (Top): Point to
 	buildscripts/out/clean-fonts instead of
@@ -14576,7 +14583,7 @@
 	* lily/vaticana-ligature.cc: Fix for MacOS X: use <math.h> instead of
 	<cmath> beacause isinf/isnan is undefined in <cmath>
 
-2004-12-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2004-12-03  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* cygwin/lily-wins.py (stat): remove old flag -p when calling lilypond.
 
@@ -15197,7 +15204,7 @@
 
 	* buildscripts/guile-gnome.sh: Update.
 
-2004-11-10  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2004-11-10  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* scm/define-grobs.scm (all-grob-descriptions): Added
 	line-interface to the LigatureBracket object.
@@ -15454,7 +15461,7 @@
 	* tex/texinfo.tex: Updated from texinfo CVS -- this version provides
 	better output for multicolumn tables.
 
-2004-11-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+2004-11-01  Mats Bengtsson  <mabe@s3.kth.se>
 
 	* lily/main.cc (dir_info): Fixed typo in the printouts.
 

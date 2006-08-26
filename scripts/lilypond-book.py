@@ -1710,7 +1710,7 @@ def main ():
                                       + ' --formats=%s --backend eps ' % formats)
 
     if global_options.process_cmd:
-        global_options.process_cmd += string.join ([(' -I %s' % commands.mkarg (p))
+        global_options.process_cmd += string.join ([(' -I %s' % ly.mkarg (p))
                               for p in global_options.include_path])
 
     if global_options.format in (TEXINFO, LATEX):
