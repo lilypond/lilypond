@@ -52,6 +52,16 @@ except:
 underscore = _
 progress = sys.stderr.write 
 
+# Modified version of the commands.mkarg(x), which always uses 
+# double quotes (since Windows can't handle the single quotes:
+def mkarg(x):
+    s = ' "'
+    for c in x:
+        if c in '\\$"`':
+            s = s + '\\'
+        s = s + c
+    s = s + '"'
+    return s
 
 def command_name (cmd):
     # Strip all stuf after command,
