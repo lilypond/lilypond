@@ -192,6 +192,7 @@ Nested tuplets can have different formatting for each nesting level,
 
 This feature was sponsored by Trevor Bača.
 
+@c  TODO: I haven't processed stuff above this mark.  -gp
 
 @item
 New sections with different spacing parameters can be started with
