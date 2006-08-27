@@ -596,6 +596,7 @@ negative.
 
 @menu
 * Horizontal spacing overview::  
+* New spacing area::            
 * Changing horizontal spacing::  
 * Line length::                 
 @end menu
@@ -707,8 +708,6 @@ following work-around may be used to insert extra space into a score.
 No work-around exists for decreasing the amount of space.
 
 
-@c  FIXME:  include this in 2.9; currently removed for 2.8 -gp
-@ignore
 @node New spacing area
 @subsection New spacing area
 
@@ -719,15 +718,15 @@ sections with a different notions of long and short notes.
 In the following example, the time signature change introduces a new
 section, and hence the 16ths notes are spaced wider.
 
-@li lypond[relative,fragment,verbatim,quote]
+@lilypond[relative,fragment,verbatim,quote]
 \time 2/4
 c4 c8 c 
 c8 c c4 c16[ c c8] c4
 \newSpacingSection
 \time 4/16
 c16[ c c8]
-@e nd lilypond
-@end ignore
+@end lilypond
+
 
 @node Changing horizontal spacing
 @subsection Changing horizontal spacing

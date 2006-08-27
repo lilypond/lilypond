@@ -1826,7 +1826,12 @@ e' ~ e' <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
 When a tie is applied to a chord, all note heads whose pitches match
-are connected.  When no note heads match, no ties will be created.
+are connected.  When no note heads match, no ties will be created.  Chords
+may be partially tied by placing the tie inside the chord,
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+<c~ e g~ b> <c e g b>
+@end lilypond
 
 A tie is just a way of extending a note duration, similar to the
 augmentation dot.  The following example shows two ways of notating
@@ -1875,6 +1880,7 @@ for example, to tie a tremolo to a chord. For example,
 \set tieWaitForNote = ##t
 \grace { c16[~ e~ g]~ } <c, e g>2
 \repeat "tremolo" 8 { c32~ c'~ } <c c,>1
+e8~ c~ a~ f~ <e' c a f>2
 @end lilypond
 
 
@@ -2550,7 +2556,13 @@ c\< c\! d\> e\!
 
 @noindent
 A hairpin starts at the left edge of the beginning note and ends on the
-right edge of the ending note.
+right edge of the ending note.  This may be modified by setting
+the @code{hairpinToBarline} property,
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set hairpinToBarline = ##t
+c4\< c2. c4\!
+@end lilypond
 
 In some situations the @code{\espressivo} articulation mark may
 be suitable to indicate a crescendo and decrescendo on the one note,
@@ -2566,6 +2578,19 @@ example
 @example
 \override Voice.Hairpin #'minimum-length = #5
 @end example
+
+@cindex al niente
+@cindex niente, al
+
+Hairpins may be printed with a circled tip (al niente notation) by
+setting the @code{circled-tip} property,
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override Hairpin #'circled-tip = ##t
+c2\< c\!
+c4\> c\< c2\!
+@end lilypond
+
 
 @cindex crescendo
 @cindex decrescendo

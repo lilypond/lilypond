@@ -1922,26 +1922,22 @@ Program reference: @internalsref{NoteHead}.
 @node Feathered beams
 @subsection Feathered beams
 
-Feathered beams are not supported natively, but they can be faked by
-forcing two beams to overlap.  Here is an example,
+Feathered beams are printed by setting the @code{grow-direction}
+property of a @code{Beam}.  The @code{\featherDurations} function
+can be used to adjust note durations.
 
-@c don't change relative setting witout changing positions!
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
-\new Staff <<
-  \new Voice
-  {
-    \stemUp
-    \once \override Voice.Beam #'positions = #'(0 . 0.5)
-    c8[ c c c c ]
-  }
-  \new Voice {
-    \stemUp
-    \once \override Voice.Beam #'positions = #'(0 . -0.5)
-    c[ c c c c]
-  }
->>
+\featherDurations #(ly:make-moment 5 4) 
+{
+  \override Beam #'grow-direction = #LEFT
+  c16[ c c c c c c]
+}
 @end lilypond
 
+@refbugs
+
+The @code{\featherDuration} command only works with very short
+music snippets.
 
 @node Improvisation
 @subsection Improvisation

@@ -1,3 +1,10 @@
+2006-08-27  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/topdocs/NEWS.itely: add @c marker for
+	stuff I've processed.
+
+	* Documentation/user/ various: info from NEWS.
+
 2006-08-27  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/paper-column-engraver.cc (finalize): Oops, this change
