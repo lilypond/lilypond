@@ -719,6 +719,26 @@ To avoid printing tuplet numbers, use
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
 @end lilypond
 
+Tuplet brackets can be made to run to prefatory matter or
+the next note
+
+@lilypond[ragged-right]
+\new RhythmicStaff {
+  \set tupletFullLength = ##t
+  \time 4/4
+  \times 4/5 {
+    c4 c1
+  }
+  \set tupletFullLengthNote = ##t
+  \time 2/4
+  \times 2/3 {
+    c4 c c 
+  }
+  \time 3/4
+  c4 
+}
+@end lilypond
+
 
 @seealso
 
@@ -2295,6 +2315,30 @@ Another option is to change the variables @code{startGraceMusic},
 The slash through the stem in acciaccaturas can be obtained
 in other situations by @code{\override Stem  #'stroke-style = #"grace"}.
 
+
+@commonprop
+
+Grace notes may be forced to use floating spacing,
+
+@lilypond[relative=2,ragged-right]
+<<
+  \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+  \new Staff {
+     c'4
+     \afterGrace
+     c'4
+     { c'16[ c'8 c'16] }
+     c'4
+  }  
+  \new Staff {
+     c'16[ c'16 c'16 c'16]
+     c'16[ c'16 c'16 c'16]
+     c'4
+  }
+>>
+@end lilypond
+
+
 @seealso
 
 Program reference: @internalsref{GraceMusic}.
@@ -2343,6 +2387,7 @@ notes and rhythms.
 * Trills::                      
 * Glissando::                   
 * Arpeggio::                    
+* Falls and doits::             
 @end menu
 
 
@@ -2844,7 +2889,17 @@ It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @internalsref{PianoStaff} at the same point in time.
 
 
+@node Falls and doits
+@subsection Falls and doits
 
+Falls and doits can be added to notes using the @code{\bendAfter}
+command,
+
+@lilypond[fragment,ragged-right,relative=2]
+\override Score.SpacingSpanner #'shortest-duration-space = #3.0
+c4-\bendAfter #+5
+c4-\bendAfter #-3
+@end lilypond
 
 
 @node Repeats
