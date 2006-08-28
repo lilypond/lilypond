@@ -66,6 +66,10 @@ which scares away people.
 
 @end ignore
 
+
+
+@c Please insert any new material above this line.  -gp
+
 @item Chords can now be partially tied,
 
 @lilypond[ragged-right,relative,fragment]
@@ -94,7 +98,7 @@ c4 \bar "dashed" c4
 This feature was sponsored by Kieren MacMillan.
 
 @item
-Grace notes maybe forced to use floating spacing, 
+Grace notes may be forced to use floating spacing, 
 
 @lilypond[relative=2,ragged-right]
 <<
@@ -192,7 +196,6 @@ Nested tuplets can have different formatting for each nesting level,
 
 This feature was sponsored by Trevor Bača.
 
-@c  TODO: I haven't processed stuff above this mark.  -gp
 
 @item
 New sections with different spacing parameters can be started with
