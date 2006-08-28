@@ -190,6 +190,13 @@ Tie_engraver::stop_translation_timestep ()
       Stream_event *left_ev
 	= unsmob_stream_event (head->get_property ("cause"));
 
+      if (!left_ev)
+	{
+	  // may happen for ambituses
+	  continue;
+	}
+	    
+      
       SCM left_articulations = left_ev->get_property ("articulations");
 
       Music *tie_event = 0;
