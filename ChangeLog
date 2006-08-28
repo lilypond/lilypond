@@ -1,5 +1,7 @@
 2006-08-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/tie-engraver.cc (stop_translation_timestep): robustness for ambiti.
+
 	* lily/all-font-metrics.cc: remove TFM support.
 
 	* lily/include/tfm.hh: remove TFM support, TFM reader.
