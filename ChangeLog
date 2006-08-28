@@ -1,3 +1,11 @@
+2006-08-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/all-font-metrics.cc: remove TFM support.
+
+	* lily/include/tfm.hh: remove TFM support, TFM reader.
+
+	* lily/include/binary-source-file.hh: remove Binary_source_file.
+
 2006-08-27  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/topdocs/NEWS.itely: add @c marker for
