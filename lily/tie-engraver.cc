@@ -181,8 +181,7 @@ Tie_engraver::stop_translation_timestep ()
       tie_column_ = 0;
     }
 
-  if (!wait)
-    heads_to_tie_.clear ();
+  vector<Head_event_tuple> new_heads_to_tie;
   
   for (vsize i = 0; i < now_heads_.size (); i++)
     {
@@ -236,10 +235,17 @@ Tie_engraver::stop_translation_timestep ()
 	    }
 	  event_tup.end_moment_ = end;
 	    
-	  heads_to_tie_.push_back (event_tup);
+	  new_heads_to_tie.push_back (event_tup);
 	}
     }
 
+  if (!wait && new_heads_to_tie.size ())
+    heads_to_tie_.clear ();
+
+  // hmmm, how to do with copy() ?
+  for (vsize i = 0; i < new_heads_to_tie.size (); i++)
+    heads_to_tie_.push_back (new_heads_to_tie[i]);
+  
   event_ = 0;
   now_heads_.clear ();
 }
