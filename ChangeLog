@@ -1,6 +1,12 @@
+2006-09-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/tie-engraver.cc (stop_translation_timestep): only wipe
+	heads_to_tie_ if there are new heads to tie.  Fixes polyphony in ties.
+
 2006-08-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* lily/tie-engraver.cc (stop_translation_timestep): robustness for ambiti.
+	* lily/tie-engraver.cc (stop_translation_timestep): robustness for
+	ambituses.
 
 	* lily/all-font-metrics.cc: remove TFM support.
 
