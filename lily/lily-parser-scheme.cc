@@ -11,7 +11,7 @@
 #include "file-name-map.hh"
 #include "file-name.hh"
 #include "file-path.hh"
-#include "input-smob.hh"
+#include "input.hh"
 #include "international.hh"
 #include "lily-lexer.hh"
 #include "lily-parser.hh"

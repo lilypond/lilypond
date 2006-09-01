@@ -1,5 +1,13 @@
 2006-09-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/include/book.hh (class Book): idem.
+
+	* lily/include/context-def.hh (struct Context_def): idem.
+
+	* lily/include/score.hh (class Score): don't derive from Input.
+
+	* lily/book.cc (Book): add a copy ctor. 
+
 	* buildscripts/output-distance.py (FileLink.calc_distance): count
 	orphans in distance too.
 

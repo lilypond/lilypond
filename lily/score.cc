@@ -28,13 +28,21 @@ using namespace std;
 
 #include "ly-smobs.icc"
 
+Input *
+Score::origin () const
+{
+  return unsmob_input (input_location_);
+}
+
+
 Score::Score ()
-  : Input ()
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
   error_found_ = false;
+  input_location_ = SCM_EOL;
   smobify_self ();
+  input_location_ = make_input (Input ());
 }
 
 Score::~Score ()
@@ -53,6 +61,8 @@ Score::mark_smob (SCM s)
   scm_gc_mark (sc->header_);
   for (vsize i = sc->defs_.size (); i--;)
     scm_gc_mark (sc->defs_[i]->self_scm ());
+
+  scm_gc_mark (sc->input_location_);
   return sc->music_;
 }
 
@@ -65,12 +75,13 @@ Score::print_smob (SCM, SCM p, scm_print_state*)
 }
 
 Score::Score (Score const &s)
-  : Input (s)
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
   error_found_ = s.error_found_;
+  input_location_ = SCM_EOL;
   smobify_self ();
+  input_location_ = make_input (*s.origin ()); 
 
   Music *m = unsmob_music (s.music_);
   if (m)

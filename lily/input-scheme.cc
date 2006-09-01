@@ -7,7 +7,7 @@
 */
 
 #include "std-string.hh"
-#include "input-smob.hh"
+#include "input.hh"
 
 /* We don't use IMPLEMENT_TYPE_P, since the smobification part is
    implemented separately from the class.  */

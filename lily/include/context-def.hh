@@ -18,7 +18,7 @@
   The definition of a interpretation context as given in the
   input. The lists are stored in order of definition.
 */
-struct Context_def : public Input
+struct Context_def
 {
 private:
   /*
@@ -32,8 +32,9 @@ private:
   SCM context_aliases_;
   SCM translator_group_type_;
   SCM default_child_;
-
+  SCM input_location_;
 public:
+  Input *origin () const;
   void add_context_mod (SCM);
   SCM get_default_child (SCM user_mods) const;
   SCM get_context_name () const { return context_name_; }

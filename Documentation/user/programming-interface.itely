@@ -197,9 +197,8 @@ AltOff = {
 
 @noindent
 This example may be rewritten to pass in music expressions,
-@c fixme
-@ignore
-i@l ilypond[quote,verbatim,ragged-right]
+
+@lilypond[quote,verbatim,ragged-right]
 withAlt = #(define-music-function (parser location mag music) (number? ly:music?)
   #{ \override Stem #'length = #$(* 7.0 mag)
      \override NoteHead #'font-size =
@@ -210,8 +209,7 @@ withAlt = #(define-music-function (parser location mag music) (number? ly:music?
 
 { c'2 \withAlt #0.5 {c'4 c'}
   \withAlt #1.5 {c' c'} c'2 }
-@end l ilypond
-@end ignore
+@end lilypond
 
 @node Void functions
 @subsection Void functions

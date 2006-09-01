@@ -11,7 +11,7 @@
 #include <cstring>
 
 #include "align-interface.hh"
-#include "input-smob.hh"
+#include "input.hh"
 #include "international.hh"
 #include "item.hh"
 #include "main.hh"
@@ -36,6 +36,7 @@ Grob::Grob (SCM basicprops,
 	    Object_key const *key)
 {
   key_ = key;
+  
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
   layout_ = 0;

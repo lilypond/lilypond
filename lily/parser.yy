@@ -74,7 +74,6 @@ using namespace std;
 #include "context-def.hh"
 #include "dimensions.hh"
 #include "file-path.hh"
-#include "input-smob.hh"
 #include "input.hh"
 #include "international.hh"
 #include "lily-guile.hh"
@@ -606,11 +605,11 @@ context_def_spec_block:
 context_def_spec_body:
 	/**/ {
 		$$ = Context_def::make_scm ();
-		unsmob_context_def ($$)->set_spot (@$);
+		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
 	| CONTEXT_DEF_IDENTIFIER {
 		$$ = $1;
-		unsmob_context_def ($$)->set_spot (@$);
+		unsmob_context_def ($$)->origin ()->set_spot (@$);
 	}
 	| context_def_spec_body GROBDESCRIPTIONS embedded_scm {
 		Context_def*td = unsmob_context_def ($$);
@@ -642,14 +641,15 @@ book_block:
 book_body:
 	{
 		$$ = new Book;
-		$$->set_spot (@$);
+		$$->origin ()->set_spot (@$);
 		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (PARSER->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
 		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader"); 
 	}
 	| BOOK_IDENTIFIER {
 		$$ = unsmob_book ($1);
-		$$->set_spot (@$);
+		$$->protect ();
+		$$->origin ()->set_spot (@$);
 	}
 	| book_body paper_block {
 		$$->paper_ = $2;
@@ -690,12 +690,12 @@ score_body:
 		// pass ownernship to C++ again.
 		$$ = unsmob_score (score);
 		$$->protect ();
-		$$->set_spot (@$);
+		$$->origin ()->set_spot (@$);
 	}
 	| SCORE_IDENTIFIER {
 		$$ = unsmob_score ($1);
 		$$->protect ();
-		$$->set_spot (@$);
+		$$->origin ()->set_spot (@$);
 	}
 	| score_body object_id_setting {
 		$$->user_key_ = ly_scm2string ($2);

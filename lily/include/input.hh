@@ -52,4 +52,14 @@ public:
   Input ();
 };
 
+
+
+#include "input.hh"
+#include "smobs.hh"
+
+SCM make_input (Input spot);
+Input *unsmob_input (SCM);
+
+extern Input dummy_input_global;
+
 #endif // INPUT_HH

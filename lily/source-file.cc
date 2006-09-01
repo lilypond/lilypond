@@ -78,10 +78,9 @@ gulp_file (string filename, int desired_size)
   vector<char> cxx_arr;
   cxx_arr.resize (filesize);
 
-
   copy (str, str + filesize, cxx_arr.begin ());
   
-  free (str);
+  delete[] str;
   return cxx_arr;
 }
 

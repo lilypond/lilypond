@@ -6,7 +6,7 @@
   (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "input-smob.hh"
+#include "input.hh"
 #include "source-file.hh"
 #include "std-string.hh"
 

@@ -17,13 +17,15 @@
 #include "virtual-methods.hh"
 #include "std-string.hh"
 
-class Score : public Input
+class Score
 {
   DECLARE_SMOBS (Score, foo);
 
   SCM music_;
-
+  SCM input_location_;
 public:
+  Input *origin() const;
+ 
   vector<Output_def*> defs_;
   string user_key_;
   SCM header_;
@@ -32,6 +34,7 @@ public:
   Score ();
   Score (Score const &);
 
+  VIRTUAL_COPY_CONSTRUCTOR (Score, Score);
   
   SCM get_music () const;
   void add_output_def (Output_def *def);
