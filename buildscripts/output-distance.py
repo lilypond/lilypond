@@ -281,9 +281,13 @@ class FileLink:
 
     def calc_distance (self):
         d = 0.0
+
+        orphan_distance = 0.0
         for l in self.system_links.values ():
             d = max (d, l.geometric_distance ())
-        return d
+            orphan_distance += l.orphan_count ()
+            
+        return d + orphan_distance
 
     def distance (self):
         if type (self._distance) != type (0.0):
