@@ -5,7 +5,7 @@
 #include <cstring>
 
 #include "main.hh"
-#include "input-smob.hh"
+#include "input.hh"
 #include "pointer-group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"

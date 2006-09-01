@@ -30,18 +30,47 @@ using namespace std;
 #include "ly-smobs.icc"
 
 Book::Book ()
-  : Input ()
 {
   paper_ = 0;
   header_ = SCM_EOL;
   scores_ = SCM_EOL;
+  input_location_ = SCM_EOL;
   smobify_self ();
+
+  input_location_ = make_input (Input ());
 }
 
-Book* 
-Book::clone () const
+Book::Book (Book const &s)
 {
-  return new Book (*this);
+  paper_ = 0;
+  header_ = SCM_EOL;
+  scores_ = SCM_EOL;
+  input_location_ = SCM_EOL;
+  smobify_self ();
+
+  if (s.paper_)
+    paper_ = s.paper_->clone ();
+  
+  input_location_ = make_input (*s.origin ());
+  header_ = ly_make_anonymous_module (false);
+  if (ly_is_module (s.header_))
+    ly_module_copy (header_, s.header_);
+
+  SCM *t = &scores_;
+  for (SCM p = s.scores_; scm_is_pair (p); p = scm_cdr (p))
+    {
+      Score *newscore = unsmob_score (scm_car (p))->clone ();
+
+      *t = scm_cons (newscore->self_scm (), SCM_EOL);
+      t = SCM_CDRLOC(*t);
+      newscore->unprotect ();
+    }
+}
+
+Input *
+Book::origin () const
+{
+  return unsmob_input (input_location_);
 }
 
 Book::~Book ()
@@ -64,7 +93,8 @@ Book::mark_smob (SCM s)
   if (book->paper_)
     scm_gc_mark (book->paper_->self_scm ());
   scm_gc_mark (book->scores_);
-
+  scm_gc_mark (book->input_location_);
+  
   return book->header_;
 }
 

@@ -18,7 +18,6 @@ class Output_def : public Output_def
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Output_def, Output_def);
   Output_def (Output_def const &);
-
   Output_def ();
 
   virtual void derived_mark ();

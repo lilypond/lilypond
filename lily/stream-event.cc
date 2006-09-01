@@ -11,7 +11,7 @@
 #include "ly-smobs.icc"
 #include "context.hh"
 #include "input.hh"
-#include "input-smob.hh"
+#include "input.hh"
 
 /* TODO: Rename Stream_event -> Event */
 

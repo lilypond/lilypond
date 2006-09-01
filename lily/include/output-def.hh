@@ -42,6 +42,7 @@ class Output_def
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Output_def, Output_def);
   DECLARE_SMOBS (Output_def, );
+
 public:
   SCM scope_;
   Output_def *parent_;

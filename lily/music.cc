@@ -11,7 +11,7 @@
 #include "context.hh"
 #include "dispatcher.hh"
 #include "duration.hh"
-#include "input-smob.hh"
+#include "input.hh"
 #include "international.hh"
 #include "ly-smobs.icc"
 #include "main.hh"

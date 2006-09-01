@@ -27,14 +27,21 @@ Context_def::Context_def ()
   context_name_ = SCM_EOL;
   default_child_ = SCM_EOL;
   description_ = SCM_EOL;
+  input_location_ = SCM_EOL;
 
   smobify_self ();
 
+  input_location_ = make_input (Input ());
   context_name_ = ly_symbol2scm ("");
 }
 
+Input *
+Context_def::origin () const
+{
+  return unsmob_input (input_location_);
+}
+
 Context_def::Context_def (Context_def const &s)
-  : Input (s)
 {
   context_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;
@@ -44,10 +51,11 @@ Context_def::Context_def (Context_def const &s)
   context_name_ = SCM_EOL;
   description_ = SCM_EOL;
   default_child_ = SCM_EOL;
-
+  input_location_ = SCM_EOL;
   smobify_self ();
-  description_ = s.description_;
 
+  description_ = s.description_;
+  input_location_ = make_input (*s.origin ()); 
   default_child_ = s.default_child_;
   accept_mods_ = s.accept_mods_;
   property_ops_ = s.property_ops_;
@@ -88,6 +96,7 @@ Context_def::mark_smob (SCM smob)
   scm_gc_mark (me->property_ops_);
   scm_gc_mark (me->translator_group_type_);
   scm_gc_mark (me->default_child_);
+  scm_gc_mark (me->input_location_);
 
   return me->context_name_;
 }

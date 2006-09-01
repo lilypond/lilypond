@@ -21,6 +21,7 @@ protected:
   DECLARE_LISTENER (revert);
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Engraver_group);
+
   Engraver_group ();
   virtual void derived_mark () const;
   void do_announces ();
