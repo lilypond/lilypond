@@ -38,7 +38,6 @@ Tempo_performer::derived_mark () const
 
 Tempo_performer::Tempo_performer ()
 {
-  last_tempo_ = SCM_EOL;
   audio_ = 0;
 }
 
@@ -70,7 +69,6 @@ Tempo_performer::stop_translation_timestep ()
 {
   if (audio_)
     {
-      play_element (audio_);
       audio_ = 0;
     }
 }

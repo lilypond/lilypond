@@ -29,8 +29,16 @@ public:
   static string i2varint_string (int i);
 
   virtual string to_string () const = 0;
+};
 
+class Midi_channel_item : public Midi_item
+{
+public:
   int channel_;
+  DECLARE_CLASSNAME(Midi_channel_item);
+  Midi_channel_item ();
+  virtual const char *name () const { return "Midi_channel_item"; }
+  virtual ~Midi_channel_item ();
 };
 
 /**
@@ -83,7 +91,7 @@ public:
 /**
    Change instrument event
 */
-class Midi_instrument : public Midi_item
+class Midi_instrument : public Midi_channel_item
 {
 public:
   Midi_instrument (Audio_instrument *);
@@ -120,7 +128,7 @@ public:
 /**
    Turn a note on.
 */
-class Midi_note : public Midi_item
+class Midi_note : public Midi_channel_item
 {
 public:
   Midi_note (Audio_note *);
@@ -133,7 +141,8 @@ public:
 
   Audio_note *audio_;
 
-  static int const c0_pitch_i_ = 60;
+  
+  static int const c0_pitch_ = 60;
   Byte dynamic_byte_;
 };
 
@@ -169,7 +178,7 @@ public:
   Audio_text *audio_;
 };
 
-class Midi_dynamic : public Midi_item
+class Midi_dynamic : public Midi_channel_item
 {
 public:
   Midi_dynamic (Audio_dynamic *);
@@ -180,7 +189,7 @@ public:
   Audio_dynamic *audio_;
 };
 
-class Midi_piano_pedal : public Midi_item
+class Midi_piano_pedal : public Midi_channel_item
 {
 public:
   Midi_piano_pedal (Audio_piano_pedal *);

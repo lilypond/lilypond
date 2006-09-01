@@ -18,10 +18,11 @@ class Score_performer : public Performer_group
 {
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Score_performer);
-  ~Score_performer ();
   Performance *performance_;
 
+  ~Score_performer ();
   Score_performer ();
+
 protected:
   DECLARE_LISTENER (finish);
   DECLARE_LISTENER (prepare);
@@ -32,8 +33,8 @@ protected:
   virtual void disconnect_from_context ();
   virtual void initialize ();
   virtual void announce_element (Audio_element_info);
-  virtual void play_element (Audio_element *p);
   virtual void derived_mark () const;
+  virtual void acknowledge_audio_elements ();
 private:
   void header (Midi_stream &);
 

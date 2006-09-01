@@ -12,8 +12,6 @@
     
     \consists "Staff_performer"
     \consists "Key_performer"
-    \consists "Tempo_performer"
-    \consists "Time_signature_performer"
 }
 \context {
     \name Global
@@ -135,10 +133,13 @@
     \accepts FiguredBass
     \accepts Lyrics
     \accepts VaticanaStaff
-    
+
+    \consists "Time_signature_performer"
+    \consists "Control_track_performer"
+    \consists "Tempo_performer"
     \consists "Timing_translator"
     \consists "Swallow_performer"
-
+    
     \defaultchild "Staff"
     
     dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
@@ -153,8 +154,6 @@
     \consists "Staff_performer" % Performer_group ?
     \consists "Lyric_performer"
     \name Lyrics
-    \consists "Time_signature_performer"
-    \consists "Tempo_performer"
 }
 
 \context{

@@ -20,13 +20,10 @@ public:
 
   void do_announces ();
   virtual void announce_element (Audio_element_info);
-  virtual void play_element (Audio_element *p);
 
 protected:
   vector<Audio_element_info> announce_infos_;
-
-private:
-  void acknowledge_audio_elements ();
+  virtual void acknowledge_audio_elements ();
 };
 
 void performer_each (SCM list, Performer_method method);

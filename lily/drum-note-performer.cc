@@ -64,11 +64,6 @@ Drum_note_performer::process_music ()
 void
 Drum_note_performer::stop_translation_timestep ()
 {
-  // why don't grace notes show up here?
-  // --> grace notes effectively do not get delayed
-  Moment now = now_mom ();
-  for (vsize i = 0; i < notes_.size (); i++)
-    play_element (notes_[i]);
   notes_.clear ();
   note_evs_.clear ();
 }
