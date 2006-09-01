@@ -36,13 +36,12 @@ Performance::~Performance ()
 void
 Performance::output (Midi_stream &midi_stream)
 {
-  int tracks_i = audio_staffs_.size () + 1;
+  int tracks_ = audio_staffs_.size ();
 
   // ugh
-  int clocks_per_4_i = 384;
+  int clocks_per_4 = 384;
 
-  midi_stream << Midi_header (1, tracks_i, clocks_per_4_i);
-  output_header_track (midi_stream);
+  midi_stream << Midi_header (1, tracks_, clocks_per_4);
   message (_ ("Track...") + " ");
   int channel = 0;
   for (vsize i = 0; i < audio_staffs_.size (); i++)
@@ -62,82 +61,22 @@ Performance::output (Midi_stream &midi_stream)
 	Huh? Why does each staff also have a separate channel? We
 	should map channels to voices, not staves. --hwn.
       */
-      if (s->channel_ < 0)
+      if (channel > 15)
 	{
-	  s->channel_ = channel % 16;
-	  if (channel > 15)
-	    {
-	      warning (_ ("MIDI channel wrapped around"));
-	      warning (_ ("remapping modulo 16"));
-	    }
+	  warning (_ ("MIDI channel wrapped around"));
+	  warning (_ ("remapping modulo 16"));
 	}
 
-      s->output (midi_stream, channel++);
+      s->output (midi_stream, channel);
+      channel ++;
       if (be_verbose_global)
 	progress_indication ("]");
     }
 }
 
 void
-Performance::output_header_track (Midi_stream &midi_stream)
-{
-  Midi_track midi_track;
-
-  midi_track.channel_ = 9;
-
-  // perhaps multiple text events?
-  string id_string;
-  string str = string (_ ("Creator: "));
-  id_string = String_convert::pad_to (gnu_lilypond_version_string (), 30);
-  str += id_string;
-
-  /*
-    This seems silly, but in fact the audio elements should
-    be generated elsewhere: not midi-specific.
-  */
-  Audio_text creator_a (Audio_text::TEXT, str);
-  Midi_text creator (&creator_a);
-  midi_track.add (Moment (0), &creator);
-
-  /* Better not translate this */
-  str = "Generated automatically by: ";
-  str += id_string;
-
-  Audio_text generate_a (Audio_text::TEXT, str);
-  Midi_text generate (&generate_a);
-  midi_track.add (Moment (0), &generate);
-
-  str = _ ("at ");
-  time_t t (time (0));
-  str += ctime (&t);
-  str = str.substr (0, str.length () - 1);
-  str = String_convert::pad_to (str, 60);
-
-  Audio_text at_a (Audio_text::TEXT, str);
-  Midi_text at (&at_a);
-  midi_track.add (Moment (0), &at);
-
-  // TODO:
-  //  str = _f ("from musical definition: %s", origin_string_);
-
-  Audio_text from_a (Audio_text::TEXT, str);
-  Midi_text from (&from_a);
-  midi_track.add (Moment (0), &from);
-
-  Audio_text track_name_a (Audio_text::TRACK_NAME, "Track "
-			   + String_convert::int2dec (0, 0, '0'));
-  Midi_text track_name (&track_name_a);
-
-  midi_track.add (Moment (0), &track_name);
-  midi_stream << midi_track;
-}
-
-void
 Performance::add_element (Audio_element *p)
 {
-  if (Audio_staff *s = dynamic_cast<Audio_staff *> (p))
-    audio_staffs_.push_back (s);
-
   audio_elements_.push_back (p);
 }
 
@@ -158,4 +97,5 @@ Performance::write_output (string out)
   output (midi_stream);
   progress_indication ("\n");
 }
+
 

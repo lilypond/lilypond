@@ -121,8 +121,6 @@ Piano_pedal_performer::process_music ()
 void
 Piano_pedal_performer::stop_translation_timestep ()
 {
-  for (vsize i = 0; i < audios_.size (); i++)
-    play_element (audios_[i]);
   audios_.clear ();
 }
 

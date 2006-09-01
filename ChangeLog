@@ -1,5 +1,29 @@
 2006-09-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* python/midi.c (midi_parse_track): robustness: don't read past
+	end of string.
+
+	* ly/performer-init.ly: add Control_track_performer, move
+	Tempo_performer and Time_signature_performer to Score.        
+
+	* lily/score-performer.cc (acknowledge_audio_elements): override
+	from base class: add to audio-columns
+
+	* lily/control-track-performer.cc (add_text): new file: generate
+	the control track.
+
+	* lily/performance.cc: move output_header_track to Control_track_performer()
+
+	* lily/midi-walker.cc (Midi_walker): get channel in constructor.
+
+	* lily/include/midi-item.hh (class Midi_channel_item): insert
+	class into hierarchy, for items that can have a channel setting. Dehungarify.
+
+	* lily/include/performer.hh (class Performer): remove
+	play_element();  move functionality into announce/acknowledge.
+
+	* lily/audio-staff.cc (output): remove channel_ from Midi_track.
+
 	* lily/tie-engraver.cc (stop_translation_timestep): only wipe
 	heads_to_tie_ if there are new heads to tie.  Fixes polyphony in ties.
 

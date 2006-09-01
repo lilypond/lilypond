@@ -84,15 +84,3 @@ Performer_group::do_announces ()
       announce_infos_.clear ();
     }
 }
-
-void
-Performer_group::play_element (Audio_element *e)
-{
-  Context *c = context_->get_parent_context ();
-  if (c)
-    {
-      Performer_group *pgp = dynamic_cast<Performer_group *> (c->implementation ());
-      pgp->play_element (e);
-    }
-}
-

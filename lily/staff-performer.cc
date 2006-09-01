@@ -65,19 +65,10 @@ Staff_performer::initialize ()
   audio_staff_ = new Audio_staff;
   name_ = new Audio_text (Audio_text::TRACK_NAME, context ()->id_string ());
 
-  Rational r = robust_scm2moment (get_property ("tempoWholesPerMinute"),
-				  Moment (15,1)).main_part_;
-
-  r *= Rational (4,1);
-  
-  tempo_ = new Audio_tempo (r.to_int ());
-
   audio_staff_->add_audio_item (name_);
-  audio_staff_->add_audio_item (tempo_);
   
   announce_element (Audio_element_info (audio_staff_, 0));
   announce_element (Audio_element_info (name_, 0));
-  announce_element (Audio_element_info (tempo_, 0));
 }
 
 void
@@ -97,8 +88,6 @@ Staff_performer::process_music ()
       /*
 	Have to be here before notes arrive into the staff.
       */
-      play_element (instrument_);
-      play_element (instrument_name_);
     }
 }
 
@@ -111,12 +100,10 @@ Staff_performer::stop_translation_timestep ()
   audio_staff_->channel_ = (drums == SCM_BOOL_T ? 9 : -1);
   if (name_)
     {
-      play_element (name_);
       name_ = 0;
     }
   if (tempo_)
     {
-      play_element (tempo_);
       tempo_ = 0;
     }
   instrument_name_ = 0;
@@ -126,7 +113,6 @@ Staff_performer::stop_translation_timestep ()
 void
 Staff_performer::finalize ()
 {
-  Performer::play_element (audio_staff_);
   audio_staff_ = 0;
 }
 

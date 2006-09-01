@@ -11,11 +11,6 @@
 #include "performer-group.hh"
 #include "warn.hh"
 
-void
-Performer::play_element (Audio_element *p)
-{
-  get_daddy_performer ()->play_element (p);
-}
 
 Performer_group *
 Performer::get_daddy_performer () const
