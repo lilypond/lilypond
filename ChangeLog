@@ -1,5 +1,7 @@
 2006-09-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (MY_PATCH_LEVEL): bump VERSION.
+
 	* lily/lexer.ll: accept EOF in all states.
 
 	* lily/tempo-performer.cc (Tempo_performer): initialize last_tempo_.
@@ -33,7 +35,8 @@
 	* lily/control-track-performer.cc (add_text): new file: generate
 	the control track.
 
-	* lily/performance.cc: move output_header_track to Control_track_performer()
+	* lily/performance.cc: move output_header_track to
+	Control_track_performer ()
 
 	* lily/midi-walker.cc (Midi_walker): get channel in constructor.
 
@@ -97,6 +100,8 @@
 	* Documentation/user/advanced-notation.itely (Metronome marks):
 	update use of \tempo in \midi.
 
+	* VERSION: release 2.9.16
+	
 2006-08-24  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* input/mutopia/*: upgrade to new midi tempo syntax (repairs make
