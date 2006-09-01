@@ -1,5 +1,15 @@
 2006-09-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/lexer.ll: accept EOF in all states.
+
+	* lily/tempo-performer.cc (Tempo_performer): initialize last_tempo_.
+
+	* lily/source-file.cc (Source_file): always 0-terminate character
+	array, to prevent Flex from barfing.
+
+	* lily/global-context.cc (get_output): robustness: don't crash if
+	no Score context found.
+
 	* lily/include/book.hh (class Book): idem.
 
 	* lily/include/context-def.hh (struct Context_def): idem.

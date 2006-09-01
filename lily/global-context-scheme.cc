@@ -27,7 +27,10 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 
   SCM output = g->get_output ();
   progress_indication ("\n");
-  unsmob_music_output (output)->process ();
+
+  if (Music_output *od = unsmob_music_output (output))
+    od->process ();
+  
   return output;
 }
 

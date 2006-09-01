@@ -227,6 +227,7 @@ BOM_UTF8	\357\273\277
 	int i;
 	sscanf (YYText (), "%d", &i);
 
+//	this->set_debug (1); 
 	yy_pop_state ();
 	this->here_input ().get_source_file ()->set_line (here_input ().start (), i);
 }
@@ -550,7 +551,7 @@ BOM_UTF8	\357\273\277
 	}
 }
 
-<<EOF>> {
+<*><<EOF>> {
 	if (is_main_input_)
 	{
 		is_main_input_ = false;
