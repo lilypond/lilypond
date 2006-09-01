@@ -114,7 +114,11 @@ Global_context::get_score_context () const
 SCM
 Global_context::get_output ()
 {
-  return get_score_context ()->get_property ("output");
+  Context * c = get_score_context ();
+  if (c)
+    return c->get_property ("output");
+  else
+    return SCM_EOL;
 }
 
 void

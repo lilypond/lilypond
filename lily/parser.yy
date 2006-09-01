@@ -9,6 +9,7 @@
 
 %{
 
+#define YYDEBUG 1
 #define YYERROR_VERBOSE 1
 #define YYPARSE_PARAM my_lily_parser
 #define YYLEX_PARAM my_lily_parser
@@ -2324,11 +2325,9 @@ markup:
 %%
 
 void
-Lily_parser::set_yydebug (bool )
+Lily_parser::set_yydebug (bool x)
 {
-#if 0
-	yydebug = 1;
-#endif
+	yydebug = x;
 }
 
 void

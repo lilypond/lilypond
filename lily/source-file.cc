@@ -38,10 +38,11 @@ Source_file::load_stdin ()
   int c;
   while ((c = fgetc (stdin)) != EOF)
     characters_.push_back (c);
-
-  characters_.push_back (0);
 }
 
+/*
+  return contents of FILENAME. *Not 0-terminated!* 
+ */
 vector<char>
 gulp_file (string filename, int desired_size)
 {
@@ -101,9 +102,10 @@ Source_file::Source_file (string filename, string data)
   name_ = filename;
 
   characters_.resize (data.length ());
-
   copy (data.begin (), data.end (), characters_.begin ());
 
+  characters_.push_back (0);
+  
   init_port ();
 
   for (vsize i = 0; i < characters_.size (); i++)
@@ -122,8 +124,9 @@ Source_file::Source_file (string filename_string)
   else
     {
       characters_ = gulp_file (filename_string, -1);
-      characters_.push_back (0);
     }
+
+  characters_.push_back (0);
 
   init_port ();
 
@@ -198,7 +201,6 @@ Source_file::name_string () const
 Source_file::~Source_file ()
 {
   delete istream_;
-  istream_ = 0;
 }
 
 Slice

@@ -38,6 +38,7 @@ Tempo_performer::derived_mark () const
 
 Tempo_performer::Tempo_performer ()
 {
+  last_tempo_ = SCM_EOL;
   audio_ = 0;
 }
 

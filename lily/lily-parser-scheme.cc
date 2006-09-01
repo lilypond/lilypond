@@ -130,8 +130,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       parser->parse_file (init, file_name, out_file);
 
       bool error = parser->error_level_;
+
       parser->unprotect ();
-      parser = 0;
       if (error)
 	/* TODO: pass renamed input file too.  */
 	scm_throw (ly_symbol2scm ("ly-file-failed"),
