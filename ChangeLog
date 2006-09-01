@@ -1,5 +1,8 @@
 2006-09-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* buildscripts/output-distance.py (FileLink.calc_distance): count
+	orphans in distance too.
+
 	* python/midi.c (midi_parse_track): robustness: don't read past
 	end of string.
 
