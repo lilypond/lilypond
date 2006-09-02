@@ -342,13 +342,18 @@ uses more CPU time. The default value is @code{70}.
 @node Notes for the MacOS X app
 @section Notes for the MacOS X app
 
-The scripts (such as lilypond-book, convert-ly, abc2ly, etc.) are also
+The scripts (such as lilypond-book, convert-ly, abc2ly, and even
+lilypond itself) are also
 included inside MacOS X .app. They can be run from the command line by
 invoking them directly, e.g.
 
 @example
-@var{path/to}/LilyPond.app/Contents/Resources/bin/convert-ly
+@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
+
+@noindent
+The same is true of the other scripts in that directory, including
+lilypond-book, convert-ly, abc2ly, etc.
 
 Alternatively, you may add this directory to your path.  Modify (or create)
 a file called @code{.profile} in your home directory such that it contains
