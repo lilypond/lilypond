@@ -5,7 +5,7 @@
 
 2006-09-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* VERSION (MY_PATCH_LEVEL): bump VERSION.
+	* VERSION (MY_PATCH_LEVEL): release 2.9.17
 
 	* lily/lexer.ll: accept EOF in all states.
 
