@@ -17,8 +17,8 @@
 class Tie_performer : public Performer
 {
   Stream_event *event_;
-  Stream_event *last_event_;
   vector<Audio_element_info> now_heads_;
+  vector<Audio_element_info> now_tied_heads_;
   vector<Audio_element_info> heads_to_tie_;
 
   bool ties_created_;
@@ -36,7 +36,6 @@ public:
 Tie_performer::Tie_performer ()
 {
   event_ = 0;
-  last_event_ = 0;
   ties_created_ = false;
 }
 
@@ -59,7 +58,11 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   if (Audio_note *an = dynamic_cast<Audio_note *> (inf.elem_))
     {
-      now_heads_.push_back (inf);
+      if (an->tie_event_)
+        now_tied_heads_.push_back (inf);
+      else
+        now_heads_.push_back (inf);
+
       for (vsize i = heads_to_tie_.size (); i--;)
 	{
 	  Stream_event *right_mus = inf.event_;
@@ -91,17 +94,20 @@ Tie_performer::stop_translation_timestep ()
   if (ties_created_)
     {
       heads_to_tie_.clear ();
-      last_event_ = 0;
       ties_created_ = false;
     }
 
   if (event_)
     {
       heads_to_tie_ = now_heads_;
-      last_event_ = event_;
     }
+
+  for (vsize i = now_tied_heads_.size(); i--;)
+    heads_to_tie_.push_back (now_tied_heads_[i]);
+
   event_ = 0;
   now_heads_.clear ();
+  now_tied_heads_.clear ();
 }
 
 ADD_TRANSLATOR (Tie_performer,
