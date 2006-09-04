@@ -117,7 +117,9 @@ inline SCM ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4)
 /*
   display and print newline.
 */
-void ly_display_scm (void *s);
+extern "C" {
+  void ly_display_scm (SCM s);
+}
 
 void read_lily_scm_file (string);
 void ly_c_init_guile ();
