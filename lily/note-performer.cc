@@ -10,6 +10,7 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-context.hh"
+#include "music.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -52,7 +53,22 @@ Note_performer::process_music ()
 
 	  if (Pitch *pitp = unsmob_pitch (pit))
 	    {
-	      Audio_note *p = new Audio_note (*pitp, get_event_length (n), - transposing);
+              SCM articulations = n->get_property ("articulations");
+              Music *tie_event = 0;
+              for (SCM s = articulations;
+                   !tie_event && scm_is_pair (s);
+                   s = scm_cdr (s))
+                {
+                  Music *m = unsmob_music (scm_car (s));
+                  if (!m)
+                    continue;
+	  
+                  if (m->is_mus_type ("tie-event"))
+                    tie_event = m;
+                }
+
+	      Audio_note *p = new Audio_note (*pitp, get_event_length (n), 
+                                              tie_event, - transposing);
 	      Audio_element_info info (p, n);
 	      announce_element (info);
 	      notes_.push_back (p);

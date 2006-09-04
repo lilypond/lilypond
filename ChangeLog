@@ -1,3 +1,25 @@
+2006-09-04  Michael Welsh Duggan  <md5i@cs.cmu.edu>
+
+	* lily/tie-performer.cc: remove unused last_event_ property.
+	(class Tie_performer): add now_tied_heads_ property for
+	partially-tied heads.
+	(acknowledge_audio_element): when adding an Audio_note, put the
+	note in now_tied_heads_ if the audio note is partially tied.
+	(stop_translation_timestep): always include entries in
+	now_tied_heads_ in heads_to_tie_.
+
+	* lily/drum-note-performer.cc (process_music): look for tie-events
+	in the articulations; pass to Audio_note constructor.
+
+	* lily/note-performer.cc (process_music): look for tie-events in
+	the articulations; pass to Audio_note constructor.
+
+	* lily/audio-item.cc (Audio_note): Initialize tie_event_ in
+	constructor.
+
+	* lily/include/audio-item.hh (class Audio_note): add tie_event_.
+	include initializer in constructor.
+
 2006-09-02  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/simple-spacer.cc (get_line_forces): Ignore loose columns
