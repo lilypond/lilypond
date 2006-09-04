@@ -114,12 +114,15 @@ gulp_file_to_string (string fn, bool must_exist, int size)
   return result;
 }
 
-void
-ly_display_scm (void *s)
-{
-  scm_display ((SCM)s, scm_current_output_port ());
-  scm_newline (scm_current_output_port ());
-}
+extern "C" {
+  // maybe gdb 5.0 becomes quicker if it doesn't do fancy C++ typing?
+  void
+  ly_display_scm (SCM s)
+  {
+    scm_display (s, scm_current_output_port ());
+    scm_newline (scm_current_output_port ());
+  }
+};
 
 string
 ly_scm2string (SCM str)
