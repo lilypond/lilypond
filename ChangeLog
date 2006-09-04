@@ -1,3 +1,55 @@
+2006-09-02  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/simple-spacer.cc (get_line_forces): Ignore loose columns
+	unless they are breakable. This fixes discrepancies between the forces
+	calculated here and the forces calculated in get_line_configuration.
+
+	* lily/grob.cc (pure_relative_y_coordinate): fix some
+	mis-estimation that was happening with piano staves.
+
+	* lily/constrained-breaking.cc (resize): don't choke if we get a
+	measure that won't fit on a line.
+	(combine_demerits): don't consider uniformity when ragged
+
+	* lily/page-spacing.cc (solve): why the f* were there two of these?
+	(calc_subproblem): properly handle the case where a system is taller
+	than the page.
+
+	* lily/system.cc (get_paper_system): ensure that all the permissions
+	and penalties are passed to the paper systems.
+
+	* lily/page-breaking.cc (create_system_list): support system-count.
+
+	* scm/define-grobs.scm (pure-print-callbacks): add
+	ly:script-interface::print
+
+	* lily/page-spacing.cc (min_page_count): fix calculation of min
+	pages if we are ragged and there are non-zero springs.
+
+	* scm/layout-page-layout.scm: if the pure-height estimates are under
+	the real height, allow space-systems to ignore padding if it is
+	needed in order to fit the systems on one page
+
+	* lily/optimal-page-breaking.cc (try_page_spacing): fix reading
+	ragged properties
+	(solve): fix performance problem. Make sure we always get at least
+	one solution
+
+	* lily/page-breaking.cc (make_pages): include write-page-breaks
+	and page-stencil
+
+	* lily/paper-score.cc (calc_breaking): remove Gourlay breaker
+
+	* scm/define-grobs.scm: add the new slur-callback
+	fix pure-relevant to not exclude grobs whose extent is already
+	calculated
+
+	* ly/paper-defaults.ly: make ly:optimal-breaking the new default
+	page breaker
+
+	* lily/slur.cc (pure_height): new callback to estimate the height
+	of a slur
+
 2006-09-02  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/invoking.itely: small update on

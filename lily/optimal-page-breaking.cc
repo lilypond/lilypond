@@ -39,8 +39,8 @@ Optimal_page_breaking::try_page_spacing (Line_division const &line_count)
   Real page_h = page_height (1, false); // FIXME
   SCM force_sym = ly_symbol2scm ("blank-last-page-force");
   Real blank_force = robust_scm2double (book_->paper_->lookup_variable (force_sym), 0);
-  bool ragged_all = book_->paper_->c_variable ("ragged-bottom");
-  bool ragged_last = book_->paper_->c_variable ("ragged-last-bottom");
+  bool ragged_all = to_boolean (book_->paper_->c_variable ("ragged-bottom"));
+  bool ragged_last = to_boolean (book_->paper_->c_variable ("ragged-last-bottom"));
   Spacing_result ret = space_systems_on_best_pages (lines,
 						    page_h,
 						    blank_force,
@@ -91,13 +91,13 @@ Optimal_page_breaking::solve ()
 	{
 	  Spacing_result cur = try_page_spacing (div[d]);
 	  cur_page_count = cur.systems_per_page_.size ();
-	  if (cur.demerits_ < best.demerits_)
+	  if (cur.demerits_ < best.demerits_ || isinf (best.demerits_))
 	    {
 	      best = cur;
 	      best_division = div[d];
 	    }
 
-	  if (cur.demerits_ < this_best_demerits)
+	  if (cur.demerits_ < this_best_demerits || isinf (best.demerits_))
 	    {
 	      this_best_demerits = cur.demerits_;
 	      lower_bound = div[d];
@@ -110,7 +110,7 @@ Optimal_page_breaking::solve ()
 	      all_lines_stretched = false;
 
 	  if (all_lines_stretched)
-	    max_page_count = cur_page_count + 1;
+	    max_page_count = min (max_page_count, cur_page_count + 1);
 	}
     }
 

@@ -156,7 +156,6 @@ Constrained_breaking::resize (vsize systems)
       all_ = pscore_->root_system ()->columns ();
       lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
       vector<Real> forces = get_line_forces (all_,
-					     breaks_,
 					     other_lines.length (),
 					     other_lines.length () - first_line.length (),
 					     ragged_right);
@@ -172,6 +171,12 @@ Constrained_breaking::resize (vsize systems)
 	      bool ragged = ragged_right || (last && ragged_last);
 	      Line_details &line = lines_.at (j, i);
 
+	      line.force_ = forces[i*breaks_.size () + j];
+	      if (ragged && last && !isinf (line.force_))
+		line.force_ = 0;
+	      if (isinf (line.force_))
+		break;
+
 	      Grob *c = all_[breaks_[j]];
 	      line.break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
 	      line.page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);
@@ -181,15 +186,10 @@ Constrained_breaking::resize (vsize systems)
 	      line.turn_permission_ = c->get_property ("page-turn-permission");
 
 	      max_ext = max (max_ext, extent.length ());
-              line.force_ = forces[i*breaks_.size () + j];
               line.extent_ = extent;
               line.padding_ = padding;
               line.space_ = space;
               line.inverse_hooke_ = 1;
-	      if (ragged && line.force_ < 0)
-		line.force_ = infinity_f;
-              if (isinf (line.force_))
-                break;
             }
 	}
 
@@ -374,6 +374,9 @@ Constrained_breaking::Constrained_breaking (vector<vsize> const &start)
 Real
 Constrained_breaking::combine_demerits (Real force, Real prev_force)
 {
+  if (to_boolean (pscore_->layout ()->c_variable ("ragged-right")))
+    return force * force;
+
   return force * force + (prev_force - force) * (prev_force - force);
 }
 

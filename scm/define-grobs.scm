@@ -1983,7 +1983,8 @@
   (list
    `(,ly:note-head::print . '())
    `(,ly:clef::print . '())
-   `(,ly:text-interface::print . '())))
+   `(,ly:text-interface::print . '())
+   `(,ly:script-interface::print . '())))
 
 ;; ly:grob::stencil-extent is safe iff the print callback is safe too
 (define (pure-stencil-height grob start stop)
@@ -2004,7 +2005,8 @@
    `(,ly:grob::stencil-height . ,pure-stencil-height)
    `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
    `(,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
-   `(,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)))
+   `(,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
+   `(,ly:slur::height . ,ly:slur::pure-height)))
 
 (define pure-Y-offsets
   (list
@@ -2017,6 +2019,7 @@
 (define-public (pure-relevant grob)
   (let ((extent-callback (ly:grob-property-data grob 'Y-extent)))
     (or
+     (pair? extent-callback)
      (pair? (assq extent-callback pure-Y-extents))
      (and
       (pair? (assq extent-callback Y-extent-conversions))

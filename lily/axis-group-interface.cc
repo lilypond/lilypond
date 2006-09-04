@@ -145,7 +145,14 @@ Axis_group_interface::relative_pure_height (Grob *me,
 	{
 	  Interval dims = elts[i]->pure_height (common, start, end);
 	  if (!dims.is_empty ())
-	    r.unite (dims);
+	    {
+	      r.unite (dims);
+	      /*
+	      message (_f ("axis-group (%d-%d) %s has child %s with height (%.2f,%.2f), my height is now (%.2f,%.2f)",
+			   start, end,
+			   me->name ().c_str (), elts[i]->name ().c_str (), dims[DOWN], dims[UP], r[DOWN], r[UP]));
+	      */
+	    }
 	}
     }
   return r;

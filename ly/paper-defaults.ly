@@ -96,7 +96,7 @@
 	(baseline-skip . 3)
 	(word-space . 0.6)))
 
-    #(define page-breaking optimal-page-breaks)
+    #(define page-breaking ly:optimal-breaking)
 %    #(define page-music-height default-page-music-height )
 %    #(define page-make-stencil default-page-make-stencil )
 

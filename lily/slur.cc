@@ -57,6 +57,35 @@ Slur::calc_direction (SCM smob)
   return scm_from_int (d);
 }
 
+MAKE_SCHEME_CALLBACK (Slur, pure_height, 3);
+SCM
+Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+{
+  Grob *me = unsmob_grob (smob);
+  int start = scm_to_int (start_scm);
+  int end = scm_to_int (end_scm);
+  Real height = robust_scm2double (me->get_property ("height-limit"), 2.0);
+
+  extract_grob_set (me, "note-columns", encompasses);
+  Interval ret;
+
+  Grob *parent = me->get_parent (Y_AXIS);
+  if (common_refpoint_of_array (encompasses, me, Y_AXIS) != parent)
+    /* this could happen if, for example, we are a cross-staff slur.
+       in this case, we want to be ignored */
+    return ly_interval2scm (Interval ());
+
+  for (vsize i = 0; i < encompasses.size (); i++)
+    {
+      Interval d = encompasses[i]->pure_height (parent, start, end);
+      if (!d.is_empty ())
+	ret.unite (d);
+    }
+
+  ret.widen (height * 0.5);
+  return ly_interval2scm (ret);
+}
+
 MAKE_SCHEME_CALLBACK (Slur, height, 1);
 SCM
 Slur::height (SCM smob)

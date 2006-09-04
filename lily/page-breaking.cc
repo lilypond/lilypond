@@ -175,9 +175,17 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
 SCM
 Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
 {
-  SCM module = scm_c_resolve_module ("scm layout-page-layout");
-  SCM make_page = scm_c_module_lookup (module, "make-page-from-systems");
+  SCM layout_module = scm_c_resolve_module ("scm layout-page-layout");
+  SCM dump_module = scm_c_resolve_module ("scm layout-page-dump");
+  SCM page_module = scm_c_resolve_module ("scm page");
+
+  SCM make_page = scm_c_module_lookup (layout_module, "make-page-from-systems");
+  SCM write_page_breaks = scm_c_module_lookup (dump_module, "write-page-breaks");
+  SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
   make_page = scm_variable_ref (make_page);
+  write_page_breaks = scm_variable_ref (write_page_breaks);
+  page_stencil = scm_variable_ref (page_stencil);
+
   SCM book = book_->self_scm ();
   bool ragged_all = to_boolean (book_->paper_->c_variable ("ragged-bottom"));
   bool ragged_last = to_boolean (book_->paper_->c_variable ("ragged-last-bottom"));
@@ -193,10 +201,15 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       SCM page = scm_apply_0 (make_page,
 			      scm_list_n (book, lines, page_num, ragged, last, SCM_UNDEFINED));
 
+      scm_apply_1 (page_stencil, page, SCM_EOL);
       ret = scm_cons (page, ret);
       systems = scm_list_tail (systems, line_count);
     }
-  return scm_reverse (ret);
+  ret = scm_reverse (ret);
+
+  if (to_boolean (book_->paper_->c_variable ("write-page-layout")))
+    scm_apply_1 (write_page_breaks, ret, SCM_EOL);
+  return ret;
 }
 
 /* The page-turn-page-breaker needs to have a line-breaker between any two
@@ -214,7 +227,16 @@ Page_breaking::create_system_list ()
   for (SCM s = specs; s != SCM_EOL; s = scm_cdr (s))
     {
       if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (scm_car (s))))
-	all_.push_back (System_spec (ps));
+	{
+	  SCM system_count = ps->layout ()->c_variable ("system-count");
+
+	  if (scm_is_number (system_count))
+	    s = scm_append (scm_list_3 (scm_list_1 (scm_car (s)),
+					scm_vector_to_list (ps->get_paper_systems ()),
+					scm_cdr (s)));
+	  else
+	    all_.push_back (System_spec (ps));
+	}
       else
         {
           Prob *pb = unsmob_prob (scm_car (s));

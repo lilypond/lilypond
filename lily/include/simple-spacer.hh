@@ -67,7 +67,6 @@ private:
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
 vector<Real> get_line_forces (vector<Grob*> const &columns,
-			      vector<vsize> breaks,
 			      Real line_len,
 			      Real indent,
 			      bool ragged);

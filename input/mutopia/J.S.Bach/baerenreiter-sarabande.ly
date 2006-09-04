@@ -126,7 +126,7 @@ sarabandeA =  \context Voice  \relative c {
   d'[ cis] |
   %%  d4 d,,2 |
   d4
-  #(assert-system-count-override 6)
+%  #(assert-system-count-override 6)
   d,,2 |
 }
 
@@ -173,6 +173,7 @@ smallerPaper = \layout {
   line-width =183.5 \mm
   between-system-space = 25\mm 
   between-system-padding = 0\mm
+  system-count = 6
 
 %%  annotatespacing = ##t
 }

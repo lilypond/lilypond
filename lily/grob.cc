@@ -302,10 +302,14 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
       dim_cache_[Y_AXIS].offset_ = 0;
     }
 
-  /* we simulate positioning-done if we are the child of a VerticalAlignment */
+  /* we simulate positioning-done if we are the child of a VerticalAlignment,
+     but only if we don't have a cached offset. If we do have a cached offset,
+     it probably means that the Alignment was fixed and it has already been
+     calculated.
+  */
   Grob *p = get_parent (Y_AXIS);
   Real trans = 0;
-  if (Align_interface::has_interface (p))
+  if (Align_interface::has_interface (p) && !dim_cache_[Y_AXIS].offset_)
     trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
 
   return off + trans

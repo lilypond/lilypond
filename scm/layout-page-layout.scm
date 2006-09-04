@@ -46,20 +46,20 @@
    (ly:output-def-lookup layout 'between-system-padding)))
 
 
-(define (line-minimum-distance line next-line layout)
+(define (line-minimum-distance line next-line layout ignore-padding)
   "Minimum distance between `line' reference position and `next-line'
  reference position. If next-line is #f, return #f."
   (and next-line
        (max 0 (- (+ (interval-end (paper-system-extent next-line Y))
-                    (line-next-padding line next-line layout))
+                    (if ignore-padding 0 (line-next-padding line next-line layout)))
                  (interval-start (paper-system-extent line Y))))))
 
-(define (line-ideal-distance line next-line layout)
+(define (line-ideal-distance line next-line layout ignore-padding)
   "Ideal distance between `line' reference position and `next-line'
  reference position. If next-line is #f, return #f."
   (and next-line
        (+ (max 0 (- (+ (interval-end (paper-system-staff-extents next-line))
-                       (line-next-padding line next-line layout))
+                       (if ignore-padding 0 (line-next-padding line next-line layout)))
                     (interval-start (paper-system-staff-extents line))))
           (line-next-space line next-line layout))))
 
@@ -69,24 +69,24 @@
           (interval-end (paper-system-staff-extents line)))
        (interval-end (paper-system-extent line Y))))
 
-(define (line-ideal-relative-position line prev-line layout)
+(define (line-ideal-relative-position line prev-line layout ignore-padding)
   "Return ideal position of `line', relative to `prev-line' position.
   `prev-line' can be #f, meaning that `line' is the first line."
   (if (not prev-line)
       ;; first line on page
       (first-line-position line layout)
       ;; not the first line on page
-      (max (line-minimum-distance prev-line line layout)
-           (line-ideal-distance prev-line line layout))))
+      (max (line-minimum-distance prev-line line layout ignore-padding)
+           (line-ideal-distance prev-line line layout ignore-padding))))
 
-(define (line-minimum-relative-position line prev-line layout)
+(define (line-minimum-relative-position line prev-line layout ignore-padding)
   "Return position of `line', relative to `prev-line' position.
   `prev-line' can be #f, meaning that `line' is the first line."
   (if (not prev-line)
       ;; first line on page
       (first-line-position line layout)
       ;; not the first line on page
-      (line-minimum-distance prev-line line layout)))
+      (line-minimum-distance prev-line line layout ignore-padding)))
 
 ;;;
 ;;; Page breaking functions
@@ -124,7 +124,7 @@ is what have collected so far, and has ascending page numbers."
                                        inter-system-space))
        user)))
 
-(define (space-systems page-height lines ragged? paper)
+(define (space-systems page-height lines ragged paper ignore-padding)
   "Compute lines positions on page: return force and line positions as a pair.
  force is #f if lines do not fit on page."
   (let* ((empty-stencil (ly:make-stencil '() '(0 . 0) '(0 . 0)))
@@ -134,7 +134,7 @@ is what have collected so far, and has ascending page numbers."
 				(list empty-prob)
 				'())))
 	 (springs (map (lambda (prev-line line)
-                         (list (line-ideal-distance prev-line line paper)
+                         (list (line-ideal-distance prev-line line paper ignore-padding)
                                (/ 1.0 (line-next-space prev-line line paper))))
                        lines
                        cdr-lines))
@@ -142,7 +142,7 @@ is what have collected so far, and has ascending page numbers."
                       (lambda (prev-line line)
                         (set! i (1+ i))
                         (list i (1+ i)
-                              (line-minimum-distance prev-line line paper))))
+                              (line-minimum-distance prev-line line paper ignore-padding))))
                        lines
                        cdr-lines))
          (last-line (car (last-pair lines)))
@@ -154,27 +154,31 @@ is what have collected so far, and has ascending page numbers."
                            (- (interval-start (paper-system-extent
                                                last-line Y)))))
          (space-result
-          (ly:solve-spring-rod-problem springs rods space-to-fill ragged?)))
+          (ly:solve-spring-rod-problem springs rods space-to-fill ragged)))
     (cons (car space-result)
           (map (lambda (y)
                  (+ y topskip))
                (cdr space-result)))))
 
-(define (make-page-from-systems paper-book lines page-number ragged? last?)
+(define (make-page-from-systems paper-book lines page-number ragged last)
   (let*
     ((page (make-page
             paper-book
             'lines lines
             'page-number page-number
-            'is-last last?))
+            'is-last last))
      (height (page-printable-height page))
      (posns (if (> (length lines) 0)
-		(cdr (space-systems height lines ragged? (ly:paper-book-paper paper-book)))
+		(let* ((paper (ly:paper-book-paper paper-book))
+		       (spacing (space-systems height lines ragged paper #f)))
+		  (if (inf? (car spacing))
+		      (cdr (space-systems height lines ragged paper #t))
+		      (cdr spacing)))
 		'())))
     (page-set-property! page 'configuration posns)
     page))
 
-(define (walk-paths done-lines best-paths current-lines last? current-best
+(define (walk-paths done-lines best-paths current-lines last current-best
                     paper-book page-alist)
   "Return the best optimal-page-break-node that contains
 CURRENT-LINES.  DONE-LINES.reversed ++ CURRENT-LINES is a consecutive
@@ -185,18 +189,18 @@ CURRENT-BEST is the best result sofar, or #f."
   (let* ((paper (ly:paper-book-paper paper-book))
          (this-page (make-page
                      paper-book
-                     'is-last last?
+                     'is-last last
                      'page-number (if (null? best-paths)
                                       (ly:output-def-lookup paper 'first-page-number)
                                       (1+ (page-page-number (first best-paths))))))
-         (ragged-all? (eq? #t (ly:output-def-lookup paper 'ragged-bottom)))
-         (ragged-last? (eq? #t (ly:output-def-lookup paper 'ragged-last-bottom)))
-         (ragged? (or ragged-all? (and ragged-last? last?)))
+         (ragged-all (eq? #t (ly:output-def-lookup paper 'ragged-bottom)))
+         (ragged-last (eq? #t (ly:output-def-lookup paper 'ragged-last-bottom)))
+         (ragged (or ragged-all (and ragged-last last)))
          (height (page-printable-height this-page))
-         (vertical-spacing (space-systems height current-lines ragged? paper))
+         (vertical-spacing (space-systems height current-lines ragged paper #f))
          (satisfied-constraints (car vertical-spacing))
          (force (if satisfied-constraints
-                    (if (and last? ragged-last?)
+                    (if (and last ragged-last)
                         0.0
                         satisfied-constraints)
                     10000))
@@ -234,7 +238,7 @@ CURRENT-BEST is the best result sofar, or #f."
          (list
           "\nuser pen " user-penalty
           "\nsatisfied-constraints" satisfied-constraints
-          "\nlast? " last? "ragged?" ragged?
+          "\nlast? " last "ragged?" ragged
           "\nis-better " is-better " total-penalty " total-penalty "\n"
           "\nconfig " positions
           "\nforce " force
@@ -250,7 +254,7 @@ CURRENT-BEST is the best result sofar, or #f."
              satisfied-constraints)
         (walk-paths (cdr done-lines) (cdr best-paths)
                     (cons (car done-lines) current-lines)
-                    last? new-best
+                    last new-best
                     paper-book page-alist)
         new-best)))
 
@@ -262,8 +266,8 @@ DONE."
   (if (null? todo)
       (car best-paths)
       (let* ((this-line (car todo))
-             (last? (null? (cdr todo)))
-             (next (walk-paths done best-paths (list this-line) last? #f
+             (last (null? (cdr todo)))
+             (next (walk-paths done best-paths (list this-line) last #f
                                paper-book page-alist)))
         (walk-lines (cons this-line done)
                     (cons next best-paths)
