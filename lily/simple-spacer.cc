@@ -358,20 +358,6 @@ next_spaceable_column (vector<Grob*> const &list, vsize starting)
   return 0;
 }
 
-/* this only returns non-NULL if the line-ending column is the next
-   spaceable-or-breakable column */
-static Grob*
-next_line_ending_column (vector<Grob*> const &list, vsize starting)
-{
-  vsize i = starting + 1;
-  for (; i < list.size ()
-	 && is_loose (list[i])
-	 && !Paper_column::is_breakable (list[i]);
-       i++)
-    ;
-  return dynamic_cast<Item*> (list[i])->find_prebroken_piece (LEFT);
-}
-
 static void
 get_column_spring (Grob *this_col, Grob *next_col, Real *ideal, Real *inv_hooke)
 {
@@ -406,7 +392,7 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
   Grob *next_col = next_spaceable_column (cols, col_index);
   if (next_col)
     get_column_spring (col, next_col, &description.ideal_, &description.inverse_hooke_);
-  Grob *end_col = next_line_ending_column (cols, col_index);
+  Grob *end_col = dynamic_cast<Item*> (cols[col_index+1])->find_prebroken_piece (LEFT);
   if (end_col)
     get_column_spring (col, end_col, &description.end_ideal_, &description.end_inverse_hooke_);
 
@@ -430,32 +416,35 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
 }
 
 vector<Real>
-get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
+get_line_forces (vector<Grob*> const &columns,
 		 Real line_len, Real indent, bool ragged)
 {
+  vector<vsize> breaks;
   vector<Real> force;
-  force.resize (breaks.size () * breaks.size (), infinity_f);
-
+  vector<Grob*> non_loose;
   vector<Column_description> cols;
-  vsize b = 1;
   SCM force_break = ly_symbol2scm ("force");
 
+  for (vsize i = 0; i < columns.size (); i++)
+    if (!is_loose (columns[i]) || Paper_column::is_breakable (columns[i]))
+      non_loose.push_back (columns[i]);
+
+  breaks.clear ();
+  breaks.push_back (0);
   cols.push_back (Column_description ());
-  for (vsize i = 1; i < icols.size () - 1; i++)
+  for (vsize i = 1; i < non_loose.size () - 1; i++)
     {
-      if (b < breaks.size () && breaks[b] == i)
-	{
-	  breaks[b] = cols.size ();
-	  b++;
-	}
-      if (!is_loose (icols[i]))
-	cols.push_back (get_column_description (icols, i, false));
+      if (Paper_column::is_breakable (non_loose[i]))
+	breaks.push_back (cols.size ());
+
+      cols.push_back (get_column_description (non_loose, i, false));
     }
-  breaks.back () = cols.size ();
+  breaks.push_back (cols.size ());
+  force.resize (breaks.size () * breaks.size (), infinity_f);
 
   for (vsize b = 0; b < breaks.size () - 1; b++)
     {
-      cols[breaks[b]] = get_column_description (icols, breaks[b], true);
+      cols[breaks[b]] = get_column_description (non_loose, breaks[b], true);
       vsize st = breaks[b];
 
       for (vsize c = b+1; c < breaks.size (); c++)
@@ -465,7 +454,7 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
 
 	  for (vsize i = breaks[b]; i < end - 1; i++)
 	    spacer.add_spring (cols[i].ideal_, cols[i].inverse_hooke_);
-	  spacer.add_spring (cols[end-1].end_ideal_, cols[end-1].inverse_hooke_);
+	  spacer.add_spring (cols[end-1].end_ideal_, cols[end-1].end_inverse_hooke_);
 
 
 	  for (vsize i = breaks[b]; i < end; i++)
@@ -490,13 +479,16 @@ get_line_forces (vector<Grob*> const &icols, vector<vsize> breaks,
 	     breaks, so compression penalties can result in scores (eg. wtk-fugue) blowing
 	     up to too many pages. */
 	  Real f = spacer.force ();
-	  force[b * breaks.size () + c] = f - (f < 0 ? f*f*6 : 0);
+	  force[b * breaks.size () + c] = f - (f < 0 ? f*f*f*f*4 : 0);
 
 	  if (end < cols.size () && cols[end].break_permission_ == force_break)
 	    break;
 	  if (!spacer.fits ())
 	    {
-	      force[b * breaks.size () + c] = infinity_f;
+	      if (c == b + 1)
+		force[b * breaks.size () + c] = -200000;
+	      else
+		force[b * breaks.size () + c] = infinity_f;
 	      break;
 	    }
 	}
@@ -535,6 +527,7 @@ get_line_configuration (vector<Grob*> const &columns,
     {
       for (vsize r = 0; r < cols[i].rods_.size (); r++)
 	spacer.add_rod (i, cols[i].rods_[r].r_, cols[i].rods_[r].dist_);
+
       if (!cols[i].keep_inside_line_.is_empty ())
 	{
 	  spacer.add_rod (i, cols.size (), cols[i].keep_inside_line_[RIGHT]);

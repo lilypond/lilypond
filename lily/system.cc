@@ -397,14 +397,12 @@ System::get_paper_system ()
   Prob *pl = make_paper_system (prop_init);
   paper_system_set_stencil (pl, sys_stencil);
 
-  /* backwards-compatibility hack for the old page-breaker */
-  SCM turn_perm = left_bound->get_property ("page-break-permission");
-  if (!scm_is_symbol (turn_perm))
-    pl->set_property ("penalty", scm_from_double (10001.0));
-  else if (turn_perm == ly_symbol2scm ("force"))
-    pl->set_property ("penalty", scm_from_double (-10001.0));
-  else
-    pl->set_property ("penalty", scm_from_double (0.0));
+  /* information that the page breaker might need */
+  Grob *right_bound = this->get_bound (RIGHT);
+  pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
+  pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
+  pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
+  pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
   
   if (!scm_is_pair (pl->get_property ("refpoint-Y-extent")))
     {

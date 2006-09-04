@@ -8,7 +8,9 @@
 */
 
 #include "page-spacing.hh"
+
 #include "matrix.hh"
+#include "warn.hh"
 
 /*
   A much simplified rods-and-springs problem.
@@ -249,10 +251,10 @@ Page_spacer::solve (vsize page_count)
   vsize system = lines_.size () - 1;
 
   if (isinf (state_.at (system, page_count-1).demerits_))
-    return Spacing_result (); /* bad number of pages */
-
-  if (isinf (state_.at (system, page_count-1).demerits_))
-    return Spacing_result (); /* bad number of pages */
+    {
+      programming_error ("tried to space systems on a bad number of pages");
+      return Spacing_result (); /* bad number of pages */
+    }
 
   ret.penalty_ = state_.at (system, page_count-1).penalty_
     + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
@@ -311,6 +313,10 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 	  if (line == lines_.size () - 1 && ragged_last_ && space.force_ > 0)
 	    space.force_ = 0;
 
+	  /* we may have to deal with single lines that are taller than a page */
+	  if (isinf (space.force_) && page_start == line)
+	    space.force_ = -200000;
+
 	  Real dem = fabs (space.force_) + (prev ? prev->demerits_ : 0);
 	  Real penalty = 0;
 	  if (page_start > 0)
@@ -318,7 +324,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 	      + (page % 2 == 0) ? lines_[page_start-1].turn_penalty_ : 0;
 
 	  dem += penalty;
-	  if (dem < cur.demerits_)
+	  if (dem < cur.demerits_ || page_start == line)
 	    {
 	      cur.demerits_ = dem;
 	      cur.force_ = space.force_;
@@ -343,15 +349,15 @@ min_page_count (vector<Line_details> const &lines, Real page_height, bool ragged
   for (vsize i = 0; i < lines.size (); i++)
     {
       Real ext_len = lines[i].extent_.length ();
-      Real next_height = cur_rod_height
-	+ (ragged ? max (ext_len, lines[i].space_) : ext_len)
-	+ ((i > 0 && cur_rod_height > 0) ? lines[i-1].padding_: 0);
+      Real next_height = cur_rod_height + ext_len
+	+ (ragged ? lines[i].space_ : 0)
+	+ ((cur_rod_height > 0) ? lines[i-1].padding_: 0);
 
       if ((next_height > page_height && cur_rod_height > 0)
 	  || (i > 0 && lines[i-1].page_permission_ == ly_symbol2scm ("force")))
 	{
 	  ret++;
-	  cur_rod_height = ragged ? max (ext_len, lines[i].space_) : ext_len;
+	  cur_rod_height = ext_len + (ragged ? lines[i].space_ : 0);
 	}
       else
 	cur_rod_height = next_height;

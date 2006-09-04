@@ -10,7 +10,6 @@
 
 #include "all-font-metrics.hh"
 #include "book.hh"
-#include "gourlay-breaking.hh"
 #include "international.hh"
 #include "main.hh"
 #include "misc.hh"
@@ -100,24 +99,17 @@ Paper_score::get_columns () const
 vector<Column_x_positions>
 Paper_score::calc_breaking ()
 {
-  Break_algorithm *algorithm = 0;
+  Constrained_breaking algorithm;
   vector<Column_x_positions> sol;
 
   message (_ ("Calculating line breaks...") + " ");
 
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
-    {
-      Constrained_breaking *b = new Constrained_breaking;
-      b->resize (system_count);
-      algorithm = b;
-    }
-  else
-    algorithm = new Gourlay_breaking;
+    algorithm.resize (system_count);
   
-  algorithm->set_pscore (this);
-  sol = algorithm->solve ();
-  delete algorithm;
+  algorithm.set_pscore (this);
+  sol = algorithm.solve ();
 
   return sol;
 }

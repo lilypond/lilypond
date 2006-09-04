@@ -149,7 +149,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
               if (cur.page_count_ > 2 &&
 		  (start < end - 1 || (!isinf (this_start_best.demerits_)
 				       && cur.page_count_ + cur.page_count_ % 2
-				          > this_start_best.page_count_ + this_start_best.page_count_ % 2)))
+				       > this_start_best.page_count_ + this_start_best.page_count_ % 2)))
                 {
                   ok_page = false;
                   break;
@@ -175,8 +175,9 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
           assert (!isinf (best.demerits_) && start < end - 1);
           break;
         }
+
       if (this_start_best.demerits_ < best.demerits_)
-        best = this_start_best;
+	best = this_start_best;
     }
   state_.push_back (best);
 }
