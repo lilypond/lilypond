@@ -132,105 +132,54 @@ concat (vector<T> &v, vector<T> const& w)
   v.insert (v.end (), w.begin (), w.end ());
 }
 
-template<class T>
-void
-binary_search_bounds (vector<T> const &table,
-		      T const &key, int (*compare) (T const &, T const &),
-		      vsize *lo,
-		      vsize *hi)
-{
-  if (*lo >= *hi)
-    return;
-
-  int cmp;
-  int result;
-
-  /* binary search */
-  do
-    {
-      cmp = (*lo + *hi) / 2;
-
-      result = (*compare) (key, table[cmp]);
-
-      if (result < 0)
-	*hi = cmp;
-      else
-	*lo = cmp;
-    }
-  while (*hi - *lo > 1);
-}
-
-template<typename T>
-void
-binary_search_bounds (vector<T*> const &table,
-		      T const *key, int (*compare) (T *const &, T *const &),
-		      vsize *lo,
-		      vsize *hi)
-{
-  vsize cmp;
-  int result;
-
-  /* binary search */
-  do
-    {
-      cmp = (*lo + *hi) / 2;
-
-      result = (*compare) ((T *) key, table[cmp]);
-
-      if (result < 0)
-	*hi = cmp;
-      else
-	*lo = cmp;
-    }
-  while (*hi - *lo > 1);
-}
-
-#if 0
-/* FIXME: what if COMPARE is named: int operator == (T const&, T const&),
-   wouldn't that work for most uses of BINARY_SEARCH?
-*/
-template<typename T>
+template<typename T, typename Compare>
 vsize
-binary_search (vector<T> const &v,
-	       T const &key, int (*compare) (T const &, T const &),
-	       vsize b=0, vsize e=VPOS)
+lower_bound (vector<T> const &v,
+	     T const &key,
+	     Compare less,
+	     vsize b=0, vsize e=VPOS)
 {
   if (e == VPOS)
     e = v.size ();
-  typename vector<T>::const_iterator i = find (v.begin () + b,
-					       v.begin () + e,
-					       key);
-  if (i != v.end ())
-    return i - v.begin ();
-  return VPOS;
+  typename vector<T>::const_iterator i = lower_bound (v.begin () + b,
+						      v.begin () + e,
+						      key,
+						      less);
+
+  return i - v.begin ();
 }
-#else // c&p from array.icc; cannot easily use stl_algo:find b.o. compare func.
-template<class T>
+
+template<typename T, typename Compare>
 vsize
-binary_search (vector<T> const &table,
-	       T const &key,
-	       int (*compare) (T const &, T const &),
-	       vsize lo=0,
-	       vsize hi=VPOS)
+upper_bound (vector<T> const &v,
+	     T const &key,
+	     Compare less,
+	     vsize b=0, vsize e=VPOS)
 {
-  if (hi == VPOS)
-    hi = table.size ();
+  if (e == VPOS)
+    e = v.size ();
 
-  if (lo >= hi)
-    return VPOS;
+  typename vector<T>::const_iterator i = upper_bound (v.begin () + b,
+						      v.begin () + e,
+						      key,
+						      less);
 
-  binary_search_bounds (table, key, compare, &lo, &hi);
-
-  if (! (*compare) (key, table[lo]))
-    return lo;
-
-  /* not found */
-  return VPOS;
+  return i - v.begin ();
 }
 
+template<typename T, typename Compare>
+vsize
+binary_search (vector<T> const &v,
+	       T const &key,
+	       Compare less=less<T> (),
+	       vsize b=0, vsize e=VPOS)
+{
+  vsize lb = lower_bound (v, key, less, b, e);
 
-#endif
-
+  if (lb == v.size () || less (key, v[lb]))
+    return VPOS;
+  return lb;
+}
 
 #if 0
 /* FIXME: the COMPARE functionality is broken?  */

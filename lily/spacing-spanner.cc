@@ -31,9 +31,9 @@ Spacing_spanner::get_columns (Spanner *me)
 {
   vector<Grob*> all (get_root_system (me)->columns ());
   vsize start = binary_search (all, (Grob*)me->get_bound (LEFT),
-			       &Paper_column::compare);
+			       &Paper_column::less_than);
   vsize end = binary_search (all, (Grob*) me->get_bound (RIGHT),
-			     &Paper_column::compare);
+			     &Paper_column::less_than);
 
   all = vector<Grob*>::vector<Grob*> (all.begin () + start,
 				      all.begin () + end + 1);

@@ -27,7 +27,7 @@ using namespace std;
 
 class Source_file
 {
-  vector<char*> newline_locations_;
+  vector<char const*> newline_locations_;
   istream *istream_;
   vector<char> characters_;
   SCM str_port_;

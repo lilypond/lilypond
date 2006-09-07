@@ -1,3 +1,25 @@
+2006-09-07  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/spanner.cc (find_broken_piece): 
+	* lily/spacing-spanner.cc (get_columns): 
+	* lily/source-file.cc (get_line): 
+	* lily/simple-spacer.cc (get_column_description): 
+	* lily/keyword.cc (lookup): 
+	use the new binary search.
+
+	* flower/include/std-vector.hh: replace binary_search with
+	a more STL-like version
+
+2006-09-05  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/page-turn-engraver.cc (penalty): minPageTurnLength ->
+	minimumPageTurnLength
+
+	* scm/define-context-properties.scm (all-user-translation-properties):
+	add minimumPageTurnLength and minimumRepeatLengthForPageTurn
+
+	* Documentation/user/page.itely: update page breaking documentation
+
 2006-09-04  Michael Welsh Duggan  <md5i@cs.cmu.edu>
 
 	* lily/tie-performer.cc: remove unused last_event_ property.

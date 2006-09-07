@@ -79,6 +79,13 @@ Paper_column::compare (Grob * const &a,
 	       - dynamic_cast<Paper_column*> (b)->rank_);
 }
 
+bool
+Paper_column::less_than (Grob *const &a,
+			 Grob *const &b)
+{
+  return dynamic_cast<Paper_column*> (a)->rank_ < dynamic_cast<Paper_column*> (b)->rank_;
+}
+
 Moment
 Paper_column::when_mom (Grob *me)
 {
