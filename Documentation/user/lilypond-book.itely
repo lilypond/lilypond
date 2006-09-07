@@ -794,6 +794,6 @@ the following options
 To produce a useful @file{eps} file, use
 
 @example
-lilypond -b eps -dno-gs-font-load -deps-font-include   myfile.ly
+lilypond -b eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
 @end example
 

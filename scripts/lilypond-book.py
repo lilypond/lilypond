@@ -1719,14 +1719,14 @@ def main ():
         
     if (global_options.format in (TEXINFO, LATEX)
         and global_options.create_pdf):
-        global_options.process_cmd += "--pdf  -deps-font-include -dgs-font-load "
+        global_options.process_cmd += "--pdf  -dinclude-eps-font -dgs-load-font "
 
         
     
     if global_options.verbose:
         global_options.process_cmd += " --verbose "
 
-    global_options.process_cmd += " -dread-file-list -deps-pad-boxes "
+    global_options.process_cmd += " -dread-file-list -dpad-eps-boxes "
 
     identify ()
 

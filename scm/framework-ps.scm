@@ -544,7 +544,7 @@
 
     ;; skip booktitles.
     (if (and
-	 (not (ly:get-option 'preview-include-book-title))
+	 (not (ly:get-option 'include-book-title-preview))
 	 (pair? systems)
 	 (ly:prob-property (car systems) 'is-book-title #f))
 

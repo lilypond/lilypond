@@ -1,3 +1,20 @@
+2006-09-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/framework-ps.scm (output-preview-framework): use new name.
+
+	* lily/program-option.cc (internal_set_option): use new names.
+
+	* Documentation/user/SConscript (lilypond_book_flags): update -d
+	variable names.
+
+	* Documentation/user/lilypond-book.itely (Inserting LilyPond
+	output into other programs): new variable names.
+
+	* scm/lily.scm (define-scheme-options): uniformize var names.
+
+	* lily/tuplet-engraver.cc (listen_tuplet_span): verify that
+	tuplets_ is non-empty before popping.
+
 2006-09-07  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/spanner.cc (find_broken_piece): 
