@@ -1,5 +1,7 @@
 2006-09-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/tuplet-engraver.cc: add tupletFullLengthNote to description.
+
 	* scm/framework-ps.scm (output-preview-framework): use new name.
 
 	* lily/program-option.cc (internal_set_option): use new names.

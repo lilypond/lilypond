@@ -165,7 +165,11 @@ Tuplet_engraver::Tuplet_engraver ()
 ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
 		/* doc */ "Catch TupletSpannerEvent and generate appropriate bracket  ",
-		/* create */ "TupletBracket TupletNumber ",
+		/* create */
+		"TupletBracket "
+		"TupletNumber ",
 		/* accept */ "tuplet-span-event",
-		/* read */ "tupletFullLength ",
+		/* read */
+		"tupletFullLength "
+		"tupletFullLengthNote ",
 		/* write */ "");
