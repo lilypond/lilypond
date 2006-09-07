@@ -1,3 +1,7 @@
+2006-09-08  Joe Neeman  <joeneeman@gmail.com>
+
+	* Documentation/user/page.itely: update page breaking documentation
+
 2006-09-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/tuplet-engraver.cc: add tupletFullLengthNote to description.
@@ -28,16 +32,6 @@
 
 	* flower/include/std-vector.hh: replace binary_search with
 	a more STL-like version
-
-2006-09-05  Joe Neeman  <joeneeman@gmail.com>
-
-	* lily/page-turn-engraver.cc (penalty): minPageTurnLength ->
-	minimumPageTurnLength
-
-	* scm/define-context-properties.scm (all-user-translation-properties):
-	add minimumPageTurnLength and minimumRepeatLengthForPageTurn
-
-	* Documentation/user/page.itely: update page breaking documentation
 
 2006-09-04  Michael Welsh Duggan  <md5i@cs.cmu.edu>
 

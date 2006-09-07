@@ -14,15 +14,13 @@ choice of spacing determines how densely each system of music is set.
 This influences where line breaks are chosen, and thus ultimately, how
 many pages a piece of music takes.
 
-Globally spoken, this procedure happens in three steps: first,
+Globally speaking, this procedure happens in four steps: first,
 flexible distances (``springs'') are chosen, based on durations.  All
-possible line breaking combinations are tried, and the one with the
-best results -- a layout that has uniform density and requires as
-little stretching or cramping as possible -- is chosen.
-
-After spacing and linebreaking, the systems are distributed across
-pages, taking into account the size of the page, and the size of the
-titles.
+possible line breaking combinations are tried, and a ``badness'' score
+is calculated for each. Then the height of each possible system is
+estimated. Finally, a page breaking and line breaking combination is chosen
+so that neither the horizontal nor the vertical spacing is too cramped
+or stretched.
 
 @menu
 * Paper and pages::             
@@ -244,6 +242,23 @@ default,  for example
 }
 @end lilypond
 
+@funindex blank-page-force
+@item blank-page-force
+The penalty for having a blank page in the middle of a
+score. This is not used by @code{ly:optimal-breaking} since it will
+never consider blank pages in the middle of a score. Default value
+is 10.
+
+@funindex blank-last-page-force
+@item blank-last-page-force
+The penalty for ending the score on an odd-numbered page.
+Default value is 0.
+
+@funindex page-spacing-weight
+@item page-spacing-weight
+The relative importance of page (vertical) spacing and line (horizontal)
+spacing. High values will make page spacing more important. Default
+value is 1.
 
 @end table
 @end quotation
@@ -858,6 +873,8 @@ paragraph, the last line simply takes its natural horizontal length.
 @menu
 * Line breaking::               
 * Page breaking::               
+* Optimal page breaking::       
+* Optimal page turning::        
 @end menu
 
 @node Line breaking
@@ -904,7 +921,7 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 @seealso
 
-Internals: @internalsref{BreakEvent}.
+Internals: @internalsref{LineBreakEvent}.
 
 A linebreaking configuration can now be saved as a @code{.ly} file
 automatically.  This allows vertical alignments to be stretched to
@@ -935,18 +952,21 @@ inserted at a bar line.  These commands force and forbid a page-break
 from happening.  Of course, the @code{\pageBreak} command also forces
 a line break.
 
-Page breaks are computed by the @code{page-breaking} function in the
-@code{\paper} block.
-
-To force a new page for a new piece (in a collection of pieces or a
-piece in several movements), use @code{breakbefore} in the header.
+Page breaks are computed by the @code{page-breaking} function.
+LilyPond provides two algorithms for computing page
+breaks, @code{ly:optimal-breaking} and @code{ly:page-turn-breaking}. The
+default is @code{ly:optimal-breaking}, but the value can be changed in
+the @code{\paper} block:
 
 @example
-\header@{
-  breakbefore = ##t
-  piece = ""
+\paper@{
+  #(define page-breaking ly:page-turn-breaking)
 @}
 @end example
+
+The old page breaking algorithm is called
+@code{optimal-page-breaks}. If you are having trouble with the new page
+breakers, you can enable the old one as a workaround.
 
 @refcommands
 
@@ -956,11 +976,95 @@ piece in several movements), use @code{breakbefore} in the header.
 @code{\noPageBreak}
 
 
+@node Optimal page breaking
+@subsection Optimal page breaking
+
+@funindex ly:optimal-breaking
+
+The @code{ly:optimal-breaking} function is LilyPond's default method of
+determining page breaks. It attempts to find a page breaking that minimizes
+cramping and stretching, both horizontally and vertically. Unlike
+@code{ly:page-turn-breaking}, it has no concept of page turns.
+
+
+@node Optimal page turning
+@subsection Optimal page turning
+
+@funindex ly:page-turn-breaking
+
+Often it is necessary to find a page breaking configuration so that there is
+a rest at the end of every second page. This way, the musician can turn the
+page without having to miss notes. The @code{ly:page-turn-breaking} function
+attempts to find a page breaking minimizing cramping and stretching, but with
+the additional restriction that it is only allowed to introduce page turns
+in specified places.
+
+There are two steps to using this page breaking function. First, you must
+enable it in the @code{\paper} block. Then, you must tell the function
+where you would like to allow page breaks.
+
+There are two ways to achieve the second step. First, you can specify each
+potential page turn manually, by inserting @code{\allowPageTurn} into your
+input file at the appropriate places.
+
+If this is too tedious, you can add a @code{Page_turn_engraver} to a Staff or
+Voice context. The @code{Page_turn_engraver} will scan the context for
+sections without notes (note that it does not scan for rests; it scans for
+the absence of notes. This is so that single-staff polyphony with rests in one
+of the parts does not throw off the @code{Page_turn_engraver}). When it finds
+a sufficiently long section without notes, the @code{Page_turn_engraver} will
+insert an @code{\allowPageTurn} at the final barline in that section, unless
+there is a ``special'' barline (such as a double bar), in which case the
+@code{\allowPageTurn} will be inserted at the final ``special'' barline in
+the section.
+
+@funindex minimumPageTurnLength
+The @code{Page_turn_engraver} reads the context property
+@code{minimumPageTurnLength} to determine how long a note-free section must
+be before a page turn is considered. The default value for
+@code{minimumPageTurnLength} is @code{#(ly:make-moment 1 1)}. If you want
+to disable page turns, you can set it to something very large.
+
+@example
+\new Staff \with @{ \consists "Page_turn_engraver" @}
+@{
+  a4 b c d |
+  R1 | % a page turn will be allowed here
+  a4 b c d |
+  \set Staff.minimumPageTurnLength = #(ly:make-moment 5 2)
+  R1 | % a page turn will not be allowed here
+  a4 b r2 |
+  R1*2 | % a page turn will be allowed here
+  a1
+@}
+@end example
+
+@funindex minimumRepeatLengthForPageTurn
+The @code{Page_turn_engraver} detects volta repeats. It will only allow a page
+turn during the repeat if there is enough time at the beginning and end of the
+repeat to turn the page back. The @code{Page_turn_engraver} can also disable
+page turns if the repeat is very short. If you set the context property
+@code{minimumRepeatLengthForPageTurn} then the @code{Page_turn_engraver} will
+only allow turns in repeats whose duration is longer than this value.
+
 @refbugs
 
-The @code{breakbefore=##t} header requires that there is a @code{piece}
-header as well.  It may be used as a normal header, or left  blank
-(@code{=""}) as in the example above, but it must be present.
+The @code{Page_turn_engraver} does not respect time-scaled music. For example, the
+following example does not behave as expected:
+
+@example
+\new Staff \with @{ \consists "Page_turn_engraver" @}
+@{
+  a4 b c d |
+  R1 | % a page turn will be allowed here
+  a4 b \times 2/3 @{c d e@} |
+  R1 | % a page turn will NOT be allowed here
+  a1
+@}
+@end example
+
+There should only be one @code{Page_turn_engraver} in a score. If there is more
+than one, they will interfere with each other.
 
 
 @node Displaying spacing
