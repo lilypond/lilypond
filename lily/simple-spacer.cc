@@ -332,8 +332,6 @@ struct Column_description
   }
 };
 
-static int compare_paper_column_rank (Grob *const &a, Grob *const &b);
-
 static bool
 is_loose (Grob *g)
 {
@@ -400,7 +398,7 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
        scm_is_pair (s); s = scm_cdr (s))
     {
       Grob *other = unsmob_grob (scm_caar (s));
-      vsize j = binary_search (cols, other, &compare_paper_column_rank, col_index);
+      vsize j = binary_search (cols, other, Paper_column::less_than, col_index);
       if (j != VPOS)
 	{
 	  if (cols[j] == other)
@@ -561,9 +559,3 @@ get_line_configuration (vector<Grob*> const &columns,
   return ret;
 }
 
-static int
-compare_paper_column_rank (Grob *const &a,
-			   Grob *const &b)
-{
-  return Paper_column::get_rank (a) - Paper_column::get_rank (b);
-}

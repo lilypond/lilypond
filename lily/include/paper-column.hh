@@ -33,6 +33,9 @@ public:
 
   static int compare (Grob * const &a,
 		      Grob * const &b);
+  static bool less_than (Grob *const &a,
+			 Grob *const &b);
+
   int get_rank () const { return rank_; }
   void set_rank (int);
 

@@ -335,10 +335,11 @@ Source_file::get_line (char const *pos_str0) const
   if (newline_locations_[hi - 1] < pos_str0)
     return hi;
 
-  binary_search_bounds (newline_locations_,
-			(char const*&)pos_str0,
-			default_compare,
-			&lo, &hi);
+  lo = binary_search (newline_locations_,
+		      pos_str0,
+		      less<char const*> (),
+		      lo, hi);
+
 
   if (*pos_str0 == '\n')
     lo--;

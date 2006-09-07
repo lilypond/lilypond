@@ -238,7 +238,7 @@ Spanner::get_system () const
 Grob *
 Spanner::find_broken_piece (System *l) const
 {
-  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::compare);
+  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::less_than);
   if (idx != VPOS)
     return broken_intos_ [idx];
   return 0;
@@ -248,6 +248,12 @@ int
 Spanner::compare (Spanner *const &p1, Spanner *const &p2)
 {
   return p1->get_system ()->get_rank () - p2->get_system ()->get_rank ();
+}
+
+bool
+Spanner::less_than (Spanner *const &a, Spanner *const &b)
+{
+  return a->get_system ()->get_rank () < b->get_system ()->get_rank ();
 }
 
 bool

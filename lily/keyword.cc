@@ -9,6 +9,11 @@
 using namespace std;
 
 /* for qsort */
+bool tab_less (Keyword_ent const &p1, Keyword_ent const &p2)
+{
+  return strcmp (p1.name_, p2.name_) < 0;
+}
+
 int tabcmp (Keyword_ent const &p1, Keyword_ent const &p2)
 {
   return strcmp (p1.name_, p2.name_);
@@ -27,7 +32,7 @@ Keyword_table::lookup (char const *s) const
 {
   Keyword_ent e;
   e.name_ = s;
-  vsize idx = binary_search (table_, e, tabcmp);
+  vsize idx = binary_search (table_, e, tab_less);
   if (idx != VPOS)
     return table_[idx].tokcode_;
   return VPOS;
