@@ -4,6 +4,9 @@
 
 2006-09-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/note-collision.cc (calc_positioning_done): only access
+	first head if available.
+
 	* lily/tuplet-engraver.cc: add tupletFullLengthNote to description.
 
 	* scm/framework-ps.scm (output-preview-framework): use new name.
