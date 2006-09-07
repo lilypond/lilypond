@@ -16,7 +16,7 @@ env.Depends ('lilypond.texi', 'lilypond-internals.texi')
 eps = src_glob ('*.eps') + map (env.PNG2EPS, base_glob ('*.png'))
 env.Depends ('lilypond.texi', eps + png)
 
-lilypond_book_flags = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond -I$srcdir/input/manual/ $__verbose --backend=eps --formats=ps,png --header=texidoc -dinternal-type-checking -ddump-signatures -danti-alias-factor=2 -dgs-font-load" '''
+lilypond_book_flags = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond -I$srcdir/input/manual/ $__verbose --backend=eps --formats=ps,png --header=texidoc -dcheck-internal-types -ddump-signatures -danti-alias-factor=2 -dgs-load-fonts" '''
 e = env.Copy (
 #	LILYPOND_BOOK_FLAGS = '''--process="lilypond --backend=eps --formats=ps,png --header=texidoc -I#/input/manual -e '(ly:set-option (quote internal-type-checking) \#t)'"''',
 	LILYPOND_BOOK_FLAGS = lilypond_book_flags,

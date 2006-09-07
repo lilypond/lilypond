@@ -11,20 +11,29 @@
 	      (ly:add-option (car x) (cadr x) (caddr x)))
 	  
 	    `(
+
+	      ;; NAMING: either
+
+	      ;; - [subject-]object-object-verb +"ing"
+	      ;; - [subject-]-verb-object-object
+
 	      (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
-	      (book-title-preview #t "include book-titles in preview images.")
+	      (check-internal-types #f "check every property assignment for types")
 	      (debug-gc #f
 			"dump memory debugging statistics")
+	      (debug-midi #f "generate human readable MIDI")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
 	      (dump-signatures #f "dump output signatures of each system")
-	      (eps-font-include #f "Include fonts in separate-system EPS files.")
-	      (eps-pad-boxes #f "Pad EPS bounding boxes to guarantee alignment between systems")
-	      (gs-font-load #f
+	      (gs-load-fonts #f
 			    "load fonts via Ghostscript.")
+	      (include-book-title-preview #t "include book-titles in preview images.")
+	      (include-eps-font #f "Include fonts in separate-system EPS files.")
+
+	      (pad-eps-boxes #f "Pad EPS bounding boxes to guarantee alignment between systems")
+
 	      (gui #f "running from gui; redirect stderr to log file")
-	      (internal-type-checking #f "check every property assignment for types")
-	      (midi-debug #f "generate human readable MIDI")
+	      
 	      (old-relative #f
 			    "relative for simultaneous music works
 similar to chord syntax")
@@ -32,18 +41,23 @@ similar to chord syntax")
 			   "experimental mechanism for remembering tweaks")
 	      (point-and-click #t "use point & click")
 	      (paper-size "a4" "the default paper size")
-	      (parse-protect #t "continue when finding errors in inline
+	      (protected-scheme-parsing #t "continue when finding errors in inline
 scheme are caught in the parser. If off, halt 
 on errors, and print a stack trace.")
 	      (profile-property-accesses #f "keep statistics of get_property() calls.")
+	      
 	      (resolution 101 "resolution for generating bitmaps")
 	      (read-file-list #f "Read files to be processed from command line arguments")
+
 	      (safe #f "Run safely")
 	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN")
+
 	      (ttf-verbosity 0
 			   "how much verbosity for TTF font embedding?")
+
 	      (show-available-fonts #f
 				    "List  font names available.")
+
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      )))
 

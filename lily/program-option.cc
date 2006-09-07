@@ -48,7 +48,7 @@ void internal_set_option (SCM var, SCM val)
       profile_property_accesses = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
-  else if (var == ly_symbol2scm ("midi-debug"))
+  else if (var == ly_symbol2scm ("debug-midi"))
     {
       do_midi_debugging_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
@@ -58,12 +58,12 @@ void internal_set_option (SCM var, SCM val)
       point_and_click_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
-  else if (var == ly_symbol2scm ("parse-protect"))
+  else if (var == ly_symbol2scm ("protected-scheme-parsing"))
     {
       parse_protect_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
-  else if (var == ly_symbol2scm ("internal-type-checking"))
+  else if (var == ly_symbol2scm ("check-internal-types"))
     {
       do_internal_type_checking_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));

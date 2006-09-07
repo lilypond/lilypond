@@ -61,7 +61,7 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
       d.event_ = ev;
       tuplets_.push_back (d);
     }
-  if (dir == STOP)
+  if (dir == STOP && tuplets_.size ())
     {
       stopped_tuplets_.push_back (tuplets_.back ());
       tuplets_.pop_back ();
