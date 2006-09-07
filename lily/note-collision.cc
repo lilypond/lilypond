@@ -305,7 +305,9 @@ Note_collision_interface::calc_positioning_done (SCM smob)
       if (cg[d].size ())
 	{
 	  Grob *h = cg[d][0];
-	  wid = Note_column::first_head (h)->extent (h, X_AXIS).length ();
+	  Grob *fh = Note_column::first_head (h);
+	  if (fh)
+	    wid = fh->extent (h, X_AXIS).length ();
 	}
     }
   while (flip (&d) != UP);
