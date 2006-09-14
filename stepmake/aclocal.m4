@@ -194,6 +194,8 @@ AC_DEFUN(STEPMAKE_COMPILE, [
 	AC_DEFINE(NDEBUG)
 	DEFINES="$DEFINES -DNDEBUG"
 	OPTIMIZE=" -O2 -finline-functions"
+    else
+        DEFINES="$DEFINES -D_GLIBCXX_DEBUG"
     fi
 
     if test $profile_b = yes; then
