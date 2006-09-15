@@ -276,6 +276,7 @@ contained staves are not connected vertically."
   systemStartDelimiter = #'SystemStartBrace
 
   \accepts "Staff"
+  \accepts "FiguredBass"
 }
 
 \context{

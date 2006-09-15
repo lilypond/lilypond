@@ -1,3 +1,8 @@
+2006-09-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* ly/engraver-init.ly: Make FiguredBass accepted in GrandStaff and
+	PianoStaff. 
+
 2006-09-08  Joe Neeman  <joeneeman@gmail.com>
 
 	* Documentation/user/page.itely: update page breaking documentation
