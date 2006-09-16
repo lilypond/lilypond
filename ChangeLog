@@ -1,3 +1,7 @@
+2006-09-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/aclocal.m4: use -D_GLIBCXX_DEBUG if optimize not set.
+
 2006-09-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* ly/engraver-init.ly: Make FiguredBass accepted in GrandStaff and
