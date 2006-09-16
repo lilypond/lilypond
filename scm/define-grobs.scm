@@ -1690,6 +1690,7 @@
     (Tie
      . (
 	(control-points . ,ly:tie::calc-control-points)
+	(springs-and-rods . ,ly:spacing-spanner::set-springs)
 	(avoid-slur . inside)
 	(direction . ,ly:tie::calc-direction)
 	(stencil . ,ly:tie::print)

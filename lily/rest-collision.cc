@@ -212,13 +212,14 @@ Rest_collision::calc_positioning_done (SCM smob)
       for (vsize i = rests.size (); !rcol && i--;)
 	if (Note_column::dir (rests[i]))
 	  {
-	    dir = Note_column::dir (rests[i]);
 	    rcol = rests[i];
+	    dir = Note_column::dir (rcol);
 	  }
 
       if (!rcol)
 	return SCM_UNSPECIFIED;
 
+      Grob *rest = Note_column::get_rest (rcol);
       Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
 
       Interval restdim = rcol->extent (common, Y_AXIS);
@@ -232,9 +233,10 @@ Rest_collision::calc_positioning_done (SCM smob)
       for (vsize i = 0; i < notes.size (); i++)
 	notedim.unite (notes[i]->extent (common, Y_AXIS));
 
-      Real dist
-	= minimum_dist + dir * max (notedim[dir] - restdim[-dir], 0.0);
 
+      Real y = dir * max (0.0,
+			  -dir * restdim[-dir] + dir * notedim[dir]  + minimum_dist);
+      
       int stafflines = Staff_symbol_referencer::line_count (me);
       if (!stafflines)
 	{
@@ -243,13 +245,16 @@ Rest_collision::calc_positioning_done (SCM smob)
 	}
 
       // move discretely by half spaces.
-      int discrete_dist = int (ceil (dist / (0.5 * staff_space)));
+      int discrete_y = dir * int (ceil (y / (0.5 * dir * staff_space)));
 
       // move by whole spaces inside the staff.
-      if (discrete_dist < stafflines + 1)
-	discrete_dist = int (ceil (discrete_dist / 2.0) * 2.0);
+      if (fabs (Staff_symbol_referencer::get_position (rest)
+		+ discrete_y) < stafflines + 1)
+	{
+	  discrete_y = dir * int (ceil (dir * discrete_y / 2.0) * 2.0);
+	}
 
-      Note_column::translate_rests (rcol, dir * discrete_dist);
+      Note_column::translate_rests (rcol, discrete_y);
     }
   return SCM_UNSPECIFIED;
 }

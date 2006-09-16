@@ -9,6 +9,16 @@
 #ifndef STD_VECTOR_HH
 #define STD_VECTOR_HH
 
+#if 0
+
+/*
+  leads to dubious crashes - libstdc++  bug?
+*/
+#ifndef NDEBUG
+#define _GLIBCXX_DEBUG 1
+#endif
+#endif
+
 #include <algorithm>   /* find, reverse, sort */
 #include <functional>  /* unary_function */
 #include <cassert>

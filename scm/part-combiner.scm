@@ -400,7 +400,10 @@ Only set if not set previously.
       
       (define (try-solo type start-idx current-idx)
 	"Find a maximum stretch that can be marked as solo. Only set
-the mark when there are no spanners active."
+the mark when there are no spanners active.
+
+      return next idx to analyse.
+"
 	(if (< current-idx (vector-length result))
 	    (let* ((now-state (vector-ref result current-idx))
 		   (solo-state (current-voice-state now-state (if (equal? type 'solo1) 1 2)))
@@ -416,6 +419,7 @@ the mark when there are no spanners active."
 		     current-idx)
 		    ((and
 		      (null? (span-state solo-state)))
+
 		     ;;
 		     ;; This includes rests. This isn't a problem: long rests
 		     ;; will be shared with the silent voice, and be marked
