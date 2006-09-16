@@ -106,8 +106,9 @@ string_compare (string const &a, string const &b)
 vector<string>
 string_split (string str, char c)
 {
-  vector<string> a;
   ssize i = str.find (c);
+
+  vector<string> a;
   while (i != NPOS)
     {
       string s = str.substr (0, i);

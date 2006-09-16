@@ -50,7 +50,7 @@ init_fontconfig ()
     {
       string dir = dirs[i];
       if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.c_str ()))
-	error (_f ("adding font directory: %s", dir.c_str ()));
+	error (_f ("failed adding font directory: %s", dir.c_str ()));
       else if (be_verbose_global)
 	message (_f ("adding font directory: %s", dir.c_str ()));
     }

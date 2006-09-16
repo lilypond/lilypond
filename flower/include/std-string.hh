@@ -11,6 +11,15 @@
  
 #include "compare.hh"
 
+#if 0
+/*
+  leads to dubious crashes - libstdc++  bug?
+ */
+#ifndef NDEBUG
+#define _GLIBCXX_DEBUG 1
+#endif
+#endif
+
 #include <string>
 
 using namespace std;

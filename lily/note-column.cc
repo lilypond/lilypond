@@ -188,4 +188,14 @@ Note_column::arpeggio (Grob *me)
 
 ADD_INTERFACE (Note_column, "note-column-interface",
 	       "Stem and noteheads combined",
-	       "arpeggio note-heads rest-collision rest horizontal-shift stem accidentals force-hshift");
+
+	       /* properties */
+	       "accidentals "
+	       "arpeggio "
+	       "force-hshift "
+	       "horizontal-shift "
+	       "note-heads "
+	       "rest "
+	       "rest-collision "
+	       "stem "
+	       );

@@ -1,6 +1,20 @@
-2006-09-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
+2006-09-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* stepmake/aclocal.m4: use -D_GLIBCXX_DEBUG if optimize not set.
+	* lily/rest-collision.cc (calc_positioning_done): fix whole/half
+	step positioning for note/rest combinations.
+
+	* input/regression/rest-note-collision.ly: new file.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add
+	springs-and-rods
+
+	* flower/include/std-vector.hh: switch off again.
+
+	* VERSION (PATCH_LEVEL): bump to 2.9.18
+
+	* flower/include/std-string.hh: idem.
+
+	* flower/include/std-vector.hh (_GLIBCXX_DEBUG): set if NDEBUG not set.
 
 2006-09-15  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
