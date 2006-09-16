@@ -83,7 +83,10 @@ bool
 Paper_column::less_than (Grob *const &a,
 			 Grob *const &b)
 {
-  return dynamic_cast<Paper_column*> (a)->rank_ < dynamic_cast<Paper_column*> (b)->rank_;
+  Paper_column *pa = dynamic_cast<Paper_column*> (a);
+  Paper_column *pb = dynamic_cast<Paper_column*> (b);
+  
+  return pa->rank_ < pb->rank_;
 }
 
 Moment

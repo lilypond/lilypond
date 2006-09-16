@@ -1690,7 +1690,7 @@
     (Tie
      . (
 	(control-points . ,ly:tie::calc-control-points)
-	(springs-and-rods . ,ly:spacing-spanner::set-springs)
+	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(avoid-slur . inside)
 	(direction . ,ly:tie::calc-direction)
 	(stencil . ,ly:tie::print)
@@ -1713,6 +1713,7 @@
 		    (outer-tie-vertical-gap . 0.25)
 		    (multi-tie-region-size . 1)
 		    (between-length-limit . 1.0)))
+	
 	(thickness . 1.2)
 	(line-thickness . 0.8)
 	(meta . ((class . Spanner)

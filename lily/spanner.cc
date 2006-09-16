@@ -327,10 +327,14 @@ Spanner::set_spacing_rods (SCM smob)
   Spanner *sp = dynamic_cast<Spanner *> (me);
   r.item_drul_[LEFT] = sp->get_bound (LEFT);
   r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
-  r.distance_
-    = robust_scm2double (me->get_property ("minimum-length"), 0);
 
-  r.add_to_cols ();
+  SCM num_length = me->get_property ("minimum-length");
+  if (scm_is_number (num_length))
+    {
+      r.distance_ = robust_scm2double (num_length, 0);
+      r.add_to_cols ();
+    }
+  
   return SCM_UNSPECIFIED;
 }
 
