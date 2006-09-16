@@ -1,5 +1,8 @@
 2006-09-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/script.scm (default-script-alist): set paddings for every
+	type here, increase for portato mark.
+
 	* scm/lily.scm (define-scheme-options): typo: add s, so it is 
 	-dinclude-eps-fonts
 

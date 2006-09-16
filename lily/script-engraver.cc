@@ -92,8 +92,9 @@ copy_property (Grob *g, SCM sym, SCM alist)
    could be saved by tacking the props onto the Script grob (i.e. make
    ScriptStaccato , ScriptMarcato, etc. ).
 */
-void make_script_from_event (Grob *p,  Context *tg,
-			     SCM art_type, int index)
+void
+make_script_from_event (Grob *p,  Context *tg,
+			SCM art_type, int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
   SCM art = scm_assoc (art_type, alist);
