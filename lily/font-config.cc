@@ -30,9 +30,11 @@ init_fontconfig ()
   font_config_global = FcInitLoadConfig ();
   FcChar8 *cache_file = FcConfigGetCache (font_config_global);
 
+#if 0
+  // always returns 0 for FC 2.4
   if (!cache_file)
     programming_error ("Cannot find file for FontConfig cache.");
-
+#endif
   /*
     This is a terrible kludge, but there is apparently no way for
     FontConfig to signal whether it needs to rescan directories.

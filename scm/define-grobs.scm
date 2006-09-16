@@ -1296,9 +1296,7 @@
      . (
 	;; don't set direction here: it breaks staccato.
 
-	;; This value is sensitive: if too large, staccato dots will move a
-	;; space a away.
-	(padding . 0.20)
+	;; padding set in script definitions.
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset . , ly:self-alignment-interface::centered-on-x-parent)
