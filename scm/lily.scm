@@ -28,7 +28,7 @@
 	      (gs-load-fonts #f
 			    "load fonts via Ghostscript.")
 	      (include-book-title-preview #t "include book-titles in preview images.")
-	      (include-eps-font #f "Include fonts in separate-system EPS files.")
+	      (include-eps-fonts #f "Include fonts in separate-system EPS files.")
 
 	      (pad-eps-boxes #f "Pad EPS bounding boxes to guarantee alignment between systems")
 
