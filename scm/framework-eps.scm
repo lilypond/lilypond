@@ -61,7 +61,7 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 
 	  (dump-stencil-as-EPS
 	   paper line system-base-name
-	   (ly:get-option 'eps-font-include))
+	   (ly:get-option 'include-eps-fonts))
 
 	  (if do-pdf
 	      (postscript->pdf  0 0  (string-append system-base-name ".eps")))
