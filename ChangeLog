@@ -1,3 +1,21 @@
+2006-09-17  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/layout-page-dump.scm (scm): export utility function names,
+	to allow user writing cutsom dumping functions.
+
+	* scm/layout-page-layout.scm: export utility function names to
+	enable custom page breaking function writing. Tabify.
+	(line-next-space): use ?-suffix only for predicates
+	(page-maximum-space-to-fill): new function. Return the space
+	between first and bottom system of a page, to give to
+	space-systems.
+	(space-systems): use a space-to-fill argument (for instance as
+	computed by page-maximum-space-to-fill) instead of computing
+	internaly this space with the page height. That way, the caller
+	can adjust the space to use.
+	(make-page-from-systems, walk-paths): compute space to fill before
+	calling space-systems.
+
 2006-09-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/script.scm (default-script-alist): set paddings for every
