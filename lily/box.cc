@@ -6,10 +6,7 @@
   (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "ly-smobs.icc"
-
 #include "box.hh"
-#include "std-vector.hh"
 
 void
 Box::translate (Offset o)
@@ -25,9 +22,6 @@ Box::unite (Box b)
     interval_a_[i].unite (b[i]);
 }
 
-/**
-   Initialize to empty.
-*/
 Box::Box ()
 {
 }
@@ -84,6 +78,10 @@ Box::widen (Real x, Real y)
   interval_a_[X_AXIS].widen (x);
   interval_a_[Y_AXIS].widen (y);
 }
+
+/****************************************************************/
+
+#include "ly-smobs.icc"
 
 IMPLEMENT_SIMPLE_SMOBS (Box);
 IMPLEMENT_TYPE_P (Box, "ly:box?");
