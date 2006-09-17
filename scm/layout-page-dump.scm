@@ -10,7 +10,9 @@
   #:use-module (scm paper-system)
   #:use-module (scm page)
   #:use-module (lily)
-  #:export (write-page-breaks))
+  #:export (write-page-breaks
+            ;; utilisties for writing other page dump functions
+            record-tweaks dump-all-tweaks))
 
 
 (define (record-tweaks what property-pairs tweaks)
