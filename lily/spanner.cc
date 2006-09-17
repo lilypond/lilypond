@@ -124,7 +124,7 @@ Spanner::do_break_processing ()
 	    }
 	}
     }
-  vector_sort (broken_intos_, Spanner::compare);
+  vector_sort (broken_intos_, Spanner::less);
   for (vsize i = broken_intos_.size (); i--;)
     broken_intos_[i]->break_index_ = i;
 }
@@ -238,7 +238,7 @@ Spanner::get_system () const
 Grob *
 Spanner::find_broken_piece (System *l) const
 {
-  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::less_than);
+  vsize idx = binary_search (broken_intos_, (Spanner *)l, Spanner::less);
   if (idx != VPOS)
     return broken_intos_ [idx];
   return 0;
@@ -251,7 +251,7 @@ Spanner::compare (Spanner *const &p1, Spanner *const &p2)
 }
 
 bool
-Spanner::less_than (Spanner *const &a, Spanner *const &b)
+Spanner::less (Spanner *const &a, Spanner *const &b)
 {
   return a->get_system ()->get_rank () < b->get_system ()->get_rank ();
 }

@@ -219,7 +219,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item*> bounds,
   for (vsize i = 0; i < bounds.size (); i++)
     ranks.push_back (bounds[i]->get_column ()->get_rank ());
 
-  vector_sort (ranks, default_compare);
+  vector_sort (ranks, less<int> ());
   uniq (ranks);
 
   for (vsize i = 0; i < ranks.size (); i++)

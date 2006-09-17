@@ -151,7 +151,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 
       Direction d = LEFT;
       do
-	vector_sort (ordered_rests[d], Note_column::shift_compare);
+	vector_sort (ordered_rests[d], Note_column::shift_less);
       while (flip (&d) != LEFT)
 	;
 

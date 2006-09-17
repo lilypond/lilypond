@@ -19,7 +19,7 @@
 class Note_column
 {
 public:
-  static int shift_compare (Grob *const &, Grob *const &);
+  static bool shift_less (Grob *const &, Grob *const &);
   static Direction dir (Grob *me);
   static Grob *accidentals (Grob *me);
   static Grob *arpeggio (Grob *me);

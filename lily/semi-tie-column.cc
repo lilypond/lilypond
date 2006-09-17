@@ -45,7 +45,7 @@ Semi_tie_column::calc_positioning_done (SCM smob)
   extract_grob_set (me, "ties", lv_ro_ties);
   vector<Grob*> lv_ties (lv_ro_ties);
 
-  vector_sort (lv_ties, &Semi_tie::compare);
+  vector_sort (lv_ties, Semi_tie::less);
 
   Ties_configuration ties_config;
   

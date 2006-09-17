@@ -1,3 +1,53 @@
+2006-09-17  Joe Neeman  <joeneeman@gmail.com>
+
+	* scm/define-music-types.scm (music-descriptions): remove
+	BreakEvent and fix {Page,Line}{Break,Turn}Event so
+	Music::to_event doesn't complain.
+
+	* lily/accidental-placement.cc (ape_compare):
+	* lily/semi-tie.cc (compare): 
+	* lily/note-column.cc (shift_compare): replace by XXX_less
+
+	* lily/tie-formatting-problem.cc (set_chord_outline): 
+	* lily/tie-column.cc (calc_positioning_done): 
+	* lily/system.cc (post_processing)
+	(get_paper_system): 
+	* lily/stem.cc (note_head_positions)
+	(calc_positioning_done): 
+	* lily/spanner.cc (do_break_processing)
+	(find_broken_piece): 
+	* lily/span-bar.cc (print): 
+	* lily/semi-tie-column.cc (calc_positioning_done): 
+	* lily/rest-collision.cc (calc_positioning_done): 
+	* lily/program-option.cc (get_help_string): 
+	* lily/note-collision.cc (get_clash_groups):
+	* lily/new-fingering-engraver.cc (position_scripts):
+	* lily/keyword.cc (Keyword_table):
+	* lily/hara-kiri-group-spanner.cc (request_suicide):
+	* lily/grob-pq-engraver.cc (stop_translation_timestep):
+	* lily/accidental-placement.cc (calc_positioning_done):
+	(stagger_apes):
+	* lily/beam.cc (get_beam_segments):
+	* lily/grob-array.cc (remove_duplicates):
+	use new vector_sort
+	
+	* input/mutopia/W.A.Mozart/mozart-hrn3-defs.ily:
+	ragged-last-bottom = ##f (test the new page breaker)
+
+	* flower/include/std-vector.hh (vector_sort): use STL sort stuff
+
+	* scm/define-context-properties.scm
+	(all-internal-translation-properties): remove properties that
+	were used to communicate page-turn stuff to the paper-column
+	engraver.
+
+	* lily/lily-guile.cc (robust_scm2string): new function
+
+	* lily/paper-column-engraver.cc: Clean up page turn stuff
+
+	* lily/page-turn-engraver.cc: Re-write the page turn logic here
+	instead of cluttering up paper-column-engraver.cc
+
 2006-09-17  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/layout-page-dump.scm (scm): export utility function names,

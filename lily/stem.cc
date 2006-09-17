@@ -180,12 +180,6 @@ Stem::extremal_heads (Grob *me)
   return exthead;
 }
 
-static int
-integer_compare (int const &a, int const &b)
-{
-  return a - b;
-}
-
 /* The positions, in ascending order.  */
 vector<int>
 Stem::note_head_positions (Grob *me)
@@ -201,7 +195,7 @@ Stem::note_head_positions (Grob *me)
       ps.push_back (p);
     }
 
-  vector_sort (ps, integer_compare);
+  vector_sort (ps, less<int> ());
   return ps;
 }
 
@@ -410,7 +404,7 @@ Stem::calc_positioning_done (SCM smob)
 
   extract_grob_set (me, "note-heads", ro_heads);
   vector<Grob*> heads (ro_heads);
-  vector_sort (heads, compare_position);
+  vector_sort (heads, position_less);
   Direction dir = get_grob_direction (me);
 
   if (dir < 0)

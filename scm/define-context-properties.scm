@@ -39,8 +39,6 @@
 				 "If true, then the accidentals are aligned in bass figure context.")
 
      (allowBeamBreak ,boolean? "If true allow line breaks for beams over bar lines.")
-     (allowPageTurn ,pair? "In the form (moment-start . penalty). Allow a page turn
-at the most recent breakpoint if it was after moment-start.")
      (associatedVoice ,string? "Name of the
 @code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies
@@ -313,6 +311,9 @@ markup.  Called with 2 arguments, event and context.")
      (midiMaximumVolume ,number? "Analogous to @code{midiMinimumVolume}.")
      (minimumFret ,number? "The tablature auto string-selecting mechanism
 selects the highest string with a fret at least @code{minimumFret}")
+     (minimumPageTurnLength ,ly:moment? "Minimum length of a rest for a page turn to be allowed")
+     (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a repeated section for a page
+turn to be allowed within that section")
      (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
 format as @var{verticalExtent}")
      (output ,ly:music-output? "The output produced by a score-level translator during music interpretation")
@@ -346,7 +347,6 @@ whether they are processed in this context.")
      (restNumberThreshold ,number?
 			  "If a multimeasure rest has more measures
 than this, a number is printed. ")
-     (revokePageTurns ,pair? "Signals to the paper-column-engraver to revoke (or increase the penalties for) all the page turns within a time interval. Used to disable page turns that occur within an unturnable volta repeat.")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for each note
 head relative to the tonic (qv.) of the scale.")
      (shortInstrumentName ,markup? "See @code{instrument}")

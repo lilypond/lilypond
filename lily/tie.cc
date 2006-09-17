@@ -28,11 +28,11 @@
 #include "warn.hh"
 
 
-int
-Tie::compare (Grob *const &s1,
-	      Grob *const &s2)
+bool
+Tie::less (Grob *const &s1,
+	   Grob *const &s2)
 {
-  return sign (Tie::get_position (s1) - Tie::get_position (s2));
+  return Tie::get_position (s1) < Tie::get_position (s2);
 }
 
 void

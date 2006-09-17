@@ -317,7 +317,7 @@ System::post_processing ()
      anyway. */
 
   vector<Grob*> all_elts_sorted (all_elements_->array ());
-  vector_sort (all_elts_sorted, default_compare);
+  vector_sort (all_elts_sorted, std::less<Grob*> ());
   uniq (all_elts_sorted);
   this->get_stencil ();
   for (vsize i = all_elts_sorted.size (); i--;)
@@ -357,7 +357,7 @@ System::get_paper_system ()
       entries.push_back (e); 
     }
 
-  vector_sort (entries, default_compare);
+  vector_sort (entries, std::less<Layer_entry> ());
   for (vsize j = 0; j < entries.size (); j++)
     {
       Grob *g = entries[j].grob_;

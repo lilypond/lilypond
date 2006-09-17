@@ -72,7 +72,7 @@ Span_bar::print (SCM smobbed_me)
   if (!model_bar)
     model_bar = me;
 
-  vector_sort (extents, Interval::left_comparison);
+  vector_sort (extents, Interval::left_less);
 
   Stencil span_bar;
   for (vsize i = 1; i < extents.size (); i++)

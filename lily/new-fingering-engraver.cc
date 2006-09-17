@@ -35,11 +35,13 @@ struct Finger_tuple
     note_event_ = finger_event_ = 0;
     follow_into_staff_ = false;
   }
-  static int compare (Finger_tuple const &c1, Finger_tuple const &c2)
-  {
-    return c1.position_- c2.position_;
-  }
 };
+
+bool
+operator< (Finger_tuple const &a, Finger_tuple const &b)
+{
+  return a.position_ < b.position_;
+}
 
 class New_fingering_engraver : public Engraver
 {
@@ -220,7 +222,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
 	}
     }
 
-  vector_sort (*scripts, Finger_tuple::compare);
+  vector_sort (*scripts, less<Finger_tuple> ());
 
   bool up_p = scm_c_memq (ly_symbol2scm ("up"), orientations) != SCM_BOOL_F;
   bool down_p = scm_c_memq (ly_symbol2scm ("down"), orientations) != SCM_BOOL_F;
