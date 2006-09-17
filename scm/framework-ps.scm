@@ -409,7 +409,7 @@
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 
 
-	   (font-loader (if (ly:get-option 'gs-font-load)
+	   (font-loader (if (ly:get-option 'gs-load-fonts)
 			    load-font-via-GS
 			    load-font))
 			 
@@ -520,7 +520,7 @@
 	   ;;
 	   (list
 
-	    (if (ly:get-option 'eps-pad-boxes) 
+	    (if (ly:get-option 'pad-eps-boxes) 
 		(min left-overshoot (car xext))
 		(car xext))
 	    (car yext) (cdr xext) (cdr yext))))

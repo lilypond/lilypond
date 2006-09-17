@@ -1,3 +1,12 @@
+2006-09-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/framework-ps.scm (dump-stencil-as-EPS): naming pad-eps-boxes.
+
+	* scm/backend-library.scm: option naming:  gs-font-load*s*
+
+	* scm/framework-eps.scm (dump-stencils-as-EPSes): rename option to
+	include-eps-fonts
+
 2006-09-17  Joe Neeman  <joeneeman@gmail.com>
 
 	* scm/define-music-types.scm (music-descriptions): remove
