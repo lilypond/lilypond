@@ -135,6 +135,12 @@ int ape_compare (Accidental_placement_entry *const &a,
   return sign (ape_priority (a) - ape_priority (b));
 }
 
+bool ape_less (Accidental_placement_entry *const &a,
+	       Accidental_placement_entry *const &b)
+{
+  return ape_priority (a) < ape_priority (b);
+}
+
 int ape_rcompare (Accidental_placement_entry *const &a,
 		  Accidental_placement_entry *const &b)
 {
@@ -154,7 +160,7 @@ stagger_apes (vector<Accidental_placement_entry*> *apes)
 {
   vector<Accidental_placement_entry*> asc = *apes;
 
-  vector_sort (asc, &ape_compare);
+  vector_sort (asc, &ape_less);
 
   apes->clear ();
 
@@ -293,7 +299,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
   for (vsize i = note_cols.size (); i--;)
     concat (heads, extract_grob_array (note_cols[i], "note-heads"));
 
-  vector_sort (heads, default_compare);
+  vector_sort (heads, less<Grob*> ());
   uniq (heads);
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
 

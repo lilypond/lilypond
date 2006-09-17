@@ -191,46 +191,17 @@ binary_search (vector<T> const &v,
   return lb;
 }
 
-#if 0
-/* FIXME: the COMPARE functionality is broken?  */
-template<typename T>
+template<typename T, typename Compare>
 void
-vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
-	     vsize lower=VPOS, vsize upper=VPOS)
+vector_sort (vector<T> &v,
+	     Compare less,
+	     vsize b=0, vsize e=VPOS)
 {
-  typename vector<T>::iterator b = v.begin ();
-  typename vector<T>::iterator e = v.begin ();
-  if (lower == VPOS)
-    {
-      lower = 0;
-      upper = v.size ();
-    }
-  sort (b + lower, e + upper, compare);
-}
-#else
+  if (e == VPOS)
+    e = v.size ();
 
-// ugh, c&p
-template<typename T> void
-vector_sort (vector<T> &v, int (*compare) (T const &, T const &),
-	     vsize lower=VPOS, vsize upper=VPOS)
-{
-  if (lower == VPOS)
-    {
-      lower = 0;
-      upper = v.size () - 1;
-    }
-  if (upper == VPOS || lower >= upper)
-    return;
-  swap (v[lower], v[(lower + upper) / 2]);
-  vsize last = lower;
-  for (vsize i = lower +1; i <= upper; i++)
-    if (compare (v[i], v[lower]) < 0)
-      swap (v[++last], v[i]);
-  swap (v[lower], v[last]);
-  vector_sort (v, compare, lower, last - 1);
-  vector_sort (v, compare, last + 1, upper);
+  sort (v.begin () + b, v.begin () + e, less);
 }
-#endif
 
 template<typename T>
 void

@@ -156,6 +156,13 @@ compare_position (Grob *const &a, Grob *const &b)
 	       - Staff_symbol_referencer::get_position ((Grob *) b));
 }
 
+bool
+position_less (Grob *const &a, Grob *const &b)
+{
+  return Staff_symbol_referencer::get_position (a)
+    < Staff_symbol_referencer::get_position (b);
+}
+
 ADD_INTERFACE (Staff_symbol_referencer, "staff-symbol-referencer-interface",
 	       "An object whose Y position is meant relative to a staff "
 	       "symbol. "

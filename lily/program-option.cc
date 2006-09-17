@@ -133,7 +133,7 @@ get_help_string ()
     }
 
   string help ("Options supported by ly:set-option\n\n");
-  vector_sort (opts, string_compare);
+  vector_sort (opts, less<string> ());
   for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
 

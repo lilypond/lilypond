@@ -34,15 +34,15 @@ Note_column::has_rests (Grob *me)
   return unsmob_grob (me->get_object ("rest"));
 }
 
-int
-Note_column::shift_compare (Grob *const &p1, Grob *const &p2)
+bool
+Note_column::shift_less (Grob *const &p1, Grob *const &p2)
 {
   SCM s1 = p1->get_property ("horizontal-shift");
   SCM s2 = p2->get_property ("horizontal-shift");
 
   int h1 = (scm_is_number (s1)) ? scm_to_int (s1) : 0;
   int h2 = (scm_is_number (s2)) ? scm_to_int (s2) : 0;
-  return h1 - h2;
+  return h1 < h2;
 }
 
 Item *

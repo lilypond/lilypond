@@ -44,9 +44,6 @@ protected:
   bool first_;
   Moment last_moment_;
 
-  Paper_column *last_special_barline_column_;
-  Paper_column *last_breakable_column_;
-  vector<Paper_column*> page_turnable_columns_;
 public:
 };
 

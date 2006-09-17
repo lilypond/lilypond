@@ -15,12 +15,13 @@ struct Grob_pq_entry
 {
   Grob *grob_;
   Moment end_;
-  static int compare (Grob_pq_entry const &a,
-		      Grob_pq_entry const &b)
-  {
-    return Moment::compare (a.end_, b.end_);
-  }
 };
+
+bool
+operator< (Grob_pq_entry const &a, Grob_pq_entry const &b)
+{
+  return a.end_ < b.end_;
+}
 
 class Grob_pq_engraver : public Engraver
 {
@@ -95,7 +96,7 @@ Grob_pq_engraver::stop_translation_timestep ()
   while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) == now)
     busy = scm_cdr (busy);
 
-  vector_sort (started_now_, Grob_pq_entry::compare);
+  vector_sort (started_now_, less<Grob_pq_entry> ());
   SCM lst = SCM_EOL;
   SCM *tail = &lst;
   for (vsize i = 0; i < started_now_.size (); i++)

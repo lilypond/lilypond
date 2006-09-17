@@ -28,8 +28,6 @@ Paper_column_engraver::Paper_column_engraver ()
   musical_column_ = 0;
   breaks_ = 0;
   system_ = 0;
-  last_special_barline_column_ = 0;
-  last_breakable_column_ = 0;
   first_ = true;
 }
 
@@ -171,56 +169,6 @@ Paper_column_engraver::process_music ()
     }
 }
 
-/* return either
-   - the last column with a special (ie. not "|" or "") barline
-   - the last column
-   after the given moment
-*/
-Paper_column*
-Paper_column_engraver::find_turnable_column (Moment after_this)
-{
-  if (last_special_barline_column_)
-    {
-      Moment m = *unsmob_moment (last_special_barline_column_->get_property ("when"));
-      if (m >= after_this)
-	return last_special_barline_column_;
-    }
-  if (last_breakable_column_)
-    {
-      Moment m = *unsmob_moment (last_breakable_column_->get_property ("when"));
-      if (m >= after_this)
-	return last_breakable_column_;
-    }
-  return 0;
-}
-
-void
-Paper_column_engraver::revoke_page_turns (Moment after_this, Real new_penalty)
-{
-  if (!page_turnable_columns_.size ())
-    return;
-
-  for (vsize i = page_turnable_columns_.size () - 1; i--;)
-    {
-      Paper_column *col = page_turnable_columns_[i];
-      Moment mom = *unsmob_moment (col->get_property ("when"));
-      if (mom >= after_this)
-	{
-	  if (isinf (new_penalty))
-	    {
-	      col->del_property ( ly_symbol2scm ("page-turn-permission"));
-	      page_turnable_columns_.erase (page_turnable_columns_.begin () + i);
-	    }
-	  else
-	    {
-	      Real prev_pen = robust_scm2double (col->get_property ("page-turn-penalty"), 0);
-	      if (new_penalty > prev_pen)
-		col->set_property ("page-turn-penalty", scm_from_double (new_penalty));
-	    }
-	}
-    }
-}
-
 void
 Paper_column_engraver::stop_translation_timestep ()
 {
@@ -245,51 +193,12 @@ Paper_column_engraver::stop_translation_timestep ()
   else if (Paper_column::is_breakable (command_column_))
     {
       breaks_++;
-      last_breakable_column_ = command_column_;
-
-      SCM which_bar = get_property ("whichBar");
-      if (scm_is_string (which_bar))
-	{
-	  string bar = ly_scm2string (which_bar);
-	  if (bar != "" && bar != "|")
-	    last_special_barline_column_ = command_column_;
-	}
 
       if (! (breaks_%8))
 	progress_indication ("[" + to_string (breaks_) + "]");
     }
 
-  SCM page_br = get_property ("allowPageTurn");
-  if (scm_is_pair (page_br) && last_breakable_column_)
-    {
-      SCM pen = scm_cdr (page_br);
-      Moment *m = unsmob_moment (scm_car (page_br));
-      if (m)
-	{
-	  Paper_column *turn = find_turnable_column (*m);
-	  if (turn)
-	    {
-	      turn->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
-	      turn->set_property ("page-turn-penalty", pen);
-	      page_turnable_columns_.push_back (turn);
-	    }
-	}
-    }
-
-  /* The page-turn-engraver is allowed to change its mind and revoke previously-allowed
-     page turns (for example if there is a volta repeat where a turn is inconvenient) */
-  SCM revokes = get_property ("revokePageTurns");
-  if (scm_is_pair (revokes))
-    {
-      Moment *start = unsmob_moment (scm_car (revokes));
-      Real pen = robust_scm2double (scm_cdr (revokes), infinity_f);
-      if (start)
-	revoke_page_turns (*start, pen);
-    }
-
   context ()->get_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));
-  context ()->get_score_context ()->unset_property (ly_symbol2scm ("allowPageTurn"));
-  context ()->get_score_context ()->unset_property (ly_symbol2scm ("revokePageTurns"));
 
   first_ = false;
   break_events_.clear ();
@@ -326,13 +235,9 @@ ADD_TRANSLATOR (Paper_column_engraver,
 		/* accept */ "break-event",
 		/* read */
                 "forbidBreak "
-                "allowPageTurn "
-		"revokePageTurns "
 		,
 		/* write */
                 "forbidBreak "
-                "allowPageTurn "
-		"revokePageTurns "
 		"currentCommandColumn "
 		"currentMusicalColumn "
 		);

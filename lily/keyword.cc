@@ -14,17 +14,12 @@ bool tab_less (Keyword_ent const &p1, Keyword_ent const &p2)
   return strcmp (p1.name_, p2.name_) < 0;
 }
 
-int tabcmp (Keyword_ent const &p1, Keyword_ent const &p2)
-{
-  return strcmp (p1.name_, p2.name_);
-}
-
 Keyword_table::Keyword_table (Keyword_ent *tab)
 {
   while (tab->name_)
     table_.push_back (*tab++);
 
-  vector_sort (table_, tabcmp);
+  vector_sort (table_, tab_less);
 }
 
 vsize

@@ -371,7 +371,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
   do
     {
       vector<Grob*> &clashes (clash_groups[d]);
-      vector_sort (clashes, Note_column::shift_compare);
+      vector_sort (clashes, Note_column::shift_less);
     }
   while ((flip (&d)) != UP);
 

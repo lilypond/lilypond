@@ -104,17 +104,10 @@ Syntax for manual control:
 c8-[ c c-] c8")
 	(types . (general-music event beam-event span-event))
 	))
-
     (BendAfterEvent
      . ((description . "A drop/fall/doit jazz articulation")
 	(types . (general-music bend-after-event event))))
 
-    (BreakEvent
-     . (
-	(description .  "Create a line break, Syntax: \\break or page break, Syntax: \\pagebreak.")
-	
-	(types . (general-music break-event event))
-	))
     (BreathingEvent
      . (
 	(description .	"Creates a `breath mark' or `comma'.  
@@ -343,12 +336,12 @@ SYNTAX
     (PageBreakEvent
      . (
 	(description .  "Allow, forbid or force a page break.")
-	(types . (general-music break-event event))
+	(types . (general-music break-event page-break-event event))
 	))
     (PageTurnEvent
      . (
 	(description .  "Allow, forbid or force a page turn.")
-	(types . (general-music break-event event))
+	(types . (general-music break-event page-turn-event event))
 	))
     (PartCombineMusic
      . (

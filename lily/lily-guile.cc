@@ -653,6 +653,14 @@ robust_scm2offset (SCM k, Offset o)
   return o;
 }
 
+string
+robust_scm2string (SCM k, string s)
+{
+  if (scm_is_string (k))
+    s = ly_scm2string (k);
+  return s;
+}
+
 int
 robust_scm2int (SCM k, int o)
 {

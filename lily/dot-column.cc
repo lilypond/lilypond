@@ -233,7 +233,7 @@ Dot_column::calc_positioning_done (SCM smob)
       }
   }
 
-  vector_sort (dots, &compare_position);
+  vector_sort (dots, position_less);
   for (vsize i = dots.size (); i--;)
     if (!dots[i]->is_live ())
       dots.erase (dots.begin () + i);

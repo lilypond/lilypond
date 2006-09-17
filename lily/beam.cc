@@ -368,7 +368,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
        i != stem_segments.end (); i++)
     {
       vector<Beam_stem_segment> segs = (*i).second;
-      vector_sort (segs, default_compare);
+      vector_sort (segs, less<Beam_stem_segment> ());
 
       Beam_segment current;
 

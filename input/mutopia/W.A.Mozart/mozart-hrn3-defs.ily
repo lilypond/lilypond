@@ -45,6 +45,7 @@ cresc =  {
     
     indent = 10. \mm
     line-width = 189. \mm
+    ragged-last-bottom = ##f
 
 }
 
