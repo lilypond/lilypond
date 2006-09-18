@@ -446,9 +446,9 @@ in LilyPond-include-path."
 
     ;; The following are refreshed in LilyPond-command:
     ;; - current-midi depends on cursor position and
-    ("Midi" . (,(concat LilyPond-midi-command " " (LilyPond-string-current-midi)))) ; 
+    ("Midi" . ("")) ; 
     ;; - all-midi depends on number of midi-score.
-    ("MidiAll" . (,(concat LilyPond-all-midi-command " " (LilyPond-string-all-midi))))
+    ("MidiAll" . (""))
     )
 
   "AList of commands to execute on the current document.

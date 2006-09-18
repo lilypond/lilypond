@@ -74,9 +74,7 @@ dir_name (string const file_name)
   if (n && s[n - 1] == '/')
     s[n - 1] = 0;
   if (s.rfind ('/') != NPOS)
-    {
-      s = s.substr (0, s.rfind ('/'));
-    }
+    s = s.substr (0, s.rfind ('/'));
   else
     s = "";
   

@@ -1,3 +1,8 @@
+2006-08-29  Milan Zamazal  <pdm@brailcom.org>
+
+	* elisp/lilypond-mode.el (LilyPond-command-alist): Don't try to
+	figure out midi file names right here.
+	
 2006-09-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/framework-ps.scm (dump-stencil-as-EPS): naming pad-eps-boxes.
