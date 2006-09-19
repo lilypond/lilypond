@@ -1,3 +1,13 @@
+2006-09-20  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/page-breaking.cc (find_chunks_and_breaks): ignore breaks
+	that happen at the start of a score: having a zero-length
+	chunk was messing up min_system_count calculations.
+
+	* lily/source-file.cc (get_line): lower_bound, not
+	binary_search. Fixes problem where point-and-click would
+	always point to the first line.
+
 2006-09-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/tie-engraver.cc (process_music): also set tieMelismaBusy if
