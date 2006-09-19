@@ -38,14 +38,12 @@ struct Script_tuple
 class Script_engraver : public Engraver
 {
   vector<Script_tuple> scripts_;
-  Spanner *slur_;
 
 protected:
   void stop_translation_timestep ();
   void process_music ();
 
   DECLARE_TRANSLATOR_LISTENER (articulation);
-  DECLARE_ACKNOWLEDGER (slur);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (stem_tremolo);
@@ -57,7 +55,6 @@ public:
 
 Script_engraver::Script_engraver ()
 {
-  slur_ = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Script_engraver, articulation);
@@ -235,18 +232,11 @@ Script_engraver::acknowledge_note_column (Grob_info info)
 }
 
 void
-Script_engraver::acknowledge_slur (Grob_info info)
-{
-  slur_ = info.spanner ();
-}
-
-void
 Script_engraver::stop_translation_timestep ()
 {
   scripts_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Script_engraver, slur);
 ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Script_engraver, stem);
 ADD_ACKNOWLEDGER (Script_engraver, note_column);

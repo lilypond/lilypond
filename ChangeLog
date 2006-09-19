@@ -1,5 +1,8 @@
 2006-09-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/script.scm (default-script-alist): avoid-slur and
+	slur-padding for portato script.
+
 	* lily/stem-tremolo.cc (translated_stencil): new function. 
 	(height): use new function. Fixes tremolos on whole notes.
 
