@@ -31,6 +31,7 @@ public:
   Paper_book *process (Output_def *def_paper,
 		       Output_def *def_layout);
   void set_keys ();
+  Book (Book const &);
 };
 
 DECLARE_UNSMOB (Book, book);

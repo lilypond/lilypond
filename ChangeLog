@@ -1,19 +1,33 @@
+2006-09-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION (PATCH_LEVEL): bump version.
+
+	* lily/book.cc (Book): copy ctor for Book.
+
+	* scm/framework-ps.scm (dump-page): setstrokeadjust
+
+	* lily/slur.cc (get_curve): always use scm_is_pair() looping
+	scheme lists.  
+
+	* lily/grob.cc (get_print_stencil): use retval for coloring
+	grobs.
+
 2006-08-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py (output): backport: Remove 
 	obsolete(!?) \catcode`\@=12 in the LaTeX output.
 
-
 2006-08-11  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* stepmake/aclocal.m4: backport: version check patch (thanks MWD)
 
-
 2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION: release 2.8.6
+	
 	* GNUmakefile.in: backport topdoc srcdir dist fixes.
 
-2006-08-08    <hanwen@lilypond.org>
+2006-08-08  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PATCH_LEVEL): bump to .6
 

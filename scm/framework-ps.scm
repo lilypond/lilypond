@@ -117,6 +117,7 @@
 	"")
     "%%EndPageSetup\n"
 
+    "true setstrokeadjust\n"
     "gsave 0 paper-height translate "
     "set-ps-scale-to-lily-scale "
     "\n"))

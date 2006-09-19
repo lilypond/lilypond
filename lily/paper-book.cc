@@ -279,7 +279,7 @@ Paper_book::get_system_specs ()
 		  paper_->self_scm ());
 
   SCM header = SCM_EOL;
-  for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
+  for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
     {
       if (ly_is_module (scm_car (s)))
 	{
@@ -358,7 +358,7 @@ Paper_book::systems ()
 
   int i = 0;
   Prob *last = 0;
-  for (SCM s = systems_; s != SCM_EOL; s = scm_cdr (s))
+  for (SCM s = systems_; scm_is_pair (s); s = scm_cdr (s))
     {
       Prob *ps = unsmob_prob (scm_car (s));
       ps->set_property ("number", scm_from_int (++i));

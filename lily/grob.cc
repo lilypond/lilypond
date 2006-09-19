@@ -124,12 +124,11 @@ Grob::get_print_stencil () const
       SCM color = get_property ("color");
       if (color != SCM_EOL)
 	{
-	  m = unsmob_stencil (stil);
 	  SCM expr = scm_list_3 (ly_symbol2scm ("color"),
 				 color,
-				 m->expr ());
+				 retval.expr ());
 
-	  retval = Stencil (m->extent_box (), expr);
+	  retval = Stencil (retval.extent_box (), expr);
 	}
 
     }
