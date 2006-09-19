@@ -1,3 +1,11 @@
+2006-09-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/stem-tremolo.cc (translated_stencil): new function. 
+	(height): use new function. Fixes tremolos on whole notes.
+
+	* lily/slur-scoring.cc (get_best_curve): don't crash if no optimal
+	slur found.
+
 2006-09-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scripts/abc2ly.py (try_parse_comment): idem.

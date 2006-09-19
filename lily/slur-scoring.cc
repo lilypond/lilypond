@@ -395,7 +395,6 @@ Slur_score_state::get_best_curve ()
 	}
       else
 	{
-	  programming_error ("No optimal slur found. Guessing 0.");
 	  total = "no sol?";
 	}
   
@@ -404,6 +403,12 @@ Slur_score_state::get_best_curve ()
     }
 #endif
 
+  if (opt_idx < 0)
+    {
+      opt_idx = 0;
+      programming_error ("No optimal slur found. Guessing 0.");
+    }
+  
   return configurations_[opt_idx]->curve_;
 }
 
