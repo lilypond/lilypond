@@ -845,7 +845,7 @@ class Lilypond_snippet (Snippet):
         options = split_options (option_string)
 
         for i in options:
-            if string.find (i, '=') > 0:
+            if '=' in i:
                 (key, value) = re.split ('\s*=\s*', i)
                 self.option_dict[key] = value
             else:

@@ -1,9 +1,14 @@
 2006-09-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/abc2ly.py (try_parse_comment): idem.
+
+	* scripts/lilypond-book.py (find_toplevel_snippets): use 'foo' in
+	bar_string iso. string.find()
+
 	* lily/*.cc: idem.
 
 	* lily/slur.cc (get_curve): always use scm_is_pair() looping
-	scheme lists.  Backportme.
+	scheme lists.  
 
 2006-09-18  Graham Percival  <gpermus@gmail.com>
 
@@ -107,7 +112,7 @@
 2006-09-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/define-grobs.scm (all-grob-descriptions): oops, typo:
-	use spanner::set-spacing-ronds
+	use spanner::set-spacing-rods
 
 	* lily/note-column.cc: reformat.
 
@@ -580,7 +585,7 @@
  
 	* lily/grob.cc (get_print_stencil): use retval.expr() as base for
 	color, not the original stencil. Fixes combinations of
-	color/transparency/rotation. Backportme.
+	color/transparency/rotation. 
 
 	* scripts/lilypond-book.py (main): add --formats=eps for
 	texinfo/latex.
@@ -1271,7 +1276,7 @@
 	(get_line_configuration): don't use cols.resize(); it introduces
 	initialized data.
 
-	* scm/framework-ps.scm (dump-page): add setstrokeadjust. Backportme.
+	* scm/framework-ps.scm (dump-page): add setstrokeadjust. 
 
 	* ps/music-drawing-routines.ps: remove selectfont L1 hack.
 
