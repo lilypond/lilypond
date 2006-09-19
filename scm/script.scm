@@ -36,8 +36,9 @@
 	 
 	 ("portato" .
 	  ((script-stencil . (feta . ("uportato" . "dportato")))
+	   (avoid-slur . around)
+	   (slur-padding . 0.3)
 	   (padding . 0.45)
-	   (padding . 0.20)	   
 	   (side-relative-direction . -1)))
 
 	 ("accentus" .
