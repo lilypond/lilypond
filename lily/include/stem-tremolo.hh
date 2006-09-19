@@ -22,7 +22,8 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_style, (SCM));
-  static Stencil raw_stencil (Grob *, Real, Direction stemdir);
+  static Stencil raw_stencil (Grob *, Real slope, Direction stemdir);
+  static Stencil translated_stencil (Grob*, Real slope);
   static Real get_beam_translation (Grob *me);
 };
 
