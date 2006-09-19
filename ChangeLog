@@ -1,5 +1,8 @@
 2006-09-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/tie-engraver.cc (process_music): also set tieMelismaBusy if
+	event_ detected.
+
 	* scm/script.scm (default-script-alist): avoid-slur and
 	slur-padding for portato script.
 
