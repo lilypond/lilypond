@@ -94,13 +94,13 @@ Tie_engraver::listen_tie (Stream_event *ev)
 void
 Tie_engraver::process_music ()
 {
-  for (vsize i = 0; i < heads_to_tie_.size (); i++)
-    if (heads_to_tie_[i].tie_event_
-	|| heads_to_tie_[i].tie_stream_event_)
-      {
-	context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
-	break;
-      }
+  bool busy = event_;
+  for (vsize i = 0; !busy && i < heads_to_tie_.size (); i++)
+    busy |=  (heads_to_tie_[i].tie_event_
+	      || heads_to_tie_[i].tie_stream_event_);
+
+  if (busy)
+    context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
 }
 
 void
