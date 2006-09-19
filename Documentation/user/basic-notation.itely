@@ -1938,6 +1938,9 @@ Examples:
 
 Switching staves when a tie is active will not produce a slanted tie.
 
+Changing clefs or octavations during a tie is not really
+well-defined.  In these cases, a slur may be preferable.
+
 
 @node Slurs
 @subsection Slurs
