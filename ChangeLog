@@ -1,3 +1,10 @@
+2006-09-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/*.cc: idem.
+
+	* lily/slur.cc (get_curve): always use scm_is_pair() looping
+	scheme lists.  Backportme.
+
 2006-09-18  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/basic-notation.itely: add bug

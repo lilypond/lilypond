@@ -191,7 +191,7 @@ Grob::internal_get_object (SCM sym) const
 bool
 Grob::is_live () const
 {
-  return immutable_property_alist_ != SCM_EOL;
+  return scm_is_pair (immutable_property_alist_);
 }
 
 

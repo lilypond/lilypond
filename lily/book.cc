@@ -118,7 +118,7 @@ Paper_book *
 Book::process (Output_def *default_paper,
 	       Output_def *default_layout)
 {
-  for (SCM s = scores_; s != SCM_EOL; s = scm_cdr (s))
+  for (SCM s = scores_; scm_is_pair (s); s = scm_cdr (s))
     if (Score *score = unsmob_score (scm_car (s)))
       if (score->error_found_)
 	return 0;
@@ -140,7 +140,7 @@ Book::process (Output_def *default_paper,
   paper_book->header_ = header_;
 
   /* Render in order of parsing.  */
-  for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
+  for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
     {
       if (Score *score = unsmob_score (scm_car (s)))
 	{

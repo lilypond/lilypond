@@ -167,7 +167,7 @@ internal_brew_primitive (Grob *me)
 
   SCM join_right_scm = me->get_property ("join-right-amount");
 
-  if (join_right_scm != SCM_EOL)
+  if (scm_is_pair (join_right_scm))
     {
       int join_right = scm_to_int (join_right_scm);
       if (join_right)
