@@ -1262,7 +1262,7 @@ def try_parse_comment (str):
 #convention, such as most music written before 1700, or ethnic music in
 #non-western scales, it is necessary to be able to tell a translator that
 #the barlines should not affect its interpretation of the pitch.  
-            if (string.find(str,'nobarlines') > 0):
+            if 'nobarlines' in str:
                 nobarlines = 1
         elif str[0:3] == '%LY':
             p = string.find(str, 'voices')
