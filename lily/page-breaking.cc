@@ -224,7 +224,7 @@ void
 Page_breaking::create_system_list ()
 {
   SCM specs = book_->get_system_specs ();
-  for (SCM s = specs; s != SCM_EOL; s = scm_cdr (s))
+  for (SCM s = specs; scm_is_pair (s); s = scm_cdr (s))
     {
       if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (scm_car (s))))
 	{

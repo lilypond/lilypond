@@ -27,7 +27,7 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
   if (!scm_is_pair (axes))
     programming_error ("axes should be nonempty");
 
-  for (SCM ax = axes; ax != SCM_EOL; ax = scm_cdr (ax))
+  for (SCM ax = axes; scm_is_pair (ax); ax = scm_cdr (ax))
     {
       Axis a = (Axis) scm_to_int (scm_car (ax));
 

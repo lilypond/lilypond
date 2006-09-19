@@ -189,7 +189,7 @@ Ligature_engraver::acknowledge_note_head (Grob_info info)
   if (ligature_)
     {
       primitives_.push_back (info);
-      if (info.grob () && (brew_ligature_primitive_proc != SCM_EOL))
+      if (info.grob () && brew_ligature_primitive_proc != SCM_EOL)
 	{
 	  info.grob ()->set_property ("stencil", brew_ligature_primitive_proc);
 	}

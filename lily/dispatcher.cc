@@ -223,7 +223,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
   else if (!scm_is_pair (list))
     {
       /* Unregister with all dispatchers. */
-      for (SCM disp = dispatchers_; disp != SCM_EOL; disp = scm_cdr (disp))
+      for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
 	{
 	  Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
 	  d->remove_listener (GET_LISTENER (dispatch), ev_class);
@@ -248,7 +248,7 @@ Dispatcher::register_as_listener (Dispatcher *disp)
   dispatchers_ = scm_acons (disp->self_scm (), scm_int2num (priority), dispatchers_);
 
   Listener list = GET_LISTENER (dispatch);
-  for (SCM cl = listen_classes_; cl != SCM_EOL; cl = scm_cdr (cl))
+  for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))
     {
       disp->internal_add_listener (list, scm_car (cl), priority);
     }
