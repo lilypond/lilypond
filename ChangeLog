@@ -10,6 +10,9 @@
 
 2006-09-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/accidental-placement.cc (calc_positioning_done): also put
+	stems into accidental support. 
+
 	* lily/tie-engraver.cc (process_music): also set tieMelismaBusy if
 	event_ detected.
 
