@@ -1,3 +1,8 @@
+2006-09-21  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/tweaks.itely (Fitting music onto fewer
+	pages): Add between-system-space setting. 
+
 2006-09-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/accidental-placement.cc (calc_positioning_done): don't
