@@ -350,6 +350,7 @@ space at the bottom of the page.
 @example
 \paper @{
 between-system-padding = #0.5
+between-system-space = 0\mm
 ragged-last-bottom = ##f
 ragged-bottom = ##f
 @}
