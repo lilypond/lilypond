@@ -237,7 +237,13 @@ The syntax is the same as `define*-public'."
                                 safe-objects))
        ,safe-symbol)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; init pitch system
 
+(ly:set-default-scale (ly:make-scale #(0 2 4 5 7 9 11)))
+
+
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 

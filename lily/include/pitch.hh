@@ -12,6 +12,17 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
+#include "std-vector.hh"
+
+struct Scale
+{
+  vector<int> step_semitones_;
+  Scale ();
+  Scale (Scale const&);
+  DECLARE_SMOBS(Scale,);
+};
+
+
 /** A "tonal" pitch. This is a pitch used in diatonal western music
     (24 quartertones in an octave), as opposed to a frequency in Hz or a
     integer number of semitones.
@@ -34,7 +45,8 @@ private:				// fixme
   int notename_;
   int alteration_;
   int octave_;
-
+  Scale *scale_;
+  
   void transpose (Pitch);
   void up_to (int);
   void down_to (int);
@@ -84,6 +96,7 @@ INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 extern SCM pitch_less_proc;
 Pitch pitch_interval (Pitch const &from, Pitch const &to);
+extern Scale *default_global_scale;
 
 #endif /* MUSICAL_PITCH_HH */
 

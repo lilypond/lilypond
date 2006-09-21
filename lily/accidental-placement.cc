@@ -341,14 +341,6 @@ Accidental_placement::calc_positioning_done (SCM smob)
   Accidental_placement_entry *head_ape = new Accidental_placement_entry;
   common[X_AXIS] = common_refpoint_of_array (heads, common[X_AXIS], X_AXIS);
   vector<Skyline_entry> head_skyline (empty_skyline (LEFT));
-
-  vector<Grob *> stems;
-  for (vsize i = 0; i < heads.size  (); i++)
-    if (Grob *s = Rhythmic_head::get_stem (heads[i]))
-      stems.push_back (s);
-  vector_sort (stems, less<Grob*> ());
-  uniq (stems);
-  concat (heads, stems);
   
   vector<Box> head_extents;
   for (vsize i = heads.size (); i--;)
@@ -359,6 +351,25 @@ Accidental_placement::calc_positioning_done (SCM smob)
       insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
     }
 
+  vector<Grob *> stems;
+  for (vsize i = 0; i < heads.size  (); i++)
+    {
+      if (Grob *s = Rhythmic_head::get_stem (heads[i]))
+	stems.push_back (s);
+    }
+  
+  vector_sort (stems, less<Grob*> ());
+  uniq (stems);
+  for (vsize i = 0; i < stems.size (); i ++)
+    {
+      int very_large = INT_MAX;
+      
+      Box b (heads[i]->extent (common[X_AXIS], X_AXIS),
+	     heads[i]->pure_height (common[Y_AXIS], 0, very_large));
+
+      insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
+    }
+  
   head_ape->left_skyline_ = head_skyline;
   head_ape->offset_ = 0.0;
 
