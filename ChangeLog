@@ -1,3 +1,10 @@
+2006-09-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/accidental-placement.cc (calc_positioning_done): don't
+	trigger Y-extent calculation too early. Use pure_height instead.
+
+	* lily/scale.cc (LY_DEFINE): new file. 
+
 2006-09-20  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/page-breaking.cc (find_chunks_and_breaks): ignore breaks
