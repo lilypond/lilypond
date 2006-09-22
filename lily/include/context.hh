@@ -112,7 +112,6 @@ public:
   void add_context (Context *trans);
   bool is_bottom_context () const;
   bool is_removable () const;
-  bool try_music (Music *);
 
   Context *find_create_context (SCM context_name,
 				string id, SCM ops);

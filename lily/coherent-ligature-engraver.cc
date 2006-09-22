@@ -9,11 +9,12 @@
 #include "coherent-ligature-engraver.hh"
 
 #include "warn.hh"
-#include "staff-symbol-referencer.hh"
-#include "spanner.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
 #include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
 
 /*
  * This abstract class serves as common superclass for all ligature
@@ -142,9 +143,9 @@ compute_delta_pitches (vector<Grob_info> primitives)
   for (vsize i = 0; i < primitives.size (); i++)
     {
       primitive = dynamic_cast<Item *> (primitives[i].grob ());
-      Music *music_cause = primitives[i].music_cause ();
+      Stream_event *cause = primitives[i].event_cause ();
       int pitch
-	= unsmob_pitch (music_cause->get_property ("pitch"))->steps ();
+	= unsmob_pitch (cause->get_property ("pitch"))->steps ();
       if (prev_primitive)
 	{
 	  delta_pitch = pitch - prev_pitch;

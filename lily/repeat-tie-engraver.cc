@@ -47,7 +47,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Repeat_tie_engraver, repeat_tie);
 void
 Repeat_tie_engraver::listen_repeat_tie (Stream_event *ev)
 {
-  event_ = ev;
+  ASSIGN_EVENT_ONCE (event_, ev);
 }
 
 void

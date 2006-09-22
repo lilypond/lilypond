@@ -12,7 +12,6 @@ using namespace std;
 #include "duration.hh"
 #include "global-context.hh"
 #include "item.hh"
-#include "music.hh"
 #include "output-def.hh"
 #include "pitch.hh"
 #include "rhythmic-head.hh"

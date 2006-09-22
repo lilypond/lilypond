@@ -50,7 +50,6 @@ private:
   SCM protected_events_;
 
   DECLARE_LISTENER (create_child_translator);
-  DECLARE_LISTENER (eat_event);
 
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Translator_group);
@@ -61,7 +60,6 @@ public:
   virtual void disconnect_from_context ();
   virtual Translator_group *get_daddy_translator ()const;
   virtual SCM get_simple_trans_list ();
-  virtual bool try_music (Music *req);
   virtual void initialize ();
   virtual void finalize ();
 
@@ -80,7 +78,6 @@ public:
   Context *context () const { return context_; }
 protected:
   SCM simple_trans_list_;
-  SCM accept_hash_table_;
   Context *context_;
 
   friend class Context_def;

@@ -78,26 +78,31 @@ Percent_repeat_engraver::listen_percent (Stream_event *ev)
       Moment body_length = get_event_length (ev);
       Moment meas_len (robust_scm2moment (get_property ("measureLength"),
 					  Moment (1)));
-
       if (meas_len == body_length)
-      {
-	repeat_sign_type_ = MEASURE;
-      	start_mom_ = now_mom ();
-      	stop_mom_ = now_mom () + body_length;
-	get_global_context ()->add_moment_to_process (stop_mom_);
-      }
+	{
+	  repeat_sign_type_ = MEASURE;
+	  start_mom_ = now_mom ();
+	  stop_mom_ = now_mom () + body_length;
+	  get_global_context ()->add_moment_to_process (stop_mom_);
+	}
       else if (Moment (2) * meas_len == body_length)
-      {
-	repeat_sign_type_ = DOUBLE_MEASURE;
-	start_mom_ = now_mom () + meas_len;
-	stop_mom_ = now_mom () + body_length; /* never used */
-	get_global_context ()->add_moment_to_process (start_mom_);
-      }
+	{
+	  repeat_sign_type_ = DOUBLE_MEASURE;
+	  start_mom_ = now_mom () + meas_len;
+	  stop_mom_ = now_mom () + body_length; /* never used */
+	  get_global_context ()->add_moment_to_process (start_mom_);
+	}
       else
-	return;
-
+	{
+	  ev->origin ()->warning (_ ("Junking percent repeat event: Duration must be exactly one or two measures"));
+	  return;
+	}
       percent_event_ = ev;
     }
+  else
+    /* print a warning: no assignment happens because
+       percent_event_ != 0 */
+    ASSIGN_EVENT_ONCE (percent_event_, ev);
 }
 
 void

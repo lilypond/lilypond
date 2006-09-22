@@ -14,8 +14,8 @@ using namespace std;
 #include "dots.hh"
 #include "duration.hh"
 #include "item.hh"
-#include "music.hh"
 #include "output-def.hh"
+#include "pitch.hh"
 #include "rhythmic-head.hh"
 #include "score-engraver.hh"
 #include "staff-symbol-referencer.hh"
@@ -81,10 +81,10 @@ Tab_note_heads_engraver::process_music ()
       for (SCM s = event->get_property ("articulations");
 	   !tabstring_event && scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Music *art = unsmob_music (scm_car (s));
+	  Stream_event *art = unsmob_stream_event (scm_car (s));
 
-	  if (art->is_mus_type ("string-number-event"))
-	    tabstring_event = art->to_event ();
+	  if (art->in_event_class ("string-number-event"))
+	    tabstring_event = art;
 	}
 
       if (!tabstring_event && j < tabstring_events_.size ())
@@ -163,7 +163,7 @@ Tab_note_heads_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
-		/* doc */ "Generate one or more tablature noteheads from Music of type NoteEvent.",
+		/* doc */ "Generate one or more tablature noteheads from event of type NoteEvent.",
 		/* create */ "TabNoteHead Dots",
 		/* accept */ "note-event string-number-event",
 		/* read */ "middleCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",

@@ -55,7 +55,7 @@ void
 Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
-  event_drul_[d] = ev;
+  ASSIGN_EVENT_ONCE (event_drul_[d], ev);
 }
 
 void
@@ -142,7 +142,7 @@ Trill_spanner_engraver::finalize ()
 
 ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
 ADD_TRANSLATOR (Trill_spanner_engraver,
-		/* doc */ "Create trill spanner from a Music.",
+		/* doc */ "Create trill spanner from an event.",
 		/* create */ "TrillSpanner",
 		/* accept */ "trill-span-event",
 		/* read */ "",

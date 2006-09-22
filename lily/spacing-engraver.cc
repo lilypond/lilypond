@@ -7,6 +7,7 @@
 */
 
 #include "engraver.hh"
+#include "moment.hh"
 #include "note-spacing.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
@@ -89,7 +90,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Spacing_engraver, spacing_section);
 void
 Spacing_engraver::listen_spacing_section (Stream_event *ev)
 {
-  start_section_ = ev;
+  ASSIGN_EVENT_ONCE (start_section_, ev);
 }
 
 void

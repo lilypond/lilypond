@@ -60,6 +60,10 @@
 (define-public (ly:make-event-class leaf)
  (hashq-ref ancestor-lookup leaf))
 
+(define-public (ly:in-event-class? ev cl)
+  "Does event @var{ev} belong to event class @var{cl}?"
+  (memq cl (ly:make-event-class (ly:event-property ev 'class))))
+
 ;; does this exist in guile already?
 (define (map-tree f t)
   (cond
@@ -128,7 +132,7 @@
    ((pair? e) (cons (simplify (car e))
 		    (simplify (cdr e))))
    ((ly:stream-event? e)
-    (list 'unquote `(make-stream-event ,(simplify (Stream_event::dump e)))))
+    (list 'unquote (list 'make-stream-event (simplify (Stream_event::dump e)))))
    ((ly:music? e)
     (list 'unquote (music->make-music e)))
    ((ly:moment? e)

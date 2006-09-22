@@ -11,11 +11,11 @@
 #include "font-interface.hh"
 #include "international.hh"
 #include "mensural-ligature.hh"
-#include "music.hh"
 #include "note-column.hh"
 #include "note-head.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
+#include "pitch.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
@@ -104,12 +104,12 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
       Item *primitive = dynamic_cast<Item *> (info.grob ());
       int duration_log = Note_head::get_balltype (primitive);
 
-      Music *nr = info.music_cause ();
+      Stream_event *nr = info.event_cause ();
 
       /*
 	ugh. why not simply check for pitch?
       */
-      if (!nr->is_mus_type ("note-event"))
+      if (!nr->in_event_class ("note-event"))
 	{
 	  nr->origin ()->warning
 	    (_f ("cannot determine pitch of ligature primitive -> skipping"));
@@ -174,7 +174,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 	    }
 	  // b. descendens longa or brevis
 	  else if (i < s - 1
-		   && (unsmob_pitch (primitives[i + 1].music_cause ()
+		   && (unsmob_pitch (primitives[i + 1].event_cause ()
 				     ->get_property ("pitch"))->steps () < pitch)
 		   && duration_log > -3)
 	    {

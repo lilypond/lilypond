@@ -8,8 +8,9 @@
 */
 
 #include "engraver.hh"
-#include "spanner.hh"
+#include "moment.hh"
 #include "pointer-group-interface.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 

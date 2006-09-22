@@ -63,11 +63,8 @@ void
 Lyric_combine_music_iterator::set_busy (SCM se)
 {
   Stream_event *e = unsmob_stream_event (se);
-  SCM mus = e->get_property ("music");
-  Music *m = unsmob_music (mus);
-  assert (m);
 
-  if (m->is_mus_type ("note-event") || m->is_mus_type ("cluster-note-event"))
+  if (e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
     busy_ = true;
 }
 
@@ -76,13 +73,13 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
 {
   if (music_context_)
     {
-      music_context_->event_source()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("OldMusicEvent"));
+      music_context_->event_source()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
       lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
     }
   music_context_ = to;
   if (to)
     {
-      to->event_source()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("OldMusicEvent"));
+      to->event_source()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
       lyrics_context_->set_property ("associatedVoiceContext", to->self_scm ());
     }
 }

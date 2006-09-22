@@ -8,6 +8,7 @@
 
 #include "bar-line.hh"
 #include "global-context.hh"
+#include "international.hh"
 #include "item.hh"
 #include "misc.hh"
 #include "percent-repeat-iterator.hh"
@@ -48,7 +49,9 @@ Slash_repeat_engraver::listen_percent (Stream_event *ev)
     = robust_scm2moment (get_property ("measureLength"), Moment (0));
   
   if (get_event_length (ev) < meas_length)
-    slash_ = ev;
+    ASSIGN_EVENT_ONCE (slash_, ev);
+  else
+    ev->origin ()->warning (_ ("Slash repeat doesn't fit in one measure, junking"));
 }
 
 void

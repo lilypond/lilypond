@@ -655,20 +655,6 @@ IMPLEMENT_SMOBS (Context);
 IMPLEMENT_DEFAULT_EQUAL_P (Context);
 IMPLEMENT_TYPE_P (Context, "ly:context?");
 
-bool
-Context::try_music (Music *m)
-{
-  Translator_group *t = implementation ();
-  if (!t)
-    return false;
-
-  bool b = t->try_music (m);
-  if (!b && daddy_context_)
-    b = daddy_context_->try_music (m);
-
-  return b;
-}
-
 Global_context *
 Context::get_global_context () const
 {

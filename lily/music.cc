@@ -269,7 +269,7 @@ Music::to_event () const
   out[outpos] = 0;
   SCM class_name = ly_symbol2scm (out);
 
-  // catch mistakes.
+  // catch programming mistakes.
   if (!internal_is_music_type (class_name))
     {
       programming_error ("Not a music type");
@@ -280,24 +280,32 @@ Music::to_event () const
   if (length.to_bool ())
     e->set_property ("length", length.smobbed_copy ());
 
+  // articulations as events.
+  SCM art_mus = e->get_property ("articulations");
+  if (scm_is_pair (art_mus))
+    {
+      SCM art_ev = SCM_EOL;
+      for (; scm_is_pair (art_mus); art_mus = scm_cdr (art_mus))
+	{
+	  Music *m = unsmob_music (scm_car (art_mus));
+	  SCM ev = m ? m->to_event ()->unprotect () : scm_car (art_mus);
+	  art_ev = scm_cons (ev, art_ev);
+	}
+      e->set_property ("articulations", scm_reverse_x (art_ev, SCM_EOL));
+    }
+
   /*
     ES TODO: This is a temporary fix. Stream_events should not be
     aware of music.
   */
   e->set_property ("music-cause", self_scm ());
+
   return e;
 }
 
 void
 Music::send_to_context (Context *c)
 {
-  /*
-    TODO: This is a work-in-progress solution. Send the event so it
-    can be read both by old-style translators and the new ones.
-  */
-  send_stream_event (c, "OldMusicEvent", origin (),
-  		     ly_symbol2scm("music"), self_scm (), 0);
-
   Stream_event *ev = to_event ();
   c->event_source ()->broadcast (ev);
   ev->unprotect ();

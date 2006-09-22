@@ -82,7 +82,7 @@ void
 Ligature_engraver::listen_ligature (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
-  events_drul_[d] = ev;
+  ASSIGN_EVENT_ONCE (events_drul_[d], ev);
 }
 
 void

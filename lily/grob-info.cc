@@ -29,24 +29,6 @@ Grob_info::Grob_info ()
   origin_trans_ = 0;
 }
 
-/* ES TODO: Junk this when no more engravers use try_music */
-Music *
-Grob_info::music_cause () const
-{
-  SCM cause = grob_->get_property ("cause");
-
-  Music *ret = unsmob_music (cause);
-  if (ret)
-    return ret;
-  else
-    {
-      Stream_event *ev = unsmob_stream_event (cause);
-      if (!ev)
-	return 0;
-      return unsmob_music (ev->get_property ("music-cause"));
-    }
-}
-
 Stream_event *
 Grob_info::event_cause () const
 {
@@ -96,26 +78,4 @@ Grob_info::ultimate_event_cause () const
       cause = unsmob_grob (cause)->get_property ("cause");
     }
   return unsmob_stream_event (cause);
-}
-
-/*
-ES TODO: Junk this when no more engraver uses try_music
-*/
-Music *
-Grob_info::ultimate_music_cause () const
-{
-  SCM cause = grob_->self_scm ();
-  while (unsmob_grob (cause))
-    {
-      cause = unsmob_grob (cause)->get_property ("cause");
-    }
-
-  Music *ret = unsmob_music (cause);
-  if (ret)
-    return ret;
-  else
-    {
-      Stream_event *ev = unsmob_stream_event (cause);
-      return unsmob_music (ev->get_property ("music-cause"));
-    }
 }

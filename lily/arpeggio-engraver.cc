@@ -44,7 +44,7 @@ Arpeggio_engraver::Arpeggio_engraver ()
 IMPLEMENT_TRANSLATOR_LISTENER (Arpeggio_engraver, arpeggio);
 void Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
 {
-  arpeggio_event_ = ev;
+  ASSIGN_EVENT_ONCE (arpeggio_event_, ev);
 }
 
 void

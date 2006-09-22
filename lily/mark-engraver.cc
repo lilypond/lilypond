@@ -113,7 +113,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Mark_engraver, mark);
 void
 Mark_engraver::listen_mark (Stream_event *ev)
 {
-  mark_ev_ = ev;
+  ASSIGN_EVENT_ONCE (mark_ev_, ev);
 }
 
 /*

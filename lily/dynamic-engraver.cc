@@ -97,7 +97,7 @@ Dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
   /*
     TODO: probably broken.
   */
-  script_ev_ = ev;
+  ASSIGN_EVENT_ONCE (script_ev_, ev);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, span_dynamic);
@@ -106,9 +106,14 @@ Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
 
-  accepted_spanevents_drul_[d] = ev;
-  if (current_cresc_ev_ && d == START)
-    accepted_spanevents_drul_[STOP] = ev;
+  if (d == START)
+    ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[START], ev);
+  
+  /* Cancel any ongoing crescendo, either explicitly by \! or
+     implicitly by a new crescendo. Also avoid warning if cresc is
+     cancelled both implicitly and explicitly. */
+  if ((d == STOP || current_cresc_ev_) && !accepted_spanevents_drul_[STOP])
+    ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[STOP], ev);
 }
 
 void

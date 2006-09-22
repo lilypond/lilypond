@@ -42,9 +42,9 @@ Breathing_sign_engraver::Breathing_sign_engraver ()
 
 IMPLEMENT_TRANSLATOR_LISTENER (Breathing_sign_engraver, breathing);
 void
-Breathing_sign_engraver::listen_breathing (Stream_event *r)
+Breathing_sign_engraver::listen_breathing (Stream_event *ev)
 {
-  breathing_sign_event_ = r;
+  ASSIGN_EVENT_ONCE (breathing_sign_event_, ev);
 }
 
 void

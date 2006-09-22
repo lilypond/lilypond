@@ -14,6 +14,7 @@ using namespace std;
 #include "duration.hh"
 #include "item.hh"
 #include "output-def.hh"
+#include "pitch.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"

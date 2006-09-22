@@ -12,7 +12,6 @@
 #include "global-context.hh"
 #include "stream-event.hh"
 #include "warn.hh"
-#include "music.hh"
 
 #include "translator.icc"
 

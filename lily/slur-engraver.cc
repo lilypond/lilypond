@@ -63,9 +63,10 @@ Slur_engraver::listen_slur (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)
-    events_[START] = ev;
+    ASSIGN_EVENT_ONCE (events_[START], ev);
   else if (d == STOP)
-    events_[STOP] = ev;
+    ASSIGN_EVENT_ONCE (events_[STOP], ev);
+  else ev->origin ()->warning (_ ("Invalid direction of slur-event"));
 }
 
 void

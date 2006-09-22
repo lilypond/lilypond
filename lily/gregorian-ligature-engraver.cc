@@ -17,6 +17,9 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
+/* ASSIGN_EVENT_ONCE */
+#include "translator.icc"
+
 /*
  * This abstract class is the common superclass for all ligature
  * engravers for Gregorian chant notation.  It cares for the musical
@@ -36,7 +39,7 @@ Gregorian_ligature_engraver::Gregorian_ligature_engraver ()
 void
 Gregorian_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
 {
-  pes_or_flexa_req_ = ev;
+  ASSIGN_EVENT_ONCE (pes_or_flexa_req_, ev);
 }
 
 void fix_prefix (char *name, int mask,

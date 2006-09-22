@@ -6,12 +6,14 @@
   (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "tuplet-bracket.hh"
-#include "note-column.hh"
 #include "beam.hh"
 #include "engraver.hh"
+#include "international.hh"
+#include "note-column.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
+#include "tuplet-bracket.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 
@@ -61,11 +63,13 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
       d.event_ = ev;
       tuplets_.push_back (d);
     }
-  if (dir == STOP && tuplets_.size ())
+  else if (dir == STOP && tuplets_.size ())
     {
       stopped_tuplets_.push_back (tuplets_.back ());
       tuplets_.pop_back ();
     }
+  else 
+    programming_error (_ ("invalid direction of tuplet-span-event"));
 }
 
 void

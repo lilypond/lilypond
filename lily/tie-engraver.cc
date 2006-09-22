@@ -38,7 +38,7 @@ struct Head_event_tuple
   Moment end_moment_;
   SCM tie_definition_;
   Stream_event *tie_stream_event_;
-  Music *tie_event_;
+  Stream_event *tie_event_;
   
   Head_event_tuple ()
   {
@@ -88,7 +88,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Tie_engraver, tie);
 void
 Tie_engraver::listen_tie (Stream_event *ev)
 {
-  event_ = ev;
+  ASSIGN_EVENT_ONCE (event_, ev);
 }
 
 void
@@ -198,18 +198,18 @@ Tie_engraver::stop_translation_timestep ()
       
       SCM left_articulations = left_ev->get_property ("articulations");
 
-      Music *tie_event = 0;
+      Stream_event *tie_event = 0;
       Stream_event *tie_stream_event = event_;
       for (SCM s = left_articulations;
 	   !tie_event && !tie_stream_event && scm_is_pair (s);
 	   s = scm_cdr (s))
 	{
-	  Music *m = unsmob_music (scm_car (s));
-	  if (!m)
+	  Stream_event *ev = unsmob_stream_event (scm_car (s));
+	  if (!ev)
 	    continue;
 	  
-	  if (m->is_mus_type ("tie-event"))
-	    tie_event = m;
+	  if (ev->in_event_class ("tie-event"))
+	    tie_event = ev;
 	}
 	  
       if (left_ev && (tie_event || tie_stream_event))

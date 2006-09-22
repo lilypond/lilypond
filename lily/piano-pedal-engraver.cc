@@ -225,26 +225,26 @@ Piano_pedal_engraver::acknowledge_note_column (Grob_info info)
 
 IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, sostenuto);
 void
-Piano_pedal_engraver::listen_sostenuto (Stream_event *r)
+Piano_pedal_engraver::listen_sostenuto (Stream_event *ev)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
-  info_list_[SOSTENUTO].event_drul_[d] = r;
+  Direction d = to_dir (ev->get_property ("span-direction"));
+  ASSIGN_EVENT_ONCE (info_list_[SOSTENUTO].event_drul_[d], ev);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, sustain);
 void
-Piano_pedal_engraver::listen_sustain (Stream_event *r)
+Piano_pedal_engraver::listen_sustain (Stream_event *ev)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
-  info_list_[SUSTAIN].event_drul_[d] = r;
+  Direction d = to_dir (ev->get_property ("span-direction"));
+  ASSIGN_EVENT_ONCE (info_list_[SUSTAIN].event_drul_[d], ev);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, una_corda);
 void
-Piano_pedal_engraver::listen_una_corda (Stream_event *r)
+Piano_pedal_engraver::listen_una_corda (Stream_event *ev)
 {
-  Direction d = to_dir (r->get_property ("span-direction"));
-  info_list_[UNA_CORDA].event_drul_[d] = r;
+  Direction d = to_dir (ev->get_property ("span-direction"));
+  ASSIGN_EVENT_ONCE (info_list_[UNA_CORDA].event_drul_[d], ev);
 }
 
 void

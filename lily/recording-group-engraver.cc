@@ -4,10 +4,13 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2003--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+TODO: junk this file
 */
 
 #include "recording-group-engraver.hh"
 #include "context.hh"
+#include "music.hh"
 
 /*
   TODO: Junk this class, extract events directly instead. 
@@ -54,7 +57,7 @@ Recording_group_engraver::finalize ()
 bool
 Recording_group_engraver::try_music (Music *m)
 {
-  bool retval = Translator_group::try_music (m);
+  bool retval = true;//Translator_group::try_music (m);
 
   add_music (m->self_scm (), ly_bool2scm (retval));
   return retval;

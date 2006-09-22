@@ -9,6 +9,7 @@
 #include "engraver.hh"
 #include "grob.hh"
 #include "context.hh"
+#include "music.hh"
 #include "translator.icc"
 
 /* Remove this translator. */

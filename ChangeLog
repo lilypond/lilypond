@@ -20,6 +20,25 @@
 	hidden_state. Works around a problem when parser fetches
 	MUSIC_FUNCTION token but not the following EXPECT_* token.
 
+	* lily/translator.cc, lily/context.cc:, lily/translator-group.cc:
+	remove try_music
+
+	* lily/*-engraver.cc, lily/*-performer.cc: Remove all remaining
+	references to Music; use ASSIGN_EVENT_ONCE everywhere
+
+	* lily/grob-info.cc: junk *music_cause
+
+	* lily/music.cc: copy eventified articulations to stream event
+
+	* lily/part-combine-iterator.cc: Cleanup using enums
+
+	* lily/translator-group.cc: Junk OldMusicEvent, and associated
+	methods
+
+	* lily/include/engraver.hh: Junk music.hh include
+
+	* lily/stream-event.cc: Changed constructors
+
 2006-09-21  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/tweaks.itely (Fitting music onto fewer

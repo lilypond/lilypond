@@ -31,6 +31,10 @@ string _ (char const *ch);
 string _f (char const *format, ...)
   	   __attribute__ ((format (printf, 1, 2)));
 string _f (char const *format, string s, string s2 = "", string s3 = "");
+/**
+   va_list version of _f
+ */
+string v_f (char const *format, va_list args);
 
 #endif // INTERNATIONAL_HH
 

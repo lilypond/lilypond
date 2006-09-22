@@ -166,7 +166,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tremolo);
 void
 Stem_engraver::listen_tremolo (Stream_event *ev)
 {
-  tremolo_ev_ = ev;
+  ASSIGN_EVENT_ONCE (tremolo_ev_, ev);
 }
 
 ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
