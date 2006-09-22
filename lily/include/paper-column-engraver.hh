@@ -11,6 +11,7 @@
 
 #include "engraver.hh"
 #include "listener.hh"
+#include "moment.hh"
 #include "stream-event.hh"
 
 class Paper_column_engraver : public Engraver

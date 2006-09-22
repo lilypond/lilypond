@@ -60,9 +60,8 @@
 ;; Bass figures.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (format-bass-figure figure stream-event context)
-  (let* ((event (ly:event-property stream-event 'music-cause ))
-	 (fig (ly:music-property event 'figure))
+(define-public (format-bass-figure figure event context)
+  (let* ((fig (ly:event-property event 'figure))
 	 (fig-markup (if (number? figure)
 
 			 ;; this is not very elegant, but center-aligning all digits
@@ -73,12 +72,12 @@
 			      (lambda (y) (make-translate-scaled-markup (cons -0.7 0) y))
 			      identity)
 
-			  (if (eq? #t (ly:music-property event 'diminished))
+			  (if (eq? #t (ly:event-property event 'diminished))
 			      (markup #:slashed-digit figure)
 			      (markup #:number (number->string figure 10))))
 			 #f
 			 ))
-	 (alt (ly:music-property event 'alteration))
+	 (alt (ly:event-property event 'alteration))
 	 (alt-markup
 	  (if (number? alt)
 	      (markup
@@ -88,7 +87,7 @@
 	       (alteration->text-accidental-markup alt))
 	      
 	      #f))
-	 (plus-markup (if (eq? #t (ly:music-property event 'augmented))
+	 (plus-markup (if (eq? #t (ly:event-property event 'augmented))
 			  (markup #:number "+")
 			  #f))
 

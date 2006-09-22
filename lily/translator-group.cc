@@ -51,8 +51,6 @@ Translator_group::connect_to_context (Context *c)
     }
   
   context_ = c;
-  c->event_source ()->add_listener (GET_LISTENER (eat_event),
-				    ly_symbol2scm ("OldMusicEvent"));
   c->event_source ()->add_listener (GET_LISTENER (create_child_translator),
 				    ly_symbol2scm ("AnnounceNewContext"));
   for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
@@ -70,8 +68,6 @@ Translator_group::disconnect_from_context ()
       Translator *tr = unsmob_translator (scm_car (tr_list));
       tr->disconnect_from_context (context_);
     }
-  context_->event_source ()->remove_listener (GET_LISTENER (eat_event),
-					      ly_symbol2scm ("OldMusicEvent"));
   context_->event_source ()->remove_listener (GET_LISTENER (create_child_translator),
 					      ly_symbol2scm ("AnnounceNewContext"));
   context_ = 0;
@@ -81,33 +77,6 @@ Translator_group::disconnect_from_context ()
 void
 Translator_group::finalize ()
 {
-}
-
-bool
-translator_accepts_any_of (Translator *tr, SCM ifaces)
-{
-  SCM ack_ifs = scm_assoc (ly_symbol2scm ("events-accepted"),
-			   tr->translator_description ());
-  ack_ifs = scm_cdr (ack_ifs);
-  for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
-    if (scm_c_memq (scm_car (s), ack_ifs) != SCM_BOOL_F)
-      return true;
-  return false;
-}
-
-SCM
-find_accept_translators (SCM gravlist, SCM ifaces)
-{
-  SCM l = SCM_EOL;
-  for (SCM s = gravlist; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Translator *tr = unsmob_translator (scm_car (s));
-      if (translator_accepts_any_of (tr, ifaces))
-	l = scm_cons (tr->self_scm (), l);
-    }
-  l = scm_reverse_x (l, SCM_EOL);
-
-  return l;
 }
 
 SCM
@@ -221,56 +190,6 @@ Translator_group::create_child_translator (SCM sev)
 			    DOWN);
 }
 
-IMPLEMENT_LISTENER (Translator_group, eat_event);
-void
-Translator_group::eat_event (SCM sev)
-{
-  Stream_event *ev = unsmob_stream_event (sev);
-  SCM sm = ev->get_property ("music");
-  Music *m = unsmob_music (sm);
-  try_music (m);
-}
-
-bool
-Translator_group::try_music (Music *m)
-{
-  SCM name = scm_sloppy_assq (ly_symbol2scm ("name"),
-			      m->get_property_alist (false));
-
-  if (!scm_is_pair (name))
-    return false;
-
-  name = scm_cdr (name);
-  SCM accept_list = scm_hashq_ref (accept_hash_table_, name, SCM_UNDEFINED);
-  if (accept_list == SCM_BOOL_F)
-    {
-      accept_list = find_accept_translators (get_simple_trans_list (),
-					     m->get_property ("types"));
-      scm_hashq_set_x (accept_hash_table_, name, accept_list);
-    }
-
-  for (SCM p = accept_list; scm_is_pair (p); p = scm_cdr (p))
-    {
-      Translator *t = unsmob_translator (scm_car (p));
-      if (t && t->try_music (m))
-	return true;
-    }
-    
-  // We couldn't swallow the event in this context. Try parent.
-  Context *p = context ()->get_parent_context ();
-  // Global context's translator group is a dummy, so don't try it.
-  if (p->get_parent_context())
-    // ES todo: Make Translators listeners directly instead.
-    return p->implementation ()->try_music (m);
-  // 'junking event' warning is temporarily disabled during translator cleanup
-  /*
-  else
-    // We have tried all possible contexts. Give up.
-    m->origin ()->warning (_f ("junking event: `%s'", m->name ()));
-  */
-  return false;
-}
-
 SCM
 Translator_group::get_simple_trans_list ()
 {
@@ -328,12 +247,9 @@ recurse_over_translators (Context *c, Translator_method ptr, Translator_group_me
 Translator_group::Translator_group ()
 {
   simple_trans_list_ = SCM_EOL;
-  accept_hash_table_ = SCM_EOL;
   protected_events_ = SCM_EOL;
   context_ = 0;
   smobify_self ();
-
-  accept_hash_table_ = scm_c_make_hash_table (19);
 }
 
 void
@@ -410,7 +326,6 @@ Translator_group::mark_smob (SCM smob)
   Translator_group *me = (Translator_group *)SCM_CELL_WORD_1 (smob);
 
   me->derived_mark ();
-  scm_gc_mark (me->accept_hash_table_);
   scm_gc_mark (me->protected_events_);
   return me->simple_trans_list_;
 }

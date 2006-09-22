@@ -385,7 +385,7 @@ read_relocation_file (string filename)
       else if (command == "prependdir")
 	prepend_env_path (variable.c_str (), value);
       else
-	error ( _f("Unknown relocation command %s", command));
+	error (_f ("Unknown relocation command %s", command));
     }
 
   fclose (f);

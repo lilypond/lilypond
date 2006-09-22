@@ -57,7 +57,7 @@ Staff_symbol_engraver::listen_staff_span (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d)
-    span_events_[d] = ev;
+    ASSIGN_EVENT_ONCE (span_events_[d], ev);
   else
     programming_error (_ ("staff-span event has no direction"));
 }

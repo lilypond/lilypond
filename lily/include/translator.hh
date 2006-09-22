@@ -108,7 +108,6 @@ public:
   virtual Translator_group *get_daddy_translator ()const;
   virtual Moment now_mom () const;
 
-  virtual bool try_music (Music *req);
   virtual void initialize ();
   virtual void finalize ();
 

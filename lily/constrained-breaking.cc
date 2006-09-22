@@ -238,7 +238,7 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
             {
               if (brk != end_brk)
                 {
-                  warning ( _("couldn't find line breaking that satisfies constraints" ));
+                  warning (_ ("couldn't find line breaking that satisfies constraints" ));
                   ret.push_back (space_line (brk, end_brk));
                 }
               /* build up the good solution */
@@ -255,7 +255,7 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
         }
     }
   /* if we get to here, just put everything on one line */
-  warning ( _("couldn't find line breaking that satisfies constraints" ));
+  warning (_ ("couldn't find line breaking that satisfies constraints" ));
   ret.push_back (space_line (0, end_brk));
   return ret;
 }

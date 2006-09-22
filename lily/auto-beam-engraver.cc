@@ -133,7 +133,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Auto_beam_engraver, beam_forbid);
 void
 Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 {
-  forbid_ = ev;
+  ASSIGN_EVENT_ONCE (forbid_, ev);
 }
 
 bool

@@ -66,9 +66,9 @@ Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
   */
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)
-    events_[START] = ev;
+    ASSIGN_EVENT_ONCE (events_[START], ev);
   else if (d == STOP && !slurs_.empty ())
-    events_[STOP] = ev;
+    ASSIGN_EVENT_ONCE (events_[STOP], ev);
 }
 
 void

@@ -48,7 +48,7 @@ void
 Text_spanner_engraver::listen_text_span (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
-  event_drul_[d] = ev;
+  ASSIGN_EVENT_ONCE (event_drul_[d], ev);
 }
 
 void
@@ -137,7 +137,7 @@ Text_spanner_engraver::finalize ()
 
 ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
 ADD_TRANSLATOR (Text_spanner_engraver,
-		/* doc */ "Create text spanner from a Music.",
+		/* doc */ "Create text spanner from an event.",
 		/* create */ "TextSpanner",
 		/* accept */ "text-span-event",
 		/* read */ "",

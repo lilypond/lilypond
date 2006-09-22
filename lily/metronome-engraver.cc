@@ -11,10 +11,13 @@ using namespace std;
 
 #include "engraver.hh"
 
-#include "item.hh"
 #include "context.hh"
-#include "grob-array.hh"
 #include "duration.hh"
+#include "grob-array.hh"
+#include "item.hh"
+#include "stream-event.hh"
+
+#include "translator.icc"
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
@@ -90,8 +93,6 @@ Metronome_mark_engraver::process_music ()
   last_duration_ = duration;
   last_count_ = count;
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
 		/* doc */ "Engrave metro nome marking. This delegates the formatting work "

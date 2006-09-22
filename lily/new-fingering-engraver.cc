@@ -14,7 +14,7 @@
 #include "self-alignment-interface.hh"
 #include "side-position-interface.hh"
 #include "stem.hh"
-#include "stem.hh"
+#include "stream-event.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -23,8 +23,8 @@ struct Finger_tuple
 {
   Grob *head_;
   Grob *script_;
-  Music *note_event_;
-  Music *finger_event_;
+  Stream_event *note_event_;
+  Stream_event *finger_event_;
   bool follow_into_staff_;
   int position_;
 
@@ -58,16 +58,16 @@ protected:
   void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
-  void add_fingering (Grob *, Music *, Music *);
-  void add_script (Grob *, Music *, Music *);
-  void add_string (Grob *, Music *, Music *);
+  void add_fingering (Grob *, Stream_event *, Stream_event *);
+  void add_script (Grob *, Stream_event *, Stream_event *);
+  void add_string (Grob *, Stream_event *, Stream_event *);
   void position_scripts (SCM orientations, vector<Finger_tuple> *);
 };
 
 void
 New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 {
-  Music *note_ev = inf.music_cause ();
+  Stream_event *note_ev = inf.event_cause ();
   if (!note_ev)
     return;
 
@@ -75,20 +75,20 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 
   for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
     {
-      Music *m = unsmob_music (scm_car (s));
+      Stream_event *ev = unsmob_stream_event (scm_car (s));
 
-      if (!m)
+      if (!ev)
 	continue;
 
-      if (m->is_mus_type ("fingering-event"))
-	add_fingering (inf.grob (), m, note_ev);
-      else if (m->is_mus_type ("text-script-event"))
-	m->origin ()->warning (_ ("can't add text scripts to individual note heads"));
-      else if (m->is_mus_type ("script-event"))
-	add_script (inf.grob (), m, note_ev);
-      else if (m->is_mus_type ("string-number-event"))
-	add_string (inf.grob (), m, note_ev);
-      else if (m->is_mus_type ("harmonic-event"))
+      if (ev->in_event_class ("fingering-event"))
+	add_fingering (inf.grob (), ev, note_ev);
+      else if (ev->in_event_class ("text-script-event"))
+	ev->origin ()->warning (_ ("can't add text scripts to individual note heads"));
+      else if (ev->in_event_class ("script-event"))
+	add_script (inf.grob (), ev, note_ev);
+      else if (ev->in_event_class ("string-number-event"))
+	add_string (inf.grob (), ev, note_ev);
+      else if (ev->in_event_class ("harmonic-event"))
 	{
 	  inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
 	  Grob *d = unsmob_grob (inf.grob ()->get_object ("dot"));
@@ -108,8 +108,8 @@ New_fingering_engraver::acknowledge_stem (Grob_info inf)
 
 void
 New_fingering_engraver::add_script (Grob *head,
-				    Music *event,
-				    Music *note)
+				    Stream_event *event,
+				    Stream_event *note)
 {
   (void) note;
 
@@ -129,8 +129,8 @@ New_fingering_engraver::add_script (Grob *head,
 
 void
 New_fingering_engraver::add_fingering (Grob *head,
-				       Music *event,
-				       Music *hevent)
+				       Stream_event *event,
+				       Stream_event *hevent)
 {
   Finger_tuple ft;
 
@@ -166,8 +166,8 @@ New_fingering_engraver::add_fingering (Grob *head,
 
 void
 New_fingering_engraver::add_string (Grob *head,
-				    Music *event,
-				    Music *hevent)
+				    Stream_event *event,
+				    Stream_event *hevent)
 {
   Finger_tuple ft;
 

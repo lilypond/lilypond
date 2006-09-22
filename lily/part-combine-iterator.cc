@@ -15,6 +15,14 @@
 #include "music-sequence.hh"
 #include "warn.hh"
 
+typedef enum Outlet_type
+  {
+    CONTEXT_ONE, CONTEXT_TWO, CONTEXT_SHARED, CONTEXT_SOLO, CONTEXT_NULL, NUM_OUTLETS
+  };
+
+static const char *outlet_names_[NUM_OUTLETS] = 
+  {"one", "two", "shared", "solo", "null"};
+
 class Part_combine_iterator : public Music_iterator
 {
 public:
@@ -67,16 +75,13 @@ private:
   /*
     TODO: this is getting of hand...
   */
-  Context_handle one_;
-  Context_handle two_;
-  Context_handle null_;
-  Context_handle shared_;
-  Context_handle solo_;
+  Context_handle handles_[NUM_OUTLETS];
 
-  void substitute_both (Context *to1,
-			Context *to2);
+  void substitute_both (Outlet_type to1,
+			Outlet_type to2);
 
-  void kill_mmrest (Context *);
+  /* parameter is really Outlet_type */
+  void kill_mmrest (int in);
   void chords_together ();
   void solo1 ();
   void solo2 ();
@@ -92,11 +97,14 @@ Part_combine_iterator::do_quit ()
   if (second_iter_)
     second_iter_->quit ();
 
-  null_.set_context (0);
-  one_.set_context (0);
-  two_.set_context (0);
-  shared_.set_context (0);
-  solo_.set_context (0);
+  // Add listeners to all contexts except Devnull.
+  for (int i = 0; i < NUM_OUTLETS; i++)
+    {
+      Context *c = handles_[i].get_outlet ();
+      if (c->is_alias (ly_symbol2scm ("Voice")))
+	c->event_source ()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+      handles_[i].set_context (0);
+    }
 }
 
 Part_combine_iterator::Part_combine_iterator ()
@@ -154,21 +162,21 @@ Part_combine_iterator::chords_together ()
       playing_state_ = TOGETHER;
       state_ = TOGETHER;
 
-      substitute_both (shared_.get_outlet (), shared_.get_outlet ());
+      substitute_both (CONTEXT_SHARED, CONTEXT_SHARED);
     }
 }
 
 void
-Part_combine_iterator::kill_mmrest (Context *tg)
+Part_combine_iterator::kill_mmrest (int in)
 {
-  static Music *mmrest;
+  static Stream_event *mmrest;
   if (!mmrest)
     {
-      mmrest = make_music_by_name (ly_symbol2scm ("MultiMeasureRestEvent"));
+      mmrest = new Stream_event (ly_symbol2scm ("multi-measure-rest-event"));
       mmrest->set_property ("duration", SCM_EOL);
     }
 
-  mmrest->send_to_context (tg);
+  handles_[in].get_outlet ()->event_source ()->broadcast (mmrest);
 }
 
 void
@@ -179,50 +187,42 @@ Part_combine_iterator::solo1 ()
   else
     {
       state_ = SOLO1;
-      substitute_both (solo_.get_outlet (),
-		       null_.get_outlet ());
+      substitute_both (CONTEXT_SOLO, CONTEXT_NULL);
 
-      kill_mmrest (two_.get_outlet ());
-      kill_mmrest (shared_.get_outlet ());
+      kill_mmrest (CONTEXT_TWO);
+      kill_mmrest (CONTEXT_SHARED);
 
       if (playing_state_ != SOLO1)
 	{
-	  static Music *event;
+	  static Stream_event *event;
 	  if (!event)
-	    event = make_music_by_name (ly_symbol2scm ("SoloOneEvent"));
+	    event = new Stream_event (ly_symbol2scm ("solo1-event"));
 
-	  event->send_to_context (first_iter_->get_outlet ());
+	  first_iter_->get_outlet ()->event_source ()->broadcast (event);
 	}
       playing_state_ = SOLO1;
     }
 }
 
 void
-Part_combine_iterator::substitute_both (Context *to1,
-					Context *to2)
+Part_combine_iterator::substitute_both (Outlet_type to1,
+					Outlet_type to2)
 {
-  Context *tos[] = {to1, to2};
+  Outlet_type tos[] = {to1, to2};
+
   Music_iterator *mis[] = {first_iter_, second_iter_};
-  Context_handle *hs[]
-    = {
-    &null_,
-    &one_, &two_,
-    &shared_, &solo_,
-    0
-  };
 
   for (int i = 0; i < 2; i++)
     {
-      for (int j = 0; hs[j]; j++)
-	if (hs[j]->get_outlet () != tos[i])
-	  mis[i]->substitute_outlet (hs[j]->get_outlet (), tos[i]);
+      for (int j = 0; j < NUM_OUTLETS; j++)
+	if (j != tos[i])
+	  mis[i]->substitute_outlet (handles_[j].get_outlet (), handles_[tos[i]].get_outlet ());
     }
 
-  for (int j = 0; hs[j]; j++)
+  for (int j = 0; j < NUM_OUTLETS; j++)
     {
-      Context *t = hs[j]->get_outlet ();
-      if (t != to1 && t != to2)
-	kill_mmrest (t);
+      if (j != to1 && j != to2)
+	kill_mmrest (j);
     }
 }
 
@@ -240,23 +240,24 @@ Part_combine_iterator::unisono (bool silent)
 	in the 1st voice, so in that case, we use the second voice
 	as a basis for events.
       */
-      Context *c1 = (last_playing_ == SOLO2) ? null_.get_outlet () : shared_.get_outlet ();
-      Context *c2 = (last_playing_ == SOLO2) ? shared_.get_outlet () : null_.get_outlet ();
+      Outlet_type c1 = (last_playing_ == SOLO2) ? CONTEXT_NULL : CONTEXT_SHARED;
+      Outlet_type c2 = (last_playing_ == SOLO2) ? CONTEXT_SHARED : CONTEXT_NULL;
       substitute_both (c1, c2);
       kill_mmrest ((last_playing_ == SOLO2)
-		   ? one_.get_outlet () : two_.get_outlet ());
-      kill_mmrest (shared_.get_outlet ());
+		   ? CONTEXT_ONE : CONTEXT_TWO);
+      kill_mmrest (CONTEXT_SHARED);
 
       if (playing_state_ != UNISONO
 	  && newstate == UNISONO)
 	{
-	  static Music *event;
+	  static Stream_event *event;
 	  if (!event)
-	    event = make_music_by_name (ly_symbol2scm ("UnisonoEvent"));
+	    event = new Stream_event (ly_symbol2scm ("unisono-event"));
+
 
 	  Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
 	    ->get_outlet ();
-	  event->send_to_context (out);
+	  out->event_source ()->broadcast (event);
 	  playing_state_ = UNISONO;
 	}
       state_ = newstate;
@@ -272,15 +273,15 @@ Part_combine_iterator::solo2 ()
     {
       state_ = SOLO2;
 
-      substitute_both (null_.get_outlet (), solo_.get_outlet ());
+      substitute_both (CONTEXT_NULL, CONTEXT_SOLO);
 
       if (playing_state_ != SOLO2)
 	{
-	  static Music *event;
+	  static Stream_event *event;
 	  if (!event)
-	    event = make_music_by_name (ly_symbol2scm ("SoloTwoEvent"));
+	    event = new Stream_event (ly_symbol2scm ("solo2-event"));
 
-	  event->send_to_context (second_iter_->get_outlet ());
+	  second_iter_->get_outlet ()->event_source ()->broadcast (event);
 	  playing_state_ = SOLO2;
 	}
     }
@@ -297,7 +298,7 @@ Part_combine_iterator::apart (bool silent)
   else
     {
       state_ = APART;
-      substitute_both (one_.get_outlet (), two_.get_outlet ());
+      substitute_both (CONTEXT_ONE, CONTEXT_TWO);
     }
 }
 
@@ -306,55 +307,26 @@ Part_combine_iterator::construct_children ()
 {
   start_moment_ = get_outlet ()->now_mom ();
   split_list_ = get_music ()->get_property ("split-list");
+
+  Context *c = get_outlet ();
+
+  for (int i = 0; i < NUM_OUTLETS; i++)
+    {
+      SCM type = (i == CONTEXT_NULL) ? ly_symbol2scm ("Devnull") : ly_symbol2scm ("Voice");
+      /* find context below c: otherwise we may create new staff for each voice */
+      c = c->find_create_context (type, outlet_names_[i], SCM_EOL);
+      handles_[i].set_context (c);
+      if (c->is_alias (ly_symbol2scm ("Voice")))
+	c->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+    }
+
   SCM lst = get_music ()->get_property ("elements");
-
-  SCM props = scm_list_n (/*
-			    used to have tweaks here.
-			  */
-
-			  SCM_UNDEFINED);
-
-  Context *tr
-    = get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
-					  "shared", props);
-
-  shared_.set_context (tr);
-
-  /*
-    If we don't, we get a new staff for every Voice.
-  */
-  set_context (tr);
-
-  Context *solo_tr
-    = get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
-					  "solo", props);
-
-  solo_.set_context (solo_tr);
-
-  Context *null
-    = get_outlet ()->find_create_context (ly_symbol2scm ("Devnull"),
-					  "", SCM_EOL);
-
-  if (!null)
-    programming_error ("no Devnull found");
-
-  null_.set_context (null);
-
-  Context *one = tr->find_create_context (ly_symbol2scm ("Voice"),
-					  "one", props);
-
-  one_.set_context (one);
-
+  Context *one = handles_[CONTEXT_ONE].get_outlet ();
   set_context (one);
   first_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_car (lst))));
-
-  Context *two = tr->find_create_context (ly_symbol2scm ("Voice"),
-					  "two", props);
-  two_.set_context (two);
+  Context *two = handles_[CONTEXT_TWO].get_outlet ();
   set_context (two);
   second_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_cadr (lst))));
-
-  set_context (tr);
 
   char const *syms[]
     = {
@@ -368,13 +340,6 @@ Part_combine_iterator::construct_children ()
     "Script",
     0
   };
-
-  // Add listeners to all contexts except Devnull.
-  Context *contexts[] = {one, two, solo_tr, tr, 0};
-  for (int i = 0; contexts[i]; i++)
-    {
-      contexts[i]->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("OldMusicEvent"));
-    }
 
   for (char const **p = syms; *p; p++)
     {
@@ -395,11 +360,8 @@ Part_combine_iterator::set_busy (SCM se)
     return;
 
   Stream_event *e = unsmob_stream_event (se);
-  SCM mus = e->get_property ("music");
-  Music *m = unsmob_music (mus);
-  assert (m);
 
-  if (m->is_mus_type ("note-event") || m->is_mus_type ("cluster-note-event"))
+  if (e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
     busy_ = true;
 }
 

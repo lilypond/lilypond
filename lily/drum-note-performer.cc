@@ -10,7 +10,6 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-context.hh"
-#include "music.hh"
 #include "pitch.hh"
 #include "stream-event.hh"
 #include "translator.icc"
@@ -53,17 +52,17 @@ Drum_note_performer::process_music ()
       if (Pitch *pit = unsmob_pitch (defn))
 	{
           SCM articulations = n->get_property ("articulations");
-          Music *tie_event = 0;
+          Stream_event *tie_event = 0;
           for (SCM s = articulations;
                !tie_event && scm_is_pair (s);
                s = scm_cdr (s))
             {
-              Music *m = unsmob_music (scm_car (s));
-              if (!m)
+              Stream_event *ev = unsmob_stream_event (scm_car (s));
+              if (!ev)
                 continue;
 	  
-              if (m->is_mus_type ("tie-event"))
-                tie_event = m;
+              if (ev->in_event_class ("tie-event"))
+                tie_event = ev;
             }
 
 	  Audio_note *p = new Audio_note (*pit, get_event_length (n), 

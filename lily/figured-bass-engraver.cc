@@ -137,7 +137,7 @@ void
 Figured_bass_engraver::listen_rest (Stream_event *ev)
 {
   new_event_found_ = true;
-  rest_event_ = ev;
+  ASSIGN_EVENT_ONCE (rest_event_, ev);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, bass_figure);
@@ -145,8 +145,9 @@ void
 Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 {
   new_event_found_ = true;
-  stop_moment_ = now_mom () + get_event_length (ev);
-     
+  Moment stop  = now_mom () + get_event_length (ev);
+  stop_moment_ = max (stop_moment_, stop);
+
   SCM fig = ev->get_property ("figure");
   for (vsize i = 0; i < groups_.size (); i++)
     {

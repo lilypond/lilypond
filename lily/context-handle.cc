@@ -47,12 +47,6 @@ Context_handle::down ()
   outlet_ = 0;
 }
 
-bool
-Context_handle::try_music (Music *m)
-{
-  return outlet_->try_music (m);
-}
-
 void
 Context_handle::operator = (Context_handle const &s)
 {

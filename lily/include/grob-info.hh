@@ -30,9 +30,7 @@ public:
 
   Context *context () const;
   Stream_event *event_cause () const;
-  Music *music_cause () const;
   Stream_event *ultimate_event_cause () const;
-  Music *ultimate_music_cause () const;
   vector<Context*> origin_contexts (Translator *) const;
   Grob_info (Translator *, Grob *);
   Grob_info ();

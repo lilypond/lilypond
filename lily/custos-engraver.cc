@@ -11,9 +11,10 @@
 #include "bar-line.hh"
 #include "item.hh"
 #include "note-head.hh"
-#include "staff-symbol-referencer.hh"
-#include "warn.hh"
 #include "pitch.hh"
+#include "staff-symbol-referencer.hh"
+#include "stream-event.hh"
+#include "warn.hh"
 
 #include "translator.icc"
 
@@ -73,8 +74,8 @@ Custos_engraver::acknowledge_bar (Grob_info info)
 void
 Custos_engraver::acknowledge_note_head (Grob_info info)
 {
-  Music *m = info.music_cause ();
-  if (m && m->is_mus_type ("note-event"))
+  Stream_event *ev = info.event_cause ();
+  if (ev && ev->in_event_class ("note-event"))
     {
 
       /*
@@ -85,7 +86,7 @@ Custos_engraver::acknowledge_note_head (Grob_info info)
 	don't look at the staff-position, since we can't be sure
 	whether Clef_engraver already applied a vertical shift.
       */
-      pitches_.push_back (*unsmob_pitch (m->get_property ("pitch")));
+      pitches_.push_back (*unsmob_pitch (ev->get_property ("pitch")));
     }
 }
 

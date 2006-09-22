@@ -27,12 +27,6 @@ Stream_event::Stream_event (SCM event_class, SCM mutable_props)
   mutable_property_alist_ = mutable_props;
 }
 
-Stream_event::Stream_event (SCM property_alist)
-  : Prob (ly_symbol2scm ("Stream_event"), SCM_EOL)
-{
-  mutable_property_alist_ = property_alist;
-}
-
 Stream_event::Stream_event (SCM class_name, Input *origin)
   : Prob (ly_symbol2scm ("Stream_event"),
 	  scm_list_1 (scm_cons (ly_symbol2scm ("class"), class_name)))

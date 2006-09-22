@@ -11,6 +11,7 @@
 #include "dots.hh"
 #include "duration.hh"
 #include "item.hh"
+#include "pitch.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"

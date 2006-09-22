@@ -8,8 +8,7 @@
 ;; TODO: should link back into user manual.
 
 (define (mm-rest-child-list music)
-  "Check if we have R1*4-\\markup { .. }, and if applicable convert to
-a property set for MultiMeasureRestNumber."
+  "Generate events for multimeasure rests, to be used by the sequential-iterator"
   (let ((location (ly:music-property music 'origin))
 	(duration (ly:music-property music 'duration)))
     (list (make-music 'BarCheck

@@ -38,7 +38,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Part_combine_engraver, part_combine);
 void
 Part_combine_engraver::listen_part_combine (Stream_event *ev)
 {
-  event_ = ev;
+  ASSIGN_EVENT_ONCE (event_, ev);
 }
 
 Part_combine_engraver::Part_combine_engraver ()

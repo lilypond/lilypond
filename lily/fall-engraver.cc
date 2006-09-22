@@ -8,6 +8,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
+#include "moment.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 
@@ -92,7 +93,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Bend_after_engraver, bend_after);
 void
 Bend_after_engraver::listen_bend_after (Stream_event *ev)
 {
-  fall_event_ = ev;
+  ASSIGN_EVENT_ONCE (fall_event_, ev);
 }
 
 void

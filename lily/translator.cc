@@ -52,12 +52,6 @@ Translator::Translator (Translator const &src)
   must_be_last_ = src.must_be_last_;
 }
 
-bool
-Translator::try_music (Music *)
-{
-  return false;
-}
-
 Moment
 Translator::now_mom () const
 {
@@ -94,12 +88,9 @@ Translator::stop_translation_timestep ()
 }
 
 /*
-  this function has 2 properties
-
-  - It is called before try_music ()
-
-  - It is called before any user information enters the translators.
-  (i.e. any \property or event is not processed yet.)
+  this function is called once each moment, before any user
+  information enters the translators.  (i.e. no \property or event has
+  been processed yet.)
 */
 void
 Translator::start_translation_timestep ()
@@ -293,16 +284,17 @@ internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const ch
     {
       /* extract event class from function name */
       const char *prefix = "listen_";
-      assert (!strncmp (function, "listen_", strlen (prefix)));
-      function += strlen (prefix);
-      char ev_class[strlen (function) + 1];
-      strcpy (ev_class, function);
-      for (char *c = ev_class; *c; c++)
-	if (*c == '_')
-	  *c = '-';
+      string ev_class = function;
+      /* This assertion fails if EVENT_ASSIGNMENT was called outside a
+	 translator listener. Don't do that. */
+      assert (0 == ev_class.find (prefix));
 
-      new_ev->origin ()->warning (_f ("Two simultaneous %s events, junking this one", ev_class));
-      (*old_ev)->origin ()->warning (_f ("Previous %s event here", ev_class));
+      /* "listen_foo_bar" -> "foo-bar" */
+      ev_class.erase (0, strlen(prefix));
+      replace_all (ev_class, '_', '-');
+
+      new_ev->origin ()->warning (_f ("Two simultaneous %s events, junking this one", ev_class.c_str ()));
+      (*old_ev)->origin ()->warning (_f ("Previous %s event here", ev_class.c_str ()));
       return false;
     }
   else

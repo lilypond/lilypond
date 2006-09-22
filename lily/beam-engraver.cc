@@ -102,9 +102,9 @@ Beam_engraver::listen_beam (Stream_event *ev)
   Direction d = to_dir (ev->get_property ("span-direction"));
 
   if (d == START && valid_start_point ())
-    start_ev_ = ev;
+    ASSIGN_EVENT_ONCE (start_ev_, ev);
   else if (d == STOP && valid_end_point ())
-    now_stop_ev_ = ev;
+    ASSIGN_EVENT_ONCE (now_stop_ev_, ev);
 }
 
 void

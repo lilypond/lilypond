@@ -60,13 +60,13 @@ LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq-less?",
 void
 Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 {
-  Music *m = gi.music_cause ();
+  Stream_event *ev = gi.event_cause ();
 
-  if (m
+  if (ev
       && !gi.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
     {
       Moment n = now_mom ();
-      Moment l = m->get_length ();
+      Moment l = get_event_length (ev);
 
       if (!l.to_bool ())
 	return;

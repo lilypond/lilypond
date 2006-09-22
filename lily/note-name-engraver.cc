@@ -8,6 +8,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
+#include "pitch.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"

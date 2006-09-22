@@ -19,8 +19,7 @@ public:
   Stream_event ();
   VIRTUAL_COPY_CONSTRUCTOR (Stream_event, Stream_event);
   // todo: remove unneeded constructors
-  Stream_event (SCM event_class, SCM mutable_props);
-  Stream_event (SCM property_alist);
+  Stream_event (SCM event_class, SCM mutable_props=SCM_EOL);
   Stream_event (SCM class_name, Input *);
   Stream_event (Stream_event *ev);
 

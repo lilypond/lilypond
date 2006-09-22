@@ -10,7 +10,6 @@
 #include "engraver.hh"
 
 #include "context.hh"
-#include "music.hh"
 #include "spanner.hh"
 #include "side-position-interface.hh"
 #include "translator.icc"
