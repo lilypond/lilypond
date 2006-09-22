@@ -1,3 +1,13 @@
+2006-09-22  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* ly/titling-init.ly (scoreTitleMarkup): Rename (typo!?)
+	printfirst-page-number -> print-first-page-number
+
+	* python/convertrules.py: corresponding rule.
+
+	* Documentation/user/page.itely (Page formatting): Document the
+	default values of all page layout parameters. 
+
 2006-09-22  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/lexer.ll: remove limitation on music function arity. New

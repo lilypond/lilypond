@@ -502,7 +502,7 @@ stanzas.
  remove-tag isn't changed.
     - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
  first-page-number isn't changed.
-    - first-page-number no => printfirst-page-number = ##f
+    - first-page-number no => print-first-page-number = ##f
  Line breaks in header strings aren't converted.
     - \\\\  as line break in \header strings => \markup \center-align <
       "First Line" "Second Line" >
