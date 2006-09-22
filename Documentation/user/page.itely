@@ -147,7 +147,7 @@ score on the paper.
 
 @funindex line-width
 @item line-width
-The length of the systems. Default is $code{paper-width} minus @tie{}20mm.
+The length of the systems. Default is @code{paper-width} minus @tie{}20mm.
 
 @funindex head-separation
 @item head-separation
