@@ -256,6 +256,11 @@ If we give names, Bison complains.
 %token <i> E_UNSIGNED
 %token <i> UNSIGNED
 
+/* Artificial tokens, for more generic function syntax */
+%token <i> EXPECT_MARKUP;
+%token <i> EXPECT_MUSIC;
+%token <i> EXPECT_SCM;
+
 %token <scm> BOOK_IDENTIFIER
 %token <scm> CHORDMODIFIER_PITCH
 %token <scm> CHORD_MODIFIER
@@ -277,22 +282,6 @@ If we give names, Bison complains.
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
 %token <scm> MARKUP_IDENTIFIER
 %token <scm> MUSIC_FUNCTION
-%token <scm> MUSIC_FUNCTION_MARKUP 
-%token <scm> MUSIC_FUNCTION_MARKUP_MARKUP 
-%token <scm> MUSIC_FUNCTION_MARKUP_MARKUP_MUSIC 
-%token <scm> MUSIC_FUNCTION_MARKUP_MUSIC 
-%token <scm> MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC 
-%token <scm> MUSIC_FUNCTION_MUSIC 
-%token <scm> MUSIC_FUNCTION_MUSIC_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM 
-%token <scm> MUSIC_FUNCTION_SCM_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM_SCM 
-%token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM_SCM_SCM 
-%token <scm> MUSIC_FUNCTION_SCM_SCM_SCM_MUSIC 
-%token <scm> MUSIC_FUNCTION_SCM_SCM_SCM_SCM_MUSIC 
 %token <scm> MUSIC_IDENTIFIER
 %token <scm> NOTENAME_PITCH
 %token <scm> NUMBER_IDENTIFIER
@@ -361,10 +350,6 @@ If we give names, Bison complains.
 %type <scm> absolute_pitch
 %type <scm> assignment_id
 %type <scm> bare_number
-%type <scm> music_function_event
-%type <scm> music_function_chord_body
-%type <scm> music_function_musicless_prefix
-%type <scm> music_function_musicless_function
 %type <scm> bass_figure
 %type <scm> figured_bass_modification
 %type <scm> br_bass_figure
@@ -386,6 +371,11 @@ If we give names, Bison complains.
 %type <scm> figure_spec
 %type <scm> fraction
 %type <scm> full_markup
+%type <scm> function_scm_argument
+%type <scm> function_arglist
+%type <scm> function_arglist_music_last
+%type <scm> function_arglist_nonmusic_last
+%type <scm> function_arglist_nonmusic
 %type <scm> identifier_init
 %type <scm> lilypond_header
 %type <scm> lilypond_header_body
@@ -402,6 +392,9 @@ If we give names, Bison complains.
 %type <scm> mode_changing_head
 %type <scm> mode_changing_head_with_context
 %type <scm> multiplied_duration
+%type <scm> music_function_identifier_musicless_prefix
+%type <scm> music_function_event
+%type <scm> music_function_chord_body
 %type <scm> new_chord
 %type <scm> new_lyrics
 %type <scm> number_expression
@@ -427,7 +420,6 @@ If we give names, Bison complains.
 %type <scm> step_number
 %type <scm> step_numbers 
 %type <scm> string
-%type <scm> function_scm_argument
 
 %type <score> score_block
 %type <score> score_body
@@ -925,72 +917,46 @@ function_scm_argument:
 	| simple_string
 	;
 
-/*
-TODO: use code generation for this
-*/
-music_function_musicless_function:
-	MUSIC_FUNCTION {
-		$$ = scm_list_2 ($1, make_input (@$));
-	}
-	| MUSIC_FUNCTION_SCM function_scm_argument {
-		$$ = scm_list_3 ($1, make_input (@$), $2);
-	}
-	| MUSIC_FUNCTION_MARKUP full_markup {
-		$$ = scm_list_3 ($1, make_input (@$), $2);
-	}
-	| MUSIC_FUNCTION_SCM_SCM function_scm_argument function_scm_argument {
-		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
-	}
-	| MUSIC_FUNCTION_SCM_SCM_SCM function_scm_argument function_scm_argument function_scm_argument {
-		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
-	}
-	| MUSIC_FUNCTION_MARKUP_MARKUP full_markup full_markup {
-		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
+/* An argument list. If a function \foo expects scm scm music, then the lexer expands \foo into the token sequence:
+ MUSIC_FUNCTION EXPECT_MUSIC EXPECT_SCM EXPECT_SCM
+and this rule returns the reversed list of arguments. */
+
+function_arglist_music_last:
+	EXPECT_MUSIC function_arglist music {
+		$$ = scm_cons ($3, $2);
 	}
 	;
 
-/*
-TODO: use code generation for this
-*/
-music_function_musicless_prefix:
-	MUSIC_FUNCTION_MUSIC {
-		$$ = scm_list_2 ($1, make_input (@$));
+function_arglist_nonmusic_last:
+	EXPECT_MARKUP function_arglist full_markup {
+		$$ = scm_cons ($3, $2);
 	}
-	| MUSIC_FUNCTION_SCM_MUSIC function_scm_argument { 
-		$$ = scm_list_3 ($1, make_input (@$), $2);
+	| EXPECT_SCM function_arglist function_scm_argument {
+		$$ = scm_cons ($3, $2);
 	}
-	| MUSIC_FUNCTION_SCM_SCM_MUSIC function_scm_argument function_scm_argument {
-		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
+	;
+
+function_arglist_nonmusic: /*empty*/ {
+		$$ = SCM_EOL;
 	}
-	| MUSIC_FUNCTION_SCM_SCM_SCM_MUSIC function_scm_argument function_scm_argument function_scm_argument {
-		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
+	| EXPECT_MARKUP function_arglist_nonmusic full_markup {
+		$$ = scm_cons ($3, $2);
 	}
-	| MUSIC_FUNCTION_SCM_SCM_SCM_SCM_MUSIC function_scm_argument function_scm_argument function_scm_argument function_scm_argument {
-		$$ = scm_list_n ($1, make_input (@$), $2, $3, $4, $5, SCM_UNDEFINED);
+	| EXPECT_SCM function_arglist_nonmusic function_scm_argument {
+		$$ = scm_cons ($3, $2);
 	}
-	| MUSIC_FUNCTION_MARKUP_MUSIC full_markup {
-		$$ = scm_list_3 ($1, make_input (@$), $2);
+	;
+
+function_arglist: /*empty*/ {
+		$$ = SCM_EOL;
 	}
+	| function_arglist_music_last
+	| function_arglist_nonmusic_last
 	;
 
 generic_prefix_music_scm:
-	music_function_musicless_function {
-		$$ = $1;
-	}
-	| music_function_musicless_prefix music {
-		$$ = ly_append2 ($1, scm_list_1 ($2));
-	}
-	| MUSIC_FUNCTION_MUSIC_MUSIC music music {
-		$$ = scm_list_4 ($1, make_input (@$), $2, $3);
-	}
-	| MUSIC_FUNCTION_SCM_MUSIC_MUSIC function_scm_argument music music {
-		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
-	}
-	| MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC function_scm_argument function_scm_argument music music {
-		$$ = scm_list_n ($1, make_input (@$), $2, $3, $4, $5, SCM_UNDEFINED);
-	}
-	| MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC full_markup music music {
-		$$ = scm_list_5 ($1, make_input (@$), $2, $3, $4);
+	MUSIC_FUNCTION function_arglist {
+		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1397,24 +1363,38 @@ chord_body_element:
 	}
 	;
 
-music_function_chord_body:
-	music_function_musicless_function {
-		$$ = $1;
+music_function_identifier_musicless_prefix: MUSIC_FUNCTION {
+		SCM sig = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
+		if (scm_is_pair (sig) && to_boolean (scm_memq (ly_music_p_proc, scm_cdr (scm_reverse (sig)))))
+		{
+			PARSER->parser_error (@$, "Music function applied to event may not have a Music argument, except as the last argument.");
+		}
 	}
-	| music_function_musicless_prefix chord_body_element {
-		$$ = ly_append2 ($1, scm_list_1 ($2));
+	;
+
+music_function_chord_body:
+	/* We could allow chord functions to have multiple music arguments,
+	   but it's more consistent with music_function_event if we
+	   prohibit it here too */
+	music_function_identifier_musicless_prefix EXPECT_MUSIC function_arglist_nonmusic chord_body_element {
+		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($3, scm_list_1 ($4)));
+	}
+	| music_function_identifier_musicless_prefix function_arglist_nonmusic {
+		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
 music_function_event:
-	music_function_musicless_prefix post_event {
-		$$ = ly_append2 ($1, scm_list_1 ($2));
+	/* Post-events can only have the last argument as music, without this
+	   restriction we get a shift/reduce conflict from e.g.
+	   c8-\partcombine c8 -. */
+	music_function_identifier_musicless_prefix EXPECT_MUSIC function_arglist_nonmusic post_event {
+		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($3, scm_list_1 ($4)));
 	}
-	| music_function_musicless_function {
-		$$ = $1;
+	| music_function_identifier_musicless_prefix function_arglist_nonmusic {
+		$$ = ly_append2 (scm_list_2 ($1, make_input (@$)), scm_reverse_x ($2, SCM_EOL));
 	}
 	;
-	
 
 command_element:
 	command_event {

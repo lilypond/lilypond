@@ -43,6 +43,7 @@ using namespace std;
 #include "lily-lexer.hh"
 #include "lilypond-input-version.hh"
 #include "main.hh"
+#include "music.hh"
 #include "music-function.hh"
 #include "parse-scm.hh"
 #include "parser.hh"
@@ -60,7 +61,6 @@ RH 7 fix (?)
 void strip_trailing_white (string&);
 void strip_leading_white (string&);
 string lyric_fudge (string s);
-int music_function_type (SCM);
 SCM lookup_markup_command (string s);
 bool is_valid_version (string s);
 
@@ -103,6 +103,7 @@ SCM (* scm_parse_error_handler) (void *);
 %option never-interactive 
 %option warn
 
+%x extratoken
 %x chords
 %x figures
 %x incl
@@ -120,6 +121,7 @@ A		[a-zA-Z]
 AA		{A}|_
 N		[0-9]
 AN		{AA}|{N}
+ANY_CHAR	(.|\n)
 PUNCT		[?!:'`]
 ACCENT		\\[`'"^]
 NATIONAL	[\001-\006\021-\027\031\036\200-\377]
@@ -151,6 +153,22 @@ BOM_UTF8	\357\273\277
 
 <*>\r		{
 	// windows-suck-suck-suck
+}
+
+<extratoken>{ANY_CHAR}	{
+  /* Generate a token without swallowing anything */
+
+  /* First unswallow the eaten character */
+  add_lexed_char (-YYLeng ());
+  yyless (0);
+
+  /* produce requested token */
+  int type = extra_token_types_.back ();
+  extra_token_types_.pop_back ();
+  if (extra_token_types_.empty ())
+    yy_pop_state ();
+
+  return type;
 }
 
 <INITIAL,chords,lyrics,figures,notes>{BOM_UTF8} {
@@ -647,6 +665,20 @@ BOM_UTF8	\357\273\277
 
 %%
 
+/* Make the lexer generate a token of the given type as the next token. 
+ TODO: make it possible to define a value for the token as well */
+void
+Lily_lexer::push_extra_token (int token_type)
+{
+	if (extra_token_types_.empty ())
+	{
+		if (YY_START != extratoken)
+			hidden_state_ = YY_START;
+		yy_push_state (extratoken);
+	}
+	extra_token_types_.push_back (token_type);
+}
+
 void
 Lily_lexer::push_chord_state (SCM tab)
 {
@@ -690,6 +722,7 @@ Lily_lexer::pop_state ()
 {
 	if (YYSTATE == notes || YYSTATE == chords)
 		pitchname_tab_stack_ = scm_cdr (pitchname_tab_stack_);
+
 	yy_pop_state ();
 }
 
@@ -718,7 +751,19 @@ Lily_lexer::scan_escaped_word (string str)
 	if (is_music_function (sid))
 	{
 		yylval.scm = get_music_function_transform (sid);
-		return music_function_type (yylval.scm);
+
+		SCM s = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
+		for (; scm_is_pair (s); s = scm_cdr (s))
+		{
+			if (scm_car (s) == ly_music_p_proc)
+				push_extra_token (EXPECT_MUSIC);
+			else if (scm_car (s) == ly_lily_module_constant ("markup?"))
+				push_extra_token (EXPECT_MARKUP);
+			else if (ly_is_procedure (scm_car (s)))
+				push_extra_token (EXPECT_SCM);
+			else programming_error ("Function parameter without type-checking predicate");
+		}
+		return MUSIC_FUNCTION;
 	}
 
 	if (sid != SCM_UNDEFINED)
@@ -762,28 +807,37 @@ Lily_lexer::scan_bare_word (string str)
 	return STRING;
 }
 
+int
+Lily_lexer::get_state () const
+{
+	if (YY_START == extratoken)
+		return hidden_state_;
+	else
+		return YY_START;
+}
+
 bool
 Lily_lexer::is_note_state () const
 {
-	return YY_START == notes;
+	return get_state () == notes;
 }
 
 bool
 Lily_lexer::is_chord_state () const
 {
-	return YY_START == chords;
+	return get_state () == chords;
 }
 
 bool
 Lily_lexer::is_lyric_state () const
 {
-	return YY_START == lyrics;
+	return get_state () == lyrics;
 }
 
 bool
 Lily_lexer::is_figure_state () const
 {
-	return YY_START == figures;
+	return get_state () == figures;
 }
 
 /*
@@ -879,59 +933,6 @@ lookup_markup_command (string s)
 {
 	SCM proc = ly_lily_module_constant ("lookup-markup-command");
 	return scm_call_1 (proc, scm_makfrom0str (s.c_str ()));
-}
-
-struct Parser_signature
-{
-	char *symbol;
-	int token_type;
-};
-static SCM signature_hash_table;
-
-static void init_signature_hash_table ()
-{
-	signature_hash_table = scm_gc_protect_object (scm_c_make_hash_table (31));
-	Parser_signature sigs[]  = {
-		{"scm", MUSIC_FUNCTION_SCM},
-		{"music", MUSIC_FUNCTION_MUSIC},
-		{"scm-music", MUSIC_FUNCTION_SCM_MUSIC},
-		{"scm-scm", MUSIC_FUNCTION_SCM_SCM},
-		{"music-music", MUSIC_FUNCTION_MUSIC_MUSIC},
-		{"scm-music-music", MUSIC_FUNCTION_SCM_MUSIC_MUSIC},
-		{"scm-scm-music-music", MUSIC_FUNCTION_SCM_SCM_MUSIC_MUSIC},
-		{"scm-scm-music", MUSIC_FUNCTION_SCM_SCM_MUSIC},
-		{"scm-scm-scm-music", MUSIC_FUNCTION_SCM_SCM_SCM_SCM_MUSIC},
-		{"scm-scm-scm-scm-music", MUSIC_FUNCTION_SCM_SCM_SCM_MUSIC},
-		{"scm-scm-scm", MUSIC_FUNCTION_SCM_SCM_SCM},
-		{"markup", MUSIC_FUNCTION_MARKUP},
-		{"markup-music", MUSIC_FUNCTION_MARKUP_MUSIC},
-		{"markup-markup", MUSIC_FUNCTION_MARKUP_MARKUP},
-		{"markup-music-music", MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC},
-		{"markup-markup-music", MUSIC_FUNCTION_MARKUP_MARKUP_MUSIC},
-		{"noarg", MUSIC_FUNCTION},
-		{0,0}
-	};
-
-	for (int i = 0; sigs[i].symbol; i++)
-		scm_hashq_set_x (signature_hash_table, ly_symbol2scm (sigs[i].symbol),
-				 scm_from_int (sigs[i].token_type));
-}
-
-int
-music_function_type (SCM func)
-{
-	if (!signature_hash_table)
-		init_signature_hash_table ();
-
-	SCM type = scm_object_property (func, ly_symbol2scm ("music-function-signature-keyword"));
-	SCM token_type = scm_hashq_ref (signature_hash_table, type, SCM_BOOL_F);
-	if (!scm_is_number (token_type))
-		{
-		programming_error (_ ("can't find signature for music function"));
-		return MUSIC_FUNCTION_SCM;
-		}
-	
-	return scm_to_int (token_type);
 }
 
 /* Shut up lexer warnings.  */
