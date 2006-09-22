@@ -2863,3 +2863,9 @@ def conv (str):
 
 conversions.append (((2, 9, 16), conv, """deprecate \\tempo in \\midi"""))
 
+def conv (str):
+    str = re.sub ('printfirst-page-number', 'print-first-page-number', str)
+    return str
+
+conversions.append (((2, 9, 19), conv, """printfirst-page-number -> print-first-page-number"""))
+
