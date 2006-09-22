@@ -35,25 +35,8 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 {
   extern SCM ly_music_p_proc;
   
-  string str = "";
-  for (SCM s = signature; scm_is_pair (s); s = scm_cdr (s))
-    {
-      if (str != "")
-	str += "-";
-
-      if (scm_car (s) == ly_music_p_proc)
-	str += "music";
-      else if (scm_car (s) == ly_lily_module_constant ("markup?"))
-	str += "markup";
-      else if (ly_is_procedure (scm_car (s)))
-	str += "scm";
-    }
-  if (str == "") str = "noarg";
   scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature"),
 			     signature);
-
-  scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature-keyword"),
-			     ly_symbol2scm (str.c_str ()));
 
   SCM_RETURN_NEWSMOB (music_function_tag, func);
 }

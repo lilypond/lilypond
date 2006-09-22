@@ -1,3 +1,15 @@
+2006-09-22  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/lexer.ll: remove limitation on music function arity. New
+	mode extratoken, which inserts extra EXPECT_* tokens after
+	MUSIC_FUNCTION token. Junk all MUSIC_FUNCTION_* tokens.
+
+	* lily/parser.yy: Change grammar for music function accordingly.
+
+	* lily/include/lily-parser.hh: New method get_state, new member
+	hidden_state. Works around a problem when parser fetches
+	MUSIC_FUNCTION token but not the following EXPECT_* token.
+
 2006-09-21  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/tweaks.itely (Fitting music onto fewer
