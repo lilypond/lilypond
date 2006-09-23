@@ -593,7 +593,7 @@ have two notes to build the sequence), add @code{SlurEvents} to the
 @code{SequentialMusic} with the two @code{EventChords}.
 
 @example
-doubleSlur = #(def-music-function (parser location note) (ly:music?)
+doubleSlur = #(define-music-function (parser location note) (ly:music?)
          "Return: @{ note ( note ) @}.
          `note' is supposed to be an EventChord."
          (let ((note2 (ly:music-deep-copy note)))
