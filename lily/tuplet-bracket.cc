@@ -70,7 +70,7 @@ flatten_number_pair_property (Grob *me,
     = robust_scm2drul (me->internal_get_property (sym), zero);
   pair[xdir] = 0.0;
   
-  me->internal_set_property (sym, ly_interval2scm (pair));
+  me->set_property (sym, ly_interval2scm (pair));
 }
 
 

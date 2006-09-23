@@ -42,7 +42,7 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
       && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
 
-  sc->internal_set_property (sym, val);
+  sc->set_property (sym, val);
   return SCM_UNSPECIFIED;
 }
 

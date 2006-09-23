@@ -80,9 +80,14 @@ public:
   SCM internal_get_property (SCM symbol) const;
   SCM get_property_data (SCM symbol) const;
   SCM internal_get_object (SCM symbol) const;
-  void del_property (SCM symbol); 
-  void internal_set_property (SCM sym, SCM val);
   void internal_set_object (SCM sym, SCM val);
+  void internal_del_property (SCM symbol);
+
+#ifndef NDEBUG
+  void internal_set_property (SCM sym, SCM val, char const *file, int line, char const *fun);
+#else
+  void internal_set_property (SCM sym, SCM val);
+#endif
 
   /* messages */  
   void warning (string) const;
@@ -145,6 +150,5 @@ void add_offset_callback (Grob *g, SCM proc, Axis a);
 void chain_offset_callback (Grob *g, SCM proc, Axis a);
 SCM axis_offset_symbol (Axis a);
 SCM axis_parent_positioning (Axis a);
-
 
 #endif /* GROB_HH */

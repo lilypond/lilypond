@@ -29,6 +29,14 @@
 
 #ifdef CACHE_SYMBOLS
 
+/* this lets us "overload" macros such as get_property to take
+   symbols as well as strings */
+inline SCM
+scm_or_str2symbol (char const *c) { return scm_str2symbol (c); }
+
+inline SCM
+scm_or_str2symbol (SCM s) { return s; }
+
 /* Using this trick we cache the value of scm_str2symbol ("fooo") where
    "fooo" is a constant string. This is done at the cost of one static
    variable per ly_symbol2scm() use, and one boolean evaluation for
@@ -43,10 +51,10 @@
     if (__builtin_constant_p ((x)))					\
       {									\
 	if (!cached)							\
-	  value = cached = scm_gc_protect_object (scm_str2symbol ((x))); \
+	  value = cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
       }									\
     else								\
-      value = scm_str2symbol ((char *) (x));				\
+      value = scm_or_str2symbol (x);					\
     value;								\
   })
 #else
@@ -150,7 +158,13 @@ ly_add_function_documentation (SCM proc, char const *fname,
 
 #define get_property(x) internal_get_property (ly_symbol2scm (x))
 #define get_object(x) internal_get_object (ly_symbol2scm (x))
-#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
 #define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)
+#define del_property(x) internal_del_property (ly_symbol2scm (x))
+
+#ifndef NDEBUG
+#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__)
+#else
+#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
+#endif
 
 #endif /* LILY_GUILE_MACROS_HH */

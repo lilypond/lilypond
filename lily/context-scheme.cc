@@ -84,7 +84,7 @@ LY_DEFINE (ly_context_set_property, "ly:context-set-property!",
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
   SCM_ASSERT_TYPE (scm_is_symbol (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
-  tr->internal_set_property (name, val);
+  tr->set_property (name, val);
 
   return SCM_UNSPECIFIED;
 }

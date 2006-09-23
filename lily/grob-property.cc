@@ -11,12 +11,34 @@
 #include "paper-score.hh"
 #include "output-def.hh"
 #include "spanner.hh"
+#include "international.hh"
 #include "item.hh"
 #include "misc.hh"
 #include "item.hh"
 #include "program-option.hh"
 #include "profile.hh"
 #include "simple-closure.hh"
+#include "warn.hh"
+
+#ifndef NDEBUG
+static SCM modification_callback = SCM_EOL;
+
+LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
+	   1, 0, 0, (SCM cb),
+	   "Specify a procedure that will be called every time lilypond modifies "
+	   "a grob property. The callback will receive as arguments "
+	   "the grob that is being modified, the name of the C++ file in which "
+	   "the modification was requested, the line number in the C++ file in "
+	   "which the modification was requested, the property to be changed and "
+	   "the new value for the property.")
+{
+  if (!ly_is_procedure (cb))
+    warning (_ ("not setting modification callback: not a procedure"));
+  else
+    modification_callback = cb;
+  return SCM_EOL;
+}
+#endif
 
 SCM
 Grob::get_property_alist_chain (SCM def) const
@@ -31,9 +53,9 @@ Grob::get_property_alist_chain (SCM def) const
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
 void
-Grob::internal_set_property (SCM sym, SCM v)
-{
 #ifndef NDEBUG
+Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char const *fun)
+{
   SCM grob_p = ly_lily_module_constant ("ly:grob?");
   SCM grob_list_p = ly_lily_module_constant ("grob-list?");
   SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
@@ -45,6 +67,9 @@ Grob::internal_set_property (SCM sym, SCM v)
       scm_display (scm_list_2 (sym, type), scm_current_output_port ());
       assert (0);
     }
+#else
+Grob::internal_set_property (SCM sym, SCM v)
+{
 #endif
 
   /* Perhaps we simply do the assq_set, but what the heck. */
@@ -60,6 +85,16 @@ Grob::internal_set_property (SCM sym, SCM v)
 	abort ();
       check_interfaces_for_property (this, sym);
     }
+
+#ifndef NDEBUG
+  if (ly_is_procedure (modification_callback))
+      scm_apply_0 (modification_callback,
+		   scm_list_n (self_scm (),
+			       scm_makfrom0str (file),
+			       scm_from_int (line),
+			       scm_makfrom0str (fun),
+			       sym, v, SCM_UNDEFINED));
+#endif
 
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, sym, v);
 }
@@ -155,7 +190,7 @@ Grob::try_callback (SCM sym, SCM proc)
 	mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, marker);
     }
   else
-    internal_set_property (sym, value);
+    set_property (sym, value);
 	  
   return value;
 }
@@ -171,7 +206,7 @@ Grob::internal_set_object (SCM s, SCM v)
 }
 
 void
-Grob::del_property (SCM sym)
+Grob::internal_del_property (SCM sym)
 {
   mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, sym);
 }

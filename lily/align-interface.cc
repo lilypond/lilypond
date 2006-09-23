@@ -323,7 +323,7 @@ Align_interface::add_element (Grob *me, Grob *element)
   SCM sym = axis_offset_symbol (a);
   SCM proc = axis_parent_positioning (a);
     
-  element->internal_set_property (sym, proc);
+  element->set_property (sym, proc);
   Axis_group_interface::add_element (me, element);
 }
 

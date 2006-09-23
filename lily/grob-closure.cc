@@ -37,8 +37,7 @@ add_offset_callback (Grob *g, SCM proc, Axis a)
       && !ly_is_procedure (data)
       && !is_simple_closure (data))
     {
-      g->internal_set_property (axis_offset_symbol (a),
-				proc);
+      g->set_property (axis_offset_symbol (a), proc);
       return ;
     }
 
@@ -53,8 +52,7 @@ add_offset_callback (Grob *g, SCM proc, Axis a)
     proc = ly_make_simple_closure (scm_list_1 (proc));
   
   SCM expr = scm_list_3 (plus, proc, data);
-  g->internal_set_property (axis_offset_symbol (a),
-			    ly_make_simple_closure (expr));
+  g->set_property (axis_offset_symbol (a), ly_make_simple_closure (expr));
 }
 
 
@@ -81,9 +79,9 @@ chain_offset_callback (Grob *g, SCM proc, Axis a)
     data = scm_from_int (0);
   
   SCM expr = scm_list_2 (proc, data);
-  g->internal_set_property (axis_offset_symbol (a),
-			    
-			    // twice: one as a wrapper for grob property routines,
-			    // once for the actual delayed binding. 
-			    ly_make_simple_closure (ly_make_simple_closure (expr)));
+  g->set_property (axis_offset_symbol (a),
+		   
+		   // twice: one as a wrapper for grob property routines,
+		   // once for the actual delayed binding. 
+		   ly_make_simple_closure (ly_make_simple_closure (expr)));
 }

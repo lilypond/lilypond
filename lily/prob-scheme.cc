@@ -16,7 +16,7 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
   SCM_ASSERT_TYPE (ps, obj, SCM_ARG1, __FUNCTION__, "Prob");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
-  ps->internal_set_property (sym, value);
+  ps->set_property (sym, value);
   return SCM_UNSPECIFIED;
 }
 
@@ -70,7 +70,7 @@ LY_DEFINE (ly_make_prob, "ly:make-prob",
       SCM sym = scm_car (s);
       SCM val = scm_cadr (s);
 
-      pr->internal_set_property (sym, val);
+      pr->set_property (sym, val);
     }
   
   return pr->unprotect ();
