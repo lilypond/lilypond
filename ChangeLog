@@ -1,3 +1,8 @@
+2006-09-23  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/page-spacing.cc (min_page_count): by running the loop
+	backwards, we can calculate ragged_last properly.
+
 2006-09-22  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* ly/titling-init.ly (scoreTitleMarkup): Rename (typo!?)

@@ -341,27 +341,30 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 }
 
 static vsize
-min_page_count (vector<Line_details> const &lines, Real page_height, bool ragged)
+min_page_count (vector<Line_details> const &lines, Real page_height, bool ragged, bool ragged_last)
 {
   vsize ret = 1;
   Real cur_rod_height = 0;
 
-  for (vsize i = 0; i < lines.size (); i++)
+  assert (lines.size ());
+  for (vsize i = lines.size (); i--;)
     {
+      bool rag = ragged || (ragged_last && ret == 1);
       Real ext_len = lines[i].extent_.length ();
       Real next_height = cur_rod_height + ext_len
-	+ (ragged ? lines[i].space_ : 0)
-	+ ((cur_rod_height > 0) ? lines[i-1].padding_: 0);
+	+ (rag ? lines[i].space_ : 0)
+	+ ((cur_rod_height > 0) ? lines[i].padding_: 0);
 
       if ((next_height > page_height && cur_rod_height > 0)
 	  || (i > 0 && lines[i-1].page_permission_ == ly_symbol2scm ("force")))
 	{
 	  ret++;
-	  cur_rod_height = ext_len + (ragged ? lines[i].space_ : 0);
+	  cur_rod_height = ext_len + (rag ? lines[i].space_ : 0);
 	}
       else
 	cur_rod_height = next_height;
     }
+
   return ret;
 }
 
@@ -373,7 +376,7 @@ space_systems_on_min_pages (vector<Line_details> const &lines,
 			    bool ragged_last)
 {
   vector<Line_details> compressed_lines = compress_lines (lines);
-  vsize min_p_count = min_page_count (compressed_lines, page_height, ragged);
+  vsize min_p_count = min_page_count (compressed_lines, page_height, ragged, ragged_last);
   Spacing_result ret;
 
   if (min_p_count == 1)
@@ -425,7 +428,7 @@ space_systems_on_best_pages (vector<Line_details> const &lines,
 			     bool ragged_last)
 {
   vector<Line_details> compressed_lines = compress_lines (lines);
-  vsize min_p_count = min_page_count (compressed_lines, page_height, ragged);
+  vsize min_p_count = min_page_count (compressed_lines, page_height, ragged, ragged_last);
 
   Page_spacer ps (compressed_lines, page_height, ragged, ragged_last);
   Spacing_result best = ps.solve (min_p_count);
