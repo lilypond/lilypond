@@ -2471,7 +2471,7 @@ void
 set_music_properties (Music *p, SCM a)
 {
   for (SCM k = a; scm_is_pair (k); k = scm_cdr (k))
- 	p->internal_set_property (scm_caar (k), scm_cdar (k));
+ 	p->set_property (scm_caar (k), scm_cdar (k));
 }
 
 

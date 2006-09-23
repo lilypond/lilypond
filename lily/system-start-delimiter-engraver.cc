@@ -76,8 +76,7 @@ void
 Bracket_nesting_group::create_grobs (Engraver *engraver, SCM default_type)
 {
   SCM type = scm_is_symbol (symbol_) ? symbol_ : default_type;
-  delimiter_ = make_spanner_from_properties (engraver, type,
-					     SCM_EOL, ly_symbol2string (type).c_str ());
+  delimiter_ = engraver->make_spanner (ly_symbol2string (type).c_str (), SCM_EOL);
 
   for (vsize i = 0 ; i < children_.size (); i++)
     {

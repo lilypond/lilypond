@@ -34,10 +34,10 @@ Axis_group_interface::add_element (Grob *me, Grob *e)
       if (!e->get_parent (a))
 	e->set_parent (me, a);
 
-      e->internal_set_object ((a == X_AXIS)
-			      ? ly_symbol2scm ("axis-group-parent-X")
-			      : ly_symbol2scm ("axis-group-parent-Y"),
-			      me->self_scm ());
+      e->set_object ((a == X_AXIS)
+		     ? ly_symbol2scm ("axis-group-parent-X")
+		     : ly_symbol2scm ("axis-group-parent-Y"),
+		     me->self_scm ());
     }
 
   /* must be ordered, because Align_interface also uses

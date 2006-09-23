@@ -69,7 +69,7 @@ Volta_repeat_iterator::add_repeat_command (SCM what)
       && current_reps == SCM_EOL || scm_is_pair (current_reps))
     {
       current_reps = scm_cons (what, current_reps);
-      where->internal_set_property (reps, current_reps);
+      where->set_property (reps, current_reps);
     }
 }
 

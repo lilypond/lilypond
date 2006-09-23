@@ -99,7 +99,11 @@ Prob::internal_get_property (SCM sym) const
 }
 
 void
-Prob::internal_set_property (SCM sym, SCM val) 
+#ifndef NDEBUG
+Prob::internal_set_property (SCM sym, SCM val, char const *file, int line, char const *fun) 
+#else
+Prob::internal_set_property (SCM sym, SCM val)
+#endif
 {
   if (do_internal_type_checking_global)
     type_check_assignment (sym, val);

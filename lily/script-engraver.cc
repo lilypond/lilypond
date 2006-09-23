@@ -81,7 +81,7 @@ copy_property (Grob *g, SCM sym, SCM alist)
     {
       SCM entry = scm_assoc (sym, alist);
       if (scm_is_pair (entry))
-	g->internal_set_property (sym, scm_cdr (entry));
+	g->set_property (sym, scm_cdr (entry));
     }
 }
 
@@ -133,7 +133,7 @@ make_script_from_event (Grob *p,  Context *tg,
       SCM preset = p->get_property_data (sym);
       if (val == SCM_EOL
 	  || scm_call_1 (type, preset) == SCM_BOOL_F)
-	p->internal_set_property (sym, val);
+	p->set_property (sym, val);
     }
 
   if (!priority_found)

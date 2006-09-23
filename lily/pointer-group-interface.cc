@@ -42,7 +42,7 @@ Pointer_group_interface::get_grob_array (Grob *me, SCM sym)
     {
       scm_arr = Grob_array::make_array ();
       arr = unsmob_grob_array (scm_arr);
-      me->internal_set_object (sym, scm_arr);
+      me->set_object (sym, scm_arr);
     }
   return arr;
 }

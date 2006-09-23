@@ -33,7 +33,7 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
       for (SCM s = ev->get_property ("tweaks");
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
-	  info.grob ()->internal_set_property (scm_caar (s), scm_cdar (s));
+	  info.grob ()->set_property (scm_caar (s), scm_cdar (s));
 	}
     }
 }

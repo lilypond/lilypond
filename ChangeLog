@@ -1,3 +1,40 @@
+2006-09-24  Joe Neeman  <joeneeman@gmail.com>
+	* lily/grob-property.cc: add scm debugging hooks into
+	property modification
+
+	* lily/context-property.cc:
+	* lily/engraver.cc:
+	rename make_foo_from_properties to internal_make_foo and
+	move it from context-property.cc to a member function of
+	Engraver.
+
+	* lily/include/lily-guile-macros.hh:
+	overload ly_symbol2scm macro so that there is no more need
+	to use internal_foo
+
+	* lily/volta-repeat-iterator.cc:
+	* lily/tweak-engraver.cc:
+	* lily/tuplet-bracket.cc:
+	* lily/span-bar-engraver.cc:
+	* lily/script-engraver.cc:
+	* lily/prob-scheme.cc:
+	* lily/pointer-group-interface.cc:
+	* lily/parser.yy:
+	* lily/grob-scheme.cc:
+	* lily/grob-property.cc:
+	* lily/context.cc:
+	* lily/context-property.cc:
+	* lily/break-substitution.cc:
+	* lily/break-align-engraver.cc:
+	* lily/axis-group-interface.cc:
+	* lily/align-interface.cc:
+	remove calls to internal_FOO
+
+	* lily/system-start-delimiter-engraver.cc:
+	* lily/parenthesis-engraver.cc:
+	* lily/accidental-engraver.cc:
+	remove calls to make_foo_from_properties
+
 2006-09-23  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/programming-iterfaces.itely: fix

@@ -398,11 +398,7 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
     level, so that we get the property settings for
     Accidental from the respective Voice.
   */
-  Grob *a
-    = make_grob_from_properties (trans,
-				 ly_symbol2scm ("Accidental"),
-				 note_head->self_scm (),
-				 "Accidental");
+  Grob *a = trans->make_item ("Accidental", note_head->self_scm ());
 
   /*
     We add the accidentals to the support of the arpeggio,
@@ -438,11 +434,7 @@ Accidental_engraver::make_suggested_accidental (Stream_event *note,
 						Engraver *trans)
 {
   (void) note;
-  Grob *a
-    = make_grob_from_properties (trans,
-				 ly_symbol2scm ("AccidentalSuggestion"),
-				 note_head->self_scm (),
-				 "AccidentalSuggestion");
+  Grob *a = trans->make_item ("AccidentalSuggestion", note_head->self_scm ());
 
   Side_position_interface::add_support (a, note_head);
   if (Grob *stem = unsmob_grob (a->get_object ("stem")))

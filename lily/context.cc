@@ -238,7 +238,7 @@ Context::set_property_from_event (SCM sev)
       if (val != SCM_EOL)
 	ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
       if (ok)
-	internal_set_property (sym, val);
+	set_property (sym, val);
     }
 }
 
@@ -444,7 +444,7 @@ Context::internal_send_stream_event (SCM type, Input *origin, SCM props[])
   Stream_event *e = new Stream_event (type, origin);
   for (int i = 0; props[i]; i += 2)
     {
-      e->internal_set_property (props[i], props[i+1]);
+      e->set_property (props[i], props[i+1]);
     }
   event_source_->broadcast (e);
   e->unprotect ();
@@ -469,11 +469,14 @@ Context::add_alias (SCM sym)
 }
 
 void
-Context::internal_set_property (SCM sym, SCM val)
-{
 #ifndef NDEBUG
+Context::internal_set_property (SCM sym, SCM val, char const *file, int line, char const *fun)
+{
   if (do_internal_type_checking_global)
     assert (type_check_assignment (sym, val, ly_symbol2scm ("translation-type?")));
+#else
+Context::internal_set_property (SCM sym, SCM val)
+{
 #endif
 
   properties_dict ()->set (sym, val);
@@ -723,7 +726,7 @@ measure_position (Context const *context)
 void
 set_context_property_on_children (Context *trans, SCM sym, SCM val)
 {
-  trans->internal_set_property (sym, ly_deep_copy (val));
+  trans->set_property (sym, ly_deep_copy (val));
   for (SCM p = trans->children_contexts (); scm_is_pair (p); p = scm_cdr (p))
     {
       Context *trg = unsmob_context (scm_car (p));

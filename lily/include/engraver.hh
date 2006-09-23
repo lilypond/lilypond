@@ -18,6 +18,8 @@
 */
 class Engraver : public Translator
 {
+  Grob *internal_make_grob (SCM sym, SCM cause, char const *name,
+			    char const *f, int l, char const *fun);
 
   friend class Engraver_group;
 protected:
@@ -39,18 +41,22 @@ public:
   void announce_grob (Grob *, SCM cause);
   void announce_end_grob (Grob *, SCM cause);
 
+  Item *internal_make_item (SCM sym, SCM cause, char const *name,
+			    char const *f, int l, char const *fun);
+  Spanner *internal_make_spanner (SCM sym, SCM cause, char const *name,
+				  char const *f, int l, char const *fun);
+  Paper_column *internal_make_column (SCM sym, char const *name,
+				      char const *f, int l, char const *fun);
+
   /**
      override other ctor
   */
   TRANSLATOR_DECLARATIONS (Engraver);
 };
 
-#define make_item(x, cause) make_item_from_properties (this, ly_symbol2scm (x), cause, x)
-#define make_spanner(x, cause) make_spanner_from_properties (this, ly_symbol2scm (x), cause, x)
-#define make_paper_column(x) make_paper_column_from_properties (this, ly_symbol2scm (x), x)
-Grob *make_grob_from_properties (Engraver *tr, SCM symbol, SCM cause, char const *name);
-Item *make_item_from_properties (Engraver *tg, SCM x, SCM cause, char const *name);
-Spanner *make_spanner_from_properties (Engraver *tg, SCM x, SCM cause, char const *name);
-Paper_column *make_paper_column_from_properties (Engraver *tg, SCM x, char const *name);
+#define make_item(x, cause) internal_make_item (ly_symbol2scm (x), cause, x, __FILE__, __LINE__, __FUNCTION__)
+#define make_spanner(x, cause) internal_make_spanner (ly_symbol2scm (x), cause, x, __FILE__, __LINE__, __FUNCTION__)
+#define make_paper_column(x) internal_make_column (ly_symbol2scm (x), x, __FILE__, __LINE__, __FUNCTION__)
+
 
 #endif // ENGRAVER_HH
