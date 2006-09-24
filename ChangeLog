@@ -1,4 +1,10 @@
 2006-09-24  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/paper-book.cc (get_system_specs):
+	(set_system_penalty): fix breakbefore.
+	We used to set a penalty on the system after the break, now we
+	set a permission on the system before the break
+
 	* lily/grob-property.cc: add scm debugging hooks into
 	property modification
 
