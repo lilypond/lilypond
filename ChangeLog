@@ -6,7 +6,7 @@
 	ignoreFiguredBassRest is not set.
 
 	* scm/define-context-properties.scm
-	(all-user-translation-properties): add ignoreFiguredBassRest
+	(all-user-translation-properties): add ignoreFiguredBassRest property
 
 2006-09-24  Joe Neeman  <joeneeman@gmail.com>
 
