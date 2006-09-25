@@ -251,6 +251,7 @@ get accidentals.")
 highest pitch on the instrument. This used by the automatic string
 selector for tab notation.")
 
+     (ignoreFiguredBassRest ,boolean? "Don't swallow rest events.")
      (ignoreBarChecks ,boolean? "Ignore bar checks")
      (ignoreMelismata ,boolean? "Ignore melismata for this @internalsref{Lyrics} line.")
 
