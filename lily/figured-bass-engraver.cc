@@ -129,6 +129,7 @@ Figured_bass_engraver::start_translation_timestep ()
   new_events_.clear ();
   for (vsize i = 0; i < groups_.size (); i++)
     groups_[i].current_event_ = 0;
+
   continuation_ = false;
 }
 
@@ -136,8 +137,11 @@ IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, rest);
 void
 Figured_bass_engraver::listen_rest (Stream_event *ev)
 {
-  new_event_found_ = true;
-  ASSIGN_EVENT_ONCE (rest_event_, ev);
+  if (to_boolean (get_property ("ignoreFiguredBassRest")))
+    {
+      new_event_found_ = true;
+      ASSIGN_EVENT_ONCE (rest_event_, ev);
+    }
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, bass_figure);
@@ -476,7 +480,8 @@ ADD_TRANSLATOR (Figured_bass_engraver,
 		"BassFigureLine "
 		,
 		/* accept */
-		"bass-figure-event rest-event",
+		"bass-figure-event "
+		"rest-event",
 
 		/* read */
 		"figuredBassAlterationDirection "
@@ -484,6 +489,7 @@ ADD_TRANSLATOR (Figured_bass_engraver,
 		"figuredBassFormatter "
 		"implicitBassFigures "
 		"useBassFigureExtenders "
+		"ignoreFiguredBassRest "
 		,
 
 		/* write */

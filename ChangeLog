@@ -1,3 +1,13 @@
+2006-09-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* ly/engraver-init.ly: set ignoreFiguredBassRest in Staff context.
+
+	* lily/figured-bass-engraver.cc: only listen to rest events if
+	ignoreFiguredBassRest is not set.
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add ignoreFiguredBassRest
+
 2006-09-24  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/paper-book.cc (get_system_specs):
