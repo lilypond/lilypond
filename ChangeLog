@@ -1,3 +1,6 @@
+2006-09-26  Erik Sandberg  <mandolaerik@gmail.com>
+	* lily/part-combine-iterator.cc: solo1-event -> solo-one-event
+
 2006-09-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/global-context.cc (run_iterator_on_me): break out of loop

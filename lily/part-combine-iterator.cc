@@ -198,7 +198,7 @@ Part_combine_iterator::solo1 ()
 	{
 	  static Stream_event *event;
 	  if (!event)
-	    event = new Stream_event (ly_symbol2scm ("solo1-event"));
+	    event = new Stream_event (ly_symbol2scm ("solo-one-event"));
 
 	  first_iter_->get_outlet ()->event_source ()->broadcast (event);
 	}
@@ -281,7 +281,7 @@ Part_combine_iterator::solo2 ()
 	{
 	  static Stream_event *event;
 	  if (!event)
-	    event = new Stream_event (ly_symbol2scm ("solo2-event"));
+	    event = new Stream_event (ly_symbol2scm ("solo-two-event"));
 
 	  second_iter_->get_outlet ()->event_source ()->broadcast (event);
 	  playing_state_ = SOLO2;
