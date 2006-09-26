@@ -1366,8 +1366,8 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
     status = 0
     def my_system (cmd):
         status = ly.system (cmd,
-                  be_verbose=global_options.verbose, 
-                  progress_p=1)
+                            be_verbose=global_options.verbose, 
+                            progress_p=1)
 
     if global_options.format in (HTML, TEXINFO):
         cmd += ' --formats=png '
