@@ -202,6 +202,7 @@ include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
      (font-shape ,symbol? "Select the shape of a font. Choices include @code{upright},
 @code{italic}, @code{caps}.")
 
+     (forced ,boolean? "manually forced accidental")
      (forced-distance ,ly:dimension? "A fixed distance between object
 reference points in an alignment.")
 

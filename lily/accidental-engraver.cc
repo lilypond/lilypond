@@ -333,8 +333,8 @@ Accidental_engraver::process_acknowledged ()
 					     pitch, origin,
 					     cautionaries, barnum);
 
-	  bool cautionary = to_boolean (note->get_property ("cautionary"));
 
+	  bool cautionary = to_boolean (note->get_property ("cautionary"));
 	  if (num_caut > num)
 	    {
 	      num = num_caut;
@@ -342,7 +342,8 @@ Accidental_engraver::process_acknowledged ()
 	      cautionary = true;
 	    }
 
-	  if (num == 0 && to_boolean (note->get_property ("force-accidental")))
+	  bool forced = to_boolean (note->get_property ("force-accidental"));
+	  if (num == 0 && forced)
 	    num = 1;
 
 	  /* Cannot look for ties: it's not guaranteed that they reach
@@ -350,6 +351,10 @@ Accidental_engraver::process_acknowledged ()
 	  if (num
 	      && !note->in_event_class ("trill-span-event"))
 	    create_accidental (&accidentals_[i], num > 1, cautionary);
+
+
+	  if (forced || cautionary)
+	    accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
 	}
     }
 }
