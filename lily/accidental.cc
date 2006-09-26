@@ -47,8 +47,12 @@ Accidental_interface::after_line_breaking (SCM smob)
   Grob *me = unsmob_grob (smob);
   Grob *tie = unsmob_grob (me->get_object ("tie"));
 
-  if (tie && !tie->original ())
-    me->suicide ();
+  if (tie && !tie->original ()
+      && !to_boolean (me->get_property ("forced")))
+    {
+      me->suicide ();
+    }
+ 
   return SCM_UNSPECIFIED;
 }
 
@@ -256,6 +260,7 @@ ADD_INTERFACE (Accidental_interface, "accidental-interface",
 	       "avoid-slur "
 	       "cautionary "
 	       "cautionary-style "
+	       "forced "
 	       "style "
 	       "tie "
 	       );

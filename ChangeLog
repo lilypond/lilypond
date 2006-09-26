@@ -1,3 +1,15 @@
+2006-09-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/define-grob-properties.scm (all-user-grob-properties): add
+	forced property.
+
+	* lily/accidental.cc (after_line_breaking): read forced property.
+
+	* lily/accidental-engraver.cc (process_acknowledged): set 'forced
+	property.
+
+	* input/regression/accidental-forced-tie.ly:  new file.
+
 2006-09-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* ly/engraver-init.ly: set ignoreFiguredBassRest in Staff context.
@@ -23,7 +35,7 @@
 	rename make_foo_from_properties to internal_make_foo and
 	move it from context-property.cc to a member function of
 	Engraver.
-
+	
 	* lily/include/lily-guile-macros.hh:
 	overload ly_symbol2scm macro so that there is no more need
 	to use internal_foo
