@@ -1,5 +1,8 @@
 2006-09-26  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/global-context.cc (run_iterator_on_me): break out of loop
+	if moment doesn't increase.
+
 	* scm/define-grob-properties.scm (all-user-grob-properties): add
 	forced property.
 

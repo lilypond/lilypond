@@ -140,6 +140,13 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
       if (w.main_part_.is_infinity () || w > final_mom)
 	break;
 
+      if (w == prev_mom_)
+	{
+	  programming_error ("Moment is not increasing. Aborting interpretation.");
+	  break ;
+	}
+
+      
       if (first)
 	{
 	  /*
