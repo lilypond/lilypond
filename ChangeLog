@@ -1,4 +1,10 @@
+2006-09-26  Pal Benko  <benko.pal@gmail.com>
+
+	* scm/parser-clef.scm: add petrucci-f3 and -f4 clefs
+	(the latter is the same as petrucci-f which is kept for compatibility)
+
 2006-09-26  Erik Sandberg  <mandolaerik@gmail.com>
+	
 	* lily/part-combine-iterator.cc: solo1-event -> solo-one-event
 
 2006-09-26  Han-Wen Nienhuys  <hanwen@lilypond.org>

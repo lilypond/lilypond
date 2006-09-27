@@ -60,6 +60,8 @@
     ("petrucci-c3" . ("clefs.petrucci.c3" 0 0))
     ("petrucci-c4" . ("clefs.petrucci.c4" 2 0))
     ("petrucci-c5" . ("clefs.petrucci.c5" 4 0))
+    ("petrucci-f3" . ("clefs.petrucci.f" 0 0))
+    ("petrucci-f4" . ("clefs.petrucci.f" 2 0))
     ("petrucci-f" . ("clefs.petrucci.f" 2 0))
     ("petrucci-g" . ("clefs.petrucci.g" -2 0))))
 
