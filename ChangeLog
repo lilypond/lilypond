@@ -1,3 +1,7 @@
+2006-09-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION (PACKAGE_NAME): bump version.
+
 2006-09-26  Pal Benko  <benko.pal@gmail.com>
 
 	* scm/parser-clef.scm: add petrucci-f3 and -f4 clefs
