@@ -189,11 +189,12 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   SCM book = book_->self_scm ();
   bool ragged_all = to_boolean (book_->paper_->c_variable ("ragged-bottom"));
   bool ragged_last = to_boolean (book_->paper_->c_variable ("ragged-last-bottom"));
+  int first_page_number = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
 
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
-      SCM page_num = scm_from_int (i + 1);
+      SCM page_num = scm_from_int (i + first_page_number);
       SCM last = scm_from_bool (i == lines_per_page.size () - 1);
       SCM ragged = scm_from_bool (ragged_all || (to_boolean (last) && ragged_last));
       SCM line_count = scm_from_int (lines_per_page[i]);

@@ -1,3 +1,8 @@
+2006-09-29  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/page-breaking.cc (make_pages): honour the first-page-number
+	property
+
 2006-09-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PACKAGE_NAME): bump version.
