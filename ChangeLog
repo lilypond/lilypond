@@ -1,5 +1,9 @@
 2006-09-30  Joe Neeman  <joeneeman@gmail.com>
 
+	* lily/page-turn-engraver.cc (breakable_column): remove an always-true
+	conditional
+	(breakable_column): typo
+
 	* lily/source-file.cc (get_line): fix off-by-one error
 	and clean up some of the logic
 

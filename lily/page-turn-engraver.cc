@@ -59,7 +59,7 @@ public:
       ret.push_back (Page_turn_event (intersect[LEFT], intersect[RIGHT], permission_, new_pen));
 
     if (penalty.duration_[RIGHT] < duration_[RIGHT])
-      ret.push_back (Page_turn_event (penalty.duration_[RIGHT], duration_[LEFT], permission_, penalty_));
+      ret.push_back (Page_turn_event (penalty.duration_[RIGHT], duration_[RIGHT], permission_, penalty_));
 
     return ret;
   }
@@ -112,12 +112,9 @@ Page_turn_engraver::breakable_column (Page_turn_event const &brk)
 
   if (start == breakable_moments_.size ())
     return NULL;
-  if (end == breakable_moments_.size () || breakable_moments_[end] > brk.duration_[RIGHT])
-    {
-      if (end == 0)
-	return NULL;
-      end--;
-    }
+  if (end == 0)
+    return NULL;
+  end--;
 
   for (vsize i = end + 1; i-- > start;)
     if (special_barlines_[i])
