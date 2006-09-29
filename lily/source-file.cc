@@ -326,23 +326,13 @@ Source_file::get_line (char const *pos_str0) const
   if (!newline_locations_.size ())
     return 1;
 
-  vsize lo = 0;
-  vsize hi = newline_locations_.size ();
+  /* this will find the '\n' character at the end of our line */
+  vsize lo = lower_bound (newline_locations_,
+			  pos_str0,
+			  less<char const*> ());
 
-  if (newline_locations_[lo] > pos_str0)
-    return 1;
-
-  if (newline_locations_[hi - 1] < pos_str0)
-    return hi;
-
-  lo = lower_bound (newline_locations_,
-		    pos_str0,
-		    less<char const*> (),
-		    lo, hi);
-
-  if (*pos_str0 == '\n')
-    lo--;
-  return lo + 2 + line_offset_;
+  /* the return value will be indexed from 1 */
+  return lo + 1 + line_offset_;
 }
 
 void
