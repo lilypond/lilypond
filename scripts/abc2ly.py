@@ -617,6 +617,7 @@ def fix_lyric(str):
 def slyrics_append(a):
     a = re.sub ( '_', ' _ ', a)        # _ to ' _ '
     a = re.sub ( '-', '- ', a)        # split words with -
+    a = re.sub ( ' - - ', ' -- ', a)  # unless was originally " -- "
     a = re.sub ( '\\\\- ', '-', a)         # unless \-
     a = re.sub ( '~', '_', a)        # ~ to space('_')
     a = re.sub ( '\*', '_ ', a)        # * to to space
@@ -889,6 +890,8 @@ artic_tbl = {
     '~' : '^"~" ',
     'J' : '',                # ignore slide
     'R' : '',                # ignore roll
+    'S' : '^\\segno',
+    'O' : '^\\coda',
     'v' : '^\\downbow'
 }
     

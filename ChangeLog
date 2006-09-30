@@ -1,3 +1,10 @@
+2006-09-30  Laura Conrad <lconrad@laymusic.org>
+
+	* abc2ly.py adds segno (S) and Coda (O) to articulations.
+	
+	* abc2ly.py fix so that entering " -- " will translate to a -- in
+	the lilypond instead of a " - - "
+	
 2006-09-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/align-interface.cc: fix typo
@@ -55,6 +62,7 @@
 	* lily/source-file.cc (get_line): fix off-by-one error
 	and clean up some of the logic
 
+>>>>>>> 1.5342
 2006-09-29  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/page-breaking.cc (make_pages): honour the first-page-number
