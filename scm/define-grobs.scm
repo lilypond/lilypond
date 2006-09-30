@@ -1300,7 +1300,6 @@
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset . , ly:self-alignment-interface::centered-on-x-parent)
-	
 
 	(stencil . ,ly:script-interface::print)
 	(direction . ,ly:script-interface::calc-direction)

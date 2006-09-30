@@ -52,6 +52,7 @@ class New_fingering_engraver : public Engraver
   vector<Grob*> heads_;
   Grob *stem_;
 
+  void position_all ();
 public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
 protected:
@@ -120,10 +121,9 @@ New_fingering_engraver::add_script (Grob *head,
   if (g)
     {
       ft.script_ = g;
+      ft.script_->set_parent (head, X_AXIS);
 
       articulations_.push_back (ft);
-
-      ft.script_->set_parent (head, X_AXIS);
     }
 }
 
@@ -308,6 +308,15 @@ New_fingering_engraver::position_scripts (SCM orientations,
 void
 New_fingering_engraver::stop_translation_timestep ()
 {
+  position_all();
+  stem_ = 0;
+  heads_.clear ();
+}
+
+
+void
+New_fingering_engraver::position_all ()
+{
   if (fingerings_.size ())
     {
       position_scripts (get_property ("fingeringOrientations"),
@@ -334,12 +343,7 @@ New_fingering_engraver::stop_translation_timestep ()
 
       if (stem_ && to_boolean (script->get_property ("add-stem-support")))
 	Side_position_interface::add_support (script, stem_);
-
-
     }
-
-  stem_ = 0;
-  heads_.clear ();
   articulations_.clear ();
 }
 
@@ -347,6 +351,8 @@ New_fingering_engraver::New_fingering_engraver ()
 {
   stem_ = 0;
 }
+
+
 ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
 

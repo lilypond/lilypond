@@ -9,6 +9,8 @@
 #ifndef INTERNATIONAL_HH
 #define INTERNATIONAL_HH
 
+#include <stdarg.h>
+
 #include "std-string.hh"
 
 /**

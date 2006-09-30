@@ -170,7 +170,7 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
 		      "System ",
 
 		      /* accept */
-		      "break-event",
+		      "",
 		      
 		      /* read */
 		      "currentMusicalColumn "

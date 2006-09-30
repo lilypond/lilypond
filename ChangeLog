@@ -1,3 +1,20 @@
+2006-09-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* input/regression/repeat-percent-grace.ly: new file.
+
+	* lily/percent-repeat-engraver.cc (start_translation_timestep):
+	remember first currentCommandColumn of a grace run. Fixes issue 70.
+
+	* lily/percent-repeat-iterator.cc (class Percent_repeat_iterator):
+	move class definition to CC file.
+
+	* lily/multi-measure-rest.cc (percent): use robust_relative_extent()
+
+	* lily/slash-repeat-engraver.cc (listen_percent): don't warn for
+	measure-long  repeats.
+
+	* flower/include/international.hh: include stdarg.h
+
 2006-09-30  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/page-turn-page-breaking.cc (calc_demerits): now that we allow
