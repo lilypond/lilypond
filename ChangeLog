@@ -1,5 +1,23 @@
 2006-09-30  Joe Neeman  <joeneeman@gmail.com>
 
+	* lily/page-turn-page-breaking.cc (calc_demerits): now that we allow
+	put_systems_on_pages to return an empty result, we need to assign
+	demerits properly in that case.
+	(put_systems_on_pages): Make the number of pages depend on the
+	evenness of page_number. Add auto-first-page-number.
+	(calc_subproblem): ensure that the page-number is even for the
+	left-hand page. Warn if the first page-turn doesn't fit onto the
+	first (right-hand) page.
+
+	* lily/page-spacing.cc (solve): bug: demerits_ would always be inf
+	(min_page_count): make this publicly accessible
+	(min_page_count): fix a bug when there are forced page breaks that
+	was introduced when I made this loop run backwards
+	(space_systems_on_n_pages, space_systems_on_n_or_one_more_pages):
+	replace space_systems_on_min_pages with these two. The logic in
+	space_systems_on_min_pages was getting too convoluted and is better
+	contained in page-turn-page-breaking.
+
 	* lily/page-turn-engraver.cc (breakable_column): remove an always-true
 	conditional
 	(breakable_column): typo

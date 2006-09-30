@@ -65,12 +65,24 @@ private:
   bool calc_subproblem (vsize page, vsize lines);
 };
 
+vsize
+min_page_count (vector<Line_details> const &lines,
+		Real page_height, bool ragged, bool ragged_last);
+
 Spacing_result
-space_systems_on_min_pages (vector<Line_details> const&,
-			    Real page_height,
-			    Real odd_pages_penalty,
-			    bool ragged,
-			    bool ragged_last);
+space_systems_on_n_pages (vector<Line_details> const&,
+			  vsize n,
+			  Real page_height,
+			  bool ragged,
+			  bool ragged_last);
+
+Spacing_result
+space_systems_on_n_or_one_more_pages (vector<Line_details> const&,
+				      vsize n,
+				      Real page_height,
+				      Real odd_pages_penalty,
+				      bool ragged,
+				      bool ragged_last);
 Spacing_result
 space_systems_on_best_pages (vector<Line_details> const&,
 			     Real page_height,

@@ -10,6 +10,9 @@ in which case the turn will go after the special barline.
 \paper {
   #(define page-breaking ly:page-turn-breaking)
   paper-height = #70
+  auto-first-page-number = ##t
+  print-page-number = ##t
+  print-first-page-number = ##t
 }
 
 \layout {

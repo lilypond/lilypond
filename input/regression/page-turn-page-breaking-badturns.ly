@@ -10,6 +10,7 @@ should appear on 3 pages.
 \paper {
   #(define page-breaking ly:page-turn-breaking)
   paper-height = #70
+  print-page-number = ##t
 }
 
 \relative c' {
