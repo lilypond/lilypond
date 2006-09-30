@@ -48,7 +48,7 @@ Page_turn_page_breaking::calc_demerits (const Break_node &me)
   Real dem = me.force_ * me.force_ * page_weighting
            + me.line_force_ * me.line_force_
            + fabs (me.force_ - prev_f);
-  if (isinf (me.line_force_) || isinf (me.force_))
+  if (isinf (me.line_force_) || isinf (me.force_) || me.page_count_ == 0)
     dem = infinity_f;
 
   return dem + prev_dem + me.penalty_ + me.line_penalty_;
@@ -67,13 +67,48 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   Real page_h = page_height (1, false); // FIXME
   SCM force_sym = last ? ly_symbol2scm ("blank-last-page-force") : ly_symbol2scm ("blank-page-force");
   Real blank_force = robust_scm2double (book_->paper_->lookup_variable (force_sym), 0);
-  Spacing_result result = space_systems_on_min_pages (lines, page_h, blank_force, ragged_all, ragged_last);
+  int min_p_count = min_page_count (lines, page_h, ragged_all, ragged_last);
+  bool auto_first = to_boolean (book_->paper_->c_variable ("auto-first-page-number"));
+
+  /* If [START, END] does not contain an intermediate
+     breakpoint, we may need to consider solutions that result in a bad turn.
+     In this case, we won't abort if the min_page_count is too big */
+  if (start < end - 1 && min_p_count > 2)
+    return Break_node ();
+
+  /* if PAGE-NUMBER is odd, we are starting on a right hand page. That is, we
+     have the options
+     PAGE-NUMBER odd:
+       - even number of pages + a blank page
+       - odd number of pages
+     PAGE-NUMBER even:
+       - odd number of pages + a blank page
+       - even number of pages
+
+     No matter which case PAGE-NUMBER falls into, we take the second choice if
+     min_p_count has that evenness. (For example, if PAGE-NUMBER is even and
+     min_p_count is even, we don't even consider the blank page option). */
+
+  Spacing_result result;
+  if (start == 0 && auto_first)
+    {
+      if (min_p_count % 2)
+	result = space_systems_on_n_or_one_more_pages (lines, min_p_count, page_h, 0, ragged_all, ragged_last);
+      else
+	result = space_systems_on_n_pages (lines, min_p_count, page_h, ragged_all, ragged_last);
+    }
+  else if (page_number % 2 == min_p_count % 2)
+    result = space_systems_on_n_pages (lines, min_p_count, page_h, ragged_all, ragged_last);
+  else
+    result = space_systems_on_n_or_one_more_pages (lines, min_p_count, page_h, blank_force, ragged_all, ragged_last);
 
   Break_node ret;
   ret.prev_ = start - 1;
   ret.break_pos_ = end;
-  ret.first_page_number_ = page_number;
   ret.page_count_ = result.force_.size ();
+  ret.first_page_number_ = page_number;
+  if (auto_first && start == 0)
+    ret.first_page_number_ += 1 - (ret.page_count_ % 2);
   ret.force_ = 0;
   for (vsize i = 0; i < result.force_.size (); i++)
     ret.force_ += fabs (result.force_[i]);
@@ -95,6 +130,15 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   return ret;
 }
 
+/* "final page" meaning the number of the final right-hand page,
+   which always has an odd page number */
+vsize
+Page_turn_page_breaking::final_page_num (Break_node const &b)
+{
+  vsize end = b.first_page_number_ + b.page_count_;
+  return end + 1 - (end % 2);
+}
+
 void
 Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 {
@@ -113,14 +157,15 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       if (start > 0 && best.demerits_ < state_[start-1].demerits_)
         continue;
 
-      int p_num = 1;
+      int p_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
       if (start > 0)
         {
-          /* if the last node has an odd number of pages and is not the first page,
-             add a blank page */
-          int p_count = state_[start-1].page_count_;
-          int f_p_num = state_[start-1].first_page_number_;
-          p_num = f_p_num + p_count + ((f_p_num > 1) ? p_count % 2 : 0);
+	  /* except possibly for the first page, enforce the fact that first_page_number_
+	     should always be even (left hand page).
+	     TODO: are there different conventions in right-to-left languages?
+	  */
+	  p_num = state_[start-1].first_page_number_ + state_[start-1].page_count_;
+	  p_num += p_num % 2;
         }
 
       Line_division min_division;
@@ -145,16 +190,16 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 	      vector<Line_details> line = line_details (start, end, div[d]);
 
               cur = put_systems_on_pages (start, end, line, div[d], p_num);
+	      cur.demerits_ = calc_demerits (cur);
 
-              if (cur.page_count_ > 2 &&
-		  (start < end - 1 || (!isinf (this_start_best.demerits_)
-				       && cur.page_count_ + cur.page_count_ % 2
-				       > this_start_best.page_count_ + this_start_best.page_count_ % 2)))
+              if (isinf (cur.demerits_)
+		  || (cur.page_count_ > 2
+		      && (!isinf (this_start_best.demerits_))
+		      && final_page_num (cur) > final_page_num (this_start_best)))
                 {
                   ok_page = false;
                   break;
                 }
-	      cur.demerits_ = calc_demerits (cur);
 
               if (cur.demerits_ < this_start_best.demerits_)
                 {
@@ -175,6 +220,12 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
           assert (!isinf (best.demerits_) && start < end - 1);
           break;
         }
+
+      if (start == 0 && end == 1
+	  && this_start_best.first_page_number_ == 1
+	  && this_start_best.page_count_ > 1)
+	warning (_ ("couldn't fit the first page turn onto a single page. "
+		    "Consider setting first-page-number to an even number."));
 
       if (this_start_best.demerits_ < best.demerits_)
 	best = this_start_best;
@@ -234,9 +285,14 @@ Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems
       for (vsize j = 0; j < soln[i].page_count_; j++)
 	lines_per_page.push_back (soln[i].system_count_[j]);
 
-      if (i > 0 && i < soln.size () - 1 && soln[i].page_count_ % 2)
+      if (i < soln.size () - 1 && (soln[i].first_page_number_ + soln[i].page_count_) % 2)
 	/* add a blank page */
 	lines_per_page.push_back (0);
     }
+
+  /* this should only actually modify first-page-number if
+     auto-first-page-number was true. */
+  book_->paper_->set_variable (ly_symbol2scm ("first-page-number"),
+			       scm_from_int (soln[0].first_page_number_));
   return Page_breaking::make_pages (lines_per_page, systems);
 }

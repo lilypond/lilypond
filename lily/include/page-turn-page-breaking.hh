@@ -55,12 +55,14 @@ protected:
       line_penalty_ = line_force_ = 0;
       demerits_ = infinity_f;
       first_page_number_ = 0;
+      page_count_ = 0;
       too_many_lines_ = false;
     }
   };
 
   vector<Break_node> state_;
 
+  vsize final_page_num (Break_node const &b);
   Break_node put_systems_on_pages (vsize start,
 				   vsize end,
 				   vector<Line_details> const &lines,
