@@ -206,7 +206,9 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 				   ? scm_cdr (extra_space_handle)
 				   : SCM_EOL,
 				   extra_space);
-  
+
+  Real padding = robust_scm2double (me->get_property ("padding"),
+				    0.0);
   vector<Real> translates;
   for (vsize j = 0; j < elems.size (); j++)
     {
@@ -221,17 +223,20 @@ Align_interface::get_extents_aligned_translates (Grob *me,
       if (j)
 	dy = min (max (dy, threshold[SMALLER]), threshold[BIGGER]);
 
-      where += stacking_dir * (dy + extra_space / elems.size ());
+
+      where += stacking_dir * (dy + padding + extra_space / elems.size ());
       total.unite (dims[j] + where);
       translates.push_back (where);
     }
 
-  SCM offsets_handle = scm_assq (ly_symbol2scm ("alignment-offsets"), line_break_details);
+  SCM offsets_handle = scm_assq (ly_symbol2scm ("alignment-offsets"),
+				 line_break_details);
   if (scm_is_pair (offsets_handle))
     {
       vsize i = 0;
  
-      for (SCM s = scm_cdr (offsets_handle); scm_is_pair (s) && i < translates.size (); s = scm_cdr (s), i++)
+      for (SCM s = scm_cdr (offsets_handle);
+	   scm_is_pair (s) && i < translates.size (); s = scm_cdr (s), i++)
 	{
 	  if (scm_is_number (scm_car (s)))
 	    translates[i] = scm_to_double (scm_car (s));
@@ -375,12 +380,15 @@ ADD_INTERFACE (Align_interface,
 	       /*
 		 properties
 		*/
-	       "forced-distance "
-	       "stacking-dir "
 	       "align-dir "
-	       "threshold "
+	       "axes"
+	       "elements "
+	       "forced-distance "
+	       "padding "
 	       "positioning-done "
-	       "elements axes");
+	       "stacking-dir "
+	       "threshold "
+	       );
 
 struct Foobar
 {

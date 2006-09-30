@@ -42,6 +42,7 @@ Staff_collecting_engraver::acknowledge_end_staff_symbol (Grob_info gi)
 }
 
 #include "translator.icc"
+
 ADD_ACKNOWLEDGER (Staff_collecting_engraver, staff_symbol);
 ADD_END_ACKNOWLEDGER (Staff_collecting_engraver, staff_symbol);
 

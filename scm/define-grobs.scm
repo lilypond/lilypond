@@ -1877,6 +1877,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
 	(stacking-dir . -1)
+	(padding . 0.1) 
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface
 				axis-group-interface))))))
