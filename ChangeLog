@@ -1,5 +1,7 @@
 2006-09-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/align-interface.cc: fix typo
+
 	* lily/dynamic-text-spanner.cc (print): Add a special case for
 	trill spanner right sides. 
 
