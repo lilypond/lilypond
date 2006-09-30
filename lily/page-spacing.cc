@@ -91,26 +91,26 @@ compress_lines (const vector<Line_details> &orig)
 
   for (vsize i = 0; i < orig.size (); i++)
     {
-      if (i < orig.size () - 1 && orig[i].page_permission_ == SCM_EOL)
+      if (ret.size () && ret.back ().page_permission_ == SCM_EOL)
 	{
-	  Line_details compressed = orig[i+1];
-	  compressed.extent_[DOWN] = orig[i].extent_[DOWN];
-	  compressed.extent_[UP] = orig[i].extent_[UP] + orig[i+1].extent_.length () + orig[i].padding_;
-	  compressed.space_ += orig[i].space_;
-	  compressed.inverse_hooke_ += orig[i].inverse_hooke_;
+	  Line_details const &old = ret.back ();
+	  Line_details compressed = orig[i];
+	  compressed.extent_[DOWN] = old.extent_[DOWN];
+	  compressed.extent_[UP] = old.extent_[UP] + orig[i].extent_.length () + old.padding_;
+	  compressed.space_ += old.space_;
+	  compressed.inverse_hooke_ += old.inverse_hooke_;
 
 	  /* we don't need the force_ field for the vertical spacing,
-	     so we use force_ = -1 to signal that the line was compressed
-	     (and force_ = +1 otherwise).
+	     so we use force_ = n to signal that the line was compressed,
+	     reducing the number of lines by n (and force_ = 0 otherwise).
 	     This makes uncompression much easier. */
-	  compressed.force_ = -1;
-	  ret.push_back (compressed);
-	  i++;
+	  compressed.force_ = old.force_ + 1;
+	  ret.back () = compressed;
 	}
       else
 	{
 	  ret.push_back (orig[i]);
-	  ret.back ().force_ = 1;
+	  ret.back ().force_ = 0;
 	}
     }
   return ret;
@@ -130,8 +130,7 @@ uncompress_solution (vector<vsize> const &systems_per_page,
     {
       int compressed_count = 0;
       for (vsize j = start_sys; j < start_sys + systems_per_page[i]; j++)
-	if (compressed[j].force_ < 0)
-	  compressed_count++;
+	compressed_count += (int)compressed[j].force_;
 
       ret.push_back (systems_per_page[i] + compressed_count);
       start_sys += systems_per_page[i];
