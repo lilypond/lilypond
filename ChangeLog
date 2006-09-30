@@ -1,5 +1,13 @@
 2006-09-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/dynamic-text-spanner.cc (print): Add a special case for
+	trill spanner right sides. 
+
+	* scm/define-grobs.scm (all-grob-descriptions): set padding to 0.1
+
+	* lily/align-interface.cc (get_extents_aligned_translates): add
+	support for padding variable.
+
 	* lily/break-align-interface.cc (self_align_callback): oops: use
 	loop variable in guard.
 
