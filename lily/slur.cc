@@ -266,7 +266,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
  */
 void
 Slur::auxiliary_acknowledge_extra_object (Grob_info info,
-  vector<Grob*>& slurs, vector<Grob*>& end_slurs)
+					  vector<Grob*> &slurs,
+					  vector<Grob*> &end_slurs)
 {
   if (slurs.empty () && end_slurs.empty ())
     return;

@@ -3,7 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>, Erik Sandberg <mandolaerik@gmail.com>
+  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>, Erik Sandberg
+  <mandolaerik@gmail.com>
 */
 
 #include "bar-line.hh"
@@ -11,7 +12,6 @@
 #include "international.hh"
 #include "item.hh"
 #include "misc.hh"
-#include "percent-repeat-iterator.hh"
 #include "repeated-music.hh"
 #include "score-engraver.hh"
 #include "spanner.hh"
@@ -50,8 +50,11 @@ Slash_repeat_engraver::listen_percent (Stream_event *ev)
   
   if (get_event_length (ev) < meas_length)
     ASSIGN_EVENT_ONCE (slash_, ev);
-  else
-    ev->origin ()->warning (_ ("Slash repeat doesn't fit in one measure, junking"));
+
+  /*
+    don't warn if nothing happens: this can happen if there are whole
+    measure repeats.
+   */
 }
 
 void

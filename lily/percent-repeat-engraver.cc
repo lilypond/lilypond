@@ -14,7 +14,6 @@
 #include "international.hh"
 #include "item.hh"
 #include "misc.hh"
-#include "percent-repeat-iterator.hh"
 #include "repeated-music.hh"
 #include "side-position-interface.hh"
 #include "spanner.hh"
@@ -52,6 +51,10 @@ protected:
   Spanner *percent_;
   Spanner *percent_counter_;
 
+  
+  Grob *first_command_column_;
+  Moment command_moment_;
+  
 protected:
   virtual void finalize ();
   DECLARE_TRANSLATOR_LISTENER (percent);
@@ -65,8 +68,28 @@ Percent_repeat_engraver::Percent_repeat_engraver ()
 {
   percent_ = 0;
   percent_counter_ = 0;
-
   percent_event_ = 0;
+
+  first_command_column_ = 0;
+  command_moment_ = Moment (-1);
+}
+
+void
+Percent_repeat_engraver::start_translation_timestep ()
+{
+  if (now_mom ().main_part_ != command_moment_.main_part_)
+    {
+      first_command_column_ = unsmob_grob (get_property ("currentCommandColumn"));
+      command_moment_ = now_mom ();
+    }
+
+  if (stop_mom_.main_part_ == now_mom ().main_part_)
+    {
+      if (percent_)
+      	typeset_perc ();
+      percent_event_ = 0;
+      repeat_sign_type_ = UNKNOWN;
+    }
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Percent_repeat_engraver, percent);
@@ -114,9 +137,10 @@ Percent_repeat_engraver::process_music ()
 	{
 	  if (percent_)
 	    typeset_perc ();
+	  
 	  percent_ = make_spanner ("PercentRepeat", percent_event_->self_scm ());
 
-	  Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+	  Grob *col = first_command_column_;
 	  percent_->set_bound (LEFT, col);
 
 	  SCM count = percent_event_->get_property ("repeat-count");
@@ -181,7 +205,7 @@ Percent_repeat_engraver::typeset_perc ()
 {
   if (percent_)
     {
-      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+      Grob *col = first_command_column_;
 
       percent_->set_bound (RIGHT, col);
       percent_ = 0;
@@ -192,17 +216,7 @@ Percent_repeat_engraver::typeset_perc ()
     }
 }
 
-void
-Percent_repeat_engraver::start_translation_timestep ()
-{
-  if (stop_mom_.main_part_ == now_mom ().main_part_)
-    {
-      if (percent_)
-      	typeset_perc ();
-      percent_event_ = 0;
-      repeat_sign_type_ = UNKNOWN;
-    }
-}
+
 
 void
 Percent_repeat_engraver::stop_translation_timestep ()
