@@ -194,7 +194,9 @@
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 
 	(self-alignment-X . 1)
-	(break-align-symbol . left-edge)
+
+;; 
+;;	(break-align-symbol . left-edge)
 	(meta .
 	      ((class . Item)
 	       (interfaces . (side-position-interface

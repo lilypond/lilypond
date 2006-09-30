@@ -1,5 +1,8 @@
 2006-09-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/break-align-interface.cc (self_align_callback): oops: use
+	loop variable in guard.
+
 	* input/regression/repeat-percent-grace.ly: new file.
 
 	* lily/percent-repeat-engraver.cc (start_translation_timestep):
