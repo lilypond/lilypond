@@ -381,7 +381,7 @@ ADD_INTERFACE (Align_interface,
 		 properties
 		*/
 	       "align-dir "
-	       "axes"
+	       "axes "
 	       "elements "
 	       "forced-distance "
 	       "padding "
