@@ -1,3 +1,8 @@
+2006-10-02  Heikki Junes  <hjunes@gmail.com>
+
+	* po/fi.po: Fix spaces, commas etc. in Finnish translation using
+	KBabel fix tool.
+
 2006-10-01  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/layout-page-layout.scm (page-breaking-wrapper): new

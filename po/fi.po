@@ -1,18 +1,19 @@
+# translation of fi.po to Suomi
 # translation of fi.po to
 # Finnish Translation of lilypond.
 # Copyright (C) 2003 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
+#
+#
 # First translator: Heikki Junes <hjunes@cc.hut.fi>, 2003-2006.
-#
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-28 10:22+0300\n"
-"PO-Revision-Date: 2006-09-28 10:52+0300\n"
-"Last-Translator: hjunes\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2006-10-02 00:22+0300\n"
+"Last-Translator: Heikki Junes <hjunes@cc.hut.fi>\n"
+"Language-Team: Suomi <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -84,8 +85,8 @@ msgid ""
 "This program converts ABC music files (see\n"
 "http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input."
 msgstr ""
-"Tämä ohjelma kääntää ABC musiikkitiedostoja (katso\n"
-"http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) LilyPond syötteeksi"
+"Tämä ohjelma kääntää ABC-musiikkitiedostoja (katso\n"
+"http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) LilyPond-syötteeksi."
 
 #: abc2ly.py:1351
 msgid "set output filename to FILE"
@@ -174,7 +175,7 @@ msgstr "Keskeytetään"
 #: convert-ly.py:192
 #, python-format
 msgid "Processing `%s'... "
-msgstr "Prosessoidaan `%s'..."
+msgstr "Prosessoidaan `%s'... "
 
 #: convert-ly.py:279 source-file.cc:54
 #, c-format, python-format
@@ -338,7 +339,7 @@ msgstr "Prosessoidaan..."
 
 #: lilypond-book.py:1522
 msgid "All snippets are up to date..."
-msgstr "Kaikki palaset on päivitetty"
+msgstr "Kaikki palaset on päivitetty..."
 
 #: lilypond-book.py:1532
 #, python-format
@@ -526,7 +527,7 @@ msgid ""
 "Only do cross-staff spanners with PianoStaff."
 msgstr ""
 "pystysyora sijoittelu kutsuttiin ennen rivinkatkaisua.\n"
-"Viivaston ylittävät ladokkeet tehdään vain PianoStaff:in yhteydessä"
+"Viivaston ylittävät ladokkeet tehdään vain PianoStaff:in yhteydessä."
 
 #: align-interface.cc:309
 msgid "tried to get a translation for something that isn't my child"
@@ -792,7 +793,7 @@ msgstr "Laita musiikkia viivastolle"
 
 #: global-context-scheme.cc:97
 msgid "Interpreting music... "
-msgstr "Tulkitaan musiikkia..."
+msgstr "Tulkitaan musiikkia... "
 
 #: global-context-scheme.cc:120
 #, c-format
@@ -872,7 +873,7 @@ msgstr "tiedostoa ei löydy: `%s'"
 
 #: input.cc:112 source-file.cc:168 source-file.cc:183
 msgid "position unknown"
-msgstr "sijainti tuntematon:"
+msgstr "sijainti tuntematon"
 
 #: ligature-engraver.cc:95
 msgid "can't find start of ligature"
@@ -953,7 +954,7 @@ msgstr "tiedostoa ei löydy: `%s'"
 #: lily-parser-scheme.cc:125
 #, c-format
 msgid "Processing `%s'"
-msgstr "Prosessoidaan `%s'..."
+msgstr "Prosessoidaan `%s'"
 
 #: lily-parser.cc:97
 msgid "Parsing..."
@@ -1162,7 +1163,7 @@ msgstr "LilyPond tuottaa kaunista musiikkinotaatiota."
 #: main.cc:256
 #, c-format
 msgid "For more information, see %s"
-msgstr "Lisätietoja varten, katso %s."
+msgstr "Lisätietoja varten, katso %s"
 
 #: main.cc:258
 #, c-format
@@ -1172,7 +1173,7 @@ msgstr "Optiot:"
 #: main.cc:262
 #, c-format
 msgid "Report bugs via %s"
-msgstr "Raportoi virheet osoitteeseen %s."
+msgstr "Raportoi virheet osoitteeseen %s"
 
 #: main.cc:308
 #, c-format
@@ -1486,7 +1487,7 @@ msgstr "tuntematon sisäinen optio: %s"
 #: property-iterator.cc:74
 #, c-format
 msgid "not a grob name, `%s'"
-msgstr "ei ole graafisen objektin (grob) nimi: `%s'."
+msgstr "ei ole graafisen objektin (grob) nimi, `%s'"
 
 #: relative-octave-check.cc:39
 msgid "Failed octave check, got: "
