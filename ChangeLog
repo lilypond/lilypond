@@ -1,3 +1,44 @@
+2006-10-01  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/layout-page-layout.scm (page-breaking-wrapper): new
+	function. Call the page breaking function selected in the
+	`page-breaking' \paper variable, then the post processing function
+	chosen using the `page-post-process' \paper variable.
+	(line-height): new function. Return the height of a system.
+	(line-minimum-position-on-page): new function. Return the position
+	of a system on page (using the previous line position), only
+	considering between system padding.
+	(stretchable-line?): new function. Says whether a line can be
+	stretched (ie. is not a title nor a single staff system).
+	(page-maximum-space-left): new function. Computes space left on a
+	page, when all systems are separated by their padding.
+
+	* lily/page-breaking.cc (breaking::make_pages): Move page post
+	processing function call to page breaking wrapper (common to all
+	page breakers).
+
+	* lily/paper-book.cc (book::pages): call the page breaking
+	wrapper, instead of the page breaker directly
+
+	* ly/paper-defaults.ly: Add \paper variables for page breaking
+	wrapper and page post processing function. Make
+	`write-page-layout' value depend on the 'dump-tweaks option. Add a
+	`system-maximum-stretch-procedure' variable for holding a function
+	computing the maximum stretch a system allows.
+
+	* scm/layout-page-dump.scm (write-page-breaks): computes the
+	stretch to apply to systems on a page to minimize left
+	space. Dump this stretch length.
+
+	* ly/music-functions-init.ly (spacingTweaks): implement it. Read
+	the system-stretch property of the tweak data to stretch the
+	system.
+	(includePageLayoutFile): Void function which includes the
+	generated page-layout file if it exists and if the page layout
+	dumping is not asked.
+	(scoreTweak): if the score tweak named by the argument exists,
+	return it.
+
 2006-10-01  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/page-spacing.cc (compress_lines, uncompress_solution):

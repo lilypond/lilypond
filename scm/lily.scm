@@ -25,6 +25,7 @@
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
 	      (dump-signatures #f "dump output signatures of each system")
+	      (dump-tweaks #f "dump page layout and tweaks for each score having the tweak-key layout property set.")
 	      (gs-load-fonts #f
 			    "load fonts via Ghostscript.")
 	      (include-book-title-preview #t "include book-titles in preview images.")
