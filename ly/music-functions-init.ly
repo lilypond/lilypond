@@ -370,6 +370,9 @@ parenthesize =
    (set! (ly:music-property arg 'parenthesize) #t)
    arg)
 
+%% for lambda*
+#(use-modules (ice-9 optargs))
+
 parallelMusic =
 #(define-music-function (parser location voice-ids music) (list? ly:music?)
   "Define parallel music sequences, separated by '|' (bar check signs),
@@ -439,7 +442,7 @@ Example:
               voices)
     ;;
     ;; check sequence length
-    (apply for-each (lambda (. seqs)
+    (apply for-each (lambda* (#:rest seqs)
                       (let ((moment-reference (ly:music-length (car seqs))))
                         (for-each (lambda (seq moment)
                                     (if (not (equal? moment moment-reference))
@@ -500,12 +503,45 @@ shiftDurations =
     (lambda (x)
       (shift-one-duration-log x dur dots)) arg))
 
-
-%% this is a stub. Write your own to suit the spacing tweak output.
 spacingTweaks =
 #(define-music-function (parser location parameters) (list?)
+   "Set the system stretch, by reading the 'system-stretch property of
+   the `parameters' assoc list."
+   #{
+      \overrideProperty #"Score.NonMusicalPaperColumn"
+        #'line-break-system-details
+        #$(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters))))
+   #})
+
+%% Parser used to read page-layout file, and then retreive score tweaks.
+#(define page-layout-parser #f)
+
+includePageLayoutFile = 
+#(define-music-function (parser location) ()
+   "If page breaks and tweak dump is not asked, and the file
+   <basename>-page-layout.ly exists, include it."
+   (if (not (ly:get-option 'dump-tweaks))
+       (let ((tweak-filename (format #f "~a-page-layout.ly"
+				     (ly:parser-output-name parser))))
+	 (if (access? tweak-filename R_OK)
+	     (begin
+	       (ly:message "Including tweak file ~a" tweak-filename)
+               (set! page-layout-parser (ly:clone-parser parser))
+	       (ly:parser-parse-string page-layout-parser
+                                       (format #f "\\include \"~a\""
+                                               tweak-filename))))))
    (make-music 'SequentialMusic 'void #t))
 
+scoreTweak =
+#(define-music-function (parser location name) (string?)
+   "Include the score tweak, if exists."
+   (if (and page-layout-parser (not (ly:get-option 'dump-tweaks)))
+       (let ((tweak-music (ly:parser-lookup page-layout-parser
+                                            (string->symbol name))))
+         (if (ly:music? tweak-music)
+             tweak-music
+             (make-music 'SequentialMusic)))
+       (make-music 'SequentialMusic)))
 
 transposedCueDuring =
 #(define-music-function

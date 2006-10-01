@@ -176,14 +176,11 @@ SCM
 Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
 {
   SCM layout_module = scm_c_resolve_module ("scm layout-page-layout");
-  SCM dump_module = scm_c_resolve_module ("scm layout-page-dump");
   SCM page_module = scm_c_resolve_module ("scm page");
 
   SCM make_page = scm_c_module_lookup (layout_module, "make-page-from-systems");
-  SCM write_page_breaks = scm_c_module_lookup (dump_module, "write-page-breaks");
   SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
   make_page = scm_variable_ref (make_page);
-  write_page_breaks = scm_variable_ref (write_page_breaks);
   page_stencil = scm_variable_ref (page_stencil);
 
   SCM book = book_->self_scm ();
@@ -207,9 +204,6 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       systems = scm_list_tail (systems, line_count);
     }
   ret = scm_reverse (ret);
-
-  if (to_boolean (book_->paper_->c_variable ("write-page-layout")))
-    scm_apply_1 (write_page_breaks, ret, SCM_EOL);
   return ret;
 }
 

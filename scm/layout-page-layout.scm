@@ -14,20 +14,37 @@
   #:use-module (scm layout-page-dump)
   #:use-module (lily)
   #:export (post-process-pages optimal-page-breaks make-page-from-systems
+	    page-breaking-wrapper
 	    ;; utilities for writing custom page breaking functions
-	    line-next-space line-next-padding
+            line-height line-next-space line-next-padding
 	    line-minimum-distance line-ideal-distance
 	    first-line-position
 	    line-ideal-relative-position line-minimum-relative-position
-	    page-maximum-space-to-fill space-systems))
+            line-minimum-position-on-page stretchable-line?
+	    page-maximum-space-to-fill page-maximum-space-left space-systems))
+
+(define (page-breaking-wrapper paper-book)
+  "Compute line and page breaks by calling the page-breaking paper variable,
+  then performs the post process function using the page-post-process paper
+  variable. Finally, return the pages."
+  (let* ((paper (ly:paper-book-paper paper-book))
+         (pages ((ly:output-def-lookup paper 'page-breaking) paper-book)))
+    ((ly:output-def-lookup paper 'page-post-process) paper pages)
+    pages))
 
 (define (post-process-pages layout pages)
+  "If the write-page-layout paper variable is true, dumps page breaks
+  and tweaks."
   (if (ly:output-def-lookup layout 'write-page-layout #f)
       (write-page-breaks pages)))
 
 ;;;
 ;;; Utilities for computing line distances and positions
 ;;;
+(define (line-height line)
+  "Return the system height, that is the length of its vertical extent."
+  (interval-length (paper-system-extent line Y)))
+
 (define (line-next-space line next-line layout)
   "Return space to use between `line' and `next-line'.
   `next-line' can be #f, meaning that `line' is the last line."
@@ -94,6 +111,26 @@
       ;; not the first line on page
       (line-minimum-distance prev-line line layout ignore-padding)))
 
+(define (line-minimum-position-on-page line prev-line prev-position page)
+  "If `line' fits on `page' after `prev-line', which position on page is
+  `prev-position', then return the line's postion on page, otherwise #f.
+  `prev-line' can be #f, meaning that `line' is the first line."
+  (let* ((layout (ly:paper-book-paper (page-property page 'paper-book)))
+         (position (+ (line-minimum-relative-position line prev-line layout #f)
+                      (if prev-line prev-position 0.0)))
+         (bottom-position (- position
+                             (interval-start (paper-system-extent line Y)))))
+    (and (or (not prev-line)
+             (< bottom-position (page-printable-height page)))
+         position)))
+
+(define (stretchable-line? line)
+  "Say whether a system can be stretched."
+  (not (or (ly:prob-property? line 'is-title)
+	   (let ((system-extent (paper-system-staff-extents line)))
+	     (= (interval-start system-extent)
+		(interval-end	system-extent))))))
+
 (define (page-maximum-space-to-fill page lines paper)
   "Return the space between the first line top position and the last line
   bottom position. This constitutes the maximum space to fill on `page'
@@ -104,6 +141,23 @@
        (ly:prob-property last-line
 			 'bottom-space 0.0)
        (- (interval-start (paper-system-extent last-line Y))))))
+
+(define (page-maximum-space-left page)
+  (let ((paper (ly:paper-book-paper (page-property page 'paper-book))))
+    (let bottom-position ((lines (page-property page 'lines))
+                          (prev-line #f)
+                          (prev-position #f))
+      (if (null? lines)
+          (page-printable-height page)
+          (let* ((line (first lines))
+                 (position (line-minimum-position-on-page
+                            line prev-line prev-position page)))
+            (if (null? (cdr lines))
+                (and position
+                     (- (page-printable-height page)
+                        (- position
+                           (interval-start (paper-system-extent line Y)))))
+                (bottom-position (cdr lines) line position)))))))
 
 ;;;
 ;;; Utilities for distributing systems on a page
@@ -195,7 +249,7 @@ is what have collected so far, and has ascending page numbers."
 (define (walk-paths done-lines best-paths current-lines last current-best
 		    paper-book page-alist)
   "Return the best optimal-page-break-node that contains
-CURRENT-LINES.  DONE-LINES.reversed ++ CURRENT-LINES is a consecutive
+CURRENT-LINES. DONE-LINES.reversed ++ CURRENT-LINES is a consecutive
 ascending range of lines, and BEST-PATHS contains the optimal breaks
 corresponding to DONE-LINES.
 
@@ -312,5 +366,4 @@ DONE."
 		      "\nconfigs " (map page-configuration break-nodes)))))
       ;; construct page stencils.
       (for-each page-stencil break-nodes)
-      (post-process-pages paper break-nodes)
       break-nodes)))
