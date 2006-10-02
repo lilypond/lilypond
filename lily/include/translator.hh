@@ -131,6 +131,7 @@ protected:			// should be private.
   void protect_event (SCM ev);
   virtual void derived_mark () const;
   static void add_translator_listener (translator_listener_record **listener_list, translator_listener_record *r, Listener (*get_listener) (void *), const char *ev_class);
+  SCM get_listened_class_list (const translator_listener_record *listeners) const;
 
   friend class Translator_group;
 };

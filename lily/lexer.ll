@@ -753,6 +753,7 @@ Lily_lexer::scan_escaped_word (string str)
 		yylval.scm = get_music_function_transform (sid);
 
 		SCM s = scm_object_property (yylval.scm, ly_symbol2scm ("music-function-signature"));
+		push_extra_token (EXPECT_NO_MORE_ARGS);
 		for (; scm_is_pair (s); s = scm_cdr (s))
 		{
 			if (scm_car (s) == ly_music_p_proc)

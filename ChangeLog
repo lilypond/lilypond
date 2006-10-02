@@ -1,3 +1,11 @@
+2006-10-02  Erik Sandberg  <mandolaerik@gmail.com>
+	
+	* lily/lexer.ll, lily/parser.yy: Add EXPECT_NO_MORE_ARGS token, to
+	avoid parser lookahead for 0-ary functions.
+
+	* lily/translator.cc: Extract event classes from
+	IMPLEMENT_TRANSLATOR_LISTENER for documentation generation.
+
 2006-10-02  Heikki Junes  <hjunes@gmail.com>
 
 	* po/fi.po: Fix spaces, commas etc. in Finnish translation using

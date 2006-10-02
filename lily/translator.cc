@@ -150,7 +150,6 @@ void
 add_listened_event_class (SCM sym)
 {
   ensure_listened_hash ();
-
   scm_hashq_set_x (listened_event_class_table, sym, SCM_BOOL_T);
 }
 
@@ -177,10 +176,25 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
   SCM class_sym = scm_str2symbol (name.c_str ());
   
   add_listened_event_class (class_sym);
+
   r->event_class_ = class_sym;
   r->get_listener_ = get_listener;
   r->next_ = *listener_list;
   *listener_list = r;
+}
+
+/*
+  Used by ADD_THIS_TRANSLATOR to extract a list of event-class names
+  for each translator.  This list is used by the internals
+  documentation.
+*/
+SCM
+Translator::get_listened_class_list (const translator_listener_record *listeners) const
+{
+  SCM list = SCM_EOL;
+  for (; listeners; listeners = listeners->next_)
+    list = scm_cons (listeners->event_class_, list);
+  return list;
 }
 
 /*

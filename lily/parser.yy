@@ -260,6 +260,8 @@ If we give names, Bison complains.
 %token <i> EXPECT_MARKUP;
 %token <i> EXPECT_MUSIC;
 %token <i> EXPECT_SCM;
+/* After the last argument. */
+%token <i> EXPECT_NO_MORE_ARGS;
 
 %token <scm> BOOK_IDENTIFIER
 %token <scm> CHORDMODIFIER_PITCH
@@ -936,7 +938,7 @@ function_arglist_nonmusic_last:
 	}
 	;
 
-function_arglist_nonmusic: /*empty*/ {
+function_arglist_nonmusic: EXPECT_NO_MORE_ARGS {
 		$$ = SCM_EOL;
 	}
 	| EXPECT_MARKUP function_arglist_nonmusic full_markup {
@@ -947,7 +949,9 @@ function_arglist_nonmusic: /*empty*/ {
 	}
 	;
 
-function_arglist: /*empty*/ {
+function_arglist: EXPECT_NO_MORE_ARGS {
+		/* This is for 0-ary functions, so they don't need to
+		   read a lookahead token */
 		$$ = SCM_EOL;
 	}
 	| function_arglist_music_last
