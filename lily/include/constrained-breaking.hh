@@ -10,7 +10,6 @@
 #ifndef CONSTRAINED_BREAKING_HH
 #define CONSTRAINED_BREAKING_HH
 
-#include "break-algorithm.hh"
 #include "lily-guile.hh"
 #include "matrix.hh"
 #include "prob.hh"
