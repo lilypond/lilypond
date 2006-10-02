@@ -1,3 +1,18 @@
+2006-10-02  Joe Neeman  <joeneeman@gmail.com>
+
+	* Documentation/user/page.itely (Page formatting): 
+	document auto-first-page-number
+
+	* lily/page-breaking.cc (find_chunks_and_breaks): 
+	* lily/paper-score.cc (calc_breaking): Follow changes to the
+	Constrained_breaking interface
+
+	* lily/constrained-breaking.cc (calc_subproblem): run the main loop
+	here backwards, as an optimisation
+	(initialize): new function; move most of the code in resize () here
+	(combine_demerits): cache ragged_right_
+	(Constrained_breaking): constructor now takes the Paper_score
+
 2006-10-02  Erik Sandberg  <mandolaerik@gmail.com>
 	
 	* lily/lexer.ll, lily/parser.yy: Add EXPECT_NO_MORE_ARGS token, to
