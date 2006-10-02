@@ -149,13 +149,13 @@ Syntax: @var{note}\\cr
 ... @var{note}\\rc (you can also use \\<, \\!, \\cresc, and
 \\endcresc.  See the user manual for details.).")
 
-	(types . (general-music dynamic-event crescendo-event event))
+	(types . (general-music span-event span-dynamic-event crescendo-event event))
 	)) 
     (DecrescendoEvent
      . (
 	(description .	"See @ref{CrescendoEvent}.")
 
-	(types . (general-music dynamic-event decrescendo-event event))
+	(types . (general-music span-event span-dynamic-event decrescendo-event event))
 	))
     
     (ExtenderEvent
@@ -605,13 +605,13 @@ Syntax: @code{s}@var{duration}")
     (SostenutoEvent
      . (
 	(description . "Depress or release sostenuto pedal. ")
-	(types . (general-music event pedal-event sostenuto-pedal-event))
+	(types . (general-music event pedal-event sostenuto-event))
 	))
     
     (UnaCordaEvent
      . (
 	(description . "Depress or release una-corda pedal.")
-	(types . (general-music event pedal-event una-corda-pedal-event))
+	(types . (general-music event pedal-event una-corda-event))
 	))
     
     (StringNumberEvent
