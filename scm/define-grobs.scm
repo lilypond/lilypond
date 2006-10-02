@@ -195,8 +195,8 @@
 
 	(self-alignment-X . 1)
 
-;; 
-;;	(break-align-symbol . left-edge)
+	;; want the bar number before the clef at line start. 
+	(break-align-symbol . left-edge)
 	(meta .
 	      ((class . Item)
 	       (interfaces . (side-position-interface

@@ -415,6 +415,7 @@ staff spaces, counted from the middle line.")
 stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
+     (stencil ,ly:stencil? "The symbol to print.")
 
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, barlines, etc.) are not spaced
@@ -594,7 +595,6 @@ debugging")
 
      ;; [TODO: change this]
      (primitive ,integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. ")
-     (stencil ,ly:stencil? "The symbol to print.")
      (ideal-distances ,list? "(@var{obj} . (@var{dist} . @var{strength})) pairs.")
      (minimum-distances ,list? "list of rods, that have the format (@var{obj} . @var{dist}).")
 
