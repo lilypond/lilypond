@@ -1,5 +1,8 @@
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/pango-font.cc (pango_item_string_stencil): use
+	logical_rect. This prevents spaces after words from disappearing.
+
 	* VERSION: release 2.9.20
 
 2006-10-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
