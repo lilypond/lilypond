@@ -76,12 +76,15 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
   vsize start_col = starting_breakpoints_[start];
   Matrix<Constrained_break_node> &st = state_[start];
   vsize max_index = brk - start_col;
-  for (vsize j=sys; j < max_index; j++)
+  for (vsize j=max_index; j-- > sys;)
     {
       if (0 == sys && j > 0)
-        break; /* the first line cannot have its first break after the beginning */
+        continue; /* the first line cannot have its first break after the beginning */
 
       Line_details const &cur = lines_.at (brk, j + start_col);
+      if (isinf (cur.force_))
+	break;
+
       Real prev_f = 0;
       Real prev_dem = 0;
 
@@ -91,14 +94,11 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
           prev_dem = st.at (j, sys-1).demerits_;
         }
       if (isinf (prev_dem))
-        break;
-
-      Real dem = combine_demerits (cur.force_, prev_f) + prev_dem + cur.break_penalty_;
-      if (isinf (dem))
         continue;
 
+      Real dem = combine_demerits (cur.force_, prev_f) + prev_dem + cur.break_penalty_;
       Constrained_break_node &n = st.at (max_index, sys);
-      if (isinf (n.demerits_) || dem < n.demerits_)
+      if (dem < n.demerits_)
         {
           found_something = true;
           n.demerits_ = dem;
@@ -139,71 +139,6 @@ void
 Constrained_breaking::resize (vsize systems)
 {
   systems_ = systems;
-
-  if (!breaks_.size () && pscore_)
-    {
-      Output_def *l = pscore_->layout ();
-      System *sys = pscore_->root_system ();
-      Real padding = robust_scm2double (l->c_variable ("between-system-padding"), 0);
-      Real space = robust_scm2double (l->c_variable ("ideal-system-space"), 0);
-      bool ragged_right = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
-      bool ragged_last = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
-
-      Interval first_line = line_dimensions_int (pscore_->layout (), 0);
-      Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
-      /* do all the rod/spring problems */
-      breaks_ = pscore_->find_break_indices ();
-      all_ = pscore_->root_system ()->columns ();
-      lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
-      vector<Real> forces = get_line_forces (all_,
-					     other_lines.length (),
-					     other_lines.length () - first_line.length (),
-					     ragged_right);
-      for (vsize i = 0; i < breaks_.size () - 1; i++)
-	{
-	  Real max_ext = 0;
-          for (vsize j = i + 1; j < breaks_.size (); j++)
-            {
-	      int start = Paper_column::get_rank (all_[breaks_[i]]);
-	      int end = Paper_column::get_rank (all_[breaks_[j]]);
-	      Interval extent = sys->pure_height (sys, start, end);
-	      bool last = j == breaks_.size () - 1;
-	      bool ragged = ragged_right || (last && ragged_last);
-	      Line_details &line = lines_.at (j, i);
-
-	      line.force_ = forces[i*breaks_.size () + j];
-	      if (ragged && last && !isinf (line.force_))
-		line.force_ = 0;
-	      if (isinf (line.force_))
-		break;
-
-	      Grob *c = all_[breaks_[j]];
-	      line.break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
-	      line.page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);
-	      line.turn_penalty_ = robust_scm2double (c->get_property ("page-turn-penalty"), 0);
-	      line.break_permission_ = c->get_property ("line-break-permission");
-	      line.page_permission_ = c->get_property ("page-break-permission");
-	      line.turn_permission_ = c->get_property ("page-turn-permission");
-
-	      max_ext = max (max_ext, extent.length ());
-              line.extent_ = extent;
-              line.padding_ = padding;
-              line.space_ = space;
-              line.inverse_hooke_ = 1;
-            }
-	}
-
-      /* work out all the starting indices */
-      for (vsize i = 0; i < start_.size (); i++)
-        {
-          vsize j;
-          for (j = 0; j < breaks_.size () - 1 && breaks_[j] < start_[i]; j++)
-            ;
-          starting_breakpoints_.push_back (j);
-          start_[i] = breaks_[j];
-        }
-      state_.resize (start_.size ());
-    }
 
   if (pscore_ && systems_ > valid_systems_)
     {
@@ -359,22 +294,97 @@ Constrained_breaking::prepare_solution (vsize start, vsize end, vsize sys_count)
   return brk;
 }
 
-Constrained_breaking::Constrained_breaking ()
+Constrained_breaking::Constrained_breaking (Paper_score *ps)
 {
   valid_systems_ = systems_ = 0;
   start_.push_back (0);
+  pscore_ = ps;
+  initialize ();
 }
 
-Constrained_breaking::Constrained_breaking (vector<vsize> const &start)
+Constrained_breaking::Constrained_breaking (Paper_score *ps, vector<vsize> const &start)
   : start_ (start)
 {
   valid_systems_ = systems_ = 0;
+  pscore_ = ps;
+  initialize ();
+}
+
+/* find the forces for all possible lines and cache ragged_ and ragged_right_ */
+void
+Constrained_breaking::initialize ()
+{
+  if (!pscore_)
+    return;
+
+  ragged_right_ = to_boolean (pscore_->layout ()->c_variable ("ragged-right"));
+  ragged_last_ = to_boolean (pscore_->layout ()->c_variable ("ragged-last"));
+      
+  Output_def *l = pscore_->layout ();
+  System *sys = pscore_->root_system ();
+  Real padding = robust_scm2double (l->c_variable ("between-system-padding"), 0);
+  Real space = robust_scm2double (l->c_variable ("ideal-system-space"), 0);
+
+  Interval first_line = line_dimensions_int (pscore_->layout (), 0);
+  Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
+  /* do all the rod/spring problems */
+  breaks_ = pscore_->find_break_indices ();
+  all_ = pscore_->root_system ()->columns ();
+  lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
+  vector<Real> forces = get_line_forces (all_,
+					 other_lines.length (),
+					 other_lines.length () - first_line.length (),
+					 ragged_right_);
+  for (vsize i = 0; i < breaks_.size () - 1; i++)
+    {
+      Real max_ext = 0;
+      for (vsize j = i + 1; j < breaks_.size (); j++)
+	{
+	  int start = Paper_column::get_rank (all_[breaks_[i]]);
+	  int end = Paper_column::get_rank (all_[breaks_[j]]);
+	  Interval extent = sys->pure_height (sys, start, end);
+	  bool last = j == breaks_.size () - 1;
+	  bool ragged = ragged_right_ || (last && ragged_last_);
+	  Line_details &line = lines_.at (j, i);
+
+	  line.force_ = forces[i*breaks_.size () + j];
+	  if (ragged && last && !isinf (line.force_))
+	    line.force_ = 0;
+	  if (isinf (line.force_))
+	    break;
+
+	  Grob *c = all_[breaks_[j]];
+	  line.break_penalty_ = robust_scm2double (c->get_property ("line-break-penalty"), 0);
+	  line.page_penalty_ = robust_scm2double (c->get_property ("page-break-penalty"), 0);
+	  line.turn_penalty_ = robust_scm2double (c->get_property ("page-turn-penalty"), 0);
+	  line.break_permission_ = c->get_property ("line-break-permission");
+	  line.page_permission_ = c->get_property ("page-break-permission");
+	  line.turn_permission_ = c->get_property ("page-turn-permission");
+
+	  max_ext = max (max_ext, extent.length ());
+	  line.extent_ = extent;
+	  line.padding_ = padding;
+	  line.space_ = space;
+	  line.inverse_hooke_ = 1;
+	}
+    }
+
+  /* work out all the starting indices */
+  for (vsize i = 0; i < start_.size (); i++)
+    {
+      vsize j;
+      for (j = 0; j < breaks_.size () - 1 && breaks_[j] < start_[i]; j++)
+	;
+      starting_breakpoints_.push_back (j);
+      start_[i] = breaks_[j];
+    }
+  state_.resize (start_.size ());
 }
 
 Real
 Constrained_breaking::combine_demerits (Real force, Real prev_force)
 {
-  if (to_boolean (pscore_->layout ()->c_variable ("ragged-right")))
+  if (ragged_right_)
     return force * force;
 
   return force * force + (prev_force - force) * (prev_force - force);

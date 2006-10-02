@@ -90,12 +90,12 @@ struct Constrained_break_node
 /*
    A dynamic programming solution to breaking scores into lines
 */
-class Constrained_breaking : public Break_algorithm
+class Constrained_breaking
 {
 public:
   vector<Column_x_positions> solve ();
-  Constrained_breaking ();
-  Constrained_breaking (vector<vsize> const &start_col_posns);
+  Constrained_breaking (Paper_score *ps);
+  Constrained_breaking (Paper_score *ps, vector<vsize> const &start_col_posns);
 
   vector<Column_x_positions> get_solution (vsize start, vsize end, vsize sys_count);
   vector<Column_x_positions> get_best_solution (vsize start, vsize end);
@@ -106,8 +106,11 @@ public:
   void resize (vsize systems);
 
 private:
+  Paper_score *pscore_;
   vsize valid_systems_;
   vsize systems_;
+  bool ragged_right_;
+  bool ragged_last_;
 
   /* the (i,j)th entry is the configuration for breaking between
     columns i and j */
@@ -122,6 +125,8 @@ private:
 
   vector<Grob*> all_;
   vector<vsize> breaks_;
+
+  void initialize ();
 
   Column_x_positions space_line (vsize start_col, vsize end_col);
   vsize prepare_solution (vsize start, vsize end, vsize sys_count);

@@ -277,8 +277,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	      if ((break_point || chunk_end) && !last)
 		line_breaker_columns.push_back (j);
 	    }
-	  line_breaking_.push_back (Constrained_breaking (line_breaker_columns));
-	  line_breaking_.back ().set_pscore (all_[i].pscore_);
+	  line_breaking_.push_back (Constrained_breaking (all_[i].pscore_, line_breaker_columns));
 	}
       else
 	{
@@ -287,7 +286,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	    breaks_.push_back (Break_position (i));
 
 	  chunks_.push_back (Break_position (i));
-	  line_breaking_.push_back (Constrained_breaking ());
+	  line_breaking_.push_back (Constrained_breaking (NULL));
 	}
     }
 }

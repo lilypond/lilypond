@@ -99,7 +99,7 @@ Paper_score::get_columns () const
 vector<Column_x_positions>
 Paper_score::calc_breaking ()
 {
-  Constrained_breaking algorithm;
+  Constrained_breaking algorithm (this);
   vector<Column_x_positions> sol;
 
   message (_ ("Calculating line breaks...") + " ");
@@ -107,11 +107,8 @@ Paper_score::calc_breaking ()
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
     algorithm.resize (system_count);
-  
-  algorithm.set_pscore (this);
-  sol = algorithm.solve ();
 
-  return sol;
+  return algorithm.solve ();
 }
 
 void
