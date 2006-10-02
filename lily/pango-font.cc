@@ -118,10 +118,12 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 						    PangoFcFont);
 
   FT_Face ftface = pango_fc_font_lock_face (fcfont);
-  Box b (Interval (PANGO_LBEARING (ink_rect),
-		   PANGO_RBEARING (ink_rect)),
-	 Interval (-PANGO_DESCENT (ink_rect),
-		   PANGO_ASCENT (ink_rect)));
+
+  PangoRectangle const *which_rect = &logical_rect;
+  Box b (Interval (PANGO_LBEARING (*which_rect),
+		   PANGO_RBEARING (*which_rect)),
+	 Interval (-PANGO_DESCENT (*which_rect),
+		   PANGO_ASCENT (*which_rect)));
 
   b.scale (scale_);
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
