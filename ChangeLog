@@ -1,3 +1,8 @@
+2006-10-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	mention stencil as user settable.
+
 2006-10-02  Joe Neeman  <joeneeman@gmail.com>
 
 	* Documentation/user/page.itely (Page formatting): 
