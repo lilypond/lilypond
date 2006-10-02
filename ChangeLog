@@ -1,3 +1,7 @@
+2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION: release 2.9.20
+
 2006-10-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/define-grob-properties.scm (all-user-grob-properties):
@@ -142,7 +146,6 @@
 	* lily/source-file.cc (get_line): fix off-by-one error
 	and clean up some of the logic
 
->>>>>>> 1.5342
 2006-09-29  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/page-breaking.cc (make_pages): honour the first-page-number
