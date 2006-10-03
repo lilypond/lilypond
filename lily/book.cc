@@ -12,9 +12,7 @@
 using namespace std;
 
 #include "lilypond-key.hh"
-#include "global-context.hh"
 #include "main.hh"
-#include "music-iterator.hh"
 #include "music-output.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -23,7 +21,6 @@ using namespace std;
 #include "stencil.hh"
 #include "text-interface.hh"
 #include "warn.hh"
-
 #include "performance.hh"
 #include "paper-score.hh"
 
