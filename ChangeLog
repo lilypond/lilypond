@@ -1,5 +1,7 @@
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/spacing-no-note.ly: new file.
+
 	* buildscripts/output-distance.py (link_file): verbosity for OSError.
 
 	* lily/book.cc: #include cleanup.
