@@ -1,5 +1,7 @@
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PATCH_LEVEL): bump version.
+
 	* lily/spacing-spanner.cc (musical_column_spacing): handle
 	musical->nonmusical spacing case, where there is no spacing wish.
 
