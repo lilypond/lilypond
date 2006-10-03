@@ -623,7 +623,11 @@ def mkdir (x):
 
 def link_file (x, y):
     mkdir (os.path.split (y)[0])
-    os.link (x, y)
+    try:
+        os.link (x, y)
+    except OSError, z:
+        print 'OSError', x, y, z
+        raise OSError
     
 def open_write_file (x):
     d = os.path.split (x)[0]
