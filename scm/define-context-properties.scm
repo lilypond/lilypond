@@ -187,9 +187,7 @@ The layout style is a hash table, containing the drum-pitches (e.g. the
 symbol @samp{hihat}) as key, and a list (@var{notehead-style}
 @var{script} @var{vertical-position}) as values.
  ")
-     (currentBarNumber ,integer? "Contains the current barnumber. This property is incremented at
-every bar line.
-")
+     (currentBarNumber ,integer? "Contains the current barnumber. This property is incremented at every bar line. ")
      (defaultBarType ,string? "Sets the default type of bar line.
 See @code{whichBar} for information on available bar types.
 
@@ -270,6 +268,8 @@ Function taking a string (instrument name), and returning a (@var{min} . @var{ma
 the instrument. Its value is the pitch that sounds like middle C. This
 is used to transpose the MIDI output, and @code{\\quote}s.")
 
+     (internalBarNumber ,integer? "Contains the current barnumber. This property is used for internal timekeeping, among others by the @code{Accidental_engraver}.")
+     
      (keepAliveInterfaces ,list? "List of symbols, signifying grob interfaces that
 are worth keeping an staff with @code{remove-empty} set around for.")   
      (keyAlterationOrder ,list? " Alist that defines in what order

@@ -1,5 +1,13 @@
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/multi-measure-rest-engraver.cc: use internalBarNumber
+
+	* lily/timing-translator.cc: list properties.
+	(start_translation_timestep): update internalBarNumber too.
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): add internalBarNumber.
+
 	* input/regression/spacing-no-note.ly: new file.
 
 	* buildscripts/output-distance.py (link_file): verbosity for OSError.
