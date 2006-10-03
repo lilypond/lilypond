@@ -1,8 +1,20 @@
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* lily/pango-font.cc (pango_item_string_stencil): use
-	logical_rect. This prevents spaces after words from disappearing.
+	* lily/slur.cc (outside_slur_callback): make offset_scm optional.
 
+	* lily/beam.cc (rest_collision_callback): make prev_offset optional.
+
+	* lily/grob-closure.cc (chain_offset_callback): don't pass 0 but
+	SCM_UNDEFINED for non-existent data.
+
+	* lily/side-position-interface.cc (general_side_position): allow
+	optional current_offset argument for chaining, so combinations of side-position
+	and outside slur callback don't add up.  Fixes issue #92.
+
+	* lily/pango-font.cc (pango_item_string_stencil): use
+	logical_rect. This prevents spaces after words from disappearing,
+	issue #72.
+	
 	* VERSION: release 2.9.20
 
 2006-10-02  Han-Wen Nienhuys  <hanwen@lilypond.org>

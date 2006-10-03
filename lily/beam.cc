@@ -1301,7 +1301,7 @@ Beam::last_visible_stem (Grob *me)
 
   rest -> stem -> beam -> interpolate_y_position ()
 */
-MAKE_SCHEME_CALLBACK (Beam, rest_collision_callback, 2);
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, rest_collision_callback, 2, 1);
 SCM
 Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 {

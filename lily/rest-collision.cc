@@ -40,7 +40,7 @@ Rest_collision::force_shift_callback (SCM smob)
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback_rest, 2);
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1);
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {
@@ -51,7 +51,8 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
     translate REST; we need the result of this translation later on,
     while the offset probably still is 0/calculation-in-progress.
    */
-  rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
+  if (scm_is_number (offset))
+    rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
   
   if (Note_column::has_interface (parent))
     force_shift_callback (parent->self_scm ());

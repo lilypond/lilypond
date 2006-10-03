@@ -44,6 +44,7 @@ protect_smob (SCM smob, SCM *prot_cons)
 		 prot);
   *prot_cons = prot;
 #else
+  (void) prot_cons; 
   scm_gc_protect_object (smob);
 #endif
 }
@@ -52,6 +53,7 @@ void
 unprotect_smob (SCM smob, SCM *prot_cons)
 {
 #if 1
+  (void) prot_cons; 
   scm_gc_unprotect_object (smob);
 #else
   SCM next = scm_cdr (*prot_cons);

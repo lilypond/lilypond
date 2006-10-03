@@ -46,10 +46,15 @@ Side_position_interface::get_direction (Grob *me)
 }
 
 /* Put the element next to the support, optionally taking in
-   account the extent of the support.  */
+   account the extent of the support.
+
+   Does not take into account the extent of ME.
+*/
 SCM
 Side_position_interface::general_side_position (Grob *me, Axis a, bool use_extents,
-						bool pure, int start, int end)
+						bool include_my_extent,
+						bool pure, int start, int end,
+						Real *current_offset)
 {
   Real ss = Staff_symbol_referencer::staff_space (me);
 
@@ -102,6 +107,25 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
       && dir
       && total_off * dir < minimum_space)
     total_off = minimum_space * dir;
+
+  if (include_my_extent)
+    {
+      Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
+      if (!iv.is_empty ())
+	{
+	  if (!dir)
+	    {
+	      programming_error ("direction unknown, but aligned-side wanted");
+	      dir = DOWN;
+	    }
+	  total_off += -iv[-dir];
+	}
+    }
+
+  if (current_offset)
+    total_off = dir * max (dir * total_off,
+			   dir * (*current_offset));
+  
   
   /* FIXME: 1000 should relate to paper size.  */
   if (fabs (total_off) > 1000)
@@ -122,60 +146,64 @@ MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_on_support_refpoints, 1
 SCM
 Side_position_interface::y_aligned_on_support_refpoints (SCM smob)
 {
-  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false, 0, 0); 
+  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false, false, 0, 0, 0); 
 }
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, pure_y_aligned_on_support_refpoints, 3);
 SCM
 Side_position_interface::pure_y_aligned_on_support_refpoints (SCM smob, SCM start, SCM end)
 {
-  return general_side_position (unsmob_grob (smob), Y_AXIS, false,
-				true, scm_to_int (start), scm_to_int (end)); 
+  return general_side_position (unsmob_grob (smob), Y_AXIS, false, false, 
+				true, scm_to_int (start), scm_to_int (end), 0); 
 }
 
 
 /*
   Position next to support, taking into account my own dimensions and padding.
 */
-
-MAKE_SCHEME_CALLBACK (Side_position_interface, x_aligned_side, 1);
 SCM
-Side_position_interface::x_aligned_side (SCM smob)
+axis_aligned_side_helper (SCM smob, Axis a, bool pure, int start, int end, SCM current_off_scm)
 {
-  return aligned_side (unsmob_grob (smob), X_AXIS, false, 0, 0);
+  Real r;
+  Real *current_off_ptr = 0;
+  if (scm_is_number (current_off_scm))
+    {
+      r = scm_to_double (current_off_scm);
+      current_off_ptr = &r; 
+    }
+  
+  return Side_position_interface::aligned_side (unsmob_grob (smob), a, pure, start, end, current_off_ptr);
 }
 
-MAKE_SCHEME_CALLBACK (Side_position_interface, y_aligned_side, 1);
+
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, x_aligned_side, 2, 1);
 SCM
-Side_position_interface::y_aligned_side (SCM smob)
+Side_position_interface::x_aligned_side (SCM smob, SCM current_off)
 {
-  return aligned_side (unsmob_grob (smob), Y_AXIS, false, 0, 0);
+  return axis_aligned_side_helper (smob, X_AXIS, false, 0, 0, current_off);
+}
+
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, y_aligned_side, 2, 1);
+SCM
+Side_position_interface::y_aligned_side (SCM smob, SCM current_off)
+{
+  return axis_aligned_side_helper (smob, Y_AXIS, false, 0, 0, current_off);
 }
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, pure_y_aligned_side, 3);
 SCM
 Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end)
 {
-  return aligned_side (unsmob_grob (smob), Y_AXIS, true, scm_to_int (start), scm_to_int (end));
+  return aligned_side (unsmob_grob (smob), Y_AXIS, true, scm_to_int (start), scm_to_int (end), 0);
 }
 
 SCM
-Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, int end)
+Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, int end,
+				       Real *current_off)
 {
   Direction dir = get_grob_direction (me);
 
-  Real o = scm_to_double (general_side_position (me, a, true, pure, start, end));
-  Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
-
-  if (!iv.is_empty ())
-    {
-      if (!dir)
-	{
-	  programming_error ("direction unknown, but aligned-side wanted");
-	  dir = DOWN;
-	}
-      o += -iv[-dir];
-    }
+  Real o = scm_to_double (general_side_position (me, a, true, true, pure, start, end, current_off));
 
   /*
     Maintain a minimum distance to the staff. This is similar to side
@@ -206,6 +234,8 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 	}
       else if (scm_is_number (me->get_property ("staff-padding")))
 	{
+	  Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
+	  
 	  Real padding
 	    = Staff_symbol_referencer::staff_space (me)
 	    * scm_to_double (me->get_property ("staff-padding"));
@@ -226,11 +256,11 @@ Side_position_interface::set_axis (Grob *me, Axis a)
   if (!scm_is_number (me->get_property ("side-axis")))
     {
       me->set_property ("side-axis", scm_from_int (a));
-      add_offset_callback (me,
-			   (a==X_AXIS)
-			   ? x_aligned_side_proc
-			   : y_aligned_side_proc,
-			   a);
+      chain_offset_callback (me,
+			     (a==X_AXIS)
+			     ? x_aligned_side_proc
+			     : y_aligned_side_proc,
+			     a);
     }
 }
 Axis

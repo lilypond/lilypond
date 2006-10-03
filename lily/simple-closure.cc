@@ -63,7 +63,7 @@ evaluate_with_simple_closure (SCM delayed_argument,
     }
   else
     // ugh. deviation from standard. Should print error? 
-    return  evaluate_args (delayed_argument, scm_cdr (expr)); 
+    return evaluate_args (delayed_argument, scm_cdr (expr)); 
   
   assert (false);
   return SCM_EOL;
