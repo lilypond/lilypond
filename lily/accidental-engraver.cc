@@ -289,7 +289,7 @@ number_accidentals (bool *different,
 int
 Accidental_engraver::get_bar_number ()
 {
-  SCM barnum = get_property ("currentBarNumber");
+  SCM barnum = get_property ("internalBarNumber");
   SCM smp = get_property ("measurePosition");
 
   int bn = robust_scm2int (barnum, 0);
@@ -603,6 +603,7 @@ ADD_TRANSLATOR (Accidental_engraver,
 
 		"autoAccidentals "
 		"autoCautionaries "
+		"internalBarNumber "
 		"extraNatural "
 		"harmonicAccidentals "
 		"localKeySignature",

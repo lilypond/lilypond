@@ -137,7 +137,7 @@ Multi_measure_rest_engraver::process_music ()
 	}
 
       start_measure_
-	= scm_to_int (get_property ("currentBarNumber"));
+	= scm_to_int (get_property ("internalBarNumber"));
     }
 
   bar_seen_ = bar_seen_ || scm_is_string (get_property ("whichBar"));
@@ -204,7 +204,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       last_rest_ = mmrest_;
       last_numbers_ = numbers_;
 
-      int cur = scm_to_int (get_property ("currentBarNumber"));
+      int cur = scm_to_int (get_property ("internalBarNumber"));
       int num = cur - start_measure_;
 
       /*
@@ -251,13 +251,13 @@ Multi_measure_rest_engraver::finalize ()
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		/* doc */
 		"Engraves multi-measure rests that are produced with @code{R}.  Reads "
-		"measurePosition and currentBarNumber to determine what number to print "
+		"measurePosition and internalBarNumber to determine what number to print "
 		"over the MultiMeasureRest.  Reads measureLength to determine if it "
 		"should use a whole rest or a breve rest to represent 1 measure ",
 		/* create */ "MultiMeasureRest MultiMeasureRestNumber MultiMeasureRestText",
 		/* accept */ "multi-measure-rest-event multi-measure-text-event",
 		/* read */
-		"currentBarNumber "
+		"internalBarNumber "
 		"restNumberThreshold "
 		"breakableSeparationItem "
 		"currentCommandColumn "
