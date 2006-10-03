@@ -1,5 +1,8 @@
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/phrasing-slur-engraver.cc (acknowledge_script): only ack
+	non-dynamic scripts. Fixes #30.
+
 	* lily/slur.cc (outside_slur_callback): make offset_scm optional.
 
 	* lily/beam.cc (rest_collision_callback): make prev_offset optional.
