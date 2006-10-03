@@ -21,11 +21,12 @@
 #define SCM_UNPACK(x) (x)
 #endif
 
-#if (__GNUC__ > 2)
 /* Unreliable with gcc-2.x
    FIXME: should add check for x86 as well?  */
 #define CACHE_SYMBOLS
-#endif
+
+
+
 
 #ifdef CACHE_SYMBOLS
 
@@ -41,8 +42,7 @@ scm_or_str2symbol (SCM s) { return s; }
    "fooo" is a constant string. This is done at the cost of one static
    variable per ly_symbol2scm() use, and one boolean evaluation for
    every call.
-
-   The overall speedup of lily is about 5% on a run of wtk1-fugue2.  */
+ */
 #define ly_symbol2scm(x)						\
   ({									\
     static SCM cached;							\

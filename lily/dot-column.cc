@@ -51,7 +51,7 @@ Dot_column::side_position (SCM smob)
 	}
     }
 
-  return Side_position_interface::x_aligned_side (smob);
+  return Side_position_interface::x_aligned_side (smob, SCM_EOL);
 }
 
 struct Dot_position

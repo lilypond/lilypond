@@ -75,9 +75,14 @@ chain_offset_callback (Grob *g, SCM proc, Axis a)
     data = ly_make_simple_closure (scm_list_1  (data));
   else if (is_simple_closure (data))
     data = simple_closure_expression (data);
-  else if (!scm_is_number (data))
-    data = scm_from_int (0);
-  
+  else
+    /*
+      Data may be nonnumber. In that case, it is assumed to be
+      undefined.
+    */
+    
+    data = SCM_UNDEFINED;
+
   SCM expr = scm_list_2 (proc, data);
   g->set_property (axis_offset_symbol (a),
 		   

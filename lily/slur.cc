@@ -186,7 +186,7 @@ Slur::add_extra_encompass (Grob *me, Grob *n)
 }
 
 
-MAKE_SCHEME_CALLBACK (Slur, outside_slur_callback, 2);
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1);
 SCM
 Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
@@ -216,8 +216,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   Interval yext = robust_relative_extent (script, cy, Y_AXIS);
   Interval xext = robust_relative_extent (script, cx, X_AXIS);
 
-  yext.translate (robust_scm2double (offset_scm, 0));
-  
+  Real offset = robust_scm2double (offset_scm, 0);
+  yext.translate (offset);
   
   /* FIXME: slur property, script property?  */
   Real slur_padding = robust_scm2double (script->get_property ("slur-padding"),
@@ -258,7 +258,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
       avoidance_offset = dir * (max (dir * avoidance_offset,
 				     dir * (ys[k] - yext[-dir] + dir * slur_padding)));
   
-  return scm_from_double (scm_to_double (offset_scm) + avoidance_offset);
+  return scm_from_double (offset + avoidance_offset);
 }
 
 /*

@@ -33,8 +33,6 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 	   "Its arguments. @code{signature} is a list containing either "
 	   "@code{ly:music?} predicates or other type predicates.")
 {
-  extern SCM ly_music_p_proc;
-  
   scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature"),
 			     signature);
 
