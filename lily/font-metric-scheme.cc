@@ -73,11 +73,8 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG2, __FUNCTION__, "string");
-#if 1
+
   return scm_from_unsigned_integer (fm->index_to_charcode (fm->name_to_index (ly_scm2string (name))));
-#else
-  return scm_from_unsigned_integer (fm->glyph_name_to_charcode (ly_scm2string (name)));
-#endif
 }
 
 LY_DEFINE (ly_text_dimension, "ly:text-dimension",

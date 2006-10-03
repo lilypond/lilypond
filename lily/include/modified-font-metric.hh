@@ -16,6 +16,7 @@ struct Modified_font_metric : public Font_metric
 {
 public:
   Box text_dimension (string) const;
+  Box word_dimension (string) const;
   Stencil text_stencil (string) const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);

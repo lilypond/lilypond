@@ -19,6 +19,17 @@
 
 #include "translator.icc"
 
+
+/*
+  NOTE NOTE NOTE
+
+  This is largely similar to Phrasing_slur_engraver. Check if fixes
+  apply there too.
+
+  (on principle, engravers don't use inheritance for code sharing)
+  
+ */
+
 /*
   It is possible that a slur starts and ends on the same note.  At
   least, it is for phrasing slurs: a note can be both beginning and

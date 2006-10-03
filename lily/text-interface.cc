@@ -35,7 +35,7 @@ Text_interface::interpret_string (SCM layout_smob,
   string str = ly_scm2string (markup);
 
   Font_metric *fm = select_encoded_font (layout, props);
-  return fm->text_stencil (str).smobbed_copy ();
+  return fm->word_stencil (str).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_markup, 3);

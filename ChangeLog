@@ -1,5 +1,16 @@
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/pango-font.cc (text_stencil): allow 'tight' bounds.
+	(pango_item_string_stencil): use logical rect horizontally (to
+	preserve spaces), ink_rect vertically (for time signatures).
+
+	* lily/font-metric.cc (word_stencil): new interface function
+
+	* input/regression/utf-8-mixed-text.ly: new file.
+
+	* lily/percent-repeat-engraver.cc (listen_percent): remove
+	spurious warning.
+
 	* lily/phrasing-slur-engraver.cc (acknowledge_script): only ack
 	non-dynamic scripts. Fixes #30.
 
