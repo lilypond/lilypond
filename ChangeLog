@@ -3,7 +3,8 @@
 	* VERSION (PATCH_LEVEL): bump version.
 
 	* lily/spacing-spanner.cc (musical_column_spacing): handle
-	musical->nonmusical spacing case, where there is no spacing wish.
+	musical->nonmusical spacing case, where there is no spacing
+	wish. Fixes issue #61.
 
 	* lily/pango-font.cc (text_stencil): allow 'tight' bounds.
 	(pango_item_string_stencil): use logical rect horizontally (to
