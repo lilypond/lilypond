@@ -1,5 +1,8 @@
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/include/lily-guile-macros.hh: add assert to
+	scm_or_str2symbol(SCM).
+
 	* VERSION (PATCH_LEVEL): bump version.
 
 	* lily/spacing-spanner.cc (musical_column_spacing): handle

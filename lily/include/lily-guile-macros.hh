@@ -36,7 +36,10 @@ inline SCM
 scm_or_str2symbol (char const *c) { return scm_str2symbol (c); }
 
 inline SCM
-scm_or_str2symbol (SCM s) { return s; }
+scm_or_str2symbol (SCM s) {
+  assert (scm_is_symbol (s));
+  return s;
+}
 
 /* Using this trick we cache the value of scm_str2symbol ("fooo") where
    "fooo" is a constant string. This is done at the cost of one static
