@@ -43,10 +43,13 @@ protected:
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (tuplet_number);
+
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
-  virtual void finalize ();
   void process_music ();
+
+  virtual void finalize ();
+
 
 public:
   TRANSLATOR_DECLARATIONS (Slur_engraver);

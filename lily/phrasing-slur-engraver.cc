@@ -108,7 +108,8 @@ Phrasing_slur_engraver::acknowledge_fingering (Grob_info info)
 void
 Phrasing_slur_engraver::acknowledge_script (Grob_info info)
 {
-  acknowledge_extra_object (info);
+  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
+    acknowledge_extra_object (info);
 }
 
 void
@@ -168,7 +169,7 @@ Phrasing_slur_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dynamic_line_spanner);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
