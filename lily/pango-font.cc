@@ -99,7 +99,8 @@ get_unicode_name (char*s, FT_ULong code)
 
 
 Stencil
-Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
+Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
+				       bool tight_bbox) const
 {
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
@@ -119,9 +120,13 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str) const
 
   FT_Face ftface = pango_fc_font_lock_face (fcfont);
 
-  PangoRectangle const *which_rect = &logical_rect;
-  Box b (Interval (PANGO_LBEARING (*which_rect),
-		   PANGO_RBEARING (*which_rect)),
+  PangoRectangle const *which_rect
+    = (tight_bbox)
+    ? &ink_rect
+    : &logical_rect;
+    
+  Box b (Interval (PANGO_LBEARING (logical_rect),
+		   PANGO_RBEARING (logical_rect)),
 	 Interval (-PANGO_DESCENT (*which_rect),
 		   PANGO_ASCENT (*which_rect)));
 
@@ -265,8 +270,21 @@ Pango_font::physical_font_tab () const
   return physical_font_tab_;
 }
 
+
+Stencil
+Pango_font::word_stencil (string str) const
+{
+  return text_stencil (str, true);
+}
+  
 Stencil
 Pango_font::text_stencil (string str) const
+{
+  return text_stencil (str, false);
+}
+
+Stencil
+Pango_font::text_stencil (string str, bool tight) const
 {
   GList *items
     = pango_itemize (context_,
@@ -290,7 +308,7 @@ Pango_font::text_stencil (string str) const
     {
       PangoItem *item = (PangoItem *) ptr->data;
 
-      Stencil item_stencil = pango_item_string_stencil (item, str);
+      Stencil item_stencil = pango_item_string_stencil (item, str, tight);
 
       if (text_dir == RIGHT)
 	{

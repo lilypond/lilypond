@@ -117,7 +117,10 @@ Percent_repeat_engraver::listen_percent (Stream_event *ev)
 	}
       else
 	{
-	  ev->origin ()->warning (_ ("Junking percent repeat event: Duration must be exactly one or two measures"));
+	  /*
+	    don't warn about percent repeats: slash repeats are not
+	    exactly 1 or 2 measures long.
+	   */
 	  return;
 	}
       percent_event_ = ev;

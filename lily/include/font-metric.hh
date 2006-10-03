@@ -22,9 +22,12 @@ public:
   SCM description_;
   string file_name_;
 
-
   virtual Stencil text_stencil (string) const;
+  virtual Stencil word_stencil (string) const;
+
+  // ugh.
   virtual Box text_dimension (string) const;
+
   virtual string font_name () const;
   virtual size_t count () const;
   virtual Offset attachment_point (string) const;

@@ -23,8 +23,17 @@
   It is possible that a slur starts and ends on the same note.  At
   least, it is for phrasing slurs: a note can be both beginning and
   ending of a phrase.
+
 */
 
+/*
+  NOTE NOTE NOTE
+
+  This is largely similar to Slur_engraver. Check if fixes apply there too.  
+
+  (on principle, engravers don't use inheritance for code sharing)
+  
+ */
 class Phrasing_slur_engraver : public Engraver
 {
   Drul_array<Stream_event *> events_;
