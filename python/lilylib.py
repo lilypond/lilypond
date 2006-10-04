@@ -130,6 +130,7 @@ def ossystem_system (cmd,
                      log_file=None):
 
 
+    name = command_name (cmd)
     if be_verbose:
 	show_progress = 1
 	progress (_ ("Invoking `%s\'") % cmd)
