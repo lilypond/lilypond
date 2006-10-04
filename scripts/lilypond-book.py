@@ -1719,7 +1719,7 @@ def main ():
         
     if (global_options.format in (TEXINFO, LATEX)
         and global_options.create_pdf):
-        global_options.process_cmd += "--pdf  -dinclude-eps-font -dgs-load-font "
+        global_options.process_cmd += "--pdf  -dinclude-eps-fonts -dgs-load-fonts "
 
         
     
