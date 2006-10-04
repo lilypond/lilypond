@@ -692,6 +692,7 @@
 	(stencil . ,ly:hairpin::print)
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(after-line-breaking . ,ly:hairpin::after-line-breaking)
+	(grow-direction . ,hairpin::calc-grow-direction)
 	(circled-tip . #f)
 	(thickness . 1.0)
 	(height . 0.6666)

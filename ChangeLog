@@ -4,6 +4,17 @@
 
 2006-10-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/note-name-engraver.cc: doc engraver.
+
+	* scm/output-lib.scm (hairpin::calc-grow-direction): new function.
+
+	* lily/dynamic-engraver.cc (process_music): don't set grow-direction.
+
+	* scm/define-grobs.scm (all-grob-descriptions): calc duration-log
+	by callback.
+
+	* lily/stem-engraver.cc (make_stem): don't set duration-log
+
 	* scripts/lilypond-book.py (Lilypond_file_snippet.my_system):
 	write snippet-names binary.
 
