@@ -1,3 +1,9 @@
+2006-10-04  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/advanced-notation.itely: added
+	info about instrument names for piano or other contexts,
+	thanks Marcus!
+
 2006-10-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* mf/feta-bolletjes.mf (solfa_quarter_width): use
