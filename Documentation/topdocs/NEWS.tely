@@ -66,15 +66,11 @@ which scares away people.
 
 @end ignore
 
-@item Calculation of note head durations is now softcoded. This means
-that they can be changed on the fly
+@item Calculation of note head durations is now softcoded. 
 
 @lilypond[relative=1,fragment,ragged-right]
   %% use half heads for whole notes.
-  \override NoteHead #'duration-log = #(lambda (grob)
-					(min 3 (max 1 (ly:duration-log
-					 (ly:event-property (event-cause grob) 'duration)))))
-                                         
+  \override NoteHead #'duration-log = 1                                         
   c1 c2 c4 c8[ c16 c]
 @end lilypond
 
