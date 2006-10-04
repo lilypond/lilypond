@@ -1,5 +1,12 @@
 2006-10-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* mf/feta-bolletjes.mf (solfa_quarter_width): use
+	solfa_base_notewidth as unit for non-DO-notes too.
+
+	* input/mutopia/W.A.Mozart/mozart-hrn-3.ly: update email.
+
+	* VERSION: release 2.9.21
+
 	* Documentation/topdocs/NEWS.tely (Top): simpler, more clearer override.
 
 2006-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
