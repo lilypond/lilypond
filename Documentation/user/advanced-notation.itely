@@ -976,7 +976,9 @@ In an orchestral score, instrument names are printed at the left side
 of the staves.
 
 This can be achieved by setting @internalsref{Staff}.@code{instrument}
-and @internalsref{Staff}.@code{instr}.  This will print a string before
+and @internalsref{Staff}.@code{instr}, or
+@internalsref{PianoStaff}.@code{instrument} and
+@internalsref{PianoStaff}.@code{instr}.  This will print text before
 the start of the staff.  For the first staff, @code{instrument} is
 used, for the following ones, @code{instr} is used.
 
@@ -1034,6 +1036,20 @@ To center instrument names while leaving extra space to the right,
   }
 >>
 @end lilypond
+
+To add instrument names to other contexts (such as @code{GrandStaff},
+@code{ChoirStaff}, or @code{StaffGroup}), the engraver must
+be added to that context.
+
+@example
+\layout@{
+  \context @{\GrandStaff \consists "Instrument_name_engraver"@}
+@}
+@end example
+
+@noindent
+More information about adding and removing engravers can
+be found in @ref{Modifying context plug-ins}.
 
 
 @seealso
