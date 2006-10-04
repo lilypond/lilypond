@@ -1,5 +1,8 @@
 2006-10-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): add duration-log override
+	example.
+
 	* scm/define-grobs.scm (all-grob-descriptions): use callback to
 	calc dot count.
 
