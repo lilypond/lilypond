@@ -58,15 +58,6 @@ Stem_engraver::make_stem (Grob_info gi)
      stem needs a rhythmic structure to fit it into a beam.  */
   stem_ = make_item ("Stem", gi.grob ()->self_scm ());
 
-  /*
-    we take the duration log from the Event, since the duration-log
-    for a note head is always <= 2.
-  */
-  Stream_event *ev = gi.event_cause ();
-  Duration *dur = unsmob_duration (ev->get_property ("duration"));
-
-  stem_->set_property ("duration-log", dur ? scm_from_int (dur->duration_log ()) : 0);
-
   if (tremolo_ev_)
     {
       /* Stem tremolo is never applied to a note by default,
@@ -89,6 +80,14 @@ Stem_engraver::make_stem (Grob_info gi)
       else
 	context ()->set_property ("tremoloFlags", scm_from_int (requested_type));
 
+
+      /*
+	we take the duration log from the Event, since the duration-log
+	for a note head is always <= 2.
+      */
+      Stream_event *ev = gi.event_cause ();
+      Duration *dur = unsmob_duration (ev->get_property ("duration"));
+      
       int tremolo_flags = intlog2 (requested_type) - 2
 	- (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
       if (tremolo_flags <= 0)
@@ -172,14 +171,20 @@ Stem_engraver::listen_tremolo (Stream_event *ev)
 ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Stem_engraver,
+
 		/* doc */ "Create stems and single-stem tremolos.  It also works together with "
 		"the beam engraver for overriding beaming.",
+
 		/* create */
 		"Stem "
 		"StemTremolo ",
-		/* accept */ "tremolo-event",
+		
+		/* accept */
+		"tremolo-event",
+
 		/* read */
 		"tremoloFlags "
 		"stemLeftBeamCount "
 		"stemRightBeamCount ",
+
 		/* write */ "");

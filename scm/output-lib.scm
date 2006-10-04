@@ -241,18 +241,15 @@ centered, X==1 is at the right, X == -1 is at the left."
 ;; Tuplets
 
 (define-public (tuplet-number::calc-denominator-text grob)
-  (let*
-      ((ev (ly:grob-property grob 'cause)))
-    
-    (number->string (ly:event-property ev 'denominator))))
-
+  (number->string (ly:event-property (event-cause grob) 'denominator)))
 
 (define-public (tuplet-number::calc-fraction-text grob)
   (let*
-      ((ev (ly:grob-property grob 'cause)))
+      ((ev (event-cause grob)))
+
     (format "~a:~a" 
-      (ly:event-property ev 'denominator)
-      (ly:event-property ev 'numerator))))
+	    (ly:event-property ev 'denominator)
+	    (ly:event-property ev 'numerator))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Color
@@ -403,7 +400,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (fingering::calc-text grob)
   (let*
-      ((event (ly:grob-property grob 'cause))
+      ((event (event-cause grob))
        (digit (ly:event-property event 'digit)))
     
     (if (> digit 5)
@@ -415,8 +412,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (string-number::calc-text grob)
   (let*
-      ((event (ly:grob-property grob 'cause))
-       (digit (ly:event-property event 'string-number)))
+      ((digit (ly:event-property (event-cause  grob) 'string-number)))
     
     (number->string digit 10)
   ))
