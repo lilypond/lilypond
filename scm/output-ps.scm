@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 ;;;; Note: currently misused as testbed for titles with markup, see
 ;;;;       input/test/title-markup.ly

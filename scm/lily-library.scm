@@ -4,7 +4,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 
 (define-public X 0)
@@ -391,6 +391,13 @@ found."
 ;;
 
 
+(define-public (string-encode-integer i)
+  (cond
+   ((= i  0) "o")
+   ((< i 0)   (string-append "n" (string-encode-integer (- i))))
+   (else (string-append
+	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
+	  (string-encode-integer (quotient i 26))))))
 
 (define-public (ly:numbers->string lst)
   (string-join (map ly:number->string lst) " "))

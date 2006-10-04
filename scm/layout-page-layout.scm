@@ -3,7 +3,7 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
 ;;;; (c) 2004--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;;	      Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;	      Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-module (scm layout-page-layout)
   #:use-module (srfi srfi-1)
