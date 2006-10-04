@@ -123,10 +123,40 @@ def subprocess_system (cmd,
 
     return abs (retval)
 
+def ossystem_system (cmd,
+                     ignore_error=False,
+                     progress_p=True,
+                     be_verbose=False,
+                     log_file=None):
+
+
+    if be_verbose:
+	show_progress = 1
+	progress (_ ("Invoking `%s\'") % cmd)
+    else:
+	progress ( _("Running %s...") % name)
+
+    retval = os.system (cmd)
+    if retval:
+	print >>sys.stderr, 'command failed:', cmd
+	if retval < 0:
+	    print >>sys.stderr, "Child was terminated by signal", -retval
+	elif retval > 0:
+	    print >>sys.stderr, "Child returned", retval
+
+	if ignore_error:
+	    print >>sys.stderr, "Error ignored"
+	else:
+	    sys.exit (1)
+
+    return abs (retval)
 
 
 system = subprocess_system
+if sys.platform == 'mingw32':
     
+    ## subprocess x-compile doesn't work.
+    system = ossystem_system
 
 def strip_extension (f, ext):
     (p, e) = os.path.splitext (f)
