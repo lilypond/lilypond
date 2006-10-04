@@ -31,7 +31,6 @@ class Tab_note_heads_engraver : public Engraver
 {
   vector<Item*> notes_;
 
-  vector<Item*> dots_;
   vector<Stream_event*> note_events_;
   vector<Stream_event*> tabstring_events_;
 public:
@@ -108,22 +107,6 @@ Tab_note_heads_engraver::process_music ()
 	}
 
       Duration dur = *unsmob_duration (event->get_property ("duration"));
-      note->set_property ("duration-log",
-			  scm_from_int (dur.duration_log ()));
-
-      if (dur.dot_count ())
-	{
-	  Item *d = make_item ("Dots", event->self_scm ());
-	  Rhythmic_head::set_dots (note, d);
-
-	  if (dur.dot_count ()
-	      != scm_to_int (d->get_property ("dot-count")))
-	    d->set_property ("dot-count", scm_from_int (dur.dot_count ()));
-
-	  d->set_parent (note, Y_AXIS);
-
-	  dots_.push_back (d);
-	}
 
       SCM scm_pitch = event->get_property ("pitch");
       SCM proc = get_property ("tablatureFormat");
@@ -157,15 +140,27 @@ void
 Tab_note_heads_engraver::stop_translation_timestep ()
 {
   notes_.clear ();
-  dots_.clear ();
   note_events_.clear ();
   tabstring_events_.clear ();
 }
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
 		/* doc */ "Generate one or more tablature noteheads from event of type NoteEvent.",
-		/* create */ "TabNoteHead Dots",
-		/* accept */ "note-event string-number-event",
-		/* read */ "middleCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
+		/* create */
+		"TabNoteHead "
+		,
+
+		/* accept */
+		"note-event "
+		"string-number-event ",
+
+		/* read */
+		"middleCPosition "
+		"stringTunings "
+		"minimumFret "
+		"tablatureFormat "
+		"highStringOne "
+		"stringOneTopmost ",
+
 		/* write */ "");
 

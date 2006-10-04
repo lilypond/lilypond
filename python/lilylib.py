@@ -69,12 +69,11 @@ def command_name (cmd):
     cmd = re.match ('([\(\)]*)([^\\\ ]*)', cmd).group (2)
     return os.path.basename (cmd)
 
-def system (cmd,
-            ignore_error=False,
-            progress_p=True,
-            be_verbose=False,
-            log_file=None):
-    
+def subprocess_system (cmd,
+                       ignore_error=False,
+                       progress_p=True,
+                       be_verbose=False,
+                       log_file=None):
     import subprocess
 
     show_progress= progress_p 
@@ -123,6 +122,11 @@ def system (cmd,
 	    sys.exit (1)
 
     return abs (retval)
+
+
+
+system = subprocess_system
+    
 
 def strip_extension (f, ext):
     (p, e) = os.path.splitext (f)

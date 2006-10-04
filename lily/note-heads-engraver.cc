@@ -56,23 +56,6 @@ Note_heads_engraver::process_music ()
       Stream_event *ev = note_evs_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
 
-      Duration dur = *unsmob_duration (ev->get_property ("duration"));
-
-      note->set_property ("duration-log", scm_from_int (dur.duration_log ()));
-      if (dur.dot_count ())
-	{
-	  Item *d = make_item ("Dots", note->self_scm ());
-	  Rhythmic_head::set_dots (note, d);
-
-	  if (dur.dot_count ()
-	      != robust_scm2int (d->get_property ("dot-count"), 0))
-	    d->set_property ("dot-count", scm_from_int (dur.dot_count ()));
-
-	  d->set_parent (note, Y_AXIS);
-
-	  dots_.push_back (d);
-	}
-
       Pitch *pit = unsmob_pitch (ev->get_property ("pitch"));
 
 #if 0 /* TODO: should have a mechanism to switch off these warnings. */

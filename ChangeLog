@@ -1,3 +1,26 @@
+2006-10-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/define-grobs.scm (all-grob-descriptions): use callback to
+	calc dot count.
+
+	* lily/dots-engraver.cc (class Dots_engraver): new engraver:
+	handle dot creation separately.
+
+	* lily/tab-note-heads-engraver.cc (process_music): idem.
+
+	* lily/drum-note-engraver.cc (process_music): idem.
+
+	* lily/note-heads-engraver.cc (process_music): idem.
+
+	* lily/rest-engraver.cc: don't set duration-log.
+
+	* scm/output-lib.scm (string-number::calc-text): new function.
+	(note-head::calc-duration-log): new function.
+
+	* lily/fingering-engraver.cc (make_script): remove 'text setting.
+
+	* scm/output-lib.scm (fingering::calc-text): new function.
+
 2006-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond-book.py: Fix typo gs-load-font -> gs-load-fonts

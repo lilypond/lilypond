@@ -55,29 +55,8 @@ Rest_engraver::process_music ()
   if (rest_event_ && !rest_)
     {
       rest_ = make_item ("Rest", rest_event_->self_scm ());
-
-      int durlog = unsmob_duration (rest_event_->get_property ("duration"))->duration_log ();
-
-      rest_->set_property ("duration-log",
-			   scm_from_int (durlog));
-
-      int dots = unsmob_duration (rest_event_->get_property ("duration"))->dot_count ();
-
-      if (dots)
-	{
-	  dot_ = make_item ("Dots", SCM_EOL);
-
-	  Rhythmic_head::set_dots (rest_, dot_);
-	  dot_->set_parent (rest_, Y_AXIS);
-	  dot_->set_property ("dot-count", scm_from_int (dots));
-	}
-
       Pitch *p = unsmob_pitch (rest_event_->get_property ("pitch"));
 
-      /*
-	This is ridiculous -- rests don't have pitch, but we act as if
-	our nose is bleeding.
-      */
       if (p)
 	{
 	  int pos = p->steps ();
@@ -99,7 +78,7 @@ Rest_engraver::listen_rest (Stream_event *ev)
 
 ADD_TRANSLATOR (Rest_engraver,
 		/* doc */ "",
-		/* create */ "Rest Dots",
+		/* create */ "Rest ",
 		/* accept */ "rest-event",
 		/* read */ "middleCPosition",
 		/* write */ "");

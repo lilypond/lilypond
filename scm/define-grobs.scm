@@ -508,7 +508,7 @@
     (Dots
      . (
 	(stencil . ,ly:dots::print)
-	(dot-count . 1)
+	(dot-count . ,dots::calc-dot-count)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				staff-symbol-referencer-interface
@@ -630,7 +630,7 @@
 
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
-
+	(text . ,fingering::calc-text) 
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
@@ -1038,6 +1038,7 @@
     (NoteHead
      . (
 	(stencil . ,ly:note-head::print)
+	(duration-log . ,note-head::calc-duration-log)
 	(stem-attachment . ,ly:note-head::calc-stem-attachment)
 	(glyph-name . ,note-head::calc-glyph-name) 
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
@@ -1276,6 +1277,7 @@
     (Rest
      . (
 	(stencil . ,ly:rest::print)
+	(duration-log . ,note-head::calc-duration-log)
 	(X-extent . ,ly:rest::width)
 	(Y-extent . ,ly:rest::height)
 	(Y-offset . ,ly:rest::y-offset-callback)
@@ -1516,6 +1518,7 @@
     (StringNumber
      . (
 	(stencil . ,print-circled-text-callback)
+	(text . ,string-number::calc-text)
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)
@@ -1635,6 +1638,7 @@
      . (
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
+	(duration-log . ,note-head::calc-duration-log)
 	(font-size . -2)
 	(stem-attachment . (0.0 . 1.35))
 	(font-series . bold)
