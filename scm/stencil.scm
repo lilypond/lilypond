@@ -310,14 +310,6 @@ grestore
 	      rest))
 	expr))
   
-  (define (event-cause grob)
-    (let*
-	((cause (ly:grob-property  grob 'cause)))
-      
-      (cond
-       ((ly:stream-event? cause) cause)
-       ((ly:grob? cause) (event-cause cause))
-       (else #f))))
 
   (define (pythonic-string expr)
     "escape quotes and slashes for python consumption"

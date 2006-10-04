@@ -138,24 +138,12 @@ New_fingering_engraver::add_fingering (Grob *head,
 
   Side_position_interface::add_support (ft.script_, head);
 
-  int d = scm_to_int (event->get_property ("digit"));
-
   /*
     TODO:
 
     Should add support for thumb.  It's a little involved, since
     the thumb lives in a different font. Maybe it should be moved?
-
   */
-  if (d > 5)
-    {
-      /*
-	music for the softenon children?
-      */
-      event->origin ()->warning (_ ("music for the martians."));
-    }
-  SCM sstr = scm_number_to_string (scm_from_int (d), scm_from_int (10));
-  ft.script_->set_property ("text", sstr);
 
   ft.finger_event_ = event;
   ft.note_event_ = hevent;
@@ -174,11 +162,6 @@ New_fingering_engraver::add_string (Grob *head,
   ft.script_ = make_item ("StringNumber", event->self_scm ());
 
   Side_position_interface::add_support (ft.script_, head);
-
-  int d = scm_to_int (event->get_property ("string-number"));
-
-  SCM sstr = scm_number_to_string (scm_from_int (d), scm_from_int (10));
-  ft.script_->set_property ("text", sstr);
 
   ft.finger_event_ = event;
   ft.note_event_ = hevent;
@@ -360,7 +343,13 @@ ADD_TRANSLATOR (New_fingering_engraver,
 		/* doc */ "Create fingering-scripts for notes in a new chord.  "
 		"This engraver is ill-named, since it "
 		"also takes care of articulations and harmonic note heads",
-		/* create */ "Fingering",
+		/* create */
+		"Fingering",
 		/* accept */ "",
-		/* read */ "fingeringOrientations",
+		/* read */
+		
+		"fingeringOrientations "
+		"stringNumberOrientations "
+		,
+		
 		/* write */ "");

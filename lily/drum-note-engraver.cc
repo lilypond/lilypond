@@ -22,7 +22,6 @@ using namespace std;
 class Drum_notes_engraver : public Engraver
 {
   vector<Item*> notes_;
-  vector<Item*> dots_;
   vector<Item*> scripts_;
   vector<Stream_event*> events_;
 
@@ -59,24 +58,6 @@ Drum_notes_engraver::process_music ()
 
       Stream_event *ev = events_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
-
-      Duration dur = *unsmob_duration (ev->get_property ("duration"));
-
-      note->set_property ("duration-log", scm_from_int (dur.duration_log ()));
-
-      if (dur.dot_count ())
-	{
-	  Item *d = make_item ("Dots", ev->self_scm ());
-	  Rhythmic_head::set_dots (note, d);
-
-	  if (dur.dot_count ()
-	      != robust_scm2int (d->get_property ("dot-count"), 0))
-	    d->set_property ("dot-count", scm_from_int (dur.dot_count ()));
-
-	  d->set_parent (note, Y_AXIS);
-
-	  dots_.push_back (d);
-	}
 
       SCM drum_type = ev->get_property ("drum-type");
 
@@ -143,7 +124,6 @@ void
 Drum_notes_engraver::stop_translation_timestep ()
 {
   notes_.clear ();
-  dots_.clear ();
   scripts_.clear ();
 
   events_.clear ();
@@ -153,7 +133,10 @@ ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
 ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* doc */ "Generate noteheads.",
-		/* create */ "NoteHead Dots Script",
+		/* create */
+		"NoteHead "
+		"Script",
+
 		/* accept */ "note-event",
 		/* read */ "drumStyleTable",
 		/* write */ "");

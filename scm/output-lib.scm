@@ -6,7 +6,26 @@
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
-;;; Tablature functions, by Jiba (jiba@tuxfamily.org)
+
+(define-public (event-cause grob)
+  (let*
+      ((cause (ly:grob-property  grob 'cause)))
+    
+    (cond
+     ((ly:stream-event? cause) cause)
+     ((ly:grob? cause) (event-cause cause))
+     (else #f))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; note heads
+
+(define-public (note-head::calc-duration-log grob)
+  (ly:duration-log
+   (ly:event-property (event-cause grob) 'duration)))
+
+(define-public (dots::calc-dot-count grob)
+  (ly:duration-dot-count
+   (ly:event-property (event-cause grob) 'duration)))
 
 ;; The TabNoteHead stem attachment function.
 (define (note-head::calc-tablature-stem-attachment grob)
@@ -82,33 +101,6 @@
 	 (circle (ly:text-interface::interpret-markup
 		  layout props (make-circle-markup text))))
     circle))
-
-
-;;(define (mm-to-pt x)
-;;  (* (/ 72.27 25.40) x))
-
-;; do nothing in .scm output
-
-(define-public (ly:numbers->string lst)
-  (string-join (map ly:number->string lst) " "))
-
-(define (number->octal-string x)
-  (let* ((n (inexact->exact x))
-         (n64 (quotient n 64))
-         (n8 (quotient (- n (* n64 64)) 8)))
-    (string-append
-     (number->string n64)
-     (number->string n8)
-     (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
-
-(define-public (ly:inexact->string x radix)
-  (let ((n (inexact->exact x)))
-    (number->string n radix)))
-
-(define-public (ly:number-pair->string c)
-  (string-append (ly:number->string (car c)) " "
-		 (ly:number->string (cdr c))))
-
 
 ;; silly, use alist? 
 (define-public (note-head::calc-glyph-name grob)
@@ -349,7 +341,8 @@ centered, X==1 is at the right, X == -1 is at the left."
        (left-span (ly:spanner-bound spanner LEFT))
        (right-span (ly:spanner-bound spanner RIGHT))
        (thickness (* (ly:grob-property spanner 'thickness)
-		     (ly:output-def-lookup (ly:grob-layout spanner) 'line-thickness)))
+		     (ly:output-def-lookup (ly:grob-layout spanner)
+					   'line-thickness)))
        (padding (ly:grob-property spanner 'padding 0.5))
        (common (ly:grob-common-refpoint right-span
 					(ly:grob-common-refpoint spanner
@@ -402,3 +395,27 @@ centered, X==1 is at the right, X == -1 is at the left."
     (fold moment-min #f (map get-difference
 			     (iota (1- (ly:grob-array-length cols)))))))
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fingering
+
+(define-public (fingering::calc-text grob)
+  (let*
+      ((event (ly:grob-property grob 'cause))
+       (digit (ly:event-property event 'digit)))
+    
+    (if (> digit 5)
+	(ly:input-message (ly:music-property event 'origin)
+			  "Music for the martians"))
+
+    (number->string digit 10)
+  ))
+
+(define-public (string-number::calc-text grob)
+  (let*
+      ((event (ly:grob-property grob 'cause))
+       (digit (ly:event-property event 'string-number)))
+    
+    (number->string digit 10)
+  ))

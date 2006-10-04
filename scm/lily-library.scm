@@ -391,6 +391,28 @@ found."
 ;;
 
 
+
+(define-public (ly:numbers->string lst)
+  (string-join (map ly:number->string lst) " "))
+
+(define (number->octal-string x)
+  (let* ((n (inexact->exact x))
+         (n64 (quotient n 64))
+         (n8 (quotient (- n (* n64 64)) 8)))
+    (string-append
+     (number->string n64)
+     (number->string n8)
+     (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
+
+(define-public (ly:inexact->string x radix)
+  (let ((n (inexact->exact x)))
+    (number->string n radix)))
+
+(define-public (ly:number-pair->string c)
+  (string-append (ly:number->string (car c)) " "
+		 (ly:number->string (cdr c))))
+
+
 (define-public (write-me message x)
   "Return X.  Display MESSAGE and write X.  Handy for debugging,
 possibly turned off."

@@ -111,9 +111,6 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
 	fingering->set_property ("direction", scm_from_int (RIGHT));
     }
 
-  SCM dig = r->get_property ("digit");
-  fingering->set_property ("text", scm_number_to_string (dig, scm_from_int (10)));
-
   fingerings_.push_back (fingering);
 }
 

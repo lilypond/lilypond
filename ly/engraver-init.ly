@@ -192,6 +192,7 @@ contained staves are not connected vertically."
   \consists "Ligature_bracket_engraver"
   \consists "Breathing_sign_engraver"
   \consists "Note_heads_engraver"
+  \consists "Dots_engraver"
   \consists "Rest_engraver"
 
   %% switch on to make stem directions interpolate for the
