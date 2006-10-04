@@ -3,8 +3,35 @@
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; general
+
+(define-public (make-stencil-boxer thickness padding callback)
+
+  "Return function that adds a box around the grob passed as argument."
+  (lambda (grob)
+    
+    (box-stencil (callback grob) thickness padding)))
+
+(define-public (make-stencil-circler thickness padding callback)
+  "Return function that adds a circle around the grob passed as argument."
+  
+  (lambda (grob) (circle-stencil (callback grob) thickness padding)))
+
+(define-public (print-circled-text-callback grob)
+  (let* ((text (ly:grob-property grob 'text))
+	 
+	 (layout (ly:grob-layout grob))
+	 (defs (ly:output-def-lookup layout 'text-font-defaults))
+	 (props (ly:grob-alist-chain grob defs))
+	 (circle (ly:text-interface::interpret-markup
+		  layout props (make-circle-markup text))))
+    circle))
 
 
 (define-public (event-cause grob)
@@ -17,19 +44,7 @@
      (else #f))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; note heads
-
-(define-public (note-head::calc-duration-log grob)
-  (ly:duration-log
-   (ly:event-property (event-cause grob) 'duration)))
-
-(define-public (dots::calc-dot-count grob)
-  (ly:duration-dot-count
-   (ly:event-property (event-cause grob) 'duration)))
-
-;; The TabNoteHead stem attachment function.
-(define (note-head::calc-tablature-stem-attachment grob)
-  (cons 0.0 1.35))
+;; tablature
 
 ;; The TabNoteHead tablatureFormat callback.
 ;; Compute the text grob-property
@@ -74,33 +89,21 @@
 (define-public (four-string-banjo tuning)
   (reverse (cdr (reverse tuning))))
 
-;;; end of tablature functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; note heads
 
-(define-public (make-stencil-boxer thickness padding callback)
+(define-public (note-head::calc-duration-log grob)
+  (ly:duration-log
+   (ly:event-property (event-cause grob) 'duration)))
 
-  "Return function that adds a box around the grob passed as argument."
-  (lambda (grob)
-    
-    (box-stencil (callback grob) thickness padding)))
+(define-public (dots::calc-dot-count grob)
+  (ly:duration-dot-count
+   (ly:event-property (event-cause grob) 'duration)))
 
-(define-public (make-stencil-circler thickness padding callback)
-  "Return function that adds a circle around the grob passed as argument."
-  (lambda (grob) (circle-stencil (callback grob) thickness padding)))
+(define (note-head::calc-tablature-stem-attachment grob)
+  (cons 0.0 1.35))
 
-(define-public (arg->string arg)
-  (cond ((number? arg) (ly:inexact->string arg 10))
-	((string? arg) (string-append "\"" arg "\""))
-	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
 
-(define-public (print-circled-text-callback grob)
-  (let* ((text (ly:grob-property grob 'text))
-	 
-	 (layout (ly:grob-layout grob))
-	 (defs (ly:output-def-lookup layout 'text-font-defaults))
-	 (props (ly:grob-alist-chain grob defs))
-	 (circle (ly:text-interface::interpret-markup
-		  layout props (make-circle-markup text))))
-    circle))
 
 ;; silly, use alist? 
 (define-public (note-head::calc-glyph-name grob)
@@ -151,13 +154,9 @@ centered, X==1 is at the right, X == -1 is at the left."
 
   '(1.0 . 0.0))
 
-(define-public (string-encode-integer i)
-  (cond
-   ((= i  0) "o")
-   ((< i 0)   (string-append "n" (string-encode-integer (- i))))
-   (else (string-append
-	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
-	  (string-encode-integer (quotient i 26))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bar numbers
 
 (define-public ((every-nth-bar-number-visible n) barnum) (= 0 (modulo barnum n)))
 
@@ -169,7 +168,9 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (first-bar-number-invisible barnum) (> barnum 1))
 
-;; See documentation of ly:item::visibility-lambda-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; break visibility
+
 (define-public begin-of-line-visible
   #(#f #f #t))
 (define-public end-of-line-visible
