@@ -416,3 +416,11 @@ centered, X==1 is at the right, X == -1 is at the left."
     
     (number->string digit 10)
   ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; dynamics
+(define-public (hairpin::calc-grow-direction grob)
+  (if (eq? (ly:event-property (event-cause grob) 'class) 'decrescendo-event)
+      START
+      STOP
+      ))

@@ -67,7 +67,7 @@ Note_name_engraver::Note_name_engraver ()
 }
 
 ADD_TRANSLATOR (Note_name_engraver,
-		/* doc */ "",
+		/* doc */ "Print pitches as words.",
 		/* create */ "NoteName",
 		/* accept */ "note-event",
 		/* read */ "printOctaveNames",

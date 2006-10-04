@@ -241,9 +241,6 @@ Dynamic_engraver::process_music ()
 						     ly_symbol2scm ("adjacent-hairpins"),
 						     finished_cresc_);
 		}
-	      cresc_->set_property ("grow-direction",
-				    scm_from_int ((start_type == "crescendo")
-						  ? BIGGER : SMALLER));
 	    }
 
 	  /*
