@@ -25,7 +25,6 @@ using namespace std;
 class Note_heads_engraver : public Engraver
 {
   vector<Item*> notes_;
-  vector<Item*> dots_;
   vector<Stream_event*> note_evs_;
 
 public:
@@ -100,15 +99,13 @@ void
 Note_heads_engraver::stop_translation_timestep ()
 {
   notes_.clear ();
-  dots_.clear ();
   note_evs_.clear ();
 }
 
 ADD_TRANSLATOR (Note_heads_engraver,
 		/* doc */ "Generate noteheads.",
 		/* create */
-		"NoteHead "
-		"Dots",
+		"NoteHead ",
 		/* accept */
 		"note-event",
 		/* read */ "middleCPosition",
