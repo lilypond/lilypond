@@ -1010,7 +1010,7 @@ def draw_re_head (expr width_factor, dir) =
 	save p_in, p_out;
 	path p_in, p_out;
 
-	set_char_box (0, width_factor * solfa_noteheight#,
+	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
 	pickup pencircle scaled solfa_pen_thick;
@@ -1094,7 +1094,7 @@ def draw_mi_head (expr width_factor) =
 	path path_out, path_in;
 	pair ne_dist, se_dist, ne, se;
 
-	set_char_box (0, width_factor * solfa_noteheight#,
+	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
 	pickup pencircle scaled solfa_pen_thick;
@@ -1169,7 +1169,7 @@ fet_endchar;
 
 
 def draw_fa_head (expr width_factor) =
-	set_char_box (0, width_factor * solfa_noteheight#,
+	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
 	save p_down_in, p_down_out, p_up_in, p_up_out, nw_dist, nw;
@@ -1260,7 +1260,7 @@ fet_endchar;
 
 
 def draw_la_head (expr width_factor) =
-	set_char_box (0, width_factor * solfa_noteheight#,
+	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 	save p_in, p_out;
 	path p_in, p_out;
@@ -1319,7 +1319,7 @@ fet_endchar;
 
 
 def draw_ti_head (expr width_factor, dir) =
-	set_char_box (0, width_factor * solfa_noteheight#,
+	set_char_box (0, width_factor * solfa_base_notewidth#,
 		      0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 	save p_in, p_out, p_top;
 	save nw_dist, sw_dist, nw, sw;

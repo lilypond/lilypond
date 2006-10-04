@@ -12,9 +12,9 @@
   mutopiacomposer = "W.A.Mozart"
   mutopiaopus = "KV447"
   style = "classical"
-  maintainer = "hanwen@cs.uu.nl"
-  maintainerEmail = "hanwen@cs.uu.nl"
-  maintainerWeb = "http://www.cs.uu.nl/~hanwen/"	
+  maintainer = "hanwen@xs4all.nl"
+  maintainerEmail = "hanwen@xs4all.nl"
+  maintainerWeb = "http://www.xs4all.nl/~hanwen/"	
   lastupdated = "2002/May/21"
   source = "Edition Breitkopf 2563"
   footer = "Mutopia-2002/05/21-25"
@@ -23,7 +23,7 @@
       \column {
 	   \fill-line { \footer "" }
 	   \fill-line { { "This music is part of the Mutopia project,"
-			  \typewriter { "http://sca.uwaterloo.ca/Mutopia/" }
+			  \typewriter { "http://mutopiaproject.org/" }
 			 } }
 	   \fill-line { #(ly:export (string-append "It has been typeset and placed in the public "
 			  "domain by "  maintainer  "."))  }
