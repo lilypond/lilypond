@@ -1,9 +1,9 @@
-2006-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
-
-	* scripts/lilypond-book.py (bindir): Use os.path.join to add the
-	path, in order to get correct path separators on all platforms.
-
 2006-10-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* python/lilylib.py (system): use os.system for mingw32
+
+	* scripts/lilypond-book.py (bindir): use os.pathsep for prepending
+	to $PATH.
 
 	* scm/backend-library.scm: update email address.
 
