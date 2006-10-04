@@ -1,5 +1,8 @@
 2006-10-04  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/lilypond-book.py (Lilypond_file_snippet.my_system):
+	write snippet-names binary.
+
 	* python/lilylib.py (system): use os.system for mingw32
 
 	* scripts/lilypond-book.py (bindir): use os.pathsep for prepending

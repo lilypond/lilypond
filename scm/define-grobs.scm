@@ -1456,6 +1456,7 @@
     (Stem
      . (
 	(direction . ,ly:stem::calc-direction)
+	(duration-log . ,note-head::calc-duration-log)
 	(default-direction . ,ly:stem::calc-default-direction)
 	(stem-end-position . ,ly:stem::calc-stem-end-position)
 	(neutral-direction . ,DOWN)

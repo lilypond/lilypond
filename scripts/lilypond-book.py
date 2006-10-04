@@ -1382,7 +1382,7 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
             my_system ('latex %s.texstr' % l)
 
     if ly_names:
-        open ('snippet-names', 'w').write ('\n'.join (['snippet-map.ly']
+        open ('snippet-names', 'wb').write ('\n'.join (['snippet-map.ly']
                                                       + ly_names))
         
         my_system (string.join ([cmd, 'snippet-names']))
