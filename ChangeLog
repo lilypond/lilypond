@@ -1,3 +1,8 @@
+2006-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond-book.py: Fix typo gs-load-font -> gs-load-fonts
+	 and include-eps-font -> include-eps-fonts
+
 2006-10-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/multi-measure-rest-engraver.cc: use internalBarNumber
