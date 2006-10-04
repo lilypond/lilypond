@@ -1,4 +1,3 @@
-# translation of fi.po to Suomi
 # translation of fi.po to
 # Finnish Translation of lilypond.
 # Copyright (C) 2003 Han-Wen Nienhuys, Jan Nieuwenhuizen
@@ -10,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-28 10:22+0300\n"
-"PO-Revision-Date: 2006-10-02 00:22+0300\n"
-"Last-Translator: Heikki Junes <hjunes@cc.hut.fi>\n"
-"Language-Team: Suomi <fi@li.org>\n"
+"POT-Creation-Date: 2006-10-04 21:28+0300\n"
+"PO-Revision-Date: 2006-10-04 21:30+0300\n"
+"Last-Translator: hjunes\n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -65,22 +64,22 @@ msgstr "Poimittiin %s"
 msgid "Writing fonts to %s"
 msgstr "Kirjoitetaan fontit osoitteeseen `%s'"
 
-#: lilylib.py:86
+#: lilylib.py:85 lilylib.py:136
 #, python-format
 msgid "Invoking `%s'"
 msgstr "Kutsutaan `%s'"
 
-#: lilylib.py:88
+#: lilylib.py:87 lilylib.py:138
 #, python-format
 msgid "Running %s..."
 msgstr "Ajetaan %s..."
 
-#: lilylib.py:168
+#: lilylib.py:203
 #, python-format
 msgid "Usage: %s\n"
 msgstr "Käyttö: %s\n"
 
-#: abc2ly.py:1348
+#: abc2ly.py:1351
 msgid ""
 "This program converts ABC music files (see\n"
 "http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input."
@@ -88,15 +87,15 @@ msgstr ""
 "Tämä ohjelma kääntää ABC-musiikkitiedostoja (katso\n"
 "http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) LilyPond-syötteeksi."
 
-#: abc2ly.py:1351
+#: abc2ly.py:1354
 msgid "set output filename to FILE"
 msgstr "tulosta tiedostoon TIEDOSTO"
 
-#: abc2ly.py:1353
+#: abc2ly.py:1356
 msgid "be strict about succes"
 msgstr "ole tarkka onnistumisesta"
 
-#: abc2ly.py:1355
+#: abc2ly.py:1358
 msgid "preserve ABC's notion of beams"
 msgstr "säilytä ABC:n palkkimerkinnät"
 
@@ -401,7 +400,7 @@ msgstr "prosessointi dvips:illä ei sisällä fontteja"
 msgid "DVIPS usage:"
 msgstr "DVIPS käyttö:"
 
-#: midi2ly.py:106 lily-library.scm:512 lily-library.scm:520
+#: midi2ly.py:106 lily-library.scm:541 lily-library.scm:549
 msgid "warning: "
 msgstr "varoitus: "
 
@@ -529,7 +528,7 @@ msgstr ""
 "pystysyora sijoittelu kutsuttiin ennen rivinkatkaisua.\n"
 "Viivaston ylittävät ladokkeet tehdään vain PianoStaff:in yhteydessä."
 
-#: align-interface.cc:309
+#: align-interface.cc:314
 msgid "tried to get a translation for something that isn't my child"
 msgstr "yritettiin saada käännösteksti jollekin, joka ei ole lapseni"
 
@@ -681,7 +680,7 @@ msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
 msgstr "Coherent_ligature_engraver: asetetaan `spacing-increment=0.01': ptr=%ul"
 
 #. if we get to here, just put everything on one line
-#: constrained-breaking.cc:241 constrained-breaking.cc:258
+#: constrained-breaking.cc:176 constrained-breaking.cc:193
 msgid "couldn't find line breaking that satisfies constraints"
 msgstr "ei löytynyt rivinkatkaisukohtaa joka täyttäisi ehdot"
 
@@ -744,7 +743,7 @@ msgstr "crescendo jo käytössä"
 msgid "cresc starts here"
 msgstr "cresc aloitettiin tästä"
 
-#: dynamic-engraver.cc:326
+#: dynamic-engraver.cc:323
 msgid "unterminated (de)crescendo"
 msgstr "päättämätön (de)crescendo"
 
@@ -1333,22 +1332,15 @@ msgstr "oktaavitarkistus epäonnistui; oletettiin \"%s\", löydettiin: %s"
 msgid "transposition by %s makes alteration larger than double"
 msgstr "transponointi %s:N verran tekee muutokset suuremmaksi kuin kaksi"
 
-#: new-fingering-engraver.cc:86
+#: new-fingering-engraver.cc:87
 msgid "can't add text scripts to individual note heads"
 msgstr "ei voitu lisätä tekstinpätkiä yksittäisiin nuotteihin"
 
-#.
-#. music for the softenon children?
-#.
-#: new-fingering-engraver.cc:155
-msgid "music for the martians."
-msgstr "musiikkia marsilaisille."
-
-#: new-fingering-engraver.cc:263
+#: new-fingering-engraver.cc:246
 msgid "no placement found for fingerings"
 msgstr "sormitukselle ei löytynyt paikkaa"
 
-#: new-fingering-engraver.cc:264
+#: new-fingering-engraver.cc:247
 msgid "placing below"
 msgstr "sijoitetaan alle"
 
@@ -1365,7 +1357,7 @@ msgstr "ei voinut olla nuotinpäitä ja taukoja yhtäaikaa palkissa"
 msgid "note head `%s' not found"
 msgstr "nuottipäätä `%s' ei löytynyt"
 
-#: note-heads-engraver.cc:81
+#: note-heads-engraver.cc:63
 msgid "NoteEvent without pitch"
 msgstr "NoteEvent ilman nuottikorkeutta"
 
@@ -1394,21 +1386,29 @@ msgstr "tuntematon virhe: %d lukee fonttitiedostoa: %s"
 msgid "FT_Get_Glyph_Name() returned error: %d"
 msgstr "FT_Get_Glyph_Name() palautti virheen: %d"
 
-#: page-turn-page-breaking.cc:189
+#: page-turn-page-breaking.cc:227
+msgid ""
+"couldn't fit the first page turn onto a single page. Consider setting first-"
+"page-number to an even number."
+msgstr ""
+"Ei voitu sovittaa ensimmäistä sivunkääntöä yhdelle sivulle. Harkitse "
+"ensimmäisen sivunumeron (first-page-number) asettamista parittomaksi."
+
+#: page-turn-page-breaking.cc:240
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
 msgstr "Lasketaan sivujen ja rivien katkaisuja (%d mahdollista sivunkatkaisua)..."
 
-#: page-turn-page-breaking.cc:207 paper-score.cc:157
+#: page-turn-page-breaking.cc:258 paper-score.cc:154
 msgid "Drawing systems..."
 msgstr "Piirretään tahteja..."
 
-#: pango-font.cc:208
+#: pango-font.cc:215
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr "ei PostScript fonttinimeä fontille `%s'"
 
-#: pango-font.cc:256
+#: pango-font.cc:263
 msgid "FreeType face has no PostScript font name"
 msgstr "FreeType muodolla ei ollut PostScript fonttinimeä"
 
@@ -1421,12 +1421,12 @@ msgstr "Aseta tulostus paikkaan `%s'..."
 msgid "Calculating line breaks..."
 msgstr "Lasketaan rivinvaihtoja..."
 
-#: paper-score.cc:121
+#: paper-score.cc:118
 #, c-format
 msgid "Element count %d (spanners %d) "
 msgstr "Elementtien määrä: %d (ladokkeita: %d)"
 
-#: paper-score.cc:125
+#: paper-score.cc:122
 msgid "Preprocessing graphical objects..."
 msgstr "Esiprosessoidaan graafisia kohteita..."
 
@@ -1434,11 +1434,7 @@ msgstr "Esiprosessoidaan graafisia kohteita..."
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr "GUILE antoi virheen lausekkeelle, joka alkoi täältä"
 
-#: percent-repeat-engraver.cc:97
-msgid "Junking percent repeat event: Duration must be exactly one or two measures"
-msgstr "Hylätään prosenttitoistotapahtuma: keston täytyy olla tarkalleen yksi tai kaksi tahtia"
-
-#: percent-repeat-engraver.cc:173
+#: percent-repeat-engraver.cc:200
 msgid "unterminated percent repeat"
 msgstr "päättämätön prosenttitoisto"
 
@@ -1459,7 +1455,7 @@ msgstr "kuvataan uudelleen modulo 16"
 msgid "MIDI output to `%s'..."
 msgstr "Tehdään MIDI-tuloste `%s'..."
 
-#: phrasing-slur-engraver.cc:136
+#: phrasing-slur-engraver.cc:146
 msgid "unterminated phrasing slur"
 msgstr "päättämätön fraaseerauskaari"
 
@@ -1557,11 +1553,11 @@ msgstr "ei voitu avata tiedostoa %s"
 msgid "Unknown relocation command %s"
 msgstr "Tuntematon paikannuskomento %s"
 
-#: rest-collision.cc:149
+#: rest-collision.cc:150
 msgid "can't resolve rest collision: rest direction not set"
 msgstr "ei voida määrittää taukojen törmäystä: tauon suuntaa ei asetettu"
 
-#: rest-collision.cc:163 rest-collision.cc:208
+#: rest-collision.cc:164 rest-collision.cc:209
 msgid "too many colliding rests"
 msgstr "liian monta törmäävää taukoa"
 
@@ -1610,19 +1606,15 @@ msgstr "scheme koodaus: "
 msgid "No spring between column %d and next one"
 msgstr "Ei jousta sarakkeen %d ja sitä seuraavan välillä"
 
-#: slash-repeat-engraver.cc:54
-msgid "Slash repeat doesn't fit in one measure, junking"
-msgstr "Vinoviiva-toisto ei mahdu yhteen tahtiin, hylätään"
-
-#: slur-engraver.cc:69
+#: slur-engraver.cc:83
 msgid "Invalid direction of slur-event"
 msgstr "Tuntematon kaari-tapahtuman suunta"
 
-#: slur-engraver.cc:142
+#: slur-engraver.cc:156
 msgid "unterminated slur"
 msgstr "päättämätön kaari"
 
-#: slur-engraver.cc:151
+#: slur-engraver.cc:165
 msgid "can't end slur"
 msgstr "ei löytynyt kaaren loppua"
 
@@ -1635,17 +1627,17 @@ msgstr "odotettiin %d merkkiä, saatiin %d"
 msgid "staff-span event has no direction"
 msgstr "viivastot ylittävällä tapahtumalla ei ole suuntaa"
 
-#: stem-engraver.cc:96
+#: stem-engraver.cc:95
 msgid "tremolo duration is too long"
 msgstr "tremolon kesto on liian pitkä"
 
 #. FIXME:
-#: stem-engraver.cc:133
+#: stem-engraver.cc:132
 #, c-format
 msgid "adding note head to incompatible stem (type = %d)"
 msgstr "lisätään nuottipää sopimattomaan varteen (tyyppi = %d)"
 
-#: stem-engraver.cc:135
+#: stem-engraver.cc:134
 msgid "maybe input should specify polyphonic voices"
 msgstr "ehkä syötteen täytyisi määrittää moniäänisiä ääniä"
 
@@ -1716,12 +1708,12 @@ msgstr "tuntematon tulkitsija: `%s'"
 msgid "can't find: `%s'"
 msgstr "ei löytynyt `%s'"
 
-#: translator.cc:296
+#: translator.cc:310
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr "Kaksi samanaikaista %s-tapahtumaa, hylätään tämä"
 
-#: translator.cc:297
+#: translator.cc:311
 #, c-format
 msgid "Previous %s event here"
 msgstr "Edellinen %s-tapahtuma täällä"
@@ -1777,41 +1769,41 @@ msgstr "löytyi ja volta-ladoke, lopetetaan se ennenaikaisesti"
 msgid "also already have an ended spanner"
 msgstr "myös tekstileike päätettiin jo"
 
-#: parser.yy:702 parser.yy:710
+#: parser.yy:704 parser.yy:710
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper ei voi olla käytössä \\score:ssa, käytä \\layout sen sijaan"
 
-#: parser.yy:726 parser.yy:734
+#: parser.yy:728 parser.yy:734
 msgid "need \\paper for paper block"
 msgstr "tarvitaan \\paper paperiryhmälle"
 
-#: parser.yy:1170 parser.yy:1204
+#: parser.yy:1174 parser.yy:1204
 msgid "Grob name should be alphanumeric"
 msgstr "Graafiseen objectiin täytyy olla kirjain tai numero"
 
-#: parser.yy:1477 parser.yy:1497
+#: parser.yy:1481 parser.yy:1497
 msgid "second argument must be pitch list"
 msgstr "toisen argumentin on oltava äänenkorkeuslista"
 
-#: parser.yy:1504 parser.yy:1509 parser.yy:1984 parser.yy:1524 parser.yy:1529
+#: parser.yy:1508 parser.yy:1513 parser.yy:1988 parser.yy:1524 parser.yy:1529
 #: parser.yy:2004
 msgid "have to be in Lyric mode for lyrics"
 msgstr "täytyy olla Lyrics -moodissa lyriikkaa varten"
 
-#: parser.yy:1608 parser.yy:1628
+#: parser.yy:1612 parser.yy:1628
 msgid "expecting string as script definition"
 msgstr "oletetaan merkkijonon olevan skriptimäärittely"
 
-#: parser.yy:1766 parser.yy:1816 parser.yy:1786 parser.yy:1836
+#: parser.yy:1770 parser.yy:1820 parser.yy:1786 parser.yy:1836
 #, c-format
 msgid "not a duration: %d"
 msgstr "ei ole kesto: %d"
 
-#: parser.yy:1936 parser.yy:1956
+#: parser.yy:1940 parser.yy:1956
 msgid "have to be in Note mode for notes"
 msgstr "täytyy olla Note -moodissa nuotteja varten"
 
-#: parser.yy:2000 parser.yy:2020
+#: parser.yy:2004 parser.yy:2020
 msgid "have to be in Chord mode for chords"
 msgstr "täytyy olla Chord -moodissa sointuja varten"
 
@@ -1871,17 +1863,17 @@ msgstr "Sulkumerkki löytyi lyriikan lopussa.  Unohditko välilyönnin?"
 msgid "invalid character: `%c'"
 msgstr "epäkelpo merkki: `%c'"
 
-#: lexer.ll:775 lexer.ll:731
+#: lexer.ll:776 lexer.ll:731
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "tuntematon koodinvaihtomerkillinen merkkijono: `\\\\%s'"
 
-#: lexer.ll:881 lexer.ll:828
+#: lexer.ll:882 lexer.ll:828
 #, c-format
 msgid "Incorrect lilypond version: %s (%s, %s)"
 msgstr "Epäkelpo lilypond versio: %s (%s, %s)"
 
-#: lexer.ll:882 lexer.ll:829
+#: lexer.ll:883 lexer.ll:829
 msgid "Consider updating the input with the convert-ly script"
 msgstr "Harkitse syötteen päivittämistä convert-ly scriptillä"
 
@@ -1889,7 +1881,7 @@ msgstr "Harkitse syötteen päivittämistä convert-ly scriptillä"
 msgid "can't find signature for music function"
 msgstr "ei löytynyt aikamerkintää musiikkifunktiolle"
 
-#: backend-library.scm:19 lily.scm:478 ps-to-png.scm:88
+#: backend-library.scm:19 lily.scm:479 ps-to-png.scm:88
 #, lisp-format
 msgid "Invoking `~a'..."
 msgstr "Kutsutaan `~a'..."
@@ -2054,40 +2046,42 @@ msgstr "Virhe palkin laskennassa.  Odotettiin (~S,~S), löytyi ~S."
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr "Virhe palkin laskennassa.  Odotettiin ~S 0, löytyi ~S."
 
-#: layout-page-layout.scm:299
+#: layout-page-layout.scm:353
 msgid "Calculating page breaks..."
 msgstr "Lasketaan sivunvaihtoja..."
 
-#: lily-library.scm:481
+#: lily-library.scm:510
 #, lisp-format
 msgid "unknown unit: ~S"
 msgstr "tuntematon yksikkö: ~S"
 
-#: lily-library.scm:514
+#: lily-library.scm:543
 #, lisp-format
 msgid "no \\version statement found, please add~afor future compatibility"
-msgstr "ei löytynyt \\version-määrittelyä, ole hyvä ja lisää~a yhteensopivuuden varalle"
+msgstr ""
+"ei löytynyt \\version-määrittelyä, ole hyvä ja lisää~a yhteensopivuuden "
+"varalle"
 
-#: lily-library.scm:521
+#: lily-library.scm:550
 msgid "old relative compatibility not used"
 msgstr "vanhaa relative -yhteensopivuutta ei käytetty"
 
-#: lily.scm:130
+#: lily.scm:131
 #, lisp-format
 msgid "Can't find ~A"
 msgstr "Ei löydetty ~A"
 
-#: lily.scm:195
+#: lily.scm:196
 #, lisp-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "väärä tyyppi argumentille ~a.  Odotettiin ~a, löytyi ~s"
 
-#: lily.scm:408 lily.scm:468
+#: lily.scm:409 lily.scm:469
 #, lisp-format
 msgid "failed files: ~S"
 msgstr "epäonniset tiedostot: ~S"
 
-#: lily.scm:458
+#: lily.scm:459
 #, lisp-format
 msgid "Redirecting output to ~a..."
 msgstr "Ohjataan tulosteet paikkaan ~a..."
