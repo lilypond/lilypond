@@ -216,11 +216,7 @@ Completion_heads_engraver::process_music ()
 	  Item *d = make_item ("Dots", SCM_EOL);
 	  Rhythmic_head::set_dots (note, d);
 
-	  /*
-	    measly attempt to save an eeny-weenie bit of memory.
-	  */
-	  if (dots != scm_to_int (d->get_property ("dot-count")))
-	    d->set_property ("dot-count", scm_from_int (dots));
+	  d->set_property ("dot-count", scm_from_int (dots));
 
 	  d->set_parent (note, Y_AXIS);
 	  dots_.push_back (d);
