@@ -1,3 +1,14 @@
+2006-10-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/beam.cc (set_stem_lengths): do set_stemend for invisible
+	stems too. Fixes #5
+
+	* lily/parenthesis-engraver.cc (acknowledge_grob): set parent of
+	parenthesis item. This fixes premature Y-extent triggering. Fixes
+	issue #95. 
+ 
+	* VERSION (PATCH_LEVEL): bump version.
+
 2006-10-04  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/advanced-notation.itely: added
@@ -13,7 +24,8 @@
 
 	* VERSION: release 2.9.21
 
-	* Documentation/topdocs/NEWS.tely (Top): simpler, more clearer override.
+	* Documentation/topdocs/NEWS.tely (Top): simpler, more clearer
+	override.
 
 2006-10-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
