@@ -1986,7 +1986,6 @@
 
 (set! all-grob-descriptions (sort all-grob-descriptions alist<?))
 
-
 (define pure-print-callbacks
   (list
    `(,ly:note-head::print . '())
@@ -2038,14 +2037,18 @@
 
 (define (pure-conversion pures conversions defsymbol defreturn rettype? grob start stop)
   (let* ((normal-callback (ly:grob-property-data grob defsymbol))
-	 (pure-callback (assq normal-callback conversions)))
+	 )
+
     (if (rettype? normal-callback)
 	normal-callback
 	(if (pair? (assq normal-callback pures))
 	    (normal-callback grob)
-	    (if (pair? pure-callback)
-		((cdr pure-callback) grob start stop)
-		defreturn)))))
+	    (let
+		((pure-callback (assq normal-callback conversions)))
+
+	      (if (pair? pure-callback)
+		  ((cdr pure-callback) grob start stop)
+		  defreturn))))))
 
 (define-public (pure-Y-extent grob start stop)
   (pure-conversion pure-Y-extents Y-extent-conversions
