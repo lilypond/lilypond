@@ -1,3 +1,11 @@
+2006-10-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/define-grobs.scm (pure-conversion): move pure-callback
+	further into body.
+
+	* scm/script.scm (default-script-alist): set avoid-slur for turn,
+	marcato, stopped, thumb.
+
 2006-10-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/completion-note-heads-engraver.cc (process_music): don't
