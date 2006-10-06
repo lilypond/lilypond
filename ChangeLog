@@ -1,3 +1,7 @@
+2006-10-06  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* lily/note-head.cc: Fixed programming_error message.
+
 2006-10-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/define-grobs.scm (pure-conversion): move pure-callback
