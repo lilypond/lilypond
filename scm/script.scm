@@ -8,6 +8,7 @@
       (append 
        '(("thumb" .
 	  ((script-stencil . (feta . ("thumb"  . "thumb")))
+	   (avoid-slur . inside)
 	   (padding . 0.20)	   
 	   (direction . 1)))
          ("accent" .
@@ -24,7 +25,8 @@
 	   (side-relative-direction . -1)))	 
 	 ("marcato" .
 	  ((script-stencil . (feta . ("dmarcato" . "umarcato")))
-	   (padding . 0.20)	   
+	   (padding . 0.20)
+	   (avoid-slur . inside)
 ;	   (staff-padding . ())
 	   (quantize-position . #t)
 	   (side-relative-direction .  -1)))
@@ -94,6 +96,7 @@
 	   (direction .  1)))
 	 ("stopped" .
 	  ((script-stencil . (feta . ("stopped" . "stopped")))
+	   (avoid-slur . inside)
 	   (padding . 0.20)	   
 	   (direction  . 1)))
 	 ("staccato" .
@@ -148,6 +151,7 @@
 	   (direction  . 1)))
 	 ("turn" .
 	  ((script-stencil . (feta . ("turn" . "turn")))
+	   (avoid-slur . inside)
 	   (padding . 0.20)	   
 	   (direction  . 1)))
 	 ("open" .
