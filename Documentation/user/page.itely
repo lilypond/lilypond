@@ -160,6 +160,7 @@ Distance between the bottom-most music system and the page
 footer. Default is@tie{}4mm.
 
 @funindex page-top-space
+@item page-top-space
 Distance from the top of the printable area to the center of the first
 staff. This only works for staves which are vertically small. Big staves
 are set with the top of their bounding box aligned to the top of the
