@@ -218,6 +218,3 @@ $(config_h): config.hh.in
 	@echo '         rm $(config_h); ./autogen.sh'
 	@echo
 	@false
-
-hc:
-	echo $(HELP_CATALOGS)
