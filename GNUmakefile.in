@@ -128,7 +128,7 @@ default: $(config_h) build-dir-setup
 build-dir-setup: $(tree-share-prefix)/lilypond-force
 
 PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
-HELP_CATALOGS = $(PO_FILES:$(src-depth)/po/%.po=%)
+HELP_CATALOGS = $(PO_FILES:po/%.po=%)
 CATALOGS = $(HELP_CATALOGS:lilypond=) 
 
 $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
@@ -218,3 +218,6 @@ $(config_h): config.hh.in
 	@echo '         rm $(config_h); ./autogen.sh'
 	@echo
 	@false
+
+hc:
+	echo $(HELP_CATALOGS)
