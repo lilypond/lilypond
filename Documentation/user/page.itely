@@ -468,6 +468,7 @@ staves inside a system.
 * Vertical spacing of piano staves::  
 * Vertical spacing between systems::  
 * Controlling spacing of individual systems::  
+* Two-pass vertical spacing::
 @end menu
 
 
@@ -618,6 +619,56 @@ The distance for @code{fixed-alignment-extra-space} may also be
 negative.
 
 
+@node Two-pass vertical spacing
+@subsection Two-pass vertical spacing
+
+In order to automatically stretch systems so that they should fill the
+space left on a page, a two-pass technique can be used:
+
+@enumerate
+@item In the first pass, the amount of vertical space used to increase
+the height of each system is computed and dumped to a file.
+@item In the second pass, the systems are stretched according to the
+data in the page layout file.
+@end enumerate
+
+To allow this behaviour, a @code{tweak-key} variable has to be set in
+each score @code{\layout} block, and the tweaks included in each score
+music, using the @code{\scoreTweak} music function.
+
+@quotation
+@verbatim
+%% include the generated page layout file:
+\includePageLayoutFile
+
+\score {
+  \new StaffGroup <<
+    \new Staff <<
+      %% Include this score tweaks:
+      \scoreTweak "scoreA"
+      { \clef french c''1 \break c''1 } 
+    >>
+    \new Staff { \clef soprano g'1 g'1 }
+    \new Staff { \clef mezzosoprano e'1 e'1 }
+    \new Staff { \clef alto g1 g1 }
+    \new Staff { \clef bass c1 c1 }
+  >>
+  \header {
+    piece = "Score with tweaks"
+  }
+  %% Define how to name the tweaks for this score:
+  \layout { #(define tweak-key "scoreA") }
+}
+@end verbatim
+@end quotation
+
+For the first pass, the @code{dump-tweaks} option should be set to
+generate the page layout file.
+
+@example
+lilypond -b null -d dump-tweaks <file>.ly
+lilypond <file>.ly
+@end example
 
 @node Horizontal spacing
 @section Horizontal Spacing
@@ -626,10 +677,10 @@ negative.
 @cindex spacing, horizontal
 
 @menu
-* Horizontal spacing overview::  
-* New spacing area::            
-* Changing horizontal spacing::  
-* Line length::                 
+* Horizontal spacing overview::
+* New spacing area::
+* Changing horizontal spacing::
+* Line length::
 @end menu
 
 
