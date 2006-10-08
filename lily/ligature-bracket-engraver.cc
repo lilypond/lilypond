@@ -10,6 +10,8 @@
 #include "note-column.hh"
 #include "tuplet-bracket.hh"
 #include "spanner.hh"
+#include "stream-event.hh"
+#include "translator.icc"
 
 /*
  * This engraver marks ligatures of any kind by just printing a
@@ -25,9 +27,17 @@ protected:
 				 vector<Grob_info> primitives);
   DECLARE_ACKNOWLEDGER (rest);
   DECLARE_ACKNOWLEDGER (note_column);
+  DECLARE_TRANSLATOR_LISTENER (ligature);
 public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 };
+
+IMPLEMENT_TRANSLATOR_LISTENER (Ligature_bracket_engraver, ligature);
+void
+Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
+{
+  Ligature_engraver::listen_ligature (ev);
+}
 
 Ligature_bracket_engraver::Ligature_bracket_engraver ()
 {
@@ -65,8 +75,6 @@ Ligature_bracket_engraver::acknowledge_rest (Grob_info info)
   if (current_ligature ())
     Ligature_engraver::acknowledge_rest (info);
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
 ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);

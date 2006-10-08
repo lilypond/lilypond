@@ -1,3 +1,9 @@
+2006-10-08  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* lily/ligature-bracket-engraver: Bugfix: Add missing stream event
+	code.  This patch fixes ligature brackets that were not at all
+	engraved any more.
+
 2006-10-08  Graham Percival  <gpermus@gmail.com>
 
 	* Docuemntation/user/page.itely: clarify two-pass vs. ragged-bottom.
