@@ -114,7 +114,7 @@ the number 24 is stored in the variable @code{twentyFour}.
 The same assignment can be done in completely in Scheme as well,
 
 @example
-#(define twentyFour (* 2 twelve)
+#(define twentyFour (* 2 twelve))
 @end example
 
 The @emph{name} of a variable is also an expression, similar to a
