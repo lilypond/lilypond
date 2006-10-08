@@ -1,3 +1,14 @@
+2006-10-08  Graham Percival  <gpermus@gmail.com>
+
+	* Docuemntation/user/page.itely: clarify two-pass vs. ragged-bottom.
+
+	* ly/property-init.ly: fix sacred harp notehead shapes (bug 96).
+
+	* scm/define-context-properties.scm: clarified docs (bug 91).
+
+	* Documentation/user/basic-notation.itely: document volta brackets
+	not aligning (bug 63).
+
 2006-10-08  John Mandereau  <john.mandereau@free.fr>
 
 	* po/fr.po: update translation.

@@ -2987,6 +2987,7 @@ give enough alternatives for all of the repeats, the first alternative
 is assumed to be played more than once.
 
 Standard repeats are used like this
+
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c1
 \repeat volta 2 { c4 d e f }
@@ -2994,6 +2995,7 @@ c1
 @end lilypond
 
 With alternative endings
+
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c1
 \repeat volta 2 {c4 d e f}
@@ -3072,6 +3074,8 @@ Timing information is not remembered at the start of an alternative,
 so after a repeat timing information must be reset by hand; for
 example, by setting @code{Score.measurePosition} or entering
 @code{\partial}.  Similarly, slurs or ties are also not repeated.
+
+Volta brackets are not vertically aligned.
 
 
 @node Repeats and MIDI

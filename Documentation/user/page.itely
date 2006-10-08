@@ -628,9 +628,12 @@ space left on a page, a two-pass technique can be used:
 @enumerate
 @item In the first pass, the amount of vertical space used to increase
 the height of each system is computed and dumped to a file.
-@item In the second pass, the systems are stretched according to the
-data in the page layout file.
+@item In the second pass, spacing inside the systems are
+stretched according to the data in the page layout file.
 @end enumerate
+
+The @code{ragged-bottom} property adds space between systems, while
+the two-pass technique adds space between staffs inside a system.
 
 To allow this behaviour, a @code{tweak-key} variable has to be set in
 each score @code{\layout} block, and the tweaks included in each score

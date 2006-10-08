@@ -61,7 +61,7 @@ setEasyHeads = \sequential {
 aikenHeads = \set shapeNoteStyles = ##(do re mi fa #f la ti)
 
 sacredHarpHeads =
-  \set shapeNoteStyles = ##(#f #f mi #f fa la #f)
+  \set shapeNoteStyles = ##(fa #f la fa #f la mi)
 
 dynamicUp = {
   \override DynamicText  #'direction = #UP
