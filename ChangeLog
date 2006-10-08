@@ -1,3 +1,9 @@
+2006-10-08  John Mandereau  <john.mandereau@free.fr>
+
+	* po/fr.po: update translation.
+
+	* po/: update msgids.
+
 2006-10-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (HELP_CATALOGS): Fix in-build-tree locales.

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-04 21:28+0300\n"
+"POT-Creation-Date: 2006-10-08 16:22+0200\n"
 "PO-Revision-Date: 2006-10-04 21:30+0300\n"
 "Last-Translator: hjunes\n"
 "Language-Team:  <en@li.org>\n"
@@ -246,7 +246,8 @@ msgstr "putkita palaset kohteen FILTER läpi [convert-ly -n -]"
 
 #: lilypond-book.py:135
 msgid "use output format FORMAT (texi [default], texi-html, latex, html)"
-msgstr "käytä tulostusmuotona formaattia FMT (texi [oletus], texi-html, latex, html)"
+msgstr ""
+"käytä tulostusmuotona formaattia FMT (texi [oletus], texi-html, latex, html)"
 
 #: lilypond-book.py:138
 msgid "add DIR to include path"
@@ -677,7 +678,8 @@ msgstr "heitetään pois tyhjä klusteri"
 #: coherent-ligature-engraver.cc:106
 #, c-format
 msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
-msgstr "Coherent_ligature_engraver: asetetaan `spacing-increment=0.01': ptr=%ul"
+msgstr ""
+"Coherent_ligature_engraver: asetetaan `spacing-increment=0.01': ptr=%ul"
 
 #. if we get to here, just put everything on one line
 #: constrained-breaking.cc:176 constrained-breaking.cc:193
@@ -762,7 +764,8 @@ msgstr "Alustetaan FontConfig..."
 #: font-config.cc:44
 #, c-format
 msgid "Rebuilding FontConfig cache %s, this may take a while..."
-msgstr "Käännetään uudelleen FontConfig-välimuisti %s. tämä voi kestää hetken..."
+msgstr ""
+"Käännetään uudelleen FontConfig-välimuisti %s. tämä voi kestää hetken..."
 
 #: font-config.cc:55
 #, c-format
@@ -1352,9 +1355,9 @@ msgstr "liian monta törmäävää nuottisaraketta"
 msgid "can't have note heads and rests together on a stem"
 msgstr "ei voinut olla nuotinpäitä ja taukoja yhtäaikaa palkissa"
 
-#: note-head.cc:65
-#, c-format
-msgid "note head `%s' not found"
+#: note-head.cc:69
+#, fuzzy, c-format
+msgid "none of note heads `%s' or `%s' found"
 msgstr "nuottipäätä `%s' ei löytynyt"
 
 #: note-heads-engraver.cc:63
@@ -1397,7 +1400,8 @@ msgstr ""
 #: page-turn-page-breaking.cc:240
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
-msgstr "Lasketaan sivujen ja rivien katkaisuja (%d mahdollista sivunkatkaisua)..."
+msgstr ""
+"Lasketaan sivujen ja rivien katkaisuja (%d mahdollista sivunkatkaisua)..."
 
 #: page-turn-page-breaking.cc:258 paper-score.cc:154
 msgid "Drawing systems..."
@@ -1742,7 +1746,8 @@ msgstr ""
 #: vaticana-ligature-engraver.cc:601
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
-msgstr "Vaticana_ligature_engraver: asetetaan `spacing-increment = %f': ptr=%ul"
+msgstr ""
+"Vaticana_ligature_engraver: asetetaan `spacing-increment = %f': ptr=%ul"
 
 #: vaticana-ligature.cc:84
 msgid "flexa-height undefined; assuming 0"
@@ -1769,117 +1774,112 @@ msgstr "löytyi ja volta-ladoke, lopetetaan se ennenaikaisesti"
 msgid "also already have an ended spanner"
 msgstr "myös tekstileike päätettiin jo"
 
-#: parser.yy:704 parser.yy:710
+#: parser.yy:704
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper ei voi olla käytössä \\score:ssa, käytä \\layout sen sijaan"
 
-#: parser.yy:728 parser.yy:734
+#: parser.yy:728
 msgid "need \\paper for paper block"
 msgstr "tarvitaan \\paper paperiryhmälle"
 
-#: parser.yy:1174 parser.yy:1204
+#: parser.yy:1174
 msgid "Grob name should be alphanumeric"
 msgstr "Graafiseen objectiin täytyy olla kirjain tai numero"
 
-#: parser.yy:1481 parser.yy:1497
+#: parser.yy:1481
 msgid "second argument must be pitch list"
 msgstr "toisen argumentin on oltava äänenkorkeuslista"
 
-#: parser.yy:1508 parser.yy:1513 parser.yy:1988 parser.yy:1524 parser.yy:1529
-#: parser.yy:2004
+#: parser.yy:1508 parser.yy:1513 parser.yy:1988
 msgid "have to be in Lyric mode for lyrics"
 msgstr "täytyy olla Lyrics -moodissa lyriikkaa varten"
 
-#: parser.yy:1612 parser.yy:1628
+#: parser.yy:1612
 msgid "expecting string as script definition"
 msgstr "oletetaan merkkijonon olevan skriptimäärittely"
 
-#: parser.yy:1770 parser.yy:1820 parser.yy:1786 parser.yy:1836
+#: parser.yy:1770 parser.yy:1820
 #, c-format
 msgid "not a duration: %d"
 msgstr "ei ole kesto: %d"
 
-#: parser.yy:1940 parser.yy:1956
+#: parser.yy:1940
 msgid "have to be in Note mode for notes"
 msgstr "täytyy olla Note -moodissa nuotteja varten"
 
-#: parser.yy:2004 parser.yy:2020
+#: parser.yy:2004
 msgid "have to be in Chord mode for chords"
 msgstr "täytyy olla Chord -moodissa sointuja varten"
 
-#: lexer.ll:177 lexer.ll:159
+#: lexer.ll:177
 msgid "stray UTF-8 BOM encountered"
 msgstr "satunnainen UTF-8 BOM (osaluettelo) havaittu"
 
-#: lexer.ll:181 lexer.ll:163
+#: lexer.ll:181
 msgid "Skipping UTF-8 BOM"
 msgstr "Sivuutetaan UTF-8 BOM (osaluettelo)"
 
-#: lexer.ll:236 lexer.ll:218
+#: lexer.ll:236
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr "Avataan syöte: `%s'"
 
-#: lexer.ll:254 lexer.ll:236
+#: lexer.ll:254
 msgid "quoted string expected after \\version"
 msgstr "lainausmerkittyä merkkijonoa ei löytynyt kohteen \\version jälkeen"
 
-#: lexer.ll:258 lexer.ll:240
+#: lexer.ll:258
 msgid "quoted string expected after \\sourcefilename"
 msgstr "odotettiin lainausmerkittyä merkkijonoa \\sourcefilename:n jälkeen"
 
-#: lexer.ll:262 lexer.ll:244
+#: lexer.ll:262
 msgid "integer expected after \\sourcefileline"
 msgstr "odotettiin kokonaislukua \\sourcefilename:n jälkeen"
 
-#: lexer.ll:275 lexer.ll:257
+#: lexer.ll:275
 msgid "EOF found inside a comment"
 msgstr "EOF löytyi kommentin sisältä"
 
-#: lexer.ll:290 lexer.ll:272
+#: lexer.ll:290
 msgid "\\maininput not allowed outside init files"
 msgstr "\\maininput ei ole sallittu init-alustustiedoston ulkopuolella"
 
-#: lexer.ll:314 lexer.ll:296
+#: lexer.ll:314
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "väärä tai määrittämätön tunniste: `%s'"
 
 #. backup rule
-#: lexer.ll:323 lexer.ll:305
+#: lexer.ll:323
 msgid "end quote missing"
 msgstr "jälkimmäinen lainaismerkki puuttuu"
 
-#: lexer.ll:468 lexer.ll:450
+#: lexer.ll:468
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr "Sulkumerkki löytyi lyriikan lopussa.  Unohditko välilyönnin?"
 
-#: lexer.ll:561 lexer.ll:543
+#: lexer.ll:561
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr "Sulkumerkki löytyi lyriikan lopussa.  Unohditko välilyönnin?"
 
-#: lexer.ll:661 lexer.ll:643
+#: lexer.ll:661
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "epäkelpo merkki: `%c'"
 
-#: lexer.ll:776 lexer.ll:731
+#: lexer.ll:776
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "tuntematon koodinvaihtomerkillinen merkkijono: `\\\\%s'"
 
-#: lexer.ll:882 lexer.ll:828
+#: lexer.ll:882
 #, c-format
 msgid "Incorrect lilypond version: %s (%s, %s)"
 msgstr "Epäkelpo lilypond versio: %s (%s, %s)"
 
-#: lexer.ll:883 lexer.ll:829
+#: lexer.ll:883
 msgid "Consider updating the input with the convert-ly script"
 msgstr "Harkitse syötteen päivittämistä convert-ly scriptillä"
-
-#: lexer.ll:931
-msgid "can't find signature for music function"
-msgstr "ei löytynyt aikamerkintää musiikkifunktiolle"
 
 #: backend-library.scm:19 lily.scm:479 ps-to-png.scm:88
 #, lisp-format
@@ -1925,7 +1925,8 @@ msgstr "kääntäjä kuuntelee olematonta tapahtumaluokkaa ~A"
 
 #: define-markup-commands.scm:256
 msgid "no systems found in \\score markup, does it have a \\layout block?"
-msgstr "systeemejä ei löytynyt \\score merkinnässä, onko siinä \\layout blokkia?"
+msgstr ""
+"systeemejä ei löytynyt \\score merkinnässä, onko siinä \\layout blokkia?"
 
 #: define-markup-commands.scm:1249
 #, lisp-format
@@ -2107,7 +2108,8 @@ msgstr "Väärä argumentti paikassa ~A.  Odotettiin: ~A, löytyi: ~S."
 
 #: music-functions.scm:210
 msgid "More alternatives than repeats. Junking excess alternatives"
-msgstr "Enemmän vaihtoehtoja kuin kertauksia. Hylätään ylimääräiset vaihtoehdot"
+msgstr ""
+"Enemmän vaihtoehtoja kuin kertauksia. Hylätään ylimääräiset vaihtoehdot"
 
 #: music-functions.scm:229
 #, lisp-format
@@ -2192,3 +2194,5 @@ msgstr "~a komento lopetettiin tilassa: ~S"
 msgid "assertion failed"
 msgstr "ajaminen epäonnistui"
 
+#~ msgid "can't find signature for music function"
+#~ msgstr "ei löytynyt aikamerkintää musiikkifunktiolle"
