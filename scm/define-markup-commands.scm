@@ -239,9 +239,17 @@ gsave /ecrm10 findfont
  scalefont setfont 90 rotate (hello) show grestore 
 @end verbatim
 "
+
   ;; FIXME
   (ly:make-stencil
-   (list 'embedded-ps str)
+   (list 'embedded-ps
+	 (format "
+gsave currentpoint translate
+0.1 setlinewidth
+ ~a
+grestore
+"
+		 str))
    '(0 . 0) '(0 . 0)))
 
 
