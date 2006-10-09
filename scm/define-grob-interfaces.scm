@@ -118,6 +118,11 @@
    '(accidental-grob))
 
 (ly:add-interface
+ 'trill-pitch-accidental-interface
+ "An accidental for trill pitch"
+ '(accidentals))
+
+(ly:add-interface
  'rhythmic-grob-interface
  "Any object with a rhythmic basis. Used to determine which grobs
 are interesting enough to maintain a hara-kiri staff."

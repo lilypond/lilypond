@@ -37,11 +37,14 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
   if (unsmob_grob (note->get_object ("dot")))
     return;
 
-  Duration dur = *unsmob_duration (cause->get_property ("duration"));
-  if (dur.dot_count ())
+  
+  Duration *dur = unsmob_duration (cause->get_property ("duration"));
+  if (dur && dur->dot_count ())
     {
       Item *d = make_item ("Dots", note->self_scm ());
       Rhythmic_head::set_dots (note, d);
+
+      d->set_property ("dot-count", scm_from_int (dur->dot_count ()));
       d->set_parent (note, Y_AXIS);
     }
 }

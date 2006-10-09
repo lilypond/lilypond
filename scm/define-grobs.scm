@@ -1780,6 +1780,7 @@
 	(stencil . ,ly:accidental-interface::print)
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
+				trill-pitch-accidental-interface
 				side-position-interface
 				font-interface))))))
 

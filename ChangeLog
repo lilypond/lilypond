@@ -1,5 +1,12 @@
 2006-10-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-grob-interfaces.scm
+	(trill-pitch-accidental-interface):
+	add trill-pitch-accidental-interface
+
+	* lily/dots-engraver.cc (acknowledge_rhythmic_head): only
+	dereference if it's really a duration.
+
 	* lily/figured-bass-engraver.cc (process_music): clear spanner if
 	useBassFigureExtenders is not set.
 	(listen_bass_figure): record as new event if
