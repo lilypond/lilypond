@@ -81,12 +81,18 @@ Dynamic_text_spanner::print (SCM smob)
 
 	  /*
 	    ugh - a special case.
+
+	    FIXME: this fixed an issue, but need to have this issue in
+	    the issue tracker.
+	    
 	   */
+#if 0
 	  if (d == RIGHT && me->get_property ("style") == ly_symbol2scm ("trill"))
 	    {
 	      pad = 2.0;
 	      encl = LEFT;
 	    }
+#endif
 	  
 	  Interval ext = b->extent (common, X_AXIS);
 	  span_points[d] = -d * pad

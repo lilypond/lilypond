@@ -1,5 +1,7 @@
 2006-10-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/dynamic-text-spanner.cc (print): revert fix.
+
 	* scm/define-grob-interfaces.scm
 	(trill-pitch-accidental-interface):
 	add trill-pitch-accidental-interface
