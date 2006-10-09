@@ -145,7 +145,7 @@ ADD_INTERFACE (Self_alignment_interface, "self-alignment-interface",
 	       "@end table\n",
 
 
-	       /* porperties */
+	       /* properties */
 	       "self-alignment-X "
 	       "self-alignment-Y ");
 
