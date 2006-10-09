@@ -131,6 +131,8 @@ Figured_bass_engraver::start_translation_timestep ()
     groups_[i].current_event_ = 0;
 
   continuation_ = false;
+
+  
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, rest);
@@ -152,20 +154,22 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
   Moment stop  = now_mom () + get_event_length (ev);
   stop_moment_ = max (stop_moment_, stop);
 
-  SCM fig = ev->get_property ("figure");
-  for (vsize i = 0; i < groups_.size (); i++)
+  if (to_boolean (get_property ("useBassFigureExtenders")))
     {
-      if (!groups_[i].current_event_
-	  && ly_is_equal (groups_[i].number_, fig))
+      SCM fig = ev->get_property ("figure");
+      for (vsize i = 0; i < groups_.size (); i++)
 	{
-	  groups_[i].current_event_ = ev;
-	  groups_[i].force_no_continuation_
-	    = to_boolean (ev->get_property ("no-continuation"));
-	  continuation_ = true;
-	  return; 
+	  if (!groups_[i].current_event_
+	      && ly_is_equal (groups_[i].number_, fig))
+	    {
+	      groups_[i].current_event_ = ev;
+	      groups_[i].force_no_continuation_
+		= to_boolean (ev->get_property ("no-continuation"));
+	      continuation_ = true;
+	      return; 
+	    }
 	}
-    }
-  
+    }  
   new_events_.push_back (ev);
 }
 
@@ -277,6 +281,9 @@ Figured_bass_engraver::add_brackets ()
 void
 Figured_bass_engraver::process_music ()
 {
+  if (!to_boolean (get_property ("useBassFigureExtenders")))
+    clear_spanners ();
+        
   if (rest_event_)
     {
       clear_spanners ();
@@ -344,7 +351,7 @@ Figured_bass_engraver::process_music ()
       vector<int> junk_continuations;
       for (vsize i = 0; i < groups_.size(); i++)
 	{
-	        Figure_group &group = groups_[i];
+	  Figure_group &group = groups_[i];
 
 	  if (group.is_continuation ())
 	    {

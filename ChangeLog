@@ -1,10 +1,16 @@
 2006-10-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/figured-bass-engraver.cc (process_music): clear spanner if
+	useBassFigureExtenders is not set.
+	(listen_bass_figure): record as new event if
+	useBassFigureExtenders not set. Fixes #103.
+
 	* scm/stencil.scm (circle-stencil): don't center stencil argument,
-	instead: move circle.
+	instead: move circle. Fixes #107.
 
 	* scm/define-grobs.scm (all-grob-descriptions): set
-	allow-loose-spacing for PaperColumn and NonMusicalPaperColumn.
+	allow-loose-spacing for PaperColumn and
+	NonMusicalPaperColumn. Kludge for #110.
 
 	* lily/spaceable-grob.cc: add allow-loose-spacing property.
 
