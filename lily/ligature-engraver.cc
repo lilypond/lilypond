@@ -14,8 +14,6 @@
 #include "rest.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
-#include "warn.hh"
-
 #include "translator.icc"
 
 /*

@@ -18,7 +18,9 @@
 #include "stream-event.hh"
 #include "vaticana-ligature.hh"
 #include "warn.hh"
-
+#include "dot-column.hh"
+#include "rhythmic-head.hh"
+#include "pitch.hh"
 #include "translator.icc"
 
 /*
@@ -26,6 +28,18 @@
  * style ligatures for Gregorian chant notation.
  */
 
+/*
+ * TODO: Maybe move handling of dots/mora to
+ * Gregorian_ligature_engraver?  It's probably common for all types of
+ * Gregorian chant notation that have dotted notes.
+ *
+ * FIXME: The horizontal alignment of the mora column is bad (too far
+ * to the left), if the last dotted note is not the last primitive in
+ * the ligature.  Fortunately, in practice this bug should have no
+ * negative impact, since dotted notes appear within a ligature
+ * usually always at the end of the ligature, such that the bug never
+ * should apply for valid ligatures.
+ */
 class Vaticana_ligature_engraver : public Gregorian_ligature_engraver
 {
 
@@ -38,6 +52,10 @@ private:
   Real align_heads (vector<Grob_info> primitives,
 		    Real flexa_width,
 		    Real thickness);
+  void check_for_prefix_loss (Item *primitive);
+  void check_for_ambiguous_dot_pitch (Grob_info primitive);
+  void add_mora_column (Grob *paper_column);
+  vector<Grob_info> augmented_primitives_;
 
 public:
   TRANSLATOR_DECLARATIONS (Vaticana_ligature_engraver);
@@ -68,6 +86,7 @@ Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 {
   brew_ligature_primitive_proc = 
     Vaticana_ligature::brew_ligature_primitive_proc;
+  augmented_primitives_.clear ();
 }
 
 Spanner *
@@ -354,7 +373,7 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
  * primitive were engraved as a stand-alone head.
  */
 void
-check_for_prefix_loss (Item *primitive)
+Vaticana_ligature_engraver::check_for_prefix_loss (Item *primitive)
 {
   int prefix_set
     = scm_to_int (primitive->get_property ("prefix-set"));
@@ -364,6 +383,70 @@ check_for_prefix_loss (Item *primitive)
       primitive->warning (_f ("ignored prefix (es) `%s' of this head according "
 			      "to restrictions of the selected ligature style",
 			      prefs.c_str ()));
+    }
+}
+
+void
+Vaticana_ligature_engraver::add_mora_column (Grob *paper_column)
+{
+  if (augmented_primitives_.size () == 0) // no dot for column
+    return;
+  if (!paper_column) // empty ligature???
+    {
+      augmented_primitives_[0].grob ()->
+	programming_error ("no paper column to add dot");
+      return;
+    }
+  Item *dotcol = make_item ("DotColumn", SCM_EOL);
+  dotcol->set_parent (paper_column, X_AXIS);
+  for (vsize i = 0; i < augmented_primitives_.size (); i++)
+    {
+      Item *primitive =
+	dynamic_cast<Item *> (augmented_primitives_[i].grob ());
+      Item *dot = make_item ("Dots", primitive->self_scm ());
+      dot->set_property ("dot-count", scm_from_int (1));
+      dot->set_parent (primitive, Y_AXIS);
+      primitive->set_object ("dot", dot->self_scm ());
+      Dot_column::add_head (dotcol, primitive);
+    }
+}
+
+/*
+ * This function prints a warning, if the given primitive has the same
+ * pitch as at least one of the primitives already stored in the
+ * augmented_primitives_ array.
+ *
+ * The rationale of this check is, that, if there are two dotted
+ * primitives with the same pitch, then collecting all dots in a dot
+ * column behind the ligature leads to a notational ambiguity of to
+ * which head the corresponding dot refers.
+ *
+ * Such a case should be treated as a badly specified ligature.  The
+ * user should split the ligature to make the notation of dots
+ * unambiguous.
+ */
+void
+Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
+{
+  // TODO: Fix performance, which is currently O(n^2) (since this
+  // method is called O(n) times and takes O(n) steps in the for
+  // loop), but could be O(n) (by replacing the for loop by e.g. a
+  // bitmask based O(1) test); where n=<number of primitives in the
+  // ligature> (which is typically small (n<10), though).
+  Stream_event *new_cause = primitive.event_cause ();
+  int new_pitch = unsmob_pitch (new_cause->get_property ("pitch"))->steps ();
+  for (vsize i = 0; i < augmented_primitives_.size (); i++)
+    {
+      Stream_event *cause = augmented_primitives_[i].event_cause ();
+      int pitch = unsmob_pitch (cause->get_property ("pitch"))->steps ();
+      if (pitch == new_pitch)
+	{
+	  primitive.grob ()->
+	    warning ("Ambiguous use of dots in ligature: there are "
+		     "multiple dotted notes with the same pitch.  "
+		     "The ligature should be split.");
+	  return; // supress multiple identical warnings
+	}
     }
 }
 
@@ -380,6 +463,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   int prev_context_info = 0;
   int prev_delta_pitch = 0;
   string prev_glyph_name = "";
+  augmented_primitives_.clear ();
   for (vsize i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
@@ -401,6 +485,27 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	= scm_to_int (primitive->get_property ("prefix-set"));
       int context_info
 	= scm_to_int (primitive->get_property ("context-info"));
+
+      if (Rhythmic_head::dot_count (primitive) > 0)
+	// remove dots from primitive and add remember primitive for
+	// creating a dot column
+	{
+	  Rhythmic_head::get_dots (primitive)->set_property ("dot-count",
+							     scm_from_int (0));
+	  // TODO: Maybe completely remove grob "Dots" (dots->suicide
+	  // () ?) rather than setting property "dot-count" to 0.
+
+	  check_for_ambiguous_dot_pitch (primitives[i]);
+	  augmented_primitives_.push_back (primitives[i]);
+	}
+      else if (augmented_primitives_.size () > 0)
+	{
+	  primitive->warning ("This ligature has a dotted head followed by "
+			      "a non-dotted head.  The ligature should be "
+			      "split after the last dotted head before "
+			      "this head.");
+	}
+
       if (is_stacked_head (prefix_set, context_info))
 	{
 	  context_info |= STACKED_HEAD;
@@ -593,6 +698,9 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
   align_heads (primitives, flexa_width, thickness);
 
+  // append all dots to paper column of ligature's last head
+  add_mora_column (prev_primitive->get_parent (X_AXIS));
+
 #if 0 // experimental code to collapse spacing after ligature
   /* TODO: set to max (old/new spacing-increment), since other
      voices/staves also may want to set this property. */
@@ -610,7 +718,7 @@ ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, note_head);
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
 		/* doc */ "Handles ligatures by glueing special ligature heads together.",
-		/* create */ "VaticanaLigature",
+		/* create */ "VaticanaLigature DotColumn",
 		/* accept */ "ligature-event",
 		/* read */ "",
 		/* write */ "");

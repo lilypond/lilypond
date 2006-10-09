@@ -1,6 +1,6 @@
 %{
   Shortcuts common for all styles of gregorian chant notation.
-  $Id: gregorian-init.ly,v 1.46 2006/06/06 21:19:17 reuter Exp $
+  $Id: gregorian-init.ly,v 1.47 2006/10/09 21:12:26 reuter Exp $
 %}
 
 \version "2.7.39"
@@ -149,14 +149,13 @@ accentus = #(make-articulation "accentus")
 ictus = #(make-articulation "ictus")
 semicirculus = #(make-articulation "semicirculus")
 circulus = #(make-articulation "circulus")
-episemInitium = #(make-span-event 'TextSpanEvent START)
-episemFinis = #(make-span-event 'TextSpanEvent STOP)
+episemInitium = \startTextSpan
+episemFinis = \stopTextSpan
 augmentum = {
   %%% TODO: A ligature head postfix that indicates that an
   %%% augmentum dot should be appended to the right end of
   %%% the surrounding ligature.  [Not yet implemented.]
 }
-
 
 %
 % Declare shortcut music functions for Liber Hymnarius neumes

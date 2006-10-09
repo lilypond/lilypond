@@ -1,3 +1,14 @@
+2006-10-09  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* ly/gregorian-init.ly: Simplify definition of \episemInitium and
+	\episemFinis.
+
+	* lily/ligature-engraver.cc: Remove unused #include.
+
+	* lily/vaticana-ligature-engraver.cc: Fix placement of dots.
+	Bugfix: remove method check_for_prefix_loss(Item *) from global
+	namespace to avoid namespace pollution.
+
 2006-10-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* ly/generate-documentation.ly: update option name.
