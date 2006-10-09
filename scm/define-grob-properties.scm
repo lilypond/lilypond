@@ -33,6 +33,7 @@ relative to its Y-parent")
     
      (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
 @code{0}: around center of width, @code{1}: right side.")
+     (allow-loose-spacing ,boolean? "If set, column can be detached from main spacing.")
      (arpeggio-direction ,ly:dir? "If set, put an
 arrow on the arpeggio squiggly line.")
   

@@ -30,19 +30,22 @@
   (Otherwise, we might risk core dumps, and other weird stuff.)
 */
 static bool
-is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
+is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 {
+  if (!to_boolean (col->get_property ("allow-loose-spacing")))
+    return false;
+  
   if ((options->float_nonmusical_columns_
        ||options->float_grace_columns_)
-      && Paper_column::when_mom (c).grace_part_)
+      && Paper_column::when_mom (col).grace_part_)
     return true;
 
-  if (Paper_column::is_musical (c)
-      || Paper_column::is_breakable (c))
+  if (Paper_column::is_musical (col)
+      || Paper_column::is_breakable (col))
     return false;
 
-  extract_grob_set (c, "right-neighbors", rns);
-  extract_grob_set (c, "left-neighbors", lns);
+  extract_grob_set (col, "right-neighbors", rns);
+  extract_grob_set (col, "left-neighbors", lns);
 
   /*
     If this column doesn't have a proper neighbor, we should really
@@ -98,7 +101,7 @@ is_loose_column (Grob *l, Grob *c, Grob *r, Spacing_options const *options)
 
     in any case, we don't want to move bar lines.
   */
-  extract_grob_set (c, "elements", elts);
+  extract_grob_set (col, "elements", elts);
   for (vsize i = elts.size (); i--;)
     {
       Grob *g = elts[i];
@@ -159,15 +162,13 @@ Spacing_spanner::prune_loose_columns (Grob *me, vector<Grob*> *cols,
 	  /*
 	    Set distance constraints for loose columns
 	  */
-	  Drul_array<Grob *> next_door;
-	  next_door[LEFT] = cols->at (i - 1);
-	  next_door[RIGHT] = cols->at (i + 1);
+	  Drul_array<Grob *> next_door (cols->at (i - 1),
+					cols->at (i + 1));
 	  Direction d = LEFT;
 	  Drul_array<Real> dists (0, 0);
 
 	  do
 	    {
-	      dists[d] = 0.0;
 	      Item *lc = dynamic_cast<Item *> ((d == LEFT) ? next_door[LEFT] : c);
 	      Item *rc = dynamic_cast<Item *> (d == LEFT ? c : next_door[RIGHT]);
 
@@ -179,19 +180,19 @@ Spacing_spanner::prune_loose_columns (Grob *me, vector<Grob*> *cols,
 		      || Note_spacing::right_column (sp) != rc)
 		    continue;
 
-		  Real space, fixed;
-		  fixed = 0.0;
-		  bool dummy;
-
 		  if (Note_spacing::has_interface (sp))
 		    {
 		      /*
 			The note spacing should be taken from the musical
 			columns.
-
 		      */
+		      Real space = 0.0;
+		      Real fixed = 0.0;
+		      bool dummy = false;
+		  
 		      Real base = note_spacing (me, lc, rc, options, &dummy);
-		      Note_spacing::get_spacing (sp, rc, base, options->increment_, &space, &fixed);
+		      Note_spacing::get_spacing (sp, rc, base, options->increment_,
+						 &space, &fixed);
 
 		      space -= options->increment_;
 
@@ -199,7 +200,8 @@ Spacing_spanner::prune_loose_columns (Grob *me, vector<Grob*> *cols,
 		    }
 		  else if (Staff_spacing::has_interface (sp))
 		    {
-		      Real space, fixed_space;
+		      Real space = 0;
+		      Real fixed_space = 0;
 		      Staff_spacing::get_spacing_params (sp,
 							 &space, &fixed_space);
 

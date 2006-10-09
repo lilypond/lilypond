@@ -1117,6 +1117,7 @@
     (PaperColumn
      . (
 	(axes . (0))
+	(allow-loose-spacing . #t)
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	;; (stencil . ,ly:paper-column::print)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -1152,6 +1153,7 @@
 
     (NonMusicalPaperColumn
      . (
+	(allow-loose-spacing . #t)
 	(axes . (0))
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(X-extent . ,ly:axis-group-interface::width)
