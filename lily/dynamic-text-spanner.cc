@@ -84,7 +84,9 @@ Dynamic_text_spanner::print (SCM smob)
 
 	    FIXME: this fixed an issue, but need to have this issue in
 	    the issue tracker.
-	    
+
+	    This fix doesn't quite work: it should only do this if the
+	    right bound has a trill too.
 	   */
 #if 0
 	  if (d == RIGHT && me->get_property ("style") == ly_symbol2scm ("trill"))
@@ -102,7 +104,6 @@ Dynamic_text_spanner::print (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  Stencil m;
   SCM properties = Font_interface::text_font_alist_chain (me);
   SCM edge_text = me->get_property ("edge-text");
   Drul_array<Stencil> edge;
@@ -125,6 +126,7 @@ Dynamic_text_spanner::print (SCM smob)
       while (flip (&d) != LEFT);
     }
 
+  Stencil m;
   do
     {
       Interval ext = edge[d].extent (X_AXIS);

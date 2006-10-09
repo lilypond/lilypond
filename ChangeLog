@@ -1,5 +1,7 @@
 2006-10-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* ly/generate-documentation.ly: update option name.
+
 	* lily/dynamic-text-spanner.cc (print): revert fix.
 
 	* scm/define-grob-interfaces.scm
