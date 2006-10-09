@@ -1,5 +1,8 @@
 2006-10-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/stencil.scm (circle-stencil): don't center stencil argument,
+	instead: move circle.
+
 	* scm/define-grobs.scm (all-grob-descriptions): set
 	allow-loose-spacing for PaperColumn and NonMusicalPaperColumn.
 

@@ -55,6 +55,7 @@ optionally filled."
   "Draw a circle around @var{arg}.  Use @code{thickness},
 @code{circle-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup."
+  
   (let* ((th (chain-assoc-get 'thickness props  0.1))
 	 (size (chain-assoc-get 'font-size props 0))
 	 (pad

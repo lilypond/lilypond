@@ -100,9 +100,16 @@ encloses the contents.
 	 (y-ext (ly:stencil-extent stencil 1))
 	 (diameter (max (- (cdr x-ext) (car x-ext))
 			(- (cdr y-ext) (car y-ext))))
-	 (radius (+ (/ diameter 2) padding thickness)))
+	 (radius (+ (/ diameter 2) padding thickness))
+	 (circle (make-circle-stencil radius thickness #f)))
+
     (ly:stencil-add
-     (centered-stencil stencil) (make-circle-stencil radius thickness #f))))
+     stencil
+     (ly:stencil-translate circle
+			   (cons
+			    (interval-center x-ext)
+			    (interval-center y-ext))))))
+
 
 (define-public (fontify-text font-metric text)
   "Set TEXT with font FONT-METRIC, returning a stencil."

@@ -1017,6 +1017,26 @@
 				font-interface
 				text-interface))))))
 
+    (NonMusicalPaperColumn
+     . (
+	(allow-loose-spacing . #t)
+	(axes . (0))
+	(before-line-breaking . ,ly:paper-column::before-line-breaking)
+	(X-extent . ,ly:axis-group-interface::width)
+	;;		      (stencil . ,ly:paper-column::print)
+	
+	(non-musical . #t)
+	(line-break-permission . allow)
+	(page-break-permission . allow)
+
+	;; debugging stuff: print column number.
+	;;		 (font-size . -6) (font-name . "sans")	(Y-extent . #f)
+
+	(meta . ((class . Paper_column)
+		 (interfaces . (paper-column-interface
+				axis-group-interface
+				spaceable-grob-interface))))))
+    
     (NoteCollision
      . (
 	(axes . (0 1))
@@ -1151,25 +1171,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
-    (NonMusicalPaperColumn
-     . (
-	(allow-loose-spacing . #t)
-	(axes . (0))
-	(before-line-breaking . ,ly:paper-column::before-line-breaking)
-	(X-extent . ,ly:axis-group-interface::width)
-	;;		      (stencil . ,ly:paper-column::print)
-	
-	(non-musical . #t)
-	(line-break-permission . allow)
-	(page-break-permission . allow)
 
-	;; debugging stuff: print column number.
-	;;		 (font-size . -6) (font-name . "sans")	(Y-extent . #f)
-
-	(meta . ((class . Paper_column)
-		 (interfaces . (paper-column-interface
-				axis-group-interface
-				spaceable-grob-interface))))))
 
     (PercentRepeat
      . (
