@@ -1,5 +1,8 @@
 2006-10-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/output-lib.scm (fingering::calc-text): use origin
+	event-property, not music-property.
+
 	* lily/lilypond.rc.in: spell my name correctly.
 
 2006-10-10  Joe Neeman  <joeneeman@gmail.com>

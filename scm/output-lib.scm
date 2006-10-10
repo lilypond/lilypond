@@ -33,6 +33,13 @@
 		  layout props (make-circle-markup text))))
     circle))
 
+(define-public (music-cause grob)
+  (let*
+      ((event (event-cause grob)))
+
+    (if (ly:stream-event? event)
+	(ly:event-property event 'music-cause)
+	#f)))
 
 (define-public (event-cause grob)
   (let*
@@ -404,7 +411,7 @@ centered, X==1 is at the right, X == -1 is at the left."
        (digit (ly:event-property event 'digit)))
     
     (if (> digit 5)
-	(ly:input-message (ly:music-property event 'origin)
+	(ly:input-message (ly:event-property event 'origin)
 			  "Music for the martians"))
 
     (number->string digit 10)
