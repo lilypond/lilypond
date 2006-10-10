@@ -1,3 +1,9 @@
+2006-10-10  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/grob.cc (pure_height): only add minimum-Y-extent if we
+	already have a non-empty extent. Fixes estimation for Hara-kiri
+	staves.
+
 2006-10-09  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* ly/gregorian-init.ly: Simplify definition of \episemInitium and

@@ -425,7 +425,11 @@ Grob::pure_height (Grob *refp, int start, int end)
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
   SCM min_ext = get_property ("minimum-Y-extent");
-  if (is_number_pair (min_ext))
+
+  /* we don't add minimum-Y-extent if the extent is empty. This solves
+     a problem with Hara-kiri spanners. They would request_suicide and
+     return empty extents, but we would force them here to be large. */
+  if (!iv.is_empty () && is_number_pair (min_ext))
     iv.unite (ly_scm2interval (min_ext));
 
   iv.translate (offset);
