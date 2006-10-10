@@ -1,3 +1,7 @@
+2006-10-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/lilypond.rc.in: spell my name correctly.
+
 2006-10-10  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/grob.cc (pure_height): only add minimum-Y-extent if we
@@ -16,6 +20,8 @@
 	namespace to avoid namespace pollution.
 
 2006-10-09  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION: release 2.9.22
 
 	* ly/generate-documentation.ly: update option name.
 

@@ -13,13 +13,14 @@ tagline = \markup {
   %% todo: lilypond.org/music-engraving
   #"http://lilypond.org/web/"
   \line {
-    "Music engraving by LilyPond"
-    " "
-    #(ly:export (lilypond-version))
-    
+
     %% 2014 = em dash.
-    #(ly:export (ly:wide-char->utf-8 #x2014))
-    "www.lilypond.org"
+    
+    #(ly:export
+      (format "Music engraving by LilyPond ~a~awww.lilypond.org"
+       (lilypond-version)
+       (ly:wide-char->utf-8 #x2014)
+       ))
   }
 }
 
