@@ -27,6 +27,7 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   DECLARE_TRANSLATOR_LISTENER (fingering);
+  DECLARE_TRANSLATOR_LISTENER (string_finger);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
 
@@ -39,6 +40,18 @@ void
 Fingering_engraver::listen_fingering (Stream_event *ev)
 {
   events_.push_back (ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Fingering_engraver, string_finger);
+void
+Fingering_engraver::listen_string_finger (Stream_event *ev)
+{
+  /*
+    FIXME: should do something.
+    
+    This function is mainly here to shut up a warning
+   */
+  (void)ev;
 }
 
 void
@@ -130,9 +143,13 @@ Fingering_engraver::Fingering_engraver ()
 
 ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Fingering_engraver, stem);
+
 ADD_TRANSLATOR (Fingering_engraver,
-		/* doc */ "Create fingering-scripts",
-		/* create */ "Fingering",
-		/* accept */ "fingering-event",
+		/* doc */
+		"Create fingering-scripts",
+		/* create */
+		"Fingering",
+		/* accept */
+		"fingering-event",
 		/* read */ "",
 		/* write */ "");

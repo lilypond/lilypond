@@ -1541,6 +1541,27 @@
 				self-alignment-interface
 				item-interface))))))
     
+    (StringFinger
+     . (
+	(stencil . ,ly:text-interface::print)
+	(text . ,string-finger::calc-text)
+	(padding . 0.5)
+	(staff-padding . 0.5)
+	(self-alignment-X . 0)
+	(self-alignment-Y . 0)
+	(script-priority . 100)
+	(font-shape . italic)
+	(font-size . -5) 		; don't overlap when next to heads.
+	(meta . ((class . Item)
+		 (interfaces . (string-number-interface
+				font-interface
+				text-script-interface
+				text-interface
+				side-position-interface
+				self-alignment-interface
+				item-interface))))))
+    
+
     (SustainPedal
      . (
 	(no-spacing-rods . #t)

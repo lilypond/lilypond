@@ -531,6 +531,8 @@ AncientRemoveEmptyStaffContext = \context {
   harmonicAccidentals = ##t 
   fingeringOrientations = #'(up down)
   stringNumberOrientations = #'(up down)
+  stringFingerOrientations = #'(up down)
+  
   markFormatter = #format-mark-letters
   rehearsalMark = #1
   subdivideBeams = ##f

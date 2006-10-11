@@ -2,6 +2,11 @@
 
 \version "2.9.12"
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% this file is alphabetically sorted.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %% need SRFI-1 filter 
 
 #(use-modules (srfi srfi-1))  
@@ -532,6 +537,14 @@ includePageLayoutFile =
                                                tweak-filename))))))
    (make-music 'SequentialMusic 'void #t))
 
+
+rightHandFinger =
+#(define-music-function (parser location finger) (string?)
+   "Define a StringFingerEvent"
+   (make-music 'StringFingerEvent
+	       'origin location
+	       'text finger))
+
 scoreTweak =
 #(define-music-function (parser location name) (string?)
    "Include the score tweak, if exists."
@@ -611,4 +624,5 @@ withMusicProperty =
 
    (set! (ly:music-property music sym) val)
    music)
+
 

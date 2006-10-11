@@ -5,7 +5,6 @@ LOCALSTEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make
 
-AF_FILES = $(call src-wildcard,*.af)
 
 # hangs on feta23
 MFTRACE_FLAGS=  --simplify
@@ -106,7 +105,7 @@ ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
-INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
+INSTALLATION_FILES=$(MF_FILES)
 
 INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6
 

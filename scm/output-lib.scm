@@ -424,6 +424,12 @@ centered, X==1 is at the right, X == -1 is at the left."
     (number->string digit 10)
   ))
 
+(define-public (string-finger::calc-text grob)
+  (let*
+      ((text (ly:event-property (event-cause  grob) 'text)))
+
+    text))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; dynamics
 (define-public (hairpin::calc-grow-direction grob)

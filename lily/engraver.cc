@@ -139,7 +139,9 @@ Engraver::internal_make_grob (SCM symbol, SCM cause, char const *name, char cons
 }
 
 Item *
-Engraver::internal_make_item (SCM x, SCM cause, char const *name, char const *file, int line, char const *fun)
+Engraver::internal_make_item (SCM x, SCM cause,
+			      char const *name,
+			      char const *file, int line, char const *fun)
 {
   Item *it = dynamic_cast<Item *> (internal_make_grob (x, cause, name, file, line, fun));
   assert (it);
@@ -147,7 +149,8 @@ Engraver::internal_make_item (SCM x, SCM cause, char const *name, char const *fi
 }
 
 Paper_column *
-Engraver::internal_make_column (SCM x, char const *name, char const *file, int line, char const *fun)
+Engraver::internal_make_column (SCM x, char const *name,
+				char const *file, int line, char const *fun)
 {
   return dynamic_cast<Paper_column *> (internal_make_grob (x, SCM_EOL, name, file, line, fun));
 }

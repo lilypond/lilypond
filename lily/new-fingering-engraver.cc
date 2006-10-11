@@ -46,6 +46,7 @@ operator< (Finger_tuple const &a, Finger_tuple const &b)
 class New_fingering_engraver : public Engraver
 {
   vector<Finger_tuple> fingerings_;
+  vector<Finger_tuple> string_fingerings_;
   vector<Finger_tuple> articulations_;
   vector<Finger_tuple> string_numbers_;
 
@@ -59,7 +60,9 @@ protected:
   void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
-  void add_fingering (Grob *, Stream_event *, Stream_event *);
+  void add_fingering (Grob *, SCM,
+		      vector<Finger_tuple> *,
+		      Stream_event *, Stream_event *);
   void add_script (Grob *, Stream_event *, Stream_event *);
   void add_string (Grob *, Stream_event *, Stream_event *);
   void position_scripts (SCM orientations, vector<Finger_tuple> *);
@@ -82,13 +85,22 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 	continue;
 
       if (ev->in_event_class ("fingering-event"))
-	add_fingering (inf.grob (), ev, note_ev);
+	add_fingering (inf.grob (),
+		       ly_symbol2scm ("Fingering"),
+		       &fingerings_,
+		       ev, note_ev);
       else if (ev->in_event_class ("text-script-event"))
 	ev->origin ()->warning (_ ("can't add text scripts to individual note heads"));
       else if (ev->in_event_class ("script-event"))
 	add_script (inf.grob (), ev, note_ev);
       else if (ev->in_event_class ("string-number-event"))
-	add_string (inf.grob (), ev, note_ev);
+	add_fingering (inf.grob (),
+		       ly_symbol2scm ("StringNumber"), &string_numbers_,
+		       ev, note_ev);
+      else if (ev->in_event_class ("string-finger-event"))
+	add_fingering (inf.grob (),
+		       ly_symbol2scm ("StringFinger"), &string_fingerings_,
+		       ev, note_ev);
       else if (ev->in_event_class ("harmonic-event"))
 	{
 	  inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
@@ -117,49 +129,27 @@ New_fingering_engraver::add_script (Grob *head,
   Finger_tuple ft;
 
   Grob *g = make_item ("Script", event->self_scm ());
-  make_script_from_event (g, context (), event->get_property ("articulation-type"), 0);
-  if (g)
-    {
-      ft.script_ = g;
-      ft.script_->set_parent (head, X_AXIS);
-
-      articulations_.push_back (ft);
-    }
+  make_script_from_event (g, context (),
+			  event->get_property ("articulation-type"), 0);
+  ft.script_ = g;
+  ft.script_->set_parent (head, X_AXIS);
+  
+  articulations_.push_back (ft);
 }
 
 void
 New_fingering_engraver::add_fingering (Grob *head,
+				       SCM grob_sym,
+				       vector<Finger_tuple> *tuple_vector,
 				       Stream_event *event,
 				       Stream_event *hevent)
 {
   Finger_tuple ft;
 
-  ft.script_ = make_item ("Fingering", event->self_scm ());
-
-  Side_position_interface::add_support (ft.script_, head);
-
-  /*
-    TODO:
-
-    Should add support for thumb.  It's a little involved, since
-    the thumb lives in a different font. Maybe it should be moved?
-  */
-
-  ft.finger_event_ = event;
-  ft.note_event_ = hevent;
-  ft.head_ = head;
-
-  fingerings_.push_back (ft);
-}
-
-void
-New_fingering_engraver::add_string (Grob *head,
-				    Stream_event *event,
-				    Stream_event *hevent)
-{
-  Finger_tuple ft;
-
-  ft.script_ = make_item ("StringNumber", event->self_scm ());
+  ft.script_ = internal_make_item (grob_sym, event->self_scm (),
+				   ly_symbol2string (grob_sym).c_str (),
+				   __FILE__, __LINE__, __FUNCTION__
+				   );
 
   Side_position_interface::add_support (ft.script_, head);
 
@@ -167,7 +157,7 @@ New_fingering_engraver::add_string (Grob *head,
   ft.note_event_ = hevent;
   ft.head_ = head;
 
-  string_numbers_.push_back (ft);
+  tuple_vector->push_back (ft);
 }
 
 void
@@ -314,6 +304,13 @@ New_fingering_engraver::position_all ()
       string_numbers_.clear ();
     }
 
+  if (string_fingerings_.size ())
+    {
+      position_scripts (get_property ("stringFingerOrientations"),
+			&string_fingerings_);
+      string_fingerings_.clear ();
+    }
+  
   for (vsize i = articulations_.size (); i--;)
     {
       Grob *script = articulations_[i].script_;
@@ -344,11 +341,17 @@ ADD_TRANSLATOR (New_fingering_engraver,
 		"This engraver is ill-named, since it "
 		"also takes care of articulations and harmonic note heads",
 		/* create */
-		"Fingering",
+		"Fingering "
+		"StringNumber "
+		"StringFinger "
+		"Script "
+		,
+		
 		/* accept */ "",
 		/* read */
 		
 		"fingeringOrientations "
+		"stringFingerOrientations "
 		"stringNumberOrientations "
 		,
 		
