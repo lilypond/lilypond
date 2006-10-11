@@ -1,3 +1,10 @@
+2006-10-11  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* mf/parmesan-dots.mf (new), mf/parmesan-generic.mf,
+	ly/engraver-init.ly: Added vaticana-style augmentum dot glyph.
+
+	* lily/dots.cc: Added style property for dots.
+
 2006-10-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/output-lib.scm (fingering::calc-text): use origin

@@ -765,6 +765,7 @@ AncientRemoveEmptyStaffContext = \context {
   \override Custos #'style = #'vaticana
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #DOWN
+  \override Dots #'style = #'vaticana
 }
 
 \context {

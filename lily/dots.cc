@@ -14,6 +14,7 @@
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
+#include "international.hh"
 
 MAKE_SCHEME_CALLBACK (Dots, print, 1);
 SCM
@@ -26,7 +27,17 @@ Dots::print (SCM d)
 
   if (scm_is_number (c))
     {
-      Stencil d = Font_interface::get_default_font (sc)->find_by_name (string ("dots.dot"));
+      SCM scm_style = sc->get_property ("style");
+      string style ="";
+      if (scm_is_symbol (scm_style))
+	style = ly_symbol2string (scm_style);
+      string idx =  "dots.dot" + style;
+      Stencil d = Font_interface::get_default_font (sc)->find_by_name (idx);
+      if (d.is_empty ())
+	{
+	  sc->warning (_f ("dot `%s' not found", idx.c_str ()));
+	  return SCM_EOL;
+	}
       Real dw = d.extent (X_AXIS).length ();
 
       /*
@@ -55,5 +66,6 @@ ADD_INTERFACE (Dots, "dots-interface",
 
 	       /* properties */
 	       "direction "
-	       "dot-count");
-
+	       "dot-count "
+	       "style "
+	       );

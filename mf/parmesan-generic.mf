@@ -33,6 +33,7 @@ if test = 0:
 	input parmesan-flags;
 	input parmesan-timesig;
 	input parmesan-scripts;
+	input parmesan-dots;
 else:
 
 fi
