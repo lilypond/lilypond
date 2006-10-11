@@ -645,10 +645,15 @@ Context::mark_smob (SCM sm)
   scm_gc_mark (me->definition_mods_);
   scm_gc_mark (me->properties_scm_);
   scm_gc_mark (me->accepts_list_);
+
   if (me->implementation_)
     scm_gc_mark (me->implementation_->self_scm ());
-  if (me->event_source_) scm_gc_mark (me->event_source_->self_scm ());
-  if (me->events_below_) scm_gc_mark (me->events_below_->self_scm ());
+
+  if (me->event_source_)
+    scm_gc_mark (me->event_source_->self_scm ());
+
+  if (me->events_below_)
+    scm_gc_mark (me->events_below_->self_scm ());
 
   return me->properties_scm_;
 }
