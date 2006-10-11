@@ -274,10 +274,37 @@ grestore
 ;; basic formatting.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (list-join lst intermediate)
+  (reduce (lambda (elt prev)
+	    (if (pair? prev) (cons  elt (cons intermediate prev))
+		(list elt intermediate prev))) '() lst))
+
+
 (define-markup-command (simple layout props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
   (interpret-markup layout props str))
+
+(define-markup-command (tied-lyric layout props str) (string?)
+  
+  "Like simple-markup, but use tie characters for ~ tilde symbols."
+
+  (if (string-contains str "~")
+      (let*
+	  ((parts (string-split str #\~))
+	   (tie-str (ly:wide-char->utf-8 #x203f))
+	   (joined  (list-join parts tie-str))
+	   (join-stencil (interpret-markup layout props tie-str))
+	   )
+
+	(interpret-markup layout 
+			  (prepend-alist-chain
+			   'word-space
+			   (/ (interval-length (ly:stencil-extent join-stencil X)) -4)
+			   props)
+			  (make-line-markup joined)))
+			   ;(map (lambda (s) (interpret-markup layout props s)) parts))
+      (interpret-markup layout props str)))
 
 
 ;; TODO: use font recoding.

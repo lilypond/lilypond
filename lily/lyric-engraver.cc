@@ -69,7 +69,6 @@ Lyric_engraver::process_music ()
       else
 	{
 	  text_ = make_item ("LyricText", event_->self_scm ());
-	  text_->set_property ("text", text);
 	}
     }
 }

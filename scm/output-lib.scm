@@ -431,3 +431,24 @@ centered, X==1 is at the right, X == -1 is at the left."
       START
       STOP
       ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lyrics
+
+(define-public (lyric-text::print grob)
+  "Allow interpretation of tildes as lyric tieing marks."
+  
+  (let*
+      ((text (ly:grob-property grob 'text))
+       (layout (ly:grob-layout grob))
+       (defs (ly:output-def-lookup layout 'text-font-defaults))
+       (props (ly:grob-alist-chain grob defs)))
+
+    (ly:text-interface::interpret-markup layout
+					 props
+					 (if (string? text)
+					     (make-tied-lyric-markup text)
+					     text))))
+
+(define-public (lyric-text::calc-text grob)
+   (ly:event-property (event-cause grob) 'text))

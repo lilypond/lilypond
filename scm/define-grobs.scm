@@ -899,9 +899,11 @@
 				lyric-hyphen-interface spacing-interface))
 		 ))
 	))
+    
     (LyricText
      . (
-	(stencil . ,ly:text-interface::print)
+	(stencil . ,lyric-text::print)
+	(text . ,lyric-text::calc-text)
 	(X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
 	(self-alignment-X . 0)
 	(word-space . 0.6)

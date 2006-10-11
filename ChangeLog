@@ -1,6 +1,17 @@
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/general-scheme.cc (LY_DEFINE): elucidate docstring.
+
+	* scm/define-markup-commands.scm (tied-lyric): new function: split
+	string along ~ and reattach with U+203F (tie character) and
+	negative space.
+
+	* scm/output-lib.scm (lyric-text::calc-text): new function.
+
+	* lily/lyric-engraver.cc (process_music): don't set 'text.
+
 	* scm/output-lib.scm (string-finger::calc-text): new function
+	(lyric-text::print): new function.
 
 	* lily/new-fingering-engraver.cc (add_fingering): refactor; make
 	generic for fingering & string number. Use for string-finger. 

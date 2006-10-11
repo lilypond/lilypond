@@ -236,7 +236,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
 
 LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
 	   1, 0, 0, (SCM wc),
-	   "Encode the Unicode codepoint @var{wc} as UTF-8")
+	   "Encode the Unicode codepoint @var{wc}, an integer, as UTF-8")
 {
   char buf[5];
 
