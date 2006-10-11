@@ -106,7 +106,7 @@ fet_beginchar("Left stemmed notehead", "slneomensural");
 fet_endchar;
 
 %
-% Some sources (eg Musix/OpusTeX think that the appendage should be on
+% Some sources (eg. Musix/OpusTeX) think that the appendage should be on
 % the left, some say right. Right wins democratically.
 %
 def draw_neomensural_longa (expr wid) =

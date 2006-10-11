@@ -5,6 +5,8 @@
 
 	* lily/dots.cc: Added style property for dots.
 
+	* mf/parmesan-heads.mf: Fix typo in comment.
+
 2006-10-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/output-lib.scm (fingering::calc-text): use origin
