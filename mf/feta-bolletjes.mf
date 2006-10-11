@@ -148,6 +148,77 @@ enddef;
 %
 % dimensions aren't entirely right.
 %
+def draw_longa (expr up) =
+	save stemthick, fudge;
+
+	stemthick# = 2 stafflinethickness#;
+	define_whole_blacker_pixels (stemthick);
+
+	fudge = hround (blot_diameter / 2);
+
+	draw_outside_ellipse (1.80, 0, 0.707, 0);
+	undraw_inside_ellipse (1.30, 125, 0.68, 2 stafflinethickness#);
+
+	pickup pencircle scaled stemthick;
+
+	if up:
+		bot y1 = -d;
+		y2 = h;
+		rt x1 - fudge = 0;
+		x1 = x2;
+
+		fudge + lft x3 = w;
+		x4 = x3;
+		top y4 = h + 3.0 staff_space;
+		y3 = y1;
+	else:
+		bot y1 = -d - 3.0 staff_space;
+		top y2 = h;
+		rt x1 - fudge = 0;
+		x1 = x2;
+
+		fudge + lft x3 = w;
+		x4 = x3;
+		y4 = y2;
+		bot y3 = -d;
+	fi;
+
+	draw_gridline (z1, z2, stemthick);
+	draw_gridline (z3, z4, stemthick);
+enddef;
+
+
+fet_beginchar ("Longa notehead", "u-2");
+	draw_longa (true);
+
+	draw_staff (-2, 2, 0);
+fet_endchar;
+
+fet_beginchar ("Longa notehead", "d-2");
+	draw_longa (false);
+
+	draw_staff (-2, 2, 0);
+fet_endchar;
+
+
+if test > 0:
+	fet_beginchar ("Longa notehead", "u-2");
+		draw_longa (true);
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+
+	fet_beginchar ("Longa notehead", "d-2");
+		draw_longa (false);
+
+		draw_staff (-2, 2, 0.5);
+	fet_endchar;
+fi;
+
+
+%
+% dimensions aren't entirely right.
+%
 def draw_brevis =
 	save stemthick, fudge;
 

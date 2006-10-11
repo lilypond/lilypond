@@ -23,6 +23,10 @@
 
 	* mf/parmesan-heads.mf: Fix typo in comment.
 
+	* mf/feta-bolletjes.mf, scm/output-lib.scm: Fix longa notes bug by
+	adding longa head to feta font and removing obsolete default
+	mapping scheme code.
+
 2006-10-10  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/output-lib.scm (fingering::calc-text): use origin

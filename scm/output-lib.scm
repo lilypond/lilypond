@@ -119,6 +119,10 @@
        (log (min 2 (ly:grob-property grob 'duration-log))))
     
     (case style
+      ;; "default" style is directly handled in note-head.cc as a
+      ;; special case (HW says, mainly for performance reasons).
+      ;; Therefore, style "default" does not appear in this case
+      ;; statement.  -- jr
       ((xcircle) "2xcircle")
       ((harmonic) "0harmonic")
       ((baroque) 
@@ -137,16 +141,6 @@
 	   (string-append (number->string log) (symbol->string style))))
       ((neomensural)
        (string-append (number->string log) (symbol->string style)))
-      ((default)
-       ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
-       ;; neither a longa nor a maxima.  Hence let us, for the moment,
-       ;; take these from the neo-mensural font.  TODO: mf/feta-bolletjes
-       ;; should define at least a longa for the default font.  The longa
-       ;; should look exactly like the brevis of the default font, but
-       ;; with a stem exactly like that of the quarter note. -- jr
-       (if (< log -1)
-	   (string-append (number->string log) "neomensural")
-	   (number->string log)))
       (else
        (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
 	   (symbol->string style)
