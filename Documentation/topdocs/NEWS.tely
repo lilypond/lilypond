@@ -66,6 +66,16 @@ which scares away people.
 
 @end ignore
 
+@item Lyric texts may include tie symbols by using the @code{~}
+symbol,
+
+@lilypond[relative=1,fragment,ragged-right]
+  { c4 f2 g4 }
+  \addlyrics {
+    o la~la la
+  } 
+@end lilypond
+
 @item Calculation of note head durations is now softcoded. 
 
 @lilypond[relative=1,fragment,ragged-right]

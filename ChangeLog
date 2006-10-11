@@ -1,5 +1,7 @@
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): add new feature.
+
 	* lily/general-scheme.cc (LY_DEFINE): elucidate docstring.
 
 	* scm/define-markup-commands.scm (tied-lyric): new function: split
