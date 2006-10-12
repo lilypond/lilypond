@@ -58,6 +58,9 @@
 	* Documentation/user/instrument-notation.itely: Tune Ancient
 	Articulations figure, such that the episem actually shows.
 
+	* lily/mensural-ligature.cc (internal_brew_primitive): Bugfix:
+	fix Han-Wen's fix (rev. 1.53): scm_is_pair -> scm_is_number.
+
 2006-10-12  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ {some}: minor edits that were lost somehow.
