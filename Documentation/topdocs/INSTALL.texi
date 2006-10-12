@@ -38,7 +38,7 @@ CVS from @uref{http://savannah.gnu.org/cvs/?group=lilypond,savannah.gnu.org}
 @itemize @bullet
 @c @quotation
 @example
-CVS_RSH=ssh cvs -d:pserver:anonymous@cvs.savannah.gnu.org:/cvsroot/lilypond co lilypond
+CVS_RSH=ssh cvs -d:pserver:anonymous@@cvs.savannah.gnu.org:/cvsroot/lilypond co lilypond
 @end example
 @c @end quotation
 The CVS repository does not contain generated files.  To create

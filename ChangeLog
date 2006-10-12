@@ -1,5 +1,7 @@
 2006-10-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/topdocs/INSTALL.texi: Thinko.
+
 	* .cvsignore: Update.
 
 	* lexer-gcc-3.1.sh: Remove.
