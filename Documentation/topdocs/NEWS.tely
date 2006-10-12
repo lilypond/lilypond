@@ -69,10 +69,10 @@ which scares away people.
 @item By defining a clip region, a cutout EPS file of a number of measures
 may be generated from the complete score.  Hence, it is no longer
 necessary to create separate files to create extracts of (long)
-scores.
+scores.  An example is shown in
+@file{input/regression/clip-systems.ly}.
 
-An example is shown in @file{input/regression/clip-systems.ly}. This
-feature was sponsored by Rick Hansen.
+This feature was sponsored by Rick Hansen.
 
 
 @item Lyric texts may include tie symbols by using the @code{~}

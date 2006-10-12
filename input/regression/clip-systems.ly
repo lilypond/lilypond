@@ -13,7 +13,8 @@ This file needs to be run separately with @code{-dclip-systems}; the
 collated-files.html of the regression test does not adequately show
 the results.
 
-The result will be files named @file{@var{base}-system-@var{systemnumber}-@var{start}-@var{end}.eps}.
+The result will be files named
+@file{@var{base}-system-@var{systemnumber}-@var{start}-@var{end}.eps}.
 
 "
 

@@ -205,9 +205,11 @@ Paper_column_engraver::stop_translation_timestep ()
 
 
   SCM mpos = get_property ("measurePosition");
-  if (unsmob_moment (mpos))
+  SCM barnum = get_property ("internalBarNumber"),
+  if (unsmob_moment (mpos)
+      && scm_is_integer (barnum))
     {
-      SCM where = scm_cons (get_property ("internalBarNumber"),
+      SCM where = scm_cons (barnum,
 			    mpos);
 
       command_column_->set_property ("rhythmic-location", where);

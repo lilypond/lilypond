@@ -1,5 +1,8 @@
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/paper-column-engraver.cc (stop_translation_timestep): also
+	typecheck barnumber.
+
 	* scm/framework-ps.scm (dump-stencil-as-EPS): fix thinkos.
 
 	* scm/lily.scm (type-p-name-alist): add rhythmic-location? type name.
