@@ -2911,11 +2911,11 @@ Editio Vaticana style.
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
-    a4\ictus_"ictus" s1
-    a4\circulus_"circulus" s1
-    a4\semicirculus_"semicirculus" s1 s
-    a4\accentus_"accentus" s1
-    \[ a4_"episem" \episemInitium \pes b \flexa a \episemFinis \]
+    a\ictus_"ictus" \break
+    a\circulus_"circulus" \break
+    a\semicirculus_"semicirculus" \break
+    a\accentus_"accentus" \break
+    \[ a_"episem" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
 }
 @end lilypond
@@ -2924,6 +2924,10 @@ Editio Vaticana style.
 
 Some articulations are vertically placed too closely to the
 correpsonding note heads.
+
+The episem line is not displayed if its length is shorter than the
+width of roughly 4 note heads.  The right end of the episem line is
+often too far to the right.
 
 @node Custodes
 @subsection Custodes

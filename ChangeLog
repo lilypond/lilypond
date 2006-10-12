@@ -3,6 +3,9 @@
 	* ly/engraver-init.ly: Remove obsolete comment on
 	Bar_number_engraver.
 
+	* Documentation/user/instrument-notation.itely: Tune Ancient
+	Articulations figure, such that the episem actually shows.
+
 2006-10-12  Graham Percival  <gpermus@gmail.com>
 
 	* Documentation/user/ {some}: minor edits that were lost somehow.
