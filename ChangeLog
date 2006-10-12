@@ -1,5 +1,7 @@
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PACKAGE_NAME): bump version.
+
 	* input/regression/lyric-tie.ly (texidoc): new file.
 
 	* Documentation/topdocs/NEWS.tely (Top): add new feature.
