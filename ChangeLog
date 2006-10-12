@@ -1,3 +1,10 @@
+2006-10-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lexer-gcc-3.1.sh: Remove.
+
+	* Documentation/topdocs/INSTALL.texi: Remove obsolete ftp server.
+	Update anonymous cvs access.  Remove comment about gcc 3.0.4.
+
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/paper-column-engraver.cc (stop_translation_timestep): also

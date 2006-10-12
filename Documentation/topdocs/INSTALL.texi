@@ -32,14 +32,13 @@ Download source
 @item tarballs from
 @itemize @bullet
 @uref{http://lilypond.org/download/} by HTTP.
-@item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror).
 @end itemize
 @item 
 CVS from @uref{http://savannah.gnu.org/cvs/?group=lilypond,savannah.gnu.org}
 @itemize @bullet
 @c @quotation
 @example
-CVS_RSH=ssh cvs -d:ext:anoncvs@@savannah.gnu.org:/cvsroot/lilypond co lilypond
+CVS_RSH=ssh cvs -d:pserver:anonymous@cvs.savannah.gnu.org:/cvsroot/lilypond co lilypond
 @end example
 @c @end quotation
 The CVS repository does not contain generated files.  To create
@@ -286,11 +285,6 @@ $ make
 @end example
 @end quotation
 
-
-
-@unnumberedsubsec Gcc-3.0.4
-
-Gcc 3.0.4 is flaky; upgrade GCC.
 
 @unnumberedsubsec Flex-2.5.4a and gcc-3.x
 
