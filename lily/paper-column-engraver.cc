@@ -205,7 +205,7 @@ Paper_column_engraver::stop_translation_timestep ()
 
 
   SCM mpos = get_property ("measurePosition");
-  SCM barnum = get_property ("internalBarNumber"),
+  SCM barnum = get_property ("internalBarNumber");
   if (unsmob_moment (mpos)
       && scm_is_integer (barnum))
     {
