@@ -1,3 +1,7 @@
+2006-10-12  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ {some}: minor edits that were lost somehow.
+
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PACKAGE_NAME): bump version.
@@ -119,6 +123,9 @@
 
 	* Documentation/user/basic-notation.itely: document volta brackets
 	not aligning (bug 63).
+
+	* Documentation/user/ global.itely invoking.itely: ignore or
+	add warnings about texstr.
 
 2006-10-08  John Mandereau  <john.mandereau@free.fr>
 

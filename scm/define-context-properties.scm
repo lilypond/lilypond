@@ -214,7 +214,7 @@ another non-natural.")
 			  "extra vertical extent, same format as @var{minimumVerticalExtent}")
 
 
-     (figuredBassCenterContinuations ,boolean? "Whether to vertically center pairs of extender lines.")
+     (figuredBassCenterContinuations ,boolean? "Whether to vertically center pairs of extender lines.  This does not work with three or more lines")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs relative to the the main figure.")
      
      (figuredBassAlterationDirection ,ly:dir? "Where to put

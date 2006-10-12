@@ -370,6 +370,8 @@ by using a Unicode-aware editor and saving the file with utf-8 encoding.  Most
 popular modern editors have utf-8 support, for example, vim, Emacs,
 jEdit, and GEdit do.
 
+@c  Currently not working
+@ignore
 Depending on the fonts installed, the following fragment shows Hebrew
 and Cyrillic lyrics,
 
@@ -377,7 +379,7 @@ and Cyrillic lyrics,
 @cindex Hebrew
 @cindex ASCII, non
 
-@lilypondfile[fontload]{utf-8.ly}
+@li lypondfile[fontload]{utf-8.ly}
 
 The @TeX{} backend does not handle encoding specially at all.  Strings
 in the input are put in the output as-is.  Extents of text items in the
@@ -399,6 +401,8 @@ lilypond -b tex input/les-nereides.ly
 Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
 suitable LaTeX wrappers to load appropriate La@TeX{} packages for
 interpreting non-ASCII strings.
+
+@end ignore
 
 To use a Unicode escape sequence, use
 
