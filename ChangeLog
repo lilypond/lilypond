@@ -1,5 +1,9 @@
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): doc new clipping feature
+
+	* input/regression/clip-systems.ly (Notes): new file. 
+
 	* scm/lily.scm (define-scheme-options): add clip-systems option.
 
 	* scm/framework-ps.scm (dump-stencil-as-EPS-with-bbox): new
