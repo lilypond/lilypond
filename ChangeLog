@@ -1,5 +1,9 @@
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/framework-ps.scm (dump-stencil-as-EPS): fix thinkos.
+
+	* scm/lily.scm (type-p-name-alist): add rhythmic-location? type name.
+
 	* Documentation/topdocs/NEWS.tely (Top): doc new clipping feature
 
 	* input/regression/clip-systems.ly (Notes): new file. 

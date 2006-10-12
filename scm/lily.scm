@@ -80,7 +80,10 @@ on errors, and print a stack trace.")
 	     (oop goops)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
-	     (srfi srfi-14))
+	     (srfi srfi-14)
+	     (scm clip-region)
+
+	     )
 
 
 ;; my display
@@ -329,7 +332,8 @@ The syntax is the same as `define*-public'."
 	(,number? . "number")
 	(,output-port? . "output port")   
 	(,pair? . "pair")
-	(,procedure? . "procedure") 
+	(,procedure? . "procedure")
+	(,rhythmic-location? . "rhythmic location")
 	(,scheme? . "any type")
 	(,string? . "string")
 	(,symbol? . "symbol")
@@ -449,7 +453,8 @@ The syntax is the same as `define*-public'."
 	 (lambda () (ly:parse-file file-name))
 	 (lambda (x . args) (handler x file-name))))
 
-(use-modules (scm editor))
+(use-modules (scm editor)
+	     )
 
 (define-public (gui-main files)
   (if (null? files)

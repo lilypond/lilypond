@@ -352,7 +352,7 @@ quicker the slur attains it @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
 @code{interesting-items}")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
-     (rhythmic-location ,ly:moment? "Where (bar number, measure position) in the score.")
+     (rhythmic-location ,rhythmic-location? "Where (bar number, measure position) in the score.")
      (right-padding ,ly:dimension? "Space to insert on the right side  of an object (eg. between note and its accidentals.)")
      (rotation ,list? "Number of degrees to rotate this object, and what point
 to rotate around. #'(45 0 0) means rotate 45 degrees around the center of this object.")

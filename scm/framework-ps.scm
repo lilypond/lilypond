@@ -488,6 +488,7 @@
   (let*
       ((xext (ly:stencil-extent dump-me X))
        (yext (ly:stencil-extent dump-me Y))
+       (left-overshoot -3)
        (bbox
 	(map
 	 (lambda (x)
@@ -495,7 +496,7 @@
 		     ;; FIXME: huh?
 		   (equal? (format #f "~S" x) "+#.#")
 		   (equal? (format #f "~S" x) "-#.#"))
-	       0.0 x))))
+	       0.0 x))
 
 	   ;; the left-overshoot is to make sure that
 	   ;; bar numbers  stick out of margin uniformly.
@@ -505,9 +506,10 @@
 	    (if (ly:get-option 'pad-eps-boxes) 
 		(min left-overshoot (car xext))
 		(car xext))
-	    (car yext) (cdr xext) (cdr yext)))
+	    (car yext) (cdr xext) (cdr yext)))))
 
-       (dump-stencil-as-EPS-with-bbox paper dump-me filename load-fonts bbox)))
+       (dump-stencil-as-EPS-with-bbox paper dump-me filename load-fonts bbox)
+       ))
 	 
 	   
 (define-public (dump-stencil-as-EPS-with-bbox paper dump-me filename
@@ -535,7 +537,6 @@
 		     (open-file (format "~a.eps" filename) "wb")
 		     "ps"))
 
-	 (left-overshoot -3)
 	 (port (ly:outputter-port outputter))
 
 	 
