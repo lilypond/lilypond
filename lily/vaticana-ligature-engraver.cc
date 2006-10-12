@@ -54,7 +54,7 @@ private:
 		    Real thickness);
   void check_for_prefix_loss (Item *primitive);
   void check_for_ambiguous_dot_pitch (Grob_info primitive);
-  void add_mora_column (Grob *paper_column);
+  void add_mora_column (Paper_column *column);
   vector<Grob_info> augmented_primitives_;
 
 public:
@@ -387,18 +387,18 @@ Vaticana_ligature_engraver::check_for_prefix_loss (Item *primitive)
 }
 
 void
-Vaticana_ligature_engraver::add_mora_column (Grob *paper_column)
+Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
 {
   if (augmented_primitives_.size () == 0) // no dot for column
     return;
-  if (!paper_column) // empty ligature???
+  if (!column) // empty ligature???
     {
       augmented_primitives_[0].grob ()->
 	programming_error ("no paper column to add dot");
       return;
     }
   Item *dotcol = make_item ("DotColumn", SCM_EOL);
-  dotcol->set_parent (paper_column, X_AXIS);
+  dotcol->set_parent (column, X_AXIS);
   for (vsize i = 0; i < augmented_primitives_.size (); i++)
     {
       Item *primitive =
@@ -699,7 +699,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   align_heads (primitives, flexa_width, thickness);
 
   // append all dots to paper column of ligature's last head
-  add_mora_column (prev_primitive->get_parent (X_AXIS));
+  add_mora_column (prev_primitive->get_column ());
 
 #if 0 // experimental code to collapse spacing after ligature
   /* TODO: set to max (old/new spacing-increment), since other
