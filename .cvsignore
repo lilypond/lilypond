@@ -37,6 +37,7 @@ config-*.status
 config.hh
 config.make
 config.status
+config.status.lineno
 custom.py
 dummy.dep
 nohup.out

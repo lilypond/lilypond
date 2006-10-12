@@ -1,5 +1,7 @@
 2006-10-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* .cvsignore: Update.
+
 	* lexer-gcc-3.1.sh: Remove.
 
 	* Documentation/topdocs/INSTALL.texi: Remove obsolete ftp server.
