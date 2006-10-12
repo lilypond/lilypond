@@ -228,7 +228,14 @@ found."
     m))
 
 ;;;;;;;;;;;;;;;;
-; list
+;; list
+
+
+(define-public (filtered-map proc lst)
+  (filter
+   (lambda (x) x)
+   (map proc lst)))
+
 
 (define (flatten-list lst)
   "Unnest LST" 

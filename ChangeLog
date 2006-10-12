@@ -1,3 +1,33 @@
+2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/lily.scm (define-scheme-options): add clip-systems option.
+
+	* scm/framework-ps.scm (dump-stencil-as-EPS-with-bbox): new
+	function
+	(dump-stencil-as-EPS): move bbox calculation from previous
+	dump-stencil-as-EPS
+	(output-framework): use -dclip-systems 
+
+	* scm/lily-library.scm (filtered-map): new function
+
+	* scm/framework-ps.scm (clip-system-EPS): new function.
+	(clip-system-EPSes): new function.
+
+	* lily/paper-column.cc: add rhythmic-location to interface
+
+	* scm/define-grob-properties.scm (all-user-grob-properties): add
+	rhythmic-location property.
+
+	* scm/clip-region.scm: new file: rhythmic-location data type and
+	system-clipped-x-extent function.
+
+	* ly/init.ly: use (scm clip-region)
+
+	* lily/paper-column-engraver.cc (stop_translation_timestep): set
+	rhythmic-location for paper column grobs.
+
+	* lily/grob-scheme.cc (LY_DEFINE): minor cleanup
+
 2006-10-12  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* ly/engraver-init.ly: Remove obsolete comment on
@@ -34,7 +64,8 @@
 	* lily/new-fingering-engraver.cc (add_fingering): refactor; make
 	generic for fingering & string number. Use for string-finger. 
 
-	* scm/define-music-types.scm (music-descriptions): add StringFingerEvent
+	* scm/define-music-types.scm (music-descriptions): add
+	StringFingerEvent
 
 	* lily/fingering-engraver.cc (listen_string_finger): new function
 

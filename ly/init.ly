@@ -7,6 +7,8 @@
 #(define-public midi-debug  #f)
 
 
+
+
 \version "2.7.39"
 
 \include "declarations-init.ly"
@@ -18,6 +20,8 @@
 #(define $defaultheader #f)
 #(define version-seen #f)
 
+
+#(use-modules (scm clip-region))
 \maininput
 %% there is a problem at the end of the input file
 

@@ -230,6 +230,7 @@ ADD_INTERFACE (Paper_column,
 	       "page-break-permission "
 	       "page-turn-penalty "
 	       "page-turn-permission "
+	       "rhythmic-location "
 	       "shortest-playing-duration "
 	       "shortest-starter-duration "
 	       "spacing "

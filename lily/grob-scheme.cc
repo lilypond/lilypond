@@ -19,13 +19,11 @@
 
 LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
 	   2, 0, 0, (SCM grob, SCM sym),
-	   //, SCM dfault),
 	   "Retrieve @var{sym} for @var{grob} but don't process callbacks.")
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
-  //  SCM_ASSERT_TYPE (ly_is_procedure (proc), proc, SCM_ARG3, __FUNCTION__, "procedure");
 
   return sc->get_property_data (sym);
 }
@@ -69,7 +67,7 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
 
 LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
 	   1, 0, 0, (SCM grob),
-	   "Return the interfaces list of  grob @var{grob}.")
+	   "Return the interfaces list of grob @var{grob}.")
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");

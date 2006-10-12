@@ -16,6 +16,7 @@
 	     (scm paper-system)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
+	     (scm clip-region)
 	     (lily))
 
 
@@ -455,17 +456,19 @@
 	 (page-count (length page-stencils))
 	 (port (ly:outputter-port outputter)))
 
+
+    (if (ly:get-option 'clip-systems)
+	(clip-system-EPSes basename book))
+
     (if (ly:get-option 'dump-signatures)
 	(write-system-signatures basename (ly:paper-book-systems book) 1))
   
     (output-scopes scopes fields basename)
     (display (file-header paper page-count #t) port)
-
     
     ;; don't do BeginDefaults PageMedia: A4 
     ;; not necessary and wrong
     
-
     (write-preamble paper #t port)
 
     (for-each
@@ -479,7 +482,37 @@
     (postprocess-output book framework-ps-module filename
 			 (ly:output-formats))))
 
-(define-public (dump-stencil-as-EPS paper dump-me filename load-fonts?)
+(define-public (dump-stencil-as-EPS paper dump-me filename
+				    load-fonts
+				    )
+  (let*
+      ((xext (ly:stencil-extent dump-me X))
+       (yext (ly:stencil-extent dump-me Y))
+       (bbox
+	(map
+	 (lambda (x)
+	   (if (or (nan? x) (inf? x)
+		     ;; FIXME: huh?
+		   (equal? (format #f "~S" x) "+#.#")
+		   (equal? (format #f "~S" x) "-#.#"))
+	       0.0 x))))
+
+	   ;; the left-overshoot is to make sure that
+	   ;; bar numbers  stick out of margin uniformly.
+	   ;;
+	   (list
+	    
+	    (if (ly:get-option 'pad-eps-boxes) 
+		(min left-overshoot (car xext))
+		(car xext))
+	    (car yext) (cdr xext) (cdr yext)))
+
+       (dump-stencil-as-EPS-with-bbox paper dump-me filename load-fonts bbox)))
+	 
+	   
+(define-public (dump-stencil-as-EPS-with-bbox paper dump-me filename
+					      load-fonts
+					      bbox)
   (define (to-bp-box mmbox)
     (let* ((scale (ly:output-def-lookup paper 'output-scale))
 	   (box (map
@@ -504,37 +537,87 @@
 
 	 (left-overshoot -3)
 	 (port (ly:outputter-port outputter))
-	 (xext (ly:stencil-extent dump-me X))
-	 (yext (ly:stencil-extent dump-me Y))
-	 (bbox
-	  (map
-	   (lambda (x)
-	     (if (or (nan? x) (inf? x)
-		     ;; FIXME: huh?
-		     (equal? (format #f "~S" x) "+#.#")
-		     (equal? (format #f "~S" x) "-#.#"))
-		 0.0 x))
 
-	   ;; the left-overshoot is to make sure that
-	   ;; bar numbers  stick out of margin uniformly.
-	   ;;
-	   (list
-
-	    (if (ly:get-option 'pad-eps-boxes) 
-		(min left-overshoot (car xext))
-		(car xext))
-	    (car yext) (cdr xext) (cdr yext))))
 	 
 	 (rounded-bbox (to-bp-box bbox))
 	 (port (ly:outputter-port outputter))
-	 (header (eps-header paper rounded-bbox load-fonts?)))
+	 (header (eps-header paper rounded-bbox load-fonts)))
 
     (display header port)
-    (write-preamble paper load-fonts? port)
+    (write-preamble paper load-fonts port)
     (display "gsave set-ps-scale-to-lily-scale \n" port)
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))
+
+
+
+(define (clip-system-EPS basename paper paper-system clip-regions
+			 do-pdf)
+
+  (let*
+      ((system-grob (paper-system-system-grob paper-system))
+       (extents-region-pairs
+	(filtered-map
+	 (lambda (region)
+	   (let*
+	       ((x-ext (system-clipped-x-extent system-grob region)))
+
+	     (if x-ext
+		 (cons x-ext region)
+		 #f)))
+	 
+	 clip-regions)))
+    
+    (for-each
+     (lambda (ext-region-pair)
+       (let*
+	   ((xext (car ext-region-pair))
+	    (region (cdr ext-region-pair))
+	    (yext (paper-system-extent paper-system Y))
+	    (bbox (list (car  xext) (car yext)
+			(cdr xext) (cdr yext)))
+	    (filename (format "~a-clip-~a-~a" basename
+			      (rhythmic-location->file-string (car region))
+			      (rhythmic-location->file-string (cdr region)))))
+
+	 (dump-stencil-as-EPS-with-bbox
+	  paper
+	  (paper-system-stencil paper-system)
+	  filename
+	  (ly:get-option 'include-eps-fonts)
+	  bbox)
+
+	 (if do-pdf
+	     (postscript->pdf  0 0  (format "~a.eps" filename)))
+	 ))
+
+     extents-region-pairs)
+    
+    
+    ))
+
+(define (clip-system-EPSes basename paper-book)
+  (let*
+      ((paper-def  (ly:paper-book-paper paper-book))
+       (do-pdf (member  "pdf" (ly:output-formats)))
+
+       (regions
+	(ly:output-def-lookup paper-def
+			      'clip-regions))
+       (count 1)
+       (systems
+	(ly:paper-book-systems paper-book)))
+
+    (for-each
+     (lambda (system)
+       (clip-system-EPS
+	(format "~a-system-~a" basename count) paper-def system regions
+	do-pdf)
+       (set! count (1+ count))
+
+       )
+     systems)))
 
 (define-public (output-preview-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
@@ -591,6 +674,7 @@
 	(postprocess-output book framework-ps-module
 			    (format "~a.preview.eps" basename)
 			     (ly:output-formats)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (convert-to-pdf book name)

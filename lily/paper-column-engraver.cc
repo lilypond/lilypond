@@ -202,6 +202,17 @@ Paper_column_engraver::stop_translation_timestep ()
 
   first_ = false;
   break_events_.clear ();
+
+
+  SCM mpos = get_property ("measurePosition");
+  if (unsmob_moment (mpos))
+    {
+      SCM where = scm_cons (get_property ("internalBarNumber"),
+			    mpos);
+
+      command_column_->set_property ("rhythmic-location", where);
+      musical_column_->set_property ("rhythmic-location", where);
+    }
 }
 
 void
