@@ -17,6 +17,14 @@
 (define-public (paper-system-stencil system)
   (ly:prob-property system 'stencil))
 
+(define-public (paper-system-layout system)
+  (let*
+      ((g (paper-system-system-grob system)))
+
+    (if (ly:grob? g)
+	(ly:grob-layout  g)
+	#f)))
+
 (define-public (paper-system-system-grob paper-system)
   (ly:prob-property paper-system 'system-grob))
 

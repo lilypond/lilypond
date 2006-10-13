@@ -1,3 +1,10 @@
+2006-10-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/framework-ps.scm (clip-system-EPSes): change ordering, so
+	system-count starts at 0 for each clip-region. Change name to
+	file-FROM-TO-clip-COUNT. Take clip-regions from layout block, per
+	score.
+
 2006-10-13  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/input-smob.cc: add equal_p for Input
@@ -30,6 +37,8 @@
 	Update anonymous cvs access.  Remove comment about gcc 3.0.4.
 
 2006-10-12  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION: release 2.9.23
 
 	* lily/paper-column-engraver.cc (stop_translation_timestep): also
 	typecheck barnumber.

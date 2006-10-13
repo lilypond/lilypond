@@ -63,6 +63,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Actual clipping logic.
 
+;;
+;; the total of this will be
+;; O(#systems * #regions)
+;; 
+;; we can actually do better by sorting the regions as well,
+;; but let's leave that for future extensions.
+;;
 (define-public (system-clipped-x-extent system-grob clip-region)
   "Return the X-extent of the SYSTEM-GROB when clipped with
 CLIP-REGION. Return #f if not appropriate."

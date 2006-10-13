@@ -553,35 +553,39 @@
 
 
 
-(define (clip-system-EPS basename paper paper-system clip-regions
-			 do-pdf)
+(define (clip-systems-to-region
+	 basename paper systems region
+	 do-pdf)
 
   (let*
-      ((system-grob (paper-system-system-grob paper-system))
-       (extents-region-pairs
+      ((extents-system-pairs
 	(filtered-map
-	 (lambda (region)
+	 (lambda (paper-system)
 	   (let*
-	       ((x-ext (system-clipped-x-extent system-grob region)))
+	       ((x-ext (system-clipped-x-extent
+			(paper-system-system-grob paper-system)
+			region)))
 
 	     (if x-ext
-		 (cons x-ext region)
+		 (cons x-ext paper-system)
 		 #f)))
 	 
-	 clip-regions)))
+	 systems))
+       (count 0))
     
     (for-each
-     (lambda (ext-region-pair)
+     (lambda (ext-system-pair)
        (let*
-	   ((xext (car ext-region-pair))
-	    (region (cdr ext-region-pair))
+	   ((xext (car ext-system-pair))
+	    (paper-system (cdr ext-system-pair))
 	    (yext (paper-system-extent paper-system Y))
 	    (bbox (list (car  xext) (car yext)
 			(cdr xext) (cdr yext)))
-	    (filename (format "~a-clip-~a-~a" basename
-			      (rhythmic-location->file-string (car region))
-			      (rhythmic-location->file-string (cdr region)))))
+	    (filename (if (< 0 count)
+			  (format "~a-~a" basename count)
+			  basename)))
 
+	 (set! count (1+ count))
 	 (dump-stencil-as-EPS-with-bbox
 	  paper
 	  (paper-system-stencil paper-system)
@@ -593,32 +597,65 @@
 	     (postscript->pdf  0 0  (format "~a.eps" filename)))
 	 ))
 
-     extents-region-pairs)
-    
-    
+     extents-system-pairs)
     ))
 
-(define (clip-system-EPSes basename paper-book)
-  (let*
-      ((paper-def  (ly:paper-book-paper paper-book))
-       (do-pdf (member  "pdf" (ly:output-formats)))
 
-       (regions
-	(ly:output-def-lookup paper-def
-			      'clip-regions))
-       (count 1)
-       (systems
-	(ly:paper-book-systems paper-book)))
+(define (clip-system-EPSes basename paper-book)
+  (define do-pdf (member  "pdf" (ly:output-formats)))
+
+  (define (clip-score-systems basename systems)
+    (let*
+	((layout (ly:grob-layout (paper-system-system-grob (car systems))))
+	 (regions (ly:output-def-lookup layout 'clip-regions)))
+      
+      (for-each
+       (lambda (region)
+	 (clip-systems-to-region
+	  (format "~a-from-~a-to-~a-clip"
+		  basename
+		  (rhythmic-location->file-string (car region))
+		  (rhythmic-location->file-string (cdr region)))
+	  layout systems region
+	  do-pdf))
+       
+       regions)))
+  
+
+  ;; partition in system lists sharing their layout blocks
+  (let*
+      ((systems (ly:paper-book-systems paper-book))
+       (count 0)
+       (score-system-list '()))
+
+    (fold 
+     (lambda (system last-system)
+    
+       
+       (if (not (and last-system
+		     (equal? (paper-system-layout last-system)
+			     (paper-system-layout system))))
+	   (set! score-system-list (cons '() score-system-list)))
+       
+       (if (paper-system-layout system)
+	   (set-car! score-system-list (cons system (car score-system-list))))
+
+       ;; pass value.
+       system)
+
+     #f 
+     systems)
 
     (for-each
-     (lambda (system)
-       (clip-system-EPS
-	(format "~a-system-~a" basename count) paper-def system regions
-	do-pdf)
-       (set! count (1+ count))
+     (lambda (system-list)
+       (clip-score-systems
+	(if (> count 0)
+	    (format "~a-~a" basename count)
+	    basename)
+	system-list))
 
-       )
-     systems)))
+     score-system-list)))
+
 
 (define-public (output-preview-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
