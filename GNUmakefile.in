@@ -16,7 +16,7 @@ SUBDIRS = buildscripts python scripts \
 ## value of DOCUMENTATION here.
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
-SCRIPTS = configure autogen.sh lexer-gcc-3.1.sh Doxyfile
+SCRIPTS = configure autogen.sh Doxyfile
 README_FILES = ChangeLog COPYING DEDICATION ROADMAP THANKS HACKING
 TOPDOC_FILES=AUTHORS README INSTALL NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
