@@ -1,5 +1,7 @@
 2006-10-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* VERSION (PATCH_LEVEL): bump version.
+
 	* COPYING: clarify exception note.
 
 	* lily/main.cc: remove remark about "COPYING".
