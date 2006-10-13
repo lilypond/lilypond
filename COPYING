@@ -1,32 +1,21 @@
+LilyPond is distributed with under the GNU General Public License
+(reproduced below), with the following exceptions:
+
+- It does not apply to example input files (which are in
+the subdirectory input/) that explicitly specify another license.
+
+- If you create a document which uses fonts included in LilyPond, and
+embed this font or unaltered portions of this font into the document,
+then this font does not by itself cause the resulting document to be
+covered by the GNU General Public License. This exception does not
+however invalidate any other reasons why the document might be covered
+by the GNU General Public License. If you modify this font, you may
+extend this exception to your version of the font, but you are not
+obligated to do so. If you do not wish to do so, delete this exception
+statement from your version.
 
 
-*** NOTE
 
-
-1. This license does not apply to the included example input files
-(which are in the subdirectory input/).
-
-2. The following addition applies to the fonts included in this
-package. 
-
-	As a special exception, if you create a document which uses
-	this font, and embed this font or unaltered portions of this
-	font into the document, this font does not by itself cause the
-	resulting document to be covered by the GNU General Public
-	License. This exception does not however invalidate any other
-	reasons why the document might be covered by the GNU General
-	Public License. If you modify this font, you may extend this
-	exception to your version of the font, but you are not
-	obligated to do so. If you do not wish to do so, delete this
-	exception statement from your version.
-
-Sources of the included fonts are in the subdirectory mf/
-
-3. This license applies to all other files that do not explicitly
-specify another license.
-
-
-*** END NOTE
 
 		    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991

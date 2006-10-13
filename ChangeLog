@@ -1,5 +1,7 @@
 2006-10-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* COPYING: clarify exception note.
+
 	* lily/main.cc: remove remark about "COPYING".
 
 	* scm/framework-ps.scm (clip-system-EPSes): change ordering, so
