@@ -16,6 +16,7 @@
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
+#include "staff-symbol-referencer.hh"
 #include "side-position-interface.hh"
 #include "stem.hh"
 #include "warn.hh"
@@ -241,6 +242,28 @@ check_meshing_chords (Grob *me,
     shift_amount *= 0.1;
   else
     shift_amount *= 0.17;
+
+  /*
+   * Fix issue #44:
+   *
+   * Dots from left note head collide with right note head. Only occurs
+   * with a close half collide, if the left note head is between
+   * lines and the right note head is on a line, and if right note head
+   * hasn't got any dots.
+   */
+  if (close_half_collide
+      && Rhythmic_head::dot_count (nu)
+      && !Rhythmic_head::dot_count (nd))
+    {
+      Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+      if (!Staff_symbol_referencer::on_line (staff, ups[0]))
+	{
+	  Grob *d = unsmob_grob (nu->get_object ("dot"));
+	  Grob *parent = d->get_parent (X_AXIS);
+	  if (Dot_column::has_interface (parent))
+	    Side_position_interface::add_support (parent, nd);
+	}
+    }
 
   /* For full or close half collisions, the right hand head may
      obscure dots.  Move dots to the right.  */

@@ -1,3 +1,7 @@
+2006-10-13  Erlend Aasland  <erlenda@gmail.com>
+
+	* lily/note-collision.cc: fix issue #44 (dot/notehead collision)
+
 2006-10-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* VERSION (PATCH_LEVEL): bump version.
