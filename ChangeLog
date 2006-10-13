@@ -2,8 +2,8 @@
 
 	* scm/framework-ps.scm (clip-system-EPSes): change ordering, so
 	system-count starts at 0 for each clip-region. Change name to
-	file-FROM-TO-clip-COUNT. Take clip-regions from layout block, per
-	score.
+	FILE[-COUNT]-from-FROM-to-TO-clip[-COUNT]. Take clip-regions from
+	layout block, per score.
 
 2006-10-13  Erik Sandberg  <mandolaerik@gmail.com>
 
