@@ -18,14 +18,18 @@
       texi)))
 
 (define music-types->names (make-vector 61 '()))
-(map (lambda (entry)
-       (let* ((types (cdr (assoc 'types (cdr entry)))))
-	 (map (lambda (type)
-		(hashq-set! music-types->names type
-			    (cons (car entry)
-				  (hashq-ref music-types->names type '()))))
-	      types)))
-     music-descriptions)
+(filter-map (lambda (entry)
+	      (let* ((class (ly:camel-case->lisp-identifier (car entry)))
+		     (classes (ly:make-event-class class)))
+		(if classes
+		    (map (lambda (cl)
+			   (hashq-set! music-types->names cl
+				       (cons (car entry)
+					     (hashq-ref music-types->names cl '()))))
+			 classes)
+		    #f)))
+	    
+	    music-descriptions)
 
 (define (strip-description x)
   (cons (symbol->string (car x))
@@ -64,19 +68,24 @@
 (define (music-doc-str obj)
   (let* ((namesym  (car obj))
 	 (props (cdr obj))
-	 (types (cdr (assoc  'types props))))
-    
+	 (class (ly:camel-case->lisp-identifier namesym))
+	 (classes (ly:make-event-class class))
+	 (event-texi (if classes
+			 (string-append
+			  "\n\nEvent classes:\n"
+			  (human-listify (map ref-ify (map symbol->string classes)))
+			  "\n\n"
+			  "\n\nAccepted by: "
+			  (human-listify
+			   (map ref-ify
+				(map symbol->string (map ly:translator-name
+							 (filter
+							  (lambda (x) (engraver-accepts-music-types? classes x)) all-engravers-list))))))
+			 "")))
+
     (string-append
      (object-property namesym 'music-description)
-     "\n\nMusic types:\n"
-     (human-listify (map ref-ify (map symbol->string types)))
-     "\n\n"
-     "\n\nAccepted by: "
-     (human-listify
-      (map ref-ify
-	   (map symbol->string (map ly:translator-name
-				    (filter
-				     (lambda (x) (engraver-accepts-music-types? types x)) all-engravers-list)))))
+     event-texi
      "\n\nProperties: \n"
      (description-list->texi
       (map

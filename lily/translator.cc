@@ -184,19 +184,38 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
 }
 
 /*
-  Used by ADD_THIS_TRANSLATOR to extract a list of event-class names
-  for each translator.  This list is used by the internals
-  documentation.
+ Helps the individual static_translator_description methods of translators.
 */
 SCM
-Translator::get_listened_class_list (const translator_listener_record *listeners) const
+Translator::static_translator_description (const char *grobs,
+					   const char *desc,
+					   translator_listener_record *listener_list,
+					   const char *read, 
+					   const char *write) const
 {
-  SCM list = SCM_EOL;
-  for (; listeners; listeners = listeners->next_)
-    list = scm_cons (listeners->event_class_, list);
-  return list;
-}
+  SCM static_properties = SCM_EOL;					
 
+  static_properties = scm_acons (ly_symbol2scm ("grobs-created"),	
+				 parse_symbol_list (grobs), static_properties);
+  
+  static_properties = scm_acons (ly_symbol2scm ("description"),	
+				 scm_makfrom0str (desc), static_properties); 
+  
+  SCM list = SCM_EOL;
+  for (; listener_list; listener_list = listener_list->next_)
+    list = scm_cons (listener_list->event_class_, list);
+  static_properties = scm_acons (ly_symbol2scm ("events-accepted"),
+				 list, static_properties);
+  
+  static_properties = scm_acons (ly_symbol2scm ("properties-read"),	
+				 parse_symbol_list (read), static_properties); 
+  
+  static_properties = scm_acons (ly_symbol2scm ("properties-written"), 
+				 parse_symbol_list (write), static_properties); 
+  
+  return static_properties;						
+}
+  
 /*
   SMOBS
 */
@@ -294,7 +313,9 @@ get_event_length (Stream_event *e)
 bool
 internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function)
 {
-  if (*old_ev)
+  if (*old_ev &&
+      !to_boolean (scm_equal_p ((*old_ev)->self_scm (), 
+			       new_ev->self_scm ())))
     {
       /* extract event class from function name */
       const char *prefix = "listen_";

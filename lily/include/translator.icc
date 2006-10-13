@@ -49,26 +49,7 @@
   SCM									\
   classname::static_translator_description () const			\
   {									\
-    SCM static_properties = SCM_EOL;					\
-    /*  static_properties = acons (name , gh_str02scm (Translator::name (self_scm ())),	\
-	static_properties_);						\
-    */									\
-    static_properties = scm_acons (ly_symbol2scm ("grobs-created"),	\
-				   parse_symbol_list (grobs), static_properties); \
-									\
-    static_properties = scm_acons (ly_symbol2scm ("description"),	\
-				   scm_makfrom0str (desc), static_properties); \
-									\
-    static_properties = scm_acons (ly_symbol2scm ("events-accepted"),	\
-				   get_listened_class_list (listener_list_), static_properties); \
-									\
-    static_properties = scm_acons (ly_symbol2scm ("properties-read"),	\
-				   parse_symbol_list (read), static_properties); \
-									\
-    static_properties = scm_acons (ly_symbol2scm ("properties-written"), \
-				   parse_symbol_list (write), static_properties); \
-									\
-    return static_properties;						\
+    return Translator::static_translator_description (grobs, desc, listener_list_, read, write); \
   }
 
 #define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)			\

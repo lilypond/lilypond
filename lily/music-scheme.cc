@@ -215,3 +215,27 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
   return scm_reverse_x (newlist, SCM_EOL);
 }
 
+/*
+  TODO: does this belong here?
+*/
+LY_DEFINE (ly_camel_case_to_lisp_identifier, "ly:camel-case->lisp-identifier",
+	   1, 0, 0, (SCM name_sym),
+	   "Convert music name to corresponding event class name.")
+{
+  /* UGH. There should be a better way. */
+  const string in = ly_symbol2string (name_sym);
+  /* this should be sufficient */
+  char out[in.size() * 2 + 2];
+  /* don't add '-' before first character */
+  out[0] = tolower (in[0]);
+  size_t outpos = 1;
+  for (size_t inpos = 1; inpos < in.size (); inpos++)
+    {
+      if (isupper (in[inpos]))
+	out[outpos++] = '-';
+      out[outpos++] = tolower (in[inpos]);      
+    }
+  out[outpos] = 0;
+
+  return ly_symbol2scm (out);
+}

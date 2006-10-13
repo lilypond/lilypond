@@ -253,21 +253,7 @@ Music::origin () const
 Stream_event *
 Music::to_event () const
 {
-  /* UGH. Temp hack */
-  SCM orig_sym = get_property ("name");
-  char out[200];
-  string in = ly_symbol2string (orig_sym);
-  /* don't add '-' before first character */
-  out[0] = tolower (in[0]);
-  size_t outpos = 1;
-  for (size_t inpos = 1; inpos < in.size () && outpos < 190; inpos++)
-    {
-      if (isupper (in[inpos]))
-	out[outpos++] = '-';
-      out[outpos++] = tolower (in[inpos]);      
-    }
-  out[outpos] = 0;
-  SCM class_name = ly_symbol2scm (out);
+  SCM class_name = ly_camel_case_to_lisp_identifier (get_property ("name"));
 
   // catch programming mistakes.
   if (!internal_is_music_type (class_name))

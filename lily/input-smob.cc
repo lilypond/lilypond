@@ -17,8 +17,8 @@ Input dummy_input_global;
 
 static long input_tag;
 
-static
-SCM mark_smob (SCM s)
+static SCM
+mark_smob (SCM s)
 {
   Input *sc = (Input *) SCM_CELL_WORD_1 (s);
 
@@ -43,6 +43,19 @@ free_smob (SCM s)
   return 0;
 }
 
+static SCM
+equal_smob (SCM sa, SCM sb)
+{
+  Input *a = (Input *) SCM_CELL_WORD_1 (sa);
+  Input *b = (Input *) SCM_CELL_WORD_1 (sb);
+  if (a->get_source_file () == b->get_source_file () &&
+      a->start () == b->start () &&
+      a->end () == b->end ())
+    return SCM_BOOL_T;
+  else
+    return SCM_BOOL_F;
+}
+
 static void
 start_input_smobs ()
 {
@@ -50,7 +63,7 @@ start_input_smobs ()
   scm_set_smob_mark (input_tag, mark_smob);
   scm_set_smob_free (input_tag, free_smob);
   scm_set_smob_print (input_tag, print_smob);
-  scm_set_smob_equalp (input_tag, 0);
+  scm_set_smob_equalp (input_tag, equal_smob);
 }
 
 SCM

@@ -108,7 +108,7 @@ using namespace std;
 
 %{
 
-#define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
+#define MY_MAKE_MUSIC(x, spot)  make_music_with_input (ly_symbol2scm (x), spot)
 
 /* ES TODO:
 - Don't use lily module, create a new module instead.
@@ -132,8 +132,8 @@ SCM get_next_unique_lyrics_context_id ();
 #endif
 
 
-
-SCM make_music_relative (Pitch start, SCM music);
+static Music *make_music_with_input (SCM name, Input where);
+SCM make_music_relative (Pitch start, SCM music, Input loc);
 SCM run_music_function (Lily_parser *, SCM expr);
 SCM get_first_context_id (SCM type, Music *m);
 SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
@@ -825,7 +825,7 @@ music_list:
 
 	}
 	| music_list error {
-		Music *m = MY_MAKE_MUSIC("Music");
+		Music *m = MY_MAKE_MUSIC("Music", @$);
 		// ugh. code dup 
 		m->set_property ("error-found", SCM_BOOL_T);
 		SCM s = $$;
@@ -1079,11 +1079,11 @@ mode_changing_head_with_context:
 relative_music:
 	RELATIVE absolute_pitch music {
 		Pitch start = *unsmob_pitch ($2);
-		$$ = make_music_relative (start, $3);
+		$$ = make_music_relative (start, $3, @$);
 	}
 	| RELATIVE composite_music {
 		Pitch middle_c (0, 0, 0);
-		$$ = make_music_relative (middle_c, $2);
+		$$ = make_music_relative (middle_c, $2, @$);
 	}
 	;
 
@@ -1330,9 +1330,8 @@ chord_body_element:
 		SCM check = $4;
 		SCM post = $5;
 
-		Music *n = MY_MAKE_MUSIC ("NoteEvent");
+		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 		n->set_property ("pitch", $1);
-		n->set_spot (@$);
 		if (q % 2)
 			n->set_property ("cautionary", SCM_BOOL_T);
 		if (ex % 2 || q % 2)
@@ -1351,10 +1350,9 @@ chord_body_element:
 		$$ = n->unprotect ();
 	}
 	| DRUM_PITCH post_events {
-		Music *n = MY_MAKE_MUSIC ("NoteEvent");
+		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 		n->set_property ("duration", $2);
 		n->set_property ("drum-type", $1);
-		n->set_spot (@$);
 
 		if (scm_is_pair ($2)) {
 			SCM arts = scm_reverse_x ($2, SCM_EOL);
@@ -1408,15 +1406,13 @@ command_element:
 		$$ = MAKE_SYNTAX ("skip-music", @$, $2);
 	}
 	| E_BRACKET_OPEN {
-		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
+		Music *m = MY_MAKE_MUSIC ("LigatureEvent", @$);
 		m->set_property ("span-direction", scm_from_int (START));
-		m->set_spot (@$);
 		$$ = m->unprotect();
 	}
 	| E_BRACKET_CLOSE {
-		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
+		Music *m = MY_MAKE_MUSIC ("LigatureEvent", @$);
 		m->set_property ("span-direction", scm_from_int (STOP));
-		m->set_spot (@$);
 		$$ = m->unprotect ();
 	}
 	| E_BACKSLASH {
@@ -1456,22 +1452,23 @@ command_element:
 
 command_event:
 	E_TILDE {
-		$$ = MY_MAKE_MUSIC ("PesOrFlexaEvent")->unprotect ();
+		$$ = MY_MAKE_MUSIC ("PesOrFlexaEvent", @$)->unprotect ();
 	}
 	| MARK DEFAULT  {
-		Music *m = MY_MAKE_MUSIC ("MarkEvent");
+		Music *m = MY_MAKE_MUSIC ("MarkEvent", @$);
 		$$ = m->unprotect ();
+		scm_display($$, SCM_UNDEFINED);
 	}
 	| tempo_event {
 		$$ = $1;
 	}
 	| KEY DEFAULT {
-		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent");
+		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent", @$);
 		$$ = key->unprotect ();
 	}
 	| KEY NOTENAME_PITCH SCM_IDENTIFIER 	{
 
-		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent");
+		Music *key = MY_MAKE_MUSIC ("KeyChangeEvent", @$);
 		if (scm_ilength ($3) > 0)
 		{		
 			key->set_property ("pitch-alist", $3);
@@ -1506,12 +1503,12 @@ post_event:
 	| HYPHEN {
 		if (!PARSER->lexer_->is_lyric_state ())
 			PARSER->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
-		$$ = MY_MAKE_MUSIC ("HyphenEvent")->unprotect ();
+		$$ = MY_MAKE_MUSIC ("HyphenEvent", @$)->unprotect ();
 	}
 	| EXTENDER {
 		if (!PARSER->lexer_->is_lyric_state ())
 			PARSER->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
-		$$ = MY_MAKE_MUSIC ("ExtenderEvent")->unprotect ();
+		$$ = MY_MAKE_MUSIC ("ExtenderEvent", @$)->unprotect ();
 	}
 	| script_dir direction_reqd_event {
 		if ($1)
@@ -1534,9 +1531,8 @@ post_event:
 
 string_number_event:
 	E_UNSIGNED {
-		Music *s = MY_MAKE_MUSIC ("StringNumberEvent");
+		Music *s = MY_MAKE_MUSIC ("StringNumberEvent", @$);
 		s->set_property ("string-number", scm_from_int ($1));
-		s->set_spot (@$);
 		$$ = s->unprotect ();
 	}
 	;
@@ -1581,20 +1577,19 @@ direction_less_event:
 		if (unsmob_music (predefd))
 		{
 			m = unsmob_music (predefd)->clone ();
+			m->set_spot (@$);
 		}
 		else
 		{
-			m = MY_MAKE_MUSIC ("Music");
+			m = MY_MAKE_MUSIC ("Music", @$);
 		}
-		m->set_spot (@$);
 		$$ = m->unprotect ();
 	}
 	| EVENT_IDENTIFIER	{
 		$$ = $1;
 	}
 	| tremolo_type  {
-               Music *a = MY_MAKE_MUSIC ("TremoloEvent");
-               a->set_spot (@$);
+               Music *a = MY_MAKE_MUSIC ("TremoloEvent", @$);
                a->set_property ("tremolo-type", scm_from_int ($1));
                $$ = a->unprotect ();
         }
@@ -1606,7 +1601,7 @@ direction_reqd_event:
 	}
 	| script_abbreviation {
 		SCM s = PARSER->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
-		Music *a = MY_MAKE_MUSIC ("ArticulationEvent");
+		Music *a = MY_MAKE_MUSIC ("ArticulationEvent", @$);
 		if (scm_is_string (s))
 			a->set_property ("articulation-type", s);
 		else PARSER->parser_error (@1, _ ("expecting string as script definition"));
@@ -1689,22 +1684,19 @@ pitch_also_in_chords:
 
 gen_text_def:
 	full_markup {
-		Music *t = MY_MAKE_MUSIC ("TextScriptEvent");
+		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
 		t->set_property ("text", $1);
-		t->set_spot (@$);
 		$$ = t->unprotect ();
 	}
 	| string {
-		Music *t = MY_MAKE_MUSIC ("TextScriptEvent");
+		Music *t = MY_MAKE_MUSIC ("TextScriptEvent", @$);
 		t->set_property ("text",
 			make_simple_markup ($1));
-		t->set_spot (@$);
 		$$ = t->unprotect ();
 	}
 	| DIGIT {
-		Music *t = MY_MAKE_MUSIC ("FingeringEvent");
+		Music *t = MY_MAKE_MUSIC ("FingeringEvent", @$);
 		t->set_property ("digit", scm_from_int ($1));
-		t->set_spot (@$);
 		$$ = t->unprotect ();
 	}
 	;
@@ -1841,13 +1833,11 @@ figured_bass_alteration:
 
 bass_figure:
 	FIGURE_SPACE {
-		Music *bfr = MY_MAKE_MUSIC ("BassFigureEvent");
-		$$ = bfr->self_scm ();
-		bfr->unprotect ();
-		bfr->set_spot (@1);
+		Music *bfr = MY_MAKE_MUSIC ("BassFigureEvent", @$);
+		$$ = bfr->unprotect ();
 	}
 	| bass_number  {
-		Music *bfr = MY_MAKE_MUSIC ("BassFigureEvent");
+		Music *bfr = MY_MAKE_MUSIC ("BassFigureEvent", @$);
 		$$ = bfr->self_scm ();
 
 		if (scm_is_number ($1))
@@ -1856,7 +1846,6 @@ bass_figure:
 			bfr->set_property ("text", $1);
 
 		bfr->unprotect ();
-		bfr->set_spot (@1);
 	}
 	| bass_figure ']' {
 		$$ = $1;
@@ -1941,9 +1930,9 @@ simple_element:
 
 		Music *n = 0;
 		if ($6)
-			n = MY_MAKE_MUSIC ("RestEvent");
+			n = MY_MAKE_MUSIC ("RestEvent", @$);
 		else
-			n = MY_MAKE_MUSIC ("NoteEvent");
+			n = MY_MAKE_MUSIC ("NoteEvent", @$);
 		
 		n->set_property ("pitch", $1);
 		n->set_property ("duration", $5);
@@ -1959,11 +1948,10 @@ simple_element:
 		if ($2 % 2 || $3 % 2)
 			n->set_property ("force-accidental", SCM_BOOL_T);
 
-		n->set_spot (@$);
 		$$ = n->unprotect ();
 	}
 	| DRUM_PITCH optional_notemode_duration {
-		Music *n = MY_MAKE_MUSIC ("NoteEvent");
+		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 		n->set_property ("duration", $2);
 		n->set_property ("drum-type", $1);
 
@@ -1973,24 +1961,22 @@ simple_element:
 		Music *ev = 0;
  		if (ly_scm2string ($1) == "s") {
 			/* Space */
-			ev = MY_MAKE_MUSIC ("SkipEvent");
+			ev = MY_MAKE_MUSIC ("SkipEvent", @$);
 		  }
 		else {
-			ev = MY_MAKE_MUSIC ("RestEvent");
+			ev = MY_MAKE_MUSIC ("RestEvent", @$);
 		
 		    }
 		ev->set_property ("duration", $2);
-		ev->set_spot (@$);
  		$$ = ev->unprotect ();
 	}
 	| lyric_element optional_notemode_duration 	{
 		if (!PARSER->lexer_->is_lyric_state ())
 			PARSER->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
 
-		Music *levent = MY_MAKE_MUSIC ("LyricEvent");
+		Music *levent = MY_MAKE_MUSIC ("LyricEvent", @$);
 		levent->set_property ("text", $1);
 		levent->set_property ("duration",$2);
-		levent->set_spot (@$);
 		$$= levent->unprotect ();
 	}
 	;
@@ -2445,6 +2431,13 @@ is_regular_identifier (SCM id)
   return v;
 }
 
+Music *
+make_music_with_input (SCM name, Input where)
+{
+       Music *m = make_music_by_name (name);
+       m->set_spot (where);
+       return m;
+}
 
 SCM
 get_first_context_id (SCM type, Music *m)
@@ -2509,9 +2502,9 @@ ly_input_procedure_p (SCM x)
 }
 
 SCM
-make_music_relative (Pitch start, SCM music)
+make_music_relative (Pitch start, SCM music, Input loc)
 {
-	Music *relative = MY_MAKE_MUSIC ("RelativeOctaveMusic");
+	Music *relative = MY_MAKE_MUSIC ("RelativeOctaveMusic", loc);
  	relative->set_property ("element", music);
 	
 	Music *m = unsmob_music (music);

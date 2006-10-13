@@ -62,6 +62,8 @@ protected:
 Music *unsmob_music (SCM);
 Music *make_music_by_name (SCM sym);
 SCM ly_music_deep_copy (SCM);
+SCM ly_camel_case_to_lisp_identifier (SCM name_sym);
+
 extern SCM ly_music_p_proc;
 
 /* common transposition function for music and event */

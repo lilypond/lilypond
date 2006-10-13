@@ -14,7 +14,49 @@
 
 IMPLEMENT_SMOBS (Prob);
 IMPLEMENT_TYPE_P (Prob, "ly:prob?");
-IMPLEMENT_DEFAULT_EQUAL_P (Prob);
+
+SCM
+Prob::equal_p (SCM sa, SCM sb)
+{
+  /* This comparison function is only designed to make the copy
+     constructor preserve equality.
+
+     Perhaps it would be better to use a more strict definition of
+     equality; e.g., that that two probs are equal iff they can be
+     distinguished by calls to ly:prob-property.
+  */
+  Prob *probs[2] = {unsmob_prob (sa), unsmob_prob (sb)};
+  SCM props[2][2];
+  int i;
+
+  for (i = 0; i < 2; i++)
+    {
+      props[i][0] = probs[i]->immutable_property_alist_;
+      props[i][1] = probs[i]->mutable_property_alist_;
+    }
+
+  if (strcmp (probs[0]->class_name (), probs[1]->class_name ()))
+    return SCM_BOOL_F;
+
+  /* Compare mutable and immutable lists, element by element. */
+  for (i = 0; i < 2; i++)
+    {
+      SCM aprop = props[0][i], bprop = props[1][i];
+
+      for (; scm_is_pair (aprop) && scm_is_pair(bprop); aprop = scm_cdr (aprop), bprop = scm_cdr (bprop))
+	{
+	  if (scm_caar (aprop) != scm_caar (bprop) ||
+	      !to_boolean (scm_equal_p (scm_cdar (aprop), scm_cdar (bprop))))
+	    return SCM_BOOL_F;
+	}
+
+      /* is one list shorter? */
+      if (aprop != SCM_EOL || bprop != SCM_EOL)
+	return SCM_BOOL_F;
+    }
+
+  return SCM_BOOL_T;
+}
 
 Prob::Prob (SCM type, SCM immutable_init)
 {

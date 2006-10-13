@@ -1,3 +1,19 @@
+2006-10-13  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/input-smob.cc: add equal_p for Input
+
+	* lily/music-scheme.cc (ly_camel_case_to_lisp_identifier): new
+	function
+
+	* lily/parser.yy: MY_MAKE_MUSIC sets music origin
+
+	* lily/prob.cc: Add equal_p predicate for Prob
+
+	* lily/translator.cc: small cleanup
+
+	* scm/document-music.cc: use data from translator listener
+	registration to generate documentation for event classes
+
 2006-10-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (SCRIPTS): Remove lexer-gcc-3.1.sh.
