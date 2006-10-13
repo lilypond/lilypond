@@ -1,5 +1,7 @@
 2006-10-13  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/main.cc: remove remark about "COPYING".
+
 	* scm/framework-ps.scm (clip-system-EPSes): change ordering, so
 	system-count starts at 0 for each clip-region. Change name to
 	FILE[-COUNT]-from-FROM-to-TO-clip[-COUNT]. Take clip-regions from

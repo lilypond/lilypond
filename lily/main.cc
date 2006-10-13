@@ -129,7 +129,7 @@ static char const *WARRANTY
       "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
       "General Public License for more details.\n"
       "\n"
-      "    You should have received a copy (refer to the file COPYING) of the\n"
+      "    You should have received a copy of the\n"
       "GNU General Public License along with this program; if not, write to\n"
       "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
       "Boston, MA 02111-1307, USA.\n");
