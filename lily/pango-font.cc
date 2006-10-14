@@ -182,7 +182,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
       if (glyph_name[0] ==  '\0' && has_glyph_names)
 	{
 	  programming_error (_f ("Glyph has no name, but font supports glyph naming.\n"
-				 "Skipping glyph %0x, file %s",
+				 "Skipping glyph U+%0X, file %s",
 				 pg,
 				 file_name.c_str ()));
 	  continue;
