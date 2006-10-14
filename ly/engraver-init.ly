@@ -866,6 +866,13 @@ AncientRemoveEmptyStaffContext = \context {
   \override Custos #'style = #'mensural
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #DOWN
+
+  %% Accidentals are valid only once (same as
+  %% #(set-accidental-style 'forget))
+  extraNatural = ##f
+  autoAccidentals = #'(Staff (same-octave . -1))
+  autoCautionaries = #'()  
+  printKeyCancellation = ##f
 }
 
 

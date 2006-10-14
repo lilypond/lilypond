@@ -6,6 +6,17 @@
 }
 
 
+\layout {
+  ragged-right = ##t
+  packed = ##t
+  indent = 0.0
+  \context {
+    \Voice
+    \remove Ligature_bracket_engraver
+    \consists Mensural_ligature_engraver
+  }
+}
+
 \context Voice{
   \clef "petrucci-c4"
   \set Staff.printKeyCancellation = ##f
@@ -312,17 +323,6 @@
 				%    g\longa
 				%    a\breve
 				%  \]
-}
-
-\layout {
-  ragged-right = ##t
-  packed = ##t
-  indent = 0.0
-  \context {
-    \Voice
-    \remove Ligature_bracket_engraver
-    \consists Mensural_ligature_engraver
-  }
 }
 
 

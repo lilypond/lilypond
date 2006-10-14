@@ -31,9 +31,6 @@
  * TODO: prohibit ligatures having notes differing only in accidentals
  * (like \[ a\breve g as \])
  *
- * TODO: dotted heads: avoid next note colliding with the dot, e.g. by
- * putting it *above* (rather than after) the affected ligature head.
- *
  * TODO: do something with multiple voices within a ligature.  See
  * for example:
  * Ockeghem: Missa Ecce ancilla domini, bassus part, end of Christe.
@@ -366,21 +363,45 @@ void
 Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> primitives)
 {
   Item *first = 0;
-  Real distance = 0;
+  Real distance = 0.0;
+  Real dot_shift = 0.0;
   for (vsize i = 0; i < primitives.size (); i++)
     {
       Item *current = dynamic_cast<Item *> (primitives[i].grob ());
       if (i == 0)
-	first = current;
+	{
+	  first = current;
+	  dot_shift = 1.5 * Staff_symbol_referencer::staff_space (first);
+	}
 
-      get_set_column (current, first->get_column ());
-
-      if (i > 0)
-	current->translate_axis (distance, X_AXIS);
+      move_related_items_to_column (current, first->get_column (),
+				    distance);
 
       distance
 	+= scm_to_double (current->get_property ("head-width"))
 	- scm_to_double (current->get_property ("thickness"));
+
+      if (Rhythmic_head::dot_count (current) > 0)
+	// Move dots above/behind the ligature.
+	{
+	  if (i < primitives.size () - 1)
+	    // dot in the midst => move above head
+	    {
+	      // FIXME: Amount of vertical dot-shift should depend on
+	      // pitch.
+	      //
+	      // FIXME: dot placement is horizontally slightly off.
+	      Rhythmic_head::get_dots (current)->translate_axis (dot_shift, Y_AXIS);
+	    }
+	  else
+	    // trailing dot => move behind head
+	    {
+	      double head_width =
+		scm_to_double (current->get_property ("head-width"));
+	      Rhythmic_head::get_dots (current)->
+		translate_axis (head_width, X_AXIS);
+	    }
+	}
     }
 }
 

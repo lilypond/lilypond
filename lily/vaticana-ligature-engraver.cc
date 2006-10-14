@@ -344,8 +344,7 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
       /*
        * Horizontally line-up this head to form a ligature.
        */
-      get_set_column (primitive, column);
-      primitive->translate_axis (ligature_width, X_AXIS);
+      move_related_items_to_column (primitive, column, ligature_width);
       ligature_width += head_width;
 
       prev_primitive = primitive;

@@ -176,7 +176,7 @@ vaticana_brew_join (Grob *me, int delta_pitch,
     {
       me->programming_error (_f ("Vaticana_ligature: "
 				 "zero join (delta_pitch == 0)"));
-      return Stencil ();
+      return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
   Interval x_extent = Interval (0, join_thickness);
   Interval y_extent = (delta_pitch > 0)
@@ -194,7 +194,7 @@ vaticana_brew_primitive (Grob *me)
     {
       me->programming_error ("Vaticana_ligature: "
 			     "undefined glyph-name -> ignoring grob");
-      return Stencil ();
+      return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 
   string glyph_name = ly_scm2string (glyph_name_scm);

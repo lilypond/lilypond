@@ -1,3 +1,29 @@
+2006-10-14  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/instrument-notation.itely: Cleanup: Remove
+	annoying skip notes from mensural ligature example.  Update
+	@refbugs for ligatures and mensural ligatures.
+
+	* lily/coherent-ligature-engraver.cc,
+	lily/include/coherent-ligature-engraver.hh,
+	lily/mensural-ligature-engraver.cc,
+	lily/vaticana-ligature-engraver.cc: Revise code for item
+	reparentizing.  There should now be less programming_error
+	messages.
+
+	* lily/mensural-ligature-engraver.cc: Improve placement of dots.
+
+	* lily/mensural-ligature.cc, lily/vaticana-ligature.cc:
+	Maintenance bugfix: Don't create empty Stencil (), but empty box
+	instead.  This fix should eliminate some programming_error
+	messages.
+
+	* ly/engraver-init.ly (MensuralStaff): Set default accidental
+	style.
+
+	* input/regression/mensural-ligatures.ly: Maintenance bugfix: Move
+	\layout block _before_ score.
+
 2006-10-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* GNUmakefile.in (PATCH_FILES): remove darwin.patch.

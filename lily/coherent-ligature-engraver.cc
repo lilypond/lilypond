@@ -77,44 +77,36 @@
  * TODO: move this function to class Item?
  */
 void
-Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
+Coherent_ligature_engraver::move_related_items_to_column
+(Item *item, Paper_column *target_column, Real offset)
 {
-  Item *parent = dynamic_cast<Item *> (item->get_parent (X_AXIS));
-  if (!parent)
+  Paper_column *source_column = item->get_column ();
+  Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (item);
+  extract_item_set (source_column, "elements", elements);
+  for (vsize i = elements.size (); i--;)
     {
-      programming_error ("failed tweaking paper column in ligature");
-      return;
-    }
+      Item *sibling = elements[i];
+      if (!sibling)
+	// should not occur, but who knows... -jr
+	continue;
 
-  string name = parent->name ();
-  if (name != "PaperColumn")
-    {
-      // Change column not only for targeted item (NoteColumn), but
-      // also for all associated grobs (NoteSpacing, SeparationItem).
-      Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
+      if (Staff_symbol_referencer::get_staff_symbol (sibling) != staff_symbol)
+	// sibling is from a staff different than that of the item of
+	// interest
+	continue;
 
-      extract_item_set (parent, "elements", elements);
-
-      for (vsize i = elements.size (); i--;)
-	{
-	  Item *sibling = elements[i];
-	  if ((sibling)
-	      && (Staff_symbol_referencer::get_staff_symbol (sibling) == sl))
-	    {
 #if 0 /* experimental code to collapse spacing after ligature */
-	      Grob *sibling_parent = sibling->get_parent (X_AXIS);
-	      sibling_parent->warning (_f ("Coherent_ligature_engraver: "
-					   "setting `spacing-increment="
-					   "0.01': ptr=%ul", parent));
-	      sibling_parent->set_property ("forced-spacing",
-					    scm_from_double (0.01));
+      Grob *sibling_parent = sibling->get_parent (X_AXIS);
+      sibling_parent->warning (_f ("Coherent_ligature_engraver: "
+				   "setting `spacing-increment="
+				   "0.01': ptr=%ul", parent));
+      sibling_parent->set_property ("forced-spacing",
+				    scm_from_double (0.01));
 #endif
-	      sibling->set_parent (column, X_AXIS);
-	    }
-	}
+
+      sibling->set_parent (target_column, X_AXIS);
+      sibling->translate_axis (offset, X_AXIS);
     }
-  else
-    get_set_column (parent, column);
 }
 
 /*

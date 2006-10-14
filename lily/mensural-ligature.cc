@@ -96,7 +96,7 @@ internal_brew_primitive (Grob *me)
     {
       programming_error ("Mensural_ligature: "
 			 "undefined primitive -> ignoring grob");
-      return Stencil ();
+      return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
   int primitive = scm_to_int (primitive_scm);
 
@@ -121,7 +121,7 @@ internal_brew_primitive (Grob *me)
   switch (primitive & MLP_ANY)
     {
     case MLP_NONE:
-      return Stencil ();
+      return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     case MLP_LONGA: // mensural brevis head with right cauda
       out = Font_interface::get_default_font (me)->find_by_name
 	("noteheads.s-2mensural");
@@ -140,7 +140,7 @@ internal_brew_primitive (Grob *me)
     default:
       programming_error (_f ("Mensural_ligature: "
 			     "unexpected case fall-through"));
-      return Stencil ();
+      return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 
   Real blotdiameter

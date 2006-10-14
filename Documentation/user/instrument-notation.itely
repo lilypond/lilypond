@@ -3101,8 +3101,6 @@ correctly align with ligatures.
 Accidentals must not be printed within a ligature, but instead need to
 be collected and printed in front of it.
 
-Augmentum dots within ligatures are not handled correctly.
-
 The syntax still uses the deprecated infix style @code{\[ music expr
 \]}.  For consistency reasons, it will eventually be changed to
 postfix style @code{note\[ ... note\]}.  Alternatively, the file
@@ -3158,11 +3156,8 @@ For example,
 \override Staff.TimeSignature #'style = #'neomensural
 \clef "petrucci-g"
 \[ c'\maxima g \]
-s4
 \[ d\longa c\breve f e d \]
-s4
 \[ c'\maxima d'\longa \]
-s4
 \[ e'1 a g\breve \]
 @end example
 @lilypond[quote,ragged-right]
@@ -3174,11 +3169,8 @@ s4
     \override Staff.TimeSignature #'style = #'neomensural
     \clef "petrucci-g"
     \[ c'\maxima g \]
-    s4
     \[ d\longa c\breve f e d \]
-    s4
     \[ c'\maxima d'\longa \]
-    s4
     \[ e'1 a g\breve \]
   }
   \layout {
@@ -3203,19 +3195,15 @@ to the following
   \override Staff.TimeSignature #'style = #'neomensural
   \clef "petrucci-g"
   \[ c'\maxima g \]
-  s4
   \[ d\longa c\breve f e d \]
-  s4
   \[ c'\maxima d'\longa \]
-  s4
   \[ e'1 a g\breve \]
 }
 @end lilypond
 
 @refbugs
 
-The invisible rests (@code{s4}) in the example are used to compensate
-for the poor horizontal spacing.
+Horizontal spacing is poor.
 
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures
