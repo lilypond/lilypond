@@ -1561,7 +1561,7 @@
 	(font-shape . italic)
 	(font-size . -4) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
-		 (interfaces . (string-number-interface
+		 (interfaces . (string-finger-interface
 				font-interface
 				text-script-interface
 				text-interface

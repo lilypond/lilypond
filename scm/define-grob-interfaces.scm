@@ -145,6 +145,11 @@ are interesting enough to maintain a hara-kiri staff."
  '())
 
 (ly:add-interface
+ 'string-finger-interface
+ "A string finger instruction"
+ '(digit-names))
+
+(ly:add-interface
  'system-start-text-interface
  "A text at the beginning of a system."
  '(text long-text collapse-height style))
