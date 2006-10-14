@@ -274,10 +274,6 @@ grestore
 ;; basic formatting.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (list-join lst intermediate)
-  (reduce (lambda (elt prev)
-	    (if (pair? prev) (cons  elt (cons intermediate prev))
-		(list elt intermediate prev))) '() lst))
 
 
 (define-markup-command (simple layout props str) (string?)

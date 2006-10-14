@@ -409,7 +409,6 @@
 	     (sort (apply append all-font-names)
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 
-
 	   (font-loader (if (ly:get-option 'gs-load-fonts)
 			    load-font-via-GS
 			    load-font))

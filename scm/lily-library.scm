@@ -231,6 +231,16 @@ found."
 ;; list
 
 
+(define (list-join lst intermediate)
+  "put INTERMEDIATE  between all elts of LST."
+  
+  (reduce (lambda (elt prev)
+	    (if (pair? prev)
+		(cons  elt (cons intermediate prev))
+		(list elt intermediate prev)))
+	  '() lst))
+
+
 (define-public (filtered-map proc lst)
   (filter
    (lambda (x) x)

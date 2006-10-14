@@ -1,3 +1,7 @@
+2006-10-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/pango-font.cc (pango_item_string_stencil): more verbose message.
+
 2006-10-13  Erlend Aasland  <erlenda@gmail.com>
 
 	* lily/note-collision.cc: fix issue #44 (dot/notehead collision)

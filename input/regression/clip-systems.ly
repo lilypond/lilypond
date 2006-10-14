@@ -14,8 +14,7 @@ collated-files.html of the regression test does not adequately show
 the results.
 
 The result will be files named
-@file{@var{base}-system-@var{systemnumber}-@var{start}-@var{end}.eps}.
-
+@file{@var{base}-from-@var{start}-to-@var{end}[-@var{count}].eps}.
 "
 
 }
