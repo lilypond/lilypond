@@ -420,9 +420,11 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (string-finger::calc-text grob)
   (let*
-      ((text (ly:event-property (event-cause  grob) 'text)))
-
-    text))
+      ((digit (ly:event-property (event-cause  grob) 'digit))
+       (texts (ly:grob-property grob 'digit-names))
+       )
+    (vector-ref texts  (1- (max (min 5 digit) 1)))
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; dynamics

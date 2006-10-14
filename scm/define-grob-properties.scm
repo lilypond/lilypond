@@ -142,6 +142,7 @@ dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
      
      (default-direction ,ly:dir? "Direction determined by note head positions.")
+     (digit-names ,vector "Names for string finger digits. ")
      (direction ,ly:dir? "If side-position is 1 (#X), then this property determines if the object is placed #LEFT, #CENTER or #RIGHT with respect to the other object. Otherwise, it determines if the object is placed #UP #CENTER or #DOWN.  Numerical values may also be used. #UP=1, #DOWN=-1, #LEFT=-1, #RIGHT=1, CENTER=0 but also other numerical values are permitted.")
 
      (dot-color ,symbol? "Color of dots.  Options include 

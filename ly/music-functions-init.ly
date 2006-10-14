@@ -539,11 +539,11 @@ includePageLayoutFile =
 
 
 rightHandFinger =
-#(define-music-function (parser location finger) (string?)
+#(define-music-function (parser location finger) (number?)
    "Define a StringFingerEvent"
    (make-music 'StringFingerEvent
 	       'origin location
-	       'text finger))
+	       'digit finger))
 
 scoreTweak =
 #(define-music-function (parser location name) (string?)

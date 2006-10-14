@@ -66,6 +66,31 @@ which scares away people.
 
 @end ignore
 
+@item Fingerings for plucking finger (the right hand fingerings) may
+now also be added,
+
+@lilypond[fragment,relative=1,ragged-right]
+\relative 
+{
+  \set stringFingerOrientations = #'(right) % up left down
+  \set fingeringOrientations = #'(down left up) % up left down
+  \set stringNumberOrientations = #'(down up left) % (up right down)
+  <c-1\4
+   -\rightHandFinger #1
+   e-2\5
+   -\rightHandFinger #2
+   g-3\6
+   -\rightHandFinger #3
+   >
+}
+@end lilypond
+
+This feature was sponsored by William Wilson.
+
+@ignore
+ grob StringFinger, event StringFingerEvent
+@end ignore 
+
 @item By defining a clip region, a cutout EPS file of a number of measures
 may be generated from the complete score.  Hence, it is no longer
 necessary to create separate files to create extracts of (long)

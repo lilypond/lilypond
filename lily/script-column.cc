@@ -13,14 +13,18 @@
 #include "warn.hh"
 #include "pointer-group-interface.hh"
 
+#include <map>
+
+typedef map<Grob*, vector <Grob*> > Grob_scripts_map;
+
 void
-Script_column::add_staff_sided (Grob *me, Item *item)
+Script_column::add_side_positioned (Grob *me, Grob *script)
 {
-  SCM p = item->get_property ("script-priority");
+  SCM p = script->get_property ("script-priority");
   if (!scm_is_number (p))
     return;
 
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), item);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), script);
 }
 
 LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
@@ -36,12 +40,45 @@ LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
   return scm_to_int (p1) < scm_to_int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
+MAKE_SCHEME_CALLBACK (Script_column, row_before_line_breaking, 1);
+SCM
+Script_column::row_before_line_breaking (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  vector<Grob*> horizontal_grobs;
+  extract_grob_set (me, "scripts", scripts);
+
+  Grob_scripts_map head_scripts_map;
+  for (vsize i = 0; i < scripts.size (); i++)
+    {
+      Grob *sc = scripts[i];
+
+      /*
+	Don't want to consider scripts horizontally next to notes.
+      */
+      if (sc->get_property_data (ly_symbol2scm ("Y-offset")) !=
+	  Side_position_interface::x_aligned_side_proc)
+	{
+	  head_scripts_map[sc->get_parent (Y_AXIS)].push_back (sc);
+	}
+    }
+
+  for (Grob_scripts_map::const_iterator i (head_scripts_map.begin ());
+       i != head_scripts_map.end ();
+       i++)
+    {
+      order_grobs ((*i).second);
+    }
+
+  return SCM_UNSPECIFIED;
+}
+
+
 MAKE_SCHEME_CALLBACK (Script_column, before_line_breaking, 1);
 SCM
 Script_column::before_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Drul_array<SCM> scripts_drul (SCM_EOL, SCM_EOL);
   vector<Grob*> staff_sided;
 
   extract_grob_set (me, "scripts", scripts);
@@ -57,9 +94,18 @@ Script_column::before_line_breaking (SCM smob)
 	staff_sided.push_back (sc);
     }
 
-  for (vsize i = 0; i < staff_sided.size (); i++)
+  order_grobs (staff_sided);
+  return SCM_UNSPECIFIED;
+
+}
+
+void
+Script_column::order_grobs (vector<Grob*> grobs)
+{
+  Drul_array<SCM> scripts_drul (SCM_EOL, SCM_EOL);
+  for (vsize i = 0; i < grobs.size (); i++)
     {
-      Grob *g = staff_sided[i];
+      Grob *g = grobs[i];
       Direction d = get_grob_direction (g);
 
       scripts_drul[d] = scm_cons (g->self_scm (), scripts_drul[d]);
@@ -82,11 +128,10 @@ Script_column::before_line_breaking (SCM smob)
 	}
     }
   while (flip (&d) != DOWN);
-
-  return SCM_UNSPECIFIED;
 }
 
 ADD_INTERFACE (Script_column, "script-column-interface",
 	       "An interface that sorts scripts "
 	       "according to their @code{script-priority}",
+	       
 	       "");

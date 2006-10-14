@@ -219,6 +219,7 @@ contained staves are not connected vertically."
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"
+  \consists "Script_row_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Phrasing_slur_engraver"
   \consists "Cluster_spanner_engraver"
@@ -531,7 +532,7 @@ AncientRemoveEmptyStaffContext = \context {
   harmonicAccidentals = ##t 
   fingeringOrientations = #'(up down)
   stringNumberOrientations = #'(up down)
-  stringFingerOrientations = #'(up down)
+  stringFingerOrientations = #'(right)
   
   markFormatter = #format-mark-letters
   rehearsalMark = #1

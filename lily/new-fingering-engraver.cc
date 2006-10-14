@@ -19,6 +19,8 @@
 
 #include "translator.icc"
 
+
+
 struct Finger_tuple
 {
   Grob *head_;

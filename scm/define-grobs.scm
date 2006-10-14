@@ -1325,6 +1325,11 @@
 	(before-line-breaking . ,ly:script-column::before-line-breaking)
 	(meta . ((class . Item)
 		 (interfaces . (script-column-interface))))))
+    (ScriptRow
+     . (
+	(before-line-breaking . ,ly:script-column::row-before-line-breaking)
+	(meta . ((class . Item)
+		 (interfaces . (script-column-interface))))))
 
     (SeparationItem
      . (
@@ -1547,13 +1552,14 @@
      . (
 	(stencil . ,ly:text-interface::print)
 	(text . ,string-finger::calc-text)
+	(digit-names . #("P" "I" "m" "a" "x"))
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
 	(font-shape . italic)
-	(font-size . -5) 		; don't overlap when next to heads.
+	(font-size . -4) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
 		 (interfaces . (string-number-interface
 				font-interface

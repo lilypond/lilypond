@@ -1,3 +1,26 @@
+2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/topdocs/NEWS.tely (Top): add note for
+	string-finger feature.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add 'string-names
+	property.
+
+	* scm/output-lib.scm (string-finger::calc-text): read 'digit
+	instead of 'text
+
+	* input/regression/script-stack-horizontal.ly: new file.
+
+	* ly/engraver-init.ly: add Script_row_engraver.
+
+	* lily/script-column.cc (order_grobs): refactor: separate axis
+	independent code.
+	(row_before_line_breaking): new function.
+
+	* lily/script-row-engraver.cc (Script_row_engraver): new file.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add ScriptRow
+
 2006-10-14  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/instrument-notation.itely: Cleanup: Remove
