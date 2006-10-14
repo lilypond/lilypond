@@ -1,5 +1,8 @@
 2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/general-scheme.cc (LY_DEFINE): move
+	ly_camel_case_to_lisp_identifier to here. Use vector<char> iso. char[] 
+
 	* Documentation/topdocs/NEWS.tely (Top): add note for
 	string-finger feature.
 
