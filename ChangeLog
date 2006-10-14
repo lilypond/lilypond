@@ -1,5 +1,7 @@
 2006-10-14  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* GNUmakefile.in (PATCH_FILES): remove darwin.patch.
+
 	* lily/pango-font.cc (pango_item_string_stencil): more verbose message.
 
 2006-10-13  Erlend Aasland  <erlenda@gmail.com>

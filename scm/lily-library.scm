@@ -231,7 +231,7 @@ found."
 ;; list
 
 
-(define (list-join lst intermediate)
+(define-public (list-join lst intermediate)
   "put INTERMEDIATE  between all elts of LST."
   
   (reduce (lambda (elt prev)
