@@ -1,5 +1,9 @@
 2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* COPYING: further clarification
+
+	* VERSION: release 2.9.24
+
 	* input/regression/script-stack-horizontal.ly: add version.
 
 	* scm/lily-library.scm (list-join): use fold-right. Fixes #112

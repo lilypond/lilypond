@@ -1,5 +1,6 @@
-LilyPond is distributed with under the GNU General Public License
-(reproduced below), with the following exceptions:
+If you want to redistribute LilyPond, you must comply with the the GNU
+General Public License (reproduced below). This license applies to
+LilyPond with the following exceptions:
 
 - It does not apply to example input files (which are in
 the subdirectory input/) that explicitly specify another license.
