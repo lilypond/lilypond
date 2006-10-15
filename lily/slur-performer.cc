@@ -86,5 +86,4 @@ Slur_performer::listen_slur (Stream_event *ev)
 
 ADD_TRANSLATOR (Slur_performer,
 		"", "",
-		"slur-event",
 		"", "");

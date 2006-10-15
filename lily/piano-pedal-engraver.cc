@@ -606,9 +606,6 @@ ADD_TRANSLATOR (Piano_pedal_engraver,
 		"UnaCordaPedal "
 		"UnaCordaPedalLineSpanner ",
 
-		/* accept */
-		"pedal-event",
-
 		/* read */
 		"currentCommandColumn "
 		"pedalSostenutoStrings "

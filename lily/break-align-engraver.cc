@@ -121,6 +121,5 @@ ADD_TRANSLATOR (Break_align_engraver,
 		"groups, and order the groups according to @code{breakAlignOrder}. "
 		"The left edge of the alignment gets a separate group, with a symbol @code{left-edge}. ",
 		/* create */ "BreakAlignment BreakAlignGroup LeftEdge",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

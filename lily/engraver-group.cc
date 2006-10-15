@@ -181,7 +181,6 @@ Engraver_group::Engraver_group ()
 ADD_TRANSLATOR_GROUP (Engraver_group,
 		      /* doc */ "A group of engravers taken together",
 		      /* create */ "",
-		      /* accept */ "",
 		      /* read */ "",
 		      /* write */ "");
 

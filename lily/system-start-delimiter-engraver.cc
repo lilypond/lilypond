@@ -254,7 +254,6 @@ ADD_TRANSLATOR (System_start_delimiter_engraver,
 		"SystemStartBrace "
 		"SystemStartBracket "
 		"SystemStartBar",
-		/* accept */ "",
 		/* read */
 		"systemStartDelimiter "
 		"systemStartDelimiterHierarchy "

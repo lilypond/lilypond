@@ -32,6 +32,5 @@ ADD_TRANSLATOR (Swallow_engraver,
 		/* doc */ "This engraver swallows everything given to it silently. The purpose of "
 		"this is to prevent spurious \"event junked\" warnings.",
 		/* create */ "",
-		/* accept */ "general-music",
 		/* read */ "",
 		/* write */ "");

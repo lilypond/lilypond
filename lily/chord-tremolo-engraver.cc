@@ -144,6 +144,5 @@ ADD_ACKNOWLEDGER (Chord_tremolo_engraver, stem);
 ADD_TRANSLATOR (Chord_tremolo_engraver,
 		/* doc */ "Generates beams for tremolo repeats.",
 		/* create */ "Beam",
-		/* accept */ "tremolo-span-event",
 		/* read */ "",
 		/* write */ "");

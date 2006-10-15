@@ -136,8 +136,6 @@ ADD_TRANSLATOR (Drum_notes_engraver,
 		/* create */
 		"NoteHead "
 		"Script",
-
-		/* accept */ "note-event",
 		/* read */ "drumStyleTable",
 		/* write */ "");
 

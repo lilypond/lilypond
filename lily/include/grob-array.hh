@@ -18,7 +18,7 @@ class Grob_array
   vector<Grob*> grobs_;
   bool ordered_;
 
-  DECLARE_SIMPLE_SMOBS (Grob_array,);
+  DECLARE_SIMPLE_SMOBS (Grob_array);
 
   Grob_array ();
 public:

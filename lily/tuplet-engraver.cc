@@ -172,7 +172,6 @@ ADD_TRANSLATOR (Tuplet_engraver,
 		/* create */
 		"TupletBracket "
 		"TupletNumber ",
-		/* accept */ "tuplet-span-event",
 		/* read */
 		"tupletFullLength "
 		"tupletFullLengthNote ",

@@ -54,7 +54,7 @@ protected:
   Moment start_mom_;
 
   DECLARE_CLASSNAME(Music_iterator);
-  DECLARE_SMOBS (Music_iterator, dummy);
+  DECLARE_SMOBS (Music_iterator);
   Music_iterator (Music_iterator const &);
 
 public:

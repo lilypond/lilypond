@@ -73,9 +73,6 @@ ADD_TRANSLATOR (Output_property_engraver,
 		/* create */
 		"",
 		
-		/* accept */
-		"apply-output-event",
-		
 		/* read */
 		"",
 		

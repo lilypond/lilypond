@@ -21,7 +21,7 @@ void set_lexer ();
 
 class Lily_lexer : public Includable_lexer
 {
-  DECLARE_SMOBS (Lily_lexer,);
+  DECLARE_SMOBS (Lily_lexer);
 
 private:
   int lookup_keyword (string);

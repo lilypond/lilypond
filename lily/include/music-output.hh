@@ -17,7 +17,7 @@
 
 class Music_output
 {
-  DECLARE_SMOBS (Music_output, foo);
+  DECLARE_SMOBS (Music_output);
   DECLARE_CLASSNAME(Music_output);
 protected:
   Music_output ();

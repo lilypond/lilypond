@@ -189,7 +189,5 @@ ADD_TRANSLATOR (Ambitus_engraver,
 		"AmbitusLine "
 		"AmbitusNoteHead "
 		"AmbitusAccidental",
-
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

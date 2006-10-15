@@ -43,6 +43,5 @@ ADD_TRANSLATOR (Tweak_engraver,
 		/* doc */ "Read the @code{tweaks} property from the originating event, and set properties." ,
 		
 		/* create */ "",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

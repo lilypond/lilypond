@@ -75,6 +75,5 @@ Tempo_performer::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Tempo_performer, "", "",
-		"",
 		"tempoWholesPerMinute ",
 		"");

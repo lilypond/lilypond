@@ -221,6 +221,5 @@ ADD_TRANSLATOR (Separating_line_group_engraver,
 		"SeparationItem "
 		"SeparatingGroupSpanner "
 		"StaffSpacing",
-		/* accept */ "",
 		/* read */ "createSpacing",
 		/* write */ "breakableSeparationItem");

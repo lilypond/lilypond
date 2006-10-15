@@ -245,6 +245,5 @@ ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
 ADD_TRANSLATOR (Script_engraver,
 		/* doc */ "Handles note scripted articulations.",
 		/* create */ "Script",
-		/* accept */ "script-event articulation-event",
 		/* read */ "scriptDefinitions",
 		/* write */ "");

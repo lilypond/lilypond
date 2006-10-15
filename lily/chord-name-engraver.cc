@@ -141,7 +141,6 @@ ADD_TRANSLATOR (Chord_name_engraver,
 		/* doc */ "Catch note-events "
 		"and generate the appropriate chordname.",
 		/* create */ "ChordName",
-		/* accept */ "note-event",
 		/* read */ "chordChanges chordNameExceptions chordNameFunction "
 		"chordNoteNamer chordRootNamer chordNameExceptions majorSevenSymbol",
 		/* write */ "");

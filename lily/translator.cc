@@ -343,5 +343,4 @@ ADD_TRANSLATOR (Translator,
 		"Base class. Unused",
 		"",
 		"",
-		"",
 		"");

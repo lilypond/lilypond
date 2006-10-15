@@ -66,5 +66,4 @@ Control_track_performer::initialize ()
 }
 
 ADD_TRANSLATOR (Control_track_performer, "", "",
-		"",
 		"", "");

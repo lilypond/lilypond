@@ -112,6 +112,5 @@ ADD_ACKNOWLEDGER (Bend_after_engraver, note_head);
 ADD_TRANSLATOR (Bend_after_engraver,
 		/* doc */ "Create fall spanners.",
 		/* create */ "BendAfter",
-		/* accept */ "bend-after-event",
 		/* read */ "",
 		/* write */ "");

@@ -133,7 +133,7 @@ ADD_TRANSLATOR (Timing_translator,
 		"@code{Staff}. "
 		"\n\nThis engraver adds the alias @code{Timing} to its containing context.",
 
-		"", "",
+		"",
 
 		"internalBarNumber "
 		"currentBarNumber "

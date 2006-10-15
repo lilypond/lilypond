@@ -50,6 +50,5 @@ ADD_TRANSLATOR (Staff_collecting_engraver,
 		/* doc */ "Maintain the stavesFound variable",
 
 		/* create */ "",
-		/* accept */ "",
 		/* read */ "stavesFound",
 		/* write */ "stavesFound");

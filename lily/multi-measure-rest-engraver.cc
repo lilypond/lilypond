@@ -260,10 +260,6 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		"MultiMeasureRestNumber "
 		"MultiMeasureRestText ",
 
-		/* accept */
-		"multi-measure-rest-event "
-		"multi-measure-text-event ",
-
 		/* read */
 		"internalBarNumber "
 		"restNumberThreshold "

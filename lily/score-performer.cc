@@ -26,7 +26,6 @@
 ADD_TRANSLATOR_GROUP (Score_performer,
 		      /* doc */ "",
 		      /* create */ "",
-		      /* accept */ "",
 		      /* read */ "",
 		      /* write */ "");
 

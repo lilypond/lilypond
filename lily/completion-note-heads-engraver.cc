@@ -295,8 +295,6 @@ ADD_TRANSLATOR (Completion_heads_engraver,
 		"NoteHead "
 		"Dots "
 		"Tie",
-
-		/* accept */ "note-event",
 		/* read */
 		"middleCPosition "
 		"measurePosition "

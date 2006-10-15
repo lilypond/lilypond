@@ -68,6 +68,5 @@ ADD_ACKNOWLEDGER (Rest_collision_engraver, note_column);
 ADD_TRANSLATOR (Rest_collision_engraver,
 		/* doc */ "Handles collisions of rests.",
 		/* create */ "RestCollision",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

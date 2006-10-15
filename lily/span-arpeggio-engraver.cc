@@ -99,6 +99,5 @@ ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
 ADD_TRANSLATOR (Span_arpeggio_engraver,
 		/* doc */ "",
 		/* create */ "Arpeggio",
-		/* accept */ "",
 		/* read */ "connectArpeggios",
 		/* write */ "");

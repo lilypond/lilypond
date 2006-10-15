@@ -78,7 +78,5 @@ ADD_TRANSLATOR (Laissez_vibrer_engraver,
 		/* create */
 		"LaissezVibrerTie "
 		"LaissezVibrerTieColumn",
-
-		/* accept */ "laissez-vibrer-event",
 		/* read */ "",
 		/* write */ "");

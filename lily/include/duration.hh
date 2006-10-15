@@ -31,7 +31,7 @@ public:
   static int compare (Duration const &, Duration const &);
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
-  DECLARE_SIMPLE_SMOBS (Duration,);
+  DECLARE_SIMPLE_SMOBS (Duration);
 
 private:
   /// Logarithm of the base duration.

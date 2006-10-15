@@ -94,7 +94,6 @@ Note_performer::listen_note (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Note_performer, "", "",
-		"note-event ",
 		"", "");
 
 Note_performer::Note_performer ()

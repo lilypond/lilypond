@@ -150,9 +150,6 @@ ADD_TRANSLATOR (Instrument_name_engraver,
 		/* create */
 		"InstrumentName ",
 		
-		/* accept */
-		"",
-		
 		/* read */
 		"currentCommandColumn "
 		"shortInstrumentName "

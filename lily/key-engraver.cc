@@ -199,7 +199,6 @@ ADD_ACKNOWLEDGER (Key_engraver, bar_line);
 ADD_TRANSLATOR (Key_engraver,
 		/* doc */ "",
 		/* create */ "KeySignature",
-		/* accept */ "key-change-event",
 		
 		/* read */
 		"createKeyOnClefChange "

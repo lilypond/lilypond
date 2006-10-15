@@ -213,6 +213,5 @@ ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
 ADD_TRANSLATOR (Slur_engraver,
 		/* doc */ "Build slur grobs from slur events",
 		/* create */ "Slur",
-		/* accept */ "slur-event",
 		/* read */ "slurMelismaBusy doubleSlurs",
 		/* write */ "");

@@ -70,7 +70,7 @@ public:
   bool operator == (Listener const &other) const
   { return target_ == other.target_ && type_ == other.type_; }
 
-  DECLARE_SIMPLE_SMOBS (Listener,);
+  DECLARE_SIMPLE_SMOBS (Listener);
 };
 DECLARE_UNSMOB (Listener, listener);
 

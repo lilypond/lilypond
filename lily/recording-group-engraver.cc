@@ -82,6 +82,5 @@ ADD_TRANSLATOR_GROUP (Recording_group_engraver,
 		      "for this context. Calls the procedure "
 		      "in @code{recordEventSequence} when finished.",
 		      "",
-		      "",
 		      "recordEventSequence",
 		      "");

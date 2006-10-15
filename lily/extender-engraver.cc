@@ -145,6 +145,5 @@ ADD_ACKNOWLEDGER (Extender_engraver, lyric_syllable);
 ADD_TRANSLATOR (Extender_engraver,
 		/* doc */ "Create lyric extenders",
 		/* create */ "LyricExtender",
-		/* accept */ "extender-event",
 		/* read */ "",
 		/* write */ "");

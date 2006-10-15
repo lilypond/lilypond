@@ -235,9 +235,6 @@ ADD_TRANSLATOR (Percent_repeat_engraver,
 		"DoublePercentRepeatCounter "
 		"PercentRepeat "
 		"PercentRepeatCounter ",
-		
-		/* accept */
-		"percent-event ",
 
 		/* read */
 		"countPercentRepeats "

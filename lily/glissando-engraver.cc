@@ -104,6 +104,5 @@ ADD_ACKNOWLEDGER (Glissando_engraver, rhythmic_head);
 ADD_TRANSLATOR (Glissando_engraver,
 		/* doc */ "Engrave a glissandi",
 		/* create */ "Glissando",
-		/* accept */ "glissando-event",
 		/* read */ "followVoice",
 		/* write */ "");

@@ -169,6 +169,5 @@ ADD_TRANSLATOR (Engraver,
 		"Base class for engravers. Does nothing, so it is not used.",
 		"",
 		"",
-		"",
 		"");
 

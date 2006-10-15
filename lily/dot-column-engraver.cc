@@ -57,6 +57,5 @@ ADD_TRANSLATOR (Dot_column_engraver,
 		/* doc */ "Engraves dots on dotted notes shifted to the right of the note.\n"
 		"If omitted, then dots appear on top of the notes.",
 		/* create */ "DotColumn",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

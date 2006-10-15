@@ -150,6 +150,5 @@ ADD_TRANSLATOR (Hyphen_engraver,
 		/* doc */ "Create lyric hyphens and "
 		"distance constraints between words.",
 		/* create */ "LyricHyphen LyricSpace",
-		/* accept */ "hyphen-event",
 		/* read */ "",
 		/* write */ "");

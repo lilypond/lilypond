@@ -19,7 +19,7 @@ struct Spring_smob
   bool expand_only_b_;
   Real inverse_strength_;
 
-  DECLARE_SIMPLE_SMOBS (Spring_smob, dummy);
+  DECLARE_SIMPLE_SMOBS (Spring_smob);
 public:
   Spring_smob ();
 };

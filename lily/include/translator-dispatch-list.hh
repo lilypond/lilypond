@@ -28,7 +28,7 @@ public:
   SCM static create (SCM trans_list,
 		     SCM iface_list, Direction);
 
-  DECLARE_SIMPLE_SMOBS (Engraver_dispatch_list,);
+  DECLARE_SIMPLE_SMOBS (Engraver_dispatch_list);
 };
 
 #endif /* TRANSLATOR_DISPATCH_LIST_HH */

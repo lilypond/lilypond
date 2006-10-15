@@ -32,7 +32,7 @@
   }									\
   ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
-#define ADD_TRANSLATOR(classname, desc, grobs, accepted, read, write)	\
+#define ADD_TRANSLATOR(classname, desc, grobs, read, write)		\
   Drul_array< vector<Acknowledge_information> > classname::acknowledge_static_array_drul_;	\
   IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);			\
   ADD_THIS_TRANSLATOR (classname);					\

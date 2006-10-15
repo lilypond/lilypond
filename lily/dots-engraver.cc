@@ -58,9 +58,6 @@ ADD_TRANSLATOR(Dots_engraver,
 	       /* create */
 	       "Dots ",
 
-	       /*acc*/
-	       "",
-
 	       /*r*/
 	       "" ,
 	       

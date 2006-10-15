@@ -27,7 +27,7 @@ class Object_key_dumper
 
   SCM key_serial (int);
   SCM serialize_key (Object_key const *);
-  DECLARE_SMOBS (Object_key_dumper,);
+  DECLARE_SMOBS (Object_key_dumper);
 public:
   Object_key_dumper ();
   SCM get_file_contents () const;

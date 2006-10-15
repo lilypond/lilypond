@@ -173,7 +173,6 @@ ADD_TRANSLATOR (Mark_engraver,
 		"end up on the same Y-location",
 		
 		/* create */ "RehearsalMark",
-		/* accept */ "mark-event",
 		/* read */
 		"markFormatter "
 		"rehearsalMark "

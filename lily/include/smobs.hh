@@ -27,7 +27,7 @@
   SCM smobbed_copy ().
 
   Simple smobs are created by adding the
-  DECLARE_SIMPLE_SMOBS(Classname, ) to the declaration
+  DECLARE_SIMPLE_SMOBS(Classname) to the declaration
 
   2. Complex smobs are objects that have an identity. These objects
   carry this identity in the form of a self_scm () method, which is a
@@ -58,7 +58,7 @@
   list = scm_cons (p->self_scm (), list);
   scm_gc_unprotect_object (p->self_scm ());
 
-  Complex smobs are made with DECLARE_SMOBS (Classname, ) in the class
+  Complex smobs are made with DECLARE_SMOBS (Classname) in the class
   declaration.
 
   CALLING INTERFACE
@@ -88,7 +88,7 @@
   from file "ly-smobs.icc"
 */
 
-#define DECLARE_SIMPLE_SMOBS(CL, dummy)		\
+#define DECLARE_SIMPLE_SMOBS(CL)		\
   public:					\
   SCM smobbed_copy () const;			\
   DECLARE_BASE_SMOBS (CL)
@@ -113,7 +113,7 @@
   static void init_smobs ();					\
   private:
 
-#define DECLARE_SMOBS(CL, dummy)		\
+#define DECLARE_SMOBS(CL)			\
   DECLARE_BASE_SMOBS (CL)			\
     protected:					\
   virtual ~CL ();				\

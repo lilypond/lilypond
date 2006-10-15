@@ -18,7 +18,7 @@
 
 class Paper_book
 {
-  DECLARE_SMOBS (Paper_book,);
+  DECLARE_SMOBS (Paper_book);
 
   SCM systems_;
   SCM pages_;

@@ -12,7 +12,7 @@
 class Box
 {
   Interval interval_a_[NO_AXES];
-  DECLARE_SIMPLE_SMOBS (Box,);
+  DECLARE_SIMPLE_SMOBS (Box);
 public:
   Interval &x () {return interval_a_[X_AXIS]; }
   Interval &y (){ return interval_a_[Y_AXIS]; }

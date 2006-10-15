@@ -40,6 +40,5 @@ ADD_TRANSLATOR (Pitch_squash_engraver,
 		"demonstrating the rhythm of a melody.",
 
 		/* create */ "",
-		/* accept */ "",
 		/* read */ "squashedPosition",
 		/* write */ "");

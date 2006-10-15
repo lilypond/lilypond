@@ -329,7 +329,6 @@ ADD_ACKNOWLEDGER (Page_turn_engraver, note_head);
 ADD_TRANSLATOR (Page_turn_engraver,
                 /* doc */ "Decide where page turns are allowed to go",
                 /* create */ "",
-                /* accept */ "",
                 /* read */
 		"minimumPageTurnLength "
 		"minimumRepeatLengthForPageTurn ",

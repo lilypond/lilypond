@@ -58,6 +58,5 @@ ADD_ACKNOWLEDGER (Vertically_spaced_contexts_engraver, vertically_spaceable);
 ADD_TRANSLATOR (Vertically_spaced_contexts_engraver,
 		/* doc */ "",
 		/* create */ "",
-		/* accept */ "",
 		/* read */ "verticallySpacedContexts",
 		/* write */ "verticallySpacedContexts");

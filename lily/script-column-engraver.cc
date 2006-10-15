@@ -69,6 +69,5 @@ ADD_ACKNOWLEDGER (Script_column_engraver, side_position);
 ADD_TRANSLATOR (Script_column_engraver,
 		/* doc */ "",
 		/* create */ "ScriptColumn",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

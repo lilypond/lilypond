@@ -35,7 +35,6 @@ ADD_TRANSLATOR (Default_bar_line_engraver,
 		"level as @ref{Timing_translator}. ",
 		
 		/* create */ "",
-		/* accept */ "",
 
 		/* read */
 		"automaticBars "

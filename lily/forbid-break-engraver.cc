@@ -52,6 +52,5 @@ ADD_TRANSLATOR (Forbid_line_break_engraver,
 		/* doc */ "Forbid line breaks when note heads "
 		"are still playing at some point.",
 		/* create */ "",
-		/* accept */ "",
 		/* read */ "busyGrobs",
 		/* write */ "forbidBreak");

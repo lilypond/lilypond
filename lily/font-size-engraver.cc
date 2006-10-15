@@ -54,6 +54,5 @@ ADD_ACKNOWLEDGER (Font_size_engraver, font);
 ADD_TRANSLATOR (Font_size_engraver,
 		/* doc */ "Puts fontSize into font-size grob property.",
 		/* create */ "",
-		/* accept */ "",
 		/* read */ "fontSize",
 		/* write */ "");

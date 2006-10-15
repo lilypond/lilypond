@@ -33,7 +33,7 @@ public:
   void register_as_listener (Dispatcher *dist);
   void unregister_as_listener (Dispatcher *dist);
 protected:
-  DECLARE_SMOBS (Dispatcher,);
+  DECLARE_SMOBS (Dispatcher);
 };
 
 DECLARE_UNSMOB (Dispatcher, dispatcher);

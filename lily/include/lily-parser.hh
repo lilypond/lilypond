@@ -22,7 +22,7 @@
 */
 class Lily_parser
 {
-  DECLARE_SMOBS (Lily_parser,);
+  DECLARE_SMOBS (Lily_parser);
   friend int yyparse (void *);
 
   vector<Input> define_spots_;

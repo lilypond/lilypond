@@ -17,7 +17,7 @@
 class Grob
 {
 private:
-  DECLARE_SMOBS (Grob, foo);
+  DECLARE_SMOBS (Grob);
   DECLARE_CLASSNAME(Grob);
   
   void init ();

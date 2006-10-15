@@ -16,7 +16,6 @@
 ADD_TRANSLATOR_GROUP (Performer_group,
 		      /* doc */ "",
 		      /* create */ "",
-		      /* accept */ "",
 		      /* read */ "",
 		      /* write */ "");
 

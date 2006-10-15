@@ -17,7 +17,7 @@
 
 class Book
 {
-  DECLARE_SMOBS (Book, foo);
+  DECLARE_SMOBS (Book);
 
 public:
   string user_key_;

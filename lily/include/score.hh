@@ -19,7 +19,7 @@
 
 class Score
 {
-  DECLARE_SMOBS (Score, foo);
+  DECLARE_SMOBS (Score);
 
   SCM music_;
   SCM input_location_;

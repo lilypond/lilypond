@@ -158,6 +158,5 @@ Lyric_engraver::stop_translation_timestep ()
 ADD_TRANSLATOR (Lyric_engraver,
 		/* doc */ "",
 		/* create */ "LyricText",
-		/* accept */ "lyric-event",
 		/* read */ "",
 		/* write */ "");

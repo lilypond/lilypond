@@ -53,7 +53,7 @@ private:
 
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Translator_group);
-  DECLARE_SMOBS (Translator_group, dummy);
+  DECLARE_SMOBS (Translator_group);
 
 public:
   virtual void connect_to_context (Context *c);
@@ -91,7 +91,7 @@ void precomputed_recurse_over_translators (Context *c, Translator_precompute_ind
 Translator_group *get_translator_group (SCM sym);
 
 #define foobar
-#define ADD_TRANSLATOR_GROUP(classname, desc, grobs, accepted, read, write) foobar
+#define ADD_TRANSLATOR_GROUP(classname, desc, grobs, read, write) foobar
 
 DECLARE_UNSMOB (Translator_group, translator_group);
 

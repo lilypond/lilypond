@@ -81,6 +81,5 @@ ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
 ADD_TRANSLATOR (Ligature_bracket_engraver,
 		/* doc */ "Handles Ligature_events by engraving Ligature brackets.",
 		/* create */ "TupletBracket",
-		/* accept */ "ligature-event",
 		/* read */ "",
 		/* write */ "");

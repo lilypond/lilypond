@@ -79,6 +79,5 @@ ADD_TRANSLATOR (Span_bar_engraver,
 		/* doc */ "This engraver makes cross-staff barlines: It catches all normal "
 		"bar lines, and draws a single span-bar across them.",
 		/* create */ "SpanBar",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

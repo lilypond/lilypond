@@ -70,6 +70,5 @@ Slash_repeat_engraver::process_music ()
 ADD_TRANSLATOR (Slash_repeat_engraver,
 		/* doc */ "Make beat repeats.",
 		/* create */ "RepeatSlash",
-		/* accept */ "percent-event",
 		/* read */ "measureLength",
 		/* write */ "");

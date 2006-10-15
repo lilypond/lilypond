@@ -1,3 +1,8 @@
+2006-10-15  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/*.cc, lily/include/*.hh: eliminate dummy arguments from
+	macros ADD_TRANSLATOR, DECLARE_SMOBS and DECLARE_SIMPLE_SMOBS
+	
 2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* mf/GNUmakefile: remove fc-cache calls; not necessary for fc 2.4; 
@@ -95,6 +100,10 @@
 	* scm/document-music.cc: use data from translator listener
 	registration to generate documentation for event classes
 
+	* lily/*: Eliminate accept arg of ADD_TRANSLATOR
+	
+	* lily/include/*: Eliminate dummy arg of DECLARE_*SMOBS
+	
 2006-10-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (SCRIPTS): Remove lexer-gcc-3.1.sh.

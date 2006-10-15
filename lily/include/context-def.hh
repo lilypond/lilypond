@@ -56,7 +56,7 @@ public:
   void apply_default_property_operations (Context *);
 
 private:
-  DECLARE_SMOBS (Context_def, foo);
+  DECLARE_SMOBS (Context_def);
   Context_def ();
   Context_def (Context_def const &);
 };

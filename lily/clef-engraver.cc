@@ -195,7 +195,6 @@ ADD_TRANSLATOR (Clef_engraver,
 		/* doc */ "Determine and set reference point for pitches",
 		/* create */ "Clef "
 		"OctavateEight ",
-		/* accept */ "",
 		/* read */
 		"clefGlyph "
 		"clefOctavation "

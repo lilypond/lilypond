@@ -110,6 +110,5 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
 		/* doc */ "Acknowledge repeated music, and convert the contents of "
 		"repeatCommands ainto an appropriate setting for whichBar.",
 		/* create */ "",
-		/* accept */ "",
 		/* read */ "repeatCommands whichBar",
 		/* write */ "");

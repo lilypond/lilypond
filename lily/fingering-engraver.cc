@@ -149,7 +149,5 @@ ADD_TRANSLATOR (Fingering_engraver,
 		"Create fingering-scripts",
 		/* create */
 		"Fingering",
-		/* accept */
-		"fingering-event",
 		/* read */ "",
 		/* write */ "");

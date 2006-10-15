@@ -130,6 +130,5 @@ ADD_ACKNOWLEDGER (Text_engraver, rhythmic_head);
 ADD_TRANSLATOR (Text_engraver,
 		/* doc */ "Create text-scripts",
 		/* create */ "TextScript",
-		/* accept */ "text-script-event",
 		/* read */ "",
 		/* write */ "");

@@ -102,6 +102,5 @@ ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column);
 ADD_TRANSLATOR (Arpeggio_engraver,
 		/* doc */ "Generate an Arpeggio symbol",
 		/* create */ "Arpeggio",
-		/* accept */ "arpeggio-event",
 		/* read */ "",
 		/* write */ "");

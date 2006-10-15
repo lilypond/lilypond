@@ -82,6 +82,5 @@ Time_signature_engraver::stop_translation_timestep ()
 ADD_TRANSLATOR (Time_signature_engraver,
 		/* doc */ "Create a TimeSignature whenever @code{timeSignatureFraction} changes",
 		/* create */ "TimeSignature",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

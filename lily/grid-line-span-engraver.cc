@@ -63,6 +63,5 @@ ADD_TRANSLATOR (Grid_line_span_engraver,
 		/* doc */ "This engraver makes cross-staff linelines: It catches all normal "
 		"line lines, and draws a single span-line across them.",
 		/* create */ "GridLine",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

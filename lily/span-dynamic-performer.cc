@@ -183,5 +183,4 @@ Span_dynamic_performer::listen_crescendo (Stream_event *r)
 
 ADD_TRANSLATOR (Span_dynamic_performer,
 		"", "",
-		"crescendo-event decrescendo-event",
 		"", "");

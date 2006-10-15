@@ -21,7 +21,7 @@ class Context
   Scheme_hash_table *properties_dict () const;
   Context (Context const &src);
 
-  DECLARE_SMOBS (Context, dummy);
+  DECLARE_SMOBS (Context);
   DECLARE_CLASSNAME(Context);
   void terminate ();
 

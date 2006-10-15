@@ -70,6 +70,5 @@ ADD_TRANSLATOR (Parenthesis_engraver,
 		
 		/* create */
 		"ParenthesesItem ",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

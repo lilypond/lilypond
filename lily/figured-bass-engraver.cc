@@ -486,9 +486,6 @@ ADD_TRANSLATOR (Figured_bass_engraver,
 		"BassFigureContinuation "
 		"BassFigureLine "
 		,
-		/* accept */
-		"bass-figure-event "
-		"rest-event",
 
 		/* read */
 		"figuredBassAlterationDirection "

@@ -74,6 +74,5 @@ ADD_ACKNOWLEDGER (Script_row_engraver, side_position);
 ADD_TRANSLATOR (Script_row_engraver,
 		/* doc */ "Determine order in horizontal side position elements. ",
 		/* create */ "ScriptRow ",
-		/* accept */ "",
 		/* read */ "",
 		/* write */ "");

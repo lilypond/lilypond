@@ -348,8 +348,6 @@ ADD_TRANSLATOR (New_fingering_engraver,
 		"StringFinger "
 		"Script "
 		,
-		
-		/* accept */ "",
 		/* read */
 		
 		"fingeringOrientations "

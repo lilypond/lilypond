@@ -77,7 +77,5 @@ ADD_TRANSLATOR (Repeat_tie_engraver,
 		/* create */
 		"RepeatTie "
 		"RepeatTieColumn ",
-
-		/* accept */ "repeat-tie-event",
 		/* read */ "",
 		/* write */ "");

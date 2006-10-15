@@ -22,7 +22,7 @@ class Tweak_registry
   Tweak_map tweaks_;
   Object_key_undumper *undumper_;
 
-  DECLARE_SMOBS (Tweak_registry,);
+  DECLARE_SMOBS (Tweak_registry);
 
 public:
   Tweak_registry ();

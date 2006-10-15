@@ -20,7 +20,7 @@
 */
 class Prob
 {
-  DECLARE_SMOBS (Prob,);
+  DECLARE_SMOBS (Prob);
   DECLARE_CLASSNAME(Prob);
 
   void init_vars ();

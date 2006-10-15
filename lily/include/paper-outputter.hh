@@ -26,7 +26,7 @@ class Paper_outputter
   SCM file_;
 
 public:
-  DECLARE_SMOBS (Paper_outputter,);
+  DECLARE_SMOBS (Paper_outputter);
 
 public:
   SCM file () const;

@@ -18,7 +18,7 @@
 */
 class Moment
 {
-  DECLARE_SIMPLE_SMOBS (Moment,);
+  DECLARE_SIMPLE_SMOBS (Moment);
 public:
   Moment ();
   Moment (int m);

@@ -278,7 +278,5 @@ ADD_TRANSLATOR (Tie_engraver,
 		/* create */
 		"Tie "
 		"TieColumn ",
-
-		/* accept */ "tie-event",
 		/* read */ "tieWaitForNote",
 		/* write */ "tieMelismaBusy");

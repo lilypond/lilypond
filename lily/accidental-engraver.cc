@@ -599,8 +599,6 @@ ADD_TRANSLATOR (Accidental_engraver,
 		"so you can @code{\\override} them at @code{Voice}. ",
 		"Accidental AccidentalSuggestion",
 
-		"",
-
 		"autoAccidentals "
 		"autoCautionaries "
 		"internalBarNumber "

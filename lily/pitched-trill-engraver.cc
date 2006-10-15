@@ -153,8 +153,6 @@ ADD_TRANSLATOR (Pitched_trill_engraver,
 		"TrillPitchAccidental "
 		"TrillPitchGroup ",
 
-		/* accept */ "",
-
 		/* read */ "",
 
 		/* write */ "");

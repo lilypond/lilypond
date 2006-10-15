@@ -101,7 +101,6 @@ ADD_TRANSLATOR (Metronome_mark_engraver,
 		"The staves are taken from the @code{stavesFound} property, "
 		"which is maintained by @code{@ref{Staff_collecting_engraver}}. ",
 		/* create */ "MetronomeMark",
-		/* accept */ "",
 
 		/* read */
 		"stavesFound "

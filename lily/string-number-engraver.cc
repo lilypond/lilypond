@@ -41,6 +41,5 @@ ADD_TRANSLATOR (String_number_engraver,
 		" swallows them all.",
 
 		/* create */ "",
-		/* accept */ "string-number-event",
 		/* read */ "",
 		/* write */ "");

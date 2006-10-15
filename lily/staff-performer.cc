@@ -43,7 +43,6 @@ private:
 #include "translator.icc"
 
 ADD_TRANSLATOR (Staff_performer, "", "",
-		"",
 		"", "");
 
 Staff_performer::Staff_performer ()

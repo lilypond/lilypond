@@ -63,7 +63,6 @@ ADD_ACKNOWLEDGER (Stanza_number_align_engraver, stanza_number);
 ADD_TRANSLATOR (Stanza_number_align_engraver,
 		"This engraver ensures that stanza numbers are neatly aligned. ",
 		"",
-		"",
 		" ",
 		"");
 

@@ -178,9 +178,6 @@ ADD_TRANSLATOR (Stem_engraver,
 		/* create */
 		"Stem "
 		"StemTremolo ",
-		
-		/* accept */
-		"tremolo-event",
 
 		/* read */
 		"tremoloFlags "

@@ -160,5 +160,4 @@ Piano_pedal_performer::listen_una_corda (Stream_event *r)
 }
 
 ADD_TRANSLATOR (Piano_pedal_performer, "", "",
-		"pedal-event",
 		"", "");

@@ -244,8 +244,6 @@ ADD_TRANSLATOR (Paper_column_engraver,
 		/* create */
 		"PaperColumn "
 		"NonMusicalPaperColumn",
-		
-		/* accept */ "break-event",
 		/* read */
                 "forbidBreak "
 		,

@@ -19,7 +19,7 @@ struct Scale
   vector<int> step_semitones_;
   Scale ();
   Scale (Scale const&);
-  DECLARE_SMOBS(Scale,);
+  DECLARE_SMOBS (Scale);
 };
 
 
@@ -72,7 +72,7 @@ public:
   string to_string () const;
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
-  DECLARE_SIMPLE_SMOBS (Pitch,);
+  DECLARE_SIMPLE_SMOBS (Pitch);
 };
 
 enum

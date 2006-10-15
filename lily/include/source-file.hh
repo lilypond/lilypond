@@ -36,7 +36,7 @@ class Source_file
   void init_port ();
   void init ();
   
-  DECLARE_SMOBS(Source_file, bla);
+  DECLARE_SMOBS (Source_file);
 public:
   Source_file (string fn);
   Source_file (string, string);

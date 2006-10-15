@@ -150,10 +150,6 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
 		"TabNoteHead "
 		,
 
-		/* accept */
-		"note-event "
-		"string-number-event ",
-
 		/* read */
 		"middleCPosition "
 		"stringTunings "

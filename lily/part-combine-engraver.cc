@@ -103,7 +103,6 @@ ADD_TRANSLATOR (Part_combine_engraver,
 		/* doc */ "Part combine engraver for orchestral scores:		"
 		"Print markings a2, Solo, Solo II, and unisono ",
 		/* create */ "CombineTextScript",
-		/* accept */ "part-combine-event",
 		/* read */ "printPartCombineTexts soloText soloIIText "
 		"aDueText",
 		/* write */ "");

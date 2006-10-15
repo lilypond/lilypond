@@ -69,9 +69,6 @@ ADD_TRANSLATOR (Grace_spacing_engraver,
 
 		/* create */
 		"GraceSpacing ",
-		
-		/* accept */
-		"",
 
 		/* read */
 		"currentMusicalColumn ",

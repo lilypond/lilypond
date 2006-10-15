@@ -55,8 +55,6 @@ ADD_TRANSLATOR(Instrument_switch_engraver,
 			
 	       "InstrumentSwitch ",
 
-	       "",
-
 	       "instrumentCueName",
 			
 	       "");

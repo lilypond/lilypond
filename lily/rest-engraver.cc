@@ -79,6 +79,5 @@ Rest_engraver::listen_rest (Stream_event *ev)
 ADD_TRANSLATOR (Rest_engraver,
 		/* doc */ "",
 		/* create */ "Rest ",
-		/* accept */ "rest-event",
 		/* read */ "middleCPosition",
 		/* write */ "");

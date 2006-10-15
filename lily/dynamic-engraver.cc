@@ -485,6 +485,5 @@ ADD_TRANSLATOR (Dynamic_engraver,
 		"which takes care of vertical positioning.  ",
 
 		/* create */ "DynamicLineSpanner DynamicText Hairpin TextSpanner",
-		/* accept */ "absolute-dynamic-event crescendo-event decrescendo-event",
 		/* read */ "",
 		/* write */ "");

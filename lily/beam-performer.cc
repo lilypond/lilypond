@@ -81,6 +81,5 @@ Beam_performer::listen_beam (Stream_event *ev)
     now_stop_ev_ = ev;
 }
 
-ADD_TRANSLATOR (Beam_performer, "", "",
-		"beam-event", "", "");
+ADD_TRANSLATOR (Beam_performer, "", "", "", "");
 

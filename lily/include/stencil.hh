@@ -55,7 +55,7 @@ class Stencil
   Box dim_;
   SCM expr_;
 
-  DECLARE_SIMPLE_SMOBS (Stencil,);
+  DECLARE_SIMPLE_SMOBS (Stencil);
 public:
   Stencil (Box, SCM s);
   Stencil ();

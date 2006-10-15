@@ -124,7 +124,7 @@ public:
   Global_context *get_global_context () const;
 
   TRANSLATOR_DECLARATIONS (Translator);
-  DECLARE_SMOBS (Translator, dummy);
+  DECLARE_SMOBS (Translator);
 
 protected:			// should be private.
   Context *daddy_context_;

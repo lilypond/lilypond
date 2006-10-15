@@ -82,7 +82,6 @@ ADD_TRANSLATOR (Hara_kiri_engraver,
 		/* doc */ "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
 		"interesting items (ie. note heads, lyric syllables and normal rests) ",
 		/* create */ "VerticalAxisGroup",
-		/* accept */ "",
 		/* read */ "keepAliveInterfaces",
 		/* write */ "");
 

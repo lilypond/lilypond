@@ -269,7 +269,6 @@ ADD_TRANSLATOR (Beam_engraver,
 		"printed with flags instead of beams.",
 		
 		/* create */ "Beam",
-		/* accept */ "beam-event",
 
 		/* read */
 		"beamMelismaBusy "
@@ -337,7 +336,6 @@ ADD_TRANSLATOR (Grace_beam_engraver,
 		" are at grace points in time. ",
 		
 		/* create */ "Beam",
-		/* accept */ "beam-event",
 		/* read */
 		"beamMelismaBusy "
 		"beatLength "

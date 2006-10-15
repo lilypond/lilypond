@@ -91,5 +91,4 @@ Drum_note_performer::listen_note (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Drum_note_performer,
-		"Play drum notes.", "",
-		"note-event", "", "");
+		"Play drum notes.", "", "", "");

@@ -130,7 +130,6 @@ ADD_TRANSLATOR (Bar_number_engraver,
 		"@code{@ref{Staff_collecting_engraver}}. ",
 
 		/* create */ "BarNumber",
-		/* accept */ "",
 		/* read */
 		"currentBarNumber "
 		"whichBar "

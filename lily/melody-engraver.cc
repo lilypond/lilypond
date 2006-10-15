@@ -86,6 +86,5 @@ ADD_TRANSLATOR (Melody_engraver,
 		"Create information for context dependent typesetting decisions. ",
 		"MelodyItem",
 		"",
-		"",
 		"");
 		

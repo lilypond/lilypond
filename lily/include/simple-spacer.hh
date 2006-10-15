@@ -51,7 +51,7 @@ public:
   Real force () const;
   bool fits () const;
 
-  DECLARE_SIMPLE_SMOBS (Simple_spacer,);
+  DECLARE_SIMPLE_SMOBS (Simple_spacer);
 
 private:
   Real expand_line ();

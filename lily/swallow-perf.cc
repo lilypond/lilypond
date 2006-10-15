@@ -34,6 +34,5 @@ Swallow_performer::Swallow_performer ()
 ADD_TRANSLATOR (Swallow_performer,
 		/* doc */ "",
 		/* create */ "",
-		/* accept */ "general-music",
 		/* read */ "",
 		/* write */ "");

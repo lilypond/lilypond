@@ -168,9 +168,6 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
 		      "that there are no beams or notes that prevent a breakpoint.) ",
 		      /* create */
 		      "System ",
-
-		      /* accept */
-		      "",
 		      
 		      /* read */
 		      "currentMusicalColumn "

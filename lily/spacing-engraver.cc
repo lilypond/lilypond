@@ -248,8 +248,6 @@ ADD_TRANSLATOR (Spacing_engraver,
 		"bookkeeping of shortest starting and playing notes  ",
 
 		/* create */ "SpacingSpanner",
-		/* accept */
-		"spacing-section-event ",
 		/* read */
 		"currentMusicalColumn "
 		"currentCommandColumn "

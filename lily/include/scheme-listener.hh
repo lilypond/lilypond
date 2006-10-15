@@ -22,7 +22,7 @@ public:
   Scheme_listener (SCM callback);
   DECLARE_LISTENER (call);
 protected:
-  DECLARE_SMOBS (Scheme_listener,);
+  DECLARE_SMOBS (Scheme_listener);
 private:
   SCM callback_;
 };

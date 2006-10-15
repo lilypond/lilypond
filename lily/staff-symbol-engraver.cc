@@ -151,6 +151,5 @@ ADD_TRANSLATOR (Staff_symbol_engraver,
 		/* doc */ "Create the constellation of five (default) "
 		"staff lines.",
 		/* create */ "StaffSymbol",
-		/* accept */ "staff-span-event",
 		/* read */ "",
 		/* write */ "");
