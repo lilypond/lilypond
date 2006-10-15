@@ -1,3 +1,7 @@
+2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* mf/GNUmakefile (ALL_GEN_FILES): remove fonts.cache-1
+
 2006-10-15  Erik Sandberg  <mandolaerik@gmail.com>
 
 	* lily/*.cc, lily/include/*.hh: eliminate dummy arguments from
@@ -9,7 +13,8 @@
 
 	* Doxyfile: remove file.
 
-	* scm/define-grob-interfaces.scm (string-finger-interface): add string-finger-interface
+	* scm/define-grob-interfaces.scm (string-finger-interface): add
+	string-finger-interface
 
 	* lily/general-scheme.cc (LY_DEFINE): move
 	ly_camel_case_to_lisp_identifier to here. Use vector<char> iso. char[] 

@@ -317,8 +317,6 @@ centered, X==1 is at the right, X == -1 is at the left."
        (ly:grob-relative-coordinate me y-ref Y))))
     ))
 
-       
-       
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 
@@ -345,10 +343,14 @@ centered, X==1 is at the right, X == -1 is at the left."
        (padding (ly:grob-property spanner 'padding 0.5))
        (common (ly:grob-common-refpoint right-span
 					(ly:grob-common-refpoint spanner
-						left-span X)
+								 left-span X)
 					X))
-       (left-x (+ padding  (interval-end  (ly:grob-robust-relative-extent left-span common X))))
-       (right-x (- (interval-start  (ly:grob-robust-relative-extent right-span common X)) padding))
+       (left-x (+ padding
+		  (interval-end  (ly:grob-robust-relative-extent
+				  left-span common X))))
+       (right-x (- (interval-start
+		    (ly:grob-robust-relative-extent right-span common X))
+		   padding))
        (self-x (ly:grob-relative-coordinate spanner common X))
        (dx (- right-x left-x))
        (exp (list 'path thickness 
@@ -379,8 +381,10 @@ centered, X==1 is at the right, X == -1 is at the left."
      ((cols (ly:grob-object grob 'columns))
       (get-difference
        (lambda (idx)
-	 (ly:moment-sub (ly:grob-property (ly:grob-array-ref cols (1+ idx)) 'when)
-			(ly:grob-property (ly:grob-array-ref cols idx) 'when))))
+	 (ly:moment-sub (ly:grob-property
+			 (ly:grob-array-ref cols (1+ idx)) 'when)
+			(ly:grob-property
+			 (ly:grob-array-ref cols idx) 'when))))
       
       (moment-min (lambda (x y)
 		    (cond
@@ -421,8 +425,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public (string-finger::calc-text grob)
   (let*
       ((digit (ly:event-property (event-cause  grob) 'digit))
-       (texts (ly:grob-property grob 'digit-names))
-       )
+       (texts (ly:grob-property grob 'digit-names)))
     (vector-ref texts  (1- (max (min 5 digit) 1)))
     ))
 
