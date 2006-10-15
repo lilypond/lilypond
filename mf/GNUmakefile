@@ -86,15 +86,6 @@ $(outdir)/aybabtu.subfonts:
 $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
-$(outdir)/fonts.cache-1: $(PFA_FILES) $(OTF_FILES)
-	cd $(outdir) ; fc-cache .
-
-local-install: install-fc-cache
-
-install-fc-cache:
-	$(foreach suff, $(INSTALLATION_OUT_SUFFIXES), rm -f $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff))/fonts.cache-1 && ) true
-	fc-cache $(foreach suff, $(INSTALLATION_OUT_SUFFIXES), $(DESTDIR)$(INSTALLATION_OUT_DIR$(suff)))
-
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 

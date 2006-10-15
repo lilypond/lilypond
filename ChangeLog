@@ -1,5 +1,7 @@
 2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* mf/GNUmakefile: remove fc-cache calls; not necessary for fc 2.4; 
+
 	* Doxyfile: remove file.
 
 	* scm/define-grob-interfaces.scm (string-finger-interface): add string-finger-interface
