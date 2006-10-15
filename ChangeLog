@@ -1,5 +1,9 @@
 2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/lily-library.scm (list-join): use fold-right. Fixes #112
+
+	* input/regression/lyric-tie.ly (texidoc): use different words.
+
 	* mf/GNUmakefile (ALL_GEN_FILES): remove fonts.cache-1
 
 2006-10-15  Erik Sandberg  <mandolaerik@gmail.com>

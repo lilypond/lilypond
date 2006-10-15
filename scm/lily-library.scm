@@ -233,13 +233,13 @@ found."
 
 (define-public (list-join lst intermediate)
   "put INTERMEDIATE  between all elts of LST."
-  
-  (reduce (lambda (elt prev)
-	    (if (pair? prev)
-		(cons  elt (cons intermediate prev))
-		(list elt intermediate prev)))
-	  '() lst))
 
+  (fold-right
+   (lambda (elem prev)
+	    (if (pair? prev)
+		(cons  elem (cons intermediate prev))
+		(list elem)))
+	  '() lst))
 
 (define-public (filtered-map proc lst)
   (filter
