@@ -1,5 +1,7 @@
 2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/script-stack-horizontal.ly: add version.
+
 	* scm/lily-library.scm (list-join): use fold-right. Fixes #112
 
 	* input/regression/lyric-tie.ly (texidoc): use different words.

@@ -1925,7 +1925,6 @@
      . (
 	(axes . (1))
 	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
-
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
 	(X-extent . ,ly:axis-group-interface::width)
 	(meta . ((class . Spanner)

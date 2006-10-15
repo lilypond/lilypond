@@ -4,6 +4,7 @@
 The order may be set with script-priority."
   
 }
+\version "2.9.24"
 
 \paper {
   ragged-right = ##t
