@@ -113,7 +113,7 @@ symbol,
 @lilypond[relative=1,fragment,ragged-right]
   { c4 f2 g4 }
   \addlyrics {
-    o la~la la
+    o la~oo ah
   } 
 @end lilypond
 

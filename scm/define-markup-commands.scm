@@ -296,7 +296,7 @@ grestore
 	(interpret-markup layout 
 			  (prepend-alist-chain
 			   'word-space
-			   (/ (interval-length (ly:stencil-extent join-stencil X)) -4)
+			   (/ (interval-length (ly:stencil-extent join-stencil X)) -3.5)
 			   props)
 			  (make-line-markup joined)))
 			   ;(map (lambda (s) (interpret-markup layout props s)) parts))

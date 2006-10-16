@@ -1,5 +1,13 @@
 2006-10-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): idem.
+
+	* input/regression/lyric-tie.ly (texidoc): use vowels for tied
+	lyrics example.
+
+	* scm/define-markup-commands.scm (tied-lyric): increase negative
+	space: space syllables tighter.
+
 	* VERSION (PATCH_LEVEL): bump version.
 
 	* scm/paper.scm: patch by Arvid Gr"otting, arvidgr@gmail.com: tune
