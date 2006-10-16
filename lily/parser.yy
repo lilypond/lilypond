@@ -1457,7 +1457,6 @@ command_event:
 	| MARK DEFAULT  {
 		Music *m = MY_MAKE_MUSIC ("MarkEvent", @$);
 		$$ = m->unprotect ();
-		scm_display($$, SCM_UNDEFINED);
 	}
 	| tempo_event {
 		$$ = $1;

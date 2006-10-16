@@ -1,3 +1,7 @@
+2006-10-16  Erik Sandberg  <mandolaerik@gmail.com>
+
+	* lily/parser.yy: remove debug output
+
 2006-10-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* Documentation/topdocs/NEWS.tely (Top): idem.
