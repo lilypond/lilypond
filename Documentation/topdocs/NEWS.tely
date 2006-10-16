@@ -96,6 +96,8 @@ hint for GP:
 
 - texts can be tuned with StringFinger #'digit-names property.
 
+- recommend use of identifiers in practice, eg. rhf = rightHandFinger
+
 @end ignore 
 
 @item By defining a clip region, a cutout EPS file of a number of measures
