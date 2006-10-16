@@ -4,6 +4,11 @@
 
 2006-10-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* ly/paper-defaults.ly: set left/right margin.
+
+	* scm/paper.scm (set-paper-dimensions): use left-margin and
+	right-margin for computing linewidth.
+
 	* Documentation/topdocs/NEWS.tely (Top): idem.
 
 	* input/regression/lyric-tie.ly (texidoc): use vowels for tied

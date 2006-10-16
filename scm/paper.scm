@@ -94,7 +94,10 @@
   (let* ((mm (eval 'mm m)))
     (module-define! m 'paper-width w)
     (module-define! m 'paper-height h)
-    (module-define! m 'line-width (- w (* 20 mm)))
+    (module-define! m 'line-width (- w
+				     (ly:modules-lookup (list m) 'left-margin)
+				     (ly:modules-lookup (list m) 'right-margin)))
+
     (module-define! m 'indent (/ w 14))
 
     ;; page layout - what to do with (printer specific!) margin settings?
