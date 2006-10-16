@@ -1,3 +1,10 @@
+2006-10-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION (PATCH_LEVEL): bump version.
+
+	* scm/paper.scm: patch by Arvid Gr"otting, arvidgr@gmail.com: tune
+	Ax paper sizes. 
+
 2006-10-15  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* COPYING: further clarification

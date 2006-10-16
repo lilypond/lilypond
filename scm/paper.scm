@@ -78,10 +78,10 @@
   ;; ISO 216 has a tolerance of +- 2mm
   
   '(("a7" . (cons (* 74 mm) (* 105 mm)))
-    ("a6" . (cons (* 105 mm) (* 149 mm)))
-    ("a5" . (cons (* 149 mm) (* 210 mm)))
-    ("a4" . (cons (* 210 mm) (* 298 mm)))
-    ("a3" . (cons (* 298 mm) (* 420 mm)))
+    ("a6" . (cons (* 105 mm) (* 148 mm)))
+    ("a5" . (cons (* 148 mm) (* 210 mm)))
+    ("a4" . (cons (* 210 mm) (* 297 mm)))
+    ("a3" . (cons (* 297 mm) (* 420 mm)))
     ("legal" . (cons (* 8.5 in) (* 14.0 in)))
     ("letter" . (cons (* 8.5 in) (* 11.0 in)))
     ("11x17" . (cons (* 11.0 in) (* 17.0 in)))
