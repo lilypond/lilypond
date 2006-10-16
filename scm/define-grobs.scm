@@ -55,6 +55,10 @@
      . (
 	(left-padding . 0.2)
 
+	;; for horizontally stacked scripts.
+	(script-priority .  -100)
+	(direction .  ,LEFT)
+	
 	(positioning-done . ,ly:accidental-placement::calc-positioning-done)
 	(X-extent . ,ly:axis-group-interface::width)		      
 	
@@ -63,6 +67,7 @@
 	(right-padding . 0.15)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-placement-interface))))))
+    
     (Ambitus
      . (
 	(axes . (0 1))
@@ -130,6 +135,7 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(padding . 0.5)
+	(script-priority . 0)
 	(side-axis . ,X)
 	(staff-position . 0.0)
 	(meta . ((class . Item)
@@ -1471,6 +1477,7 @@
 	(duration-log . ,note-head::calc-duration-log)
 	(default-direction . ,ly:stem::calc-default-direction)
 	(stem-end-position . ,ly:stem::calc-stem-end-position)
+
 	(neutral-direction . ,DOWN)
 	(stem-info . ,ly:stem::calc-stem-info)
 	(positioning-done . ,ly:stem::calc-positioning-done)
@@ -1552,7 +1559,7 @@
      . (
 	(stencil . ,ly:text-interface::print)
 	(text . ,stroke-finger::calc-text)
-	(digit-names . #("P" "I" "m" "a" "x"))
+	(digit-names . #("p" "i" "m" "a" "x"))
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(self-alignment-X . 0)

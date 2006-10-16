@@ -40,6 +40,7 @@
   \consists "Axis_group_engraver"
   \consists "Figured_bass_engraver"
   \consists "Figured_bass_position_engraver"
+  \consists "Script_row_engraver"
 
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
   extraVerticalExtent = ##f
@@ -219,7 +220,6 @@ contained staves are not connected vertically."
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"
-  \consists "Script_row_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Phrasing_slur_engraver"
   \consists "Cluster_spanner_engraver"

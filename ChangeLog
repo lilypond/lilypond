@@ -1,3 +1,13 @@
+2006-10-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/script-column.cc (row_before_line_breaking): also handle
+	accidentals and arpeggios in horizontal script stacking.
+
+	* lily/script-row-engraver.cc (acknowledge_accidental_placement):
+	new function.
+
+	* input/regression/script-stack-horizontal.ly: trim.
+
 2006-10-16  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/output-lib.scm (stroke-finger::calc-text): allow reading of

@@ -1,3 +1,4 @@
+
 \header
 {
   texidoc = "horizontal scripts are ordered, so they do not overlap.
@@ -12,14 +13,9 @@ The order may be set with script-priority."
 
 \relative 
 {
-  \set stringFingerOrientations = #'(left) 
+  \set stringNumberOrientations = #'(left) 
   \set fingeringOrientations = #'(left) 
-  \set strokeNumberOrientations = #'(left) 
+  \set strokeFingerOrientations = #'(left) 
   <cis-1\4
-   -\rightHandFinger #1
-   es-2\5
-   -\rightHandFinger #2
-   gis-3\6
-   -\rightHandFinger #3
-   >\arpeggio
+   -\rightHandFinger #1 f>\arpeggio
 }

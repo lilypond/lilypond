@@ -8,6 +8,8 @@
 
 #include "script-column.hh"
 
+#include "accidental-placement.hh"
+#include "arpeggio.hh"
 #include "directional-element-interface.hh"
 #include "side-position-interface.hh"
 #include "warn.hh"
@@ -49,6 +51,7 @@ Script_column::row_before_line_breaking (SCM smob)
   extract_grob_set (me, "scripts", scripts);
 
   Grob_scripts_map head_scripts_map;
+  vector<Grob *> affect_all_grobs;
   for (vsize i = 0; i < scripts.size (); i++)
     {
       Grob *sc = scripts[i];
@@ -56,8 +59,13 @@ Script_column::row_before_line_breaking (SCM smob)
       /*
 	Don't want to consider scripts horizontally next to notes.
       */
-      if (sc->get_property_data (ly_symbol2scm ("Y-offset")) !=
-	  Side_position_interface::x_aligned_side_proc)
+      if (Accidental_placement::has_interface (sc)
+	  || Arpeggio::has_interface (sc))
+	{
+	  affect_all_grobs.push_back (sc);
+	}
+      else if (sc->get_property_data (ly_symbol2scm ("Y-offset")) !=
+	       Side_position_interface::x_aligned_side_proc)
 	{
 	  head_scripts_map[sc->get_parent (Y_AXIS)].push_back (sc);
 	}
@@ -67,7 +75,11 @@ Script_column::row_before_line_breaking (SCM smob)
        i != head_scripts_map.end ();
        i++)
     {
-      order_grobs ((*i).second);
+      vector<Grob*> grobs  = (*i).second;
+
+      // this isn't right in all cases, but in general a safe assumption.
+      concat (grobs, affect_all_grobs);
+      order_grobs (grobs);
     }
 
   return SCM_UNSPECIFIED;
@@ -85,7 +97,6 @@ Script_column::before_line_breaking (SCM smob)
   for (vsize i = 0; i < scripts.size (); i++)
     {
       Grob *sc = scripts[i];
-
       /*
 	Don't want to consider scripts horizontally next to notes.
       */
@@ -93,10 +104,9 @@ Script_column::before_line_breaking (SCM smob)
 	  Side_position_interface::x_aligned_side_proc)
 	staff_sided.push_back (sc);
     }
-
+  
   order_grobs (staff_sided);
   return SCM_UNSPECIFIED;
-
 }
 
 void
