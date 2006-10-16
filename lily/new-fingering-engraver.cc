@@ -48,7 +48,7 @@ operator< (Finger_tuple const &a, Finger_tuple const &b)
 class New_fingering_engraver : public Engraver
 {
   vector<Finger_tuple> fingerings_;
-  vector<Finger_tuple> string_fingerings_;
+  vector<Finger_tuple> stroke_fingerings_;
   vector<Finger_tuple> articulations_;
   vector<Finger_tuple> string_numbers_;
 
@@ -99,9 +99,9 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 	add_fingering (inf.grob (),
 		       ly_symbol2scm ("StringNumber"), &string_numbers_,
 		       ev, note_ev);
-      else if (ev->in_event_class ("string-finger-event"))
+      else if (ev->in_event_class ("stroke-finger-event"))
 	add_fingering (inf.grob (),
-		       ly_symbol2scm ("StringFinger"), &string_fingerings_,
+		       ly_symbol2scm ("StrokeFinger"), &stroke_fingerings_,
 		       ev, note_ev);
       else if (ev->in_event_class ("harmonic-event"))
 	{
@@ -306,11 +306,11 @@ New_fingering_engraver::position_all ()
       string_numbers_.clear ();
     }
 
-  if (string_fingerings_.size ())
+  if (stroke_fingerings_.size ())
     {
-      position_scripts (get_property ("stringFingerOrientations"),
-			&string_fingerings_);
-      string_fingerings_.clear ();
+      position_scripts (get_property ("strokeFingerOrientations"),
+			&stroke_fingerings_);
+      stroke_fingerings_.clear ();
     }
   
   for (vsize i = articulations_.size (); i--;)
@@ -345,7 +345,7 @@ ADD_TRANSLATOR (New_fingering_engraver,
 		/* create */
 		"Fingering "
 		"StringNumber "
-		"StringFinger "
+		"StrokeFinger "
 		"Script "
 		,
 		/* read */

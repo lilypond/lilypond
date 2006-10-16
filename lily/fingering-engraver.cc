@@ -27,7 +27,7 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   DECLARE_TRANSLATOR_LISTENER (fingering);
-  DECLARE_TRANSLATOR_LISTENER (string_finger);
+  DECLARE_TRANSLATOR_LISTENER (stroke_finger);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
   DECLARE_ACKNOWLEDGER (stem);
 
@@ -42,9 +42,9 @@ Fingering_engraver::listen_fingering (Stream_event *ev)
   events_.push_back (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Fingering_engraver, string_finger);
+IMPLEMENT_TRANSLATOR_LISTENER (Fingering_engraver, stroke_finger);
 void
-Fingering_engraver::listen_string_finger (Stream_event *ev)
+Fingering_engraver::listen_stroke_finger (Stream_event *ev)
 {
   /*
     FIXME: should do something.

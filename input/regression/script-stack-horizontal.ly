@@ -14,7 +14,7 @@ The order may be set with script-priority."
 {
   \set stringFingerOrientations = #'(left) 
   \set fingeringOrientations = #'(left) 
-  \set stringNumberOrientations = #'(left) 
+  \set strokeNumberOrientations = #'(left) 
   <cis-1\4
    -\rightHandFinger #1
    es-2\5

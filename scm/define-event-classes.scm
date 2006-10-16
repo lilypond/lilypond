@@ -16,7 +16,7 @@
 				OneTimeStep Finish))
     (music-event . (arpeggio-event breathing-event extender-event span-event
       rhythmic-event dynamic-event break-event percent-event
-      key-change-event string-number-event string-finger-event tie-event part-combine-event
+      key-change-event string-number-event stroke-finger-event tie-event part-combine-event
       beam-forbid-event script-event
       tremolo-event bend-after-event fingering-event glissando-event
       harmonic-event hyphen-event laissez-vibrer-event mark-event

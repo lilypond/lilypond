@@ -623,13 +623,13 @@ Syntax: @code{\\@var{number}}.")
 	(types . (general-music string-number-event event))
 	)) 
 
-    (StringFingerEvent
+    (StrokeFingerEvent
      . (
 	(description .	"Specify with which finger to pluck a string. 
 
 Syntax: @code{\\rightHandFinger @var{text}}.")
 
-	(types . (general-music string-finger-event event))
+	(types . (general-music stroke-finger-event event))
 	)) 
     
     (TextScriptEvent

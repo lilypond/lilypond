@@ -235,10 +235,11 @@ Voice-state objects
 
 (define-public (make-part-combine-music music-list)
   (let* ((m (make-music 'PartCombineMusic))
-	(m1 (make-non-relative-music (context-spec-music (first music-list) 'Voice "one")))
-	(m2  (make-non-relative-music  (context-spec-music (second music-list) 'Voice "two")))
-	(evs2 (recording-group-emulate m2 part-combine-listener))
-	(evs1 (recording-group-emulate m1 part-combine-listener)))
+	 (m1 (make-non-relative-music (context-spec-music (first music-list) 'Voice "one")))
+	 (m2  (make-non-relative-music  (context-spec-music (second music-list) 'Voice "two")))
+	 (evs2 (recording-group-emulate m2 part-combine-listener))
+	 (evs1 (recording-group-emulate m1 part-combine-listener)))
+    
     (set! (ly:music-property m 'elements) (list m1 m2))
     (set! (ly:music-property m 'split-list)
 	  (determine-split-list (reverse! (cdr (assoc "one" evs1)) '())

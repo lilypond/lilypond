@@ -1548,10 +1548,10 @@
 				self-alignment-interface
 				item-interface))))))
     
-    (StringFinger
+    (StrokeFinger
      . (
 	(stencil . ,ly:text-interface::print)
-	(text . ,string-finger::calc-text)
+	(text . ,stroke-finger::calc-text)
 	(digit-names . #("P" "I" "m" "a" "x"))
 	(padding . 0.5)
 	(staff-padding . 0.5)
@@ -1561,7 +1561,7 @@
 	(font-shape . italic)
 	(font-size . -4) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
-		 (interfaces . (string-finger-interface
+		 (interfaces . (stroke-finger-interface
 				font-interface
 				text-script-interface
 				text-interface
