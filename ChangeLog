@@ -1,3 +1,7 @@
+2006-10-18  Joe Neeman  <joeneeman@gmail.com>
+
+	* po/fi.po: Update Finnish translation (before the next release).
+
 2006-10-17  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/system.cc (get_paper_system): reinstate the backwards-
