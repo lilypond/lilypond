@@ -1,10 +1,15 @@
+2006-10-17  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/system.cc (get_paper_system): reinstate the backwards-
+	compatible page breaking for the old page breaker.
+
 2006-10-17  Erik Sandberg  <mandolaerik@gmail.com>
 	
 	* lily/recording-group-engraver.cc: removed
 
 	* lily/context.cc, lily/translator-group.cc: Don't touch
 	Context::implementation_ if it's null
-	
+
 2006-10-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/define-grob-interfaces.scm (stroke-finger-interface): typo.
