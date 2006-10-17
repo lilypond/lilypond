@@ -509,7 +509,9 @@ void
 Context::remove_context (SCM)
 {
   /* ugh, the translator group should listen to RemoveContext events by itself */
-  implementation ()->disconnect_from_context ();
+  Translator_group *impl = implementation ();
+  if (impl)
+    impl->disconnect_from_context ();
   disconnect_from_parent ();
 }
 

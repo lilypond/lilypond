@@ -10,7 +10,6 @@
 #include "score-performer.hh"
 #include "engraver-group.hh"
 #include "performer-group.hh"
-#include "recording-group-engraver.hh"
 #include "warn.hh"
 
 /*
@@ -27,8 +26,6 @@ get_translator_group (SCM sym)
     return new Score_engraver ();
   else if (sym == ly_symbol2scm ("Score_performer"))
     return new Score_performer ();
-  else if (sym == ly_symbol2scm ("Recording_group_engraver"))
-    return new Recording_group_engraver ();
 
   programming_error ("Couldn't find type");
   scm_flush (scm_current_error_port ());

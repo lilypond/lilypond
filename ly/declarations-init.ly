@@ -97,15 +97,7 @@ repeatTie = #(make-music 'RepeatTieEvent)
 
 #(set-default-paper-size (ly:get-option 'paper-size))
 
-
 partCombineListener = \layout {
-    \context {
-	\Voice
-	\consists Note_heads_engraver
-	\consists Rest_engraver
-	\type "Recording_group_engraver"
-	recordEventSequence = #notice-the-events-for-pc
-    }
     \context {
 	\Score
 	skipTypesetting = ##t

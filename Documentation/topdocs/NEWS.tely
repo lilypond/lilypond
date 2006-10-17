@@ -72,7 +72,7 @@ now also be added,
 @lilypond[fragment,relative=1,ragged-right]
 \relative 
 {
-  \set stringFingerOrientations = #'(right) % up left down
+  \set strokeFingerOrientations = #'(right) % up left down
   \set fingeringOrientations = #'(down left up) % up left down
   \set stringNumberOrientations = #'(down up left) % (up right down)
   <c-1\4
