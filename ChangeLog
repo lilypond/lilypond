@@ -1,5 +1,8 @@
 2006-10-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/new-fingering-engraver.cc: stringFingerOrientations ->
+	strokeFingerOrientations
+
 	* lily/script-column.cc (row_before_line_breaking): also handle
 	accidentals and arpeggios in horizontal script stacking.
 

@@ -66,7 +66,7 @@ which scares away people.
 
 @end ignore
 
-@item Fingerings for plucking finger (the right hand fingerings) may
+@item Guitar right hand fingerings may
 now also be added,
 
 @lilypond[fragment,relative=1,ragged-right]
@@ -118,7 +118,7 @@ symbol,
     o la~oo ah
   } 
 @end lilypond
-
+8
 @item Calculation of note head durations is now softcoded. 
 
 @lilypond[relative=1,fragment,ragged-right]

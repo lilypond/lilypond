@@ -351,7 +351,7 @@ ADD_TRANSLATOR (New_fingering_engraver,
 		/* read */
 		
 		"fingeringOrientations "
-		"stringFingerOrientations "
+		"strokeFingerOrientations "
 		"stringNumberOrientations "
 		,
 		
