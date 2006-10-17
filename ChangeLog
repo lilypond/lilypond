@@ -1,5 +1,7 @@
 2006-10-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): idem.
+
 	* lily/new-fingering-engraver.cc: stringFingerOrientations ->
 	strokeFingerOrientations
 
