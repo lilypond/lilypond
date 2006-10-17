@@ -145,7 +145,7 @@ are interesting enough to maintain a hara-kiri staff."
  '())
 
 (ly:add-interface
- 'strokefinger-interface
+ 'stroke-finger-interface
  "A right hand finger instruction"
  '(digit-names))
 
