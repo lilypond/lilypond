@@ -122,9 +122,6 @@
     head-separation = 4 \mm
     foot-separation = 4 \mm
 
-    left-margin = 10 \mm
-    right-margin = 10 \mm
-    
     first-page-number = #1
     print-first-page-number =##f
   }

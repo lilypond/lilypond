@@ -95,8 +95,8 @@
     (module-define! m 'paper-width w)
     (module-define! m 'paper-height h)
     (module-define! m 'line-width (- w
-				     (ly:modules-lookup (list m) 'left-margin)
-				     (ly:modules-lookup (list m) 'right-margin)))
+				     (ly:modules-lookup (list m) 'left-margin (* 10 mm))
+				     (ly:modules-lookup (list m) 'right-margin (* 10 mm))))
 
     (module-define! m 'indent (/ w 14))
 

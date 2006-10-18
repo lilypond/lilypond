@@ -67,7 +67,7 @@ original_dir = os.getcwd ()
 backend = 'ps'
 
 help_summary = _ (
-'''Process LilyPond snippets in hybrid HTML, LaTeX, or texinfo document.
+'''Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document.
 
 Example usage:
 
@@ -132,7 +132,7 @@ def get_option_parser ():
                   help=_ ("pipe snippets through FILTER [convert-ly -n -]"),
                   default=None)
     p.add_option ('-f', '--format',
-                  help=_('''use output format FORMAT (texi [default], texi-html, latex, html)'''),
+                  help=_('''use output format FORMAT (texi [default], texi-html, latex, html, docbook)'''),
                   action='store')
     
     p.add_option ("-I", '--include', help=_('add DIR to include path'),
@@ -191,6 +191,7 @@ default_ly_options = { 'alt': "[image of music]" }
 #
 AFTER = 'after'
 BEFORE = 'before'
+DOCBOOK = 'docbook'
 EXAMPLEINDENT = 'exampleindent'
 FILTER = 'filter'
 FRAGMENT = 'fragment'
@@ -239,6 +240,43 @@ no_options = {
 #   (?x) -- Ignore whitespace in patterns.
 no_match = 'a\ba'
 snippet_res = {
+ ##
+    DOCBOOK: {
+        'include':
+         no_match,
+
+        'lilypond':
+         r'''(?smx)
+          (?P<match>
+          <(?P<inline>(inline)?)mediaobject>\s*<textobject.*?>\s*<programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>(?P<code>.*?)</programlisting\s*>\s*</textobject\s*>\s*</(inline)?mediaobject>)''',
+
+        'lilypond_block':
+         r'''(?smx)
+          (?P<match>
+          <(?P<inline>(inline)?)mediaobject>\s*<textobject.*?>\s*<programlisting\s+language="lilypond".*?(role="(?P<options>.*?)")?>(?P<code>.*?)</programlisting\s*>\s*</textobject\s*>\s*</(inline)?mediaobject>)''',
+
+        'lilypond_file':
+         r'''(?smx)
+          (?P<match>
+          <(?P<inline>(inline)?)mediaobject>\s*<imageobject.*?>\s*<imagedata\s+fileref="(?P<filename>.*?\.ly)"\s*(role="(?P<options>.*?)")?\s*(/>|>\s*</imagedata>)\s*</imageobject>\s*</(inline)?mediaobject>)''',
+
+        'multiline_comment':
+         r'''(?smx)
+          (?P<match>
+          \s*(?!@c\s+)
+          (?P<code><!--\s.*?!-->)
+          \s)''',
+
+        'singleline_comment':
+         no_match,
+
+        'verb':
+         no_match,
+
+        'verbatim':
+	no_match,
+    	
+    }, 
     ##
     HTML: {
         'include':
@@ -436,6 +474,10 @@ snippet_res = {
 
 
 format_res = {
+    DOCBOOK: {        
+    	'intertext': r',?\s*intertext=\".*?\"',
+        'option_sep': '\s*',
+    }, 
     HTML: {
         'intertext': r',?\s*intertext=\".*?\"',
         'option_sep': '\s*',
@@ -505,6 +547,21 @@ ly_options = {
 }
 
 output = {
+    ##
+    DOCBOOK: {                 
+        FILTER: r'''<mediaobject><textobject><programlisting language="lilypond" role="%(options)s">%(code)s</programlisting></textobject></mediaobject>''', 
+    
+        OUTPUT: r'''
+        <imageobject role="latex">
+		<imagedata fileref="%(base)s.pdf" format="PDF"/>
+		</imageobject>
+		<imageobject role="html">
+		<imagedata fileref="%(base)s.png" format="PNG"/></imageobject>''',
+    
+        VERBATIM: r'''<programlisting>%(verb)s</programlisting>''',
+    
+        PRINTFILENAME: '<textobject><simpara><ulink url="%(base)s.ly"><filename>%(filename)s</filename></ulink></simpara></textobject>'
+    },
     ##
     HTML: {
         FILTER: r'''<lilypond %(options)s>
@@ -1104,6 +1161,22 @@ class Lilypond_snippet (Snippet):
             images = tuple (images)
         return images
 
+    def output_docbook (self):
+        str = ''
+        base = self.basename ()
+        for image in self.get_images ():
+            (base, ext) = os.path.splitext (image)
+            str += output[DOCBOOK][OUTPUT] % vars ()
+	    str += self.output_print_filename (DOCBOOK)
+            if (self.substring('inline') == 'inline'): 
+                str = '<inlinemediaobject>' + str + '</inlinemediaobject>'
+            else:
+                str = '<mediaobject>' + str + '</mediaobject>'
+        if VERBATIM in self.option_dict:
+                verb = verbatim_html (self.substring ('code'))
+                str = output[DOCBOOK][VERBATIM] % vars () + str
+        return str
+	
     def output_html (self):
         str = ''
         base = self.basename ()
@@ -1371,7 +1444,8 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 
     if global_options.format in (HTML, TEXINFO):
         cmd += ' --formats=png '
-
+    if global_options.format in (DOCBOOK):
+        cmd += ' --formats=png,pdf '
     # UGH
     # the --process=CMD switch is a bad idea
     # it is too generic for lilypond-book.
@@ -1465,6 +1539,7 @@ ext2format = {
     '.texi': TEXINFO,
     '.texinfo': TEXINFO,
     '.xml': HTML,
+    '.lyxml': DOCBOOK
 }
 
 format2ext = {
@@ -1472,6 +1547,7 @@ format2ext = {
     # TEXINFO: '.texinfo',
     TEXINFO: '.texi',
     LATEX: '.tex',
+    DOCBOOK: '.xml'
 }
 
 class Compile_error:
@@ -1701,7 +1777,7 @@ def main ():
         global_options.format = guess_format (files[0])
 
     formats = 'ps'
-    if global_options.format in (TEXINFO, HTML):
+    if global_options.format in (TEXINFO, HTML, DOCBOOK):
         formats += ',png'
 
         

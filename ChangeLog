@@ -1,3 +1,22 @@
+2006-10-18  Bertalan Fodor  <lilypondtool@organum.hu>
+
+	* scripts/lilypond-book.py: DocBook support.
+
+2006-10-18  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/piano-pedal-engraver.cc (struct Pedal_info): remove
+	Y-alignment code.
+	(stop_translation_timestep): set bound to currentMusicalColumn if
+	not set yet. Fixes #102
+
+	* lily/piano-pedal-bracket.cc: formatting.
+
+	* input/test/engraver-one-by-one.ly (MyStaff): reformat.
+
+	* lily/piano-pedal-align-engraver.cc: new class
+	Piano_pedal_align_engraver. Handle side-positioning Y-alignment
+	for piano pedals.  
+
 2006-10-18  Heikki Junes  <hjunes@gmail.com>
 
 	* po/fi.po: Update Finnish translation (before the next release).
@@ -15,6 +34,8 @@
 	Context::implementation_ if it's null
 
 2006-10-17  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/paper.scm: only use left-margin if defined.
 
 	* scm/define-grob-interfaces.scm (stroke-finger-interface): typo.
 

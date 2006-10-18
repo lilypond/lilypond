@@ -35,6 +35,7 @@
   \consists "Rest_collision_engraver"
   \consists "Accidental_engraver"
   \consists "Piano_pedal_engraver"
+  \consists "Piano_pedal_align_engraver"
   \consists "Instrument_name_engraver"
   \consists "String_number_engraver"
   \consists "Axis_group_engraver"

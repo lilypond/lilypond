@@ -89,7 +89,16 @@ Piano_pedal_bracket::print (SCM smob)
   return m.smobbed_copy ();
 }
 
-ADD_INTERFACE (Piano_pedal_bracket, "piano-pedal-bracket-interface",
-	       "The bracket of the piano pedal.  It can be tuned through the regular "
+ADD_INTERFACE (Piano_pedal_bracket,
+	       "piano-pedal-bracket-interface",
+
+	       "The bracket of the piano pedal.  "
+	       "It can be tuned through the regular "
 	       "bracket properties.",
-	       "bound-padding edge-height shorten-pair bracket-flare pedal-text");
+
+	       /* props */
+	       "bound-padding "
+	       "edge-height "
+	       "shorten-pair "
+	       "bracket-flare "
+	       "pedal-text");

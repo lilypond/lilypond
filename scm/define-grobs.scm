@@ -1381,6 +1381,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				self-alignment-interface
+				piano-pedal-script-interface
 				font-interface))))))
 
     (SostenutoPedalLineSpanner
@@ -1591,6 +1592,7 @@
 				line-spanner-interface
 				text-interface
 				self-alignment-interface
+				piano-pedal-script-interface
 				font-interface))))))
 
     (SustainPedalLineSpanner
@@ -1889,6 +1891,7 @@
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
+				piano-pedal-script-interface
 				self-alignment-interface
 				font-interface))))))
 

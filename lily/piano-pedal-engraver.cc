@@ -27,11 +27,22 @@
 #include "translator.icc"
 
 /*
-  Urgh. This engraver is too complex. rewrite. --hwn
+  TODO:
+
+  * Junk hardcoded sustain/sostenuto/una_corda distinction;
+    Softcode using (list (sustain-event SustainPedal PianoPedalBracket) ... )
+
+  * Try to use same engraver for dynamics.
+  
 */
 
 /* Ugh: This declaration is duplicated in piano-pedal-performer */
-typedef enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
+typedef enum Pedal_type {
+  SOSTENUTO,
+  SUSTAIN,
+  UNA_CORDA,
+  NUM_PEDAL_TYPES
+};
 
 /*
   Static precalculated data (symbols and strings) for the different
@@ -44,7 +55,6 @@ struct Pedal_type_info
   SCM style_sym_;
   SCM strings_sym_;
   
-  const char *pedal_line_spanner_c_str_;
   const char *pedal_c_str_;
 
   Pedal_type_info ()
@@ -52,7 +62,6 @@ struct Pedal_type_info
     event_class_sym_ = SCM_EOL;
     style_sym_ = SCM_EOL;
     strings_sym_ = SCM_EOL;
-    pedal_line_spanner_c_str_ = 0;
     pedal_c_str_ = 0;
   }
   void protect ()
@@ -87,12 +96,6 @@ struct Pedal_info
   Item *item_;
   Spanner *bracket_; // A single portion of a pedal bracket
   Spanner *finished_bracket_;
-
-  /*
-    This grob contains all the pedals of the same type on the same staff
-  */
-  Spanner *line_spanner_;
-  Spanner *finished_line_spanner_;
 };
 
 static Pedal_type_info pedal_types_[NUM_PEDAL_TYPES];
@@ -101,32 +104,25 @@ class Piano_pedal_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Piano_pedal_engraver);
-  ~Piano_pedal_engraver ();
+
 protected:
   virtual void initialize ();
   virtual void finalize ();
   DECLARE_TRANSLATOR_LISTENER (sustain);
   DECLARE_TRANSLATOR_LISTENER (una_corda);
   DECLARE_TRANSLATOR_LISTENER (sostenuto);
-  void stop_translation_timestep ();
   DECLARE_ACKNOWLEDGER (note_column);
+  void stop_translation_timestep ();
   void process_music ();
 
 private:
   Pedal_info info_list_[NUM_PEDAL_TYPES + 1];
 
-  /*
-    Record a stack of the current pedal spanners, so if more than one pedal
-    occurs simultaneously then extra space can be added between them.
-  */
-
-  vector<Spanner*> previous_;
-  void del_linespanner (Spanner *);
-
   void create_text_grobs (Pedal_info *p, bool);
   void create_bracket_grobs (Pedal_info *p, bool);
   void typeset_all (Pedal_info *p);
 };
+
 
 static void
 init_pedal_types ()
@@ -161,7 +157,6 @@ init_pedal_types ()
       info.style_sym_ = scm_str2symbol (("pedal" + base_name + "Style").c_str ());
       info.strings_sym_ = scm_str2symbol (("pedal" + base_name + "Strings").c_str ());
       
-      info.pedal_line_spanner_c_str_ = strdup ((base_name + "PedalLineSpanner").c_str ());
       info.base_name_ = name;
       info.pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());
 
@@ -170,6 +165,7 @@ init_pedal_types ()
       pedal_types_[i] = info;
     }
 }
+
 ADD_SCM_INIT_FUNC (Piano_pedal_engraver_init_pedal_types_, init_pedal_types);
 
 Piano_pedal_engraver::Piano_pedal_engraver ()
@@ -188,8 +184,6 @@ Piano_pedal_engraver::initialize ()
       info->item_ = 0;
       info->bracket_ = 0;
       info->finished_bracket_ = 0;
-      info->line_spanner_ = 0;
-      info->finished_line_spanner_ = 0;
       info->current_bracket_ev_ = 0;
       info->event_drul_[START] = 0;
       info->event_drul_[STOP] = 0;
@@ -198,9 +192,6 @@ Piano_pedal_engraver::initialize ()
   info_list_[NUM_PEDAL_TYPES].type_ = 0;
 }
 
-Piano_pedal_engraver::~Piano_pedal_engraver ()
-{
-}
 
 /*
   Urg: Code dup
@@ -211,11 +202,6 @@ Piano_pedal_engraver::acknowledge_note_column (Grob_info info)
 {
   for (Pedal_info *p = info_list_; p->type_; p++)
     {
-      if (p->line_spanner_)
-	{
-	  Side_position_interface::add_support (p->line_spanner_, info.grob ());
-	  add_bound_item (p->line_spanner_, info.grob ());
-	}
       if (p->bracket_)
 	add_bound_item (p->bracket_, info.grob ());
       if (p->finished_bracket_)
@@ -254,13 +240,6 @@ Piano_pedal_engraver::process_music ()
     {
       if (p->event_drul_[STOP] || p->event_drul_[START])
 	{
-	  if (!p->line_spanner_)
-	    {
-	      const char *name = p->type_->pedal_line_spanner_c_str_;
-	      Stream_event *rq = (p->event_drul_[START] ? p->event_drul_[START] : p->event_drul_[STOP]);
-	      p->line_spanner_ = make_spanner (name, rq->self_scm ());
-	    }
-
 	  /* Choose the appropriate grobs to add to the line spanner
 	     These can be text items or text-spanners
 	  */
@@ -337,18 +316,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
     {
       p->start_ev_ = p->event_drul_[START];
       s = scm_car (strings);
-      if (!mixed)
-	{
-	  /*
-	    Code dup?! see below.
-	  */
-	  if (previous_.size ())
-	    // add extra space below the previous already-occuring pedal
-	    Side_position_interface::add_support (p->line_spanner_,
-						  previous_.back ());
-	  previous_.push_back (p->line_spanner_);
-	}
-    }
+      }
 
   if (scm_is_string (s))
     {
@@ -359,7 +327,6 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 				       : p->event_drul_[STOP])->self_scm ());
 
       p->item_->set_property ("text", s);
-      Axis_group_interface::add_element (p->line_spanner_, p->item_);
     }
 
   if (!mixed)
@@ -396,12 +363,16 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       if (!p->event_drul_[START])
 	{
 	  SCM flare = p->bracket_->get_property ("bracket-flare");
-	  p->bracket_->set_property ("bracket-flare", scm_cons (scm_car (flare),
-								scm_from_double (0)));
+	  if (scm_is_pair (flare))
+	    p->bracket_->set_property ("bracket-flare", scm_cons (scm_car (flare),
+								  scm_from_double (0)));
 	}
 
       p->finished_bracket_ = p->bracket_;
       p->bracket_ = 0;
+
+      announce_end_grob (p->finished_bracket_, p->event_drul_[STOP]->self_scm ());
+      
       p->current_bracket_ev_ = 0;
     }
 
@@ -441,36 +412,6 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 	  if (p->item_)
 	    p->bracket_->set_object ("pedal-text", p->item_->self_scm ());
 	}
-
-      /*
-	We do not use currentMusicalColumn for the left span-point.
-	If the column as accidentals (eg on a different stave), the
-	currentMusicalColumn is too wide, making the bracket too big.
-
-	TODO:
-
-	Hmm. What do we do when there are no notes when the spanner starts?
-
-	TODO:
-
-	what about the right span point?
-
-      */
-      Axis_group_interface::add_element (p->line_spanner_, p->bracket_);
-
-      if (!p->event_drul_[STOP])
-	{
-
-	  /*
-	    code dup. --hwn.
-
-	    // position new pedal spanner below the current one
-	    */
-	  if (previous_.size ())
-	    Side_position_interface::add_support (p->line_spanner_, previous_.back ());
-
-	  previous_.push_back (p->line_spanner_);
-	}
     }
 
   p->event_drul_[START] = 0;
@@ -482,13 +423,6 @@ Piano_pedal_engraver::finalize ()
 {
   for (Pedal_info *p = info_list_; p->type_; p++)
     {
-      /*
-	suicide?
-      */
-      if (p->line_spanner_
-	  && !p->line_spanner_->is_live ())
-	p->line_spanner_ = 0;
-
       if (p->bracket_
 	  && !p->bracket_->is_live ())
 	p->bracket_ = 0;
@@ -497,31 +431,14 @@ Piano_pedal_engraver::finalize ()
 	{
 	  SCM cc = get_property ("currentCommandColumn");
 	  Item *c = unsmob_item (cc);
-	  if (p->line_spanner_)
-	    p->line_spanner_->set_bound (RIGHT, c);
 	  p->bracket_->set_bound (RIGHT, c);
 
 	  p->finished_bracket_ = p->bracket_;
 	  p->bracket_ = 0;
-	  p->finished_line_spanner_ = p->line_spanner_;
-	  p->line_spanner_ = 0;
 	  typeset_all (p);
 	}
 
-      if (p->line_spanner_)
-	{
-	  p->finished_line_spanner_ = p->line_spanner_;
-	  typeset_all (p);
-	}
     }
-}
-
-void
-Piano_pedal_engraver::del_linespanner (Spanner *g)
-{
-  vsize idx = find (previous_, g) - previous_.begin ();
-  if (idx != VPOS && idx < previous_.size ())
-    previous_.erase (previous_.begin () + idx);
 }
 
 void
@@ -529,14 +446,15 @@ Piano_pedal_engraver::stop_translation_timestep ()
 {
   for (Pedal_info *p = info_list_; p->type_; p++)
     {
-      if (!p->bracket_)
-	{
-	  p->finished_line_spanner_ = p->line_spanner_;
-	  p->line_spanner_ = 0;
-	  del_linespanner (p->finished_line_spanner_);
-	}
-
+      
       typeset_all (p);
+      if (p->bracket_ && !p->bracket_->get_bound (LEFT))
+	{
+	  Grob *cmc = unsmob_grob (get_property ("currentMusicalColumn"));
+
+	  if (!p->bracket_->get_bound (LEFT))
+	    p->bracket_->set_bound (LEFT, cmc);
+	}
     }
 
   for (Pedal_info *p = info_list_; p->type_; p++)
@@ -552,9 +470,6 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
   /*
     Handle suicide.
   */
-  if (p->finished_line_spanner_
-      && !p->finished_line_spanner_->is_live ())
-    p->finished_line_spanner_ = 0;
   if (p->finished_bracket_
       && !p->finished_bracket_->is_live ())
     p->finished_bracket_ = 0;
@@ -570,25 +485,6 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 
       p->finished_bracket_ = 0;
     }
-
-  if (p->finished_line_spanner_)
-    {
-      Grob *l = p->finished_line_spanner_->get_bound (LEFT);
-      Grob *r = p->finished_line_spanner_->get_bound (RIGHT);
-      if (!r && l)
-	p->finished_line_spanner_->set_bound (RIGHT, l);
-      else if (!l && r)
-	p->finished_line_spanner_->set_bound (LEFT, r);
-      else if (!r && !l)
-	{
-	  Grob *cc = unsmob_grob (get_property ("currentMusicalColumn"));
-	  Item *ci = dynamic_cast<Item *> (cc);
-	  p->finished_line_spanner_->set_bound (RIGHT, ci);
-	  p->finished_line_spanner_->set_bound (LEFT, ci);
-	}
-
-      p->finished_line_spanner_ = 0;
-    }
 }
 
 ADD_ACKNOWLEDGER (Piano_pedal_engraver, note_column);
@@ -599,12 +495,10 @@ ADD_TRANSLATOR (Piano_pedal_engraver,
 		"Engrave piano pedal symbols and brackets.",
 
 		/* create */
+		"PianoPedalBracket "
 		"SostenutoPedal "
-		"SostenutoPedalLineSpanner "
 		"SustainPedal "
-		"SustainPedalLineSpanner "
-		"UnaCordaPedal "
-		"UnaCordaPedalLineSpanner ",
+		"UnaCordaPedal ",
 
 		/* read */
 		"currentCommandColumn "
@@ -614,4 +508,5 @@ ADD_TRANSLATOR (Piano_pedal_engraver,
 		"pedalSustainStyle "
 		"pedalUnaCordaStrings "
 		"pedalUnaCordaStyle",
+		
 		/* write */ "");
