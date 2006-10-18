@@ -74,9 +74,9 @@ String_convert::dec2int (string dec_string)
     return 0;
 
   long l = 0;
-  int conv = sscanf (dec_string.c_str (), "%ld", &l);
-  assert (conv);
-
+  if (!sscanf (dec_string.c_str (), "%ld", &l))
+    assert (false);
+  
   return (int)l;
 }
 
@@ -94,9 +94,11 @@ String_convert::dec2double (string dec_string)
 {
   if (!dec_string.length ())
     return 0;
-  double d = 0;
-  int conv = sscanf (dec_string.c_str (), "%lf", &d);
-  assert (conv);
+  
+  double d = 0.0;
+  if (!sscanf (dec_string.c_str (), "%lf", &d))
+    assert (false);
+  
   return d;
 }
 
@@ -125,10 +127,10 @@ string
 String_convert::hex2bin (string hex_string)
 {
   string str;
-  //  silly, asserts should alway be "on"!
-  //    assert (!hex2bin (hex_string, str) );
-  int error_i = hex2bin (hex_string, str);
-  assert (!error_i);
+
+  if (hex2bin (hex_string, str))
+    assert (false);
+  
   return str;
 }
 

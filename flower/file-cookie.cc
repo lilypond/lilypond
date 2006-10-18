@@ -7,7 +7,7 @@ using namespace std;
 
 extern "C" {
 
-  static bool
+  bool
   is_memory_stream (void *foo)
   {
     Memory_out_stream *cookie = (Memory_out_stream *) foo;
