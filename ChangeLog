@@ -1,5 +1,7 @@
 2006-10-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/engraver.cc (internal_make_grob): use variables.
+
 	* flower/string-convert.cc (dec2double): clean-up warnings. 
 
 	* configure.in (CXXFLAGS): add -Werror.
