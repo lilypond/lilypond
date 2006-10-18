@@ -113,6 +113,11 @@
  '())
 
 (ly:add-interface
+ 'piano-pedal-script-interface
+ "A piano pedal sign, fixed size"
+ '())
+
+(ly:add-interface
  'pitched-trill-interface
    "A note head to indicate trill pitches"
    '(accidental-grob))
