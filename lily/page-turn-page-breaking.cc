@@ -38,7 +38,7 @@ Page_turn_page_breaking::calc_demerits (const Break_node &me)
 {
   Real prev_f = 0;
   Real prev_dem = 0;
-  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 1);
+  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
   if (me.prev_ != VPOS)
     {
       prev_f = state_[me.prev_].force_;

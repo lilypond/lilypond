@@ -50,11 +50,11 @@ Optimal_page_breaking::try_page_spacing (Line_division const &line_count)
   /* add in the line penalties */
   Real line_force = 0;
   Real line_penalty = 0;
-  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 1);
+  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
 
   for (vsize i = 0; i < lines.size (); i++)
     {
-      line_force += fabs (lines[i].force_);
+      line_force += lines[i].force_ * lines[i].force_;
       line_penalty += lines[i].break_penalty_;
     }
 
@@ -65,6 +65,14 @@ Optimal_page_breaking::try_page_spacing (Line_division const &line_count)
       ret.demerits_ += (ret.force_[i] * ret.force_[i]
 		       + uniformity * uniformity) * page_weighting;
     }
+
+  /* If ragged_last is true, the last page will have
+     zero force no matter what. In this case, we exclude it from the average or
+     we will become biased towards scores with less pages (because the force
+     of zero will affect the average more when there are fewer pages) */
+  if (!ragged_last || ret.force_.size () > 1)
+    ret.demerits_ /= ret.force_.size () - (ragged_last ? 1 : 0);
+  line_force /= lines.size ();
   ret.demerits_ += line_force + line_penalty;
   return ret;
 }

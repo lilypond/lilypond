@@ -365,7 +365,7 @@ Constrained_breaking::initialize ()
 	  line.extent_ = extent;
 	  line.padding_ = padding;
 	  line.space_ = space;
-	  line.inverse_hooke_ = 1;
+	  line.inverse_hooke_ = extent.length () + space;
 	}
     }
 

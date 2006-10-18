@@ -1,3 +1,24 @@
+2006-10-18  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/simple-spacer.cc (get_line_forces): test for non-fitting
+	line even if we precede a forced break.
+
+	* lily/optimal-page-breaking.cc (try_page_spacing): square line
+	forces too. Make page-spacing weight default to 10 because the
+	changes to vertical springs decreased the page force/line force
+	proportions. Also, take the average of line force and page force
+	instead of just the sum.
+
+	* lily/constrained-breaking.cc (initialize): make the stiffness
+	of the vertical springs depend on the height of the system. This
+	prevents pages with only a few large systems from getting huge
+	forces
+
+	* Documentation/user/page.itely (Page formatting): document the
+	change in default page-spacing-weight
+
+	* lily/include/constrained-breaking.hh: initialise bottom_padding_
+
 2006-10-18  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* input/typography-demo.ly (melody): remove superfluous slur.

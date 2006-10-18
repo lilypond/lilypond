@@ -267,7 +267,7 @@ Default value is 0.
 @item page-spacing-weight
 The relative importance of page (vertical) spacing and line (horizontal)
 spacing. High values will make page spacing more important. Default
-value is 1.
+value is 10.
 
 @funindex auto-first-page-number
 @item auto-first-page-number

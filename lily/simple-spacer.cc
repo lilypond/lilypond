@@ -479,8 +479,6 @@ get_line_forces (vector<Grob*> const &columns,
 	  Real f = spacer.force ();
 	  force[b * breaks.size () + c] = f - (f < 0 ? f*f*f*f*4 : 0);
 
-	  if (end < cols.size () && cols[end].break_permission_ == force_break)
-	    break;
 	  if (!spacer.fits ())
 	    {
 	      if (c == b + 1)
@@ -489,6 +487,8 @@ get_line_forces (vector<Grob*> const &columns,
 		force[b * breaks.size () + c] = infinity_f;
 	      break;
 	    }
+	  if (end < cols.size () && cols[end].break_permission_ == force_break)
+	    break;
 	}
     }
   return force;

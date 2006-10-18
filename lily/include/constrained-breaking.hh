@@ -49,6 +49,7 @@ struct Line_details {
     force_ = 0;
     extent_ = unsmob_stencil (pb->get_property ("stencil")) ->extent (Y_AXIS);
     padding_ = 0;
+    bottom_padding_ = 0;
     space_ = 1.0;
     inverse_hooke_ = 1.0;
     break_permission_ = ly_symbol2scm ("allow");
