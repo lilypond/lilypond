@@ -8,7 +8,7 @@ MODULE_LIBS=$(depth)/flower
 MODULE_INCLUDES= $(depth)/flower/include
 
 # need this to convert between function pointers and member function pointers.
-MODULE_CXXFLAGS= -Wno-pmf-conversions
+MODULE_CXXFLAGS= -Wno-pmf-conversions 
 
 
 HELP2MAN_EXECS = lilypond

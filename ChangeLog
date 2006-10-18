@@ -1,3 +1,9 @@
+2006-10-19  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* configure.in (CXXFLAGS): add -Werror.
+
+	* VERSION (PACKAGE_NAME): release 2.9.25
+
 2006-10-18  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/simple-spacer.cc (get_line_forces): test for non-fitting
