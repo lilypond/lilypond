@@ -37,7 +37,7 @@ melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
   s1*0^\markup {  \bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
   R2.
   r4 r8 c4 g8 |
-  \acciaccatura { f16( }  e4) c8
+  \acciaccatura { f16 }  e4 c8
   <<
     \new Voice { \stemUp f8. g16 }
     { \stemDown f8.[ g16] } >> \stemNeutral a8 |

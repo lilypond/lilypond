@@ -1,5 +1,7 @@
 2006-10-18  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/typography-demo.ly (melody): remove superfluous slur.
+
 	* scm/define-grob-interfaces.scm (piano-pedal-script-interface):
 	add piano-pedal-script-interface
 
