@@ -193,7 +193,15 @@ Completion_heads_engraver::process_music ()
 	    scratch_note_events_.push_back (m);
 	  }
     }
-
+  else
+    {
+      for (vsize i = 0; i < note_events_.size (); i++)
+	{
+	  Stream_event *c =  note_events_[i]->clone ();
+	  scratch_note_events_.push_back (c);
+	}
+    }
+  
   for (vsize i = 0; left_to_do_ && i < note_events_.size (); i++)
     {
       Stream_event *event = note_events_[i];

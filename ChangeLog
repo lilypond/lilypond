@@ -1,5 +1,8 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/completion-note-heads-engraver.cc (process_music): always
+	clone input events; otherwise we may overwrite input 'duration property.
+
 	* lily/general-scheme.cc (LY_DEFINE): explicit cast in case
 	scm_t_int32 != int
 
