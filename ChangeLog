@@ -1,5 +1,10 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scripts/lilypond-book.py (main): use -deps-box-padding=-3
+
+	* scm/framework-ps.scm (dump-stencil-as-EPS): use eps-box-padding,
+	a number.
+
 	* scm/define-grob-properties.scm (all-user-grob-properties):
 	remove outdated doc.
 

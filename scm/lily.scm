@@ -32,7 +32,7 @@
 	      (include-book-title-preview #t "include book-titles in preview images.")
 	      (include-eps-fonts #t "Include fonts in separate-system EPS files.")
 
-	      (pad-eps-boxes #f "Pad EPS bounding boxes to guarantee alignment between systems")
+	      (eps-box-padding #f "Pad EPS bounding box left edge by this much to guarantee alignment between systems")
 
 	      (gui #f "running from gui; redirect stderr to log file")
 	      

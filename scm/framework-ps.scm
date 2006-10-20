@@ -487,7 +487,7 @@
   (let*
       ((xext (ly:stencil-extent dump-me X))
        (yext (ly:stencil-extent dump-me Y))
-       (left-overshoot -3)
+       (left-overshoot (number? (ly:get-option 'eps-box-padding)))
        (bbox
 	(map
 	 (lambda (x)
@@ -502,7 +502,7 @@
 	   ;;
 	   (list
 	    
-	    (if (ly:get-option 'pad-eps-boxes) 
+	    (if left-overshoot
 		(min left-overshoot (car xext))
 		(car xext))
 	    (car yext) (cdr xext) (cdr yext)))))
