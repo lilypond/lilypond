@@ -1,5 +1,7 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* po/lilypond.pot: update.
+
 	* Documentation/topdocs/NEWS.tely (Top): remove TODOs.
 
 	* Documentation/user/global.itely (File structure): remove
