@@ -1,5 +1,11 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/user/global.itely (Extracting fragments of
+	notation): new node, about clip systems.
+
+	* Documentation/user/lilypond-book.itely (Many quotes of a large
+	score): ref to clip systems.
+
 	* Documentation/user/instrument-notation.itely (Entering lyrics):
 	add note about lyric ties and required font.
 

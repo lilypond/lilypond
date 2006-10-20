@@ -38,6 +38,7 @@ This procedure may be applied to La@TeX{}, HTML or Texinfo documents.
 * Music fragment options::      
 * Invoking lilypond-book::      
 * Filename extensions::         
+* Many quotes of a large score::  
 * Inserting LilyPond output into other programs::  
 @end menu
 
@@ -764,16 +765,20 @@ output format based on the input filename's extension.
 @end multitable
 @end quotation
 
+@node Many quotes of a large score
+@section Many quotes of a large score
+
+If you need to quote many fragments of a large score, you can also use
+the clip systems feature, see @ref{Extracting fragments of notation}.
 
 @node Inserting LilyPond output into other programs
 @section Inserting LilyPond output into other programs
 
 To insert LilyPond output in other programs, use @code{lilypond}
 instead of @code{lilypond-book}.  Each example must be created
-individually and added to the document; consult the
-documentation for that program.  Most programs will be able
-to insert lilypond output in @file{PNG}, @file{EPS}, or @file{PDF}
-formats.
+individually and added to the document; consult the documentation for
+that program.  Most programs will be able to insert lilypond output in
+@file{PNG}, @file{EPS}, or @file{PDF} formats.
 
 To reduce the white space around your lilypond score, use
 the following options
