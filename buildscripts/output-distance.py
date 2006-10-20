@@ -341,10 +341,11 @@ class FileLink:
         self.add_system_link (link, system_index[0])
 
     def link_files_for_html (self, old_dir, new_dir, dest_dir):
-        for ext in ('.png', '.ly'):
+        for ext in ('.png', '.ly', '-page*png'):
             for oldnew in (0,1):
-                link_file (self.base_names[oldnew] + ext, 
-                           dest_dir + '/' + self.base_names[oldnew] + ext)
+                for f in glob.glob (self.base_names[oldnew] + ext):
+                    print f
+                    link_file (f, dest_dir + '/' + f)
 
     def html_record_string (self,  old_dir, new_dir):
         def img_cell (ly, img, name):
@@ -362,7 +363,36 @@ class FileLink:
 </font>
 </td>
 ''' % locals ()
-        
+
+        def multi_img_cell (ly, imgs, name):
+            if not name:
+                name = 'source'
+            else:
+                name = '<tt>%s</tt>' % name
+
+            imgs_str = '\n'.join (['''<a href="%s">
+<img src="%s" style="border-style: none; max-width: 500px;">
+</a><br>''' % (img, img) 
+                                  for img in imgs])
+
+
+            return '''
+<td align="center">
+%(imgs_str)s
+<font size="-2">(<a href="%(ly)s">%(name)s</a>)
+</font>
+</td>
+''' % locals ()
+
+
+
+        def cell (base, name):
+            pages = glob.glob (base + '-page*.png')
+            if pages:
+                return multi_img_cell (base + '.ly', pages, name)
+            else:
+                return img_cell (base + '.ly', base + '.png', name)
+            
 
         img_1  = self.base_names[0] + '.png'
         ly_1  = self.base_names[0] + '.ly'
@@ -382,8 +412,8 @@ class FileLink:
 %s
 </tr>
 ''' % (self.distance (), html_2,
-       img_cell (ly_1, img_1, name), img_cell (ly_2, img_2, name))
-
+       cell (self.base_names[0], name),
+       cell (self.base_names[1], name))
 
         return html_entry
 
@@ -569,8 +599,8 @@ class ComparisonData:
             if score <= threshold:
                 continue
 
-            link.write_html_system_details (dir1, dir2, dest_dir)
             link.link_files_for_html (dir1, dir2, dest_dir) 
+            link.write_html_system_details (dir1, dir2, dest_dir)
             html += link.html_record_string (dir1, dir2)
 
 
@@ -658,6 +688,11 @@ def test_compare_trees ():
     system ('cp 19-1.signature 19-sub-1.signature')
     system ('cp 19.ly 19-sub.ly')
     system ('cp 19.png 19-sub.png')
+
+    system ('cp 20multipage* dir1')
+    system ('cp 20multipage* dir2')
+    system ('cp 19multipage-1.signature dir2/20multipage-1.signature')
+
     
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
     system ('cp 19-sub{-*.signature,.ly,.png} dir1/subdir/')
@@ -677,16 +712,18 @@ def test_compare_trees ():
 
 
 def test_basic_compare ():
-    ly_template = r"""#(set! toplevel-score-handler print-score-with-defaults)
-#(set! toplevel-music-handler
- (lambda (p m)
- (if (not (eq? (ly:music-property m 'void) #t))
-    (print-score-with-defaults
-    p (scorify-music m p)))))
+    ly_template = r"""
+#(set! toplevel-score-handler print-score-with-defaults)
+ #(set! toplevel-music-handler
+  (lambda (p m)
+  (if (not (eq? (ly:music-property m 'void) #t))
+     (print-score-with-defaults
+     p (scorify-music m p)))))
 
 \sourcefilename "my-source.ly"
-
+ 
 %(papermod)s
+\header { tagline = ##f } 
 <<
 \new Staff \relative c {
   c4^"%(userstring)s" %(extragrob)s
@@ -712,8 +749,8 @@ def test_basic_compare ():
              { 'papermod' : '',
                'name' : '20grob',
                'extragrob': 'r2. \\break c1',
-               'userstring': 'test' }
-
+               'userstring': 'test' },
+                
              ]
 
     for d in dicts:
@@ -722,6 +759,17 @@ def test_basic_compare ():
     names = [d['name'] for d in dicts]
     
     system ('lilypond -ddump-signatures --png -b eps ' + ' '.join (names))
+    
+
+    multipage_str = r'''
+    #(set-default-paper-size "a6")
+    {c1 \pageBreak c1 }
+    '''
+
+    open ('20multipage', 'w').write (multipage_str)
+    open ('19multipage', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
+    system ('lilypond -ddump-signatures --png 19multipage 20multipage ')
+ 
     test_compare_signatures (names)
     
 def test_compare_signatures (names, timing=False):
