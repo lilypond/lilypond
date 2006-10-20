@@ -437,4 +437,6 @@ ADD_INTERFACE (Accidental_placement,
 	       "left-padding "
 	       "padding "
 	       "positioning-done "
-	       "right-padding ")
+	       "right-padding "
+	       "script-priority "
+	       )
