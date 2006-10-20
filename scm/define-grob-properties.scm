@@ -437,7 +437,7 @@ words. The default RIGHT is for roman text. Arabic or hebrew should
 use LEFT.")
      (thick-thickness ,number? "Bar line thickness, measured in
 @code{line-thickness}.")
-     (thickness ,number? "Bar line thickness, measured in
+     (thickness ,number? "Line thickness, generally measured in
 @code{line-thickness}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
 
