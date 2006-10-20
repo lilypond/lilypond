@@ -2,7 +2,8 @@
 
 	* buildscripts/output-distance.py (test_basic_compare): add
 	multipage test.
-	(FileLink.multi_img_cell): new file, glob .png images.
+	(FileLink.multi_img_cell): new function, glob multi-page png
+	images.
 
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
