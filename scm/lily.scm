@@ -69,6 +69,8 @@ on errors, and print a stack trace.")
 ;;
 (define-scheme-options)
 
+(debug-set! stack 0)
+
 (if (defined? 'set-debug-cell-accesses!)
     (set-debug-cell-accesses! #f))
 
