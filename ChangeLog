@@ -3,7 +3,7 @@
 	* scm/framework-ps.scm (dump-stencil-as-EPS): thinko.
 
 	* lily/ttf.cc (print_trailer): if all else fails: use
-	glyphIndexXXXX as glyph name.
+	glyphIndexXXXX as glyph name. Fixes #117.
 
 	* lily/pango-font.cc (pango_item_string_stencil): only use cmap
 	entry if cmap contains glyph.
@@ -19,16 +19,17 @@
 	a number.
 
 	* scm/define-grob-properties.scm (all-user-grob-properties):
-	remove outdated doc.
+	remove outdated doc. Fixes #116
 
 	* lily/completion-note-heads-engraver.cc (process_music): always
-	clone input events; otherwise we may overwrite input 'duration property.
+	clone input events; otherwise we may overwrite input 'duration
+	property. Fixes #115.
 
 	* lily/general-scheme.cc (LY_DEFINE): explicit cast in case
 	scm_t_int32 != int
 
 	* scm/output-svg.scm (pango-description-regexp-comma): Remove ^
-	anchor.
+	anchor. Fixes #114
 
 	* VERSION (PATCH_LEVEL): bump version.
 
