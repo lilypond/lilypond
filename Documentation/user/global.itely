@@ -182,7 +182,7 @@ For more information on output formats, see @ref{Invoking lilypond}.
 
 @seealso
 
-Examples: @inputfileref{input/regression/clip-systems.ly}
+Examples: @inputfileref{input/regression/,clip-systems.ly}
 
 
 @node File structure
@@ -206,10 +206,6 @@ A direct scheme expression, such as
 A @code{\header} block.  This sets the global header block.  This
 is the block containing the definitions for book-wide settings, like
 composer, title, etc.
-
-@item
-An @code{\addquote} statement.  See @ref{Quoting other voices}
-for more information.
 
 @item
 A @code{\score} block.  This score will be collected with other
@@ -307,7 +303,9 @@ be entered:
 @itemize @bullet
 @item @code{\version}
 @item @code{\include}
-@item @code{\renameinput}
+@item @code{\sourcefilename}
+@item @code{\sourcefileline}
+
 @end itemize
 
 

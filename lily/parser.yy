@@ -157,7 +157,6 @@ void set_music_properties (Music *p, SCM a);
 /* Keyword tokens with plain escaped name.  */
 %token ACCEPTS "\\accepts"
 %token ADDLYRICS "\\addlyrics"
-%token ADDQUOTE "\\addquote"
 %token ALIAS "\\alias"
 %token ALTERNATIVE "\\alternative"
 %token BOOK "\\book"
