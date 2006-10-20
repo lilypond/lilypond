@@ -269,9 +269,24 @@ voice.  By introducing a tie in a different voice,
 and blanking the first up-stem in that voice, the tie appears to cross
 voices:
 
+
 @lilypond[quote,fragment,relative=2,verbatim]
 << {
   \once \override Stem #'transparent = ##t
+  b8~ b8\noBeam
+} \\ {
+  b[ g8]
+} >>
+@end lilypond
+
+To make sure that the just blanked stem doesn't sqeeuze the too much
+tie, we also lengthen the stem, by setting the @code{length} to
+@code{8},
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<< {
+  \once \override Stem #'transparent = ##t
+  \once \override Stem #'length = #8
   b8~ b8\noBeam
 } \\ {
   b[ g8]
@@ -307,15 +322,15 @@ to understand these files.
 
 @itemize @bullet
 
-@item Linux: @file{@{INSTALLDIR@}/lilypond/usr/share/lilypond/current/}
+@item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 
 @item OSX:
-@file{@{INSTALLDIR@}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
-To access this, either @code{cd} into this directory from
-the Terminal, or control-click on the LilyPond application
-and select "Show Package Contents".
+@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
+To access this, either @code{cd} into this directory from the
+Terminal, or control-click on the LilyPond application and select
+"Show Package Contents".
 
-@item Windows: @file{@{INSTALLDIR@}/LilyPond/usr/share/lilypond/current/}
+@item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
 
 @end itemize
 

@@ -1012,6 +1012,21 @@ c4 c2 c4 ~ \break % as does this break
 c4 c2 c4
 @end lilypond
 
+To allow line breaks on such bar lines, the
+@code{Forbid_line_break_engraver} can be removed from @code{Voice}
+context, like so
+
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\new Voice \with {
+  \remove "Forbid_line_break_engraver"
+} {
+  c4 c2 c2 \break   % now the break is allowed
+  c2 c4
+}
+@end lilypond
+
+
 
 @node Page breaking
 @subsection Page breaking
@@ -1144,13 +1159,21 @@ than one, they will interfere with each other.
 @funindex annotate-spacing
 @cindex Spacing, display of properties
 
-To graphically display the dimensions of vertical properties
-that may be altered for page formatting, use
+To graphically display the dimensions of vertical properties that may
+be altered for page formatting, set @code{annotate-spacing} in the
+@code{\paper} block, like this
+
 
 @lilypond[verbatim]
-\paper { annotate-spacing = ##t }
-{ c4 }
+#(set-default-paper-size "a6" 'landscape)
+
+\book {
+  \score { { c4 } }
+  \paper { annotate-spacing = ##t }
+}
 @end lilypond
+
+@c need to have \book{} otherwise we get  the separate systems. -hwn
 
 @noindent
 @c  FIXME: really bad vagueness due to bug in annotate-spacing.  -gp

@@ -274,5 +274,8 @@ which imports @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 @item
 @uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden},
 which imports MIDI
+@item
+@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
+a LISP library to generate music notation 
 @end itemize
 

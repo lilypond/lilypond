@@ -1,6 +1,15 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/user/page.itely (Displaying spacing): use \book
+	explicitly, so arrows show .
+	(Line breaking): add note about Forbid_line_break_engraver
+
+	* Documentation/user/tweaks.itely (Common tweaks): also set length
+	to prevent tie squeezing. 
+	(Default files): use @var{}
+
 	* Documentation/user/converters.itely (Invoking abc2ly): remove mup2ly.
+	(Generating LilyPond files): add FOMUS.
 
 2006-10-20  Joe Neeman  <joeneeman@gmail.com>
 
