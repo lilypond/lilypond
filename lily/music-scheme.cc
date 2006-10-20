@@ -6,11 +6,11 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include "music.hh"
+
 #include "duration.hh"
 #include "warn.hh"
-#include "music.hh"
 #include "pitch.hh"
-
 
 LY_DEFINE (ly_music_length, "ly:music-length",
 	   1, 0, 0, (SCM mus),

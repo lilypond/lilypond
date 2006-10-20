@@ -162,6 +162,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
     cmap = get_index_to_charcode_map (file_name, ftface);
   bool is_ttf = (file_name.find (".ttf") != NPOS
 		 || file_name.find (".TTF") != NPOS);
+  
   bool cid_keyed = false;
   for (int i = 0; i < pgs->num_glyphs; i++)
     {
