@@ -173,7 +173,8 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
 
 	  /* Ugh should ask FreeType about font type. */
 	  && (file_name.find (".ttf") != NPOS
-	      || file_name.find (".TTF") != NPOS))
+	      || file_name.find (".TTF") != NPOS)
+	  && cmap->find (pg) != cmap->end ())
 	{
 	  FT_ULong char_code = cmap->find (pg)->second;
 	  get_unicode_name (glyph_name, char_code);

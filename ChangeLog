@@ -1,5 +1,8 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/pango-font.cc (pango_item_string_stencil): only use cmap
+	entry if cmap contains glyph.
+
 	* scripts/lilypond-book.py (main): use -deps-box-padding=-3
 
 	* scm/framework-ps.scm (dump-stencil-as-EPS): use eps-box-padding,
