@@ -168,7 +168,7 @@ Open_type_font::get_indexed_char (size_t signed_idx) const
       char name[len];
       size_t code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
       if (code)
-	warning (_f ("FT_Get_Glyph_Name() returned error: %d", code));
+	warning (_f ("FT_Get_Glyph_Name() returned error: %u", unsigned (code)));
 
       SCM sym = ly_symbol2scm (name);
       SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
@@ -292,7 +292,7 @@ Open_type_font::glyph_list () const
       char name[len];
       size_t code = FT_Get_Glyph_Name (face_, i, name, len);
       if (code)
-	warning (_f ("FT_Get_Glyph_Name() returned error: %d", code));
+	warning (_f ("FT_Get_Glyph_Name() returned error: %u", unsigned (code)));
 
       *tail = scm_cons (scm_makfrom0str (name), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
