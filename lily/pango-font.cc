@@ -76,16 +76,26 @@ Pango_font::derived_mark () const
 }
 
 
-Index_to_charcode_map const *
-Pango_font::get_index_to_charcode_map (string key, FT_Face face)
-{
-  if (charcode_maps_.find (key) == charcode_maps_.end ())
-    charcode_maps_[key] = make_index_to_charcode_map (face);
+map<string, Index_to_charcode_map > filename_charcode_maps_map;
+Index_to_charcode_map const *get_index_to_charcode_map (string postscript_name, FT_Face face);
 
-  if (charcode_maps_.find (key) == charcode_maps_.end ())
+
+Index_to_charcode_map const *
+get_index_to_charcode_map (string filename, FT_Face face)
+{
+  if (filename_charcode_maps_map.find (filename) == filename_charcode_maps_map.end ())
+    filename_charcode_maps_map[filename] = make_index_to_charcode_map (face);
+
+  if (filename_charcode_maps_map.find (filename) == filename_charcode_maps_map.end ())
     return 0;
   
-  return &charcode_maps_[key];
+  return &filename_charcode_maps_map[filename];
+}
+
+void
+get_glyph_index_name (char *s, FT_ULong code)
+{
+  sprintf (s, "glyphIndex%lX", code);
 }
 
 void
@@ -149,8 +159,9 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
   Index_to_charcode_map const *cmap = 0;
   bool has_glyph_names = ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES;
   if  (! has_glyph_names)
-    cmap = ((Pango_font*)this)->get_index_to_charcode_map (file_name, ftface);
-  
+    cmap = get_index_to_charcode_map (file_name, ftface);
+  bool is_ttf = (file_name.find (".ttf") != NPOS
+		 || file_name.find (".TTF") != NPOS);
   bool cid_keyed = false;
   for (int i = 0; i < pgs->num_glyphs; i++)
     {
@@ -172,8 +183,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
 	  && cmap
 
 	  /* Ugh should ask FreeType about font type. */
-	  && (file_name.find (".ttf") != NPOS
-	      || file_name.find (".TTF") != NPOS)
+	  && is_ttf
 	  && cmap->find (pg) != cmap->end ())
 	{
 	  FT_ULong char_code = cmap->find (pg)->second;
@@ -188,7 +198,13 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
 				 file_name.c_str ()));
 	  continue;
 	}
-	  
+
+      if (glyph_name[0] == '\0' && is_ttf)
+	{
+	  // access by glyph index directly.
+	  get_glyph_index_name (glyph_name, pg);
+	}
+      
       if (glyph_name[0] == '\0')
 	{
 	  /*

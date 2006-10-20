@@ -18,6 +18,7 @@ using namespace std;
 typedef map<FT_UInt, FT_ULong> Index_to_charcode_map;
 Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 void get_unicode_name (char*s, FT_ULong code);
+void get_glyph_index_name (char*s, FT_ULong code);
 
 class Open_type_font : public Font_metric
 {

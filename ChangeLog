@@ -1,7 +1,15 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/ttf.cc (print_trailer): if all else fails: use
+	glyphIndexXXXX as glyph name.
+
 	* lily/pango-font.cc (pango_item_string_stencil): only use cmap
 	entry if cmap contains glyph.
+	(get_index_to_charcode_map): remove from Pango_font class, use
+	global filename -> font mapping.
+	(get_glyph_index_name): new function.
+	(pango_item_string_stencil): use glyphIndexXXXX as glyph name,
+	only for TTF. 
 
 	* scripts/lilypond-book.py (main): use -deps-box-padding=-3
 

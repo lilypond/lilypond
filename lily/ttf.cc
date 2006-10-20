@@ -26,11 +26,18 @@ make_index_to_charcode_map (FT_Face face)
   FT_UInt gindex;
 
   FT_CharMap current_cmap = face->charmap;
-  FT_Select_Charmap(face, FT_ENCODING_UNICODE);
+  //  FT_Select_Charmap(face, FT_ENCODING_UNICODE);
+  FT_Select_Charmap(face, FT_ENCODING_NONE);  
+
+  int j = 0;
   for (charcode = FT_Get_First_Char (face, &gindex); gindex != 0;
        charcode = FT_Get_Next_Char (face, charcode, &gindex))
-    m[gindex] = charcode;
+    {
+      m[gindex] = charcode;
+      j++;
+    }
   FT_Set_Charmap (face, current_cmap);
+
   
   return m;
 }
@@ -174,12 +181,21 @@ print_trailer (void *out,
 	  get_unicode_name (glyph_name, ucode);
 	}
 
+      if (!glyph_name[0])
+	{
+	  get_glyph_index_name (glyph_name, i);
+	}
+      
       if (glyph_name[0])
 	{
 	  lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
 	  output_count ++;
 	}
-      
+      else
+	{
+	  programming_error (to_string ("no name for glyph %d", i));
+	}
+			     
       if (! (output_count % 5))
 	lily_cookie_fprintf (out, "\n");
     }
