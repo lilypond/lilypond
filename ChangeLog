@@ -1,5 +1,8 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/general-scheme.cc (LY_DEFINE): explicit cast in case
+	scm_t_int32 != int
+
 	* scm/output-svg.scm (pango-description-regexp-comma): Remove ^
 	anchor.
 

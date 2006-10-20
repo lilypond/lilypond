@@ -167,7 +167,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
       snprintf (str, sizeof (str), "%08.4f", r);
     }
   else
-    snprintf (str, sizeof (str), "%d", scm_to_int (s));
+    snprintf (str, sizeof (str), "%d", int (scm_to_int (s)));
 
   return scm_makfrom0str (str);
 }
