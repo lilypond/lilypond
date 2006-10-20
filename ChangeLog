@@ -1,5 +1,7 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/framework-ps.scm (dump-stencil-as-EPS): thinko.
+
 	* lily/ttf.cc (print_trailer): if all else fails: use
 	glyphIndexXXXX as glyph name.
 
