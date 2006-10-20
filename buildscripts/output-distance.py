@@ -388,8 +388,9 @@ class FileLink:
 
         def cell (base, name):
             pages = glob.glob (base + '-page*.png')
+            
             if pages:
-                return multi_img_cell (base + '.ly', pages, name)
+                return multi_img_cell (base + '.ly', sorted (pages), name)
             else:
                 return img_cell (base + '.ly', base + '.png', name)
             
