@@ -1,5 +1,11 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/user/programming-interface.itely (Scheme
+	procedures as properties): more doco on simple-closure and scheme
+	callbacks.
+	(Input variables and Scheme): use lilypond[verbatim], document
+	dummy statement.
+
 	* Documentation/user/page.itely (Displaying spacing): use \book
 	explicitly, so arrows show .
 	(Line breaking): add note about Forbid_line_break_engraver

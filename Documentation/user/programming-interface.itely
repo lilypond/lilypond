@@ -292,8 +292,12 @@ mixed.  In the following example, a music fragment is stored in the
 variable @code{traLaLa}, and duplicated using Scheme.  The result is
 imported in a @code{\score} block by means of a second variable
 @code{twice}:
-@example
+
+@lilypond[verbatim]
 traLaLa = @{ c'4 d'4 @}
+
+%% deal with parser lookahead
+#(display "this needs to be here, sorry!")
 
 #(define newLa (map ly:music-deep-copy
   (list traLaLa traLaLa)))
@@ -301,14 +305,22 @@ traLaLa = @{ c'4 d'4 @}
   (make-sequential-music newLa))
 
 @{ \twice @}
-@end example
+@end lilypond
 
-In the above example, music expressions can be `exported' from the
+Due to parser lookahead
+
+In this example, the assignment happens after parser has verified that
+nothing interesting happens after @code{traLaLa = @{ ... @}}. Without
+the dummy statement in the above example, the @code{newLa} definition
+is executed before @code{traLaLa} is defined, leading to a syntax
+error.
+
+The above example shows how to `export' music expressions from the
 input to the Scheme interpreter.  The opposite is also possible.  By
 wrapping a Scheme value in the function @code{ly:export}, a Scheme
-value is interpreted as if it were entered in LilyPond syntax.  Instead
-of defining @code{\twice}, the example above could also have been
-written as
+value is interpreted as if it were entered in LilyPond syntax.
+Instead of defining @code{\twice}, the example above could also have
+been written as
 @example
 @dots{}
 @{ #(ly:export (make-sequential-music (list newLa))) @}
@@ -1152,8 +1164,26 @@ Properties can also be set to a Scheme procedure,
 c b a g b a g b
 @end lilypond
 
-Procedures may also be combined like that with
-"grob closure".  Here is a setting from
+@noindent
+In this case, the procedure is executed as soon as the value of the
+property is requested during the formatting process.
+
+Most of the typesetting engine is driven by such callbacks.
+Properties that typically use callbacks include  
+
+@table @code
+@item stencil
+  The printing routine, that constructs a drawing for the symbol
+@item X-offset
+  The routine that sets the horizontal position
+@item X-extent
+  The routine that computes the width of an object
+@end table
+
+The procedure always takes a single argument, being the grob.
+
+If routines with multiple arguments must be called, the current grob
+can be inserted with a grob closure.  Here is a setting from
 @code{AccidentalSuggestion},
 
 @example
@@ -1166,4 +1196,20 @@ Procedures may also be combined like that with
            (list ly:self-alignment-interface::x-aligned-on-self)))))
 @end example
 
+@noindent
+In this example, both @code{ly:self-alignment-interface::x-aligned-on-self} and
+@code{ly:self-alignment-interface::centered-on-x-parent} are called
+with the grob as argument. The results are added with the @code{+}
+function. To ensure that this addition is properly executed, the whole
+thing is enclosed in @code{ly:make-simple-closure}.
 
+In fact, using a single procedure as property value is equivalent to
+
+@example
+(ly:make-simple-closure (ly:make-simple-closure (list @var{proc})))
+@end example
+
+@noindent
+The inner @code{ly:make-simple-closure} supplies the grob as argument
+to @var{proc}, the outer ensures that result of the function is
+returned, rather than the @code{simple-closure} object.
