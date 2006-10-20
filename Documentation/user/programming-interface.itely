@@ -294,9 +294,9 @@ imported in a @code{\score} block by means of a second variable
 @code{twice}:
 
 @lilypond[verbatim]
-traLaLa = @{ c'4 d'4 @}
+traLaLa = { c'4 d'4 }
 
-%% deal with parser lookahead
+%% dummy action to deal with parser lookahead
 #(display "this needs to be here, sorry!")
 
 #(define newLa (map ly:music-deep-copy
@@ -304,7 +304,7 @@ traLaLa = @{ c'4 d'4 @}
 #(define twice
   (make-sequential-music newLa))
 
-@{ \twice @}
+{ \twice }
 @end lilypond
 
 Due to parser lookahead
