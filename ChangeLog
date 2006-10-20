@@ -1,5 +1,8 @@
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	remove outdated doc.
+
 	* lily/completion-note-heads-engraver.cc (process_music): always
 	clone input events; otherwise we may overwrite input 'duration property.
 

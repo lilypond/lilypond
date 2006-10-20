@@ -132,8 +132,7 @@ should list the control points of a 3rd order bezier curve." )
 
      (connect-to-neighbor ,pair? "Pair of booleans, indicating whether this
 grob looks as a continued break.")
-     (damping ,number? "Amount of beam slope damping. 0: no, 1: yes,
-100000: horizontal beams.")
+     (damping ,number? "Amount of beam slope damping. ")
      (dash-period ,number? "the length of one dash + white space. If
 negative, no line is drawn at all.")
      
