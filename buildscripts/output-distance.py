@@ -395,10 +395,6 @@ class FileLink:
                 return img_cell (base + '.ly', base + '.png', name)
             
 
-        img_1  = self.base_names[0] + '.png'
-        ly_1  = self.base_names[0] + '.ly'
-        img_2  = self.base_names[1] + '.png'
-        ly_2  = self.base_names[1] + '.ly'
         html_2  = self.base_names[1] + '.html'
         name = self.original_name
         
