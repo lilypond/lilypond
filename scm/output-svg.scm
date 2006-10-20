@@ -105,10 +105,10 @@
 	 (map (lambda (x) (char->entity x)) (string->list string))))
 
 (define pango-description-regexp-comma
-  (make-regexp "^([^,]+), ?([-a-zA-Z_]*) ([0-9.]+)$"))
+  (make-regexp "([^,]+), ?([-a-zA-Z_]*) ([0-9.]+)$"))
 
 (define pango-description-regexp-nocomma
-  (make-regexp "^([^ ]+) ([-a-zA-Z_]*) ?([0-9.]+)$"))
+  (make-regexp "([^ ]+) ([-a-zA-Z_]*) ?([0-9.]+)$"))
 
 (define (pango-description-to-svg-font str)
   (let*
