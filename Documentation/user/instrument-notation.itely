@@ -801,7 +801,7 @@ between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 \relative { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
-\addlyrics { pu- ro~y~ho- nes- to }
+\addlyrics { pu- ro~yho- nes- to }
 @end lilypond
 
 The lyric ties is implemented with the Unicode character U+203F, so be
@@ -2150,7 +2150,7 @@ Examples: @inputfileref{input/@/test,fret@/-diagram@/.ly}
 Right hand fingerings in chords can be entered using
 @code{@var{note}-\rightHandFinger @var{finger}}
 
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,fragment,relative=2]
   <c-\rightHandFinger #1 e-\rightHandFinger #2 >
 @end lilypond
 
@@ -2172,10 +2172,10 @@ setting @code{strokeFingerOrientations},
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 #(define RH rightHandFinger)
 {
-  \set strokeFingerOrientations = #'(left down)
-  <c-\RH #1 es-\RH #2 g-\RH #4 bes-\RH #5 > 4
+  \set strokeFingerOrientations = #'(up down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
   \set strokeFingerOrientations = #'(up right down)
-  <c-\RH #1 es-\RH #2 g-\RH #4 bes-\RH #5 > 4
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
 }
 @end lilypond
 

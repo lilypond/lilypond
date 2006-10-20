@@ -66,6 +66,10 @@ which scares away people.
 
 @end ignore
 
+
+
+@c Insert any new material above this line.  -gp
+
 @item Guitar right hand fingerings may
 now also be added,
 
@@ -86,22 +90,6 @@ now also be added,
 @end lilypond
 
 This feature was sponsored by William Wilson.
-
-@ignore
-hint for Graham:
-
-- grob StringFinger
-
-- event StringFingerEvent,
-
-- texts can be tuned with StringFinger #'digit-names property.
-
-- recommend use of identifiers in practice, eg. rhf = rightHandFinger
-
-Added section on Instrument specific notation.
-
-
-@end ignore 
 
 @item By defining a clip region, a cutout EPS file of a number of measures
 may be generated from the complete score.  Hence, it is no longer
@@ -129,9 +117,6 @@ symbol,
   \override NoteHead #'duration-log = 1                                         
   c1 c2 c4 c8[ c16 c]
 @end lilypond
-
-
-@c Please insert any new material above this line.  -gp
 
 @item Chords can now be partially tied,
 
