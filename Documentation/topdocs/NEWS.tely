@@ -88,7 +88,7 @@ now also be added,
 This feature was sponsored by William Wilson.
 
 @ignore
-hint for GP:
+hint for Graham:
 
 - grob StringFinger
 
@@ -97,6 +97,9 @@ hint for GP:
 - texts can be tuned with StringFinger #'digit-names property.
 
 - recommend use of identifiers in practice, eg. rhf = rightHandFinger
+
+Added section on Instrument specific notation.
+
 
 @end ignore 
 
@@ -118,7 +121,7 @@ symbol,
     o la~oo ah
   } 
 @end lilypond
-8
+
 @item Calculation of note head durations is now softcoded. 
 
 @lilypond[relative=1,fragment,ragged-right]

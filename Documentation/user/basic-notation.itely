@@ -2942,12 +2942,6 @@ printed, left to right with brackets.  This is the standard notation
 for repeats with alternatives.  These are not played in MIDI output by
 default.
 
-@ignore
-@item fold
-Alternative endings are written stacked.  This has limited use but may be
-used to typeset two lines of lyrics in songs with repeats, see
-@inputfileref{input,star-spangled-banner@/.ly}.
-@end ignore
 
 @item tremolo
 Make tremolo beams.  These are not played in MIDI output by default.

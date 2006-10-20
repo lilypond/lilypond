@@ -673,7 +673,7 @@ way is to use the @code{\addlyrics} function.
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
-* Hyphens and extenders::       
+* Hyphens and extenders::
 * The Lyrics context::          
 * Melismata::                   
 * Another way of entering lyrics::  
@@ -790,16 +790,24 @@ property commands
 @funindex _
 @cindex spaces, in lyrics
 @cindex quotes, in lyrics
+@cindex ties, in lyrics
 
-In order to assign more than one syllable to a single note, you must
-surround them with quotes or use a @code{_} character between the syllables.
+In order to assign more than one syllable to a single note, you can
+surround them with quotes or use a @code{_} character, to get spaces
+between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 
 @lilypond[quote,relative=2,ragged-right,fragment,verbatim]
 \time 3/4
 \relative { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
+\addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
+
+The lyric ties is implemented with the Unicode character U+203F, so be
+sure to have a font (Like DejaVuLGC) installed that includes this
+glyph.
+
 
 To enter lyrics with characters from non-English languages, or with
 non-ascii characters (such as the heart symbol or slanted quotes),
@@ -1905,6 +1913,7 @@ around each @code{\parenthesize} statement.
 * Non-guitar tablatures::       
 * Banjo tablatures::            
 * Fret diagrams::               
+* Right hand fingerings::       
 * Other guitar issues::         
 @end menu
 
@@ -2133,6 +2142,62 @@ Details about the property interface to fret diagrams are found at
 @seealso
 
 Examples: @inputfileref{input/@/test,fret@/-diagram@/.ly}
+
+
+@node Right hand fingerings
+@subsection Right hand fingerings
+
+Right hand fingerings in chords can be entered using
+@code{@var{note}-\rightHandFinger @var{finger}}
+
+@lilypond[verbatim,fragment]
+  <c-\rightHandFinger #1 e-\rightHandFinger #2 >
+@end lilypond
+
+for brevity, you can abbreviate @code{\rightHandFinger} to something
+short, for example @code{RH},
+
+@example
+#(define RH rightHandFinger)
+@end example
+
+@cindex fingerings, right hand, for guitar 
+@cindex right hand fingerings for guitar
+ 
+@commonprop
+
+You may exercise greater control over right handing fingerings by
+setting @code{strokeFingerOrientations},
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(left down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 bes-\RH #5 > 4
+  \set strokeFingerOrientations = #'(up right down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 bes-\RH #5 > 4
+}
+@end lilypond
+
+The letters used for the fingerings are contained in the property
+@code{digit-names}, but they can also be set individually by supplying
+@code{\rightHandFinger} with a string argument, as in the following example
+
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(right)
+  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@") 
+  <c-\RH #5 >4
+  <c-\RH "@">4  
+}
+@end lilypond
+
+@seealso
+
+Internalls: @internalsref{StrokeFinger}
+
 
 
 @node Other guitar issues
