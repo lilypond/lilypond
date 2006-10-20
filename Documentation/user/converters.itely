@@ -29,7 +29,6 @@ you are unfamiliar with the command-line.
 * Invoking etf2ly::             Importing Finale.
 * Invoking musicxml2ly::        
 * Invoking abc2ly::             Importing ABC.      
-* Invoking mup2ly::             Importing MUP.
 * Generating LilyPond files::   
 @end menu
 
@@ -245,46 +244,6 @@ ABC synchronizes words and notes at the beginning of a line;
 
 @command{abc2ly} ignores the ABC beaming.
 
-
-@node Invoking mup2ly
-@section Invoking @command{mup2ly}
-
-Mup (Music Publisher) is a shareware music notation program by Arkkra
-Enterprises.  @command{mup2ly} will convert part of a Mup file to LilyPond
-format.  It is invoked from the command-line as follows:
-
-@cindex Music Publisher
-@cindex Mup
-@cindex Arkkra
-
-@example
-mup2ly [@var{option}]@dots{} @var{mup-file}
-@end example
-
-The following options are supported by @command{mup2ly}:
-
-@table @code
-@item -d,--debug
-show what constructs are not converted, but skipped.
-@item -D, --define=@var{name}[=@code{exp}]
-define macro @var{name} with opt expansion @code{exp}
-@item -E,--pre-process
-only run the pre-processor
-@item -h,--help
-print help
-@item -o,--output=@var{file}
-write output to @var{file}
-@item -v,--version
-version information
-@item -w,--warranty
-print warranty and copyright.
-@end table
-
-
-@refbugs
-
-Only plain notes (pitches, durations), voices, and staves are
-converted.
 
 
 @node Generating LilyPond files
