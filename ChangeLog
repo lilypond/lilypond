@@ -1,3 +1,8 @@
+2006-10-20  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/context.cc: 
+	* lily/prob.cc: use variables
+
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/arpeggio.cc (Module): idem.

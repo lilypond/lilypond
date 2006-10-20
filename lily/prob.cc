@@ -147,6 +147,12 @@ Prob::internal_set_property (SCM sym, SCM val
 #endif
 			     ) 
 {
+#ifndef NDEBUG
+  (void) file;
+  (void) line;
+  (void) fun;
+#endif
+
   if (do_internal_type_checking_global)
     type_check_assignment (sym, val);
   
