@@ -1316,7 +1316,9 @@
 	;; padding set in script definitions.
 	(staff-padding . 0.25)
 	;; (script-priority . 0) priorities for scripts, see script.scm
-	(X-offset . , ly:self-alignment-interface::centered-on-x-parent)
+	(X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(side-axis . ,Y)
 
 	(stencil . ,ly:script-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
@@ -1698,6 +1700,8 @@
      . (
 	(no-spacing-rods . #t)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(side-axis . ,Y)
 	(direction . ,DOWN)
 
 	;; sync with Fingering ?

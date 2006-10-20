@@ -141,8 +141,6 @@ make_script_from_event (Grob *p,  Context *tg,
       p->set_property ("script-priority",
 		       scm_from_int (index));
     }
-
-  Side_position_interface::set_axis (p, Y_AXIS);
 }
 
 void

@@ -88,14 +88,8 @@ Text_engraver::process_acknowledged ()
       // URG: Text vs TextScript
       Item *text = make_item ("TextScript", r->self_scm ());
 
-      Axis ax = Y_AXIS;
-      Side_position_interface::set_axis (text, ax);
-
-      // Hmm
-      int priority = 200;
-      SCM s = text->get_property ("script-priority");
-      if (scm_is_number (s))
-	priority = scm_to_int (s);
+      int priority = robust_scm2int (text->get_property ("script-priority"),
+				     200);
 
       /* see script-engraver.cc */
       priority += i;

@@ -1,5 +1,13 @@
 2006-10-20  Joe Neeman  <joeneeman@gmail.com>
 
+	* scm/define-grobs.scm (all-grob-descriptions): set side-axis and
+	Y-offset for TextScript and Script
+
+	* lily/text-engraver.cc (make_item): 
+	* lily/script-engraver.cc (make_script_from_event):
+	remove call to Side_position_interface::set_axis since all scripts
+	now have this set by default
+
 	* lily/context.cc: 
 	* lily/prob.cc: use variables
 
