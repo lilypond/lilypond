@@ -13,6 +13,12 @@
 
 2006-10-20  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/page-turn-engraver.cc (acknowledge_note_head): don't look
+	at typography, rather analyse stream event duration. 
+
+	* Documentation/user/page.itely (Page formatting): set a6 paper
+	for system separator example.
+	
 	* lily/arpeggio.cc (Module): idem.
 
 	* lily/accidental-placement.cc: add script-priority property.

@@ -134,12 +134,14 @@ Page_turn_engraver::penalty (Rational rest_len)
 void
 Page_turn_engraver::acknowledge_note_head (Grob_info gi)
 {
-  SCM dur_log_scm = gi.grob ()->get_property ("duration-log");
-  if (!scm_is_number (dur_log_scm))
-    return;
+  Stream_event *cause = gi.event_cause ();
 
-  int dur_log = scm_to_int (dur_log_scm);
-  int dot_count = robust_scm2int (gi.grob ()->get_property ("dot-count"), 0);
+  Duration *dur_ptr = cause
+    ? unsmob_duration (cause->get_property ("duration"))
+    : 0;
+  
+  if (!dur_ptr)
+    return;
 
   if (rest_begin_ < now_mom ())
     {
@@ -152,7 +154,7 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
 
   if (rest_begin_ <= repeat_begin_)
     repeat_begin_rest_length_ = (now_mom () - repeat_begin_).main_part_;
-  note_end_ = now_mom () + Moment (Duration (dur_log, dot_count).get_length ());
+  note_end_ = now_mom () + dur_ptr->get_length ();
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Page_turn_engraver, break);
