@@ -26,8 +26,7 @@ make_index_to_charcode_map (FT_Face face)
   FT_UInt gindex;
 
   FT_CharMap current_cmap = face->charmap;
-  //  FT_Select_Charmap(face, FT_ENCODING_UNICODE);
-  FT_Select_Charmap(face, FT_ENCODING_NONE);  
+  FT_Select_Charmap(face, FT_ENCODING_UNICODE);
 
   int j = 0;
   for (charcode = FT_Get_First_Char (face, &gindex); gindex != 0;

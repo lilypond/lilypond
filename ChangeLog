@@ -1,5 +1,9 @@
 2006-10-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/ttf.cc (make_index_to_charcode_map): remove debugging gobs.
+
+	* VERSION (PACKAGE_NAME): release 2.9.26
+
 	* buildscripts/output-distance.py (test_basic_compare): add
 	multipage test.
 	(FileLink.multi_img_cell): new function, glob multi-page png
