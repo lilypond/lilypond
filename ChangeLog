@@ -1,5 +1,11 @@
 2006-10-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* scm/define-grobs.scm (all-grob-descriptions): calc
+	connect-to-neighbor
+
+	* lily/horizontal-bracket.cc (make_bracket): support
+	connect-to-neighbor. 
+
 	* lily/ttf.cc (make_index_to_charcode_map): remove debugging gobs.
 
 	* VERSION (PACKAGE_NAME): release 2.9.26

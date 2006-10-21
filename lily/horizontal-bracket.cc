@@ -30,6 +30,7 @@ Horizontal_bracket::make_bracket (Grob *me,
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
 						  Interval (0, 0));
 
+  
   // Make sure that it points in the correct direction:
   scale_drul (&edge_height, Real (-dir));
  
@@ -37,6 +38,22 @@ Horizontal_bracket::make_bracket (Grob *me,
   Offset start;
   start[a] = length;
 
+  Drul_array<bool> connect_to_other =
+    robust_scm2booldrul (me->get_property ("connect-to-neighbor"),
+			 Drul_array<bool> (false, false));
+
+  Direction d = LEFT;
+  do
+    {
+      if (connect_to_other[d])
+	{
+	  edge_height[d] = 0.0;
+	  flare[d] = 0.0;
+	  shorten[d] = 0.0;
+	}
+    }
+  while (flip (&d) != LEFT);
+	      
   /*
     ugh, Tuplet_bracket should use Horizontal_bracket, not the other way around. 
   */
@@ -70,15 +87,26 @@ MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, 1);
 SCM
 Horizontal_bracket::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Spanner *me = unsmob_spanner (smob);
   extract_grob_set (me, "columns", gs);
+
+  vector<Grob*> enclosed = gs;
   if (!gs.size ())
     {
       me->suicide ();
       return SCM_EOL;
     }
 
-  Stencil b = make_enclosing_bracket (me, me, gs, X_AXIS, get_grob_direction (me));
+  Direction d = LEFT;
+  do
+    {
+      Item *b = me->get_bound (d);
+      if (b->break_status_dir ())
+	enclosed.push_back (b);
+    }
+  while (flip (&d) != LEFT);
+  
+  Stencil b = make_enclosing_bracket (me, me, enclosed, X_AXIS, get_grob_direction (me));
   return b.smobbed_copy ();
 }
 
@@ -92,5 +120,6 @@ ADD_INTERFACE (Horizontal_bracket,
 	       "columns "
 	       "edge-height "
 	       "shorten-pair "
+	       "connect-to-neighbor "
 	       );
 

@@ -420,8 +420,7 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
   Direction d = LEFT;
   do
     straight_corners[d] += -d * shorten[d] / length * dz;
-  while (flip (&d) != LEFT)
-    ;
+  while (flip (&d) != LEFT);
 
   if (gap.is_empty ())
     gap = Interval (0, 0);

@@ -13,6 +13,10 @@
 #include "std-vector.hh"
 #include "translator.hh"
 
+/*
+  TODO: derive "foo-bar-interface" from Foo_bar classname.
+ */
+
 /**
    A macro to automate administration of translators.
 */

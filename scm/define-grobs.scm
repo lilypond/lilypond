@@ -718,6 +718,8 @@
 	(thickness . 1.0)
 	(stencil . ,ly:horizontal-bracket::print)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
+	
 	(padding . 0.2)
 	(staff-padding . 0.2)
 	(direction . ,DOWN)
