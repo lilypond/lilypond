@@ -1,10 +1,12 @@
 2006-10-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* input/regression/horizontal-bracket-break.ly: new file.
+
 	* scm/define-grobs.scm (all-grob-descriptions): calc
-	connect-to-neighbor
+	connect-to-neighbor. 
 
 	* lily/horizontal-bracket.cc (make_bracket): support
-	connect-to-neighbor. 
+	connect-to-neighbor.  Fix #118
 
 	* lily/ttf.cc (make_index_to_charcode_map): remove debugging gobs.
 
