@@ -1,5 +1,7 @@
 2006-10-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/gregorian-ligature-engraver.cc (fix_prefix): const correctness.
+
 	* lily/pango-font.cc (pango_item_string_stencil): use
 	FT_Get_X11_Font_Format()
 

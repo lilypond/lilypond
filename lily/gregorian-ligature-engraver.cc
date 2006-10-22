@@ -42,7 +42,7 @@ Gregorian_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
   ASSIGN_EVENT_ONCE (pes_or_flexa_req_, ev);
 }
 
-void fix_prefix (char *name, int mask,
+void fix_prefix (char const *name, int mask,
 		 int *current_set, int min_set, int max_set,
 		 Grob *primitive)
 {
