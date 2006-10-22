@@ -1,3 +1,26 @@
+2006-10-22  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/examples.itely (Transcription of mensural
+	music): Added more comments in .ly source.  Suggest to remove
+	Forbid_line_break_engraver to allow line breaking at all bars.
+
+	* Documentation/user/instrument-notation.itely (Ancient
+	articulations): Updated @refbugs regarding episem.
+
+	* Documentation/user/instrument-notation.itely (Gregorian square
+	neumes ligatures): Added \augmentum dots.  Updated @refbugs
+	regarding \augmentum.
+
+	* input/test/gregorian-scripts.ly: Removed obsolete TODOs.
+
+	* input/test/ligature-vaticana.ly: Added \augmentum dots.  Updated
+	comment.
+
+	* lily/vaticana-ligature-engraver.cc: Added TODO comment for
+	\augmentum dots.
+
+	* ly/gregorian-init.ly: Added \augmentum macro.
+
 2006-10-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/gregorian-ligature-engraver.cc (fix_prefix): const correctness.

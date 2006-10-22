@@ -2990,9 +2990,8 @@ Editio Vaticana style.
 Some articulations are vertically placed too closely to the
 correpsonding note heads.
 
-The episem line is not displayed if its length is shorter than the
-width of roughly 4 note heads.  The right end of the episem line is
-often too far to the right.
+The episem line is not displayed in many cases.  If it is displayed,
+the right end of the episem line is often too far to the right.
 
 @node Custodes
 @subsection Custodes
@@ -4156,6 +4155,25 @@ ligatures can be created.
 @c even more Gregorian ligatures, and add a link to this document
 @c here.
 
+Augmentum dots, also called @emph{morae}, are added with the music
+function @code{\augmentum}.  Note that @code{\augmentum} is
+implemented as a unary music function rather than as head prefix.  It
+applies to the immediately following music expression only.  That is,
+@code{\augmentum \virga c} will have no visible effect.  Instead, say
+@code{\virga \augmentum c} or @code{\augmentum @{\virga c@}}.  Also
+note that you can say @code{\augmentum @{a g@}} as a shortcut for
+@code{\augmentum a \augmentum g}.
+
+@lilypond[quote,ragged-right,verbatim]
+\include "gregorian-init.ly"
+\score {
+  \new VaticanaVoice {
+    \[ \augmentum a \flexa \augmentum g \]
+    \augmentum g
+  }
+}
+@end lilypond
+
 @refcommands
 
 The following head prefixes are supported
@@ -4193,7 +4211,19 @@ Two adjacent heads can be tied together with the @code{\pes} and
 @code{\flexa} infix commands for a rising and falling line of melody,
 respectively.
 
+@funindex \augmentum
+Use the unary music function @code{\augmentum} to add augmentum dots.
 
+@refbugs
+
+When an @code{\augmentum} dot appears at the end of the last staff
+within a ligature, it is sometimes vertically placed wrong.  As a
+workaround, add an additional skip note (e.g. @code{s8}) as last note
+of the staff.
+
+@code{\augmentum} should be implemented as a head prefix rather than a
+unary music function, such that @code{\augmentum} can be intermixed
+with head prefixes in arbitrary order.
 
 @node Gregorian Chant contexts
 @subsection Gregorian Chant contexts

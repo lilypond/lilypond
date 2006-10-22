@@ -2,7 +2,8 @@
 
 \header { texidoc	= "@cindex Ancient Vaticana
 Vaticana ligature uses four staff lines, special clef, and
-calligraphic notes. "
+calligraphic notes.  Augmentum dots are collected behind
+ligatures. "
 }
 
 \include "gregorian-init.ly"
@@ -14,7 +15,7 @@ cantus = \new VaticanaVoice = "cantus"  {
      c \pes d \quilisma e \pes f \virga g
      a \flexa f \pes g \inclinatum f \inclinatum e\melismaEnd \]
   \[ d\melisma \quilisma e f \flexa e \pes f\melismaEnd \]
-  \[ e\melisma \flexa d\melismaEnd \]
+  \[ \augmentum e\melisma \flexa \augmentum d\melismaEnd \]
 }
 
 verba = \new Lyrics = "verba" \lyricmode {

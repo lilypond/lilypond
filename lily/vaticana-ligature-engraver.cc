@@ -39,6 +39,12 @@
  * negative impact, since dotted notes appear within a ligature
  * usually always at the end of the ligature, such that the bug never
  * should apply for valid ligatures.
+ *
+ * TODO: Graduale Triplex, tempus per annum, hebdomada septima,
+ * alleluia (page 280) shows a counter-example for collecting dots
+ * always in a single column behind the ligature.  Maybe only the last
+ * two dots in a ligature should be collected and all other dots put
+ * behind or on top of the head?
  */
 class Vaticana_ligature_engraver : public Gregorian_ligature_engraver
 {

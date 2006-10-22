@@ -945,12 +945,26 @@ bassusLyrics = \lyricmode {
   \layout {
     \context {
       \Score
+
+      % no bars in staves
       \override BarLine #'transparent = ##t
+
+      % incipit should not start with a start delimiter
       \remove "System_start_delimiter_engraver"
     }
     \context {
       \Voice
+
+      % no slurs
       \override Slur #'transparent = ##t
+
+      % Comment in the below "\remove" command to allow line
+      % breaking also at those barlines where a note overlaps
+      % into the next bar.  The command is commented out in this
+      % short example score, but especially for large scores, you
+      % will typically yield better line breaking and thus improve
+      % overall spacing if you comment in the following command.
+      %\remove "Forbid_line_break_engraver"
     }
   }
 }

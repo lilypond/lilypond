@@ -1,6 +1,6 @@
 %{
   Shortcuts common for all styles of gregorian chant notation.
-  $Id: gregorian-init.ly,v 1.47 2006/10/09 21:12:26 reuter Exp $
+  $Id: gregorian-init.ly,v 1.48 2006/10/22 20:19:31 reuter Exp $
 %}
 
 \version "2.7.39"
@@ -151,11 +151,14 @@ semicirculus = #(make-articulation "semicirculus")
 circulus = #(make-articulation "circulus")
 episemInitium = \startTextSpan
 episemFinis = \stopTextSpan
-augmentum = {
-  %%% TODO: A ligature head postfix that indicates that an
-  %%% augmentum dot should be appended to the right end of
-  %%% the surrounding ligature.  [Not yet implemented.]
-}
+
+%
+% \augmentum increases the dot-count value of all note heads to which
+% it is applied by one.
+%
+augmentum =
+#(define-music-function (parser location expr) (ly:music?)
+   (shift-duration-log expr 0 1))
 
 %
 % Declare shortcut music functions for Liber Hymnarius neumes
@@ -268,6 +271,7 @@ ligature = #(define-music-function
 	%%% causes tons of "programming error: adding reverse spring,
 	%%% setting to unit" messages.
 	%%%
+	%\override SpacingSpanner #'base-shortest-duration = #(ly:make-moment 1 4)
 	%\override SpacingSpanner #'shortest-duration-space = #0
 	%\override SpacingSpanner #'average-spacing-wishes = ##f
 	%\override SpacingSpanner #'spacing-increment = #0.0
