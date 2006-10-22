@@ -1,8 +1,15 @@
+2006-10-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/pango-font.cc (pango_item_string_stencil): use
+	FT_Get_X11_Font_Format()
+
 2006-10-22  John Mandereau  <john.mandereau@free.fr>
 
 	* po/fr.po: update translation.
 
 2006-10-21  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* VERSION (PATCH_LEVEL): bump version
 
 	* input/regression/horizontal-bracket-break.ly: new file.
 
@@ -11,6 +18,8 @@
 
 	* lily/horizontal-bracket.cc (make_bracket): support
 	connect-to-neighbor.  Fix #118
+
+	* VERSION: release 2.9.26-2
 
 	* lily/ttf.cc (make_index_to_charcode_map): remove debugging gobs.
 
