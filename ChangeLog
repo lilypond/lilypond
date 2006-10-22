@@ -1,3 +1,7 @@
+2006-10-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/stepmake/po-vars.make: test change for GIT gateway.
+
 2006-10-22  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/examples.itely (Transcription of mensural
