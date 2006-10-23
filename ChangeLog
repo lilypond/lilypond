@@ -1,5 +1,8 @@
 2006-10-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/GNUmakefile (LILYPOND_BINARY): use instead
+	of $(LILYPOND). Prevents lilypond run for .txt files.
+
 	* INSTALL.txt: gitness.
 
 	* .cvsignore: update to force gitness. 
