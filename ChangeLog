@@ -1,3 +1,8 @@
+2006-10-23  Werner Lemberg  <wl@gnu.org>
+
+	* lily/pango-font.cc (Pango_font::pango_item_string_stencil): Fix
+	typo in argument to FT_Get_X11_Font_Format.
+
 2006-10-23  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* flower/polynomial.cc (check_sol): no empty if bodies. 
