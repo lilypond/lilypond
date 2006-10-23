@@ -567,8 +567,12 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       Interval tuplet_x (tuplets[i]->extent (commonx, X_AXIS));
       Interval tuplet_y (tuplets[i]->extent (commony, Y_AXIS));
 
+      if (!tuplets[i]->is_live ())
+	continue;
+      
       Direction d = LEFT;
-      Drul_array<Real> positions = ly_scm2realdrul (tuplets[i]->get_property ("positions"));
+      Drul_array<Real> positions = robust_scm2interval (tuplets[i]->get_property ("positions"),
+							Interval (0,0));
 
       
       Real other_dy = positions[RIGHT] - positions[LEFT];
