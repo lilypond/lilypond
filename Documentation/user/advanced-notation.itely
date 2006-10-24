@@ -1056,15 +1056,6 @@ be found in @ref{Modifying context plug-ins}.
 
 Program reference: @internalsref{InstrumentName}.
 
-@refbugs
-
-When you put a name on a grand staff or piano staff, the width of the
-brace is not taken into account. The following property setting can be
-used to move the instrument names to the left, in such situations.
-
-@example
-\override Score.InstrumentName #'padding = #2.0
-@end example
 
 
 @node Instrument transpositions
