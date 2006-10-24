@@ -1,3 +1,29 @@
+2006-10-24  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/grob.cc (pure_relative_y_coordinate)
+	(pure_height): use the new call_pure_function stuff
+
+	* lily/grob-property.cc (call_pure_function): wrapper for the scheme
+	call-pure-function
+
+	* lily/side-position-interface.cc (pure_y_aligned_side): add an
+	optarg
+
+	* lily/simple-closure.cc (ly_eval_simple_closure): make
+	simple-closure evaluatable from scheme
+	(evaluate_with_simple_closure): make simple-closures pure-
+	evaluatable
+
+	* lily/slur.cc (pure_outside_slur_callback): new function
+
+	* ly/paper-defaults.ly: change default blank-page-force to 2 (this
+	fits in with previous changes that made the page forces much
+	smaller)
+
+	* scm/define-grobs.scm (call-pure-function): generalise pure-Y-offset
+	and pure-Y-extent into this new function.
+	(pure-conversions-alist): add outside-slur-callback
+
 2006-10-24  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Instrument names):

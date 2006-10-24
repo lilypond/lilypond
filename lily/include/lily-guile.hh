@@ -183,5 +183,4 @@ inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
 
-
 #endif /* LILY_GUILE_HH */

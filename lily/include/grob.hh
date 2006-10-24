@@ -151,4 +151,6 @@ void chain_offset_callback (Grob *g, SCM proc, Axis a);
 SCM axis_offset_symbol (Axis a);
 SCM axis_parent_positioning (Axis a);
 
+SCM call_pure_function (SCM unpure, SCM args, int start, int end);
+
 #endif /* GROB_HH */

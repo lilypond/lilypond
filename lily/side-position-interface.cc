@@ -190,11 +190,14 @@ Side_position_interface::y_aligned_side (SCM smob, SCM current_off)
   return axis_aligned_side_helper (smob, Y_AXIS, false, 0, 0, current_off);
 }
 
-MAKE_SCHEME_CALLBACK (Side_position_interface, pure_y_aligned_side, 3);
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, pure_y_aligned_side, 4, 1);
 SCM
-Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end)
+Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end, SCM cur_off)
 {
-  return aligned_side (unsmob_grob (smob), Y_AXIS, true, scm_to_int (start), scm_to_int (end), 0);
+  return axis_aligned_side_helper (smob, Y_AXIS, true,
+				   scm_to_int (start),
+				   scm_to_int (end),
+				   cur_off);
 }
 
 SCM

@@ -25,7 +25,7 @@ public:
   DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_support_refpoints, (SCM element, SCM start, SCM end));
   DECLARE_SCHEME_CALLBACK (x_aligned_side, (SCM element, SCM current));
   DECLARE_SCHEME_CALLBACK (y_aligned_side, (SCM element, SCM current));
-  DECLARE_SCHEME_CALLBACK (pure_y_aligned_side, (SCM element, SCM start, SCM end));
+  DECLARE_SCHEME_CALLBACK (pure_y_aligned_side, (SCM element, SCM start, SCM end, SCM current));
 
   static SCM aligned_side (Grob*me, Axis a, bool pure, int start, int end, Real *current_off_ptr);
 

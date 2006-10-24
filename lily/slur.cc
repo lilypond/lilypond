@@ -185,6 +185,25 @@ Slur::add_extra_encompass (Grob *me, Grob *n)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
 }
 
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, pure_outside_slur_callback, 4, 1);
+SCM
+Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offset_scm)
+{
+  int start = robust_scm2int (start_scm, 0);
+  int end = robust_scm2int (end_scm, 0);
+  Grob *script = unsmob_grob (grob);
+  Grob *slur = unsmob_grob (script->get_object ("slur"));
+  if (!slur)
+    return offset_scm;
+
+  SCM avoid = script->get_property ("avoid-slur");
+  if (avoid != ly_symbol2scm ("outside") && avoid != ly_symbol2scm ("around"))
+    return offset_scm;
+
+  Real offset = robust_scm2double (offset_scm, 0.0);
+  Direction dir = get_grob_direction (script);
+  return scm_from_double (offset + dir * slur->pure_height (slur, start, end).length () / 4);
+}
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1);
 SCM
