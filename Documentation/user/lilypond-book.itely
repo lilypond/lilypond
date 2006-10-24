@@ -28,13 +28,14 @@ program extracts snippets of music from your document, runs
 substituted for the music.  The line width and font size definitions for
 the music are adjusted to match the layout of your document.
 
-This procedure may be applied to La@TeX{}, HTML or Texinfo documents.
+This procedure may be applied to La@TeX{}, HTML, Texinfo or DocBook documents.
 
 @menu
 * An example of a musicological document::  
 * Integrating LaTeX and music::  
 * Integrating Texinfo and music::  
 * Integrating HTML and music::  
+* Integrating DocBook and music::
 * Music fragment options::      
 * Invoking lilypond-book::      
 * Filename extensions::         
@@ -50,11 +51,12 @@ This procedure may be applied to La@TeX{}, HTML or Texinfo documents.
 @cindex La@TeX{}, music in
 @cindex HTML, music in
 @cindex Texinfo, music in
+@cindex DocBook, music in
 Some texts contain music examples.  These texts are musicological
 treatises, songbooks, or manuals like this.  Such texts can be made by
 hand, simply by importing a PostScript figure into the word processor.
 However, there is an automated procedure to reduce the amount of work
-involved in HTML, La@TeX{}, and Texinfo documents.
+involved in HTML, La@TeX{}, Texinfo and DocBook documents.
 
 A script called @code{lilypond-book} will extract the music fragments,
 format them, and put back the resulting notation.  Here we show a small
@@ -155,6 +157,7 @@ Larger examples can be put into a separate file, and introduced with
 @cindex texinfo
 @funindex texi
 @cindex html
+@cindex docbook
 @cindex documents, adding music to
 
 
@@ -470,6 +473,61 @@ To include separate files, say
 @cindex preview image
 @cindex thumbnail
 
+@node Integrating DocBook and music
+@section Integrating DocBook and music
+
+For inserting LilyPond snippets it is good to keep the conformity of
+our DocBook document, thus allowing us to use DocBook editors,
+validation etc. So we don't use custom tags, only specify a convention
+based on the standard DocBook elements.
+
+@unnumberedsubsec Common conventions
+
+For inserting all type of snippets we use the @code{mediaobject} and @code{inlinemediaobject} element, so our snippets can be
+formatted inline or not inline.
+The snippet formatting options are always provided in the @code{role} property of the innermost element (see in next sections). Tags are
+chosen to allow DocBook editors format the content gracefully.
+The DocBook files to be processed with @command{lilypond-book} should have the extension @file{.lyxml}.
+
+@unnumberedsubsec Including a LilyPond file
+
+This is the most simple case. We must use the @file{.ly} extension for the included file, and insert it as a standard @code{imageobject},
+with the following structure:
+
+@example
+<mediaobject>
+  <imageobject>
+    <imagedata fileref="music1.ly" role="printfilename" />
+  </imageobject>
+</mediaobject>
+@end example
+
+Note that you can use mediaobject or inlinemediaobject as the outermost element as you wish.
+
+@unnumberedsubsec Including LilyPond code
+
+Including LilyPond code is possible by using a @code{programlisting}, where the language is set to @code{lilypond} with the following structure:
+
+@example
+<inlinemediaobject>
+  <textobject>
+    <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
+\context Staff \with {
+  \remove Time_signature_engraver
+  \remove Clef_engraver} 
+  { c4( fis) }
+    </programlisting>
+  </textobject>
+</inlinemediaobject>
+@end example
+
+As you can see, the outermost element is a @code{mediaobject} or @code{inlinemediaobject}, and there is a @code{textobject} containing the @code{programlisting} inside.
+
+@unnumberedsubsec Processing the DocBook document
+
+Running @command{lilypond-book} on our @file{.lyxml} file will create a valid DocBook document to be further processed with @file{.xml} extension.
+If you use @uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex}, it will create a PDF file from this document automatically. 
+For HTML (HTML Help, JavaHelp etc.) generation you can use the official DocBook XSL stylesheets, however, it is possible that you have to make some customization for it.
 
 @node Music fragment options
 @section Music fragment options
@@ -623,8 +681,8 @@ cannot find on its own.
 @section Invoking @command{lilypond-book}
 
 @command{lilypond-book} produces a file with one of the following
-extensions: @file{.tex}, @file{.texi}, or @file{.html}, depending on the
-output format.  Both @file{.tex} and @file{.texi} files need further
+extensions: @file{.tex}, @file{.texi}, @file{.html}  or @file{.xml}, depending on the
+output format.  All of @file{.tex}, @file{.texi} and @{.xml} files need further
 processing.
 
 @command{lilypond-book} can also create a PSFONTS file, which is required
@@ -670,8 +728,7 @@ See the documentation of Texinfo for further details.
 @table @code
 @item -f @var{format}
 @itemx --format=@var{format}
-Specify the document type to process: @code{html}, @code{latex}, or
-@code{texi} (the default).  If this option is missing,
+Specify the document type to process: @code{html}, @code{latex}, @code{texi} (the default) or @code{docbook}.  If this option is missing,
 @command{lilypond-book} tries to detect the format automatically.
 
 The @code{texi} document type produces a Texinfo file with music
@@ -757,6 +814,7 @@ output format based on the input filename's extension.
 @item @file{.itely} @tab Texinfo
 @item @file{.latex} @tab La@TeX{}
 @item @file{.lytex} @tab La@TeX{}
+@item @file{.lyxml} @tab DocBook
 @item @file{.tely} @tab Texinfo
 @item @file{.tex} @tab La@TeX{}
 @item @file{.texi} @tab Texinfo
