@@ -286,6 +286,7 @@ Source_file::get_counts (char const *pos_str0,
       size_t thislen = mbrtowc (multibyte, line_chars, left, &state);
 #else
       size_t thislen = 1;
+      (void) multibyte;
 #endif /* !HAVE_MBRTOWC */
 
       /* Stop converting at invalid character;

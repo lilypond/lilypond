@@ -1,5 +1,7 @@
 2006-10-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/source-file.cc (get_counts): use multibyte variable.
+
 	* scm/translation-functions.scm (determine-frets-mf): new
 	function: compute fret numbers. 
 
