@@ -8,17 +8,16 @@
 
 #include <cctype>
 #include <cstdio>
+
+#include "engraver.hh"
+
 using namespace std;
 
-#include "dot-column.hh"
-#include "dots.hh"
 #include "duration.hh"
 #include "item.hh"
 #include "output-def.hh"
 #include "pitch.hh"
 #include "rhythmic-head.hh"
-#include "score-engraver.hh"
-#include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 
@@ -69,7 +68,7 @@ Tab_note_heads_engraver::process_music ()
   for (vsize i = 0; i < note_events_.size (); i++)
     {
       SCM stringTunings = get_property ("stringTunings");
-      int number_of_strings = ((int) ly_length (stringTunings));
+      int number_of_strings = scm_ilength (stringTunings);
       bool high_string_one = to_boolean (get_property ("highStringOne"));
 
       Stream_event *event = note_events_[i];

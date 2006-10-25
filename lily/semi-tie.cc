@@ -53,7 +53,9 @@ Semi_tie::calc_direction (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
-    me->get_parent (Y_AXIS)->get_property("positioning-done");
+    {
+      me->get_parent (Y_AXIS)->get_property("positioning-done");
+    }
   else
     {
       programming_error ("lv tie without Semi_tie_column"); 

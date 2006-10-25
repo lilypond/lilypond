@@ -647,6 +647,13 @@
 				side-position-interface
 				self-alignment-interface
 				item-interface))))))
+    (FretBoard
+     . ((stencil . ,fret-board::calc-stencil)
+	(meta . ((class . Item)
+		 (interfaces . (fret-board-interface
+				font-interface
+				))))
+	      ))
     (Glissando
      . (
 	(style . line)

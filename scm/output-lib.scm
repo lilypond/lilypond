@@ -460,3 +460,36 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (lyric-text::calc-text grob)
    (ly:event-property (event-cause grob) 'text))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fret boards
+
+(define (string-frets->description string-frets string-count)
+  (let*
+      ((desc (list->vector
+	      (map (lambda (x) (list 'mute  (1+ x)))
+		   (iota string-count)))))
+       
+       (for-each (lambda (sf)
+		   (let*
+		       ((string (car sf))
+			(fret (cdr sf)))
+
+
+		     (vector-set! desc (1- string)
+				  (if (= 0 fret)
+				      (list 'open string)
+				      (list 'place-fret string fret)))
+		     ))
+		 string-frets)
+       (vector->list desc)))
+
+(define-public (fret-board::calc-stencil grob)
+  (let* ((string-frets (ly:grob-property grob 'string-frets))
+	 (string-count (ly:grob-property grob 'string-count))
+	 (layout (ly:grob-layout grob))
+	 (defs (ly:output-def-lookup layout 'text-font-defaults))
+	 (props (ly:grob-alist-chain grob defs)))
+
+    (make-fret-diagram layout props
+		       (string-frets->description string-frets 6))))

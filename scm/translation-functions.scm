@@ -137,3 +137,97 @@
 
     ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fret diagrams
+
+(define-public (determine-frets context grob notes string-numbers)
+  (define (ensure-number a b)
+    (if (number? a)
+	a
+	b))
+(let*
+      ((tunings (ly:context-property context 'stringTunings))
+       (minimum-fret (ensure-number
+		      (ly:context-property context 'minimumFret) 0))
+       (string-frets (determine-frets-mf notes string-numbers
+					 minimum-fret
+					 tunings)))
+
+       	      
+  (set! (ly:grob-property grob 'string-count) (length tunings))
+  (set! (ly:grob-property grob 'string-frets) string-frets)
+
+  ))
+
+(define-public (determine-frets-mf notes string-numbers
+				   minimum-fret
+				   tunings)
+
+  (define (calc-fret pitch string tuning)
+    (- (ly:pitch-semitones pitch) (list-ref tuning (1- string))))
+
+  (define (note-pitch a)
+    (ly:event-property a 'pitch))
+
+  (define (note-pitch<? a b)
+    (ly:pitch<? (note-pitch a)
+		(note-pitch b)))
+  
+  (define (note-ev-string ev)
+    (let* ((articulations (ly:event-property ev 'articulations))
+	   (string-found #f))
+
+      (map (lambda (art)
+	     (let*
+		 ((num (ly:event-property art 'string-number)))
+
+	       (if (number? num)
+		   (set! string-found num))))
+	   articulations)
+      string-found))
+
+  (let*
+      ((free-strings (map 1+ (iota (length tunings))))
+       (del-string (lambda (string)
+		     (if (number? string)
+			 (set! free-strings
+			       (delete string free-strings)))))
+       (string-qualifies (lambda (string pitch)
+			   (and (>= (calc-fret pitch string tunings)
+				    minimum-fret))))
+       (string-frets '())
+       (set-fret (lambda (note string)
+		   (set! string-frets
+			(acons string
+			       (calc-fret (ly:event-property note 'pitch)
+					  string tunings)
+			       string-frets))
+		   (del-string string)
+		   ))
+       
+
+       )
+    
+    (for-each (lambda (note)
+		(del-string (note-ev-string note)))
+	      notes)
+
+
+    (for-each
+     (lambda (note)
+       (if (note-ev-string note)
+	   (set-fret note (note-ev-string note))
+	   (let*
+	       ((string (find (lambda (string) (string-qualifies string
+								 (note-pitch note)))
+			      (reverse free-strings))))
+
+		(set-fret note string))))
+     (sort notes note-pitch<?))
+
+    
+    (display string-frets)
+
+
+    string-frets))
+			  

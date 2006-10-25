@@ -298,7 +298,7 @@ Line thickness is given by @var{th}, fret & string spacing by
   For example,
   
 @example
-   \\markup \\fret-diagram #'((mute 6) (mute 5) (open 4)
+   \\markup \\fret-diagram-verbose #'((mute 6) (mute 5) (open 4)
         (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
 @end example 
   

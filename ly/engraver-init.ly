@@ -10,6 +10,18 @@
   \grobdescriptions #all-grob-descriptions
 }
 
+
+\context {
+  \type "Engraver_group"
+  \name "FretBoards"
+
+  \consists "Output_property_engraver"	
+
+  \consists "Axis_group_engraver" 
+  \consists "Fretboard_engraver"
+  \consists "Separating_line_group_engraver"
+  \consists "Font_size_engraver"
+}
 \context {
   \type "Engraver_group"
   \name "Staff"
@@ -24,7 +36,7 @@
   \consists "Separating_line_group_engraver"	
   \consists "Dot_column_engraver"
 
-  %% perhaps move to Voice context?
+ %% perhaps move to Voice context?
   \consists "Ottava_spanner_engraver"
   \consists "Clef_engraver"
   \consists "Key_engraver"
@@ -475,6 +487,7 @@ AncientRemoveEmptyStaffContext = \context {
   
   \defaultchild "Staff"
 
+  \accepts "FretBoards"
   \accepts "Staff"
   \accepts "RhythmicStaff"
   \accepts "TabStaff"
@@ -491,7 +504,9 @@ AncientRemoveEmptyStaffContext = \context {
   \accepts "Devnull"
   \accepts "NoteNames"
   \accepts "FiguredBass"
-  
+
+
+  noteToFretFunction = #determine-frets
   soloText = #"Solo"
   soloIIText = #"Solo II"
   aDueText = #"a2"

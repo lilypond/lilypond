@@ -1,3 +1,23 @@
+2006-10-25  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/translation-functions.scm (determine-frets-mf): new
+	function: compute fret numbers. 
+
+	* scm/output-lib.scm (string-frets->description) new function.
+	(fret-board::calc-stencil): new function
+
+	* scm/fret-diagrams.scm (fret-diagram-verbose): update doc string.
+
+	* scm/define-grobs.scm (all-grob-descriptions): add FretBoard grob. 
+
+	* lily/include/lily-guile.hh (ly_cxx_vector_to_list): new function.
+
+	* lily/tab-note-heads-engraver.cc: cleanups.
+
+	* lily/fretboard-engraver.cc: new file
+
+	* ly/engraver-init.ly: add FretBoards context
+
 2006-10-24  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/grob.cc (pure_relative_y_coordinate)
@@ -31,6 +51,9 @@
 	staff. 
 
 2006-10-24  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/lilypond-book.itely (Integrating DocBook and
+	music): patch by Bertalan Fodor for docbook.
 
 	* Documentation/topdocs/GNUmakefile (LILYPOND_BINARY): use instead
 	of $(LILYPOND). Prevents lilypond run for .txt files.

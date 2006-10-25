@@ -96,10 +96,6 @@ inline bool ly_is_equal (SCM x, SCM y)
 
 inline bool ly_scm2bool (SCM x) { return SCM_NFALSEP (x); }
 inline char ly_scm2char (SCM x) { return SCM_CHAR (x); }
-inline unsigned long ly_length (SCM x)
-{
-  return scm_num2ulong (scm_length (x), 0, "ly_length");
-}
 inline SCM ly_bool2scm (bool x) { return SCM_BOOL (x); }
 
 inline SCM ly_append2 (SCM x1, SCM x2)
@@ -182,5 +178,21 @@ typedef SCM (*Scheme_function_3) (GUILE_ELLIPSIS);
 inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
+
+
+
+#include  "std-vector.hh"
+
+template<class T>
+SCM
+ly_cxx_vector_to_list  (vector<T> const &src)
+{
+  SCM l = SCM_EOL;
+  for (vsize i = src.size (); i --; )
+    l = scm_cons (src[i]->self_scm (), l);
+
+  return l;
+}
+
 
 #endif /* LILY_GUILE_HH */
