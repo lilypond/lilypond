@@ -1,3 +1,8 @@
+2006-10-25  Graham Percival  <gpermus@gmail.com>
+
+	* Diocumentation/user/instrument-notation.itely: added more
+	info about stanzas; thanks Geoff!
+
 2006-10-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/define-context-properties.scm (all-user-translation-properties):
