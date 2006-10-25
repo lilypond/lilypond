@@ -2603,12 +2603,14 @@ c\< c\! d\> e\!
 @end lilypond
 
 @noindent
-A hairpin starts at the left edge of the beginning note and ends on the
-right edge of the ending note.  This may be modified by setting
-the @code{hairpinToBarline} property,
+A hairpin normally starts at the left edge of the beginning note
+and ends on the right edge of the ending note.  If the ending
+note falls on the downbeat, the hairpin ends on the immediately
+preceding barline. This may be modified by setting the
+@code{hairpinToBarline} property,
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set hairpinToBarline = ##t
+\set hairpinToBarline = ##f
 c4\< c2. c4\!
 @end lilypond
 
