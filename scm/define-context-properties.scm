@@ -321,6 +321,7 @@ format as @var{verticalExtent}")
      (output ,ly:music-output? "The output produced by a score-level translator during music interpretation")
      (ottavation ,string? "If set, the text for an ottava spanner. Changing
 this creates a new text spanner. ")
+     (noteToFretFunction ,procedure? "How to produce a fret diagram.  Parameters: list of note events and list of tabstring events.")
      (pedalSustainStrings ,list? "List of string to print for
 sustain-pedal. Format is (@var{up} @var{updown} @var{down}), where
 each of the three is the string to print when this is done with the

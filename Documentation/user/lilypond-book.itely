@@ -512,10 +512,10 @@ Including LilyPond code is possible by using a @code{programlisting}, where the 
 <inlinemediaobject>
   <textobject>
     <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
-\context Staff \with {
+\context Staff \with @{
   \remove Time_signature_engraver
-  \remove Clef_engraver} 
-  { c4( fis) }
+  \remove Clef_engraver@} 
+  @{ c4( fis) @}
     </programlisting>
   </textobject>
 </inlinemediaobject>
