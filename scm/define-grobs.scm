@@ -649,8 +649,9 @@
 				item-interface))))))
     (FretBoard
      . ((stencil . ,fret-board::calc-stencil)
+	(finger-code . below-string)
 	(meta . ((class . Item)
-		 (interfaces . (fret-board-interface
+		 (interfaces . (fret-diagram-interface
 				font-interface
 				))))
 	      ))

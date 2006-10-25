@@ -312,6 +312,7 @@ markup.  Called with 2 arguments, event and context.")
      (midiMaximumVolume ,number? "Analogous to @code{midiMinimumVolume}.")
      (minimumFret ,number? "The tablature auto string-selecting mechanism
 selects the highest string with a fret at least @code{minimumFret}")
+     (maximumFretStretch ,number? "Don't allocate frets further than this from specified frets.")
      (minimumPageTurnLength ,ly:moment? "Minimum length of a rest for a page turn to be allowed")
      (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a repeated section for a page
 turn to be allowed within that section")

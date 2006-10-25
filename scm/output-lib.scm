@@ -473,15 +473,22 @@ centered, X==1 is at the right, X == -1 is at the left."
        (for-each (lambda (sf)
 		   (let*
 		       ((string (car sf))
-			(fret (cdr sf)))
+			(fret (cadr sf))
+			(finger (caddr sf)))
 
 
 		     (vector-set! desc (1- string)
 				  (if (= 0 fret)
 				      (list 'open string)
-				      (list 'place-fret string fret)))
+				      (if finger
+					  (list 'place-fret string fret finger) 
+					  (list 'place-fret string fret))
+					  
+
+				      ))
 		     ))
 		 string-frets)
+
        (vector->list desc)))
 
 (define-public (fret-board::calc-stencil grob)
