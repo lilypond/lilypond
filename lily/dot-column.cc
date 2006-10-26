@@ -66,6 +66,7 @@ struct Dot_position
     dot_ = 0;
     pos_ = 0;
     dir_ = CENTER;
+    extremal_head_ = false;
   }
 };
 
