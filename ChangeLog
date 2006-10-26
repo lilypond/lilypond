@@ -32,6 +32,9 @@
 	* scm/define-grob-properties.scm:
 	Build fix (string-fret-finger-combinations)
 
+	* Documentation/topdocs/INSTALL.texi: Remove obsolete info about
+	lexer-gcc-3.1.sh
+
 2006-10-26  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/system.cc (get_paper_system): 
