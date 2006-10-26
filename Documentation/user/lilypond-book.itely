@@ -682,7 +682,7 @@ cannot find on its own.
 
 @command{lilypond-book} produces a file with one of the following
 extensions: @file{.tex}, @file{.texi}, @file{.html}  or @file{.xml}, depending on the
-output format.  All of @file{.tex}, @file{.texi} and @{.xml} files need further
+output format.  All of @file{.tex}, @file{.texi} and @file{.xml} files need further
 processing.
 
 @command{lilypond-book} can also create a PSFONTS file, which is required
