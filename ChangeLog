@@ -1,3 +1,14 @@
+2006-10-26  Joe Neeman  <joeneeman@gmail.com>
+
+	* Documentation/topdocs/NEWS.tely: add 2 entries for the
+	page breaking stuff
+
+	* Documentation/user/page.itely: remove time-scaled-music
+	bug for the Page_turn_engraver
+
+	* lily/paper-book.cc (set_system_penalty): backwards
+	compatibility (breakbefore) for the old page breaker
+
 2006-10-25  Graham Percival  <gpermus@gmail.com>
 
 	* Diocumentation/user/instrument-notation.itely: added more

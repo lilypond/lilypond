@@ -239,7 +239,11 @@ set_system_penalty (SCM sys, SCM header)
 		cols.back ()->set_property ("page-break-permission", sym);
 	    }
 	  else if (Prob *pb = unsmob_prob (sys))
-	    pb->set_property ("page-break-permission", sym);
+	    {
+	      pb->set_property ("page-break-permission", sym);
+	      /* backwards compatibility for the old page breaker */
+	      pb->set_property ("penalty", scm_from_int (b ? -10001 : 10001));
+	    }
 	}
     }
 }

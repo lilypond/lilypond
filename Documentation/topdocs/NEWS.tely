@@ -66,7 +66,11 @@ which scares away people.
 
 @end ignore
 
+@item Horizontal and vertical spacing are now done at the same time
+so that pages are filled more evenly.
 
+@item The page breaking algorithm is capable of detecting page turns
+and formatting the music accordingly.
 
 @c Insert any new material above this line.  -gp
 
