@@ -14,6 +14,7 @@
 using namespace std;
 
 #include "dots.hh"
+#include "dot-column.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
