@@ -75,47 +75,47 @@ typedef struct message {
 } message_t;
 
 message_t channelVoiceMessages[] = {
-  0x80, "NOTE_OFF",
-  0x90, "NOTE_ON",
-  0xA0, "POLYPHONIC_KEY_PRESSURE",
-  0xB0, "CONTROLLER_CHANGE",
-  0xC0, "PROGRAM_CHANGE",
-  0xD0, "CHANNEL_KEY_PRESSURE",
-  0xE0, "PITCH_BEND",
-  0,0
+  {0x80, "NOTE_OFF"},
+  {0x90, "NOTE_ON"},
+  {0xA0, "POLYPHONIC_KEY_PRESSURE"},
+  {0xB0, "CONTROLLER_CHANGE"},
+  {0xC0, "PROGRAM_CHANGE"},
+  {0xD0, "CHANNEL_KEY_PRESSURE"},
+  {0xE0, "PITCH_BEND"},
+  {0,0}
 };
 
 message_t channelModeMessages[] = {
-  0x78, "ALL_SOUND_OFF",
-  0x79, "RESET_ALL_CONTROLLERS",
-  0x7A, "LOCAL_CONTROL",
-  0x7B, "ALL_NOTES_OFF",
-  0x7C, "OMNI_MODE_OFF",
-  0x7D, "OMNI_MODE_ON",
-  0x7E, "MONO_MODE_ON",
-  0x7F, "POLY_MODE_ON",
-  0,0
+  {0x78, "ALL_SOUND_OFF"},
+  {0x79, "RESET_ALL_CONTROLLERS"},
+  {0x7A, "LOCAL_CONTROL"},
+  {0x7B, "ALL_NOTES_OFF"},
+  {0x7C, "OMNI_MODE_OFF"},
+  {0x7D, "OMNI_MODE_ON"},
+  {0x7E, "MONO_MODE_ON"},
+  {0x7F, "POLY_MODE_ON"},
+  {0,0}
 };
 
 message_t metaEvents[] = {
-  0x00, "SEQUENCE_NUMBER",
-  0x01, "TEXT_EVENT",
-  0x02, "COPYRIGHT_NOTICE",
-  0x03, "SEQUENCE_TRACK_NAME",
-  0x04, "INSTRUMENT_NAME",
-  0x05, "LYRIC",
-  0x06, "MARKER",
-  0x07, "CUE_POINT",
-  0x20, "MIDI_CHANNEL_PREFIX",
-  0x21, "MIDI_PORT",
-  0x2F, "END_OF_TRACK",
-  0x51, "SET_TEMPO",
-  0x54, "SMTPE_OFFSET",
-  0x58, "TIME_SIGNATURE",
-  0x59, "KEY_SIGNATURE",
-  0x7F, "SEQUENCER_SPECIFIC_META_EVENT",
-  0xFF, "META_EVENT",
-  0,0
+  {0x00, "SEQUENCE_NUMBER"},
+  {0x01, "TEXT_EVENT"},
+  {0x02, "COPYRIGHT_NOTICE"},
+  {0x03, "SEQUENCE_TRACK_NAME"},
+  {0x04, "INSTRUMENT_NAME"},
+  {0x05, "LYRIC"},
+  {0x06, "MARKER"},
+  {0x07, "CUE_POINT"},
+  {0x20, "MIDI_CHANNEL_PREFIX"},
+  {0x21, "MIDI_PORT"},
+  {0x2F, "END_OF_TRACK"},
+  {0x51, "SET_TEMPO"},
+  {0x54, "SMTPE_OFFSET"},
+  {0x58, "TIME_SIGNATURE"},
+  {0x59, "KEY_SIGNATURE"},
+  {0x7F, "SEQUENCER_SPECIFIC_META_EVENT"},
+  {0xFF, "META_EVENT"},
+  {0,0}
 };
 
 void
@@ -148,7 +148,7 @@ unsigned long int
 get_variable_length_number (unsigned char **str, unsigned char * end_str)
 {
   long sum = 0;
-  int i = 0;
+
   while (*str < end_str)
     {
       unsigned char x = **str;
@@ -330,7 +330,7 @@ static PyObject *
 pymidi_parse_track (PyObject *self, PyObject *args)
 {
   unsigned char *track, *track_end;
-  unsigned long track_size, track_len;
+  unsigned long track_size;
 
   PyObject * sobj = PyTuple_GetItem (args, 0);
 
@@ -392,7 +392,7 @@ static PyObject *
 pymidi_parse (PyObject *self, PyObject *args)
 {
   unsigned char *midi, *midi_end;
-  unsigned long midi_size, midi_len;
+  unsigned long midi_size;
   
   PyObject *sobj = PyTuple_GetItem (args, 0);
 

@@ -86,9 +86,6 @@ env.Depends ('aybabtu.otf',
 		'aybabtu.otf-table',
 		'aybabtu.otf-gtable'])
 
-env.Command ('fonts.cache-1', p + o,
-	     'cd ${TARGET.dir}; fc-cache .')
-	     
 ## FIXME: building only a few fonts does not seem to work anymore.
 ## what is essential these days, aybabtu/emmentaler are needed always?
 mf_essential = ['feta16', 'feta20', 'parmesan16', ]
