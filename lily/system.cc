@@ -404,13 +404,6 @@ System::get_paper_system ()
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
   pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
 
-  /* backwards compatibility with the old page breaker */
-  SCM perm = left_bound->get_property ("page-break-permission");
-  if (!scm_is_symbol (perm))
-    pl->set_property ("penalty", scm_from_double (10001));
-  else if (perm == ly_symbol2scm ("force"))
-    pl->set_property ("penalty", scm_from_double (-10001));
-  
   if (!scm_is_pair (pl->get_property ("refpoint-Y-extent")))
     {
       Interval staff_refpoints;

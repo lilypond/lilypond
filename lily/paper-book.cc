@@ -11,6 +11,7 @@
 #include "grob.hh"
 #include "main.hh"
 #include "output-def.hh"
+#include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
 #include "text-interface.hh"
@@ -236,14 +237,14 @@ set_system_penalty (SCM sys, SCM header)
 	    {
 	      vector<Grob*> cols = ps->get_columns ();
 	      if (cols.size ())
-		cols.back ()->set_property ("page-break-permission", sym);
+		{
+		  Paper_column *col = dynamic_cast<Paper_column*> (cols.back ());
+		  col->set_property ("page-break-permission", sym);
+		  col->find_prebroken_piece (LEFT)->set_property ("page-break-permission", sym);
+		}
 	    }
 	  else if (Prob *pb = unsmob_prob (sys))
-	    {
-	      pb->set_property ("page-break-permission", sym);
-	      /* backwards compatibility for the old page breaker */
-	      pb->set_property ("penalty", scm_from_int (b ? -10001 : 10001));
-	    }
+	    pb->set_property ("page-break-permission", sym);
 	}
     }
 }
@@ -374,6 +375,7 @@ Paper_book::systems ()
   
   systems_ = scm_reverse (systems_);
 
+  /* backwards compatibility for the old page breaker */
   int i = 0;
   Prob *last = 0;
   for (SCM s = systems_; scm_is_pair (s); s = scm_cdr (s))
@@ -386,6 +388,16 @@ Paper_book::systems ()
 	  && !scm_is_number (ps->get_property ("penalty")))
 	ps->set_property ("penalty", scm_from_int (10000));
       last = ps;
+
+      if (scm_is_pair (scm_cdr (s)))
+	{
+	  SCM perm = ps->get_property ("page-break-permission");
+	  Prob *next = unsmob_prob (scm_cadr (s));
+	  if (perm == SCM_EOL)
+	    next->set_property ("penalty", scm_from_int (10001));
+	  else if (perm == ly_symbol2scm ("force"))
+	    next->set_property ("penalty", scm_from_int (-10001));
+	}
     }
 
   return systems_;

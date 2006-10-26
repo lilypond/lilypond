@@ -1,5 +1,10 @@
 2006-10-26  Joe Neeman  <joeneeman@gmail.com>
 
+	* lily/system.cc (get_paper_system): 
+	* lily/paper-book.cc (systems): 
+	move most of the backwards compatibility stuff into
+	Paper_book::systems
+
 	* Documentation/topdocs/NEWS.tely: add 2 entries for the
 	page breaking stuff
 
