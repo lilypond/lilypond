@@ -1,3 +1,7 @@
+2006-10-26  Graham Percival  <gpermus@gmail.com>
+
+	* Documentation/user/ {basic-, global}: minor changes from mailist.
+
 2006-10-26  Erlend Aasland  <erlenda@gmail.com>
 
 	* scm/define-grobs.scm: trivial beautification

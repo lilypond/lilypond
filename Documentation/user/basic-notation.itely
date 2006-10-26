@@ -853,6 +853,10 @@ ties.  One of its uses is to debug complex scores: if the measures are
 not entirely filled, then the ties exactly show how much each measure
 is off.
 
+If you want to allow line breaking on the bar lines where
+@internalsref{Completion_heads_engraver} splits notes, you must
+also remove @internalsref{Forbid_line_breaks_engraver}.
+
 
 @refbugs
 
