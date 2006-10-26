@@ -1265,7 +1265,6 @@
 				mark-interface
 				self-alignment-interface))))))
 
-
     (RepeatSlash
      . (
 	(stencil . ,ly:percent-repeat-item-interface::beat-slash)
@@ -1273,6 +1272,7 @@
 	(slope . 1.7)
 	(meta . ((class . Item)
 		 (interfaces . (percent-repeat-interface))))))
+
     (RepeatTie
      . (
 	(stencil  . ,ly:tie::print)

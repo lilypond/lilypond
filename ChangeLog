@@ -1,3 +1,11 @@
+2006-10-26  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/define-grobs.scm: trivial beautification
+
+	* lily/tie-performer.cc: no need to #include "pqueue.hh"
+
+	* lily/source-file.cc: put multibyte var inside #if clause
+
 2006-10-26  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/system.cc (get_paper_system): 
