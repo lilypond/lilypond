@@ -49,7 +49,8 @@
  'fret-diagram-interface
  "A fret diagram"
  '(align-dir barre-type dot-color dot-radius finger-code fret-count
-  label-dir number-type size string-count thickness))
+  label-dir number-type size string-count
+  string-fret-finger-combinations thickness))
 
 (ly:add-interface
  'grace-spacing-interface

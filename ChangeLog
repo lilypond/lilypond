@@ -28,6 +28,10 @@
 
 	* lily/source-file.cc: put multibyte var inside #if clause
 
+	* scm/define-grob-interfaces.scm:
+	* scm/define-grob-properties.scm:
+	Build fix (string-fret-finger-combinations)
+
 2006-10-26  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/system.cc (get_paper_system): 
