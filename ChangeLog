@@ -1,5 +1,7 @@
 2006-10-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* mf/GNUmakefile: explicit dependencies for .otftable files.
+
 	* Documentation/topdocs/NEWS.tely (Top): add FretBoards example. 
 
 	* input/regression/fret-boards.ly: new file.
