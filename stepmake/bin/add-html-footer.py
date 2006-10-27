@@ -10,7 +10,6 @@ import time
 import string 
 import getopt
 
-gcos = "unknown"
 index_url=''
 top_url=''
 changelog_file=''
@@ -104,23 +103,6 @@ for opt in options:
     else:
         raise 'unknown opt ', o
 
-#burp?
-def set_gcos ():
-    global gcos
-    os.environ["CONFIGSUFFIX"] = 'www';
-    if os.name == 'nt':
-        import ntpwd
-        pw = ntpwd.getpwname(os.environ['USERNAME'])
-    else:
-        import pwd
-        if os.environ.has_key('FAKEROOTKEY') and os.environ.has_key('LOGNAME'):
-            pw = pwd.getpwnam (os.environ['LOGNAME'])
-        else:
-            pw = pwd.getpwuid (os.getuid())
-
-    f = pw[4]
-    f = string.split (f, ',')[0]
-    gcos = f 
 
 def compose (default, file):
     s = default
@@ -128,7 +110,6 @@ def compose (default, file):
         s = open (file).read ()
     return s
 
-set_gcos ()
 localtime = time.strftime ('%c %Z', time.localtime (time.time ()))
 
 if os.path.basename (index_url) != "index.html":

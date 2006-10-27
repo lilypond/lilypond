@@ -1,10 +1,18 @@
+2006-10-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* stepmake/bin/add-html-footer.py (compose): remove setgcos
+
+2006-10-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* GNUmakefile.in (install-help2man): install-help2man target. 
+
 2006-10-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct (configure): Do not check for /bin/sh.
 
 2006-10-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* mf/GNUmakefile: explicit dependencies for .otftable files.
+	* mf/GNUmakefile: explicit dependencies for emmentaler .otf-table  files.
 
 	* Documentation/topdocs/NEWS.tely (Top): add FretBoards example. 
 

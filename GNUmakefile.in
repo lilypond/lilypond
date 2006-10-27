@@ -52,16 +52,16 @@ install-WWW:
 
 install-help2man:
 	$(MAKE) -C scripts man install-help2man
-	$(MAKE) -C lily/$(outdir) man install-help2man
+	$(MAKE) -C lily man install-help2man
 
 web-install:
 	$(MAKE) out=www install-WWW
 
 uninstall-WWW:
-	#TODO
+	echo TODO
 
 web-uninstall:
-	$(MAKE) out=www uninstall-WWW=
+	$(MAKE) out=www uninstall-WWW
 
 local-install:
 	$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)
