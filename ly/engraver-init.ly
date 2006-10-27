@@ -56,8 +56,6 @@
   \consists "Script_row_engraver"
 
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
-  extraVerticalExtent = ##f
-  verticalExtent = ##f 
   localKeySignature = #'()
   createSpacing = ##t
   ignoreFiguredBassRest = ##t 
@@ -136,8 +134,6 @@ contained staves are not connected vertically."
   \type "Engraver_group"
   
   \override VerticalAxisGroup #'minimum-Y-extent = ##f
-  extraVerticalExtent = ##f
-  verticalExtent = ##f 
   localKeySignature = #'()
   createSpacing = ##t
 
@@ -360,8 +356,6 @@ staffs, with a bracket in front and spanning bar lines. "
 \context{
   \type "Engraver_group"
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-1.2 . 2.4)
-  extraVerticalExtent = ##f
-  verticalExtent = ##f
 
   \description " Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics.  "
@@ -395,8 +389,6 @@ printing of a single line of lyrics.  "
   \consists "Axis_group_engraver"
 
   \override VerticalAxisGroup #'minimum-Y-extent = ##f
-  extraVerticalExtent = ##f
-  verticalExtent = ##f 
 
   
   \consists "Rest_swallow_translator" 
@@ -422,11 +414,9 @@ printing of a single line of lyrics.  "
   
   voltaOnThisStaff = ##f
   \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2.5)
-  extraVerticalExtent = ##f
   \override SeparatingGroupSpanner #'padding = #0.8
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
-  verticalExtent = ##f 
 }
 
 

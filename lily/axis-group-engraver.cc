@@ -40,10 +40,6 @@ Axis_group_engraver::get_spanner ()
   return make_spanner ("VerticalAxisGroup", SCM_EOL);
 }
 
-/*
-  TODO: should we junk minimumVerticalExtent/extraVerticalExtent ?
-*/
-
 void
 Axis_group_engraver::finalize ()
 {
