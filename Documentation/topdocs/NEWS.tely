@@ -66,6 +66,15 @@ which scares away people.
 
 @end ignore
 
+@item The @code{FretBoards} context will generate guitar frettings
+automatically,
+
+@lilypond[fragment,relative=0,verbatim,ragged-right]
+\new FretBoards { <d\5 fis a d fis> }
+@end lilypond
+
+This feature was sponsored by Rick Hansen. 
+
 @item Horizontal and vertical spacing are now done at the same time
 so that pages are filled more evenly.
 

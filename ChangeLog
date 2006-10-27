@@ -1,5 +1,9 @@
 2006-10-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* Documentation/topdocs/NEWS.tely (Top): add FretBoards example. 
+
+	* input/regression/fret-boards.ly: new file.
+
 	* po/de.po: new po courtesy translation team.
 
 	* scripts/lilypond-book.py (get_option_parser): add newline to doc string.

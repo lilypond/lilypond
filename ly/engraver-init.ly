@@ -21,7 +21,9 @@
   \consists "Fretboard_engraver"
   \consists "Separating_line_group_engraver"
   \consists "Font_size_engraver"
+  \consists "Instrument_name_engraver"
 }
+
 \context {
   \type "Engraver_group"
   \name "Staff"
