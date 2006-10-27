@@ -430,7 +430,8 @@ def configure (target, source, env):
     test_program (required, 'potrace', '0.0', 'Potrace', 'potrace')
     test_program (required, 'python', '2.1', 'Python (www.python.org)',
               'python')
-    test_program (required, 'sh', '0.0', 'Bourne shell', 'sh')
+    # Silly, and breaks with /bin/sh == dash
+    #test_program (required, 'sh', '0.0', 'Bourne shell', 'sh')
 
     optional = []
     # Do not use bison 1.50 and 1.75.
