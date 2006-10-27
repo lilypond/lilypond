@@ -476,7 +476,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 			(fret (cadr sf))
 			(finger (caddr sf)))
 
-
+		     
 		     (vector-set! desc (1- string)
 				  (if (= 0 fret)
 				      (list 'open string)
@@ -492,7 +492,7 @@ centered, X==1 is at the right, X == -1 is at the left."
        (vector->list desc)))
 
 (define-public (fret-board::calc-stencil grob)
-  (let* ((string-frets (ly:grob-property grob 'string-frets))
+  (let* ((string-frets (ly:grob-property grob 'string-fret-finger-combinations))
 	 (string-count (ly:grob-property grob 'string-count))
 	 (layout (ly:grob-layout grob))
 	 (defs (ly:output-def-lookup layout 'text-font-defaults))

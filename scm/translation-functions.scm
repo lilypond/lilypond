@@ -242,7 +242,6 @@
        
 
   ;;; body.
-
   (set! specified-frets
 	(filter identity (map
 		      (lambda (note)
@@ -251,9 +250,9 @@
 				       (note-string note) tunings)
 			    #f))
 		      notes)))
-  (set! free-strings (map 1+ (iota (length tunings))))
 
-  
+
+  (set! free-strings (map 1+ (iota (length tunings))))
     
   (for-each (lambda (note)
 	      (del-string (note-string note)))
@@ -275,7 +274,5 @@
 			   
 	       )))
    (sort notes note-pitch<?))
-  
-  
 
-    string-fret-fingering-tuples)
+  string-fret-fingering-tuples)

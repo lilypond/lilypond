@@ -50,6 +50,10 @@ install-WWW:
 	$(MAKE) -C Documentation/user local-install-WWW
 	$(MAKE) -C Documentation/user install-info
 
+install-help2man:
+	$(MAKE) -C scripts man install-help2man
+	$(MAKE) -C lily/$(outdir) man install-help2man
+
 web-install:
 	$(MAKE) out=www install-WWW
 
