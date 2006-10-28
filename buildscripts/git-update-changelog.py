@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import time
 import os
 import re
@@ -71,21 +73,6 @@ def changelog_body (commit):
     s = s.replace ('\n', '\n\t')
     s += '\n'
     return s
-    
-def to_change_log (commit, last_commit):
-
-    s = ''
-    
-    date = commit.date[:3]
-    if (last_commit == None
-        or commit.author != last_commit.author
-        or commit.date[:3] != last_commit.date[:3]):
-
-        s += header (last_commit)
-
-    s += changelog_body (commit)  
-
-    return s
         
 def find_last_checked_in_commit (log):
     m = re.search (r'^(\d+-\d+\d+)[^\n]+\n*\t\*git commit ([a-f0-9]+):', log)
@@ -126,6 +113,9 @@ def main ():
         log = log[len (first):]
     
     for c in commits:
+        if c.touched_files () == ['ChangeLog']:
+            continue
+        
         if (last_commit
             and c.author != last_commit.author
             and c.date[:3] != last_commit.date[:3]):
