@@ -668,7 +668,11 @@ AC_DEFUN(STEPMAKE_INIT, [
 
 	AC_MSG_CHECKING(builddir)
 	ugh_ugh_autoconf250_builddir="`pwd`"
-	if test "$srcdir" = "."; then
+
+	here_dir=$(cd . && pwd)
+	full_src_dir=$(cd $srcdir && pwd)
+
+	if test "$full_src_dir" = "$here_dir"; then
 	    srcdir_build=yes
 	else
 	    srcdir_build=no
