@@ -1351,6 +1351,7 @@
 
     (SeparationItem
      . (
+	(avoid-slur . inside)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)

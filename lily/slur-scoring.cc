@@ -529,6 +529,7 @@ Slur_score_state::get_base_attachments () const
 	    x = robust_relative_extent (extremes_[d].bound_, common_[X_AXIS], X_AXIS)[d];
 	  else
 	    x = slur_->get_broken_left_end_align ();
+
 	  Grob *col = (d == LEFT) ? columns_[0] : columns_.back ();
 
 	  if (extremes_[-d].bound_ != col)

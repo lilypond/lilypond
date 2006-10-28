@@ -66,6 +66,12 @@ which scares away people.
 
 @end ignore
 
+@item Slurs now avoid clefs and key changes.
+ 
+@lilypond[fragment,ragged-right]
+\new Staff { \clef bass c^( \clef "G" g') } 
+@end lilypond
+
 @item The @code{FretBoards} context will generate guitar frettings
 automatically,
 
