@@ -1,29 +1,63 @@
-2006-10-28  Han-Wen Nienhuys   <hanwen@lilypond.org>
+2006-10-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	git commit 64179afe25bf5723fe9bb5a6631799c050d12de2
+	* buildscripts/git-update-changelog.py (main): write .msg and cvs command.
+
+	* scm/define-grobs.scm: 
+	separation-items have width
 	
+	* VERSION: 
+	bump version
+	
+	* .gitignore: 
+	* Documentation/topdocs/NEWS.tely: 
+	* lily/separating-group-spanner.cc: 
+	* lily/slur-engraver.cc: 
+	* lily/slur-scoring.cc: 
+	* scm/define-grobs.scm: 
+	* input/regression/slur-clef.ly:
+	add breakableSeparationItem to extra encompass for slurs. This
+	fixes slur/clef slur/key collisions etc. Should fix #49
+	
+	* lily/include/slur-scoring.hh: 
+	* lily/slur-scoring.cc: 
+	Use X of separation item as slur start. Fixes #120
+
+2006-10-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* buildscripts/git-update-changelog.py (changelog_body): don't
+	write committishes.
+
+	* lily/grob.cc: add avoid-slur
+
+2006-10-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* emacsclient.patch: 
+	* server.el.patch: 
+	move server/emacsclient to elisp/
+
+	* buildscripts/git-update-changelog.py (Commit.note_del_file):
+	apply patches too
+
+	* elisp/server.el.patch: 
+	move emacs patches.
+
+	* elisp/emacsclient.patch: 
+	emacsclient too.
+
 	* buildscripts/git-update-changelog.py: 
 	ignore ChangeLog
 
-	git commit 614460c52e72c96824da0a583297123e510f6fff
-	
 	* .gitignore: 
 	update
 
-	git commit 6ca40e8913957dd9fa510855ae1c4efacde09603
-	
 	* ChangeLog: 
 	* buildscripts/git-update-changelog.py: 
 	script to update ChangeLog with Git messages.
 
-	git commit ef70710d3cf52502900408aa1f55a2354ed4e8ab
-	
 	* lily/beam-engraver.cc: 
 	* input/regression/rest-pitched-beam.ly: 
 	don't set callback if staff-position set. Fixes #126.
 
-	git commit 6dcaa230251aa4f95e4153bd4de021c65207b798
-	
 	* lily/bar-number-engraver.cc: 
 	* lily/beam.cc: 
 	* lily/fingering-engraver.cc: 
@@ -38,13 +72,9 @@
 	* lily/tie.cc: 
 	internal_get_property_data() using ly_symbol2scm()
 
-	git commit 914e47b38f98b87c2622a5bbd8237ca97f97da34
-	
 	* stepmake/stepmake/generic-targets.make: 
 	create .gitignore in outdir.
 
-	git commit 122da86232bb745d50cddbd893e3cc48c3af6216
-	
 	* .gitignore: 
 	new file.
 
@@ -112,7 +142,7 @@
 
 2006-10-26  Graham Percival  <gpermus@gmail.com>
 
-	* Documentation/user/ {basic-, global}: minor changes from mailist.
+	* Documentation/user/{basic-, global}: minor changes from mailist.
 
 2006-10-26  Erlend Aasland  <erlenda@gmail.com>
 
@@ -5911,7 +5941,6 @@
 	* flower/include/std-vector.hh
 	* flower/include/array.hh (concat): Globally change to insert ().
 
-	
 	* flower/include/std-vector.hh
 	* flower/include/parray.hh
 	* flower/include/array.hh (elem, elem_ref): Globally replace by
@@ -8855,7 +8884,6 @@
 
 	* lily/staff-performer.cc (initialize): add tempo/name to
 	audio_staff_
-
 
 2005-08-26  Graham Percival  <gpermus@gmail.com>
 

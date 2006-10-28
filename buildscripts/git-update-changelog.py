@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import sys
 import time
 import os
 import re
@@ -8,6 +9,12 @@ import optparse
 def read_pipe (x):
     print 'pipe', x
     return os.popen (x).read ()
+def system (x):
+    print x
+    return os.system (x)
+    
+class PatchFailed(Exception):
+    pass
 
 class Commit:
     def __init__ (self, dict):
@@ -16,34 +23,51 @@ class Commit:
                   'author',
                   'committish'):
             self.__dict__[v] = dict[v]
-
-        # Sat Oct 28 18:52:30 2006 +0200
         
         self.date = ' '.join  (self.date.split (' ')[:-1])
         self.date = time.strptime (self.date, '%a %b %d %H:%M:%S %Y')
-
+        
         m = re.search ('(.*)<(.*)>', self.author)
-        self.email = m.group (2)
-        self.name = m.group (1)
-
+        self.email = m.group (2).strip ()
+        self.name = m.group (1).strip ()
+        self.diff = read_pipe ('git show %s' % self.committish)
+        
     def touched_files (self):
-
         files = []
         def note_file (x):
             files.append (x.group (1))
             return ''
-            
-        diff = read_pipe ('git show %s' % self.committish)
+
         re.sub ('\n--- a/([^\n]+)\n',
-                note_file, diff)
+                note_file, self.diff)
         re.sub('\n--- /dev/null\n\\+\\+\\+ b/([^\n]+)',
-               note_file, diff)
+               note_file, self.diff)
 
         return files
 
-def parse_commit_log (log):
-    print log
+    def apply (self, add_del_files):
+        def note_add_file (x):
+            add_del_files.append (('add', x.group (1)))
+            return ''
+        
+        def note_del_file (x):
+            add_del_files.append (('del', x.group (1)))
+            return ''
+        
+        re.sub('\n--- /dev/null\n\\+\\+\\+ b/([^\n]+)',
+               note_add_file, self.diff)
+        
+        re.sub('\n--- a/([^\n]+)\n\\+\\+\\+ /dev/null',
+               note_del_file, self.diff)
+
+        p = os.popen ('patch -f -p1 ', 'w')
+        p.write (self.diff)
+
+        if p.close ():
+            raise PatchFailed, self.committish
+        
     
+def parse_commit_log (log):
     committish = re.search ('^([^\n]+)', log).group (1)
     author = re.search ('\nAuthor:\s+([^\n]+)', log).group (1)
     date_match = re.search ('\nDate:\s+([^\n]+)', log)
@@ -67,6 +91,7 @@ def parse_add_changes (from_commit):
         return []
         
     commits = map (parse_commit_log, re.split ('\ncommit ', log))
+    commits.reverse ()
     
     return commits
 
@@ -76,44 +101,43 @@ def header (commit):
 
 def changelog_body (commit):
 
-    s = ''
-    s += "\ngit commit %s\n" % commit.committish    
     s += ''.join ('\n* %s: ' % f for f in commit.touched_files())
     s += '\n' + commit.message
     
     s = s.replace ('\n', '\n\t')
     s += '\n'
     return s
-        
-def find_last_checked_in_commit (log):
-    m = re.match ('^(\\d+-\\d+-\\d+)[^\n]+\n*\tgit commit ([a-f0-9]+)', log)
-    
-    if m:
-        return (m.group (1), m.group (2))
-
-    return None
-
-
-
 
 def main ():
-    p = optparse.OptionParser ("usage git-update-changelog.py --options")
+    p = optparse.OptionParser (usage="usage git-update-changelog.py [options]",
+                               description="""
+Apply GIT patches and update change log.
+
+Run this file from the CVS directory, with --git-dir 
+""")
     p.add_option ("--start",
                   action='store',
                   default='',
                   dest="start",
                   help="start of log messages to merge.")
+    
+    p.add_option ("--git-dir",
+                  action='store',
+                  default='',
+                  dest="gitdir",
+                  help="the GIT directory to merge.")
 
     (options, args) = p.parse_args ()
     
     log = open ('ChangeLog').read ()
 
     if not options.start:
-        (time, id) = find_last_checked_in_commit (log)
-        options.start = id
+        print 'Must set start committish.'  
+        sys.exit (1)
 
-        print 'processing commits from ', id, options.start
-
+    if options.gitdir:
+        os.environ['GIT_DIR'] = options.gitdir
+     
     commits = parse_add_changes (options.start)
     if not commits:
         return
@@ -124,8 +148,17 @@ def main ():
     first = header (commits[0]) + '\n'
     if first == log[:len (first)]:
         log = log[len (first):]
+
+    file_adddel = []
+    final_log = ''
     
     for c in commits:
+        print 'patch ', c.committish
+        try:
+            c.apply (file_adddel)
+        except PatchFailed:
+            break
+        
         if c.touched_files () == ['ChangeLog']:
             continue
         
@@ -135,19 +168,32 @@ def main ():
 
             new_log += header (last_commit)
 
-        new_log += changelog_body (c)  
+        new_log = changelog_body (c)  + new_log
         last_commit = c
+
+        final_log += self.message + '\n'
         
+        
+    for (op, f) in file_adddel:
+        if op == 'del':
+            system ('cvs remove %(f)s' % locals ())
+        if op == 'add':
+            system ('cvs add %(f)s' % locals ())
+
     new_log = header (last_commit) + new_log + '\n'
 
     log = new_log + log
+
     try:
         os.unlink ('ChangeLog~')
-    except IOError:
+    except OSError:
         pass
     
     os.rename ('ChangeLog', 'ChangeLog~')
     open ('ChangeLog', 'w').write (log)
+
+    open ('.msg','w').write (final_log)
+    print 'cvs commit -F .msg '
     
 main ()
     
