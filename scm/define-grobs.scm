@@ -1351,8 +1351,8 @@
 
     (SeparationItem
      . (
-	(X-extent . #f)
-	(Y-extent . #f)
+	(X-extent . ,ly:axis-group-interface::width)
+	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
 		 (interfaces . (spacing-interface
 				separation-item-interface))))))
