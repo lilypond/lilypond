@@ -44,7 +44,7 @@ void
 Melody_engraver::stop_translation_timestep ()
 {
   if (stem_
-      && !is_direction (stem_->get_property_data (ly_symbol2scm  ("neutral-direction"))))
+      && !is_direction (stem_->get_property_data ("neutral-direction")))
     {
       extract_grob_set (stem_, "rests", rests);
       if (rests.size ())

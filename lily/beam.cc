@@ -557,7 +557,7 @@ Beam::get_default_dir (Grob *me)
     {
       Grob *s = stems[i];
       Direction stem_dir = CENTER;
-      SCM stem_dir_scm = s->get_property_data (ly_symbol2scm ("direction"));
+      SCM stem_dir_scm = s->get_property_data ("direction");
       if (is_direction (stem_dir_scm))
 	{
 	  stem_dir = to_dir (stem_dir_scm);
@@ -613,7 +613,7 @@ Beam::set_stem_directions (Grob *me, Direction d)
     {
       Grob *s = stems[i];
 
-      SCM forcedir = s->get_property_data (ly_symbol2scm ("direction"));
+      SCM forcedir = s->get_property_data ("direction");
       if (!to_dir (forcedir))
 	set_grob_direction (s, d);
     }
@@ -668,7 +668,7 @@ Beam::consider_auto_knees (Grob *me)
 	  */
 	  head_extents += stem->relative_coordinate (common, Y_AXIS);
 
-	  if (to_dir (stem->get_property_data (ly_symbol2scm ("direction"))))
+	  if (to_dir (stem->get_property_data ("direction")))
 	    {
 	      Direction stemdir = to_dir (stem->get_property ("direction"));
 	      head_extents[-stemdir] = -stemdir * infinity_f;

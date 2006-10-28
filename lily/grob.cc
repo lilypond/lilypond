@@ -61,9 +61,9 @@ Grob::Grob (SCM basicprops,
   if (scm_is_pair (meta))
     interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
   
-  if (get_property_data (ly_symbol2scm ("X-extent")) == SCM_EOL)
+  if (get_property_data ("X-extent") == SCM_EOL)
     set_property ("X-extent", Grob::stencil_width_proc);
-  if (get_property_data (ly_symbol2scm ("Y-extent")) == SCM_EOL)
+  if (get_property_data ("Y-extent") == SCM_EOL)
     set_property ("Y-extent", Grob::stencil_height_proc);
 }
 
@@ -293,7 +293,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
     off = *dim_cache_[Y_AXIS].offset_;
   else
     {
-      SCM proc = get_property_data (ly_symbol2scm ("Y-offset"));
+      SCM proc = get_property_data ("Y-offset");
 
       dim_cache_[Y_AXIS].offset_ = new Real (0.0);
       off = robust_scm2double (call_pure_function (proc,

@@ -210,7 +210,7 @@ Tie::calc_control_points (SCM smob)
       (void) yparent->get_property ("positioning-done");
     }
 
-  if (!scm_is_pair (me->get_property_data (ly_symbol2scm ("control-points"))))
+  if (!scm_is_pair (me->get_property_data ("control-points")))
     {
       set_default_control_points (me);
     }

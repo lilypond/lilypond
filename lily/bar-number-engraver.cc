@@ -75,8 +75,8 @@ Bar_number_engraver::acknowledge_break_aligned (Grob_info inf)
   if (text_
       && !text_->get_parent (X_AXIS)
       && dynamic_cast<Item *> (s)
-      && (s->get_property_data (ly_symbol2scm ("break-align-symbol"))
-	  == text_->get_property_data (ly_symbol2scm ("break-align-symbol"))))
+      && (s->get_property_data ("break-align-symbol")
+	  == text_->get_property_data ("break-align-symbol")))
     {
       /*
 	By default this would land on the Paper_column -- so why
