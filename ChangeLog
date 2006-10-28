@@ -12,7 +12,8 @@
 
 2006-10-27  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* mf/GNUmakefile: explicit dependencies for emmentaler .otf-table  files.
+	* mf/GNUmakefile: explicit dependencies for emmentaler .otf-table
+	files.
 
 	* Documentation/topdocs/NEWS.tely (Top): add FretBoards example. 
 
