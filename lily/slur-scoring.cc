@@ -412,6 +412,23 @@ Slur_score_state::get_best_curve ()
   return configurations_[opt_idx]->curve_;
 }
 
+Grob *
+Slur_score_state::breakable_bound_item (Direction d) const
+{
+  Grob *col = slur_->get_bound (d)->get_column ();
+
+  extract_grob_set (slur_, "encompass-objects", extra_encompasses);
+
+  for (vsize i = 0; i < extra_encompasses.size (); i++)
+    {
+      Item *item = dynamic_cast<Item*> (extra_encompasses[i]);
+      if (item && col == item->get_column ())
+	return item;
+    }
+
+  return 0;
+}
+
 int
 Slur_score_state::get_closest_index (SCM inspect_quants) const
 {
@@ -450,7 +467,7 @@ Slur_score_state::get_y_attachment_range () const
 	{
 	  end_ys[d] = dir_
 	    * max (max (dir_ * (base_attachments_[d][Y_AXIS]
-					  + parameters_.region_size_ * dir_),
+				+ parameters_.region_size_ * dir_),
 			dir_ * (dir_ + extremes_[d].note_column_->extent (common_[Y_AXIS], Y_AXIS)[dir_])),
 		   dir_ * base_attachments_[-d][Y_AXIS]);
 	}
@@ -524,12 +541,18 @@ Slur_score_state::get_base_attachments () const
     {
       if (!extremes_[d].note_column_)
 	{
-	  Real x, y;
-	  if (d == RIGHT)
+	  Real x = 0;
+	  Real y = 0;
+
+	  if (Grob *g = breakable_bound_item (d))
+	    {
+	      x = robust_relative_extent (g, common_[X_AXIS], X_AXIS)[RIGHT];
+	    }
+	  else if (d == RIGHT)
 	    x = robust_relative_extent (extremes_[d].bound_, common_[X_AXIS], X_AXIS)[d];
 	  else
 	    x = slur_->get_broken_left_end_align ();
-
+	  
 	  Grob *col = (d == LEFT) ? columns_[0] : columns_.back ();
 
 	  if (extremes_[-d].bound_ != col)
