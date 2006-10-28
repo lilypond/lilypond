@@ -10,12 +10,12 @@ Vertical extents may increased by setting @code{\override VerticalAxisGroup #'mi
 \score {
     <<
     \new Staff {
-      \set Staff.verticalExtent = #'(-15.0 . 0.0)
+      \set Staff.VerticalAxisGroup = #'(-15.0 . 0.0)
       \clef alto
       c1
     }
     \new Staff {
-      \set Staff.verticalExtent = #'(-0.0 . 15.0)
+      \set Staff.VerticalAxisGroup = #'(-0.0 . 15.0)
       \clef alto
       g1
     }
