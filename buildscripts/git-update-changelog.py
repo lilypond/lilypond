@@ -101,7 +101,6 @@ def header (commit):
 
 def changelog_body (commit):
 
-    s = '\n'
     s += ''.join ('\n* %s: ' % f for f in commit.touched_files())
     s += '\n' + commit.message
     
@@ -151,6 +150,8 @@ Run this file from the CVS directory, with --git-dir
         log = log[len (first):]
 
     file_adddel = []
+    final_log = ''
+    
     for c in commits:
         print 'patch ', c.committish
         try:
@@ -169,6 +170,9 @@ Run this file from the CVS directory, with --git-dir
 
         new_log += changelog_body (c)  
         last_commit = c
+
+        final_log += self.message + '\n'
+        
         
     for (op, f) in file_adddel:
         if op == 'del':
@@ -187,6 +191,9 @@ Run this file from the CVS directory, with --git-dir
     
     os.rename ('ChangeLog', 'ChangeLog~')
     open ('ChangeLog', 'w').write (log)
+
+    open ('.msg','w').write (final_log)
+    print 'cvs commit -F .msg '
     
 main ()
     
