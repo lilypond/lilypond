@@ -196,6 +196,17 @@ Slur_engraver::process_music ()
 void
 Slur_engraver::stop_translation_timestep ()
 {
+  if (Grob *g = unsmob_grob (get_property ("breakableSeparationItem")))
+    {
+      for (vsize i = 0; i < end_slurs_.size (); i++)
+	Slur::add_extra_encompass (end_slurs_[i], g);
+
+      if (!events_[START])
+	for (vsize i = 0; i < slurs_.size (); i++)
+	  Slur::add_extra_encompass (slurs_[i], g);
+    }
+  
+  
   for (vsize i = 0; i < end_slurs_.size (); i++)
     announce_end_grob (end_slurs_[i], SCM_EOL);
   end_slurs_.clear ();
@@ -213,5 +224,8 @@ ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
 ADD_TRANSLATOR (Slur_engraver,
 		/* doc */ "Build slur grobs from slur events",
 		/* create */ "Slur",
-		/* read */ "slurMelismaBusy doubleSlurs",
+		/* read */
+		"slurMelismaBusy "
+		"doubleSlurs ",
+
 		/* write */ "");

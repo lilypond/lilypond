@@ -23,8 +23,6 @@ class Commit:
                   'author',
                   'committish'):
             self.__dict__[v] = dict[v]
-
-        # Sat Oct 28 18:52:30 2006 +0200
         
         self.date = ' '.join  (self.date.split (' ')[:-1])
         self.date = time.strptime (self.date, '%a %b %d %H:%M:%S %Y')
