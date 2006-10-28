@@ -148,6 +148,7 @@ $(outdir)/dummy.dep:
 	@echo please ignore innocent warning about dummy.dep
 	-mkdir -p $(outdir)
 	touch $(outdir)/dummy.dep
+	echo '*' > $(outdir)/.gitignore
 
 check: local-check
 	$(LOOP)
