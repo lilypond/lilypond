@@ -1,4 +1,23 @@
-2006-10-28  Han-Wen Nienhuys   <hanwen@lilypond.org>
+2006-10-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	git commit e5d9c526aec8d0c7c7727068b13c346c475ac7c3
+	
+	* emacsclient.patch: 
+	* server.el.patch: 
+	move server/emacsclient to elisp/
+
+	git commit f6191da666fd8897411e866594616cd0f7ae6350
+	
+	* buildscripts/git-update-changelog.py (Commit.note_del_file):
+	apply patches too
+
+	* elisp/server.el.patch: 
+	move emacs patches.
+
+	git commit 80844c903201b9df79ae81d4edcfbd299e08a9f7
+	
+	* elisp/emacsclient.patch: 
+	emacsclient too.
 
 	git commit 64179afe25bf5723fe9bb5a6631799c050d12de2
 	
