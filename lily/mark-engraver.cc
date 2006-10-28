@@ -64,8 +64,8 @@ Mark_engraver::acknowledge_break_aligned (Grob_info inf)
   Grob *s = inf.grob ();
   if (text_
       && !text_->get_parent (X_AXIS)
-      && (text_->get_property_data (ly_symbol2scm ("break-align-symbol"))
-	  == s->get_property_data (ly_symbol2scm ("break-align-symbol")))
+      && (text_->get_property_data ("break-align-symbol")
+	  == s->get_property_data ("break-align-symbol"))
       && Axis_group_interface::has_interface (s))
     {
       /*

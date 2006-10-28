@@ -163,6 +163,7 @@ ly_add_function_documentation (SCM proc, char const *fname,
 			  VAR, ARGLIST, DOCSTRING)
 
 #define get_property(x) internal_get_property (ly_symbol2scm (x))
+#define get_property_data(x) internal_get_property_data (ly_symbol2scm (x))
 #define get_object(x) internal_get_object (ly_symbol2scm (x))
 #define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)
 #define del_property(x) internal_del_property (ly_symbol2scm (x))

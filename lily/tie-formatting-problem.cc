@@ -289,7 +289,7 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
     {
       Tie_specification spec;
       
-      if (scm_is_number (ties[i]->get_property_data (ly_symbol2scm ("direction"))))
+      if (scm_is_number (ties[i]->get_property_data ("direction")))
 	{
 	  spec.manual_dir_ = to_dir (ties[i]->get_property ("direction"));
 	  spec.has_manual_dir_ = true;

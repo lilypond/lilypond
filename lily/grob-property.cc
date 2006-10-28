@@ -101,7 +101,7 @@ Grob::internal_set_property (SCM sym, SCM v)
 
 //#define PROFILE_PROPERTY_ACCESSES
 SCM
-Grob::get_property_data (SCM sym) const
+Grob::internal_get_property_data (SCM sym) const
 {
 #ifndef NDEBUG
   if (profile_property_accesses)

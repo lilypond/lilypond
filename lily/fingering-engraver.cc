@@ -116,7 +116,7 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
 
   fingering->set_property ("script-priority", scm_from_int (priority));
 
-  if (!is_direction (fingering->get_property_data (ly_symbol2scm ("direction"))))
+  if (!is_direction (fingering->get_property_data ("direction")))
     {
       if (d)
 	fingering->set_property ("direction", scm_from_int (d));
