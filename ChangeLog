@@ -1,48 +1,39 @@
+2006-10-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* buildscripts/git-update-changelog.py (changelog_body): don't
+	write committishes.
+
+	* lily/grob.cc: add avoid-slur
+
 2006-10-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	git commit e5d9c526aec8d0c7c7727068b13c346c475ac7c3
-	
 	* emacsclient.patch: 
 	* server.el.patch: 
 	move server/emacsclient to elisp/
 
-	git commit f6191da666fd8897411e866594616cd0f7ae6350
-	
 	* buildscripts/git-update-changelog.py (Commit.note_del_file):
 	apply patches too
 
 	* elisp/server.el.patch: 
 	move emacs patches.
 
-	git commit 80844c903201b9df79ae81d4edcfbd299e08a9f7
-	
 	* elisp/emacsclient.patch: 
 	emacsclient too.
 
-	git commit 64179afe25bf5723fe9bb5a6631799c050d12de2
-	
 	* buildscripts/git-update-changelog.py: 
 	ignore ChangeLog
 
-	git commit 614460c52e72c96824da0a583297123e510f6fff
-	
 	* .gitignore: 
 	update
 
-	git commit 6ca40e8913957dd9fa510855ae1c4efacde09603
-	
 	* ChangeLog: 
 	* buildscripts/git-update-changelog.py: 
 	script to update ChangeLog with Git messages.
 
-	git commit ef70710d3cf52502900408aa1f55a2354ed4e8ab
-	
 	* lily/beam-engraver.cc: 
 	* input/regression/rest-pitched-beam.ly: 
 	don't set callback if staff-position set. Fixes #126.
 
-	git commit 6dcaa230251aa4f95e4153bd4de021c65207b798
-	
 	* lily/bar-number-engraver.cc: 
 	* lily/beam.cc: 
 	* lily/fingering-engraver.cc: 
@@ -57,13 +48,9 @@
 	* lily/tie.cc: 
 	internal_get_property_data() using ly_symbol2scm()
 
-	git commit 914e47b38f98b87c2622a5bbd8237ca97f97da34
-	
 	* stepmake/stepmake/generic-targets.make: 
 	create .gitignore in outdir.
 
-	git commit 122da86232bb745d50cddbd893e3cc48c3af6216
-	
 	* .gitignore: 
 	new file.
 
@@ -5930,7 +5917,6 @@
 	* flower/include/std-vector.hh
 	* flower/include/array.hh (concat): Globally change to insert ().
 
-	
 	* flower/include/std-vector.hh
 	* flower/include/parray.hh
 	* flower/include/array.hh (elem, elem_ref): Globally replace by
@@ -8874,7 +8860,6 @@
 
 	* lily/staff-performer.cc (initialize): add tempo/name to
 	audio_staff_
-
 
 2005-08-26  Graham Percival  <gpermus@gmail.com>
 

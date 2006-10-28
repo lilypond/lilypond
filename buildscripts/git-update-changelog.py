@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import sys
 import time
 import os
 import re
@@ -32,8 +33,8 @@ class Commit:
         self.email = m.group (2).strip ()
         self.name = m.group (1).strip ()
         self.diff = read_pipe ('git show %s' % self.committish)
+        
     def touched_files (self):
-
         files = []
         def note_file (x):
             files.append (x.group (1))
@@ -54,7 +55,6 @@ class Commit:
         def note_del_file (x):
             add_del_files.append (('del', x.group (1)))
             return ''
-        
         
         re.sub('\n--- /dev/null\n\\+\\+\\+ b/([^\n]+)',
                note_add_file, self.diff)
@@ -103,25 +103,13 @@ def header (commit):
 
 def changelog_body (commit):
 
-    s = ''
-    s += "\ngit commit %s\n" % commit.committish    
+    s = '\n'
     s += ''.join ('\n* %s: ' % f for f in commit.touched_files())
     s += '\n' + commit.message
     
     s = s.replace ('\n', '\n\t')
     s += '\n'
     return s
-        
-def find_last_checked_in_commit (log):
-    m = re.match ('^(\\d+-\\d+-\\d+)[^\n]+\n*\tgit commit ([a-f0-9]+)', log)
-    
-    if m:
-        return (m.group (1), m.group (2))
-
-    return None
-
-
-
 
 def main ():
     p = optparse.OptionParser (usage="usage git-update-changelog.py [options]",
@@ -147,14 +135,12 @@ Run this file from the CVS directory, with --git-dir
     log = open ('ChangeLog').read ()
 
     if not options.start:
-        (time, id) = find_last_checked_in_commit (log)
-        options.start = id
-
-        print 'processing commits from ', id, options.start
+        print 'Must set start committish.'  
+        sys.exit (1)
 
     if options.gitdir:
         os.environ['GIT_DIR'] = options.gitdir
-    
+     
     commits = parse_add_changes (options.start)
     if not commits:
         return
