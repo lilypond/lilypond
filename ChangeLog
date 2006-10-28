@@ -1,13 +1,12 @@
 2006-10-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	
+	* buildscripts/git-update-changelog.py (main): write .msg and cvs command.
+
 	* scm/define-grobs.scm: 
 	separation-items have width
-
 	
 	* VERSION: 
 	bump version
-
 	
 	* .gitignore: 
 	* Documentation/topdocs/NEWS.tely: 
@@ -15,9 +14,9 @@
 	* lily/slur-engraver.cc: 
 	* lily/slur-scoring.cc: 
 	* scm/define-grobs.scm: 
-	* input/regression/slur-clef.ly: 
-	add breakableSeparationItem to extra encompass for slurs. This fixesslur/clef slur/key collisions etc. Should fix #49
-
+	* input/regression/slur-clef.ly:
+	add breakableSeparationItem to extra encompass for slurs. This
+	fixes slur/clef slur/key collisions etc. Should fix #49
 	
 	* lily/include/slur-scoring.hh: 
 	* lily/slur-scoring.cc: 

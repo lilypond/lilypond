@@ -168,7 +168,7 @@ Run this file from the CVS directory, with --git-dir
 
             new_log += header (last_commit)
 
-        new_log += changelog_body (c)  
+        new_log = changelog_body (c)  + new_log
         last_commit = c
 
         final_log += self.message + '\n'
