@@ -1,4 +1,41 @@
-2006-10-28  Han-Wen Nienhuys  <hanwen@lilypond.org>
+2006-10-28  Han-Wen Nienhuys   <hanwen@lilypond.org>
+
+	git commit 122da86232bb745d50cddbd893e3cc48c3af6216
+	
+	* .gitignore: 
+	new file.
+
+	git commit 914e47b38f98b87c2622a5bbd8237ca97f97da34
+	
+	* stepmake/stepmake/generic-targets.make: 
+	create .gitignore in outdir.
+
+	git commit 6dcaa230251aa4f95e4153bd4de021c65207b798
+	
+	* lily/bar-number-engraver.cc: 
+	* lily/beam.cc: 
+	* lily/fingering-engraver.cc: 
+	* lily/grob-property.cc: 
+	* lily/grob.cc: 
+	* lily/include/grob.hh: 
+	* lily/include/lily-guile-macros.hh: 
+	* lily/mark-engraver.cc: 
+	* lily/melody-engraver.cc: 
+	* lily/script-column.cc: 
+	* lily/tie-formatting-problem.cc: 
+	* lily/tie.cc: 
+	internal_get_property_data() using ly_symbol2scm()
+
+	git commit ef70710d3cf52502900408aa1f55a2354ed4e8ab
+	
+	* lily/beam-engraver.cc: 
+	* input/regression/rest-pitched-beam.ly: 
+	don't set callback if staff-position set. Fixes #126.
+
+	git commit fb790ec731ff4c252248457dd5b438412f735577
+	
+	* ChangeLog: 
+	nitpick.
 
 	* stepmake/bin/add-html-footer.py (compose): remove setgcos
 
