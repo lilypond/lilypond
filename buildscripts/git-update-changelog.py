@@ -5,6 +5,10 @@ import os
 import re
 import optparse
 
+def read_pipe (x):
+    print 'pipe', x
+    return os.popen (x).read ()
+
 class Commit:
     def __init__ (self, dict):
         for v in ('message',
@@ -29,7 +33,7 @@ class Commit:
             files.append (x.group (1))
             return ''
             
-        diff = os.popen ('git show %s' % self.committish).read ()
+        diff = read_pipe ('git show %s' % self.committish)
         re.sub ('\n--- a/([^\n]+)\n',
                 note_file, diff)
         re.sub('\n--- /dev/null\n\\+\\+\\+ b/([^\n]+)',
@@ -38,6 +42,8 @@ class Commit:
         return files
 
 def parse_commit_log (log):
+    print log
+    
     committish = re.search ('^([^\n]+)', log).group (1)
     author = re.search ('\nAuthor:\s+([^\n]+)', log).group (1)
     date_match = re.search ('\nDate:\s+([^\n]+)', log)
@@ -51,12 +57,17 @@ def parse_commit_log (log):
     return c
 
 def parse_add_changes (from_commit):
-    log = os.popen ('git log %(from_commit)s..' % locals ()).read ()
+    
+    log = read_pipe ('git log %(from_commit)s..' % locals ())
 
     log = log[len ('commit '):]
-    commits = map (parse_commit_log, re.split ('\ncommit ', log))
-    commits.reverse ()
+    log = log.strip ()
 
+    if not log:
+        return []
+        
+    commits = map (parse_commit_log, re.split ('\ncommit ', log))
+    
     return commits
 
 
@@ -75,10 +86,10 @@ def changelog_body (commit):
     return s
         
 def find_last_checked_in_commit (log):
-    m = re.search (r'^(\d+-\d+\d+)[^\n]+\n*\t\*git commit ([a-f0-9]+):', log)
-
+    m = re.match ('^(\\d+-\\d+-\\d+)[^\n]+\n*\tgit commit ([a-f0-9]+)', log)
+    
     if m:
-        return (m.group (0), m.group (1))
+        return (m.group (1), m.group (2))
 
     return None
 
@@ -98,17 +109,19 @@ def main ():
     log = open ('ChangeLog').read ()
 
     if not options.start:
-        options.start = find_last_checked_in_commit (log)
+        (time, id) = find_last_checked_in_commit (log)
+        options.start = id
+
+        print 'processing commits from ', id, options.start
 
     commits = parse_add_changes (options.start)
     if not commits:
         return
     
-
     new_log = ''
     last_commit = None
 
-    first = header (commits[0])
+    first = header (commits[0]) + '\n'
     if first == log[:len (first)]:
         log = log[len (first):]
     
@@ -131,7 +144,7 @@ def main ():
     try:
         os.unlink ('ChangeLog~')
     except IOError:
-        passa
+        pass
     
     os.rename ('ChangeLog', 'ChangeLog~')
     open ('ChangeLog', 'w').write (log)
