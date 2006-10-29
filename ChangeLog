@@ -1,3 +1,7 @@
+2006-10-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/stepmake/po-vars.make: test change for GIT gateway.
+
 2006-10-22  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* stepmake/stepmake/po-vars.make: test change for GIT gateway.

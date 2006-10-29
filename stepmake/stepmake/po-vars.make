@@ -1,3 +1,1 @@
-# empty
-
 include /dev/null
