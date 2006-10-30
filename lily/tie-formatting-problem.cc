@@ -288,20 +288,10 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
   for (vsize i = 0; i < ties.size (); i++)
     {
       Tie_specification spec;
+
+      spec.get_tie_manual_settings (ties[i]);
       
-      if (scm_is_number (ties[i]->get_property_data ("direction")))
-	{
-	  spec.manual_dir_ = to_dir (ties[i]->get_property ("direction"));
-	  spec.has_manual_dir_ = true;
-	}
-	  
-      spec.position_ = Tie::get_position (ties[i]);
-      if (scm_is_number (ties[i]->get_property ("staff-position")))
-	{
-	  spec.manual_position_ = scm_to_double (ties[i]->get_property ("staff-position"));
-	  spec.has_manual_position_ = true;
-	  spec.position_ = int (my_round (spec.manual_position_));
-	}
+
       
       do
 	{
@@ -315,19 +305,19 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
 }
 
 void
-Tie_formatting_problem::from_semi_ties (vector<Grob*> const &lv_ties, Direction head_dir)
+Tie_formatting_problem::from_semi_ties (vector<Grob*> const &semi_ties, Direction head_dir)
 {
-  if (lv_ties.empty ())
+  if (semi_ties.empty ())
     return;
   
-  details_.from_grob (lv_ties[0]);
+  details_.from_grob (semi_ties[0]);
   vector<Item*> heads;
 
   int column_rank = -1;
-  for (vsize i = 0; i < lv_ties.size (); i++)
+  for (vsize i = 0; i < semi_ties.size (); i++)
     {
       Tie_specification spec;
-      Item *head = unsmob_item (lv_ties[i]->get_object ("note-head"));
+      Item *head = unsmob_item (semi_ties[i]->get_object ("note-head"));
        
       if (!head)
 	programming_error ("LV tie without head?!");
@@ -336,8 +326,9 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &lv_ties, Direction 
 	{
 	  spec.position_ = int (Staff_symbol_referencer::get_position (head));
 	}
-      
 
+      spec.get_tie_manual_settings (semi_ties[i]);
+      
       spec.note_head_drul_[head_dir] = head;
       column_rank = dynamic_cast<Item*> (head)->get_column ()->get_rank ();
       spec.column_ranks_ = Drul_array<int> (column_rank, column_rank);
@@ -345,9 +336,9 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &lv_ties, Direction 
       specifications_.push_back (spec);
     }
 
-  x_refpoint_ = lv_ties [0];
-  for (vsize i = 0; i < lv_ties.size (); i++)
-    x_refpoint_ = lv_ties[i]->common_refpoint (x_refpoint_, X_AXIS); 
+  x_refpoint_ = semi_ties [0];
+  for (vsize i = 0; i < semi_ties.size (); i++)
+    x_refpoint_ = semi_ties[i]->common_refpoint (x_refpoint_, X_AXIS); 
   for (vsize i = 0; i < heads.size (); i++)
     x_refpoint_ = heads[i]->common_refpoint (x_refpoint_, X_AXIS); 
 
@@ -494,20 +485,29 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 
   conf->attachment_x_.widen ( - details_.x_gap_);
 
-  Direction d = LEFT;
-  do
+  if (conf->column_span_length ())
     {
-      Real y = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
-      if (get_stem_extent (conf->column_ranks_[d], d, X_AXIS).is_empty ()
-	  || !get_stem_extent (conf->column_ranks_[d], d, Y_AXIS).contains (y))
-	continue;
+      /*
+	avoid the stems that we attach to as well. We don't do this
+	for semities (span length = 0)
 
-      conf->attachment_x_[d] =
-	d * min (d * conf->attachment_x_[d],
-		 d * (get_stem_extent (conf->column_ranks_[d], d, X_AXIS)[-d] - d * details_.stem_gap_));
-    }
-  while (flip (&d) != LEFT);
-  
+	It would be better to check D against HEAD-DIRECTION if
+	applicable.
+      */
+      Direction d = LEFT;
+      do
+	{
+	  Real y = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
+	  if (get_stem_extent (conf->column_ranks_[d], d, X_AXIS).is_empty ()
+	      || !get_stem_extent (conf->column_ranks_[d], d, Y_AXIS).contains (y))
+	    continue;
+
+	  conf->attachment_x_[d] =
+	    d * min (d * conf->attachment_x_[d],
+		     d * (get_stem_extent (conf->column_ranks_[d], d, X_AXIS)[-d] - d * details_.stem_gap_));
+	}
+      while (flip (&d) != LEFT);
+    }  
   return conf;
 }
 
@@ -709,6 +709,25 @@ Tie_specification::Tie_specification ()
     column_ranks_[LEFT] = 0;
 }
 
+
+void
+Tie_specification::get_tie_manual_settings (Grob *tie)
+{
+  if (scm_is_number (tie->get_property_data ("direction")))
+    {
+      manual_dir_ = to_dir (tie->get_property ("direction"));
+      has_manual_dir_ = true;
+    }
+  
+  position_ = Tie::get_position (tie);
+  if (scm_is_number (tie->get_property ("staff-position")))
+    {
+      manual_position_ = scm_to_double (tie->get_property ("staff-position"));
+      has_manual_position_ = true;
+      position_ = int (my_round (manual_position_));
+    }
+}
+
 int
 Tie_specification::column_span () const
 {
@@ -901,9 +920,16 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
 {
   if (tie_configs->empty ())
     return ;
-  
+
   if (!tie_configs->at (0).dir_)
-    tie_configs->at (0).dir_ = DOWN;
+    {
+      if (tie_configs->size () == 1)
+	tie_configs->at (0).dir_ = Direction (sign (tie_configs->at (0).position_));
+
+      if (!tie_configs->at (0).dir_)
+	tie_configs->at (0).dir_ = DOWN;
+    }
+  
   if (!tie_configs->back ().dir_)
     tie_configs->back ().dir_ = UP;
 
