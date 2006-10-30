@@ -975,12 +975,13 @@ used to position the number correctly.
 In an orchestral score, instrument names are printed at the left side
 of the staves.
 
-This can be achieved by setting @internalsref{Staff}.@code{instrument}
-and @internalsref{Staff}.@code{instr}, or
-@internalsref{PianoStaff}.@code{instrument} and
-@internalsref{PianoStaff}.@code{instr}.  This will print text before
-the start of the staff.  For the first staff, @code{instrument} is
-used, for the following ones, @code{instr} is used.
+This can be achieved by setting @internalsref{Staff}.@code{instrumentName}
+and @internalsref{Staff}.@code{shortInstrumentName}, or
+@internalsref{PianoStaff}.@code{instrumentName} and
+@internalsref{PianoStaff}.@code{shortInstrumentName}.  This will
+print text before
+the start of the staff.  For the first staff, @code{instrumentName} is
+used, for the following ones, @code{shortInstrumentName} is used.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
 \set Staff.instrumentName = "Ploink "
@@ -1056,15 +1057,6 @@ be found in @ref{Modifying context plug-ins}.
 
 Program reference: @internalsref{InstrumentName}.
 
-@refbugs
-
-When you put a name on a grand staff or piano staff, the width of the
-brace is not taken into account. The following property setting can be
-used to move the instrument names to the left, in such situations.
-
-@example
-\override Score.InstrumentName #'padding = #2.0
-@end example
 
 
 @node Instrument transpositions

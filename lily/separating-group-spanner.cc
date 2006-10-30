@@ -115,4 +115,4 @@ ADD_INTERFACE (Separating_group_spanner, "separation-spanner-interface",
 
 	       /* properties */
 	       "elements "
-	       "padding");
+	       "padding ");

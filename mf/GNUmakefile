@@ -69,10 +69,23 @@ $(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(
 
 $(outdir)/%.pfa: $(outdir)/%.log
 
-$(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<))
+$(outdir)/%.otf-table: $(outdir)/%.lisp
 	cat $< \
 		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
 		$(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
+
+
+## ugh -- we want this to prevent failing -j2 compiles. 
+$(outdir)/feta26.otf-table: $(outdir)/feta26.lisp $(outdir)/parmesan26.lisp $(outdir)/feta-alphabet26.lisp 
+$(outdir)/feta23.otf-table: $(outdir)/feta23.lisp $(outdir)/parmesan23.lisp $(outdir)/feta-alphabet23.lisp 
+$(outdir)/feta20.otf-table: $(outdir)/feta20.lisp $(outdir)/parmesan20.lisp $(outdir)/feta-alphabet20.lisp 
+$(outdir)/feta18.otf-table: $(outdir)/feta18.lisp $(outdir)/parmesan18.lisp $(outdir)/feta-alphabet18.lisp 
+$(outdir)/feta16.otf-table: $(outdir)/feta16.lisp $(outdir)/parmesan16.lisp $(outdir)/feta-alphabet16.lisp 
+$(outdir)/feta14.otf-table: $(outdir)/feta14.lisp $(outdir)/parmesan14.lisp $(outdir)/feta-alphabet14.lisp 
+$(outdir)/feta13.otf-table: $(outdir)/feta13.lisp $(outdir)/parmesan13.lisp $(outdir)/feta-alphabet13.lisp 
+$(outdir)/feta11.otf-table: $(outdir)/feta11.lisp $(outdir)/parmesan11.lisp $(outdir)/feta-alphabet11.lisp 
+
+
 
 $(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
 

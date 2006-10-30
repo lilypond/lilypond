@@ -6,7 +6,11 @@
 
 #include "polynomial.hh"
 
+#include "warn.hh"
+
 #include <cmath>
+
+
 using namespace std;
 
 /*
@@ -167,10 +171,7 @@ Polynomial::check_sol (Real x) const
   Real d = p.eval (x);
 
   if (abs (f) > abs (d) * FUDGE)
-    ;
-  /*
-    warning ("x=%f is not a root of polynomial\n"
-    "f (x)=%f, f' (x)=%f \n", x, f, d);	*/
+    programming_error ("not a root of polynomial\n");
 }
 
 void

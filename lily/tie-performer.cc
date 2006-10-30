@@ -10,7 +10,6 @@
 
 #include "audio-item.hh"
 #include "context.hh"
-#include "pqueue.hh"
 #include "stream-event.hh"
 #include "translator.icc"
 

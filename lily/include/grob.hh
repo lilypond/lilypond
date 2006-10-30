@@ -78,7 +78,7 @@ public:
   /* Properties */
   SCM get_property_alist_chain (SCM) const;
   SCM internal_get_property (SCM symbol) const;
-  SCM get_property_data (SCM symbol) const;
+  SCM internal_get_property_data (SCM symbol) const;
   SCM internal_get_object (SCM symbol) const;
   void internal_set_object (SCM sym, SCM val);
   void internal_del_property (SCM symbol);
@@ -150,5 +150,7 @@ void add_offset_callback (Grob *g, SCM proc, Axis a);
 void chain_offset_callback (Grob *g, SCM proc, Axis a);
 SCM axis_offset_symbol (Axis a);
 SCM axis_parent_positioning (Axis a);
+
+SCM call_pure_function (SCM unpure, SCM args, int start, int end);
 
 #endif /* GROB_HH */

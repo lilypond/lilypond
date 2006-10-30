@@ -8,7 +8,7 @@ PDF_FILES=$(outdir)/NEWS.pdf
 include $(depth)/make/stepmake.make
 
 ifneq ($(out),www)
-LILYPOND='true'
+LILYPOND_BINARY='true'
 endif
 
 $(outdir)/NEWS.nexi: NEWS.tely

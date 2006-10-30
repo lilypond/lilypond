@@ -14,6 +14,7 @@
 using namespace std;
 
 #include "dots.hh"
+#include "dot-column.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
@@ -66,6 +67,7 @@ struct Dot_position
     dot_ = 0;
     pos_ = 0;
     dir_ = CENTER;
+    extremal_head_ = false;
   }
 };
 

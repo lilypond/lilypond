@@ -101,7 +101,7 @@ Grob::internal_set_property (SCM sym, SCM v)
 
 //#define PROFILE_PROPERTY_ACCESSES
 SCM
-Grob::get_property_data (SCM sym) const
+Grob::internal_get_property_data (SCM sym) const
 {
 #ifndef NDEBUG
   if (profile_property_accesses)
@@ -171,7 +171,8 @@ Grob::try_callback (SCM sym, SCM proc)
   else if (is_simple_closure (proc))
     {
       value = evaluate_with_simple_closure (self_scm (),
-					    simple_closure_expression (proc));
+					    simple_closure_expression (proc),
+					    false, 0, 0);
     }
 #ifndef NDEBUG
   if (debug_property_callbacks)
@@ -229,9 +230,17 @@ Grob::is_live () const
   return scm_is_pair (immutable_property_alist_);
 }
 
-
 bool
 Grob::internal_has_interface (SCM k)
 {
   return scm_c_memq (k, interfaces_) != SCM_BOOL_F;
+}
+
+SCM
+call_pure_function (SCM unpure, SCM args, int start, int end)
+{
+  SCM scm_call_pure_function = ly_lily_module_constant ("call-pure-function");
+
+  return scm_apply_0 (scm_call_pure_function,
+		      scm_list_4 (unpure, args, scm_from_int (start), scm_from_int (end)));
 }

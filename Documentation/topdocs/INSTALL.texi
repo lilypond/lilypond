@@ -286,21 +286,6 @@ $ make
 @end quotation
 
 
-@unnumberedsubsec Flex-2.5.4a and gcc-3.x
-
-Flex 2.5.4a does not produce g++-3.1.1 compliant C++ code.  To compile
-LilyPond with gcc-3.1.1 or higher you may do
-
-@quotation
-@example
-CONF=gcc-3.1 ./lexer-gcc-3.1.sh
-CPPFLAGS=-I$(pwd)/lily/out-gcc-3.1 CC=gcc-3.1 CXX=g++-3.1 \
-./configure --enable-config=gcc-3.1
-CONF=gcc-3.1 ./lexer-gcc-3.1.sh
-make conf=gcc-3.1
-@end example
-@end quotation
-
 @unnumberedsubsec MacOS X
 
 For Fink, use the following command to compile.

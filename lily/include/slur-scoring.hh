@@ -98,7 +98,7 @@ struct Slur_score_state
   Bezier get_best_curve ();
   void fill (Grob *);
   void set_next_direction ();
-
+  
   vector<Offset> generate_avoid_offsets () const;
   Drul_array<Bound_info> get_bound_info () const;
   void generate_curves () const;
@@ -109,6 +109,8 @@ struct Slur_score_state
   vector<Extra_collision_info> get_extra_encompass_infos () const;
   Real move_away_from_staffline (Real y, Grob *on_staff) const;
   int get_closest_index (SCM inspect_quants) const;
+
+  Grob *breakable_bound_item (Direction) const;  
 };
 
 void set_slur_control_points (Grob *me);

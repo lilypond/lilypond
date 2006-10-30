@@ -61,9 +61,9 @@ Grob::Grob (SCM basicprops,
   if (scm_is_pair (meta))
     interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
   
-  if (get_property_data (ly_symbol2scm ("X-extent")) == SCM_EOL)
+  if (get_property_data ("X-extent") == SCM_EOL)
     set_property ("X-extent", Grob::stencil_width_proc);
-  if (get_property_data (ly_symbol2scm ("Y-extent")) == SCM_EOL)
+  if (get_property_data ("Y-extent") == SCM_EOL)
     set_property ("Y-extent", Grob::stencil_height_proc);
 }
 
@@ -287,17 +287,19 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
   if (refp == this)
     return 0.0;
 
-  SCM pure_off = ly_lily_module_constant ("pure-Y-offset");
   Real off = 0;
 
   if (dim_cache_[Y_AXIS].offset_)
     off = *dim_cache_[Y_AXIS].offset_;
-  else if (ly_is_procedure (pure_off))
+  else
     {
+      SCM proc = get_property_data ("Y-offset");
+
       dim_cache_[Y_AXIS].offset_ = new Real (0.0);
-      off = scm_to_double (scm_apply_3 (pure_off, self_scm (),
-					scm_from_int (start), scm_from_int (end),
-					SCM_EOL));
+      off = robust_scm2double (call_pure_function (proc,
+						   scm_list_1 (self_scm ()),
+						   start, end),
+			       0.0);
       delete dim_cache_[Y_AXIS].offset_;
       dim_cache_[Y_AXIS].offset_ = 0;
     }
@@ -404,6 +406,7 @@ Grob::extent (Grob *refp, Axis a) const
       SCM min_ext = internal_get_property (min_ext_sym);
       if (is_number_pair (min_ext))
 	real_ext.unite (ly_scm2interval (min_ext));
+
       ((Grob*)this)->dim_cache_[a].extent_ = new Interval (real_ext);  
     }
   
@@ -415,13 +418,11 @@ Grob::extent (Grob *refp, Axis a) const
 Interval
 Grob::pure_height (Grob *refp, int start, int end)
 {
-  SCM pure_height = ly_lily_module_constant ("pure-Y-extent");
-  Interval iv (0, 0);
-
-  if (ly_is_procedure (pure_height))
-    iv = ly_scm2interval (scm_apply_3 (pure_height, self_scm (),
-				       scm_from_int (start), scm_from_int (end),
-				       SCM_EOL));
+  SCM proc = get_property_data ( ly_symbol2scm ("Y-extent"));
+  Interval iv = robust_scm2interval (call_pure_function (proc,
+							 scm_list_1 (self_scm ()),
+							 start, end),
+				     Interval (0, 0));
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
   SCM min_ext = get_property ("minimum-Y-extent");
@@ -606,6 +607,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "Y-extent "
 	       "Y-offset "
 	       "after-line-breaking "
+	       "avoid-slur "
 	       "axis-group-parent-X "
 	       "axis-group-parent-Y "
 	       "before-line-breaking "

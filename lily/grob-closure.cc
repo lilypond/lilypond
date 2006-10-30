@@ -80,7 +80,7 @@ chain_offset_callback (Grob *g, SCM proc, Axis a)
       Data may be nonnumber. In that case, it is assumed to be
       undefined.
     */
-    
+
     data = SCM_UNDEFINED;
 
   SCM expr = scm_list_2 (proc, data);

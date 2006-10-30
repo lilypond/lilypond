@@ -66,7 +66,26 @@ which scares away people.
 
 @end ignore
 
+@item Slurs now avoid clefs and key changes.
+ 
+@lilypond[fragment,ragged-right]
+\new Staff { \clef bass c^( \clef "G" g') } 
+@end lilypond
 
+@item The @code{FretBoards} context will generate guitar frettings
+automatically,
+
+@lilypond[fragment,relative=0,verbatim,ragged-right]
+\new FretBoards { <d\5 fis a d fis> }
+@end lilypond
+
+This feature was sponsored by Rick Hansen. 
+
+@item Horizontal and vertical spacing are now done at the same time
+so that pages are filled more evenly.
+
+@item The page breaking algorithm is capable of detecting page turns
+and formatting the music accordingly.
 
 @c Insert any new material above this line.  -gp
 

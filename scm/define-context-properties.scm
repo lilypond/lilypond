@@ -210,10 +210,6 @@ visibility for normal (i.e. at the start of the line) key signatures.")
 extra natural sign before accidentals changing from a non-natural to 
 another non-natural.")
 
-     (extraVerticalExtent ,number-pair?
-			  "extra vertical extent, same format as @var{minimumVerticalExtent}")
-
-
      (figuredBassCenterContinuations ,boolean? "Whether to vertically center pairs of extender lines.  This does not work with three or more lines")
      (figuredBassPlusDirection ,ly:dir? "Where to put plus signs relative to the the main figure.")
      
@@ -312,14 +308,14 @@ markup.  Called with 2 arguments, event and context.")
      (midiMaximumVolume ,number? "Analogous to @code{midiMinimumVolume}.")
      (minimumFret ,number? "The tablature auto string-selecting mechanism
 selects the highest string with a fret at least @code{minimumFret}")
+     (maximumFretStretch ,number? "Don't allocate frets further than this from specified frets.")
      (minimumPageTurnLength ,ly:moment? "Minimum length of a rest for a page turn to be allowed")
      (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a repeated section for a page
 turn to be allowed within that section")
-     (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
-format as @var{verticalExtent}")
      (output ,ly:music-output? "The output produced by a score-level translator during music interpretation")
      (ottavation ,string? "If set, the text for an ottava spanner. Changing
 this creates a new text spanner. ")
+     (noteToFretFunction ,procedure? "How to produce a fret diagram.  Parameters: list of note events and list of tabstring events.")
      (pedalSustainStrings ,list? "List of string to print for
 sustain-pedal. Format is (@var{up} @var{updown} @var{down}), where
 each of the three is the string to print when this is done with the
@@ -441,18 +437,6 @@ property, you can make brackets last shorter.  Example
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures")
 
-     (verticalExtent ,number-pair? "Hard coded vertical extent.  The format
-is a pair of dimensions, for example, this sets the sizes of a staff
-to 10 (5+5) staff-spaces high.
-
-@example
-\\set Staff.verticalExtent = #'(-5.0 . 5.0)
-@end example
-
-
-This does not work for Voice or any other context that doesn't form a
-vertical group.")
-     
      (verticallySpacedContexts ,list? "List of symbols, containing
 context names whose vertical axis groups should be taken into account for
 vertical spacing of systems.")

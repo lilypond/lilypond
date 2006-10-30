@@ -162,7 +162,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
   if  (! has_glyph_names)
     cmap = get_index_to_charcode_map (file_name, ftface);
 
-  bool is_ttf = string (FT_Get_X11_Font_Format (ftface)) == "TrueType6";
+  bool is_ttf = string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
   bool cid_keyed = false;
   for (int i = 0; i < pgs->num_glyphs; i++)
     {

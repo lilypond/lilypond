@@ -1,4 +1,3 @@
-#*
 *.abc
 *.aux
 *.dvi
@@ -21,7 +20,6 @@
 *.twy
 *.txt
 */out/*
-*[0-9]pk
 *configure
 *~
 .gdbinit

@@ -647,6 +647,14 @@
 				side-position-interface
 				self-alignment-interface
 				item-interface))))))
+    (FretBoard
+     . ((stencil . ,fret-board::calc-stencil)
+	(finger-code . below-string)
+	(meta . ((class . Item)
+		 (interfaces . (fret-diagram-interface
+				font-interface
+				))))
+	      ))
     (Glissando
      . (
 	(style . line)
@@ -1257,7 +1265,6 @@
 				mark-interface
 				self-alignment-interface))))))
 
-
     (RepeatSlash
      . (
 	(stencil . ,ly:percent-repeat-item-interface::beat-slash)
@@ -1265,6 +1272,7 @@
 	(slope . 1.7)
 	(meta . ((class . Item)
 		 (interfaces . (percent-repeat-interface))))))
+
     (RepeatTie
      . (
 	(stencil  . ,ly:tie::print)
@@ -1343,8 +1351,9 @@
 
     (SeparationItem
      . (
-	(X-extent . #f)
-	(Y-extent . #f)
+	(avoid-slur . inside)
+	(X-extent . ,ly:axis-group-interface::width)
+	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
 		 (interfaces . (spacing-interface
 				separation-item-interface))))))
@@ -2037,72 +2046,57 @@
 
 (define pure-print-callbacks
   (list
-   `(,ly:note-head::print . '())
-   `(,ly:clef::print . '())
-   `(,ly:text-interface::print . '())
-   `(,ly:script-interface::print . '())))
+   ly:note-head::print
+   ly:clef::print
+   ly:text-interface::print
+   ly:script-interface::print))
 
 ;; ly:grob::stencil-extent is safe iff the print callback is safe too
 (define (pure-stencil-height grob start stop)
   (let ((sten (ly:grob-property-data grob 'stencil)))
     (if (or
 	 (ly:stencil? sten)
-	 (pair? (assq sten pure-print-callbacks)))
+	 (memq sten pure-print-callbacks))
 	(ly:grob::stencil-height grob)
 	'(0 . 0))))
 
-(define pure-Y-extents
+(define pure-conversions-alist
   (list
-   `(,ly:staff-symbol::height . ())))
-
-(define Y-extent-conversions
-  (list
+   `(,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
    `(,ly:stem::height . ,ly:stem::pure-height)
    `(,ly:grob::stencil-height . ,pure-stencil-height)
    `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
    `(,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
    `(,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
-   `(,ly:slur::height . ,ly:slur::pure-height)))
-
-(define pure-Y-offsets
-  (list
-   `(,ly:staff-symbol-referencer::callback . ())))
-
-(define Y-offset-conversions
-  (list
+   `(,ly:slur::height . ,ly:slur::pure-height)
    `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)))
+
+(define pure-functions
+  (list
+   ly:staff-symbol-referencer::callback
+   ly:staff-symbol::height))
 
 (define-public (pure-relevant grob)
   (let ((extent-callback (ly:grob-property-data grob 'Y-extent)))
-    (or
-     (pair? extent-callback)
-     (pair? (assq extent-callback pure-Y-extents))
-     (and
-      (pair? (assq extent-callback Y-extent-conversions))
-      (or
-       (not (eq? extent-callback ly:grob::stencil-height))
-       (pair? (assq (ly:grob-property-data grob 'stencil) pure-print-callbacks))
-       (ly:stencil? (ly:grob-property-data grob 'stencil)))))))
+    (not (eq? #f
+	      (or
+	       (pair? extent-callback)
+	       (memq extent-callback pure-functions)
+	       (and
+		(pair? (assq extent-callback pure-conversions-alist))
+		(begin
+		  (or
+		   (not (eq? extent-callback ly:grob::stencil-height))
+		   (memq (ly:grob-property-data grob 'stencil) pure-print-callbacks)
+		   (ly:stencil? (ly:grob-property-data grob 'stencil))))))))))
 
-(define (pure-conversion pures conversions defsymbol defreturn rettype? grob start stop)
-  (let* ((normal-callback (ly:grob-property-data grob defsymbol))
-	 )
-
-    (if (rettype? normal-callback)
-	normal-callback
-	(if (pair? (assq normal-callback pures))
-	    (normal-callback grob)
-	    (let
-		((pure-callback (assq normal-callback conversions)))
-
-	      (if (pair? pure-callback)
-		  ((cdr pure-callback) grob start stop)
-		  defreturn))))))
-
-(define-public (pure-Y-extent grob start stop)
-  (pure-conversion pure-Y-extents Y-extent-conversions
-		   'Y-extent '(0 . 0) pair? grob start stop))
-
-(define-public (pure-Y-offset grob start stop)
-  (pure-conversion pure-Y-offsets Y-offset-conversions
-		   'Y-offset 0 number? grob start stop))
+(define-public (call-pure-function unpure args start end)
+  (if (ly:simple-closure? unpure)
+      (ly:eval-simple-closure (car args) unpure start end)
+      (if (not (procedure? unpure))
+	  unpure
+	  (if (memq unpure pure-functions)
+	      (apply unpure args)
+	      (let ((pure (assq unpure pure-conversions-alist)))
+		(if pure
+		    (apply (cdr pure) (append (list (car args) start end) (cdr args)))))))))

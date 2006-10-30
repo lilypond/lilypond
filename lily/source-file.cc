@@ -277,12 +277,11 @@ Source_file::get_counts (char const *pos_str0,
 
   while (left > 0)
     {
-      wchar_t multibyte[2];
-
       /*
 	FIXME, this is apparently locale dependent.
       */
 #if HAVE_MBRTOWC
+      wchar_t multibyte[2];
       size_t thislen = mbrtowc (multibyte, line_chars, left, &state);
 #else
       size_t thislen = 1;

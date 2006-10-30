@@ -21,7 +21,8 @@
                      ((eq? my-code 'place-fret)
                         (set! dot-list (cons* (cdr my-item) dot-list))))
                  (parse-item (cdr mylist)))))
-               ; calculate fret-range
+      
+      ;; calculate fret-range
                (let ((maxfret 0) (minfret 99))
                     (let updatemax ((fret-list dot-list))
                         (if (null?  fret-list)
@@ -40,7 +41,9 @@
                (acons 'barre-list barre-list
                (acons 'dot-list dot-list
                (acons 'xo-list xo-list '()))))))
-   
+
+
+
 (define (subtract-base-fret base-fret dot-list)
 "Subtract @var{base-fret} from every fret in @var{dot-list}"  
   (if (null? dot-list)
@@ -133,6 +136,7 @@ Line thickness is given by @var{th}, fret & string spacing by
 (define (draw-dots layout props string-count fret-range size finger-code 
                     dot-position dot-radius dot-thickness dot-list)
   "Make dots for fret diagram."
+
   (let* ((scale-dot-radius (* size dot-radius))
          (scale-dot-thick (* size dot-thickness))
          (dot-color (chain-assoc-get 'dot-color props 'black))
@@ -298,7 +302,7 @@ Line thickness is given by @var{th}, fret & string spacing by
   For example,
   
 @example
-   \\markup \\fret-diagram #'((mute 6) (mute 5) (open 4)
+   \\markup \\fret-diagram-verbose #'((mute 6) (mute 5) (open 4)
         (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
 @end example 
   
@@ -325,6 +329,9 @@ changed by setting the value of the variable @var{dot-color}.  If the
 @var{finger-value} will be displayed according to the setting of the
 variable @var{finger-code}.  There is no limit to the number of fret
 indications per string.
+
+
+
 
 @end table
 "

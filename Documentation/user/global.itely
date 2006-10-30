@@ -717,13 +717,6 @@ composer flush right on a single line.
 @end verbatim
 
 
-@refbugs
-
-The @code{breakbefore=##t} header requires that there is a @code{piece}
-header as well.  It may be used as a normal header, or left  blank
-(@code{=""}) as in the example above, but it must be present.
-
-
 
 @node MIDI output
 @section MIDI output

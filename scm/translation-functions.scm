@@ -137,3 +137,142 @@
 
     ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fret diagrams
+
+(define-public (determine-frets context grob notes string-numbers)
+  (define (ensure-number a b)
+    (if (number? a)
+	a
+	b))
+(let*
+      ((tunings (ly:context-property context 'stringTunings))
+       (minimum-fret (ensure-number
+		      (ly:context-property context 'minimumFret) 0))
+       (max-stretch (ensure-number
+		      (ly:context-property context 'maximumFretStretch) 4))
+       (string-frets (determine-frets-mf notes string-numbers
+					 minimum-fret max-stretch
+					 tunings)))
+
+       	      
+  (set! (ly:grob-property grob 'string-count) (length tunings))
+  (set! (ly:grob-property grob 'string-fret-finger-combinations) string-frets)
+
+  ))
+
+(define-public (determine-frets-mf notes string-numbers
+				   minimum-fret max-stretch
+				   tunings)
+
+  (define (calc-fret pitch string tuning)
+    (- (ly:pitch-semitones pitch) (list-ref tuning (1- string))))
+
+  (define (note-pitch a)
+    (ly:event-property a 'pitch))
+
+  (define (note-pitch<? a b)
+    (ly:pitch<? (note-pitch a)
+		(note-pitch b)))
+
+  (define (note-finger ev)
+    (let* ((articulations (ly:event-property ev 'articulations))
+	   (finger-found #f))
+
+      (map (lambda (art)
+	     (let*
+		 ((num (ly:event-property art 'digit)))
+
+	       (if (and (eq? 'fingering-event (ly:event-property art 'class))
+			(number? num))
+		   (set! finger-found num))))
+	   articulations)
+
+      finger-found))
+  
+  (define (note-string ev)
+    (let* ((articulations (ly:event-property ev 'articulations))
+	   (string-found #f))
+
+      (map (lambda (art)
+	     (let*
+		 ((num (ly:event-property art 'string-number)))
+
+	       (if (number? num)
+		   (set! string-found num))))
+	   articulations)
+
+      string-found))
+
+  (define (del-string string)
+		      (if (number? string)
+			  (set! free-strings
+				(delete string free-strings))))
+  (define specified-frets '())
+  (define free-strings '())
+  
+  (define (close-enough fret)
+		       (reduce
+			(lambda (x y)
+			  (and x y))
+			#t
+			(map (lambda (specced-fret)
+			       (> max-stretch (abs (- fret specced-fret))))
+			     specified-frets)
+			))
+  
+  (define (string-qualifies string pitch)
+    (let*
+	((fret (calc-fret pitch string tunings)))
+	 
+	 (and (>= fret minimum-fret)
+	      (close-enough fret))
+	 
+	 ))
+			   
+  (define string-fret-fingering-tuples '())
+  (define (set-fret note string)
+		    (set! string-fret-fingering-tuples
+			  (cons (list string
+				      (calc-fret (ly:event-property note 'pitch)
+						 string tunings)
+				      (note-finger note))
+				string-fret-fingering-tuples))
+		    (del-string string))
+       
+
+  ;;; body.
+  (set! specified-frets
+	(filter identity (map
+		      (lambda (note)
+			(if (note-string note)
+			    (calc-fret (note-pitch note)
+				       (note-string note) tunings)
+			    #f))
+		      notes)))
+
+
+  (set! free-strings (map 1+ (iota (length tunings))))
+    
+  (for-each (lambda (note)
+	      (del-string (note-string note)))
+	    notes)
+  
+  
+  (for-each
+   (lambda (note)
+     (if (note-string note)
+	 (set-fret note (note-string note))
+	 (let*
+	     ((string (find (lambda (string) (string-qualifies string
+							       (note-pitch note)))
+			      (reverse free-strings))))
+	   (if string
+	       (set-fret note string)
+	       (ly:warning "No string for pitch ~a (given frets ~a)" (note-pitch note)
+			   specified-frets))
+			   
+	       )))
+   (sort notes note-pitch<?))
+
+  string-fret-fingering-tuples)

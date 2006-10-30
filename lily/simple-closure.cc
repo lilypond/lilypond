@@ -6,7 +6,9 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
+#include "simple-closure.hh"
 
+#include "grob.hh"
 #include "lily-guile.hh"
 
 static scm_t_bits simple_closure_tag;
@@ -24,17 +26,18 @@ simple_closure_expression (SCM smob)
   return (SCM) SCM_CELL_WORD_1(smob);
 }
 
-SCM evaluate_with_simple_closure (SCM delayed_argument, SCM expr);
-
 SCM
-evaluate_args (SCM delayed_argument, SCM args)
+evaluate_args (SCM delayed_argument, SCM args, bool pure, int start, int end)
 {
   SCM new_args = SCM_EOL;
   SCM *tail = &new_args;
   for (SCM s = args; scm_is_pair (s); s = scm_cdr (s))
     {
-      *tail = scm_cons (evaluate_with_simple_closure (delayed_argument, scm_car (s)),
+      *tail = scm_cons (evaluate_with_simple_closure (delayed_argument, scm_car (s),
+						      pure, start, end),
 			SCM_EOL);
+      if (scm_car (*tail) == SCM_UNSPECIFIED)
+      	return SCM_UNSPECIFIED;
       tail = SCM_CDRLOC (*tail);
     }
   
@@ -43,14 +46,22 @@ evaluate_args (SCM delayed_argument, SCM args)
 
 SCM
 evaluate_with_simple_closure (SCM delayed_argument,
-			      SCM expr)
+			      SCM expr,
+			      bool pure,
+			      int start,
+			      int end)
 {
   if (is_simple_closure (expr))
     {
       SCM inside = simple_closure_expression (expr);
-      return scm_apply_1 (scm_car (inside),
-			  delayed_argument,
-			  evaluate_args (delayed_argument, scm_cdr (inside)));
+      SCM args = scm_cons (delayed_argument,
+			   evaluate_args (delayed_argument, scm_cdr (inside),
+					  pure, start, end));
+      if (scm_cdr (args) == SCM_UNSPECIFIED)
+      	return SCM_UNSPECIFIED;
+      if (pure)
+	return call_pure_function (scm_car (inside), args, start, end);
+      return scm_apply_0 (scm_car (inside), args);
     }
   else if (!scm_is_pair (expr))
     return expr;
@@ -58,12 +69,16 @@ evaluate_with_simple_closure (SCM delayed_argument,
     return scm_cadr (expr);
   else if (ly_is_procedure (scm_car (expr)))
     {
-      return scm_apply_0 (scm_car (expr),
-			  evaluate_args (delayed_argument, scm_cdr (expr)));
+      SCM args = evaluate_args (delayed_argument, scm_cdr (expr), pure, start, end);
+      if (args == SCM_UNSPECIFIED)
+      	return SCM_UNSPECIFIED;
+      if (pure)
+	return call_pure_function (scm_car (expr), args, start, end);
+      return scm_apply_0 (scm_car (expr), args);
     }
   else
     // ugh. deviation from standard. Should print error? 
-    return evaluate_args (delayed_argument, scm_cdr (expr)); 
+    return evaluate_args (delayed_argument, scm_cdr (expr), pure, start, end); 
   
   assert (false);
   return SCM_EOL;
@@ -86,6 +101,19 @@ LY_DEFINE(ly_make_simple_closure, "ly:make-simple-closure",
 
   SCM_NEWSMOB(z, simple_closure_tag, expr);
   return z;
+}
+
+LY_DEFINE(ly_eval_simple_closure, "ly:eval-simple-closure",
+	  2, 2, 0, (SCM delayed, SCM closure, SCM scm_start, SCM scm_end),
+	  "Evaluate a simple closure with the given delayed argument. "
+	  "If start and end are defined, evaluate it purely with those "
+	  "start- and end-points.")
+{
+  bool pure = (scm_is_number (scm_start) && scm_is_number (scm_end));
+  int start = robust_scm2int (scm_start, 0);
+  int end = robust_scm2int (scm_end, 0);
+  SCM expr = simple_closure_expression (closure);
+  return evaluate_with_simple_closure (delayed, expr, pure, start, end);
 }
  
 int

@@ -425,6 +425,7 @@ separately, but put before musical columns.")
      (strict-grace-spacing ,boolean? "If set, grace notes 
 are not spaced separately, but put before musical columns.")
      (string-count ,integer? "The number of strings in a fret diagram.")
+     (string-fret-finger-combinations ,list? "List consisting of (string-number fret-number finger-number) entries.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      
      (style ,symbol? "This setting determines in what style a grob is

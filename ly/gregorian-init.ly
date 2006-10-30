@@ -1,6 +1,6 @@
 %{
   Shortcuts common for all styles of gregorian chant notation.
-  $Id: gregorian-init.ly,v 1.48 2006/10/22 20:19:31 reuter Exp $
+  $Id$
 %}
 
 \version "2.7.39"
@@ -299,7 +299,7 @@ neumeDemoLayout = \layout {
 	\override StaffSymbol #'transparent = ##t
 	\remove "Time_signature_engraver"
 	\remove "Bar_engraver"
-	minimumVerticalExtent = ##f
+	\override VerticalAxisGroup #'minimum-Y-extent = ##f
     }
     \context {
 	\Voice

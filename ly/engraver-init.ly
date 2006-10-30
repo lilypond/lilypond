@@ -10,6 +10,20 @@
   \grobdescriptions #all-grob-descriptions
 }
 
+
+\context {
+  \type "Engraver_group"
+  \name "FretBoards"
+
+  \consists "Output_property_engraver"	
+
+  \consists "Axis_group_engraver" 
+  \consists "Fretboard_engraver"
+  \consists "Separating_line_group_engraver"
+  \consists "Font_size_engraver"
+  \consists "Instrument_name_engraver"
+}
+
 \context {
   \type "Engraver_group"
   \name "Staff"
@@ -24,7 +38,7 @@
   \consists "Separating_line_group_engraver"	
   \consists "Dot_column_engraver"
 
-  %% perhaps move to Voice context?
+ %% perhaps move to Voice context?
   \consists "Ottava_spanner_engraver"
   \consists "Clef_engraver"
   \consists "Key_engraver"
@@ -44,8 +58,6 @@
   \consists "Script_row_engraver"
 
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
-  extraVerticalExtent = ##f
-  verticalExtent = ##f 
   localKeySignature = #'()
   createSpacing = ##t
   ignoreFiguredBassRest = ##t 
@@ -124,8 +136,6 @@ contained staves are not connected vertically."
   \type "Engraver_group"
   
   \override VerticalAxisGroup #'minimum-Y-extent = ##f
-  extraVerticalExtent = ##f
-  verticalExtent = ##f 
   localKeySignature = #'()
   createSpacing = ##t
 
@@ -348,8 +358,6 @@ staffs, with a bracket in front and spanning bar lines. "
 \context{
   \type "Engraver_group"
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-1.2 . 2.4)
-  extraVerticalExtent = ##f
-  verticalExtent = ##f
 
   \description " Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics.  "
@@ -383,8 +391,6 @@ printing of a single line of lyrics.  "
   \consists "Axis_group_engraver"
 
   \override VerticalAxisGroup #'minimum-Y-extent = ##f
-  extraVerticalExtent = ##f
-  verticalExtent = ##f 
 
   
   \consists "Rest_swallow_translator" 
@@ -410,11 +416,9 @@ printing of a single line of lyrics.  "
   
   voltaOnThisStaff = ##f
   \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2.5)
-  extraVerticalExtent = ##f
   \override SeparatingGroupSpanner #'padding = #0.8
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
-  verticalExtent = ##f 
 }
 
 
@@ -475,6 +479,7 @@ AncientRemoveEmptyStaffContext = \context {
   
   \defaultchild "Staff"
 
+  \accepts "FretBoards"
   \accepts "Staff"
   \accepts "RhythmicStaff"
   \accepts "TabStaff"
@@ -491,7 +496,9 @@ AncientRemoveEmptyStaffContext = \context {
   \accepts "Devnull"
   \accepts "NoteNames"
   \accepts "FiguredBass"
-  
+
+
+  noteToFretFunction = #determine-frets
   soloText = #"Solo"
   soloIIText = #"Solo II"
   aDueText = #"a2"
