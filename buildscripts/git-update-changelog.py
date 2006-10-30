@@ -100,7 +100,7 @@ def header (commit):
     return '%d-%02d-%02d  %s  <%s>\n' % (commit.date[:3] + (commit.name, commit.email))
 
 def changelog_body (commit):
-
+    s = ''
     s += ''.join ('\n* %s: ' % f for f in commit.touched_files())
     s += '\n' + commit.message
     
