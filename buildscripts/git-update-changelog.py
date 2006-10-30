@@ -171,7 +171,9 @@ Run this file from the CVS directory, with --git-dir
         new_log = changelog_body (c)  + new_log
         last_commit = c
 
-        final_log += self.message + '\n'
+# FIXME: correct fix?
+#        final_log += self.message + '\n'
+        final_log += log
         
         
     for (op, f) in file_adddel:
