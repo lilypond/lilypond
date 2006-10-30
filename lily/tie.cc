@@ -26,6 +26,7 @@
 #include "tie-configuration.hh"
 #include "tie-formatting-problem.hh"
 #include "warn.hh"
+#include "semi-tie-column.hh"
 
 
 bool
@@ -44,6 +45,15 @@ Tie::set_head (Grob *me, Direction d, Grob *h)
 Grob *
 Tie::head (Grob *me, Direction d)
 {
+  if (is_direction (me->get_property ("head-direction")))
+     {
+       Direction hd = to_dir (me->get_property ("head-direction"));
+ 
+       return (hd == d)
+	 ? unsmob_grob (me->get_object ("note-head"))
+	 : 0;
+     }
+  
   Item *it = dynamic_cast<Spanner*> (me)->get_bound (d);
   if (Note_head::has_interface (it))
     return it;
@@ -135,7 +145,8 @@ Tie::calc_direction (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *yparent = me->get_parent (Y_AXIS);
-  if (Tie_column::has_interface (yparent)
+  if ((Tie_column::has_interface (yparent)
+       || Semi_tie_column::has_interface (yparent)) 
       && unsmob_grob_array (yparent->get_object ("ties"))
       && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1)
     {

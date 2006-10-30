@@ -74,6 +74,12 @@ Tie_configuration::get_untransformed_bezier (Tie_details const &details) const
 		     details.ratio_);
 }
 
+int
+Tie_configuration::column_span_length () const
+{
+  return column_ranks_[RIGHT] - column_ranks_[LEFT];
+}
+
 Real
 Tie_configuration::distance (Tie_configuration const &a,
 			     Tie_configuration const &b)

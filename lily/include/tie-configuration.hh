@@ -44,6 +44,7 @@ public:
   Bezier get_transformed_bezier (Tie_details const &) const;
   Bezier get_untransformed_bezier (Tie_details const &) const;
   Real height (Tie_details const&) const;
+  int column_span_length () const;
   
   static int compare (Tie_configuration const &a,
 		      Tie_configuration const &b);
