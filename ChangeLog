@@ -1,6 +1,9 @@
 2006-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* Hand-force git changes to commit.  Where is my changelog?
+	* python/convertrules.py (conv): Part 2 fixes vertical extent.
+
+	* input/test/vertical-extent.ly: Fix and elaborate on vertical
+	staff extent.  (Thanks Mats)
 
 2006-10-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 

@@ -5,8 +5,8 @@
 
 \header { texidoc = "
 Vertical extents may increased by setting @code{\override VerticalAxisGroup #'minimum-Y-extent}, 
-@code{extraVerticalExtent}, and @code{verticalExtent}. In this example,
-@code{verticalExtent} is increased.
+@code{extra-Y-extent}, and @code{Y-extent}. In this example,
+@code{Y-extent} is increased.
 " }
 
 \score {
