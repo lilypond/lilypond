@@ -197,12 +197,6 @@ $(outdir)/%.png: %.png
 $(outdir)/%.png: %.eps
 	convert $< $@
 
-$(outdir)/%.eps: %.png
-	convert $< $@
-
-$(outdir)/%.eps: %.eps
-	cp $< $@
-
 $(outdir)/%.pdf: %.png
 	convert $< $@
 
