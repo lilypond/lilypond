@@ -60,10 +60,10 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 #
 
 
-$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfa  $(outdir)/feta-alphabet%.pfa  $(outdir)/parmesan%.pfa
+$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfa  $(outdir)/feta-alphabet%.pfa  $(outdir)/parmesan%.pfa $(outdir)/feta%.otf-table $(outdir)/feta%.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script $(notdir $(basename ,$@).pe)
 
-$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa)
+$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa) $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script aybabtu.pe
 	-rm -f $(outdir)/*.scale.{pfa,afm}
 
