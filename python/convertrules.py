@@ -2632,8 +2632,10 @@ def conv (str):
     str = re.sub (r"minimumVerticalExtent",
 		  r"\\override VerticalAxisGroup #'minimum-Y-extent",
 		  str)
+    str = re.sub (r"\\set ([a-zA-Z]*\.?)extraVerticalExtent",
+		  r"\\override \1VerticalAxisGroup #'extra-Y-extent")
     str = re.sub (r"\\set ([a-zA-Z]*\.?)verticalExtent",
-		  r"\\override \1VerticalAxisGroup")
+		  r"\\override \1VerticalAxisGroup #'Y-extent")
     return str
 
 conversions.append (((2, 7, 14), conv,
