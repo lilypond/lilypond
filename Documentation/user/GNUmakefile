@@ -195,7 +195,7 @@ $(outdir)/%.png: %.png
 	convert -geometry 50x50% $< $@
 
 $(outdir)/%.png: %.eps
-	convert $< $@
+	gs -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=$@ -sDEVICE=png16m -dEPSCrop -dNOPAUSE -f $< -c quit
 
 $(outdir)/%.pdf: %.png
 	convert $< $@
