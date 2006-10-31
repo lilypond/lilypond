@@ -140,15 +140,6 @@ default: $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 tree-regen:
 	${MAKE} -C $(top-build-dir) link-mf-tree
 
-debian-mirror=http://ftp.us.debian.org
-debian-package =lilypond_$(TOPLEVEL_VERSION)-1_i386.deb
-$(outdir)/$(debian-package):
-	wget --passive-ftp -P $(outdir) $(debian-mirror)/debian/pool/main/l/lilypond/$(debian-package)
-
-redhat-package=lilypond-$(TOPLEVEL_VERSION)-1.i386.rpm
-$(outdir)/$(redhat-package):
-	wget  --passive-ftp -P $(outdir) http://lilypond.org/download/binaries/Fedora-4/$(redhat-package)
-
 ##
 ## todo: this also depends on .tfm, FIXME.
 $(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
