@@ -165,8 +165,6 @@ STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.8)
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
 
-CXXFLAGS="$CXXFLAGS -Werror"
-
 # Gather requirements and generate output.
 STEPMAKE_END
 
