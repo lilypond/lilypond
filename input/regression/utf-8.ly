@@ -45,6 +45,7 @@ hebrew = \lyricmode {
   זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
 }
 
+% "a legal song to you"
 portuguese = \lyricmode { 
   à vo cê uma can ção legal
 }
