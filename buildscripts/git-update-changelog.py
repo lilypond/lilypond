@@ -182,7 +182,8 @@ Run this file from the CVS directory, with --git-dir
         if op == 'add':
             system ('cvs add %(f)s' % locals ())
 
-    new_log = header (last_commit) + new_log + '\n'
+    if last_commit: 
+        new_log = header (last_commit) + new_log + '\n'
 
     log = new_log + log
 

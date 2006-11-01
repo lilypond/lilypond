@@ -803,9 +803,10 @@
      . (
 	(stencil  . ,ly:tie::print)
 	(control-points . ,ly:semi-tie::calc-control-points)
-	(direction . ,ly:semi-tie::calc-direction)
+	(direction . ,ly:tie::calc-direction)
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
+	(head-direction . ,LEFT)
 	(thickness . 1.0)
 	(meta . ((class . Item)
 		 (interfaces . (semi-tie-interface))
@@ -1277,10 +1278,11 @@
      . (
 	(stencil  . ,ly:tie::print)
 	(control-points . ,ly:semi-tie::calc-control-points)
-	(direction . ,ly:semi-tie::calc-direction)
+	(direction . ,ly:tie::calc-direction)
 	(details . ((ratio . 0.333)
 		    (height-limit . 1.0)))
 	(thickness . 1.0)
+	(head-direction . ,RIGHT)
 	(meta . ((class . Item)
 		 (interfaces . (semi-tie-interface))
 		 ))
@@ -1290,7 +1292,9 @@
      . (
 	(X-extent . #f)
 	(Y-extent . #f)
+	(direction . ,ly:tie::calc-direction)
 	(head-direction . ,RIGHT)
+	
 	(positioning-done . ,ly:semi-tie-column::calc-positioning-done)
 	(meta . ((class . Item)
 		 (interfaces . (semi-tie-column-interface))

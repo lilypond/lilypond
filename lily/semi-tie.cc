@@ -34,6 +34,8 @@ SCM
 Semi_tie::calc_control_points (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  (void) me->get_property ("direction");
+  
   if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
     {
       me->get_parent (Y_AXIS)->get_property ("positioning-done");
@@ -44,24 +46,6 @@ Semi_tie::calc_control_points (SCM smob)
       me->suicide (); 
     }
   
-  return SCM_UNSPECIFIED;
-}
-
-MAKE_SCHEME_CALLBACK(Semi_tie, calc_direction, 1)
-SCM
-Semi_tie::calc_direction (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
-    {
-      me->get_parent (Y_AXIS)->get_property("positioning-done");
-    }
-  else
-    {
-      programming_error ("lv tie without Semi_tie_column"); 
-      set_grob_direction (me, UP);
-    }
-
   return SCM_UNSPECIFIED;
 }
 
