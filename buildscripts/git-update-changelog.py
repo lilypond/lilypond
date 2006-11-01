@@ -9,6 +9,7 @@ import optparse
 def read_pipe (x):
     print 'pipe', x
     return os.popen (x).read ()
+
 def system (x):
     print x
     return os.system (x)
@@ -45,6 +46,9 @@ class Commit:
 
         return files
 
+    def has_patch (self):
+        return self.touched_files () <> []
+    
     def apply (self, add_del_files):
         def note_add_file (x):
             add_del_files.append (('add', x.group (1)))
@@ -80,9 +84,17 @@ def parse_commit_log (log):
     c = Commit (locals ())
     return c
 
-def parse_add_changes (from_commit):
-    
-    log = read_pipe ('git log %(from_commit)s..' % locals ())
+def parse_add_changes (from_commit, max_count=0):
+    opt = ''
+    rest = '..'
+    if max_count:
+
+        # fixme.
+        assert max_count == 1
+        opt = '--max-count=%d' % max_count 
+        rest = ''
+        
+    log = read_pipe ('git log %(opt)s %(from_commit)s%(rest)s' % locals ())
 
     log = log[len ('commit '):]
     log = log.strip ()
@@ -131,14 +143,21 @@ Run this file from the CVS directory, with --git-dir
     
     log = open ('ChangeLog').read ()
 
-    if not options.start:
-        print 'Must set start committish.'  
-        sys.exit (1)
-
     if options.gitdir:
         os.environ['GIT_DIR'] = options.gitdir
-     
-    commits = parse_add_changes (options.start)
+
+
+    if not args:
+        if not options.start:
+            print 'Must set start committish.'  
+            sys.exit (1)
+
+        commits = parse_add_changes (options.start)
+    else:
+        commits = [] 
+        for a in args:
+            commits += parse_add_changes (a, max_count=1)
+
     if not commits:
         return
     
@@ -150,9 +169,18 @@ Run this file from the CVS directory, with --git-dir
         log = log[len (first):]
 
     file_adddel = []
-    final_log = ''
     
-    for c in commits:
+    collated_log = ''
+    collated_message = ''
+    
+    while commits:
+        c = commits[0]
+        commits = commits[1:]
+
+        if not c.has_patch ():
+            print 'patchless commit (merge?)'
+            continue
+        
         print 'patch ', c.committish
         try:
             c.apply (file_adddel)
@@ -168,23 +196,23 @@ Run this file from the CVS directory, with --git-dir
 
             new_log += header (last_commit)
 
-        new_log = changelog_body (c)  + new_log
+        collated_log = changelog_body (c)  + collated_log
         last_commit = c
 
-# FIXME: correct fix?
-#        final_log += self.message + '\n'
-        final_log += log
+        collated_message += c.message + '\n'
         
-        
+
+
     for (op, f) in file_adddel:
         if op == 'del':
             system ('cvs remove %(f)s' % locals ())
         if op == 'add':
             system ('cvs add %(f)s' % locals ())
 
-    new_log = header (last_commit) + new_log + '\n'
+    if last_commit: 
+        collated_log = header (last_commit) + collated_log + '\n'
 
-    log = new_log + log
+    log = collated_log + log
 
     try:
         os.unlink ('ChangeLog~')
@@ -194,8 +222,14 @@ Run this file from the CVS directory, with --git-dir
     os.rename ('ChangeLog', 'ChangeLog~')
     open ('ChangeLog', 'w').write (log)
 
-    open ('.msg','w').write (final_log)
-    print 'cvs commit -F .msg '
+    open ('.msg','w').write (collated_message)
+    print '\nCommit message\n**\n%s\n**\n' % collated_message
+    print '\nRun:\n\n\tcvs commit -F .msg\n\n'
+
+
+    if commits:
+        print 'Commits left to do:'
+        print ' '.join ([c.committish for c in commits])
     
 main ()
     

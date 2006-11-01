@@ -60,10 +60,10 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 #
 
 
-$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfa  $(outdir)/feta-alphabet%.pfa  $(outdir)/parmesan%.pfa
+$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfa  $(outdir)/feta-alphabet%.pfa  $(outdir)/parmesan%.pfa $(outdir)/feta%.otf-table $(outdir)/feta%.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script $(notdir $(basename ,$@).pe)
 
-$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa)
+$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa) $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script aybabtu.pe
 	-rm -f $(outdir)/*.scale.{pfa,afm}
 
@@ -140,22 +140,10 @@ default: $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 tree-regen:
 	${MAKE} -C $(top-build-dir) link-mf-tree
 
-debian-mirror=http://ftp.us.debian.org
-debian-package =lilypond_$(TOPLEVEL_VERSION)-1_i386.deb
-$(outdir)/$(debian-package):
-	wget --passive-ftp -P $(outdir) $(debian-mirror)/debian/pool/main/l/lilypond/$(debian-package)
-
-redhat-package=lilypond-$(TOPLEVEL_VERSION)-1.i386.rpm
-$(outdir)/$(redhat-package):
-	wget  --passive-ftp -P $(outdir) http://lilypond.org/download/binaries/Fedora-4/$(redhat-package)
-
 ##
 ## todo: this also depends on .tfm, FIXME.
 $(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py --global-lisp=$(outdir)/$(<F:.log=.otf-gtable) --lisp=$(outdir)/$(<F:.log=.lisp) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep) --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) $<
-
-fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
-
 
 local-clean:
 	rm -f mfplain.mem mfplain.log

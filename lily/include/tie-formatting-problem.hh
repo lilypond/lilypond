@@ -37,6 +37,7 @@ struct Tie_specification
   
   Tie_specification ();
   int column_span () const;
+  void get_tie_manual_settings (Grob *);
 };
 
 struct Tie_configuration_variation
