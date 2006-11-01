@@ -1,3 +1,47 @@
+2006-11-01  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/optimal-page-breaking.cc (try_page_spacing): don't average
+	page and line forces.
+
+2006-11-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* GNUmakefile.in (SUBDIRS): remove cygwin dir too.
+
+2006-10-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/GNUmakefile: 
+	don't use ImageMagick, use GS directly.
+
+	* mf/GNUmakefile: 
+	otf depends on otf-g?table. Fixes race condition in -j2 build.
+	(cherry picked from b0628c40c47202bddac01e18cd4808b3c9d12faf commit)
+
+	* mf/GNUmakefile: 
+	rm fontdir target.
+
+	* mf/GNUmakefile: 
+	remove .deb/.rpm downloading.
+
+	* buildscripts/git-update-changelog.py: 
+	bugfixes for git-update-changelog.py
+
+	* Documentation/user/GNUmakefile: 
+	remove .eps rules
+
+2006-10-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* input/regression/tie-semi-single.ly:
+	use position/direction from single tie case too. This fixes
+	overrides and defaults for single laissez-vibrer and repeat ties.
+
+	* buildscripts/git-update-changelog.py: 
+	only prepend header if one patch was successful.
+
+2006-10-31  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/GNUmakefile (#INSTALLATION_OUT_DIR): Remove postinstall
+	stuff.  Remove cygwin packaging stuff.
+
 2006-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* python/convertrules.py (conv): Part 2 fixes vertical extent.
