@@ -1,3 +1,23 @@
+2006-10-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/GNUmakefile: 
+	don't use ImageMagick, use GS directly.
+
+	* mf/GNUmakefile: 
+	otf depends on otf-g?table. Fixes race condition in -j2 build.(cherry picked from b0628c40c47202bddac01e18cd4808b3c9d12faf commit)
+
+	* mf/GNUmakefile: 
+	rm fontdir target.
+
+	* mf/GNUmakefile: 
+	remove .deb/.rpm downloading.
+
+	* buildscripts/git-update-changelog.py: 
+	bugfixes for git-update-changelog.py
+
+	* Documentation/user/GNUmakefile: 
+	remove .eps rules
+
 2006-10-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* input/regression/tie-semi-single.ly: 

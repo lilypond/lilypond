@@ -150,7 +150,9 @@ Run this file from the CVS directory, with --git-dir
         log = log[len (first):]
 
     file_adddel = []
-    final_log = ''
+    
+    collated_log = ''
+    collated_message = ''
     
     for c in commits:
         print 'patch ', c.committish
@@ -168,14 +170,13 @@ Run this file from the CVS directory, with --git-dir
 
             new_log += header (last_commit)
 
-        new_log = changelog_body (c)  + new_log
+        collated_log = changelog_body (c)  + collated_log
         last_commit = c
 
-# FIXME: correct fix?
-#        final_log += self.message + '\n'
-        final_log += log
+        collated_message += c.message + '\n'
         
-        
+
+
     for (op, f) in file_adddel:
         if op == 'del':
             system ('cvs remove %(f)s' % locals ())
@@ -183,9 +184,9 @@ Run this file from the CVS directory, with --git-dir
             system ('cvs add %(f)s' % locals ())
 
     if last_commit: 
-        new_log = header (last_commit) + new_log + '\n'
+        collated_log = header (last_commit) + collated_log + '\n'
 
-    log = new_log + log
+    log = collated_log + log
 
     try:
         os.unlink ('ChangeLog~')
@@ -195,8 +196,9 @@ Run this file from the CVS directory, with --git-dir
     os.rename ('ChangeLog', 'ChangeLog~')
     open ('ChangeLog', 'w').write (log)
 
-    open ('.msg','w').write (final_log)
-    print 'cvs commit -F .msg '
+    open ('.msg','w').write (collated_message)
+    print '\nCommit message\n**\n%s\n**\n' % collated_message
+    print '\nRun:\n\n\tcvs commit -F .msg\n\n'
     
 main ()
     
