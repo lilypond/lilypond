@@ -121,17 +121,22 @@ def changelog_body (commit):
     return s
 
 def main ():
-    p = optparse.OptionParser (usage="usage git-update-changelog.py [options]",
+    p = optparse.OptionParser (usage="usage git-update-changelog.py [options] [commits]",
                                description="""
 Apply GIT patches and update change log.
 
-Run this file from the CVS directory, with --git-dir 
+Run this file from the CVS directory, with commits from the repository in --git-dir.
+
+
+
+
 """)
     p.add_option ("--start",
                   action='store',
                   default='',
+                  metavar="FIRST"
                   dest="start",
-                  help="start of log messages to merge.")
+                  help="all commits starting with FIRST.")
     
     p.add_option ("--git-dir",
                   action='store',
@@ -172,10 +177,12 @@ Run this file from the CVS directory, with --git-dir
     
     collated_log = ''
     collated_message = ''
-    
+
+    commits_done = []
     while commits:
         c = commits[0]
         commits = commits[1:]
+        commits_done.append (c) 
 
         if not c.has_patch ():
             print 'patchless commit (merge?)'
@@ -225,6 +232,7 @@ Run this file from the CVS directory, with --git-dir
     open ('.msg','w').write (collated_message)
     print '\nCommit message\n**\n%s\n**\n' % collated_message
     print '\nRun:\n\n\tcvs commit -F .msg\n\n'
+    print '\n\techo %s >> .git-commits-done\n\n' % ' '.join (commits_done) 
 
 
     if commits:
