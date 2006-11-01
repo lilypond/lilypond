@@ -63,16 +63,14 @@ Optimal_page_breaking::try_page_spacing (Line_division const &line_count)
     {
       Real uniformity = fabs (ret.force_[i] - ret.force_[i-1]);
       ret.demerits_ += (ret.force_[i] * ret.force_[i]
-		       + uniformity * uniformity) * page_weighting;
+			+ uniformity * uniformity) * page_weighting;
     }
 
-  /* If ragged_last is true, the last page will have
-     zero force no matter what. In this case, we exclude it from the average or
-     we will become biased towards scores with less pages (because the force
-     of zero will affect the average more when there are fewer pages) */
-  if (!ragged_last || ret.force_.size () > 1)
-    ret.demerits_ /= ret.force_.size () - (ragged_last ? 1 : 0);
-  line_force /= lines.size ();
+  /* for a while we tried averaging page and line forces instead of summing
+     them, but it caused the following problem. If there is a single page
+     with a very bad page force (for example because of a forced page break),
+     the page breaker will put in a _lot_ of pages so that the bad force
+     becomes averaged out over many pages. */
   ret.demerits_ += line_force + line_penalty;
   return ret;
 }

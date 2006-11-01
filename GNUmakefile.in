@@ -9,7 +9,7 @@ SUBDIRS = buildscripts python scripts \
 	po make \
 	elisp vim \
 	input \
-	cygwin stepmake $(documentation-dir)
+	stepmake $(documentation-dir)
 
 
 ## this convoluted construction is necessary, since we don't know the
