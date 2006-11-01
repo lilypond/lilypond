@@ -896,7 +896,7 @@ some punctuation. It doesn't have any letters.  "
   "Set font size to -3."
   (interpret-markup layout (prepend-alist-chain 'font-size -3 props) arg))
 
-(define-markup-command (caps layout props arg) (markup?)
+(define-markup-command (fontCaps layout props arg) (markup?)
   "Set @code{font-shape} to @code{caps}."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
@@ -965,6 +965,9 @@ some punctuation. It doesn't have any letters.  "
 						 (cons #\space (string->list text))
 						 #f
 						 #f)))
+
+(define-markup-command (caps layout props arg) (markup?)
+  (interpret-markup layout props (make-smallCaps-markup arg)))
 
 (define-markup-command (dynamic layout props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
