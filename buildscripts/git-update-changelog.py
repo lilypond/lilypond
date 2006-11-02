@@ -9,6 +9,7 @@ import optparse
 def read_pipe (x):
     print 'pipe', x
     return os.popen (x).read ()
+
 def system (x):
     print x
     return os.system (x)
@@ -45,6 +46,9 @@ class Commit:
 
         return files
 
+    def has_patch (self):
+        return self.touched_files () <> []
+    
     def apply (self, add_del_files):
         def note_add_file (x):
             add_del_files.append (('add', x.group (1)))
@@ -80,9 +84,17 @@ def parse_commit_log (log):
     c = Commit (locals ())
     return c
 
-def parse_add_changes (from_commit):
-    
-    log = read_pipe ('git log %(from_commit)s..' % locals ())
+def parse_add_changes (from_commit, max_count=0):
+    opt = ''
+    rest = '..'
+    if max_count:
+
+        # fixme.
+        assert max_count == 1
+        opt = '--max-count=%d' % max_count 
+        rest = ''
+        
+    log = read_pipe ('git log %(opt)s %(from_commit)s%(rest)s' % locals ())
 
     log = log[len ('commit '):]
     log = log.strip ()
@@ -109,17 +121,22 @@ def changelog_body (commit):
     return s
 
 def main ():
-    p = optparse.OptionParser (usage="usage git-update-changelog.py [options]",
+    p = optparse.OptionParser (usage="usage git-update-changelog.py [options] [commits]",
                                description="""
 Apply GIT patches and update change log.
 
-Run this file from the CVS directory, with --git-dir 
+Run this file from the CVS directory, with commits from the repository in --git-dir.
+
+
+
+
 """)
     p.add_option ("--start",
                   action='store',
                   default='',
+                  metavar="FIRST",
                   dest="start",
-                  help="start of log messages to merge.")
+                  help="all commits starting with FIRST.")
     
     p.add_option ("--git-dir",
                   action='store',
@@ -131,14 +148,21 @@ Run this file from the CVS directory, with --git-dir
     
     log = open ('ChangeLog').read ()
 
-    if not options.start:
-        print 'Must set start committish.'  
-        sys.exit (1)
-
     if options.gitdir:
         os.environ['GIT_DIR'] = options.gitdir
-     
-    commits = parse_add_changes (options.start)
+
+
+    if not args:
+        if not options.start:
+            print 'Must set start committish.'  
+            sys.exit (1)
+
+        commits = parse_add_changes (options.start)
+    else:
+        commits = [] 
+        for a in args:
+            commits += parse_add_changes (a, max_count=1)
+
     if not commits:
         return
     
@@ -150,17 +174,19 @@ Run this file from the CVS directory, with --git-dir
         log = log[len (first):]
 
     file_adddel = []
-<<<<<<< HEAD/buildscripts/git-update-changelog.py
-=======
-    
     collated_log = ''
     collated_message = ''
->>>>>>> b1b4484cce6e2fe9d312b7617e801efa00dea57b/buildscripts/git-update-changelog.py
-    
-    collated_log = ''
-    collated_message = ''
-    
-    for c in commits:
+
+    commits_done = []
+    while commits:
+        c = commits[0]
+        commits = commits[1:]
+        commits_done.append (c) 
+
+        if not c.has_patch ():
+            print 'patchless commit (merge?)'
+            continue
+        
         print 'patch ', c.committish
         try:
             c.apply (file_adddel)
@@ -205,6 +231,13 @@ Run this file from the CVS directory, with --git-dir
     open ('.msg','w').write (collated_message)
     print '\nCommit message\n**\n%s\n**\n' % collated_message
     print '\nRun:\n\n\tcvs commit -F .msg\n\n'
+    print '\n\techo %s >> .git-commits-done\n\n' % ' '.join ([c.committish
+                                                              for c in commits_done]) 
+
+
+    if commits:
+        print 'Commits left to do:'
+        print ' '.join ([c.committish for c in commits])
     
 main ()
     
