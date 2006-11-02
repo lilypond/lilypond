@@ -65,7 +65,6 @@ $(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe
 
 $(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa) $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script aybabtu.pe
-	-rm -f $(outdir)/*.scale.{pfa,afm}
 
 $(outdir)/%.pfa: $(outdir)/%.log
 
