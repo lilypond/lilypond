@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; autochange - fairly related to part combining.
 
-(define-public (make-autochange-music music)
+(define-public (make-autochange-music parser music)
   (define (generate-split-list change-moment event-list acc)
     (if (null? event-list)
 	acc
@@ -32,7 +32,8 @@
   
   (let* ((m (make-music 'AutoChangeMusic))
 	(m1 (make-non-relative-music (context-spec-music music 'Voice "one")))
-	 (context-list (recording-group-emulate music part-combine-listener))
+	 (context-list (recording-group-emulate music
+						(ly:parser-lookup parser partCombineListener)))
 	 (evs (car context-list))
          (rev (reverse! (cdar context-list)))
 	 (split (reverse! (generate-split-list

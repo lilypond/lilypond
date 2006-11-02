@@ -96,7 +96,7 @@ assertBeamSlope =
 
 autochange =
 #(define-music-function (parser location music) (ly:music?)
-               (make-autochange-music music))
+               (make-autochange-music parser music))
 
 applyContext =
 #(define-music-function (parser location proc) (procedure?)
