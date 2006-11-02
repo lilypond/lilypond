@@ -14,14 +14,14 @@
 Sources::Sources ()
 {
   path_ = 0;
-  is_binary_ = false;
 }
 
-void
-Sources::set_binary (bool bo)
+
+Sources::Sources (Sources const &)
 {
-  is_binary_ = bo;
+  assert (false);
 }
+
 
 void
 Sources::set_path (File_path *f)
@@ -62,18 +62,5 @@ Sources::~Sources ()
     {
       sourcefiles_[i]->unprotect ();
     }
-}
-
-Source_file *
-Sources::get_sourcefile (char const *str0)
-{
-  for (vector<Source_file*>::iterator i = sourcefiles_.begin();
-       i != sourcefiles_.end (); i++)
-    {
-      if ((*i)->contains (str0))
-	return *i;
-    }
-
-  return 0;
 }
 

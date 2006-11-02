@@ -13,9 +13,8 @@
 /*   A set of sourcefiles.  */
 class Sources
 {
-  Sources (Sources const &) {}
+  Sources (Sources const &);
   vector<Source_file*> sourcefiles_;
-  bool is_binary_;
 
 public:
   Sources ();
@@ -25,7 +24,6 @@ public:
   Source_file *get_sourcefile (char const *);
   void add (Source_file *sourcefile);
   void set_path (File_path *);
-  void set_binary (bool);
 
   const File_path *path_;
 };
