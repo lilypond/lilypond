@@ -346,7 +346,6 @@
 
 	* flower/polynomial.cc (check_sol): no empty if bodies. 
 
-=======
 2006-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/stepmake/po-vars.make: Resolve.
@@ -357,7 +356,8 @@
 
 2006-10-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* buildscripts/git-update-changelog.py (main): write .msg and cvs command.
+	* buildscripts/git-update-changelog.py (main): write .msg and cvs
+	command.
 
 	* scm/define-grobs.scm: 
 	separation-items have width
