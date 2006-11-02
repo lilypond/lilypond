@@ -273,7 +273,6 @@ static PyObject *
 midi_parse_track (unsigned char **track, unsigned char *track_end)
 {
   unsigned int time = 0;
-  unsigned char running_status;
   unsigned long track_len, track_size;
   PyObject *pytrack = 0;
 
@@ -307,6 +306,8 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
     PyObject *pytime = PyInt_FromLong (0L);
     while (*track < track_end)
       {
+	unsigned char running_status = 0;
+	
 	long dt = get_variable_length_number(track, track_end);
 	PyObject *pyev = 0;
 

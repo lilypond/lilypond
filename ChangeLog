@@ -1,6 +1,9 @@
 2006-11-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* python/midi.c: 
+	init running_status
+
+	* python/midi.c: 
 	trim warning messages.
 
 	* configure.in: 
