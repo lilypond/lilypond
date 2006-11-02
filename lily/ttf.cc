@@ -180,6 +180,10 @@ print_trailer (void *out,
 	  get_unicode_name (glyph_name, ucode);
 	}
 
+      if (glyph_name == string (".notdef"))
+	glyph_name[0] = '\0';
+
+      
       if (!glyph_name[0])
 	{
 	  get_glyph_index_name (glyph_name, i);

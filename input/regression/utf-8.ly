@@ -45,6 +45,7 @@ japanese = \lyricmode {
   あさきゆめみじ ゑひもせず 
  }
 
+% "a legal song to you"
 portuguese = \lyricmode { 
   à vo cê uma can ção legal
 }

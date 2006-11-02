@@ -80,6 +80,12 @@ Tie_configuration::column_span_length () const
   return column_ranks_[RIGHT] - column_ranks_[LEFT];
 }
 
+int
+Tie_configuration::column_span_length () const
+{
+  return column_ranks_[RIGHT] - column_ranks_[LEFT];
+}
+
 Real
 Tie_configuration::distance (Tie_configuration const &a,
 			     Tie_configuration const &b)

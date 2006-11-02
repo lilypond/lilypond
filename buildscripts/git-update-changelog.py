@@ -150,6 +150,12 @@ Run this file from the CVS directory, with --git-dir
         log = log[len (first):]
 
     file_adddel = []
+<<<<<<< HEAD/buildscripts/git-update-changelog.py
+=======
+    
+    collated_log = ''
+    collated_message = ''
+>>>>>>> b1b4484cce6e2fe9d312b7617e801efa00dea57b/buildscripts/git-update-changelog.py
     
     collated_log = ''
     collated_message = ''
