@@ -68,6 +68,11 @@ void internal_set_option (SCM var, SCM val)
       do_internal_type_checking_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
+  else if (var == ly_symbol2scm ("debug-gc-assert-parsed-dead"))
+    {
+      parsed_objects_should_be_dead = to_boolean (val);
+      val = scm_from_bool (parsed_objects_should_be_dead);
+    }
   else if (var == ly_symbol2scm ("old-relative"))
     {
       lily_1_8_relative = to_boolean (val);

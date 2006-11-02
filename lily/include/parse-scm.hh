@@ -13,6 +13,7 @@
 #include "lily-guile.hh"
 
 extern bool parse_protect_global;
+extern bool parsed_objects_should_be_dead;
 
 struct Parse_start
 {

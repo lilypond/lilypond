@@ -22,6 +22,9 @@
 	      (clip-systems #f "Generate cut-out snippets of a score")
 	      (debug-gc #f
 			"dump memory debugging statistics")
+	      (debug-gc-assert-parsed-dead #f
+			"for memory debugging: ensure that all refs to parsed objects are dead.")
+	      
 	      (debug-midi #f "generate human readable MIDI")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
@@ -383,6 +386,8 @@ The syntax is the same as `define*-public'."
 	  (display "Live object statistics: GC'ing\n")
 	  (gc)
 	  (gc)
+	  (ly:set-option 'debug-gc-assert-parsed-dead #t)
+	  (gc)
 	  
 	  (set! stats (gc-live-object-stats))
 	  (display "Dumping live object statistics.\n")
@@ -442,6 +447,7 @@ The syntax is the same as `define*-public'."
 
     (for-each
      (lambda (x)
+       (ly:set-option 'debug-gc-assert-parsed-dead #f)
        (lilypond-file handler x)
        (ly:clear-anonymous-modules)
        (if (ly:get-option 'debug-gc)
@@ -455,8 +461,7 @@ The syntax is the same as `define*-public'."
 	 (lambda () (ly:parse-file file-name))
 	 (lambda (x . args) (handler x file-name))))
 
-(use-modules (scm editor)
-	     )
+(use-modules (scm editor))
 
 (define-public (gui-main files)
   (if (null? files)
