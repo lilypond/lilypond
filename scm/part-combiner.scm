@@ -220,25 +220,13 @@ Voice-state objects
     (ly:interpret-music-expression (make-non-relative-music music) global)
     context-list))
 
-(define noticed '())
-;; todo: junk this, extract $defaultlayout from parser instead
-(define part-combine-listener '())
-
-; UGH - should pass noticed setter to part-combine-listener
-(define-safe-public (set-part-combine-listener x)
-  (set! part-combine-listener x))
-
-(define-public (notice-the-events-for-pc context lst)
-  "add CONTEXT-ID, EVENT list to NOTICED variable."
-  
-  (set! noticed (acons (ly:context-id context) lst noticed)))
-
-(define-public (make-part-combine-music music-list)
+(define-public (make-part-combine-music parser music-list)
   (let* ((m (make-music 'PartCombineMusic))
 	 (m1 (make-non-relative-music (context-spec-music (first music-list) 'Voice "one")))
 	 (m2  (make-non-relative-music  (context-spec-music (second music-list) 'Voice "two")))
-	 (evs2 (recording-group-emulate m2 part-combine-listener))
-	 (evs1 (recording-group-emulate m1 part-combine-listener)))
+	 (listener (ly:parser-lookup parser 'partCombineListener))
+	 (evs2 (recording-group-emulate m2 listener))
+	 (evs1 (recording-group-emulate m1 listener)))
     
     (set! (ly:music-property m 'elements) (list m1 m2))
     (set! (ly:music-property m 'split-list)
@@ -495,11 +483,10 @@ the mark when there are no spanners active.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (add-quotable name mus)
-  (set! noticed '())
+(define-public (add-quotable parser name mus)
   (let* ((tab (eval 'musicQuotes (current-module)))
 	 (context-list (recording-group-emulate (context-spec-music mus 'Voice)
-					      part-combine-listener)))
+						(ly:parser-lookup parser 'partCombineListener))))
     (if (pair? context-list)
 	(hash-set! tab name
 		   ;; cdr : skip name string
