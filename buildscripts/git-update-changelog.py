@@ -134,7 +134,7 @@ Run this file from the CVS directory, with commits from the repository in --git-
     p.add_option ("--start",
                   action='store',
                   default='',
-                  metavar="FIRST"
+                  metavar="FIRST",
                   dest="start",
                   help="all commits starting with FIRST.")
     
@@ -174,13 +174,6 @@ Run this file from the CVS directory, with commits from the repository in --git-
         log = log[len (first):]
 
     file_adddel = []
-<<<<<<< HEAD/buildscripts/git-update-changelog.py
-=======
-    
-    collated_log = ''
-    collated_message = ''
->>>>>>> b1b4484cce6e2fe9d312b7617e801efa00dea57b/buildscripts/git-update-changelog.py
-    
     collated_log = ''
     collated_message = ''
 
@@ -238,7 +231,8 @@ Run this file from the CVS directory, with commits from the repository in --git-
     open ('.msg','w').write (collated_message)
     print '\nCommit message\n**\n%s\n**\n' % collated_message
     print '\nRun:\n\n\tcvs commit -F .msg\n\n'
-    print '\n\techo %s >> .git-commits-done\n\n' % ' '.join (commits_done) 
+    print '\n\techo %s >> .git-commits-done\n\n' % ' '.join ([c.committish
+                                                              for c in commits_done]) 
 
 
     if commits:
