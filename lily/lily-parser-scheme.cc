@@ -132,6 +132,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
       error = parser->error_level_;
 
+      parser->clear ();
       parser->unprotect ();
     }
 

@@ -50,6 +50,7 @@ public:
 
   DECLARE_SCHEME_CALLBACK (layout_description, ());
 
+  void clear ();
   void do_init_file ();
   void do_yyparse ();
   void parse_file (string init, string name, string out_name);
