@@ -33,7 +33,7 @@
   (let* ((m (make-music 'AutoChangeMusic))
 	(m1 (make-non-relative-music (context-spec-music music 'Voice "one")))
 	 (context-list (recording-group-emulate music
-						(ly:parser-lookup parser partCombineListener)))
+						(ly:parser-lookup parser 'partCombineListener)))
 	 (evs (car context-list))
          (rev (reverse! (cdar context-list)))
 	 (split (reverse! (generate-split-list
