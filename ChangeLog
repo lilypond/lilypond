@@ -1,3 +1,29 @@
+2006-11-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* python/midi.c: 
+	init running_status
+
+	* python/midi.c: 
+	trim warning messages.
+
+	* configure.in: 
+	strip -Werror.
+
+	* input/regression/utf-8.ly: 
+	document utf-8 meaning of phrases.
+
+	* scm/define-markup-commands.scm: 
+	make \caps markup default to smallCaps
+
+	* lily/pango-font.cc: 
+	* lily/ttf.cc: 
+	use glyph indexing for glyph name .notdef
+
+2006-11-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/utf-8.ly: Fix doc to match order of language
+	fonts.
+
 2006-11-01  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/optimal-page-breaking.cc (try_page_spacing): don't average
