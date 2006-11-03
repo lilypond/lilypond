@@ -9,13 +9,7 @@
 
 %% need SRFI-1 filter 
 
-#(use-modules (srfi srfi-1))  
-%% FIXME: guile-1.7 required?
-%#(use-modules (scm display-lily))invalid module name for use-syntax ((srfi srfi-39))
-
-#(use-modules (scm display-lily))
-#(display-lily-init parser)
-
+#(use-modules (srfi srfi-1))
 
 acciaccatura =
 #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
@@ -165,16 +159,20 @@ cueDuring =
 	      'quoted-voice-direction dir
 	      'origin location))
 
+%% The following causes an error with guile 1.6.8 (guile 1.6.7 and 1.8.x are fine)
+#(use-modules (scm display-lily))
 
 displayLilyMusic =
 #(define-music-function (parser location music) (ly:music?)
-   (display-lily-music music)
+   (newline)
+   (display-lily-music music parser)
    music)
 
 displayMusic =
 #(define-music-function (parser location music) (ly:music?)
-		 (display-scheme-music music)
-		 music)
+   (newline)
+   (display-scheme-music music)
+   music)
 
 featherDurations=
 #(define-music-function (parser location factor argument) (ly:moment? ly:music?)
