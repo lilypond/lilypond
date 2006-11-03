@@ -33,6 +33,7 @@
 # %%LY now supported.
 # \breve and \longa supported.
 # M:none doesn't crash lily.
+# lilypond '--' supported.
 
 # Enhancements (Guy Gascoigne-Piggford)
 #
@@ -254,13 +255,13 @@ def try_parse_q(a):
     if string.count(a, '/') == 1:
         array=string.split(a,'/')
         numerator=array[0]
-        if numerator != 1:
+        if int(numerator) != 1:
             sys.stderr.write("abc2ly: Warning, unable to translate a Q specification with a numerator of %s: %s\n" % (numerator, a))
         array2=string.split(array[1],'=')
         denominator=array2[0]
         perminute=array2[1]
         duration=str(string.atoi(denominator)/string.atoi(numerator))
-        midi_specs=string.join(["\\tempo", duration, "=", perminute])
+        midi_specs=string.join(["    \n\t\t\context {\n\t\t \Score tempoWholesPerMinute = #(ly:make-moment ", perminute, " ", duration, ")\n\t\t }\n"])
     else:
         sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
     
@@ -616,8 +617,7 @@ def fix_lyric(str):
 
 def slyrics_append(a):
     a = re.sub ( '_', ' _ ', a)        # _ to ' _ '
-    a = re.sub ( '-', '- ', a)        # split words with -
-    a = re.sub ( ' - - ', ' -- ', a)  # unless was originally " -- "
+    a = re.sub ( '([^-])-([^-])', '\\1- \\2', a)        # split words with "-" unless was originally "--" 
     a = re.sub ( '\\\\- ', '-', a)         # unless \-
     a = re.sub ( '~', '_', a)        # ~ to space('_')
     a = re.sub ( '\*', '_ ', a)        # * to to space
