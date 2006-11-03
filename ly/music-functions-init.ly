@@ -23,7 +23,7 @@ acciaccatura =
 addquote =
 #(define-music-function (parser location name music) (string? ly:music?)
    "Add a piece of music to be quoted "
-   (add-quotable name music)
+   (add-quotable parser name music)
    (make-music 'SequentialMusic 'void #t))
 
 
@@ -96,7 +96,7 @@ assertBeamSlope =
 
 autochange =
 #(define-music-function (parser location music) (ly:music?)
-               (make-autochange-music music))
+               (make-autochange-music parser music))
 
 applyContext =
 #(define-music-function (parser location proc) (procedure?)
@@ -338,7 +338,8 @@ octave =
 	       ))
 partcombine =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
-                (make-part-combine-music (list part1 part2)))
+                (make-part-combine-music parser
+					 (list part1 part2)))
 
 	      
 pitchedTrill =

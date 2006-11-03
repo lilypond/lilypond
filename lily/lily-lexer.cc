@@ -148,6 +148,11 @@ Lily_lexer::add_scope (SCM module)
 
   set_current_scope ();
 }
+bool
+Lily_lexer::has_scope () const
+{
+  return scm_is_pair (scopes_);
+}
 
 SCM
 Lily_lexer::remove_scope ()
@@ -300,6 +305,8 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
 SCM
 Lily_lexer::mark_smob (SCM s)
 {
+  ASSERT_LIVE_IS_ALLOWED();
+  
   Lily_lexer *lexer = (Lily_lexer *) SCM_CELL_WORD_1 (s);
 
   scm_gc_mark (lexer->chordmodifier_tab_);

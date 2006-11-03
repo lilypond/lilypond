@@ -115,6 +115,7 @@ protected_ly_parse_scm (Parse_start *ps)
 }
 
 bool parse_protect_global = true;
+bool parsed_objects_should_be_dead = false;
 
 /* Try parsing.  Upon failure return SCM_UNDEFINED.
    FIXME: shouldn't we return SCM_UNSCPECIFIED -- jcn  */

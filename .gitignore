@@ -17,3 +17,12 @@ tags
 *.midi
 \#*
 lily-[0-9][0-9][0-9]*
+gcstat*.scm
+*.aux
+*.svg
+*.pyc
+*.log
+.htaccess
+*.tfm
+*.afm
+

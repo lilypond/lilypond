@@ -64,6 +64,7 @@ public:
 
   void add_scope (SCM);
   SCM set_current_scope ();
+  bool has_scope () const;
   SCM remove_scope ();
 
   void start_main_input ();

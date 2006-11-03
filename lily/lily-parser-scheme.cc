@@ -110,11 +110,12 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       exit (2);
     }
 
+
+  bool error = false;
   if ((file_name != "-") && file_name.empty ())
     {
       warning (_f ("can't find file: `%s'", file));
-      scm_throw (ly_symbol2scm ("ly-file-failed"),
-		 scm_list_1 (scm_makfrom0str (file_name.c_str ())));
+      error = true;
     }
   else
     {
@@ -129,14 +130,20 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
       parser->parse_file (init, file_name, out_file);
 
-      bool error = parser->error_level_;
+      error = parser->error_level_;
 
+      parser->clear ();
       parser->unprotect ();
-      if (error)
-	/* TODO: pass renamed input file too.  */
-	scm_throw (ly_symbol2scm ("ly-file-failed"),
-		   scm_list_1 (scm_makfrom0str (file_name.c_str ())));
     }
+
+  /*
+    outside the if-else to ensure cleanup fo Sources object, 
+   */
+  if (error)
+    /* TODO: pass renamed input file too.  */
+    scm_throw (ly_symbol2scm ("ly-file-failed"),
+	       scm_list_1 (scm_makfrom0str (file_name.c_str ())));
+  
   return SCM_UNSPECIFIED;
 }
 

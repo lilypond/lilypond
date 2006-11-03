@@ -1,3 +1,73 @@
+2006-11-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/autochange.scm: 
+	autochange thinko.
+
+	* lily/context-def.cc: 
+	* lily/include/parse-scm.hh: 
+	* lily/include/smobs.hh: 
+	* lily/parse-scm.cc: 
+	* lily/prob.cc: 
+	* lily/program-option.cc: 
+	* scm/lily.scm: 
+	implement and use ASSERT_LIVE_IS_ALLOWED()
+
+	* ly/music-functions-init.ly: 
+	* scm/autochange.scm: 
+	set-part-combine fix for autochange.
+
+	* lily/include/lily-lexer.hh: 
+	* lily/include/lily-parser.hh: 
+	* lily/lily-lexer.cc: 
+	* lily/lily-parser-scheme.cc: 
+	* lily/lily-parser.cc: 
+	clear lexer scopes after parsing file. Plugs pseudo memory leak
+
+	* ly/declarations-init.ly: 
+	* ly/music-functions-init.ly: 
+	* scm/part-combiner.scm: 
+	Remove set-part-combine-listener. This plugs a memory leak.
+
+	* .gitignore: 
+	more ignores.
+
+	* mf/GNUmakefile: 
+	don't delete .scale.pfa; the FF script may not have read themyet. Fixes brace OTF bug
+
+	* .gitignore: 
+	ignore gcstat files.
+
+	* lily/part-combine-iterator.cc: 
+	don't allocate part combine events statically. Plugs small leak.
+
+	* lily/lily-parser-scheme.cc: 
+	plug memleak in case of failed files.
+
+	* lily/include/source.hh: 
+	* lily/source.cc: 
+	clean up Sources
+
+	* lily/lexer.ll: 
+	hi-bit ascii is also counted as alpha chars. This allows unicodeidentifiers, and fixes premature stop at accented char. (#134)
+
+	* lily/include/program-option.hh: 
+	* lily/program-option.cc: 
+	get_program_option() function
+
+	* ly/titling-init.ly: 
+	change naming: print-page-number becomescreate-page-number-stencil. This avoids nameclash withprint-page-number boolean, and fixes page number printing.
+
+	* lily/include/translator.hh: 
+	* lily/include/translator.icc: 
+	* lily/translator.cc: 
+	minor cleanups
+
+	* lily/figured-bass-engraver.cc: 
+	don't use ASSIGN_EVENT_ONCE for Figured_bass_engraver. Fixes #128.
+
+	* stepmake/stepmake/compile-vars.make: 
+	don't do -fPIC for mingw. Suppresses warning about unnecessary -fPIC
+
 2006-11-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* python/midi.c: 

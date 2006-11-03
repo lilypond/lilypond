@@ -106,8 +106,6 @@ partCombineListener = \layout {
     }
 }
 
-#(set-part-combine-listener partCombineListener)
-
 \include "dynamic-scripts-init.ly"
 \include "spanners-init.ly"
 \include "property-init.ly"

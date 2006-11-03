@@ -127,7 +127,7 @@ Lily_parser::parse_file (string init, string name, string out_name)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
-  lexer_ = 0;
+  clear ();
 }
 
 void
@@ -154,6 +154,19 @@ Lily_parser::parse_string (string ly_code)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
+}
+
+void
+Lily_parser::clear ()
+{
+  if (lexer_)
+    {
+      while (lexer_->has_scope ())
+	lexer_->remove_scope ();
+
+      
+    }
+  lexer_ = 0;  
 }
 
 char const *

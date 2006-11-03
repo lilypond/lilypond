@@ -34,7 +34,6 @@ public:
 protected:
   virtual void derived_substitute (Context *f, Context *t);
   virtual void derived_mark () const;
-  Part_combine_iterator (Part_combine_iterator const &);
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;
@@ -57,6 +56,11 @@ private:
 
   SCM split_list_;
 
+  Stream_event *unisono_event_; 
+  Stream_event *solo_one_event_;
+  Stream_event *solo_two_event_;
+  Stream_event *mmrest_event_; 
+  
   enum Status
     {
       APART,
@@ -111,6 +115,11 @@ Part_combine_iterator::do_quit ()
 
 Part_combine_iterator::Part_combine_iterator ()
 {
+  mmrest_event_ = 0;
+  unisono_event_ = 0;
+  solo_two_event_ = 0;
+  solo_one_event_= 0;
+
   first_iter_ = 0;
   second_iter_ = 0;
   split_list_ = SCM_EOL;
@@ -125,6 +134,17 @@ Part_combine_iterator::derived_mark () const
     scm_gc_mark (first_iter_->self_scm ());
   if (second_iter_)
     scm_gc_mark (second_iter_->self_scm ());
+
+  Stream_event *ptrs[] = {
+    unisono_event_,
+    mmrest_event_,
+    solo_two_event_,
+    solo_one_event_,
+    0
+  };
+  for (int i = 0; ptrs[i]; i++)
+    if (ptrs[i])
+      scm_gc_mark (ptrs[i]->self_scm ());
 }
 
 void
@@ -171,14 +191,15 @@ Part_combine_iterator::chords_together ()
 void
 Part_combine_iterator::kill_mmrest (int in)
 {
-  static Stream_event *mmrest;
-  if (!mmrest)
+  
+  if (!mmrest_event_)
     {
-      mmrest = new Stream_event (ly_symbol2scm ("multi-measure-rest-event"));
-      mmrest->set_property ("duration", SCM_EOL);
+      mmrest_event_ = new Stream_event (ly_symbol2scm ("multi-measure-rest-event"));
+      mmrest_event_->set_property ("duration", SCM_EOL);
+      mmrest_event_->unprotect ();
     }
 
-  handles_[in].get_outlet ()->event_source ()->broadcast (mmrest);
+  handles_[in].get_outlet ()->event_source ()->broadcast (mmrest_event_);
 }
 
 void
@@ -196,11 +217,13 @@ Part_combine_iterator::solo1 ()
 
       if (playing_state_ != SOLO1)
 	{
-	  static Stream_event *event;
-	  if (!event)
-	    event = new Stream_event (ly_symbol2scm ("solo-one-event"));
+	  if (!solo_one_event_)
+	    {
+	      solo_one_event_ = new Stream_event (ly_symbol2scm ("solo-one-event"));
+	      solo_one_event_->unprotect ();
+	    }
 
-	  first_iter_->get_outlet ()->event_source ()->broadcast (event);
+	  first_iter_->get_outlet ()->event_source ()->broadcast (solo_one_event_);
 	}
       playing_state_ = SOLO1;
     }
@@ -252,14 +275,16 @@ Part_combine_iterator::unisono (bool silent)
       if (playing_state_ != UNISONO
 	  && newstate == UNISONO)
 	{
-	  static Stream_event *event;
-	  if (!event)
-	    event = new Stream_event (ly_symbol2scm ("unisono-event"));
-
+	  if (!unisono_event_)
+	    {
+	      unisono_event_ = new Stream_event (ly_symbol2scm ("unisono-event"));
+	      unisono_event_->unprotect ();
+	    }
+	  
 
 	  Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
 	    ->get_outlet ();
-	  out->event_source ()->broadcast (event);
+	  out->event_source ()->broadcast (unisono_event_);
 	  playing_state_ = UNISONO;
 	}
       state_ = newstate;
@@ -279,11 +304,13 @@ Part_combine_iterator::solo2 ()
 
       if (playing_state_ != SOLO2)
 	{
-	  static Stream_event *event;
-	  if (!event)
-	    event = new Stream_event (ly_symbol2scm ("solo-two-event"));
-
-	  second_iter_->get_outlet ()->event_source ()->broadcast (event);
+	  if (!solo_two_event_)
+	    {
+	      solo_two_event_ = new Stream_event (ly_symbol2scm ("solo-two-event"));
+	      solo_two_event_->unprotect ();
+	    }
+	  
+	  second_iter_->get_outlet ()->event_source ()->broadcast (solo_two_event_);
 	  playing_state_ = SOLO2;
 	}
     }
@@ -368,7 +395,8 @@ Part_combine_iterator::set_busy (SCM se)
 }
 
 /*
-* Processes a moment in an iterator, and returns whether any new music was reported.
+  Processes a moment in an iterator, and returns whether any new music
+  was reported.
 */
 bool
 Part_combine_iterator::try_process (Music_iterator *i, Moment m)
