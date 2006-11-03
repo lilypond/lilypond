@@ -318,10 +318,11 @@ internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const ch
 			       new_ev->self_scm ())))
     {
       /* extract event class from function name */
-      const char *prefix = "listen_";
       string ev_class = function;
+
       /* This assertion fails if EVENT_ASSIGNMENT was called outside a
 	 translator listener. Don't do that. */
+      const char *prefix = "listen_";
       assert (0 == ev_class.find (prefix));
 
       /* "listen_foo_bar" -> "foo-bar" */
@@ -340,7 +341,7 @@ internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const ch
 }
 
 ADD_TRANSLATOR (Translator,
-		"Base class. Unused",
+		"Base class. Not instantiated.",
 		"",
 		"",
 		"");

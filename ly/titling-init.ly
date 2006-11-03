@@ -70,9 +70,10 @@ scoreTitleMarkup = \markup { \column {
 }
 
 #(define (first-page layout props arg)
-  (if (= (chain-assoc-get 'page:page-number props -1) 
-         (ly:output-def-lookup layout 'first-page-number))   (interpret-markup layout props arg)
-   empty-stencil))
+  (if (= (chain-assoc-get 'page:page-number props -1)
+         (ly:output-def-lookup layout 'first-page-number))
+      (interpret-markup layout props arg)
+      empty-stencil))
 
 #(define (last-page layout props arg)
   (if (chain-assoc-get 'page:last? props #f)
@@ -93,7 +94,7 @@ scoreTitleMarkup = \markup { \column {
    (interpret-markup layout props arg)
    empty-stencil))
 
-#(define (print-page-number layout props arg)
+#(define (create-page-number-stencil layout props arg)
   (if (eq? (ly:output-def-lookup layout 'print-page-number) #t)
    (interpret-markup layout props arg)
    empty-stencil))
@@ -102,7 +103,7 @@ scoreTitleMarkup = \markup { \column {
   (if (or (not (= (chain-assoc-get 'page:page-number props -1) 
                   (ly:output-def-lookup layout 'first-page-number)))
           (eq? (ly:output-def-lookup layout 'print-first-page-number) #t))
-   (print-page-number layout props arg)
+   (create-page-number-stencil layout props arg)
    empty-stencil))
 
 oddHeaderMarkup = \markup

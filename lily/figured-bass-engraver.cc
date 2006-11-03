@@ -142,7 +142,12 @@ Figured_bass_engraver::listen_rest (Stream_event *ev)
   if (to_boolean (get_property ("ignoreFiguredBassRest")))
     {
       new_event_found_ = true;
-      ASSIGN_EVENT_ONCE (rest_event_, ev);
+
+      /*
+	No ASSIGN_EVENT_ONCE() ; otherwise we get warnings about
+	polyphonic rests.
+       */
+      rest_event_ = ev;
     }
 }
 

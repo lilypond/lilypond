@@ -31,6 +31,7 @@ private:
   int identifier_type (SCM);
   char escaped_char (char) const;
 
+  Lily_parser *parser_;
   Keyword_table *keytable_;
   SCM scopes_;
   SCM start_module_;
@@ -41,7 +42,7 @@ public:
   void *lexval;
   Input *lexloc;
   bool is_main_input_;
-
+  
   Sources *sources_;
 
   /* Scheme hash tables with (oct name acc)  values, and symbol keys.  */
@@ -51,7 +52,7 @@ public:
   int error_level_;
   Input last_input_;
 
-  Lily_lexer (Sources *);
+  Lily_lexer (Sources *, Lily_parser *);
   Lily_lexer (Lily_lexer const &);
   int yylex ();
 
