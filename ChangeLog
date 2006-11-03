@@ -1,5 +1,7 @@
 2006-11-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* *: The Joy of Merging.
+
 	* buildscripts/git-update-changelog.py: 
 	sort commits, and use .git-commits-done file.
 

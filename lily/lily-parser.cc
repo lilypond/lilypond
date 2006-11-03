@@ -163,9 +163,8 @@ Lily_parser::clear ()
     {
       while (lexer_->has_scope ())
 	lexer_->remove_scope ();
-
-      
     }
+
   lexer_ = 0;  
 }
 

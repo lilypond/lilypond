@@ -22,6 +22,4 @@ SCM ly_set_option (SCM, SCM);
 
 bool get_program_option (const char *);
 
-bool get_program_option (const char *);
-
 #endif /* SCM_OPTION_HH */

@@ -25,7 +25,7 @@
 	      (debug-gc-assert-parsed-dead #f
 			"for memory debugging: ensure that all refs to parsed objects are dead.")
 	      
-	      (debug-midi #f "generate human readable MIDI")
+	      (debug-parser #f "debug the bison parser")
 	      (debug-lexer #f "debug the flex lexer")
 	      (debug-midi #f "generate human readable MIDI")
 	      (delete-intermediate-files #f
