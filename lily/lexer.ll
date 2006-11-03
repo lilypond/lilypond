@@ -80,11 +80,6 @@ bool is_valid_version (string s);
 	(*(YYLTYPE*)lexloc)
 
 #define YY_USER_ACTION	add_lexed_char (YYLeng ());
-/*
-
-LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
-
-*/
 
 
 SCM scan_fraction (string);
@@ -117,18 +112,21 @@ SCM (* scm_parse_error_handler) (void *);
 %x sourcefilename
 %x version
 
-A		[a-zA-Z]
+A		[a-zA-Z\200-\377]
 AA		{A}|_
 N		[0-9]
 AN		{AA}|{N}
 ANY_CHAR	(.|\n)
 PUNCT		[?!:'`]
 ACCENT		\\[`'"^]
-NATIONAL	[\001-\006\021-\027\031\036\200-\377]
+NATIONAL	[\001-\006\021-\027\031\036]
 TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
 WORD		{A}{AN}*
 DASHED_WORD		{A}({AN}|-)*
 DASHED_KEY_WORD		\\{DASHED_WORD}
+
+
+
 ALPHAWORD	{A}+
 DIGIT		{N}
 UNSIGNED	{N}+
@@ -148,6 +146,7 @@ ESCAPED		[nt\\'"]
 EXTENDER	__
 HYPHEN		--
 BOM_UTF8	\357\273\277
+
 %%
 
 
@@ -245,7 +244,6 @@ BOM_UTF8	\357\273\277
 	int i;
 	sscanf (YYText (), "%d", &i);
 
-//	this->set_debug (1); 
 	yy_pop_state ();
 	this->here_input ().get_source_file ()->set_line (here_input ().start (), i);
 }
