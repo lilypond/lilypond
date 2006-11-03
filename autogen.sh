@@ -1,4 +1,7 @@
 #!/bin/sh
+# WARNING WARNING WARNING
+# do not edit! this is autogen.sh, generated from /home/lilydev/src/lilypond/stepmake/autogen.sh
+#!/bin/sh
 # Run this to generate configure and initial GNUmakefiles
 
 srcdir=`dirname $0`
@@ -50,8 +53,6 @@ do
 done
 
 #conf_flags="--enable-maintainer-mode --enable-compile-warnings" #--enable-iso-c
-#conf_flags="--with-ncsb-dir=/usr/share/fonts/default/Type1/"
-
 if test -n "$NOCONFIGURE"; then
     echo Skipping configure process.
     exit 0

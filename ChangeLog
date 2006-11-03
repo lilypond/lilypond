@@ -1,3 +1,12 @@
+2006-11-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* buildscripts/git-update-changelog.py: 
+	sort commits, and use .git-commits-done file.
+
+	* GNUmakefile.in: 
+	* elisp/GNUmakefile: 
+	dist emacs patches too.
+
 2006-11-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* scm/autochange.scm: 
