@@ -34,7 +34,6 @@ bool profile_property_accesses = false;
 bool do_internal_type_checking_global;
 bool strict_infinity_checking = false; 
 
-
 static SCM option_hash;
 
 void internal_set_option (SCM var, SCM val)
@@ -209,10 +208,22 @@ LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
   return scm_from_bool (be_verbose_global);
 }
 
+
+
+
 LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "Get a global option setting.")
 {
   SCM_ASSERT_TYPE (scm_is_symbol (var), var,
 		   SCM_ARG1, __FUNCTION__, "symbol");
   return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
+}
+
+
+bool
+get_program_option (const char *s)
+{
+  SCM sym = ly_symbol2scm (s);
+
+  return to_boolean (ly_get_option (sym));
 }
