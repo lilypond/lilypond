@@ -17,6 +17,15 @@ def system (x):
 class PatchFailed(Exception):
     pass
 
+def sign (x):
+    if x < 0:
+        return -1
+    if x > 0:
+        return 1
+
+    return 0
+    
+
 class Commit:
     def __init__ (self, dict):
         for v in ('message',
@@ -32,6 +41,8 @@ class Commit:
         self.email = m.group (2).strip ()
         self.name = m.group (1).strip ()
         self.diff = read_pipe ('git show %s' % self.committish)
+    def compare (self, other):
+        return sign (time.mktime (self.date) - time.mktime (other.date))
         
     def touched_files (self):
         files = []
@@ -173,6 +184,15 @@ Run this file from the CVS directory, with commits from the repository in --git-
     if first == log[:len (first)]:
         log = log[len (first):]
 
+    try:
+        previously_done = dict((c, 1) for c in open ('.git-commits-done').read ().split ('\n'))
+    except OSError:
+        previously_done = {}
+
+    commits = [c for c in commits if not previously_done.has_key (c.committish)]
+    commits = sorted (commits, cmp=Commit.compare)
+
+    
     file_adddel = []
     collated_log = ''
     collated_message = ''
@@ -181,6 +201,7 @@ Run this file from the CVS directory, with commits from the repository in --git-
     while commits:
         c = commits[0]
         commits = commits[1:]
+        
         commits_done.append (c) 
 
         if not c.has_patch ():
