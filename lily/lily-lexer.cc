@@ -100,9 +100,10 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   chordmodifier_tab_ = scm_make_vector (scm_from_int (1), SCM_EOL);
 }
 
-Lily_lexer::Lily_lexer (Lily_lexer const &src)
+Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   : Includable_lexer ()
 {
+  parser_ = parser; 
   keytable_ = (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
