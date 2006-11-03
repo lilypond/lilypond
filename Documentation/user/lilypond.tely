@@ -201,11 +201,11 @@ Appendices
 @include instrument-notation.itely
 @include advanced-notation.itely
 @include changing-defaults.itely
-@include global.itely
-@include page.itely
+@include non-music.itely
+@include spacing.itely
 @include programming-interface.itely
 
-@include invoking.itely
+@include running.itely
 @include lilypond-book.itely
 @include converters.itely
 
@@ -213,7 +213,7 @@ Appendices
 @include literature.itely
 @include scheme-tutorial.itely
 @include notation-appendices.itely
-@include examples.itely
+@include templates.itely
 @include cheatsheet.itely
 @include fdl.itexi
 
