@@ -36,7 +36,7 @@ Lily_parser::Lily_parser (Sources *sources)
 
   smobify_self ();
 
-  lexer_ = new Lily_lexer (sources_);
+  lexer_ = new Lily_lexer (sources_, this);
   lexer_->unprotect ();
 }
 
@@ -95,7 +95,6 @@ Lily_parser::parse_file (string init, string name, string out_name)
   lexer_->main_input_name_ = name;
 
   message (_ ("Parsing..."));
-  //  progress_indication ("\n");
 
   set_yydebug (0);
 
@@ -164,9 +163,8 @@ Lily_parser::clear ()
     {
       while (lexer_->has_scope ())
 	lexer_->remove_scope ();
-
-      
     }
+
   lexer_ = 0;  
 }
 
