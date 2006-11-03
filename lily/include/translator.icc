@@ -134,10 +134,4 @@ cl::_listen_scm_ ## m (SCM sev)				\
   listen_ ## m (ev);					\
 }
 
-/*
-  This helper is only meaningful inside listen_* methods.
-*/
-extern bool internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const char *function);
-#define ASSIGN_EVENT_ONCE(o,n) internal_event_assignment (&o, n, __FUNCTION__)
-
 #endif /* TRANSLATOR_ICC */
