@@ -1,6 +1,0 @@
-sdesc: "LilyPond documentation."
-category: Doc
-ldesc: "LilyPond Documentation in INFO, HTML, PS, PDF and DVI formats.
-This package contains the HTML, INFO, PostScript PDF and DVI
-documentation for the LilyPond music typesetting software.  Man pages
-are in the lilypond package."

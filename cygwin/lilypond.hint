@@ -1,7 +1,0 @@
-sdesc: "A program for printing sheet music"
-category: Publishing
-requires: bash coreutils cygwin findutils ghostscript glib2-runtime libfontconfig1 libfreetype26 libguile12 libiconv2 libintl3 pango-runtime python _update-info-dir
-#suggests: emacs gsview libkpathsea4 lilypond-doc tetex-bin tetex-tiny rxvt xorg-x11-base
-ldesc: "A program for printing sheet music.
-LilyPond lets you create music notation.  It produces
-beautiful sheet music from a high-level description file."
