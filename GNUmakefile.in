@@ -22,9 +22,8 @@ TOPDOC_FILES=AUTHORS README INSTALL NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
 IN_FILES := $(call src-wildcard,*.in)
 
-PATCH_FILES = emacsclient.patch server.el.patch 
 EXTRA_DIST_FILES = VERSION .cvsignore SConstruct \
-  $(README_FILES) $(SCRIPTS) $(IN_FILES) $(PATCH_FILES)
+  $(README_FILES) $(SCRIPTS) $(IN_FILES) 
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
 
