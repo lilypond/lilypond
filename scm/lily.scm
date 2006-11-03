@@ -29,6 +29,9 @@
 	      (debug-parser #f "debug the bison parser")
 	      (debug-lexer #f "debug the flex lexer")
 	      (debug-midi #f "generate human readable MIDI")
+	      (debug-parser #f "debug the bison parser")
+	      (debug-lexer #f "debug the flex lexer")
+	      (debug-midi #f "generate human readable MIDI")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
 	      (dump-signatures #f "dump output signatures of each system")
