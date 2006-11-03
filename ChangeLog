@@ -1,3 +1,15 @@
+2006-11-03  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/display-lily.scm: add a parser argument to display methods,
+	instead of using a *parser* special variable.
+
+	* scm/define-music-display-methods.scm: add a parser argument to
+	display methods. Update the methods for \melisma, \melismaEnd,
+	\breathe, \tempo, \partial.
+
+	* input/no-notation/display-lily-tests.ly: update the test
+	utilities according to the changes in display-lily.scm
+
 2006-11-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* *: The Joy of Merging.
