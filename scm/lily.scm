@@ -20,14 +20,12 @@
 	      (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
 	      (check-internal-types #f "check every property assignment for types")
 	      (clip-systems #f "Generate cut-out snippets of a score")
-	      (debug-gc #f
-			"dump memory debugging statistics")
-	      (debug-gc-assert-parsed-dead #f
-			"for memory debugging: ensure that all refs to parsed objects are dead.")
-	      
+	      (debug-gc #f "dump memory debugging statistics")
+	      (debug-gc-assert-parsed-dead
+	       #f "for memory debugging: ensure that all refs to parsed objects are dead.")
+	      (debug-lexer #f "debug the flex lexer")
 	      (debug-midi #f "generate human readable MIDI")
 	      (debug-parser #f "debug the bison parser")
-	      (debug-lexer #f "debug the flex lexer")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
 	      (dump-signatures #f "dump output signatures of each system")
