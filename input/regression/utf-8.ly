@@ -14,29 +14,22 @@ Red Hat Fedora
 Debian GNU/Linux
 
    apt-get install emacs-intl-fonts xfonts-intl-.* \
-	ttf-kochi-gothic ttf-kochi-mincho
-
+	ttf-kochi-gothic ttf-kochi-mincho \
+	xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
 %} 
 
 \header {
 
   texidoc = "Various scripts may be used for texts (like titles and
 lyrics) introduced by entering them in UTF-8 encoding, and using a
-Pango based backend. Depending on the fonts installed, this fragment
-will render Japanese, Hebrew, Cyrillic and Portuguese.
+Pango based backend.  Depending on the fonts installed, this fragment
+will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
 
 "
   
 }
 
-japanese = \lyricmode {  
-  いろはにほへど ちりぬるを
-  わがよたれぞ  つねならむ
-  うゐのおくや  まけふこえて
-  あさきゆめみじ ゑひもせず 
- }
-
-
+% Cyrillic font
 bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
 }
@@ -45,6 +38,14 @@ hebrew = \lyricmode {
   זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
 }
 
+japanese = \lyricmode {  
+  いろはにほへど ちりぬるを
+  わがよたれぞ  つねならむ
+  うゐのおくや  まけふこえて
+  あさきゆめみじ ゑひもせず 
+}
+
+% "a legal song to you"
 portuguese = \lyricmode { 
   à vo cê uma can ção legal
 }
@@ -53,7 +54,7 @@ portuguese = \lyricmode {
 \relative  { 
   c2 d e f g f e
 }
-\addlyrics { \hebrew }
 \addlyrics { \bulgarian }
+\addlyrics { \hebrew }
 \addlyrics { \japanese }
 \addlyrics { \portuguese }

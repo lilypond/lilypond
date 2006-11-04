@@ -42,7 +42,7 @@
 `display-methods' property of the music type entry found in the
 `music-name-to-property-table' hash table. Print methods previously
 defined for that music type are lost. 
-Syntax: (define-display-method MusicType (expression)
+Syntax: (define-display-method MusicType (expression parser)
 	  ...body...))"
   `(let ((type-props (hashq-ref music-name-to-property-table
 				',music-type '()))
@@ -76,11 +76,11 @@ display method will be called."
 
 (define* (tag->lily-string expr #:optional (post-event? #f))
   (format #f "~{~a ~}"
-          (map (lambda (tag)
-                 (format #f "~a\\tag #'~a" (if post-event? "-" "") tag))
-               (ly:music-property expr 'tags))))
+	  (map (lambda (tag)
+		 (format #f "~a\\tag #'~a" (if post-event? "-" "") tag))
+	       (ly:music-property expr 'tags))))
 
-(define-public (music->lily-string expr)
+(define-public (music->lily-string expr parser)
   "Print expr, a music expression, in LilyPond syntax"
   (if (ly:music? expr)
       (let* ((music-type (ly:music-property expr 'name))
@@ -88,7 +88,7 @@ display method will be called."
 					  music-type '())
 			       'display-methods))
 	     (result-string (and procs (any (lambda (proc)
-					      (proc expr))
+					      (proc expr parser))
 					    procs))))
 	(if result-string
 	    (format #f "~a~a" 
@@ -98,11 +98,11 @@ display method will be called."
 		    music-type)))
       (format #f "%{ expecting a music expression: ~a %}" expr)))
 
-(define*-public (display-lily-music expr #:key force-duration)
+(define*-public (display-lily-music expr parser #:key force-duration)
   (parameterize ((*indent* 0)
 		 (*previous-duration* (ly:make-duration 2))
 		 (*force-duration* force-duration))
-    (display (music->lily-string expr))
+    (display (music->lily-string expr parser))
     (newline)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -282,8 +282,6 @@ inside body."
 ;; \times factor (used in durations)
 (define *time-factor-denominator* (make-parameter #f))
 (define *time-factor-numerator* (make-parameter #f))
-
-(define *parser* (make-parameter #f))
 
 (define *current-context* (make-parameter 'Bottom))
 

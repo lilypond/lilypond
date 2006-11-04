@@ -9,13 +9,7 @@
 
 %% need SRFI-1 filter 
 
-#(use-modules (srfi srfi-1))  
-%% FIXME: guile-1.7 required?
-%#(use-modules (scm display-lily))invalid module name for use-syntax ((srfi srfi-39))
-
-#(use-modules (scm display-lily))
-#(display-lily-init parser)
-
+#(use-modules (srfi srfi-1))
 
 acciaccatura =
 #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
@@ -23,7 +17,7 @@ acciaccatura =
 addquote =
 #(define-music-function (parser location name music) (string? ly:music?)
    "Add a piece of music to be quoted "
-   (add-quotable name music)
+   (add-quotable parser name music)
    (make-music 'SequentialMusic 'void #t))
 
 
@@ -96,7 +90,7 @@ assertBeamSlope =
 
 autochange =
 #(define-music-function (parser location music) (ly:music?)
-               (make-autochange-music music))
+               (make-autochange-music parser music))
 
 applyContext =
 #(define-music-function (parser location proc) (procedure?)
@@ -165,16 +159,20 @@ cueDuring =
 	      'quoted-voice-direction dir
 	      'origin location))
 
+%% The following causes an error with guile 1.6.8 (guile 1.6.7 and 1.8.x are fine)
+#(use-modules (scm display-lily))
 
 displayLilyMusic =
 #(define-music-function (parser location music) (ly:music?)
-   (display-lily-music music)
+   (newline)
+   (display-lily-music music parser)
    music)
 
 displayMusic =
 #(define-music-function (parser location music) (ly:music?)
-		 (display-scheme-music music)
-		 music)
+   (newline)
+   (display-scheme-music music)
+   music)
 
 featherDurations=
 #(define-music-function (parser location factor argument) (ly:moment? ly:music?)
@@ -338,7 +336,8 @@ octave =
 	       ))
 partcombine =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
-                (make-part-combine-music (list part1 part2)))
+                (make-part-combine-music parser
+					 (list part1 part2)))
 
 	      
 pitchedTrill =

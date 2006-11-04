@@ -1,3 +1,166 @@
+2006-11-03  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/display-lily.scm: add a parser argument to display methods,
+	instead of using a *parser* special variable.
+
+	* scm/define-music-display-methods.scm: add a parser argument to
+	display methods. Update the methods for \melisma, \melismaEnd,
+	\breathe, \tempo, \partial.
+
+	* input/no-notation/display-lily-tests.ly: update the test
+	utilities according to the changes in display-lily.scm
+
+2006-11-03  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* *: The Joy of Merging.
+
+	* buildscripts/git-update-changelog.py: 
+	sort commits, and use .git-commits-done file.
+
+	* GNUmakefile.in: 
+	* elisp/GNUmakefile: 
+	dist emacs patches too.
+
+2006-11-02  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* scm/autochange.scm: 
+	autochange thinko.
+
+	* lily/context-def.cc: 
+	* lily/include/parse-scm.hh: 
+	* lily/include/smobs.hh: 
+	* lily/parse-scm.cc: 
+	* lily/prob.cc: 
+	* lily/program-option.cc: 
+	* scm/lily.scm: 
+	implement and use ASSERT_LIVE_IS_ALLOWED()
+
+	* ly/music-functions-init.ly: 
+	* scm/autochange.scm: 
+	set-part-combine fix for autochange.
+
+	* lily/include/lily-lexer.hh: 
+	* lily/include/lily-parser.hh: 
+	* lily/lily-lexer.cc: 
+	* lily/lily-parser-scheme.cc: 
+	* lily/lily-parser.cc: 
+	clear lexer scopes after parsing file. Plugs pseudo memory leak
+
+	* ly/declarations-init.ly: 
+	* ly/music-functions-init.ly: 
+	* scm/part-combiner.scm: 
+	Remove set-part-combine-listener. This plugs a memory leak.
+
+	* .gitignore: 
+	more ignores.
+
+	* mf/GNUmakefile: 
+	don't delete .scale.pfa; the FF script may not have read themyet. Fixes brace OTF bug
+
+	* .gitignore: 
+	ignore gcstat files.
+
+	* lily/part-combine-iterator.cc: 
+	don't allocate part combine events statically. Plugs small leak.
+
+	* lily/lily-parser-scheme.cc: 
+	plug memleak in case of failed files.
+
+	* lily/include/source.hh: 
+	* lily/source.cc: 
+	clean up Sources
+
+	* lily/lexer.ll: 
+	hi-bit ascii is also counted as alpha chars. This allows unicodeidentifiers, and fixes premature stop at accented char. (#134)
+
+	* lily/include/program-option.hh: 
+	* lily/program-option.cc: 
+	get_program_option() function
+
+	* ly/titling-init.ly: 
+	change naming: print-page-number becomescreate-page-number-stencil. This avoids nameclash withprint-page-number boolean, and fixes page number printing.
+
+	* lily/include/translator.hh: 
+	* lily/include/translator.icc: 
+	* lily/translator.cc: 
+	minor cleanups
+
+	* lily/figured-bass-engraver.cc: 
+	don't use ASSIGN_EVENT_ONCE for Figured_bass_engraver. Fixes #128.
+
+	* stepmake/stepmake/compile-vars.make: 
+	don't do -fPIC for mingw. Suppresses warning about unnecessary -fPIC
+
+2006-11-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* python/midi.c: 
+	init running_status
+
+	* python/midi.c: 
+	trim warning messages.
+
+	* configure.in: 
+	strip -Werror.
+
+	* input/regression/utf-8.ly: 
+	document utf-8 meaning of phrases.
+
+	* scm/define-markup-commands.scm: 
+	make \caps markup default to smallCaps
+
+	* lily/pango-font.cc: 
+	* lily/ttf.cc: 
+	use glyph indexing for glyph name .notdef
+
+2006-11-02  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/utf-8.ly: Fix doc to match order of language
+	fonts.
+
+2006-11-01  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/optimal-page-breaking.cc (try_page_spacing): don't average
+	page and line forces.
+
+2006-11-01  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* GNUmakefile.in (SUBDIRS): remove cygwin dir too.
+
+2006-10-31  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* Documentation/user/GNUmakefile: 
+	don't use ImageMagick, use GS directly.
+
+	* mf/GNUmakefile: 
+	otf depends on otf-g?table. Fixes race condition in -j2 build.
+	(cherry picked from b0628c40c47202bddac01e18cd4808b3c9d12faf commit)
+
+	* mf/GNUmakefile: 
+	rm fontdir target.
+
+	* mf/GNUmakefile: 
+	remove .deb/.rpm downloading.
+
+	* buildscripts/git-update-changelog.py: 
+	bugfixes for git-update-changelog.py
+
+	* Documentation/user/GNUmakefile: 
+	remove .eps rules
+
+2006-10-30  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* input/regression/tie-semi-single.ly:
+	use position/direction from single tie case too. This fixes
+	overrides and defaults for single laissez-vibrer and repeat ties.
+
+	* buildscripts/git-update-changelog.py: 
+	only prepend header if one patch was successful.
+
+2006-10-31  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/GNUmakefile (#INSTALLATION_OUT_DIR): Remove postinstall
+	stuff.  Remove cygwin packaging stuff.
+
 2006-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* python/convertrules.py (conv): Part 2 fixes vertical extent.
@@ -302,7 +465,6 @@
 
 	* flower/polynomial.cc (check_sol): no empty if bodies. 
 
-=======
 2006-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/stepmake/po-vars.make: Resolve.
@@ -313,7 +475,8 @@
 
 2006-10-29  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
-	* buildscripts/git-update-changelog.py (main): write .msg and cvs command.
+	* buildscripts/git-update-changelog.py (main): write .msg and cvs
+	command.
 
 	* scm/define-grobs.scm: 
 	separation-items have width

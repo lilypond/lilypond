@@ -407,8 +407,10 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
 	    description.end_rods_.push_back (Rod_description (j, scm_to_double (scm_cdar (s))));
 	}
     }
+  
   if (!line_starter && to_boolean (col->get_property ("keep-inside-line")))
     description.keep_inside_line_ = col->extent (col, X_AXIS);
+
   description.break_permission_ = col->get_property ("line-break-permission");
   return description;
 }

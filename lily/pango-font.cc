@@ -178,12 +178,10 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
 	  if (errorcode)
 	    programming_error ("FT_Get_Glyph_Name returns error");
 	}
-      
+
       SCM char_id = SCM_EOL;
       if (glyph_name[0] == '\0'
 	  && cmap
-
-	  /* Ugh should ask FreeType about font type. */
 	  && is_ttf
 	  && cmap->find (pg) != cmap->end ())
 	{
@@ -200,6 +198,10 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
 	  continue;
 	}
 
+      
+      if (glyph_name == string (".notdef") && is_ttf)
+	glyph_name[0] = '\0';
+	  
       if (glyph_name[0] == '\0' && is_ttf)
 	{
 	  // access by glyph index directly.

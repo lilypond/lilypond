@@ -36,7 +36,7 @@ Lily_parser::Lily_parser (Sources *sources)
 
   smobify_self ();
 
-  lexer_ = new Lily_lexer (sources_);
+  lexer_ = new Lily_lexer (sources_, this);
   lexer_->unprotect ();
 }
 
@@ -50,8 +50,10 @@ Lily_parser::Lily_parser (Lily_parser const &src)
 
   smobify_self ();
   if (src.lexer_)
-    lexer_ = new Lily_lexer (*src.lexer_);
-
+    {
+      lexer_ = new Lily_lexer (*src.lexer_, this);
+    }
+  
   lexer_->unprotect ();
 }
 
@@ -95,7 +97,6 @@ Lily_parser::parse_file (string init, string name, string out_name)
   lexer_->main_input_name_ = name;
 
   message (_ ("Parsing..."));
-  //  progress_indication ("\n");
 
   set_yydebug (0);
 
@@ -128,7 +129,7 @@ Lily_parser::parse_file (string init, string name, string out_name)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
-  lexer_ = 0;
+  clear ();
 }
 
 void
@@ -155,6 +156,18 @@ Lily_parser::parse_string (string ly_code)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
+}
+
+void
+Lily_parser::clear ()
+{
+  if (lexer_)
+    {
+      while (lexer_->has_scope ())
+	lexer_->remove_scope ();
+    }
+
+  lexer_ = 0;  
 }
 
 char const *

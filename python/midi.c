@@ -273,7 +273,6 @@ static PyObject *
 midi_parse_track (unsigned char **track, unsigned char *track_end)
 {
   unsigned int time = 0;
-  unsigned char running_status;
   unsigned long track_len, track_size;
   PyObject *pytrack = 0;
 
@@ -307,6 +306,8 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
     PyObject *pytime = PyInt_FromLong (0L);
     while (*track < track_end)
       {
+	unsigned char running_status = 0;
+	
 	long dt = get_variable_length_number(track, track_end);
 	PyObject *pyev = 0;
 
@@ -331,8 +332,6 @@ pymidi_parse_track (PyObject *self, PyObject *args)
 {
   unsigned char *track, *track_end;
   unsigned long track_size;
-
-  PyObject * sobj = PyTuple_GetItem (args, 0);
 
   debug_print ("%s", "\n");
   if (!PyArg_ParseTuple (args, "s#", &track, &track_size))
@@ -394,8 +393,6 @@ pymidi_parse (PyObject *self, PyObject *args)
   unsigned char *midi, *midi_end;
   unsigned long midi_size;
   
-  PyObject *sobj = PyTuple_GetItem (args, 0);
-
   debug_print ("%s", "\n");
   if (!PyArg_ParseTuple (args, "s#", &midi, &midi_size))
     return 0;
@@ -430,5 +427,10 @@ initmidi (void)
   add_constants (d);
   Midi_warning = PyString_FromString ("midi.warning");
   PyDict_SetItemString (d, "warning", Midi_warning);
+
+  /*
+    FIXME.
+   */
+  (void) midi_warning;
 }
  

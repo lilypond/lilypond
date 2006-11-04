@@ -21,6 +21,8 @@ using namespace std;
 #include "scm-hash.hh"
 #include "source-file.hh"
 #include "warn.hh"
+#include "program-option.hh"
+#include "lily-parser.hh"
 
 static Keyword_ent the_key_tab[]
 = {
@@ -80,8 +82,9 @@ static Keyword_ent the_key_tab[]
   {0, 0}
 };
 
-Lily_lexer::Lily_lexer (Sources *sources)
+Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
 {
+  parser_ = parser;
   keytable_ = new Keyword_table (the_key_tab);
   chordmodifier_tab_ = SCM_EOL;
   pitchname_tab_stack_ = SCM_EOL;
@@ -97,9 +100,10 @@ Lily_lexer::Lily_lexer (Sources *sources)
   chordmodifier_tab_ = scm_make_vector (scm_from_int (1), SCM_EOL);
 }
 
-Lily_lexer::Lily_lexer (Lily_lexer const &src)
+Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser)
   : Includable_lexer ()
 {
+  parser_ = parser; 
   keytable_ = (src.keytable_) ? new Keyword_table (*src.keytable_) : 0;
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
@@ -144,6 +148,11 @@ Lily_lexer::add_scope (SCM module)
   scopes_ = scm_cons (module, scopes_);
 
   set_current_scope ();
+}
+bool
+Lily_lexer::has_scope () const
+{
+  return scm_is_pair (scopes_);
 }
 
 SCM
@@ -196,7 +205,10 @@ Lily_lexer::lookup_identifier (string name)
 void
 Lily_lexer::start_main_input ()
 {
-  // yy_flex_debug = 1;
+  yy_flex_debug = get_program_option ("debug-lexer");
+  parser_->set_yydebug (get_program_option ("debug-parser"));
+
+  
   new_input (main_input_name_, sources_);
 
   /* Do not allow \include in --safe-mode */
@@ -294,9 +306,13 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
 SCM
 Lily_lexer::mark_smob (SCM s)
 {
+  ASSERT_LIVE_IS_ALLOWED();
+  
   Lily_lexer *lexer = (Lily_lexer *) SCM_CELL_WORD_1 (s);
 
   scm_gc_mark (lexer->chordmodifier_tab_);
+  if (lexer->parser_)
+    scm_gc_mark (lexer->parser_->self_scm ());
   scm_gc_mark (lexer->pitchname_tab_stack_);
   scm_gc_mark (lexer->start_module_);
   return lexer->scopes_;

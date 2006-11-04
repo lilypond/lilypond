@@ -9,6 +9,7 @@ INSTALLATION_OUT_DIR=$(elispdir)
 INSTALLATION_OUT_FILES=$(outdir)/lilypond-words.el
 
 STEPMAKE_TEMPLATES=elisp install install-out
+EXTRA_DIST_FILES= emacsclient.patch server.el.patch 
 
 include $(depth)/make/stepmake.make
 
