@@ -1,3 +1,12 @@
+2006-11-05  Joe Neeman  <joeneeman@gmail.com>
+
+	* lily/include/page-turn-page-breaking.hh: remove unused
+	fields in Break_node
+
+	* lily/page-turn-page-breaking.cc (calc_demerits): 
+	* lily/optimal-page-breaking.cc (try_page_spacing): remove
+	uniformity penalties.
+
 2006-11-05  Werner Lemberg  <wl@gnu.org>
 
 	* Documentation/user/changing-defaults.itely,
