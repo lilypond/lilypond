@@ -71,7 +71,7 @@ Input::message (string s) const
 {
   if (source_file_)
     s = location_string () + ": " + s + "\n"
-      + source_file_->quote_input (start_);
+      + source_file_->quote_input (start_) + "\n";
   ::message (s);
 }
 
