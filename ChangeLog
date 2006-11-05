@@ -1,5 +1,13 @@
 2006-11-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/dynamic-engraver.cc: 
+	formatting cleanup
+
+	* input/regression/note-head-harmonic.ly: 
+	* lily/stem.cc: 
+	* input/regression/note-head-harmonic-whole.ly: 
+	Center harmonic heads if stem is invisible. Fixes #140
+
 	* lily/input.cc: 
 	end context snippet with '\n'
 
