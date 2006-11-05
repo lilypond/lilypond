@@ -168,7 +168,7 @@ music = {
 @cindex regular rhythms
 @cindex regular spacing
 
-The fragment only uses quarter notes: notes that are played in a
+Each bar in the fragment only uses notes that are played in a
 constant rhythm.  The spacing should reflect that.  Unfortunately, the
 eye deceives us a little; not only does it notice the distance between
 note heads, it also takes into account the distance between
@@ -176,9 +176,9 @@ consecutive stems.  As a result, the notes of an up-stem/@/down-stem
 combination should be put farther apart, and the notes of a
 down-stem/@/up-stem
 combination should be put closer together, all depending on the
-combined vertical positions of the notes.  The first two measures are
-printed with this correction, the last two measures without.  The notes
-in the last two measures form down-stem/@/up-stem clumps of notes.
+combined vertical positions of the notes.  The upper two measures are
+printed with this correction, the lower two measures without, forming
+down-stem/@/up-stem clumps of notes.
 
 @cindex typography
 
@@ -315,23 +315,22 @@ head objects are used to produce their symbol is changed during the music
 fragment.
 
 @lilypond[quote,ragged-right]
+#(set-global-staff-size 30)
+
 #(define (mc-squared grob orig current)
-  (let ((interfaces (ly:grob-property grob 'interfaces))
-        (pos (ly:grob-property grob 'staff-position)))
-    (if (and (memq 'note-head-interface interfaces)
-             (memq pos '(-2 -3 -5)))
+  (let* ((interfaces (ly:grob-interfaces grob))
+         (pos (ly:grob-property grob 'staff-position)))
+    (if (memq 'note-head-interface interfaces)
         (begin
           (ly:grob-set-property! grob 'stencil ly:text-interface::print)
           (ly:grob-set-property! grob 'font-family 'roman)
-          (ly:grob-set-property!
-           grob 'text
-           (make-raise-markup
-            -0.5
-            (case pos
-              ((-5) (make-simple-markup "m"))
-              ((-3) (make-simple-markup "c "))
-              ((-2) (make-smaller-markup (make-bold-markup "2")))
-              (else (make-simple-markup "bla")))))))))
+          (ly:grob-set-property! grob 'text
+            (make-raise-markup -0.5
+              (case pos
+                ((-5) (make-simple-markup "m"))
+                ((-3) (make-simple-markup "c "))
+                ((-2) (make-smaller-markup (make-bold-markup "2")))
+                (else (make-simple-markup "bla")))))))))
 
 \new Voice \relative c' {
    \stemUp
@@ -339,6 +338,9 @@ fragment.
    \time 2/4
    <d f g>4
    \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
+   \once \override NoteHead #'font-size = #-7
+   \once \override NoteHead #'font-family = #'sans
+   \once \override NoteHead #'font-series = #'bold
    <d f g>
    \once \override NoteHead #'style = #'cross
    <d f g>

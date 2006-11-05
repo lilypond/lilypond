@@ -192,7 +192,7 @@ c1 cis cis c
 
 @item forget
 This is sort of the opposite of @code{no-reset}: Accidentals
-are not remembered at all---and hence all accidentals are
+are not remembered at all -- and hence all accidentals are
 typeset relative to the key signature, regardless of what was
 before in the music
 
