@@ -44,4 +44,4 @@ position.
   }
 }
 
-# EOF
+% EOF
