@@ -484,6 +484,11 @@ ADD_TRANSLATOR (Dynamic_engraver,
 		"alignments.  The symbols are collected onto a DynamicLineSpanner grob\n"
 		"which takes care of vertical positioning.  ",
 
-		/* create */ "DynamicLineSpanner DynamicText Hairpin TextSpanner",
+		/* create */
+		"DynamicLineSpanner "
+		"DynamicText "
+		"Hairpin "
+		"TextSpanner ",
+
 		/* read */ "",
 		/* write */ "");
